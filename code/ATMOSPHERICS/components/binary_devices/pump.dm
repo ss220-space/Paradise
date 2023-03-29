@@ -236,9 +236,9 @@ Thus, the two variables affect pump operation are set in New():
 	if(istype(W, /obj/item/pen))
 		rename_interactive(user, W)
 		return
-	else if(!istype(W, /obj/item/wrench))
-		return ..()
+	. = ..()
+
+/obj/machinery/atmospherics/binary/pump/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
 	if(!(stat & NOPOWER) && on)
 		to_chat(user, "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>")
-		return 1
-	return ..()

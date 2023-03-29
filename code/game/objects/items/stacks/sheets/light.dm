@@ -13,17 +13,17 @@
 	flags = CONDUCT
 	max_amount = 60
 
-/obj/item/stack/light_w/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	..()
-	if(istype(O,/obj/item/wirecutters))
-		var/obj/item/stack/cable_coil/CC = new/obj/item/stack/cable_coil(user.loc)
-		CC.amount = 5
-		amount--
-		new/obj/item/stack/sheet/glass(user.loc)
-		if(amount <= 0)
-			user.unEquip(src, 1)
-			qdel(src)
+/obj/item/stack/light_w/wirecutter_act(mob/living/user, obj/item/I)
+	. = TRUE
+	var/obj/item/stack/cable_coil/CC = new/obj/item/stack/cable_coil(user.loc)
+	CC.amount = 5
+	amount--
+	new/obj/item/stack/sheet/glass(user.loc)
+	if(amount <= 0)
+		user.unEquip(src, 1)
+		qdel(src)
 
+/obj/item/stack/light_w/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O,/obj/item/stack/sheet/metal))
 		var/obj/item/stack/sheet/metal/M = O
 		M.use(1)
@@ -35,3 +35,5 @@
 		if(amount <= 0)
 			user.unEquip(src, 1)
 			qdel(src)
+		return
+	. = ..()

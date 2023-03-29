@@ -42,9 +42,34 @@
 /obj/structure/janitorialcart/on_reagent_change()
 	update_icon()
 
+/obj/structure/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	user.visible_message("<span class='warning'>[user] begins to empty the contents of [src].</span>")
+	if(do_after(user, 30 * I.toolspeed * gettoolspeedmod(user), target = src))
+		to_chat(usr, "<span class='notice'>You empty the contents of [src]'s bucket onto the floor.</span>")
+		reagents.reaction(src.loc)
+		src.reagents.clear_reagents()
+
+/obj/structure/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!anchored && !isinspace())
+		playsound(src.loc, I.usesound, 50, 1)
+		user.visible_message( \
+			"[user] tightens \the [src]'s casters.", \
+			"<span class='notice'> You have tightened \the [src]'s casters.</span>", \
+			"You hear ratchet.")
+		anchored = 1
+	else if(anchored)
+		playsound(src.loc, I.usesound, 50, 1)
+		user.visible_message( \
+			"[user] loosens \the [src]'s casters.", \
+			"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
+			"You hear ratchet.")
+		anchored = 0
+
+
 /obj/structure/janitorialcart/attackby(obj/item/I, mob/user, params)
 	var/fail_msg = "<span class='notice'>There is already one of those in [src].</span>"
-
 	if(!I.is_robot_module())
 		if(istype(I, /obj/item/mop))
 			var/obj/item/mop/m=I
@@ -55,7 +80,6 @@
 				m.janicart_insert(user, src)
 			else
 				to_chat(user, fail_msg)
-
 		else if(istype(I, /obj/item/storage/bag/trash))
 			if(!mybag)
 				var/obj/item/storage/bag/trash/t=I
@@ -82,27 +106,6 @@
 				update_icon()
 			else
 				to_chat(user, "<span class='notice'>[src] can't hold any more signs.</span>")
-		else if(istype(I, /obj/item/crowbar))
-			user.visible_message("<span class='warning'>[user] begins to empty the contents of [src].</span>")
-			if(do_after(user, 30 * I.toolspeed * gettoolspeedmod(user), target = src))
-				to_chat(usr, "<span class='notice'>You empty the contents of [src]'s bucket onto the floor.</span>")
-				reagents.reaction(src.loc)
-				src.reagents.clear_reagents()
-		else if(istype(I, /obj/item/wrench))
-			if(!anchored && !isinspace())
-				playsound(src.loc, I.usesound, 50, 1)
-				user.visible_message( \
-					"[user] tightens \the [src]'s casters.", \
-					"<span class='notice'> You have tightened \the [src]'s casters.</span>", \
-					"You hear ratchet.")
-				anchored = 1
-			else if(anchored)
-				playsound(src.loc, I.usesound, 50, 1)
-				user.visible_message( \
-					"[user] loosens \the [src]'s casters.", \
-					"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
-					"You hear ratchet.")
-				anchored = 0
 		else if(mybag)
 			mybag.attackby(I, user, params)
 	else

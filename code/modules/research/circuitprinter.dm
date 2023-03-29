@@ -82,6 +82,18 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	return round(A / max(1, (all_materials[M] * efficiency_coeff)))
 
+/obj/machinery/r_n_d/circuit_imprinter/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(panel_open)
+		for(var/obj/I in component_parts)
+			if(istype(I, /obj/item/reagent_containers/glass/beaker))
+				reagents.trans_to(I, reagents.total_volume)
+			I.loc = src.loc
+		materials.retrieve_all()
+		default_deconstruction_crowbar(user, O)
+		return
+	to_chat(user, "<span class='warning'>You can't load the [src.name] while it's opened.</span>")
+
 /obj/machinery/r_n_d/circuit_imprinter/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(shocked)
 		if(shock(user,50))
@@ -91,23 +103,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			linked_console.linked_imprinter = null
 			linked_console = null
 		return
-
 	if(exchange_parts(user, O))
 		return
-
-	if(panel_open)
-		if(istype(O, /obj/item/crowbar))
-			for(var/obj/I in component_parts)
-				if(istype(I, /obj/item/reagent_containers/glass/beaker))
-					reagents.trans_to(I, reagents.total_volume)
-				I.loc = src.loc
-			materials.retrieve_all()
-			default_deconstruction_crowbar(user, O)
-			return
-		else
-			to_chat(user, "<span class='warning'>You can't load the [src.name] while it's opened.</span>")
-			return
 	if(O.is_open_container())
-		return FALSE
-	else
-		return ..()
+		return
+	. = ..()

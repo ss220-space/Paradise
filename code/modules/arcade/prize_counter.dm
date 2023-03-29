@@ -31,6 +31,26 @@
 		icon_state = "prize_counter-on"
 	return
 
+/obj/machinery/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(anchored)
+		playsound(src.loc, O.usesound, 50, 1)
+		panel_open = !panel_open
+		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
+		update_icon()
+
+/obj/machinery/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(panel_open)
+		default_unfasten_wrench(user, O)
+
+/obj/machinery/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(component_parts && panel_open)
+		if(tickets) //save the tickets!
+			print_tickets()
+		default_deconstruction_crowbar(user, O)
+
 /obj/machinery/prize_counter/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/stack/tickets))
 		var/obj/item/stack/tickets/T = O
@@ -39,20 +59,6 @@
 			qdel(T)
 		else
 			to_chat(user, "<span class='warning'>\The [T] seems stuck to your hand!</span>")
-		return
-	if(istype(O, /obj/item/screwdriver) && anchored)
-		playsound(src.loc, O.usesound, 50, 1)
-		panel_open = !panel_open
-		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
-		update_icon()
-		return
-	if(panel_open)
-		if(istype(O, /obj/item/wrench))
-			default_unfasten_wrench(user, O)
-		if(component_parts && istype(O, /obj/item/crowbar))
-			if(tickets)		//save the tickets!
-				print_tickets()
-			default_deconstruction_crowbar(user, O)
 		return
 	return ..()
 

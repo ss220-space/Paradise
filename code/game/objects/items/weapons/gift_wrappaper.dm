@@ -39,18 +39,11 @@
 		return
 	to_chat(user, "<span class='notice'>You cant move.</span>")
 
-/obj/effect/spresent/attackby(obj/item/W as obj, mob/user as mob, params)
-	..()
-
-	if(!istype(W, /obj/item/wirecutters))
-		to_chat(user, "<span class='notice'>I need wirecutters for that.</span>")
-		return
-
+/obj/effect/spresent/wirecutter_act(mob/living/user, obj/item/I)
+	. = TRUE
 	to_chat(user, "<span class='notice'>You cut open the present.</span>")
-
 	for(var/mob/M in src) //Should only be one but whatever.
 		M.forceMove(loc)
-
 	qdel(src)
 
 /obj/item/a_gift/attack_self(mob/M as mob)

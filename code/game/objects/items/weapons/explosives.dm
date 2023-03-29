@@ -22,6 +22,15 @@
 	target = null
 	return ..()
 
+/obj/item/grenade/plastic/wirecutter_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(nadeassembly)
+		playsound(src, I.usesound, 20, 1)
+		nadeassembly.loc = get_turf(src)
+		nadeassembly.master = null
+		nadeassembly = null
+		update_icon()
+
 /obj/item/grenade/plastic/attackby(obj/item/I, mob/user, params)
 	if(!nadeassembly && istype(I, /obj/item/assembly_holder))
 		var/obj/item/assembly_holder/A = I
@@ -35,14 +44,7 @@
 		playsound(src, 'sound/weapons/tap.ogg', 20, 1)
 		update_icon()
 		return
-	if(nadeassembly && istype(I, /obj/item/wirecutters))
-		playsound(src, I.usesound, 20, 1)
-		nadeassembly.loc = get_turf(src)
-		nadeassembly.master = null
-		nadeassembly = null
-		update_icon()
-		return
-	..()
+	. = ..()
 
 //assembly stuff
 /obj/item/grenade/plastic/receive_signal()

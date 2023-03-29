@@ -36,6 +36,18 @@
 	icon_state = "banana_casing"
 	var/fillamt = 0
 
+/obj/item/grenade/bananade/casing/screwdriver_act(mob/living/user, obj/item/I)
+	if(fillamt)
+		var/obj/item/grenade/bananade/G = new /obj/item/grenade/bananade
+		user.unEquip(src)
+		user.put_in_hands(G)
+		G.deliveryamt = src.fillamt
+		to_chat(user, "<span  class='notice'>You lock the assembly shut, readying it for HONK.</span>")
+		qdel(src)
+		return
+	else
+		to_chat(usr, "<span class='notice'>You need to add banana peels before you can ready the grenade!.</span>")
+	. = ..()
 
 /obj/item/grenade/bananade/casing/attackby(var/obj/item/I, mob/user as mob, params)
 	if(istype(I, /obj/item/grown/bananapeel))
@@ -45,15 +57,6 @@
 			qdel(I)
 		else
 			to_chat(usr, "<span class='notice'>The bananade is full, screwdriver it shut to lock it down.</span>")
-	if(istype(I, /obj/item/screwdriver))
-		if(fillamt)
-			var/obj/item/grenade/bananade/G = new /obj/item/grenade/bananade
-			user.unEquip(src)
-			user.put_in_hands(G)
-			G.deliveryamt = src.fillamt
-			to_chat(user, "<span  class='notice'>You lock the assembly shut, readying it for HONK.</span>")
-			qdel(src)
-		else
-			to_chat(usr, "<span class='notice'>You need to add banana peels before you can ready the grenade!.</span>")
-	else
-		to_chat(usr, "<span class='notice'>Only banana peels fit in this assembly, up to 9.</span>")
+		return
+	to_chat(usr, "<span class='notice'>Only banana peels fit in this assembly, up to 9.</span>")
+	. = ..()

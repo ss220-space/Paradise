@@ -83,13 +83,36 @@
 	..()
 	reached_target = 0
 
-/mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/screwdriver))
-		..()
-		if(open)
-			on = FALSE
+/obj/living/simple_animal/bot/mulebot/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(open)
+		on = FALSE
+	update_controls()
+
+/obj/living/simple_animal/bot/mulebot/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(open && cell)
+		cell.add_fingerprint(usr)
+		cell.forceMove(loc)
+		cell = null
+		visible_message("[user] crowbars out the power cell from [src].",
+						"<span class='notice'>You pry the powercell out of [src].</span>")
 		update_controls()
-	else if(istype(I,/obj/item/stock_parts/cell) && open && !cell)
+
+/obj/living/simple_animal/bot/mulebot/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(health < maxHealth)
+		adjustBruteLoss(-25)
+		updatehealth()
+		user.visible_message(
+			"<span class='notice'>[user] repairs [src]!</span>",
+			"<span class='notice'>You repair [src]!</span>"
+		)
+	else
+		to_chat(user, "<span class='notice'>[src] does not need a repair!</span>")
+
+/mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/user, params)
+	if(istype(I,/obj/item/stock_parts/cell) && open && !cell)
 		if(!user.drop_item())
 			return
 		var/obj/item/stock_parts/cell/C = I
@@ -98,26 +121,8 @@
 		visible_message("[user] inserts a cell into [src].",
 						"<span class='notice'>You insert the new cell into [src].</span>")
 		update_controls()
-	else if(istype(I, /obj/item/crowbar) && open && cell)
-		cell.add_fingerprint(usr)
-		cell.forceMove(loc)
-		cell = null
-		visible_message("[user] crowbars out the power cell from [src].",
-						"<span class='notice'>You pry the powercell out of [src].</span>")
-		update_controls()
-	else if(istype(I, /obj/item/wrench))
-		if(health < maxHealth)
-			adjustBruteLoss(-25)
-			updatehealth()
-			user.visible_message(
-				"<span class='notice'>[user] repairs [src]!</span>",
-				"<span class='notice'>You repair [src]!</span>"
-			)
-		else
-			to_chat(user, "<span class='notice'>[src] does not need a repair!</span>")
-	else if((istype(I, /obj/item/multitool) || istype(I, /obj/item/wirecutters)) && open)
-		return attack_hand(user)
-	else if(load && ismob(load))  // chance to knock off rider
+		return
+	if(load && ismob(load))  // chance to knock off rider
 		if(prob(1 + I.force * 2))
 			unload(0)
 			user.visible_message("<span class='danger'>[user] knocks [load] off [src] with \the [I]!</span>",
@@ -125,8 +130,8 @@
 		else
 			to_chat(user, "<span class='warning'>You hit [src] with \the [I] but to no effect!</span>")
 			..()
-	else
-		..()
+			return
+	..()
 	update_icon()
 	return
 

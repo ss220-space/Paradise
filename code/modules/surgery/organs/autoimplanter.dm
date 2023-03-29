@@ -20,6 +20,16 @@
 	playsound(get_turf(user), usesound, 50, 1)
 	storedorgan = null
 
+/obj/item/autoimplanter/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!storedorgan)
+		to_chat(user, "<span class='notice'>There's no implant in [src] for you to remove.</span>")
+	else
+		storedorgan.forceMove(get_turf(user))
+		storedorgan = null
+		to_chat(user, "<span class='notice'>You remove the [storedorgan] from [src].</span>")
+		playsound(get_turf(user), I.usesound, 50, 1)
+
 /obj/item/autoimplanter/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/organ/internal/cyberimp))
 		if(storedorgan)
@@ -30,11 +40,5 @@
 		I.forceMove(src)
 		storedorgan = I
 		to_chat(user, "<span class='notice'>You insert the [I] into [src].</span>")
-	else if(istype(I, /obj/item/screwdriver))
-		if(!storedorgan)
-			to_chat(user, "<span class='notice'>There's no implant in [src] for you to remove.</span>")
-		else
-			storedorgan.forceMove(get_turf(user))
-			storedorgan = null
-			to_chat(user, "<span class='notice'>You remove the [storedorgan] from [src].</span>")
-			playsound(get_turf(user), I.usesound, 50, 1)
+		return
+	. = ..()

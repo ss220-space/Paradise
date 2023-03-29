@@ -91,6 +91,14 @@
 	if(ishuman(usr) && Adjacent(usr))
 		toggle_paddles()
 
+/obj/item/defibrillator/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(cell)
+		cell.update_icon()
+		cell.loc = get_turf(loc)
+		cell = null
+		to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
+
 /obj/item/defibrillator/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = W
@@ -104,15 +112,7 @@
 			W.loc = src
 			cell = W
 			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
-
-	else if(istype(W, /obj/item/screwdriver))
-		if(cell)
-			cell.update_icon()
-			cell.loc = get_turf(loc)
-			cell = null
-			to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
-
-	else if(W == paddles)
+	if(W == paddles)
 		paddles.unwield()
 		toggle_paddles()
 

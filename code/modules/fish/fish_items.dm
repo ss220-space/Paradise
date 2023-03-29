@@ -133,14 +133,12 @@
 	hitsound = 'sound/weapons/bite.ogg'
 	force = 3
 
-/obj/item/fish/shark/attackby(var/obj/item/O, var/mob/user as mob)
-	if(istype(O, /obj/item/wirecutters))
-		to_chat(user, "You rip out the teeth of \the [src.name]!")
-		new /obj/item/fish/toothless_shark(get_turf(src))
-		new /obj/item/shard/shark_teeth(get_turf(src))
-		qdel(src)
-		return
-	..()
+/obj/item/fish/shark/wirecutter_act(mob/living/user, obj/item/I)
+	. = TRUE
+	to_chat(user, "You rip out the teeth of \the [src.name]!")
+	new /obj/item/fish/toothless_shark(get_turf(src))
+	new /obj/item/shard/shark_teeth(get_turf(src))
+	qdel(src)
 
 /obj/item/fish/toothless_shark
 	name = "toothless shark"

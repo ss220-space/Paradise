@@ -203,9 +203,9 @@
 	icon = 'icons/obj/turrets.dmi'
 	icon_state = "destroyed_target_prism"
 
-/obj/machinery/broken/porta_turret/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/crowbar))
-		to_chat(user, "<span class='notice'>You begin prying the metal coverings off.</span>")
+/obj/machinery/broken/porta_turret/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	to_chat(user, "<span class='notice'>You begin prying the metal coverings off.</span>")
 	if(do_after(user, 20 * I.toolspeed * gettoolspeedmod(user), target = src))
 		if(prob(70))
 			to_chat(user, "<span class='notice'>You remove the turret and salvage some components.</span>")

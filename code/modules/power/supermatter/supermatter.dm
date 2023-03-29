@@ -337,43 +337,45 @@
 			R.receive_pulse(power/10)
 	return
 
+/obj/machinery/power/supermatter_shard/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!anchored)
+		anchored = !anchored
+		WRENCH_ANCHOR_MESSAGE
+		playsound(src.loc,W.usesound, 75, 1)
+		if(isrobot(user))
+			var/mob/living/silicon/robot/U = user
+			var/datum/robot_component/A = U.get_armour()
+			if(A)
+				audible_message("<span class='warning'>[U] sounds an alarm! \"CRITICAL ERROR: Armour plate was broken.\"</span>")
+				playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
+				A.destroy()
+			else
+				Consume(U)
+		else
+			consume_wrench(W)
+		user.visible_message("<span class='danger'>As [user] tighten bolts of \the [src] with \a [W] the tool disappears</span>")
+	else
+		anchored = !anchored
+		WRENCH_UNANCHOR_MESSAGE
+		playsound(src.loc,W.usesound, 75, 1)
+		if(isrobot(user))
+			var/mob/living/silicon/robot/U = user
+			var/datum/robot_component/A = U.get_armour()
+			if(A)
+				audible_message("<span class='warning'>[U] sounds an alarm! \"CRITICAL ERROR: Armour plate was broken.\"</span>")
+				playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
+				A.destroy()
+			else
+				Consume(U)
+		else
+			consume_wrench(W)
+		user.visible_message("<span class='danger'>As [user] loosen bolts of \the [src] with \a [W] the tool disappears</span>")
+
 /obj/machinery/power/supermatter_shard/attackby(obj/item/W as obj, mob/living/user as mob, params)
-	if(istype(W,/obj/item/wrench)) //allows wrench/unwrench shards
-		if(!anchored)
-			anchored = !anchored
-			WRENCH_ANCHOR_MESSAGE
-			playsound(src.loc,W.usesound, 75, 1)
-			if(isrobot(user))
-				var/mob/living/silicon/robot/U = user
-				var/datum/robot_component/A = U.get_armour()
-				if(A)
-					audible_message("<span class='warning'>[U] sounds an alarm! \"CRITICAL ERROR: Armour plate was broken.\"</span>")
-					playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
-					A.destroy()
-				else
-					Consume(U)
-			else
-				consume_wrench(W)
-			user.visible_message("<span class='danger'>As [user] tighten bolts of \the [src] with \a [W] the tool disappears</span>")
-		else if (anchored)
-			anchored = !anchored
-			WRENCH_UNANCHOR_MESSAGE
-			playsound(src.loc,W.usesound, 75, 1)
-			if(isrobot(user))
-				var/mob/living/silicon/robot/U = user
-				var/datum/robot_component/A = U.get_armour()
-				if(A)
-					audible_message("<span class='warning'>[U] sounds an alarm! \"CRITICAL ERROR: Armour plate was broken.\"</span>")
-					playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
-					A.destroy()
-				else
-					Consume(U)
-			else
-				consume_wrench(W)
-			user.visible_message("<span class='danger'>As [user] loosen bolts of \the [src] with \a [W] the tool disappears</span>")
-	else if(!istype(W) || (W.flags & ABSTRACT) || !istype(user))
+	if(!istype(W) || (W.flags & ABSTRACT) || !istype(user))
 		return
-	else if(user.drop_item(W))
+	if(user.drop_item(W))
 		Consume(W)
 		user.visible_message("<span class='danger'>As [user] touches \the [src] with \a [W], silence fills the room...</span>",\
 			"<span class='userdanger'>You touch \the [src] with \the [W], and everything suddenly goes silent.\"</span>\n<span class='notice'>\The [W] flashes into dust as you flinch away from \the [src].</span>",\

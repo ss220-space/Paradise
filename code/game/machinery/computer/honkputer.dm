@@ -89,9 +89,9 @@
 	user << browse(dat, "window=honkputer;size=400x500")
 	onclose(user, "honkputer")
 
-
-/obj/machinery/computer/HONKputer/attackby(obj/I, mob/user, params)
-	if(istype(I, /obj/item/screwdriver) && circuit)
+/obj/machinery/computer/HONKputer/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(circuit)
 		var/obj/item/screwdriver/S = I
 		playsound(src.loc, S.usesound, 50, 1)
 		if(do_after(user, 20 * S.toolspeed * gettoolspeedmod(user), target = src))
@@ -111,5 +111,3 @@
 				A.state = 4
 				A.icon_state = "4"
 			qdel(src)
-	else
-		return ..()

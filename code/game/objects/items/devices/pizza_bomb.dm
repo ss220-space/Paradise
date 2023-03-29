@@ -58,8 +58,9 @@
 	explosion(src.loc,1,2,4,flame_range = 2) //Identical to a minibomb
 	qdel(src)
 
-/obj/item/pizza_bomb/attackby(var/obj/item/I, var/mob/user, params)
-	if(istype(I, /obj/item/wirecutters) && primed)
+/obj/item/pizza_bomb/wirecutter_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(primed)
 		to_chat(user, "<span class='danger'>Oh God, what wire do you cut?!</span>")
 		var/chosen_wire = input(user, "OH GOD OH GOD", "WHAT WIRE?!") in wires
 		if(!in_range(src, usr) || issilicon(usr) || !usr.canmove || usr.restrained())
@@ -80,7 +81,7 @@
 			to_chat(user, "<span class='userdanger'>WRONG WIRE!</span>")
 			go_boom()
 			return
-	if(istype(I, /obj/item/wirecutters) && disarmed)
+	if(disarmed)
 		if(!in_range(user, src))
 			to_chat(user, "<span class='warning'>You can't see the box well enough to cut the wires out.</span>")
 			return
@@ -95,7 +96,6 @@
 			new /obj/item/pizzabox(src.loc)
 			qdel(src)
 		return
-	..()
 
 /obj/item/pizza_bomb/New()
 	..()

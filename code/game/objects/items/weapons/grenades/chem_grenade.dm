@@ -117,94 +117,50 @@
 		prime()
 		return 1 //It hit the grenade, not them
 
-/obj/item/grenade/chem_grenade/attackby(obj/item/I, mob/user, params)
-	add_fingerprint(user)
-	if(istype(I,/obj/item/hand_labeler))
-		var/obj/item/hand_labeler/HL = I
-		if(length(HL.label))
-			label = " ([HL.label])"
-			return 0
+/obj/item/grenade/chem_grenade/screwdriver_act(mob/living/user, obj/item/I)
+	if(stage == READY && !nadeassembly)
+		det_time = det_time == 50 ? 30 : 50	//toggle between 30 and 50
+		to_chat(user, "<span class='notice'>You modify the time delay. It's set for [det_time / 10] second\s.</span>")
+		return
+	if(stage == EMPTY)
+		to_chat(user, "<span class='notice'>You need to add an activation mechanism.</span>")
+		return
+	if(stage == WIRED)
+		if(length(beakers))
+			to_chat(user, "<span class='notice'>You lock the assembly.</span>")
+			playsound(loc, prime_sound, 25, -3)
+			stage = READY
+			update_icon()
+			contained = ""
+			cores = "" // clear them out so no recursive logging by accidentally
+			for(var/obj/O in beakers)
+				if(!O.reagents) continue
+				if(istype(O,/obj/item/slime_extract))
+					cores += " [O]"
+				for(var/R in O.reagents.reagent_list)
+					var/datum/reagent/reagent = R
+					contained += "[reagent.volume] [reagent], "
+			if(contained)
+				if(cores)
+					contained = "\[[cores]; [contained]\]"
+				else
+					contained = "\[ [contained]\]"
+			add_attack_logs(user, src, "has completed with [contained]", ATKLOG_FEW)
 		else
-			if(label)
-				label = null
-				update_icon()
-				to_chat(user, "You remove the label from [src].")
-				return 1
-	if(istype(I, /obj/item/screwdriver))
-		if(stage == WIRED)
-			if(beakers.len)
-				to_chat(user, "<span class='notice'>You lock the assembly.</span>")
-				playsound(loc, prime_sound, 25, -3)
-				stage = READY
-				update_icon()
-				contained = ""
-				cores = "" // clear them out so no recursive logging by accidentally
-				for(var/obj/O in beakers)
-					if(!O.reagents) continue
-					if(istype(O,/obj/item/slime_extract))
-						cores += " [O]"
-					for(var/R in O.reagents.reagent_list)
-						var/datum/reagent/reagent = R
-						contained += "[reagent.volume] [reagent], "
-				if(contained)
-					if(cores)
-						contained = "\[[cores]; [contained]\]"
-					else
-						contained = "\[ [contained]\]"
-				add_attack_logs(user, src, "has completed with [contained]", ATKLOG_FEW)
-			else
-				to_chat(user, "<span class='notice'>You need to add at least one beaker before locking the assembly.</span>")
-		else if(stage == READY && !nadeassembly)
-			det_time = det_time == 50 ? 30 : 50	//toggle between 30 and 50
-			to_chat(user, "<span class='notice'>You modify the time delay. It's set for [det_time / 10] second\s.</span>")
-		else if(stage == EMPTY)
-			to_chat(user, "<span class='notice'>You need to add an activation mechanism.</span>")
+			to_chat(user, "<span class='notice'>You need to add at least one beaker before locking the assembly.</span>")
+		return
+	. = ..()
 
-	else if(stage == WIRED && is_type_in_list(I, allowed_containers))
-		if(beakers.len == 2)
-			to_chat(user, "<span class='notice'>[src] can not hold more containers.</span>")
-			return
-		else
-			if(I.reagents.total_volume)
-				to_chat(user, "<span class='notice'>You add [I] to the assembly.</span>")
-				user.drop_item()
-				I.loc = src
-				beakers += I
-			else
-				to_chat(user, "<span class='notice'>[I] is empty.</span>")
-
-	else if(stage == EMPTY && istype(I, /obj/item/assembly_holder))
-		var/obj/item/assembly_holder/A = I
-		if(!A.secured)
-			return
-		if(isigniter(A.a_left) == isigniter(A.a_right))	//Check if either part of the assembly has an igniter, but if both parts are igniters, then fuck it
-			return
-
-		user.drop_item()
-		nadeassembly = A
-		if(nadeassembly.has_prox_sensors())
-			AddComponent(/datum/component/proximity_monitor)
-		A.master = src
-		A.loc = src
-		assemblyattacher = user.ckey
-		stage = WIRED
-		to_chat(user, "<span class='notice'>You add [A] to [src]!</span>")
-		update_icon()
-
-	else if(stage == EMPTY && istype(I, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/C = I
-		C.use(1)
-
-		stage = WIRED
-		to_chat(user, "<span class='notice'>You rig [src].</span>")
-		update_icon()
-
-	else if(stage == READY && istype(I, /obj/item/wirecutters))
+/obj/item/grenade/chem_grenade/wirecutter_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(stage == READY)
 		to_chat(user, "<span class='notice'>You unlock the assembly.</span>")
 		stage = WIRED
 		update_icon()
 
-	else if(stage == WIRED && istype(I, /obj/item/wrench))
+/obj/item/grenade/chem_grenade/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(stage == WIRED)
 		to_chat(user, "<span class='notice'>You open the grenade and remove the contents.</span>")
 		stage = EMPTY
 		payload_name = null
@@ -222,6 +178,61 @@
 			beakers = list()
 		update_icon()
 
+/obj/item/grenade/chem_grenade/attackby(obj/item/I, mob/user, params)
+	add_fingerprint(user)
+	if(istype(I,/obj/item/hand_labeler))
+		var/obj/item/hand_labeler/HL = I
+		if(length(HL.label))
+			label = " ([HL.label])"
+			return
+		else
+			if(label)
+				label = null
+				update_icon()
+				to_chat(user, "You remove the label from [src].")
+				return
+	if(stage == WIRED && is_type_in_list(I, allowed_containers))
+		if(beakers.len == 2)
+			to_chat(user, "<span class='notice'>[src] can not hold more containers.</span>")
+			return
+		else
+			if(I.reagents.total_volume)
+				to_chat(user, "<span class='notice'>You add [I] to the assembly.</span>")
+				user.drop_item()
+				I.loc = src
+				beakers += I
+			else
+				to_chat(user, "<span class='notice'>[I] is empty.</span>")
+		return
+
+	if(stage == EMPTY && istype(I, /obj/item/assembly_holder))
+		var/obj/item/assembly_holder/A = I
+		if(!A.secured)
+			return
+		if(isigniter(A.a_left) == isigniter(A.a_right))	//Check if either part of the assembly has an igniter, but if both parts are igniters, then fuck it
+			return
+
+		user.drop_item()
+		nadeassembly = A
+		if(nadeassembly.has_prox_sensors())
+			AddComponent(/datum/component/proximity_monitor)
+		A.master = src
+		A.loc = src
+		assemblyattacher = user.ckey
+		stage = WIRED
+		to_chat(user, "<span class='notice'>You add [A] to [src]!</span>")
+		update_icon()
+		return
+
+	if(stage == EMPTY && istype(I, /obj/item/stack/cable_coil))
+		var/obj/item/stack/cable_coil/C = I
+		C.use(1)
+
+		stage = WIRED
+		to_chat(user, "<span class='notice'>You rig [src].</span>")
+		update_icon()
+		return
+	. = ..()
 
 //assembly stuff
 /obj/item/grenade/chem_grenade/receive_signal(datum/signal/signal)

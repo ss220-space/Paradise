@@ -426,14 +426,17 @@
 		if(BB)
 			BB.icon_state = initial(BB.icon_state)
 
-/obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/A, mob/user, params)
-	..()
-	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB
-	if(istype(A, /obj/item/screwdriver) && !modified)
+/obj/item/ammo_casing/caseless/foam_dart/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!modified)
 		modified = 1
 		FD.damage_type = BRUTE
 		update_icon()
-	else if((istype(A, /obj/item/pen)) && modified && !FD.pen)
+
+/obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/A, mob/user, params)
+	..()
+	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB
+	if((istype(A, /obj/item/pen)) && modified && !FD.pen)
 		if(!user.unEquip(A))
 			return
 		harmful = TRUE

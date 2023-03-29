@@ -106,29 +106,59 @@
 		overlays += image('icons/obj/power.dmi', "smes-og[clevel]")
 	return
 
-/obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
-	//opening using screwdriver
-	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I))
-		update_icon()
-		return
+/obj/machinery/power/smes/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I)
+	update_icon()
 
-	//changing direction using wrench
-	if(default_change_direction_wrench(user, I))
-		terminal = null
-		var/turf/T = get_step(src, dir)
-		for(var/obj/machinery/power/terminal/term in T)
-			if(term && term.dir == turn(dir, 180))
-				terminal = term
-				terminal.master = src
-				to_chat(user, "<span class='notice'>Terminal found.</span>")
-				break
-		if(!terminal)
-			to_chat(user, "<span class='alert'>No power source found.</span>")
+/obj/machinery/power/smes/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	default_change_direction_wrench(user, I)
+	terminal = null
+	var/turf/T = get_step(src, dir)
+	for(var/obj/machinery/power/terminal/term in T)
+		if(term && term.dir == turn(dir, 180))
+			terminal = term
+			terminal.master = src
+			to_chat(user, "<span class='notice'>Terminal found.</span>")
+			break
+	if(!terminal)
+		to_chat(user, "<span class='alert'>No power source found.</span>")
+		return
+	stat &= ~BROKEN
+	update_icon()
+
+/obj/machinery/power/smes/wirecutter_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(terminal && panel_open)
+		var/turf/T = get_turf(terminal)
+		if(T.intact) //is the floor plating removed ?
+			to_chat(user, "<span class='alert'>You must first expose the power terminal!</span>")
 			return
-		stat &= ~BROKEN
-		update_icon()
-		return
 
+		to_chat(user, "<span class='notice'>You begin to dismantle the power terminal...</span>")
+		playsound(src.loc, I.usesound, 50, 1)
+
+		if(do_after(user, 50 * I.toolspeed * gettoolspeedmod(user), target = src))
+			if(terminal && panel_open)
+				if(prob(50) && electrocute_mob(usr, terminal.powernet, terminal, 1, TRUE)) //animate the electrocution if uncautious and unlucky
+					do_sparks(5, 1, src)
+					return
+
+				//give the wires back and delete the terminal
+				new /obj/item/stack/cable_coil(T,10)
+				user.visible_message(\
+					"<span class='alert'>[user.name] cuts the cables and dismantles the power terminal.</span>",\
+					"<span class='notice'>You cut the cables and dismantle the power terminal.</span>")
+				inputting = 0 //stop inputting, since we have don't have a terminal anymore
+				qdel(terminal)
+				return
+
+/obj/machinery/power/smes/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
 	//exchanging parts using the RPE
 	if(exchange_parts(user, I))
 		return
@@ -196,36 +226,7 @@
 				make_terminal(user, tempDir, tempLoc)
 				terminal.connect_to_network()
 		return
-
-	//disassembling the terminal
-	if(istype(I, /obj/item/wirecutters) && terminal && panel_open)
-		var/turf/T = get_turf(terminal)
-		if(T.intact) //is the floor plating removed ?
-			to_chat(user, "<span class='alert'>You must first expose the power terminal!</span>")
-			return
-
-		to_chat(user, "<span class='notice'>You begin to dismantle the power terminal...</span>")
-		playsound(src.loc, I.usesound, 50, 1)
-
-		if(do_after(user, 50 * I.toolspeed * gettoolspeedmod(user), target = src))
-			if(terminal && panel_open)
-				if(prob(50) && electrocute_mob(usr, terminal.powernet, terminal, 1, TRUE)) //animate the electrocution if uncautious and unlucky
-					do_sparks(5, 1, src)
-					return
-
-				//give the wires back and delete the terminal
-				new /obj/item/stack/cable_coil(T,10)
-				user.visible_message(\
-					"<span class='alert'>[user.name] cuts the cables and dismantles the power terminal.</span>",\
-					"<span class='notice'>You cut the cables and dismantle the power terminal.</span>")
-				inputting = 0 //stop inputting, since we have don't have a terminal anymore
-				qdel(terminal)
-				return
-
-	//crowbarring it !
-	if(default_deconstruction_crowbar(user, I))
-		return
-	return ..()
+	. = ..()
 
 /obj/machinery/power/smes/disconnect_terminal()
 	if(terminal)

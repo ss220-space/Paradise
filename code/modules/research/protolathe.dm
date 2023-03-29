@@ -86,6 +86,20 @@ Note: Must be placed west/left of and R&D console to function.
 		A = A / max(1, (being_built.materials[M]))
 	return A
 
+/obj/machinery/r_n_d/protolathe/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(panel_open)
+		for(var/obj/I in component_parts)
+			if(istype(I, /obj/item/reagent_containers/glass/beaker))
+				reagents.trans_to(I, reagents.total_volume)
+			I.loc = src.loc
+		for(var/obj/item/reagent_containers/glass/G in component_parts)
+			reagents.trans_to(G, G.reagents.maximum_volume)
+		materials.retrieve_all()
+		default_deconstruction_crowbar(user, O)
+		return
+	to_chat(user, "<span class='warning'>You can't load the [src.name] while it's opened.</span>")
+
 /obj/machinery/r_n_d/protolathe/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(shocked)
 		if(shock(user,50))
@@ -95,24 +109,8 @@ Note: Must be placed west/left of and R&D console to function.
 			linked_console.linked_lathe = null
 			linked_console = null
 		return
-
 	if(exchange_parts(user, O))
 		return
-
-	if(panel_open)
-		if(istype(O, /obj/item/crowbar))
-			for(var/obj/I in component_parts)
-				if(istype(I, /obj/item/reagent_containers/glass/beaker))
-					reagents.trans_to(I, reagents.total_volume)
-				I.loc = src.loc
-			for(var/obj/item/reagent_containers/glass/G in component_parts)
-				reagents.trans_to(G, G.reagents.maximum_volume)
-			materials.retrieve_all()
-			default_deconstruction_crowbar(user, O)
-			return 1
-		else
-			to_chat(user, "<span class='warning'>You can't load the [src.name] while it's opened.</span>")
-			return 1
 	if(O.is_open_container())
 		return FALSE
 	else

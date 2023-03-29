@@ -143,35 +143,32 @@
 				env.merge(removed)
 				air_update_turf()
 
+/obj/machinery/r_n_d/server/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_screwdriver(user, icon_open, icon_closed, O)
+
+/obj/machinery/r_n_d/server/crowbar_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(panel_open)
+		griefProtection()
+		default_deconstruction_crowbar(user, O)
+		return 1
+
 /obj/machinery/r_n_d/server/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(disabled)
 		return
-
 	if(shocked)
 		shock(user,50)
-
-	if(istype(O, /obj/item/screwdriver))
-		default_deconstruction_screwdriver(user, icon_open, icon_closed, O)
-		return 1
-
+		return
 	if(exchange_parts(user, O))
 		return 1
-
-	if(panel_open)
-		if(istype(O, /obj/item/crowbar))
-			griefProtection()
-			default_deconstruction_crowbar(user, O)
-			return 1
-	else
-		return ..()
+	. = ..()
 
 /obj/machinery/r_n_d/server/attack_hand(mob/user as mob)
 	if(disabled)
 		return
-
 	if(shocked)
 		shock(user,50)
-	return
 
 /obj/machinery/r_n_d/server/proc/add_usage_log(mob/user, datum/design/built_design, obj/machinery/r_n_d/machine)
 	var/time_created = station_time_timestamp()

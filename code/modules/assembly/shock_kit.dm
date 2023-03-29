@@ -14,8 +14,9 @@
 	QDEL_NULL(part2)
 	return ..()
 
-/obj/item/assembly/shock_kit/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/wrench) && !status)
+/obj/item/assembly/shock_kit/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!status)
 		var/turf/T = loc
 		if(ismob(T))
 			T = T.loc
@@ -26,9 +27,6 @@
 		part1 = null
 		part2 = null
 		qdel(src)
-		return
-	add_fingerprint(user)
-	return
 
 /obj/item/assembly/shock_kit/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

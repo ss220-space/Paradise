@@ -44,6 +44,17 @@
 		icon_state = "[initial(icon_state)][armed]"
 		to_chat(user, "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>")
 
+/obj/item/restraints/legcuffs/beartrap/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(IED)
+		IED.forceMove(get_turf(src))
+		IED = null
+		to_chat(user, "<span class='notice'>You remove the IED from the [src].</span>")
+	if(sig)
+		sig.forceMove(get_turf(src))
+		sig = null
+		to_chat(user, "<span class='notice'>You remove the signaler from the [src].</span>")
+
 /obj/item/restraints/legcuffs/beartrap/attackby(obj/item/I, mob/user) //Let's get explosive.
 	if(istype(I, /obj/item/grenade/iedcasing))
 		if(IED)
@@ -59,6 +70,7 @@
 		add_game_logs("has rigged a beartrap with an IED.", user)
 		to_chat(user, "<span class='notice'>You sneak [IED] underneath the pressure plate and connect the trigger wire.</span>")
 		desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is an IED hooked up to it.</span>"
+		return
 	if(istype(I, /obj/item/assembly/signaler))
 		if(IED)
 			to_chat(user, "<span class='warning'>This beartrap already has an IED hooked up to it!</span>")
@@ -75,18 +87,8 @@
 		I.forceMove(src)
 		to_chat(user, "<span class='notice'>You sneak the [sig] underneath the pressure plate and connect the trigger wire.</span>")
 		desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is a remote signaler hooked up to it.</span>"
-	if(istype(I, /obj/item/screwdriver))
-		if(IED)
-			IED.forceMove(get_turf(src))
-			IED = null
-			to_chat(user, "<span class='notice'>You remove the IED from the [src].</span>")
-			return
-		if(sig)
-			sig.forceMove(get_turf(src))
-			sig = null
-			to_chat(user, "<span class='notice'>You remove the signaler from the [src].</span>")
-			return
-	..()
+		return
+	. = ..()
 
 /obj/item/restraints/legcuffs/beartrap/Crossed(AM as mob|obj, oldloc)
 	if(armed && isturf(src.loc))

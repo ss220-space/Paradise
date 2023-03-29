@@ -32,39 +32,38 @@
 	if(in_range(user, src))
 		. += "<span class='notice'>The service panel is [open ? "open" : "closed"].</span>"
 
+/obj/item/storage/secure/screwdriver_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(locked)
+		if(do_after(user, 20 * W.toolspeed * gettoolspeedmod(user), target = src))
+			open = !open
+			user.show_message("<span class='notice'>You [open ? "open" : "close"] the service panel.</span>", 1)
+
+/obj/item/storage/secure/multitool_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(open == 1 && !l_hacking)
+		user.show_message("<span class='danger'>Now attempting to reset internal memory, please hold.</span>", 1)
+		l_hacking = 1
+		if(do_after(usr, 100 * W.toolspeed * gettoolspeedmod(user), target = src))
+			if(prob(40))
+				l_setshort = 1
+				l_set = 0
+				user.show_message("<span class='danger'>Internal memory reset. Please give it a few seconds to reinitialize.</span>", 1)
+				sleep(80)
+				l_setshort = 0
+				l_hacking = 0
+			else
+				user.show_message("<span class='danger'>Unable to reset internal memory.</span>", 1)
+				l_hacking = 0
+		else
+			l_hacking = 0
+
 /obj/item/storage/secure/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(locked)
 		if((istype(W, /obj/item/melee/energy/blade)) && (!emagged))
 			emag_act(user, W)
-
-		if(istype(W, /obj/item/screwdriver))
-			if(do_after(user, 20 * W.toolspeed * gettoolspeedmod(user), target = src))
-				open = !open
-				user.show_message("<span class='notice'>You [open ? "open" : "close"] the service panel.</span>", 1)
 			return
-
-		if((istype(W, /obj/item/multitool)) && (open == 1) && (!l_hacking))
-			user.show_message("<span class='danger'>Now attempting to reset internal memory, please hold.</span>", 1)
-			l_hacking = 1
-			if(do_after(usr, 100 * W.toolspeed * gettoolspeedmod(user), target = src))
-				if(prob(40))
-					l_setshort = 1
-					l_set = 0
-					user.show_message("<span class='danger'>Internal memory reset. Please give it a few seconds to reinitialize.</span>", 1)
-					sleep(80)
-					l_setshort = 0
-					l_hacking = 0
-				else
-					user.show_message("<span class='danger'>Unable to reset internal memory.</span>", 1)
-					l_hacking = 0
-			else
-				l_hacking = 0
-			return
-		//At this point you have exhausted all the special things to do when locked
-		// ... but it's still locked.
-		return
-
-	return ..()
+	. = ..()
 
 /obj/item/storage/secure/emag_act(user as mob, weapon as obj)
 	if(!emagged)

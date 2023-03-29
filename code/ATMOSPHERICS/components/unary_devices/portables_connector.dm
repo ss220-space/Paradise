@@ -36,12 +36,11 @@
 	if(parent)
 		parent.update = 1
 
-/obj/machinery/atmospherics/unary/portables_connector/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	if(istype(W, /obj/item/wrench))
-		if(connected_device)
-			to_chat(user, "<span class='danger'>You cannot unwrench this [src], detach [connected_device] first.</span>")
-			return 1
-	return ..()
+/obj/machinery/atmospherics/unary/portables_connector/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(connected_device)
+		to_chat(user, "<span class='danger'>You cannot unwrench this [src], detach [connected_device] first.</span>")
+		return 1
 
 /obj/machinery/atmospherics/unary/portables_connector/portableConnectorReturnAir()
 	return connected_device.portableConnectorReturnAir()

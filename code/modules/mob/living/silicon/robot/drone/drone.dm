@@ -138,16 +138,15 @@
 	if(emagged)
 		return FALSE
 
+/mob/living/silicon/robot/drone/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	to_chat(user, "The machine is hermetically sealed. You can't open the case.")
+
 //Drones cannot be upgraded with borg modules so we need to catch some items before they get used in ..().
 /mob/living/silicon/robot/drone/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/borg/upgrade/))
 		to_chat(user, "<span class='warning'>The maintenance drone chassis not compatible with \the [W].</span>")
 		return
-
-	else if(istype(W, /obj/item/crowbar))
-		to_chat(user, "The machine is hermetically sealed. You can't open the case.")
-		return
-
 	else if(W.GetID())
 		if(stat == DEAD)
 			if(!config.allow_drone_spawn || emagged || health < -35) //It's dead, Dave.

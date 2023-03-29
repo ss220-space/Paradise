@@ -10,16 +10,18 @@
 	anchored = 0
 	max_integrity = 200
 
+/obj/structure/kitchenspike_frame/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(anchored)
+		to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
+		anchored = 0
+	else
+		to_chat(user, "<span class='notice'>You wrench [src] into place.</span>")
+		anchored = 1
+
 /obj/structure/kitchenspike_frame/attackby(obj/item/I, mob/user, params)
 	add_fingerprint(user)
-	if(istype(I, /obj/item/wrench))
-		if(anchored)
-			to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
-			anchored = 0
-		else
-			to_chat(user, "<span class='notice'>You wrench [src] into place.</span>")
-			anchored = 1
-	else if(istype(I, /obj/item/stack/rods))
+	if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
 		if(R.get_amount() >= 4)
 			R.use(4)
@@ -28,8 +30,7 @@
 			add_fingerprint(user)
 			qdel(src)
 		return
-	else
-		return ..()
+	. = ..()
 
 
 /obj/structure/kitchenspike
@@ -51,16 +52,17 @@
 	else
 		..()
 
+/obj/structure/kitchenspike/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!has_buckled_mobs())
+		playsound(loc, G.usesound, 100, 1)
+		if(do_after(user, 20 * G.toolspeed * gettoolspeedmod(user), target = src))
+			to_chat(user, "<span class='notice'>You pry the spikes out of the frame.</span>")
+			deconstruct(TRUE)
+	else
+		to_chat(user, "<span class='notice'>You can't do that while something's on the spike!</span>")
+
 /obj/structure/kitchenspike/attackby(obj/item/grab/G, mob/user)
-	if(istype(G, /obj/item/crowbar))
-		if(!has_buckled_mobs())
-			playsound(loc, G.usesound, 100, 1)
-			if(do_after(user, 20 * G.toolspeed * gettoolspeedmod(user), target = src))
-				to_chat(user, "<span class='notice'>You pry the spikes out of the frame.</span>")
-				deconstruct(TRUE)
-		else
-			to_chat(user, "<span class='notice'>You can't do that while something's on the spike!</span>")
-		return
 	if(!istype(G, /obj/item/grab) || !G.affecting)
 		return
 	if(has_buckled_mobs())

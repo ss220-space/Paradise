@@ -31,44 +31,44 @@
 			I.forceMove(src)
 	update_icon()
 
+/obj/structure/bookcase/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	user.visible_message("<span class='warning'>[user] starts disassembling \the [src].</span>", \
+	"<span class='notice'>You start disassembling \the [src].</span>")
+	playsound(get_turf(src), O.usesound, 50, 1)
+	busy = TRUE
+
+	if(do_after(user, 50 * O.toolspeed * gettoolspeedmod(user), target = src))
+		playsound(get_turf(src), O.usesound, 75, 1)
+		user.visible_message("<span class='warning'>[user] disassembles \the [src].</span>", \
+		"<span class='notice'>You disassemble \the [src].</span>")
+		busy = FALSE
+		density = 0
+		deconstruct(TRUE)
+	else
+		busy = FALSE
+
 /obj/structure/bookcase/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(busy) //So that you can't mess with it while deconstructing
-		return TRUE
+		return
 	if(is_type_in_list(O, allowed_books))
 		if(!user.drop_item())
 			return
 		O.forceMove(src)
 		update_icon()
-		return TRUE
-	else if(istype(O, /obj/item/storage/bag/books))
+		return
+	if(istype(O, /obj/item/storage/bag/books))
 		var/obj/item/storage/bag/books/B = O
 		for(var/obj/item/T in B.contents)
 			if(istype(T, /obj/item/book) || istype(T, /obj/item/spellbook) || istype(T, /obj/item/tome) || istype(T, /obj/item/storage/bible))
 				B.remove_from_storage(T, src)
 		to_chat(user, "<span class='notice'>You empty [O] into [src].</span>")
 		update_icon()
-		return TRUE
-	else if(istype(O, /obj/item/wrench))
-		user.visible_message("<span class='warning'>[user] starts disassembling \the [src].</span>", \
-		"<span class='notice'>You start disassembling \the [src].</span>")
-		playsound(get_turf(src), O.usesound, 50, 1)
-		busy = TRUE
-
-		if(do_after(user, 50 * O.toolspeed * gettoolspeedmod(user), target = src))
-			playsound(get_turf(src), O.usesound, 75, 1)
-			user.visible_message("<span class='warning'>[user] disassembles \the [src].</span>", \
-			"<span class='notice'>You disassemble \the [src].</span>")
-			busy = FALSE
-			density = 0
-			deconstruct(TRUE)
-		else
-			busy = FALSE
-		return TRUE
-	else if(istype(O, /obj/item/pen))
+		return
+	if(istype(O, /obj/item/pen))
 		rename_interactive(user, O)
-		return TRUE
-	else
-		return ..()
+		return
+	. = ..()
 
 /obj/structure/bookcase/attack_hand(var/mob/user as mob)
 	if(contents.len)

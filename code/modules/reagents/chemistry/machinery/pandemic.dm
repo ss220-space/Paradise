@@ -322,11 +322,17 @@
 	popup.open(0)
 	onclose(user, "pandemic")
 
+/obj/machinery/computer/pandemic/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(beaker)
+		beaker.forceMove(get_turf(src))
 
-/obj/machinery/computer/pandemic/attackby(obj/item/I, mob/user, params)
+/obj/machinery/computer/pandemic/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
 	if(default_unfasten_wrench(user, I))
 		power_change()
-		return
+
+/obj/machinery/computer/pandemic/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER))
 		if(stat & (NOPOWER|BROKEN))
 			return
@@ -335,15 +341,10 @@
 			return
 		if(!user.drop_item())
 			return
-
 		beaker =  I
 		beaker.loc = src
 		to_chat(user, "<span class='notice'>Вы вставили мензурку в машину.</span>")
 		updateUsrDialog()
 		icon_state = "mixer1"
-
-	else if(istype(I, /obj/item/screwdriver))
-		if(beaker)
-			beaker.forceMove(get_turf(src))
-	else
-		return ..()
+		return
+	. = ..()

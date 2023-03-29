@@ -48,12 +48,32 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 			to_chat(user, "<span class='warning'>The controls are locked!</span>")
 			return
 
+/obj/machinery/power/rad_collector/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	to_chat(user, "<span class='notice'>The [Ш.name] detects that [last_power]W were recently produced.</span>")
+
+/obj/machinery/power/rad_collector/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(P && !src.locked)
+		eject()
+
+/obj/machinery/power/rad_collector/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(P)
+		to_chat(user, "<span class='notice'>Remove the plasma tank first.</span>")
+		return
+	playsound(src.loc, W.usesound, 75, 1)
+	src.anchored = !src.anchored
+	user.visible_message("[user.name] [anchored? "secures":"unsecures"] the [src.name].", \
+		"You [anchored? "secure":"undo"] the external bolts.", \
+		"You hear a ratchet")
+	if(anchored)
+		connect_to_network()
+	else
+		disconnect_from_network()
 
 /obj/machinery/power/rad_collector/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/multitool))
-		to_chat(user, "<span class='notice'>The [W.name] detects that [last_power]W were recently produced.</span>")
-		return 1
-	else if(istype(W, /obj/item/tank/internals/plasma))
+	if(istype(W, /obj/item/tank/internals/plasma))
 		if(!src.anchored)
 			to_chat(user, "<span class='warning'>The [src] needs to be secured to the floor first.</span>")
 			return 1
@@ -64,24 +84,8 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		src.P = W
 		W.loc = src
 		update_icons()
-	else if(istype(W, /obj/item/crowbar))
-		if(P && !src.locked)
-			eject()
-			return 1
-	else if(istype(W, /obj/item/wrench))
-		if(P)
-			to_chat(user, "<span class='notice'>Remove the plasma tank first.</span>")
-			return 1
-		playsound(src.loc, W.usesound, 75, 1)
-		src.anchored = !src.anchored
-		user.visible_message("[user.name] [anchored? "secures":"unsecures"] the [src.name].", \
-			"You [anchored? "secure":"undo"] the external bolts.", \
-			"You hear a ratchet")
-		if(anchored)
-			connect_to_network()
-		else
-			disconnect_from_network()
-	else if(W.GetID() || ispda(W))
+		return
+	if(W.GetID() || ispda(W))
 		if(src.allowed(user))
 			if(active)
 				src.locked = !src.locked
@@ -91,9 +95,8 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 				to_chat(user, "<span class='warning'>The controls can only be locked when the [src] is active</span>")
 		else
 			to_chat(user, "<span class='warning'>Access denied!</span>")
-			return 1
-	else
-		return ..()
+		return
+	. = ..()
 
 /obj/machinery/power/rad_collector/return_analyzable_air()
 	if(P)

@@ -307,20 +307,17 @@ BLIND     // can't see anything
 /obj/item/clothing/gloves/proc/Touch(atom/A, proximity)
 	return 0 // return 1 to cancel attack_hand()
 
-/obj/item/clothing/gloves/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wirecutters))
-		if(!clipped)
-			playsound(src.loc, W.usesound, 100, 1)
-			user.visible_message("<span class='warning'>[user] snips the fingertips off [src].</span>","<span class='warning'>You snip the fingertips off [src].</span>")
-			clipped = 1
-			name = "mangled [name]"
-			desc = "[desc] They have had the fingertips cut off of them."
-			update_icon()
-		else
-			to_chat(user, "<span class='notice'>[src] have already been clipped!</span>")
-		return
+/obj/item/clothing/gloves/wirecutter_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!clipped)
+		playsound(src.loc, W.usesound, 100, 1)
+		user.visible_message("<span class='warning'>[user] snips the fingertips off [src].</span>","<span class='warning'>You snip the fingertips off [src].</span>")
+		clipped = 1
+		name = "mangled [name]"
+		desc = "[desc] They have had the fingertips cut off of them."
+		update_icon()
 	else
-		return ..()
+		to_chat(user, "<span class='notice'>[src] have already been clipped!</span>")
 
 /obj/item/clothing/under/proc/set_sensors(mob/living/user)
 	if(user.stat || user.restrained())
@@ -531,6 +528,21 @@ BLIND     // can't see anything
 		"Stok" = 'icons/mob/species/monkey/shoes.dmi'
 		)
 
+/obj/item/clothing/shoes/wirecutter_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(can_cut_open)
+		if(!cut_open)
+			playsound(src.loc, I.usesound, 100, 1)
+			user.visible_message("<span class='warning'>[user] cuts open the toes of [src].</span>","<span class='warning'>You cut open the toes of [src].</span>")
+			cut_open = 1
+			icon_state = "[icon_state]_opentoe"
+			item_state = "[item_state]_opentoe"
+			name = "mangled [name]"
+			desc = "[desc] They have had their toes opened up."
+			update_icon()
+		else
+			to_chat(user, "<span class='notice'>[src] have already had [p_their()] toes cut open!</span>")
+
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/match) && src.loc == user)
 		var/obj/item/match/M = I
@@ -541,23 +553,7 @@ BLIND     // can't see anything
 			user.visible_message("<span class='warning'>[user] crushes the [M] into the bottom of [src], extinguishing it.</span>","<span class='warning'>You crush the [M] into the bottom of [src], extinguishing it.</span>")
 			M.dropped()
 		return
-
-	if(istype(I, /obj/item/wirecutters))
-		if(can_cut_open)
-			if(!cut_open)
-				playsound(src.loc, I.usesound, 100, 1)
-				user.visible_message("<span class='warning'>[user] cuts open the toes of [src].</span>","<span class='warning'>You cut open the toes of [src].</span>")
-				cut_open = 1
-				icon_state = "[icon_state]_opentoe"
-				item_state = "[item_state]_opentoe"
-				name = "mangled [name]"
-				desc = "[desc] They have had their toes opened up."
-				update_icon()
-			else
-				to_chat(user, "<span class='notice'>[src] have already had [p_their()] toes cut open!</span>")
-		return
-	else
-		return ..()
+	. = ..()
 
 /obj/item/proc/negates_gravity()
 	return 0

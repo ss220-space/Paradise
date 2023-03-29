@@ -30,48 +30,53 @@
 	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
 	return
 
+/obj/structure/foodcart/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!anchored && !isinspace())
+		playsound(src.loc, I.usesound, 50, 1)
+		user.visible_message( \
+			"[user] tightens \the [src]'s casters.", \
+			"<span class='notice'> You have tightened \the [src]'s casters.</span>", \
+			"You hear ratchet.")
+		anchored = 1
+	else if(anchored)
+		playsound(src.loc, I.usesound, 50, 1)
+		user.visible_message( \
+			"[user] loosens \the [src]'s casters.", \
+			"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
+			"You hear ratchet.")
+		anchored = 0
+
 /obj/structure/foodcart/attackby(obj/item/I, mob/user, params)
 	var/fail_msg = "<span class='notice'>There are no open spaces for this in [src].</span>"
-	if(!I.is_robot_module())
-		if(istype(I, /obj/item/reagent_containers/food/snacks))
-			var/success = 0
-			for(var/s=1,s<=6,s++)
-				if(!food_slots[s])
-					put_in_cart(I, user)
-					food_slots[s]=I
-					update_icon()
-					success = 1
-					break
-			if(!success)
-				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/reagent_containers/food/drinks))
-			var/success = 0
-			for(var/s=1,s<=6,s++)
-				if(!drink_slots[s])
-					put_in_cart(I, user)
-					drink_slots[s]=I
-					update_icon()
-					success = 1
-					break
-			if(!success)
-				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/wrench))
-			if(!anchored && !isinspace())
-				playsound(src.loc, I.usesound, 50, 1)
-				user.visible_message( \
-					"[user] tightens \the [src]'s casters.", \
-					"<span class='notice'> You have tightened \the [src]'s casters.</span>", \
-					"You hear ratchet.")
-				anchored = 1
-			else if(anchored)
-				playsound(src.loc, I.usesound, 50, 1)
-				user.visible_message( \
-					"[user] loosens \the [src]'s casters.", \
-					"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
-					"You hear ratchet.")
-				anchored = 0
-	else
+	if(I.is_robot_module())
 		to_chat(usr, "<span class='warning'>You cannot interface your modules [src]!</span>")
+		return
+	if(istype(I, /obj/item/reagent_containers/food/snacks))
+		var/success = 0
+		for(var/s=1,s<=6,s++)
+			if(!food_slots[s])
+				put_in_cart(I, user)
+				food_slots[s]=I
+				update_icon()
+				success = 1
+				break
+		if(!success)
+			to_chat(user, fail_msg)
+		return
+	if(istype(I, /obj/item/reagent_containers/food/drinks))
+		var/success = 0
+		for(var/s=1,s<=6,s++)
+			if(!drink_slots[s])
+				put_in_cart(I, user)
+				drink_slots[s]=I
+				update_icon()
+				success = 1
+				break
+		if(!success)
+			to_chat(user, fail_msg)
+		return
+	. = ..()
 
 /obj/structure/foodcart/attack_hand(mob/user)
 	user.set_machine(src)

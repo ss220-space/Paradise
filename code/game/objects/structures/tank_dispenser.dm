@@ -88,6 +88,16 @@
 	add_fingerprint(usr)
 	return TRUE
 
+/obj/structure/dispenser/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(anchored)
+		to_chat(user, "<span class='notice'>You lean down and unwrench [src].</span>")
+		anchored = 0
+	else
+		to_chat(user, "<span class='notice'>You wrench [src] into place.</span>")
+		anchored = 1
+	return
+
 /obj/structure/dispenser/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/tank/internals/oxygen) || istype(I, /obj/item/tank/internals/air) || istype(I, /obj/item/tank/internals/anesthetic))
 		try_insert_tank(user, stored_oxygen_tanks, I)
@@ -97,15 +107,7 @@
 		try_insert_tank(user, stored_plasma_tanks, I)
 		return
 
-	if(istype(I, /obj/item/wrench))
-		if(anchored)
-			to_chat(user, "<span class='notice'>You lean down and unwrench [src].</span>")
-			anchored = 0
-		else
-			to_chat(user, "<span class='notice'>You wrench [src] into place.</span>")
-			anchored = 1
-		return
-	return ..()
+	. = ..()
 
 /// Called when the user clicks on the oxygen or plasma tank UI buttons, and tries to withdraw a tank.
 /obj/structure/dispenser/proc/try_remove_tank(mob/living/user, list/tank_list)

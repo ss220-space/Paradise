@@ -24,22 +24,26 @@
 		return FALSE
 	return TRUE
 
+/obj/item/memorizer/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	battery_panel = !battery_panel
+	if(battery_panel)
+		to_chat(user, "<span class='notice'>You open the battery compartment on the [src].</span>")
+	else
+		to_chat(user, "<span class='notice'>You close the battery compartment on the [src].</span>")
+
 /obj/item/memorizer/attackby(obj/item/W, mob/user, params)
 	if(!can_overcharge)
 		return
-	if(istype(W, /obj/item/screwdriver))
-		battery_panel = !battery_panel
-		if(battery_panel)
-			to_chat(user, "<span class='notice'>You open the battery compartment on the [src].</span>")
-		else
-			to_chat(user, "<span class='notice'>You close the battery compartment on the [src].</span>")
-	else if(istype(W, /obj/item/stock_parts/cell))
+	if(istype(W, /obj/item/stock_parts/cell))
 		if(!battery_panel || overcharged)
 			return
 		to_chat(user, "<span class='notice'>You jam the cell into battery compartment on the [src].</span>")
 		qdel(W)
 		overcharged = TRUE
 		overlays += "overcharge"
+		return
+	. = ..()
 
 /obj/item/memorizer/proc/burn_out() //Made so you can override it if you want to have an invincible flash from R&D or something.
 	broken = TRUE

@@ -458,36 +458,32 @@
 		CF.dir = field_dir
 
 
+/obj/machinery/shieldwallgen/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(active)
+		to_chat(user, "Turn off the field generator first.")
+		return
+	if(state == 0)
+		state = 1
+		playsound(loc, I.usesound, 75, 1)
+		to_chat(user, "You secure the external reinforcing bolts to the floor.")
+		anchored = 1
+		return
+	if(state == 1)
+		state = 0
+		playsound(loc, I.usesound, 75, 1)
+		to_chat(user, "You undo the external reinforcing bolts.")
+		anchored = 0
+
 /obj/machinery/shieldwallgen/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/wrench))
-		if(active)
-			to_chat(user, "Turn off the field generator first.")
-			return
-
-		else if(state == 0)
-			state = 1
-			playsound(loc, I.usesound, 75, 1)
-			to_chat(user, "You secure the external reinforcing bolts to the floor.")
-			anchored = 1
-			return
-
-		else if(state == 1)
-			state = 0
-			playsound(loc, I.usesound, 75, 1)
-			to_chat(user, "You undo the external reinforcing bolts.")
-			anchored = 0
-			return
-
 	if(I.GetID() || ispda(I))
 		if(allowed(user))
 			locked = !locked
 			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
-
-	else
-		add_fingerprint(user)
-		..()
+		return
+	. = ..()
 
 /obj/machinery/shieldwallgen/proc/cleanup(NSEW)
 	var/obj/machinery/shieldwall/F

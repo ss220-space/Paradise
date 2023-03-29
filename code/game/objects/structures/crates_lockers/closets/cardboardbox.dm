@@ -60,33 +60,36 @@
 /obj/structure/closet/cardboard/welder_act()
 	return
 
+/obj/structure/closet/cardboard/wirecutter_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(opened)
+		var/obj/item/wirecutters/WC = W
+		new /obj/item/stack/sheet/cardboard(loc, amt)
+		for(var/mob/M in viewers(src))
+			M.show_message("<span class='notice'>\The [src] has been cut apart by [user] with \the [WC].</span>", 3, "You hear cutting.", 2)
+		qdel(src)
+
 /obj/structure/closet/cardboard/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(src.opened)
-		if(istype(W, /obj/item/wirecutters))
-			var/obj/item/wirecutters/WC = W
-			new /obj/item/stack/sheet/cardboard(src.loc, amt)
-			for(var/mob/M in viewers(src))
-				M.show_message("<span class='notice'>\The [src] has been cut apart by [user] with \the [WC].</span>", 3, "You hear cutting.", 2)
-			qdel(src)
+	if(!opened)
+		return
+	if(istype(W, /obj/item/pen))
+		var/decalselection = input("Please select a decal") as null|anything in list("Atmospherics", "Bartender", "Barber", "Blueshield",	"Brig Physician", "Captain",
+		"Cargo", "Chief Engineer",	"Chaplain",	"Chef", "Chemist", "Civilian", "Clown", "CMO", "Coroner", "Detective", "Engineering", "Genetics", "HOP",
+		"HOS", "Hydroponics", "Internal Affairs Agent", "Janitor",	"Magistrate", "Mechanic", "Medical", "Mime", "Mining", "NT Representative", "Paramedic", "Pod Pilot",
+		"Prisoner",	"Research Director", "Security", "Syndicate", "Therapist", "Virology", "Warden", "Xenobiology")
+		if(!decalselection)
 			return
-		if(istype(W, /obj/item/pen))
-			var/decalselection = input("Please select a decal") as null|anything in list("Atmospherics", "Bartender", "Barber", "Blueshield",	"Brig Physician", "Captain",
-			"Cargo", "Chief Engineer",	"Chaplain",	"Chef", "Chemist", "Civilian", "Clown", "CMO", "Coroner", "Detective", "Engineering", "Genetics", "HOP",
-			"HOS", "Hydroponics", "Internal Affairs Agent", "Janitor",	"Magistrate", "Mechanic", "Medical", "Mime", "Mining", "NT Representative", "Paramedic", "Pod Pilot",
-			"Prisoner",	"Research Director", "Security", "Syndicate", "Therapist", "Virology", "Warden", "Xenobiology")
-			if(!decalselection)
-				return
-			if(user.incapacitated())
-				to_chat(user, "You're in no condition to perform this action.")
-				return
-			if(W != user.get_active_hand())
-				to_chat(user, "You must be holding the pen to perform this action.")
-				return
-			if(! Adjacent(user))
-				to_chat(user, "You have moved too far away from the cardboard box.")
-				return
-			decalselection = replacetext(decalselection, " ", "_")
-			decalselection = lowertext(decalselection)
-			icon_opened = ("cardboard_open_"+decalselection)
-			icon_closed = ("cardboard_"+decalselection)
-			update_icon() // a proc declared in the closets parent file used to update opened/closed sprites on normal closets
+		if(user.incapacitated())
+			to_chat(user, "You're in no condition to perform this action.")
+			return
+		if(W != user.get_active_hand())
+			to_chat(user, "You must be holding the pen to perform this action.")
+			return
+		if(! Adjacent(user))
+			to_chat(user, "You have moved too far away from the cardboard box.")
+			return
+		decalselection = replacetext(decalselection, " ", "_")
+		decalselection = lowertext(decalselection)
+		icon_opened = ("cardboard_open_"+decalselection)
+		icon_closed = ("cardboard_"+decalselection)
+		update_icon() // a proc declared in the closets parent file used to update opened/closed sprites on normal closets

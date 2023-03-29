@@ -55,43 +55,48 @@
 	if(istype(D, /obj/item/poster))
 		qdel(D)
 
-/obj/item/picture_frame/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/screwdriver))
-		if(displayed)
-			playsound(src, I.usesound, 100, 1)
-			user.visible_message("<span class='warning'>[user] unfastens \the [displayed] out of \the [src].</span>", "<span class='warning'>You unfasten \the [displayed] out of \the [src].</span>")
-
-			if(istype(displayed, /obj/structure/sign/poster))
-				var/obj/structure/sign/poster/P = displayed
-				P.roll_and_drop(user.loc)
-			else
-				displayed.forceMove(user.loc)
-			displayed = null
-			name = initial(name)
-			update_icon()
-		else
-			to_chat(user, "<span class='notice'>There is nothing to remove from \the [src].</span>")
-	else if(istype(I, /obj/item/crowbar))
+/obj/item/picture_frame/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(displayed)
 		playsound(src, I.usesound, 100, 1)
-		user.visible_message("<span class='warning'>[user] breaks down \the [src].</span>", "<span class='warning'>You break down \the [src].</span>")
-		for(var/A in contents)
-			if(istype(A, /obj/structure/sign/poster))
-				var/obj/structure/sign/poster/P = A
-				P.roll_and_drop(user.loc)
-			else
-				var/obj/O = A
-				O.forceMove(user.loc)
+		user.visible_message("<span class='warning'>[user] unfastens \the [displayed] out of \the [src].</span>", "<span class='warning'>You unfasten \the [displayed] out of \the [src].</span>")
+
+		if(istype(displayed, /obj/structure/sign/poster))
+			var/obj/structure/sign/poster/P = displayed
+			P.roll_and_drop(user.loc)
+		else
+			displayed.forceMove(user.loc)
 		displayed = null
-		qdel(src)
-	else if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/poster))
+		name = initial(name)
+		update_icon()
+	else
+		to_chat(user, "<span class='notice'>There is nothing to remove from \the [src].</span>")
+
+/obj/item/picture_frame/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	playsound(src, I.usesound, 100, 1)
+	user.visible_message("<span class='warning'>[user] breaks down \the [src].</span>", "<span class='warning'>You break down \the [src].</span>")
+	for(var/A in contents)
+		if(istype(A, /obj/structure/sign/poster))
+			var/obj/structure/sign/poster/P = A
+			P.roll_and_drop(user.loc)
+		else
+			var/obj/O = A
+			O.forceMove(user.loc)
+	displayed = null
+	qdel(src)
+
+/obj/item/picture_frame/attackby(obj/item/I, mob/user)
+	if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/poster))
 		if(!displayed)
 			user.unEquip(I)
 			insert(I)
 			update_icon()
+			return
 		else
 			to_chat(user, "<span class='notice'>\The [src] already contains \a [displayed].</span>")
-	else
-		return ..()
+			return
+	return ..()
 
 /obj/item/picture_frame/afterattack(atom/target, mob/user, proximity_flag)
 	if(proximity_flag && istype(target, /turf/simulated/wall))
@@ -209,19 +214,21 @@
 		icon = initial(icon)
 		icon_state = initial(icon_state)
 
-/obj/structure/sign/picture_frame/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/screwdriver))
+/obj/structure/sign/picture_frame/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	playsound(src, I.usesound, 100, 1)
+	user.visible_message("<span class='warning'>[user] begins to unfasten \the [src] from the wall.</span>", "<span class='warning'>You begin to unfasten \the [src] from the wall.</span>")
+	if(do_after(user, 100 * I.toolspeed * gettoolspeedmod(user), target = src))
 		playsound(src, I.usesound, 100, 1)
-		user.visible_message("<span class='warning'>[user] begins to unfasten \the [src] from the wall.</span>", "<span class='warning'>You begin to unfasten \the [src] from the wall.</span>")
-		if(do_after(user, 100 * I.toolspeed * gettoolspeedmod(user), target = src))
-			playsound(src, I.usesound, 100, 1)
-			user.visible_message("<span class='warning'>[user] unfastens \the [src] from the wall.</span>", "<span class='warning'>You unfasten \the [src] from the wall.</span>")
-			frame.forceMove(user.loc)
-			frame = null
-			if(explosive)
-				explosive.forceMove(user.loc)
-				explosive = null
-			qdel(src)
+		user.visible_message("<span class='warning'>[user] unfastens \the [src] from the wall.</span>", "<span class='warning'>You unfasten \the [src] from the wall.</span>")
+		frame.forceMove(user.loc)
+		frame = null
+		if(explosive)
+			explosive.forceMove(user.loc)
+			explosive = null
+		qdel(src)
+
+/obj/structure/sign/picture_frame/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/grenade) || istype(I, /obj/item/grenade/plastic/c4))
 		if(explosive)
 			to_chat(user, "<span class='warning'>There is already a device attached behind \the [src], remove it first.</span>")
@@ -242,8 +249,7 @@
 			message_admins("[key_name_admin(user)] attached [I] to a picture frame.")
 			add_game_logs("attached [I] to a picture frame.", user)
 		return 1
-	else
-		return ..()
+	. = ..()
 
 /obj/structure/sign/picture_frame/examine(mob/user, var/infix = "", var/suffix = "")
 	if(frame)

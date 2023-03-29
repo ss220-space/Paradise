@@ -1192,26 +1192,22 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		lit_cameras |= C
 
 
-/mob/living/silicon/ai/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
-		if(anchored)
-			user.visible_message("<span class='notice'>\The [user] starts to unbolt \the [src] from the plating...</span>")
-			if(!do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
-				user.visible_message("<span class='notice'>\The [user] decides not to unbolt \the [src].</span>")
-				return
-			user.visible_message("<span class='notice'>\The [user] finishes unfastening \the [src]!</span>")
-			anchored = FALSE
+/mob/living/silicon/ai/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(anchored)
+		user.visible_message("<span class='notice'>\The [user] starts to unbolt \the [src] from the plating...</span>")
+		if(!do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
+			user.visible_message("<span class='notice'>\The [user] decides not to unbolt \the [src].</span>")
 			return
-		else
-			user.visible_message("<span class='notice'>\The [user] starts to bolt \the [src] to the plating...</span>")
-			if(!do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
-				user.visible_message("<span class='notice'>\The [user] decides not to bolt \the [src].</span>")
-				return
-			user.visible_message("<span class='notice'>\The [user] finishes fastening down \the [src]!</span>")
-			anchored = TRUE
-			return
+		user.visible_message("<span class='notice'>\The [user] finishes unfastening \the [src]!</span>")
+		anchored = FALSE
 	else
-		return ..()
+		user.visible_message("<span class='notice'>\The [user] starts to bolt \the [src] to the plating...</span>")
+		if(!do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
+			user.visible_message("<span class='notice'>\The [user] decides not to bolt \the [src].</span>")
+			return
+		user.visible_message("<span class='notice'>\The [user] finishes fastening down \the [src]!</span>")
+		anchored = TRUE
 
 /mob/living/silicon/ai/welder_act()
 	return

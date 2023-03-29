@@ -205,14 +205,15 @@
 			return FALSE
 	add_fingerprint()
 
+/obj/machinery/mineral/equipment_vendor/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(panel_open)
+		remove_id() //Prevents deconstructing the ORM from deleting whatever ID was inside it.
+		default_deconstruction_crowbar(user, I)
+
 /obj/machinery/mineral/equipment_vendor/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "mining-open", "mining", I))
 		return
-	if(panel_open)
-		if(istype(I, /obj/item/crowbar))
-			remove_id() //Prevents deconstructing the ORM from deleting whatever ID was inside it.
-			default_deconstruction_crowbar(user, I)
-		return TRUE
 	if(istype(I, /obj/item/mining_voucher))
 		if(!powered())
 			return

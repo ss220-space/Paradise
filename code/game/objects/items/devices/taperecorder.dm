@@ -351,15 +351,19 @@
 	overlays -= "ribbonoverlay"
 	ruined = 0
 
-
-/obj/item/tape/attackby(obj/item/I, mob/user)
-	if(ruined && istype(I, /obj/item/screwdriver))
+/obj/item/tape/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(ruined)
 		to_chat(user, "<span class='notice'>You start winding the tape back in.</span>")
 		if(do_after(user, 120 * I.toolspeed * gettoolspeedmod(user), target = src))
 			to_chat(user, "<span class='notice'>You wound the tape back in!</span>")
 			fix()
-	else if(istype(I, /obj/item/pen))
+
+/obj/item/tape/attackby(obj/item/I, mob/user)
+	if(istype(I, /obj/item/pen))
 		rename_interactive(user, I)
+		return
+	. = ..()
 
 //Random colour tapes
 /obj/item/tape/random/New()

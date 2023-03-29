@@ -201,22 +201,30 @@
 		S.amount = 2
 		glass_type = null
 
+/obj/item/solar_assembly/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!anchored && isturf(loc))
+		anchored = 1
+		user.visible_message("[user] wrenches the solar assembly into place.", "<span class='notice'>You wrench the solar assembly into place.</span>")
+		playsound(src.loc, W.usesound, 50, 1)
+		return 1
+	else
+		anchored = 0
+		user.visible_message("[user] unwrenches the solar assembly from its place.", "<span class='notice'>You unwrench the solar assembly from its place.</span>")
+		playsound(src.loc, W.usesound, 50, 1)
+		return 1
+
+/obj/item/solar_assembly/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(tracker)
+		new /obj/item/tracker_electronics(src.loc)
+		tracker = 0
+		playsound(loc, W.usesound, 50, 1)
+		user.visible_message("[user] takes out the electronics from the solar assembly.", "<span class='notice'>You take out the electronics from the solar assembly.</span>")
+		return 1
 
 /obj/item/solar_assembly/attackby(var/obj/item/W, var/mob/user, params)
-
 	if(!anchored && isturf(loc))
-		if(istype(W, /obj/item/wrench))
-			anchored = 1
-			user.visible_message("[user] wrenches the solar assembly into place.", "<span class='notice'>You wrench the solar assembly into place.</span>")
-			playsound(src.loc, W.usesound, 50, 1)
-			return 1
-	else
-		if(istype(W, /obj/item/wrench))
-			anchored = 0
-			user.visible_message("[user] unwrenches the solar assembly from its place.", "<span class='notice'>You unwrench the solar assembly from its place.</span>")
-			playsound(src.loc, W.usesound, 50, 1)
-			return 1
-
 		if(istype(W, /obj/item/stack/sheet/glass) || istype(W, /obj/item/stack/sheet/rglass))
 			var/obj/item/stack/sheet/S = W
 			if(S.use(2))
@@ -240,14 +248,7 @@
 			qdel(W)
 			user.visible_message("[user] inserts the electronics into the solar assembly.", "<span class='notice'>You insert the electronics into the solar assembly.</span>")
 			return 1
-	else if(istype(W, /obj/item/crowbar))
-		new /obj/item/tracker_electronics(src.loc)
-		tracker = 0
-		playsound(loc, W.usesound, 50, 1)
-		user.visible_message("[user] takes out the electronics from the solar assembly.", "<span class='notice'>You take out the electronics from the solar assembly.</span>")
-		return 1
-	else
-		return ..()
+	return ..()
 
 //
 // Solar Control Computer
@@ -423,35 +424,33 @@
 				connected_tracker.set_angle(SSsun.angle)
 			set_panels(cdir)
 
-/obj/machinery/power/solar_control/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/screwdriver))
-		playsound(src.loc, I.usesound, 50, 1)
-		if(do_after(user, 20 * I.toolspeed * gettoolspeedmod(user), target = src))
-			if(src.stat & BROKEN)
-				to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
-				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-				new /obj/item/shard( src.loc )
-				var/obj/item/circuitboard/solar_control/M = new /obj/item/circuitboard/solar_control( A )
-				for(var/obj/C in src)
-					C.loc = src.loc
-				A.circuit = M
-				A.state = 3
-				A.icon_state = "3"
-				A.anchored = 1
-				qdel(src)
-			else
-				to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
-				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-				var/obj/item/circuitboard/solar_control/M = new /obj/item/circuitboard/solar_control( A )
-				for(var/obj/C in src)
-					C.loc = src.loc
-				A.circuit = M
-				A.state = 4
-				A.icon_state = "4"
-				A.anchored = 1
-				qdel(src)
-	else
-		return ..()
+/obj/machinery/power/solar_control/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	playsound(src.loc, I.usesound, 50, 1)
+	if(do_after(user, 20 * I.toolspeed * gettoolspeedmod(user), target = src))
+		if(src.stat & BROKEN)
+			to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
+			var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
+			new /obj/item/shard( src.loc )
+			var/obj/item/circuitboard/solar_control/M = new /obj/item/circuitboard/solar_control( A )
+			for(var/obj/C in src)
+				C.loc = src.loc
+			A.circuit = M
+			A.state = 3
+			A.icon_state = "3"
+			A.anchored = 1
+			qdel(src)
+		else
+			to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
+			var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
+			var/obj/item/circuitboard/solar_control/M = new /obj/item/circuitboard/solar_control( A )
+			for(var/obj/C in src)
+				C.loc = src.loc
+			A.circuit = M
+			A.state = 4
+			A.icon_state = "4"
+			A.anchored = 1
+			qdel(src)
 
 /obj/machinery/power/solar_control/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

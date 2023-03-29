@@ -55,6 +55,13 @@
 			return 0
 	return connectedparts
 
+/obj/item/pod_parts/pod_frame/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	to_chat(user, "<span class='notice'>You [!anchored ? "secure \the [src] in place."  : "remove the securing bolts."]</span>")
+	anchored = !anchored
+	density = anchored
+	playsound(get_turf(src), O.usesound, 50, 1)
+
 /obj/item/pod_parts/pod_frame/attackby(var/obj/item/O, mob/user)
 	if(istype(O, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = O
@@ -74,11 +81,8 @@
 				pod.loc = F.loc
 			qdel(F)
 		playsound(get_turf(src), O.usesound, 50, 1)
-	if(istype(O, /obj/item/wrench))
-		to_chat(user, "<span class='notice'>You [!anchored ? "secure \the [src] in place."  : "remove the securing bolts."]</span>")
-		anchored = !anchored
-		density = anchored
-		playsound(get_turf(src), O.usesound, 50, 1)
+		return
+	. = ..()
 
 /obj/item/pod_parts/pod_frame/verb/rotate()
 	set name = "Rotate Frame"

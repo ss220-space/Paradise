@@ -4,6 +4,17 @@
 		// Pre-upgraded upgradable glasses
 		name = "prescription [name]"
 
+/obj/item/clothing/glasses/screwdriver_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(prescription_upgradable && prescription)
+		var/obj/item/clothing/glasses/regular/G = locate() in src
+		if(!G)
+			G = new(get_turf(H))
+		to_chat(H, "You salvage the prescription lenses from \the [name].")
+		prescription = 0
+		name = initial(name)
+		H.put_in_hands(G)
+
 /obj/item/clothing/glasses/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	if(user.stat || user.restrained() || !ishuman(user))
 		return ..()
@@ -19,16 +30,7 @@
 			prescription = 1
 			name = "prescription [name]"
 			return
-		if(prescription && istype(O, /obj/item/screwdriver))
-			var/obj/item/clothing/glasses/regular/G = locate() in src
-			if(!G)
-				G = new(get_turf(H))
-			to_chat(H, "You salvage the prescription lenses from \the [name].")
-			prescription = 0
-			name = initial(name)
-			H.put_in_hands(G)
-			return
-	return ..()
+	. = ..()
 
 /obj/item/clothing/glasses/visor_toggling()
 	..()
@@ -636,7 +638,7 @@
 		var/mob/living/carbon/user = usr
 		user.update_tint()
 		user.update_inv_glasses()
-		
+
 /obj/item/clothing/glasses/sunglasses/blindfold/cucumbermask
 	desc = "A simple pair of two cucumber slices. Medically proven to be able to heal your eyes over time."
 	name = "cucumber mask"

@@ -30,75 +30,86 @@
 	updateUsrDialog()
 	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
 	return
+
+/obj/structure/engineeringcart/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!anchored && !isinspace())
+		playsound(src.loc, I.usesound, 50, 1)
+		user.visible_message( \
+			"[user] tightens \the [src]'s casters.", \
+			"<span class='notice'> You have tightened \the [src]'s casters.</span>", \
+			"You hear ratchet.")
+		anchored = 1
+	else if(anchored)
+		playsound(src.loc, I.usesound, 50, 1)
+		user.visible_message( \
+			"[user] loosens \the [src]'s casters.", \
+			"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
+			"You hear ratchet.")
+		anchored = 0
+
 /obj/structure/engineeringcart/attackby(obj/item/I, mob/user, params)
 	var/fail_msg = "<span class='notice'>There is already one of those in [src].</span>"
-	if(!I.is_robot_module())
-		if(istype(I, /obj/item/stack/sheet/glass))
-			if(!myglass)
-				put_in_cart(I, user)
-				myglass=I
-				update_icon()
-			else
-				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/stack/sheet/metal))
-			if(!mymetal)
-				put_in_cart(I, user)
-				mymetal=I
-				update_icon()
-			else
-				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/stack/sheet/plasteel))
-			if(!myplasteel)
-				put_in_cart(I, user)
-				myplasteel=I
-				update_icon()
-			else
-				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/flashlight))
-			if(!myflashlight)
-				put_in_cart(I, user)
-				myflashlight=I
-				update_icon()
-			else
-				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/storage/toolbox/mechanical))
-			if(!mybluetoolbox)
-				put_in_cart(I, user)
-				mybluetoolbox=I
-				update_icon()
-			else
-				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/storage/toolbox/electrical))
-			if(!myyellowtoolbox)
-				put_in_cart(I, user)
-				myyellowtoolbox=I
-				update_icon()
-			else
-				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/storage/toolbox))
-			if(!myredtoolbox)
-				put_in_cart(I, user)
-				myredtoolbox=I
-				update_icon()
-			else
-				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/wrench))
-			if(!anchored && !isinspace())
-				playsound(src.loc, I.usesound, 50, 1)
-				user.visible_message( \
-					"[user] tightens \the [src]'s casters.", \
-					"<span class='notice'> You have tightened \the [src]'s casters.</span>", \
-					"You hear ratchet.")
-				anchored = 1
-			else if(anchored)
-				playsound(src.loc, I.usesound, 50, 1)
-				user.visible_message( \
-					"[user] loosens \the [src]'s casters.", \
-					"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
-					"You hear ratchet.")
-				anchored = 0
-	else
+	if(I.is_robot_module())
 		to_chat(usr, "<span class='warning'>You cannot interface your modules [src]!</span>")
+		return
+	if(istype(I, /obj/item/stack/sheet/glass))
+		if(!myglass)
+			put_in_cart(I, user)
+			myglass=I
+			update_icon()
+		else
+			to_chat(user, fail_msg)
+		return
+	if(istype(I, /obj/item/stack/sheet/metal))
+		if(!mymetal)
+			put_in_cart(I, user)
+			mymetal=I
+			update_icon()
+		else
+			to_chat(user, fail_msg)
+		return
+	if(istype(I, /obj/item/stack/sheet/plasteel))
+		if(!myplasteel)
+			put_in_cart(I, user)
+			myplasteel=I
+			update_icon()
+		else
+			to_chat(user, fail_msg)
+		return
+	if(istype(I, /obj/item/flashlight))
+		if(!myflashlight)
+			put_in_cart(I, user)
+			myflashlight=I
+			update_icon()
+		else
+			to_chat(user, fail_msg)
+		return
+	if(istype(I, /obj/item/storage/toolbox/mechanical))
+		if(!mybluetoolbox)
+			put_in_cart(I, user)
+			mybluetoolbox=I
+			update_icon()
+		else
+			to_chat(user, fail_msg)
+		return
+	if(istype(I, /obj/item/storage/toolbox/electrical))
+		if(!myyellowtoolbox)
+			put_in_cart(I, user)
+			myyellowtoolbox=I
+			update_icon()
+		else
+			to_chat(user, fail_msg)
+		return
+	if(istype(I, /obj/item/storage/toolbox))
+		if(!myredtoolbox)
+			put_in_cart(I, user)
+			myredtoolbox=I
+			update_icon()
+		else
+			to_chat(user, fail_msg)
+		return
+	. = ..()
 
 /obj/structure/engineeringcart/attack_hand(mob/user)
 	user.set_machine(src)

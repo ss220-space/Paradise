@@ -24,6 +24,11 @@
 	density = 0
 	integrity_failure = 0
 
+/obj/structure/closet/body_bag/wirecutter_act(mob/living/user, obj/item/I)
+	. = TRUE
+	to_chat(user, "You cut the tag off the bodybag")
+	name = "body bag"
+	cut_overlays()
 
 /obj/structure/closet/body_bag/attackby(W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/pen))
@@ -34,12 +39,7 @@
 		if(t)
 			add_overlay(image(icon, "bodybag_label"))
 		return
-	if(istype(W, /obj/item/wirecutters))
-		to_chat(user, "You cut the tag off the bodybag")
-		name = "body bag"
-		cut_overlays()
-		return
-	return ..()
+	. = ..()
 
 
 /obj/structure/closet/body_bag/close()

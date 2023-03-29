@@ -59,13 +59,20 @@
 			to_chat(user, "Someone else is already playing this machine, please wait your turn!")
 		return
 
-/obj/machinery/arcade/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/screwdriver) && anchored)
+/obj/machinery/arcade/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(anchored)
 		playsound(src.loc, I.usesound, 50, 1)
 		panel_open = !panel_open
 		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
 		update_icon()
-		return
+
+/obj/machinery/arcade/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(panel_open && component_parts)
+		default_deconstruction_crowbar(user, I)
+
+/obj/machinery/arcade/attackby(obj/item/I, mob/user, params)
 	if(!freeplay)
 		if(I.GetID())
 			if(pay_with_card(user, token_price, name))
@@ -76,10 +83,7 @@
 			if(pay_with_cash(cash, user, token_price, name))
 				tokens += 1
 		return
-	if(panel_open && component_parts && istype(I, /obj/item/crowbar))
-		default_deconstruction_crowbar(user, I)
-		return
-	return ..()
+	. = ..()
 
 /obj/machinery/arcade/update_icon()
 	return

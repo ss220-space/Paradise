@@ -59,26 +59,31 @@
 *   Item Adding
 ********************/
 
+/obj/machinery/kitchen_machine/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!broken && dirty < 100)
+		default_deconstruction_screwdriver(user, open_icon, off_icon, O)
+
+/obj/machinery/kitchen_machine/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	playsound(src, O.usesound, 50, 1)
+	if(anchored)
+		anchored = 0
+		to_chat(user, "<span class='alert'>\The [src] can now be moved.</span>")
+	else
+		anchored = 1
+		to_chat(user, "<span class='alert'>\The [src] is now secured.</span>")
+
+/obj/machinery/kitchen_machine/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_crowbar(user, O)
+
 /obj/machinery/kitchen_machine/attackby(obj/item/O, mob/user, params)
 	if(operating)
 		return
 	if(!broken && dirty < 100)
-		if(default_deconstruction_screwdriver(user, open_icon, off_icon, O))
-			return
 		if(exchange_parts(user, O))
 			return
-	if(!broken && istype(O, /obj/item/wrench))
-		playsound(src, O.usesound, 50, 1)
-		if(anchored)
-			anchored = 0
-			to_chat(user, "<span class='alert'>\The [src] can now be moved.</span>")
-			return
-		else if(!anchored)
-			anchored = 1
-			to_chat(user, "<span class='alert'>\The [src] is now secured.</span>")
-			return
-
-	default_deconstruction_crowbar(user, O)
 
 	if(broken > 0)
 		if(broken == 2 && istype(O, /obj/item/screwdriver)) // If it's broken and they're using a screwdriver

@@ -111,6 +111,11 @@
 			return FALSE
 	return TRUE
 
+/obj/machinery/r_n_d/experimentor/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(panel_open)
+		default_deconstruction_crowbar(user, O)
+
 /obj/machinery/r_n_d/experimentor/attackby(obj/item/O, mob/user, params)
 	if(shocked)
 		shock(user,50)
@@ -122,10 +127,6 @@
 		return
 
 	if(exchange_parts(user, O))
-		return
-
-	if(panel_open && istype(O, /obj/item/crowbar))
-		default_deconstruction_crowbar(user, O)
 		return
 
 	if(!checkCircumstances(O))

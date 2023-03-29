@@ -29,17 +29,18 @@
 /obj/structure/lattice/proc/deconstruction_hints(mob/user)
 	return "<span class='notice'>The rods look like they could be <b>cut</b>. There's space for more <i>rods</i> or a <i>tile</i>.</span>"
 
+/obj/structure/lattice/wirecutter_act(mob/living/user, obj/item/I)
+	. = TRUE
+	var/obj/item/wirecutters/W = C
+	playsound(loc, W.usesound, 50, 1)
+	to_chat(user, "<span class='notice'>Slicing [name] joints...</span>")
+	deconstruct()
+
 /obj/structure/lattice/attackby(obj/item/C, mob/user, params)
 	if(resistance_flags & INDESTRUCTIBLE)
 		return
-	if(istype(C, /obj/item/wirecutters))
-		var/obj/item/wirecutters/W = C
-		playsound(loc, W.usesound, 50, 1)
-		to_chat(user, "<span class='notice'>Slicing [name] joints...</span>")
-		deconstruct()
-	else
-		var/turf/T = get_turf(src)
-		return T.attackby(C, user) //hand this off to the turf instead (for building plating, catwalks, etc)
+	var/turf/T = get_turf(src)
+	return T.attackby(C, user) //hand this off to the turf instead (for building plating, catwalks, etc)
 
 /obj/structure/lattice/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))

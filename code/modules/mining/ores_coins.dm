@@ -234,6 +234,16 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		QDEL_NULL(wires)
 	return ..()
 
+/obj/item/twohanded/required/gibtonite/wirecutter_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(wires && !primed)
+		wires.Interact(user)
+
+/obj/item/twohanded/required/gibtonite/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(wires && !primed)
+		wires.Interact(user)
+
 /obj/item/twohanded/required/gibtonite/attackby(obj/item/I, mob/user, params)
 	if(!wires && istype(I, /obj/item/assembly/igniter))
 		user.visible_message("[user] attaches [I] to [src].", "<span class='notice'>You attach [I] to [src].</span>")
@@ -244,7 +254,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		return
 
 	if(wires && !primed)
-		if(istype(I, /obj/item/wirecutters) || istype(I, /obj/item/multitool) || istype(I, /obj/item/assembly/signaler))
+		if(istype(I, /obj/item/assembly/signaler))
 			wires.Interact(user)
 			return
 
@@ -429,6 +439,15 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	name = "syndicate coin"
 	credits = 160
 
+/obj/item/coin/wirecutter_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(string_attached)
+		var/obj/item/stack/cable_coil/CC = new/obj/item/stack/cable_coil(user.loc)
+		CC.amount = 1
+		CC.update_icon()
+		overlays = list()
+		string_attached = null
+		to_chat(user, "<span class='notice'>You detach the string from the coin.</span>")
 
 /obj/item/coin/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/stack/cable_coil))
@@ -444,19 +463,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		else
 			to_chat(user, "<span class='warning'>You need one length of cable to attach a string to the coin.</span>")
 			return
-
-	else if(istype(W,/obj/item/wirecutters))
-		if(!string_attached)
-			..()
-			return
-
-		var/obj/item/stack/cable_coil/CC = new/obj/item/stack/cable_coil(user.loc)
-		CC.amount = 1
-		CC.update_icon()
-		overlays = list()
-		string_attached = null
-		to_chat(user, "<span class='notice'>You detach the string from the coin.</span>")
-	else ..()
+	. = ..()
 
 /obj/item/coin/welder_act(mob/user, obj/item/I)
 	. = TRUE

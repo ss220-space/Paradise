@@ -338,6 +338,11 @@
 	pipe_image.plane = ABOVE_HUD_PLANE
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
+/obj/machinery/atmospherics/unary/vent_pump/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!(stat & NOPOWER) && on)
+		to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn it off first.</span>")
+
 /obj/machinery/atmospherics/unary/vent_pump/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/paper) || istype(W, /obj/item/stack/spacecash))
 		if(!welded)
@@ -348,13 +353,8 @@
 				to_chat(user, "You can't shove that down there when it is closed")
 		else
 			to_chat(user, "The vent is welded.")
-		return 1
-	if(istype(W, /obj/item/wrench))
-		if(!(stat & NOPOWER) && on)
-			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn it off first.</span>")
-			return 1
-
-	return ..()
+		return
+	. = ..()
 
 /obj/machinery/atmospherics/unary/vent_pump/multitool_act(mob/user, obj/item/I)
 	. = TRUE

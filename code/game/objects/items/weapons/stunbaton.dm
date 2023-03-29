@@ -83,6 +83,16 @@
 	if(!cell)
 		. += "<span class='warning'>The baton does not have a power source installed.</span>"
 
+/obj/item/melee/baton/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(cell)
+		cell.update_icon()
+		cell.loc = get_turf(src.loc)
+		cell = null
+		to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
+		status = 0
+		update_icon()
+
 /obj/item/melee/baton/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = W
@@ -98,18 +108,8 @@
 			cell = W
 			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
 			update_icon()
-
-	else if(istype(W, /obj/item/screwdriver))
-		if(cell)
-			cell.update_icon()
-			cell.loc = get_turf(src.loc)
-			cell = null
-			to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
-			status = 0
-			update_icon()
-			return
-		..()
-	return
+		return
+	. = ..()
 
 /obj/item/melee/baton/attack_self(mob/user)
 
