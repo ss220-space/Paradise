@@ -11,23 +11,61 @@
 	ejected_flavor_text = "brass cube"
 	dead_icon = "soul_vessel"
 	clock = TRUE
+	var/obj/item/victim_brain = null
 
-/obj/item/mmi/robotic_brain/clockwork/proc/try_to_transfer(mob/living/target)
+/obj/item/mmi/robotic_brain/clockwork/proc/get_ghost(mob/living/M, mob/user)
+	var/mob/dead/observer/chosen_ghost
+	if(M.ghost_can_reenter())
+		for(var/mob/dead/observer/ghost in GLOB.player_list)
+			if(ghost.mind && ghost.mind.current == M && ghost.client)
+				chosen_ghost = ghost
+				break
+	if(!chosen_ghost)
+		icon_state = searching_icon
+		searching = TRUE
+		to_chat(user, "<span class='clocklarge'><b>Capture failed!</b></span> The soul has already fled its mortal frame. You attempt to bring it back...")
+		var/list/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Servant of Ratvar?", ROLE_CLOCKER, FALSE, poll_time = 10 SECONDS, source = /obj/item/mmi/robotic_brain/clockwork)
+		if(length(candidates))
+			chosen_ghost = pick(candidates)
+		reset_search()
+	if(!M)
+		return FALSE
+	if(!chosen_ghost)
+		to_chat(user, "<span class='danger'>There were no spirits willing to become a Servant of Ratvar.</span>")
+		return FALSE
+	if(brainmob.key)
+		return FALSE
+	M.ckey = chosen_ghost.ckey
+	transfer_personality(M)
+	return TRUE
+
+obj/item/mmi/robotic_brain/clockwork/proc/try_to_transfer(mob/living/target, mob/user)
 	if(ishuman(target))
 		for(var/obj/item/I in target)
 			target.unEquip(I)
-	if(target.client && target.ghost_can_reenter())
-		transfer_personality(target)
-		to_chat(target, "<span class='clocklarge'><b>\"You belong to me now.\"</b></span>")
-		target.dust()
+	var/mob/living/living = target
+	if(victim_brain)
+		if(istype(victim_brain, /obj/item/mmi/robotic_brain))
+			var/obj/item/mmi/robotic_brain/rbrain = victim_brain
+			living = rbrain.brainmob
+		if(istype(victim_brain, /obj/item/mmi/robotic_brain))
+			var/obj/item/organ/internal/brain/obrain = victim_brain
+			living = obrain.brainmob
+	if(!victim_brain && living.stat == CONSCIOUS)
+		to_chat(user, "<span class='warning'>[living] must be dead or unconscious for you to claim [living.p_their()] mind!</span>")
+		return
+	if(living.client == null)
+		living.dust()
+		get_ghost(living, user)
 	else
-		target.dust()
-		icon_state = searching_icon
-		searching = TRUE
-		var/list/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Servant of Ratvar?", ROLE_CLOCKER, FALSE, poll_time = 10 SECONDS, source = /obj/item/mmi/robotic_brain/clockwork)
-		if(candidates.len)
-			transfer_personality(pick(candidates))
-		reset_search()
+		if(brainmob.key)
+			to_chat(user, "<span class='clock'>\"This vessel is filled, friend. Provide it with a body.\"</span>")
+			return
+		living.dust()
+		transfer_personality(living)
+		to_chat(living, "<span class='clocklarge'><b>\"You belong to me now.\"</b></span>")
+	if(victim_brain)
+		QDEL_NULL(victim_brain)
 
 /obj/item/mmi/robotic_brain/clockwork/transfer_personality(mob/candidate)
 	searching = FALSE
@@ -95,8 +133,8 @@
 				return
 			user.visible_message("<span class='warning'>[user] pressed [vessel] through [b_mob]'s brain and extracted something!", \
 			"<span class='clock'>You extracted [b_mob]'s consciousness, trapping it in the soul vessel.")
-			vessel.try_to_transfer(b_mob)
-			qdel(brain)
+			vessel.victim_brain = brain
+			vessel.try_to_transfer(b_mob, user)
 			return TRUE
 		return FALSE
 
@@ -157,8 +195,8 @@
 			return
 		user.visible_message("<span class='warning'>[user] pressed [vessel] through [b_mob]'s brain and extracted something!", \
 		"<span class='clock'>You extracted [b_mob]'s consciousness, trapping it in the soul vessel.")
-		vessel.try_to_transfer(b_mob)
-		qdel(brain)
+		vessel.victim_brain = brain
+		vessel.try_to_transfer(b_mob, user)
 		return TRUE
 	return FALSE
 
@@ -210,6 +248,6 @@
 		if(searching)
 			to_chat(user, "<span class='clock'>\"Vessel is trying to catch a soul.\"</span>")
 			return
-		try_to_transfer(M)
+		try_to_transfer(M, user)
 		return TRUE
 	return FALSE
