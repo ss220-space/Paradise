@@ -32,7 +32,7 @@
 
 /obj/structure/closet/secure_closet/exile
 	name = "exile implants"
-	req_access = list(ACCESS_ARMORY)
+	req_one_access = list(ACCESS_ARMORY)
 
 /obj/structure/closet/secure_closet/exile/populate_contents()
 	new /obj/item/implanter/exile(src)

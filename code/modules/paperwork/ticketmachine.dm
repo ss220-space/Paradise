@@ -70,7 +70,7 @@
 	desc = "Use this button after you've served someone to tell the next person to come forward."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "doorctrl0"
-	req_access = list()
+	req_one_access = list()
 	id = 1
 	var/cooldown = FALSE
 

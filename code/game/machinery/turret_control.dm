@@ -33,7 +33,7 @@
 	var/syndicate = FALSE
 	var/faction = "" // Turret controls can only access turrets that are in the same faction
 
-	req_access = list(ACCESS_AI_UPLOAD)
+	req_one_access = list(ACCESS_AI_UPLOAD)
 
 /obj/machinery/turretid/stun
 	enabled = TRUE
@@ -62,7 +62,7 @@
 
 	syndicate = TRUE
 	faction = "syndicate"
-	req_access = list(ACCESS_SYNDICATE_LEADER)
+	req_one_access = list(ACCESS_SYNDICATE_LEADER)
 
 /obj/machinery/turretid/Destroy()
 	if(control_area)

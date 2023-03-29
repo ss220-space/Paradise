@@ -7,7 +7,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 14 //The sum of the w_classes of all the items in this storage item.
 	storage_slots = 4
-	req_access = list(ACCESS_ARMORY)
+	req_one_access = list(ACCESS_ARMORY)
 	var/locked = 1
 	var/broken = 0
 	var/icon_locked = "lockbox+l"
@@ -75,7 +75,7 @@
 
 /obj/item/storage/lockbox/mindshield
 	name = "Lockbox (Mindshield Implants)"
-	req_access = list(ACCESS_SECURITY)
+	req_one_access = list(ACCESS_SECURITY)
 
 /obj/item/storage/lockbox/mindshield/New()
 	..()
@@ -89,7 +89,7 @@
 	desc = "Contains proprietary Sibyl System mods for energy guns."
 	max_w_class = WEIGHT_CLASS_TINY
 	storage_slots = 10
-	req_access = list(ACCESS_SECURITY)
+	req_one_access = list(ACCESS_SECURITY)
 
 /obj/item/storage/lockbox/sibyl_system_mod/New()
 	..()
@@ -99,7 +99,7 @@
 /obj/item/storage/lockbox/clusterbang
 	name = "lockbox (clusterbang)"
 	desc = "You have a bad feeling about opening this."
-	req_access = list(ACCESS_SECURITY)
+	req_one_access = list(ACCESS_SECURITY)
 
 /obj/item/storage/lockbox/clusterbang/New()
 	..()
@@ -114,7 +114,7 @@
 	max_w_class = WEIGHT_CLASS_SMALL
 	max_combined_w_class = 20
 	storage_slots = 12
-	req_access = list(ACCESS_CAPTAIN)
+	req_one_access = list(ACCESS_CAPTAIN)
 	icon_locked = "medalbox+l"
 	icon_closed = "medalbox"
 	icon_broken = "medalbox+b"
@@ -129,7 +129,7 @@
 /obj/item/storage/lockbox/t4
 	name = "lockbox (T4)"
 	desc = "Contains three T4 breaching charges."
-	req_access = list(ACCESS_CENT_SPECOPS)
+	req_one_access = list(ACCESS_CENT_SPECOPS)
 
 /obj/item/storage/lockbox/t4/New()
 	..()

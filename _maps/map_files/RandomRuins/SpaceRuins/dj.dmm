@@ -354,8 +354,7 @@
 	icon_state = "door_locked";
 	id_tag = "dj_station_inner";
 	locked = 1;
-	name = "DJ Station Interior Access";
-	req_access = null
+	name = "DJ Station Interior Access"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plating,
@@ -562,8 +561,7 @@
 	icon_state = "door_locked";
 	id_tag = "dj_station_outer";
 	locked = 1;
-	name = "DJ Station External Access";
-	req_access = null
+	name = "DJ Station External Access"
 	},
 /turf/simulated/floor/plating,
 /area/djstation)

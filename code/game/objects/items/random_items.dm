@@ -235,7 +235,7 @@
 
 /obj/structure/closet/secure_closet/random_drinks
 	name = "unlabelled booze closet"
-	req_access = list(ACCESS_BAR)
+	req_one_access = list(ACCESS_BAR)
 	icon_state = "cabinetdetective_locked"
 	icon_closed = "cabinetdetective"
 	icon_locked = "cabinetdetective_locked"

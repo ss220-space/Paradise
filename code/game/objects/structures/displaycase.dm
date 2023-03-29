@@ -223,22 +223,22 @@
 /obj/structure/displaycase/captain
 	alert = TRUE
 	start_showpiece_type = /obj/item/gun/energy/laser/captain
-	req_access = list(ACCESS_CAPTAIN)
+	req_one_access = list(ACCESS_CAPTAIN)
 
 /obj/structure/displaycase/labcage
 	name = "lab cage"
 	desc = "A glass lab container for storing interesting creatures."
 	start_showpiece_type = /obj/item/clothing/mask/facehugger/lamarr
-	req_access = list(ACCESS_RD)
+	req_one_access = list(ACCESS_RD)
 
 /obj/structure/displaycase/stechkin
 	name = "officer's display case"
 	desc = "A display case containing a humble stechkin pistol. Never forget your roots."
 	start_showpiece_type = /obj/item/gun/projectile/automatic/pistol
-	req_access = list(ACCESS_SYNDICATE_COMMAND)
+	req_one_access = list(ACCESS_SYNDICATE_COMMAND)
 
 /obj/structure/displaycase/dartgun
 	name = "Display case"
 	desc = "A display case containing a dartgun. One of the favourite weapons of infamous Vox Raiders!"
 	start_showpiece_type = /obj/item/gun/dartgun
-	req_access = list(ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
+	req_one_access = list(ACCESS_SYNDICATE_RESEARCH_DIRECTOR)

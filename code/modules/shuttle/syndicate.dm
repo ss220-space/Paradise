@@ -4,7 +4,7 @@
 	name = "syndicate shuttle terminal"
 	icon_screen = "syndishuttle"
 	icon_keyboard = "syndie_key"
-	req_access = list(ACCESS_SYNDICATE)
+	req_one_access = list(ACCESS_SYNDICATE)
 	bubble_icon = "syndibot"
 	circuit = /obj/item/circuitboard/shuttle/syndicate
 	shuttleId = "syndicate"
@@ -29,7 +29,7 @@
 	name = "syndicate assault pod control"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "dorm_available"
-	req_access = list(ACCESS_SYNDICATE)
+	req_one_access = list(ACCESS_SYNDICATE)
 	circuit = /obj/item/circuitboard/shuttle/syndicate/drop_pod
 	shuttleId = "steel_rain"
 	possible_destinations = null
@@ -46,7 +46,7 @@
 	desc = "Used to call and send the SST shuttle."
 	icon_keyboard = "syndie_key"
 	icon_screen = "syndishuttle"
-	req_access = list(ACCESS_SYNDICATE)
+	req_one_access = list(ACCESS_SYNDICATE)
 	bubble_icon = "syndibot"
 	shuttleId = "sst"
 	possible_destinations = "sst_home;sst_away;sst_custom;sst_taipan"
@@ -57,7 +57,7 @@
 	desc = "Used to call and send the SIT shuttle."
 	icon_keyboard = "syndie_key"
 	icon_screen = "syndishuttle"
-	req_access = list(ACCESS_SYNDICATE)
+	req_one_access = list(ACCESS_SYNDICATE)
 	bubble_icon = "syndibot"
 	shuttleId = "sit"
 	possible_destinations = "sit_arrivals;sit_engshuttle;sit_away;sit_custom;sit_taipan"

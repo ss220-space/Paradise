@@ -90,7 +90,7 @@
 	. = ..()
 	if(req_one_access && req_one_access.len)
 		req_one_access.Cut()
-	req_access = list(ACCESS_CENT_SPECOPS)
+	req_one_access = list(ACCESS_CENT_SPECOPS)
 	one_access = FALSE
 
 /obj/machinery/porta_turret/proc/setup()
@@ -742,7 +742,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	enabled = TRUE
 	lethal = TRUE
 	lethal_is_configurable = FALSE
-	req_access = list(ACCESS_CENT_COMMANDER)
+	req_one_access = list(ACCESS_CENT_COMMANDER)
 	installation = /obj/item/gun/energy/pulse/turret
 
 /datum/turret_checks
@@ -1029,7 +1029,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	. = ..()
 	if(req_one_access && req_one_access.len)
 		req_one_access.Cut()
-	req_access = list(ACCESS_SYNDICATE)
+	req_one_access = list(ACCESS_SYNDICATE)
 	one_access = FALSE
 
 /obj/machinery/porta_turret/syndicate/update_icon()

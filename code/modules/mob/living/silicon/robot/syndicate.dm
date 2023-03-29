@@ -10,7 +10,7 @@
 	bubble_icon = "syndibot"
 	designation = "Syndicate Assault"
 	modtype = "Syndicate"
-	req_access = list(ACCESS_SYNDICATE)
+	req_one_access = list(ACCESS_SYNDICATE)
 	ionpulse = 1
 	damage_protection = 5
 	brute_mod = 0.7 //30% less damage

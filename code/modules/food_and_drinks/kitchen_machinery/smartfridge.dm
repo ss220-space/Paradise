@@ -465,7 +465,7 @@
 	name = "\improper Smart Chemical Storage"
 	desc = "A refrigerated storage unit for medicine and chemical storage."
 	icon_state = "smartfridge" //To fix the icon in the map editor.
-	req_access = list(ACCESS_CHEMISTRY)
+	req_one_access = list(ACCESS_CHEMISTRY)
 
 	/// Associative list (/obj/item => /number) representing the items the fridge should initially contain.
 	var/list/spawn_meds
@@ -510,7 +510,7 @@
   * A [Smart Chemical Storage (Preloaded)][/obj/machinery/smartfridge/secure/chemistry/preloaded] but with exclusive access to Syndicate.
   */
 /obj/machinery/smartfridge/secure/chemistry/preloaded/syndicate
-	req_access = list(ACCESS_SYNDICATE)
+	req_one_access = list(ACCESS_SYNDICATE)
 	icon_state = "syndi_smartfridge"
 
 /obj/machinery/smartfridge/secure/chemistry/preloaded/syndicate/Initialize(mapload)
@@ -543,7 +543,7 @@
 /obj/machinery/smartfridge/secure/chemistry/virology
 	name = "\improper Smart Virus Storage"
 	desc = "A refrigerated storage unit for volatile sample storage."
-	req_access = list(ACCESS_VIROLOGY)
+	req_one_access = list(ACCESS_VIROLOGY)
 
 /obj/machinery/smartfridge/secure/chemistry/virology/Initialize(mapload)
 	spawn_meds = list(
@@ -588,7 +588,7 @@
   */
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded/syndicate
 	icon_state = "syndi_smartfridge"
-	req_access = list(ACCESS_SYNDICATE)
+	req_one_access = list(ACCESS_SYNDICATE)
 
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded/syndicate/Initialize(mapload)
 	. = ..()

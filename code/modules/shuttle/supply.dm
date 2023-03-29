@@ -383,7 +383,7 @@
 	name = "Supply Shuttle Console"
 	desc = "Used to order supplies."
 	icon_screen = "supply"
-	req_access = list(ACCESS_CARGO)
+	req_one_access = list(ACCESS_CARGO)
 	circuit = /obj/item/circuitboard/supplycomp
 	/// Is this a public console (Confirm + Shuttle controls are not visible)
 	var/is_public = FALSE
@@ -400,7 +400,7 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_screen = "request"
 	circuit = /obj/item/circuitboard/ordercomp
-	req_access = list()
+	req_one_access = list()
 	is_public = TRUE
 
 /obj/machinery/computer/supplycomp/attack_ai(var/mob/user as mob)

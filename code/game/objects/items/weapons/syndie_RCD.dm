@@ -6,7 +6,7 @@
 	item_state = "syndi_rcd"
 	materials = list(MAT_PLASMA = 10000, MAT_TITANIUM = 10000, MAT_METAL = 20000)
 	origin_tech = "engineering=4;materials=2;syndicate=4"
-	req_access = list(ACCESS_SYNDICATE)
+	req_one_access = list(ACCESS_SYNDICATE)
 	usesound = 'sound/items/deconstruct.ogg'
 	/// The max amount of matter that can be stored.
 	max_matter = RCD_MATTER_100

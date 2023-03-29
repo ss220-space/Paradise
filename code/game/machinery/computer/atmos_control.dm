@@ -5,7 +5,7 @@
 	icon_screen = "tank"
 	light_color = LIGHT_COLOR_CYAN
 	circuit = /obj/item/circuitboard/atmoscontrol
-	req_access = list(ACCESS_ATMOSPHERICS)
+	req_one_access = list(ACCESS_ATMOSPHERICS)
 	var/datum/ui_module/atmos_control/atmos_control
 
 /obj/machinery/computer/atmoscontrol/Initialize()

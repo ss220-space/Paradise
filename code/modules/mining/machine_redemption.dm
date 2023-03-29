@@ -17,7 +17,7 @@
 	anchored = TRUE
 	input_dir = NORTH
 	output_dir = SOUTH
-	req_access = list(ACCESS_MINERAL_STOREROOM)
+	req_one_access = list(ACCESS_MINERAL_STOREROOM)
 	speed_process = TRUE
 	layer = BELOW_OBJ_LAYER
 	// Settings
@@ -74,7 +74,7 @@
 	//Проверка на случай постройки такой на Тайпане
 	var/area/MyArea = getArea(src)
 	if(istype(MyArea, /area/syndicate/unpowered/syndicate_space_base))
-		req_access = list(ACCESS_SYNDICATE)
+		req_one_access = list(ACCESS_SYNDICATE)
 		req_access_claim = ACCESS_SYNDICATE
 
 /obj/machinery/mineral/ore_redemption/upgraded/New()
@@ -94,7 +94,7 @@
   * Golem variant of the ORM.
   */
 /obj/machinery/mineral/ore_redemption/golem
-	req_access = list(ACCESS_FREE_GOLEMS)
+	req_one_access = list(ACCESS_FREE_GOLEMS)
 	req_access_claim = ACCESS_FREE_GOLEMS
 
 /obj/machinery/mineral/ore_redemption/golem/New()
@@ -115,7 +115,7 @@
   */
 /obj/machinery/mineral/ore_redemption/labor
 	name = "labor camp ore redemption machine"
-	req_access = list()
+	req_one_access = list()
 	anyone_claim = TRUE
 
 /obj/machinery/mineral/ore_redemption/labor/New()

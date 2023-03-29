@@ -9,7 +9,7 @@
 
 	var/open = 0
 
-	req_one_access_txt = "24;10"
+	req_one_access = list(10,24)
 
 /obj/machinery/atmospherics/binary/valve/examine(mob/user)
 	. = ..()

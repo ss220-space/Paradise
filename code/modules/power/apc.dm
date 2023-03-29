@@ -55,7 +55,7 @@
 	max_integrity = 200
 	integrity_failure = 50
 	resistance_flags = FIRE_PROOF
-	req_access = list(ACCESS_ENGINE_EQUIP)
+	req_one_access = list(ACCESS_ENGINE_EQUIP)
 	siemens_strength = 1
 	damage_deflection = 10
 	var/area/area
@@ -129,7 +129,7 @@
 	report_power_alarm = FALSE
 
 /obj/machinery/power/apc/syndicate //general syndicate access
-	req_access = list(ACCESS_SYNDICATE)
+	req_one_access = list(ACCESS_SYNDICATE)
 	report_power_alarm = FALSE
 
 /obj/item/apc_electronics
@@ -163,7 +163,7 @@
 	wires = new(src)
 
 	if(is_taipan(z)) // Синдидоступ при сборке на тайпане
-		req_access = list(ACCESS_SYNDICATE)
+		req_one_access = list(ACCESS_SYNDICATE)
 
 	if(building)
 		// Offset 24 pixels in direction of dir. This allows the APC to be embedded in a wall, yet still inside an area

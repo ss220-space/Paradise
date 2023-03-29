@@ -28,7 +28,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	density = TRUE
 	icon = 'icons/obj/cloning.dmi'
 	icon_state = "pod_idle"
-	req_access = list(ACCESS_MEDICAL) //For premature unlocking.
+	req_one_access = list(ACCESS_MEDICAL) //For premature unlocking.
 
 	var/mob/living/carbon/human/occupant
 	var/heal_level //The clone is released once its health reaches this level.
@@ -68,7 +68,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 	if(is_taipan(z)) //Синдидоступ и никаких анонсов о клонированных при сборке на тайпане
 		radio_announce = FALSE
-		req_access = list(ACCESS_SYNDICATE)
+		req_one_access = list(ACCESS_SYNDICATE)
 
 	countdown = new(src)
 

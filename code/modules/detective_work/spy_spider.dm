@@ -31,7 +31,7 @@
 	name = "набор жучков"
 	desc = "Не самый легальный из способов достать информацию, но какая разница, если никто не узнает?"
 	storage_slots = 5
-	req_access = list(ACCESS_FORENSICS_LOCKERS)
+	req_one_access = list(ACCESS_FORENSICS_LOCKERS)
 
 /obj/item/storage/lockbox/spy_kit/Initialize(mapload)
 	. = ..()

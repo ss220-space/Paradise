@@ -185,7 +185,7 @@
 
 /obj/structure/displaycase/boat
 	desc = "A display case containing a bottle whith an ancient ship. Could it surf space?"
-	req_access_txt = "111"
+	req_one_access = list(111)
 	start_showpiece_type = /obj/item/ship_in_a_bottle
 
 //Сейф с рандомными документами
