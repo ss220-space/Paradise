@@ -421,7 +421,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		E.revive()
 		user.visible_message("<span class='notice'>[user] stabs [E] with [src], reviving it.</span>")
 		SEND_SOUND(E, 'sound/magic/cult_spell.ogg')
-		to_chat(user, )"<span class='notice'>Вы воспользовались осколком опухоли и подчинили себе её бывшего защитника.\nОн не может причинить вам вреда и во всем будет повиноваться вам.</span>"
+		to_chat(user, "<span class='notice'>Вы воспользовались осколком опухоли и подчинили себе её бывшего защитника.\nОн не может причинить вам вреда и во всем будет повиноваться вам.</span>")
 		to_chat(E, "<span class='userdanger'>Вы были возрождены [user], и вы обязаны [user].  Помогай [user.p_them()] в достижении [user.p_their()] целей, несмотря на риск.</span>")
 		to_chat(E, "<span class='big bold'>Помните, что вы разделяете интересы [user].  От вас ожидается не сабботировать фракцию хозяина, пока вам не прикажут!</span>")
 		E.mind.store_memory("Я теперь разделяю интересы [user].  От меня ожидается не сабботировать фракцию хозяина, пока вам не прикажут!")
