@@ -67,7 +67,7 @@
 		return 0
 
 	//Pixel Shift - START
-	if(mob.shifting)
+	if(mob.shifting && !mob.restrained() && !mob.IsWeakened())
 		mob.pixel_shift(direct)
 		return FALSE
 	else if(mob.is_shifted)
