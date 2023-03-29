@@ -39,7 +39,7 @@
 	transfer_personality(M)
 	return TRUE
 
-obj/item/mmi/robotic_brain/clockwork/proc/try_to_transfer(mob/living/target, mob/user)
+/obj/item/mmi/robotic_brain/clockwork/proc/try_to_transfer(mob/living/target, mob/user)
 	if(ishuman(target))
 		for(var/obj/item/I in target)
 			target.unEquip(I)
