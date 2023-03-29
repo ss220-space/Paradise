@@ -32,8 +32,8 @@
 	passthroughable = NONE
 	if(is_shifted)
 		is_shifted = FALSE
-		pixel_x = 0
-		pixel_y = 0
+		pixel_x = get_standard_pixel_x_offset(lying)
+		pixel_y = get_standard_pixel_y_offset(lying)
 
 /mob/proc/pixel_shift(direction)
 	return
