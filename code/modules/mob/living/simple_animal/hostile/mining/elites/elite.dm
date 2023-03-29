@@ -291,7 +291,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	for(var/mob/living/simple_animal/hostile/asteroid/elite/elitehere in loc)
 		if(elitehere == mychild && activity == TUMOR_PASSIVE)
 			mychild.adjustHealth(-mychild.maxHealth * 0.025)
-			var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(mychild))
+			var/obj/effect/temp_visual/heal/H = new(get_turf(mychild))
 			H.color = "#FF0000"
 
 /obj/structure/elite_tumor/attackby(obj/item/attacking_item, mob/user, params)
@@ -330,8 +330,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	if(loc == null)
 		return
 	for(var/tumor_range_turfs in RANGE_EDGE_TURFS(ARENA_RADIUS, tumor_turf))
-		var/obj/effect/temp_visual/elite_tumor_wall/newwall
-		newwall = new /obj/effect/temp_visual/elite_tumor_wall(tumor_range_turfs, src)
+		var/obj/effect/temp_visual/elite_tumor_wall/newwall = new(tumor_range_turfs, src)
 		newwall.activator = activator
 		newwall.ourelite = mychild
 
