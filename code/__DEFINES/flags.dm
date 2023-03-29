@@ -168,6 +168,5 @@
 #define EGG 		1024
 #define GROSS 		2048
 #define TOXIC		4096
-#define NOTHING     8192 //used for voxes. can be used whenever species does not like/dislike any specific sort of food
 
 GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768))
