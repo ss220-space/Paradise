@@ -73,8 +73,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	var/wiresexposed = 0
 	var/locked = 1
-	var/list/req_one_access = list(ACCESS_ROBOTICS)
-	var/list/req_access
+	var/list/req_access = list(ACCESS_ROBOTICS)
+	var/check_one_access = TRUE
 	var/ident = 0
 	//var/list/laws = list()
 	var/viewalerts = 0
@@ -1078,7 +1078,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/allowed(obj/item/I)
 	var/obj/dummy = new /obj(null) // Create a dummy object to check access on as to avoid having to snowflake check_access on every mob
 	dummy.req_access = req_access
-	dummy.req_one_access = req_one_access
+	dummy.check_one_access = check_one_access
 
 	if(dummy.check_access(I))
 		qdel(dummy)
@@ -1183,28 +1183,28 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	UnregisterSignal(old_upgrade, COMSIG_PARENT_QDELETING)
 
 /mob/living/silicon/robot/Topic(href, href_list)
-	if(..())
-		return 1
-
+	. = ..()
+	if(.)
+		return TRUE
 	if(href_list["mach_close"])
 		var/t1 = text("window=[href_list["mach_close"]]")
 		unset_machine()
 		src << browse(null, t1)
-		return 1
+		return TRUE
 
 	if(href_list["mod"])
 		var/obj/item/O = locate(href_list["mod"])
 		if(istype(O) && (O.loc == src))
 			O.attack_self(src)
-		return 1
+		return TRUE
 
 	if(href_list["act"])
 		var/obj/item/O = locate(href_list["act"])
 		if(!istype(O) || !(O.loc == src || O.loc == src.module))
-			return 1
-
+			return TRUE
 		activate_module(O)
 		installed_modules()
+		return TRUE
 
 	//Show alerts window if user clicked on "Show alerts" in chat
 	if(href_list["showalerts"])
@@ -1228,9 +1228,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		else
 			to_chat(src, "Module isn't activated")
 		installed_modules()
-		return 1
-
-	return 1
+		return TRUE
 
 /mob/living/silicon/robot/proc/radio_menu()
 	radio.interact(src)
@@ -1515,7 +1513,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	lawupdate = 0
 	scrambledcodes = 1
 	has_camera = FALSE
-	req_one_access = list(ACCESS_CENT_SPECOPS)
+	req_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
 	magpulse = 1
 	pdahide = 1
@@ -1554,7 +1552,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	designation = "ERT"
 	lawupdate = 0
 	scrambledcodes = 1
-	req_one_access = list(ACCESS_CENT_SPECOPS)
+	req_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
 	limited_modules = list("Engineering", "Medical", "Security")
 	static_radio_channels = 1
@@ -1610,7 +1608,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	lawupdate = 0
 	scrambledcodes = 1
 	has_camera = FALSE
-	req_one_access = list(ACCESS_CENT_SPECOPS)
+	req_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
 	magpulse = 1
 	pdahide = 1
