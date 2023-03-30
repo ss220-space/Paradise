@@ -422,7 +422,7 @@
 		else if(threatlevel >= 4)
 			target = C
 			oldtarget_name = C.name
-			speak("Угрозы вторжения [threatlevel]-го уровня!")
+			speak("Угроза вторжения [threatlevel] уровня!")
 			playsound(loc, pick('sound/voice/bcriminal.ogg', 'sound/voice/bjustice.ogg', 'sound/voice/bfreeze.ogg'), 50, 0)
 			visible_message("<b>[src]</b> указывает на [C.name]!")
 			mode = BOT_HUNT
