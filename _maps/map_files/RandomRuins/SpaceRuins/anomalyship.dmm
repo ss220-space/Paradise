@@ -24,7 +24,7 @@
 "ap" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/hall)
 "at" = (
 /turf/simulated/mineral/plasma,
@@ -148,7 +148,7 @@
 	dir = 6
 	},
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/medbay)
 "dR" = (
 /turf/simulated/mineral/iron,
@@ -172,7 +172,7 @@
 /area/space)
 "ez" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/hall)
 "eG" = (
 /obj/effect/landmark/damageturf,
@@ -241,7 +241,7 @@
 	dir = 1
 	},
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/medbay)
 "fE" = (
 /obj/effect/decal/cleanable/dirt,
@@ -290,11 +290,8 @@
 /area/aeterna13/ae13/epicenter)
 "gd" = (
 /obj/structure/rack,
-/obj/item/storage/firstaid/o2{
-	pixel_x = 2;
-	pixel_y = 2
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/storage/firstaid/o2,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkbluealtstrip"
@@ -309,7 +306,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/energy)
 "gO" = (
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -326,9 +323,7 @@
 /area/aeterna13/ae13/medbay)
 "hc" = (
 /obj/structure/alien/weeds,
-/obj/structure/alien/weeds/node,
-/obj/item/clothing/suit/furcoat,
-/obj/effect/decal/cleanable/blood/gibs/body,
+/obj/item/slimepotion/speed,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/aeterna13/ae13_asteroid)
 "hj" = (
@@ -412,7 +407,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/command)
 "iq" = (
 /obj/effect/landmark/damageturf,
@@ -434,7 +429,6 @@
 /turf/simulated/wall/shuttle,
 /area/aeterna13/ae13/miner)
 "iQ" = (
-/obj/structure/sign/poster/official/science,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -483,7 +477,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/miner)
 "jH" = (
 /obj/structure/chair/comfy/shuttle{
@@ -493,12 +487,6 @@
 /obj/effect/contractor_flare,
 /turf/simulated/floor,
 /area/aeterna13/ae13/command)
-"jK" = (
-/obj/structure/alien/weeds,
-/obj/structure/bed/nest,
-/obj/item/clothing/suit/space/nasavoid/captain,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
 "kG" = (
 /obj/item/storage/firstaid/regular{
 	pixel_x = -4;
@@ -580,19 +568,6 @@
 	name = "floor"
 	},
 /area/aeterna13/ae13/hall)
-"mD" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/obj/effect/decal/cleanable/blood/writing,
-/turf/simulated/floor/plating/asteroid{
-	icon_state = "asteroidfloor";
-	name = "floor"
-	},
-/area/aeterna13/ae13/hall)
 "mE" = (
 /obj/machinery/access_button{
 	command = "cycle_exterior";
@@ -650,6 +625,8 @@
 /obj/structure/alien/weeds,
 /mob/living/simple_animal/hostile/alien/queen/large{
 	desc = "A gigantic alien who is in charge of the hive and all of its loyal servants.";
+	health = 600;
+	maxHealth = 600;
 	name = "alien queen";
 	pixel_x = -16;
 	plants_off = 1
@@ -702,7 +679,7 @@
 	pixel_x = -32
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/miner)
 "nX" = (
 /obj/machinery/door/airlock/external{
@@ -719,10 +696,7 @@
 	tag = ""
 	},
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating/asteroid{
-	icon_state = "asteroidfloor";
-	name = "floor"
-	},
+/turf/simulated/floor,
 /area/aeterna13/ae13/hall)
 "oB" = (
 /obj/effect/decal/cleanable/dirt,
@@ -737,7 +711,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/energy)
 "oD" = (
 /obj/effect/decal/cleanable/dirt,
@@ -748,8 +722,12 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/blood/writing,
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/hall)
+"oQ" = (
+/obj/structure/alien/weeds,
+/turf/simulated/mineral/iron,
+/area/aeterna13/ae13_asteroid)
 "oR" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -758,19 +736,6 @@
 	icon_state = "chapel"
 	},
 /area/aeterna13/ae13/command)
-"oV" = (
-/obj/structure/alien/weeds,
-/obj/structure/bed/nest,
-/obj/item/borg/upgrade/modkit/damage{
-	pixel_x = 8;
-	pixel_y = 13
-	},
-/obj/item/borg/upgrade/modkit/cooldown{
-	pixel_x = -5;
-	pixel_y = 1
-	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
 "po" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -782,7 +747,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/hall)
 "pv" = (
 /obj/effect/decal/cleanable/dirt,
@@ -804,9 +769,17 @@
 	},
 /area/aeterna13/ae13/miner)
 "pE" = (
-/obj/structure/sign/poster/official/build,
-/turf/simulated/wall/shuttle/onlyselfsmooth,
-/area/aeterna13/ae13/miner)
+/obj/structure/alien/weeds,
+/obj/item/borg/upgrade/modkit/damage{
+	pixel_x = 8;
+	pixel_y = 13
+	},
+/obj/item/borg/upgrade/modkit/cooldown{
+	pixel_x = -5;
+	pixel_y = 1
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/aeterna13/ae13_asteroid)
 "pI" = (
 /mob/living/simple_animal/hostile/carp/megacarp,
 /turf/space,
@@ -848,6 +821,10 @@
 	},
 /turf/simulated/floor,
 /area/aeterna13/ae13/medbay)
+"pX" = (
+/obj/structure/alien/resin/wall,
+/turf/space,
+/area/aeterna13/ae13_asteroid)
 "pZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
@@ -861,7 +838,7 @@
 	icon_state = "1-8"
 	},
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/medbay)
 "qk" = (
 /obj/effect/decal/cleanable/dirt,
@@ -945,7 +922,8 @@
 /area/aeterna13/ae13/epicenter)
 "rP" = (
 /obj/structure/alien/weeds,
-/obj/item/ammo_box/magazine/m10mm,
+/obj/effect/decal/cleanable/blood/gibs/body,
+/obj/item/clothing/suit/furcoat,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/aeterna13/ae13_asteroid)
 "rX" = (
@@ -967,7 +945,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/hall)
 "se" = (
 /obj/structure/sign/poster/official/nanotrasen_logo{
@@ -1054,6 +1032,13 @@
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/aeterna13/ae13_asteroid)
+"tv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/metal{
+	amount = 2
+	},
+/turf/simulated/floor,
+/area/aeterna13/ae13/miner)
 "tx" = (
 /obj/effect/spawner/lootdrop/bluespace_tap/organic,
 /turf/simulated/floor/plating/asteroid{
@@ -1061,6 +1046,21 @@
 	name = "floor"
 	},
 /area/aeterna13/ae13/epicenter)
+"ty" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds/node,
+/obj/effect/decal/cleanable/blood/gibs/old,
+/obj/item/clothing/accessory/cowboyshirt/red,
+/obj/item/gun/projectile/automatic/pistol{
+	pixel_x = 15;
+	pixel_y = -12
+	},
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = -7;
+	pixel_y = 10
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/aeterna13/ae13_asteroid)
 "tA" = (
 /obj/machinery/light{
 	dir = 8
@@ -1160,7 +1160,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil,
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/medbay)
 "uS" = (
 /obj/structure/table/reinforced,
@@ -1199,11 +1199,13 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/built,
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/miner)
 "vw" = (
-/obj/structure/sign/poster/official/science,
-/turf/simulated/wall/shuttle/onlyselfsmooth,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/engineering,
+/obj/item/clothing/gloves/color/yellow/fake,
+/turf/simulated/floor,
 /area/aeterna13/ae13/epicenter)
 "vx" = (
 /turf/simulated/floor/plating/asteroid/airless,
@@ -1244,7 +1246,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/hall)
 "ww" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1252,8 +1254,14 @@
 /obj/item/stack/sheet/metal{
 	amount = 2
 	},
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/epicenter)
+"wy" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds/node,
+/mob/living/simple_animal/hostile/alien/sentinel,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/aeterna13/ae13_asteroid)
 "wC" = (
 /obj/structure/sign/poster/official/healthy,
 /turf/simulated/wall/shuttle/nodiagonal,
@@ -1341,12 +1349,6 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/wall/shuttle,
 /area/aeterna13/ae13/miner)
-"xG" = (
-/obj/structure/alien/weeds,
-/obj/structure/bed/nest,
-/obj/item/slimepotion/speed,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
 "xI" = (
 /obj/item/gps/ruin{
 	gpstag = "An#@13LyS&^ip"
@@ -1359,7 +1361,6 @@
 "xQ" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
-/obj/item/clothing/head/helmet/space/nasavoid/captain,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/aeterna13/ae13_asteroid)
 "xR" = (
@@ -1390,7 +1391,11 @@
 	},
 /area/aeterna13/ae13/medbay)
 "yH" = (
-/obj/machinery/vending/medical,
+/obj/machinery/constructable_frame/machine_frame,
+/obj/item/stack/cable_coil,
+/obj/item/stack/sheet/metal{
+	amount = 2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
@@ -1494,7 +1499,7 @@
 "Aw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/contractor_flare,
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/miner)
 "Az" = (
 /obj/structure/ore_box,
@@ -1515,6 +1520,7 @@
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
 	name = "floor"
@@ -1533,7 +1539,7 @@
 /turf/simulated/floor/indestructible/plating,
 /area/aeterna13/ae13/energy)
 "AR" = (
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/miner)
 "AT" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1579,10 +1585,7 @@
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid{
-	icon_state = "asteroidfloor";
-	name = "floor"
-	},
+/turf/simulated/floor,
 /area/aeterna13/ae13/hall)
 "BC" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
@@ -1593,7 +1596,7 @@
 /area/aeterna13/ae13/hall)
 "BN" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/miner)
 "BT" = (
 /obj/effect/contractor_flare,
@@ -1632,7 +1635,7 @@
 	tag = ""
 	},
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/hall)
 "Db" = (
 /obj/structure/cable,
@@ -1664,10 +1667,7 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "sepia"
-	},
+/turf/simulated/floor,
 /area/aeterna13/ae13/energy)
 "DH" = (
 /obj/machinery/bodyscanner,
@@ -1703,7 +1703,12 @@
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds/node,
 /obj/structure/bed/nest,
-/obj/item/gun/projectile/automatic/pistol,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/aeterna13/ae13_asteroid)
+"Ec" = (
+/obj/structure/alien/weeds,
+/obj/effect/contractor_flare,
+/mob/living/simple_animal/hostile/alien/sentinel,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/aeterna13/ae13_asteroid)
 "En" = (
@@ -1747,7 +1752,7 @@
 /obj/item/stack/sheet/metal{
 	amount = 2
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/holofloor,
 /area/aeterna13/ae13/hall)
 "Fl" = (
 /obj/effect/spawner/lootdrop/bluespace_tap/hat,
@@ -1820,7 +1825,7 @@
 	},
 /obj/structure/cable,
 /mob/living/simple_animal/hostile/mimic/crate,
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor/holofloor,
 /area/aeterna13/ae13/epicenter)
 "Gc" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1870,6 +1875,14 @@
 /obj/item/clothing/suit/xenos,
 /obj/structure/alien/egg/burst,
 /obj/item/clothing/head/xenos,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/aeterna13/ae13_asteroid)
+"Ha" = (
+/obj/structure/alien/weeds,
+/obj/item/clothing/suit/space/nasavoid/captain{
+	pixel_x = 8;
+	pixel_y = -7
+	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/aeterna13/ae13_asteroid)
 "Ho" = (
@@ -1939,11 +1952,10 @@
 	},
 /area/aeterna13/ae13/medbay)
 "JL" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/item/stack/sheet/metal{
 	amount = 2
 	},
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/miner)
 "JN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -1974,10 +1986,8 @@
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 5
 	},
-/turf/simulated/floor/plating/asteroid{
-	icon_state = "asteroidfloor";
-	name = "floor"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor,
 /area/aeterna13/ae13/hall)
 "Kd" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2022,9 +2032,9 @@
 /turf/simulated/wall/shuttle,
 /area/aeterna13/ae13/energy)
 "KD" = (
-/obj/structure/sign/poster/official/help_others,
-/turf/simulated/wall/shuttle/onlyselfsmooth,
-/area/aeterna13/ae13/medbay)
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor,
+/area/aeterna13/ae13/energy)
 "KG" = (
 /obj/machinery/door/airlock/multi_tile/glass,
 /turf/simulated/floor/plasteel{
@@ -2127,7 +2137,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil,
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/energy)
 "Mq" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2157,10 +2167,7 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/blood/writing,
-/turf/simulated/floor/plating/asteroid{
-	icon_state = "asteroidfloor";
-	name = "floor"
-	},
+/turf/simulated/floor,
 /area/aeterna13/ae13/hall)
 "MB" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2169,6 +2176,7 @@
 /turf/simulated/wall/shuttle,
 /area/aeterna13/ae13/miner)
 "Nb" = (
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "sepia"
@@ -2233,8 +2241,7 @@
 /area/aeterna13/ae13/energy)
 "NU" = (
 /obj/structure/alien/weeds,
-/obj/effect/decal/cleanable/blood/gibs/old,
-/obj/item/clothing/accessory/cowboyshirt/red,
+/mob/living/simple_animal/hostile/alien/sentinel,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/aeterna13/ae13_asteroid)
 "Ot" = (
@@ -2295,7 +2302,7 @@
 /obj/machinery/light/small/built{
 	dir = 1
 	},
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/energy)
 "Pm" = (
 /obj/structure/closet/secure_closet/personal/mining,
@@ -2320,7 +2327,7 @@
 /obj/structure/table/wood/fancy/orange,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/paper{
-	info = This is the end... I am writing this while looking at a statue that will crush me when I look away for even a second. We were flying to sell goods, but a bluespace anomaly appeared in the warehouse and a bunch of creatures scattered around our shuttle. I managed to run into the command post, but I won't be enough for long. My eyes are getting tired. I really want to close them mmsadmm...;
+	info = "This is the end... I am writing this while looking at a statue that will crush me when I look away for even a second. We were flying to sell goods, but a bluespace anomaly appeared in the warehouse and a bunch of creatures scattered around our shuttle. I managed to run into the command post, but I won't be enough for long. My eyes are getting tired. I really want to close them mmsadmm...";
 	name = "last note";
 	pixel_x = -5;
 	pixel_y = 8
@@ -2469,10 +2476,11 @@
 /turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/aeterna13/ae13/energy)
 "Sq" = (
-/obj/structure/alien/weeds,
-/obj/structure/bed/nest,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor,
+/area/aeterna13/ae13/epicenter)
 "Sr" = (
 /obj/effect/landmark/damageturf,
 /obj/effect/landmark/damageturf,
@@ -2484,7 +2492,7 @@
 /obj/item/stack/sheet/metal{
 	amount = 2
 	},
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/hall)
 "SK" = (
 /obj/structure/chair/comfy/shuttle{
@@ -2705,7 +2713,7 @@
 	icon_state = "portal";
 	name = "bluespace portal"
 	},
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/hall)
 "Ul" = (
 /obj/effect/landmark/damageturf,
@@ -2731,10 +2739,7 @@
 	tag = ""
 	},
 /obj/effect/mob_spawn/headcrab,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "sepia"
-	},
+/turf/simulated/floor,
 /area/aeterna13/ae13/hall)
 "UW" = (
 /obj/machinery/light{
@@ -2750,7 +2755,7 @@
 /area/aeterna13/ae13/epicenter)
 "UY" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/command)
 "Va" = (
 /obj/structure/sign/poster/official/state_laws,
@@ -2793,7 +2798,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/blood/gibs/old,
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/command)
 "Wh" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2810,10 +2815,7 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/blood/writing,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "sepia"
-	},
+/turf/simulated/floor,
 /area/aeterna13/ae13/hall)
 "Wy" = (
 /turf/simulated/wall/shuttle/nosmooth{
@@ -2826,7 +2828,7 @@
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 8
 	},
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/hall)
 "WM" = (
 /turf/simulated/wall/shuttle/nodiagonal,
@@ -2852,7 +2854,7 @@
 "XL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/energy)
 "XQ" = (
 /turf/simulated/wall/shuttle,
@@ -2889,21 +2891,30 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "sepia"
-	},
+/turf/simulated/floor,
 /area/aeterna13/ae13/epicenter)
 "Ye" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/flamethrower/full/tank,
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor,
 /area/aeterna13/ae13/miner)
 "Yg" = (
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "sepia"
+/obj/structure/rack,
+/obj/item/storage/toolbox/electrical{
+	pixel_x = -3;
+	pixel_y = 1
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = -1
+	},
+/obj/item/storage/toolbox/emergency{
+	pixel_x = 3;
+	pixel_y = -5
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
 	},
 /area/aeterna13/ae13/energy)
 "YH" = (
@@ -2919,6 +2930,7 @@
 "Zc" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds,
+/mob/living/simple_animal/hostile/alien/sentinel,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/aeterna13/ae13_asteroid)
 "Zh" = (
@@ -2942,6 +2954,14 @@
 	name = "floor"
 	},
 /area/aeterna13/ae13/epicenter)
+"ZR" = (
+/obj/structure/alien/weeds,
+/obj/item/clothing/head/helmet/space/nasavoid/captain{
+	pixel_x = -8;
+	pixel_y = 9
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/aeterna13/ae13_asteroid)
 
 (1,1,1) = {"
 ew
@@ -3350,7 +3370,7 @@ ew
 ew
 ew
 ew
-ew
+pI
 ew
 ew
 ew
@@ -3744,7 +3764,7 @@ Zv
 Zv
 Zv
 dR
-vx
+dR
 vx
 ew
 ew
@@ -3819,11 +3839,11 @@ dR
 Zv
 Zv
 Zv
-xG
+xQ
 Zv
 Zv
 dR
-vx
+dR
 vx
 ew
 ew
@@ -3898,9 +3918,9 @@ Zv
 Nr
 Dg
 Nr
-hc
+WS
 Zv
-dR
+Zv
 dR
 vx
 ew
@@ -3976,8 +3996,8 @@ Zv
 Nr
 Ca
 Nr
-Nr
-oV
+pE
+xQ
 Zv
 dR
 vx
@@ -4053,8 +4073,8 @@ dR
 Zv
 Nr
 Ca
-Nr
-VX
+hc
+rP
 Ca
 Zv
 dR
@@ -4131,10 +4151,10 @@ dR
 Zv
 Nr
 mn
-Nr
+VX
 GY
 Ca
-Nr
+NU
 Nr
 Nr
 vx
@@ -4361,7 +4381,7 @@ ew
 ew
 ew
 vx
-vx
+dR
 dR
 dR
 Ca
@@ -4440,7 +4460,7 @@ ew
 ew
 ew
 vx
-vx
+dR
 dR
 Ca
 Ca
@@ -5003,7 +5023,7 @@ ew
 ew
 ew
 rJ
-Ti
+vw
 iU
 Ti
 xj
@@ -5101,6 +5121,7 @@ ew
 ew
 ew
 ew
+pI
 ew
 ew
 ew
@@ -5108,7 +5129,6 @@ ew
 ew
 ew
 ew
-mH
 ew
 ew
 ew
@@ -5239,14 +5259,14 @@ lq
 lS
 Tk
 ww
-fw
+Sq
 eG
 WJ
 sc
 xC
 RS
 gv
-JL
+tv
 bP
 Wa
 ew
@@ -5321,7 +5341,7 @@ ZC
 iQ
 Bf
 po
-pE
+uc
 mS
 AE
 BN
@@ -5552,10 +5572,10 @@ Fl
 mX
 En
 En
-vw
+iR
 Ro
 Ht
-pE
+uc
 Wh
 fW
 Qi
@@ -5889,7 +5909,7 @@ Zv
 XG
 Nr
 NU
-rP
+Nr
 VX
 Ca
 Ca
@@ -5965,11 +5985,11 @@ dR
 dR
 Zv
 Ca
-dR
 Nr
 Nr
 Nr
-jK
+Nr
+xQ
 Ca
 Zv
 dR
@@ -6041,10 +6061,10 @@ vx
 vx
 Nr
 Nr
-aE
+Ec
 Zv
-dR
-Dg
+Nr
+Nr
 Nr
 WS
 Nr
@@ -6120,11 +6140,11 @@ Nr
 WS
 Zv
 Zv
-dR
-dR
-WS
-Nr
-Nr
+Ca
+Ha
+ty
+ZR
+NU
 YH
 Zv
 dR
@@ -6179,7 +6199,7 @@ Db
 HV
 WJ
 ok
-KD
+LF
 RC
 Ce
 Oy
@@ -6197,8 +6217,8 @@ dR
 dR
 Nr
 Ca
-dR
-YH
+oQ
+oQ
 Nr
 Nr
 Nr
@@ -6206,7 +6226,7 @@ xQ
 Ca
 Zv
 dR
-vx
+dR
 vx
 ew
 ew
@@ -6256,7 +6276,7 @@ wK
 qN
 xh
 To
-mD
+Wj
 SS
 RC
 ah
@@ -6284,7 +6304,7 @@ Zv
 Zv
 Zv
 dR
-vx
+dR
 vx
 ew
 ew
@@ -6357,12 +6377,12 @@ dR
 Nr
 Nr
 Nr
-Dg
+Nr
 Zv
 dR
 dR
 dR
-vx
+dR
 vx
 ew
 ew
@@ -6413,7 +6433,7 @@ Mp
 Ba
 Fu
 ap
-KD
+LF
 Ko
 uN
 FN
@@ -6436,16 +6456,16 @@ YH
 Nr
 Nr
 Zv
+Zv
 dR
 dR
 dR
 dR
 vx
-vx
 ew
 ew
 ew
-ew
+pI
 ew
 ew
 ew
@@ -6506,7 +6526,7 @@ vx
 vx
 dR
 dR
-WS
+wy
 WS
 Zv
 Ca
@@ -6563,7 +6583,7 @@ ew
 ew
 ew
 YV
-jp
+KD
 DX
 yk
 Mf
@@ -6591,7 +6611,7 @@ Nr
 Gp
 Nr
 Zv
-dR
+Zv
 dR
 dR
 dR
@@ -6664,11 +6684,11 @@ dR
 dR
 Ca
 Ca
-Dg
-Sq
+Nr
+Nr
 Zc
 Ca
-dR
+Zv
 dR
 dR
 dR
@@ -6741,7 +6761,7 @@ dR
 dR
 dR
 dR
-dR
+pX
 Zv
 Zv
 Zv
@@ -6826,8 +6846,8 @@ dR
 dR
 dR
 dR
-vx
-vx
+dR
+dR
 vx
 vx
 ew
@@ -7442,7 +7462,7 @@ ew
 ew
 ew
 ew
-ew
+pI
 ew
 ew
 ew
@@ -7681,7 +7701,7 @@ ew
 ew
 ew
 ew
-mH
+ew
 ew
 ew
 ew
