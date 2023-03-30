@@ -102,8 +102,8 @@
 #define ui_alien_nightvision "EAST-1:28,CENTER+2:25"
 
 //Middle right (status indicators)
+#define ui_hydration "EAST-1:28,CENTER-4:9"
 #define ui_nutrition "EAST-1:28,CENTER-3:11"
-#define ui_hydration "EAST-1:28,CENTER-3:10"
 #define ui_temp "EAST-1:28,CENTER-2:13"
 #define ui_healthdoll "EAST-1:28,CENTER-1:15"
 #define ui_health "EAST-1:28,CENTER:17"

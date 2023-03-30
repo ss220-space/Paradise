@@ -930,10 +930,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 					else
 						throw_alert("nutrition", /obj/screen/alert/starving, override = TRUE)
 				if("hydration")
-					if(prob(50))
-						throw_alert("hydration", /obj/screen/alert/fat, override = TRUE)
-					else
-						throw_alert("hydration", /obj/screen/alert/starving, override = TRUE)
+					throw_alert("hydration", /obj/screen/alert/water/dehydrated, override = TRUE)
 				if("weightless")
 					throw_alert("weightless", /obj/screen/alert/weightless, override = TRUE)
 				if("fire")
