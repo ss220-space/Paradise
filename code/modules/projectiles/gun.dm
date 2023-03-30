@@ -404,7 +404,7 @@
 	return TRUE
 
 /obj/item/gun/extinguish_light()
-	if(gun_light.on)
+	if(gun_light?.on)
 		toggle_gunlight()
 		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
 
@@ -552,3 +552,23 @@
 
 	// The gun is equipped in their hands, give them the zoom ability.
 	azoom.Grant(user)
+
+//Guns can be placed on racks
+/obj/item/gun
+	var/on_rack = FALSE
+
+/obj/item/gun/proc/place_on_rack()
+	on_rack = TRUE
+	var/matrix/M = matrix()
+	M.Turn(-90)
+	transform = M
+
+/obj/item/gun/proc/remove_from_rack()
+	if(on_rack)
+		var/matrix/M = matrix()
+		transform = M
+		on_rack = FALSE
+
+/obj/item/gun/pickup(mob/user)
+	. = ..()
+	remove_from_rack()
