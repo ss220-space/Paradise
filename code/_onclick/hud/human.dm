@@ -370,6 +370,12 @@
 	mymob.healthdoll = new()
 	infodisplay += mymob.healthdoll
 
+	mymob.nutrition_alert = new()
+	infodisplay += mymob.nutrition_alert
+
+	mymob.hydration_alert = new()
+	infodisplay += mymob.hydration_alert
+
 	mymob.pullin = new /obj/screen/pull()
 	mymob.pullin.icon = ui_style
 	mymob.pullin.update_icon(mymob)

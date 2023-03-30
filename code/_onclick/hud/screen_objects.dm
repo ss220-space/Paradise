@@ -540,6 +540,18 @@
 		var/mob/living/carbon/H = usr
 		H.check_self_for_injuries()
 
+/obj/screen/nutrition
+	name = "nutrition"
+	icon = 'icons/mob/screen_alert.dmi'
+	icon_state = null
+	screen_loc = ui_nutrition
+
+/obj/screen/hydration
+	name = "hydration"
+	icon = 'icons/mob/screen_alert.dmi'
+	icon_state = null
+	screen_loc = ui_hydration
+
 /obj/screen/component_button
 	var/obj/screen/parent
 

@@ -586,3 +586,5 @@ DEFAULT_MAP /datum/map/cyberiad
 ## Override server map by specified, uncomment to apply
 # OVERRIDE_MAP /datum/map/delta
 
+## Is water poison allowed on the server?
+#WATER_POISON

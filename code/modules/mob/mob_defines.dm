@@ -28,6 +28,8 @@
 	*/
 	var/obj/screen/leap_icon = null
 	var/obj/screen/healthdoll/healthdoll = null
+	var/obj/screen/nutrition/nutrition_alert = null
+	var/obj/screen/hydration/hydration_alert = null
 
 	var/use_me = 1 //Allows all mobs to use the me verb by default, will have to manually specify they cannot
 	var/damageoverlaytemp = 0

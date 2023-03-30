@@ -281,6 +281,7 @@
 
 		var/health_deficiency = max(H.maxHealth - H.health, H.staminaloss)
 		var/hungry = (500 - H.nutrition)/5 // So overeat would be 100 and default level would be 80
+		var/thirst = (500 - H.hydration)/5 // So overeat would be 100 and default level would be 80
 		if(H.reagents)
 			for(var/datum/reagent/R in H.reagents.reagent_list)
 				if(R.shock_reduction)
@@ -295,6 +296,8 @@
 
 		if((hungry >= 70) && !flight)
 			. += hungry/50
+		if((thirst >= 70) && !flight)
+			. += thirst/50
 		if(FAT in H.mutations)
 			. += (1.5 - flight)
 		if (coldmod>0)

@@ -638,7 +638,9 @@
 
 	if(status_flags & GODMODE)
 		return 0	//godmode
-
+	if(NO_HUNGER in dna.species.species_traits)
+		if(nutrition >= 0 && stat != DEAD)
+			handle_nutrition_alerts()
 	if(!(NO_HUNGER in dna.species.species_traits))
 		if(FAT in mutations)
 			if(overeatduration < 100)
@@ -910,37 +912,40 @@
 				healthdoll.cached_healthdoll_overlays = new_overlays
 
 /mob/living/carbon/human/proc/handle_nutrition_alerts() //This is a terrible abuse of the alert system; something like this should be a HUD element
+	if(!nutrition_alert)
+		return
 	if(NO_HUNGER in dna.species.species_traits)
+		nutrition_alert.icon_state = null
 		return
 	if(mind?.vampire && (mind in SSticker.mode.vampires)) //Vampires
 		switch(nutrition)
 			if(NUTRITION_LEVEL_FULL to INFINITY)
-				throw_alert("nutrition", /obj/screen/alert/fat/vampire)
+				nutrition_alert.icon_state = "v_fat"
 			if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
-				throw_alert("nutrition", /obj/screen/alert/full/vampire)
+				nutrition_alert.icon_state = "v_full"
 			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-				throw_alert("nutrition", /obj/screen/alert/well_fed/vampire)
+				nutrition_alert.icon_state = "v_well_fed"
 			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-				throw_alert("nutrition", /obj/screen/alert/fed/vampire)
+				nutrition_alert.icon_state = "v_fed"
 			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-				throw_alert("nutrition", /obj/screen/alert/hungry/vampire)
+				nutrition_alert.icon_state = "v_hungry"
 			else
-				throw_alert("nutrition", /obj/screen/alert/starving/vampire)
+				nutrition_alert.icon_state = "v_starving"
 
 	else //Any other non-vampires
 		switch(nutrition)
 			if(NUTRITION_LEVEL_FULL to INFINITY)
-				throw_alert("nutrition", /obj/screen/alert/fat)
+				nutrition_alert.icon_state = "fat"
 			if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
-				throw_alert("nutrition", /obj/screen/alert/full)
+				nutrition_alert.icon_state = "full"
 			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-				throw_alert("nutrition", /obj/screen/alert/well_fed)
+				nutrition_alert.icon_state = "well_fed"
 			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-				throw_alert("nutrition", /obj/screen/alert/fed)
+				nutrition_alert.icon_state = "fed"
 			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-				throw_alert("nutrition", /obj/screen/alert/hungry)
+				nutrition_alert.icon_state = "hungry"
 			else
-				throw_alert("nutrition", /obj/screen/alert/starving)
+				nutrition_alert.icon_state = "starving"
 
 /mob/living/carbon/human/handle_random_events()
 	// Puke if toxloss is too high

@@ -95,8 +95,11 @@
 			to_chat(user, "<span class='warning'>[src] is full.</span>")
 			return
 
+		var/is_dirty = target.reagents.is_dirty_water()
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'>You fill [src] with [trans] unit\s of the contents of [target].</span>")
+		if(is_dirty)
+			reagents.dirty_water()
 
 	else if(reagents.total_volume)
 		if(user.a_intent == INTENT_HARM)

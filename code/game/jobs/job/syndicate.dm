@@ -41,6 +41,8 @@
 		/obj/item/storage/box/matches = 1
 	)
 	implants = list(
+		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
+		/obj/item/organ/internal/cyberimp/chest/hydration,
 		/obj/item/implant/dust
 	)
 

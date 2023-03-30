@@ -120,6 +120,7 @@
 			return
 		else
 			reagents.add_reagent("water", min(volume - reagents.total_volume, amount_per_transfer_from_this))
+			reagents.dirty_water()
 			to_chat(user, "<span class='notice'>You fill [src] from [source].</span>")
 			return
 	..()
