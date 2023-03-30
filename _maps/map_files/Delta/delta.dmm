@@ -109453,7 +109453,7 @@
 "tns" = (
 /obj/structure/window/reinforced,
 /obj/structure/closet/secure_closet/brigdoc{
-	req_one_access = list(2,5)
+	req_access = list(2,5)
 	},
 /obj/item/handheld_defibrillator,
 /obj/item/storage/belt/medical,
