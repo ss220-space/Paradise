@@ -14,6 +14,7 @@
 /datum/reagent/consumable/on_mob_life(mob/living/M)
 	if(!(M.mind in SSticker.mode.vampires))
 		M.adjust_nutrition(nutriment_factor)	// For hunger and fatness
+		M.adjust_hydration(hydration_factor)	// For thirst and hydration
 	return ..()
 
 /datum/reagent/consumable/nutriment		// Pure nutriment, universally digestable and thus slightly less effective

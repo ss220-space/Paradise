@@ -908,7 +908,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 			sleep(rand(100,250))
 			hal_screwyhud = SCREWYHUD_NONE
 		if("fake_alert")
-			var/alert_type = pick("not_enough_oxy","not_enough_tox","not_enough_co2","too_much_oxy","too_much_co2","too_much_tox","newlaw","nutrition","charge","weightless","fire","locked","hacked","temp","pressure")
+			var/alert_type = pick("not_enough_oxy","not_enough_tox","not_enough_co2","too_much_oxy","too_much_co2","too_much_tox","newlaw","nutrition","hydration","charge","weightless","fire","locked","hacked","temp","pressure")
 			if(specific)
 				alert_type = specific
 			switch(alert_type)
@@ -929,6 +929,11 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 						throw_alert("nutrition", /obj/screen/alert/fat, override = TRUE)
 					else
 						throw_alert("nutrition", /obj/screen/alert/starving, override = TRUE)
+				if("hydration")
+					if(prob(50))
+						throw_alert("hydration", /obj/screen/alert/fat, override = TRUE)
+					else
+						throw_alert("hydration", /obj/screen/alert/starving, override = TRUE)
 				if("weightless")
 					throw_alert("weightless", /obj/screen/alert/weightless, override = TRUE)
 				if("fire")
