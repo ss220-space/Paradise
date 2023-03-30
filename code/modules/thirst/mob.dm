@@ -28,9 +28,6 @@
 
 /mob/living/carbon/human/handle_chemicals_in_body()
 	. = ..()
-	if(mind?.vampire)
-		handle_thirst_alerts()
-		return
 	if(!(NO_THIRST in dna.species.species_traits))
 		if(hydration >= 0 && stat != DEAD)
 			handle_thirst_alerts()
@@ -61,12 +58,8 @@
 	if((NO_THIRST in dna.species.species_traits) || mind?.vampire)
 		return
 	switch(hydration)
-		if(HYDRATION_LEVEL_WELL_FED to INFINITY)
-			throw_alert("hydration", /obj/screen/alert/water/full)
-		if(HYDRATION_LEVEL_GOOD to HYDRATION_LEVEL_WELL_FED)
-			throw_alert("hydration", /obj/screen/alert/water/well_hydrated)
-		if(HYDRATION_LEVEL_MEDIUM to HYDRATION_LEVEL_GOOD)
-			throw_alert("hydration", /obj/screen/alert/water/hydrated)
+		if(HYDRATION_LEVEL_MEDIUM to INFINITY)
+			clear_alert("hydration")
 		if(HYDRATION_LEVEL_SMALL to HYDRATION_LEVEL_MEDIUM)
 			throw_alert("hydration", /obj/screen/alert/water/thirsty)
 		else
