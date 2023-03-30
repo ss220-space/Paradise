@@ -18,7 +18,7 @@
 	var/mob/dead/observer/chosen_ghost
 	if(M.ghost_can_reenter())
 		for(var/mob/dead/observer/ghost in GLOB.player_list)
-			if(ghost.mind && ghost.mind.current == M && ghost.client)
+			if(ghost.mind?.current == M && ghost.client)
 				chosen_ghost = ghost
 				break
 	if(!chosen_ghost)
@@ -114,10 +114,10 @@
 		to_chat(attacker, "<span class='warning'>A mysterious force prevents you from claiming [living]'s mind.</span>")
 		return
 
-	var/time = 40
+	var/time = 4 SECONDS
 	var/crosshair = victim_brain
 	if(target_body)
-		time = 90
+		time = 9 SECONDS
 		crosshair = target_body
 		attacker.visible_message("<span class='warning'>[attacker] starts pressing [src] to [target_body]'s body, ripping through the surface</span>", \
 		"<span class='clock'>You start extracting [target_body]'s consciousness from [target_body.p_their()] body.</span>")
@@ -165,7 +165,7 @@
 	if(istype(O, /obj/item/storage/bible) && istype(src, /obj/item/mmi/robotic_brain/clockwork) && !isclocker(user) && user.mind.isholy)
 		to_chat(user, "<span class='notice'>You begin to exorcise [src].</span>")
 		playsound(src, 'sound/hallucinations/veryfar_noise.ogg', 40, TRUE)
-		if(do_after(user, 40, target = src))
+		if(do_after(user, 4 SECONDS, target = src))
 			var/obj/item/mmi/robotic_brain/positronic/purified = new(get_turf(src))
 			if(brainmob.key)
 				SSticker.mode.remove_clocker(brainmob.mind)
