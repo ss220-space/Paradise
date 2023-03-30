@@ -95,6 +95,15 @@
 #define NUTRITION_LEVEL_HYPOGLYCEMIA 100
 #define NUTRITION_LEVEL_CURSED 0
 
+//Hydration levels for humans.
+#define HYDRATION_LEVEL_FULL 550
+#define HYDRATION_LEVEL_WELL_FED 450
+#define HYDRATION_LEVEL_GOOD 350
+#define HYDRATION_LEVEL_MEDIUM 250
+#define HYDRATION_LEVEL_SMALL 150
+#define HYDRATION_LEVEL_INEFFICIENT 100
+#define HYDRATION_LEVEL_CURSED 0
+
 //Used as an upper limit for species that continuously gain nutriment
 #define NUTRITION_LEVEL_ALMOST_FULL 535
 
@@ -157,3 +166,4 @@
 #define EXOTIC_COLOR	"exotic_blood_colour"
 #define NO_OBESITY		"no_obesity"
 #define RUNIC_MIND		"runic_mind"
+#define NO_THIRST		"no_thirst"
