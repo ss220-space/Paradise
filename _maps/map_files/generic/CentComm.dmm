@@ -3736,7 +3736,6 @@
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "LMG M249 SAW";
-	req_access = null;
 	req_access = list(114)
 	},
 /obj/item/ammo_box/magazine/mm556x45/ap,
@@ -12332,7 +12331,6 @@
 /area/ninja/outside)
 "gzi" = (
 /obj/structure/closet/secure_closet/medical1{
-	req_access = null;
 	req_access = list(150)
 	},
 /obj/item/storage/box/beakers/bluespace,
@@ -16544,7 +16542,6 @@
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "Automatic Shotgun";
-	req_access = null;
 	req_access = list(114)
 	},
 /obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
@@ -19352,7 +19349,6 @@
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "LMG M249 SAW";
-	req_access = null;
 	req_access = list(114)
 	},
 /obj/item/ammo_box/magazine/mm556x45/ap,
@@ -23400,7 +23396,6 @@
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "Automatic Shotgun";
-	req_access = null;
 	req_access = list(114)
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
@@ -28092,8 +28087,7 @@
 /area/shuttle/transport)
 "ouC" = (
 /obj/structure/closet/secure_closet/engineering_electrical{
-	req_access = null;
-	req_access_txt = "159"
+	req_access = list(159)
 	},
 /obj/item/storage/backpack/syndicate/engineer,
 /obj/item/holosign_creator/atmos,
@@ -31053,8 +31047,7 @@
 /area/syndicate_mothership/elite_squad)
 "pSe" = (
 /obj/structure/closet/secure_closet/engineering_electrical{
-	req_access = null;
-	req_access_txt = "159"
+	req_access = list(159)
 	},
 /obj/item/storage/backpack/syndicate/engineer,
 /obj/item/holosign_creator/atmos,
@@ -32307,7 +32300,6 @@
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "Pulse ANNIHILATOR";
-	req_access = null;
 	req_access = list(114)
 	},
 /obj/item/gun/energy/pulse/destroyer/annihilator,
@@ -45448,7 +45440,6 @@
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "X-ray laser";
-	req_access = null;
 	req_access = list(114)
 	},
 /obj/item/gun/energy/xray,
@@ -47283,8 +47274,7 @@
 /area/shuttle/syndicate)
 "xGV" = (
 /obj/structure/closet/secure_closet/engineering_welding{
-	req_access = null;
-	req_access_txt = "159"
+	req_access = list(159)
 	},
 /obj/item/extinguisher/mini,
 /obj/structure/curtain/black{

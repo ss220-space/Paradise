@@ -917,7 +917,6 @@
 	faction = "syndicate";
 	name = "Base turret controls";
 	pixel_y = 30;
-	req_access = null;
 	req_access = list(150);
 	syndicate = 1
 	},
@@ -1358,7 +1357,6 @@
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "do" = (
 /obj/structure/closet/secure_closet/medical1{
-	req_access = null;
 	req_access = list(150)
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5271,7 +5269,6 @@
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "lm" = (
 /obj/structure/closet/secure_closet/medical1{
-	req_access = null;
 	req_access = list(150)
 	},
 /obj/effect/decal/cleanable/dirt,

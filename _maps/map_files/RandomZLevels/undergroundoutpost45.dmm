@@ -2076,7 +2076,7 @@
 	locked = 0;
 	name = "Hydroponics APC";
 	pixel_y = -25;
-	req_access = null;
+	req_access = list();
 	start_charge = 100
 	},
 /obj/structure/cable{
@@ -4253,7 +4253,7 @@
 	locked = 0;
 	name = "UO45 Bar APC";
 	pixel_y = 25;
-	req_access = null;
+	req_access = list();
 	start_charge = 100
 	},
 /turf/simulated/floor/plasteel{
@@ -5262,7 +5262,7 @@
 	locked = 0;
 	name = "UO45 Research Division APC";
 	pixel_y = -25;
-	req_access = null;
+	req_access = list();
 	start_charge = 100
 	},
 /obj/structure/disposalpipe/segment{
@@ -5768,7 +5768,7 @@
 	locked = 0;
 	name = "UO45 Gateway APC";
 	pixel_y = -25;
-	req_access = null;
+	req_access = list();
 	start_charge = 100
 	},
 /obj/machinery/light/small,
@@ -8018,7 +8018,7 @@
 	node1_concentration = 0.8;
 	node2_concentration = 0.2;
 	on = 1;
-	req_access = null;
+	req_access = list();
 	target_pressure = 4500
 	},
 /turf/simulated/floor/plasteel{
@@ -11204,7 +11204,7 @@
 	locked = 0;
 	name = "UO45 Mining APC";
 	pixel_y = -25;
-	req_access = null;
+	req_access = list();
 	start_charge = 100
 	},
 /obj/machinery/light/small,

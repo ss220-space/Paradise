@@ -1780,7 +1780,7 @@
 	locked = 0;
 	name = "Maint APC";
 	pixel_x = 25;
-	req_access = null;
+	req_access = list();
 	start_charge = 100
 	},
 /obj/structure/cable{
@@ -1861,7 +1861,7 @@
 	locked = 0;
 	name = "Kitchen APC";
 	pixel_x = 25;
-	req_access = null;
+	req_access = list();
 	start_charge = 100
 	},
 /obj/structure/cable{
@@ -3135,7 +3135,7 @@
 	locked = 0;
 	name = "Court APC";
 	pixel_x = 25;
-	req_access = null;
+	req_access = list();
 	start_charge = 100
 	},
 /obj/structure/cable,
@@ -3216,7 +3216,7 @@
 	locked = 0;
 	name = "Control APC";
 	pixel_x = 25;
-	req_access = null;
+	req_access = list();
 	start_charge = 100
 	},
 /obj/structure/cable{
@@ -3597,7 +3597,7 @@
 	locked = 0;
 	name = "Hangar APC";
 	pixel_x = 25;
-	req_access = null;
+	req_access = list();
 	start_charge = 100
 	},
 /obj/structure/cable{
@@ -5759,7 +5759,7 @@
 	locked = 0;
 	name = "Kitchen APC";
 	pixel_x = 25;
-	req_access = null;
+	req_access = list();
 	start_charge = 100
 	},
 /obj/structure/cable,

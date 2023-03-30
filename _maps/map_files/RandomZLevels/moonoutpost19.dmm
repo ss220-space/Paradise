@@ -3530,7 +3530,7 @@
 	locked = 0;
 	name = "Maintenance APC";
 	pixel_x = 25;
-	req_access = null;
+	req_access = list();
 	start_charge = 100
 	},
 /obj/structure/cable,
@@ -3807,7 +3807,7 @@
 	locked = 0;
 	name = "Research APC";
 	pixel_x = 25;
-	req_access = null;
+	req_access = list();
 	start_charge = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -5417,7 +5417,7 @@
 	locked = 0;
 	name = "Habitat APC";
 	pixel_y = 25;
-	req_access = null;
+	req_access = list();
 	start_charge = 100
 	},
 /turf/simulated/floor/plasteel,

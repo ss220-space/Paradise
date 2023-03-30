@@ -267,7 +267,6 @@
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "Pulse ANNIHILATOR";
-	req_access = null;
 	req_access = list(114)
 	},
 /obj/item/gun/energy/pulse/destroyer/annihilator,
@@ -884,7 +883,6 @@
 	anchored = 1;
 	layer = 2.9;
 	name = "IK-60 Laser Carbine";
-	req_access = null;
 	req_access = list(114)
 	},
 /obj/item/gun/projectile/automatic/lasercarbine,
@@ -6089,7 +6087,6 @@
 	anchored = 1;
 	layer = 2.9;
 	name = "Enforcer magazine";
-	req_access = null;
 	req_access = list(114)
 	},
 /obj/item/ammo_box/magazine/enforcer/lethal,
@@ -6529,8 +6526,7 @@
 	control_area = "\improper Centcom Emergency Shuttle";
 	name = "ERT Turret Control";
 	pixel_y = 25;
-	req_access = null;
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "carpet";
@@ -8583,7 +8579,7 @@
 "gCq" = (
 /obj/machinery/computer/syndicate_depot/teleporter{
 	name = "teleporter console";
-	req_access = null;
+	req_access = list();
 	use_power = 0
 	},
 /turf/simulated/floor/indestructible{
@@ -8595,7 +8591,6 @@
 	anchored = 1;
 	layer = 2.9;
 	name = "TX-20a Assault Rifle";
-	req_access = null;
 	req_access = list(114)
 	},
 /obj/structure/window/reinforced{
@@ -8697,7 +8692,6 @@
 	anchored = 1;
 	layer = 2.9;
 	name = "M-90gl 40mm grenade";
-	req_access = null;
 	req_access = list(114)
 	},
 /obj/item/ammo_box/a40mm,
@@ -9556,8 +9550,7 @@
 /area/centcom/jail)
 "hld" = (
 /obj/structure/closet/secure_closet/security{
-	req_access = null;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -11224,7 +11217,6 @@
 	anchored = 1;
 	layer = 2.9;
 	name = "ARG";
-	req_access = null;
 	req_access = list(114)
 	},
 /obj/structure/window/reinforced{
@@ -12316,7 +12308,6 @@
 	anchored = 1;
 	layer = 2.9;
 	name = "ARG magazine";
-	req_access = null;
 	req_access = list(114)
 	},
 /obj/item/ammo_box/magazine/m556,
@@ -15601,7 +15592,6 @@
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "Automatic Shotgun";
-	req_access = null;
 	req_access = list(114)
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
@@ -17725,7 +17715,6 @@
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "Grenade launcher";
-	req_access = null;
 	req_access = list(114)
 	},
 /obj/item/gun/projectile/automatic/gyropistol,
@@ -18909,7 +18898,6 @@
 	anchored = 1;
 	layer = 2.9;
 	name = "Frag grenade";
-	req_access = null;
 	req_access = list(114)
 	},
 /obj/structure/window/reinforced{
@@ -21082,7 +21070,6 @@
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "ML IC";
-	req_access = null;
 	req_access = list(114)
 	},
 /obj/item/gun/energy/immolator/multi,
@@ -27141,7 +27128,6 @@
 	anchored = 1;
 	layer = 2.9;
 	name = "Suppressor's";
-	req_access = null;
 	req_access = list(114)
 	},
 /obj/item/suppressor,
@@ -27494,7 +27480,6 @@
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "LMG M249 SAW";
-	req_access = null;
 	req_access = list(114)
 	},
 /obj/item/ammo_box/magazine/mm556x45/ap,
@@ -27840,7 +27825,6 @@
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "X-ray laser";
-	req_access = null;
 	req_access = list(114)
 	},
 /obj/item/gun/energy/xray,
@@ -29581,7 +29565,6 @@
 	anchored = 1;
 	layer = 2.9;
 	name = "M-90gl magazine";
-	req_access = null;
 	req_access = list(114)
 	},
 /obj/item/ammo_box/magazine/m556,
@@ -32469,7 +32452,6 @@
 	anchored = 1;
 	layer = 2.9;
 	name = "M-90gl";
-	req_access = null;
 	req_access = list(114)
 	},
 /obj/structure/window/reinforced{
