@@ -582,8 +582,8 @@
 	if(declare_arrests)
 		var/area/location = get_area(src)
 		speak("[arrest_type ? "Провожу задержание" : "Провожу арест"] <b>[C]</b>, мерз[genderize_ru(C.gender,"авца","авки","ости","авцев")] [threat] уровня опасности, в «[location]».", radio_channel)
-	C.visible_message("<span class='danger'>[src] оглушает [C]!</span>",\
-							"<span class='userdanger'>[src] оглушает вас!</span>")
+	C.visible_message("<span class='danger'>[src] has stunned [C]!</span>",\
+							"<span class='userdanger'>[src] has stunned you!</span>")
 
 /mob/living/simple_animal/bot/ed209/proc/cuff(mob/living/carbon/C)
 	mode = BOT_ARREST
