@@ -35,7 +35,7 @@
 	attacktext = "preaches to"
 	attack_sound = 'sound/magic/ratvar_attack.ogg'
 	throw_message = "doesn't affect the purity of"
-	speed = 1.6
+	speed = 1.4
 	move_to_delay = 10
 	mouse_opacity = MOUSE_OPACITY_ICON
 	death_sound = 'sound/misc/demon_dies.ogg'
