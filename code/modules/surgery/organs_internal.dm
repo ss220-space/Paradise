@@ -235,7 +235,7 @@
 		if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced))
 			tool_name = "regenerative membrane"
 		else if(istype(tool, /obj/item/stack/nanopaste))
-			tool_name = "[tool]" //what else do you call nanopaste medically?
+			tool_name = "[tool.name]" //what else do you call nanopaste medically?
 
 		if(!hasorgans(target))
 			to_chat(user, "They do not have organs to mend!")
@@ -276,7 +276,7 @@
 		if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced))
 			tool_name = "regenerative membrane"
 		if(istype(tool, /obj/item/stack/nanopaste))
-			tool_name = "[tool]" //what else do you call nanopaste medically?
+			tool_name = "[tool.name]" //what else do you call nanopaste medically?
 
 		if(!hasorgans(target))
 			return
