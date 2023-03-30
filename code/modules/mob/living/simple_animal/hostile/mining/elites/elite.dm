@@ -442,12 +442,13 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	name = "magic wall"
 	icon = 'icons/turf/walls/hierophant_wall_temp.dmi'
 	icon_state = "wall"
-	duration = 50
+	duration = 100
 	layer = BELOW_MOB_LAYER
 	plane = GAME_PLANE
 	color = rgb(255,0,0)
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	light_color = LIGHT_COLOR_PURE_RED
+	smooth = SMOOTH_TRUE
 	var/activator
 	var/ourelite
 
