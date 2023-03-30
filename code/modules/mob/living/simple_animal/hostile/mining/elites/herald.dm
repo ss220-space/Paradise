@@ -228,7 +228,7 @@
 
 /obj/item/projectile/herald/teleshot
 	name = "golden bolt"
-	damage = 0
+	damage = 25
 	color = rgb(255,255,102)
 
 /obj/item/projectile/herald/prehit(atom/target)
