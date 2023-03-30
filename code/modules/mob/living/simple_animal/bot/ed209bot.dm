@@ -369,9 +369,9 @@
 		else if(threatlevel >= 4)
 			target = C
 			oldtarget_name = C.name
-			speak("Угрозы вторжения [threatlevel] уровня!")
+			speak("Угроза вторжения [threatlevel] уровня!")
 			playsound(loc, pick('sound/voice/ed209_20sec.ogg', 'sound/voice/edplaceholder.ogg'), 50, 0)
-			visible_message("<b>[src]</b> указывает на [C.name]!")
+			visible_message("<b>[src]</b> points at [C.name]!")
 			mode = BOT_HUNT
 			spawn(0)
 				handle_automated_action()	// ensure bot quickly responds to a perp
@@ -386,7 +386,7 @@
 
 /mob/living/simple_animal/bot/ed209/explode()
 	walk_to(src,0)
-	visible_message("<span class='userdanger'>[src] взрывается!</span>")
+	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 
 	var/obj/item/ed209_assembly/Sa = new /obj/item/ed209_assembly(Tsec)
@@ -581,15 +581,15 @@
 	add_attack_logs(src, C, "stunned")
 	if(declare_arrests)
 		var/area/location = get_area(src)
-		speak("[arrest_type ? "Задерживаю" : "Арестовываю"] <b>[C]</b>, мерз[genderize_ru(C.gender,"авца","авку","ость","авцев")] [threat]-го уровня опасности, в «[location]».", radio_channel)
+		speak("[arrest_type ? "Провожу задержание" : "Провожу арест"] <b>[C]</b>, мерз[genderize_ru(C.gender,"авца","авки","ости","авцев")] [threat] уровня опасности, в «[location]».", radio_channel)
 	C.visible_message("<span class='danger'>[src] оглушает [C]!</span>",\
 							"<span class='userdanger'>[src] оглушает вас!</span>")
 
 /mob/living/simple_animal/bot/ed209/proc/cuff(mob/living/carbon/C)
 	mode = BOT_ARREST
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
-	C.visible_message("<span class='danger'>[src] пытается заковать [C] в стяжки!</span>",\
-						"<span class='userdanger'>[src] пытается заковать вас в стяжки!</span>")
+	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",\
+						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
 
 	spawn(60)
 		if( !Adjacent(C) || !isturf(C.loc) ) //if he's in a closet or not adjacent, we cancel cuffing.
