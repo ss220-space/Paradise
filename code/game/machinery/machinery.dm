@@ -312,14 +312,20 @@ Class Procs:
 	gl_uid++
 
 /obj/machinery/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
-		on_deconstruction()
-		if(component_parts && component_parts.len)
-			spawn_frame(disassembled)
-			for(var/obj/item/I in component_parts)
-				I.forceMove(loc)
-			component_parts.Cut()
-	qdel(src)
+	if(flags & NODECONSTRUCT)
+		return ..() //Just delete us, no need to call anything else.
+
+	on_deconstruction()
+	if(!LAZYLEN(component_parts))
+		return ..() //We don't have any parts
+	spawn_frame(disassembled)
+
+	for(var/obj/item/I in component_parts)
+		I.forceMove(loc)
+	component_parts.Cut()
+
+	LAZYCLEARLIST(component_parts)
+	return ..()
 
 /obj/machinery/proc/spawn_frame(disassembled)
 	var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(loc)
@@ -335,17 +341,12 @@ Class Procs:
 	if(!(flags & NODECONSTRUCT))
 		stat |= BROKEN
 
-/obj/machinery/proc/default_deconstruction_crowbar(user, obj/item/I, ignore_panel = 0)
-	if(I.tool_behaviour != TOOL_CROWBAR)
-		return FALSE
-	if(!I.use_tool(src, user, 0, volume = 0))
-		return FALSE
-	if((panel_open || ignore_panel) && !(flags & NODECONSTRUCT))
-		deconstruct(TRUE)
-		to_chat(user, "<span class='notice'>You disassemble [src].</span>")
-		I.play_tool_sound(user, I.tool_volume)
-		return 1
-	return 0
+/obj/machinery/proc/default_deconstruction_crowbar(obj/item/crowbar, ignore_panel = 0)
+	. = (panel_open || ignore_panel) && !(flags & NODECONSTRUCT) && crowbar.tool_behaviour == TOOL_CROWBAR
+	if(!.)
+		return
+	crowbar.play_tool_sound(src, 50)
+	deconstruct(TRUE)
 
 /obj/machinery/proc/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
 	if(I.tool_behaviour != TOOL_SCREWDRIVER)
