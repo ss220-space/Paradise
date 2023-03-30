@@ -35,10 +35,9 @@
 		//satiety????
 		adjust_hydration(-thirst_rate)
 
-		//Dehydration virus
-		//if(!ismachineperson(src) && !isLivingSSD(src) && hydration < HYDRATION_LEVEL_INEFFICIENT)
-		//	var/datum/disease/D = new /datum/disease/critical/hypoglycemia
-		//	ForceContractDisease(D)
+		if(!ismachineperson(src) && !isLivingSSD(src) && hydration < HYDRATION_LEVEL_INEFFICIENT)
+			var/datum/disease/D = new /datum/disease/critical/dehydration
+			ForceContractDisease(D)
 
 /mob/make_vampire()
 	. = ..()
