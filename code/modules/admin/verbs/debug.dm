@@ -789,6 +789,21 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	else
 		alert("Invalid mob")
 
+/client/proc/check_fire_overlay()
+	set category = "Debug"
+	set name = "Check fire overlay"
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	if(!SSticker)
+		alert("Wait until the game starts")
+		return
+
+	var/message = "Значение GLOB.fire_overlay.icon = '[GLOB.fire_overlay.icon]', должно быть 'icons/goonstation/effects/fire.dmi', [GLOB.fire_overlay.icon == 'icons/goonstation/effects/fire.dmi'? "СОВПАДАЕТ" : "НЕ СОВПАДАЕТ"]. Значение GLOB.fire_overlay.icon_state = \"[GLOB.fire_overlay.icon_state]\", должно быть \"fire\", [GLOB.fire_overlay.icon_state == "fire"? "СОВПАДАЕТ" : "НЕ СОВПАДАЕТ"]."
+	message_admins("[message] Если в раунде предметы горят чем попало, но не огнем, то сообщите разработчикам в Discord в канал #обучающий-и-тестовый-полигон текст этого сообщения.")
+	log_admin(message)
+
 /client/proc/view_runtimes()
 	set category = "Debug"
 	set name = "View Runtimes"
