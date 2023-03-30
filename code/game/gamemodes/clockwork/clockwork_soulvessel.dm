@@ -104,7 +104,7 @@
 		if(istype(victim_brain, /obj/item/mmi/robotic_brain))
 			var/obj/item/mmi/robotic_brain/brain = victim_brain
 			living = brain.brainmob
-		if(istype(victim_brain, /obj/item/mmi/robotic_brain))
+		if(istype(victim_brain, /obj/item/organ/internal/brain))
 			var/obj/item/organ/internal/brain/brain = victim_brain
 			living = brain.brainmob
 		if(!length(victim_brain.client_mobs_in_contents))
@@ -157,14 +157,9 @@
 		to_chat(user, "<span class='warning'>You have to find a dead body to fill a vessel.</span>")
 
 
-/obj/item/mmi/robotic_brain/attackby(obj/item/O, mob/user)
-	// capturing robotic brains
+/obj/item/mmi/robotic_brain/clockwork/attackby(obj/item/O, mob/user)
 	if(istype(O, /obj/item/mmi/robotic_brain/clockwork))
-		if(istype(src, /obj/item/mmi/robotic_brain/clockwork))
-			return
-		var/obj/item/mmi/robotic_brain/clockwork/brain = O
-		brain.victim_brain = src
-		return brain.init_transfer(user)
+		return FALSE
 
 	// chaplain purifying
 	if(istype(O, /obj/item/storage/bible) && istype(src, /obj/item/mmi/robotic_brain/clockwork) && !isclocker(user) && user.mind.isholy)
@@ -178,6 +173,17 @@
 			QDEL_NULL(src)
 			return TRUE
 		return FALSE
+	. = ..()
+
+
+/obj/item/mmi/robotic_brain/attackby(obj/item/O, mob/user)
+	// capturing robotic brains
+	if(istype(O, /obj/item/mmi/robotic_brain/clockwork))
+		if(istype(src, /obj/item/mmi/robotic_brain/clockwork))
+			return
+		var/obj/item/mmi/robotic_brain/clockwork/brain = O
+		brain.victim_brain = src
+		return brain.init_transfer(user)
 	. = ..()
 
 

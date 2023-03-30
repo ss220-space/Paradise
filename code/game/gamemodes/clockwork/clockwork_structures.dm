@@ -266,16 +266,14 @@
 			has_clocker = M
 			break
 	if(!converting && has_clocker)
-		var/list/mob/living/carbon/human/bodies = list()
 		for(var/mob/living/carbon/human/H in range(0, src))
 			if(isclocker(H))
 				continue
-			if(H.mind)
+			if(!H.mind)
+				continue
+			if(H)
 				converting = H
 				break
-			bodies += H
-		if(bodies.len && !converting)
-			converting = pick(bodies)
 	if(converting && (converting in range(0, src)) && (has_clocker || second_stage))
 		if(!anchored || hidden)
 			stop_convert()
