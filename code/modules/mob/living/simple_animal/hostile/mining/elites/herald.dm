@@ -33,7 +33,7 @@
 	light_range = 2
 	light_color = "#FF0000"
 	attacktext = "preaches to"
-	attack_sound = 'sound/magic/ratvar_attack.ogg'
+	attack_sound = 'sound/effects/hit_punch.ogg'
 	throw_message = "doesn't affect the purity of"
 	speed = 1.4
 	move_to_delay = 10
