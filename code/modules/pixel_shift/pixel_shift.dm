@@ -45,6 +45,11 @@
 	var/mob/living/pulled_mob = A
 	pulled_mob.unpixel_shift()
 
+/mob/living/forceMove(atom/destination)
+	. = ..()
+	if(.)
+		unpixel_shift()
+
 /mob/living/pixel_shift(direction)
 	passthroughable = NONE
 	switch(direction)
