@@ -1,15 +1,14 @@
-/datum/reagent/consumable
+/datum/reagent
 	var/hydration_factor = 0
 
+/datum/reagent/water
+	hydration_factor = 10 * REAGENTS_METABOLISM
+
 /datum/reagent/consumable/drink
-	hydration_factor = 2 * REAGENTS_METABOLISM
+	hydration_factor = 6 * REAGENTS_METABOLISM
+
+/datum/reagent/consumable/drink/cold
+	hydration_factor = 4 * REAGENTS_METABOLISM
 
 /datum/reagent/consumable/ethanol
-	var/remove_hydration = 2
-
-/datum/reagent/consumable/ethanol/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	if(M.hydration)
-		if(prob(60))
-			M.adjust_hydration(-remove_hydration)
-	return ..() | update_flags
+	hydration_factor = -1 * REAGENTS_METABOLISM
