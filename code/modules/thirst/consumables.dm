@@ -49,10 +49,6 @@
 	. = ..()
 	reagents.dirty_water()
 
-/obj/item/watertank/atmos/Initialize(mapload)
-	. = ..()
-	reagents.dirty_water()
-
 //DRINKS!
 /datum/reagent/consumable/drink
 	hydration_factor = 6 * REAGENTS_METABOLISM
