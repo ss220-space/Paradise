@@ -803,7 +803,7 @@
 		if(ADV_ACTION_TYPE_CHARGES)
 			if(world.time < last_use_time + wait_time)
 				if(show_message)
-					to_chat(owner, "<span class='notice'>[name] is already being used.</span>")
+					to_chat(owner, "<span class='warning'>[name] is already being used.</span>")
 				return FALSE
 			if(!charge_counter)
 				if(show_message)
