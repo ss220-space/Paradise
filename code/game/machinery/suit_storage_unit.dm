@@ -574,24 +574,6 @@
 			eject_occupant(usr)
 	update_icon()
 
-/obj/machinery/suit_storage_unit/proc/toggleUV(mob/user)
-	if(!panel_open)
-		return
-	else
-		if(uv_super)
-			to_chat(user, "<span class='notice'>You slide the dial back towards \"185nm\".</span>")
-			uv_super = FALSE
-		else
-			to_chat(user, "<span class='notice'>You crank the dial all the way up to \"15nm\".</span>")
-			uv_super = TRUE
-
-/obj/machinery/suit_storage_unit/proc/togglesafeties(mob/user)
-	if(!panel_open)
-		return
-	else
-		to_chat(user, "<span class='notice'>You push the button. The coloured LED next to it changes.</span>")
-		safeties = !safeties
-
 /obj/machinery/suit_storage_unit/proc/dispense_helmet()
 	if(!helmet)
 		return
