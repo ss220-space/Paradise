@@ -1,6 +1,10 @@
 /datum/reagent
 	var/hydration_factor = 0
 
+/datum/reagent/on_mob_life(mob/living/M)
+	. = ..()
+	M.adjust_hydration(hydration_factor) // For thirst and hydration
+
 /datum/reagent/water
 	hydration_factor = 10 * REAGENTS_METABOLISM
 
