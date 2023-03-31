@@ -85,7 +85,7 @@ export const SecureStorage = (props, context) => {
                   <Button
                     disabled={locked}
                     color="red"
-                    content="Lock"
+                    icon="lock"
                     onClick={() => act('close')} />
                 }>
                 <Box color={locked ? "red": "green"}>
