@@ -98,7 +98,9 @@ research holder datum.
 		if(T.level > known.level)
 			known.level = T.level
 		return
-	known_tech[T.id] = T
+	var/datum/tech/copy = new T.type
+	copy.level = T.level
+	known_tech[T.id] = copy
 
 /datum/research/proc/CanAddDesign2Known(var/datum/design/D)
 	if (D.id in known_designs)
@@ -158,7 +160,9 @@ research holder datum.
 /datum/research/proc/push_data(datum/research/other)
 	for(var/v in known_tech)
 		var/datum/tech/T = known_tech[v]
-		other.AddTech2Known(T)
+		var/datum/tech/copied_tech = new T.type
+		copied_tech.level = T.level
+		other.AddTech2Known(copied_tech)
 	for(var/v in known_designs)
 		var/datum/design/D = known_designs[v]
 		other.AddDesign2Known(D)
