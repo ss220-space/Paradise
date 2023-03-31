@@ -391,6 +391,7 @@
 	return ..()
 
 /turf/simulated/mineral/ancient/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	var/isonshuttle = istype(loc, /area/shuttle)
 	for(var/turf/T in range(1, src))
 		var/area/A = get_area(T)
 		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || istype(A, /area/space))) || (isonshuttle && !istype(A, /area/shuttle)))
