@@ -24,7 +24,6 @@
 	var/locked = FALSE
 	var/safeties = TRUE
 	var/broken = FALSE
-	var/secure = FALSE	//set to true to enable ID locking
 	var/shocked = FALSE//is it shocking anyone that touches it?
 	req_access = list(ACCESS_EVA)	//the ID needed if ID lock is enabled
 	var/datum/wires/suitstorage/wires = null
@@ -509,12 +508,6 @@
 
 ////////
 
-/obj/machinery/suit_storage_unit/proc/check_allowed(user)
-	if(!(allowed(user) || !secure))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
-		return FALSE
-	return TRUE
-
 /obj/machinery/suit_storage_unit/attack_hand(mob/user)
 	if(..() || (stat & NOPOWER))
 		return
@@ -568,12 +561,8 @@
 		if("dispense_storage")
 			dispense_storage()
 		if("toggle_open")
-			if(!check_allowed(usr))
-				return FALSE
 			toggle_open(usr)
 		if("toggle_lock")
-			if(!check_allowed(usr))
-				return FALSE
 			toggle_lock(usr)
 		if("cook")
 			cook()
@@ -654,6 +643,9 @@
 	state_open = !state_open
 
 /obj/machinery/suit_storage_unit/proc/toggle_lock(mob/user as mob)
+	if(!allowed(user))
+		to_chat(user, "<span class='warning'>Access denied.</span>")
+		return
 	if(occupant && safeties)
 		to_chat(user, "<span class='warning'>The unit's safety protocols disallow locking when a biological form is detected inside its compartments.</span>")
 		return
