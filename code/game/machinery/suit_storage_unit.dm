@@ -276,6 +276,8 @@
 				add_overlay("storage")
 	else if(occupant)
 		add_overlay("human")
+	if(!secure)
+		add_overlay("unlocked")
 
 /obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
 	if(shocked)
