@@ -276,7 +276,7 @@
 				add_overlay("storage")
 	else if(occupant)
 		add_overlay("human")
-	if(!secure)
+	if(!locked)
 		add_overlay("unlocked")
 
 /obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
@@ -655,6 +655,9 @@
 		return
 	if(state_open)
 		return
+	if(emagged)
+		to_chat(user, "<span class='warning'>Locking mechanism doesn't seem to work.</span>")
+		return
 	locked = !locked
 
 /obj/machinery/suit_storage_unit/proc/eject_occupant(mob/user as mob)
@@ -730,3 +733,16 @@
 /obj/machinery/suit_storage_unit/proc/check_electrified_callback()
 	if(!wires.is_cut(WIRE_ELECTRIFY))
 		shocked = FALSE
+
+/obj/machinery/suit_storage_unit/emag_act(mob/user)
+	if(emagged)
+		return
+
+	add_attack_logs(user, src, "emagged")
+	locked = FALSE
+	emagged = TRUE
+	update_icon()
+	SStgui.update_uis(src)
+	to_chat(user, "<span class='warning'>You burn the locking mechanism, unlocking it forever.</span>")
+	do_sparks(5, 0, loc)
+	playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)

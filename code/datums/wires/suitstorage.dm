@@ -27,7 +27,10 @@
 	var/obj/machinery/suit_storage_unit/A = holder
 	switch(wire)
 		if(WIRE_IDSCAN)
-			A.locked = mend
+			if(!A.emagged)
+				A.locked = mend
+				SStgui.update_uis(A)
+				A.update_icon()
 
 		if(WIRE_SAFETY)
 			A.safeties = mend
@@ -46,7 +49,10 @@
 		return
 	switch(wire)
 		if(WIRE_IDSCAN)
-			A.locked = !A.locked
+			if(!A.emagged)
+				A.locked = !A.locked
+				SStgui.update_uis(A)
+				A.update_icon()
 
 		if(WIRE_SAFETY)
 			A.safeties = !A.safeties
