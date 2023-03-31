@@ -37,6 +37,18 @@
 	if(method == REAGENT_INGEST && prob(60))
 		M.ForceContractDisease(new /datum/disease/water_poisoning(0))
 
+/datum/chemical_reaction/water_disinfection
+	name = "Water"
+	id = "water"
+	result = "water"
+	required_reagents = list("water" = 1, "charcoal" = 1)
+	result_amount = 1
+	mix_sound = null
+
+/datum/chemical_reaction/water_disinfection/on_reaction(datum/reagents/holder, created_volume)
+	. = ..()
+	holder.clear_dirty_water()
+
 /obj/structure/reagent_dispensers/watertank/Initialize(mapload)
 	. = ..()
 	reagents.dirty_water()
