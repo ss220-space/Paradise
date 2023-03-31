@@ -143,9 +143,9 @@
 	objective.scanned_occupants.Add("[occupant.mind]")
 	if(objective.target == occupant.mind || objective.scanned_occupants.len >= objective.scans_to_win)
 		objective.completed = TRUE
-		atom_say("Пациенту известна ценная информация! Данные переданы клану! Отличная работа [ninja]!")
+		atom_say("Пациенту известна ценная информация! Данные переданы клану! Отличная работа, [ninja]!")
 	else
-		atom_say("Пациенту не известна требуемая клану информация! И всё же были получены ценные обрывки информации... Продолжайте поиски!")
+		atom_say("Пациенту неизвестна требуемая клану информация! И всё же были получены ценные обрывки информации... Продолжайте поиски!")
 
 /obj/machinery/ninja_mindscan_machine/proc/take_occupant(var/mob/living/carbon/possible_occupant)
 	if(occupant)
