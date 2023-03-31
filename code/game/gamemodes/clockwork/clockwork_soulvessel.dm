@@ -11,7 +11,6 @@
 	ejected_flavor_text = "brass cube"
 	dead_icon = "soul_vessel"
 	clock = TRUE
-	var/obj/victim_brain
 
 
 /obj/item/mmi/robotic_brain/clockwork/proc/get_ghost(mob/living/M, mob/user)
@@ -41,7 +40,7 @@
 	return TRUE
 
 
-/obj/item/mmi/robotic_brain/clockwork/proc/try_to_transfer(mob/living/target, mob/user)
+/obj/item/mmi/robotic_brain/clockwork/proc/try_to_transfer(mob/living/target, mob/user, obj/item/victim_brain)
 	if(ishuman(target))
 		for(var/obj/item/I in target)
 			target.unEquip(I)
@@ -69,7 +68,7 @@
 		brainmob.create_log(CONVERSION_LOG, "[brainmob.mind] been converted by [src.name]")
 
 
-/obj/item/mmi/robotic_brain/clockwork/proc/init_transfer(mob/living/attacker, mob/living/target_body)
+/obj/item/mmi/robotic_brain/clockwork/proc/init_transfer(mob/living/attacker, obj/item/victim_brain, mob/living/target_body)
 	if(!isclocker(attacker))
 		attacker.Weaken(5)
 		attacker.emote("scream")
@@ -87,11 +86,12 @@
 		return
 
 	var/mob/living/living
+	var/crosshair = target_body
 	if(target_body)
 		living = target_body
 		if(living == attacker)
 			return
-		if(!length(living.client_mobs_in_contents))
+		if(!living.mind)
 			to_chat(attacker, "<span class='clock'>\"This body has no soul to catch.\"</span>")
 			return
 		if(living.stat == CONSCIOUS)
@@ -101,31 +101,39 @@
 			to_chat(attacker, "<span class='warning'>[living] is corrupted by an alien intelligence and cannot claim [living.p_their()] mind!</span>")
 			return
 	if(victim_brain)
+		crosshair = victim_brain
 		if(istype(victim_brain, /obj/item/mmi/robotic_brain))
-			var/obj/item/mmi/robotic_brain/brain = victim_brain
-			living = brain.brainmob
+			var/obj/item/mmi/robotic_brain/r_brain = victim_brain
+			living = r_brain.brainmob
 		if(istype(victim_brain, /obj/item/organ/internal/brain))
-			var/obj/item/organ/internal/brain/brain = victim_brain
-			living = brain.brainmob
-		if(!length(victim_brain.client_mobs_in_contents))
-			to_chat(attacker, "<span class='clock'>\"This body has no soul to catch.\"</span>")
+			var/obj/item/organ/internal/brain/o_brain = victim_brain
+			living = o_brain.brainmob
+		if(istype(victim_brain, /obj/item/organ/external/head))
+			var/obj/item/organ/external/head/head = victim_brain
+			var/obj/item/organ/internal/brain/h_brain = locate(/obj/item/organ/internal/brain) in head.contents
+			if(!h_brain)
+				to_chat(attacker, "<span class='warning'>There are no brains inside [head]!</span>")
+				return
+			crosshair = head
+			victim_brain = h_brain
+			living = h_brain.brainmob
+		if(!living?.mind)
+			to_chat(attacker, "<span class='clock'>\"This brain has no soul to catch.\"</span>")
 			return
 	if(jobban_isbanned(living, ROLE_CLOCKER) || jobban_isbanned(living, ROLE_SYNDICATE))
 		to_chat(attacker, "<span class='warning'>A mysterious force prevents you from claiming [living]'s mind.</span>")
 		return
 
 	var/time = 4 SECONDS
-	var/crosshair = victim_brain
 	if(target_body)
 		time = 9 SECONDS
-		crosshair = target_body
 		attacker.visible_message("<span class='warning'>[attacker] starts pressing [src] to [target_body]'s body, ripping through the surface</span>", \
 		"<span class='clock'>You start extracting [target_body]'s consciousness from [target_body.p_their()] body.</span>")
 		do_sparks(5, TRUE, target_body)
 	if(victim_brain)
 		attacker.visible_message("<span class='warning'>[attacker] starts pressing [src] to [living]'s brain, ripping through the surface</span>", \
 		"<span class='clock'>You start extracting [living]'s consciousness from [living.p_their()] brain.</span>")
-		do_sparks(5, TRUE, victim_brain)
+		do_sparks(5, TRUE, crosshair)
 
 	if(do_after(attacker, time, target = crosshair))
 		if(brainmob.key)
@@ -134,14 +142,14 @@
 		if(searching)
 			to_chat(attacker, "<span class='clock'>\"Vessel is trying to catch a soul.\"</span>")
 			return
-		if(!victim_brain && living.stat == CONSCIOUS)
+		if(target_body && living.stat == CONSCIOUS)
 			to_chat(attacker, "<span class='warning'>[living] must be dead or unconscious for you to claim [living.p_their()] mind!</span>")
 			return
-		if(!victim_brain && living.has_brain_worms())
+		if(target_body && living.has_brain_worms())
 			to_chat(attacker, "<span class='warning'>[living] is corrupted by an alien intelligence and cannot claim [living.p_their()] mind!</span>")
 			return
 		to_chat(attacker, "<span class='clocklarge'>\"Keep doing it!\"</span>")
-		try_to_transfer(living, attacker)
+		try_to_transfer(living, attacker, victim_brain)
 		return TRUE
 	return FALSE
 
@@ -180,8 +188,7 @@
 	// capturing robotic brains
 	if(istype(O, /obj/item/mmi/robotic_brain/clockwork))
 		var/obj/item/mmi/robotic_brain/clockwork/brain = O
-		brain.victim_brain = src
-		return brain.init_transfer(user)
+		return brain.init_transfer(user, src)
 	. = ..()
 
 
@@ -189,13 +196,20 @@
 	// capturing organic brains
 	if(istype(O, /obj/item/mmi/robotic_brain/clockwork))
 		var/obj/item/mmi/robotic_brain/clockwork/brain = O
-		brain.victim_brain = src
-		return brain.init_transfer(user)
+		return brain.init_transfer(user, src)
+	. = ..()
+
+
+/obj/item/organ/external/head/attackby(obj/item/O, mob/user)
+	// heads have brains too!
+	if(istype(O, /obj/item/mmi/robotic_brain/clockwork))
+		var/obj/item/mmi/robotic_brain/clockwork/brain = O
+		return brain.init_transfer(user, src)
 	. = ..()
 
 
 /obj/item/mmi/robotic_brain/clockwork/attack(mob/living/M, mob/living/user, def_zone)
 	// catching souls of dead/unconscious humans and robots
 	if(isrobot(M) || ishuman(M))
-		return init_transfer(user, M)
+		return init_transfer(user, target_body = M)
 	. = ..()
