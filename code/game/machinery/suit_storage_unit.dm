@@ -81,6 +81,7 @@
 	name = "head of security suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/hardsuit/security/hos
 	storage_type = /obj/item/tank/internals/oxygen/red
+	req_access = list(ACCESS_HOS)
 
 /obj/machinery/suit_storage_unit/security/warden
 	name = "warden's suit storage unit"
