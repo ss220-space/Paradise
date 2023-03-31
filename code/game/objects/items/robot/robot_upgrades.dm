@@ -54,19 +54,14 @@
 	instant_use = TRUE
 
 /obj/item/borg/upgrade/rename/attack_self(mob/user)
-	heldname = stripped_input(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
+	return
 
 /obj/item/borg/upgrade/rename/action(var/mob/living/silicon/robot/R)
 	if(..())
 		if(!R.allow_rename)
 			to_chat(R, "<span class='warning'>Internal diagnostic error: incompatible upgrade module detected.</span>")
 			return 0
-		R.notify_ai(ROBOT_NOTIFY_AI_NAME, R.name, heldname)
-		R.name = heldname
-		R.custom_name = heldname
-		R.real_name = heldname
-		if(R.mmi && R.mmi.brainmob)
-			R.mmi.brainmob.name = R.name
+		R.rename_self(R.braintype, TRUE, TRUE)
 		return TRUE
 
 /obj/item/borg/upgrade/restart
