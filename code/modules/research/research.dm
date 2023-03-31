@@ -98,8 +98,7 @@ research holder datum.
 		if(T.level > known.level)
 			known.level = T.level
 		return
-	var/datum/tech/copy = new T.type
-	copy.level = T.level
+	var/datum/tech/copy = T.copyTech()
 	known_tech[T.id] = copy
 
 /datum/research/proc/CanAddDesign2Known(var/datum/design/D)
@@ -160,8 +159,7 @@ research holder datum.
 /datum/research/proc/push_data(datum/research/other)
 	for(var/v in known_tech)
 		var/datum/tech/T = known_tech[v]
-		var/datum/tech/copied_tech = new T.type
-		copied_tech.level = T.level
+		var/datum/tech/copied_tech = T.copyTech()
 		other.AddTech2Known(copied_tech)
 	for(var/v in known_designs)
 		var/datum/design/D = known_designs[v]
@@ -336,6 +334,10 @@ datum/tech/robotics
 	id = "robotics"
 	req_tech = list("materials" = 3, "programming" = 3)
 */
+/datum/tech/proc/copyTech()
+	var/datum/tech/copied = new src.type
+	copied.level = src.level
+	return copied
 
 /datum/tech/proc/getCost(var/current_level = null)
 	// Calculates tech disk's supply points sell cost

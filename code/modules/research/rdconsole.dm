@@ -265,8 +265,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(d_disk && d_disk.blueprint)
 		files.AddDesign2Known(d_disk.blueprint)
 	else if(t_disk && t_disk.stored)
-		var/datum/tech/tech_copy = new t_disk.stored.type
-		tech_copy.level = t_disk.stored.level
+		var/datum/tech/tech_copy = t_disk.stored.copyTech()
 		files.AddTech2Known(tech_copy)
 	SStgui.update_uis(src)
 	griefProtection() //Update centcom too
@@ -571,8 +570,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			// Now with COPYING data actually
 			var/datum/tech/known = files.known_tech[params["id"]]
 			if(t_disk && known)
-				var/datum/tech/new_known = new known.type
-				new_known.level = known.level
+				var/datum/tech/new_known = known.copyTech()
 				t_disk.name = "[t_disk.default_name] \[[new_known]\]"
 				t_disk.desc = new_known.desc + " Level: '[new_known.level]'"
 				t_disk.stored = new_known
