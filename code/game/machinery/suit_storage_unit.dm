@@ -25,7 +25,7 @@
 	var/safeties = TRUE
 	var/broken = FALSE
 	var/shocked = FALSE//is it shocking anyone that touches it?
-	req_access = list(ACCESS_EVA)	//the ID needed if ID lock is enabled
+	req_access = list()	//the ID needed if ID lock is enabled
 	var/datum/wires/suitstorage/wires = null
 
 	var/uv = FALSE
