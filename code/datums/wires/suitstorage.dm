@@ -29,6 +29,8 @@
 		if(WIRE_IDSCAN)
 			if(!A.emagged)
 				A.locked = mend
+				if(A.locked && A.state_open)
+					A.state_open = FALSE
 				SStgui.update_uis(A)
 				A.update_icon()
 
@@ -51,6 +53,8 @@
 		if(WIRE_IDSCAN)
 			if(!A.emagged)
 				A.locked = !A.locked
+				if(A.locked && A.state_open)
+					A.state_open = FALSE
 				SStgui.update_uis(A)
 				A.update_icon()
 
