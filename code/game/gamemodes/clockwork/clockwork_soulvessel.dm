@@ -179,8 +179,6 @@
 /obj/item/mmi/robotic_brain/attackby(obj/item/O, mob/user)
 	// capturing robotic brains
 	if(istype(O, /obj/item/mmi/robotic_brain/clockwork))
-		if(istype(src, /obj/item/mmi/robotic_brain/clockwork))
-			return
 		var/obj/item/mmi/robotic_brain/clockwork/brain = O
 		brain.victim_brain = src
 		return brain.init_transfer(user)

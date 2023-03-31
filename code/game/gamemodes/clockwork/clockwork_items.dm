@@ -1160,20 +1160,19 @@
 			user.Confused(10)
 			user.Jitter(6)
 			return
-		else
-			if(isdrone(user))
-				to_chat(user, "<span class='warning'>You are not dexterous enough to do this!</span>")
-				return
-			var/obj/item/mmi/robotic_brain/clockwork/soul = I
-			if(!soul.brainmob.mind)
-				to_chat(user, "<span class='warning'> There is no soul in [I]!</span>")
-				return
-			var/mob/living/simple_animal/hostile/clockwork/marauder/cog = new (get_turf(src))
-			soul.brainmob.mind.transfer_to(cog)
-			playsound(cog, 'sound/effects/constructform.ogg', 50)
-			user.unEquip(soul)
-			qdel(soul)
-			qdel(src)
+		if(isdrone(user))
+			to_chat(user, "<span class='warning'>You are not dexterous enough to do this!</span>")
+			return
+		var/obj/item/mmi/robotic_brain/clockwork/soul = I
+		if(!soul.brainmob.mind)
+			to_chat(user, "<span class='warning'> There is no soul in [I]!</span>")
+			return
+		var/mob/living/simple_animal/hostile/clockwork/marauder/cog = new (get_turf(src))
+		soul.brainmob.mind.transfer_to(cog)
+		playsound(cog, 'sound/effects/constructform.ogg', 50)
+		user.unEquip(soul)
+		qdel(soul)
+		qdel(src)
 
 //Shard
 /obj/item/clockwork/shard
