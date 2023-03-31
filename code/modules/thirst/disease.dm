@@ -12,7 +12,7 @@
 	bypasses_immunity = TRUE
 	virus_heal_resistant = TRUE
 
-/datum/disease/critical/hypoglycemia/has_cure()
+/datum/disease/critical/dehydration/has_cure()
 	if(ishuman(affected_mob))
 		var/mob/living/carbon/human/H = affected_mob
 		if((NO_THIRST in H.dna.species.species_traits) || affected_mob.mind?.vampire)
@@ -21,7 +21,7 @@
 			return TRUE
 	return ..()
 
-/datum/disease/critical/hypoglycemia/stage_act()
+/datum/disease/critical/dehydration/stage_act()
 	if(..())
 		if(isLivingSSD(affected_mob)) // We don't want AFK people dying from this.
 			return

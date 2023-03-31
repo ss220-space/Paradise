@@ -2706,6 +2706,7 @@
 #include "code\modules\tgui\states\self.dm"
 #include "code\modules\tgui\states\zlevel.dm"
 #include "code\modules\thirst\consumables.dm"
+#include "code\modules\thirst\disease.dm"
 #include "code\modules\thirst\mob.dm"
 #include "code\modules\thirst\species.dm"
 #include "code\modules\tooltip\tooltip.dm"
