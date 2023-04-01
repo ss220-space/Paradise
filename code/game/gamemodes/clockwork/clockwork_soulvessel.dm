@@ -44,11 +44,10 @@
 	if(ishuman(target))
 		for(var/obj/item/I in target)
 			target.unEquip(I)
+	target.dust()
 	if(target.client == null)
-		target.dust()
 		get_ghost(target, user)
 	else
-		target.dust()
 		transfer_personality(target)
 		to_chat(target, "<span class='clocklarge'><b>\"You belong to me now.\"</b></span>")
 	if(victim_brain)
@@ -124,16 +123,15 @@
 		to_chat(attacker, "<span class='warning'>A mysterious force prevents you from claiming [living]'s mind.</span>")
 		return
 
+	do_sparks(5, TRUE, crosshair)
 	var/time = 4 SECONDS
 	if(target_body)
 		time = 9 SECONDS
 		attacker.visible_message("<span class='warning'>[attacker] starts pressing [src] to [target_body]'s body, ripping through the surface</span>", \
 		"<span class='clock'>You start extracting [target_body]'s consciousness from [target_body.p_their()] body.</span>")
-		do_sparks(5, TRUE, target_body)
 	if(victim_brain)
 		attacker.visible_message("<span class='warning'>[attacker] starts pressing [src] to [living]'s brain, ripping through the surface</span>", \
 		"<span class='clock'>You start extracting [living]'s consciousness from [living.p_their()] brain.</span>")
-		do_sparks(5, TRUE, crosshair)
 
 	if(do_after(attacker, time, target = crosshair))
 		if(brainmob.key)
@@ -162,7 +160,7 @@
 		to_chat(user, "<span class='clock'>\"This vessel is filled, friend. Provide it with a body.\"</span>")
 		do_sparks(5, TRUE, user)
 	else
-		to_chat(user, "<span class='warning'>You have to find a dead body to fill a vessel.</span>")
+		to_chat(user, "<span class='warning'>You have to find a body or brain to fill a vessel.</span>")
 
 
 /obj/item/mmi/robotic_brain/clockwork/attackby(obj/item/O, mob/user)
@@ -170,7 +168,7 @@
 		return FALSE
 
 	// chaplain purifying
-	if(istype(O, /obj/item/storage/bible) && istype(src, /obj/item/mmi/robotic_brain/clockwork) && !isclocker(user) && user.mind.isholy)
+	if(istype(O, /obj/item/storage/bible) && !isclocker(user) && user.mind.isholy)
 		to_chat(user, "<span class='notice'>You begin to exorcise [src].</span>")
 		playsound(src, 'sound/hallucinations/veryfar_noise.ogg', 40, TRUE)
 		if(do_after(user, 4 SECONDS, target = src))
