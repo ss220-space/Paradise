@@ -85343,13 +85343,6 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space)
-"oAh" = (
-/obj/structure/bed/dogbed{
-	name = "kitty basket"
-	},
-/mob/living/simple_animal/pet/cat/floppa,
-/turf/simulated/floor/wood,
-/area/blueshield)
 "oBj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/hydroponics/soil,
@@ -85668,7 +85661,10 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/item/twohanded/required/kirbyplants,
+/obj/structure/bed/dogbed{
+	name = "kitty basket"
+	},
+/mob/living/simple_animal/pet/cat/floppa,
 /turf/simulated/floor/wood,
 /area/blueshield)
 "oLr" = (
@@ -122899,7 +122895,7 @@ cfm
 bTy
 cgS
 ciA
-oAh
+clR
 col
 clR
 coY
