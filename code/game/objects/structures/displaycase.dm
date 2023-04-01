@@ -105,7 +105,7 @@
 			toggle_lock(user)
 		else
 			to_chat(user,  "<span class='warning'>Access denied.</span>")
-	else if(open && !showpiece)
+	else if(open && !showpiece && !(I.flags & ABSTRACT))
 		if(user.drop_item())
 			I.forceMove(src)
 			showpiece = I
@@ -200,10 +200,8 @@
 			if(electronics)
 				electronics.forceMove(display)
 				display.electronics = electronics
-				if(electronics.one_access)
-					display.req_one_access = electronics.selected_accesses
-				else
-					display.req_access = electronics.selected_accesses
+				display.req_access= electronics.selected_accesses
+				display.check_one_access = electronics.one_access
 			qdel(src)
 	else
 		return ..()

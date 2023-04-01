@@ -3,7 +3,6 @@
 	icon_state = "gsensor1"
 	resistance_flags = FIRE_PROOF
 	name = "gas sensor"
-	req_one_access_txt = "24;10"
 
 	anchored = 1
 	var/state = 0
@@ -118,7 +117,7 @@
 	icon_screen = "tank"
 	icon_keyboard = "atmos_key"
 	circuit = /obj/item/circuitboard/air_management
-	req_one_access_txt = "24;10"
+	req_access = list(ACCESS_ENGINE, ACCESS_ATMOSPHERICS)
 
 	name = "Computer"
 
@@ -255,7 +254,7 @@
 
 /obj/machinery/computer/general_air_control/large_tank_control
 	circuit = /obj/item/circuitboard/large_tank_control
-	req_one_access_txt = "24;10"
+	req_access = list(ACCESS_ENGINE, ACCESS_ATMOSPHERICS)
 
 	var/input_tag
 	var/output_tag

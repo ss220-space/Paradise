@@ -1,7 +1,5 @@
-/obj/var/list/req_access = null
-/obj/var/req_access_txt = "0"
-/obj/var/list/req_one_access = null
-/obj/var/req_one_access_txt = "0"
+/obj/var/list/req_access = list()
+/obj/var/check_one_access = TRUE
 
 //returns 1 if this mob has sufficient access to use this object
 /obj/proc/allowed(mob/M)
@@ -26,26 +24,6 @@
 /obj/item/proc/GetID()
 	return null
 
-/obj/proc/generate_req_lists()
-	//These generations have been moved out of /obj/New() because they were slowing down the creation of objects that never even used the access system.
-	if(!req_access)
-		req_access = list()
-		if(req_access_txt)
-			var/list/req_access_str = splittext(req_access_txt, ";")
-			for(var/x in req_access_str)
-				var/n = text2num(x)
-				if(n)
-					req_access += n
-
-	if(!req_one_access)
-		req_one_access = list()
-		if(req_one_access_txt)
-			var/list/req_one_access_str = splittext(req_one_access_txt,";")
-			for(var/x in req_one_access_str)
-				var/n = text2num(x)
-				if(n)
-					req_one_access += n
-
 /obj/proc/check_access(obj/item/I)
 	var/list/L
 	if(I)
@@ -55,23 +33,23 @@
 	return check_access_list(L)
 
 /obj/proc/check_access_list(var/list/L)
-	generate_req_lists()
-
 	if(!L)
 		return 0
 	if(!istype(L, /list))
 		return 0
-	return has_access(req_access, req_one_access, L)
+	return has_access(req_access, check_one_access, L)
 
-/proc/has_access(var/list/req_access, var/list/req_one_access, var/list/accesses)
-	for(var/req in req_access)
-		if(!(req in accesses)) //doesn't have this access
+/proc/has_access(var/list/req_access, check_one_access, var/list/accesses)
+	if(check_one_access)
+		if(req_access.len)
+			for(var/req in req_access)
+				if(req in accesses) //has an access from the single access list
+					return 1
 			return 0
-	if(req_one_access.len)
-		for(var/req in req_one_access)
-			if(req in accesses) //has an access from the single access list
-				return 1
-		return 0
+	else
+		for(var/req in req_access)
+			if(!(req in accesses)) //doesn't have this access
+				return 0
 	return 1
 
 /proc/get_centcom_access(job)

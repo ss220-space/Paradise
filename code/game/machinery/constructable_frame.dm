@@ -279,7 +279,10 @@ to destroy them and players will be able to make replacements.
 		/obj/machinery/vending/clothing/departament/engineering = "Departament Engineering ClothesMate",
 		/obj/machinery/vending/clothing/departament/science = "Departament Science ClothesMate",
 		/obj/machinery/vending/clothing/departament/cargo = "Departament Cargo ClothesMate",
-		/obj/machinery/vending/clothing/departament/law = "Departament Law ClothesMate")
+		/obj/machinery/vending/clothing/departament/law = "Departament Law ClothesMate",
+		/obj/machinery/vending/clothing/departament/service = "Service Departament ClothesMate",
+		/obj/machinery/vending/clothing/departament/service/botanical = "Service Departament ClothesMate Botanical",
+		/obj/machinery/vending/clothing/departament/service/chaplain = "Service Departament ClothesMate Chaplain")
 
 /obj/item/circuitboard/vendor/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -599,7 +602,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/chem_dispenser
 	board_type = "machine"
 	origin_tech = "materials=4;programming=4;plasmatech=4;biotech=3"
-	req_one_access = list(ACCESS_TOX, ACCESS_CHEMISTRY, ACCESS_SYNDICATE_SCIENTIST)
+	req_access = list(ACCESS_TOX, ACCESS_CHEMISTRY, ACCESS_SYNDICATE_SCIENTIST)
 	req_components = list(	/obj/item/stock_parts/matter_bin = 2,
 							/obj/item/stock_parts/capacitor = 1,
 							/obj/item/stock_parts/manipulator = 1,

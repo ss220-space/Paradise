@@ -2223,6 +2223,31 @@
 	drink_desc = "Rarest tajaran drink in the galaxy! Be careful with your Captain!"
 	taste_description = "the blue set-up"
 
+/datum/reagent/consumable/ethanol/blue_moondrin/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.Druggy(15, FALSE)
+	switch(current_cycle)
+		if(1 to 15)
+			M.Dizzy(5)
+			if(prob(20))
+				M.emote(pick("twitch","giggle","moan"))
+				M.Jitter(10)
+		if(16 to 24)
+			if(prob(15))
+				M.Dizzy(5)
+				M.playsound_local(src, 'sound/spookoween/ghost_whisper.ogg', 3)
+				M.emote(pick("twitch","giggle"))
+				M.Jitter(10)
+				M.AdjustHallucinate(10)
+		if(25 to INFINITY)
+			if(prob(10))
+				M.Dizzy(10)
+				M.playsound_local(src,'sound/hallucinations/veryfar_noise.ogg', 1)
+				M.Jitter(10)
+				M.AdjustHallucinate(15)
+				M.emote("moan")
+	return ..() | update_flags
+
 /datum/reagent/consumable/ethanol/red_moondrin
 	name = "Redwater Moon'drin"
 	id = "red_moondrin"
@@ -2234,3 +2259,117 @@
 	drink_name = "Redwater Moon'drin"
 	drink_desc = "Dangerous moon'drin based tajaran drink with secret ingridient. It seems legal but also wrong..."
 	taste_description = "blood red pain in your stomach! But it feels so go-o-o-o-od.."
+
+/datum/reagent/consumable/ethanol/red_moondrin/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.Druggy(30, FALSE)
+	switch(current_cycle)
+		if(1 to 20)
+			M.Dizzy(10)
+			M.Stuttering(5)
+			if(prob(30))
+				M.emote(pick("twitch","moan"))
+				M.Jitter(10)
+				M.AdjustHallucinate(15)
+			if(prob(10))
+				M.playsound_local(src,'sound/hallucinations/im_here1.ogg', 1)
+		if(21 to 30)
+			M.Dizzy(5)
+			M.Stuttering(5)
+			M.playsound_local(src, 'sound/effects/heartbeat.ogg', 1)
+			if(prob(20))
+				to_chat(M, "<span class='warning'>You feel strange...</span>")
+				M.emote("scream")
+				M.playsound_local(src, 'sound/spookoween/ghost_whisper.ogg', 5)
+				M.AdjustHallucinate(20)
+				update_flags |= M.adjustStaminaLoss(3, FALSE)
+			if(prob(5))
+				M.playsound_local(src,'sound/hallucinations/look_up1.ogg', 1)
+				M.emote("gasp")
+				to_chat(M, "<span class='warning'>You can't breathe! But it feels GOOD!</span>")
+				update_flags |= M.adjustOxyLoss(15, FALSE)
+				update_flags |= M.adjustToxLoss(2, FALSE)
+				update_flags |= M.Stun(1, FALSE)
+		if(31 to INFINITY)
+			M.playsound_local(src, 'sound/effects/heartbeat.ogg', 2)
+			M.Dizzy(10)
+			M.Stuttering(10)
+			if(prob(30))
+				M.playsound_local(src, 'sound/effects/heartbeat.ogg', 2)
+				M.emote(pick("twitch","moan"))
+				M.Jitter(10)
+				M.AdjustHallucinate(15)
+				M.playsound_local(src,'sound/hallucinations/i_see_you2.ogg', 1)
+			if(prob(20))
+				to_chat(M, "<span class='warning'>You feel pain!</span>")
+				M.emote("scream")
+				M.playsound_local(src, 'sound/spookoween/ghost_whisper.ogg', 5)
+				M.AdjustHallucinate(20)
+				update_flags |= M.adjustStaminaLoss(10, FALSE)
+			if(prob(5))
+				M.playsound_local(src, 'sound/effects/heartbeat.ogg', 2)
+				M.playsound_local(src,'sound/hallucinations/growl1.ogg', 1)
+				M.emote("gasp")
+				to_chat(M, "<span class='warning'>You can't breathe! But it feels GOOD!</span>")
+				update_flags |= M.adjustOxyLoss(15, FALSE)
+				update_flags |= M.adjustToxLoss(2, FALSE)
+				update_flags |= M.Stun(1, FALSE)
+			if(prob(3))
+				M.playsound_local(src, 'sound/effects/heartbeat.ogg', 2)
+				to_chat(M, "<span class='warning'>You feel like you're being watched!</span>")
+				M.playsound_local(src,'sound/hallucinations/growl2.ogg', 1)
+				M.emote(pick("drool","scream"))
+				M.Jitter(10)
+				update_flags |= M.adjustToxLoss(3, FALSE)
+				update_flags |= M.Weaken(1, FALSE)
+				M.AdjustConfused(33)
+	return ..() | update_flags
+
+/datum/reagent/consumable/ethanol/synthanol/restart
+	name = "Restart"
+	id = "restart"
+	description = "Sometimes you just need to start anew"
+	color = "#0026fc"
+	reagent_state = LIQUID
+	process_flags = SYNTHETIC
+	alcohol_perc = 1.5
+	drink_icon = "restart"
+	drink_name = "Glass of Restart"
+	drink_desc = "Sometimes you just need to start anew"
+	taste_description = "system reset"
+
+/datum/reagent/consumable/ethanol/synthanol/restart/on_mob_life(mob/living/carbon/human/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	switch(current_cycle)
+		if(5 to 13)
+			M.Jitter(20)
+			if(prob(10))
+				M.emote(pick("twitch","giggle"))
+			if(prob(5))
+				to_chat(M, "<span class='notice'>Rebooting..</span>")
+		if(14)
+			playsound(get_turf(M),'sound/effects/restart-shutdown.ogg', 200, 1)
+		if(15 to 23)
+			update_flags |= M.Stun(5, FALSE)
+			update_flags |= M.Weaken(5, FALSE)
+			update_flags |= M.adjustBruteLoss(-0.3, FALSE, robotic = TRUE)
+			update_flags |= M.adjustFireLoss(-0.3, FALSE, robotic = TRUE)
+			update_flags |= M.SetSleeping(10)
+		if(24)
+			playsound(get_turf(M), 'sound/effects/restart-wakeup.ogg', 200, 1)
+		if(25)
+			M.SetStunned(0)
+			M.SetWeakened(0)
+			M.SetParalysis(0)
+			M.SetSleeping(0)
+			M.SetDrowsy(0)
+			M.SetSlur(0)
+			M.SetDrunk(0)
+			M.SetJitter(0)
+			M.SetDizzy(0)
+			M.SetDruggy(0)
+			M.lying = 0
+			M.update_canmove() // wakey wakey
+			var/restart_amount = clamp(M.reagents.get_reagent_amount("restart")-0.4, 0, 330)
+			M.reagents.remove_reagent("restart",restart_amount)
+	return ..() | update_flags
