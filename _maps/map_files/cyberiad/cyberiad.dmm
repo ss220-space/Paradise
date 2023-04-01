@@ -23623,12 +23623,11 @@
 	name = "west fire alarm";
 	pixel_x = -24
 	},
-/obj/structure/table/wood,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/machinery/bottler,
+/obj/structure/reagent_dispensers/beerkeg,
 /turf/simulated/floor/wood/fancy/oak,
 /area/crew_quarters/bar)
 "bfG" = (
@@ -25141,6 +25140,22 @@
 /area/crew_quarters/dorms)
 "biY" = (
 /obj/structure/table/wood,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/item/storage/secure/safe{
+	pixel_x = -22
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50;
+	pixel_x = -4;
+	pixel_y = 1
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50;
+	pixel_x = 3;
+	pixel_y = 2
+	},
 /obj/item/storage/fancy/candle_box/eternal{
 	pixel_x = -5;
 	pixel_y = 5
@@ -25153,11 +25168,8 @@
 	pixel_x = -1;
 	pixel_y = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
-/obj/item/storage/secure/safe{
-	pixel_x = -22
+/obj/item/flashlight/lamp{
+	layer = 3.2
 	},
 /turf/simulated/floor/wood/fancy/oak,
 /area/crew_quarters/bar)
@@ -27619,6 +27631,9 @@
 /obj/item/gun/projectile/revolver/doublebarrel{
 	pixel_y = 14
 	},
+/obj/item/reagent_containers/dropper{
+	pixel_y = -6
+	},
 /turf/simulated/floor/wood/fancy/oak,
 /area/crew_quarters/bar)
 "boR" = (
@@ -29369,28 +29384,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "btM" = (
-/obj/structure/table/wood,
 /obj/machinery/light/small,
-/obj/item/stack/sheet/metal{
-	amount = 50;
-	pixel_x = -4;
-	pixel_y = 1
-	},
-/obj/item/stack/sheet/glass{
-	amount = 50;
-	pixel_x = 3;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/dropper{
-	pixel_y = -6
-	},
-/obj/item/flashlight/lamp{
-	layer = 3.2
-	},
 /obj/item/radio/intercom{
 	name = "south station intercom (General)";
 	pixel_y = -28
 	},
+/obj/structure/table/wood,
+/obj/machinery/bottler,
 /turf/simulated/floor/wood/fancy/oak,
 /area/crew_quarters/bar)
 "btN" = (
@@ -79172,6 +79172,10 @@
 	icon_state = "cafeteria"
 	},
 /area/maintenance/cafeteria)
+"jrz" = (
+/obj/structure/closet/boxinggloves,
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/dorms)
 "jrN" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/unary/portables_connector,
@@ -88339,6 +88343,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
+"qJr" = (
+/obj/structure/closet/masks,
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/dorms)
 "qKo" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -136190,7 +136198,7 @@ sHt
 sHt
 sHt
 kjf
-aPm
+jrz
 aPm
 aSM
 aVv
@@ -136704,7 +136712,7 @@ sHt
 sHt
 sHt
 aOI
-aPm
+qJr
 aPm
 aSM
 aVv
