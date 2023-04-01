@@ -303,14 +303,13 @@
 	return ..()
 
 /obj/machinery/suit_storage_unit/screwdriver_act(mob/user, obj/item/I)
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = 0))
 		return
 	. = TRUE
 	if(shocked && !(stat & NOPOWER))
 		if(shock(user, 100))
 			return
-	if(default_deconstruction_screwdriver(user, "panel", "close", I))
-		I.play_tool_sound(user, I.tool_volume)
+	default_deconstruction_screwdriver(user, "panel", "close", I)
 
 /obj/machinery/suit_storage_unit/proc/store_item(obj/item/I, mob/user)
 	. = FALSE
