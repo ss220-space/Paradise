@@ -44,10 +44,11 @@
 	if(ishuman(target))
 		for(var/obj/item/I in target)
 			target.unEquip(I)
-	target.dust()
 	if(target.client == null)
+		target.dust()
 		get_ghost(target, user)
 	else
+		target.dust()
 		transfer_personality(target)
 		to_chat(target, "<span class='clocklarge'><b>\"You belong to me now.\"</b></span>")
 	if(victim_brain)
