@@ -79,15 +79,7 @@ export const SecureStorage = (props, context) => {
                   {l_set ? "*****" : "NOT SET. ENTER NEW."}
                 </Box>
               </LabeledList.Item>
-              <LabeledList.Item
-                label="Lock Status"
-                buttons={
-                  <Button
-                    disabled={locked}
-                    color="red"
-                    icon="lock"
-                    onClick={() => act('close')} />
-                }>
+              <LabeledList.Item label="Lock Status">
                 <Box color={locked ? "red": "green"}>
                   {locked ? "Locked" : "Unlocked"}
                 </Box>
@@ -97,6 +89,13 @@ export const SecureStorage = (props, context) => {
                   {current_code ? current_code : "Waiting for input"}
                 </Box>
               </LabeledList.Item>
+              <Button
+                left=".5em"
+                disabled={locked}
+                color="red"
+                content="Lock"
+                icon="lock"
+                onClick={() => act('close')} />
             </LabeledList>
           )}
         </Section>
