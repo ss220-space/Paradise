@@ -81,7 +81,7 @@
 	resistance_flags = NONE
 
 /obj/item/clothing/under/rank/roboticist/student
-	name = "student robotist jumpsuit"
+	name = "student robotist jumpsuit"	//What a good time to add a cute sprite here.
 
 /obj/item/clothing/under/rank/roboticist/skirt
 	desc = "It's a slimming black jumpskirt with reinforced seams; great for industrial work."
@@ -90,7 +90,7 @@
 	item_color = "roboticsf"
 
 /obj/item/clothing/under/rank/roboticist/skirt/student
-	name = "student robotist jumpskirt"
+	name = "student robotist jumpskirt"	//And here too.
 
 /obj/item/clothing/under/rank/mechanic
 	desc = "It's a pair of overalls worn by mechanics."
