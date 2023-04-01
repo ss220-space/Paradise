@@ -26540,7 +26540,6 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/port)
 "bmt" = (
-/obj/structure/table,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -26553,10 +26552,7 @@
 	name = "Kitchen Requests Console";
 	pixel_y = 30
 	},
-/obj/machinery/kitchen_machine/microwave{
-	pixel_x = -1;
-	pixel_y = 7
-	},
+/obj/structure/closet/secure_closet/freezer/kitchen,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -28647,11 +28643,9 @@
 	},
 /area/hallway/secondary/entry)
 "bro" = (
-/obj/effect/landmark/start/chef,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/crew_quarters/kitchen)
+/obj/structure/closet/boxinggloves,
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/dorms)
 "brp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -29151,21 +29145,9 @@
 /turf/simulated/floor/plasteel,
 /area/storage/tools)
 "bsS" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/start/chef,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/crew_quarters/kitchen)
-"bsT" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/snacks/mint{
-	pixel_y = 3
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/crew_quarters/kitchen)
+/obj/structure/closet/masks,
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/dorms)
 "bsU" = (
 /mob/living/simple_animal/chicken/Wife,
 /obj/structure/flora/ausbushes/pointybush,
@@ -31017,7 +30999,6 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/closet/secure_closet/freezer/fridge,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -31471,6 +31452,10 @@
 /area/crew_quarters/bar)
 "byE" = (
 /obj/structure/table,
+/obj/machinery/kitchen_machine/microwave{
+	pixel_x = -3;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -34107,11 +34092,6 @@
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
 "bFJ" = (
-/obj/structure/table,
-/obj/machinery/kitchen_machine/microwave{
-	pixel_x = -3;
-	pixel_y = 6
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -34122,6 +34102,7 @@
 	name = "north station intercom (General)";
 	pixel_y = 28
 	},
+/obj/structure/closet/secure_closet/freezer/fridge,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -69103,15 +69084,18 @@
 /turf/simulated/wall/r_wall,
 /area/atmos)
 "djT" = (
-/obj/machinery/kitchen_machine/grill{
-	pixel_x = 1;
-	pixel_y = 2
+/obj/machinery/navbeacon{
+	codes_txt = "delivery";
+	location = "Hydroponics"
 	},
-/obj/effect/decal/warning_stripes/white,
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
+	dir = 1;
+	icon_state = "bot"
 	},
-/area/crew_quarters/kitchen)
+/area/hydroponics)
 "djU" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/grille,
@@ -71877,19 +71861,6 @@
 	},
 /turf/space,
 /area/turret_protected/ai)
-"dsp" = (
-/obj/machinery/navbeacon{
-	codes_txt = "delivery";
-	location = "Hydroponics"
-	},
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bot"
-	},
-/area/hydroponics)
 "dss" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
@@ -74990,10 +74961,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/engrooms)
-"fJX" = (
-/obj/structure/closet/masks,
-/turf/simulated/floor/plasteel,
-/area/crew_quarters/dorms)
 "fKP" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -80446,15 +80413,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/livingcomplex)
 "krt" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/condiment/peppermill{
-	pixel_x = 3;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_x = -3;
-	pixel_y = 5
-	},
+/obj/effect/landmark/start/chef,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -84285,10 +84244,6 @@
 	icon_state = "dark"
 	},
 /area/maintenance/gambling_den)
-"nsy" = (
-/obj/structure/closet/boxinggloves,
-/turf/simulated/floor/plasteel,
-/area/crew_quarters/dorms)
 "ntd" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -89647,6 +89602,23 @@
 	icon_state = "chapel"
 	},
 /area/chapel/main)
+"rOa" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/mint{
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = 3;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -3;
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/crew_quarters/kitchen)
 "rOf" = (
 /obj/structure/chair/sofa/left{
 	color = "#85130b"
@@ -91771,13 +91743,13 @@
 /area/maintenance/library)
 "tCG" = (
 /obj/structure/window/reinforced{
-	dir = 4
+	dir = 1
 	},
-/obj/structure/closet/secure_closet/freezer/kitchen,
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
+	dir = 9;
+	icon_state = "green"
 	},
-/area/crew_quarters/kitchen)
+/area/hydroponics)
 "tCK" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -95394,15 +95366,6 @@
 	icon_state = "escape"
 	},
 /area/security/customs2)
-"wvv" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "green"
-	},
-/area/hydroponics)
 "wvx" = (
 /obj/structure/table/reinforced,
 /obj/item/gun/energy/laser/practice,
@@ -134973,7 +134936,7 @@ bdT
 bmt
 bof
 dhK
-djT
+iyP
 krt
 iyP
 fED
@@ -135231,7 +135194,7 @@ bqB
 bof
 btI
 byE
-byE
+rOa
 byE
 bwn
 bof
@@ -135488,7 +135451,7 @@ bFJ
 bof
 btK
 but
-bsT
+krt
 boi
 bwo
 bof
@@ -135745,7 +135708,7 @@ bJV
 bus
 bus
 bus
-bsS
+bus
 bus
 bus
 bxH
@@ -135999,12 +135962,12 @@ bdT
 bdT
 bdT
 bqH
-bro
+bof
 bof
 buu
 buu
 buu
-tCG
+buu
 bxJ
 bdT
 bAk
@@ -136237,7 +136200,7 @@ sHt
 sHt
 sHt
 kjf
-nsy
+bro
 aPm
 aSM
 aVv
@@ -136751,7 +136714,7 @@ sHt
 sHt
 sHt
 aOI
-fJX
+bsS
 aPm
 aSM
 aVv
@@ -137791,9 +137754,9 @@ aLA
 aLA
 aGY
 bbh
-dsp
+djT
 bhu
-wvv
+tCG
 bjt
 beb
 dnH
