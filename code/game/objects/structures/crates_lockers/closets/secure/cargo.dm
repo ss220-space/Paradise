@@ -37,6 +37,6 @@
 	new /obj/item/door_remote/quartermaster(src)
 	new /obj/item/organ/internal/cyberimp/eyes/meson(src)
 	new /obj/item/cartridge/quartermaster(src)
-	new /obj/item/stamp/granted(src)	//added here delited on maps
+	new /obj/item/stamp/granted(src)	//added here deleted on maps
 	new /obj/item/stamp/denied(src)
 	new /obj/item/storage/garmentbag/quartermaster(src)

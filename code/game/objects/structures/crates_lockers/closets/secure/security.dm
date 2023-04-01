@@ -48,7 +48,7 @@
 	new /obj/item/clothing/accessory/medal/service(src)
 	new /obj/item/storage/garmentbag/hop(src)
 
-/*/obj/structure/closet/secure_closet/hop2 //dont realy need this couze of garment bag
+/*/obj/structure/closet/secure_closet/hop2 //dont realy need this because of garment bag
 	name = "head of personnel's attire"
 	req_access = list(ACCESS_HOP)
 	icon_state = "hopsecure1"
@@ -110,7 +110,7 @@
 	new /obj/item/organ/internal/cyberimp/eyes/hud/security(src)
 	new /obj/item/clothing/accessory/medal/security(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses/aviators(src)
-	new /obj/item/megaphone(src)	//added here delited on maps
+	new /obj/item/megaphone(src)	//added here deleted on maps
 	new /obj/item/reagent_containers/food/drinks/flask(src)
 	new /obj/item/storage/garmentbag/hos(src)
 
@@ -140,7 +140,7 @@
 	new /obj/item/storage/belt/security/sec(src)
 	new /obj/item/storage/box/holobadge(src)
 	new /obj/item/clothing/gloves/color/black/krav_maga/sec(src)
-	new /obj/item/megaphone(src)	//added here delited on maps
+	new /obj/item/megaphone(src)	//added here deleted on maps
 	new /obj/item/clothing/accessory/holster(src)
 	new /obj/item/storage/garmentbag/warden(src)
 
@@ -404,6 +404,6 @@
 	new /obj/item/gavelhammer(src)
 	new /obj/item/clothing/accessory/medal/legal(src)
 	new /obj/item/clothing/accessory/lawyers_badge(src)
-	new /obj/item/radio/headset/heads/magistrate/alt(src)	//added here delited on maps
+	new /obj/item/radio/headset/heads/magistrate/alt(src)	//added here deleted on maps
 	new /obj/item/megaphone(src)
 	new /obj/item/storage/garmentbag/magistrate(src)

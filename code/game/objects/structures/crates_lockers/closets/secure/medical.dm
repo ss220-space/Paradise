@@ -185,7 +185,7 @@
 	new /obj/item/door_remote/chief_medical_officer(src)
 	new /obj/item/reagent_containers/food/drinks/mug/cmo(src)
 	new /obj/item/clothing/accessory/medal/medical(src)
-	new /obj/item/megaphone(src)	//added here delited on maps
+	new /obj/item/megaphone(src)	//added here deleted on maps
 	new /obj/item/storage/garmentbag/CMO(src)
 
 /obj/structure/closet/secure_closet/animal

@@ -32,7 +32,7 @@
 	new /obj/item/organ/internal/cyberimp/eyes/meson(src)
 	new /obj/item/clothing/accessory/medal/engineering(src)
 	new /obj/item/holosign_creator/atmos(src)
-	new /obj/item/megaphone(src)	//added here delited on maps
+	new /obj/item/megaphone(src)	//added here deleted on maps
 	new /obj/item/storage/garmentbag/engineering_chief(src)
 
 /obj/structure/closet/secure_closet/engineering_electrical

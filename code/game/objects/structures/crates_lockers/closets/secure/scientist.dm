@@ -74,7 +74,7 @@
 	new /obj/item/reagent_containers/food/drinks/mug/rd(src)
 	new /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic(src)
 	new /obj/item/clothing/accessory/medal/science(src)
-	new /obj/item/megaphone(src)	//added here delited on maps
+	new /obj/item/megaphone(src)	//added here deleted on maps
 	new /obj/item/storage/garmentbag/RD(src)
 
 /obj/structure/closet/secure_closet/research_reagents
