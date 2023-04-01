@@ -24410,18 +24410,13 @@
 	},
 /area/crew_quarters/bar)
 "bhu" = (
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 24
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/window/eastright{
+	name = "Hydroponics Delivery";
+	req_access = list(35)
 	},
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "green"
+	icon_state = "whitegreenfull"
 	},
 /area/hydroponics)
 "bhv" = (
@@ -24744,7 +24739,13 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "greencorner"
+	},
 /area/hydroponics)
 "big" = (
 /turf/simulated/wall,
@@ -25317,6 +25318,15 @@
 	},
 /area/chapel/main)
 "bjt" = (
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
+	},
 /obj/machinery/floodlight,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -25492,6 +25502,9 @@
 	},
 /area/hydroponics)
 "bjW" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "green"
 	},
@@ -27499,9 +27512,6 @@
 	},
 /area/ai_monitored/storage/eva)
 "bos" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 1;
 	icon_state = "pipe-c"
@@ -27512,8 +27522,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
+	dir = 8;
 	icon_state = "green"
 	},
 /area/hydroponics)
@@ -66719,6 +66732,10 @@
 "ddF" = (
 /obj/structure/table/wood,
 /obj/item/deck/cards,
+/obj/machinery/camera{
+	c_tag = "Dormitories East";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -71860,6 +71877,19 @@
 	},
 /turf/space,
 /area/turret_protected/ai)
+"dsp" = (
+/obj/machinery/navbeacon{
+	codes_txt = "delivery";
+	location = "Hydroponics"
+	},
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bot"
+	},
+/area/hydroponics)
 "dss" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
@@ -74960,6 +74990,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/engrooms)
+"fJX" = (
+/obj/structure/closet/masks,
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/dorms)
 "fKP" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -79172,10 +79206,6 @@
 	icon_state = "cafeteria"
 	},
 /area/maintenance/cafeteria)
-"jrz" = (
-/obj/structure/closet/boxinggloves,
-/turf/simulated/floor/plasteel,
-/area/crew_quarters/dorms)
 "jrN" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/unary/portables_connector,
@@ -84255,6 +84285,10 @@
 	icon_state = "dark"
 	},
 /area/maintenance/gambling_den)
+"nsy" = (
+/obj/structure/closet/boxinggloves,
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/dorms)
 "ntd" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -88343,10 +88377,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
-"qJr" = (
-/obj/structure/closet/masks,
-/turf/simulated/floor/plasteel,
-/area/crew_quarters/dorms)
 "qKo" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -95364,6 +95394,15 @@
 	icon_state = "escape"
 	},
 /area/security/customs2)
+"wvv" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "green"
+	},
+/area/hydroponics)
 "wvx" = (
 /obj/structure/table/reinforced,
 /obj/item/gun/energy/laser/practice,
@@ -136198,7 +136237,7 @@ sHt
 sHt
 sHt
 kjf
-jrz
+nsy
 aPm
 aSM
 aVv
@@ -136712,7 +136751,7 @@ sHt
 sHt
 sHt
 aOI
-qJr
+fJX
 aPm
 aSM
 aVv
@@ -137752,9 +137791,9 @@ aLA
 aLA
 aGY
 bbh
-beb
+dsp
 bhu
-uHn
+wvv
 bjt
 beb
 dnH
