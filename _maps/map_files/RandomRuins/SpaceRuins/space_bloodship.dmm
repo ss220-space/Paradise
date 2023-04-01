@@ -215,6 +215,27 @@
 	icon_state = "white_walls_corners"
 	},
 /area/ruin/unpowered)
+"Hm" = (
+/obj/effect/decal/cleanable/blood/old,
+/mob/living/simple_animal/hostile/illusion/cult{
+	deathmessage = "disappears into the air with a cry of agony";
+	desc = "The deceived soul";
+	health = 200;
+	maxHealth = 350;
+	name = "The soul of the cultist";
+	icon = 'icons/mob/mob.dmi';
+	icon_living = "shade";
+	icon_state = "shade";
+	icon_dead = "shade_dead";
+	melee_damage_lower = 10;
+	melee_damage_upper = 25
+	},
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
 "Jn" = (
 /obj/structure/cult/pylon,
 /turf/simulated/floor/engine/cult{
@@ -357,11 +378,10 @@
 	},
 /area/ruin/unpowered)
 "RD" = (
-/obj/effect/decal/cleanable/blood/old,
 /mob/living/simple_animal/hostile/illusion/cult{
 	deathmessage = "disappears into the air with a cry of agony";
 	desc = "The deceived soul";
-	health = 200;
+	health = 350;
 	maxHealth = 350;
 	name = "The soul of the cultist";
 	icon = 'icons/mob/mob.dmi';
@@ -854,7 +874,7 @@ EI
 oc
 oc
 yu
-jV
+RD
 NU
 Wh
 xZ
@@ -1505,7 +1525,7 @@ Bg
 jV
 sW
 Bg
-RD
+Hm
 Bg
 Bg
 Bg
@@ -1647,7 +1667,7 @@ Bg
 Bg
 sW
 Bg
-RD
+Hm
 qE
 Mt
 Kp
