@@ -125,9 +125,9 @@
 					uniform = /obj/item/clothing/under/rank/scientist/student/assistant/skirt
 			if("Student Robotist")
 				suit = /obj/item/clothing/suit/storage/labcoat
-				uniform = /obj/item/clothing/under/rank/roboticist
+				uniform = /obj/item/clothing/under/rank/roboticist/student
 				if(H.gender == FEMALE)
-					uniform = /obj/item/clothing/under/rank/roboticist/skirt
+					uniform = /obj/item/clothing/under/rank/roboticist/skirt/student
 
 /datum/job/roboticist
 	title = "Roboticist"
