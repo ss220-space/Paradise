@@ -90,6 +90,7 @@ export const SecureStorage = (props, context) => {
                 </Box>
               </LabeledList.Item>
               <Button
+                top=".35em"
                 left=".5em"
                 disabled={locked}
                 color="red"
