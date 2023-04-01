@@ -194,6 +194,8 @@
 		qdel(src)
 	else
 		M.tts_seed = SStts.get_random_seed(M)
+		if(M.dna)
+			M.dna.tts_seed_dna = M.tts_seed
 
 // Base version - place these on maps/templates.
 /obj/effect/mob_spawn/human
