@@ -2,8 +2,8 @@
 #define TUMOR_ACTIVE 1
 #define TUMOR_PASSIVE 2
 #define ARENA_RADIUS 12
-#define REVIVE_COOLDOWN_MOD 10
-#define REVIVE_COOLDOWN_MOD_ANTAG 2
+#define REVIVE_COOLDOWN_MULT 10
+#define REVIVE_COOLDOWN_MULT_ANTAG 2
 
 //Elite mining mobs
 /mob/living/simple_animal/hostile/asteroid/elite
@@ -76,15 +76,17 @@
 		if(L.stat != DEAD)
 			if(!client && ranged && ranged_cooldown <= world.time)
 				OpenFire()
+		else
+			L.gib()
 
 
 /mob/living/simple_animal/hostile/asteroid/elite/proc/revive_multiplier() //If on lavaland, return 1, or 1x cooldown. 10 if revived by a non antag, 2 if by an antag. 1 otherwise
 	if(is_mining_level(z))
 		return 1
 	if(revive_cooldown)
-		return REVIVE_COOLDOWN_MOD
+		return REVIVE_COOLDOWN_MULT
 	if(del_on_death)
-		return REVIVE_COOLDOWN_MOD_ANTAG
+		return REVIVE_COOLDOWN_MULT_ANTAG
 	return 1
 
 /mob/living/simple_animal/hostile/asteroid/elite/adjustHealth(damage, updating_health)
@@ -399,7 +401,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	else
 		SSblackbox.record_feedback("tally", "AI controlled Elite loss", 1, mychild.name)
 	new mychild.loot_drop(lootloc)
-	my.child.dif_mult = 1
+	mychild.dif_mult = 1
 	qdel(src)
 
 /obj/structure/elite_tumor/proc/onEliteWon()
@@ -500,5 +502,5 @@ While using this makes the system rely on OnFire, it still gives options for tim
 #undef TUMOR_ACTIVE
 #undef TUMOR_PASSIVE
 #undef ARENA_RADIUS
-#undef REVIVE_COOLDOWN_MOD 10
-#undef REVIVE_COOLDOWN_MOD_ANTAG 2
+#undef REVIVE_COOLDOWN_MULT
+#undef REVIVE_COOLDOWN_MULT_ANTAG
