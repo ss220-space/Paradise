@@ -48,7 +48,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/examine(mob/user)
 	. = ..()
-	if(del_on_death)
+	if(reviver)
 		. += "However, this one appears appears less wild in nature, and calmer around people."
 
 /mob/living/simple_animal/hostile/asteroid/elite/AttackingTarget()
