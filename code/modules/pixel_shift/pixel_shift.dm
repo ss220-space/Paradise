@@ -51,6 +51,8 @@
 		unpixel_shift()
 
 /mob/living/pixel_shift(direction)
+	if(restrained() || IsWeakened() || length(grabbed_by))
+		return
 	passthroughable = NONE
 	switch(direction)
 		if(NORTH)
