@@ -24,8 +24,8 @@
 	icon_aggro = "herald"
 	icon_dead = "herald_dying"
 	icon_gib = "syndicate_gib"
-	maxHealth = 1000
-	health = 1000
+	maxHealth = 1300
+	health = 1300
 	melee_damage_lower = 20
 	melee_damage_upper = 20
 	armour_penetration = 50
