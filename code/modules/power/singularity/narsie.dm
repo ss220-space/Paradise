@@ -168,7 +168,7 @@
 
 
 /obj/singularity/narsie/proc/narsie_spawn_animation()
-	icon = 'icons/obj/narsie_spawn_anim.dmi'
+	icon = 'icons/effects/narsie_spawn_anim.dmi'
 	dir = SOUTH
 	move_self = FALSE
 	flick(SSticker.cultdat?.entity_spawn_animation, src)

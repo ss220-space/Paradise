@@ -6,13 +6,13 @@
 /obj/item/weaponcrafting/receiver
 	name = "modular receiver"
 	desc = "A prototype modular receiver and trigger assembly for a firearm."
-	icon = 'icons/obj/improvised.dmi'
+	icon = 'icons/obj/weapons/improvised.dmi'
 	icon_state = "receiver"
 
 /obj/item/weaponcrafting/stock
 	name = "rifle stock"
 	desc = "A classic rifle stock that doubles as a grip, roughly carved out of wood."
-	icon = 'icons/obj/improvised.dmi'
+	icon = 'icons/obj/weapons/improvised.dmi'
 	icon_state = "riflestock"
 
 
@@ -33,7 +33,7 @@
 /obj/item/weaponcrafting/ishotgunconstruction
 	name = "slightly conspicuous metal construction"
 	desc = "A long pipe attached to a firearm receiver. The pins seem loose."
-	icon = 'icons/obj/improvised.dmi'
+	icon = 'icons/obj/weapons/improvised.dmi'
 	icon_state = "ishotgunstep1"
 
 /obj/item/weaponcrafting/ishotgunconstruction/attackby(var/obj/item/I, mob/user as mob, params)
@@ -48,7 +48,7 @@
 /obj/item/weaponcrafting/ishotgunconstruction2
 	name = "very conspicuous metal construction"
 	desc = "A long pipe attached to a trigger assembly."
-	icon = 'icons/obj/improvised.dmi'
+	icon = 'icons/obj/weapons/improvised.dmi'
 	icon_state = "ishotgunstep1"
 
 /obj/item/weaponcrafting/ishotgunconstruction2/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -64,7 +64,7 @@
 /obj/item/weaponcrafting/ishotgunconstruction3
 	name = "extremely conspicuous metal construction"
 	desc = "A receiver-barrel shotgun assembly with a loose wooden stock. There's no way you can fire it without the stock coming loose."
-	icon = 'icons/obj/improvised.dmi'
+	icon = 'icons/obj/weapons/improvised.dmi'
 	icon_state = "ishotgunstep2"
 
 /obj/item/weaponcrafting/ishotgunconstruction3/attackby(var/obj/item/I, mob/user as mob, params)

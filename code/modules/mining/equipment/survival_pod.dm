@@ -175,8 +175,8 @@
 //Computer
 /obj/item/gps/computer
 	name = "pod computer"
-	icon_state = "pod_computer"
 	icon = 'icons/obj/lavaland/pod_computer.dmi'
+	icon_state = "pod_computer"
 	anchored = 1
 	density = 1
 	pixel_y = -32

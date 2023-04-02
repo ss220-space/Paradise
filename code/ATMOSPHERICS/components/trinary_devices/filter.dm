@@ -14,7 +14,7 @@
 
 /obj/machinery/atmospherics/trinary/filter
 	name = "gas filter"
-	icon = 'icons/atmos/filter.dmi'
+	icon = 'icons/obj/atmos/filter.dmi'
 	icon_state = "map"
 	can_unwrench = TRUE
 	/// The amount of pressure the filter wants to operate at.

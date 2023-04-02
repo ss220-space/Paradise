@@ -1,7 +1,7 @@
 /obj/item/inflatable
 	name = "inflatable wall"
 	desc = "A folded membrane which rapidly expands into a large cubical shape on activation."
-	icon = 'icons/obj/inflatable.dmi'
+	icon = 'icons/obj/doors/inflatable.dmi'
 	icon_state = "folded_wall"
 	w_class = WEIGHT_CLASS_NORMAL
 
@@ -20,7 +20,7 @@
 	anchored = 1
 	opacity = 0
 	max_integrity = 50
-	icon = 'icons/obj/inflatable.dmi'
+	icon = 'icons/obj/doors/inflatable.dmi'
 	icon_state = "wall"
 	var/torn = /obj/item/inflatable/torn
 	var/intact = /obj/item/inflatable
@@ -81,7 +81,7 @@
 /obj/item/inflatable/door
 	name = "inflatable door"
 	desc = "A folded membrane which rapidly expands into a simple door on activation."
-	icon = 'icons/obj/inflatable.dmi'
+	icon = 'icons/obj/doors/inflatable.dmi'
 	icon_state = "folded_door"
 
 /obj/item/inflatable/door/attack_self(mob/user)
@@ -98,7 +98,7 @@
 	anchored = 1
 	opacity = 0
 
-	icon = 'icons/obj/inflatable.dmi'
+	icon = 'icons/obj/doors/inflatable.dmi'
 	icon_state = "door_closed"
 	torn = /obj/item/inflatable/door/torn
 	intact = /obj/item/inflatable/door
@@ -181,7 +181,7 @@
 /obj/item/inflatable/torn
 	name = "torn inflatable wall"
 	desc = "A folded membrane which rapidly expands into a large cubical shape on activation. It is too torn to be usable."
-	icon = 'icons/obj/inflatable.dmi'
+	icon = 'icons/obj/doors/inflatable.dmi'
 	icon_state = "folded_wall_torn"
 
 /obj/item/inflatable/torn/attack_self(mob/user)
@@ -191,7 +191,7 @@
 /obj/item/inflatable/door/torn
 	name = "torn inflatable door"
 	desc = "A folded membrane which rapidly expands into a simple door on activation. It is too torn to be usable."
-	icon = 'icons/obj/inflatable.dmi'
+	icon = 'icons/obj/doors/inflatable.dmi'
 	icon_state = "folded_door_torn"
 
 /obj/item/inflatable/door/torn/attack_self(mob/user)

@@ -127,7 +127,7 @@
 /obj/item/organ/internal/eyes/optical_sensor
 	species_type = /datum/species/machine
 	name = "optical sensor"
-	icon = 'icons/obj/robot_component.dmi'
+	icon = 'icons/obj/robot_parts.dmi'
 	icon_state = "camera"
 	status = ORGAN_ROBOT
 //	dead_icon = "camera_broken"

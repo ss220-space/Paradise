@@ -1,5 +1,5 @@
 /obj/machinery/atmospherics/unary/vent_scrubber
-	icon = 'icons/atmos/vent_scrubber.dmi'
+	icon = 'icons/obj/atmos/vent_scrubber.dmi'
 	icon_state = "map_scrubber"
 
 	name = "air scrubber"

@@ -1,5 +1,5 @@
 /obj/effect/decal/warning_stripes
-	icon = 'icons/effects/warning_stripes.dmi'
+	icon = 'icons/obj/warning_stripes.dmi'
 	layer = TURF_LAYER
 
 /obj/effect/decal/warning_stripes/north

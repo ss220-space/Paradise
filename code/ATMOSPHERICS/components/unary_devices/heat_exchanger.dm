@@ -1,5 +1,5 @@
 /obj/machinery/atmospherics/unary/heat_exchanger
-	icon = 'icons/obj/atmospherics/heat_exchanger.dmi'
+	icon = 'icons/obj/atmos/atmospherics/heat_exchanger.dmi'
 	icon_state = "intact"
 	density = 1
 

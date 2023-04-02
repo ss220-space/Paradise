@@ -183,11 +183,11 @@
 
 /obj/item/broken_device
 	name = "broken component"
-	icon = 'icons/obj/robot_component.dmi'
+	icon = 'icons/obj/robot_parts.dmi'
 	icon_state = "broken"
 
 /obj/item/robot_parts/robot_component
-	icon = 'icons/obj/robot_component.dmi'
+	icon = 'icons/obj/robot_parts.dmi'
 	icon_state = "working"
 	var/brute = 0
 	var/burn = 0

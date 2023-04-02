@@ -1,7 +1,7 @@
 /obj/structure/catapult
 	name = "Catapult"
 	desc = "A catapult."
-	icon = 'icons/obj/catapult.dmi'
+	icon = 'icons/obj/machines/catapult.dmi'
 	icon_state = "catapult"
 	resistance_flags = INDESTRUCTIBLE | UNACIDABLE | FIRE_PROOF | LAVA_PROOF | ACID_PROOF
 	density = 0

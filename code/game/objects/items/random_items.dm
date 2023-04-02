@@ -87,7 +87,7 @@
 
 /obj/item/reagent_containers/food/drinks/bottle/random_drink
 	name = "unlabelled drink"
-	icon = 'icons/obj/drinks.dmi'
+	icon = 'icons/obj/food/drinks.dmi'
 	var/list/special_drinks = list(/datum/reagent/pancuronium, /datum/reagent/lsd,/datum/reagent/medicine/omnizine, /datum/reagent/blood)
 
 /obj/item/reagent_containers/food/drinks/bottle/random_drink/Initialize()
@@ -108,7 +108,7 @@
 
 /obj/item/reagent_containers/food/drinks/bottle/random_reagent // Same as the chembottle code except the container
 	name = "unlabelled drink?"
-	icon = 'icons/obj/drinks.dmi'
+	icon = 'icons/obj/food/drinks.dmi'
 
 /obj/item/reagent_containers/food/drinks/bottle/random_reagent/New()
 	..()

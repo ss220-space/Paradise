@@ -4,7 +4,7 @@
 /obj/singularity/energy_ball
 	name = "energy ball"
 	desc = "An energy ball."
-	icon = 'icons/obj/tesla_engine/energy_ball.dmi'
+	icon = 'icons/obj/engines/energy_ball.dmi'
 	icon_state = "energy_ball"
 	pixel_x = -32
 	pixel_y = -32

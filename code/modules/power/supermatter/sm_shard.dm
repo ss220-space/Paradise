@@ -83,7 +83,7 @@
 	desc = "Tungsten-alloy tongs used for handling dangerous materials."
 	force = 7.0
 	throwforce = 12.0
-	icon = 'icons/obj/weapons.dmi'
+	icon = 'icons/obj/weaponss.dmi'
 	icon_state = "tongs"
 	edge = 1
 	w_class = WEIGHT_CLASS_SMALL

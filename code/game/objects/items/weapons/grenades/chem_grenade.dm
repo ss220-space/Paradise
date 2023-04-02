@@ -61,7 +61,7 @@
 
 /obj/item/grenade/chem_grenade/update_icon()
 	if(nadeassembly)
-		icon = 'icons/obj/assemblies/new_assemblies.dmi'
+		icon = 'icons/obj/assemblies.dmi'
 		icon_state = bomb_state
 		update_overlays()
 		var/obj/item/assembly/A = get_trigger()
@@ -73,7 +73,7 @@
 			else
 				name = payload_name + A.bomb_name + label // time bombs, remote mines, etc
 	else
-		icon = 'icons/obj/grenade.dmi'
+		icon = 'icons/obj/weapons/grenade.dmi'
 		icon_state = initial(icon_state)
 		overlays = list()
 		switch(stage)

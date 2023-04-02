@@ -1,7 +1,7 @@
 /obj/singularity/ratvar
 	name = "Ratvar, the Clockwork Justiciar"
 	desc = "..."
-	icon = 'icons/obj/512x512.dmi'
+	icon = 'icons/obj/ratvar.dmi'
 	icon_state = "ratvar"
 	pixel_x = -235
 	pixel_y = -248
@@ -100,7 +100,7 @@
 	return
 
 /obj/singularity/ratvar/proc/ratvar_spawn_animation()
-	icon = 'icons/obj/ratvar_spawn_anim.dmi'
+	icon = 'icons/effects/ratvar_spawn_anim.dmi'
 	dir = SOUTH
 	move_self = FALSE
 	flick("ratvar", src)

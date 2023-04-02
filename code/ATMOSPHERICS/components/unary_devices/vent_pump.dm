@@ -3,7 +3,7 @@
 #define PRESSURE_CHECKS 1
 
 /obj/machinery/atmospherics/unary/vent_pump
-	icon = 'icons/atmos/vent_pump.dmi'
+	icon = 'icons/obj/atmos/vent_pump.dmi'
 	icon_state = "map_vent"
 
 	name = "air vent"

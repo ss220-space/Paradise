@@ -79,7 +79,7 @@
 /obj/item/spacepod_equipment/weaponry
 	name = "pod weapon"
 	desc = "You shouldn't be seeing this"
-	icon = 'icons/vehicles/spacepod.dmi'
+	icon = 'icons/obj/spacepod_equipment.dmi'
 	icon_state = "blank"
 	var/obj/item/projectile/projectile_type
 	var/shot_cost = 0
@@ -184,7 +184,7 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 /obj/item/spacepod_equipment/cargo
 	name = "pod cargo"
 	desc = "You shouldn't be seeing this"
-	icon = 'icons/vehicles/spacepod.dmi'
+	icon = 'icons/obj/spacepod_equipment.dmi'
 	icon_state = "cargo_blank"
 	var/obj/storage = null
 
@@ -225,7 +225,7 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 /obj/item/spacepod_equipment/sec_cargo
 	name = "secondary cargo"
 	desc = "you shouldn't be seeing this"
-	icon = 'icons/vehicles/spacepod.dmi'
+	icon = 'icons/obj/spacepod_equipment.dmi'
 	icon_state = "blank"
 
 // Passenger Seat
@@ -251,7 +251,7 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 /obj/item/spacepod_equipment/lock
 	name = "pod lock"
 	desc = "You shouldn't be seeing this"
-	icon = 'icons/vehicles/spacepod.dmi'
+	icon = 'icons/obj/spacepod_equipment.dmi'
 	icon_state = "blank"
 	var/mode = 0
 	var/id = null
@@ -271,7 +271,7 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 /obj/item/spacepod_key
 	name = "spacepod key"
 	desc = "A key for a spacepod lock."
-	icon = 'icons/vehicles/spacepod.dmi'
+	icon = 'icons/obj/spacepod_equipment.dmi'
 	icon_state = "podkey"
 	w_class = WEIGHT_CLASS_TINY
 	var/id = 0

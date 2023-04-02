@@ -5,7 +5,7 @@
 	name = "\improper Cream-Master Deluxe"
 	density = 1
 	anchored = 1
-	icon = 'icons/obj/cooking_machines.dmi'
+	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "icecream_vat"
 	use_power = IDLE_POWER_USE
 	max_integrity = 300

@@ -64,7 +64,7 @@
 
 /datum/action/innate/terrorspider/ventsmash
 	name = "Smash Welded Vent"
-	icon_icon = 'icons/atmos/vent_pump.dmi'
+	icon_icon = 'icons/obj/atmos/vent_pump.dmi'
 	button_icon_state = "map_vent"
 
 /datum/action/innate/terrorspider/ventsmash/Activate()
@@ -73,7 +73,7 @@
 
 /datum/action/innate/terrorspider/remoteview
 	name = "Remote View"
-	icon_icon = 'icons/obj/eyes.dmi'
+	icon_icon = 'icons/obj/surgery.dmi'
 	button_icon_state = "heye"
 
 /datum/action/innate/terrorspider/remoteview/Activate()

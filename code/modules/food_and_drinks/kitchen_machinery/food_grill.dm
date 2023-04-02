@@ -1,7 +1,7 @@
 /obj/machinery/cooker/foodgrill
 	name = "grill"
 	desc = "Backyard grilling, IN SPACE."
-	icon = 'icons/obj/cooking_machines.dmi'
+	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "grill_off"
 	thiscooktype = "grilled"
 	burns = 1

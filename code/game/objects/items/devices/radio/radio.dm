@@ -634,7 +634,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	name = "Cyborg Radio"
 	var/mob/living/silicon/robot/myborg = null // Cyborg which owns this radio. Used for power checks
 	var/obj/item/encryptionkey/keyslot // Borg radios can handle a single encryption key
-	icon = 'icons/obj/robot_component.dmi' // Cyborgs radio icons should look like the component.
+	icon = 'icons/obj/robot_parts.dmi' // Cyborgs radio icons should look like the component.
 	icon_state = "radio"
 	has_loudspeaker = TRUE
 	loudspeaker = FALSE
