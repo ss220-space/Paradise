@@ -4,7 +4,7 @@
 	max_integrity = 300
 	climbable = FALSE
 	anchored = TRUE
-	icon = 'icons/obj/lavalend/tendril.dmi'
+	icon = 'icons/obj/lavaland/tendril.dmi'
 	icon_state = "tendril"
 	color = "#ffffff"
 
