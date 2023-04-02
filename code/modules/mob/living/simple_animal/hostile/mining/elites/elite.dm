@@ -117,8 +117,8 @@
 		dif_mult *= (world.time / (FULL_STRENGHT_TIME))
 	maxHealth = initial(maxHealth) * dif_mult
 	health = initial(health) * dif_mult
-	melee_damage_lower = initial(melee_damage_lower) * dif_mult
-	melee_damage_upper = initial(melee_damage_upper) * dif_mult
+	melee_damage_lower = initial(melee_damage_lower) * (dif_mult+1) / 0.5
+	melee_damage_upper = initial(melee_damage_upper) * (dif_mult+1) / 0.5
 
 /mob/living/simple_animal/hostile/asteroid/elite/can_die()
 	return ..() && health <= 0
