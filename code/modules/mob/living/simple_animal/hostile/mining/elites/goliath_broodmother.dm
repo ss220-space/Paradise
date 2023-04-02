@@ -168,6 +168,31 @@
 			child.revive() // at most this is a 49 hp heal.
 			playsound(src, 'sound/effects/bamf.ogg', 100, 1)
 
+/mob/living/simple_animal/hostile/asteroid/elite/broodmother/AltShiftClickOn(atom/A)
+	if(isliving(A))
+		var/mob/living/mob = A
+		var/mobref = "\ref[mob]"
+		if(mob == reviver)
+			return
+		if(mobref in faction)
+			faction -= mobref
+			friends -= mob
+			for(var/mob/living/simple_animal/hostile/asteroid/elite/child in children_list)
+				if(mobref in faction)
+					child.faction -= mobref
+					child.friends -= mob
+			to_chat(src, "<span class='warning'>You removed [mob] from your friends list.</span>")
+		else
+			faction += mobref
+			friends += mob
+			for(var/mob/living/simple_animal/hostile/asteroid/elite/child in children_list)
+				if(!(mobref in faction))
+					child.faction += mobref
+					child.friends += mob
+			to_chat(src, "<span class='notice'>You added [mob] to your friends list.</span>")
+
+
+
 //The goliath's children.  Pretty weak, simple mobs which are able to put a single tentacle under their target when at range.
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother_child
 	name = "baby goliath"
@@ -183,6 +208,7 @@
 	melee_damage_lower = 12.5
 	melee_damage_upper = 12.5
 	armour_penetration = 50
+	response_help = "pets"
 	attacktext = "bashes against"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "does nothing to the rocky hide of the"
@@ -210,6 +236,8 @@
 	new /obj/item/stack/sheet/animalhide/goliath_hide(loc)
 	new /obj/effect/gibspawner/human(get_turf(src))
 	qdel(src)
+
+
 
 //Tentacles stun WAY less compared to regular variant, to balance being able to use them much more often. Also, 10 more damage.
 /obj/effect/temp_visual/goliath_tentacle/broodmother/trip()

@@ -25,6 +25,8 @@
 	has_laser_resist = FALSE
 	universal_speak = TRUE
 	sentience_type = SENTIENCE_BOSS
+	response_help = "pets"
+	var/reviver = null
 	var/dif_mult = 1 // Scales with number of enemies
 	var/chosen_attack = 1
 	var/list/attack_action_types = list()
@@ -114,6 +116,23 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/can_die()
 	return ..() && health <= 0
+
+/mob/living/simple_animal/hostile/asteroid/elite/AltShiftClickOn(atom/A)
+	. = ..()
+	if(isliving(A))
+		var/mob/living/mob = A
+		var/mobref = "\ref[mob]"
+		if(mob == reviver)
+			return
+		if(mobref in faction)
+			faction -= mobref
+			friends -= mob
+			to_chat(src, "<span class='warning'>You removed [mob] from your friends list.</span>")
+		else
+			faction += mobref
+			friends += mob
+			to_chat(src, "<span class='notice'>You added [mob] to your friends list.</span>")
+
 
 /*Basic setup for elite attacks, based on Whoneedspace's megafauna attack setup.
 While using this makes the system rely on OnFire, it still gives options for timers not tied to OnFire, and it makes using attacks consistent accross the board for player-controlled elites.*/
@@ -446,6 +465,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			return
 		E.faction = list("\ref[user]")
 		E.friends += user
+		E.reviver = user
 		E.revive()
 		user.visible_message("<span class='notice'>[user] stabs [E] with [src], reviving it.</span>")
 		SEND_SOUND(E, 'sound/magic/cult_spell.ogg')
