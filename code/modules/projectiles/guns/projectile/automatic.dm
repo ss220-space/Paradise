@@ -359,4 +359,4 @@
 
 /obj/item/gun/projectile/automatic/laserrifle/update_icon()
 	..()
-	icon_state = "lr30[magazine ? "-[CEILING(get_ammo(0)/2, 1)*2]" : ""]"
+	icon_state = "lr30[magazine ? "-[CEILING(get_ammo(0)/3, 1)*3]" : ""]"
