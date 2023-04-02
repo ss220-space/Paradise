@@ -351,6 +351,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			locked = !locked
 			to_chat(user, "<span class='notice'>Controls are now [locked ? "locked" : "unlocked"].</span>")
 			updateUsrDialog()
+			if(!locked)
+				ui_interact(user)
 		else
 			to_chat(user, "<span class='notice'>Access denied.</span>")
 

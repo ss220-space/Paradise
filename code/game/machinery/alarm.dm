@@ -960,6 +960,8 @@
 						locked = !locked
 						to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the Air Alarm interface.</span>")
 						SStgui.update_uis(src)
+						if(!locked)
+							ui_interact(user)
 					else
 						to_chat(user, "<span class='warning'>Access denied.</span>")
 				return

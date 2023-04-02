@@ -121,6 +121,8 @@
 			else
 				locked = !locked
 				to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the panel.</span>")
+				if(!locked)
+					ui_interact(user)
 		return
 	return ..()
 
