@@ -53,6 +53,7 @@
 	/// Whether or not the legionnaire is currently charging, used to deny movement input if he is
 	var/charging = FALSE
 	var/charge_damage = 15
+	var/charge_damage_first = 25
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/scale_stats(list/activators)
 	. = ..()
@@ -174,7 +175,7 @@
 			L.adjustBruteLoss(charge_damage)
 		else
 			hit_targets += L
-			L.adjustBruteLoss(25)
+			L.adjustBruteLoss(charge_damage_first)
 
 	addtimer(CALLBACK(src, .proc/legionnaire_charge_to, move_dir, (times_ran + 1), hit_targets), 0.7)
 

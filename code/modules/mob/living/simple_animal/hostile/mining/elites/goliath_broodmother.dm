@@ -182,7 +182,7 @@
 	health = 100
 	melee_damage_lower = 12.5
 	melee_damage_upper = 12.5
-	armour_penetration = 30
+	armour_penetration = 50
 	attacktext = "bashes against"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "does nothing to the rocky hide of the"
