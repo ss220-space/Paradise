@@ -101,6 +101,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 		if(cure && prob(cure_chance))
 			cure()
 			return FALSE
+
 	if(mutable && prob(mutation_chance))
 		mutate()
 
@@ -160,7 +161,6 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	qdel(src)
 
 /datum/disease/proc/IsSame(datum/disease/D)
-	//if(istype(src, D.type))
 	if(src.type == D.type)
 		return 1
 	return 0
@@ -196,7 +196,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	//Here we have all the necessary reagents in affected_mob
 	var/type = pick(possible_mutations)
 	if(type)
-		affected_mob.ForceContractDisease(new type)
 		remove_virus()
+		affected_mob.ForceContractDisease(new type)
 		qdel(src)
 

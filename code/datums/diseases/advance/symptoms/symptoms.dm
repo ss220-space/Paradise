@@ -7,6 +7,7 @@ GLOBAL_LIST_INIT(list_virus_presets, list(
 	new /datum/disease/advance/preset/cold(),
 	new /datum/disease/advance/preset/flu(),
 	new /datum/disease/advance/preset/voice_change(),
+	new /datum/disease/advance/preset/heal(),
 	new /datum/disease/advance/preset/hullucigen(),
 	new /datum/disease/advance/preset/sensory_restoration(),
 	new /datum/disease/advance/preset/mind_restoration(),
