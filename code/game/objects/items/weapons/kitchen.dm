@@ -219,6 +219,19 @@
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 	attack_verb = list("shanked", "shivved")
 	armor = list("melee" = 100, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100)
+	var/icon_prefix
+
+/obj/item/kitchen/knife/glassshiv/New()
+	..()
+	update_icon()
+
+/obj/item/kitchen/knife/glassshiv/update_icon()
+	var/obj/item/shard/shard = new /obj/item/shard
+	var/icon_base = initial(icon_state)
+	icon_state = "[shard.icon_state]_[icon_base]"
+	if(icon_prefix)
+		var/obj/item/shard/plasma/pshard = new /obj/item/shard/plasma
+		icon_state = "[pshard.icon_state]_[icon_prefix]"
 
 /obj/item/kitchen/knife/glassshiv/plasmaglassshiv
 	name = "plasma glass shiv"
@@ -230,6 +243,7 @@
 	materials = list(MAT_PLASMA = MINERAL_MATERIAL_AMOUNT * 0.5, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	attack_verb = list("shanked", "shivved")
 	armor = list("melee" = 100, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100)
+	icon_prefix = "glass_shiv"
 
 
 /*
