@@ -113,7 +113,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/proc/scale_stats(var/list/activators)
 	dif_mult = enemies_count_scale ** length(activators)
-	if(scale_with_time)
+	if(scale_with_time && world.time > 20 MINUTES)
 		dif_mult *= (world.time / (FULL_STRENGHT_TIME))
 	maxHealth = initial(maxHealth) * dif_mult
 	health = initial(health) * dif_mult
