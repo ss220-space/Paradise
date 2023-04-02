@@ -135,8 +135,6 @@
 #include "code\__HELPERS\unique_ids.dm"
 #include "code\__HELPERS\unsorted.dm"
 #include "code\__HELPERS\sorts\__main.dm"
-#include "code\__HELPERS\sorts\InsertSort.dm"
-#include "code\__HELPERS\sorts\MergeSort.dm"
 #include "code\__HELPERS\sorts\TimSort.dm"
 #include "code\_globalvars\configuration.dm"
 #include "code\_globalvars\game_modes.dm"

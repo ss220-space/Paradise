@@ -570,18 +570,6 @@ world
 /proc/BlendRGBasHSV(rgb1, rgb2, amount)
 	return HSVtoRGB(RGBtoHSV(rgb1), RGBtoHSV(rgb2), amount)
 
-//Returns the perceived brightness of a color.
-//https://en.wikipedia.org/wiki/Relative_luminance
-//https://stackoverflow.com/questions/596216/formula-to-determine-brightness-of-rgb-color
-/proc/getLuminance(color)
-	var/list/RGB = ReadRGB(color)
-	var/R = RGB[1]
-	var/G = RGB[2]
-	var/B =	RGB[2]
-
-	var/Y = (0.2126 * R) + (0.7152 * G) + (0.0722 * B)
-	return clamp((Y * 0.01), 0, 1) //Returns the brightness of a color in decimal percentage format. Can multiply light_power by this to receive 100% brightness or a lower brightness. Not a higher brightness.
-
 /proc/HueToAngle(hue)
 	// normalize hsv in case anything is screwy
 	if(hue < 0 || hue >= 1536) hue %= 1536
@@ -847,33 +835,6 @@ The _flatIcons list is a cache for generated icon files.
 	#undef BLANK
 	#undef SET_SELF
 
-/proc/getIconMask(atom/A)//By yours truly. Creates a dynamic mask for a mob/whatever. /N
-	var/icon/alpha_mask = new(A.icon,A.icon_state)//So we want the default icon and icon state of A.
-	for(var/V in A.overlays)//For every image in overlays. var/image/I will not work, don't try it.
-		var/image/I = V
-		if(I.layer>A.layer)
-			continue//If layer is greater than what we need, skip it.
-		var/icon/image_overlay = new(I.icon,I.icon_state)//Blend only works with icon objects.
-		//Also, icons cannot directly set icon_state. Slower than changing variables but whatever.
-		alpha_mask.Blend(image_overlay,ICON_OR)//OR so they are lumped together in a nice overlay.
-	return alpha_mask//And now return the mask.
-
-/mob/proc/AddCamoOverlay(atom/A)//A is the atom which we are using as the overlay.
-	var/icon/opacity_icon = new(A.icon, A.icon_state)//Don't really care for overlays/underlays.
-	//Now we need to culculate overlays+underlays and add them together to form an image for a mask.
-	//var/icon/alpha_mask = getFlatIcon(src)//Accurate but SLOW. Not designed for running each tick. Could have other uses I guess.
-	var/icon/alpha_mask = getIconMask(src)//Which is why I created that proc. Also a little slow since it's blending a bunch of icons together but good enough.
-	opacity_icon.AddAlphaMask(alpha_mask)//Likely the main source of lag for this proc. Probably not designed to run each tick.
-	opacity_icon.ChangeOpacity(0.4)//Front end for MapColors so it's fast. 0.5 means half opacity and looks the best in my opinion.
-	for(var/i=0,i<5,i++)//And now we add it as overlays. It's faster than creating an icon and then merging it.
-		var/image/I = image("icon" = opacity_icon, "icon_state" = A.icon_state, "layer" = layer+0.8)//So it's above other stuff but below weapons and the like.
-		switch(i)//Now to determine offset so the result is somewhat blurred.
-			if(1)	I.pixel_x--
-			if(2)	I.pixel_x++
-			if(3)	I.pixel_y--
-			if(4)	I.pixel_y++
-		overlays += I//And finally add the overlay.
-
 /proc/getHologramIcon(icon/A, safety=1)//If safety is on, a new icon is not created.
 	var/icon/flat_icon = safety ? A : new(A)//Has to be a new icon to not constantly change the same icon.
 	var/icon/alpha_mask
@@ -922,29 +883,6 @@ The _flatIcons list is a cache for generated icon files.
 				result.Swap(i, gap + i)
 				swapped = 1
 	return result
-
-//Interface for using DrawBox() to draw 1 pixel on a coordinate.
-//Returns the same icon specifed in the argument, but with the pixel drawn
-/proc/DrawPixel(var/icon/I,var/colour,var/drawX,var/drawY)
-	if(!I)
-		return 0
-	var/Iwidth = I.Width()
-	var/Iheight = I.Height()
-	if(drawX > Iwidth || drawX <= 0)
-		return 0
-	if(drawY > Iheight || drawY <= 0)
-		return 0
-	I.DrawBox(colour,drawX, drawY)
-	return I
-
-//Interface for easy drawing of one pixel on an atom.
-/atom/proc/DrawPixelOn(var/colour, var/drawX, var/drawY)
-	var/icon/I = new(icon)
-	var/icon/J = DrawPixel(I, colour, drawX, drawY)
-	if(J) //Only set the icon if it succeeded, the icon without the pixel is 1000x better than a black square.
-		icon = J
-		return J
-	return 0
 
 //Hook, override to run code on- wait this is images
 //Images have dir without being an atom, so they get their own definition.
