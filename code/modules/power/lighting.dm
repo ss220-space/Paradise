@@ -250,7 +250,7 @@
 	if(A && !A.requires_power)
 		on = TRUE
 
-	if(dir == NORTH)
+	if(dir == SOUTH)
 		layer = 4.5
 
 	switch(fitting)
