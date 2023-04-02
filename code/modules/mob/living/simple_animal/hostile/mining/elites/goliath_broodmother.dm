@@ -106,9 +106,11 @@
 	. = ..()
 	if(!.) //Checks if they are dead as a rock.
 		return
-	if(health < maxHealth * 0.5 && rand_tent < world.time)
+	if(rand_tent < world.time)
 		rand_tent = world.time + 30
-		var/tentacle_amount = 5
+		var/tentacle_amount = 3
+		if(health < maxHealth * 0.5)
+			tentacle_amount = 5
 		if(health < maxHealth * 0.25)
 			tentacle_amount = 10
 		var/tentacle_loc = spiral_range_turfs(5, get_turf(src))
@@ -176,15 +178,15 @@
 	icon_aggro = "goliath_baby"
 	icon_dead = "goliath_baby_dead"
 	icon_gib = "syndicate_gib"
-	maxHealth = 50
-	health = 50
+	maxHealth = 100
+	health = 100
 	melee_damage_lower = 12.5
 	melee_damage_upper = 12.5
-	armour_penetration = 50
+	armour_penetration = 30
 	attacktext = "bashes against"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "does nothing to the rocky hide of the"
-	speed = 2
+	speed = 1.8
 	move_to_delay = 5
 	mouse_opacity = MOUSE_OPACITY_ICON
 	deathmessage = "falls to the ground."
@@ -198,14 +200,6 @@
 	mother = null
 	return ..()
 
-/mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/OpenFire(target)
-	ranged_cooldown = world.time + 40
-	var/tturf = get_turf(target)
-	if(!isturf(tturf))
-		return
-	if(get_dist(src, target) <= 7)//Screen range check, so it can't attack people off-screen
-		visible_message("<span class='warning'>[src] digs its tentacles under [target]!</span>")
-		new /obj/effect/temp_visual/goliath_tentacle/broodmother(tturf, src)
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/death()
 	. = ..()
