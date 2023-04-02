@@ -387,7 +387,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		mychild.forceMove(loc)
 		visible_message("<span class='warning'>[mychild] suddenly reappears above [src]!</span>")
 		playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
-	for(var/mob/living/carbon/human/invader in range(ARENA_RADIUS))
+	for(var/mob/living/carbon/human/invader in range(ARENA_RADIUS, src))
 		if(invader in activators)
 			continue
 		if(invader in invaders)
