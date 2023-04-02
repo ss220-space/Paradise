@@ -280,7 +280,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		notify_ghosts("\A [mychild] has been awakened in \the [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 	icon_state = "tumor_popped"
 	INVOKE_ASYNC(src, .proc/arena_checks)
-	AddComponent(/datum/component/proximity_monitor, ARENA_RADIUS) //Boots out humanoid invaders. Minebots / random fauna / that colossus you forgot to clear away allowed.
 
 /obj/structure/elite_tumor/proc/return_elite()
 	mychild.forceMove(loc)
@@ -293,7 +292,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		mychild.grab_ghost()
 		notify_ghosts("\A [mychild] has been challenged in \the [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 	INVOKE_ASYNC(src, .proc/arena_checks)
-	AddComponent(/datum/component/proximity_monitor, ARENA_RADIUS)
 
 /obj/structure/elite_tumor/Initialize(mapload)
 	. = ..()
@@ -401,24 +399,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		invader.forceMove(pick(valid_turfs)) //Doesn't check for lava. Don't cheese it.
 		playsound(invader, 'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 
-/obj/structure/elite_tumor/HasProximity(atom/movable/AM)
-	if(!ishuman(AM) && !isrobot(AM))
-		return
-	var/mob/living/M = AM
-	if(M in activators)
-		return
-	if(M in invaders)
-		to_chat(M, "<span class='colossus'><b>You dare to try to break the sanctity of our arena? SUFFER...</b></span>")
-		for(var/i in 1 to 4)
-			M.apply_status_effect(STATUS_EFFECT_VOID_PRICE) /// Hey kids, want 60 brute damage, increased by 40 each time you do it? Well, here you go!
-	else
-		to_chat(M, "<span class='userdanger'>Only spectators are allowed, while the arena is in combat...</span>")
-		invaders += M
-	var/list/valid_turfs = RANGE_EDGE_TURFS(ARENA_RADIUS + 2, src)
-	M.forceMove(pick(valid_turfs)) //Doesn't check for lava. Don't cheese it.
-	playsound(M, 'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
-
-
 /obj/structure/elite_tumor/proc/onEliteLoss()
 	playsound(loc,'sound/effects/tendril_destroyed.ogg', 200, 0, 50, TRUE, TRUE)
 	visible_message("<span class='warning'>[src] begins to convulse violently before beginning to dissipate.</span>")
@@ -453,7 +433,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		times_won++
 	else
 		SSblackbox.record_feedback("tally", "AI controlled Elite win", 1, mychild.name)
-	qdel(GetComponent(/datum/component/proximity_monitor))
 	qdel(src)
 
 /obj/item/tumor_shard
