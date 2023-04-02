@@ -178,38 +178,30 @@ Pipelines + Other Objects -> Pipe network
 		P.other_atmosmch -= src
 
 //(De)construction
-/obj/machinery/atmospherics/wrench_act(mob/living/user, obj/item/I)
-	. = TRUE
+/obj/machinery/atmospherics/wrench_act(mob/living/user, obj/item/tool)
 	if(!can_unwrench)
 		return
+	. = TRUE
 	var/turf/T = get_turf(src)
-	if(T.transparent_floor && istype(src, /obj/machinery/atmospherics/pipe) && layer != GAS_PIPE_VISIBLE_LAYER) //pipes on GAS_PIPE_VISIBLE_LAYER are above the transparent floor and should be interactable
-		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
-		return
-	if(level == 1 && isturf(T) && T.intact)
-		to_chat(user, "<span class='danger'>You must remove the plating first.</span>")
-		return
 	var/datum/gas_mixture/int_air = return_air()
 	var/datum/gas_mixture/env_air = loc.return_air()
 	add_fingerprint(user)
 
 	var/unsafe_wrenching = FALSE
 	var/safefromgusts = FALSE
-	var/I = int_air ? int_air.return_pressure() : 0
-	var/E = env_air ? env_air.return_pressure() : 0
-	var/internal_pressure = I - E
+	var/internal_pressure = int_air.return_pressure()  - env_air.return_pressure()
 
-	playsound(src.loc, W.usesound, 50, 1)
 	to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
+
 	if(internal_pressure > 2*ONE_ATMOSPHERE)
 		to_chat(user, "<span class='warning'>As you begin unwrenching \the [src] a gust of air blows in your face... maybe you should reconsider?</span>")
 		unsafe_wrenching = TRUE //Oh dear oh dear
 
-	if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src) && !QDELETED(src))
+	if(tool.use_tool(src, user, 4 SECONDS, volume = tool.tool_volume))
 		user.visible_message( \
 			"[user] unfastens \the [src].", \
-			"<span class='notice'>You have unfastened \the [src].</span>", \
-			"<span class='italics'>You hear ratcheting.</span>")
+			span_notice("You have unfastened \the [src]."), \
+			span_hear("You hear ratcheting."))
 		investigate_log("was <span class='warning'>REMOVED</span> by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 
 		for(var/obj/item/clothing/shoes/magboots/usermagboots in user.get_equipped_items())
@@ -219,7 +211,7 @@ Pipelines + Other Objects -> Pipe network
 		//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
 		if(unsafe_wrenching)
 			if(safefromgusts)
-				to_chat(user, "<span class='italics'>Your magboots cling to the floor as a great burst of wind bellows against you.</span>")
+				to_chat(user, span_hear("Your magboots cling to the floor as a great burst of wind bellows against you."))
 			else
 				unsafe_pressure_release(user,internal_pressure)
 		deconstruct(TRUE)

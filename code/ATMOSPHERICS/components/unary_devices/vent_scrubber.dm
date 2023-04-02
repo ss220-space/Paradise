@@ -370,27 +370,26 @@
 	pipe_image.plane = ABOVE_HUD_PLANE
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
-/obj/machinery/atmospherics/unary/vent_scrubber/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/atmospherics/unary/vent_scrubber/wrench_act(mob/living/user, obj/item/tool)
 	. = TRUE
 	if(!(stat & NOPOWER) && on)
 		to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn it off first.</span>")
-
-/obj/machinery/atmospherics/unary/vent_scrubber/multitool_act(mob/user, obj/item/I)
-	. = TRUE
-	multitool_menu.interact(user, I)
-
-/obj/machinery/atmospherics/unary/vent_scrubber/welder_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.tool_use_check(user, 0))
 		return
+	. = ..()
+
+/obj/machinery/atmospherics/unary/vent_scrubber/multitool_act(mob/living/user, obj/item/tool)
+	. = TRUE
+	multitool_menu.interact(user, tool)
+
+/obj/machinery/atmospherics/unary/vent_scrubber/welder_act(mob/living/user, obj/item/tool)
+	. = TRUE
 	WELDER_ATTEMPT_WELD_MESSAGE
-	if(I.use_tool(src, user, 20, volume = I.tool_volume))
-		if(!welded)
-			welded = TRUE
+	if(tool.use_tool(src, user, 2 SECONDS, volume = tool.tool_volume))
+		welded = !welded
+		if(welded)
 			user.visible_message("<span class='notice'>[user] welds [src] shut!</span>",\
 				"<span class='notice'>You weld [src] shut!</span>")
 		else
-			welded = FALSE
 			user.visible_message("<span class='notice'>[user] unwelds [src]!</span>",\
 				"<span class='notice'>You unweld [src]!</span>")
 		update_icon()

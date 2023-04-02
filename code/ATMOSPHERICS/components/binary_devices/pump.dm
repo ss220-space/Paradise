@@ -238,7 +238,9 @@ Thus, the two variables affect pump operation are set in New():
 		return
 	. = ..()
 
-/obj/machinery/atmospherics/binary/pump/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/atmospherics/binary/pump/wrench_act(mob/living/user, obj/item/tool)
 	. = TRUE
 	if(!(stat & NOPOWER) && on)
 		to_chat(user, "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>")
+		return
+	. = ..()

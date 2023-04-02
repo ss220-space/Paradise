@@ -338,10 +338,12 @@
 	pipe_image.plane = ABOVE_HUD_PLANE
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
-/obj/machinery/atmospherics/unary/vent_pump/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/atmospherics/unary/vent_pump/wrench_act(mob/living/user, obj/item/tool)
 	. = TRUE
 	if(!(stat & NOPOWER) && on)
 		to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn it off first.</span>")
+		return
+	. = ..()
 
 /obj/machinery/atmospherics/unary/vent_pump/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/paper) || istype(W, /obj/item/stack/spacecash))
@@ -356,39 +358,28 @@
 		return
 	. = ..()
 
-/obj/machinery/atmospherics/unary/vent_pump/multitool_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/unary/vent_pump/multitool_act(mob/living/user, obj/item/tool)
 	. = TRUE
-	multitool_menu.interact(user, I)
+	multitool_menu.interact(user, tool)
 
-/obj/machinery/atmospherics/unary/vent_pump/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/unary/vent_pump/screwdriver_act(mob/living/user, obj/item/tool)
 	if(welded)
 		return FALSE
 	. = TRUE
-	if(open)
-		to_chat(user, "<span class='notice'>Now closing the vent.</span>")
-		if(do_after(user, 20 * I.toolspeed * gettoolspeedmod(user), target = src))
-			playsound(loc, I.usesound, 100, 1)
-			open = 0
-			user.visible_message("[user] screwdrivers the vent shut.", "You screwdriver the vent shut.", "You hear a screwdriver.")
-	else
-		to_chat(user, "<span class='notice'>Now opening the vent.</span>")
-		if(do_after(user, 20 * I.toolspeed * gettoolspeedmod(user), target = src))
-			playsound(loc, I.usesound, 100, 1)
-			open = 1
-			user.visible_message("[user] screwdrivers the vent open.", "You screwdriver the vent open.", "You hear a screwdriver.")
+	to_chat(user, "<span class='notice'>Now [open ? "closing" : "opening"] closing the vent.</span>")
+	if(tool.use_tool(src, user, 2 SECONDS, volume = tool.tool_volume))
+		open = !open
+		user.visible_message("[user] screwdrivers the vent [open ? "open" : "shut"].", "You screwdriver the vent [open ? "open" : "shut"].", "You hear a screwdriver.")
 
-/obj/machinery/atmospherics/unary/vent_pump/welder_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/unary/vent_pump/welder_act(mob/living/user, obj/item/tool)
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
 	WELDER_ATTEMPT_WELD_MESSAGE
-	if(I.use_tool(src, user, 20, volume = I.tool_volume))
-		if(!welded)
-			welded = TRUE
+	if(tool.use_tool(src, user, 2 SECONDS, volume = tool.tool_volume))
+		welded = !welded
+		if(welded)
 			user.visible_message("<span class='notice'>[user] welds [src] shut!</span>",\
 				"<span class='notice'>You weld [src] shut!</span>")
 		else
-			welded = FALSE
 			user.visible_message("<span class='notice'>[user] unwelds [src]!</span>",\
 				"<span class='notice'>You unweld [src]!</span>")
 		update_icon()

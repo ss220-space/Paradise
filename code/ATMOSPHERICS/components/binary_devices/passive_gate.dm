@@ -178,7 +178,9 @@
 		on = !on
 		update_icon()
 
-/obj/machinery/atmospherics/binary/passive_gate/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/atmospherics/binary/passive_gate/wrench_act(mob/living/user, obj/item/tool)
 	. = TRUE
 	if(on)
 		to_chat(user, "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>")
+		return
+	. = ..()

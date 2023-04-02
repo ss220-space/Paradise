@@ -236,6 +236,7 @@
 		broadcast_status()
 	update_icon()
 
-/obj/machinery/atmospherics/binary/dp_vent_pump/multitool_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/binary/dp_vent_pump/multitool_act(mob/living/user, obj/item/tool)
 	. = TRUE
-	multitool_menu.interact(user, I)
+	multitool_menu.interact(user, tool)
+	tool.use_tool(src, user, 0, volume = tool.tool_volume)

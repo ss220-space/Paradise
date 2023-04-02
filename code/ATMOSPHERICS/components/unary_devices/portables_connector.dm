@@ -36,11 +36,12 @@
 	if(parent)
 		parent.update = 1
 
-/obj/machinery/atmospherics/unary/portables_connector/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/atmospherics/unary/portables_connector/wrench_act(mob/living/user, obj/item/tool)
 	. = TRUE
 	if(connected_device)
 		to_chat(user, "<span class='danger'>You cannot unwrench this [src], detach [connected_device] first.</span>")
-		return 1
+		return
+	. = ..()
 
 /obj/machinery/atmospherics/unary/portables_connector/portableConnectorReturnAir()
 	return connected_device.portableConnectorReturnAir()
