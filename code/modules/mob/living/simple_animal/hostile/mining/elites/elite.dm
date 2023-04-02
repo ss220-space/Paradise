@@ -414,6 +414,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		lootloc = new /obj/structure/closet/crate/necropolis/tendril(loc)
 		if(prob(75))
 			new /obj/item/tumor_shard(lootloc)
+			to_chat(mychild, "<span class='warning'>Dont leave your body, if you want to be revived.</span>")
 		SSblackbox.record_feedback("tally", "Player controlled Elite loss", 1, mychild.name)
 	else
 		SSblackbox.record_feedback("tally", "AI controlled Elite loss", 1, mychild.name)
