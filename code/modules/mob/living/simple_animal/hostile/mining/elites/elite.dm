@@ -231,7 +231,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			activators = list()
 			for(var/mob/living/carbon/human/fighter in range(12, src.loc))
 				make_activator(fighter)
-				mychild.scale_stats(activators)
 			if(boosted)
 				mychild.playsound_local(get_turf(mychild), 'sound/magic/cult_spell.ogg', 40, 0)
 				to_chat(mychild, "<span class='warning'>Someone has activated your tumor.  You will be returned to fight shortly, get ready!</span>")
@@ -248,7 +247,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			activators = list()
 			for(var/mob/living/carbon/human/fighter in range(12, src.loc))
 				make_activator(fighter)
-				mychild.scale_stats(activators)
 			if(!boosted)
 				addtimer(CALLBACK(src, .proc/spawn_elite), 3 SECONDS)
 				return
@@ -273,6 +271,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 /obj/structure/elite_tumor/proc/spawn_elite(mob/dead/observer/elitemind)
 	var/selectedspawn = pick(potentialspawns)
 	mychild = new selectedspawn(loc)
+	mychild.scale_stats(activators)
 	visible_message("<span class='userdanger'>[mychild] emerges from [src]!</span>")
 	playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 	if(boosted)
@@ -388,6 +387,19 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		mychild.forceMove(loc)
 		visible_message("<span class='warning'>[mychild] suddenly reappears above [src]!</span>")
 		playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
+	for(var/mob/living/carbon/human/invader in range(ARENA_RADIUS))
+		if(invader in activators)
+			continue
+		if(invader in invaders)
+			to_chat(invader, "<span class='colossus'><b>You dare to try to break the sanctity of our arena? SUFFER...</b></span>")
+			for(var/i in 1 to 4)
+				invader.apply_status_effect(STATUS_EFFECT_VOID_PRICE) /// Hey kids, want 60 brute damage, increased by 40 each time you do it? Well, here you go!
+		else
+			to_chat(invader, "<span class='userdanger'>Only spectators are allowed, while the arena is in combat...</span>")
+			invaders += invader
+		var/list/valid_turfs = RANGE_EDGE_TURFS(ARENA_RADIUS + 2, src)
+		invader.forceMove(pick(valid_turfs)) //Doesn't check for lava. Don't cheese it.
+		playsound(invader, 'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 
 /obj/structure/elite_tumor/HasProximity(atom/movable/AM)
 	if(!ishuman(AM) && !isrobot(AM))
