@@ -110,7 +110,7 @@
 			adjustBruteLoss(25)
 
 /mob/living/simple_animal/hostile/asteroid/elite/proc/scale_stats(var/list/activators)
-	dif_mult = enemies_count_scale ** length(activators)
+	dif_mult = enemies_count_scale ** length(activators) * (world.time / (25 MINUTES))
 	maxHealth *= dif_mult
 	health *= dif_mult
 	melee_damage_lower *= dif_mult
