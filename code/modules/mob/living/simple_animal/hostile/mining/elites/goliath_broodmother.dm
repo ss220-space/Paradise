@@ -186,7 +186,7 @@
 	attacktext = "bashes against"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "does nothing to the rocky hide of the"
-	speed = 1.8
+	speed = 1.6
 	move_to_delay = 5
 	mouse_opacity = MOUSE_OPACITY_ICON
 	deathmessage = "falls to the ground."
