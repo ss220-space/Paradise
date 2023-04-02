@@ -6,7 +6,7 @@
 #define REVIVE_COOLDOWN_MULT_ANTAG 2
 #define REVIVE_HEALTH_MULT 0.2
 #define REVIVE_HEALTH_MULT_ANTAG 0.3
-#define FULL_STRENGHT_TIME 25 MINUTES
+#define FULL_STRENGHT_TIME 30 MINUTES
 
 //Elite mining mobs
 /mob/living/simple_animal/hostile/asteroid/elite
