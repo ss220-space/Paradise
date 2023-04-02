@@ -6,6 +6,7 @@
 #define REVIVE_COOLDOWN_MULT_ANTAG 2
 #define REVIVE_HEALTH_MULT 0.2
 #define REVIVE_HEALTH_MULT_ANTAG 0.3
+#define FULL_STRENGHT_TIME 25 MINUTES
 
 //Elite mining mobs
 /mob/living/simple_animal/hostile/asteroid/elite
@@ -28,6 +29,7 @@
 	universal_speak = TRUE
 	sentience_type = SENTIENCE_BOSS
 	response_help = "pets"
+	var/scale_with_time = TRUE
 	var/reviver = null
 	var/dif_mult = 1 // Scales with number of enemies
 	var/chosen_attack = 1
@@ -110,11 +112,13 @@
 			adjustBruteLoss(25)
 
 /mob/living/simple_animal/hostile/asteroid/elite/proc/scale_stats(var/list/activators)
-	dif_mult = enemies_count_scale ** length(activators) * (world.time / (25 MINUTES))
-	maxHealth *= dif_mult
-	health *= dif_mult
-	melee_damage_lower *= dif_mult
-	melee_damage_upper *= dif_mult
+	dif_mult = enemies_count_scale ** length(activators)
+	if(scale_with_time)
+		dif_mult = enemies_count_scale ** length(activators) * (world.time / (FULL_STRENGHT_TIME))
+	maxHealth = initial(maxHealth) * dif_mult
+	health = initial(health) * dif_mult
+	melee_damage_lower = initial(melee_damage_lower) * dif_mult
+	melee_damage_upper = initial(melee_damage_upper) * dif_mult
 
 /mob/living/simple_animal/hostile/asteroid/elite/can_die()
 	return ..() && health <= 0
@@ -517,3 +521,4 @@ While using this makes the system rely on OnFire, it still gives options for tim
 #undef REVIVE_COOLDOWN_MULT_ANTAG
 #undef REVIVE_HEALTH_MULT
 #undef REVIVE_HEALTH_MULT_ANTAG
+#undef FULL_STRENGHT_TIME
