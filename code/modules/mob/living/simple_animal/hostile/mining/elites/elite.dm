@@ -516,4 +516,4 @@ While using this makes the system rely on OnFire, it still gives options for tim
 #undef REVIVE_COOLDOWN_MULT
 #undef REVIVE_COOLDOWN_MULT_ANTAG
 #undef REVIVE_HEALTH_MULT
-#undef REVIVE_HEALTH_MULT_antag
+#undef REVIVE_HEALTH_MULT_ANTAG
