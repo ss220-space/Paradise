@@ -394,6 +394,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	else
 		SSblackbox.record_feedback("tally", "AI controlled Elite loss", 1, mychild.name)
 	new mychild.loot_drop(lootloc)
+	my.child.dif_mult = 1
 	qdel(src)
 
 /obj/structure/elite_tumor/proc/onEliteWon()

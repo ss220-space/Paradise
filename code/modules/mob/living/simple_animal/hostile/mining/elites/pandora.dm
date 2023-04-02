@@ -132,7 +132,7 @@
 		if(active_chasers >= MAX_CHASERS)
 			return
 		var/obj/effect/temp_visual/hierophant/chaser/C = new(loc, src, M, chaser_speed, FALSE)
-		C.damage *= dif_mult
+		C.damage = 30 * dif_mult
 		C.moving = 2
 		C.standard_moving_before_recalc = recalculation_speed
 		C.moving_dir = text2dir(pick("NORTH", "SOUTH", "EAST", "WEST"))
