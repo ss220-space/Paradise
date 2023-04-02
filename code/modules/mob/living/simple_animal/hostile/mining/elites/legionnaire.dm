@@ -1,7 +1,7 @@
 #define LEGIONNAIRE_CHARGE 1
 #define HEAD_DETACH 2
 #define BONFIRE_TELEPORT 3
-#define SPEW_SMOKE 4
+#define THROW_BONE 4
 
 /**
  * # Legionnaire
@@ -45,15 +45,15 @@
 	attack_action_types = list(/datum/action/innate/elite_attack/legionnaire_charge,
 								/datum/action/innate/elite_attack/head_detach,
 								/datum/action/innate/elite_attack/bonfire_teleport,
-								/datum/action/innate/elite_attack/spew_smoke)
+								/datum/action/innate/elite_attack/throw_bone)
 
 	var/mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/myhead = null
 	var/obj/structure/legionnaire_bonfire/mypile = null
 	var/has_head = TRUE
 	/// Whether or not the legionnaire is currently charging, used to deny movement input if he is
 	var/charging = FALSE
-	var/charge_damage = 15
-	var/charge_damage_first = 25
+	var/charge_damage = 5
+	var/charge_damage_first = 15
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/scale_stats(list/activators)
 	. = ..()
@@ -77,11 +77,12 @@
 	chosen_message = "<span class='boldwarning'>You will leave a bonfire. Second use will let you swap positions with it indefintiely. Using this move on the same tile as your active bonfire removes it.</span>"
 	chosen_attack_num = BONFIRE_TELEPORT
 
-/datum/action/innate/elite_attack/spew_smoke
-	name = "Spew Smoke"
-	button_icon_state = "spew_smoke"
-	chosen_message = "<span class='boldwarning'>Your head will spew smoke in an area, wherever it may be.</span>"
-	chosen_attack_num = SPEW_SMOKE
+/datum/action/innate/elite_attack/throw_bone
+	name = "Throw bone"
+	icon_icon = 'icons/obj/mining.dmi'
+	button_icon_state = "bone"
+	chosen_message = "<span class='boldwarning'>You throw a heavy bone.</span>"
+	chosen_attack_num = THROW_BONE
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/Destroy()
 	myhead = null
@@ -97,8 +98,8 @@
 				head_detach(target)
 			if(BONFIRE_TELEPORT)
 				bonfire_teleport()
-			if(SPEW_SMOKE)
-				spew_smoke()
+			if(THROW_BONE)
+				throw_bone()
 		return
 	var/aiattack = rand(1,4)
 	switch(aiattack)
@@ -108,8 +109,8 @@
 			head_detach(target)
 		if(BONFIRE_TELEPORT)
 			bonfire_teleport()
-		if(SPEW_SMOKE)
-			spew_smoke()
+		if(THROW_BONE)
+			throw_bone()
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/Move()
 	if(charging)
@@ -126,7 +127,7 @@
 		myhead.Goto(T, myhead.move_to_delay)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/legionnaire_charge(target)
-	ranged_cooldown = world.time + 4 SECONDS * revive_multiplier()
+	ranged_cooldown = world.time + 3 SECONDS * revive_multiplier()
 	charging = TRUE
 	var/dir_to_target = get_dir(get_turf(src), get_turf(target))
 	var/turf/T = get_step(get_turf(src), dir_to_target)
@@ -135,7 +136,7 @@
 		T = get_step(T, dir_to_target)
 	playsound(src, 'sound/misc/demon_attack1.ogg', 200, 1)
 	visible_message("<span class='danger'>[src] prepares to charge!</span>")
-	addtimer(CALLBACK(src, .proc/legionnaire_charge_to, dir_to_target, 0), 4)
+	addtimer(CALLBACK(src, .proc/legionnaire_charge_to, dir_to_target, 0), 2)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/legionnaire_charge_to(move_dir, times_ran, list/hit_targets = list())
 	if(times_ran >= 6)
@@ -169,15 +170,15 @@
 			return
 		visible_message("<span class='danger'>[src] tramples and kicks [L]!</span>")
 		to_chat(L, "<span class='userdanger'>[src] tramples you and kicks you away!</span>")
-		L.throw_at(throwtarget, 10, 1, src)
-		L.Weaken(1 SECONDS) //Pain Train has no breaks.
+		L.throw_at(throwtarget, 4, 1, src)
 		if(L in hit_targets)
 			L.adjustBruteLoss(charge_damage)
 		else
 			hit_targets += L
+			L.Weaken(0.75 SECONDS) //Pain Train has no breaks.
 			L.adjustBruteLoss(charge_damage_first)
 
-	addtimer(CALLBACK(src, .proc/legionnaire_charge_to, move_dir, (times_ran + 1), hit_targets), 0.7)
+	addtimer(CALLBACK(src, .proc/legionnaire_charge_to, move_dir, (times_ran + 1), hit_targets), 0.3)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/head_detach(target)
 	ranged_cooldown = world.time + 1 SECONDS * revive_multiplier()
@@ -237,23 +238,10 @@
 		visible_message("<span class='danger'>[src] forms from the bonfire!</span>")
 		mypile.forceMove(legionturf)
 
-/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/spew_smoke()
+/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/throw_bone()
 	ranged_cooldown = world.time + 2.5 SECONDS * revive_multiplier()
-	var/smoke_location = null
-	if(isnull(myhead))
-		smoke_location = src
-	else
-		smoke_location = myhead
-	if(myhead != null)
-		myhead.visible_message("<span class='danger'>[myhead] spews smoke from its maw!</span>")
-	else if(!has_head)
-		visible_message("<span class='danger'>[src] spews smoke from the tip of their spine!</span>")
-	else
-		visible_message("<span class='danger'>[src] spews smoke from its maw!</span>")
-	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(6, 0, smoke_location)
-	smoke.attach(smoke_location)
-	smoke.start()
+	var/target_turf = get_turf(target)
+	shoot_projectile(target_turf)
 
 //The legionnaire's head.  Basically the same as any legion head, but we have to tell our creator when we die so they can generate another head.
 /mob/living/simple_animal/hostile/asteroid/elite/legionnairehead
@@ -273,6 +261,7 @@
 	throw_message = "simply misses"
 	speed = 0
 	move_to_delay = 2
+	melee_queue_distance = 7
 	del_on_death = 1
 	deathmessage = "crumbles away!"
 	faction = list()
@@ -311,6 +300,24 @@
 	if(myowner != null)
 		myowner.mypile = null
 	. = ..()
+
+/obj/item/projectile/legionnaire
+	name = "bone"
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "bone"
+	damage = 25
+	armour_penetration = 70
+	speed = 1.2
+
+/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/shoot_projectile(turf/marker)
+	var/turf/startloc = get_turf(src)
+	var/obj/item/projectile/legionnaire/P = new(startloc)
+	P.preparePixelProjectile(marker, marker, src)
+	P.firer = src
+	P.damage *= dif_mult
+	if(target)
+		P.original = target
+	P.fire()
 
 //The visual effect which appears in front of legionnaire when he goes to charge.
 /obj/effect/temp_visual/dragon_swoop/legionnaire
@@ -366,4 +373,4 @@
 #undef LEGIONNAIRE_CHARGE
 #undef HEAD_DETACH
 #undef BONFIRE_TELEPORT
-#undef SPEW_SMOKE
+#undef THROW_BONE
