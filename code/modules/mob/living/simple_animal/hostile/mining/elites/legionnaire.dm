@@ -52,8 +52,8 @@
 	var/has_head = TRUE
 	/// Whether or not the legionnaire is currently charging, used to deny movement input if he is
 	var/charging = FALSE
-	var/charge_damage = 5
-	var/charge_damage_first = 15
+	var/charge_damage = 15
+	var/charge_damage_first = 25
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/scale_stats(list/activators)
 	. = ..()
@@ -170,12 +170,13 @@
 			return
 		visible_message("<span class='danger'>[src] tramples and kicks [L]!</span>")
 		to_chat(L, "<span class='userdanger'>[src] tramples you and kicks you away!</span>")
-		L.throw_at(throwtarget, 4, 1, src)
 		if(L in hit_targets)
 			L.adjustBruteLoss(charge_damage)
 		else
 			hit_targets += L
-			L.Weaken(0.75 SECONDS) //Pain Train has no breaks.
+			L.throw_at(throwtarget, 8, 1.3, src)
+			L.Slowed(3 SECONDS)
+			L.Weaken(0.1 SECONDS)
 			L.adjustBruteLoss(charge_damage_first)
 
 	addtimer(CALLBACK(src, .proc/legionnaire_charge_to, move_dir, (times_ran + 1), hit_targets), 0.3)
