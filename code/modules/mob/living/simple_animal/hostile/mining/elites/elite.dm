@@ -4,6 +4,8 @@
 #define ARENA_RADIUS 10
 #define REVIVE_COOLDOWN_MULT 10
 #define REVIVE_COOLDOWN_MULT_ANTAG 2
+#define HEALTH_REVIVE_MULT 0.2
+#define HEALTH_REVIVE_MULT_ANTAG 0.3
 
 //Elite mining mobs
 /mob/living/simple_animal/hostile/asteroid/elite
@@ -444,8 +446,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
-	var/health_revive_mult = 0.2
-	var/health_revive_mult_antag = 0.3
 
 /obj/item/tumor_shard/afterattack(atom/target, mob/user, proximity_flag)
 	. = ..()
@@ -465,12 +465,12 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		to_chat(E, "<span class='big bold'>Помните, что вы разделяете интересы [user].  От вас ожидается не мешать союзникам хозяина, пока вам не прикажут!</span>")
 		E.mind.store_memory("Я теперь разделяю интересы [user].  От меня ожидается не мешать союзникам хозяина, пока вам не прикажут!")
 		if(user.mind.special_role)
-			E.maxHealth = initial(E.maxHealth) * health_revive_mult_antag
-			E.health = initial(E.health) * health_revive_mult_antag
+			E.maxHealth = initial(E.maxHealth) * HEALTH_REVIVE_MULT_ANTAG
+			E.health = initial(E.health) * HEALTH_REVIVE_MULT_ANTAG
 			E.del_on_death = TRUE
 		else
-			E.maxHealth = initial(E.maxHealth) * health_revive_mult
-			E.health = initial(E.health) * health_revive_mult
+			E.maxHealth = initial(E.maxHealth) * HEALTH_REVIVE_MULT
+			E.health = initial(E.health) * HEALTH_REVIVE_MULT
 			E.revive_cooldown = TRUE
 		E.sentience_type = SENTIENCE_ORGANIC
 		qdel(src)
@@ -515,3 +515,5 @@ While using this makes the system rely on OnFire, it still gives options for tim
 #undef ARENA_RADIUS
 #undef REVIVE_COOLDOWN_MULT
 #undef REVIVE_COOLDOWN_MULT_ANTAG
+#undef HEALTH_REVIVE_MULT
+#undef HEALTH_REVIVE_MULT_antag
