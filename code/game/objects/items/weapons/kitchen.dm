@@ -221,16 +221,24 @@
 	armor = list("melee" = 100, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100)
 	var/icon_prefix
 
-/obj/item/kitchen/knife/glassshiv/New()
+/obj/item/kitchen/knife/glassshiv/New(loc, obj/item/S)
 	..()
-	update_icon()
+	update_icon(S)
 
-/obj/item/kitchen/knife/glassshiv/update_icon()
-	var/obj/item/shard/shard = new /obj/item/shard
+/obj/item/kitchen/knife/glassshiv/update_icon(obj/item/S)
+	var/obj/item/shard/shard
+	if(istype(S, /obj/item/shard))
+		shard = S
+	else
+		shard = new /obj/item/shard
 	var/icon_base = initial(icon_state)
 	icon_state = "[shard.icon_state]_[icon_base]"
 	if(icon_prefix)
-		var/obj/item/shard/plasma/pshard = new /obj/item/shard/plasma
+		var/obj/item/shard/plasma/pshard
+		if(istype(S, /obj/item/shard/plasma))
+			pshard = S
+		else
+			pshard = new /obj/item/shard/plasma
 		icon_state = "[pshard.icon_state]_[icon_prefix]"
 
 /obj/item/kitchen/knife/glassshiv/plasmaglassshiv

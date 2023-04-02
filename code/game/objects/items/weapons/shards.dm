@@ -69,10 +69,10 @@
 		CL.use(1)
 		to_chat(user, "<span class='notice'>You wrap the [name] with some cloth.</span>")
 		if(plasmashard)
-			new /obj/item/kitchen/knife/glassshiv/plasmaglassshiv(user.loc)
+			new /obj/item/kitchen/knife/glassshiv/plasmaglassshiv(user.loc, src)
 			qdel(src)
 		else
-			new /obj/item/kitchen/knife/glassshiv(user.loc)
+			new /obj/item/kitchen/knife/glassshiv(user.loc, src)
 			qdel(src)
 	return ..()
 
