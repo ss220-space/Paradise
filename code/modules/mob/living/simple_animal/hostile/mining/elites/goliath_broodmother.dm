@@ -178,7 +178,7 @@
 			faction -= mobref
 			friends -= mob
 			for(var/mob/living/simple_animal/hostile/asteroid/elite/child in children_list)
-				if(mobref in faction)
+				if(mobref in child.faction)
 					child.faction -= mobref
 					child.friends -= mob
 			to_chat(src, "<span class='warning'>You removed [mob] from your friends list.</span>")
@@ -186,7 +186,7 @@
 			faction += mobref
 			friends += mob
 			for(var/mob/living/simple_animal/hostile/asteroid/elite/child in children_list)
-				if(!(mobref in faction))
+				if(!(mobref in child.faction))
 					child.faction += mobref
 					child.friends += mob
 			to_chat(src, "<span class='notice'>You added [mob] to your friends list.</span>")
