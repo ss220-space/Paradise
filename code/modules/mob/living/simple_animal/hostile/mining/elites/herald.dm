@@ -130,6 +130,7 @@
 		var/obj/item/projectile/herald/H = new(startloc)
 		H.preparePixelProjectile(marker, marker, src)
 		H.firer = src
+		H.damage *= dif_mult
 		if(target)
 			H.original = target
 		H.fire(set_angle)
@@ -140,6 +141,7 @@
 		var/obj/item/projectile/herald/teleshot/H = new(startloc)
 		H.preparePixelProjectile(marker, marker, startloc)
 		H.firer = src
+		H.damage *= dif_mult
 		if(target)
 			H.original = target
 		H.fire(set_angle)
@@ -193,6 +195,8 @@
 	var/mob/living/simple_animal/hostile/asteroid/elite/herald/mirror/new_mirror = new(loc)
 	my_mirror = new_mirror
 	my_mirror.my_master = src
+	my_mirror.maxHealth *= dif_mult
+	my_mirror.health *= dif_mult
 	my_mirror.faction = faction.Copy()
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/mirror

@@ -117,6 +117,10 @@
 		cooldown_time = 1 SECONDS * revive_multiplier()
 		recalculation_speed = 2
 
+/mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/spawn_blast(turf)
+	var/obj/effect/temp_visual/hierophant/blast/damaging/pandora/blast = new (turf, src, TRUE)
+	blast.damage *= dif_mult
+
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/chaser_burst(target)
 	ranged_cooldown = world.time + cooldown_time * 2.5 // this shreads people incredibly effectivly at low hp, so needs higher cooldown than other attacks
 	var/active_chasers = 0
@@ -128,6 +132,7 @@
 		if(active_chasers >= MAX_CHASERS)
 			return
 		var/obj/effect/temp_visual/hierophant/chaser/C = new(loc, src, M, chaser_speed, FALSE)
+		C.damage *= dif_mult
 		C.moving = 2
 		C.standard_moving_before_recalc = recalculation_speed
 		C.moving_dir = text2dir(pick("NORTH", "SOUTH", "EAST", "WEST"))
@@ -136,7 +141,7 @@
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/singular_shot_line(procsleft, angleused, turf/T)
 	if(procsleft <= 0)
 		return
-	new /obj/effect/temp_visual/hierophant/blast/damaging/pandora(T, src, TRUE)
+	spawn_blast(T)
 	T = get_step(T, angleused)
 	procsleft = procsleft - 1
 	addtimer(CALLBACK(src, .proc/singular_shot_line, procsleft, angleused, T), cooldown_time * 0.1)
@@ -146,7 +151,7 @@
 	var/turf/T = get_turf(target)
 	for(var/t in spiral_range_turfs(3, T))
 		if(get_dist(t, T) > 1)
-			new /obj/effect/temp_visual/hierophant/blast/damaging/pandora(t, src, TRUE)
+			spawn_blast(t)
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/pandora_teleport(target)
 	var/turf/turf_target = get_turf(target)
@@ -163,9 +168,9 @@
 	new /obj/effect/temp_visual/hierophant/telegraph/teleport(T, src)
 	new /obj/effect/temp_visual/hierophant/telegraph/teleport(source, src)
 	for(var/t in RANGE_TURFS(1, T))
-		new /obj/effect/temp_visual/hierophant/blast/damaging/pandora(t, src, TRUE)
+		spawn_blast(t)
 	for(var/t in RANGE_TURFS(1, source))
-		new /obj/effect/temp_visual/hierophant/blast/damaging/pandora(t, src, TRUE)
+		spawn_blast(t)
 	animate(src, alpha = 0, time = 2, easing = EASE_OUT) //fade out
 	visible_message("<span class='hierophant'>[src] fades out!</span>")
 	set_density(FALSE)
@@ -180,7 +185,7 @@
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/aoe_squares(target)
 	ranged_cooldown = world.time + cooldown_time * 2
 	var/turf/T = get_turf(target)
-	new /obj/effect/temp_visual/hierophant/blast/damaging/pandora(T, src, TRUE)
+	spawn_blast(T)
 	var/max_size = 3
 	addtimer(CALLBACK(src, .proc/aoe_squares_2, T, 0, max_size), 2)
 
@@ -189,7 +194,7 @@
 		return
 	for(var/t in spiral_range_turfs(ring, T))
 		if(get_dist(t, T) == ring)
-			new /obj/effect/temp_visual/hierophant/blast/damaging/pandora(t, src, TRUE)
+			spawn_blast(t)
 	addtimer(CALLBACK(src, .proc/aoe_squares_2, T, (ring + 1), max_size), cooldown_time * 0.1)
 
 //The specific version of hiero's squares pandora uses

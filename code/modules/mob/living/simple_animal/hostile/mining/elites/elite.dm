@@ -22,6 +22,7 @@
 	has_laser_resist = FALSE
 	universal_speak = TRUE
 	sentience_type = SENTIENCE_BOSS
+	var/dif_mult = 1 // Scales with number of enemies
 	var/chosen_attack = 1
 	var/list/attack_action_types = list()
 	var/obj/loot_drop = null
@@ -97,6 +98,13 @@
 		if(EXPLODE_LIGHT)
 			adjustBruteLoss(25)
 
+/mob/living/simple_animal/hostile/asteroid/elite/proc/scale_stats(var/list/activators)
+	dif_mult = 1.3 ** length(activators)
+	maxHealth *= dif_mult
+	health *= dif_mult
+	melee_damage_lower *= dif_mult
+	melee_damage_upper *= dif_mult
+
 /mob/living/simple_animal/hostile/asteroid/elite/can_die()
 	return ..() && health <= 0
 
@@ -166,7 +174,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	var/activity = TUMOR_INACTIVE
 	var/boosted = FALSE
 	var/times_won = 0
-	var/mob/living/carbon/human/activator = null
+	var/list/mob/living/carbon/human/activators
 	var/mob/living/simple_animal/hostile/asteroid/elite/mychild = null
 	var/gps
 	///List of all potentially spawned elites
@@ -194,7 +202,10 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			activity = TUMOR_ACTIVE
 			user.visible_message("<span class='userdanger'>[src] convulses as [user]'s arm enters its radius.  Uh-oh...</span>",
 				"<span class='userdanger'>[src] convulses as your arm enters its radius.  Your instincts tell you to step back.</span>")
-			make_activator(user)
+			activators = list()
+			for(var/mob/living/carbon/human/fighter in range(12, src.loc))
+				make_activator(fighter)
+				mychild.scale_stats(activators)
 			if(boosted)
 				mychild.playsound_local(get_turf(mychild), 'sound/magic/cult_spell.ogg', 40, 0)
 				to_chat(mychild, "<span class='warning'>Someone has activated your tumor.  You will be returned to fight shortly, get ready!</span>")
@@ -208,7 +219,10 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			activity = TUMOR_ACTIVE
 			var/mob/dead/observer/elitemind = null
 			visible_message("<span class='userdanger'>[src] begins to convulse. Your instincts tell you to step back.</span>")
-			make_activator(user)
+			activators = list()
+			for(var/mob/living/carbon/human/fighter in range(12, src.loc))
+				make_activator(fighter)
+				mychild.scale_stats(activators)
 			if(!boosted)
 				addtimer(CALLBACK(src, .proc/spawn_elite), 3 SECONDS)
 				return
@@ -227,7 +241,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			else
 				visible_message("<span class='warning'>The stirring stops, and nothing emerges.  Perhaps try again later.</span>")
 				activity = TUMOR_INACTIVE
-				clear_activator(user)
+				for(var/mob/living/carbon/human/activator in activators)
+					clear_activator(activator)
 
 /obj/structure/elite_tumor/proc/spawn_elite(mob/dead/observer/elitemind)
 	var/selectedspawn = pick(potentialspawns)
@@ -264,23 +279,21 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(gps)
 	invaders.Cut()
-	if(activator)
+	for(var/mob/living/carbon/human/activator in activators)
 		clear_activator(activator)
 	if(mychild)
 		clear_activator(mychild)
 	return ..()
 
 /obj/structure/elite_tumor/proc/make_activator(mob/user)
-	if(activator)
-		return
-	activator = user
+	activators += user
 	ADD_TRAIT(user, TRAIT_ELITE_CHALLENGER, "activation")
 	RegisterSignal(user, COMSIG_PARENT_QDELETING, .proc/clear_activator)
 
 /obj/structure/elite_tumor/proc/clear_activator(mob/source)
 	SIGNAL_HANDLER
-	if(source == activator)
-		activator = null
+	if(source in activators)
+		activators -= source
 	else
 		mychild = null
 	REMOVE_TRAIT(source, TRAIT_ELITE_CHALLENGER, "activation")
@@ -324,23 +337,27 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	if(QDELETED(mychild) || mychild.stat == DEAD)
 		onEliteLoss()
 		return
-	if(QDELETED(activator) || activator.stat == DEAD || (activator.health <= HEALTH_THRESHOLD_DEAD))
-		onEliteWon()
+	for(var/mob/living/carbon/human/activator in activators)
+		if(QDELETED(activator) || activator.stat == DEAD || (activator.health <= HEALTH_THRESHOLD_DEAD))
+			continue
+		else
+			return
+	onEliteWon()
 
 /obj/structure/elite_tumor/proc/arena_trap()
 	var/turf/tumor_turf = get_turf(src)
 	if(loc == null)
 		return
-	for(var/tumor_range_turfs in RANGE_EDGE_TURFS(ARENA_RADIUS, tumor_turf))
-		var/obj/effect/temp_visual/elite_tumor_wall/newwall = new(tumor_range_turfs, src)
-		newwall.activator = activator
-		newwall.ourelite = mychild
+	for(var/tumor_range_turf in RANGE_EDGE_TURFS(ARENA_RADIUS, tumor_turf))
+		new /obj/effect/temp_visual/elite_tumor_wall(tumor_range_turf, src)
 
 /obj/structure/elite_tumor/proc/border_check()
-	if(activator != null && get_dist(src, activator) >= ARENA_RADIUS)
-		activator.forceMove(loc)
-		visible_message("<span class='warning'>[activator] suddenly reappears above [src]!</span>")
-		playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
+	if(length(activators))
+		for(var/mob/living/carbon/human/activator in activators)
+			if(get_dist(src, activator) >= ARENA_RADIUS)
+				activator.forceMove(loc)
+				visible_message("<span class='warning'>[activator] suddenly reappears above [src]!</span>")
+				playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 	if(mychild != null && get_dist(src, mychild) >= ARENA_RADIUS)
 		mychild.forceMove(loc)
 		visible_message("<span class='warning'>[mychild] suddenly reappears above [src]!</span>")
@@ -350,7 +367,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	if(!ishuman(AM) && !isrobot(AM))
 		return
 	var/mob/living/M = AM
-	if(M == activator)
+	if(M in activators)
 		return
 	if(M in invaders)
 		to_chat(M, "<span class='colossus'><b>You dare to try to break the sanctity of our arena? SUFFER...</b></span>")
@@ -359,7 +376,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	else
 		to_chat(M, "<span class='userdanger'>Only spectators are allowed, while the arena is in combat...</span>")
 		invaders += M
-	var/list/valid_turfs = RANGE_EDGE_TURFS(ARENA_RADIUS + 1, src)
+	var/list/valid_turfs = RANGE_EDGE_TURFS(ARENA_RADIUS + 2, src)
 	M.forceMove(pick(valid_turfs)) //Doesn't check for lava. Don't cheese it.
 	playsound(M, 'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 
@@ -383,8 +400,9 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	to_chat(mychild, "<span class='danger'>You have won the fight. Elite tumor has been defended once again.</span>")
 	activity = TUMOR_INACTIVE
 	icon_state = "tumor"
-	if(activator)
-		clear_activator(activator)
+	if(length(activators))
+		for(var/mob/living/carbon/human/activator in activators)
+			clear_activator(activator)
 	sleep(300)
 	to_chat(mychild, "<span class='danger'>You have fulfilled your role and are going to a well-deserved rest.</span>")
 	qdel(mychild)
@@ -449,8 +467,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	light_color = LIGHT_COLOR_PURE_RED
 	smooth = SMOOTH_TRUE
-	var/activator
-	var/ourelite
 
 /obj/effect/temp_visual/elite_tumor_wall/Initialize(mapload, new_caster)
 	. = ..()

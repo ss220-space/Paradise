@@ -52,6 +52,11 @@
 	var/has_head = TRUE
 	/// Whether or not the legionnaire is currently charging, used to deny movement input if he is
 	var/charging = FALSE
+	var/charge_damage = 15
+
+/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/scale_stats(list/activators)
+	. = ..()
+	charge_damage *= dif_mult
 
 /datum/action/innate/elite_attack/legionnaire_charge
 	name = "Legionnaire Charge"
@@ -166,7 +171,7 @@
 		L.throw_at(throwtarget, 10, 1, src)
 		L.Weaken(1 SECONDS) //Pain Train has no breaks.
 		if(L in hit_targets)
-			L.adjustBruteLoss(15)
+			L.adjustBruteLoss(charge_damage)
 		else
 			hit_targets += L
 			L.adjustBruteLoss(25)

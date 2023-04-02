@@ -133,6 +133,10 @@
 		var/mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/newchild = new(loc)
 		newchild.GiveTarget(target)
 		newchild.faction = faction.Copy()
+		newchild.maxHealth *= dif_mult
+		newchild.health *= dif_mult
+		newchild.melee_damage_lower *= dif_mult
+		newchild.melee_damage_upper *= dif_mult
 		visible_message("<span class='danger'>[newchild] appears below [src]!</span>")
 		newchild.mother = src
 		children_list += newchild
