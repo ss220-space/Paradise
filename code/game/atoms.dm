@@ -418,10 +418,10 @@
 
 
 // Tool-specific behavior procs. To be overridden in subtypes.
-/atom/proc/crowbar_act(mob/living/user, obj/item/I)
+/atom/proc/crowbar_act(mob/living/user, obj/item/tool)
 	return
 
-/atom/proc/multitool_act(mob/living/user, obj/item/I)
+/atom/proc/multitool_act(mob/living/user, obj/item/tool)
 	return
 
 //Check if the multitool has an item in its data buffer
@@ -430,16 +430,16 @@
 		to_chat(user, "<span class='warning'>[src] has no data buffer!</span>")
 	return FALSE
 
-/atom/proc/screwdriver_act(mob/living/user, obj/item/I)
+/atom/proc/screwdriver_act(mob/living/user, obj/item/tool)
 	return
 
-/atom/proc/wrench_act(mob/living/user, obj/item/I)
+/atom/proc/wrench_act(mob/living/user, obj/item/tool)
 	return
 
-/atom/proc/wirecutter_act(mob/living/user, obj/item/I)
+/atom/proc/wirecutter_act(mob/living/user, obj/item/tool)
 	return
 
-/atom/proc/welder_act(mob/living/user, obj/item/I)
+/atom/proc/welder_act(mob/living/user, obj/item/tool)
 	return
 
 /atom/proc/emag_act()
