@@ -2,6 +2,8 @@
 #define TUMOR_ACTIVE 1
 #define TUMOR_PASSIVE 2
 #define ARENA_RADIUS 12
+#define REVIVE_COOLDOWN_MOD 10
+#define REVIVE_COOLDOWN_MOD_ANTAG 2
 
 //Elite mining mobs
 /mob/living/simple_animal/hostile/asteroid/elite
@@ -13,6 +15,7 @@
 	ranged_ignores_vision = TRUE
 	ranged = TRUE
 	obj_damage = 30
+	var/mech_damage = 50
 	vision_range = 6
 	aggro_vision_range = 18
 	environment_smash = ENVIRONMENT_SMASH_NONE  //This is to prevent elites smashing up the mining station (entirely), we'll make sure they can smash minerals fine below.
@@ -26,7 +29,9 @@
 	var/chosen_attack = 1
 	var/list/attack_action_types = list()
 	var/obj/loot_drop = null
-	var/revive_cooldown = FALSE
+	var/revive_cooldown = FALSE // Actually is a flag to check if is revived by a non antag
+	var/antag_revived_heal_mod = 0.33 // How much max hp loses if is revived by antag and then healed
+	var/enemies_count_scale = 1.3 // 30% stronger per enemy
 
 //Gives player-controlled variants the ability to swap attacks
 /mob/living/simple_animal/hostile/asteroid/elite/Initialize(mapload)
@@ -65,7 +70,7 @@
 		M.gets_drilled()
 	if(istype(target, /obj/mecha))
 		var/obj/mecha/M = target
-		M.take_damage(50, BRUTE, "melee", 1)
+		M.take_damage(mech_damage, BRUTE, "melee", 1)
 	if(. && isliving(target)) //Taken from megafauna. This exists purely to stop someone from cheesing a weaker melee fauna by letting it get punched.
 		var/mob/living/L = target
 		if(L.stat != DEAD)
@@ -77,15 +82,15 @@
 	if(is_mining_level(z))
 		return 1
 	if(revive_cooldown)
-		return 10
+		return REVIVE_COOLDOWN_MOD
 	if(del_on_death)
-		return 2
+		return REVIVE_COOLDOWN_MOD_ANTAG
 	return 1
 
 /mob/living/simple_animal/hostile/asteroid/elite/adjustHealth(damage, updating_health)
 	. = ..()
 	if(del_on_death)
-		maxHealth -= damage / 3
+		maxHealth -= damage * antag_revived_heal_mod
 
 /mob/living/simple_animal/hostile/asteroid/elite/ex_act(severity, origin) //No surrounding the tumor with gibtonite and one shotting them.
 	switch(severity)
@@ -99,7 +104,7 @@
 			adjustBruteLoss(25)
 
 /mob/living/simple_animal/hostile/asteroid/elite/proc/scale_stats(var/list/activators)
-	dif_mult = 1.3 ** length(activators)
+	dif_mult = enemies_count_scale ** length(activators)
 	maxHealth *= dif_mult
 	health *= dif_mult
 	melee_damage_lower *= dif_mult
@@ -427,6 +432,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
+	var/health_revive_mult = 0.2
+	var/health_revive_mult_antag = 0.3
 
 /obj/item/tumor_shard/afterattack(atom/target, mob/user, proximity_flag)
 	. = ..()
@@ -445,12 +452,12 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		to_chat(E, "<span class='big bold'>Помните, что вы разделяете интересы [user].  От вас ожидается не мешать союзникам хозяина, пока вам не прикажут!</span>")
 		E.mind.store_memory("Я теперь разделяю интересы [user].  От меня ожидается не мешать союзникам хозяина, пока вам не прикажут!")
 		if(user.mind.special_role)
-			E.maxHealth = 300
-			E.health = 300
+			E.maxHealth = initial(E.maxHealth) * health_revive_mult_antag
+			E.health = initial(E.health) * health_revive_mult_antag
 			E.del_on_death = TRUE
 		else
-			E.maxHealth = 200
-			E.health = 200
+			E.maxHealth = initial(E.maxHealth) * health_revive_mult
+			E.health = initial(E.health) * health_revive_mult
 			E.revive_cooldown = TRUE
 		E.sentience_type = SENTIENCE_ORGANIC
 		qdel(src)
@@ -493,3 +500,5 @@ While using this makes the system rely on OnFire, it still gives options for tim
 #undef TUMOR_ACTIVE
 #undef TUMOR_PASSIVE
 #undef ARENA_RADIUS
+#undef REVIVE_COOLDOWN_MOD 10
+#undef REVIVE_COOLDOWN_MOD_ANTAG 2
