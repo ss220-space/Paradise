@@ -204,6 +204,7 @@
 	materials = list(MAT_METAL = 16000, MAT_GLASS = 5000, MAT_PLASMA = 6000)
 	build_path = /obj/item/ammo_box/magazine/lmag
 	category = list("Weapons")
+
 /datum/design/rapidsyringe
 	name = "Rapid Syringe Gun"
 	desc = "A gun that fires many syringes."
