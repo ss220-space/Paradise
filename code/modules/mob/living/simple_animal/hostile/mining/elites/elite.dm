@@ -4,8 +4,8 @@
 #define ARENA_RADIUS 10
 #define REVIVE_COOLDOWN_MULT 10
 #define REVIVE_COOLDOWN_MULT_ANTAG 2
-#define HEALTH_REVIVE_MULT 0.2
-#define HEALTH_REVIVE_MULT_ANTAG 0.3
+#define REVIVE_HEALTH_MULT 0.2
+#define REVIVE_HEALTH_MULT_ANTAG 0.3
 
 //Elite mining mobs
 /mob/living/simple_animal/hostile/asteroid/elite
@@ -465,12 +465,12 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		to_chat(E, "<span class='big bold'>Помните, что вы разделяете интересы [user].  От вас ожидается не мешать союзникам хозяина, пока вам не прикажут!</span>")
 		E.mind.store_memory("Я теперь разделяю интересы [user].  От меня ожидается не мешать союзникам хозяина, пока вам не прикажут!")
 		if(user.mind.special_role)
-			E.maxHealth = initial(E.maxHealth) * HEALTH_REVIVE_MULT_ANTAG
-			E.health = initial(E.health) * HEALTH_REVIVE_MULT_ANTAG
+			E.maxHealth = initial(E.maxHealth) * REVIVE_HEALTH_MULT_ANTAG
+			E.health = initial(E.health) * REVIVE_HEALTH_MULT_ANTAG
 			E.del_on_death = TRUE
 		else
-			E.maxHealth = initial(E.maxHealth) * HEALTH_REVIVE_MULT
-			E.health = initial(E.health) * HEALTH_REVIVE_MULT
+			E.maxHealth = initial(E.maxHealth) * REVIVE_HEALTH_MULT
+			E.health = initial(E.health) * REVIVE_HEALTH_MULT
 			E.revive_cooldown = TRUE
 		E.sentience_type = SENTIENCE_ORGANIC
 		qdel(src)
@@ -515,5 +515,5 @@ While using this makes the system rely on OnFire, it still gives options for tim
 #undef ARENA_RADIUS
 #undef REVIVE_COOLDOWN_MULT
 #undef REVIVE_COOLDOWN_MULT_ANTAG
-#undef HEALTH_REVIVE_MULT
-#undef HEALTH_REVIVE_MULT_antag
+#undef REVIVE_HEALTH_MULT
+#undef REVIVE_HEALTH_MULT_antag
