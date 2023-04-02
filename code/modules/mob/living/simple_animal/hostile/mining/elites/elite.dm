@@ -114,7 +114,7 @@
 /mob/living/simple_animal/hostile/asteroid/elite/proc/scale_stats(var/list/activators)
 	dif_mult = enemies_count_scale ** length(activators)
 	if(scale_with_time)
-		dif_mult = enemies_count_scale ** length(activators) * (world.time / (FULL_STRENGHT_TIME))
+		dif_mult *= (world.time / (FULL_STRENGHT_TIME))
 	maxHealth = initial(maxHealth) * dif_mult
 	health = initial(health) * dif_mult
 	melee_damage_lower = initial(melee_damage_lower) * dif_mult
