@@ -30,7 +30,7 @@
 	melee_damage_upper = 35
 	armour_penetration = 50
 	attacktext = "slashes its arms at"
-	attack_sound = 'sound/weapons/bladeslice.ogg'
+	attack_sound = 'sound/effects/hit_punch.ogg'
 	throw_message = "doesn't affect the sturdiness of"
 	speed = 0.5 //Since it is mainly melee, this *should* be right
 	move_to_delay = 3
