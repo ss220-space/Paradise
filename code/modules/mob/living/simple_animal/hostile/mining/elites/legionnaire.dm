@@ -262,7 +262,7 @@
 	throw_message = "simply misses"
 	speed = 0
 	move_to_delay = 2
-	melee_queue_distance = 7
+	aggro_vision_range = 18
 	del_on_death = 1
 	deathmessage = "crumbles away!"
 	faction = list()
