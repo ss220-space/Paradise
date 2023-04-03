@@ -964,7 +964,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!new_tts_seed)
 		return null
 	tts_seed = new_tts_seed
-	if(user.dna)
+	if(user?.dna)
 		user.dna.tts_seed_dna = new_tts_seed
 	return new_tts_seed
 
