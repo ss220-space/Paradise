@@ -317,7 +317,7 @@
 		After long wanderings over space, the ghost ship collided with an asteroid..."
 	cost = 3 // 65x50 Space ship with few asteroids, carps and headcrabs in positions
 	allow_duplicates = FALSE
-	
+
 /datum/map_template/ruin/space/ussp_laboratory
 	id = "ussp_laboratory"
 	suffix = "ussp_laboratory.dmm"
@@ -325,6 +325,14 @@
 	description = "Tovarish! U nas chto-to proisoshlo! Ksenosi!"
 	allow_duplicates = FALSE
 	cost = 2
+
+/datum/map_template/ruin/space/anomalyship
+	id = "anomalyship"
+	suffix = "anomalyship.dmm"
+	name = "Anomaly Ship"
+	description = "The trading and mining shuttle was flying to sell goods, but it fell into the field of the bluespace anomaly"
+	allow_duplicates = FALSE
+	cost = 3 // 76x76 space ship
 
 /* Старый код для добавления Тайпана. Оставлено на всякий случай
 /datum/map_template/ruin/space/syndicate_space_base
