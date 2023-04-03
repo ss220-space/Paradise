@@ -49,7 +49,7 @@
 				mimic_voice_tts = human.dna.tts_seed_dna
 			if("Custom Voice")
 				mimic_voice = stripped_input(user, "Enter a name to mimic.", "Set Voice Changer", null, MAX_NAME_LEN)
-				if(!voice)
+				if(!mimic_voice)
 					return
 				mimic_voice_tts = user.select_voice(user, override = TRUE)
 			if("Cancel")
