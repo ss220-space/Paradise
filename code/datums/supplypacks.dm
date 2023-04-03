@@ -512,17 +512,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/security/armory/lr30
 	name = "LR-30 Crate"
-	contains = list(/obj/item/gun/projectile/automatic/laserrifle,
-					/obj/item/gun/projectile/automatic/laserrifle)
+	contains = list(/obj/item/gun/projectile/automatic/lr30,
+					/obj/item/gun/projectile/automatic/lr30)
 	cost = 15
 	containername = "laser rifle crate"
 
 /datum/supply_packs/security/armory/lr30ammo
 	name = "LR-30 Ammo Crate"
-	contains = list(/obj/item/ammo_box/magazine/lmag,
-					/obj/item/ammo_box/magazine/lmag,
-					/obj/item/ammo_box/magazine/lmag,
-					/obj/item/ammo_box/magazine/lmag)
+	contains = list(/obj/item/ammo_box/magazine/lr30mag,
+					/obj/item/ammo_box/magazine/lr30mag,
+					/obj/item/ammo_box/magazine/lr30mag,
+					/obj/item/ammo_box/magazine/lr30mag)
 	cost = 20
 	containername = "laser rifle ammo crate"
 
