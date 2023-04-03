@@ -241,7 +241,7 @@
 /obj/effect/temp_visual/goliath_tentacle/broodmother
 	var/damage = 25
 	var/stun_duration = 1
-	var/stun_delay = 2
+	var/stun_delay = 1.5
 
 /obj/effect/temp_visual/goliath_tentacle/broodmother/tripanim()
 	icon_state = "Goliath_tentacle_wiggle"
@@ -269,14 +269,15 @@
 	INVOKE_ASYNC(src, .proc/createpatch)
 
 /obj/effect/temp_visual/goliath_tentacle/broodmother/patch/proc/createpatch()
-	var/tentacle_locs = spiral_range_turfs(1, get_turf(src))
+	var/tentacle_locs = spiral_range_turfs(2, get_turf(src))
 	for(var/T in tentacle_locs)
 		new /obj/effect/temp_visual/goliath_tentacle/broodmother(T, spawner)
 	var/list/directions = GLOB.cardinal.Copy()
 	for(var/i in directions)
 		var/turf/T = get_step(get_turf(src), i)
-		T = get_step(T, i)
-		new /obj/effect/temp_visual/goliath_tentacle/broodmother(T, spawner)
+		for(var/j in 1 to 2)
+			T = get_step(T, i)
+			new /obj/effect/temp_visual/goliath_tentacle/broodmother(T, spawner)
 
 // Broodmother's loot: Broodmother Tongue
 /obj/item/crusher_trophy/broodmother_tongue
