@@ -148,7 +148,7 @@ GLOBAL_LIST_EMPTY(id_cards)
 /obj/item/card/id/Destroy()
 	GLOB.id_cards -= src
 	return ..()
-	
+
 /obj/item/card/id/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
@@ -258,7 +258,7 @@ GLOBAL_LIST_EMPTY(id_cards)
 	name = "[(!registered_name)	? "identification card"	: "[registered_name]'s ID Card"][(!assignment) ? "" : " ([assignment])"]"
 
 /obj/item/card/id/proc/on_red_alert()
-	if(!has_access(list(), list(ACCESS_SECURITY), access))
+	if(!has_access(list(ACCESS_SECURITY), TRUE, access))
 		return
 	red_alert_given_access = get_region_accesses(REGION_ALL) - get_region_accesses(REGION_COMMAND)
 	red_alert_given_access -= access
@@ -266,7 +266,7 @@ GLOBAL_LIST_EMPTY(id_cards)
 	access += red_alert_given_access
 
 /obj/item/card/id/proc/after_red_alert()
-	if(!has_access(list(), list(ACCESS_SECURITY), access))
+	if(!has_access(list(ACCESS_SECURITY), TRUE, access))
 		return
 	access -= red_alert_given_access
 	red_alert_given_access.Cut()
