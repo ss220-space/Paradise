@@ -202,7 +202,7 @@
 	build_type = PROTOLATHE
 	req_tech = list("combat" = 4, "powerstorage" = 4)
 	materials = list(MAT_METAL = 16000, MAT_GLASS = 5000, MAT_PLASMA = 6000)
-	build_path = /obj/item/ammo_box/magazine/lmag
+	build_path = /obj/item/ammo_box/magazine/lr30mag
 	category = list("Weapons")
 
 /datum/design/rapidsyringe
