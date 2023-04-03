@@ -539,7 +539,7 @@
 	..()
 	icon_state = "[initial(icon_state)]-[CEILING(ammo_count(0)/20, 1)*20]"
 
-/obj/item/ammo_box/magazine/lmag
+/obj/item/ammo_box/magazine/lr30mag
 	name = "encased laser projector magazine"
 	desc = "Fits experimental laser ammo casings."
 	icon_state = "lmag-12"
@@ -548,7 +548,7 @@
 	caliber = "laser"
 	max_ammo = 12
 
-/obj/item/ammo_box/magazine/lmag/update_icon()
+/obj/item/ammo_box/magazine/lr30mag/update_icon()
 	..()
 	icon_state = "lmag-[round(ammo_count(),3)]"
 
