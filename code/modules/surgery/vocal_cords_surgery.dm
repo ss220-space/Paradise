@@ -30,7 +30,7 @@
 	..()
 
 /datum/surgery_step/tune_vocal_cords/end_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	target.change_voice(user, override = TRUE)
+	target.change_voice(user, TRUE)
 	user.visible_message("[user] tunes [target]'s vocals completely!", "<span class='notice'>You tune [target]'s vocals completely.</span>")
 	return TRUE
 
