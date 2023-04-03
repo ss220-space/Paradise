@@ -49,7 +49,6 @@
 			H.adjustCloneLoss(-1)
 			H.SetWeakened(0)
 			H.SetStunned(0)
-	..()
 
 
 /datum/species/shadow/ling/lesser //Empowered thralls. Obvious, but powerful
@@ -81,4 +80,3 @@
 			H.adjustToxLoss(-5)
 			H.adjustBrainLoss(-25)
 			H.adjustCloneLoss(-1)
-	..()
