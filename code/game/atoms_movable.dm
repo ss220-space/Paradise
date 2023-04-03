@@ -203,7 +203,7 @@
 		return
 
 	if(.)
-		Moved(oldloc, direct)
+		Moved(oldloc, direct, FALSE)
 
 	last_move = direct
 	src.move_speed = world.time - src.l_move_time
@@ -279,7 +279,7 @@
 		if(old_z != dest_z)
 			onTransitZ(old_z, dest_z)
 
-	Moved(old_loc, NONE)
+	Moved(old_loc, NONE, TRUE)
 
 	return 1
 
