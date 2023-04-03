@@ -152,8 +152,10 @@
 	var/mob/living/M = new mob_type(get_turf(src)) //living mobs only
 	if(!random)
 		M.real_name = mob_name ? mob_name : M.name
+		M.tts_seed = SStts.get_random_seed(M)
 		if(M.dna)
 			M.dna.real_name = mob_name
+			M.dna.tts_seed_dna = M.tts_seed
 		if(M.mind)
 			M.mind.name = mob_name
 		if(!mob_gender)
@@ -188,10 +190,6 @@
 		special(M, name)
 		MM.name = M.real_name
 		M.change_voice()
-	else
-		M.tts_seed = SStts.get_random_seed(M)
-	if(M.dna)
-		M.dna.tts_seed_dna = M.tts_seed
 	if(uses > 0)
 		uses--
 	if(!permanent && !uses)
