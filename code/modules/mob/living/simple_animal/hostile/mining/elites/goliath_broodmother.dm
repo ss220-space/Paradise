@@ -29,7 +29,7 @@
 	health = 1000
 	melee_damage_lower = 30
 	melee_damage_upper = 30
-	armour_penetration = 30
+	armour_penetration = 40
 	attacktext = "beats down on"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "does nothing to the rocky hide of the"
@@ -119,7 +119,7 @@
 			new /obj/effect/temp_visual/goliath_tentacle/broodmother(t, src)
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/tentacle_patch(target)
-	ranged_cooldown = world.time + 2.5 SECONDS * revive_multiplier()
+	ranged_cooldown = world.time + 4 SECONDS * revive_multiplier()
 	var/tturf = get_turf(target)
 	if(!isturf(tturf))
 		return
@@ -137,8 +137,8 @@
 		newchild.faction = faction.Copy()
 		newchild.maxHealth *= dif_mult
 		newchild.health *= dif_mult
-		newchild.melee_damage_lower *= dif_mult
-		newchild.melee_damage_upper *= dif_mult
+		newchild.melee_damage_lower = initial(newchild.melee_damage_lower) * (dif_mult+1) * 0.5
+		newchild.melee_damage_upper = initial(newchild.melee_damage_upper) * (dif_mult+1) * 0.5
 		visible_message("<span class='danger'>[newchild] appears below [src]!</span>")
 		newchild.mother = src
 		children_list += newchild
@@ -238,6 +238,9 @@
 	qdel(src)
 
 
+/obj/effect/temp_visual/goliath_tentacle/broodmother
+	var/damage = 25
+	var/stun_duration = 2
 
 //Tentacles stun WAY less compared to regular variant, to balance being able to use them much more often. Also, 10 more damage.
 /obj/effect/temp_visual/goliath_tentacle/broodmother/trip()
@@ -246,14 +249,14 @@
 		if((!QDELETED(spawner) && spawner.faction_check_mob(L)) || L.stat == DEAD)
 			continue
 		visible_message("<span class='danger'>[src] grabs hold of [L]!</span>")
-		L.Stun(1 SECONDS)
-		L.adjustBruteLoss(rand(20,25))
+		L.Stun(stun_duration)
+		L.adjustBruteLoss(damage)
 		latched = TRUE
 	if(!latched)
 		retract()
 	else
 		deltimer(timerid)
-		timerid = addtimer(CALLBACK(src, .proc/retract), 1 SECONDS, TIMER_STOPPABLE)
+		timerid = addtimer(CALLBACK(src, .proc/retract), stun_duration * 10, TIMER_STOPPABLE)
 
 /obj/effect/temp_visual/goliath_tentacle/broodmother/patch/Initialize(mapload, new_spawner)
 	. = ..()
