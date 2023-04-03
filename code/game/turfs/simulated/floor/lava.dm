@@ -64,6 +64,9 @@
 	if(find_safeties())
 		return FALSE
 
+	if(locate(/obj/vehicle/lavaboat) in src.contents)
+		return FALSE
+
 	var/thing_to_check = src
 	if(AM)
 		thing_to_check = list(AM)
