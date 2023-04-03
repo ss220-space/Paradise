@@ -240,7 +240,13 @@
 
 /obj/effect/temp_visual/goliath_tentacle/broodmother
 	var/damage = 25
-	var/stun_duration = 2
+	var/stun_duration = 1
+	var/stun_delay = 2
+
+/obj/effect/temp_visual/goliath_tentacle/broodmother/tripanim()
+	icon_state = "Goliath_tentacle_wiggle"
+	deltimer(timerid)
+	timerid = addtimer(CALLBACK(src, .proc/trip), stun_delay, TIMER_STOPPABLE)
 
 //Tentacles stun WAY less compared to regular variant, to balance being able to use them much more often. Also, 10 more damage.
 /obj/effect/temp_visual/goliath_tentacle/broodmother/trip()
