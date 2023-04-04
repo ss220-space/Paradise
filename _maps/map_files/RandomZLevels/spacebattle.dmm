@@ -552,6 +552,11 @@
 /area/awaymission/spacebattle/syndicate2)
 "bN" = (
 /obj/item/ammo_box/magazine/m10mm,
+/mob/living/simple_animal/hostile/mimic/crate{
+	faction = list("syndicate");
+	health = 80;
+	maxHealth = 80
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
@@ -642,7 +647,9 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/vending/cola/free,
-/obj/structure/door_assembly/door_assembly_public,
+/obj/structure/door_assembly/door_assembly_public{
+	anchored = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "cc" = (
@@ -678,8 +685,7 @@
 /area/space)
 "cg" = (
 /obj/structure/closet/secure_closet/engineering_welding{
-	req_access = null;
-	req_access_txt = "159"
+	req_access = list(159)
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -768,7 +774,7 @@
 	chat_color_name = "Very Hi-tech Machine";
 	density = 1;
 	desc = "You totally don't give a shit what is this.";
-	icon = 'icons/obj/tcomms.dmi';
+	icon = 'icons/obj/machines/tcomms.dmi';
 	icon_state = "core"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -934,7 +940,7 @@
 	},
 /obj/structure{
 	desc = "It looks like a unactive supermatter shard.. Can I touch it?";
-	icon = 'icons/obj/supermatter.dmi';
+	icon = 'icons/obj/engines_and_power/supermatter.dmi';
 	icon_state = "darkmatter";
 	name = "supermatter shard"
 	},
@@ -1126,11 +1132,13 @@
 "dw" = (
 /obj/structure/closet/secure_closet{
 	broken = 1;
+	density = 0;
 	icon_closed = "secureeng";
 	icon_locked = "secureeng1";
 	icon_off = "secureengoff";
 	icon_opened = "secureengopen";
-	icon_state = "secureeng1";
+	icon_state = "secureengopen";
+	initialized = 1;
 	locked = 0;
 	opened = 1
 	},
@@ -1265,7 +1273,7 @@
 /area/awaymission/spacebattle/kitchen)
 "dT" = (
 /obj/machinery/vending/tool{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -1278,7 +1286,7 @@
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
-/area/space/nearstation)
+/area/awaymission/spacebattle/syndicate3)
 "dV" = (
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle,
@@ -1432,8 +1440,7 @@
 "er" = (
 /obj/machinery/door/airlock/highsecurity/red{
 	id = "GATE";
-	req_access_txt = "150";
-	req_one_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/door/poddoor{
 	id_tag = "GATE";
@@ -1588,7 +1595,7 @@
 	tag = "icon-propulsion_l (NORTH)"
 	},
 /turf/space,
-/area/space/nearstation)
+/area/awaymission/spacebattle/syndicate3)
 "eU" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -1615,7 +1622,7 @@
 "eX" = (
 /obj/machinery/computer{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	icon = 'icons/obj/machines/particle_accelerator3.dmi';
+	icon = 'icons/obj/engines_and_power/particle_accelerator3.dmi';
 	icon_state = "control_boxp";
 	name = "Broken Computer"
 	},
@@ -1634,7 +1641,7 @@
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
-/area/space/nearstation)
+/area/awaymission/spacebattle/syndicate3)
 "eZ" = (
 /turf/space,
 /area/awaymission/spacebattle/hallway11)
@@ -2395,7 +2402,7 @@
 	chat_color_name = "Very Hi-tech Machine";
 	density = 1;
 	desc = "You totally don't give a shit what is this.";
-	icon = 'icons/obj/tcomms.dmi';
+	icon = 'icons/obj/machines/tcomms.dmi';
 	icon_state = "core"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -2832,7 +2839,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/area/awaymission/spacebattle/syndicate3)
 "if" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -3176,6 +3183,11 @@
 "jh" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/spawner/lootdrop/maintenance,
+/mob/living/simple_animal/hostile/mimic/crate{
+	faction = list("syndicate");
+	health = 80;
+	maxHealth = 80
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
@@ -3354,7 +3366,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/area/awaymission/spacebattle/syndicate3)
 "jF" = (
 /turf/simulated/wall/shuttle/nosmooth/interior{
 	dir = 5;
@@ -3506,6 +3518,11 @@
 "jW" = (
 /obj/effect/turf_decal/delivery,
 /obj/item/clothing/head/helmet/swat/syndicate,
+/mob/living/simple_animal/hostile/mimic/crate{
+	faction = list("syndicate");
+	health = 80;
+	maxHealth = 80
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
@@ -4507,7 +4524,7 @@
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
-/area/space/nearstation)
+/area/awaymission/spacebattle/syndicate3)
 "mR" = (
 /obj/machinery/door/airlock{
 	id_tag = "toiletS1";
@@ -4572,11 +4589,13 @@
 "mZ" = (
 /obj/structure/closet/secure_closet{
 	broken = 1;
+	density = 0;
 	icon_closed = "secureeng";
 	icon_locked = "secureeng1";
 	icon_off = "secureengoff";
 	icon_opened = "secureengopen";
-	icon_state = "secureeng1";
+	icon_state = "secureengopen";
+	initialized = 1;
 	locked = 0;
 	opened = 1
 	},
@@ -5451,7 +5470,7 @@
 	chat_color_name = "Very Hi-tech Machine";
 	density = 1;
 	desc = "You totally don't give a shit what is this.";
-	icon = 'icons/obj/tcomms.dmi';
+	icon = 'icons/obj/machines/tcomms.dmi';
 	icon_state = "core"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -5554,9 +5573,15 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
 "pT" = (
-/obj/structure/girder,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/obj/machinery/suit_storage_unit/syndicate{
+	magboots_type = /obj/item/clothing/shoes/magboots/syndie;
+	storage_type = null;
+	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi/damaged
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/awaymission/spacebattle/syndicate2)
 "pV" = (
 /obj/structure/lattice,
 /turf/space,
@@ -5711,11 +5736,14 @@
 /turf/simulated/floor/wood,
 /area/awaymission/spacebattle)
 "qr" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/space,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
-/area/space/nearstation)
+/area/awaymission/spacebattle/syndicate4)
 "qs" = (
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 1
@@ -5874,7 +5902,7 @@
 /obj/machinery/door/window/eastright{
 	dir = 2;
 	name = "Kitchen";
-	req_one_access_txt = "28"
+	req_access = list(28)
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/awaymission/spacebattle/kitchen)
@@ -6125,6 +6153,11 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/spawner/lootdrop/maintenance,
+/mob/living/simple_animal/hostile/mimic/crate{
+	faction = list("syndicate");
+	health = 80;
+	maxHealth = 80
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
@@ -6135,8 +6168,10 @@
 /area/awaymission/spacebattle/cruiser)
 "rE" = (
 /obj/structure/closet{
+	density = 0;
 	icon_closed = "yellow";
-	icon_state = "yellow";
+	icon_state = "open";
+	initialized = 1;
 	name = "Engineering gear";
 	opened = 1
 	},
@@ -6671,6 +6706,11 @@
 	dir = 4
 	},
 /obj/item/clothing/suit/armor/bulletproof,
+/mob/living/simple_animal/hostile/mimic/crate{
+	faction = list("syndicate");
+	health = 80;
+	maxHealth = 80
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
@@ -6759,11 +6799,13 @@
 	},
 /obj/structure/closet/secure_closet{
 	broken = 1;
+	density = 0;
 	icon_closed = "secureeng";
 	icon_locked = "secureeng1";
 	icon_off = "secureengoff";
 	icon_opened = "secureengopen";
-	icon_state = "secureeng1";
+	icon_state = "secureengopen";
+	initialized = 1;
 	locked = 0;
 	opened = 1
 	},
@@ -6855,7 +6897,7 @@
 /obj/machinery/door/window{
 	dir = 1;
 	name = "Secure Armory";
-	req_access_txt = "1"
+	req_access = list(1)
 	},
 /obj/item/clothing/head/helmet,
 /turf/simulated/floor/plasteel{
@@ -7118,7 +7160,7 @@
 	anchored = 1;
 	density = 1;
 	desc = "It appears to be broken SMES.";
-	icon = 'icons/obj/power.dmi';
+	icon = 'icons/obj/engines_and_power/power.dmi';
 	icon_state = "smes";
 	name = "Nanotrasen PSU"
 	},
@@ -7415,6 +7457,7 @@
 	opacity = 1
 	},
 /obj/effect/landmark/awaymissions/spacebattle/mine_spawner{
+	faction = "syndicate";
 	id = "QM"
 	},
 /turf/simulated/floor/plasteel,
@@ -7853,7 +7896,7 @@
 	name = "interior access button";
 	pixel_x = -25;
 	pixel_y = 25;
-	req_access_txt = null
+	req_access = null
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -7876,6 +7919,11 @@
 /obj/structure/disposalpipe/segment,
 /obj/structure/transit_tube{
 	icon_state = "N-S"
+	},
+/obj/machinery/constructable_frame{
+	icon = 'icons/obj/engines_and_power/singularity.dmi';
+	icon_state = "TheSingGen";
+	layer = 4
 	},
 /turf/simulated/floor,
 /area/awaymission/spacebattle/hallway3)
@@ -8373,8 +8421,10 @@
 /area/awaymission/spacebattle/hallway1)
 "xx" = (
 /obj/structure/closet{
+	density = 0;
 	icon_closed = "yellow";
-	icon_state = "yellow";
+	icon_state = "open";
+	initialized = 1;
 	name = "Engineering gear";
 	opened = 1
 	},
@@ -8504,7 +8554,7 @@
 	anchored = 1;
 	density = 1;
 	desc = "It appears to be broken SMES.";
-	icon = 'icons/obj/power.dmi';
+	icon = 'icons/obj/engines_and_power/power.dmi';
 	icon_state = "smes";
 	name = "Nanotrasen PSU"
 	},
@@ -8660,11 +8710,13 @@
 "yg" = (
 /obj/structure/closet/secure_closet{
 	broken = 1;
+	density = 0;
 	icon_closed = "secureeng";
 	icon_locked = "secureeng1";
 	icon_off = "secureengoff";
 	icon_opened = "secureengopen";
-	icon_state = "secureeng1";
+	icon_state = "secureengopen";
+	initialized = 1;
 	locked = 0;
 	opened = 1
 	},
@@ -9358,7 +9410,7 @@
 /obj/structure{
 	anchored = 1;
 	desc = "It appears to be some sort of generator.";
-	icon = 'icons/obj/power.dmi';
+	icon = 'icons/obj/engines_and_power/power.dmi';
 	icon_state = "teg";
 	name = "WaffeCo PGU"
 	},
@@ -9811,7 +9863,7 @@
 	anchored = 1;
 	density = 1;
 	desc = "It appears to be broken SMES.";
-	icon = 'icons/obj/power.dmi';
+	icon = 'icons/obj/engines_and_power/power.dmi';
 	icon_state = "smes";
 	name = "Nanotrasen PSU"
 	},
@@ -10358,11 +10410,13 @@
 /obj/effect/landmark/tiles/damageturf,
 /obj/structure/closet/secure_closet{
 	broken = 1;
+	density = 0;
 	icon_closed = "secureeng";
 	icon_locked = "secureeng1";
 	icon_off = "secureengoff";
 	icon_opened = "secureengopen";
-	icon_state = "secureeng1";
+	icon_state = "secureengopen";
+	initialized = 1;
 	locked = 0;
 	opened = 1
 	},
@@ -11013,8 +11067,7 @@
 "ED" = (
 /obj/machinery/door/airlock/security{
 	name = "Armory";
-	req_access_txt = " 271";
-	req_one_access_txt = "271"
+	req_access = list(271)
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
@@ -11206,7 +11259,7 @@
 	icon_state = "N-S"
 	},
 /obj/machinery/constructable_frame{
-	icon = 'icons/obj/singularity.dmi';
+	icon = 'icons/obj/engines_and_power/singularity.dmi';
 	icon_state = "TheSingGen";
 	layer = 4
 	},
@@ -11824,7 +11877,7 @@
 /obj/machinery/door/window{
 	dir = 1;
 	name = "Secure Armory";
-	req_access_txt = "1"
+	req_access = list(1)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -12089,8 +12142,7 @@
 /area/awaymission/spacebattle/hallway11)
 "Hw" = (
 /obj/structure/closet/secure_closet/engineering_electrical{
-	req_access = null;
-	req_access_txt = "159"
+	req_access = list(159)
 	},
 /obj/item/storage/backpack/syndicate/engineer,
 /obj/item/holosign_creator/atmos,
@@ -12368,7 +12420,7 @@
 	name = "exterior access button";
 	pixel_x = -25;
 	pixel_y = -25;
-	req_access_txt = null
+	req_access = null
 	},
 /turf/space,
 /area/awaymission/spacebattle/syndicate1)
@@ -12500,8 +12552,8 @@
 /obj/effect/turf_decal/delivery,
 /mob/living/simple_animal/hostile/mimic/crate{
 	faction = list("syndicate");
-	health = 100;
-	maxHealth = 100
+	health = 80;
+	maxHealth = 80
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/shuttle{
@@ -12875,9 +12927,13 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission)
 "JM" = (
-/obj/effect/landmark/tiles/damageturf,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/awaymission/spacebattle/syndicate4)
 "JN" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -13065,7 +13121,7 @@
 	tag = "icon-propulsion_r (NORTH)"
 	},
 /turf/space,
-/area/space/nearstation)
+/area/awaymission/spacebattle/syndicate3)
 "Ks" = (
 /obj/machinery/power/apc{
 	cell_type = 0;
@@ -13294,10 +13350,12 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "KY" = (
-/turf/simulated/wall/shuttle/nosmooth{
+/turf/simulated/wall/shuttle/nosmooth/interior{
 	dir = 10;
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
+	icon_state = "gray_walls_corners";
+	underlay_floor_icon = 'icons/turf/space.dmi';
+	underlay_floor_icon_state = "0"
 	},
 /area/awaymission/spacebattle/syndicate7)
 "KZ" = (
@@ -13482,6 +13540,11 @@
 "Ly" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/spawner/lootdrop/maintenance,
+/mob/living/simple_animal/hostile/mimic/crate{
+	faction = list("syndicate");
+	health = 80;
+	maxHealth = 80
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
@@ -13675,7 +13738,7 @@
 	id_tag = "syndicate_elite";
 	name = "Front Hull Door";
 	opacity = 0;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/awaymission/spacebattle/turret1)
@@ -13842,7 +13905,7 @@
 /obj/machinery/door/airlock/mining/glass{
 	name = "Quartermaster";
 	opacity = 1;
-	req_access_txt = "41"
+	req_access = list(41)
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -13946,6 +14009,7 @@
 "MN" = (
 /obj/structure/lattice,
 /obj/effect/landmark/awaymissions/spacebattle/mine_spawner{
+	faction = "syndicate";
 	id = "dorms"
 	},
 /turf/space,
@@ -14160,11 +14224,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway7)
-"Nu" = (
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
-	},
-/area/space/nearstation)
 "Nv" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
@@ -14259,7 +14318,7 @@
 /obj/machinery/door/airlock/external,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle/plating,
-/area/space/nearstation)
+/area/awaymission/spacebattle/syndicate3)
 "NH" = (
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel,
@@ -14274,6 +14333,11 @@
 "NJ" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/spawner/lootdrop/maintenance/double,
+/mob/living/simple_animal/hostile/mimic/crate{
+	faction = list("syndicate");
+	health = 80;
+	maxHealth = 80
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
@@ -15920,6 +15984,7 @@
 	},
 /obj/structure/cable,
 /obj/effect/landmark/awaymissions/spacebattle/mine_spawner{
+	faction = "syndicate";
 	id = "turret1"
 	},
 /turf/simulated/floor/plating,
@@ -16152,6 +16217,7 @@
 /area/awaymission/spacebattle/sec_storage)
 "SH" = (
 /obj/effect/landmark/awaymissions/spacebattle/mine_spawner{
+	faction = "syndicate";
 	id = "syn3"
 	},
 /turf/simulated/floor/shuttle{
@@ -16446,7 +16512,7 @@
 /obj/machinery/door/window{
 	dir = 1;
 	name = "Secure Armory";
-	req_access_txt = "1"
+	req_access = list(1)
 	},
 /obj/item/ammo_box/magazine/enforcer/lethal,
 /turf/simulated/floor/plasteel{
@@ -16862,10 +16928,12 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/living)
 "UI" = (
-/turf/simulated/wall/shuttle/nosmooth{
+/turf/simulated/wall/shuttle/nosmooth/interior{
 	dir = 9;
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
+	icon_state = "gray_walls_corners";
+	underlay_floor_icon = 'icons/turf/space.dmi';
+	underlay_floor_icon_state = "0"
 	},
 /area/awaymission/spacebattle/syndicate7)
 "UJ" = (
@@ -17460,6 +17528,7 @@
 /area/awaymission/spacebattle/storage)
 "Wk" = (
 /obj/effect/landmark/awaymissions/spacebattle/mine_spawner{
+	faction = "syndicate";
 	id = "meteor"
 	},
 /turf/space,
@@ -17723,7 +17792,7 @@
 	name = "interior access button";
 	pixel_x = 25;
 	pixel_y = 25;
-	req_access_txt = null
+	req_access = null
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -17885,8 +17954,10 @@
 /area/awaymission/spacebattle/cruiser)
 "Xz" = (
 /obj/structure/closet{
+	density = 0;
 	icon_closed = "yellow";
-	icon_state = "yellow";
+	icon_state = "open";
+	initialized = 1;
 	name = "Engineering gear";
 	opened = 1
 	},
@@ -18382,7 +18453,7 @@
 	name = "exterior access button";
 	pixel_x = 25;
 	pixel_y = -25;
-	req_access_txt = null
+	req_access = null
 	},
 /turf/space,
 /area/awaymission/spacebattle/syndicate1)
@@ -32000,9 +32071,9 @@ ab
 ab
 ep
 jl
-Ex
+qr
 ID
-ID
+JM
 ZP
 ep
 ab
@@ -50923,7 +50994,7 @@ at
 Qc
 aI
 jx
-aj
+pT
 jx
 aI
 KO
@@ -66936,10 +67007,10 @@ ab
 ab
 ab
 ab
-is
-is
-is
-pT
+eF
+eF
+eF
+cq
 ab
 ab
 ab
@@ -67451,8 +67522,8 @@ ab
 ab
 ab
 NG
-Nu
-qr
+aD
+ko
 ce
 ab
 ab
@@ -67708,10 +67779,10 @@ ab
 ab
 ab
 NG
-Nu
-Nu
-dX
-JM
+aD
+aD
+ob
+so
 ab
 ab
 ab
@@ -67968,7 +68039,7 @@ eR
 jC
 dU
 eY
-dX
+ob
 ce
 ab
 ab
@@ -68221,12 +68292,12 @@ ab
 ab
 ab
 ab
-is
-is
-is
-is
-is
-is
+eF
+eF
+eF
+eF
+eF
+eF
 ab
 ab
 ab
