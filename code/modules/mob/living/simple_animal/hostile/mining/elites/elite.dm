@@ -32,7 +32,7 @@
 	var/scale_with_time = TRUE
 	var/reviver = null
 	var/dif_mult = 1 // Scales with number of enemies
-	var/dif_mult_dmg
+	var/dif_mult_dmg = 1
 	var/chosen_attack = 1
 	var/list/attack_action_types = list()
 	var/obj/loot_drop = null
