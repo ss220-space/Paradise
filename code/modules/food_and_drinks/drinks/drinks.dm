@@ -65,15 +65,18 @@
 		ids_data[initial(R.id)] = transfer_data[R]
 		trans += transfer_data[R]
 
-	if(isrobot(user) && length(ids_data)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
-		var/mob/living/silicon/robot/bro = user
-		var/chargeAmount = max(30,4*trans)
-		bro.cell.use(chargeAmount)
-		to_chat(user, "<span class='notice'>Now synthesizing [trans] units of cocktail...</span>")
-		addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent_list, ids_data), 300)
-		addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, user, "<span class='notice'>Cyborg [src] refilled.</span>"), 300)
+	if(length(ids_data))
+		if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
+			var/mob/living/silicon/robot/bro = user
+			var/chargeAmount = max(30,4*trans)
+			bro.cell.use(chargeAmount)
+			to_chat(user, "<span class='notice'>Now synthesizing [trans] units of cocktail...</span>")
+			addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent_list, ids_data), 300)
+			addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, user, "<span class='notice'>Cyborg [src] refilled.</span>"), 300)
+		else
+			reagents.add_reagent_list(ids_data)
 	else
-		reagents.add_reagent_list(ids_data)
+		return
 
 /obj/item/reagent_containers/food/drinks/MouseDrop(atom/over_object) //CHUG! CHUG! CHUG!
 	if(!iscarbon(over_object))
