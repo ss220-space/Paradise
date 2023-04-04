@@ -116,10 +116,11 @@
 			to_chat(user, "<span class='warning'> [target] is full.</span>")
 			return FALSE
 
+		var/list/transfer_data = reagents.get_transferred_reagents(target, amount_per_transfer_from_this)
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
 
 		if(isrobot(user))
-			SynthesizeDrinkFromTransfer(target, user, reagents)
+			SynthesizeDrinkFromTransfer(user, transfer_data)
 
 		to_chat(user, "<span class='notice'> You transfer [trans] units of the solution to [target].</span>")
 
