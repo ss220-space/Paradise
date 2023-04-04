@@ -49,11 +49,11 @@
 		if(C.eat(src, user))
 			if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
 				if(length(transfer_data))
-					SynthesizeDrinkFromTransfer(M, user, transfer_data)
+					SynthesizeDrinkFromTransfer(user, transfer_data)
 			return TRUE
 	return FALSE
 
-/obj/item/reagent_containers/food/drinks/proc/SynthesizeDrinkFromTransfer(obj/target, mob/user, list/transfer_data)
+/obj/item/reagent_containers/food/drinks/proc/SynthesizeDrinkFromTransfer(mob/user, list/transfer_data)
 
 	var/list/ids_data = list()
 	var/trans = 0
