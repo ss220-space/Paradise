@@ -354,7 +354,7 @@
 		if(1) // 1%
 			SynMelee = /obj/item/melee/energy/sword/saber
 		if(2 to 3) // 2%
-			SynMelee = /obj/item/shield/energy/cyndie
+			SynMelee = /obj/item/shield/energy/syndie
 		else
 			SynMelee = /obj/item/ammo_casing/c10mm
 	return ..()
