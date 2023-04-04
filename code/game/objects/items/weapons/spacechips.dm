@@ -54,7 +54,10 @@
 
 /obj/item/stack/spacechips/c1000
 	amount = 1000
-
+	
+/obj/item/stack/spacechips/c2000
+	amount = 2000
+	
 /obj/item/stack/spacechips/c5000
 	amount = 5000
 	
