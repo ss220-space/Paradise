@@ -32,6 +32,7 @@
 	var/scale_with_time = TRUE
 	var/reviver = null
 	var/dif_mult = 1 // Scales with number of enemies
+	var/dif_mult_dmg
 	var/chosen_attack = 1
 	var/list/attack_action_types = list()
 	var/obj/loot_drop = null
@@ -113,12 +114,13 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/proc/scale_stats(var/list/activators)
 	dif_mult = enemies_count_scale ** (length(activators)-1)
+	dif_mult_dmg = (dif_mult + 1) * 0.5
 	if(scale_with_time && world.time > STRENGHT_INCREASE_TIME)
 		dif_mult *= 1.4
 	maxHealth = initial(maxHealth) * dif_mult
 	health = initial(health) * dif_mult
-	melee_damage_lower = initial(melee_damage_lower) * (dif_mult+1) * 0.5
-	melee_damage_upper = initial(melee_damage_upper) * (dif_mult+1) * 0.5
+	melee_damage_lower = initial(melee_damage_lower) * dif_mult_dmg
+	melee_damage_upper = initial(melee_damage_upper) * dif_mult_dmg
 
 /mob/living/simple_animal/hostile/asteroid/elite/can_die()
 	return ..() && health <= 0
@@ -419,6 +421,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		SSblackbox.record_feedback("tally", "AI controlled Elite loss", 1, mychild.name)
 	new mychild.loot_drop(lootloc)
 	mychild.dif_mult = 1
+	mychild.dif_mult_dmg = 1
 	qdel(src)
 
 /obj/structure/elite_tumor/proc/onEliteWon()
