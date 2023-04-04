@@ -38556,11 +38556,10 @@
 /area/toxins/lab)
 "bPE" = (
 /obj/structure/table/glass,
-/obj/item/paper_bin/nanotrasen,
-/obj/item/book/manual/sop_science,
-/obj/item/paper_bin/nanotrasen,
-/obj/item/pen/multi,
-/obj/item/lighter/zippo/rd,
+/obj/item/paicard,
+/obj/item/taperecorder{
+	pixel_x = -3
+	},
 /turf/simulated/floor/carpet/purple,
 /area/crew_quarters/hor)
 "bPF" = (
@@ -44108,13 +44107,14 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "cbp" = (
+/obj/structure/table/glass,
+/obj/item/paper_bin/nanotrasen,
+/obj/item/book/manual/sop_science,
+/obj/item/paper_bin/nanotrasen,
+/obj/item/pen/multi,
+/obj/item/lighter/zippo/rd,
 /obj/structure/cable{
 	icon_state = "4-8"
-	},
-/obj/structure/table/glass,
-/obj/item/paicard,
-/obj/item/taperecorder{
-	pixel_x = -3
 	},
 /turf/simulated/floor/carpet/purple,
 /area/crew_quarters/hor)
@@ -46202,16 +46202,11 @@
 	},
 /area/medical/cmo)
 "cfW" = (
-/obj/structure/table/glass,
-/obj/item/pen/multi,
-/obj/item/folder/white{
-	pixel_y = 7
-	},
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_x = 32
 	},
-/obj/item/paper_bin/nanotrasen,
+/obj/machinery/papershredder,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -80278,7 +80273,12 @@
 	name = "Chief Medical Officer Requests Console";
 	pixel_y = -30
 	},
-/obj/machinery/papershredder,
+/obj/structure/table/glass,
+/obj/item/folder/white{
+	pixel_y = 7
+	},
+/obj/item/paper_bin/nanotrasen,
+/obj/item/pen/multi,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
@@ -144219,9 +144219,9 @@ bTg
 bWn
 bLR
 bYh
-bZT
-cbp
 bPE
+cbp
+bZT
 chP
 cjO
 bYj

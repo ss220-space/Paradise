@@ -4704,7 +4704,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/carpet/black,
 /area/crew_quarters/captain)
 "aCh" = (
@@ -5059,6 +5058,10 @@
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -24
+	},
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
 	},
 /turf/simulated/floor/carpet/black,
 /area/crew_quarters/captain)
@@ -6342,7 +6345,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/carpet/black,
 /area/crew_quarters/captain)
 "aNO" = (
@@ -11084,7 +11086,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/carpet/black,
 /area/crew_quarters/captain)
 "bjm" = (
@@ -30128,7 +30129,10 @@
 /obj/structure/cable/orange{
 	icon_state = "2-4"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/carpet/black,
 /area/crew_quarters/captain)
 "cLt" = (
@@ -32058,8 +32062,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk,
+/obj/machinery/photocopier,
 /turf/simulated/floor/carpet/black,
 /area/crew_quarters/captain)
 "cSR" = (
@@ -48166,7 +48169,6 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/power/apc{
 	dir = 4;
 	pixel_x = 24
@@ -48174,6 +48176,7 @@
 /obj/structure/cable/orange{
 	icon_state = "0-8"
 	},
+/obj/item/flag/nt,
 /turf/simulated/floor/wood,
 /area/ntrep)
 "hkG" = (
@@ -50531,7 +50534,7 @@
 /turf/simulated/floor/grass,
 /area/hallway/secondary/exit)
 "iaW" = (
-/obj/item/flag/nt,
+/obj/structure/filingcabinet,
 /turf/simulated/floor/wood,
 /area/ntrep)
 "ibf" = (
@@ -52511,7 +52514,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/structure/filingcabinet,
+/obj/machinery/photocopier,
 /turf/simulated/floor/wood,
 /area/ntrep)
 "iQL" = (
@@ -54749,7 +54752,7 @@
 /turf/simulated/floor/wood,
 /area/blueshield)
 "jHB" = (
-/obj/machinery/photocopier,
+/obj/machinery/papershredder,
 /turf/simulated/floor/wood,
 /area/ntrep)
 "jHW" = (
@@ -56897,6 +56900,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/wood,
 /area/ntrep)
 "kuE" = (
@@ -73417,7 +73421,6 @@
 	random_basetype = /obj/structure/sign/poster/official
 	},
 /obj/effect/landmark/event/lightsout,
-/obj/machinery/papershredder,
 /turf/simulated/floor/wood,
 /area/ntrep)
 "qzH" = (
@@ -78706,6 +78709,12 @@
 	icon_state = "purplecorner"
 	},
 /area/hallway/primary/aft/east)
+"sua" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/black,
+/area/crew_quarters/captain)
 "sug" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -127919,7 +127928,7 @@ nQN
 aEU
 bce
 bjd
-aEU
+sua
 eTm
 bDC
 arP
