@@ -964,8 +964,10 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!new_tts_seed)
 		return null
 	tts_seed = new_tts_seed
-	if(user?.dna)
-		user.dna.tts_seed_dna = new_tts_seed
+	if(ismob(src))
+		var/mob/mob = src
+		if(mob?.dna)
+			mob.dna.tts_seed_dna = new_tts_seed
 	return new_tts_seed
 
 /atom/proc/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
