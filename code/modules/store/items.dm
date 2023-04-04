@@ -48,7 +48,7 @@
 /datum/storeitem/space_chips
 	name = "Poker Chips"
 	desc = "Chips for playing poker"
-	typepath = /obj/item/stack/spacechips/c5000
+	typepath = /obj/item/stack/spacechips/c2000
 	cost = 100
 /datum/storeitem/dnd
 	name = "Dungeons & Dragons Set"
