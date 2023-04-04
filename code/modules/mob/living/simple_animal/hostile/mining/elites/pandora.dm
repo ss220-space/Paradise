@@ -119,7 +119,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/spawn_blast(turf)
 	var/obj/effect/temp_visual/hierophant/blast/damaging/pandora/blast = new (turf, src, TRUE)
-	blast.damage = initial(blast.damage) * (dif_mult + 1) * 0.5
+	blast.damage = blast.damage * (dif_mult + 1) * 0.5
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/chaser_burst(target)
 	ranged_cooldown = world.time + cooldown_time * 2.5 // this shreads people incredibly effectivly at low hp, so needs higher cooldown than other attacks

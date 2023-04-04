@@ -57,7 +57,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/scale_stats(list/activators)
 	. = ..()
-	charge_damage = initial(charge_damage) * (dif_mult+1) * 0.5
+	charge_damage = charge_damage * (dif_mult+1) * 0.5
 
 /datum/action/innate/elite_attack/legionnaire_charge
 	name = "Legionnaire Charge"
@@ -315,7 +315,7 @@
 	var/obj/item/projectile/legionnaire/P = new(startloc)
 	P.preparePixelProjectile(marker, marker, src)
 	P.firer = src
-	P.damage = initial(P.damage) * (dif_mult + 1) * 0.5
+	P.damage = P.damage * (dif_mult + 1) * 0.5
 	if(target)
 		P.original = target
 	P.fire()

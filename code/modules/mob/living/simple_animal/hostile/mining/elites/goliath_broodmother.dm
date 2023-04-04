@@ -137,8 +137,8 @@
 		newchild.faction = faction.Copy()
 		newchild.maxHealth *= dif_mult
 		newchild.health *= dif_mult
-		newchild.melee_damage_lower = initial(newchild.melee_damage_lower) * (dif_mult+1) * 0.5
-		newchild.melee_damage_upper = initial(newchild.melee_damage_upper) * (dif_mult+1) * 0.5
+		newchild.melee_damage_lower = newchild.melee_damage_lower * (dif_mult+1) * 0.5
+		newchild.melee_damage_upper = newchild.melee_damage_upper * (dif_mult+1) * 0.5
 		visible_message("<span class='danger'>[newchild] appears below [src]!</span>")
 		newchild.mother = src
 		children_list += newchild
