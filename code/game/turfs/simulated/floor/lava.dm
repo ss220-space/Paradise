@@ -61,10 +61,10 @@
 /turf/simulated/floor/plating/lava/proc/burn_stuff(AM)
 	. = 0
 
-	if(find_safeties())
+	if(locate(/obj/vehicle/lavaboat) in src.contents)
 		return FALSE
 
-	if(locate(/obj/vehicle/lavaboat) in src.contents)
+	if(find_safeties())
 		return FALSE
 
 	var/thing_to_check = src
