@@ -43,6 +43,8 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
+		if(!isplasmaman(H))
+			return 0
 		if(!affected)
 			return 0
 		if(affected.is_robotic())
