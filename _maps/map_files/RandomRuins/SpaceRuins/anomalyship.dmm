@@ -18,7 +18,7 @@
 /turf/simulated/floor,
 /area/aeterna13/ae13/medbay)
 "aj" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle,
 /area/aeterna13/ae13/medbay)
 "ap" = (
@@ -38,7 +38,7 @@
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/aeterna13/ae13/energy)
 "bi" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/insectguts,
 /turf/simulated/floor,
 /area/aeterna13/ae13/epicenter)
@@ -47,7 +47,7 @@
 /area/aeterna13/ae13/medbay)
 "bG" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
@@ -56,7 +56,7 @@
 /turf/simulated/floor,
 /area/aeterna13/ae13/energy)
 "bM" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/cable_coil,
 /turf/simulated/floor,
 /area/aeterna13/ae13/epicenter)
@@ -93,7 +93,7 @@
 /area/aeterna13/ae13/energy)
 "cW" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/statue/gold/cmo{
 	anchored = 1;
 	desc = "Looks unstable. Best to test it with the clown.";
@@ -132,8 +132,8 @@
 	},
 /area/aeterna13/ae13/epicenter)
 "dy" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle/nodiagonal,
 /area/aeterna13/ae13/epicenter)
 "dL" = (
@@ -175,8 +175,8 @@
 /turf/simulated/floor,
 /area/aeterna13/ae13/hall)
 "eG" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle,
 /area/aeterna13/ae13/epicenter)
 "eH" = (
@@ -209,7 +209,7 @@
 	},
 /area/aeterna13/ae13/command)
 "fe" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -217,7 +217,7 @@
 /area/aeterna13/ae13/miner)
 "fw" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/indestructible/plating,
 /area/aeterna13/ae13/epicenter)
@@ -338,12 +338,12 @@
 /turf/simulated/wall/shuttle,
 /area/aeterna13/ae13/medbay)
 "ho" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/indestructible/plating,
 /area/aeterna13/ae13/epicenter)
 "hu" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle,
 /area/aeterna13/ae13/command)
 "hw" = (
@@ -410,9 +410,9 @@
 /turf/simulated/floor,
 /area/aeterna13/ae13/command)
 "iq" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/aeterna13/ae13/epicenter)
 "ir" = (
@@ -441,7 +441,7 @@
 /area/aeterna13/ae13/epicenter)
 "iU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor,
 /area/aeterna13/ae13/epicenter)
 "iV" = (
@@ -523,8 +523,8 @@
 "lG" = (
 /obj/item/grown/bananapeel/bluespace,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "sepia"
@@ -556,7 +556,7 @@
 /area/aeterna13/ae13_asteroid)
 "mo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/insectguts,
 /turf/simulated/floor/indestructible/plating,
 /area/aeterna13/ae13/epicenter)
@@ -597,7 +597,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
 	name = "floor"
@@ -635,9 +635,9 @@
 /area/aeterna13/ae13_asteroid)
 "mX" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "sepia"
@@ -695,7 +695,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor,
 /area/aeterna13/ae13/hall)
 "oB" = (
@@ -827,9 +827,9 @@
 /area/aeterna13/ae13_asteroid)
 "pZ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/indestructible/plating,
 /area/aeterna13/ae13/epicenter)
 "qe" = (
@@ -837,7 +837,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor,
 /area/aeterna13/ae13/medbay)
 "qk" = (
@@ -951,7 +951,7 @@
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = -32
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "sepia"
@@ -1176,7 +1176,7 @@
 "uU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/blood,
 /obj/effect/contractor_flare,
 /turf/simulated/floor/indestructible/plating,
@@ -1189,7 +1189,7 @@
 /area/aeterna13/ae13/command)
 "vo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "sepia"
@@ -1250,7 +1250,7 @@
 /area/aeterna13/ae13/hall)
 "ww" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/sheet/metal{
 	amount = 2
 	},
@@ -1346,7 +1346,7 @@
 	},
 /area/aeterna13/ae13/medbay)
 "xC" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle,
 /area/aeterna13/ae13/miner)
 "xI" = (
@@ -1368,7 +1368,7 @@
 /area/aeterna13/ae13/epicenter)
 "yk" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
 	name = "floor"
@@ -1377,7 +1377,7 @@
 "ym" = (
 /obj/item/stack/sheet/bluespace_crystal,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "sepia"
@@ -1421,7 +1421,7 @@
 	pixel_y = -29;
 	req_one_access_txt = "101"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle,
 /area/aeterna13/ae13/miner)
 "yQ" = (
@@ -1445,7 +1445,7 @@
 	},
 /area/aeterna13/ae13/medbay)
 "zf" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
 	name = "floor"
@@ -1473,7 +1473,7 @@
 	},
 /area/aeterna13/ae13/miner)
 "Ad" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/aeterna13/ae13/energy)
 "Ae" = (
@@ -1634,7 +1634,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor,
 /area/aeterna13/ae13/hall)
 "Db" = (
@@ -1678,7 +1678,7 @@
 	},
 /area/aeterna13/ae13/medbay)
 "DI" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "sepia"
@@ -1713,15 +1713,15 @@
 /area/aeterna13/ae13_asteroid)
 "En" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/indestructible/plating,
 /area/aeterna13/ae13/epicenter)
 "Es" = (
 /obj/item/stack/sheet/bluespace_crystal,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/indestructible/plating,
 /area/aeterna13/ae13/epicenter)
 "EE" = (
@@ -1795,7 +1795,7 @@
 	pixel_y = -29;
 	req_one_access_txt = "101"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/indestructible/fakeglass,
 /area/aeterna13/ae13/epicenter)
 "FN" = (
@@ -1864,7 +1864,7 @@
 /area/aeterna13/ae13/energy)
 "GW" = (
 /obj/item/stack/sheet/bluespace_crystal,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "sepia"
@@ -2026,9 +2026,9 @@
 	pixel_y = -29;
 	req_one_access_txt = "101"
 	},
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle,
 /area/aeterna13/ae13/energy)
 "KD" = (
@@ -2087,7 +2087,7 @@
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 8
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
 	name = "floor"
@@ -2171,8 +2171,8 @@
 /area/aeterna13/ae13/hall)
 "MB" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle,
 /area/aeterna13/ae13/miner)
 "Nb" = (
@@ -2362,10 +2362,10 @@
 	},
 /area/aeterna13/ae13/miner)
 "QC" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle,
 /area/aeterna13/ae13/epicenter)
 "QU" = (
@@ -2404,7 +2404,7 @@
 /area/aeterna13/ae13/hall)
 "Rv" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/statue/gold/cmo{
 	anchored = 1;
 	desc = "Looks unstable. Best to test it with the clown.";
@@ -2418,7 +2418,7 @@
 	},
 /area/aeterna13/ae13/epicenter)
 "Ry" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/aeterna13/ae13/epicenter)
 "RC" = (
@@ -2434,7 +2434,7 @@
 /area/aeterna13/ae13_asteroid)
 "RF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle,
 /area/aeterna13/ae13/epicenter)
 "RJ" = (
@@ -2471,19 +2471,19 @@
 	},
 /area/aeterna13/ae13/energy)
 "Sf" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/aeterna13/ae13/energy)
 "Sq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor,
 /area/aeterna13/ae13/epicenter)
 "Sr" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/aeterna13/ae13/command)
 "SG" = (
@@ -2567,7 +2567,7 @@
 /turf/simulated/floor,
 /area/aeterna13/ae13/epicenter)
 "Tk" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/largecrate,
 /turf/simulated/floor/indestructible/plating,
 /area/aeterna13/ae13/epicenter)
@@ -2716,9 +2716,9 @@
 /turf/simulated/floor,
 /area/aeterna13/ae13/hall)
 "Ul" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle/nodiagonal,
 /area/aeterna13/ae13/epicenter)
 "Us" = (
@@ -2869,7 +2869,7 @@
 /area/aeterna13/ae13/command)
 "XW" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -2934,7 +2934,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/aeterna13/ae13_asteroid)
 "Zh" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle,
 /area/aeterna13/ae13/epicenter)
 "Zv" = (
