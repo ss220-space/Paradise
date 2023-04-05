@@ -24,7 +24,6 @@
 "bL" = (
 /obj/item/trash/semki,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered)
 "ck" = (
@@ -54,11 +53,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
-"jE" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
 "jO" = (
 /turf/simulated/wall/shuttle,
 /area/ruin/powered)
@@ -93,8 +87,6 @@
 /area/ruin/unpowered)
 "qG" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered)
 "rf" = (
@@ -118,8 +110,6 @@
 "tz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/tomato_smudge,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
 /obj/item/twohanded/required/kirbyplants/dead,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -149,7 +139,6 @@
 	pixel_x = -22;
 	pixel_y = -20
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "yj" = (
@@ -180,7 +169,6 @@
 	},
 /obj/effect/decal/ants,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered)
 "zs" = (
@@ -202,7 +190,6 @@
 	},
 /obj/effect/decal/ants,
 /obj/effect/decal/cleanable/cobweb,
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered)
@@ -270,7 +257,6 @@
 "FV" = (
 /obj/item/trash/chips,
 /obj/effect/decal/cleanable/vomit,
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered)
@@ -395,6 +381,7 @@
 /obj/machinery/power/port_gen/pacman{
 	anchored = 1
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "QF" = (
@@ -414,7 +401,7 @@
 	dir = 8;
 	tag = "icon-propulsion (EAST)"
 	},
-/turf/space,
+/turf/simulated/floor/shuttle/plating,
 /area/ruin/unpowered)
 "QK" = (
 /obj/effect/decal/cleanable/dust,
@@ -458,6 +445,7 @@
 	obj_integrity = 95;
 	products = list()
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "TW" = (
@@ -865,7 +853,7 @@ tq
 SX
 PO
 Qi
-jE
+Zf
 YP
 PO
 rf
