@@ -558,7 +558,9 @@
 
 /datum/crafting_recipe/arrow
 	name = "Arrows"
-	result = /obj/item/storage/box/arrows
+	result = list(/obj/item/ammo_casing/caseless/arrow,
+				/obj/item/ammo_casing/caseless/arrow,
+				/obj/item/ammo_casing/caseless/arrow)
 	time = 20
 	reqs = list(/obj/item/stack/sheet/bone = 1,
 				 /obj/item/stack/sheet/wood = 1)

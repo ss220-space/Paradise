@@ -1243,17 +1243,6 @@
 	new /obj/item/restraints/legcuffs/bola/energy(src)
 	new /obj/item/restraints/legcuffs/bola/energy(src)
 
-/obj/item/storage/box/arrows
-	name = "Pack of arrows"
-	desc = "bound pack of arrows"
-
-/obj/item/storage/box/arrows/New()
-	..()
-	contents = list()
-	new /obj/item/ammo_casing/caseless/arrow(src)
-	new /obj/item/ammo_casing/caseless/arrow(src)
-	new /obj/item/ammo_casing/caseless/arrow(src)
-
 /obj/item/storage/box/hug
 	name = "box of hugs"
 	desc = "A special box for sensitive people."
