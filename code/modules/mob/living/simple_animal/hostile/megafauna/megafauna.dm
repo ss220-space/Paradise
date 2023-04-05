@@ -28,8 +28,9 @@
 	layer = LARGE_MOB_LAYER //Looks weird with them slipping under mineral walls and cameras and shit otherwise
 	mouse_opacity = MOUSE_OPACITY_OPAQUE // Easier to click on in melee, they're giant targets anyway
 	var/list/crusher_loot
-	var/medal_type
-	var/score_type = BOSS_SCORE
+	var/score_achievement_type = BOSS_SCORE
+	var/crusher_achievement_type
+	var/achievement_type
 	var/elimination = 0
 	var/anger_modifier = 0
 	var/obj/item/gps/internal_gps
@@ -65,14 +66,16 @@
 /mob/living/simple_animal/hostile/megafauna/can_die()
 	return ..() && health <= 0
 
-/mob/living/simple_animal/hostile/megafauna/death(gibbed)
+/mob/living/simple_animal/hostile/megafauna/death(gibbed, list/force_grant)
 	// this happens before the parent call because `del_on_death` may be set
+	var/crusher_kill = FALSE
 	if(can_die() && !admin_spawned)
 		var/datum/status_effect/crusher_damage/C = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
 		if(C && crusher_loot && C.total_damage >= maxHealth * 0.6)
 			spawn_crusher_loot()
+			crusher_kill = TRUE
 		if(!elimination)	//used so the achievment only occurs for the last legion to die.
-			grant_achievement(medal_type,score_type)
+			grant_achievement(achievement_type, score_achievement_type, crusher_kill, force_grant)
 			SSblackbox.record_feedback("tally", "megafauna_kills", 1, "[initial(name)]")
 	return ..()
 
@@ -149,18 +152,21 @@
 	recovery_time = world.time + buffer_time
 	ranged_cooldown = world.time + buffer_time
 
-/mob/living/simple_animal/hostile/megafauna/proc/grant_achievement(medaltype, scoretype, crusher_kill)
-	if(!medal_type || admin_spawned || !SSmedals.hub_enabled) //Don't award medals if the medal type isn't set
+/mob/living/simple_animal/hostile/megafauna/proc/grant_achievement(achievement_type, score_achievement_type, crusher_kill, list/grant_achievement = list())
+	if(!achievement_type || admin_spawned || !SSmedals.hub_enabled) //Don't award medals if the medal type isn't set
 		return FALSE
-
-	for(var/mob/living/L in view(7,src))
+	if(!grant_achievement.len)
+		for(var/mob/living/L in view(7,src))
+			grant_achievement += L
+	for(var/mob/living/L in grant_achievement)
 		if(L.stat || !L.client)
 			continue
-		var/client/C = L.client
-		SSmedals.UnlockMedal("Boss [BOSS_KILL_MEDAL]", C)
-		SSmedals.UnlockMedal("[medaltype] [BOSS_KILL_MEDAL]", C)
-		SSmedals.SetScore(BOSS_SCORE, C, 1)
-		SSmedals.SetScore(score_type, C, 1)
+		L.client.give_award(/datum/award/achievement/boss/boss_killer, L)
+		L.client.give_award(achievement_type, L)
+		if(crusher_kill && istype(L.get_active_hand(), /obj/item/twohanded/kinetic_crusher))
+			L.client.give_award(crusher_achievement_type, L)
+		L.client.give_award(/datum/award/score/boss_score, L) //Score progression for bosses killed in general
+		L.client.give_award(score_achievement_type, L) //Score progression for specific boss killed
 	return TRUE
 
 /datum/action/innate/megafauna_attack
@@ -180,3 +186,116 @@
 /datum/action/innate/megafauna_attack/Activate()
 	M.chosen_attack = chosen_attack_num
 	to_chat(M, chosen_message)
+
+/*mob/living/simple_animal/hostile/megafauna/death(gibbed, list/force_grant)
+	if(health > 0)
+		return
+	var/datum/status_effect/crusher_damage/crusher_dmg = has_status_effect(/datum/status_effect/crusher_damage)
+	///Whether we killed the megafauna with primarily crusher damage or not
+	var/crusher_kill = FALSE
+	if(crusher_dmg && crusher_dmg.total_damage >= maxHealth * 0.6)
+		crusher_kill = TRUE
+		if(crusher_loot) // spawn crusher loot, if any
+			spawn_crusher_loot()
+	//SKYRAT ADDITION START - ASHWALKER TROPHIES
+	var/datum/status_effect/ashwalker_damage/ashie_damage = has_status_effect(/datum/status_effect/ashwalker_damage)
+	if(!crusher_kill && ashie_damage && crusher_loot && ashie_damage.total_damage >= maxHealth * 0.6)
+		spawn_crusher_loot()
+	//SKYRAT ADDITION END
+	if(true_spawn && !(flags_1 & ADMIN_SPAWNED_1))
+		var/tab = "megafauna_kills"
+		if(crusher_kill)
+			tab = "megafauna_kills_crusher"
+		if(!elimination) //used so the achievment only occurs for the last legion to die.
+			grant_achievement(achievement_type, score_achievement_type, crusher_kill, force_grant)
+			SSblackbox.record_feedback("tally", tab, 1, "[initial(name)]")
+	return ..()
+
+/// Spawns crusher loot instead of normal loot
+/mob/living/simple_animal/hostile/megafauna/proc/spawn_crusher_loot()
+	loot = crusher_loot
+
+/mob/living/simple_animal/hostile/megafauna/gib()
+	if(health > 0)
+		return
+	else
+		..()
+
+/mob/living/simple_animal/hostile/megafauna/dust(just_ash, drop_items, force)
+	if(!force && health > 0)
+		return
+	else
+		..()
+
+/mob/living/simple_animal/hostile/megafauna/AttackingTarget()
+	if(recovery_time >= world.time)
+		return
+	. = ..()
+	if(. && isliving(target))
+		var/mob/living/L = target
+		if(L.stat != DEAD)
+			if(!client && ranged && ranged_cooldown <= world.time)
+				OpenFire()
+
+			if(L.health <= HEALTH_THRESHOLD_DEAD && HAS_TRAIT(L, TRAIT_NODEATH)) //Nope, it still gibs yall
+				devour(L)
+		else
+			devour(L)
+
+/// Devours a target and restores health to the megafauna
+/mob/living/simple_animal/hostile/megafauna/proc/devour(mob/living/L)
+	if(!L)
+		return FALSE
+	visible_message(
+		span_danger("[src] devours [L]!"),
+		span_userdanger("You feast on [L], restoring your health!"))
+	if(!is_station_level(z) || client) //NPC monsters won't heal while on station
+		adjustBruteLoss(-L.maxHealth/2)
+	L.investigate_log("has been devoured by [src].", INVESTIGATE_DEATHS)
+	L.gib()
+	return TRUE
+
+/mob/living/simple_animal/hostile/megafauna/ex_act(severity, target)
+	switch (severity)
+		if (EXPLODE_DEVASTATE)
+			adjustBruteLoss(250)
+
+		if (EXPLODE_HEAVY)
+			adjustBruteLoss(100)
+
+		if (EXPLODE_LIGHT)
+			adjustBruteLoss(50)
+
+/// Sets/adds the next time the megafauna can use a melee or ranged attack, in deciseconds. It is a list to allow using named args. Use the ignore_staggered var if youre setting the cooldown to ranged_cooldown_time.
+/mob/living/simple_animal/hostile/megafauna/proc/update_cooldowns(list/cooldown_updates, ignore_staggered = FALSE)
+	if(!ignore_staggered && has_status_effect(/datum/status_effect/stagger))
+		for(var/update in cooldown_updates)
+			cooldown_updates[update] *= 2
+	if(cooldown_updates[COOLDOWN_UPDATE_SET_MELEE])
+		recovery_time = world.time + cooldown_updates[COOLDOWN_UPDATE_SET_MELEE]
+	if(cooldown_updates[COOLDOWN_UPDATE_ADD_MELEE])
+		recovery_time += cooldown_updates[COOLDOWN_UPDATE_ADD_MELEE]
+	if(cooldown_updates[COOLDOWN_UPDATE_SET_RANGED])
+		ranged_cooldown = world.time + cooldown_updates[COOLDOWN_UPDATE_SET_RANGED]
+	if(cooldown_updates[COOLDOWN_UPDATE_ADD_RANGED])
+		ranged_cooldown += cooldown_updates[COOLDOWN_UPDATE_ADD_RANGED]
+
+/// Grants medals and achievements to surrounding players
+/mob/living/simple_animal/hostile/megafauna/proc/grant_achievement(medaltype, scoretype, crusher_kill, list/grant_achievement = list())
+	if(!achievement_type || (flags_1 & ADMIN_SPAWNED_1) || !SSachievements.achievements_enabled) //Don't award medals if the medal type isn't set
+		return FALSE
+	if(!grant_achievement.len)
+		for(var/mob/living/L in view(7,src))
+			grant_achievement += L
+	for(var/mob/living/L in grant_achievement)
+		if(L.stat || !L.client)
+			continue
+		L.add_mob_memory(/datum/memory/megafauna_slayer, antagonist = src)
+		L.client.give_award(/datum/award/achievement/boss/boss_killer, L)
+		L.client.give_award(achievement_type, L)
+		if(crusher_kill && istype(L.get_active_held_item(), /obj/item/kinetic_crusher))
+			L.client.give_award(crusher_achievement_type, L)
+		L.client.give_award(/datum/award/score/boss_score, L) //Score progression for bosses killed in general
+		L.client.give
+_award(score_achievement_type, L) //Score progression for specific boss killed
+	return TRUE */

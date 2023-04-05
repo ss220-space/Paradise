@@ -45,7 +45,9 @@ Difficulty: Medium
 	del_on_death = TRUE
 	blood_volume = BLOOD_VOLUME_NORMAL
 	internal_type = /obj/item/gps/internal/miner
-	medal_type = BOSS_MEDAL_MINER
+	achievement_type = /datum/award/achievement/boss/blood_miner_kill
+	score_achievement_type = /datum/award/score/blood_miner_score
+	crusher_achievement_type = /datum/award/achievement/boss/blood_miner_crusher
 	var/obj/item/melee/energy/cleaving_saw/miner/miner_saw
 	var/time_until_next_transform = 0
 	var/dashing = FALSE

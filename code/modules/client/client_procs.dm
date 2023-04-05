@@ -354,6 +354,11 @@
 	connection_realtime = world.realtime
 	connection_timeofday = world.timeofday
 	log_client_to_db(tdata)
+	if(GLOB.achievement_data[ckey])
+		achievements = GLOB.achievement_data[ckey]
+	else
+		achievements = new(ckey)
+		GLOB.achievement_data[ckey] = achievements
 	. = ..()	//calls mob.Login()
 
 
@@ -1353,6 +1358,12 @@
 	qdel(query)
 	// If we are here, they have not accepted, and need to read it
 	return FALSE
+
+/client/proc/give_award(achievement_type, mob/user, value = 1)
+	return achievements.unlock(achievement_type, user, value)
+
+/client/proc/get_award_status(achievement_type, mob/user, value = 1)
+	return achievements.get_achievement_status(achievement_type)
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND
