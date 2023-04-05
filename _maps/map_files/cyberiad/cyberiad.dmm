@@ -25872,10 +25872,12 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/vending/hydroseeds,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -25883,10 +25885,6 @@
 "bkV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
-	},
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk{
-	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -25963,7 +25961,7 @@
 	dir = 5
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 1;
+	dir = 8;
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
@@ -28340,6 +28338,9 @@
 	c_tag = "Kitchen"
 	},
 /obj/structure/table,
+/obj/item/reagent_containers/food/snacks/mint{
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -28394,7 +28395,6 @@
 	},
 /area/crew_quarters/kitchen)
 "bqI" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "blue"
@@ -28673,7 +28673,7 @@
 "brr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 8;
+	dir = 4;
 	icon_state = "green"
 	},
 /area/hydroponics)
@@ -29581,9 +29581,6 @@
 /area/crew_quarters/kitchen)
 "but" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/mint{
-	pixel_y = 3
-	},
 /obj/item/reagent_containers/food/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 5
@@ -31041,6 +31038,7 @@
 	},
 /area/hydroponics)
 "bxM" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
 	},
@@ -70631,13 +70629,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "dnH" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/obj/machinery/vending/hydronutrients,
 /obj/machinery/alarm{
 	name = "north air alarm";
 	pixel_y = 24
+	},
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -77656,6 +77654,9 @@
 	},
 /area/maintenance/library)
 "hZf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluecorner"
@@ -78991,10 +78992,10 @@
 	},
 /area/hallway/primary/fore)
 "jgz" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/warning_stripes/green,
+/obj/machinery/vending/hydronutrients,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "blue"
+	icon_state = "dark"
 	},
 /area/hydroponics)
 "jib" = (
@@ -86320,6 +86321,13 @@
 /obj/effect/decal/warning_stripes/arrow,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
+"pon" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "blue"
+	},
+/area/hydroponics)
 "poA" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -94618,6 +94626,13 @@
 /obj/structure/dresser,
 /turf/simulated/floor/carpet,
 /area/maintenance/library)
+"vTY" = (
+/obj/effect/decal/warning_stripes/green,
+/obj/machinery/vending/hydroseeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/hydroponics)
 "vUt" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/ppflowers,
@@ -96358,7 +96373,7 @@
 /area/maintenance/engrooms)
 "xhE" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -134942,7 +134957,7 @@ bdT
 bmt
 bof
 dhK
-iyP
+boi
 krt
 boi
 fED
@@ -135458,7 +135473,7 @@ bof
 btK
 iyP
 krt
-boi
+iyP
 bwo
 bof
 bzg
@@ -137767,11 +137782,11 @@ bjt
 beb
 dnH
 bqI
-brr
-jgz
-brr
-jgz
-brr
+uHn
+hfu
+uHn
+hfu
+uHn
 xhE
 vbu
 bzj
@@ -138024,11 +138039,11 @@ bjW
 beb
 bkU
 bxM
-exe
-exe
-oBl
-exe
-exe
+brr
+brr
+pon
+brr
+brr
 hZf
 vbu
 rTt
@@ -138281,13 +138296,13 @@ bjV
 buC
 blc
 sxQ
-qUL
+jgz
 qUL
 qUL
 qUL
 qUL
 hQc
-vbu
+qUL
 bzk
 bAr
 bHy
@@ -138538,13 +138553,13 @@ bke
 beb
 bkV
 sxQ
-qUL
+vTY
 qUL
 qUL
 qUL
 qUL
 xFN
-vbu
+qUL
 bzk
 bAr
 bkh
