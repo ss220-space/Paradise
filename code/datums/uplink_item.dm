@@ -355,6 +355,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 	job = list("Psychiatrist")//why? Becuase its funny that a person in charge of your mental wellbeing has a cat granade..
 
+/datum/uplink_item/jobspecific/gbs
+	name = "GBS virus bottle"
+	desc = "A bottle containing Gravitokinetic Bipotential SADS culture. Also known as GBS, extremely deadly virus."
+	reference = "GBS"
+	item = /obj/item/reagent_containers/glass/bottle/gbs
+	cost = 12
+	job = list("Virologist")
+	surplus = 0
+	hijack_only = TRUE
+
 //Assistant
 /datum/uplink_item/jobspecific/pickpocketgloves
 	name = "Pickpocket's Gloves"
@@ -371,6 +381,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/mecha/combat/lockersyndie/loaded
 	cost = 10
 	job = list("Civilian")
+	surplus = 0
 
 /datum/uplink_item/jobspecific/stungloves
 	name = "Stungloves"
@@ -1726,7 +1737,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/device_tools/shield
 	name = "Energy Shield"
 	desc = "An incredibly useful personal shield projector, capable of reflecting energy projectiles, but it cannot block other attacks. Pair with an Energy Sword for a killer combination."
-	item = /obj/item/shield/energy
+	item = /obj/item/shield/energy/syndie
 	reference = "ESD"
 	cost = 12
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)

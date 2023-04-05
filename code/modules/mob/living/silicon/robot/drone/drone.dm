@@ -2,6 +2,7 @@
 /mob/living/silicon/robot/drone
 	name = "drone"
 	real_name = "drone"
+	desc = "It's a tiny little repair drone. The casing is stamped with an NT logo and the subscript: 'Nanotrasen Recursive Repair Systems: Fixing Tomorrow's Problem, Today!'"
 	icon = 'icons/mob/robots.dmi'
 	icon_state = "repairbot"
 	maxHealth = 35
@@ -15,7 +16,7 @@
 	lawupdate = 0
 	density = 0
 	has_camera = FALSE
-	req_one_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
+	req_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
 	ventcrawler = VENTCRAWLER_ALWAYS
 	magpulse = 1
 	mob_size = MOB_SIZE_SMALL
@@ -96,7 +97,6 @@
 	decompiler = locate(/obj/item/matter_decompiler) in src.module
 
 	//Some tidying-up.
-	flavor_text = "It's a tiny little repair drone. The casing is stamped with an NT logo and the subscript: 'Nanotrasen Recursive Repair Systems: Fixing Tomorrow's Problem, Today!'"
 	scanner.Grant(src)
 	update_icons()
 
