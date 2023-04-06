@@ -173,6 +173,9 @@
 /obj/item/tank/jetpack/suit/attack_self()
 	return
 
+/obj/item/tank/jetpack/suit/examine(mob/user)
+	. = ..(user, show_contents_info = FALSE)
+
 /obj/item/tank/jetpack/suit/cycle(mob/user)
 	if(!istype(loc, req_suit_type))
 		to_chat(user, "<span class='warning'>[src] must be connected to a [req_suit_name]!</span>")

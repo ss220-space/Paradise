@@ -72,8 +72,11 @@
 		C.internal = src
 	C.update_action_buttons_icon()
 
-/obj/item/tank/examine(mob/user)
+/obj/item/tank/examine(mob/user, show_contents_info = TRUE)
 	. = ..()
+
+	if(!show_contents_info)
+		return
 
 	var/obj/icon = src
 	if(istype(loc, /obj/item/assembly))
