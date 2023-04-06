@@ -83,6 +83,12 @@
 
 	return 1
 
+/obj/item/tank/jetpack/Moved(OldLoc, Dir, Forced)
+	var/mob/living/carbon/human/holder = loc
+	if(on && !(istype(loc) && holder.back == src))
+		turn_off()
+	..()
+
 /obj/item/tank/jetpack/improvised
 	name = "improvised jetpack"
 	desc = "A jetpack made from two air tanks, a fire extinguisher and some atmospherics equipment. It doesn't look like it can hold much."
