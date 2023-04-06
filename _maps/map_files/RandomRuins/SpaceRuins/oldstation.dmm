@@ -2927,10 +2927,10 @@
 "yO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/paper/safe_code{
-	language = "Sol Common";
 	owner = "theta";
 	pixel_x = -6;
-	pixel_y = -6
+	pixel_y = -6;
+	language = "Sol Common"
 	},
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/bluegrid{
