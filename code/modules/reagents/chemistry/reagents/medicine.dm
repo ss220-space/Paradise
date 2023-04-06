@@ -102,6 +102,8 @@
 
 		//Mitocholide is hard enough to get, it's probably fair to make this all internal organs
 		for(var/obj/item/organ/internal/I in H.internal_organs)
+			if(I.status & ORGAN_DEAD)
+				I.status &= ~ORGAN_DEAD
 			I.heal_internal_damage(0.4)
 	return ..()
 
@@ -656,15 +658,17 @@
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M
 			var/obj/item/organ/internal/eyes/E = C.get_int_organ(/obj/item/organ/internal/eyes)
-			if(istype(E))
+			if(istype(E) && !(E.status & ORGAN_DEAD))
 				E.heal_internal_damage(1)
+				update_flags |= M.AdjustEyeBlurry(-1, FALSE)
 			var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
-			if(istype(ears))
+			if(istype(ears) && !(ears.status & ORGAN_DEAD))
 				ears.AdjustEarDamage(-1)
 				if(ears.damage < 25 && prob(30))
 					ears.deaf = 0
-		update_flags |= M.AdjustEyeBlurry(-1, FALSE)
-		update_flags |= M.AdjustEarDamage(-1)
+		else
+			update_flags |= M.AdjustEyeBlurry(-1, FALSE)
+			update_flags |= M.AdjustEarDamage(-1)
 	return ..() | update_flags
 
 /datum/reagent/medicine/atropine
@@ -1352,4 +1356,22 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustBruteLoss(-1, FALSE)
 	update_flags |= M.adjustFireLoss(-1, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/medicine/pure_plasma   //unique chemical for plasmaman
+	name = "Pure plasma"
+	id = "pure_plasma"
+	description = "A product of plasma metabolism in the body of plasmaman, confirming their weak susceptibility to pain. Extremely toxic."
+	reagent_state = LIQUID
+	color = "#b521c2"
+	metabolization_rate = REAGENTS_METABOLISM
+	shock_reduction = 20
+	taste_description = "Superiority"
+	can_synth = FALSE
+
+/datum/reagent/medicine/pure_plasma/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(-4, FALSE)
+	if(M.bodytemperature < 310)
+		M.bodytemperature = min(310, M.bodytemperature + (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	return ..() | update_flags

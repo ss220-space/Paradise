@@ -370,7 +370,7 @@
 	id = "Labor";
 	name = "Labor Camp Lockdown";
 	pixel_y = 25;
-	req_access_txt = "2"
+	req_access = list(2)
 	},
 /obj/machinery/flasher_button{
 	id = "labor";
@@ -385,7 +385,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Labor Camp Shuttle Cockpit";
-	req_access_txt = "2"
+	req_access = list(2)
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
@@ -616,7 +616,7 @@
 "bA" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Labor Camp Backroom";
-	req_access_txt = "2"
+	req_access = list(2)
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -745,7 +745,7 @@
 "bL" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Labor Camp Monitoring";
-	req_access_txt = "2"
+	req_access = list(2)
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -758,7 +758,7 @@
 "bM" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Labor Camp Maintenance";
-	req_access_txt = "2"
+	req_access = list(2)
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -821,7 +821,7 @@
 	},
 /obj/machinery/door/airlock/mining/glass{
 	name = "Mining Station EVA";
-	req_access_txt = "54"
+	req_access = list(54)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -866,8 +866,7 @@
 	master_tag = "mining";
 	name = "interior access button";
 	pixel_x = 25;
-	pixel_y = 25;
-	req_access_txt = null
+	pixel_y = 25
 	},
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
@@ -1009,7 +1008,7 @@
 	locked = 1;
 	name = "Mining External Airlock";
 	opacity = 0;
-	req_access_txt = "54"
+	req_access = list(54)
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
@@ -1720,7 +1719,7 @@
 "dP" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Mining Station Communications";
-	req_access_txt = "48"
+	req_access = list(48)
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1745,7 +1744,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Mining Station Maintenance";
-	req_access_txt = "48"
+	req_access = list(48)
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
 /turf/simulated/floor/plating,
@@ -1794,7 +1793,7 @@
 	locked = 1;
 	name = "Mining External Airlock";
 	opacity = 0;
-	req_access_txt = "54"
+	req_access = list(54)
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
@@ -1916,7 +1915,7 @@
 "el" = (
 /obj/machinery/door/airlock/mining/glass{
 	name = "Processing Area";
-	req_access_txt = "48"
+	req_access = list(48)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -2016,7 +2015,7 @@
 "ex" = (
 /obj/machinery/door/airlock/mining/glass{
 	name = "Mining Station Bridge";
-	req_access_txt = "48"
+	req_access = list(48)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -2066,7 +2065,7 @@
 "eA" = (
 /obj/machinery/door/airlock/mining/glass{
 	name = "Mining Station Bridge";
-	req_access_txt = "48"
+	req_access = list(48)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -2137,7 +2136,7 @@
 "eF" = (
 /obj/machinery/door/airlock/mining/glass{
 	name = "Processing Area";
-	req_access_txt = "48"
+	req_access = list(48)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -2232,7 +2231,7 @@
 "eQ" = (
 /obj/machinery/door/airlock/mining{
 	name = "Mining Station Storage";
-	req_access_txt = "48"
+	req_access = list(48)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
@@ -2970,7 +2969,7 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "laborcamp_away";
 	name = "Labor Camp Airlock";
-	req_access_txt = "2"
+	req_access = list(2)
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
@@ -2981,7 +2980,7 @@
 	id_tag = "mining_away";
 	name = "Mining Shuttle Airlock";
 	opacity = 0;
-	req_one_access_txt = "48"
+	req_access = list(48)
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
@@ -2992,7 +2991,7 @@
 	id_tag = "mining_away";
 	name = "Mining Shuttle Airlock";
 	opacity = 0;
-	req_access_txt = "48"
+	req_access = list(48)
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
@@ -3004,9 +3003,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	id_tag = "laborcamp_away2";
-	name = "Labor Camp Airlock";
-	req_access_txt = null;
-	req_one_access_txt = null
+	name = "Labor Camp Airlock"
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
@@ -3067,9 +3064,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/external{
 	id_tag = "laborcamp_away2";
-	name = "Labor Camp Airlock";
-	req_access_txt = null;
-	req_one_access_txt = null
+	name = "Labor Camp Airlock"
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
@@ -3093,8 +3088,7 @@
 	master_tag = "mining";
 	name = "exterior access button";
 	pixel_x = -25;
-	pixel_y = -25;
-	req_access_txt = null
+	pixel_y = -25
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -3258,9 +3252,7 @@
 "hQ" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "laborcamp_away";
-	name = "Labor Camp Airlock";
-	req_access_txt = null;
-	req_one_access_txt = null
+	name = "Labor Camp Airlock"
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
