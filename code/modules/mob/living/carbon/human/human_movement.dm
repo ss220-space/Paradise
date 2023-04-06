@@ -20,7 +20,7 @@
 		var/obj/item/clothing/suit/space/space_ninja/C = wear_suit
 		thrust = C.jetpack
 	if(thrust)
-		if((movement_dir || thrust.stabilizers) && thrust.allow_thrust(0.01, src))
+		if((movement_dir || thrust.stabilizers) && thrust.allow_thrust(0.01, src, should_leave_trail = movement_dir))
 			return TRUE
 	if(dna.species.spec_Process_Spacemove(src))
 		return TRUE

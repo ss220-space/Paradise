@@ -19,12 +19,6 @@
 			if("carbon dioxide")
 				air_contents.carbon_dioxide = ((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
-/obj/item/tank/jetpack/on_mob_move(direction, mob/user)
-	if(on)
-		var/turf/T = get_step(src, GetOppositeDir(direction))
-		if(!has_gravity(T))
-			new /obj/effect/particle_effect/ion_trails(T, direction)
-
 /obj/item/tank/jetpack/ui_action_click(mob/user, actiontype)
 	if(actiontype == /datum/action/item_action/toggle_jetpack || actiontype == /datum/action/item_action/toggle_jetpack/ninja)
 		cycle(user)
@@ -65,7 +59,7 @@
 	stabilizers = FALSE
 	icon_state = initial(icon_state)
 
-/obj/item/tank/jetpack/proc/allow_thrust(num, mob/living/user)
+/obj/item/tank/jetpack/proc/allow_thrust(num, mob/living/user, should_leave_trail)
 	if(!on)
 		return 0
 	if((num < 0.005 || air_contents.total_moles() < num))
@@ -79,6 +73,10 @@
 
 	var/turf/T = get_turf(user)
 	T.assume_air(removed)
+
+	if(!has_gravity(T) && should_leave_trail)
+		new /obj/effect/particle_effect/ion_trails(T)
+
 	return 1
 
 /obj/item/tank/jetpack/improvised
@@ -89,7 +87,7 @@
 	volume = 20 //normal jetpacks have 70 volume
 	gas_type = null //it starts empty
 
-/obj/item/tank/jetpack/improvised/allow_thrust(num, mob/living/user)
+/obj/item/tank/jetpack/improvised/allow_thrust(num, mob/living/user, should_leave_trail)
 	if(rand(0, 250) == 0)
 		to_chat(user, "<span class='notice'>You feel your jetpack's engines cut out.</span>")
 		turn_off(user)
@@ -230,3 +228,6 @@
 	for(jetpack_action in actions)
 		jetpack_action.button_icon = 'icons/mob/actions/actions_ninja.dmi'
 		jetpack_action.background_icon_state = "background_green"
+
+/obj/item/tank/jetpack/suit/ninja/allow_thrust(num, mob/living/user, should_leave_trail)
+	. = ..(num, user, cur_user?.alpha != NINJA_ALPHA_INVISIBILITY && should_leave_trail)
