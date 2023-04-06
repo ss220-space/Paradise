@@ -1329,7 +1329,7 @@
 	id = "borg_upgrade_gps"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/gps
-	req_tech = list("engineerin" = 6, "programming" = 6, "materials" = 4, "magnets" = 4)
+	req_tech = list("engineerin" = 7, "programming" = 7, "materials" = 5, "magnets" = 5)
 	materials = list(MAT_METAL = 10000, MAT_GOLD = 2000, MAT_SILVER = 2000, MAT_TITANIUM = 500)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
