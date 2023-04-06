@@ -219,39 +219,24 @@
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 	attack_verb = list("shanked", "shivved")
 	armor = list("melee" = 100, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100)
-	var/icon_prefix
+	var/size
 
-/obj/item/kitchen/knife/glassshiv/New(loc, obj/item/S)
-	..()
-	update_icon(S)
+/obj/item/kitchen/knife/glassshiv/Initialize(mapload, obj/item/shard/sh)
+	. = ..()
+	if(sh)
+		size = sh.icon_state
+	if(istype(sh, /obj/item/shard/plasma))
+		name = "plasma glass shiv"
+		desc = "A plasma glass shard with some cloth wrapped around it"
+		force = 9
+		throwforce = 11
+		materials = list(MAT_PLASMA = MINERAL_MATERIAL_AMOUNT * 0.5, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
+	update_icon()
 
-/obj/item/kitchen/knife/glassshiv/update_icon(obj/item/S)
-	var/obj/item/shard/shard
-	if(istype(S, /obj/item/shard))
-		shard = S
-	else
-		shard = new /obj/item/shard
-	var/icon_base = initial(icon_state)
-	icon_state = "[shard.icon_state]_[icon_base]"
-	if(icon_prefix)
-		var/obj/item/shard/plasma/pshard
-		if(istype(S, /obj/item/shard/plasma))
-			pshard = S
-		else
-			pshard = new /obj/item/shard/plasma
-		icon_state = "[pshard.icon_state]_[icon_prefix]"
-
-/obj/item/kitchen/knife/glassshiv/plasmaglassshiv
-	name = "plasma glass shiv"
-	icon_state = "plasmaglass_shiv"
-	item_state = "knife"
-	desc = "A plasma glass shard with some cloth wrapped around it"
-	force = 9
-	throwforce = 11
-	materials = list(MAT_PLASMA = MINERAL_MATERIAL_AMOUNT * 0.5, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
-	attack_verb = list("shanked", "shivved")
-	armor = list("melee" = 100, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100)
-	icon_prefix = "glass_shiv"
+/obj/item/kitchen/knife/glassshiv/update_icon()
+	if(!size)
+		size = pick("large", "medium", "small")
+	icon_state = "[size]_[icon_state]"
 
 
 /*
