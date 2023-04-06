@@ -35,8 +35,12 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/tank/jetpack/proc/cycle(mob/user)
+/obj/item/tank/jetpack/proc/cycle(mob/user, must_be_on_back = TRUE)
 	if(user.incapacitated())
+		return
+
+	if(must_be_on_back && src != user.back)
+		to_chat(user, "<span class='warning'>You need [src] to be on your back!</span>")
 		return
 
 	if(!on)
@@ -184,7 +188,7 @@
 	if(!istype(H.s_store, /obj/item/tank))
 		to_chat(user, "<span class='warning'>You need a tank in your suit storage!</span>")
 		return
-	..()
+	..(user, must_be_on_back = FALSE)
 
 /obj/item/tank/jetpack/suit/turn_on(mob/user)
 	if(!istype(loc, req_suit_type) || !ishuman(loc.loc) || loc.loc != user)
