@@ -16,6 +16,7 @@
 	var/distribute_pressure = ONE_ATMOSPHERE
 	var/integrity = 3
 	var/volume = 70
+	var/fillable = TRUE
 
 /obj/item/tank/New()
 	..()

@@ -159,6 +159,7 @@
 	volume = 1
 	slot_flags = null
 	gas_type = null
+	fillable = FALSE
 	var/datum/gas_mixture/temp_air_contents
 	var/obj/item/tank/internals/tank = null
 	var/mob/living/carbon/human/cur_user
