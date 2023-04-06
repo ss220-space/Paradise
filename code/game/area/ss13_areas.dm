@@ -2654,10 +2654,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "awaycontent6"
 
 //area for AWAY "aeterna13"
-/area/aeterna13
+/area/ae13
 	icon_state = "ae13"
-
-/area/aeterna13/ae13
 	always_unpowered = TRUE
 	requires_power = TRUE
 	poweralm = FALSE
@@ -2667,35 +2665,33 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	outdoors = TRUE
 	has_gravity = TRUE
 
-/area/aeterna13/ae13/medbay
+/area/ae13/medbay
 	name = "medbay"
 	icon_state = "ae13_ship1"
 
-/area/aeterna13/ae13/energy
+/area/ae13/energy
 	name = "energy"
 	icon_state = "ae13_ship2"
 
-/area/aeterna13/ae13/hall
+/area/ae13/hall
 	name = "hall"
 	icon_state = "ae13_ship3"
 
-/area/aeterna13/ae13/miner
+/area/ae13/miner
 	name = "miner"
 	icon_state = "ae13_ship4"
 
-/area/aeterna13/ae13/epicenter
+/area/ae13/epicenter
 	name = "epicenter"
 	icon_state = "ae13_ship5"
 
-/area/aeterna13/ae13/command
+/area/ae13/command
 	name = "command"
 	icon_state = "ae13_ship6"
 
-/area/aeterna13/ae13_asteroid
+/area/ae13/asteroid
 	name = "asteroid"
 	icon_state = "ae13_asteroid"
-	always_unpowered = TRUE
-	has_gravity = TRUE
 
 
 ////////////////////////AWAY AREAS///////////////////////////////////

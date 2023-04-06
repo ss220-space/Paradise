@@ -10,76 +10,53 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
 "ah" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
 /mob/living/simple_animal/hostile/poison/giant_spider,
 /turf/simulated/floor,
-/area/aeterna13/ae13/medbay)
-"aj" = (
-/obj/effect/landmark/tiles/damageturf,
-/turf/simulated/wall/shuttle,
-/area/aeterna13/ae13/medbay)
-"ap" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor,
-/area/aeterna13/ae13/hall)
+/area/ae13/medbay)
 "at" = (
 /turf/simulated/mineral/plasma,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
+"az" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/wall/shuttle,
+/area/ae13/medbay)
 "aE" = (
 /obj/structure/alien/weeds,
 /obj/effect/contractor_flare,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
-"aS" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
-/area/aeterna13/ae13/energy)
+/area/ae13/asteroid)
+"aU" = (
+/obj/machinery/door/airlock/multi_tile/glass,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/miner)
 "bi" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/insectguts,
 /turf/simulated/floor,
-/area/aeterna13/ae13/epicenter)
-"bs" = (
-/turf/simulated/wall/shuttle,
-/area/aeterna13/ae13/medbay)
+/area/ae13/epicenter)
 "bG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
-/area/aeterna13/ae13/miner)
-"bJ" = (
-/turf/simulated/floor,
-/area/aeterna13/ae13/energy)
+/area/ae13/miner)
 "bM" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/cable_coil,
 /turf/simulated/floor,
-/area/aeterna13/ae13/epicenter)
-"bP" = (
-/turf/simulated/wall/shuttle/nodiagonal,
-/area/aeterna13/ae13/miner)
-"cz" = (
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	frequency = 1331;
-	id_tag = "admin_s_air_control";
-	pixel_x = -32;
-	req_access_txt = "152";
-	tag_airpump = "admin_s_pump";
-	tag_chamber_sensor = "admin_s_sensor";
-	tag_exterior_door = "admin_s_outer";
-	tag_interior_door = "admin_s_inner"
-	},
-/turf/simulated/floor,
-/area/aeterna13/ae13/hall)
+/area/ae13/epicenter)
+"cI" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
+/area/ae13/command)
 "cJ" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -90,7 +67,7 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
 "cW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
@@ -102,40 +79,27 @@
 	name = "bluespace portal"
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "dd" = (
 /mob/living/simple_animal/hostile/mimic/crate,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "yellow"
 	},
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "df" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor,
-/area/aeterna13/ae13/command)
+/area/ae13/command)
 "do" = (
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1331;
-	master_tag = "admin_s_air_control";
-	pixel_x = -1;
-	pixel_y = -29;
-	req_one_access_txt = "101"
-	},
 /turf/simulated/wall/shuttle/nosmooth{
 	dir = 5;
 	icon_state = "white_walls_corners"
 	},
-/area/aeterna13/ae13/epicenter)
-"dy" = (
-/obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/tiles/damageturf,
-/turf/simulated/wall/shuttle/nodiagonal,
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "dL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -149,36 +113,23 @@
 	},
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor,
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "dR" = (
 /turf/simulated/mineral/iron,
-/area/aeterna13/ae13_asteroid)
-"ee" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock"
-	},
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1331;
-	master_tag = "admin_s_air_control";
-	pixel_x = -1;
-	pixel_y = -29;
-	req_one_access_txt = "101"
-	},
+/area/ae13/asteroid)
+"dX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor,
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "ew" = (
 /turf/space,
 /area/space)
-"ez" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor,
-/area/aeterna13/ae13/hall)
 "eG" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/landmark/tiles/damageturf,
-/turf/simulated/wall/shuttle,
-/area/aeterna13/ae13/epicenter)
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/ae13/epicenter)
 "eH" = (
 /obj/structure/safe,
 /obj/item/clothing/accessory/medal/gold{
@@ -200,27 +151,31 @@
 	dir = 4;
 	icon_state = "chapel"
 	},
-/area/aeterna13/ae13/command)
+/area/ae13/command)
 "eX" = (
 /obj/machinery/computer/crew,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "chapel"
 	},
-/area/aeterna13/ae13/command)
+/area/ae13/command)
+"fa" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/wall/shuttle,
+/area/ae13/command)
 "fe" = (
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
 	},
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "fw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/indestructible/plating,
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "fA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/writing{
@@ -231,7 +186,7 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "fD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -242,14 +197,26 @@
 	},
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor,
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "fE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor,
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
+"fN" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
+/area/ae13/miner)
+"fP" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/miner)
 "fW" = (
 /obj/structure/rack{
 	dir = 8;
@@ -264,7 +231,7 @@
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "fY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -278,7 +245,7 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
 "gc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mob_spawn/headcrab,
@@ -287,7 +254,7 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "gd" = (
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
@@ -296,18 +263,18 @@
 	dir = 6;
 	icon_state = "darkbluealtstrip"
 	},
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "gv" = (
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "gM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor,
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
 "gO" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
@@ -320,63 +287,39 @@
 	dir = 10;
 	icon_state = "darkblue"
 	},
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "hc" = (
 /obj/structure/alien/weeds,
 /obj/item/slimepotion/speed,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
 "hj" = (
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1331;
-	master_tag = "admin_s_air_control";
-	pixel_x = -1;
-	pixel_y = -29;
-	req_one_access_txt = "101"
-	},
 /turf/simulated/wall/shuttle,
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "ho" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/indestructible/plating,
-/area/aeterna13/ae13/epicenter)
-"hu" = (
-/obj/effect/landmark/tiles/damageturf,
-/turf/simulated/wall/shuttle,
-/area/aeterna13/ae13/command)
+/area/ae13/epicenter)
+"hq" = (
+/turf/simulated/wall/indestructible/fakeglass,
+/area/ae13/miner)
 "hw" = (
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1331;
-	master_tag = "admin_s_air_control";
-	pixel_x = -1;
-	pixel_y = -29;
-	req_one_access_txt = "101"
-	},
 /turf/simulated/wall/shuttle/nosmooth{
 	dir = 9;
 	icon_state = "white_walls_corners"
 	},
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
+"hy" = (
+/turf/simulated/floor,
+/area/ae13/miner)
 "hV" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1331;
-	master_tag = "admin_s_air_control";
-	pixel_x = -1;
-	pixel_y = -29;
-	req_one_access_txt = "101"
-	},
+/obj/machinery/door/airlock/external,
 /turf/simulated/floor,
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "ib" = (
 /obj/item/storage/belt/utility{
 	pixel_x = 6;
@@ -399,7 +342,7 @@
 	dir = 9;
 	icon_state = "yellow"
 	},
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "id" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -408,26 +351,16 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor,
-/area/aeterna13/ae13/command)
-"iq" = (
-/obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/tiles/damageturf,
-/turf/simulated/wall/shuttle/onlyselfsmooth,
-/area/aeterna13/ae13/epicenter)
-"ir" = (
-/turf/simulated/wall/shuttle/nodiagonal,
-/area/aeterna13/ae13/energy)
-"iC" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon_state = "white_walls_corners"
-	},
-/area/aeterna13/ae13/command)
-"iL" = (
-/obj/effect/decal/cleanable/dirt,
+/area/ae13/command)
+"ik" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
+/area/ae13/medbay)
+"is" = (
 /turf/simulated/wall/shuttle,
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
+"iL" = (
+/turf/space,
+/area/ae13/medbay)
 "iQ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -435,15 +368,12 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/wall/shuttle/onlyselfsmooth,
-/area/aeterna13/ae13/epicenter)
-"iR" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth,
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "iU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor,
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "iV" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -452,11 +382,7 @@
 	dir = 8;
 	icon_state = "chapel"
 	},
-/area/aeterna13/ae13/command)
-"jf" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/shuttle/nodiagonal,
-/area/aeterna13/ae13/miner)
+/area/ae13/command)
 "jh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
@@ -464,21 +390,11 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluecorners"
 	},
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "jp" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/indestructible/plating,
-/area/aeterna13/ae13/energy)
-"jF" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/turf/simulated/floor,
-/area/aeterna13/ae13/miner)
+/area/ae13/energy)
 "jH" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -486,7 +402,15 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/contractor_flare,
 /turf/simulated/floor,
-/area/aeterna13/ae13/command)
+/area/ae13/command)
+"jT" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/structure/sign/poster/official/healthy,
+/turf/simulated/wall/shuttle,
+/area/ae13/medbay)
+"kj" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/ae13/miner)
 "kG" = (
 /obj/item/storage/firstaid/regular{
 	pixel_x = -4;
@@ -505,13 +429,19 @@
 	dir = 1;
 	icon_state = "yellow"
 	},
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "lq" = (
 /turf/simulated/wall/shuttle/nosmooth{
 	dir = 9;
 	icon_state = "white_walls_corners"
 	},
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
+"ls" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 10;
+	icon_state = "white_walls_corners"
+	},
+/area/ae13/medbay)
 "lF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/floodlight,
@@ -519,7 +449,7 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
 "lG" = (
 /obj/item/grown/bananapeel/bluespace,
 /obj/effect/decal/cleanable/dirt,
@@ -529,37 +459,24 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/epicenter)
-"lR" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood,
-/turf/simulated/floor,
-/area/aeterna13/ae13/medbay)
-"lS" = (
-/turf/simulated/wall/shuttle/nodiagonal,
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "lT" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
-/area/aeterna13/ae13/miner)
-"mg" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
-/turf/simulated/floor,
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "mn" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds/node,
 /obj/structure/alien/resin/wall,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
 "mo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/insectguts,
 /turf/simulated/floor/indestructible/plating,
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "my" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -567,42 +484,21 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/hall)
-"mE" = (
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1331;
-	master_tag = "admin_s_air_control";
-	pixel_x = -1;
-	pixel_y = -29;
-	req_one_access_txt = "101"
-	},
-/turf/simulated/wall/indestructible/fakeglass,
-/area/aeterna13/ae13/energy)
+/area/ae13/hall)
 "mH" = (
 /mob/living/simple_animal/hostile/carp/sea,
 /turf/space,
 /area/space)
-"mI" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "sepia"
-	},
-/area/aeterna13/ae13/energy)
 "mM" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "mS" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/electrical{
@@ -620,7 +516,7 @@
 	dir = 1;
 	icon_state = "yellow"
 	},
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "mU" = (
 /obj/structure/alien/weeds,
 /mob/living/simple_animal/hostile/alien/queen/large{
@@ -632,7 +528,7 @@
 	plants_off = 1
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
 "mX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
@@ -642,13 +538,22 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
+"nf" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 6;
+	icon_state = "white_walls_corners"
+	},
+/area/ae13/miner)
 "np" = (
 /turf/simulated/wall/shuttle/nosmooth{
 	dir = 5;
 	icon_state = "white_walls_corners"
 	},
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
+"ns" = (
+/turf/simulated/wall/shuttle/nodiagonal,
+/area/ae13/medbay)
 "nv" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
@@ -662,32 +567,16 @@
 	dir = 8
 	},
 /turf/simulated/floor,
-/area/aeterna13/ae13/medbay)
-"nz" = (
-/turf/simulated/wall/indestructible/fakeglass,
-/area/aeterna13/ae13/medbay)
-"nT" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = -32
-	},
-/turf/simulated/floor,
-/area/aeterna13/ae13/energy)
+/area/ae13/medbay)
 "nV" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = -32
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor,
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "nX" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/machinery/door/airlock/external,
 /turf/simulated/floor,
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "ok" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -697,7 +586,7 @@
 	},
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor,
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "oB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/noalarm{
@@ -712,7 +601,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /turf/simulated/floor,
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
 "oD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -723,11 +612,11 @@
 	},
 /obj/effect/decal/cleanable/blood/writing,
 /turf/simulated/floor,
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "oQ" = (
 /obj/structure/alien/weeds,
 /turf/simulated/mineral/iron,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
 "oR" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -735,7 +624,19 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"
 	},
-/area/aeterna13/ae13/command)
+/area/ae13/command)
+"pa" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/energy)
 "po" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -748,7 +649,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor,
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "pv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/writing{
@@ -761,13 +662,7 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/hall)
-"pC" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon_state = "white_walls_corners"
-	},
-/area/aeterna13/ae13/miner)
+/area/ae13/hall)
 "pE" = (
 /obj/structure/alien/weeds,
 /obj/item/borg/upgrade/modkit/damage{
@@ -779,7 +674,7 @@
 	pixel_y = 1
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
 "pI" = (
 /mob/living/simple_animal/hostile/carp/megacarp,
 /turf/space,
@@ -797,7 +692,7 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
 "pP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -812,26 +707,23 @@
 	dir = 10;
 	icon_state = "darkblue"
 	},
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "pW" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = -32
-	},
 /turf/simulated/floor,
-/area/aeterna13/ae13/medbay)
+/area/ae13/energy)
 "pX" = (
 /obj/structure/alien/resin/wall,
 /turf/space,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
 "pZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/indestructible/plating,
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "qe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -839,17 +731,19 @@
 	},
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor,
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
+"qj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor,
+/area/ae13/medbay)
 "qk" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluecorners"
 	},
-/area/aeterna13/ae13/medbay)
-"qr" = (
-/turf/simulated/wall/indestructible/fakeglass,
-/area/aeterna13/ae13/energy)
+/area/ae13/medbay)
 "qv" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
@@ -863,21 +757,7 @@
 	dir = 1
 	},
 /turf/simulated/floor,
-/area/aeterna13/ae13/energy)
-"qy" = (
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1331;
-	master_tag = "admin_s_air_control";
-	pixel_x = -1;
-	pixel_y = -29;
-	req_one_access_txt = "101"
-	},
-/turf/simulated/floor/plating/asteroid{
-	icon_state = "asteroidfloor";
-	name = "floor"
-	},
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
 "qM" = (
 /obj/structure/rack,
 /obj/item/tank/jetpack/carbondioxide{
@@ -889,7 +769,7 @@
 	dir = 1;
 	icon_state = "yellow"
 	},
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "qN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -897,7 +777,7 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
 "ro" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
@@ -909,23 +789,18 @@
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor,
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
 "ru" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"
 	},
-/area/aeterna13/ae13/command)
-"rJ" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
-/turf/simulated/floor,
-/area/aeterna13/ae13/epicenter)
+/area/ae13/command)
 "rP" = (
 /obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood/gibs/body,
 /obj/item/clothing/suit/furcoat,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
 "rX" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
@@ -937,7 +812,7 @@
 	dir = 8
 	},
 /turf/simulated/floor,
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "sc" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -946,35 +821,14 @@
 	tag = ""
 	},
 /turf/simulated/floor,
-/area/aeterna13/ae13/hall)
-"se" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = -32
-	},
-/obj/effect/landmark/tiles/damageturf,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "sepia"
-	},
-/area/aeterna13/ae13/epicenter)
+/area/ae13/hall)
 "si" = (
 /obj/structure/closet/crate/secure/unknownchemicals,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/epicenter)
-"sj" = (
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1331;
-	master_tag = "admin_s_air_control";
-	pixel_x = -1;
-	pixel_y = -29;
-	req_one_access_txt = "101"
-	},
-/turf/simulated/wall/indestructible/fakeglass,
-/area/aeterna13/ae13/miner)
+/area/ae13/epicenter)
 "sI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit,
@@ -982,12 +836,7 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/energy)
-"sV" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
-/turf/simulated/floor,
-/area/aeterna13/ae13/medbay)
+/area/ae13/energy)
 "tc" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/o2{
@@ -1003,7 +852,7 @@
 	dir = 1;
 	icon_state = "chapel"
 	},
-/area/aeterna13/ae13/command)
+/area/ae13/command)
 "tm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/box,
@@ -1011,7 +860,7 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "tp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -1023,7 +872,7 @@
 /obj/effect/decal/cleanable/blood,
 /obj/effect/gluttony,
 /turf/simulated/floor,
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "tt" = (
 /obj/structure/alien/weeds,
 /obj/machinery/portable_atmospherics/canister/oxygen{
@@ -1031,21 +880,21 @@
 	maximum_pressure = 50000
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
 "tv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/sheet/metal{
 	amount = 2
 	},
 /turf/simulated/floor,
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "tx" = (
 /obj/effect/spawner/lootdrop/bluespace_tap/organic,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "ty" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds/node,
@@ -1060,7 +909,7 @@
 	pixel_y = 10
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
 "tA" = (
 /obj/machinery/light{
 	dir = 8
@@ -1070,7 +919,7 @@
 	dir = 8;
 	icon_state = "yellow"
 	},
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "tD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -1084,24 +933,19 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/hall)
-"uc" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth,
-/area/aeterna13/ae13/miner)
+/area/ae13/hall)
 "uf" = (
-/turf/space,
-/area/aeterna13/ae13/medbay)
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
 "ug" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/suit/fire/atmos,
 /obj/effect/decal/cleanable/blood/gibs/old,
 /obj/effect/decal/cleanable/blood/gibs/old,
 /turf/simulated/floor/indestructible/plating,
-/area/aeterna13/ae13/epicenter)
-"ul" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor,
-/area/aeterna13/ae13/medbay)
+/area/ae13/epicenter)
 "ur" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/portable_atmospherics/canister/oxygen{
@@ -1111,13 +955,13 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
 "uw" = (
 /turf/simulated/wall/shuttle/nosmooth{
 	dir = 6;
 	icon_state = "white_walls_corners"
 	},
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "ux" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/terminal{
@@ -1131,7 +975,7 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
 "uA" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1140,7 +984,7 @@
 	dir = 1;
 	icon_state = "yellow"
 	},
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "uE" = (
 /obj/machinery/computer/operating{
 	dir = 8
@@ -1152,16 +996,13 @@
 	dir = 6;
 	icon_state = "darkblue"
 	},
-/area/aeterna13/ae13/medbay)
-"uG" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
-/area/aeterna13/ae13/miner)
+/area/ae13/medbay)
 "uN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor,
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "uS" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/surgery{
@@ -1172,7 +1013,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "uU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1180,13 +1021,17 @@
 /obj/effect/decal/cleanable/blood,
 /obj/effect/contractor_flare,
 /turf/simulated/floor/indestructible/plating,
-/area/aeterna13/ae13/epicenter)
-"vd" = (
+/area/ae13/epicenter)
+"vc" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 9;
+	icon_state = "white_walls_corners"
+	},
+/area/ae13/command)
+"vf" = (
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor,
-/area/aeterna13/ae13/medbay)
-"vh" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
-/area/aeterna13/ae13/command)
+/area/ae13/command)
 "vo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
@@ -1194,22 +1039,22 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "vu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/built,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor,
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "vw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/secure/engineering,
 /obj/item/clothing/gloves/color/yellow/fake,
 /turf/simulated/floor,
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "vx" = (
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
 "vy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/effect/decal/cleanable/dirt,
@@ -1217,7 +1062,7 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
 "vD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
@@ -1225,7 +1070,10 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
+"vL" = (
+/turf/simulated/wall/indestructible/fakeglass,
+/area/ae13/medbay)
 "vZ" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -1237,17 +1085,7 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/energy)
-"we" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/turf/simulated/floor,
-/area/aeterna13/ae13/hall)
+/area/ae13/energy)
 "ww" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
@@ -1255,23 +1093,22 @@
 	amount = 2
 	},
 /turf/simulated/floor,
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "wy" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds/node,
 /mob/living/simple_animal/hostile/alien/sentinel,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
 "wC" = (
-/obj/structure/sign/poster/official/healthy,
-/turf/simulated/wall/shuttle/nodiagonal,
-/area/aeterna13/ae13/medbay)
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/ae13/medbay)
 "wK" = (
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
 "wL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/noalarm{
@@ -1292,13 +1129,7 @@
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/aeterna13/ae13/medbay)
-"wX" = (
-/obj/structure/shuttle/engine/large{
-	dir = 4
-	},
-/turf/simulated/floor,
-/area/aeterna13/ae13/energy)
+/area/ae13/medbay)
 "xd" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1307,17 +1138,7 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/miner)
-"xh" = (
-/obj/machinery/door/airlock/multi_tile/glass,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "sepia"
-	},
-/area/aeterna13/ae13/energy)
-"xj" = (
-/turf/simulated/wall/shuttle,
-/area/aeterna13/ae13/epicenter)
+/area/ae13/energy)
 "xk" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -1326,7 +1147,7 @@
 	dir = 1;
 	icon_state = "chapel"
 	},
-/area/aeterna13/ae13/command)
+/area/ae13/command)
 "xp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/structure/spider/stickyweb,
@@ -1334,38 +1155,29 @@
 	dir = 8;
 	icon_state = "darkblue"
 	},
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "xs" = (
 /obj/item/stack/ore/uranium,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
-"xw" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 10;
-	icon_state = "white_walls_corners"
-	},
-/area/aeterna13/ae13/medbay)
-"xC" = (
-/obj/effect/landmark/tiles/damageturf,
-/turf/simulated/wall/shuttle,
-/area/aeterna13/ae13/miner)
+/area/ae13/asteroid)
 "xI" = (
 /obj/item/gps/ruin{
 	gpstag = "An#@13LyS&^ip"
 	},
 /turf/simulated/wall/shuttle,
-/area/aeterna13/ae13/command)
+/area/ae13/command)
 "xM" = (
-/turf/simulated/wall/shuttle,
-/area/aeterna13/ae13/miner)
+/obj/machinery/door/airlock/multi_tile/glass,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/energy)
 "xQ" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
-"xR" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
-/area/aeterna13/ae13/epicenter)
+/area/ae13/asteroid)
 "yk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
@@ -1373,7 +1185,7 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
 "ym" = (
 /obj/item/stack/sheet/bluespace_crystal,
 /obj/effect/decal/cleanable/dirt,
@@ -1382,14 +1194,24 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
+"yC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor,
+/area/ae13/hall)
 "yD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluecorners"
 	},
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "yH" = (
 /obj/machinery/constructable_frame/machine_frame,
 /obj/item/stack/cable_coil,
@@ -1400,7 +1222,7 @@
 	dir = 6;
 	icon_state = "darkblue"
 	},
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "yJ" = (
 /obj/machinery/optable,
 /obj/machinery/shower{
@@ -1411,19 +1233,11 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "yP" = (
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1331;
-	master_tag = "admin_s_air_control";
-	pixel_x = -1;
-	pixel_y = -29;
-	req_one_access_txt = "101"
-	},
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle,
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "yQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -1434,7 +1248,7 @@
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "yZ" = (
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 1
@@ -1443,20 +1257,24 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "zf" = (
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
+"zE" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/wall/shuttle/nodiagonal,
+/area/ae13/miner)
 "zS" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"
 	},
-/area/aeterna13/ae13/command)
+/area/ae13/command)
 "zW" = (
 /obj/item/stack/sheet/glass{
 	amount = 50
@@ -1471,11 +1289,15 @@
 	dir = 1;
 	icon_state = "yellow"
 	},
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
+"Aa" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/wall/shuttle,
+/area/ae13/medbay)
 "Ad" = (
 /obj/effect/landmark/tiles/damageturf,
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
-/area/aeterna13/ae13/energy)
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/ae13/energy)
 "Ae" = (
 /obj/machinery/portable_atmospherics/canister/air{
 	maximum_pressure = 50000
@@ -1487,25 +1309,28 @@
 	dir = 5;
 	icon_state = "darkblue"
 	},
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
+"Ai" = (
+/turf/simulated/wall/shuttle,
+/area/ae13/energy)
 "An" = (
 /obj/structure/alien/weeds,
 /obj/effect/gibspawner/xeno,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
 "Au" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
-/area/aeterna13/ae13/medbay)
+/area/ae13/epicenter)
 "Aw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/contractor_flare,
 /turf/simulated/floor,
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "Az" = (
 /obj/structure/ore_box,
 /obj/effect/turf_decal/stripes/box,
 /turf/simulated/floor,
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "AB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -1525,11 +1350,11 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "AE" = (
 /obj/item/stack/cable_coil,
 /turf/simulated/floor,
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "AF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1537,10 +1362,10 @@
 	amount = 2
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
 "AR" = (
 /turf/simulated/floor,
-/area/aeterna13/ae13/miner)
+/area/ae13/energy)
 "AT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/suit/hooded/carp_costume,
@@ -1549,22 +1374,7 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/hall)
-"AZ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plating/asteroid{
-	icon_state = "asteroidfloor";
-	name = "floor"
-	},
-/area/aeterna13/ae13/epicenter)
-"Ba" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth,
-/area/aeterna13/ae13/energy)
+/area/ae13/hall)
 "Bc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/writing{
@@ -1574,7 +1384,7 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "Bf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -1586,46 +1396,49 @@
 	dir = 8
 	},
 /turf/simulated/floor,
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "BC" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	frequency = 1331;
 	id_tag = "syndie_cargo_left_shuttle_pump"
 	},
 /turf/simulated/floor,
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "BN" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor,
-/area/aeterna13/ae13/miner)
+/turf/simulated/wall/shuttle/nodiagonal,
+/area/ae13/energy)
 "BT" = (
 /obj/effect/contractor_flare,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor,
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "Ca" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin/wall,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
 "Ce" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor,
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "Ck" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor,
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "Cz" = (
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 8
 	},
 /obj/effect/contractor_flare,
 /turf/simulated/floor,
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
+"CG" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/ae13/miner)
 "CH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -1636,7 +1449,7 @@
 	},
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor,
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "Db" = (
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
@@ -1650,7 +1463,7 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
 "Dg" = (
 /obj/structure/alien/weeds,
 /mob/living/simple_animal/hostile/alien/sentinel{
@@ -1658,7 +1471,7 @@
 	maxHealth = 250
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
 "Do" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -1668,7 +1481,11 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor,
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
+"Dq" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor,
+/area/ae13/medbay)
 "DH" = (
 /obj/machinery/bodyscanner,
 /obj/structure/spider/stickyweb,
@@ -1676,14 +1493,14 @@
 	dir = 9;
 	icon_state = "darkblue"
 	},
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "DI" = (
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "DW" = (
 /obj/structure/spider/stickyweb,
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter,
@@ -1691,31 +1508,24 @@
 	dir = 8;
 	icon_state = "darkblue"
 	},
-/area/aeterna13/ae13/medbay)
-"DX" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "sepia"
-	},
-/area/aeterna13/ae13/energy)
+/area/ae13/medbay)
 "DY" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds/node,
 /obj/structure/bed/nest,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
 "Ec" = (
 /obj/structure/alien/weeds,
 /obj/effect/contractor_flare,
 /mob/living/simple_animal/hostile/alien/sentinel,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
 "En" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/indestructible/plating,
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "Es" = (
 /obj/item/stack/sheet/bluespace_crystal,
 /obj/effect/decal/cleanable/dirt,
@@ -1723,7 +1533,13 @@
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/indestructible/plating,
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
+"EC" = (
+/obj/structure/shuttle/engine/large{
+	dir = 4
+	},
+/turf/simulated/floor,
+/area/ae13/medbay)
 "EE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -1731,7 +1547,7 @@
 	},
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor,
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
 "EM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/smes{
@@ -1745,7 +1561,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
 "EY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/writing,
@@ -1753,7 +1569,7 @@
 	amount = 2
 	},
 /turf/simulated/floor/holofloor,
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "Fl" = (
 /obj/effect/spawner/lootdrop/bluespace_tap/hat,
 /obj/effect/decal/cleanable/dirt,
@@ -1761,21 +1577,21 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "Fo" = (
 /obj/machinery/computer/camera_advanced,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "chapel"
 	},
-/area/aeterna13/ae13/command)
+/area/ae13/command)
 "Fu" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "FD" = (
 /obj/item/gun/energy/kinetic_accelerator{
 	pixel_x = 5;
@@ -1785,33 +1601,22 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "FI" = (
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1331;
-	master_tag = "admin_s_air_control";
-	pixel_x = -1;
-	pixel_y = -29;
-	req_one_access_txt = "101"
-	},
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/indestructible/fakeglass,
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "FN" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small/built,
 /obj/item/stack/sheet/metal{
 	amount = 2
 	},
 /turf/simulated/floor,
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "FR" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock"
-	},
+/obj/machinery/door/airlock/external,
 /turf/simulated/floor,
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "FZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/noalarm{
@@ -1826,18 +1631,26 @@
 /obj/structure/cable,
 /mob/living/simple_animal/hostile/mimic/crate,
 /turf/simulated/floor/holofloor,
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "Gc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil,
 /turf/simulated/floor,
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
+"Ge" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor,
+/area/ae13/medbay)
 "Gp" = (
 /obj/structure/alien/weeds,
 /obj/item/clothing/suit/beekeeper_suit,
 /obj/effect/decal/cleanable/blood/gibs/old,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
+"Gq" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/ae13/command)
 "Gw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/dispenser/oxygen,
@@ -1845,23 +1658,10 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
 "GP" = (
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	frequency = 1331;
-	id_tag = "admin_s_air_control";
-	pixel_y = 32;
-	req_access_txt = "152";
-	tag_airpump = "admin_s_pump";
-	tag_chamber_sensor = "admin_s_sensor";
-	tag_exterior_door = "admin_s_outer";
-	tag_interior_door = "admin_s_inner"
-	},
 /turf/simulated/floor,
-/area/aeterna13/ae13/hall)
-"GT" = (
-/turf/space,
-/area/aeterna13/ae13/energy)
+/area/ae13/hall)
 "GW" = (
 /obj/item/stack/sheet/bluespace_crystal,
 /obj/effect/landmark/tiles/damageturf,
@@ -1869,14 +1669,14 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "GY" = (
 /obj/structure/alien/weeds,
 /obj/item/clothing/suit/xenos,
 /obj/structure/alien/egg/burst,
 /obj/item/clothing/head/xenos,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
 "Ha" = (
 /obj/structure/alien/weeds,
 /obj/item/clothing/suit/space/nasavoid/captain{
@@ -1884,7 +1684,7 @@
 	pixel_y = -7
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
 "Ho" = (
 /obj/machinery/computer/emergency_shuttle{
 	dir = 4
@@ -1893,18 +1693,17 @@
 	dir = 1;
 	icon_state = "chapel"
 	},
-/area/aeterna13/ae13/command)
+/area/ae13/command)
 "Ht" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/hall)
-"HV" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/shuttle/onlyselfsmooth,
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
+"Ic" = (
+/turf/space,
+/area/ae13/energy)
 "Ix" = (
 /obj/machinery/light{
 	dir = 1
@@ -1913,7 +1712,7 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "IO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
@@ -1926,20 +1725,7 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/hall)
-"IW" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/asteroid{
-	icon_state = "asteroidfloor";
-	name = "floor"
-	},
-/area/aeterna13/ae13/energy)
-"Jb" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "sepia"
-	},
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "JH" = (
 /obj/machinery/sleeper{
 	dir = 4;
@@ -1950,13 +1736,13 @@
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "JL" = (
 /obj/item/stack/sheet/metal{
 	amount = 2
 	},
 /turf/simulated/floor,
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "JN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
@@ -1965,7 +1751,7 @@
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "JU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/writing,
@@ -1973,11 +1759,11 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "Ka" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/shuttle/nodiagonal,
-/area/aeterna13/ae13/energy)
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/ae13/energy)
 "Kc" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1988,7 +1774,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor,
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "Kd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/secure/plasma,
@@ -1999,7 +1785,7 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "Ke" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/writing,
@@ -2007,7 +1793,14 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
+"Ki" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/hall)
 "Ko" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter,
@@ -2016,32 +1809,18 @@
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
+"Kw" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor,
+/area/ae13/command)
 "Ky" = (
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1331;
-	master_tag = "admin_s_air_control";
-	pixel_x = -1;
-	pixel_y = -29;
-	req_one_access_txt = "101"
-	},
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle,
-/area/aeterna13/ae13/energy)
-"KD" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor,
-/area/aeterna13/ae13/energy)
-"KG" = (
-/obj/machinery/door/airlock/multi_tile/glass,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "sepia"
-	},
-/area/aeterna13/ae13/epicenter)
+/area/ae13/energy)
 "Lb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/bag/ore,
@@ -2049,10 +1828,7 @@
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
-/area/aeterna13/ae13/miner)
-"Lr" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth,
-/area/aeterna13/ae13/command)
+/area/ae13/miner)
 "Ls" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/secure/loot,
@@ -2060,7 +1836,7 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "Lw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
@@ -2068,10 +1844,10 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "LF" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth,
-/area/aeterna13/ae13/medbay)
+/area/ae13/epicenter)
 "LR" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -2081,7 +1857,7 @@
 	dir = 4;
 	icon_state = "chapel"
 	},
-/area/aeterna13/ae13/command)
+/area/ae13/command)
 "Ma" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/writing{
@@ -2092,7 +1868,7 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "Me" = (
 /obj/structure/rack,
 /obj/item/clothing/shoes/magboots{
@@ -2120,25 +1896,17 @@
 	dir = 1;
 	icon_state = "yellow"
 	},
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "Mf" = (
-/turf/simulated/wall/shuttle,
-/area/aeterna13/ae13/energy)
-"Mn" = (
-/obj/machinery/airlock_sensor{
-	frequency = 1331;
-	id_tag = "admin_s_sensor";
-	pixel_y = -28;
-	req_access_txt = "101"
-	},
-/turf/simulated/wall/shuttle/onlyselfsmooth,
-/area/aeterna13/ae13/energy)
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor,
+/area/ae13/hall)
 "Mp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil,
 /turf/simulated/floor,
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
 "Mq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -2151,7 +1919,7 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
 "Mx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -2168,25 +1936,24 @@
 	},
 /obj/effect/decal/cleanable/blood/writing,
 /turf/simulated/floor,
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "MB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/tiles/damageturf,
-/turf/simulated/wall/shuttle,
-/area/aeterna13/ae13/miner)
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/ae13/miner)
 "Nb" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
 "Ni" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor,
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "No" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 1;
@@ -2194,11 +1961,11 @@
 	id_tag = "syndie_cargo_right_shuttle_pump"
 	},
 /turf/simulated/floor,
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "Nr" = (
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
 "Nx" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -2208,11 +1975,7 @@
 	dir = 8;
 	icon_state = "chapel"
 	},
-/area/aeterna13/ae13/command)
-"NF" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor,
-/area/aeterna13/ae13/epicenter)
+/area/ae13/command)
 "NR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -2238,18 +2001,23 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
 "NU" = (
 /obj/structure/alien/weeds,
 /mob/living/simple_animal/hostile/alien/sentinel,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
+"Oj" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/wall/shuttle,
+/area/ae13/epicenter)
 "Ot" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "Oy" = (
 /obj/structure/rack,
 /obj/item/storage/firstaid/fire{
@@ -2262,26 +2030,26 @@
 	dir = 5;
 	icon_state = "darkbluealtstrip"
 	},
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "OE" = (
 /obj/structure/largecrate,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "OG" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "OH" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/epicenter)
+/area/ae13/hall)
 "OV" = (
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 8
@@ -2290,7 +2058,7 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "Pa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -2299,26 +2067,26 @@
 	icon_state = "2-8";
 	tag = ""
 	},
-/obj/machinery/light/small/built{
-	dir = 1
-	},
 /turf/simulated/floor,
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
+"Pf" = (
+/turf/simulated/wall/shuttle,
+/area/ae13/command)
 "Pm" = (
 /obj/structure/closet/secure_closet/personal/mining,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "yellow"
 	},
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "Pp" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall/shuttle,
-/area/aeterna13/ae13/medbay)
+/area/ae13/miner)
 "Pw" = (
 /obj/item/stack/ore/plasma,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
 "PF" = (
 /obj/item/paper_bin,
 /obj/item/pen/fancy,
@@ -2336,7 +2104,7 @@
 	dir = 8;
 	icon_state = "chapel"
 	},
-/area/aeterna13/ae13/command)
+/area/ae13/command)
 "PM" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/plasteel{
@@ -2352,7 +2120,11 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
+"Qg" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor,
+/area/ae13/energy)
 "Qi" = (
 /obj/structure/ore_box,
 /obj/effect/turf_decal/stripes/box,
@@ -2360,21 +2132,24 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "QC" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle,
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
+"QI" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
+/area/ae13/energy)
 "QU" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/hall)
+/area/ae13/energy)
 "Rc" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/rods{
@@ -2385,7 +2160,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "Rj" = (
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
@@ -2393,7 +2168,13 @@
 	dir = 6;
 	icon_state = "darkblue"
 	},
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
+"Rn" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 10;
+	icon_state = "white_walls_corners"
+	},
+/area/ae13/miner)
 "Ro" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil,
@@ -2401,7 +2182,14 @@
 	dir = 8
 	},
 /turf/simulated/floor,
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
+"Ru" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/hall)
 "Rv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
@@ -2416,11 +2204,11 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "Ry" = (
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle/onlyselfsmooth,
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "RC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
@@ -2428,36 +2216,36 @@
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "RD" = (
 /turf/simulated/mineral/uranium,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
 "RF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle,
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "RJ" = (
 /obj/effect/gibspawner/xeno,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "RS" = (
 /obj/machinery/mineral/ore_redemption,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
 	},
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "RW" = (
 /mob/living/simple_animal/hostile/statue,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "chapel"
 	},
-/area/aeterna13/ae13/command)
+/area/ae13/command)
 "Sd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -2469,23 +2257,23 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/energy)
+/area/ae13/epicenter)
 "Sf" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle/onlyselfsmooth,
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
 "Sq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor,
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "Sr" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
-/area/aeterna13/ae13/command)
+/area/ae13/command)
 "SG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -2493,7 +2281,7 @@
 	amount = 2
 	},
 /turf/simulated/floor,
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "SK" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -2518,12 +2306,7 @@
 	dir = 1;
 	icon_state = "chapel"
 	},
-/area/aeterna13/ae13/command)
-"SO" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
-/turf/simulated/floor,
-/area/aeterna13/ae13/command)
+/area/ae13/command)
 "SS" = (
 /obj/effect/decal/cleanable/blood/writing,
 /obj/machinery/door/airlock/multi_tile/glass,
@@ -2531,7 +2314,7 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "ST" = (
 /obj/structure/rack,
 /obj/item/storage/firstaid/brute{
@@ -2545,7 +2328,7 @@
 	dir = 9;
 	icon_state = "darkbluealtstrip"
 	},
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "SV" = (
 /obj/machinery/door/airlock/shuttle,
 /obj/structure/cable{
@@ -2559,18 +2342,24 @@
 	icon_state = "dark";
 	tag = "icon-vault (NORTHEAST)"
 	},
-/area/aeterna13/ae13/command)
+/area/ae13/command)
+"Tf" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/epicenter)
 "Ti" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/secure/engineering,
 /obj/item/clothing/gloves/color/yellow,
 /turf/simulated/floor,
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "Tk" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/structure/largecrate,
 /turf/simulated/floor/indestructible/plating,
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "To" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/writing{
@@ -2581,14 +2370,14 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "Tq" = (
 /obj/machinery/door/airlock/multi_tile/glass,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/miner)
+/area/ae13/epicenter)
 "Ts" = (
 /obj/structure/rack,
 /obj/item/storage/firstaid/toxin{
@@ -2600,16 +2389,10 @@
 	dir = 10;
 	icon_state = "darkbluealtstrip"
 	},
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "Tw" = (
-/obj/machinery/airlock_sensor{
-	frequency = 1331;
-	id_tag = "admin_s_sensor";
-	pixel_y = -28;
-	req_access_txt = "101"
-	},
 /turf/simulated/wall/shuttle/onlyselfsmooth,
-/area/aeterna13/ae13/medbay)
+/area/ae13/energy)
 "Ty" = (
 /obj/structure/rack,
 /obj/item/clothing/glasses/meson/gar{
@@ -2633,7 +2416,7 @@
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "TC" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2650,21 +2433,21 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
 "TG" = (
 /obj/machinery/computer/station_alert,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "chapel"
 	},
-/area/aeterna13/ae13/command)
+/area/ae13/command)
 "TJ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "yellow"
 	},
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "TK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
@@ -2673,31 +2456,25 @@
 	dir = 1;
 	icon_state = "dark"
 	},
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "TM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/gibs/body,
 /turf/simulated/floor,
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "TO" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 8;
 	frequency = 1331;
 	id_tag = "synd_pump_bottom"
 	},
-/obj/machinery/airlock_sensor{
-	frequency = 1331;
-	id_tag = "admin_s_sensor";
-	pixel_y = -28;
-	req_access_txt = "101"
-	},
 /turf/simulated/floor,
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "TS" = (
 /obj/item/gun/projectile/revolver,
 /turf/simulated/mineral/iron,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
 "TU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -2714,13 +2491,13 @@
 	name = "bluespace portal"
 	},
 /turf/simulated/floor,
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "Ul" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/landmark/tiles/damageturf,
-/turf/simulated/wall/shuttle/nodiagonal,
-/area/aeterna13/ae13/epicenter)
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/ae13/epicenter)
 "Us" = (
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 8
@@ -2729,7 +2506,7 @@
 	dir = 1
 	},
 /turf/simulated/floor,
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "UA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -2740,7 +2517,7 @@
 	},
 /obj/effect/mob_spawn/headcrab,
 /turf/simulated/floor,
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "UW" = (
 /obj/machinery/light{
 	dir = 8
@@ -2752,32 +2529,37 @@
 	dir = 1;
 	icon_state = "sepia"
 	},
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "UY" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor,
-/area/aeterna13/ae13/command)
+/area/ae13/epicenter)
 "Va" = (
 /obj/structure/sign/poster/official/state_laws,
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
-/area/aeterna13/ae13/command)
-"VB" = (
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1331;
-	master_tag = "admin_s_air_control";
-	pixel_x = -1;
-	pixel_y = -29;
-	req_one_access_txt = "101"
+/area/ae13/command)
+"Vo" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
 	},
+/turf/simulated/floor,
+/area/ae13/miner)
+"VB" = (
 /turf/simulated/wall/indestructible/fakeglass,
-/area/aeterna13/ae13/medbay)
+/area/ae13/energy)
+"VG" = (
+/turf/simulated/floor,
+/area/ae13/medbay)
 "VJ" = (
 /obj/structure/shuttle/engine/large{
 	dir = 4
 	},
 /turf/simulated/floor,
-/area/aeterna13/ae13/medbay)
+/area/ae13/energy)
 "VX" = (
 /obj/structure/alien/weeds,
 /mob/living/simple_animal/hostile/alien{
@@ -2785,13 +2567,7 @@
 	maxHealth = 180
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
-"Wa" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 10;
-	icon_state = "white_walls_corners"
-	},
-/area/aeterna13/ae13/miner)
+/area/ae13/asteroid)
 "Wd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -2799,14 +2575,14 @@
 	},
 /obj/effect/decal/cleanable/blood/gibs/old,
 /turf/simulated/floor,
-/area/aeterna13/ae13/command)
+/area/ae13/command)
 "Wh" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
 	},
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "Wj" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -2816,49 +2592,49 @@
 	},
 /obj/effect/decal/cleanable/blood/writing,
 /turf/simulated/floor,
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "Wy" = (
 /turf/simulated/wall/shuttle/nosmooth{
 	dir = 10;
 	icon_state = "white_walls_corners"
 	},
-/area/aeterna13/ae13/command)
+/area/ae13/command)
 "WJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 8
 	},
 /turf/simulated/floor,
-/area/aeterna13/ae13/hall)
+/area/ae13/hall)
 "WM" = (
 /turf/simulated/wall/shuttle/nodiagonal,
-/area/aeterna13/ae13/medbay)
+/area/ae13/epicenter)
 "WS" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds/node,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
 "XG" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/egg/burst,
 /obj/item/ammo_box/magazine/m10mm,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
 "XH" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
 	},
-/area/aeterna13/ae13/medbay)
+/area/ae13/medbay)
 "XL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor,
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
 "XQ" = (
 /turf/simulated/wall/shuttle,
-/area/aeterna13/ae13/command)
+/area/ae13/epicenter)
 "XS" = (
 /obj/machinery/door/airlock/shuttle,
 /turf/simulated/floor/plasteel{
@@ -2866,14 +2642,14 @@
 	icon_state = "dark";
 	tag = "icon-vault (NORTHEAST)"
 	},
-/area/aeterna13/ae13/command)
+/area/ae13/command)
 "XW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "XZ" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -2882,7 +2658,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"
 	},
-/area/aeterna13/ae13/command)
+/area/ae13/command)
 "Yb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -2892,12 +2668,12 @@
 	tag = ""
 	},
 /turf/simulated/floor,
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "Ye" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/flamethrower/full/tank,
 /turf/simulated/floor,
-/area/aeterna13/ae13/miner)
+/area/ae13/miner)
 "Yg" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/electrical{
@@ -2916,32 +2692,40 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/energy)
+/area/ae13/energy)
+"Yq" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor,
+/area/ae13/miner)
+"Yy" = (
+/turf/simulated/wall/shuttle/nodiagonal,
+/area/ae13/miner)
 "YH" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/egg/burst,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
 "YV" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
 /turf/simulated/floor,
-/area/aeterna13/ae13/energy)
+/area/ae13/epicenter)
 "Zc" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds,
 /mob/living/simple_animal/hostile/alien/sentinel,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
 "Zh" = (
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle,
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "Zv" = (
 /obj/structure/alien/resin/wall,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
 "ZC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -2953,7 +2737,7 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/aeterna13/ae13/epicenter)
+/area/ae13/epicenter)
 "ZR" = (
 /obj/structure/alien/weeds,
 /obj/item/clothing/head/helmet/space/nasavoid/captain{
@@ -2961,7 +2745,7 @@
 	pixel_y = 9
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/aeterna13/ae13_asteroid)
+/area/ae13/asteroid)
 
 (1,1,1) = {"
 ew
@@ -4105,10 +3889,10 @@ ew
 ew
 vx
 vx
-vx
+Nr
 dR
-vx
-vx
+Nr
+Nr
 vx
 ew
 ew
@@ -4182,11 +3966,11 @@ ew
 ew
 ew
 vx
-vx
+Nr
 dR
 dR
 dR
-vx
+Nr
 vx
 ew
 ew
@@ -4260,7 +4044,7 @@ ew
 ew
 ew
 vx
-vx
+Nr
 dR
 dR
 dR
@@ -4400,13 +4184,13 @@ ew
 ew
 ew
 ew
-iC
-Lr
-SO
-SO
-SO
-SO
-Lr
+vc
+Gq
+Kw
+Kw
+Kw
+Kw
+Gq
 Wy
 ew
 ew
@@ -4478,15 +4262,15 @@ ew
 ew
 ew
 lq
-vh
+cI
 tc
 Fo
 Ho
 eX
 TG
 PF
-vh
-Wa
+cI
+Rn
 ew
 ew
 ew
@@ -4497,8 +4281,8 @@ ew
 vx
 vx
 dR
-vx
-vx
+Nr
+Nr
 vx
 ew
 ew
@@ -4555,7 +4339,7 @@ ew
 ew
 ew
 lq
-xR
+Au
 xI
 LR
 jH
@@ -4563,9 +4347,9 @@ df
 XZ
 LR
 oR
-XQ
-uG
-Wa
+Pf
+fN
+Rn
 ew
 ew
 ew
@@ -4632,18 +4416,18 @@ ew
 ew
 ew
 ew
-xj
-si
 XQ
+si
+Pf
 SK
 iV
 id
 Wd
 xk
 Nx
-XQ
+Pf
 Rc
-xM
+is
 ew
 ew
 ew
@@ -4710,18 +4494,18 @@ ew
 ew
 ew
 ew
-xj
-Kd
 XQ
+Kd
+Pf
 eH
 ru
-UY
+vf
 zS
 RW
 ru
-hu
+fa
 OG
-xM
+is
 ew
 ew
 ew
@@ -4788,18 +4572,18 @@ ew
 ew
 ew
 ew
-iR
+LF
 Kd
 Sr
-XQ
+Pf
 Va
 XS
 SV
-vh
-hu
-vh
+cI
+fa
+cI
 bG
-uc
+kj
 ew
 ew
 ew
@@ -4866,18 +4650,18 @@ ew
 ew
 ew
 ew
-rJ
-NF
+YV
+UY
 UW
 OE
 Zh
-Ht
+Ki
 tD
-xM
+is
 ib
 tA
 TJ
-mg
+Yq
 ew
 ew
 ew
@@ -4944,18 +4728,18 @@ ew
 ew
 ew
 ew
-rJ
+YV
 iU
 tm
 Ls
-eG
+Oj
 Ck
 tp
-xM
+is
 zW
 Ot
 JL
-mg
+Yq
 ew
 ew
 ew
@@ -5022,18 +4806,18 @@ ew
 ew
 ew
 ew
-rJ
+YV
 vw
 iU
 Ti
-xj
+XQ
 Bc
 TU
-xM
+is
 qM
 XW
 Aw
-mg
+Yq
 ew
 ew
 ew
@@ -5100,18 +4884,18 @@ pI
 ew
 ew
 ew
-iR
+LF
 gc
-AZ
+Sd
 FZ
-xj
+XQ
 Bc
 CH
-xM
+is
 Me
 yQ
-BN
-uc
+nV
+kj
 ew
 ew
 ew
@@ -5178,18 +4962,18 @@ ew
 ew
 ew
 ew
-xj
+XQ
 bM
 Yb
 ug
-xj
+XQ
 Ma
-we
-xM
+yC
+is
 kG
-jF
+Vo
 vu
-xC
+yP
 ew
 ew
 ew
@@ -5256,19 +5040,19 @@ ew
 ew
 ew
 lq
-lS
+LF
 Tk
 ww
 Sq
-eG
+Oj
 WJ
 sc
-xC
+yP
 RS
 gv
 tv
-bP
-Wa
+Yy
+Rn
 ew
 ew
 ew
@@ -5334,20 +5118,20 @@ ew
 ew
 lq
 eG
-se
+DI
 zf
 tx
 ZC
 iQ
 Bf
 po
-uc
+kj
 mS
 AE
-BN
+nV
 nV
 MB
-Wa
+Rn
 ew
 ew
 ew
@@ -5416,17 +5200,17 @@ Es
 cW
 bi
 En
-KG
+Tq
 pv
 Wj
-Tq
+aU
 fe
 Ot
-BN
-BN
+nV
+nV
 Lb
-uG
-Wa
+kj
+Rn
 ew
 ew
 ew
@@ -5494,18 +5278,18 @@ vo
 ho
 lG
 mo
-OH
+Tf
 Us
 Mx
-xd
+fP
 uA
 Ty
 Qi
 Az
 gv
 Pm
-xM
-Wa
+is
+Rn
 ew
 ew
 ew
@@ -5564,7 +5348,7 @@ ew
 ew
 ew
 lq
-xj
+XQ
 RF
 Rv
 uU
@@ -5572,19 +5356,19 @@ Fl
 mX
 En
 En
-iR
+LF
 Ro
-Ht
-uc
+Ki
+kj
 Wh
 fW
 Qi
 Az
 lT
 PM
-iL
-xM
-Wa
+Pp
+is
+Rn
 ew
 ew
 ew
@@ -5641,28 +5425,28 @@ ew
 ew
 ew
 ew
-lS
+WM
 Zh
 Zh
-dy
+eG
 DI
 vo
 ym
 pZ
 DI
-xj
+XQ
 Cz
 AT
-xM
+is
 dd
-BN
-AR
-BN
+nV
+hy
+nV
 Ye
-jf
-xC
-xM
-bP
+CG
+yP
+is
+Yy
 ew
 ew
 ew
@@ -5725,19 +5509,19 @@ ew
 do
 Ry
 FI
-iq
-xj
+Ul
+XQ
 QC
-lS
+WM
 IO
-we
-jf
-xM
+yC
+zE
+is
 yP
-uc
-sj
-uc
-pC
+kj
+hq
+kj
+nf
 ew
 ew
 ew
@@ -5802,18 +5586,18 @@ ew
 ew
 ew
 FR
-cz
+GP
 FR
 FD
-Jb
+OH
 Ke
 fA
 oD
-QU
-QU
+Ru
+Ru
 RJ
 FR
-cz
+GP
 FR
 ew
 ew
@@ -5942,12 +5726,12 @@ ew
 dR
 RD
 vx
-vx
+Nr
 dR
 dR
 at
-vx
-vx
+Nr
+Nr
 vx
 dR
 ew
@@ -5957,21 +5741,21 @@ ew
 ew
 ew
 hw
-Mn
-mE
-Ba
-Mf
-Mf
-ir
-OV
-we
-WM
-aj
-hj
 Tw
 VB
-LF
-xw
+Tw
+Ai
+Ai
+BN
+OV
+yC
+ns
+az
+hj
+wC
+vL
+wC
+ls
 ew
 ew
 ew
@@ -6020,39 +5804,39 @@ ew
 dR
 dR
 vx
-vx
+Nr
 dR
 dR
 dR
-vx
+Nr
 Pw
 dR
 dR
 ew
 ew
 ew
-ir
-Mf
-Mf
-ir
+BN
+Ai
+Ai
+Tw
 ag
 vy
-IW
-Sd
+QU
+pa
 fY
-Mf
+Ai
 WJ
 Gc
-bs
+hj
 DH
 DW
 fE
 xp
 gO
-WM
-bs
-bs
-WM
+wC
+hj
+hj
+ns
 ew
 ew
 ew
@@ -6098,10 +5882,10 @@ ew
 dR
 dR
 vx
-vx
+Nr
 at
 dR
-vx
+Nr
 vx
 at
 dR
@@ -6110,26 +5894,26 @@ ew
 ew
 ew
 np
-Mf
-Mf
+Ai
+Ai
 Gw
 jp
 EM
 ux
 NR
 pJ
-Mf
+Ai
 WJ
 UA
-bs
+hj
 JH
 TK
 ST
 Ts
 qk
 pP
-Pp
-bs
+Aa
+hj
 uw
 ew
 ew
@@ -6189,24 +5973,24 @@ ew
 ew
 ew
 np
-Mf
+Ai
 ur
 AF
 Do
-IW
+QU
 Mq
 Db
-HV
+Ka
 WJ
 ok
-LF
+wC
 RC
 Ce
 Oy
 gd
 jh
 Rj
-bs
+hj
 uw
 ew
 ew
@@ -6274,16 +6058,16 @@ vZ
 vD
 wK
 qN
-xh
+xM
 To
 Wj
 SS
 RC
 ah
 Ni
-lR
+qj
 XH
-Au
+wC
 uw
 ew
 ew
@@ -6352,15 +6136,15 @@ cJ
 EE
 gM
 XL
-mI
+xd
 Kc
 AB
 yZ
 fD
 dL
 BT
-ul
-bs
+Dq
+wC
 uw
 ew
 ew
@@ -6426,18 +6210,18 @@ ew
 ew
 ew
 np
-Ba
+Tw
 Pa
 TC
 Mp
-Ba
+Tw
 Fu
-ap
-LF
+dX
+wC
 Ko
 uN
 FN
-LF
+wC
 uw
 ew
 ew
@@ -6504,18 +6288,18 @@ ew
 ew
 ew
 ew
-nT
-DX
+pW
+Ht
 sI
 oB
-Mf
-QU
+Ai
+Ru
 SG
-bs
+hj
 wL
 qe
 uS
-pW
+Ge
 ew
 ew
 ew
@@ -6582,18 +6366,18 @@ ew
 ew
 ew
 ew
-YV
-KD
-DX
+pW
+Qg
+Ht
 yk
-Mf
+Ai
 Ix
-ez
-aj
+Mf
+az
 Ni
 TM
 yJ
-sV
+Ge
 ew
 ew
 ew
@@ -6663,15 +6447,15 @@ ew
 Sf
 Yg
 XL
-qy
-Ba
+wK
+Tw
 FR
 hV
-LF
+wC
 JN
 yD
 uE
-LF
+wC
 ew
 ew
 ew
@@ -6739,13 +6523,13 @@ ew
 ew
 ew
 np
-ir
+Tw
 lF
 lF
-qr
+VB
 GP
 TO
-nz
+vL
 Ae
 yH
 wC
@@ -6817,16 +6601,16 @@ ew
 ew
 ew
 ew
-Mf
-Mf
+Ai
+Ai
 Ky
-aS
+QI
 FR
-ee
-Au
-aj
-aj
-bs
+FR
+ik
+az
+jT
+hj
 ew
 ew
 ew
@@ -6895,16 +6679,16 @@ ew
 ew
 ew
 ew
-Mf
+Ai
 qv
 ro
-Mf
+Ai
 ew
 ew
-bs
+hj
 nv
 rX
-bs
+hj
 ew
 ew
 ew
@@ -6973,16 +6757,16 @@ ew
 ew
 ew
 ew
-Mf
-bJ
-wX
-Mf
-ew
-ew
-bs
-vd
+Ai
+AR
 VJ
-bs
+Ai
+ew
+ew
+hj
+VG
+EC
+hj
 ew
 ew
 ew
@@ -7052,14 +6836,14 @@ ew
 ew
 ew
 ew
-GT
-GT
+Ic
+Ic
 ew
 ew
 ew
 ew
-uf
-uf
+iL
+iL
 ew
 ew
 ew
@@ -7349,9 +7133,9 @@ ew
 ew
 ew
 vx
-vx
-vx
-vx
+Nr
+Nr
+Nr
 vx
 vx
 ew
@@ -7508,7 +7292,7 @@ vx
 dR
 dR
 dR
-vx
+Nr
 vx
 ew
 ew
@@ -7532,8 +7316,8 @@ ew
 ew
 vx
 dR
-vx
-vx
+Nr
+Nr
 vx
 vx
 ew
@@ -7582,12 +7366,12 @@ ew
 ew
 ew
 vx
-vx
+Nr
 dR
 dR
 dR
-vx
-vx
+uf
+Nr
 ew
 ew
 ew
@@ -7660,8 +7444,8 @@ ew
 ew
 ew
 vx
-vx
-vx
+Nr
+Nr
 dR
 dR
 vx
@@ -7687,7 +7471,7 @@ ew
 ew
 ew
 vx
-vx
+Nr
 dR
 dR
 dR
@@ -7765,7 +7549,7 @@ ew
 ew
 ew
 vx
-vx
+Nr
 dR
 dR
 dR
@@ -7843,8 +7627,8 @@ ew
 ew
 ew
 ew
-vx
-vx
+Nr
+Nr
 dR
 dR
 vx
