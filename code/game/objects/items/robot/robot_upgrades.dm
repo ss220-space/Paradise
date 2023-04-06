@@ -203,7 +203,7 @@
 
 /obj/item/borg/upgrade/gps
 	name = "cyborg gps upgrade"
-	desc = "upgraded GPS for mining cyborg's module."
+	desc = "upgraded GPS for cyborgs."
 	icon_state = "cyborg_upgrade3"
 
 /obj/item/borg/upgrade/gps/action(mob/living/silicon/robot/R)
