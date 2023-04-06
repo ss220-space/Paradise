@@ -21551,7 +21551,7 @@
 	req_access = list(25)
 	},
 /turf/simulated/floor/plating,
-/area/crew_quarters/bar)
+/area/maintenance/fsmaint2)
 "bbe" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -23492,7 +23492,7 @@
 	req_access = list(12)
 	},
 /turf/simulated/floor/plating,
-/area/crew_quarters/bar)
+/area/maintenance/fsmaint2)
 "bft" = (
 /obj/machinery/door/airlock{
 	id_tag = "toilet_unitb";
@@ -28632,7 +28632,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/grass,
-/area/crew_quarters/kitchen)
+/area/hydroponics)
 "brn" = (
 /obj/machinery/status_display{
 	layer = 4;
@@ -29162,7 +29162,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/grass,
-/area/crew_quarters/kitchen)
+/area/hydroponics)
 "bsW" = (
 /obj/machinery/light_switch{
 	name = "north light switch";
@@ -29186,7 +29186,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
-/area/crew_quarters/kitchen)
+/area/hydroponics)
 "bsZ" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -29620,7 +29620,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid"
 	},
-/area/crew_quarters/kitchen)
+/area/hydroponics)
 "buw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -29741,7 +29741,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/grass,
-/area/crew_quarters/kitchen)
+/area/hydroponics)
 "buK" = (
 /obj/machinery/light{
 	dir = 4
@@ -29761,7 +29761,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
-/area/crew_quarters/kitchen)
+/area/hydroponics)
 "buL" = (
 /obj/machinery/hydroponics/constructable,
 /obj/machinery/light{
@@ -30410,7 +30410,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid"
 	},
-/area/crew_quarters/kitchen)
+/area/hydroponics)
 "bws" = (
 /obj/structure/sink{
 	dir = 4;
@@ -30999,7 +30999,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/grass,
-/area/crew_quarters/kitchen)
+/area/hydroponics)
 "bxJ" = (
 /obj/machinery/door_control{
 	id = "kitchenhall";
@@ -31743,7 +31743,7 @@
 	id = "garden"
 	},
 /turf/simulated/floor/plating,
-/area/crew_quarters/kitchen)
+/area/hydroponics)
 "bzi" = (
 /obj/item/radio/intercom{
 	name = "north station intercom (General)";
@@ -69113,7 +69113,7 @@
 	dir = 1;
 	icon_state = "bot"
 	},
-/area/hydroponics)
+/area/maintenance/fsmaint2)
 "djU" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/grille,
@@ -70433,7 +70433,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/grass,
-/area/crew_quarters/kitchen)
+/area/hydroponics)
 "dnl" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -74655,7 +74655,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
-/area/crew_quarters/kitchen)
+/area/hydroponics)
 "fyL" = (
 /obj/structure/largecrate,
 /obj/effect/decal/cleanable/dust,
@@ -76262,7 +76262,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid"
 	},
-/area/crew_quarters/kitchen)
+/area/hydroponics)
 "gLG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/generic,
@@ -78921,7 +78921,7 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/grass,
-/area/crew_quarters/kitchen)
+/area/hydroponics)
 "jcW" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1450;
@@ -79676,7 +79676,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/grass,
-/area/crew_quarters/kitchen)
+/area/hydroponics)
 "jPN" = (
 /obj/machinery/computer/mob_battle_terminal/blue{
 	pixel_x = -32
@@ -82739,7 +82739,7 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/machinery/hydroponics/soil,
 /turf/simulated/floor/grass,
-/area/crew_quarters/kitchen)
+/area/hydroponics)
 "meW" = (
 /obj/item/vending_refill/cigarette,
 /turf/simulated/floor/plating,
@@ -84038,7 +84038,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid"
 	},
-/area/crew_quarters/kitchen)
+/area/hydroponics)
 "nkm" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -84125,7 +84125,7 @@
 	id = "garden"
 	},
 /turf/simulated/floor/plating,
-/area/crew_quarters/kitchen)
+/area/hydroponics)
 "nmF" = (
 /obj/effect/decal/cleanable/shreds,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -84958,7 +84958,7 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /mob/living/simple_animal/pig/Sanya,
 /turf/simulated/floor/grass,
-/area/crew_quarters/kitchen)
+/area/hydroponics)
 "oec" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -90389,7 +90389,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid"
 	},
-/area/crew_quarters/kitchen)
+/area/hydroponics)
 "szh" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -92124,7 +92124,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid"
 	},
-/area/crew_quarters/kitchen)
+/area/hydroponics)
 "tSN" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/wood,
@@ -93830,7 +93830,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/grass,
-/area/crew_quarters/kitchen)
+/area/hydroponics)
 "vot" = (
 /obj/structure/table,
 /obj/item/storage/box/gloves{
@@ -94638,7 +94638,7 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/machinery/hydroponics/soil,
 /turf/simulated/floor/grass,
-/area/crew_quarters/kitchen)
+/area/hydroponics)
 "vUB" = (
 /obj/effect/decal/warning_stripes/northwest,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -136247,7 +136247,7 @@ bsU
 buJ
 vof
 bxI
-bdT
+beb
 qBV
 bHy
 bAk
@@ -137018,7 +137018,7 @@ bsX
 buK
 bwr
 jcU
-bdT
+beb
 iON
 bHy
 bAk
@@ -137270,12 +137270,12 @@ bdT
 cMK
 dhs
 bdT
-bdT
-bdT
-bdT
+beb
+beb
+beb
 tRA
-bdT
-bdT
+beb
+beb
 bAk
 bHy
 bCZ
