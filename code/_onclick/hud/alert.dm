@@ -172,71 +172,6 @@
 	desc = "ABSOLUTELY DISGUSTIN'"
 	icon_state = "gross3"
 
-/obj/screen/alert/fat
-	name = "Fat"
-	desc = "You ate too much food, lardass. Run around the station and lose some weight."
-	icon_state = "fat"
-
-/obj/screen/alert/full
-	name = "Full"
-	desc = "You feel full and satisfied, but you shouldn't eat much more."
-	icon_state = "full"
-
-/obj/screen/alert/well_fed
-	name = "Well Fed"
-	desc = "You feel quite satisfied, but you may be able to eat a bit more."
-	icon_state = "well_fed"
-
-/obj/screen/alert/fed
-	name = "Fed"
-	desc = "You feel moderately satisfied, but a bit more food may not hurt."
-	icon_state = "fed"
-
-/obj/screen/alert/hungry
-	name = "Hungry"
-	desc = "Some food would be good right about now."
-	icon_state = "hungry"
-
-/obj/screen/alert/starving
-	name = "Starving"
-	desc = "You're severely malnourished. The hunger pains make moving around a chore."
-	icon_state = "starving"
-
-///Vampire "hunger"
-
-/obj/screen/alert/fat/vampire
-	name = "Ожирение"
-	desc = "Вы выпили столько крови, что пузо уже не влезает в штаны. Бегайте теперь по станции кругами, чтобы похудеть."
-	icon_state = "v_fat"
-
-/obj/screen/alert/full/vampire
-	name = "Пресыщение"
-	desc = "Вы чувствуете спокойствие и приятную насыщенность. Но жажда крови обязательно вернётся…"
-	icon_state = "v_full"
-
-/obj/screen/alert/well_fed/vampire
-	name = "Сытость"
-	desc = "Вы вполне сыты, но могли бы выпить ещё немного крови."
-	icon_state = "v_well_fed"
-
-/obj/screen/alert/fed/vampire
-	name = "Удовлетворённость"
-	desc = "Вы не голодны, но испить ещё немного крови не помешало бы."
-	icon_state = "v_fed"
-
-/obj/screen/alert/hungry/vampire
-	name = "Недоедание"
-	desc = "Вы жаждете отведать свежей крови."
-	icon_state = "v_hungry"
-
-/obj/screen/alert/starving/vampire
-	name = "Жажда"
-	desc = "Вас наполняет жажда. Она приносит физическую боль. Вам тяжело передвигаться."
-	icon_state = "v_starving"
-
-//End of Vampire "hunger"
-
-
 /obj/screen/alert/hot
 	name = "Too Hot"
 	desc = "You're flaming hot! Get somewhere cooler and take off any insulating clothing like a fire suit."
@@ -707,9 +642,7 @@ so as to remain in compliance with the most up-to-date laws."
 			if(3)
 				. = ui_alert3
 			if(4)
-				. = ui_alert4
-			if(5)
-				. = ui_alert5 // Right now there's 5 slots
+				. = ui_alert4 // Right now there's 4 slots
 			else
 				. = ""
 		alert.screen_loc = .

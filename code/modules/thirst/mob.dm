@@ -42,7 +42,6 @@
 /mob/make_vampire()
 	. = ..()
 	hydration = initial(hydration)
-	clear_alert("hydration", clear_override = TRUE)
 
 /mob/living/carbon/Move(NewLoc, direct)
 	. = ..()
@@ -54,46 +53,25 @@
 			adjust_hydration(-(thirst_drain * 0.1))
 
 /mob/living/carbon/human/proc/handle_thirst_alerts()
+	if(!hydration_alert)
+		return
 	if((NO_THIRST in dna.species.species_traits) || mind?.vampire)
+		hydration_alert.icon_state = null
 		return
 	switch(hydration)
-		if(HYDRATION_LEVEL_MEDIUM to INFINITY)
-			clear_alert("hydration")
+		if(HYDRATION_LEVEL_FULL to INFINITY)
+			hydration_alert.icon_state = "v_fat"
+		if(HYDRATION_LEVEL_GOOD to HYDRATION_LEVEL_FULL)
+			hydration_alert.icon_state = "water_full"
+		if(HYDRATION_LEVEL_MEDIUM to HYDRATION_LEVEL_GOOD)
+			hydration_alert.icon_state = "water_well_hydrated"
 		if(HYDRATION_LEVEL_SMALL to HYDRATION_LEVEL_MEDIUM)
-			throw_alert("hydration", /obj/screen/alert/water/thirsty)
+			hydration_alert.icon_state = "water_hydrated"
+		if(HYDRATION_LEVEL_INEFFICIENT to HYDRATION_LEVEL_SMALL)
+			hydration_alert.icon_state = "water_thirsty"
 		else
-			throw_alert("hydration", /obj/screen/alert/water/dehydrated)
+			hydration_alert.icon_state = "water_dehydrated"
 
 /mob/living/rejuvenate()
 	. = ..()
 	set_hydration(initial(hydration))
-
-/mob/living/carbon/eat(obj/item/reagent_containers/food/toEat, mob/user, bitesize_override)
-	. = ..()
-	if(!.)
-		return
-
-/obj/screen/alert/water/full
-	name = "Full"
-	desc = "You feel full and satisfied, but you shouldn't drink much more."
-	icon_state = "water_full"
-
-/obj/screen/alert/water/well_hydrated
-	name = "Well Hydrated"
-	desc = "You feel quite satisfied, but you may be able to drink a bit more."
-	icon_state = "water_well_hydrated"
-
-/obj/screen/alert/water/hydrated
-	name = "Hydrated"
-	desc = "You feel moderately satisfied, but a bit more water may not hurt."
-	icon_state = "water_hydrated"
-
-/obj/screen/alert/water/thirsty
-	name = "Thirsty"
-	desc = "Some water would be good right about now."
-	icon_state = "water_thirsty"
-
-/obj/screen/alert/water/dehydrated
-	name = "Dehydrated"
-	desc = "You're severely dehydrated. The thirst pains make moving around a chore."
-	icon_state = "water_dehydrated"
