@@ -353,7 +353,6 @@
 	name = "stool"
 	desc = "Apply butt."
 	icon_state = "stool"
-	can_buckle = FALSE
 	item_chair = /obj/item/chair/stool
 
 /obj/structure/chair/stool/bar
@@ -361,6 +360,9 @@
 	desc = "It has some unsavory stains on it..."
 	icon_state = "bar"
 	item_chair = /obj/item/chair/stool/bar
+
+/obj/structure/chair/stool/handle_layer()
+	return
 
 /obj/structure/chair/stool/bar/dark
 	icon_state = "bar_dark"
