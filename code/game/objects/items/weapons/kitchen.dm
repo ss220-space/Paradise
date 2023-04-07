@@ -236,7 +236,7 @@
 /obj/item/kitchen/knife/glassshiv/update_icon()
 	if(!size)
 		size = pick("large", "medium", "small")
-	icon_state = "[size]_[icon_state]"
+	icon_state = "[size]_[initial(icon_state)]"
 
 
 /*
