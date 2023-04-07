@@ -342,11 +342,14 @@
 		overlays += image('icons/obj/hydroponics/equipment.dmi', icon_state = "over_harvest3")
 
 
-/obj/machinery/hydroponics/examine(mob/living/carbon/human/H)
+/obj/machinery/hydroponics/examine(mob/user)
 	. = ..()
 	if(myseed)
-		. += "<span class='notice'>It has <span class='name'>[myseed.plantname]</span> planted.</span>"
-		if (H.glasses && istype(H.glasses, /obj/item/clothing/glasses/hud/hydroponic))
+		if(myseed.variant)
+			. += "<span class='notice'>It has the <span class='name'>[myseed.variant]</span> variant of <span class='name'>[myseed.plantname]</span> planted.</span>"
+		else
+			. += "<span class='notice'>It has <span class='name'>[myseed.plantname]</span> planted.</span>"
+		if (hasHUD(user, DATA_HUD_HYDROPONIC) || isobserver(user))
 			. += myseed.get_analyzer_text()
 			. += "<span class='notice'>Weed: [weedlevel] / 10</span>"
 			. += "<span class='notice'>Pest: [pestlevel] / 10</span>"
@@ -866,7 +869,7 @@
 			return
 		user.visible_message("<span class='notice'>[user] starts digging out [src]'s plants...</span>", "<span class='notice'>You start digging out [src]'s plants...</span>")
 		playsound(src, O.usesound, 50, 1)
-		if(!do_after(user, 25 * O.toolspeed, target = src) || (!myseed && !weedlevel))
+		if(!do_after(user, 25 * O.toolspeed * gettoolspeedmod(user), target = src) || (!myseed && !weedlevel))
 			return
 		user.visible_message("<span class='notice'>[user] digs out the plants in [src]!</span>", "<span class='notice'>You dig out all of [src]'s plants!</span>")
 		playsound(src, O.usesound, 50, 1)
@@ -881,7 +884,8 @@
 			plant_hud_set_status()
 		adjustWeeds(-10) //Has a side effect of cleaning up those nasty weeds
 		update_icon()
-
+	else if(is_pen(O) && myseed)
+		myseed.variant_prompt(user, src)
 	else
 		return ..()
 

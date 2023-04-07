@@ -357,7 +357,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 
 /datum/syndie_supply_packs/security/armory/shield_and_sword
 	name = "Syndicate Energy Combo Crate"
-	contains = list(/obj/item/shield/energy,
+	contains = list(/obj/item/shield/energy/syndie,
 					/obj/item/melee/energy/sword/saber,
 					/obj/item/pen/edagger)
 	cost = 20000
@@ -874,13 +874,15 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	name = "Blood Pack Variety Crate"
 	contains = list(/obj/item/reagent_containers/iv_bag,
 					/obj/item/reagent_containers/iv_bag,
-					/obj/item/reagent_containers/iv_bag/blood/APlus,
-					/obj/item/reagent_containers/iv_bag/blood/AMinus,
-					/obj/item/reagent_containers/iv_bag/blood/BPlus,
-					/obj/item/reagent_containers/iv_bag/blood/BMinus,
-					/obj/item/reagent_containers/iv_bag/blood/OPlus,
-					/obj/item/reagent_containers/iv_bag/blood/OMinus)
-	cost = 350
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis)
+	cost = 1400
 	containertype = /obj/structure/closet/crate/freezer
 	containername = "blood pack crate"
 
@@ -1159,6 +1161,42 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	contains = list(/obj/item/clothing/accessory/petcollar)
 	containername = "corgi crate"
 
+
+/datum/syndie_supply_packs/organic/dog_pug
+	name = "Dog Pug Crate"
+	cost = 500
+	containertype = /obj/structure/closet/critter/dog_pug
+	contains = list(/obj/item/clothing/accessory/petcollar)
+	containername = "dog pug crate"
+
+/datum/syndie_supply_packs/organic/dog_bullterrier
+	name = "Dog Bullterrie Crate"
+	cost = 500
+	containertype = /obj/structure/closet/critter/dog_bullterrier
+	contains = list(/obj/item/clothing/accessory/petcollar)
+	containername = "dog bullterrie crate"
+
+/datum/syndie_supply_packs/organic/dog_tamaskan
+	name = "Dog Tamaskan Crate"
+	cost = 500
+	containertype = /obj/structure/closet/critter/dog_tamaskan
+	contains = list(/obj/item/clothing/accessory/petcollar)
+	containername = "dog tamaskan crate"
+
+/datum/syndie_supply_packs/organic/dog_german
+	name = "Dog German Crate"
+	cost = 500
+	containertype = /obj/structure/closet/critter/dog_german
+	contains = list(/obj/item/clothing/accessory/petcollar)
+	containername = "dog german crate"
+
+/datum/syndie_supply_packs/organic/dog_brittany
+	name = "Dog Brittany Crate"
+	cost = 500
+	containertype = /obj/structure/closet/critter/dog_brittany
+	contains = list(/obj/item/clothing/accessory/petcollar)
+	containername = "dog brittany crate"
+
 /datum/syndie_supply_packs/organic/cat
 	name = "Cat Crate"
 	cost = 500 //Cats are worth as much as corgis.
@@ -1167,12 +1205,15 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/toy/cattoy)
 	containername = "cat crate"
 
-/datum/syndie_supply_packs/organic/pug
-	name = "Pug Crate"
-	cost = 500
-	containertype = /obj/structure/closet/critter/pug
-	contains = list(/obj/item/clothing/accessory/petcollar)
-	containername = "pug crate"
+/datum/syndie_supply_packs/organic/cat/white
+	name = "White Cat Crate"
+	containername = "white crate"
+	containertype = /obj/structure/closet/critter/cat_white
+
+/datum/syndie_supply_packs/organic/cat/birman
+	name = "Birman Cat Crate"
+	containername = "birman crate"
+	containertype = /obj/structure/closet/critter/cat_birman
 
 /datum/syndie_supply_packs/organic/fox
 	name = "Fox Crate"
@@ -1180,6 +1221,13 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containertype = /obj/structure/closet/critter/fox
 	contains = list(/obj/item/clothing/accessory/petcollar)
 	containername = "fox crate"
+
+/datum/syndie_supply_packs/organic/fennec
+	name = "Fennec Crate"
+	cost = 800
+	containertype = /obj/structure/closet/critter/fennec
+	contains = list(/obj/item/clothing/accessory/petcollar)
+	containername = "fennec crate"
 
 /datum/syndie_supply_packs/organic/butterfly
 	name = "Butterfly Crate"
@@ -1192,6 +1240,67 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 560 //Deer are best.
 	containertype = /obj/structure/closet/critter/deer
 	containername = "deer crate"
+
+/datum/syndie_supply_packs/organic/sloth
+	name = "Sloth Crate"
+	cost = 600
+	containertype = /obj/structure/closet/critter/sloth
+	contains = list(/obj/item/clothing/accessory/petcollar)
+	containername = "sloth crate"
+
+/datum/syndie_supply_packs/organic/goose
+	name = "Goose Crate"
+	cost = 300
+	containertype = /obj/structure/closet/critter/goose
+	containername = "goose crate"
+
+/datum/syndie_supply_packs/organic/gosling
+	name = "Gosling Crate"
+	cost = 300
+	containertype = /obj/structure/closet/critter/gosling
+	containername = "gosling crate"
+
+/datum/syndie_supply_packs/organic/frog
+	name = "Frog Crate"
+	cost = 600
+	containertype = /obj/structure/closet/critter/frog
+	containername = "frog crate"
+
+/datum/syndie_supply_packs/organic/frog/toxic
+	name = "Toxic Frog Crate"
+	cost = 1200
+	containertype = /obj/structure/closet/critter/frog/toxic
+	containername = "toxic frog crate"
+
+/datum/syndie_supply_packs/organic/snail
+	name = "Snail Crate"
+	cost = 600
+	containertype = /obj/structure/closet/critter/snail
+	containername = "snail crate"
+
+/datum/syndie_supply_packs/organic/turtle
+	name = "Turtle Crate"
+	cost = 700
+	containertype = /obj/structure/closet/critter/turtle
+	containername = "turtle crate"
+
+/datum/syndie_supply_packs/organic/iguana
+	name = "Iguana Crate"
+	cost = 800
+	containertype = /obj/structure/closet/critter/iguana
+	containername = "iguana crate"
+
+/datum/syndie_supply_packs/organic/gator
+	name = "Gator Crate"
+	cost = 1500	//most dangerous
+	containertype = /obj/structure/closet/critter/gator
+	containername = "gator crate"
+
+/datum/syndie_supply_packs/organic/croco
+	name = "Croco Crate"
+	cost = 1000
+	containertype = /obj/structure/closet/critter/croco
+	containername = "croco crate"
 
 ////// hippy gear
 

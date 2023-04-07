@@ -80,7 +80,7 @@
 	name = "black gloves"
 	icon_state = "black"
 	item_state = "bgloves"
-	item_color="brown"
+	item_color="black"
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
@@ -195,6 +195,7 @@
 	item_color="brown"
 
 /obj/item/clothing/gloves/color/brown/cargo
+	name = "cargo gloves"
 	item_color = "cargo"				//Exists for washing machines. Is not different from brown gloves in any way.
 
 /obj/item/clothing/gloves/color/latex

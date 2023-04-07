@@ -11,7 +11,7 @@
 	var/emagged = 0
 	var/insults = 0
 	var/span = ""
-	var/list/insultmsg = list("FUCK EVERYONE!", "I'M A TATER!", "ALL SECURITY TO SHOOT ME ON SIGHT!", "I HAVE A BOMB!", "CAPTAIN IS A COMDOM!", "FOR THE SYNDICATE!")
+	var/list/insultmsg = list("ИДИТЕ НАХУЙ!", "Я АГЕНТ СИНДИКАТА!", "СБ, ЗАСТРЕЛИТЕ МЕНЯ НЕМЕДЛЕННО!", "У МЕНЯ БОМБА!", "КАПИТАН ГАНДОН!", "ЗА СИНДИКАТ!")
 
 /obj/item/megaphone/attack_self(mob/living/user as mob)
 	if(user.client && (user.client.prefs.muted & MUTE_IC))
@@ -70,7 +70,7 @@
 	var/message_tts = message
 	message = replace_characters(message, list("+"))
 	audible_message("<span class='game say'><span class='name'>[user.GetVoice()]</span> [user.GetAltName()] broadcasts, <span class='reallybig'>\"[message]\"</span></span>", hearing_distance = 14)
-	for(var/obj/O in oview(14, get_turf(src)))
+	for(var/obj/O in range(14, get_turf(src)))
 		O.hear_talk(user, message_to_multilingual("<span class='reallybig'>[message]</span>"))
 
 	for(var/mob/M in get_mobs_in_view(7, src))

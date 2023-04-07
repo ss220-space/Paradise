@@ -10,9 +10,13 @@
 	set name = "quick-equip"
 	set hidden = 1
 
+	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, .proc/run_quick_equip))
+
+///proc extender of [/mob/verb/quick_equip] used to make the verb queuable if the server is overloaded
+/mob/proc/run_quick_equip()
 	var/obj/item/I = get_active_hand()
 	if(I)
-		I.equip_to_best_slot(src)
+		I.equip_to_best_slot(src, FALSE)
 
 /mob/proc/is_in_active_hand(obj/item/I)
 	var/obj/item/item_to_test = get_active_hand()
@@ -34,14 +38,15 @@
 // Currently invalid for two-handed items - call obj/item/mob_can_equip() instead.
 /mob/proc/can_equip(obj/item/I, slot, disable_warning = 0)
 	return 0
-
+/mob/proc/advanced_can_equip(obj/item/I, slot, disable_warning = 0)
+	return can_equip(I, slot, disable_warning)
 // Because there's several different places it's stored.
 /mob/proc/get_multitool(var/if_active=0)
 	return null
 
 //Puts the item into your l_hand if possible and calls all necessary triggers/updates. returns 1 on success.
-/mob/proc/put_in_l_hand(var/obj/item/W)
-	if(!put_in_hand_check(W))
+/mob/proc/put_in_l_hand(var/obj/item/W, pass_check_lying = FALSE)
+	if(!put_in_hand_check(W, pass_check_lying))
 		return 0
 	if(!l_hand && has_left_hand())
 		W.forceMove(src)		//TODO: move to equipped?
@@ -56,8 +61,8 @@
 	return 0
 
 //Puts the item into your r_hand if possible and calls all necessary triggers/updates. returns 1 on success.
-/mob/proc/put_in_r_hand(var/obj/item/W)
-	if(!put_in_hand_check(W))
+/mob/proc/put_in_r_hand(var/obj/item/W, pass_check_lying = FALSE)
+	if(!put_in_hand_check(W, pass_check_lying))
 		return 0
 	if(!r_hand && has_right_hand())
 		W.forceMove(src)
@@ -71,8 +76,8 @@
 		return 1
 	return 0
 
-/mob/proc/put_in_hand_check(var/obj/item/W)
-	if(lying && !(W.flags & ABSTRACT))	return 0
+/mob/proc/put_in_hand_check(var/obj/item/W, pass_check_lying)
+	if(!pass_check_lying && lying && !(W.flags & ABSTRACT))	return 0
 	if(!istype(W))	return 0
 	return 1
 
@@ -102,12 +107,12 @@
 	return 0
 
 //Drops the item in our left hand
-/mob/proc/drop_l_hand()
-	return unEquip(l_hand) //All needed checks are in unEquip
+/mob/proc/drop_l_hand(force = FALSE)
+	return unEquip(l_hand, force) //All needed checks are in unEquip
 
 //Drops the item in our right hand
-/mob/proc/drop_r_hand()
-	return unEquip(r_hand) //Why was this not calling unEquip in the first place jesus fuck.
+/mob/proc/drop_r_hand(force = FALSE)
+	return unEquip(r_hand, force) //Why was this not calling unEquip in the first place jesus fuck.
 
 //Drops the item in our active hand.
 /mob/proc/drop_item() //THIS. DOES. NOT. NEED. AN. ARGUMENT.
@@ -117,6 +122,8 @@
 		return drop_r_hand()
 
 //Here lie unEquip and before_item_take, already forgotten and not missed.
+/mob/proc/advanced_can_unequip(obj/item/item, force)
+	return canUnEquip(item, force)
 
 /mob/proc/canUnEquip(obj/item/I, force)
 	if(!I)
@@ -124,6 +131,9 @@
 	if((I.flags & NODROP) && !force)
 		return 0
 	return 1
+
+/mob/proc/advanced_unequip_if_possible(obj/item/item, force = 0)
+	return unEquip(item, force)
 
 /mob/proc/unEquip(obj/item/I, force) //Force overrides NODROP for things like wizarditis and admin undress.
 	if(!I) //If there's nothing to drop, the drop is automatically succesfull. If(unEquip) should generally be used to check for NODROP.
@@ -209,18 +219,16 @@
 			items += s_store
 	return items
 
-/obj/item/proc/equip_to_best_slot(mob/M)
+/obj/item/proc/equip_to_best_slot(mob/M, var/ignore_obscured = 1)
 	if(src != M.get_active_hand())
 		to_chat(M, "<span class='warning'>You are not holding anything to equip!</span>")
 		return 0
-
-	if(M.equip_to_appropriate_slot(src))
+	if(M.equip_to_appropriate_slot(src, ignore_obscured))
 		if(M.hand)
 			M.update_inv_l_hand()
 		else
 			M.update_inv_r_hand()
 		return 1
-
 	if(M.s_active && M.s_active.can_be_inserted(src, 1))	//if storage active insert there
 		M.s_active.handle_item_insertion(src)
 		return 1

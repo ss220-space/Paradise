@@ -48,7 +48,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	var/list/debris = list()
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/breaksound = "shatter"
-	var/hitsound = 'sound/effects/Glasshit.ogg'
+	var/hitsound = 'sound/effects/glasshit.ogg'
 
 /obj/structure/window/examine(mob/user)
 	. = ..()
@@ -180,10 +180,13 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return
 	if(user.a_intent == INTENT_HARM)
 		user.changeNext_move(CLICK_CD_MELEE)
-		playsound(src, 'sound/effects/glassknock.ogg', 80, 1)
-		user.visible_message("<span class='warning'>[user] bangs against [src]!</span>", \
-							"<span class='warning'>You bang against [src]!</span>", \
-							"You hear a banging sound.")
+		if(ishuman(user) && user.dna.species.obj_damage)
+			attack_generic(user, user.dna.species.obj_damage)
+		else
+			playsound(src, 'sound/effects/glassknock.ogg', 80, 1)
+			user.visible_message("<span class='warning'>[user] bangs against [src]!</span>", \
+								"<span class='warning'>You bang against [src]!</span>", \
+								"You hear a banging sound.")
 		add_fingerprint(user)
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
@@ -372,6 +375,14 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	qdel(src)
 	update_nearby_icons()
 
+/obj/structure/window/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	. = ..()
+	var/obj/structure/grille/our_grille = locate(/obj/structure/grille) in get_turf(src)
+	if(our_grille)
+		return our_grille.rcd_deconstruct_act(user, our_rcd)
+	else
+		return RCD_ACT_FAILED
+
 /obj/structure/window/verb/rotate()
 	set name = "Rotate Window Counter-Clockwise"
 	set category = "Object"
@@ -540,6 +551,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	icon = 'icons/obj/power.dmi'
 	icon_state = "light0"
 	desc = "A remote control switch for polarized windows."
+	anchored = TRUE
 	var/range = 7
 	var/id = 0
 	var/active = 0
@@ -764,7 +776,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	name = "brass window"
 	desc = "A paper-thin pane of translucent yet reinforced brass."
 	icon = 'icons/obj/smooth_structures/clockwork_window.dmi'
-	icon_state = "clockwork_window"
+	icon_state = "clockwork_window_single"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	max_integrity = 80
 	armor = list("melee" = 60, "bullet" = 25, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)

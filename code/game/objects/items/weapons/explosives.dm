@@ -62,7 +62,7 @@
 		return
 	var/newtime = input(usr, "Please set the timer.", "Timer", det_time) as num
 	if(user.is_in_active_hand(src))
-		newtime = clamp(newtime, 10, 60000)
+		newtime = clamp(newtime, initial(det_time), 60000)
 		det_time = newtime
 		to_chat(user, "Timer set for [det_time] seconds.")
 
@@ -73,7 +73,7 @@
 		return
 	to_chat(user, "<span class='notice'>You start planting the [src]. The timer is set to [det_time]...</span>")
 
-	if(do_after(user, 50 * toolspeed, target = AM))
+	if(do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = AM))
 		if(!user.unEquip(src))
 			return
 		src.target = AM

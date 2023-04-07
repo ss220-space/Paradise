@@ -198,6 +198,24 @@
 	else
 		..()
 
+/turf/simulated/wall/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	. = ..()
+	if(our_rcd.checkResource(5, user))
+		to_chat(user, "Deconstructing wall...")
+		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+		if(do_after(user, 40 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+			if(!our_rcd.useResource(5, user))
+				return RCD_ACT_FAILED
+			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
+			add_attack_logs(user, src, "Deconstructed wall with RCD")
+			src.ChangeTurf(our_rcd.floor_type)
+			return RCD_ACT_SUCCESSFULL
+		to_chat(user, span_warning("ERROR! Deconstruction interrupted!"))
+		return RCD_ACT_FAILED
+	to_chat(user, span_warning("ERROR! Not enough matter in unit to deconstruct this wall!"))
+	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+	return RCD_ACT_FAILED
+
 /turf/simulated/wall/mech_melee_attack(obj/mecha/M)
 	M.do_attack_animation(src)
 	switch(M.damtype)
@@ -375,7 +393,7 @@
 		to_chat(user, "<span class='notice'>You begin slicing through the outer plating.</span>")
 		playsound(src, I.usesound, 100, 1)
 
-		if(do_after(user, istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 120 * I.toolspeed : 60 * I.toolspeed, target = src))
+		if(do_after(user, istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 120 * I.toolspeed * gettoolspeedmod(user) : 60 * I.toolspeed * gettoolspeedmod(user), target = src))
 			to_chat(user, "<span class='notice'>You remove the outer plating.</span>")
 			dismantle_wall()
 			visible_message("<span class='warning'>[user] slices apart [src]!</span>", "<span class='warning'>You hear metal being sliced apart.</span>")
@@ -389,7 +407,7 @@
 	if(istype(I, /obj/item/pickaxe/drill/diamonddrill))
 		to_chat(user, "<span class='notice'>You begin to drill though the wall.</span>")
 
-		if(do_after(user, isdiamond ? 480 * I.toolspeed : 240 * I.toolspeed, target = src)) // Diamond pickaxe has 0.25 toolspeed, so 120/60
+		if(do_after(user, isdiamond ? 480 * I.toolspeed * gettoolspeedmod(user) : 240 * I.toolspeed * gettoolspeedmod(user), target = src)) // Diamond pickaxe has 0.25 toolspeed, so 120/60
 			to_chat(user, "<span class='notice'>Your [I.name] tears though the last of the reinforced plating.</span>")
 			dismantle_wall()
 			visible_message("<span class='warning'>[user] drills through [src]!</span>", "<span class='warning'>You hear the grinding of metal.</span>")
@@ -398,7 +416,7 @@
 	else if(istype(I, /obj/item/pickaxe/drill/jackhammer))
 		to_chat(user, "<span class='notice'>You begin to disintegrates the wall.</span>")
 
-		if(do_after(user, isdiamond ? 600 * I.toolspeed : 300 * I.toolspeed, target = src)) // Jackhammer has 0.1 toolspeed, so 60/30
+		if(do_after(user, isdiamond ? 600 * I.toolspeed * gettoolspeedmod(user) : 300 * I.toolspeed * gettoolspeedmod(user), target = src)) // Jackhammer has 0.1 toolspeed, so 60/30
 			to_chat(user, "<span class='notice'>Your [I.name] disintegrates the reinforced plating.</span>")
 			dismantle_wall()
 			visible_message("<span class='warning'>[user] disintegrates [src]!</span>","<span class='warning'>You hear the grinding of metal.</span>")
@@ -424,7 +442,7 @@
 				"<span class='notice'>You start drilling a hole in [src].</span>",
 				"<span class='notice'>You hear a drill.</span>")
 
-			if(do_after(user, 80 * P.toolspeed, target = src))
+			if(do_after(user, 80 * P.toolspeed * gettoolspeedmod(user), target = src))
 				user.visible_message(
 					"<span class='notice'>[user] drills a hole in [src] and pushes [P] into the void.</span>",
 					"<span class='notice'>You finish drilling [src] and push [P] into the void.</span>",

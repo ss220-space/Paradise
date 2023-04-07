@@ -157,10 +157,16 @@
 		if(!is_used_species_available(client.prefs.species))
 			to_chat(usr, "<span class='warning'>Выбранная раса персонажа недоступна для игры в данный момент! Выберите другого персонажа.</span>")
 			return FALSE
-		if(config.tts_enabled && !client.prefs.tts_seed)
-			to_chat(usr, "<span class='danger'>Вам необходимо настроить голос персонажа! Не забудьте сохранить настройки.</span>")
-			client.prefs.ShowChoices(src)
-			return FALSE
+		if(config.tts_enabled)
+			if(!client.prefs.tts_seed)
+				to_chat(usr, "<span class='danger'>Вам необходимо настроить голос персонажа! Не забудьте сохранить настройки.</span>")
+				client.prefs.ShowChoices(src)
+				return FALSE
+			var/datum/tts_seed/seed = SStts.tts_seeds[client.prefs.tts_seed]
+			if(client.donator_level < seed.donator_level)
+				to_chat(usr, "<span class='danger'>Выбранный голос персонажа более недоступен на текущем уровне подписки!</span>")
+				client.prefs.ShowChoices(src)
+				return FALSE
 		ready = !ready
 		new_player_panel_proc()
 
@@ -244,10 +250,16 @@
 			if(!is_alien_whitelisted(src, client.prefs.species) && config.usealienwhitelist)
 				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
 				return FALSE
-		if(config.tts_enabled && !client.prefs.tts_seed)
-			to_chat(usr, "<span class='danger'>Вам необходимо настроить голос персонажа! Не забудьте сохранить настройки.</span>")
-			client.prefs.ShowChoices(src)
-			return FALSE
+		if(config.tts_enabled)
+			if(!client.prefs.tts_seed)
+				to_chat(usr, "<span class='danger'>Вам необходимо настроить голос персонажа! Не забудьте сохранить настройки.</span>")
+				client.prefs.ShowChoices(src)
+				return FALSE
+			var/datum/tts_seed/seed = SStts.tts_seeds[client.prefs.tts_seed]
+			if(client.donator_level < seed.donator_level)
+				to_chat(usr, "<span class='danger'>Выбранный голос персонажа более недоступен на текущем уровне подписки!</span>")
+				client.prefs.ShowChoices(src)
+				return FALSE
 
 		LateChoices()
 
@@ -299,14 +311,17 @@
 	if(job.admin_only && !(check_rights(R_ADMIN, 0))) return 0
 	if(job.available_in_playtime(client))
 		return 0
+	if(!job.can_novice_play(client))
+		return 0
 
 	if(config.assistantlimit)
 		if(job.title == "Civilian")
 			var/count = 0
+			var/datum/job/cadet = SSjobs.GetJob("Security Cadet")
 			var/datum/job/officer = SSjobs.GetJob("Security Officer")
 			var/datum/job/warden = SSjobs.GetJob("Warden")
 			var/datum/job/hos = SSjobs.GetJob("Head of Security")
-			count += (officer.current_positions + warden.current_positions + hos.current_positions)
+			count += (officer.current_positions + warden.current_positions + hos.current_positions + cadet.current_positions)
 			if(job.current_positions > (config.assistantratio * count))
 				if(count >= 5) // if theres more than 5 security on the station just let assistants join regardless, they should be able to handle the tide
 					return 1
@@ -342,6 +357,15 @@
 	else
 		return 0
 
+/mob/new_player/proc/random_job()
+	var/jobs_available = list()
+	for(var/datum/job/job in SSjobs.occupations)
+		if(job && IsJobAvailable(job.title) && !job.barred_by_disability(client))
+			jobs_available += job.title
+	if(!length(jobs_available))
+		return FALSE
+	return pick(jobs_available)
+
 /mob/new_player/proc/AttemptLateSpawn(rank,var/spawning_at)
 	if(src != usr)
 		return FALSE
@@ -351,6 +375,13 @@
 	if(!GLOB.enter_allowed)
 		to_chat(usr, "<span class='notice'>Администратор заблокировал вход в игру!</span>")
 		return FALSE
+	if(rank == "RandomJob")
+		rank = random_job()
+		if(!rank)
+			var/msg = "Нет свободных ролей. Пожалуйста, попробуйте позже."
+			to_chat(src, msg)
+			alert(msg)
+			return FALSE
 	if(!IsJobAvailable(rank))
 		var/msg = "Должность [rank] недоступна. Пожалуйста, попробуйте другую."
 		to_chat(src, msg)
@@ -466,7 +497,14 @@
 				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
 					if(character.mind.role_alt_title)
 						rank = character.mind.role_alt_title
-					GLOB.global_announcer.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] [join_message ? join_message : "прибыл на станцию"].", "Arrivals Announcement Computer")
+					var/arrivalmessage = GLOB.global_announcer_base_text
+					arrivalmessage = replacetext(arrivalmessage,"$name",character.real_name)
+					arrivalmessage = replacetext(arrivalmessage,"$rank",rank ? "[rank]" : "visitor")
+					arrivalmessage = replacetext(arrivalmessage,"$species",character.dna.species.name)
+					arrivalmessage = replacetext(arrivalmessage,"$age",num2text(character.age))
+					arrivalmessage = replacetext(arrivalmessage,"$gender",character.gender == FEMALE ? "Female" : "Male")
+					arrivalmessage = replacetext(arrivalmessage,"$join_message",join_message)
+					GLOB.global_announcer.autosay(arrivalmessage, "Arrivals Announcement Computer")
 
 /mob/new_player/proc/AddEmploymentContract(mob/living/carbon/human/employee)
 	spawn(30)
@@ -568,6 +606,8 @@
 			var/color = categorizedJobs[jobcat]["color"]
 			dat += "<fieldset style='border: 2px solid [color]; display: inline'>"
 			dat += "<legend align='center' style='color: [color]'>[jobcat]</legend>"
+			if(jobcat == "Miscellaneous")
+				dat += "<a href='byond://?src=[UID()];SelectedJob=RandomJob'>Random (free jobs)</a><br>"
 			for(var/datum/job/job in categorizedJobs[jobcat]["jobs"])
 				if(job in SSjobs.prioritized_jobs)
 					dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'><font color='lime'><B>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</B></font></a><br>"

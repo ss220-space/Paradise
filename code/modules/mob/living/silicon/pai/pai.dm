@@ -27,7 +27,9 @@
 		"Box Bot" = "boxbot",
 		"Spider Bot" = "spiderbot",
 		"Fairy" = "fairy",
-		"Espeon" = "pAIkemon_Espeon"
+		"Espeon" = "pAIkemon_Espeon",
+		"Mushroom" = "mushroom",
+		"Crow" = "crow"
 		)
 
 	var/global/list/possible_say_verbs = list(
@@ -56,6 +58,7 @@
 
 	var/obj/item/pda/silicon/pai/pda = null
 
+	var/adv_secHUD = 0		// Toggles whether the Advanced Security HUD is active or not
 	var/secHUD = 0			// Toggles whether the Security HUD is active or not
 	var/medHUD = 0			// Toggles whether the Medical  HUD is active or not
 
@@ -67,12 +70,24 @@
 
 	var/obj/item/integrated_radio/signal/sradio // AI's signaller
 
+	var/ai_capability = FALSE //AI's interaction capabilities
+	var/ai_capability_cooldown = 20 SECONDS
+	var/capa_is_cooldown = FALSE
+
+	var/obj/machinery/computer/security/camera_bug/integrated_console //Syndicate's pai camera bug
+
 	var/translator_on = 0 // keeps track of the translator module
 	var/flashlight_on = FALSE //keeps track of the flashlight module
 
 	var/current_pda_messaging = null
 	var/custom_sprite = 0
 	var/slowdown = 0
+
+	/// max chemicals and cooldown recovery for chemicals module
+	var/chemicals = 20
+	var/last_change_chemicals = 0
+
+	var/syndipai = FALSE
 
 /mob/living/silicon/pai/New(var/obj/item/paicard)
 	loc = paicard
@@ -104,6 +119,10 @@
 	pda.name = "[pda.owner] ([pda.ownjob])"
 	var/datum/data/pda/app/messenger/M = pda.find_program(/datum/data/pda/app/messenger)
 	M.toff = TRUE
+
+	integrated_console = new(src)
+	integrated_console.parent = src
+	integrated_console.network = list("SS13")
 
 	// Software modules. No these var names have nothing to do with photoshop
 	for(var/PS in subtypesof(/datum/pai_software))
@@ -536,10 +555,3 @@
 	flashlight_on = FALSE
 	set_light(0)
 	card.set_light(0)
-
-
-/mob/living/silicon/pai/update_runechat_msg_location()
-	if(istype(loc, /obj/item/paicard))
-		runechat_msg_location = loc
-	else
-		runechat_msg_location = src

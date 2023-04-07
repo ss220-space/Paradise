@@ -188,7 +188,7 @@
 	return
 
 /obj/structure/table/proc/tablepush(obj/item/grab/G, mob/user)
-	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
 		to_chat(user, "<span class='danger'>Throwing [G.affecting] onto the table might hurt them!</span>")
 		return
 	if(get_dist(src, user) < 2)
@@ -796,25 +796,6 @@
 
 /obj/structure/rack/skeletal_bar/right
 	icon_state = "minibar_right"
-
-/obj/item/gun
-	var/on_rack = FALSE
-
-/obj/item/gun/proc/place_on_rack()
-	on_rack = TRUE
-	var/matrix/M = matrix()
-	M.Turn(-90)
-	transform = M
-
-/obj/item/gun/proc/remove_from_rack()
-	if(on_rack)
-		var/matrix/M = matrix()
-		transform = M
-		on_rack = FALSE
-
-/obj/item/gun/pickup(mob/user)
-	. = ..()
-	remove_from_rack()
 
 /obj/structure/rack/gunrack
 	name = "gun rack"

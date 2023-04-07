@@ -648,6 +648,14 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"<span class='danger'>Something feels like it shattered in your [name]!</span>",\
 			"You hear a sickening crack.")
 		playsound(owner, "bonebreak", 150, 1)
+		if(owner.reagents.has_reagent("morphine"))
+			return
+		if(owner.reagents.has_reagent("syntmorphine"))
+			return
+		if(owner.reagents.has_reagent("hydrocodone"))
+			return
+		if(owner.stat == UNCONSCIOUS)
+			return
 		if(owner.dna.species && !(NO_PAIN in owner.dna.species.species_traits))
 			owner.emote("scream")
 
@@ -658,6 +666,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 	// Fractures have a chance of getting you out of restraints
 	if(prob(25))
 		release_restraints()
+
+/mob/living/carbon/human/proc/check_fractures()
+	var/list/fractures = list()
+	for(var/obj/item/organ/external/limb in bodyparts)
+		if(limb.status == ORGAN_BROKEN)
+			fractures.Add(limb)
+	return fractures
 
 /obj/item/organ/external/proc/mend_fracture()
 	if(is_robotic())
@@ -842,3 +857,17 @@ Note that amputating the affected organ does in fact remove the infection from t
 		var/obj/item/organ/external/L = X
 		for(var/obj/item/I in L.embedded_objects)
 			return 1
+
+/mob/living/carbon/human/proc/check_limbs_with_embedded_objects()
+	var/list/limbs = list()
+	for(var/obj/item/organ/external/limb in bodyparts)
+		if(limb.embedded_objects.len)
+			limbs.Add()
+	return limbs
+
+/mob/living/carbon/human/proc/check_embedded_objects()
+	var/list/items = list()
+	for(var/obj/item/organ/external/limb in bodyparts)
+		for(var/obj/item/item in limb.embedded_objects)
+			items.Add(item)
+	return items

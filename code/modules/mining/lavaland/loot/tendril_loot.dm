@@ -181,19 +181,6 @@
 			last_message_time = world.time
 		return FALSE
 
-/obj/vehicle/lavaboat/Destroy()
-	for(var/mob/living/M in buckled_mobs)
-		M.weather_immunities -= "lava"
-	return ..()
-
-/obj/vehicle/lavaboat/user_buckle_mob(mob/living/M, mob/user)
-	M.weather_immunities |= "lava"
-	return ..()
-
-/obj/vehicle/lavaboat/unbuckle_mob(mob/living/buckled_mob, force)
-	. = ..()
-	buckled_mob.weather_immunities -= "lava"
-
 /obj/item/oar
 	name = "oar"
 	icon = 'icons/obj/vehicles.dmi'
@@ -264,7 +251,7 @@
 
 		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
 		icon_state = "lantern"
-		wisp.orbit(user, 20)
+		spawn() wisp.orbit(user, 20) // spawn prevents endless loop in .orbit from blocking code execution here
 		set_light(0)
 
 		user.update_sight()

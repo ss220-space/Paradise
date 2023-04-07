@@ -80,6 +80,8 @@
 
 	var/ambition_limit = 6 //Лимит амбиций
 
+	var/list/curses = list()
+
 /datum/mind/New(new_key)
 	key = new_key
 	soulOwner = src
@@ -299,7 +301,7 @@
 	. += _memory_edit_role_enabled(ROLE_WIZARD)
 
 /datum/mind/proc/memory_edit_changeling(mob/living/carbon/human/H)
-	. = _memory_edit_header("changeling", list("traitorchan"))
+	. = _memory_edit_header("changeling", list("traitorchan", "traitorthiefchan", "thiefchan", "changelingthief"))
 	if(src in SSticker.mode.changelings)
 		. += "<b><font color='red'>CHANGELING</font></b>|<a href='?src=[UID()];changeling=clear'>no</a>"
 		if(!length(objectives))
@@ -312,7 +314,7 @@
 	. += _memory_edit_role_enabled(ROLE_CHANGELING)
 
 /datum/mind/proc/memory_edit_vampire(mob/living/carbon/human/H)
-	. = _memory_edit_header("vampire", list("traitorvamp"))
+	. = _memory_edit_header("vampire", list("traitorvamp", "traitorthiefvamp", "thiefvamp", "vampirethief"))
 	if(src in SSticker.mode.vampires)
 		. += "<b><font color='red'>VAMPIRE</font></b>|<a href='?src=[UID()];vampire=clear'>no</a>"
 		if(!length(objectives))
@@ -402,7 +404,7 @@
 		. += "<a href='?src=[UID()];eventmisc=eventmisc'>Event Role</a>|<b>NO</b>"
 
 /datum/mind/proc/memory_edit_traitor()
-	. = _memory_edit_header("traitor", list("traitorchan", "traitorvamp"))
+	. = _memory_edit_header("traitor", list("traitorchan", "traitorvamp", "traitorthief"))
 	if(has_antag_datum(/datum/antagonist/traitor))
 		. += "<b><font color='red'>TRAITOR</font></b>|<a href='?src=[UID()];traitor=clear'>no</a>"
 		if(!length(objectives))
@@ -469,6 +471,17 @@
 	else
 		. += "mindslave|<b>NO</b>"
 
+/datum/mind/proc/memory_edit_thief()
+	. = _memory_edit_header("thief", list("traitorthief", "traitorthiefvamp", "traitorthiefchan", "thiefchan", "thiefvamp", "changelingthief", "vampirethief"))
+	if(src in SSticker.mode.thieves)
+		. += "<b><font color='red'>THIEF</font></b>|<a href='?src=[UID()];thief=clear'>no</a>|<a href='?src=[UID()];thief=equip'>Equip</a>"
+		if(!length(objectives))
+			. += "<br>Objectives are empty! <a href='?src=[UID()];thief=autoobjectives'>Randomize!</a>"
+	else
+		. += "<a href='?src=[UID()];thief=thief'>thief</a>|<b>NO</b>"
+
+	. += _memory_edit_role_enabled(ROLE_THIEF)
+
 /datum/mind/proc/memory_edit_silicon()
 	. = "<i><b>Silicon</b></i>: "
 	var/mob/living/silicon/silicon = current
@@ -523,11 +536,12 @@
 		"cult",
 		"clockwork",
 		"wizard",
-		"changeling",
-		"vampire", // "traitorvamp",
+		"changeling", 	// "traitorchan", "thiefchan", "changelingthief",
+		"vampire", 		// "traitorvamp", "thiefvamp", "vampirethief",
 		"nuclear",
-		"traitor", // "traitorchan",
+		"traitor",
 		"ninja",
+		"thief",		//	"traitorthief", "traitorthiefvamp", "traitorthiefchan",
 	)
 	var/mob/living/carbon/human/H = current
 	if(ishuman(current))
@@ -556,6 +570,8 @@
 	sections["eventmisc"] = memory_edit_eventmisc(H)
 	/** TRAITOR ***/
 	sections["traitor"] = memory_edit_traitor()
+	/** THIEF ***/
+	sections["thief"] = memory_edit_thief()
 	if(!issilicon(current))
 		/** CULT ***/
 		sections["cult"] = memory_edit_cult(H)
@@ -570,25 +586,60 @@
 		This prioritizes antags relevant to the current round to make them appear at the top of the panel.
 		Traitorchan and traitorvamp are snowflaked in because they have multiple sections.
 	*/
-	if(SSticker.mode.config_tag == "traitorchan")
-		if(sections["traitor"])
-			out += sections["traitor"] + "<br>"
-		if(sections["changeling"])
-			out += sections["changeling"] + "<br>"
-		sections -= "traitor"
-		sections -= "changeling"
-	// Elif technically unnecessary but it makes the following else look better
-	else if(SSticker.mode.config_tag == "traitorvamp")
-		if(sections["traitor"])
-			out += sections["traitor"] + "<br>"
-		if(sections["vampire"])
-			out += sections["vampire"] + "<br>"
-		sections -= "traitor"
-		sections -= "vampire"
-	else
-		if(sections[SSticker.mode.config_tag])
-			out += sections[SSticker.mode.config_tag] + "<br>"
-		sections -= SSticker.mode.config_tag
+	switch(SSticker.mode.config_tag)
+		if("traitorchan")
+			if(sections["traitor"])
+				out += sections["traitor"] + "<br>"
+			if(sections["changeling"])
+				out += sections["changeling"] + "<br>"
+			sections -= "traitor"
+			sections -= "changeling"
+		// Elif technically unnecessary but it makes the following else look better
+		if("traitorvamp")
+			if(sections["traitor"])
+				out += sections["traitor"] + "<br>"
+			if(sections["vampire"])
+				out += sections["vampire"] + "<br>"
+			sections -= "traitor"
+			sections -= "vampire"
+		if("thiefchan")
+			if(sections["thief"])
+				out += sections["thief"] + "<br>"
+			if(sections["changeling"])
+				out += sections["changeling"] + "<br>"
+			sections -= "thief"
+			sections -= "changeling"
+		if("vampirethief")
+			if(sections["vampire"])
+				out += sections["vampire"] + "<br>"
+			if(sections["thief"])
+				out += sections["thief"] + "<br>"
+			sections -= "vampire"
+			sections -= "thief"
+		if("traitorthiefchan")
+			if(sections["traitor"])
+				out += sections["traitor"] + "<br>"
+			if(sections["thief"])
+				out += sections["thief"] + "<br>"
+			if(sections["changeling"])
+				out += sections["changeling"] + "<br>"
+			sections -= "traitor"
+			sections -= "thief"
+			sections -= "changeling"
+		if("traitorthiefvamp")
+			if(sections["traitor"])
+				out += sections["traitor"] + "<br>"
+			if(sections["thief"])
+				out += sections["thief"] + "<br>"
+			if(sections["vampire"])
+				out += sections["vampire"] + "<br>"
+			sections -= "traitor"
+			sections -= "thief"
+			sections -= "vampire"
+		else
+			if(sections[SSticker.mode.config_tag])
+				out += sections[SSticker.mode.config_tag] + "<br>"
+			sections -= SSticker.mode.config_tag
 
 	for(var/i in sections)
 		if(sections[i])
@@ -655,9 +706,10 @@
 				def_value = "custom"
 
 		var/list/objective_types = list(
-			"assassinate", "prevent from escape", "pain_hunter", "steal brain", "protect", "hijack",
-			"escape", "survive", "steal", "download", "nuclear", "capture", "blood", "absorb",
-			"destroy", "identity theft", "kill all humans",
+			"assassinate", "prevent from escape", "pain_hunter", "steal brain", "protect", "escape", "survive",
+			"steal", "thief hard", "thief medium", "thief collect", "thief pet", "thief structure",
+			"download", "nuclear", "capture", "blood", "absorb",
+			"destroy", "identity theft", "hijack", "kill all humans",
 			// Цели для ниндзя //
 			"get money", "find and scan", "set up",
 			"research corrupt", "ai corrupt", "plant explosive", "cyborg hijack",
@@ -842,20 +894,80 @@
 					new_objective = objective
 				var/datum/objective/steal/steal = new_objective
 				if(!steal.select_target())
+					to_chat(usr, "<span class='warning'>Цель не обнаружена. Выберите другую или создайте её.</span>")
 					return
+
+			if("thief hard")
+				if(!istype(objective, /datum/objective/steal/hard))
+					new_objective = new /datum/objective/steal/hard
+					new_objective.owner = src
+				else
+					new_objective = objective
+				var/datum/objective/steal/hard/steal = new_objective
+				if(!steal.select_target())
+					to_chat(usr, "<span class='warning'>Цель не обнаружена. Выберите другую или создайте её.</span>")
+					return
+
+			if("thief medium")
+				if(!istype(objective, /datum/objective/steal/medium))
+					new_objective = new /datum/objective/steal/medium
+					new_objective.owner = src
+				else
+					new_objective = objective
+				var/datum/objective/steal/medium/steal = new_objective
+				if(!steal.select_target())
+					to_chat(usr, "<span class='warning'>Цель не обнаружена. Выберите другую или создайте её.</span>")
+					return
+
+			if("thief collect")
+				if(!istype(objective, /datum/objective/collect))
+					new_objective = new /datum/objective/collect
+					new_objective.owner = src
+				else
+					new_objective = objective
+				var/datum/objective/collect/steal = new_objective
+				if(!steal.select_target())
+					to_chat(usr, "<span class='warning'>Цель не обнаружена. Выберите другую или создайте её.</span>")
+					return
+
+			if("thief pet")
+				if(!istype(objective, /datum/objective/steal_pet))
+					new_objective = new /datum/objective/steal_pet
+					new_objective.owner = src
+				else
+					new_objective = objective
+				var/datum/objective/steal_pet/steal = new_objective
+				if(!steal.select_target())
+					to_chat(usr, "<span class='warning'>Цель не обнаружена. Выберите другую или создайте её.</span>")
+					return
+
+			if("thief structure")
+				if(!istype(objective, /datum/objective/steal_structure))
+					new_objective = new /datum/objective/steal_structure
+					new_objective.owner = src
+				else
+					new_objective = objective
+				var/datum/objective/steal_structure/steal = new_objective
+				if(!steal.select_target())
+					to_chat(usr, "<span class='warning'>Цель не обнаружена. Выберите другую или создайте её.</span>")
+					return
+
 
 			if("get money")
 				new_objective = new /datum/objective/get_money
 				var/datum/objective/get_money/money_objective = new_objective
-				var/temp_cash_summ
 				var/input_sum = null
-				for(var/datum/money_account/account in GLOB.all_money_accounts)
-					temp_cash_summ += account.money
-				if(alert(usr, "Do you want to pick the summ yourself? No will use 60% of cash in all accounts.", "Confirmation", "Yes", "No") == "Yes")
-					input_sum = input("Input required money sum:", "Objective") as num|null
-				money_objective.req_amount = !input_sum ? ((temp_cash_summ / 100) * 60): input_sum
-				money_objective.explanation_text = "Добудьте [money_objective.req_amount] кредитов со станции, наличкой."
+				var/accounts_procent = 60
+				if(alert(usr, "Хотите сами подобрать сумму? Если нет, то будет выбрана сумма от процентажа со всех аккаунтов.", "Введите сумму", "Yes", "No") == "Yes")
+					input_sum = input("Введите необходимую денежную сумму:", "Денежная Сумма") as num|null
+				else
+					accounts_procent = input("Введите необходимый процентаж суммы со всех аккаунтов (1-100), иначе будет 60%:", "Процентаж") as num|null
+					if(accounts_procent)
+						accounts_procent = clamp(accounts_procent, 1, 100)
+					else
+						accounts_procent = initial(accounts_procent)
 				money_objective.owner = src
+				money_objective.new_cash(input_sum, accounts_procent)
 
 			if("download","capture","absorb", "blood")
 				var/def_num
@@ -896,10 +1008,12 @@
 				if(!istype(targ))
 					log_runtime(EXCEPTION("Invalid target for identity theft objective, cancelling"), src)
 					return
-				new_objective = new /datum/objective/escape/escape_with_identity
-				new_objective.owner = src
-				new_objective.target = new_target
-				new_objective.explanation_text = "Escape on the shuttle or an escape pod with the identity of [targ.current.real_name], the [targ.assigned_role] while wearing [targ.current.p_their()] identification card."
+				var/datum/objective/escape/escape_with_identity/identity_objective = new
+				identity_objective.owner = src
+				identity_objective.target = new_target
+				identity_objective.target_real_name = targ.current.real_name
+				identity_objective.explanation_text = "Escape on the shuttle or an escape pod with the identity of [targ.current.real_name], the [targ.assigned_role] while wearing [targ.current.p_their()] identification card."
+				new_objective = identity_objective
 			if("custom")
 				var/expl = sanitize(copytext_char(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null,1,MAX_MESSAGE_LEN))
 				if(!expl)
@@ -983,10 +1097,7 @@
 
 		switch(href_list["revolution"])
 			if("clear")
-				if(src in SSticker.mode.revolutionaries)
-					SSticker.mode.remove_revolutionary(src)
-				if(src in SSticker.mode.head_revolutionaries)
-					SSticker.mode.remove_revolutionary(src)
+				remove_revolutionary_role()
 				log_admin("[key_name(usr)] has de-rev'd [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has de-rev'd [key_name_admin(current)]")
 
@@ -1041,11 +1152,9 @@
 	else if(href_list["cult"])
 		switch(href_list["cult"])
 			if("clear")
-				if(src in SSticker.mode.cult)
-					SSticker.mode.remove_cultist(src)
-					special_role = null
-					log_admin("[key_name(usr)] has de-culted [key_name(current)]")
-					message_admins("[key_name_admin(usr)] has de-culted [key_name_admin(current)]")
+				remove_cult_role()
+				log_admin("[key_name(usr)] has de-culted [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has de-culted [key_name_admin(current)]")
 			if("cultist")
 				if(!(src in SSticker.mode.cult))
 					to_chat(current, CULT_GREETING)
@@ -1066,11 +1175,9 @@
 	else if(href_list["clock"])
 		switch(href_list["clock"])
 			if("clear")
-				if(src in SSticker.mode.clockwork_cult)
-					SSticker.mode.remove_clocker(src)
-					special_role = null
-					log_admin("[key_name(usr)] has de-clocked [key_name(current)]")
-					message_admins("[key_name_admin(usr)] has de-clocked [key_name_admin(current)]")
+				remove_clocker_role()
+				log_admin("[key_name(usr)] has de-clocked [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has de-clocked [key_name_admin(current)]")
 			if("clocker")
 				if(!(src in SSticker.mode.clockwork_cult))
 					to_chat(current, CLOCK_GREETING)
@@ -1114,15 +1221,10 @@
 
 		switch(href_list["wizard"])
 			if("clear")
-				if(src in SSticker.mode.wizards)
-					SSticker.mode.wizards -= src
-					special_role = null
-					current.spellremove(current)
-					current.faction = list("Station")
-					SSticker.mode.update_wiz_icons_removed(src)
-					to_chat(current, "<span class='userdanger'><FONT size = 3>You have been brainwashed! You are no longer a wizard!</FONT></span>")
-					log_admin("[key_name(usr)] has de-wizarded [key_name(current)]")
-					message_admins("[key_name_admin(usr)] has de-wizarded [key_name_admin(current)]")
+				remove_wizard_role()
+				to_chat(current, "<span class='userdanger'><FONT size = 3>You have been brainwashed! You are no longer a wizard!</FONT></span>")
+				log_admin("[key_name(usr)] has de-wizarded [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has de-wizarded [key_name_admin(current)]")
 				if(src in SSticker.mode.apprentices)
 					SSticker.mode.apprentices -= src
 					special_role = null
@@ -1190,19 +1292,10 @@
 	else if(href_list["changeling"])
 		switch(href_list["changeling"])
 			if("clear")
-				if(src in SSticker.mode.changelings)
-					SSticker.mode.changelings -= src
-					special_role = null
-					if(changeling)
-						current.remove_changeling_powers()
-						qdel(current.middleClickOverride) // In case the old changeling has a targeted sting prepared (`datum/middleClickOverride`), delete it.
-						current.middleClickOverride = null
-						qdel(changeling)
-						changeling = null
-					SSticker.mode.update_change_icons_removed(src)
-					to_chat(current, "<FONT color='red' size = 3><B>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</B></FONT>")
-					log_admin("[key_name(usr)] has de-changelinged [key_name(current)]")
-					message_admins("[key_name_admin(usr)] has de-changelinged [key_name_admin(current)]")
+				remove_changeling_role()
+				to_chat(current, "<FONT color='red' size = 3><B>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</B></FONT>")
+				log_admin("[key_name(usr)] has de-changelinged [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has de-changelinged [key_name_admin(current)]")
 			if("changeling")
 				if(!(src in SSticker.mode.changelings))
 					SSticker.mode.changelings += src
@@ -1234,17 +1327,10 @@
 	else if(href_list["vampire"])
 		switch(href_list["vampire"])
 			if("clear")
-				if(src in SSticker.mode.vampires)
-					SSticker.mode.vampires -= src
-					special_role = null
-					if(vampire)
-						vampire.remove_vampire_powers()
-						qdel(vampire)
-						vampire = null
-					SSticker.mode.update_vampire_icons_removed(src)
-					to_chat(current, "<FONT color='red' size = 3><B>Вы ослабли и потеряли свои силы! Вы больше не вампир и теперь останетесь в своей текущей форме!</B></FONT>")
-					log_admin("[key_name(usr)] has de-vampired [key_name(current)]")
-					message_admins("[key_name_admin(usr)] has de-vampired [key_name_admin(current)]")
+				remove_vampire_role()
+				to_chat(current, "<FONT color='red' size = 3><B>Вы ослабли и потеряли свои силы! Вы больше не вампир и теперь останетесь в своей текущей форме!</B></FONT>")
+				log_admin("[key_name(usr)] has de-vampired [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has de-vampired [key_name_admin(current)]")
 			if("vampire")
 				if(!(src in SSticker.mode.vampires))
 					SSticker.mode.vampires += src
@@ -1268,26 +1354,19 @@
 	else if(href_list["vampthrall"])
 		switch(href_list["vampthrall"])
 			if("clear")
-				if(src in SSticker.mode.vampire_enthralled)
-					SSticker.mode.remove_vampire_mind(src)
-					log_admin("[key_name(usr)] has de-vampthralled [key_name(current)]")
-					message_admins("[key_name_admin(usr)] has de-vampthralled [key_name_admin(current)]")
+				remove_vampire_role()
+				log_admin("[key_name(usr)] has de-vampthralled [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has de-vampthralled [key_name_admin(current)]")
 
 	else if(href_list["nuclear"])
 		var/mob/living/carbon/human/H = current
 
 		switch(href_list["nuclear"])
 			if("clear")
-				if(src in SSticker.mode.syndicates)
-					SSticker.mode.syndicates -= src
-					SSticker.mode.update_synd_icons_removed(src)
-					special_role = null
-					for(var/datum/objective/nuclear/O in objectives)
-						objectives-=O
-						qdel(O)
-					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a syndicate operative!</B></FONT></span>")
-					log_admin("[key_name(usr)] has de-nuke op'd [key_name(current)]")
-					message_admins("[key_name_admin(usr)] has de-nuke op'd [key_name_admin(current)]")
+				remove_syndicate_role()
+				to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a syndicate operative!</B></FONT></span>")
+				log_admin("[key_name(usr)] has de-nuke op'd [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has de-nuke op'd [key_name_admin(current)]")
 			if("nuclear")
 				if(!(src in SSticker.mode.syndicates))
 					SSticker.mode.syndicates += src
@@ -1344,9 +1423,7 @@
 		switch(href_list["eventmisc"])
 			if("clear")
 				if(src in SSticker.mode.eventmiscs)
-					SSticker.mode.eventmiscs -= src
-					SSticker.mode.update_eventmisc_icons_removed(src)
-					special_role = null
+					remove_event_role()
 					message_admins("[key_name_admin(usr)] has de-eventantag'ed [current].")
 					log_admin("[key_name(usr)] has de-eventantag'ed [current].")
 			if("eventmisc")
@@ -1359,33 +1436,11 @@
 		switch(href_list["devil"])
 			if("clear")
 				if(src in SSticker.mode.devils)
-					if(istype(current,/mob/living/carbon/true_devil/))
-						to_chat(usr,"<span class='warning'>This cannot be used on true or arch-devils.</span>")
-					else
-						SSticker.mode.devils -= src
-						SSticker.mode.update_devil_icons_removed(src)
-						special_role = null
-						to_chat(current,"<span class='userdanger'>Your infernal link has been severed! You are no longer a devil!</span>")
-						RemoveSpell(/obj/effect/proc_holder/spell/targeted/infernal_jaunt)
-						RemoveSpell(/obj/effect/proc_holder/spell/targeted/click/fireball/hellish)
-						RemoveSpell(/obj/effect/proc_holder/spell/targeted/click/summon_contract)
-						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork)
-						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork/greater)
-						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork/ascended)
-						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/violin)
-						RemoveSpell(/obj/effect/proc_holder/spell/targeted/summon_dancefloor)
-						RemoveSpell(/obj/effect/proc_holder/spell/targeted/sintouch)
-						RemoveSpell(/obj/effect/proc_holder/spell/targeted/sintouch/ascended)
-						message_admins("[key_name_admin(usr)] has de-devil'ed [current].")
-						if(issilicon(current))
-							var/mob/living/silicon/S = current
-							S.laws.clear_sixsixsix_laws()
-						devilinfo = null
-						log_admin("[key_name(usr)] has de-devil'ed [current].")
+					log_admin("[key_name(usr)] has de-devil'ed [current].")
 				else if(src in SSticker.mode.sintouched)
-					SSticker.mode.sintouched -= src
 					message_admins("[key_name_admin(usr)] has de-sintouch'ed [current].")
 					log_admin("[key_name(usr)] has de-sintouch'ed [current].")
+				remove_devil_role()
 			if("devil")
 				if(devilinfo)
 					devilinfo.ascendable = FALSE
@@ -1429,12 +1484,10 @@
 	else if(href_list["traitor"])
 		switch(href_list["traitor"])
 			if("clear")
-				if(has_antag_datum(/datum/antagonist/traitor))
-					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a traitor!</B></FONT></span>")
-					remove_antag_datum(/datum/antagonist/traitor)
-					current.client.chatOutput?.clear_syndicate_codes()
-					log_admin("[key_name(usr)] has de-traitored [key_name(current)]")
-					message_admins("[key_name_admin(usr)] has de-traitored [key_name_admin(current)]")
+				remove_traitor_role()
+				to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a traitor!</B></FONT></span>")
+				log_admin("[key_name(usr)] has de-traitored [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has de-traitored [key_name_admin(current)]")
 
 			if("traitor")
 				if(!(has_antag_datum(/datum/antagonist/traitor)))
@@ -1457,24 +1510,7 @@
 		var/datum/contractor_hub/H = C && C.contractor_uplink?.hub
 		switch(href_list["contractor"])
 			if("clear")
-				if(!C)
-					return
-				var/memory = C.antag_memory // Need to preserve the codewords and such
-				// Clean up contractor stuff
-				var/obj/item/uplink/hidden/U = find_syndicate_uplink()
-				U?.contractor = null
-				C.silent = TRUE
-				remove_antag_datum(/datum/antagonist/traitor/contractor)
-				// Traitor them again
-				if(!has_antag_datum(/datum/antagonist/traitor, FALSE))
-					var/datum/antagonist/traitor/T = new()
-					T.give_objectives = FALSE
-					T.should_equip = FALSE
-					T.silent = TRUE
-					T.antag_memory += memory
-					add_antag_datum(T)
-				// Notify
-				to_chat(current, "<span class='warning'><font size=3><b>You are no longer a Contractor!</b></font></span>")
+				remove_contractor_role()
 				log_admin("[key_name(usr)] has de-contractored [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has de-contractored [key_name_admin(current)]")
 
@@ -1685,33 +1721,48 @@
 	else if(href_list["mindslave"])
 		switch(href_list["mindslave"])
 			if("clear")
-				if(has_antag_datum(/datum/antagonist/mindslave))
-					var/mob/living/carbon/human/H = current
-					for(var/i in H.contents)
-						if(istype(i, /obj/item/implant/traitor))
-							qdel(i)
-							break
-					remove_antag_datum(/datum/antagonist/mindslave)
-					log_admin("[key_name(usr)] has de-mindslaved [key_name(current)]")
-					message_admins("[key_name_admin(usr)] has de-mindslaved [key_name_admin(current)]")
+				remove_traitor_role()
+				log_admin("[key_name(usr)] has de-mindslaved [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has de-mindslaved [key_name_admin(current)]")
+
+	else if(href_list["thief"])
+		switch(href_list["thief"])
+			if("clear")
+				remove_thief_role()
+				log_admin("[key_name(usr)] has de-thiefed [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has de-thiefed [key_name_admin(current)]")
+			if("thief")
+				SSticker.mode.thieves += src
+				special_role = SPECIAL_ROLE_THIEF
+				SSticker.mode.update_thief_icons_added(src)
+				SEND_SOUND(current, 'sound/ambience/antag/thiefalert.ogg')
+				to_chat(current, "<B><font color='red'>Мои [ishuman(current) ? "руки" : "лапы"] так и чешутся чего-нибудь прикарманить!</font></B>")
+				log_admin("[key_name(usr)] has thiefed [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has thiefed [key_name_admin(current)]")
+			if("autoobjectives")
+				SSticker.mode.forge_thief_objectives(src)
+				to_chat(usr, "<span class='notice'>The objectives for thief [key] have been generated. You can edit them and announce manually.</span>")
+				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
+			if("equip")
+				if(!ishuman(current))
+					to_chat(usr, "<span class='warning'>Некуда поместить экипировку!</span>")
+					return
+				SSticker.mode.equip_thief(current)
+				log_admin("[key_name(usr)] give [key_name(current)] thief equipment")
+				message_admins("[key_name_admin(usr)] give [key_name_admin(current)] thief equipment")
 
 	else if(href_list["shadowling"])
 		switch(href_list["shadowling"])
 			if("clear")
-				SSticker.mode.update_shadow_icons_removed(src)
 				if(src in SSticker.mode.shadows)
-					SSticker.mode.shadows -= src
-					special_role = null
-					to_chat(current, "<span class='userdanger'>Your powers have been quenched! You are no longer a shadowling!</span>")
 					message_admins("[key_name_admin(usr)] has de-shadowlinged [current].")
 					log_admin("[key_name(usr)] has de-shadowlinged [current].")
-					current.spellremove(current)
-					current.remove_language("Shadowling Hivemind")
 				else if(src in SSticker.mode.shadowling_thralls)
-					SSticker.mode.remove_thrall(src,0)
 					message_admins("[key_name_admin(usr)] has de-thrall'ed [current].")
 					log_admin("[key_name(usr)] has de-thralled [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-thralled [key_name_admin(current)]")
+				remove_shadow_role()
 			if("shadowling")
 				if(!ishuman(current))
 					to_chat(usr, "<span class='warning'>This only works on humans!</span>")
@@ -1760,7 +1811,9 @@
 	else if(href_list["ninja"])
 		switch(href_list["ninja"])
 			if("clear")
-				SSticker.mode.remove_ninja(src, usr, TRUE)
+				remove_ninja_role()
+				log_and_message_admins("has removed special role \"Ninja\" from [key_name_admin(current)]")
+				add_conversion_logs(current, "De-ninjad")
 			if("ninja")
 				if(!(src in SSticker.mode.space_ninjas))
 					SSticker.mode.space_ninjas += src
@@ -1791,13 +1844,13 @@
 				if(!ninja)
 					to_chat(usr, "<span class='notice'>Ниндзя - зависим от костюма. Рандомная выдача целей, до выдачи костюма ведёт к ошибкам!</span>")
 					return
-				var/list/objective_types = list("stealthy", "generic", "aggressive")
+				var/list/objective_types = list("generic", "protector", "hacker", "killer")
 				var/objective_type = input("Select type of objectives to generate", "Objective type selection") as null|anything in objective_types
-				if(objective_type == "stealthy" || objective_type == "aggressive")
+				if(objective_type != "generic")
 					if(alert(usr, "Данный вид целей генерирует дополнительных антагонистов в раунд. Продолжить?","ВАЖНО!","Да","Нет") == "Нет")
 						return
 				if(!objective_type)
-					if(alert(usr, "Рандомный выбор типа целей имеет шанс сгенерировать дополнительных антагонистов в раунд. Продолжить генерацию?","ВАЖНО!","Да","Нет") == "Нет")
+					if(alert(usr, "Рандомный выбор типа целей имеет ВЫСОКИЙ шанс сгенерировать дополнительных антагонистов в раунд. Начать генерацию?","ВАЖНО!","Да","Нет") == "Нет")
 						return
 				SSticker.mode.forge_ninja_objectives(src, objective_type)
 				SSticker.mode.basic_ninja_needs_check(src)
@@ -1952,6 +2005,176 @@
 		var/datum/antagonist/A = a
 		A.on_removal()
 
+/datum/mind/proc/remove_revolutionary_role()
+	if(src in SSticker.mode.revolutionaries)
+		SSticker.mode.remove_revolutionary(src)
+	if(src in SSticker.mode.head_revolutionaries)
+		SSticker.mode.remove_revolutionary(src)
+
+/datum/mind/proc/remove_cult_role()
+	if(src in SSticker.mode.cult)
+		SSticker.mode.remove_cultist(src)
+		special_role = null
+
+/datum/mind/proc/remove_clocker_role()
+	if(src in SSticker.mode.clockwork_cult)
+		SSticker.mode.remove_clocker(src)
+		special_role = null
+
+/datum/mind/proc/remove_wizard_role()
+	if(src in SSticker.mode.wizards)
+		SSticker.mode.wizards -= src
+		special_role = null
+		current.spellremove(current)
+		current.faction = list("Station")
+		SSticker.mode.update_wiz_icons_removed(src)
+	if(src in SSticker.mode.apprentices)
+		SSticker.mode.apprentices -= src
+		special_role = null
+		current.spellremove(current)
+		current.faction = list("Station")
+		SSticker.mode.update_wiz_icons_removed(src)
+
+/datum/mind/proc/remove_changeling_role()
+	if(src in SSticker.mode.changelings)
+		SSticker.mode.changelings -= src
+		special_role = null
+		if(changeling)
+			current.remove_changeling_powers()
+			qdel(current.middleClickOverride) // In case the old changeling has a targeted sting prepared (`datum/middleClickOverride`), delete it.
+			current.middleClickOverride = null
+			qdel(changeling)
+			changeling = null
+		SSticker.mode.update_change_icons_removed(src)
+
+/datum/mind/proc/remove_vampire_role()
+	if(src in SSticker.mode.vampires)
+		SSticker.mode.vampires -= src
+		special_role = null
+		if(vampire)
+			vampire.remove_vampire_powers()
+			qdel(vampire)
+			vampire = null
+		SSticker.mode.update_vampire_icons_removed(src)
+	if(src in SSticker.mode.vampire_enthralled)
+		SSticker.mode.remove_vampire_mind(src)
+		log_admin("[key_name(usr)] has de-vampthralled [key_name(current)]")
+		message_admins("[key_name_admin(usr)] has de-vampthralled [key_name_admin(current)]")
+
+/datum/mind/proc/remove_syndicate_role()
+	if(src in SSticker.mode.syndicates)
+		SSticker.mode.syndicates -= src
+		SSticker.mode.update_synd_icons_removed(src)
+		special_role = null
+		for(var/datum/objective/nuclear/O in objectives)
+			objectives-=O
+			qdel(O)
+
+/datum/mind/proc/remove_event_role()
+	if(src in SSticker.mode.eventmiscs)
+		SSticker.mode.eventmiscs -= src
+		SSticker.mode.update_eventmisc_icons_removed(src)
+		special_role = null
+
+/datum/mind/proc/remove_devil_role()
+	if(src in SSticker.mode.devils)
+		if(istype(current,/mob/living/carbon/true_devil/))
+		else
+			SSticker.mode.devils -= src
+			SSticker.mode.update_devil_icons_removed(src)
+			special_role = null
+			RemoveSpell(/obj/effect/proc_holder/spell/targeted/infernal_jaunt)
+			RemoveSpell(/obj/effect/proc_holder/spell/targeted/click/fireball/hellish)
+			RemoveSpell(/obj/effect/proc_holder/spell/targeted/click/summon_contract)
+			RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork)
+			RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork/greater)
+			RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork/ascended)
+			RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/violin)
+			RemoveSpell(/obj/effect/proc_holder/spell/targeted/summon_dancefloor)
+			RemoveSpell(/obj/effect/proc_holder/spell/targeted/sintouch)
+			RemoveSpell(/obj/effect/proc_holder/spell/targeted/sintouch/ascended)
+			if(issilicon(current))
+				var/mob/living/silicon/S = current
+				S.laws.clear_sixsixsix_laws()
+			devilinfo = null
+	else if(src in SSticker.mode.sintouched)
+		SSticker.mode.sintouched -= src
+
+/datum/mind/proc/remove_contractor_role()
+	if(has_antag_datum(/datum/antagonist/traitor/contractor))
+		var/datum/antagonist/traitor/contractor/C = has_antag_datum(/datum/antagonist/traitor/contractor)
+		var/memory = C.antag_memory // Need to preserve the codewords and such
+		// Clean up contractor stuff
+		var/obj/item/uplink/hidden/U = find_syndicate_uplink()
+		U?.contractor = null
+		C.silent = TRUE
+		remove_antag_datum(/datum/antagonist/traitor/contractor)
+		// Traitor them again
+		if(!has_antag_datum(/datum/antagonist/traitor, FALSE))
+			var/datum/antagonist/traitor/T = new()
+			T.give_objectives = FALSE
+			T.should_equip = FALSE
+			T.silent = TRUE
+			T.antag_memory += memory
+			add_antag_datum(T)
+
+/datum/mind/proc/remove_traitor_role()
+	if(has_antag_datum(/datum/antagonist/traitor/contractor))
+		var/datum/antagonist/traitor/contractor/C = has_antag_datum(/datum/antagonist/traitor/contractor)
+		// Clean up contractor stuff
+		var/obj/item/uplink/hidden/U = find_syndicate_uplink()
+		U?.contractor = null
+		C.silent = TRUE
+		remove_antag_datum(/datum/antagonist/traitor/contractor)
+
+	if(has_antag_datum(/datum/antagonist/traitor))
+		remove_antag_datum(/datum/antagonist/traitor)
+		current.client.chatOutput?.clear_syndicate_codes()
+
+	if(has_antag_datum(/datum/antagonist/mindslave))
+		var/mob/living/carbon/human/H = current
+		for(var/i in H.contents)
+			if(istype(i, /obj/item/implant/traitor))
+				qdel(i)
+				break
+
+/datum/mind/proc/remove_thief_role()
+	if(src in SSticker.mode.thieves)
+		SSticker.mode.remove_thief(src)
+
+/datum/mind/proc/remove_shadow_role()
+	SSticker.mode.update_shadow_icons_removed(src)
+	if(src in SSticker.mode.shadows)
+		SSticker.mode.shadows -= src
+		special_role = null
+		current.spellremove(current)
+		current.remove_language("Shadowling Hivemind")
+	else if(src in SSticker.mode.shadowling_thralls)
+		SSticker.mode.remove_thrall(src,0)
+
+/datum/mind/proc/remove_ninja_role()
+	if(src in SSticker.mode.space_ninjas)
+		SSticker.mode.remove_ninja(src, usr, TRUE)
+
+/datum/mind/proc/remove_all_antag_roles(adminlog = TRUE) // Except abductor, because it isnt implemented in admin panel
+	remove_revolutionary_role()
+	remove_cult_role()
+	remove_clocker_role()
+	remove_wizard_role()
+	remove_changeling_role()
+	remove_vampire_role()
+	remove_syndicate_role()
+	remove_event_role()
+	remove_devil_role()
+	remove_traitor_role()
+	remove_thief_role()
+	remove_shadow_role()
+	remove_ninja_role()
+
+	if(adminlog)
+		message_admins("[ADMIN_LOOKUP(current)] lost all antag roles")
+		log_admin("[key_name_log(current)] lost all antag roles")
+
 /datum/mind/proc/has_antag_datum(datum_type, check_subtypes = TRUE)
 	if(!datum_type)
 		return
@@ -2059,7 +2282,7 @@
 		SSticker.mode.greet_wizard(src)
 		SSticker.mode.update_wiz_icons_added(src)
 
-/datum/mind/proc/make_Space_Ninja()
+/datum/mind/proc/make_Space_Ninja(datum/objective/custom_objective = null)
 	if(!(src in SSticker.mode.space_ninjas))
 		SSticker.mode.space_ninjas += src
 		special_role = SPECIAL_ROLE_SPACE_NINJA
@@ -2075,10 +2298,8 @@
 		SSticker.mode.greet_ninja(src)
 		SSticker.mode.equip_space_ninja(ninja_mob)
 		SSticker.mode.give_ninja_datum(src)
-		//Стелс цели так же генерят трейторов. И я подозреваю мы не очень хотим закидывать вместе с ниндзя - трейторов в уже идущий раунд
-		//Теперь агрессивные цели генерят генокрадов, поэтому они тоже отпадают
-		var/objective_type = "generic" //pick("generic", "aggressive")
-		SSticker.mode.forge_ninja_objectives(src, objective_type)
+		//"generic" only, we don't want to spawn other antag's
+		SSticker.mode.forge_ninja_objectives(src, "generic", custom_objective)
 		SSticker.mode.basic_ninja_needs_check(src)
 
 /datum/mind/proc/make_Rev()
@@ -2086,6 +2307,16 @@
 	SSticker.mode.forge_revolutionary_objectives(src)
 	SSticker.mode.equip_revolutionary(current)
 	SSticker.mode.greet_revolutionary(src,0)
+
+
+/datum/mind/proc/make_Thief()
+	if(!(src in SSticker.mode.thieves))
+		SSticker.mode.thieves += src
+	special_role = SPECIAL_ROLE_THIEF
+	SSticker.mode.forge_thief_objectives(src)
+	SSticker.mode.equip_thief(current)
+	SSticker.mode.update_thief_icons_added(src)
+	SSticker.mode.greet_thief(src)
 
 /datum/mind/proc/make_Abductor()
 	var/role = alert("Abductor Role ?","Role","Agent","Scientist")
@@ -2326,6 +2557,7 @@
 	mind.assigned_role = "Cyborg"
 	if(is_taipan(z))
 		give_taipan_hud()
+		GLOB.taipan_players_active += mind
 
 //PAI
 /mob/living/silicon/pai/mind_initialize()

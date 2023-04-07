@@ -128,6 +128,7 @@
 	var/stuttering = 0
 	var/weakened = 0
 	var/disgust = 0
+	var/last_emote = null
 
 // RESTING
 
@@ -232,7 +233,9 @@
 
 /mob/living/SetEyeBlind(amount, updating = TRUE)
 	. = STATUS_UPDATE_BLIND
-	if((!!amount) == (!!eye_blind)) // We're not changing from + to 0 or vice versa
+	var/should_have_blindness_overlay = !!amount
+	var/has_blindness_overlay = ("blind" in screens)
+	if(should_have_blindness_overlay == has_blindness_overlay)
 		updating = FALSE
 		. = STATUS_UPDATE_NONE
 	eye_blind = max(amount, 0)

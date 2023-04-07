@@ -36,7 +36,6 @@
 	var/sql_enabled = 0					// for sql switching
 	var/allow_admin_ooccolor = 0		// Allows admins with relevant permissions to have their own ooc colour
 	var/pregame_timestart = 240			// Time it takes for the server to start the game
-	var/allow_vote_restart = 0 			// allow votes to restart
 	var/allow_vote_mode = 0				// allow votes to change mode
 	var/vote_delay = 6000				// minimum time between voting sessions (deciseconds, 10 minute default)
 	var/vote_period = 600				// length of voting period (deciseconds, default 1 minute)
@@ -116,6 +115,7 @@
 	var/repositoryurl = "http://example.org"
 	var/discordurl = "http://example.org"
 	var/discordforumurl = "http://example.org"
+	var/discordbugreporturl = "http://example.org"
 
 	var/overflow_server_url
 	var/tutorial_server_url
@@ -309,6 +309,10 @@
 	/// the amount of players needed to automatically switch gamemode to extended. Doesn't work if set to zero
 	var/auto_extended_players_num = 0
 
+	var/map_rotate = "none"
+	var/default_map = null
+	var/override_map = null
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
@@ -489,9 +493,6 @@
 				if("pregame_timestart")
 					config.pregame_timestart = text2num(value)
 
-				if("allow_vote_restart")
-					config.allow_vote_restart = 1
-
 				if("allow_vote_mode")
 					config.allow_vote_mode = 1
 
@@ -563,6 +564,9 @@
 
 				if("discordforumurl")
 					config.discordforumurl = value
+
+				if("discordbugreporturl")
+					config.discordbugreporturl = value
 
 				if("donationsurl")
 					config.donationsurl = value
@@ -878,6 +882,21 @@
 				if("auto_extended_players_num")
 					config.auto_extended_players_num = text2num(value)
 
+				if("ffmpeg_cpuaffinity")
+					var/sanitized = regex(@"[^0-9,-]", "g").Replace(value, "")
+					if(value != sanitized)
+						log_config("Wrong value for setting in configuration: '[name]'. Check out taskset man page.")
+					GLOB.ffmpeg_cpuaffinity = value
+
+				if("map_rotate")
+					config.map_rotate = value
+
+				if("default_map")
+					config.default_map = value
+
+				if("override_map")
+					config.override_map = value
+
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 
@@ -915,13 +934,13 @@
 				if("bones_can_break")
 					config.bones_can_break = value
 				if("shuttle_refuel_delay")
-					config.shuttle_refuel_delay     = text2num(value)
+					config.shuttle_refuel_delay     = value
 				if("traitor_objectives_amount")
-					config.traitor_objectives_amount = text2num(value)
+					config.traitor_objectives_amount = value
 				if("reactionary_explosions")
 					config.reactionary_explosions	= 1
 				if("bombcap")
-					var/BombCap = text2num(value)
+					var/BombCap = value
 					if(!BombCap)
 						continue
 					if(BombCap < 4)
@@ -935,17 +954,17 @@
 					GLOB.max_ex_flash_range = BombCap
 					GLOB.max_ex_flame_range = BombCap
 				if("default_laws")
-					config.default_laws = text2num(value)
+					config.default_laws = value
 				if("randomize_shift_time")
 					config.randomize_shift_time = TRUE
 				if("enable_night_shifts")
 					config.enable_night_shifts = TRUE
 				if("lavaland_budget")
-					config.lavaland_budget = text2num(value)
+					config.lavaland_budget = value
 				if("cubemonkey_cap")
-					config.cubemonkeycap = text2num(value)
+					config.cubemonkeycap = value
 				if("can_cult_convert")
-					config.can_cult_convert = text2num(value)
+					config.can_cult_convert = value
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 

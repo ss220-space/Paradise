@@ -88,7 +88,7 @@
 		return
 
 	if(!breath || (breath.total_moles() == 0))
-		if(isspaceturf(loc))
+		if(isspaceturf(H.loc))
 			H.adjustOxyLoss(10)
 		else
 			H.adjustOxyLoss(5)
@@ -333,7 +333,6 @@
 	icon = 'icons/obj/species_organs/drask.dmi'
 
 	cold_message = "an invigorating coldness"
-	cold_level_3_threshold = 60
 	cold_level_1_damage = -COLD_GAS_DAMAGE_LEVEL_1 //They heal when the air is cold
 	cold_level_2_damage = -COLD_GAS_DAMAGE_LEVEL_2
 	cold_level_3_damage = -COLD_GAS_DAMAGE_LEVEL_3

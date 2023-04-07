@@ -6,6 +6,7 @@ GLOBAL_VAR_INIT(CHARGELEVEL, 0.001) // Cap for how fast cells charge, as a perce
 
 // Announcer intercom, because too much stuff creates an intercom for one message then qdel()s it.
 GLOBAL_DATUM_INIT(global_announcer, /obj/item/radio/intercom, create_global_announcer())
+GLOBAL_VAR_INIT(global_announcer_base_text, "$name, $rank, $join_message.")
 GLOBAL_DATUM_INIT(command_announcer, /obj/item/radio/intercom/command, create_command_announcer())
 
 // Load order issues means this can't be new'd until other code runs
@@ -86,9 +87,6 @@ GLOBAL_VAR_INIT(copier_items_printed, 0)
 GLOBAL_VAR_INIT(copier_max_items, 500)
 GLOBAL_VAR_INIT(copier_items_printed_logged, FALSE)
 
-
-GLOBAL_VAR(map_name) // Self explanatory
-
 GLOBAL_DATUM_INIT(data_core, /datum/datacore, new) // Station datacore, manifest, etc
 
 GLOBAL_VAR_INIT(panic_bunker_enabled, FALSE) // Is the panic bunker enabled
@@ -96,3 +94,7 @@ GLOBAL_VAR_INIT(pending_server_update, FALSE)
 
 GLOBAL_LIST_EMPTY(ability_verbs) // Create-level abilities
 GLOBAL_LIST_INIT(pipe_colors, list("grey" = PIPE_COLOR_GREY, "red" = PIPE_COLOR_RED, "blue" = PIPE_COLOR_BLUE, "cyan" = PIPE_COLOR_CYAN, "green" = PIPE_COLOR_GREEN, "yellow" = PIPE_COLOR_YELLOW, "purple" = PIPE_COLOR_PURPLE))
+
+GLOBAL_VAR(genname) //Nanotrasen officer name for fax send via fax panel, randoms every round
+
+GLOBAL_VAR_INIT(pacifism_after_gt, FALSE)

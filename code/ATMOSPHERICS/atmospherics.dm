@@ -18,7 +18,6 @@ Pipelines + Other Objects -> Pipe network
 	active_power_usage = 0
 	power_channel = ENVIRON
 	on_blueprints = TRUE
-	var/nodealert = 0
 	var/can_unwrench = 0
 
 	var/connect_types[] = list(1) //1=regular, 2=supply, 3=scrubber
@@ -156,6 +155,13 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/replacePipenet()
 	return
 
+/**
+ * Whether or not this atmos machine has multiple pipenets attached to it
+ * Used to determine if a ventcrawler should update their vision or not
+ */
+/obj/machinery/atmospherics/proc/is_pipenet_split()
+	return FALSE
+
 /obj/machinery/atmospherics/proc/build_network(remove_deferral = FALSE)
 	// Called to build a network from this node
 	if(remove_deferral)
@@ -197,7 +203,7 @@ Pipelines + Other Objects -> Pipe network
 			to_chat(user, "<span class='warning'>As you begin unwrenching \the [src] a gust of air blows in your face... maybe you should reconsider?</span>")
 			unsafe_wrenching = TRUE //Oh dear oh dear
 
-		if(do_after(user, 40 * W.toolspeed, target = src) && !QDELETED(src))
+		if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src) && !QDELETED(src))
 			user.visible_message( \
 				"[user] unfastens \the [src].", \
 				"<span class='notice'>You have unfastened \the [src].</span>", \
@@ -299,7 +305,7 @@ Pipelines + Other Objects -> Pipe network
 			user.forceMove(target_move.loc) //handles entering and so on
 			user.visible_message("You hear something squeezing through the ducts.", "You climb out the ventilation system.")
 		else if(target_move.can_crawl_through())
-			if(returnPipenet() != target_move.returnPipenet())
+			if(is_pipenet_split()) // Going away from a split means we want to update the view of the pipenet
 				user.update_pipe_vision(target_move)
 			user.loc = target_move
 			user.client.eye = target_move //if we don't do this, Byond only updates the eye every tick - required for smooth movement

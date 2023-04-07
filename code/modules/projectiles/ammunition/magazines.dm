@@ -75,6 +75,12 @@
 	caliber = "n762"
 	max_ammo = 7
 
+/obj/item/ammo_box/magazine/internal/cylinder/rev36
+	name = ".36 revolver cylinder"
+	ammo_type = /obj/item/ammo_casing/c38/c36
+	caliber = ".36"
+	max_ammo = 6
+
 /obj/item/ammo_box/magazine/internal/cylinder/cap
 	name = "cap gun revolver cylinder"
 	desc = "Oh god, this shouldn't be here"
@@ -316,6 +322,17 @@
 /obj/item/ammo_box/magazine/smgm9mm/update_icon()
 	..()
 	icon_state = "[initial(icon_state)]-[round(ammo_count()+1,4)]"
+
+/obj/item/ammo_box/magazine/sfg9mm
+	icon_state = "sfg5"
+	name = "SFG Magazine (9mm)"
+	ammo_type = /obj/item/ammo_casing/c9mm
+	caliber = "9mm"
+	max_ammo = 30
+
+/obj/item/ammo_box/magazine/sfg9mm/update_icon()
+	..()
+	icon_state = "[initial(icon_state)]-[round(ammo_count(), 30)]"
 
 /obj/item/ammo_box/magazine/pistolm9mm
 	name = "pistol magazine (9mm)"

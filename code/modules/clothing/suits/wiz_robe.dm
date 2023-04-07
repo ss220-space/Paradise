@@ -71,6 +71,7 @@
 	icon_state = "magus"
 	item_state = "magus"
 	dog_fashion = null
+	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 
 /obj/item/clothing/head/wizard/amp
 	name = "psychic amplifier"
@@ -172,6 +173,10 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	resistance_flags = FLAMMABLE
 	magical = FALSE
+
+/obj/item/clothing/head/wizard/marisa/fake/alt
+	icon_state = "marisa_alt"
+	item_state = "marisa_alt"
 
 /obj/item/clothing/suit/wizrobe/marisa/fake
 	name = "Witch Robe"

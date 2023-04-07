@@ -205,7 +205,10 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		"talisman.png"              = 'icons/paper_icons/talisman.png',
 		"ntlogo.png"                = 'icons/paper_icons/ntlogo.png',
 		"syndielogo.png"		    = 'icons/paper_icons/syndielogo.png',
-		"large_stamp-mime.png"      = 'icons/paper_icons/large_stamp-mime.png'
+		"large_stamp-mime.png"      = 'icons/paper_icons/large_stamp-mime.png',
+		"thieflogo.png"		    	= 'icons/paper_icons/thieflogo.png',
+		"large_stamp-ploho.png"		= 'icons/paper_icons/large_stamp-ploho.png',
+		"large_stamp-BIGdeny.png"	= 'icons/paper_icons/large_stamp-BIGdeny.png'
 	)
 
 /datum/asset/simple/chess
@@ -323,6 +326,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		"Cyberiad_nanomap_z1.png"		= 'icons/_nanomaps/Cyberiad_nanomap_z1.png',
 		"Delta_nanomap_z1.png"			= 'icons/_nanomaps/Delta_nanomap_z1.png',
 		"MetaStation_nanomap_z1.png"	= 'icons/_nanomaps/MetaStation_nanomap_z1.png',
+		"Cerestation_nanomap_z1.png"		= 'icons/_nanomaps/Cerestation_nanomap_z1.png',
 	)
 
 /datum/asset/simple/safe

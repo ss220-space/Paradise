@@ -17,6 +17,7 @@
 	var/cooked_type = null  //for microwave cooking. path of the resulting item after microwaving
 	var/total_w_class = 0 //for the total weight an item of food can carry
 	var/list/tastes  // for example list("crisps" = 2, "salt" = 1)
+	var/opened = TRUE // FALSE if it needed to be opened first
 
 /obj/item/reagent_containers/food/snacks/add_initial_reagents()
 	if(tastes && tastes.len)
@@ -29,6 +30,17 @@
 					reagents.add_reagent(rid, amount)
 	else
 		..()
+
+/obj/item/reagent_containers/food/snacks/New()
+	if(!opened)
+		update_icon()
+	..()
+
+/obj/item/reagent_containers/food/snacks/update_icon()
+	if(!opened)
+		icon_state = "[initial(icon_state)]-closed"
+	else
+		icon_state = "[initial(icon_state)]"
 
 //Placeholder for effect that trigger on eating that aren't tied to reagents.
 /obj/item/reagent_containers/food/snacks/proc/On_Consume(mob/M, mob/user)
@@ -49,13 +61,29 @@
 	return
 
 /obj/item/reagent_containers/food/snacks/attack_self(mob/user)
-	return
+	if(!opened)
+		opened = TRUE
+		to_chat(user, "<span class='notice'>You open the [src].</span>")
+		update_icon()
+		return ..()
+	else
+		return
 
 /obj/item/reagent_containers/food/snacks/attack(mob/M, mob/user, def_zone)
+	if(!opened)
+		to_chat(user, "<span class='notice'>You need to open the [src]!</span>")
+		return
 	if(reagents && !reagents.total_volume)						//Shouldn't be needed but it checks to see if it has anything left in it.
 		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
 		M.unEquip(src)	//so icons update :[
 		qdel(src)
+		return FALSE
+
+	if(!get_location_accessible(M, "mouth"))
+		if(M == user)
+			to_chat(user, "<span class='warning'>Your face is obscured, so you cant eat.</span>")
+		else
+			to_chat(user, "<span class='warning'>[M]'s face is obscured, so[M.p_they()] cant eat.</span>")
 		return FALSE
 
 	if(iscarbon(M))

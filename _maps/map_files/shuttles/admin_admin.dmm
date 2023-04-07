@@ -88,7 +88,7 @@
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/hatch{
 	name = "NVT Argos";
-	req_access = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -237,7 +237,7 @@
 	frequency = 1331;
 	id_tag = "admin_s_sensor";
 	pixel_y = 26;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -261,7 +261,7 @@
 	frequency = 1331;
 	id_tag = "admin_s_outer";
 	name = "Ship External Access";
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -308,7 +308,7 @@
 	frequency = 1331;
 	id_tag = "admin_s_outer";
 	name = "Ship External Access";
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /obj/machinery/access_button{
 	command = "cycle_exterior";
@@ -316,7 +316,7 @@
 	master_tag = "admin_s_air_control";
 	pixel_x = -1;
 	pixel_y = -29;
-	req_one_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -576,7 +576,7 @@
 	color = "#22aab7";
 	dir = 8;
 	icon_state = "rightsecure";
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/carpet/black,
 /area/shuttle/administration)
@@ -597,15 +597,15 @@
 /area/shuttle/administration)
 "oK" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag/blood/AMinus,
-/obj/item/reagent_containers/iv_bag/blood/APlus,
-/obj/item/reagent_containers/iv_bag/blood/BMinus,
-/obj/item/reagent_containers/iv_bag/blood/BPlus,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/reagent_containers/iv_bag/blood/OPlus,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/machinery/iv_drip,
 /obj/item/reagent_containers/iv_bag/salglu,
 /obj/item/tank/internals/emergency_oxygen/engi,
@@ -674,7 +674,7 @@
 	id_tag = "adminshuttle";
 	name = "Medbay";
 	opacity = 1;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /obj/effect/turf_decal/stripes/black{
 	dir = 8;
@@ -758,7 +758,7 @@
 	frequency = 1331;
 	id_tag = "admin_s_air_control";
 	pixel_y = 24;
-	req_access_txt = "152";
+	req_access = list(152);
 	tag_airpump = "admin_s_pump";
 	tag_chamber_sensor = "admin_s_sensor";
 	tag_exterior_door = "admin_s_outer";
@@ -837,7 +837,7 @@
 	frequency = 1331;
 	id_tag = "admin_s_inner";
 	name = "Ship External Access";
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /obj/machinery/access_button{
 	command = "cycle_interior";
@@ -845,7 +845,7 @@
 	master_tag = "admin_s_air_control";
 	pixel_x = -1;
 	pixel_y = -29;
-	req_one_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -867,7 +867,7 @@
 	frequency = 1331;
 	id_tag = "admin_s_inner";
 	name = "Ship External Access";
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -950,7 +950,7 @@
 	id_tag = "adminshuttle";
 	name = "Workshop";
 	opacity = 1;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -1102,7 +1102,7 @@
 	id_tag = "adminshuttle";
 	name = "Bridge";
 	opacity = 1;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /obj/effect/turf_decal/stripes/black{
 	dir = 8;

@@ -46,8 +46,10 @@
 			update_icon()
 			return 1
 
-/obj/item/gun/projectile/automatic/ui_action_click()
-	burst_select()
+/obj/item/gun/projectile/automatic/ui_action_click(var/owner, var/action_type)
+    if (ispath(action_type, /datum/action/item_action/toggle_firemode))
+        burst_select()
+        return TRUE
 
 /obj/item/gun/projectile/automatic/proc/burst_select()
 	var/mob/living/carbon/human/user = usr
@@ -124,8 +126,8 @@
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	fire_delay = 2
 	can_suppress = 0
-	burst_size = 1
-	actions_types = list()
+	can_flashlight = 1
+	burst_size = 2
 	can_bayonet = TRUE
 	knife_x_offset = 25
 	knife_y_offset = 12
@@ -133,6 +135,18 @@
 /obj/item/gun/projectile/automatic/wt550/update_icon()
 	..()
 	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(0)/4, 1)*4]" : ""]"
+
+	if(gun_light)
+		var/iconF = "wt-light"
+		if(gun_light.on)
+			iconF = "wt-light-on"
+		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
+
+/obj/item/gun/projectile/automatic/wt550/ui_action_click(var/owner, var/action_type)
+    if(..()) return TRUE
+    if (action_type == /datum/action/item_action/toggle_gunlight)
+        toggle_gunlight()
+        return TRUE
 
 //Type-U3 Uzi//
 /obj/item/gun/projectile/automatic/mini_uzi
@@ -327,3 +341,29 @@
 /obj/item/gun/projectile/automatic/lasercarbine/update_icon()
 	..()
 	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
+
+//Semi-Machine Gun SFG
+
+/obj/item/gun/projectile/automatic/sfg
+	name = "SFG-5 SMG"
+	desc = "Данное оружие, созданное для различных спецслужб по всей галактике одной компанией, имеет в качестве калибра 9мм, возможность стрельбы очередями отсечкой по 3 патрона и имеет место для фонарика и глушителя."
+	icon_state = "sfg-5"
+	item_state = "arg"
+	mag_type = /obj/item/ammo_box/magazine/sfg9mm
+	burst_size = 3
+	can_flashlight = TRUE
+
+/obj/item/gun/projectile/automatic/sfg/update_icon()
+	..()
+	icon_state = "[initial(icon_state)][magazine ? "" : "-e"][suppressed ? "-suppressed" : ""]"
+	if(gun_light)
+		var/iconF = "sfg-light"
+		if(gun_light.on)
+			iconF = "sfg-light-on"
+		overlays += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
+
+/obj/item/gun/projectile/automatic/sfg/ui_action_click(var/owner, var/action_type)
+    if(..()) return TRUE
+    if (action_type == /datum/action/item_action/toggle_gunlight)
+        toggle_gunlight()
+        return TRUE

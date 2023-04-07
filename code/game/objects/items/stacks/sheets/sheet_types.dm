@@ -9,6 +9,7 @@
  * Runed Metal (cult)
  * Brass (clockwork cult)
  * Bamboo
+ * Cheese
  */
 
 /*
@@ -187,6 +188,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe("Baseball bat", /obj/item/melee/baseball_bat, 5, time = 15),
 	new /datum/stack_recipe("Bookcase", /obj/structure/bookcase, 5, time = 50, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Coffin", /obj/structure/closet/coffin, 5, time = 15, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("Сoat rack", /obj/structure/coatrack, 10, time = 10, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Display case chassis", /obj/structure/displaycase_chassis, 5, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Dog bed", /obj/structure/bed/dogbed, 10, time = 10, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Dresser", /obj/structure/dresser, 30, time = 50, one_per_turf = TRUE, on_floor = TRUE),
@@ -198,8 +200,16 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe("Ore box", /obj/structure/ore_box, 4, time = 50, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Rake", /obj/item/cultivator/rake, 5, time = 10),
 	new /datum/stack_recipe("Rifle stock", /obj/item/weaponcrafting/stock, 10, time = 40),
+	new /datum/stack_recipe("Tribune", /obj/structure/tribune, 5, time = 50, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Wooden bucket", /obj/item/reagent_containers/glass/bucket/wooden, 3, time = 10),
 	new /datum/stack_recipe("Wooden buckler", /obj/item/shield/riot/buckler, 20, time = 40),
+	new /datum/stack_recipe_list("Wooden railings", list(
+		new /datum/stack_recipe("Wooden railing", /obj/structure/railing/wooden, 5, time = 40, on_floor = TRUE, one_per_turf = TRUE),
+		new /datum/stack_recipe("Wooden railing corner (right)", /obj/structure/railing/wooden/cornerr, 5, time = 40, on_floor = TRUE, one_per_turf = TRUE),
+		new /datum/stack_recipe("Wooden railing corner (left)", /obj/structure/railing/wooden/cornerl, 5, time = 40, on_floor = TRUE, one_per_turf = TRUE),
+		new /datum/stack_recipe("Wooden railing end (right)", /obj/structure/railing/wooden/endr, 5, time = 40, on_floor = TRUE, one_per_turf = TRUE),
+		new /datum/stack_recipe("Wooden railing end (left)", /obj/structure/railing/wooden/endl, 5, time = 40, on_floor = TRUE, one_per_turf = TRUE),
+	)),
 	new /datum/stack_recipe("Wooden sandals", /obj/item/clothing/shoes/sandal),
 	null,
 	new /datum/stack_recipe_list("Pews", list(
@@ -207,7 +217,16 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 		new /datum/stack_recipe("Pew (left)", /obj/structure/chair/sofa/pew/left, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("Pew (right)", /obj/structure/chair/sofa/pew/right, one_per_turf = TRUE, on_floor = TRUE),
 	)),
-	new /datum/stack_recipe("Wood floor tile", /obj/item/stack/tile/wood, res_amount = 4, max_res_amount = 20),
+	new /datum/stack_recipe_list("Wooden floor tiles", list(
+		new /datum/stack_recipe("Wood floor tile", /obj/item/stack/tile/wood, res_amount = 4, max_res_amount = 20),
+		new /datum/stack_recipe("Oak floor tile", /obj/item/stack/tile/wood/oak, res_amount = 4, max_res_amount = 20),
+		new /datum/stack_recipe("Birch floor tile", /obj/item/stack/tile/wood/birch, res_amount = 4, max_res_amount = 20),
+		new /datum/stack_recipe("Cherry floor tile", /obj/item/stack/tile/wood/cherry, res_amount = 4, max_res_amount = 20),
+		new /datum/stack_recipe("Fancy oak floor tile", /obj/item/stack/tile/wood/fancy/oak, res_amount = 4, max_res_amount = 20),
+		new /datum/stack_recipe("Fancy light oak floor tile", /obj/item/stack/tile/wood/fancy/light, res_amount = 4, max_res_amount = 20),
+		new /datum/stack_recipe("Fancy birch floor tile", /obj/item/stack/tile/wood/fancy/birch, res_amount = 4, max_res_amount = 20),
+		new /datum/stack_recipe("Fancy cherry floor tile", /obj/item/stack/tile/wood/fancy/cherry, res_amount = 4, max_res_amount = 20)
+	)),
 	new /datum/stack_recipe("Wood table frame", /obj/structure/table_frame/wood, 2, time = 10),
 	new /datum/stack_recipe("Wooden barricade", /obj/structure/barricade/wooden, 5, time = 50, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Wooden chair", /obj/structure/chair/wood, 3, time = 10, one_per_turf = TRUE, on_floor = TRUE),
@@ -247,6 +266,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list(
 	null,
 	new /datum/stack_recipe("Backpack", /obj/item/storage/backpack, 4),
 	new /datum/stack_recipe("Dufflebag", /obj/item/storage/backpack/duffel, 6),
+	new /datum/stack_recipe("Garmentbag", /obj/item/storage/garmentbag, 8),
 	new /datum/stack_recipe_list("Job specific bags", list(
 		new /datum/stack_recipe("Bio bag", /obj/item/storage/bag/bio, 4),
 		new /datum/stack_recipe("Book bag", /obj/item/storage/bag/books, 4),
@@ -656,3 +676,36 @@ GLOBAL_LIST_INIT(bamboo_recipes, list(
 /obj/item/stack/sheet/bamboo/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.bamboo_recipes
 	return ..()
+
+
+/*
+ * Cheese
+ */
+
+GLOBAL_LIST_INIT(cheese_recipes, list(
+	new /datum/stack_recipe("Cheesus statue", /obj/structure/statue/cheese/cheesus, 5, one_per_turf = TRUE, time = 100, on_floor = TRUE),
+))
+
+/obj/item/stack/sheet/cheese
+	name = "reinforced cheese"
+	desc = "A stack of cheese that seems sturdier than regular cheese."
+	icon_state = "sheet-cheese"
+	item_state = "sheet-cheese"
+	icon = 'icons/obj/items.dmi'
+	singular_name = "reinforced cheese block"
+	sheettype = "cheese"
+	force = 5
+	throwforce = 5
+	w_class = WEIGHT_CLASS_NORMAL
+	throw_speed = 1
+	throw_range = 3
+	max_amount = 15
+	resistance_flags = FLAMMABLE
+	merge_type = /obj/item/stack/sheet/cheese
+
+/obj/item/stack/sheet/cheese/Initialize(mapload, new_amount, merge = TRUE)
+	recipes = GLOB.cheese_recipes
+	. = ..()
+
+/obj/item/stack/sheet/cheese/fifteen
+	amount = 15

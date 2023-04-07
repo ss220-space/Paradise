@@ -265,7 +265,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(d_disk && d_disk.blueprint)
 		files.AddDesign2Known(d_disk.blueprint)
 	else if(t_disk && t_disk.stored)
-		files.AddTech2Known(t_disk.stored)
+		var/datum/tech/tech_copy = t_disk.stored.copyTech()
+		files.AddTech2Known(tech_copy)
 	SStgui.update_uis(src)
 	griefProtection() //Update centcom too
 
@@ -449,12 +450,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/enough_materials = TRUE
 
 	if(!machine.materials.has_materials(efficient_mats, amount))
-		atom_say("Not enough materials to complete prototype.")
+		atom_say("Недостаточно материалов для завершения прототипа.")
 		enough_materials = FALSE
 	else
 		for(var/R in being_built.reagents_list)
 			if(!machine.reagents.has_reagent(R, being_built.reagents_list[R]) * coeff)
-				atom_say("Not enough reagents to complete prototype.")
+				atom_say("Недостаточно реагентов для завершения прототипа.")
 				enough_materials = FALSE
 
 	if(enough_materials)
@@ -566,12 +567,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			submenu = SUBMENU_MAIN
 
 		if("copy_tech") //Copy some technology data from the research holder to the disk.
-			// Somehow this href makes me very nervous
+			// Now with COPYING data actually
 			var/datum/tech/known = files.known_tech[params["id"]]
 			if(t_disk && known)
-				t_disk.name = "[t_disk.default_name] \[[known]\]"
-				t_disk.desc = known.desc + " Level: '[known.level]'"
-				t_disk.stored = known
+				var/datum/tech/new_known = known.copyTech()
+				t_disk.name = "[t_disk.default_name] \[[new_known]\]"
+				t_disk.desc = new_known.desc + " Level: '[new_known.level]'"
+				t_disk.stored = new_known
 			menu = MENU_DISK
 			submenu = SUBMENU_MAIN
 
@@ -721,6 +723,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return 1
 	if(!allowed(user) && !isobserver(user))
 		to_chat(user, "<span class='warning'>Access denied.</span>")
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return TRUE
 	ui_interact(user)
 

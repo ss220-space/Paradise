@@ -17,25 +17,18 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 5
-	req_one_access_txt = "24;10"
 
-/obj/machinery/meter/New()
-	..()
+/obj/machinery/meter/Initialize(mapload)
+	. = ..(mapload)
 	SSair.atmos_machinery += src
 	target = locate(/obj/machinery/atmospherics/pipe) in loc
 	if(id && !id_tag)//i'm not dealing with further merge conflicts, fuck it
 		id_tag = id
-	return 1
 
 /obj/machinery/meter/Destroy()
 	SSair.atmos_machinery -= src
 	target = null
 	return ..()
-
-/obj/machinery/meter/Initialize()
-	..()
-	if(!target)
-		target = locate(/obj/machinery/atmospherics/pipe) in loc
 
 /obj/machinery/meter/process_atmos()
 	if(!target)
@@ -122,7 +115,7 @@
 	. = TRUE
 	playsound(loc, I.usesound, 50, 1)
 	to_chat(user, "<span class='notice'>You begin to unfasten [src]...</span>")
-	if(do_after(user, 40 * I.toolspeed, target = src))
+	if(do_after(user, 40 * I.toolspeed * gettoolspeedmod(user), target = src))
 		user.visible_message( \
 			"[user] unfastens [src].", \
 			"<span class='notice'>You have unfastened [src].</span>", \

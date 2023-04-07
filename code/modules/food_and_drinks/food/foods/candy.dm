@@ -98,6 +98,13 @@
 // Candy Products (Pre-existing)
 // ***********************************************************
 
+/obj/item/reagent_containers/food/snacks/candy/mre
+	name = "MRE"
+	desc = "Meal ready to eat."
+	trash = /obj/item/trash/candy
+	bitesize = 5
+	list_reagents = list("nutriment" = 30, "sugar" = 3)
+
 /obj/item/reagent_containers/food/snacks/candy/donor
 	name = "donor candy"
 	desc = "A little treat for blood donors."
@@ -212,6 +219,17 @@
 	icon_state = "sucker"
 	filling_color = "#FFFFFF"
 	list_reagents = list("sugar" = 10)
+
+/obj/item/reagent_containers/food/snacks/candy/sucker/lollipop
+	name = "lollipop"
+	desc = "For being such a courage patient!"
+	icon_state = "sucker"
+	filling_color = "#60A584"
+	list_reagents = list("sugar" = 4)
+
+/obj/item/reagent_containers/food/snacks/candy/sucker/lollipop/New()
+	. = ..()
+	icon_state = pick(list("sucker_blue", "sucker_green", "sucker_orange", "sucker_purple", "sucker_red", "sucker_yellow"))
 
 // ***********************************************************
 // Gummy Bear Flavors

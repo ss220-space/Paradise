@@ -41,7 +41,7 @@
 	var/randomspread = 1
 
 	var/unique_rename = TRUE //allows renaming with a pen
-	var/unique_reskin = TRUE //allows one-time reskinning
+	var/unique_reskin = FALSE //allows one-time reskinning
 	var/current_skin = null //the skin choice if we had a reskin
 	var/list/options = list()
 
@@ -227,7 +227,7 @@
 
 	if(burst_size > 1)
 		if(chambered && chambered.harmful)
-			if(HAS_TRAIT(user, TRAIT_PACIFISM)) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
+			if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
 				to_chat(user, "<span class='warning'>[src] is lethally chambered! You don't want to risk harming anyone...</span>")
 				return
 		firing_burst = 1
@@ -259,7 +259,7 @@
 		firing_burst = 0
 	else
 		if(chambered)
-			if(HAS_TRAIT(user, TRAIT_PACIFISM)) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
+			if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
 				if(chambered.harmful) // Is the bullet chambered harmful?
 					to_chat(user, "<span class='warning'>[src] is lethally chambered! You don't want to risk harming anyone...</span>")
 					return
@@ -404,7 +404,7 @@
 	return TRUE
 
 /obj/item/gun/extinguish_light()
-	if(gun_light.on)
+	if(gun_light?.on)
 		toggle_gunlight()
 		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
 
@@ -552,3 +552,23 @@
 
 	// The gun is equipped in their hands, give them the zoom ability.
 	azoom.Grant(user)
+
+//Guns can be placed on racks
+/obj/item/gun
+	var/on_rack = FALSE
+
+/obj/item/gun/proc/place_on_rack()
+	on_rack = TRUE
+	var/matrix/M = matrix()
+	M.Turn(-90)
+	transform = M
+
+/obj/item/gun/proc/remove_from_rack()
+	if(on_rack)
+		var/matrix/M = matrix()
+		transform = M
+		on_rack = FALSE
+
+/obj/item/gun/pickup(mob/user)
+	. = ..()
+	remove_from_rack()

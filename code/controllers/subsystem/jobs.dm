@@ -79,6 +79,8 @@ SUBSYSTEM_DEF(jobs)
 			return 0
 		if(job.available_in_playtime(player.client))
 			return 0
+		if(!job.can_novice_play(player.client))
+			return 0
 		if(job.barred_by_disability(player.client))
 			return 0
 		if(!job.character_old_enough(player.client))
@@ -134,6 +136,9 @@ SUBSYSTEM_DEF(jobs)
 		if(job.available_in_playtime(player.client))
 			Debug("FOC player not enough playtime, Player: [player]")
 			continue
+		if(!job.can_novice_play(player.client))
+			Debug("FOC player has too much playtime, Player: [player]")
+			continue
 		if(job.barred_by_disability(player.client))
 			Debug("FOC player has disability rendering them ineligible for job, Player: [player]")
 			continue
@@ -179,6 +184,10 @@ SUBSYSTEM_DEF(jobs)
 
 		if(job.available_in_playtime(player.client))
 			Debug("GRJ player not enough playtime, Player: [player]")
+			continue
+
+		if(!job.can_novice_play(player.client))
+			Debug("GRJ player has too much playtime, Player: [player]")
 			continue
 
 		if(job.barred_by_disability(player.client))
@@ -364,6 +373,10 @@ SUBSYSTEM_DEF(jobs)
 					Debug("DO player not enough playtime, Player: [player], Job:[job.title]")
 					continue
 
+				if(!job.can_novice_play(player.client))
+					Debug("DO player has too much playtime, Player: [player], Job:[job.title]")
+					continue
+
 				if(job.barred_by_disability(player.client))
 					Debug("DO player has disability rendering them ineligible for job, Player: [player], Job:[job.title]")
 					continue
@@ -417,6 +430,7 @@ SUBSYSTEM_DEF(jobs)
 			Debug("AC2 Assistant located, Player: [player]")
 			AssignRole(player, "Civilian")
 		else if(player.client.prefs.alternate_option == RETURN_TO_LOBBY)
+			to_chat(player, "<span class='danger'>Unfortunately, none of the round start roles you selected had a free slot. Please join the game by using \"Join Game!\" button and selecting a role with a free slot.</span>")
 			player.ready = 0
 			unassigned -= player
 
@@ -459,6 +473,8 @@ SUBSYSTEM_DEF(jobs)
 		to_chat(H, "<b>Будучи работником Службы Безопасности, вам необходимо знание <a href=\"https://ss220.space/wiki/index.php/Space_Law\">Космического Закона</a>, <a href=\"https://ss220.space/wiki/index.php/Legal_Standard_Operating_Procedure\">Правовых СРП</a>, а также <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">СРП своего отдела</a></b>")
 	if(job.req_admin_notify)
 		to_chat(H, "<b>Вы играете на важной для игрового процесса должности. Если вам необходимо покинуть игру, пожалуйста, используйте крио и проинформируйте командование. Если вы не можете это сделать, пожалуйста, проинформируйте админов через админхэлп.</b>")
+	if(job.is_novice)
+		to_chat(H, "<b>Ваша должность ограничена во всех взаимодействиях с рабочим имуществом отдела и экипажем станции, при отсутствии приставленного к нему квалифицированного сотрудника или полученного разрешения от вышестоящего начальства. Не забудьте ознакомиться с СРП вашей должности. По истечению срока прохождения стажировки, данная должность более не будет вам доступна. Используйте её для обучения, не стесняйтесь задавать вопросы вашим старшим коллегам!</b>")
 
 	return H
 /datum/controller/subsystem/jobs/proc/EquipRank(mob/living/carbon/human/H, rank, joined_late = 0) // Equip and put them in an area
@@ -645,7 +661,7 @@ SUBSYSTEM_DEF(jobs)
 	if(tgtcard)
 		var/mob/M = tgtcard.getPlayer()
 		for(var/datum/job/job in occupations)
-			if(tgtcard.assignment && tgtcard.assignment == job.title)
+			if(tgtcard.rank && tgtcard.rank == job.title)
 				jobs_to_formats[job.title] = "green" // the job they already have is pre-selected
 			else if(tgtcard.assignment == "Demoted" || tgtcard.assignment == "Terminated")
 				jobs_to_formats[job.title] = "grey"

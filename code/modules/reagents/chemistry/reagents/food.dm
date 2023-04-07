@@ -136,6 +136,59 @@
 	color = "#731008" // rgb: 115, 16, 8
 	taste_description = "ketchup"
 
+/datum/reagent/consumable/tomatosauce
+	name = "tomato sauce"
+	id = "tsauce"
+	description = "The father of all sauces. Tomatoes, a little spice and nothing extra."
+	reagent_state = LIQUID
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#ee1000"
+	taste_description = "tomato sauce"
+
+/datum/reagent/consumable/cheesesauce
+	name = "cheese sauce"
+	id = "csauce"
+	description = "Cheese, cream and milk... maximum protein concentration!"
+	reagent_state = LIQUID
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#e6d600"
+
+/datum/reagent/consumable/mushroomsauce
+	name = "mushroom sauce"
+	id = "msauce"
+	description = "Creamy sauce with mushrooms, has a rather pungent smell."
+	reagent_state = LIQUID
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#beb58a"
+	taste_description = "mushroom sauce"
+
+/datum/reagent/consumable/garlicsauce
+	name = "garlic sauce"
+	id = "gsauce"
+	description = "A strong sauce with garlic, its smell punches the nose. Some crewmembers will probably hiss at you and walk away."
+	reagent_state = LIQUID
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#fffee1"
+	taste_description = "garlic sauce"
+
+/datum/reagent/consumable/diablosauce
+	name = "diablo sauce"
+	id = "dsauce"
+	description = "An ancient burning sauce, its recipe has hardly changed since its creation."
+	reagent_state = LIQUID
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#440804"
+	taste_description = "hot tomato sauce"
+
+/datum/reagent/consumable/custard
+	name = "custard"
+	id = "custard"
+	description = "An ancient burning sauce, its recipe has hardly changed since its creation."
+	reagent_state = LIQUID
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#fffed1"
+	taste_description = "sweet soft cream"
+
 /datum/reagent/consumable/capsaicin
 	name = "Capsaicin Oil"
 	id = "capsaicin"
@@ -317,6 +370,14 @@
 	color = "#FFFACD"
 	taste_description = "bitter vanilla"
 
+/datum/reagent/consumable/herbs
+	name = "herbs mix"
+	id = "herbsmix"
+	description = "A mix of variouse herbs."
+	reagent_state = SOLID
+	color = "#2c5c04"
+	taste_description = "dry herbs"
+
 /datum/reagent/consumable/hot_coco
 	name = "Hot Chocolate"
 	id = "hot_coco"
@@ -365,7 +426,7 @@
 
 /datum/reagent/consumable/sprinkles/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(ishuman(M) && (M.job in list("Security Officer", "Security Pod Pilot", "Detective", "Warden", "Head of Security", "Brig Physician", "Internal Affairs Agent", "Magistrate")))
+	if(ishuman(M) && (M.job in list("Security Officer", "Security Cadet", "Security Pod Pilot", "Detective", "Warden", "Head of Security", "Brig Physician", "Internal Affairs Agent", "Magistrate")))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
@@ -455,6 +516,15 @@
 	nutriment_factor = 3 * REAGENTS_METABOLISM
 	color = "#FFFFFF" // rgb: 0, 0, 0
 	taste_description = "rice"
+
+/datum/reagent/consumable/buckwheat
+	name = "Buckwheat"
+	id = "buckwheat"
+	description = "Rumors tell soviet people are eating only vodka and... this?"
+	reagent_state = SOLID
+	nutriment_factor = 3 * REAGENTS_METABOLISM
+	color = "#8E633C" // rgb: 142, 99, 60
+	taste_description = "dry buckwheat"
 
 /datum/reagent/consumable/cherryjelly
 	name = "Cherry Jelly"

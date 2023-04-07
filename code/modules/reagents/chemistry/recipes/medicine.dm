@@ -91,7 +91,7 @@
 	result = "antiburn_stimulant"
 	required_reagents = list("synthflesh" = 40)
 	result_amount = 1
-	min_temp = T0C + 100
+	min_temp = T0C + 200
 
 /datum/chemical_reaction/styptic_powder
 	name = "Styptic Powder"
@@ -144,6 +144,15 @@
 	mix_message = "The solution bubbles freely, creating a head of bluish foam."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
+/datum/chemical_reaction/fomepizole
+	name = "Fomepizole"
+	id = "fomepizole"
+	result = "fomepizole"
+	required_reagents = list("ammonia" = 1, "mannitol" = 1, "acetic_acid" = 1)
+	result_amount = 3
+	mix_message = "The solution create a smoke, which clearing your mind."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
 /datum/chemical_reaction/perfluorodecalin
 	name = "Perfluorodecalin"
 	id = "perfluorodecalin"
@@ -153,6 +162,15 @@
 	min_temp = T0C + 100
 	mix_message = "The mixture rapidly turns into a dense pink liquid."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/sbloodoxy
+	name = "Syntetic Blood"
+	id = "sbloodoxy"
+	result = "sbloodoxy"
+	required_reagents = list("blood" = 1, "perfluorodecalin" = 1)
+	required_blood_species = list("Vox")
+	result_amount = 1
+	mix_message = "The mixture rapidly turns into a dense pink liquid."
 
 /datum/chemical_reaction/ephedrine
 	name = "Ephedrine"
@@ -248,6 +266,15 @@
 	mix_message = "A minty and refreshing smell drifts from the effervescent mixture."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
+/datum/chemical_reaction/coolant
+	name = "Coolant"
+	id = "coolant"
+	result = "coolant"
+	required_reagents = list("cryostylane" = 1, "liquid_solder" = 1)
+	result_amount = 2
+	mix_message = "You swear you saw a blue cat.. nevermind"
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
 /datum/chemical_reaction/teporone
 	name = "Teporone"
 	id = "teporone"
@@ -288,3 +315,12 @@
 	result_amount = 3
 	min_temp = T0C + 100
 	mix_message = "The solution gently swirls with a metallic sheen."
+
+/datum/chemical_reaction/syntmorphine
+	name = "Syntmorphine"
+	id = "syntmorphine"
+	result = "syntmorphine"
+	required_reagents = list("carbon" = 2, "hydrogen" = 2, "ethanol" = 1, "oxygen" = 1)
+	result_amount = 6
+	min_temp = T0C + 200
+	mix_message = "The solution gurgles, it has an almost incredible calming influence on the mind."

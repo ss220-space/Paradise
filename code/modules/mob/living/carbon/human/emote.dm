@@ -177,6 +177,8 @@
 			on_CD = handle_emote_CD()
 		if("gasp", "gasps")
 			on_CD = handle_emote_CD()
+		if("salute", "salutes")
+			on_CD = handle_emote_CD()
 		if("deathgasp", "deathgasps")
 			on_CD = handle_emote_CD(50)
 		if("sneeze", "sneezes")
@@ -185,7 +187,10 @@
 			on_CD = handle_emote_CD()
 		//Everything else, including typos of the above emotes
 		else
-			on_CD = FALSE	//If it doesn't induce the cooldown, we won't check for the cooldown
+			if(last_emote == act)
+				on_CD = handle_emote_CD(10)
+			else
+				on_CD = handle_emote_CD(5)		//no "snuffle" "sniff" spam
 
 	if(!force && on_CD == 1)		// Check if we need to suppress the emote attempt.
 		return			// Suppress emote, you're still cooling off.
@@ -198,7 +203,7 @@
 		if("howl", "howls")
 			var/M = handle_emote_param(param)
 			if(miming)
-				message = "делает вид что воет[M ? " на [M]" : ""]!"
+				message = "делает вид, что воет[M ? " на [M]" : ""]!"
 				m_type = 1
 			else
 				if(!muzzled)
@@ -211,183 +216,254 @@
 
 		if("growl", "growls")
 			var/M = handle_emote_param(param)
-			message = "рычит[M ? " на [M]" : ""]."
-			playsound(loc, "growls", !muzzled ? 80:25, 1, frequency = get_age_pitch())
-			m_type = 2
+			if(miming)
+				message = "делает вид, что рычит[M ? " на [M]" : ""]."
+				m_type = 1
+			else
+				message = "рычит[M ? " на [M]" : ""]."
+				playsound(loc, "growls", !muzzled ? 80:25, 1, frequency = get_age_pitch())
+				m_type = 2
 
 		if("purr", "purrs")
-			message = "мурчит."
-			playsound(src, 'sound/voice/cat_purr.ogg', 80, 1, frequency = get_age_pitch())
-			m_type = 2
+			if(miming)
+				message = "делает вид, что мурчит."
+				m_type = 1
+			else
+				message = "мурчит."
+				playsound(src, 'sound/voice/cat_purr.ogg', 80, 1, frequency = get_age_pitch())
+				m_type = 2
 
 		if("purrl")
-			message = "мурчит."
-			playsound(src, 'sound/voice/cat_purr_long.ogg', 80, 1, frequency = get_age_pitch())
-			m_type = 2
+			if(miming)
+				message = "делает вид, что мурчит."
+				m_type = 1
+			else
+				message = "мурчит."
+				playsound(src, 'sound/voice/cat_purr_long.ogg', 80, 1, frequency = get_age_pitch())
+				m_type = 2
 
 		if("ping", "pings")
-			var/M = handle_emote_param(param)
+			if(!miming)
+				var/M = handle_emote_param(param)
 
-			message = "звенит[M ? " на [M]" : ""]."
-			playsound(loc, 'sound/machines/ping.ogg', 50, 1, frequency = get_age_pitch())
-			m_type = 2
+				message = "звенит[M ? " на [M]" : ""]."
+				playsound(loc, 'sound/machines/ping.ogg', 50, 1, frequency = get_age_pitch())
+				m_type = 2
 
 		if("buzz2")
-			var/M = handle_emote_param(param)
+			if(!miming)
+				var/M = handle_emote_param(param)
 
-			message = "издает раздраженный жужжащий звук[M ? " на [M]" : ""]."
-			playsound(loc, 'sound/machines/buzz-two.ogg', 50, 1, frequency = get_age_pitch())
-			m_type = 2
+				message = "издает раздраженный жужжащий звук[M ? " на [M]" : ""]."
+				playsound(loc, 'sound/machines/buzz-two.ogg', 50, 1, frequency = get_age_pitch())
+				m_type = 2
 
 		if("buzz", "buzzes")
-			var/M = handle_emote_param(param)
+			if(!miming)
+				var/M = handle_emote_param(param)
 
-			message = "жужжит[M ? " на [M]" : ""]."
-			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 1, frequency = get_age_pitch())
-			m_type = 2
+				message = "жужжит[M ? " на [M]" : ""]."
+				playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 1, frequency = get_age_pitch())
+				m_type = 2
 
 		if("beep", "beeps")
-			var/M = handle_emote_param(param)
+			if(!miming)
+				var/M = handle_emote_param(param)
 
-			message = "пищит[M ? " на [M]" : ""]."
-			playsound(loc, 'sound/machines/twobeep.ogg', 50, 1, frequency = get_age_pitch())
-			m_type = 2
+				message = "пищит[M ? " на [M]" : ""]."
+				playsound(loc, 'sound/machines/twobeep.ogg', 50, 1, frequency = get_age_pitch())
+				m_type = 2
 
 		if("drone", "drones", "hum", "hums", "rumble", "rumbles")
 			var/M = handle_emote_param(param)
 
-			message = "[M ? "грохочет на [M]" : "грохочет"]."
-			playsound(loc, 'sound/voice/drasktalk.ogg', 50, 1, frequency = get_age_pitch())
-			m_type = 2
+			if(miming)
+				message = "делает вид, что [M ? "грохочет на [M]" : "грохочет"]."
+				m_type = 1
+			else
+				message = "[M ? "грохочет на [M]" : "грохочет"]."
+				playsound(loc, 'sound/voice/drasktalk.ogg', 50, 1, frequency = get_age_pitch())
+				m_type = 2
 
 		if("squish", "squishes")
 			var/M = handle_emote_param(param)
 
-			message = "хлюпает[M ? " на [M]" : ""]."
-			playsound(loc, 'sound/effects/slime_squish.ogg', 50, 1, frequency = get_age_pitch()) //Credit to DrMinky (freesound.org) for the sound.
-			m_type = 2
+			if(miming)
+				message = "делает вид, что хлюпает[M ? " на [M]" : ""]."
+				m_type = 1
+			else
+				message = "хлюпает[M ? " на [M]" : ""]."
+				playsound(loc, 'sound/effects/slime_squish.ogg', 50, 1, frequency = get_age_pitch()) //Credit to DrMinky (freesound.org) for the sound.
+				m_type = 2
 
 		if("clack", "clacks")
-			var/obj/item/organ/external/head = src.get_organ("head")
 			var/M = handle_emote_param(param)
-			mineral_scan_pulse(get_turf(src), range = world.view)
-			m_type = 2
+
+			var/obj/item/organ/external/head = src.get_organ("head")
 			if(head)
-				message = "трещит своей нижней челюстью[M ? " на [M]" : ""]."
-				playsound(loc, 'sound/effects/Kidanclack.ogg', 50, 1, frequency = get_age_pitch()) //Credit to DrMinky (freesound.org) for the sound.
+				if(miming)
+					message = "дёргает нижней челюстью[M ? " на [M]" : ""]."
+					m_type = 1
+				else
+					mineral_scan_pulse(get_turf(src), range = world.view)
+					message = "трещит своей нижней челюстью[M ? " на [M]" : ""]."
+					m_type = 2
+					playsound(loc, 'sound/effects/Kidanclack.ogg', 50, 1, frequency = get_age_pitch()) //Credit to DrMinky (freesound.org) for the sound.
 			else
 				message = "отчаянно дёргается."
+				m_type = 1
 
 		if("click", "clicks")
-			var/obj/item/organ/external/head = src.get_organ("head")
 			var/M = handle_emote_param(param)
-			mineral_scan_pulse(get_turf(src), range = world.view)
+
+			var/obj/item/organ/external/head = src.get_organ("head")
 			if(head)
-				message = "щелкает своей нижней челюстью[M ? " на [M]" : ""]."
-				playsound(loc, 'sound/effects/Kidanclack2.ogg', 50, 1, frequency = get_age_pitch()) //Credit to DrMinky (freesound.org) for the sound.
-				m_type = 2
+				if(miming)
+					message = "дёргает нижней челюстью[M ? " на [M]" : ""]."
+					m_type = 1
+				else
+					mineral_scan_pulse(get_turf(src), range = world.view)
+					message = "щелкает своей нижней челюстью[M ? " на [M]" : ""]."
+					m_type = 2
+					playsound(loc, 'sound/effects/Kidanclack2.ogg', 50, 1, frequency = get_age_pitch()) //Credit to DrMinky (freesound.org) for the sound.
 			else
 				message = "отчаянно дёргается."
-				m_type = 2
+				m_type = 1
 
 		if("creaks", "creak")
 			var/M = handle_emote_param(param)
 
-			message = "скрип[pluralize_ru(src.gender,"ит","ят")][M ? " на [M]" : ""]."
-			playsound(loc, 'sound/voice/dionatalk1.ogg', 50, 1, frequency = get_age_pitch()) //Credit https://www.youtube.com/watch?v=ufnvlRjsOTI [0:13 - 0:16]
-			m_type = 2
+			if(miming)
+				message = "шевел[pluralize_ru(src.gender,"ит","ят")] ветками[M ? " на [M]" : ""]."
+				m_type = 1
+			else
+				message = "скрип[pluralize_ru(src.gender,"ит","ят")][M ? " на [M]" : ""]."
+				playsound(loc, 'sound/voice/dionatalk1.ogg', 50, 1, frequency = get_age_pitch()) //Credit https://www.youtube.com/watch?v=ufnvlRjsOTI [0:13 - 0:16]
+				m_type = 2
 
 		if("hiss")
 			var/M = handle_emote_param(param)
 
-			if(!muzzled)
-				message = "шипит[M ? " на [M]" : ""]."
-				playsound(loc, 'sound/effects/unathihiss.ogg', 50, 1, frequency = get_age_pitch()) //Credit to Jamius (freesound.org) for the sound.
-				m_type = 2
+			if(miming)
+				message = "делает вид, что шипит[M ? " на [M]" : ""]."
+				m_type = 1
 			else
-				message = "тихо шипит."
-				m_type = 2
+				if(!muzzled)
+					message = "шипит[M ? " на [M]" : ""]."
+					playsound(loc, 'sound/effects/unathihiss.ogg', 50, 1, frequency = get_age_pitch()) //Credit to Jamius (freesound.org) for the sound.
+					m_type = 2
+				else
+					message = "тихо шипит."
+					m_type = 2
 
 		if("roar")
 			var/M = handle_emote_param(param)
 
-			if(!muzzled)
-				message = "рычит[M ? " на [M]" : ""]."
-				playsound(src, pick('sound/goonstation/voice/unathi/roar.ogg', 'sound/goonstation/voice/unathi/roar2.ogg', 'sound/goonstation/voice/unathi/roar3.ogg'), 50, 1, frequency = get_age_pitch())
-				m_type = 2
+			if(miming)
+				message = "делает вид, что рычит[M ? " на [M]" : ""]."
+				m_type = 1
 			else
-				message = "тихо рычит."
-				m_type = 2
+				if(!muzzled)
+					message = "рычит[M ? " на [M]" : ""]."
+					playsound(src, pick('sound/goonstation/voice/unathi/roar.ogg', 'sound/goonstation/voice/unathi/roar2.ogg', 'sound/goonstation/voice/unathi/roar3.ogg'), 50, 1, frequency = get_age_pitch())
+					m_type = 2
+				else
+					message = "тихо рычит."
+					m_type = 2
 
 		if("whip")
 			var/obj/item/organ/external/tail = src.get_organ("tail")
 			var/M = handle_emote_param(param)
-			m_type = 2
-			if(tail)
-				message = "ударяет хвостом[M ? " грозно смотря на [M]" : ""]."
-				playsound(loc, 'sound/goonstation/voice/unathi/whip_short.ogg', 100)
+
+			if(miming)
+				message = "взмахивает хвостом и бесшумно опускает его на пол[M ? ", грозно смотря на [M]" : ""]."
+				m_type = 1
 			else
-				message = "пытается взмахнуть отсутствующим хвостом."
+				if(tail)
+					message = "ударяет хвостом[M ? ", грозно смотря на [M]" : ""]."
+					m_type = 2
+					playsound(loc, 'sound/goonstation/voice/unathi/whip_short.ogg', 100)
+				else
+					message = "пытается взмахнуть отсутствующим хвостом."
+					m_type = 1
 
 		if("whips")
 			var/obj/item/organ/external/tail = src.get_organ("tail")
 			var/M = handle_emote_param(param)
-			m_type = 2
-			if(tail)
-				message = "хлестает хвостом[M ? " грозно смотря на [M]" : ""]."
-				playsound(loc, 'sound/goonstation/voice/unathi/whip.ogg', 100)
+
+			if(miming)
+				message = "взмахивает хвостом и бесшумно опускает его на пол[M ? ", грозно смотря на [M]" : ""]."
+				m_type = 1
 			else
-				message = "пытается взмахнуть отсутствующим хвостом."
+				if(tail)
+					message = "хлестает хвостом[M ? ", грозно смотря на [M]" : ""]."
+					m_type = 2
+					playsound(loc, 'sound/goonstation/voice/unathi/whip.ogg', 100)
+				else
+					message = "пытается взмахнуть отсутствующим хвостом."
+					m_type = 1
 
 		if("threat")
 			var/M = handle_emote_param(param)
 
-			if(!muzzled)
+			if(miming)
 				message = "угрожающе раскрывает пасть[M ? " на [M]" : ""]."
-				playsound(src, pick('sound/goonstation/voice/unathi/threat.ogg', 'sound/goonstation/voice/unathi/threat2.ogg'), 50, 1, frequency = get_age_pitch())
-				m_type = 2
+				m_type = 1
 			else
-				message = "издаёт громкий шум."
-				m_type = 2
+				if(!muzzled)
+					message = "угрожающе раскрывает пасть[M ? " на [M]" : ""]."
+					playsound(src, pick('sound/goonstation/voice/unathi/threat.ogg', 'sound/goonstation/voice/unathi/threat2.ogg'), 50, 1, frequency = get_age_pitch())
+					m_type = 2
+				else
+					message = "издаёт громкий шум."
+					m_type = 2
 
 		if("hisses")
 			var/M = handle_emote_param(param)
 
-			if(!muzzled)
-				message = "шипит[M ? " на [M]" : ""]."
-				playsound(loc, 'sound/voice/tajarahiss.mp3', 100, 1, frequency = get_age_pitch())
-				m_type = 2
+			if(miming)
+				message = "делает вид, что шипит[M ? " на [M]" : ""]."
+				m_type = 1
 			else
-				message = "тихо шипит."
-				m_type = 2
+				if(!muzzled)
+					message = "шипит[M ? " на [M]" : ""]."
+					playsound(loc, 'sound/voice/tajarahiss.mp3', 100, 1, frequency = get_age_pitch())
+					m_type = 2
+				else
+					message = "тихо шипит."
+					m_type = 2
 
 		if("quill", "quills")
-			var/M = handle_emote_param(param)
+			if(!miming)
+				var/M = handle_emote_param(param)
 
-			message = "шуршит своими перьями[M ? " на [M]" : ""]."
-			playsound(loc, 'sound/effects/voxrustle.ogg', 50, 1, frequency = get_age_pitch()) //Credit to sound-ideas (freesfx.co.uk) for the sound.
-			m_type = 2
+				message = "шуршит своими перьями[M ? " на [M]" : ""]."
+				playsound(loc, 'sound/effects/voxrustle.ogg', 50, 1, frequency = get_age_pitch()) //Credit to sound-ideas (freesfx.co.uk) for the sound.
+				m_type = 2
 
 		if("warble", "warbles")
-			var/M = handle_emote_param(param)
+			if(!miming)
+				var/M = handle_emote_param(param)
 
-			message = "издает трель[M ? " на [M]" : ""]."
-			playsound(loc, 'sound/effects/warble.ogg', 50, 1, frequency = get_age_pitch()) // Copyright CC BY 3.0 alienistcog (freesound.org) for the sound.
-			m_type = 2
+				message = "издает трель[M ? " на [M]" : ""]."
+				playsound(loc, 'sound/effects/warble.ogg', 50, 1, frequency = get_age_pitch()) // Copyright CC BY 3.0 alienistcog (freesound.org) for the sound.
+				m_type = 2
 
 		if("yes")
-			var/M = handle_emote_param(param)
+			if(!miming)
+				var/M = handle_emote_param(param)
 
-			message = "испускает утвердительный сигнал[M ? " для [M]" : ""]."
-			playsound(loc, 'sound/machines/synth_yes.ogg', 50, 1, frequency = get_age_pitch())
-			m_type = 2
+				message = "испускает утвердительный сигнал[M ? " для [M]" : ""]."
+				playsound(loc, 'sound/machines/synth_yes.ogg', 50, 1, frequency = get_age_pitch())
+				m_type = 2
 
 		if("no")
-			var/M = handle_emote_param(param)
+			if(!miming)
+				var/M = handle_emote_param(param)
 
-			message = "испускает отрицательный сигнал[M ? " для [M]" : ""]."
-			playsound(loc, 'sound/machines/synth_no.ogg', 50, 1, frequency = get_age_pitch())
-			m_type = 2
+				message = "испускает отрицательный сигнал[M ? " для [M]" : ""]."
+				playsound(loc, 'sound/machines/synth_no.ogg', 50, 1, frequency = get_age_pitch())
+				m_type = 2
 
 		if("wag", "wags")
 			if(istype(body_accessory, /datum/body_accessory/tail))
@@ -428,6 +504,9 @@
 				message = "радостно танцу[pluralize_ru(src.gender,"ет","ют")]!"
 				m_type = 1
 				var/dance_time = 3 SECONDS
+				var/obj/structure/table/table = locate() in src.loc
+				if(table)
+					table.clumse_stuff(src)
 				spin(dance_time, pick(0.1 SECONDS, 0.2 SECONDS))
 				do_jitter_animation(rand(80, 160), dance_time / 4)
 
@@ -453,8 +532,6 @@
 
 		if("salute", "salutes")
 			if(!restrained())
-				if(handle_emote_CD())
-					return
 				var/M = handle_emote_param(param)
 
 				message = "салюту[pluralize_ru(src.gender,"ет","ют")][M ? " [M]" : ""]!"
@@ -701,9 +778,9 @@
 				if(!muzzled)
 					message = "хихика[pluralize_ru(src.gender,"ет","ют")]."
 					if(gender == FEMALE)
-						playsound(src, dna.species.female_giggle_sound, 70, 1, frequency = get_age_pitch())
+						playsound(src, pick(dna.species.female_giggle_sound), 70, 1, frequency = get_age_pitch())
 					else
-						playsound(src, dna.species.male_giggle_sound, 70, 1, frequency = get_age_pitch())
+						playsound(src, pick(dna.species.male_giggle_sound), 70, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
 					message = "изда[pluralize_ru(src.gender,"ет","ют")] шум."
@@ -782,9 +859,9 @@
 				if(!muzzled)
 					message = "сме[pluralize_ru(src.gender,"ет","ют")]ся[M ? " над [M]" : ""]."
 					if(gender == FEMALE)
-						playsound(src, dna.species.female_laugh_sound, 70, 1, frequency = get_age_pitch())
+						playsound(src, pick(dna.species.female_laugh_sound), 70, 1, frequency = get_age_pitch())
 					else
-						playsound(src, dna.species.male_laugh_sound, 70, 1, frequency = get_age_pitch())
+						playsound(src, pick(dna.species.male_laugh_sound), 70, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
 					message = "изда[pluralize_ru(src.gender,"ет","ют")] шум."
@@ -1202,6 +1279,9 @@
 			to_chat(src, emotelist)
 		else
 			to_chat(src, "<span class='notice'>Неизвестный эмоут '[act]'. Введи *help для отображения списка.</span>")
+
+	last_emote = act
+
 	..()
 
 /mob/living/carbon/human/verb/pose()

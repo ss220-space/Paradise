@@ -414,7 +414,7 @@
 		reagents_list.add_reagent("blindness_smoke", 810)
 		var/datum/effect_system/smoke_spread/chem/S = new
 		S.set_up(reagents_list, target.loc, TRUE)
-		S.start(4, apply_once = TRUE)
+		S.start(4)
 
 /datum/reagent/shadowling_blindness_smoke //Blinds non-shadowlings, heals shadowlings/thralls
 	name = "odd black liquid"
@@ -686,7 +686,7 @@
 	if(SSshuttle.emergency.mode == SHUTTLE_CALL)
 		var/more_minutes = 6000
 		var/timer = SSshuttle.emergency.timeLeft(1) + more_minutes
-		GLOB.event_announcement.Announce("Major system failure aboard the emergency shuttle. This will extend its arrival time by approximately 10 minutes and the shuttle is unable to be recalled.", "System Failure", 'sound/misc/notice1.ogg')
+		GLOB.event_announcement.Announce("Крупный системный сбой на борту эвакуационного шаттла. Это увеличит время прибытия примерно на 10 минут, шаттл не может быть отозван.", "Системный сбой.", 'sound/misc/notice1.ogg')
 		SSshuttle.emergency.setTimer(timer)
 		SSshuttle.emergency.canRecall = FALSE
 	user.mind.spell_list.Remove(src) //Can only be used once!

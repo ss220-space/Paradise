@@ -1,7 +1,6 @@
 /obj/effect/spawner/lootdrop
-	icon = 'icons/mob/screen_gen.dmi'
-	icon_state = "x2"
-	color = "#00FF00"
+	icon = 'icons/effects/mapping_helpers.dmi'
+	icon_state = "standart"
 	var/lootcount = 1		//how many items will be spawned
 	var/lootdoubles = 1		//if the same item can be spawned twice
 	var/list/loot			//a list of possible items to spawn e.g. list(/obj/item, /obj/structure, /obj/effect)
@@ -21,6 +20,7 @@
 
 /obj/effect/spawner/lootdrop/armory_contraband
 	name = "armory contraband gun spawner"
+	icon_state ="stechkin"
 	lootdoubles = 0
 
 	loot = list(
@@ -32,6 +32,7 @@
 
 /obj/effect/spawner/lootdrop/maintenance
 	name = "maintenance loot spawner"
+	icon_state = "x1"
 
 	//How to balance this table
 	//-------------------------
@@ -101,6 +102,7 @@
 				/obj/item/crowbar/red = 10,
 				/obj/item/restraints/handcuffs/toy = 5,
 				/obj/item/extinguisher = 90,
+				/obj/item/storage/box/fakesyndiesuit = 3,
 				//obj/item/gun/projectile/revolver/russian = 1, //disabled until lootdrop is a proper world proc.
 				/obj/item/hand_labeler = 10,
 				/obj/item/paper/crumpled = 10,
@@ -160,6 +162,7 @@
 
 /obj/effect/spawner/lootdrop/crate_spawner // for ruins
 	name = "lootcrate spawner"
+	icon_state = "lootcrate"
 	lootdoubles = 0
 
 	loot = list(
@@ -167,7 +170,13 @@
 				"" = 80,
 				)
 
+/obj/effect/spawner/lootdrop/maintenance/double
+	icon_state = "x2"
+	lootcount = 2
 
+/obj/effect/spawner/lootdrop/maintenance/tripple
+	icon_state = "x3"
+	lootcount = 3
 
 /obj/effect/spawner/lootdrop/trade_sol/
 	name = "trader item spawner"
@@ -294,7 +303,7 @@
 		/obj/item/mecha_parts/mecha_equipment/teleporter/precise = 50,
 		/obj/item/autoimplanter = 50,
 		/obj/item/paper/researchnotes = 100,
-		/obj/item/slimepotion/fireproof = 50,
+		/obj/item/slimepotion/clothing/fireproof = 50,
 		/obj/item/slimepotion/speed = 50,
 		/obj/item/slimepotion/enhancer = 50,
 		/obj/item/slimepotion/slime/mutator = 50,

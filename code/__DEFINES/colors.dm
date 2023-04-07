@@ -80,6 +80,8 @@
 #define COLOR_ALUMINIUM        "#bbbbbb"
 #define COLOR_CRYSTAL          "#00c8a5"
 #define COLOR_ASTEROID_ROCK    "#735555"
+#define COLOR_ANCIENT_ROCK     "#575757"
+#define COLOR_COLD_ROCK        "#575764"
 #define COLOR_NULLGLASS        "#ff6088"
 #define COLOR_DIAMOND          "#d8d4ea"
 #define COLOR_APC_RED          "#ff7060"
@@ -136,3 +138,7 @@
 #define COLOR_THEME_OPERATIVE "#B8221F"
 #define COLOR_THEME_GLASS "#75A4C4"
 #define COLOR_THEME_CLOCKWORK "#CFBA47"
+
+// Color matrix utilities
+#define COLOR_MATRIX_ADD(C) list(COLOR_RED, COLOR_GREEN, COLOR_BLUE, C)
+#define COLOR_MATRIX_OVERLAY(C) list(COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, C)

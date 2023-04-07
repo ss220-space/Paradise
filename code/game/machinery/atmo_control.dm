@@ -3,7 +3,6 @@
 	icon_state = "gsensor1"
 	resistance_flags = FIRE_PROOF
 	name = "gas sensor"
-	req_one_access_txt = "24;10"
 
 	anchored = 1
 	var/state = 0
@@ -52,7 +51,7 @@
 		return
 	playsound(loc, I.usesound, 50, 1)
 	to_chat(user, "<span class='notice'>You begin to unfasten [src]...</span>")
-	if(do_after(user, 40 * I.toolspeed, target = src))
+	if(do_after(user, 40 * I.toolspeed * gettoolspeedmod(user), target = src))
 		user.visible_message("[user] unfastens [src].", "<span class='notice'>You have unfastened [src].</span>", "You hear ratchet.")
 		new /obj/item/pipe_gsensor(loc)
 		qdel(src)
@@ -118,7 +117,7 @@
 	icon_screen = "tank"
 	icon_keyboard = "atmos_key"
 	circuit = /obj/item/circuitboard/air_management
-	req_one_access_txt = "24;10"
+	req_access = list(ACCESS_ENGINE, ACCESS_ATMOSPHERICS)
 
 	name = "Computer"
 
@@ -255,7 +254,7 @@
 
 /obj/machinery/computer/general_air_control/large_tank_control
 	circuit = /obj/item/circuitboard/large_tank_control
-	req_one_access_txt = "24;10"
+	req_access = list(ACCESS_ENGINE, ACCESS_ATMOSPHERICS)
 
 	var/input_tag
 	var/output_tag

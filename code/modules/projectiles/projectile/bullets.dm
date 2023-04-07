@@ -38,6 +38,15 @@
 	stamina = 35
 	icon_state = "bullet-r"
 
+/obj/item/projectile/bullet/hp38 //Detective hollow-point
+	damage = 33
+	armour_penetration = -50
+
+/obj/item/projectile/bullet/hp38/on_hit(atom/target, blocked, hit_zone)
+	if(..(target, blocked))
+		var/mob/living/M = target
+		M.AdjustSlowed(1)
+
 /obj/item/projectile/bullet/weakbullet2/invisible //finger gun bullets
 	name = "invisible bullet"
 	damage = 0
@@ -54,6 +63,18 @@
 
 /obj/item/projectile/bullet/weakbullet3
 	damage = 20
+
+/obj/item/projectile/bullet/weakbullet3/foursix
+	damage = 15
+
+/obj/item/projectile/bullet/weakbullet3/foursix/ap
+	damage = 12
+	armour_penetration = 40
+
+/obj/item/projectile/bullet/weakbullet3/foursix/tox
+	damage = 10
+	damage_type = TOX
+	armour_penetration = 10
 
 /obj/item/projectile/bullet/weakbullet4
 	name = "rubber bullet"
@@ -76,6 +97,10 @@
 
 /obj/item/projectile/bullet/incendiary/firebullet
 	damage = 10
+
+/obj/item/projectile/bullet/incendiary/foursix
+	damage = 10
+	armour_penetration = 10
 
 /obj/item/projectile/bullet/armourpiercing
 	damage = 17

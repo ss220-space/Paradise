@@ -121,6 +121,7 @@
 
 /obj/item/slimepotion
 	name = "slime potion"
+	var/id
 	desc = "A hard yet gelatinous capsule excreted by a slime, containing mysterious substances."
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "biotech=4"
@@ -170,6 +171,7 @@
 
 /obj/item/slimepotion/sentience
 	name = "sentience potion"
+	id = "Sentience"
 	desc = "A miraculous chemical mix that can raise the intelligence of creatures to human levels."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle19"
@@ -184,35 +186,32 @@
 	if(being_used || !ismob(M))
 		return
 	if(!isanimal(M) && !ismonkeybasic(M)) //работает только на животных и низших формах карбонов
-		to_chat(user, "<span class='warning'>[M] is not animal and lesser life form!</span>")
+		to_chat(user, "<span class='warning'>[M] is not animal nor lesser life form!</span>")
 		return ..()
 	if(M.stat)
 		to_chat(user, "<span class='warning'>[M] is dead!</span>")
 		return ..()
 
-	if (M.ckey)		//даем возможность получить разум симпл мобам
-		if (!isanimal(M))
-			to_chat(user, "<span class='warning'>[M] is already too intelligent for this to work!</span>")
-			return
-		var/response = alert(M, "Желаете стать питомцем [user.name] и обрести разум подобный человеческому?","Зелье Разума!", "Да","Нет")
+	if(M.ckey && isanimal(M)) //giving sentience to simple mobs under player control
+		var/mob/living/simple_animal/SM = M
+		if(SM.sentience_type != sentience_type)
+			to_chat(user, "<span class='warning'>[src] won't work on [SM].</span>")
+			return ..()
 
-		if (response == "Нет")
-			to_chat(user, "<span class='warning'>[M.name] отказался от зелья!</span>")
+		if(SM.master_commander)
+			to_chat(user, "<span class='warning'>[SM.name] уже имеет хозяина!</span>")
+			return
+
+		being_used = TRUE
+		var/response = alert(SM, "Желаете стать питомцем [user.name] и обрести разум подобный человеческому?","Зелье Разума!", "Да","Нет")
+
+		if(response == "Нет")
+			to_chat(user, "<span class='warning'>[SM.name] отказался от зелья!</span>")
+			being_used = FALSE
 			return
 		else
 			if(!src)
 				return
-			being_used = TRUE
-
-			var/mob/living/simple_animal/SM = M
-
-			if (SM.master_commander)
-				to_chat(user, "<span class='warning'>[SM.name] уже имеет хозяина!</span>")
-				return
-
-			if(SM.sentience_type != sentience_type)
-				to_chat(user, "<span class='warning'>[SM] не разумное животное!.</span>")
-				return ..()
 
 			SM.universal_speak = TRUE
 			SM.faction = user.faction
@@ -238,15 +237,16 @@
 
 			SM.mind.store_memory("<B>Мой хозяин [user.name], выполню [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</B>")
 			add_game_logs("стал питомцем игрока [key_name_log(user)]", SM)
+			return
 
-	if (isanimal(M))
+	if(isanimal(M))
 		var/mob/living/simple_animal/SM = M
 
 		if(SM.sentience_type != sentience_type)
-			to_chat(user, "<span class='warning'>The potion won't work on [SM].</span>")
+			to_chat(user, "<span class='warning'>[src] won't work on [SM].</span>")
 			return ..()
 
-		to_chat(user, "<span class='notice'>You offer [src] sentience potion to [SM]...</span>")
+		to_chat(user, "<span class='notice'>You offer [src.name] to [SM]...</span>")
 		being_used = TRUE
 
 		var/ghostmsg = "Play as [SM.name], pet of [user.name]?"
@@ -267,7 +267,7 @@
 			to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
 			if(SM.flags_2 & HOLOGRAM_2) //Check to see if it's a holodeck creature
 				to_chat(SM, "<span class='userdanger'>You also become depressingly aware that you are not a real creature, but instead a holoform. Your existence is limited to the parameters of the holodeck.</span>")
-			to_chat(user, "<span class='notice'>[M] accepts the potion and suddenly becomes attentive and aware. It worked!</span>")
+			to_chat(user, "<span class='notice'>[M] accepts [src] and suddenly becomes attentive and aware. It worked!</span>")
 			after_success(user, SM)
 			qdel(src)
 
@@ -291,10 +291,14 @@
 		return
 
 	//обработка низших форм: Обезьяны, стока, фарвы, неары, вульпина
-	if (ismonkeybasic(M))
+	if(ismonkeybasic(M) && !M.ckey)
 		var/mob/living/carbon/human/lesser/monkey/LF = M
 
-		to_chat(user, "<span class='notice'>Вы предлагаете [src] зелье разума [LF]... Он[genderize_ru(LF.gender, "", "а", "о", "и")] осторожно осматрива[pluralize_ru(LF.gender,"ет","ют")] его</span>")
+		if(LF.sentience_type != sentience_type)
+			to_chat(user, "<span class='warning'>[LF] совершенно безразлично смотрит на [src.name] в ваших руках.</span>")
+			return ..()
+
+		to_chat(user, "<span class='notice'>Вы предлагаете [src] [LF]... Он[genderize_ru(LF.gender, "", "а", "о", "и")] осторожно осматрива[pluralize_ru(LF.gender,"ет","ют")] его</span>")
 		being_used = TRUE
 
 		var/ghostmsg = "Play as [LF.name], pet of [user.name]?"
@@ -334,6 +338,7 @@
 
 /obj/item/slimepotion/transference
 	name = "consciousness transference potion"
+	id = "Transference"
 	desc = "A strange slime-based chemical that, when used, allows the user to transfer their consciousness to a lesser being."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle19"
@@ -404,12 +409,14 @@
 
 /obj/item/slimepotion/enhancer
 	name = "extract enhancer"
+	id = "Enhancer"
 	desc = "A potent chemical mix that will give a slime extract an additional use."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle17"
 
 /obj/item/slimepotion/slime/stabilizer
 	name = "slime stabilizer"
+	id = "Stabilizer"
 	desc = "A potent chemical mix that will reduce the chance of a slime mutating."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle15"
@@ -431,6 +438,7 @@
 
 /obj/item/slimepotion/slime/mutator
 	name = "slime mutator"
+	id = "Mutator"
 	desc = "A potent chemical mix that will increase the chance of a slime mutating."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle3"
@@ -456,6 +464,7 @@
 
 /obj/item/slimepotion/speed
 	name = "slime speed potion"
+	id = "Speed"
 	desc = "A potent chemical mix that will remove the slowdown from any item."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle3"
@@ -470,10 +479,10 @@
 		return
 	if(isitem(O))
 		var/obj/item/I = O
-		if(I.slowdown <= 0)
+		if(I.slowdown <= 0 || I.is_speedslimepotioned)
 			to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
 			return ..()
-		I.slowdown = 0
+		I.is_speedslimepotioned = TRUE
 
 	if(istype(O, /obj/vehicle))
 		var/obj/vehicle/V = O
@@ -493,17 +502,29 @@
 	if(loc == usr && loc.Adjacent(over_object))
 		afterattack(over_object, usr, TRUE)
 
-/obj/item/slimepotion/fireproof
-	name = "slime chill potion"
-	desc = "A potent chemical mix that will fireproof any article of clothing. Has three uses."
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle17"
-	origin_tech = "biotech=5"
-	resistance_flags = FIRE_PROOF
-	var/uses = 3
+/obj/item/slimepotion/clothing
+	var/inapplicable_caption
+	var/applied_caption
+	var/applied_color
+	var/color_name
+	var/more_caption = "more "
+	var/uses = 1
 
-/obj/item/slimepotion/fireproof/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
-	..()
+/obj/item/slimepotion/clothing/examine(mob/user)
+	. = ..()
+	if (uses > 1)
+		. += "Uses left: [uses]."
+
+/obj/item/slimepotion/clothing/proc/can_apply()
+	return FALSE
+
+/obj/item/slimepotion/clothing/proc/apply_effect(obj/item/clothing/C)
+	C.armor = C.armor.attachArmor(armor)
+
+/obj/item/slimepotion/clothing/proc/cancel_effect(obj/item/clothing/C)
+	C.armor = C.armor.detachArmor(armor)
+
+/obj/item/slimepotion/clothing/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
 	if(!proximity_flag)
 		return
 	if(!uses)
@@ -512,24 +533,183 @@
 	if(!istype(C))
 		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
 		return
-	if(C.max_heat_protection_temperature == FIRE_IMMUNITY_MAX_TEMP_PROTECT)
-		to_chat(user, "<span class='warning'>[C] is already fireproof!</span>")
-		return ..()
-	to_chat(user, "<span class='notice'>You slather the blue gunk over [C], fireproofing it.</span>")
-	C.name = "fireproofed [C.name]"
-	C.add_atom_colour("#000080", WASHABLE_COLOUR_PRIORITY)
-	C.max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	C.heat_protection = C.body_parts_covered
-	C.resistance_flags |= FIRE_PROOF
-	uses --
-	if(!uses)
+	if(istype(C, /obj/item/clothing/neck) || istype(C, /obj/item/clothing/accessory))
+		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
+		return
+	if(!can_apply(C))
+		to_chat(user, "<span class='warning'>[C] is already [inapplicable_caption]!</span>")
+		return
+	if(C.applied_slime_potion)
+		C.applied_slime_potion.cancel_effect(C)
+		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
+
+	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it [more_caption][applied_caption].</span>")
+	C.applied_slime_potion = locate(src.type) in GLOB.slime_potions
+	C.name = "[applied_caption] [initial(C.name)]"
+	C.add_atom_colour(applied_color, WASHABLE_COLOUR_PRIORITY)
+	apply_effect(C)
+	uses -= 1
+	if (!uses)
 		qdel(src)
 
-/obj/item/slimepotion/fireproof/MouseDrop(obj/over_object)
+/obj/item/slimepotion/clothing/MouseDrop(obj/over_object)
 	if(usr.incapacitated())
 		return
 	if(loc == usr && loc.Adjacent(over_object))
 		afterattack(over_object, usr, TRUE)
+
+/obj/item/slimepotion/clothing/fireproof
+	name = "slime chill potion"
+	id = "Fire Resistance"
+	desc = "A potent chemical mix that will fireproof any article of clothing."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle17"
+	origin_tech = "biotech=5"
+
+	inapplicable_caption = "fireproof"
+	applied_caption = "fireproof"
+	applied_color = "#000080"
+	color_name = "blue"
+	more_caption = ""
+	uses = 3
+
+/obj/item/slimepotion/clothing/fireproof/can_apply(obj/item/clothing/C)
+	return C.max_heat_protection_temperature < FIRE_IMMUNITY_MAX_TEMP_PROTECT
+
+/obj/item/slimepotion/clothing/fireproof/apply_effect(obj/item/clothing/C)
+	C.max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	C.heat_protection = C.body_parts_covered
+	C.resistance_flags |= FIRE_PROOF
+
+/obj/item/slimepotion/clothing/fireproof/cancel_effect(obj/item/clothing/C)
+	C.max_heat_protection_temperature = initial(C.max_heat_protection_temperature)
+	C.heat_protection = initial(C.heat_protection)
+	C.resistance_flags = initial(C.resistance_flags)
+
+/obj/item/slimepotion/clothing/acidproof
+	name = "slime acidproof potion"
+	id = "Acid Proof"
+	desc = "A potent chemical mix that will increase acid resistance of any article of clothing"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 25)
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle8"
+	origin_tech = "biotech=5"
+
+	inapplicable_caption = "acidproof"
+	applied_caption = "acidproof"
+	applied_color = "#022202"
+	color_name = "darkgreen"
+
+/obj/item/slimepotion/clothing/acidproof/can_apply(obj/item/clothing/C)
+	return C.armor.acid < 100
+
+/obj/item/slimepotion/clothing/laserresistance
+	name = "laser resistance slime potion"
+	id = "Laser Resistance"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 5,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	desc = "A potent chemical mix that will increase laser resistance of any article of clothing."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle4"
+	origin_tech = "biotech=5"
+
+	inapplicable_caption = "laser proof"
+	applied_caption = "laserproof"
+	applied_color = "#91723a"
+	color_name = "beige"
+
+/obj/item/slimepotion/clothing/laserresistance/can_apply(obj/item/clothing/C)
+	return C.armor.laser < 100
+
+/obj/item/slimepotion/clothing/radiation
+	name = "radiation resistance slime potion"
+	id = "Radiation Resistance"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 40, "fire" = 0, "acid" = 0)
+	desc = "A potent chemical mix that will increase radiation resistance of any article of clothing."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle6"
+	origin_tech = "biotech=5"
+
+	inapplicable_caption = "radiation proof"
+	applied_caption = "radiationproof"
+	applied_color = "#e6e205"
+	color_name = "yellow"
+
+/obj/item/slimepotion/clothing/radiation/can_apply(obj/item/clothing/C)
+	return C.armor.rad < 100
+
+/obj/item/slimepotion/clothing/bio
+	name = "bio resistance slime potion"
+	id = "Bio Resistance"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 40, "rad" = 0, "fire" = 0, "acid" = 0)
+	desc = "A potent chemical mix that will increase bio resistance of any article of clothing."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle7"
+	origin_tech = "biotech=5"
+
+	inapplicable_caption = "bio proof"
+	applied_caption = "bioproof"
+	applied_color = "#068a06"
+	color_name = "green"
+
+/obj/item/slimepotion/clothing/bio/can_apply(obj/item/clothing/C)
+	return C.armor.bio < 100
+
+/obj/item/slimepotion/clothing/explosionresistencte
+	name = "explosion resistance slime potion"
+	id = "Explosion Resistance"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 15, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	desc = "A potent chemical mix that will increase explosion resistance of any article of clothing."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle9"
+	origin_tech = "biotech=5"
+
+	inapplicable_caption = "explosion proof"
+	applied_caption = "explosionproof"
+	applied_color = "#2b2b2a"
+	color_name = "darkgrey"
+
+/obj/item/slimepotion/clothing/explosionresistencte/can_apply(obj/item/clothing/C)
+	return C.armor.bomb < 100
+
+/obj/item/slimepotion/clothing/teleportation
+	name = "teleportation slime potion"
+	id = "Teleportation Resistance"
+	desc = "A potent chemical mix that provides a small chance to teleport when taking damage."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle5"
+	origin_tech = "biotech=5"
+
+	inapplicable_caption = "with teleportation slime potion on it"
+	applied_caption = "teleportational"
+	applied_color = "#def1de"
+	color_name = "white"
+	more_caption = ""
+
+/obj/item/slimepotion/clothing/teleportation/can_apply(obj/item/clothing/C)
+	return !C.teleportation
+
+/obj/item/slimepotion/clothing/teleportation/apply_effect(obj/item/clothing/C)
+	C.teleportation = TRUE
+
+/obj/item/slimepotion/clothing/teleportation/cancel_effect(obj/item/clothing/C)
+	C.teleportation = initial(C.teleportation)
+
+/obj/item/slimepotion/clothing/damage
+	name = "Physical damage resistance slime potion"
+	id = "Damage Resistance"
+	armor = list("melee" = 5, "bullet" = 5, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	desc = "A potent chemical mix that will increase impact and gunshot resistance of any article of clothing."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle10"
+	origin_tech = "biotech=5"
+
+	inapplicable_caption = "damage proof"
+	applied_caption = "damageproof"
+	applied_color = "#00d9ffff"
+	color_name = "blue"
+
+/obj/item/slimepotion/clothing/damage/can_apply(obj/item/clothing/C)
+	return C.armor.melee < 100 || C.armor.bullet < 100
 
 /obj/effect/timestop
 	anchored = 1
@@ -632,7 +812,6 @@
 	icon_state = "bluespace"
 	desc = "Through a series of micro-teleports, these tiles let people move at incredible speeds."
 	floor_tile = /obj/item/stack/tile/bluespace
-
 
 /obj/item/stack/tile/sepia
 	name = "sepia floor tile"

@@ -25,7 +25,23 @@
 	name = "captain's parade cap"
 	desc = "Worn only by Captains with an abundance of class."
 	icon_state = "capcap"
+	item_state = "capcap"
 	dog_fashion = null
+
+/obj/item/clothing/head/caphat/blue
+	icon_state = "cap_parade_alt"
+	item_state = "cap_parade_alt"
+	dog_fashion = null
+
+/obj/item/clothing/head/caphat/office
+	icon_state = "cap_office"
+	item_state = "cap_office"
+	dog_fashion = null
+
+/obj/item/clothing/head/caphat/beret
+	name = "captain's beret"
+	icon_state = "cap_beret"
+	item_state = "cap_beret"
 
 //Head of Personnel
 /obj/item/clothing/head/hopcap
@@ -43,10 +59,14 @@
 
 //Research Director
 /obj/item/clothing/head/beret/purple
-	name = "research director's beret"
-	desc = " A purple beret, with a small golden crescent moon sewn onto it. Smells like plasma."
+	name = "scientist beret"
+	desc = "For science!"
 	icon_state = "beret_purple"
 	item_state = "purpleberet"
+
+/obj/item/clothing/head/beret/purple/rd
+	name = "research director's beret"
+	desc = "A purple beret, with a small golden crescent moon sewn onto it. Smells like plasma."
 
 //Chaplain
 /obj/item/clothing/head/hooded/chaplain_hood
@@ -78,6 +98,18 @@
 	icon_state = "witchhunterhat"
 	item_state = "witchhunterhat"
 	flags_cover = HEADCOVERSEYES
+
+/obj/item/clothing/head/bishopmitre
+	name = "bishop mitre"
+	desc = "An opulent hat that functions as a radio to God. Or as a lightning rod, depending on who you ask."
+	icon_state = "bishopmitre"
+	item_state = "bishopmitre"
+
+/obj/item/clothing/head/blackbishopmitre
+	name = "black bishop mitre"
+	desc = "An opulent hat that functions as a radio to God. Or as a lightning rod, depending on who you ask."
+	icon_state = "blackbishopmitre"
+	item_state = "blackbishopmitre"
 
 /obj/item/clothing/head/det_hat
 	name = "hat"
@@ -161,6 +193,11 @@
 	icon_state = "beret_warden"
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 50)
 
+/obj/item/clothing/head/beret/brigphys
+	name = "brigphys's beret"
+	desc = "Берет медика службы безопасности"
+	icon_state = "brigphysberet"
+
 /obj/item/clothing/head/beret/eng
 	name = "engineering beret"
 	desc = "A beret with the engineering insignia emblazoned on it. For engineers that are more inclined towards style than safety."
@@ -218,6 +255,10 @@
 
 /obj/item/clothing/head/surgery/green
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs. This one is dark green."
+	icon_state = "surgcap_darkgreen"
+
+/obj/item/clothing/head/surgery/lightgreen
+	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs. This one is green."
 	icon_state = "surgcap_green"
 
 /obj/item/clothing/head/surgery/black

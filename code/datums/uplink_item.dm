@@ -173,11 +173,28 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 	job = list("Clown")
 
+/datum/uplink_item/jobspecific/cmag
+	name = "Jestographic Sequencer"
+	desc = "The jestographic sequencer, also known as a cmag, is a small card that inverts the access on any door it's used on. Perfect for locking command out of their own departments. Honk!"
+	reference = "CMG"
+	item = /obj/item/card/cmag
+	cost = 4
+	surplus = 50
+	job = list("Clown")
+
 /datum/uplink_item/jobspecific/clownmagboots
 	name = "Clown Magboots"
 	desc = "A pair of modified clown shoes fitted with an advanced magnetic traction system. Look and sound exactly like regular clown shoes unless closely inspected."
 	reference = "CM"
 	item = /obj/item/clothing/shoes/magboots/clown
+	cost = 3
+	job = list("Clown")
+
+/datum/uplink_item/jobspecific/acrobatic_shoes
+	name = "Acrobatic Shoes"
+	desc = "A pair of modified clown shoes are power-up with a special jumping mechanism that works on the honk-space, allowing you to do excellent acrobatic tricks!"
+	reference = "AS"
+	item = /obj/item/clothing/shoes/bhop/clown
 	cost = 3
 	job = list("Clown")
 
@@ -188,7 +205,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/fake_revolver
 	cost = 1
 	job = list("Clown")
-//mime
+
+//Mime
 /datum/uplink_item/jobspecific/caneshotgun
 	name = "Cane Shotgun and Assassination Shells"
 	desc = "A specialised, one shell shotgun with a built-in cloaking device to mimic a cane. The shotgun is capable of hiding it's contents and the pin alongside being supressed. Comes boxed with 6 specialised shrapnel rounds laced with a silencing toxin and 1 preloaded in the shotgun's chamber."
@@ -205,6 +223,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 6
 	job = list("Mime")
 
+//Miner
 /datum/uplink_item/jobspecific/pressure_mod
 	name = "Kinetic Accelerator Pressure Mod"
 	desc = "A modification kit which allows Kinetic Accelerators to do greatly increased damage while indoors. Occupies 35% mod capacity."
@@ -219,7 +238,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A custom sauce made from the highly poisonous fly amanita mushrooms. Anyone who ingests it will take variable toxin damage depending on how long it has been in their system, with a higher dosage taking longer to metabolize."
 	reference = "CESS"
 	item = /obj/item/reagent_containers/food/condiment/syndisauce
-	cost = 2
+	cost = 1
 	job = list("Chef")
 
 /datum/uplink_item/jobspecific/meatcleaver
@@ -238,8 +257,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 	job = list("Chef")
 
-//Chaplain
+/datum/uplink_item/jobspecific/CQC_upgrade
+	name = "CQC Upgrade implant"
+	desc = "Contain special implant for chefs, which destroy safety check their innate CQC implant, allow them to use martial art outside the kitchen. Use in hand."
+	reference = "CUI"
+	item = /obj/item/CQC_manual/chef
+	cost = 6
+	job = list("Chef")
+	surplus = 0 //because it's useless for all non-chefs
 
+//Chaplain
 /datum/uplink_item/jobspecific/voodoo
 	name = "Voodoo Doll"
 	desc = "A doll created by Syndicate Witch Doctors. Ingredients: Something of the Thread, Something of the Head, Something of the Body, Something of the Dead, Secret Voodoo herbs, and Monosodium glutamate."
@@ -267,7 +294,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	hijack_only = TRUE //This is a murderbone weapon, as such, it should only be available in those scenarios.
 
 //Janitor
-
 /datum/uplink_item/jobspecific/cautionsign
 	name = "Proximity Mine"
 	desc = "An Anti-Personnel proximity mine cleverly disguised as a wet floor caution sign that is triggered by running past it, activate it to start the 15 second timer and activate again to disarm."
@@ -287,14 +313,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 0
 
 //Medical
-
 /datum/uplink_item/jobspecific/rad_laser
 	name = "Radiation Laser"
 	desc = "A radiation laser concealed inside of a Health Analyzer. After a moderate delay, causes temporary collapse and radiation. Has adjustable controls, but will not function as a regular health analyzer, only appears like one. May not function correctly on radiation resistant humanoids!"
 	reference = "RL"
 	item = /obj/item/rad_laser
 	cost = 5
-	job = list("Chief Medical Officer", "Medical Doctor", "Geneticist", "Psychiatrist",	"Chemist", "Paramedic", "Coroner", "Virologist")
+	job = list("Chief Medical Officer", "Medical Doctor", "Intern", "Geneticist", "Psychiatrist",	"Chemist", "Paramedic", "Coroner", "Virologist")
 
 /datum/uplink_item/jobspecific/batterer
 	name = "Mind Batterer"
@@ -314,7 +339,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 0
 
 //Virology
-
 /datum/uplink_item/jobspecific/viral_injector
 	name = "Viral Injector"
 	desc = "A modified hypospray disguised as a functional pipette. The pipette can infect victims with viruses upon injection."
@@ -328,11 +352,20 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "The feral cat delivery grenade contains 5 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
 	item = /obj/item/grenade/spawnergrenade/feral_cats
 	reference = "CCLG"
-	cost = 4
+	cost = 2
 	job = list("Psychiatrist")//why? Becuase its funny that a person in charge of your mental wellbeing has a cat granade..
 
-//Assistant
+/datum/uplink_item/jobspecific/gbs
+	name = "GBS virus bottle"
+	desc = "A bottle containing Gravitokinetic Bipotential SADS culture. Also known as GBS, extremely deadly virus."
+	reference = "GBS"
+	item = /obj/item/reagent_containers/glass/bottle/gbs
+	cost = 12
+	job = list("Virologist")
+	surplus = 0
+	hijack_only = TRUE
 
+//Assistant
 /datum/uplink_item/jobspecific/pickpocketgloves
 	name = "Pickpocket's Gloves"
 	desc = "A pair of sleek gloves to aid in pickpocketing. While wearing these, you can loot your target without them knowing. Pickpocketing puts the item directly into your hand."
@@ -341,16 +374,24 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 6
 	job = list("Civilian")
 
+/datum/uplink_item/jobspecific/lockermech
+	name = "Syndie Locker Mech"
+	desc = "A massive and incredibly deadly Syndicate exosuit(Not realy)."
+	reference = "SLM"
+	item = /obj/mecha/combat/lockersyndie/loaded
+	cost = 10
+	job = list("Civilian")
+	surplus = 0
+
 /datum/uplink_item/jobspecific/stungloves
 	name = "Stungloves"
 	desc = "A pair of sturdy shock gloves with insulated layer. Protects user from electric shock and allows to shock enemies."
 	reference = "SG"
 	item = /obj/item/storage/box/syndie_kit/stungloves
 	cost = 2
-	job = list("Civilian", "Mechanic", "Station Engineer", "Chief Engineer")
+	job = list("Civilian", "Mechanic", "Station Engineer", "Trainee Engineer", "Chief Engineer")
 
 //Bartender
-
 /datum/uplink_item/jobspecific/drunkbullets
 	name = "Boozey Shotgun Shells"
 	desc = "A box containing 6 shotgun shells that simulate the effects of extreme drunkenness on the target, more effective for each type of alcohol in the target's system."
@@ -360,17 +401,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	job = list("Bartender")
 
 //Barber
-
 /datum/uplink_item/jobspecific/safety_scissors //Hue
 	name = "Safety Scissors"
 	desc = "A pair of scissors that are anything but what their name implies; can easily cut right into someone's throat."
 	reference = "CTS"
 	item = /obj/item/scissors/safety
-	cost = 5
+	cost = 2
 	job = list("Barber")
 
 //Botanist
-
 /datum/uplink_item/jobspecific/bee_briefcase
 	name = "Briefcase Full of Bees"
 	desc = "A seemingly innocent briefcase full of not-so-innocent Syndicate-bred bees. Inject the case with blood to train the bees to ignore the donor(s). It also wirelessly taps into station intercomms to broadcast a message of TERROR."
@@ -380,17 +419,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	job = list("Botanist")
 
 //Engineer
-
 /datum/uplink_item/jobspecific/powergloves
 	name = "Power Gloves"
 	desc = "Insulated gloves that can utilize the power of the station to deliver a short arc of electricity at a target. Must be standing on a powered cable to use."
 	reference = "PG"
 	item = /obj/item/clothing/gloves/color/yellow/power
 	cost = 8
-	job = list("Station Engineer", "Chief Engineer")
+	job = list("Station Engineer", "Trainee Engineer", "Chief Engineer")
 
 //RD
-
 /datum/uplink_item/jobspecific/telegun
 	name = "Telegun"
 	desc = "An extremely high-tech energy gun that utilizes bluespace technology to teleport away living targets. Select the target beacon on the telegun itself; projectiles will send targets to the beacon locked onto."
@@ -424,7 +461,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Part of the notorious Ambrosia family, this species is nearly indistinguishable from Ambrosia Vulgaris- but its' branches contain a revolting toxin. Eight units are enough to drive victims insane."
 	reference = "BRO"
 	item = /obj/item/seeds/ambrosia/cruciatus
-	cost = 2
+	cost = 1
 	job = list("Botanist")
 
 //Atmos Tech
@@ -434,7 +471,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "AIRJ"
 	item = /obj/item/clothing/under/contortionist
 	cost = 10
-	job = list("Life Support Specialist")
+	job = list("Life Support Specialist", "Chief Engineer")
 
 /datum/uplink_item/jobspecific/energizedfireaxe
 	name = "Energized Fire Axe"
@@ -442,7 +479,17 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "EFA"
 	item = /obj/item/twohanded/fireaxe/energized
 	cost = 4
-	job = list("Life Support Specialist")
+	job = list("Life Support Specialist", "Chief Engineer")
+
+//CE
+/datum/uplink_item/jobspecific/combat_rcd
+	name = "Syndicate RCD"
+	desc = "Special RCD capable to destroy reinforced walls and have 500 matter units instead of 100."
+	reference = "SRCD"
+	item = /obj/item/rcd/combat
+	cost = 8
+	job = list("Chief Engineer")
+	surplus = 0
 
 //Stimulants
 
@@ -452,7 +499,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "ST"
 	item = /obj/item/reagent_containers/hypospray/autoinjector/stimulants
 	cost = 5
-	job = list("Scientist", "Research Director", "Geneticist", "Chief Medical Officer", "Medical Doctor", "Psychiatrist", "Chemist", "Paramedic", "Coroner", "Virologist")
+	job = list("Scientist", "Student Scientist", "Research Director", "Geneticist", "Chief Medical Officer", "Medical Doctor", "Intern", "Psychiatrist", "Chemist", "Paramedic", "Coroner", "Virologist")
 
 //Tator Poison Bottles
 
@@ -462,7 +509,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "TPB"
 	item = /obj/item/reagent_containers/glass/bottle/traitor
 	cost = 2
-	job = list("Research Director", "Chief Medical Officer", "Medical Doctor", "Psychiatrist", "Chemist", "Paramedic", "Virologist", "Bartender", "Chef")
+	job = list("Research Director", "Chief Medical Officer", "Medical Doctor", "Intern", "Psychiatrist", "Chemist", "Paramedic", "Virologist", "Bartender", "Chef")
 
 // Paper contact poison pen
 
@@ -471,7 +518,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Cutting edge of deadly writing implements technology, this gadget will infuse any piece of paper with delayed contact poison."
 	reference = "PP"
 	item = /obj/item/pen/poison
-	cost = 2
+	cost = 1
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	job = list("Head of Personnel", "Quartermaster", "Cargo Technician", "Librarian")
 
@@ -927,6 +974,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
+/datum/uplink_item/ammo/compact
+	name = "50. compact ammo box"
+	desc = "A box of 50. cal sniper ammo."
+	reference = "50L"
+	item = /obj/item/ammo_box/magazine/sniper_rounds/compact
+	cost = 2
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 /datum/uplink_item/ammo/revolver
 	name = ".357 Revolver - Speedloader"
 	desc = "A speed loader that contains seven additional .357 Magnum rounds for the syndicate revolver. For when you really need a lot of things dead."
@@ -1022,7 +1077,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A modified briefcase capable of storing and firing a gun under a false bottom. Use a screwdriver to pry away the false bottom and make modifications. Distinguishable upon close examination due to the added weight."
 	reference = "FBBC"
 	item = /obj/item/storage/briefcase/false_bottomed
-	cost = 3
+	cost = 2
 
 /datum/uplink_item/stealthy_weapons/soap
 	name = "Syndicate Soap"
@@ -1111,15 +1166,41 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cant_discount = TRUE
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/explosives/t4
+	name = "Breaching T-4"
+	desc = "Thermite-charged breaching explosive. Effective to destroy wall, but not to destroy airlocks."
+	reference = "T4"
+	item = /obj/item/grenade/plastic/x4/thermite
+	cost = 2
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/explosives/t4_pack
+	name = "Pack of 3 T-4 explosives"
+	desc = "A package containing 3 T-4."
+	reference = "T4P"
+	item = /obj/item/storage/box/syndie_kit/t4P
+	cost = 5
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 /datum/uplink_item/explosives/syndicate_bomb
 	name = "Syndicate Bomb"
 	desc = "The Syndicate Bomb has an adjustable timer with a minimum setting of 90 seconds. Ordering the bomb sends you a small beacon, which will teleport the explosive to your location when you activate it. \
 	You can wrench the bomb down to prevent removal. The crew may attempt to defuse the bomb."
 	reference = "SB"
 	item = /obj/item/radio/beacon/syndicate/bomb
-	cost = 11
+	cost = 8
 	surplus = 0
 	cant_discount = TRUE
+	hijack_only = TRUE
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/explosives/syndicate_bomb/nuke
+	reference = "SB"
+	item = /obj/item/radio/beacon/syndicate/bomb
+	cost = 11
+	excludefrom = list()
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	hijack_only = FALSE
 
 /datum/uplink_item/explosives/emp_bomb
 	name = "EMP bomb"
@@ -1127,9 +1208,20 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	You can wrench the bomb down to prevent removal. The crew may attempt to defuse the bomb."
 	reference = "SBEMP"
 	item = /obj/item/radio/beacon/syndicate/bomb/emp
-	cost = 10
+	cost = 8
 	surplus = 0
 	cant_discount = TRUE
+	hijack_only = TRUE
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/explosives/emp_bomb/nuke
+	reference = "SBEMP"
+	item = /obj/item/radio/beacon/syndicate/bomb/emp
+	cost = 10
+	excludefrom = list()
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	hijack_only = FALSE
+
 
 /datum/uplink_item/explosives/syndicate_minibomb
 	name = "Syndicate Minibomb"
@@ -1183,7 +1275,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "APG"
 	item = /obj/item/storage/box/syndie_kit/atmosfiregrenades
 	hijack_only = TRUE
-	cost = 12
+	cost = 10
 	surplus = 0
 	cant_discount = TRUE
 
@@ -1244,7 +1336,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A robust seven-slot belt made for carrying a broad variety of weapons, ammunition and explosives. It's modelled after the standard NT toolbelt so as to avoid suspicion while wearing it."
 	reference = "SBM"
 	item = /obj/item/storage/belt/military/traitor
-	cost = 2
+	cost = 1
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/frame
@@ -1307,7 +1399,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A syringe with one injection that randomizes appearance and name upon use. A cheaper but less versatile alternative to an agent card and voice changer."
 	reference = "DNAS"
 	item = /obj/item/dnascrambler
-	cost = 4
+	cost = 2
 
 /datum/uplink_item/stealthy_tools/smugglersatchel
 	name = "Smuggler's Satchel"
@@ -1398,32 +1490,32 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "For holding your favourite gun close and always being ready for a cowboy duel with clown."
 	reference = "SHL"
 	item = /obj/item/clothing/accessory/holster
-	cost = 2
+	cost = 1
 
 /datum/uplink_item/device_tools/webbing
 	name = "Combat Webbing"
 	desc = "Sturdy mess of synthcotton belts and buckles, ready to share your burden."
 	reference = "WBNG"
 	item = /obj/item/clothing/accessory/storage/webbing
-	cost = 2
+	cost = 1
 
 /datum/uplink_item/device_tools/black_vest
 	name = "Black Vest"
 	desc = "Robust black synthcotton vest with lots of pockets to hold whatever you need, but cannot hold in hands."
 	reference = "BLCKVST"
 	item = /obj/item/clothing/accessory/storage/black_vest
-	cost = 2
+	cost = 1
 
 /datum/uplink_item/device_tools/brown_vest
 	name = "Brown Vest"
 	desc = "Worn brownish synthcotton vest with lots of pockets to unload your hands."
 	reference = "BRWNVST"
 	item = /obj/item/clothing/accessory/storage/brown_vest
-	cost = 2
+	cost = 1
 
 /datum/uplink_item/device_tools/surgerybag
 	name = "Syndicate Surgery Duffelbag"
-	desc = "The Syndicate surgery duffelbag comes with a full set of surgery tools, a straightjacket and a muzzle. The bag itself is also made of very light materials and won't slow you down while it is equipped."
+	desc = "The Syndicate Surgical Bag comes with a complete set of everything you need for quality surgery, including a straitjacket and muzzle. The bag itself is unprecedentedly light, doesn't slow you down, and is completely silent."
 	reference = "SSDB"
 	item = /obj/item/storage/backpack/duffel/syndie/surgery
 	cost = 2
@@ -1433,7 +1525,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Stolen prototype bone repair nanites. Contains one nanocalcium autoinjector and guide."
 	reference = "NCAI"
 	item = /obj/item/storage/box/syndie_kit/bonerepair
-	cost = 4
+	cost = 2
 
 /datum/uplink_item/device_tools/syndicate_teleporter
 	name = "Experimental Syndicate Teleporter"
@@ -1444,6 +1536,17 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "TELE"
 	item = /obj/item/storage/box/syndie_kit/teleporter
 	cost = 8
+
+/datum/uplink_item/device_tools/spai
+	name = "Syndicate Personal AI Device (SPAI)"
+	desc = "You will have your personal assistant. It comes with an increased amount of memory and special programs."
+	reference = "SPAI"
+	item = /obj/item/paicard/uplink
+	cost = 8
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	surplus = 0
+	refundable = TRUE
+	cant_discount = TRUE
 
 /datum/uplink_item/device_tools/thermal_drill
 	name = "Thermal Safe Drill"
@@ -1554,6 +1657,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/device_tools/magboots/advance
+	name = "Advanced Blood-Red Magboots"
+	desc = "A pair of magnetic boots with a Syndicate paintjob that assist with freer movement in space or on-station during gravitational generator failures. \
+	These reverse-engineered knockoffs of Nanotrasen's 'Advanced Magboots' not slow you down in simulated-gravity environments and provide protection against slipping on the space lube."
+	reference = "ABRMB"
+	item = /obj/item/clothing/shoes/magboots/syndie/advance
+	cost = 8
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 /datum/uplink_item/device_tools/powersink
 	name = "Power Sink"
 	desc = "When screwed to wiring attached to an electric grid, then activated, this large device places excessive load on the grid, causing a stationwide blackout. The sink cannot be carried because of its excessive size. Ordering this sends you a small beacon that will teleport the power sink to your location on activation."
@@ -1569,7 +1681,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			sends you a small beacon that will teleport the larger beacon to your location upon activation."
 	reference = "SNGB"
 	item = /obj/item/radio/beacon/syndicate
-	cost = 5
+	cost = 6
 	surplus = 0
 	hijack_only = TRUE //This is an item only useful for a hijack traitor, as such, it should only be available in those scenarios.
 	cant_discount = TRUE
@@ -1625,7 +1737,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/device_tools/shield
 	name = "Energy Shield"
 	desc = "An incredibly useful personal shield projector, capable of reflecting energy projectiles, but it cannot block other attacks. Pair with an Energy Sword for a killer combination."
-	item = /obj/item/shield/energy
+	item = /obj/item/shield/energy/syndie
 	reference = "ESD"
 	cost = 12
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -1748,7 +1860,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Strong flavor, dense smoke, infused with omnizine."
 	reference = "SYSM"
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
-	cost = 2
+	cost = 1
 
 /datum/uplink_item/badass/syndiecards
 	name = "Syndicate Playing Cards"

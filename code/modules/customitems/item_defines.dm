@@ -66,7 +66,7 @@
 
 	else
 		user.visible_message("<span class='notice'>[user] begins to apply a [tattoo_name] [target] with the [src].</span>", "<span class='notice'>You begin to tattoo [target] with the [src]!</span>")
-		if(!do_after(user, 30 * toolspeed, target = M))
+		if(!do_after(user, 30 * toolspeed * gettoolspeedmod(user), target = M))
 			return
 		user.visible_message("<span class='notice'>[user] finishes the [tattoo_name] on [target].</span>", "<span class='notice'>You finish the [tattoo_name].</span>")
 
@@ -686,7 +686,7 @@
 	toggle_cooldown = 20
 	toggle_sound = 'sound/items/change_jaws.ogg'
 	flags = BLOCKHAIR
-	flags_inv = HIDEEYES|HIDEMASK|HIDEFACE|HIDEEARS
+	flags_inv = HIDEGLASSES|HIDEMASK|HIDENAME|HIDEHEADSETS
 	var/state = "Soldier Up"
 
 /obj/item/clothing/head/helmet/fluff/merchant_sallet/attack_self(mob/user)
@@ -699,8 +699,8 @@
 			)
 		options["Soldier Down"] = list(
 			"icon_state"	= "merchant_sallet_visor",
-			"visor_flags"	= HIDEEYES,
-			"mask_flags"	= HIDEMASK|HIDEFACE
+			"visor_flags"	= HIDEGLASSES,
+			"mask_flags"	= HIDEMASK|HIDENAME
 			)
 		options["Technician Up"] = list(
 			"icon_state"	= "merchant_sallet_bevor",
@@ -709,8 +709,8 @@
 			)
 		options["Technician Down"] = list(
 			"icon_state"	= "merchant_sallet",
-			"visor_flags"	= HIDEEYES,
-			"mask_flags"	= HIDEMASK|HIDEFACE
+			"visor_flags"	= HIDEGLASSES,
+			"mask_flags"	= HIDEMASK|HIDENAME
 			)
 
 		var/choice = input(user, "How would you like to adjust the helmet?", "Adjust Helmet") as null|anything in options
@@ -995,7 +995,7 @@
 	icon_state = "xantholne_winterhood"
 	body_parts_covered = HEAD
 	flags = BLOCKHAIR
-	flags_inv = HIDEEARS
+	flags_inv = HIDEHEADSETS
 
 /obj/item/clothing/suit/hooded/hoodie/fluff/xydonus //Xydonus: Rsik Ugsharki Atan | Based off of the bomber jacket, but with a hood slapped on (for allowed suit storage)
 	name = "custom fit bomber jacket"
@@ -1015,7 +1015,7 @@
 	icon_state = "xydonus_bomberhood"
 	body_parts_covered = HEAD
 	flags = BLOCKHAIR
-	flags_inv = HIDEEARS
+	flags_inv = HIDEHEADSETS
 
 /obj/item/clothing/suit/fluff/pineapple //Pineapple Salad: Dan Jello
 	name = "red trench coat"
@@ -1060,7 +1060,7 @@
 	icon_state = "shesicoat_hood2"
 	body_parts_covered = HEAD
 	flags = BLOCKHAIR
-	flags_inv = HIDEEARS
+	flags_inv = HIDEHEADSETS
 
 /obj/item/clothing/suit/jacket/dtx //AffectedArc07: DTX
 	name = "telecommunications bomber jacket"
@@ -1296,8 +1296,8 @@
 	item_state = "superior_mask"
 	body_parts_covered = HEAD
 	flags = BLOCKHAIR
-	flags_inv = HIDEFACE
-
+	flags_inv = HIDENAME
+	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 
 /obj/item/clothing/shoes/fluff/arachno_boots
 	name = "Arachno-Man boots"

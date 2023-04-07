@@ -28,6 +28,7 @@
 	taste_sensitivity = TASTE_SENSITIVITY_DULL
 	skinned_type = /obj/item/stack/sheet/wood
 
+	blood_species = "Diona"
 	blood_color = "#004400"
 	flesh_color = "#907E4A"
 	butt_sprite = "diona"
@@ -36,15 +37,15 @@
 
 	has_organ = list(
 		"nutrient channel" =   /obj/item/organ/internal/liver/diona,
-		"respiratory vacuoles" =   /obj/item/organ/internal/lungs/diona,
-		"neural strata" =      /obj/item/organ/internal/heart/diona,
-		"receptor node" =      /obj/item/organ/internal/eyes/diona, //Default darksight of 2.
-		"gas bladder" =        /obj/item/organ/internal/brain/diona,
-		"polyp segment" =      /obj/item/organ/internal/kidneys/diona,
-		"anchoring ligament" = /obj/item/organ/internal/appendix/diona
+		"filtrating vacuoles" =   /obj/item/organ/internal/kidneys/diona,
+		"neural strata" =   /obj/item/organ/internal/brain/diona,
+		"receptor node" =   /obj/item/organ/internal/eyes/diona, //Default darksight of 2.
+		"gas bladder" =   /obj/item/organ/internal/lungs/diona,
+		"polyp segment" =   /obj/item/organ/internal/appendix/diona,
+		"anchoring ligament" = /obj/item/organ/internal/heart/diona
 		)
 
-	vision_organ = /obj/item/organ/internal/eyes/diona
+	mutantears = /obj/item/organ/internal/ears/diona
 	has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/chest/diona),
 		"groin" =  list("path" = /obj/item/organ/external/groin/diona),

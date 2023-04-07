@@ -123,7 +123,7 @@
 
 /mob/living/mech_melee_attack(obj/mecha/M)
 	if(M.occupant.a_intent == INTENT_HARM)
-		if(HAS_TRAIT(M.occupant, TRAIT_PACIFISM))
+		if(HAS_TRAIT(M.occupant, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
 			to_chat(M.occupant, "<span class='warning'>[pluralize_ru(M.occupant.gender,"Ты не хочешь","Вы не хотите")] навредить живым существам!</span>")
 			return
 		M.do_attack_animation(src)
@@ -262,7 +262,10 @@
 
 	for(var/obj/item/grab/G in grabbed_by)
 		if(G.assailant == user)
-			to_chat(user, "<span class='notice'>[pluralize_ru(user.gender,"Ты","Вы")] уже схватил[genderize_ru(user.gender,"","а","о","и")] [src.declent_ru(ACCUSATIVE)].</span>")
+			if(holder_type)
+				get_scooped(user)
+			else
+				to_chat(user, "<span class='notice'>[pluralize_ru(user.gender,"Ты","Вы")] уже схватил[genderize_ru(user.gender,"","а","о","и")] [src.declent_ru(ACCUSATIVE)].</span>")
 			return
 
 	add_attack_logs(user, src, "Grabbed passively", ATKLOG_ALL)
@@ -296,7 +299,7 @@
 			M.Feedstop()
 		return // can't attack while eating!
 
-	if(HAS_TRAIT(src, TRAIT_PACIFISM))
+	if(HAS_TRAIT(src, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
 		to_chat(M, "<span class='warning'>[pluralize_ru(M.gender,"Ты не хочешь","Вы не хотите")] никому навредить!</span>")
 		return FALSE
 
@@ -315,7 +318,7 @@
 			return
 		M.custom_emote(1, "[M.friendly] [src.declent_ru(ACCUSATIVE)].")
 		return FALSE
-	if(HAS_TRAIT(M, TRAIT_PACIFISM))
+	if(HAS_TRAIT(M, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
 		to_chat(M, "<span class='warning'>[pluralize_ru(M.gender,"Ты не хочешь","Вы не хотите")] никому навредить!</span>")
 		return FALSE
 
@@ -335,7 +338,7 @@
 			return 0
 
 		else
-			if(HAS_TRAIT(L, TRAIT_PACIFISM))
+			if(HAS_TRAIT(L, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
 				to_chat(L, "<span class='warning'>[pluralize_ru(L.gender,"Ты не хочешь","Вы не хотите")] никому навредить!</span>")
 				return
 
@@ -360,7 +363,7 @@
 			grabbedby(M)
 			return FALSE
 		if(INTENT_HARM)
-			if(HAS_TRAIT(M, TRAIT_PACIFISM))
+			if(HAS_TRAIT(M, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
 				to_chat(M, "<span class='warning'>[pluralize_ru(M.gender,"Ты","Вы")] не [pluralize_ru(M.gender,"хочешь","хотите")] никому навредить!</span>")
 				return FALSE
 			M.do_attack_animation(src)

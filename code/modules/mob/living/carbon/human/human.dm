@@ -28,7 +28,7 @@
 			mind.name = real_name
 
 		if (!tts_seed)
-			tts_seed = pick(SStts.tts_seeds)
+			tts_seed = SStts.get_random_seed(src)
 
 	create_reagents(330)
 
@@ -483,9 +483,9 @@
 /mob/living/carbon/human/get_visible_name(var/id_override = FALSE)
 	if(name_override)
 		return name_override
-	if(wear_mask && (wear_mask.flags_inv & HIDEFACE))	//Wearing a mask which hides our face, use id-name if possible
+	if(wear_mask && (wear_mask.flags_inv & HIDENAME))	//Wearing a mask which hides our face, use id-name if possible
 		return get_id_name("Unknown")
-	if(head && (head.flags_inv & HIDEFACE))
+	if(head && (head.flags_inv & HIDENAME))
 		return get_id_name("Unknown")		//Likewise for hats
 	var/face_name = get_face_name()
 	var/id_name = get_id_name("")
@@ -1001,9 +1001,9 @@
 	if(head)
 		if(head.flags_inv & HIDEMASK)
 			obscured |= slot_wear_mask
-		if(head.flags_inv & HIDEEYES)
+		if(head.flags_inv & HIDEGLASSES)
 			obscured |= slot_glasses
-		if(head.flags_inv & HIDEEARS)
+		if(head.flags_inv & HIDEHEADSETS)
 			obscured |= slot_r_ear
 			obscured |= slot_l_ear
 
@@ -1021,7 +1021,7 @@
 
 /mob/living/carbon/human/proc/get_visible_gender()
 	var/list/obscured = check_obscured_slots()
-	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDEFACE)) || (head && (head.flags_inv & HIDEFACE))
+	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDENAME)) || (head && (head.flags_inv & HIDENAME))
 	if((slot_w_uniform in obscured) && skipface)
 		return PLURAL
 	return gender
@@ -1547,6 +1547,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(mind)
 		if((mind.assigned_role == "Station Engineer") || (mind.assigned_role == "Chief Engineer") )
 			. = 100
+		if(mind.assigned_role == "Trainee Engineer")	//Чем глупее, тем вкуснее
+			. = 300
 		if(mind.assigned_role == "Clown")
 			. = rand(-1000, 1000)
 	..() //Called afterwards because getting the mind after getting gibbed is sketchy
@@ -1858,6 +1860,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/special_post_clone_handling()
 	if(mind && mind.assigned_role == "Cluwne") //HUNKE your suffering never stops
 		makeCluwne()
+	if(mind && ("high_rp" in mind.curses)) // Probably need to make a new proc to handle curses in case if there will be new ones
+		curse_high_rp()
 
 /mob/living/carbon/human/proc/influenceSin()
 	var/datum/objective/sintouched/O
@@ -1895,9 +1899,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	return getBrainLoss() < 100
 
 
-/mob/living/carbon/human/fakefire(var/fire_icon = "Generic_mob_burning")
+/mob/living/carbon/human/fakefire()
 	if(!overlays_standing[FIRE_LAYER])
-		overlays_standing[FIRE_LAYER] = image("icon"=fire_dmi, "icon_state"=fire_icon)
+		overlays_standing[FIRE_LAYER] = image(FIRE_DMI, icon_state = "Generic_mob_burning")
 		update_icons()
 
 /mob/living/carbon/human/fakefireextinguish()
@@ -1937,12 +1941,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
   */
 /mob/living/carbon/human/get_runechat_color()
    return dna.species.get_species_runechat_color(src)
-
-/mob/living/carbon/human/update_runechat_msg_location()
-	if(ismecha(loc))
-		runechat_msg_location = loc
-	else
-		runechat_msg_location = src
 
 /mob/living/carbon/human/limb_attack_self()
 	var/obj/item/organ/external/arm = hand ? get_organ(BODY_ZONE_L_ARM) : get_organ(BODY_ZONE_R_ARM)

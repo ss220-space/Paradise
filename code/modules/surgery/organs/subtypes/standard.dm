@@ -213,6 +213,11 @@
 	var/hair_colour = "#000000"
 	var/sec_hair_colour = "#000000"
 	var/h_style = "Bald"
+	var/h_grad_style = "None"
+	var/h_grad_offset_x = 0
+	var/h_grad_offset_y = 0
+	var/h_grad_colour = "#000000"
+	var/h_grad_alpha = 200
 
 	//Head accessory colour and style
 	var/headacc_colour = "#000000"
@@ -253,6 +258,16 @@
 	if(!disfigured)
 		if(brute_dam + burn_dam > 50)
 			disfigure()
+
+/obj/item/organ/external/head/examine(mob/user)
+	. = ..()
+	if(in_range(user, src) || istype(user, /mob/dead/observer))
+		if(!contents.len)
+			. += "<span class='notice'>Выглядит пустой.</span>"
+		else
+			. += "<span class='notice'>Выглядит относительно целой, внутри что-то есть.</span>"
+	else
+		. += "<span class='notice'>Вы должны подойти ближе, чтобы осмотреть это.</span>"
 
 /obj/item/organ/external/head/proc/handle_alt_icon()
 	if(alt_head && GLOB.alt_heads_list[alt_head])

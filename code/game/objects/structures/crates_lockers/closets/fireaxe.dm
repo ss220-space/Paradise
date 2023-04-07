@@ -24,7 +24,7 @@
 		if(istype(O, /obj/item/multitool))
 			to_chat(user, "<span class='warning'>Resetting circuitry...</span>")
 			playsound(user, 'sound/machines/lockreset.ogg', 50, 1)
-			if(do_after(user, 20 * O.toolspeed, target = src))
+			if(do_after(user, 20 * O.toolspeed * gettoolspeedmod(user), target = src))
 				locked = FALSE
 				to_chat(user, "<span class = 'caution'> You disable the locking modules.</span>")
 				update_icon()
@@ -39,7 +39,7 @@
 				return
 			else
 				user.do_attack_animation(src)
-				playsound(user, 'sound/effects/Glasshit.ogg', 100, 1) //We don't want this playing every time
+				playsound(user, 'sound/effects/glasshit.ogg', 100, 1) //We don't want this playing every time
 			if(W.force < 15)
 				to_chat(user, "<span class='notice'>The cabinet's protective glass glances off the hit.</span>")
 			else
@@ -84,7 +84,7 @@
 			else
 				to_chat(user, "<span class='warning'>Resetting circuitry...</span>")
 				playsound(user, 'sound/machines/lockenable.ogg', 50, 1)
-				if(do_after(user, 20 * O.toolspeed, target = src))
+				if(do_after(user, 20 * O.toolspeed * gettoolspeedmod(user), target = src))
 					locked = TRUE
 					to_chat(user, "<span class = 'caution'> You re-enable the locking modules.</span>")
 				return
@@ -200,3 +200,12 @@
 
 /obj/structure/closet/fireaxecabinet/welder_act(mob/user, obj/item/I) //A bastion of sanity in a sea of madness
 	return
+
+/obj/structure/closet/fireaxecabinet/Destroy()
+	if(!obj_integrity)
+		if(fireaxe)
+			fireaxe.forceMove(loc)
+			fireaxe = null
+		else
+			QDEL_NULL(fireaxe)
+	return ..()

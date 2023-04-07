@@ -111,6 +111,7 @@
 								"<span class='userdanger'>[A] has [atk_verb]ed [D]!</span>")
 
 	D.apply_damage(damage, BRUTE, affecting, armor_block)
+	objective_damage(A, D, damage, BRUTE)
 
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", (damage > 0) ? null : ATKLOG_ALL)
 
@@ -122,6 +123,12 @@
 	else if(D.lying)
 		D.forcesay(GLOB.hit_appends)
 	return TRUE
+
+/datum/martial_art/proc/objective_damage(var/mob/living/user, var/mob/living/target, var/damage, var/damage_type)
+	if(target.mind && user?.mind?.objectives)
+		for(var/datum/objective/pain_hunter/objective in user.mind.objectives)
+			if(target.mind == objective.target)
+				objective.take_damage(damage, damage_type)
 
 /datum/martial_art/proc/teach(mob/living/carbon/human/H, make_temporary = FALSE)
 	if(!H.mind)
@@ -289,6 +296,36 @@
 	visible_message("<span class='warning'>[src] beeps ominously, and a moment later it bursts up in flames.</span>")
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
+
+/obj/item/CQC_manual/chef
+	name = "CQC Upgrade implant"
+	desc = "Gives you to remember what you always forget"
+	icon = 'icons/obj/items.dmi'
+	icon_state = "implanter1"
+	item_state = "syringe_0"
+
+/obj/item/CQC_manual/chef/attack_self(mob/living/carbon/human/user)
+	if(!istype(user) || !user)
+		return
+	if(user.mind && user.mind.assigned_role == "Chef")
+		to_chat(user, "<span class='boldannounce'>You completely memorise the basics of CQC.</span>")
+		var/datum/martial_art/cqc/CQC = new(null)
+		CQC.teach(user)
+		user.drop_item()
+		visible_message("<span class='warning'>[src] beeps ominously, and a moment later it blow up.</span>")
+		new /obj/effect/decal/cleanable/ash(get_turf(src))
+		qdel(src)
+	else
+		to_chat(user, "<span class='notice'>You implant yourself, but nanobots can't find their target. You feel sharp pain in head!</span>")
+		if(isliving(user))
+			var/mob/living/L = user
+			L.adjustBrainLoss(20)
+			L.adjustFireLoss(20)
+		user.drop_item()
+		visible_message("<span class='warning'>[src] beeps ominously, and a moment later it blow up!</span>")
+		playsound(get_turf(src),'sound/effects/explosion2.ogg', 100, 1)
+		new /obj/effect/decal/cleanable/ash(get_turf(src))
+		qdel(src)
 
 /obj/item/twohanded/bostaff
 	name = "bo staff"

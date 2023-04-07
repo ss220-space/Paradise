@@ -182,6 +182,7 @@
 	new /obj/item/storage/backpack/duffel/syndie(src)
 	new /obj/item/storage/box/syndicate_permits(src)
 	new /obj/item/door_remote/taipan(src)
+	new /obj/item/clothing/neck/cloak/syndiecap/comms(src)
 
 /obj/structure/closet/secure_closet/syndicate/research_director
 	name = "Syndicate Research Director's Locker"
@@ -271,7 +272,7 @@
 
 /obj/structure/closet/secure_closet/syndicate/hydro
 	name = "Syndicate Botanist's Locker"
-	req_one_access = list(ACCESS_SYNDICATE_BOTANY)
+	req_access = list(ACCESS_SYNDICATE_BOTANY)
 	icon_state = "syndicate_hydro_secure1"
 	icon_closed = "syndicate_hydro_secure"
 	icon_locked = "syndicate_hydro_secure1"

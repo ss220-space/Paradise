@@ -34,11 +34,20 @@
 
 //Removes a few problematic characters
 /proc/sanitize_simple(var/t,var/list/repl_chars = list("\n"="#","\t"="#"))
-	if(config && config.twitch_censor)
-		repl_chars += config.twich_censor_list
 	for(var/char in repl_chars)
 		t = replacetext(t, char, repl_chars[char])
 	return t
+
+/proc/sanitize_censored_patterns(var/t)
+	if(!config || !config.twitch_censor || !config.twich_censor_list)
+		return t
+
+	var/text = sanitize_simple(t, config.twich_censor_list)
+	if(t != text)
+		message_admins("CENSOR DETECTION: [ADMIN_FULLMONTY(usr)] inputs: \"[html_encode(t)]\"")
+		log_adminwarn("CENSOR DETECTION: [key_name_log(usr)] inputs: \"[t]\"")
+
+	return text
 
 /proc/readd_quotes(var/t)
 	var/list/repl_chars = list("&#34;" = "\"")
@@ -51,7 +60,7 @@
 
 //Runs byond's sanitization proc along-side sanitize_simple
 /proc/sanitize(var/t,var/list/repl_chars = null)
-	return html_encode(sanitize_simple(t,repl_chars))
+	return sanitize_censored_patterns(html_encode(sanitize_simple(t,repl_chars)))
 
 // Gut ANYTHING that isnt alphanumeric, or brackets
 /proc/filename_sanitize(t)
@@ -415,16 +424,6 @@
 /proc/sanitizeSafe(var/input, var/max_length = MAX_MESSAGE_LEN, var/encode = 1, var/trim = 1, var/extra = 1)
 	return sanitize(replace_characters(input, list(">"=" ","<"=" ", "\""="'")), max_length, encode, trim, extra)
 
-
-//Replace BYOND text macros with span classes for to_chat
-/proc/replace_text_macro(match, code, rest)
-	var/regex/text_macro = new("(\\xFF.)(.*)$")
-	return text_macro.Replace(rest, /proc/replace_text_macro)
-
-/proc/macro2html(text)
-    var/static/regex/text_macro = new("(\\xFF.)(.*)$")
-    return text_macro.Replace(text, /proc/replace_text_macro)
-
 /proc/dmm_encode(text)
 	// First, go through and nix out any of our escape sequences so we don't leave ourselves open to some escape sequence attack
 	// Some coder will probably despise me for this, years down the line
@@ -552,6 +551,7 @@
 
 /proc/convert_pencode_arg(text, tag, arg)
 	arg = sanitize_simple(html_encode(arg), list("''"="","\""="", "?"=""))
+	arg = sanitize_censored_patterns(arg)
 	// https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html#rule-4---css-escape-and-strictly-validate-before-inserting-untrusted-data-into-html-style-property-values
 	var/list/style_attacks = list("javascript:", "expression", "byond:", "file:")
 
@@ -701,3 +701,59 @@
 			if(1085 to 1097, 1053 to 1065)
 				ascii -= 13
 		. += ascii2text(ascii)
+
+//Used for applying byonds text macros to strings that are loaded at runtime
+/proc/apply_text_macros(string)
+	var/next_backslash = findtext(string, "\\")
+	if(!next_backslash)
+		return string
+
+	var/leng = length(string)
+
+	var/next_space = findtext(string, " ", next_backslash + length(string[next_backslash]))
+	if(!next_space)
+		next_space = leng - next_backslash
+
+	if(!next_space)	//trailing bs
+		return string
+
+	var/base = next_backslash == 1 ? "" : copytext(string, 1, next_backslash)
+	var/macro = lowertext(copytext(string, next_backslash + length(string[next_backslash]), next_space))
+	var/rest = next_backslash > leng ? "" : copytext(string, next_space + length(string[next_space]))
+
+	//See https://secure.byond.com/docs/ref/info.html#/DM/text/macros
+	switch(macro)
+		//prefixes/agnostic
+		if("the")
+			rest = text("\the []", rest)
+		if("a")
+			rest = text("\a []", rest)
+		if("an")
+			rest = text("\an []", rest)
+		if("proper")
+			rest = text("\proper []", rest)
+		if("improper")
+			rest = text("\improper []", rest)
+		if("roman")
+			rest = text("\roman []", rest)
+		//postfixes
+		if("th")
+			base = text("[]\th", rest)
+		if("s")
+			base = text("[]\s", rest)
+		if("he")
+			base = text("[]\he", rest)
+		if("she")
+			base = text("[]\she", rest)
+		if("his")
+			base = text("[]\his", rest)
+		if("himself")
+			base = text("[]\himself", rest)
+		if("herself")
+			base = text("[]\herself", rest)
+		if("hers")
+			base = text("[]\hers", rest)
+
+	. = base
+	if(rest)
+		. += .(rest)

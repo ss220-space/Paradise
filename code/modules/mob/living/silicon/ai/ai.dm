@@ -1081,7 +1081,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			"floating face",
 			"xeno queen",
 			"eldritch",
-			"ancient machine"
+			"ancient machine",
+			"AUTO",
+			"beach ball",
+			"pair of bees"
 			)
 			if(custom_hologram) //insert custom hologram
 				icon_list.Add("custom")
@@ -1098,6 +1101,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo3"))
 					if("eldritch")
 						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo4"))
+					if("AUTO")
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo5"))
+					if("beach ball")
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo6"))
+					if("pair of bees")
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo7"))
 					if("ancient machine")
 						holo_icon = getHologramIcon(icon('icons/mob/ancient_machine.dmi', "ancient_machine"))
 					if("custom")
@@ -1196,7 +1205,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(istype(W, /obj/item/wrench))
 		if(anchored)
 			user.visible_message("<span class='notice'>\The [user] starts to unbolt \the [src] from the plating...</span>")
-			if(!do_after(user, 40 * W.toolspeed, target = src))
+			if(!do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
 				user.visible_message("<span class='notice'>\The [user] decides not to unbolt \the [src].</span>")
 				return
 			user.visible_message("<span class='notice'>\The [user] finishes unfastening \the [src]!</span>")
@@ -1204,7 +1213,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			return
 		else
 			user.visible_message("<span class='notice'>\The [user] starts to bolt \the [src] to the plating...</span>")
-			if(!do_after(user, 40 * W.toolspeed, target = src))
+			if(!do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
 				user.visible_message("<span class='notice'>\The [user] decides not to bolt \the [src].</span>")
 				return
 			user.visible_message("<span class='notice'>\The [user] finishes fastening down \the [src]!</span>")
@@ -1291,13 +1300,16 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	return get_dist(src, A) <= max(viewscale[1]*0.5,viewscale[2]*0.5)
 
 /mob/living/silicon/ai/proc/relay_speech(mob/living/M, list/message_pieces, verb)
-	var/message = combine_message(message_pieces, verb, M)
+	var/message_clean = combine_message(message_pieces, M)
+	message_clean = replace_characters(message_clean, list("+"))
+
+	var/message = verb_message(message_pieces, message_clean, verb)
+
 	var/name_used = M.GetVoice()
 	//This communication is imperfect because the holopad "filters" voices and is only designed to connect to the master only.
 	var/rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [message]</span></i>"
 	if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-		var/message_clean = combine_message(message_pieces, null, M)
-		create_chat_message(M.runechat_msg_location, message_clean,TRUE, FALSE)
+		create_chat_message(M, message_clean, TRUE, FALSE)
 	show_message(rendered, 2)
 
 /mob/living/silicon/ai/proc/malfhacked(obj/machinery/power/apc/apc)
@@ -1377,6 +1389,42 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/camera_visibility(mob/camera/aiEye/moved_eye)
 	GLOB.cameranet.visibility(moved_eye, client, all_eyes)
 
+/mob/living/silicon/ai/var/current_camera = 0
+
+/mob/living/silicon/ai/proc/set_camera_by_index(client/user, var/camnum)
+	var/camnum_length = length(stored_locations)
+	if(camnum > camnum_length || (camnum == 0 && camnum_length < 10))
+		to_chat(user, "<span class='warning'>You have no stored camera on [camnum] position</span>")
+		return FALSE
+	if(camnum == 0)
+		camnum = 10
+	current_camera = camnum
+	return TRUE
+
+/mob/living/silicon/ai/proc/check_for_binded_cameras(client/user)
+	if(!length(stored_locations))
+		to_chat(user, "<span class='warning'>You have no stored camera positions</span>")
+		return FALSE
+	return TRUE
+
+/mob/living/silicon/ai/proc/update_binded_camera(client/user)
+	var/camname
+	camname = stored_locations[current_camera]
+	ai_goto_location(camname)
+	to_chat(user, "<span class='notice'>Now you on camera position: [camname]</span>")
+
+/mob/living/silicon/ai/proc/current_camera_next(client/user)
+	if(current_camera >= length(stored_locations))
+		current_camera = 1
+	else
+		current_camera += 1
+
+/mob/living/silicon/ai/proc/current_camera_back(client/user)
+	if(current_camera <= 1)
+		current_camera = length(stored_locations)
+	else
+		current_camera -= 1
+
 /mob/living/silicon/ai/handle_fire()
 	return
 
@@ -1411,10 +1459,3 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
-
-
-/mob/living/silicon/ai/update_runechat_msg_location()
-	if(istype(loc, /obj/item/aicard) || ismecha(loc))
-		runechat_msg_location = loc
-	else
-		runechat_msg_location = src

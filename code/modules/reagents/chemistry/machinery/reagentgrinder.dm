@@ -33,6 +33,7 @@
 			/obj/item/grown/nettle/basic = list("sacid" = 0),
 			/obj/item/grown/nettle/death = list("facid" = 0, "sacid" = 0),
 			/obj/item/grown/novaflower = list("capsaicin" = 0, "condensedcapsaicin" = 0),
+			/obj/item/stack/sheet/cheese = list("milk" = 20),
 
 			//Blender Stuff
 			/obj/item/reagent_containers/food/snacks/grown/tomato = list("ketchup" = 0),
@@ -42,12 +43,14 @@
 			/obj/item/reagent_containers/food/snacks/grown/bluecherries = list("bluecherryjelly" = 0),
 			/obj/item/reagent_containers/food/snacks/egg = list("egg" = -5),
 			/obj/item/reagent_containers/food/snacks/grown/rice = list("rice" = -5),
+			/obj/item/reagent_containers/food/snacks/grown/buckwheat = list("buckwheat" = -5),
 
 			//Grinder stuff, but only if dry
 			/obj/item/reagent_containers/food/snacks/grown/coffee/robusta = list("coffeepowder" = 0, "morphine" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/coffee = list("coffeepowder" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/tea/astra = list("teapowder" = 0, "salglu_solution" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/tea = list("teapowder" = 0),
+			/obj/item/reagent_containers/food/snacks/grown/moonlight = list("moonlin" = 0),
 
 
 			//All types that you can put into the grinder to transfer the reagents to the beaker. !Put all recipes above this.!
@@ -86,7 +89,8 @@
 			/obj/item/reagent_containers/food/snacks/grown/coffee/robusta = list("coffeepowder" = 0, "morphine" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/coffee = list("coffeepowder" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/tea/astra = list("teapowder" = 0, "salglu_solution" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/tea = list("teapowder" = 0)
+			/obj/item/reagent_containers/food/snacks/grown/tea = list("teapowder" = 0),
+			/obj/item/reagent_containers/food/snacks/grown/moonlight = list("moonlin" = 0)
 	)
 
 	var/list/holdingitems = list()
@@ -142,7 +146,7 @@
 		return
 	if(!I.tool_use_check(user, 0))
 		return
-	default_deconstruction_crowbar(I)
+	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/reagentgrinder/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

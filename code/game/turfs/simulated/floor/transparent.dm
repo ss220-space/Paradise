@@ -61,9 +61,11 @@
 		else
 			to_chat(user, "<span class='notice'>You begin replacing [src]...</span>")
 			playsound(src, I.usesound, 80, TRUE)
-			if(do_after(user, 3 SECONDS * I.toolspeed, target = src))
+			if(do_after(user, 3 SECONDS * I.toolspeed * gettoolspeedmod(user), target = src))
 				if(R.get_amount() < 2 || !transparent_floor)
 					return
+			else
+				return
 	else //not holding metal at all
 		to_chat(user, "<span class='danger'>You also need to hold two sheets of metal to dismantle \the [src]!</span>")
 		return

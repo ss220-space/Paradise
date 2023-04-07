@@ -1,8 +1,9 @@
 /obj/item/robot_module
 	name = "Placeholder name"
 	var/name_disguise //used by examine
+	var/has_transform_animation = FALSE
 	icon = 'icons/obj/module.dmi'
-	icon_state = "std_module"
+	icon_state = "std_mod"
 	w_class = 100
 	item_state = "electronic"
 	flags = CONDUCT
@@ -174,6 +175,7 @@
 		"Default" = "Standard",
 		"Noble-STD" = "Noble-STD"
 	)
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/standard/New()
 	..()
@@ -234,13 +236,14 @@
 		"Noble-MED" = "Noble-MED",
 		"Cricket" = "Cricket-MEDI"
 	)
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/medical/New()
 	..()
 	modules += new /obj/item/healthanalyzer/advanced(src)
 	modules += new /obj/item/robotanalyzer(src)
 	modules += new /obj/item/reagent_scanner/adv(src)
-	modules += new /obj/item/borg_defib(src)
+	modules += new /obj/item/twohanded/shockpaddles/borg(src)
 	modules += new /obj/item/handheld_defibrillator(src)
 	modules += new /obj/item/roller_holder(src)
 	modules += new /obj/item/reagent_containers/borghypo(src)
@@ -263,6 +266,7 @@
 	modules += new /obj/item/gripper/medical(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/gps/cyborg(src)
+	modules += new /obj/item/rlf(src)
 
 	emag = new /obj/item/reagent_containers/spray(src)
 
@@ -295,6 +299,7 @@
 		"Noble-ENG" = "Noble-ENG",
 		"Cricket" = "Cricket-ENGI"
 	)
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/engineering/New()
 	..()
@@ -347,6 +352,7 @@
 		"Noble-SEC" = "Noble-SEC",
 		"Cricket" = "Cricket-SEC"
 	)
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/security/New()
 	..()
@@ -375,6 +381,7 @@
 		"Noble-CLN" = "Noble-CLN",
 		"Cricket" = "Cricket-JANI"
 	)
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/janitor/New()
 	..()
@@ -408,22 +415,24 @@
 		"Noble-SRV" = "Noble-SRV",
 		"Cricket" = "Cricket-SERV"
 	)
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/butler/New()
 	..()
 
 	modules += new /obj/item/handheld_chem_dispenser/booze(src)
 	modules += new /obj/item/handheld_chem_dispenser/soda(src)
-
 	modules += new /obj/item/pen(src)
 	modules += new /obj/item/razor(src)
 	modules += new /obj/item/instrument/piano_synth(src)
 	modules += new /obj/item/healthanalyzer/advanced(src)
 	modules += new /obj/item/reagent_scanner/adv(src)
+	modules += new /obj/item/gripper/service(src)
+	modules += new /obj/item/eftpos/cyborg(src)
+	modules += new /obj/item/camera/spooky(src)
 
-	var/obj/item/rsf/M = new /obj/item/rsf(src)
-	M.matter = 30
-	modules += M
+	modules += new /obj/item/rsf(src)
+	modules += new /obj/item/rsf/rff(src)
 
 	modules += new /obj/item/reagent_containers/dropper/cyborg(src)
 	modules += new /obj/item/lighter/zippo(src)
@@ -471,6 +480,9 @@
 	var/obj/item/storage/bag/tray/cyborg/T = locate(/obj/item/storage/bag/tray/cyborg) in modules
 	if(istype(T))
 		T.drop_inventory(R)
+	var/obj/item/gripper/service/G = locate() in modules
+	if(G)
+		G.drop_gripped_item(silent = TRUE)
 
 
 /obj/item/robot_module/miner
@@ -491,6 +503,7 @@
 		"Cricket" = "Cricket-MINE",
 		"Lavaland" = "lavaland"
 	)
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/miner/New()
 	..()
@@ -522,6 +535,9 @@
 	module_actions = list(
 		/datum/action/innate/robot_sight/thermal,
 	)
+	default_skin = "nano_bloodhound"
+	borg_skins = list("Deathsquad" = "nano_bloodhound")
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/deathsquad/New()
 	..()
@@ -529,6 +545,8 @@
 	modules += new /obj/item/gun/energy/pulse/cyborg(src)
 	modules += new /obj/item/crowbar(src)
 	modules += new /obj/item/gps/cyborg(src)
+	modules += new /obj/item/gripper/nuclear(src)
+	modules += new /obj/item/pinpointer(src)
 	emag = null
 
 	fix_modules()
@@ -536,6 +554,9 @@
 /obj/item/robot_module/syndicate
 	name = "Syndicate Bloodhound"
 	module_type = "Malf" // cuz it looks cool
+	default_skin = "syndie_bloodhound"
+	borg_skins = list("Syndicate Bloodhound" = "syndie_bloodhound")
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/syndicate/New()
 	..()
@@ -546,7 +567,9 @@
 	modules += new /obj/item/extinguisher/mini(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/pinpointer/operative(src)
-	modules += new /obj/item/gps/cyborg(src)
+	modules += new /obj/item/pinpointer/nukeop(src)
+	modules += new /obj/item/gripper/nuclear(src)
+	modules += new /obj/item/gps/syndiecyborg(src)
 	emag = null
 
 	fix_modules()
@@ -554,13 +577,16 @@
 /obj/item/robot_module/syndicate_medical
 	name = "Syndicate Medical"
 	module_type = "Malf"
+	default_skin = "syndi-medi"
+	borg_skins = list("Syndicate Medical" = "syndi-medi")
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/syndicate_medical/New()
 	..()
 	modules += new /obj/item/healthanalyzer/advanced(src)
 	modules += new /obj/item/reagent_scanner/adv(src)
 	modules += new /obj/item/bodyanalyzer/borg/syndicate(src)
-	modules += new /obj/item/borg_defib(src)
+	modules += new /obj/item/twohanded/shockpaddles/borg(src)
 	modules += new /obj/item/handheld_defibrillator(src)
 	modules += new /obj/item/roller_holder(src)
 	modules += new /obj/item/reagent_containers/borghypo/syndicate(src)
@@ -582,6 +608,8 @@
 	modules += new /obj/item/card/emag(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/pinpointer/operative(src)
+	modules += new /obj/item/pinpointer/nukeop(src)
+	modules += new /obj/item/gripper/nuclear(src)
 	modules += new /obj/item/gps/syndiecyborg(src)
 	emag = null
 
@@ -592,6 +620,9 @@
 	name = "Syndicate Saboteur"
 	name_disguise = "Engineering"
 	module_type = "Malf"
+	default_skin = "syndi-engi"
+	borg_skins = list("Syndicate Saboteur" = "syndi-engi")
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/syndicate_saboteur/New()
 	..()
@@ -611,6 +642,8 @@
 	modules += new /obj/item/card/emag(src)
 	modules += new /obj/item/borg_chameleon(src)
 	modules += new /obj/item/pinpointer/operative(src)
+	modules += new /obj/item/pinpointer/nukeop(src)
+	modules += new /obj/item/gripper/nuclear(src)
 	modules += new /obj/item/stack/sheet/metal/cyborg(src)
 	modules += new /obj/item/stack/sheet/glass/cyborg(src)
 	modules += new /obj/item/stack/sheet/rglass/cyborg(src)
@@ -643,6 +676,8 @@
 	modules += new /obj/item/borg/destroyer/mobility(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/gps/syndiecyborg(src)
+	modules += new /obj/item/gripper/nuclear(src)
+	modules += new /obj/item/pinpointer(src)
 	emag = null
 	fix_modules()
 
@@ -653,6 +688,7 @@
 	module_actions = list()
 	default_skin = "ertgamma"
 	borg_skins = list("ERT-GAMMA" = "ertgamma")
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/combat/New()
 	..()
@@ -667,6 +703,8 @@
 	modules += new /obj/item/extinguisher/mini(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/gps/cyborg(src)
+	modules += new /obj/item/gripper/nuclear(src)
+	modules += new /obj/item/pinpointer(src)
 	emag = null
 	fix_modules()
 
@@ -857,7 +895,7 @@
 	modules += new /obj/item/surgicaldrill(src)
 	modules += new /obj/item/healthanalyzer/advanced(src)
 	modules += new /obj/item/bodyanalyzer/borg/syndicate(src)
-	modules += new /obj/item/borg_defib(src)
+	modules += new /obj/item/twohanded/shockpaddles/borg(src)
 	modules += new /obj/item/handheld_defibrillator(src)
 	modules += new /obj/item/roller_holder(src)
 	modules += new /obj/item/reagent_containers/borghypo/upgraded(src)

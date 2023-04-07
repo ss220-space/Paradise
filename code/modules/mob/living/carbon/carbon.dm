@@ -518,10 +518,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		to_chat(src, "<span class='warning'>Эта вентиляция ни к чему не подключена!</span>")
 
 
-/mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
-	if(!istype(starting_machine) || !starting_machine.returnPipenet() || !starting_machine.can_see_pipes())
+/mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine, obj/machinery/atmospherics/target_move)
+	if(!istype(starting_machine) || !starting_machine.returnPipenet(target_move) || !starting_machine.can_see_pipes())
 		return
-	var/datum/pipeline/pipeline = starting_machine.returnPipenet()
+	var/datum/pipeline/pipeline = starting_machine.returnPipenet(target_move)
 	var/list/totalMembers = list()
 	totalMembers |= pipeline.members
 	totalMembers |= pipeline.other_atmosmch
@@ -543,13 +543,18 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /atom/proc/update_pipe_vision()
 	return
 
-/mob/living/update_pipe_vision()
-	if(pipes_shown.len)
+/mob/living/update_pipe_vision(obj/machinery/atmospherics/target_move)
+	if(!client)
+		pipes_shown.Cut()
+		return
+	if(length(pipes_shown) && !target_move)
 		if(!is_ventcrawling(src))
 			remove_ventcrawl()
 	else
 		if(is_ventcrawling(src))
-			add_ventcrawl(loc)
+			if(target_move)
+				remove_ventcrawl()
+			add_ventcrawl(loc, target_move)
 
 
 //Throwing stuff
@@ -618,7 +623,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		qdel(G)	//We delete the grab.
 		if(throwable_mob)
 			thrown_thing = throwable_mob
-			if(HAS_TRAIT(src, TRAIT_PACIFISM))
+			if(HAS_TRAIT(src, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
 				to_chat(src, "<span class='notice'>[pluralize_ru(src.gender,"Ты","Вы")] осторожно отпускае[pluralize_ru(src.gender,"шь","те")] [throwable_mob.declent_ru(ACCUSATIVE)].</span>")
 				return
 			var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
@@ -634,7 +639,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		thrown_thing = I
 		unEquip(I)
 
-		if(HAS_TRAIT(src, TRAIT_PACIFISM) && I.throwforce)
+		if(GLOB.pacifism_after_gt || (HAS_TRAIT(src, TRAIT_PACIFISM) && I.throwforce))
 			to_chat(src, "<span class='notice'>[pluralize_ru(src.gender,"Ты","Вы")] осторожно опускае[pluralize_ru(src.gender,"шь","те")] [I.declent_ru(ACCUSATIVE)] на землю.</span>")
 			return
 
@@ -642,6 +647,11 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		visible_message("<span class='danger'>[src.declent_ru(NOMINATIVE)] броса[pluralize_ru(src.gender,"ет","ют")] [thrown_thing.declent_ru(ACCUSATIVE)].</span>")
 		newtonian_move(get_dir(target, src))
 		thrown_thing.throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
+		if(isliving(thrown_thing))
+			var/obj/structure/table/table = locate() in target.loc
+			if(table)
+				var/mob/living/victim = thrown_thing
+				table.clumse_stuff(victim)
 
 /mob/living/carbon/can_use_hands()
 	if(handcuffed)
@@ -970,6 +980,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
 		if(vessel)
 			stat(null, "Plasma Stored: [vessel.stored_plasma]/[vessel.max_plasma]")
+		var/obj/item/organ/internal/wryn/glands/glands = get_int_organ(/obj/item/organ/internal/wryn/glands)
+		if(glands)
+			stat(null, "Wax: [glands.wax]")
 
 /mob/living/carbon/get_all_slots()
 	return list(l_hand,
@@ -1009,17 +1022,28 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				W.plane = initial(W.plane)
 
 
-/mob/living/carbon/proc/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, slipVerb = "поскользнулись")
+/mob/living/carbon/proc/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, grav_ignore = FALSE, slipVerb = "поскользнулись")
 	if(flying || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
 		return FALSE
 
 	if((lying) && (!(tilesSlipped)))
 		return FALSE
 
-	if(!(slipAny))
-		if(ishuman(src))
-			var/mob/living/carbon/human/H = src
-			if(isobj(H.shoes) && H.shoes.flags & NOSLIP)
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		var/turf/simulated/T = get_turf(H)
+		if(!(slipAny) && isobj(H.shoes) && (H.shoes.flags & NOSLIP))
+			return FALSE
+		if(istype(H.shoes, /obj/item/clothing/shoes/magboots)) //Only for lubeprotection magboots and lube slip
+			var/obj/item/clothing/shoes/magboots/humanmagboots = H.shoes
+			if((T.wet == TURF_WET_LUBE||TURF_WET_PERMAFROST) && humanmagboots.magpulse && humanmagboots.lubeprotection)
+				return FALSE
+		if(!has_gravity(H) && !grav_ignore)
+			if(istype(H.shoes, /obj/item/clothing/shoes/magboots)) //Only for magboots and lube slip (no grav && no lubeprotection)
+				var/obj/item/clothing/shoes/magboots/humanmagboots = H.shoes
+				if(!((T.wet == TURF_WET_LUBE||TURF_WET_PERMAFROST) && humanmagboots.magpulse))
+					return FALSE
+			else
 				return FALSE
 
 	if(tilesSlipped)
@@ -1123,6 +1147,9 @@ so that different stomachs can handle things in different ways VB*/
 	. |= list(get_active_hand(), get_inactive_hand())
 
 /mob/living/carbon/proc/can_breathe_gas()
+	if(NO_BREATHE in src.dna.species.species_traits)
+		return FALSE
+
 	if(!wear_mask)
 		return TRUE
 
@@ -1238,3 +1265,9 @@ so that different stomachs can handle things in different ways VB*/
 		if(wear_suit.flags_inv & HIDEGLOVES)
 			clean_hands = FALSE
 	..(clean_hands, clean_mask, clean_feet)
+
+/mob/living/carbon/get_pull_push_speed_modifier(current_delay)
+	if(!canmove)
+		return pull_push_speed_modifier * 1.2
+	var/average_delay = (movement_delay(restrained() ? FALSE : TRUE) + current_delay) / 2
+	return current_delay > average_delay ? pull_push_speed_modifier : (average_delay / current_delay)

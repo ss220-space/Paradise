@@ -11,13 +11,18 @@
 	unarmed_type = /datum/unarmed_attack/claws
 	primitive_form = /datum/species/monkey/unathi
 
+	brute_mod = 0.9
+	heatmod = 0.8
+	coldmod = 1.2
+	hunger_drain = 0.13
+
 	blurb = "A heavily reptillian species, Unathi (or 'Sinta as they call themselves) hail from the \
 	Uuosa-Eso system, which roughly translates to 'burning mother'.<br/><br/>Coming from a harsh, radioactive \
 	desert planet, they mostly hold ideals of honesty, virtue, martial combat and bravery above all \
 	else, frequently even their own lives. They prefer warmer temperatures than most species and \
 	their native tongue is a heavy hissing laungage called Sinta'Unathi."
 
-	species_traits = list(LIPS)
+	species_traits = list(LIPS, PIERCEIMMUNE)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_BODY_MARKINGS | HAS_HEAD_MARKINGS | HAS_SKIN_COLOR | HAS_ALT_HEADS | TAIL_WAGGING
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
@@ -30,6 +35,7 @@
 	heat_level_2 = 420 //Default 400
 	heat_level_3 = 480 //Default 460
 
+	blood_species = "Unathi"
 	flesh_color = "#34AF10"
 	reagent_tag = PROCESS_ORG
 	base_color = "#066000"
@@ -84,6 +90,10 @@
 	button_icon_state = "tail"
 	check_flags = AB_CHECK_LYING | AB_CHECK_CONSCIOUS | AB_CHECK_STUNNED
 
+/datum/action/innate/tail_lash/Trigger()
+	if(IsAvailable(show_message = TRUE))
+		..()
+
 /datum/action/innate/tail_lash/Activate()
 	var/mob/living/carbon/human/user = owner
 	if((user.restrained() && user.pulledby) || user.buckled)
@@ -112,14 +122,16 @@
 				to_chat(user, "<span class='warning'>Вы выбились из сил!</span>")
 				return
 
-/datum/action/innate/tail_lash/IsAvailable()
+/datum/action/innate/tail_lash/IsAvailable(show_message = FALSE)
 	. = ..()
 	var/mob/living/carbon/human/user = owner
 	if(!user.bodyparts_by_name["tail"])
-		to_chat(user, "<span class='warning'>У вас НЕТ ХВОСТА!</span>")
+		if(show_message)
+			to_chat(user, "<span class='warning'>У вас НЕТ ХВОСТА!</span>")
 		return FALSE
 	if(!istype(user.bodyparts_by_name["tail"], /obj/item/organ/external/tail/unathi))
-		to_chat(user, "<span class='warning'>У вас слабый хвост!</span>")
+		if(show_message)
+			to_chat(user, "<span class='warning'>У вас слабый хвост!</span>")
 		return FALSE
 	return .
 
@@ -176,3 +188,21 @@
 	var/datum/action/innate/tail_lash/lash = locate() in H.actions
 	if(lash)
 		lash.Remove(H)
+
+/datum/species/unathi/handle_life(mob/living/carbon/human/H)
+	if(H.stat == DEAD)
+		return
+	if(H.reagents.get_reagent_amount("zessulblood") < 5)         //unique unathi chemical, heals over time and increases shock reduction for 20
+		H.reagents.add_reagent("zessulblood", 1)
+	if(H.bodytemperature < 273)                       //anabiosis. unathi falls asleep if body temp is too low
+		switch(H.bodytemperature)
+			if(200 to 260)
+				H.EyeBlurry(3)
+			if(170 to 200)
+				H.AdjustDrowsy(3)
+			if(170 to 200)
+				to_chat(H, "<span class='danger'>Слишком холодно, я сейчас усну...</span>")
+			if(0 to 170)
+				H.AdjustSleeping(2)
+	else
+		return

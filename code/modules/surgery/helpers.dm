@@ -93,7 +93,7 @@
 
 					if(cautery_chance)
 						C.begin_step(user, H, selected_zone, cautery_tool, current_surgery)
-						if(do_after(user, C.time * cautery_tool.toolspeed, target = M))
+						if(do_after(user, C.time * cautery_tool.toolspeed * gettoolspeedmod(user), target = M))
 							if(!isrobot(user))
 								cautery_chance *= get_location_modifier(H)
 								cautery_chance *= get_pain_modifier(H)
@@ -119,6 +119,8 @@
 	if(M.reagents.has_reagent("hydrocodone"))//really good pain killer
 		return 0.99
 	if(M.reagents.has_reagent("morphine"))//Just as effective as Hydrocodone, but has an addiction chance
+		return 0.99
+	if(M.reagents.has_reagent("syntmorphine"))
 		return 0.99
 	if(M.drunk >= 80)//really damn drunk
 		return 0.95

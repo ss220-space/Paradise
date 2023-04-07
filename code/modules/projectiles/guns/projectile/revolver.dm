@@ -93,60 +93,20 @@
 	icon_state = "detective"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38
 	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
-	unique_rename = 1
-	unique_reskin = 1
+	unique_rename = TRUE
+	unique_reskin = TRUE
 
 /obj/item/gun/projectile/revolver/detective/New()
 	..()
 	options["The Original"] = "detective"
 	options["Leopard Spots"] = "detective_leopard"
 	options["Black Panther"] = "detective_panther"
-	options["Gold Trim"] = "detective_gold"
+	options["White Gold "] = "detective_gold"
 	options["The Peacemaker"] = "detective_peacemaker"
+	options["Gold Wood"] = "detective_gold_alt"
+	options["Silver"] = "detective_silver"
 	options["Cancel"] = null
 
-/obj/item/gun/projectile/revolver/detective/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override = "")
-	if(magazine.caliber != initial(magazine.caliber))
-		if(prob(70 - (magazine.ammo_count() * 10)))	//minimum probability of 10, maximum of 60
-			playsound(user, fire_sound, 50, 1)
-			to_chat(user, "<span class='userdanger'>[src] blows up in your face!</span>")
-			user.take_organ_damage(0,20)
-			user.unEquip(src)
-			return 0
-	..()
-
-/obj/item/gun/projectile/revolver/detective/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
-	if(magazine.caliber == ".38")
-		to_chat(user, "<span class='notice'>You begin to reinforce the barrel of [src]...</span>")
-		if(magazine.ammo_count())
-			afterattack(user, user)	//you know the drill
-			user.visible_message("<span class='danger'>[src] goes off!</span>", "<span class='userdanger'>[src] goes off in your face!</span>")
-			return
-		if(!I.use_tool(src, user, 30, volume = I.tool_volume))
-			return
-		if(magazine.ammo_count())
-			to_chat(user, "<span class='warning'>You can't modify it!</span>")
-			return
-		magazine.caliber = ".357"
-		desc = "The barrel and chamber assembly seems to have been modified."
-		to_chat(user, "<span class='notice'>You reinforce the barrel of [src]. Now it will fire .357 rounds.</span>")
-	else
-		to_chat(user, "<span class='notice'>You begin to revert the modifications to [src]...</span>")
-		if(magazine.ammo_count())
-			afterattack(user, user)	//and again
-			user.visible_message("<span class='danger'>[src] goes off!</span>", "<span class='userdanger'>[src] goes off in your face!</span>")
-			return
-		if(!I.use_tool(src, user, 30, volume = I.tool_volume))
-			return
-		if(magazine.ammo_count())
-			to_chat(user, "<span class='warning'>You can't modify it!</span>")
-			return
-		magazine.caliber = ".38"
-		desc = initial(desc)
-		to_chat(user, "<span class='notice'>You remove the modifications on [src]. Now it will fire .38 rounds.</span>")
 
 /obj/item/gun/projectile/revolver/fingergun //Summoned by the Finger Gun spell, from advanced mimery traitor item
 	name = "\improper finger gun"
@@ -209,6 +169,13 @@
 	origin_tech = "combat=3"
 	can_suppress = 1
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev762
+
+/obj/item/gun/projectile/revolver/c36
+	name = ".36 revolver"
+	desc = "An old fashion .36 chambered revolver."
+	icon_state = "detective"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev36
+	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
 
 // A gun to play Russian Roulette!
 // You can spin the chamber to randomize the position of the bullet.
@@ -339,8 +306,8 @@
 	fire_sound = 'sound/weapons/gunshots/1shotgun_old.ogg'
 	sawn_desc = "Omar's coming!"
 	can_holster = FALSE
-	unique_rename = 1
-	unique_reskin = 1
+	unique_rename = TRUE
+	unique_reskin = TRUE
 
 /obj/item/gun/projectile/revolver/doublebarrel/New()
 	..()
@@ -397,8 +364,8 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised
 	fire_sound = 'sound/weapons/gunshots/1shotgunpipe.ogg'
 	sawn_desc = "I'm just here for the gasoline."
-	unique_rename = 0
-	unique_reskin = 0
+	unique_rename = FALSE
+	unique_reskin = FALSE
 	var/slung = 0
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/A, mob/user, params)

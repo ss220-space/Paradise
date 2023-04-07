@@ -18,8 +18,6 @@
 	var/area/initial_loc
 	var/area_uid
 
-	req_one_access_txt = "24;10"
-
 	var/on = 0
 	var/pump_direction = 1 //0 = siphoning, 1 = releasing
 
@@ -339,7 +337,7 @@
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
 /obj/machinery/atmospherics/unary/vent_pump/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/paper))
+	if(istype(W, /obj/item/paper) || istype(W, /obj/item/stack/spacecash))
 		if(!welded)
 			if(open)
 				user.drop_item(W)
@@ -366,13 +364,13 @@
 	. = TRUE
 	if(open)
 		to_chat(user, "<span class='notice'>Now closing the vent.</span>")
-		if(do_after(user, 20 * I.toolspeed, target = src))
+		if(do_after(user, 20 * I.toolspeed * gettoolspeedmod(user), target = src))
 			playsound(loc, I.usesound, 100, 1)
 			open = 0
 			user.visible_message("[user] screwdrivers the vent shut.", "You screwdriver the vent shut.", "You hear a screwdriver.")
 	else
 		to_chat(user, "<span class='notice'>Now opening the vent.</span>")
-		if(do_after(user, 20 * I.toolspeed, target = src))
+		if(do_after(user, 20 * I.toolspeed * gettoolspeedmod(user), target = src))
 			playsound(loc, I.usesound, 100, 1)
 			open = 1
 			user.visible_message("[user] screwdrivers the vent open.", "You screwdriver the vent open.", "You hear a screwdriver.")

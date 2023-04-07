@@ -309,6 +309,23 @@
 	description = "Whoever doesn't wish to have their own paradise corner in space! \
 		Wait, where did I put spray tan?.."
 
+/datum/map_template/ruin/space/crashedipcship
+	id = "crashed_ipc_ship"
+	suffix = "crashedipcship.dmm"
+	name = "Crashed IPC Ship"
+	description = "By a strange and unfortunate coincidence, the ship of the Union of Synthetics during a rescue operation came under the influence of a solar flare. \
+		After long wanderings over space, the ghost ship collided with an asteroid..."
+	cost = 3 // 65x50 Space ship with few asteroids, carps and headcrabs in positions
+	allow_duplicates = FALSE
+	
+/datum/map_template/ruin/space/ussp_laboratory
+	id = "ussp_laboratory"
+	suffix = "ussp_laboratory.dmm"
+	name = "USSP Laboratory"
+	description = "Tovarish! U nas chto-to proisoshlo! Ksenosi!"
+	allow_duplicates = FALSE
+	cost = 2
+
 /* Старый код для добавления Тайпана. Оставлено на всякий случай
 /datum/map_template/ruin/space/syndicate_space_base
 	id = "syndicate_space_base"
@@ -319,3 +336,9 @@
 	always_place = TRUE // This is on the always spawn list
 	cost = 0 // Force spawned so shouldnt have a cost
 */
+/datum/map_template/ruin/space/blood_ship
+	id = "blood_ship"
+	suffix = "space_bloodship.dmm"
+	name = "Space bloodship "
+	description = "This shuttle was a regular transport vessel until it was captured by cultists who made their bloody sacrifice." 
+

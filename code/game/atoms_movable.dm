@@ -20,6 +20,7 @@
 	var/atom/movable/pulling
 	var/throwforce = 0
 	var/canmove = 1
+	var/pull_push_speed_modifier = 1
 
 	var/inertia_dir = 0
 	var/atom/inertia_last_loc
@@ -202,7 +203,7 @@
 		return
 
 	if(.)
-		Moved(oldloc, direct)
+		Moved(oldloc, direct, FALSE)
 
 	last_move = direct
 	src.move_speed = world.time - src.l_move_time
@@ -214,8 +215,6 @@
 // Called after a successful Move(). By this point, we've already moved
 /atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
-	for(var/atom/movable/atom in contents)
-		SEND_SIGNAL(atom, COMSIG_MOVABLE_HOLDER_MOVED, OldLoc, Dir, Forced)
 	if(!inertia_moving)
 		inertia_next_move = world.time + inertia_move_delay
 		newtonian_move(Dir)
@@ -280,7 +279,7 @@
 		if(old_z != dest_z)
 			onTransitZ(old_z, dest_z)
 
-	Moved(old_loc, NONE)
+	Moved(old_loc, NONE, TRUE)
 
 	return 1
 
@@ -302,8 +301,6 @@
 	if(client)
 		reset_perspective(destination)
 	update_canmove() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
-	update_runechat_msg_location()
-
 
 //Called whenever an object moves and by mobs when they attempt to move themselves through space
 //And when an object or action applies a force on src, see newtonian_move() below
@@ -586,3 +583,6 @@
 
 /atom/movable/proc/decompile_act(obj/item/matter_decompiler/C, mob/user) // For drones to decompile mobs and objs. See drone for an example.
 	return FALSE
+
+/atom/movable/proc/get_pull_push_speed_modifier(var/current_delay)
+	return pull_push_speed_modifier

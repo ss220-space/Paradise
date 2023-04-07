@@ -19,9 +19,10 @@
 	var/datum/preferences/prefs = null
 	var/skip_antag = FALSE //TRUE when a player declines to be included for the selection process of game mode antagonists.
 	var/move_delay		= 1
+	var/current_move_delay = 0
 	var/moving			= null
 	var/area			= null
-	var/time_died_as_mouse = null //when the client last died as a mouse
+	var/time_joined_as_mouse = null //when the client last spawned as a mouse
 
 	var/typing = FALSE // Prevents typing window stacking
 
@@ -41,7 +42,7 @@
 	var/list/topiclimiter
 
 	// comment out the line below when debugging locally to enable the options & messages menu
-	//control_freak = 1
+	control_freak = CONTROL_FREAK_ALL
 
 	var/ssd_warning_acknowledged = FALSE
 
@@ -60,7 +61,6 @@
 	var/karma_spent = 0
 	var/karma_tab = 0
 
-	control_freak = CONTROL_FREAK_ALL | CONTROL_FREAK_SKIN | CONTROL_FREAK_MACROS
 
 	var/ip_intel = "Disabled"
 
@@ -102,7 +102,16 @@
 	/// Days since the client's BYOND account was created
 	var/byondacc_age = 0
 
-	var/last_ping_duration = 0
+	///Last ping of the client
+	var/lastping = 0
+	///Average ping of the client
+	var/avgping = 0
+	///world.time they connected
+	var/connection_time
+	///world.realtime they connected
+	var/connection_realtime
+	///world.timeofday they connected
+	var/connection_timeofday
 
 	// Do not attempt to merge these vars together. They are for different things
 	/// Last world.time that a PM was send to discord by a player
@@ -115,6 +124,13 @@
 	var/tos_consent = FALSE
 
 	var/url
+
+	/// Input datum, what the client is pressing.
+	var/datum/input_data/input_data = new()
+	/// The client's active keybindings, depending on their active mob.
+	var/list/active_keybindings = list()
+	/// The client's movement keybindings to directions, which work regardless of modifiers.
+	var/list/movement_kb_dirs = list()
 
 /client/vv_edit_var(var_name, var_value)
 	switch(var_name)

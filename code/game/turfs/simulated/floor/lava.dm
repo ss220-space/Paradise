@@ -18,6 +18,9 @@
 /turf/simulated/floor/plating/lava/acid_act(acidpwr, acid_volume)
 	return
 
+/turf/simulated/floor/plating/lava/rcd_act(mob/user, obj/item/rcd/our_rcd, rcd_mode)
+	return
+
 /turf/simulated/floor/plating/lava/airless
 	temperature = TCMB
 
@@ -57,6 +60,9 @@
 
 /turf/simulated/floor/plating/lava/proc/burn_stuff(AM)
 	. = 0
+
+	if(locate(/obj/vehicle/lavaboat) in src.contents)
+		return FALSE
 
 	if(find_safeties())
 		return FALSE

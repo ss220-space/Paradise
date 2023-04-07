@@ -162,6 +162,24 @@
 				new mineral(loc)
 	qdel(src)
 
+/obj/structure/falsewall/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	. = ..()
+	if(our_rcd.checkResource(5, user))
+		to_chat(user, "Deconstructing wall...")
+		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+		if(do_after(user, 40 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+			if(!our_rcd.useResource(5, user))
+				return RCD_ACT_FAILED
+			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
+			add_attack_logs(user, src, "Deconstructed false wall with RCD")
+			qdel(src)
+			return RCD_ACT_SUCCESSFULL
+		to_chat(user, span_warning("ERROR! Deconstruction interrupted!"))
+		return RCD_ACT_FAILED
+	to_chat(user, span_warning("ERROR! Not enough matter in unit to deconstruct this wall!"))
+	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+	return RCD_ACT_FAILED
+
 /*
  * False R-Walls
  */
@@ -184,6 +202,11 @@
 	if(delete)
 		qdel(src)
 	return T
+
+/obj/structure/falsewall/reinforced/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	if(!our_rcd.canRwall)
+		return RCD_NO_ACT
+	. = ..()
 
 /*
  * Uranium Falsewalls
@@ -403,3 +426,17 @@
 		dismantle(user, TRUE)
 		return TRUE
 	return TRUE
+
+
+/obj/structure/falsewall/mineral_ancient
+	name = "ancient rock"
+	desc = "A rare asteroid rock that appears to be resistant to all mining tools except pickaxes!"
+	icon = 'icons/turf/smoothrocks.dmi'
+	icon_state = "rock_ancient"
+	pixel_x = -4
+	pixel_y = -4
+	color = COLOR_ANCIENT_ROCK
+	smooth = SMOOTH_MORE | SMOOTH_BORDER
+	canSmoothWith = list(/turf/simulated/mineral, /obj/structure/falsewall/mineral_ancient)
+	mineral = /obj/item/stack/ore/glass/basalt/ancient
+	walltype = /turf/simulated/mineral/ancient

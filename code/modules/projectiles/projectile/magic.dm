@@ -202,13 +202,18 @@
 				new_mob.invisibility = 0
 				new_mob.job = "Cyborg"
 				var/mob/living/silicon/robot/Robot = new_mob
-				Robot.mmi = new /obj/item/mmi(new_mob)
+				if(ishuman(M))
+					Robot.mmi = new /obj/item/mmi(new_mob)
+					Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
+				else
+					Robot.mmi = new /obj/item/mmi/robotic_brain(new_mob)
+					Robot.mmi.brainmob.timeofhostdeath = M.timeofdeath
+					Robot.mmi.brainmob.stat = CONSCIOUS
+					Robot.mmi.become_occupied("boris")
 				Robot.lawupdate = FALSE
 				Robot.disconnect_from_ai()
 				Robot.clear_inherent_laws()
 				Robot.clear_zeroth_law()
-				if(ishuman(M))
-					Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
 			if("СЛАЙМ")
 				new_mob = new /mob/living/simple_animal/slime/random(M.loc)
 				new_mob.universal_speak = TRUE
@@ -253,13 +258,22 @@
 						if("corgi")
 							new_mob = new /mob/living/simple_animal/pet/dog/corgi(M.loc)
 						if("crab")
-							new_mob = new /mob/living/simple_animal/crab(M.loc)
+							if(prob(70))
+								new_mob = new /mob/living/simple_animal/crab(M.loc)
+							else
+								new_mob = new /mob/living/simple_animal/crab/royal(M.loc)
 						if("cat")
 							new_mob = new /mob/living/simple_animal/pet/cat(M.loc)
 						if("mouse")
-							new_mob = new /mob/living/simple_animal/mouse(M.loc)
+							if(prob(70))
+								new_mob = new /mob/living/simple_animal/mouse(M.loc)
+							else
+								new_mob = new /mob/living/simple_animal/mouse/rat(M.loc)
 						if("chicken")
-							new_mob = new /mob/living/simple_animal/chicken(M.loc)
+							if(prob(70))
+								new_mob = new /mob/living/simple_animal/chicken(M.loc)
+							else
+								new_mob = new /mob/living/simple_animal/cock(M.loc)
 						if("cow")
 							new_mob = new /mob/living/simple_animal/cow(M.loc)
 						if("lizard")
@@ -352,8 +366,8 @@
 	name = "magical banana"
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "banana"
-	var/slip_stun = 2
-	var/slip_weaken = 2
+	var/slip_stun = 5
+	var/slip_weaken = 5
 	hitsound = 'sound/items/bikehorn.ogg'
 
 /obj/item/projectile/magic/slipping/New()
@@ -363,7 +377,7 @@
 /obj/item/projectile/magic/slipping/on_hit(var/atom/target, var/blocked = 0)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.slip(src, slip_stun, slip_weaken, 0, FALSE, TRUE) //Slips even with noslips/magboots on. NO ESCAPE!
+		H.slip(src, slip_stun, slip_weaken, 0, FALSE, TRUE, TRUE) //Slips even with noslips/magboots on. NO ESCAPE!
 	else if(isrobot(target)) //You think you're safe, cyborg? FOOL!
 		var/mob/living/silicon/robot/R = target
 		if(!R.incapacitated())

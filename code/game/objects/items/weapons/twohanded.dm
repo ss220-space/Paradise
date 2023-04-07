@@ -71,6 +71,9 @@
 	if(!user.has_both_hands())
 		to_chat(user, "<span class='warning'>You need both hands to wield this!</span>")
 		return FALSE
+	if(user.l_arm_broken() || user.r_arm_broken())
+		to_chat(user, "<span class='warning'>Ауч! При попытке взять [name] в две руки ваша рука резко начала болеть от нагрузки!</span>")
+		return FALSE
 	wielded = TRUE
 	force = force_wielded
 	if(sharp_when_wielded)
@@ -507,7 +510,11 @@
 	var/obj/item/twohanded/spear/contained_spear = null
 
 /obj/structure/headspear/Destroy()
-	QDEL_NULL(mounted_head)
+	if(!obj_integrity)
+		mounted_head.forceMove(loc)
+		mounted_head = null
+	else
+		QDEL_NULL(mounted_head)
 	QDEL_NULL(contained_spear)
 	return ..()
 

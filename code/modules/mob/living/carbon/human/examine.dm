@@ -7,6 +7,7 @@
 	var/skipears = 0
 	var/skipeyes = 0
 	var/skipface = 0
+	var/skipprostheses = 0
 
 	//exosuits and helmets obscure our view and stuff.
 	if(wear_suit)
@@ -14,16 +15,17 @@
 		skipsuitstorage = wear_suit.flags_inv & HIDESUITSTORAGE
 		skipjumpsuit = wear_suit.flags_inv & HIDEJUMPSUIT
 		skipshoes = wear_suit.flags_inv & HIDESHOES
+		skipprostheses = wear_suit.flags_inv & (HIDEGLOVES|HIDEJUMPSUIT|HIDESHOES)
 
 	if(head)
 		skipmask = head.flags_inv & HIDEMASK
-		skipeyes = head.flags_inv & HIDEEYES
-		skipears = head.flags_inv & HIDEEARS
-		skipface = head.flags_inv & HIDEFACE
+		skipeyes = head.flags_inv & HIDEGLASSES
+		skipears = head.flags_inv & HIDEHEADSETS
+		skipface = head.flags_inv & HIDENAME
 
 	if(wear_mask)
-		skipface |= wear_mask.flags_inv & HIDEFACE
-		skipeyes |= wear_mask.flags_inv & HIDEEYES
+		skipface |= wear_mask.flags_inv & HIDENAME
+		skipeyes |= wear_mask.flags_inv & HIDEGLASSES
 
 	var/msg = "This is "
 
@@ -224,7 +226,7 @@
 		if(!E)
 			wound_flavor_text["[organ_tag]"] = "<B>[p_they(TRUE)] [p_are()] missing [p_their()] [organ_descriptor].</B>\n"
 		else
-			if(!ismachineperson(src))
+			if(!ismachineperson(src) && !skipprostheses)
 				if(E.is_robotic())
 					wound_flavor_text["[E.limb_name]"] = "[p_they(TRUE)] [p_have()] a robotic [E.name]!\n"
 
@@ -346,7 +348,7 @@
 		if(digitalcamo)
 			msg += "[p_they(TRUE)] [p_are()] moving [p_their()] body in an unnatural and blatantly inhuman manner.\n"
 
-	if(!(skipface || ( wear_mask && ( wear_mask.flags_inv & HIDEFACE || wear_mask.flags_cover & MASKCOVERSMOUTH) ) ) && is_thrall(src) && in_range(user,src))
+	if(!(skipface || ( wear_mask && ( wear_mask.flags_inv & HIDENAME || wear_mask.flags_cover & MASKCOVERSMOUTH) ) ) && is_thrall(src) && in_range(user,src))
 		msg += "Their features seem unnaturally tight and drawn.\n"
 
 	if(decaylevel == 1)
@@ -434,6 +436,11 @@
 			if(hudglasses?.examine_extensions)
 				have_hudtypes += hudglasses.examine_extensions
 
+		if(istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman))
+			var/obj/item/clothing/head/helmet/space/plasmaman/helmet = H.head
+			if(helmet?.examine_extensions)
+				have_hudtypes += helmet.examine_extensions
+
 		var/obj/item/organ/internal/cyberimp/eyes/hud/CIH = H.get_int_organ(/obj/item/organ/internal/cyberimp/eyes/hud)
 		if(CIH?.examine_extensions)
 			have_hudtypes += CIH.examine_extensions
@@ -442,6 +449,11 @@
 
 	else if(isrobot(M) || isAI(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system
 		return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL))
+
+	else if(ispAI(M))
+		var/mob/living/silicon/pai/P = M
+		if(P.adv_secHUD)
+			return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE))
 
 	else if(isobserver(M))
 		var/mob/dead/observer/O = M

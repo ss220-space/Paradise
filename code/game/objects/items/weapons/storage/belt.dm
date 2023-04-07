@@ -59,7 +59,8 @@
 		/obj/item/t_scanner,
 		/obj/item/analyzer,
 		/obj/item/extinguisher/mini,
-		/obj/item/holosign_creator)
+		/obj/item/holosign_creator,
+		/obj/item/radio)
 
 /obj/item/storage/belt/utility/full/New()
 	..()
@@ -135,8 +136,8 @@
 		/obj/item/sensor_device,
 		/obj/item/wrench/medical,
 		/obj/item/handheld_defibrillator,
-		/obj/item/reagent_containers/applicator
-	)
+		/obj/item/reagent_containers/applicator,
+		/obj/item/radio)
 
 /obj/item/storage/belt/medical/surgery
 	max_w_class = WEIGHT_CLASS_NORMAL
@@ -156,7 +157,7 @@
 		/obj/item/FixOVein,
 		/obj/item/surgicaldrill,
 		/obj/item/cautery,
-	)
+		/obj/item/radio)
 
 /obj/item/storage/belt/medical/surgery/loaded
 
@@ -206,8 +207,8 @@
 		/obj/item/wirecutters,
 		/obj/item/wrench,
 		/obj/item/reagent_containers/spray/weedspray,
-		/obj/item/reagent_containers/spray/pestspray
-		)
+		/obj/item/reagent_containers/spray/pestspray,
+		/obj/item/radio)
 
 /obj/item/storage/belt/security
 	name = "security belt"
@@ -236,7 +237,8 @@
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/forensics/sample_kit/powder,
 		/obj/item/forensics/sample_kit,
-		/obj/item/eftpos/sec)
+		/obj/item/eftpos/sec,
+		/obj/item/radio)
 
 /obj/item/storage/belt/security/sec/New()
 	..()
@@ -278,6 +280,20 @@
 	item_state = "securitywebbing"
 	storage_slots = 6
 	use_item_overlays = FALSE
+
+/obj/item/storage/belt/security/webbing/srt
+	name = "SRT webbing"
+	desc = "Unique and versatile chest rig, can hold SRT gear."
+
+/obj/item/storage/belt/security/webbing/srt/full/New()
+	..()
+	new /obj/item/flashlight/seclite(src)
+	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/grenade/flashbang(src)
+	new /obj/item/grenade/flashbang(src)
+	update_icon()
 
 /obj/item/storage/belt/soulstone
 	name = "soul stone belt"
@@ -386,6 +402,40 @@
 	new /obj/item/grenade/syndieminibomb(src) //2
 	new /obj/item/grenade/syndieminibomb(src)
 
+
+/obj/item/storage/belt/grenade/nonlethal/New()
+	..()
+	new /obj/item/grenade/smokebomb(src) //14
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/chem_grenade/teargas(src)	//6
+	new /obj/item/grenade/chem_grenade/teargas(src)
+	new /obj/item/grenade/chem_grenade/teargas(src)
+	new /obj/item/grenade/chem_grenade/teargas(src)
+	new /obj/item/grenade/chem_grenade/teargas(src)
+	new /obj/item/grenade/chem_grenade/teargas(src)
+	new /obj/item/grenade/chem_grenade/metalfoam(src) //4
+	new /obj/item/grenade/chem_grenade/metalfoam(src)
+	new /obj/item/grenade/chem_grenade/metalfoam(src)
+	new /obj/item/grenade/chem_grenade/metalfoam(src)
+	new /obj/item/grenade/chem_grenade/lube(src) //2
+	new /obj/item/grenade/chem_grenade/lube(src)
+	new /obj/item/grenade/chem_grenade/drugs(src) //2
+	new /obj/item/grenade/chem_grenade/drugs(src)
+	new /obj/item/grenade/gas/knockout(src)	//2
+	new /obj/item/grenade/gas/knockout(src)
+
 /obj/item/storage/belt/military/abductor
 	name = "agent belt"
 	desc = "A belt used by abductor agents."
@@ -454,7 +504,7 @@
 		/obj/item/soap,
 		/obj/item/holosign_creator/janitor,
 		/obj/item/melee/flyswatter,
-		)
+		/obj/item/radio)
 
 /obj/item/storage/belt/janitor/full/New()
 	..()
@@ -476,7 +526,9 @@
 	max_w_class = WEIGHT_CLASS_TINY
 	max_combined_w_class = 6
 	storage_slots = 6
-	can_hold = list(/obj/item/mobcapsule)
+	can_hold = list(
+		/obj/item/mobcapsule,
+		/obj/item/radio)
 
 /obj/item/storage/belt/lazarus/New()
 	..()
@@ -497,16 +549,15 @@
 	..()
 	update_icon()
 
-
 /obj/item/storage/belt/bandolier
 	name = "bandolier"
 	desc = "A bandolier for holding shotgun ammunition."
 	icon_state = "bandolier"
 	item_state = "bandolier"
-	storage_slots = 8
-	can_hold = list(
-		/obj/item/ammo_casing/shotgun
-		)
+	storage_slots = 16
+	max_combined_w_class = 16
+	display_contents_with_number = TRUE
+	can_hold = list(/obj/item/ammo_casing/shotgun)
 
 /obj/item/storage/belt/bandolier/New()
 	..()
@@ -514,6 +565,14 @@
 
 /obj/item/storage/belt/bandolier/full/New()
 	..()
+	new /obj/item/ammo_casing/shotgun/beanbag(src)
+	new /obj/item/ammo_casing/shotgun/beanbag(src)
+	new /obj/item/ammo_casing/shotgun/beanbag(src)
+	new /obj/item/ammo_casing/shotgun/beanbag(src)
+	new /obj/item/ammo_casing/shotgun/beanbag(src)
+	new /obj/item/ammo_casing/shotgun/beanbag(src)
+	new /obj/item/ammo_casing/shotgun/beanbag(src)
+	new /obj/item/ammo_casing/shotgun/beanbag(src)
 	new /obj/item/ammo_casing/shotgun/beanbag(src)
 	new /obj/item/ammo_casing/shotgun/beanbag(src)
 	new /obj/item/ammo_casing/shotgun/beanbag(src)
@@ -908,4 +967,5 @@
 		/obj/item/reagent_containers/food/drinks/shaker,
 		/obj/item/reagent_containers/food/snacks,
 		/obj/item/reagent_containers/food/condiment,
-		/obj/item/reagent_containers/glass/beaker)
+		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/radio)

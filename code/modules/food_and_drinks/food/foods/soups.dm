@@ -131,6 +131,14 @@
 	..()
 	name = pick("borsch","bortsch","borstch","borsh","borshch","borscht")
 
+/obj/item/reagent_containers/food/snacks/soup/rassolnik
+	name = "pickle soup"
+	desc = "Quite popular in USSP."
+	icon_state = "rassolnik"
+	filling_color = "#F1FC72"
+	list_reagents = list("nutriment" = 6, "kelotane" = 1, "vitamin" = 2)
+	tastes = list("potato" = 1, "pickles" = 1, "rice" = 1, "Russia" = 1)
+	foodtype = VEGETABLES
 
 //////////////////////
 //		Stews		//
@@ -154,7 +162,6 @@
 	list_reagents = list("nutriment" = 8)
 	tastes = list("soy" = 1, "vegetables" = 1)
 	foodtype = VEGETABLES
-
 
 //////////////////////
 //		Chili		//

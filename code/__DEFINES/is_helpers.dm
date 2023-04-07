@@ -24,6 +24,8 @@
 
 #define iseffect(A) (istype(A, /obj/effect))
 
+#define isprojectile(A) (istype(A, /obj/item/projectile))
+
 #define is_cleanable(A) (istype(A, /obj/effect/decal/cleanable) || istype(A, /obj/effect/rune)) //if something is cleanable
 
 #define is_pen(W) (istype(W, /obj/item/pen))
@@ -68,6 +70,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define ismineralturf(A) istype(A, /turf/simulated/mineral)
 
+#define isancientturf(A) istype(A, /turf/simulated/mineral/ancient)
+
 #define islava(A) (istype(A, /turf/simulated/floor/plating/lava))
 
 #define ischasm(A) (istype(A, /turf/simulated/floor/chasm))
@@ -94,6 +98,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define isaliensentinel(A) (istype(A, /mob/living/carbon/alien/humanoid/sentinel))
 
 #define isslime(A)		(istype((A), /mob/living/simple_animal/slime))
+
+#define issimplemob(A)		(istype((A), /mob/living/simple_animal))
 
 //Structures
 #define isstructure(A)	(istype((A), /obj/structure))

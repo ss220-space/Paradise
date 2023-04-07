@@ -109,8 +109,8 @@
 
 		if("professional") // 34TC + two 0TC
 			new /obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator(src) // 16TC
-			new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src) // 5TC
-			new /obj/item/ammo_box/magazine/sniper_rounds/soporific(src) // 3TC
+			new /obj/item/ammo_box/magazine/sniper_rounds/compact/penetrator(src) // 5TC
+			new /obj/item/ammo_box/magazine/sniper_rounds/compact/soporific(src) // 3TC
 			new /obj/item/clothing/glasses/chameleon/thermal(src) // 6TC
 			new /obj/item/clothing/gloves/combat(src) // 0 TC
 			new /obj/item/clothing/under/suit_jacket/really_black(src) // 0 TC
@@ -188,6 +188,28 @@
 	new /obj/item/grenade/plastic/c4(src)
 	new /obj/item/grenade/plastic/c4(src)
 	new /obj/item/grenade/plastic/c4(src)
+
+/obj/item/storage/box/syndie_kit/t4
+	name = "Pack of T-4 Explosives"
+	desc = "Contains five T4 breaching charges."
+
+/obj/item/storage/box/syndie_kit/t4/New()
+	..()
+	new /obj/item/grenade/plastic/x4/thermite(src)
+	new /obj/item/grenade/plastic/x4/thermite(src)
+	new /obj/item/grenade/plastic/x4/thermite(src)
+	new /obj/item/grenade/plastic/x4/thermite(src)
+	new /obj/item/grenade/plastic/x4/thermite(src)
+
+/obj/item/storage/box/syndie_kit/t4P
+	name = "Small pack of T-4 Explosives"
+	desc = "Contains three T4 breaching charges."
+
+/obj/item/storage/box/syndie_kit/t4P/New()
+	..()
+	new /obj/item/grenade/plastic/x4/thermite(src)
+	new /obj/item/grenade/plastic/x4/thermite(src)
+	new /obj/item/grenade/plastic/x4/thermite(src)
 
 /obj/item/storage/box/syndie_kit/throwing_weapons
 	name = "boxed throwing kit"

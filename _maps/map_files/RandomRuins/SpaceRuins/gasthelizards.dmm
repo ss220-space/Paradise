@@ -42,8 +42,6 @@
 	specialfunctions = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = "90Curve"
 	},
@@ -54,13 +52,9 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = "90Curve"
 	},
@@ -104,7 +98,7 @@
 "dm" = (
 /obj/machinery/door/window/brigdoor/northleft{
 	dir = 4;
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /obj/machinery/flasher_button{
 	id = "gtl_c1";
@@ -173,7 +167,7 @@
 	normaldoorcontrol = 1;
 	pixel_x = -24;
 	pixel_y = -8;
-	req_access_txt = "271";
+	req_access = list(271);
 	specialfunctions = 4
 	},
 /turf/simulated/floor/plating,
@@ -247,21 +241,15 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/gasthelizards/viewzone)
 "hR" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = "90Curve"
 	},
@@ -389,8 +377,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/light_switch{
@@ -460,7 +446,7 @@
 "qt" = (
 /obj/machinery/door/window/brigdoor/northleft{
 	dir = 4;
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -485,8 +471,6 @@
 /area/ruin/space/gasthelizards/viewzone)
 "rK" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -513,8 +497,6 @@
 /area/ruin/space/gasthelizards/viewzone)
 "sf" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/light_switch{
@@ -557,7 +539,7 @@
 /obj/item/storage/fancy/donut_box,
 /obj/machinery/door/window/brigdoor/northleft{
 	dir = 2;
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -599,8 +581,6 @@
 /area/ruin/space/gasthelizards/engineering)
 "tv" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -617,8 +597,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/binary/pump{
@@ -789,8 +767,6 @@
 /area/ruin/space/gasthelizards/viewzone)
 "zf" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -799,8 +775,6 @@
 /area/ruin/space/gasthelizards/viewzone)
 "zi" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/maintenance,
@@ -947,8 +921,6 @@
 	icon_state = "pipe-c"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -1020,7 +992,7 @@
 "FV" = (
 /obj/machinery/door/airlock/public{
 	id_tag = "gtl_control_airlock";
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1029,8 +1001,6 @@
 "FX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -1043,8 +1013,6 @@
 	},
 /obj/machinery/meter,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = "90Curve"
 	},
@@ -1165,8 +1133,6 @@
 /area/ruin/space/gasthelizards/engineering)
 "LH" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/maintenance,
@@ -1197,7 +1163,7 @@
 /area/ruin/space/gasthelizards/viewzone)
 "Nx" = (
 /obj/machinery/door/airlock/hatch{
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1218,8 +1184,6 @@
 /area/ruin/space/gasthelizards/viewzone)
 "NS" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/maintenance,
@@ -1228,7 +1192,7 @@
 /area/ruin/space/gasthelizards/engineering)
 "Oc" = (
 /obj/machinery/door/airlock/maintenance_hatch{
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -1254,8 +1218,6 @@
 "PH" = (
 /obj/machinery/door/airlock/hatch,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -1266,8 +1228,6 @@
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -1280,8 +1240,6 @@
 	},
 /obj/machinery/meter,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -1293,7 +1251,7 @@
 	pixel_y = 13
 	},
 /obj/machinery/door/window/brigdoor/northleft{
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1371,8 +1329,6 @@
 	icon_state = "pipe-c"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/binary/valve{
@@ -1448,7 +1404,7 @@
 	normaldoorcontrol = 1;
 	pixel_x = -24;
 	pixel_y = -24;
-	req_access_txt = "271";
+	req_access = list(271);
 	specialfunctions = 4
 	},
 /turf/simulated/floor/plating/asteroid/airless,
@@ -1486,8 +1442,6 @@
 "XR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -1527,8 +1481,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{

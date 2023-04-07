@@ -18,6 +18,7 @@
 	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
 	var/can_move = 0 // time of next allowed movement
+	var/mech_enter_time = 40 // Entering mecha time
 	var/mob/living/carbon/occupant = null
 	var/step_in = 10 //make a step in step_in/10 sec.
 	var/dir_in = 2//What direction will the mech face when entered/powered on? Defaults to South.
@@ -201,6 +202,10 @@
 	if(src == target)
 		return
 
+	if(GLOB.pacifism_after_gt)
+		to_chat(user, "<span class='warning'>You don't want to harm!</span>")
+		return
+
 	var/dir_to_target = get_dir(src, target)
 	if(dir_to_target && !(dir_to_target & dir))//wrong direction
 		return
@@ -354,7 +359,7 @@
 		if(phasing && get_charge() >= phasing_energy_drain)
 			if(can_move < world.time)
 				. = FALSE // We lie to mech code and say we didn't get to move, because we want to handle power usage + cooldown ourself
-				flick("phazon-phase", src)
+				flick("[initial_icon]-phase", src)
 				if(direction & (direction - 1))	//moved diagonally
 					glide_for(step_in * 4.23)
 				else
@@ -931,7 +936,7 @@
 			occupant = null
 			AI.controlled_mech = null
 			AI.remote_control = null
-			icon_state = initial(icon_state)+"-open"
+			icon_state = reset_icon(icon_state)+"-open"
 			to_chat(AI, "You have been downloaded to a mobile storage device. Wireless connection offline.")
 			to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) removed from [name] and stored within local memory.")
 
@@ -965,7 +970,7 @@
 	AI.aiRestorePowerRoutine = 0
 	AI.forceMove(src)
 	occupant = AI
-	icon_state = initial(icon_state)
+	icon_state = reset_icon(icon_state)
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 	if(!hasInternalDamage())
 		occupant << sound(nominalsound, volume = 50)
@@ -1003,6 +1008,11 @@
 	if(use_internal_tank)
 		return cabin_air
 	return get_turf_air()
+
+/obj/mecha/return_analyzable_air()
+	if(use_internal_tank)
+		return cabin_air
+	return null
 
 /obj/mecha/proc/return_pressure()
 	var/datum/gas_mixture/t_air = return_air()
@@ -1051,18 +1061,10 @@
 	return internal_tank.return_air()
 
 /obj/mecha/proc/toggle_lights()
-	lights = !lights
-	if(lights)
-		set_light(light_range + lights_power)
-	else
-		set_light(light_range - lights_power)
-	occupant_message("Toggled lights [lights ? "on" : "off"].")
-	log_message("Toggled lights [lights ? "on" : "off"].")
+	lights_action.Trigger()
 
 /obj/mecha/proc/toggle_internal_tank()
-	use_internal_tank = !use_internal_tank
-	occupant_message("Now taking air from [use_internal_tank ? "internal airtank" : "environment"].")
-	log_message("Now taking air from [use_internal_tank ? "internal airtank" : "environment"].")
+	internals_action.Trigger()
 
 /obj/mecha/MouseDrop_T(mob/M, mob/user)
 	if(frozen)
@@ -1098,7 +1100,7 @@
 
 	visible_message("<span class='notice'>[user] starts to climb into [src]")
 
-	if(do_after(user, 40, target = src))
+	if(do_after(user, src.mech_enter_time, target = src))
 		if(obj_integrity <= 0)
 			to_chat(user, "<span class='warning'>You cannot get in the [name], it has been destroyed!</span>")
 		else if(occupant)
@@ -1268,7 +1270,7 @@
 				var/obj/item/mmi/robotic_brain/R = mmi
 				if(R.imprinted_master)
 					to_chat(L, "<span class='notice'>Imprint re-enabled, you are once again bound to [R.imprinted_master]'s commands.</span>")
-		icon_state = initial(icon_state)+"-open"
+		icon_state = reset_icon(icon_state)+"-open"
 		dir = dir_in
 
 	if(L && L.client)
@@ -1499,6 +1501,7 @@
 			AI = occupant
 			occupant = null
 		var/obj/structure/mecha_wreckage/WR = new wreckage(loc, AI)
+		WR.icon_state = "[src.reset_icon(loc, AI)]-broken"
 		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
 			if(E.salvageable && prob(30))
 				WR.crowbar_salvage += E

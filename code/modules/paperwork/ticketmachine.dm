@@ -59,7 +59,7 @@
 	if(current_number < ticket_number)
 		current_number ++ //Increment the one we're serving.
 		playsound(src, 'sound/misc/announce_dig.ogg', 50, FALSE)
-		atom_say("Now serving ticket #[current_number]!")
+		atom_say("Очередь билета номер #[current_number]!")
 		if(!(emagged) && tickets[current_number])
 			var/obj/item/ticket_machine_ticket/ticket = tickets[current_number]
 			ticket.audible_message("<span class='notice'>\the [tickets[current_number]] vibrates!</span>")
@@ -88,6 +88,7 @@
 				addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 10)
 	else
 		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		flick("doorctrl-denied", src)
 
 /obj/machinery/door_control/ticket_machine_button/update_icon()
