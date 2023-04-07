@@ -638,7 +638,9 @@
 
 	if(status_flags & GODMODE)
 		return 0	//godmode
-
+	if(NO_HUNGER in dna.species.species_traits)
+		if(nutrition >= 0 && stat != DEAD)
+			handle_nutrition_alerts()
 	if(!(NO_HUNGER in dna.species.species_traits))
 		if(FAT in mutations)
 			if(overeatduration < 100)

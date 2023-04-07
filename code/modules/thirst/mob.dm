@@ -28,6 +28,9 @@
 
 /mob/living/carbon/human/handle_chemicals_in_body()
 	. = ..()
+	if(NO_HUNGER in dna.species.species_traits)
+		if(hydration >= 0 && stat != DEAD)
+			handle_thirst_alerts()
 	if(!(NO_THIRST in dna.species.species_traits))
 		if(hydration >= 0 && stat != DEAD)
 			handle_thirst_alerts()
@@ -59,15 +62,13 @@
 		hydration_alert.icon_state = null
 		return
 	switch(hydration)
-		if(HYDRATION_LEVEL_FULL to INFINITY)
-			hydration_alert.icon_state = "v_fat"
-		if(HYDRATION_LEVEL_GOOD to HYDRATION_LEVEL_FULL)
+		if(HYDRATION_LEVEL_WELL_FED to INFINITY)
 			hydration_alert.icon_state = "water_full"
-		if(HYDRATION_LEVEL_MEDIUM to HYDRATION_LEVEL_GOOD)
+		if(HYDRATION_LEVEL_GOOD to HYDRATION_LEVEL_WELL_FED)
 			hydration_alert.icon_state = "water_well_hydrated"
-		if(HYDRATION_LEVEL_SMALL to HYDRATION_LEVEL_MEDIUM)
+		if(HYDRATION_LEVEL_MEDIUM to HYDRATION_LEVEL_GOOD)
 			hydration_alert.icon_state = "water_hydrated"
-		if(HYDRATION_LEVEL_INEFFICIENT to HYDRATION_LEVEL_SMALL)
+		if(HYDRATION_LEVEL_SMALL to HYDRATION_LEVEL_MEDIUM)
 			hydration_alert.icon_state = "water_thirsty"
 		else
 			hydration_alert.icon_state = "water_dehydrated"
