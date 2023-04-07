@@ -51,9 +51,7 @@
 																												[span_revenwarning("Стихли все звуки. \n \
 																																	Вокруг мёртвая Тишина. \n \
 																																	Пепел сакуры... \n")]"))
-	for(var/obj/item/I in ninja.contents)
-		if(I == src)
-			continue
-		if(I.flags & NODROP)
-			qdel(I)
+
+	ninja.drop_ungibbable_items()
+
 	ninja.dust()
