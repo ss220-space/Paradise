@@ -24,7 +24,7 @@
 "bL" = (
 /obj/item/trash/semki,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "ck" = (
 /obj/item/toy/russian_revolver{
@@ -84,10 +84,6 @@
 	name = "Окровавленная записка"
 	},
 /turf/simulated/floor/carpet/black,
-/area/ruin/unpowered)
-"qG" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered)
 "rf" = (
 /obj/effect/decal/cleanable/dirt,
@@ -169,12 +165,12 @@
 	},
 /obj/effect/decal/ants,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "zs" = (
 /obj/effect/decal/ants,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Bp" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
@@ -191,7 +187,7 @@
 /obj/effect/decal/ants,
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "CZ" = (
 /obj/machinery/door/airlock/public/glass{
@@ -252,13 +248,13 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "FV" = (
 /obj/item/trash/chips,
 /obj/effect/decal/cleanable/vomit,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "GX" = (
 /obj/structure/rack,
@@ -274,7 +270,7 @@
 /obj/structure/table/reinforced,
 /obj/item/instrument/guitar,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Is" = (
 /obj/structure/table/reinforced,
@@ -297,7 +293,7 @@
 	},
 /obj/machinery/light_construct,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Jg" = (
 /obj/item/flashlight{
@@ -358,7 +354,7 @@
 "PI" = (
 /obj/machinery/computer,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "PK" = (
 /obj/machinery/suit_storage_unit/standard_unit,
@@ -463,7 +459,7 @@
 	},
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Vh" = (
 /obj/structure/sign/poster/contraband/random,
@@ -928,7 +924,7 @@ PO
 PO
 FU
 FV
-qG
+Zf
 bL
 Is
 PO
