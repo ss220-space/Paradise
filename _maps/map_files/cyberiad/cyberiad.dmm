@@ -23027,8 +23027,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/sign/poster/official/high_class_martini{
-	pixel_y = 32
+/obj/machinery/newscaster{
+	name = "north newscaster";
+	pixel_y = 34
 	},
 /turf/simulated/floor/light{
 	icon_state = "light_on-p";
@@ -29180,7 +29181,8 @@
 /area/maintenance/port)
 "btM" = (
 /obj/machinery/icemachine{
-	pixel_x = -4
+	pixel_x = -1;
+	pixel_y = -3
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -29189,6 +29191,9 @@
 "btN" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
+/obj/structure/sign/poster/official/high_class_martini{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark";
@@ -73283,6 +73288,15 @@
 	icon_state = "dark"
 	},
 /area/maintenance/port)
+"eJk" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/machinery/light,
+/obj/machinery/newscaster{
+	name = "south newscaster";
+	pixel_y = -31
+	},
+/turf/simulated/floor/wood/fancy/cherry,
+/area/crew_quarters/bar/atrium)
 "eJB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/candle,
@@ -74636,16 +74650,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/engrooms)
-"fJM" = (
-/obj/structure/table/glass,
-/obj/item/taperecorder{
-	pixel_x = -5
-	},
-/turf/simulated/floor/light{
-	icon_state = "light_on-p";
-	state = 7
-	},
-/area/crew_quarters/bar/atrium)
 "fKP" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -84063,6 +84067,16 @@
 "nqc" = (
 /turf/simulated/wall,
 /area/maintenance/banya)
+"nqt" = (
+/obj/structure/table/glass,
+/obj/item/taperecorder{
+	pixel_x = -5
+	},
+/turf/simulated/floor/light{
+	icon_state = "light_on-p";
+	state = 7
+	},
+/area/crew_quarters/bar/atrium)
 "nqX" = (
 /obj/structure/table,
 /obj/item/paper{
@@ -131362,7 +131376,7 @@ bpH
 bxE
 djh
 bhr
-fJM
+nqt
 bpC
 bcU
 brf
@@ -133684,7 +133698,7 @@ vGs
 vGs
 vGs
 bAH
-bCB
+eJk
 djh
 bFj
 bHA
