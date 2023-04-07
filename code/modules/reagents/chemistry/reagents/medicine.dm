@@ -1189,6 +1189,22 @@
 	update_flags |= M.adjustBrainLoss(-3, FALSE)
 	return ..() | update_flags
 
+//Coolant: Antihol
+/datum/reagent/medicine/coolant
+	name = "Coolant"
+	id = "coolant"
+	description = "Fixes speech bugs"
+	reagent_state = LIQUID
+	color = "#0af0f0"
+	process_flags = SYNTHETIC
+	taste_description = "error"
+
+/datum/reagent/medicine/coolant/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	M.SetSlur(0)
+	M.AdjustDrunk(-4)
+	M.reagents.remove_all_type(/datum/reagent/consumable/ethanol/synthanol, 8, 0, 1)
+	return ..() | update_flags
 
 
 //Trek-Chems. DO NOT USE THES OUTSIDE OF BOTANY OR FOR VERY SPECIFIC PURPOSES. NEVER GIVE A RECIPE UNDER ANY CIRCUMSTANCES//
@@ -1356,4 +1372,22 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustBruteLoss(-1, FALSE)
 	update_flags |= M.adjustFireLoss(-1, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/medicine/pure_plasma   //unique chemical for plasmaman
+	name = "Pure plasma"
+	id = "pure_plasma"
+	description = "A product of plasma metabolism in the body of plasmaman, confirming their weak susceptibility to pain. Extremely toxic."
+	reagent_state = LIQUID
+	color = "#b521c2"
+	metabolization_rate = REAGENTS_METABOLISM
+	shock_reduction = 20
+	taste_description = "Superiority"
+	can_synth = FALSE
+
+/datum/reagent/medicine/pure_plasma/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(-4, FALSE)
+	if(M.bodytemperature < 310)
+		M.bodytemperature = min(310, M.bodytemperature + (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	return ..() | update_flags
