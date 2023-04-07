@@ -2,19 +2,6 @@
 
 GLOBAL_LIST_INIT(list_symptoms, subtypesof(/datum/symptom))
 
-//Need initialized list_symptoms to work
-GLOBAL_LIST_INIT(list_virus_presets, list(
-	new /datum/disease/advance/preset/cold(),
-	new /datum/disease/advance/preset/flu(),
-	new /datum/disease/advance/preset/voice_change(),
-	new /datum/disease/advance/preset/heal(),
-	new /datum/disease/advance/preset/hullucigen(),
-	new /datum/disease/advance/preset/sensory_restoration(),
-	new /datum/disease/advance/preset/mind_restoration(),
-	new /datum/disease/advance/preset/advanced_regeneration(),
-	new /datum/disease/advance/preset/stealth_necrosis(),
-	new /datum/disease/advance/preset/pre_kingstons()
-))
 
 /datum/symptom
 	// Buffs/Debuffs the symptom has to the overall engineered disease.
@@ -29,14 +16,6 @@ GLOBAL_LIST_INIT(list_virus_presets, list(
 	var/severity = 0
 	// The hash tag for our diseases, we will add it up with our other symptoms to get a unique id! ID MUST BE UNIQUE!!!
 	var/id = ""
-
-/datum/symptom/New()
-	var/list/S = GLOB.list_symptoms
-	for(var/i = 1; i <= S.len; i++)
-		if(type == S[i])
-			id = "[i]"
-			return
-	CRASH("We couldn't assign an ID!")
 
 // Called when processing of the advance disease, which holds this symptom, starts.
 /datum/symptom/proc/Start(datum/disease/advance/A)

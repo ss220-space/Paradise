@@ -11,7 +11,6 @@
 	desc = "This disease destroys the braincells, causing brain fever, brain necrosis and general intoxication."
 	required_organs = list(/obj/item/organ/internal/brain)
 	severity = DANGEROUS
-	mutable = TRUE
 	mutation_reagents = list("mutagen", "neurotoxin2")
 	possible_mutations = list(/datum/disease/kuru, /datum/disease/advance/preset/mind_restoration/, /datum/disease/transformation/jungle_fever)
 

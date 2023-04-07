@@ -69,7 +69,6 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	var/list/required_organs = list()
 	var/needs_all_cures = TRUE
 	var/list/strain_data = list() //dna_spread special bullshit
-	var/mutable = FALSE
 	var/mutation_chance = 1
 	var/list/mutation_reagents = list("mutagen")
 	var/list/possible_mutations
@@ -102,7 +101,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 			cure()
 			return FALSE
 
-	if(mutable && prob(mutation_chance))
+	if(possible_mutations && prob(mutation_chance))
 		mutate()
 
 	return TRUE

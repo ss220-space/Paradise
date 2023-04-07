@@ -120,7 +120,7 @@
 
 /datum/reagent/grave_dust/on_mob_life(mob/living/carbon/M)
 	if(volume > 4.5)
-		M.ForceContractDisease(new /datum/disease/vampire())
+		M.ForceContractDisease(new /datum/disease/vampire)
 	return ..()
 
 /datum/reagent/bacon_grease

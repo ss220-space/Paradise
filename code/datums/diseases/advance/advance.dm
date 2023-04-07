@@ -6,7 +6,18 @@
 	If you need help with creating new symptoms or expanding the advance disease, ask for Giacom on #coderbus.
 
 */
-GLOBAL_LIST_EMPTY(archive_diseases)
+GLOBAL_LIST_INIT(archive_diseases, list(
+	"sneeze" = new /datum/disease/advance/preset/cold(),
+	"cough" = new /datum/disease/advance/preset/flu(),
+	"voice_change" = new /datum/disease/advance/preset/voice_change(),
+	"heal" = new /datum/disease/advance/preset/heal(),
+	"hallucigen" = new /datum/disease/advance/preset/hullucigen(),
+	"sensory_restoration" = new /datum/disease/advance/preset/sensory_restoration(),
+	"mind_restoration" = new /datum/disease/advance/preset/mind_restoration(),
+	"damage_converter:heal:viralevolution" = new /datum/disease/advance/preset/advanced_regeneration(),
+	"dizzy:flesh_eating:viraladaptation:youth" = new /datum/disease/advance/preset/stealth_necrosis(),
+	"beard:itching:voice_change" = new /datum/disease/advance/preset/pre_kingstons()
+))
 
 // The order goes from easy to cure to hard to cure.
 GLOBAL_LIST_INIT(advance_cures, list(
@@ -38,11 +49,12 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	var/id = ""
 	var/processing = 0
 
-/datum/disease/advance/New(var/update_archive = TRUE)
-	if(update_archive)
+/datum/disease/advance/proc/Initialize()
+	if(!symptoms || !symptoms.len)
 		symptoms = GenerateSymptoms(0, 2)
-		Refresh()
-	return
+
+	AssignProperties(GenerateProperties())
+	id = GetDiseaseID()
 
 /datum/disease/advance/Destroy()
 	if(processing)
@@ -88,7 +100,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
 // Returns the advance disease with a different reference memory.
 /datum/disease/advance/Copy()
-	var/datum/disease/advance/copy = new(update_archive = FALSE)
+	var/datum/disease/advance/copy = new
 	var/list/skipped = list("symptoms","affected_mob","holder","carrier","stage","type","parent_type","vars","transformed")
 	for(var/V in vars - skipped)
 		if(istype(vars[V], /list))
@@ -161,9 +173,8 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	GLOB.archive_diseases[id] = Copy()
 
 /datum/disease/advance/proc/UpdateMutationsProps(var/datum/disease/advance/A)
-	var/datum/disease/advance/AA = A ? A : new(update_archive = FALSE)
+	var/datum/disease/advance/AA = A ? A : new
 
-	mutable = AA.mutable
 	mutation_reagents = AA.mutation_reagents.Copy()
 	possible_mutations = AA.possible_mutations?.Copy()
 
@@ -361,6 +372,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	var/i = VIRUS_SYMPTOM_LIMIT
 
 	var/datum/disease/advance/D = new
+	D.Refresh()
 	D.symptoms = list()
 
 	var/list/symptoms = list()

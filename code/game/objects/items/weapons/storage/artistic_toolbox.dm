@@ -73,7 +73,7 @@
 		if(istype(I, /obj/item/grab))
 			var/obj/item/grab/G = I
 			var/mob/living/victim = G.affecting
-			if(!user.HasDisease(new /datum/disease/memetic_madness()))
+			if(!user.HasDisease(new /datum/disease/memetic_madness))
 				to_chat(user, "<span class='warning'>You can't seem to find the latch to open this.</span>")
 				return
 			if(!victim)
