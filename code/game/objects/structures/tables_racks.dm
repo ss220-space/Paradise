@@ -110,6 +110,16 @@
 /obj/structure/table/proc/item_placed(item)
 	return
 
+/obj/structure/table/Crossed(atom/movable/AM, oldloc)
+	. = ..()
+	if(AM.throwing && isliving(AM))
+		var/mob/living/user = AM
+		addtimer(CALLBACK(src, .proc/clumse_check, user), 1) //no bowling, sorry
+
+/obj/structure/table/proc/clumse_check(mob/living/user)
+	if(user.loc == get_turf(src))
+		clumse_stuff(user)
+
 /obj/structure/table/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height == 0)
 		return 1
