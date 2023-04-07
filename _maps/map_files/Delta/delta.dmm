@@ -279,7 +279,7 @@
 	auto_patrol = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkred"
+	icon_state = "dark"
 	},
 /area/security/securearmory)
 "aav" = (
@@ -47427,7 +47427,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkred"
+	icon_state = "dark"
 	},
 /area/security/securearmory)
 "ePX" = (
@@ -64480,7 +64480,8 @@
 "iOV" = (
 /obj/effect/decal/warning_stripes/red,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 10;
+	icon_state = "darkred"
 	},
 /area/security/securearmory)
 "iPd" = (
@@ -76575,12 +76576,6 @@
 /obj/item/toy/crayon/rainbow,
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
-"lSr" = (
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkred"
-	},
-/area/security/securearmory)
 "lSx" = (
 /obj/structure/closet/secure_closet/medical1,
 /turf/simulated/floor/plasteel{
@@ -82469,12 +82464,11 @@
 /turf/simulated/wall,
 /area/maintenance/engineering)
 "nhY" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkredcorners"
+	icon_state = "darkred"
 	},
 /area/security/securearmory)
 "nig" = (
@@ -105974,13 +105968,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain/bedroom)
-"sxn" = (
-/obj/machinery/photocopier,
-/obj/effect/decal/warning_stripes/red,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
-/area/security/main)
 "sxp" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -109563,8 +109550,7 @@
 /area/medical/virology/lab)
 "toP" = (
 /turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkredfull"
+	icon_state = "dark"
 	},
 /area/security/securearmory)
 "toS" = (
@@ -121291,7 +121277,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
+	dir = 8;
 	icon_state = "darkred"
 	},
 /area/security/securearmory)
@@ -121355,7 +121341,8 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkred"
+	dir = 10;
+	icon_state = "darkredfull"
 	},
 /area/security/securearmory)
 "vYr" = (
@@ -130428,17 +130415,6 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/theatre)
-"xXA" = (
-/obj/structure/table/reinforced,
-/obj/item/paper_bin,
-/obj/item/pen,
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
-/area/security/main)
 "xXC" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Armory";
@@ -184727,8 +184703,8 @@ oPR
 uqM
 stT
 vYk
+wCH
 bVZ
-lhS
 lhS
 mzW
 lqG
@@ -184984,9 +184960,9 @@ jPK
 vNX
 vSt
 aau
+nhY
 qjM
 lhS
-sxn
 vcX
 nHu
 uEq
@@ -185241,9 +185217,9 @@ qdp
 vNX
 pyk
 ePU
+wCH
 dZt
 lhS
-xXA
 vcX
 tNf
 ugH
@@ -185498,8 +185474,8 @@ qdp
 vNX
 pyk
 ePU
+wCH
 lSA
-lhS
 lhS
 vcX
 iHp
@@ -185754,8 +185730,8 @@ toS
 qoy
 vNX
 vqM
-nhY
-lSr
+ePU
+wCH
 pNI
 xXC
 vcX
