@@ -65,6 +65,7 @@
 
 // Factor of how fast mob nutrition decreases
 #define	HUNGER_FACTOR 0.1
+#define THIRST_FACTOR 0.125
 
 // Taste sensitivity - lower is more sensitive
 // Represents the minimum portion of total taste the mob can sense

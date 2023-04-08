@@ -75,7 +75,6 @@
 
 	handle_addiction(M, total_depletion_rate)
 	sate_addiction(M)
-
 	holder.remove_reagent(id, total_depletion_rate) //By default it slowly disappears.
 	return STATUS_UPDATE_NONE
 

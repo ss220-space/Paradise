@@ -319,6 +319,9 @@
 	else if(nutrition >= NUTRITION_LEVEL_FAT)
 		msg += "[p_they(TRUE)] [p_are()] quite chubby.\n"
 
+	if(hydration < HYDRATION_LEVEL_INEFFICIENT)
+		msg += "[p_they(TRUE)] looks very thirsty.\n"
+
 	if(blood_volume < BLOOD_VOLUME_SAFE)
 		msg += "[p_they(TRUE)] [p_have()] pale skin.\n"
 
