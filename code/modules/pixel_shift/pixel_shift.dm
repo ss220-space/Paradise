@@ -51,7 +51,7 @@
 		unpixel_shift()
 
 /mob/living/pixel_shift(direction)
-	if(restrained() || IsWeakened() || length(grabbed_by))
+	if(restrained() || IsWeakened() || length(grabbed_by) || stat > CONSCIOUS || buckled)
 		return
 	passthroughable = NONE
 	switch(direction)
@@ -82,6 +82,10 @@
 		passthroughable |= NORTH | EAST | WEST
 	if(pixel_x < -PASSABLE_SHIFT_THRESHOLD)
 		passthroughable |= NORTH | EAST | SOUTH
+
+/atom/movable/post_buckle_mob(mob/living/M)
+	. = ..()
+	M.unpixel_shift()
 
 /mob/living/CanPass(atom/movable/mover, turf/target, height)
 	if(!istype(mover, /obj/item/projectile) && !mover.throwing && passthroughable & get_dir(src, mover))
