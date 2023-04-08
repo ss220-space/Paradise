@@ -399,6 +399,14 @@
 		crush()
 	return TRUE
 
+/obj/machinery/door/proc/force_close() //for shuttles
+	safe = FALSE
+	unlock()
+	close()
+	lock()
+	spawn(1)
+		safe = TRUE
+
 /obj/machinery/door/proc/CheckForMobs()
 	if(locate(/mob/living) in get_turf(src))
 		spawn(1)

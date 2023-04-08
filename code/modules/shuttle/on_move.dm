@@ -22,15 +22,12 @@
 	. = ..()
 	if(!.)
 		return
-	INVOKE_ASYNC(src, .proc/close, 0, 1)
+	INVOKE_ASYNC(src, .proc/force_close, 0, 1)
 	// Close any nearby airlocks as well
 	for(var/obj/machinery/door/airlock/D in orange(1, src))
-		INVOKE_ASYNC(D, .proc/close, 0, 1)
-
-/obj/machinery/door/airlock/onShuttleMove()
-	. = ..()
+		INVOKE_ASYNC(D, .proc/force_close, 0, 1)
 	if(id_tag == "s_docking_airlock")
-		INVOKE_ASYNC(src, .proc/lock)
+		INVOKE_ASYNC(src, .proc/force_close)
 
 /mob/onShuttleMove(turf/oldT, turf/T1, rotation)
     if(!move_on_shuttle)
