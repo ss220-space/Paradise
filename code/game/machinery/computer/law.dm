@@ -108,16 +108,16 @@
 	. = ..()
 	if(!powered())
 		if(installed_module?.transmitting)
-			installed_module.stopUpload(src)
+			installed_module.stopUpload(src, TRUE)
 
 /obj/machinery/computer/aiupload/on_deconstruction()
 	. = ..()
 	if(installed_module?.transmitting)
-		installed_module.stopUpload(src)
+		installed_module.stopUpload(src, TRUE)
 
 /obj/machinery/computer/aiupload/obj_break(damage_flag)
 	if(installed_module?.transmitting)
-		installed_module.stopUpload(src)
+		installed_module.stopUpload(src, TRUE)
 	. = ..()
 
 /obj/machinery/computer/aiupload/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/ui_state/state)

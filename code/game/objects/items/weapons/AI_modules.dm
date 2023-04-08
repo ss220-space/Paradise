@@ -34,12 +34,12 @@ AI MODULES
 	registered_name = null
 	return
 
-/obj/item/aiModule/proc/stopUpload(obj/machinery/computer/C)
+/obj/item/aiModule/proc/stopUpload(obj/machinery/computer/C, silent = FALSE)
 	transmitting = FALSE
 	registered_name = null
 	deltimer(timer_id)
 	timer_id = null
-	if(C)
+	if(C && !silent)
 		C.atom_say("Upload has been interrupted.")
 
 /obj/item/aiModule/proc/install(obj/machinery/computer/C, new_name = "Unknown")
