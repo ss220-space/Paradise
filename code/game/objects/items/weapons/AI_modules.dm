@@ -39,7 +39,8 @@ AI MODULES
 	registered_name = null
 	deltimer(timer_id)
 	timer_id = null
-	C.atom_say("Upload has been interrupted.")
+	if(C)
+		C.atom_say("Upload has been interrupted.")
 
 /obj/item/aiModule/proc/install(obj/machinery/computer/C, new_name = "Unknown")
 	if(transmitting)
