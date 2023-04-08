@@ -35005,7 +35005,7 @@
 	},
 /area/centcom/specops)
 "rLk" = (
-/obj/machinery/computer/borgupload,
+/obj/machinery/computer/aiupload/cyborg,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

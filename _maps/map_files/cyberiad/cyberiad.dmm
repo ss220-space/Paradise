@@ -33161,7 +33161,7 @@
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
 "bCL" = (
-/obj/machinery/computer/borgupload,
+/obj/machinery/computer/aiupload/cyborg,
 /obj/item/radio/intercom/private{
 	pixel_y = -28
 	},

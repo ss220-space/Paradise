@@ -106,7 +106,7 @@
 	origin_tech = "programming=4;engineering=4"
 /obj/item/circuitboard/borgupload
 	name = "Circuit board (Cyborg Upload)"
-	build_path = /obj/machinery/computer/borgupload
+	build_path = /obj/machinery/computer/aiupload/cyborg
 	origin_tech = "programming=4;engineering=4"
 /obj/item/circuitboard/med_data
 	name = "Circuit board (Medical Records)"

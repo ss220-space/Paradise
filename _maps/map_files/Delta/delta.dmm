@@ -32713,7 +32713,7 @@
 	},
 /area/construction/hallway)
 "diX" = (
-/obj/machinery/computer/borgupload,
+/obj/machinery/computer/aiupload/cyborg,
 /obj/item/radio/intercom/private{
 	pixel_y = -28
 	},

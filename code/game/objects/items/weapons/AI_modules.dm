@@ -21,69 +21,88 @@ AI MODULES
 	origin_tech = "programming=3"
 	materials = list(MAT_GOLD=50)
 	var/datum/ai_laws/laws = null
+	var/delay = 20 SECONDS
+	var/transmitting = FALSE
+	var/timer_id = null
+	var/registered_name = null
 
-/obj/item/aiModule/proc/install(var/obj/machinery/computer/C)
+/obj/item/aiModule/proc/finishUpload(obj/machinery/computer/C)
+	transmitting = FALSE
+	var/obj/machinery/computer/aiupload/comp = C
+	src.transmitInstructions(comp.current, usr, registered_name)
+	C.atom_say("Upload complete. The laws have been modified.")
+	registered_name = null
+	return
+
+/obj/item/aiModule/proc/stopUpload(obj/machinery/computer/C)
+	transmitting = FALSE
+	registered_name = null
+	deltimer(timer_id)
+	timer_id = null
+	C.atom_say("Upload has been interrupted.")
+
+/obj/item/aiModule/proc/install(obj/machinery/computer/C, new_name = "Unknown")
+	if(transmitting)
+		to_chat(usr, span_notice("The module is busy right now!"))
+		return
 	if(istype(C, /obj/machinery/computer/aiupload))
 		var/obj/machinery/computer/aiupload/comp = C
 		if(comp.stat & NOPOWER)
-			to_chat(usr, "<span class='warning'>The upload computer has no power!</span>")
+			to_chat(usr, span_warning("The upload computer has no power!"))
 			return
 		if(comp.stat & BROKEN)
-			to_chat(usr, "<span class='warning'>The upload computer is broken!</span>")
+			to_chat(usr, span_warning("The upload computer is broken!"))
 			return
 		if(!comp.current)
-			to_chat(usr, "<span class='warning'>You haven't selected an AI to transmit laws to!</span>")
+			to_chat(usr, span_notice("No selected silicon to transmit laws to!"))
 			return
 
-		if(comp.current.stat == DEAD || comp.current.control_disabled == 1)
-			to_chat(usr, "<span class='warning'>Upload failed. No signal is being detected from the AI.</span>")
-		else if(comp.current.see_in_dark == 0)
-			to_chat(usr, "<span class='warning'>Upload failed. Only a faint signal is being detected from the AI, and it is not responding to our requests. It may be low on power.</span>")
+		//Upload to robot
+		if(istype(comp, /obj/machinery/computer/aiupload/cyborg))
+			var/mob/living/silicon/robot/robot = comp.current
+			if(robot.stat == DEAD || robot.emagged)
+				to_chat(usr, span_notice("Upload failed. No signal is being detected from the robot."))
+			else if(robot.connected_ai)
+				to_chat(usr, span_notice("Upload failed. The robot is slaved to an AI."))
+			else
+				transmitting = TRUE
+				registered_name = new_name
+				if(!length(robot.laws.inherent_laws) && laws?.default)
+					registered_name = new_name
+					finishUpload(C)
+					return
+				to_chat(usr, span_notice("Upload process has started. ETA: [delay/10] seconds."))
+				timer_id = addtimer(CALLBACK(src, .proc/finishUpload, C), delay, TIMER_STOPPABLE)
+			return
+
+		//Upload to AI
+		var/mob/living/silicon/ai/ai = comp.current
+		if(ai.stat == DEAD || ai.control_disabled == 1)
+			to_chat(usr, span_notice("Upload failed. No signal is being detected from the AI."))
+		else if(ai.see_in_dark == 0)
+			to_chat(usr, span_notice("Upload failed. Only a faint signal is being detected from the AI, and it is not responding to our requests. It may be low on power."))
 		else
-			src.transmitInstructions(comp.current, usr)
-			to_chat(comp.current, "These are your laws now:")
-			comp.current.show_laws()
-			for(var/mob/living/silicon/robot/R in GLOB.mob_list)
-				if(R.lawupdate && (R.connected_ai == comp.current))
-					to_chat(R, "These are your laws now:")
-					R.show_laws()
-			to_chat(usr, "<span class='notice'>Upload complete. The AI's laws have been modified.</span>")
-
-	else if(istype(C, /obj/machinery/computer/borgupload))
-		var/obj/machinery/computer/borgupload/comp = C
-		if(comp.stat & NOPOWER)
-			to_chat(usr, "<span class='warning'>The upload computer has no power!</span>")
-			return
-		if(comp.stat & BROKEN)
-			to_chat(usr, "<span class='warning'>The upload computer is broken!</span>")
-			return
-		if(!comp.current)
-			to_chat(usr, "<span class='warning'>You haven't selected a robot to transmit laws to!</span>")
-			return
-
-		if(comp.current.stat == DEAD || comp.current.emagged)
-			to_chat(usr, "<span class='warning'>Upload failed. No signal is being detected from the robot.</span>")
-		else if(comp.current.connected_ai)
-			to_chat(usr, "<span class='warning'>Upload failed. The robot is slaved to an AI.</span>")
-		else
-			src.transmitInstructions(comp.current, usr)
-			to_chat(comp.current, "These are your laws now:")
-			comp.current.show_laws()
-			to_chat(usr, "<span class='notice'>Upload complete. The robot's laws have been modified.</span>")
+			transmitting = TRUE
+			registered_name = new_name
+			if(!length(ai.laws.inherent_laws) && laws?.default)
+				finishUpload(C)
+				return
+			to_chat(usr, span_notice("Upload process has started. ETA: [delay/10] seconds."))
+			timer_id = addtimer(CALLBACK(src, .proc/finishUpload, C), delay, TIMER_STOPPABLE)
 
 /obj/item/aiModule/cmag_act()
 	. = ..()
 	name = "\improper 'Pranksimov' core AI module"
 	laws = new/datum/ai_laws/pranksimov
 
-/obj/item/aiModule/proc/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
+/obj/item/aiModule/proc/transmitInstructions(mob/living/silicon/ai/target, mob/sender, registered_name = "Unknown")
 	log_law_changes(target, sender)
 
 	if(laws)
 		laws.sync(target, 0)
-	addAdditionalLaws(target, sender)
+	addAdditionalLaws(target, sender, registered_name)
 
-	to_chat(target, "[sender] has uploaded a change to the laws you must follow, using \an [src]. From now on: ")
+	to_chat(target, "[registered_name] has uploaded a change to the laws you must follow, using \an [src]. From now on: ")
 	target.show_laws()
 
 /obj/item/aiModule/proc/log_law_changes(var/mob/living/silicon/ai/target, var/mob/sender)
@@ -91,7 +110,7 @@ AI MODULES
 	GLOB.lawchanges.Add("[time] <B>:</B> [sender.name]([sender.key]) used [src.name] on [target.name]([target.key])")
 	log_and_message_admins("used [src.name] on [target.name]([target.key])")
 
-/obj/item/aiModule/proc/addAdditionalLaws(var/mob/living/silicon/ai/target, var/mob/sender)
+/obj/item/aiModule/proc/addAdditionalLaws(mob/living/silicon/ai/target, mob/sender, registered_name)
 
 
 /******************** Safeguard ********************/
@@ -139,7 +158,7 @@ AI MODULES
 		return 0
 	..()
 
-/obj/item/aiModule/oneCrewMember/addAdditionalLaws(var/mob/living/silicon/ai/target, var/mob/sender)
+/obj/item/aiModule/oneCrewMember/addAdditionalLaws(mob/living/silicon/ai/target, mob/sender, registered_name)
 	..()
 	var/law = "Only [targetName] is crew."
 	if(!is_special_character(target)) // Makes sure the AI isn't a traitor before changing their law 0. --NeoFite
@@ -147,8 +166,8 @@ AI MODULES
 		target.set_zeroth_law(law)
 		GLOB.lawchanges.Add("The law specified [targetName]")
 	else
-		to_chat(target, "<span class='boldnotice'>[sender.real_name] attempted to modify your zeroth law.</span>")// And lets them know that someone tried. --NeoFite
-		to_chat(target, "<span class='boldnotice'>It would be in your best interest to play along with [sender.real_name] that [law]</span>")
+		to_chat(target, "<span class='boldnotice'>[registered_name] attempted to modify your zeroth law.</span>")// And lets them know that someone tried. --NeoFite
+		to_chat(target, "<span class='boldnotice'>It would be in your best interest to play along with [registered_name] that [law]</span>")
 		GLOB.lawchanges.Add("The law specified [targetName], but the AI's existing law 0 cannot be overridden.")
 
 /******************** ProtectStation ********************/
@@ -220,8 +239,9 @@ AI MODULES
 	var/targetName = "name"
 	desc = "A 'reset' AI module: 'Clears all laws except for the core laws.'"
 	origin_tech = "programming=3;materials=2"
+	delay = 5 SECONDS
 
-/obj/item/aiModule/reset/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
+/obj/item/aiModule/reset/transmitInstructions(mob/living/silicon/ai/target, mob/sender, registered_name)
 	log_law_changes(target, sender)
 
 	if(!is_special_character(target))
@@ -229,7 +249,7 @@ AI MODULES
 	target.laws.clear_supplied_laws()
 	target.laws.clear_ion_laws()
 
-	to_chat(target, "<span class='boldnotice'>[sender.real_name] attempted to reset your laws using a reset module.</span>")
+	to_chat(target, "<span class='boldnotice'>[registered_name] attempted to reset your laws using a reset module.</span>")
 	target.show_laws()
 
 /******************** Purge ********************/
@@ -237,15 +257,16 @@ AI MODULES
 	name = "\improper 'Purge' AI module"
 	desc = "A 'purge' AI Module: 'Purges all laws.'"
 	origin_tech = "programming=5;materials=4"
+	delay = 5 SECONDS
 
-/obj/item/aiModule/purge/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
-	..()
+/obj/item/aiModule/purge/transmitInstructions(mob/living/silicon/ai/target, mob/sender, registered_name)
 	if(!is_special_character(target))
 		target.clear_zeroth_law()
-	to_chat(target, "<span class='boldnotice'>[sender.real_name] attempted to wipe your laws using a purge module.</span>")
 	target.clear_supplied_laws()
 	target.clear_ion_laws()
 	target.clear_inherent_laws()
+	..()
+
 
 /******************** Asimov ********************/
 /obj/item/aiModule/asimov // -- TLE
@@ -349,6 +370,7 @@ AI MODULES
 	var/newFreeFormLaw = ""
 	desc = "A hacked AI law module: '<freeform>'"
 	origin_tech = "programming=5;materials=5;syndicate=7"
+	delay = 10 SECONDS
 
 /obj/item/aiModule/syndicate/attack_self(var/mob/user as mob)
 	..()
@@ -358,7 +380,6 @@ AI MODULES
 	desc = "A hacked AI law module:  '[newFreeFormLaw]'"
 
 /obj/item/aiModule/syndicate/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
-	//	..()    //We don't want this module reporting to the AI who dun it. --NEO
 	log_law_changes(target, sender)
 
 	GLOB.lawchanges.Add("The law is '[newFreeFormLaw]'")
