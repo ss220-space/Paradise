@@ -1924,7 +1924,7 @@
 /obj/structure/window/plasmareinforced,
 /obj/structure{
 	desc = "It looks like a unactive supermatter shard.. Can I touch it?";
-	icon = 'icons/obj/supermatter.dmi';
+	icon = 'icons/obj/engines/supermatter.dmi';
 	icon_state = "darkmatter_shard";
 	name = "supermatter shard"
 	},
@@ -3885,7 +3885,7 @@
 	},
 /obj/structure{
 	desc = "It looks like a unactive supermatter shard.. Can I touch it?";
-	icon = 'icons/obj/supermatter.dmi';
+	icon = 'icons/obj/engines/supermatter.dmi';
 	icon_state = "darkmatter_shard";
 	name = "supermatter shard"
 	},
@@ -4178,7 +4178,7 @@
 /obj/structure/window/plasmareinforced,
 /obj/structure{
 	desc = "It looks like a unactive supermatter shard.. Can I touch it?";
-	icon = 'icons/obj/supermatter.dmi';
+	icon = 'icons/obj/engines/supermatter.dmi';
 	icon_state = "darkmatter_shard";
 	name = "supermatter shard"
 	},
@@ -4678,7 +4678,7 @@
 	},
 /obj/structure{
 	desc = "It looks like a unactive supermatter shard.. Can I touch it?";
-	icon = 'icons/obj/supermatter.dmi';
+	icon = 'icons/obj/engines/supermatter.dmi';
 	icon_state = "darkmatter_shard";
 	name = "supermatter shard"
 	},
