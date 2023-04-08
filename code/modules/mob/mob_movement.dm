@@ -67,11 +67,12 @@
 		return 0
 
 	//Pixel Shift - START
-	if(mob.shifting)
-		mob.pixel_shift(direct)
-		return FALSE
-	else if(mob.is_shifted)
-		mob.unpixel_shift()
+	if(config.pixel_shift)
+		if(mob.shifting)
+			mob.pixel_shift(direct)
+			return FALSE
+		else if(mob.is_shifted)
+			mob.unpixel_shift()
 	//Pixel Shift - END
 
 	if(moving)

@@ -13,6 +13,7 @@ code/modules/mob/living/carbon/update_icons.dm - updated transform when pixel_x 
 code/modules/mob/living/living.dm - unpixel_shift() on movement
 code/modules/mob/mob_grab.dm - unpixel_shift() when grabbed
 code/modules/mob/mob_movement.dm - pixel_shift()
+code/controllers/configuration.dm - config
 
 ### Credits:
 
