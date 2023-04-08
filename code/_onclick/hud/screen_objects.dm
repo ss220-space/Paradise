@@ -543,13 +543,13 @@
 /obj/screen/nutrition
 	name = "nutrition"
 	icon = 'icons/mob/screen_alert.dmi'
-	icon_state = "well_fed"
+	icon_state = null
 	screen_loc = ui_nutrition
 
 /obj/screen/hydration
 	name = "hydration"
 	icon = 'icons/mob/screen_alert.dmi'
-	icon_state = "water_well_hydrated"
+	icon_state = null
 	screen_loc = ui_hydration
 
 /obj/screen/component_button
