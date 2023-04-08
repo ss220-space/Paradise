@@ -201,13 +201,11 @@
 		next_signal_targets += message_loc
 	message.loc = message_loc
 
-	for(var/previous_target in previous_signal_targets)
-		if(!(previous_target in next_signal_targets))
-			UnregisterSignal(previous_target, COMSIG_MOVABLE_MOVED)
+	for(var/obsolete_target in previous_signal_targets - next_signal_targets)
+		UnregisterSignal(obsolete_target, COMSIG_MOVABLE_MOVED)
 
-	for(var/next_target in next_signal_targets)
-		if(!(next_target in previous_signal_targets))
-			RegisterSignal(next_target, COMSIG_MOVABLE_MOVED, .proc/adjust_message_loc)
+	for(var/new_target in next_signal_targets - previous_signal_targets)
+		RegisterSignal(new_target, COMSIG_MOVABLE_MOVED, .proc/adjust_message_loc)
 
 	signal_targets = next_signal_targets
 
