@@ -73014,14 +73014,9 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint3)
 "kYQ" = (
-/obj/machinery/cryopod/right,
-/obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -26
-	},
+/obj/effect/landmark/join_late_cryo,
 /obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -100547,6 +100542,20 @@
 	icon_state = "darkred"
 	},
 /area/security/permabrig)
+"rja" = (
+/obj/machinery/cryopod/right,
+/obj/machinery/power/apc{
+	name = "south bump";
+	pixel_y = -26
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/crew_quarters/sleep)
 "rjs" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -129565,15 +129574,6 @@
 /obj/effect/decal/warning_stripes/southeastcorner,
 /turf/simulated/floor/plating/airless,
 /area/engine/engineering)
-"xOP" = (
-/obj/effect/landmark/join_late_cryo,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/crew_quarters/sleep)
 "xOX" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Staff Room";
@@ -178566,10 +178566,10 @@ xDf
 vSD
 jrh
 cnP
-xZu
-xZu
-xZu
-xZu
+cnP
+cnP
+cnP
+cnP
 daS
 xWh
 rpb
@@ -182428,7 +182428,7 @@ ojx
 iBC
 gJy
 iBC
-kYQ
+rja
 vsF
 crX
 xfR
@@ -182682,9 +182682,9 @@ tbb
 pVy
 cFw
 xhV
-xOP
-xOP
-xOP
+kYQ
+kYQ
+kYQ
 jAl
 vsF
 gYg
