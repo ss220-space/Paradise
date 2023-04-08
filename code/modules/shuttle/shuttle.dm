@@ -586,8 +586,10 @@
 	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
 		if(A.id_tag == S0.id)
 			spawn(-1)
+				A.safe = FALSE
 				A.close()
 				A.lock()
+				A.safe = TRUE
 
 /obj/docking_port/mobile/proc/unlockPortDoors(obj/docking_port/stationary/S1)
 	if(!istype(S1))
@@ -598,6 +600,7 @@
 			spawn(-1)
 				if(A.locked)
 					A.unlock()
+					A.safe = TRUE //just in case something gone wrong
 
 /obj/docking_port/mobile/proc/roadkill(list/L0, list/L1, dir)
 	var/list/hurt_mobs = list()

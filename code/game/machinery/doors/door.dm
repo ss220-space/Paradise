@@ -280,8 +280,8 @@
 	if(density)
 		add_attack_logs(user, src, "emagged ([locked ? "bolted" : "not bolted"])")
 		flick("door_spark", src)
-		sleep(6)
-		open()
+		spawn(6)
+			open()
 		emagged = 1
 		return 1
 
@@ -289,8 +289,8 @@
 	if(!density)
 		return
 	flick("door_spark", src)
-	sleep(6) //The cmag doesn't automatically open doors. It inverts access, not provides it!
-	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+	spawn(6) //The cmag doesn't automatically open doors. It inverts access, not provides it!
+		ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 	return TRUE
 
 //Proc for inverting access on cmagged doors."canopen" should always return the OPPOSITE of the normal result.
@@ -354,10 +354,10 @@
 	operating = TRUE
 	do_animate("opening")
 	set_opacity(0)
-	sleep(5)
-	density = FALSE
-	sleep(5)
-	layer = initial(layer)
+	spawn(5)
+		density = FALSE
+	spawn(5)
+		layer = initial(layer)
 	update_icon()
 	set_opacity(0)
 	operating = FALSE
@@ -384,9 +384,9 @@
 
 	do_animate("closing")
 	layer = closingLayer
-	sleep(5)
-	density = TRUE
-	sleep(5)
+	spawn(5)
+		density = TRUE
+	spawn(5)
 	update_icon()
 	if(visible && !glass)
 		set_opacity(1)
@@ -401,7 +401,7 @@
 
 /obj/machinery/door/proc/CheckForMobs()
 	if(locate(/mob/living) in get_turf(src))
-		sleep(1)
+		spawn(1)
 		open()
 
 /obj/machinery/door/proc/crush()
