@@ -1034,3 +1034,208 @@
 		update_flags |= M.adjustBruteLoss(-0.5, FALSE)
 		update_flags |= M.adjustFireLoss(-0.5, FALSE)
 	return ..() | update_flags
+
+//laughter
+
+/datum/reagent/consumable/laughter
+	name = "Laughter"
+	description = "Some say that this is the best medicine, but recent studies have proven that to be untrue."
+	id = "laughter"
+	metabolization_rate = 0.7 * REAGENTS_METABOLISM
+	overdose_threshold = 40
+	addiction_chance = 15
+	addiction_threshold = 15
+	color = "#FF4DD2"
+	taste_description = "laugh"
+	can_synth = TRUE
+	process_flags = ORGANIC
+	reagent_state = LIQUID
+	harmless = TRUE
+
+/*
+/datum/reagent/consumable/laughter/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	affected_mob.emote("laugh", "giggle", "smile")
+	affected_mob.add_mood_event("chemical_laughter", /datum/mood_event/chemical_laughter)
+	..()
+*/
+/*
+/datum/reagent/consumable/laughter/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.AdjustConfused(-2, FALSE)
+	update_flags |= M.AdjustStunned(-2, FALSE)
+	update_flags |= M.AdjustWeakened(-2, FALSE)
+	if(prob(15))
+		M.emote(pick("laugh", "giggle", "smile"))
+		M.say(pick(list("АААААААХАХАХАХ!", "ИИИХИХИХИХ!", "УАААААХАХАХ!")))
+	if(prob(8))
+		to_chat(M, "<span class='notice'>You feel great! HAHAHAHAH!</span>")
+		M.emote(pick("laugh", "giggle", "smile"))
+		M.bodytemperature += rand(1,5)
+		M.say(pick(list("АХАХ ха ха!", "УХААА ха ха!", "ИХИХИ хихии!", "ХОООХ хо хох!")))
+	if(prob(6))
+		to_chat(M, "<span class='notice'>You feel a little bit warm. So funny!</span>")
+		M.say(pick(list("ахахах!", "ха ха ха!", "иихихии!", "хоохохох!")))
+	if(prob(4))
+		to_chat(M, "<span class='notice'>You want to laught MORE! DON'T STOP!</span>")
+		M.emote(pick("giggle", "smile"))
+		M.say(pick(list("хах!", "хехе!", "хиих!", "хоох!")))
+	return ..() | update_flags
+*/
+
+
+/datum/reagent/consumable/laughter/on_mob_life(mob/living/M)
+	switch(volume)
+		if(0 to 5)
+			if(prob(20))
+				M.emote(pick("giggle", "smile"))
+			if(prob(10))
+				to_chat(M, "<span class='notice'>He he! You can't hold your smile!</span>")
+		if(6 to 19)
+			if(prob(10))
+				to_chat(M, "<span class='notice'>You feel great! HAHAHAHAH!</span>")
+			if(prob(20))
+				M.emote(pick("laugh", "giggle", "smile"))
+		if(20 to 39)
+			if(prob(10))
+				to_chat(M, "<span class='notice'>So funny! AAAAAAAAAHAHAHHAHAAHAHAH! FUUUUUUN!</span>")
+			if(prob(20))
+				M.emote(pick("laugh", "giggle", "smile", "grin"))
+			if(prob(10))
+				M.say(pick(list("АХАХ ха ха!", "УХААА ха ха!", "ИХИХИ хихии!", "ХОООХ хо хох!", "КЬЯЯХАХАХХАХА!")))
+		if(40 to 55)
+			if(prob(30))
+				M.emote(pick("laugh", "giggle", "smile", "grin"))
+			if(prob(10))
+				M.say(pick(list("АААААААХАХАХАХ!", "ИХИХИХИХИХИХХИХИХИХИ!", "УАААААХАХАХ!", "МЬЯХАХАХАХАХАХАХААХАХХАХАХА")))
+		if(100 to INFINITY)
+			if(prob(30))
+				M.emote(pick("laugh", "cry", "smile", "grin", "scream"))
+			if(prob(10))
+				M.say(pick(list("АААААААААА!", "ЫАААААЫЫЫААААА!", "УАААААХАХАХ!", "КХХХААААААААА!", "ГУЫГУЫГУЫГУЫ!")))
+			if(prob(5))
+				M.Weaken(30)
+				M.Jitter(50)
+			if(prob(5))
+				M.Jitter(50)
+				M.Stun(30)
+			if(prob(10))
+				M.bodytemperature += rand(1,5)
+	return ..()
+
+
+/datum/reagent/consumable/laughter/overdose_process(mob/living/M, severity)
+	var/list/overdose_info = ..()
+	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
+	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
+	if(severity == 1)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] can't seem to control [M.p_their()] legs!</span>")
+			M.AdjustConfused(20)
+			update_flags |= M.Weaken(4, FALSE)
+		else if(effect <= 4)
+			M.visible_message("<span class='warning'>[M]'s hands flip out and flail everywhere!</span>")
+			M.drop_l_hand()
+			M.drop_r_hand()
+			M.emote("laugh")
+		else if(effect <= 7)
+			M.emote("laugh")
+	else if(severity == 2)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M]'s hands flip out and flail everywhere!</span>")
+			M.drop_l_hand()
+			M.drop_r_hand()
+			M.emote("laugh")
+		else if(effect <= 4)
+			M.visible_message("<span class='warning'>[M] falls to the floor and flails uncontrollably!</span>")
+			M.Jitter(10)
+			M.emote("laugh")
+			update_flags |= M.Stun(10, FALSE)
+		else if(effect <= 7)
+			M.emote("laugh")
+	return list(effect, update_flags)
+
+/datum/reagent/consumable/laughter/addiction_act_stage4(mob/living/M)
+	if(minor_addiction)
+		if(prob(8))
+			to_chat(M, "<span class='notice'>You could really go for some [name] right now.</span>")
+		if(prob(6))
+			to_chat(M, "<span class='notice'>Your life has lost all colours</span>")
+			M.AdjustEyeBlind(10, FALSE)
+			M.emote(pick("twitch", "sigh", "cry"))
+		if(prob(4))
+			M.emote("whimper")
+			M.Jitter(80)
+	else
+		if(prob(8))
+			M.emote("cry")
+			M.Jitter(80)
+		if(prob(4))
+			to_chat(M, "<span class='warning'>You have a really sad thoughts.</span>")
+		if(prob(4))
+			to_chat(M, "<span class='warning'>You have the strong urge for some [name]!</span>")
+			M.emote(pick("twitch", "sigh", "cry"))
+		else if(prob(4))
+			to_chat(M, "<span class='warning'>You REALLY crave some [name]!</span>")
+	return STATUS_UPDATE_NONE
+
+/datum/reagent/consumable/laughter/addiction_act_stage5(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(minor_addiction)
+		if(prob(8))
+			to_chat(M, "<span class='notice'>You can't stop thinking about [name]...</span>")
+		if(prob(4))
+			M.emote(pick("whimper", "glare", "cry"))
+			M.Jitter(80)
+		if(prob(2))
+			to_chat(M, "<span class='notice'>Your life has lost all colours</span>")
+			update_flags |= M.EyeBlind(10, FALSE)
+	else
+		if(prob(6))
+			to_chat(M, "<span class='warning'>Your stomach lurches painfully!</span>")
+			M.visible_message("<span class='warning'>[M] gags and retches!</span>")
+			update_flags |= M.Stun(rand(2,4), FALSE)
+			update_flags |= M.Weaken(rand(2,4), FALSE)
+		if(prob(8))
+			M.emote(pick("twitch", "glare", "cry"))
+			M.Jitter(80)
+		if(prob(4))
+			to_chat(M, "<span class='warning'>You are really sad! Find more fun!</span>")
+		if(prob(5))
+			to_chat(M, "<span class='warning'>You feel like you can't live without [name]!</span>")
+			M.emote(pick("twitch", "sigh", "cry"))
+		else if(prob(5))
+			to_chat(M, "<span class='warning'>You would DIE for some [name] right now!</span>")
+	return update_flags
+
+/*
+/datum/reagent/consumable/superlaughter
+	name = "Super Laughter"
+	description = "Funny until you're the one laughing."
+	id = "suplaughter"
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM
+	color = "#FF4DD2"
+	taste_description = "laugh"
+	can_synth = TRUE
+	process_flags = ORGANIC
+	reagent_state = LIQUID
+	harmless = TRUE
+
+/datum/reagent/consumable/superlaughter/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	if(DT_PROB(16, delta_time))
+		affected_mob.visible_message(span_danger("[affected_mob] bursts out into a fit of uncontrollable laughter!"), span_userdanger("You burst out in a fit of uncontrollable laughter!"))
+		affected_mob.Stun(5)
+		affected_mob.add_mood_event("chemical_laughter", /datum/mood_event/chemical_superlaughter)
+	..()
+*/
+/datum/reagent/consumable/laughsyrup
+	name = "Laughin' Syrup"
+	description = "The product of juicing Laughin' Peas. Fizzy, and seems to change flavour based on what it's used with!"
+	id = "laughsyrup"
+	color = "#803280"
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	taste_mult = 2
+	taste_description = "fizzy sweetness"
+	can_synth = TRUE
+	process_flags = ORGANIC
+	reagent_state = LIQUID
+	harmless = TRUE
