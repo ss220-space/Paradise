@@ -196,7 +196,7 @@
 	var/list/next_signal_targets = list(message_source)
 
 	var/atom/movable/message_loc = message_source
-	while(!isturf(message_loc.loc))
+	while(message_loc.loc && !isturf(message_loc.loc))
 		message_loc = message_loc.loc
 		next_signal_targets += message_loc
 	message.loc = message_loc
