@@ -104,6 +104,22 @@
 		return
 	installed_module.install(src, id?.registered_name)
 
+/obj/machinery/computer/aiupload/power_change()
+	. = ..()
+	if(!powered())
+		if(installed_module?.transmitting)
+			installed_module.stopUpload(src)
+
+/obj/machinery/computer/aiupload/on_deconstruction()
+	. = ..()
+	if(installed_module?.transmitting)
+		installed_module.stopUpload(src)
+
+/obj/machinery/computer/aiupload/obj_break(damage_flag)
+	if(installed_module?.transmitting)
+		installed_module.stopUpload(src)
+	. = ..()
+
 /obj/machinery/computer/aiupload/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/ui_state/state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
@@ -121,6 +137,9 @@
 
 /obj/machinery/computer/aiupload/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
+		return
+	if(issilicon(ui.user))
+		to_chat(usr, span_danger("Access Denied (silicon detected)"))
 		return
 	add_fingerprint(usr)
 	switch(action)
