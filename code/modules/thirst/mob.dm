@@ -28,7 +28,7 @@
 
 /mob/living/carbon/human/handle_chemicals_in_body()
 	. = ..()
-	if(NO_HUNGER in dna.species.species_traits)
+	if(NO_THIRST in dna.species.species_traits)
 		if(hydration >= 0 && stat != DEAD)
 			handle_thirst_alerts()
 	if(!(NO_THIRST in dna.species.species_traits))
