@@ -19446,6 +19446,10 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/zone1)
+"kAJ" = (
+/obj/effect/baseturf_helper/lava_land/surface,
+/turf/simulated/floor/shuttle,
+/area/shuttle/siberia)
 "kAK" = (
 /obj/effect/turf_decal/stripes/corner{
 	do_not_delete_me = 1
@@ -45278,6 +45282,10 @@
 	icon_state = "dark"
 	},
 /area/shuttle/syndicate)
+"wDF" = (
+/obj/effect/baseturf_helper/lava_land/surface,
+/turf/simulated/floor/shuttle,
+/area/shuttle/mining)
 "wDS" = (
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
@@ -50921,7 +50929,7 @@ pwa
 dDb
 eeO
 lPy
-qDA
+wDF
 lPy
 hhM
 rYU
@@ -59147,7 +59155,7 @@ nVS
 maj
 sKg
 tbv
-tbv
+kAJ
 tbv
 qgA
 sgG
