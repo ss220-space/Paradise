@@ -293,7 +293,7 @@
 
 		if("mode")
 			var/new_mode = params["mode"]
-			if(!(new_mode in list(RCD_MODE_TURF, RCD_MODE_AIRLOCK, RCD_MODE_DECON, RCD_MODE_WINDOW)))
+			if(!(new_mode in list(RCD_MODE_TURF, RCD_MODE_AIRLOCK, RCD_MODE_DECON, RCD_MODE_WINDOW, RCD_MODE_FIRELOCK)))
 				return FALSE
 			mode = new_mode
 
