@@ -313,6 +313,8 @@
 	var/default_map = null
 	var/override_map = null
 
+	var/prime_server = FALSE
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
@@ -896,6 +898,9 @@
 
 				if("override_map")
 					config.override_map = value
+
+				if("prime_server")
+					config.prime_server = TRUE
 
 				else
 					log_config("Unknown setting in configuration: '[name]'")
