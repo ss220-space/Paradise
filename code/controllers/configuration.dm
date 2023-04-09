@@ -313,7 +313,7 @@
 	var/default_map = null
 	var/override_map = null
 
-	var/prime_server = FALSE
+	var/water_poison = FALSE
 
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
@@ -899,8 +899,8 @@
 				if("override_map")
 					config.override_map = value
 
-				if("prime_server")
-					config.prime_server = TRUE
+				if("water_poison")
+					config.water_poison = TRUE
 
 				else
 					log_config("Unknown setting in configuration: '[name]'")

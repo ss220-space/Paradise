@@ -30,7 +30,7 @@
 
 /datum/reagent/water/reaction_mob(mob/living/M, method, volume)
 	. = ..()
-	if(!config.prime_server)
+	if(!config.water_poison)
 		return
 	if(!dirty)
 		return
