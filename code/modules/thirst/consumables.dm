@@ -1,3 +1,5 @@
+#define WATER_POISON_CHANCE 5 // За пять стаканов по 30u, шанс отравиться с шансом 78%; За один стакан с 30u, шанс отравиться 26%
+
 /datum/reagent
 	var/hydration_factor = -0.5 * REAGENTS_METABOLISM
 
@@ -11,30 +13,30 @@
 	var/dirty = FALSE
 
 /datum/reagents/proc/dirty_water()
-	if(reagent_list)
-		for(var/datum/reagent/water/water in reagent_list)
-			water.dirty = TRUE
-			return
+	var/datum/reagent/water/water = locate() in reagent_list
+	if(water)
+		water.dirty = TRUE
 
 /datum/reagents/proc/clear_dirty_water()
-	if(reagent_list)
-		for(var/datum/reagent/water/water in reagent_list)
-			water.dirty = FALSE
-			return
+	var/datum/reagent/water/water = locate() in reagent_list
+	if(water)
+		water.dirty = FALSE
 
 /datum/reagents/proc/is_dirty_water()
-	if(reagent_list)
-		for(var/datum/reagent/water/water in reagent_list)
-			return water.dirty
+	var/datum/reagent/water/water = locate() in reagent_list
+	if(water)
+		return water.dirty
 	return FALSE
 
 /datum/reagent/water/reaction_mob(mob/living/M, method, volume)
 	. = ..()
+	if(!config.prime_server)
+		return
 	if(!dirty)
 		return
-	if((NO_THIRST in M.dna.species.species_traits) || M.dna.species.name == "Ash Walker")
+	if((NO_THIRST in M.dna.species.species_traits) || !M.dna.species.water_poisonable)
 		return
-	if(method == REAGENT_INGEST && prob(60))
+	if(method == REAGENT_INGEST && prob(WATER_POISON_CHANCE))
 		M.ForceContractDisease(new /datum/disease/water_poisoning(0))
 
 /datum/chemical_reaction/water_disinfection
@@ -86,3 +88,4 @@
 /datum/reagent/consumable/chicken_soup
 	hydration_factor = 1 * REAGENTS_METABOLISM
 
+#undef WATER_POISON_CHANCE
