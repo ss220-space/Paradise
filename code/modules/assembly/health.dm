@@ -85,10 +85,15 @@
 
 /obj/item/assembly/health/Topic(href, href_list)
 	..()
-	if(..())
+	if(!ismob(usr))
 		return
 
 	var/mob/user = usr
+
+	if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
+		usr << browse(null, "window=hscan")
+		onclose(usr, "hscan")
+		return
 
 	if(href_list["scanning"])
 		toggle_scan()

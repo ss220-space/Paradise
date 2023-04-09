@@ -114,7 +114,9 @@
 
 /obj/item/assembly/prox_sensor/Topic(href, href_list)
 	..()
-	if(..())
+	if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
+		usr << browse(null, "window=prox")
+		onclose(usr, "prox")
 		return
 
 	if(href_list["scanning"])

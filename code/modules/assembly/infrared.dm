@@ -155,7 +155,9 @@
 
 /obj/item/assembly/infra/Topic(href, href_list)
 	..()
-	if(..())
+	if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
+		usr << browse(null, "window=infra")
+		onclose(usr, "infra")
 		return
 	if(href_list["state"])
 		on = !(on)

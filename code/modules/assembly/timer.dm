@@ -92,7 +92,9 @@
 
 /obj/item/assembly/timer/Topic(href, href_list)
 	..()
-	if(..())
+	if(usr.incapacitated() || !in_range(loc, usr))
+		usr << browse(null, "window=timer")
+		onclose(usr, "timer")
 		return
 
 	if(href_list["time"])
