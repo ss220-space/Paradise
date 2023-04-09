@@ -117,19 +117,9 @@
 "dR" = (
 /turf/simulated/mineral/iron,
 /area/ae13/asteroid)
-"dX" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor,
-/area/ae13/hall)
 "ew" = (
 /turf/space,
 /area/space)
-"eG" = (
-/obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/tiles/damageturf,
-/turf/simulated/wall/shuttle/onlyselfsmooth,
-/area/ae13/epicenter)
 "eH" = (
 /obj/structure/safe,
 /obj/item/clothing/accessory/medal/gold{
@@ -198,13 +188,6 @@
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor,
 /area/ae13/medbay)
-"fE" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood,
-/obj/structure/spider/stickyweb,
-/turf/simulated/floor,
-/area/ae13/medbay)
 "fN" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/ae13/miner)
@@ -233,7 +216,6 @@
 	},
 /area/ae13/miner)
 "fY" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /obj/machinery/power/port_gen/pacman{
@@ -271,7 +253,6 @@
 /area/ae13/miner)
 "gM" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor,
 /area/ae13/energy)
@@ -297,7 +278,6 @@
 /turf/simulated/wall/shuttle,
 /area/ae13/medbay)
 "ho" = (
-/obj/effect/landmark/tiles/damageturf,
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/indestructible/plating,
 /area/ae13/epicenter)
@@ -454,7 +434,6 @@
 /obj/item/grown/bananapeel/bluespace,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "sepia"
@@ -529,16 +508,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ae13/asteroid)
-"mX" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/tiles/damageturf,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "sepia"
-	},
-/area/ae13/epicenter)
 "nf" = (
 /turf/simulated/wall/shuttle/nosmooth{
 	dir = 6;
@@ -598,7 +567,6 @@
 	req_access = list(111);
 	start_charge = 0
 	},
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /turf/simulated/floor,
 /area/ae13/energy)
@@ -682,7 +650,6 @@
 "pJ" = (
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/port_gen/pacman/super{
 	anchored = 1;
 	desc = "A portable generator for emergency backup power.";
@@ -694,7 +661,6 @@
 	},
 /area/ae13/energy)
 "pP" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/statue/gold/cmo{
 	anchored = 1;
@@ -717,13 +683,6 @@
 /obj/structure/alien/resin/wall,
 /turf/space,
 /area/ae13/asteroid)
-"pZ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/tiles/damageturf,
-/turf/simulated/floor/indestructible/plating,
-/area/ae13/epicenter)
 "qe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -770,14 +729,6 @@
 	icon_state = "yellow"
 	},
 /area/ae13/miner)
-"qN" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "sepia"
-	},
-/area/ae13/energy)
 "ro" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
@@ -1016,7 +967,6 @@
 /area/ae13/medbay)
 "uU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/blood,
 /obj/effect/contractor_flare,
@@ -1207,7 +1157,6 @@
 /area/ae13/hall)
 "yD" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluecorners"
 	},
@@ -1345,7 +1294,6 @@
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
 	name = "floor"
@@ -1356,7 +1304,6 @@
 /turf/simulated/floor,
 /area/ae13/miner)
 "AF" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/sheet/metal{
 	amount = 2
@@ -1453,7 +1400,6 @@
 "Db" = (
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/port_gen/pacman{
 	anchored = 1;
 	desc = "A portable generator for emergency backup power.";
@@ -1529,8 +1475,6 @@
 "Es" = (
 /obj/item/stack/sheet/bluespace_crystal,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/tiles/damageturf,
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/indestructible/plating,
 /area/ae13/epicenter)
@@ -1817,8 +1761,6 @@
 /area/ae13/command)
 "Ky" = (
 /obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle,
 /area/ae13/energy)
 "Lb" = (
@@ -1903,12 +1845,10 @@
 /area/ae13/hall)
 "Mp" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil,
 /turf/simulated/floor,
 /area/ae13/energy)
 "Mq" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 2;
@@ -1978,7 +1918,6 @@
 /area/ae13/command)
 "NR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -2007,11 +1946,6 @@
 /mob/living/simple_animal/hostile/alien/sentinel,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ae13/asteroid)
-"Oj" = (
-/obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/tiles/damageturf,
-/turf/simulated/wall/shuttle,
-/area/ae13/epicenter)
 "Ot" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -2133,13 +2067,6 @@
 	icon_state = "sepia"
 	},
 /area/ae13/miner)
-"QC" = (
-/obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/tiles/damageturf,
-/turf/simulated/wall/shuttle,
-/area/ae13/epicenter)
 "QI" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/ae13/energy)
@@ -2258,11 +2185,6 @@
 	name = "floor"
 	},
 /area/ae13/epicenter)
-"Sf" = (
-/obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/tiles/damageturf,
-/turf/simulated/wall/shuttle/onlyselfsmooth,
-/area/ae13/energy)
 "Sq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
@@ -2271,11 +2193,9 @@
 /area/ae13/epicenter)
 "Sr" = (
 /obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/ae13/command)
 "SG" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/sheet/metal{
 	amount = 2
@@ -2459,7 +2379,6 @@
 /area/ae13/medbay)
 "TM" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/gibs/body,
 /turf/simulated/floor,
 /area/ae13/medbay)
@@ -2492,12 +2411,6 @@
 	},
 /turf/simulated/floor,
 /area/ae13/hall)
-"Ul" = (
-/obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/tiles/damageturf,
-/turf/simulated/wall/shuttle/onlyselfsmooth,
-/area/ae13/epicenter)
 "Us" = (
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 8
@@ -2522,7 +2435,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/secure/loot,
 /turf/simulated/floor/plasteel{
@@ -2627,11 +2539,6 @@
 	icon_state = "darkblue"
 	},
 /area/ae13/medbay)
-"XL" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor,
-/area/ae13/energy)
 "XQ" = (
 /turf/simulated/wall/shuttle,
 /area/ae13/epicenter)
@@ -4732,7 +4639,7 @@ YV
 iU
 tm
 Ls
-Oj
+Zh
 Ck
 tp
 is
@@ -5044,7 +4951,7 @@ LF
 Tk
 ww
 Sq
-Oj
+Zh
 WJ
 sc
 yP
@@ -5117,7 +5024,7 @@ ew
 ew
 ew
 lq
-eG
+Ry
 DI
 zf
 tx
@@ -5194,7 +5101,7 @@ ew
 ew
 ew
 lq
-Ul
+Ry
 vo
 Es
 cW
@@ -5353,7 +5260,7 @@ RF
 Rv
 uU
 Fl
-mX
+vo
 En
 En
 LF
@@ -5428,11 +5335,11 @@ ew
 WM
 Zh
 Zh
-eG
+Ry
 DI
 vo
 ym
-pZ
+En
 DI
 XQ
 Cz
@@ -5509,9 +5416,9 @@ ew
 do
 Ry
 FI
-Ul
+Ry
 XQ
-QC
+Zh
 WM
 IO
 yC
@@ -5830,7 +5737,7 @@ Gc
 hj
 DH
 DW
-fE
+Ce
 xp
 gO
 wC
@@ -6057,7 +5964,7 @@ Nb
 vZ
 vD
 wK
-qN
+Ht
 xM
 To
 Wj
@@ -6135,7 +6042,7 @@ Ad
 cJ
 EE
 gM
-XL
+Qg
 xd
 Kc
 AB
@@ -6216,7 +6123,7 @@ TC
 Mp
 Tw
 Fu
-dX
+Mf
 wC
 Ko
 uN
@@ -6444,9 +6351,9 @@ ew
 ew
 ew
 ew
-Sf
+Ad
 Yg
-XL
+Qg
 wK
 Tw
 FR
