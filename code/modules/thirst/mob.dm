@@ -76,3 +76,13 @@
 /mob/living/rejuvenate()
 	. = ..()
 	set_hydration(initial(hydration))
+
+/mob/living/carbon/vomit(lost_nutrition, blood, stun, distance, message)
+	. = ..()
+	if(!.)
+		return
+	if(hydration < 100 && !blood)
+		return
+	if(!lost_nutrition)
+		return
+	adjust_hydration(min(-30, -lost_nutrition * 1.5))
