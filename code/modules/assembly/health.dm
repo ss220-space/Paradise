@@ -77,24 +77,18 @@
 	var/dat = text({"<meta charset="UTF-8"><TT><B>Health Sensor</B> <A href='?src=[UID()];scanning=1'>[scanning?"On":"Off"]</A>"})
 	if(scanning && health_scan)
 		dat += "<BR>Health: [health_scan]"
-	var/datum/browser/popup = new(user, "hscan", name, 400, 400)
+	var/datum/browser/popup = new(user, "hscan", name, 400, 400, src)
 	popup.set_content(dat)
 	popup.open(0)
-	onclose(user, "hscan")
 	return
 
 
 /obj/item/assembly/health/Topic(href, href_list)
 	..()
-	if(!ismob(usr))
+	if(..())
 		return
 
 	var/mob/user = usr
-
-	if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
-		usr << browse(null, "window=hscan")
-		onclose(usr, "hscan")
-		return
 
 	if(href_list["scanning"])
 		toggle_scan()
