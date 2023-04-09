@@ -68,6 +68,7 @@
 	var/window_type = /obj/structure/window/reinforced
 	var/floor_type = /turf/simulated/floor/plating
 	var/wall_type = /turf/simulated/wall
+	var/firelock_type = /obj/machinery/door/firedoor
 	var/matter_type = /obj/item/rcd_ammo
 	var/matter_type_large = /obj/item/rcd_ammo/large
 
@@ -204,6 +205,7 @@
 		RCD_MODE_DECON = image(icon = 'icons/obj/interface.dmi', icon_state = "delete"),
 		RCD_MODE_WINDOW = image(icon = 'icons/obj/interface.dmi', icon_state = "grillewindow"),
 		RCD_MODE_TURF = image(icon = 'icons/obj/interface.dmi', icon_state = "wallfloor"),
+		RCD_MODE_FIRELOCK = image(icon = 'icons/obj/interface.dmi', icon_state = "firelock"),
 		"UI" = image(icon = 'icons/obj/interface.dmi', icon_state = "ui_interact")
 	)
 	if(mode == RCD_MODE_AIRLOCK)
@@ -216,7 +218,7 @@
 	if(!check_menu(user))
 		return
 	switch(choice)
-		if(RCD_MODE_AIRLOCK, RCD_MODE_DECON, RCD_MODE_WINDOW, RCD_MODE_TURF)
+		if(RCD_MODE_AIRLOCK, RCD_MODE_DECON, RCD_MODE_WINDOW, RCD_MODE_TURF, RCD_MODE_FIRELOCK)
 			mode = choice
 		if("UI")
 			ui_interact(user)
