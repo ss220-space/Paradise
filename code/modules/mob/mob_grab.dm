@@ -199,7 +199,8 @@
 		return //KJK
 	/*	if(force_down) //THIS GOES ABOVE THE RETURN LABELED KJK
 			affecting.setDir(SOUTH)*///This shows how you can apply special directions based on a variable. //face up
-
+	if(affecting.is_shifted)
+		affecting.unpixel_shift()
 	var/shift = 0
 	var/adir = get_dir(assailant, affecting)
 	affecting.layer = 4

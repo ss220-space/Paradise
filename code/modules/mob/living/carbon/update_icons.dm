@@ -4,6 +4,7 @@
 //IMPORTANT: Multiple animate() calls do not stack well, so try to do them all at once if you can.
 /mob/living/carbon/update_transform()
 	var/matrix/ntransform = matrix(transform) //aka transform.Copy()
+	var/final_pixel_x = pixel_x
 	var/final_pixel_y = pixel_y
 	var/final_dir = dir
 	var/changed = 0
@@ -11,10 +12,13 @@
 		changed++
 		ntransform.TurnTo(lying_prev,lying)
 		if(lying == 0) //Lying to standing
+			final_pixel_x = get_standard_pixel_x_offset()
 			final_pixel_y = get_standard_pixel_y_offset()
 		else //if(lying != 0)
 			if(lying_prev == 0) //Standing to lying
+				pixel_x = get_standard_pixel_x_offset()
 				pixel_y = get_standard_pixel_y_offset()
+				final_pixel_x = get_standard_pixel_x_offset(lying)
 				final_pixel_y = get_standard_pixel_y_offset(lying)
 				if(dir & (EAST|WEST)) //Facing east or west
 					final_dir = pick(NORTH, SOUTH) //So you fall on your side rather than your face or ass
@@ -27,7 +31,7 @@
 		resize = RESIZE_DEFAULT_SIZE
 
 	if(changed)
-		animate(src, transform = ntransform, time = 2, pixel_y = final_pixel_y, dir = final_dir, easing = EASE_IN|EASE_OUT)
+		animate(src, transform = ntransform, time = 2, pixel_x = final_pixel_x, pixel_y = final_pixel_y, dir = final_dir, easing = EASE_IN|EASE_OUT)
 		handle_transform_change()
 		floating = FALSE  // If we were without gravity, the bouncing animation got stopped, so we make sure we restart it in next life().
 
