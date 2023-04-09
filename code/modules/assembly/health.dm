@@ -79,7 +79,7 @@
 		dat += "<BR>Health: [health_scan]"
 	var/datum/browser/popup = new(user, "hscan", name, 400, 400, src)
 	popup.set_content(dat)
-	popup.open(0)
+	popup.open()
 	return
 
 

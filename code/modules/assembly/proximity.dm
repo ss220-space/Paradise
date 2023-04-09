@@ -110,7 +110,7 @@
 	dat += "<BR><BR><A href='?src=[UID()];close=1'>Close</A>"
 	var/datum/browser/popup = new(user, "prox", name, 400, 400, src)
 	popup.set_content(dat)
-	popup.open(0)
+	popup.open()
 
 /obj/item/assembly/prox_sensor/Topic(href, href_list)
 	..()
