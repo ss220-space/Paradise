@@ -86,6 +86,90 @@
 	origin_tech = "combat=4;materials=2"
 	can_suppress = TRUE
 
+/obj/item/gun/projectile/automatic/pistol/sp8
+	name = "SP-8"
+	desc = "Новейшая разработка для сил защиты активов." //
+	icon_state = "sp8_black"
+	force = 10
+	mag_type = /obj/item/ammo_box/magazine/sp8
+	fire_sound = 'sound/weapons/gunshots/1colt.ogg'
+	can_suppress = TRUE
+	unique_reskin = TRUE
+	can_flashlight = TRUE
+
+/obj/item/gun/projectile/automatic/pistol/sp8/New()
+	..()
+	options["Black"] = "sp8_black"
+	options["Red"] = "sp8_red"
+	options["Green"] = "sp8_green"
+	options["Olive"] = "sp8_olive"
+	options["Yellow"] = "sp8_yellow"
+	options["White"] = "sp8_white"
+	options["Cancel"] = null
+
+/obj/item/gun/projectile/automatic/pistol/sp8/update_icon()
+	..()
+	if(current_skin)
+		icon_state = "[current_skin][chambered ? "" : "-e"]"
+	else
+		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
+	overlays.Cut()
+	if(suppressed)
+		overlays += image(icon = icon, icon_state = "sp8_supp")
+	if(gun_light)
+		var/iconF = "sp8_light"
+		if(gun_light.on)
+			iconF = "sp8_light-on"
+		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
+
+/obj/item/gun/projectile/automatic/pistol/sp8t
+	name = "SP-8-T"
+	can_suppress = FALSE
+	suppressed = TRUE
+	icon_state = "sp8t_dust"
+	force = 10
+	mag_type = /obj/item/ammo_box/magazine/sp8
+	fire_sound = 'sound/weapons/gunshots/1colt.ogg'
+	unique_reskin = TRUE
+	can_flashlight = TRUE
+
+/obj/item/gun/projectile/automatic/pistol/sp8t/New()
+	..()
+	options["Dust"] = "sp8t_dust"
+	options["Sea"] = "sp8t_sea"
+	options["Cancel"] = null
+
+/obj/item/gun/projectile/automatic/pistol/sp8t/update_icon()
+	..()
+	if(current_skin)
+		icon_state = "[current_skin][chambered ? "" : "-e"]"
+	else
+		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
+	overlays.Cut()
+	if(gun_light)
+		var/iconF = "sp8t_light"
+		if(gun_light.on)
+			iconF = "sp8t_light-on"
+		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
+
+/obj/item/gun/projectile/automatic/pistol/sp8ar
+	name = "SP-8-AR"
+	can_suppress = FALSE
+	icon_state = "sp8ar"
+	unique_reskin = FALSE
+	force = 10
+	mag_type = /obj/item/ammo_box/magazine/sp8
+	fire_sound = 'sound/weapons/gunshots/1colt.ogg'
+	can_flashlight = TRUE
+
+/obj/item/gun/projectile/automatic/pistol/sp8ar/update_icon()
+	..()
+	if(gun_light)
+		var/iconF = "sp8ar_light"
+		if(gun_light.on)
+			iconF = "sp8ar_light-on"
+		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
+
 //Desert Eagle//
 /obj/item/gun/projectile/automatic/pistol/deagle
 	name = "desert eagle"

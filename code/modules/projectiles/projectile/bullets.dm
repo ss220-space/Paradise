@@ -82,6 +82,11 @@
 	stamina = 30
 	icon_state = "bullet-r"
 
+/obj/item/projectile/bullet/weakbullet3/fortynr
+	name = "bullet"
+	damage = 25
+	stamina = 20
+
 /obj/item/projectile/bullet/toxinbullet
 	damage = 15
 	damage_type = TOX
