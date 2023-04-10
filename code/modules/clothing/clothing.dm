@@ -636,6 +636,13 @@ BLIND     // can't see anything
 	else
 		to_chat(user, "<span class='notice'>You attempt to button up the velcro on \the [src], before promptly realising how foolish you are.</span>")
 
+// Proc used to check if suit storage is limited by item weight
+// Allows any suit to bypass weight check when equipping item into suit storage by calling this proc and returning TRUE
+/obj/item/clothing/suit/proc/bypass_weight_check(obj/item/I)
+	if(I.w_class > WEIGHT_CLASS_BULKY)
+		return FALSE
+	return TRUE
+
 /obj/item/clothing/suit/equipped(var/mob/living/carbon/human/user, var/slot) //Handle tail-hiding on a by-species basis.
 	..()
 	if(ishuman(user) && hide_tail_by_species && slot == slot_wear_suit)
