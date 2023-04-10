@@ -66,6 +66,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BLOODCRAWL		"bloodcrawl"
 #define TRAIT_BLOODCRAWL_EAT	"bloodcrawl_eat"
 #define TRAIT_JESTER			"jester"
+#define TRAIT_ELITE_CHALLENGER "elite_challenger"
 
 //item traits
 #define TRAIT_CMAGGED "cmagged"
@@ -80,3 +81,4 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 // unique trait sources
 #define CULT_EYES "cult_eyes"
 #define CLOCK_HANDS "clock_hands"
+

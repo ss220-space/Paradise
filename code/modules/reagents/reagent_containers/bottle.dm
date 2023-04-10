@@ -285,25 +285,25 @@
 	name = "Flu virion culture bottle"
 	desc = "A small bottle. Contains H13N1 flu virion culture in synthblood medium."
 	icon_state = "round_bottle"
-	spawned_disease = /datum/disease/advance/flu
+	spawned_disease = /datum/disease/advance/preset/flu
 
 /obj/item/reagent_containers/glass/bottle/epiglottis_virion
 	name = "Epiglottis virion culture bottle"
 	desc = "A small bottle. Contains Epiglottis virion culture in synthblood medium."
 	icon_state = "round_bottle"
-	spawned_disease = /datum/disease/advance/voice_change
+	spawned_disease = /datum/disease/advance/preset/voice_change
 
 /obj/item/reagent_containers/glass/bottle/liver_enhance_virion
 	name = "Liver enhancement virion culture bottle"
 	desc = "A small bottle. Contains liver enhancement virion culture in synthblood medium."
 	icon_state = "round_bottle"
-	spawned_disease = /datum/disease/advance/heal
+	spawned_disease = /datum/disease/advance/preset/heal
 
 /obj/item/reagent_containers/glass/bottle/hullucigen_virion
 	name = "Hullucigen virion culture bottle"
 	desc = "A small bottle. Contains hullucigen virion culture in synthblood medium."
 	icon_state = "round_bottle"
-	spawned_disease = /datum/disease/advance/hullucigen
+	spawned_disease = /datum/disease/advance/preset/hullucigen
 
 /obj/item/reagent_containers/glass/bottle/pierrot_throat
 	name = "Pierrot's Throat culture bottle"
@@ -315,7 +315,31 @@
 	name = "Rhinovirus culture bottle"
 	desc = "A small bottle. Contains XY-rhinovirus culture in synthblood medium."
 	icon_state = "round_bottle"
-	spawned_disease = /datum/disease/advance/cold
+	spawned_disease = /datum/disease/advance/preset/cold
+
+/obj/item/reagent_containers/glass/bottle/mind_restoration
+	name = "Reality Purifier culture bottle"
+	desc = "A small bottle. Contains Reality Purifier culture in synthblood medium."
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/advance/preset/mind_restoration
+
+/obj/item/reagent_containers/glass/bottle/advanced_regeneration
+	name = "Advanced Neogenesis culture bottle"
+	desc = "A small bottle. Contains Advanced Neogenesis culture in synthblood medium."
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/advance/preset/advanced_regeneration
+
+/obj/item/reagent_containers/glass/bottle/stealth_necrosis
+	name = "Necroeyrosis culture bottle"
+	desc = "A small bottle. Contains Necroeyrosis culture in synthblood medium."
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/advance/preset/stealth_necrosis
+
+/obj/item/reagent_containers/glass/bottle/pre_kingstons
+	name = "Neverlasting Stranger culture bottle"
+	desc = "A small bottle. Contains Neverlasting Stranger culture in synthblood medium."
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/advance/preset/pre_kingstons
 
 /obj/item/reagent_containers/glass/bottle/retrovirus
 	name = "Retrovirus culture bottle"
@@ -382,13 +406,13 @@
 	name = "Regeneration culture bottle"
 	desc = "A small bottle. Contains a sample of a virus that heals toxin damage."
 	icon_state = "round_bottle"
-	spawned_disease = /datum/disease/advance/heal
+	spawned_disease = /datum/disease/advance/preset/heal
 
 /obj/item/reagent_containers/glass/bottle/sensory_restoration
 	name = "Sensory Restoration culture bottle"
 	desc = "A small bottle. Contains a sample of a virus that heals sensory damage."
 	icon_state = "round_bottle"
-	spawned_disease = /datum/disease/advance/sensory_restoration
+	spawned_disease = /datum/disease/advance/preset/sensory_restoration
 
 /obj/item/reagent_containers/glass/bottle/tuberculosiscure
 	name = "BVAK bottle"

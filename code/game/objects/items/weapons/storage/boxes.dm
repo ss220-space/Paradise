@@ -46,8 +46,11 @@
 	new /obj/item/clothing/mask/breath( src )
 	new /obj/item/tank/internals/emergency_oxygen( src )
 	new /obj/item/reagent_containers/hypospray/autoinjector( src )
-	new /obj/item/flashlight/flare/glowstick/emergency( src )
+	new /obj/item/flashlight/flare/glowstick/blue( src )
 	return
+
+/obj/item/storage/box/survival/brigphys
+	icon_state = "box_brigphys"
 
 /obj/item/storage/box/survival_vox
 	icon_state = "box_vox"
@@ -58,7 +61,7 @@
 	new /obj/item/clothing/mask/breath/vox(src)
 	new /obj/item/tank/internals/emergency_oxygen/nitrogen(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
+	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/survival_machine
 	icon_state = "box_machine"
@@ -68,7 +71,7 @@
 	contents = list()
 	new /obj/item/weldingtool/mini(src)
 	new /obj/item/stack/cable_coil/random(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
+	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/survival_plasmaman
 	icon_state = "box_plasma"
@@ -79,7 +82,7 @@
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen/plasma(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
+	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/engineer
 	icon_state = "box_eng"
@@ -90,7 +93,7 @@
 	new /obj/item/clothing/mask/breath( src )
 	new /obj/item/tank/internals/emergency_oxygen/engi( src )
 	new /obj/item/reagent_containers/hypospray/autoinjector( src )
-	new /obj/item/flashlight/flare/glowstick/emergency( src )
+	new /obj/item/flashlight/flare/glowstick/blue( src )
 	return
 
 /obj/item/storage/box/survival_mining
@@ -103,7 +106,53 @@
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/crowbar/red(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
+	new /obj/item/flashlight/flare/glowstick/blue(src)
+
+/obj/item/storage/box/survival_security
+	icon_state = "box_sec"
+
+/obj/item/storage/box/survival_security/New()
+	..()
+	contents = list()
+	new /obj/item/tank/internals/emergency_oxygen/engi/sec(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/flashlight/flare/glowstick/red(src)
+	new /obj/item/crowbar/red/sec(src)
+	new /obj/item/clothing/mask/gas/sechailer(src)
+	new /obj/item/radio(src)
+	new /obj/item/book/manual/security_space_law(src)
+
+/obj/item/storage/box/survival_security/hos
+	icon_state = "box_hos"
+
+/obj/item/storage/box/survival_security/cadet
+	icon_state = "box_cadet"
+
+/obj/item/storage/box/survival_security/warden
+	icon_state = "box_warden"
+
+/obj/item/storage/box/survival_security/pilot
+	icon_state = "box_pilot"
+
+/obj/item/storage/box/survival_security/detective
+	icon_state = "box_detective"
+
+/obj/item/storage/box/survival_laws
+	icon_state = "box_avd"
+
+/obj/item/storage/box/survival_laws/New()
+	..()
+	contents = list()
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/tank/internals/emergency_oxygen(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/flashlight/flare/glowstick/pink(src)
+	new /obj/item/book/manual/security_space_law(src)
+	new /obj/item/taperecorder(src)
+	new /obj/item/camera(src)
+
+/obj/item/storage/box/survival_laws/magisraka
+	icon_state = "box_magisraka"
 
 /obj/item/storage/box/survival_syndi
 	icon_state = "box_syndi"
@@ -1194,7 +1243,6 @@
 	new /obj/item/restraints/legcuffs/bola/energy(src)
 	new /obj/item/restraints/legcuffs/bola/energy(src)
 
-
 /obj/item/storage/box/hug
 	name = "box of hugs"
 	desc = "A special box for sensitive people."
@@ -1239,6 +1287,37 @@
 		new /obj/item/reagent_containers/food/snacks/candy/gummyworm/wtf(src)
 		new /obj/item/reagent_containers/food/snacks/candy/jellybean/wtf(src)
 	new /obj/item/reagent_containers/food/snacks/candy/sucker(src)
+
+/obj/item/storage/pouch
+    name = "pouch"
+    desc = "Подсумок на два магазина."
+    icon = 'icons/obj/storage.dmi'
+    icon_state = "pouch"
+    item_state = "pouch"
+    storage_slots = 2
+    w_class = WEIGHT_CLASS_TINY
+    slot_flags = SLOT_BELT
+    can_hold = list(/obj/item/ammo_box/magazine)
+
+/obj/item/storage/pouch/fast
+    name = "fast pouch"
+    desc = "Подсумок на два магазина, настолько быстро перезаряжать оружие ещё никогда не было!"
+    icon_state = "pouch_fast"
+    item_state = "pouch_fast"
+
+/obj/item/storage/pouch/fast/attackby(var/obj/item/A as obj, mob/user as mob, params)
+    .=..()
+    if(istype(A, /obj/item/gun/projectile/automatic))
+        var/obj/item/gun/projectile/automatic/gun = A
+        for(var/obj/item/ammo_box/magazine/MA in contents)
+            var/obj/item/ammo_box/magazine/magazine
+            if(gun.magazine)
+                magazine = gun.magazine
+            gun.attackby(MA, user)
+            if(magazine)
+                magazine.loc = src
+                magazine.update_icon()
+            return
 
 #undef NODESIGN
 #undef NANOTRASEN

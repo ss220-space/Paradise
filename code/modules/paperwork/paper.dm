@@ -27,6 +27,7 @@
 	var/info_links	//A different version of the paper which includes html links at fields and EOF
 	var/stamps		//The (text for the) stamps on the paper.
 	var/fields		//Amount of user created fields
+	var/language = "Galactic Common" //The language of paper. For now using only in case of Thetta
 	var/list/stamped
 	var/ico[0]      //Icons and
 	var/offset_x[0] //offsets stored for later
@@ -79,7 +80,7 @@
 	assets.send(user)
 
 	var/data
-	var/stars = (!user.say_understands(null, GLOB.all_languages["Galactic Common"]) && !forceshow) || forcestars
+	var/stars = (!user.say_understands(null, GLOB.all_languages[language]) && !forceshow) || forcestars
 	if(stars) //assuming all paper is written in common is better than hardcoded type checks
 		data = "[header][stars(info)][footer][stamps]"
 	else
@@ -766,7 +767,7 @@
 	STOP_PROCESSING(SSobj, src)
 	if(mytarget && !used)
 		var/mob/living/carbon/target = mytarget
-		target.ForceContractDisease(new /datum/disease/transformation/corgi(0))
+		target.ForceContractDisease(new /datum/disease/transformation/corgi)
 	return ..()
 
 
@@ -790,10 +791,10 @@
 			var/obj/machinery/photocopier/faxmachine/fax = locateUID(faxmachineid)
 			if(myeffect == "Borgification")
 				to_chat(target,"<span class='userdanger'>You seem to comprehend the AI a little better. Why are your muscles so stiff?</span>")
-				target.ForceContractDisease(new /datum/disease/transformation/robot(0))
+				target.ForceContractDisease(new /datum/disease/transformation/robot)
 			else if(myeffect == "Corgification")
 				to_chat(target,"<span class='userdanger'>You hear distant howling as the world seems to grow bigger around you. Boy, that itch sure is getting worse!</span>")
-				target.ForceContractDisease(new /datum/disease/transformation/corgi(0))
+				target.ForceContractDisease(new /datum/disease/transformation/corgi)
 			else if(myeffect == "Death By Fire")
 				to_chat(target,"<span class='userdanger'>You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?</span>")
 				var/turf/simulated/T = get_turf(target)
