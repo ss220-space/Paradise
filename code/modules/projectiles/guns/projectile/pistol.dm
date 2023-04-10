@@ -89,7 +89,7 @@
 //SP8 пистолет вардена и ОБР//
 /obj/item/gun/projectile/automatic/pistol/sp8
 	name = "SP-8"
-	desc = "Новейшая разработка для сил защиты активов." //
+	desc = "Базовая версия новейшего пистолета сил защиты активов."
 	icon_state = "sp8_black"
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/sp8
@@ -130,6 +130,7 @@
 	name = "SP-8-T"
 	can_suppress = FALSE
 	icon_state = "sp8t_dust"
+	desc = "Новейшая разработка для сил защиты активов."
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/sp8
 	fire_sound = 'sound/weapons/gunshots/sp8t.ogg'
@@ -162,19 +163,17 @@
 
 /obj/item/gun/projectile/automatic/pistol/sp8ar
 	name = "SP-8-AR"
+	desc = "Пистолет сил защиты активов оснащённый ДТК."
 	can_suppress = FALSE
 	icon_state = "sp8ar"
 	unique_reskin = FALSE
-	suppressed = TRUE
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/sp8
-	fire_sound = 'sound/weapons/gunshots/sp8.ogg'
+	fire_sound = 'sound/weapons/gunshots/sp8ar.ogg'
 	can_flashlight = TRUE
 
 /obj/item/gun/projectile/automatic/pistol/sp8ar/update_icon()
 	..()
-	if(suppressed)
-		icon_state = "sp8ar"
 	if(gun_light)
 		var/iconF = "sp8-light"
 		if(gun_light.on)
