@@ -86,13 +86,14 @@
 	origin_tech = "combat=4;materials=2"
 	can_suppress = TRUE
 
+//SP8 пистолет вардена и ОБР//
 /obj/item/gun/projectile/automatic/pistol/sp8
 	name = "SP-8"
 	desc = "Новейшая разработка для сил защиты активов." //
 	icon_state = "sp8_black"
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/sp8
-	fire_sound = 'sound/weapons/gunshots/1colt.ogg'
+	fire_sound = 'sound/weapons/gunshots/sp8.ogg'
 	can_suppress = TRUE
 	unique_reskin = TRUE
 	can_flashlight = TRUE
@@ -117,19 +118,21 @@
 	if(suppressed)
 		overlays += image(icon = icon, icon_state = "sp8_supp")
 	if(gun_light)
-		var/iconF = "sp8_light"
+		var/iconF = "sp8-light"
 		if(gun_light.on)
-			iconF = "sp8_light-on"
+			iconF = "sp8-light-on"
 		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
+
+/obj/item/gun/projectile/automatic/pistol/sp8/ui_action_click()
+	toggle_gunlight()
 
 /obj/item/gun/projectile/automatic/pistol/sp8t
 	name = "SP-8-T"
 	can_suppress = FALSE
-	suppressed = TRUE
 	icon_state = "sp8t_dust"
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/sp8
-	fire_sound = 'sound/weapons/gunshots/1colt.ogg'
+	fire_sound = 'sound/weapons/gunshots/sp8t.ogg'
 	unique_reskin = TRUE
 	can_flashlight = TRUE
 
@@ -146,29 +149,40 @@
 	else
 		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
 	overlays.Cut()
+	if(suppressed)
+		overlays += image(icon = icon, icon_state = "sp8_supp")
 	if(gun_light)
-		var/iconF = "sp8t_light"
+		var/iconF = "sp8-light"
 		if(gun_light.on)
-			iconF = "sp8t_light-on"
+			iconF = "sp8-light-on"
 		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
+
+/obj/item/gun/projectile/automatic/pistol/sp8t/ui_action_click()
+	toggle_gunlight()
 
 /obj/item/gun/projectile/automatic/pistol/sp8ar
 	name = "SP-8-AR"
 	can_suppress = FALSE
 	icon_state = "sp8ar"
 	unique_reskin = FALSE
+	suppressed = TRUE
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/sp8
-	fire_sound = 'sound/weapons/gunshots/1colt.ogg'
+	fire_sound = 'sound/weapons/gunshots/sp8.ogg'
 	can_flashlight = TRUE
 
 /obj/item/gun/projectile/automatic/pistol/sp8ar/update_icon()
 	..()
+	if(suppressed)
+		icon_state = "sp8ar"
 	if(gun_light)
-		var/iconF = "sp8ar_light"
+		var/iconF = "sp8-light"
 		if(gun_light.on)
-			iconF = "sp8ar_light-on"
+			iconF = "sp8-light-on"
 		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
+
+/obj/item/gun/projectile/automatic/pistol/sp8ar/ui_action_click()
+	toggle_gunlight()
 
 //Desert Eagle//
 /obj/item/gun/projectile/automatic/pistol/deagle
