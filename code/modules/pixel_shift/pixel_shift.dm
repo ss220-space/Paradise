@@ -83,6 +83,9 @@
 	if(pixel_x < -PASSABLE_SHIFT_THRESHOLD)
 		passthroughable |= NORTH | EAST | SOUTH
 
+/mob/living/silicon/ai/pixel_shift(direction)
+	return
+
 /atom/movable/post_buckle_mob(mob/living/M)
 	. = ..()
 	M.unpixel_shift()
