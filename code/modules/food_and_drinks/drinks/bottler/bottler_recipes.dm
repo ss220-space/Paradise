@@ -35,7 +35,7 @@ There is no excuse to do this wrong now that there is an example for you. --Fals
 					/obj/item/reagent_containers/food/snacks/grown/apple)
 	result = "apple-pocalypse"
 
-/datum/bottler_recipe/Berry_Banned2
+/datum/bottler_recipe/Berry_Banned2 // Berry_Banned2 must be first in recipes list, before Berry_Banned, since we are using poison berries specifically
 	name = "Berry Banned"
 	description = "Reason for ban: Excessive Flavor."
 	ingredients = list(/obj/item/reagent_containers/food/snacks/grown/berries/poison,
