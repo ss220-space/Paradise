@@ -558,3 +558,5 @@
 /datum/reagent/consumable/drink/laughsyrup/on_mob_life(mob/living/M)
 	if(prob(5))
 		M.emote(pick("laugh", "giggle", "smile"))
+	else if(prob(2))
+		M.say(pick(list("Ха-ха!", "Хе-хе")))
