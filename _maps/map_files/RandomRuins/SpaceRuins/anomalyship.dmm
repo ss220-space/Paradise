@@ -282,8 +282,13 @@
 /turf/simulated/floor/indestructible/plating,
 /area/ae13/epicenter)
 "hq" = (
-/turf/simulated/wall/indestructible/fakeglass,
-/area/ae13/miner)
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/tiles/damageturf,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/ae13/epicenter)
 "hw" = (
 /turf/simulated/wall/shuttle/nosmooth{
 	dir = 9;
@@ -343,12 +348,17 @@
 /area/ae13/medbay)
 "iQ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
 	},
-/turf/simulated/wall/shuttle/onlyselfsmooth,
-/area/ae13/epicenter)
+/obj/effect/decal/cleanable/blood/writing,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor,
+/area/ae13/hall)
 "iU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
@@ -605,19 +615,6 @@
 	name = "floor"
 	},
 /area/ae13/energy)
-"po" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor,
-/area/ae13/hall)
 "pv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/writing{
@@ -625,6 +622,9 @@
 	},
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 6
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
@@ -679,10 +679,6 @@
 /obj/structure/window/full/shuttle,
 /turf/simulated/floor,
 /area/ae13/energy)
-"pX" = (
-/obj/structure/alien/resin/wall,
-/turf/space,
-/area/ae13/asteroid)
 "qe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -1021,9 +1017,6 @@
 	name = "floor"
 	},
 /area/ae13/energy)
-"vL" = (
-/turf/simulated/wall/indestructible/fakeglass,
-/area/ae13/medbay)
 "vZ" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -1332,18 +1325,6 @@
 	name = "floor"
 	},
 /area/ae13/hall)
-"Bf" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/blood/writing{
-	dir = 8
-	},
-/turf/simulated/floor,
-/area/ae13/hall)
 "BC" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	frequency = 1331;
@@ -1548,7 +1529,9 @@
 /area/ae13/hall)
 "FI" = (
 /obj/effect/landmark/tiles/damageturf,
-/turf/simulated/wall/indestructible/fakeglass,
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor,
 /area/ae13/epicenter)
 "FN" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2293,6 +2276,9 @@
 /area/ae13/hall)
 "Tq" = (
 /obj/machinery/door/airlock/multi_tile/glass,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "sepia"
@@ -2460,9 +2446,6 @@
 	},
 /turf/simulated/floor,
 /area/ae13/miner)
-"VB" = (
-/turf/simulated/wall/indestructible/fakeglass,
-/area/ae13/energy)
 "VG" = (
 /turf/simulated/floor,
 /area/ae13/medbay)
@@ -2635,11 +2618,6 @@
 /area/ae13/asteroid)
 "ZC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
 	name = "floor"
@@ -5029,9 +5007,9 @@ DI
 zf
 tx
 ZC
-iQ
-Bf
-po
+LF
+WJ
+yC
 kj
 mS
 AE
@@ -5106,10 +5084,10 @@ vo
 Es
 cW
 bi
-En
+hq
 Tq
 pv
-Wj
+iQ
 aU
 fe
 Ot
@@ -5426,7 +5404,7 @@ zE
 is
 yP
 kj
-hq
+Yq
 kj
 nf
 ew
@@ -5649,7 +5627,7 @@ ew
 ew
 hw
 Tw
-VB
+pW
 Tw
 Ai
 Ai
@@ -5660,7 +5638,7 @@ ns
 az
 hj
 wC
-vL
+Ge
 wC
 ls
 ew
@@ -6433,10 +6411,10 @@ np
 Tw
 lF
 lF
-VB
+pW
 GP
 TO
-vL
+Ge
 Ae
 yH
 wC
@@ -6452,7 +6430,7 @@ dR
 dR
 dR
 dR
-pX
+Zv
 Zv
 Zv
 Zv
