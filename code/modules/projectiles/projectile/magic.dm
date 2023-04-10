@@ -324,7 +324,6 @@
 			M.mind.transfer_to(new_mob)
 			if(is_new_mind)
 				new_mob.mind.wipe_memory()
-				new_mob.mind.name = new_mob.real_name
 				if(briefing_msg)
 					new_mob.mind.store_memory(briefing_msg)
 		else

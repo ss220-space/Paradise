@@ -134,6 +134,9 @@
 
 /datum/mind/proc/wipe_memory()
 	memory = null
+	if(current)
+		name = current.real_name
+		to_chat(current, span_danger("Вы потеряли свою личность и память! Отыгрывайте новое существо!"))
 
 /datum/mind/proc/show_memory(mob/recipient, window = 1)
 	if(!recipient)
