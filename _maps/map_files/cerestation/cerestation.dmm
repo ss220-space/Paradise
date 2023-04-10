@@ -50738,6 +50738,9 @@
 	c_tag = "HoS Bedroom";
 	network = list("SS13","Security")
 	},
+/obj/item/spacepod_equipment/key{
+	id = 100000
+	},
 /turf/simulated/floor/carpet/red,
 /area/security/hos)
 "iWv" = (
@@ -64936,23 +64939,6 @@
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/magistrateoffice)
-"nJl" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/light_switch{
-	pixel_y = 24
-	},
-/obj/structure/closet/secure_closet/hos,
-/obj/item/megaphone,
-/obj/item/reagent_containers/food/drinks/flask/barflask,
-/obj/item/spacepod_equipment/key{
-	id = 100000
-	},
-/turf/simulated/wall/r_wall,
-/area/security/hos)
 "nJm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -65215,9 +65201,6 @@
 /obj/item/paper/monitorkey,
 /obj/item/paper/safe_code{
 	owner = "hos"
-	},
-/obj/item/spacepod_key{
-	id = 100000
 	},
 /turf/simulated/floor/carpet/red,
 /area/security/hos)
@@ -119574,7 +119557,7 @@ aTz
 aTz
 aTz
 fqh
-nJl
+fqh
 uFO
 fqh
 fqh
