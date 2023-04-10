@@ -182,6 +182,26 @@
 	item_state = "mime"
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
+	var/spells_charge_counter = 3000
+
+/obj/item/clothing/mask/gas/mime/equipped(mob/user, slot)
+	if(user && user.mind && !locate(/obj/effect/proc_holder/spell/targeted/mime/speak) in user.mind.spell_list)
+		if(slot == slot_wear_mask)
+			var/obj/effect/proc_holder/spell/targeted/mime/speak/spell = new
+			user.mind.AddSpell(spell)
+			spell.charge_counter = spells_charge_counter
+			spell.start_recharge()
+
+/obj/item/clothing/mask/gas/mime/dropped(mob/user)
+	if(user && user.mind)
+		var/obj/effect/proc_holder/spell/targeted/mime/speak/spell = locate(/obj/effect/proc_holder/spell/targeted/mime/speak) in user.mind.spell_list
+		if(spell)
+			spells_charge_counter = spell.charge_counter
+			user.mind.RemoveSpell(spell)
+
+/obj/item/clothing/mask/gas/mime/item_action_slot_check(slot, mob/user)
+	if(slot == slot_wear_mask)
+		return 1
 
 /obj/item/clothing/mask/gas/mime/wizard
 	name = "magical mime mask"
@@ -199,13 +219,11 @@
 	item_state = "monkeymask"
 	resistance_flags = FLAMMABLE
 
-/obj/item/clothing/mask/gas/sexymime
+/obj/item/clothing/mask/gas/mime/sexy
 	name = "sexy mime mask"
 	desc = "A traditional female mime's mask."
 	icon_state = "sexymime"
 	item_state = "sexymime"
-	flags_cover = MASKCOVERSEYES
-	resistance_flags = FLAMMABLE
 
 /obj/item/clothing/mask/gas/cyborg
 	name = "cyborg visor"
