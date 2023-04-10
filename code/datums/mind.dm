@@ -138,7 +138,7 @@
 /datum/mind/proc/show_memory(mob/recipient, window = 1)
 	if(!recipient)
 		recipient = current
-	var/output = {"<meta charset="UTF-8"><B>[current.real_name]'s Memories:</B><HR>"}
+	var/output = {"<meta charset="UTF-8"><B>[name]'s Memories:</B><HR>"}
 	output += memory
 
 	var/antag_datum_objectives = FALSE
