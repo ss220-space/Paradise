@@ -759,7 +759,7 @@
 				return FALSE
 			if(!H.wear_suit.can_store_weighted(I))
 				if(!disable_warning)
-					to_chat(H, "[I] слишком большой, чтобы прикрепить.")
+					to_chat(H, "Размер [I] слишком большой, чтобы прикрепить.")
 				return FALSE
 			if(istype(I, /obj/item/pda) || istype(I, /obj/item/pen) || is_type_in_list(I, H.wear_suit.allowed))
 				return TRUE
