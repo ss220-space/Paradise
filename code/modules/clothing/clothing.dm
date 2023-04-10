@@ -637,9 +637,9 @@ BLIND     // can't see anything
 		to_chat(user, "<span class='notice'>You attempt to button up the velcro on \the [src], before promptly realising how foolish you are.</span>")
 
 // Proc used to check if suit storage is limited by item weight
-// Allows any suit to bypass weight check when equipping item into suit storage by calling this proc and returning TRUE
-/obj/item/clothing/suit/proc/bypass_weight_check(obj/item/I)
-	if(I.w_class > WEIGHT_CLASS_BULKY)
+// Allows any suit to have their own weight limit for items that can be equipped into suit storage
+/obj/item/clothing/suit/proc/can_store_weighted(obj/item/I, item_weight = WEIGHT_CLASS_BULKY)
+	if(I.w_class > item_weight)
 		return FALSE
 	return TRUE
 

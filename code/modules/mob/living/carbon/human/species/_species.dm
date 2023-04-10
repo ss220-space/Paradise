@@ -757,7 +757,7 @@
 				if(!disable_warning)
 					to_chat(H, "Вы как-то достали костюм без хранения разрешенных предметов. Прекратите это.")
 				return FALSE
-			if(!H.wear_suit.bypass_weight_check(I))
+			if(!H.wear_suit.can_store_weighted(I))
 				if(!disable_warning)
 					to_chat(H, "[I] слишком большой, чтобы прикрепить.")
 				return FALSE
