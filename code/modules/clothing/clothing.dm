@@ -639,9 +639,7 @@ BLIND     // can't see anything
 // Proc used to check if suit storage is limited by item weight
 // Allows any suit to have their own weight limit for items that can be equipped into suit storage
 /obj/item/clothing/suit/proc/can_store_weighted(obj/item/I, item_weight = WEIGHT_CLASS_BULKY)
-	if(I.w_class > item_weight)
-		return FALSE
-	return TRUE
+	return I.w_class <= item_weight
 
 /obj/item/clothing/suit/equipped(var/mob/living/carbon/human/user, var/slot) //Handle tail-hiding on a by-species basis.
 	..()
