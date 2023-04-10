@@ -218,6 +218,7 @@
 	attack_verb = list("stabbed", "poked", "slashed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	w_class = WEIGHT_CLASS_HUGE
+	ignore_weight_equipped = TRUE
 	needs_permit = TRUE
 
 /obj/item/twohanded/ratvarian_spear/Initialize(mapload)
@@ -367,6 +368,7 @@
 	throwforce = 30
 	throw_range = 7
 	w_class = WEIGHT_CLASS_HUGE
+	ignore_weight_equipped = TRUE
 	needs_permit = TRUE
 
 /obj/item/twohanded/clock_hammer/Initialize(mapload)

@@ -27,6 +27,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/throwhitsound
 	var/stealthy_audio = FALSE //Whether or not we use stealthy audio levels for this item's attack sounds
 	var/w_class = WEIGHT_CLASS_NORMAL
+	var/ignore_weight_equipped = FALSE // used to make item fit equipment slot, ignoring weight restrictions
 	var/slot_flags = 0		//This is used to determine on which slots an item can fit.
 	pass_flags = PASSTABLE
 	pressure_resistance = 4
