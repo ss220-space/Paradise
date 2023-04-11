@@ -24,11 +24,7 @@
 /obj/item/reagent_containers/food/pill/attack(mob/living/carbon/M, mob/user, def_zone)
 	if(!istype(M))
 		return FALSE
-	if(!get_location_accessible(M, "mouth"))
-		if(M == user)
-			to_chat(user, "<span class='warning'>Your face is obscured, so you cant eat.</span>")
-		else
-			to_chat(user, "<span class='warning'>[M]'s face is obscured, so[M.p_they()] cant eat.</span>")
+	if(M.is_mouth_obscured(user))
 		return FALSE
 	bitesize = reagents.total_volume
 	if(M.eat(src, user))

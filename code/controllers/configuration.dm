@@ -313,6 +313,8 @@
 	var/default_map = null
 	var/override_map = null
 
+	var/ignore_obscured_mouth = FALSE
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
@@ -897,6 +899,8 @@
 				if("override_map")
 					config.override_map = value
 
+				if("ignore_obscured_mouth")
+					config.ignore_obscured_mouth = TRUE
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 

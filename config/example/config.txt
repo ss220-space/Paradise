@@ -586,3 +586,5 @@ DEFAULT_MAP /datum/map/cyberiad
 ## Override server map by specified, uncomment to apply
 # OVERRIDE_MAP /datum/map/delta
 
+## Can eat through blocked mouth?
+#IGNORE_OBSCURED_MOUTH

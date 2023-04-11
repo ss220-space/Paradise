@@ -1510,3 +1510,15 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	else
 		. = invoked_callback.Invoke()
 	usr = temp
+
+/// Check if
+/mob/proc/is_mouth_obscured(mob/attacker)
+	. = FALSE
+	if(config.ignore_obscured_mouth)
+		return
+	if(!get_location_accessible(src, "mouth"))
+		if(src == attacker)
+			to_chat(attacker, span_warning("Your face is obscured, so you can't eat"))
+		else
+			to_chat(attacker, span_warning("[src]'s face is obscured, so [src.p_they()] can't eat."))
+		return TRUE
