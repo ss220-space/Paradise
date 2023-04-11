@@ -21,7 +21,7 @@
 	set category = "Object"
 	set src in usr
 
-	if(!usr.Adjacent(src) || !(ishuman(usr) || issilicon(usr)) || usr.incapacitated())
+	if(!usr.Adjacent(src) || !(ishuman(usr) || isrobot(usr)) || usr.incapacitated())
 		return
 	var/default = null
 	if(amount_per_transfer_from_this in possible_transfer_amounts)
@@ -33,7 +33,8 @@
 	if(!usr.Adjacent(src))
 		to_chat(usr, "<span class='warning'>You have moved too far away!</span>")
 		return
-	if(!(ishuman(usr) || issilicon(usr)) || usr.incapacitated())
+
+	if(usr.incapacitated())
 		to_chat(usr, "<span class='warning'>You can't use your hands!</span>")
 		return
 
@@ -72,7 +73,7 @@
 	if(!possible_transfer_amounts)
 		verbs -= /obj/item/reagent_containers/verb/set_APTFT
 	if(spawned_disease)
-		var/datum/disease/F = new spawned_disease(0)
+		var/datum/disease/F = new spawned_disease
 		var/list/data = list("viruses" = list(F), "blood_color" = "#A10808")
 		reagents.add_reagent("blood", disease_amount, data)
 	add_initial_reagents()

@@ -88,15 +88,19 @@
 /obj/item/reagent_containers/food/drinks/bottle/random_drink
 	name = "unlabelled drink"
 	icon = 'icons/obj/drinks.dmi'
+	var/list/special_drinks = list(/datum/reagent/pancuronium, /datum/reagent/lsd,/datum/reagent/medicine/omnizine, /datum/reagent/blood)
 
-/obj/item/reagent_containers/food/drinks/bottle/random_drink/New()
-	..()
-	var/list/possible_drinks = GLOB.drinks.Copy()
-	if(prob(50))
-		possible_drinks += list("pancuronium","lsd","omnizine","blood")
+/obj/item/reagent_containers/food/drinks/bottle/random_drink/Initialize()
+	. = ..()
+	var/datum/reagent/reagent
+	if(prob(50 * length(special_drinks) / (length(special_drinks) + length(GLOB.drinks))))
+		reagent = pick(special_drinks)
+	else
+		reagent = pick(GLOB.drinks)
+		if(initial(reagent.id) in GLOB.blocked_chems)
+			reagent = pick(special_drinks)
 
-	var/datum/reagent/R = pick(possible_drinks)
-	reagents.add_reagent(R, volume)
+	reagents.add_reagent(initial(reagent.id), volume)
 	name = "unlabelled bottle"
 	icon_state = pick("alco-white","alco-green","alco-blue","alco-clear","alco-red")
 	pixel_x = rand(-5, 5)
@@ -160,7 +164,7 @@
 /obj/structure/closet/crate/secure/unknownchemicals
 	name = "grey-market chemicals grab pack"
 	desc = "Crate full of chemicals of unknown type and value from a 'trusted' source."
-	req_one_access = list(ACCESS_CHEMISTRY,ACCESS_RESEARCH,ACCESS_QM) // the qm knows a guy, you see.
+	req_access = list(ACCESS_CHEMISTRY,ACCESS_RESEARCH,ACCESS_QM) // the qm knows a guy, you see.
 
 /obj/structure/closet/crate/secure/unknownchemicals/populate_contents()
 	for(var/i in 1 to 7)
@@ -177,7 +181,7 @@
 /obj/structure/closet/crate/secure/chemicals
 	name = "chemical supply kit"
 	desc = "Full of basic chemistry supplies."
-	req_one_access = list(ACCESS_CHEMISTRY,ACCESS_RESEARCH)
+	req_access = list(ACCESS_CHEMISTRY,ACCESS_RESEARCH)
 
 /obj/structure/closet/crate/secure/chemicals/populate_contents()
 	for(var/chem in GLOB.standard_chemicals)

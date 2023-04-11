@@ -46,7 +46,8 @@
 					/obj/item/robot_parts/r_arm,
 					/obj/item/robot_parts/l_leg,
 					/obj/item/robot_parts/r_leg,
-					/obj/item/robot_parts/chest)
+					/obj/item/robot_parts/chest,
+					/obj/item/stack/sheet/mineral/plasma) //for repair plasmamans
 
 /obj/item/gripper/medical/attack_self(mob/user)
 	return
@@ -55,6 +56,33 @@
 	var/mob/living/carbon/human/H
 	if(!gripped_item && proximity && target && ishuman(target))
 		H = target
+		if(H.lying)
+			H.AdjustSleeping(-5)
+			if(H.sleeping == 0)
+				H.StopResting()
+			H.AdjustParalysis(-3)
+			H.AdjustStunned(-3)
+			H.AdjustWeakened(-3)
+			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+			user.visible_message( \
+				"<span class='notice'>[user] shakes [H] trying to wake [H.p_them()] up!</span>",\
+				"<span class='notice'>You shake [H] trying to wake [H.p_them()] up!</span>",\
+				)
+		return
+	..()
+
+/obj/item/gripper/service
+	name = "Card gripper"
+	desc = "A grasping tool used to take IDs for paying taxes and waking up drunken crewmates"
+	can_hold = list(/obj/item/card,
+					/obj/item/camera_film,
+					/obj/item/paper,
+					/obj/item/photo,
+					/obj/item/toy/plushie)
+
+/obj/item/gripper/service/afterattack(atom/target, mob/living/user, proximity, params)
+	if(!gripped_item && proximity && target && ishuman(target))
+		var/mob/living/carbon/human/H = target
 		if(H.lying)
 			H.AdjustSleeping(-5)
 			if(H.sleeping == 0)
@@ -137,6 +165,9 @@
 /// Grippers are snowflakey so this is needed to to prevent forceMoving grippers after `if(!user.drop_item())` checks done in certain attackby's.
 /obj/item/gripper/forceMove(atom/destination)
 	return
+
+/obj/item/gripper/proc/isEmpty()
+	return isnull(gripped_item)
 
 /obj/item/gripper/afterattack(atom/target, mob/living/user, proximity, params)
 

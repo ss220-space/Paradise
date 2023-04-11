@@ -116,7 +116,7 @@
 	icon_state = "tastybread"
 
 /obj/item/trash/spentcasing
-	icon = 'icons/obj/ammo.dmi'
+	icon = 'icons/obj/weapons/ammo.dmi'
 	name = "bullet casing"
 	desc = "A spent bullet casing. Smells like cordite."
 	icon_state = "gshell"
@@ -130,7 +130,7 @@
 /obj/item/trash/doshik
 	name = "packaging from doshik"
 	icon_state = "doshik"
-	desc = "Still have delicious smell."
+	desc = "Still has a delicious smell."
 
 /obj/item/trash/attack(mob/M as mob, mob/living/user as mob)
 	return

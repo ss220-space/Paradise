@@ -21,7 +21,7 @@
 	circuit = /obj/item/circuitboard/cryopodcontrol
 	density = 0
 	interact_offline = 1
-	req_one_access = list(ACCESS_HEADS, ACCESS_ARMORY) //Heads of staff or the warden can go here to claim recover items from their department that people went were cryodormed with.
+	req_access = list(ACCESS_HEADS, ACCESS_ARMORY) //Heads of staff or the warden can go here to claim recover items from their department that people went were cryodormed with.
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags = NODECONSTRUCT
 	var/mode = null
@@ -252,7 +252,7 @@
 		/obj/item/clothing/accessory/medal/gold/captain,
 		/obj/item/clothing/gloves/color/black/krav_maga/sec,
 		/obj/item/clothing/gloves/color/black/forensics,
-		/obj/item/spacepod_key,
+		/obj/item/spacepod_equipment/key,
 		/obj/item/nullrod,
 		/obj/item/key,
 		/obj/item/door_remote,

@@ -95,6 +95,12 @@
 		return	//we aren't an object on the ground so don't call parent
 	..()
 
+/obj/item/clothing/accessory/proc/attached_unequip(mob/user) // If we need to do something special when clothing is removed from the user
+	return
+
+/obj/item/clothing/accessory/proc/attached_equip(mob/user) // If we need to do something special when clothing is removed from the user
+	return
+
 /obj/item/clothing/accessory/blue
 	name = "blue tie"
 	icon_state = "bluetie"
@@ -774,6 +780,7 @@
 	if(istype(I, /obj/item/card/id))
 		if(access_id)
 			to_chat(user, "<span class='notice'>There is already \a [access_id] clipped onto \the [src]</span>")
+			return
 		user.drop_item()
 		I.forceMove(src)
 		access_id = I

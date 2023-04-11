@@ -247,7 +247,7 @@
 
 	var/ammo = ammo_count()
 	if(ammo && is_rubber())
-		overlays += image('icons/obj/ammo.dmi', icon_state = "enforcer-r")
+		overlays += image('icons/obj/weapons/ammo.dmi', icon_state = "enforcer-r")
 
 /obj/item/ammo_box/magazine/enforcer/examine(mob/user)
 	. = ..()
@@ -322,6 +322,17 @@
 /obj/item/ammo_box/magazine/smgm9mm/update_icon()
 	..()
 	icon_state = "[initial(icon_state)]-[round(ammo_count()+1,4)]"
+
+/obj/item/ammo_box/magazine/sfg9mm
+	icon_state = "sfg5"
+	name = "SFG Magazine (9mm)"
+	ammo_type = /obj/item/ammo_casing/c9mm
+	caliber = "9mm"
+	max_ammo = 30
+
+/obj/item/ammo_box/magazine/sfg9mm/update_icon()
+	..()
+	icon_state = "[initial(icon_state)]-[round(ammo_count(), 30)]"
 
 /obj/item/ammo_box/magazine/pistolm9mm
 	name = "pistol magazine (9mm)"
@@ -482,9 +493,9 @@
 
 	var/ammo = ammo_count()
 	if(ammo && is_riot())
-		overlays += image('icons/obj/ammo.dmi', icon_state = "enforcer-rd")
+		overlays += image('icons/obj/weapons/ammo.dmi', icon_state = "enforcer-rd")
 	else if(ammo)
-		overlays += image('icons/obj/ammo.dmi', icon_state = "enforcer-bd")
+		overlays += image('icons/obj/weapons/ammo.dmi', icon_state = "enforcer-bd")
 
 /obj/item/ammo_box/magazine/toy/enforcer/proc/is_riot()//if the topmost bullet is a riot dart
 	var/ammo = ammo_count()
@@ -527,6 +538,20 @@
 /obj/item/ammo_box/magazine/laser/update_icon()
 	..()
 	icon_state = "[initial(icon_state)]-[CEILING(ammo_count(0)/20, 1)*20]"
+
+/obj/item/ammo_box/magazine/lr30mag
+	name = "encased laser projector magazine"
+	desc = "Fits experimental laser ammo casings."
+	icon_state = "lmag-12"
+	ammo_type = /obj/item/ammo_casing/laser
+	origin_tech = "combat=3"
+	caliber = "laser"
+	max_ammo = 12
+
+/obj/item/ammo_box/magazine/lr30mag/update_icon()
+	..()
+	icon_state = "lmag-[round(ammo_count(),3)]"
+
 
 /obj/item/ammo_box/magazine/toy/smgm45
 	name = "donksoft SMG magazine"
