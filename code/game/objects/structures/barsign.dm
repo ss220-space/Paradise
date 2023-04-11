@@ -382,6 +382,11 @@
 	icon = "shitcur"
 	desc = "Innocence proves nothing."
 
+/datum/barsign/moonipub
+	name = "SS220 Mooniverse pub"
+	icon = "mooni"
+	desc = "The brand new pub."
+
 /datum/barsign/hiddensigns
 	hidden = 1
 
