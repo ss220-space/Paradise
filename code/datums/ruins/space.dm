@@ -99,6 +99,13 @@
 		treasure in this disused warehouse, launch it into space, and then \
 		ignore it. Forever."
 
+/datum/map_template/ruin/space/lonely_pod
+	id = "lonely-pod"
+	suffix = "lonelypod.dmm"
+	name = "Lonely Pod"
+	description = "Just somewhere quiet, where I can focus on my work with \
+		no interruptions."
+
 /datum/map_template/ruin/space/listeningpost
 	id = "listeningpost"
 	suffix = "listeningpost.dmm"
@@ -317,7 +324,7 @@
 		After long wanderings over space, the ghost ship collided with an asteroid..."
 	cost = 3 // 65x50 Space ship with few asteroids, carps and headcrabs in positions
 	allow_duplicates = FALSE
-	
+
 /datum/map_template/ruin/space/ussp_laboratory
 	id = "ussp_laboratory"
 	suffix = "ussp_laboratory.dmm"
@@ -336,3 +343,9 @@
 	always_place = TRUE // This is on the always spawn list
 	cost = 0 // Force spawned so shouldnt have a cost
 */
+/datum/map_template/ruin/space/blood_ship
+	id = "blood_ship"
+	suffix = "space_bloodship.dmm"
+	name = "Space bloodship "
+	description = "This shuttle was a regular transport vessel until it was captured by cultists who made their bloody sacrifice." 
+

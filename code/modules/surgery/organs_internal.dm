@@ -18,6 +18,18 @@
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/internal/manipulate_organs,/datum/surgery_step/generic/cauterize)
 	requires_organic_bodypart = 1
 
+/datum/surgery/organ_manipulation/plasmaman
+	name = "Plasmaman Organ Manipulation"
+	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,
+	/datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/manipulate_organs, /datum/surgery_step/glue_bone/plasma, /datum/surgery_step/generic/cauterize)
+	possible_locs = list("chest","head")
+	requires_organic_bodypart = 1
+
+/datum/surgery/organ_manipulation/plasmaman/soft
+	possible_locs = list("groin", "eyes", "mouth")
+	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/internal/manipulate_organs,/datum/surgery_step/generic/cauterize)
+	requires_organic_bodypart = 1
+
 /datum/surgery/organ_manipulation/alien
 	name = "Alien Organ Manipulation"
 	possible_locs = list("chest", "head", "groin", "eyes", "mouth")
@@ -29,6 +41,8 @@
 	if(istype(target,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
+		if(isplasmaman(H))
+			return 0
 		if(!affected)
 			// I'd like to see you do surgery on LITERALLY NOTHING
 			return 0
@@ -58,6 +72,21 @@
 		return 1
 	else return 0
 
+/datum/surgery/organ_manipulation/plasmaman/can_start(mob/user, mob/living/carbon/target)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
+		if(!affected)
+			return 0
+		if(affected.is_robotic())
+			return 0
+		if(!affected.encased)
+			return 0
+		if(isplasmaman(H))
+			return 1
+	return 0
+
+
 // Internal surgeries.
 /datum/surgery_step/internal
 	priority = 2
@@ -71,7 +100,7 @@
 	var/implements_extract = list(/obj/item/hemostat = 100, /obj/item/kitchen/utensil/fork = 70)
 	var/implements_mend = list(/obj/item/stack/medical/bruise_pack = 20,/obj/item/stack/medical/bruise_pack/advanced = 100,/obj/item/stack/nanopaste = 100)
 	var/implements_clean = list(/obj/item/reagent_containers/dropper = 100,
-                /obj/item/reagent_containers/syringe = 100,
+                				/obj/item/reagent_containers/syringe = 100,
 								/obj/item/reagent_containers/glass/bottle = 90,
 								/obj/item/reagent_containers/food/drinks/drinkingglass = 85,
 								/obj/item/reagent_containers/food/drinks/bottle = 80,
@@ -235,22 +264,26 @@
 		if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced))
 			tool_name = "regenerative membrane"
 		else if(istype(tool, /obj/item/stack/nanopaste))
-			tool_name = "[tool]" //what else do you call nanopaste medically?
+			tool_name = "[tool.name]" //what else do you call nanopaste medically?
 
 		if(!hasorgans(target))
 			to_chat(user, "They do not have organs to mend!")
 			return
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I && I.damage)
-				if(!I.is_robotic() && !istype (tool, /obj/item/stack/nanopaste))
-					if(!(I.sterile))
+			if(I.damage)
+				var/can_treat_robotic = I.is_robotic() && istype(tool, /obj/item/stack/nanopaste)
+				var/can_treat_organic = !I.is_robotic() && !istype(tool, /obj/item/stack/nanopaste)
+				if(can_treat_robotic || can_treat_organic)
+					if(I.status & ORGAN_DEAD)
+						to_chat(user, "<span class='warning'>You can't treat [I]! Dead organs can't be treated with [tool_name]!</span>")
+						continue
+					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
+						"You start treating damage to [target]'s [I.name] with [tool_name].")
+					if(can_treat_organic && !I.sterile)
 						spread_germs_to_organ(I, user, tool)
-					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
-						"You start treating damage to [target]'s [I.name] with [tool_name].")
-				else if(I.is_robotic() && istype(tool, /obj/item/stack/nanopaste))
-					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
-						"You start treating damage to [target]'s [I.name] with [tool_name].")
+				else
+					to_chat(user, "[I] can't be treated with [tool_name].")
 
 			else
 				to_chat(user, "[I] does not appear to be damaged.")
@@ -267,28 +300,27 @@
 /datum/surgery_step/internal/manipulate_organs/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(current_type == "mend")
 		var/tool_name = "[tool]"
-		if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced))
-			tool_name = "regenerative membrane"
 		if(istype(tool, /obj/item/stack/medical/bruise_pack))
 			tool_name = "the bandaid"
+		if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced))
+			tool_name = "regenerative membrane"
 		if(istype(tool, /obj/item/stack/nanopaste))
-			tool_name = "[tool]" //what else do you call nanopaste medically?
+			tool_name = "[tool.name]" //what else do you call nanopaste medically?
 
 		if(!hasorgans(target))
 			return
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I)
+			var/treated_robotic = I.is_robotic() && istype(tool, /obj/item/stack/nanopaste)
+			var/treated_organic = !I.is_robotic() && !istype(tool, /obj/item/stack/nanopaste)
+			if(treated_robotic || treated_organic)
+				if(I.status & ORGAN_DEAD)
+					continue
+				if(I.damage)
+					user.visible_message("<span class='notice'>[user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
+						"<span class='notice'>You treat damage to [target]'s [I.name] with [tool_name].</span>")
+					I.damage = 0
 				I.surgeryize()
-			if(I && I.damage)
-				if(!I.is_robotic() && !istype (tool, /obj/item/stack/nanopaste))
-					user.visible_message("<span class='notice'>[user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
-						"<span class='notice'>You treat damage to [target]'s [I.name] with [tool_name].</span>")
-					I.damage = 0
-				else if(I.is_robotic() && istype (tool, /obj/item/stack/nanopaste))
-					user.visible_message("<span class='notice'>[user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
-						"<span class='notice'>You treat damage to [target]'s [I.name] with [tool_name].</span>")
-					I.damage = 0
 
 	else if(current_type == "insert")
 		I = tool
