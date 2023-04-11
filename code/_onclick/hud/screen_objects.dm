@@ -396,7 +396,7 @@
 	object_overlays.Cut()
 
 /obj/screen/inventory/proc/add_overlays()
-	if(!hud?.mymob || !slot_id)
+	if(!hud?.mymob || !slot_id || slot_id == slot_l_hand || slot_id == slot_r_hand)
 		return
 
 	var/mob/user = hud.mymob
