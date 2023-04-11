@@ -154,6 +154,8 @@
 	return
 
 /mob/living/get_pull_push_speed_modifier(current_delay)
+	if(!config.modify_pull_push_speed)
+		return ..()
 	if(!canmove)
 		return pull_push_speed_modifier * 1.2
 	var/average_delay = (movement_delay(TRUE) + current_delay) / 2
@@ -601,7 +603,7 @@
 				var/mob/living/M = pulling
 				if(M.lying && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
 					M.makeTrail(dest)
-				if(ishuman(pulling))
+				if(ishuman(pulling) && config.modify_pull_push_speed)
 					var/mob/living/carbon/human/H = pulling
 					var/obj/item/organ/external/head
 					if(!H.lying)

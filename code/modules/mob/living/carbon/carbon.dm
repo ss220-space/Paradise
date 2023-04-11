@@ -1262,6 +1262,8 @@ so that different stomachs can handle things in different ways VB*/
 	..(clean_hands, clean_mask, clean_feet)
 
 /mob/living/carbon/get_pull_push_speed_modifier(current_delay)
+	if(!config.modify_pull_push_speed)
+		return ..()
 	if(!canmove)
 		return pull_push_speed_modifier * 1.2
 	var/average_delay = (movement_delay(restrained() ? FALSE : TRUE) + current_delay) / 2

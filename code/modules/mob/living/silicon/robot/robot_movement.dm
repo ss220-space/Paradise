@@ -24,6 +24,8 @@
 		return ..()
 
 /mob/living/silicon/robot/get_pull_push_speed_modifier(current_delay)
+	if(!config.modify_pull_push_speed)
+		return ..()
 	if(canmove)
 		for(var/obj/item/borg/upgrade/u in upgrades)
 			if(istype(u, /obj/item/borg/upgrade/vtec/))
