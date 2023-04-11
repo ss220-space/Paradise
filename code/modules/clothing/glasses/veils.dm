@@ -166,6 +166,29 @@
 	examine_extensions = list(EXAMINE_HUD_SKILLS)
 	lenses = new/obj/item/clothing/glasses/hud/skills
 
+//obj/item/clothing/glasses/hud/tajblind/thermal //Ну, а вдруг Кей захочет термалки.
+//	name = "holder"
+//	desc = "holder"
+//	icon_state = "purple"
+//	item_state = "purple"
+//	vision_flags = SEE_MOBS
+//	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+//	lenses = new/obj/item/clothing/glasses/thermal
+
+
+//obj/item/clothing/glasses/hud/tajblind/thermal/emp_act(severity)
+//	if(istype(src.loc, /mob/living/carbon/human))
+//		var/mob/living/carbon/human/M = src.loc
+//		to_chat(M, "<span class='warning'>The [name] overloads and blinds you!</span>")
+//		if(M.glasses == src)
+//			M.EyeBlind(3)
+//			M.EyeBlurry(5)
+//			if(!(NEARSIGHTED in M.mutations))
+//				M.BecomeNearsighted()
+//				spawn(100)
+//					M.CureNearsighted()
+//	..()
+
 //Now we try real crafts.
 
 /obj/item/clothing/glasses/hud/tajblind/proc/remove_lenses(/mob/living/user)
@@ -188,7 +211,7 @@
 	var/obj/item/clothing/glasses/G = glasses
 	var/obj/item/clothing/glasses/welding/W = glasses
 	var/obj/item/clothing/glasses/hud/H = glasses
-	if(istype(H) && !lenses)
+	if(istype(H) && !src.lenses)
 		var/obj/item/clothing/glasses/hud/tajblind/veilH
 		if(istype(H,/obj/item/clothing/glasses/hud/health))
 			if(H.see_in_dark)
@@ -215,7 +238,8 @@
 		H.loc = src
 		user.put_in_active_hand(veilH)
 		qdel(src)
-	else if(istype(W) && !lenses)
+		to_chat(usr, "<span class='notice'>You succesfully inserted new lenses in your [src.name]")
+	else if(istype(W) && !src.lenses)
 		var/obj/item/clothing/glasses/hud/tajblind/veilW
 		if(istype(W,/obj/item/clothing/glasses/welding/superior))
 			return FALSE
@@ -224,7 +248,8 @@
 		W.loc = src
 		user.put_in_active_hand(veilW)
 		qdel(src)
-	else if(istype(G) && !lenses)
+		to_chat(usr, "<span class='notice'>You succesfully inserted new lenses in your [src.name]")
+	else if(istype(G) && !src.lenses)
 		var/obj/item/clothing/glasses/hud/tajblind/veilG
 		if(G.vision_flags == SEE_TURFS)
 			if(G.see_in_dark)
@@ -236,10 +261,12 @@
 				veilG = new/obj/item/clothing/glasses/hud/tajblind/sci/night(user.loc)
 			else
 				veilG = new/obj/item/clothing/glasses/hud/tajblind/sci(user.loc)
+//		else if(G.vision_flags == SEE_MOBS)
+//			veilG = new/obj/item/clothing/glasses/hud/tajblind/thermal(user.loc)
 		else
 			return FALSE
 		veilG.lenses = G
 		G.loc = src
 		user.put_in_active_hand(veilG)
 		qdel(src)
-	to_chat(usr, "<span class='notice'>You succesfully inserted new lenses in your [src.name]")
+		to_chat(usr, "<span class='notice'>You succesfully inserted new lenses in your [src.name]")
