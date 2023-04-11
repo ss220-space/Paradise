@@ -39,7 +39,11 @@
 /obj/item/gun/energy/kinetic_accelerator/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/borg/upgrade/modkit))
 		var/obj/item/borg/upgrade/modkit/MK = I
-		MK.install(src, user)
+		if(!MK.only_borg)
+			MK.install(src, user)
+		else
+			to_chat(user, "<span class = 'warning'>Похоже, что этот модуль не подходит для таких ускорителей!</span>")
+			return ..()
 	else
 		return ..()
 
@@ -268,15 +272,22 @@
 	var/modifier = 1 //For use in any mod kit that has numerical modifiers
 	var/minebot_upgrade = TRUE
 	var/minebot_exclusive = FALSE
+	var/only_borg = FALSE //Is it only for robots
 
 /obj/item/borg/upgrade/modkit/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
 		. += "<span class='notice'>Occupies <b>[cost]%</b> of mod capacity.</span>"
+	if(only_borg)
+		. += "<span class = 'warning'>Не похоже что этот модуль подходит для обычного КА.</span>"
 
 /obj/item/borg/upgrade/modkit/attackby(obj/item/A, mob/user)
-	if(istype(A, /obj/item/gun/energy/kinetic_accelerator) && !issilicon(user))
-		install(A, user)
+	if(istype(A, /obj/item/gun/energy/kinetic_accelerator))
+		if(only_borg)
+			to_chat(user, "<span class = 'warning'>Похоже, что этот модуль не подходит для таких ускорителей!</span>")
+			return ..()
+		else
+			install(A, user)
 	else
 		return ..()
 
