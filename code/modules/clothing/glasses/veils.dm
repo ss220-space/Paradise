@@ -3,13 +3,13 @@
 	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes."
 	icon_state = "tajblind"
 	item_state = "tajblind"
+	prescription_upgradable = FALSE //Just for a while let it be here.
 	flash_protect = 1
 	tint = 3
-	var/HUD_assembly = null
 	actions_types = list(/datum/action/item_action/toggle_veil)
 	flags_cover = GLASSESCOVERSEYES
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
-
+	var/obj/item/clothing/glasses/lenses
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/species/grey/eyes.dmi',
@@ -21,8 +21,8 @@
 		)
 
 /obj/item/clothing/glasses/hud/tajblind/New()
-	toggle_veil()
 	. = ..()
+	toggle_veil()
 
 /obj/item/clothing/glasses/hud/tajblind/ui_action_click(mob/user, actiontype)
 	if(ispath(actiontype, /datum/action/item_action/toggle_veil))
@@ -52,7 +52,7 @@
 	icon_state = "tajblind_engi"
 	item_state = "tajblind_engi"
 	flash_protect = 2
-	HUD_assembly = /obj/item/clothing/glasses/welding
+	lenses = new/obj/item/clothing/glasses/welding
 
 /obj/item/clothing/glasses/hud/tajblind/meson
 	name = "khaki veil"
@@ -61,7 +61,7 @@
 	item_state = "tajblind_cargo"
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	HUD_assembly = /obj/item/clothing/glasses/meson
+	lenses = new/obj/item/clothing/glasses/meson
 
 /obj/item/clothing/glasses/hud/tajblind/meson/night
 	name = "Night Vision meson veil"
@@ -70,7 +70,7 @@
 	item_state = "tajblind_nv_engi"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	HUD_assembly = /obj/item/clothing/glasses/meson/night
+	lenses = new/obj/item/clothing/glasses/meson/night
 
 /obj/item/clothing/glasses/hud/tajblind/sci
 	name = "hi-tech veil"
@@ -80,7 +80,7 @@
 	scan_reagents = 1
 	resistance_flags = ACID_PROOF
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
-	HUD_assembly = /obj/item/clothing/glasses/science
+	lenses = new/obj/item/clothing/glasses/science
 	actions_types = list(
 		/datum/action/item_action/toggle_research_scanner,
 		/datum/action/item_action/toggle_veil
@@ -93,7 +93,7 @@
 	item_state = "tajblind_nv_sci"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	HUD_assembly = /obj/item/clothing/glasses/science/night
+	lenses = new/obj/item/clothing/glasses/science/night
 
 /obj/item/clothing/glasses/hud/tajblind/med
 	name = "lightweight veil"
@@ -102,7 +102,7 @@
 	item_state = "tajblind_med"
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
 	examine_extensions = list(EXAMINE_HUD_MEDICAL)
-	HUD_assembly = /obj/item/clothing/glasses/hud/health
+	lenses = new/obj/item/clothing/glasses/hud/health
 
 /obj/item/clothing/glasses/hud/tajblind/med/night
 	name = "lightweight Night Vision veil"
@@ -111,7 +111,7 @@
 	item_state = "tajblind_nv_med"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	HUD_assembly = /obj/item/clothing/glasses/hud/health/night
+	lenses = new/obj/item/clothing/glasses/hud/health/night
 
 /obj/item/clothing/glasses/hud/tajblind/diag
 	name = "robotic veil"
@@ -119,7 +119,7 @@
 	icon_state = "tajblind_diag"
 	item_state = "tajblind_diag"
 	HUDType = DATA_HUD_DIAGNOSTIC
-	HUD_assembly = /obj/item/clothing/glasses/hud/diagnostic
+	lenses = new/obj/item/clothing/glasses/hud/diagnostic
 
 /obj/item/clothing/glasses/hud/tajblind/diag/night
 	name = "robotic Night Vision veil"
@@ -128,7 +128,7 @@
 	item_state = "tajblind_nv_diag"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	HUD_assembly = /obj/item/clothing/glasses/hud/diagnostic/night
+	lenses = new/obj/item/clothing/glasses/hud/diagnostic/night
 
 /obj/item/clothing/glasses/hud/tajblind/sec
 	name = "sleek veil"
@@ -138,7 +138,7 @@
 	var/global/list/jobs[0]
 	HUDType = DATA_HUD_SECURITY_ADVANCED
 	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)
-	HUD_assembly = /obj/item/clothing/glasses/hud/security
+	lenses = new/obj/item/clothing/glasses/hud/security
 
 /obj/item/clothing/glasses/hud/tajblind/sec/night
 	name = "sleek Night Vision veil"
@@ -147,7 +147,7 @@
 	item_state = "tajblind_nv_sec"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	HUD_assembly = /obj/item/clothing/glasses/hud/security/night
+	lenses = new/obj/item/clothing/glasses/hud/security/night
 
 /obj/item/clothing/glasses/hud/tajblind/hydro
 	name = "nature veil"
@@ -155,7 +155,7 @@
 	icon_state = "tajblind_hydro"
 	item_state = "tajblind_hydro"
 	HUDType = DATA_HUD_HYDROPONIC
-	HUD_assembly = /obj/item/clothing/glasses/hud/hydroponic
+	lenses = new/obj/item/clothing/glasses/hud/hydroponic
 
 /obj/item/clothing/glasses/hud/tajblind/skill
 	name = "personnel veil"
@@ -164,79 +164,82 @@
 	item_state = "tajblind_skill"
 	HUDType = DATA_HUD_SECURITY_BASIC
 	examine_extensions = list(EXAMINE_HUD_SKILLS)
-	HUD_assembly = /obj/item/clothing/glasses/hud/skills
+	lenses = new/obj/item/clothing/glasses/hud/skills
 
 //Now we try real crafts.
 
-/obj/item/clothing/glasses/hud/tajblind/attack_self(mob/user)
-	if(HUD_assembly)
-		var/obj/item/clothing/glasses/hud/tajblind/A = new/obj/item/clothing/glasses/hud/tajblind
-		user.put_in_active_hand(A)
-		to_chat(user, "<span class='notice'>With a simple click you pulled HUD out from [src].</span>")
-		generate_HUD(user.loc)
-		qdel(src)
-	return
+/obj/item/clothing/glasses/hud/tajblind/proc/remove_lenses(/mob/living/user)
+	if(lenses)
+		to_chat(usr, "<span class='notice'>With a simple click you pulled lenses out from [src].</span>")
+		lenses.forceMove(usr)
+		usr.put_in_hands(lenses)
+		lenses = null
+		return
 
-/obj/item/clothing/glasses/hud/tajblind/proc/generate_HUD(atom/location)
-	if(HUD_assembly)
-		if(ispath(HUD_assembly, /obj/item))
-			. = new HUD_assembly(location)
-			HUD_assembly = null
-			return
-		else if(istype(HUD_assembly, /obj/item))
-			var/obj/item/HUD_item = HUD_assembly
-			HUD_item.forceMove(location)
-			. = HUD_assembly
-			HUD_assembly = null
-			return
+/obj/item/clothing/glasses/hud/tajblind/attack_self(mob/user)
+	if(item_state != "tajblind")
+		var/A = new/obj/item/clothing/glasses/hud/tajblind(get_turf(src))
+		remove_lenses(user)
+		qdel(src)
+		user.put_in_active_hand(A)
+	return
 
 /obj/item/clothing/glasses/hud/tajblind/attackby(var/obj/item/clothing/glasses/glasses, mob/user, params)
 	var/obj/item/clothing/glasses/G = glasses
 	var/obj/item/clothing/glasses/welding/W = glasses
 	var/obj/item/clothing/glasses/hud/H = glasses
-	if(istype(H) && !HUD_assembly)
+	if(istype(H) && !lenses)
 		var/obj/item/clothing/glasses/hud/tajblind/veilH
 		if(istype(H,/obj/item/clothing/glasses/hud/health))
 			if(H.see_in_dark)
-				veilH = new/obj/item/clothing/glasses/hud/tajblind/med/night(src.loc)
+				veilH = new/obj/item/clothing/glasses/hud/tajblind/med/night(user.loc)
 			else
-				veilH = new/obj/item/clothing/glasses/hud/tajblind/med(src.loc)
+				veilH = new/obj/item/clothing/glasses/hud/tajblind/med(user.loc)
 		else if(istype(H,/obj/item/clothing/glasses/hud/security))
 			if(H.see_in_dark)
-				veilH = new/obj/item/clothing/glasses/hud/tajblind/sec/night(src.loc)
+				veilH = new/obj/item/clothing/glasses/hud/tajblind/sec/night(user.loc)
 			else
-				veilH = new/obj/item/clothing/glasses/hud/tajblind/sec(src.loc)
+				veilH = new/obj/item/clothing/glasses/hud/tajblind/sec(user.loc)
 		else if(istype(H,/obj/item/clothing/glasses/hud/diagnostic))
 			if(H.see_in_dark)
-				veilH = new/obj/item/clothing/glasses/hud/tajblind/diag/night(src.loc)
+				veilH = new/obj/item/clothing/glasses/hud/tajblind/diag/night(user.loc)
 			else
-				veilH = new/obj/item/clothing/glasses/hud/tajblind/diag(src.loc)
+				veilH = new/obj/item/clothing/glasses/hud/tajblind/diag(user.loc)
 		else if(istype(H,/obj/item/clothing/glasses/hud/hydroponic))
-			veilH = new/obj/item/clothing/glasses/hud/tajblind/hydro(src.loc)
+			veilH = new/obj/item/clothing/glasses/hud/tajblind/hydro(user.loc)
 		else if(istype(H,/obj/item/clothing/glasses/hud/skills))
-			veilH = new/obj/item/clothing/glasses/hud/tajblind/skill(src.loc)
+			veilH = new/obj/item/clothing/glasses/hud/tajblind/skill(user.loc)
+		else
+			return FALSE
+		veilH.lenses = H
+		H.loc = src
 		user.put_in_active_hand(veilH)
-	else if(istype(W) && !HUD_assembly)
+		qdel(src)
+	else if(istype(W) && !lenses)
 		var/obj/item/clothing/glasses/hud/tajblind/veilW
 		if(istype(W,/obj/item/clothing/glasses/welding/superior))
 			return FALSE
-		veilW = new/obj/item/clothing/glasses/hud/tajblind/engi(src.loc)
+		veilW = new/obj/item/clothing/glasses/hud/tajblind/engi(user.loc)
+		veilW.lenses = W
+		W.loc = src
 		user.put_in_active_hand(veilW)
-	else if(istype(G) && !HUD_assembly)
-		var/obj/item/clothing/glasses/hud/tajblind/veil
+		qdel(src)
+	else if(istype(G) && !lenses)
+		var/obj/item/clothing/glasses/hud/tajblind/veilG
 		if(G.vision_flags == SEE_TURFS)
 			if(G.see_in_dark)
-				veil = new/obj/item/clothing/glasses/hud/tajblind/meson/night(src.loc)
+				veilG = new/obj/item/clothing/glasses/hud/tajblind/meson/night(user.loc)
 			else
-				veil = new/obj/item/clothing/glasses/hud/tajblind/meson(src.loc)
+				veilG = new/obj/item/clothing/glasses/hud/tajblind/meson(user.loc)
 		else if(G.scan_reagents)
 			if(G.see_in_dark)
-				veil = new/obj/item/clothing/glasses/hud/tajblind/sci/night(src.loc)
+				veilG = new/obj/item/clothing/glasses/hud/tajblind/sci/night(user.loc)
 			else
-				veil = new/obj/item/clothing/glasses/hud/tajblind/sci(src.loc)
-		user.put_in_active_hand(veil)
-	else
-		return FALSE
-	qdel(glasses)
-	to_chat(usr, "<span class='notice'>You succesfully inserted new HUD in your [src.name]")
-	qdel(src)
+				veilG = new/obj/item/clothing/glasses/hud/tajblind/sci(user.loc)
+		else
+			return FALSE
+		veilG.lenses = G
+		G.loc = src
+		user.put_in_active_hand(veilG)
+		qdel(src)
+	to_chat(usr, "<span class='notice'>You succesfully inserted new lenses in your [src.name]")
