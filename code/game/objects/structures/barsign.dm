@@ -387,6 +387,11 @@
 	icon = "pourndot"
 	desc = "Pour and that's it. Hard time has come."
 
+/datum/barsign/moonipub
+	name = "SS220 Mooniverse pub"
+	icon = "mooni"
+	desc = "The brand new pub."
+
 /datum/barsign/hiddensigns
 	hidden = 1
 
