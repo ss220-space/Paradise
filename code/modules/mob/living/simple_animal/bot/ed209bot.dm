@@ -22,6 +22,7 @@
 	window_name = "Automatic Security Unit v2.6"
 	path_image_color = "#FF0000"
 	data_hud_type = DATA_HUD_SECURITY_ADVANCED
+	tts_seed = "Frank"
 
 	allow_pai = 0
 
