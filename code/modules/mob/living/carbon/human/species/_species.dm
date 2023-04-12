@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(roundstart_races)
+
 /datum/species
 	var/name                     // Species name.
 	var/name_plural 			 // Pluralized name (since "[name]s" is not always valid)
@@ -195,6 +197,46 @@
 		vision_organ = /obj/item/organ/internal/eyes
 
 	unarmed = new unarmed_type()
+
+/// Gets a list of all species available to choose in roundstart.
+/proc/get_selectable_species()
+	RETURN_TYPE(/list)
+
+	if (!GLOB.roundstart_races.len)
+		GLOB.roundstart_races = generate_selectable_species()
+
+	return GLOB.roundstart_races
+
+/**
+ * Generates species available to choose in character setup at roundstart
+ *
+ * This proc generates which species are available to pick from in character setup.
+ * If there are no available roundstart species, defaults to human.
+ */
+/proc/generate_selectable_species()
+	var/list/selectable_species = list()
+
+	for(var/species_type in subtypesof(/datum/species))
+		var/datum/species/species = new species_type
+		if(species.check_roundstart_eligible())
+			selectable_species += species.id
+			qdel(species)
+
+	if(!selectable_species.len)
+		selectable_species += SPECIES_HUMAN
+
+	return selectable_species
+
+/**
+ * Checks if a species is eligible to be picked at roundstart.
+ *
+ * Checks the config to see if this species is allowed to be picked in the character setup menu.
+ * Used by [/proc/generate_selectable_species].
+ */
+/datum/species/proc/check_roundstart_eligible()
+	if(id in config.roundstart_races)
+		return TRUE
+	return FALSE
 
 /datum/species/proc/get_random_name(gender)
 	var/datum/language/species_language = GLOB.all_languages[language]

@@ -136,6 +136,8 @@
 
 	var/shuttle_refuel_delay = 12000
 
+	var/roundstart_races = list()
+
 	//Used for modifying movement speed for mobs.
 	//Unversal modifiers
 	var/run_speed = 0
@@ -965,6 +967,8 @@
 					config.cubemonkeycap = value
 				if("can_cult_convert")
 					config.can_cult_convert = value
+				if("roundstart_races")
+					config.roundstart_races += value
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 
