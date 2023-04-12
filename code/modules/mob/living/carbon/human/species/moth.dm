@@ -8,6 +8,7 @@
 /datum/species/moth
 	name = "Nian"
 	name_plural = "Nianae"
+	id = SPECIES_MOTH
 	language = "Tkachi"
 	icobase = 'icons/mob/human_races/r_moth.dmi'
 	deform = 'icons/mob/human_races/r_moth.dmi'

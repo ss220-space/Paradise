@@ -1,6 +1,7 @@
 /datum/species/skrell
 	name = "Skrell"
 	name_plural = "Skrell"
+	id = SPECIES_SKRELL
 	icobase = 'icons/mob/human_races/r_skrell.dmi'
 	deform = 'icons/mob/human_races/r_def_skrell.dmi'
 	language = "Skrellian"

@@ -1,6 +1,7 @@
 /datum/species/shadow
 	name = "Shadow"
 	name_plural = "Shadows"
+	id = SPECIES_SHADOW
 
 	icobase = 'icons/mob/human_races/r_shadow.dmi'
 	deform = 'icons/mob/human_races/r_shadow.dmi'

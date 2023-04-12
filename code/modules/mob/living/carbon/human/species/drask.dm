@@ -1,6 +1,7 @@
 /datum/species/drask
 	name = "Drask"
 	name_plural = "Drask"
+	id = SPECIES_DRASK
 	icobase = 'icons/mob/human_races/r_drask.dmi'
 	deform = 'icons/mob/human_races/r_drask.dmi'
 	language = "Orluum"

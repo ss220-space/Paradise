@@ -2,6 +2,7 @@
 	name = "Abductor"
 	name_plural = "Abductors"
 	a = "an"
+	id = SPECIES_ABDUCTOR
 	icobase = 'icons/mob/human_races/r_abductor.dmi'
 	deform = 'icons/mob/human_races/r_abductor.dmi'
 	language = "Abductor Mindlink"

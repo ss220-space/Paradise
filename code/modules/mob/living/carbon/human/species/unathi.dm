@@ -1,6 +1,7 @@
 /datum/species/unathi
 	name = "Unathi"
 	name_plural = "Unathi"
+	id = SPECIES_UNATHI
 	icobase = 'icons/mob/human_races/r_lizard.dmi'
 	deform = 'icons/mob/human_races/r_def_lizard.dmi'
 	language = "Sinta'unathi"
@@ -141,6 +142,7 @@
 /datum/species/unathi/ashwalker
 	name = "Ash Walker"
 	name_plural = "Ash Walkers"
+	id = SPECIES_ASHWALKER
 
 	blurb = "Пеплоходцы — рептильные гуманоиды, по-видимому, родственные унати. Но кажутся значительно менее развитыми. \
 	Они бродят по пустошам Лаваленда, поклоняются мёртвому городу и ловят ничего не подозревающих шахтёров."

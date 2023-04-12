@@ -1,6 +1,7 @@
 /datum/species/wryn
 	name = "Wryn"
 	name_plural = "Wryn"
+	id = SPECIES_WRYN
 	icobase = 'icons/mob/human_races/r_wryn.dmi'
 	deform = 'icons/mob/human_races/r_wryn.dmi'
 	blacklisted = TRUE

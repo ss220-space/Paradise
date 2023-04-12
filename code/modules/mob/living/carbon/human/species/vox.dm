@@ -1,6 +1,7 @@
 /datum/species/vox
 	name = "Vox"
 	name_plural = "Vox"
+	id = SPECIES_VOX
 	icobase = 'icons/mob/human_races/vox/r_vox.dmi'
 	deform = 'icons/mob/human_races/vox/r_def_vox.dmi'
 	dangerous_existence = TRUE

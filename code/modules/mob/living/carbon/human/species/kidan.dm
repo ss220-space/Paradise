@@ -1,6 +1,7 @@
 /datum/species/kidan
 	name = "Kidan"
 	name_plural = "Kidan"
+	id = SPECIES_KIDAN
 	icobase = 'icons/mob/human_races/r_kidan.dmi'
 	deform = 'icons/mob/human_races/r_def_kidan.dmi'
 	language = "Chittin"

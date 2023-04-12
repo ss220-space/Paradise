@@ -1,6 +1,7 @@
 /datum/species/grey
 	name = "Grey"
 	name_plural = "Greys"
+	id = SPECIES_GREY
 	icobase = 'icons/mob/human_races/r_grey.dmi'
 	deform = 'icons/mob/human_races/r_def_grey.dmi'
 	language = "Psionic Communication"

@@ -1,6 +1,7 @@
 /datum/species/skeleton
 	name = "Skeleton"
 	name_plural = "Skeletons"
+	id = SPECIES_SKELETON
 
 	blurb = "Spoopy and scary."
 

@@ -1,6 +1,7 @@
 /datum/species/shadow/ling
 	//Normal shadowpeople but with enhanced effects
 	name = "Shadowling"
+	id = SPECIES_SHADOWLING
 
 	icobase = 'icons/mob/human_races/r_shadowling.dmi'
 	deform = 'icons/mob/human_races/r_shadowling.dmi'
