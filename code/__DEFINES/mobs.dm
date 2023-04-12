@@ -192,13 +192,11 @@
 #define INCORPOREAL_NINJA 2
 #define INCORPOREAL_REVENANT 3
 
-
-
+// Defines for species
 #define SPECIES_ABDUCTOR "abductor"
 #define SPECIES_ASHWALKER "ashwalker"
 #define SPECIES_DIONA "diona"
 #define SPECIES_DRASK "drask"
-#define SPECIES_GOLEM "golem"
 #define SPECIES_GREY "grey"
 #define SPECIES_HUMAN "human"
 #define SPECIES_KIDAN "kidan"
@@ -217,6 +215,27 @@
 #define SPECIES_VOX "vox"
 #define SPECIES_VULPKANIN "vulpkanin"
 #define SPECIES_WRYN "wryn"
+
+// Defines for Golem Species IDs
+#define SPECIES_GOLEM "golem"
+#define SPECIES_GOLEM_GLASS "glass_golem"
+#define SPECIES_GOLEM_PLASTEEL "plasteel_golem"
+#define SPECIES_GOLEM_SAND "sand_golem"
+#define SPECIES_GOLEM_PLASMA "plasma_golem"
+#define SPECIES_GOLEM_DIAMOND "diamond_golem"
+#define SPECIES_GOLEM_GOLD "gold_golem"
+#define SPECIES_GOLEM_SILVER "silver_golem"
+#define SPECIES_GOLEM_URANIUM "uranium_golem"
+#define SPECIES_GOLEM_BANANIUM "bananium_golem"
+#define SPECIES_GOLEM_TRANQUILLITE "tranquillite_golem"
+#define SPECIES_GOLEM_TITANIUM "titanium_golem"
+#define SPECIES_GOLEM_PLASTITANIUM "plastitanium_golem"
+#define SPECIES_GOLEM_ALIEN "alloy_golem"
+#define SPECIES_GOLEM_WOOD "wood_golem"
+#define SPECIES_GOLEM_BLUESPACE "bluespace_golem"
+#define SPECIES_GOLEM_ADAMANTINE "adamantine_golem"
+#define SPECIES_GOLEM_PLASTIC "plastic_golem"
+#define SPECIES_GOLEM_BRASS "brass_golem"
 
 // Hearing protection
 #define HEARING_PROTECTION_NONE	0
