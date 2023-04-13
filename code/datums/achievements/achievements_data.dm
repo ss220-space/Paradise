@@ -123,8 +123,6 @@ GLOBAL_LIST_EMPTY(achievement_data)
 	ret_data["achievements"] = list()
 	ret_data["user_key"] = user.ckey
 
-	//var/datum/asset/simple/achievements/assets = get_asset_datum(/datum/asset/simple/achievements)
-	//This should be split into static data later
 	for(var/achievement_type in SSmedals.awards)
 		if(!SSmedals.awards[achievement_type].name) //No name? we a subtype.
 			continue
@@ -133,7 +131,6 @@ GLOBAL_LIST_EMPTY(achievement_data)
 		var/list/this = list(
 			"name" = SSmedals.awards[achievement_type].name,
 			"desc" = SSmedals.awards[achievement_type].desc,
-			//"icon_class" = assets.icon_class_name(SSmedals.awards[achievement_type].icon),
 			"icon_class" = SSmedals.awards[achievement_type].icon,
 			"category" = SSmedals.awards[achievement_type].category,
 			"value" = data[achievement_type],
