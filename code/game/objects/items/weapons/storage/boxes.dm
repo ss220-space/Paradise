@@ -1319,6 +1319,18 @@
                 magazine.update_icon()
             return
 
+/obj/item/storage/box/sec
+	name = "officer starter kit"
+	desc = "Коробка, что вмещает в себе все нужное дабы стать офицером! Мелким шрифтом вы можете разобрать: Не включает действительно все."
+
+/obj/item/storage/box/sec/New()
+	..()
+	new /obj/item/clothing/head/helmet
+	new /obj/item/clothing/under/rank/security
+	new /obj/item/clothing/shoes/jackboots
+	new /obj/item/clothing/gloves/combat
+	new /obj/item/storage/backpack/security
+
 #undef NODESIGN
 #undef NANOTRASEN
 #undef SYNDI
