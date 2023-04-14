@@ -324,13 +324,6 @@
 		icon_dead 		= "rat_[mouse_color]_dead"
 		icon_resting 	= "rat_[mouse_color]_sleep"
 
-/mob/living/simple_animal/mouse/rat/pull_constraint(atom/movable/AM, show_message = FALSE) //Prevents mouse from pulling things
-	if(istype(AM, /obj/item/reagent_containers/food/snacks/cheesewedge))
-		return TRUE // Get dem
-	if(show_message)
-		to_chat(src, "<span class='warning'>You are too small to pull anything except cheese.</span>")
-	return FALSE
-
 /mob/living/simple_animal/mouse/rat/gray
 	name = "gray rat"
 	real_name = "gray rat"
