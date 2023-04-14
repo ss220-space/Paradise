@@ -1325,11 +1325,11 @@
 
 /obj/item/storage/box/sec/New()
 	..()
-	new /obj/item/clothing/head/helmet
-	new /obj/item/clothing/under/rank/security
-	new /obj/item/clothing/shoes/jackboots
-	new /obj/item/clothing/gloves/combat
-	new /obj/item/storage/backpack/security
+	new /obj/item/clothing/head/helmet(src)
+	new /obj/item/clothing/under/rank/security(src)
+	new /obj/item/clothing/shoes/jackboots(src)
+	new /obj/item/clothing/gloves/combat(src)
+	new /obj/item/storage/backpack/security(src)
 
 #undef NODESIGN
 #undef NANOTRASEN
