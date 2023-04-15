@@ -47,10 +47,14 @@
 		return
 	var/mob/living/carbon/human/ninja = affecting
 	add_attack_logs(ninja, ninja, "Self-dusted")
-	ninja.visible_message(span_warning("[ninja] мгновенно сгорает в ослепительной вспышке!"),span_reallybig("Программа [span_warning("\"Автораспыления\"")] активирована!</span>\n \
-																												[span_revenwarning("Стихли все звуки. \n \
-																																	Вокруг мёртвая Тишина. \n \
-																																	Пепел сакуры... \n")]"))
+	ninja.visible_message(
+		span_warning("[ninja] мгновенно сгорает в ослепительной вспышке!"),
+		span_reallybig(
+			"Программа [span_warning("\"Автораспыления\"")] активирована!</span>\n\
+			[span_revenwarning("Стихли все звуки,\n\
+								Исчезли раздумия.\n\
+								Мир прощай бренный...\n")]")
+	)
 
 	ninja.drop_ungibbable_items()
 
