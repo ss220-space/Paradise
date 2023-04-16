@@ -160,6 +160,7 @@
 	desc = "Used to upload laws to Cyborgs."
 	icon_screen = "command"
 	icon_keyboard = "med_key"
+	authorization_access = ACCESS_ROBOTICS
 	circuit = /obj/item/circuitboard/borgupload
 
 /obj/machinery/computer/aiupload/cyborg/choose_target(mob/user)
