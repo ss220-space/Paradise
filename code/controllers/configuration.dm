@@ -313,6 +313,7 @@
 	var/default_map = null
 	var/override_map = null
 
+	var/hydration_enabled = FALSE
 	var/water_poison = FALSE
 
 /datum/configuration/New()
@@ -898,6 +899,9 @@
 
 				if("override_map")
 					config.override_map = value
+
+				if("hydration_enabled")
+					config.hydration_enabled = TRUE
 
 				if("water_poison")
 					config.water_poison = TRUE

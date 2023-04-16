@@ -4,6 +4,8 @@
 
 ///Adjust the hydration of a mob
 /mob/proc/adjust_hydration(change)
+	if(!config.hydration_enabled)
+		return
 	hydration = clamp(hydration + change, 0, HYDRATION_LEVEL_FULL)
 
 /mob/living/carbon/human/adjust_hydration(change)
@@ -13,6 +15,8 @@
 
 ///Force set the mob hydration
 /mob/proc/set_hydration(change)
+	if(!config.hydration_enabled)
+		return
 	hydration = clamp(change, 0, HYDRATION_LEVEL_FULL)
 
 /mob/living/carbon/human/set_hydration(change)
@@ -28,6 +32,8 @@
 
 /mob/living/carbon/human/handle_chemicals_in_body()
 	. = ..()
+	if(!config.hydration_enabled)
+		return
 	if(NO_THIRST in dna.species.species_traits)
 		if(hydration >= 0 && stat != DEAD)
 			handle_thirst_alerts()
@@ -48,6 +54,8 @@
 
 /mob/living/carbon/Move(NewLoc, direct)
 	. = ..()
+	if(!config.hydration_enabled)
+		return
 	if(!.)
 		return
 	if(hydration && stat != DEAD)
@@ -58,7 +66,7 @@
 /mob/living/carbon/human/proc/handle_thirst_alerts()
 	if(!hydration_alert)
 		return
-	if((NO_THIRST in dna.species.species_traits) || mind?.vampire)
+	if((NO_THIRST in dna.species.species_traits) || mind?.vampire || !config.hydration_enabled)
 		hydration_alert.icon_state = null
 		return
 	switch(hydration)
