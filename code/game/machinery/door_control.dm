@@ -70,50 +70,44 @@
 
 	if(normaldoorcontrol)
 		for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
-			if(safety_z_check && D.z != z)
+			if(safety_z_check && D.z != z || D.id_tag != id)
 				continue
-			if(D.id_tag == id)
-				if(specialfunctions & OPEN)
-					if(D.density)
-						spawn(0)
-							D.open()
-							return
-					else
-						spawn(0)
-							D.close()
-							return
-				if(desiredstate == 1)
-					if(specialfunctions & IDSCAN)
-						D.aiDisabledIdScanner = 1
-					if(specialfunctions & BOLTS)
-						D.lock()
-					if(specialfunctions & SHOCK)
-						D.electrify(-1)
-					if(specialfunctions & SAFE)
-						D.safe = 0
+			if(specialfunctions & OPEN)
+				if(D.density)
+					spawn(0)
+						D.open()
 				else
-					if(specialfunctions & IDSCAN)
-						D.aiDisabledIdScanner = 0
-					if(specialfunctions & BOLTS)
-						D.unlock()
-					if(specialfunctions & SHOCK)
-						D.electrify(0)
-					if(specialfunctions & SAFE)
-						D.safe = 1
+					spawn(0)
+						D.close()
+			if(desiredstate == 1)
+				if(specialfunctions & IDSCAN)
+					D.aiDisabledIdScanner = 1
+				if(specialfunctions & BOLTS)
+					D.lock()
+				if(specialfunctions & SHOCK)
+					D.electrify(-1)
+				if(specialfunctions & SAFE)
+					D.safe = 0
+			else
+				if(specialfunctions & IDSCAN)
+					D.aiDisabledIdScanner = 0
+				if(specialfunctions & BOLTS)
+					D.unlock()
+				if(specialfunctions & SHOCK)
+					D.electrify(0)
+				if(specialfunctions & SAFE)
+					D.safe = 1
 
 	else
 		for(var/obj/machinery/door/poddoor/M in GLOB.airlocks)
-			if(safety_z_check && M.z != z)
+			if(safety_z_check && M.z != z || M.id_tag != id)
 				continue
-			if(M.id_tag == id)
-				if(M.density)
-					spawn( 0 )
-						M.open()
-						return
-				else
-					spawn( 0 )
-						M.close()
-						return
+			if(M.density)
+				spawn(0)
+					M.open()
+			else
+				spawn(0)
+					M.close()
 
 	desiredstate = !desiredstate
 	spawn(15)
