@@ -72,7 +72,7 @@
 
 //ALCOHOL!
 /datum/reagent/consumable/ethanol
-	hydration_factor = -1 * REAGENTS_METABOLISM
+	hydration_factor = 1 * REAGENTS_METABOLISM
 
 //FOOD!
 
