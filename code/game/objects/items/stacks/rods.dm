@@ -91,6 +91,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	item_state = "f_rods"
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_NORMAL
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	force = 9.0
 	throwforce = 10.0
 	throw_speed = 3
