@@ -16,6 +16,7 @@
 	a_intent = INTENT_HARM
 	can_change_intents = 0
 	stop_automated_movement = 1
+	universal_speak = TRUE
 	flying = TRUE
 	attack_sound = 'sound/weapons/punch1.ogg'
 	minbodytemp = 0
@@ -28,6 +29,7 @@
 	obj_damage = 40
 	melee_damage_lower = 15
 	melee_damage_upper = 15
+	move_resist = MOVE_FORCE_STRONG
 	AIStatus = AI_OFF
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/ectoplasm = 1)
 	var/summoned = FALSE

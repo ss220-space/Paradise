@@ -23,6 +23,12 @@
 	invocation_type = "none"
 	damaging = 0
 
+/obj/effect/proc_holder/spell/targeted/lightning/guardian
+	name = "Малая молния"
+	desc = "Копит в себе заряд электричества, поражающий всех врагов. Чем больше зарядка, тем выше урон и дальность. Не так силен как оригинал, но все еще опасен. После выпуска молнии имеет перезарядку в 30 секунд."
+	clothes_req = 0
+	invocation = "За С+инд+ик+ат!"
+
 /obj/effect/proc_holder/spell/targeted/lightning/Click()
 	if(!ready && start_time == 0)
 		if(cast_check(TRUE, FALSE, usr))
@@ -82,6 +88,28 @@
 		var/bounces = round(energy/20)
 		Bolt(user,target,0,bounces,user)
 	Reset(user)
+
+/obj/effect/proc_holder/spell/targeted/lightning/guardian/cast(list/targets, mob/user = usr)
+	ready = 0
+	var/mob/living/target = targets[1]
+	Snd = sound(null, repeat = 0, wait = 1, channel = Snd.channel) //byond, you suck.
+	playsound(get_turf(user), Snd, 50, 0)
+	if(get_dist(user,target)>range)
+		to_chat(user, "<span class='notice'>They are too far away!</span>")
+		Reset(user)
+		return
+
+	playsound(get_turf(user), 'sound/magic/lightningbolt.ogg', 50, 1)
+	user.Beam(target,icon_state="lightning[rand(1,12)]",icon='icons/effects/effects.dmi',time=5)
+
+	var/energy = min(world.time - start_time,100)
+	if(damaging)
+		Bolt(user,target,max(15,energy/4),5,user) //5 bounces for energy/4 burn
+	else
+		var/bounces = round(energy/20)
+		Bolt(user,target,0,bounces,user)
+	Reset(user)
+
 
 /obj/effect/proc_holder/spell/targeted/lightning/proc/Bolt(mob/origin, mob/living/target, bolt_energy, bounces, mob/user = usr)
 	origin.Beam(target,icon_state="lightning[rand(1,12)]", icon='icons/effects/effects.dmi', time=5)
