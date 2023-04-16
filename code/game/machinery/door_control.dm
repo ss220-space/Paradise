@@ -54,20 +54,7 @@
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
 
-/obj/machinery/door_control/attack_hand(mob/user as mob)
-	add_fingerprint(user)
-	if(stat & (NOPOWER|BROKEN))
-		return
-
-	if(!allowed(user) && (wires & 1) && !user.can_advanced_admin_interact())
-		to_chat(user, "<span class='warning'>Access Denied.</span>")
-		flick("[initial(icon_state)]-denied",src)
-		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
-		return
-
-	use_power(5)
-	icon_state = "[initial(icon_state)]-inuse"
-
+/obj/machinery/door_control/proc/do_main_action(mob/user as mob)
 	if(normaldoorcontrol)
 		for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
 			if(safety_z_check && D.z != z || D.id_tag != id)
@@ -110,6 +97,23 @@
 					M.close()
 
 	desiredstate = !desiredstate
+
+/obj/machinery/door_control/attack_hand(mob/user as mob)
+	add_fingerprint(user)
+	if(stat & (NOPOWER|BROKEN))
+		return
+
+	if(!allowed(user) && (wires & 1) && !user.can_advanced_admin_interact())
+		to_chat(user, "<span class='warning'>Access Denied.</span>")
+		flick("[initial(icon_state)]-denied",src)
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+		return
+
+	use_power(5)
+	icon_state = "[initial(icon_state)]-inuse"
+
+	do_main_action(user)
+
 	addtimer(CALLBACK(src, .proc/update_icon), 15)
 
 /obj/machinery/door_control/power_change()
