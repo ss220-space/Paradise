@@ -55,7 +55,7 @@
 		return attack_hand(user)
 
 /obj/machinery/door_control/attack_hand(mob/user as mob)
-	add_fingerprint(usr)
+	add_fingerprint(user)
 	if(stat & (NOPOWER|BROKEN))
 		return
 
@@ -67,7 +67,6 @@
 
 	use_power(5)
 	icon_state = "[initial(icon_state)]-inuse"
-	add_fingerprint(user)
 
 	if(normaldoorcontrol)
 		for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
