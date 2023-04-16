@@ -110,12 +110,13 @@
 					M.close()
 
 	desiredstate = !desiredstate
-	spawn(15)
-		if(!(stat & NOPOWER))
-			icon_state = initial(icon_state)
+	addtimer(CALLBACK(src, .proc/update_icon), 15)
 
 /obj/machinery/door_control/power_change()
 	..()
+	update_icon()
+
+/obj/machinery/door_control/update_icon()
 	if(stat & NOPOWER)
 		icon_state = "[initial(icon_state)]-p"
 	else
