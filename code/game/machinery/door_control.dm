@@ -3,7 +3,6 @@
 	desc = "A remote control-switch for a door."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "doorctrl"
-	var/icon_button = "doorctrl" //Для хранения начального icon_state и перезаписи при разных взаимодействиях на нужный
 	power_channel = ENVIRON
 	var/id = null
 	var/safety_z_check = 1
@@ -30,6 +29,9 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
+
+/obj/machinery/door_control/alt
+	icon_state = "altdoorctrl"
 
 /obj/machinery/door_control/attack_ai(mob/user as mob)
 	if(wires & 2)
@@ -59,12 +61,12 @@
 
 	if(!allowed(user) && (wires & 1) && !user.can_advanced_admin_interact())
 		to_chat(user, "<span class='warning'>Access Denied.</span>")
-		flick("[icon_button]-denied",src)
+		flick("[initial(icon_state)]-denied",src)
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 
 	use_power(5)
-	icon_state = "[icon_button]-inuse"
+	icon_state = "[initial(icon_state)]-inuse"
 	add_fingerprint(user)
 
 	if(normaldoorcontrol)
@@ -117,11 +119,11 @@
 	desiredstate = !desiredstate
 	spawn(15)
 		if(!(stat & NOPOWER))
-			icon_state = "[icon_button]"
+			icon_state = initial(icon_state)
 
 /obj/machinery/door_control/power_change()
 	..()
 	if(stat & NOPOWER)
-		icon_state = "[icon_button]-p"
+		icon_state = "[initial(icon_state)]-p"
 	else
-		icon_state = "[icon_button]"
+		icon_state = initial(icon_state)
