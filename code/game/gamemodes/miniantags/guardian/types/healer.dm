@@ -86,7 +86,7 @@
 		to_chat(src, "<span class='danger'>Нужно быть в хозяине для переключения режимов!</span>")
 
 /mob/living/simple_animal/hostile/guardian/healer/AttackingTarget()
-	if(toggle)
+	if(!toggle)
 		var/mob/living/L = target
 		if(istype(L))
 			L.adjustToxLoss(15)

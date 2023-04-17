@@ -16,7 +16,7 @@
 	set name = "Боевой клич"
 	set category = "Guardian"
 	set desc = "Выбери крик при ударе"
-	var/input = stripped_input(src,"Какой ты хочешь боевой клич при ударе? максимум 8 символов.", ,"", 6)
+	var/input = stripped_input(src,"Какой ты хочешь боевой клич при ударе? максимум 8 символов.", ,"", 8)
 	if(input)
 		battlecry = input
 
@@ -26,7 +26,7 @@
 		if(length(battlecry) > 8)//no more then 8 letters in a battle cry.
 			visible_message("<span class='danger'>[src] punches [target]!</span>")
 		else
-			say("[battlecry][battlecry][battlecry][battlecry][battlecry]", TRUE)
+			say("[battlecry]", TRUE)
 		playsound(loc, attack_sound, 50, 1, 1)
 		playsound(loc, attack_sound, 50, 1, 1)
 		playsound(loc, attack_sound, 50, 1, 1)
