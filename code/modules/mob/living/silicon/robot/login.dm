@@ -2,4 +2,3 @@
 	..()
 	regenerate_icons()
 	show_laws(0)
-	update_icons()
