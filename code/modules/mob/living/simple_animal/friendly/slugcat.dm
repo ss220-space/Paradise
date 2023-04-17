@@ -141,9 +141,11 @@
 	overlays.Cut()
 	..()
 
+	icon_state = initial(icon_state)
+
 	if(inventory_hand)
 		if(istype(inventory_hand, /obj/item/twohanded/spear))
-			speared()
+			icon_state = "[icon_state]_spear"
 
 	if(inventory_head)
 		var/image/head_icon
@@ -173,10 +175,7 @@
 	. = ..()
 
 /mob/living/simple_animal/pet/slugcat/proc/speared()
-	icon_state = "[icon_state]_spear"
-
 	var/obj/item/twohanded/spear = inventory_hand
-
 	attacktext = "бьет копьем"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	melee_damage_type = BRUTE
@@ -186,7 +185,6 @@
 	obj_damage = spear.force
 
 /mob/living/simple_animal/pet/slugcat/proc/unspeared()
-	icon_state = initial(icon_state)
 	attacktext = initial(attacktext)
 	attack_sound = initial(attack_sound)
 	melee_damage_type = initial(melee_damage_type)
