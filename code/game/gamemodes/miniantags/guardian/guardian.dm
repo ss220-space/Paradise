@@ -5,7 +5,7 @@
 	speak_emote = list("intones")
 	tts_seed = "Earth"
 	bubble_icon = "guardian"
-	response_help  = "passes through"
+	response_help  = "gently pets"
 	response_disarm = "flails at"
 	response_harm   = "punches"
 	icon = 'icons/mob/guardian.dmi'
