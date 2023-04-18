@@ -5750,9 +5750,7 @@
 	},
 /area/maintenance/bar)
 "aPA" = (
-/obj/machinery/vending/clothing/departament/security{
-	req_access = list(63)
-	},
+/obj/machinery/vending/clothing/departament/security,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -11708,9 +11706,9 @@
 	pixel_y = 7
 	},
 /obj/item/pen,
-/obj/item/pen{
-	pixel_x = 4;
-	pixel_y = 4
+/obj/item/taperecorder{
+	pixel_x = 5;
+	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel/grimy,
 /area/civilian/vacantoffice)
@@ -12691,8 +12689,10 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/item/clipboard,
-/obj/item/toy/figure/hop,
+/obj/machinery/recharger{
+	pixel_x = 1;
+	pixel_y = 3
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads/hop)
 "bAU" = (
@@ -13266,6 +13266,7 @@
 	layer = 2.1
 	},
 /obj/item/folder,
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/plating,
 /area/crew_quarters/trading)
 "bDd" = (
@@ -15567,10 +15568,10 @@
 /turf/simulated/wall,
 /area/hallway/secondary/entry/commercial)
 "bOt" = (
-/obj/item/flag/nt,
 /obj/item/radio/intercom{
 	pixel_y = 24
 	},
+/obj/structure/closet/secure_closet/ntrep,
 /turf/simulated/floor/wood,
 /area/ntrep)
 "bOu" = (
@@ -19766,7 +19767,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "cgE" = (
-/obj/structure/closet/secure_closet/ntrep,
+/obj/machinery/papershredder,
 /turf/simulated/floor/wood,
 /area/ntrep)
 "cgI" = (
@@ -20171,8 +20172,7 @@
 "ciT" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	name = "Magazines for SMG";
-	req_access = list(3)
+	name = "Magazines for SMG"
 	},
 /obj/item/ammo_box/magazine/wt550m9{
 	pixel_x = -4;
@@ -27112,7 +27112,11 @@
 	},
 /area/storage/tech)
 "cMl" = (
-/obj/structure/filingcabinet/chestdrawer,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/machinery/disposal,
+/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
 "cMp" = (
@@ -31642,8 +31646,11 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/hand_tele,
-/obj/item/coin/plasma,
+/obj/item/paper_bin,
+/obj/item/hand_tele{
+	pixel_x = 10
+	},
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain)
 "deN" = (
@@ -31852,6 +31859,7 @@
 /obj/structure/table/wood,
 /obj/item/pen/multi/gold,
 /obj/item/stamp/magistrate,
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/carpet{
 	icon = 'icons/turf/floors.dmi'
 	},
@@ -32186,9 +32194,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/clothing/mask/cigarette/cigar{
-	pixel_x = 5
-	},
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -32483,14 +32489,13 @@
 	},
 /area/maintenance/turbine)
 "dhW" = (
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable,
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
 	pixel_x = -26
 	},
-/obj/item/twohanded/required/kirbyplants,
+/obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
 "dhX" = (
@@ -33135,7 +33140,6 @@
 /turf/simulated/wall/r_wall,
 /area/toxins/mixing)
 "dkJ" = (
-/obj/structure/table/reinforced,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Research Director's Desk";
@@ -33144,9 +33148,8 @@
 	pixel_x = -30;
 	pixel_y = -2
 	},
-/obj/item/clipboard,
-/obj/item/toy/figure/rd,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/papershredder,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
 "dkK" = (
@@ -37158,7 +37161,6 @@
 	},
 /area/library)
 "dBE" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -37166,6 +37168,7 @@
 	c_tag = "Library North";
 	dir = 8
 	},
+/obj/machinery/papershredder,
 /turf/simulated/floor/wood,
 /area/library)
 "dBF" = (
@@ -38027,6 +38030,7 @@
 "dFa" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -55117,15 +55121,17 @@
 /turf/simulated/floor/plating/airless,
 /area/engine/engineering)
 "gHm" = (
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
-/obj/machinery/disposal,
-/obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/alarm{
 	dir = 4;
 	pixel_x = -22
 	},
+/obj/structure/table/reinforced,
+/obj/item/clipboard,
+/obj/item/toy/figure/rd{
+	pixel_x = -7
+	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
 "gHp" = (
@@ -56515,6 +56521,7 @@
 /obj/structure/table/glass,
 /obj/item/paper_bin,
 /obj/item/pen/multi,
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -58642,8 +58649,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/structure/disposalpipe/sortjunction{
+	dir = 4;
+	name = "RD Junction";
+	sortType = 13
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
@@ -59051,7 +59060,7 @@
 /area/atmos)
 "hAY" = (
 /obj/structure/table/wood,
-/obj/item/taperecorder,
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/plasteel/grimy,
 /area/civilian/vacantoffice)
 "hBg" = (
@@ -61513,8 +61522,7 @@
 "igH" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	name = "Security SMG's";
-	req_access = list(3)
+	name = "Security SMG's"
 	},
 /obj/item/gun/projectile/automatic/wt550{
 	pixel_x = -3;
@@ -73649,6 +73657,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/plating,
 /area/maintenance/detectives_office)
 "lgN" = (
@@ -74845,6 +74854,7 @@
 	dir = 4;
 	pixel_y = 32
 	},
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
@@ -82919,7 +82929,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 28
 	},
-/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/papershredder,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -88029,6 +88039,7 @@
 "ovX" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/cigarettes/dromedaryco,
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "owd" = (
@@ -88635,11 +88646,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
-/obj/structure/bed/dogbed{
-	desc = "A comfy-looking spider bed. You can even strap your pet in, just in case the gravity turns off.";
-	name = "spider bed"
-	},
-/mob/living/simple_animal/hostile/retaliate/araneus,
+/obj/machinery/papershredder,
 /turf/simulated/floor/wood,
 /area/security/hos)
 "oCP" = (
@@ -91752,11 +91759,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "ppf" = (
-/obj/structure/table/wood,
-/obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
-	},
+/obj/machinery/papershredder,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads/hop)
 "ppp" = (
@@ -93004,11 +93007,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
-	},
-/obj/structure/disposalpipe/sortjunction{
-	dir = 4;
-	name = "RD Junction";
-	sortType = 13
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
@@ -95302,6 +95300,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/table/reinforced,
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/lawoffice)
 "qcB" = (
@@ -102173,6 +102172,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/disposalpipe/sortjunction{
+	dir = 4;
+	name = "RD Junction";
+	sortType = 13
+	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
 "rDm" = (
@@ -105802,7 +105806,6 @@
 /obj/item/aicard,
 /obj/item/circuitboard/aicore,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
 "svo" = (
@@ -106024,6 +106027,10 @@
 	req_access = list(20)
 	},
 /obj/item/folder/blue,
+/obj/item/coin/plasma{
+	pixel_x = 10
+	},
+/obj/item/pen/fancy,
 /obj/item/stamp/captain,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain)
@@ -108696,6 +108703,7 @@
 "tfd" = (
 /obj/structure/table/wood,
 /obj/item/taperecorder,
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/carpet,
 /area/ntrep)
 "tff" = (
@@ -112687,13 +112695,10 @@
 /turf/simulated/wall/r_wall,
 /area/medical/medbay2)
 "tYL" = (
-/obj/structure/table/wood,
 /obj/machinery/status_display{
 	pixel_x = 32
 	},
-/obj/machinery/photocopier/faxmachine/longrange{
-	department = "Captain's Office"
-	},
+/obj/machinery/papershredder,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -114899,7 +114904,11 @@
 "uAd" = (
 /obj/structure/table/wood,
 /obj/item/clipboard,
-/obj/item/toy/figure/hos,
+/obj/item/toy/figure/hos{
+	pixel_y = 7;
+	pixel_x = 7
+	},
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -117350,7 +117359,6 @@
 	},
 /area/hallway/secondary/exit)
 "vcG" = (
-/obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/door_control{
 	id = "lawyer";
 	name = "Internal Affairs Privacy Shutters Control";
@@ -117359,6 +117367,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/papershredder,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/lawoffice)
 "vcX" = (
@@ -119075,7 +119084,8 @@
 	icon_state = "4-8"
 	},
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
+/obj/item/clipboard,
+/obj/item/toy/figure/hop,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark";
@@ -119489,6 +119499,11 @@
 /obj/machinery/light_switch{
 	pixel_x = 10;
 	pixel_y = -24
+	},
+/mob/living/simple_animal/hostile/retaliate/araneus,
+/obj/structure/bed/dogbed{
+	desc = "A comfy-looking spider bed. You can even strap your pet in, just in case the gravity turns off.";
+	name = "spider bed"
 	},
 /turf/simulated/floor/wood,
 /area/security/hos)
@@ -121335,6 +121350,7 @@
 	req_access = list(74);
 	normaldoorcontrol = 1
 	},
+/obj/machinery/papershredder,
 /turf/simulated/floor/carpet{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "carpet13-5"
@@ -123014,14 +123030,13 @@
 	},
 /area/crew_quarters/locker)
 "wtj" = (
-/obj/structure/rack,
-/obj/item/lock_buster,
 /obj/machinery/power/apc{
 	name = "south bump";
 	pixel_y = -26
 	},
 /obj/structure/cable,
 /obj/effect/decal/warning_stripes/north,
+/obj/machinery/papershredder,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -123042,8 +123057,9 @@
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
-/obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/warning_stripes/northeast,
+/obj/structure/rack,
+/obj/item/lock_buster,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -123553,7 +123569,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/twohanded/required/kirbyplants,
+/obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/lawoffice)
 "wzK" = (
@@ -126405,6 +126421,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/table/reinforced,
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/lawoffice)
 "xiz" = (
@@ -128844,6 +128861,9 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
+/obj/item/clothing/mask/cigarette/cigar{
+	pixel_x = 5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -129782,8 +129802,9 @@
 	dir = 1;
 	layer = 2.9
 	},
-/obj/item/paper_bin,
-/obj/item/pen/fancy,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Captain's Office"
+	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain)
 "xQz" = (
