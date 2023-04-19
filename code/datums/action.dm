@@ -498,8 +498,7 @@
 
 /datum/action/item_action/gravity_jump/Trigger()
 	if(!..())
-        return FALSE
-		return FALSE
+    	return FALSE
 
 	var/obj/item/clothing/shoes/magboots/gravity/G = target
 	G.dash(usr)
