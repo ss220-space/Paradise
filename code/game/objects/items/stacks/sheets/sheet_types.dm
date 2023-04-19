@@ -9,6 +9,7 @@
  * Runed Metal (cult)
  * Brass (clockwork cult)
  * Bamboo
+ * Cheese
  */
 
 /*
@@ -265,6 +266,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list(
 	null,
 	new /datum/stack_recipe("Backpack", /obj/item/storage/backpack, 4),
 	new /datum/stack_recipe("Dufflebag", /obj/item/storage/backpack/duffel, 6),
+	new /datum/stack_recipe("Garmentbag", /obj/item/storage/garmentbag, 8),
 	new /datum/stack_recipe_list("Job specific bags", list(
 		new /datum/stack_recipe("Bio bag", /obj/item/storage/bag/bio, 4),
 		new /datum/stack_recipe("Book bag", /obj/item/storage/bag/books, 4),
@@ -674,3 +676,36 @@ GLOBAL_LIST_INIT(bamboo_recipes, list(
 /obj/item/stack/sheet/bamboo/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.bamboo_recipes
 	return ..()
+
+
+/*
+ * Cheese
+ */
+
+GLOBAL_LIST_INIT(cheese_recipes, list(
+	new /datum/stack_recipe("Cheesus statue", /obj/structure/statue/cheese/cheesus, 5, one_per_turf = TRUE, time = 100, on_floor = TRUE),
+))
+
+/obj/item/stack/sheet/cheese
+	name = "reinforced cheese"
+	desc = "A stack of cheese that seems sturdier than regular cheese."
+	icon_state = "sheet-cheese"
+	item_state = "sheet-cheese"
+	icon = 'icons/obj/items.dmi'
+	singular_name = "reinforced cheese block"
+	sheettype = "cheese"
+	force = 5
+	throwforce = 5
+	w_class = WEIGHT_CLASS_NORMAL
+	throw_speed = 1
+	throw_range = 3
+	max_amount = 15
+	resistance_flags = FLAMMABLE
+	merge_type = /obj/item/stack/sheet/cheese
+
+/obj/item/stack/sheet/cheese/Initialize(mapload, new_amount, merge = TRUE)
+	recipes = GLOB.cheese_recipes
+	. = ..()
+
+/obj/item/stack/sheet/cheese/fifteen
+	amount = 15

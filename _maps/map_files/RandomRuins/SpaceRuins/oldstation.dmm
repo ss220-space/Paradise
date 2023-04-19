@@ -2927,6 +2927,7 @@
 "yO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/paper/safe_code{
+	language = "Sol Common";
 	owner = "theta";
 	pixel_x = -6;
 	pixel_y = -6
@@ -6126,7 +6127,6 @@
 /area/ruin/space/ancientstation/hydroponics)
 "WO" = (
 /obj/structure/table,
-/obj/item/book/manual/security_space_law,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;

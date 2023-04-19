@@ -31,7 +31,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	var/datum/powernet/powernet
 	name = "power cable"
 	desc = "A flexible superconducting cable for heavy-duty power transfer"
-	icon = 'icons/obj/power_cond/power_cond_white.dmi'
+	icon = 'icons/obj/engines_and_power/power_cond/power_cond_white.dmi'
 	icon_state = "0-1"
 	var/d1 = 0
 	var/d2 = 1
@@ -476,12 +476,12 @@ By design, d1 is the smallest direction and d2 is the highest
 // Definitions
 ////////////////////////////////
 
-GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restraints", /obj/item/restraints/handcuffs/cable, 15)))
+GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restraints("cable restraints", /obj/item/restraints/handcuffs/cable, 15)))
 
 /obj/item/stack/cable_coil
 	name = "cable coil"
 	singular_name = "cable"
-	icon = 'icons/obj/power.dmi'
+	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "coil"
 	item_state = "coil_red"
 	amount = MAXCOIL

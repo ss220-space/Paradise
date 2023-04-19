@@ -636,6 +636,11 @@ BLIND     // can't see anything
 	else
 		to_chat(user, "<span class='notice'>You attempt to button up the velcro on \the [src], before promptly realising how foolish you are.</span>")
 
+// Proc used to check if suit storage is limited by item weight
+// Allows any suit to have their own weight limit for items that can be equipped into suit storage
+/obj/item/clothing/suit/proc/can_store_weighted(obj/item/I, item_weight = WEIGHT_CLASS_BULKY)
+	return I.w_class <= item_weight
+
 /obj/item/clothing/suit/equipped(var/mob/living/carbon/human/user, var/slot) //Handle tail-hiding on a by-species basis.
 	..()
 	if(ishuman(user) && hide_tail_by_species && slot == slot_wear_suit)
@@ -748,6 +753,30 @@ BLIND     // can't see anything
 	QDEL_LIST(accessories)
 	return ..()
 
+
+/obj/item/clothing/under/dropped(mob/user, silent)
+	..()
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(H.get_item_by_slot(slot_w_uniform) == src)
+		for(var/obj/item/clothing/accessory/A in accessories)
+			A.attached_unequip()
+
+/obj/item/clothing/under/equipped(mob/user, slot, initial)
+	..()
+	if(!ishuman(user))
+		return
+	if(slot == slot_w_uniform)
+		for(var/obj/item/clothing/accessory/A in accessories)
+			A.attached_equip()
+
+/*
+  * # can_attach_accessory
+  *
+  * Arguments:
+  * * A - The accessory object being checked. MUST BE TYPE /obj/item/clothing/accessory
+*/
 /obj/item/clothing/under/proc/can_attach_accessory(obj/item/clothing/accessory/A)
 	if(istype(A))
 		. = TRUE

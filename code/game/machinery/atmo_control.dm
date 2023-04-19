@@ -113,11 +113,11 @@
 	multitool_menu = new /datum/multitool_menu/idtag/freq/air_sensor(src)
 
 /obj/machinery/computer/general_air_control
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_screen = "tank"
 	icon_keyboard = "atmos_key"
 	circuit = /obj/item/circuitboard/air_management
-	req_access_txt = "24;10"
+	req_access = list(ACCESS_ENGINE, ACCESS_ATMOSPHERICS)
 
 	name = "Computer"
 
@@ -254,7 +254,7 @@
 
 /obj/machinery/computer/general_air_control/large_tank_control
 	circuit = /obj/item/circuitboard/large_tank_control
-	req_access_txt = "24;10"
+	req_access = list(ACCESS_ENGINE, ACCESS_ATMOSPHERICS)
 
 	var/input_tag
 	var/output_tag
@@ -462,7 +462,7 @@
 	src.updateUsrDialog()
 
 /obj/machinery/computer/general_air_control/fuel_injection
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_screen = "atmos"
 	circuit = /obj/item/circuitboard/injector_control
 

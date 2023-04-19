@@ -181,22 +181,9 @@
 			last_message_time = world.time
 		return FALSE
 
-/obj/vehicle/lavaboat/Destroy()
-	for(var/mob/living/M in buckled_mobs)
-		M.weather_immunities -= "lava"
-	return ..()
-
-/obj/vehicle/lavaboat/user_buckle_mob(mob/living/M, mob/user)
-	M.weather_immunities |= "lava"
-	return ..()
-
-/obj/vehicle/lavaboat/unbuckle_mob(mob/living/buckled_mob, force)
-	. = ..()
-	buckled_mob.weather_immunities -= "lava"
-
 /obj/item/oar
 	name = "oar"
-	icon = 'icons/obj/vehicles.dmi'
+	icon = 'icons/obj/vehicles/vehicles.dmi'
 	icon_state = "oar"
 	item_state = "rods"
 	desc = "Not to be confused with the kind Research hassles you for."
