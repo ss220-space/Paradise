@@ -119,7 +119,7 @@
 		playsound(get_turf(current), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 		var/list/possible_targets = new
 		for(var/mob/living/M in view_or_range(range,target,"view"))
-			if(user == M || target == M && los_check(current,M)) // || origin == M ? Not sure double shockings is good or not
+			if(user == M || target == M && los_check(current,M) || (NO_SHOCK in M.mutations)) // || origin == M ? Not sure double shockings is good or not
 				continue
 			possible_targets += M
 		if(!possible_targets.len)
