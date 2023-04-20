@@ -127,6 +127,7 @@
 //version of the SSU for medbay secondary storage. Includes magboots.
 /obj/machinery/suit_storage_unit/cmo/sec_storage
 	name = "medical suit storage unit"
+	storage_type = null
 	mask_type = /obj/item/clothing/mask/gas
 
 /obj/machinery/suit_storage_unit/clown
