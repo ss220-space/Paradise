@@ -44,8 +44,9 @@ Difficulty: Very Hard
 	pixel_x = -32
 	del_on_death = TRUE
 	internal_type = /obj/item/gps/internal/colossus
-	medal_type = BOSS_MEDAL_COLOSSUS
-	score_type = COLOSSUS_SCORE
+	achievement_type = /datum/award/achievement/boss/colossus_kill
+	score_achievement_type = /datum/award/score/colussus_score
+	crusher_achievement_type = /datum/award/achievement/boss/colossus_crusher
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/colossus/crusher)
 	loot = list(/obj/structure/closet/crate/necropolis/colossus)
 	deathmessage = "disintegrates, leaving a glowing core in its wake."

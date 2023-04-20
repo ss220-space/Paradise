@@ -53,9 +53,8 @@ GLOBAL_LIST_INIT(tendrils, list())
 			for(var/mob/living/L in view(7,src))
 				if(L.stat || !L.client)
 					continue
-				SSmedals.UnlockMedal("[BOSS_MEDAL_TENDRIL] [ALL_KILL_MEDAL]", L.client)
-				SSmedals.SetScore(TENDRIL_CLEAR_SCORE, L.client, 1)
-	GLOB.tendrils -= src
+				L.client.give_award(/datum/award/achievement/boss/tendril_exterminator, L)
+				L.client.give_award(/datum/award/score/tendril_score, L) //Progresses score by one
 	QDEL_NULL(emitted_light)
 	return ..()
 

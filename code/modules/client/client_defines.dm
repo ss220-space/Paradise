@@ -55,6 +55,8 @@
 
 	preload_rsc = 0 // This is 0 so we can set it to an URL once the player logs in and have them download the resources from a different server.
 
+	var/datum/achievement_data/achievements
+
 	var/global/obj/screen/click_catcher/void
 
 	var/karma = 0

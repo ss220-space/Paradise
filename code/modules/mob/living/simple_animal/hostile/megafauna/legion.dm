@@ -40,8 +40,9 @@ Difficulty: Medium
 	var/size = 5
 	var/charging = 0
 	internal_type = /obj/item/gps/internal/legion
-	medal_type = BOSS_MEDAL_LEGION
-	score_type = LEGION_SCORE
+	achievement_type = /datum/award/achievement/boss/legion_kill
+	score_achievement_type = /datum/award/score/legion_score
+	crusher_achievement_type = /datum/award/achievement/boss/legion_crusher
 	pixel_y = -90
 	pixel_x = -75
 	loot = list(/obj/item/stack/sheet/bone = 3)
