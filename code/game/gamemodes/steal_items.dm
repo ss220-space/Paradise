@@ -97,8 +97,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_obj
 	return FALSE
 
 /datum/theft_objective/highrisk/defib
-	name = "a compact defibrillator"
-	typepath = /obj/item/defibrillator/compact
+	name = "an advanced compact defibrillator"
+	typepath = /obj/item/defibrillator/compact/advanced
 	protected_jobs = list("Chief Medical Officer", "Paramedic")
 
 /datum/theft_objective/highrisk/magboots
