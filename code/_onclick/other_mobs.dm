@@ -77,13 +77,6 @@
 /mob/living/carbon/alien/RestrainedClickOn(atom/A)
 	return
 
-// Babby aliens
-/mob/living/carbon/alien/larva/UnarmedAttack(atom/A)
-	A.attack_larva(src)
-
-/atom/proc/attack_larva(mob/user)
-	return
-
 /mob/living/carbon/alien/RangedAttack(atom/A, params)
 	. = ..()
 	if(dirslash_enabled && intent != INTENT_HELP)
@@ -93,6 +86,14 @@
 			if(target && Adjacent(target))
 				changeNext_move(CLICK_CD_MELEE)
 				return UnarmedAttack(target, TRUE)
+
+// Babby aliens
+/mob/living/carbon/alien/larva/UnarmedAttack(atom/A)
+	A.attack_larva(src)
+
+/atom/proc/attack_larva(mob/user)
+	return
+
 /*
 	Slimes
 	Nothing happening here
