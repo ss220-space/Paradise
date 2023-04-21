@@ -79,7 +79,7 @@
 
 /mob/living/carbon/alien/RangedAttack(atom/A, params)
 	. = ..()
-	if(dirslash_enabled && intent != INTENT_HELP)
+	if(dirslash_enabled && a_intent != INTENT_HELP)
 		var/turf/turf_attacking = get_step(src, get_compass_dir(src, A))
 		if(turf_attacking)
 			var/mob/living/target = locate() in turf_attacking
