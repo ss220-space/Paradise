@@ -306,11 +306,11 @@
 
 /obj/machinery/door/firedoor/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
 	. = ..()
-	if(our_rcd.checkResource(20, user))
+	if(our_rcd.checkResource(16, user))
 		to_chat(user, "Deconstructing firelock...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
 		if(do_after(user, 50 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
-			if(!our_rcd.useResource(20, user))
+			if(!our_rcd.useResource(16, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
 			add_attack_logs(user, src, "Deconstructed firelock with RCD")
