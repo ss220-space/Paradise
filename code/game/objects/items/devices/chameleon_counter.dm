@@ -68,7 +68,8 @@
 	underlays = initial(underlays)
 	dummy_active = FALSE
 	can_use = FALSE
-	deltimer(dummy_timer)
+	if(dummy_timer)
+		deltimer(dummy_timer)
 	addtimer(VARSET_CALLBACK(src, can_use, TRUE), 3 SECONDS)
 
 /obj/item/chameleon_counterfeiter/attack_self(mob/living/user)
