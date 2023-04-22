@@ -16,6 +16,7 @@
 	var/saved_overlays
 	var/saved_underlays
 	var/dummy_active = FALSE
+	var/dummy_timer
 
 /obj/item/chameleon_counterfeiter/afterattack(obj/item/target, mob/user, proximity)
 	if(!proximity || !check_sprite(target) || target.alpha < 255 || target.invisibility != 0)
@@ -55,7 +56,7 @@
 	overlays = saved_overlays
 	underlays = saved_underlays
 	dummy_active = TRUE
-	addtimer(CALLBACK(src, .proc/buzz), 30 MINUTES)
+	dummy_timer = addtimer(CALLBACK(src, .proc/buzz), 30 SECONDS, TIMER_STOPPABLE)
 
 /obj/item/chameleon_counterfeiter/proc/matter_deactivate()
 	name = initial(name)
@@ -67,6 +68,7 @@
 	underlays = initial(underlays)
 	dummy_active = FALSE
 	can_use = FALSE
+	deltimer(dummy_timer)
 	addtimer(VARSET_CALLBACK(src, can_use, TRUE), 3 SECONDS)
 
 /obj/item/chameleon_counterfeiter/attack_self(mob/living/user)
@@ -74,5 +76,6 @@
 
 /obj/item/chameleon_counterfeiter/proc/buzz()
 	visible_message("<span class='danger'> The [name] is buzzing weirdly!</span>")
-	matter_toggle()
+	playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
+	matter_deactivate()
 	return
