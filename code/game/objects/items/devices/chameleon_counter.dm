@@ -56,7 +56,7 @@
 	overlays = saved_overlays
 	underlays = saved_underlays
 	dummy_active = TRUE
-	dummy_timer = addtimer(CALLBACK(src, .proc/buzz), 30 SECONDS, TIMER_STOPPABLE)
+	dummy_timer = addtimer(CALLBACK(src, .proc/buzz), 30 MINUTES, TIMER_STOPPABLE)
 
 /obj/item/chameleon_counterfeiter/proc/matter_deactivate()
 	name = initial(name)
