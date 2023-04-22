@@ -60,7 +60,8 @@
 		/obj/item/analyzer,
 		/obj/item/extinguisher/mini,
 		/obj/item/holosign_creator,
-		/obj/item/radio)
+		/obj/item/radio,
+		/obj/item/robotanalyzer)
 
 /obj/item/storage/belt/utility/full/New()
 	..()
@@ -356,6 +357,12 @@
 	new /obj/item/wirecutters(src, "red")
 	new /obj/item/stack/cable_coil(src, 30, COLOR_RED)
 	update_icon()
+
+/obj/item/storage/belt/military/traitor/sec
+	name = "security belt"
+	desc = "Can hold security gear like handcuffs and flashes."
+	icon_state = "securitybelt"
+	item_state = "security"
 
 /obj/item/storage/belt/grenade
 	name = "grenadier belt"
