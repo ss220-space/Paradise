@@ -1459,7 +1459,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 0
 
 /datum/uplink_item/stealthy_tools/chameleon_counter
-	name = "chameleon counterfeiter"
+	name = "Chameleon Counterfeiter"
 	desc = "This device disguises itself as any object scanned by it. It's unstable and disguise will be disabled in about 30 minutes. The box contains three counterfeiters."
 	reference = "CC"
 	item = /obj/item/storage/box/syndie_kit/chameleon_counter
