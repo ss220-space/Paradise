@@ -22,9 +22,7 @@
 
 	disliked_food = NONE
 
-/datum/species/shadow/ling/handle_life(mob/living/carbon/human/H)
-	if(!H.weakeyes)
-		H.weakeyes = 1 //Makes them more vulnerable to flashes and flashbangs
+/datum/species/shadow/ling/proc/handle_light(mob/living/carbon/human/H)
 	var/light_amount = 0
 	if(isturf(H.loc))
 		var/turf/T = H.loc
@@ -56,6 +54,11 @@
 			H.SetWeakened(0)
 			H.SetStunned(0)
 
+/datum/species/shadow/ling/handle_life(mob/living/carbon/human/H)
+	if(!H.weakeyes)
+		H.weakeyes = 1 //Makes them more vulnerable to flashes and flashbangs
+	handle_light(H)
+
 /datum/species/shadow/ling/lesser //Empowered thralls. Obvious, but powerful
 	name = "Lesser Shadowling"
 
@@ -69,3 +72,7 @@
 	burn_mod = 1.1
 	heatmod = 1.1
 
+/datum/species/shadow/ling/lesser/handle_life(mob/living/carbon/human/H)
+	if(!H.weakeyes)
+		H.weakeyes = 1
+	handle_light(H)
