@@ -10,7 +10,7 @@ Doesn't work on other aliens/AI.*/
 
 /datum/action/innate/xeno_action/Activate()
 
-/datum/action/innate/xeno_action/proc/plasmacheck(X, Y)//Y is optional, checks for weed planting. X can be null.
+/datum/action/proc/plasmacheck(X, Y)//Y is optional, checks for weed planting. X can be null.
 	var/mob/living/carbon/alien/host = owner
 
 	if(!IsAvailable())
@@ -175,36 +175,52 @@ Doesn't work on other aliens/AI.*/
 	else
 		to_chat(src, "<span class='noticealien'>You cannot dissolve this object.</span>")
 
-
-/datum/action/innate/xeno_action/neurotoxin
+/obj/effect/proc_holder/spell/neurotoxin
 	name = "Spit Neurotoxin (50)"
 	desc = "Spits neurotoxin at someone, paralyzing them for a short time."
-	button_icon_state = "alien_neurotoxin"
-	var/obj/effect/proc_holder/neurotoxin/PH
+	action_icon_state = "alien_neurotoxin"
+	action_background_icon_state = "bg_default"
+	clothes_req = FALSE
+	charge_max = 5
 
-/datum/action/innate/xeno_action/neurotoxin/New()
-	PH = new
-	PH.attached_action = src
-	..()
+/obj/effect/proc_holder/spell/neurotoxin/Click()
+	if(cast_check())
+		if(active)
+			remove_ranged_ability(usr, "<span class='alertalien'>You relax your neurotoxin gland...</span>")
+		else
+			add_ranged_ability(usr, "<span class='alertalien'>You prepare to spit a neurotoxin...</span>")
+	return
 
-/datum/action/innate/xeno_action/neurotoxin/Activate()
-	PH.toggle(owner)
-	return TRUE
+/obj/effect/proc_holder/spell/neurotoxin/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/user = usr) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
+	if(!can_cast(user, charge_check, TRUE))
+		return FALSE
+	if(action)
+		action.UpdateButtonIcon()
+	return 1
 
-/obj/effect/proc_holder/neurotoxin
-	var/datum/action/innate/xeno_action/neurotoxin/attached_action
+/obj/effect/proc_holder/spell/neurotoxin/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
+	if(is_admin_level(user.z) && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
+		return 0
 
-/obj/effect/proc_holder/neurotoxin/proc/toggle(mob/user)
-	if(active)
-		remove_ranged_ability(user, "<span class='alertalien'>You relax your neurotoxin gland...</span>")
-	else
-		add_ranged_ability(user, "<span class='alertalien'>You prepare to spit a neurotoxin...</span>")
+	if(charge_check)
+		if(charge_counter < charge_max)
+			if(show_message)
+				to_chat(user, still_recharging_msg)
+			return 0
 
-/obj/effect/proc_holder/neurotoxin/InterceptClickOn(mob/living/user, params, atom/target)
+	if(!ghost)
+		if(user.stat && !stat_allowed)
+			if(show_message)
+				to_chat(user, "<span class='notice'>You can't spit while incapacitated.</span>")
+			return 0
+
+	return 1
+
+/obj/effect/proc_holder/spell/neurotoxin/InterceptClickOn(mob/living/user, params, atom/target)
 	if(..())
 		return
 
-	if(attached_action.plasmacheck(50))
+	if(action.plasmacheck(50))
 		var/mob/living/carbon/alien/host = user
 		host.adjustPlasma(-50)
 		host.visible_message("<span class='danger'>[host] spits neurotoxin!", "<span class='alertalien'>You spit neurotoxin.</span>")
@@ -219,6 +235,8 @@ Doesn't work on other aliens/AI.*/
 		P.preparePixelProjectile(target, get_turf(target), host)
 		P.fire()
 		host.newtonian_move(get_dir(U, T))
+		charge_counter = 0
+		start_recharge()
 	return
 
 /datum/action/innate/xeno_action/resin // -- TLE
