@@ -191,30 +191,25 @@ Doesn't work on other aliens/AI.*/
 			add_ranged_ability(usr, "<span class='alertalien'>You prepare to spit a neurotoxin...</span>")
 	return
 
-/obj/effect/proc_holder/spell/neurotoxin/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/user = usr) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
-	if(!can_cast(user, charge_check, TRUE))
+/obj/effect/proc_holder/spell/neurotoxin/cast_check()
+	if(!can_cast())
 		return FALSE
 	if(action)
 		action.UpdateButtonIcon()
-	return 1
+	return TRUE
 
-/obj/effect/proc_holder/spell/neurotoxin/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
+/obj/effect/proc_holder/spell/neurotoxin/can_cast(mob/user = usr)
 	if(is_admin_level(user.z) && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
-		return 0
+		return FALSE
 
-	if(charge_check)
-		if(charge_counter < charge_max)
-			if(show_message)
-				to_chat(user, still_recharging_msg)
-			return 0
+	if(charge_counter < charge_max)
+		return FALSE
 
-	if(!ghost)
-		if(user.stat && !stat_allowed)
-			if(show_message)
-				to_chat(user, "<span class='notice'>You can't spit while incapacitated.</span>")
-			return 0
+	if(user.stat)
+		to_chat(user, "<span class='notice'>You can't spit while incapacitated.</span>")
+		return FALSE
 
-	return 1
+	return TRUE
 
 /obj/effect/proc_holder/spell/neurotoxin/InterceptClickOn(mob/living/user, params, atom/target)
 	if(..())
