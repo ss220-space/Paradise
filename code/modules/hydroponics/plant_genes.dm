@@ -319,7 +319,8 @@
 		new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...
 		add_attack_logs(target, T, "teleport squash [G](max radius: [teleport_radius])")
 		do_teleport(target, T, teleport_radius)
-		living_target.adjustStaminaLoss(33)
+		if(thrower == living_target)
+			living_target.adjustStaminaLoss(33)
 		living_target.investigate_log("teleported from [COORD(T)] to [COORD(living_target)], squashing [G](max radius: [teleport_radius])", INVESTIGATE_BOTANY)
 
 /datum/plant_gene/trait/teleport/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
