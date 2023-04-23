@@ -33,6 +33,7 @@
 		/datum/rep_purchase/item/baton_antidropup,
 		/datum/rep_purchase/item/fulton,
 		/datum/rep_purchase/blackout,
+		/datum/rep_purchase/comms_blackout,
 		/datum/rep_purchase/item/zippo,
 		/datum/rep_purchase/item/balloon,
 	)

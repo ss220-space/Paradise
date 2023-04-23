@@ -1,5 +1,5 @@
 /**
-  * # Rep Purchase - Blackout
+  * # Rep Purchase - Blackout and Comms Outage
   */
 /datum/rep_purchase/blackout
 	name = "Blackout"
@@ -23,3 +23,35 @@
 	..()
 	next_blackout = world.time + cooldown
 	power_failure()
+
+/datum/rep_purchase/comms_blackout
+	name = "Comms Outage"
+	description = "Request Syndicate Command to disable station Telecommunications. Disables telecommunications across the station for a medium duration."
+	cost = 2
+	var/static/cooldown = 10 MINUTES
+	var/static/next_commsout = -1
+
+/datum/rep_purchase/comms_blackout/buy(datum/contractor_hub/hub, mob/living/carbon/human/user)
+	if(next_commsout > world.time)
+		var/timeleft = (next_commsout - world.time) / 10
+		to_chat(user, "<span class='warning'>Another comms outage may not be requested for [seconds_to_clock(timeleft)].</span>")
+		return FALSE
+	return ..()
+
+/datum/rep_purchase/comms_blackout/on_buy(datum/contractor_hub/hub, mob/living/carbon/human/user)
+	..()
+	next_commsout = world.time + cooldown
+	var/alert = pick(	"Обнаружено враждебное вмешательство в работу телекоммуникаций. Неизбежен временный сбо*%fj 00)`5 vc-БЗЗЗ", \
+						"Обнаружено враждебное вмешательство в работу телекоммуни*3mga;b4;'1v?-БЗЗЗЗ", \
+						"Обнаружено враждебное вмешательс#MCi46:5.;@63-БЗЗЗЗЗ", \
+						"Обнаружено вражде'fZ\\kg5_0-БЗЗЗЗЗ", \
+						"Обнаруж:%? MCayj^j<.3-БЗЗЗЗЗ", \
+						"#4nd%;f4де,>?%-БЗЗЗЗЗЗЗ")
+	GLOB.event_announcement.Announce(alert)
+	for(var/obj/machinery/tcomms/core/T in GLOB.tcomms_machines)
+		T.start_ion()
+		// Bring it back sometime between 3-5 minutes. This uses deciseconds, so 1800 and 3000 respecticely.
+		// The AI cannot disable this, it must be waited for
+		addtimer(CALLBACK(T, /obj/machinery/tcomms.proc/end_ion), rand(1800, 3000))
+
+
