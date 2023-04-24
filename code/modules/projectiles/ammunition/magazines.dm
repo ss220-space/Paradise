@@ -247,7 +247,7 @@
 
 	var/ammo = ammo_count()
 	if(ammo && is_rubber())
-		overlays += image('icons/obj/ammo.dmi', icon_state = "enforcer-r")
+		overlays += image('icons/obj/weapons/ammo.dmi', icon_state = "enforcer-r")
 
 /obj/item/ammo_box/magazine/enforcer/examine(mob/user)
 	. = ..()
@@ -265,6 +265,17 @@
 /obj/item/ammo_box/magazine/enforcer/lethal
 	name = "handgun magazine (9mm)"
 	ammo_type = /obj/item/ammo_casing/c9mm
+
+/obj/item/ammo_box/magazine/sp8
+	name = "handgun magazine 40N&R"
+	icon_state = "sp8mag"
+	ammo_type = /obj/item/ammo_casing/fortynr
+	max_ammo = 10
+	caliber = "40nr"
+
+/obj/item/ammo_box/magazine/sp8/update_icon()
+	..()
+	icon_state = "sp8mag-[round(ammo_count(),2)]"
 
 /obj/item/ammo_box/magazine/wt550m9
 	name = "wt550 magazine (4.6x30mm)"
@@ -493,9 +504,9 @@
 
 	var/ammo = ammo_count()
 	if(ammo && is_riot())
-		overlays += image('icons/obj/ammo.dmi', icon_state = "enforcer-rd")
+		overlays += image('icons/obj/weapons/ammo.dmi', icon_state = "enforcer-rd")
 	else if(ammo)
-		overlays += image('icons/obj/ammo.dmi', icon_state = "enforcer-bd")
+		overlays += image('icons/obj/weapons/ammo.dmi', icon_state = "enforcer-bd")
 
 /obj/item/ammo_box/magazine/toy/enforcer/proc/is_riot()//if the topmost bullet is a riot dart
 	var/ammo = ammo_count()

@@ -1,7 +1,7 @@
 /obj/machinery/computer/arcade
 	name = "random arcade"
 	desc = "random arcade machine"
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "arcade"
 	icon_keyboard = null
 	icon_screen = "invaders"
@@ -51,7 +51,7 @@
 /obj/machinery/computer/arcade/battle
 	name = "arcade machine"
 	desc = "Does not support Pinball."
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "arcade"
 	circuit = /obj/item/circuitboard/arcade/battle
 	var/enemy_name = "Space Villian"
@@ -98,7 +98,7 @@
 
 	//user << browse(dat, "window=arcade")
 	//onclose(user, "arcade")
-	var/datum/browser/popup = new(user, "arcade", "Space Villian 2000")
+	var/datum/browser/popup = new(user, "arcade", "Space Villian 2000", 420, 280, src)
 	popup.set_content(dat)
 	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
@@ -408,7 +408,7 @@
 		dat += "<br><center><h3>Experience the journey of your ancestors!</h3></center><br><br>"
 		dat += "<center><b><a href='byond://?src=[UID()];newgame=1'>New Game</a></b></center>"
 		dat += "<P ALIGN=Right><a href='byond://?src=[UID()];close=1'>Close</a></P>"
-	var/datum/browser/popup = new(user, "arcade", "The Orion Trail",400,700)
+	var/datum/browser/popup = new(user, "arcade", "The Orion Trail", 420, 420, src)
 	popup.set_content(dat)
 	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
@@ -421,7 +421,6 @@
 	if(href_list["close"])
 		usr.unset_machine()
 		usr << browse(null, "window=arcade")
-
 	if(busy)
 		return
 	busy = 1

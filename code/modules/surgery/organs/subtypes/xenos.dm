@@ -56,8 +56,8 @@
 	max_plasma = 500
 
 /obj/item/organ/internal/xenos/plasmavessel/sentinel
-	stored_plasma = 100
-	max_plasma = 250
+	stored_plasma = 200
+	max_plasma = 500
 
 /obj/item/organ/internal/xenos/plasmavessel/hunter
 	name = "small xeno plasma vessel"
@@ -146,6 +146,7 @@
 /obj/item/organ/internal/xenos/neurotoxin/insert(mob/living/carbon/M, special = 0)
 	..()
 	neurotoxin_spell.action.Grant(M)
+
 
 /obj/item/organ/internal/xenos/neurotoxin/remove(mob/living/carbon/M, special = 0)
 	neurotoxin_spell.action.Remove(M)
