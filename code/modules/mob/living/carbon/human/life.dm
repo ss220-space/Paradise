@@ -342,12 +342,12 @@
 
 	//After then, it reacts to the surrounding atmosphere based on your thermal protection
 	if(!on_fire) //If you're on fire, you do not heat up or cool down based on surrounding gases
-		if(loc_temp < bodytemperature)
+		if(loc_temp < bodytemperature && loc_temp < dna.species.cold_level_1)
 			//Place is colder than we are
 			var/thermal_protection = get_cold_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
 			if(thermal_protection < 1)
-				bodytemperature += min((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_COLD_DIVISOR), BODYTEMP_COOLING_MAX)
-		else
+				bodytemperature += max((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_COLD_DIVISOR), BODYTEMP_COOLING_MAX)
+		else if(loc_temp >= bodytemperature && loc_temp > dna.species.heat_level_1)
 			//Place is hotter than we are
 			var/thermal_protection = get_heat_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
 			if(thermal_protection < 1)
@@ -478,7 +478,7 @@
 
 	if(bodytemperature <= dna.species.cold_level_1) //260.15 is 310.15 - 50, the temperature where you start to feel effects.
 		bodytemperature += max((body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_AUTORECOVERY_MINIMUM)
-	if(bodytemperature >= dna.species.cold_level_1 && bodytemperature <= dna.species.heat_level_1)
+	if(bodytemperature > dna.species.cold_level_1 && bodytemperature < dna.species.heat_level_1)
 		bodytemperature += body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR
 	if(bodytemperature >= dna.species.heat_level_1) //360.15 is 310.15 + 50, the temperature where you start to feel effects.
 		//We totally need a sweat system cause it totally makes sense...~
