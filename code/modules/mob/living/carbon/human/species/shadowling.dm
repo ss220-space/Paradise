@@ -53,6 +53,9 @@
 			H.adjustCloneLoss(-1)
 			H.SetWeakened(0)
 			H.SetStunned(0)
+		else
+			if(H.health <= HEALTH_THRESHOLD_CRIT) // to finish shadowlings in rare occations
+				H.adjustBruteLoss(1)
 
 /datum/species/shadow/ling/handle_life(mob/living/carbon/human/H)
 	if(!H.weakeyes)
