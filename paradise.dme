@@ -683,6 +683,7 @@
 #include "code\game\gamemodes\miniantags\sintouched\objectives.dm"
 #include "code\game\gamemodes\miniantags\slaughter\bloodcrawl.dm"
 #include "code\game\gamemodes\miniantags\slaughter\slaughter.dm"
+#include "code\game\gamemodes\nuclear\lone.dm"
 #include "code\game\gamemodes\nuclear\nuclear.dm"
 #include "code\game\gamemodes\nuclear\nuclear_challenge.dm"
 #include "code\game\gamemodes\nuclear\nuclearbomb.dm"
