@@ -14,7 +14,7 @@ Doesn't work on other aliens/AI.*/
 	var/mob/living/carbon/alien/host = owner
 
 	if(!IsAvailable())
-		to_chat(host, "<span class='noticealien'>You must be conscious to do this.</span>")
+		to_chat(host, "<span class='noticealien'>You can't do that yet.</span>")
 		return 0
 	if(X && host.getPlasma() < X)
 		to_chat(host, "<span class='noticealien'>Not enough plasma stored.</span>")
@@ -206,7 +206,6 @@ Doesn't work on other aliens/AI.*/
 		return FALSE
 
 	if(user.stat)
-		to_chat(user, "<span class='notice'>You can't spit while incapacitated.</span>")
 		return FALSE
 
 	return TRUE
