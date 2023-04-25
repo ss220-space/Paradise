@@ -341,17 +341,13 @@
 		body_thermal_regulation(loc_temp)
 
 	//After then, it reacts to the surrounding atmosphere based on your thermal protection
-	if(!on_fire && (stat == DEAD || loc_temp < dna.species.cold_level_1 || loc_temp > dna.species.heat_level_1)) // we are NOT on fire, NOT dead and environment is NOT comfortable for our species
-		if(loc_temp < bodytemperature)
-			//Place is colder than we are
-			var/thermal_protection = get_cold_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
-			if(thermal_protection < 1)
-				bodytemperature += max((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_COLD_DIVISOR), BODYTEMP_COOLING_MAX)
-		else
-			//Place is hotter than we are
-			var/thermal_protection = get_heat_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
-			if(thermal_protection < 1)
-				bodytemperature += min((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR), BODYTEMP_HEATING_MAX)
+	if(!on_fire) //If you're on fire, you do not heat up or cool down based on surrounding gases
+		// we are dead or environment is not comfortable for our species
+		if(stat == DEAD || loc_temp < dna.species.cold_level_1 || loc_temp > dna.species.heat_level_1)
+			handle_temperature(loc_temp)
+		// environment is already comfortable for our species, but we still need to adjust body temperature to safe levels
+		else if(bodytemperature < dna.species.cold_level_1 || bodytemperature > dna.species.heat_level_1)
+			handle_temperature(loc_temp)
 
 	// +/- 50 degrees from 310.15K is the 'safe' zone, where no damage is dealt.
 	if(bodytemperature > dna.species.heat_level_1)
@@ -473,24 +469,43 @@
 
 //END FIRE CODE
 
+/mob/living/carbon/human/proc/handle_temperature(loc_temp)
+	if(loc_temp < bodytemperature)
+		//Place is colder than we are
+		var/thermal_protection = get_cold_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
+		if(thermal_protection < 1)
+			bodytemperature += max((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_COLD_DIVISOR), BODYTEMP_COOLING_MAX)
+			return TRUE
+	else
+		//Place is hotter than we are
+		var/thermal_protection = get_heat_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
+		if(thermal_protection < 1)
+			bodytemperature += min((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR), BODYTEMP_HEATING_MAX)
+			return TRUE
+	return FALSE
+
+
 /mob/living/carbon/human/proc/body_thermal_regulation(loc_temp)
 	var/body_temperature_difference = dna.species.body_temperature - bodytemperature
 
 	if(bodytemperature <= dna.species.cold_level_1) //260.15 is 310.15 - 50, the temperature where you start to feel effects.
-		bodytemperature += max((body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_AUTORECOVERY_MINIMUM)
-	else if(bodytemperature >= dna.species.heat_level_1) //360.15 is 310.15 + 50, the temperature where you start to feel effects.
-		//We totally need a sweat system cause it totally makes sense...~
-		bodytemperature += min((body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), -BODYTEMP_AUTORECOVERY_MINIMUM)	//We're dealing with negative numbers
-	else if(!on_fire && (loc_temp >= dna.species.cold_level_1 && loc_temp <= dna.species.heat_level_1))
-		// we are not on fire and enviroment is comfort for our species, starting basic thermal regulation
-		var/enviro_shift = (loc_temp - dna.species.body_temperature) / dna.species.body_temperature // environment slightly influencing recovery speed
-		var/clothing_factor = 2 - ((get_cold_protection(loc_temp) + get_heat_protection(loc_temp)) / 2) // clothing with thermal protection slows down natural recovery
+		bodytemperature += max(metabolism_efficiency * (body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_AUTORECOVERY_MINIMUM)
+	if(bodytemperature >= dna.species.heat_level_1) //360.15 is 310.15 + 50, the temperature where you start to feel effects.
+		bodytemperature += min(metabolism_efficiency * (body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), -BODYTEMP_AUTORECOVERY_MINIMUM)	//We're dealing with negative numbers
+
+	// simple thermal regulation when the body temperature is OK for our specie
+	if(bodytemperature > dna.species.cold_level_1 && bodytemperature < dna.species.heat_level_1)
+		// if environment temperature is within the safe levels we are using it to shift recovery slightly
+		var/enviro_shift = (loc_temp < dna.species.heat_level_1) && (loc_temp > dna.species.cold_level_1) ? ((loc_temp - bodytemperature) / dna.species.body_temperature) : 0
+
 		if(dna.species.body_temperature < bodytemperature)
-			// body temperature is HIGHER than our species default levels, we are cooling
-			bodytemperature += max(enviro_shift + (clothing_factor * metabolism_efficiency * (body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR)), -BODYTEMP_AUTORECOVERY_MINIMUM)
+			// body temperature is HIGHER than that of our species, we are cooling
+			var/clothing_factor = 2 - get_heat_protection(loc_temp) // thermal clothing with heat protection slows down recovery
+			bodytemperature += max(clothing_factor * metabolism_efficiency * ((body_temperature_difference + enviro_shift) / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_COOLING_MAX)
 		else
-			// body temperature is LOWER than our species default levels, we are heating
-			bodytemperature += min(enviro_shift + (clothing_factor * metabolism_efficiency * (body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR)), BODYTEMP_AUTORECOVERY_MINIMUM)
+			// body temperature is LOWER than that of our species, we are heating
+			var/clothing_factor = 2 - get_cold_protection(loc_temp) // thermal clothing with cold protection slows down recovery
+			bodytemperature += min(clothing_factor * metabolism_efficiency * ((body_temperature_difference + enviro_shift) / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_HEATING_MAX)
 
 
 	//This proc returns a number made up of the flags for body parts which you are protected on. (such as HEAD, UPPER_TORSO, LOWER_TORSO, etc. See setup.dm for the full list)
