@@ -3,7 +3,7 @@
 
 /obj/item/mecha_parts/mecha_equipment
 	name = "mecha equipment"
-	icon = 'icons/mecha/mecha_equipment.dmi'
+	icon = 'icons/obj/mecha/mecha_equipment.dmi'
 	icon_state = "mecha_equip"
 	force = 5
 	origin_tech = "materials=2;engineering=2"
@@ -85,7 +85,13 @@
 /obj/item/mecha_parts/mecha_equipment/proc/start_cooldown()
 	set_ready_state(0)
 	chassis.use_power(energy_drain)
-	addtimer(CALLBACK(src, .proc/set_ready_state, 1), equip_cooldown)
+
+	var/cooldown = equip_cooldown
+	var/obj/item/mecha_parts/mecha_equipment/weapon/W = src
+	if(istype(W))
+		cooldown += (W.projectiles_per_shot - 1) * W.projectile_delay
+
+	addtimer(CALLBACK(src, .proc/set_ready_state, 1), cooldown)
 
 /obj/item/mecha_parts/mecha_equipment/proc/do_after_cooldown(atom/target)
 	if(!chassis)

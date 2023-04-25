@@ -50,24 +50,43 @@
 	name = "cyborg reclassification board"
 	desc = "Used to rename a cyborg."
 	icon_state = "cyborg_upgrade1"
-	var/heldname = "default name"
+	var/heldname = "Default Name"
 	instant_use = TRUE
 
 /obj/item/borg/upgrade/rename/attack_self(mob/user)
-	heldname = stripped_input(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
+	var/new_heldname = stripped_input(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
+	new_heldname = reject_bad_name(new_heldname, TRUE, MAX_NAME_LEN)
+	if(!new_heldname)
+		to_chat(user, "<span class='warning'>Prohibited sequence detected. Entered configuration has been cancelled.</span>")
+	else
+		heldname = new_heldname
+	return
 
-/obj/item/borg/upgrade/rename/action(var/mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/rename/action(mob/living/silicon/robot/R)
 	if(..())
 		if(!R.allow_rename)
 			to_chat(R, "<span class='warning'>Internal diagnostic error: incompatible upgrade module detected.</span>")
 			return 0
-		R.notify_ai(ROBOT_NOTIFY_AI_NAME, R.name, heldname)
-		R.name = heldname
-		R.custom_name = heldname
-		R.real_name = heldname
-		if(R.mmi && R.mmi.brainmob)
-			R.mmi.brainmob.name = R.name
+		if(!R.shouldRename(heldname))
+			R.rename_self(R.braintype, TRUE)
+		else
+			if(heldname == "Default Name")
+				R.custom_name = "" //allows usage of Namepick
+				R.rename_character(R.name, R.get_default_name())
+			else
+				R.rename_character(R.name, heldname)
 		return TRUE
+
+/mob/living/silicon/robot/proc/shouldRename(newname)
+	if(src.stat == CONSCIOUS)
+		var/choice = alert(src, "Активирован протокол переименования. Предложенное имя: [newname]. Продолжить операцию?","Внимание!","Да","Нет")
+		if(src.stat == CONSCIOUS) //no abuse by using window in unconscious state
+			switch(choice)
+				if("Да")
+					return TRUE
+				if("Нет")
+					return FALSE
+	return TRUE
 
 /obj/item/borg/upgrade/restart
 	name = "cyborg emergency reboot module"
@@ -199,6 +218,29 @@
 			qdel(H)
 
 		R.module.modules += new /obj/item/storage/bag/ore/cyborg(R.module)
+		R.module.rebuild()
+
+/obj/item/borg/upgrade/gps
+	name = "cyborg gps upgrade"
+	desc = "upgraded GPS for cyborgs."
+	icon_state = "cyborg_upgrade3"
+
+/obj/item/borg/upgrade/gps/action(mob/living/silicon/robot/R)
+	if(..())
+		for(var/obj/item/gps/cyborg/G in R.module.modules)
+			qdel(G)
+
+		R.module.modules += new /obj/item/gps/cyborg/upgraded(R.module)
+		R.module.rebuild()
+
+		return TRUE
+
+/obj/item/borg/upgrade/gps/deactivate(mob/living/silicon/robot/R, user = usr)
+	if(..())
+		for(var/obj/item/gps/cyborg/upgraded/U in R.module)
+			qdel(U)
+
+		R.module.modules += new /obj/item/gps/cyborg(R.module)
 		R.module.rebuild()
 
 /obj/item/borg/upgrade/abductor_engi

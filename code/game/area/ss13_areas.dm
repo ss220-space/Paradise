@@ -70,14 +70,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	parallax_movedir = NORTH
 	sound_environment = SOUND_ENVIRONMENT_ROOM
-
-/area/shuttle/arrival
+/*
+/area/shuttle/arrival //dont have this, but at once...
 	name = "\improper Arrival Shuttle"
-	parallax_movedir = EAST
 
 /area/shuttle/arrival/pre_game
 	icon_state = "shuttle2"
-
+*/
 /area/shuttle/arrival/station
 	icon_state = "shuttle"
 
@@ -103,13 +102,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Escape Pod Three"
 	icon_state = "shuttle"
 	nad_allowed = TRUE
-	parallax_movedir = EAST
 
 /area/shuttle/pod_4
 	name = "\improper Escape Pod Four"
 	icon_state = "shuttle"
 	nad_allowed = TRUE
-	parallax_movedir = EAST
 
 /area/shuttle/escape_pod1
 	name = "\improper Escape Pod One"
@@ -247,7 +244,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/shuttle/administration
 	name = "\improper Nanotrasen Vessel"
 	icon_state = "shuttlered"
-	parallax_movedir = EAST
+	parallax_movedir = WEST
 
 /area/shuttle/administration/centcom
 	name = "\improper Nanotrasen Vessel Centcom"
@@ -387,7 +384,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/shuttle/trade/sol
 	name = "Sol Freighter"
-	parallax_movedir = EAST
+	parallax_movedir = WEST
 
 /area/shuttle/freegolem
 	name = "Free Golem Ship"
@@ -2652,6 +2649,46 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/moonoutpost19/mo19utilityroom
 	name = "MO19 Utility Room"
 	icon_state = "awaycontent6"
+
+//area for AWAY "aeterna13"
+/area/ae13
+	icon_state = "ae13"
+	always_unpowered = TRUE
+	requires_power = TRUE
+	poweralm = FALSE
+	power_environ = FALSE
+	power_equip = FALSE
+	power_light = FALSE
+	outdoors = TRUE
+	has_gravity = TRUE
+
+/area/ae13/medbay
+	name = "medbay"
+	icon_state = "ae13_ship1"
+
+/area/ae13/energy
+	name = "energy"
+	icon_state = "ae13_ship2"
+
+/area/ae13/hall
+	name = "hall"
+	icon_state = "ae13_ship3"
+
+/area/ae13/miner
+	name = "miner"
+	icon_state = "ae13_ship4"
+
+/area/ae13/epicenter
+	name = "epicenter"
+	icon_state = "ae13_ship5"
+
+/area/ae13/command
+	name = "command"
+	icon_state = "ae13_ship6"
+
+/area/ae13/asteroid
+	name = "asteroid"
+	icon_state = "ae13_asteroid"
 
 
 ////////////////////////AWAY AREAS///////////////////////////////////

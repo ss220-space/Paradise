@@ -4,7 +4,7 @@
 /obj/machinery/biogenerator
 	name = "biogenerator"
 	desc = "Converts plants into biomass, which can be used to construct useful items."
-	icon = 'icons/obj/biogenerator.dmi'
+	icon = 'icons/obj/machines/biogenerator.dmi'
 	icon_state = "biogen-empty"
 	density = TRUE
 	anchored = TRUE
@@ -188,7 +188,8 @@
 			product_list[category][D.name] = list(
 				"name" = D.name,
 				"id" = D.id,
-				"cost" = D.materials[MAT_BIOMASS] / efficiency
+				"cost" = D.materials[MAT_BIOMASS] / efficiency,
+				"needs_container" = length(D.make_reagents)
 			)
 
 	SStgui.update_uis(src, update_static_data = TRUE)
