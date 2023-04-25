@@ -3,7 +3,7 @@
 #define PRESSURE_CHECKS 1
 
 /obj/machinery/atmospherics/unary/vent_pump
-	icon = 'icons/atmos/vent_pump.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/vent_pump.dmi'
 	icon_state = "map_vent"
 
 	name = "air vent"
@@ -17,8 +17,6 @@
 
 	var/area/initial_loc
 	var/area_uid
-
-	req_one_access_txt = "24;10"
 
 	var/on = 0
 	var/pump_direction = 1 //0 = siphoning, 1 = releasing

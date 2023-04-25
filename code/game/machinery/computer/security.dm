@@ -10,6 +10,7 @@
 	icon_keyboard = "security_key"
 	icon_screen = "security"
 	circuit = /obj/item/circuitboard/secure_data
+	req_access = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
 	/// The current page being viewed.
 	var/current_page = SEC_DATA_R_LIST
 	/// The current general record being viewed.
@@ -29,7 +30,6 @@
 
 /obj/machinery/computer/secure_data/Initialize(mapload)
 	. = ..()
-	req_one_access = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
 	if(!field_edit_questions)
 		field_edit_questions = list(
 			// General
@@ -421,6 +421,14 @@
 				<br>\nPhysical Status: [record_general.fields["p_stat"]]
 				<br>\nMental Status: [record_general.fields["m_stat"]]<br>"}
 		P.name = "paper - 'Security Record: [record_general.fields["name"]]'"
+		var/obj/item/photo/photo = new(loc)
+		//photo.img = record_general.fields["photo"]
+		var/icon/new_photo = icon('icons/effects/64x32.dmi', "records")
+		new_photo.Blend(icon(record_general.fields["photo"], dir = SOUTH), ICON_OVERLAY, 0)
+		new_photo.Blend(icon(record_general.fields["photo"], dir = WEST), ICON_OVERLAY, 32)
+		new_photo.Scale(new_photo.Width() * 3, new_photo.Height() * 3)
+		photo.img = new_photo
+		photo.name = "photo - 'Security Record: [record_general.fields["name"]]'"
 	else
 		P.info += "<b>General Record Lost!</b><br>"
 	if(record_security && GLOB.data_core.security.Find(record_security))

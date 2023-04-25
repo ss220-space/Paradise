@@ -66,7 +66,7 @@
 
 /datum/action/innate/diona/evolve
 	name = "Evolve"
-	icon_icon = 'icons/obj/cloning.dmi'
+	icon_icon = 'icons/obj/machines/cloning.dmi'
 	button_icon_state = "pod_1"
 
 /datum/action/innate/diona/evolve/Activate()
@@ -203,7 +203,7 @@
 		adult.name = name
 		adult.real_name = real_name
 
-	adult.ckey = ckey
+	mind.transfer_to(adult)
 
 	for(var/obj/item/W in contents)
 		unEquip(W)

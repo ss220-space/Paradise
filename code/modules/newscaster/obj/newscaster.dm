@@ -17,7 +17,7 @@
 /obj/machinery/newscaster
 	name = "newscaster"
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. All the news you absolutely have no use for, in one place!"
-	icon = 'icons/obj/terminals.dmi'
+	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "newscaster_normal"
 	max_integrity = 200
 	integrity_failure = 50
@@ -621,7 +621,7 @@
 		// Try to get the ID
 		var/obj/item/card/id/id = M.wear_id.GetID()
 		if(istype(id))
-			return list(name = "[id.registered_name] ([id.assignment])", security = has_access(list(), list(ACCESS_SECURITY), id.access))
+			return list(name = "[id.registered_name] ([id.assignment])", security = has_access(list(ACCESS_SECURITY), TRUE, id.access))
 	else if(issilicon(user))
 		var/mob/living/silicon/ai_user = user
 		return list(name = "[ai_user.name] ([ai_user.job])", security = TRUE)

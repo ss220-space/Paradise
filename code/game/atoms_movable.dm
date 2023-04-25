@@ -58,6 +58,10 @@
 	return
 
 /atom/movable/proc/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
+	var/mob/M = AM
+	if(ismob(M) && M.buckled)
+		AM = M.buckled
+
 	if(QDELETED(AM))
 		return FALSE
 	if(!(AM.can_be_pulled(src, state, force)))
@@ -80,11 +84,12 @@
 		AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
 	pulling = AM
 	AM.pulledby = src
-	if(ismob(AM))
-		var/mob/M = AM
-		add_attack_logs(src, M, "passively grabbed", ATKLOG_ALMOSTALL)
+
+	var/mob/pulled_mob = ismob(AM) ? AM : buckled_mobs[1]
+	if(ismob(pulled_mob))
+		add_attack_logs(src, pulled_mob, "passively grabbed", ATKLOG_ALMOSTALL)
 		if(show_message)
-			visible_message("<span class='warning'>[src] схватил[genderize_ru(src.gender,"","а","о","и")] [M]!</span>")
+			visible_message("<span class='warning'>[src] схватил[genderize_ru(src.gender,"","а","о","и")] [pulled_mob]!</span>")
 	return TRUE
 
 /atom/movable/proc/stop_pulling()
@@ -203,7 +208,7 @@
 		return
 
 	if(.)
-		Moved(oldloc, direct)
+		Moved(oldloc, direct, FALSE)
 
 	last_move = direct
 	src.move_speed = world.time - src.l_move_time
@@ -215,8 +220,6 @@
 // Called after a successful Move(). By this point, we've already moved
 /atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
-	for(var/atom/movable/atom in contents)
-		SEND_SIGNAL(atom, COMSIG_MOVABLE_HOLDER_MOVED, OldLoc, Dir, Forced)
 	if(!inertia_moving)
 		inertia_next_move = world.time + inertia_move_delay
 		newtonian_move(Dir)
@@ -281,7 +284,7 @@
 		if(old_z != dest_z)
 			onTransitZ(old_z, dest_z)
 
-	Moved(old_loc, NONE)
+	Moved(old_loc, NONE, TRUE)
 
 	return 1
 
@@ -303,8 +306,6 @@
 	if(client)
 		reset_perspective(destination)
 	update_canmove() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
-	update_runechat_msg_location()
-
 
 //Called whenever an object moves and by mobs when they attempt to move themselves through space
 //And when an object or action applies a force on src, see newtonian_move() below

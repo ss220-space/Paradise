@@ -185,7 +185,7 @@
 
 /obj/structure/displaycase/boat
 	desc = "A display case containing a bottle whith an ancient ship. Could it surf space?"
-	req_access_txt = "111"
+	req_access = list(ACCESS_CENT_BLACKOPS)
 	start_showpiece_type = /obj/item/ship_in_a_bottle
 
 //Сейф с рандомными документами
@@ -200,7 +200,7 @@
 /obj/machinery/broken/porta_turret
 	name = "Broken turret"
 	desc = "Seriously battered turret, gun mount torn out"
-	icon = 'icons/obj/turrets.dmi'
+	icon = 'icons/obj/machines/turrets.dmi'
 	icon_state = "destroyed_target_prism"
 
 /obj/machinery/broken/porta_turret/attackby(obj/item/I, mob/user)

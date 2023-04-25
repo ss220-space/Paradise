@@ -547,6 +547,15 @@
 				 /obj/item/stack/sheet/sinew = 1)
 	category = CAT_PRIMAL
 
+/datum/crafting_recipe/tribalspear
+	name = "Spear"
+	result = /obj/item/twohanded/spear
+	reqs = list(/obj/item/restraints/handcuffs/sinew = 1,
+				/obj/item/shard = 1,
+				/obj/item/stack/rods = 1)
+	time = 20
+	category = CAT_PRIMAL
+
 /datum/crafting_recipe/bonebow
 	name = "Wooden Bow"
 	result = /obj/item/gun/projectile/bow
@@ -557,8 +566,10 @@
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/arrow
-	name = "Arrow"
-	result = /obj/item/ammo_casing/caseless/arrow
+	name = "Arrows"
+	result = list(/obj/item/ammo_casing/caseless/arrow,
+				/obj/item/ammo_casing/caseless/arrow,
+				/obj/item/ammo_casing/caseless/arrow)
 	time = 20
 	reqs = list(/obj/item/stack/sheet/bone = 1,
 				 /obj/item/stack/sheet/wood = 1)
@@ -571,6 +582,7 @@
 	reqs = list(/obj/item/stack/sheet/wood = 2,
 				 /obj/item/stack/sheet/sinew = 1)
 	category = CAT_PRIMAL
+
 /datum/crafting_recipe/boneaxe
 	name = "Bone Axe"
 	result = /obj/item/twohanded/fireaxe/boneaxe
@@ -618,6 +630,15 @@
 	reqs = list(/obj/item/tank/internals/oxygen = 2, /obj/item/extinguisher = 1, /obj/item/pipe = 3, /obj/item/stack/cable_coil = MAXCOIL)
 	category = CAT_MISC
 	tools = list(TOOL_WRENCH, TOOL_WELDER, TOOL_WIRECUTTER)
+
+/datum/crafting_recipe/autoinjector
+	name = "Selfmade Autoinjector"
+	result = /obj/item/reagent_containers/hypospray/autoinjector/selfmade
+	time = 5
+	reqs = list(/obj/item/reagent_containers/syringe = 1,
+				/obj/item/stack/sheet/plastic = 1,
+				/obj/item/stack/sheet/metal = 1)
+	category = CAT_MISC
 
 /datum/crafting_recipe/drill
 	name = "Thermal Drill"

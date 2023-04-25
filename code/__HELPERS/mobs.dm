@@ -338,7 +338,7 @@
 	if(target)
 		Tloc = target.loc
 
-	var/atom/Uloc = user.loc
+	var/turf/Uturf = get_turf(user)
 
 	var/drifting = FALSE
 	if(!user.Process_Spacemove(0) && user.inertia_dir)
@@ -363,6 +363,10 @@
 	if(use_default_checks)
 		extra_checks += CALLBACK(user, /mob.proc/IsWeakened)
 		extra_checks += CALLBACK(user, /mob.proc/IsStunned)
+		if(istype(holding, /obj/item/gripper/))
+			var/obj/item/gripper/gripper = holding
+			if(!(gripper.isEmpty()))
+				extra_checks += CALLBACK(gripper, /obj/item/gripper.proc/isEmpty)
 
 	while(world.time < endtime)
 		sleep(1)
@@ -371,9 +375,9 @@
 
 		if(drifting && !user.inertia_dir)
 			drifting = FALSE
-			Uloc = user.loc
+			Uturf = get_turf(user)
 
-		if(!user || user.stat || (!drifting && user.loc != Uloc) || check_for_true_callbacks(extra_checks))
+		if(!user || user.stat || (!drifting && get_turf(user) != Uturf) || check_for_true_callbacks(extra_checks))
 			. = FALSE
 			break
 

@@ -46,7 +46,8 @@
 					/obj/item/robot_parts/r_arm,
 					/obj/item/robot_parts/l_leg,
 					/obj/item/robot_parts/r_leg,
-					/obj/item/robot_parts/chest)
+					/obj/item/robot_parts/chest,
+					/obj/item/stack/sheet/mineral/plasma) //for repair plasmamans
 
 /obj/item/gripper/medical/attack_self(mob/user)
 	return
@@ -164,6 +165,9 @@
 /// Grippers are snowflakey so this is needed to to prevent forceMoving grippers after `if(!user.drop_item())` checks done in certain attackby's.
 /obj/item/gripper/forceMove(atom/destination)
 	return
+
+/obj/item/gripper/proc/isEmpty()
+	return isnull(gripped_item)
 
 /obj/item/gripper/afterattack(atom/target, mob/living/user, proximity, params)
 

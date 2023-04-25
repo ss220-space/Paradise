@@ -341,3 +341,48 @@
 /obj/item/gun/projectile/automatic/lasercarbine/update_icon()
 	..()
 	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
+
+/obj/item/gun/projectile/automatic/lr30
+	name = "\improper IR-30 Laser Rifle"
+	desc = "A compact rifle, relying more on battery cartridges rather than a built in power cell. Utilized by the Nanotrasen Navy for combat operations."
+	icon_state = "lr30"
+	item_state = "lr30"
+	w_class = WEIGHT_CLASS_NORMAL
+	origin_tech = "combat=3;materials=2"
+	mag_type = /obj/item/ammo_box/magazine/lr30mag
+	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	can_suppress = 0
+	burst_size = 1
+	actions_types = list()
+
+/obj/item/gun/projectile/automatic/lr30/update_icon()
+	..()
+	icon_state = "lr30[magazine ? "-[CEILING(get_ammo(0)/3, 1)*3]" : ""]"
+
+//Semi-Machine Gun SFG
+
+/obj/item/gun/projectile/automatic/sfg
+	name = "SFG-5 SMG"
+	desc = "Данное оружие, созданное для различных спецслужб по всей галактике одной компанией, имеет в качестве калибра 9мм, возможность стрельбы очередями отсечкой по 3 патрона и имеет место для фонарика и глушителя."
+	icon_state = "sfg-5"
+	item_state = "arg"
+	mag_type = /obj/item/ammo_box/magazine/sfg9mm
+	burst_size = 3
+	can_flashlight = TRUE
+
+/obj/item/gun/projectile/automatic/sfg/update_icon()
+	..()
+	icon_state = "[initial(icon_state)][magazine ? "" : "-e"][suppressed ? "-suppressed" : ""]"
+	if(gun_light)
+		var/iconF = "sfg-light"
+		if(gun_light.on)
+			iconF = "sfg-light-on"
+		overlays += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
+
+/obj/item/gun/projectile/automatic/sfg/ui_action_click(var/owner, var/action_type)
+    if(..()) return TRUE
+    if (action_type == /datum/action/item_action/toggle_gunlight)
+        toggle_gunlight()
+        return TRUE

@@ -21,6 +21,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	ROLE_ALIEN = 21,
 	ROLE_DEMON = 21,
 	ROLE_SENTIENT = 21,
+	ROLE_ELITE = 21,
 // 	ROLE_GANG = 21,
 	ROLE_BORER = 21,
 	ROLE_NINJA = 21,
@@ -1820,16 +1821,13 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("body_accessory")
 					var/list/possible_body_accessories = list()
-					if(check_rights(R_ADMIN, 1, user))
-						possible_body_accessories = GLOB.body_accessory_by_name.Copy()
-					else
-						for(var/B in GLOB.body_accessory_by_name)
-							var/datum/body_accessory/accessory = GLOB.body_accessory_by_name[B]
-							if(!istype(accessory))
-								possible_body_accessories += "None" //the only null entry should be the "None" option
-								continue
-							if(species in accessory.allowed_species)
-								possible_body_accessories += B
+					for(var/B in GLOB.body_accessory_by_name)
+						var/datum/body_accessory/accessory = GLOB.body_accessory_by_name[B]
+						if(!istype(accessory))
+							possible_body_accessories += "None" //the only null entry should be the "None" option
+							continue
+						if(species in accessory.allowed_species)
+							possible_body_accessories += B
 					if(S.optional_body_accessory)
 						possible_body_accessories.Add("None") //the only null entry should be the "None" option
 					else

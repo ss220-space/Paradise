@@ -1081,7 +1081,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			"floating face",
 			"xeno queen",
 			"eldritch",
-			"ancient machine"
+			"ancient machine",
+			"AUTO",
+			"beach ball",
+			"pair of bees"
 			)
 			if(custom_hologram) //insert custom hologram
 				icon_list.Add("custom")
@@ -1098,6 +1101,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo3"))
 					if("eldritch")
 						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo4"))
+					if("AUTO")
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo5"))
+					if("beach ball")
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo6"))
+					if("pair of bees")
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo7"))
 					if("ancient machine")
 						holo_icon = getHologramIcon(icon('icons/mob/ancient_machine.dmi', "ancient_machine"))
 					if("custom")
@@ -1300,7 +1309,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	//This communication is imperfect because the holopad "filters" voices and is only designed to connect to the master only.
 	var/rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [message]</span></i>"
 	if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-		create_chat_message(M.runechat_msg_location, message_clean, TRUE, FALSE)
+		create_chat_message(M, message_clean, TRUE, FALSE)
 	show_message(rendered, 2)
 
 /mob/living/silicon/ai/proc/malfhacked(obj/machinery/power/apc/apc)
@@ -1450,10 +1459,3 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
-
-
-/mob/living/silicon/ai/update_runechat_msg_location()
-	if(istype(loc, /obj/item/aicard) || ismecha(loc))
-		runechat_msg_location = loc
-	else
-		runechat_msg_location = src

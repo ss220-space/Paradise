@@ -1,7 +1,7 @@
 /obj/item/gun
 	name = "gun"
 	desc = "It's a gun. It's pretty terrible, though."
-	icon = 'icons/obj/guns/projectile.dmi'
+	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "detective"
 	item_state = "gun"
 	flags =  CONDUCT
@@ -335,9 +335,9 @@
 		to_chat(user, "<span class='notice'>You attach [K] to [src]'s bayonet lug.</span>")
 		bayonet = K
 		var/state = "bayonet"							//Generic state.
-		if(bayonet.icon_state in icon_states('icons/obj/guns/bayonets.dmi'))		//Snowflake state?
+		if(bayonet.icon_state in icon_states('icons/obj/weapons/bayonets.dmi'))		//Snowflake state?
 			state = bayonet.icon_state
-		var/icon/bayonet_icons = 'icons/obj/guns/bayonets.dmi'
+		var/icon/bayonet_icons = 'icons/obj/weapons/bayonets.dmi'
 		knife_overlay = mutable_appearance(bayonet_icons, state)
 		knife_overlay.pixel_x = knife_x_offset
 		knife_overlay.pixel_y = knife_y_offset
@@ -404,7 +404,7 @@
 	return TRUE
 
 /obj/item/gun/extinguish_light()
-	if(gun_light.on)
+	if(gun_light?.on)
 		toggle_gunlight()
 		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
 
@@ -552,3 +552,23 @@
 
 	// The gun is equipped in their hands, give them the zoom ability.
 	azoom.Grant(user)
+
+//Guns can be placed on racks
+/obj/item/gun
+	var/on_rack = FALSE
+
+/obj/item/gun/proc/place_on_rack()
+	on_rack = TRUE
+	var/matrix/M = matrix()
+	M.Turn(-90)
+	transform = M
+
+/obj/item/gun/proc/remove_from_rack()
+	if(on_rack)
+		var/matrix/M = matrix()
+		transform = M
+		on_rack = FALSE
+
+/obj/item/gun/pickup(mob/user)
+	. = ..()
+	remove_from_rack()

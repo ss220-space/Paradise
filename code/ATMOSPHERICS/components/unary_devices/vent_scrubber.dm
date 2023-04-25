@@ -1,8 +1,6 @@
 /obj/machinery/atmospherics/unary/vent_scrubber
-	icon = 'icons/atmos/vent_scrubber.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/vent_scrubber.dmi'
 	icon_state = "map_scrubber"
-
-	req_one_access_txt = "24;10"
 
 	name = "air scrubber"
 	desc = "Has a valve and pump attached to it"

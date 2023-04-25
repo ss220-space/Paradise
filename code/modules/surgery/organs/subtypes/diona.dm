@@ -95,6 +95,12 @@
 	check_flags = 0
 	desc = "Leave body as a nymph."
 
+/datum/action/item_action/organ_action/diona_brain_evacuation/IsAvailable()
+	. = ..()
+	if((!owner.mind) || owner.mind.suicided)
+		return FALSE
+
+
 /datum/action/item_action/organ_action/diona_brain_evacuation/Trigger()
 	. = ..()
 	var/confirm = alert("Вы уверены, что хотите покинуть свое тело как нимфа? (!Если использовать, пока живы, то лишитесь роли антагониста!)","Confirm evacuation","Yes","No")
@@ -108,7 +114,8 @@
 			var/loc = owner.loc
 			var/datum/mind/mind = owner.mind
 			if(!is_dead)
-				mind.remove_all_antag_roles()
+				mind.remove_all_antag_roles(FALSE)
+				log_and_message_admins("diona-evacuated into nymph and lost all possible antag roles.")
 			brain.remove(owner)
 
 			for(var/mob/living/simple_animal/diona/nymph in get_turf(loc))

@@ -3,7 +3,7 @@
 /obj/mecha
 	name = "Mecha"
 	desc = "Exosuit"
-	icon = 'icons/mecha/mecha.dmi'
+	icon = 'icons/obj/mecha/mecha.dmi'
 	density = 1 //Dense. To raise the heat.
 	opacity = 1 ///opaque. Menacing.
 	anchored = 1 //no pulling around.
@@ -1061,18 +1061,10 @@
 	return internal_tank.return_air()
 
 /obj/mecha/proc/toggle_lights()
-	lights = !lights
-	if(lights)
-		set_light(light_range + lights_power)
-	else
-		set_light(light_range - lights_power)
-	occupant_message("Toggled lights [lights ? "on" : "off"].")
-	log_message("Toggled lights [lights ? "on" : "off"].")
+	lights_action.Trigger()
 
 /obj/mecha/proc/toggle_internal_tank()
-	use_internal_tank = !use_internal_tank
-	occupant_message("Now taking air from [use_internal_tank ? "internal airtank" : "environment"].")
-	log_message("Now taking air from [use_internal_tank ? "internal airtank" : "environment"].")
+	internals_action.Trigger()
 
 /obj/mecha/MouseDrop_T(mob/M, mob/user)
 	if(frozen)

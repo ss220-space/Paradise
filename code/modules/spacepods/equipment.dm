@@ -47,9 +47,9 @@
 		sleep(2)
 
 /datum/spacepod/equipment
+
 	var/obj/spacepod/my_atom
 	var/list/obj/item/spacepod_equipment/installed_modules = list() // holds an easy to access list of installed modules
-
 	var/obj/item/spacepod_equipment/weaponry/weapon_system // weapons system
 	var/obj/item/spacepod_equipment/misc/misc_system // misc system
 	var/obj/item/spacepod_equipment/cargo/cargo_system // cargo system
@@ -63,6 +63,7 @@
 
 /obj/item/spacepod_equipment
 	name = "equipment"
+	icon = 'icons/obj/spacepod.dmi'
 	var/obj/spacepod/my_atom
 	var/occupant_mod = 0	// so any module can modify occupancy
 	var/list/storage_mod = list("slots" = 0, "w_class" = 0)		// so any module can modify storage slots
@@ -79,7 +80,6 @@
 /obj/item/spacepod_equipment/weaponry
 	name = "pod weapon"
 	desc = "You shouldn't be seeing this"
-	icon = 'icons/vehicles/spacepod.dmi'
 	icon_state = "blank"
 	var/obj/item/projectile/projectile_type
 	var/shot_cost = 0
@@ -90,7 +90,7 @@
 
 /obj/item/spacepod_equipment/weaponry/taser
 	name = "disabler system"
-	desc = "A weak taser system for space pods, fires disabler beams."
+	desc = "A weak disabler system for space pods, fires disabler beams."
 	icon_state = "weapon_taser"
 	projectile_type = /obj/item/projectile/beam/disabler
 	shot_cost = 800
@@ -99,12 +99,12 @@
 	harmful = FALSE
 
 /obj/item/spacepod_equipment/weaponry/burst_taser
-	name = "burst taser system"
-	desc = "A weak taser system for space pods, this one fires 3 at a time."
+	name = "burst disabler system"
+	desc = "A weak disabler system for space pods, this one fires 3 round burst at a time."
 	icon_state = "weapon_burst_taser"
 	projectile_type = /obj/item/projectile/beam/disabler
-	shot_cost = 800
-	shots_per = 2
+	shot_cost = 1200
+	shots_per = 3
 	fire_sound = 'sound/weapons/taser.ogg'
 	fire_delay = 30
 	harmful = FALSE
@@ -129,8 +129,8 @@
 
 // MINING LASERS
 /obj/item/spacepod_equipment/weaponry/mining_laser_basic
-	name = "weak mining laser system"
-	desc = "A weak mining laser system for space pods, fires bursts of energy that cut through rock."
+	name = "kinetic accelerator system"
+	desc = "A kinetic accelerator system for space pods, fires bursts of kinetic force that cut through rock."
 	icon = 'icons/goonstation/pods/ship.dmi'
 	icon_state = "pod_taser"
 	projectile_type = /obj/item/projectile/kinetic/pod
@@ -139,8 +139,8 @@
 	fire_sound = 'sound/weapons/kenetic_accel.ogg'
 
 /obj/item/spacepod_equipment/weaponry/mining_laser
-	name = "mining laser system"
-	desc = "A mining laser system for space pods, fires bursts of energy that cut through rock."
+	name = "industrial kinetic accelerator system"
+	desc = "A industrial kinetic accelerator system for space pods, fires heavy bursts of kinetic force that cut through rock."
 	icon = 'icons/goonstation/pods/ship.dmi'
 	icon_state = "pod_m_laser"
 	projectile_type = /obj/item/projectile/kinetic/pod/regular
@@ -184,7 +184,6 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 /obj/item/spacepod_equipment/cargo
 	name = "pod cargo"
 	desc = "You shouldn't be seeing this"
-	icon = 'icons/vehicles/spacepod.dmi'
 	icon_state = "cargo_blank"
 	var/obj/storage = null
 
@@ -225,7 +224,6 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 /obj/item/spacepod_equipment/sec_cargo
 	name = "secondary cargo"
 	desc = "you shouldn't be seeing this"
-	icon = 'icons/vehicles/spacepod.dmi'
 	icon_state = "blank"
 
 // Passenger Seat
@@ -251,7 +249,6 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 /obj/item/spacepod_equipment/lock
 	name = "pod lock"
 	desc = "You shouldn't be seeing this"
-	icon = 'icons/vehicles/spacepod.dmi'
 	icon_state = "blank"
 	var/mode = 0
 	var/id = null
@@ -268,18 +265,17 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 	id = ++id_source
 
 // The key
-/obj/item/spacepod_key
+/obj/item/spacepod_equipment/key
 	name = "spacepod key"
 	desc = "A key for a spacepod lock."
-	icon = 'icons/vehicles/spacepod.dmi'
 	icon_state = "podkey"
 	w_class = WEIGHT_CLASS_TINY
 	var/id = 0
 
 // Key - Lock Interactions
 /obj/item/spacepod_equipment/lock/keyed/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I, /obj/item/spacepod_key))
-		var/obj/item/spacepod_key/key = I
+	if(istype(I, /obj/item/spacepod_equipment/key))
+		var/obj/item/spacepod_equipment/key/key = I
 		if(!key.id)
 			key.id = id
 			to_chat(user, "<span class='notice'>You grind the blank key to fit the lock.</span>")
