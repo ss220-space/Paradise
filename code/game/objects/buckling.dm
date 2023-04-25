@@ -69,7 +69,7 @@
 		if(buckle_prevents_pull)
 			M.pulledby.stop_pulling()
 		else
-      M.pulledby.unpixel_shift()
+			M.pulledby.unpixel_shift()
 			M.pulledby.pulling = src
 			M.pulledby = null
 
