@@ -208,7 +208,8 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		"large_stamp-mime.png"      = 'icons/paper_icons/large_stamp-mime.png',
 		"thieflogo.png"		    	= 'icons/paper_icons/thieflogo.png',
 		"large_stamp-ploho.png"		= 'icons/paper_icons/large_stamp-ploho.png',
-		"large_stamp-BIGdeny.png"	= 'icons/paper_icons/large_stamp-BIGdeny.png'
+		"large_stamp-BIGdeny.png"	= 'icons/paper_icons/large_stamp-BIGdeny.png',
+		"large_stamp-navcom.png"	= 'icons/paper_icons/large_stamp-navcom.png'
 	)
 
 /datum/asset/simple/chess
