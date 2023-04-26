@@ -135,7 +135,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	name = "big machinery part"
 	density = 1
 	anchored = 1
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	var/obj/machinery/parent
 
 /obj/structure/filler/Destroy()

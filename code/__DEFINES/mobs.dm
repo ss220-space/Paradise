@@ -188,7 +188,6 @@
 
 #define STATUS_UPDATE_NONE 0
 #define STATUS_UPDATE_ALL (~0)
-#define INVISIBILITY_ABSTRACT 101
 
 // Incorporeal movement
 #define INCORPOREAL_NONE 0

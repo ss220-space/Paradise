@@ -63,7 +63,7 @@ Difficulty: Medium
 	icon_state = null
 	gpstag = "Mysterious Signal"
 	desc = "The sweet blood, oh, it sings to me."
-	invisibility = 100
+	invisibility = INVISIBILITY_ABSTRACT
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Initialize(mapload)
 	. = ..()
