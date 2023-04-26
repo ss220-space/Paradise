@@ -97,11 +97,11 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/smes,
 /obj/machinery/light/small{
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/north,
+/obj/machinery/power/smes/old,
 /turf/simulated/floor/plating,
 /area/space)
 "aD" = (
@@ -3505,11 +3505,11 @@
 /turf/simulated/floor/carpet,
 /area/space)
 "zX" = (
-/obj/machinery/power/smes,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/machinery/power/smes/old,
 /turf/simulated/floor/plating,
 /area/space)
 "Ab" = (
@@ -4013,6 +4013,10 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/turf/simulated/floor/plating,
+/area/space)
+"DH" = (
+/obj/structure/closet/crate/secure/biohazard,
 /turf/simulated/floor/plating,
 /area/space)
 "DK" = (
@@ -5117,6 +5121,15 @@
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
+/area/space)
+"NO" = (
+/mob/living/simple_animal/hostile/carp{
+	maxHealth = 70;
+	name = "Shy space carp";
+	health = 70;
+	desc = "Very lonely and shy space carp."
+	},
+/turf/simulated/floor/plating/asteroid/airless,
 /area/space)
 "NR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -8460,8 +8473,8 @@ ha
 ha
 ha
 ha
-ha
-ha
+JO
+JO
 ha
 ha
 ha
@@ -8602,8 +8615,8 @@ ha
 ha
 JO
 JO
-ha
-ha
+JO
+JO
 ha
 ha
 ha
@@ -8745,7 +8758,7 @@ JO
 JO
 ha
 ha
-ha
+JO
 ha
 ha
 ha
@@ -8887,7 +8900,7 @@ JO
 JO
 ha
 ha
-ha
+NO
 ha
 ha
 ha
@@ -18058,7 +18071,7 @@ XT
 lE
 rz
 ZK
-Or
+DH
 MM
 Jw
 yT
