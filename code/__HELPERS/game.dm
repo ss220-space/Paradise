@@ -103,28 +103,7 @@
 			return FALSE
 	return TRUE
 
-/proc/get_dist_euclidian(atom/Loc1 as turf|mob|obj,atom/Loc2 as turf|mob|obj)
-	var/dx = Loc1.x - Loc2.x
-	var/dy = Loc1.y - Loc2.y
-
-	var/dist = sqrt(dx**2 + dy**2)
-
-	return dist
-
-/proc/circlerangeturfs(center=usr,radius=3)
-
-	var/turf/centerturf = get_turf(center)
-	var/list/turfs = new/list()
-	var/rsq = radius * (radius+0.5)
-
-	for(var/turf/T in range(radius, centerturf))
-		var/dx = T.x - centerturf.x
-		var/dy = T.y - centerturf.y
-		if(dx*dx + dy*dy <= rsq)
-			turfs += T
-	return turfs
-
-/proc/circleviewturfs(center=usr,radius=3)		//Is there even a diffrence between this proc and circlerangeturfs()?
+/proc/circleviewturfs(center=usr,radius=3)
 
 	var/turf/centerturf = get_turf(center)
 	var/list/turfs = new/list()
@@ -272,21 +251,6 @@
 
 	return inLineOfSight(Aturf.x, Aturf.y, Bturf.x, Bturf.y, Aturf.z)
 
-/proc/get_cardinal_step_away(atom/start, atom/finish) //returns the position of a step from start away from finish, in one of the cardinal directions
-	//returns only NORTH, SOUTH, EAST, or WEST
-	var/dx = finish.x - start.x
-	var/dy = finish.y - start.y
-	if(abs(dy) > abs (dx)) //slope is above 1:1 (move horizontally in a tie)
-		if(dy > 0)
-			return get_step(start, SOUTH)
-		else
-			return get_step(start, NORTH)
-	else
-		if(dx > 0)
-			return get_step(start, WEST)
-		else
-			return get_step(start, EAST)
-
 /proc/try_move_adjacent(atom/movable/AM)
 	var/turf/T = get_turf(AM)
 	for(var/direction in GLOB.cardinal)
@@ -315,61 +279,12 @@
 
 	return candidates
 
-/proc/get_candidate_ghosts(be_special_type, afk_bracket=3000, override_age=0, override_jobban=0)
-	var/roletext = get_roletext(be_special_type)
-	var/list/candidates = list()
-	// Keep looping until we find a non-afk candidate within the time bracket (we limit the bracket to 10 minutes (6000))
-	while(!candidates.len && afk_bracket < 6000)
-		for(var/mob/dead/observer/G in GLOB.player_list)
-			if(G.client != null)
-				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
-					if(!G.client.is_afk(afk_bracket) && (be_special_type in G.client.prefs.be_special))
-						if(!override_jobban || (!jobban_isbanned(G, roletext) && !jobban_isbanned(G,"Syndicate")))
-							if(override_age || player_old_enough_antag(G.client,be_special_type))
-								candidates += G
-		afk_bracket += 600 // Add a minute to the bracket, for every attempt
-
-	return candidates
-
-/proc/ScreenText(obj/O, maptext="", screen_loc="CENTER-7,CENTER-7", maptext_height=480, maptext_width=480)
-	if(!isobj(O))	O = new /obj/screen/text()
-	O.maptext = maptext
-	O.maptext_height = maptext_height
-	O.maptext_width = maptext_width
-	O.screen_loc = screen_loc
-	return O
-
-/proc/Show2Group4Delay(obj/O, list/group, delay=0)
-	if(!isobj(O))	return
-	if(!group)	group = GLOB.clients
-	for(var/client/C in group)
-		C.screen += O
-	if(delay)
-		spawn(delay)
-			for(var/client/C in group)
-				C.screen -= O
-
 /proc/flick_overlay(image/I, list/show_to, duration)
 	for(var/client/C in show_to)
 		C.images += I
 	spawn(duration)
 		for(var/client/C in show_to)
 			C.images -= I
-
-/proc/get_active_player_count()
-	// Get active players who are playing in the round
-	var/active_players = 0
-	for(var/i = 1; i <= GLOB.player_list.len; i++)
-		var/mob/M = GLOB.player_list[i]
-		if(M && M.client)
-			if(isnewplayer(M)) // exclude people in the lobby
-				continue
-			else if(isobserver(M)) // Ghosts are fine if they were playing once (didn't start as observers)
-				var/mob/dead/observer/O = M
-				if(O.started_as_observer) // Exclude people who started as observers
-					continue
-			active_players++
-	return active_players
 
 /datum/projectile_data
 	var/src_x
@@ -408,18 +323,6 @@
 	var/dest_y = src_y + distance*cos(rotation);
 
 	return new /datum/projectile_data(src_x, src_y, time, distance, power_x, power_y, dest_x, dest_y)
-
-
-/proc/mobs_in_area(var/area/the_area, var/client_needed=0, var/moblist=GLOB.mob_list)
-	var/list/mobs_found[0]
-	var/area/our_area = get_area(the_area)
-	for(var/mob/M in moblist)
-		if(client_needed && !M.client)
-			continue
-		if(our_area != get_area(M))
-			continue
-		mobs_found += M
-	return mobs_found
 
 /proc/alone_in_area(var/area/the_area, var/mob/must_be_alone, var/check_type = /mob/living/carbon)
 	var/area/our_area = get_area(the_area)

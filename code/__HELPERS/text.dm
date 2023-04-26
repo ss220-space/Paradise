@@ -72,23 +72,10 @@
 	var/regex/alphanum_only = regex("\[^a-zA-Z0-9# ,.?!:;()]", "g")
 	return alphanum_only.Replace(t, "#")
 
-// Less agressive, to allow discord features, such as <>, / and @
-/proc/not_as_paranoid_sanitize(t)
-	var/regex/alphanum_slashes_only = regex("\[^a-zA-Z0-9# ,.?!:;()/<>@]", "g")
-	return alphanum_slashes_only.Replace(t, "#")
-
 //Runs sanitize and strip_html_simple
 //I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' after sanitize() calls byond's html_encode()
 /proc/strip_html(var/t,var/limit=MAX_MESSAGE_LEN)
 	return copytext((sanitize(strip_html_simple(t))),1,limit)
-
-// Used to get a properly sanitized multiline input, of max_length
-/proc/stripped_multiline_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE)
-	var/name = input(user, message, title, default) as message|null
-	if(no_trim)
-		return copytext(html_encode(name), 1, max_length)
-	else
-		return trim(html_encode(name), max_length)
 
 //Runs byond's sanitization proc along-side strip_html_simple
 //I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' that html_encode() would cause
@@ -196,34 +183,9 @@
 
 	return t_out
 
-//checks text for html tags
-//if tag is not in whitelist (var/list/paper_tag_whitelist in global.dm)
-//relpaces < with &lt;
-/proc/checkhtml(var/t)
-	t = sanitize_simple(t, list("&#"="."))
-	var/p = findtext(t,"<",1)
-	while(p)	//going through all the tags
-		var/start = p++
-		var/tag = copytext(t,p, p+1)
-		if(tag != "/")
-			while(reject_bad_text(copytext(t, p, p+1), 1))
-				tag = copytext(t,start, p)
-				p++
-			tag = copytext(t,start+1, p)
-			if(!(tag in GLOB.paper_tag_whitelist))	//if it's unkown tag, disarming it
-				t = copytext(t,1,start-1) + "&lt;" + copytext(t,start+1)
-		p = findtext(t,"<",p)
-	return t
 /*
  * Text searches
  */
-
-//Checks the beginning of a string for a specified sub-string
-//Returns the position of the substring or 0 if it was not found
-/proc/dd_hasprefix(text, prefix)
-	var/start = 1
-	var/end = length(prefix) + 1
-	return findtext_char(text, prefix, start, end)
 
 //Checks the beginning of a string for a specified sub-string. This proc is case sensitive
 //Returns the position of the substring or 0 if it was not found
@@ -240,13 +202,6 @@
 		return findtext_char(text, suffix, start, null)
 	return
 
-//Checks the end of a string for a specified substring. This proc is case sensitive
-//Returns the position of the substring or 0 if it was not found
-/proc/dd_hassuffix_case(text, suffix)
-	var/start = length(text) - length(suffix)
-	if(start)
-		return findtextEx_char(text, suffix, start, null)
-
 /*
  * Text modification
  */
@@ -259,30 +214,10 @@
 			t = replacetext_char(t, char, repl_chars[char])
 	return t
 
-//Strips the first char and returns it and the new string as a list
-/proc/strip_first(t)
-	return list(copytext(t, 1, 2), copytext(t, 2, 0))
-
-//Strips the last char and returns it and the new string as a list
-/proc/strip_last(t)
-	return list(copytext(t, 1, length(t)), copytext(t, length(t)))
-
 //Adds 'u' number of zeros ahead of the text 't'
 /proc/add_zero(t, u)
 	while(length(t) < u)
 		t = "0[t]"
-	return t
-
-//Adds 'u' number of spaces ahead of the text 't'
-/proc/add_lspace(t, u)
-	while(length(t) < u)
-		t = " [t]"
-	return t
-
-//Adds 'u' number of spaces behind the text 't'
-/proc/add_tspace(t, u)
-	while(length(t) < u)
-		t = "[t] "
 	return t
 
 //Returns a string with reserved characters and spaces before the first letter removed
@@ -307,23 +242,6 @@
 //Returns a string with the first element of the string capitalized.
 /proc/capitalize(var/t as text)
 	return uppertext(copytext_char(t, 1, 2)) + copytext_char(t, 2)
-
-//Centers text by adding spaces to either side of the string.
-/proc/dd_centertext(message, length)
-	var/new_message = message
-	var/size = length(message)
-	var/delta = length - size
-	if(size == length)
-		return new_message
-	if(size > length)
-		return copytext(new_message, 1, length + 1)
-	if(delta == 1)
-		return new_message + " "
-	if(delta % 2)
-		new_message = " " + new_message
-		delta--
-	var/spaces = add_lspace("",delta/2-1)
-	return spaces + new_message + spaces
 
 //Limits the length of the text. Note: MAX_MESSAGE_LEN and MAX_NAME_LEN are widely used for this purpose
 /proc/dd_limittext(message, length)
@@ -365,12 +283,6 @@
 		if(a == character)
 			count++
 	return count
-
-/proc/reverse_text(var/text = "")
-	var/new_text = ""
-	for(var/i = length(text); i > 0; i--)
-		new_text += copytext(text, i, i+1)
-	return new_text
 
 //This proc strips html properly, but it's not lazy like the other procs.
 //This means that it doesn't just remove < and > and call it a day.
@@ -417,13 +329,6 @@
 /proc/copytext_preserve_html(var/text, var/first, var/last)
 	return html_encode(copytext_char(html_decode(text), first, last))
 
-//Run sanitize(), but remove <, >, " first to prevent displaying them as &gt; &lt; &34; in some places, after html_encode().
-//Best used for sanitize object names, window titles.
-//If you have a problem with sanitize() in chat, when quotes and >, < are displayed as html entites -
-//this is a problem of double-encode(when & becomes &amp;), use sanitize() with encode=0, but not the sanitizeSafe()!
-/proc/sanitizeSafe(var/input, var/max_length = MAX_MESSAGE_LEN, var/encode = 1, var/trim = 1, var/extra = 1)
-	return sanitize(replace_characters(input, list(">"=" ","<"=" ", "\""="'")), max_length, encode, trim, extra)
-
 /proc/dmm_encode(text)
 	// First, go through and nix out any of our escape sequences so we don't leave ourselves open to some escape sequence attack
 	// Some coder will probably despise me for this, years down the line
@@ -460,21 +365,6 @@
 			text = copytext(text, 1, index) + repl_chars[char] + copytext(text, index+keylength)
 			index = findtext(text, char)
 	return text
-
-//Checks if any of a given list of needles is in the haystack
-/proc/text_in_list(haystack, list/needle_list, start=1, end=0)
-	for(var/needle in needle_list)
-		if(findtext(haystack, needle, start, end))
-			return 1
-	return 0
-
-//Like above, but case sensitive
-/proc/text_in_list_case(haystack, list/needle_list, start=1, end=0)
-	for(var/needle in needle_list)
-		if(findtextEx(haystack, needle, start, end))
-			return 1
-	return 0
-
 
 // Pencode
 /proc/pencode_to_html(text, mob/user, obj/item/pen/P = null, format = 1, sign = 1, fields = 1, deffont = PEN_FONT, signfont = SIGNFONT, crayonfont = CRAYON_FONT, no_font = FALSE)

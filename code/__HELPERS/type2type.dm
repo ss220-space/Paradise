@@ -92,16 +92,6 @@
 
 
 //Turns a direction into text
-
-/proc/num2dir(direction)
-	switch(direction)
-		if(1.0) return NORTH
-		if(2.0) return SOUTH
-		if(4.0) return EAST
-		if(8.0) return WEST
-		else
-			log_runtime(EXCEPTION("UNKNOWN DIRECTION: [direction]"))
-
 /proc/dir2text(direction)
 	switch(direction)
 		if(1.0)
@@ -156,17 +146,6 @@
 	if(degree < 270)	return SOUTHWEST
 	if(degree < 315)	return WEST
 	return NORTH|WEST
-
-/proc/angle2dir_cardinal(angle)
-	switch(round(angle, 0.1))
-		if(315.5 to 360, 0 to 45.5)
-			return NORTH
-		if(45.6 to 135.5)
-			return EAST
-		if(135.6 to 225.5)
-			return SOUTH
-		if(225.6 to 315.5)
-			return WEST
 
 //returns the north-zero clockwise angle in degrees, given a direction
 

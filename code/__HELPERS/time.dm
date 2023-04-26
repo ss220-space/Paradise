@@ -65,18 +65,6 @@
 /proc/station_time_timestamp(format = "hh:mm:ss", time=world.time)
 	return time2text(station_time(time, TRUE), format)
 
-/* Returns 1 if it is the selected month and day */
-/proc/isDay(var/month, var/day)
-	if(isnum(month) && isnum(day))
-		var/MM = text2num(time2text(world.timeofday, "MM")) // get the current month
-		var/DD = text2num(time2text(world.timeofday, "DD")) // get the current day
-		if(month == MM && day == DD)
-			return 1
-
-		// Uncomment this out when debugging!
-		//else
-			//return 1
-
 //returns timestamp in a sql and ISO 8601 friendly format
 /proc/SQLtime()
 	return time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
@@ -93,9 +81,6 @@
  */
 /proc/stop_watch(wh)
 	return round(0.1 * (REALTIMEOFDAY - wh), 0.1)
-
-/proc/numberToMonthName(number)
-	return GLOB.month_names.Find(number)
 
 //Take a value in seconds and returns a string of minutes and seconds in the format X minute(s) and X seconds.
 /proc/seconds_to_time(var/seconds as num)

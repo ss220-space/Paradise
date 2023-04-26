@@ -150,12 +150,6 @@
 #define MIN_SUPPLIED_LAW_NUMBER 15
 #define MAX_SUPPLIED_LAW_NUMBER 50
 
-//check_target_facings() return defines
-#define FACING_FAILED											0
-#define FACING_SAME_DIR											1
-#define FACING_EACHOTHER										2
-#define FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR	3 //Do I win the most informative but also most stupid define award?
-
 #define MIDNIGHT_ROLLOVER	864000 //number of deciseconds in a day
 
 #define MANIFEST_ERROR_NAME		1

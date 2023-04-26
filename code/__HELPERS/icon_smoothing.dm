@@ -289,23 +289,6 @@
 
 //Icon smoothing helpers
 
-/proc/smooth_zlevel(var/zlevel, now = FALSE)
-	var/list/away_turfs = block(locate(1, 1, zlevel), locate(world.maxx, world.maxy, zlevel))
-	for(var/V in away_turfs)
-		var/turf/T = V
-		if(T.smooth)
-			if(now)
-				smooth_icon(T)
-			else
-				queue_smooth(T)
-		for(var/R in T)
-			var/atom/A = R
-			if(A.smooth)
-				if(now)
-					smooth_icon(A)
-				else
-					queue_smooth(A)
-
 /atom/proc/clear_smooth_overlays()
 	overlays -= top_left_corner
 	top_left_corner = null
