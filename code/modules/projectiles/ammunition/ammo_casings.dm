@@ -13,6 +13,12 @@
 	caliber = "9mm"
 	projectile_type = /obj/item/projectile/bullet/weakbullet4
 
+/obj/item/ammo_casing/fortynr
+	desc = "A 40nr bullet casing."
+	materials = list(MAT_METAL = 1100)
+	caliber = "40nr"
+	projectile_type = /obj/item/projectile/bullet/weakbullet3/fortynr
+
 /obj/item/ammo_casing/a762
 	desc = "A 7.62mm bullet casing."
 	icon_state = "762-casing"
@@ -405,7 +411,7 @@
 /obj/item/ammo_casing/caseless/foam_dart
 	name = "foam dart"
 	desc = "It's nerf or nothing! Ages 8 and up."
-	icon = 'icons/obj/guns/toy.dmi'
+	icon = 'icons/obj/weapons/toy.dmi'
 	icon_state = "foamdart"
 	materials = list(MAT_METAL = 10)
 	caliber = "foam_force"

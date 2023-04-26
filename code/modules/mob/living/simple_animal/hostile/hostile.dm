@@ -58,6 +58,8 @@
 
 	tts_seed = "Vort_e2"
 
+	var/dirslash_enabled = TRUE
+
 /mob/living/simple_animal/hostile/Initialize(mapload)
 	. = ..()
 
@@ -483,8 +485,8 @@
 /mob/living/simple_animal/hostile/Move(atom/newloc, dir , step_x , step_y)
 	if(dodging && approaching_target && prob(dodge_prob) && moving_diagonally == 0 && isturf(loc) && isturf(newloc))
 		return dodge(newloc, dir)
-	else
-		return ..()
+
+	. = ..()
 
 /mob/living/simple_animal/hostile/proc/dodge(moving_to,move_direction)
 	//Assuming we move towards the target we want to swerve toward them to get closer
@@ -552,7 +554,15 @@
 	if(ranged && ranged_cooldown <= world.time)
 		target = A
 		OpenFire(A)
-	..()
+		return
+	else if(dirslash_enabled && a_intent != INTENT_HELP)
+		var/turf/turf_attacking = get_step(src, get_compass_dir(src, A))
+		if(turf_attacking)
+			var/mob/living/target = locate() in turf_attacking
+			if(target && Adjacent(target))
+				changeNext_move(CLICK_CD_MELEE)
+				return UnarmedAttack(target, TRUE)
+	return ..()
 
 
 

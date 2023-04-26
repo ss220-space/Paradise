@@ -59,6 +59,7 @@
 	var/stamina_mod = 1
 	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
 	var/speed_mod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
+	var/bonefragility = 1 // higher numbers - higher chances to break bones
 	var/blood_damage_type = OXY //What type of damage does this species take if it's low on blood?
 	var/total_health = 100
 	var/punchdamagelow = 0       //lowest possible punch damage
@@ -756,6 +757,10 @@
 			if(!H.wear_suit.allowed)
 				if(!disable_warning)
 					to_chat(H, "Вы как-то достали костюм без хранения разрешенных предметов. Прекратите это.")
+				return FALSE
+			if(!H.wear_suit.can_store_weighted(I))
+				if(!disable_warning)
+					to_chat(H, "Размер [I] слишком большой, чтобы прикрепить.")
 				return FALSE
 			if(istype(I, /obj/item/pda) || istype(I, /obj/item/pen) || is_type_in_list(I, H.wear_suit.allowed))
 				return TRUE
