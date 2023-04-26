@@ -1,20 +1,6 @@
 /datum/event/operative
 	name = "Оперативник-одиночка"
 
-/proc/find_space_spawn()
-	var/list/possible_spawns = list()
-	for(var/obj/effect/landmark/event/carpspawn/spawn_location in GLOB.landmarks_list)
-		if(!isturf(spawn_location.loc))
-			stack_trace("Carp spawn found not on a turf: [spawn_location.type] on [isnull(spawn_location.loc) ? "null" : spawn_location.loc.type]")
-			continue
-		possible_spawns += get_turf(spawn_location)
-
-	if(!length(possible_spawns))
-		message_admins("No valid carpspawn landmarks found, aborting...")
-		return null
-
-	return pick(possible_spawns)
-
 /datum/event/operative/proc/assign_nuke()
 	var/nuke_code = rand(10000, 99999)
 	var/obj/machinery/nuclearbomb/nuke = locate()
@@ -28,12 +14,12 @@
 		nuke_code = null
 	return nuke_code
 
-/datum/event/operative/proc/prepare_operative(datum/mind/synd_mind, nuke_code)
+/datum/event/operative/proc/store_nuke_code(datum/mind/synd_mind, nuke_code)
 	if(nuke_code)
 		synd_mind.store_memory("<B>Код от ядерной боеголовки</B>: [nuke_code]", 0, 0)
 		to_chat(synd_mind.current, "Код от ядерной боеголовки: <B>[nuke_code]</B>")
 	else
-		nuke_code = "code will be provided later"
+		nuke_code = "Код будет сообщен позже."
 
 /datum/event/operative/proc/make_operative()
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you wish to be a lone nuclear operative?", ROLE_OPERATIVE, TRUE, source = /obj/machinery/nuclearbomb/)
@@ -50,14 +36,13 @@
 		operative.real_name = "[syndicate_name()] Lone Operative"
 		operative_mind.special_role = SPECIAL_ROLE_NUKEOPS
 		operative_mind.assigned_role = SPECIAL_ROLE_NUKEOPS
-
-		to_chat(operative, "<span class='notice'>Вы агент с кодовым именем [syndicate_name()]!</span>")
-		SSticker.mode.equip_syndicate(operative)
 		SSticker.mode.forge_syndicate_objectives(operative_mind)
 		SSticker.mode.greet_syndicate(operative_mind)
-		prepare_operative(operative_mind, assign_nuke())
-		var/list/found_ids = operative.search_contents_for(/obj/item/card/id)
+
+		SSticker.mode.equip_syndicate(operative)
+		store_nuke_code(operative_mind, assign_nuke())
 		SSticker.mode.update_syndicate_id(operative_mind, TRUE)
+
 		var/additional_tk = max(0, (GLOB.player_list.len - 30)*2)
 		var/obj/item/radio/uplink/Uplink = locate() in operative.back
 		if(istype(Uplink))
@@ -72,7 +57,7 @@
 
 /datum/event/operative/start()
 	processing = 0
-	if(length(GLOB.player_list) < 0) // <30
+	if(length(GLOB.player_list) < 30)
 		message_admins("Lone operative event failed to start. Not enough players.")
 		return
 	if(!make_operative())
