@@ -149,10 +149,9 @@
 				</TT>
 				<BR><BR><A href='?src=[UID()];refresh=1'>Refresh</A>
 				<BR><BR><A href='?src=[UID()];close=1'>Close</A>"}
-	var/datum/browser/popup = new(user, "infra", name, 400, 400)
+	var/datum/browser/popup = new(user, "infra", name, 400, 400, src)
 	popup.set_content(dat)
-	popup.open(0)
-	onclose(user, "infra")
+	popup.open()
 
 /obj/item/assembly/infra/Topic(href, href_list)
 	..()
@@ -209,7 +208,7 @@
 
 /obj/effect/beam/i_beam
 	name = "i beam"
-	icon = 'icons/obj/projectiles.dmi'
+	icon = 'icons/obj/weapons/projectiles.dmi'
 	icon_state = "ibeam"
 	var/obj/effect/beam/i_beam/next = null
 	var/obj/effect/beam/i_beam/previous = null

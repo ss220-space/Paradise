@@ -453,6 +453,15 @@
 		T.assume_air(lowertemp)
 		qdel(hotspot)
 
+/datum/reagent/consumable/cornoil/oliveoil
+	name = "Olive Oil"
+	id = "oliveoil"
+	description = "An oil derived from young olives."
+	reagent_state = LIQUID
+	nutriment_factor = 10 * REAGENTS_METABOLISM
+	color = "#d3f558"
+	taste_description = "bittersweet olive oil"
+
 /datum/reagent/consumable/enzyme
 	name = "Universal Enzyme"
 	id = "enzyme"
@@ -862,7 +871,7 @@
 			to_chat(H, "<span class='danger'>Ugh! Eating that was a terrible idea!</span>")
 		if(NO_HUNGER in H.dna.species.species_traits) //If you don't eat, then you can't get food poisoning
 			return
-		H.ForceContractDisease(new /datum/disease/food_poisoning(0))
+		H.ForceContractDisease(new /datum/disease/food_poisoning)
 
 /datum/reagent/msg
 	name = "Monosodium glutamate"
@@ -905,7 +914,7 @@
 		to_chat(M, "<span class='warning'>Your chest is burning with pain!</span>")
 		update_flags |= M.Stun(1, FALSE)
 		update_flags |= M.Weaken(1, FALSE)
-		M.ForceContractDisease(new /datum/disease/critical/heart_failure(0))
+		M.ForceContractDisease(new /datum/disease/critical/heart_failure)
 	return ..() | update_flags
 
 /datum/reagent/fungus
@@ -924,7 +933,7 @@
 			M.reagents.add_reagent("toxin", rand(1,5))
 		else if(ranchance <= 5)
 			to_chat(M, "<span class='warning'>That tasted absolutely FOUL.</span>")
-			M.ForceContractDisease(new /datum/disease/food_poisoning(0))
+			M.ForceContractDisease(new /datum/disease/food_poisoning)
 		else
 			to_chat(M, "<span class='warning'>Yuck!</span>")
 

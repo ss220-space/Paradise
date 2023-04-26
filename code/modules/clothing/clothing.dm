@@ -523,6 +523,7 @@ BLIND     // can't see anything
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/shoes.dmi',
+		"Unathi" = 'icons/mob/species/unathi/shoes.dmi',
 		"Drask" = 'icons/mob/species/drask/shoes.dmi',
 		"Monkey" = 'icons/mob/species/monkey/shoes.dmi',
 		"Farwa" = 'icons/mob/species/monkey/shoes.dmi',
@@ -636,6 +637,11 @@ BLIND     // can't see anything
 	else
 		to_chat(user, "<span class='notice'>You attempt to button up the velcro on \the [src], before promptly realising how foolish you are.</span>")
 
+// Proc used to check if suit storage is limited by item weight
+// Allows any suit to have their own weight limit for items that can be equipped into suit storage
+/obj/item/clothing/suit/proc/can_store_weighted(obj/item/I, item_weight = WEIGHT_CLASS_BULKY)
+	return I.w_class <= item_weight
+
 /obj/item/clothing/suit/equipped(var/mob/living/carbon/human/user, var/slot) //Handle tail-hiding on a by-species basis.
 	..()
 	if(ishuman(user) && hide_tail_by_species && slot == slot_wear_suit)
@@ -717,6 +723,7 @@ BLIND     // can't see anything
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi',
+		"Unathi" = 'icons/mob/species/unathi/uniform.dmi',
 		"Drask" = 'icons/mob/species/drask/uniform.dmi',
 		"Grey" = 'icons/mob/species/grey/uniform.dmi',
 		"Monkey" = 'icons/mob/species/monkey/uniform.dmi',
