@@ -416,6 +416,25 @@
 	caliber = "a545"
 	max_ammo = 30
 	multiple_sprites = 2
+/obj/item/ammo_box/magazine/ak47
+	name = "AK magazine (7.62x39mm)"
+	icon_state = "ak47mag"
+	desc= "An antique magazine for an AK rifle."
+	origin_tech = "combat=4;syndicate=1"
+	ammo_type = /obj/item/ammo_casing/f762
+	caliber = "f762"
+	max_ammo = 30
+	multiple_sprites = 2
+
+/obj/item/ammo_box/magazine/ppsh
+	name = "PPSh drum (7,62x25mm)"
+	icon_state = "ppshDrum"
+	desc= "An antique drum for an PPSh submacnine."
+	origin_tech = "combat=3;syndicate=1"
+	ammo_type = /obj/item/ammo_casing/ftt762
+	caliber = "ftt762"
+	max_ammo = 71
+	multiple_sprites = 2
 
 /obj/item/ammo_box/magazine/m12g
 	name = "shotgun magazine (12g slugs)"

@@ -336,3 +336,14 @@
 /obj/item/projectile/bullet/cap/fire()
 	loc = null
 	qdel(src)
+
+/obj/item/projectile/bullet/f762 // Rusted AK
+	name = "Fusty FMJ 7.62 bullet"
+	damage = 18
+	stamina = 6
+
+/obj/item/projectile/bullet/ftt762 // Rusted PPSh
+	name = "Fusty FMJ 7.62 TT bullet"
+	damage = 4
+	stamina = 1
+	armour_penetration = 5

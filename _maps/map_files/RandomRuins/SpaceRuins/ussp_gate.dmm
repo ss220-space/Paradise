@@ -101,7 +101,7 @@
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/north,
-/obj/machinery/power/smes/old,
+/obj/machinery/power/smes/soviet,
 /turf/simulated/floor/plating,
 /area/space)
 "aD" = (
@@ -2868,6 +2868,7 @@
 "vC" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
+/obj/item/clothing/gloves/color/black,
 /turf/simulated/floor/plating,
 /area/space)
 "vF" = (
@@ -3509,7 +3510,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/smes/old,
+/obj/machinery/power/smes/soviet,
 /turf/simulated/floor/plating,
 /area/space)
 "Ab" = (
@@ -4315,7 +4316,8 @@
 /area/space)
 "FT" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/gloves/color/black,
+/obj/item/circuitboard/smes/soviet,
+/obj/item/circuitboard/smes/soviet,
 /turf/simulated/floor/plating,
 /area/space)
 "Ge" = (
