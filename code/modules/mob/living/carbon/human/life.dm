@@ -340,14 +340,20 @@
 	if(stat != DEAD)
 		body_thermal_regulation(loc_temp)
 
-	//After then, it reacts to the surrounding atmosphere based on your thermal protection
-	if(!on_fire) //If you're on fire, you do not heat up or cool down based on surrounding gases
-		// we are dead or environment is not comfortable for our species
-		if(stat == DEAD || loc_temp < dna.species.cold_level_1 || loc_temp > dna.species.heat_level_1)
-			handle_temperature(loc_temp)
-		// environment is already comfortable for our species, but we still need to adjust body temperature to safe levels
-		else if(bodytemperature < dna.species.cold_level_1 || bodytemperature > dna.species.heat_level_1)
-			handle_temperature(loc_temp)
+	// After then, it reacts to the surrounding atmosphere based on your thermal protection
+	// If we are on fire, we do not heat up or cool down based on surrounding gases
+	// Works only if environment temperature is not comfortable for our species
+	if(!on_fire && (loc_temp < dna.species.cold_level_1 || loc_temp > dna.species.heat_level_1 || bodytemperature <= dna.species.cold_level_1 || bodytemperature >= dna.species.heat_level_1))
+		if(loc_temp < bodytemperature)
+			//Place is colder than we are
+			var/thermal_protection = get_cold_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
+			if(thermal_protection < 1)
+				bodytemperature += max((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_COLD_DIVISOR), BODYTEMP_COOLING_MAX)
+		else
+			//Place is hotter than we are
+			var/thermal_protection = get_heat_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
+			if(thermal_protection < 1)
+				bodytemperature += min((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR), BODYTEMP_HEATING_MAX)
 
 	// +/- 50 degrees from 310.15K is the 'safe' zone, where no damage is dealt.
 	if(bodytemperature > dna.species.heat_level_1)
@@ -469,22 +475,6 @@
 
 //END FIRE CODE
 
-/mob/living/carbon/human/proc/handle_temperature(loc_temp)
-	if(loc_temp < bodytemperature)
-		//Place is colder than we are
-		var/thermal_protection = get_cold_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
-		if(thermal_protection < 1)
-			bodytemperature += max((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_COLD_DIVISOR), BODYTEMP_COOLING_MAX)
-			return TRUE
-	else
-		//Place is hotter than we are
-		var/thermal_protection = get_heat_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
-		if(thermal_protection < 1)
-			bodytemperature += min((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR), BODYTEMP_HEATING_MAX)
-			return TRUE
-	return FALSE
-
-
 /mob/living/carbon/human/proc/body_thermal_regulation(loc_temp)
 	var/body_temperature_difference = dna.species.body_temperature - bodytemperature
 
@@ -493,7 +483,7 @@
 	if(bodytemperature >= dna.species.heat_level_1) //360.15 is 310.15 + 50, the temperature where you start to feel effects.
 		bodytemperature += min(metabolism_efficiency * (body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), -BODYTEMP_AUTORECOVERY_MINIMUM)	//We're dealing with negative numbers
 
-	// simple thermal regulation when the body temperature is OK for our specie
+	// simple thermal regulation when the body temperature is OK for our species
 	if(bodytemperature > dna.species.cold_level_1 && bodytemperature < dna.species.heat_level_1)
 		// if environment temperature is within the safe levels we are using it to shift recovery slightly
 		var/enviro_shift = (loc_temp < dna.species.heat_level_1) && (loc_temp > dna.species.cold_level_1) ? ((loc_temp - bodytemperature) / dna.species.body_temperature) : 0
