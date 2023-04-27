@@ -302,10 +302,10 @@
 // Enemys
 
 /mob/living/simple_animal/hostile/syndicate
-	/var/synmobdrop //Обычный лут, дропается со всех
-	/var/SynSpace //Выпадение бладрига
-	/var/SynMelee //Лут с милишников
-	/var/SynRange //Лут с дальников
+	var/synmobdrop //Обычный лут, дропается со всех
+	var/SynSpace //Выпадение бладрига
+	var/SynMelee //Лут с милишников
+	var/SynRange //Лут с дальников
 
 /mob/living/simple_animal/hostile/syndicate/Initialize()
 	var/rollforloot = rand(1,50) //Лучшего варианта я не нашел
@@ -381,8 +381,9 @@
 	attack_sound = 'sound/weapons/saberon.ogg'
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/spacebattle/Initialize()
+	. = ..()
 	loot = list(/obj/effect/decal/cleanable/ash, synmobdrop, SynMelee)
-	return ..()
+	return .
 
 /mob/living/simple_animal/hostile/syndicate/melee/space/autogib/spacebattle
 	damage_coeff = list("brute" = 0.8, "fire" = 0.8, "tox" = 1, "clone" = 2, "stamina" = 0, "oxy" = 0)
@@ -390,21 +391,24 @@
 	attack_sound = 'sound/weapons/saberon.ogg'
 
 /mob/living/simple_animal/hostile/syndicate/melee/space/autogib/spacebattle/Initialize()
+	. = ..()
 	loot = list(/obj/effect/decal/cleanable/ash, synmobdrop, SynMelee, SynSpace)
-	return ..()
+	return .
 
 /mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle
 	damage_coeff = list("brute" = 1, "fire" = 1, "tox" = 1, "clone" = 2, "stamina" = 0, "oxy" = 0.5)
 
 /mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle/Initialize()
+	. = ..()
 	loot = list(/obj/effect/decal/cleanable/ash, synmobdrop, SynRange)
-	return ..()
+	return .
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle/Initialize()
+	. = ..()
 	loot = list(/obj/effect/decal/cleanable/ash, synmobdrop, SynRange, SynSpace)
-	return ..()
+	return .
 
 
 /mob/living/simple_animal/hostile/malf_drone/spacebattle
