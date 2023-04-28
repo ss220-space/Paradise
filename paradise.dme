@@ -1454,6 +1454,7 @@
 #include "code\modules\antagonists\traitor\contractor\datums\rep_purchases\reroll.dm"
 #include "code\modules\antagonists\traitor\contractor\datums\rep_purchases\zippo.dm"
 #include "code\modules\antagonists\traitor\contractor\items\contractor_baton.dm"
+#include "code\modules\antagonists\traitor\contractor\items\contractor_hardsuit.dm"
 #include "code\modules\antagonists\traitor\contractor\items\contractor_kit.dm"
 #include "code\modules\antagonists\traitor\contractor\items\contractor_pinpointer.dm"
 #include "code\modules\antagonists\traitor\contractor\items\contractor_uplink.dm"
