@@ -104,7 +104,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "at" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk/fireproof,
 /obj/structure/railing{
 	dir = 1
 	},
@@ -218,7 +218,7 @@
 /turf/simulated/floor/plating,
 /area/mine/maintenance)
 "aF" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk/fireproof,
 /obj/machinery/atmospherics/pipe/simple/visible/supply{
 	dir = 4
 	},
@@ -286,7 +286,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/mine/living_quarters)
 "aQ" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk/fireproof,
 /obj/machinery/atmospherics/pipe/simple/visible/supply,
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
 /obj/structure/disposalpipe/segment,
@@ -704,7 +704,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "cn" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk/fireproof,
 /obj/structure/railing{
 	dir = 1
 	},
@@ -850,7 +850,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/mine/living_quarters)
 "cV" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk/fireproof,
 /obj/machinery/atmospherics/pipe/simple/visible/supply,
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
 /obj/structure/disposalpipe/segment,
@@ -1076,7 +1076,7 @@
 	},
 /area/mine/lobby)
 "ee" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk/fireproof,
 /obj/machinery/atmospherics/pipe/manifold/visible/supply{
 	dir = 4
 	},
@@ -1308,7 +1308,7 @@
 	},
 /area/mine/laborcamp)
 "fi" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk/fireproof,
 /obj/machinery/atmospherics/pipe/simple/visible/supply{
 	dir = 10
 	},
@@ -1452,7 +1452,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "fD" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk/fireproof,
 /obj/structure/railing,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -1476,7 +1476,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "fM" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk/fireproof,
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/mine/laborcamp)
@@ -3157,7 +3157,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "nV" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk/fireproof,
 /obj/structure/railing{
 	dir = 1
 	},
@@ -3608,7 +3608,7 @@
 	},
 /area/mine/living_quarters)
 "rP" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk/fireproof,
 /obj/machinery/atmospherics/pipe/simple/visible/supply{
 	dir = 5
 	},
@@ -3810,7 +3810,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "ty" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk/fireproof,
 /obj/structure/railing{
 	dir = 8
 	},
@@ -3831,7 +3831,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "tC" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk/fireproof,
 /obj/structure/railing/corner{
 	dir = 8
 	},
@@ -3881,10 +3881,6 @@
 	},
 /obj/structure/stone_tile,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
-"uc" = (
-/turf/simulated/mineral/random/labormineral/volcanic,
-/turf/simulated/mineral/random/labormineral/volcanic,
 /area/lavaland/surface/outdoors)
 "uf" = (
 /obj/structure/disposalpipe/segment{
@@ -4141,7 +4137,7 @@
 	},
 /area/mine/living_quarters)
 "wA" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk/fireproof,
 /obj/machinery/atmospherics/pipe/simple/visible/supply{
 	dir = 4
 	},
@@ -4222,12 +4218,12 @@
 /turf/simulated/floor/plasteel,
 /area/mine/storage)
 "xt" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk/fireproof,
 /obj/structure/railing,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "xw" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk/fireproof,
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	name = "scrubber outlet"
 	},
@@ -4413,7 +4409,7 @@
 	},
 /area/mine/storage)
 "zb" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk/fireproof,
 /obj/machinery/atmospherics/pipe/simple/visible/supply{
 	dir = 4
 	},
@@ -4429,7 +4425,7 @@
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "ze" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk/fireproof,
 /obj/machinery/atmospherics/pipe/manifold/visible/scrubbers{
 	dir = 8
 	},
@@ -4480,7 +4476,7 @@
 	},
 /area/mine/production)
 "zq" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk/fireproof,
 /obj/machinery/atmospherics/pipe/simple/visible/supply{
 	dir = 6
 	},
@@ -4702,7 +4698,7 @@
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/mine/necropolis)
 "Bi" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk/fireproof,
 /obj/machinery/atmospherics/pipe/simple/visible/supply{
 	dir = 9
 	},
@@ -5766,7 +5762,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "JK" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk/fireproof,
 /obj/structure/railing/corner{
 	dir = 1
 	},
@@ -5819,7 +5815,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "Kf" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk/fireproof,
 /obj/structure/railing{
 	dir = 4
 	},
@@ -6974,7 +6970,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Vt" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk/fireproof,
 /obj/machinery/atmospherics/pipe/simple/visible/supply{
 	dir = 6
 	},
@@ -7005,7 +7001,7 @@
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "Vz" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk/fireproof,
 /obj/machinery/atmospherics/pipe/simple/visible/supply{
 	dir = 6
 	},
@@ -7461,7 +7457,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "Zp" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk/fireproof,
 /obj/structure/railing{
 	dir = 1
 	},
@@ -44001,7 +43997,7 @@ an
 an
 an
 an
-uc
+an
 ab
 ab
 aj
@@ -44258,7 +44254,7 @@ an
 an
 an
 an
-uc
+an
 ab
 ab
 aj
@@ -44515,7 +44511,7 @@ an
 an
 an
 an
-uc
+an
 ab
 ab
 aj
