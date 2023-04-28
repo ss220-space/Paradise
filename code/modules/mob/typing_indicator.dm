@@ -74,7 +74,7 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 	set name = ".Me"
 	set hidden = 1
 
-	set_typing_emote_indicator(TRUE, TRUE)
+	set_typing_emote_indicator(TRUE)
 	hud_typing = 1
 	var/message = typing_input(src, "", "me (text)")
 	hud_typing = 0
