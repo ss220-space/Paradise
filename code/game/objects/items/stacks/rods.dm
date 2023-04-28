@@ -109,6 +109,6 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	else
 		icon_state = "f_rods"
 
-/obj/item/stack/fireproof_rods/New(loc, amount=null)
-	..()
+/obj/item/stack/fireproof_rods/Initialize(mapload)
+	. = ..()
 	update_icon()

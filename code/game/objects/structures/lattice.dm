@@ -169,9 +169,6 @@
 	new /obj/item/stack/fireproof_rods(get_turf(src), 1)
 	deconstruct()
 
-/obj/structure/lattice/fireproof/deconstruct(disassembled)
-	. = ..()
-
 /obj/structure/lattice/catwalk/fireproof
 	name = "strong catwalk"
 	desc = "Усиленный мостик, способный выдерживать высокие температуры и сильные нагрузки."
@@ -197,8 +194,3 @@
 	to_chat(user, "<span class='notice'>Вы срезали усиленный мостик!</span>")
 	new /obj/item/stack/fireproof_rods(get_turf(src), 3)
 	deconstruct()
-
-/obj/structure/lattice/catwalk/fireproof/deconstruct(disassembled)
-	. = ..()
-
-

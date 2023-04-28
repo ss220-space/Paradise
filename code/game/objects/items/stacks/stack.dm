@@ -35,6 +35,7 @@
 		for(var/obj/item/stack/S in loc)
 			if(S.merge_type == merge_type)
 				merge(S)
+	update_icon()
 
 /obj/item/stack/Crossed(obj/O, oldloc)
 	if(amount >= max_amount || ismob(loc)) // Prevents unnecessary call. Also prevents merging stack automatically in a mob's inventory
