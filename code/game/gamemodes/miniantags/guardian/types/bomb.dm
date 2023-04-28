@@ -49,24 +49,28 @@
 	if(istype(A, /obj/machinery/disposal)) // Have no idea why they just destroy themselves
 		to_chat(src, "<span class='warning'>Бомбы не мусор! Нельзя минировать мусорки!</span>")
 		return FALSE
+	if(istype(A, /obj/item/guardian_bomb))
+		to_chat(src, "<span class='warning'>Довольно странно минировать бомбу...</span>")
+		return FALSE
 	return TRUE
 
 /obj/item/guardian_bomb
 	name = "bomb"
 	desc = "You shouldn't be seeing this!"
+	var/bomb_lifetime = 60 SECONDS
 	var/obj/stored_obj
 	var/mob/living/spawner
 
-/obj/item/guardian_bomb/proc/disguise(var/obj/A)
-	A.forceMove(src)
+/obj/item/guardian_bomb/proc/disguise(obj/A)
 	stored_obj = A
+	A.forceMove(src)
 	opacity = A.opacity
 	anchored = A.anchored
 	density = A.density
 	appearance = A.appearance
 	dir = A.dir
 	move_resist = A.move_resist
-	addtimer(CALLBACK(src, .proc/disable), 600)
+	addtimer(CALLBACK(src, .proc/disable), bomb_lifetime)
 
 /obj/item/guardian_bomb/proc/disable()
 	add_attack_logs(null, stored_obj, "booby trap expired")
@@ -84,13 +88,16 @@
 
 	if(istype(spawner, /mob/living/simple_animal/hostile/guardian))
 		var/mob/living/simple_animal/hostile/guardian/G = spawner
-		if(user == G.summoner)
+		if(user == G.summoner || user == G)
 			add_attack_logs(user, stored_obj, "booby trap defused")
-			to_chat(user, "<span class='danger'>Из-за связи с вашим Подрывником вы знали о бомбе и деактивировали её.</span>")
+			if(user == G.summoner)
+				to_chat(user, "<span class='danger'>Из-за связи с вашим Подрывником вы знали о бомбе и деактивировали её.</span>")
+			else
+				to_chat(user, "<span class='danger'>Вы деактивируете свою бомбу...</span>")
 			stored_obj.forceMove(get_turf(loc))
 			qdel(src)
-			qdel(src)
 			return
+
 	add_attack_logs(user, stored_obj, "booby trap TRIGGERED (spawner: [spawner])")
 	to_chat(spawner, "<span class='danger'>Успех! Ваша мина на [src] поймала [user]!</span>")
 	stored_obj.forceMove(get_turf(loc))
@@ -101,7 +108,6 @@
 	if(ishuman(user))
 		dead_legs(user)
 	user.adjustBruteLoss(40)
-	qdel(src)
 	qdel(src)
 
 /obj/item/guardian_bomb/proc/dead_legs(mob/living/carbon/human/H as mob)
