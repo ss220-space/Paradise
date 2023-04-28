@@ -209,7 +209,7 @@
 	damage = 20
 
 /obj/item/projectile/bullet/incendiary/shell/Move()
-	..()
+	. = ..()
 	var/turf/location = get_turf(src)
 	if(location)
 		new /obj/effect/hotspot(location)
@@ -324,6 +324,8 @@
 	if(isalien(target))
 		weaken = 0
 		nodamage = 1
+	if(ismecha(target) || issilicon(target))
+		damage_type = BURN
 	. = ..() // Execute the rest of the code.
 
 /obj/item/projectile/bullet/cap

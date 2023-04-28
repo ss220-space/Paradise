@@ -72,6 +72,16 @@
 	build_path = /obj/item/defibrillator
 	category = list("Medical")
 
+/datum/design/compact_defib
+	name = "Compact defibrillator"
+	desc = "A belt-equipped defibrillator that can be rapidly deployed."
+	id = "compact_defib"
+	req_tech = list("materials" = 7, "biotech" = 7, "powerstorage" = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_SILVER = 2000)
+	build_path = /obj/item/defibrillator/compact
+	category = list("Medical")
+
 /datum/design/defib_mount
 	name = "Defibrillator Wall Mount"
 	desc = "A wall mount for defibrillator units."
@@ -662,4 +672,14 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_SILVER = 500)
 	construction_time = 60
 	build_path = /obj/item/organ/internal/lungs/cybernetic/upgraded
+	category = list("Medical")
+
+/datum/design/holostretcher
+	name = "Holo Strecher"
+	desc = "A hardlight projector for transporting patients."
+	id = "holo_stretcher"
+	req_tech = list("magnets" = 6, "powerstorage" = 4)
+	build_path = /obj/item/roller/holo
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 1000, MAT_SILVER = 500, MAT_GLASS = 500, MAT_DIAMOND = 200)
 	category = list("Medical")
