@@ -26,7 +26,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	name = "cloning pod"
 	desc = "An electronically-lockable pod for growing organic tissue."
 	density = TRUE
-	icon = 'icons/obj/cloning.dmi'
+	icon = 'icons/obj/machines/cloning.dmi'
 	icon_state = "pod_idle"
 	req_access = list(ACCESS_MEDICAL) //For premature unlocking.
 
@@ -653,7 +653,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 		// Let's non-specially remove all non-vital organs
 		// What could possibly go wrong
-		var/obj/item/I = O.remove(H)
+		var/obj/item/I = O.remove(H, TRUE)
 		// Make this support stuff that turns into items when removed
 		I.forceMove(src)
 		missing_organs += I

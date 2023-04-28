@@ -643,6 +643,12 @@
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 40, "energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 	flags_inv = HIDEJUMPSUIT
 	magical = TRUE
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
+
+/obj/item/clothing/suit/hooded/clockrobe/can_store_weighted()
+	return TRUE
 
 /obj/item/clothing/suit/hooded/clockrobe/Initialize(mapload)
 	. = ..()
@@ -739,10 +745,16 @@
 	flags_inv = HIDEJUMPSUIT
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/clockwork, /obj/item/twohanded/ratvarian_spear, /obj/item/twohanded/clock_hammer, /obj/item/melee/clock_sword)
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
 	var/absorb_uses = 2
 	var/reflect_uses = 3
 	var/normal_armor
 	var/harden_armor = list("melee" = 80, "bullet" = 60, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+
+/obj/item/clothing/suit/armor/clockwork/can_store_weighted()
+	return TRUE
 
 /obj/item/clothing/suit/armor/clockwork/Initialize(mapload)
 	. = ..()
