@@ -62,8 +62,8 @@
 	var/mob/living/spawner
 
 /obj/item/guardian_bomb/proc/disguise(obj/A)
-	stored_obj = A
 	A.forceMove(src)
+	stored_obj = A
 	opacity = A.opacity
 	anchored = A.anchored
 	density = A.density
@@ -74,7 +74,7 @@
 
 /obj/item/guardian_bomb/proc/disable()
 	add_attack_logs(null, stored_obj, "booby trap expired")
-	stored_obj.forceMove(get_turf(src))
+	stored_obj?.forceMove(get_turf(src))
 	if(spawner)
 		to_chat(spawner, "<span class='danger'>Провал! Ваша мина на [stored_obj] не смогла никого поймать на сей раз.</span>")
 	qdel(src)
@@ -94,13 +94,13 @@
 				to_chat(user, "<span class='danger'>Из-за связи с вашим Подрывником вы знали о бомбе и деактивировали её.</span>")
 			else
 				to_chat(user, "<span class='danger'>Вы деактивируете свою бомбу...</span>")
-			stored_obj.forceMove(get_turf(loc))
+			stored_obj?.forceMove(get_turf(loc))
 			qdel(src)
 			return
 
 	add_attack_logs(user, stored_obj, "booby trap TRIGGERED (spawner: [spawner])")
 	to_chat(spawner, "<span class='danger'>Успех! Ваша мина на [src] поймала [user]!</span>")
-	stored_obj.forceMove(get_turf(loc))
+	stored_obj?.forceMove(get_turf(loc))
 	playsound(get_turf(src),'sound/effects/bomb_activate.ogg', 200, 1)
 	playsound(get_turf(src),'sound/effects/explosion1.ogg', 200, 1)
 	user.ex_act(3)
@@ -141,6 +141,6 @@
 	detonate(user)
 
 /obj/item/guardian_bomb/examine(mob/user)
-	. = stored_obj.examine(user)
+	. = stored_obj?.examine(user)
 	if(get_dist(user, src) <= 2)
 		. += "<span class='notice'>Looks odd!</span>"
