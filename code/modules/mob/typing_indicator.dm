@@ -11,15 +11,14 @@ GLOBAL_LIST_EMPTY(typing_indicator)
   *
   * Arguments:
   * * state - Should a chat bubble be shown or hidden
-  * * me - Is the bubble being caused by the 'me' emote command
   */
-/mob/proc/set_typing_indicator(state, me)
+/mob/proc/set_typing_indicator(state)
 	if(!GLOB.typing_indicator[bubble_icon])
 		GLOB.typing_indicator[bubble_icon] = image('icons/mob/talk.dmi', null, "[bubble_icon]typing", FLY_LAYER)
 		var/image/I = GLOB.typing_indicator[bubble_icon]
 		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 
-	if(ishuman(src) && !me)
+	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
 		if((MUTE in H.mutations) || H.silent)
 			overlays -= GLOB.typing_indicator[bubble_icon]
@@ -39,20 +38,14 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 					typing = FALSE
 			return state
 
-/mob/proc/set_typing_emote_indicator(state, me)
+/mob/proc/set_typing_emote_indicator(state)
 	if(!GLOB.typing_indicator[bubble_emote_icon])
 		GLOB.typing_indicator[bubble_emote_icon] = image('icons/mob/talk.dmi', null, "[bubble_emote_icon]typing", FLY_LAYER)
 		var/image/I = GLOB.typing_indicator[bubble_emote_icon]
 		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 
-	if(ishuman(src) && !me)
-		var/mob/living/carbon/human/H = src
-		if((MUTE in H.mutations) || H.silent)
-			overlays -= GLOB.typing_indicator[bubble_emote_icon]
-			return
-
 	if(client)
-		if(stat != CONSCIOUS || is_muzzled() || (me && (client.prefs.toggles2 & PREFTOGGLE_2_EMOTE_BUBBLE)))
+		if(stat != CONSCIOUS || is_muzzled() || (client.prefs.toggles2 & PREFTOGGLE_2_EMOTE_BUBBLE))
 			overlays -= GLOB.typing_indicator[bubble_emote_icon]
 		else
 			if(state)
@@ -64,6 +57,7 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 					overlays -= GLOB.typing_indicator[bubble_emote_icon]
 					typing = FALSE
 			return state
+
 /mob/verb/say_wrapper()
 	set name = ".Say"
 	set hidden = 1
