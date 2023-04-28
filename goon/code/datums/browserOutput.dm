@@ -347,5 +347,6 @@ var/to_chat_src
 			output_message += "&[url_encode(flag)]"
 
 		target << output(output_message, "browseroutput:output")
+		SSdemo.write_chat(target, message)
 
 #undef MAX_COOKIE_LENGTH

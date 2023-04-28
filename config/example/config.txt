@@ -586,3 +586,8 @@ DEFAULT_MAP /datum/map/cyberiad
 ## Override server map by specified, uncomment to apply
 # OVERRIDE_MAP /datum/map/delta
 
+## Enable the demo subsystem (requires external demo-writer lib)
+#DEMOS_ENABLED
+
+## Whether demos should include TTS sounds (storage expensive)
+#DEMOS_EMBED_TTS

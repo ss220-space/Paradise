@@ -410,6 +410,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		Photo.blueprints = 1
 		blueprints = 0
 	Photo.construct(P)
+	SSdemo.embed_resource(Photo.icon)
 
 /obj/item/photo/proc/construct(var/datum/picture/P)
 	name = P.fields["name"]

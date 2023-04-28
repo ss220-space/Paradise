@@ -513,3 +513,5 @@
 #define TTS_SEED_DEFAULT_FEMALE "tyrande"
 #define TTS_SEED_DEFAULT_MALE "arthas"
 #define TTS_SEED_ANNOUNCER "anubarak"
+
+#define CLIENT_FROM_VAR(I) (ismob(I) ? I:client : (istype(I, /client) ? I : (istype(I, /datum/mind) ? I:current?:client : null)))

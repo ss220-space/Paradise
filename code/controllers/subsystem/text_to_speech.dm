@@ -408,12 +408,16 @@ SUBSYSTEM_DEF(tts)
 			play_sfx(listener, preSFX, output.channel, output.volume, output.environment)
 
 		SEND_SOUND(listener, output)
+		if(config.demos_embed_tts)
+			SSdemo.embed_resource(output)
 		return
 
 	if(preSFX)
 		play_sfx(listener, preSFX, output.channel, output.volume, output.environment)
 
 	output = listener.playsound_local(turf_source, output, volume, S = output, wait = TRUE, channel = channel)
+	if(config.demos_embed_tts)
+		SSdemo.embed_resource(output)
 
 	if(!output || output.volume <= 0)
 		return

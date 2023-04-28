@@ -23,6 +23,8 @@ GLOBAL_VAR(sql_log)
 GLOBAL_PROTECT(sql_log)
 GLOBAL_VAR(round_id)
 GLOBAL_PROTECT(round_id)
+GLOBAL_VAR(demo_log)
+GLOBAL_PROTECT(demo_log)
 
 GLOBAL_LIST_EMPTY(jobMax)
 GLOBAL_PROTECT(jobMax)

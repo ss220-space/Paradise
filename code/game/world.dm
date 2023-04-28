@@ -272,6 +272,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	GLOB.tgui_log = "[GLOB.log_directory]/tgui.log"
 	GLOB.http_log = "[GLOB.log_directory]/http.log"
 	GLOB.sql_log = "[GLOB.log_directory]/sql.log"
+	GLOB.demo_log = "[GLOB.log_directory]/demo.txt"
 	start_log(GLOB.world_game_log)
 	start_log(GLOB.world_href_log)
 	start_log(GLOB.world_runtime_log)
@@ -302,6 +303,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
 	if (debug_server)
 		call(debug_server, "auxtools_shutdown")()
+	SSdemo?.Shutdown()
 	..()
 
 /world/proc/init_byond_tracy()
