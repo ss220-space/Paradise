@@ -85,9 +85,19 @@
 	GLOB.morphs_alive_list += src
 	check_morphs()
 
-/mob/living/simple_animal/hostile/morph/proc/add_reproduce()
-	can_reproduce = TRUE
-	return AddSpell(new /obj/effect/proc_holder/spell/targeted/morph_spell/reproduce)
+/**
+ * This proc enables or disables morph reproducing ability
+ *
+ * Arguments
+ * * boolean - TRUE = enabled, FALSE = disabled
+ */
+/mob/living/simple_animal/hostile/morph/proc/enable_reproduce(boolean)
+	if(boolean)
+		can_reproduce = TRUE
+		AddSpell(new /obj/effect/proc_holder/spell/targeted/morph_spell/reproduce)
+	else
+		can_reproduce = FALSE
+		RemoveSpell(/obj/effect/proc_holder/spell/targeted/morph_spell/reproduce)
 
 /mob/living/simple_animal/hostile/morph/Stat(Name, Value)
 	..()
@@ -345,7 +355,7 @@
 
 
 /mob/living/simple_animal/hostile/morph/proc/make_morph_antag(give_default_objectives = TRUE)
-	add_reproduce()
+	enable_reproduce(TRUE)
 	mind.assigned_role = SPECIAL_ROLE_MORPH
 	mind.special_role = SPECIAL_ROLE_MORPH
 	SSticker.mode.traitors |= mind
