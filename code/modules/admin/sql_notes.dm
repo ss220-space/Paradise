@@ -137,6 +137,7 @@
 		var/new_note = input("Input new note", "New Note", "[old_note]") as message|null
 		if(!new_note)
 			return
+		var/server
 		if(config && config.server_name)
 			server = config.server_name
 		var/edit_text = "Last edit by [usr.ckey] at [SQLtime()][server ? " on [server]" : ""]"
