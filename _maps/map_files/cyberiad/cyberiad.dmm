@@ -9683,11 +9683,9 @@
 /obj/item/book/manual/sop_supply,
 /obj/item/book/manual/sop_service,
 /obj/item/book/manual/sop_security,
-/obj/item/book/manual/sop_science{
-	pixel_y = -14
-	},
 /obj/item/book/manual/sop_medical,
 /obj/item/book/manual/sop_engineering,
+/obj/item/book/manual/sop_science,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
