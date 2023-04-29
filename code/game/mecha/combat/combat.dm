@@ -6,6 +6,15 @@
 	armor = list(melee = 30, bullet = 30, laser = 15, energy = 20, bomb = 20, bio = 0, rad = 0, fire = 100, acid = 100)
 	destruction_sleep_duration = 2
 	var/am = "d3c2fbcadca903a41161ccc9df9cf948"
+	strafe_allowed = TRUE
+
+/obj/mecha/combat/GrantActions(mob/living/user, human_occupant = 0)
+	..()
+	strafe_action.Grant(user, src)
+
+/obj/mecha/combat/RemoveActions(mob/living/user, human_occupant = 0)
+	..()
+	strafe_action.Remove(user)
 
 /obj/mecha/combat/moved_inside(var/mob/living/carbon/human/H as mob)
 	if(..())

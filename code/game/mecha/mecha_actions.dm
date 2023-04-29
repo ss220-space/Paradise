@@ -13,6 +13,7 @@
 	var/datum/action/innate/mecha/mech_toggle_phasing/phasing_action = new
 	var/datum/action/innate/mecha/mech_switch_damtype/switch_damtype_action = new
 	var/datum/action/innate/mecha/mech_energywall/energywall_action = new
+	var/datum/action/innate/mecha/mech_strafe/strafe_action = new
 
 /obj/mecha/proc/GrantActions(mob/living/user, human_occupant = 0)
 	if(human_occupant)
@@ -253,3 +254,34 @@
 			chassis.wall_ready = 1
 	else
 		chassis.occupant_message("<span class='warning'>Energy wall is not ready yet!</span>")
+
+//Strafe action and procs
+/datum/action/innate/mecha/mech_strafe
+	name = "Toggle Strafing. Disabled when Alt is held."
+	button_icon_state = "strafe"
+
+/datum/action/innate/mecha/mech_strafe/Activate()
+	if(!owner || !chassis || chassis.occupant != owner)
+		return
+	chassis.toggle_strafe()
+
+/obj/mecha/AltClick(mob/living/user) //Strafing is toggled by button or by Alt-clicking mecha
+	if(!occupant || occupant != user)
+		return
+	toggle_strafe()
+
+/obj/mecha/proc/toggle_strafe()
+	if(!strafe_allowed)
+		occupant_message("This mecha doesn't support strafing!")
+		return
+	var/datum/action/innate/mecha/mech_strafe/mech_strafe = locate(/datum/action/innate/mecha/mech_strafe) in occupant.actions
+	if(!mech_strafe)
+		return
+	strafe = !strafe
+	occupant_message("<font color='[strafe ? "green" : "red"]'>Strafing mode [strafe ? "en" : "dis"]abled.")
+	log_message("Toggled strafing mode [strafe ? "on" : "off"].")
+	if(strafe)
+		mech_strafe.button_icon_state = "strafe_on"
+	else
+		mech_strafe.button_icon_state = "strafe"
+	mech_strafe.UpdateButtonIcon()
