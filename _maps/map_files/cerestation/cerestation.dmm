@@ -40089,7 +40089,7 @@
 "foN" = (
 /obj/structure/closet/secure_closet/security,
 /obj/machinery/light,
-/obj/item/spacepod_equipment/key{
+/obj/item/spacepod_key{
 	id = 100000
 	},
 /obj/item/spacepod_equipment/weaponry/laser,
@@ -50750,7 +50750,7 @@
 	c_tag = "HoS Bedroom";
 	network = list("SS13","Security")
 	},
-/obj/item/spacepod_equipment/key{
+/obj/item/spacepod_key{
 	id = 100000
 	},
 /turf/simulated/floor/carpet/red,
