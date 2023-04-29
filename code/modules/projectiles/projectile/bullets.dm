@@ -337,8 +337,8 @@
 	loc = null
 	qdel(src)
 
-/obj/item/projectile/bullet/f762 // Rusted AK
-	name = "Fusty FMJ 7.62 bullet"
+/obj/item/projectile/bullet/f545 // Rusted AK
+	name = "Fusty FMJ 5.45 bullet"
 	damage = 18
 	stamina = 6
 

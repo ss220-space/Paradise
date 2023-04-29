@@ -499,5 +499,6 @@
 	name = "power storage unit"
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit. Old but not useless."
 	icon_state = "oldsmes"
+	capacity = 2e6
 
 #undef SMESRATE

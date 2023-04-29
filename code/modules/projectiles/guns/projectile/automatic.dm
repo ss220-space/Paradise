@@ -396,7 +396,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_HEAVY
 	origin_tech = "combat=5;materials=3"
-	mag_type = /obj/item/ammo_box/magazine/ak47
+	mag_type = /obj/item/ammo_box/magazine/aksu
 	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
@@ -406,7 +406,8 @@
 	burst_size = 3
 	fire_delay = 1
 	recoil = 1
-	var/malf_counter = 90 // max shots before exploding
+	var/malf_counter = 90 // (90 is stub) max shots before exploding - random number between malf_low_bound and malf_high_bound
+	var/self_shot_divisor = 3 // higher value means more shots in the face
 	var/malf_low_bound = 60
 	var/malf_high_bound = 120
 
@@ -420,11 +421,11 @@
 		new /obj/effect/decal/cleanable/ash(user.loc)
 		user.take_organ_damage(0,30)
 		user.flash_eyes()
-		to_chat(user, "<span class='userdanger'>WOAH! [src] blows up in your hands! FOR COMMUNISM!</span>")
+		to_chat(user, "<span class='userdanger'>WOAH! [src] blows up in your hands!</span>")
 		playsound(user, 'sound/effects/explosion1.ogg', 30, 1)
 		qdel(src)
 		return FALSE
-	if(prob(40 - ((malf_counter/3) > 0 ? round(malf_counter/3) : 0)))
+	if(prob(40 - (malf_counter > 0 ? round(malf_counter / self_shot_divisor) : 0)))
 		playsound(user, fire_sound, 30, 1)
 		to_chat(user, "<span class='userdanger'>[src] blows up in your face!</span>")
 		user.take_organ_damage(0,10)
@@ -434,11 +435,11 @@
 // Rusted AKSU Soviet Assault Rifle
 
 /obj/item/gun/projectile/automatic/rusted/aksu
-	name = "\improper Rusted AK-47 assault rifle"
+	name = "\improper Rusted AKSU assault rifle"
 	desc = "An old AK assault rifle favored by Soviet soldiers."
 	icon_state = "aksu"
 	item_state = "aksu"
-	mag_type = /obj/item/ammo_box/magazine/ak47
+	mag_type = /obj/item/ammo_box/magazine/aksu
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;materials=3"
 	burst_size = 3
@@ -454,7 +455,8 @@
 	w_class = WEIGHT_CLASS_HUGE
 	origin_tech = "combat=4;materials=3"
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
-	malf_low_bound = 80
+	self_shot_divisor = 4
+	malf_high_bound = 100
 	burst_size = 7
 	fire_delay = 1.5
 	recoil = 1.2

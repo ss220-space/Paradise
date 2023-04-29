@@ -32,15 +32,6 @@
 	materials = list(MAT_METAL = 1000)
 	projectile_type = /obj/item/projectile/bullet/weakbullet3
 
-/obj/item/ammo_casing/f762
-	desc = "A fusty 7.62mm bullet casing."
-	icon_state = "762-casing"
-	materials = list(MAT_METAL = 1000)
-	caliber = "f762"
-	projectile_type = /obj/item/projectile/bullet/f762
-	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
-	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
-
 /obj/item/ammo_casing/ftt762
 	desc = "A fusty 7.62mm TT bullet casing."
 	icon_state = "r-casing"
@@ -392,6 +383,15 @@
 	caliber = "a545"
 	projectile_type = /obj/item/projectile/bullet/midbullet3
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+
+/obj/item/ammo_casing/f545
+	desc = "A fusty 5.45mm bullet casing."
+	icon_state = "a545"
+	materials = list(MAT_METAL = 1000)
+	caliber = "f545"
+	projectile_type = /obj/item/projectile/bullet/f545
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/shotgun/fakebeanbag

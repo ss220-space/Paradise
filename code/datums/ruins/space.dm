@@ -357,8 +357,8 @@
 	name = "Space bloodship "
 	description = "This shuttle was a regular transport vessel until it was captured by cultists who made their bloody sacrifice."
 
-/datum/map_template/ruin/space/ussp_gate
-	id = "ussp_gate"
-	suffix = "ussp_gate.dmm"
-	name = "USSP Gate station"
+/datum/map_template/ruin/space/USSP_gorky17
+	id = "USSP_gorky17"
+	suffix = "USSP_gorky17.dmm"
+	name = "USSP Gorky 17 station"
 	description = "net"

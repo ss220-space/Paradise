@@ -416,13 +416,13 @@
 	caliber = "a545"
 	max_ammo = 30
 	multiple_sprites = 2
-/obj/item/ammo_box/magazine/ak47
-	name = "AK magazine (7.62x39mm)"
+/obj/item/ammo_box/magazine/aksu
+	name = "AK magazine (5.45x39mm)"
 	icon_state = "ak47mag"
 	desc= "An antique magazine for an AK rifle."
 	origin_tech = "combat=4;syndicate=1"
-	ammo_type = /obj/item/ammo_casing/f762
-	caliber = "f762"
+	ammo_type = /obj/item/ammo_casing/f545
+	caliber = "f545"
 	max_ammo = 30
 	multiple_sprites = 2
 
