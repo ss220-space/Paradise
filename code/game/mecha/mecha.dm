@@ -319,7 +319,7 @@
 	///Variable used to modify strafe speed, if strafe_speed_factor is anything other than 1
 	var/step_in_final = strafe ? (step_in * strafe_speed_factor) : step_in
 
-	///Variable used to check if user pressed Alt down
+	///Variable used to check if user pressed Alt button down
 	var/keyheld = FALSE
 	if(strafe && occupant.client?.input_data.keys_held["Alt"])
 		keyheld = TRUE
@@ -399,7 +399,7 @@
 		else
 			occupant.clear_alert("mechaport")
 	if(leg_overload_mode)
-		if(strafe) //no strafe while overload is active
+		if(strafe) //No strafe while overload is active
 			toggle_strafe()
 		log_message("Leg Overload damage.")
 		take_damage(1, BRUTE, FALSE, FALSE)
@@ -423,7 +423,7 @@
 			if(turnsound)
 				playsound(src, turnsound, 40, 1)
 		if(phasing && get_charge() >= phasing_energy_drain)
-			if(strafe)
+			if(strafe) //No strafe while phasing is active
 				toggle_strafe()
 			if(can_move < world.time)
 				. = FALSE // We lie to mech code and say we didn't get to move, because we want to handle power usage + cooldown ourself

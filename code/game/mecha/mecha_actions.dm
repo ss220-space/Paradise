@@ -265,7 +265,7 @@
 		return
 	chassis.toggle_strafe()
 
-/obj/mecha/AltClick(mob/living/user) //Strafing is toggled by button or by Alt-clicking mecha
+/obj/mecha/AltClick(mob/living/user) //Strafing is toggled by interface button or by Alt-clicking on mecha
 	if(!occupant || occupant != user)
 		return
 	toggle_strafe()
@@ -280,8 +280,5 @@
 	strafe = !strafe
 	occupant_message("<font color='[strafe ? "green" : "red"]'>Strafing mode [strafe ? "en" : "dis"]abled.")
 	log_message("Toggled strafing mode [strafe ? "on" : "off"].")
-	if(strafe)
-		mech_strafe.button_icon_state = "strafe_on"
-	else
-		mech_strafe.button_icon_state = "strafe"
+	mech_strafe.button_icon_state = "strafe[strafe ? "_on" : ""]"
 	mech_strafe.UpdateButtonIcon()
