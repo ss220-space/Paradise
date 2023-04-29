@@ -294,6 +294,10 @@
 		return
 	return domove(direction)
 
+//Constants for strafe mode
+#define STRAFE_TURN_FACTOR 1.5 //Multiplier for mecha's turn speed while strafe is active
+#define STRAFE_DIAGONAL_MOVE_FACTOR 2 //Multiplier for mecha's diagonal move speed while strafe is active
+
 /obj/mecha/proc/domove(direction)
 	if(can_move >= world.time)
 		return 0
@@ -334,14 +338,16 @@
 		move_result = mechsteprand()
 		move_type = MECHAMOVE_RAND
 	else if(dir != direction && !strafe || keyheld) //We can use Alt button while strafing to change direction on fly
+		if(strafe)
+			step_in_final *= STRAFE_TURN_FACTOR
 		move_result = mechturn(direction)
 		move_type = MECHAMOVE_TURN
 	else
 		if(direction & (direction - 1))	//moved diagonally
 			if(strafe)
 				if(strafe_diagonal) //Diagonal strafing is overpowered, disabled by default on all mechas
-					glide_for(step_in_final * 1.41)
-					step_in_final *= 2
+					glide_for(step_in * 1.41)
+					step_in_final *= STRAFE_DIAGONAL_MOVE_FACTOR
 					move_result = mechstep(direction, old_direction, step_in_final)
 					move_type = MECHAMOVE_STEP
 				else
@@ -349,11 +355,11 @@
 					move_result = mechstep(dir_correction(direction), old_direction, step_in_final) //Any diagonal movement will be converted to cardinal via dir_correction proc
 					move_type = MECHAMOVE_STEP
 			else
-				glide_for(step_in_final * 1.41)
+				glide_for(step_in * 1.41)
 				move_result = mechstep(direction)
 				move_type = MECHAMOVE_STEP
 		else
-			glide_for(step_in_final)
+			glide_for(step_in)
 			move_result = mechstep(direction, old_direction, step_in_final)
 			move_type = MECHAMOVE_STEP
 
@@ -362,6 +368,9 @@
 		can_move = world.time + step_in_final
 		return TRUE
 	return FALSE
+
+#undef STRAFE_TURN_FACTOR
+#undef STRAFE_DIAGONAL_MOVE_FACTOR
 
 /**
  * Proc used to convert diagonal movement into cardinal
@@ -387,6 +396,17 @@
 					return SOUTH
 				if(NORTH, SOUTH, EAST, WEST)
 					return direction
+		if(NORTHEAST, SOUTHEAST, NORTHWEST, SOUTHWEST)
+			switch(direction)
+				if(EAST)
+					return EAST
+				if(WEST)
+					return WEST
+				if(NORTH, NORTHEAST, NORTHWEST)
+					return NORTH
+				if(SOUTH, SOUTHEAST, SOUTHWEST)
+					return SOUTH
+
 
 /obj/mecha/proc/aftermove(move_type)
 	use_power(step_energy_drain)
@@ -417,8 +437,10 @@
 
 /obj/mecha/proc/mechstep(direction, old_direction, step_in_final)
 	. = step(src, direction)
+	if(strafe)
+		setDir(old_direction) //Mecha will look in one direction while moving
 	if(!.)
-		if(strafe) //Cooldown and sound for the strafe while we are failed to step
+		if(strafe) //Cooldown and sound for the strafe if we failed to step
 			can_move = world.time + step_in_final
 			if(turnsound)
 				playsound(src, turnsound, 40, 1)
@@ -438,8 +460,6 @@
 				can_move = world.time + (step_in * 3)
 	else if(stepsound)
 		playsound(src, stepsound, 40, 1)
-	if(strafe) //We will keep the direction of mecha while moving to the sides
-		setDir(old_direction)
 
 /obj/mecha/proc/mechsteprand()
 	. = step_rand(src)
