@@ -298,6 +298,8 @@
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/action(atom/movable/target)
 	if(!action_checks(target))
 		return
+	if(!is_faced_target(target))
+		return FALSE
 	if(istype(target,/obj/item/reagent_containers/syringe))
 		return load_syringe(target)
 	if(istype(target,/obj/item/storage))//Loads syringes from boxes

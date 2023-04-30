@@ -270,7 +270,13 @@
 		return
 	toggle_strafe()
 
-/obj/mecha/proc/toggle_strafe()
+/**
+ * Proc that toggles strafe mode of the mecha ON/OFF
+ *
+ * Arguments
+ * * silent - if we want to stop showing messages for mecha pilot and prevent logging
+ */
+/obj/mecha/proc/toggle_strafe(silent = FALSE)
 	if(!strafe_allowed)
 		occupant_message("This mecha doesn't support strafing!")
 		return
@@ -278,7 +284,9 @@
 	if(!mech_strafe)
 		return
 	strafe = !strafe
-	occupant_message("<font color='[strafe ? "green" : "red"]'>Strafing mode [strafe ? "en" : "dis"]abled.")
-	log_message("Toggled strafing mode [strafe ? "on" : "off"].")
 	mech_strafe.button_icon_state = "strafe[strafe ? "_on" : ""]"
 	mech_strafe.UpdateButtonIcon()
+	if(!silent)
+		occupant_message("<font color='[strafe ? "green" : "red"]'>Strafing mode [strafe ? "en" : "dis"]abled.")
+		log_message("Toggled strafing mode [strafe ? "on" : "off"].")
+

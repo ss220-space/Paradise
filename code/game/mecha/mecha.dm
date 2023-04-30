@@ -103,11 +103,11 @@
 	var/large_wall = FALSE
 
 	// Strafe variables
-	///Is mecha allowed to use strafing
+	///Allows strafing mode for mecha
 	var/strafe_allowed = FALSE
-	///Multiplier used to modify mecha speed while strafing. Bigger numbers mean slower movement
+	///Multiplier that modifies mecha speed while strafing (bigger numbers mean slower movement)
 	var/strafe_speed_factor = 1
-	///Diagonal strafing is very OP, FALSE by default on all mechas
+	///Allows diagonal strafing while strafe is enabled (very OP, FALSE by default on all mechas)
 	var/strafe_diagonal = FALSE
 	///Is mecha strafing currently
 	var/strafe = FALSE
@@ -318,23 +318,20 @@
 
 	var/move_result = 0
 	var/move_type = 0
-	///Initial direction of the mecha
-	var/old_direction = dir
-	///Variable used to modify strafe speed, if strafe_speed_factor is anything other than 1
-	var/step_in_final = strafe ? (step_in * strafe_speed_factor) : step_in
+	var/old_direction = dir //Initial direction of the mecha
+	var/step_in_final = strafe ? (step_in * strafe_speed_factor) : step_in //Modifies strafe speed, if strafe_speed_factor is anything other than 1
 
-	///Variable used to check if user pressed Alt button down
-	var/keyheld = FALSE
+	var/keyheld = FALSE //Variable used to check if user pressed Alt button down
 	if(strafe && occupant.client?.input_data.keys_held["Alt"])
 		keyheld = TRUE
 
 	if(internal_damage & MECHA_INT_CONTROL_LOST)
 		if(strafe) //No strafe while controls malfunctioning
-			toggle_strafe()
+			toggle_strafe(silent = TRUE)
 		if(direction & (direction - 1))	//moved diagonally
-			glide_for(step_in_final * 1.41)
+			glide_for(step_in * 1.41)
 		else
-			glide_for(step_in_final)
+			glide_for(step_in)
 		move_result = mechsteprand()
 		move_type = MECHAMOVE_RAND
 	else if(dir != direction && !strafe || keyheld) //We can use Alt button while strafing to change direction on fly
@@ -351,8 +348,8 @@
 					move_result = mechstep(direction, old_direction, step_in_final)
 					move_type = MECHAMOVE_STEP
 				else
-					glide_for(step_in_final)
-					move_result = mechstep(dir_correction(direction), old_direction, step_in_final) //Any diagonal movement will be converted to cardinal via dir_correction proc
+					glide_for(step_in)
+					move_result = mechstep(mecha_dir_correction(direction), old_direction, step_in_final) //Any diagonal movement will be converted to cardinal via mecha_dir_correction proc
 					move_type = MECHAMOVE_STEP
 			else
 				glide_for(step_in * 1.41)
@@ -373,12 +370,12 @@
 #undef STRAFE_DIAGONAL_MOVE_FACTOR
 
 /**
- * Proc used to convert diagonal movement into cardinal
+ * Proc that converts diagonal movement into cardinal
  *
  * Arguments
  * * direction - input direction we need to convert
  */
-/obj/mecha/proc/dir_correction(direction)
+/obj/mecha/proc/mecha_dir_correction(direction)
 	switch(src.dir)
 		if(NORTH, SOUTH)
 			switch(direction)
@@ -420,7 +417,7 @@
 			occupant.clear_alert("mechaport")
 	if(leg_overload_mode)
 		if(strafe) //No strafe while overload is active
-			toggle_strafe()
+			toggle_strafe(silent = TRUE)
 		log_message("Leg Overload damage.")
 		take_damage(1, BRUTE, FALSE, FALSE)
 		if(obj_integrity < max_integrity - max_integrity / 3)
@@ -446,7 +443,7 @@
 				playsound(src, turnsound, 40, 1)
 		if(phasing && get_charge() >= phasing_energy_drain)
 			if(strafe) //No strafe while phasing is active
-				toggle_strafe()
+				toggle_strafe(silent = TRUE)
 			if(can_move < world.time)
 				. = FALSE // We lie to mech code and say we didn't get to move, because we want to handle power usage + cooldown ourself
 				flick("[initial_icon]-phase", src)
