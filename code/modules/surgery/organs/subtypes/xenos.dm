@@ -33,7 +33,7 @@
 
 	var/stored_plasma = 0
 	var/max_plasma = 500
-	var/heal_rate = 5
+	var/heal_rate = 7.5
 	var/plasma_rate = 10
 
 /obj/item/organ/internal/xenos/plasmavessel/prepare_eat()
@@ -72,19 +72,20 @@
 
 
 /obj/item/organ/internal/xenos/plasmavessel/on_life()
-	//If there are alien weeds on the ground then heal if needed or give some plasma
+	//passive regeneration amount
+	var/heal_amount = 1
+
 	if(locate(/obj/structure/alien/weeds) in owner.loc)
 		if(owner.health >= owner.maxHealth)
 			owner.adjustPlasma(plasma_rate)
 		else
-			var/heal_amt = heal_rate
-			if(!isalien(owner))
-				heal_amt *= 0.2
+			heal_amount += isalien(owner) ? heal_rate : 0.2 * heal_rate
 			owner.adjustPlasma(plasma_rate*0.5)
-			owner.adjustBruteLoss(-heal_amt)
-			owner.adjustFireLoss(-heal_amt)
-			owner.adjustOxyLoss(-heal_amt)
-			owner.adjustCloneLoss(-heal_amt)
+
+	owner.adjustBruteLoss(-heal_amount)
+	owner.adjustFireLoss(-heal_amount)
+	owner.adjustOxyLoss(-heal_amount)
+	owner.adjustCloneLoss(-heal_amount)
 
 /obj/item/organ/internal/xenos/plasmavessel/insert(mob/living/carbon/M, special = 0)
 	..()

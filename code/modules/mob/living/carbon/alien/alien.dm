@@ -19,6 +19,11 @@
 	status_flags = CANPARALYSE|CANPUSH
 	var/heal_rate = 5
 
+	var/attack_damage = 20
+	var/armour_penetration = 20
+	var/disarm_stamina_damage = 20
+	var/obj_damage = 60
+
 	var/large = FALSE
 	var/heat_protection = 0.5
 	var/leaping = FALSE
@@ -75,7 +80,13 @@
 
 /mob/living/carbon/alien/adjustFireLoss(amount) // Weak to Fire
 	if(amount > 0)
-		return ..(amount * 2)
+		return ..(amount * 1.25)
+	else
+		return ..(amount)
+
+/mob/living/carbon/alien/adjustBruteLoss(amount)
+	if(amount > 0)
+		return ..(amount * 0.75)
 	else
 		return ..(amount)
 
@@ -121,6 +132,17 @@
 					apply_damage(HEAT_DAMAGE_LEVEL_2, BURN)
 	else
 		clear_alert("alien_fire")
+
+/mob/living/carbon/alien/handle_stomach(times_fired)
+	for(var/thing in stomach_contents)
+		var/mob/living/M = thing
+		if(M.loc != src)
+			LAZYREMOVE(stomach_contents, M)
+			continue
+		if(stat != DEAD && times_fired % 3 == 1)
+			M.AdjustWeakened(5)
+			M.adjustBruteLoss(5)
+			adjust_nutrition(10)
 
 /mob/living/carbon/alien/IsAdvancedToolUser()
 	return has_fine_manipulation
