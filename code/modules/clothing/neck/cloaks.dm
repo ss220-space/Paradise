@@ -9,6 +9,7 @@
 	var/colour = "#3A3A3A"
 
 /obj/item/clothing/neck/cloak/Initialize(mapload)
+	. = ..()
 	add_atom_colour(colour, FIXED_COLOUR_PRIORITY)
 	update_icon()
 
