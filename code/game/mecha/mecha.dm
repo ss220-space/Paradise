@@ -317,13 +317,10 @@
 		return 0
 
 	if(strafe)
-		//Drain power mechanics for actuator module
+		//Toggle OFF strafe when not enough energy (with actuator module only)
 		var/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/actuator = locate(/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator) in equipment
-		if(actuator)
-			if(has_charge(actuator.energy_per_step))
-				use_power(actuator.energy_per_step)
-			else
-				toggle_strafe(silent = TRUE)
+		if(actuator && !has_charge(actuator.energy_per_step))
+			toggle_strafe(silent = TRUE)
 
 	var/move_result = 0
 	var/move_type = 0
@@ -416,6 +413,11 @@
 
 /obj/mecha/proc/aftermove(move_type)
 	use_power(step_energy_drain)
+	if(strafe)
+		//Drain power mechanics for actuator module
+		var/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/actuator = locate(/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator) in equipment
+		if(actuator)
+			use_power(actuator.energy_per_step)
 	if(move_type & (MECHAMOVE_RAND | MECHAMOVE_STEP) && occupant)
 		var/obj/machinery/atmospherics/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/unary/portables_connector) in loc
 		if(possible_port)
