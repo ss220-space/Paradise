@@ -87,11 +87,11 @@
 	..()
 	name = "[amount == max_amount ? "1000000" : amount] Ruble[amount > 1 ? "s" : ""]"
 	if(amount >= 1 && amount < 10)
-		icon_state = "usspcash10"
+		icon_state = "usspcash"
 	else if(amount >= 10 && amount < 50)
-		icon_state = "usspcash20"
+		icon_state = "usspcash10"
 	else if(amount >= 50 && amount < 500)
-		icon_state = "usspcash100"
+		icon_state = "usspcash50"
 	else if(amount >= 500 && amount < 1000)
 		icon_state = "usspcash500"
 	else if(amount >= 1000 && amount < 1000000)

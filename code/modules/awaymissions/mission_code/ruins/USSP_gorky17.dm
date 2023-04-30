@@ -1,106 +1,106 @@
 /area/ruin/space/USSP_gorky17/solpanel1
-	name = "North sol panels"
+	name = "Gorky17 North sol panels"
 	icon_state = "away1"
 	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/solpanel2
-	name = "South sol panels"
+	name = "Gorky17 South sol panels"
 	icon_state = "away2"
 	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/medbay
-	name = "Medbay zone"
+	name = "Gorky17 Medbay zone"
 	icon_state = "away3"
 	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/gate
-	name = "Gate zone"
+	name = "Gorky17 Gate zone"
 	icon_state = "away4"
 	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/angar
-	name = "Space pods zone"
+	name = "Gorky17 Space pods zone"
 	icon_state = "away5"
 	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/utility
-	name = "Utility room"
+	name = "Gorky17 Utility room"
 	icon_state = "away6"
 	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/kitchen
-	name = "Kitchen"
+	name = "Gorky17 Kitchen"
 	icon_state = "away7"
 	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/dinning
-	name = "Dinning room"
+	name = "Gorky17 Dinning room"
 	icon_state = "away8"
 	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/engineering
-	name = "Engineering room"
+	name = "Gorky17 Engineering room"
 	icon_state = "away9"
 	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/arrival
-	name = "Arrivals zone"
+	name = "Gorky17 Arrivals zone"
 	icon_state = "away10"
 	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/arrival
-	name = "Arrivals zone"
+	name = "Gorky17 Arrivals zone"
 	icon_state = "away11"
 	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/check1
-	name = "Arrivals check point room"
+	name = "Gorky17 Arrivals check point room"
 	icon_state = "away12"
 	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/check2
-	name = "Gate check point room"
+	name = "Gorky17 Gate check point room"
 	icon_state = "away13"
 	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/arrival
-	name = "Arrivals zone"
+	name = "Gorky17 Arrivals zone"
 	icon_state = "away14"
 	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/dorms
-	name = "Dormitories zone"
+	name = "Gorky17 Dormitories zone"
 	icon_state = "away15"
 	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/common
-	name = "Common hall zone"
+	name = "Gorky17 Common hall zone"
 	icon_state = "away16"
 	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/bridge
-	name = "Bridge zone"
+	name = "Gorky17 Bridge zone"
 	icon_state = "away17"
 	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/core
-	name = "Data centre zone"
+	name = "Gorky17 Data centre room"
 	icon_state = "away18"
 	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/rnd
-	name = "RnD zone"
+	name = "Gorky17 Gorky17 RnD zone"
 	icon_state = "away19"
 	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17mining
-	name = "Ore melting zone"
+	name = "Gorky17 Ore melting zone"
 	icon_state = "away20"
 	requires_power = TRUE
 	has_gravity = FALSE
 
 /area/ruin/space/USSP_gorky17/asteroids
-	name = "Asteroids"
+	name = "Gorky17 Asteroids"
 	icon_state = "away21"
 	requires_power = FALSE
 	has_gravity = FALSE
@@ -139,7 +139,7 @@
 	icon_state = "guest"
 	icon_screen = "pass"
 	access_to_give = list(ACCESS_USSP_TOURIST)
-	beenused = 0
+	var/ranktogive = "Soviet Tourist"
 
 /obj/machinery/computer/id_upgrader/ussp/attackby(obj/item/I, mob/user, params)
 	if(I.GetID())
@@ -155,17 +155,28 @@
 				D.access |= this_access
 				did_upgrade = 1
 		if(did_upgrade)
+			giverank(D)
 			to_chat(user, "<span class='notice'>New rank has been assigned to comrade.</span>")
 			playsound(src, 'sound/machines/chime.ogg', 30, 0)
-			if(beenused)
-				return
 		else
 			to_chat(user, "<span class='notice'>This ID card already has all the access this machine can give.</span>")
 		return
 	return ..()
 
+/obj/machinery/computer/id_upgrader/ussp/proc/giverank(obj/item/card/id/D)
+	if(D)
+		D.rank = ranktogive
+		D.assignment = ranktogive
+		D.UpdateName()
+
 /obj/machinery/computer/id_upgrader/ussp/conscript
 	access_to_give = list(ACCESS_USSP_CONSCRIPT)
+	ranktogive = "Soviet Conscript"
 
 /obj/machinery/computer/id_upgrader/ussp/soldier
 	access_to_give = list(ACCESS_USSP_SOLDIER)
+	ranktogive = "Soviet Soldier"
+
+/obj/machinery/computer/id_upgrader/ussp/soldier
+	access_to_give = list(ACCESS_USSP_MARINE)
+	ranktogive = "Soviet Marine"
