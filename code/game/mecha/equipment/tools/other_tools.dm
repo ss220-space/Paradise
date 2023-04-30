@@ -502,3 +502,37 @@
 	if(..())
 		for(var/mob/living/carbon/M in view(chassis))
 			M.apply_effect((rad_per_cycle * 3),IRRADIATE,0)
+
+/////////////////////////////////// SERVO-HYDRAULIC ACTUATOR ////////////////////////////////////////////////
+
+/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator
+	name = "Servo-Hydraulic Actuator"
+	desc = "Boosts exosuit servo-motors, allowing it to activate strafe mode. Requires energy to operate."
+	icon_state = "actuator"
+	origin_tech = "powerstorage=4;programming=5;engineering=5;combat=5"
+	selectable = 0
+	var/energy_per_step = 10 //How much energy this module drains per step in strafe mode
+
+/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/can_attach(obj/mecha/M)
+	if(M.strafe_allowed)
+		return FALSE
+	. = ..()
+
+/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/attach(obj/mecha/M)
+	M.strafe_allowed = TRUE
+	if(M.occupant)
+		M.strafe_action.Grant(M.occupant, M)
+	. = ..()
+
+/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/detach()
+	chassis.strafe_allowed = FALSE
+	if(chassis.occupant)
+		chassis.strafe_action.Remove(chassis.occupant)
+	. = ..()
+
+/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/Destroy()
+	if(chassis)
+		chassis.strafe_allowed = FALSE
+		if(chassis.occupant)
+			chassis.strafe_action.Remove(chassis.occupant)
+	. = ..()

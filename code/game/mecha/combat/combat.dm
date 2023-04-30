@@ -8,14 +8,6 @@
 	var/am = "d3c2fbcadca903a41161ccc9df9cf948"
 	strafe_allowed = TRUE
 
-/obj/mecha/combat/GrantActions(mob/living/user, human_occupant = 0)
-	..()
-	strafe_action.Grant(user, src)
-
-/obj/mecha/combat/RemoveActions(mob/living/user, human_occupant = 0)
-	..()
-	strafe_action.Remove(user)
-
 /obj/mecha/combat/moved_inside(var/mob/living/carbon/human/H as mob)
 	if(..())
 		if(H.client)

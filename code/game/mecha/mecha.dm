@@ -316,12 +316,21 @@
 			last_message = world.time
 		return 0
 
+	if(strafe)
+		//Drain power mechanics for actuator module
+		var/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/actuator = locate(/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator) in equipment
+		if(actuator)
+			if(has_charge(actuator.energy_per_step))
+				use_power(actuator.energy_per_step)
+			else
+				toggle_strafe(silent = TRUE)
+
 	var/move_result = 0
 	var/move_type = 0
 	var/old_direction = dir //Initial direction of the mecha
 	var/step_in_final = strafe ? (step_in * strafe_speed_factor) : step_in //Modifies strafe speed, if strafe_speed_factor is anything other than 1
 
-	var/keyheld = FALSE //Variable used to check if user pressed Alt button down
+	var/keyheld = FALSE //Variable that checks if the player pressed the ALT button
 	if(strafe && occupant.client?.input_data.keys_held["Alt"])
 		keyheld = TRUE
 
@@ -334,7 +343,7 @@
 			glide_for(step_in)
 		move_result = mechsteprand()
 		move_type = MECHAMOVE_RAND
-	else if(dir != direction && !strafe || keyheld) //We can use Alt button while strafing to change direction on fly
+	else if(dir != direction && !strafe || keyheld) //Player can use ALT button while strafing to change direction on fly
 		if(strafe)
 			step_in_final *= STRAFE_TURN_FACTOR
 		move_result = mechturn(direction)
@@ -435,7 +444,7 @@
 /obj/mecha/proc/mechstep(direction, old_direction, step_in_final)
 	. = step(src, direction)
 	if(strafe)
-		setDir(old_direction) //Mecha will look in one direction while moving
+		setDir(old_direction) //Mecha will always face the same direction while moving
 	if(!.)
 		if(strafe) //Cooldown and sound for the strafe if we failed to step
 			can_move = world.time + step_in_final

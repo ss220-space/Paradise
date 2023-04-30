@@ -21,6 +21,8 @@
 	internals_action.Grant(user, src)
 	lights_action.Grant(user, src)
 	stats_action.Grant(user, src)
+	if(strafe_allowed)
+		strafe_action.Grant(user, src)
 
 /obj/mecha/proc/RemoveActions(mob/living/user, human_occupant = 0)
 	if(human_occupant)
@@ -28,6 +30,8 @@
 	internals_action.Remove(user)
 	lights_action.Remove(user)
 	stats_action.Remove(user)
+	if(strafe_allowed)
+		strafe_action.Remove(user)
 
 /datum/action/innate/mecha
 	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUNNED | AB_CHECK_CONSCIOUS
