@@ -14,7 +14,7 @@
 	update_icon()
 
 /obj/item/clothing/neck/cloak/grey
-	colour = "#5F5F5F"
+	colour = "#535353"
 
 /obj/item/clothing/neck/cloak/head_of_security
 	name = "head of security's cloak"
@@ -134,7 +134,7 @@
 		A.UpdateButtonIcon()
 
 /obj/item/clothing/neck/cloak/New()
-	. = ..()
+	..()
 	AddComponent(/datum/component/spraycan_paintable)
 	START_PROCESSING(SSobj, src)
 	update_icon()
