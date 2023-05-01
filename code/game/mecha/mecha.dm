@@ -103,8 +103,10 @@
 	var/large_wall = FALSE
 
 	// Strafe variables
-	///Allows strafing mode for mecha
+	///Allows strafe mode for mecha
 	var/strafe_allowed = FALSE
+	///Special module that allows strafe mode by modifying "strafe_allowed" variable
+	var/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/actuator = null
 	///Multiplier that modifies mecha speed while strafing (bigger numbers mean slower movement)
 	var/strafe_speed_factor = 1
 	///Allows diagonal strafing while strafe is enabled (very OP, FALSE by default on all mechas)
@@ -316,16 +318,14 @@
 			last_message = world.time
 		return 0
 
-	if(strafe)
-		//Toggle OFF strafe when not enough energy (with actuator module only)
-		var/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/actuator = locate(/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator) in equipment
-		if(actuator && !has_charge(actuator.energy_per_step))
-			toggle_strafe(silent = TRUE)
+	//Toggle OFF strafe when not enough energy (with actuator module only)
+	if(strafe && actuator && !has_charge(actuator.energy_per_step))
+		toggle_strafe(silent = TRUE)
 
 	var/move_result = 0
 	var/move_type = 0
 	var/old_direction = dir //Initial direction of the mecha
-	var/step_in_final = strafe ? (step_in * strafe_speed_factor) : step_in //Modifies strafe speed, if strafe_speed_factor is anything other than 1
+	var/step_in_final = strafe ? (step_in * strafe_speed_factor) : step_in //Modifies strafe speed, if "strafe_speed_factor" is anything other than 1
 
 	var/keyheld = FALSE //Variable that checks if the player pressed the ALT button
 	if(strafe && occupant.client?.input_data.keys_held["Alt"])
@@ -348,14 +348,14 @@
 	else
 		if(direction & (direction - 1))	//moved diagonally
 			if(strafe)
-				if(strafe_diagonal) //Diagonal strafing is overpowered, disabled by default on all mechas
+				if(strafe_diagonal) //Diagonal strafe is overpowered, disabled by default on all mechas
 					glide_for(step_in * 1.41)
 					step_in_final *= STRAFE_DIAGONAL_MOVE_FACTOR
 					move_result = mechstep(direction, old_direction, step_in_final)
 					move_type = MECHAMOVE_STEP
 				else
 					glide_for(step_in)
-					move_result = mechstep(mecha_dir_correction(direction), old_direction, step_in_final) //Any diagonal movement will be converted to cardinal via mecha_dir_correction proc
+					move_result = mechstep(mecha_dir_correction(direction), old_direction, step_in_final) //Any diagonal movement will be converted to cardinal via "mecha_dir_correction" proc
 					move_type = MECHAMOVE_STEP
 			else
 				glide_for(step_in * 1.41)
@@ -402,11 +402,8 @@
 
 /obj/mecha/proc/aftermove(move_type)
 	use_power(step_energy_drain)
-	if(strafe)
-		//Drain power mechanics for actuator module
-		var/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/actuator = locate(/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator) in equipment
-		if(actuator)
-			use_power(actuator.energy_per_step)
+	if(strafe && actuator) //Drain power mechanics for actuator module
+		use_power(actuator.energy_per_step)
 	if(move_type & (MECHAMOVE_RAND | MECHAMOVE_STEP) && occupant)
 		var/obj/machinery/atmospherics/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/unary/portables_connector) in loc
 		if(possible_port)
@@ -725,6 +722,7 @@
 	equipment.Cut()
 	QDEL_NULL(cell)
 	QDEL_NULL(internal_tank)
+	actuator = null
 	if(AI)
 		AI.gib() //No wreck, no AI to recover
 	STOP_PROCESSING(SSobj, src)

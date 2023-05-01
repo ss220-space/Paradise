@@ -511,7 +511,7 @@
 	icon_state = "actuator"
 	origin_tech = "powerstorage=5;programming=5;engineering=5;combat=5"
 	selectable = 0
-	var/energy_per_step = 30 //How much energy this module drains per step in strafe mode
+	var/energy_per_step = 50 //How much energy this module drains per step in strafe mode
 
 /obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/can_attach(obj/mecha/M)
 	if(M.strafe_allowed)
@@ -520,12 +520,15 @@
 
 /obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/attach(obj/mecha/M)
 	M.strafe_allowed = TRUE
+	M.actuator = src
 	if(M.occupant)
 		M.strafe_action.Grant(M.occupant, M)
 	. = ..()
 
 /obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/detach()
 	chassis.strafe_allowed = FALSE
+	chassis.strafe = FALSE
+	chassis.actuator = null
 	if(chassis.occupant)
 		chassis.strafe_action.Remove(chassis.occupant)
 	. = ..()
@@ -533,6 +536,8 @@
 /obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/Destroy()
 	if(chassis)
 		chassis.strafe_allowed = FALSE
+		chassis.strafe = FALSE
+		chassis.actuator = null
 		if(chassis.occupant)
 			chassis.strafe_action.Remove(chassis.occupant)
 	. = ..()
