@@ -260,6 +260,52 @@
 /obj/mecha/proc/range_action(atom/target)
 	return
 
+/**
+ * Proc that converts diagonal direction into cardinal for mecha
+ *
+ * Arguments
+ * * direction - input direction we need to convert
+ */
+/obj/mecha/proc/convert_diagonal_dir(direction)
+	switch(src.dir)
+		if(NORTH, SOUTH)
+			switch(direction)
+				if(NORTHEAST, SOUTHEAST)
+					return EAST
+				if(NORTHWEST, SOUTHWEST)
+					return WEST
+				if(NORTH, SOUTH, EAST, WEST)
+					return direction
+		if(EAST, WEST, NORTHEAST, SOUTHEAST, NORTHWEST, SOUTHWEST)
+			switch(direction)
+				if(NORTHEAST, NORTHWEST)
+					return NORTH
+				if(SOUTHEAST, SOUTHWEST)
+					return SOUTH
+				if(NORTH, SOUTH, EAST, WEST)
+					return direction
+
+/**
+ * Proc that checks if current cardinal direction is opposite for mecha
+ *
+ * Arguments
+ * * direction - input direction we need to check
+ */
+/obj/mecha/proc/is_opposite_dir(direction)
+	. = FALSE
+	switch(src.dir)
+		if(NORTH)
+			if(direction == SOUTH)
+				return TRUE
+		if(SOUTH)
+			if(direction == NORTH)
+				return TRUE
+		if(EAST)
+			if(direction == WEST)
+				return TRUE
+		if(WEST)
+			if(direction == EAST)
+				return TRUE
 
 //////////////////////////////////
 ////////  Movement procs  ////////
@@ -267,9 +313,12 @@
 /obj/mecha/Process_Spacemove(var/movement_dir = 0)
 	. = ..()
 	if(.)
-		return 1
+		return TRUE
 	if(thrusters_active && movement_dir && use_power(step_energy_drain))
-		return 1
+		return TRUE
+	//Turn OFF strafe when not enough energy to step (with actuator module only)
+	if(strafe && actuator && !has_charge(actuator.energy_per_step))
+		toggle_strafe(silent = TRUE)
 
 	var/atom/movable/backup = get_spacemove_backup()
 	if(backup)
@@ -277,54 +326,54 @@
 			if(backup.newtonian_move(turn(movement_dir, 180)))
 				if(occupant)
 					to_chat(occupant, "<span class='info'>You push off of [backup] to propel yourself.</span>")
-		return 1
+		return TRUE
 
 /obj/mecha/relaymove(mob/user, direction)
 	if(!direction || frozen)
-		return
+		return FALSE
 	if(user != occupant) //While not "realistic", this piece is player friendly.
 		user.forceMove(get_turf(src))
 		to_chat(user, "<span class='notice'>You climb out from [src].</span>")
-		return 0
+		return FALSE
 	if(connected_port)
 		if(world.time - last_message > 20)
 			occupant_message("<span class='warning'>Unable to move while connected to the air system port!</span>")
 			last_message = world.time
-		return 0
+		return FALSE
 	if(state)
 		occupant_message("<span class='danger'>Maintenance protocols in effect.</span>")
-		return
+		return FALSE
 	return domove(direction)
 
 //Constants for strafe mode
 #define STRAFE_TURN_FACTOR 1.5 //Multiplier for mecha's turn speed while strafe is active
 #define STRAFE_DIAGONAL_MOVE_FACTOR 2 //Multiplier for mecha's diagonal move speed while strafe is active
-#define STRAFE_BACKWARDS_FACTOR 2 //Multiplier for the mecha's moving backwards speed while strafe is active
+#define STRAFE_BACKWARDS_FACTOR 2 //Multiplier for mecha's moving backward speed while strafe is active
 
 /obj/mecha/proc/domove(direction)
 	if(can_move >= world.time)
-		return 0
+		return FALSE
 	if(!Process_Spacemove(direction))
-		return 0
+		return FALSE
 	if(!has_charge(step_energy_drain))
-		return 0
+		return FALSE
 	if(defence_mode)
 		if(world.time - last_message > 20)
 			occupant_message("<span class='danger'>Unable to move while in defence mode.</span>")
 			last_message = world.time
-		return 0
+		return FALSE
 	if(zoom_mode)
 		if(world.time - last_message > 20)
 			occupant_message("<span class='danger'>Unable to move while in zoom mode.</span>")
 			last_message = world.time
-		return 0
+		return FALSE
 
-	//Toggle OFF strafe when not enough energy (with actuator module only)
+	//Turn OFF strafe when not enough energy to step (with actuator module only)
 	if(strafe && actuator && !has_charge(actuator.energy_per_step))
 		toggle_strafe(silent = TRUE)
 
-	var/move_result = 0
-	var/move_type = 0
+	var/move_result = FALSE
+	var/move_type = FALSE
 	var/old_direction = dir //Initial direction of the mecha
 	var/step_in_final = strafe ? (step_in * strafe_speed_factor) : step_in //Modifies strafe speed, if "strafe_speed_factor" is anything other than 1
 	var/strafed_backwards = FALSE //To check if mecha strafed backwards, used later to modify speed and energy drain
@@ -384,53 +433,6 @@
 #undef STRAFE_DIAGONAL_MOVE_FACTOR
 #undef STRAFE_BACKWARDS_FACTOR
 
-/**
- * Proc that converts diagonal movement into cardinal
- *
- * Arguments
- * * direction - input direction we need to convert
- */
-/obj/mecha/proc/convert_diagonal_dir(direction)
-	switch(src.dir)
-		if(NORTH, SOUTH)
-			switch(direction)
-				if(NORTHEAST, SOUTHEAST)
-					return EAST
-				if(NORTHWEST, SOUTHWEST)
-					return WEST
-				if(NORTH, SOUTH, EAST, WEST)
-					return direction
-		if(EAST, WEST, NORTHEAST, SOUTHEAST, NORTHWEST, SOUTHWEST)
-			switch(direction)
-				if(NORTHEAST, NORTHWEST)
-					return NORTH
-				if(SOUTHEAST, SOUTHWEST)
-					return SOUTH
-				if(NORTH, SOUTH, EAST, WEST)
-					return direction
-
-/**
- * Proc that checks if the target cardinal direction is opposite for mecha
- *
- * Arguments
- * * direction - input direction we need to check
- */
-/obj/mecha/proc/is_opposite_dir(direction)
-	. = FALSE
-	switch(src.dir)
-		if(NORTH)
-			if(direction == SOUTH)
-				return TRUE
-		if(SOUTH)
-			if(direction == NORTH)
-				return TRUE
-		if(EAST)
-			if(direction == WEST)
-				return TRUE
-		if(WEST)
-			if(direction == EAST)
-				return TRUE
-
 /obj/mecha/proc/aftermove(move_type)
 	use_power(step_energy_drain)
 	if(move_type & (MECHAMOVE_RAND | MECHAMOVE_STEP) && occupant)
@@ -456,12 +458,12 @@
 	dir = direction
 	if(turnsound)
 		playsound(src,turnsound,40,1)
-	return 1
+	return TRUE
 
 /obj/mecha/proc/mechstep(direction, old_direction, step_in_final)
 	. = step(src, direction)
 	if(strafe)
-		setDir(old_direction) //Mecha will always face the same direction while moving
+		setDir(old_direction) //Mecha will always face the same direction while strafing
 	if(!.)
 		if(strafe) //Cooldown and sound for the strafe if we failed to step
 			can_move = world.time + step_in_final
@@ -751,7 +753,6 @@
 	equipment.Cut()
 	QDEL_NULL(cell)
 	QDEL_NULL(internal_tank)
-	actuator = null
 	if(AI)
 		AI.gib() //No wreck, no AI to recover
 	STOP_PROCESSING(SSobj, src)

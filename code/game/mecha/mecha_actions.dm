@@ -259,7 +259,7 @@
 	else
 		chassis.occupant_message("<span class='warning'>Energy wall is not ready yet!</span>")
 
-//Strafe action and procs
+/////////////////////////////////// STRAFE PROCS ////////////////////////////////////////////////
 /datum/action/innate/mecha/mech_strafe
 	name = "Toggle Strafing. Disabled when Alt is held."
 	button_icon_state = "strafe"
