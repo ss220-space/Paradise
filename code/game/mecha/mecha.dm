@@ -358,6 +358,7 @@
 				else
 					glide_for(step_in)
 					strafed_backwards = is_opposite_dir(convert_diagonal_dir(direction))
+					step_in_final *= strafed_backwards ? STRAFE_BACKWARDS_FACTOR : 1
 					move_result = mechstep(convert_diagonal_dir(direction), old_direction, step_in_final) //Any diagonal movement will be converted to cardinal via "convert_diagonal" proc
 					move_type = MECHAMOVE_STEP
 			else
@@ -367,10 +368,9 @@
 		else
 			glide_for(step_in)
 			strafed_backwards = is_opposite_dir(direction)
+			step_in_final *= strafed_backwards ? STRAFE_BACKWARDS_FACTOR : 1
 			move_result = mechstep(direction, old_direction, step_in_final)
 			move_type = MECHAMOVE_STEP
-		if(strafed_backwards)
-			step_in_final *= STRAFE_BACKWARDS_FACTOR
 
 	if(move_result && move_type)
 		if(strafe && actuator) //Drain power mechanics for actuator module
