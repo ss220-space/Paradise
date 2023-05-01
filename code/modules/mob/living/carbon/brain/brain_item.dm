@@ -17,6 +17,9 @@
 	hidden_pain = TRUE //the brain has no pain receptors, and brain damage is meant to be a stealthy damage type.
 	var/mmi_icon = 'icons/obj/assemblies.dmi'
 	var/mmi_icon_state = "mmi_full"
+	var/owner_suicided = FALSE
+	var/owner_timeofdeath = null
+	var/owner_decayed = FALSE
 
 /obj/item/organ/internal/brain/xeno
 	name = "xenomorph brain"
@@ -29,6 +32,14 @@
 /obj/item/organ/internal/brain/Destroy()
 	QDEL_NULL(brainmob)
 	return ..()
+
+/obj/item/organ/internal/brain/process()
+	if(owner_timeofdeath + 6000 < world.time)
+		var/mob/dead/observer/ghost
+		var/mob/living/carbon/brain
+		owner_decayed = TRUE
+		ghost.key = brain.key
+	..()
 
 /obj/item/organ/internal/brain/proc/transfer_identity(var/mob/living/carbon/H)
 	brainmob = new(src)
@@ -68,6 +79,16 @@
 		if(owner.mind && !non_primary)//don't transfer if the owner does not have a mind.
 			B.transfer_identity(user)
 
+	owner_suicided = owner.mind?.suicided
+	if(owner_timeofdeath >= owner.timeofdeath)
+		owner_timeofdeath = owner.timeofdeath
+
+	if(owner_timeofdeath + 6000 < world.time)
+		var/mob/dead/observer/ghost
+		var/mob/living/carbon/brain
+		owner_decayed = TRUE
+		ghost.key = brain.key
+
 	if(istype(owner,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = owner
 		H.update_hair()
@@ -94,6 +115,9 @@
 				target.key = brainmob.key
 	else
 		log_debug("Multibrain shenanigans at ([target.x],[target.y],[target.z]), mob '[target]'")
+
+	target.mind?.suicided = owner_suicided
+	target.decayed = owner_decayed
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target

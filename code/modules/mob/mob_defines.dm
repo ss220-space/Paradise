@@ -60,6 +60,7 @@
 	var/gunshot_residue
 
 	var/timeofdeath = 0 //Living
+	var/decayed = FALSE
 
 	var/bodytemperature = 310.055	//98.7 F
 	var/flying = 0

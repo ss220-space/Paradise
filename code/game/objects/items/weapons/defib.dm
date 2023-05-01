@@ -455,6 +455,11 @@
 							playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 							busy = FALSE
 							return
+				if(H.decayed)
+					user.visible_message("<span class='notice'>[defib || src] buzzes: Resucitation failed: No electrical brain activity detected.</span>")
+					playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
+					busy = FALSE
+					return
 				if(H.undergoing_cardiac_arrest())
 					if(!H.get_int_organ(/obj/item/organ/internal/heart) && !H.get_int_organ(/obj/item/organ/internal/brain/slime)) //prevents defibing someone still alive suffering from a heart attack attack if they lack a heart
 						user.visible_message("<span class='boldnotice'>[defib || src] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity.</span>")
