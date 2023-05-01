@@ -391,7 +391,7 @@
 					return WEST
 				if(NORTH, SOUTH, EAST, WEST)
 					return direction
-		if(EAST, WEST)
+		if(EAST, WEST, NORTHEAST, SOUTHEAST, NORTHWEST, SOUTHWEST)
 			switch(direction)
 				if(NORTHEAST, NORTHWEST)
 					return NORTH
@@ -399,17 +399,6 @@
 					return SOUTH
 				if(NORTH, SOUTH, EAST, WEST)
 					return direction
-		if(NORTHEAST, SOUTHEAST, NORTHWEST, SOUTHWEST)
-			switch(direction)
-				if(EAST)
-					return EAST
-				if(WEST)
-					return WEST
-				if(NORTH, NORTHEAST, NORTHWEST)
-					return NORTH
-				if(SOUTH, SOUTHEAST, SOUTHWEST)
-					return SOUTH
-
 
 /obj/mecha/proc/aftermove(move_type)
 	use_power(step_energy_drain)
