@@ -497,7 +497,8 @@
 	desc = "Directs a pulse of gravity in front of the user, pulling them forward rapidly."
 
 /datum/action/item_action/gravity_jump/Trigger()
-	if(!IsAvailable())
+	. = ..()
+	if(!.)
 		return FALSE
 
 	var/obj/item/clothing/shoes/magboots/gravity/G = target
