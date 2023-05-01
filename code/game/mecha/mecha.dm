@@ -316,7 +316,7 @@
 		return TRUE
 	if(thrusters_active && movement_dir && use_power(step_energy_drain))
 		return TRUE
-	//Turn OFF strafe when not enough energy to step (with actuator module only)
+	//Turns strafe OFF if not enough energy to step (with actuator module only)
 	if(strafe && actuator && !has_charge(actuator.energy_per_step))
 		toggle_strafe(silent = TRUE)
 
@@ -346,9 +346,9 @@
 	return domove(direction)
 
 //Constants for strafe mode
-#define STRAFE_TURN_FACTOR 1.5 //Multiplier for mecha's turn speed while strafe is active
-#define STRAFE_DIAGONAL_MOVE_FACTOR 2 //Multiplier for mecha's diagonal move speed while strafe is active
-#define STRAFE_BACKWARDS_FACTOR 2 //Multiplier for mecha's moving backward speed while strafe is active
+#define STRAFE_TURN_FACTOR 1.5 //Speed multiplier for strafe while mecha turns around
+#define STRAFE_DIAGONAL_FACTOR 2 //Speed multiplier for strafe while mecha moves diagonally
+#define STRAFE_BACKWARDS_FACTOR 2 //Speed and energy drain multiplier for strafe while mecha moves backwards
 
 /obj/mecha/proc/domove(direction)
 	if(can_move >= world.time)
@@ -368,7 +368,7 @@
 			last_message = world.time
 		return FALSE
 
-	//Turn OFF strafe when not enough energy to step (with actuator module only)
+	//Turns strafe OFF if not enough energy to step (with actuator module only)
 	if(strafe && actuator && !has_charge(actuator.energy_per_step))
 		toggle_strafe(silent = TRUE)
 
@@ -376,39 +376,39 @@
 	var/move_type = FALSE
 	var/old_direction = dir //Initial direction of the mecha
 	var/step_in_final = strafe ? (step_in * strafe_speed_factor) : step_in //Modifies strafe speed, if "strafe_speed_factor" is anything other than 1
-	var/strafed_backwards = FALSE //To check if mecha strafed backwards, used later to modify speed and energy drain
+	var/strafed_backwards = FALSE //Checks if mecha moved backwards, while strafe is active (used later to modify speed and energy drain)
 
-	var/keyheld = FALSE //Variable that checks if the player pressed the ALT button
+	var/keyheld = FALSE //Checks if player pressed ALT button down while strafe is active
 	if(strafe && occupant.client?.input_data.keys_held["Alt"])
 		keyheld = TRUE
 
 	if(internal_damage & MECHA_INT_CONTROL_LOST)
-		if(strafe) //No strafe while controls malfunctioning
+		if(strafe) //No strafe while controls are malfunctioning
 			toggle_strafe(silent = TRUE)
-		if(direction & (direction - 1))	//moved diagonally
+		if(direction & (direction - 1))	//Trick to check for diagonal direction
 			glide_for(step_in * 1.41)
 		else
 			glide_for(step_in)
 		move_result = mechsteprand()
 		move_type = MECHAMOVE_RAND
-	else if(dir != direction && !strafe || keyheld) //Player can use ALT button while strafing to change direction on fly
+	else if(dir != direction && !strafe || keyheld) //Player can use ALT button while strafe is active to change direction on fly
 		if(strafe)
 			step_in_final *= STRAFE_TURN_FACTOR
 		move_result = mechturn(direction)
 		move_type = MECHAMOVE_TURN
 	else
-		if(direction & (direction - 1))	//moved diagonally
+		if(direction & (direction - 1))	//Trick to check for diagonal direction
 			if(strafe)
 				if(strafe_diagonal) //Diagonal strafe is overpowered, disabled by default on all mechas
 					glide_for(step_in * 1.41)
-					step_in_final *= STRAFE_DIAGONAL_MOVE_FACTOR //Applying speed multiplier if mecha is moving diagonally
+					step_in_final *= STRAFE_DIAGONAL_FACTOR //Applies speed multiplier if mecha moved diagonally
 					move_result = mechstep(direction, old_direction, step_in_final)
 					move_type = MECHAMOVE_STEP
 				else
 					glide_for(step_in)
 					strafed_backwards = is_opposite_dir(convert_diagonal_dir(direction))
-					step_in_final *= strafed_backwards ? STRAFE_BACKWARDS_FACTOR : 1
-					move_result = mechstep(convert_diagonal_dir(direction), old_direction, step_in_final) //Any diagonal movement will be converted to cardinal via "convert_diagonal" proc
+					step_in_final *= strafed_backwards ? STRAFE_BACKWARDS_FACTOR : 1 //Applies speed multiplier if mecha moved backwards
+					move_result = mechstep(convert_diagonal_dir(direction), old_direction, step_in_final) //Any diagonal movement will be converted to cardinal via "convert_diagonal_dir" proc
 					move_type = MECHAMOVE_STEP
 			else
 				glide_for(step_in * 1.41)
@@ -417,12 +417,12 @@
 		else
 			glide_for(step_in)
 			strafed_backwards = is_opposite_dir(direction)
-			step_in_final *= strafed_backwards ? STRAFE_BACKWARDS_FACTOR : 1
+			step_in_final *= strafed_backwards ? STRAFE_BACKWARDS_FACTOR : 1 //Applies speed multiplier if mecha moved backwards
 			move_result = mechstep(direction, old_direction, step_in_final)
 			move_type = MECHAMOVE_STEP
 
 	if(move_result && move_type)
-		if(strafe && actuator) //Drain power mechanics for actuator module
+		if(strafe && actuator) //Energy drain mechanics for actuator module
 			use_power(strafed_backwards ? (actuator.energy_per_step * STRAFE_BACKWARDS_FACTOR) : actuator.energy_per_step)
 		aftermove(move_type)
 		can_move = world.time + step_in_final
@@ -430,7 +430,7 @@
 	return FALSE
 
 #undef STRAFE_TURN_FACTOR
-#undef STRAFE_DIAGONAL_MOVE_FACTOR
+#undef STRAFE_DIAGONAL_FACTOR
 #undef STRAFE_BACKWARDS_FACTOR
 
 /obj/mecha/proc/aftermove(move_type)
@@ -463,14 +463,14 @@
 /obj/mecha/proc/mechstep(direction, old_direction, step_in_final)
 	. = step(src, direction)
 	if(strafe)
-		setDir(old_direction) //Mecha will always face the same direction while strafing
+		setDir(old_direction) //Mecha will always face the same direction while moving and strafe is active
 	if(!.)
-		if(strafe) //Cooldown and sound for the strafe if we failed to step
+		if(strafe) //Cooldown and sound effect if mecha failed to step
 			can_move = world.time + step_in_final
 			if(turnsound)
 				playsound(src, turnsound, 40, 1)
 		if(phasing && get_charge() >= phasing_energy_drain)
-			if(strafe) //No strafe while phasing is active
+			if(strafe) //No strafe while phase mode is active
 				toggle_strafe(silent = TRUE)
 			if(can_move < world.time)
 				. = FALSE // We lie to mech code and say we didn't get to move, because we want to handle power usage + cooldown ourself
