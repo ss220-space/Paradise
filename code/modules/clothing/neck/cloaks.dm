@@ -1,12 +1,12 @@
 //Cloaks. No, not THAT kind of cloak.
 
 /obj/item/clothing/neck/cloak
-	name = "grey cloak"
+	name = "cloak"
 	desc = "It's a cloak that can be worn around your neck in a pretty dull color."
 	icon_state = "cloak_white"
 	w_class = WEIGHT_CLASS_SMALL
 	body_parts_covered = UPPER_TORSO | ARMS
-	var/colour = "#3A3A3A"
+	var/colour = "#535353"
 
 /obj/item/clothing/neck/cloak/Initialize(mapload)
 	. = ..()
