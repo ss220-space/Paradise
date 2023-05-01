@@ -1,7 +1,7 @@
 //Cloaks. No, not THAT kind of cloak.
 
 /obj/item/clothing/neck/cloak //We need this "White" for better color adjustment.
-	name = "white cloak"
+	name = "cloak"
 	desc = "It's a cloak that can be worn around your neck in a pretty dull color."
 	icon_state = "cloak_white"
 	w_class = WEIGHT_CLASS_SMALL
@@ -14,7 +14,6 @@
 	update_icon()
 
 /obj/item/clothing/neck/cloak/grey
-	name = "grey cloak"
 	colour = "#5F5F5F"
 
 /obj/item/clothing/neck/cloak/head_of_security
