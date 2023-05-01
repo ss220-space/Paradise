@@ -3,7 +3,7 @@
 /obj/item/clothing/neck/cloak //We need this "White" for better color adjustment.
 	name = "cloak"
 	desc = "It's a cloak that can be worn around your neck in a pretty dull color."
-	icon_state = "cloak_white"
+	icon_state = "cloak"
 	w_class = WEIGHT_CLASS_SMALL
 	body_parts_covered = UPPER_TORSO | ARMS
 	var/colour = null
