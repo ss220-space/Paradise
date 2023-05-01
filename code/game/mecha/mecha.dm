@@ -299,6 +299,7 @@
 //Constants for strafe mode
 #define STRAFE_TURN_FACTOR 1.5 //Multiplier for mecha's turn speed while strafe is active
 #define STRAFE_DIAGONAL_MOVE_FACTOR 2 //Multiplier for mecha's diagonal move speed while strafe is active
+#define STRAFE_BACKWARDS_FACTOR 2 //Multiplier for the mecha's moving backwards speed while strafe is active
 
 /obj/mecha/proc/domove(direction)
 	if(can_move >= world.time)
@@ -350,12 +351,14 @@
 			if(strafe)
 				if(strafe_diagonal) //Diagonal strafe is overpowered, disabled by default on all mechas
 					glide_for(step_in * 1.41)
-					step_in_final *= STRAFE_DIAGONAL_MOVE_FACTOR
+					step_in_final *= STRAFE_DIAGONAL_MOVE_FACTOR //Applying speed multiplier if mecha is moving diagonally
 					move_result = mechstep(direction, old_direction, step_in_final)
 					move_type = MECHAMOVE_STEP
 				else
 					glide_for(step_in)
-					move_result = mechstep(mecha_dir_correction(direction), old_direction, step_in_final) //Any diagonal movement will be converted to cardinal via "mecha_dir_correction" proc
+					if(is_opposite_dir(convert_diagonal_dir(direction))) //Applying speed multiplier if mecha is moving backwards
+						step_in_final *= STRAFE_BACKWARDS_FACTOR
+					move_result = mechstep(convert_diagonal_dir(direction), old_direction, step_in_final) //Any diagonal movement will be converted to cardinal via "convert_diagonal" proc
 					move_type = MECHAMOVE_STEP
 			else
 				glide_for(step_in * 1.41)
@@ -363,6 +366,8 @@
 				move_type = MECHAMOVE_STEP
 		else
 			glide_for(step_in)
+			if(is_opposite_dir(direction)) //Applying speed multiplier if mecha is moving backwards
+				step_in_final *= STRAFE_BACKWARDS_FACTOR
 			move_result = mechstep(direction, old_direction, step_in_final)
 			move_type = MECHAMOVE_STEP
 
@@ -374,6 +379,7 @@
 
 #undef STRAFE_TURN_FACTOR
 #undef STRAFE_DIAGONAL_MOVE_FACTOR
+#undef STRAFE_BACKWARDS_FACTOR
 
 /**
  * Proc that converts diagonal movement into cardinal
@@ -381,7 +387,7 @@
  * Arguments
  * * direction - input direction we need to convert
  */
-/obj/mecha/proc/mecha_dir_correction(direction)
+/obj/mecha/proc/convert_diagonal_dir(direction)
 	switch(src.dir)
 		if(NORTH, SOUTH)
 			switch(direction)
@@ -399,6 +405,28 @@
 					return SOUTH
 				if(NORTH, SOUTH, EAST, WEST)
 					return direction
+
+/**
+ * Proc that checks if the target cardinal direction is opposite for mecha
+ *
+ * Arguments
+ * * direction - input direction we need to check
+ */
+/obj/mecha/proc/is_opposite_dir(direction)
+	. = FALSE
+	switch(src.dir)
+		if(NORTH)
+			if(direction == SOUTH)
+				return TRUE
+		if(SOUTH)
+			if(direction == NORTH)
+				return TRUE
+		if(EAST)
+			if(direction == WEST)
+				return TRUE
+		if(WEST)
+			if(direction == EAST)
+				return TRUE
 
 /obj/mecha/proc/aftermove(move_type)
 	use_power(step_energy_drain)
