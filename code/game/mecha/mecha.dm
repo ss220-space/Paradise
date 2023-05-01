@@ -327,6 +327,7 @@
 	var/move_type = 0
 	var/old_direction = dir //Initial direction of the mecha
 	var/step_in_final = strafe ? (step_in * strafe_speed_factor) : step_in //Modifies strafe speed, if "strafe_speed_factor" is anything other than 1
+	var/strafed_backwards = FALSE //To check if mecha strafed backwards, used later to modify speed and energy drain
 
 	var/keyheld = FALSE //Variable that checks if the player pressed the ALT button
 	if(strafe && occupant.client?.input_data.keys_held["Alt"])
@@ -356,8 +357,7 @@
 					move_type = MECHAMOVE_STEP
 				else
 					glide_for(step_in)
-					if(is_opposite_dir(convert_diagonal_dir(direction))) //Applying speed multiplier if mecha is moving backwards
-						step_in_final *= STRAFE_BACKWARDS_FACTOR
+					strafed_backwards = is_opposite_dir(convert_diagonal_dir(direction))
 					move_result = mechstep(convert_diagonal_dir(direction), old_direction, step_in_final) //Any diagonal movement will be converted to cardinal via "convert_diagonal" proc
 					move_type = MECHAMOVE_STEP
 			else
@@ -366,12 +366,15 @@
 				move_type = MECHAMOVE_STEP
 		else
 			glide_for(step_in)
-			if(is_opposite_dir(direction)) //Applying speed multiplier if mecha is moving backwards
-				step_in_final *= STRAFE_BACKWARDS_FACTOR
+			strafed_backwards = is_opposite_dir(direction)
 			move_result = mechstep(direction, old_direction, step_in_final)
 			move_type = MECHAMOVE_STEP
+		if(strafed_backwards)
+			step_in_final *= STRAFE_BACKWARDS_FACTOR
 
 	if(move_result && move_type)
+		if(strafe && actuator) //Drain power mechanics for actuator module
+			use_power(strafed_backwards ? (actuator.energy_per_step * STRAFE_BACKWARDS_FACTOR) : actuator.energy_per_step)
 		aftermove(move_type)
 		can_move = world.time + step_in_final
 		return TRUE
@@ -430,8 +433,6 @@
 
 /obj/mecha/proc/aftermove(move_type)
 	use_power(step_energy_drain)
-	if(strafe && actuator) //Drain power mechanics for actuator module
-		use_power(actuator.energy_per_step)
 	if(move_type & (MECHAMOVE_RAND | MECHAMOVE_STEP) && occupant)
 		var/obj/machinery/atmospherics/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/unary/portables_connector) in loc
 		if(possible_port)
