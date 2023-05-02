@@ -23,9 +23,11 @@
 	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	actions_types = list(
 		/datum/action/item_action/toggle_helmet,
+		/datum/action/item_action/advanced/chameleon_upgrade,
 		/datum/action/item_action/advanced/hook_upgrade)
 	//working as ninja hook, deleted when droped
 	var/obj/item/gun/magic/contractor_hook/scorpion
+	var/disguise = FALSE
 
 /obj/item/clothing/suit/space/hardsuit/contractor/Destroy()
 	. = ..()
@@ -39,7 +41,21 @@
 		if(/datum/action/item_action/advanced/hook_upgrade)
 			toggle_hook()
 			return TRUE
+		if(/datum/action/item_action/advanced/chameleon_upgrade)
+			toggle_chameleon()
+			return TRUE
 	return FALSE
+
+/obj/item/clothing/suit/space/hardsuit/contractor/proc/update_suit()
+	var/mob/living/carbon/human/H = src.loc
+	H.update_inv_head()
+	H.update_inv_wear_suit()
+
+/*
+		Hook
+		Much worse version of lava and ninja hook for balance reasons.
+
+*/
 
 /datum/action/item_action/advanced/hook_upgrade
 	name = "Hardsuit SCORPION hook module"
@@ -156,3 +172,106 @@
 /obj/item/projectile/contractor_hook/Destroy()
 	QDEL_NULL(chain)
 	return ..()
+/*
+	Chameleon
+		Hardsuit chameleon module, very limited choice, shutting down when EMP'd.
+*/
+
+/datum/action/item_action/advanced/chameleon_upgrade
+	name = "Advanced hardsuit chameleon module"
+	desc = "An advanced version of chameleon tech, allowing you to disguise your hardsuit, giving you the opportunity to walk in full view of security and personnel without any difficulties."
+	charge_type = ADV_ACTION_TYPE_TOGGLE
+	use_itemicon = FALSE
+	icon_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "chameleon"
+	button_icon = 'icons/mob/actions/actions.dmi'
+
+/obj/item/clothing/suit/space/hardsuit/contractor/proc/toggle_chameleon()
+	if(disguise)
+		disguise = FALSE
+		disable_chameleon()
+		usr.visible_message("<span class='warning'>[usr] changes the look of his hardsuit!</span>", "<span class='notice'>Turning off the disguise..</span>")
+		return
+	var/list/choices = list(
+		"EVA" = image(icon = 'icons/mob/contractor.dmi', icon_state = "EVA"),
+		"Mining Hardsuit" = image(icon = 'icons/mob/contractor.dmi', icon_state = "mining"),
+		"Medical Hardsuit" = image(icon = 'icons/mob/contractor.dmi', icon_state = "medical"),
+		"Security Hardsuit" = image(icon = 'icons/mob/contractor.dmi', icon_state = "security"),
+		"Engineering Hardsuit" = image(icon = 'icons/mob/contractor.dmi', icon_state = "engineering")
+	)
+	var/selected_chameleon = show_radial_menu(usr, loc, choices, require_near = TRUE)
+	switch(selected_chameleon)
+		if("EVA")
+			src.name = "EVA suit"
+			src.icon_state = "spacenew"
+			src.desc = "A lightweight space suit with the basic ability to protect the wearer from the vacuum of space during emergencies."
+			for(var/obj/item/clothing/head/helmet/space/hardsuit/contractor/C)
+				C.name = "EVA helmet"
+				C.desc = "A lightweight space helmet with the basic ability to protect the wearer from the vacuum of space during emergencies."
+				C.icon_state = "hardsuit0-medical" //well...
+				C.item_color = "medical"
+		if("Mining Hardsuit")
+			src.name = "mining hardsuit"
+			src.icon_state = "hardsuit-mining"
+			src.desc = "A special suit that protects against hazardous, low pressure environments. Has reinforced plating."
+			for(var/obj/item/clothing/head/helmet/space/hardsuit/contractor/C)
+				C.name = "mining hardsuit helmet"
+				C.desc = "A special helmet designed for work in a hazardous, low pressure environment. Has reinforced plating."
+				C.icon_state = "hardsuit0-mining"
+				C.item_color = "mining"
+		if("Medical Hardsuit")
+			src.name = "medical hardsuit"
+			src.icon_state = "hardsuit-medical"
+			src.desc = "A special suit designed for work in a hazardous, low pressure environment. Built with lightweight materials for extra comfort."
+			for(var/obj/item/clothing/head/helmet/space/hardsuit/contractor/C)
+				C.name = "medical hardsuit helmet"
+				C.desc = "A special helmet designed for work in a hazardous, low pressure environment. Built with lightweight materials for extra comfort, but does not protect the eyes from intense light."
+				C.icon_state = "hardsuit0-medical"
+				C.item_color = "medical"
+		if("Security Hardsuit")
+			src.name = "security hardsuit"
+			src.icon_state = "hardsuit-sec"
+			src.desc = "A special suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
+			for(var/obj/item/clothing/head/helmet/space/hardsuit/contractor/C)
+				C.name = "security hardsuit helmet"
+				C.desc = "A special helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
+				C.icon_state = "hardsuit0-sec"
+				C.item_color = "sec"
+		if("Engineering Hardsuit")
+			src.name = "engineering hardsuit"
+			src.icon_state = "hardsuit-engineering"
+			src.desc = "A special suit that protects against hazardous, low pressure environments. Has radiation shielding."
+			for(var/obj/item/clothing/head/helmet/space/hardsuit/contractor/C)
+				C.name = "engineering hardsuit helmet"
+				C.desc = "A special helmet designed for work in a hazardous, low-pressure environment. Has radiation shielding."
+				C.icon_state = "hardsuit0-engineering"
+				C.item_color = "engineering"
+		else
+			return
+	to_chat(usr, "<span class='notice'>Turning on the disguise..</span>")
+	sleep(25)
+	usr.visible_message("<span class='warning'>[usr] changes the look of his hardsuit!</span>", "<span class='notice'>[selected_chameleon] selected.</span>")
+	playsound(loc, 'sound/items/screwdriver2.ogg', 50, 1)
+	update_suit()
+	disguise = TRUE
+
+
+/obj/item/clothing/suit/space/hardsuit/contractor/proc/disable_chameleon()
+	src.name = initial(src.name)
+	src.icon_state = initial(src.icon_state)
+	src.desc = initial(src.desc)
+	for(var/obj/item/clothing/head/helmet/space/hardsuit/contractor/H)
+		H.name = initial(H.name)
+		H.desc = initial(H.desc)
+		H.icon_state = initial(H.icon_state)
+		H.item_color = initial(H.item_color)
+	update_suit()
+
+/obj/item/clothing/suit/space/hardsuit/contractor/emp_act(severity)
+	. = ..()
+	if(disguise)
+		usr.visible_message("<span class='warning'>[usr] disguise is falling off!</span>", "<span class='notice'>Chameleon module overloading! Shutting down...</span>")
+		disguise = FALSE
+		disable_chameleon()
+
+//that's an absolute shitcode, but I dont know, how to make it better...
