@@ -4,7 +4,7 @@
 /datum/rep_purchase/blackout
 	name = "Blackout"
 	description = "Overloads the station's power net, shorting random APCs."
-	cost = 3
+	cost = 1
 	// Settings
 	/// How long a contractor must wait before calling another blackout, in deciseconds.
 	var/static/cooldown = 15 MINUTES
@@ -50,8 +50,6 @@
 	GLOB.event_announcement.Announce(alert)
 	for(var/obj/machinery/tcomms/core/T in GLOB.tcomms_machines)
 		T.start_ion()
-		// Bring it back sometime between 3-5 minutes. This uses deciseconds, so 1800 and 3000 respecticely.
-		// The AI cannot disable this, it must be waited for
 		addtimer(CALLBACK(T, /obj/machinery/tcomms.proc/end_ion), rand(1800, 3000))
 
 

@@ -4,7 +4,7 @@
 /datum/rep_purchase/item/balloon
 	name = "Contractor Balloon"
 	description = "An unique black and gold balloon with no purpose other than showing off. All contracts must be completed in the hardest location to unlock this."
-	cost = 12
+	cost = 0
 	stock = 1
 	item_type = /obj/item/toy/syndicateballoon/contractor
 
