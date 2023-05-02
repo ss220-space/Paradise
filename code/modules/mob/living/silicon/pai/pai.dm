@@ -94,8 +94,6 @@
 	var/syndipai = FALSE
 
 /mob/living/silicon/pai/New(obj/item/paicard/paicard)
-	if(!istype(paicard))
-		paicard = new (get_turf(paicard))
 	loc = paicard
 	card = paicard
 	if(card)
