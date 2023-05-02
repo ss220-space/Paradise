@@ -756,7 +756,7 @@
 								description = "Assassinate"
 							if("protect")
 								description = "Protect"
-							if("debrain")
+							if("steal brain")
 								description = "Steal the brain of"
 							if("prevent from escape")
 								description = "Prevent from escaping alive or assassinate"
