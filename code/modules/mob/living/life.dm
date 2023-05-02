@@ -2,6 +2,8 @@
 	set waitfor = FALSE
 	set invisibility = 0
 
+	SEND_SIGNAL(src, COMSIG_LIVING_LIFE, seconds, times_fired)
+
 	if(flying && !floating) //TODO: Better floating
 		float(TRUE)
 
