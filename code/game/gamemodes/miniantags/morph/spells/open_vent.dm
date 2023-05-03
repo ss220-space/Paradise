@@ -13,11 +13,10 @@
 	if(istype(target, /obj/machinery/atmospherics/unary/vent_scrubber))
 		var/obj/machinery/atmospherics/unary/vent_scrubber/S = target
 		return S.welded
-	else if(istype(target, /obj/machinery/atmospherics/unary/vent_pump))
+	if(istype(target, /obj/machinery/atmospherics/unary/vent_pump))
 		var/obj/machinery/atmospherics/unary/vent_scrubber/V = target
 		return V.welded
-	else
-		return FALSE
+	return FALSE
 
 /obj/effect/proc_holder/spell/targeted/click/morph_spell/open_vent/cast(list/targets, mob/living/simple_animal/hostile/morph/user)
 	if(!length(targets))
