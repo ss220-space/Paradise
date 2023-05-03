@@ -295,17 +295,13 @@
 	. = FALSE
 	switch(src.dir)
 		if(NORTH)
-			if(direction == SOUTH)
-				return TRUE
+			return direction == SOUTH
 		if(SOUTH)
-			if(direction == NORTH)
-				return TRUE
+			return direction == NORTH
 		if(EAST)
-			if(direction == WEST)
-				return TRUE
+			return direction == WEST
 		if(WEST)
-			if(direction == EAST)
-				return TRUE
+			return direction == EAST
 
 //////////////////////////////////
 ////////  Movement procs  ////////
