@@ -220,9 +220,6 @@
 			I.forceMove(L)
 			L.name += " ([I.name])"
 			L.origin_tech = I.origin_tech
-		if(istype(A, /obj/item/borg/upgrade/modkit))
-			var/obj/item/borg/upgrade/modkit/M = A
-			M.only_borg = TRUE
 
 	// Clean up
 	being_built = null

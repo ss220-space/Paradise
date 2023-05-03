@@ -78,7 +78,7 @@
 	req_tech = list("materials" = 5, "powerstorage" = 4, "engineering" = 4, "magnets" = 4, "combat" = 3)
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_GOLD = 1500, MAT_URANIUM = 1000)
-	build_path = /obj/item/borg/upgrade/modkit/damage
+	build_path = /obj/item/borg/upgrade/modkit/damage/borg
 	category = list("Mining", "Cyborg Upgrade Modules")
 
 /datum/design/cooldown_mod
@@ -88,7 +88,7 @@
 	req_tech = list("materials" = 5, "powerstorage" = 4, "engineering" = 4, "magnets" = 4, "combat" = 3)
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_GOLD = 1500, MAT_URANIUM = 1000)
-	build_path = /obj/item/borg/upgrade/modkit/cooldown
+	build_path = /obj/item/borg/upgrade/modkit/cooldown/borg
 	category = list("Mining", "Cyborg Upgrade Modules")
 
 /datum/design/range_mod
@@ -98,7 +98,7 @@
 	req_tech = list("materials" = 5, "powerstorage" = 4, "engineering" = 4, "magnets" = 4, "combat" = 3)
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_GOLD = 1500, MAT_URANIUM = 1000)
-	build_path = /obj/item/borg/upgrade/modkit/range
+	build_path = /obj/item/borg/upgrade/modkit/range/borg
 	category = list("Mining", "Cyborg Upgrade Modules")
 
 /datum/design/hyperaccelerator
