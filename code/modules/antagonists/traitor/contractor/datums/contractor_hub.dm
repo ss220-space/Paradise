@@ -12,9 +12,9 @@
 	/// Completing every contract at a given difficulty will always result in a sum of TC greater or equal than the difficulty's threshold.
 	/// Structure: EXTRACTION_DIFFICULTY_(EASY|MEDIUM|HARD) => number
 	var/difficulty_tc_thresholds = list(
-		EXTRACTION_DIFFICULTY_EASY = 20,
-		EXTRACTION_DIFFICULTY_MEDIUM = 30,
-		EXTRACTION_DIFFICULTY_HARD = 40,
+		EXTRACTION_DIFFICULTY_EASY = 10,
+		EXTRACTION_DIFFICULTY_MEDIUM = 20,
+		EXTRACTION_DIFFICULTY_HARD = 30,
 	)
 	/// Maximum variation a single contract's TC reward can have upon generation.
 	/// In other words: final_reward = CEILING((tc_threshold / num_contracts) * (1 + (rand(-100, 100) / 100) * tc_variation), 1)
