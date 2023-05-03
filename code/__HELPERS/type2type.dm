@@ -146,16 +146,9 @@
 	return
 
 //Converts an angle (degrees) into an ss13 direction
-/proc/angle2dir(var/degree)
-	degree = ((degree+22.5)%365)
-	if(degree < 45)		return NORTH
-	if(degree < 90)		return NORTHEAST
-	if(degree < 135)	return EAST
-	if(degree < 180)	return SOUTHEAST
-	if(degree < 225)	return SOUTH
-	if(degree < 270)	return SOUTHWEST
-	if(degree < 315)	return WEST
-	return NORTH|WEST
+/proc/angle2dir(degree)
+	var/list/dirs = list(NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST, WEST, NORTHWEST)
+	return dirs[1 + round(8 + degree * 8 / 360, 1) % 8]
 
 /proc/angle2dir_cardinal(angle)
 	switch(round(angle, 0.1))

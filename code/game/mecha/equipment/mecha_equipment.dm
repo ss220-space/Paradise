@@ -86,16 +86,10 @@
  * * target - target we want to check
  */
 /obj/item/mecha_parts/mecha_equipment/proc/is_faced_target(atom/target)
+	if(!chassis || !target)
+		return FALSE
 	var/dir_to_target = get_dir(chassis, target)
-	switch(chassis.dir)
-		if(NORTH)
-			return dir_to_target == NORTH || dir_to_target == NORTHEAST || dir_to_target == NORTHWEST
-		if(SOUTH)
-			return dir_to_target == SOUTH || dir_to_target == SOUTHEAST || dir_to_target == SOUTHWEST
-		if(EAST, NORTHEAST, SOUTHEAST)
-			return dir_to_target == EAST || dir_to_target == NORTHEAST || dir_to_target == SOUTHEAST
-		if(WEST, NORTHWEST, SOUTHWEST)
-			return dir_to_target == WEST || dir_to_target == NORTHWEST || dir_to_target == SOUTHWEST
+	return dir_to_target == chassis.dir || dir_to_target == get_clockwise_dir(chassis.dir) || dir_to_target == get_anticlockwise_dir(chassis.dir)
 
 /obj/item/mecha_parts/mecha_equipment/proc/action(atom/target)
 	return 0
