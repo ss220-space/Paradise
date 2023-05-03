@@ -136,7 +136,11 @@
 /mob/living/simple_animal/hostile/morph/proc/eat(atom/movable/item)
 	if(item && item.loc != src)
 		visible_message("<span class='warning'>[src] swallows [item] whole!</span>")
-
+		if(istype(item, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = item
+			if(H.w_uniform != null)
+				if(H.w_uniform.has_sensor != FALSE)
+					H.w_uniform.sensor_mode = 0
 		item.extinguish_light()
 		item.forceMove(src)
 		var/food_value = calc_food_gained(item)
