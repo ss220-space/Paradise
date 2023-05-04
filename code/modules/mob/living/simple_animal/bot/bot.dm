@@ -347,7 +347,7 @@
 					bot_name = name
 					name = paicard.pai.name
 					faction = user.faction
-					tts_seed = user.tts_seed
+					tts_seed = paicard.pai.tts_seed
 					add_attack_logs(user, paicard.pai, "Uploaded to [src.bot_name]")
 				else
 					to_chat(user, "<span class='warning'>[W] is inactive.</span>")
