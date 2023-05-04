@@ -140,7 +140,9 @@
 			var/mob/living/carbon/human/H = item
 			if(H.w_uniform != null)
 				if(H.w_uniform.has_sensor != FALSE)
-					H.w_uniform.sensor_mode = 0
+					to_chat(src, "<span class='notice'>You feel like the disgusting suit sensors have dissolved somewhere inside.</span>")
+					H.w_uniform.sensor_mode = SENSOR_OFF
+					H.w_uniform.has_sensor = FALSE
 		item.extinguish_light()
 		item.forceMove(src)
 		var/food_value = calc_food_gained(item)
