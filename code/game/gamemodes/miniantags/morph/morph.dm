@@ -138,11 +138,10 @@
 		visible_message("<span class='warning'>[src] swallows [item] whole!</span>")
 		if(istype(item, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = item
-			if(H.w_uniform != null)
-				if(H.w_uniform.has_sensor != FALSE)
-					to_chat(src, "<span class='notice'>You feel like the disgusting suit sensors have dissolved somewhere inside.</span>")
-					H.w_uniform.sensor_mode = SENSOR_OFF
-					H.w_uniform.has_sensor = FALSE
+			if(H.w_uniform?.has_sensor)
+				to_chat(src, "<span class='notice'>You feel like the disgusting suit sensors have dissolved somewhere inside.</span>")
+				H.w_uniform.sensor_mode = SENSOR_OFF
+				H.w_uniform.has_sensor = FALSE
 		item.extinguish_light()
 		item.forceMove(src)
 		var/food_value = calc_food_gained(item)
