@@ -1,5 +1,9 @@
 /mob/living/simple_animal/hostile/carp
 	a_intent = INTENT_HARM
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	health = 60
+	maxHealth = 60
 	/// Ability which lets carp teleport around
 	var/datum/action/innate/lesser_carp_rift/teleport
 
@@ -7,6 +11,14 @@
 	. = ..()
 	teleport = new
 	teleport.Grant(src)
+
+/mob/living/simple_animal/hostile/carp/AttackingTarget()
+	if(isliving(target))
+		var/mob/living/living_target = target
+		if("carp" in living_target.faction)
+			to_chat(src, span_warning("Вы почти укусили своего сородича, но вовремя остановились."))
+			return
+	. = ..()
 
 /datum/action/innate/lesser_carp_rift
 	name = "Lesser Carp Rift"

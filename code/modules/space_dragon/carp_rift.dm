@@ -228,7 +228,7 @@
 	if(!is_listed)
 		ckey_list += user.ckey
 	newcarp.key = user.key
-	newcarp.name = "[name] ([rand(1, 1000)])"
+	newcarp.name = "carp ([rand(1, 1000)])"
 	var/datum/antagonist/space_carp/carp_antag = new(src)
 	newcarp.mind.add_antag_datum(carp_antag)
 	dragon.carp += newcarp.mind

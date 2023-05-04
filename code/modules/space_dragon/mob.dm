@@ -28,7 +28,7 @@
 	gender = NEUTER
 	maxHealth = 400
 	health = 400
-	damage_coeff = list(BRUTE = 0.6, BURN = 0.6, TOX = 1, CLONE = 1, STAMINA = 0.5, OXY = 1)
+	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0.5, OXY = 1)
 	a_intent = INTENT_HARM
 	speed = 0
 	flying = TRUE
@@ -60,6 +60,8 @@
 	maxbodytemp = 1500
 	faction = list("carp")
 	pressure_resistance = 200
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	/// How much endlag using Wing Gust should apply.  Each use of wing gust increments this, and it decreases over time.
 	var/tiredness = 0
 	/// A multiplier to how much each use of wing gust should add to the tiredness variable.  Set to 5 if the current rift is destroyed.
@@ -169,6 +171,9 @@
 				return
 			if(eat(L))
 				adjustHealth(-L.maxHealth * 0.25)
+			return
+		if("carp" in L.faction)
+			to_chat(src, span_warning("Вы почти укусили своего сородича, но вовремя остановились."))
 			return
 	. = ..()
 	if(ismecha(target))
