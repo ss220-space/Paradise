@@ -25,6 +25,7 @@
 	action_icon_state = "holyfloorconstruct"
 	action_background_icon_state = "bg_spell"
 	summon_type = list(/turf/simulated/floor/engine/cult/holy)
+
 /obj/effect/proc_holder/spell/aoe_turf/conjure/wall
 	name = "Summon Cult Wall"
 	desc = "This spell constructs a cult wall"
@@ -41,10 +42,11 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/wall/holy
 	name = "Summon Holy Wall"
-	desc = "Это закланиние призовет святую стенку, способную сдержать врагов. Впрочем, вы можете легко её разрушить."
+	desc = "Это заклинание призовет святую стенку, способную сдержать врагов. Впрочем, вы можете легко её разрушить."
 	action_icon_state = "holyforcewall"
 	action_background_icon_state = "bg_spell"
 	summon_type = list(/turf/simulated/wall/cult/artificer/holy)
+
 /obj/effect/proc_holder/spell/aoe_turf/conjure/wall/reinforced
 	name = "Greater Construction"
 	desc = "This spell constructs a reinforced metal wall"
@@ -126,7 +128,7 @@
 	light_color = LIGHT_COLOR_PURE_RED
 
 /obj/effect/forcefield/holy
-	desc = "Этот щит, похоже, так и светится своей святостью! Не похоже что его можно будет убрать так просто."
+	desc = "Этот щит так и светится святостью! Не похоже что его можно будет убрать так просто."
 	name = "holy field"
 	icon = 'icons/effects/cult_effects.dmi'
 	icon_state = "holy_field"
