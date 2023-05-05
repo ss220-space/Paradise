@@ -441,7 +441,7 @@
 /obj/item/storage/box/syndie_kit/pai/New()
 	..()
 	new /obj/item/paicard(src)
-	new /obj/item/paicard_upgrade(src)
+	new /obj/item/paicard_upgrade/unused(src)
 	new /obj/item/screwdriver(src)
 	new /obj/item/paper/pai_upgrade(src)
 	return
