@@ -520,7 +520,7 @@
 /proc/print_command_report(text = "", title = "Central Command Update", add_to_records = TRUE, var/datum/station_goal/goal = null)
 	for(var/obj/machinery/computer/communications/C in GLOB.shuttle_caller_list)
 		if(!(C.stat & (BROKEN|NOPOWER)) && is_station_contact(C.z))
-			var/obj/item/paper/P = new /obj/item/paper(C.loc)
+			var/obj/item/paper/P = new (C.loc)
 			P.name = "paper- '[title]'"
 			P.info = text
 			P.update_icon()
@@ -528,6 +528,19 @@
 				C.messagetitle.Add("[title]")
 				C.messagetext.Add(text)
 			if(goal)
+				var/stampvalue = "navcom"
+				var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
+				stampoverlay.icon_state = "paper_stamp-[stampvalue]"
+				stampoverlay.pixel_x = rand(-2, 0)
+				stampoverlay.pixel_y = rand(-1, 2)
+				P.stamped = list()
+				P.stamped += /obj/item/stamp/navcom
+				if(!P.ico)
+					P.ico = new
+				P.ico += "paper_stamp-[stampvalue]"
+				P.overlays += stampoverlay
+				P.stamps += "<hr><img src='large_stamp-[stampvalue].png'>"
+				P.update_icon()
 				goal.papers_list.Add(P)
 
 /proc/print_centcom_report(text = "", title = "Incoming Message")
