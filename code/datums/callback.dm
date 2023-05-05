@@ -22,7 +22,7 @@
 		global proc while in another global proc:
 			.procname
 			Example:
-				CALLBACK(GLOBAL_PROC, .some_proc_here)
+				CALLBACK(GLOBAL_PROC, /proc/some_proc_here)
 
 		proc defined on current(src) object (when in a /proc/ and not an override) OR overridden at src or any of it's parents:
 			.procname
@@ -33,7 +33,7 @@
 		when the above doesn't apply:
 			.proc/procname
 			Example:
-				CALLBACK(src, .proc/some_proc_here)
+				CALLBACK(src, PROC_REF(some_proc_here))
 
 		proc defined on a parent of a some type:
 			/some/type/.proc/some_proc_here
