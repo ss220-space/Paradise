@@ -1131,4 +1131,4 @@ Pass a positive integer as an argument to override a bot's default speed.
 /obj/effect/proc_holder/spell/targeted/bot_speed/cast(list/targets, mob/user = usr)
 	for(var/mob/living/simple_animal/bot/bot in targets)
 		bot.speed = 0.1
-		addtimer(CALLBACK(bot, /mob/living/simple_animal/bot/.proc/reset_speed), 45 SECONDS)
+		addtimer(CALLBACK(bot, TYPE_PROC_REF(/mob/living/simple_animal/bot, reset_speed)), 45 SECONDS)
