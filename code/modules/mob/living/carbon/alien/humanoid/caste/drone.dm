@@ -5,6 +5,7 @@
 	health = 180
 	icon_state = "aliend_s"
 
+	var/datum/action/innate/xeno_action/break_vents/break_vents_action = new
 	var/datum/action/innate/xeno_action/evolve_to_queen/evolve_to_queen_action = new
 
 /mob/living/carbon/alien/humanoid/drone/New()
@@ -18,6 +19,7 @@
 
 /mob/living/carbon/alien/humanoid/drone/GrantAlienActions()
 	. = ..()
+	break_vents_action.Grant(src)
 	evolve_to_queen_action.Grant(src)
 
 //Drones use the same base as generic humanoids.
@@ -47,7 +49,7 @@
 			to_chat(drone_host, "<span class='noticealien'>You begin to evolve!</span>")
 			for(var/mob/O in viewers(drone_host, null))
 				O.show_message(text("<span class='alertalien'>[drone_host] begins to twist and contort!</span>"), 1)
-			var/mob/living/carbon/alien/humanoid/queen/new_xeno = new(drone_host.loc)
+			var/mob/living/carbon/alien/humanoid/queen/large/new_xeno = new(drone_host.loc)
 			drone_host.mind.transfer_to(new_xeno)
 			new_xeno.mind.name = new_xeno.name
 			qdel(drone_host)

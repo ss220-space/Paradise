@@ -7,7 +7,7 @@
 	if(attack_type == THROWN_PROJECTILE_ATTACK)
 		final_block_chance += 30
 	if(attack_type == LEAP_ATTACK)
-		final_block_chance = 100
+		final_block_chance = 50
 	return ..()
 
 /obj/item/shield/riot

@@ -160,17 +160,21 @@
 	slot = "spinner"
 	origin_tech = "biotech=5;materials=4"
 	var/datum/action/innate/xeno_action/resin/resin_action = new
-	var/datum/action/innate/xeno_action/plant/plant_action = new
+	var/obj/effect/proc_holder/spell/xeno_plant/plant_spell = new
 
 /obj/item/organ/internal/xenos/resinspinner/insert(mob/living/carbon/M, special = 0)
 	..()
 	resin_action.Grant(M)
-	plant_action.Grant(M)
+	plant_spell.action.Grant(M)
 
 /obj/item/organ/internal/xenos/resinspinner/remove(mob/living/carbon/M, special = 0)
 	resin_action.Remove(M)
-	plant_action.Remove(M)
+	plant_spell.action.Remove(M)
 	. = ..()
+
+/obj/item/organ/internal/xenos/resinspinner/queen
+	name = "extensive xeno resin organ"
+	plant_spell = new /obj/effect/proc_holder/spell/xeno_plant/queen
 
 /obj/item/organ/internal/xenos/eggsac
 	name = "xeno egg sac"

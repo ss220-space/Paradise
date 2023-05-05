@@ -8,6 +8,11 @@
 	heal_rate = 5
 	large = 1
 	ventcrawler = 0
+	attack_damage = 30
+	disarm_stamina_damage = 34
+	armour_penetration = 30
+	obj_damage = 80
+	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	pressure_resistance = 200 //Because big, stompy xenos should not be blown around like paper.
 	tts_seed = "Queen"
 
@@ -27,7 +32,7 @@
 	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/queen
 	alien_organs += new /obj/item/organ/internal/xenos/acidgland
 	alien_organs += new /obj/item/organ/internal/xenos/eggsac
-	alien_organs += new /obj/item/organ/internal/xenos/resinspinner
+	alien_organs += new /obj/item/organ/internal/xenos/resinspinner/queen
 	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
 	..()
 

@@ -23,6 +23,9 @@
 	var/armour_penetration = 20
 	var/disarm_stamina_damage = 20
 	var/obj_damage = 60
+	var/devour_time = 30
+	var/environment_smash = ENVIRONMENT_SMASH_STRUCTURES
+	var/time_to_open_doors = 50
 
 	var/large = FALSE
 	var/heat_protection = 0.5
@@ -140,7 +143,7 @@
 			LAZYREMOVE(stomach_contents, M)
 			continue
 		if(stat != DEAD && times_fired % 3 == 1)
-			M.AdjustWeakened(5)
+			M.Weaken(5)
 			M.adjustBruteLoss(5)
 			adjust_nutrition(10)
 
