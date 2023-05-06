@@ -334,10 +334,10 @@
 				var/construct_choice = 0
 				var/picked_class = 0
 				if(purified)
-					construct_choice = show_radial_menu(user, shell, holy_construct_icons, custom_check = CALLBACK(src, .proc/radial_check, user), require_near = TRUE)
+					construct_choice = show_radial_menu(user, shell, holy_construct_icons, custom_check = CALLBACK(src, PROC_REF(radial_check), user), require_near = TRUE)
 					picked_class = holy_construct_types[construct_choice]
 				else
-					construct_choice = show_radial_menu(user, shell, construct_icons, custom_check = CALLBACK(src, .proc/radial_check, user), require_near = TRUE)
+					construct_choice = show_radial_menu(user, shell, construct_icons, custom_check = CALLBACK(src, PROC_REF(radial_check), user), require_near = TRUE)
 					picked_class = construct_types[construct_choice]
 				if((picked_class && !QDELETED(shell) && !QDELETED(src)) && user.Adjacent(shell) && !user.incapacitated() && radial_check(user))
 					var/mob/living/simple_animal/hostile/construct/C = new picked_class(shell.loc)
