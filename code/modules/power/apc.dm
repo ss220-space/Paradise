@@ -452,7 +452,7 @@
 	if(stat & (NOPOWER | BROKEN))
 		return FALSE
 	if(!second_pass) //The first time, we just cut overlays
-		addtimer(CALLBACK(src, /obj/machinery/power/apc/proc.flicker, TRUE), 1)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/power/apc, flicker), TRUE), 1)
 		cut_overlays()
 		// APC power distruptions have a chance to propogate to other machines on its network
 		for(var/obj/machinery/M in area)
@@ -463,7 +463,7 @@
 				M.flicker()
 	else
 		flick("apcemag", src) //Second time we cause the APC to update its icon, then add a timer to update icon later
-		addtimer(CALLBACK(src, /obj/machinery/power/apc/proc.update_icon, TRUE), 10)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/power/apc, update_icon), TRUE), 10)
 
 	return TRUE
 

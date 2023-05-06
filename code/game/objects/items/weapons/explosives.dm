@@ -268,11 +268,11 @@
 			var/turf/T = get_step(location, aim_dir)
 			for(var/turf/simulated/wall/W in range(1, location))
 				W.thermitemelt(speed = 30)
-			addtimer(CALLBACK(null, /proc/explosion, T, 0, 0, 2), 3)
+			addtimer(CALLBACK(GLOBAL_PROC, /proc/explosion, T, 0, 0, 2), 3)
 			addtimer(CALLBACK(smoke, TYPE_PROC_REF(/datum/effect_system/smoke_spread, start)), 3)
 		else
 			var/turf/T = get_step(location, aim_dir)
-			addtimer(CALLBACK(null, /proc/explosion, T, 0, 0, 2), 3)
+			addtimer(CALLBACK(GLOBAL_PROC, /proc/explosion, T, 0, 0, 2), 3)
 			addtimer(CALLBACK(smoke, TYPE_PROC_REF(/datum/effect_system/smoke_spread, start)), 3)
 
 
