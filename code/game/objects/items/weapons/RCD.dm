@@ -68,6 +68,7 @@
 	var/window_type = /obj/structure/window/reinforced
 	var/floor_type = /turf/simulated/floor/plating
 	var/wall_type = /turf/simulated/wall
+	var/firelock_type = /obj/machinery/door/firedoor
 	var/matter_type = /obj/item/rcd_ammo
 	var/matter_type_large = /obj/item/rcd_ammo/large
 
@@ -204,6 +205,7 @@
 		RCD_MODE_DECON = image(icon = 'icons/obj/interface.dmi', icon_state = "delete"),
 		RCD_MODE_WINDOW = image(icon = 'icons/obj/interface.dmi', icon_state = "grillewindow"),
 		RCD_MODE_TURF = image(icon = 'icons/obj/interface.dmi', icon_state = "wallfloor"),
+		RCD_MODE_FIRELOCK = image(icon = 'icons/obj/interface.dmi', icon_state = "firelock"),
 		"UI" = image(icon = 'icons/obj/interface.dmi', icon_state = "ui_interact")
 	)
 	if(mode == RCD_MODE_AIRLOCK)
@@ -212,11 +214,11 @@
 			"Change Airlock Type" = image(icon = 'icons/obj/interface.dmi', icon_state = "airlocktype")
 		)
 	choices -= mode // Get rid of the current mode, clicking it won't do anything.
-	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, .proc/check_menu, user))
+	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
 	if(!check_menu(user))
 		return
 	switch(choice)
-		if(RCD_MODE_AIRLOCK, RCD_MODE_DECON, RCD_MODE_WINDOW, RCD_MODE_TURF)
+		if(RCD_MODE_AIRLOCK, RCD_MODE_DECON, RCD_MODE_WINDOW, RCD_MODE_TURF, RCD_MODE_FIRELOCK)
 			mode = choice
 		if("UI")
 			ui_interact(user)
@@ -291,7 +293,7 @@
 
 		if("mode")
 			var/new_mode = params["mode"]
-			if(!(new_mode in list(RCD_MODE_TURF, RCD_MODE_AIRLOCK, RCD_MODE_DECON, RCD_MODE_WINDOW)))
+			if(!(new_mode in list(RCD_MODE_TURF, RCD_MODE_AIRLOCK, RCD_MODE_DECON, RCD_MODE_WINDOW, RCD_MODE_FIRELOCK)))
 				return FALSE
 			mode = new_mode
 
@@ -427,7 +429,7 @@
 		return
 	audible_message("<span class='danger'><b>[src] begins to vibrate and buzz loudly!</b></span>", "<span class='danger'><b>[src] begins vibrating violently!</b></span>")
 	// 5 seconds to get rid of it
-	addtimer(CALLBACK(src, .proc/detonate_pulse_explode), 50)
+	addtimer(CALLBACK(src, PROC_REF(detonate_pulse_explode)), 50)
 
 /**
  * Called in `/obj/item/rcd/proc/detonate_pulse()` via callback.
