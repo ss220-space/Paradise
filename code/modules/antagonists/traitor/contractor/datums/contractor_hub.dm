@@ -36,6 +36,7 @@
 		/datum/rep_purchase/comms_blackout,
 		/datum/rep_purchase/item/zippo,
 		/datum/rep_purchase/item/balloon,
+		/datum/rep_purchase/item/contractor_partner,
 		/datum/rep_purchase/item/contractor_hardsuit,
 	)
 	// Variables
