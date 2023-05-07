@@ -247,7 +247,7 @@
 		return
 
 	if(wisp.loc == src)
-		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, .proc/update_user_sight)
+		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(update_user_sight))
 
 		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
 		icon_state = "lantern"
@@ -378,7 +378,7 @@
 
 /obj/item/projectile/hook/fire(setAngle)
 	if(firer)
-		chain = firer.Beam(src, icon_state = "chain", time = INFINITY, maxdistance = INFINITY)
+		chain = firer.Beam(src, icon_state = "chain", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1)
 	..()
 	//TODO: root the firer until the chain returns
 
