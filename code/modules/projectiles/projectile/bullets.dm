@@ -344,6 +344,6 @@
 
 /obj/item/projectile/bullet/ftt762 // Rusted PPSh
 	name = "Fusty FMJ 7.62 TT bullet"
-	damage = 4
+	damage = 6
 	stamina = 1
 	armour_penetration = 5

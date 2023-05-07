@@ -665,6 +665,7 @@
 	name = "paper"
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ussplogo.png' width='220' height='135' /></p><hr />"
 	info =  ""
+	language = "Neo-Russkiya"
 
 /obj/item/paper/central_command
 	name = "Директива Центрального Командования"

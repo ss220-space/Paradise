@@ -457,6 +457,6 @@
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
 	self_shot_divisor = 4
 	malf_high_bound = 100
-	burst_size = 7
+	burst_size = 5
 	fire_delay = 1.5
 	recoil = 1.2
