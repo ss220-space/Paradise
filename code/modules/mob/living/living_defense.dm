@@ -120,6 +120,12 @@
 		playsound(loc, 'sound/weapons/genhit.ogg', 50, TRUE, -1)
 	..()
 
+/**
+ * Proc that checks if our mob is strong enough to prevent mecha melee attacks from pushing and paralyzing
+ */
+/mob/living/proc/is_strong()
+	return FALSE
+
 
 /mob/living/mech_melee_attack(obj/mecha/M)
 	if(M.occupant.a_intent == INTENT_HARM)
@@ -127,11 +133,12 @@
 			to_chat(M.occupant, "<span class='warning'>[pluralize_ru(M.occupant.gender,"Ты не хочешь","Вы не хотите")] навредить живым существам!</span>")
 			return
 		M.do_attack_animation(src)
-		if(M.damtype == "brute")
+		if(M.damtype == "brute" && !is_strong())
 			step_away(src,M,15)
 		switch(M.damtype)
 			if("brute")
-				Paralyse(1)
+				if(!is_strong())
+					Paralyse(1)
 				take_overall_damage(rand(M.force/2, M.force))
 				playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
 			if("fire")
