@@ -22,7 +22,7 @@
 
 /turf/simulated/wall/cult/artificer/holy
 	name = "holy runed wall"
-	desc = "Теплая стенка, один взгляд на которую наполняет вас святостью."
+	desc = "Теплая стена, один взгляд на которую наполняет вас святостью."
 	icon_state = "holy"
 	sheet_type = /obj/item/stack/sheet/metal
 	girder_type = /obj/structure/girder

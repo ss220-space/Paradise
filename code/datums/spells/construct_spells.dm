@@ -21,7 +21,7 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/floor/holy
 	name = "Summon Holy Floor"
-	desc = "Это заклинание призовет святой пол."
+	desc = "Это заклинание создаст святой пол."
 	action_icon_state = "holyfloorconstruct"
 	action_background_icon_state = "bg_spell"
 	summon_type = list(/turf/simulated/floor/engine/cult/holy)
@@ -42,7 +42,7 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/wall/holy
 	name = "Summon Holy Wall"
-	desc = "Это заклинание призовет святую стенку, способную сдержать врагов. Впрочем, вы можете легко её разрушить."
+	desc = "Это заклинание создаст святую стену, способную сдержать врагов. Впрочем, вы можете легко её разрушить."
 	action_icon_state = "holyforcewall"
 	action_background_icon_state = "bg_spell"
 	summon_type = list(/turf/simulated/wall/cult/artificer/holy)
@@ -96,7 +96,7 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/pylon/holy
 	name = "Holy Pylon"
-	desc = "Это заклинание призывает уязвимый к повреждениям кристалл, что будет немного лечить иных коснтруктов"
+	desc = "Это заклинание создаст уязвимый к повреждениям кристалл, что будет немного лечить иных коснтруктов"
 	action_icon_state = "holy_pylon"
 	action_background_icon_state = "bg_spell"
 	summon_type = list(/obj/structure/cult/functional/pylon/holy)
@@ -128,7 +128,7 @@
 	light_color = LIGHT_COLOR_PURE_RED
 
 /obj/effect/forcefield/holy
-	desc = "Этот щит так и светится святостью! Не похоже что его можно будет убрать так просто."
+	desc = "Этот щит так и светится! Не похоже что его можно будет убрать так просто."
 	name = "holy field"
 	icon = 'icons/effects/cult_effects.dmi'
 	icon_state = "holy_field"

@@ -26,7 +26,7 @@
 	deathmessage = "collapses in a shattered heap."
 	var/construct_type = "shade"
 	var/list/construct_spells = list()
-	var/cult_icon_changing = TRUE //Меняется ли спрайт от культа к культу
+	var/cult_icon_changing = TRUE //Changing the sprite from the type of cult
 	var/playstyle_string = "<b>You are a generic construct! Your job is to not exist, and you should probably adminhelp this.</b>"
 
 /mob/living/simple_animal/hostile/construct/New()
