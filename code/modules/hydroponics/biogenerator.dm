@@ -4,7 +4,7 @@
 /obj/machinery/biogenerator
 	name = "biogenerator"
 	desc = "Converts plants into biomass, which can be used to construct useful items."
-	icon = 'icons/obj/biogenerator.dmi'
+	icon = 'icons/obj/machines/biogenerator.dmi'
 	icon_state = "biogen-empty"
 	density = TRUE
 	anchored = TRUE
@@ -188,7 +188,8 @@
 			product_list[category][D.name] = list(
 				"name" = D.name,
 				"id" = D.id,
-				"cost" = D.materials[MAT_BIOMASS] / efficiency
+				"cost" = D.materials[MAT_BIOMASS] / efficiency,
+				"needs_container" = length(D.make_reagents)
 			)
 
 	SStgui.update_uis(src, update_static_data = TRUE)
@@ -271,7 +272,7 @@
 	stored_plants.Cut()
 	playsound(loc, 'sound/machines/blender.ogg', 50, 1)
 	use_power(plants_processed * 150)
-	addtimer(CALLBACK(src, .proc/end_processing), (plants_processed * 5) / productivity)
+	addtimer(CALLBACK(src, PROC_REF(end_processing)), (plants_processed * 5) / productivity)
 
 /obj/machinery/biogenerator/proc/end_processing()
 	processing = FALSE

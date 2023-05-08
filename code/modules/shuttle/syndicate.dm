@@ -1,4 +1,4 @@
-#define SYNDICATE_CHALLENGE_TIMER 12000 //20 minutes
+#define SYNDICATE_CHALLENGE_TIMER 13 MINUTES
 
 /obj/machinery/computer/shuttle/syndicate
 	name = "syndicate shuttle terminal"
@@ -20,14 +20,14 @@
 
 /obj/machinery/computer/shuttle/syndicate/can_call_shuttle(user, action)
 	if(action == "move")
-		if(challenge && world.time < SYNDICATE_CHALLENGE_TIMER)
-			to_chat(user, "<span class='warning'>You've issued a combat challenge to the station! You've got to give them at least [round(((SYNDICATE_CHALLENGE_TIMER - world.time) / 10) / 60)] more minutes to allow them to prepare.</span>")
+		if(challenge && (world.time - SSticker.round_start_time) < SYNDICATE_CHALLENGE_TIMER)
+			to_chat(user, "<span class='warning'>You've issued a combat challenge to the station! You've got to give them at least [round(((SYNDICATE_CHALLENGE_TIMER - (world.time - SSticker.round_start_time)) / 10) / 60)] more minutes to allow them to prepare.</span>")
 			return FALSE
 	return TRUE
 
 /obj/machinery/computer/shuttle/syndicate/drop_pod
 	name = "syndicate assault pod control"
-	icon = 'icons/obj/terminals.dmi'
+	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "dorm_available"
 	req_access = list(ACCESS_SYNDICATE)
 	circuit = /obj/item/circuitboard/shuttle/syndicate/drop_pod

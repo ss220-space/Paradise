@@ -78,7 +78,7 @@
 	med_hud_set_health()
 	med_hud_set_status()
 	if(!gibbed && !QDELETED(src))
-		addtimer(CALLBACK(src, .proc/med_hud_set_status), DEFIB_TIME_LIMIT + 1)
+		addtimer(CALLBACK(src, PROC_REF(med_hud_set_status)), DEFIB_TIME_LIMIT + 1)
 
 	for(var/s in ownedSoullinks)
 		var/datum/soullink/S = s
@@ -102,7 +102,7 @@
 			for(var/P in GLOB.dead_mob_list)
 				var/mob/M = P
 				if((M.client?.prefs.toggles2 & PREFTOGGLE_2_DEATHMESSAGE) && (isobserver(M) || M.stat == DEAD))
-					to_chat(M, "<span class='deadsay'><b>[mind.name]</b> has died at <b>[area_name]</b>. (<a href='?src=[M.UID()];jump=\ref[src]'>JMP</a>)</span>")
+					to_chat(M, "<span class='deadsay'><b>[mind.name]</b> has died at <b>[area_name]</b>. (<a href='?src=[M.UID()];jump=[gibbed ? "\ref[T]" : "\ref[src]"]'>JMP</a>)</span>")
 
 	if(SSticker && SSticker.mode)
 		SSticker.mode.check_win()
@@ -116,4 +116,4 @@
 	visible_message("<span class='danger'><b>[src]</b> starts convulsing violently!</span>", "You feel as if your body is tearing itself apart!")
 	Weaken(15)
 	do_jitter_animation(1000, -1)
-	addtimer(CALLBACK(src, .proc/gib), rand(20, 100))
+	addtimer(CALLBACK(src, PROC_REF(gib)), rand(20, 100))

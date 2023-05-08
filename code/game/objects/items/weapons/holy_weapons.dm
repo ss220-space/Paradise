@@ -72,7 +72,7 @@
 		variant_names[initial(rod.name)] = rod
 		variant_icons += list(initial(rod.name) = image(icon = initial(rod.icon), icon_state = initial(rod.icon_state)))
 	var/mob/living/carbon/human/H = user
-	var/choice = show_radial_menu(H, src, variant_icons, null, 40, CALLBACK(src, .proc/radial_check, H), TRUE)
+	var/choice = show_radial_menu(H, src, variant_icons, null, 40, CALLBACK(src, PROC_REF(radial_check), H), TRUE)
 	if(!choice || !radial_check(H))
 		return
 
@@ -248,7 +248,7 @@
 /obj/item/nullrod/scythe/spellblade
 	icon_state = "spellblade"
 	item_state = "spellblade"
-	icon = 'icons/obj/guns/magic.dmi'
+	icon = 'icons/obj/weapons/magic.dmi'
 	name = "dormant spellblade"
 	desc = "The blade grants the wielder nearly limitless power...if they can figure out how to turn it on, that is."
 	hitsound = 'sound/weapons/rapierhit.ogg'

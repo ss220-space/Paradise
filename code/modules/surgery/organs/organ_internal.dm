@@ -61,7 +61,8 @@
 		M.internal_organs -= src
 		if(M.internal_organs_slot[slot] == src)
 			M.internal_organs_slot.Remove(slot)
-			SEND_SIGNAL(src, COMSIG_CARBON_LOSE_ORGAN)
+			if(!special)
+				SEND_SIGNAL(src, COMSIG_CARBON_LOSE_ORGAN)
 		if(vital && !special)
 			if(M.stat != DEAD)//safety check!
 				M.death()
@@ -135,11 +136,7 @@
 	name = "appendix"
 	icon_state = "appendix"
 	icon = 'icons/obj/surgery.dmi'
-
-/obj/item/reagent_containers/food/snacks/organ/New()
-	..()
-
-	reagents.add_reagent("nutriment", 5)
+	list_reagents = list("nutriment" = 5)
 
 /obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
 	if(M == user && ishuman(user))

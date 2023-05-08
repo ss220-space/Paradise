@@ -3,7 +3,7 @@
 
 /obj/item/mecha_parts/mecha_equipment
 	name = "mecha equipment"
-	icon = 'icons/mecha/mecha_equipment.dmi'
+	icon = 'icons/obj/mecha/mecha_equipment.dmi'
 	icon_state = "mecha_equip"
 	force = 5
 	origin_tech = "materials=2;engineering=2"
@@ -79,13 +79,31 @@
 		return 0
 	return 1
 
+/**
+ * Proc that checks if the target of the mecha is in front of it
+ *
+ * Arguments
+ * * target - target we want to check
+ */
+/obj/item/mecha_parts/mecha_equipment/proc/is_faced_target(atom/target)
+	if(!chassis || !target)
+		return FALSE
+	var/dir_to_target = get_dir(chassis, target)
+	return dir_to_target == chassis.dir || dir_to_target == get_clockwise_dir(chassis.dir) || dir_to_target == get_anticlockwise_dir(chassis.dir)
+
 /obj/item/mecha_parts/mecha_equipment/proc/action(atom/target)
 	return 0
 
 /obj/item/mecha_parts/mecha_equipment/proc/start_cooldown()
 	set_ready_state(0)
 	chassis.use_power(energy_drain)
-	addtimer(CALLBACK(src, .proc/set_ready_state, 1), equip_cooldown)
+
+	var/cooldown = equip_cooldown
+	var/obj/item/mecha_parts/mecha_equipment/weapon/W = src
+	if(istype(W))
+		cooldown += (W.projectiles_per_shot - 1) * W.projectile_delay
+
+	addtimer(CALLBACK(src, PROC_REF(set_ready_state), 1), cooldown)
 
 /obj/item/mecha_parts/mecha_equipment/proc/do_after_cooldown(atom/target)
 	if(!chassis)

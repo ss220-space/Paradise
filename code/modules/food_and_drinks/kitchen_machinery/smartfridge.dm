@@ -5,7 +5,7 @@
   */
 /obj/machinery/smartfridge
 	name = "\improper SmartFridge"
-	icon = 'icons/obj/vending.dmi'
+	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "smartfridge"
 	layer = 2.9
 	density = TRUE
@@ -330,7 +330,7 @@
 	if(!throw_item)
 		return FALSE
 
-	INVOKE_ASYNC(throw_item, /atom/movable.proc/throw_at, target, 16, 3, src)
+	INVOKE_ASYNC(throw_item, TYPE_PROC_REF(/atom/movable, throw_at), target, 16, 3, src)
 	visible_message("<span class='warning'>[src] launches [throw_item.name] at [target.name]!</span>")
 	return TRUE
 
@@ -377,7 +377,7 @@
 /obj/machinery/smartfridge/seeds
 	name = "\improper Seed Storage"
 	desc = "When you need seeds fast!"
-	icon = 'icons/obj/vending.dmi'
+	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "seeds"
 
 /obj/machinery/smartfridge/seeds/Initialize(mapload)

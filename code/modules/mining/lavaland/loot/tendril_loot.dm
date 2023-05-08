@@ -181,22 +181,9 @@
 			last_message_time = world.time
 		return FALSE
 
-/obj/vehicle/lavaboat/Destroy()
-	for(var/mob/living/M in buckled_mobs)
-		M.weather_immunities -= "lava"
-	return ..()
-
-/obj/vehicle/lavaboat/user_buckle_mob(mob/living/M, mob/user)
-	M.weather_immunities |= "lava"
-	return ..()
-
-/obj/vehicle/lavaboat/unbuckle_mob(mob/living/buckled_mob, force)
-	. = ..()
-	buckled_mob.weather_immunities -= "lava"
-
 /obj/item/oar
 	name = "oar"
-	icon = 'icons/obj/vehicles.dmi'
+	icon = 'icons/obj/vehicles/vehicles.dmi'
 	icon_state = "oar"
 	item_state = "rods"
 	desc = "Not to be confused with the kind Research hassles you for."
@@ -260,7 +247,7 @@
 		return
 
 	if(wisp.loc == src)
-		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, .proc/update_user_sight)
+		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(update_user_sight))
 
 		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
 		icon_state = "lantern"
@@ -391,7 +378,7 @@
 
 /obj/item/projectile/hook/fire(setAngle)
 	if(firer)
-		chain = firer.Beam(src, icon_state = "chain", time = INFINITY, maxdistance = INFINITY)
+		chain = firer.Beam(src, icon_state = "chain", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1)
 	..()
 	//TODO: root the firer until the chain returns
 

@@ -195,6 +195,16 @@
 	materials = list(MAT_METAL = 60500, MAT_SILVER = 6000, MAT_URANIUM = 8000)
 	build_path = /obj/item/ammo_box/tox46x30mm
 
+/datum/design/lmag
+	name = "LR-30 Laser rifle magazine"
+	desc = "A 12 round magazine for the LR-30 Laser Rifle"
+	id = "lmag"
+	build_type = PROTOLATHE
+	req_tech = list("combat" = 4, "powerstorage" = 4)
+	materials = list(MAT_METAL = 16000, MAT_GLASS = 5000, MAT_PLASMA = 6000)
+	build_path = /obj/item/ammo_box/magazine/lr30mag
+	category = list("Weapons")
+
 /datum/design/rapidsyringe
 	name = "Rapid Syringe Gun"
 	desc = "A gun that fires many syringes."
@@ -469,4 +479,14 @@
 	materials = list(MAT_METAL = 8000, MAT_URANIUM = 8000, MAT_TITANIUM = 1000, MAT_GOLD = 500, MAT_DIAMOND = 100)
 	build_path = /obj/item/organ/internal/cyberimp/arm/gun/laser
 	locked = 1
+	category = list("ILLEGAL")
+
+/datum/design/paicard_cartridge
+	name = "Special PAIcard Cartridge"
+	desc = "A cartridge that allows you to install special improvements for your PAI."
+	id = "paicardcartridge"
+	req_tech = list("syndicate" = 3, "programming" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_GOLD=500, MAT_GLASS=500)
+	build_path = /obj/item/paicard_upgrade
 	category = list("ILLEGAL")

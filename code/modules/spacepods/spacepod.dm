@@ -119,7 +119,7 @@
 	cargo_hold.max_w_class = 5		//fit almost anything
 	cargo_hold.max_combined_w_class = 0 //you can optimize your stash with larger items
 	START_PROCESSING(SSobj, src)
-	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/create_trail)
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(create_trail))
 
 /obj/spacepod/proc/create_trail()
 	var/turf/T = get_turf(src)
@@ -348,6 +348,16 @@
 		battery = W
 		W.forceMove(src)
 		return
+
+	else if(istype(W, /obj/item/spacepod_equipment/key) && istype(equipment_system.lock_system, /obj/item/spacepod_equipment/lock/keyed))
+		var/obj/item/spacepod_equipment/key/key = W
+		if(key.id == equipment_system.lock_system.id)
+			lock_pod()
+			return
+		else
+			to_chat(user, "<span class='warning'>This is the wrong key!</span>")
+			return
+
 	else if(istype(W, /obj/item/spacepod_equipment))
 		if(!hatch_open)
 			to_chat(user, "<span class='warning'>The maintenance hatch is closed!</span>")
@@ -369,15 +379,6 @@
 			return
 		if(istype(W, /obj/item/spacepod_equipment/lock))
 			add_equipment(user, W, "lock_system")
-			return
-
-	else if(istype(W, /obj/item/spacepod_key) && istype(equipment_system.lock_system, /obj/item/spacepod_equipment/lock/keyed))
-		var/obj/item/spacepod_key/key = W
-		if(key.id == equipment_system.lock_system.id)
-			lock_pod()
-			return
-		else
-			to_chat(user, "<span class='warning'>This is the wrong key!</span>")
 			return
 
 	else if(istype(W, /obj/item/lock_buster))

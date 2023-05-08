@@ -136,10 +136,11 @@
 	taste_description = "pure resignation"
 
 /datum/reagent/consumable/ethanol/hooch/on_mob_life(mob/living/carbon/M)
-	if(M.mind && M.mind.assigned_role == "Assistant")
-		M.heal_organ_damage(1, 1)
-		. = 1
-	return ..() || .
+	if(M.mind && M.mind.assigned_role == "Civilian")
+		var/update_flags = STATUS_UPDATE_NONE
+		update_flags |= M.adjustBruteLoss(-1, FALSE)
+		update_flags |= M.adjustFireLoss(-1, FALSE)
+		return ..() | update_flags
 
 /datum/reagent/consumable/ethanol/rum
 	name = "Rum"
@@ -157,7 +158,7 @@
 /datum/reagent/consumable/ethanol/rum/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustToxLoss(1, FALSE)
-	return list(0, update_flags)
+	return ..() | update_flags
 
 /datum/reagent/consumable/ethanol/mojito
 	name = "Mojito"
@@ -1330,16 +1331,15 @@
 	generate_data_info(data)
 
 /datum/reagent/consumable/ethanol/fruit_wine/proc/generate_data_info(list/data)
-	var/minimum_percent = 0.15 //Percentages measured between 0 and 1.
 	var/list/primary_tastes = list()
 	var/list/secondary_tastes = list()
 	drink_name = "glass of [name]"
 	drink_desc = description
 	for(var/taste in tastes)
 		switch(tastes[taste])
-			if(minimum_percent*2 to INFINITY)
+			if(0.3 to INFINITY)
 				primary_tastes += taste
-			if(minimum_percent to minimum_percent*2)
+			if(0.15 to 0.3)
 				secondary_tastes += taste
 
 	var/minimum_name_percent = 0.35

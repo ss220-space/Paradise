@@ -58,7 +58,7 @@
 	add_say_logs(user, "to [owner]: [command]", "Abductor Mind Control")
 	update_gland_hud()
 
-	addtimer(CALLBACK(src, .proc/clear_mind_control), mind_control_duration)
+	addtimer(CALLBACK(src, PROC_REF(clear_mind_control)), mind_control_duration)
 
 /obj/item/organ/internal/heart/gland/proc/clear_mind_control()
 	if(!ownerCheck() || !active_mind_control)
@@ -211,7 +211,7 @@
 /obj/item/organ/internal/heart/gland/viral/proc/random_virus(max_symptoms, max_level)
 	if(max_symptoms > VIRUS_SYMPTOM_LIMIT)
 		max_symptoms = VIRUS_SYMPTOM_LIMIT
-	var/datum/disease/advance/A = new /datum/disease/advance()
+	var/datum/disease/advance/A = new
 	var/list/datum/symptom/possible_symptoms = list()
 	for(var/symptom in subtypesof(/datum/symptom))
 		var/datum/symptom/S = symptom
@@ -293,7 +293,7 @@
 	owner.visible_message("<span class='danger'>[owner]'s skin starts emitting electric arcs!</span>",\
 	"<span class='warning'>You feel electric energy building up inside you!</span>")
 	playsound(get_turf(owner), "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	addtimer(CALLBACK(src, .proc/zap), rand(30, 100))
+	addtimer(CALLBACK(src, PROC_REF(zap)), rand(30, 100))
 
 /obj/item/organ/internal/heart/gland/electric/proc/zap()
 	tesla_zap(owner, 4, 8000)

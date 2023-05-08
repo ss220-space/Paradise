@@ -116,7 +116,7 @@
 	icon_state = "tastybread"
 
 /obj/item/trash/spentcasing
-	icon = 'icons/obj/ammo.dmi'
+	icon = 'icons/obj/weapons/ammo.dmi'
 	name = "bullet casing"
 	desc = "A spent bullet casing. Smells like cordite."
 	icon_state = "gshell"
@@ -137,7 +137,7 @@
 
 /obj/item/trash/broken_ashtray
 	name = "ashtray shards"
-	icon = 'icons/ashtray.dmi'
+	icon = 'icons/obj/ashtray.dmi'
 	icon_state = "ashtray_bork_bl"
 
 /obj/item/trash/broken_ashtray/Initialize(mapload)

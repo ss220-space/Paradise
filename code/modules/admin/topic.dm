@@ -1056,19 +1056,6 @@
 		var/target = href_list["notessearch"]
 		show_note(index = target)
 
-	else if(href_list["noteedits"])
-		var/note_id = text2num(href_list["noteedits"])
-		var/datum/db_query/query_noteedits = SSdbcore.NewQuery("SELECT edits FROM [sqlfdbkdbutil].[format_table_name("notes")] WHERE id=:note_id", list(
-			"note_id" = note_id
-		))
-		if(!query_noteedits.warn_execute())
-			qdel(query_noteedits)
-			return
-		if(query_noteedits.NextRow())
-			var/edit_log = {"<meta charset="UTF-8">"} + query_noteedits.item[1]
-			usr << browse(edit_log,"window=noteedits")
-		qdel(query_noteedits)
-
 	else if(href_list["removejobban"])
 		if(!check_rights(R_BAN))	return
 
@@ -1643,7 +1630,7 @@
 		if(time_seconds < 0)
 			return
 
-		contract.prisoner_timer_handle = addtimer(CALLBACK(contract, /datum/syndicate_contract.proc/handle_target_return, M), time_seconds * 10, TIMER_STOPPABLE)
+		contract.prisoner_timer_handle = addtimer(CALLBACK(contract, TYPE_PROC_REF(/datum/syndicate_contract, handle_target_return), M), time_seconds * 10, TIMER_STOPPABLE)
 		to_chat(usr, "Started automatic return of [M] from the Syndicate Jail in [time_seconds] second\s.")
 		message_admins("[key_name_admin(usr)] has started the automatic return of [key_name_admin(M)] from the Syndicate Jail in [time_seconds] second\s")
 		log_admin("[key_name(usr)] has started the automatic return of [key_name(M)] from the Syndicate Jail in [time_seconds] second\s")
@@ -2979,6 +2966,9 @@
 				var/datum/event/electrical_storm/E = new /datum/event/electrical_storm
 				E.lightsoutAmount = 2
 			if("blackout")
+				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
+				if(sure == "No")
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Black Out")
 				log_and_message_admins("broke all lights")
 				for(var/obj/machinery/light/L in GLOB.machines)
@@ -3021,7 +3011,7 @@
 				for(var/obj/item/W in world)
 					if(istype(W, /obj/item/clothing) || istype(W, /obj/item/card/id) || istype(W, /obj/item/disk) || istype(W, /obj/item/tank))
 						continue
-					W.icon = 'icons/obj/guns/projectile.dmi'
+					W.icon = 'icons/obj/weapons/projectile.dmi'
 					W.icon_state = "revolver"
 					W.item_state = "gun"
 				message_admins("[key_name_admin(usr)] made every item look like a gun")

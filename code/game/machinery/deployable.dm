@@ -136,7 +136,7 @@
 
 /obj/structure/barricade/security/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/deploy), deploy_time)
+	addtimer(CALLBACK(src, PROC_REF(deploy)), deploy_time)
 
 /obj/structure/barricade/security/proc/deploy()
 	icon_state = "barrier1"
@@ -149,7 +149,7 @@
 /obj/item/grenade/barrier
 	name = "barrier grenade"
 	desc = "Instant cover."
-	icon = 'icons/obj/grenade.dmi'
+	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "flashbang"
 	item_state = "flashbang"
 	actions_types = list(/datum/action/item_action/toggle_barrier_spread)

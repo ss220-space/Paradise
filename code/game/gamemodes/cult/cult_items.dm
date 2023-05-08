@@ -99,6 +99,9 @@
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 40, "energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 	flags_inv = HIDEJUMPSUIT
 	magical = TRUE
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
 
 /obj/item/clothing/suit/hooded/cultrobes/alt
 	icon_state = "cultrobesalt"
@@ -441,6 +444,14 @@
 	/// Shatter threshold for Energy weapons
 	var/energy_threshold = 20
 
+/obj/item/shield/mirror/Initialize(mapload)
+	. = ..()
+	GLOB.mirrors += src
+
+/obj/item/shield/mirror/Destroy()
+	GLOB.mirrors -= src
+	return ..()
+
 /**
   * Reflect/Block/Shatter proc.
   *
@@ -491,7 +502,7 @@
 			playsound(src, 'sound/weapons/parry.ogg', 100, TRUE)
 			if(illusions > 0)
 				illusions--
-				addtimer(CALLBACK(src, .proc/readd), 45 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(readd)), 45 SECONDS)
 				if(prob(60))
 					spawn_illusion(owner, TRUE) // Hostile illusion
 				else
@@ -534,16 +545,6 @@
 		var/mob/living/holder = loc
 		return prob(reflect_chance) && iscultist(holder) //so non-cultist can not reflect using this shield
 	return FALSE
-
-/obj/item/shield/mirror/equipped(mob/user, slot)
-	..()
-	if(!iscultist(user))
-		to_chat(user, "<span class='cultlarge'>Вы поднимаете щит и в его зеркальном отражение видите свою смерть</span>")
-		user.emote("scream")
-		user.unEquip(src, 1)
-		user.Confused(30)
-		user.Weaken(5)
-		user.EyeBlind(30)
 
 /obj/item/twohanded/cult_spear
 	name = "blood halberd"

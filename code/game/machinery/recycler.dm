@@ -3,7 +3,7 @@
 /obj/machinery/recycler
 	name = "recycler"
 	desc = "A large crushing machine used to recycle small items inefficiently. There are lights on the side."
-	icon = 'icons/obj/recycling.dmi'
+	icon = 'icons/obj/machines/recycling.dmi'
 	icon_state = "grinder-o0"
 	layer = MOB_LAYER+1 // Overhead
 	anchored = 1
@@ -149,7 +149,7 @@
 	emergency_mode = TRUE
 	update_icon()
 	L.loc = loc
-	addtimer(CALLBACK(src, .proc/reboot), SAFETY_COOLDOWN)
+	addtimer(CALLBACK(src, PROC_REF(reboot)), SAFETY_COOLDOWN)
 
 /obj/machinery/recycler/proc/reboot()
 	playsound(loc, 'sound/machines/ping.ogg', 50, 0)

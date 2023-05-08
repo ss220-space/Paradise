@@ -43,7 +43,7 @@
 		return
 
 	var/contents_log = reagents.reagent_list.Join(", ")
-	INVOKE_ASYNC(src, .proc/spray, A)
+	INVOKE_ASYNC(src, PROC_REF(spray), A)
 
 	playsound(loc, 'sound/effects/spray2.ogg', 50, 1, -6)
 	user.changeNext_move(CLICK_CD_RANGE*2)
@@ -154,7 +154,7 @@
 /obj/item/reagent_containers/spray/chemsprayer
 	name = "chem sprayer"
 	desc = "A utility used to spray large amounts of reagents in a given area."
-	icon = 'icons/obj/guns/projectile.dmi'
+	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "chemsprayer"
 	item_state = "chemsprayer"
 	throwforce = 0

@@ -12,6 +12,7 @@
 	var/clock = 0
 	var/syndiemmi = 0 //Whether or not this is a Syndicate MMI
 	var/syndicate = 0 //Used to replace standart modules with the syndicate modules in module pick proc
+	var/ninja = FALSE //Like the syndicate, it is necessary to select modules.
 	var/mob/living/carbon/brain/brainmob = null//The current occupant.
 	var/obj/item/organ/internal/brain/held_brain = null // This is so MMI's aren't brainscrubber 9000's
 	var/mob/living/silicon/robot/robot = null//Appears unused.
@@ -56,6 +57,7 @@
 			GLOB.respawnable_list -= brainmob
 			GLOB.dead_mob_list -= brainmob//Update dem lists
 			GLOB.alive_mob_list += brainmob
+			brainmob.update_sight()
 
 			held_brain = B
 			if(istype(O,/obj/item/organ/internal/brain/xeno)) // kept the type check, as it still does other weird stuff
@@ -149,6 +151,7 @@
 
 	name = "Man-Machine Interface: [brainmob.real_name]"
 	become_occupied("mmi_full")
+	brainmob.update_sight()
 
 //I made this proc as a way to have a brainmob be transferred to any created brain, and to solve the
 //problem i was having with alien/nonalien brain drops.
@@ -286,8 +289,3 @@
 	if((src_object in view(src)) && get_dist(src_object, src) <= user.client.view)
 		return STATUS_INTERACTIVE	// interactive (green visibility)
 	return user.shared_living_ui_distance()
-
-
-/obj/item/mmi/forceMove(atom/destination)
-	. = ..()
-	brainmob?.update_runechat_msg_location()

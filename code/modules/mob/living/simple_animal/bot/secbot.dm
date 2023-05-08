@@ -96,6 +96,8 @@
 		access_card.access += J.get_access()
 		prev_access = access_card.access
 
+	AddSpell(new /obj/effect/proc_holder/spell/targeted/bot_speed)
+
 	//SECHUD
 	var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
 	secsensor.add_hud_to(src)
@@ -248,7 +250,7 @@
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
 	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",\
 						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
-	INVOKE_ASYNC(src, .proc/cuff_callback, C)
+	INVOKE_ASYNC(src, PROC_REF(cuff_callback), C)
 
 /mob/living/simple_animal/bot/secbot/proc/cuff_callback(mob/living/carbon/C)
 	if(do_after(src, 60, target = C))

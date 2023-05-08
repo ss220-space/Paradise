@@ -102,7 +102,7 @@
 			"Change Airlock Type" = image(icon = 'icons/obj/interface.dmi', icon_state = "syndie_airlocktype")
 		)
 	choices -= mode // Get rid of the current mode, clicking it won't do anything.
-	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, .proc/check_menu, user))
+	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
 	if(!check_menu(user))
 		return
 	switch(choice)
@@ -135,7 +135,7 @@
 /obj/item/rcd_ammo/syndicate
 	name = "suspicious matter cartridge"
 	desc = "Highly compressed matter for the RCD."
-	icon = 'icons/obj/ammo.dmi'
+	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "syndie_rcd"
 	item_state = "syndie_rcdammo"
 	origin_tech = "materials=3,syndicate=2"

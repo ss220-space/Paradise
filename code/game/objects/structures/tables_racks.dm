@@ -110,6 +110,12 @@
 /obj/structure/table/proc/item_placed(item)
 	return
 
+/obj/structure/table/Crossed(atom/movable/AM, oldloc)
+	. = ..()
+	if(AM.throwing && isliving(AM))
+		var/mob/living/user = AM
+		clumse_stuff(user)
+
 /obj/structure/table/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height == 0)
 		return 1
@@ -412,7 +418,7 @@
 		return
 	// Don't break if they're just flying past
 	if(AM.throwing)
-		addtimer(CALLBACK(src, .proc/throw_check, AM), 5)
+		addtimer(CALLBACK(src, PROC_REF(throw_check), AM), 5)
 	else
 		check_break(AM)
 

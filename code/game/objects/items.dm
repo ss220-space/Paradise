@@ -429,6 +429,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if((flags & NODROP) && !(initial(flags) & NODROP)) //Remove NODROP is dropped
 		flags &= ~NODROP
 	in_inventory = FALSE
+	mouse_opacity = initial(mouse_opacity)
 	remove_outline()
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
 
@@ -471,8 +472,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 // user is mob that equipped it
 // slot uses the slot_X defines found in setup.dm
 // for items that can be placed in multiple slots
-// note this isn't called during the initial dressing of a player
 /obj/item/proc/equipped(var/mob/user, var/slot)
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -631,7 +632,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
 	thrownby = thrower
-	callback = CALLBACK(src, .proc/after_throw, callback) //replace their callback with our own
+	callback = CALLBACK(src, PROC_REF(after_throw), callback) //replace their callback with our own
 	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force)
 
 /obj/item/proc/after_throw(datum/callback/callback)
@@ -693,7 +694,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(in_inventory || in_storage)
 		var/timedelay = 8
 		var/mob/user = usr
-		tip_timer = addtimer(CALLBACK(src, .proc/openTip, location, control, params, user), timedelay, TIMER_STOPPABLE)
+		tip_timer = addtimer(CALLBACK(src, PROC_REF(openTip), location, control, params, user), timedelay, TIMER_STOPPABLE)
 		if(QDELETED(src))
 			return
 		var/mob/living/L = user
@@ -787,6 +788,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		owner.update_inv_back()
 	if(flags & SLOT_PDA)
 		owner.update_inv_wear_pda()
+	if(owner.r_hand == src)
+		owner.update_inv_r_hand()
+	else if(owner.l_hand == src)
+		owner.update_inv_l_hand()
 
 /obj/item/proc/update_materials_coeff(new_coeff)
 	if(new_coeff <= 1)

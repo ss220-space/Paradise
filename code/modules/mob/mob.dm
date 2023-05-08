@@ -33,8 +33,6 @@
 	input_focus = src
 	reset_perspective(src)
 	prepare_huds()
-	runechat_msg_location = src
-	update_runechat_msg_location()
 	. = ..()
 
 /atom/proc/prepare_huds()
@@ -610,7 +608,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	set name = "Examine"
 	set category = "IC"
 
-	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, .proc/run_examinate, A))
+	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), A))
 
 /mob/proc/run_examinate(atom/A)
 	if(!has_vision(information_only = TRUE) && !isobserver(src))
@@ -634,7 +632,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(!isturf(loc) || istype(A, /obj/effect/temp_visual/point))
 		return FALSE
 
-	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, .proc/run_pointed, A))
+	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_pointed), A))
 
 /// possibly delayed verb that finishes the pointing process starting in [/mob/verb/pointed()].
 /// either called immediately or in the tick after pointed() was called, as per the [DEFAULT_QUEUE_OR_CALL_VERB()] macro
@@ -1502,13 +1500,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		blood_state = BLOOD_STATE_NOT_BLOODY
 		update_inv_shoes()
 	update_icons()	//apply the now updated overlays to the mob
-
-
-/**
- * Updates the mob's runechat maptext display location.
- */
-/mob/proc/update_runechat_msg_location()
-	return
 
 ///Makes a call in the context of a different usr. Use sparingly
 /world/proc/invoke_callback_with_usr(mob/user_mob, datum/callback/invoked_callback, ...)

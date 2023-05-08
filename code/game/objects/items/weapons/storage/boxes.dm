@@ -1243,7 +1243,6 @@
 	new /obj/item/restraints/legcuffs/bola/energy(src)
 	new /obj/item/restraints/legcuffs/bola/energy(src)
 
-
 /obj/item/storage/box/hug
 	name = "box of hugs"
 	desc = "A special box for sensitive people."
@@ -1288,6 +1287,49 @@
 		new /obj/item/reagent_containers/food/snacks/candy/gummyworm/wtf(src)
 		new /obj/item/reagent_containers/food/snacks/candy/jellybean/wtf(src)
 	new /obj/item/reagent_containers/food/snacks/candy/sucker(src)
+
+/obj/item/storage/pouch
+    name = "pouch"
+    desc = "Подсумок на два магазина."
+    icon = 'icons/obj/storage.dmi'
+    icon_state = "pouch"
+    item_state = "pouch"
+    storage_slots = 2
+    w_class = WEIGHT_CLASS_TINY
+    slot_flags = SLOT_BELT
+    can_hold = list(/obj/item/ammo_box/magazine)
+
+/obj/item/storage/pouch/fast
+    name = "fast pouch"
+    desc = "Подсумок на два магазина, настолько быстро перезаряжать оружие ещё никогда не было!"
+    icon_state = "pouch_fast"
+    item_state = "pouch_fast"
+
+/obj/item/storage/pouch/fast/attackby(var/obj/item/A as obj, mob/user as mob, params)
+    .=..()
+    if(istype(A, /obj/item/gun/projectile/automatic))
+        var/obj/item/gun/projectile/automatic/gun = A
+        for(var/obj/item/ammo_box/magazine/MA in contents)
+            var/obj/item/ammo_box/magazine/magazine
+            if(gun.magazine)
+                magazine = gun.magazine
+            gun.attackby(MA, user)
+            if(magazine)
+                magazine.loc = src
+                magazine.update_icon()
+            return
+
+/obj/item/storage/box/sec
+	name = "officer starter kit"
+	desc = "Коробка, что вмещает в себе все нужное дабы стать офицером! Мелким шрифтом вы можете разобрать: Не включает действительно все."
+
+/obj/item/storage/box/sec/New()
+	..()
+	new /obj/item/clothing/head/helmet(src)
+	new /obj/item/clothing/under/rank/security(src)
+	new /obj/item/clothing/shoes/jackboots(src)
+	new /obj/item/clothing/gloves/combat(src)
+	new /obj/item/storage/backpack/security(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

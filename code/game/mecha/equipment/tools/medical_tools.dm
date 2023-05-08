@@ -7,9 +7,11 @@
 	START_PROCESSING(SSobj, src)
 
 
-/obj/item/mecha_parts/mecha_equipment/medical/can_attach(obj/mecha/medical/M)
-	if(..() && istype(M))
-		return 1
+/obj/item/mecha_parts/mecha_equipment/medical/can_attach(obj/mecha/M)
+	if(..())
+		if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/combat/lockersyndie))
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/medical/attach(obj/mecha/M)
 	..()
@@ -31,7 +33,7 @@
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper
 	name = "mounted sleeper"
 	desc = "Equipment for medical exosuits. A mounted sleeper that stabilizes patients and can inject reagents in the exosuit's reserves."
-	icon = 'icons/obj/cryogenic2.dmi'
+	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper"
 	origin_tech = "engineering=3;biotech=3;plasmatech=2"
 	energy_drain = 20
@@ -241,7 +243,7 @@
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun
 	name = "exosuit syringe gun"
 	desc = "Equipment for medical exosuits. A chem synthesizer with syringe gun. Reagents inside are held in stasis, so no reactions will occur."
-	icon = 'icons/obj/guns/projectile.dmi'
+	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "syringegun"
 	var/list/syringes
 	var/list/known_reagents
@@ -281,9 +283,9 @@
 	if(reagents)
 		reagents.set_reacting(TRUE)
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/can_attach(obj/mecha/medical/M)
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/can_attach(obj/mecha/M)
 	if(..())
-		if(istype(M))
+		if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/combat/lockersyndie))
 			return 1
 	return 0
 
@@ -304,6 +306,8 @@
 		return
 	if(mode)
 		return analyze_reagents(target)
+	if(!is_faced_target(target))
+		return FALSE
 	if(!syringes.len)
 		occupant_message("<span class=\"alert\">No syringes loaded.</span>")
 		return
@@ -535,7 +539,7 @@
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade
 	name = "additional system for the reproduction of reagents"
 	desc = "Upgrade for the syringe gun. Increases synthesis speed and maximum capacity of reagents. Requires installation of the syringe gun system."
-	icon = 'icons/mecha/mecha_equipment.dmi'
+	icon = 'icons/obj/mecha/mecha_equipment.dmi'
 	icon_state = "beaker_upgrade"
 	origin_tech = "materials=5;engineering=5;biotech=6"
 	energy_drain = 10
@@ -605,7 +609,7 @@
 				step(L, SOUTH)
 
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/can_attach(obj/mecha/M)
-	if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/working/ripley/firefighter))	//Odys or firefighters
+	if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/working/ripley/firefighter) || istype(M, /obj/mecha/combat/lockersyndie))	//Odys or firefighters or syndielocker
 		if(M.equipment.len < M.max_equip)
 			return TRUE
 	return FALSE
@@ -613,7 +617,7 @@
 /obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system
 	name = "improved exosuit control system"
 	desc = "Equipment for medical exosuits. A system that provides more precise control of exosuit movement. In other words - Gotta go fast!"
-	icon = 'icons/mecha/mecha_equipment.dmi'
+	icon = 'icons/obj/mecha/mecha_equipment.dmi'
 	icon_state = "move_plating"
 	origin_tech = "materials=5;engineering=5;magnets=4;powerstorage=4"
 	energy_drain = 20

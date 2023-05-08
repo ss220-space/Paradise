@@ -90,7 +90,7 @@
 		changebeard = new
 		changebeard.Grant(H)
 	ADD_TRAIT(H, TRAIT_WATERBREATH, "species")
-	RegisterSignal(H, COMSIG_HUMAN_UPDATE_DNA, /datum/species/slime/./proc/blend)
+	RegisterSignal(H, COMSIG_HUMAN_UPDATE_DNA, PROC_REF(blend))
 	blend(H)
 	H.verbs |= /mob/living/carbon/human/proc/emote_squish
 
@@ -144,8 +144,8 @@
 /datum/action/innate/slimecolor
 	name = "Toggle Recolor"
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "greenglow"
+	icon_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "slime_change"
 
 /datum/action/innate/slimecolor/Activate()
 	var/mob/living/carbon/human/H = owner
@@ -160,8 +160,8 @@
 /datum/action/innate/regrow
 	name = "Regrow limbs"
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "greenglow"
+	icon_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "slime_renew"
 
 /datum/action/innate/regrow/Activate()
 	var/mob/living/carbon/human/H = owner
@@ -204,8 +204,8 @@
 		if ("r_hand", 	"right hand", 	"the right hand") 	chosen_limb_rus = "правой кисти"
 
 	H.visible_message("<span class='notice'>[H] замирает и концентрируется на [genderize_ru(H.gender,"его","её","своей","их")] потерянной [chosen_limb_rus]...</span>", "<span class='notice'>Вы концентрируетесь на отращивании [chosen_limb_rus]... (Это займет [round(SLIMEPERSON_REGROWTHDELAY/10)] секунд, нужно подождать в спокойствии.)</span>")
-	if(do_after(H, SLIMEPERSON_REGROWTHDELAY, FALSE, H, extra_checks = list(CALLBACK(H, /mob.proc/IsStunned)), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
-		if(H.incapacitated(ignore_lying = TRUE, extra_checks = list(CALLBACK(H, /mob.proc/IsStunned)), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
+	if(do_after(H, SLIMEPERSON_REGROWTHDELAY, FALSE, H, extra_checks = list(CALLBACK(H, TYPE_PROC_REF(/mob, IsStunned))), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
+		if(H.incapacitated(ignore_lying = TRUE, extra_checks = list(CALLBACK(H, TYPE_PROC_REF(/mob, IsStunned))), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
 			to_chat(H, "<span class='warning'>Вы не можете регенерировать недостающие конечности в текущем состоянии</span>")
 			return
 

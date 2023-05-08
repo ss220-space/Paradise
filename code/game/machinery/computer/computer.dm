@@ -1,6 +1,6 @@
 /obj/machinery/computer
 	name = "computer"
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "computer"
 	density = 1
 	anchored = 1.0
@@ -51,7 +51,7 @@
 		return FALSE
 
 	flickering = TRUE
-	INVOKE_ASYNC(src, /obj/machinery/computer/.proc/flicker_event)
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/computer, flicker_event))
 
 	return TRUE
 

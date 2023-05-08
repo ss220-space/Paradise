@@ -117,12 +117,12 @@
 	var/turf/location = get_turf(src)
 
 	// Create the reagents to put into the air
-	create_reagents(200)
+	create_reagents(350)
 
 	if(overmind && overmind.blob_reagent_datum)
-		reagents.add_reagent(overmind.blob_reagent_datum.id, 200)
+		reagents.add_reagent(overmind.blob_reagent_datum.id, 350)
 	else
-		reagents.add_reagent("spore", 200)
+		reagents.add_reagent("spore", 350)
 
 	// Setup up the smoke spreader and start it.
 	S.set_up(reagents, location, TRUE)
@@ -178,6 +178,7 @@
 	mob_size = MOB_SIZE_LARGE
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	pressure_resistance = 50
+	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	move_resist = MOVE_FORCE_OVERPOWERING

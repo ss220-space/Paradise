@@ -37,6 +37,12 @@
 	name = "meat product"
 	desc = "A slab of reclaimed and chemically processed meat product."
 
+/obj/item/reagent_containers/food/snacks/meat/bird
+	name = "bird meat"
+	desc = "Light and tasty meat"
+	icon = 'icons/obj/food/food.dmi'
+	icon_state = "birdmeat"
+
 /obj/item/reagent_containers/food/snacks/meat/monkey
 	name = "lesser meat"
 
@@ -202,6 +208,16 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 5)
 	tastes = list("meat" = 1)
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/birdsteak
+	name = "Chicken steak"
+	desc = "A piece of hot light bird meat."
+	icon_state = "birdsteak"
+	filling_color = "#7A3D11"
+	bitesize = 3
+	list_reagents = list("nutriment" = 5)
+	tastes = list("meat" = 1, "chicken" = 2)
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/bacon
@@ -462,12 +478,11 @@
 /obj/item/reagent_containers/food/snacks/egg/gland
 	desc = "An egg! It looks weird..."
 
-/obj/item/reagent_containers/food/snacks/egg/gland/New()
-	..()
+/obj/item/reagent_containers/food/snacks/egg/gland/Initialize(mapload)
 	reagents.add_reagent(get_random_reagent_id(), 15)
 
-	var/reagent_color = mix_color_from_reagents(reagents.reagent_list)
-	color = reagent_color
+	color = mix_color_from_reagents(reagents.reagent_list)
+	. = ..()
 
 /obj/item/reagent_containers/food/snacks/friedegg
 	name = "fried egg"

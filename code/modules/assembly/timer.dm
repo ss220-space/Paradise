@@ -42,7 +42,7 @@
 		return FALSE
 	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
 	cooldown = 2
-	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
+	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
 	pulse(FALSE, user)
 
 /obj/item/assembly/timer/process()
@@ -86,10 +86,9 @@
 	<A href='?src=[UID()];refresh=1'>Refresh</A>
 	<BR><BR>
 	<A href='?src=[UID()];close=1'>Close</A>"}
-	var/datum/browser/popup = new(user, "timer", name, 400, 400)
+	var/datum/browser/popup = new(user, "timer", name, 400, 400, src)
 	popup.set_content(dat)
-	popup.open(0)
-	onclose(user, "timer")
+	popup.open()
 
 /obj/item/assembly/timer/Topic(href, href_list)
 	..()

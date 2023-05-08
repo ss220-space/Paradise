@@ -30,7 +30,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 /obj/machinery/tcomms
 	name = "Telecommunications Device"
 	desc = "Someone forgot to say what this thingy does. Please yell at a coder"
-	icon = 'icons/obj/tcomms.dmi'
+	icon = 'icons/obj/machines/tcomms.dmi'
 	icon_state = "error"
 	density = TRUE
 	anchored = TRUE
@@ -137,7 +137,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	if(active)
 		active = FALSE
 		// This needs a timer because otherwise its on the shuttle Z and the message is missed
-		addtimer(CALLBACK(src, /atom.proc/visible_message, "<span class='warning'>Radio equipment on [src] has been overloaded by heavy bluespace interference. Please restart the machine.</span>"), 5)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, visible_message), "<span class='warning'>Radio equipment on [src] has been overloaded by heavy bluespace interference. Please restart the machine.</span>"), 5)
 	update_icon()
 
 
