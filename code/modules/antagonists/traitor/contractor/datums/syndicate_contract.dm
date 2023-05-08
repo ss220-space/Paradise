@@ -3,8 +3,7 @@
 #define EXTRACTION_PHASE_PREPARE 5 SECONDS
 #define EXTRACTION_PHASE_PORTAL 5 SECONDS
 #define COMPLETION_NOTIFY_DELAY 5 SECONDS
-#define RETURN_BRUISE_CHANCE 50
-#define RETURN_BRUISE_DAMAGE 20
+#define RETURN_BRUISE_CHANCE 80
 #define RETURN_SOUVENIR_CHANCE 10
 
 /**
@@ -39,9 +38,9 @@
 	/// The base credits reward upon completion. Multiplied by the two lower bounds below.
 	var/credits_base = 100
 	// The lower bound of the credits reward multiplier.
-	var/credits_lower_mult = 25
+	var/credits_lower_mult = 50
 	// The upper bound of the credits reward multiplier.
-	var/credits_upper_mult = 40
+	var/credits_upper_mult = 75
 	// Implants (non cybernetic ones) that shouldn't be removed when a victim gets kidnapped.
 	// Typecache; initialized in New()
 	var/static/implants_to_keep = null
@@ -506,8 +505,12 @@
 		var/obj/item/souvenir = pick(souvenirs)
 		new souvenir(closet)
 	else if(prob(RETURN_BRUISE_CHANCE) && M.health >= 50)
-		to_chat(M, "<span class='warning'>You were roughed up a little by your captors before being sent back!</span>")
-		M.adjustBruteLoss(RETURN_BRUISE_DAMAGE)
+		var/mob/living/carbon/human/H = M
+		to_chat(M,"<span class='warning'>Your kidnappers beat you badly before sending you back!</span>")
+		var/parts_to_fuck_up = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+		var/obj/item/organ/external/BP = H.bodyparts_by_name[parts_to_fuck_up]
+		H.apply_damage(40,BRUTE,BP)
+		BP.fracture()
 
 	// Return them a bit confused.
 	M.visible_message("<span class='notice'>[M] vanishes...</span>")
@@ -573,5 +576,4 @@
 #undef EXTRACTION_PHASE_PORTAL
 #undef COMPLETION_NOTIFY_DELAY
 #undef RETURN_BRUISE_CHANCE
-#undef RETURN_BRUISE_DAMAGE
 #undef RETURN_SOUVENIR_CHANCE
