@@ -590,8 +590,8 @@
 	},
 /obj/machinery/disposal,
 /turf/simulated/floor/carpet{
-	icon_state = "carpet6-2";
-	icon = 'icons/turf/floors.dmi'
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "carpet6-2"
 	},
 /area/magistrateoffice)
 "aaX" = (
@@ -5593,8 +5593,8 @@
 	icon_state = "4-8"
 	},
 /obj/structure/tribune{
-	dir = 4;
-	anchored = 1
+	anchored = 1;
+	dir = 4
 	},
 /turf/simulated/floor/carpet{
 	icon = 'icons/turf/floors.dmi';
@@ -7142,9 +7142,9 @@
 	pixel_x = 8
 	},
 /obj/item/clothing/mask/cigarette/cigar/havana{
+	layer = 2.8;
 	pixel_x = -3;
-	pixel_y = 3;
-	layer = 2.8
+	pixel_y = 3
 	},
 /turf/simulated/floor/carpet{
 	icon = 'icons/turf/floors.dmi'
@@ -7859,12 +7859,12 @@
 "bco" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
+	density = 1;
 	dir = 1;
+	icon_state = "closed";
 	id_tag = "Traiders Windows";
 	name = "Traiders Privacy Shutters";
-	icon_state = "closed";
-	opacity = 1;
-	density = 1
+	opacity = 1
 	},
 /obj/machinery/door/window/westright{
 	dir = 2;
@@ -8000,8 +8000,8 @@
 "bdz" = (
 /obj/structure/sink{
 	dir = 1;
-	pixel_y = -5;
-	layer = 5
+	layer = 5;
+	pixel_y = -5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -8673,9 +8673,9 @@
 /obj/machinery/door_control{
 	id = "Kitchen Windows";
 	name = "Kitchen Privacy Shutters Control";
+	pixel_x = 6;
 	pixel_y = -24;
-	req_access = list(28);
-	pixel_x = 6
+	req_access = list(28)
 	},
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -8750,12 +8750,12 @@
 	name = "Front Desk"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
+	density = 1;
 	dir = 1;
+	icon_state = "closed";
 	id_tag = "Traiders Windows";
 	name = "Traiders Privacy Shutters";
-	icon_state = "closed";
-	opacity = 1;
-	density = 1
+	opacity = 1
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/trading)
@@ -12691,8 +12691,10 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/item/clipboard,
-/obj/item/toy/figure/hop,
+/obj/machinery/recharger{
+	pixel_x = 1;
+	pixel_y = 3
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads/hop)
 "bAU" = (
@@ -13052,11 +13054,11 @@
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
 	id_tag = "port5";
 	pixel_x = 25;
+	pixel_y = -4;
 	tag_airpump = "port5_pump";
 	tag_chamber_sensor = "port5_sensor";
 	tag_exterior_door = "port5_outer";
-	tag_interior_door = "port5_inner";
-	pixel_y = -4
+	tag_interior_door = "port5_inner"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	frequency = 1379;
@@ -13266,6 +13268,7 @@
 	layer = 2.1
 	},
 /obj/item/folder,
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/plating,
 /area/crew_quarters/trading)
 "bDd" = (
@@ -13618,8 +13621,8 @@
 	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=4";
-	location = "Kitchen";
-	dir = 4
+	dir = 4;
+	location = "Kitchen"
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/kitchen)
@@ -15567,10 +15570,10 @@
 /turf/simulated/wall,
 /area/hallway/secondary/entry/commercial)
 "bOt" = (
-/obj/item/flag/nt,
 /obj/item/radio/intercom{
 	pixel_y = 24
 	},
+/obj/structure/closet/secure_closet/ntrep,
 /turf/simulated/floor/wood,
 /area/ntrep)
 "bOu" = (
@@ -16765,8 +16768,8 @@
 	},
 /obj/machinery/shower{
 	dir = 1;
-	pixel_y = -5;
-	layer = 5
+	layer = 5;
+	pixel_y = -5
 	},
 /obj/effect/turf_decal/siding/wideplating/end{
 	dir = 1
@@ -19050,8 +19053,8 @@
 /obj/structure/table/reinforced,
 /obj/item/pen,
 /obj/machinery/door/window/brigdoor/northleft{
-	locked = 1;
-	dir = 8
+	dir = 8;
+	locked = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
@@ -19146,8 +19149,8 @@
 /area/ntrep)
 "cdF" = (
 /obj/machinery/door/window/brigdoor/northleft{
-	locked = 1;
-	dir = 4
+	dir = 4;
+	locked = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	layer = 2.1
@@ -19772,7 +19775,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "cgE" = (
-/obj/structure/closet/secure_closet/ntrep,
+/obj/machinery/papershredder,
 /turf/simulated/floor/wood,
 /area/ntrep)
 "cgI" = (
@@ -20375,10 +20378,10 @@
 	},
 /obj/machinery/door/window/eastleft{
 	base_state = "right";
+	dir = 8;
 	icon_state = "right";
 	name = "Kitchen";
-	req_access = list(28);
-	dir = 8
+	req_access = list(28)
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "Kitchen Dinner Windows";
@@ -21115,8 +21118,8 @@
 /obj/item/tank/internals/oxygen,
 /obj/item/clothing/gloves/color/yellow,
 /obj/machinery/door/window/brigdoor/northleft{
-	locked = 1;
-	dir = 2
+	dir = 2;
+	locked = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/wood/fancy/oak{
@@ -21694,9 +21697,9 @@
 	name = "Clown Privacy Shutters"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
 	id_tag = "Mime";
-	name = "Mime Privacy Shutters";
-	dir = 8
+	name = "Mime Privacy Shutters"
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -22041,8 +22044,8 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=4";
-	location = "Hydroponics";
-	dir = 4
+	dir = 4;
+	location = "Hydroponics"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -23161,9 +23164,9 @@
 	name = "Clown Privacy Shutters"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
 	id_tag = "Mime";
-	name = "Mime Privacy Shutters";
-	dir = 8
+	name = "Mime Privacy Shutters"
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -23768,7 +23771,9 @@
 	},
 /area/quartermaster/delivery)
 "cyS" = (
-/obj/machinery/cryopod/right,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
@@ -24016,8 +24021,8 @@
 "czU" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock{
-	name = "Courtroom";
-	id_tag = "courtroombolts"
+	id_tag = "courtroombolts";
+	name = "Courtroom"
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
@@ -27118,7 +27123,11 @@
 	},
 /area/storage/tech)
 "cMl" = (
-/obj/structure/filingcabinet/chestdrawer,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/machinery/disposal,
+/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
 "cMp" = (
@@ -31566,8 +31575,8 @@
 /obj/machinery/door/airlock/external{
 	hackProof = 1;
 	id_tag = "emergency_home";
-	name = "Escape Airlock";
-	locked = 1
+	locked = 1;
+	name = "Escape Airlock"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit/maint)
@@ -31648,8 +31657,11 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/hand_tele,
-/obj/item/coin/plasma,
+/obj/item/paper_bin,
+/obj/item/hand_tele{
+	pixel_x = 10
+	},
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain)
 "deN" = (
@@ -31858,6 +31870,7 @@
 /obj/structure/table/wood,
 /obj/item/pen/multi/gold,
 /obj/item/stamp/magistrate,
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/carpet{
 	icon = 'icons/turf/floors.dmi'
 	},
@@ -32192,9 +32205,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/clothing/mask/cigarette/cigar{
-	pixel_x = 5
-	},
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -32489,14 +32500,13 @@
 	},
 /area/maintenance/turbine)
 "dhW" = (
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable,
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
 	pixel_x = -26
 	},
-/obj/item/twohanded/required/kirbyplants,
+/obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
 "dhX" = (
@@ -33141,7 +33151,6 @@
 /turf/simulated/wall/r_wall,
 /area/toxins/mixing)
 "dkJ" = (
-/obj/structure/table/reinforced,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Research Director's Desk";
@@ -33150,9 +33159,8 @@
 	pixel_x = -30;
 	pixel_y = -2
 	},
-/obj/item/clipboard,
-/obj/item/toy/figure/rd,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/papershredder,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
 "dkK" = (
@@ -37164,7 +37172,6 @@
 	},
 /area/library)
 "dBE" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -37172,6 +37179,7 @@
 	c_tag = "Library North";
 	dir = 8
 	},
+/obj/machinery/papershredder,
 /turf/simulated/floor/wood,
 /area/library)
 "dBF" = (
@@ -37311,7 +37319,9 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain/bedroom)
 "dCj" = (
-/obj/machinery/cryopod,
+/obj/machinery/cryopod{
+	dir = 8
+	},
 /obj/effect/decal/warning_stripes/red/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -37780,8 +37790,8 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/carpet{
-	icon_state = "carpet6-2";
-	icon = 'icons/turf/floors.dmi'
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "carpet6-2"
 	},
 /area/crew_quarters/courtroom)
 "dDO" = (
@@ -38033,6 +38043,7 @@
 "dFa" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -38232,8 +38243,8 @@
 /area/crew_quarters/courtroom)
 "dFD" = (
 /turf/simulated/floor/carpet{
-	icon_state = "carpet5-1";
-	icon = 'icons/turf/floors.dmi'
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "carpet5-1"
 	},
 /area/magistrateoffice)
 "dFG" = (
@@ -38658,8 +38669,8 @@
 /area/magistrateoffice)
 "dHo" = (
 /obj/structure/window/reinforced{
-	dir = 8;
-	color = "red"
+	color = "red";
+	dir = 8
 	},
 /obj/structure/rack{
 	dir = 8;
@@ -40198,9 +40209,9 @@
 "dNn" = (
 /obj/machinery/door/airlock/maintenance{
 	id_tag = "cabinM";
+	locked = 1;
 	name = "maintenance access cabin";
-	req_access = list(12);
-	locked = 1
+	req_access = list(12)
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -40613,8 +40624,8 @@
 /area/chapel/main)
 "dOX" = (
 /obj/machinery/door/airlock{
-	name = "Trading room";
 	locked = 1;
+	name = "Trading room";
 	welded = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -40809,8 +40820,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/maintenance{
-	req_access = list(25);
-	name = "Bar Maintenance"
+	name = "Bar Maintenance";
+	req_access = list(25)
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
@@ -46689,9 +46700,9 @@
 /obj/machinery/door/airlock/external{
 	hackProof = 1;
 	id_tag = "emergency_home";
+	locked = 1;
 	name = "Security Escape Airlock";
-	req_access = list(63);
-	locked = 1
+	req_access = list(63)
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
@@ -48327,8 +48338,8 @@
 "eZC" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/structure/closet/walllocker{
-	pixel_y = -28;
-	layer = 2.8
+	layer = 2.8;
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -51729,7 +51740,9 @@
 	pixel_x = 26;
 	pixel_y = 28
 	},
-/obj/machinery/cryopod,
+/obj/machinery/cryopod{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -51844,8 +51857,8 @@
 /area/hydroponics)
 "fTp" = (
 /obj/machinery/door/window/brigdoor/northleft{
-	locked = 1;
-	dir = 8
+	dir = 8;
+	locked = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	layer = 2.1
@@ -52919,10 +52932,10 @@
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
+	icon_state = "open";
 	id_tag = "engsm1";
 	name = "Supermatter Blast Doors";
-	opacity = 0;
-	icon_state = "open"
+	opacity = 0
 	},
 /turf/simulated/floor/plating,
 /area/toxins/sm_test_chamber)
@@ -54634,9 +54647,9 @@
 /area/maintenance/tourist)
 "gCs" = (
 /obj/machinery/door/window/eastleft{
+	dir = 1;
 	name = "Hydroponics Desk";
-	req_access = list(35);
-	dir = 1
+	req_access = list(35)
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -55123,15 +55136,17 @@
 /turf/simulated/floor/plating/airless,
 /area/engine/engineering)
 "gHm" = (
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
-/obj/machinery/disposal,
-/obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/alarm{
 	dir = 4;
 	pixel_x = -22
 	},
+/obj/structure/table/reinforced,
+/obj/item/clipboard,
+/obj/item/toy/figure/rd{
+	pixel_x = -7
+	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
 "gHp" = (
@@ -55359,7 +55374,9 @@
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
-/obj/machinery/cryopod/right,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -55510,12 +55527,12 @@
 "gLd" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
+	density = 1;
 	dir = 1;
+	icon_state = "closed";
 	id_tag = "Traiders Windows";
 	name = "Traiders Privacy Shutters";
-	icon_state = "closed";
-	opacity = 1;
-	density = 1
+	opacity = 1
 	},
 /obj/machinery/door/window/westright{
 	dir = 2;
@@ -56030,9 +56047,9 @@
 /obj/machinery/door/airlock/external{
 	hackProof = 1;
 	id_tag = "emergency_home";
+	locked = 1;
 	name = "Security Escape Airlock";
-	req_access = list(1);
-	locked = 1
+	req_access = list(1)
 	},
 /obj/effect/turf_decal/caution/red{
 	dir = 8
@@ -56521,6 +56538,7 @@
 /obj/structure/table/glass,
 /obj/item/paper_bin,
 /obj/item/pen/multi,
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -56658,8 +56676,8 @@
 	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=1";
-	location = "Engineering";
-	dir = 1
+	dir = 1;
+	location = "Engineering"
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -58648,8 +58666,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/structure/disposalpipe/sortjunction{
+	dir = 4;
+	name = "RD Junction";
+	sortType = 13
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
@@ -59058,6 +59078,7 @@
 "hAY" = (
 /obj/structure/table/wood,
 /obj/item/taperecorder,
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/plasteel/grimy,
 /area/civilian/vacantoffice)
 "hBg" = (
@@ -61567,8 +61588,8 @@
 	},
 /obj/machinery/shower{
 	dir = 1;
-	pixel_y = -5;
-	layer = 5
+	layer = 5;
+	pixel_y = -5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -62482,15 +62503,15 @@
 	id = "Bar Hall";
 	name = "Bar Hall Privacy Shutters Control";
 	pixel_x = 25;
-	req_access = list(28);
-	pixel_y = 6
+	pixel_y = 6;
+	req_access = list(28)
 	},
 /obj/machinery/door_control{
 	id = "Bar";
 	name = "Bar Privacy Shutters Control";
 	pixel_x = 25;
-	req_access = list(28);
-	pixel_y = -6
+	pixel_y = -6;
+	req_access = list(28)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -63139,8 +63160,8 @@
 	pixel_y = 4
 	},
 /turf/simulated/floor/carpet{
-	icon_state = "carpet6-2";
-	icon = 'icons/turf/floors.dmi'
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "carpet6-2"
 	},
 /area/crew_quarters/courtroom)
 "izq" = (
@@ -63285,7 +63306,9 @@
 /turf/simulated/floor/carpet/red,
 /area/crew_quarters/courtroom)
 "iBC" = (
-/obj/machinery/cryopod/right,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -67956,8 +67979,8 @@
 /obj/machinery/door/airlock/external{
 	hackProof = 1;
 	id_tag = "emergency_home";
-	name = "Escape Airlock";
-	locked = 1
+	locked = 1;
+	name = "Escape Airlock"
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
@@ -73652,6 +73675,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/plating,
 /area/maintenance/detectives_office)
 "lgN" = (
@@ -74820,10 +74844,10 @@
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
+	icon_state = "open";
 	id_tag = "engsm1";
 	name = "Supermatter Blast Doors";
-	opacity = 0;
-	icon_state = "open"
+	opacity = 0
 	},
 /turf/simulated/floor/engine,
 /area/toxins/sm_test_chamber)
@@ -75008,7 +75032,9 @@
 	},
 /area/library)
 "lyd" = (
-/obj/machinery/cryopod,
+/obj/machinery/cryopod{
+	dir = 8
+	},
 /obj/item/radio/intercom{
 	pixel_x = 26;
 	pixel_y = 28
@@ -75661,8 +75687,8 @@
 	pixel_y = 4
 	},
 /obj/item/paper_bin{
-	pixel_y = 12;
-	pixel_x = 5
+	pixel_x = 5;
+	pixel_y = 12
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
@@ -77352,8 +77378,8 @@
 "mbs" = (
 /obj/structure/sink{
 	dir = 1;
-	pixel_y = -5;
-	layer = 5
+	layer = 5;
+	pixel_y = -5
 	},
 /obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/carpet,
@@ -77545,8 +77571,8 @@
 "mdx" = (
 /obj/structure/sink{
 	dir = 1;
-	pixel_y = -5;
-	layer = 5
+	layer = 5;
+	pixel_y = -5
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/mirror{
@@ -80183,10 +80209,10 @@
 "mHl" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/glass{
-	name = "Courtroom";
-	req_access = list(63);
+	id = "courtroom";
 	id_tag = "courtroombolts";
-	id = "courtroom"
+	name = "Courtroom";
+	req_access = list(63)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -82922,7 +82948,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 28
 	},
-/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/papershredder,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -83230,8 +83256,8 @@
 	id = "toilet4";
 	name = "Toilet Bolt Control";
 	normaldoorcontrol = 1;
-	specialfunctions = 4;
-	pixel_x = -25
+	pixel_x = -25;
+	specialfunctions = 4
 	},
 /obj/effect/landmark/start/civilian,
 /obj/structure/sign/poster/contraband/random{
@@ -83635,20 +83661,20 @@
 "nuE" = (
 /obj/structure/table/wood/fancy/royalblack,
 /obj/machinery/button/windowtint{
-	pixel_x = 7;
-	id = "courtroom"
+	id = "courtroom";
+	pixel_x = 7
 	},
 /obj/machinery/door_control{
-	pixel_x = -4;
-	specialfunctions = 4;
 	id = "courtroombolts";
+	name = "Courtroom Bolts Control";
 	normaldoorcontrol = 1;
+	pixel_x = -4;
 	req_access = list(74);
-	name = "Courtroom Bolts Control"
+	specialfunctions = 4
 	},
 /turf/simulated/floor/carpet{
-	icon_state = "carpet5-1";
-	icon = 'icons/turf/floors.dmi'
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "carpet5-1"
 	},
 /area/crew_quarters/courtroom)
 "nuG" = (
@@ -83909,9 +83935,9 @@
 "nyK" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "supply_home";
+	locked = 1;
 	name = "Cargo Docking Hatch";
-	req_access = list(31);
-	locked = 1
+	req_access = list(31)
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -85166,9 +85192,9 @@
 /obj/machinery/door_control{
 	id = "Hydroponics Shutters";
 	name = "Hydroponics Privacy Shutters Control";
+	pixel_x = 26;
 	pixel_y = 26;
-	req_access = list(35);
-	pixel_x = 26
+	req_access = list(35)
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -87835,9 +87861,9 @@
 /obj/structure/closet/crate,
 /obj/item/stack/rods/ten,
 /obj/item/stack/cable_coil/random{
+	amount = 15;
 	pixel_x = 2;
-	pixel_y = 3;
-	amount = 15
+	pixel_y = 3
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -88032,6 +88058,7 @@
 "ovX" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/cigarettes/dromedaryco,
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "owd" = (
@@ -88638,11 +88665,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
-/obj/structure/bed/dogbed{
-	desc = "A comfy-looking spider bed. You can even strap your pet in, just in case the gravity turns off.";
-	name = "spider bed"
-	},
-/mob/living/simple_animal/hostile/retaliate/araneus,
+/obj/machinery/papershredder,
 /turf/simulated/floor/wood,
 /area/security/hos)
 "oCP" = (
@@ -89212,8 +89235,8 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/computer/med_data/laptop{
-	pixel_y = 3;
-	pixel_x = -4
+	pixel_x = -4;
+	pixel_y = 3
 	},
 /obj/item/phone{
 	pixel_x = 12;
@@ -90537,9 +90560,9 @@
 /obj/machinery/door_control{
 	id = "Kitchen Windows";
 	name = "Kitchen Privacy Shutters Control";
+	pixel_x = 26;
 	pixel_y = 6;
-	req_access = list(28);
-	pixel_x = 26
+	req_access = list(28)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -91755,11 +91778,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "ppf" = (
-/obj/structure/table/wood,
-/obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
-	},
+/obj/machinery/papershredder,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads/hop)
 "ppp" = (
@@ -92139,8 +92158,8 @@
 "psE" = (
 /obj/structure/sink{
 	dir = 1;
-	pixel_y = -5;
-	layer = 5
+	layer = 5;
+	pixel_y = -5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue";
@@ -93007,11 +93026,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
-	},
-/obj/structure/disposalpipe/sortjunction{
-	dir = 4;
-	name = "RD Junction";
-	sortType = 13
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
@@ -94065,9 +94079,9 @@
 /obj/machinery/door/airlock/external{
 	hackProof = 1;
 	id_tag = "emergency_home";
+	locked = 1;
 	name = "Security Escape Airlock";
-	req_access = list(63);
-	locked = 1
+	req_access = list(63)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -94760,10 +94774,10 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/glass{
-	name = "Courtroom";
-	req_access = list(63);
+	id = "courtroom";
 	id_tag = "courtroombolts";
-	id = "courtroom"
+	name = "Courtroom";
+	req_access = list(63)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -95305,6 +95319,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/table/reinforced,
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/lawoffice)
 "qcB" = (
@@ -97719,8 +97734,8 @@
 /area/turret_protected/ai)
 "qBE" = (
 /obj/machinery/door/airlock{
-	name = "Courtroom";
-	id_tag = "courtroombolts"
+	id_tag = "courtroombolts";
+	name = "Courtroom"
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/wood/fancy/light{
@@ -98422,8 +98437,8 @@
 	id = "toilet3";
 	name = "Toilet Bolt Control";
 	normaldoorcontrol = 1;
-	specialfunctions = 4;
-	pixel_x = -25
+	pixel_x = -25;
+	specialfunctions = 4
 	},
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
@@ -100230,8 +100245,8 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/carpet{
-	icon_state = "carpet5-1";
-	icon = 'icons/turf/floors.dmi'
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "carpet5-1"
 	},
 /area/crew_quarters/courtroom)
 "rfs" = (
@@ -100554,7 +100569,9 @@
 	},
 /area/security/permabrig)
 "rja" = (
-/obj/machinery/cryopod/right,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /obj/machinery/power/apc{
 	name = "south bump";
 	pixel_y = -26
@@ -102181,6 +102198,11 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/disposalpipe/sortjunction{
+	dir = 4;
+	name = "RD Junction";
+	sortType = 13
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
@@ -105811,7 +105833,6 @@
 /obj/item/aicard,
 /obj/item/circuitboard/aicore,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
 "svo" = (
@@ -106033,6 +106054,10 @@
 	req_access = list(20)
 	},
 /obj/item/folder/blue,
+/obj/item/coin/plasma{
+	pixel_x = 10
+	},
+/obj/item/pen/fancy,
 /obj/item/stamp/captain,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain)
@@ -106555,8 +106580,8 @@
 "sDo" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor/northleft{
-	locked = 1;
-	dir = 8
+	dir = 8;
+	locked = 1
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
@@ -108705,6 +108730,7 @@
 "tfd" = (
 /obj/structure/table/wood,
 /obj/item/taperecorder,
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/carpet,
 /area/ntrep)
 "tff" = (
@@ -110919,8 +110945,8 @@
 /obj/machinery/door/airlock/external{
 	hackProof = 1;
 	id_tag = "emergency_home";
-	name = "Escape Airlock";
-	locked = 1
+	locked = 1;
+	name = "Escape Airlock"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -112620,8 +112646,8 @@
 /obj/machinery/door/airlock/external{
 	hackProof = 1;
 	id_tag = "emergency_home";
-	name = "Escape Airlock";
-	locked = 1
+	locked = 1;
+	name = "Escape Airlock"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -112696,13 +112722,10 @@
 /turf/simulated/wall/r_wall,
 /area/medical/medbay2)
 "tYL" = (
-/obj/structure/table/wood,
 /obj/machinery/status_display{
 	pixel_x = 32
 	},
-/obj/machinery/photocopier/faxmachine/longrange{
-	department = "Captain's Office"
-	},
+/obj/machinery/papershredder,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -114265,9 +114288,9 @@
 /area/toxins/mixing)
 "urM" = (
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
 	id_tag = "Mime";
-	name = "Mime Privacy Shutters";
-	dir = 2
+	name = "Mime Privacy Shutters"
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -114908,7 +114931,11 @@
 "uAd" = (
 /obj/structure/table/wood,
 /obj/item/clipboard,
-/obj/item/toy/figure/hos,
+/obj/item/toy/figure/hos{
+	pixel_x = 7;
+	pixel_y = 7
+	},
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -115373,8 +115400,8 @@
 /obj/item/restraints/handcuffs/pinkcuffs,
 /obj/machinery/shower{
 	dir = 1;
-	pixel_y = -5;
-	layer = 5
+	layer = 5;
+	pixel_y = -5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -117138,9 +117165,9 @@
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock{
+	id_tag = "magistrateoffice";
 	name = "Magistrate's Office";
-	req_access = list(74);
-	id_tag = "magistrateoffice"
+	req_access = list(74)
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -117359,7 +117386,6 @@
 	},
 /area/hallway/secondary/exit)
 "vcG" = (
-/obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/door_control{
 	id = "lawyer";
 	name = "Internal Affairs Privacy Shutters Control";
@@ -117368,6 +117394,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/papershredder,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/lawoffice)
 "vcX" = (
@@ -118049,8 +118076,8 @@
 "vmn" = (
 /obj/structure/sink{
 	dir = 1;
-	pixel_y = -5;
-	layer = 5
+	layer = 5;
+	pixel_y = -5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -119084,7 +119111,8 @@
 	icon_state = "4-8"
 	},
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
+/obj/item/clipboard,
+/obj/item/toy/figure/hop,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark";
@@ -119499,6 +119527,11 @@
 	pixel_x = 10;
 	pixel_y = -24
 	},
+/mob/living/simple_animal/hostile/retaliate/araneus,
+/obj/structure/bed/dogbed{
+	desc = "A comfy-looking spider bed. You can even strap your pet in, just in case the gravity turns off.";
+	name = "spider bed"
+	},
 /turf/simulated/floor/wood,
 /area/security/hos)
 "vBQ" = (
@@ -119621,8 +119654,8 @@
 /obj/machinery/door/airlock/external{
 	hackProof = 1;
 	id_tag = "emergency_home";
-	name = "Escape Airlock";
-	locked = 1
+	locked = 1;
+	name = "Escape Airlock"
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit/maint)
@@ -119949,8 +119982,8 @@
 /area/maintenance/asmaint3)
 "vGN" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	color = "red"
+	color = "red";
+	dir = 4
 	},
 /obj/structure/rack{
 	dir = 8;
@@ -121339,11 +121372,12 @@
 /obj/machinery/door_control{
 	id = "magistrateoffice";
 	name = "Office Door";
+	normaldoorcontrol = 1;
 	pixel_x = 26;
 	pixel_y = -6;
-	req_access = list(74);
-	normaldoorcontrol = 1
+	req_access = list(74)
 	},
+/obj/machinery/papershredder,
 /turf/simulated/floor/carpet{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "carpet13-5"
@@ -123023,14 +123057,13 @@
 	},
 /area/crew_quarters/locker)
 "wtj" = (
-/obj/structure/rack,
-/obj/item/lock_buster,
 /obj/machinery/power/apc{
 	name = "south bump";
 	pixel_y = -26
 	},
 /obj/structure/cable,
 /obj/effect/decal/warning_stripes/north,
+/obj/machinery/papershredder,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -123051,8 +123084,9 @@
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
-/obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/warning_stripes/northeast,
+/obj/structure/rack,
+/obj/item/lock_buster,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -123562,7 +123596,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/twohanded/required/kirbyplants,
+/obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/lawoffice)
 "wzK" = (
@@ -126414,6 +126448,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/table/reinforced,
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/lawoffice)
 "xiz" = (
@@ -126506,6 +126541,7 @@
 "xjj" = (
 /obj/structure/table,
 /obj/item/paper/deltainfo,
+/obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -128122,8 +128158,8 @@
 	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=4";
-	location = "Janitor";
-	dir = 4
+	dir = 4;
+	location = "Janitor"
 	},
 /turf/simulated/floor/plating,
 /area/janitor)
@@ -128853,6 +128889,9 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
+/obj/item/clothing/mask/cigarette/cigar{
+	pixel_x = 5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -129365,6 +129404,13 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
+"xMp" = (
+/obj/structure/table/wood,
+/obj/effect/spawner/lootdrop/officetoys,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/maintenance/library)
 "xMs" = (
 /obj/machinery/disposal,
 /obj/effect/decal/warning_stripes/yellow,
@@ -129380,10 +129426,10 @@
 /obj/effect/spawner/window/reinforced/plasma,
 /obj/machinery/door/poddoor{
 	density = 0;
+	icon_state = "open";
 	id_tag = "engsm1";
 	name = "Supermatter Blast Doors";
-	opacity = 0;
-	icon_state = "open"
+	opacity = 0
 	},
 /turf/simulated/floor/plating,
 /area/toxins/sm_test_chamber)
@@ -129791,8 +129837,9 @@
 	dir = 1;
 	layer = 2.9
 	},
-/obj/item/paper_bin,
-/obj/item/pen/fancy,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Captain's Office"
+	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain)
 "xQz" = (
@@ -130322,7 +130369,9 @@
 	},
 /area/medical/morgue)
 "xWJ" = (
-/obj/machinery/cryopod,
+/obj/machinery/cryopod{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -131159,8 +131208,8 @@
 /obj/structure/cable,
 /obj/machinery/shower{
 	dir = 1;
-	pixel_y = -5;
-	layer = 5
+	layer = 5;
+	pixel_y = -5
 	},
 /obj/structure/sink{
 	dir = 4;
@@ -160877,7 +160926,7 @@ xJW
 xcV
 fDW
 tXP
-nOR
+xMp
 dFg
 dFg
 dFg

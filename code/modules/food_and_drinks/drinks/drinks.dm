@@ -71,8 +71,8 @@
 			var/chargeAmount = max(30,4*trans)
 			bro.cell.use(chargeAmount)
 			to_chat(user, "<span class='notice'>Now synthesizing [trans] units of cocktail...</span>")
-			addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent_list, ids_data), 30 SECONDS)
-			addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, user, "<span class='notice'>Cyborg [src] refilled.</span>"), 30 SECONDS)
+			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, add_reagent_list), ids_data), 30 SECONDS)
+			addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, user, "<span class='notice'>Cyborg [src] refilled.</span>"), 30 SECONDS)
 		else
 			reagents.add_reagent_list(ids_data)
 	else
@@ -238,10 +238,10 @@
 	item_state = "coffee"
 	list_reagents = list("tea" = 30)
 
-/obj/item/reagent_containers/food/drinks/tea/New()
-	..()
+/obj/item/reagent_containers/food/drinks/tea/Initialize(mapload)
 	if(prob(20))
 		reagents.add_reagent("mugwort", 3)
+	. = ..()
 
 /obj/item/reagent_containers/food/drinks/mugwort
 	name = "mugwort tea"
@@ -280,10 +280,10 @@
 	item_state = "ramen"
 	list_reagents = list("dry_ramen" = 30)
 
-/obj/item/reagent_containers/food/drinks/dry_ramen/New()
-	..()
+/obj/item/reagent_containers/food/drinks/dry_ramen/Initialize(mapload)
 	if(prob(20))
 		reagents.add_reagent("enzyme", 3)
+	. = ..()
 
 /obj/item/reagent_containers/food/drinks/chicken_soup
 	name = "canned chicken soup"

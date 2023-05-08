@@ -706,7 +706,7 @@
 				def_value = "custom"
 
 		var/list/objective_types = list(
-			"assassinate", "prevent from escape", "pain_hunter", "steal brain", "protect", "escape", "survive",
+			"assassinate", "prevent from escape", "pain hunter", "steal brain", "protect", "escape", "survive",
 			"steal", "thief hard", "thief medium", "thief collect", "thief pet", "thief structure",
 			"download", "nuclear", "capture", "blood", "absorb",
 			"destroy", "identity theft", "hijack", "kill all humans",
@@ -723,12 +723,12 @@
 		var/datum/objective/new_objective = null
 
 		switch(new_obj_type)
-			if("assassinate", "protect", "steal brain", "prevent from escape", "pain_hunter")
+			if("assassinate", "protect", "steal brain", "prevent from escape", "pain hunter")
 				var/obj_type = list("assassinate" = /datum/objective/assassinate,
 								"protect" = /datum/objective/protect,
 								"steal brain" = /datum/objective/debrain,
 								"prevent from escape" = /datum/objective/maroon,
-								"pain_hunter" = /datum/objective/pain_hunter
+								"pain hunter" = /datum/objective/pain_hunter
 								)[new_obj_type]
 				new_objective = new obj_type
 				new_objective.owner = src
@@ -756,11 +756,11 @@
 								description = "Assassinate"
 							if("protect")
 								description = "Protect"
-							if("debrain")
+							if("steal brain")
 								description = "Steal the brain of"
-							if("prevent")
+							if("prevent from escape")
 								description = "Prevent from escaping alive or assassinate"
-							if("pain_hunter")
+							if("pain hunter")
 								var/datum/objective/pain_hunter/choose_objective = new_objective
 								choose_objective.update_find_objective()
 						if(description)
@@ -1269,7 +1269,7 @@
 					log_admin("[key_name(usr)] has equipped [key_name(current)] as a wizard apprentice")
 					message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a wizard apprentice")
 			if("name")
-				INVOKE_ASYNC(SSticker.mode, /datum/game_mode/wizard.proc/name_wizard, current)
+				INVOKE_ASYNC(SSticker.mode, TYPE_PROC_REF(/datum/game_mode/wizard, name_wizard), current)
 				log_admin("[key_name(usr)] has allowed wizard [key_name(current)] to name themselves")
 				message_admins("[key_name_admin(usr)] has allowed wizard [key_name_admin(current)] to name themselves")
 			if("autoobjectives")
@@ -1837,7 +1837,7 @@
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a ninja")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a ninja")
 			if("name")
-				INVOKE_ASYNC(SSticker.mode, /datum/game_mode/space_ninja.proc/name_ninja, current)
+				INVOKE_ASYNC(SSticker.mode, TYPE_PROC_REF(/datum/game_mode/space_ninja, name_ninja), current)
 				log_admin("[key_name(usr)] has allowed ninja [key_name(current)] to name themselves")
 				message_admins("[key_name_admin(usr)] has allowed ninja [key_name_admin(current)] to name themselves")
 			if("autoobjectives")
@@ -2277,7 +2277,7 @@
 		SSticker.mode.equip_wizard(current)
 		for(var/obj/item/spellbook/S in current.contents)
 			S.op = 0
-		INVOKE_ASYNC(SSticker.mode, /datum/game_mode/wizard.proc/name_wizard, current)
+		INVOKE_ASYNC(SSticker.mode, TYPE_PROC_REF(/datum/game_mode/wizard, name_wizard), current)
 		SSticker.mode.forge_wizard_objectives(src)
 		SSticker.mode.greet_wizard(src)
 		SSticker.mode.update_wiz_icons_added(src)
@@ -2293,7 +2293,7 @@
 			to_chat(ninja_mob, "HOT INSERTION, GO GO GO")
 		else
 			ninja_mob.loc = pick(GLOB.ninjastart)
-		INVOKE_ASYNC(SSticker.mode, /datum/game_mode/space_ninja.proc/name_ninja, ninja_mob)
+		INVOKE_ASYNC(SSticker.mode, TYPE_PROC_REF(/datum/game_mode/space_ninja, name_ninja), ninja_mob)
 		SSticker.mode.update_ninja_icons_added(src)
 		SSticker.mode.greet_ninja(src)
 		SSticker.mode.equip_space_ninja(ninja_mob)
@@ -2460,7 +2460,7 @@
 
 	add_attack_logs(missionary, current, "Converted to a zealot for [convert_duration/600] minutes")
 	add_conversion_logs(current, "became a mindslave for [convert_duration/600] minutes. Master: [key_name_log(missionary)]")
-	addtimer(CALLBACK(src, .proc/remove_zealot, jumpsuit), convert_duration) //deconverts after the timer expires
+	addtimer(CALLBACK(src, PROC_REF(remove_zealot), jumpsuit), convert_duration) //deconverts after the timer expires
 	return 1
 
 /datum/mind/proc/remove_zealot(obj/item/clothing/under/jumpsuit = null)
