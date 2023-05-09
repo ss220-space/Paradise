@@ -4,7 +4,6 @@
 	maxHealth = 250
 	health = 250
 	attack_damage = 25
-	obj_damage = 60
 	time_to_open_doors = 2
 	icon_state = "aliens_s"
 

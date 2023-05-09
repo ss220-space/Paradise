@@ -3,6 +3,7 @@
 	caste = "d"
 	maxHealth = 180
 	health = 180
+	obj_damage = 60
 	icon_state = "aliend_s"
 	time_to_open_doors = 2
 
