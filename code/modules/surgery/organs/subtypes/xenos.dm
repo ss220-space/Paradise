@@ -108,6 +108,18 @@
 	origin_tech = "biotech=5;materials=2;combat=2"
 	var/datum/action/innate/xeno_action/corrosive_acid/corrosive_acid_action = new
 
+/obj/item/organ/internal/xenos/acidgland/sentinel
+	name = "medium xeno acid gland"
+	corrosive_acid_action = new /datum/action/innate/xeno_action/corrosive_acid/sentinel
+
+/obj/item/organ/internal/xenos/acidgland/praetorian
+	name = "massive xeno acid gland"
+	corrosive_acid_action = new /datum/action/innate/xeno_action/corrosive_acid/praetorian
+
+/obj/item/organ/internal/xenos/acidgland/queen
+	name = "royal xeno acid gland"
+	corrosive_acid_action = new /datum/action/innate/xeno_action/corrosive_acid/queen
+
 /obj/item/organ/internal/xenos/acidgland/insert(mob/living/carbon/M, special = 0)
 	..()
 	corrosive_acid_action.Grant(M)

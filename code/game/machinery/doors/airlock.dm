@@ -1360,7 +1360,8 @@ About the new airlock wires panel:
 	var/time_to_open = 2
 	if(arePowerSystemsOn())
 		time_to_open = user.time_to_open_doors
-		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
+		if(time_to_open > 30)
+			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
 
 
 	if(do_after(user, time_to_open, TRUE, src))

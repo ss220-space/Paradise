@@ -52,7 +52,7 @@ Doesn't work on other aliens/AI.*/
 	name = "Plant Weeds (50)"
 	desc = "Plants some alien weeds"
 	action_icon_state = "alien_plant"
-	action_background_icon_state = "bg_default"
+	action_background_icon_state = "bg_alien"
 	clothes_req = FALSE
 	charge_max = 100
 	var/no_plasma = FALSE
@@ -179,6 +179,7 @@ Doesn't work on other aliens/AI.*/
 
 /datum/action/innate/xeno_action/corrosive_acid/New()
 	name = "[name] ([cost])"
+	..()
 
 /datum/action/innate/xeno_action/corrosive_acid/Activate(var/atom/target)
 	var/mob/living/carbon/alien/host = owner
@@ -220,7 +221,7 @@ Doesn't work on other aliens/AI.*/
 	name = "Spit Neurotoxin (50)"
 	desc = "Spits neurotoxin at someone, paralyzing them for a short time."
 	action_icon_state = "alien_neurotoxin"
-	action_background_icon_state = "bg_default"
+	action_background_icon_state = "bg_alien"
 	clothes_req = FALSE
 	charge_max = 5
 
@@ -307,7 +308,7 @@ Doesn't work on other aliens/AI.*/
 	icon_icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/vent_pump.dmi'
 	button_icon_state = "map_vent"
 
-/datum/action/innate/xeno_action/vent_smash/Activate()
+/datum/action/innate/xeno_action/break_vents/Activate()
 	var/mob/living/carbon/alien/host = owner
 
 	var/obj/machinery/atmospherics/unary/vent_pump/pump_target
@@ -323,9 +324,9 @@ Doesn't work on other aliens/AI.*/
 	if(!pump_target && !scrubber_target)
 		to_chat(host, "<span class='warning'>No welded vent or scrubber nearby!</span>")
 		return
-
-	playsound(get_turf(host),'sound/weapons/bladeslice.ogg' , 100, 0)//'sound/machines/airlock_alien_prying.ogg'
+	playsound(get_turf(host),'sound/weapons/bladeslice.ogg' , 100, 0)
 	if(do_after(host, 40, target = (pump_target? pump_target.loc : scrubber_target.loc)))
+		playsound(get_turf(host),'sound/weapons/bladeslice.ogg' , 100, 0)
 		if(pump_target?.welded)
 			pump_target.welded = 0
 			pump_target.update_icon()

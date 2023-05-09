@@ -5,6 +5,7 @@
 	health = 250
 	attack_damage = 25
 	obj_damage = 60
+	time_to_open_doors = 2
 	icon_state = "aliens_s"
 
 	var/obj/effect/proc_holder/spell/xeno_plant/plant_spell = new
@@ -22,14 +23,16 @@
 		name = text("alien sentinel ([rand(1, 1000)])")
 	real_name = name
 	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/sentinel
-	alien_organs += new /obj/item/organ/internal/xenos/acidgland
+	alien_organs += new /obj/item/organ/internal/xenos/acidgland/sentinel
 	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
 	..()
 
 /datum/action/innate/xeno_action/evolve_to_praetorian
 	name = "Evolve (500)"
 	desc = "Become a Praetorian, Royal Guard to the Queen."
-	button_icon_state = "alien_evolve_drone"
+	button_icon_state = "aliens_s"
+	icon_icon = 'icons/mob/alien.dmi'
+
 
 /datum/action/innate/xeno_action/evolve_to_praetorian/Activate()
 	var/mob/living/carbon/alien/humanoid/sentinel/host = owner
@@ -39,13 +42,13 @@
 		to_chat(host, "<span class='noticealien'>You begin to evolve!</span>")
 		for(var/mob/O in viewers(host, null))
 			O.show_message(text("<span class='alertalien'>[host] begins to twist and contort!</span>"), 1)
-		var/mob/living/carbon/alien/humanoid/sentinel/praetorian/new_xeno = new(host.loc)
+		var/mob/living/carbon/alien/humanoid/praetorian/new_xeno = new(host.loc)
 		host.mind.transfer_to(new_xeno)
 		new_xeno.mind.name = new_xeno.name
 		qdel(host)
 	return
 
-/mob/living/carbon/alien/humanoid/sentinel/praetorian
+/mob/living/carbon/alien/humanoid/praetorian
 	name = "alien praetorian"
 	icon = 'icons/mob/alienlarge.dmi'
 	icon_state = "prat_s"
@@ -57,9 +60,21 @@
 	attack_damage = 30
 	armour_penetration = 30
 	obj_damage = 80
+	time_to_open_doors = 2
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 
-/mob/living/carbon/alien/humanoid/sentinel/praetorian/update_icons()
+	var/obj/effect/proc_holder/spell/xeno_plant/plant_spell = new
+
+/mob/living/carbon/alien/humanoid/praetorian/New()
+	if(name == "alien praetorian")
+		name = text("alien praetorian ([rand(1, 1000)])")
+	real_name = name
+	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/sentinel
+	alien_organs += new /obj/item/organ/internal/xenos/acidgland/praetorian
+	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
+	..()
+
+/mob/living/carbon/alien/humanoid/praetorian/update_icons()
 	overlays.Cut()
 	if(stat == DEAD)
 		icon_state = "prat_dead"
@@ -71,7 +86,6 @@
 	for(var/image/I in overlays_standing)
 		overlays += I
 
-/mob/living/carbon/alien/humanoid/sentinel/praetorian/GrantAlienActions()
+/mob/living/carbon/alien/humanoid/praetorian/GrantAlienActions()
 	. = ..()
-	break_vents_action.Remove(src)
-	evolve_to_praetorian_action.Remove(src)
+	plant_spell.action.Grant(src)

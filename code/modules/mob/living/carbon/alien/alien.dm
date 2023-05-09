@@ -136,16 +136,6 @@
 	else
 		clear_alert("alien_fire")
 
-/mob/living/carbon/alien/handle_stomach(times_fired)
-	for(var/thing in stomach_contents)
-		var/mob/living/M = thing
-		if(M.loc != src)
-			LAZYREMOVE(stomach_contents, M)
-			continue
-		if(stat != DEAD && times_fired % 3 == 1)
-			M.Weaken(5)
-			M.adjustBruteLoss(5)
-			adjust_nutrition(10)
 
 /mob/living/carbon/alien/IsAdvancedToolUser()
 	return has_fine_manipulation

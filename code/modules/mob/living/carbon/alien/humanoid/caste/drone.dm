@@ -4,6 +4,7 @@
 	maxHealth = 180
 	health = 180
 	icon_state = "aliend_s"
+	time_to_open_doors = 2
 
 	var/datum/action/innate/xeno_action/break_vents/break_vents_action = new
 	var/datum/action/innate/xeno_action/evolve_to_queen/evolve_to_queen_action = new
