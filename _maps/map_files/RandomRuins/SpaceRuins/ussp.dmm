@@ -1208,6 +1208,22 @@
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/crew_quarters)
+"dm" = (
+/obj/structure/table,
+/obj/item/paper_bin,
+/obj/item/pen,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/paper/researchnotes,
+/obj/item/paper/researchnotes,
+/obj/item/paper/researchnotes,
+/obj/item/paper{
+	info = "Так, слушайте сюда, эти записки достать было не так то просто, так что слушайте и вникайте. У вас есть рнд консоль, с её помощью делайте изучения. Изучения делаются путём складывания всякой хуйни в деструктивный анализатор а потом на консоли уничтожая вещь. Не думаю что вам такое понадобится, но на всякий случай пусть будет."
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "purple"
+	},
+/area/derelict/annex)
 "dn" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -1922,16 +1938,6 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "purple"
-	},
-/area/derelict/annex)
-"eO" = (
-/obj/structure/table/tray,
-/obj/item/scalpel{
-	pixel_y = 12
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "purple"
 	},
 /area/derelict/annex)
@@ -3001,14 +3007,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/derelict/annex)
-"hg" = (
-/obj/structure/computerframe,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "purple"
-	},
-/area/derelict/annex)
 "hi" = (
 /obj/effect/landmark/tiles/burnturf,
 /obj/structure/table/reinforced,
@@ -3118,16 +3116,6 @@
 "hx" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "purple"
-	},
-/area/derelict/annex)
-"hy" = (
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
 	icon_state = "purple"
 	},
 /area/derelict/annex)
@@ -3735,11 +3723,6 @@
 	icon_state = "wood"
 	},
 /area/derelict/crew_quarters)
-"jh" = (
-/turf/template_noop,
-/turf/simulated/wall/mineral/titanium/nodecon/nosmooth{
-	icon_state = "swall_f10"
-	},
 /area/derelict/annex)
 "jm" = (
 /obj/machinery/door/airlock/external{
@@ -3844,16 +3827,6 @@
 /area/derelict/annex)
 "jA" = (
 /turf/simulated/floor/plating/airless,
-/area/derelict/annex)
-"jB" = (
-/turf/simulated/wall/mineral/titanium/nodecon/nosmooth{
-	icon_state = "swall_f5"
-	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
 /area/derelict/annex)
 "jC" = (
 /obj/structure/closet/radiation,
@@ -4476,11 +4449,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "redblue"
-	},
-/area/derelict/annex)
-"lc" = (
-/turf/simulated/wall/mineral/titanium/nodecon/nosmooth{
-	icon_state = "swallc2"
 	},
 /area/derelict/annex)
 "ld" = (
@@ -7506,13 +7474,6 @@
 	icon_state = "dark"
 	},
 /area/derelict/crew_quarters)
-"tS" = (
-/obj/machinery/camera{
-	c_tag = "Хранилище";
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/derelict/crew_quarters)
 "tY" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Command Wing";
@@ -7563,6 +7524,12 @@
 /obj/effect/landmark/tiles/burnturf,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/bridge)
+"uo" = (
+/obj/machinery/r_n_d/destructive_analyzer,
+/turf/simulated/floor/plasteel{
+	icon_state = "purplefull"
+	},
+/area/derelict/annex)
 "uB" = (
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
@@ -7685,6 +7652,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/space/nearstation)
+"xm" = (
+/turf/simulated/wall/mineral/titanium/nodecon/nosmooth{
+	icon_state = "swall_f5"
+	},
+/turf/space,
+/area/derelict/annex)
 "xn" = (
 /obj/item/stack/ore/iron,
 /turf/space,
@@ -7733,12 +7706,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/no_grav)
-"xX" = (
-/turf/simulated/wall/mineral/titanium/nodecon/nosmooth{
-	icon_state = "swall_f10"
-	},
-/turf/template_noop,
-/area/derelict/annex)
 "yd" = (
 /obj/item/stack/tile,
 /turf/simulated/floor/plating/airless,
@@ -7819,6 +7786,13 @@
 /obj/structure/closet/crate,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
+"zp" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/table,
+/turf/simulated/floor/plasteel,
+/area/derelict/crew_quarters)
 "zE" = (
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
 	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "orangefull");
@@ -7954,6 +7928,12 @@
 	icon_state = "dark"
 	},
 /area/derelict/crew_quarters)
+"BV" = (
+/turf/simulated/wall/mineral/titanium/nodecon/nosmooth{
+	icon_state = "swall_f10"
+	},
+/turf/space,
+/area/derelict/annex)
 "BZ" = (
 /obj/machinery/door/airlock/mining,
 /turf/simulated/floor/plating/airless,
@@ -8064,19 +8044,6 @@
 	icon_state = "solarpanel"
 	},
 /area/space/nearstation)
-"Df" = (
-/obj/structure/closet/secure_closet/bar{
-	req_access = list(202)
-	},
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/obj/item/reagent_containers/food/drinks/bottle/rum,
-/obj/item/reagent_containers/food/drinks/bottle/kahlua,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/derelict/crew_quarters)
 "Dn" = (
 /obj/docking_port/stationary/whiteship{
 	dir = 8;
@@ -8192,6 +8159,13 @@
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/bridge)
+"ES" = (
+/obj/machinery/r_n_d/circuit_imprinter,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "purple"
+	},
+/area/derelict/annex)
 "ET" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/cable_coil/cut{
@@ -8222,6 +8196,11 @@
 	},
 /turf/space,
 /area/template_noop)
+"Fb" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/r_n_d/protolathe,
+/turf/simulated/floor/plasteel,
+/area/derelict/annex)
 "Fi" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -8252,6 +8231,10 @@
 	icon_state = "wood"
 	},
 /area/derelict/bridge)
+"Fz" = (
+/obj/machinery/chem_dispenser,
+/turf/simulated/floor/plasteel,
+/area/derelict/annex)
 "FD" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -8350,6 +8333,14 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/template_noop)
+"HI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer/rdconsole,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "purple"
+	},
+/area/derelict/annex)
 "HM" = (
 /obj/machinery/power/solar{
 	id = "russolar"
@@ -8400,6 +8391,14 @@
 /obj/structure/window/reinforced,
 /turf/space,
 /area/derelict/annex)
+"Ir" = (
+/obj/machinery/camera{
+	c_tag = "Хранилище";
+	dir = 8
+	},
+/obj/machinery/hydroponics/constructable,
+/turf/simulated/floor/plasteel,
+/area/derelict/crew_quarters)
 "Iw" = (
 /obj/item/stack/rods,
 /turf/space,
@@ -8451,6 +8450,22 @@
 	},
 /turf/space,
 /area/template_noop)
+"Jg" = (
+/obj/structure/closet/crate,
+/obj/item/seeds/apple,
+/obj/item/seeds/banana,
+/obj/item/seeds/ambrosia,
+/obj/item/seeds/cabbage,
+/obj/item/seeds/carrot,
+/obj/item/seeds/cherry,
+/obj/item/seeds/cocoapod,
+/obj/item/seeds/cucumber,
+/obj/item/seeds/grape,
+/obj/item/seeds/onion,
+/obj/item/seeds/peanuts,
+/obj/item/seeds/potato,
+/turf/simulated/floor/plasteel,
+/area/derelict/crew_quarters)
 "Jh" = (
 /obj/structure/lattice,
 /obj/item/shard{
@@ -8512,6 +8527,21 @@
 /obj/effect/decal/cleanable/blood/gibs,
 /turf/space,
 /area/template_noop)
+"Kz" = (
+/obj/structure/closet/secure_closet/bar{
+	req_access = list(202)
+	},
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/food/drinks/bottle/rum,
+/obj/item/reagent_containers/food/drinks/bottle/kahlua,
+/obj/item/clothing/head/helmet/space/syndicate/black/blue,
+/obj/item/clothing/suit/space/syndicate/black/blue,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/derelict/crew_quarters)
 "KE" = (
 /obj/item/stack/rods,
 /turf/space,
@@ -9075,6 +9105,17 @@
 /mob/living/simple_animal/hostile/carp,
 /turf/space,
 /area/space/nearstation)
+"Up" = (
+/obj/structure/table/tray,
+/obj/item/scalpel{
+	pixel_y = 12
+	},
+/obj/item/storage/toolbox/mechanical,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "purple"
+	},
+/area/derelict/annex)
 "Uw" = (
 /obj/machinery/light/spot{
 	dir = 8;
@@ -9433,9 +9474,9 @@ yn
 yn
 yn
 yn
-yn
-yn
-yn
+Xf
+Xf
+Xf
 yn
 yn
 yn
@@ -9523,12 +9564,12 @@ yn
 yn
 yn
 yn
-yn
-yn
-yn
-yn
-yn
-yn
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
 yn
 yn
 yn
@@ -9613,15 +9654,15 @@ yn
 yn
 yn
 yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
 yn
 yn
 yn
@@ -9675,8 +9716,8 @@ yn
 yn
 yn
 yn
-yn
-yn
+Xf
+Xf
 yn
 yn
 yn
@@ -9704,16 +9745,16 @@ yn
 yn
 yn
 yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
 yn
 yn
 yn
@@ -9760,15 +9801,15 @@ yn
 yn
 yn
 yn
-yn
-yn
-yn
-yn
+Xf
+Xf
+Xf
+Xf
 yn
 JZ
 yn
-yn
-yn
+Xf
+Xf
 yn
 yn
 yn
@@ -9796,16 +9837,16 @@ yn
 yn
 yn
 yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
 yn
 yn
 yn
@@ -9852,15 +9893,15 @@ yn
 yn
 yn
 yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
 yn
 yn
 yn
@@ -9888,16 +9929,16 @@ yn
 yn
 yn
 yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
 yn
 yn
 yn
@@ -9944,15 +9985,15 @@ yn
 yn
 yn
 yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
 yn
 yn
 yn
@@ -9980,17 +10021,17 @@ yn
 yn
 yn
 yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
 yn
 yn
 yn
@@ -10041,11 +10082,11 @@ yn
 yn
 yn
 yn
-yn
-yn
-yn
-yn
-yn
+Xf
+Xf
+Xf
+Xf
+Xf
 yn
 yn
 yn
@@ -10073,16 +10114,16 @@ yn
 yn
 yn
 yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
 yn
 yn
 yn
@@ -10132,12 +10173,12 @@ yn
 yn
 yn
 JB
-yn
-yn
-yn
-yn
-yn
-yn
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
 yn
 yn
 yn
@@ -10165,16 +10206,16 @@ yn
 yn
 yn
 yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
 yn
 yn
 yn
@@ -10224,12 +10265,12 @@ yn
 yn
 yn
 yn
-yn
-yn
-yn
+Xf
+Xf
+Xf
 Wd
-yn
-yn
+Xf
+Xf
 yn
 yn
 yn
@@ -10258,15 +10299,15 @@ yn
 yn
 yn
 yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
 yn
 yn
 yn
@@ -10316,12 +10357,12 @@ yn
 yn
 yn
 yn
-yn
-yn
-yn
+Xf
+Xf
+Xf
 Wd
-yn
-yn
+Xf
+Xf
 yn
 NN
 yn
@@ -10350,15 +10391,15 @@ yn
 yn
 yn
 yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
 yn
 yn
 yn
@@ -10408,8 +10449,8 @@ yn
 yn
 yn
 yn
-yn
-yn
+Xf
+Xf
 Wd
 Wd
 yn
@@ -10442,15 +10483,15 @@ yn
 yn
 yn
 yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
 yn
 yn
 yn
@@ -10534,15 +10575,15 @@ yn
 TH
 OW
 Wd
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
 yn
 yn
 yn
@@ -10627,13 +10668,13 @@ PV
 Vs
 OW
 yn
-yn
-yn
-yn
-yn
-yn
-yn
-yn
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
 yn
 yn
 yn
@@ -10720,12 +10761,12 @@ yn
 yn
 yn
 yn
-yn
-yn
-yn
-yn
-yn
-yn
+Xf
+Xf
+Xf
+Xf
+Xf
+Xf
 yn
 yn
 yn
@@ -11943,7 +11984,7 @@ gt
 gP
 fk
 eP
-eP
+Fz
 ic
 iB
 eg
@@ -12308,9 +12349,9 @@ Xl
 eP
 fj
 fJ
-fR
+Fb
 hf
-hy
+dm
 eL
 yn
 yn
@@ -12400,8 +12441,8 @@ eP
 fj
 fJ
 eP
-fK
-hg
+ES
+HI
 eg
 dW
 yn
@@ -12486,13 +12527,13 @@ yn
 yn
 yn
 dW
-eg
-eO
+ge
+Up
 fj
 fJ
 eP
 gw
-eM
+uo
 eL
 dW
 Wd
@@ -12593,7 +12634,7 @@ yn
 dW
 eg
 kn
-lc
+tk
 tk
 yn
 yn
@@ -13235,7 +13276,7 @@ yn
 MX
 NV
 iZ
-jB
+xm
 kq
 iD
 eg
@@ -13326,7 +13367,7 @@ yn
 yn
 KE
 yn
-xX
+BV
 eg
 kr
 eg
@@ -14913,7 +14954,7 @@ pw
 pw
 db
 db
-tS
+Ir
 dl
 aV
 yn
@@ -15004,7 +15045,7 @@ pn
 px
 db
 db
-db
+Jg
 aV
 aV
 yn
@@ -15095,7 +15136,7 @@ pg
 bm
 py
 dJ
-pP
+zp
 aV
 aV
 yn
@@ -15619,7 +15660,7 @@ aV
 dH
 dH
 bm
-Df
+Kz
 tf
 ho
 bm

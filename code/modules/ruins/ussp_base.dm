@@ -18,7 +18,7 @@ obj/effect/mob_spawn/human/ussp_general
 	allow_name_pick = TRUE
 	pickable_species = list("Human")
 	mob_species = /datum/species/human
-	faction = list("syndicate")
+	faction = list("ussp")
 	min_hours = 10
 	exp_type = EXP_TYPE_LIVING
 
@@ -74,7 +74,7 @@ obj/effect/mob_spawn/human/ussp_engineer
 	allow_name_pick = TRUE
 	pickable_species = list("Human")
 	mob_species = /datum/species/human
-	faction = list("syndicate")
+	faction = list("ussp")
 	min_hours = 10
 	exp_type = EXP_TYPE_LIVING
 
@@ -131,7 +131,7 @@ obj/effect/mob_spawn/human/ussp_security
 	allow_name_pick = TRUE
 	pickable_species = list("Human")
 	mob_species = /datum/species/human
-	faction = list("syndicate")
+	faction = list("ussp")
 	min_hours = 10
 	exp_type = EXP_TYPE_LIVING
 
@@ -186,12 +186,12 @@ obj/effect/mob_spawn/human/ussp_scientist
 	allow_name_pick = TRUE
 	pickable_species = list("Human")
 	mob_species = /datum/species/human
-	faction = list("syndicate")
+	faction = list("ussp")
 	min_hours = 10
 	exp_type = EXP_TYPE_LIVING
 
 datum/outfit/ussp_scientist
-	name = "Сотрудник безопасности СССП"
+	name = "Учённый СССП"
 	uniform = /obj/item/clothing/under/soviet
 	shoes = /obj/item/clothing/shoes/combat
 	r_ear = /obj/item/radio/headset/alt/soviet // See del_types above
