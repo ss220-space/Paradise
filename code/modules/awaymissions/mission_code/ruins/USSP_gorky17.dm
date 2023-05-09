@@ -1,111 +1,89 @@
+/////////////////////////////////////
+////////////////////////////////////
+//	FUNCTIONAL VERSION ZONES	 //
+///////////////////////////////////
+//////////////////////////////////
 /area/ruin/space/USSP_gorky17
 	poweralm = FALSE
 	report_alerts = FALSE
+	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/solmaintnorth
 	name = "Gorky17 North sol maintenance"
 	icon_state = "away1"
-	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/solmaintsouth
 	name = "Gorky17 South sol maintenance"
 	icon_state = "away2"
-	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/medbay
 	name = "Gorky17 Medbay zone"
 	icon_state = "away3"
-	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/gate
 	name = "Gorky17 Gate zone"
 	icon_state = "away4"
-	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/angar
 	name = "Gorky17 Space pods zone"
 	icon_state = "away5"
-	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/utility
 	name = "Gorky17 Utility room"
 	icon_state = "away6"
-	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/kitchen
 	name = "Gorky17 Kitchen"
 	icon_state = "away7"
-	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/dinning
 	name = "Gorky17 Dinning room"
 	icon_state = "away8"
-	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/engineering
 	name = "Gorky17 Engineering room"
 	icon_state = "away9"
-	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/arrival
 	name = "Gorky17 Arrivals zone"
 	icon_state = "away10"
-	requires_power = TRUE
-
-/area/ruin/space/USSP_gorky17/arrival
-	name = "Gorky17 Arrivals zone"
-	icon_state = "away11"
-	requires_power = TRUE
 
 /area/ruin/space/USSP_gorky17/check1
 	name = "Gorky17 Arrivals check point room"
-	icon_state = "away12"
-	requires_power = TRUE
+	icon_state = "away11"
 
 /area/ruin/space/USSP_gorky17/check2
 	name = "Gorky17 Gate check point room"
-	icon_state = "away13"
-	requires_power = TRUE
-
-/area/ruin/space/USSP_gorky17/arrival
-	name = "Gorky17 Arrivals zone"
-	icon_state = "away14"
-	requires_power = TRUE
+	icon_state = "away12"
 
 /area/ruin/space/USSP_gorky17/dorms
 	name = "Gorky17 Dormitories zone"
-	icon_state = "away15"
-	requires_power = TRUE
+	icon_state = "away13"
 
 /area/ruin/space/USSP_gorky17/common
 	name = "Gorky17 Common hall zone"
-	icon_state = "away16"
-	requires_power = TRUE
+	icon_state = "away14"
 
 /area/ruin/space/USSP_gorky17/bridge
 	name = "Gorky17 Bridge zone"
-	icon_state = "away17"
-	requires_power = TRUE
+	icon_state = "away15"
 
-/area/ruin/space/USSP_gorky17/core
-	name = "Gorky17 Data centre room"
-	icon_state = "away18"
-	requires_power = TRUE
+/area/ruin/space/USSP_gorky17/vault
+	name = "Gorky17 vault room"
+	icon_state = "away16"
 
 /area/ruin/space/USSP_gorky17/rnd
 	name = "Gorky17 Gorky17 RnD zone"
-	icon_state = "away19"
-	requires_power = TRUE
+	icon_state = "away17"
 
-/area/ruin/space/USSP_gorky17mining
+/area/ruin/space/USSP_gorky17/mining
 	name = "Gorky17 Ore melting zone"
-	icon_state = "away20"
-	requires_power = TRUE
+	icon_state = "away18"
 	has_gravity = FALSE
 
 /area/ruin/space/USSP_gorky17/asteroids
 	name = "Gorky17 Asteroids"
-	icon_state = "away21"
+	icon_state = "away19"
 	requires_power = FALSE
 	has_gravity = FALSE
 	outdoors = TRUE
@@ -122,7 +100,126 @@
 	sound_environment = SOUND_AREA_SPACE
 	has_gravity = FALSE
 
+/////////////////////////////////////
+////////////////////////////////////
+//	  COLLAPSED VERSION ZONES	 //
+///////////////////////////////////
+//////////////////////////////////
+
+/area/ruin/space/USSP_gorky17/collapsed
+	poweralm = FALSE
+	report_alerts = FALSE
+	requires_power = TRUE
+	fire = TRUE
+
+/area/ruin/space/USSP_gorky17/collapsed/solmaintnorth
+	name = "Gorky17 North sol maintenance"
+	icon_state = "away1"
+
+/area/ruin/space/USSP_gorky17/collapsed/solmaintsouth
+	name = "Gorky17 South sol maintenance"
+	icon_state = "away2"
+
+/area/ruin/space/USSP_gorky17/collapsed/medbay
+	name = "Gorky17 Medbay zone"
+	icon_state = "away3"
+
+/area/ruin/space/USSP_gorky17/collapsed/gate
+	name = "Gorky17 Gate zone"
+	icon_state = "away4"
+
+/area/ruin/space/USSP_gorky17/collapsed/angar
+	name = "Gorky17 Space pods zone"
+	icon_state = "away5"
+
+/area/ruin/space/USSP_gorky17/collapsed/utility
+	name = "Gorky17 Utility room"
+	icon_state = "away6"
+
+/area/ruin/space/USSP_gorky17/collapsed/kitchen
+	name = "Gorky17 Kitchen"
+	icon_state = "away7"
+
+/area/ruin/space/USSP_gorky17/collapsed/dinning
+	name = "Gorky17 Dinning room"
+	icon_state = "away8"
+
+/area/ruin/space/USSP_gorky17/collapsed/engineering
+	name = "Gorky17 Engineering room"
+	icon_state = "away9"
+
+/area/ruin/space/USSP_gorky17/collapsed/arrival
+	name = "Gorky17 Arrivals zone"
+	icon_state = "away10"
+
+/area/ruin/space/USSP_gorky17/collapsed/check1
+	name = "Gorky17 Arrivals check point room"
+	icon_state = "away11"
+
+/area/ruin/space/USSP_gorky17/collapsed/check2
+	name = "Gorky17 Gate check point room"
+	icon_state = "away12"
+
+/area/ruin/space/USSP_gorky17/collapsed/dorms
+	name = "Gorky17 Dormitories zone"
+	icon_state = "away13"
+
+/area/ruin/space/USSP_gorky17/collapsed/common
+	name = "Gorky17 Common hall zone"
+	icon_state = "away14"
+
+/area/ruin/space/USSP_gorky17/collapsed/bridge
+	name = "Gorky17 Bridge zone"
+	icon_state = "away15"
+
+/area/ruin/space/USSP_gorky17/collapsed/vault
+	name = "Gorky17 vault room"
+	icon_state = "away16"
+
+/area/ruin/space/USSP_gorky17/collapsed/rnd
+	name = "Gorky17 Gorky17 RnD zone"
+	icon_state = "away17"
+
+/area/ruin/space/USSP_gorky17/collapsed/mining
+	name = "Gorky17 Ore melting zone"
+	icon_state = "away18"
+	requires_power = TRUE
+	has_gravity = FALSE
+	fire = FALSE
+
+/area/ruin/space/USSP_gorky17/collapsed/asteroids
+	name = "Gorky17 Asteroids"
+	icon_state = "away19"
+	requires_power = FALSE
+	has_gravity = FALSE
+	fire = FALSE
+	outdoors = TRUE
+	ambientsounds = list('sound/ambience/apathy.ogg')
+	sound_environment = SOUND_AREA_SPACE
+
+/area/ruin/space/USSP_gorky17/collapsed/solars
+	name = "Gorky17 Sol panels"
+	icon_state = "away"
+	requires_power = FALSE
+	fire = FALSE
+	outdoors = TRUE
+	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
+	ambientsounds = ENGINEERING_SOUNDS
+	sound_environment = SOUND_AREA_SPACE
+	has_gravity = FALSE
+
+
+
 /////////////// Safe with secret documets
+
+/obj/effect/spawner/lootdrop/randomsafe
+	name = "Secret or data documents safe spawner"
+	icon_state = "floorsafe-open"
+	lootdoubles = 0
+	loot = list(
+				/obj/structure/safe/random_documents,
+				/obj/item/paper/researchnotes/mat_bio_prog
+				)
 
 /obj/item/paper/researchnotes/mat_bio_prog
 

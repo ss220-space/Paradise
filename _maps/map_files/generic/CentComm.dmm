@@ -30438,7 +30438,7 @@
 	},
 /area/centcom/jail)
 "pAI" = (
-/obj/item/flag/species/human,
+/obj/item/flag/ussp,
 /turf/simulated/floor/wood/fancy/light,
 /area/ussp_centcom/secretariat)
 "pAM" = (

@@ -942,7 +942,7 @@
 	shot_delay = 10
 	},
 /turf/simulated/floor/vault,
-/area/ruin/space/USSP_gorky17/core)
+/area/ruin/space/USSP_gorky17/vault)
 "dO" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/table,
@@ -1658,7 +1658,7 @@
 /area/ruin/space/USSP_gorky17/medbay)
 "ge" = (
 /turf/simulated/wall/mineral/titanium/survival/pod,
-/area/ruin/space/USSP_gorky17mining)
+/area/ruin/space/USSP_gorky17/mining)
 "gf" = (
 /obj/structure/chair/sofa/right{
 	dir = 1
@@ -1862,7 +1862,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/vault,
-/area/ruin/space/USSP_gorky17/core)
+/area/ruin/space/USSP_gorky17/vault)
 "gO" = (
 /obj/machinery/light{
 	dir = 4
@@ -1997,7 +1997,7 @@
 	pixel_y = 24
 	},
 /turf/simulated/floor/vault,
-/area/ruin/space/USSP_gorky17/core)
+/area/ruin/space/USSP_gorky17/vault)
 "hr" = (
 /obj/structure/cable{
 	icon_state = "1-2";
@@ -2434,7 +2434,7 @@
 	locked = 1
 	},
 /turf/simulated/floor/vault,
-/area/ruin/space/USSP_gorky17/core)
+/area/ruin/space/USSP_gorky17/vault)
 "iT" = (
 /obj/machinery/blackbox_recorder{
 	icon = 'icons/obj/machines/computer3.dmi';
@@ -2914,7 +2914,7 @@
 	},
 /obj/item/areaeditor/gorky17,
 /turf/simulated/floor/vault,
-/area/ruin/space/USSP_gorky17/core)
+/area/ruin/space/USSP_gorky17/vault)
 "kH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -2986,7 +2986,7 @@
 	icon_state = "serverframe"
 	},
 /turf/simulated/floor/vault,
-/area/ruin/space/USSP_gorky17/core)
+/area/ruin/space/USSP_gorky17/vault)
 "kT" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -3007,7 +3007,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/vault,
-/area/ruin/space/USSP_gorky17/core)
+/area/ruin/space/USSP_gorky17/vault)
 "la" = (
 /obj/machinery/alarm{
 	name = "Gorky17 alarm";
@@ -3250,7 +3250,7 @@
 	pixel_y = 19
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/USSP_gorky17mining)
+/area/ruin/space/USSP_gorky17/mining)
 "lV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -3719,7 +3719,7 @@
 "nE" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plating,
-/area/ruin/space/USSP_gorky17mining)
+/area/ruin/space/USSP_gorky17/mining)
 "nG" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -3950,7 +3950,7 @@
 /area/ruin/space/USSP_gorky17/solars)
 "oq" = (
 /turf/simulated/wall/r_wall/rust,
-/area/ruin/space/USSP_gorky17/core)
+/area/ruin/space/USSP_gorky17/vault)
 "or" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/food/snacks/rawcutlet,
@@ -4057,7 +4057,7 @@
 	id = "garbage"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/USSP_gorky17mining)
+/area/ruin/space/USSP_gorky17/mining)
 "oC" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -4210,7 +4210,7 @@
 	start_charge = 0
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/USSP_gorky17mining)
+/area/ruin/space/USSP_gorky17/mining)
 "ph" = (
 /obj/structure/chair{
 	dir = 4
@@ -4259,7 +4259,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/tcomms/relay/gorky17,
 /turf/simulated/floor/vault,
-/area/ruin/space/USSP_gorky17/core)
+/area/ruin/space/USSP_gorky17/vault)
 "pq" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -4633,7 +4633,7 @@
 	},
 /obj/machinery/mineral/stacking_machine,
 /turf/simulated/floor/plating,
-/area/ruin/space/USSP_gorky17mining)
+/area/ruin/space/USSP_gorky17/mining)
 "qN" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
@@ -5613,7 +5613,7 @@
 	in_use = 1
 	},
 /turf/simulated/floor/vault,
-/area/ruin/space/USSP_gorky17/core)
+/area/ruin/space/USSP_gorky17/vault)
 "tT" = (
 /obj/machinery/door/airlock,
 /turf/simulated/floor/wood,
@@ -5827,7 +5827,7 @@
 	pixel_y = -1
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/USSP_gorky17mining)
+/area/ruin/space/USSP_gorky17/mining)
 "uH" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -5971,7 +5971,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/vault,
-/area/ruin/space/USSP_gorky17/core)
+/area/ruin/space/USSP_gorky17/vault)
 "uX" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -6631,7 +6631,7 @@
 	name = "Gorky17 area power controller"
 	},
 /turf/simulated/floor/vault,
-/area/ruin/space/USSP_gorky17/core)
+/area/ruin/space/USSP_gorky17/vault)
 "xJ" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
@@ -6948,7 +6948,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/vault,
-/area/ruin/space/USSP_gorky17/core)
+/area/ruin/space/USSP_gorky17/vault)
 "yO" = (
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
 /obj/effect/decal/cleanable/dirt,
@@ -7193,7 +7193,7 @@
 "zw" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/vault,
-/area/ruin/space/USSP_gorky17/core)
+/area/ruin/space/USSP_gorky17/vault)
 "zB" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -7216,7 +7216,7 @@
 "zH" = (
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall/r_wall/rust,
-/area/ruin/space/USSP_gorky17/core)
+/area/ruin/space/USSP_gorky17/vault)
 "zI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -7233,7 +7233,7 @@
 /obj/machinery/constructable_frame/machine_frame,
 /obj/item/circuitboard/tcomms/core,
 /turf/simulated/floor/vault,
-/area/ruin/space/USSP_gorky17/core)
+/area/ruin/space/USSP_gorky17/vault)
 "zM" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -7721,7 +7721,7 @@
 	on = 1
 	},
 /turf/simulated/floor/vault,
-/area/ruin/space/USSP_gorky17/core)
+/area/ruin/space/USSP_gorky17/vault)
 "Be" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -8185,7 +8185,7 @@
 /obj/structure/safe/floor/random_documents,
 /obj/machinery/light/small,
 /turf/simulated/floor/vault,
-/area/ruin/space/USSP_gorky17/core)
+/area/ruin/space/USSP_gorky17/vault)
 "CZ" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -8460,7 +8460,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/vault,
-/area/ruin/space/USSP_gorky17/core)
+/area/ruin/space/USSP_gorky17/vault)
 "DK" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -9054,7 +9054,7 @@
 	},
 /obj/structure/ore_box,
 /turf/simulated/floor/plating,
-/area/ruin/space/USSP_gorky17mining)
+/area/ruin/space/USSP_gorky17/mining)
 "FA" = (
 /obj/structure/kitchenspike,
 /turf/simulated/floor/plasteel{
@@ -9064,7 +9064,7 @@
 "FD" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
-/area/ruin/space/USSP_gorky17/core)
+/area/ruin/space/USSP_gorky17/vault)
 "FE" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -9163,7 +9163,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/vault,
-/area/ruin/space/USSP_gorky17/core)
+/area/ruin/space/USSP_gorky17/vault)
 "FV" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -9302,7 +9302,7 @@
 	shot_delay = 10
 	},
 /turf/simulated/floor/vault,
-/area/ruin/space/USSP_gorky17/core)
+/area/ruin/space/USSP_gorky17/vault)
 "Gn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -9429,7 +9429,7 @@
 /obj/structure/safe/floor/random_researchnotes_MatBioProg,
 /obj/machinery/light/small,
 /turf/simulated/floor/vault,
-/area/ruin/space/USSP_gorky17/core)
+/area/ruin/space/USSP_gorky17/vault)
 "GE" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
@@ -10115,7 +10115,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/USSP_gorky17mining)
+/area/ruin/space/USSP_gorky17/mining)
 "Jm" = (
 /obj/item/stack/rods{
 	amount = 4
@@ -10702,7 +10702,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/vault,
-/area/ruin/space/USSP_gorky17/core)
+/area/ruin/space/USSP_gorky17/vault)
 "Lp" = (
 /obj/structure/chair/sofa/corner{
 	dir = 1
@@ -11198,7 +11198,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/vault,
-/area/ruin/space/USSP_gorky17/core)
+/area/ruin/space/USSP_gorky17/vault)
 "MV" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -11492,7 +11492,7 @@
 	output_dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/USSP_gorky17mining)
+/area/ruin/space/USSP_gorky17/mining)
 "NU" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -11630,7 +11630,7 @@
 /area/ruin/space/USSP_gorky17/engineering)
 "Or" = (
 /turf/simulated/floor/plating,
-/area/ruin/space/USSP_gorky17mining)
+/area/ruin/space/USSP_gorky17/mining)
 "Os" = (
 /obj/structure/table,
 /obj/machinery/light/small,
@@ -13128,7 +13128,7 @@
 "TJ" = (
 /obj/machinery/door/airlock/survival_pod,
 /turf/simulated/floor/plating,
-/area/ruin/space/USSP_gorky17mining)
+/area/ruin/space/USSP_gorky17/mining)
 "TK" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -14135,7 +14135,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/vault,
-/area/ruin/space/USSP_gorky17/core)
+/area/ruin/space/USSP_gorky17/vault)
 "Xi" = (
 /obj/structure/lattice/catwalk,
 /obj/item/shard{
@@ -14196,10 +14196,10 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/vault,
-/area/ruin/space/USSP_gorky17/core)
+/area/ruin/space/USSP_gorky17/vault)
 "Xq" = (
 /turf/simulated/wall/r_wall,
-/area/ruin/space/USSP_gorky17/core)
+/area/ruin/space/USSP_gorky17/vault)
 "Xs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -14737,7 +14737,7 @@
 	icon_state = "crateopen"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/USSP_gorky17mining)
+/area/ruin/space/USSP_gorky17/mining)
 "ZA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,

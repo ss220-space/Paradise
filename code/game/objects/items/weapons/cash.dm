@@ -61,10 +61,10 @@
 ///// USSP space cash
 
 /obj/item/stack/spacecash/ussp
-	name = "1 Ruble"
-	desc = "An old shabby paper ruble."
+	name = "1 Soviet Credit"
+	desc = "An old shabby paper Soviet Credit."
 	icon_state = "usspcash"
-	singular_name = "Ruble"
+	singular_name = "Stovpira"
 	merge_type = /obj/item/stack/spacecash/ussp
 
 /obj/item/stack/spacecash/ussp/c10
