@@ -12,7 +12,7 @@
 	disarm_stamina_damage = 34
 	armour_penetration = 30
 	obj_damage = 80
-	time_to_open_doors = 2
+	time_to_open_doors = 0.2 SECONDS
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	pressure_resistance = 200 //Because big, stompy xenos should not be blown around like paper.
 	tts_seed = "Queen"
