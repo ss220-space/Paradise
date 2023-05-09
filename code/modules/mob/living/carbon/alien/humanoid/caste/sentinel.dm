@@ -4,7 +4,7 @@
 	maxHealth = 250
 	health = 250
 	attack_damage = 25
-	time_to_open_doors = 2
+	time_to_open_doors = 0.2 SECONDS
 	icon_state = "aliens_s"
 
 	var/obj/effect/proc_holder/spell/xeno_plant/plant_spell = new
