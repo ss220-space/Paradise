@@ -869,21 +869,14 @@
 						to_chat(src, "<span class='userdanger'>You feel [pick("terrible", "awful", "like shit", "sick", "numb", "cold", "sweaty", "tingly", "horrible")]!</span>")
 						Weaken(3)
 
-#define BODYPART_PAIN_REDUCTION 5
-
 /mob/living/carbon/human/update_health_hud()
 	if(!client)
 		return
 	if(dna.species.update_health_hud())
 		return
 	else
-		var/shock_reduction = 0
-		if(reagents)
-			for(var/datum/reagent/R in reagents.reagent_list)
-				if(R.shock_reduction)
-					shock_reduction += R.shock_reduction
 		if(healths)
-			var/health_amount = get_perceived_trauma(shock_reduction)
+			var/health_amount = get_perceived_trauma()
 			if(..(health_amount)) //not dead
 				switch(hal_screwyhud)
 					if(SCREWYHUD_CRIT)
@@ -907,10 +900,9 @@
 				healthdoll.icon_state = "healthdoll_DEAD"
 				for(var/obj/item/organ/external/O in bodyparts)
 					var/damage = O.burn_dam + O.brute_dam
-					damage -= shock_reduction / BODYPART_PAIN_REDUCTION
 					var/comparison = (O.max_damage/5)
 					var/icon_num = 0
-					if(damage > 0)
+					if(damage)
 						icon_num = 1
 					if(damage > (comparison))
 						icon_num = 2
@@ -929,8 +921,6 @@
 				healthdoll.overlays += (new_overlays - cached_overlays)
 				healthdoll.overlays -= (cached_overlays - new_overlays)
 				healthdoll.cached_healthdoll_overlays = new_overlays
-
-#undef BODYPART_PAIN_REDUCTION
 
 /mob/living/carbon/human/proc/handle_nutrition_alerts() //This is a terrible abuse of the alert system; something like this should be a HUD element
 	if(NO_HUNGER in dna.species.species_traits)
