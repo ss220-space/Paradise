@@ -25,7 +25,7 @@
 	var/obj_damage = 60
 	var/devour_time = 3 SECONDS
 	var/environment_smash = ENVIRONMENT_SMASH_STRUCTURES
-	var/time_to_open_doors = 50
+	var/time_to_open_doors = 5 SECONDS
 
 	var/large = FALSE
 	var/heat_protection = 0.5
