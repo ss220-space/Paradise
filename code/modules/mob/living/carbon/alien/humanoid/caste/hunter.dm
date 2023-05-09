@@ -3,7 +3,7 @@
 	caste = "h"
 	maxHealth = 205
 	health = 205
-	devour_time = 20
+	devour_time = 2 SECONDS
 	icon_state = "alienh_s"
 
 	var/obj/effect/proc_holder/spell/xeno_plant/plant_spell = new
