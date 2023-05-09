@@ -71,6 +71,36 @@
 	build_path = /obj/item/borg/upgrade/modkit/trigger_guard
 	category = list("Mining")
 
+/datum/design/damage_mod
+	name = "Kinetic Accelerator Damage Mod"
+	desc = "A device which allows kinetic accelerators to deal more damage."
+	id = "damagemod"
+	req_tech = list("materials" = 5, "powerstorage" = 4, "engineering" = 4, "magnets" = 4, "combat" = 3)
+	build_type = MECHFAB
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_GOLD = 1500, MAT_URANIUM = 1000)
+	build_path = /obj/item/borg/upgrade/modkit/damage/borg
+	category = list("Mining", "Cyborg Upgrade Modules")
+
+/datum/design/cooldown_mod
+	name = "Kinetic Accelerator Cooldown Mod"
+	desc = "A device which decreases the cooldown of a Kinetic Accelerator."
+	id = "cooldownmod"
+	req_tech = list("materials" = 5, "powerstorage" = 4, "engineering" = 4, "magnets" = 4, "combat" = 3)
+	build_type = MECHFAB
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_GOLD = 1500, MAT_URANIUM = 1000)
+	build_path = /obj/item/borg/upgrade/modkit/cooldown/borg
+	category = list("Mining", "Cyborg Upgrade Modules")
+
+/datum/design/range_mod
+	name = "Kinetic Accelerator Range Mod"
+	desc = "A device which allows kinetic accelerators to fire at a further range."
+	id = "rangemod"
+	req_tech = list("materials" = 5, "powerstorage" = 4, "engineering" = 4, "magnets" = 4, "combat" = 3)
+	build_type = MECHFAB
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_GOLD = 1500, MAT_URANIUM = 1000)
+	build_path = /obj/item/borg/upgrade/modkit/range/borg
+	category = list("Mining", "Cyborg Upgrade Modules")
+
 /datum/design/hyperaccelerator
 	name = "Kinetic Accelerator Mining AoE Mod"
 	desc = "A modification kit for Kinetic Accelerators which causes it to fire AoE blasts that destroy rock."
@@ -89,4 +119,14 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_TITANIUM = 8000, MAT_BLUESPACE = 1000, MAT_DIAMOND = 2000, )
 	build_path = /obj/item/gun/energy/kinetic_accelerator/experimental
+	category = list("Mining")
+
+/datum/design/f_rods
+	name = "Fireproof Rods"
+	desc = "Rods made of a complex heat-resistant alloy"
+	id = "firerods"
+	req_tech = list("materials" = 6, "engineering" = 3, "plasmatech" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_PLASMA = 500, MAT_TITANIUM = 1000)
+	build_path = /obj/item/stack/fireproof_rods
 	category = list("Mining")
