@@ -5,7 +5,7 @@
 	health = 180
 	obj_damage = 60
 	icon_state = "aliend_s"
-	time_to_open_doors = 2
+	time_to_open_doors = 0.2 SECONDS
 
 	var/datum/action/innate/xeno_action/break_vents/break_vents_action = new
 	var/datum/action/innate/xeno_action/evolve_to_queen/evolve_to_queen_action = new
