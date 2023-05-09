@@ -59,7 +59,7 @@
 	attack_damage = 30
 	armour_penetration = 30
 	obj_damage = 80
-	time_to_open_doors = 2
+	time_to_open_doors = 0.2 SECONDS
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 
 	var/obj/effect/proc_holder/spell/xeno_plant/plant_spell = new
