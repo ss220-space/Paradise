@@ -298,15 +298,15 @@
 	if(isalien(user))
 		var/mob/living/carbon/alien/A = user
 		A.do_attack_animation(src)
-		if((A.environment_smash & ENVIRONMENT_SMASH_WALLS) || (A.environment_smash & ENVIRONMENT_SMASH_RWALLS))
-			if(A.environment_smash & ENVIRONMENT_SMASH_RWALLS)
-				dismantle_wall(1)
-				to_chat(A, "<span class='info'>You smash through the wall.</span>")
-				return
-			else
-				to_chat(A, text("<span class='notice'>You smash against the wall.</span>"))
-				take_damage(A.obj_damage)
-				return
+
+		if(A.environment_smash & ENVIRONMENT_SMASH_RWALLS)
+            dismantle_wall(1)
+            to_chat(A, "<span class='info'>You smash through the wall.</span>")
+            return
+        if(A.environment_smash & ENVIRONMENT_SMASH_WALLS)
+            to_chat(A, text("<span class='notice'>You smash against the wall.</span>"))
+            take_damage(A.obj_damage)
+            return
 
 		to_chat(A, "<span class='notice'>You push the wall but nothing happens!</span>")
 		return

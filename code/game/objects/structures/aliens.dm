@@ -105,9 +105,9 @@
 /obj/structure/alien/resin/attack_alien(mob/living/carbon/alien/humanoid/A)
 	var/damage = 0
 	switch(A.caste)
-		if("d") //2 hit per wall
+		if("d") //drone breaks wall in 2 hits
 			damage = max_integrity/2/ALIEN_RESIN_BRUTE_MOD
-		if("q") //1 hit per wall
+		if("q") //queen breaks wall in 2 hits
 			damage = max_integrity/ALIEN_RESIN_BRUTE_MOD
 		else
 			return ..()
