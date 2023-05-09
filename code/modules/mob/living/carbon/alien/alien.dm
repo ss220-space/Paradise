@@ -1,3 +1,6 @@
+#define ALIEN_BURN_MOD 1.25
+#define ALIEN_BRUTE_MOD 0.75
+
 /mob/living/carbon/alien
 	name = "alien"
 	voice_name = "alien"
@@ -83,13 +86,13 @@
 
 /mob/living/carbon/alien/adjustFireLoss(amount) // Weak to Fire
 	if(amount > 0)
-		return ..(amount * 1.25)
+		return ..(amount * ALIEN_BURN_MOD)
 	else
 		return ..(amount)
 
 /mob/living/carbon/alien/adjustBruteLoss(amount)
 	if(amount > 0)
-		return ..(amount * 0.75)
+		return ..(amount * ALIEN_BRUTE_MOD)
 	else
 		return ..(amount)
 
@@ -292,3 +295,6 @@ Des: Removes all infected images from the alien.
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
+
+#undef ALIEN_BURN_MOD
+#undef ALIEN_BRUTE_MOD
