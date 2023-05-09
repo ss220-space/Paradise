@@ -103,13 +103,16 @@
 	return !density
 
 /obj/structure/alien/resin/attack_alien(mob/living/carbon/alien/humanoid/A)
+	var/damage = 0
 	switch(A.caste)
-		if("d", "q")
-			if(attack_generic(A, max_integrity/2/ALIEN_RESIN_BRUTE_MOD, BRUTE, "melee", 0, 100))
-				playsound(loc, 'sound/effects/attackblob.ogg', 50, TRUE)
+		if("d") //2 hit per wall
+			damage = max_integrity/2/ALIEN_RESIN_BRUTE_MOD
+		if("q") //1 hit per wall
+			damage = max_integrity/ALIEN_RESIN_BRUTE_MOD
 		else
 			return ..()
-
+	if(attack_generic(A, damage, BRUTE, "melee", 0, 100))
+		playsound(loc, 'sound/effects/attackblob.ogg', 50, TRUE)
 /*
  * Weeds
  */
