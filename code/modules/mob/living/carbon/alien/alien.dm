@@ -23,7 +23,7 @@
 	var/armour_penetration = 20
 	var/disarm_stamina_damage = 20
 	var/obj_damage = 60
-	var/devour_time = 30
+	var/devour_time = 3 SECONDS
 	var/environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	var/time_to_open_doors = 50
 
