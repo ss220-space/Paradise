@@ -1956,7 +1956,6 @@
 "hk" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/item/clothing/head/welding/white,
 /obj/item/weldingtool,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -9475,8 +9474,8 @@
 	network = list("USSP_gorky17");
 	name = "Gorky17 security camera"
 	},
-/obj/item/clothing/head/welding/flamedecal,
 /obj/item/weldingtool,
+/obj/item/clothing/head/welding/flamedecal,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
