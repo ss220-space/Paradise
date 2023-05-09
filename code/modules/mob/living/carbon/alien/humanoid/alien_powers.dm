@@ -54,7 +54,7 @@ Doesn't work on other aliens/AI.*/
 	action_icon_state = "alien_plant"
 	action_background_icon_state = "bg_alien"
 	clothes_req = FALSE
-	charge_max = 100
+	charge_max = 10 SECONDS
 	var/no_plasma = FALSE
 
 /obj/effect/proc_holder/spell/xeno_plant/Click()
