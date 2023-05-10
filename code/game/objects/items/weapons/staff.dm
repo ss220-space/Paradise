@@ -56,7 +56,7 @@
 	..()
 	user.flying = 0
 	user.update_gravity(user.mob_has_gravity())
-	animate(user)
+	animate(user) //go down to earth
 
 /obj/item/twohanded/staff/broom/horsebroom
 	name = "broomstick horse"
