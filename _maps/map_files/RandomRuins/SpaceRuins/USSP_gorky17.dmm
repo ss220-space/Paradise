@@ -268,6 +268,7 @@
 	},
 /obj/item/pen/multi,
 /obj/item/stamp/ussp,
+/obj/item/paper/gorky17/orders,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
@@ -634,7 +635,7 @@
 /area/ruin/space/USSP_gorky17/common)
 "cw" = (
 /obj/machinery/optable,
-/obj/item/paper/ruins/gorky17/autopsy,
+/obj/item/paper/gorky17/autopsy,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -1047,7 +1048,7 @@
 /area/ruin/space/USSP_gorky17/common)
 "ej" = (
 /obj/structure/table,
-/obj/item/paper/ruins/gorky17/network,
+/obj/item/paper/gorky17/network,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellow"
@@ -2479,7 +2480,7 @@
 /area/ruin/space/USSP_gorky17/medbay)
 "je" = (
 /obj/structure/lattice/catwalk,
-/obj/item/stack/ore/glass/basalt,
+/obj/effect/decal/cleanable/ash,
 /turf/space,
 /area/ruin/space/USSP_gorky17/solars)
 "ji" = (
@@ -2543,10 +2544,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/gate)
-"jr" = (
-/obj/item/stack/ore/glass,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/USSP_gorky17/asteroids)
 "jy" = (
 /obj/structure/morgue,
 /turf/simulated/floor/plasteel{
@@ -3673,13 +3670,6 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/engineering)
-"ny" = (
-/obj/item/stack/ore/glass/basalt,
-/obj/effect/decal/cleanable/blood/tracks{
-	dir = 4
-	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/USSP_gorky17/asteroids)
 "nA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -4744,7 +4734,7 @@
 	},
 /area/ruin/space/USSP_gorky17/common)
 "rc" = (
-/obj/item/stack/ore/glass/basalt,
+/obj/effect/decal/cleanable/ash,
 /turf/space,
 /area/template_noop)
 "re" = (
@@ -4898,13 +4888,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/gate)
-"rB" = (
-/obj/item/stack/cable_coil{
-	amount = 3
-	},
-/obj/item/stack/ore/glass/basalt,
-/turf/space,
-/area/ruin/space/USSP_gorky17/solars)
 "rC" = (
 /obj/structure/table,
 /obj/item/trash/plate{
@@ -5910,7 +5893,7 @@
 /obj/item/stack/rods{
 	amount = 4
 	},
-/obj/item/stack/ore/glass/basalt,
+/obj/effect/decal/cleanable/ash,
 /turf/space,
 /area/ruin/space/USSP_gorky17/solars)
 "uR" = (
@@ -7891,13 +7874,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/gate)
-"BK" = (
-/obj/item/stack/cable_coil{
-	amount = 5
-	},
-/obj/item/stack/ore/glass/basalt,
-/turf/space,
-/area/ruin/space/USSP_gorky17/solars)
 "BL" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -9021,13 +8997,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/USSP_gorky17/solmaintsouth)
-"Fs" = (
-/obj/item/stack/cable_coil{
-	amount = 5
-	},
-/obj/item/stack/ore/glass/basalt,
-/turf/space,
-/area/template_noop)
 "Fu" = (
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall/r_wall/rust,
@@ -9592,11 +9561,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/dinning)
-"Hi" = (
-/obj/structure/lattice,
-/obj/item/stack/ore/glass/basalt,
-/turf/space,
-/area/template_noop)
 "Hn" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -11139,7 +11103,7 @@
 "MM" = (
 /obj/structure/rack,
 /obj/item/rlf,
-/obj/item/paper/ruins/gorky17/talisman,
+/obj/item/paper/gorky17/talisman,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/gate)
 "MO" = (
@@ -12285,10 +12249,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/USSP_gorky17/angar)
-"QC" = (
-/obj/item/stack/ore/glass/basalt,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/USSP_gorky17/asteroids)
 "QD" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -14052,7 +14012,7 @@
 	},
 /area/ruin/space/USSP_gorky17/solars)
 "WO" = (
-/obj/item/stack/ore/glass/basalt,
+/obj/effect/decal/cleanable/ash,
 /turf/space,
 /area/ruin/space/USSP_gorky17/solars)
 "WQ" = (
@@ -16956,7 +16916,7 @@ ha
 ha
 ha
 ha
-QC
+JO
 ha
 ha
 ha
@@ -17163,7 +17123,7 @@ ha
 ha
 ha
 JO
-jr
+JO
 JO
 fB
 fB
@@ -17438,7 +17398,7 @@ ha
 ha
 Bu
 JO
-jr
+JO
 ha
 ha
 ha
@@ -17607,7 +17567,7 @@ ha
 JO
 JO
 JO
-jr
+JO
 JO
 JO
 JO
@@ -17695,7 +17655,7 @@ Bu
 ha
 ha
 ha
-jr
+JO
 fB
 fB
 fB
@@ -18001,7 +17961,7 @@ fB
 fB
 fB
 fB
-QC
+JO
 ha
 ha
 JO
@@ -18038,7 +17998,7 @@ fB
 fB
 fB
 fB
-QC
+JO
 ha
 ha
 ha
@@ -20158,7 +20118,7 @@ ha
 dF
 JO
 JO
-QC
+JO
 JO
 eE
 eE
@@ -20360,7 +20320,7 @@ ha
 nN
 wT
 JO
-jr
+JO
 wT
 ha
 ha
@@ -20557,7 +20517,7 @@ ha
 JO
 JO
 JO
-QC
+JO
 JO
 JO
 zt
@@ -22772,7 +22732,7 @@ ha
 JO
 JO
 ha
-QC
+JO
 JO
 JO
 nN
@@ -22932,7 +22892,7 @@ eK
 ha
 ha
 JO
-jr
+JO
 ha
 ha
 Bu
@@ -23785,7 +23745,7 @@ ha
 ha
 JO
 JO
-QC
+JO
 ha
 fB
 fB
@@ -23939,7 +23899,7 @@ fB
 JO
 ha
 ha
-QC
+JO
 JO
 ha
 ha
@@ -24111,7 +24071,7 @@ fB
 fB
 fB
 JO
-QC
+JO
 ha
 ha
 ha
@@ -24264,7 +24224,7 @@ fB
 yI
 fB
 fB
-rc
+fB
 fB
 fB
 fB
@@ -24988,7 +24948,7 @@ ha
 ha
 pu
 wT
-ny
+Nd
 ha
 ge
 Jl
@@ -25068,12 +25028,12 @@ fz
 fB
 aR
 rq
-fB
+rc
 fB
 fB
 fB
 pD
-fB
+rc
 wZ
 fB
 fB
@@ -25123,7 +25083,7 @@ ha
 ha
 ha
 JO
-jr
+JO
 JO
 ha
 JO
@@ -25474,7 +25434,7 @@ Db
 aR
 jS
 DW
-WO
+Db
 CJ
 Db
 wZ
@@ -25668,7 +25628,7 @@ UK
 fB
 JZ
 JT
-WO
+Db
 Ve
 JT
 DZ
@@ -25886,7 +25846,7 @@ UK
 pD
 fB
 fB
-rc
+fB
 fB
 fB
 fB
@@ -26674,7 +26634,7 @@ fB
 fB
 fB
 fB
-fB
+rc
 fB
 Db
 TX
@@ -27080,7 +27040,7 @@ fB
 fB
 fB
 fB
-Fs
+Df
 fB
 pD
 fB
@@ -27088,7 +27048,7 @@ fB
 fB
 JZ
 fB
-fB
+rc
 uB
 fB
 fB
@@ -27413,7 +27373,7 @@ JO
 JO
 JO
 JO
-QC
+JO
 ha
 fB
 fB
@@ -27490,7 +27450,7 @@ fB
 fz
 fB
 fB
-BK
+hs
 fB
 fB
 fB
@@ -27688,7 +27648,7 @@ fB
 fB
 fB
 fB
-fB
+rc
 fB
 fB
 fB
@@ -27814,7 +27774,7 @@ ha
 ha
 ha
 ha
-QC
+JO
 JO
 ha
 ha
@@ -28283,12 +28243,12 @@ JZ
 KB
 rX
 Gu
-BK
+hs
 KB
 qA
 Gu
 JZ
-fB
+rc
 fB
 fB
 fB
@@ -28485,7 +28445,7 @@ JZ
 qZ
 fk
 ev
-Db
+WO
 KB
 ko
 Gu
@@ -28793,7 +28753,7 @@ ha
 ha
 Bu
 ha
-QC
+JO
 DT
 fB
 fB
@@ -28892,14 +28852,14 @@ Db
 HY
 Db
 Xi
-WO
+Db
 JT
 ee
 ee
 ee
 XK
 ev
-WO
+Db
 ee
 ee
 ee
@@ -29493,15 +29453,15 @@ fB
 fB
 JZ
 hs
-WO
+Db
 Gu
-WO
+Db
 Ao
 Db
 Gu
 JZ
 fB
-fB
+rc
 fB
 fB
 fB
@@ -29693,9 +29653,9 @@ fB
 fB
 wZ
 fB
+WO
 Db
-Db
-ev
+uQ
 Db
 Db
 qZ
@@ -29911,7 +29871,7 @@ fB
 fB
 fB
 fB
-rc
+fB
 sW
 Rv
 VJ
@@ -30298,7 +30258,7 @@ fB
 fB
 fB
 fB
-rc
+fB
 fB
 fB
 uB
@@ -30306,7 +30266,7 @@ wZ
 fB
 fB
 rq
-fB
+rc
 fB
 fB
 fB
@@ -30703,7 +30663,7 @@ fB
 fB
 fB
 fB
-fB
+rc
 fB
 fB
 fB
@@ -31233,7 +31193,7 @@ ha
 JO
 JO
 JO
-QC
+JO
 fB
 fB
 fB
@@ -31834,7 +31794,7 @@ fB
 fB
 fB
 fB
-jr
+JO
 ha
 ha
 ha
@@ -32641,7 +32601,7 @@ fB
 fB
 fB
 fB
-QC
+JO
 ha
 ha
 ha
@@ -37041,7 +37001,7 @@ Ze
 fB
 xi
 fB
-JZ
+je
 fB
 fB
 yI
@@ -37232,9 +37192,9 @@ CR
 Av
 Av
 mZ
-Db
-HY
 WO
+HY
+Db
 qq
 Ho
 JZ
@@ -37852,7 +37812,7 @@ wZ
 wZ
 yI
 yI
-Hi
+wZ
 fB
 fB
 fB
@@ -37974,7 +37934,7 @@ fB
 fB
 fB
 wZ
-ts
+fB
 ts
 kI
 BX
@@ -38254,7 +38214,7 @@ fB
 wZ
 fB
 fB
-fB
+rc
 fB
 uB
 fB
@@ -38455,7 +38415,7 @@ ev
 wZ
 fB
 fB
-rc
+fB
 fB
 fB
 fB
@@ -38647,7 +38607,7 @@ fB
 fB
 wZ
 fB
-fB
+rc
 wZ
 fB
 fB
@@ -39059,7 +39019,7 @@ fB
 fB
 fB
 fB
-rc
+fB
 fB
 fB
 fB
@@ -39098,7 +39058,7 @@ ha
 ha
 ha
 ha
-QC
+JO
 fB
 fB
 fB
@@ -40652,7 +40612,7 @@ fB
 fB
 fB
 fB
-Db
+WO
 fB
 wZ
 fB
@@ -43285,7 +43245,7 @@ CJ
 jS
 jS
 JZ
-fB
+rc
 wZ
 fB
 fB
@@ -43686,7 +43646,7 @@ WO
 aR
 ij
 Jm
-rB
+CR
 Db
 CR
 uB
@@ -44292,7 +44252,7 @@ JZ
 Kz
 WB
 ua
-rB
+CR
 Ho
 EG
 wZ
@@ -44355,7 +44315,7 @@ fB
 fB
 fB
 JO
-QC
+JO
 JO
 JO
 fB
@@ -44498,7 +44458,7 @@ TX
 Db
 ev
 fB
-rc
+fB
 fB
 fB
 fB
@@ -44697,10 +44657,10 @@ Db
 JZ
 JZ
 Db
-rB
+CR
 Db
 fz
-fB
+rc
 fB
 fB
 fB
@@ -44890,7 +44850,7 @@ wZ
 fB
 fB
 wZ
-fB
+rc
 fB
 fB
 fB
@@ -45097,7 +45057,7 @@ wZ
 fB
 fB
 aR
-fB
+rc
 uB
 wZ
 wZ
@@ -46974,7 +46934,7 @@ fB
 JO
 ha
 JO
-QC
+JO
 JO
 JO
 JO
@@ -50371,7 +50331,7 @@ fB
 fB
 fB
 fB
-QC
+JO
 JO
 ha
 ha
@@ -52367,7 +52327,7 @@ fB
 fB
 JO
 JO
-QC
+JO
 JO
 JO
 fB
@@ -53173,7 +53133,7 @@ ha
 ha
 ha
 ha
-QC
+JO
 JO
 JO
 ha
@@ -53783,7 +53743,7 @@ Bu
 ha
 ha
 ha
-QC
+JO
 JO
 JO
 ha
@@ -54246,7 +54206,7 @@ ha
 ha
 JO
 JO
-QC
+JO
 fB
 fB
 fB

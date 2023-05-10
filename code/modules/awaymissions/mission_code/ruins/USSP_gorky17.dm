@@ -217,13 +217,13 @@
 	icon_state = "floorsafe-open"
 	lootdoubles = 0
 	loot = list(
-				/obj/structure/safe/random_documents,
-				/obj/item/paper/researchnotes/mat_bio_prog
+				/obj/structure/safe/floor/random_documents,
+				/obj/structure/safe/floor/random_researchnotes_MatBioProg
 				)
 
 /obj/item/paper/researchnotes/mat_bio_prog
 
-/obj/item/paper/researchnotes/mat_bio_prog/New()
+/obj/item/paper/researchnotes/mat_bio_prog/Initialize()
 	..()
 	var/list/possible_techs = list("materials", "biotech", "programming")
 	var/mytech = pick(possible_techs)
@@ -318,10 +318,9 @@
 
 /////////////////// Paper notes
 
-/obj/item/paper/ruins/gorky17
+/obj/item/paper/gorky17
 	language = "Neo-Russkiya"
-
-/obj/item/paper/ruins/gorky17/talisman
+/obj/item/paper/gorky17/talisman
 	name = "Проклятый талисман"
 	info = "<p><strong>НЕ ТРОГАЙ ЭТУ ХРЕНЬ ИЗ ЯЩИКА!</strong><br /> \
 	\n<strong>Я СЕРЬЁЗНО! НЕ-ТРО-ГАЙ! ИЛИ СДОХНЕШЬ, КАК ТЕ ТРОЕ БЕДОЛАГ!</strong><br />\
@@ -336,19 +335,32 @@
 	Ну да ладно, вскрытие покажет от чего те померли.<br />\
 	\nЯ тебя предупредил, не лезь в этот ящик...</p>"
 
-/obj/item/paper/ruins/gorky17/autopsy
-	name = "Результат вскрытия"
+/obj/item/paper/gorky17/autopsy
+	name = "Результаты вскрытия"
 	info = "<p>Мужики, с такой дрянью я сталкивался лишь в старинных записях... \
 	Простое, но действенное боевое отравляющие вещество, надеюсь вы его заперли куда подальше в герметичный контейнер. В повседневных условиях этой дряни хватило бы самую малость: \
-	намазать дверную ручку или капнуть на белье - и все цель будет устранена. А судя по тем дозам, которые я обнаружил на коже и в крови - эта бумага насквозь пропитана, не понимаю, \
+	намазать дверную ручку или капнуть на белье - и все, цель будет устранена. А судя по тем дозам, которые я обнаружил на коже и в крови - эта бумага насквозь пропитана, не понимаю, \
 	как с нее капли то не стекают. В общем, отчет и материалы я отправил куда следует - будем ждать более подробный анализ этой дряни, а пока я бы рекомендовал всем провериться и \
 	пройти процедуры обеззараживания.</p>"
 
-/obj/item/paper/ruins/gorky17/network
+/obj/item/paper/gorky17/network
 	name = "Название сети для камер"
 	info = "<p>Ну это не серьезно, мужики. Каждая смена, как поломается камера, придумывает свое название для сетки камер наблюдения, 'Горько17, Григорий17, Горыныч, Кам17, Камеры'...\
 	Мужики, вам так сложно запомнить или на листок записать? Ладно, сделаю это за вас... Надеюсь как подтирку не используете его... Название сети <strong>USSP_gorky17</strong> \
 	Если запомнить не в силах - то хоть лист не про... фукайте.</p>"
+
+/obj/item/paper/gorky17/orders
+	name = "Деректива опер штаба СО"
+	info = "<div style='text-align:center;'><img src='ussplogo.png'><h3>Директива №412</h3></div><hr><center><b>	Особые указания для ██████████████████, главнокомандующего объекта Gorky17</b></center> <br><br>\
+	Разведка донесла штабу информацию и координаты расположении элизиумского отродья. По сообщениям группы █████████████ необходимые координаты для ваших врат ████████ - ████ - ████. \
+	Ставка Главного Командования поручает Вам собрать боевую группу и уничтожить позицию врага, сохранив возможность последующего использования на благо СССП.\
+	<br> Время отведенное на выполнение задачи <b>72 часа</b> с момента получения директивы. <br><br><i>	Оперативный штаб специальных операций</i>"
+
+/obj/item/paper/gorky17/orders/Initialize()
+	var/obj/item/stamp/ussp/stamp = new
+	src.stamp(stamp)
+	qdel(stamp)
+	..()
 
 ////// CURSED TALISMAN
 /obj/item/paper/poisonedtalisman
@@ -443,3 +455,56 @@
 	brute_damage = rand(0, 400)
 	burn_damage = rand(0, 400)
 	return ..()
+
+
+/////////////// Decorative corpse
+
+/*
+/obj/item/decorative_corpse
+	name = "Bloody body"
+	icon = 'icons/mob/human.dmi'
+	icon_state = "torso_m_s"
+	max_integrity = 10
+	hitsound = "" // звук удара по телу
+
+
+
+когда объект тащат - на 5 клеток оставляет кровавый след
+	icon = 'icons/effects/fluidtracks.dmi'
+	icon_state = "wheels1"
+
+при ударе в харм интенте или разрушении - выделяется облако газа (от газа должно быть помутнее экрана и тошнота, визуальный эффект, как у газа мух культа)
+звук гиба/взрыва тела
+нарисовать эффект гиба для каждой тушки
+
+if("punch")
+	soundin = pick('sound/weapons/punch1.ogg','sound/weapons/punch2.ogg','sound/weapons/punch3.ogg','sound/weapons/punch4.ogg')
+
+/obj/item/decorative_corpse/bullet_act(var/obj/item/B)
+
+/obj/item/decorative_corpse/attack_hand(mob/user as mob)
+
+/obj/item/decorative_corpse/attackby(obj/item/I as obj, mob/living/user as mob, params)
+
+/obj/item/decorative_corpse/proc/corpse_explode()
+
+/obj/effect/particle_effect/smoke/vomiting
+	color = "#752424"
+	lifetime = 10
+
+/obj/effect/particle_effect/smoke/vomiting/process()
+	if(..())
+		for(var/mob/living/carbon/M in range(1,src))
+			smoke_mob(M)
+
+/obj/effect/particle_effect/smoke/vomiting/smoke_mob(mob/living/carbon/M)
+	if(..())
+		M.drop_item()
+		M.vomit()
+		M.emote("cough")
+		return 1
+
+/datum/effect_system/smoke_spread/vomiting
+	effect_type = /obj/effect/particle_effect/smoke/vomiting
+
+*/

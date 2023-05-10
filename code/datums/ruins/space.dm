@@ -357,6 +357,7 @@
 	name = "Space bloodship "
 	description = "This shuttle was a regular transport vessel until it was captured by cultists who made their bloody sacrifice."
 
+/*
 /datum/map_template/ruin/space/USSP_gorky17
 	id = "USSP_gorky17"
 	suffix = "USSP_gorky17.dmm"
@@ -364,13 +365,14 @@
 	description = "net"
 	cost = 1 //5
 	allow_duplicates = FALSE
+*/
 
-/*
 /datum/map_template/ruin/space/USSP_gorky17_collapsed
 	id = "USSP_gorky17_collapsed"
 	suffix = "USSP_gorky17_collapsed.dmm"
 	name = "USSP Gorky 17 collapsed station"
 	description = "net"
-	cost = 1 //5
+	always_place = TRUE  // remove
+	cost = 0 //5
 	allow_duplicates = FALSE
-*/
+
