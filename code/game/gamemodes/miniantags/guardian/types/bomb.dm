@@ -49,6 +49,8 @@
 	if(istype(A, /obj/machinery/disposal)) // Have no idea why they just destroy themselves
 		to_chat(src, "<span class='warning'>Бомбы не мусор! Нельзя минировать мусорки!</span>")
 		return FALSE
+	if(istype(A, /obj/item/guardian_bomb)) //No multibombing
+		return FALSE
 	return TRUE
 
 /obj/item/guardian_bomb
