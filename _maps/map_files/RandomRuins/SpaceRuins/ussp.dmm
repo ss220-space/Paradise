@@ -3723,7 +3723,6 @@
 	icon_state = "wood"
 	},
 /area/derelict/crew_quarters)
-/area/derelict/annex)
 "jm" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "kc13_ussp";
@@ -12268,7 +12267,6 @@ Iq
 km
 OP
 yn
-jh
 ml
 tk
 tk
