@@ -1198,3 +1198,11 @@
 				/obj/item/stack/sheet/mineral/silver = 5)
 	tools = list(TOOL_WELDER, TOOL_WRENCH)
 	category = CAT_MISC
+
+/datum/crafting_recipe/makeshift_splint
+	name = "Makeshift splint"
+	result = /obj/item/stack/medical/splint/makeshift
+	time = 5 SECONDS
+	reqs = list(/obj/item/stack/sheet/wood = 2,
+				/obj/item/stack/sheet/cloth = 3)
+	category = CAT_MISC
