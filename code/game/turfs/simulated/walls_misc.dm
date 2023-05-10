@@ -13,11 +13,19 @@
 	. = ..()
 	if(SSticker.mode)//game hasn't started offically don't do shit..
 		new /obj/effect/temp_visual/cult/turf(src)
-		icon_state = SSticker.cultdat.cult_wall_icon_state
+		if(!icon_state == "holy")
+			icon_state = SSticker.cultdat.cult_wall_icon_state
 
 /turf/simulated/wall/cult/artificer
 	name = "runed stone wall"
 	desc = "A cold stone wall engraved with indecipherable symbols. Studying them causes your head to pound."
+
+/turf/simulated/wall/cult/artificer/holy
+	name = "holy runed wall"
+	desc = "Теплая стена, один взгляд на которую наполняет вас святостью."
+	icon_state = "holy"
+	sheet_type = /obj/item/stack/sheet/metal
+	girder_type = /obj/structure/girder
 
 /turf/simulated/wall/cult/artificer/break_wall()
 	new /obj/effect/temp_visual/cult/turf(get_turf(src))
@@ -86,7 +94,7 @@
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
-		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
 
 /turf/simulated/wall/clockwork/dismantle_wall(devastated=0, explode=0)
 	if(devastated)

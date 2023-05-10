@@ -317,7 +317,7 @@
 			to_chat(firer, "<span class='notice'>You pull [I] towards yourself.</span>")
 			add_attack_logs(src, I, "[src] pulled [I] towards them with a tentacle")
 			H.throw_mode_on()
-			I.throw_at(H, 10, 2, callback = CALLBACK(src, .proc/tentacle_disarm, I))
+			I.throw_at(H, 10, 2, callback = CALLBACK(src, PROC_REF(tentacle_disarm), I))
 			. = 1
 
 	else if(isliving(target))
@@ -359,13 +359,13 @@
 						C.visible_message("<span class='danger'>[L] is grabbed by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
 						add_attack_logs(H, C, "[H] grabbed [C] with a changeling tentacle")
 						C.client?.move_delay = world.time + 10
-						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(src, .proc/tentacle_grab, C))
+						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(src, PROC_REF(tentacle_grab), C))
 						return 1
 
 					if(INTENT_HARM)
 						C.visible_message("<span class='danger'>[L] is thrown towards [H] by a tentacle!</span>","<span class='userdanger'>A tentacle grabs you and throws you towards [H]!</span>")
 						C.client?.move_delay = world.time + 10
-						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(src, .proc/tentacle_stab, C))
+						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(src, PROC_REF(tentacle_stab), C))
 						return 1
 			else
 				L.visible_message("<span class='danger'>[L] is pulled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
@@ -458,10 +458,13 @@
 	name = "flesh mass"
 	icon_state = "lingspacesuit"
 	desc = "A huge, bulky mass of pressure and temperature-resistant organic tissue, evolved to facilitate space travel."
-	flags = STOPSPRESSUREDMAGE | NODROP | DROPDEL
+	flags = STOPSPRESSUREDMAGE | NODROP | DROPDEL | HIDETAIL
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90) //No armor at all
 	species_restricted = null
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
 
 /obj/item/clothing/suit/space/changeling/New()
 	..()
@@ -481,6 +484,9 @@
 	flags = BLOCKHAIR | STOPSPRESSUREDMAGE | NODROP | DROPDEL
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
 	species_restricted = null
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/helmet.dmi'
+		)
 
 
 /***************************************\

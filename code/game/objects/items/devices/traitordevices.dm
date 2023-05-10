@@ -55,7 +55,7 @@ effective or pretty fucking useless.
 	playsound(loc, 'sound/misc/interference.ogg', 50, 1)
 	charges--
 	to_chat(user, "<span class='notice'>You trigger [src]. It has [charges] charges left.</span>")
-	addtimer(CALLBACK(src, .proc/recharge), 3 MINUTES)
+	addtimer(CALLBACK(src, PROC_REF(recharge)), 3 MINUTES)
 
 /obj/item/batterer/proc/recharge()
 	charges++
@@ -365,11 +365,9 @@ effective or pretty fucking useless.
 /obj/item/storage/box/syndie_kit/teleporter
 	name = "syndicate teleporter kit"
 
-/obj/item/storage/box/syndie_kit/teleporter/New()
-	..()
+/obj/item/storage/box/syndie_kit/teleporter/populate_contents()
 	new /obj/item/teleporter(src)
 	new /obj/item/paper/teleporter(src)
-	return
 
 /obj/effect/temp_visual/teleport_abductor/syndi_teleporter
 	duration = 5
