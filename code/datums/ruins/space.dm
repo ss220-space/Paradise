@@ -355,5 +355,14 @@
 	id = "blood_ship"
 	suffix = "space_bloodship.dmm"
 	name = "Space bloodship "
-	description = "This shuttle was a regular transport vessel until it was captured by cultists who made their bloody sacrifice." 
+	description = "This shuttle was a regular transport vessel until it was captured by cultists who made their bloody sacrifice."
 
+/datum/map_template/ruin/space/magestavern
+	id= "magestavern"
+	suffix = "magestavern.dmm"
+	name = "Magestavern"
+	description = "A mage's tavern, created to relax after exams for students.\
+		Complete freedom of action, with one condition - to clean up everything after yourself, keeping everything in its original form.\
+		Well, apparently, something went wrong, since the tavern was closed forever. What will you learn by getting into it?"
+	cost = 3
+	allow_duplicates = FALSE
