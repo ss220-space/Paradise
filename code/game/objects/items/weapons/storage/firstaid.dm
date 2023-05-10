@@ -32,8 +32,8 @@
 	item_state = "firstaid-ointment"
 	med_bot_skin = "ointment"
 
-/obj/item/storage/firstaid/fire/Initialize(mapload)
-	. = ..()
+/obj/item/storage/firstaid/fire/New()
+	..()
 	icon_state = pick("ointment", "firefirstaid")
 
 /obj/item/storage/firstaid/fire/populate_contents()
@@ -125,8 +125,8 @@
 	item_state = "firstaid-brute"
 	med_bot_skin = "brute"
 
-/obj/item/storage/firstaid/brute/Initialize(mapload)
-	. = ..()
+/obj/item/storage/firstaid/brute/New()
+	..()
 	icon_state = pick("brute", "brute2")
 
 /obj/item/storage/firstaid/brute/populate_contents()

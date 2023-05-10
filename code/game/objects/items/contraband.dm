@@ -8,7 +8,7 @@
 
 /obj/item/storage/pill_bottle/happy/populate_contents()
 	for(var/I in 1 to 7)
-		new /obj/item/reagent_containers/food/pill/happy( src )
+		new /obj/item/reagent_containers/food/pill/happy(src)
 
 /obj/item/storage/pill_bottle/zoom
 	name = "Zoom pills"
@@ -17,7 +17,7 @@
 
 /obj/item/storage/pill_bottle/zoom/populate_contents()
 	for(var/I in 1 to 7)
-		new /obj/item/reagent_containers/food/pill/zoom( src )
+		new /obj/item/reagent_containers/food/pill/zoom(src)
 
 /obj/item/storage/pill_bottle/sovietstimulants
 	name = "\improper Soviet combat stimulants"

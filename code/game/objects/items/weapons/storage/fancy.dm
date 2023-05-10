@@ -240,8 +240,8 @@
 	icon_state = "robustpacket"
 	item_state = "robustpacket"
 
-/obj/item/storage/fancy/cigarettes/syndicate/Initialize(mapload)
-	. = ..()
+/obj/item/storage/fancy/cigarettes/syndicate/New()
+	..()
 	var/new_name = pick("evil", "suspicious", "ominous", "donk-flavored", "robust", "sneaky")
 	name = "[new_name] cigarette packet"
 

@@ -173,7 +173,7 @@
 
 /obj/item/storage/box/syringes/populate_contents()
 	for(var/I in 1 to 7)
-		new /obj/item/reagent_containers/syringe( src )
+		new /obj/item/reagent_containers/syringe(src)
 
 /obj/item/storage/box/beakers
 	name = "beaker box"

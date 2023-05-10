@@ -129,8 +129,8 @@
 	allow_wrap = FALSE
 	var/labelled = FALSE
 
-/obj/item/storage/pill_bottle/random_meds/Initialize(mapload)
-	. = ..()
+/obj/item/storage/pill_bottle/random_meds/New()
+	..()
 	pixel_x = rand(-10, 10)
 	pixel_y = rand(-10, 10)
 
