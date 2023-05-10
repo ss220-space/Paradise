@@ -79,4 +79,3 @@
 	visible_message("<span class='danger'> The [name] is buzzing weirdly!</span>")
 	playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
 	matter_deactivate()
-	return
