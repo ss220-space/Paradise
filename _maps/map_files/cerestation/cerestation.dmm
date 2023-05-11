@@ -38187,15 +38187,6 @@
 	slowdown = -0.3
 	},
 /area/hallway/spacebridge/comeng)
-"eCx" = (
-/obj/structure/sign/poster/official/random{
-	pixel_y = 31
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
-	},
-/area/security/warden)
 "eCB" = (
 /obj/machinery/status_display{
 	layer = 4
@@ -42853,15 +42844,6 @@
 /obj/effect/landmark/ninja_teleport,
 /turf/simulated/floor/plating,
 /area/maintenance/electrical_shop)
-"gjR" = (
-/obj/structure/sign/poster/official/random{
-	pixel_y = 31
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
-	},
-/area/security/brig)
 "gkc" = (
 /obj/structure/chair{
 	dir = 4
@@ -47766,6 +47748,15 @@
 /obj/item/clothing/glasses/meson,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/north)
+"hQa" = (
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/security/prison/cell_block/A)
 "hQg" = (
 /obj/structure/table,
 /obj/item/eftpos,
@@ -53528,6 +53519,14 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/central)
+"jNa" = (
+/obj/structure/closet/secure_closet/brig,
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/security/prisonlockers)
 "jNj" = (
 /obj/machinery/door/airlock{
 	id_tag = "toilet2";
@@ -63187,7 +63186,6 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "ndd" = (
@@ -77806,6 +77804,15 @@
 	icon_state = "dark"
 	},
 /area/medical/cmo)
+"rOS" = (
+/obj/structure/sign/poster/official/random{
+	pixel_y = 31
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/security/brig)
 "rOX" = (
 /obj/machinery/alarm{
 	dir = 8;
@@ -80341,6 +80348,15 @@
 	icon_state = "dark"
 	},
 /area/library)
+"sFw" = (
+/obj/item/radio/intercom{
+	pixel_y = 22
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/security/brig)
 "sFF" = (
 /obj/effect/landmark/event/lightsout,
 /turf/simulated/floor/transparent/glass/reinforced{
@@ -82949,15 +82965,6 @@
 	icon_state = "redyellowfull"
 	},
 /area/crew_quarters/bar)
-"tAV" = (
-/obj/structure/sign/poster/official/random{
-	pixel_x = -32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
-	},
-/area/security/prison/cell_block/A)
 "tAX" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Walkway"
@@ -83325,14 +83332,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/maintenance/fsmaint4)
-"tIl" = (
-/obj/structure/closet/secure_closet/brig,
-/obj/effect/decal/warning_stripes/red/hollow,
-/obj/structure/sign/poster/official/random{
-	pixel_x = -32
-	},
-/turf/simulated/floor/plasteel,
-/area/security/prisonlockers)
 "tIo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
@@ -83778,6 +83777,15 @@
 	icon_state = "browncorner"
 	},
 /area/quartermaster/qm)
+"tPK" = (
+/obj/structure/sign/poster/official/random{
+	pixel_y = 31
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/security/warden)
 "tPP" = (
 /obj/structure/chair/comfy/brown,
 /turf/simulated/floor/carpet,
@@ -89998,15 +90006,6 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/aft/west)
-"vVq" = (
-/obj/item/radio/intercom{
-	pixel_y = 22
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
-	},
-/area/security/brig)
 "vVt" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/firealarm{
@@ -112029,7 +112028,7 @@ amM
 xQS
 jYY
 arp
-tIl
+jNa
 xQS
 djS
 bqV
@@ -112545,7 +112544,7 @@ kia
 cVO
 ykj
 xQS
-vVq
+sFw
 bqV
 dtr
 xrZ
@@ -113830,7 +113829,7 @@ xQS
 apf
 xQS
 xQS
-gjR
+rOS
 bqV
 dpu
 lfN
@@ -114877,7 +114876,7 @@ poM
 nop
 poM
 pJG
-tAV
+hQa
 eWZ
 eWZ
 cFf
@@ -115372,7 +115371,7 @@ xNI
 afd
 afd
 afd
-gjR
+rOS
 qeE
 dtp
 dtP
@@ -117700,7 +117699,7 @@ bKt
 era
 dxP
 rJj
-eCx
+tPK
 reB
 coj
 crU
