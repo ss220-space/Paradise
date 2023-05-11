@@ -1343,10 +1343,8 @@
 	},
 /area/security/permabrig)
 "aka" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/space)
+/turf/simulated/mineral/ancient,
+/area/janitor)
 "akc" = (
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -2454,12 +2452,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/secondary/entry/north)
-"apA" = (
-/obj/item/flag/species,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/space)
 "apI" = (
 /obj/structure/cable/orange{
 	icon_state = "2-4"
@@ -2807,21 +2799,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/prisonershuttle)
-"arW" = (
-/obj/structure/chair/comfy/red,
-/obj/effect/landmark/start/head_of_security,
-/obj/effect/decal/warning_stripes/red/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/space)
-"asa" = (
-/obj/structure/chair/comfy/black,
-/obj/effect/decal/warning_stripes/red/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/space)
 "asc" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Prison Wing";
@@ -3180,14 +3157,6 @@
 	icon_state = "darkredfull"
 	},
 /area/security/brig)
-"aum" = (
-/obj/structure/table/reinforced,
-/obj/item/flashlight/lamp,
-/obj/item/toy/figure/secofficer,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/space)
 "auq" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -3615,28 +3584,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/brig)
-"awF" = (
-/obj/structure/table/reinforced,
-/obj/item/paper_bin{
-	pixel_y = 10
-	},
-/obj/item/pen{
-	pixel_y = 9
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/space)
-"awG" = (
-/obj/structure/table/reinforced,
-/obj/item/folder/red{
-	pixel_y = 3
-	},
-/obj/item/storage/fancy/donut_box,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/space)
 "awH" = (
 /obj/structure/railing{
 	dir = 8
@@ -4218,11 +4165,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/cabin2)
-"aAJ" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkredfull"
-	},
-/area/space)
 "aAS" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -11527,15 +11469,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
-"boM" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/effect/landmark/start/security_officer,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/space)
 "boN" = (
 /obj/structure/cable/orange{
 	icon_state = "1-4"
@@ -21938,7 +21871,7 @@
 /area/maintenance/auxsolarport)
 "cdL" = (
 /obj/machinery/ai_status_display,
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/security/prisonershuttle)
 "cdO" = (
 /obj/structure/closet,
@@ -22153,15 +22086,6 @@
 /obj/effect/spawner/lootdrop/crate_spawner,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/asmaint5)
-"ceL" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/effect/landmark/start/security_officer,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkredfull"
-	},
-/area/space)
 "ceO" = (
 /obj/structure/chair{
 	dir = 8
@@ -22579,15 +22503,6 @@
 	icon_state = "vault"
 	},
 /area/security/armory)
-"cgX" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/effect/landmark/start/security_cadet,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/space)
 "cgZ" = (
 /obj/machinery/computer/med_data{
 	dir = 4
@@ -26000,16 +25915,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
-"cCh" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/effect/landmark/start/security_cadet,
-/obj/effect/landmark/start/security_cadet,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/space)
 "cCi" = (
 /obj/structure/table,
 /obj/machinery/cell_charger{
@@ -28307,15 +28212,6 @@
 	dir = 1
 	},
 /area/security/prison/cell_block/A)
-"cOl" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/effect/landmark/start/security_cadet,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkredfull"
-	},
-/area/space)
 "cOm" = (
 /obj/effect/landmark/start/mime,
 /turf/simulated/floor/plasteel{
@@ -29558,7 +29454,6 @@
 /area/bridge)
 "cUf" = (
 /obj/structure/chair/comfy/red,
-/obj/effect/landmark/start/head_of_security,
 /obj/effect/decal/warning_stripes/red/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -38461,10 +38356,7 @@
 /obj/structure/cable/orange{
 	icon_state = "0-4"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkredcorners"
-	},
+/turf/simulated/floor/plating,
 /area/security/reception)
 "eHy" = (
 /obj/effect/spawner/window/reinforced,
@@ -65681,9 +65573,6 @@
 "nQT" = (
 /obj/structure/chair,
 /obj/effect/landmark/start/civilian,
-/obj/machinery/alarm{
-	pixel_y = 24
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -67169,9 +67058,7 @@
 /area/space)
 "oqZ" = (
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
+/turf/simulated/floor/plasteel,
 /area/security/lobby)
 "org" = (
 /obj/structure/chair/office/light{
@@ -72030,9 +71917,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/medical/chemistry)
-"pVD" = (
-/turf/simulated/wall,
-/area/security/prisonershuttle)
 "pVH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -74749,12 +74633,6 @@
 "qMy" = (
 /turf/simulated/floor/transparent/glass/reinforced/plasma,
 /area/engine/engineering)
-"qMQ" = (
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/armory)
 "qMV" = (
 /obj/structure/cable/orange{
 	icon_state = "2-4"
@@ -77873,10 +77751,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkredcorners"
-	},
+/turf/simulated/floor/plating,
 /area/security/reception)
 "rQv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -86180,7 +86055,6 @@
 /obj/structure/chair/comfy/black{
 	dir = 8
 	},
-/obj/effect/landmark/start/head_of_security,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -87163,7 +87037,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/landmark/start/head_of_security,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -91148,12 +91021,6 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/surgery/north)
-"wpm" = (
-/obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/brig)
 "wpB" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -110732,8 +110599,8 @@ rNK
 rNK
 rNK
 rNK
-pVD
-pVD
+dqw
+dqw
 arV
 mZH
 arV
@@ -110741,10 +110608,10 @@ cdL
 arV
 mZH
 arV
-pVD
-pVD
-pVD
-pVD
+dqw
+dqw
+dqw
+dqw
 wEh
 anJ
 awp
@@ -110989,7 +110856,7 @@ rNK
 rNK
 rNK
 rNK
-pVD
+dqw
 aWm
 wFn
 mFT
@@ -111246,7 +111113,7 @@ rNK
 rNK
 rNK
 cRv
-ivS
+dqw
 doB
 ajA
 dpg
@@ -111503,7 +111370,7 @@ rNK
 rNK
 rNK
 cRv
-ivS
+dqw
 pPl
 ajB
 alW
@@ -111760,7 +111627,7 @@ rNK
 rNK
 rNK
 cRv
-abW
+dqw
 mCL
 mCL
 dqw
@@ -113522,14 +113389,14 @@ rNK
 rNK
 rNK
 rNK
-aka
-aka
-aka
-aka
-aka
-aka
-aka
-aka
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
 rNK
 rNK
 rNK
@@ -113779,14 +113646,14 @@ rNK
 rNK
 rNK
 rNK
-aka
-asa
-aka
-boM
-boM
-aka
-aka
-aka
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
 rNK
 rNK
 rNK
@@ -114036,14 +113903,14 @@ rNK
 rNK
 rNK
 rNK
-apA
-aum
-aAJ
-ceL
-boM
-cgX
-aAJ
-aka
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
 rNK
 rNK
 rNK
@@ -114088,7 +113955,7 @@ sZS
 afd
 djS
 bqV
-wpm
+dpu
 cUf
 szu
 rQZ
@@ -114293,14 +114160,14 @@ rNK
 rNK
 rNK
 rNK
-arW
-awF
-aAJ
-aka
-ceL
-cCh
-aAJ
-aka
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
 rNK
 rNK
 rNK
@@ -114550,14 +114417,14 @@ rNK
 rNK
 rNK
 rNK
-apA
-awG
-aAJ
-boM
-ceL
-cOl
-aAJ
-aka
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
 rNK
 rNK
 rNK
@@ -114807,14 +114674,14 @@ rNK
 rNK
 rNK
 rNK
-aka
-asa
-aka
-boM
-boM
-aka
-aka
-aka
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
 rNK
 rNK
 rNK
@@ -115064,14 +114931,14 @@ rNK
 rNK
 rNK
 rNK
-aka
-aka
-aka
-aka
-aka
-aka
-aka
-aka
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
 rNK
 rNK
 rNK
@@ -118435,16 +118302,16 @@ lzH
 rNK
 rNK
 cRv
+cRv
 abW
 abW
 abW
 abW
 abW
 abW
-abW
+afd
 afd
 aTz
-afd
 aTz
 aTz
 aTz
@@ -118691,17 +118558,17 @@ rNK
 lzH
 rNK
 rNK
-cRv
-cRv
-cRv
-cRv
+rNK
 cRv
 cRv
 cRv
 cRv
 abW
+abW
 afd
 afd
+afd
+aTz
 aTz
 aTz
 aTz
@@ -118952,14 +118819,14 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
 cRv
 cRv
-abW
-abW
 afd
+aTz
+aTz
+aTz
+aTz
+aTz
 aTz
 aTz
 afd
@@ -119210,14 +119077,14 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
 cRv
-abW
-abW
-abW
 afd
+aTz
+aTz
+aTz
+aTz
+aTz
+aTz
 aTz
 afd
 orL
@@ -119238,7 +119105,7 @@ bbe
 aBG
 bBH
 lXO
-qMQ
+ioE
 bVm
 ccN
 cgL
@@ -119467,14 +119334,14 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
 cRv
 cRv
-cRv
-abW
 afd
+aTz
+aTz
+aTz
+aTz
+aTz
 aTz
 aTz
 afd
@@ -119725,13 +119592,13 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
 cRv
-abW
 afd
+aTz
+aTz
+aTz
+aTz
+aTz
 aTz
 aTz
 aTz
@@ -119982,13 +119849,13 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
 cRv
-abW
+cRv
 afd
+afd
+aTz
+aTz
+aTz
 aTz
 aTz
 aTz
@@ -120240,11 +120107,11 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
 cRv
-abW
+cRv
+cRv
+afd
+afd
 afd
 aTz
 aTz
@@ -120499,10 +120366,10 @@ rNK
 rNK
 rNK
 rNK
-rNK
 cRv
 cRv
-abW
+cRv
+cRv
 nKz
 afd
 afd
@@ -121060,8 +120927,8 @@ gGF
 gGF
 gGF
 gGF
-gGF
-gGF
+pJd
+pJd
 cRv
 rNK
 rNK
@@ -121318,7 +121185,7 @@ gHl
 jpP
 jpP
 uOW
-kCz
+aka
 cRv
 abE
 rNK
@@ -121575,7 +121442,7 @@ rYt
 gIG
 gIG
 joE
-kCz
+aka
 cRv
 cRv
 rNK
@@ -121832,7 +121699,7 @@ gJa
 gIG
 iwW
 jpT
-kCz
+aka
 abW
 cRv
 rNK
@@ -122089,7 +121956,7 @@ gJd
 gIG
 gIG
 jqP
-kCz
+aka
 cRv
 cRv
 rNK
@@ -122346,7 +122213,7 @@ gJx
 gIG
 ixb
 jsi
-kCz
+aka
 cRv
 abE
 rNK
