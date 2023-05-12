@@ -44,7 +44,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/defiler/spider_specialattack(mob/living/carbon/human/L, poisonable)
 	L.AdjustSilence(10)
-	L.adjustStaminaLoss(45)
+	L.adjustStaminaLoss(50)
 	L.attack_animal(src)
 	if(!poisonable)
 		return ..()
