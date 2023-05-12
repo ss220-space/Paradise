@@ -285,7 +285,7 @@
 			for(var/datum/reagent/R in H.reagents.reagent_list)
 				if(R.shock_reduction)
 					health_deficiency -= R.shock_reduction
-		if(health_deficiency >= 40)
+		if(health_deficiency >= 40 && !(NO_PAIN in H.dna.species.species_traits))
 			if(flight)
 				. += (health_deficiency / 75)
 			else
