@@ -223,7 +223,7 @@ Doesn't work on other aliens/AI.*/
 	action_icon_state = "alien_neurotoxin"
 	action_background_icon_state = "bg_alien"
 	clothes_req = FALSE
-	charge_max = 5
+	charge_max = 0.5 SECONDS
 
 /obj/effect/proc_holder/spell/neurotoxin/Click()
 	if(cast_check())
@@ -325,7 +325,7 @@ Doesn't work on other aliens/AI.*/
 		to_chat(host, "<span class='warning'>No welded vent or scrubber nearby!</span>")
 		return
 	playsound(get_turf(host),'sound/weapons/bladeslice.ogg' , 100, 0)
-	if(do_after(host, 40, target = (pump_target? pump_target.loc : scrubber_target.loc)))
+	if(do_after(host, 4 SECONDS, target = (pump_target? pump_target.loc : scrubber_target.loc)))
 		playsound(get_turf(host),'sound/weapons/bladeslice.ogg' , 100, 0)
 		if(pump_target?.welded)
 			pump_target.welded = 0

@@ -107,7 +107,7 @@
 	switch(A.caste)
 		if("d") //drone breaks wall in 2 hits
 			damage = max_integrity/2/ALIEN_RESIN_BRUTE_MOD
-		if("q") //queen breaks wall in 2 hits
+		if("q") //queen breaks wall in 1 hit
 			damage = max_integrity/ALIEN_RESIN_BRUTE_MOD
 		else
 			return ..()
