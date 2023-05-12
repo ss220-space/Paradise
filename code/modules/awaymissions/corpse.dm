@@ -795,17 +795,17 @@
 	icon = 'icons/mob/carp.dmi'
 	icon_state = "base_dead"
 
-/obj/effect/mob_spawn/mouse_splat
+/obj/effect/mob_spawn/mousedead
 	mob_type = /mob/living/simple_animal/mouse
 	death = TRUE
-	name = "Splated mouse"
+	name = "Dead mouse"
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "mouse_brown_splat"
 
-/obj/effect/mob_spawn/rat_splat
+/obj/effect/mob_spawn/ratdead
 	mob_type = /mob/living/simple_animal/mouse/rat
 	death = TRUE
-	name = "Splated rat"
+	name = "Dead rat"
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "rat_white_splat"
 

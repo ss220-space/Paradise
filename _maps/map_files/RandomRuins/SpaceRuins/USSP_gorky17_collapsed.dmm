@@ -100,10 +100,7 @@
 	id_tag = "g17extlock";
 	layer = 3.3
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "at" = (
@@ -204,6 +201,11 @@
 /area/ruin/space/USSP_gorky17/collapsed/solars)
 "aW" = (
 /obj/effect/decal/cleanable/dust,
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_x = -6;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -356,10 +358,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/item/shard{
 	icon_state = "medium";
 	pixel_x = -7;
@@ -450,6 +449,15 @@
 "bM" = (
 /obj/item/shard{
 	icon_state = "small"
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_x = -6;
+	pixel_y = -8
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_y = 4
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
@@ -587,6 +595,9 @@
 "bZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/door_assembly/door_assembly_sec,
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "cb" = (
@@ -879,7 +890,8 @@
 /area/ruin/space/USSP_gorky17/collapsed/kitchen)
 "db" = (
 /obj/effect/mapping_helpers/light{
-	light_range = 5
+	light_range = 5;
+	layer = 5
 	},
 /turf/space,
 /area/template_noop)
@@ -917,6 +929,10 @@
 	},
 /obj/machinery/door/firedoor/border_only/closed{
 	dir = 8
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_x = 5
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
@@ -1215,6 +1231,11 @@
 	dir = 1
 	},
 /area/ruin/space/USSP_gorky17/collapsed/common)
+"em" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mob_spawn/mousedead,
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/common)
 "en" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1274,6 +1295,22 @@
 	icon_state = "yellow"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
+"es" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_y = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/engineering)
 "et" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1288,7 +1325,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/solars)
 "ew" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mob_spawn/mouse_splat,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/utility)
@@ -1573,6 +1609,11 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/trash/spentcasing{
+	icon_state = "s-casing";
+	pixel_x = -6;
+	pixel_y = 10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -1589,6 +1630,17 @@
 /obj/machinery/atmospherics/unary/tank,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
+"fq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_x = -6;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/ruin/space/USSP_gorky17/collapsed/check2)
 "fs" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light/small{
@@ -1629,10 +1681,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/item/shard{
 	icon_state = "small"
 	},
@@ -1657,11 +1706,9 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/effect/decal/cleanable/ash,
+/obj/effect/decal/cleanable/blood/gibs/old,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "fB" = (
@@ -1711,6 +1758,11 @@
 /obj/machinery/door/firedoor/border_only{
 	dir = 8
 	},
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_x = -6;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "fK" = (
@@ -1745,10 +1797,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "fR" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/machinery/door/poddoor,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
@@ -1918,10 +1967,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
 "gq" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/space,
 /area/template_noop)
 "gr" = (
@@ -1941,6 +1987,14 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/angar)
+"gv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_y = -6
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/check2)
 "gw" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -2024,8 +2078,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "gJ" = (
-/obj/effect/mob_spawn/mouse_splat,
 /obj/effect/decal/cleanable/blood,
+/obj/effect/mob_spawn/mousedead,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/check2)
 "gK" = (
@@ -2466,10 +2520,7 @@
 	icon_state = "1-4"
 	},
 /obj/structure/cable,
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "ic" = (
@@ -2947,10 +2998,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "jO" = (
@@ -3112,10 +3160,7 @@
 	dir = 1;
 	layer = 2.9
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "kj" = (
@@ -3731,6 +3776,18 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/check1)
+"mo" = (
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/structure/grille,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/rnd)
 "mp" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/bottle/vodka,
@@ -3780,10 +3837,7 @@
 	id_tag = "SecPilotPriv";
 	name = "Gorky17 gate"
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "my" = (
@@ -4060,18 +4114,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintsouth)
 "no" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/mob_spawn/mouse_splat,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mob_spawn/ratdead,
+/turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "nq" = (
 /obj/effect/spawner/window/reinforced,
@@ -4431,10 +4476,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "ox" = (
@@ -4785,6 +4827,11 @@
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/USSP_gorky17/collapsed/asteroids)
+"pM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/gibs/body,
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/check2)
 "pN" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -4871,10 +4918,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "qg" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "qh" = (
@@ -4909,6 +4953,7 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5083,6 +5128,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/ash,
+/obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "qQ" = (
@@ -5164,7 +5210,6 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mob_spawn/rat_splat,
 /obj/machinery/door/firedoor/border_only/closed{
 	dir = 1
 	},
@@ -5390,6 +5435,7 @@
 "rG" = (
 /obj/effect/decal/cleanable/blood/oil,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mob_spawn/ratdead,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/utility)
 "rH" = (
@@ -5422,7 +5468,6 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/effect/mob_spawn/rat_splat,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
@@ -5774,10 +5819,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/check1)
 "sU" = (
 /obj/machinery/door/poddoor,
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "sV" = (
@@ -5919,6 +5961,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
+"to" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mob_spawn/mousedead,
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/common)
 "tp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
@@ -6175,15 +6223,26 @@
 /obj/item/stack/rods{
 	amount = 4
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/item/shard{
 	icon_state = "small"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
+"uc" = (
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_y = 4
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing"
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_y = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/common)
 "ue" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/power/tracker,
@@ -6659,6 +6718,14 @@
 	dir = 1
 	},
 /area/ruin/space/USSP_gorky17/collapsed/common)
+"vO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/common)
 "vP" = (
 /turf/simulated/wall/r_wall/rust,
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
@@ -6774,6 +6841,10 @@
 	icon_state = "whitered"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
+"wc" = (
+/obj/effect/decal/cleanable/blood/gibs/body,
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/check2)
 "wd" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
@@ -6855,6 +6926,18 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
+"wr" = (
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/structure/grille,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/rnd)
 "ws" = (
 /turf/space,
 /area/ruin/space/USSP_gorky17/collapsed/angar)
@@ -6936,6 +7019,18 @@
 	icon_state = "solarpanel"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/solars)
+"wI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_x = 6;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/ruin/space/USSP_gorky17/collapsed/gate)
 "wK" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -7116,6 +7211,10 @@
 	icon_state = "1-2";
 	tag = ""
 	},
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_y = -6
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "xl" = (
@@ -7157,6 +7256,11 @@
 	dir = 1
 	},
 /area/ruin/space/USSP_gorky17/collapsed/check1)
+"xt" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mob_spawn/ratdead,
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/medbay)
 "xu" = (
 /obj/machinery/door/airlock/security{
 	name = "Gorky17 hangar airlock";
@@ -7193,10 +7297,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
@@ -7372,6 +7473,15 @@
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
+/area/ruin/space/USSP_gorky17/collapsed/common)
+"yk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/trash/spentcasing{
+	icon_state = "s-casing";
+	pixel_x = 8;
+	pixel_y = 7
+	},
+/turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "ym" = (
 /obj/structure/cable{
@@ -7564,6 +7674,11 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil{
 	amount = 3
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_x = -6;
+	pixel_y = -8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -7899,6 +8014,28 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
+"zS" = (
+/obj/item/trash/spentcasing{
+	icon_state = "s-casing";
+	pixel_x = 9;
+	pixel_y = -10
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "s-casing";
+	pixel_x = -6;
+	pixel_y = 10
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "s-casing";
+	pixel_x = 8;
+	pixel_y = 7
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "s-casing";
+	pixel_x = 16
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/common)
 "zT" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -8082,6 +8219,7 @@
 /obj/effect/decal/warning_stripes/red/partial{
 	dir = 8
 	},
+/obj/effect/mob_spawn/ratdead,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "As" = (
@@ -8322,8 +8460,8 @@
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "Ba" = (
 /obj/effect/decal/cleanable/dust,
-/obj/effect/mob_spawn/rat_splat,
 /obj/effect/decal/cleanable/blood,
+/obj/effect/mob_spawn/ratdead,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintsouth)
 "Bb" = (
@@ -8374,10 +8512,7 @@
 	id_tag = "g17extlock";
 	layer = 3.3
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "Bi" = (
@@ -8397,6 +8532,14 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_y = 4
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_x = 5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -8630,10 +8773,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/item/shard{
 	icon_state = "medium"
 	},
@@ -8840,6 +8980,13 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/vault,
 /area/ruin/space/USSP_gorky17/collapsed/vault)
+"CX" = (
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_y = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/common)
 "CZ" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -8905,6 +9052,10 @@
 	req_access = list(122);
 	pixel_y = -24;
 	dir = 1
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_x = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -9054,10 +9205,7 @@
 	id_tag = "SecPilotPriv";
 	name = "Gorky17 gate"
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/item/stack/rods{
 	amount = 4
 	},
@@ -9153,6 +9301,10 @@
 "DL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_y = 4
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/check2)
 "DM" = (
@@ -9226,6 +9378,13 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/gate)
+"Eb" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/ruin/space/USSP_gorky17/collapsed/check2)
 "Ee" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -9376,6 +9535,7 @@
 "Eu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
+/obj/effect/mob_spawn/mousedead,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "EA" = (
@@ -9738,6 +9898,19 @@
 /obj/effect/decal/cleanable/ash,
 /turf/space,
 /area/template_noop)
+"Ft" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/engineering)
 "Fu" = (
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall/r_wall/rust,
@@ -10390,6 +10563,24 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/angar)
+"HG" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_x = -6;
+	pixel_y = -8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/ruin/space/USSP_gorky17/collapsed/common)
 "HI" = (
 /obj/structure/table,
 /obj/machinery/microscope,
@@ -10648,15 +10839,43 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/item/shard{
 	icon_state = "small"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
+"IB" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/trash/spentcasing{
+	icon_state = "s-casing";
+	pixel_x = 8;
+	pixel_y = 7
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/ruin/space/USSP_gorky17/collapsed/common)
+"IC" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/engineering)
 "ID" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -10744,9 +10963,20 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/angar)
+"IO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/trash/spentcasing{
+	icon_state = "s-casing";
+	pixel_x = 9;
+	pixel_y = -10
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "red"
+	},
+/area/ruin/space/USSP_gorky17/collapsed/common)
 "IP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mob_spawn/rat_splat,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -11438,10 +11668,7 @@
 	id_tag = "g17extlock";
 	layer = 3.3
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "KZ" = (
@@ -11601,7 +11828,6 @@
 "LG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mob_spawn/mouse_splat,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
@@ -11750,10 +11976,7 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/kitchen)
 "Mg" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/structure/lattice,
 /turf/space,
 /area/template_noop)
@@ -11835,6 +12058,10 @@
 	name = "Gorky17 security camera"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/trash/spentcasing{
+	icon_state = "s-casing";
+	pixel_x = 16
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -11928,10 +12155,7 @@
 	id_tag = "SecPilotPriv";
 	name = "Gorky17 gate"
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
@@ -12247,6 +12471,7 @@
 	pixel_y = 21;
 	req_access = list(121,122,123,124,125,126)
 	},
+/obj/effect/mob_spawn/ratdead,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
 "NB" = (
@@ -12627,7 +12852,6 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mob_spawn/mouse_splat,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
@@ -12860,7 +13084,6 @@
 	name = "Gorky17 area power controller";
 	start_charge = 0
 	},
-/obj/effect/mob_spawn/rat_splat,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "Pn" = (
@@ -12903,6 +13126,18 @@
 	icon_state = "darkred"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/angar)
+"Px" = (
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_x = 5
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_x = 6;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/check2)
 "Py" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -13053,6 +13288,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
+"Qg" = (
+/obj/effect/decal/cleanable/blood/gibs,
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/check2)
 "Qj" = (
 /obj/effect/decal/warning_stripes/southeast,
 /obj/effect/decal/cleanable/dust,
@@ -13307,6 +13546,10 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_x = 5
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "QW" = (
@@ -13703,10 +13946,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/check2)
 "So" = (
@@ -13948,11 +14188,15 @@
 /turf/space,
 /area/ruin/space/USSP_gorky17/collapsed/solars)
 "Tc" = (
-/obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
 /obj/structure/cable,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/grille,
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/check2)
 "Tf" = (
@@ -13998,11 +14242,27 @@
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "To" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_x = -6;
+	pixel_y = -8
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_x = 5
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "red"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/common)
+"Tp" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/engineering)
 "Tq" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -14035,7 +14295,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "Tv" = (
 /obj/machinery/atmospherics/unary/vent_pump,
-/obj/effect/mob_spawn/rat_splat,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
@@ -14355,10 +14614,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/utility)
 "UK" = (
 /obj/structure/lattice,
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/space,
 /area/template_noop)
 "UL" = (
@@ -14408,6 +14664,17 @@
 	icon_state = "darkfull"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
+"Va" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_x = -6;
+	pixel_y = -8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/USSP_gorky17/collapsed/gate)
 "Vb" = (
 /obj/structure/closet,
 /obj/item/clothing/under/soviet,
@@ -14990,6 +15257,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
+/obj/effect/mob_spawn/mousedead,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -15038,10 +15306,12 @@
 /turf/space,
 /area/ruin/space/USSP_gorky17/collapsed/solars)
 "WQ" = (
-/obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
+	},
+/obj/structure/window/reinforced{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/check2)
@@ -15084,6 +15354,18 @@
 	icon_state = "darkfull"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
+"WZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_y = 4
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_x = 5
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/check2)
 "Xb" = (
 /obj/structure/table/reinforced,
 /obj/structure/extinguisher_cabinet{
@@ -15334,10 +15616,7 @@
 	id_tag = "g17extlock";
 	layer = 3.3
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "XM" = (
@@ -15756,10 +16035,7 @@
 	id_tag = "SecPilotPriv";
 	name = "Gorky17 gate"
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/item/shard{
 	icon_state = "medium"
 	},
@@ -35053,7 +35329,7 @@ ny
 dh
 Rl
 LJ
-eP
+zS
 cv
 Py
 za
@@ -35245,7 +35521,7 @@ MW
 hn
 If
 we
-no
+IB
 Vp
 BP
 MY
@@ -35450,14 +35726,14 @@ VG
 ny
 zr
 fm
-gi
+IO
 Bp
 GX
 Jx
 gi
 gi
 gi
-sz
+to
 GX
 EX
 rd
@@ -35843,7 +36119,7 @@ xz
 ZR
 ZR
 VP
-ch
+xt
 Lk
 VP
 VP
@@ -35851,7 +36127,7 @@ Yr
 ic
 PE
 jA
-GX
+yk
 bd
 GD
 Ic
@@ -36253,8 +36529,8 @@ Zf
 Zf
 Zf
 Zf
-eP
-sz
+CX
+vO
 To
 Jw
 zT
@@ -36278,7 +36554,7 @@ Md
 Md
 WA
 YY
-Mh
+Tp
 XP
 IP
 Mh
@@ -36457,7 +36733,7 @@ lg
 dh
 QU
 GX
-eP
+uc
 wx
 IJ
 yg
@@ -36478,7 +36754,7 @@ gU
 YY
 Eu
 bM
-Wt
+es
 IT
 JF
 ku
@@ -36658,7 +36934,7 @@ ts
 uN
 lK
 bZ
-PY
+HG
 EX
 pq
 bv
@@ -36678,7 +36954,7 @@ WJ
 qD
 pl
 ql
-QV
+IC
 QV
 xk
 qt
@@ -37084,7 +37360,7 @@ HD
 Md
 YY
 XP
-Wt
+Ft
 hg
 Lq
 YY
@@ -37464,7 +37740,7 @@ oN
 Jt
 kI
 YT
-Pb
+Eb
 De
 Pp
 hE
@@ -37667,7 +37943,7 @@ VC
 ou
 zB
 yR
-Vg
+gv
 dL
 KP
 Vg
@@ -37864,11 +38140,11 @@ zR
 Wj
 hS
 qL
-my
+wI
 Dz
 HC
 yW
-Vg
+pM
 lc
 WQ
 dS
@@ -38070,7 +38346,7 @@ kT
 ih
 Ke
 Pb
-Vg
+WZ
 gJ
 Sk
 MP
@@ -38086,7 +38362,7 @@ CW
 oq
 oq
 wz
-xv
+em
 GX
 SH
 SH
@@ -38273,7 +38549,7 @@ Fi
 BX
 Fk
 Xf
-zB
+Px
 Tc
 ss
 Pb
@@ -38474,7 +38750,7 @@ RF
 BZ
 Ue
 do
-zB
+Qg
 uU
 Pp
 Kx
@@ -38873,11 +39149,11 @@ Xb
 qL
 LM
 oe
-Mc
+Va
 dD
 rL
 ib
-Pb
+Eb
 zB
 zB
 FY
@@ -39080,7 +39356,7 @@ Dz
 KH
 fA
 ru
-Pb
+fq
 kk
 rm
 Un
@@ -39485,7 +39761,7 @@ sV
 ts
 Do
 Pb
-zB
+wc
 NC
 Rw
 NC
@@ -40094,7 +40370,7 @@ lK
 eh
 PY
 GX
-TU
+wr
 kf
 sk
 GR
@@ -40497,8 +40773,8 @@ yT
 zD
 ny
 GX
-eP
-UF
+zS
+mo
 bi
 wd
 rv
@@ -40925,7 +41201,7 @@ mB
 Lb
 qg
 fB
-db
+fB
 fB
 Db
 fB
@@ -41128,7 +41404,7 @@ uo
 uo
 fB
 KZ
-fB
+db
 Db
 fB
 fB
@@ -41511,7 +41787,7 @@ dH
 EX
 fO
 eP
-xv
+no
 Mo
 At
 GX
@@ -41519,7 +41795,7 @@ GX
 Mo
 sn
 eP
-xv
+no
 Ep
 AL
 tu
