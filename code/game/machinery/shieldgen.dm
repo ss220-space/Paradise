@@ -23,6 +23,9 @@
 	air_update_turf(1)
 	return ..()
 
+/obj/machinery/shield/has_prints()
+	return FALSE
+
 /obj/machinery/shield/Move()
 	var/turf/T = loc
 	. = ..()
@@ -470,6 +473,7 @@
 			return
 
 		else if(state == 0)
+			add_fingerprint(user)
 			state = 1
 			playsound(loc, I.usesound, 75, 1)
 			to_chat(user, "You secure the external reinforcing bolts to the floor.")
@@ -477,6 +481,7 @@
 			return
 
 		else if(state == 1)
+			add_fingerprint(user)
 			state = 0
 			playsound(loc, I.usesound, 75, 1)
 			to_chat(user, "You undo the external reinforcing bolts.")
@@ -485,13 +490,13 @@
 
 	if(I.GetID() || ispda(I))
 		if(allowed(user))
+			add_fingerprint(user)
 			locked = !locked
 			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 
 	else
-		add_fingerprint(user)
 		..()
 
 /obj/machinery/shieldwallgen/proc/cleanup(NSEW)

@@ -33,10 +33,7 @@
 			queue_smooth_neighbors(T)
 	return ..()
 
-/*
-* Proc thats checks if mobs can leave fingerprints and fibers on this structure
-*/
-/obj/structure/proc/has_prints()
+/obj/structure/has_prints()
 	return TRUE
 
 /obj/structure/attack_hand(mob/living/user)
@@ -45,7 +42,7 @@
 	return ..()
 
 /obj/structure/attackby(obj/item/P, mob/user, params)
-	if(has_prints() && !(istype(P, /obj/item/detective_scanner)))
+	if(has_prints() && Adjacent(user) && !(istype(P, /obj/item/detective_scanner)))
 		add_fingerprint(user)
 	return ..()
 
