@@ -1,5 +1,5 @@
 #define TS_HIGHPOP_TRIGGER 80
-#define TS_MIDPOP_TRIGGER 50
+#define TS_MIDPOP_TRIGGER 40
 
 /datum/event/spider_terror
 	announceWhen = 180

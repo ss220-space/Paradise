@@ -14,14 +14,14 @@
 	icon_state = "terror_white"
 	icon_living = "terror_white"
 	icon_dead = "terror_white_dead"
-	maxHealth = 200
-	health = 200
+	maxHealth = 240
+	health = 240
 	death_sound = 'sound/creatures/terrorspiders/death2.ogg'
 	speed = -0.3
-	melee_damage_lower = 2
-	melee_damage_upper = 5
+	melee_damage_lower = 1
+	melee_damage_upper = 1
 	spider_opens_doors = 2
-	spider_tier = TS_TIER_2
+	spider_tier = TS_TIER_3
 	gender = MALE
 	web_type = /obj/structure/spider/terrorweb/white
 	delay_web = 15
@@ -44,8 +44,9 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/defiler/spider_specialattack(mob/living/carbon/human/L)
 	var/inject_target = pick("chest","head")
-	L.AdjustSilence(7)
+	L.AdjustSilence(10)
 	L.adjustStaminaLoss(39)
+	L.attack_animal(src)
 	if(!IsTSInfected(L) && ishuman(L))
 		visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [L]!</span>")
 		new /obj/item/organ/internal/body_egg/terror_eggs(L)
