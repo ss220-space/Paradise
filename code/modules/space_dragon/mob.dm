@@ -60,6 +60,7 @@
 	maxbodytemp = 1500
 	faction = list("carp")
 	pressure_resistance = 200
+	sentience_type = SENTIENCE_BOSS
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	/// How much endlag using Wing Gust should apply.  Each use of wing gust increments this, and it decreases over time.
