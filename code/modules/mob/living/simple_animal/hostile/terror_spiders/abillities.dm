@@ -237,7 +237,7 @@
 	range = 7
 	sound = 'sound/creatures/terrorspiders/white_shriek.ogg'
 
-/obj/effect/proc_holder/spell/aoe_turf/terror/princess/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/aoe_turf/terror/terrify/cast(list/targets, mob/user = usr)
 	for(var/turf/T in targets)
 		for(var/mob/target in T.contents)
 			if(iscarbon(target))
