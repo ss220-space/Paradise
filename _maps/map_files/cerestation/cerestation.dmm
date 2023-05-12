@@ -15995,7 +15995,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+/obj/machinery/atmospherics/pipe/simple/visible/scrubbers{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel{
