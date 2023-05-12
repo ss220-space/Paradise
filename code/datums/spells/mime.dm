@@ -61,6 +61,9 @@
 		else
 			to_chat(H, "<span class='notice'>You break your vow of silence.</span>")
 
+/obj/effect/proc_holder/spell/targeted/mime/speak/mask
+	var/from_mask = TRUE
+
 //Advanced Mimery traitor item spells
 
 /obj/effect/proc_holder/spell/targeted/forcewall/mime
