@@ -222,12 +222,14 @@
 		return
 
 	if(active)
+		add_fingerprint(user)
 		user.visible_message("<span class='notice'>[bicon(src)] [user] deactivated the shield generator.</span>", \
 			"<span class='notice'>[bicon(src)] You deactivate the shield generator.</span>", \
 			"You hear heavy droning fade out.")
 		shields_down()
 	else
 		if(anchored)
+			add_fingerprint(user)
 			user.visible_message("<span class='notice'>[bicon(src)] [user] activated the shield generator.</span>", \
 				"<span class='notice'>[bicon(src)] You activate the shield generator.</span>", \
 				"You hear heavy droning.")
@@ -237,6 +239,7 @@
 
 /obj/machinery/shieldgen/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/card/emag))
+		add_fingerprint(user)
 		malfunction = TRUE
 		update_icon()
 
@@ -246,6 +249,7 @@
 		if(do_after(user, 30 * coil.toolspeed * gettoolspeedmod(user), target = src))
 			if(!src || !coil)
 				return
+			add_fingerprint(user)
 			coil.use(1)
 			health = max_health
 			malfunction = TRUE
@@ -255,6 +259,7 @@
 
 	else if(I.GetID())
 		if(allowed(user))
+			add_fingerprint(user)
 			locked = !locked
 			to_chat(user, "The controls are now [locked ? "locked." : "unlocked."]")
 		else

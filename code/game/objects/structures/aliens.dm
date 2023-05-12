@@ -35,6 +35,9 @@
 			if(damage_amount)
 				playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
+/obj/structure/alien/has_prints()
+	return FALSE
+
 /*
  * Resin
  */

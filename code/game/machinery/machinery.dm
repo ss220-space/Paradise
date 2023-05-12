@@ -383,6 +383,8 @@ Class Procs:
 		power_change()
 
 /obj/machinery/attackby(obj/item/O, mob/user, params)
+	if(!(istype(O, /obj/item/detective_scanner)))
+		add_fingerprint(user)
 	if(istype(O, /obj/item/stack/nanopaste))
 		var/obj/item/stack/nanopaste/N = O
 		if(stat & BROKEN)

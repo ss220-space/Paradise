@@ -33,6 +33,22 @@
 			queue_smooth_neighbors(T)
 	return ..()
 
+/*
+* Proc thats checks if mobs can leave fingerprints and fibers on this structure
+*/
+/obj/structure/proc/has_prints()
+	return TRUE
+
+/obj/structure/attack_hand(mob/living/user)
+	if(has_prints() && Adjacent(user))
+		add_fingerprint(user)
+	return ..()
+
+/obj/structure/attackby(obj/item/P, mob/user, params)
+	if(has_prints() && !(istype(P, /obj/item/detective_scanner)))
+		add_fingerprint(user)
+	return ..()
+
 /obj/structure/proc/climb_on()
 
 	set name = "Climb structure"
