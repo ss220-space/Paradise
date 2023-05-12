@@ -324,9 +324,11 @@
 	icon_state = "erthelmet_jan"
 
 /obj/item/clothing/head/helmet/buckhelm
-	desc = "A helmet made from bucket."
+	name = "buckhelm"
+	desc = "Makesheft bucket helmet. Now you can call yourself as Knight of mop and soap."
 	icon_state = "buckhelm"
 	item_state = "buckhelm"
+	flags_inv = HIDEHEADSETS
 	resistance_flags = FIRE_PROOF
 	armor = list("melee" = 8, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	strip_delay = 7 SECONDS
