@@ -322,9 +322,9 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/cell = 5,
 							/obj/item/stock_parts/capacitor = 1)
 
-/obj/item/circuitboard/smes/soviet
+/obj/item/circuitboard/smes/vintage
 	name = "circuit board (SMES)"
-	build_path = /obj/machinery/power/smes/soviet
+	build_path = /obj/machinery/power/smes/vintage
 	origin_tech = "programming=2;powerstorage=2;engineering=2"
 	req_components = list(
 							/obj/item/stack/cable_coil = 7,

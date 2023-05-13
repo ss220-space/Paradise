@@ -111,6 +111,20 @@
 	report_alerts = FALSE
 	requires_power = TRUE
 	fire = TRUE
+	ambientsounds = list('sound/ambience/spooky/howled_4.ogg',\
+						'sound/ambience/spooky/psy_amb.ogg',\
+						'sound/ambience/spooky/rnd_ugrnd_amb_4.ogg',\
+						'sound/ambience/spooky/rnd_ugrnd_amb_5.ogg',\
+						'sound/ambience/spooky/ugrnd_ambient_banging_1.ogg',\
+						'sound/ambience/spooky/ugrnd_ambient_banging_2.ogg',\
+						'sound/ambience/spooky/ugrnd_drip_3.ogg',\
+						'sound/ambience/spooky/ugrnd_drip_4.ogg',\
+						'sound/ambience/spooky/ugrnd_drip_5.ogg',\
+						'sound/ambience/spooky/ugrnd_drip_6.ogg',\
+						'sound/ambience/spooky/ugrnd_drip_7.ogg',\
+						'sound/ambience/spooky/ugrnd_lab_3.ogg',\
+						'sound/ambience/spooky/ugrnd_whispers_1.ogg',\
+						'sound/ambience/spooky/ugrnd_whispers_4.ogg')
 
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth
 	name = "Gorky17 North sol maintenance"
@@ -455,3 +469,41 @@
 	brute_damage = rand(0, 400)
 	burn_damage = rand(0, 400)
 	return ..()
+
+//// Carp souls
+
+/mob/living/simple_animal/hostile/carp/lostsoul
+	gold_core_spawnable = NO_SPAWN
+	name = "Lost soul"
+	desc = "A transparent aggressive entity."
+	icon = 'icons/mob/mob.dmi'
+	icon_state = "ifrit"
+	icon_living = "ifrit"
+	icon_dead = null
+	icon_gib = null
+	maxHealth = 70
+	health = 70
+	attacktext = "hits"
+	attack_sound = 'sound/weapons/punch2.ogg'
+	random_color = FALSE
+
+	harm_intent_damage = 10
+	obj_damage = 50
+	melee_damage_lower = 15
+	melee_damage_upper = 15
+
+/mob/living/simple_animal/hostile/carp/lostsoul/death(gibbed)
+	. = ..(gibbed)
+	if(!.)
+		return FALSE
+	LoseTarget()
+	qdel(src)
+
+/mob/living/simple_animal/hostile/carp/lostsoul/Initialize()
+	update_icons()
+
+/mob/living/simple_animal/hostile/carp/lostsoul/add_carp_overlay()
+	return
+
+/mob/living/simple_animal/hostile/carp/lostsoul/carp_randomify()
+	return

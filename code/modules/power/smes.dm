@@ -495,7 +495,7 @@
 	charge = INFINITY
 	..()
 
-/obj/machinery/power/smes/soviet
+/obj/machinery/power/smes/vintage
 	name = "power storage unit"
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit. Old but not useless."
 	icon_state = "oldsmes"

@@ -455,7 +455,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	origin_tech = "combat=4;materials=3"
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
-	self_shot_divisor = 4
+	self_shot_divisor = 5
 	malf_high_bound = 100
 	burst_size = 5
 	fire_delay = 1.5

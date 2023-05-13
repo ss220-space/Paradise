@@ -283,9 +283,7 @@
 	icon_state = "deadbody2"
 	density = 0
 	max_integrity = 5
-	var/bloodtiles = 8  // distance in tiles with blood while pulling
-	var/list/hit_sounds = list('sound/weapons/genhit1.ogg', 'sound/weapons/genhit2.ogg', 'sound/weapons/genhit3.ogg',\
-	'sound/weapons/punch1.ogg', 'sound/weapons/punch2.ogg', 'sound/weapons/punch3.ogg', 'sound/weapons/punch4.ogg')
+	var/bloodtiles = 8  // number of tiles with blood while pulling
 
 /obj/structure/decorative_structures/corpse/Initialize()
 	START_PROCESSING(SSobj, src)
@@ -356,6 +354,5 @@
 		M.vomit()
 		M.emote("cough")
 		return 1
-
 /datum/effect_system/smoke_spread/vomiting
 	effect_type = /obj/effect/particle_effect/smoke/vomiting
