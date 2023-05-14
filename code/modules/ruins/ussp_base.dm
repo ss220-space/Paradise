@@ -6,8 +6,8 @@ obj/effect/mob_spawn/human/ussp_general
 	id_job = "Генерал СССП"
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "cryo_s"
-	important_info = ""
-	description = "Вы - генерал СССП станции! Руководите оставшимся членами экипажа, и по возможности обустройте станцию и установите контакт с начальством, дабы вас могли забрать!"
+	important_info = "Вы - не антагонист! Ваша задача наладить контакт со станцией."
+	description = "Вы - генерал СССП станции! Руководите оставшимся членами экипажа, и по возможности обустройте станцию и установите контакт с неизвестной станцией, которая находитья неподалёку от вас."
 	flavour_text = "Вы являетесь единственным выжившим главнокомандующим на разрушенной станции СССП. Вы должны отдавать приказы оставшемуся  персоналу и не дать ему умереть. Вашей первостепенной задачей будет попытка наладить контакт с неизвестной станцией, которая находится в бижайшем секторе от вас."
 	outfit = /datum/outfit/ussp_general
 	assignedrole = TAIPAN_SCIENTIST
@@ -62,7 +62,7 @@ obj/effect/mob_spawn/human/ussp_engineer
 	id_job = "Инженер СССП"
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "cryo_s"
-	important_info = ""
+	important_info = "Вы - не антагонист! Ваша задача наладить контакт со станцией."
 	description = "Вы - инженер СССП станции!Постарайтесь держать станцию на плаву!"
 	flavour_text = "Вы один из немногих выживших на разрушенной станции СССП. Вы лишь отрывками вспоминаете, как убегали от чего-то ужасного. Вашей задачей будет исполнять приказы адмирала. А также привести станцию в хоть какой-то порядок."
 	outfit = /datum/outfit/ussp_engineer
@@ -77,6 +77,7 @@ obj/effect/mob_spawn/human/ussp_engineer
 	faction = list("ussp")
 	min_hours = 10
 	exp_type = EXP_TYPE_LIVING
+	assignedrole = "Ussp"
 
 /obj/item/card/id/ussp_engineer
 	name = "ussp engineer ID card"
@@ -119,7 +120,7 @@ obj/effect/mob_spawn/human/ussp_security
 	id_job = "Сотрудник безопасности СССП"
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "cryo_s"
-	important_info = ""
+	important_info = "Вы - не антагонист! Ваша задача наладить контакт со станцией."
 	description = "Вы - сотрудник безопасности СССП станции!Постарайтесь держать станцию на плаву!"
 	flavour_text = "Ранее вы следили за порядком на этой станции... Ранее. Вы смутно припоминаете, как вместе с другим офицером напились до отключки и впали в криосон. Теперь вашей задачей будет защита адмирала, а также починка станции."
 	outfit = /datum/outfit/ussp_security
@@ -134,6 +135,7 @@ obj/effect/mob_spawn/human/ussp_security
 	faction = list("ussp")
 	min_hours = 10
 	exp_type = EXP_TYPE_LIVING
+	assignedrole = "Ussp"
 
 /obj/item/card/id/ussp_security
 	name = "ussp security ID card"
@@ -174,7 +176,7 @@ obj/effect/mob_spawn/human/ussp_scientist
 	id_job = "Учённый СССП"
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "cryo_s"
-	important_info = ""
+	important_info = "Вы - не антагонист! Ваша задача наладить контакт со станцией."
 	description = "Вы - Учённый СССП станции! Постарайтесь выжить!"
 	flavour_text = "Вы смутно что то припоминаете. Ваша задача попытаться выжить."
 	outfit = /datum/outfit/ussp_scientist
@@ -189,6 +191,7 @@ obj/effect/mob_spawn/human/ussp_scientist
 	faction = list("ussp")
 	min_hours = 10
 	exp_type = EXP_TYPE_LIVING
+	assignedrole = "Ussp"
 
 datum/outfit/ussp_scientist
 	name = "Учённый СССП"
@@ -214,3 +217,4 @@ datum/outfit/ussp_scientist
 	item_state = "ussp"
 	registered_name = "Central Command"
 	assignment = "General"
+	access = list(USSP_ENGINEERING)
