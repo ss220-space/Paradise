@@ -15433,6 +15433,9 @@
 /obj/item/robot_parts/robot_component/armour{
 	pixel_x = -4
 	},
+/obj/item/robot_parts/robot_component/armour{
+	pixel_x = -4
+	},
 /obj/item/stack/nanopaste{
 	pixel_x = 5
 	},
@@ -26390,19 +26393,22 @@
 /obj/item/stack/cable_coil{
 	pixel_y = 10
 	},
-/obj/item/stock_parts/cell/high{
+/obj/item/stock_parts/cell/bluespace{
 	pixel_x = 6;
 	pixel_y = 1
 	},
-/obj/item/stock_parts/cell/high{
+/obj/item/stock_parts/cell/bluespace{
 	pixel_x = 6;
 	pixel_y = 1
 	},
-/obj/item/stock_parts/cell/high{
+/obj/item/stock_parts/cell/bluespace{
 	pixel_x = 6;
 	pixel_y = 1
 	},
-/obj/item/robot_parts/robot_component/armour,
+/obj/item/stock_parts/cell/bluespace{
+	pixel_x = 6;
+	pixel_y = 1
+	},
 /obj/machinery/recharger/wallcharger{
 	pixel_x = 30
 	},
@@ -32347,7 +32353,7 @@
 /area/centcom/bridge)
 "qxu" = (
 /obj/structure/table/glass,
-/obj/item/storage/backpack/duffel/syndie/surgery_fake,
+/obj/item/storage/backpack/duffel/syndie/surgery,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},

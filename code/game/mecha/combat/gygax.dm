@@ -73,7 +73,7 @@
 	deflect_chance = 20
 	armor = list(melee = 40, bullet = 40, laser = 50, energy = 35, bomb = 20, bio = 0, rad =20, fire = 100, acid = 100)
 	max_temperature = 35000
-	leg_overload_coeff = 100
+	leg_overload_coeff = 2
 	operation_req_access = list(ACCESS_SYNDICATE)
 	wreckage = /obj/structure/mecha_wreckage/gygax/dark
 	max_equip = 4
@@ -97,7 +97,7 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
 	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay
+	ME = new /obj/item/mecha_parts/mecha_equipment/repair_droid
 	ME.attach(src)
 
 /obj/mecha/combat/gygax/dark/add_cell()
