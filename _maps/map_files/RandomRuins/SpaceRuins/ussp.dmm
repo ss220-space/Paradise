@@ -7605,6 +7605,37 @@
 	tag = "icon-redfull (NORTHWEST)"
 	},
 /area/derelict/arrival)
+"wg" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door_control{
+	id = "rusbridge";
+	name = "Bridge Shutters";
+	pixel_x = -6;
+	pixel_y = -3
+	},
+/obj/machinery/door_control{
+	id = "ruslock";
+	name = "Central Annex lockdown";
+	pixel_x = -6;
+	pixel_y = 7
+	},
+/obj/machinery/door_control{
+	id = "ruslockcom";
+	name = "Bridge Shutters";
+	pixel_x = 6;
+	pixel_y = 7
+	},
+/obj/machinery/door_control{
+	id = "ruslocksec";
+	name = "Security Wing lockdown";
+	pixel_x = 6;
+	pixel_y = -3
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkblue"
+	},
+/area/derelict/bridge)
 "ww" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -7648,12 +7679,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/no_grav)
-"xX" = (
-/turf/simulated/wall/mineral/titanium/nodecon/nosmooth{
-	icon_state = "swall_f10"
-	},
-/turf/template_noop,
-/area/derelict/annex)
 "yd" = (
 /obj/item/stack/tile,
 /turf/simulated/floor/plating/airless,
@@ -8241,14 +8266,6 @@
 	icon_state = "grimy"
 	},
 /area/derelict/crew_quarters)
-"KI" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/rdconsole,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "purple"
-	},
-/area/derelict/annex)
 "KK" = (
 /obj/structure/table_frame,
 /turf/simulated/floor/plasteel,
@@ -8286,6 +8303,11 @@
 	},
 /turf/template_noop,
 /area/template_noop)
+"Lc" = (
+/turf/simulated/wall/mineral/titanium/nodecon/nosmooth{
+	icon_state = "swall_f10"
+	},
+/area/derelict/annex)
 "Lr" = (
 /obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plating/airless,
@@ -8674,6 +8696,16 @@
 	icon_state = "floorscorched2"
 	},
 /area/ruin/unpowered/no_grav)
+"VH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer/rdconsole{
+	req_access = list(202,203,204)
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "purple"
+	},
+/area/derelict/annex)
 "VO" = (
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/airless,
@@ -8774,37 +8806,6 @@
 	},
 /turf/template_noop,
 /area/template_noop)
-"YO" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door_control{
-	id = "ruslockcom";
-	name = "Bridge Shutters";
-	pixel_x = -6;
-	pixel_y = -3
-	},
-/obj/machinery/door_control{
-	id = "ruslock";
-	name = "Central Annex lockdown";
-	pixel_x = -6;
-	pixel_y = 7
-	},
-/obj/machinery/door_control{
-	id = "ruslockcom";
-	name = "Bridge Shutters";
-	pixel_x = 6;
-	pixel_y = 7
-	},
-/obj/machinery/door_control{
-	id = "ruslocksec";
-	name = "Security Wing lockdown";
-	pixel_x = 6;
-	pixel_y = -3
-	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
-	},
-/area/derelict/bridge)
 "Zh" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -11828,7 +11829,7 @@ fj
 fJ
 eP
 Yf
-KI
+VH
 eg
 dW
 ac
@@ -12173,7 +12174,7 @@ ac
 ac
 ac
 an
-YO
+wg
 aL
 be
 bw
@@ -12753,7 +12754,7 @@ ac
 ac
 ak
 ac
-xX
+Lc
 eg
 kr
 eg
