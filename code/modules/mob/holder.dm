@@ -35,9 +35,10 @@
 
 /obj/item/holder/attack(mob/living/target, mob/living/user, def_zone)
 	if(ishuman(user))	//eating holder
-		for(var/mob/M in src.contents)
-			if(devoured(M, user))
-				return TRUE
+		if(target == user)
+			for(var/mob/M in src.contents)
+				if(devoured(M, user))
+					return TRUE
 	. = ..()
 
 /obj/item/holder/proc/show_message(var/message, var/m_type)
@@ -233,6 +234,12 @@
 	desc = "It's a pet"
 	icon = 'icons/mob/pets.dmi'
 	icon_state = "cat"
+
+/obj/item/holder/crusher
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "crusher"
 
 /obj/item/holder/cat2
 	name = "pet"
