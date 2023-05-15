@@ -141,7 +141,7 @@
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/north,
-/obj/machinery/power/smes/soviet,
+/obj/machinery/power/smes/vintage,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/solmaintnorth)
 "aC" = (
@@ -940,7 +940,8 @@
 	health = 200;
 	check_arrest = 0;
 	check_records = 0;
-	shot_delay = 10
+	shot_delay = 10;
+	scan_range = 4
 	},
 /turf/simulated/floor/vault,
 /area/ruin/space/USSP_gorky17/vault)
@@ -5492,6 +5493,11 @@
 	},
 /turf/simulated/floor/carpet,
 /area/ruin/space/USSP_gorky17/dorms)
+"tD" = (
+/turf/space{
+	icon_state = "black"
+	},
+/area/space)
 "tF" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular,
@@ -5945,12 +5951,12 @@
 	},
 /area/ruin/space/USSP_gorky17/check2)
 "uV" = (
-/obj/machinery/power/smes/soviet{
-	charge = 2e6
-	},
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
+	},
+/obj/machinery/power/smes/vintage{
+	charge = 2500000
 	},
 /turf/simulated/floor/vault,
 /area/ruin/space/USSP_gorky17/vault)
@@ -6922,12 +6928,12 @@
 /turf/space,
 /area/template_noop)
 "yN" = (
-/obj/machinery/power/smes/soviet{
-	charge = 2e6
-	},
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
+	},
+/obj/machinery/power/smes/vintage{
+	charge = 2500000
 	},
 /turf/simulated/floor/vault,
 /area/ruin/space/USSP_gorky17/vault)
@@ -7298,8 +7304,8 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/smes/soviet,
 /obj/effect/decal/warning_stripes/northeast,
+/obj/machinery/power/smes/vintage,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/solmaintsouth)
 "zY" = (
@@ -9117,9 +9123,9 @@
 /area/ruin/space/USSP_gorky17/gate)
 "FT" = (
 /obj/structure/table/reinforced,
-/obj/item/circuitboard/smes/soviet,
-/obj/item/circuitboard/smes/soviet,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/circuitboard/smes/vintage,
+/obj/item/circuitboard/smes/vintage,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/engineering)
 "FU" = (
@@ -9267,7 +9273,8 @@
 	health = 200;
 	check_arrest = 0;
 	check_records = 0;
-	shot_delay = 10
+	shot_delay = 10;
+	scan_range = 4
 	},
 /turf/simulated/floor/vault,
 /area/ruin/space/USSP_gorky17/vault)
@@ -13569,6 +13576,19 @@
 	},
 /turf/space,
 /area/template_noop)
+"Vx" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 2;
+	height = 5;
+	id = "ussp_dock";
+	name = "Docking port USSP Station";
+	width = 8
+	},
+/turf/space{
+	icon_state = "black"
+	},
+/area/space)
 "Vy" = (
 /obj/structure/chair/office/dark{
 	dir = 8
@@ -29087,15 +29107,15 @@ sv
 gK
 wZ
 yI
-ob
-yI
-yI
-yI
-ob
-yI
-yI
-yI
-ob
+fB
+fB
+fB
+fB
+fB
+fB
+fB
+fB
+fB
 fB
 fB
 fB
@@ -29289,15 +29309,15 @@ ax
 gK
 wZ
 wZ
-wZ
-wZ
-wZ
-wZ
-wZ
-wZ
-wZ
-wZ
-yI
+fB
+fB
+fB
+fB
+fB
+fB
+fB
+fB
+fB
 fB
 fB
 fB
@@ -29489,17 +29509,17 @@ BU
 BU
 BU
 Fu
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
 wZ
 yI
+fB
+fB
+fB
+fB
+fB
+fB
+fB
+fB
+fB
 fB
 fB
 fB
@@ -29691,17 +29711,17 @@ be
 QF
 jp
 gK
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
 wZ
 yI
+fB
+fB
+fB
+fB
+fB
+fB
+fB
+fB
+fB
 fB
 fB
 fB
@@ -29893,17 +29913,17 @@ eG
 zU
 sv
 gK
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
 wZ
-ob
+yI
+fB
+fB
+fB
+fB
+fB
+fB
+fB
+fB
+fB
 fB
 fB
 fB
@@ -30095,17 +30115,17 @@ zU
 zU
 ax
 BU
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
+wZ
 wZ
 yI
+ob
+yI
+yI
+ob
+yI
+yI
+ob
+fB
 fB
 fB
 fB
@@ -30297,17 +30317,17 @@ gK
 gK
 gK
 BU
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
 wZ
 yI
+fB
 fB
 fB
 fB
@@ -30499,17 +30519,17 @@ be
 QF
 jp
 BU
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
+tD
+tD
+tD
+tD
+tD
+tD
+tD
+tD
 wZ
 yI
+fB
 fB
 fB
 fB
@@ -30701,17 +30721,17 @@ eG
 zU
 sv
 BU
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
+tD
+tD
+tD
+tD
+tD
+tD
+tD
+tD
 wZ
 ob
+fB
 fB
 fB
 fB
@@ -30903,17 +30923,17 @@ zU
 zU
 ax
 BU
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-pD
+tD
+tD
+tD
+tD
+tD
+tD
+tD
+tD
 wZ
 yI
+fB
 fB
 fB
 fB
@@ -31105,17 +31125,17 @@ gK
 gK
 gK
 BU
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
+tD
+tD
+tD
+tD
+tD
+Vx
+tD
+tD
 wZ
 yI
+fB
 fB
 fB
 fB

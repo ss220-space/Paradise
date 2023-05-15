@@ -512,8 +512,8 @@
 /obj/machinery/syndicatebomb/gorky17
 	name = "self destruct device"
 	desc = "High explosive. Don't touch."
-	minimum_timer = 18
-	timer_set = 18
+	minimum_timer = 17
+	timer_set = 17
 	req_access = list(ACCESS_USSP_MARINE_CAPTAIN)
 	payload = /obj/item/bombcore/sdg17
 	can_unanchor = FALSE
@@ -522,9 +522,9 @@
 
 /obj/item/bombcore/sdg17
 	range_heavy = 20
-	range_medium = 32
+	range_medium = 35
 	range_light = 45
-	range_flame = 40
+	range_flame = 30
 	admin_log = TRUE
 
 /obj/item/bombcore/sdg17/detonate()
