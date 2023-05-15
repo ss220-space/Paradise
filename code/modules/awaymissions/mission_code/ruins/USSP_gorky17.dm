@@ -189,6 +189,8 @@
 /area/ruin/space/USSP_gorky17/collapsed/vault
 	name = "Gorky17 vault room"
 	icon_state = "away16"
+	var/communism_has_fallen = FALSE
+	var/safe_faction = list("ussp")
 
 /area/ruin/space/USSP_gorky17/collapsed/rnd
 	name = "Gorky17 Gorky17 RnD zone"
@@ -225,7 +227,6 @@
 
 
 /////////////// Safe with secret documets
-
 /obj/effect/spawner/lootdrop/randomsafe
 	name = "Secret or data documents safe spawner"
 	icon_state = "floorsafe-open"
@@ -499,11 +500,70 @@
 	LoseTarget()
 	qdel(src)
 
-/mob/living/simple_animal/hostile/carp/lostsoul/Initialize()
-	update_icons()
-
 /mob/living/simple_animal/hostile/carp/lostsoul/add_carp_overlay()
 	return
 
 /mob/living/simple_animal/hostile/carp/lostsoul/carp_randomify()
 	return
+
+
+//self destruct
+
+/obj/machinery/syndicatebomb/gorky17
+	name = "self destruct device"
+	desc = "High explosive. Don't touch."
+	minimum_timer = 18
+	timer_set = 18
+	req_access = list(ACCESS_USSP_MARINE_CAPTAIN)
+	payload = /obj/item/bombcore/sdg17
+	can_unanchor = FALSE
+	anchored = TRUE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
+/obj/item/bombcore/sdg17
+	range_heavy = 20
+	range_medium = 32
+	range_light = 45
+	range_flame = 40
+	admin_log = TRUE
+
+/obj/item/bombcore/sdg17/detonate()
+	if(adminlog)
+		message_admins(adminlog)
+		add_game_logs(adminlog)
+	var/center = get_turf(src)
+	explosion(center, range_heavy, range_medium, range_light, flame_range = range_flame, adminlog = admin_log, ignorecap = 1, cause = fingerprintslast)
+	delete_unnecessary(center)
+	if(loc && istype(loc, /obj/machinery/syndicatebomb))
+		qdel(loc)
+	qdel(src)
+
+/obj/item/bombcore/sdg17/proc/delete_unnecessary(center)
+	for(var/atom/A in range(35, center))
+		if(isliving(A))
+			var/mob/living/mob = A
+			mob.gib()
+		if(istype(A, /obj/structure/closet))
+			for(var/obj/item/I in A.contents)
+				qdel(I)
+			qdel(A)
+		if(istype(A, /obj/structure/safe) || istype(A, /obj/item/gun))
+			qdel(A)
+
+/obj/item/bombcore/sdg17/defuse()
+	var/obj/item/bombcore/sdg17/C = loc
+	new /obj/effect/decal/cleanable/ash(get_turf(loc))
+	new /obj/effect/particle_effect/smoke(get_turf(loc))
+	playsound(src, 'sound/effects/empulse.ogg', 80)
+	qdel(C)
+
+/area/ruin/space/USSP_gorky17/collapsed/vault/Entered(mob/living/bourgeois)
+	. = ..()
+	if(!communism_has_fallen && istype(bourgeois) && !faction_check(bourgeois.faction, safe_faction))
+		var/obj/machinery/syndicatebomb/gorky17/bomb = locate(/obj/machinery/syndicatebomb/gorky17) in src
+		if(!bomb)
+			return
+		communism_has_fallen = TRUE
+		bomb.activate()
+		for(var/obj/machinery/power/apc/propaganda in range(50, get_turf(bomb)))
+			playsound(propaganda, 'sound/effects/self_destruct_17sec.ogg', 100)

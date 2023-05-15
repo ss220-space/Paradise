@@ -362,7 +362,7 @@
 	id = "USSP_gorky17"
 	suffix = "USSP_gorky17.dmm"
 	name = "USSP Gorky 17 station"
-	description = "net"
+	description = "USSP Special Operations Outpost hidden among the asteroids."
 	cost = 1 //5
 	allow_duplicates = FALSE
 */
@@ -371,7 +371,9 @@
 	id = "USSP_gorky17_collapsed"
 	suffix = "USSP_gorky17_collapsed.dmm"
 	name = "USSP Gorky 17 collapsed station"
-	description = "net"
+	description = "USSP Special Operations Outpost hidden among the asteroids. An unenviable fate befell this frontier... \
+	After another mission using the gate, a strong bluespace storm began in the outpost sector, which damaged the gate... \
+	Immediately after the described events, the 'fortress' protocol was activated at the facility"
 	always_place = TRUE  // remove
 	cost = 0 //5
 	allow_duplicates = FALSE

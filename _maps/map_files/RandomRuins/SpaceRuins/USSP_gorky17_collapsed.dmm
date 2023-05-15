@@ -150,7 +150,8 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/light/small{
-	dir = 1
+	dir = 1;
+	flickering = 1
 	},
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/power/smes/vintage,
@@ -434,6 +435,23 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
+"bF" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 2;
+	height = 5;
+	id = "ussp_dock";
+	name = "Docking port USSP Station";
+	width = 8
+	},
+/turf/space{
+	icon_state = "black"
+	},
+/area/space)
+"bH" = (
+/obj/structure/table_frame,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/USSP_gorky17/collapsed/dinning)
 "bK" = (
 /obj/structure/table,
 /obj/machinery/light_switch{
@@ -518,12 +536,21 @@
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "bR" = (
 /obj/machinery/light/small{
-	dir = 1
+	dir = 1;
+	flickering = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor/border_only/closed{
 	dir = 8
+	},
+/mob/living/simple_animal/hostile/zombie/whiteship{
+	health = 200;
+	icon = 'icons/mob/simple_human.dmi';
+	icon_living = "fleshling3";
+	icon_state = "fleshling3";
+	melee_damage_upper = 20;
+	melee_damage_lower = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -890,7 +917,9 @@
 	health = 200;
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
-	icon_state = "fleshling3"
+	icon_state = "fleshling3";
+	melee_damage_upper = 20;
+	melee_damage_lower = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1381,6 +1410,11 @@
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/utility)
+"ey" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/circuitboard/smes/vintage,
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/engineering)
 "ez" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -1706,9 +1740,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/check2)
 "fs" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/machinery/light/small{
-	dir = 8
-	},
 /turf/simulated/floor/plating/damaged,
 /area/ruin/space/USSP_gorky17/collapsed/bridge)
 "ft" = (
@@ -1856,7 +1887,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "fQ" = (
 /obj/structure/largecrate/evil{
-	name = "Supply Crate"
+	name = "large crate"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
@@ -2200,6 +2231,9 @@
 	icon_state = "1-2";
 	tag = ""
 	},
+/obj/item/clothing/suit/space/nasavoid/old{
+	name = "Cosmonaut suit"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintsouth)
 "gS" = (
@@ -2207,7 +2241,9 @@
 	health = 200;
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
-	icon_state = "fleshling3"
+	icon_state = "fleshling3";
+	melee_damage_upper = 20;
+	melee_damage_lower = 10
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
@@ -2276,6 +2312,10 @@
 "ha" = (
 /turf/simulated/mineral,
 /area/ruin/space/USSP_gorky17/collapsed/asteroids)
+"he" = (
+/obj/item/stack/ore/glass/basalt,
+/turf/space,
+/area/template_noop)
 "hg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/camera_assembly,
@@ -2366,7 +2406,9 @@
 "hv" = (
 /obj/structure/rack,
 /obj/item/changestone,
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	flickering = 1
+	},
 /obj/machinery/camera/autoname{
 	dir = 1;
 	network = list("USSP_gorky17");
@@ -2409,6 +2451,11 @@
 	name = "Gorky17 security camera"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'BOMB RANGE";
+	name = "BOMB RANGE";
+	pixel_y = 32
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "hC" = (
@@ -2426,7 +2473,9 @@
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	flickering = 1
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -2543,8 +2592,6 @@
 /obj/item/organ/external/chest,
 /obj/item/organ/external/chest,
 /obj/item/organ/external/groin,
-/obj/item/organ/external/head,
-/obj/item/organ/external/head,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "hP" = (
@@ -2798,8 +2845,6 @@
 "iD" = (
 /obj/structure/closet/crate,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/item/stack/marker_beacon/thirty,
-/obj/item/stack/marker_beacon/thirty,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "iF" = (
@@ -2813,6 +2858,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
+"iH" = (
+/turf/space{
+	icon_state = "black"
+	},
+/area/space)
 "iI" = (
 /obj/structure/door_assembly/door_assembly_shuttle,
 /obj/effect/decal/cleanable/dirt,
@@ -3017,7 +3067,9 @@
 	},
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	flickering = 1
+	},
 /obj/machinery/alarm{
 	name = "Gorky17 alarm";
 	alarm_frequency = 1520;
@@ -3190,7 +3242,8 @@
 "ka" = (
 /obj/structure/table,
 /obj/machinery/light/small{
-	dir = 1
+	dir = 1;
+	flickering = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -3280,20 +3333,10 @@
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "kj" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/box/lights/mixed,
-/obj/item/storage/box/lights/mixed{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/lightreplacer{
-	pixel_y = 5
-	},
-/obj/item/lightreplacer{
-	pixel_y = 5
-	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/wrench,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "kk" = (
@@ -3448,11 +3491,11 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/kitchen)
 "kG" = (
-/obj/structure/safe/floor,
 /obj/item/stack/spacecash/ussp{
 	amount = 3500
 	},
 /obj/item/areaeditor/gorky17,
+/obj/structure/safe/floor,
 /turf/simulated/floor/vault,
 /area/ruin/space/USSP_gorky17/collapsed/vault)
 "kH" = (
@@ -3521,9 +3564,10 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/utility)
 "kS" = (
-/obj/machinery/computer/aiupload{
+/obj/machinery/computer{
 	icon = 'icons/obj/machines/computer3.dmi';
-	icon_state = "serverframe"
+	icon_state = "serverframe";
+	icon_screen = "command"
 	},
 /turf/simulated/floor/vault,
 /area/ruin/space/USSP_gorky17/collapsed/vault)
@@ -3566,7 +3610,8 @@
 "lb" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/light/small{
-	dir = 1
+	dir = 1;
+	flickering = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3582,7 +3627,9 @@
 "ld" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/zombie/whiteship{
-	health = 150
+	health = 150;
+	melee_damage_upper = 15;
+	melee_damage_lower = 10
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3973,6 +4020,17 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/angar)
+"mr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate{
+	icon_state = "crateopen";
+	opened = 1
+	},
+/obj/item/clothing/suit/space/nasavoid/old{
+	name = "Cosmonaut suit"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/engineering)
 "mt" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 8;
@@ -3990,7 +4048,8 @@
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "mw" = (
 /obj/machinery/light/small{
-	dir = 1
+	dir = 1;
+	flickering = 1
 	},
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plating,
@@ -4093,7 +4152,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "mN" = (
 /obj/structure/closet/wardrobe/white,
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	flickering = 1
+	},
 /obj/item/storage/pill_bottle/sovietstimulants,
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -4164,7 +4225,6 @@
 /obj/structure/chair/comfy/brown{
 	dir = 8
 	},
-/obj/item/stamp/chameleon,
 /obj/item/gun/projectile/revolver/nagant,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -4253,7 +4313,9 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "nk" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	flickering = 1
+	},
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 200;
 	icon = 'icons/mob/simple_human.dmi';
@@ -4711,9 +4773,13 @@
 /area/ruin/space/USSP_gorky17/collapsed/mining)
 "oC" = (
 /obj/machinery/light/small{
-	dir = 1
+	dir = 1;
+	flickering = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/explosives/alt{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "oF" = (
@@ -4875,6 +4941,10 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
+"pj" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/engineering)
 "pk" = (
 /obj/structure/cable{
 	icon_state = "1-2";
@@ -4895,7 +4965,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/zombie/whiteship{
-	health = 150
+	health = 150;
+	melee_damage_upper = 15;
+	melee_damage_lower = 10
 	},
 /turf/simulated/floor/plating/damaged,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
@@ -4973,7 +5045,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "pA" = (
 /obj/effect/decal/warning_stripes/northwestcorner,
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	flickering = 1
+	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -5011,7 +5085,8 @@
 /obj/item/fish/salmon,
 /obj/item/fish/salmon,
 /obj/machinery/light/small{
-	dir = 1
+	dir = 1;
+	flickering = 1
 	},
 /obj/machinery/camera/autoname{
 	network = list("USSP_gorky17");
@@ -5042,7 +5117,8 @@
 /area/ruin/space/USSP_gorky17/collapsed/solars)
 "pO" = (
 /obj/machinery/light/small{
-	dir = 1
+	dir = 1;
+	flickering = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -5063,6 +5139,19 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
+"pR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/box/lights/mixed{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/engineering)
+"pS" = (
+/obj/structure/lattice/catwalk,
+/obj/item/stack/ore/glass/basalt,
+/turf/space,
+/area/ruin/space/USSP_gorky17/collapsed/asteroids)
 "pU" = (
 /obj/structure/curtain/medical,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -5126,6 +5215,11 @@
 /obj/item/stack/sheet/metal,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
+"qi" = (
+/obj/effect/decal/cleanable/dust,
+/obj/item/circuitboard/smes/vintage,
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/engineering)
 "qj" = (
 /obj/machinery/computer{
 	icon = 'icons/obj/machines/computer3.dmi';
@@ -5140,7 +5234,9 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	flickering = 1
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -5162,7 +5258,8 @@
 "qn" = (
 /obj/structure/rack,
 /obj/machinery/light/small{
-	dir = 1
+	dir = 1;
+	flickering = 1
 	},
 /obj/machinery/camera/autoname{
 	network = list("USSP_gorky17");
@@ -5241,7 +5338,9 @@
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	flickering = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -5775,7 +5874,9 @@
 	health = 200;
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
-	icon_state = "fleshling3"
+	icon_state = "fleshling3";
+	melee_damage_upper = 20;
+	melee_damage_lower = 10
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
@@ -5832,6 +5933,20 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
+"sh" = (
+/obj/item/stack/ore/glass/basalt,
+/turf/space,
+/area/ruin/space/USSP_gorky17/collapsed/asteroids)
+"sj" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/item/stack/rods{
+	amount = 4
+	},
+/turf/space,
+/area/ruin/space/USSP_gorky17/collapsed/asteroids)
 "sk" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -5880,7 +5995,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "sq" = (
 /mob/living/simple_animal/hostile/zombie/whiteship{
-	health = 150
+	health = 150;
+	melee_damage_upper = 15;
+	melee_damage_lower = 10
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
@@ -5906,7 +6023,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/check1)
 "su" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	flickering = 1
+	},
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1
 	},
@@ -6000,6 +6119,18 @@
 "sM" = (
 /turf/simulated/floor/wood,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
+"sN" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/zombie/whiteship{
+	health = 200;
+	icon = 'icons/mob/simple_human.dmi';
+	icon_living = "fleshling3";
+	icon_state = "fleshling3";
+	melee_damage_upper = 20;
+	melee_damage_lower = 10
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/gate)
 "sP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dust,
@@ -6187,7 +6318,8 @@
 /mob/living/simple_animal/hostile/carp{
 	maxHealth = 50;
 	name = "Annoyed space carp";
-	health = 50
+	health = 50;
+	speed = -0.1
 	},
 /turf/space,
 /area/template_noop)
@@ -6225,7 +6357,9 @@
 	health = 200;
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
-	icon_state = "fleshling3"
+	icon_state = "fleshling3";
+	melee_damage_upper = 20;
+	melee_damage_lower = 10
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
@@ -6253,6 +6387,9 @@
 "tu" = (
 /turf/simulated/wall/r_wall,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
+"tx" = (
+/turf/space,
+/area/ruin/space/USSP_gorky17/collapsed/asteroids)
 "ty" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/structure/rack,
@@ -6298,7 +6435,9 @@
 "tD" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/zombie/whiteship{
-	health = 150
+	health = 150;
+	melee_damage_upper = 15;
+	melee_damage_lower = 10
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
@@ -6312,7 +6451,8 @@
 "tG" = (
 /obj/effect/decal/warning_stripes/southeastcorner,
 /obj/machinery/light/small{
-	dir = 1
+	dir = 1;
+	flickering = 1
 	},
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
@@ -6388,7 +6528,9 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "tO" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	flickering = 1
+	},
 /obj/machinery/computer{
 	icon = 'icons/obj/machines/computer3.dmi';
 	icon_state = "serverframe";
@@ -6399,11 +6541,11 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/rnd)
 "tP" = (
-/obj/structure/AIcore,
 /obj/machinery/light{
 	dir = 1;
 	in_use = 1
 	},
+/obj/machinery/syndicatebomb/gorky17,
 /turf/simulated/floor/vault,
 /area/ruin/space/USSP_gorky17/collapsed/vault)
 "tT" = (
@@ -6527,7 +6669,9 @@
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 150;
 	icon_state = "husk_s";
-	icon_living = "husk_s"
+	icon_living = "husk_s";
+	melee_damage_lower = 10;
+	melee_damage_upper = 15
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
@@ -6615,6 +6759,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
+"uv" = (
+/obj/structure/girder,
+/turf/simulated/floor/plating/damaged,
+/area/ruin/space/USSP_gorky17/collapsed/bridge)
 "uw" = (
 /obj/structure/table/reinforced,
 /obj/item/megaphone,
@@ -6762,7 +6910,8 @@
 /obj/item/toy/cards/deck/black,
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/light/small{
-	dir = 1
+	dir = 1;
+	flickering = 1
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -6815,6 +6964,7 @@
 /obj/machinery/atmospherics/binary/pump/on{
 	dir = 1
 	},
+/obj/item/stack/marker_beacon/thirty,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
 "uY" = (
@@ -6842,16 +6992,6 @@
 	dir = 1
 	},
 /area/ruin/space/USSP_gorky17/collapsed/rnd)
-"va" = (
-/obj/item/stack/sheet/metal{
-	amount = 2
-	},
-/obj/effect/mapping_helpers/light{
-	light_range = 5;
-	layer = 5
-	},
-/turf/space,
-/area/template_noop)
 "vb" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
@@ -6925,7 +7065,9 @@
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 150;
 	icon_state = "husk_s";
-	icon_living = "husk_s"
+	icon_living = "husk_s";
+	melee_damage_lower = 10;
+	melee_damage_upper = 15
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -6971,7 +7113,6 @@
 "vC" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
-/obj/item/clothing/gloves/color/black,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -7215,12 +7356,21 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "wl" = (
-/obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+/mob/living/simple_animal/hostile/zombie/whiteship{
+	health = 200;
+	icon = 'icons/mob/simple_human.dmi';
+	icon_living = "fleshling3";
+	icon_state = "fleshling3";
+	melee_damage_upper = 20;
+	melee_damage_lower = 10
 	},
-/area/ruin/space/USSP_gorky17/collapsed/arrival)
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/ruin/space/USSP_gorky17/collapsed/bridge)
 "wm" = (
 /obj/effect/decal/cleanable/blood/drip{
 	pixel_x = -8;
@@ -7280,6 +7430,9 @@
 /obj/machinery/light_construct/small{
 	dir = 1
 	},
+/obj/structure/sign/explosives{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plating/damaged,
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "wA" = (
@@ -7292,7 +7445,9 @@
 	dir = 1
 	},
 /mob/living/simple_animal/hostile/zombie/whiteship{
-	health = 150
+	health = 150;
+	melee_damage_upper = 15;
+	melee_damage_lower = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -7419,7 +7574,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "wS" = (
 /obj/effect/decal/warning_stripes/northwest,
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	flickering = 1
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "wT" = (
@@ -7508,6 +7665,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
 	},
+/obj/item/storage/belt/utility,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "xh" = (
@@ -7576,6 +7734,11 @@
 /obj/effect/mob_spawn/carp,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/USSP_gorky17/collapsed/asteroids)
+"xq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/box/lights/mixed,
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/engineering)
 "xs" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Gorky17 common";
@@ -7605,6 +7768,11 @@
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "xv" = (
 /obj/effect/decal/cleanable/blood,
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'BOMB RANGE";
+	name = "BOMB RANGE";
+	pixel_y = 32
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "xy" = (
@@ -7693,13 +7861,23 @@
 "xR" = (
 /obj/machinery/light_construct/small,
 /obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/zombie/whiteship{
+	health = 200;
+	icon = 'icons/mob/simple_human.dmi';
+	icon_living = "fleshling3";
+	icon_state = "fleshling3";
+	melee_damage_upper = 20;
+	melee_damage_lower = 10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "xT" = (
 /obj/structure/rack,
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	flickering = 1
+	},
 /obj/item/flashlight,
 /obj/item/caution/proximity_sign,
 /obj/item/caution/proximity_sign,
@@ -7837,7 +8015,9 @@
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 150;
 	icon_state = "husk_s";
-	icon_living = "husk_s"
+	icon_living = "husk_s";
+	melee_damage_lower = 10;
+	melee_damage_upper = 15
 	},
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -7996,7 +8176,9 @@
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 150;
 	icon_state = "husk_s";
-	icon_living = "husk_s"
+	icon_living = "husk_s";
+	melee_damage_lower = 10;
+	melee_damage_upper = 15
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
@@ -8274,7 +8456,9 @@
 	health = 200;
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
-	icon_state = "fleshling3"
+	icon_state = "fleshling3";
+	melee_damage_upper = 20;
+	melee_damage_lower = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -8346,6 +8530,14 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/mob/living/simple_animal/hostile/zombie/whiteship{
+	health = 200;
+	icon = 'icons/mob/simple_human.dmi';
+	icon_living = "fleshling3";
+	icon_state = "fleshling3";
+	melee_damage_upper = 20;
+	melee_damage_lower = 10
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkpurple"
@@ -8415,7 +8607,8 @@
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "zT" = (
 /obj/machinery/light/small{
-	dir = 1
+	dir = 1;
+	flickering = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -8490,7 +8683,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/rnd)
 "Ad" = (
 /obj/effect/decal/warning_stripes/northwestcorner,
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	flickering = 1
+	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -8518,7 +8713,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/rnd)
 "Af" = (
 /obj/effect/decal/warning_stripes/northeastcorner,
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	flickering = 1
+	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -8608,7 +8805,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "As" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	flickering = 1
+	},
 /obj/machinery/light_switch{
 	pixel_x = -24
 	},
@@ -8660,7 +8859,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/zombie/whiteship{
-	health = 150
+	health = 150;
+	melee_damage_upper = 15;
+	melee_damage_lower = 10
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -8668,7 +8869,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "Ax" = (
 /obj/structure/rack,
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	flickering = 1
+	},
 /obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
@@ -8784,7 +8987,9 @@
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 150;
 	icon_state = "husk_s";
-	icon_living = "husk_s"
+	icon_living = "husk_s";
+	melee_damage_lower = 10;
+	melee_damage_upper = 15
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -9132,7 +9337,8 @@
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "BV" = (
 /obj/machinery/light/small{
-	dir = 1
+	dir = 1;
+	flickering = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor/border_only/closed{
@@ -9200,6 +9406,13 @@
 /obj/machinery/light_construct/small,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
+"Cj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/head/helmet/space/nasavoid/old{
+	name = "Cosmonaut Helmet"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/solmaintsouth)
 "Ck" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
@@ -9302,7 +9515,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
 "CA" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	flickering = 1
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil{
 	amount = 3
@@ -9395,12 +9610,16 @@
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 150;
 	icon_state = "husk_s";
-	icon_living = "husk_s"
+	icon_living = "husk_s";
+	melee_damage_lower = 10;
+	melee_damage_upper = 15
 	},
 /turf/simulated/floor/carpet,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "CW" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	flickering = 1
+	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/vault,
 /area/ruin/space/USSP_gorky17/collapsed/vault)
@@ -9549,13 +9768,11 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "Dn" = (
-/obj/structure/safe{
-	pixel_x = 8
-	},
 /obj/item/ammo_box/magazine/aksu,
 /obj/item/ammo_box/magazine/ppsh,
 /obj/item/ammo_box/magazine/aksu,
 /obj/item/ammo_box/magazine/aksu,
+/obj/structure/safe,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -9598,8 +9815,13 @@
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "Dt" = (
 /obj/effect/decal/warning_stripes/northeast,
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	flickering = 1
+	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/head/helmet/space/nasavoid/old{
+	name = "Cosmonaut Helmet"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "Dv" = (
@@ -9657,6 +9879,21 @@
 	icon_state = "red"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/check1)
+"DE" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/grille/broken,
+/mob/living/simple_animal/hostile/zombie/whiteship{
+	health = 200;
+	icon = 'icons/mob/simple_human.dmi';
+	icon_living = "fleshling3";
+	icon_state = "fleshling3";
+	melee_damage_upper = 20;
+	melee_damage_lower = 10
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/USSP_gorky17/collapsed/dinning)
 "DF" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -9689,7 +9926,8 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/light/small{
-	dir = 1
+	dir = 1;
+	flickering = 1
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
@@ -9778,7 +10016,8 @@
 /mob/living/simple_animal/hostile/carp{
 	maxHealth = 50;
 	name = "Annoyed space carp";
-	health = 50
+	health = 50;
+	speed = -0.1
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/USSP_gorky17/collapsed/asteroids)
@@ -9798,6 +10037,20 @@
 	icon_state = "solarpanel"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/solars)
+"DX" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/zombie/whiteship{
+	health = 200;
+	icon = 'icons/mob/simple_human.dmi';
+	icon_living = "fleshling3";
+	icon_state = "fleshling3";
+	melee_damage_upper = 20;
+	melee_damage_lower = 10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/ruin/space/USSP_gorky17/collapsed/arrival)
 "DZ" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -10283,7 +10536,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "Fm" = (
 /obj/structure/table,
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	flickering = 1
+	},
 /obj/item/storage/toolbox/green,
 /obj/item/multitool,
 /turf/simulated/floor/plating,
@@ -10481,8 +10736,7 @@
 "FT" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/item/circuitboard/smes/vintage,
-/obj/item/circuitboard/smes/vintage,
+/obj/item/clothing/head/welding,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "FU" = (
@@ -10514,6 +10768,14 @@
 	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/zombie/whiteship{
+	health = 200;
+	icon = 'icons/mob/simple_human.dmi';
+	icon_living = "fleshling3";
+	icon_state = "fleshling3";
+	melee_damage_upper = 20;
+	melee_damage_lower = 10
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark";
@@ -10586,6 +10848,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
+"Gf" = (
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/ruin/space/USSP_gorky17/collapsed/asteroids)
 "Gg" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -10615,6 +10881,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "Gi" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/item/stack/marker_beacon/thirty,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
 "Gk" = (
@@ -10795,7 +11062,9 @@
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 150;
 	icon_state = "husk_s";
-	icon_living = "husk_s"
+	icon_living = "husk_s";
+	melee_damage_lower = 10;
+	melee_damage_upper = 15
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -10833,10 +11102,10 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/utility)
 "GN" = (
-/obj/structure/closet/crate,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/item/clothing/suit/space/nasavoid/old,
-/obj/item/clothing/head/helmet/space/nasavoid/old,
+/obj/item/clothing/suit/space/nasavoid/old{
+	name = "Cosmonaut suit"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "GQ" = (
@@ -10998,7 +11267,8 @@
 "HD" = (
 /obj/structure/table,
 /obj/machinery/light/small{
-	dir = 1
+	dir = 1;
+	flickering = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -11390,7 +11660,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "IF" = (
 /obj/machinery/kitchen_machine/oven,
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	flickering = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -11520,7 +11792,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /mob/living/simple_animal/hostile/zombie/whiteship{
-	health = 150
+	health = 150;
+	melee_damage_upper = 15;
+	melee_damage_lower = 10
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -12214,7 +12488,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "Ll" = (
 /mob/living/simple_animal/hostile/zombie/whiteship{
-	health = 150
+	health = 150;
+	melee_damage_upper = 15;
+	melee_damage_lower = 10
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -12322,6 +12598,13 @@
 	icon_state = "yellow"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
+"LE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/lightreplacer{
+	pixel_y = 5
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/engineering)
 "LF" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -12380,6 +12663,14 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
+"LO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/south,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "red"
+	},
+/area/ruin/space/USSP_gorky17/collapsed/common)
 "LP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -12411,7 +12702,8 @@
 "LV" = (
 /obj/spacepod/civilian/damaged{
 	icon_state = "pod_mil";
-	dir = 4
+	dir = 4;
+	name = "Green Zwei"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/USSP_gorky17/collapsed/asteroids)
@@ -12718,7 +13010,8 @@
 "MQ" = (
 /obj/effect/decal/warning_stripes/southwestcorner,
 /obj/machinery/light/small{
-	dir = 1
+	dir = 1;
+	flickering = 1
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -12934,6 +13227,9 @@
 	dir = 8;
 	on = 1
 	},
+/obj/item/clothing/head/helmet/space/nasavoid/old{
+	name = "Cosmonaut Helmet"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "Ns" = (
@@ -13023,7 +13319,9 @@
 	health = 200;
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
-	icon_state = "fleshling3"
+	icon_state = "fleshling3";
+	melee_damage_upper = 20;
+	melee_damage_lower = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -13035,11 +13333,8 @@
 /area/ruin/space/USSP_gorky17/collapsed/kitchen)
 "NI" = (
 /obj/item/crowbar/red,
-/obj/item/wrench,
 /obj/item/tank/internals/emergency_oxygen/engi,
-/obj/item/stack/tape_roll,
 /obj/structure/table/reinforced,
-/obj/item/clothing/head/welding,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
@@ -13146,6 +13441,11 @@
 	icon_state = "white"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/kitchen)
+"Oa" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/weldingtool,
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/engineering)
 "Ob" = (
 /obj/item/reagent_containers/food/condiment/pack/ketchup,
 /turf/simulated/floor/plating/airless,
@@ -13258,12 +13558,22 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
+"Oq" = (
+/obj/structure/table_frame,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/ruin/space/USSP_gorky17/collapsed/bridge)
 "Or" = (
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/mining)
 "Os" = (
 /obj/structure/table,
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	flickering = 1
+	},
 /obj/item/storage/toolbox/green,
 /obj/item/multitool,
 /turf/simulated/floor/plasteel{
@@ -13390,7 +13700,9 @@
 	dir = 4
 	},
 /mob/living/simple_animal/hostile/zombie/whiteship{
-	health = 150
+	health = 150;
+	melee_damage_upper = 15;
+	melee_damage_lower = 10
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -13620,8 +13932,11 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "Pn" = (
-/obj/structure/closet/crate,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/closet/crate{
+	icon_state = "crateopen";
+	opened = 1
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "Po" = (
@@ -13743,7 +14058,9 @@
 	health = 200;
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
-	icon_state = "fleshling3"
+	icon_state = "fleshling3";
+	melee_damage_upper = 20;
+	melee_damage_lower = 10
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
@@ -13756,7 +14073,9 @@
 	tag = ""
 	},
 /mob/living/simple_animal/hostile/zombie/whiteship{
-	health = 150
+	health = 150;
+	melee_damage_upper = 15;
+	melee_damage_lower = 10
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
@@ -13844,6 +14163,9 @@
 "Qc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
+/obj/item/lightreplacer{
+	pixel_y = 5
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "Qd" = (
@@ -14344,10 +14666,8 @@
 /area/ruin/space/USSP_gorky17/collapsed/kitchen)
 "Rt" = (
 /obj/structure/table/reinforced,
-/obj/item/flashlight,
-/obj/item/storage/belt/utility,
-/obj/item/weldingtool,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/stack/tape_roll,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "Rv" = (
@@ -14537,6 +14857,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -14701,6 +15022,11 @@
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4
 	},
+/obj/structure/closet/crate{
+	icon_state = "crateopen";
+	opened = 1
+	},
+/obj/item/clothing/gloves/color/black,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "SR" = (
@@ -14764,6 +15090,13 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
+"Ta" = (
+/obj/structure/lattice/catwalk,
+/obj/item/stack/rods{
+	amount = 4
+	},
+/turf/space,
+/area/ruin/space/USSP_gorky17/collapsed/asteroids)
 "Tb" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -14783,9 +15116,26 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/check2)
+"Td" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/zombie/whiteship{
+	health = 200;
+	icon = 'icons/mob/simple_human.dmi';
+	icon_living = "fleshling3";
+	icon_state = "fleshling3";
+	melee_damage_upper = 20;
+	melee_damage_lower = 10
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/ruin/space/USSP_gorky17/collapsed/common)
 "Tf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/safe/floor/random_researchnotes_MatBioProg,
+/obj/item/ammo_box/magazine/aksu,
+/obj/item/ammo_box/magazine/aksu,
+/obj/structure/safe/floor,
+/obj/item/stamp/chameleon,
 /turf/simulated/floor/vault,
 /area/ruin/space/USSP_gorky17/collapsed/vault)
 "Th" = (
@@ -14853,6 +15203,14 @@
 	dir = 1
 	},
 /obj/machinery/light_construct/small,
+/mob/living/simple_animal/hostile/zombie/whiteship{
+	health = 200;
+	icon = 'icons/mob/simple_human.dmi';
+	icon_living = "fleshling3";
+	icon_state = "fleshling3";
+	melee_damage_upper = 20;
+	melee_damage_lower = 10
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "Tr" = (
@@ -14921,7 +15279,9 @@
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 150;
 	icon_state = "husk_s";
-	icon_living = "husk_s"
+	icon_living = "husk_s";
+	melee_damage_lower = 10;
+	melee_damage_upper = 15
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
@@ -15154,7 +15514,9 @@
 	health = 200;
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
-	icon_state = "fleshling3"
+	icon_state = "fleshling3";
+	melee_damage_upper = 20;
+	melee_damage_lower = 10
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
@@ -15280,6 +15642,12 @@
 	dir = 1
 	},
 /area/ruin/space/USSP_gorky17/collapsed/check1)
+"UP" = (
+/obj/item/stack/rods{
+	amount = 4
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/USSP_gorky17/collapsed/asteroids)
 "UU" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/red,
@@ -15380,7 +15748,9 @@
 	health = 200;
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
-	icon_state = "fleshling3"
+	icon_state = "fleshling3";
+	melee_damage_upper = 20;
+	melee_damage_lower = 10
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
@@ -15718,6 +16088,11 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/angar)
+"Wh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/flashlight,
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/engineering)
 "Wj" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -15795,6 +16170,14 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/mob/living/simple_animal/hostile/zombie/whiteship{
+	health = 200;
+	icon = 'icons/mob/simple_human.dmi';
+	icon_living = "fleshling3";
+	icon_state = "fleshling3";
+	melee_damage_upper = 20;
+	melee_damage_lower = 10
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
@@ -16129,6 +16512,11 @@
 "Xq" = (
 /turf/simulated/wall/r_wall,
 /area/ruin/space/USSP_gorky17/collapsed/vault)
+"Xr" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbluefull"
+	},
+/area/ruin/space/USSP_gorky17/collapsed/bridge)
 "Xs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -16338,7 +16726,8 @@
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/light/small{
-	dir = 1
+	dir = 1;
+	flickering = 1
 	},
 /obj/machinery/camera/autoname,
 /turf/simulated/floor/plating,
@@ -16424,7 +16813,9 @@
 	health = 200;
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
-	icon_state = "fleshling3"
+	icon_state = "fleshling3";
+	melee_damage_upper = 20;
+	melee_damage_lower = 10
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
@@ -16473,7 +16864,8 @@
 	icon_state = "rackframe"
 	},
 /obj/machinery/light/small{
-	dir = 1
+	dir = 1;
+	flickering = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
@@ -16482,7 +16874,8 @@
 "YE" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light/small{
-	dir = 1
+	dir = 1;
+	flickering = 1
 	},
 /obj/machinery/alarm{
 	name = "Gorky17 alarm";
@@ -22583,7 +22976,7 @@ fB
 ha
 sL
 JO
-JO
+UP
 JO
 JO
 JO
@@ -22985,7 +23378,7 @@ fB
 fB
 fB
 fB
-lW
+sh
 fB
 fB
 JO
@@ -23187,9 +23580,9 @@ fB
 fB
 fB
 fB
-lW
+tx
 fB
-fB
+he
 JO
 JO
 ha
@@ -23389,7 +23782,7 @@ fB
 fB
 fB
 fB
-lW
+tx
 fB
 fB
 fB
@@ -23591,7 +23984,7 @@ fB
 fB
 fB
 fB
-lW
+Gf
 fB
 fB
 fB
@@ -23793,7 +24186,7 @@ fB
 fB
 fB
 fB
-lW
+Gf
 fB
 fB
 fB
@@ -23995,7 +24388,7 @@ fB
 fB
 fB
 fB
-lW
+sj
 fB
 fB
 fB
@@ -28227,7 +28620,7 @@ fB
 fB
 fB
 fB
-lW
+pS
 fB
 fB
 fB
@@ -28429,10 +28822,10 @@ fB
 fB
 fB
 fB
-lW
+Gf
 fB
 fB
-fB
+he
 fB
 fB
 fB
@@ -28628,10 +29021,10 @@ fB
 fB
 fB
 fB
+he
 fB
 fB
-fB
-lW
+Ta
 fB
 fB
 fB
@@ -30954,7 +31347,7 @@ fB
 fB
 fB
 fB
-pD
+fB
 fB
 fB
 fB
@@ -31153,16 +31546,16 @@ Wl
 sv
 gI
 fB
-pD
 fB
-yI
-yI
-yI
-ob
-yI
-yI
-yI
-ob
+fB
+fB
+fB
+fB
+fB
+fB
+fB
+fB
+fB
 fB
 fB
 fB
@@ -31354,17 +31747,17 @@ QF
 AO
 QF
 ph
-wZ
-wZ
-wZ
-wZ
-wZ
-wZ
-wZ
-wZ
-wZ
-wZ
-yI
+fB
+fB
+fB
+fB
+fB
+fB
+fB
+fB
+fB
+fB
+fB
 fB
 fB
 fB
@@ -31560,13 +31953,13 @@ fB
 fB
 fB
 fB
+pD
 fB
 fB
 fB
 fB
 fB
-wZ
-yI
+fB
 fB
 fB
 fB
@@ -31759,16 +32152,16 @@ QF
 nS
 gK
 fB
+pD
 fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-wZ
 yI
+yI
+yI
+ob
+yI
+yI
+yI
+ob
 fB
 fB
 fB
@@ -31960,17 +32353,17 @@ Yl
 QF
 Ce
 gK
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
 wZ
-ob
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+wZ
+yI
 fB
 fB
 fB
@@ -32162,15 +32555,15 @@ QF
 QF
 BG
 BU
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
+iH
+iH
+iH
+iH
+iH
+iH
+iH
+iH
+iH
 wZ
 yI
 fB
@@ -32364,15 +32757,15 @@ AO
 Sf
 gK
 BU
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
+iH
+iH
+iH
+iH
+iH
+iH
+iH
+iH
+iH
 wZ
 yI
 fB
@@ -32566,15 +32959,15 @@ be
 AN
 nS
 BU
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
+iH
+iH
+iH
+iH
+iH
+iH
+iH
+iH
+iH
 wZ
 yI
 fB
@@ -32768,15 +33161,15 @@ Yl
 AO
 NB
 BU
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
+iH
+iH
+iH
+iH
+iH
+iH
+iH
+iH
+iH
 wZ
 ob
 fB
@@ -32970,15 +33363,15 @@ zU
 CU
 ax
 BU
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-pD
+iH
+iH
+iH
+iH
+iH
+iH
+iH
+iH
+iH
 wZ
 yI
 fB
@@ -33172,15 +33565,15 @@ gK
 gK
 gK
 BU
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
+iH
+iH
+iH
+iH
+bF
+iH
+iH
+iH
+iH
 wZ
 yI
 fB
@@ -33568,11 +33961,11 @@ ml
 wB
 QQ
 Sq
-EX
+Td
 vP
 Uu
-wl
-wl
+Lc
+Lc
 sK
 Ti
 Bg
@@ -33773,7 +34166,7 @@ bA
 KA
 vP
 gA
-Lc
+DX
 QC
 hy
 ja
@@ -34796,7 +35189,7 @@ mR
 xg
 Rt
 NI
-XP
+qi
 ET
 wZ
 wZ
@@ -35200,7 +35593,7 @@ xW
 YY
 vC
 kj
-YY
+ey
 oO
 fj
 Rx
@@ -35399,7 +35792,7 @@ MC
 ET
 ND
 xW
-YY
+Wh
 bs
 bs
 Mh
@@ -36005,9 +36398,9 @@ sz
 oO
 nl
 No
-YY
+LE
 Nr
-YY
+Oa
 Dt
 ET
 LC
@@ -36171,7 +36564,7 @@ fB
 UK
 fB
 fB
-fB
+kg
 fB
 fB
 Ku
@@ -36192,7 +36585,7 @@ we
 IB
 Vp
 BP
-MY
+ei
 PM
 hG
 oM
@@ -36207,10 +36600,10 @@ eP
 ET
 Qk
 Zc
-YY
+pR
 nx
 GN
-YY
+xq
 ET
 ig
 nH
@@ -36411,8 +36804,8 @@ Sv
 Sv
 bk
 Pn
-GN
-YY
+pj
+mr
 ET
 mQ
 Re
@@ -36566,7 +36959,7 @@ fB
 fB
 fB
 fB
-fB
+kg
 fB
 fB
 fB
@@ -36596,8 +36989,8 @@ AI
 GX
 ri
 ZH
-Ic
-Ic
+uv
+La
 FE
 eA
 cE
@@ -37610,7 +38003,7 @@ PH
 La
 SP
 mW
-ZF
+Xr
 bo
 Wc
 bv
@@ -37812,8 +38205,8 @@ bl
 xM
 wX
 bo
-bl
-bo
+Oq
+wl
 Vu
 Dq
 WU
@@ -38397,7 +38790,7 @@ lA
 sl
 HU
 ar
-Dz
+sN
 ou
 qL
 lv
@@ -38787,7 +39180,7 @@ fB
 fB
 fB
 fB
-fB
+kg
 fB
 fB
 Ww
@@ -38833,7 +39226,7 @@ CA
 vg
 hK
 rp
-RV
+Cj
 yu
 XE
 kl
@@ -39234,7 +39627,7 @@ Xq
 ml
 ik
 Ip
-eP
+Yu
 SH
 uT
 kv
@@ -39635,7 +40028,7 @@ DI
 Bc
 zH
 Xq
-PE
+LO
 Sd
 wJ
 me
@@ -41456,7 +41849,7 @@ UF
 eP
 Jx
 eP
-ow
+DE
 ks
 vx
 Lb
@@ -42429,9 +42822,9 @@ fB
 fB
 fB
 fB
+db
 fB
-fB
-va
+rS
 fB
 fB
 fB
@@ -42468,7 +42861,7 @@ Ep
 AL
 tu
 LN
-Lb
+bH
 Oi
 kM
 Lf
@@ -56257,7 +56650,7 @@ Fn
 fB
 fB
 fB
-fB
+JO
 ha
 ha
 ha
@@ -56462,18 +56855,18 @@ fB
 fB
 fB
 fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
+JO
+ha
+ha
+ha
+ha
+ha
+ha
+ha
+ha
+ha
+JO
+JO
 fB
 fB
 fB
@@ -56665,16 +57058,16 @@ fB
 fB
 fB
 fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
+JO
+ha
+ha
+ha
+ha
+ha
+ha
+ha
+ha
+JO
 fB
 fB
 fB
@@ -56868,14 +57261,14 @@ fB
 fB
 fB
 fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
-fB
+JO
+JO
+ha
+ha
+ha
+ha
+ha
+JO
 fB
 fB
 fB
