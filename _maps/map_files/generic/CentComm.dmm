@@ -15433,9 +15433,6 @@
 /obj/item/robot_parts/robot_component/armour{
 	pixel_x = -4
 	},
-/obj/item/robot_parts/robot_component/armour{
-	pixel_x = -4
-	},
 /obj/item/stack/nanopaste{
 	pixel_x = 5
 	},
@@ -26409,6 +26406,7 @@
 	pixel_x = 6;
 	pixel_y = 1
 	},
+/obj/item/robot_parts/robot_component/armour,
 /obj/machinery/recharger/wallcharger{
 	pixel_x = 30
 	},
