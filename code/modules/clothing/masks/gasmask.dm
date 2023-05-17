@@ -182,50 +182,29 @@
 	item_state = "mime"
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
-	var/spells_charge_counter = 3000
-	var/on_cooldown = FALSE
+	var/obj/effect/proc_holder/spell/targeted/mime/speak/mask/spell = new
 
 /obj/item/clothing/mask/gas/mime/equipped(mob/user, slot)
 	if(user && user.mind)
-		if(locate(/obj/effect/proc_holder/spell/targeted/mime/speak) in user.mind.spell_list)
+		var/obj/effect/proc_holder/spell/targeted/mime/speak/mask/S = locate(/obj/effect/proc_holder/spell/targeted/mime/speak/mask) in user.mind.spell_list
+		if(S && !S?.from_mask)
 			return
 
-		if(!locate(/obj/effect/proc_holder/spell/targeted/mime/speak/mask) in user.mind.spell_list)
-			if(slot == slot_wear_mask)
-				if(user.mind.mask_miming)
-					to_chat(user, "<span class='notice'>You must wait before you can put on the mask again .</span>")
-					user.unEquip(src)
-					return
-				var/obj/effect/proc_holder/spell/targeted/mime/speak/mask/spell = new
+		if(slot == slot_wear_mask)
+			if(!S)
 				user.mind.AddSpell(spell)
-				spell.charge_counter = spells_charge_counter
 				spell.start_recharge()
+			else
+				if(S.action?.invisibility)
+					S.action?.ToggleInvisibility()
 
 /obj/item/clothing/mask/gas/mime/dropped(mob/user)
 	if(user && user.mind)
-		var/obj/effect/proc_holder/spell/targeted/mime/speak/mask/spell = locate(/obj/effect/proc_holder/spell/targeted/mime/speak/mask) in user.mind.spell_list
-		if(!spell || !spell?.from_mask)
+		var/obj/effect/proc_holder/spell/targeted/mime/speak/mask/S = locate(/obj/effect/proc_holder/spell/targeted/mime/speak/mask) in user.mind.spell_list
+		if(!S || !S?.from_mask)
 			return
-
-		spells_charge_counter = spell.charge_counter
-
-		if(user.mind.miming)
-			if(spells_charge_counter == spell.charge_max)
-				spell.Click()
-				spells_charge_counter = 0
-			else
-				to_chat(user, "<span class='notice'>You take off the mask, but can't break your vow of silence for now.</span>")
-				if(!user.mind.mask_miming)
-					user.mind.mask_miming = TRUE
-					addtimer(CALLBACK(src, .proc/silence_after_drop, user), spell.charge_max - spells_charge_counter)
-
-		user.mind.RemoveSpell(spell)
-
-/obj/item/clothing/mask/gas/mime/proc/silence_after_drop(mob/user)
-	to_chat(user, "<span class='notice'>Time has come. You break your vow of silence.</span>")
-	spells_charge_counter = 3000
-	user.mind.mask_miming = FALSE
-	user.mind.miming = FALSE
+		if(!S.action?.invisibility)
+			S?.action?.ToggleInvisibility()
 
 /obj/item/clothing/mask/gas/mime/item_action_slot_check(slot, mob/user)
 	if(slot == slot_wear_mask)

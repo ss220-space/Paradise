@@ -48,7 +48,6 @@
 	var/has_been_rev = 0//Tracks if this mind has been a rev or not
 
 	var/miming = 0 // Mime's vow of silence
-	var/mask_miming = FALSE // Vow of silence from mime's mask
 	var/list/antag_datums
 	var/datum/changeling/changeling		//changeling holder
 	var/linglink
