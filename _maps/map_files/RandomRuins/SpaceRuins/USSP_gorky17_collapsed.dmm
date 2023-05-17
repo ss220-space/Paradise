@@ -32,8 +32,8 @@
 	},
 /obj/machinery/camera/autoname{
 	dir = 8;
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -54,8 +54,8 @@
 	tag = ""
 	},
 /obj/machinery/flasher_button{
-	name = "Gorky17 flasher button 1";
 	id = "g17flash1";
+	name = "Gorky17 flasher button 1";
 	req_access = list(122)
 	},
 /turf/simulated/floor/plasteel{
@@ -96,9 +96,9 @@
 "as" = (
 /obj/structure/cable,
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
@@ -137,7 +137,9 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/solars)
 "ax" = (
-/obj/structure/closet/secure_closet/personal/cabinet,
+/obj/structure/closet/secure_closet/personal/cabinet{
+	opened = 1
+	},
 /obj/item/clothing/suit/sovietcoat,
 /obj/item/clothing/under/soviet,
 /obj/item/clothing/head/sovietsidecap,
@@ -207,6 +209,16 @@
 	},
 /turf/space,
 /area/ruin/space/USSP_gorky17/collapsed/solars)
+"aT" = (
+/obj/structure/closet/secure_closet/personal/cabinet,
+/obj/item/clothing/suit/sovietcoat,
+/obj/item/clothing/under/soviet,
+/obj/item/clothing/head/sovietsidecap,
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/head/zepelli,
+/obj/item/clothing/head/soviethelmet,
+/turf/simulated/floor/wood,
+/area/ruin/space/USSP_gorky17/collapsed/dorms)
 "aW" = (
 /obj/effect/decal/cleanable/dust,
 /obj/item/trash/spentcasing{
@@ -223,6 +235,11 @@
 /obj/structure/disposalpipe/broken{
 	dir = 4
 	},
+/obj/item/gun/projectile/automatic/rusted/ppsh{
+	malf_counter = 70;
+	malf_high_bound = 70;
+	malf_low_bound = 50
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "aY" = (
@@ -238,8 +255,8 @@
 	},
 /obj/machinery/camera/autoname{
 	dir = 4;
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
@@ -359,9 +376,9 @@
 "bu" = (
 /obj/structure/cable,
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -381,11 +398,11 @@
 	tag = ""
 	},
 /obj/machinery/computer/security{
-	network = list("USSP_gorky17");
-	icon_state = "frame-sec";
 	icon = 'icons/obj/machines/computer3.dmi';
+	icon_screen = "sec_oldframe";
+	icon_state = "frame-sec";
 	name = "Gorky17 security camera console";
-	icon_screen = "sec_oldframe"
+	network = list("USSP_gorky17")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
@@ -409,10 +426,10 @@
 /obj/structure/table,
 /obj/machinery/computer{
 	icon = 'icons/obj/machines/computer3.dmi';
+	icon_screen = "stock_computer";
 	icon_state = "oldcomp";
-	pixel_y = 8;
 	layer = 3.1;
-	icon_screen = "stock_computer"
+	pixel_y = 8
 	},
 /obj/structure/cable{
 	icon_state = "1-2";
@@ -436,18 +453,10 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "bF" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 2;
-	height = 5;
-	id = "ussp_dock";
-	name = "Docking port USSP Station";
-	width = 8
-	},
 /turf/space{
 	icon_state = "black"
 	},
-/area/space)
+/area/template_noop)
 "bH" = (
 /obj/structure/table_frame,
 /turf/simulated/floor/plating/airless,
@@ -459,6 +468,7 @@
 	pixel_y = -6
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/storage/toolbox/fluff/lunchbox,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkyellow"
@@ -549,8 +559,8 @@
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
 	icon_state = "fleshling3";
-	melee_damage_upper = 20;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 20
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -624,6 +634,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/bridge)
 "bW" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/item/radio{
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -689,9 +702,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintsouth)
@@ -716,9 +729,9 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
@@ -780,8 +793,8 @@
 "cy" = (
 /obj/machinery/computer/operating{
 	icon = 'icons/obj/machines/computer3.dmi';
-	icon_state = "frame-med";
-	icon_screen = "med_oldframe"
+	icon_screen = "med_oldframe";
+	icon_state = "frame-med"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -820,9 +833,9 @@
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
@@ -868,7 +881,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/utility)
 "cM" = (
 /obj/structure/rack,
-/obj/item/broken_bottle,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "cN" = (
@@ -918,8 +930,8 @@
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
 	icon_state = "fleshling3";
-	melee_damage_upper = 20;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 20
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -943,6 +955,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "cV" = (
 /obj/effect/decal/warning_stripes/red/partial,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "cW" = (
@@ -953,8 +966,8 @@
 /area/ruin/space/USSP_gorky17/collapsed/kitchen)
 "db" = (
 /obj/effect/mapping_helpers/light{
-	light_range = 5;
-	layer = 5
+	layer = 5;
+	light_range = 5
 	},
 /turf/space,
 /area/template_noop)
@@ -996,6 +1009,14 @@
 /obj/item/trash/spentcasing{
 	icon_state = "762-casing";
 	pixel_x = 5
+	},
+/mob/living/simple_animal/hostile/zombie/whiteship{
+	health = 200;
+	icon = 'icons/mob/simple_human.dmi';
+	icon_living = "fleshling3";
+	icon_state = "fleshling3";
+	melee_damage_lower = 10;
+	melee_damage_upper = 20
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
@@ -1063,6 +1084,18 @@
 	pixel_x = -7;
 	pixel_y = -10
 	},
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_x = -6;
+	pixel_y = 8
+	},
+/mob/living/simple_animal/hostile/zombie/whiteship{
+	health = 200;
+	icon = 'icons/mob/simple_human.dmi';
+	icon_living = "fleshling1";
+	icon_state = "fleshling1";
+	melee_damage_lower = 10
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -1110,15 +1143,15 @@
 /area/ruin/space/USSP_gorky17/collapsed/check2)
 "dN" = (
 /obj/machinery/porta_turret{
-	name = "Gorky17 vault turret";
-	check_one_access = 0;
-	lethal = 1;
-	req_access = list(125);
-	health = 200;
 	check_arrest = 0;
+	check_one_access = 0;
 	check_records = 0;
-	shot_delay = 10;
-	scan_range = 4
+	health = 200;
+	lethal = 1;
+	name = "Gorky17 vault turret";
+	req_access = list(125);
+	scan_range = 4;
+	shot_delay = 10
 	},
 /turf/simulated/floor/vault,
 /area/ruin/space/USSP_gorky17/collapsed/vault)
@@ -1154,10 +1187,10 @@
 	},
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/power/apc/noalarm{
-	pixel_x = -28;
 	dir = 8;
-	req_access = list(122,123,124,125,126);
 	name = "Gorky17 area power controller";
+	pixel_x = -28;
+	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
 /obj/structure/cable{
@@ -1235,11 +1268,11 @@
 /area/ruin/space/USSP_gorky17/collapsed/solars)
 "ef" = (
 /obj/machinery/computer/security{
-	network = list("USSP_gorky17");
-	icon_state = "frame-sec";
 	icon = 'icons/obj/machines/computer3.dmi';
+	icon_screen = "sec_oldframe";
+	icon_state = "frame-sec";
 	name = "Gorky17 security camera console";
-	icon_screen = "sec_oldframe"
+	network = list("USSP_gorky17")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -1287,23 +1320,23 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/poddoor{
-	name = "Gorky17 vault";
-	id_tag = "g17vault"
+	id_tag = "g17vault";
+	name = "Gorky17 vault"
 	},
 /obj/machinery/access_button{
-	name = "Gorky17 vault unlock";
-	pixel_x = 24;
-	master_tag = "g17vaultdoor";
 	command = "unlock";
 	frequency = 1520;
+	master_tag = "g17vaultdoor";
+	name = "Gorky17 vault unlock";
+	pixel_x = 24;
 	req_access = list(125)
 	},
 /obj/machinery/access_button{
-	name = "Gorky17 vault lock";
-	pixel_x = -24;
-	master_tag = "g17vaultdoor";
 	command = "lock";
 	frequency = 1520;
+	master_tag = "g17vaultdoor";
+	name = "Gorky17 vault lock";
+	pixel_x = -24;
 	req_access = list(125)
 	},
 /turf/simulated/floor/plasteel{
@@ -1367,8 +1400,8 @@
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "eq" = (
 /obj/machinery/camera/autoname{
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
@@ -1466,9 +1499,9 @@
 	tag = ""
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -1492,9 +1525,9 @@
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
@@ -1511,9 +1544,9 @@
 	icon_state = "2-8"
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
@@ -1574,8 +1607,8 @@
 	},
 /obj/machinery/camera/autoname{
 	dir = 4;
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1585,8 +1618,8 @@
 /obj/machinery/computer/crew{
 	dir = 4;
 	icon = 'icons/obj/machines/computer3.dmi';
-	icon_state = "frame-med";
-	icon_screen = "med_oldframe"
+	icon_screen = "med_oldframe";
+	icon_state = "frame-med"
 	},
 /obj/structure/cable{
 	icon_state = "1-2";
@@ -1630,38 +1663,38 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/kitchen)
 "fh" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	name = "Gorky17 large air vent";
 	frequency = 1512;
-	id_tag = "g17mining_pump"
+	id_tag = "g17mining_pump";
+	name = "Gorky17 large air vent"
 	},
 /obj/machinery/airlock_sensor{
+	frequency = 1512;
 	id_tag = "g17minig_sensor";
 	layer = 2.8;
-	pixel_x = 24;
-	pixel_y = 4;
 	name = "Gorky17 airlock sensor";
-	frequency = 1512
+	pixel_x = 24;
+	pixel_y = 4
 	},
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	frequency = 1512;
 	id_tag = "g17mining";
 	layer = 3.1;
+	name = "Gorky17 Airlock Controller";
 	pixel_x = 24;
 	pixel_y = -6;
 	req_access = list(121,122,123,124,125,126);
 	tag_airpump = "g17mining_pump";
 	tag_chamber_sensor = "g17mining_sensor";
 	tag_exterior_door = "g17mining_outer";
-	tag_interior_door = "g17mining_inner";
-	name = "Gorky17 Airlock Controller";
-	frequency = 1512
+	tag_interior_door = "g17mining_inner"
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -1676,9 +1709,9 @@
 	},
 /obj/structure/cable,
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/kitchen)
@@ -1752,6 +1785,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/kitchen)
 "fu" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/ripped{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -1762,9 +1798,9 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -1864,8 +1900,8 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/driver_button{
-	name = "Gorky17 driver button";
 	id_tag = "g17morgue";
+	name = "Gorky17 driver button";
 	pixel_y = -24
 	},
 /obj/item/shard,
@@ -1923,8 +1959,8 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/camera/autoname{
 	dir = 8;
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -2036,8 +2072,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/drip{
-	pixel_y = 16;
-	pixel_x = 4
+	pixel_x = 4;
+	pixel_y = 16
 	},
 /turf/simulated/floor/plating/damaged,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
@@ -2055,9 +2091,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
@@ -2074,9 +2110,9 @@
 	luminosity = 3
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2122,15 +2158,15 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/noalarm{
-	req_access = list(122,123,124,125,126);
-	pixel_y = 28;
 	dir = 1;
 	name = "Gorky17 area power controller";
+	pixel_y = 28;
+	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
 /obj/machinery/camera/autoname{
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -2162,9 +2198,9 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
@@ -2242,8 +2278,8 @@
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
 	icon_state = "fleshling3";
-	melee_damage_upper = 20;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 20
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
@@ -2275,10 +2311,10 @@
 	},
 /obj/machinery/disposal,
 /obj/machinery/alarm{
-	name = "Gorky17 alarm";
 	alarm_frequency = 1520;
-	req_access = list(122);
-	pixel_y = 24
+	name = "Gorky17 alarm";
+	pixel_y = 24;
+	req_access = list(122)
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
@@ -2328,6 +2364,20 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/utility)
+"hl" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/item/gun/projectile/automatic/rusted/aksu{
+	malf_high_bound = 80;
+	malf_low_bound = 50
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/common)
 "hn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -2348,15 +2398,15 @@
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "ho" = (
 /obj/machinery/camera/autoname{
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/alarm{
-	name = "Gorky17 alarm";
 	alarm_frequency = 1520;
-	req_access = list(122);
-	pixel_y = 24
+	name = "Gorky17 alarm";
+	pixel_y = 24;
+	req_access = list(122)
 	},
 /turf/simulated/floor/vault,
 /area/ruin/space/USSP_gorky17/collapsed/vault)
@@ -2405,14 +2455,13 @@
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "hv" = (
 /obj/structure/rack,
-/obj/item/changestone,
 /obj/machinery/light/small{
 	flickering = 1
 	},
 /obj/machinery/camera/autoname{
 	dir = 1;
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
@@ -2447,8 +2496,8 @@
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "hA" = (
 /obj/machinery/camera/autoname{
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/securearea{
@@ -2630,9 +2679,9 @@
 	desc = "A floor-mounted flashbulb device.";
 	id = "g17flash1";
 	layer = 5;
+	name = "Gorky17 flash 1";
 	pixel_y = 55;
-	range = 3;
-	name = "Gorky17 flash 1"
+	range = 3
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2643,6 +2692,7 @@
 "hZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber,
+/obj/item/shard,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -2820,15 +2870,15 @@
 "iA" = (
 /obj/structure/table/reinforced,
 /obj/machinery/flasher_button{
+	id = "g17flash2";
 	name = "Gorky17 flasher button 2";
 	pixel_x = -5;
-	id = "g17flash2";
 	req_access = list(122)
 	},
 /obj/machinery/door_control{
+	id = "g17arrivals";
 	name = "Gorky17 arrivals shutters";
-	pixel_x = 5;
-	id = "g17arrivals"
+	pixel_x = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -2838,8 +2888,8 @@
 "iB" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
-	icon_state = "yellowcorner";
-	dir = 8
+	dir = 8;
+	icon_state = "yellowcorner"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "iD" = (
@@ -2858,11 +2908,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
-"iH" = (
-/turf/space{
-	icon_state = "black"
-	},
-/area/space)
 "iI" = (
 /obj/structure/door_assembly/door_assembly_shuttle,
 /obj/effect/decal/cleanable/dirt,
@@ -2874,12 +2919,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/vault{
-	name = "Gorky17 vault door";
-	req_access = list(125);
+	frequency = 1520;
 	id = "g17vaultdoor";
 	id_tag = "g17vaultdoor";
-	frequency = 1520;
-	locked = 1
+	locked = 1;
+	name = "Gorky17 vault door";
+	req_access = list(125)
 	},
 /turf/simulated/floor/vault,
 /area/ruin/space/USSP_gorky17/collapsed/vault)
@@ -2991,11 +3036,11 @@
 "jn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm{
-	name = "Gorky17 alarm";
 	alarm_frequency = 1520;
-	req_access = list(122);
+	dir = 1;
+	name = "Gorky17 alarm";
 	pixel_y = -24;
-	dir = 1
+	req_access = list(122)
 	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3";
@@ -3071,11 +3116,11 @@
 	flickering = 1
 	},
 /obj/machinery/alarm{
-	name = "Gorky17 alarm";
 	alarm_frequency = 1520;
-	req_access = list(122);
+	dir = 1;
+	name = "Gorky17 alarm";
 	pixel_y = -24;
-	dir = 1
+	req_access = list(122)
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
@@ -3087,8 +3132,8 @@
 	tag = ""
 	},
 /obj/machinery/door/airlock/maintenance_hatch{
-	req_access = list(122,123,124,125,126);
-	name = "Gorky17 engineering hatch"
+	name = "Gorky17 engineering hatch";
+	req_access = list(122,123,124,125,126)
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
@@ -3195,10 +3240,10 @@
 "jT" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/power/apc/noalarm{
-	pixel_x = 28;
 	dir = 4;
-	req_access = list(122,123,124,125,126);
 	name = "Gorky17 area power controller";
+	pixel_x = 28;
+	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
 /obj/structure/cable{
@@ -3222,6 +3267,13 @@
 	tag = "icon-vault (NORTHEAST)"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/bridge)
+"jX" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/ruin/space/USSP_gorky17/collapsed/check1)
 "jY" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -3290,8 +3342,10 @@
 /area/ruin/space/USSP_gorky17/collapsed/rnd)
 "kg" = (
 /mob/living/simple_animal/hostile/carp/lostsoul{
+	health = 100;
 	icon_living = "shade2";
-	icon_state = "shade2"
+	icon_state = "shade2";
+	speed = -0.1
 	},
 /turf/space,
 /area/template_noop)
@@ -3317,9 +3371,9 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -3523,31 +3577,37 @@
 "kM" = (
 /obj/structure/cable,
 /obj/machinery/power/apc/noalarm{
-	req_access = list(122,123,124,125,126);
-	pixel_y = -28;
 	name = "Gorky17 area power controller";
+	pixel_y = -28;
+	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "kO" = (
-/obj/item/clothing/head/helmet,
-/obj/item/clothing/suit/armor/vest,
+/obj/item/clothing/head/bomb_hood/security{
+	armor = list("melee"=30,"bullet"=45,"laser"=20,"energy"=15,"bomb"=50,"bio"=0,"rad"=0,"fire"=30,"acid"=50);
+	desc = "Covers your head and eyes.";
+	name = "Altyn"
+	},
+/obj/item/clothing/suit/armor/vest/combat,
 /obj/item/melee/classic_baton,
 /obj/machinery/camera/autoname{
 	dir = 1;
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /obj/structure/closet/secure_closet{
 	color = "#ff9999";
-	req_access = list(123);
-	name = "Gorky17 ammunition locker"
+	name = "Gorky17 ammunition locker";
+	req_access = list(123)
 	},
 /obj/item/ammo_box/magazine/aksu,
 /obj/item/gun/projectile/automatic/rusted/aksu{
-	self_shot_divisor = 4
+	malf_high_bound = 80;
+	malf_low_bound = 50
 	},
+/obj/item/clothing/gloves/combat,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -3566,8 +3626,8 @@
 "kS" = (
 /obj/machinery/computer{
 	icon = 'icons/obj/machines/computer3.dmi';
-	icon_state = "serverframe";
-	icon_screen = "command"
+	icon_screen = "command";
+	icon_state = "serverframe"
 	},
 /turf/simulated/floor/vault,
 /area/ruin/space/USSP_gorky17/collapsed/vault)
@@ -3595,10 +3655,10 @@
 /area/ruin/space/USSP_gorky17/collapsed/vault)
 "la" = (
 /obj/machinery/alarm{
-	name = "Gorky17 alarm";
 	alarm_frequency = 1520;
-	req_access = list(122);
-	pixel_y = 24
+	name = "Gorky17 alarm";
+	pixel_y = 24;
+	req_access = list(122)
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/structure/door_assembly/door_assembly_science,
@@ -3619,17 +3679,14 @@
 /area/ruin/space/USSP_gorky17/collapsed/utility)
 "lc" = (
 /obj/effect/decal/cleanable/ash,
-/obj/item/gun/projectile/automatic/rusted/aksu{
-	self_shot_divisor = 4
-	},
 /turf/simulated/floor/plating/damaged,
 /area/ruin/space/USSP_gorky17/collapsed/check2)
 "ld" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 150;
-	melee_damage_upper = 15;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 15
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3792,10 +3849,10 @@
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "lF" = (
 /obj/machinery/door_control{
-	name = "Gorky17 gate shutters";
 	id = "g17gate";
-	pixel_y = 24;
+	name = "Gorky17 gate shutters";
 	pixel_x = 24;
+	pixel_y = 24;
 	req_access = list(123,124,125,126)
 	},
 /turf/simulated/floor/plasteel{
@@ -3892,9 +3949,9 @@
 	tag = "90Curve"
 	},
 /obj/machinery/door/airlock/security/glass{
+	locked = 1;
 	name = "Gorky17 common";
-	req_access = list(121,122,123,124,125,126);
-	locked = 1
+	req_access = list(121,122,123,124,125,126)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -3972,6 +4029,13 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/decorative_structures/corpse,
+/mob/living/simple_animal/hostile/zombie/whiteship{
+	health = 200;
+	icon = 'icons/mob/simple_human.dmi';
+	icon_living = "fleshling1";
+	icon_state = "fleshling1";
+	melee_damage_lower = 10
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "mj" = (
@@ -4095,9 +4159,9 @@
 "mE" = (
 /obj/structure/cable,
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -4167,10 +4231,10 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/noalarm{
-	pixel_x = -28;
 	dir = 8;
-	req_access = list(122,123,124,125,126);
 	name = "Gorky17 area power controller";
+	pixel_x = -28;
+	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4273,10 +4337,10 @@
 	tag = ""
 	},
 /obj/machinery/door/airlock/security{
+	locked = 1;
 	name = "Gorky17 hangar airlock";
 	req_access = list(123,124,125,126);
-	welded = 1;
-	locked = 1
+	welded = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -4488,9 +4552,9 @@
 	},
 /obj/structure/cable,
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -4565,9 +4629,9 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
@@ -4617,9 +4681,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -4733,15 +4797,15 @@
 	dir = 8
 	},
 /obj/machinery/door_control{
+	id = "g17extlock";
 	name = "Gorky17 exterior lockdown";
 	pixel_x = 24;
-	id = "g17extlock";
 	pixel_y = 5;
 	req_access = list(123)
 	},
 /obj/machinery/door_control{
-	name = "Gorky17 vault";
 	id = "g17vault";
+	name = "Gorky17 vault";
 	pixel_x = 24;
 	pixel_y = -5;
 	req_access = list(125)
@@ -4918,12 +4982,12 @@
 	},
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
+	environ = 0;
+	equipment = 0;
 	lighting = 2;
 	locked = 0;
 	pixel_y = 24;
 	req_access = list();
-	environ = 0;
-	equipment = 0;
 	start_charge = 0
 	},
 /turf/simulated/floor/plating,
@@ -4966,8 +5030,8 @@
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 150;
-	melee_damage_upper = 15;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 15
 	},
 /turf/simulated/floor/plating/damaged,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
@@ -5015,11 +5079,15 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/USSP_gorky17/collapsed/asteroids)
 "px" = (
-/obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
 /obj/structure/cable,
+/obj/structure/grille,
+/obj/structure/window/reinforced,
+/obj/item/shard{
+	icon_state = "small"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/check2)
 "py" = (
@@ -5089,8 +5157,8 @@
 	flickering = 1
 	},
 /obj/machinery/camera/autoname{
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -5223,8 +5291,8 @@
 "qj" = (
 /obj/machinery/computer{
 	icon = 'icons/obj/machines/computer3.dmi';
-	icon_state = "frame-eng";
-	icon_screen = "common_oldframe"
+	icon_screen = "common_oldframe";
+	icon_state = "frame-eng"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -5262,8 +5330,8 @@
 	flickering = 1
 	},
 /obj/machinery/camera/autoname{
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /obj/item/gps,
 /turf/simulated/floor/plasteel{
@@ -5382,8 +5450,8 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/maintenance_hatch{
-	req_access = list(122,123,124,125,126);
-	name = "Gorky17 engineering hatch"
+	name = "Gorky17 engineering hatch";
+	req_access = list(122,123,124,125,126)
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -5442,8 +5510,8 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/maintenance_hatch{
-	req_access = list(122,123,124,125,126);
-	name = "Gorky17 engineering hatch"
+	name = "Gorky17 engineering hatch";
+	req_access = list(122,123,124,125,126)
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -5454,8 +5522,8 @@
 /obj/machinery/cooker/deepfryer,
 /obj/machinery/camera/autoname{
 	dir = 1;
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -5558,8 +5626,8 @@
 "rh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/drip{
-	pixel_y = 16;
-	pixel_x = 4
+	pixel_x = 4;
+	pixel_y = 16
 	},
 /obj/effect/decal/cleanable/ash,
 /mob/living/simple_animal/hostile/zombie/whiteship/fast{
@@ -5589,11 +5657,12 @@
 /turf/simulated/wall/r_wall/rust,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintsouth)
 "rm" = (
-/obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/structure/grille,
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/check2)
 "rn" = (
@@ -5798,25 +5867,25 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	frequency = 1511;
 	id_tag = "g17solars";
 	layer = 3.1;
+	name = "Gorky17 Airlock Controller";
 	pixel_x = 24;
 	pixel_y = -6;
 	req_access = list(122);
 	tag_airpump = "g17solars_pump";
 	tag_chamber_sensor = "g17solars_sensor";
 	tag_exterior_door = "g17solars_solar_outer";
-	tag_interior_door = "g17solars_solar_inner";
-	name = "Gorky17 Airlock Controller";
-	frequency = 1511
+	tag_interior_door = "g17solars_solar_inner"
 	},
 /obj/machinery/airlock_sensor{
+	frequency = 1511;
 	id_tag = "g17solars_sensor";
 	layer = 2.8;
-	pixel_x = 24;
-	pixel_y = 4;
 	name = "Gorky17 airlock sensor";
-	frequency = 1511
+	pixel_x = 24;
+	pixel_y = 4
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -5875,8 +5944,8 @@
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
 	icon_state = "fleshling3";
-	melee_damage_upper = 20;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 20
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
@@ -5916,19 +5985,19 @@
 /area/ruin/space/USSP_gorky17/collapsed/solars)
 "sc" = (
 /obj/machinery/suit_storage_unit{
-	suit_type = /obj/item/clothing/suit/space/hardsuit/soviet;
 	mask_type = /obj/item/clothing/mask/gas;
 	name = "Soviet hardsuit storage unit";
-	req_access = list(124,125,126)
+	req_access = list(124,125,126);
+	suit_type = /obj/item/clothing/suit/space/hardsuit/soviet
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "sd" = (
 /obj/machinery/alarm{
-	name = "Gorky17 alarm";
 	alarm_frequency = 1520;
-	req_access = list(122);
-	pixel_y = 24
+	name = "Gorky17 alarm";
+	pixel_y = 24;
+	req_access = list(122)
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -5956,6 +6025,7 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/rnd)
 "sl" = (
+/obj/item/clothing/head/helmet/fluff/merchant_sallet,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -5996,8 +6066,8 @@
 "sq" = (
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 150;
-	melee_damage_upper = 15;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 15
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
@@ -6008,14 +6078,19 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/check2)
 "st" = (
-/obj/item/clothing/head/helmet,
-/obj/item/clothing/suit/armor/vest,
+/obj/item/clothing/head/bomb_hood/security{
+	armor = list("melee"=30,"bullet"=45,"laser"=20,"energy"=15,"bomb"=50,"bio"=0,"rad"=0,"fire"=30,"acid"=50);
+	desc = "Covers your head and eyes.";
+	name = "Altyn"
+	},
+/obj/item/clothing/suit/armor/vest/combat,
 /obj/item/melee/classic_baton,
 /obj/structure/closet/secure_closet{
 	color = "#ff9999";
-	req_access = list(123);
-	name = "Gorky17 ammunition locker"
+	name = "Gorky17 ammunition locker";
+	req_access = list(123)
 	},
+/obj/item/clothing/gloves/combat,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "red"
@@ -6047,11 +6122,11 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/alarm{
-	name = "Gorky17 alarm";
 	alarm_frequency = 1520;
-	req_access = list(122);
+	dir = 1;
+	name = "Gorky17 alarm";
 	pixel_y = -24;
-	dir = 1
+	req_access = list(122)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -6069,10 +6144,10 @@
 "sE" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/machinery/alarm{
-	name = "Gorky17 alarm";
 	alarm_frequency = 1520;
-	req_access = list(122);
-	pixel_y = 24
+	name = "Gorky17 alarm";
+	pixel_y = 24;
+	req_access = list(122)
 	},
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/plating/airless,
@@ -6126,8 +6201,8 @@
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
 	icon_state = "fleshling3";
-	melee_damage_upper = 20;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 20
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
@@ -6247,16 +6322,16 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
 "td" = (
 /obj/machinery/camera/autoname{
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -6275,8 +6350,8 @@
 "tg" = (
 /obj/machinery/camera/autoname{
 	dir = 1;
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor/border_only/closed{
@@ -6308,17 +6383,17 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "tl" = (
 /mob/living/simple_animal/hostile/carp{
+	health = 50;
 	maxHealth = 50;
 	name = "Annoyed space carp";
-	health = 50;
 	speed = -0.1
 	},
 /turf/space,
@@ -6358,8 +6433,8 @@
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
 	icon_state = "fleshling3";
-	melee_damage_upper = 20;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 20
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
@@ -6387,6 +6462,13 @@
 "tu" = (
 /turf/simulated/wall/r_wall,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
+"tv" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/snacks/boiledbuckwheat,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/USSP_gorky17/collapsed/kitchen)
 "tx" = (
 /turf/space,
 /area/ruin/space/USSP_gorky17/collapsed/asteroids)
@@ -6436,8 +6518,8 @@
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 150;
-	melee_damage_upper = 15;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 15
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
@@ -6499,8 +6581,8 @@
 "tJ" = (
 /obj/machinery/computer/rdconsole/core{
 	icon = 'icons/obj/machines/computer3.dmi';
-	icon_state = "frame-rnd";
 	icon_screen = "rnd_oldframe";
+	icon_state = "frame-rnd";
 	req_access = list(122)
 	},
 /turf/simulated/floor/plasteel{
@@ -6533,8 +6615,8 @@
 	},
 /obj/machinery/computer{
 	icon = 'icons/obj/machines/computer3.dmi';
-	icon_state = "serverframe";
-	icon_screen = "common_oldframe"
+	icon_screen = "common_oldframe";
+	icon_state = "serverframe"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
@@ -6590,9 +6672,9 @@
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/kitchen)
@@ -6611,9 +6693,9 @@
 "ub" = (
 /obj/structure/cable,
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -6668,8 +6750,8 @@
 "uj" = (
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 150;
-	icon_state = "husk_s";
 	icon_living = "husk_s";
+	icon_state = "husk_s";
 	melee_damage_lower = 10;
 	melee_damage_upper = 15
 	},
@@ -6732,8 +6814,8 @@
 /area/ruin/space/USSP_gorky17/collapsed/utility)
 "us" = (
 /obj/machinery/door/poddoor/shutters{
-	name = "Gorky17 hangar 2 shutters";
-	id_tag = "g17hangar2"
+	id_tag = "g17hangar2";
+	name = "Gorky17 hangar 2 shutters"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6747,9 +6829,9 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/angar)
@@ -6768,8 +6850,8 @@
 /obj/item/megaphone,
 /obj/machinery/camera/autoname{
 	dir = 8;
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -6936,9 +7018,9 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/power/apc/noalarm{
-	req_access = list(122,123,124,125,126);
-	pixel_y = -28;
 	name = "Gorky17 area power controller";
+	pixel_y = -28;
+	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -7043,6 +7125,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/check1)
 "vp" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/item/gps,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -7064,8 +7147,8 @@
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 150;
-	icon_state = "husk_s";
 	icon_living = "husk_s";
+	icon_state = "husk_s";
 	melee_damage_lower = 10;
 	melee_damage_upper = 15
 	},
@@ -7073,6 +7156,11 @@
 	dir = 1
 	},
 /area/ruin/space/USSP_gorky17/collapsed/check2)
+"vv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/changestone,
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/gate)
 "vw" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
@@ -7120,10 +7208,10 @@
 "vF" = (
 /obj/machinery/computer{
 	icon = 'icons/obj/machines/computer3.dmi';
+	icon_screen = "stock_computer";
 	icon_state = "oldcomp";
-	pixel_y = 8;
 	layer = 3.1;
-	icon_screen = "stock_computer"
+	pixel_y = 8
 	},
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
@@ -7197,9 +7285,9 @@
 "vU" = (
 /obj/structure/cable,
 /obj/machinery/power/apc/noalarm{
-	req_access = list(122,123,124,125,126);
-	pixel_y = -28;
 	name = "Gorky17 area power controller";
+	pixel_y = -28;
+	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
 /obj/machinery/light_switch{
@@ -7231,9 +7319,9 @@
 	req_access = list(122,123,124,125,126)
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -7245,18 +7333,18 @@
 /obj/structure/table,
 /obj/machinery/computer{
 	icon = 'icons/obj/machines/computer3.dmi';
+	icon_screen = "stock_computer";
 	icon_state = "oldcomp";
-	pixel_y = 8;
 	layer = 3.1;
-	icon_screen = "stock_computer"
+	pixel_y = 8
 	},
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
 	dir = 4;
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /obj/structure/marker_beacon{
 	icon_state = "markerburgundy-on";
@@ -7276,8 +7364,8 @@
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
 "wb" = (
 /obj/machinery/vending/medical{
-	req_access = list(122);
-	name = "Gorky17 NanoMed Plus"
+	name = "Gorky17 NanoMed Plus";
+	req_access = list(122)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -7362,8 +7450,8 @@
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
 	icon_state = "fleshling3";
-	melee_damage_upper = 20;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 20
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -7438,16 +7526,16 @@
 "wA" = (
 /obj/machinery/camera/autoname{
 	dir = 1;
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1
 	},
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 150;
-	melee_damage_upper = 15;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 15
 	},
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -7512,8 +7600,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/titanium/glass{
-	req_access = list(122,123,124,125,126);
-	name = "Gorky17 med bay"
+	name = "Gorky17 med bay";
+	req_access = list(122,123,124,125,126)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -7619,10 +7707,10 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/noalarm{
-	pixel_x = -28;
 	dir = 8;
-	req_access = list(122,123,124,125,126);
 	name = "Gorky17 area power controller";
+	pixel_x = -28;
+	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
 /obj/item/weldingtool,
@@ -7636,9 +7724,9 @@
 /area/template_noop)
 "xa" = (
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/machinery/door/airlock/external{
@@ -7723,9 +7811,6 @@
 	},
 /obj/item/flashlight,
 /obj/item/gps,
-/obj/item/radio{
-	pixel_y = 6
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -7741,9 +7826,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "xs" = (
 /obj/machinery/door/airlock/security/glass{
+	locked = 1;
 	name = "Gorky17 common";
-	req_access = list(121,122,123,124,125,126);
-	locked = 1
+	req_access = list(121,122,123,124,125,126)
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -7757,10 +7842,10 @@
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "xu" = (
 /obj/machinery/door/airlock/security{
+	locked = 1;
 	name = "Gorky17 hangar airlock";
 	req_access = list(123,124,125,126);
-	welded = 1;
-	locked = 1
+	welded = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -7805,10 +7890,10 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/noalarm{
-	req_access = list(122,123,124,125,126);
-	pixel_y = 28;
 	dir = 1;
 	name = "Gorky17 area power controller";
+	pixel_y = 28;
+	req_access = list(122,123,124,125,126);
 	start_charge = 100
 	},
 /obj/effect/decal/cleanable/dust,
@@ -7866,8 +7951,8 @@
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
 	icon_state = "fleshling3";
-	melee_damage_upper = 20;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 20
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -7885,6 +7970,23 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/utility)
+"xU" = (
+/obj/item/trash/spentcasing{
+	icon_state = "s-casing";
+	pixel_x = -6;
+	pixel_y = 10
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "s-casing";
+	pixel_x = 9;
+	pixel_y = -10
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "s-casing";
+	pixel_x = 16
+	},
+/turf/simulated/floor/plating/damaged,
+/area/ruin/space/USSP_gorky17/collapsed/gate)
 "xV" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -7912,11 +8014,11 @@
 	dir = 4
 	},
 /obj/machinery/alarm{
-	name = "Gorky17 alarm";
 	alarm_frequency = 1520;
-	req_access = list(122);
 	dir = 8;
-	pixel_x = 24
+	name = "Gorky17 alarm";
+	pixel_x = 24;
+	req_access = list(122)
 	},
 /obj/item/shard{
 	icon_state = "small"
@@ -7949,6 +8051,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/rnd)
 "yd" = (
 /obj/effect/decal/cleanable/dust,
+/obj/structure/sign/poster/contraband/communist_state{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -8014,8 +8119,8 @@
 	},
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 150;
-	icon_state = "husk_s";
 	icon_living = "husk_s";
+	icon_state = "husk_s";
 	melee_damage_lower = 10;
 	melee_damage_upper = 15
 	},
@@ -8060,10 +8165,10 @@
 "yt" = (
 /obj/structure/cable,
 /obj/machinery/computer/monitor{
-	name = "Grid Power Monitoring Computer";
 	icon = 'icons/obj/machines/computer3.dmi';
+	icon_screen = "power_oldframe";
 	icon_state = "frame-eng";
-	icon_screen = "power_oldframe"
+	name = "Grid Power Monitoring Computer"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
@@ -8175,8 +8280,8 @@
 	},
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 150;
-	icon_state = "husk_s";
 	icon_living = "husk_s";
+	icon_state = "husk_s";
 	melee_damage_lower = 10;
 	melee_damage_upper = 15
 	},
@@ -8202,10 +8307,10 @@
 /obj/structure/rack,
 /obj/machinery/camera/autoname{
 	dir = 1;
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/clothing/under/fluff/arachno_suit,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "yR" = (
@@ -8276,6 +8381,15 @@
 	icon_state = "white"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/kitchen)
+"yV" = (
+/obj/structure/decorative_structures/corpse{
+	density = 1;
+	icon = 'icons/mob/spirits/mask.dmi';
+	icon_state = "depressurized"
+	},
+/obj/effect/decal/cleanable/blood/gibs,
+/turf/space,
+/area/template_noop)
 "yW" = (
 /obj/machinery/broken/porta_turret{
 	dir = 4
@@ -8284,10 +8398,10 @@
 /area/ruin/space/USSP_gorky17/collapsed/check2)
 "yY" = (
 /obj/machinery/door_control{
-	name = "Gorky17 gate shutters";
 	id = "g17gate";
-	pixel_y = 24;
+	name = "Gorky17 gate shutters";
 	pixel_x = -24;
+	pixel_y = 24;
 	req_access = list(123,124,125,126)
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -8369,8 +8483,8 @@
 "zm" = (
 /obj/machinery/computer{
 	icon = 'icons/obj/machines/computer3.dmi';
-	icon_state = "frame-med";
-	icon_screen = "common_oldframe"
+	icon_screen = "common_oldframe";
+	icon_state = "frame-med"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -8457,8 +8571,8 @@
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
 	icon_state = "fleshling3";
-	melee_damage_upper = 20;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 20
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -8535,8 +8649,8 @@
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
 	icon_state = "fleshling3";
-	melee_damage_upper = 20;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 20
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -8550,9 +8664,9 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
@@ -8690,10 +8804,10 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door_control{
+	id = "g17hangar2exit";
 	name = "Gorky17 hangar 2 exit";
 	pixel_y = -24;
-	req_access = list(124);
-	id = "g17hangar2exit"
+	req_access = list(124)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -8777,8 +8891,8 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/item/reagent_containers/food/snacks/boiledpelmeni,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/food/snacks/boiledbuckwheat,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},
@@ -8860,8 +8974,8 @@
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 150;
-	melee_damage_upper = 15;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 15
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -8911,6 +9025,8 @@
 	name = "Gorky17 RnD secure locker";
 	req_access = list(123)
 	},
+/obj/item/fluff/tattoo_gun,
+/obj/item/fluff/bird_painter,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkpurple"
@@ -8946,8 +9062,8 @@
 	},
 /obj/machinery/camera/autoname{
 	dir = 4;
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -8986,8 +9102,8 @@
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 150;
-	icon_state = "husk_s";
 	icon_living = "husk_s";
+	icon_state = "husk_s";
 	melee_damage_lower = 10;
 	melee_damage_upper = 15
 	},
@@ -9002,9 +9118,9 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	desc = "Труба ведёт газ на фильтрацию";
@@ -9122,9 +9238,9 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
@@ -9212,8 +9328,8 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/camera/autoname{
 	dir = 8;
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /obj/machinery/light_switch{
 	pixel_x = 24;
@@ -9260,9 +9376,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
 "Bz" = (
 /obj/machinery/door/airlock/security/glass{
+	locked = 1;
 	name = "Gorky17 common";
-	req_access = list(121,122,123,124,125,126);
-	locked = 1
+	req_access = list(121,122,123,124,125,126)
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -9274,14 +9390,16 @@
 "BC" = (
 /obj/machinery/door/airlock/multi_tile{
 	dir = 1;
+	locked = 1;
 	name = "Gorky17 storage";
-	req_access = list(122,123,124,125,126);
-	locked = 1
+	req_access = list(122,123,124,125,126)
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "BG" = (
-/obj/structure/closet/secure_closet/personal/cabinet,
+/obj/structure/closet/secure_closet/personal/cabinet{
+	opened = 1
+	},
 /obj/item/clothing/suit/sovietcoat,
 /obj/item/clothing/under/soviet,
 /obj/item/clothing/head/sovietsidecap,
@@ -9305,6 +9423,7 @@
 	id_tag = "g17arrivals";
 	name = "Gorky17 arrivals shutters"
 	},
+/obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/check1)
 "BP" = (
@@ -9609,8 +9728,8 @@
 "CU" = (
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 150;
-	icon_state = "husk_s";
 	icon_living = "husk_s";
+	icon_state = "husk_s";
 	melee_damage_lower = 10;
 	melee_damage_upper = 15
 	},
@@ -9690,11 +9809,11 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm{
-	name = "Gorky17 alarm";
 	alarm_frequency = 1520;
-	req_access = list(122);
+	dir = 1;
+	name = "Gorky17 alarm";
 	pixel_y = -24;
-	dir = 1
+	req_access = list(122)
 	},
 /obj/item/trash/spentcasing{
 	icon_state = "762-casing";
@@ -9750,15 +9869,17 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "Dj" = (
-/obj/machinery/gateway{
-	dir = 5
+/obj/item/trash/spentcasing{
+	icon_state = "s-casing";
+	pixel_x = 16
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+/obj/item/trash/spentcasing{
+	icon_state = "s-casing";
+	pixel_x = 9;
+	pixel_y = -10
 	},
-/area/ruin/space/USSP_gorky17/collapsed/gate)
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/common)
 "Dl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/trash/plate,
@@ -9768,11 +9889,19 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "Dn" = (
-/obj/item/ammo_box/magazine/aksu,
-/obj/item/ammo_box/magazine/ppsh,
-/obj/item/ammo_box/magazine/aksu,
-/obj/item/ammo_box/magazine/aksu,
 /obj/structure/safe,
+/obj/item/clothing/head/fluff/arachno_mask,
+/obj/item/fluff/pinapplehairgel,
+/obj/item/fluff/wingler_comb,
+/obj/item/paintkit/durand_soviet,
+/obj/item/storage/pill_bottle/sovietstimulants,
+/obj/item/coin/mythril,
+/obj/item/coin/mythril,
+/obj/item/coin/mythril,
+/obj/item/coin/adamantine,
+/obj/item/coin/adamantine,
+/obj/item/coin/adamantine,
+/obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -9799,8 +9928,8 @@
 /obj/machinery/computer/crew{
 	dir = 4;
 	icon = 'icons/obj/machines/computer3.dmi';
-	icon_state = "frame-med";
-	icon_screen = "med_oldframe"
+	icon_screen = "med_oldframe";
+	icon_state = "frame-med"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
@@ -9867,8 +9996,8 @@
 "DD" = (
 /obj/machinery/flasher{
 	id = "g17flash3";
-	pixel_x = -26;
-	name = "Gorky17 flash 3"
+	name = "Gorky17 flash 3";
+	pixel_x = -26
 	},
 /obj/machinery/light{
 	dir = 8
@@ -9889,8 +10018,8 @@
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
 	icon_state = "fleshling3";
-	melee_damage_upper = 20;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 20
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
@@ -9905,24 +10034,24 @@
 	name = "Gorky17 large air vent"
 	},
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	frequency = 1510;
 	id_tag = "g17solarn";
+	layer = 3.1;
+	name = "Gorky17 Airlock Controller";
 	pixel_y = -25;
 	req_access = list(122);
 	tag_airpump = "g17solarn_pump";
 	tag_chamber_sensor = "g17solarn_sensor";
 	tag_exterior_door = "g17solarn_solar_outer";
-	tag_interior_door = "g17solarn_solar_inner";
-	name = "Gorky17 Airlock Controller";
-	frequency = 1510;
-	layer = 3.1
+	tag_interior_door = "g17solarn_solar_inner"
 	},
 /obj/machinery/airlock_sensor{
-	id_tag = "g17solarn_sensor";
-	pixel_x = 12;
-	pixel_y = -25;
-	name = "Gorky17 airlock sensor";
 	frequency = 1510;
-	layer = 2.8
+	id_tag = "g17solarn_sensor";
+	layer = 2.8;
+	name = "Gorky17 airlock sensor";
+	pixel_x = 12;
+	pixel_y = -25
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/light/small{
@@ -9940,6 +10069,7 @@
 /obj/item/circuitboard/HONKputer,
 /obj/item/soulstone,
 /obj/effect/decal/warning_stripes/red/partial,
+/obj/item/whetstone/cult,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "DI" = (
@@ -9954,10 +10084,10 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/noalarm{
-	pixel_x = 28;
 	dir = 4;
-	req_access = list(122,123,124,125,126);
 	name = "Gorky17 area power controller";
+	pixel_x = 28;
+	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
 /obj/machinery/light/small{
@@ -10012,19 +10142,39 @@
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
+"DR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/shard{
+	icon_state = "small"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/ruin/space/USSP_gorky17/collapsed/check2)
 "DT" = (
 /mob/living/simple_animal/hostile/carp{
+	health = 50;
 	maxHealth = 50;
 	name = "Annoyed space carp";
-	health = 50;
 	speed = -0.1
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/USSP_gorky17/collapsed/asteroids)
 "DU" = (
 /mob/living/simple_animal/hostile/carp/lostsoul{
+	health = 100;
+	icon_living = "envoy_of_death";
 	icon_state = "envoy_of_death";
-	icon_living = "envoy_of_death"
+	speed = -0.1
 	},
 /turf/space,
 /area/template_noop)
@@ -10044,8 +10194,8 @@
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
 	icon_state = "fleshling3";
-	melee_damage_upper = 20;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 20
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -10064,8 +10214,8 @@
 "Ea" = (
 /obj/machinery/computer{
 	icon = 'icons/obj/machines/computer3.dmi';
-	icon_state = "frame-med";
-	icon_screen = "common2_oldframe"
+	icon_screen = "common2_oldframe";
+	icon_state = "frame-med"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -10084,9 +10234,9 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/noalarm{
-	req_access = list(122,123,124,125,126);
-	pixel_y = -28;
 	name = "Gorky17 area power controller";
+	pixel_y = -28;
+	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
 /obj/effect/decal/cleanable/dust,
@@ -10142,8 +10292,8 @@
 	},
 /obj/machinery/camera/autoname{
 	dir = 8;
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct/small{
@@ -10226,6 +10376,11 @@
 /obj/effect/decal/cleanable/blood,
 /obj/effect/mob_spawn/mousedead,
 /obj/effect/mob_spawn/human/corpse/usspconscript,
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_x = -6;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "Ex" = (
@@ -10243,6 +10398,7 @@
 /obj/item/clothing/under/soviet,
 /obj/item/clothing/head/sovietsidecap,
 /obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/head/soviethelmet,
 /turf/simulated/floor/wood,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "EB" = (
@@ -10285,20 +10441,21 @@
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/camera/autoname{
 	dir = 4;
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /obj/structure/cable{
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/machinery/alarm{
-	name = "Gorky17 alarm";
 	alarm_frequency = 1520;
-	req_access = list(122);
 	dir = 4;
-	pixel_x = -24
+	name = "Gorky17 alarm";
+	pixel_x = -24;
+	req_access = list(122)
 	},
+/obj/item/paper/gorky17/lastwords,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintsouth)
 "EG" = (
@@ -10397,9 +10554,9 @@
 	tag = "90Curve"
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
@@ -10431,14 +10588,15 @@
 	id_tag = "g17arrivals";
 	name = "Gorky17 arrivals shutters"
 	},
+/obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
 /area/ruin/space/USSP_gorky17/collapsed/check1)
 "EZ" = (
 /obj/machinery/door/poddoor/shutters{
-	name = "Gorky17 hangar 1 shutters";
-	id_tag = "g17hangar1"
+	id_tag = "g17hangar1";
+	name = "Gorky17 hangar 1 shutters"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -10448,11 +10606,11 @@
 "Fb" = (
 /obj/machinery/kitchen_machine/grill,
 /obj/machinery/alarm{
-	name = "Gorky17 alarm";
 	alarm_frequency = 1520;
-	req_access = list(122);
+	dir = 1;
+	name = "Gorky17 alarm";
 	pixel_y = -24;
-	dir = 1
+	req_access = list(122)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -10484,10 +10642,10 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/solar_control{
-	id = "usspnorth";
-	icon_state = "frame-eng";
 	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "solar_oldframe"
+	icon_screen = "solar_oldframe";
+	icon_state = "frame-eng";
+	id = "usspnorth"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintsouth)
@@ -10507,9 +10665,9 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/noalarm{
-	req_access = list(122,123,124,125,126);
-	pixel_y = -28;
 	name = "Gorky17 area power controller";
+	pixel_y = -28;
+	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
 /obj/structure/cable{
@@ -10558,6 +10716,20 @@
 	},
 /turf/space,
 /area/ruin/space/USSP_gorky17/collapsed/solars)
+"Fp" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing"
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_y = -6
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkredcorners"
+	},
+/area/ruin/space/USSP_gorky17/collapsed/gate)
 "Fq" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -10587,8 +10759,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/maintenance_hatch{
-	req_access = list(122,123,124,125,126);
 	name = "Gorky17 engineering hatch";
+	req_access = list(122,123,124,125,126);
 	welded = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -10629,10 +10801,10 @@
 /obj/effect/decal/warning_stripes/northwest,
 /obj/effect/decal/cleanable/cobweb,
 /obj/machinery/computer/monitor{
-	name = "Grid Power Monitoring Computer";
 	icon = 'icons/obj/machines/computer3.dmi';
+	icon_screen = "power_oldframe";
 	icon_state = "frame-eng";
-	icon_screen = "power_oldframe"
+	name = "Grid Power Monitoring Computer"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintsouth)
@@ -10650,9 +10822,8 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/kitchen)
 "FD" = (
-/obj/structure/girder,
-/turf/simulated/floor/plating,
-/area/ruin/space/USSP_gorky17/collapsed/vault)
+/turf/simulated/wall/r_wall,
+/area/ruin/space/USSP_gorky17/collapsed/common)
 "FE" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -10703,8 +10874,8 @@
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "FM" = (
 /obj/structure/piano{
-	dir = 4;
-	broken = 1
+	broken = 1;
+	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
@@ -10773,8 +10944,8 @@
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
 	icon_state = "fleshling3";
-	melee_damage_upper = 20;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 20
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -10783,7 +10954,6 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/bridge)
 "FY" = (
-/obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -10791,6 +10961,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/structure/grille,
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/check2)
 "FZ" = (
@@ -10829,11 +11001,11 @@
 	icon_state = "1-4"
 	},
 /obj/machinery/alarm{
-	name = "Gorky17 alarm";
 	alarm_frequency = 1520;
-	req_access = list(122);
+	dir = 1;
+	name = "Gorky17 alarm";
 	pixel_y = -24;
-	dir = 1
+	req_access = list(122)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -10842,9 +11014,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/bridge)
 "Ge" = (
 /obj/machinery/door/airlock/security/glass{
+	locked = 1;
 	name = "Gorky17 common";
-	req_access = list(121,122,123,124,125,126);
-	locked = 1
+	req_access = list(121,122,123,124,125,126)
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
@@ -10858,8 +11030,8 @@
 	},
 /obj/machinery/camera/autoname{
 	dir = 8;
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/atmospherics/binary/pump{
@@ -10871,8 +11043,8 @@
 "Gh" = (
 /obj/machinery/computer{
 	icon = 'icons/obj/machines/computer3.dmi';
-	icon_state = "frame-eng";
-	icon_screen = "common2_oldframe"
+	icon_screen = "common2_oldframe";
+	icon_state = "frame-eng"
 	},
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel{
@@ -10898,15 +11070,15 @@
 "Gm" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/machinery/porta_turret{
-	name = "Gorky17 vault turret";
-	check_one_access = 0;
-	lethal = 1;
-	req_access = list(125);
-	health = 200;
 	check_arrest = 0;
+	check_one_access = 0;
 	check_records = 0;
-	shot_delay = 10;
-	scan_range = 4
+	health = 200;
+	lethal = 1;
+	name = "Gorky17 vault turret";
+	req_access = list(125);
+	scan_range = 4;
+	shot_delay = 10
 	},
 /turf/simulated/floor/vault,
 /area/ruin/space/USSP_gorky17/collapsed/vault)
@@ -10993,10 +11165,16 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "GA" = (
-/obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
 /obj/item/storage/fancy/cigcase,
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/clothing/under/sovietofficer,
+/obj/item/lighter/zippo/gonzofist,
+/obj/structure/closet/secure_closet{
+	name = "Captain locker";
+	req_access = list(125)
+	},
+/obj/item/clothing/suit/fluff/cheeky_sov_coat,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
@@ -11061,8 +11239,8 @@
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 150;
-	icon_state = "husk_s";
 	icon_living = "husk_s";
+	icon_state = "husk_s";
 	melee_damage_lower = 10;
 	melee_damage_upper = 15
 	},
@@ -11094,8 +11272,8 @@
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/camera/autoname{
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -11363,18 +11541,22 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "HT" = (
-/obj/item/clothing/head/helmet,
-/obj/item/clothing/suit/armor/vest,
+/obj/item/clothing/head/bomb_hood/security{
+	armor = list("melee"=30,"bullet"=45,"laser"=20,"energy"=15,"bomb"=50,"bio"=0,"rad"=0,"fire"=30,"acid"=50);
+	desc = "Covers your head and eyes.";
+	name = "Altyn"
+	},
+/obj/item/clothing/suit/armor/vest/combat,
 /obj/item/melee/classic_baton,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/item/gun/projectile/automatic/rusted/ppsh,
 /obj/structure/closet/secure_closet{
 	color = "#ff9999";
-	req_access = list(123);
-	name = "Gorky17 ammunition locker"
+	name = "Gorky17 ammunition locker";
+	req_access = list(123)
 	},
+/obj/item/clothing/gloves/combat,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -11549,9 +11731,9 @@
 	luminosity = 3
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -11579,9 +11761,9 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
@@ -11624,6 +11806,10 @@
 /obj/item/trash/spentcasing{
 	icon_state = "762-casing"
 	},
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_y = -6
+	},
 /turf/simulated/floor/plating/damaged,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "ID" = (
@@ -11641,9 +11827,9 @@
 	dir = 4
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
@@ -11681,10 +11867,10 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/computer/monitor{
-	name = "Grid Power Monitoring Computer";
 	icon = 'icons/obj/machines/computer3.dmi';
+	icon_screen = "power_oldframe";
 	icon_state = "frame-eng";
-	icon_screen = "power_oldframe"
+	name = "Grid Power Monitoring Computer"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
@@ -11793,8 +11979,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 150;
-	melee_damage_upper = 15;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 15
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -12002,25 +12188,25 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/noalarm{
-	req_access = list(122,123,124,125,126);
-	pixel_y = 28;
 	dir = 1;
-	name = "Gorky17 area power controller";
-	start_charge = 100;
 	environ = 0;
 	equipment = 0;
-	lighting = 2
+	lighting = 2;
+	name = "Gorky17 area power controller";
+	pixel_y = 28;
+	req_access = list(122,123,124,125,126);
+	start_charge = 100
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "JF" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer,
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/food/snacks/boiledbuckwheat,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},
@@ -12119,6 +12305,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "JW" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/food/drinks/oilcan,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -12130,9 +12317,9 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/angar)
@@ -12267,6 +12454,7 @@
 	id_tag = "g17arrivals";
 	name = "Gorky17 arrivals shutters"
 	},
+/obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/check1)
 "Kr" = (
@@ -12314,10 +12502,11 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/flasher{
-	name = "Gorky17 flash 2";
 	id = "g17flash2";
+	name = "Gorky17 flash 2";
 	pixel_y = 90
 	},
+/obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -12407,8 +12596,8 @@
 	},
 /obj/machinery/camera/autoname{
 	dir = 4;
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -12431,9 +12620,9 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
@@ -12489,8 +12678,8 @@
 "Ll" = (
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 150;
-	melee_damage_upper = 15;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 15
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -12542,9 +12731,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/security/glass{
+	locked = 1;
 	name = "Gorky17 common";
-	req_access = list(121,122,123,124,125,126);
-	locked = 1
+	req_access = list(121,122,123,124,125,126)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -12639,8 +12828,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/maintenance_hatch{
-	req_access = list(122,123,124,125,126);
-	name = "Gorky17 engineering hatch"
+	name = "Gorky17 engineering hatch";
+	req_access = list(122,123,124,125,126)
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
@@ -12701,19 +12890,19 @@
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "LV" = (
 /obj/spacepod/civilian/damaged{
-	icon_state = "pod_mil";
 	dir = 4;
+	icon_state = "pod_mil";
 	name = "Green Zwei"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/USSP_gorky17/collapsed/asteroids)
 "LW" = (
 /obj/machinery/alarm{
-	name = "Gorky17 alarm";
 	alarm_frequency = 1520;
-	req_access = list(122);
 	dir = 4;
-	pixel_x = -24
+	name = "Gorky17 alarm";
+	pixel_x = -24;
+	req_access = list(122)
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -12802,9 +12991,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
 "Ml" = (
 /obj/machinery/door/airlock/security/glass{
+	locked = 1;
 	name = "Gorky17 common";
-	req_access = list(121,122,123,124,125,126);
-	locked = 1
+	req_access = list(121,122,123,124,125,126)
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/check1)
@@ -12853,8 +13042,8 @@
 "Mq" = (
 /obj/machinery/camera/autoname{
 	dir = 4;
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/trash/spentcasing{
@@ -12885,6 +13074,11 @@
 	icon_state = "darkfull"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
+"Mu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/broken_bottle,
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/gate)
 "Mv" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -12907,10 +13101,10 @@
 	tag = ""
 	},
 /obj/machinery/computer/monitor{
-	name = "Grid Power Monitoring Computer";
 	icon = 'icons/obj/machines/computer3.dmi';
+	icon_screen = "power_oldframe";
 	icon_state = "frame-eng";
-	icon_screen = "power_oldframe"
+	name = "Grid Power Monitoring Computer"
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
@@ -12987,7 +13181,6 @@
 "MM" = (
 /obj/structure/rack,
 /obj/item/rlf,
-/obj/item/paper/gorky17/talisman,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "MO" = (
@@ -12997,9 +13190,9 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
@@ -13017,10 +13210,10 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door_control{
+	id = "g17hangar1exit";
 	name = "Gorky17 hangar 1 exit";
 	pixel_y = 24;
-	req_access = list(124);
-	id = "g17hangar1exit"
+	req_access = list(124)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -13113,8 +13306,8 @@
 /area/ruin/space/USSP_gorky17/collapsed/asteroids)
 "Ne" = (
 /obj/machinery/door/poddoor/shutters{
-	name = "Gorky17 hangar 2 shutters";
-	id_tag = "g17hangar2"
+	id_tag = "g17hangar2";
+	name = "Gorky17 hangar 2 shutters"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -13237,7 +13430,10 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "Nt" = (
-/mob/living/simple_animal/hostile/carp/lostsoul,
+/mob/living/simple_animal/hostile/carp/lostsoul{
+	health = 100;
+	speed = -0.1
+	},
 /turf/space,
 /area/template_noop)
 "Nv" = (
@@ -13320,8 +13516,8 @@
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
 	icon_state = "fleshling3";
-	melee_damage_upper = 20;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 20
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -13339,6 +13535,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "NJ" = (
+/obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -13373,10 +13570,10 @@
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "NO" = (
 /mob/living/simple_animal/hostile/carp{
-	maxHealth = 70;
-	name = "Shy space carp";
+	desc = "Very lonely and shy space carp.";
 	health = 70;
-	desc = "Very lonely and shy space carp."
+	maxHealth = 70;
+	name = "Shy space carp"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/USSP_gorky17/collapsed/asteroids)
@@ -13388,6 +13585,15 @@
 	dir = 9
 	},
 /turf/simulated/floor/plating/damaged,
+/area/ruin/space/USSP_gorky17/collapsed/common)
+"NS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/trash/spentcasing{
+	icon_state = "s-casing";
+	pixel_x = -6;
+	pixel_y = 10
+	},
+/turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "NT" = (
 /obj/machinery/conveyor{
@@ -13468,10 +13674,10 @@
 "Of" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/computer/monitor{
-	name = "Grid Power Monitoring Computer";
 	icon = 'icons/obj/machines/computer3.dmi';
+	icon_screen = "power_oldframe";
 	icon_state = "frame-eng";
-	icon_screen = "power_oldframe"
+	name = "Grid Power Monitoring Computer"
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plating,
@@ -13593,9 +13799,9 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -13701,8 +13907,8 @@
 	},
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 150;
-	melee_damage_upper = 15;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 15
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -13710,9 +13916,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/utility)
 "OK" = (
 /obj/machinery/door/airlock/freezer{
+	locked = 1;
 	name = "Gorky17 freezer airlock";
-	req_access = list(121,122,123,124,125,126);
-	locked = 1
+	req_access = list(121,122,123,124,125,126)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -13790,8 +13996,8 @@
 /obj/machinery/disposal,
 /obj/machinery/camera/autoname{
 	dir = 8;
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -13816,18 +14022,18 @@
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "Pa" = (
 /obj/machinery/door_control{
+	id = "g17hangar1";
 	name = "Gorky17 hangar 1";
-	req_access = list(124);
 	pixel_x = 24;
 	pixel_y = -5;
-	id = "g17hangar1"
+	req_access = list(124)
 	},
 /obj/machinery/door_control{
+	id = "g17hangar2";
 	name = "Gorky17 hangar 2";
-	req_access = list(124);
 	pixel_x = 24;
 	pixel_y = 5;
-	id = "g17hangar2"
+	req_access = list(124)
 	},
 /obj/machinery/light_construct/small{
 	dir = 4
@@ -13866,11 +14072,11 @@
 	pixel_y = -6
 	},
 /obj/machinery/alarm{
-	name = "Gorky17 alarm";
 	alarm_frequency = 1520;
-	req_access = list(122);
 	dir = 8;
-	pixel_x = 24
+	name = "Gorky17 alarm";
+	pixel_x = 24;
+	req_access = list(122)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -13923,10 +14129,10 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/noalarm{
-	pixel_x = -28;
 	dir = 8;
-	req_access = list(122,123,124,125,126);
 	name = "Gorky17 area power controller";
+	pixel_x = -28;
+	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
 /turf/simulated/floor/plating,
@@ -13967,8 +14173,8 @@
 /area/ruin/space/USSP_gorky17/collapsed/asteroids)
 "Pv" = (
 /obj/machinery/door/poddoor/shutters{
-	name = "Gorky17 hangar 1 shutters";
-	id_tag = "g17hangar1"
+	id_tag = "g17hangar1";
+	name = "Gorky17 hangar 1 shutters"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -14059,8 +14265,8 @@
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
 	icon_state = "fleshling3";
-	melee_damage_upper = 20;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 20
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
@@ -14074,8 +14280,8 @@
 	},
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 150;
-	melee_damage_upper = 15;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 15
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
@@ -14172,15 +14378,22 @@
 /obj/effect/decal/warning_stripes/southwest,
 /obj/structure/cable,
 /obj/machinery/power/solar_control{
-	id = "usspnorth";
-	icon_state = "frame-eng";
 	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "solar_oldframe"
+	icon_screen = "solar_oldframe";
+	icon_state = "frame-eng";
+	id = "usspnorth"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
 "Qg" = (
 /obj/effect/decal/cleanable/blood/gibs,
+/mob/living/simple_animal/hostile/zombie/whiteship{
+	health = 150;
+	icon_living = "husk_s";
+	icon_state = "husk_s";
+	melee_damage_lower = 10;
+	melee_damage_upper = 15
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/check2)
 "Qj" = (
@@ -14253,8 +14466,8 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 1
+	dir = 1;
+	icon_state = "red"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/check1)
 "Qt" = (
@@ -14301,8 +14514,8 @@
 "Qz" = (
 /obj/structure/table/reinforced,
 /obj/machinery/flasher_button{
-	name = "Gorky17 flasher button 3";
 	id = "g17flash3";
+	name = "Gorky17 flasher button 3";
 	req_access = list(122)
 	},
 /obj/machinery/light{
@@ -14393,8 +14606,8 @@
 "QO" = (
 /obj/machinery/camera/autoname{
 	dir = 8;
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -14447,11 +14660,20 @@
 	icon_state = "762-casing";
 	pixel_x = 5
 	},
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing"
+	},
 /turf/simulated/floor/plating/damaged,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "QW" = (
 /obj/structure/table,
-/obj/item/folder/red,
+/obj/item/decorations/flag/soviet{
+	pixel_x = -4;
+	pixel_y = 20
+	},
+/obj/item/folder/red{
+	pixel_x = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
@@ -14477,10 +14699,10 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/noalarm{
-	pixel_x = -28;
 	dir = 8;
-	req_access = list(122,123,124,125,126);
 	name = "Gorky17 area power controller";
+	pixel_x = -28;
+	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
 /obj/structure/cable{
@@ -14495,8 +14717,8 @@
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "Rb" = (
 /obj/machinery/door/airlock/maintenance_hatch{
-	req_access = list(122,123,124,125,126);
-	name = "Gorky17 engineering hatch"
+	name = "Gorky17 engineering hatch";
+	req_access = list(122,123,124,125,126)
 	},
 /obj/structure/cable{
 	icon_state = "1-2";
@@ -14514,12 +14736,12 @@
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 1510;
+	layer = 3.1;
 	master_tag = "g17solarn";
 	name = "Gorky17 interior access button";
 	pixel_x = 25;
 	pixel_y = -25;
-	req_access = list(122);
-	layer = 3.1
+	req_access = list(122)
 	},
 /turf/space,
 /area/ruin/space/USSP_gorky17/collapsed/solars)
@@ -14568,8 +14790,8 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/camera/autoname{
 	dir = 4;
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -14628,9 +14850,9 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
@@ -14641,9 +14863,9 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
@@ -14742,6 +14964,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
+"RJ" = (
+/obj/structure/grille,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/USSP_gorky17/collapsed/check2)
 "RM" = (
 /turf/simulated/floor/plating/damaged,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
@@ -14830,9 +15056,9 @@
 "Si" = (
 /obj/structure/table/wood,
 /obj/item/storage/bible{
+	deity_name = "Communism";
 	icon_state = "greentext";
-	name = "In Das Kapital";
-	deity_name = "Communism"
+	name = "In Das Kapital"
 	},
 /obj/machinery/light_construct/small{
 	dir = 8
@@ -14863,22 +15089,27 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "Sp" = (
-/obj/item/clothing/head/helmet,
-/obj/item/clothing/suit/armor/vest,
+/obj/item/clothing/head/bomb_hood/security{
+	armor = list("melee"=30,"bullet"=45,"laser"=20,"energy"=15,"bomb"=50,"bio"=0,"rad"=0,"fire"=30,"acid"=50);
+	desc = "Covers your head and eyes.";
+	name = "Altyn"
+	},
+/obj/item/clothing/suit/armor/vest/combat,
 /obj/item/melee/classic_baton,
 /obj/machinery/camera/autoname{
 	dir = 1;
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /obj/structure/closet/secure_closet{
 	color = "#ff9999";
-	req_access = list(123);
 	name = "Gorky17 ammunition locker";
-	opened = 1
+	opened = 1;
+	req_access = list(123)
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/ammo_box/magazine/aksu,
+/obj/item/clothing/gloves/combat,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -14908,8 +15139,8 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/security{
-	req_access = list(123);
-	name = "Gorky17 Secure monitor airlock"
+	name = "Gorky17 Secure monitor airlock";
+	req_access = list(123)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -15006,13 +15237,13 @@
 "SP" = (
 /obj/structure/table,
 /obj/machinery/computer/security{
-	network = list("USSP_gorky17");
+	icon = 'icons/obj/machines/computer3.dmi';
+	icon_screen = "sec_oldcomp";
 	icon_state = "oldcomp";
 	layer = 3.1;
-	pixel_y = 8;
-	icon = 'icons/obj/machines/computer3.dmi';
 	name = "Gorky17 security camera console";
-	icon_screen = "sec_oldcomp"
+	network = list("USSP_gorky17");
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
@@ -15123,8 +15354,8 @@
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
 	icon_state = "fleshling3";
-	melee_damage_upper = 20;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 20
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -15132,10 +15363,12 @@
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "Tf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/ammo_box/magazine/aksu,
-/obj/item/ammo_box/magazine/aksu,
 /obj/structure/safe/floor,
 /obj/item/stamp/chameleon,
+/obj/item/gun/projectile/shotgun/boltaction,
+/obj/item/fluff/pyro_wintersec_kit,
+/obj/item/pen/fakesign,
+/obj/item/paper/gorky17/modkit,
 /turf/simulated/floor/vault,
 /area/ruin/space/USSP_gorky17/collapsed/vault)
 "Th" = (
@@ -15160,9 +15393,9 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
@@ -15208,8 +15441,8 @@
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
 	icon_state = "fleshling3";
-	melee_damage_upper = 20;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 20
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
@@ -15253,6 +15486,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/check1)
+"Tx" = (
+/obj/item/shard{
+	icon_state = "medium"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/check2)
 "Tz" = (
 /obj/machinery/vending/chinese,
 /obj/effect/decal/cleanable/dirt,
@@ -15278,8 +15517,8 @@
 	},
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 150;
-	icon_state = "husk_s";
 	icon_living = "husk_s";
+	icon_state = "husk_s";
 	melee_damage_lower = 10;
 	melee_damage_upper = 15
 	},
@@ -15333,9 +15572,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/noalarm{
-	req_access = list(122,123,124,125,126);
-	pixel_y = -28;
 	name = "Gorky17 area power controller";
+	pixel_y = -28;
+	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
 /obj/structure/cable{
@@ -15444,9 +15683,9 @@
 	tag = ""
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -15515,8 +15754,8 @@
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
 	icon_state = "fleshling3";
-	melee_damage_upper = 20;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 20
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
@@ -15566,8 +15805,8 @@
 /obj/item/coin/silver,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/computer/id_upgrader/ussp/soldier{
-	pixel_y = -28;
-	name = "ID Upgrade Machine (Soldier)"
+	name = "ID Upgrade Machine (Soldier)";
+	pixel_y = -28
 	},
 /obj/machinery/door/window/brigdoor{
 	dir = 8;
@@ -15749,9 +15988,10 @@
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
 	icon_state = "fleshling3";
-	melee_damage_upper = 20;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 20
 	},
+/obj/item/paper/gorky17/talisman,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "Vl" = (
@@ -15780,8 +16020,8 @@
 "Vq" = (
 /obj/machinery/computer{
 	icon = 'icons/obj/machines/computer3.dmi';
-	icon_state = "serverframe";
-	icon_screen = "common2_thickframe"
+	icon_screen = "common2_thickframe";
+	icon_state = "serverframe"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
@@ -15793,6 +16033,10 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/gun/projectile/automatic/rusted/aksu{
+	malf_high_bound = 80;
+	malf_low_bound = 50
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -15922,12 +16166,12 @@
 /obj/machinery/access_button{
 	command = "cycle_interior";
 	frequency = 1510;
+	layer = 3.1;
 	master_tag = "g17solarn";
 	name = "Gorky17 exterior access button";
 	pixel_x = -25;
 	pixel_y = -25;
-	req_access = list(122);
-	layer = 3.1
+	req_access = list(122)
 	},
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/cable{
@@ -15946,22 +16190,22 @@
 	},
 /obj/structure/cable,
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "VL" = (
 /obj/structure/table/reinforced,
 /obj/machinery/computer/security{
-	network = list("USSP_gorky17");
+	icon = 'icons/obj/machines/computer3.dmi';
+	icon_screen = "sec_oldcomp";
 	icon_state = "oldcomp";
 	layer = 3.1;
-	pixel_y = 8;
-	icon = 'icons/obj/machines/computer3.dmi';
 	name = "Gorky17 security camera console";
-	icon_screen = "sec_oldcomp"
+	network = list("USSP_gorky17");
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -16000,11 +16244,19 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "VS" = (
-/obj/item/gun/projectile/automatic/rusted/aksu{
-	self_shot_divisor = 4
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating,
-/area/ruin/space/USSP_gorky17/collapsed/common)
+/obj/effect/decal/cleanable/dirt,
+/obj/item/gun/projectile/automatic/rusted/ppsh{
+	malf_counter = 70;
+	malf_high_bound = 70;
+	malf_low_bound = 50
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/ruin/space/USSP_gorky17/collapsed/check1)
 "VT" = (
 /obj/structure/table,
 /obj/item/trash/plate,
@@ -16063,8 +16315,8 @@
 /area/ruin/space/USSP_gorky17/collapsed/bridge)
 "Wd" = (
 /obj/machinery/camera/autoname{
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -16176,8 +16428,8 @@
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
 	icon_state = "fleshling3";
-	melee_damage_upper = 20;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 20
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
@@ -16307,15 +16559,19 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "WM" = (
-/obj/item/clothing/head/helmet,
-/obj/item/clothing/suit/armor/vest,
+/obj/item/clothing/head/bomb_hood/security{
+	armor = list("melee"=30,"bullet"=45,"laser"=20,"energy"=15,"bomb"=50,"bio"=0,"rad"=0,"fire"=30,"acid"=50);
+	desc = "Covers your head and eyes.";
+	name = "Altyn"
+	},
+/obj/item/clothing/suit/armor/vest/combat,
 /obj/item/melee/classic_baton,
-/obj/item/gun/projectile/automatic/rusted/ppsh,
 /obj/structure/closet/secure_closet{
 	color = "#ff9999";
-	req_access = list(123);
-	name = "Gorky17 ammunition locker"
+	name = "Gorky17 ammunition locker";
+	req_access = list(123)
 	},
+/obj/item/clothing/gloves/combat,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"
@@ -16465,8 +16721,8 @@
 /area/ruin/space/USSP_gorky17/collapsed/solars)
 "Xj" = (
 /obj/machinery/door/airlock/public/glass{
-	req_access = list(121,122,123,124,125,126);
-	name = "Gorky17 kitchen airlock"
+	name = "Gorky17 kitchen airlock";
+	req_access = list(121,122,123,124,125,126)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -16578,8 +16834,34 @@
 /area/ruin/space/USSP_gorky17/collapsed/utility)
 "Xz" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing"
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_x = 5
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "762-casing";
+	pixel_x = -6;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plating/damaged,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
+"XA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/trash/spentcasing{
+	icon_state = "s-casing";
+	pixel_x = 9;
+	pixel_y = -10
+	},
+/obj/item/trash/spentcasing{
+	icon_state = "s-casing";
+	pixel_x = -6;
+	pixel_y = 10
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/common)
 "XD" = (
 /obj/structure/table/wood,
 /obj/machinery/light_switch{
@@ -16655,9 +16937,9 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
@@ -16737,10 +17019,10 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/noalarm{
-	req_access = list(122,123,124,125,126);
-	pixel_y = 28;
 	dir = 1;
 	name = "Gorky17 area power controller";
+	pixel_y = 28;
+	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
 /obj/structure/cable{
@@ -16771,9 +17053,9 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
@@ -16791,8 +17073,8 @@
 /obj/machinery/disposal,
 /obj/machinery/camera/autoname{
 	dir = 8;
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -16814,14 +17096,13 @@
 	icon = 'icons/mob/simple_human.dmi';
 	icon_living = "fleshling3";
 	icon_state = "fleshling3";
-	melee_damage_upper = 20;
-	melee_damage_lower = 10
+	melee_damage_lower = 10;
+	melee_damage_upper = 20
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "Yv" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/oilcan,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -16878,11 +17159,11 @@
 	flickering = 1
 	},
 /obj/machinery/alarm{
-	name = "Gorky17 alarm";
 	alarm_frequency = 1520;
-	req_access = list(122);
 	dir = 4;
-	pixel_x = -24
+	name = "Gorky17 alarm";
+	pixel_x = -24;
+	req_access = list(122)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -16943,10 +17224,10 @@
 /area/ruin/space/USSP_gorky17/collapsed/rnd)
 "YQ" = (
 /obj/machinery/alarm{
-	name = "Gorky17 alarm";
 	alarm_frequency = 1520;
-	req_access = list(122);
-	pixel_y = 24
+	name = "Gorky17 alarm";
+	pixel_y = 24;
+	req_access = list(122)
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
@@ -16961,11 +17242,11 @@
 	dir = 8
 	},
 /obj/machinery/computer/security{
-	network = list("USSP_gorky17");
-	icon_state = "frame-sec";
 	icon = 'icons/obj/machines/computer3.dmi';
+	icon_screen = "sec_oldframe";
+	icon_state = "frame-sec";
 	name = "Gorky17 security camera console";
-	icon_screen = "sec_oldframe"
+	network = list("USSP_gorky17")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -16974,8 +17255,8 @@
 "YX" = (
 /obj/machinery/camera/autoname{
 	dir = 1;
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/damaged,
@@ -16986,11 +17267,11 @@
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "Za" = (
 /obj/machinery/computer/security{
-	network = list("USSP_gorky17");
-	icon_state = "frame-sec";
 	icon = 'icons/obj/machines/computer3.dmi';
+	icon_screen = "sec_oldframe";
+	icon_state = "frame-sec";
 	name = "Gorky17 security camera console";
-	icon_screen = "sec_oldframe"
+	network = list("USSP_gorky17")
 	},
 /obj/machinery/light_construct{
 	dir = 4
@@ -17078,8 +17359,8 @@
 /obj/item/storage/firstaid/adv,
 /obj/machinery/camera/autoname{
 	dir = 8;
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -17117,18 +17398,18 @@
 "Zw" = (
 /obj/structure/lattice,
 /obj/machinery/door_control{
+	id = "g17hangar1enter";
 	name = "Gorky17 hangar 1 enter";
-	req_access = list(124);
 	pixel_x = -24;
 	pixel_y = -5;
-	id = "g17hangar1enter"
+	req_access = list(124)
 	},
 /obj/machinery/door_control{
+	id = "g17hangar2enter";
 	name = "Gorky17 hangar 2 enter";
-	req_access = list(124);
 	pixel_x = -24;
 	pixel_y = 5;
-	id = "g17hangar2enter"
+	req_access = list(124)
 	},
 /turf/space,
 /area/template_noop)
@@ -17136,6 +17417,7 @@
 /obj/structure/closet/crate{
 	icon_state = "crateopen"
 	},
+/obj/item/clothing/suit/hooded/fluff/bone,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/mining)
 "ZA" = (
@@ -17154,14 +17436,15 @@
 	tag = "90Curve"
 	},
 /obj/machinery/door/airlock/security/glass{
+	locked = 1;
 	name = "Gorky17 common";
-	req_access = list(121,122,123,124,125,126);
-	locked = 1
+	req_access = list(121,122,123,124,125,126)
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/check1)
 "ZB" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/item/fluff/decemviri_spacepod_kit,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -17201,9 +17484,9 @@
 	tag = ""
 	},
 /obj/machinery/door/poddoor{
-	name = "Gorky17 exterior blast door";
 	id_tag = "g17extlock";
-	layer = 3.3
+	layer = 3.3;
+	name = "Gorky17 exterior blast door"
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -17254,8 +17537,8 @@
 "ZM" = (
 /obj/machinery/camera/autoname{
 	dir = 8;
-	network = list("USSP_gorky17");
-	name = "Gorky17 security camera"
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -17284,6 +17567,7 @@
 "ZX" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/cleanable/blood,
+/obj/item/clothing/shoes/fluff/arachno_boots,
 /turf/simulated/floor/wood,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "ZZ" = (
@@ -28915,7 +29199,7 @@ fB
 fB
 fB
 fB
-fB
+yV
 fB
 fB
 fB
@@ -29525,7 +29809,7 @@ fB
 fB
 fB
 fB
-fB
+yV
 fB
 fB
 fB
@@ -31732,7 +32016,7 @@ TN
 Li
 wZ
 BU
-EA
+aT
 aQ
 aE
 Qn
@@ -32959,14 +33243,14 @@ be
 AN
 nS
 BU
-iH
-iH
-iH
-iH
-iH
-iH
-iH
-iH
+bF
+bF
+bF
+bF
+bF
+bF
+bF
+bF
 wZ
 yI
 fB
@@ -33161,14 +33445,14 @@ Yl
 AO
 NB
 BU
-iH
-iH
-iH
-iH
-iH
-iH
-iH
-iH
+bF
+bF
+bF
+bF
+bF
+bF
+bF
+bF
 wZ
 ob
 fB
@@ -33363,14 +33647,14 @@ zU
 CU
 ax
 BU
-iH
-iH
-iH
-iH
-iH
-iH
-iH
-iH
+bF
+bF
+bF
+bF
+bF
+bF
+bF
+bF
 wZ
 yI
 fB
@@ -33565,14 +33849,14 @@ gK
 gK
 gK
 BU
-iH
-iH
-iH
-iH
-iH
 bF
-iH
-iH
+bF
+bF
+bF
+bF
+bF
+bF
+bF
 wZ
 yI
 fB
@@ -35177,7 +35461,7 @@ UI
 fu
 NJ
 KC
-NJ
+jX
 yd
 UI
 sq
@@ -35373,7 +35657,7 @@ PU
 bA
 VL
 HX
-Pd
+VS
 Ee
 UI
 UI
@@ -38191,7 +38475,7 @@ WI
 kp
 kp
 FF
-Dz
+Mu
 yQ
 BX
 sJ
@@ -38808,14 +39092,14 @@ hE
 Pp
 Pp
 NC
-Xq
-FD
-FD
-FD
-FD
-FD
-FD
-oq
+Jw
+GD
+GD
+GD
+GD
+GD
+GD
+Ct
 hA
 SB
 jw
@@ -39010,14 +39294,14 @@ KP
 Vg
 Dh
 NC
-FD
-FD
+RD
+GD
 Xq
 oq
 zH
-FD
-FD
-oq
+GD
+GD
+Ct
 JE
 OH
 wJ
@@ -39212,14 +39496,14 @@ dS
 DL
 Sp
 NC
-FD
+RD
 Xq
 Xq
 zK
 yN
 Xq
 oq
-oq
+Ct
 wJ
 uE
 CA
@@ -39413,15 +39697,15 @@ Sk
 MP
 hD
 Pp
-FD
-FD
+RD
+RD
 Xq
 Gm
 Tf
 kX
 CW
 oq
-oq
+Ct
 wz
 em
 GX
@@ -39605,7 +39889,7 @@ KF
 Jj
 RM
 dX
-RM
+xU
 Fi
 BX
 Fk
@@ -39615,7 +39899,7 @@ Tc
 ss
 hp
 Pp
-FD
+RD
 oq
 oq
 xI
@@ -39623,7 +39907,7 @@ gN
 Xh
 Lo
 Xq
-Xq
+FD
 ml
 ik
 Ip
@@ -39817,7 +40101,7 @@ Pp
 Kx
 UE
 Pp
-FD
+RD
 oq
 tP
 kG
@@ -39994,7 +40278,7 @@ Br
 eG
 jp
 qU
-Dj
+my
 CE
 JQ
 AX
@@ -40009,7 +40293,7 @@ nr
 St
 RM
 Xz
-Mm
+Fp
 sy
 ts
 hZ
@@ -40019,7 +40303,7 @@ px
 lY
 YT
 Pp
-FD
+RD
 oq
 oq
 ho
@@ -40027,7 +40311,7 @@ zw
 DI
 Bc
 zH
-Xq
+FD
 LO
 Sd
 wJ
@@ -40216,20 +40500,20 @@ rL
 ib
 Eb
 zB
-zB
+Tx
 FY
 lY
 qB
 Pp
-FD
-FD
+RD
+RD
 zH
 dN
 yn
 FU
 CW
 oq
-oq
+Ct
 oC
 Sd
 YX
@@ -40418,20 +40702,20 @@ KH
 fA
 ru
 fq
-kk
+DR
 rm
 Un
 Vg
 kO
 NC
-FD
+RD
 oq
 Xq
 pm
 uV
 Xq
 oq
-oq
+Ct
 GX
 Sd
 xR
@@ -40626,14 +40910,14 @@ Hc
 ME
 Cu
 Pp
-FD
-FD
+RD
+hx
 Xq
 Xq
 Xq
+hx
+hx
 FD
-FD
-Xq
 sd
 hr
 EX
@@ -40823,19 +41107,19 @@ ts
 Do
 vt
 wc
-NC
+RJ
 Rw
 NC
 Pp
 Pp
-oq
-FD
-FD
-FD
-FD
-FD
-FD
-oq
+Ul
+hx
+hx
+hx
+hx
+hx
+hx
+Ct
 xv
 ml
 GX
@@ -41423,7 +41707,7 @@ WI
 Fe
 Fe
 Ap
-Dz
+vv
 Wk
 BX
 uN
@@ -42438,7 +42722,7 @@ vp
 lO
 oJ
 qH
-VS
+eP
 kr
 bT
 eP
@@ -42653,7 +42937,7 @@ nq
 hx
 hx
 cb
-GX
+NS
 GX
 Rf
 EX
@@ -42852,10 +43136,10 @@ no
 Mo
 At
 GX
-GX
+XA
 Um
 sn
-eP
+Dj
 no
 Ep
 AL
@@ -43049,7 +43333,7 @@ rR
 TC
 Vp
 up
-MY
+hl
 kx
 rH
 AA
@@ -43266,7 +43550,7 @@ NH
 zq
 Xj
 qW
-qW
+tv
 rt
 NH
 fB

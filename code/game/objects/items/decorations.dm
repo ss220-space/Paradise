@@ -44,6 +44,13 @@
 	icon_state = "paper_clock"
 
 
+/obj/item/decorations/flag/soviet
+	name = "An old Soviet flag"
+	desc = "Archaic flag, remembres to it owner past times."
+	icon_state = "sov_flag"
+	resistance_flags = FLAMMABLE
+	w_class = WEIGHT_CLASS_SMALL
+
 //Holiday decorations
 
 //Halloween decorations

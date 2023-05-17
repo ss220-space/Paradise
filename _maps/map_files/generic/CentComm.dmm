@@ -45337,7 +45337,13 @@
 /area/syndicate_mothership)
 "wCw" = (
 /obj/structure/table/wood/fancy/red,
-/obj/item/folder/red,
+/obj/item/folder/red{
+	pixel_x = 5
+	},
+/obj/item/decorations/flag/soviet{
+	pixel_x = -4;
+	pixel_y = 20
+	},
 /turf/simulated/floor/carpet/red,
 /area/ussp_centcom/secretariat)
 "wDe" = (
