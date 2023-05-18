@@ -1273,4 +1273,4 @@ so that different stomachs can handle things in different ways VB*/
 		for(var/datum/reagent/R in reagents.reagent_list)
 			if(R.shock_reduction)
 				shock_reduction += R.shock_reduction
-	shock_reduction += R.shock_reduction
+	return shock_reduction
