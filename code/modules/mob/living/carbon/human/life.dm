@@ -877,7 +877,7 @@
 	if(dna.species.update_health_hud())
 		return
 	else
-		var/shock_reduction = 0
+		var/shock_reduction = shock_reduction()
 		if(reagents)
 			for(var/datum/reagent/R in reagents.reagent_list)
 				if(R.shock_reduction)
