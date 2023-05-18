@@ -1271,6 +1271,6 @@ so that different stomachs can handle things in different ways VB*/
 	var/shock_reduction = 0
 	if(reagents)
 		for(var/datum/reagent/R in reagents.reagent_list)
-		if(R.shock_reduction)
-		shock_reduction += R.shock_reduction
+			if(R.shock_reduction)
+				shock_reduction += R.shock_reduction
 	shock_reduction += R.shock_reduction
