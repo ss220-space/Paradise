@@ -424,15 +424,10 @@
 /mob/living/carbon/update_damage_hud()
 	if(!client)
 		return
-	var/shock_reduction = 0
-	if(reagents)
-		for(var/datum/reagent/R in reagents.reagent_list)
-			if(R.shock_reduction)
-				shock_reduction += R.shock_reduction
 	if(stat == UNCONSCIOUS && health <= HEALTH_THRESHOLD_CRIT)
 		if(check_death_method())
 			var/severity = 0
-			switch(health - shock_reduction)
+			switch(health)
 				if(-20 to -10)
 					severity = 1
 				if(-30 to -20)
@@ -459,7 +454,7 @@
 			clear_fullscreen("crit")
 			if(getOxyLoss())
 				var/severity = 0
-				switch(getOxyLoss() - shock_reduction)
+				switch(getOxyLoss())
 					if(10 to 20)
 						severity = 1
 					if(20 to 25)
@@ -479,11 +474,11 @@
 				clear_fullscreen("oxy")
 
 		//Fire and Brute damage overlay (BSSR)
-		var/hurtdamage = getBruteLoss() + getFireLoss() + damageoverlaytemp
+		var/percent_damage = (getBruteLoss() + getFireLoss() + damageoverlaytemp)/(maxHealth/100)
 		damageoverlaytemp = 0 // We do this so we can detect if someone hits us or not.
-		if(hurtdamage - shock_reduction > 0)
+		if(percent_damage)
 			var/severity = 0
-			switch(hurtdamage)
+			switch(percent_damage)
 				if(5 to 15) severity = 1
 				if(15 to 30) severity = 2
 				if(30 to 45) severity = 3
