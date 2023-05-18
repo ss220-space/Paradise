@@ -211,7 +211,7 @@
 			var/datum/objective/pain_hunter/pain_objective = new
 			pain_objective.owner = ninja_mind
 			pain_objective.find_target()
-			if("[pain_objective]" in ninja_datum.assigned_targets)
+			if("[pain_objective.target]" in ninja_datum.assigned_targets)
 				qdel(pain_objective)
 			else if(pain_objective.target)
 				ninja_datum.assigned_targets.Add("[pain_objective.target]")
@@ -337,7 +337,7 @@
 	var/datum/objective/pain_hunter/pain_objective = new
 	pain_objective.owner = ninja_mind
 	pain_objective.find_target()
-	if("[pain_objective]" in ninja_datum.assigned_targets)
+	if("[pain_objective.target]" in ninja_datum.assigned_targets)
 		qdel(pain_objective)
 	else if(pain_objective.target)
 		ninja_datum.assigned_targets.Add("[pain_objective.target]")
@@ -361,7 +361,7 @@
 	collect_vamp_blood.owner = ninja_mind
 	collect_vamp_blood.generate_vampires()
 	ninja_mind.objectives += collect_vamp_blood
-	if(!length(SSticker.mode.vampires)) //Если нет вампиров, просто не даём цель
+	if(length(SSticker.mode.vampires) < collect_vamp_blood.samples_to_win) //Если вампиров недостаточно, для сбора образцов, просто не даём цель
 		GLOB.all_objectives -= collect_vamp_blood
 		ninja_mind.objectives -= collect_vamp_blood
 		qdel(collect_vamp_blood)
