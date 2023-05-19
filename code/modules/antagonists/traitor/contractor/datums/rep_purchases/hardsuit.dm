@@ -4,9 +4,8 @@
 /datum/rep_purchase/item/contractor_hardsuit
 	name = "Contractor Hardsuit"
 	description = "A top-tier Hardsuit developed with cooperation of Cybersun Industries and the Gorlex Marauders, a favorite of Syndicate Contractors. \
-	Hardsuit comes with a pre-installed SCORPION module - a hardlight hook, allowing you to to forcefully pull a target towards you. \
 	In addition, it has an in-built chameleon system, allowing you to disguise your hardsuit to the most common variations on your mission area."
-	cost = 6 //free reskinned blood-red hardsuit with hook
+	cost = 4 //free reskinned blood-red hardsuit with chameleon
 	stock = 1
 	item_type = /obj/item/storage/box/contractor/hardsuit
 

@@ -32,12 +32,6 @@
 		/obj/item/jammer,
 		/obj/item/implanter/freedom,
 	)
-	var/list/free_upgrade = list(
-		/obj/item/baton_upgrade/cuff,
-		/obj/item/baton_upgrade/mute,
-		/obj/item/baton_upgrade/focus,
-		/obj/item/baton_upgrade/antidrop,
-	)
 
 
 /obj/item/storage/box/syndie_kit/contractor/populate_contents()
@@ -48,8 +42,6 @@
 	for(var/i in 1 to num_additional_items)
 		var/obj/item/I = pick_n_take(item_list)
 		new I(src)
-	var/obj/item/U = pick_n_take(free_upgrade)
-	new U(src)
 
 /obj/item/storage/box/syndie_kit/contractor_loadout
 	name = "contractor standard loadout box"

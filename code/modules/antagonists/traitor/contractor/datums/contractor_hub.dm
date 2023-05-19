@@ -12,9 +12,9 @@
 	/// Completing every contract at a given difficulty will always result in a sum of TC greater or equal than the difficulty's threshold.
 	/// Structure: EXTRACTION_DIFFICULTY_(EASY|MEDIUM|HARD) => number
 	var/difficulty_tc_thresholds = list(
-		EXTRACTION_DIFFICULTY_EASY = 10,
-		EXTRACTION_DIFFICULTY_MEDIUM = 20,
-		EXTRACTION_DIFFICULTY_HARD = 30,
+		EXTRACTION_DIFFICULTY_EASY = 20,
+		EXTRACTION_DIFFICULTY_MEDIUM = 30,
+		EXTRACTION_DIFFICULTY_HARD = 40,
 	)
 	/// Maximum variation a single contract's TC reward can have upon generation.
 	/// In other words: final_reward = CEILING((tc_threshold / num_contracts) * (1 + (rand(-100, 100) / 100) * tc_variation), 1)
@@ -29,7 +29,7 @@
 		/datum/rep_purchase/item/baton,
 		/datum/rep_purchase/item/baton_cuffup,
 		/datum/rep_purchase/item/baton_muteup,
-		/datum/rep_purchase/item/baton_focusup,
+		//datum/rep_purchase/item/baton_focusup,
 		/datum/rep_purchase/item/baton_antidropup,
 		/datum/rep_purchase/item/fulton,
 		/datum/rep_purchase/blackout,

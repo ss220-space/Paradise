@@ -23,8 +23,9 @@
 	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	actions_types = list(
 		/datum/action/item_action/toggle_helmet,
-		/datum/action/item_action/advanced/chameleon_upgrade,
-		/datum/action/item_action/advanced/hook_upgrade)
+		/datum/action/item_action/advanced/chameleon_upgrade
+		//datum/action/item_action/advanced/hook_upgrade
+		)
 	//working as ninja hook, deleted when droped
 	var/obj/item/gun/magic/contractor_hook/scorpion
 	var/disguise = FALSE
