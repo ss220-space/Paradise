@@ -912,6 +912,11 @@
 	drink_desc = "A drink from Nanotrasen. Made from live aliens."
 	taste_description = "PAIN"
 
+/datum/reagent/consumable/ethanol/acid_spit/reaction_mob(mob/living/M, method, volume)
+	. = ..()
+	if(prob(50))
+		M.emote("scream")
+
 /datum/reagent/consumable/ethanol/amasec
 	name = "Amasec"
 	id = "amasec"
@@ -1716,6 +1721,20 @@
 	drink_desc = "Is it just a bottle of medical alcohol?"
 	taste_description = "disco amnesia"
 
+/datum/reagent/consumable/ethanol/amnesia/reaction_mob(mob/living/M, method, volume)
+	. = ..()
+	if(prob(50))
+		to_chat(M, span_notice("What was that?..."))
+
+/datum/reagent/consumable/ethanol/amnesia/on_mob_life(mob/living/M)
+	. = ..()
+	if(prob(20)) //todo: rework if it's possible to simulate brain trauma
+		M.Confused(10)
+		return
+	if(prob(5))
+		M.Confused(20)
+		return
+
 /datum/reagent/consumable/ethanol/johnny
 	name = "Silverhand"
 	id = "johnny"
@@ -2166,6 +2185,28 @@
 	drink_name = "Trans-Siberian express"
 	drink_desc = "From Vladivostok to delirium tremens in a day."
 	taste_description = "terrible infrastructure"
+
+/datum/reagent/consumable/ethanol/trans_siberian_express/reaction_mob(mob/living/M, method, volume)
+	. = ..()
+
+/datum/reagent/consumable/ethanol/trans_siberian_express/on_mob_life(mob/living/M)
+	. = ..()
+	var/datum/language/rus_lang = GLOB.all_languages["Neo-Russkiya"]
+	if((rus_lang in M.languages) && !(rus_lang in M.temporary_languages))
+		if(M.default_language != rus_lang)
+			M.set_default_language(rus_lang)
+		if(volume < 0.4)
+			M.default_language = null //reset language we were speaking
+		return
+	else
+		if(!(rus_lang in M.languages))
+			M.temporary_languages += rus_lang
+			M.languages += rus_lang
+			M.set_default_language(rus_lang)
+		if(volume < 0.4)
+			M.languages ^= M.temporary_languages
+			M.temporary_languages -= rus_lang
+			M.default_language = null
 
 /datum/reagent/consumable/ethanol/sun
 	name = "Sun"
