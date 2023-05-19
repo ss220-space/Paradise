@@ -38,6 +38,17 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		beacon = A
 		to_chat(user, "You link the extraction pack to the beacon system.")
 
+/obj/item/extraction_pack/MouseDrop(atom/over)
+	if(!..())
+		return FALSE
+	if(!(loc == usr && loc.Adjacent(over)))
+		return FALSE
+	if(usr.stat || !ishuman(usr) || usr.incapacitated())
+		return FALSE
+	over.add_fingerprint(usr)
+	afterattack(over, usr, TRUE)
+	return TRUE
+
 /obj/item/extraction_pack/afterattack(atom/movable/A, mob/living/carbon/human/user, flag, params)
 	. = ..()
 	if(!beacon)
@@ -153,7 +164,8 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 
 /obj/item/fulton_core/attack_self(mob/user)
 	if(do_after(user, 15, target = user) && !QDELETED(src))
-		new /obj/structure/extraction_point(get_turf(user))
+		var/obj/structure/extraction_point/point = new(get_turf(user))
+		point.add_fingerprint(user)
 		qdel(src)
 
 /obj/structure/extraction_point

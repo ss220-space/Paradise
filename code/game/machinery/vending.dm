@@ -297,12 +297,14 @@
 			return
 		if(!user.drop_item())
 			return
+		add_fingerprint(user)
 		I.forceMove(src)
 		coin = I
 		to_chat(user, "<span class='notice'>You insert [I] into the [src]</span>")
 		SStgui.update_uis(src)
 		return
 	if(refill_canister && istype(I, refill_canister))
+		add_fingerprint(user)
 		if(!panel_open)
 			to_chat(user, "<span class='warning'>You should probably unscrew the service panel first!</span>")
 		else if (stat & (BROKEN|NOPOWER))
@@ -321,6 +323,7 @@
 					to_chat(user, "<span class='warning'>There's nothing to restock!</span>")
 		return
 	if(item_slot_check(user, I))
+		add_fingerprint(user)
 		insert_item(user, I)
 		return
 	return ..()
@@ -445,8 +448,10 @@
 
 	if(src.seconds_electrified != 0)
 		if(src.shock(user, 100))
+			add_fingerprint(user)
 			return
 
+	add_fingerprint(user)
 	ui_interact(user)
 	wires.Interact(user)
 
@@ -1706,7 +1711,7 @@
 					/obj/item/clothing/neck/mantle = 2,
 					/obj/item/clothing/neck/mantle/old = 1,
 					/obj/item/clothing/neck/mantle/regal = 2,
-					/obj/item/clothing/neck/cloak = 1)
+					/obj/item/clothing/neck/cloak/grey = 1)
 
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 1,
 					  /obj/item/clothing/mask/balaclava = 1,

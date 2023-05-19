@@ -42,6 +42,7 @@
 	var/selection_title = "Oops"
 	var/selection_prompt = "Choose your weapon, nerdwad"
 	var/creation_delay = 2400
+	var/cult_icon_changing = TRUE
 	var/list/choosable_items = list("A coder forgot to set this" = /obj/item/grown/bananapeel)
 	var/creation_message = "A dank smoke comes out, and you pass out. When you come to, you notice a %ITEM%!"
 
@@ -58,6 +59,7 @@
 
 /obj/structure/cult/functional/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
+		add_fingerprint(user)
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
 		if(!anchored)
@@ -87,6 +89,7 @@
 	var/choice = show_radial_menu(user, src, choosable_items, require_near = TRUE)
 	var/picked_type = choosable_items[choice]
 	if(!QDELETED(src) && picked_type && Adjacent(user) && !user.incapacitated() && cooldowntime <= world.time)
+		add_fingerprint(user)
 		cooldowntime = world.time + creation_delay
 		var/obj/O = new picked_type
 		if(istype(O, /obj/structure) || !user.put_in_hands(O))
@@ -142,7 +145,8 @@
 
 /obj/structure/cult/functional/altar/Initialize(mapload)
 	. = ..()
-	icon_state = SSticker.cultdat?.altar_icon_state
+	if(cult_icon_changing)
+		icon_state = SSticker.cultdat?.altar_icon_state
 
 /obj/structure/cult/functional/forge
 	name = "daemon forge"
@@ -162,7 +166,8 @@
 
 /obj/structure/cult/functional/forge/Initialize(mapload)
 	. = ..()
-	icon_state = SSticker.cultdat?.forge_icon_state
+	if(cult_icon_changing)
+		icon_state = SSticker.cultdat?.forge_icon_state
 
 /obj/structure/cult/functional/forge/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/grab))
@@ -181,6 +186,7 @@
 			to_chat(user, "<span class='warning'>[C] has no head!</span>")
 			return FALSE
 
+		add_fingerprint(user)
 		C.visible_message("<span class='danger'>[user] dunks [C]'s face into [src]'s lava!</span>",
 						"<span class='userdanger'>[user] dunks your face into [src]'s lava!</span>")
 		C.emote("scream")
@@ -220,7 +226,8 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 /obj/structure/cult/functional/pylon/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	icon_state = SSticker.cultdat?.pylon_icon_state
+	if(cult_icon_changing)
+		icon_state = SSticker.cultdat?.pylon_icon_state
 
 /obj/structure/cult/functional/pylon/attack_hand(mob/living/user)//override as it should not create anything
 	return
@@ -288,6 +295,10 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 				// convertable turfs?
 				last_corrupt = world.time + corrupt_delay * 2
 
+/obj/structure/cult/functional/pylon/holy
+	cult_icon_changing = FALSE
+	icon_state = "holy"
+
 /obj/structure/cult/functional/archives
 	name = "archives"
 	desc = "A desk covered in arcane manuscripts and tomes in unknown languages. Looking at the text makes your skin crawl."
@@ -306,7 +317,8 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 
 /obj/structure/cult/functional/archives/Initialize(mapload)
 	. = ..()
-	icon_state = SSticker.cultdat?.archives_icon_state
+	if(cult_icon_changing)
+		icon_state = SSticker.cultdat?.archives_icon_state
 
 /obj/effect/gateway
 	name = "gateway"

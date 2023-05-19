@@ -33,6 +33,7 @@
 		if(hidden)
 			to_chat(user, "<span class='warning'>You have to clear the view of this structure in order to manipulate with it!</span>")
 			return TRUE
+		add_fingerprint(user)
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
 		if(!anchored)
@@ -97,7 +98,7 @@
 	name = "herald's beacon"
 	desc = "An imposing spire formed of brass. It somewhat pulsates."
 	icon_state = "beacon"
-	max_integrity = 750 // A very important one
+	max_integrity = 250 // A very important one
 	death_message = "<span class='danger'>The beacon crumbles and falls in parts to the ground relaesing it's power!</span>"
 	death_sound = 'sound/effects/creepyshriek.ogg'
 	var/heal_delay = 6 SECONDS

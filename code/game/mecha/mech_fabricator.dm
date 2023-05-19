@@ -82,6 +82,7 @@
 		"H.O.N.K",
 		"Reticence",
 		"Phazon",
+		"Exosuit Paintkits",
 		"Exosuit Equipment",
 		"Cyborg Upgrade Modules",
 		"Medical",
@@ -292,6 +293,7 @@
 // Interaction code
 /obj/machinery/mecha_part_fabricator/attackby(obj/item/W, mob/user, params)
 	if(default_deconstruction_screwdriver(user, icon_open, icon_closed, W))
+		add_fingerprint(user)
 		return
 	if(exchange_parts(user, W))
 		return
