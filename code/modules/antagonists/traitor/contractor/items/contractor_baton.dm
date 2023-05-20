@@ -111,11 +111,11 @@
 
 /obj/item/melee/classic_baton/telescopic/contractor/examine(mob/user)
 	. = ..()
+	if(cuffupgrade)
+		. += "there is [cuffs] cabble restraints in baton."
 	for(var/m in upgrades)
 		var/obj/item/baton_upgrade/M = m
 		. += "<span class='notice'>It has \a [M] installed, which [M.effect_desc()].</span>"
-		if(cuffupgrade)
-			. += "there is [cuffs] cabble restraints in baton."
 
 //Effects
 
@@ -150,8 +150,6 @@
 				CuffAttack(target, user)
 			else
 				user.visible_message("<span class='warning'>This victim is still resisting!</span>")
-		else
-			return
 	if(focusupgrade)//check for focus
 		for(var/datum/antagonist/traitor/contractor/C)
 			if(target == C?.contractor_uplink?.hub?.current_contract?.contract?.target.current)//pain

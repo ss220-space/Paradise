@@ -49,7 +49,7 @@
 		else
 			hub.rep += 2
 			to_chat(user, "<span class='notice'>You are successfully refund the device!</span>")
-			for(var/datum/rep_purchase/item/contractor_partner/C)
+			for(var/datum/rep_purchase/item/contractor_partner/C in hub.purchases)
 				C.stock += 1
 			qdel(device)
 
