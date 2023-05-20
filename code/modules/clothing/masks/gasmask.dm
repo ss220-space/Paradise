@@ -182,18 +182,18 @@
 	item_state = "mime"
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
-	var/obj/effect/proc_holder/spell/targeted/mime/speak/mask/spell = new
 
 /obj/item/clothing/mask/gas/mime/equipped(mob/user, slot)
 	if(user && user.mind)
 		var/obj/effect/proc_holder/spell/targeted/mime/speak/mask/S = locate(/obj/effect/proc_holder/spell/targeted/mime/speak/mask) in user.mind.spell_list
-		if(S && !S?.from_mask)
+		if(S && !S.from_mask)
 			return
 
 		if(slot == slot_wear_mask)
 			if(!S)
-				user.mind.AddSpell(spell)
-				spell.start_recharge()
+				var/obj/effect/proc_holder/spell/targeted/mime/speak/mask/new_spell = new
+				user.mind.AddSpell(new_spell)
+				new_spell.start_recharge()
 			else
 				if(S.action?.invisibility)
 					S.action?.ToggleInvisibility()
@@ -203,8 +203,15 @@
 		var/obj/effect/proc_holder/spell/targeted/mime/speak/mask/S = locate(/obj/effect/proc_holder/spell/targeted/mime/speak/mask) in user.mind.spell_list
 		if(!S || !S?.from_mask)
 			return
-		if(!S.action?.invisibility)
-			S?.action?.ToggleInvisibility()
+
+		if(S.charge_counter < S.charge_max)
+			if(!S.action?.invisibility)
+				S.action?.ToggleInvisibility()
+		else
+			if(user.mind.miming)
+				S.cast(list(user))
+			user.mind.RemoveSpell(S)
+
 
 /obj/item/clothing/mask/gas/mime/item_action_slot_check(slot, mob/user)
 	if(slot == slot_wear_mask)
