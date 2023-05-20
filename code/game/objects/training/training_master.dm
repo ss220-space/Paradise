@@ -52,8 +52,8 @@
 	trainer.add_language("Galactic Common", 1)
 	trainer.add_language("Sol Common", 1)
 	trainer.add_language("Training Lang", 1)
-	addtimer(CALLBACK(src, .proc/begin_user), 1 SECONDS)
-	addtimer(CALLBACK(src, .proc/begin_task), 2 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(begin_user)), 1 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(begin_task)), 2 SECONDS)
 
 /obj/training_master/proc/begin_user()
 	var/datum/training_coords/center = get_center()
@@ -126,7 +126,7 @@
 /datum/training_task/proc/instruction_end()
 
 /datum/training_task/proc/check_func()
-	addtimer(CALLBACK(src, .proc/check_func), 10)
+	addtimer(CALLBACK(src, PROC_REF(check_func)), 10)
 
 /datum/training_task/proc/on_task_success(var/message = "Отлично")
 	var/sleep_duration = calculate_say_duration(message)
