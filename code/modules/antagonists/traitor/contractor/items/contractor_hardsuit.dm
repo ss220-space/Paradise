@@ -207,47 +207,42 @@
 			src.name = "EVA suit"
 			src.icon_state = "spacenew"
 			src.desc = "A lightweight space suit with the basic ability to protect the wearer from the vacuum of space during emergencies."
-			for(var/obj/item/clothing/head/helmet/space/hardsuit/contractor/C)
-				C.name = "EVA helmet"
-				C.desc = "A lightweight space helmet with the basic ability to protect the wearer from the vacuum of space during emergencies."
-				C.icon_state = "hardsuit0-medical" //well...
-				C.item_color = "medical"
+			src.helmet.name = "EVA helmet"
+			src.helmet.desc = "A lightweight space helmet with the basic ability to protect the wearer from the vacuum of space during emergencies."
+			src.helmet.icon_state = "hardsuit0-medical" //well...
+			src.helmet.item_color = "medical"
 		if("Mining Hardsuit")
 			src.name = "mining hardsuit"
 			src.icon_state = "hardsuit-mining"
 			src.desc = "A special suit that protects against hazardous, low pressure environments. Has reinforced plating."
-			for(var/obj/item/clothing/head/helmet/space/hardsuit/contractor/C)
-				C.name = "mining hardsuit helmet"
-				C.desc = "A special helmet designed for work in a hazardous, low pressure environment. Has reinforced plating."
-				C.icon_state = "hardsuit0-mining"
-				C.item_color = "mining"
+			src.helmet.name = "mining hardsuit helmet"
+			src.helmet.desc = "A special helmet designed for work in a hazardous, low pressure environment. Has reinforced plating."
+			src.helmet.icon_state = "hardsuit0-mining"
+			src.helmet.item_color = "mining"
 		if("Medical Hardsuit")
 			src.name = "medical hardsuit"
 			src.icon_state = "hardsuit-medical"
 			src.desc = "A special suit designed for work in a hazardous, low pressure environment. Built with lightweight materials for extra comfort."
-			for(var/obj/item/clothing/head/helmet/space/hardsuit/contractor/C)
-				C.name = "medical hardsuit helmet"
-				C.desc = "A special helmet designed for work in a hazardous, low pressure environment. Built with lightweight materials for extra comfort, but does not protect the eyes from intense light."
-				C.icon_state = "hardsuit0-medical"
-				C.item_color = "medical"
+			src.helmet.name = "medical hardsuit helmet"
+			src.helmet.desc = "A special helmet designed for work in a hazardous, low pressure environment. Built with lightweight materials for extra comfort, but does not protect the eyes from intense light."
+			src.helmet.icon_state = "hardsuit0-medical"
+			src.helmet.item_color = "medical"
 		if("Security Hardsuit")
 			src.name = "security hardsuit"
 			src.icon_state = "hardsuit-sec"
 			src.desc = "A special suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
-			for(var/obj/item/clothing/head/helmet/space/hardsuit/contractor/C)
-				C.name = "security hardsuit helmet"
-				C.desc = "A special helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
-				C.icon_state = "hardsuit0-sec"
-				C.item_color = "sec"
+			src.helmet.name = "security hardsuit helmet"
+			src.helmet.desc = "A special helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
+			src.helmet.icon_state = "hardsuit0-sec"
+			src.helmet.item_color = "sec"
 		if("Engineering Hardsuit")
 			src.name = "engineering hardsuit"
 			src.icon_state = "hardsuit-engineering"
 			src.desc = "A special suit that protects against hazardous, low pressure environments. Has radiation shielding."
-			for(var/obj/item/clothing/head/helmet/space/hardsuit/contractor/C)
-				C.name = "engineering hardsuit helmet"
-				C.desc = "A special helmet designed for work in a hazardous, low-pressure environment. Has radiation shielding."
-				C.icon_state = "hardsuit0-engineering"
-				C.item_color = "engineering"
+			src.helmet.name = "engineering hardsuit helmet"
+			src.helmet.desc = "A special helmet designed for work in a hazardous, low-pressure environment. Has radiation shielding."
+			src.helmet.icon_state = "hardsuit0-engineering"
+			src.helmet.item_color = "engineering"
 		else
 			return
 	to_chat(usr, "<span class='notice'>Turning on the disguise..</span>")
@@ -262,11 +257,10 @@
 	src.name = initial(src.name)
 	src.icon_state = initial(src.icon_state)
 	src.desc = initial(src.desc)
-	for(var/obj/item/clothing/head/helmet/space/hardsuit/contractor/H)
-		H.name = initial(H.name)
-		H.desc = initial(H.desc)
-		H.icon_state = initial(H.icon_state)
-		H.item_color = initial(H.item_color)
+	src.helmet.name = initial(src.helmet.name)
+	src.helmet.desc = initial(src.helmet.desc)
+	src.helmet.icon_state = initial(src.helmet.icon_state)
+	src.helmet.item_color = initial(src.helmet.item_color)
 	update_suit()
 
 /obj/item/clothing/suit/space/hardsuit/contractor/emp_act(severity)

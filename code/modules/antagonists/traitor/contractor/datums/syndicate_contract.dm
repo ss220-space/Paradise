@@ -506,11 +506,14 @@
 		new souvenir(closet)
 	else if(prob(RETURN_BRUISE_CHANCE) && M.health >= 50)
 		var/mob/living/carbon/human/H = M
-		to_chat(M,"<span class='warning'>Your kidnappers beat you badly before sending you back!</span>")
-		var/parts_to_fuck_up = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-		var/obj/item/organ/external/BP = H.bodyparts_by_name[parts_to_fuck_up]
-		H.apply_damage(40,BRUTE,BP)
-		BP.fracture()
+		if(istype(H,/mob/living/carbon/human))
+			to_chat(M,"<span class='warning'>Your kidnappers beat you badly before sending you back!</span>")
+			var/parts_to_fuck_up = pick(BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_HEAD)
+			var/obj/item/organ/external/BP = H.bodyparts_by_name[parts_to_fuck_up]
+			H.apply_damage(40,BRUTE,BP)
+			BP.fracture()
+		else
+			M.take_overall_damage(40)
 
 	// Return them a bit confused.
 	M.visible_message("<span class='notice'>[M] vanishes...</span>")
