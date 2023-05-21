@@ -75,7 +75,7 @@
 	/// Current charge state of the rift.
 	var/charge_state = CHARGE_ONGOING
 	/// The interval for adding additional space carp spawns to the rift.
-	var/carp_interval = 60
+	var/carp_interval = 30
 	/// The time since an extra carp was added to the ghost role spawning pool.
 	var/last_carp_inc = 0
 	/// A list of all the ckeys which have used this carp rift to spawn in as carps.
