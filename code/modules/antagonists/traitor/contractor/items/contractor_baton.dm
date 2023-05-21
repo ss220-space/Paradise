@@ -151,7 +151,7 @@
 			else
 				user.visible_message("<span class='warning'>This victim is still resisting!</span>")
 	if(focusupgrade)//check for focus
-		for(var/datum/antagonist/traitor/contractor/C)
+		for(var/datum/antagonist/traitor/contractor/C in user.mind.antag_datums)
 			if(target == C?.contractor_uplink?.hub?.current_contract?.contract?.target.current)//pain
 				target.adjustStaminaLoss(30) //one punch to stun, if target. Prevents from onepunchcuff
 				target.Jitter(10)

@@ -4,6 +4,7 @@
 #define EXTRACTION_PHASE_PORTAL 5 SECONDS
 #define COMPLETION_NOTIFY_DELAY 5 SECONDS
 #define RETURN_BRUISE_CHANCE 80
+#define RETURN_BRUISE_DAMAGE 40
 #define RETURN_SOUVENIR_CHANCE 10
 
 /**
@@ -506,14 +507,16 @@
 		new souvenir(closet)
 	else if(prob(RETURN_BRUISE_CHANCE) && M.health >= 50)
 		var/mob/living/carbon/human/H = M
-		if(istype(H,/mob/living/carbon/human))
+		if(istype(H))
 			to_chat(M,"<span class='warning'>Your kidnappers beat you badly before sending you back!</span>")
 			var/parts_to_fuck_up = pick(BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_HEAD)
 			var/obj/item/organ/external/BP = H.bodyparts_by_name[parts_to_fuck_up]
-			H.apply_damage(40,BRUTE,BP)
+			if(!BP)
+				BP = H.bodyparts_by_name[BODY_ZONE_CHEST]
+			H.apply_damage(RETURN_BRUISE_DAMAGE, BRUTE, BP)
 			BP.fracture()
 		else
-			M.take_overall_damage(40)
+			M.take_overall_damage(RETURN_BRUISE_DAMAGE)
 
 	// Return them a bit confused.
 	M.visible_message("<span class='notice'>[M] vanishes...</span>")
@@ -579,4 +582,5 @@
 #undef EXTRACTION_PHASE_PORTAL
 #undef COMPLETION_NOTIFY_DELAY
 #undef RETURN_BRUISE_CHANCE
+#undef RETURN_BRUISE_DAMAGE
 #undef RETURN_SOUVENIR_CHANCE
