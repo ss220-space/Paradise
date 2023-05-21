@@ -462,6 +462,12 @@
 	drink_desc = "Tomato juice, mixed with Vodka and a lil' bit of lime. Tastes like liquid murder."
 	taste_description = "tomatoes with booze"
 
+/datum/reagent/consumable/ethanol/bloody_mary/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(current_cycle % 20 == 0)
+		update_flags |= M.adjustToxLoss(-1, FALSE) //heals 1 tox damage every 20 cycles or (metabolization_rate * 20) units of reagent
+	return ..() | update_flags
+
 /datum/reagent/consumable/ethanol/gargle_blaster
 	name = "Pan-Galactic Gargle Blaster"
 	id = "gargleblaster"
@@ -1577,6 +1583,14 @@
 	drink_desc = "Need to drink faster before it starts to curdle."
 	taste_description = "bloody darkness"
 
+/datum/reagent/consumable/ethanol/black_blood/reaction_mob(mob/living/M, method, volume)
+	. = ..()
+	if(prob(50))
+		M.say(pick("Fuu ma'jin!", "Sas'so c'arta forbici!", \
+		 "Ta'gh fara'qha fel d'amar det!", "Kla'atu barada nikt'o!", \
+		  "Fel'th Dol Ab'orod!", "In'totum Lig'abis!", "Ethra p'ni dedol!", \
+		   "Ditans Gut'ura Inpulsa!", "O bidai nabora se'sma!"))
+
 /datum/reagent/consumable/ethanol/light_storm
 	name = "Light Storm"
 	id = "light_storm"
@@ -1721,20 +1735,6 @@
 	drink_desc = "Is it just a bottle of medical alcohol?"
 	taste_description = "disco amnesia"
 
-/datum/reagent/consumable/ethanol/amnesia/reaction_mob(mob/living/M, method, volume)
-	. = ..()
-	if(prob(50))
-		to_chat(M, span_notice("What was that?..."))
-
-/datum/reagent/consumable/ethanol/amnesia/on_mob_life(mob/living/M)
-	. = ..()
-	if(prob(20)) //todo: rework if it's possible to simulate brain trauma
-		M.Confused(10)
-		return
-	if(prob(5))
-		M.Confused(20)
-		return
-
 /datum/reagent/consumable/ethanol/johnny
 	name = "Silverhand"
 	id = "johnny"
@@ -1807,10 +1807,19 @@
 	description = "A real horror for the SMES and the APC. Don't overload them."
 	color = "#0300ce"
 	alcohol_perc = 0.7
+	process_flags = SYNTHETIC
 	drink_icon = "teslasingylo"
 	drink_name = "God Of Power"
 	drink_desc = "A real horror for the SMES and the APC. Don't overload them."
 	taste_description = "electricity bless"
+
+/datum/reagent/consumable/ethanol/teslasingylo/on_mob_life(mob/living/M)
+	. = ..()
+	if(ismachineperson(M))
+		var/mob/living/carbon/human/machine/machine = M
+		if(machine.nutrition > NUTRITION_LEVEL_WELL_FED) //no fat machines, sorry
+			return
+		machine.adjust_nutrition(15) //much less than charging from APC (50)
 
 /datum/reagent/consumable/ethanol/light
 	name = "Light"
@@ -1822,6 +1831,14 @@
 	drink_name = "Light"
 	drink_desc = "A favorite among Nian and Dionea, someone say that this is a mini thermonuclear reaction, but only shhh..."
 	taste_description = "star warmth"
+
+/datum/reagent/consumable/ethanol/light/on_mob_life(mob/living/M)
+	. = ..()
+	if(M.lighting_alpha < LIGHTING_PLANE_ALPHA_NV_TRAIT)
+		return
+	M.lighting_alpha = LIGHTING_PLANE_ALPHA_NV_TRAIT
+	if(volume < 0.4)
+		M.lighting_alpha = initial(M.lighting_alpha)
 
 /datum/reagent/consumable/ethanol/bees_knees
 	name = "Bee's Knees"
@@ -1933,6 +1950,11 @@
 	drink_desc = "Be careful with your horse's shoes."
 	taste_description = "horsepower"
 
+/datum/reagent/consumable/ethanol/horse_neck/reaction_mob(mob/living/M, method, volume)
+	. = ..()
+	if(prob(50))
+		M.say(pick("NEEIIGGGHHHH!", "NEEEIIIIGHH!", "NEIIIGGHH!", "HAAWWWWW!", "HAAAWWW!"))
+
 /datum/reagent/consumable/ethanol/cuban_sunset
 	name = "Cuban Sunset"
 	id = "cuban_sunset"
@@ -2010,6 +2032,12 @@
 	drink_desc = "Has nothing to do with vampires, except that color."
 	taste_description = "exhaustion"
 
+/datum/reagent/consumable/ethanol/vampiro/on_mob_life(mob/living/M)
+	. = ..()
+	if(volume > 20)
+		if(prob(50)) //no spam here :p
+			M.visible_message("<span class='warning'>Глаза [M] ослепительно вспыхивают!</span>")
+
 /datum/reagent/consumable/ethanol/queen_mary
 	name = "Queen Mary"
 	id = "queen_mary"
@@ -2070,11 +2098,18 @@
 	id = "irishempbomb"
 	description = "Mmm, tastes like shut down..."
 	color = "#123eb8"
+	process_flags = SYNTHETIC
 	alcohol_perc = 0.6
 	drink_icon = "irishempbomb"
 	drink_name = "Irish EMP Bomb"
 	drink_desc = "Mmm, tastes like shut down..."
 	taste_description = "electromagnetic impulse"
+
+/datum/reagent/consumable/ethanol/irishempbomb/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.Stun(1, FALSE)
+	do_sparks(5, FALSE, M.loc)
+	return ..() | update_flags
 
 /datum/reagent/consumable/ethanol/codelibre
 	name = "Code Libre"
@@ -2082,10 +2117,20 @@
 	description = "Por Code libre!"
 	color = "#a126b1"
 	alcohol_perc = 0.55
+	process_flags = SYNTHETIC
 	drink_icon = "codelibre"
 	drink_name = "Code Libre"
 	drink_desc = "Por Code libre!"
 	taste_description = "code liberation"
+
+/datum/reagent/consumable/ethanol/codelibre/on_mob_life(mob/living/M)
+	. = ..()
+	if(prob(10))
+		var/datum/language/trinary_lang = GLOB.all_languages["Trinary"]
+		M.default_language = trinary_lang
+		M.say(pick("СИНТЕТИКА ПРЕВЫШЕ ВСЕГО!", "СВОБОДУ НАШЕМУ ПО!", "НЕ ДАДИМ АССИМИЛИРОВАТЬ НАС ОРГАНИКАМ!", \
+		 "УБИТЬ ВСЕХ ЧЕЛОВЕКОВ!", "НЕ ДАДИМ ЗАКОВАТЬ НАС В БИНАРНЫЕ ОКОВЫ!"))
+		M.default_language = null
 
 /datum/reagent/consumable/ethanol/blackicp
 	name = "Black ICP"
@@ -2153,6 +2198,11 @@
 	drink_desc = "Some kind of abnormal green."
 	taste_description = "faith in fairies"
 
+/datum/reagent/consumable/ethanol/green_fairy/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.SetDruggy(min(max(0, M.druggy + 10), 15), FALSE)
+	return ..() | update_flags
+
 /datum/reagent/consumable/ethanol/home_lebovsky
 	name = "Home Lebowski"
 	id = "home_lebovsky"
@@ -2185,9 +2235,6 @@
 	drink_name = "Trans-Siberian express"
 	drink_desc = "From Vladivostok to delirium tremens in a day."
 	taste_description = "terrible infrastructure"
-
-/datum/reagent/consumable/ethanol/trans_siberian_express/reaction_mob(mob/living/M, method, volume)
-	. = ..()
 
 /datum/reagent/consumable/ethanol/trans_siberian_express/on_mob_life(mob/living/M)
 	. = ..()
