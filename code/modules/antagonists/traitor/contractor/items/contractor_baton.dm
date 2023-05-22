@@ -106,8 +106,6 @@
 				to_chat(user, "There is no room for more cabble restraints!")
 		else
 			to_chat(user, "Cuff module accepts only cable restraints.")
-	else
-		return
 
 /obj/item/melee/classic_baton/telescopic/contractor/examine(mob/user)
 	. = ..()
