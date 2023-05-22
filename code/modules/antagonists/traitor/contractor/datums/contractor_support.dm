@@ -5,7 +5,7 @@
 /datum/antagonist/contractor_support/on_gain()
 	var/datum/objective/generic_objective = new
 
-	generic_objective.explanation_text = "Выполняйте приказы, получаемые от назначенного вам контрактника. Помогайте другим агентам в этом районе миссии."
+	generic_objective.explanation_text = "Выполняйте приказы, получаемые от назначенного вам контрактника. Помогайте другим агентам в этом районе миссии.<br>"
 	generic_objective.completed = TRUE
 
 	objectives += generic_objective

@@ -75,6 +75,12 @@
 	to_chat(partner_mind.current, "<font size=4><span class='warning'>[user.real_name] - Ваш начальник. Выполняйте любые приказы, отданные им. Вы здесь только для того, чтобы помочь ему с его задачами.</span>")
 	to_chat(partner_mind.current, "<span class='warning'>Если он погибнет или будет недоступен по другим причинам, вы должны помогать другим агентам в меру своих возможностей.</span>")
 
+	var/datum/objective/protect/contractor/CT = new
+	CT.owner = partner.mind
+	CT.target = user.mind
+	CT.explanation_text = "[user.real_name] - Ваш начальник. Его задачи являются первоочередными."
+	partner.mind.objectives += CT
+
 /datum/mind/proc/make_contractor_support()
 	if(has_antag_datum(/datum/antagonist/contractor_support))
 		return

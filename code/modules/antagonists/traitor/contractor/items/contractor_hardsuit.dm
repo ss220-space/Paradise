@@ -207,42 +207,42 @@
 			src.name = "EVA suit"
 			src.icon_state = "spacenew"
 			src.desc = "A lightweight space suit with the basic ability to protect the wearer from the vacuum of space during emergencies."
-			src.helmet.name = "EVA helmet"
-			src.helmet.desc = "A lightweight space helmet with the basic ability to protect the wearer from the vacuum of space during emergencies."
-			src.helmet.icon_state = "hardsuit0-medical" //well...
-			src.helmet.item_color = "medical"
+			helmet.name = "EVA helmet"
+			helmet.desc = "A lightweight space helmet with the basic ability to protect the wearer from the vacuum of space during emergencies."
+			helmet.icon_state = "hardsuit0-medical" //well...
+			helmet.item_color = "medical"
 		if("Mining Hardsuit")
 			src.name = "mining hardsuit"
 			src.icon_state = "hardsuit-mining"
 			src.desc = "A special suit that protects against hazardous, low pressure environments. Has reinforced plating."
-			src.helmet.name = "mining hardsuit helmet"
-			src.helmet.desc = "A special helmet designed for work in a hazardous, low pressure environment. Has reinforced plating."
-			src.helmet.icon_state = "hardsuit0-mining"
-			src.helmet.item_color = "mining"
+			helmet.name = "mining hardsuit helmet"
+			helmet.desc = "A special helmet designed for work in a hazardous, low pressure environment. Has reinforced plating."
+			helmet.icon_state = "hardsuit0-mining"
+			helmet.item_color = "mining"
 		if("Medical Hardsuit")
 			src.name = "medical hardsuit"
 			src.icon_state = "hardsuit-medical"
 			src.desc = "A special suit designed for work in a hazardous, low pressure environment. Built with lightweight materials for extra comfort."
-			src.helmet.name = "medical hardsuit helmet"
-			src.helmet.desc = "A special helmet designed for work in a hazardous, low pressure environment. Built with lightweight materials for extra comfort, but does not protect the eyes from intense light."
-			src.helmet.icon_state = "hardsuit0-medical"
-			src.helmet.item_color = "medical"
+			helmet.name = "medical hardsuit helmet"
+			helmet.desc = "A special helmet designed for work in a hazardous, low pressure environment. Built with lightweight materials for extra comfort, but does not protect the eyes from intense light."
+			helmet.icon_state = "hardsuit0-medical"
+			helmet.item_color = "medical"
 		if("Security Hardsuit")
 			src.name = "security hardsuit"
 			src.icon_state = "hardsuit-sec"
 			src.desc = "A special suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
-			src.helmet.name = "security hardsuit helmet"
-			src.helmet.desc = "A special helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
-			src.helmet.icon_state = "hardsuit0-sec"
-			src.helmet.item_color = "sec"
+			helmet.name = "security hardsuit helmet"
+			helmet.desc = "A special helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
+			helmet.icon_state = "hardsuit0-sec"
+			helmet.item_color = "sec"
 		if("Engineering Hardsuit")
 			src.name = "engineering hardsuit"
 			src.icon_state = "hardsuit-engineering"
 			src.desc = "A special suit that protects against hazardous, low pressure environments. Has radiation shielding."
-			src.helmet.name = "engineering hardsuit helmet"
-			src.helmet.desc = "A special helmet designed for work in a hazardous, low-pressure environment. Has radiation shielding."
-			src.helmet.icon_state = "hardsuit0-engineering"
-			src.helmet.item_color = "engineering"
+			helmet.name = "engineering hardsuit helmet"
+			helmet.desc = "A special helmet designed for work in a hazardous, low-pressure environment. Has radiation shielding."
+			helmet.icon_state = "hardsuit0-engineering"
+			helmet.item_color = "engineering"
 		else
 			return
 	to_chat(usr, "<span class='notice'>Turning on the disguise..</span>")
@@ -257,10 +257,10 @@
 	src.name = initial(src.name)
 	src.icon_state = initial(src.icon_state)
 	src.desc = initial(src.desc)
-	src.helmet.name = initial(src.helmet.name)
-	src.helmet.desc = initial(src.helmet.desc)
-	src.helmet.icon_state = initial(src.helmet.icon_state)
-	src.helmet.item_color = initial(src.helmet.item_color)
+	helmet.name = initial(helmet.name)
+	helmet.desc = initial(helmet.desc)
+	helmet.icon_state = initial(helmet.icon_state)
+	helmet.item_color = initial(helmet.item_color)
 	update_suit()
 
 /obj/item/clothing/suit/space/hardsuit/contractor/emp_act(severity)
@@ -270,4 +270,3 @@
 		disguise = FALSE
 		disable_chameleon()
 
-//that's an absolute shitcode, but I dont know, how to make it better...
