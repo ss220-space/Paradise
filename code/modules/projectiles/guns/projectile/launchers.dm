@@ -82,3 +82,51 @@
 		to_chat(user, "<span class='notice'>You load [num_loaded] spear\s into \the [src].</span>")
 		update_icon()
 		chamber_round()
+
+/obj/item/gun/projectile/revolver/rocketlauncher //nice revolver you got here
+	name = "\improper PML-9"
+	desc = "A reusable rocket propelled grenade launcher. The words \"NT this way\" and an arrow have been written near the barrel."
+	icon_state = "rocketlauncher"
+	item_state = "rocketlauncher"
+	mag_type = /obj/item/ammo_box/magazine/internal/rocketlauncher
+	fire_sound = 'sound/weapons/gunshots/1launcher.ogg'
+	w_class = WEIGHT_CLASS_BULKY
+	weapon_weight = WEAPON_HEAVY
+	can_holster = FALSE
+	flags = CONDUCT
+
+/obj/item/gun/projectile/revolver/rocketlauncher/attackby(obj/item/A, mob/user, params)
+	var/num_loaded = magazine.attackby(A, user, params, 1)
+	if(num_loaded)
+		to_chat(user, "<span class='notice'>You carefully load [A] into \the [src].</span>")
+		chamber_round()
+		cut_overlays()
+
+
+/obj/item/gun/projectile/revolver/rocketlauncher/afterattack()
+	. = ..()
+	magazine.get_round(FALSE) //Hack to clear the mag after it's fired
+	chambered = null //weird thing
+	update_icon()
+
+
+/obj/item/gun/projectile/revolver/rocketlauncher/attack_self(mob/living/user)
+	var/num_unloaded = 0
+	var/obj/item/ammo_casing/CB
+	while(get_ammo() > 0)
+		CB = magazine.get_round(0)
+		chambered = null
+		CB.loc = get_turf(loc)
+		user.put_in_hands(CB)
+		num_unloaded++
+	if(num_unloaded)
+		to_chat(user, "<span class = 'notice'>You carefully remove [CB] from \the [src] .</span>")
+	else
+		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+	update_icon()
+	return
+
+/obj/item/gun/projectile/revolver/rocketlauncher/update_icon()
+	cut_overlays()
+	if(!chambered)
+		add_overlay("[icon_state]_empty")
