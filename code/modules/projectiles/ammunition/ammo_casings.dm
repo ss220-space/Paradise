@@ -385,11 +385,9 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
-/obj/item/ammo_casing/f545
+/obj/item/ammo_casing/a545/fusty
 	desc = "A fusty 5.45x39mm bullet casing."
-	icon_state = "lasercasing"
 	materials = list(MAT_METAL = 1000)
-	caliber = "f545"
 	projectile_type = /obj/item/projectile/bullet/f545
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL

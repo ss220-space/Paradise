@@ -419,9 +419,9 @@
 /obj/item/ammo_box/magazine/aksu
 	name = "AK magazine (5.45x39mm)"
 	icon_state = "ak47mag"
-	desc= "An antique magazine for an AK rifle."
+	desc= "An antique fusty magazine for an AK rifle."
 	origin_tech = "combat=4;syndicate=1"
-	ammo_type = /obj/item/ammo_casing/f545
+	ammo_type = /obj/item/ammo_casing/a545/fusty
 	caliber = "f545"
 	max_ammo = 30
 	multiple_sprites = 2

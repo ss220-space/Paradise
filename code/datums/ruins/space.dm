@@ -363,7 +363,7 @@
 	suffix = "USSP_gorky17.dmm"
 	name = "USSP Gorky 17 station"
 	description = "USSP Special Operations Outpost hidden among the asteroids."
-	cost = 1 //5
+	cost = 6 // 200x200 station in asteroid belt, has self destruct system and may spawn secret documents or 8 lvl tech
 	allow_duplicates = FALSE
 */
 
@@ -374,7 +374,6 @@
 	description = "USSP Special Operations Outpost hidden among the asteroids. An unenviable fate befell this frontier... \
 	After another mission using the gate, a strong bluespace storm began in the outpost sector, which damaged the gate... \
 	Immediately after the described events, the 'fortress' protocol was activated at the facility"
-	always_place = TRUE  // remove
-	cost = 0 //5
+	cost = 6 // 200x200 station in asteroid belt, has self destruct system and may spawn secret documents or 8 lvl tech
 	allow_duplicates = FALSE
 

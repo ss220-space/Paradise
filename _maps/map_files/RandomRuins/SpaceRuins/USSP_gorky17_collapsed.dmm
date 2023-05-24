@@ -3837,7 +3837,7 @@
 	name = "Gorky17 RnD secure locker";
 	req_access = list(123)
 	},
-/obj/item/handheld_chem_dispenser/booze,
+/obj/item/fluff/bird_painter,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkpurple"
@@ -7738,6 +7738,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
+"xc" = (
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/USSP_gorky17/collapsed/asteroids)
 "xd" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -9026,7 +9030,6 @@
 	req_access = list(123)
 	},
 /obj/item/fluff/tattoo_gun,
-/obj/item/fluff/bird_painter,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkpurple"
@@ -55877,7 +55880,7 @@ ha
 ha
 ha
 ha
-JO
+xc
 JO
 ha
 ha
