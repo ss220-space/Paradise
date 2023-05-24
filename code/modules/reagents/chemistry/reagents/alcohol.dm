@@ -2241,7 +2241,7 @@
 	var/datum/language/rus_lang = GLOB.all_languages["Neo-Russkiya"]
 	if((rus_lang in M.languages) && !(rus_lang in M.temporary_languages))
 		if(M.default_language != rus_lang)
-			M.set_default_language(rus_lang)
+			M.default_language = rus_lang
 		if(volume < 0.4)
 			M.default_language = null //reset language we were speaking
 		return
@@ -2249,7 +2249,7 @@
 		if(!(rus_lang in M.languages))
 			M.temporary_languages += rus_lang
 			M.languages += rus_lang
-			M.set_default_language(rus_lang)
+			M.default_language = rus_lang
 		if(volume < 0.4)
 			M.languages ^= M.temporary_languages
 			M.temporary_languages -= rus_lang
