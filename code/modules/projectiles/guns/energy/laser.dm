@@ -40,7 +40,7 @@
 	..()
 	options["The Original"] = "caplaser"
 	options["Restored"] = "caplaser_new"
-	options["Updated"] = "caplaser_newer"
+	options["Alternative"] = "caplaser_newer"
 	options["Cancel"] = null
 
 /obj/item/gun/energy/laser/captain/update_icon()
