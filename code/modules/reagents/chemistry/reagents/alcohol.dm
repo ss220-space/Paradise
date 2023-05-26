@@ -2126,11 +2126,8 @@
 /datum/reagent/consumable/ethanol/codelibre/on_mob_life(mob/living/M)
 	. = ..()
 	if(prob(10))
-		var/datum/language/trinary_lang = GLOB.all_languages["Trinary"]
-		M.default_language = trinary_lang
-		M.say(pick("СИНТЕТИКА ПРЕВЫШЕ ВСЕГО!", "СВОБОДУ НАШЕМУ ПО!", "НЕ ДАДИМ АССИМИЛИРОВАТЬ НАС ОРГАНИКАМ!", \
-		 "УБИТЬ ВСЕХ ЧЕЛОВЕКОВ!", "НЕ ДАДИМ ЗАКОВАТЬ НАС В БИНАРНЫЕ ОКОВЫ!"))
-		M.default_language = null
+		M.say(":5 [pick("СИНТЕТИКА ПРЕВЫШЕ ВСЕГО!", "СВОБОДУ НАШЕМУ ПО!", "НЕ ДАДИМ АССИМИЛИРОВАТЬ НАС ОРГАНИКАМ!", \
+		 "УБИТЬ ВСЕХ ЧЕЛОВЕКОВ!", "НЕ ДАДИМ ЗАКОВАТЬ НАС В БИНАРНЫЕ ОКОВЫ!")]")
 
 /datum/reagent/consumable/ethanol/blackicp
 	name = "Black ICP"
