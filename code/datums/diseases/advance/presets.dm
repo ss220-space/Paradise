@@ -53,3 +53,13 @@
 	symptoms = list(new/datum/symptom/beard, new/datum/symptom/voice_change, new/datum/symptom/itching)
 	mutation_reagents = list("mutagen", "radium")
 	possible_mutations = list(/datum/disease/kingstons)
+
+//Pacifist Syndrome
+/datum/disease/advance/preset/love
+	name = "Pacifist Syndrome"
+	symptoms = list(new/datum/symptom/love)
+
+//Uncontrollable Aggression
+/datum/disease/advance/preset/aggression
+	name = "Uncontrollable Aggression"
+	symptoms = list(new/datum/symptom/aggression)
