@@ -422,6 +422,8 @@
 #include "code\datums\diseases\advance\symptoms\headache.dm"
 #include "code\datums\diseases\advance\symptoms\heal.dm"
 #include "code\datums\diseases\advance\symptoms\itching.dm"
+#include "code\datums\diseases\advance\symptoms\love.dm"
+#include "code\datums\diseases\advance\symptoms\aggression.dm"
 #include "code\datums\diseases\advance\symptoms\oxygen.dm"
 #include "code\datums\diseases\advance\symptoms\painkiller.dm"
 #include "code\datums\diseases\advance\symptoms\sensory.dm"

@@ -341,6 +341,18 @@
 	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/advance/preset/pre_kingstons
 
+/obj/item/reagent_containers/glass/bottle/love
+	name = "love"
+	desc = "love"
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/advance/preset/love
+
+/obj/item/reagent_containers/glass/bottle/aggression
+	name = "aggression"
+	desc = "aggression"
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/advance/preset/aggression
+
 /obj/item/reagent_containers/glass/bottle/retrovirus
 	name = "Retrovirus culture bottle"
 	desc = "A small bottle. Contains a retrovirus culture in a synthblood medium."
