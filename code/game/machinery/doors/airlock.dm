@@ -739,20 +739,25 @@ About the new airlock wires panel:
 
 /obj/machinery/door/airlock/attack_hand(mob/user)
 	if(shock_user(user, 100))
+		add_fingerprint(user)
 		return
 
 	if(headbutt_airlock(user))
+		add_fingerprint(user)
 		return // Smack that head against that airlock
 	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+		add_fingerprint(user)
 		user.changeNext_move(CLICK_CD_MELEE)
 		attack_generic(user, user.dna.species.obj_damage)
 		return
 	if(remove_airlock_note(user, FALSE))
+		add_fingerprint(user)
 		return
 	if(panel_open)
 		if(security_level)
 			to_chat(user, "<span class='warning'>Wires are protected!</span>")
 			return
+		add_fingerprint(user)
 		wires.Interact(user)
 	else
 		..()
@@ -1357,10 +1362,11 @@ About the new airlock wires panel:
 	user.visible_message("<span class='warning'>[user] begins prying open [src].</span>",\
 						"<span class='noticealien'>You begin digging your claws into [src] with all your might!</span>",\
 						"<span class='warning'>You hear groaning metal...</span>")
-	var/time_to_open = 5
+	var/time_to_open = 0.2 SECONDS
 	if(arePowerSystemsOn())
-		time_to_open = 50 //Powered airlocks take longer to open, and are loud.
-		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
+		time_to_open = user.time_to_open_doors
+		if(time_to_open > 3 SECONDS)
+			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
 
 
 	if(do_after(user, time_to_open, TRUE, src))
