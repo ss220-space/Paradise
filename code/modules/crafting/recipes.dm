@@ -54,15 +54,6 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
-/datum/crafting_recipe/bola_s
-	name = "Skull Bola"
-	result = /obj/item/restraints/legcuffs/bola/sinew
-	reqs = list(/obj/item/restraints/handcuffs/sinew = 2, //We don't have a "hand craft" version due to the need for 2 restraints in crafting.
-				/obj/item/stack/sheet/bone = 3)
-	time = 20
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
-
 /datum/crafting_recipe/razorgloves
 	name = "Razor Gloves"
 	result = /obj/item/clothing/gloves/color/black/razorgloves
@@ -601,6 +592,14 @@
 	time = 30
 	reqs = list(/obj/item/stack/sheet/wood = 2,
 				 /obj/item/stack/sheet/sinew = 1)
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/bola_s
+	name = "Skull Bola"
+	result = /obj/item/restraints/legcuffs/bola/sinew
+	reqs = list(/obj/item/restraints/handcuffs/sinew = 2, //We don't have a "hand craft" version due to the need for 2 restraints in crafting.
+				/obj/item/stack/sheet/bone = 3)
+	time = 20
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/boneaxe
