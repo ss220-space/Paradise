@@ -24599,6 +24599,7 @@
 	},
 /obj/item/stack/tape_roll,
 /obj/item/pen/multi,
+/obj/item/toy/figure/librarian,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -26295,6 +26296,7 @@
 /obj/item/reagent_containers/dropper{
 	pixel_y = -6
 	},
+/obj/item/toy/figure/bartender,
 /turf/simulated/floor/wood/fancy/oak,
 /area/crew_quarters/bar)
 "boR" = (
@@ -76398,6 +76400,7 @@
 	pixel_x = -28
 	},
 /obj/item/storage/pill_bottle/random_drug_bottle,
+/obj/item/toy/figure/ninja,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "kqU" = (
@@ -80227,6 +80230,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/xenozoo)
+"oRH" = (
+/obj/item/toy/figure/clown,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint2)
 "oTr" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
@@ -136703,7 +136710,7 @@ uTI
 lTl
 aGX
 aJL
-aGY
+oRH
 aMz
 aOF
 kKR
