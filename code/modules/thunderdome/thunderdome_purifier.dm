@@ -22,9 +22,7 @@
 		mob.melt()
 	}
 	for (var/obj/A in tdome_arena) {
-		if (!istype(A, /obj/thunderdomepurifier)) {
-			qdel(A)
-		}
+		qdel(A)
 	}
 
 /obj/thunderdomepurifier/New()
