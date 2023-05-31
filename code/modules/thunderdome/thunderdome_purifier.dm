@@ -1,11 +1,10 @@
 /obj/thunderdomepurifier
-	/var/global/purifierinstance  // singleton Раз locate возвращает только один объект, то возможно и не придется. С др. стороны - защита от щитспавна
+	var/global/purifierinstance  // singleton Раз locate возвращает только один объект, то возможно и не придется. С др. стороны - защита от щитспавна
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "thunderdome-bomb"
 
 	name = "thunderdome bomb"
 	desc = "A small device used to purify thunderdome"
-	var/area/tdome_arena = null
 
 	anchored = 1
 	density = 0
@@ -17,7 +16,7 @@
 	var/timer = 20 // TODO later change to 300
 
 /obj/thunderdomepurifier/proc/purify()
-	tdome_arena = locate(/area/tdome/newtdome)
+	var/area/tdome_arena = locate(/area/tdome/newtdome)
 
 	for (var/mob/living/mob in tdome_arena) {
 		mob.melt()
