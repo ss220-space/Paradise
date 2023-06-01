@@ -425,8 +425,9 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	text = replacetext(text, "<img src = ntlogo.png>", "` NT LOGO `\n")
 	text = replacetext(text, "<img src = syndielogo.png>", "` SYNDIE LOGO `\n")
 	text = replacetextEx(text, "<img src = syndielogo.png>", "` SYNDIE LOGO `\n")
-	var/regex/stamp_regex = regex("<img src=large_stamp-(.+).png>", "g")
-	text = stamp_regex.Replace(text, "` $1 STAMP `")
+	for(var/type in paper.stamped)
+		var/obj/item/stamp/stamp = new type()
+		text += "` [replacetext(replacetext(stamp.name, "rubber", ""), "'s", "")] `"
 
 	return strip_html_properly(text, allow_lines = TRUE)
 
