@@ -130,3 +130,25 @@
 	cut_overlays()
 	if(!chambered)
 		add_overlay("[icon_state]_empty")
+
+/obj/item/gun/projectile/revolver/rocketlauncher/suicide_act(mob/user)
+	user.visible_message("<span class='warning'>[user] aims [src] at the ground! It looks like [user.p_theyre()] performing a sick rocket jump!<span>")
+	if(can_shoot())
+		user.notransform = TRUE
+		playsound(src, 'sound/weapons/rocketlaunch.ogg', 80, 1, 5)
+		animate(user, pixel_z = 300, time = 3 SECONDS, easing = LINEAR_EASING)
+		sleep(7 SECONDS)
+		animate(user, pixel_z = 0, time = 0.5 SECONDS, easing = LINEAR_EASING)
+		sleep(0.5 SECONDS)
+		user.notransform = FALSE
+		process_fire(user, user, TRUE)
+		if(!QDELETED(user)) //if they weren't gibbed by the explosion, take care of them for good.
+			user.gib()
+		return OBLITERATION
+	else
+		sleep(0.5 SECONDS)
+		shoot_with_empty_chamber(user)
+		sleep(2 SECONDS)
+		user.visible_message("<span class='warning'>[user] looks about the room realizing [user.p_theyre()] still there. [user.p_they(TRUE)] proceed to shove [src] down their throat and choke [user.p_them()]self with it!<span>")
+		sleep(2 SECONDS)
+		return OXYLOSS
