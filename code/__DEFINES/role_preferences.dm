@@ -15,6 +15,7 @@
 #define ROLE_WIZARD				"wizard"
 #define ROLE_REV				"revolutionary"
 #define ROLE_ALIEN				"xenomorph"
+#define ROLE_THUNDERDOME		"thunderdome"
 #define ROLE_PAI				"pAI"
 #define ROLE_CULTIST			"cultist"
 #define ROLE_CLOCKER			"clockwork cultist"
