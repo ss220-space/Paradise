@@ -3,6 +3,7 @@
 	var/list/datum/mind/traitors = list()
 	var/list/datum/mind/implanter = list()
 	var/list/datum/mind/implanted = list()
+	var/list/datum/mind/support = list()
 
 	var/datum/mind/exchange_red
 	var/datum/mind/exchange_blue
@@ -59,10 +60,12 @@
 		if(!possible_traitors.len)
 			break
 		var/datum/mind/traitor = pick(possible_traitors)
+		possible_traitors.Remove(traitor)
+		if(traitor.special_role == SPECIAL_ROLE_THIEF) //Disable traitor + thief combination
+			continue
 		pre_traitors += traitor
 		traitor.special_role = SPECIAL_ROLE_TRAITOR
 		traitor.restricted_roles = restricted_jobs
-		possible_traitors.Remove(traitor)
 		if(num_contractors-- > 0)
 			selected_contractors += traitor
 
@@ -167,6 +170,10 @@
 				var/datum/mind/master_mind = SSticker.mode.implanted[mindslave]
 				var/mob/living/carbon/human/master = master_mind.current
 				text += " (slaved by: <b>[master]</b>)<br>"
+		if(length(SSticker.mode.support))
+			text += "<br><br><FONT size = 2><B>The Contractor Support Units were:</B></FONT><br>"
+			for(var/datum/mind/csu in SSticker.mode.support)
+				text += "[printplayer(csu)]<br>"
 
 		var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 		var/responses = jointext(GLOB.syndicate_code_response, ", ")
