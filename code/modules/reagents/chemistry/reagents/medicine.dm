@@ -23,6 +23,10 @@
 	shock_reduction = 200
 	taste_description = "numbness"
 
+/datum/reagent/medicine/hydrocodone/on_mob_life(mob/living/M) //Needed so the hud updates when injested / removed from system
+	var/update_flags = STATUS_UPDATE_HEALTH
+	return ..() | update_flags
+
 /datum/reagent/medicine/sterilizine
 	name = "Sterilizine"
 	id = "sterilizine"
@@ -245,7 +249,7 @@
 	if(iscarbon(M))
 		if(method == REAGENT_TOUCH)
 			M.adjustBruteLoss(-volume)
-			if(show_message)
+			if(show_message && !(NO_PAIN in M.dna.species.species_traits))
 				to_chat(M, "<span class='notice'>The styptic powder stings like hell as it closes some of your wounds!</span>")
 				M.emote("scream")
 		if(method == REAGENT_INGEST)
