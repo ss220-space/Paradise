@@ -3790,9 +3790,7 @@
 	},
 /area/derelict/crew_quarters)
 "jh" = (
-/turf/template_noop,
-/turf/simulated/wall/mineral/titanium/nodecon/nosmooth{
-	icon_state = "swall_f10"
+/turf/template_noop
 	},
 /area/derelict/annex)
 "jm" = (
@@ -5911,9 +5909,7 @@
 	},
 /area/derelict/arrival)
 "oG" = (
-/turf/template_noop,
-/turf/simulated/wall/mineral/titanium/nodecon/nosmooth{
-	icon_state = "swall_f5"
+/turf/template_noop
 	},
 /area/derelict/arrival)
 "oH" = (
