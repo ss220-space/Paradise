@@ -65,6 +65,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_ELITE,											// Lavaland Elite
 	ROLE_MORPH, 										// Morph
 	ROLE_OPERATIVE = /datum/game_mode/nuclear, 			// Operative
+	ROLE_THUNDERDOME,									// Thunderdome
 	ROLE_PAI, 											// PAI
 	ROLE_POSIBRAIN, 									// Positronic brain
 	ROLE_REVENANT, 										// Revenant
