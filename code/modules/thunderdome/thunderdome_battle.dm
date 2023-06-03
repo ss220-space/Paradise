@@ -17,7 +17,7 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
  *
  * This datum is responsible for making fun for non-admin ghosts who want to have a brawl on thunderdome.
  *
- * Constants were defined in variables of this class in case if you need to adjust parameters of a brawl.
+ * Constants were defined in variables of this class in case if you need to adjust parameters of a brawl through VV.
  * Be aware, that you'll have to make indestructible area if you want to use it properly.
  * /obj/thunderdome_poller object is basically a center of the arena and can be used from "mob spawn" ghost menu
  */
@@ -42,12 +42,12 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 		/obj/item/sleeping_carp_scroll = 1,
 		/obj/item/clothing/gloves/color/black/krav_maga/sec = 1,
 		/obj/item/clothing/gloves/fingerless/rapid = 1,
-		/obj/item/melee/baton = 1,
+		/obj/item/melee/baton/loaded = 1,
 		/obj/item/melee/baseball_bat = 1,
 		/obj/item/melee/energy_katana = 1,
 		/obj/item/melee/rapier = 1,
 		/obj/item/melee/energy/axe = 1,
-		/obj/item/melee/energy/sword/saber/red = 2,
+		/obj/item/melee/energy/sword/saber/red = 1,
 		/obj/item/melee/energy/cleaving_saw = 1,
 		/obj/item/twohanded/mjollnir = 1,
 		/obj/item/twohanded/chainsaw = 1,
@@ -163,6 +163,8 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 
 /datum/thunderdome_battle/proc/get_random_items(list/from, count)
 	var/list/random_items = list()
+	if(count <= 0)
+		return
 	for(var/i in 1 to count)
 		random_items += pick(from)
 
@@ -171,6 +173,10 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 
 	return random_items
 
+/**
+ * Clears thunderdome and it's specific areas, also resets thunderdome state.
+ *
+*/
 /datum/thunderdome_battle/proc/clear_thunderdome()
 	var/area/tdome_arena = locate(/area/tdome/newtdome)
 	var/area/tdome_arena_melee = locate(/area/tdome/newtdome/CQC)
@@ -180,6 +186,13 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 
 	isGoing = FALSE
 
+/**
+ * Clears area from:
+ * All mobs
+ * All object except thunderdome poller and poddors (shutters included)
+ * *Arguments:
+ * *zone - specific area
+ */
 /datum/thunderdome_battle/proc/clear_area(area/zone)
 	if(!zone)
 		return
@@ -191,7 +204,9 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 			continue
 		qdel(A)
 	}
-
+/**
+ * Gets location with rounded coordinates (needed for precise geometry builder)
+ */
 /datum/thunderdome_battle/proc/get_rounded_location(curr_x, curr_y, z)
 	return locate(round(curr_x), round(curr_y), z)
 
@@ -273,10 +288,10 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 		/obj/item/implant/postponed_death,
 		/obj/item/implant/adrenalin
 	)
-	uniform = /obj/item/clothing/under/cuban_suit
+	uniform = /obj/item/clothing/under/misc/durathread
 	shoes = /obj/item/clothing/shoes/combat
-	back = /obj/item/storage/backpack/ert
-
+	back = /obj/item/storage/backpack/duffel/durathread
+	head = /obj/item/clothing/head/HoS
 
 /datum/outfit/thunderdome/cqc
 	name = "Fighter"
@@ -304,7 +319,7 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 	name = "CQC Thunderdome Brawler"
 	mob_name = "Fighter"
 	icon = 'icons/mob/thunderdome_previews.dmi'
-	flavour_text = "Станьте лучшим бойцом арены среди любителей близкого боя!"
+	flavour_text = "Станьте лучшим бойцом арены среди любителей ближнего боя!"
 	outfit = /datum/outfit/thunderdome/cqc
 
 /obj/effect/mob_spawn/human/thunderdome/ranged
