@@ -196,14 +196,14 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 /datum/thunderdome_battle/proc/clear_area(area/zone)
 	if(!zone)
 		return
-	for (var/mob/living/mob in zone) {
+	for(var/mob/living/mob in zone)
 		mob.melt()
-	}
-	for (var/obj/A in zone) {
+
+	for(var/obj/A in zone)
 		if(istype(A, /obj/machinery/door/poddoor) || istype(A, /obj/thunderdome_poller))
 			continue
 		qdel(A)
-	}
+
 /**
  * Gets location with rounded coordinates (needed for precise geometry builder)
  */
