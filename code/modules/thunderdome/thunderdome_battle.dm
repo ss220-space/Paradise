@@ -44,7 +44,6 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 		/obj/item/clothing/gloves/fingerless/rapid = 1,
 		/obj/item/melee/baton/loaded = 1,
 		/obj/item/melee/baseball_bat = 1,
-		/obj/item/melee/energy_katana = 1,
 		/obj/item/melee/rapier = 1,
 		/obj/item/melee/energy/axe = 1,
 		/obj/item/melee/energy/sword/saber/red = 1,
