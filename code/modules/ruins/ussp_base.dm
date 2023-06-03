@@ -1,4 +1,4 @@
-obj/effect/mob_spawn/human/ussp_general
+/obj/effect/mob_spawn/human/ussp_general
 	name = "Генерал СССП"
 	mob_name = "Генерал СССП"
 	roundstart = FALSE
@@ -47,7 +47,7 @@ obj/effect/mob_spawn/human/ussp_general
 	id = /obj/item/card/id/ussp_general
 	implants = list(/obj/item/implant/weapons_auth)
 
-obj/effect/mob_spawn/human/ussp_engineer
+/obj/effect/mob_spawn/human/ussp_engineer
 	name = "Инженер СССП"
 	mob_name = "Инженер СССП"
 	roundstart = FALSE
@@ -84,7 +84,7 @@ obj/effect/mob_spawn/human/ussp_engineer
 			if("Human")
 				box = /obj/item/storage/box/soviet
 
-datum/outfit/ussp_engineer
+/datum/outfit/ussp_engineer
 	name = "Инженер СССП"
 	uniform = /obj/item/clothing/under/soviet
 	shoes = /obj/item/clothing/shoes/combat
@@ -95,7 +95,7 @@ datum/outfit/ussp_engineer
 	belt = /obj/item/storage/belt/utility/full/multitool
 	glasses = /obj/item/clothing/glasses/welding
 
-obj/effect/mob_spawn/human/ussp_security
+/obj/effect/mob_spawn/human/ussp_security
 	name = "Сотрудник безопасности СССП"
 	mob_name = "Сотрудник безопасности СССП"
 	roundstart = FALSE
@@ -132,7 +132,7 @@ obj/effect/mob_spawn/human/ussp_security
 			if("Human")
 				box = /obj/item/storage/box/soviet
 
-datum/outfit/ussp_security
+/datum/outfit/ussp_security
 	name = "Сотрудник безопасности СССП"
 	uniform = /obj/item/clothing/under/soviet
 	shoes = /obj/item/clothing/shoes/combat
@@ -142,7 +142,7 @@ datum/outfit/ussp_security
 	r_pocket = /obj/item/gun/projectile/automatic/pistol
 	id = /obj/item/card/id/ussp_security
 
-obj/effect/mob_spawn/human/ussp_scientist
+/obj/effect/mob_spawn/human/ussp_scientist
 	name = "Учённый СССП"
 	mob_name = "Учённый СССП"
 	roundstart = FALSE
@@ -163,7 +163,7 @@ obj/effect/mob_spawn/human/ussp_scientist
 	min_hours = 10
 	exp_type = EXP_TYPE_LIVING
 
-datum/outfit/ussp_scientist
+/datum/outfit/ussp_scientist
 	name = "Учённый СССП"
 	uniform = /obj/item/clothing/under/soviet
 	shoes = /obj/item/clothing/shoes/combat
