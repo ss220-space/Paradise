@@ -21,40 +21,40 @@
 /datum/surgery/implant_removal/can_start(mob/user, mob/living/carbon/human/target)
 	var/mob/living/carbon/human/H = target
 	if(iskidan(H) || iswryn(H))
-		return 0
+		return FALSE
 	if(!istype(target))
-		return 0
+		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if(!affected)
-		return 0
+		return FALSE
 	if(affected.is_robotic())
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /datum/surgery/implant_removal/insect/can_start(mob/user, mob/living/carbon/human/target)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 		if(!affected)
-			return 0
+			return FALSE
 		if(affected.is_robotic())
-			return 0
+			return FALSE
 		if(!affected.encased)
-			return 0
+			return FALSE
 		if(iswryn(H) || iskidan(H))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /datum/surgery/implant_removal/synth/can_start(mob/user, mob/living/carbon/human/target)
 	if(!istype(target))
-		return 0
+		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if(!affected)
-		return 0
+		return FALSE
 	if(!affected.is_robotic())
-		return 0
+		return FALSE
 
-	return 1
+	return TRUE
 
 /datum/surgery_step/extract_implant
 	name = "extract implant"
@@ -107,4 +107,4 @@
 	else
 		user.visible_message("<span class='notice'> [user] could not find anything inside [target]'s [affected.name], and pulls \the [tool] out.</span>", \
 		"<span class='notice'>You could not find anything inside [target]'s [affected.name].</span>")
-	return 1
+	return TRUE
