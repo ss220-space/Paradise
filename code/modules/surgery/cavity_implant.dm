@@ -11,6 +11,12 @@
 
 	possible_locs = list("groin")
 
+/datum/surgery/cavity_implant/insect
+	name = "Insectoid Cavity Implant/Removal"
+	steps = list(/datum/surgery_step/open_encased/saw, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/retract_skin,
+	/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/cavity/make_space,/datum/surgery_step/cavity/place_item,/datum/surgery_step/cavity/close_space,/datum/surgery_step/open_encased/close,/datum/surgery_step/glue_bone, /datum/surgery_step/set_bone,/datum/surgery_step/finish_bone,/datum/surgery_step/generic/cauterize)
+	possible_locs = list("chest","head", "groin")
+
 /datum/surgery/cavity_implant/synth
 	name = "Robotic Cavity Implant/Removal"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/cavity/place_item,/datum/surgery_step/robotics/external/close_hatch)
@@ -18,6 +24,9 @@
 	requires_organic_bodypart = 0
 
 /datum/surgery/cavity_implant/can_start(mob/user, mob/living/carbon/human/target)
+	var/mob/living/carbon/human/H = target
+	if(iskidan(H) || iswryn(H))
+		return 0
 	if(!istype(target))
 		return 0
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
@@ -26,6 +35,20 @@
 	if(affected.is_robotic())
 		return 0
 	return 1
+
+/datum/surgery/cavity_implant/insect/can_start(mob/user, mob/living/carbon/human/target)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
+		if(!affected)
+			return 0
+		if(affected.is_robotic())
+			return 0
+		if(!affected.encased)
+			return 0
+		if(iswryn(H) || iskidan(H))
+			return 1
+	return 0
 
 /datum/surgery/cavity_implant/synth/can_start(mob/user, mob/living/carbon/human/target)
 	if(!istype(target))

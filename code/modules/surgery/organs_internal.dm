@@ -30,6 +30,18 @@
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/internal/manipulate_organs,/datum/surgery_step/generic/cauterize)
 	requires_organic_bodypart = 1
 
+/datum/surgery/organ_manipulation/insect
+	name = "Insectoid Organ Manipulation"
+	steps = list(/datum/surgery_step/open_encased/saw, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/retract_skin,
+	/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/internal/manipulate_organs, /datum/surgery_step/glue_bone, /datum/surgery_step/set_bone,/datum/surgery_step/finish_bone,/datum/surgery_step/generic/cauterize)
+	possible_locs = list("chest","head", "groin")
+	requires_organic_bodypart = 1
+
+/datum/surgery/organ_manipulation/insect/soft
+	possible_locs = list("eyes", "mouth")
+	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/internal/manipulate_organs,/datum/surgery_step/generic/cauterize)
+	requires_organic_bodypart = 1
+
 /datum/surgery/organ_manipulation/alien
 	name = "Alien Organ Manipulation"
 	possible_locs = list("chest", "head", "groin", "eyes", "mouth")
@@ -41,7 +53,7 @@
 	if(istype(target,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
-		if(isplasmaman(H))
+		if(isplasmaman(H) || iskidan(H) || iswryn(H))
 			return 0
 		if(!affected)
 			// I'd like to see you do surgery on LITERALLY NOTHING
@@ -83,6 +95,20 @@
 		if(!affected.encased)
 			return 0
 		if(isplasmaman(H))
+			return 1
+	return 0
+
+/datum/surgery/organ_manipulation/insect/can_start(mob/user, mob/living/carbon/target)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
+		if(!affected)
+			return 0
+		if(affected.is_robotic())
+			return 0
+		if(!affected.encased)
+			return 0
+		if(iswryn(H) || iskidan(H))
 			return 1
 	return 0
 
