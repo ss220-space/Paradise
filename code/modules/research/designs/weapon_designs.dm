@@ -555,4 +555,5 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_GOLD=500, MAT_GLASS=500)
 	build_path = /obj/item/paicard_upgrade
+	locked = 1
 	category = list("ILLEGAL")
