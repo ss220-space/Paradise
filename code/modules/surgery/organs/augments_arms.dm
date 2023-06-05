@@ -324,7 +324,37 @@
 	icon = 'icons/obj/weapons/energy.dmi'
 	icon_state = "m1911"
 	emp_proof = 1
+/obj/item/organ/internal/cyberimp/arm/mantisblade/left/horlex
+	name = "hidden blade implant"
+	desc = "A blade designed to be hidden just beneath the skin. The brain is directly linked to this bad boy, allowing it to spring into action."
+	contents = newlist(/obj/item/melee/mantisblade)
+	origin_tech = "materials=5;combat=7;biotech=5;powerstorage=5;syndicate=6;programming=5"
+	icon_state = "syndie_mantis"
 
+/obj/item/organ/internal/cyberimp/arm/mantisblade/right/horlex
+	parent_organ = "l_arm"
+	slot = "l_arm_device"
+	name = "hidden blade implant"
+	desc = "A blade designed to be hidden just beneath the skin. The brain is directly linked to this bad boy, allowing it to spring into action."
+	contents = newlist(/obj/item/melee/mantisblade)
+	origin_tech = "materials=5;combat=7;biotech=5;powerstorage=5;syndicate=6;programming=5"
+	icon_state = "syndie_mantis"
+
+/obj/item/organ/internal/cyberimp/arm/mantisblade/right/shellguard
+	name = "hidden blade implant"
+	desc = "A blade designed to be hidden just beneath the skin. The brain is directly linked to this bad boy, allowing it to spring into action."
+	contents = newlist(/obj/item/melee/mantisblade/shellguard)
+	origin_tech = "materials=5;combat=7;biotech=5;powerstorage=5;syndicate=6;programming=5"
+	icon_state = "mantis"
+
+/obj/item/organ/internal/cyberimp/arm/mantisblade/left/shellguard
+	name = "hidden blade implant"
+	desc = "A blade designed to be hidden just beneath the skin. The brain is directly linked to this bad boy, allowing it to spring into action."
+	contents = newlist(/obj/item/melee/mantisblade/shellguard)
+	origin_tech = "materials=5;combat=7;biotech=5;powerstorage=5;syndicate=6;programming=5"
+	icon_state = "mantis"
+	parent_organ = "l_arm"
+	slot = "l_arm_device"
 /obj/item/organ/internal/cyberimp/arm/surgery
 	name = "surgical toolset implant"
 	desc = "A set of surgical tools hidden behind a concealed panel on the user's arm"
