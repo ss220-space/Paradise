@@ -14,8 +14,9 @@
 	max_amount = 1000000
 	merge_type = /obj/item/stack/spacecash
 
-/obj/item/stack/spacecash/New(loc, amt = null)
-	..()
+
+/obj/item/stack/spacecash/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
 	update_icon()
 
 /obj/item/stack/spacecash/update_icon()

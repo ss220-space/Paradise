@@ -357,7 +357,7 @@
 /obj/machinery/cryopod/proc/despawn_occupant()
 	//Drop all items into the pod.
 	for(var/obj/item/I in occupant)
-		occupant.unEquip(I)
+		occupant.drop_item_ground(I)
 		I.forceMove(src)
 
 		if(I.contents.len) //Make sure we catch anything not handled by qdel() on the items.

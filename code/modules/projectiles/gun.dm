@@ -178,7 +178,7 @@
 				to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with \the [src]!</span>")
 				var/shot_leg = pick("l_foot", "r_foot")
 				process_fire(user, user, 0, params, zone_override = shot_leg)
-				user.drop_item()
+				user.drop_from_active_hand()
 				return
 
 	if(weapon_weight == WEAPON_HEAVY && user.get_inactive_hand())
@@ -307,13 +307,12 @@
 		var/obj/item/flashlight/seclite/S = I
 		if(can_flashlight)
 			if(!gun_light)
-				if(!user.unEquip(I))
+				if(!user.drop_transfer_item_to_loc(I, src))
 					return
 				to_chat(user, "<span class='notice'>You click [S] into place on [src].</span>")
 				if(S.on)
 					set_light(0)
 				gun_light = S
-				I.loc = src
 				update_icon()
 				update_gun_light(user)
 				var/datum/action/A = new /datum/action/item_action/toggle_gunlight(src)
@@ -329,9 +328,8 @@
 		var/obj/item/kitchen/knife/K = I
 		if(!can_bayonet || !K.bayonet || bayonet) //ensure the gun has an attachment point available, and that the knife is compatible with it.
 			return ..()
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(K, src))
 			return
-		K.forceMove(src)
 		to_chat(user, "<span class='notice'>You attach [K] to [src]'s bayonet lug.</span>")
 		bayonet = K
 		var/state = "bayonet"							//Generic state.
