@@ -19,7 +19,7 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
  *
  * Constants were defined in variables of this class in case if you need to adjust parameters of a brawl through VV.
  * Be aware, that you'll have to make indestructible area if you want to use it properly.
- * /obj/thunderdome_poller object is basically a center of the arena and can be used from "mob spawn" ghost menu
+ * /obj/thunderdome_poller object is basically a center of the arena and can be used from "mob spawn" ghost menu.
  */
 /datum/thunderdome_battle
 	var/spawn_minimum_limit = MIN_PLAYERS_COUNT
