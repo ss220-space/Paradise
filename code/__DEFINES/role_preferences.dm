@@ -65,7 +65,6 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_ELITE,											// Lavaland Elite
 	ROLE_MORPH, 										// Morph
 	ROLE_OPERATIVE = /datum/game_mode/nuclear, 			// Operative
-	ROLE_THUNDERDOME,									// Thunderdome
 	ROLE_PAI, 											// PAI
 	ROLE_POSIBRAIN, 									// Positronic brain
 	ROLE_REVENANT, 										// Revenant
@@ -75,6 +74,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_DEMON, 										// Slaguther demon
 	ROLE_NINJA, 										// Space ninja
 	ROLE_THIEF = /datum/game_mode/thief,				// Thief
+	ROLE_THUNDERDOME,									// Thunderdome
 	ROLE_TRADER, 										// Trader
 	ROLE_TRAITOR = /datum/game_mode/traitor, 			// Traitor
 	ROLE_VAMPIRE = /datum/game_mode/vampire, 			// Vampire

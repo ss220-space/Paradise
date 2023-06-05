@@ -7,7 +7,7 @@
 #define RANGED_ARENA_RADIUS 10
 #define VOTING_POLL_TIME 60 SECONDS
 #define MAX_PLAYERS_COUNT 16
-#define MIN_PLAYERS_COUNT 1
+#define MIN_PLAYERS_COUNT 2
 #define SPAWN_COEFFICENT 0.85 //border of how many polled players will brawling
 
 GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
@@ -341,8 +341,8 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 /obj/item/implant/postponed_death
 	name = "Postponed death implant"
 	desc = "Kills you after specific amount of time"
-	icon_state = "adrenal"
-	actions_types = null
+	icon = 'icons/effects/blood.dmi'
+	icon_state = "remains"
 	var/time_to_live = DEFAULT_TIME_LIMIT
 
 /obj/item/implant/postponed_death/implant(mob/source, mob/user)
