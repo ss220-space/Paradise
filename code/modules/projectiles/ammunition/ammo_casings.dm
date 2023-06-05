@@ -174,7 +174,7 @@
 	desc = "An 84mm High Explosive rocket. Fire at people and pray."
 	caliber = "84mm"
 	w_class = WEIGHT_CLASS_NORMAL //thats the rocket!
-	icon_state = "srm-8"
+	icon_state = "84mm-he"
 	projectile_type = /obj/item/projectile/bullet/a84mm_he
 
 /obj/item/ammo_casing/caseless/rocket/hedp

@@ -401,7 +401,7 @@
 /obj/item/projectile/bullet/a84mm_he
 	name ="\improper HE missile"
 	desc = "Boom."
-	icon_state = "missile"
+	icon_state = "84mm-he"
 	damage = 30
 	speed = 0.8
 	ricochets_max = 0
