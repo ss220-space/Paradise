@@ -169,6 +169,13 @@ SUBSYSTEM_DEF(tts)
 	msg += "F:[tts_request_failed] "
 	msg += "S:[tts_request_succeeded] "
 	msg += "R:[tts_reused] "
+	msg += "Q:[LAZYLEN(tts_requests_queue)]/[tts_requests_queue_limit] |"
+
+	var/datum/tts_provider/silero/_silero = tts_providers["Silero"]
+	msg += "Shared: "
+	msg += "RPS:[_silero.tts_shared_rps] "
+	msg += "Q:[_silero.tts_shared_requests_in_queue] "
+
 	..(msg)
 
 /datum/controller/subsystem/tts/PreInit()
@@ -285,16 +292,26 @@ SUBSYSTEM_DEF(tts)
 	if(traits & TTS_TRAIT_PITCH_WHISPER)
 		text = provider.pitch_whisper(text)
 
-	var/hash = rustg_hash_string(RUSTG_HASH_MD5, text)
+	var/hash = rustg_hash_string(RUSTG_HASH_MD5, lowertext(text))
 	var/filename = "sound/tts_cache/[seed.name]/[hash]"
 
-	var/datum/callback/play_tts_cb = CALLBACK(src, PROC_REF(play_tts), speaker, listener, filename, is_local, effect, preSFX, postSFX)
+	var/hash_old = rustg_hash_string(RUSTG_HASH_MD5, text)
+	var/filename_old = "sound/tts_cache/[seed.name]/[hash_old]"
 
 	if(fexists("[filename].ogg"))
 		tts_reused++
 		tts_rrps_counter++
 		play_tts(speaker, listener, filename, is_local, effect, preSFX, postSFX)
 		return
+
+	if(fexists("[filename_old].ogg"))
+		fcopy("[filename_old].ogg", "[filename].ogg")
+		tts_reused++
+		tts_rrps_counter++
+		play_tts(speaker, listener, filename, is_local, effect, preSFX, postSFX)
+		return
+
+	var/datum/callback/play_tts_cb = CALLBACK(src, PROC_REF(play_tts), speaker, listener, filename, is_local, effect, preSFX, postSFX)
 
 	if(LAZYLEN(tts_queue[filename]))
 		tts_reused++
