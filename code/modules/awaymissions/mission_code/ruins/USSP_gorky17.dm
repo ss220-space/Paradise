@@ -297,7 +297,9 @@
 	return ..()
 
 /obj/machinery/computer/id_upgrader/ussp/proc/giverank(obj/item/card/id/D)
-	if(D)
+	if(!cardholdername||!cardrank)
+		return
+	else if(D)
 		D.rank = ranktogive
 		D.assignment = ranktogive
 		D.registered_name = "[cardrank] [cardholdername]"
@@ -307,8 +309,14 @@
 	set name = "Enter name"
 	set category = "Object"
 	set src in oview(1)
+	if(usr.incapacitated())
+		return
+	if(!ishuman(usr))
+		return
 
-	cardholdername = input("Enter cardholder name:")
+	var/temp_name = reject_bad_name(input("Enter cardholder name:", "Cardholder name", usr.name), TRUE)
+	if(temp_name)
+		cardholdername = temp_name
 	cardrank = input("Select cardholder rank:") in possiblerank
 
 /obj/machinery/computer/id_upgrader/ussp/conscript

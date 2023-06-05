@@ -458,6 +458,7 @@
 	name = "\improper Soviet hardsuit"
 	desc = "A soviet military hardsuit designed for maximum speed and mobility. Proudly displays the U.S.S.P flag on the chest."
 	icon_state = "hardsuit-soviet"
+	item_state = "hardsuit-soviet"
 	species_restricted = list("Human", "Slime People", "Skeleton", "Nucleation", "Machine", "Kidan", "Plasmaman")  // Until the xenos textures are created
 	slowdown = 0.5
 	armor = list("melee" = 35, "bullet" = 15, "laser" = 30, "energy" = 10, "bomb" = 10, "bio" = 100, "rad" = 50, "fire" = 75, "acid" = 75)

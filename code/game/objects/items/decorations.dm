@@ -298,16 +298,14 @@
 
 /obj/structure/decorative_structures/corpse/Destroy()
 	playsound(src, 'sound/goonstation/effects/gib.ogg', 30, 0)
-	new /obj/effect/particle_effect/smoke/vomiting(get_turf(loc))
-	new /obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping(get_turf(loc))
-	new /obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping(get_turf(loc))
-	new /obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping(get_turf(loc))
-	new /obj/effect/decal/cleanable/blood/gibs(get_turf(loc))
-	new /obj/effect/decal/cleanable/blood(get_turf(loc))
+	var/turf/T = get_turf(src)
+	new /obj/effect/particle_effect/smoke/vomiting(T)
+	new /obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping(T)
+	new /obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping(T)
+	new /obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping(T)
+	new /obj/effect/decal/cleanable/blood/gibs(T)
+	new /obj/effect/decal/cleanable/blood(T)
 	STOP_PROCESSING(SSobj, src)
-	..()
-
-/obj/structure/decorative_structures/corpse/attackby(obj/item/I, mob/user, params)
 	..()
 
 /obj/structure/decorative_structures/corpse/attack_hand(mob/living/user)
