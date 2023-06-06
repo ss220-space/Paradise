@@ -1620,7 +1620,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	emp_protection = TRUE // Immunity to EMP, due to heavy shielding
 	damage_protection = 20 // Reduce all incoming damage by this number. Very high in the case of /destroyer borgs, since it is an admin-only borg.
 	can_lock_cover = TRUE
-	default_cell_type = /obj/item/stock_parts/cell/infinite/abductore
+	default_cell_type = /obj/item/stock_parts/cell/infinite/abductor
 	see_reagents = TRUE
 	drain_act_protected = TRUE
 
