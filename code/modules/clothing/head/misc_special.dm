@@ -26,7 +26,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	visor_flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	resistance_flags = FIRE_PROOF
-	var/paint = ""
+	var/paint = null
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/head.dmi',
