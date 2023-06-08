@@ -13,8 +13,8 @@
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
-/obj/item/stack/ore/bluespace_crystal/Initialize(mapload, new_amount, merge = TRUE)
-	. = ..()
+/obj/item/stack/ore/bluespace_crystal/New(loc, new_amount, merge = TRUE)
+	..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
@@ -77,5 +77,8 @@ GLOBAL_LIST_INIT(bluespace_crystal_recipes, list(new/datum/stack_recipe("Breakdo
 /obj/item/stack/sheet/bluespace_crystal/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
 	recipes = GLOB.bluespace_crystal_recipes
+
+/obj/item/stack/ore/bluespace_crystal/New(loc, new_amount, merge = TRUE)
+	..()
 	pixel_x = rand(0,4)-4
 	pixel_y = rand(0,4)-4
