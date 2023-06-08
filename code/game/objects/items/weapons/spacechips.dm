@@ -14,9 +14,6 @@
 	max_amount = 1000000
 	merge_type = /obj/item/stack/spacechips
 
-/obj/item/stack/spacechips/Initialize(mapload, amt = null)
-	. = ..()
-	update_icon()
 
 /obj/item/stack/spacechips/update_icon()//changes icon depending on the amount of chips
 	..()
