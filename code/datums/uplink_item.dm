@@ -380,7 +380,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SLM"
 	item = /obj/mecha/combat/lockersyndie/loaded
 	cost = 6
-	job = list("Civilian")
+	job = list("Civilian", "Roboticist")
 	surplus = 0
 
 /datum/uplink_item/jobspecific/stungloves
