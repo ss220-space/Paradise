@@ -95,7 +95,7 @@
 /obj/item/clothing/head/welding/proc/toggle()
 	if(up)
 		up = !up
-		if(icon_state == "welding_redflameup")
+		if(icon_state == "welding_redflameup") //painting check 
 		 flags_cover |= (HEADCOVERSEYES | HEADCOVERSMOUTH)
 		 flags_inv |= (HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME)
 		 icon_state = "welding_redflame"
