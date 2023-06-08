@@ -372,6 +372,19 @@
 			else
 				consume_wrench(W)
 			user.visible_message("<span class='danger'>As [user] loosen bolts of \the [src] with \a [W] the tool disappears</span>")
+	if(istype(W, /obj/item/scalpel/supermatter))
+		var/obj/item/scalpel/supermatter/scalpel = W
+		to_chat(user, "<span class='notice'>You carefully begin to scrape [src] with [W]...</span>")
+		if(W.use_tool(src, user, 10 SECONDS, volume = 100))
+			if(scalpel.uses_left)
+				to_chat(user, "<span class='danger'>You extract a sliver from [src], and it begins to react violently!</span>")
+				new /obj/item/nuke_core/supermatter_sliver(drop_location())
+				damage += 200
+				scalpel.uses_left--
+				if(!scalpel.uses_left)
+					to_chat(user, "<span class='boldwarning'>A tiny piece of [W] falls off, rendering it useless!</span>")
+			else
+				to_chat(user, "<span class='warning'>You fail to extract a sliver from [src]! [W] isn't sharp enough anymore.</span>")
 	else if(!istype(W) || (W.flags & ABSTRACT) || !istype(user))
 		return
 	else if(user.drop_item(W))
