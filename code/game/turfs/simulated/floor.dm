@@ -243,9 +243,10 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 			to_chat(user, "<span class='danger'>You remove the floor tile.</span>")
 		if(floor_tile && make_tile)
 			var/obj/item/stack/stack_dropped = new floor_tile(src)
-			var/obj/item/stack/stack_offhand = user.get_inactive_hand()
-			if(istype(stack_dropped) && istype(stack_offhand) && stack_offhand.can_merge(stack_dropped, inhand = TRUE))
-				user.put_in_hands(stack_dropped, ignore_anim = FALSE)
+			if(user)
+				var/obj/item/stack/stack_offhand = user.get_inactive_hand()
+				if(istype(stack_dropped) && istype(stack_offhand) && stack_offhand.can_merge(stack_dropped, inhand = TRUE))
+					user.put_in_hands(stack_dropped, ignore_anim = FALSE)
 	return make_plating()
 
 /turf/simulated/floor/singularity_pull(S, current_size)
