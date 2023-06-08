@@ -120,8 +120,8 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 	throwforce = 5
 	throw_speed = 3
 
-/obj/item/stack/sheet/mineral/Initialize(mapload, new_amount, merge = TRUE)
-	. = ..()
+/obj/item/stack/sheet/mineral/New(loc, new_amount, merge = TRUE)
+	..()
 	pixel_x = rand(0,4)-4
 	pixel_y = rand(0,4)-4
 
