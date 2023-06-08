@@ -89,7 +89,7 @@
 		update_icon()
 	if(istype(I, /obj/item/soap) && (icon_state != initial(icon_state)))
 		icon_state = initial(icon_state)
-		paint = ""
+		paint = null
 		update_icon()
 	else
 		return ..()
