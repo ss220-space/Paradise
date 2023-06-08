@@ -25,7 +25,7 @@
 	..()
 	cargo_holder = null
 
-/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/action(atom/target)
+/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/action(atom/target, mob/user)
 	if(!action_checks(target))
 		return
 	if(!cargo_holder)
@@ -36,7 +36,7 @@
 			if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
 				chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
 				O.anchored = 1
-				if(do_after_cooldown(target))
+				if(do_after_cooldown(target) * gettoolspeedmod(user))
 					cargo_holder.cargo += O
 					O.loc = chassis
 					O.anchored = 0
