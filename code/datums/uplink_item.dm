@@ -379,7 +379,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A massive and incredibly deadly Syndicate exosuit(Not realy)."
 	reference = "SLM"
 	item = /obj/mecha/combat/lockersyndie/loaded
-	cost = 10
+	cost = 6
 	job = list("Civilian")
 	surplus = 0
 
