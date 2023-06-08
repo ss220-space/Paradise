@@ -95,20 +95,64 @@
 /obj/item/clothing/head/welding/proc/toggle()
 	if(up)
 		up = !up
-		flags_cover |= (HEADCOVERSEYES | HEADCOVERSMOUTH)
-		flags_inv |= (HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME)
-		icon_state = initial(icon_state)
-		to_chat(usr, "You flip the [src] down to protect your eyes.")
-		flash_protect = 2
-		tint = 2
+		if(icon_state == "welding_redflameup")
+		 flags_cover |= (HEADCOVERSEYES | HEADCOVERSMOUTH)
+		 flags_inv |= (HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME)
+		 icon_state = "welding_redflame"
+		 to_chat(usr, "You flip the [src] down to protect your eyes.")
+		 flash_protect = 2
+		 tint = 2
+		else if(icon_state == "welding_blueflameup")
+		 flags_cover |= (HEADCOVERSEYES | HEADCOVERSMOUTH)
+		 flags_inv |= (HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME)
+		 icon_state = "welding_blueflame"
+		 to_chat(usr, "You flip the [src] down to protect your eyes.")
+		 flash_protect = 2
+		 tint = 2
+		else if(icon_state == "welding_whiteup")
+		 flags_cover |= (HEADCOVERSEYES | HEADCOVERSMOUTH)
+		 flags_inv |= (HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME)
+		 icon_state = "welding_white"
+		 to_chat(usr, "You flip the [src] down to protect your eyes.")
+		 flash_protect = 2
+		 tint = 2
+		else
+		 flags_cover |= (HEADCOVERSEYES | HEADCOVERSMOUTH)
+		 flags_inv |= (HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME)
+		 icon_state = initial(icon_state)
+		 to_chat(usr, "You flip the [src] down to protect your eyes.")
+		 flash_protect = 2
+		 tint = 2
 	else
 		up = !up
-		flags_cover &= ~(HEADCOVERSEYES | HEADCOVERSMOUTH)
-		flags_inv &= ~(HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME)
-		icon_state = "[initial(icon_state)]up"
-		to_chat(usr, "You push the [src] up out of your face.")
-		flash_protect = 0
-		tint = 0
+		if(icon_state == "welding_redflame")
+		 flags_cover &= ~(HEADCOVERSEYES | HEADCOVERSMOUTH)
+		 flags_inv &= ~(HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME)
+		 icon_state = "welding_redflameup"
+		 to_chat(usr, "You push the [src] up out of your face.")
+		 flash_protect = 0
+		 tint = 0
+		else if(icon_state == "welding_blueflame")
+		 flags_cover &= ~(HEADCOVERSEYES | HEADCOVERSMOUTH)
+		 flags_inv &= ~(HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME)
+		 icon_state = "welding_blueflameup"
+		 to_chat(usr, "You push the [src] up out of your face.")
+		 flash_protect = 0
+		 tint = 0
+		else if(icon_state == "welding_white")
+		 flags_cover &= ~(HEADCOVERSEYES | HEADCOVERSMOUTH)
+		 flags_inv &= ~(HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME)
+		 icon_state = "welding_whiteup"
+		 to_chat(usr, "You push the [src] up out of your face.")
+		 flash_protect = 0
+		 tint = 0
+		else
+		 flags_cover &= ~(HEADCOVERSEYES | HEADCOVERSMOUTH)
+		 flags_inv &= ~(HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME)
+		 icon_state = "[initial(icon_state)]up"
+		 to_chat(usr, "You push the [src] up out of your face.")
+		 flash_protect = 0
+		 tint = 0
 	var/mob/living/carbon/user = usr
 	user.update_tint()
 	user.update_inv_head()	//so our mob-overlays update
