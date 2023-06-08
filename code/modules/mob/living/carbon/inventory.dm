@@ -298,6 +298,31 @@
 
 
 /**
+ * All the necessary checks for carbon to put an item in hand
+ */
+/mob/living/carbon/put_in_hand_check(obj/item/I, hand_id)
+	if(!istype(I))
+		return FALSE
+
+	if(I.flags & NOPICKUP)
+		return FALSE
+
+	if(incapacitated(ignore_lying = TRUE))
+		return FALSE
+
+	if(lying && !(I.flags & ABSTRACT))
+		return FALSE
+
+	if(hand_id == "HAND_LEFT" && !has_left_hand())
+		return FALSE
+
+	if(hand_id == "HAND_RIGHT" && !has_right_hand())
+		return FALSE
+
+	return hand_id == "HAND_LEFT" ? !l_hand : !r_hand
+
+
+/**
  * Put item in our active hand if possible. Failing that it tries our inactive hand. Returns `TRUE` on success.
  * If both fail it drops item on the floor and returns `FALSE`
  * Just puts stuff on the floor for most mobs, since all mobs have hands but putting stuff in the AI/corgi/ghost hand is VERY BAD.

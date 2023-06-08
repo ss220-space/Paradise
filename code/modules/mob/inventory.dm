@@ -278,31 +278,6 @@
 
 
 /**
- * Only for carbons now
- */
-/mob/living/carbon/put_in_hand_check(obj/item/I, hand_id)
-	if(!istype(I))
-		return FALSE
-
-	if(I.flags & NOPICKUP)
-		return FALSE
-
-	if(incapacitated(ignore_lying = TRUE))
-		return FALSE
-
-	if(lying && !(I.flags & ABSTRACT))
-		return FALSE
-
-	if(hand_id == "HAND_LEFT" && !has_left_hand())
-		return FALSE
-
-	if(hand_id == "HAND_RIGHT" && !has_right_hand())
-		return FALSE
-
-	return hand_id == "HAND_LEFT" ? !l_hand : !r_hand
-
-
-/**
  * DO NO USE THIS PROC, there are plenty of helpers below: put_in_l_hand, put_in_active_hand, put_in_hands etc.
  * Puts an item into hand by `hand_id` ("HAND_LEFT" / "HAND_RIGHT") and calls all necessary triggers/updates. Returns `TRUE` on success.
  */

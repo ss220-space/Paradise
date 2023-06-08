@@ -65,13 +65,12 @@
 	new /obj/item/wirecutters(src)
 	new /obj/item/t_scanner(src)
 	new /obj/item/crowbar(src)
-	new /obj/item/stack/cable_coil(src)
-	//new /obj/item/stack/cable_coil(src, 30, cable_color = pickedcolor)
-	//new /obj/item/stack/cable_coil(src, 30, cable_color = pickedcolor)
+	new /obj/item/stack/cable_coil(src, MAXCOIL, FALSE, pickedcolor)
+	new /obj/item/stack/cable_coil(src, MAXCOIL, FALSE, pickedcolor)
 	if(prob(5))
 		new /obj/item/clothing/gloves/color/yellow(src)
 	else
-		new /obj/item/stack/cable_coil(src, 30, TRUE, pickedcolor)
+		new /obj/item/stack/cable_coil(src, MAXCOIL, FALSE, pickedcolor)
 
 /obj/item/storage/toolbox/syndicate
 	name = "suspicious looking toolbox"
@@ -106,7 +105,7 @@
 	new /obj/item/weldingtool/experimental(src)
 	new /obj/item/crowbar/power(src)
 	new /obj/item/multitool/cyborg(src)
-	new /obj/item/stack/cable_coil(src, 30)
+	new /obj/item/stack/cable_coil(src, MAXCOIL)
 	new /obj/item/clothing/gloves/combat(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
 
