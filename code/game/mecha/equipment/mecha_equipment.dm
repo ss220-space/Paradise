@@ -120,7 +120,7 @@
 	if(!chassis)
 		return
 	var/C = chassis.loc
-	. = do_after(chassis.occupant, delay, target = target)
+	. = do_after(chassis.occupant, delay * gettoolspeedmod(chassis.occupant), target = target)
 	if(!chassis || 	chassis.loc != C || src != chassis.selected || !(get_dir(chassis, target) & chassis.dir))
 		return FALSE
 
