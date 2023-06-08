@@ -40,7 +40,7 @@
 			T.drill_act(src)
 			set_ready_state(TRUE)
 			return
-		while(do_after_mecha(target, drill_delay * gettoolspeedmod(user)))
+		while(do_after_mecha(target, drill_delay * gettoolspeedmod(chassis.occupant)))
 			if(isliving(target))
 				drill_mob(target, chassis.occupant)
 				playsound(src, 'sound/weapons/drill.ogg', 40, TRUE)
