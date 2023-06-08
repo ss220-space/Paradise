@@ -105,7 +105,7 @@
 
 	addtimer(CALLBACK(src, PROC_REF(set_ready_state), 1), cooldown)
 
-/obj/item/mecha_parts/mecha_equipment/proc/do_after_cooldown(atom/target, mob/user)
+/obj/item/mecha_parts/mecha_equipment/proc/do_after_cooldown(atom/target)
 	if(!chassis)
 		return
 	var/C = chassis.loc
