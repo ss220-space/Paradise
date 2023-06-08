@@ -16,7 +16,7 @@
 	var/drill_delay = 7
 	var/drill_level = DRILL_BASIC
 
-/obj/item/mecha_parts/mecha_equipment/drill/action(atom/target, mob/user)
+/obj/item/mecha_parts/mecha_equipment/drill/action(atom/target)
 	if(!action_checks(target))
 		return
 	if(isspaceturf(target))
@@ -40,7 +40,7 @@
 			T.drill_act(src)
 			set_ready_state(TRUE)
 			return
-		while(do_after_mecha(target, drill_delay * gettoolspeedmod(user)))
+		while(do_after_mecha(target, drill_delay))
 			if(isliving(target))
 				drill_mob(target, chassis.occupant)
 				playsound(src, 'sound/weapons/drill.ogg', 40, TRUE)
