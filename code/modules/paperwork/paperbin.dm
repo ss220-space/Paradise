@@ -70,9 +70,10 @@
 		if(papers.len > 0)	//If there's any custom paper on the stack, use that instead of creating a new paper.
 			P = papers[papers.len]
 			papers.Remove(P)
+			P.forceMove_turf()
 		else
 			if(letterhead_type && alert("Choose a style",,"Letterhead","Blank")=="Letterhead")
-				P = new letterhead_type
+				P = new letterhead_type(drop_location())
 			else
 				P = new /obj/item/paper(drop_location())
 			if(SSholiday.holidays && SSholiday.holidays[APRIL_FOOLS])
