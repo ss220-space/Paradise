@@ -97,7 +97,7 @@
 			else
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/card/id/prisoner))
-					if(!usr.drop_transfer_item_to_loc(src))
+					if(!usr.drop_transfer_item_to_loc(I, src))
 						return
 					inserted_id = I
 		if("claim_points")

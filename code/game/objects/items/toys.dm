@@ -1657,7 +1657,7 @@
 				to_chat(user, "<span class='alert'>\The [O] is too far away to feed into \the [src]!</span>")
 			else
 				to_chat(user, "<span class='notice'>You feed \the [O] [bicon(O)] into \the [src]!</span>")
-				user.drop_transfer_item_to_loc(src)
+				user.drop_transfer_item_to_loc(O, src)
 				stored_minature = O
 		else
 			to_chat(user, "<span class='warning'>You stop feeding \the [O] into \the [src]'s mini-input.</span>")

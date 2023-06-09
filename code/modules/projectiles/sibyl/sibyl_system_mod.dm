@@ -33,6 +33,8 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 /obj/item/sibyl_system_mod/proc/install(obj/item/gun/energy/W, mob/user = null)
 	if(user && !user.drop_transfer_item_to_loc(src, W))
 		return
+	else
+		forceMove(W)
 	weapon = W
 	weapon.sibyl_mod = src
 	weapon.verbs += /obj/item/gun/energy/proc/toggle_voice

@@ -255,7 +255,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	..()
 	if(istype(C, /obj/item/cartridge) && !cartridge)
 		cartridge = C
-		user.drop_transfer_item_to_loc(cartridge, src)
+		user.drop_transfer_item_to_loc(C, src)
 		cartridge.update_programs(src)
 		update_shortcuts()
 		to_chat(user, "<span class='notice'>You insert [cartridge] into [src].</span>")

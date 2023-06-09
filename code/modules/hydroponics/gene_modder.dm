@@ -321,7 +321,7 @@
 		else
 			var/obj/item/I = usr.get_active_hand()
 			if(istype(I, /obj/item/disk/plantgene))
-				if(!usr.drop_transfer_item_to_loc(disk, src))
+				if(!usr.drop_transfer_item_to_loc(I, src))
 					return
 				disk = I
 				to_chat(usr, "<span class='notice'>You add [I] to the machine.</span>")
