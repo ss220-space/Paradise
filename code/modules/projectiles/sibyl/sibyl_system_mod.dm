@@ -31,8 +31,9 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	var/list/destructive_names = list("destroy", "execution-slaughter", "annihilate")
 
 /obj/item/sibyl_system_mod/proc/install(obj/item/gun/energy/W, mob/user = null)
-	if(user && !user.drop_transfer_item_to_loc(src, W))
-		return
+	if(user)
+		if(!user.drop_transfer_item_to_loc(src, W))
+			return
 	else
 		forceMove(W)
 	weapon = W
