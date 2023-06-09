@@ -2207,3 +2207,109 @@
 		/obj/item/clothing/shoes/leather = 2
 	)
 	refill_canister = /obj/item/vending_refill/clothing/service/botanical
+
+/obj/machinery/vending/nta
+	name = "NT Ammunition"
+	desc = "A special equipment vendor."
+	ads_list = list("Круши черепа синдиката!","Не забывай, спасать - полезно!","Бжж-Бзз-з!.","Обезопасить, Удержать, Сохранить!","Стоять, снярядись на задание!")
+	icon_state = "nta"
+	icon_deny = "nta_deny"
+	req_access = list(ACCESS_SECURITY)
+	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
+					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
+					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4,
+					)
+	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
+	refill_canister = /obj/item/vending_refill/nta
+
+/obj/machinery/vending/nta/ertarmory/blue
+	name = "NT ERT Medium Gear & Ammunition"
+	desc = "A ERT Medium equipment vendor."
+	ads_list = list("Круши черепа синдиката!","Не забывай, спасать - полезно!","Бжж-Бзз-з!.","Обезопасить, Удержать, Сохранить!","Стоять, снярядись на задание!")
+	icon_state = "nta_blue"
+	icon_deny = "nta_blue_deny"
+	req_access = list(ACCESS_CENT_SECURITY)
+	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
+					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
+					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4,
+					)
+	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
+	refill_canister = /obj/item/vending_refill/nta
+/obj/machinery/vending/nta/ertarmory/red
+	name = "NT ERT Heavy Gear & Ammunition"
+	desc = "A ERT Heavy equipment vendor."
+	ads_list = list("Круши черепа синдиката!","Не забывай, спасать - полезно!","Бжж-Бзз-з!.","Обезопасить, Удержать, Сохранить!","Стоять, снярядись на задание!")
+	icon_state = "nta_red"
+	icon_deny = "nta_red_deny"
+	req_access = list(ACCESS_CENT_SECURITY)
+	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
+					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
+					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4,
+					)
+	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
+	refill_canister = /obj/item/vending_refill/nta
+/obj/machinery/vending/nta/ertarmory/green
+	name = "NT ERT Light Gear & Ammunition"
+	desc = "A ERT Light equipment vendor."
+	ads_list = list("Круши черепа синдиката!","Не забывай, спасать - полезно!","Бжж-Бзз-з!.","Обезопасить, Удержать, Сохранить!","Стоять, снярядись на задание!")
+	icon_state = "nta_green"
+	icon_deny = "nta_green_deny"
+	req_access = list(ACCESS_CENT_SECURITY)
+	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
+					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
+					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4,
+					)
+	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
+	refill_canister = /obj/item/vending_refill/nta
+/obj/machinery/vending/nta/ertarmory/yellow
+	name = "NT ERT Death Wish Gear & Ammunition"
+	desc = "A ERT Death Wish equipment vendor."
+	ads_list = list("Круши черепа ВСЕХ!","Не забывай, УБИВАТЬ - полезно!","УБИВАТЬ УБИВАТЬ УБИВАТЬ УБИВАТЬ!.","УБИВАТЬ, Удержать, УБИВАТЬ!","Стоять, снярядись на УБИВАТЬ!")
+	icon_state = "nta_yellow"
+	icon_deny = "nta_yellow_deny"
+	req_access = list(ACCESS_CENT_SECURITY)
+	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
+					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
+					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4,
+					)
+	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
+	refill_canister = /obj/item/vending_refill/nta
+/obj/machinery/vending/nta/ertarmory/medical
+	name = "NT ERT Medical Gear"
+	desc = "A ERT medical equipment vendor."
+	ads_list = list("Лечи раненых от рук синдиката!","Не забывай, лечить - полезно!","Бжж-Бзз-з!.","Перевязать, Оперировать, Выписать!","Стоять, снярядись на задание!")
+	icon_state = "nta_medical"
+	icon_deny = "nta_medical_deny"
+	req_access = list(ACCESS_CENT_MEDICAL)
+	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
+					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
+					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4,
+					)
+	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
+	refill_canister = /obj/item/vending_refill/nta
+/obj/machinery/vending/nta/ertarmory/engineer
+	name = "NT ERT Engineer Gear"
+	desc = "A ERT engineering equipment vendor."
+	ads_list = list("Чини станцию от рук синдиката!","Не забывай, чинить - полезно!","Бжж-Бзз-з!.","Починить, Заварить, Трубить!","Стоять, снярядись на починку труб!")
+	icon_state = "nta_engi"
+	icon_deny = "nta_engi_deny"
+	req_access = list(ACCESS_CENT_GENERAL)
+	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
+					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
+					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4,
+					)
+	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
+	refill_canister = /obj/item/vending_refill/nta
+/obj/machinery/vending/nta/ertarmory/janitor
+	name = "NT ERT Janitor Gear"
+	desc = "A ERT ccleaning equipment vendor."
+	ads_list = list("Чисть станцию от рук синдиката!","Не забывай, чистить - полезно!","Вилкой чисти!.","Помыть, Постирать, Оттереть!","Стоять, снярядись клинерами!")
+	icon_state = "nta_janitor"
+	icon_deny = "nta_janitor_deny"
+	req_access = list(ACCESS_CENT_GENERAL)
+	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
+					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
+					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4,
+					)
+	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
+	refill_canister = /obj/item/vending_refill/nta
