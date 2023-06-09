@@ -51,7 +51,25 @@
 
 	else if(istype(target,/mob/living))
 		var/mob/living/M = target
-		if(M.stat == DEAD) return
+		if(M.stat == DEAD && !issilicon(M))
+			return
+		if(M.stat == DEAD && issilicon(M))
+			if(!M.anchored)
+				if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
+					chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
+					M.anchored = 1
+					if(do_after_cooldown(target))
+						cargo_holder.cargo += M
+						M.loc = chassis
+						M.anchored = 0
+						occupant_message("<span class='notice'>[target] successfully loaded.</span>")
+						log_message("Loaded [M]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
+					else
+						M.anchored = initial(M.anchored)
+				else
+					occupant_message("<span class='warning'>Not enough room in cargo compartment!</span>")
+			else
+				occupant_message("<span class='warning'>[target] is buckled to something!</span>")
 		if(chassis.occupant.a_intent == INTENT_HARM)
 			M.take_overall_damage(dam_force)
 			if(!M)
@@ -63,6 +81,8 @@
 			add_attack_logs(chassis.occupant, M, "Squeezed with [src] ([uppertext(chassis.occupant.a_intent)]) ([uppertext(damtype)])")
 			start_cooldown()
 		else
+			if(issilicon(M) && M.stat == DEAD)
+				return
 			step_away(M,chassis)
 			occupant_message("<span class='notice'>You push [target] out of the way.</span>")
 			chassis.visible_message("<span class='notice'>[chassis] pushes [target] out of the way.</span>")
@@ -190,7 +210,7 @@
 	icon_state = "mecha_rcd"
 	origin_tech = "materials=4;bluespace=3;magnets=4;powerstorage=4;engineering=4"
 	equip_cooldown = 10
-	energy_drain = 250
+	energy_drain = 300
 	range = MECHA_MELEE | MECHA_RANGED
 	flags_2 = NO_MAT_REDEMPTION_2
 	var/obj/item/rcd/mecha_ref/rcd_holder
@@ -201,6 +221,7 @@
 	GLOB.rcd_list += src
 	rcd_holder = new(rcd_holder)
 	rcd_holder.power_use_multiplier = energy_drain
+	rcd_holder.canRwall = TRUE
 	..()
 
 /obj/item/mecha_parts/mecha_equipment/rcd/Destroy()
@@ -221,7 +242,7 @@
 		to_chat(chassis.occupant, span_warning("Something prevents you from using [rcd_holder] in here..."))
 		return
 	playsound(chassis, 'sound/machines/click.ogg', 50, 1)
-	chassis.can_move = world.time + 5 SECONDS 	// We don't move while we build
+	chassis.can_move = world.time + 2 SECONDS 	// We don't move while we build
 	var/rcd_act_result = target.rcd_act(chassis.occupant, rcd_holder, rcd_holder.mode)
 	if(rcd_act_result == RCD_NO_ACT) //if our rcd_act was not implemented/impossible to do - we can move again
 		chassis.can_move = 0
@@ -239,9 +260,11 @@
 				occupant_message("Switched RCD to Construct Airlock.")
 			if(RCD_MODE_WINDOW)
 				occupant_message("Switched RCD to Construct Windows.")
+			if(RCD_MODE_FIRELOCK)
+				occupant_message("Switched RCD to Construct Firelock.")
 
 /obj/item/mecha_parts/mecha_equipment/rcd/get_equip_info()
-	return "[..()] \[<a href='?src=[UID()];mode=[RCD_MODE_DECON]'>D</a>|<a href='?src=[UID()];mode=[RCD_MODE_TURF]'>C</a>|<a href='?src=[UID()];mode=[RCD_MODE_AIRLOCK]'>A</a>|<a href='?src=[UID()];mode=[RCD_MODE_WINDOW]'>W</a>\]"
+	return "[..()] \[<a href='?src=[UID()];mode=[RCD_MODE_DECON]'>D</a>|<a href='?src=[UID()];mode=[RCD_MODE_TURF]'>C</a>|<a href='?src=[UID()];mode=[RCD_MODE_AIRLOCK]'>A</a>|<a href='?src=[UID()];mode=[RCD_MODE_WINDOW]'>W</a>|<a href='?src=[UID()];mode=[RCD_MODE_FIRELOCK]'>F</a>\]"
 
 /obj/item/mecha_parts/mecha_equipment/mimercd
 	name = "mounted MRCD"
