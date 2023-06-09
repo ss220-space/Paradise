@@ -212,6 +212,16 @@
 	icon_state = "sovietadmiralhat"
 	item_state = "sovietadmiralhat"
 
+/obj/item/clothing/head/soviethelmet
+	name = "SSh-68"
+	desc = "Soviet steel combat helmet."
+	icon_state = "soviethelm"
+	item_state = "soviethelm"
+	flags = BLOCKHAIR
+	flags_inv = HIDEHEADSETS
+	armor = list("melee" = 25, "bullet" = 35, "laser" = 15, "energy" = 10, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	materials = list(MAT_METAL=2500)
+
 /*
  * Pumpkin head
  */
@@ -272,8 +282,9 @@
 
 	icon_override = mob
 
-/obj/item/clothing/head/kitty/equipped(var/mob/M, slot)
+/obj/item/clothing/head/kitty/equipped(mob/M, slot, initial)
 	. = ..()
+
 	if(ishuman(M) && slot == slot_head)
 		update_icon(M)
 
@@ -313,8 +324,9 @@
 	)
 
 
-/obj/item/clothing/head/cardborg/equipped(mob/living/user, slot)
-	..()
+/obj/item/clothing/head/cardborg/equipped(mob/living/user, slot, initial)
+	. = ..()
+
 	if(ishuman(user) && slot == slot_head)
 		var/mob/living/carbon/human/H = user
 		if(istype(H.wear_suit, /obj/item/clothing/suit/cardborg))

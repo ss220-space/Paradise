@@ -29,11 +29,13 @@
 	if(!M.restrained() && !M.stat && can_use())
 		switch(over_object.name)
 			if("r_hand")
-				M.unEquip(src)
-				M.put_in_r_hand(src)
+				if(!remove_item_from_storage(drop_location()))
+					M.drop_item_ground(src)
+				M.put_in_r_hand(src, ignore_anim = FALSE)
 			if("l_hand")
-				M.unEquip(src)
-				M.put_in_l_hand(src)
+				if(!remove_item_from_storage(drop_location()))
+					M.drop_item_ground(src)
+				M.put_in_l_hand(src, ignore_anim = FALSE)
 		src.add_fingerprint(usr)
 		return
 
@@ -381,6 +383,22 @@
 		new /obj/item/grenade/chem_grenade/drugs(src) //2
 		new /obj/item/grenade/gas/knockout(src)	//2
 
+/obj/item/storage/belt/rocketman
+	name = "rocket belt"
+	desc = "A belt for holding rockets."
+	icon_state = "assaultbelt"
+	item_state = "assault"
+	storage_slots = 7
+	max_combined_w_class = 30 //just to be sure..
+	max_w_class = WEIGHT_CLASS_NORMAL //Rockets are normal
+	can_hold = /obj/item/ammo_casing/caseless/rocket
+
+/obj/item/storage/belt/rocketman/populate_contents()
+	for(var/I in 1 to 3)
+		new /obj/item/ammo_casing/caseless/rocket(src)
+	for(var/I in 1 to 3)
+		new /obj/item/ammo_casing/caseless/rocket/hedp(src)
+
 /obj/item/storage/belt/military/abductor
 	name = "agent belt"
 	desc = "A belt used by abductor agents."
@@ -643,7 +661,7 @@
 	if(length(contents))
 		var/obj/item/I = contents[1]
 		H.visible_message("<span class='notice'>[H] takes [I] out of [src].</span>", "<span class='notice'>You take [I] out of [src].</span>")
-		H.put_in_hands(I)
+		H.put_in_hands(I, ignore_anim = FALSE)
 		update_icon()
 	else
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
