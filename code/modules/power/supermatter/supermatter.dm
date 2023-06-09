@@ -387,7 +387,8 @@
 				to_chat(user, "<span class='warning'>You fail to extract a sliver from [src]! [W] isn't sharp enough anymore.</span>")
 	else if(!istype(W) || (W.flags & ABSTRACT) || !istype(user))
 		return
-	else if(user.drop_item(W))
+	else if(user.drop_item_ground(W))
+		W.do_pickup_animation(src)
 		add_fingerprint(user)
 		Consume(W)
 		user.visible_message("<span class='danger'>As [user] touches \the [src] with \a [W], silence fills the room...</span>",\

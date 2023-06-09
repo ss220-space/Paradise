@@ -104,8 +104,7 @@
 					playsound(src.loc, B.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You add the circuit board to the frame.</span>")
 					circuit = P
-					user.drop_item()
-					P.loc = src
+					user.drop_transfer_item_to_loc(P, src)
 					icon_state = "box_2"
 					state = 3
 					components = list()
@@ -229,8 +228,7 @@
 							req_components[I] -= camt
 							update_req_desc()
 							break
-						user.drop_item()
-						P.forceMove(src)
+						user.drop_transfer_item_to_loc(P, src)
 						components += P
 						req_components[I]--
 						update_req_desc()
@@ -288,7 +286,6 @@ to destroy them and players will be able to make replacements.
 		/obj/machinery/vending/clothing/departament/science = "Departament Science ClothesMate",
 		/obj/machinery/vending/clothing/departament/cargo = "Departament Cargo ClothesMate",
 		/obj/machinery/vending/clothing/departament/law = "Departament Law ClothesMate",
-		/obj/machinery/vending/clothing/departament/service = "Service Departament ClothesMate",
 		/obj/machinery/vending/clothing/departament/service/botanical = "Service Departament ClothesMate Botanical",
 		/obj/machinery/vending/clothing/departament/service/chaplain = "Service Departament ClothesMate Chaplain")
 
