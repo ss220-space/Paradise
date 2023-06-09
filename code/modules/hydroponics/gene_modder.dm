@@ -121,7 +121,7 @@
 		if(disk)
 			to_chat(user, "<span class='warning'>A data disk is already loaded into the machine!</span>")
 		else
-			if(!user.drop_transfer_item_to_loc(disk, src))
+			if(!user.drop_transfer_item_to_loc(I, src))
 				return
 			add_fingerprint(user)
 			disk = I
