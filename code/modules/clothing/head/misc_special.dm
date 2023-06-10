@@ -26,6 +26,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	visor_flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	resistance_flags = FIRE_PROOF
+	var/paint = null
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/head.dmi',
@@ -83,10 +84,12 @@
 			to_chat(user, "<span class = 'warning'>Не похоже что бы осталось достаточно краски.</span>")
 			return
 		icon_state = weld[choice]
+		paint = weld[choice]
 		C.uses--
 		update_icon()
 	if(istype(I, /obj/item/soap) && (icon_state != initial(icon_state)))
 		icon_state = initial(icon_state)
+		paint = null
 		update_icon()
 	else
 		return ..()
@@ -97,7 +100,10 @@
 		up = !up
 		flags_cover |= (HEADCOVERSEYES | HEADCOVERSMOUTH)
 		flags_inv |= (HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME)
-		icon_state = initial(icon_state)
+		if(paint)
+			icon_state = paint
+		else
+			icon_state = initial(icon_state)
 		to_chat(usr, "You flip the [src] down to protect your eyes.")
 		flash_protect = 2
 		tint = 2
@@ -105,7 +111,10 @@
 		up = !up
 		flags_cover &= ~(HEADCOVERSEYES | HEADCOVERSMOUTH)
 		flags_inv &= ~(HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME)
-		icon_state = "[initial(icon_state)]up"
+		if(paint)
+			icon_state = "[paint]up"
+		else
+			icon_state = "[initial(icon_state)]up"
 		to_chat(usr, "You push the [src] up out of your face.")
 		flash_protect = 0
 		tint = 0
@@ -282,8 +291,9 @@
 
 	icon_override = mob
 
-/obj/item/clothing/head/kitty/equipped(var/mob/M, slot)
+/obj/item/clothing/head/kitty/equipped(mob/M, slot, initial)
 	. = ..()
+
 	if(ishuman(M) && slot == slot_head)
 		update_icon(M)
 
@@ -323,8 +333,9 @@
 	)
 
 
-/obj/item/clothing/head/cardborg/equipped(mob/living/user, slot)
-	..()
+/obj/item/clothing/head/cardborg/equipped(mob/living/user, slot, initial)
+	. = ..()
+
 	if(ishuman(user) && slot == slot_head)
 		var/mob/living/carbon/human/H = user
 		if(istype(H.wear_suit, /obj/item/clothing/suit/cardborg))

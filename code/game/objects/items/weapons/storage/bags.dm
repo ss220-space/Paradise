@@ -99,15 +99,18 @@
 	can_hold = list() // any
 	cant_hold = list(/obj/item/disk/nuclear)
 
-/obj/item/storage/bag/plasticbag/mob_can_equip(M as mob, slot)
 
+/obj/item/storage/bag/plasticbag/mob_can_equip(mob/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
 	if(slot==slot_head && contents.len)
-		to_chat(M, "<span class='warning'>You need to empty the bag first!</span>")
-		return 0
+		if(!disable_warning)
+			to_chat(M, "<span class='warning'>You need to empty the bag first!</span>")
+		return FALSE
 	return ..()
 
 
-/obj/item/storage/bag/plasticbag/equipped(var/mob/user, var/slot)
+/obj/item/storage/bag/plasticbag/equipped(mob/user, slot, initial)
+	. = ..()
+
 	if(slot==slot_head)
 		storage_slots = 0
 		START_PROCESSING(SSobj, src)
@@ -140,7 +143,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 10
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * ore.w_class
-	max_w_class = WEIGHT_CLASS_NORMAL
+	max_w_class = WEIGHT_CLASS_BULKY
 	can_hold = list(/obj/item/stack/ore)
 
 /obj/item/storage/bag/ore/cyborg
@@ -249,15 +252,12 @@
 			break
 
 	if(!inserted || !S.amount)
-		usr.unEquip(S)
+		usr.drop_transfer_item_to_loc(S, src)
 		usr.update_icons()	//update our overlays
 		if(usr.client && usr.s_active != src)
 			usr.client.screen -= S
-		S.dropped(usr)
 		if(!S.amount)
 			qdel(S)
-		else
-			S.loc = src
 
 	if(usr.s_active)
 		usr.s_active.show_to(usr)
