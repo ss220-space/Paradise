@@ -1170,7 +1170,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/xray_mecha
-	name = "S-1 X-Ray Projector"
+	name = "Exosuit Lethal Weapon (S-1 X-Ray Projector)"
 	desc = "A weapon for combat exosuits. Fires beams of X-Rays that pass through solid matter."
 	id = "mech_xray"
 	req_tech = list("combat" = 7, "magnets" = 5, "biotech" = 5, "powerstorage" = 4)
