@@ -324,37 +324,55 @@
 	icon = 'icons/obj/weapons/energy.dmi'
 	icon_state = "m1911"
 	emp_proof = 1
-/obj/item/organ/internal/cyberimp/arm/mantisblade/left/horlex
+
+/obj/item/organ/internal/cyberimp/arm/toolset/mantisblade
+
+/obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/Retract()
+	. = ..()
+	if(l_arm )
+/obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/horlex
 	name = "hidden blade implant"
 	desc = "A blade designed to be hidden just beneath the skin. The brain is directly linked to this bad boy, allowing it to spring into action."
 	contents = newlist(/obj/item/melee/mantisblade)
 	origin_tech = "materials=5;combat=7;biotech=5;powerstorage=5;syndicate=6;programming=5"
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/surgery.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "syndie_mantis")
 	icon_state = "syndie_mantis"
 
-/obj/item/organ/internal/cyberimp/arm/mantisblade/right/horlex
+/obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/update_icon()
+	if(parent_organ == BODY_ZONE_R_ARM)
+		transform = null
+
+	else // Mirroring the icon
+		transform = matrix(-1, 0, 0, 0, 1, 0)
+
+/obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/horlex/l
 	parent_organ = "l_arm"
-	slot = "l_arm_device"
-	name = "hidden blade implant"
-	desc = "A blade designed to be hidden just beneath the skin. The brain is directly linked to this bad boy, allowing it to spring into action."
-	contents = newlist(/obj/item/melee/mantisblade)
-	origin_tech = "materials=5;combat=7;biotech=5;powerstorage=5;syndicate=6;programming=5"
-	icon_state = "syndie_mantis"
 
-/obj/item/organ/internal/cyberimp/arm/mantisblade/right/shellguard
+/obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/shellguard
 	name = "hidden blade implant"
 	desc = "A blade designed to be hidden just beneath the skin. The brain is directly linked to this bad boy, allowing it to spring into action."
 	contents = newlist(/obj/item/melee/mantisblade/shellguard)
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/surgery.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "mantis")
 	origin_tech = "materials=5;combat=7;biotech=5;powerstorage=5;syndicate=6;programming=5"
 	icon_state = "mantis"
 
-/obj/item/organ/internal/cyberimp/arm/mantisblade/left/shellguard
-	name = "hidden blade implant"
-	desc = "A blade designed to be hidden just beneath the skin. The brain is directly linked to this bad boy, allowing it to spring into action."
-	contents = newlist(/obj/item/melee/mantisblade/shellguard)
-	origin_tech = "materials=5;combat=7;biotech=5;powerstorage=5;syndicate=6;programming=5"
-	icon_state = "mantis"
+/obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/shellguard/l
 	parent_organ = "l_arm"
-	slot = "l_arm_device"
+
+/obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/emp_act(severity)
+	..()
+
+	if(crit_fail || emp_proof)
+		return
+	crit_fail = TRUE
+	Retract()
+	addtimer(CALLBACK(src, PROC_REF(reboot)), 10 SECONDS)
+
+/obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/proc/reboot()
+	crit_fail = FALSE
+
 /obj/item/organ/internal/cyberimp/arm/surgery
 	name = "surgical toolset implant"
 	desc = "A set of surgical tools hidden behind a concealed panel on the user's arm"
