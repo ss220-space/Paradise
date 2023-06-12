@@ -8,7 +8,16 @@
 #define VOTING_POLL_TIME 60 SECONDS
 #define MAX_PLAYERS_COUNT 16
 #define MIN_PLAYERS_COUNT 2
-#define SPAWN_COEFFICENT 0.85 //border of how many polled players will brawling
+#define SPAWN_COEFFICENT 0.85 //how many (polled * spawn_coefficent) players will go brawling
+/* Uncomment this if you want to mess up with thunderdome alone
+#define THUND_TESTING
+#ifdef THUND_TESTING
+#define DEFAULT_TIME_LIMIT 30 SECONDS
+#define ARENA_COOLDOWN 30 SECONDS
+#define VOTING_POLL_TIME 10 SECONDS
+#define MIN_PLAYERS_COUNT 1
+#endif
+*/
 
 GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 
@@ -82,11 +91,13 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 	if(isGoing)
 		return
 	isGoing = TRUE
+	add_game_logs("Thunderdome poll voting in [mode] mode started.")
 	var/image/I = new('icons/mob/thunderdome_previews.dmi', "thunderman_preview_[mode]")
 	var/list/candidates = shuffle(SSghost_spawns.poll_candidates("Желаете записаться на Тандердом? (Режим - [mode])", \
 		role, poll_time = voting_poll_time, ignore_respawnability = TRUE, check_antaghud = FALSE, source = I))
 	var/players_count = clamp(CEILING(length(candidates)*spawn_coefficent, 1), 0, maxplayers)
 	if(players_count < spawn_minimum_limit)
+		notify_ghosts("Not enough players to start Thunderdome Battle!")
 		addtimer(CALLBACK(src, PROC_REF(clear_thunderdome)), arena_cooldown) //making sure there will be no spam
 		return
 
@@ -149,6 +160,7 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 		phi += delta_phi_
 		currpoint += 1
 
+	add_game_logs("Thunderdome battle has begun in [mode] mode.")
 	addtimer(CALLBACK(src, PROC_REF(clear_thunderdome)), time_limit)
 
 /**
@@ -184,6 +196,9 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 	clear_area(tdome_arena_melee)
 
 	isGoing = FALSE
+	add_game_logs("Thunderdome battle has ended.")
+	var/image/alert_overlay = image('icons/obj/assemblies.dmi', "thunderdome-bomb-active-wires")
+	notify_ghosts(message = "Thunderdome is ready for battle!", title="Thunderdome News", alert_overlay = alert_overlay, ghost_sound = 'sound/misc/notice2.ogg')
 
 /**
  * Clears area from:
@@ -248,10 +263,22 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 	. = ..()
 	if(!thunderdome)
 		thunderdome = GLOB.thunderdome_battle
+	if(!SSghost_spawns.is_eligible(user, ROLE_THUNDERDOME))
+		to_chat(user, "Вы не можете использовать Тандердом. Включите эту возможность в Game Preferences!")
+		return
 	if(thunderdome.isGoing)
 		to_chat(user, "Битва все ещё идёт или прошло недостаточно времени с момента последнего голосования!")
 		return
 	thunderdome.start(gamemode, src)
+
+/obj/item/storage/backpack/thunderdome_infinite
+	name = "fighter's interdimensional backpack"
+	desc = "A spacious backpack with lots of pocket dimensions, used by fighters of Thunderdome"
+	icon_state = "ert_commander"
+	item_state = "backpack"
+	max_combined_w_class = 999
+	max_w_class = WEIGHT_CLASS_HUGE
+	resistance_flags = FIRE_PROOF
 
 /obj/effect/mob_spawn/human/thunderdome
 	roundstart = FALSE
@@ -289,7 +316,7 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 	)
 	uniform = /obj/item/clothing/under/misc/durathread
 	shoes = /obj/item/clothing/shoes/combat
-	back = /obj/item/storage/backpack/duffel/durathread
+	back = /obj/item/storage/backpack/thunderdome_infinite
 	head = /obj/item/clothing/head/HoS
 
 /datum/outfit/thunderdome/cqc
