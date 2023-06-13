@@ -224,6 +224,7 @@ Doesn't work on other aliens/AI.*/
 	action_background_icon_state = "bg_alien"
 	clothes_req = FALSE
 	charge_max = 0.5 SECONDS
+	can_select = TRUE
 
 /obj/effect/proc_holder/spell/neurotoxin/Click()
 	if(cast_check())
@@ -241,8 +242,6 @@ Doesn't work on other aliens/AI.*/
 	return TRUE
 
 /obj/effect/proc_holder/spell/neurotoxin/can_cast(mob/user = usr)
-	if(is_admin_level(user.z) && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
-		return FALSE
 
 	if(charge_counter < charge_max)
 		return FALSE
@@ -268,7 +267,7 @@ Doesn't work on other aliens/AI.*/
 
 		var/obj/item/projectile/bullet/neurotoxin/P = new(usr.loc)
 		P.current = get_turf(host)
-		P.preparePixelProjectile(target, get_turf(target), host)
+		P.preparePixelProjectile(target, get_turf(target), host, params)
 		P.fire()
 		host.newtonian_move(get_dir(U, T))
 		charge_counter = 0

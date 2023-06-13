@@ -137,6 +137,7 @@
 
 /mob/living/simple_animal/hostile/construct/armoured/holy
 	cult_icon_changing = FALSE
+	faction = list("neutral")
 	icon_state = "holy_juggernaut"
 	icon_living = "holy_juggernaut"
 	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision, /obj/effect/proc_holder/spell/aoe_turf/conjure/lesserforcewall/holy)
@@ -169,6 +170,7 @@
 
 /mob/living/simple_animal/hostile/construct/wraith/holy
 	cult_icon_changing = FALSE
+	faction = list("neutral")
 	icon_state = "holy_shifter"
 	icon_living = "holy_shifter"
 	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision, /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/holy)
@@ -255,11 +257,12 @@
 
 /mob/living/simple_animal/hostile/construct/builder/holy
 	cult_icon_changing = FALSE
+	faction = list("neutral")
 	icon_state = "holy_artificer"
 	icon_living = "holy_artificer"
 	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision,
 							/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
+							/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser/holy,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/wall/holy,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/floor/holy,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/pylon/holy,

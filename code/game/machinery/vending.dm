@@ -295,10 +295,9 @@
 		if(coin)
 			to_chat(user, "<span class='warning'>There is already a coin in this machine!</span>")
 			return
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(I, src))
 			return
 		add_fingerprint(user)
-		I.forceMove(src)
 		coin = I
 		to_chat(user, "<span class='notice'>You insert [I] into the [src]</span>")
 		SStgui.update_uis(src)
@@ -411,11 +410,10 @@
 /obj/machinery/vending/proc/insert_item(mob/user, obj/item/I)
 	if(!item_slot || inserted_item)
 		return
-	if(!user.drop_item())
+	if(!user.drop_transfer_item_to_loc(I, src))
 		to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't seem to put it down!</span>")
 		return
 	inserted_item = I
-	I.forceMove(src)
 	to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
 	SStgui.update_uis(src)
 
@@ -424,7 +422,8 @@
 		return
 	var/put_on_turf = TRUE
 	if(user && iscarbon(user) && user.Adjacent(src))
-		if(user.put_in_hands(inserted_item))
+		inserted_item.forceMove_turf()
+		if(user.put_in_hands(inserted_item, ignore_anim = FALSE))
 			put_on_turf = FALSE
 	if(put_on_turf)
 		var/turf/T = get_turf(src)
@@ -576,7 +575,8 @@
 				to_chat(usr, "<span class='warning'>You lack hands.</span>")
 				return
 			to_chat(usr, "<span class='notice'>You remove [coin] from [src].</span>")
-			usr.put_in_hands(coin)
+			coin.forceMove_turf()
+			usr.put_in_hands(coin, ignore_anim = FALSE)
 			coin = null
 			. = TRUE
 		if("vend")
@@ -716,9 +716,9 @@
 /obj/machinery/vending/proc/do_vend(datum/data/vending_product/R, mob/user)
 	if(!item_slot || !inserted_item)
 		var/put_on_turf = TRUE
-		var/obj/vended = new R.product_path()
+		var/obj/vended = new R.product_path(drop_location())
 		if(user && iscarbon(user) && user.Adjacent(src))
-			if(user.put_in_hands(vended))
+			if(user.put_in_hands(vended, ignore_anim = FALSE))
 				put_on_turf = FALSE
 		if(put_on_turf)
 			var/turf/T = get_turf(src)
@@ -935,7 +935,8 @@
 	if(istype(vended, /obj/item/reagent_containers/food/drinks/mug))
 		var/put_on_turf = TRUE
 		if(user && iscarbon(user) && user.Adjacent(src))
-			if(user.put_in_hands(vended))
+			vended.forceMove_turf()
+			if(user.put_in_hands(vended, ignore_anim = FALSE))
 				put_on_turf = FALSE
 		if(put_on_turf)
 			var/turf/T = get_turf(src)
@@ -946,7 +947,8 @@
 	if(vended.reagents.total_volume)
 		var/put_on_turf = TRUE
 		if(user && iscarbon(user) && user.Adjacent(src))
-			if(user.put_in_hands(vended))
+			vended.forceMove_turf()
+			if(user.put_in_hands(vended, ignore_anim = FALSE))
 				put_on_turf = FALSE
 		if(put_on_turf)
 			var/turf/T = get_turf(src)
@@ -1078,7 +1080,7 @@
 	products = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 12, /obj/item/storage/fancy/cigarettes/cigpack_uplift = 6, /obj/item/storage/fancy/cigarettes/cigpack_random = 6, /obj/item/reagent_containers/food/pill/patch/nicotine = 10, /obj/item/storage/box/matches = 10,/obj/item/lighter/random = 4,/obj/item/storage/fancy/rollingpapers = 5)
 	contraband = list(/obj/item/lighter/zippo = 4, /obj/item/clothing/mask/cigarette/pipe/oldpipe = 3)
 	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2, /obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1)
-	prices = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 60, /obj/item/storage/fancy/cigarettes/cigpack_uplift = 80, /obj/item/storage/fancy/cigarettes/cigpack_random = 120, /obj/item/reagent_containers/food/pill/patch/nicotine = 70, /obj/item/storage/box/matches = 10,/obj/item/lighter/random = 60, /obj/item/storage/fancy/rollingpapers = 20, /obj/item/clothing/mask/cigarette/pipe/oldpipe = 250)
+	prices = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 180, /obj/item/storage/fancy/cigarettes/cigpack_uplift = 240, /obj/item/storage/fancy/cigarettes/cigpack_random = 360, /obj/item/reagent_containers/food/pill/patch/nicotine = 70, /obj/item/storage/box/matches = 10,/obj/item/lighter/random = 60, /obj/item/storage/fancy/rollingpapers = 20, /obj/item/clothing/mask/cigarette/pipe/oldpipe = 250)
 	refill_canister = /obj/item/vending_refill/cigarette
 
 /obj/machinery/vending/cigarette/free

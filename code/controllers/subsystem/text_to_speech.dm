@@ -42,7 +42,7 @@ SUBSYSTEM_DEF(tts)
 
 	var/list/tts_requests_queue = list()
 	var/tts_requests_queue_limit = 100
-	var/tts_rps_limit = 3
+	var/tts_rps_limit = 5
 
 	var/list/tts_queue = list()
 	var/list/tts_effects_queue = list()
@@ -169,6 +169,13 @@ SUBSYSTEM_DEF(tts)
 	msg += "F:[tts_request_failed] "
 	msg += "S:[tts_request_succeeded] "
 	msg += "R:[tts_reused] "
+	msg += "Q:[LAZYLEN(tts_requests_queue)]/[tts_requests_queue_limit] |"
+
+	var/datum/tts_provider/silero/_silero = tts_providers["Silero"]
+	msg += "Shared: "
+	msg += "RPS:[_silero.tts_shared_rps] "
+	msg += "Q:[_silero.tts_shared_requests_in_queue] "
+
 	..(msg)
 
 /datum/controller/subsystem/tts/PreInit()
@@ -285,16 +292,26 @@ SUBSYSTEM_DEF(tts)
 	if(traits & TTS_TRAIT_PITCH_WHISPER)
 		text = provider.pitch_whisper(text)
 
-	var/hash = rustg_hash_string(RUSTG_HASH_MD5, text)
+	var/hash = rustg_hash_string(RUSTG_HASH_MD5, lowertext(text))
 	var/filename = "sound/tts_cache/[seed.name]/[hash]"
 
-	var/datum/callback/play_tts_cb = CALLBACK(src, PROC_REF(play_tts), speaker, listener, filename, is_local, effect, preSFX, postSFX)
+	var/hash_old = rustg_hash_string(RUSTG_HASH_MD5, text)
+	var/filename_old = "sound/tts_cache/[seed.name]/[hash_old]"
 
 	if(fexists("[filename].ogg"))
 		tts_reused++
 		tts_rrps_counter++
 		play_tts(speaker, listener, filename, is_local, effect, preSFX, postSFX)
 		return
+
+	if(fexists("[filename_old].ogg"))
+		fcopy("[filename_old].ogg", "[filename].ogg")
+		tts_reused++
+		tts_rrps_counter++
+		play_tts(speaker, listener, filename, is_local, effect, preSFX, postSFX)
+		return
+
+	var/datum/callback/play_tts_cb = CALLBACK(src, PROC_REF(play_tts), speaker, listener, filename, is_local, effect, preSFX, postSFX)
 
 	if(LAZYLEN(tts_queue[filename]))
 		tts_reused++
@@ -312,17 +329,19 @@ SUBSYSTEM_DEF(tts)
 	// Bail if it errored
 	if(response.errored)
 		provider.failed_requests++
-		if(provider.failed_requests >= provider.failed_requests_limit)
-			provider.is_enabled = FALSE
-		log_and_message_admins("<span class='warning'>Error connecting to [provider.name] TTS API. Please inform a maintainer or server host.</span>")
+		// if(provider.failed_requests >= provider.failed_requests_limit)
+		// 	provider.is_enabled = FALSE
+		log_game(SPAN_WARNING("Error connecting to [provider.name] TTS API. Please inform a maintainer or server host."))
+		message_admins(SPAN_WARNING("Error connecting to [provider.name] TTS API. Please inform a maintainer or server host."))
 		return
 
 	if(response.status_code != 200)
-		// provider.failed_requests++
-		if(provider.failed_requests >= provider.failed_requests_limit)
-			provider.is_enabled = FALSE
-		log_and_message_admins("<span class='warning'>Error performing [provider.name] TTS API request (Code: [response.status_code])</span>")
-		// tts_request_failed++
+		provider.failed_requests++
+		// if(provider.failed_requests >= provider.failed_requests_limit)
+		// 	provider.is_enabled = FALSE
+		log_game(SPAN_WARNING("Error performing [provider.name] TTS API request (Code: [response.status_code])"))
+		message_admins(SPAN_WARNING("Error performing [provider.name] TTS API request (Code: [response.status_code])"))
+		tts_request_failed++
 		if(response.status_code)
 			if(tts_errors["[response.status_code]"])
 				tts_errors["[response.status_code]"]++

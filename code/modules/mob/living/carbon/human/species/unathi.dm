@@ -45,8 +45,8 @@
 	butt_sprite = "unathi"
 	male_scream_sound = "u_mscream"
 	female_scream_sound = "u_fscream"
-	male_sneeze_sound = 'sound/goonstation/voice/unathi/m_u_sneeze.ogg'
-	female_sneeze_sound = 'sound/goonstation/voice/unathi/f_u_sneeze.ogg'
+	male_sneeze_sound = 'sound/voice/unathi/m_u_sneeze.ogg'
+	female_sneeze_sound = 'sound/voice/unathi/f_u_sneeze.ogg'
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/unathi,
@@ -81,8 +81,9 @@
 		"сворачивает себе шею!",
 		"задерживает дыхание!")
 
-	disliked_food = VEGETABLES | FRUIT | GRAIN | SUGAR | JUNKFOOD
-	liked_food = MEAT | RAW | EGG | GROSS
+	toxic_food = SUGAR | GRAIN | JUNKFOOD
+	disliked_food = FRIED
+	liked_food = MEAT | RAW | EGG | GROSS | FRUIT | VEGETABLES
 
 /datum/action/innate/tail_lash
 	name = "Взмах хвостом"
@@ -170,6 +171,7 @@
 	H.verbs |= /mob/living/carbon/human/proc/emote_threat
 	H.verbs |= /mob/living/carbon/human/proc/emote_whip
 	H.verbs |= /mob/living/carbon/human/proc/emote_whips
+	H.verbs |= /mob/living/carbon/human/proc/emote_rumble
 	var/datum/action/innate/tail_lash/lash = locate() in H.actions
 	if(!lash)
 		lash = new
@@ -184,6 +186,7 @@
 	H.verbs -= /mob/living/carbon/human/proc/emote_threat
 	H.verbs -= /mob/living/carbon/human/proc/emote_whip
 	H.verbs -= /mob/living/carbon/human/proc/emote_whips
+	H.verbs -= /mob/living/carbon/human/proc/emote_rumble
 
 	var/datum/action/innate/tail_lash/lash = locate() in H.actions
 	if(lash)

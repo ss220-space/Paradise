@@ -132,6 +132,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/action_icon_state = "spell_default"
 	var/action_background_icon_state = "bg_spell"
 	var/special_availability_check = 0//Whether the spell needs to bypass the action button's IsAvailable()
+	var/can_select = FALSE
 
 	var/sound = null //The sound the spell makes when it is cast
 
@@ -592,7 +593,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			to_chat(user, "<span class='warning'>You shouldn't have this spell! Something's wrong.</span>")
 		return 0
 
-	if(is_admin_level(user.z) && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
+	var/turf/T = get_turf(user)
+	if(is_admin_level(T.z) && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
 		return 0
 
 	if(charge_check)

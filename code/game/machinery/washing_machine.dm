@@ -46,8 +46,7 @@
 
 	//Tanning!
 	for(var/obj/item/stack/sheet/hairlesshide/HH in contents)
-		var/obj/item/stack/sheet/wetleather/WL = new(src)
-		WL.amount = HH.amount
+		new /obj/item/stack/sheet/wetleather(src, HH.amount)
 		qdel(HH)
 
 
@@ -217,9 +216,8 @@
 		if( state in list(	1, 3, 6 ) )
 			if(!crayon)
 				add_fingerprint(user)
-				user.drop_item()
+				user.drop_transfer_item_to_loc(W, src)
 				crayon = W
-				crayon.loc = src
 				update_icon()
 			else
 				return ..()
@@ -292,8 +290,7 @@
 		if(contents.len < 5)
 			if( state in list(1, 3) )
 				add_fingerprint(user)
-				user.drop_item()
-				W.loc = src
+				user.drop_transfer_item_to_loc(W, src)
 				state = 3
 			else
 				to_chat(user, "<span class='notice'>You can't put the item in right now.</span>")

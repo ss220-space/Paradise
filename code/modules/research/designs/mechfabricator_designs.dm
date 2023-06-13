@@ -885,7 +885,7 @@
 	req_tech = list("materials" = 5, "bluespace" = 3, "magnets" = 4, "powerstorage"=4, "engineering" = 5)
 	build_path = /obj/item/mecha_parts/mecha_equipment/rcd
 	materials = list(MAT_METAL=30000,MAT_GOLD=20000,MAT_PLASMA=25000,MAT_SILVER=20000)
-	construction_time = 1200
+	construction_time = 300
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_gravcatapult
@@ -919,6 +919,17 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/teleporter
 	materials = list(MAT_METAL=10000,MAT_DIAMOND=10000)
 	construction_time = 100
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_servo_hydra_actuator
+	name = "Exosuit Common Equipment (Strafe module)"
+	desc = "Exosuit servo-motors. Allows strafe mode"
+	id = "mech_servo_hydra_actuator"
+	build_type = MECHFAB
+	req_tech = list("powerstorage" = 7, "programming" = 7, "engineering" = 7,"combat" = 7)
+	build_path = /obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator
+	materials = list(MAT_METAL=40000,MAT_TITANIUM =10000,MAT_URANIUM=10000,MAT_DIAMOND=10000)
+	construction_time = 30 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_sleeper
@@ -1017,17 +1028,6 @@
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_servo_hydra_actuator
-	name = "Servo-Hydraulic Actuator"
-	desc = "Exosuit servo-motors. Allows strafe mode"
-	id = "mech_servo_hydra_actuator"
-	build_type = MECHFAB
-	req_tech = list("powerstorage" = 7, "programming" = 7, "engineering" = 7,"combat" = 7)
-	build_path = /obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator
-	materials = list(MAT_METAL=40000,MAT_TITANIUM =10000,MAT_URANIUM=10000,MAT_DIAMOND=10000)
-	construction_time = 30 SECONDS
-	category = list("Exosuit Equipment")
-
 /datum/design/clusterbang_launcher
 	name = "Exosuit Non-lethal Weapon (SOB-3 Clusterbang Flashbang Launcher)"
 	desc = "A weapon that violates the Geneva Convention at 3 rounds per minute"
@@ -1097,9 +1097,9 @@
 	desc = "Allows for the construction of ALMG-90."
 	id = "mech_ALMG"
 	build_type = MECHFAB
-	req_tech = list("combat" = 6, "magnets" = 6, "powerstorage" = 5)
+	req_tech = list("combat" = 4)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/amlg
-	materials = list(MAT_METAL=10000,MAT_GLASS=2000)
+	materials = list(MAT_METAL=8000,MAT_GLASS=2000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
@@ -1166,6 +1166,17 @@
 	req_tech = list("combat" = 5, "materials" = 4)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine
 	materials = list(MAT_METAL=10000)
+	construction_time = 100
+	category = list("Exosuit Equipment")
+
+/datum/design/xray_mecha
+	name = "Exosuit Lethal Weapon (S-1 X-Ray Projector)"
+	desc = "A weapon for combat exosuits. Fires beams of X-Rays that pass through solid matter."
+	id = "mech_xray"
+	req_tech = list("combat" = 7, "magnets" = 5, "biotech" = 5, "powerstorage" = 4)
+	build_type = MECHFAB
+	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 4000, MAT_METAL = 5000, MAT_TITANIUM = 2000, MAT_BLUESPACE = 2000)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/xray
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
@@ -1327,7 +1338,7 @@
 	id = "borg_upgrade_gps"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/gps
-	req_tech = list("engineerin" = 7, "programming" = 7, "materials" = 5, "magnets" = 6)
+	req_tech = list("engineering" = 7, "programming" = 7, "materials" = 5, "magnets" = 6)
 	materials = list(MAT_METAL = 10000, MAT_GOLD = 2000, MAT_SILVER = 2000, MAT_TITANIUM = 500)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
