@@ -42,6 +42,10 @@
 		to_chat(user, "<span class = 'warning'>[I] уже остр, и не может быть заточен ещё сильнее!</span>")
 		return
 
+	if(istype(I, /obj/item/melee/mantisblade))
+		to_chat(user, "<span class = 'warning'>[I] уже остр, и не может быть заточен ещё сильнее!</span>")
+		return
+
 	if(istype(I, /obj/item/clothing/gloves/color/black/razorgloves))
 		var/obj/item/clothing/gloves/color/black/razorgloves/razorgloves = I
 		if(razorgloves.razor_damage_low > initial(razorgloves.razor_damage_low))
