@@ -335,7 +335,7 @@
 	name = "hidden blade implant"
 	desc = "A blade designed to be hidden just beneath the skin. The brain is directly linked to this bad boy, allowing it to spring into action."
 	contents = newlist(/obj/item/melee/mantisblade)
-	origin_tech = "materials=5;combat=7;biotech=5;powerstorage=5;syndicate=6;programming=5"
+	origin_tech = "materials=6;combat=6;biotech=6;syndicate=4;programming=5;"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/surgery.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "syndie_mantis")
 	icon_state = "syndie_mantis"
@@ -356,7 +356,7 @@
 	contents = newlist(/obj/item/melee/mantisblade/shellguard)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/surgery.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "mantis")
-	origin_tech = "materials=5;combat=7;biotech=5;powerstorage=5;syndicate=6;programming=5"
+	origin_tech = "materials=6;combat=6;biotech=6;programming=5;"
 	icon_state = "mantis"
 
 /obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/shellguard/l
