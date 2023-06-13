@@ -870,16 +870,15 @@
 	desc = "The power of the sun, in the claws of your hand."
 	icon_state = "pyro_claws"
 	flags = ABSTRACT | NODROP | DROPDEL
-	force = 22
-	force_wielded = 22
+	force = 25
+	force_wielded = 25
 	damtype = BURN
-	armour_penetration = 50
+	armour_penetration = 40
 	block_chance = 50
-	sharp = TRUE
+	sharp = TRUE //weird, but okay
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut", "savaged", "clawed")
 	toolspeed = 0.5
-	var/lifetime = 60 SECONDS
 
 /obj/item/twohanded/required/pyro_claws/Initialize(mapload)
 	. = ..()
@@ -890,12 +889,6 @@
 	return ..()
 
 /obj/item/twohanded/required/pyro_claws/process()
-	lifetime -= 2 SECONDS
-	if(lifetime <= 0)
-		visible_message("<span class='warning'>[src] slides back into the depths of [loc]'s wrists.</span>")
-		do_sparks(rand(1,6), 1, loc)
-		qdel(src)
-		return
 	if(prob(15))
 		do_sparks(rand(1,6), 1, loc)
 
@@ -931,6 +924,7 @@
 	can_be_cut = FALSE
 	actions_types = list(/datum/action/item_action/toggle)
 	var/on_cooldown = FALSE
+	var/used = FALSE
 	var/obj/item/assembly/signaler/anomaly/pyro/core
 
 /obj/item/clothing/gloves/color/black/pyro_claws/Destroy()
@@ -945,6 +939,7 @@
 		. += "<span class='warning'>It is missing a pyroclastic anomaly core.</span>"
 
 /obj/item/clothing/gloves/color/black/pyro_claws/ui_action_click(mob/user)
+	var/obj/item/W = new /obj/item/twohanded/required/pyro_claws
 	if(!core)
 		to_chat(user, "<span class='notice'>[src] has no core to power it!</span>")
 		return
@@ -952,15 +947,21 @@
 		to_chat(user, "<span class='notice'>[src] is on cooldown!</span>")
 		do_sparks(rand(1,6), 1, loc)
 		return
+	if(used)
+		visible_message("<span class='warning'>[W] slides back into the depths of [loc]'s wrists.</span>")
+		user.drop_from_active_hand(force = TRUE)//dropdel stuff
+		do_sparks(rand(1,6), 1, loc)
+		on_cooldown = TRUE
+		addtimer(CALLBACK(src, PROC_REF(reboot)), 1 MINUTES)
+		return
 	if(user.get_active_hand() && !user.drop_from_active_hand())
 		to_chat(user, "<span class='notice'>[src] are unable to deploy the blades with the items in your hands!</span>")
 		return
-	var/obj/item/W = new /obj/item/twohanded/required/pyro_claws
+
 	user.visible_message("<span class='warning'>[user] deploys [W] from [user.p_their()] wrists in a shower of sparks!</span>", "<span class='notice'>You deploy [W] from your wrists!</span>", "<span class='warning'>You hear the shower of sparks!</span>")
 	user.put_in_hands(W)
-	on_cooldown = TRUE
 	flags |= NODROP
-	addtimer(CALLBACK(src, PROC_REF(reboot)), 2 MINUTES)
+	used = TRUE
 	do_sparks(rand(1,6), 1, loc)
 
 /obj/item/clothing/gloves/color/black/pyro_claws/attackby(obj/item/I, mob/user, params)
@@ -979,5 +980,6 @@
 
 /obj/item/clothing/gloves/color/black/pyro_claws/proc/reboot()
 	on_cooldown = FALSE
+	used = FALSE
 	flags &= ~NODROP
 	atom_say("Internal plasma canisters recharged. Gloves sufficiently cooled")
