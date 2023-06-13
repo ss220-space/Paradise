@@ -156,7 +156,8 @@
 				/obj/item/toy/cards/deck/syndicate = 2,
 				/obj/item/storage/secure/briefcase/syndie = 2,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 2,
-				/obj/item/storage/pill_bottle/fakedeath = 2,
+				/obj/item/storage/pill_bottle/fakedeath = 2
+				/obj/item/card/cmag = 1,
 				"" = 68
 				)
 
