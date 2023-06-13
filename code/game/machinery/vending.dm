@@ -2211,15 +2211,18 @@
 /obj/machinery/vending/nta
 	name = "NT Ammunition"
 	desc = "A special equipment vendor."
-	ads_list = list("Круши черепа синдиката!","Не забывай, спасать - полезно!","Бжж-Бзз-з!.","Обезопасить, Удержать, Сохранить!","Стоять, снярядись на задание!")
+	ads_list = list("Возьми патрон!","Не забывай, снаряжаться - полезно!","Бжж-Бзз-з!.","Обезопасить, Удержать, Сохранить!","Стоять, снярядись на задание!")
 	icon_state = "nta"
 	icon_deny = "nta_deny"
+	icon_vend = "nta_vend"
 	req_access = list(ACCESS_SECURITY)
-	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
-					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
-					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4,
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/storage/box/slug = 4,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
+					/obj/item/storage/box/buck = 4,/obj/item/ammo_box/magazine/enforcer = 8,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 8,
+					/obj/item/ammo_box/magazine/enforcer/lethal = 8, /obj/item/ammo_box/magazine/laser = 18, /obj/item/ammo_box/magazine/wt550m9 = 8, /obj/item/storage/box/rubbershot = 4,
+					/obj/item/ammo_box/magazine/m556 = 12, /obj/item/ammo_box/a40mm = 4, /obj/item/ammo_box/shotgun/universal = 8, /obj/item/ammo_box/magazine/sp8 = 8,
 					)
-	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
+	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/grenade/clusterbuster/apocalypsefake = 1)
 	refill_canister = /obj/item/vending_refill/nta
 
 /obj/machinery/vending/nta/ertarmory/blue
@@ -2229,11 +2232,13 @@
 	icon_state = "nta_blue"
 	icon_deny = "nta_blue_deny"
 	req_access = list(ACCESS_CENT_SECURITY)
-	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
-					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
-					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4,
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	products = list(/obj/item/gun/energy/gun = 6, /obj/item/gun/energy/ionrifle/carbine = 3, /obj/item/gun/projectile/automatic/lasercarbine = 6,
+					/obj/item/ammo_box/magazine/laser = 12, /obj/item/suppressor = 8, /obj/item/gun/projectile/automatic/wt550 = 6, /obj/item/ammo_box/magazine/wt550m9 = 12,
+					/obj/item/gun/projectile/shotgun/riot = 6, /obj/item/storage/box/rubbershot = 6, /obj/item/storage/box/beanbag = 8, /obj/item/storage/box/tranquilizer = 8,
+					/obj/item/ammo_box/shotgun/universal = 12, /obj/item/gun/projectile/automatic/sfg = 6, /obj/item/ammo_box/magazine/sfg9mm = 12,
 					)
-	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
+	contraband = list(/obj/item/storage/fancy/donut_box = 2)
 	refill_canister = /obj/item/vending_refill/nta
 /obj/machinery/vending/nta/ertarmory/red
 	name = "NT ERT Heavy Gear & Ammunition"
@@ -2242,11 +2247,13 @@
 	icon_state = "nta_red"
 	icon_deny = "nta_red_deny"
 	req_access = list(ACCESS_CENT_SECURITY)
-	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
-					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
-					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4,
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	products = list(/obj/item/gun/projectile/automatic/ar = 6, /obj/item/ammo_box/magazine/m556 = 12, /obj/item/gun/energy/sniperrifle = 3, /obj/item/gun/energy/lasercannon = 6,
+					/obj/item/gun/energy/immolator = 6, /obj/item/gun/energy/gun/nuclear = 6, /obj/item/gun/projectile/shotgun/automatic/combat = 6, /obj/item/storage/box/slug = 6,
+					/obj/item/storage/box/buck = 6, /obj/item/storage/box/dragonsbreath = 6, /obj/item/ammo_box/shotgun/universal = 12, /obj/item/storage/lockbox/t4 = 6,
+					/obj/item/grenade/smokebomb = 8, /obj/item/grenade/frag = 12,
 					)
-	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
+	contraband = list(/obj/item/storage/fancy/donut_box = 2)
 	refill_canister = /obj/item/vending_refill/nta
 /obj/machinery/vending/nta/ertarmory/green
 	name = "NT ERT Light Gear & Ammunition"
@@ -2255,11 +2262,12 @@
 	icon_state = "nta_green"
 	icon_deny = "nta_green_deny"
 	req_access = list(ACCESS_CENT_SECURITY)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
-					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
-					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4,
+					/obj/item/gun/energy/gun/advtaser = 6, /obj/item/gun/projectile/automatic/pistol/enforcer = 12, /obj/item/storage/box/barrier = 4,
+					/obj/item/gun/projectile/shotgun/riot = 2, /obj/item/storage/box/rubbershot = 8, /obj/item/ammo_box/shotgun/universal = 8, /obj/item/gun/energy/dominator/sibyl = 4
 					)
-	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
+	contraband = list(/obj/item/storage/fancy/donut_box = 2)
 	refill_canister = /obj/item/vending_refill/nta
 /obj/machinery/vending/nta/ertarmory/yellow
 	name = "NT ERT Death Wish Gear & Ammunition"
@@ -2268,24 +2276,29 @@
 	icon_state = "nta_yellow"
 	icon_deny = "nta_yellow_deny"
 	req_access = list(ACCESS_CENT_SECURITY)
-	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
-					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
-					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4,
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	products = list(/obj/item/gun/projectile/automatic/gyropistol = 8, /obj/item/ammo_box/magazine/m75 = 12, /obj/item/gun/projectile/automatic/l6_saw = 6, /obj/item/ammo_box/magazine/mm556x45/ap = 12,
+					/obj/item/gun/projectile/automatic/shotgun/bulldog = 6, /obj/item/storage/backpack/duffel/syndie/ammo/shotgun = 12, /obj/item/gun/energy/xray = 8, /obj/item/gun/energy/pulse/destroyer/annihilator = 8,
+					/obj/item/gun/energy/immolator/multi = 8, /obj/item/grenade/clusterbuster/inferno = 3, /obj/item/grenade/clusterbuster/emp = 3,
 					)
-	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
+	contraband = list(/obj/item/storage/fancy/donut_box = 2)
 	refill_canister = /obj/item/vending_refill/nta
 /obj/machinery/vending/nta/ertarmory/medical
 	name = "NT ERT Medical Gear"
 	desc = "A ERT medical equipment vendor."
-	ads_list = list("Лечи раненых от рук синдиката!","Не забывай, лечить - полезно!","Бжж-Бзз-з!.","Перевязать, Оперировать, Выписать!","Стоять, снярядись на задание!")
+	ads_list = list("Лечи раненых от рук синдиката!","Не забывай, лечить - полезно!","Бжж-Бзз-з!.","Перевязать, Оперировать, Выписать!","Стоять, снярядись медикаментами на задание!")
 	icon_state = "nta_medical"
 	icon_deny = "nta_medical_deny"
 	req_access = list(ACCESS_CENT_MEDICAL)
-	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
-					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
-					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4,
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	products = list(/obj/item/storage/firstaid/tactical = 2, /obj/item/reagent_containers/applicator/dual = 2, /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis = 4, /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis = 2,
+					/obj/item/storage/belt/medical/surgery/loaded = 2, /obj/item/storage/belt/medical/response_team = 3, /obj/item/storage/pill_bottle/ert = 4,
+					/obj/item/reagent_containers/food/pill/mannitol = 10, /obj/item/reagent_containers/food/pill/salbutamol = 10, /obj/item/reagent_containers/food/pill/morphine = 8, /obj/item/reagent_containers/food/pill/charcoal = 10,
+					/obj/item/reagent_containers/food/pill/mutadone = 8, /obj/item/storage/pill_bottle/patch_pack = 4, /obj/item/reagent_containers/food/pill/patch/silver_sulf = 10,
+					/obj/item/reagent_containers/food/pill/patch/styptic = 10, /obj/item/storage/toolbox/surgery = 2, /obj/item/scalpel/laser/manager = 2, /obj/item/reagent_containers/applicator/brute = 4, /obj/item/reagent_containers/applicator/burn = 4,
+					/obj/item/healthanalyzer/advanced = 4, /obj/item/roller/holo = 2,
 					)
-	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
+	contraband = list()
 	refill_canister = /obj/item/vending_refill/nta
 /obj/machinery/vending/nta/ertarmory/engineer
 	name = "NT ERT Engineer Gear"
@@ -2294,11 +2307,12 @@
 	icon_state = "nta_engi"
 	icon_deny = "nta_engi_deny"
 	req_access = list(ACCESS_CENT_GENERAL)
-	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
-					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
-					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4,
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	products = list(/obj/item/storage/belt/utility/chief/full = 2,/obj/item/clothing/mask/gas/welding = 4, /obj/item/weldingtool/experimental = 3, /obj/item/crowbar/power = 3,
+					/obj/item/screwdriver/power  = 3, /obj/item/extinguisher/mini = 3, /obj/item/multitool = 3, /obj/item/rcd/preloaded = 2,
+					/obj/item/rcd_ammo  = 8, /obj/item/stack/cable_coil = 4,
 					)
-	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
+	contraband = list(/obj/item/clothing/head/welding/flamedecal = 1, /obj/item/storage/fancy/donut_box = 2, /obj/item/clothing/head/welding/flamedecal/white  = 1, /obj/item/clothing/head/welding/flamedecal/blue = 1)
 	refill_canister = /obj/item/vending_refill/nta
 /obj/machinery/vending/nta/ertarmory/janitor
 	name = "NT ERT Janitor Gear"
@@ -2307,9 +2321,10 @@
 	icon_state = "nta_janitor"
 	icon_deny = "nta_janitor_deny"
 	req_access = list(ACCESS_CENT_GENERAL)
-	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
-					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
-					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4,
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	products = list(/obj/item/storage/belt/janitor/full = 2, /obj/item/clothing/shoes/galoshes = 2, /obj/item/grenade/chem_grenade/antiweed = 2, /obj/item/reagent_containers/spray/cleaner = 1,
+					/obj/item/storage/bag/trash = 2, /obj/item/storage/box/lights/mixed = 4, /obj/item/melee/flyswatter= 1, /obj/item/soap = 2,
+					/obj/item/grenade/chem_grenade/cleaner = 4, /obj/item/clothing/mask/gas = 3, /obj/item/watertank/janitor  = 4, /obj/item/lightreplacer = 2,
 					)
-	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
+	contraband = list(/obj/item/grenade/clusterbuster/cleaner = 1, /obj/item/storage/fancy/donut_box = 2, )
 	refill_canister = /obj/item/vending_refill/nta
