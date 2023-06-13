@@ -12,6 +12,8 @@
 	var/list/items_list = list()// I would use contents, but they shuffle on every activation/deactivation leading to interface inconsistencies.
 	/// You can use this var for item path, it would be converted into an item on New().
 	var/obj/item/active_item
+	var/sound_on = 'sound/mecha/mechmove03.ogg'
+	var/sound_off = 'sound/mecha/mechmove03.ogg'
 
 /obj/item/organ/internal/cyberimp/arm/Initialize()
 	. = ..()
@@ -103,7 +105,7 @@
 	owner.unEquip(active_item, 1)
 	active_item.forceMove(src)
 	active_item = null
-	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
+	playsound(get_turf(owner), src.sound_off, 50, 1)
 	return TRUE
 
 /obj/item/organ/internal/cyberimp/arm/proc/Extend(obj/item/augment)
@@ -139,7 +141,7 @@
 	owner.visible_message("<span class='notice'>[owner] extends [active_item] from [owner.p_their()] [parent_organ == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>",
 		"<span class='notice'>You extend [active_item] from your [parent_organ == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>",
 		"<span class='italics'>You hear a short mechanical noise.</span>")
-	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
+	playsound(get_turf(owner), src.sound_on, 50, 1)
 
 /obj/item/organ/internal/cyberimp/arm/ui_action_click()
 	if(crit_fail || (!active_item && !contents.len))
@@ -326,10 +328,9 @@
 	emp_proof = 1
 
 /obj/item/organ/internal/cyberimp/arm/toolset/mantisblade
+	sound_on = 'sound/weapons/wristblades_on.ogg'
+	sound_off = 'sound/weapons/wristblades_off.ogg'
 
-/obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/Retract()
-	. = ..()
-	if(l_arm )
 /obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/horlex
 	name = "hidden blade implant"
 	desc = "A blade designed to be hidden just beneath the skin. The brain is directly linked to this bad boy, allowing it to spring into action."
