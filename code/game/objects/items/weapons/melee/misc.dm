@@ -83,10 +83,13 @@
 	. = ..()
 	var/obj/item/melee/mantisblade/secondsword = user.get_inactive_hand()
 	if(istype(secondsword, /obj/item/melee/mantisblade) && !secondattack && user.a_intent == INTENT_HARM)
-		addtimer(0.2 SECONDS)
-		secondsword.attack(M, user, TRUE)
-		user.changeNext_move(CLICK_CD_MELEE)
+		addtimer(CALLBACK(src, PROC_REF(mantis_attack), M, user, FALSE), 0.2 SECONDS)
 	return
+
+/obj/item/melee/mantisblade/proc/mantis_attack(mob/living/M, mob/living/user, secondattack = FALSE)
+	var/obj/item/melee/mantisblade/secondsword = user.get_inactive_hand()
+	secondsword.attack(M, user, TRUE)
+	user.changeNext_move(CLICK_CD_MELEE)
 
 /obj/item/melee/mantisblade/shellguard
 	name = "Shellguard mantis blade"
