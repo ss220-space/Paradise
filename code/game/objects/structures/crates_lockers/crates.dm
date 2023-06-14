@@ -104,11 +104,10 @@
 		return TRUE
 	if(istype(W, /obj/item/radio/electropack))
 		if(rigged)
-			if(!user.drop_item())
+			if(!user.drop_transfer_item_to_loc(W, src))
 				to_chat(user, "<span class='warning'>[W] seems to be stuck to your hand!</span>")
 				return TRUE
 			to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
-			W.forceMove(src)
 		return TRUE
 
 /obj/structure/closet/crate/wirecutter_act(mob/living/user, obj/item/I)
@@ -131,9 +130,9 @@
 		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
 		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, 1)
-		manifest.forceMove(loc)
+		manifest.forceMove_turf()
 		if(ishuman(user))
-			user.put_in_hands(manifest)
+			user.put_in_hands(manifest, ignore_anim = FALSE)
 		manifest = null
 		update_icon()
 		return
@@ -237,9 +236,9 @@
 		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
 		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, 1)
-		manifest.forceMove(loc)
+		manifest.forceMove_turf()
 		if(ishuman(user))
-			user.put_in_hands(manifest)
+			user.put_in_hands(manifest, ignore_anim = FALSE)
 		manifest = null
 		update_icon()
 		return
@@ -304,6 +303,13 @@
 	icon_opened = "trashcartopen"
 	icon_closed = "trashcart"
 	pull_push_speed_modifier = 1
+
+/obj/structure/closet/crate/trashcart/gibs
+	desc = "A heavy, metal trashcart with wheels. You better don't ask."
+	name = "trash cart with gibs"
+	icon_state = "trashcartgib"
+	icon_opened = "trashcartgibopen"
+	icon_closed = "trashcartgib"
 
 /*these aren't needed anymore
 /obj/structure/closet/crate/hat
@@ -561,6 +567,13 @@
 /obj/structure/closet/crate/tape/populate_contents()
 	if(prob(10))
 		new /obj/item/bikehorn/rubberducky(src)
+
+/obj/structure/closet/crate/secure/biohazard
+	name = "secure biohazard crate"
+	desc = "An protected biohazard crate."
+	icon_state = "biohazard"
+	icon_opened = "biohazardopen"
+	icon_closed = "biohazard"
 
 //crates of gear in the free golem ship
 /obj/structure/closet/crate/golemgear/populate_contents()

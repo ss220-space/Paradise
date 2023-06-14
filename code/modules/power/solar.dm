@@ -197,8 +197,7 @@
 // Give back the glass type we were supplied with
 /obj/item/solar_assembly/proc/give_glass()
 	if(glass_type)
-		var/obj/item/stack/sheet/S = new glass_type(src.loc)
-		S.amount = 2
+		new glass_type(src.loc, 2)
 		glass_type = null
 
 
@@ -237,7 +236,7 @@
 
 	if(!tracker)
 		if(istype(W, /obj/item/tracker_electronics))
-			if(!user.drop_item())
+			if(!user.drop_transfer_item_to_loc(W, src))
 				return
 			tracker = 1
 			qdel(W)
