@@ -23,8 +23,7 @@
 		circuit.forceMove(loc)
 		circuit = null
 	if(state >= 3)
-		var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( loc )
-		A.amount = 5
+		new /obj/item/stack/cable_coil(loc, 5)
 	if(state >= 4)
 		new /obj/item/stack/sheet/glass(loc, 2)
 
@@ -476,8 +475,7 @@
 					to_chat(user, "<span class='notice'>You place the circuit board inside the frame.</span>")
 					icon_state = "1"
 					circuit = P
-					user.drop_item()
-					P.loc = src
+					user.drop_transfer_item_to_loc(P, src)
 				else
 					to_chat(user, "<span class='warning'>This frame does not accept circuit boards of this type!</span>")
 				return
@@ -529,8 +527,7 @@
 				to_chat(user, "<span class='notice'>You remove the cables.</span>")
 				state = 2
 				icon_state = "2"
-				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( loc )
-				A.amount = 5
+				new /obj/item/stack/cable_coil(loc, 5)
 				return
 			if(istype(P, /obj/item/stack/sheet/glass))
 				var/obj/item/stack/sheet/glass/G = P
@@ -622,8 +619,7 @@
 					to_chat(user, "<span class='notice'>You place the circuit board inside the frame.</span>")
 					icon_state = "1"
 					circuit = P
-					user.drop_item()
-					P.loc = src
+					user.drop_transfer_item_to_loc(P, src)
 				else
 					to_chat(user, "<span class='warning'>This frame does not accept circuit boards of this type!</span>")
 			if(istype(P, /obj/item/screwdriver) && circuit)
@@ -667,8 +663,7 @@
 				to_chat(user, "<span class='notice'>You remove the cables.</span>")
 				state = 2
 				icon_state = "2"
-				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( loc )
-				A.amount = 5
+				new /obj/item/stack/cable_coil(loc, 5)
 
 			if(istype(P, /obj/item/stack/sheet/glass))
 				var/obj/item/stack/sheet/glass/G = P
