@@ -33922,7 +33922,7 @@
 /area/hallway/primary/starboard/south)
 "eGf" = (
 /obj/machinery/ai_status_display,
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/shuttle,
 /area/shuttle/arrival/station)
 "eGh" = (
 /obj/effect/spawner/window/reinforced,
@@ -41759,7 +41759,7 @@
 "hes" = (
 /obj/structure/statue/gold/ce{
 	desc = "Статуя, посвящённая инженеру, который починил Эирлоки, за что был превращён в золото, вплоть до следующей поломки.";
-	name = "Статуя Владиславному Инженеру";
+	name = "Статуя Владиславному Инженеру"
 	},
 /turf/simulated/floor/plating/asteroid/ancient/airless,
 /area/hallway/primary/starboard/south)
@@ -57208,7 +57208,9 @@
 	},
 /area/hallway/spacebridge/scidock)
 "lHH" = (
-/obj/machinery/door/airlock/titanium/glass,
+/obj/machinery/door/airlock/shuttle{
+	id_tag = "s_docking_airlock"
+	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
 "lIc" = (
@@ -64469,11 +64471,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/aft/west)
-"nWk" = (
-/obj/machinery/door/airlock/titanium/glass,
-/obj/structure/fans/tiny,
-/turf/simulated/floor/shuttle,
-/area/shuttle/arrival/station)
 "nWq" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -66963,7 +66960,9 @@
 /area/hallway/secondary/exit)
 "oOV" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/titanium/glass,
+/obj/machinery/door/airlock/shuttle{
+	id_tag = "s_docking_airlock"
+	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
 "oOW" = (
@@ -68458,7 +68457,8 @@
 	},
 /area/security/hos)
 "pkt" = (
-/obj/effect/spawner/window/shuttle,
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
 /turf/simulated/floor/plating,
 /area/shuttle/arrival/station)
 "pkD" = (
@@ -78978,7 +78978,7 @@
 /obj/machinery/status_display{
 	layer = 4
 	},
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/shuttle,
 /area/shuttle/arrival/station)
 "sww" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -86728,7 +86728,7 @@
 /turf/simulated/wall,
 /area/hallway/primary/port/north)
 "uSP" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/shuttle,
 /area/shuttle/arrival/station)
 "uTb" = (
 /obj/structure/cable/orange{
@@ -87545,7 +87545,7 @@
 "viO" = (
 /obj/effect/decal/remains/mouse{
 	desc = "Останки Мыши, которая изжила себя, перестраивая эту станцию.";
-	name = "SQUEEK!";
+	name = "SQUEEK!"
 	},
 /obj/item/reagent_containers/food/snacks/cheesewedge{
 	pixel_x = -6;
@@ -140491,7 +140491,7 @@ rNK
 rNK
 rNK
 uSP
-nWk
+oOV
 oOV
 uSP
 pkt
@@ -140500,7 +140500,7 @@ pkt
 pkt
 uSP
 oOV
-nWk
+oOV
 uSP
 uSP
 rNK
