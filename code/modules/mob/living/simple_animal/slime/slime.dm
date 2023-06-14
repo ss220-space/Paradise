@@ -143,7 +143,8 @@
 /mob/living/simple_animal/slime/regenerate_icons()
 	..()
 	var/icon_text = "[colour] [(age_state.age != SLIME_BABY) ? "adult" : "baby"] slime"
-	icon_dead = "[icon_text] dead"
+	//icon_dead = "[icon_text] dead"
+	icon_dead = "[colour] baby slime dead" //REMOVE THIS ONLY WHEN THERE WILL BE SPRITES OF ALL SLIME COLOURS AND SIZES!!!
 	if(stat != DEAD)
 		icon_state = icon_text
 		if(mood && !stat)
@@ -279,8 +280,10 @@
 			Feedon(Food)
 	return ..()
 
-/mob/living/simple_animal/slime/unEquip(obj/item/I, force)
+
+/mob/living/simple_animal/slime/do_unEquip(obj/item/I, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
 	return
+
 
 /mob/living/simple_animal/slime/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	return

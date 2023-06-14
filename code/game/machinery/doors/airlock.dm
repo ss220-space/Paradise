@@ -980,12 +980,11 @@ About the new airlock wires panel:
 		if(note)
 			to_chat(user, "<span class='warning'>There's already something pinned to this airlock! Use wirecutters or your hands to remove it.</span>")
 			return
-		if(!user.unEquip(C))
+		if(!user.drop_transfer_item_to_loc(C, src))
 			to_chat(user, "<span class='warning'>For some reason, you can't attach [C]!</span>")
 			return
 		C.add_fingerprint(user)
 		add_misc_logs(user, "put [C] on", src)
-		C.forceMove(src)
 		user.visible_message("<span class='notice'>[user] pins [C] to [src].</span>", "<span class='notice'>You pin [C] to [src].</span>")
 		note = C
 		update_icon()
@@ -1212,7 +1211,7 @@ About the new airlock wires panel:
 			return 0
 	use_power(360)	//360 W seems much more appropriate for an actuator moving an industrial door capable of crushing people
 	if(forced)
-		playsound(loc, 'sound/machines/airlockforced.ogg', 30, 1)
+		playsound(loc, 'sound/machines/airlock_force_open.ogg', 30, 1)
 	else
 		playsound(loc, doorOpen, 30, 1)
 	if(closeOther != null && istype(closeOther, /obj/machinery/door/airlock/) && !closeOther.density)
@@ -1256,7 +1255,7 @@ About the new airlock wires panel:
 
 	use_power(360)	//360 W seems much more appropriate for an actuator moving an industrial door capable of crushing people
 	if(forced)
-		playsound(loc, 'sound/machines/airlockforced.ogg', 30, 1)
+		playsound(loc, 'sound/machines/airlock_force_close.ogg', 30, 1)
 	else
 		playsound(loc, doorClose, 30, 1)
 	var/obj/structure/window/killthis = (locate(/obj/structure/window) in get_turf(src))
@@ -1485,7 +1484,8 @@ About the new airlock wires panel:
 		playsound(src, 'sound/items/wirecutter.ogg', 50, 1)
 	note.add_fingerprint(user)
 	add_misc_logs(user, "removed [note] from", src)
-	user.put_in_hands(note)
+	note.forceMove_turf()
+	user.put_in_hands(note, ignore_anim = FALSE)
 	note = null
 	update_icon()
 	return TRUE

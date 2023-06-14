@@ -368,8 +368,8 @@
 /datum/outfit/job/mime/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(H.gender == FEMALE)
-		uniform = /obj/item/clothing/under/sexymime
-		suit = /obj/item/clothing/mask/gas/mime/sexy
+		uniform = /obj/item/clothing/under/mimeskirt
+		mask = /obj/item/clothing/mask/gas/mime/sexy
 
 /datum/outfit/job/mime/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()

@@ -87,10 +87,9 @@
 		user.visible_message("<span class='notice'>[user] starts removing the payload and wires from \the [src].</span>")
 		if(do_after(user, 40 * I.toolspeed * gettoolspeedmod(user), target = src))
 			playsound(src, I.usesound, 50, 1, 1)
-			user.unEquip(src)
+			user.drop_item_ground(src)
 			user.visible_message("<span class='notice'>[user] removes the insides of \the [src]!</span>")
-			var/obj/item/stack/cable_coil/C = new /obj/item/stack/cable_coil(src.loc)
-			C.amount = 3
+			new /obj/item/stack/cable_coil(src.loc, 3)
 			new /obj/item/bombcore/miniature(src.loc)
 			new /obj/item/pizzabox(src.loc)
 			qdel(src)
