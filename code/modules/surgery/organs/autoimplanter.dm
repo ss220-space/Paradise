@@ -44,7 +44,7 @@
 
 /obj/item/autoimplanter/oneuse/attack_self(mob/user)
 	. = ..()
-	user.drop_item()
+	user.drop_item_ground()
 	visible_message("<span class='warning'>[src] beeps ominously, and a moment later it bursts up in flames.</span>")
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
@@ -55,7 +55,7 @@
 		storedorgan = null
 		to_chat(user, "<span class='notice'>You remove the [storedorgan] from [src].</span>")
 		playsound(get_turf(user), I.usesound, 50, 1)
-		user.drop_item()
+		user.drop_item_ground()
 		visible_message("<span class='warning'>[src] beeps ominously, and a moment later it bursts up in flames.</span>")
 		new /obj/effect/decal/cleanable/ash(get_turf(src))
 		qdel(src)
@@ -63,12 +63,8 @@
 
 /obj/item/autoimplanter/oneuse/mantisblade
 	name = "autoimplanter(mantis blade right)"
-
-/obj/item/autoimplanter/oneuse/mantisblade/New()
 	storedorgan = new /obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/horlex
 
 /obj/item/autoimplanter/oneuse/mantisblade/l
 	name = "autoimplanter(mantis blade left)"
-
-/obj/item/autoimplanter/oneuse/mantisblade/l/New()
 	storedorgan = new /obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/horlex/l
