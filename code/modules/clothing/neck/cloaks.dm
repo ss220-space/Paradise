@@ -1,16 +1,30 @@
 //Cloaks. No, not THAT kind of cloak.
 
-/obj/item/clothing/neck/cloak
-	name = "grey cloak"
+/obj/item/clothing/neck/cloak //We need this "White" for better color adjustment.
+	name = "cloak"
 	desc = "It's a cloak that can be worn around your neck in a pretty dull color."
 	icon_state = "cloak"
 	w_class = WEIGHT_CLASS_SMALL
 	body_parts_covered = UPPER_TORSO | ARMS
+	var/colour = null
+
+/obj/item/clothing/neck/cloak/Initialize(mapload)
+	. = ..()
+	add_atom_colour(colour, FIXED_COLOUR_PRIORITY)
+	update_icon()
+
+/obj/item/clothing/neck/cloak/grey
+	colour = "#535353"
 
 /obj/item/clothing/neck/cloak/head_of_security
 	name = "head of security's cloak"
 	desc = "Worn by the leader of Brigston, ruling the station with an iron fist."
 	icon_state = "hoscloak"
+
+/obj/item/clothing/neck/cloak/security
+	name = "security officer's cloak"
+	desc = "Worn by security officers."
+	icon_state = "seccloak"
 
 /obj/item/clothing/neck/cloak/quartermaster
 	name = "quartermaster's cloak"

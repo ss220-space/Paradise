@@ -1,3 +1,5 @@
+#define PAI_CHEMICALS_COOLDOWN 15 SECONDS
+
 /mob/living/silicon/pai/Life(seconds, times_fired)
 	. = ..()
 	if(QDELETED(src) || stat == DEAD)
@@ -14,8 +16,16 @@
 				visible_message("<span class='warning'>The data cable connected to [src] rapidly retracts back into its spool!</span>")
 				QDEL_NULL(DJ.cable)
 
+	if(installed_software["sec_chem"])
+		if(chemicals < initial(chemicals))
+			if(world.time > (last_change_chemicals + PAI_CHEMICALS_COOLDOWN))
+				chemicals += 5
+				last_change_chemicals = world.time
+
 /mob/living/silicon/pai/updatehealth(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
 		return ..()
 	health = maxHealth - getBruteLoss() - getFireLoss()
 	update_stat("updatehealth([reason])", should_log)
+
+#undef PAI_CHEMICALS_COOLDOWN

@@ -22,9 +22,11 @@
 				pixel_x = -32
 			if(WEST)
 				pixel_x = 32
+	GLOB.mirrors += src
 
 /obj/structure/mirror/Destroy()
 	QDEL_LIST_ASSOC_VAL(ui_users)
+	GLOB.mirrors -= src
 	return ..()
 
 /obj/structure/mirror/attack_hand(mob/user)
@@ -38,6 +40,7 @@
 			AC.name = "SalonPro Nano-Mirror"
 			AC.flags = APPEARANCE_ALL_BODY
 			ui_users[user] = AC
+		add_fingerprint(user)
 		AC.ui_interact(user)
 
 /obj/structure/mirror/obj_break(damage_flag, mapload)
@@ -48,6 +51,7 @@
 		if(desc == initial(desc))
 			desc = "Oh no, seven years of bad luck!"
 		broken = TRUE
+		GLOB.mirrors -= src
 
 /obj/structure/mirror/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -86,7 +90,7 @@
 
 /obj/item/mounted/mirror/do_build(turf/on_wall, mob/user)
 	var/obj/structure/mirror/M = new /obj/structure/mirror(get_turf(user), get_dir(on_wall, user), 1)
-	transfer_prints_to(M, TRUE)
+	transfer_fingerprints_to(M)
 	qdel(src)
 
 /obj/structure/mirror/magic
@@ -99,6 +103,8 @@
 
 	var/mob/living/carbon/human/H = user
 	var/choice = input(user, "Something to change?", "Magical Grooming") as null|anything in list("Name", "Body", "Voice")
+
+	add_fingerprint(user)
 
 	switch(choice)
 		if("Name")

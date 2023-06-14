@@ -149,38 +149,34 @@
 		to_chat(user, "You armed the robot frame")
 		M.use(1)
 		if(user.get_inactive_hand()==src)
-			user.unEquip(src)
-			user.put_in_inactive_hand(B)
+			user.temporarily_remove_item_from_inventory(src)
+			user.put_in_inactive_hand(B, ignore_anim = FALSE)
 		qdel(src)
 	if(istype(W, /obj/item/robot_parts/l_leg))
 		if(l_leg)
 			return
-		user.drop_item()
-		W.forceMove(src)
+		user.drop_transfer_item_to_loc(W, src)
 		l_leg = W
 		updateicon()
 
 	if(istype(W, /obj/item/robot_parts/r_leg))
 		if(r_leg)
 			return
-		user.drop_item()
-		W.forceMove(src)
+		user.drop_transfer_item_to_loc(W, src)
 		r_leg = W
 		updateicon()
 
 	if(istype(W, /obj/item/robot_parts/l_arm))
 		if(l_arm)
 			return
-		user.drop_item()
-		W.forceMove(src)
+		user.drop_transfer_item_to_loc(W, src)
 		l_arm = W
 		updateicon()
 
 	if(istype(W, /obj/item/robot_parts/r_arm))
 		if(r_arm)
 			return
-		user.drop_item()
-		W.forceMove(src)
+		user.drop_transfer_item_to_loc(W, src)
 		r_arm = W
 		updateicon()
 
@@ -189,8 +185,7 @@
 		if(chest)
 			return
 		if(CH.wired && CH.cell)
-			user.drop_item()
-			W.forceMove(src)
+			user.drop_transfer_item_to_loc(W, src)
 			chest = W
 			updateicon()
 		else if(!CH.wired)
@@ -203,8 +198,7 @@
 		if(head)
 			return
 		if(HD.flash2 && HD.flash1)
-			user.drop_item()
-			W.forceMove(src)
+			user.drop_transfer_item_to_loc(W, src)
 			head = W
 			updateicon()
 		else
@@ -219,6 +213,11 @@
 	if(istype(W, /obj/item/mmi))
 		var/obj/item/mmi/M = W
 		if(check_completion())
+			if(M.clock && !isclocker(user))
+				to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you attempt to put the soul vessel into the frame.</span>")
+				user.Confused(10)
+				user.Jitter(6)
+				return
 			if(!isturf(loc))
 				to_chat(user, "<span class='warning'>You can't put [M] in, the frame has to be standing on the ground to be perfectly precise.</span>")
 				return
@@ -273,6 +272,11 @@
 				lawsync = FALSE
 				laws_to_give = new /datum/ai_laws/syndicate_override
 
+			if(M.ninja)
+				aisync = FALSE
+				lawsync = FALSE
+				laws_to_give = new /datum/ai_laws/ninja_override
+
 			if(M.clock)
 				aisync = FALSE
 				lawsync = FALSE
@@ -283,7 +287,7 @@
 			if(!O)
 				return
 
-			user.drop_item()
+			user.drop_from_active_hand()
 
 			var/datum/job_objective/make_cyborg/task = user.mind.findJobTask(/datum/job_objective/make_cyborg)
 			if(istype(task))
@@ -328,6 +332,7 @@
 			O.robot_suit = src
 
 			if(O.mmi.clock) // so robots created from vessel have magic
+				O.UnlinkSelf()
 				SSticker.mode.add_clock_actions(O.mind)
 
 			if(!locomotion)
@@ -399,8 +404,7 @@
 			to_chat(user, "<span class='notice'>You have already inserted a cell!</span>")
 			return
 		else
-			user.drop_item()
-			W.forceMove(src)
+			user.drop_transfer_item_to_loc(W, src)
 			cell = W
 			to_chat(user, "<span class='notice'>You insert the cell!</span>")
 	if(istype(W, /obj/item/stack/cable_coil))
@@ -424,19 +428,17 @@
 			to_chat(user, "<span class='notice'>You have already inserted the eyes!</span>")
 			return
 		else if(flash1)
-			user.drop_item()
-			W.forceMove(src)
+			user.drop_transfer_item_to_loc(W, src)
 			flash2 = W
 			to_chat(user, "<span class='notice'>You insert the flash into the eye socket!</span>")
 		else
-			user.drop_item()
-			W.forceMove(src)
+			user.drop_transfer_item_to_loc(W, src)
 			flash1 = W
 			to_chat(user, "<span class='notice'>You insert the flash into the eye socket!</span>")
 	else if(istype(W, /obj/item/stock_parts/manipulator))
 		to_chat(user, "<span class='notice'>You install some manipulators and modify the head, creating a functional spider-bot!</span>")
 		new /mob/living/simple_animal/spiderbot(get_turf(loc))
-		user.drop_item()
+		user.drop_transfer_item_to_loc(W, src)
 		qdel(W)
 		qdel(src)
 

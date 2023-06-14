@@ -1,7 +1,7 @@
 /obj/item/stock_parts/cell
 	name = "power cell"
 	desc = "A rechargeable electrochemical power cell."
-	icon = 'icons/obj/power.dmi'
+	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "cell"
 	item_state = "cell"
 	origin_tech = "powerstorage=1"
@@ -59,7 +59,7 @@
 /obj/item/stock_parts/cell/update_icon()
 	overlays.Cut()
 	if(grown_battery)
-		overlays += image('icons/obj/power.dmi', "grown_wires")
+		overlays += image('icons/obj/engines_and_power/power.dmi', "grown_wires")
 	if(charge < 0.01)
 		return
 	else if(charge/maxcharge >=0.995)
@@ -129,12 +129,12 @@
 	var/light_impact_range = round(sqrt(charge) / 30)
 	var/flash_range = light_impact_range
 	if(light_impact_range == 0)
-		rigged = FALSE
 		corrupt()
 		return
 	//explosion(T, 0, 1, 2, 2)
 	log_admin("LOG: Rigged power cell explosion, last touched by [fingerprintslast]")
 	message_admins("LOG: Rigged power cell explosion, last touched by [fingerprintslast]")
+	rigged = FALSE
 
 	explosion(T, devastation_range, heavy_impact_range, light_impact_range, flash_range, cause = src)
 	qdel(src)

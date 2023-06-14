@@ -52,9 +52,10 @@
 	var/lying_prev = 0
 	var/lastpuke = 0
 	var/can_strip = 1
-	var/list/languages = list()         // For speaking/listening.
-	var/list/abilities = list()         // For species-derived or admin-given powers.
-	var/list/speak_emote = list("says") // Verbs used when speaking. Defaults to 'say' if speak_emote is null.
+	var/list/languages = list()           // For speaking/listening.
+	var/list/temporary_languages = list() // For reagents that grant language knowlege.
+	var/list/abilities = list()           // For species-derived or admin-given powers.
+	var/list/speak_emote = list("says")   // Verbs used when speaking. Defaults to 'say' if speak_emote is null.
 	var/emote_type = 1		// Define emote default type, 1 for seen emotes, 2 for heard emotes
 	var/name_archive //For admin things like possession
 	var/gunshot_residue
@@ -204,12 +205,6 @@
 	var/registered_z
 
 	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override
-
-
-	/// The location our runechat message should appear. Should be src by default.
-	var/atom/runechat_msg_location
-
-	var/tts_seed = null
 
 	/// The datum receiving keyboard input. parent mob by default.
 	var/datum/input_focus = null

@@ -14,6 +14,8 @@
 
 #define isitem(A) (istype(A, /obj/item))
 
+#define isstack(A) (istype(A, /obj/item/stack))
+
 #define ispda(A) (istype(A, /obj/item/pda))
 
 #define ismachinery(A) (istype(A, /obj/machinery))
@@ -24,9 +26,13 @@
 
 #define iseffect(A) (istype(A, /obj/effect))
 
+#define isprojectile(A) (istype(A, /obj/item/projectile))
+
 #define is_cleanable(A) (istype(A, /obj/effect/decal/cleanable) || istype(A, /obj/effect/rune)) //if something is cleanable
 
 #define is_pen(W) (istype(W, /obj/item/pen))
+
+#define isclothing(A) (istype(A, /obj/item/clothing))
 
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
@@ -67,6 +73,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define isreinforcedwallturf(A) istype(A, /turf/simulated/wall/r_wall)
 
 #define ismineralturf(A) istype(A, /turf/simulated/mineral)
+
+#define isancientturf(A) istype(A, /turf/simulated/mineral/ancient)
 
 #define islava(A) (istype(A, /turf/simulated/floor/plating/lava))
 

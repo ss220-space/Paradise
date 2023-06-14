@@ -12,11 +12,18 @@
 
 	// Emotions
 	var/list/emotions = list()
-	for(var/name in GLOB.pai_emotions)
+	for(var/name in GLOB.base_pai_emotions)
 		var/list/emote = list()
 		emote["name"] = name
-		emote["id"] = GLOB.pai_emotions[name]
+		emote["id"] = GLOB.base_pai_emotions[name]
 		emotions[++emotions.len] = emote
+	if(pai_holder.syndipai)
+		for(var/name in GLOB.spec_pai_emotions)
+			var/list/emote = list()
+			emote["name"] = name
+			emote["id"] = GLOB.spec_pai_emotions[name]
+			emote["syndi"] = TRUE
+			emotions[++emotions.len] = emote
 
 	data["emotions"] = emotions
 	data["current_emotion"] = user.card.current_emotion
@@ -24,7 +31,8 @@
 	var/list/available_s = list()
 	for(var/s in GLOB.pai_software_by_key)
 		var/datum/pai_software/PS = GLOB.pai_software_by_key[s]
-		available_s += list(list("name" = PS.name, "key" = PS.id, "icon" = PS.ui_icon, "cost" = PS.ram_cost))
+		if(!PS.only_syndi || pai_holder.syndipai)
+			available_s += list(list("name" = PS.name, "key" = PS.id, "icon" = PS.ui_icon, "cost" = PS.ram_cost, "syndi" = PS.only_syndi))
 
 	// Split to installed software and toggles for the UI
 	var/list/installed_s = list()
@@ -54,7 +62,7 @@
 				pai_holder.ram -= newPS.ram_cost
 				pai_holder.installed_software[newPS.id] = newPS
 		if("setEmotion")
-			var/emotion = clamp(text2num(params["emotion"]), 1, 9)
+			var/emotion = clamp(text2num(params["emotion"]), 1, 10)
 			pai_holder.card.setEmotion(emotion)
 		if("startSoftware")
 			var/software_key = params["software_key"]
@@ -317,7 +325,7 @@
 					to_chat(usr, "<span class='warning'>You are already hacking that door!</span>")
 				else
 					hacking = TRUE
-					INVOKE_ASYNC(src, /datum/pai_software/door_jack/.proc/hackloop)
+					INVOKE_ASYNC(src, TYPE_PROC_REF(/datum/pai_software/door_jack, hackloop))
 		if("cancel")
 			hackdoor = null
 		if("cable")
@@ -386,3 +394,88 @@
 		data["burn"] = held.getFireLoss()
 
 	return data
+
+// Camera Bug //
+/datum/pai_software/cam_bug
+	name = "Internal Camera Bug"
+	ram_cost = 30
+	id = "cam_bug"
+	ui_icon = "eye"
+	template_file = "pai_camera_bug"
+	only_syndi = TRUE
+
+/datum/pai_software/cam_bug/ui_act(action, list/params)
+	if(..())
+		return
+
+	switch(action)
+		if("ui_interact")
+			pai_holder.integrated_console.ui_interact(pai_holder)
+
+// Secrete Chemicals (as borer) //
+/datum/pai_software/sec_chem
+	name = "Special Secrete Chemical"
+	ram_cost = 60
+	id = "sec_chem"
+	ui_icon = "blind"
+	template_file = "pai_sec_chem"
+	only_syndi = TRUE
+
+/datum/pai_software/sec_chem/get_app_data(mob/living/silicon/pai/user)
+	var/list/data = list()
+
+	var/mob/living/held = get_holding_mob(FALSE)
+
+	if(isliving(held))
+		data["holder"] = held.name
+		data["dead"] = (held.stat > UNCONSCIOUS)
+		data["health"] = held.health
+
+	var/list/available_c = list()
+	for(var/datum in typesof(/datum/pai_chem))
+		var/datum/pai_chem/C = datum
+		if(initial(C.chemname))
+			available_c += list(list("name" = initial(C.chemname), "key" = initial(C.key), "desc" = initial(C.chemdesc), "cost" = initial(C.chemuse)))
+
+	data["current_chemicals"] = pai_holder.chemicals
+	data["available_chemicals"] = available_c
+	return data
+
+/datum/pai_software/sec_chem/ui_act(action, list/params)
+	if(..())
+		return
+
+	switch(action)
+		if("secreteChemicals")
+			var/mob/living/held = get_holding_mob(FALSE)
+			var/datum/pai_chem/C = null
+			for(var/datum in typesof(/datum/pai_chem))
+				var/datum/pai_chem/test = datum
+				if(initial(test.key) == params["key"])
+					C = new test()
+					break
+			if(!C || !held || !src)
+				return
+			var/datum/reagent/R = GLOB.chemical_reagents_list[C.key]
+
+			to_chat(pai_holder, "<span class='notice'>You inject [R.name] from your internal secret laboratory into [held]'s bloodstream.</span>")
+			held.reagents.add_reagent(C.key, C.quantity)
+			pai_holder.chemicals -= C.chemuse
+
+// Advanced Security Records //
+/datum/pai_software/adv_sec_records
+	name = "Advanced Security Records"
+	ram_cost = 25
+	id = "adv_sec_records"
+	template_file = "pai_advsecrecords"
+	ui_icon = "calendar"
+	only_syndi = TRUE
+
+/datum/pai_software/adv_sec_records/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return
+
+	switch(action)
+		if("ui_interact")
+			pai_holder.integrated_records.ui_interact(pai_holder)
+

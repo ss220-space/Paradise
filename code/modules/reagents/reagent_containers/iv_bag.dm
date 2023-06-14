@@ -17,6 +17,9 @@
 	var/mode = IV_INJECT
 	var/mob/living/carbon/human/injection_target
 
+/obj/item/reagent_containers/iv_bag/empty()
+	set hidden = TRUE
+
 /obj/item/reagent_containers/iv_bag/Destroy()
 	end_processing()
 	return ..()
@@ -162,24 +165,31 @@
 	list_reagents = list("salglu_solution" = 200)
 
 /obj/item/reagent_containers/iv_bag/salglu/Initialize(mapload)
-	. = ..()
 	name = "[initial(name)] - Saline Glucose"
+	. = ..()
 
 /obj/item/reagent_containers/iv_bag/blood // Don't use this - just an abstract type to allow blood bags to have a common blood_type var for ease of creation.
-	var/blood_type
+	var/blood_type = "O-"
+	var/blood_species = "Human"
 	amount_per_transfer_from_this = 5 // Bloodbags are set to transfer 5 units by default.
 
 /obj/item/reagent_containers/iv_bag/blood/Initialize(mapload)
+	if(blood_type != null && blood_species != null)
+		name = "[initial(name)] - [blood_type] - [blood_species]"
+		reagents.add_reagent("blood", 200, list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))
 	. = ..()
-	if(blood_type != null)
-		name = "[initial(name)] - [blood_type]"
-		reagents.add_reagent("blood", 200, list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=blood_type,"resistances"=null,"trace_chem"=null))
-		update_icon()
 
 
-/obj/item/reagent_containers/iv_bag/blood/random/Initialize()
+/obj/item/reagent_containers/iv_bag/blood/random/Initialize(mapload)
 	blood_type = pick("A+", "A-", "B+", "B-", "O+", "O-")
-	return ..()
+	blood_species = pick("Human", "Diona", "Drask", "Grey", "Kidan", "Tajaran", "Vulpkanin", "Skrell", "Unathi", "Nian", "Vox", "Wryn")
+	. = ..()
+
+/obj/item/reagent_containers/iv_bag/blood/ABPlus
+	blood_type = "AB+"
+
+/obj/item/reagent_containers/iv_bag/blood/ABMinus
+	blood_type = "AB-"
 
 /obj/item/reagent_containers/iv_bag/blood/APlus
 	blood_type = "A+"
@@ -199,9 +209,61 @@
 /obj/item/reagent_containers/iv_bag/blood/OMinus
 	blood_type = "O-"
 
+/obj/item/reagent_containers/iv_bag/blood/skrell
+	blood_species = "Skrell"
+
+/obj/item/reagent_containers/iv_bag/blood/tajaran
+	blood_species = "Tajaran"
+
+/obj/item/reagent_containers/iv_bag/blood/vulpkanin
+	blood_species = "Vulpkanin"
+
+/obj/item/reagent_containers/iv_bag/blood/unathi
+	blood_species = "Unathi"
+
+/obj/item/reagent_containers/iv_bag/blood/kidan
+	blood_species = "Kidan"
+
+/obj/item/reagent_containers/iv_bag/blood/grey
+	blood_species = "Grey"
+
+/obj/item/reagent_containers/iv_bag/blood/diona
+	blood_species = "Diona"
+
+/obj/item/reagent_containers/iv_bag/blood/wryn
+	blood_species = "Wryn"
+
+/obj/item/reagent_containers/iv_bag/blood/nian
+	blood_species = "Nian"
+
+/obj/item/reagent_containers/iv_bag/blood/vox
+	blood_species = "Vox"
+
+/obj/item/reagent_containers/iv_bag/bloodsynthetic
+	var/blood_type = "Synthetic"
+	amount_per_transfer_from_this = 5
+
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis
+	name = "\improper IV Bag - Oxygenis"
+	var/blood_species = "Oxygen - synthetic"
+
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis/Initialize(mapload)
+	if(blood_type != null && blood_species != null)
+		reagents.add_reagent("sbloodoxy", 200, list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))
+	. = ..()
+
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis
+	name = "\improper IV Bag - Nitrogenis"
+	var/blood_species = "Vox - synthetic"
+
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis/Initialize(mapload)
+	if(blood_type != null && blood_species != null)
+		reagents.add_reagent("sbloodvox", 200, list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))
+	. = ..()
+
 /obj/item/reagent_containers/iv_bag/slime
 	list_reagents = list("slimejelly" = 200)
 
 /obj/item/reagent_containers/iv_bag/slime/Initialize(mapload)
-	. = ..()
 	name = "[initial(name)] - Slime Jelly"
+	. = ..()

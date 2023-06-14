@@ -7,9 +7,11 @@
 	START_PROCESSING(SSobj, src)
 
 
-/obj/item/mecha_parts/mecha_equipment/medical/can_attach(obj/mecha/medical/M)
-	if(..() && istype(M))
-		return 1
+/obj/item/mecha_parts/mecha_equipment/medical/can_attach(obj/mecha/M)
+	if(..())
+		if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/combat/lockersyndie))
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/medical/attach(obj/mecha/M)
 	..()
@@ -31,7 +33,7 @@
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper
 	name = "mounted sleeper"
 	desc = "Equipment for medical exosuits. A mounted sleeper that stabilizes patients and can inject reagents in the exosuit's reserves."
-	icon = 'icons/obj/cryogenic2.dmi'
+	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper"
 	origin_tech = "engineering=3;biotech=3;plasmatech=2"
 	energy_drain = 20
@@ -195,11 +197,13 @@
 	if(!R || !patient || !SG || !(SG in chassis.equipment))
 		return 0
 	var/to_inject = min(R.volume, inject_amount)
-	if(to_inject && patient.reagents.get_reagent_amount(R.id) + to_inject <= inject_amount*2)
+	if(to_inject)
 		occupant_message("Injecting [patient] with [to_inject] units of [R.name].")
 		log_message("Injecting [patient] with [to_inject] units of [R.name].")
 		add_attack_logs(chassis.occupant, patient, "Injected with [name] containing [R], transferred [to_inject] units", R.harmless ? ATKLOG_ALMOSTALL : null)
 		SG.reagents.trans_id_to(patient,R.id,to_inject)
+		var/fraction = min(inject_amount/R.volume, 1)
+		SG.reagents.reaction(patient, REAGENT_INGEST, fraction)
 		update_equip_info()
 	return
 
@@ -241,7 +245,7 @@
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun
 	name = "exosuit syringe gun"
 	desc = "Equipment for medical exosuits. A chem synthesizer with syringe gun. Reagents inside are held in stasis, so no reactions will occur."
-	icon = 'icons/obj/guns/projectile.dmi'
+	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "syringegun"
 	var/list/syringes
 	var/list/known_reagents
@@ -266,6 +270,10 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/detach()
 	STOP_PROCESSING(SSobj, src)
+	if(istype(src.loc, /obj/mecha/medical/odysseus))
+		var/obj/mecha/medical/odysseus/O = src.loc
+		for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/S in O.equipment)
+			S.detach()
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/Destroy()
@@ -277,9 +285,9 @@
 	if(reagents)
 		reagents.set_reacting(TRUE)
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/can_attach(obj/mecha/medical/M)
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/can_attach(obj/mecha/M)
 	if(..())
-		if(istype(M))
+		if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/combat/lockersyndie))
 			return 1
 	return 0
 
@@ -300,6 +308,8 @@
 		return
 	if(mode)
 		return analyze_reagents(target)
+	if(!is_faced_target(target))
+		return FALSE
 	if(!syringes.len)
 		occupant_message("<span class=\"alert\">No syringes loaded.</span>")
 		return
@@ -528,6 +538,37 @@
 		reagents.add_reagent(reagent,amount)
 		chassis.use_power(energy_drain)
 
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade
+	name = "additional system for the reproduction of reagents"
+	desc = "Upgrade for the syringe gun. Increases synthesis speed and maximum capacity of reagents. Requires installation of the syringe gun system."
+	icon = 'icons/obj/mecha/mecha_equipment.dmi'
+	icon_state = "beaker_upgrade"
+	origin_tech = "materials=5;engineering=5;biotech=6"
+	energy_drain = 10
+	selectable = 0
+	var/improv_max_volume = 300
+	var/imrov_synth_speed = 20
+
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/can_attach(obj/mecha/M)
+	if(..())
+		for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/S in M.equipment)
+			return 1
+	return 0
+
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/attach(obj/mecha/M)
+	..()
+	for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/S in chassis.equipment)
+		S.max_volume = improv_max_volume
+		S.synth_speed = imrov_synth_speed
+		S.reagents.maximum_volume = improv_max_volume
+
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/detach()
+	for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/S in chassis.equipment)
+		S.max_volume = initial(S.max_volume)
+		S.synth_speed = initial(S.synth_speed)
+		S.reagents.maximum_volume = S.max_volume
+	return ..()
+
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw
 	name = "rescue jaw"
 	desc = "Emergency rescue jaws, designed to help first responders reach their patients. Opens doors and removes obstacles."
@@ -570,7 +611,31 @@
 				step(L, SOUTH)
 
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/can_attach(obj/mecha/M)
-	if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/working/ripley/firefighter))	//Odys or firefighters
+	if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/working/ripley/firefighter) || istype(M, /obj/mecha/combat/lockersyndie))	//Odys or firefighters or syndielocker
 		if(M.equipment.len < M.max_equip)
 			return TRUE
 	return FALSE
+
+/obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system
+	name = "improved exosuit control system"
+	desc = "Equipment for medical exosuits. A system that provides more precise control of exosuit movement. In other words - Gotta go fast!"
+	icon = 'icons/obj/mecha/mecha_equipment.dmi'
+	icon_state = "move_plating"
+	origin_tech = "materials=5;engineering=5;magnets=4;powerstorage=4"
+	energy_drain = 20
+	selectable = 0
+	var/improv_step_in = 2
+
+/obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system/attach(obj/mecha/M)
+	..()
+	M.step_in = improv_step_in
+
+/obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system/detach()
+	if(istype(src.loc, /obj/mecha/medical/odysseus))
+		var/obj/mecha/medical/odysseus/O = src.loc
+		O.step_in = initial(O.step_in)
+		return ..()
+	if(istype(src.loc, /obj/mecha/combat/lockersyndie))
+		var/obj/mecha/combat/lockersyndie/S = src.loc
+		S.step_in = initial(S.step_in)
+		return ..()

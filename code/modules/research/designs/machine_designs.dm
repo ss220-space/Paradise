@@ -202,6 +202,16 @@
 	build_path = /obj/item/circuitboard/sleeper
 	category = list("Medical Machinery")
 
+/datum/design/botanical_dispenser
+	name = "Machine Board (Botanical Dispenser)"
+	desc = "The circuit board for a Chem Dispenser."
+	id = "botanical_dispenser"
+	req_tech = list("programming" = 5, "biotech" = 3, "materials" = 4, "plasmatech" = 4)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/chem_dispenser/botanical
+	category = list("Hydroponics Machinery")
+
 /datum/design/biogenerator
 	name = "Machine Board (Biogenerator)"
 	desc = "The circuit board for a Biogenerator."

@@ -8,8 +8,7 @@
 			to_chat(ninja, "<span class='warning'>You cannot install the upgrade to [src] while wearing it.</span>")
 			return
 
-		if(ninja.unEquip(I))
-			I.forceMove(src)
+		if(ninja.drop_transfer_item_to_loc(I, src))
 			jetpack = I
 			to_chat(ninja, "<span class='notice'>You successfully install the jetpack into [src].</span>")
 			return
@@ -25,8 +24,10 @@
 			a_boost.toggle_button_on_off()
 			a_boost.recharge_action()
 			to_chat(ninja, span_notice("The suit's adrenaline boost is now reloaded."))
-		else if(uranium_stack.amount >= a_transfer && heal_chems.charge_counter < heal_chems.charge_max)
-			uranium_stack.use(a_transfer)
+	if(istype(I, /obj/item/stack/ore/bluespace_crystal))
+		var/obj/item/stack/ore/bluespace_crystal/crystal_stack = I
+		if(crystal_stack.amount >= a_transfer && heal_chems.charge_counter < heal_chems.charge_max)
+			crystal_stack.use(a_transfer)
 			heal_chems.action_ready = TRUE
 			heal_chems.toggle_button_on_off()
 			heal_chems.recharge_action()
@@ -46,7 +47,7 @@
 			to_chat(ninja, span_notice("Higher maximum capacity detected.\nUpgrading..."))
 			if(do_after(ninja,s_delay, target = src))
 				// Отбираем батарейку у игрока
-				if(!ninja.drop_item())
+				if(!ninja.temporarily_remove_item_from_inventory(new_cell))
 					return
 				// Запихиваем её в костюм
 				new_cell.forceMove(src)

@@ -144,7 +144,7 @@
 		set_frequency(frequency)
 
 /obj/machinery/airlock_sensor
-	icon = 'icons/obj/airlock_machines.dmi'
+	icon = 'icons/obj/machines/airlock_machines.dmi'
 	icon_state = "airlock_sensor_off"
 	name = "airlock sensor"
 	anchored = 1
@@ -170,6 +170,7 @@
 		icon_state = "airlock_sensor_off"
 
 /obj/machinery/airlock_sensor/attack_hand(mob/user)
+	add_fingerprint(user)
 	var/datum/signal/signal = new
 	signal.transmission_method = 1 //radio signal
 	signal.data["tag"] = master_tag
@@ -225,7 +226,7 @@
 	command = "cycle_exterior"
 
 /obj/machinery/access_button
-	icon = 'icons/obj/airlock_machines.dmi'
+	icon = 'icons/obj/machines/airlock_machines.dmi'
 	icon_state = "access_button_standby"
 	name = "access button"
 	anchored = 1

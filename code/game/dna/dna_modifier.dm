@@ -57,7 +57,7 @@
 /obj/machinery/dna_scannernew
 	name = "\improper DNA modifier"
 	desc = "It scans DNA structures."
-	icon = 'icons/obj/cryogenic2.dmi'
+	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "scanner_open"
 	density = TRUE
 	anchored = TRUE
@@ -215,13 +215,13 @@
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
 			return
 
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(I, src))
 			to_chat(user, "<span class='warning'>\The [I] is stuck to you!</span>")
 			return
 
+		add_fingerprint(user)
 		beaker = I
 		SStgui.update_uis(src)
-		I.forceMove(src)
 		user.visible_message("[user] adds \a [I] to \the [src]!", "You add \a [I] to \the [src]!")
 		return
 	if(istype(I, /obj/item/grab))
@@ -325,7 +325,7 @@
 /obj/machinery/computer/scan_consolenew
 	name = "\improper DNA Modifier access console"
 	desc = "Allows you to scan and modify DNA."
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_screen = "dna"
 	icon_keyboard = "med_key"
 	density = TRUE
@@ -352,7 +352,8 @@
 /obj/machinery/computer/scan_consolenew/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/disk/data)) //INSERT SOME diskS
 		if(!disk)
-			user.drop_item()
+			add_fingerprint(user)
+			user.drop_from_active_hand()
 			I.forceMove(src)
 			disk = I
 			to_chat(user, "You insert [I].")
@@ -399,6 +400,7 @@
 		for(dir in list(NORTH,EAST,SOUTH,WEST))
 			connected = locate(/obj/machinery/dna_scannernew, get_step(src, dir))
 			if(!isnull(connected))
+				add_fingerprint(user)
 				attack_hand(user)
 				break
 	else
@@ -794,7 +796,7 @@
 
 	// Cooldown
 	injector_ready = FALSE
-	addtimer(CALLBACK(src, .proc/injector_cooldown_finish), 30 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(injector_cooldown_finish)), (30 / connected.precision_coeff) SECONDS)
 
 	// Create it
 	var/datum/dna2/record/buf = buffers[buffer_id]

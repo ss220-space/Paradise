@@ -8,6 +8,8 @@
 		spellremove(src)
 	mobspellremove(src)
 	QDEL_LIST(viruses)
+	for(var/alert in alerts)
+		clear_alert(alert)
 	ghostize()
 	QDEL_LIST_ASSOC_VAL(tkgrabbed_objects)
 	for(var/I in tkgrabbed_objects)
@@ -31,8 +33,6 @@
 	input_focus = src
 	reset_perspective(src)
 	prepare_huds()
-	runechat_msg_location = src
-	update_runechat_msg_location()
 	. = ..()
 
 /atom/proc/prepare_huds()
@@ -172,324 +172,6 @@
 /mob/proc/movement_delay()
 	return 0
 
-//This proc is called whenever someone clicks an inventory ui slot.
-/mob/proc/attack_ui(slot)
-	var/obj/item/W = get_active_hand()
-
-	if(istype(W))
-		equip_to_slot_if_possible(W, slot)
-	else if(!restrained())
-		W = get_item_by_slot(slot)
-		if(W)
-			W.attack_hand(src)
-
-	if(ishuman(src) && W == src:head)
-		src:update_hair()
-		src:update_fhair()
-
-/mob/proc/put_in_any_hand_if_possible(obj/item/W as obj, del_on_fail = 0, disable_warning = 1)
-	if(equip_to_slot_if_possible(W, slot_l_hand, del_on_fail, disable_warning))
-		return 1
-	else if(equip_to_slot_if_possible(W, slot_r_hand, del_on_fail, disable_warning))
-		return 1
-	return 0
-
-
-
-//This is a SAFE proc. Use this instead of equip_to_slot()!
-//set del_on_fail to have it delete W if it fails to equip
-//set disable_warning to disable the 'you are unable to equip that' warning.
-/mob/proc/equip_to_slot_if_possible(obj/item/W, slot, del_on_fail = 0, disable_warning = 0)
-	if(!istype(W)) return 0
-
-	if(!W.mob_can_equip(src, slot, disable_warning))
-		if(del_on_fail)
-			qdel(W)
-		else
-			if(!disable_warning)
-				to_chat(src, "<span class='warning'>Вы не можете это надеть.</span>")//Only print if del_on_fail is false
-
-		return 0
-
-	equip_to_slot(W, slot) //This proc should not ever fail.
-	return 1
-
-//This is an UNSAFE proc. It merely handles the actual job of equipping. All the checks on whether you can or can't eqip need to be done before! Use mob_can_equip() for that task.
-//In most cases you will want to use equip_to_slot_if_possible()
-/mob/proc/equip_to_slot(obj/item/W, slot)
-	return
-
-//This is just a commonly used configuration for the equip_to_slot_if_possible() proc, used to equip people when the rounds tarts and when events happen and such.
-/mob/proc/equip_to_slot_or_del(obj/item/W as obj, slot)
-	return equip_to_slot_if_possible(W, slot, TRUE, TRUE)
-
-// Convinience proc.  Collects crap that fails to equip either onto the mob's back, or drops it.
-// Used in job equipping so shit doesn't pile up at the start loc.
-/mob/living/carbon/human/proc/equip_or_collect(var/obj/item/W, var/slot)
-	if(W.mob_can_equip(src, slot, 1))
-		//Mob can equip.  Equip it.
-		equip_to_slot_or_del(W, slot)
-	else
-		//Mob can't equip it.  Put it their backpack or toss it on the floor
-		if(istype(back, /obj/item/storage))
-			var/obj/item/storage/S = back
-			//Now, B represents a container we can insert W into.
-			S.handle_item_insertion(W,1)
-			return S
-
-		var/turf/T = get_turf(src)
-		if(istype(T))
-			W.forceMove(T)
-			return T
-
-
-//The list of slots by priority. equip_to_appropriate_slot() uses this list. Doesn't matter if a mob type doesn't have a slot.
-GLOBAL_LIST_INIT(slot_equipment_priority, list( \
-		slot_back,\
-		slot_wear_pda,\
-		slot_wear_id,\
-		slot_w_uniform,\
-		slot_wear_suit,\
-		slot_wear_mask,\
-		slot_neck,\
-		slot_head,\
-		slot_shoes,\
-		slot_gloves,\
-		slot_l_ear,\
-		slot_r_ear,\
-		slot_glasses,\
-		slot_belt,\
-		slot_s_store,\
-		slot_tie,\
-		slot_l_store,\
-		slot_r_store\
-	))
-
-//puts the item "W" into an appropriate slot in a human's inventory
-//returns 0 if it cannot, 1 if successful
-/mob/proc/equip_to_appropriate_slot(obj/item/W)
-	if(!istype(W)) return 0
-
-	for(var/slot in GLOB.slot_equipment_priority)
-		if(istype(W,/obj/item/storage/) && slot == slot_head) // Storage items should be put on the belt before the head
-			continue
-		if(equip_to_slot_if_possible(W, slot, FALSE, TRUE)) //del_on_fail = 0; disable_warning = 0
-			return 1
-
-	return 0
-
-/mob/proc/check_for_open_slot(obj/item/W)
-	if(!istype(W)) return 0
-	var/openslot = 0
-	for(var/slot in GLOB.slot_equipment_priority)
-		if(W.mob_check_equip(src, slot, 1) == 1)
-			openslot = 1
-			break
-	return openslot
-
-/obj/item/proc/mob_check_equip(M as mob, slot, disable_warning = 0)
-	if(!M) return 0
-	if(!slot) return 0
-	if(ishuman(M))
-		//START HUMAN
-		var/mob/living/carbon/human/H = M
-
-		switch(slot)
-			if(slot_l_hand)
-				if(H.l_hand)
-					return 0
-				return 1
-			if(slot_r_hand)
-				if(H.r_hand)
-					return 0
-				return 1
-			if(slot_wear_mask)
-				if( !(slot_flags & SLOT_MASK) )
-					return 0
-				if(H.wear_mask)
-					return 0
-				return 1
-			if(slot_back)
-				if( !(slot_flags & SLOT_BACK) )
-					return 0
-				if(H.back)
-					if(!(H.back.flags & NODROP))
-						return 2
-					else
-						return 0
-				return 1
-			if(slot_wear_suit)
-				if( !(slot_flags & SLOT_OCLOTHING) )
-					return 0
-				if(H.wear_suit)
-					if(!(H.wear_suit.flags & NODROP))
-						return 2
-					else
-						return 0
-				return 1
-			if(slot_gloves)
-				if( !(slot_flags & SLOT_GLOVES) )
-					return 0
-				if(H.gloves)
-					if(!(H.gloves.flags & NODROP))
-						return 2
-					else
-						return 0
-				return 1
-			if(slot_neck)
-				if(!(slot_flags & SLOT_NECK))
-					return 0
-				if(H.neck)
-					if(!(H.neck.flags & NODROP))
-						return 2
-					else
-						return 0
-				return 1
-			if(slot_shoes)
-				if( !(slot_flags & SLOT_FEET) )
-					return 0
-				if(H.shoes)
-					if(!(H.shoes.flags & NODROP))
-						return 2
-					else
-						return 0
-				return 1
-			if(slot_belt)
-				if(!H.w_uniform)
-					if(!disable_warning)
-						to_chat(H, "<span class='warning'>Наденьте комбинезон, чтобы навесить [name] на него.</span>")
-					return 0
-				if( !(slot_flags & SLOT_BELT) )
-					return 0
-				if(H.belt)
-					if(!(H.belt.flags & NODROP))
-						return 2
-					else
-						return 0
-				return 1
-			if(slot_glasses)
-				if( !(slot_flags & SLOT_EYES) )
-					return 0
-				if(H.glasses)
-					if(!(H.glasses.flags & NODROP))
-						return 2
-					else
-						return 0
-				return 1
-			if(slot_head)
-				if( !(slot_flags & SLOT_HEAD) )
-					return 0
-				if(H.head)
-					if(!(H.head.flags & NODROP))
-						return 2
-					else
-						return 0
-				return 1
-			if(slot_l_ear)
-				if( !(slot_flags & slot_l_ear) )
-					return 0
-				if(H.l_ear)
-					if(!(H.l_ear.flags & NODROP))
-						return 2
-					else
-						return 0
-				return 1
-			if(slot_r_ear)
-				if( !(slot_flags & slot_r_ear) )
-					return 0
-				if(H.r_ear)
-					if(!(H.r_ear.flags & NODROP))
-						return 2
-					else
-						return 0
-				return 1
-			if(slot_w_uniform)
-				if( !(slot_flags & SLOT_ICLOTHING) )
-					return 0
-				if(H.w_uniform)
-					if(!(H.w_uniform.flags & NODROP))
-						return 2
-					else
-						return 0
-				return 1
-			if(slot_wear_id)
-				if(!H.w_uniform)
-					if(!disable_warning)
-						to_chat(H, "<span class='warning'>Наденьте комбинезон, чтобы прикрепить к нему [name].</span>")
-					return 0
-				if( !(slot_flags & SLOT_ID) )
-					return 0
-				if(H.wear_id)
-					if(!(H.wear_id.flags & NODROP))
-						return 2
-					else
-						return 0
-				return 1
-			if(slot_l_store)
-				if(H.l_store)
-					return 0
-				if(!H.w_uniform)
-					if(!disable_warning)
-						to_chat(H, "<span class='warning'>Наденьте комбинезон, чтобы положить [name] в карман.</span>")
-					return 0
-				if(slot_flags & SLOT_DENYPOCKET)
-					return
-				if( w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_POCKET) )
-					return 1
-			if(slot_r_store)
-				if(H.r_store)
-					return 0
-				if(!H.w_uniform)
-					if(!disable_warning)
-						to_chat(H, "<span class='warning'>Наденьте комбинезон, чтобы положить [name] в карман.</span>")
-					return 0
-				if(slot_flags & SLOT_DENYPOCKET)
-					return 0
-				if( w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_POCKET) )
-					return 1
-				return 0
-			if(slot_s_store)
-				if(!H.wear_suit)
-					if(!disable_warning)
-						to_chat(H, "<span class='warning'>Наденьте верхнюю одежду, чтобы положить [name] в карман.</span>")
-					return 0
-				if(!H.wear_suit.allowed)
-					if(!disable_warning)
-						to_chat(usr, "Вы как-то достали костюм без хранения разрешенных предметов. Прекратите это.")
-					return 0
-				if(src.w_class > WEIGHT_CLASS_BULKY)
-					if(!disable_warning)
-						to_chat(usr, "[name] слишком большого размера и не влезает в карман верхней одежды.")
-					return 0
-				if( istype(src, /obj/item/pda) || istype(src, /obj/item/pen) || is_type_in_list(src, H.wear_suit.allowed) )
-					if(H.s_store)
-						if(!(H.s_store.flags & NODROP))
-							return 2
-						else
-							return 0
-					else
-						return 1
-				return 0
-			if(slot_handcuffed)
-				if(H.handcuffed)
-					return 0
-				if(!istype(src, /obj/item/restraints/handcuffs))
-					return 0
-				return 1
-			if(slot_legcuffed)
-				if(H.legcuffed)
-					return 0
-				if(!istype(src, /obj/item/restraints/legcuffs))
-					return 0
-				return 1
-			if(slot_in_backpack)
-				if(H.back && istype(H.back, /obj/item/storage/backpack))
-					var/obj/item/storage/backpack/B = H.back
-					if(B.contents.len < B.storage_slots && w_class <= B.max_w_class)
-						return 1
-				return 0
-		return 0 //Unsupported slot
-		//END HUMAN
 
 /mob/proc/get_visible_mobs()
 	var/list/seen_mobs = list()
@@ -601,13 +283,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	set name = "Examine"
 	set category = "IC"
 
+	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), A))
+
+/mob/proc/run_examinate(atom/A)
 	if(!has_vision(information_only = TRUE) && !isobserver(src))
 		to_chat(src, "<span class='notice'>Здесь что-то есть, но вы не видите — что именно.</span>")
 		return 1
-
-	var/is_antag = (isAntag(src) || isobserver(src)) //ghosts don't have minds
-	if(client)
-		client.update_description_holders(A, is_antag)
 
 	face_atom(A)
 	var/list/result = A.examine(src)
@@ -625,14 +306,20 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		return
 	if(!isturf(loc) || istype(A, /obj/effect/temp_visual/point))
 		return FALSE
-	if(!(A in view(src)))
+
+	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_pointed), A))
+
+/// possibly delayed verb that finishes the pointing process starting in [/mob/verb/pointed()].
+/// either called immediately or in the tick after pointed() was called, as per the [DEFAULT_QUEUE_OR_CALL_VERB()] macro
+/mob/proc/run_pointed(atom/A)
+	if(client && !(A in view(client.view, src)))
 		return FALSE
+
+	changeNext_move(CLICK_CD_POINT)
 
 	var/tile = get_turf(A)
 	if(!tile)
 		return FALSE
-
-	changeNext_move(CLICK_CD_POINT)
 	var/obj/P = new /obj/effect/temp_visual/point(tile)
 	P.invisibility = invisibility
 	if(get_turf(src) != tile)
@@ -719,6 +406,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 	msg = sanitize_simple(html_encode(msg), list("\n" = "<BR>"))
+	msg = sanitize_censored_patterns(msg)
 
 	var/combined = length(memory + msg)
 	if(mind && (combined < MAX_PAPER_MESSAGE_LEN))
@@ -914,6 +602,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			src:cameraFollow = null
 
 /mob/Topic(href, href_list)
+	. = ..()
 	if(href_list["mach_close"])
 		var/t1 = text("window=[href_list["mach_close"]]")
 		unset_machine()
@@ -944,8 +633,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		onclose(usr, "[name]")
 	if(href_list["flavor_change"])
 		update_flavor_text()
-
-	return
 
 // The src mob is trying to strip an item from someone
 // Defined in living.dm
@@ -1057,8 +744,18 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 // this function displays the station time in the status panel
 /mob/proc/show_stat_station_time()
+	stat(null, "Current Map: [SSmapping.map_datum.name]")
+	if(SSmapping.next_map)
+		stat(null, "Next Map: [SSmapping.next_map.name]")
 	stat(null, "Round Time: [worldtime2text()]")
 	stat(null, "Station Time: [station_time_timestamp()]")
+	stat(null, "Server TPS: [world.fps]")
+	stat(null, "Desired Client FPS: [client?.prefs?.clientfps]")
+	stat(null, "Time Dilation: [round(SStime_track.time_dilation_current,1)]% " + \
+				"AVG:([round(SStime_track.time_dilation_avg_fast,1)]%, " + \
+				"[round(SStime_track.time_dilation_avg,1)]%, " + \
+				"[round(SStime_track.time_dilation_avg_slow,1)]%)")
+	stat(null, "Ping: [round(client.lastping, 1)]ms (Average: [round(client.avgping, 1)]ms)")
 
 // this function displays the shuttles ETA in the status panel if the shuttle has been called
 /mob/proc/show_stat_emergency_shuttle_eta()
@@ -1191,7 +888,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(length(found_vents))
 		client.time_joined_as_mouse = world.time
 		var/obj/vent_found = pick(found_vents)
-		var/mob/living/simple_animal/mouse/host = new(vent_found.loc)
+		var/choosen_type = prob(90) ? /mob/living/simple_animal/mouse : /mob/living/simple_animal/mouse/rat
+		var/mob/living/simple_animal/mouse/host = new choosen_type(vent_found.loc)
 		host.ckey = src.ckey
 		if(istype(get_area(vent_found), /area/syndicate/unpowered/syndicate_space_base))
 			host.faction += "syndicate"
@@ -1478,9 +1176,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		update_inv_shoes()
 	update_icons()	//apply the now updated overlays to the mob
 
-
-/**
- * Updates the mob's runechat maptext display location.
- */
-/mob/proc/update_runechat_msg_location()
-	return
+///Makes a call in the context of a different usr. Use sparingly
+/world/proc/invoke_callback_with_usr(mob/user_mob, datum/callback/invoked_callback, ...)
+	var/temp = usr
+	usr = user_mob
+	if (length(args) > 2)
+		. = invoked_callback.Invoke(arglist(args.Copy(3)))
+	else
+		. = invoked_callback.Invoke()
+	usr = temp

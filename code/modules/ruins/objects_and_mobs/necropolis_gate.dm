@@ -88,7 +88,7 @@
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/structure/necropolis_gate/attack_hand(mob/user)
 	if(locked)
-		to_chat(user, "<span class='boldannounce'>It's [open ? "stuck open":"locked"].</span>")
+		to_chat(user, "<span class='boldannounce'>Кажется, эта дверь [open ? "навеки открыта":"намертво запечатана"].</span>")
 		return
 	toggle_the_gate(user)
 	return ..()
@@ -133,6 +133,16 @@
 		open = TRUE
 	changing_openness = FALSE
 	return TRUE
+
+/obj/structure/necropolis_gate/ashwalker
+	desc = "Массивные каменные ворота. Кажется, они намертво запечатаны."
+	locked = TRUE
+
+/obj/structure/necropolis_gate/ashwalker/attack_hand(mob/user)
+	if(locked)
+		if(user.faction == "ashwalker")
+			locked = FALSE
+	return ..()
 
 /obj/structure/necropolis_gate/locked
 	locked = TRUE
@@ -299,7 +309,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	if(break_that_sucker)
 		QDEL_IN(src, 10)
 	else
-		addtimer(CALLBACK(src, .proc/rebuild), 55)
+		addtimer(CALLBACK(src, PROC_REF(rebuild)), 55)
 
 /obj/structure/stone_tile/proc/rebuild()
 	pixel_x = initial(pixel_x)

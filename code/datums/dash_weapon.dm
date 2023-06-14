@@ -41,7 +41,7 @@
 
 	var/turf/target_turf = get_turf(target)
 	var/turf/starting_turf = get_turf(user)
-	if(target in view(user.client.view, user))
+	if(!user.Adjacent(target) && (target in view(user.client.view, user)))
 		var/mob/living/pulled_mob = user.pulling
 		if(!do_teleport(user, target_turf))
 			to_chat(user, "<span class='warning'>Dash blocked by location!</span>")
@@ -53,7 +53,7 @@
 		current_charges--
 		if(owner)
 			owner.update_action_buttons_icon()
-		addtimer(CALLBACK(src, .proc/charge), charge_rate)
+		addtimer(CALLBACK(src, PROC_REF(charge)), charge_rate)
 		last_used = world.time
 		if(istype(pulled_mob))
 			pulled_mob.forceMove(target_turf)

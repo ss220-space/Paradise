@@ -39,7 +39,7 @@ SUBSYSTEM_DEF(http)
 
 			// And log the result
 			if(logging_enabled)
-				if(logging_errors_only && !res.errored)
+				if(logging_errors_only && (!res.errored || res.status_code != 200))
 					return
 				var/list/log_data = list()
 				log_data += "BEGIN ASYNC REQUEST (ID: [req.id])"
@@ -131,7 +131,7 @@ SUBSYSTEM_DEF(http)
 /client/verb/testing()
 	set name = "Testing"
 
-	var/datum/callback/cb = CALLBACK(src, /client/.proc/response, usr)
+	var/datum/callback/cb = CALLBACK(src, TYPE_PROC_REF(/client, response), usr)
 	SShttp.create_async_request(RUSTG_HTTP_METHOD_GET, "http://site.domain/page.html", proc_callback=cb)
 
 /client/proc/response(mob/user, datum/http_response/response)

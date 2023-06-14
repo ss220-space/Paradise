@@ -61,6 +61,7 @@
 	/obj/item/scalpel/laser = 100, \
 	/obj/item/hemostat = 100,	\
 	/obj/item/stack/cable_coil = 90, 	\
+	/obj/item/stack/sheet/sinew = 90, 	\
 	/obj/item/assembly/mousetrap = 25
 	)
 
@@ -232,7 +233,8 @@
 
 	var/atom/movable/thing = affected.droplimb(1,DROPLIMB_SHARP)
 	if(istype(thing,/obj/item))
-		user.put_in_hands(thing)
+		thing.forceMove(get_turf(target))
+		user.put_in_hands(thing, ignore_anim = FALSE)
 	return 1
 
 /datum/surgery_step/generic/amputate/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)

@@ -10,6 +10,15 @@
 #define TTS_CATEGORY_FALLOUT2 "Fallout 2"
 #define TTS_CATEGORY_POSTAL2 "Postal 2"
 #define TTS_CATEGORY_TEAMFORTRESS2 "Team Fortress 2"
+#define TTS_CATEGORY_ATOMIC_HEART "Atomic Heart"
+#define TTS_CATEGORY_OVERWATCH "Overwatch"
+#define TTS_CATEGORY_SKYRIM "Skyrim"
+#define TTS_CATEGORY_RITA "Rita"
+#define TTS_CATEGORY_METRO "Metro"
+#define TTS_CATEGORY_HEROESOFTHESTORM "Heroes of the Storm"
+#define TTS_CATEGORY_HEARTHSTONE "Hearthstone"
+#define TTS_CATEGORY_VALORANT "Valorant"
+#define TTS_CATEGORY_EVILISLANDS "Evil Islands"
 
 #define TTS_GENDER_ANY "Любой"
 #define TTS_GENDER_MALE "Мужской"
@@ -21,6 +30,7 @@
 	var/category = TTS_CATEGORY_OTHER
 	var/gender = TTS_GENDER_ANY
 	var/datum/tts_provider/provider = /datum/tts_provider
+	var/donator_level = 0
 
 /datum/tts_seed/vv_edit_var(var_name, var_value)
 	return FALSE

@@ -25,7 +25,7 @@
 /obj/machinery/power/compressor
 	name = "compressor"
 	desc = "The compressor stage of a gas turbine generator."
-	icon = 'icons/obj/pipes.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/pipes.dmi'
 	icon_state = "compressor"
 	anchored = 1
 	density = 1
@@ -44,7 +44,7 @@
 /obj/machinery/power/turbine
 	name = "gas turbine generator"
 	desc = "A gas turbine used for backup power generation."
-	icon = 'icons/obj/pipes.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/pipes.dmi'
 	icon_state = "turbine"
 	anchored = 1
 	density = 1
@@ -111,6 +111,7 @@
 
 /obj/machinery/power/compressor/attackby(obj/item/I, mob/user, params)
 	if(default_change_direction_wrench(user, I))
+		add_fingerprint(user)
 		turbine = null
 		inturf = get_step(src, dir)
 		locate_machinery()
@@ -173,13 +174,13 @@
 
 
 	if(rpm>50000)
-		overlays += image('icons/obj/pipes.dmi', "comp-o4", FLY_LAYER)
+		overlays += image('icons/obj/pipes_and_stuff/atmospherics/pipes.dmi', "comp-o4", FLY_LAYER)
 	else if(rpm>10000)
-		overlays += image('icons/obj/pipes.dmi', "comp-o3", FLY_LAYER)
+		overlays += image('icons/obj/pipes_and_stuff/atmospherics/pipes.dmi', "comp-o3", FLY_LAYER)
 	else if(rpm>2000)
-		overlays += image('icons/obj/pipes.dmi', "comp-o2", FLY_LAYER)
+		overlays += image('icons/obj/pipes_and_stuff/atmospherics/pipes.dmi', "comp-o2", FLY_LAYER)
 	else if(rpm>500)
-		overlays += image('icons/obj/pipes.dmi', "comp-o1", FLY_LAYER)
+		overlays += image('icons/obj/pipes_and_stuff/atmospherics/pipes.dmi', "comp-o1", FLY_LAYER)
 	 //TODO: DEFERRED
 
 // These are crucial to working of a turbine - the stats modify the power output. TurbGenQ modifies how much raw energy can you get from
@@ -259,7 +260,7 @@
 // If it works, put an overlay that it works!
 
 	if(lastgen > 100)
-		overlays += image('icons/obj/pipes.dmi', "turb-o", FLY_LAYER)
+		overlays += image('icons/obj/pipes_and_stuff/atmospherics/pipes.dmi', "turb-o", FLY_LAYER)
 
 	updateDialog()
 
@@ -272,9 +273,11 @@
 
 /obj/machinery/power/turbine/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I))
+		add_fingerprint(user)
 		return
 
 	if(default_change_direction_wrench(user, I))
+		add_fingerprint(user)
 		compressor = null
 		outturf = get_step(src, dir)
 		locate_machinery()
@@ -311,7 +314,7 @@
 	t += "</PRE><HR><A href='?src=[UID()];close=1'>Close</A>"
 
 	t += "</TT>"
-	var/datum/browser/popup = new(user, "turbine", name)
+	var/datum/browser/popup = new(user, "turbine", name, 420, 240, src)
 	popup.set_content(t)
 	popup.open()
 
@@ -378,7 +381,7 @@
 		if(!compressor)
 			dat += "<A href='?src=[UID()];search=1'>Search for compressor</A>"
 
-	var/datum/browser/popup = new(user, "turbinecomputer", name)
+	var/datum/browser/popup = new(user, "turbinecomputer", name, 420, 240, src)
 	popup.set_content(dat)
 	popup.open()
 	return

@@ -71,7 +71,7 @@
 /obj/machinery/driver_button/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	playsound(get_turf(src), I.usesound, 50, 1)
-	if(do_after(user, 30 * I.toolspeed, target = src))
+	if(do_after(user, 30 * I.toolspeed * gettoolspeedmod(user), target = src))
 		to_chat(user, "<span class='notice'>You detach [src] from the wall.</span>")
 		new/obj/item/mounted/frame/driver_button(get_turf(src))
 		qdel(src)
@@ -85,7 +85,6 @@
 
 /obj/machinery/driver_button/attack_hand(mob/user as mob)
 
-	add_fingerprint(usr)
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if(active)
@@ -121,7 +120,7 @@
 
 	if(!id_tag)
 		// play animation, but do nothing if id_tag is null
-		addtimer(CALLBACK(src, .proc/rearm), 7 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(rearm)), 7 SECONDS)
 		return
 
 	for(var/obj/machinery/door/poddoor/M in range(src,range))
@@ -177,6 +176,8 @@
 		return
 	if(active)
 		return
+
+	add_fingerprint(user)
 
 	use_power(5)
 

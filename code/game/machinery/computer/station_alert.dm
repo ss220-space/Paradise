@@ -13,8 +13,8 @@
 /obj/machinery/computer/station_alert/Initialize(mapload)
 	. = ..()
 	GLOB.alert_consoles += src
-	RegisterSignal(SSalarm, COMSIG_TRIGGERED_ALARM, .proc/alarm_triggered)
-	RegisterSignal(SSalarm, COMSIG_CANCELLED_ALARM, .proc/alarm_cancelled)
+	RegisterSignal(SSalarm, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
+	RegisterSignal(SSalarm, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
 
 /obj/machinery/computer/station_alert/Destroy()
 	GLOB.alert_consoles -= src
@@ -27,9 +27,9 @@
 	ui_interact(user)
 
 /obj/machinery/computer/station_alert/attack_hand(mob/user)
-	add_fingerprint(user)
 	if(stat & (BROKEN|NOPOWER))
 		return
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/computer/station_alert/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)

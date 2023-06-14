@@ -5,7 +5,7 @@
   */
 /obj/machinery/smartfridge
 	name = "\improper SmartFridge"
-	icon = 'icons/obj/vending.dmi'
+	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "smartfridge"
 	layer = 2.9
 	density = TRUE
@@ -141,6 +141,7 @@
 		to_chat(user, "<span class='notice'>\The [src] is unpowered and useless.</span>")
 		return
 
+	add_fingerprint(user)
 	if(load(O, user))
 		user.visible_message("<span class='notice'>[user] has added \the [O] to \the [src].</span>", "<span class='notice'>You add \the [O] to \the [src].</span>")
 		SStgui.update_uis(src)
@@ -150,6 +151,7 @@
 		var/items_loaded = 0
 		for(var/obj/G in P.contents)
 			if(load(G, user))
+				G.add_fingerprint(user)
 				items_loaded++
 		if(items_loaded)
 			user.visible_message("<span class='notice'>[user] loads \the [src] with \the [P].</span>", "<span class='notice'>You load \the [src] with \the [P].</span>")
@@ -188,9 +190,11 @@
 		to_chat(user, "<span class='notice'>\The [P] is empty.</span>")
 		return
 
+	add_fingerprint(user)
 	var/items_loaded = 0
 	for(var/obj/G in P.contents)
 		if(load(G, user))
+			G.add_fingerprint(user)
 			items_loaded++
 	if(items_loaded)
 		user.visible_message("<span class='notice'>[user] empties \the [P] into \the [src].</span>", "<span class='notice'>You empty \the [P] into \the [src].</span>")
@@ -260,9 +264,9 @@
 			if(i == 1 && Adjacent(user) && !issilicon(user))
 				for(var/obj/O in contents)
 					if(O.name == K)
-						if(!user.put_in_hands(O))
-							O.forceMove(loc)
-							adjust_item_drop_location(O)
+						O.forceMove(get_turf(src))
+						adjust_item_drop_location(O)
+						user.put_in_hands(O, ignore_anim = FALSE)
 						update_icon()
 						break
 			else
@@ -283,7 +287,7 @@
   * * I - The item to load.
   * * user - The user trying to load the item.
   */
-/obj/machinery/smartfridge/proc/load(obj/I, mob/user)
+/obj/machinery/smartfridge/proc/load(obj/item/I, mob/user)
 	if(accept_check(I))
 		if(length(contents) >= max_n_of_items)
 			to_chat(user, "<span class='notice'>\The [src] is full.</span>")
@@ -291,16 +295,20 @@
 		else
 			if(istype(I.loc, /obj/item/storage))
 				var/obj/item/storage/S = I.loc
-				S.remove_from_storage(I, src)
+				if(user)
+					S.remove_from_storage(I, user.drop_location())
+					I.do_pickup_animation(src)
+					I.forceMove(src)
+				else
+					S.remove_from_storage(I, src)
 			else if(ismob(I.loc))
 				var/mob/M = I.loc
 				if(M.get_active_hand() == I)
-					if(!M.drop_item())
+					if(!M.drop_transfer_item_to_loc(I, src))
 						to_chat(user, "<span class='warning'>\The [I] is stuck to you!</span>")
 						return FALSE
 				else
-					M.unEquip(I)
-				I.forceMove(src)
+					M.drop_transfer_item_to_loc(I, src)
 			else
 				I.forceMove(src)
 
@@ -330,7 +338,7 @@
 	if(!throw_item)
 		return FALSE
 
-	INVOKE_ASYNC(throw_item, /atom/movable.proc/throw_at, target, 16, 3, src)
+	INVOKE_ASYNC(throw_item, TYPE_PROC_REF(/atom/movable, throw_at), target, 16, 3, src)
 	visible_message("<span class='warning'>[src] launches [throw_item.name] at [target.name]!</span>")
 	return TRUE
 
@@ -377,7 +385,7 @@
 /obj/machinery/smartfridge/seeds
 	name = "\improper Seed Storage"
 	desc = "When you need seeds fast!"
-	icon = 'icons/obj/vending.dmi'
+	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "seeds"
 
 /obj/machinery/smartfridge/seeds/Initialize(mapload)
@@ -416,7 +424,7 @@
 /obj/machinery/smartfridge/secure/extract
 	name = "\improper Slime Extract Storage"
 	desc = "A refrigerated storage unit for slime extracts"
-	req_one_access = list(ACCESS_RESEARCH)
+	req_access = list(ACCESS_RESEARCH)
 
 /obj/machinery/smartfridge/secure/extract/syndie
 	name = "\improper Suspicious Slime Extract Storage"
@@ -426,7 +434,7 @@
 /obj/machinery/smartfridge/secure/extract/Initialize(mapload)
 	. = ..()
 	if(is_taipan(z)) // Синдидоступ при сборке на тайпане
-		req_one_access = list(ACCESS_SYNDICATE)
+		req_access = list(ACCESS_SYNDICATE)
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/slime_extract
 	))
@@ -440,7 +448,7 @@
 	name = "\improper Secure Refrigerated Medicine Storage"
 	desc = "A refrigerated storage unit for storing medicine and chemicals."
 	icon_state = "smartfridge" //To fix the icon in the map editor.
-	req_one_access = list(ACCESS_MEDICAL, ACCESS_CHEMISTRY)
+	req_access = list(ACCESS_MEDICAL, ACCESS_CHEMISTRY)
 
 /obj/machinery/smartfridge/secure/medbay/Initialize(mapload)
 	. = ..()
@@ -454,7 +462,7 @@
 
 /obj/machinery/smartfridge/secure/medbay/syndie
 	icon_state = "syndi_smartfridge"
-	req_one_access = list(ACCESS_SYNDICATE)
+	req_access = list(ACCESS_SYNDICATE)
 
 /**
   * # Smart Chemical Storage
@@ -750,8 +758,7 @@
 			SStgui.update_uis(src)
 		return TRUE
 	for(var/obj/item/stack/sheet/wetleather/WL in contents)
-		var/obj/item/stack/sheet/leather/L = new(loc)
-		L.amount = WL.amount
+		new /obj/item/stack/sheet/leather(loc, WL.amount)
 		item_quants[WL.name]--
 		qdel(WL)
 		SStgui.update_uis(src)

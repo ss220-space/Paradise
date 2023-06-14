@@ -16,43 +16,43 @@
 	icon_living = "terror_purple"
 	icon_dead = "terror_purple_dead"
 	gender = MALE
-	maxHealth = 220
-	health = 220
+	maxHealth = 250
+	health = 250
+	damage_coeff = list(BRUTE = 0.6, BURN = 1.1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
 	melee_damage_lower = 20
-	melee_damage_upper = 30
+	melee_damage_upper = 25
 	obj_damage = 70
 	attack_sound = 'sound/creatures/terrorspiders/bite2.ogg'
 	death_sound = 'sound/creatures/terrorspiders/death6.ogg'
-	armour_penetration = 20
+	armour_penetration = 10
 	spider_tier = TS_TIER_2
 	move_to_delay = 5 // at 20ticks/sec, this is 4 tile/sec movespeed, same as a human. Faster than a normal spider, so it can intercept attacks on queen.
 	spider_opens_doors = 2
 	ventcrawler = 0
 	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
 	ai_ventcrawls = FALSE
-	environment_smash = ENVIRONMENT_SMASH_RWALLS
+	environment_smash = 2
 	idle_ventcrawl_chance = 0 // stick to the queen!
-	sight = SEE_TURFS|SEE_MOBS
 	web_type = /obj/structure/spider/terrorweb/purple
 	can_wrap = FALSE
 	delay_web = 20
 	special_abillity = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/terror/shield)
 	can_wrap = FALSE
-	spider_intro_text = "Будучи Защитником Ужаса, ваша задача - охрана гнезда, яиц, принцесс и королевы. Вы очень сильны и живучи, используйте это, чтобы защитить выводок. Если встанет выбор, спасти принцессу, или королеву, при этои обрекая себя на смерть - делайте это."
+	spider_intro_text = "Будучи Защитником Ужаса, ваша задача - охрана гнезда, яиц, принцесс и королевы. Вы очень сильны и живучи, используйте это, чтобы защитить выводок. Ваша активная способность создает временный неразрушимый барьер, через который могут пройти только пауки. Если встанет выбор, спасти принцессу, или королеву, при этои обрекая себя на смерть - делайте это без раздумий!."
 	ai_spins_webs = FALSE
+	tts_seed = "Avozu"
 	var/queen_visible = TRUE
 	var/cycles_noqueen = 0
-	var/max_queen_range = 20
+	var/max_queen_range = 15
 
 /mob/living/simple_animal/hostile/poison/terror_spider/guardian/spider_specialattack(mob/living/carbon/human/L)
 	L.adjustStaminaLoss(15)
-	if(prob(15))
+	if(prob(20))
 		playsound(src, 'sound/creatures/terrorspiders/bite2.ogg', 120, 1)
 		do_attack_animation(L)
 		visible_message("<span class='danger'>[src] rams into [L], knocking [L.p_them()] to the floor!</span>")
 		L.adjustBruteLoss(20)
-		L.Weaken(1)
-		L.Stun(1)
+		L.Weaken(2)
 	else
 		..()
 
@@ -122,7 +122,7 @@
 				stat(null, "Link: <font color='#eb4034'>BROKEN</font>") // color=red
 			else if(queen_visible)
 				stat(null, "Link: <font color='#32a852'>[spider_myqueen] is near</font>") // color=green
-			else if(cycles_noqueen >= 36)
+			else if(cycles_noqueen >= 18)
 				stat(null, "Link: <font color='#eb4034'>Critical - return to [spider_myqueen] in [A]</font>") // color=red
 			else
 				stat(null, "Link: <font color='#fcba03'>Warning - return to [spider_myqueen] in [A]</font>") // color=orange

@@ -49,8 +49,7 @@
 /obj/item/laser_pointer/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/micro_laser))
 		if(!diode)
-			user.drop_item()
-			W.loc = src
+			user.drop_transfer_item_to_loc(W, src)
 			diode = W
 			to_chat(user, "<span class='notice'>You install a [diode.name] in [src].</span>")
 		else
@@ -141,7 +140,7 @@
 	for(var/mob/M in viewers(7,targloc))
 		if(M.client)
 			showto.Add(M.client)
-	var/image/I = image('icons/obj/projectiles.dmi',targloc,pointer_icon_state,10)
+	var/image/I = image('icons/obj/weapons/projectiles.dmi',targloc,pointer_icon_state,10)
 	var/list/click_params = params2list(params)
 	if(click_params)
 		if(click_params["icon-x"])

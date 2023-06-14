@@ -70,8 +70,9 @@
 	if(slot == slot_head)
 		return 1
 
-/obj/item/clothing/head/helmet/space/hardsuit/equipped(mob/user, slot)
-	..()
+/obj/item/clothing/head/helmet/space/hardsuit/equipped(mob/user, slot, initial)
+	. = ..()
+
 	if(slot != slot_head)
 		if(suit)
 			suit.RemoveHelmet()
@@ -137,8 +138,7 @@
 			to_chat(user, "<span class='warning'>You cannot install the upgrade to [src] while wearing it.</span>")
 			return
 
-		if(user.unEquip(I))
-			I.forceMove(src)
+		if(user.drop_transfer_item_to_loc(I, src))
 			jetpack = I
 			to_chat(user, "<span class='notice'>You successfully install the jetpack into [src].</span>")
 			return
@@ -159,8 +159,9 @@
 	jetpack = null
 	to_chat(user, "<span class='notice'>You successfully remove the jetpack from [src].</span>")
 
-/obj/item/clothing/suit/space/hardsuit/equipped(mob/user, slot)
-	..()
+/obj/item/clothing/suit/space/hardsuit/equipped(mob/user, slot, initial)
+	. = ..()
+
 	if(jetpack)
 		if(slot == slot_wear_suit)
 			for(var/X in jetpack.actions)
@@ -280,7 +281,7 @@
 	on = 1
 	var/obj/item/clothing/suit/space/hardsuit/syndi/linkedsuit = null
 	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
-	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE|HIDETAIL
+	visor_flags_inv = HIDEMASK|HIDEGLASSES|HIDENAME|HIDETAIL
 	visor_flags = STOPSPRESSUREDMAGE
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/update_icon()
@@ -318,9 +319,9 @@
 	playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
 	toggle_hardsuit_mode(user)
 	user.update_inv_head()
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		C.head_update(src, forced = 1)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		H.update_head(src, forced = TRUE)
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
@@ -333,12 +334,14 @@
 			linkedsuit.slowdown = 1
 			linkedsuit.flags |= STOPSPRESSUREDMAGE
 			linkedsuit.cold_protection |= UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | TAIL
+			linkedsuit.on = TRUE
 		else
 			linkedsuit.name += " (combat)"
 			linkedsuit.desc = linkedsuit.alt_desc
 			linkedsuit.slowdown = 0
 			linkedsuit.flags &= ~STOPSPRESSUREDMAGE
 			linkedsuit.cold_protection &= ~(UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | TAIL)
+			linkedsuit.on = FALSE
 
 		linkedsuit.update_icon()
 		user.update_inv_wear_suit()
@@ -459,6 +462,7 @@
 	desc = "A soviet military hardsuit designed for maximum speed and mobility. Proudly displays the U.S.S.P flag on the chest."
 	icon_state = "hardsuit-soviet"
 	item_state = "hardsuit-soviet"
+	species_restricted = list("Human", "Slime People", "Skeleton", "Nucleation", "Machine", "Kidan", "Plasmaman")  // Until the xenos textures are created
 	slowdown = 0.5
 	armor = list("melee" = 35, "bullet" = 15, "laser" = 30, "energy" = 10, "bomb" = 10, "bio" = 100, "rad" = 50, "fire" = 75, "acid" = 75)
 	allowed = list(/obj/item/gun,/obj/item/flashlight,/obj/item/tank/internals,/obj/item/melee/baton,/obj/item/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/restraints/handcuffs)
@@ -548,6 +552,24 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/hos
 	jetpack = /obj/item/tank/jetpack/suit
 
+/obj/item/clothing/head/helmet/space/hardsuit/security/brigmed
+	name = "brig physician's hardsuit helmet"
+	desc = "Improved medical hardsuit helmet with an additional layer of armor."
+	icon_state = "hardsuit0-brigmed"
+	armor = list("melee" = 30, "bullet" = 10, "laser" = 20, "energy" = 15, "bomb" = 10, "bio" = 100, "rad" = 60, "fire" = 60, "acid" = 75)
+	item_color = "brigmed"
+	flash_protect = 0
+	scan_reagents = 1
+
+/obj/item/clothing/suit/space/hardsuit/security/brigmed
+	name = "brig physician's hardsuit"
+	desc = "Improved medical hardsuit with an additional layer of armor."
+	icon_state = "hardsuit-brigmed"
+	item_state = "hardsuit-brigmed"
+	armor = list("melee" = 30, "bullet" = 10, "laser" = 20, "energy" = 15, "bomb" = 10, "bio" = 100, "rad" = 60, "fire" = 60, "acid" = 75)
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/brigmed
+	slowdown = 0.5
+
 //Blueshield hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/blueshield
 	name = "blueshield's hardsuit helmet"
@@ -580,8 +602,9 @@
 	var/hud_active = TRUE
 	var/explosion_detection_dist = 40
 
-/obj/item/clothing/head/helmet/space/hardsuit/rd/equipped(mob/user, slot)
-	..()
+/obj/item/clothing/head/helmet/space/hardsuit/rd/equipped(mob/user, slot, initial)
+	. = ..()
+
 	if(slot == slot_head)
 		GLOB.doppler_arrays += src //Needed to sense the kabooms
 		if(ishuman(user))
@@ -646,3 +669,4 @@
 //Battlemage Hardsuit — code\modules\clothing\suits\wiz_robe.dm
 //Deathsquad Hardsuit — code\modules\clothing\spacesuits\ert.dm
 //Prototype RIG Hardsuit — code\modules\awaymissions\mission_code\ruins\oldstation.dm
+//Contractor Hardsuit - code\modules\antagonists\traitor\contractor\items\contractor_hardsuit.dm

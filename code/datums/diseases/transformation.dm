@@ -53,12 +53,7 @@
 			if(istype(W, /obj/item/implant))
 				qdel(W)
 				continue
-			if(affected_mob.unEquip(W)) //Если вещь снимается - снимаем
-				affected_mob.unEquip(W)
-			W.layer = initial(W.layer)
-			W.plane = initial(W.plane)
-			W.loc = affected_mob.loc
-			W.dropped(affected_mob)
+			affected_mob.drop_item_ground(W) //Если вещь снимается - снимаем
 		if(isobj(affected_mob.loc))
 			var/obj/O = affected_mob.loc
 			O.force_eject_occupant(affected_mob)
@@ -248,5 +243,7 @@
 	stage2	= list("Your skin feels saggy.")
 	stage3	= list("<span class='danger'>Your appendages are melting away.</span>", "<span class='danger'>Your limbs begin to lose their shape.</span>")
 	stage4	= list("<span class='danger'>You're ravenous.</span>")
-	stage5	= list("<span class='danger'>You have become a morph.</span>")
+	stage5	= list("<span class='danger'><FONT size = 5><B>ТЕПЕРЬ ВЫ МОРФ!</B></FONT></span> \n \
+	Хоть Вы и трансформировались в отвратительную зелёную жижу, но это не повлияло на Ваше сознание \
+	и память. Вы не являетесь антагонистом.")
 	new_form = /mob/living/simple_animal/hostile/morph

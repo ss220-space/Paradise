@@ -23,6 +23,10 @@
 	shock_reduction = 200
 	taste_description = "numbness"
 
+/datum/reagent/medicine/hydrocodone/on_mob_life(mob/living/M) //Needed so the hud updates when injested / removed from system
+	var/update_flags = STATUS_UPDATE_HEALTH
+	return ..() | update_flags
+
 /datum/reagent/medicine/sterilizine
 	name = "Sterilizine"
 	id = "sterilizine"
@@ -102,6 +106,8 @@
 
 		//Mitocholide is hard enough to get, it's probably fair to make this all internal organs
 		for(var/obj/item/organ/internal/I in H.internal_organs)
+			if(I.status & ORGAN_DEAD)
+				I.status &= ~ORGAN_DEAD
 			I.heal_internal_damage(0.4)
 	return ..()
 
@@ -243,9 +249,8 @@
 	if(iscarbon(M))
 		if(method == REAGENT_TOUCH)
 			M.adjustBruteLoss(-volume)
-			if(show_message)
+			if(show_message && !(NO_PAIN in M.dna.species.species_traits))
 				to_chat(M, "<span class='notice'>The styptic powder stings like hell as it closes some of your wounds!</span>")
-				M.emote("scream")
 		if(method == REAGENT_INGEST)
 			M.adjustToxLoss(0.5*volume)
 			if(show_message)
@@ -638,6 +643,10 @@
 			M.Drowsy(20)
 	return ..() | update_flags
 
+/datum/reagent/medicine/morphine/syntmorphine
+	name = "Syntmorphine"
+	id = "syntmorphine"
+
 /datum/reagent/medicine/oculine
 	name = "Oculine"
 	id = "oculine"
@@ -652,15 +661,17 @@
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M
 			var/obj/item/organ/internal/eyes/E = C.get_int_organ(/obj/item/organ/internal/eyes)
-			if(istype(E))
+			if(istype(E) && !(E.status & ORGAN_DEAD))
 				E.heal_internal_damage(1)
+				update_flags |= M.AdjustEyeBlurry(-1, FALSE)
 			var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
-			if(istype(ears))
+			if(istype(ears) && !(ears.status & ORGAN_DEAD))
 				ears.AdjustEarDamage(-1)
-				if(ears.ear_damage < 25 && prob(30))
+				if(ears.damage < 25 && prob(30))
 					ears.deaf = 0
-		update_flags |= M.AdjustEyeBlurry(-1, FALSE)
-		update_flags |= M.AdjustEarDamage(-1)
+		else
+			update_flags |= M.AdjustEyeBlurry(-1, FALSE)
+			update_flags |= M.AdjustEarDamage(-1)
 	return ..() | update_flags
 
 /datum/reagent/medicine/atropine
@@ -828,6 +839,19 @@
 /datum/reagent/medicine/mannitol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustBrainLoss(-3, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/medicine/fomepizole
+	name = "Fomepizole"
+	id = "fomepizole"
+	description = "Fomepizone is a competitive ADH inhibitor. It is used to block metabolism of ethanol to their toxic metabolites."
+	color = "#95bb72"
+	taste_description = "sanity"
+
+/datum/reagent/medicine/fomepizole/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.AdjustDizzy(-60, FALSE)
+	update_flags |= M.AdjustJitter(-10, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/mutadone
@@ -1168,6 +1192,22 @@
 	update_flags |= M.adjustBrainLoss(-3, FALSE)
 	return ..() | update_flags
 
+//Coolant: Antihol
+/datum/reagent/medicine/coolant
+	name = "Coolant"
+	id = "coolant"
+	description = "Fixes speech bugs"
+	reagent_state = LIQUID
+	color = "#0af0f0"
+	process_flags = SYNTHETIC
+	taste_description = "error"
+
+/datum/reagent/medicine/coolant/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	M.SetSlur(0)
+	M.AdjustDrunk(-4)
+	M.reagents.remove_all_type(/datum/reagent/consumable/ethanol/synthanol, 8, 0, 1)
+	return ..() | update_flags
 
 
 //Trek-Chems. DO NOT USE THES OUTSIDE OF BOTANY OR FOR VERY SPECIFIC PURPOSES. NEVER GIVE A RECIPE UNDER ANY CIRCUMSTANCES//
@@ -1329,9 +1369,32 @@
 	metabolization_rate = REAGENTS_METABOLISM
 	shock_reduction = 20
 	taste_description = "blessing"
+	can_synth = FALSE
 
 /datum/reagent/medicine/zessulblood/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustBruteLoss(-1, FALSE)
 	update_flags |= M.adjustFireLoss(-1, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/medicine/pure_plasma   //unique chemical for plasmaman
+	name = "Pure plasma"
+	id = "pure_plasma"
+	description = "A product of plasma metabolism in the body of plasmaman, confirming their weak susceptibility to pain. Extremely toxic."
+	reagent_state = LIQUID
+	color = "#b521c2"
+	metabolization_rate = REAGENTS_METABOLISM
+	shock_reduction = 20
+	taste_description = "Superiority"
+	can_synth = FALSE
+
+/datum/reagent/medicine/pure_plasma/on_mob_life(mob/living/carbon/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(isplasmaman(M))
+		if(M.bodytemperature < 310)
+			M.bodytemperature = min(310, M.bodytemperature + (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
+		update_flags |= M.adjustBruteLoss(-0.25, FALSE)
+		update_flags |= M.adjustFireLoss(-0.25, FALSE)
+	else
+		update_flags |= M.adjustToxLoss(4, FALSE)
 	return ..() | update_flags

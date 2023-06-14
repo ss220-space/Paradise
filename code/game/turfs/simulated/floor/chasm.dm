@@ -40,6 +40,13 @@
 	if(!drop_stuff())
 		STOP_PROCESSING(SSprocessing, src)
 
+/turf/simulated/floor/chasm/Initialize()
+	. = ..()
+	drop_z = level_name_to_num(MAIN_STATION)
+
+/turf/simulated/floor/chasm/ex_act()
+	return
+
 /turf/simulated/floor/chasm/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/floors.dmi'
 	underlay_appearance.icon_state = "basalt"
@@ -47,30 +54,27 @@
 
 /turf/simulated/floor/chasm/attackby(obj/item/C, mob/user, params, area/area_restriction)
 	..()
-	if(istype(C, /obj/item/stack/rods))
-		var/obj/item/stack/rods/R = C
-		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
+	if(istype(C, /obj/item/stack/fireproof_rods))
+		var/obj/item/stack/fireproof_rods/R = C
+		var/obj/structure/lattice/fireproof/L = locate(/obj/structure/lattice, src)
+		var/obj/structure/lattice/catwalk/fireproof/W = locate(/obj/structure/lattice/catwalk/fireproof, src)
+		if(W)
+			to_chat(user, "<span class='warning'>Здесь уже есть мостик!</span>")
+			return
 		if(!L)
 			if(R.use(1))
-				to_chat(user, "<span class='notice'>You construct a lattice.</span>")
+				to_chat(user, "<span class='notice'>Вы установили прочную решётку.</span>")
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-				ReplaceWithLattice()
+				new /obj/structure/lattice/fireproof(src)
 			else
-				to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
+				to_chat(user, "<span class='warning'>Вам нужен один огнеупорный стержень для постройки решётки.</span>")
 			return
-	if(istype(C, /obj/item/stack/tile/plasteel))
-		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(L)
-			var/obj/item/stack/tile/plasteel/S = C
-			if(S.use(1))
+			if(R.use(2))
 				qdel(L)
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-				to_chat(user, "<span class='notice'>You build a floor.</span>")
-				ChangeTurf(/turf/simulated/floor/plating)
-			else
-				to_chat(user, "<span class='warning'>You need one floor tile to build a floor!</span>")
-		else
-			to_chat(user, "<span class='warning'>The plating is going to need some support! Place metal rods first.</span>")
+				to_chat(user, "<span class='notice'>Вы установили мостик.</span>")
+				new /obj/structure/lattice/catwalk/fireproof(src)
 
 /turf/simulated/floor/chasm/is_safe()
 	if(find_safeties() && ..())
@@ -87,7 +91,7 @@
 	for(var/thing in thing_to_check)
 		if(droppable(thing))
 			. = 1
-			INVOKE_ASYNC(src, .proc/drop, thing)
+			INVOKE_ASYNC(src, PROC_REF(drop), thing)
 
 /turf/simulated/floor/chasm/proc/droppable(atom/movable/AM)
 	if(falling_atoms[AM])
@@ -128,7 +132,7 @@
 	falling_atoms -= AM
 
 /turf/simulated/floor/chasm/straight_down/Initialize()
-	. = ..()
+	..()
 	drop_x = x
 	drop_y = y
 	drop_z = z - 1
@@ -163,6 +167,8 @@
 	var/oldcolor = AM.color
 	var/oldalpha = AM.alpha
 	animate(AM, transform = matrix() - matrix(), alpha = 0, color = rgb(0, 0, 0), time = 10)
+	if(iscarbon(AM) && prob(25))
+		playsound(AM.loc, 'sound/effects/wilhelm_scream.ogg', 150)
 	for(var/i in 1 to 5)
 		//Make sure the item is still there after our sleep
 		if(!AM || QDELETED(AM))

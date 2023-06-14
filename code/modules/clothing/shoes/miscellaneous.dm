@@ -59,7 +59,7 @@
 
 /obj/item/clothing/shoes/galoshes/dry/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_SHOES_STEP_ACTION, .proc/on_step)
+	RegisterSignal(src, COMSIG_SHOES_STEP_ACTION, PROC_REF(on_step))
 
 /obj/item/clothing/shoes/galoshes/dry/proc/on_step()
 	SIGNAL_HANDLER
@@ -80,7 +80,7 @@
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg' = 1, 'sound/effects/clownstep2.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
 
-/obj/item/clothing/shoes/clown_shoes/equipped(mob/user, slot)
+/obj/item/clothing/shoes/clown_shoes/equipped(mob/user, slot, initial)
 	. = ..()
 	if(slot == slot_shoes && enabled_waddle)
 		user.AddElement(/datum/element/waddling)
@@ -132,6 +132,12 @@
 	icon_state = "jacksandal"
 	item_color = "jacksandal"
 
+/obj/item/clothing/shoes/jackboots/cross
+	name = "jackcross"
+	desc = "Nanotrasen-issue Security combat cross for combat scenarios. They're jackcross, however that works."
+	icon_state = "jackboots_cross"
+	item_color = "jackboots_cross"
+
 /obj/item/clothing/shoes/workboots
 	name = "work boots"
 	desc = "Thick-soled boots for industrial work environments."
@@ -151,8 +157,7 @@
 		if(O)
 			to_chat(user, "<span class='notice'>В креплении уже есть нож.</span>")
 		else
-			user.drop_item()
-			C.forceMove(src)
+			user.drop_transfer_item_to_loc(C, src)
 			to_chat(user, "<span class='notice'>Вы убрали [C] в [src].</span>")
 
 /obj/item/clothing/shoes/workboots/mining/verb/verb_remove_knife()
@@ -168,12 +173,12 @@
 		var/obj/item/kitchen/knife/combat/survival/O = locate() in src
 		if(O)
 			to_chat(user, "<span class='notice'>Вы извлекли [O] из [src].</span>")
+			O.forceMove_turf()
 			if(istype(loc, /mob))
 				var/mob/M = loc
 				if(M.get_active_hand() == null)
-					M.put_in_hands(O)
+					M.put_in_hands(O, ignore_anim = FALSE)
 					return
-			O.forceMove(get_turf(src))
 		else
 			to_chat(user, "<span class='warning'>Крепление пустое.</span>")
 	else
@@ -224,6 +229,11 @@
 	desc = "The height of fashion, and they're pre-polished!"
 	icon_state = "laceups"
 	put_on_delay = 50
+
+/obj/item/clothing/shoes/laceup/cap
+	name = "captain's laceup shoes"
+	icon_state = "cap_laceups"
+	item_state = "cap_laceups"
 
 /obj/item/clothing/shoes/roman
 	name = "roman sandals"
@@ -361,6 +371,36 @@
  	silence_steps = TRUE
  	w_class = WEIGHT_CLASS_SMALL
 
+/obj/item/clothing/shoes/footwraps/yellow
+ 	name = "yellow cloth footwraps"
+ 	icon_state = "yellow_wrap"
+ 	item_state = "yellow_wrap"
+
+/obj/item/clothing/shoes/footwraps/silver
+ 	name = "silver cloth footwraps"
+ 	icon_state = "silver_wrap"
+ 	item_state = "silver_wrap"
+
+/obj/item/clothing/shoes/footwraps/red
+ 	name = "red cloth footwraps"
+ 	icon_state = "red_wrap"
+ 	item_state = "red_wrap"
+
+/obj/item/clothing/shoes/footwraps/blue
+ 	name = "blue cloth footwraps"
+ 	icon_state = "blue_wrap"
+ 	item_state = "blue_wrap"
+
+/obj/item/clothing/shoes/footwraps/black
+ 	name = "black cloth footwraps"
+ 	icon_state = "black_wrap"
+ 	item_state = "black_wrap"
+
+/obj/item/clothing/shoes/footwraps/brown
+ 	name = "brown cloth footwraps"
+ 	icon_state = "brown_wrap"
+ 	item_state = "brown_wrap"
+
 /obj/item/clothing/shoes/bhop
 	name = "jump boots"
 	desc = "A specialized pair of combat boots with a built-in propulsion system for rapid foward movement."
@@ -375,6 +415,7 @@
 	var/jumpspeed = 3
 	var/recharging_rate = 60 //default 6 seconds between each dash
 	var/recharging_time = 0 //time until next dash
+	var/datum/callback/last_jump = null
 
 /obj/item/clothing/shoes/bhop/ui_action_click(mob/user, action)
 	if(!ishuman(user))
@@ -389,9 +430,13 @@
 
 	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
 
+	if(last_jump) //in case we are trying to perfom jumping while first jump was not complete
+		last_jump.Invoke()
 	var/isflying = user.flying
 	user.flying = TRUE
-	if (user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = CALLBACK(src, .proc/after_jump, user, isflying)))
+	var/after_jump_callback = CALLBACK(src, PROC_REF(after_jump), user, isflying)
+	if (user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = after_jump_callback))
+		last_jump = after_jump_callback
 		playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
 		user.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
 		recharging_time = world.time + recharging_rate
@@ -401,6 +446,49 @@
 
 /obj/item/clothing/shoes/bhop/proc/after_jump(mob/user, isflying)
 	user.flying = isflying
+	last_jump = null
+
+/obj/item/clothing/shoes/bhop/clown
+	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! Ctrl-click to toggle the waddle dampeners!"
+	name = "clown shoes"
+	icon_state = "clown"
+	item_state = "clown_shoes"
+	description_antag = "These boots are power-up with a special jumping mechanism that works on the honk-space, allowing you to do excellent acrobatic tricks!"
+	slowdown = SHOES_SLOWDOWN+1
+	item_color = "clown"
+	actions_types = list(/datum/action/item_action/bhop/clown)
+	var/enabled_waddle = TRUE
+	jumpdistance = 7//-1 from to see the actual distance, e.g 7 goes over 6 tiles
+
+/obj/item/clothing/shoes/bhop/clown/ui_action_click(mob/user, action)
+	user.emote("flip")
+	. = ..()
+
+/obj/item/clothing/shoes/bhop/clown/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg' = 1, 'sound/effects/clownstep2.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
+
+/obj/item/clothing/shoes/bhop/clown/equipped(mob/user, slot, initial)
+	. = ..()
+	if(slot == slot_shoes && enabled_waddle)
+		user.AddElement(/datum/element/waddling)
+
+/obj/item/clothing/shoes/bhop/clown/dropped(mob/user)
+	. = ..()
+	user.RemoveElement(/datum/element/waddling)
+
+/obj/item/clothing/shoes/bhop/clown/CtrlClick(mob/living/user)
+	if(!isliving(user))
+		return
+	if(user.get_active_hand() != src)
+		to_chat(user, "You must hold [src] in your hand to do this.")
+		return
+	if(!enabled_waddle)
+		to_chat(user, "<span class='notice'>You switch off the waddle dampeners!</span>")
+		enabled_waddle = TRUE
+	else
+		to_chat(user, "<span class='notice'>You switch on the waddle dampeners!</span>")
+		enabled_waddle = FALSE
 
 /obj/item/clothing/shoes/ducky
 	name = "rubber ducky shoes"

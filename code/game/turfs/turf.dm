@@ -182,13 +182,13 @@
 // override for space turfs, since they should never hide anything
 /turf/space/levelupdate()
 	for(var/obj/O in src)
-		if(O.level == 1)
+		if(O.level == 1 && O.initialized)
 			O.hide(FALSE)
 
 // Removes all signs of lattice on the pos of the turf -Donkieyo
 /turf/proc/RemoveLattice()
 	var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
-	if(L)
+	if(L && L.initialized)
 		qdel(L)
 
 /turf/proc/dismantle_wall(devastated = FALSE, explode = FALSE)
@@ -198,7 +198,7 @@
 	return ChangeTurf(path, defer_change, keep_icon, ignore_air)
 
 //Creates a new turf
-/turf/proc/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
+/turf/proc/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
 	if(!path)
 		return
 	if(!GLOB.use_preloader && path == type) // Don't no-op if the map loader requires it to be reconstructed
@@ -219,7 +219,8 @@
 	changing_turf = TRUE
 	qdel(src)	//Just get the side effects and call Destroy
 	var/turf/W = new path(src)
-	W.baseturf = old_baseturf
+	if(copy_existing_baseturf)
+		W.baseturf = old_baseturf
 
 	if(!defer_change)
 		W.AfterChange(ignore_air)
@@ -285,9 +286,9 @@
 	for(var/mob/living/M in src)
 		if(M == U)
 			continue//Will not harm U. Since null != M, can be excluded to kill everyone.
-		INVOKE_ASYNC(M, /mob/.proc/gib)
+		INVOKE_ASYNC(M, TYPE_PROC_REF(/mob, gib))
 	for(var/obj/mecha/M in src)//Mecha are not gibbed but are damaged.
-		INVOKE_ASYNC(M, /obj/mecha/.proc/take_damage, 100, "brute")
+		INVOKE_ASYNC(M, TYPE_PROC_REF(/obj/mecha, take_damage), 100, "brute")
 
 /turf/proc/Bless()
 	flags |= NOJAUNT

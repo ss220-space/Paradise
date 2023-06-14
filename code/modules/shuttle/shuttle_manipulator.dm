@@ -11,6 +11,7 @@
 
 	icon = 'icons/obj/machines/shuttle_manipulator.dmi'
 	icon_state = "holograph_on"
+	anchored = TRUE
 
 	/// Used for cooldown, very obvious name, required due to shuttles spawning in the same location and causing the server to implode
 	var/shuttle_and_preview_cooldown = 0
@@ -58,6 +59,7 @@
 		. = "ERROR"
 
 /obj/machinery/shuttle_manipulator/attack_hand(mob/user)
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/shuttle_manipulator/vv_edit_var(var_name, var_value)

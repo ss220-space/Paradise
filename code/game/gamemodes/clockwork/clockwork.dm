@@ -102,7 +102,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		update_clock_icons_added(clockwork_mind)
 		clocker_objs.study(clockwork_mind.current)
 	clockwork_threshold_check()
-	addtimer(CALLBACK(src, .proc/clockwork_threshold_check), 2 MINUTES) // Check again in 2 minutes for latejoiners
+	addtimer(CALLBACK(src, PROC_REF(clockwork_threshold_check)), 2 MINUTES) // Check again in 2 minutes for latejoiners
 	. = ..()
 
 /**
@@ -143,9 +143,9 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	var/constructs = 0
 	for(var/I in clockwork_cult)
 		var/datum/mind/M = I
-		if(ishuman(M.current) && !M.current.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
+		if(ishuman(M.current))
 			clockers++
-		else if(isconstruct(M.current) && isclocker(M.current))
+		else if(istype(M.current, /mob/living/simple_animal/hostile/clockwork/marauder) && isclocker(M.current))
 			constructs++
 	if(separate)
 		return list(clockers, constructs)
@@ -167,7 +167,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		"right pocket" = slot_r_store)
 	var/T = new item_path(H)
 	var/item_name = initial(item_path.name)
-	var/where = H.equip_in_one_of_slots(T, slots)
+	var/where = H.equip_in_one_of_slots(T, slots, qdel_on_fail = TRUE)
 	if(!where)
 		to_chat(H, "<span class='userdanger'>Unfortunately, you weren't able to get a [item_name]. This is very bad and you should adminhelp immediately (press F1).</span>")
 		return FALSE
@@ -227,7 +227,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 				continue
 			SEND_SOUND(M.current, 'sound/hallucinations/i_see_you2.ogg')
 			to_chat(M.current, "<span class='clocklarge'>The veil begins to stutter in fear as the power of Ratvar grows, your hands begin to glow...</span>")
-			addtimer(CALLBACK(src, .proc/powered, M.current), 20 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(powered), M.current), 20 SECONDS)
 
 /datum/game_mode/proc/check_clock_reveal()
 	if(crew_reveal)
@@ -248,8 +248,8 @@ GLOBAL_LIST_EMPTY(all_clockers)
 			if(!ishuman(M.current))
 				continue
 			to_chat(M.current, "<span class='clocklarge'>Your cult gets bigger as the clocked harvest approaches - you cannot hide your true nature for much longer!")
-			addtimer(CALLBACK(src, .proc/clocked, M.current), 20 SECONDS)
-		GLOB.command_announcement.Announce("Picking up extradimensional activity related to the Clockwork Cult of Ratvar from your station. Data suggests that about [reveal_percent * 100]% of the station has been converted. Security staff are authorized to use lethal force freely against cultists. Non-security staff should be prepared to defend themselves and their work areas from hostile cultists. Self defense permits non-security staff to use lethal force as a last resort, but non-security staff should be defending their work areas, not hunting down cultists. Dead crewmembers must be revived and deconverted once the situation is under control.", "Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
+			addtimer(CALLBACK(src, PROC_REF(clocked), M.current), 20 SECONDS)
+		GLOB.command_announcement.Announce("На вашей станции обнаружена внепространственная активность, связанная с Заводным культом Ратвара. Данные свидетельствуют о том, что в ряды культа обращено около [reveal_percent * 100]% экипажа станции. Служба безопасности получает право свободно применять летальную силу против культистов. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны), но не должен выслеживать культистов и охотиться на них. Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/commandreport.ogg')
 
 /datum/game_mode/proc/powered(clocker)
 	if(ishuman(clocker) && isclocker(clocker))
@@ -271,6 +271,9 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	clockwork_cult -= clock_mind
 	clocker.faction -= "clockwork_cult"
 	clock_mind.special_role = null
+	for(var/datum/objective/serveclock/O in clock_mind.objectives)
+		clock_mind.objectives -= O
+		qdel(O)
 	for(var/datum/action/innate/clockwork/C in clocker.actions)
 		qdel(C)
 	update_clock_icons_removed(clock_mind)

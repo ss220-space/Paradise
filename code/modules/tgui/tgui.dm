@@ -2,6 +2,9 @@
  * tgui
  *
  * /tg/station user interface library
+ *
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
  */
 
 /**
@@ -197,7 +200,7 @@
 		"fancy" = user.client.prefs.toggles2 & PREFTOGGLE_2_FANCYUI,
 		"observer" = isobserver(user),
 		"window" = window_id,
-		"map" = (GLOB.using_map && GLOB.using_map.name) ? GLOB.using_map.name : "Unknown",
+		"map" = (SSmapping.map_datum && SSmapping.map_datum.name) ? SSmapping.map_datum.name : "Unknown",
 		"ref" = "[src.UID()]"
 	)
 

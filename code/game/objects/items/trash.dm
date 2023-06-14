@@ -116,7 +116,7 @@
 	icon_state = "tastybread"
 
 /obj/item/trash/spentcasing
-	icon = 'icons/obj/ammo.dmi'
+	icon = 'icons/obj/weapons/ammo.dmi'
 	name = "bullet casing"
 	desc = "A spent bullet casing. Smells like cordite."
 	icon_state = "gshell"
@@ -127,12 +127,17 @@
 	desc = "Not sticky anymore."
 	throw_range = 1
 
+/obj/item/trash/doshik
+	name = "packaging from doshik"
+	icon_state = "doshik"
+	desc = "Still has a delicious smell."
+
 /obj/item/trash/attack(mob/M as mob, mob/living/user as mob)
 	return
 
 /obj/item/trash/broken_ashtray
 	name = "ashtray shards"
-	icon = 'icons/ashtray.dmi'
+	icon = 'icons/obj/ashtray.dmi'
 	icon_state = "ashtray_bork_bl"
 
 /obj/item/trash/broken_ashtray/Initialize(mapload)

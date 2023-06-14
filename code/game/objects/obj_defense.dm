@@ -83,7 +83,7 @@
 	return take_damage(damage_amount, damage_type, damage_flag, sound_effect, get_dir(src, user), armor_penetration)
 
 /obj/attack_alien(mob/living/carbon/alien/humanoid/user)
-	if(attack_generic(user, 60, BRUTE, "melee", 0))
+	if(attack_generic(user, user.obj_damage, BRUTE, "melee", 0, user.armour_penetration))
 		playsound(loc, 'sound/weapons/slash.ogg', 100, TRUE)
 
 /obj/attack_animal(mob/living/simple_animal/M)
@@ -213,7 +213,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	being_shocked = TRUE
 	var/power_bounced = power * 0.5
 	tesla_zap(src, 3, power_bounced)
-	addtimer(CALLBACK(src, .proc/reset_shocked), 10)
+	addtimer(CALLBACK(src, PROC_REF(reset_shocked)), 10)
 
 /obj/proc/reset_shocked()
 	being_shocked = FALSE

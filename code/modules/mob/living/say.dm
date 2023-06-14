@@ -224,7 +224,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	message = trim_left(message)
 
 	var/ending = copytext(message, length(message))
-	if(!(ending in list("!", "?", ",", ".")))
+	if(!(ending in list("!", "?", ",", ".")) && length(message) != 0)
 		message += "."
 
 	//parse the language code and consume it
@@ -550,4 +550,4 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 /mob/living/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
 	var/image/I = image('icons/mob/talk.dmi', bubble_loc, bubble_state, FLY_LAYER)
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-	INVOKE_ASYNC(GLOBAL_PROC, /.proc/flick_overlay, I, bubble_recipients, 30)
+	INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, I, bubble_recipients, 30)

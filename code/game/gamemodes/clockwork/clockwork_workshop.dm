@@ -75,6 +75,7 @@
 		to_chat(user,"<span class='warning'>You are trying to understand how this table works, but to no avail.</span>")
 		return
 	if(anchored && !hidden)
+		add_fingerprint(user)
 		ui_interact(user)
 
 /obj/structure/clockwork/functional/workshop/attack_ghost(mob/user)
@@ -83,7 +84,8 @@
 /obj/structure/clockwork/functional/workshop/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/stack/sheet/brass) && isclocker(user))
 		var/obj/item/stack/sheet/brass/B = O
-		if(user.unEquip(B))
+		if(user.temporarily_remove_item_from_inventory(B))
+			add_fingerprint(user)
 			to_chat(user, "<span class='notice'>You reconstruct [B] for workshop to work with.")
 			brass_amount += MINERAL_MATERIAL_AMOUNT*B.amount
 			qdel(B)
@@ -195,7 +197,7 @@
 	build_start = world.time
 	build_end = build_start + CD.build_time SECONDS
 	desc = "It's creating \a [initial(CD.design_name)]."
-	addtimer(CALLBACK(src, .proc/build_design_timer_finish, CD), CD.build_time SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(build_design_timer_finish), CD), CD.build_time SECONDS)
 
 	return TRUE
 

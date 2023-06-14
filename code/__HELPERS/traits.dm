@@ -66,6 +66,16 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BLOODCRAWL		"bloodcrawl"
 #define TRAIT_BLOODCRAWL_EAT	"bloodcrawl_eat"
 #define TRAIT_JESTER			"jester"
+#define TRAIT_ELITE_CHALLENGER "elite_challenger"
+
+//item traits
+#define TRAIT_CMAGGED "cmagged"
+#define CMAGGED "clown_emag"
+#define ABSTRACT_ITEM_TRAIT "abstract-item"
+/// The items needs two hands to be carried
+#define TRAIT_NEEDS_TWO_HANDS "needstwohands"
+/// Properly wielded two handed item
+#define TRAIT_WIELDED "wielded"
 
 //
 // common trait sources
@@ -76,3 +86,4 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 // unique trait sources
 #define CULT_EYES "cult_eyes"
 #define CLOCK_HANDS "clock_hands"
+

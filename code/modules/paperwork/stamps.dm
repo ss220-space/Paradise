@@ -97,6 +97,21 @@
 	icon_state = "stamp-cent"
 	item_color = "centcom"
 
+/obj/item/stamp/ploho
+	name = "'Very Bad, Redo' rubber stamp"
+	icon_state = "stamp-ploho"
+	item_color = "hop"
+
+/obj/item/stamp/BIGdeny
+	name = "BIG DENY rubber stamp"
+	icon_state = "stamp-BIGdeny"
+	item_color = "redcoat"
+	
+/obj/item/stamp/navcom
+	name = "Nanotrasen Naval Command rubber stamp"
+	icon_state = "stamp-navcom"
+	item_color = "captain"
+
 /obj/item/stamp/syndicate
 	name = "suspicious rubber stamp"
 	icon_state = "stamp-syndicate"
@@ -111,3 +126,8 @@
 	name = "mime's rubber stamp"
 	icon_state = "stamp-mime"
 	item_color = "mime"
+
+/obj/item/stamp/ussp
+	name = "Old USSP rubber stamp"
+	icon_state = "stamp-ussp"
+	item_color = "redcoat"

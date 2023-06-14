@@ -3,7 +3,6 @@ CONTAINS:
 T-RAY
 DETECTIVE SCANNER
 HEALTH ANALYZER
-GAS ANALYZER
 PLANT ANALYZER
 REAGENT SCANNER
 */
@@ -159,7 +158,7 @@ REAGENT SCANNER
 				alerted_mob.do_alert_animation(alerted_mob)
 				alerted_mob.playsound_local(alerted, 'sound/machines/chime.ogg', 15, 0)
 		was_alerted = TRUE
-		addtimer(CALLBACK(src, .proc/end_alert_cd), 1 MINUTES)
+		addtimer(CALLBACK(src, PROC_REF(end_alert_cd)), 1 MINUTES)
 
 /obj/item/t_scanner/security/proc/end_alert_cd()
 	was_alerted = FALSE
@@ -276,14 +275,14 @@ REAGENT SCANNER
 
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 	sleep(3 SECONDS)
-	var/obj/item/paper/P = new(get_turf(src))
+	var/obj/item/paper/P = new(drop_location())
 	P.name = scan_title
 	P.header += "<center><b>[scan_title]</b></center><br>"
 	P.header += "<b>Время сканирования:</b> [station_time_timestamp()]<br><br>"
 	P.header += "[scan_data]"
 	P.info += "<br><br><b>Заметки:</b><br>"
 	if(in_range(user, src))
-		user.put_in_hands(P)
+		user.put_in_hands(P, ignore_anim = FALSE)
 		user.visible_message("<span class='notice'>[src.declent_ru(NOMINATIVE)] [pluralize_ru(src.gender,"выдаёт","выдают")] лист с отчётом.</span>")
 	GLOB.copier_items_printed++
 	reports_printed++
@@ -507,6 +506,7 @@ REAGENT SCANNER
 			. += "<span class='danger'>Обнаружено кровотечение!</span>"
 		var/blood_percent =  round((H.blood_volume / BLOOD_VOLUME_NORMAL)*100)
 		var/blood_type = H.dna.blood_type
+		var/blood_species = H.dna.species.blood_species
 		if(blood_id != "blood")//special blood substance
 			var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
 			if(R)
@@ -514,11 +514,11 @@ REAGENT SCANNER
 			else
 				blood_type = blood_id
 		if(H.blood_volume <= BLOOD_VOLUME_SAFE && H.blood_volume > BLOOD_VOLUME_OKAY)
-			. += "Уровень крови: <span class='danger'>НИЗКИЙ [blood_percent] %, [H.blood_volume] cl,</span> тип: [blood_type]"
+			. += "Уровень крови: <span class='danger'>НИЗКИЙ [blood_percent] %, [H.blood_volume] cl,</span> тип: [blood_type], кровь расы: [blood_species]"
 		else if(H.blood_volume <= BLOOD_VOLUME_OKAY)
-			. += "Уровень крови: <span class='danger'>КРИТИЧЕСКИЙ [blood_percent] %, [H.blood_volume] cl,</span> тип: [blood_type]"
+			. += "Уровень крови: <span class='danger'>КРИТИЧЕСКИЙ [blood_percent] %, [H.blood_volume] cl,</span> тип: [blood_type], кровь расы: [blood_species]"
 		else
-			. += "Уровень крови: [blood_percent] %, [H.blood_volume] cl, тип: [blood_type]"
+			. += "Уровень крови: [blood_percent] %, [H.blood_volume] cl, тип: [blood_type], кровь расы: [blood_species]"
 
 	. += "Пульс: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "#0080ff"]'>[H.get_pulse(GETPULSE_TOOL)] bpm.</font>"
 	var/list/implant_detect = list()
@@ -558,7 +558,7 @@ REAGENT SCANNER
 		if(advanced)
 			to_chat(user, "<span class='notice'>Модуль обновления уже установлен на [src].</span>")
 		else
-			if(user.unEquip(I))
+			if(user.drop_transfer_item_to_loc(I, src))
 				to_chat(user, "<span class='notice'>Вы установили модуль обновления на [src].</span>")
 				add_overlay("advanced")
 				playsound(loc, I.usesound, 50, 1)
@@ -583,137 +583,6 @@ REAGENT SCANNER
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "magnets=2;biotech=2"
 	usesound = 'sound/items/deconstruct.ogg'
-
-/obj/item/analyzer
-	desc = "A hand-held environmental scanner which reports current gas levels."
-	name = "analyzer"
-	icon = 'icons/obj/device.dmi'
-	icon_state = "atmos"
-	item_state = "analyzer"
-	w_class = WEIGHT_CLASS_SMALL
-	flags = CONDUCT
-	slot_flags = SLOT_BELT
-	throwforce = 0
-	throw_speed = 3
-	throw_range = 7
-	materials = list(MAT_METAL=30, MAT_GLASS=20)
-	origin_tech = "magnets=1;engineering=1"
-	var/cooldown = FALSE
-	var/cooldown_time = 250
-	var/accuracy // 0 is the best accuracy.
-
-/obj/item/analyzer/examine(mob/user)
-	. = ..()
-	. += "<span class='info'>Alt-click [src] to activate the barometer function.</span>"
-
-/obj/item/analyzer/attack_self(mob/user as mob)
-
-	if(user.stat)
-		return
-
-	var/turf/location = user.loc
-	if(!( istype(location, /turf) ))
-		return
-
-	var/datum/gas_mixture/environment = location.return_air()
-
-	var/pressure = environment.return_pressure()
-	var/total_moles = environment.total_moles()
-
-	to_chat(user, "<span class='info'><B>Results:</B></span>")
-	if(abs(pressure - ONE_ATMOSPHERE) < 10)
-		to_chat(user, "<span class='info'>Pressure: [round(pressure,0.1)] kPa</span>")
-	else
-		to_chat(user, "<span class='alert'>Pressure: [round(pressure,0.1)] kPa</span>")
-	if(total_moles)
-		var/o2_concentration = environment.oxygen/total_moles
-		var/n2_concentration = environment.nitrogen/total_moles
-		var/co2_concentration = environment.carbon_dioxide/total_moles
-		var/plasma_concentration = environment.toxins/total_moles
-
-		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration)
-		if(abs(n2_concentration - N2STANDARD) < 20)
-			to_chat(user, "<span class='info'>Nitrogen: [round(n2_concentration*100)] %</span>")
-		else
-			to_chat(user, "<span class='alert'>Nitrogen: [round(n2_concentration*100)] %</span>")
-
-		if(abs(o2_concentration - O2STANDARD) < 2)
-			to_chat(user, "<span class='info'>Oxygen: [round(o2_concentration*100)] %</span>")
-		else
-			to_chat(user, "<span class='alert'>Oxygen: [round(o2_concentration*100)] %</span>")
-
-		if(co2_concentration > 0.01)
-			to_chat(user, "<span class='alert'>CO2: [round(co2_concentration*100)] %</span>")
-		else
-			to_chat(user, "<span class='info'>CO2: [round(co2_concentration*100)] %</span>")
-
-		if(plasma_concentration > 0.01)
-			to_chat(user, "<span class='info'>Plasma: [round(plasma_concentration*100)] %</span>")
-
-		if(unknown_concentration > 0.01)
-			to_chat(user, "<span class='alert'>Unknown: [round(unknown_concentration*100)] %</span>")
-
-		to_chat(user, "<span class='info'>Temperature: [round(environment.temperature-T0C)] &deg;C</span>")
-
-	add_fingerprint(user)
-
-/obj/item/analyzer/AltClick(mob/living/user) //Barometer output for measuring when the next storm happens
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(!Adjacent(user))
-		return
-	if(cooldown)
-		to_chat(user, "<span class='warning'>[src]'s barometer function is prepraring itself.</span>")
-		return
-	var/turf/T = get_turf(user)
-	if(!T)
-		return
-	playsound(src, 'sound/effects/pop.ogg', 100)
-	var/area/user_area = T.loc
-	var/datum/weather/ongoing_weather = null
-	if(!user_area.outdoors)
-		to_chat(user, "<span class='warning'>[src]'s barometer function won't work indoors!</span>")
-		return
-	for(var/V in SSweather.processing)
-		var/datum/weather/W = V
-		if(W.barometer_predictable && (T.z in W.impacted_z_levels) && W.area_type == user_area.type && !(W.stage == END_STAGE))
-			ongoing_weather = W
-			break
-	if(ongoing_weather)
-		if((ongoing_weather.stage == MAIN_STAGE) || (ongoing_weather.stage == WIND_DOWN_STAGE))
-			to_chat(user, "<span class='warning'>[src]'s barometer function can't trace anything while the storm is [ongoing_weather.stage == MAIN_STAGE ? "already here!" : "winding down."]</span>")
-			return
-		to_chat(user, "<span class='notice'>The next [ongoing_weather] will hit in [butchertime(ongoing_weather.next_hit_time - world.time)].</span>")
-		if(ongoing_weather.aesthetic)
-			to_chat(user, "<span class='warning'>[src]'s barometer function says that the next storm will breeze on by.</span>")
-	else
-		var/next_hit = SSweather.next_hit_by_zlevel["[T.z]"]
-		var/fixed = next_hit ? next_hit - world.time : -1
-		if(fixed < 0)
-			to_chat(user, "<span class='warning'>[src]'s barometer function was unable to trace any weather patterns.</span>")
-		else
-			to_chat(user, "<span class='warning'>[src]'s barometer function says a storm will land in approximately [butchertime(fixed)].</span>")
-	cooldown = TRUE
-	addtimer(CALLBACK(src,/obj/item/analyzer/proc/ping), cooldown_time)
-
-/obj/item/analyzer/proc/ping()
-	if(isliving(loc))
-		var/mob/living/L = loc
-		to_chat(L, "<span class='notice'>[src]'s barometer function is ready!</span>")
-	playsound(src, 'sound/machines/click.ogg', 100)
-	cooldown = FALSE
-
-/obj/item/analyzer/proc/butchertime(amount)
-	if(!amount)
-		return
-	if(accuracy)
-		var/inaccurate = round(accuracy * (1 / 3))
-		if(prob(50))
-			amount -= inaccurate
-		if(prob(50))
-			amount += inaccurate
-	return DisplayTimeText(max(1, amount))
 
 /obj/item/reagent_scanner
 	name = "reagent scanner"
@@ -747,14 +616,16 @@ REAGENT SCANNER
 	if(!isnull(O.reagents))
 		var/dat = ""
 		var/blood_type = ""
+		var/blood_species = ""
 		if(O.reagents.reagent_list.len > 0)
 			var/one_percent = O.reagents.total_volume / 100
 			for(var/datum/reagent/R in O.reagents.reagent_list)
 				if(R.id != "blood")
 					dat += "<br>[TAB]<span class='notice'>[R][details ? ": [R.volume / one_percent]%" : ""]</span>"
 				else
+					blood_species = R.data["blood_species"]
 					blood_type = R.data["blood_type"]
-					dat += "<br>[TAB]<span class='notice'>[R][blood_type ? " [blood_type]" : ""][details ? ": [R.volume / one_percent]%" : ""]</span>"
+					dat += "<br>[TAB]<span class='notice'>[R][blood_type ? " [blood_type]" : ""][blood_species ? " [blood_species]" : ""][details ? ": [R.volume / one_percent]%" : ""]</span>"
 		if(dat)
 			to_chat(user, "<span class='notice'>Chemicals found: [dat]</span>")
 			datatoprint = dat
@@ -777,13 +648,13 @@ REAGENT SCANNER
 		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 		sleep(50)
 
-		var/obj/item/paper/P = new(get_turf(src))
+		var/obj/item/paper/P = new(drop_location())
 		P.name = "Reagent Scanner Report: [station_time_timestamp()]"
 		P.info = "<center><b>Reagent Scanner</b></center><br><center>Data Analysis:</center><br><hr><br><b>Chemical agents detected:</b><br> [datatoprint]<br><hr>"
 
 		if(ismob(loc))
 			var/mob/M = loc
-			M.put_in_hands(P)
+			M.put_in_hands(P, ignore_anim = FALSE)
 			to_chat(M, "<span class='notice'>Report printed. Log cleared.</span>")
 			datatoprint = ""
 			scanning = TRUE
@@ -942,11 +813,11 @@ REAGENT SCANNER
 		var/report = generate_printing_text(M, user)
 		user.visible_message("[user] begins scanning [M] with [src].", "You begin scanning [M].")
 		if(do_after(user, scan_time, target = M))
-			var/obj/item/paper/printout = new
+			var/obj/item/paper/printout = new(drop_location())
 			printout.info = report
 			printout.name = "Scan report - [M.name]"
 			playsound(user.loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
-			user.put_in_hands(printout)
+			user.put_in_hands(printout, ignore_anim = FALSE)
 			time_to_use = world.time + scan_cd
 			if(isrobot(user))
 				var/mob/living/silicon/robot/R = user
@@ -955,14 +826,14 @@ REAGENT SCANNER
 				cell.use(usecharge)
 			ready = FALSE
 			update_icon(TRUE)
-			addtimer(CALLBACK(src, /obj/item/bodyanalyzer/.proc/setReady), scan_cd)
-			addtimer(CALLBACK(src, /obj/item/bodyanalyzer/.proc/update_icon), 20)
+			addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/bodyanalyzer, setReady)), scan_cd)
+			addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/bodyanalyzer, update_icon)), 20)
 
 	else if(iscorgi(M) && M.stat == DEAD)
 		to_chat(user, "<span class='notice'>You wonder if [M.p_they()] was a good dog. <b>[src] tells you they were the best...</b></span>") // :'(
 		playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 		ready = FALSE
-		addtimer(CALLBACK(src, /obj/item/bodyanalyzer/.proc/setReady), scan_cd)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/bodyanalyzer, setReady)), scan_cd)
 		time_to_use = world.time + scan_cd
 	else
 		to_chat(user, "<span class='notice'>Scanning error detected. Invalid specimen.</span>")

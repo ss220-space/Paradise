@@ -397,7 +397,7 @@
 /obj/machinery/computer/supplycomp/public
 	name = "Supply Ordering Console"
 	desc = "Used to order supplies from cargo staff."
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_screen = "request"
 	circuit = /obj/item/circuitboard/ordercomp
 	req_access = list()
@@ -412,6 +412,7 @@
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return 1
 
+	add_fingerprint(user)
 	post_signal("supply")
 	ui_interact(user)
 	return

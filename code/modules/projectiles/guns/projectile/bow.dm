@@ -7,6 +7,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/bow
 	flags = HANDSLOW
 	weapon_weight = WEAPON_HEAVY
+	trigger_guard = TRIGGER_GUARD_NONE
 	var/draw_sound = 'sound/weapons/draw_bow.ogg'
 	var/ready_to_fire = 0
 	var/slowdown_when_ready = 2
@@ -26,6 +27,8 @@
 		magazine.empty_magazine()
 		ready_to_fire = FALSE
 		update_icon()
+
+	. = ..()
 
 /obj/item/gun/projectile/bow/attack_self(mob/living/user)
 	if(!ready_to_fire && magazine.ammo_count())
@@ -92,7 +95,6 @@
 		/obj/item/ammo_casing/caseless/arrow
 		)
 
-/obj/item/storage/backpack/quiver/full/New()
-	..()
+/obj/item/storage/backpack/quiver/full/populate_contents()
 	for(var/i in 1 to storage_slots)
 		new /obj/item/ammo_casing/caseless/arrow(src)

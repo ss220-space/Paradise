@@ -14,7 +14,7 @@
 	var/assemblyattacher
 
 /obj/item/grenade/plastic/New()
-	image_overlay = image('icons/obj/grenade.dmi', "[item_state]2")
+	image_overlay = image('icons/obj/weapons/grenade.dmi', "[item_state]2")
 	..()
 
 /obj/item/grenade/plastic/Destroy()
@@ -25,7 +25,7 @@
 /obj/item/grenade/plastic/attackby(obj/item/I, mob/user, params)
 	if(!nadeassembly && istype(I, /obj/item/assembly_holder))
 		var/obj/item/assembly_holder/A = I
-		if(!user.unEquip(I))
+		if(!user.drop_item_ground(I))
 			return ..()
 		nadeassembly = A
 		A.master = src
@@ -62,7 +62,7 @@
 		return
 	var/newtime = input(usr, "Please set the timer.", "Timer", det_time) as num
 	if(user.is_in_active_hand(src))
-		newtime = clamp(newtime, 10, 60000)
+		newtime = clamp(newtime, initial(det_time), 60000)
 		det_time = newtime
 		to_chat(user, "Timer set for [det_time] seconds.")
 
@@ -73,8 +73,8 @@
 		return
 	to_chat(user, "<span class='notice'>You start planting the [src]. The timer is set to [det_time]...</span>")
 
-	if(do_after(user, 50 * toolspeed, target = AM))
-		if(!user.unEquip(src))
+	if(do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = AM))
+		if(!user.drop_item_ground(src))
 			return
 		src.target = AM
 		loc = null
@@ -85,7 +85,7 @@
 		target.overlays += image_overlay
 		if(!nadeassembly)
 			to_chat(user, "<span class='notice'>You plant the bomb. Timer counting down from [det_time].</span>")
-			addtimer(CALLBACK(src, .proc/prime), det_time*10)
+			addtimer(CALLBACK(src, PROC_REF(prime)), det_time*10)
 
 /obj/item/grenade/plastic/suicide_act(mob/user)
 	message_admins("[ADMIN_LOOKUPFLW(user)] suicided with [src.name] at [ADMIN_COORDJMP(user)]")
@@ -268,12 +268,12 @@
 			var/turf/T = get_step(location, aim_dir)
 			for(var/turf/simulated/wall/W in range(1, location))
 				W.thermitemelt(speed = 30)
-			addtimer(CALLBACK(null, .proc/explosion, T, 0, 0, 2), 3)
-			addtimer(CALLBACK(smoke, /datum/effect_system/smoke_spread/.proc/start), 3)
+			addtimer(CALLBACK(GLOBAL_PROC, /proc/explosion, T, 0, 0, 2), 3)
+			addtimer(CALLBACK(smoke, TYPE_PROC_REF(/datum/effect_system/smoke_spread, start)), 3)
 		else
 			var/turf/T = get_step(location, aim_dir)
-			addtimer(CALLBACK(null, .proc/explosion, T, 0, 0, 2), 3)
-			addtimer(CALLBACK(smoke, /datum/effect_system/smoke_spread/.proc/start), 3)
+			addtimer(CALLBACK(GLOBAL_PROC, /proc/explosion, T, 0, 0, 2), 3)
+			addtimer(CALLBACK(smoke, TYPE_PROC_REF(/datum/effect_system/smoke_spread, start)), 3)
 
 
 	if(isliving(target))

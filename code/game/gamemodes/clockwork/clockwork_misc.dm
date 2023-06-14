@@ -54,7 +54,7 @@
 /obj/effect/clockwork/overlay/wall/Initialize(mapload)
 	. = ..()
 	queue_smooth_neighbors(src)
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/queue_smooth, src), 1)
+	addtimer(CALLBACK(GLOBAL_PROC, /proc/queue_smooth, src), 1)
 
 /obj/effect/clockwork/overlay/wall/Destroy()
 	queue_smooth_neighbors(src)
@@ -203,7 +203,8 @@
 					T.ChangeTurf(/turf/simulated/wall/clockwork)
 				else
 					T.ChangeTurf(/turf/simulated/floor/clockwork)
-					new /obj/structure/falsewall/brass(T)
+					var/obj/structure/falsewall/brass/fwall = new(T)
+					fwall.add_fingerprint(user)
 				qdel(src)
 			else
 				to_chat(user, "<span class='warning'>You need more brass to make a [anchored ? "false ":""]wall!</span>")

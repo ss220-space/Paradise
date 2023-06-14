@@ -79,7 +79,7 @@
 		to_chat(user, "<span class='notice'>You start digging...</span>")
 
 		playsound(src, I.usesound, 50, TRUE)
-		if(do_after(user, 40 * I.toolspeed, target = src))
+		if(do_after(user, 40 * I.toolspeed * gettoolspeedmod(user), target = src))
 			if(!can_dig(user))
 				return TRUE
 			to_chat(user, "<span class='notice'>You dig a hole.</span>")
@@ -119,6 +119,15 @@
 	baseturf = /turf/simulated/floor/plating/lava/smooth
 
 /turf/simulated/floor/plating/asteroid/basalt/airless
+	temperature = TCMB
+	oxygen = 0
+	nitrogen = 0
+
+/turf/simulated/floor/plating/asteroid/ancient
+	digResult = /obj/item/stack/ore/glass/basalt/ancient
+	baseturf = /turf/simulated/floor/plating/asteroid/ancient/airless
+
+/turf/simulated/floor/plating/asteroid/ancient/airless
 	temperature = TCMB
 	oxygen = 0
 	nitrogen = 0

@@ -38,6 +38,15 @@
 	stamina = 35
 	icon_state = "bullet-r"
 
+/obj/item/projectile/bullet/hp38 //Detective hollow-point
+	damage = 33
+	armour_penetration = -50
+
+/obj/item/projectile/bullet/hp38/on_hit(atom/target, blocked, hit_zone)
+	if(..(target, blocked))
+		var/mob/living/M = target
+		M.AdjustSlowed(1)
+
 /obj/item/projectile/bullet/weakbullet2/invisible //finger gun bullets
 	name = "invisible bullet"
 	damage = 0
@@ -60,11 +69,17 @@
 
 /obj/item/projectile/bullet/weakbullet3/foursix/ap
 	damage = 12
-	armour_penetration = 10
+	armour_penetration = 40
 
 /obj/item/projectile/bullet/weakbullet3/foursix/tox
 	damage = 10
 	damage_type = TOX
+	armour_penetration = 10
+
+/obj/item/projectile/bullet/weakbullet3/fortynr
+	name = "bullet"
+	damage = 25
+	stamina = 20
 
 /obj/item/projectile/bullet/weakbullet4
 	name = "rubber bullet"
@@ -89,13 +104,12 @@
 	damage = 10
 
 /obj/item/projectile/bullet/incendiary/foursix
-	damage = 6
+	damage = 10
+	armour_penetration = 10
 
 /obj/item/projectile/bullet/armourpiercing
 	damage = 17
 	armour_penetration = 10
-
-
 
 /obj/item/projectile/bullet/pellet
 	name = "pellet"
@@ -195,7 +209,7 @@
 	damage = 20
 
 /obj/item/projectile/bullet/incendiary/shell/Move()
-	..()
+	. = ..()
 	var/turf/location = get_turf(src)
 	if(location)
 		new /obj/effect/hotspot(location)
@@ -204,6 +218,10 @@
 /obj/item/projectile/bullet/incendiary/shell/dragonsbreath
 	name = "dragonsbreath round"
 	damage = 5
+
+/obj/item/projectile/bullet/incendiary/shell/dragonsbreath/mecha
+	name = "liquidlava round"
+	damage = 20
 
 /obj/item/projectile/bullet/meteorshot
 	name = "meteor"
@@ -310,6 +328,8 @@
 	if(isalien(target))
 		weaken = 0
 		nodamage = 1
+	if(ismecha(target) || issilicon(target))
+		damage_type = BURN
 	. = ..() // Execute the rest of the code.
 
 /obj/item/projectile/bullet/cap
@@ -320,3 +340,14 @@
 /obj/item/projectile/bullet/cap/fire()
 	loc = null
 	qdel(src)
+
+/obj/item/projectile/bullet/f545 // Rusted AK
+	name = "Fusty FMJ 5.45 bullet"
+	damage = 18
+	stamina = 6
+
+/obj/item/projectile/bullet/ftt762 // Rusted PPSh
+	name = "Fusty FMJ 7.62 TT bullet"
+	damage = 8
+	stamina = 1
+	armour_penetration = 5

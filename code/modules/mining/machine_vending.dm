@@ -183,7 +183,8 @@
 			if(!inserted_id)
 				return
 			if(ishuman(usr))
-				usr.put_in_hands(inserted_id)
+				inserted_id.forceMove_turf()
+				usr.put_in_hands(inserted_id, ignore_anim = FALSE)
 			else
 				inserted_id.forceMove(get_turf(src))
 			inserted_id = null
@@ -207,6 +208,7 @@
 
 /obj/machinery/mineral/equipment_vendor/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "mining-open", "mining", I))
+		add_fingerprint(user)
 		return
 	if(panel_open)
 		if(istype(I, /obj/item/crowbar))
@@ -216,6 +218,7 @@
 	if(istype(I, /obj/item/mining_voucher))
 		if(!powered())
 			return
+		add_fingerprint(user)
 		redeem_voucher(I, user)
 		return
 	if(istype(I, /obj/item/card/id))
@@ -223,9 +226,9 @@
 			return
 		var/obj/item/card/id/C = user.get_active_hand()
 		if(istype(C) && !istype(inserted_id))
-			if(!user.drop_item())
+			if(!user.drop_transfer_item_to_loc(C, src))
 				return
-			C.forceMove(src)
+			add_fingerprint(user)
 			inserted_id = C
 			ui_interact(user)
 		return
@@ -381,6 +384,7 @@
 /obj/item/card/mining_point_card/attackby(obj/item/I, mob/user, params)
 	if(I.GetID())
 		if(points)
+			add_fingerprint(user)
 			var/obj/item/card/id/C = I.GetID()
 			C.mining_points += points
 			to_chat(user, "<span class='info'>You transfer [points] points to [C].</span>")

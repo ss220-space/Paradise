@@ -56,7 +56,7 @@
 		return FALSE
 	cooldown = 2
 	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
-	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
+	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
 	pulse(FALSE, triggered)
 
 /obj/item/assembly/prox_sensor/process()
@@ -92,7 +92,7 @@
 		holder.update_icon()
 
 /obj/item/assembly/prox_sensor/Move()
-	..()
+	. = ..()
 	sense()
 
 /obj/item/assembly/prox_sensor/holder_movement(user)
@@ -108,10 +108,9 @@
 	dat += "<BR><A href='?src=[UID()];scanning=1'>[scanning?"Armed":"Unarmed"]</A> (Movement sensor active when armed!)"
 	dat += "<BR><BR><A href='?src=[UID()];refresh=1'>Refresh</A>"
 	dat += "<BR><BR><A href='?src=[UID()];close=1'>Close</A>"
-	var/datum/browser/popup = new(user, "prox", name, 400, 400)
+	var/datum/browser/popup = new(user, "prox", name, 400, 400, src)
 	popup.set_content(dat)
-	popup.open(0)
-	onclose(user, "prox")
+	popup.open()
 
 /obj/item/assembly/prox_sensor/Topic(href, href_list)
 	..()

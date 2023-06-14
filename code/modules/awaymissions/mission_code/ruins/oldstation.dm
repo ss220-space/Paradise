@@ -3,12 +3,9 @@
 	icon_state = "firstaid"
 	desc = "A first aid kit with the ability to heal common types of injuries."
 
-/obj/item/storage/firstaid/ancient/New()
-	..()
-	new /obj/item/stack/medical/bruise_pack(src)
-	new /obj/item/stack/medical/bruise_pack(src)
-	new /obj/item/stack/medical/bruise_pack(src)
-	new /obj/item/stack/medical/bruise_pack(src)
+/obj/item/storage/firstaid/ancient/populate_contents()
+	for(var/I in 1 to 4)
+		new /obj/item/stack/medical/bruise_pack(src)
 	new /obj/item/stack/medical/ointment(src)
 	new /obj/item/stack/medical/ointment(src)
 	new /obj/item/stack/medical/ointment(src)
@@ -107,11 +104,12 @@
 // Papers
 /obj/item/paper/fluff/ruins/oldstation
 	name = "Cryo Awakening Alert"
+	language = "Sol Common"
 	info = "<B>**WARNING**</B><BR><BR>Catastrophic damage sustained to station. Powernet exhausted to reawaken crew.<BR><BR>Immediate Objectives<br><br>1: Activate emergency power generator<br>2: Lift station lockdown on the bridge<br><br>Please locate the 'Damage Report' on the bridge for a detailed situation report."
 
 /obj/item/paper/fluff/ruins/oldstation/damagereport
 	name = "Damage Report"
-	info = "<b>Damage Report</b><br><br><b>Alpha Station</b> - Destroyed<br><br><b>Beta Station</b> - Catastrophic Damage. Medical, partially destroyed. Atmospherics, partially destroyed. Engine Core, destroyed.<br><br><b>Charlie Station</b> - Intact. Loss of oxygen to eastern side of main corridor.<br><br><b>Theta Station</b> - Intact. <b>WARNING</b>: Unknown force occupying Theta Station. Intent unknown. Species unknown. Numbers unknown.<br><br>Recommendation - Reestablish station powernet via solar array. Reestablish station atmospherics system to restore air."
+	info = "<b>Damage Report</b><br><br><b>Omega Station</b> - Destroyed<br><br><b>Alpha Station</b> - Destroyed<br><br><b>Beta Station</b> - Catastrophic Damage. Medical, partially destroyed. Atmospherics, partially destroyed. Engine Core, destroyed.<br><br><b>Charlie Station</b> - Intact. Loss of oxygen to eastern side of main corridor.<br><br><b>Theta Station</b> - Intact. <b>WARNING</b>: Unknown force occupying Theta Station. Intent unknown. Species unknown. Numbers unknown.<br><br>Recommendation - Reestablish station powernet via solar array. Reestablish station atmospherics system to restore air."
 
 /obj/item/paper/fluff/ruins/oldstation/protosuit
 	name = "B01-RIG Hardsuit Report"
@@ -152,6 +150,9 @@
 	name = "S.U.P.E.R.P.A.C.M.A.N.-type portable generator manual"
 	info = "You can barely make out a faded sentence... <br><br> Wrench down the generator on top of a wire node connected to either a SMES input terminal or the power grid. \
 	*eep th* *e**l of **m..<br><br> The last words completly faded." // yep, the temperature overheat, some players set power to 5 and make the gen to blow up, rip oldstation.
+
+/obj/item/paper/ruins/oldstation
+	language = "Sol Common"
 
 /obj/item/paper/ruins/oldstation/protoinventory
 	name = "Theta RnD Prototype Inventory Secure Storage"

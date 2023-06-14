@@ -188,7 +188,7 @@
 
 /obj/structure/foamedmetal/Move()
 	var/turf/T = loc
-	..()
+	. = ..()
 	move_update_air(T)
 
 /obj/structure/foamedmetal/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -211,6 +211,7 @@
 		user.visible_message("<span class='warning'>[user] smashes through [src].</span>", "<span class='notice'>You smash through [src].</span>")
 		qdel(src)
 	else
+		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>You hit the metal foam but bounce off it.</span>")
 		playsound(loc, 'sound/weapons/tap.ogg', 100, 1)
 

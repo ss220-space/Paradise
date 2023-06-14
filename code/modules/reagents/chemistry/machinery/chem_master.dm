@@ -98,11 +98,11 @@
 		if(beaker)
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
 			return
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(I, src))
 			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 			return
+		add_fingerprint(user)
 		beaker = I
-		I.forceMove(src)
 		to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
 		SStgui.update_uis(src)
 		update_icon()
@@ -112,12 +112,12 @@
 			to_chat(user, "<span class='warning'>A [loaded_pill_bottle] is already loaded into the machine.</span>")
 			return
 
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(I, src))
 			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 			return
 
+		add_fingerprint(user)
 		loaded_pill_bottle = I
-		I.forceMove(src)
 		to_chat(user, "<span class='notice'>You add [I] into the dispenser slot!</span>")
 		SStgui.update_uis(src)
 	else
@@ -190,7 +190,7 @@
 			P.info += "<b>Chemical name:</b> [R.name]<br>"
 			if(istype(R, /datum/reagent/blood))
 				var/datum/reagent/blood/B = R
-				P.info += "<b>Description:</b> N/A<br><b>Blood Type:</b> [B.data["blood_type"]]<br><b>DNA:</b> [B.data["blood_DNA"]]"
+				P.info += "<b>Description:</b> N/A<br><b>Blood Type:</b> [B.data["blood_type"]] [B.data["blood_species"]] <br><b>DNA:</b> [B.data["blood_DNA"]]"
 			else
 				P.info += "<b>Description:</b> [R.description]"
 			P.info += "<br><br><b>Notes:</b><br>"
@@ -226,7 +226,7 @@
 				return
 			beaker.forceMove(get_turf(src))
 			if(Adjacent(usr) && !issilicon(usr))
-				usr.put_in_hands(beaker)
+				usr.put_in_hands(beaker, ignore_anim = FALSE)
 			beaker = null
 			reagents.clear_reagents()
 			update_icon()

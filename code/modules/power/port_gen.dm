@@ -4,7 +4,7 @@
 /obj/machinery/power/port_gen
 	name = "Placeholder Generator"	//seriously, don't use this. It can't be anchored without VV magic.
 	desc = "A portable generator for emergency backup power"
-	icon = 'icons/obj/power.dmi'
+	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "portgen0_0"
 	density = 1
 	anchored = 0
@@ -280,6 +280,7 @@
 		if(amount < 1)
 			to_chat(user, "<span class='notice'>The [src.name] is full!</span>")
 			return
+		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>You add [amount] sheet\s to the [src.name].</span>")
 		sheets += amount
 		addstack.use(amount)
@@ -310,6 +311,7 @@
 			return
 		else if(istype(O, /obj/item/crowbar) && panel_open)
 			default_deconstruction_crowbar(user, O)
+		add_fingerprint(user)
 	else
 		return ..()
 
@@ -369,7 +371,7 @@
 	switch(action)
 		if("toggle_power")
 			if(!powernet) //only a warning, process will disable
-				atom_say("Not connected to powernet.")
+				atom_say("Не подключен к электросет+и.")
 			active = !active
 			update_icon()
 		if("eject_fuel")

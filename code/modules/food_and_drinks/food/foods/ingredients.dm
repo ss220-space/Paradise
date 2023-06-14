@@ -90,6 +90,16 @@
 	tastes = list("tomato" = 1)
 	foodtype = VEGETABLES
 
+/obj/item/reagent_containers/food/snacks/cucumberslice
+ 	name = "cucumber slice"
+ 	desc = "A slice from a cucumber."
+ 	icon_state = "cucumberslice"
+ 	filling_color = "#00DB00"
+ 	bitesize = 6
+ 	list_reagents = list("kelotane" = 1)
+ 	tastes = list("cucumber" = 1)
+ 	foodtype = VEGETABLES
+
 /obj/item/reagent_containers/food/snacks/watermelonslice
 	name = "watermelon slice"
 	desc = "A slice of watery goodness."
@@ -154,6 +164,14 @@
 	tastes = list("dough" = 1)
 	foodtype = GRAIN
 
+/obj/item/reagent_containers/food/snacks/doughslice/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/reagent_containers/food/snacks/rawcutlet))
+		new /obj/item/reagent_containers/food/snacks/pelmeni(src)
+		to_chat(user, "You make some pelmeni.")
+		qdel(src)
+		qdel(I)
+	else
+		..()
 
 ///cookies by Ume
 

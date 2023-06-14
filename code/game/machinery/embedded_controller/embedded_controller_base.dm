@@ -35,10 +35,11 @@
 /obj/machinery/embedded_controller/attack_hand(mob/user as mob)
 	if(!user.IsAdvancedToolUser())
 		return FALSE
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/embedded_controller/radio
-	icon = 'icons/obj/airlock_machines.dmi'
+	icon = 'icons/obj/machines/airlock_machines.dmi'
 	icon_state = "airlock_control_standby"
 	power_channel = ENVIRON
 	density = 0

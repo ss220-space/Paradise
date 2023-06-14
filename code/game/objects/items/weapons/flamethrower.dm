@@ -1,7 +1,7 @@
 /obj/item/flamethrower
 	name = "flamethrower"
 	desc = "You are a firestarter!"
-	icon = 'icons/obj/flamethrower.dmi'
+	icon = 'icons/obj/weapons/flamethrower.dmi'
 	icon_state = "flamethrowerbase"
 	item_state = "flamethrower_0"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
@@ -90,30 +90,25 @@
 			return
 		if(igniter)
 			return
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(IG, src))
 			return
-		IG.forceMove(src)
 		igniter = IG
 		update_icon()
 		return
 
 	else if(istype(I, /obj/item/tank/internals/plasma))
 		if(ptank)
-			if(user.drop_item())
-				I.forceMove(src)
+			if(user.drop_transfer_item_to_loc(I, src))
 				ptank.forceMove(get_turf(src))
 				ptank = I
 				to_chat(user, "<span class='notice'>You swap the plasma tank in [src]!</span>")
 			return
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(I, src))
 			return
-		I.forceMove(src)
 		ptank = I
 		update_icon()
 		return
 
-	else if(istype(I, /obj/item/analyzer) && ptank)
-		atmosanalyzer_scan(ptank.air_contents, user)
 	else
 		return ..()
 
@@ -146,6 +141,11 @@
 	to_chat(user, "<span class='notice'>[igniter] is now [status ? "secured" : "unsecured"]!</span>")
 	update_icon()
 
+/obj/item/flamethrower/return_analyzable_air()
+	if(ptank)
+		return ptank.return_analyzable_air()
+	return null
+
 /obj/item/flamethrower/attack_self(mob/user)
 	toggle_igniter(user)
 
@@ -154,7 +154,8 @@
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	if(ptank && user.Adjacent(src))
-		user.put_in_hands(ptank)
+		ptank.forceMove_turf()
+		user.put_in_hands(ptank, ignore_anim = FALSE)
 		ptank = null
 		to_chat(user, "<span class='notice'>You remove the plasma tank from [src]!</span>")
 		update_icon()

@@ -25,7 +25,22 @@
 	throw_speed = 4
 	throw_range = 20
 	force = 0
+	var/unique_toy_rename = FALSE
 
+/obj/item/toy/examine(mob/user)
+	. = ..()
+	if(unique_toy_rename)
+		. += "<span class='info'>Use a pen on it to rename it.</span>"
+
+/obj/item/toy/attackby(obj/item/K, mob/user, params)
+	. = ..()
+	if(unique_toy_rename)
+		if(istype(K, /obj/item/pen))
+			var/t = rename_interactive(user, K, use_prefix = FALSE)
+			if(!isnull(t))
+				to_chat(user, "<span class='notice'>You name the toy [name]. Say hello to your new friend.</span>")
+	else
+		return ..()
 
 /*
  * Balloons
@@ -123,6 +138,12 @@
 	user.visible_message("<span class='notice'>[user] plays with [src].</span>", "<span class='notice'>You [playverb].</span>")
 	lastused = world.time
 
+/obj/item/toy/balloon/snail
+	name = "\improper 'snail' balloon"
+	desc = "It looks quite familiar, right?"
+	icon_state = "snailplushie"
+	item_state = "snailplushie"
+
 /*
  * Fake telebeacon
  */
@@ -139,7 +160,7 @@
 /obj/item/toy/spinningtoy
 	name = "Gravitational Singularity"
 	desc = "\"Singulo\" brand spinning toy."
-	icon = 'icons/obj/singularity.dmi'
+	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "singularity_s1"
 
 /*
@@ -188,9 +209,8 @@
 			to_chat(user, "<span class='notice'>\the [flags & NODROP ? src : W] is stuck to your hand, you can't attach it to \the [flags & NODROP ? W : src]!</span>")
 		else
 			to_chat(user, "<span class='notice'>You attach the ends of the two plastic swords, making a single double-bladed toy! You're fake-cool.</span>")
-			new /obj/item/twohanded/dualsaber/toy(user.loc)
-			user.unEquip(W)
-			user.unEquip(src)
+			var/obj/item/sword = new /obj/item/twohanded/dualsaber/toy(drop_location())
+			user.drop_transfer_item_to_loc(W, sword)
 			qdel(W)
 			qdel(src)
 
@@ -304,7 +324,7 @@
 
 /obj/effect/decal/cleanable/ash/snappop_phoenix/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/respawn), respawn_time)
+	addtimer(CALLBACK(src, PROC_REF(respawn)), respawn_time)
 
 /obj/effect/decal/cleanable/ash/snappop_phoenix/proc/respawn()
 	new /obj/item/toy/snappop/phoenix(get_turf(src))
@@ -466,15 +486,14 @@
 		icon_state = "deck_[deckstyle]_empty"
 		to_chat(user, "<span class='notice'>There are no more cards to draw.</span>")
 		return
-	var/obj/item/toy/cards/singlecard/H = new/obj/item/toy/cards/singlecard(user.loc)
+	var/obj/item/toy/cards/singlecard/H = new/obj/item/toy/cards/singlecard(drop_location())
 	choice = cards[1]
 	H.cardname = choice
 	H.parentdeck = src
 	var/O = src
 	H.apply_card_vars(H,O)
 	cards -= choice
-	H.pickup(user)
-	user.put_in_active_hand(H)
+	user.put_in_active_hand(H, ignore_anim = FALSE)
 	visible_message("<span class='notice'>[user] draws a card from the deck.</span>", "<span class='notice'>You draw a card from the deck.</span>")
 	update_icon()
 
@@ -489,7 +508,7 @@
 	..()
 	if(istype(C))
 		if(C.parentdeck == src)
-			if(!user.unEquip(C))
+			if(!user.drop_transfer_item_to_loc(C, src))
 				to_chat(user, "<span class='notice'>The card is stuck to your hand, you can't add it to the deck!</span>")
 				return
 			cards += C.cardname
@@ -500,43 +519,25 @@
 		update_icon()
 
 
-/obj/item/toy/cards/deck/attackby(obj/item/toy/cards/cardhand/C, mob/living/user, params)
-	..()
-	if(istype(C))
-		if(C.parentdeck == src)
-			if(!user.unEquip(C))
-				to_chat(user, "<span class='notice'>The hand of cards is stuck to your hand, you can't add it to the deck!</span>")
-				return
-			cards += C.currenthand
-			user.visible_message("<span class='notice'>[user] puts [user.p_their()] hand of cards in the deck.</span>", "<span class='notice'>You put the hand of cards in the deck.</span>")
-			qdel(C)
-		else
-			to_chat(user, "<span class='notice'>You can't mix cards from other decks.</span>")
-		update_icon()
-
 /obj/item/toy/cards/deck/MouseDrop(atom/over_object)
 	var/mob/M = usr
-	if(usr.stat || !ishuman(usr) || !usr.canmove || usr.restrained())
+	if(M.incapacitated() || !Adjacent(M))
 		return
-	if(Adjacent(usr))
-		if(over_object == M  && loc != M)
-			M.put_in_hands(src)
-			to_chat(usr, "<span class='notice'>You pick up the deck.</span>")
-
-		else if(istype(over_object, /obj/screen))
+	if(!ishuman(M))
+		return
+	if(over_object == M)
+		M.put_in_hands(src, ignore_anim = FALSE)
+	if(istype(over_object, /obj/screen))
+		if(!remove_item_from_storage(M))
+			M.drop_item_ground(src)
+		if(over_object != M)
 			switch(over_object.name)
 				if("l_hand")
-					if(!remove_item_from_storage(M))
-						M.unEquip(src)
-					M.put_in_l_hand(src)
-					to_chat(usr, "<span class='notice'>You pick up the deck.</span>")
+					M.put_in_l_hand(src, ignore_anim = FALSE)
 				if("r_hand")
-					if(!remove_item_from_storage(M))
-						M.unEquip(src)
-					M.put_in_r_hand(src)
-					to_chat(usr, "<span class='notice'>You pick up the deck.</span>")
-	else
-		to_chat(usr, "<span class='notice'>You can't reach it from here.</span>")
+					M.put_in_r_hand(src, ignore_anim = FALSE)
+	add_fingerprint(M)
+	usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
 
 /obj/item/toy/cards/deck/update_icon()
 	switch(cards.len)
@@ -577,32 +578,32 @@
 /obj/item/toy/cards/cardhand/Topic(href, href_list)
 	if(..())
 		return
-	if(usr.stat || !ishuman(usr) || !usr.canmove)
+	if(usr.incapacitated() || !Adjacent(usr))
+		return
+	if(!ishuman(usr))
 		return
 	var/mob/living/carbon/human/cardUser = usr
 	var/O = src
 	if(href_list["pick"])
 		if(cardUser.get_item_by_slot(slot_l_hand) == src || cardUser.get_item_by_slot(slot_r_hand) == src)
 			var/choice = href_list["pick"]
-			var/obj/item/toy/cards/singlecard/C = new/obj/item/toy/cards/singlecard(cardUser.loc)
+			var/obj/item/toy/cards/singlecard/C = new/obj/item/toy/cards/singlecard(drop_location())
 			currenthand -= choice
 			C.parentdeck = src.parentdeck
 			C.cardname = choice
 			C.apply_card_vars(C,O)
-			C.pickup(cardUser)
-			cardUser.put_in_any_hand_if_possible(C)
+			cardUser.put_in_hands(C, ignore_anim = FALSE)
 			cardUser.visible_message("<span class='notice'>[cardUser] draws a card from [cardUser.p_their()] hand.</span>", "<span class='notice'>You take the [C.cardname] from your hand.</span>")
 
 			interact(cardUser)
 			update_icon()
 			if(currenthand.len == 1)
-				var/obj/item/toy/cards/singlecard/N = new/obj/item/toy/cards/singlecard(src.loc)
+				var/obj/item/toy/cards/singlecard/N = new/obj/item/toy/cards/singlecard(drop_location())
 				N.parentdeck = src.parentdeck
 				N.cardname = src.currenthand[1]
 				N.apply_card_vars(N,O)
-				cardUser.unEquip(src)
-				N.pickup(cardUser)
-				cardUser.put_in_any_hand_if_possible(N)
+				cardUser.temporarily_remove_item_from_inventory(src)
+				cardUser.put_in_hands(N, ignore_anim = FALSE)
 				to_chat(cardUser, "<span class='notice'>You also take [currenthand[1]] and hold it.</span>")
 				cardUser << browse(null, "window=cardhand")
 				qdel(src)
@@ -612,7 +613,7 @@
 	if(istype(C))
 		if(C.parentdeck == parentdeck)
 			currenthand += C.cardname
-			user.unEquip(C)
+			user.drop_transfer_item_to_loc(C, src)
 			user.visible_message("<span class='notice'>[user] adds a card to [user.p_their()] hand.</span>", "<span class='notice'>You add the [C.cardname] to your hand.</span>")
 			interact(user)
 			update_icon()
@@ -659,7 +660,9 @@
 	set name = "Flip Card"
 	set category = "Object"
 	set src in range(1)
-	if(usr.stat || !ishuman(usr) || !usr.canmove || usr.restrained())
+	if(usr.incapacitated() || !Adjacent(usr))
+		return
+	if(!ishuman(usr))
 		return
 	if(!flipped)
 		flipped = 1
@@ -680,14 +683,13 @@
 	if(istype(I, /obj/item/toy/cards/singlecard/))
 		var/obj/item/toy/cards/singlecard/C = I
 		if(C.parentdeck == parentdeck)
-			var/obj/item/toy/cards/cardhand/H = new/obj/item/toy/cards/cardhand(user.loc)
+			var/obj/item/toy/cards/cardhand/H = new/obj/item/toy/cards/cardhand(drop_location())
 			H.currenthand += C.cardname
 			H.currenthand += cardname
 			H.parentdeck = C.parentdeck
 			H.apply_card_vars(H,C)
-			user.unEquip(C)
-			H.pickup(user)
-			user.put_in_active_hand(H)
+			user.temporarily_remove_item_from_inventory(C)
+			user.put_in_active_hand(H, ignore_anim = FALSE)
 			to_chat(user, "<span class='notice'>You combine the [C.cardname] and the [cardname] into a hand.</span>")
 			qdel(C)
 			qdel(src)
@@ -698,7 +700,7 @@
 		var/obj/item/toy/cards/cardhand/H = I
 		if(H.parentdeck == parentdeck)
 			H.currenthand += cardname
-			user.unEquip(src)
+			src.do_pickup_animation(user)
 			user.visible_message("<span class='notice'>[user] adds a card to [user.p_their()] hand.</span>", "<span class='notice'>You add the [cardname] to your hand.</span>")
 			H.interact(user)
 			H.update_icon()
@@ -721,7 +723,9 @@
 
 
 /obj/item/toy/cards/singlecard/attack_self(mob/user)
-	if(usr.stat || !ishuman(usr) || !usr.canmove || usr.restrained())
+	if(usr.incapacitated() || !Adjacent(usr))
+		return
+	if(!ishuman(usr))
 		return
 	Flip()
 
@@ -896,7 +900,9 @@
 	icon_state = "carpplushie"
 	attack_verb = list("bitten", "eaten", "fin slapped")
 	var/bitesound = 'sound/weapons/bite.ogg'
+	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
+	unique_toy_rename = TRUE
 
 // Attack mob
 /obj/item/toy/carpplushie/attack(mob/M as mob, mob/user as mob)
@@ -959,7 +965,9 @@
 	icon = 'icons/obj/toy.dmi'
 	var/poof_sound = 'sound/weapons/thudswoosh.ogg'
 	attack_verb = list("poofed", "bopped", "whapped","cuddled","fluffed")
+	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
+	unique_toy_rename = TRUE
 
 /obj/item/toy/plushie/attack(mob/M as mob, mob/user as mob)
 	playsound(loc, poof_sound, 20, 1)	// Play the whoosh sound in local area
@@ -1191,6 +1199,213 @@
 				icon_state = "ninja_plushie_red"
 				item_state = "ninja_plushie_red"
 				user.visible_message(span_notice("[bicon(src)] The [name] says \"You can run, but you can't hide!\""))
+
+//New toys from another builds
+/obj/item/toy/plushie/nianplushie/beeplushie
+	name = "bee plushie"
+	desc = "A cute toy that resembles an even cuter bee."
+	icon_state = "plushie_h"
+	item_state = "plushie_h"
+	attack_verb = list("stung", "buzzed", "pollinated")
+	gender = FEMALE
+
+/obj/item/toy/plushie/realgoat
+	name = "goat plushie"
+	desc = "Despite its cuddly appearance and plush nature, it will beat you up all the same, or at least it would if it wasn't a normal plushie."
+	icon_state = "realgoat"
+	attack_verb = list("chomped", "punched", "poked")
+	var/goatbite = 'sound/items/goatsound.ogg'
+	var/cooldown = FALSE
+
+/obj/item/toy/plushie/realgoat/attack(mob/M as mob, mob/user as mob)
+	playsound(loc, goatbite, 10, 1)	// Play bite sound in local area
+	return ..()
+
+/obj/item/toy/plushie/realgoat/attack_self(mob/user)
+	if(cooldown)
+		return ..()
+
+	playsound(src, 'sound/items/goatsound.ogg', 10, 0)
+	visible_message("<span class='danger'>Baaaaah!</span>")
+	cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
+
+/obj/item/toy/plushie/foxplushie
+	name = "fox plushie"
+	desc = "An adorable stuffed toy resembling a cute fox."
+	icon_state = "fox"
+	item_state = "fox"
+
+/obj/item/toy/plushie/blahaj
+	name = "shark plushie"
+	desc = "A smaller, friendlier, and fluffier version of the real thing."
+	gender = MALE
+	icon_state = "blahaj"
+	item_state = "blahaj"
+	attack_verb = list("chomped", "gnawed", "bit")
+	var/fishbite = 'sound/weapons/bite.ogg'
+	var/cooldown = FALSE
+
+/obj/item/toy/plushie/blahaj/attack(mob/M as mob, mob/user as mob)
+	playsound(loc, fishbite, 10, 1)	// Play bite sound in local area
+	return ..()
+
+/obj/item/toy/plushie/blahaj/attack_self(mob/user)
+	if(cooldown)
+		return ..()
+
+	playsound(src, 'sound/weapons/bite.ogg', 10, 0)
+	visible_message("<span class='danger'>...!</span>")
+	cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
+
+/obj/item/toy/plushie/axolotlplushie
+	name = "axolotl plushie"
+	desc = "An adorable stuffed toy that resembles an axolotl. Not to be mistaken for the real thing."
+	icon_state = "plushie_axolotl"
+	item_state = "axolotl"
+	attack_verb = list("nibbles", "splats")
+	var/axolotlbite = 'sound/items/axolotl.ogg'
+	var/cooldown = FALSE
+
+/obj/item/toy/plushie/axolotlplushie/attack(mob/M as mob, mob/user as mob)
+	playsound(loc, axolotlbite, 20, 1)	// Play bite sound in local area
+	return ..()
+
+/obj/item/toy/plushie/axolotlplushie/attack_self(mob/user)
+	if(cooldown)
+		return ..()
+
+	playsound(src, 'sound/items/axolotl.ogg', 20, 0)
+	visible_message("<span class='danger'>Squeeek!</span>")
+	cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
+
+/obj/item/toy/plushie/plasmamanplushie
+	name = "plasmaman plushie"
+	desc = "A stuffed toy that resembles your purple coworkers. Mmm, yeah, in true plasmaman fashion, it's not cute at all despite the designer's best efforts."
+	icon_state = "plushie_pman"
+	attack_verb = list("burns", "space beasts", "fwooshes")
+	var/pmanlbite = 'sound/effects/extinguish.ogg'
+	var/cooldown = FALSE
+
+/obj/item/toy/plushie/plasmamanplushie/attack(mob/M as mob, mob/user as mob)
+	playsound(loc, pmanlbite, 20, 1)	// Play bite sound in local area
+	return ..()
+
+/obj/item/toy/plushie/plasmamanplushie/attack_self(mob/user)
+	if(cooldown)
+		return ..()
+
+	playsound(src, 'sound/effects/extinguish.ogg', 20, 0)
+	visible_message("<span class='danger'>Plasmaflood!</span>")
+	cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
+
+/obj/item/toy/plushie/rouny
+	name = "runner plushie"
+	desc = "A plushie depicting a xenomorph runner, made to commemorate the centenary of the Battle of LV-426. Much cuddlier than the real thing."
+	icon_state = "rouny"
+	attack_verb = list("slashes", "bites", "charges")
+	var/rounibite = 'sound/items/Help.ogg'
+	var/cooldown = FALSE
+
+/obj/item/toy/plushie/rouny/attack(mob/M as mob, mob/user as mob)
+	playsound(loc, rounibite, 10, 1)	// Play bite sound in local area
+	return ..()
+
+/obj/item/toy/plushie/rouny/attack_self(mob/user)
+	if(cooldown)
+		return ..()
+
+	playsound(src, 'sound/items/Help.ogg', 10, 0)
+	visible_message("<span class='danger'>Ruuun!</span>")
+	cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
+
+/obj/item/toy/plushie/beepsky
+	name = "plush Officer Sweepsky"
+	desc = "A plushie of a popular industrious cleaning robot! If it could feel emotions, it would love you."
+	icon_state = "beepskyplushie"
+	attack_verb = list("Ping!")
+
+/obj/item/toy/plushie/banbanana
+	name = "BANana"
+	desc = "What happens if I peel it?"
+	icon_state = "banana"
+
+/obj/item/toy/plushie/banbanana/attack(mob/M, mob/user)
+	to_chat(M, "<font color='red'><b>You have been banned by HO$T.\nReason: Honk.<b></font>")
+	to_chat(M, "<font color='red'><b>This is a PERMENANT ban.<b></font>")
+	to_chat(user, "<font color='red'> You have <b>BANNED</b> [M]</font>")
+	playsound(loc, 'sound/effects/adminhelp.ogg', 25)
+
+/obj/item/toy/plushie/pig
+	name = "rubber piggy"
+	desc = "The people demand pigs!"
+	icon_state = "pig1"
+	var/spam_flag = 0
+	var/message_spam_flag = 0
+
+/obj/item/toy/plushie/pig/proc/oink(mob/user, msg)
+	if(spam_flag == 0)
+		spam_flag = 1
+		playsound(loc, pick('sound/items/pig1.ogg','sound/items/pig2.ogg','sound/items/pig3.ogg'), 100, 1)
+		add_fingerprint(user)
+		if(message_spam_flag == 0)
+			message_spam_flag = 1
+			user.visible_message("notice", "[user] [msg] \the [src] in hand!")
+			spawn(30)
+				message_spam_flag = 0
+		spawn(3)
+			spam_flag = 0
+	return
+
+/obj/item/toy/plushie/pig/attack_self(mob/user)
+	oink(user, "squeezes")
+
+/obj/item/toy/plushie/pig/attack_hand(mob/user)
+	oink(user, pick("presses", "squeezes", "squashes", "champs", "pinches"))
+
+/obj/item/toy/plushie/pig/Initialize()
+	. = ..()
+	switch(rand(1, 100))
+		if(1 to 33)
+			icon_state = "pig1"
+		if(34 to 66)
+			icon_state = "pig2"
+		if(67 to 99)
+			icon_state = "pig3"
+		if(100)
+			icon_state = "pig4"
+			name = "green rubber piggy"
+			desc = "Watch out for angry voxes!"
+
+/obj/item/toy/plushie/pig/MouseDrop(atom/over_object)
+	var/mob/M = usr
+	if(M.restrained() || M.stat || !Adjacent(M))
+		return
+	if(!ishuman(M))
+		return
+
+	if(over_object == M)
+		if(!remove_item_from_storage(M))
+			M.drop_item_ground(src)
+		M.put_in_hands(src, ignore_anim = FALSE)
+
+	else if(istype(over_object, /obj/screen))
+		switch(over_object.name)
+			if("r_hand")
+				if(!remove_item_from_storage(M))
+					M.drop_item_ground(src)
+				M.put_in_r_hand(src, ignore_anim = FALSE)
+			if("l_hand")
+				if(!remove_item_from_storage(M))
+					M.drop_item_ground(src)
+				M.put_in_l_hand(src, ignore_anim = FALSE)
+
+	add_fingerprint(M)
+
 /*
  * Foam Armblade
  */
@@ -1375,8 +1590,8 @@
 	name = "Box of Miniatures"
 	desc = "The nerd's best friends."
 	icon_state = "box"
-/obj/item/storage/box/characters/New()
-	..()
+
+/obj/item/storage/box/characters/populate_contents()
 	new /obj/item/toy/character/alien(src)
 	new /obj/item/toy/character/cleric(src)
 	new /obj/item/toy/character/warrior(src)
@@ -1442,8 +1657,7 @@
 				to_chat(user, "<span class='alert'>\The [O] is too far away to feed into \the [src]!</span>")
 			else
 				to_chat(user, "<span class='notice'>You feed \the [O] [bicon(O)] into \the [src]!</span>")
-				user.unEquip(O)
-				O.forceMove(src)
+				user.drop_transfer_item_to_loc(O, src)
 				stored_minature = O
 		else
 			to_chat(user, "<span class='warning'>You stop feeding \the [O] into \the [src]'s mini-input.</span>")
@@ -1481,7 +1695,7 @@
 /obj/item/toy/russian_revolver
 	name = "russian revolver"
 	desc = "for fun and games!"
-	icon = 'icons/obj/guns/projectile.dmi'
+	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "detective_gold"
 	item_state = "gun"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
@@ -1900,3 +2114,96 @@
 	throwforce = 0
 	breakouttime = 0
 	ignoresClumsy = TRUE
+
+/*
+* Office desk toys
+*/
+
+/obj/item/toy/desk
+	name = "desk toy master"
+	desc = "A object that does not exist. Parent Item"
+	icon = 'icons/obj/toy.dmi'
+	layer = ABOVE_MOB_LAYER
+	var/on = 0
+	var/activation_sound = 'sound/items/buttonclick.ogg'
+
+/obj/item/toy/desk/update_icon()
+	if(on)
+		icon_state = "[initial(icon_state)]-on"
+	else
+		icon_state = "[initial(icon_state)]"
+
+/obj/item/toy/desk/attack_self(mob/user)
+	on = !on
+	if(activation_sound)
+		playsound(src.loc, activation_sound, 75, 1)
+	update_icon()
+	return 1
+
+/obj/item/toy/desk/verb/rotate()
+	set name = "Rotate"
+	set category = "Object"
+	set src in oview(1)
+
+	if(usr.incapacitated())
+		return
+	dir = turn(dir, 270)
+	return 1
+
+/obj/item/toy/desk/AltClick(mob/user)
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!in_range(src, user))
+		return
+	else
+		rotate()
+
+/obj/item/toy/desk/officetoy
+	name = "office toy"
+	desc = "A generic microfusion powered office desk toy. Only generates magnetism and ennui."
+	icon_state= "desktoy"
+/obj/item/toy/desk/dippingbird
+	name = "dipping bird toy"
+	desc = "A ancient human bird idol, worshipped by clerks and desk jockeys."
+	icon_state= "dippybird"
+/obj/item/toy/desk/newtoncradle
+	name = "\improper Newton's cradle"
+	desc = "A ancient 21th century super-weapon model demonstrating that Sir Isaac Newton is the deadliest sonuvabitch in space."
+	icon_state = "newtoncradle"
+	var/datum/looping_sound/newtonballs/soundloop
+
+/obj/item/toy/desk/newtoncradle/Initialize()
+	..()
+	soundloop = new(list(src), FALSE)
+
+/obj/item/toy/desk/newtoncradle/attack_self(mob/user)
+	on = !on
+	update_icon()
+	if(on)
+		soundloop.start()
+	else
+		soundloop.stop()
+
+/obj/item/toy/desk/fan
+	name = "office fan"
+	desc = "Your greatest fan"
+	icon_state = "fan"
+	var/datum/looping_sound/fanblow/soundloop
+
+/obj/item/toy/desk/fan/Initialize()
+	..()
+	soundloop = new(list(src), FALSE)
+
+/obj/item/toy/desk/fan/attack_self(mob/user)
+	on = !on
+	update_icon()
+	if(on)
+		soundloop.start()
+	else
+		soundloop.stop()
+
+
+
+
+

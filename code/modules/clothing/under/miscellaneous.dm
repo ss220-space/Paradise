@@ -401,6 +401,22 @@
 	item_color = "sexymime"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
+/obj/item/clothing/under/mimeshorts
+	name = "mime shorts"
+	desc = "..."
+	icon_state = "mime_shorts"
+	item_state = "mime_shorts"
+	item_color = "mime_shorts"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+
+/obj/item/clothing/under/mimeskirt
+	name = "sexy mime skirt"
+	desc = "..."
+	icon_state = "mime_skirt"
+	item_state = "mime_skirt"
+	item_color = "mime_skirt"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+
 /obj/item/clothing/under/gladiator
 	name = "gladiator uniform"
 	desc = "Are you not entertained? Is that not why you are here?"
@@ -467,6 +483,12 @@
 	desc = "Feminine fashion for the style concious captain."
 	icon_state = "dress_cap"
 	item_color = "dress_cap"
+
+/obj/item/clothing/under/dress/dress_parade
+	name = "captain parade dress uniform"
+	desc = "Feminine fashion for the style concious captain."
+	icon_state = "dress_parade"
+	item_state = "dress_parade"
 
 /obj/item/clothing/under/dress/dress_hop
 	name = "head of personal dress uniform"
@@ -544,6 +566,23 @@
 	icon_state = "captain_parade"
 	item_state = "by_suit"
 	item_color = "captain_parade"
+
+/obj/item/clothing/under/captainparade/alt
+	icon_state = "cap_parade"
+	item_state = "cap_parade"
+	item_color = "cap_parade"
+
+/obj/item/clothing/under/captainparade/dress
+	icon_state = "dress_parade"
+	item_state = "dress_parade"
+	item_color = "dress_parade"
+
+/obj/item/clothing/under/captainparade/office
+	name = "captain's office uniform"
+	desc = "for everyday bureaucracy"
+	icon_state = "cap_office"
+	item_state = "cap_office"
+	item_color = "cap_office"
 
 /obj/item/clothing/under/roman
 	name = "roman armor"
@@ -752,8 +791,9 @@
 	item_color = "atmos"
 	resistance_flags = FIRE_PROOF
 
-/obj/item/clothing/under/contortionist/equipped(mob/living/carbon/human/user, slot)
-	..()
+/obj/item/clothing/under/contortionist/equipped(mob/living/carbon/human/user, slot, initial)
+	. = ..()
+
 	if(slot == slot_w_uniform)
 		if(!user.ventcrawler)
 			user.ventcrawler = 2

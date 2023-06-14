@@ -110,6 +110,12 @@
 /obj/structure/table/proc/item_placed(item)
 	return
 
+/obj/structure/table/Crossed(atom/movable/AM, oldloc)
+	. = ..()
+	if(AM.throwing && isliving(AM))
+		var/mob/living/user = AM
+		clumse_stuff(user)
+
 /obj/structure/table/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height == 0)
 		return 1
@@ -181,14 +187,15 @@
 		return
 	if(isrobot(user))
 		return
-	if(!user.drop_item())
+	if(!user.drop_from_active_hand())
 		return
 	if(O.loc != src.loc)
+		add_fingerprint(user)
 		step(O, get_dir(O, src))
 	return
 
 /obj/structure/table/proc/tablepush(obj/item/grab/G, mob/user)
-	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
 		to_chat(user, "<span class='danger'>Throwing [G.affecting] onto the table might hurt them!</span>")
 		return
 	if(get_dist(src, user) < 2)
@@ -216,6 +223,7 @@
 
 /obj/structure/table/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/grab))
+		add_fingerprint(user)
 		tablepush(I, user)
 		return
 
@@ -223,8 +231,8 @@
 		return
 
 	if(user.a_intent != INTENT_HARM && !(I.flags & ABSTRACT))
-		if(user.drop_item())
-			I.Move(loc)
+		if(user.transfer_item_to_loc(I, src.loc))
+			add_fingerprint(user)
 			var/list/click_params = params2list(params)
 			//Center the icon where the user clicked.
 			if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
@@ -300,6 +308,7 @@
 		to_chat(usr, "<span class='notice'>It won't budge.</span>")
 		return
 
+	add_fingerprint(usr)
 	usr.visible_message("<span class='warning'>[usr] flips \the [src]!</span>")
 
 	if(climbable)
@@ -412,7 +421,7 @@
 		return
 	// Don't break if they're just flying past
 	if(AM.throwing)
-		addtimer(CALLBACK(src, .proc/throw_check, AM), 5)
+		addtimer(CALLBACK(src, PROC_REF(throw_check), AM), 5)
 	else
 		check_break(AM)
 
@@ -737,15 +746,14 @@
 		var/atom/movable/mover = caller
 		. = . || mover.checkpass(PASSTABLE)
 
-/obj/structure/rack/MouseDrop_T(obj/O, mob/user)
-	if((!( istype(O, /obj/item) ) || user.get_active_hand() != O))
+/obj/structure/rack/MouseDrop_T(obj/item/O, mob/user)
+	if((!(istype(O)) || user.get_active_hand() != O))
 		return
 	if(isrobot(user))
 		return
-	if(!user.drop_item())
-		return
 	if(O.loc != src.loc)
-		step(O, get_dir(O, src))
+		if(user.transfer_item_to_loc(O, src.loc))
+			add_fingerprint(user)
 
 /obj/structure/rack/attackby(obj/item/W, mob/user, params)
 	if(isrobot(user))
@@ -753,9 +761,8 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	if(!(W.flags & ABSTRACT))
-		if(user.drop_item())
-			W.Move(loc)
-	return
+		if(user.transfer_item_to_loc(W, src.loc))
+			add_fingerprint(user)
 
 /obj/structure/rack/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -769,6 +776,7 @@
 /obj/structure/rack/attack_hand(mob/living/user)
 	if(user.IsWeakened() || user.resting || user.lying)
 		return
+	add_fingerprint(user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
 	user.visible_message("<span class='warning'>[user] kicks [src].</span>", \
@@ -797,25 +805,6 @@
 /obj/structure/rack/skeletal_bar/right
 	icon_state = "minibar_right"
 
-/obj/item/gun
-	var/on_rack = FALSE
-
-/obj/item/gun/proc/place_on_rack()
-	on_rack = TRUE
-	var/matrix/M = matrix()
-	M.Turn(-90)
-	transform = M
-
-/obj/item/gun/proc/remove_from_rack()
-	if(on_rack)
-		var/matrix/M = matrix()
-		transform = M
-		on_rack = FALSE
-
-/obj/item/gun/pickup(mob/user)
-	. = ..()
-	remove_from_rack()
-
 /obj/structure/rack/gunrack
 	name = "gun rack"
 	desc = "A gun rack for storing guns."
@@ -824,16 +813,17 @@
 /obj/structure/rack/gunrack/MouseDrop_T(obj/O, mob/user)
 	if(isrobot(user))
 		return
-	if(!user.drop_item())
+	if(!user.drop_from_active_hand())
 		return
-	if((!( istype(O, /obj/item/gun) ) || user.get_active_hand() != O))
+	if(!(istype(O, /obj/item/gun)))
 		to_chat(user, "<span class='warning'>This item doesn't fit!</span>")
 		return
 	if(O.loc != src.loc)
-		if(istype(O, /obj/item/gun))
-			var/obj/item/gun/our_gun = O
-			step(O, get_dir(O, src))
-			our_gun.place_on_rack()
+		add_fingerprint(user)
+		var/obj/item/gun/our_gun = O
+		our_gun.place_on_rack()
+		our_gun.do_drop_animation(src)
+		our_gun.Move(loc)
 
 /obj/structure/rack/gunrack/attackby(obj/item/W, mob/user, params)
 	if(!ishuman(user))
@@ -843,9 +833,11 @@
 	if(!(istype(W, /obj/item/gun)))
 		to_chat(user, "<span class='warning'>This item doesn't fit!</span>")
 		return
-	if(!(W.flags & ABSTRACT) && user.drop_item())
+	if(!(W.flags & ABSTRACT) && user.drop_from_active_hand())
+		add_fingerprint(user)
 		var/obj/item/gun/our_gun = W
 		our_gun.place_on_rack()
+		our_gun.do_drop_animation(src)
 		our_gun.Move(loc)
 		var/list/click_params = params2list(params)
 		//Center the icon where the user clicked.
@@ -905,7 +897,7 @@
 	building = TRUE
 	to_chat(user, "<span class='notice'>You start constructing a gun rack...</span>")
 	if(do_after(user, 50, target = user, progress=TRUE))
-		if(!user.drop_item(src))
+		if(!user.drop_from_active_hand())
 			return
 		var/obj/structure/rack/gunrack/GR = new (user.loc)
 		user.visible_message("<span class='notice'>[user] assembles \a [GR].\
@@ -951,7 +943,7 @@
 	building = TRUE
 	to_chat(user, "<span class='notice'>You start constructing a rack...</span>")
 	if(do_after(user, 50, target = user, progress=TRUE))
-		if(!user.drop_item(src))
+		if(!user.drop_from_active_hand())
 			return
 		var/obj/structure/rack/R = new /obj/structure/rack(user.loc)
 		user.visible_message("<span class='notice'>[user] assembles \a [R].\

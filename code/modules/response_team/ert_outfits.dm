@@ -72,9 +72,11 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/commander
 	glasses = /obj/item/clothing/glasses/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	belt = /obj/item/gun/energy/gun/pdw9/sibyl
+	suit_store = /obj/item/gun/energy/gun/pdw9/sibyl
+	belt = /obj/item/gun/projectile/automatic/pistol/sp8t
 
 	backpack_contents = list(
+		/obj/item/ammo_box/magazine/sp8 = 2,
 		/obj/item/camera_bug/ert = 1,
 		/obj/item/door_remote/omni = 1,
 		/obj/item/restraints/handcuffs = 1,
@@ -99,14 +101,14 @@
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	suit_store = /obj/item/gun/energy/gun/pdw9/sibyl
-	belt = /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
+	belt = /obj/item/gun/projectile/automatic/pistol/sp8t
 
 	backpack_contents = list(
+		/obj/item/ammo_box/magazine/sp8 = 4,
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/storage/lockbox/mindshield = 1,
 		/obj/item/camera_bug/ert = 1,
 		/obj/item/door_remote/omni = 1,
-		/obj/item/ammo_box/magazine/enforcer/lethal = 2
 		)
 
 	cybernetic_implants = list(
@@ -160,6 +162,8 @@
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 
 	backpack_contents = list(
+		/obj/item/gun/projectile/automatic/pistol/sp8t = 1,
+		/obj/item/ammo_box/magazine/sp8 = 3,
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/grenade/flashbang = 2,
@@ -191,6 +195,8 @@
 	r_pocket = /obj/item/extinguisher/mini
 
 	backpack_contents = list(
+		/obj/item/gun/projectile/automatic/pistol/sp8t = 1,
+		/obj/item/ammo_box/magazine/sp8 = 3,
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/storage/box/flashbangs = 1,
 		/obj/item/whetstone = 1,
@@ -238,6 +244,7 @@
 		/obj/item/t_scanner = 1,
 		/obj/item/stack/sheet/glass/fifty = 1,
 		/obj/item/stack/sheet/metal/fifty = 1,
+		/obj/item/rpd = 1,
 		/obj/item/flashlight = 1
 	)
 
@@ -254,8 +261,11 @@
 	r_pocket = /obj/item/melee/classic_baton/telescopic
 
 	backpack_contents = list(
+		/obj/item/gun/projectile/automatic/pistol/sp8t = 1,
+		/obj/item/ammo_box/magazine/sp8 = 2,
 		/obj/item/rcd/preloaded = 1,
 		/obj/item/rcd_ammo = 3,
+		/obj/item/rpd = 1,
 		/obj/item/gun/energy/gun/sibyl = 1
 	)
 
@@ -282,8 +292,11 @@
 	r_pocket = /obj/item/melee/classic_baton/telescopic
 
 	backpack_contents = list(
+		/obj/item/gun/projectile/automatic/pistol/sp8t = 1,
+		/obj/item/ammo_box/magazine/sp8 = 2,
 		/obj/item/rcd/combat = 1,
-		/obj/item/rcd_ammo/large = 3
+		/obj/item/rcd_ammo/large = 3,
+		/obj/item/rpd/bluespace = 1
 	)
 
 	cybernetic_implants = list(
@@ -328,7 +341,7 @@
 		/obj/item/storage/firstaid/adv = 1,
 		/obj/item/storage/firstaid/regular = 1,
 		/obj/item/storage/box/autoinjectors = 1,
-		/obj/item/roller = 1,
+		/obj/item/roller/holo = 1,
 		/obj/item/storage/pill_bottle/ert = 1,
 		/obj/item/flashlight/seclite = 1,
 		/obj/item/healthanalyzer/advanced = 1,
@@ -348,12 +361,15 @@
 	r_pocket = /obj/item/melee/classic_baton/telescopic
 
 	backpack_contents = list(
+		/obj/item/gun/projectile/automatic/pistol/sp8t = 1,
+		/obj/item/ammo_box/magazine/sp8 = 2,
+		/obj/item/storage/firstaid/ertm = 1,
 		/obj/item/clothing/mask/surgical = 1,
 		/obj/item/storage/firstaid/toxin = 1,
 		/obj/item/storage/firstaid/brute = 1,
 		/obj/item/storage/firstaid/fire = 1,
 		/obj/item/storage/box/autoinjectors = 1,
-		/obj/item/roller = 1,
+		/obj/item/roller/holo = 1,
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/bodyanalyzer = 1,
 		/obj/item/healthanalyzer/advanced = 1,
@@ -378,14 +394,17 @@
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	suit_store = /obj/item/gun/energy/gun/pdw9/sibyl
-	belt = /obj/item/defibrillator/compact/loaded
+	belt = /obj/item/defibrillator/compact/advanced/loaded
 	l_pocket = /obj/item/reagent_containers/hypospray/combat/nanites
 	r_pocket = /obj/item/reagent_containers/hypospray/autoinjector
 
 	backpack_contents = list(
+		/obj/item/gun/projectile/automatic/pistol/sp8t = 1,
+		/obj/item/ammo_box/magazine/sp8 = 2,
+		/obj/item/storage/firstaid/ertm = 1,
 		/obj/item/bodyanalyzer/advanced = 1,
 		/obj/item/extinguisher/mini = 1,
-		/obj/item/roller = 1,
+		/obj/item/roller/holo = 1,
 		/obj/item/healthanalyzer/advanced = 1,
 		/obj/item/handheld_defibrillator = 1
 		)
@@ -444,6 +463,12 @@
 	r_pocket = /obj/item/nullrod/ert
 	glasses = /obj/item/clothing/glasses/night
 
+	backpack_contents = list(
+		/obj/item/gun/projectile/automatic/pistol/sp8t = 1,
+		/obj/item/ammo_box/magazine/sp8 = 2,
+	)
+
+
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/chest/nutriment
@@ -462,6 +487,11 @@
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	glasses = /obj/item/clothing/glasses/night
 	r_pocket = /obj/item/nullrod/ert
+
+	backpack_contents = list(
+		/obj/item/gun/projectile/automatic/pistol/sp8t = 1,
+		/obj/item/ammo_box/magazine/sp8 = 2,
+	)
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
@@ -514,6 +544,12 @@
 	r_pocket = /obj/item/scythe/tele
 	l_pocket = /obj/item/gun/energy/gun/mini/sibyl
 
+	backpack_contents = list(
+		/obj/item/gun/projectile/automatic/pistol/sp8t = 1,
+		/obj/item/ammo_box/magazine/sp8 = 2,
+	)
+
+
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/janitorial,
 		/obj/item/organ/internal/cyberimp/chest/nutriment
@@ -530,6 +566,8 @@
 	shoes = /obj/item/clothing/shoes/magboots/advance
 
 	backpack_contents = list(
+		/obj/item/gun/projectile/automatic/pistol/sp8t = 1,
+		/obj/item/ammo_box/magazine/sp8 = 2,
 		/obj/item/grenade/chem_grenade/antiweed = 2,
 		/obj/item/storage/box/lights/mixed = 1,
 		/obj/item/storage/bag/trash/bluespace = 1,

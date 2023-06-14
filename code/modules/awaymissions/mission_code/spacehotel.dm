@@ -28,7 +28,7 @@
 
 // "Directional" map template loader for N or S hotel room
 /obj/effect/landmark/map_loader/hotel_room
-	icon = 'icons/testing/turf_analysis.dmi'
+	icon = 'icons/misc/Testing/turf_analysis.dmi'
 	icon_state = "arrow"
 
 /obj/item/paper/crumpled/hotel_scrap_1
@@ -244,7 +244,7 @@
 		return null
 
 	D.occupant = occupant
-	D.roomtimer = addtimer(CALLBACK(src, .proc/process_room, roomid), PAY_INTERVAL, TIMER_STOPPABLE)
+	D.roomtimer = addtimer(CALLBACK(src, PROC_REF(process_room), roomid), PAY_INTERVAL, TIMER_STOPPABLE)
 	vacant_rooms -= D
 	guests[occupant] = roomid
 
@@ -258,7 +258,7 @@
 		return
 
 	if(D.account.charge(100, null, "10 minutes hotel stay extension", "Biesel GalaxyNet Terminal [rand(111,1111)]", "[name]"))
-		D.roomtimer = addtimer(CALLBACK(src, .proc/process_room, roomid), PAY_INTERVAL, TIMER_STOPPABLE)
+		D.roomtimer = addtimer(CALLBACK(src, PROC_REF(process_room), roomid), PAY_INTERVAL, TIMER_STOPPABLE)
 	else
 		force_checkout(roomid)
 

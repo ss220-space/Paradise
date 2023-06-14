@@ -101,38 +101,67 @@
 	list_reagents = list("nutriment" = 8, "salglu_solution" = 5, "vitamin" = 2)
 	tastes = list("fried potato" = 1, "lettuce" = 1, "meat" = 1, "valids" = 1)
 	foodtype = VEGETABLES
-	
+
 /obj/item/reagent_containers/food/snacks/oliviersalad
 	name = "olivier salad"
-	desc = "Не трогай, это на новый год!"
+	desc = "Don't touch this, its for the New Year!"
 	icon_state = "oliviersalad"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#C2CFAB"
 	bitesize = 3
 	list_reagents = list("nutriment" = 10, "kelotane" = 2, "vitamin" = 3)
-	tastes = list("fried potato" = 1, "cucumber" = 1, "carrots" = 1, "egg" = 1, "New Year" = 1)
-	foodtype = VEGETABLES
-	
+	tastes = list("boiled potato" = 1, "pickles" = 1, "carrots" = 1, "egg" = 1, "New Year" = 3)
+
 /obj/item/reagent_containers/food/snacks/vegisalad
 	name = "vegetable salad"
-	desc = "Идеальная комбинация томатов и огурцов."
+	desc = "A perfect combination of tomatoes and cucumbers."
 	icon_state = "validsalad"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#C2CFAB"
 	bitesize = 3
 	list_reagents = list("nutriment" = 4, "kelotane" = 1, "vitamin" = 1)
-	tastes = list("tomato" = 1, "cucumber" = 1)
+	tastes = list("tomato" = 2, "cucumber" = 2, "sour cream" = 2)
 	foodtype = VEGETABLES
-	
+
 /obj/item/reagent_containers/food/snacks/weirdoliviersalad
 	name = "weird olivier salad"
-	desc = "Что ты сделал с этим оливье, чудовище?"
+	desc = "What have you done to this salad, you monster?"
 	icon_state = "oliviersalad"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#C2CFAB"
 	bitesize = 3
 	list_reagents = list("nutriment" = 12, "kelotane" = 2, "vitamin" = 3)
-	tastes = list("fried potato" = 1, "cucumber" = 1, "carrots" = 1, "egg" = 1, "weirdness" = 1, "New Year" = 1)
+	tastes = list("boiled potato" = 1, "pickles" = 1, "carrots" = 1, "egg" = 1, "weirdness" = 3, "New Year" = 3)
+	foodtype = VEGETABLES
+
+/obj/item/reagent_containers/food/snacks/fruitcup
+	name = "Dina's fruit cup"
+	desc = "Single salad with edible plate"
+	icon_state = "fruitcup"
+	filling_color = "#C2CFAB"
+	list_reagents = list("nutriment" = 3, "watermelonjuice" = 5, "orangejuice" = 5, "vitamin" = 4)
+	tastes = list("apple" = 2, "banana" = 2, "waterlemon" = 2, "lemon" = 1, "ambrosia" = 1)
+	bitesize = 4
+	foodtype = VEGETABLES
+
+/obj/item/reagent_containers/food/snacks/junglesalad
+	name = "Jungle salad"
+	desc = "From the depths of the jungle."
+	icon_state = "junglesalad"
+	filling_color = "#C2CFAB"
+	list_reagents = list("nutriment" = 6, "watermelonjuice" = 3, "vitamin" = 4)
+	tastes = list("apple" = 1, "banana" = 2, "waterlemon" = 1)
+	foodtype = VEGETABLES
+
+/obj/item/reagent_containers/food/snacks/delightsalad
+	name = "Delight salad"
+	desc = "Truly citrus delight."
+	icon_state = "delightsalad"
+	filling_color = "#C2CFAB"
+	trash = /obj/item/trash/snack_bowl
+	list_reagents = list("nutriment" = 3, "lemonjuice" = 4, "orangejuice" = 4, "vitamin" = 4, "limejuice" = 4)
+	tastes = list("lemon" = 1, "lime" = 2, "orange" = 1)
+	bitesize = 4
 	foodtype = VEGETABLES
 
 //////////////////////
@@ -185,6 +214,29 @@
 	M.reagents.add_reagent("salbutamol", 15)
 	M.reagents.add_reagent("methamphetamine", 15)
 
+//////////////////////
+//  Buckwheat       //
+//////////////////////
+
+/obj/item/reagent_containers/food/snacks/boiledbuckwheat
+	name = "boiled buckwheat"
+	desc = "'Grechka', or boiled buckwheat. Motherland would be proud of you."
+	icon_state = "boiledbuckwheat"
+	trash = /obj/item/trash/plate
+	filling_color = "#8E633C"
+	list_reagents = list("nutriment" = 5, "vitamin" = 1)
+	tastes = list("buckwheat" = 1, "motherland" = 1)
+	foodtype = GRAIN
+
+/obj/item/reagent_containers/food/snacks/buckwheat_merchant
+	name = "merchant's buckwheat porridge"
+	desc = "Hot and steamy, soviet spies are involved. No doubt."
+	icon_state = "buckwheat_merchant"
+	trash = /obj/item/trash/plate
+	filling_color = "#8E633C"
+	list_reagents = list("nutriment" = 5, "protein" = 2, "vitamin" = 3)
+	tastes = list("buckwheat" = 2, "meat" = 2, "tomato sause" = 1)
+	foodtype = GRAIN | MEAT
 
 //////////////////////
 //		Misc		//
@@ -198,6 +250,27 @@
 	list_reagents = list("slimejelly" = 5)
 	tastes = list("jelly" = 3)
 	foodtype = MEAT | TOXIC
+
+/obj/item/reagent_containers/food/snacks/pickles
+	name = "pickles"
+	desc = "Damn, that's a lot of brined cucumbers."
+	icon_state = "pickles"
+	trash = /obj/item/reagent_containers/food/snacks/brine
+	filling_color = "#C2CFAB"
+	bitesize = 8
+	list_reagents = list("nutriment" = 2, "vitamin" = 1)
+	tastes = list("pickles" = 1)
+	foodtype = VEGETABLES
+
+/obj/item/reagent_containers/food/snacks/brine
+	name = "brine"
+	desc = "For the night after."
+	consume_sound = 'sound/items/drink.ogg'
+	icon_state = "brine"
+	filling_color = "#C2CFAB"
+	bitesize = 4
+	list_reagents = list("nutriment" = 1, "antihol" = 2)
+	tastes = list("brine" = 3)
 
 /obj/item/reagent_containers/food/snacks/popcorn
 	name = "popcorn"

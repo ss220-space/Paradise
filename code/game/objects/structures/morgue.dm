@@ -472,7 +472,7 @@
 /obj/machinery/crema_switch
 	desc = "Burn baby burn!"
 	name = "crematorium igniter"
-	icon = 'icons/obj/power.dmi'
+	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "crema_switch"
 	anchored = 1.0
 	req_access = list(ACCESS_CREMATORIUM)
@@ -490,6 +490,7 @@
 		for(var/obj/structure/crematorium/C in world)
 			if(C.id == id)
 				if(!C.cremating)
+					add_fingerprint(user)
 					C.cremate(user)
 	else
 		to_chat(usr, span_warning("Access denied."))

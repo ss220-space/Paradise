@@ -119,11 +119,14 @@
 			occupantData["bloodType"] = occupant.dna.blood_type
 		if(occupant.surgeries.len)
 			occupantData["inSurgery"] = 1
+			occupantData["surgeries"] = list()
 			for(var/datum/surgery/procedure in occupant.surgeries)
-				occupantData["surgeryName"] = "[capitalize(procedure.name)]"
 				var/datum/surgery_step/surgery_step = procedure.get_surgery_step()
-				occupantData["stepName"] = "[capitalize(surgery_step.name)]"
-
+				occupantData["surgeries"] += list(list(
+					"bodypartName" = capitalize(procedure.location),
+					"surgeryName" = capitalize(procedure.name),
+					"stepName" = capitalize(surgery_step.name)
+				))
 	data["occupant"] = occupantData
 	data["verbose"]=verbose
 	data["oxyAlarm"]=oxyAlarm
@@ -186,15 +189,15 @@
 	var/isNewPatient = (table.patient != currentPatient) //Is this a new Patient?
 
 	if(table.patient.stat == DEAD || table.patient.status_flags & FAKEDEATH)
-		patientStatus = "Dead"
+		patientStatus = "умер"
 	else if(table.patient.stat == CONSCIOUS)
-		patientStatus = "Awake"
+		patientStatus = "в сознании"
 	else if(table.patient.stat == UNCONSCIOUS)
-		patientStatus = "Asleep"
+		patientStatus = "спит"
 
 	if(isNewPatient)
-		atom_say("New patient detected, loading stats")
-		atom_say("[table.patient], [table.patient.dna.blood_type] blood, [patientStatus]")
+		atom_say("Обнаружен новый пациент, загрузка показаний")
+		atom_say("[table.patient], группа крови [table.patient.dna.blood_type], [patientStatus]")
 		SStgui.update_uis(src)
 		patientStatusHolder = table.patient.stat
 		currentPatient = table.patient
@@ -208,5 +211,5 @@
 		if(healthAnnounce && table.patient.health <= healthAlarm)
 			atom_say("[round(table.patient.health)]")
 		if(table.patient.stat != patientStatusHolder)
-			atom_say("Patient is now [patientStatus]")
+			atom_say("Пациент [patientStatus]")
 			patientStatusHolder = table.patient.stat

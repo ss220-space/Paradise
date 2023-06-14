@@ -17,6 +17,7 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	turns_per_move = 5
 	maxHealth = 10
 	health = 10
+	blood_nutrients = 30
 	butcher_results = list(/obj/item/stack/sheet/fur = 1)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
@@ -94,7 +95,7 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	icon = 'icons/mob/tribbles.dmi'
 	icon_state = "tribble1"
 	item_state = "tribble1"
-	w_class = 10
+	w_class = 1
 	var/gestation = 0
 	flags = DROPDEL
 

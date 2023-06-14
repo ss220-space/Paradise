@@ -137,6 +137,11 @@
 	desc = "A flag proudly proclaiming the superior heritage of Plasmamen."
 	icon_state = "plasmaflag"
 
+/obj/item/flag/species/nian
+	name = "NIAN flag"
+	desc = "A flag proudly proclaiming the superior heritage of Nian."
+	icon_state = "nianflag"
+
 //Department Flags
 
 /obj/item/flag/cargo
@@ -196,6 +201,11 @@
 	desc = "A flag proudly boasting the logo of the fearfull Spider Clan, known for their assassins, they work for the ones who pay them most."
 	icon_state = "ninjaflag"
 
+/obj/item/flag/ussp
+	name = "USSP flag"
+	desc = "A flag proudly boasting the logo of the Union of Soviet Socialist Planets, proclaiming the superior heritage of Revolution and Soviet People."
+	icon_state = "usspflag"
+
 //Chameleon
 
 /obj/item/flag/chameleon
@@ -240,10 +250,9 @@
 
 /obj/item/flag/chameleon/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/grenade) && !boobytrap)
-		if(user.drop_item())
+		if(user.drop_transfer_item_to_loc(I, src))
 			boobytrap = I
 			trapper = user
-			I.forceMove(src)
 			to_chat(user, "<span class='notice'>You hide [I] in the [src]. It will detonate some time after the flag is lit on fire.</span>")
 			var/turf/bombturf = get_turf(src)
 			add_game_logs("has hidden [I] in the [src] ready for detonation at [AREACOORD(bombturf)].", user)
@@ -272,7 +281,7 @@
 /obj/item/flag/chameleon/burn()
 	if(boobytrap)
 		fire_act()
-		addtimer(CALLBACK(src, .proc/prime_boobytrap), boobytrap.det_time)
+		addtimer(CALLBACK(src, PROC_REF(prime_boobytrap)), boobytrap.det_time)
 	else
 		..()
 

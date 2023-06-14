@@ -15,8 +15,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 
 /mob/living/simple_animal/hostile/poison/terror_spider
 	//COSMETIC
-	name = ""
-	desc = "The generic parent of all other terror spider types. If you see this in-game, it is a bug."
+	name = "Паучок"
+	desc = "Стандартный паук. Если ты это видишь, это баг."
 	gender = FEMALE
 	icon = 'icons/mob/terrorspider.dmi'
 	icon_state = "terror_red"
@@ -26,7 +26,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	attack_sound = 'sound/creatures/terrorspiders/bite.ogg'
 	deathmessage = "Screams in pain and slowly stops moving."
 	death_sound = 'sound/creatures/terrorspiders/death.ogg'
-	var/spider_intro_text = "Если ты это видишь, напиши разрабам"
+	damaged_sound = list('sound/creatures/spider_attack1.ogg', 'sound/creatures/spider_attack2.ogg')
+	var/spider_intro_text = "Если ты это видишь, это баг."
 	speak_chance = 0 // quiet but deadly
 	speak_emote = list("hisses")
 	emote_hear = list("hisses")
@@ -34,16 +35,20 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	sentience_type = SENTIENCE_OTHER
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
+	friendly = "осторожно проводит лапками по"
 	footstep_type = FOOTSTEP_MOB_CLAW
+	talk_sound = list('sound/creatures/terrorspiders/speech_1.ogg', 'sound/creatures/terrorspiders/speech_2.ogg', 'sound/creatures/terrorspiders/speech_3.ogg', 'sound/creatures/terrorspiders/speech_4.ogg', 'sound/creatures/terrorspiders/speech_5.ogg', 'sound/creatures/terrorspiders/speech_6.ogg')
+	damaged_sound = list('sound/creatures/terrorspiders/speech_1.ogg', 'sound/creatures/terrorspiders/speech_2.ogg', 'sound/creatures/terrorspiders/speech_3.ogg', 'sound/creatures/terrorspiders/speech_4.ogg', 'sound/creatures/terrorspiders/speech_5.ogg', 'sound/creatures/terrorspiders/speech_6.ogg')
 
 	//HEALTH
 	maxHealth = 120
 	health = 120
+	unsuitable_atmos_damage = 0
 	a_intent = INTENT_HARM
-	var/heal_per_kill = 120 // healing per wrap
-	var/heal_per_jelly = 120 // gain a ton of healing if you eat a jelly
 	var/regeneration = 2 //pure regen on life
 	var/degenerate = FALSE // if TRUE, they slowly degen until they all die off.
+	//also regenerates by using /datum/status_effect/terror/food_regen when wraps a carbon, wich grants full health witin ~25 seconds
+	damage_coeff = list(BRUTE = 0.75, BURN = 1.25, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
 
 	//ATTACK
 	melee_damage_lower = 15
@@ -54,6 +59,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	turns_per_move = 3 // number of turns before AI-controlled spiders wander around. No effect on actual player or AI movement speed!
 	move_to_delay = 6
 	speed = 0
+	var/magpulse = 1
 	// AI spider speed at chasing down targets. Higher numbers mean slower speed. Divide 20 (server tick rate / second) by this to get tiles/sec.
 
 	//SPECIAL
@@ -61,7 +67,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/can_wrap = TRUE   //can spider wrap corpses and objects?
 	var/web_type = /obj/structure/spider/terrorweb
 	ventcrawler = 1 // allows player ventcrawling, set 0 to disallow
-	var/delay_web = 30 // delay between starting to spin web, and finishing
+	var/delay_web = 25 // delay between starting to spin web, and finishing
 	faction = list("terrorspiders")
 	var/spider_opens_doors = 1 // all spiders can open firedoors (they have no security). 1 = can open depowered doors. 2 = can open powered doors
 	var/ai_ventcrawls = TRUE
@@ -79,7 +85,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	aggro_vision_range = 10
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	sight = SEE_MOBS
+	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 
 	// AI aggression settings
 	var/ai_target_method = TS_DAMAGE_SIMPLE
@@ -129,10 +135,10 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/datum/action/innate/terrorspider/wrap/wrap_action
 
 	// Breathing - require some oxygen, and no toxins
-	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
 	// Temperature
-	heat_damage_per_tick = 5 // Takes 250% normal damage from being in a hot environment ("kill it with fire!")
+	heat_damage_per_tick = 6.5 // Takes 250% normal damage from being in a hot environment ("kill it with fire!")
 
 	// DEBUG OPTIONS & COMMANDS
 	var/spider_growinstantly = FALSE
@@ -206,7 +212,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		return
 	to_chat(src, "<span class='notice'>You consume royal jelly to heal yourself!</span>")
 	playsound(src.loc, 'sound/creatures/terrorspiders/jelly.ogg', 100, 1)
-	adjustBruteLoss(-heal_per_jelly)
+	apply_status_effect(STATUS_EFFECT_TERROR_REGEN)
 	qdel(J)
 
 // --------------------------------------------------------------------------------
@@ -248,6 +254,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	if(can_wrap)
 		wrap_action = new()
 		wrap_action.Grant(src)
+	name += " ([rand(1, 1000)])"
 	real_name = name
 	msg_terrorspiders("[src] has grown in [get_area(src)].")
 	if(is_away_level(z))
@@ -264,8 +271,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	else
 		GLOB.ts_count_alive_station++
 	// after 3 seconds, assuming nobody took control of it yet, offer it to ghosts.
-	addtimer(CALLBACK(src, .proc/CheckFaction), 20)
-	addtimer(CALLBACK(src, .proc/announcetoghosts), 30)
+	addtimer(CALLBACK(src, PROC_REF(CheckFaction)), 20)
+	addtimer(CALLBACK(src, PROC_REF(announcetoghosts)), 30)
 	var/datum/atom_hud/U = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	U.add_hud_to(src)
 	spider_creation_time = world.time
@@ -289,15 +296,15 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 /mob/living/simple_animal/hostile/poison/terror_spider/Life(seconds, times_fired)
 	. = ..()
 	if(stat == DEAD) // Can't use if(.) for this due to the fact it can sometimes return FALSE even when mob is alive.
-		if(prob(2))
-			// 2% chance every cycle to decompose
+		if(prob(10))
+			// 10% chance every cycle to decompose
 			visible_message("<span class='notice'>\The dead body of the [src] decomposes!</span>")
 			gib()
 	else
-		if(stat != DEAD)
+		if(health < maxHealth)
 			adjustBruteLoss(-regeneration)
 		if(degenerate)
-			adjustBruteLoss(rand(4,6))
+			adjustBruteLoss(6)
 		if(prob(5))
 			CheckFaction()
 
@@ -402,7 +409,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	if(client && (client.eye != client.mob))
 		reset_perspective()
 		return
-	if(health != maxHealth)
+	if(health <= (maxHealth*0.75))
 		to_chat(src, "<span class='warning'>You must be at full health to do this!</span>")
 		return
 	var/list/targets = list()
@@ -418,19 +425,23 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	if(istype(L))
 		reset_perspective(L)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/adjustHealth(amount, updating_health = TRUE)
-	if(client && (client.eye != client.mob) && ismob(client.eye)) // the ismob check is required because client.eye can = atmos machines if a spider is in the vent
-		to_chat(src, "<span class='warning'>Cancelled remote view due to being under attack!</span>")
-		reset_perspective()
-	. = ..()
-
 /mob/living/simple_animal/hostile/poison/terror_spider/CanPass(atom/movable/O)
 	if(istype(O, /obj/item/projectile/terrorspider))
 		return TRUE
 	return ..()
 
+/mob/living/simple_animal/hostile/poison/terror_spider/mob_negates_gravity()
+	return magpulse
+
+/mob/living/simple_animal/hostile/poison/terror_spider/mob_has_gravity()
+	return ..() || mob_negates_gravity()
+
+/mob/living/simple_animal/hostile/poison/terror_spider/experience_pressure_difference(pressure_difference, direction)
+	if(!magpulse)
+		return ..()
+
 /obj/item/projectile/terrorspider
 	name = "basic"
 	damage = 0
 	icon_state = "toxin"
-	damage_type = BURN
+	damage_type = TOX

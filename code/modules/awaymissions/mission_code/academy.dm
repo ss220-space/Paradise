@@ -82,12 +82,14 @@
 		var/turf/T = get_turf(src)
 		T.visible_message("<span class='userdanger'>[src] flares briefly.</span>")
 
-		addtimer(CALLBACK(src, .proc/effect, user, .), 1 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(effect), user, .), 1 SECONDS)
 
-/obj/item/dice/d20/fate/equipped(mob/user, slot)
+/obj/item/dice/d20/fate/equipped(mob/user, slot, initial)
+	. = ..()
+
 	if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
 		to_chat(user, "<span class='warning'>You feel the magic of the dice is restricted to ordinary humans! You should leave it alone.</span>")
-		user.unEquip(src)
+		user.drop_item_ground(src)
 
 /obj/item/dice/d20/fate/proc/create_smoke(amount)
 	var/datum/effect_system/smoke_spread/smoke = new
@@ -140,7 +142,7 @@
 			explosion(get_turf(user),-1,0,2, flame_range = 2, cause = src)
 		if(9)
 			//Cold
-			var/datum/disease/D = new /datum/disease/cold()
+			var/datum/disease/D = new /datum/disease/cold
 			T.visible_message("<span class='userdanger'>[user] looks a little under the weather!</span>")
 			user.ForceContractDisease(D)
 		if(10)

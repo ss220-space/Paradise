@@ -18,7 +18,7 @@
 
 	maxHealth = 50
 	health = 50
-
+	blood_nutrients = 30
 	voice_name = "diona nymph"
 	speak_emote = list("chirrups")
 	emote_hear = list("chirrups")
@@ -44,6 +44,8 @@
 	can_collar = TRUE
 
 	a_intent = INTENT_HELP
+
+	var/random_name = TRUE
 	var/gestalt_alert = "merged with gestalt" //used in adding and clearing alert
 	var/evolve_donors = 5 //amount of blood donors needed before evolving
 	var/awareness_donors = 3 //amount of blood donors needed for understand language
@@ -64,7 +66,7 @@
 
 /datum/action/innate/diona/evolve
 	name = "Evolve"
-	icon_icon = 'icons/obj/cloning.dmi'
+	icon_icon = 'icons/obj/machines/cloning.dmi'
 	button_icon_state = "pod_1"
 
 /datum/action/innate/diona/evolve/Activate()
@@ -96,7 +98,7 @@
 	else
 		..()
 
-/mob/living/simple_animal/diona/resist()
+/mob/living/simple_animal/diona/run_resist()
 	..()
 	split()
 
@@ -192,13 +194,19 @@
 		adult.add_language(L.name)
 	adult.regenerate_icons()
 
-	adult.name = "diona ([rand(100,999)])"
-	adult.real_name = adult.name
-	adult.ckey = ckey
-	adult.real_name = adult.dna.species.get_random_name()	//I hate this being here of all places but unfortunately dna is based on real_name!
+	if(random_name)
+		adult.name = "diona ([rand(100,999)])"
+		adult.real_name = adult.name
+		adult.real_name = adult.dna.species.get_random_name()
+		//I hate this being here of all places but unfortunately dna is based on real_name!
+	else
+		adult.name = name
+		adult.real_name = real_name
+
+	mind.transfer_to(adult)
 
 	for(var/obj/item/W in contents)
-		unEquip(W)
+		drop_item_ground(W)
 
 	qdel(src)
 	return TRUE
@@ -265,13 +273,14 @@
 		to_chat(src, "<span class='noticealien'>The blood seeps into your small form, and you draw out the echoes of memories and personality from it, working them into your budding mind.</span>")
 
 
-/mob/living/simple_animal/diona/put_in_hands(obj/item/W)
-	W.forceMove(get_turf(src))
-	W.layer = initial(W.layer)
-	W.plane = initial(W.plane)
-	W.dropped()
+/mob/living/simple_animal/diona/put_in_hands(obj/item/I, force = FALSE, qdel_on_fail = FALSE, merge_stacks = TRUE, ignore_anim = TRUE)
+	I.forceMove(drop_location())
+	I.layer = initial(I.layer)
+	I.plane = initial(I.plane)
+	I.dropped()
 
-/mob/living/simple_animal/diona/put_in_active_hand(obj/item/W)
+
+/mob/living/simple_animal/diona/put_in_active_hand(obj/item/I, force = FALSE, ignore_anim = TRUE)
 	to_chat(src, "<span class='warning'>You don't have any hands!</span>")
 	return
 

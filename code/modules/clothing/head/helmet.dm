@@ -7,7 +7,7 @@
 	flags_cover = HEADCOVERSEYES
 	item_state = "helmetmaterials"
 	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
-	flags_inv = HIDEEARS|HIDEEYES
+	flags_inv = HIDEHEADSETS|HIDEGLASSES
 	cold_protection = HEAD
 	min_cold_protection_temperature = HELMET_MIN_TEMP_PROTECT
 	heat_protection = HEAD
@@ -89,7 +89,7 @@
 	icon_state = "riot"
 	item_state = "helmet"
 	armor = list("melee" = 50, "bullet" = 10, "laser" = 10, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
-	flags_inv = HIDEEARS
+	flags_inv = HIDEHEADSETS
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	strip_delay = 80
 	dog_fashion = null
@@ -100,7 +100,7 @@
 	icon_state = "knight_green"
 	item_state = "knight_green"
 	flags = BLOCKHAIR
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	dog_fashion = null
 
 /obj/item/clothing/head/helmet/justice
@@ -130,7 +130,7 @@
 	item_state = "swat"
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30,"energy" = 30, "bomb" = 50, "bio" = 90, "rad" = 20, "fire" = 50, "acid" = 50)
 	flags = null
-	flags_inv = HIDEEARS|HIDEEYES
+	flags_inv = HIDEHEADSETS|HIDEGLASSES
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	heat_protection = HEAD
@@ -197,7 +197,7 @@
 	icon_state = "gladiator"
 	flags = BLOCKHAIR
 	item_state = "gladiator"
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES
 	toggle_message = "You attach the face shield to the"
 	alt_toggle_message = "You remove the face shield from the"
 	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
@@ -214,7 +214,7 @@
 	item_state = "redtaghelm"
 	armor = list("melee" = 15, "bullet" = 10, "laser" = 20,"energy" = 10, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50)
 	// Offer about the same protection as a hardhat.
-	flags_inv = HIDEEARS|HIDEEYES
+	flags_inv = HIDEHEADSETS|HIDEGLASSES
 	dog_fashion = null
 
 /obj/item/clothing/head/helmet/bluetaghelm
@@ -225,7 +225,7 @@
 	item_state = "bluetaghelm"
 	armor = list("melee" = 15, "bullet" = 10, "laser" = 20,"energy" = 10, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50)
 	// Offer about the same protection as a hardhat.
-	flags_inv = HIDEEARS|HIDEEYES
+	flags_inv = HIDEHEADSETS|HIDEGLASSES
 	dog_fashion = null
 
 /obj/item/clothing/head/blob
@@ -233,7 +233,7 @@
 	desc = "A collectible hat handed out at the latest Blob Family Reunion."
 	icon_state = "blobhat"
 	item_state = "blobhat"
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
 	sprite_sheets = list(
@@ -267,12 +267,16 @@
 /obj/item/clothing/head/helmet/skull
 	name = "skull helmet"
 	desc = "An intimidating tribal helmet, it doesn't look very comfortable."
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	flags_cover = HEADCOVERSEYES
 	armor = list("melee" = 35, "bullet" = 25, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	icon_state = "skull"
 	item_state = "skull"
 	strip_delay = 100
+
+/obj/item/clothing/head/helmet/skull/Yorick
+	name = "Йорик"
+	desc = "Бедный Йорик..."
 
 /obj/item/clothing/head/helmet/durathread
 	name = "durathread helmet"
@@ -318,3 +322,30 @@
 	name = "emergency response team janitor helmet"
 	desc = "A set of armor worn by janitorial members of the Nanotrasen Emergency Response Team. Has red and white highlights."
 	icon_state = "erthelmet_jan"
+
+/obj/item/clothing/head/helmet/buckhelm
+	name = "buckhelm"
+	desc = "Makesheft bucket helmet. Now you can call yourself as Knight of mop and soap."
+	icon_state = "buckhelm"
+	item_state = "buckhelm"
+	flags_inv = HIDEHEADSETS
+	resistance_flags = FIRE_PROOF
+	armor = list("melee" = 8, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	strip_delay = 7 SECONDS
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/helmet.dmi',
+		"Drask" = 'icons/mob/species/drask/helmet.dmi',
+		"Grey" = 'icons/mob/species/grey/helmet.dmi',
+		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi',
+		"Kidan" = 'icons/mob/species/kidan/head.dmi',
+		"Nian" = 'icons/mob/species/nian/helmet.dmi',
+		"Machine" = 'icons/mob/species/machine/helmet.dmi',
+		"Skrell" = 'icons/mob/species/skrell/helmet.dmi',
+		"Monkey" = 'icons/mob/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/species/monkey/head.dmi'
+	)

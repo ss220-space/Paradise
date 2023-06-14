@@ -113,9 +113,11 @@
 
 /obj/machinery/r_n_d/experimentor/attackby(obj/item/O, mob/user, params)
 	if(shocked)
+		add_fingerprint(user)
 		shock(user,50)
 
 	if(default_deconstruction_screwdriver(user, "h_lathe_maint", "h_lathe", O))
+		add_fingerprint(user)
 		if(linked_console)
 			linked_console.linked_destroy = null
 			linked_console = null
@@ -148,13 +150,13 @@
 		if(temp_tech.len == 0)
 			to_chat(user, "<span class='warning'>You cannot experiment on this item!</span>")
 			return
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(O, src))
 			return
 		loaded_item = O
-		O.loc = src
 		to_chat(user, "<span class='notice'>You add the [O.name] to the machine.</span>")
 		flick("h_lathe_load", src)
 
+	add_fingerprint(user)
 	return
 
 /obj/machinery/r_n_d/experimentor/default_deconstruction_crowbar(user, obj/item/O)
@@ -162,6 +164,7 @@
 	..(O)
 
 /obj/machinery/r_n_d/experimentor/attack_hand(mob/user)
+	add_fingerprint(user)
 	user.set_machine(src)
 	var/dat = {"<meta charset="UTF-8"><center>"}
 	if(!linked_console)
@@ -189,7 +192,6 @@
 	var/datum/browser/popup = new(user, "experimentor","Experimentor", 700, 400, src)
 	popup.set_content(dat)
 	popup.open()
-	onclose(user, "experimentor")
 
 
 /obj/machinery/r_n_d/experimentor/proc/matchReaction(matching,reaction)

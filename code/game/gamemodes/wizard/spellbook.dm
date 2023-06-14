@@ -671,6 +671,19 @@
 			qdel(O)
 		return
 
+	if(istype(O, /obj/item/guardiancreator))
+		var/obj/item/guardiancreator/guardian = O
+		if(guardian.used)
+			to_chat(user, "<span class='warning'>The deck of tarot cards has been used, you can't get your points back now!</span>")
+		else
+			to_chat(user, "<span class='notice'>You feed the deck of tarot cards back into the spellbook, refunding your points.</span>")
+			uses+=2
+			for(var/datum/spellbook_entry/item/tarotdeck/deck in entries)
+				if(!isnull(deck.limit))
+					deck.limit++
+			qdel(O)
+		return
+
 	if(istype(O, /obj/item/antag_spawner/slaughter_demon))
 		to_chat(user, "<span class='notice'>On second thought, maybe summoning a demon is a bad idea. You refund your points.</span>")
 		if(istype(O, /obj/item/antag_spawner/slaughter_demon/laughter))
@@ -988,7 +1001,7 @@
 	to_chat(user, "<span class='warning'>You suddenly feel very solid!</span>")
 	var/obj/structure/closet/statue/S = new /obj/structure/closet/statue(user.loc, user)
 	S.timer = 30
-	user.drop_item()
+	user.drop_from_active_hand()
 
 /obj/item/spellbook/oneuse/knock
 	spell = /obj/effect/proc_holder/spell/aoe_turf/knock
@@ -1014,9 +1027,9 @@
 		magichead.flags |= NODROP | DROPDEL	//curses!
 		magichead.flags_inv = null	//so you can still see their face
 		magichead.voicechange = 1	//NEEEEIIGHH
-		if(!user.unEquip(user.wear_mask))
+		if(!user.drop_item_ground(user.wear_mask))
 			qdel(user.wear_mask)
-		user.equip_to_slot_if_possible(magichead, slot_wear_mask, TRUE, TRUE)
+		user.equip_to_slot_or_del(magichead, slot_wear_mask)
 		qdel(src)
 	else
 		to_chat(user, "<span class='notice'>I say thee neigh</span>")

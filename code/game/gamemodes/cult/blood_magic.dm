@@ -497,7 +497,7 @@
 
 	var/turf/origin = get_turf(user)
 	var/turf/destination = get_turf(actual_selected_rune)
-	INVOKE_ASYNC(actual_selected_rune, /obj/effect/rune/.proc/teleport_effect, user, origin, destination)
+	INVOKE_ASYNC(actual_selected_rune, TYPE_PROC_REF(/obj/effect/rune, teleport_effect), user, origin, destination)
 
 	if(is_mining_level(user.z) && !is_mining_level(destination.z)) //No effect if you stay on lavaland
 		actual_selected_rune.handle_portal("lava")
@@ -541,8 +541,7 @@
 		"<span class='userdanger'>[user] begins shaping dark magic shackles around your wrists!</span>")
 		if(do_mob(user, C, 10))
 			if(!C.handcuffed)
-				C.handcuffed = new /obj/item/restraints/handcuffs/energy/cult/used(C)
-				C.update_handcuffed()
+				C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/cult/used(C))
 				C.Silence(6)
 				to_chat(user, "<span class='notice'>You shackle [C].</span>")
 				add_attack_logs(user, C, "shackled")
@@ -849,6 +848,9 @@
 /obj/item/melee/blood_magic/manipulator/attack_self(mob/living/user)
 	var/list/options = list("Blood Orb (50)", "Blood Recharge (75)", "Blood Spear (150)", "Blood Bolt Barrage (300)")
 	var/choice = input(user, "Choose a greater blood rite...", "Greater Blood Rites") as null|anything in options
+	if(!Adjacent(user))
+		to_chat(user, "<span class='cultitalic'>Вы не можете использовать это заклинание без самого заклинания!</span>")
+		return
 	switch(choice)
 		if("Blood Spear (150)")
 			if(uses < BLOOD_SPEAR_COST)
@@ -875,7 +877,7 @@
 				uses -= BLOOD_BARRAGE_COST
 				qdel(src)
 				user.swap_hand()
-				user.drop_item()
+				user.drop_from_active_hand()
 				if(user.put_in_hands(rite))
 					to_chat(user, "<span class='cult'>Both of your hands glow with power!</span>")
 				else

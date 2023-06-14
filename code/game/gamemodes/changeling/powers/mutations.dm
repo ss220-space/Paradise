@@ -37,7 +37,7 @@
 	..(user, target)
 
 /datum/action/changeling/weapon/sting_action(var/mob/user)
-	if(!user.drop_item())
+	if(user.get_active_hand() && !user.drop_from_active_hand())
 		to_chat(user, "The [user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
 		return
 	var/obj/item/W = new weapon_type(user, silent)
@@ -85,18 +85,18 @@
 	..(H, target)
 
 /datum/action/changeling/suit/sting_action(var/mob/living/carbon/human/user)
-	if(!user.unEquip(user.wear_suit))
+	if(!user.can_unEquip(user.wear_suit))
 		to_chat(user, "\the [user.wear_suit] is stuck to your body, you cannot grow a [suit_name_simple] over it!")
 		return
-	if(!user.unEquip(user.head))
+	if(!user.can_unEquip(user.head))
 		to_chat(user, "\the [user.head] is stuck on your head, you cannot grow a [helmet_name_simple] over it!")
 		return
 
-	user.unEquip(user.head)
-	user.unEquip(user.wear_suit)
+	user.drop_item_ground(user.head)
+	user.drop_item_ground(user.wear_suit)
 
-	user.equip_to_slot_if_possible(new suit_type(user), slot_wear_suit, TRUE, TRUE)
-	user.equip_to_slot_if_possible(new helmet_type(user), slot_head, TRUE, TRUE)
+	user.equip_to_slot_or_del(new suit_type(user), slot_wear_suit)
+	user.equip_to_slot_or_del(new helmet_type(user), slot_head)
 
 	var/datum/changeling/changeling = user.mind.changeling
 	changeling.chem_recharge_slowdown += recharge_slowdown
@@ -144,7 +144,8 @@
 
 	else if(istype(target, /obj/machinery/computer))
 		var/obj/machinery/computer/C = target
-		C.attack_alien(user) //muh copypasta
+		if(C.attack_generic(user, 60, BRUTE, "melee", 0))
+			playsound(loc, 'sound/weapons/slash.ogg', 100, TRUE)
 
 	else if(istype(target, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = target
@@ -317,7 +318,7 @@
 			to_chat(firer, "<span class='notice'>You pull [I] towards yourself.</span>")
 			add_attack_logs(src, I, "[src] pulled [I] towards them with a tentacle")
 			H.throw_mode_on()
-			I.throw_at(H, 10, 2, callback = CALLBACK(src, .proc/tentacle_disarm, I))
+			I.throw_at(H, 10, 2, callback = CALLBACK(src, PROC_REF(tentacle_disarm), I))
 			. = 1
 
 	else if(isliving(target))
@@ -342,7 +343,7 @@
 								if(!I)
 									I = C.get_inactive_hand()
 						if(I)
-							if(C.unEquip(I))
+							if(C.drop_item_ground(I))
 								C.visible_message("<span class='danger'>[I] is yanked out of [C]'s hand by [src]!</span>","<span class='userdanger'>A tentacle pulls [I] away from you!</span>")
 								add_attack_logs(src, C, "[src] has grabbed [I] out of [C]'s hand with a tentacle")
 								on_hit(I) //grab the item as if you had hit it directly with the tentacle
@@ -359,13 +360,13 @@
 						C.visible_message("<span class='danger'>[L] is grabbed by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
 						add_attack_logs(H, C, "[H] grabbed [C] with a changeling tentacle")
 						C.client?.move_delay = world.time + 10
-						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(src, .proc/tentacle_grab, C))
+						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(src, PROC_REF(tentacle_grab), C))
 						return 1
 
 					if(INTENT_HARM)
 						C.visible_message("<span class='danger'>[L] is thrown towards [H] by a tentacle!</span>","<span class='userdanger'>A tentacle grabs you and throws you towards [H]!</span>")
 						C.client?.move_delay = world.time + 10
-						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(src, .proc/tentacle_stab, C))
+						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(src, PROC_REF(tentacle_stab), C))
 						return 1
 			else
 				L.visible_message("<span class='danger'>[L] is pulled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
@@ -425,7 +426,7 @@
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
 			H.visible_message("<span class='warning'>With a sickening crunch, [H] reforms [H.p_their()] shield into an arm!</span>", "<span class='notice'>We assimilate our shield into our body</span>", "<span class='italics>You hear organic matter ripping and tearing!</span>")
-			H.unEquip(src, 1)
+			H.temporarily_remove_item_from_inventory(src, force = TRUE)
 		qdel(src)
 		return 0
 	else
@@ -458,10 +459,13 @@
 	name = "flesh mass"
 	icon_state = "lingspacesuit"
 	desc = "A huge, bulky mass of pressure and temperature-resistant organic tissue, evolved to facilitate space travel."
-	flags = STOPSPRESSUREDMAGE | NODROP | DROPDEL
+	flags = STOPSPRESSUREDMAGE | NODROP | DROPDEL | HIDETAIL
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90) //No armor at all
 	species_restricted = null
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
 
 /obj/item/clothing/suit/space/changeling/New()
 	..()
@@ -481,6 +485,9 @@
 	flags = BLOCKHAIR | STOPSPRESSUREDMAGE | NODROP | DROPDEL
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
 	species_restricted = null
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/helmet.dmi'
+		)
 
 
 /***************************************\
@@ -513,7 +520,9 @@
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
-	sprite_sheets = null
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
 
 /obj/item/clothing/suit/armor/changeling/New()
 	..()
@@ -526,4 +535,5 @@
 	icon_state = "lingarmorhelmet"
 	flags = BLOCKHAIR | NODROP | DROPDEL
 	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 20, "bomb" = 10, "bio" = 4, "rad" = 0, "fire" = 90, "acid" = 90)
-	flags_inv = HIDEEARS
+	flags_inv = HIDEHEADSETS
+	flags_cover = MASKCOVERSEYES|MASKCOVERSMOUTH

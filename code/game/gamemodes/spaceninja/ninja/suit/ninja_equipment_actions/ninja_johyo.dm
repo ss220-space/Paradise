@@ -39,7 +39,7 @@
 	max_charges = 1
 	recharge_rate = 0
 	charge_tick = 1
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_MEDIUM
 	slot_flags = 0
 	flags = DROPDEL | ABSTRACT | NOBLUDGEON
@@ -49,6 +49,7 @@
 	var/obj/item/clothing/suit/space/space_ninja/my_suit = null
 	var/datum/action/item_action/advanced/ninja/johyo/my_action = null
 
+
 /obj/item/gun/magic/johyo/Destroy()
 	. = ..()
 	my_suit.integrated_harpoon = null
@@ -57,8 +58,14 @@
 	my_action.toggle_button_on_off()
 	my_action = null
 
-/obj/item/gun/magic/johyo/equip_to_best_slot(mob/M)
+
+/obj/item/gun/magic/johyo/equip_to_best_slot(mob/user, force = FALSE, drop_on_fail = FALSE, qdel_on_fail = FALSE)
 	qdel(src)
+
+
+/obj/item/gun/magic/johyo/run_drop_held_item(mob/user)
+	qdel(src)
+
 
 /obj/item/gun/magic/johyo/can_trigger_gun(mob/living/user)
 	if(!my_action.IsAvailable(show_message = TRUE, ignore_ready = TRUE))
@@ -85,14 +92,14 @@
 	armour_penetration = 100
 	damage_type = BRUTE
 	hitsound = 'sound/weapons/whip.ogg'
-	weaken = 4
+	weaken = 1
 	var/chain
 
 
 /obj/item/projectile/johyo/fire(setAngle)
 	if(firer)
 		firer.say(pick("Get over here!", "Come here!"))
-		chain = firer.Beam(src, icon_state = "chain_dark", time = INFINITY, maxdistance = INFINITY)
+		chain = firer.Beam(src, icon_state = "chain_dark", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1)
 	. = ..()
 
 /obj/item/projectile/johyo/on_hit(atom/target)

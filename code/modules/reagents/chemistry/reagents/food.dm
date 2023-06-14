@@ -136,6 +136,59 @@
 	color = "#731008" // rgb: 115, 16, 8
 	taste_description = "ketchup"
 
+/datum/reagent/consumable/tomatosauce
+	name = "tomato sauce"
+	id = "tsauce"
+	description = "The father of all sauces. Tomatoes, a little spice and nothing extra."
+	reagent_state = LIQUID
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#ee1000"
+	taste_description = "tomato sauce"
+
+/datum/reagent/consumable/cheesesauce
+	name = "cheese sauce"
+	id = "csauce"
+	description = "Cheese, cream and milk... maximum protein concentration!"
+	reagent_state = LIQUID
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#e6d600"
+
+/datum/reagent/consumable/mushroomsauce
+	name = "mushroom sauce"
+	id = "msauce"
+	description = "Creamy sauce with mushrooms, has a rather pungent smell."
+	reagent_state = LIQUID
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#beb58a"
+	taste_description = "mushroom sauce"
+
+/datum/reagent/consumable/garlicsauce
+	name = "garlic sauce"
+	id = "gsauce"
+	description = "A strong sauce with garlic, its smell punches the nose. Some crewmembers will probably hiss at you and walk away."
+	reagent_state = LIQUID
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#fffee1"
+	taste_description = "garlic sauce"
+
+/datum/reagent/consumable/diablosauce
+	name = "diablo sauce"
+	id = "dsauce"
+	description = "An ancient burning sauce, its recipe has hardly changed since its creation."
+	reagent_state = LIQUID
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#440804"
+	taste_description = "hot tomato sauce"
+
+/datum/reagent/consumable/custard
+	name = "custard"
+	id = "custard"
+	description = "An ancient burning sauce, its recipe has hardly changed since its creation."
+	reagent_state = LIQUID
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#fffed1"
+	taste_description = "sweet soft cream"
+
 /datum/reagent/consumable/capsaicin
 	name = "Capsaicin Oil"
 	id = "capsaicin"
@@ -217,7 +270,7 @@
 				victim.Confused(3)
 				victim.damageoverlaytemp = 60
 				victim.Weaken(3)
-				victim.drop_item()
+				victim.drop_from_active_hand()
 				return
 			else if( eyes_covered ) // Eye cover is better than mouth cover
 				to_chat(victim, "<span class='danger'>Your [safe_thing] protects your eyes from the pepperspray!</span>")
@@ -233,7 +286,7 @@
 				victim.Confused(6)
 				victim.damageoverlaytemp = 75
 				victim.Weaken(5)
-				victim.drop_item()
+				victim.drop_from_active_hand()
 
 /datum/reagent/consumable/frostoil
 	name = "Frost Oil"
@@ -317,6 +370,14 @@
 	color = "#FFFACD"
 	taste_description = "bitter vanilla"
 
+/datum/reagent/consumable/herbs
+	name = "herbs mix"
+	id = "herbsmix"
+	description = "A mix of variouse herbs."
+	reagent_state = SOLID
+	color = "#2c5c04"
+	taste_description = "dry herbs"
+
 /datum/reagent/consumable/hot_coco
 	name = "Hot Chocolate"
 	id = "hot_coco"
@@ -392,6 +453,15 @@
 		T.assume_air(lowertemp)
 		qdel(hotspot)
 
+/datum/reagent/consumable/cornoil/oliveoil
+	name = "Olive Oil"
+	id = "oliveoil"
+	description = "An oil derived from young olives."
+	reagent_state = LIQUID
+	nutriment_factor = 10 * REAGENTS_METABOLISM
+	color = "#d3f558"
+	taste_description = "bittersweet olive oil"
+
 /datum/reagent/consumable/enzyme
 	name = "Universal Enzyme"
 	id = "enzyme"
@@ -455,6 +525,15 @@
 	nutriment_factor = 3 * REAGENTS_METABOLISM
 	color = "#FFFFFF" // rgb: 0, 0, 0
 	taste_description = "rice"
+
+/datum/reagent/consumable/buckwheat
+	name = "Buckwheat"
+	id = "buckwheat"
+	description = "Rumors tell soviet people are eating only vodka and... this?"
+	reagent_state = SOLID
+	nutriment_factor = 3 * REAGENTS_METABOLISM
+	color = "#8E633C" // rgb: 142, 99, 60
+	taste_description = "dry buckwheat"
 
 /datum/reagent/consumable/cherryjelly
 	name = "Cherry Jelly"
@@ -792,7 +871,7 @@
 			to_chat(H, "<span class='danger'>Ugh! Eating that was a terrible idea!</span>")
 		if(NO_HUNGER in H.dna.species.species_traits) //If you don't eat, then you can't get food poisoning
 			return
-		H.ForceContractDisease(new /datum/disease/food_poisoning(0))
+		H.ForceContractDisease(new /datum/disease/food_poisoning)
 
 /datum/reagent/msg
 	name = "Monosodium glutamate"
@@ -835,7 +914,7 @@
 		to_chat(M, "<span class='warning'>Your chest is burning with pain!</span>")
 		update_flags |= M.Stun(1, FALSE)
 		update_flags |= M.Weaken(1, FALSE)
-		M.ForceContractDisease(new /datum/disease/critical/heart_failure(0))
+		M.ForceContractDisease(new /datum/disease/critical/heart_failure)
 	return ..() | update_flags
 
 /datum/reagent/fungus
@@ -854,7 +933,7 @@
 			M.reagents.add_reagent("toxin", rand(1,5))
 		else if(ranchance <= 5)
 			to_chat(M, "<span class='warning'>That tasted absolutely FOUL.</span>")
-			M.ForceContractDisease(new /datum/disease/food_poisoning(0))
+			M.ForceContractDisease(new /datum/disease/food_poisoning)
 		else
 			to_chat(M, "<span class='warning'>Yuck!</span>")
 

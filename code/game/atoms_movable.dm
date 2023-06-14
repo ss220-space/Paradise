@@ -58,6 +58,10 @@
 	return
 
 /atom/movable/proc/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
+	var/mob/M = AM
+	if(ismob(M) && M.buckled)
+		AM = M.buckled
+
 	if(QDELETED(AM))
 		return FALSE
 	if(!(AM.can_be_pulled(src, state, force)))
@@ -80,11 +84,12 @@
 		AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
 	pulling = AM
 	AM.pulledby = src
-	if(ismob(AM))
-		var/mob/M = AM
-		add_attack_logs(src, M, "passively grabbed", ATKLOG_ALMOSTALL)
+
+	var/mob/pulled_mob = ismob(AM) ? AM : buckled_mobs[1]
+	if(ismob(pulled_mob))
+		add_attack_logs(src, pulled_mob, "passively grabbed", ATKLOG_ALMOSTALL)
 		if(show_message)
-			visible_message("<span class='warning'>[src] схватил[genderize_ru(src.gender,"","а","о","и")] [M]!</span>")
+			visible_message("<span class='warning'>[src] схватил[genderize_ru(src.gender,"","а","о","и")] [pulled_mob]!</span>")
 	return TRUE
 
 /atom/movable/proc/stop_pulling()
@@ -203,7 +208,7 @@
 		return
 
 	if(.)
-		Moved(oldloc, direct)
+		Moved(oldloc, direct, FALSE)
 
 	last_move = direct
 	src.move_speed = world.time - src.l_move_time
@@ -214,14 +219,14 @@
 
 // Called after a successful Move(). By this point, we've already moved
 /atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE)
-	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
-	for(var/atom/movable/atom in contents)
-		SEND_SIGNAL(atom, COMSIG_MOVABLE_HOLDER_MOVED, OldLoc, Dir, Forced)
+
 	if(!inertia_moving)
 		inertia_next_move = world.time + inertia_move_delay
 		newtonian_move(Dir)
 	if(length(client_mobs_in_contents))
 		update_parallax_contents()
+
+	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
 
 	var/datum/light_source/L
 	var/thing
@@ -281,9 +286,30 @@
 		if(old_z != dest_z)
 			onTransitZ(old_z, dest_z)
 
-	Moved(old_loc, NONE)
+	Moved(old_loc, NONE, TRUE)
 
 	return 1
+
+
+/atom/movable/proc/move_to_null_space()
+
+	var/atom/old_loc = loc
+	var/is_multi_tile = bound_width > world.icon_size || bound_height > world.icon_size
+
+	if(old_loc)
+		loc = null
+		var/area/old_area = get_area(old_loc)
+		if(is_multi_tile && isturf(old_loc))
+			for(var/atom/old_loc_multi as anything in locs)
+				old_loc_multi.Exited(src, NONE)
+		else
+			old_loc.Exited(src, NONE)
+
+		if(old_area)
+			old_area.Exited(src, NONE)
+
+	Moved(old_loc, NONE, TRUE)
+
 
 /atom/movable/proc/onTransitZ(old_z,new_z)
 	for(var/item in src) // Notify contents of Z-transition. This can be overridden if we know the items contents do not care.
@@ -292,19 +318,17 @@
 
 /mob/living/forceMove(atom/destination)
 	if(buckled)
-		addtimer(CALLBACK(src, .proc/check_buckled), 1, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(check_buckled)), 1, TIMER_UNIQUE)
 	if(has_buckled_mobs())
 		for(var/m in buckled_mobs)
 			var/mob/living/buckled_mob = m
-			addtimer(CALLBACK(buckled_mob, .proc/check_buckled), 1, TIMER_UNIQUE)
+			addtimer(CALLBACK(buckled_mob, PROC_REF(check_buckled)), 1, TIMER_UNIQUE)
 	if(pulling)
-		addtimer(CALLBACK(src, .proc/check_pull), 1, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(check_pull)), 1, TIMER_UNIQUE)
 	. = ..()
 	if(client)
 		reset_perspective(destination)
 	update_canmove() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
-	update_runechat_msg_location()
-
 
 //Called whenever an object moves and by mobs when they attempt to move themselves through space
 //And when an object or action applies a force on src, see newtonian_move() below

@@ -17,7 +17,7 @@ log transactions
 /obj/machinery/atm
 	name = "Nanotrasen automatic teller machine"
 	desc = "For all your monetary needs! Just insert your ID card to make a withdrawal or deposit!"
-	icon = 'icons/obj/terminals.dmi'
+	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "atm"
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
@@ -86,8 +86,8 @@ log transactions
 			return
 
 		if(!held_card)
-			user.drop_item()
-			I.forceMove(src)
+			add_fingerprint(user)
+			user.drop_transfer_item_to_loc(I, src)
 			held_card = I
 			if(authenticated_account && held_card.associated_account_number != authenticated_account.account_number)
 				authenticated_account = null
@@ -97,6 +97,7 @@ log transactions
 			//consume the money
 			if(!powered())
 				return
+			add_fingerprint(user)
 			var/obj/item/stack/spacecash/C = I
 			playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)
 
@@ -286,16 +287,15 @@ log transactions
 
 		if("insert_card")
 			if(held_card)
-				held_card.forceMove(loc)
+				held_card.forceMove_turf()
 				authenticated_account = null
 				if(ishuman(usr) && !usr.get_active_hand())
-					usr.put_in_hands(held_card)
+					usr.put_in_hands(held_card, ignore_anim = FALSE)
 				held_card = null
 			else
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/card/id))
-					usr.drop_item()
-					I.forceMove(src)
+					usr.drop_transfer_item_to_loc(I, src)
 					held_card = I
 
 		if("logout")
@@ -305,6 +305,7 @@ log transactions
 
 //create the most effective combination of notes to make up the requested amount
 /obj/machinery/atm/proc/withdraw_arbitrary_sum(arbitrary_sum)
-	var/obj/item/stack/spacecash/C = new(amt = arbitrary_sum)
-	if(!usr?.put_in_hands(C))
-		C.forceMove(get_step(get_turf(src), turn(dir, 180)))
+	var/obj/item/stack/spacecash/C = new(drop_location(), arbitrary_sum)
+	if(usr)
+		usr.put_in_hands(C, ignore_anim = FALSE)
+

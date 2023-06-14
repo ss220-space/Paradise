@@ -48,7 +48,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	var/list/debris = list()
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/breaksound = "shatter"
-	var/hitsound = 'sound/effects/Glasshit.ogg'
+	var/hitsound = 'sound/effects/glasshit.ogg'
 
 /obj/structure/window/examine(mob/user)
 	. = ..()
@@ -180,10 +180,13 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return
 	if(user.a_intent == INTENT_HARM)
 		user.changeNext_move(CLICK_CD_MELEE)
-		playsound(src, 'sound/effects/glassknock.ogg', 80, 1)
-		user.visible_message("<span class='warning'>[user] bangs against [src]!</span>", \
-							"<span class='warning'>You bang against [src]!</span>", \
-							"You hear a banging sound.")
+		if(ishuman(user) && user.dna.species.obj_damage)
+			attack_generic(user, user.dna.species.obj_damage)
+		else
+			playsound(src, 'sound/effects/glassknock.ogg', 80, 1)
+			user.visible_message("<span class='warning'>[user] bangs against [src]!</span>", \
+								"<span class='warning'>You bang against [src]!</span>", \
+								"You hear a banging sound.")
 		add_fingerprint(user)
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
@@ -202,13 +205,13 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	if(!can_be_reached(user))
 		return 1 //skip the afterattack
 
-	add_fingerprint(user)
 	if(istype(I, /obj/item/grab) && get_dist(src, user) < 2)
 		var/obj/item/grab/G = I
 		if(isliving(G.affecting))
 			var/mob/living/M = G.affecting
 			var/state = G.state
 			qdel(I)	//gotta delete it here because if window breaks, it won't get deleted
+			add_fingerprint(user)
 			switch(state)
 				if(1)
 					M.visible_message("<span class='warning'>[user] slams [M] against \the [src]!</span>")
@@ -246,7 +249,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return
 	if(decon_speed) // Only show this if it actually takes time
 		to_chat(user, "<span class='notice'>You begin to lever the window [state == WINDOW_OUT_OF_FRAME ? "into":"out of"] the frame...</span>")
-	if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/check_state_and_anchored, state, anchored)))
+	if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 		return
 	state = (state == WINDOW_OUT_OF_FRAME ? WINDOW_IN_FRAME : WINDOW_OUT_OF_FRAME)
 	to_chat(user, "<span class='notice'>You pry the window [state == WINDOW_IN_FRAME ? "into":"out of"] the frame.</span>")
@@ -261,7 +264,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		if(state == WINDOW_SCREWED_TO_FRAME || state == WINDOW_IN_FRAME)
 			if(decon_speed)
 				to_chat(user, "<span class='notice'>You begin to [state == WINDOW_SCREWED_TO_FRAME ? "unscrew the window from":"screw the window to"] the frame...</span>")
-			if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/check_state_and_anchored, state, anchored)))
+			if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 				return
 			state = (state == WINDOW_IN_FRAME ? WINDOW_SCREWED_TO_FRAME : WINDOW_IN_FRAME)
 			to_chat(user, "<span class='notice'>You [state == WINDOW_IN_FRAME ? "unfasten the window from":"fasten the window to"] the frame.</span>")
@@ -269,7 +272,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		else if(state == WINDOW_OUT_OF_FRAME)
 			if(decon_speed)
 				to_chat(user, "<span class='notice'>You begin to [anchored ? "unscrew the frame from":"screw the frame to"] the floor...</span>")
-			if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/check_state_and_anchored, state, anchored)))
+			if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 				return
 			anchored = !anchored
 			air_update_turf(TRUE)
@@ -279,7 +282,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	else //if we're not reinforced, we don't need to check or update state
 		if(decon_speed)
 			to_chat(user, "<span class='notice'>You begin to [anchored ? "unscrew the window from":"screw the window to"] the floor...</span>")
-		if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/check_anchored, anchored)))
+		if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
 			return
 		anchored = !anchored
 		air_update_turf(TRUE)
@@ -296,7 +299,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return
 	if(decon_speed)
 		TOOL_ATTEMPT_DISMANTLE_MESSAGE
-	if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/check_state_and_anchored, state, anchored)))
+	if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 		return
 	var/obj/item/stack/sheet/G = new glass_type(user.loc, glass_amount)
 	G.add_fingerprint(user)
@@ -371,6 +374,14 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 				transfer_fingerprints_to(I)
 	qdel(src)
 	update_nearby_icons()
+
+/obj/structure/window/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	. = ..()
+	var/obj/structure/grille/our_grille = locate(/obj/structure/grille) in get_turf(src)
+	if(our_grille)
+		return our_grille.rcd_deconstruct_act(user, our_rcd)
+	else
+		return RCD_ACT_FAILED
 
 /obj/structure/window/verb/rotate()
 	set name = "Rotate Window Counter-Clockwise"
@@ -537,9 +548,10 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 /obj/machinery/button/windowtint
 	name = "window tint control"
-	icon = 'icons/obj/power.dmi'
+	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "light0"
 	desc = "A remote control switch for polarized windows."
+	anchored = TRUE
 	var/range = 7
 	var/id = 0
 	var/active = 0
@@ -764,7 +776,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	name = "brass window"
 	desc = "A paper-thin pane of translucent yet reinforced brass."
 	icon = 'icons/obj/smooth_structures/clockwork_window.dmi'
-	icon_state = "clockwork_window"
+	icon_state = "clockwork_window_single"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	max_integrity = 80
 	armor = list("melee" = 60, "bullet" = 25, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)

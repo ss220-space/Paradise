@@ -58,10 +58,9 @@
 	var/obj/item/clothing/accessory/holobadge/attached_badge
 
 /obj/item/clothing/suit/armor/vest/security/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/accessory/holobadge))
-		if(user.unEquip(I))
+	if(istype(I, /obj/item/clothing/accessory/holobadge) && !attached_badge)
+		if(user.drop_transfer_item_to_loc(I, src))
 			add_fingerprint(user)
-			I.forceMove(src)
 			attached_badge = I
 			var/datum/action/A = new /datum/action/item_action/remove_badge(src)
 			A.Grant(user)
@@ -77,9 +76,9 @@
 		add_fingerprint(user)
 		user.put_in_hands(attached_badge)
 
-		for(var/X in actions)
-			var/datum/action/A = X
-			A.Remove(user)
+		for(var/datum/action/item_action/remove_badge/action in actions)
+			src.actions.Remove(action)
+			action.Remove(user)
 
 		icon_state = "armor"
 		user.update_inv_wear_suit()
@@ -194,6 +193,9 @@
 	strip_delay = 80
 	put_on_delay = 60
 	hide_tail_by_species = list("Vox")
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
 
 /obj/item/clothing/suit/armor/riot/knight
 	name = "plate armour"
@@ -307,7 +309,7 @@
 	if(istype(loc, /mob/living/carbon/human))
 		var/mob/living/carbon/human/C = loc
 		C.update_inv_wear_suit()
-		addtimer(CALLBACK(src, .proc/reboot), 100 / severity)
+		addtimer(CALLBACK(src, PROC_REF(reboot)), 100 / severity)
 	..()
 
 /obj/item/clothing/suit/armor/reactive/proc/reboot()
@@ -360,7 +362,6 @@
 		owner.fire_stacks = -20
 		return 1
 	return 0
-
 
 /obj/item/clothing/suit/armor/reactive/stealth
 	name = "reactive stealth armor"
@@ -517,6 +518,9 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
 
 /obj/item/clothing/head/hooded/drake
 	name = "drake helmet"
@@ -558,3 +562,14 @@
 	armor = list("melee" = 35, "bullet" = 25, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/pickaxe, /obj/item/twohanded/spear, /obj/item/organ/internal/regenerative_core/legion, /obj/item/kitchen/knife/combat/survival, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
+
+/obj/item/clothing/suit/armor/makeshift_armor
+	name = "makeshift armor"
+	desc = "This is a makeshift armor. Somehow duct tape grants more protection, than a sign itself."
+	icon_state = "makeshift_armor"
+	item_state = "makeshift_armor"
+	resistance_flags = FIRE_PROOF
+	armor = list("melee" = 8, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)

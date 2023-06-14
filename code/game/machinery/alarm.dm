@@ -70,14 +70,14 @@
 
 /obj/machinery/alarm
 	name = "alarm"
-	icon = 'icons/obj/monitors.dmi'
+	icon = 'icons/obj/machines/monitors.dmi'
 	icon_state = "alarm0"
 	anchored = 1
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 4
 	active_power_usage = 8
 	power_channel = ENVIRON
-	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE_EQUIP)
+	req_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE_EQUIP)
 	max_integrity = 250
 	integrity_failure = 80
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30)
@@ -125,7 +125,6 @@
 	report_danger_level = FALSE
 	remote_control = FALSE
 	req_access = list(ACCESS_SYNDICATE)
-	req_one_access = list()
 
 /obj/machinery/alarm/monitor/server
 	preset = AALARM_PRESET_SERVER
@@ -239,7 +238,7 @@
 	..()
 	set_frequency(frequency)
 	if(is_taipan(z)) // Синдидоступ при сборке на тайпане
-		req_one_access = list(ACCESS_SYNDICATE)
+		req_access = list(ACCESS_SYNDICATE)
 
 	if(!master_is_operating())
 		elect_master()
@@ -948,7 +947,6 @@
 		return
 
 /obj/machinery/alarm/attackby(obj/item/I, mob/user, params)
-	add_fingerprint(user)
 
 	switch(buildstage)
 		if(2)
@@ -958,6 +956,7 @@
 					return
 				else
 					if(allowed(usr) && !wires.is_cut(WIRE_IDSCAN))
+						add_fingerprint(user)
 						locked = !locked
 						to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the Air Alarm interface.</span>")
 						SStgui.update_uis(src)
@@ -972,6 +971,7 @@
 					to_chat(user, "You need more cable for this!")
 					return
 
+				add_fingerprint(user)
 				to_chat(user, "You wire \the [src]!")
 				playsound(get_turf(src), coil.usesound, 50, 1)
 				coil.use(5)
@@ -984,6 +984,7 @@
 				return
 		if(0)
 			if(istype(I, /obj/item/airalarm_electronics))
+				add_fingerprint(user)
 				to_chat(user, "You insert the circuit!")
 				playsound(get_turf(src), I.usesound, 50, 1)
 				qdel(I)
@@ -1037,8 +1038,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(wires.is_all_cut()) // all wires cut
-		var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil(user.drop_location())
-		new_coil.amount = 5
+		new /obj/item/stack/cable_coil(user.drop_location(), 5)
 		buildstage = AIR_ALARM_BUILDING
 		update_icon()
 	if(wiresexposed)
@@ -1096,7 +1096,6 @@
 	desc = "This particular atmos control unit appears to have no access restrictions."
 	locked = FALSE
 	req_access = null
-	req_one_access = null
 
 /*
 AIR ALARM CIRCUIT

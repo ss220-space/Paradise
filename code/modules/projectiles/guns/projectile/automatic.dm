@@ -38,9 +38,8 @@
 				to_chat(user, "<span class='notice'>You insert the magazine into \the [src].</span>")
 			if(alarmed)
 				alarmed = 0
-			user.remove_from_mob(AM)
+			user.drop_transfer_item_to_loc(AM, src)
 			magazine = AM
-			magazine.loc = src
 			chamber_round()
 			A.update_icon()
 			update_icon()
@@ -127,7 +126,6 @@
 	fire_delay = 2
 	can_suppress = 0
 	can_flashlight = 1
-	actions_types = list()
 	burst_size = 2
 	can_bayonet = TRUE
 	knife_x_offset = 25
@@ -342,3 +340,101 @@
 /obj/item/gun/projectile/automatic/lasercarbine/update_icon()
 	..()
 	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
+
+/obj/item/gun/projectile/automatic/lr30
+	name = "\improper IR-30 Laser Rifle"
+	desc = "A compact rifle, relying more on battery cartridges rather than a built in power cell. Utilized by the Nanotrasen Navy for combat operations."
+	icon_state = "lr30"
+	item_state = "lr30"
+	w_class = WEIGHT_CLASS_NORMAL
+	origin_tech = "combat=3;materials=2"
+	mag_type = /obj/item/ammo_box/magazine/lr30mag
+	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	can_suppress = 0
+	burst_size = 1
+	actions_types = list()
+
+/obj/item/gun/projectile/automatic/lr30/update_icon()
+	..()
+	icon_state = "lr30[magazine ? "-[CEILING(get_ammo(0)/3, 1)*3]" : ""]"
+
+//Semi-Machine Gun SFG
+
+/obj/item/gun/projectile/automatic/sfg
+	name = "SFG-5 SMG"
+	desc = "Данное оружие, созданное для различных спецслужб по всей галактике одной компанией, имеет в качестве калибра 9мм, возможность стрельбы очередями отсечкой по 3 патрона и имеет место для фонарика и глушителя."
+	icon_state = "sfg-5"
+	item_state = "arg"
+	mag_type = /obj/item/ammo_box/magazine/sfg9mm
+	burst_size = 3
+	can_flashlight = TRUE
+
+/obj/item/gun/projectile/automatic/sfg/update_icon()
+	..()
+	icon_state = "[initial(icon_state)][magazine ? "" : "-e"][suppressed ? "-suppressed" : ""]"
+	if(gun_light)
+		var/iconF = "sfg-light"
+		if(gun_light.on)
+			iconF = "sfg-light-on"
+		overlays += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
+
+/obj/item/gun/projectile/automatic/sfg/ui_action_click(var/owner, var/action_type)
+    if(..()) return TRUE
+    if (action_type == /datum/action/item_action/toggle_gunlight)
+        toggle_gunlight()
+        return TRUE
+
+//////////// Rusted weapons
+
+/obj/item/gun/projectile/automatic/rusted
+	name = "\improper Rusted gun"
+	desc = "An old gun, be careful using it."
+	icon_state = "aksu"
+	item_state = "aksu"
+	w_class = WEIGHT_CLASS_BULKY
+	weapon_weight = WEAPON_HEAVY
+	origin_tech = "combat=5;materials=3"
+	mag_type = /obj/item/ammo_box/magazine/aksu
+	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	can_suppress = FALSE
+	can_bayonet = FALSE
+	slot_flags = SLOT_BACK
+	burst_size = 3
+	fire_delay = 1
+	recoil = 1
+	rusted_weapon = TRUE
+	self_shot_divisor = 3
+	malf_low_bound = 60
+	malf_high_bound = 90
+
+// Rusted AKSU Soviet Assault Rifle
+/obj/item/gun/projectile/automatic/rusted/aksu
+	name = "\improper Rusted AKSU assault rifle"
+	desc = "An old AK assault rifle favored by Soviet soldiers."
+	icon_state = "aksu"
+	item_state = "aksu"
+	mag_type = /obj/item/ammo_box/magazine/aksu
+	w_class = WEIGHT_CLASS_NORMAL
+	origin_tech = "combat=4;materials=3"
+	burst_size = 3
+	fire_delay = 2
+	recoil = 0.8
+
+/obj/item/gun/projectile/automatic/rusted/ppsh
+	name = "\improper Rusted PPSh submachine gun"
+	desc = "An old submachine gun favored by Soviet soldiers."
+	icon_state = "ppsh"
+	item_state = "ppsh"
+	mag_type = /obj/item/ammo_box/magazine/ppsh
+	w_class = WEIGHT_CLASS_HUGE
+	origin_tech = "combat=4;materials=3"
+	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
+	self_shot_divisor = 5
+	malf_high_bound = 100
+	burst_size = 5
+	fire_delay = 1.5
+	recoil = 1.2

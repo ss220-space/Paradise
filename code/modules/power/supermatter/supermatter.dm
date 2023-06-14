@@ -31,7 +31,7 @@
 /obj/machinery/power/supermatter_shard
 	name = "supermatter shard"
 	desc = "A strangely translucent and iridescent crystal that looks like it used to be part of a larger structure. <span class='danger'>You get headaches just from looking at it.</span>"
-	icon = 'icons/obj/supermatter.dmi'
+	icon = 'icons/obj/engines_and_power/supermatter.dmi'
 	icon_state = "darkmatter_shard"
 	density = 1
 	anchored = FALSE
@@ -45,11 +45,11 @@
 
 	var/damage = 0
 	var/damage_archived = 0
-	var/safe_alert = "Crystalline hyperstructure returning to safe operating levels."
+	var/safe_alert = "Гиперструктура кристалла возвращается к безопасному эксплуатационному уровню."
 	var/warning_point = 50
-	var/warning_alert = "Danger! Crystal hyperstructure instability!"
+	var/warning_alert = "ОПАСНОСТЬ! Дестабилизация гиперструктуры кристалла!"
 	var/emergency_point = 400
-	var/emergency_alert = "CRYSTAL DELAMINATION IMMINENT."
+	var/emergency_alert = "РАСЩЕПЛЕНИЕ КРИСТАЛЛА НЕМИНУЕМО."
 	var/explosion_point = 600
 
 	var/emergency_issued = 0
@@ -164,7 +164,7 @@
 			var/stability = num2text(round((damage / explosion_point) * 100))
 
 			if(damage > emergency_point)
-				radio.autosay("[emergency_alert] Instability: [stability]%", src.name)
+				radio.autosay("[emergency_alert] Дестабилизация: [stability]%", src.name)
 				lastwarning = world.timeofday
 				if(!has_reached_emergency)
 					investigate_log("has reached the emergency point for the first time.", INVESTIGATE_ENGINE)
@@ -172,7 +172,7 @@
 					has_reached_emergency = 1
 
 			else if(damage >= damage_archived) // The damage is still going up
-				radio.autosay("[warning_alert] Instability: [stability]%", src.name)
+				radio.autosay("[warning_alert] Дестабилизация: [stability]%", src.name)
 				lastwarning = world.timeofday - 150
 
 			else                                                 // Phew, we're safe
@@ -339,6 +339,7 @@
 
 /obj/machinery/power/supermatter_shard/attackby(obj/item/W as obj, mob/living/user as mob, params)
 	if(istype(W,/obj/item/wrench)) //allows wrench/unwrench shards
+		add_fingerprint(user)
 		if(!anchored)
 			anchored = !anchored
 			WRENCH_ANCHOR_MESSAGE
@@ -373,7 +374,9 @@
 			user.visible_message("<span class='danger'>As [user] loosen bolts of \the [src] with \a [W] the tool disappears</span>")
 	else if(!istype(W) || (W.flags & ABSTRACT) || !istype(user))
 		return
-	else if(user.drop_item(W))
+	else if(user.drop_item_ground(W))
+		W.do_pickup_animation(src)
+		add_fingerprint(user)
 		Consume(W)
 		user.visible_message("<span class='danger'>As [user] touches \the [src] with \a [W], silence fills the room...</span>",\
 			"<span class='userdanger'>You touch \the [src] with \the [W], and everything suddenly goes silent.\"</span>\n<span class='notice'>\The [W] flashes into dust as you flinch away from \the [src].</span>",\

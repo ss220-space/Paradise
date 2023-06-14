@@ -28,6 +28,7 @@
 	taste_sensitivity = TASTE_SENSITIVITY_DULL
 	skinned_type = /obj/item/stack/sheet/wood
 
+	blood_species = "Diona"
 	blood_color = "#004400"
 	flesh_color = "#907E4A"
 	butt_sprite = "diona"
@@ -44,7 +45,6 @@
 		"anchoring ligament" = /obj/item/organ/internal/heart/diona
 		)
 
-	vision_organ = /obj/item/organ/internal/eyes/diona
 	mutantears = /obj/item/organ/internal/ears/diona
 	has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/chest/diona),

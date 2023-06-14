@@ -22,10 +22,11 @@
 	flash_protect = 2
 	tint = 2
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 60)
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	actions_types = list(/datum/action/item_action/toggle)
-	visor_flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	visor_flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	resistance_flags = FIRE_PROOF
+	var/paint = null
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/head.dmi',
@@ -53,7 +54,7 @@
 	desc = "A welding helmet with blue flame decals on it."
 	icon_state = "welding_blueflame"
 
-/obj/item/clothing/head/welding/white
+/obj/item/clothing/head/welding/flamedecal/white
 	name = "white decal welding helmet"
 	desc = "A white welding helmet with a character written across it."
 	icon_state = "welding_white"
@@ -61,20 +62,59 @@
 /obj/item/clothing/head/welding/attack_self()
 	toggle()
 
+/obj/item/clothing/head/welding/attackby(obj/item/I, mob/living/user)
+	if(istype(I, /obj/item/toy/crayon/spraycan))
+		if(icon_state != "welding")
+			to_chat(user, "<span class = 'warning'>Похоже, тут уже есть слой краски!</span>")
+			return
+		var/obj/item/toy/crayon/spraycan/C = I
+		if(C.capped)
+			to_chat(user, "<span class = 'warning'>Вы не можете раскрасить [src], если крышка на банке закрыта!</span>")
+			return
+		var/list/weld_icons = list("Flame" = image(icon = src.icon, icon_state = "welding_redflame"),
+									"Blue Flame" = image(icon = src.icon, icon_state = "welding_blueflame"),
+									"White Flame" = image(icon = src.icon, icon_state = "welding_white"))
+		var/list/weld = list("Flame" = "welding_redflame",
+							"Blue Flame" = "welding_blueflame",
+							"White Flame" = "welding_white")
+		var/choice = show_radial_menu(user, src, weld_icons)
+		if(!choice || I.loc != user || !Adjacent(user))
+			return
+		if(C.uses <= 0)
+			to_chat(user, "<span class = 'warning'>Не похоже что бы осталось достаточно краски.</span>")
+			return
+		icon_state = weld[choice]
+		paint = weld[choice]
+		C.uses--
+		update_icon()
+	if(istype(I, /obj/item/soap) && (icon_state != initial(icon_state)))
+		icon_state = initial(icon_state)
+		paint = null
+		update_icon()
+	else
+		return ..()
+
+
 /obj/item/clothing/head/welding/proc/toggle()
 	if(up)
 		up = !up
 		flags_cover |= (HEADCOVERSEYES | HEADCOVERSMOUTH)
-		flags_inv |= (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
-		icon_state = initial(icon_state)
+		flags_inv |= (HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME)
+		if(paint)
+			icon_state = paint
+		else
+			icon_state = initial(icon_state)
 		to_chat(usr, "You flip the [src] down to protect your eyes.")
 		flash_protect = 2
 		tint = 2
 	else
 		up = !up
 		flags_cover &= ~(HEADCOVERSEYES | HEADCOVERSMOUTH)
-		flags_inv &= ~(HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
-		icon_state = "[initial(icon_state)]up"
+		flags_inv &= ~(HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME)
+		if(paint)
+			icon_state = "[paint]up"
+		else
+			icon_state = "[initial(icon_state)]up"
 		to_chat(usr, "You push the [src] up out of your face.")
 		flash_protect = 0
 		tint = 0
@@ -140,7 +180,7 @@
 	desc = "Perfect for winter in Siberia, da?"
 	icon_state = "ushankadown"
 	item_state = "ushankadown"
-	flags_inv = HIDEEARS
+	flags_inv = HIDEHEADSETS
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	dog_fashion = /datum/dog_fashion/head/ushanka
@@ -181,6 +221,16 @@
 	icon_state = "sovietadmiralhat"
 	item_state = "sovietadmiralhat"
 
+/obj/item/clothing/head/soviethelmet
+	name = "SSh-68"
+	desc = "Soviet steel combat helmet."
+	icon_state = "soviethelm"
+	item_state = "soviethelm"
+	flags = BLOCKHAIR
+	flags_inv = HIDEHEADSETS
+	armor = list("melee" = 25, "bullet" = 35, "laser" = 15, "energy" = 10, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	materials = list(MAT_METAL=2500)
+
 /*
  * Pumpkin head
  */
@@ -191,7 +241,7 @@
 	item_state = "hardhat0_pumpkin"
 	item_color = "pumpkin"
 	flags = BLOCKHAIR
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
 	sprite_sheets = list(
@@ -241,8 +291,9 @@
 
 	icon_override = mob
 
-/obj/item/clothing/head/kitty/equipped(var/mob/M, slot)
+/obj/item/clothing/head/kitty/equipped(mob/M, slot, initial)
 	. = ..()
+
 	if(ishuman(M) && slot == slot_head)
 		update_icon(M)
 
@@ -268,7 +319,7 @@
 	desc = "A helmet made out of a box."
 	icon_state = "cardborg_h"
 	item_state = "cardborg_h"
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	species_disguise = "High-tech robot"
 	dog_fashion = /datum/dog_fashion/head/cardborg
@@ -282,8 +333,9 @@
 	)
 
 
-/obj/item/clothing/head/cardborg/equipped(mob/living/user, slot)
-	..()
+/obj/item/clothing/head/cardborg/equipped(mob/living/user, slot, initial)
+	. = ..()
+
 	if(ishuman(user) && slot == slot_head)
 		var/mob/living/carbon/human/H = user
 		if(istype(H.wear_suit, /obj/item/clothing/suit/cardborg))

@@ -3,7 +3,7 @@
 /obj/machinery/recycler
 	name = "recycler"
 	desc = "A large crushing machine used to recycle small items inefficiently. There are lights on the side."
-	icon = 'icons/obj/recycling.dmi'
+	icon = 'icons/obj/machines/recycling.dmi'
 	icon_state = "grinder-o0"
 	layer = MOB_LAYER+1 // Overhead
 	anchored = 1
@@ -51,7 +51,6 @@
 	update_icon()
 
 /obj/machinery/recycler/attackby(obj/item/I, mob/user, params)
-	add_fingerprint(user)
 	if(exchange_parts(user, I))
 		return
 	return ..()
@@ -149,7 +148,7 @@
 	emergency_mode = TRUE
 	update_icon()
 	L.loc = loc
-	addtimer(CALLBACK(src, .proc/reboot), SAFETY_COOLDOWN)
+	addtimer(CALLBACK(src, PROC_REF(reboot)), SAFETY_COOLDOWN)
 
 /obj/machinery/recycler/proc/reboot()
 	playsound(loc, 'sound/machines/ping.ogg', 50, 0)
@@ -180,7 +179,7 @@
 	// Remove and recycle the equipped items
 	if(eat_victim_items)
 		for(var/obj/item/I in L.get_equipped_items(TRUE))
-			if(L.unEquip(I))
+			if(L.drop_item_ground(I))
 				eat(I, sound = 0)
 
 	// Instantly lie down, also go unconscious from the pain, before you die.

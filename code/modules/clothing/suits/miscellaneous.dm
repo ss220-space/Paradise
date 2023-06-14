@@ -194,6 +194,9 @@
 	item_state = "chickensuit"
 	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO|LEGS|FEET
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
 
 /obj/item/clothing/suit/corgisuit
 	name = "corgi suit"
@@ -260,8 +263,9 @@
 	species_disguise = "High-tech robot"
 	dog_fashion = /datum/dog_fashion/back
 
-/obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot)
-	..()
+/obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot, initial)
+	. = ..()
+
 	if(slot == slot_wear_suit)
 		disguise(user)
 
@@ -297,6 +301,9 @@
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT	//Space carp like space, so you should too
 	allowed = list(/obj/item/tank/internals/emergency_oxygen)
 	hoodtype = /obj/item/clothing/head/hooded/carp_hood
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
 
 /obj/item/clothing/head/hooded/carp_hood
 	name = "carp hood"
@@ -306,7 +313,7 @@
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	flags = BLOCKHAIR
-	flags_inv = HIDEEARS
+	flags_inv = HIDEHEADSETS
 
 /obj/item/clothing/suit/hooded/salmon_costume
 	name = "salmon suit"
@@ -322,7 +329,7 @@
 	icon_state = "salmon"
 	body_parts_covered = HEAD
 	flags = BLOCKHAIR
-	flags_inv = HIDEEARS
+	flags_inv = HIDEHEADSETS
 
 /obj/item/clothing/suit/hooded/bee_costume // It's Hip!
 	name = "bee costume"
@@ -339,7 +346,7 @@
 	icon_state = "bee"
 	body_parts_covered = HEAD
 	flags = THICKMATERIAL|BLOCKHAIR
-	flags_inv = HIDEEARS
+	flags_inv = HIDEHEADSETS
 
 /obj/item/clothing/suit/bloated_human	//OH MY GOD WHAT HAVE YOU DONE!?!?!?
 	name = "bloated human suit"
@@ -347,6 +354,9 @@
 	icon_state = "lingspacesuit"
 	item_state = "lingspacesuit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
 
 /obj/item/clothing/suit/draculacoat // Bleh!
 	name = "transylvanian coat"
@@ -386,7 +396,7 @@
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	flags = BLOCKHAIR
-	flags_inv = HIDEEARS
+	flags_inv = HIDEHEADSETS
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/head.dmi',
@@ -579,7 +589,7 @@
 	body_parts_covered = HEAD
 	cold_protection = HEAD
 	flags = BLOCKHAIR
-	flags_inv = HIDEEARS
+	flags_inv = HIDEHEADSETS
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/head.dmi',
@@ -640,6 +650,9 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	strip_delay = 60
 	breakouttime = 3000
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
 
 /obj/item/clothing/suit/ianshirt
 	name = "worn shirt"
@@ -806,6 +819,9 @@
 	item_state = "xenos_helm"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
 
 //swimsuit
 /obj/item/clothing/under/swimsuit/
@@ -860,9 +876,9 @@
 	item_state = "mercy_hood"
 	permeability_coefficient = 0.01
 	flags = BLOCKHAIR
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	flags_cover = HEADCOVERSEYES
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 50)
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES
 
 /obj/item/clothing/suit/jacket
 	name = "bomber jacket"
@@ -1086,7 +1102,9 @@
 	STOP_PROCESSING(SSobj, src)	//probably is cleared in a parent call already, but just in case we're gonna do it here
 	return ..()
 
-/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/equipped(mob/living/carbon/human/H, slot)
+/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/equipped(mob/living/carbon/human/H, slot, initial)
+	. = ..()
+
 	if(!istype(H) || slot != slot_wear_suit)
 		STOP_PROCESSING(SSobj, src)
 		return
@@ -1143,7 +1161,7 @@
 	throw_range = 2
 	w_class = WEIGHT_CLASS_TINY
 	flags = BLOCKHAIR
-	flags_inv = HIDEGLOVES|HIDEEARS|HIDEFACE
+	flags_inv = HIDEGLOVES|HIDEHEADSETS|HIDENAME
 
 // Suragi start
 // Suragi parent

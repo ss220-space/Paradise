@@ -1,7 +1,7 @@
 GLOBAL_LIST_INIT(portals, list())					//for use by portals
 GLOBAL_LIST(cable_list)								//Index for all cables, so that powernets don't have to look through the entire world all the time
-GLOBAL_LIST(chemical_reactions_list)			//list of all /datum/chemical_reaction datums. Used during chemical reactions
-GLOBAL_LIST(chemical_reagents_list)				//list of all /datum/reagent datums indexed by reagent id. Used by chemistry stuff
+GLOBAL_LIST_EMPTY(chemical_reactions_list)			//list of all /datum/chemical_reaction datums. Used during chemical reactions
+GLOBAL_LIST_EMPTY(chemical_reagents_list)				//list of all /datum/reagent datums indexed by reagent id. Used by chemistry stuff
 GLOBAL_LIST_INIT(landmarks_list, list())				//list of all landmarks created
 GLOBAL_LIST_INIT(surgery_steps, list())				//list of all surgery steps  |BS12
 GLOBAL_LIST_INIT(side_effects, list())				//list of all medical sideeffects types by thier names |BS12
@@ -12,12 +12,14 @@ GLOBAL_LIST_INIT(airlocks, list())					//list of all airlocks
 GLOBAL_LIST_INIT(singularities, list())				//list of all singularities
 GLOBAL_LIST_INIT(janitorial_equipment, list())		//list of janitorial equipment
 GLOBAL_LIST_INIT(crafting_recipes, list()) //list of all crafting recipes
+GLOBAL_LIST_INIT(slime_potions, list()) //list of all slime potions
 GLOBAL_LIST_INIT(prisoncomputer_list, list())
 GLOBAL_LIST_INIT(celltimers_list, list()) // list of all cell timers
 GLOBAL_LIST_INIT(cell_logs, list())
 GLOBAL_LIST_INIT(navigation_computers, list())
 
 GLOBAL_LIST_INIT(all_areas, list())
+GLOBAL_LIST_INIT(all_unique_areas, list()) // List of all unique areas. AKA areas with there_can_be_many = FALSE
 GLOBAL_LIST_INIT(machines, list())
 GLOBAL_LIST_INIT(syndiepads, list()) //list of all syndiepads
 GLOBAL_LIST_INIT(syndie_cargo_consoles, list()) //list of all syndie cargo consoles
@@ -45,6 +47,7 @@ GLOBAL_LIST_INIT(meteor_list, list())				//list of all meteors
 GLOBAL_LIST_INIT(poi_list, list())					//list of points of interest for observe/follow
 GLOBAL_LIST_INIT(active_jammers, list())             // List of active radio jammers
 GLOBAL_LIST_EMPTY(ladders)
+GLOBAL_LIST_EMPTY(mirrors) //list of all mirrors and mirror shields.
 
 GLOBAL_LIST_INIT(active_diseases, list()) 			//List of Active disease in all mobs; purely for quick referencing.
 

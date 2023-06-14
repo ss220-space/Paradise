@@ -13,9 +13,17 @@
 	if(istype(holder))
 		insert(holder)
 
+/obj/item/organ/internal/Initialize(mapload)
+	. = ..()
+	if(species_type == /datum/species/diona)
+		AddComponent(/datum/component/diona_internals)
+
+
 /obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, var/dont_remove_slot = 0)
 	if(!iscarbon(M) || owner == M)
 		return
+
+	do_pickup_animation(src, M)
 
 	var/obj/item/organ/internal/replaced = M.get_organ_slot(slot)
 	if(replaced)
@@ -50,11 +58,13 @@
 /obj/item/organ/internal/remove(mob/living/carbon/M, special = 0)
 	if(!owner)
 		log_runtime(EXCEPTION("\'remove\' called on [src] without an owner! Mob: [M], [atom_loc_line(M)]"), src)
-	owner = null
+
 	if(M)
 		M.internal_organs -= src
 		if(M.internal_organs_slot[slot] == src)
 			M.internal_organs_slot.Remove(slot)
+			if(!special)
+				SEND_SIGNAL(src, COMSIG_CARBON_LOSE_ORGAN)
 		if(vital && !special)
 			if(M.stat != DEAD)//safety check!
 				M.death()
@@ -71,6 +81,8 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.Remove(M)
+
+	owner = null
 	START_PROCESSING(SSobj, src)
 	return src
 
@@ -126,18 +138,14 @@
 	name = "appendix"
 	icon_state = "appendix"
 	icon = 'icons/obj/surgery.dmi'
-
-/obj/item/reagent_containers/food/snacks/organ/New()
-	..()
-
-	reagents.add_reagent("nutriment", 5)
+	list_reagents = list("nutriment" = 5)
 
 /obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
 	if(M == user && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/reagent_containers/food/snacks/S = prepare_eat()
 		if(S)
-			H.drop_item()
+			H.drop_from_active_hand()
 			H.put_in_active_hand(S)
 			S.attack(H, H)
 			qdel(src)
@@ -281,7 +289,7 @@
 			var/mob/living/carbon/human/H = owner
 			if(isobj(H.shoes))
 				var/thingy = H.shoes
-				if(H.unEquip(H.shoes))
+				if(H.drop_item_ground(H.shoes))
 					walk_away(thingy,H,15,2)
 					spawn(20)
 						if(thingy)
@@ -359,3 +367,17 @@
 	if(germ_level >= INFECTION_LEVEL_TWO)
 		if(prob(3))	//about once every 30 seconds
 			receive_damage(1, silent = prob(30))
+
+/mob/living/carbon/human/proc/check_infections()
+	var/list/infections = list()
+	for(var/obj/item/organ/internal/organ in internal_organs)
+		if(organ.germ_level > 0)
+			infections.Add(organ)
+	return infections
+
+/mob/living/carbon/human/proc/check_damaged_organs()
+	var/list/damaged = list()
+	for(var/obj/item/organ/internal/organ in internal_organs)
+		if(organ.damage > 0)
+			damaged.Add(organ)
+	return damaged

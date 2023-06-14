@@ -412,7 +412,7 @@
 		text += "(Syndicates used [TC_uses] TC) [purchases]"
 
 		if(TC_uses==0 && station_was_nuked && !is_operatives_are_dead())
-			text += "<BIG><IMG CLASS=icon SRC=\ref['icons/badass.dmi'] ICONSTATE='badass'></BIG>"
+			text += "<BIG><IMG CLASS=icon SRC=\ref['icons/misc/badass.dmi'] ICONSTATE='badass'></BIG>"
 
 		to_chat(world, text)
 	return 1
@@ -508,7 +508,7 @@
 				diskdat += "Carried by [M.real_name] "
 			if(isobj(disk_loc))
 				var/obj/O = disk_loc
-				diskdat += "in \a [O]"
+				diskdat += "in \a [O] "
 			disk_loc = disk_loc.loc
 		diskdat += "in [disk_loc.loc]"
 

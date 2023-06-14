@@ -98,6 +98,15 @@
 	. = ..()
 	icon_state = SSticker.cultdat?.wraith_jaunt_out_animation
 
+/obj/effect/temp_visual/dir_setting/holy_shift
+	name = "blood"
+	icon = 'icons/mob/mob.dmi'
+	icon_state = "holy_shift"
+	duration = 12
+
+/obj/effect/temp_visual/dir_setting/holy_shift/out
+	icon_state = "holy_shift_out"
+
 /obj/effect/temp_visual/dir_setting/tailsweep
 	icon_state = "tailsweep"
 	duration = 4
@@ -218,7 +227,7 @@
 
 /obj/effect/temp_visual/kinetic_blast
 	name = "kinetic explosion"
-	icon = 'icons/obj/projectiles.dmi'
+	icon = 'icons/obj/weapons/projectiles.dmi'
 	icon_state = "kinetic_blast"
 	layer = ABOVE_MOB_LAYER
 	duration = 4
@@ -362,3 +371,30 @@
 	pixel_x = -32
 	pixel_y = -32
 	duration = 8
+
+/obj/effect/temp_visual/holo_scan
+	name = "holo scan waves"
+	icon = 'icons/effects/holoscan.dmi'
+	icon_state = "scan_alpha_red"
+	layer = ABOVE_MOB_LAYER
+	pixel_x = -16
+	pixel_y = -8
+	duration = 2 SECONDS
+	var/scan_color = "red"
+	var/scan_type = "alpha"
+	var/obj/effect/temp_visual/holo_scan/beta = null
+
+/obj/effect/temp_visual/holo_scan/Initialize(mapload, force_scan_color, force_scan_type, create_beta = TRUE)
+	scan_color = force_scan_color ? force_scan_color : initial(scan_color)
+	scan_type = force_scan_type ? force_scan_type : initial(scan_type)
+	if(scan_type == "beta")
+		layer = BELOW_MOB_LAYER
+	if(scan_type == "alpha" && create_beta)
+		beta = new(get_turf(src), scan_color, "beta", FALSE)
+	icon_state = "scan_[scan_type]_[scan_color]"
+	. = ..()
+/obj/effect/temp_visual/holo_scan/Destroy()
+	if(beta)
+		qdel(beta)
+	. = ..()
+

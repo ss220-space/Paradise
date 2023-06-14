@@ -66,6 +66,8 @@
 	// when we get this many shards, we get a free bulb.
 	var/shards_required = 4
 
+	// It can replace lights at a distance?
+	var/bluespace_toggle = FALSE
 
 /obj/item/lightreplacer/examine(mob/user)
 	. = ..()
@@ -78,6 +80,9 @@
 			to_chat(user, "<span class='warning'>[src] is full.</span>")
 			return
 		else if(G.use(decrement))
+			if(!user.drop_item_ground(I))
+				return
+			I.do_pickup_animation(src)
 			AddUses(increment)
 			to_chat(user, "<span class='notice'>You insert a piece of glass into [src]. You have [uses] light\s remaining.</span>")
 			return
@@ -89,8 +94,9 @@
 		if(uses >= max_uses)
 			to_chat(user, "<span class='warning'>[src] is full.</span>")
 			return
-		if(!user.unEquip(I))
+		if(!user.drop_item_ground(I))
 			return
+		I.do_pickup_animation(src)
 		AddUses(round(increment * 0.75))
 		to_chat(user, "<span class='notice'>You insert a shard of glass into [src]. You have [uses] light\s remaining.</span>")
 		qdel(I)
@@ -100,13 +106,15 @@
 		var/obj/item/light/L = I
 		if(L.status == 0) // LIGHT OKAY
 			if(uses < max_uses)
-				if(!user.unEquip(L))
+				if(!user.drop_item_ground(L))
 					return
+				L.do_pickup_animation(src)
 				AddUses(1)
 				qdel(L)
 		else
-			if(!user.unEquip(L))
+			if(!user.drop_item_ground(L))
 				return
+			L.do_pickup_animation(src)
 			to_chat(user, "<span class='notice'>You insert [L] into [src].</span>")
 			AddShards(1, user)
 			qdel(L)
@@ -124,11 +132,15 @@
 				if(uses >= max_uses)
 					break
 				if(L.status == LIGHT_OK)
+					L.remove_item_from_storage(user.drop_location())
+					L.do_pickup_animation(src)
 					replaced_something = TRUE
 					AddUses(1)
 					qdel(L)
 
 				else if(L.status == LIGHT_BROKEN || L.status == LIGHT_BURNED)
+					L.remove_item_from_storage(user.drop_location())
+					L.do_pickup_animation(src)
 					replaced_something = TRUE
 					AddShards(1, user)
 					qdel(L)
@@ -240,9 +252,11 @@
 
 /obj/item/lightreplacer/afterattack(atom/T, mob/U, proximity)
 	. = ..()
-	if(!proximity)
+	if(!proximity && !bluespace_toggle)
 		return
 	if(!isturf(T))
+		return
+	if(get_dist(src, T) >= (U.client.view + 2)) // To prevent people from using it over cameras
 		return
 
 	var/used = FALSE
@@ -251,6 +265,9 @@
 			break
 		used = TRUE
 		if(istype(A, /obj/machinery/light))
+			if(!proximity)  // only beams if at a distance
+				U.Beam(A, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+				playsound(src, 'sound/items/pshoom.ogg', 40, 1)
 			ReplaceLight(A, U)
 
 	if(!used)
@@ -263,6 +280,15 @@
 
 /obj/item/lightreplacer/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	return
+
+/obj/item/lightreplacer/bluespace
+	name = "bluespace light replacer"
+	desc = "A modified light replacer that zaps lights into place. Refill with broken or working light bulbs, or sheets of glass."
+	icon_state = "lightreplacer_blue0"
+	bluespace_toggle = TRUE
+
+/obj/item/lightreplacer/bluespace/emag_act()
+	return  // long range explosions are stupid
 
 #undef LIGHT_OK
 #undef LIGHT_EMPTY

@@ -72,10 +72,10 @@
 	list_reagents = list("nutriment" = 6)
 	tastes = list("chaos" = 1)
 
-/obj/item/reagent_containers/food/snacks/soup/mysterysoup/New()
-	..()
+/obj/item/reagent_containers/food/snacks/soup/mysterysoup/Initialize(mapload)
 	extra_reagent = pick("capsaicin", "frostoil", "omnizine", "banana", "blood", "slimejelly", "toxin", "banana", "carbon", "oculine")
 	reagents.add_reagent("[extra_reagent]", 5)
+	. = ..()
 
 /obj/item/reagent_containers/food/snacks/soup/wishsoup
 	name = "wish soup"
@@ -85,12 +85,12 @@
 	list_reagents = list("water" = 10)
 	tastes = list("wishes" = 1)
 
-/obj/item/reagent_containers/food/snacks/soup/wishsoup/New()
-	..()
+/obj/item/reagent_containers/food/snacks/soup/wishsoup/Initialize(mapload)
 	if(prob(25))
 		desc = "A wish come true!" // hue
 		reagents.add_reagent("nutriment", 9)
 		reagents.add_reagent("vitamin", 1)
+	. = ..()
 
 /obj/item/reagent_containers/food/snacks/soup/tomatosoup
 	name = "tomato soup"
@@ -130,16 +130,15 @@
 /obj/item/reagent_containers/food/snacks/soup/beetsoup/New()
 	..()
 	name = pick("borsch","bortsch","borstch","borsh","borshch","borscht")
-	
+
 /obj/item/reagent_containers/food/snacks/soup/rassolnik
 	name = "pickle soup"
-	desc = "Популярен в СССП."
+	desc = "Quite popular in USSP."
 	icon_state = "rassolnik"
 	filling_color = "#F1FC72"
 	list_reagents = list("nutriment" = 6, "kelotane" = 1, "vitamin" = 2)
 	tastes = list("potato" = 1, "pickles" = 1, "rice" = 1, "Russia" = 1)
 	foodtype = VEGETABLES
-
 
 //////////////////////
 //		Stews		//

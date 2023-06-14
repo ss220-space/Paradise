@@ -15,21 +15,25 @@
 	icon_state = "terror_green"
 	icon_living = "terror_green"
 	icon_dead = "terror_green_dead"
-	maxHealth = 140
-	health = 140
+	maxHealth = 100
+	health = 100
 	death_sound = 'sound/creatures/terrorspiders/death4.ogg'
-	regeneration = 1
-	speed = -0.1
 	delay_web = 20
 	melee_damage_lower = 10
-	melee_damage_upper = 20
+	melee_damage_upper = 15
 	web_type = /obj/structure/spider/terrorweb/green
 	special_abillity = list(/obj/effect/proc_holder/spell/aoe_turf/terror/healing_lesser)
 	spider_intro_text = "Будучи Лекарем Ужаса, ваша задача исцелять других пауков и откладывать яйца. Чем больше трупов вы поглотили, тем эффективнее исцеление, однако, для откладывания яиц, вам также необходимы трупы."
-	var/feedings_to_lay = 2
+	var/feedings_to_lay = 3
 	var/datum/action/innate/terrorspider/greeneggs/greeneggs_action
-	tts_seed = "Mortred"
+	tts_seed = "Jolene"
 
+/mob/living/simple_animal/hostile/poison/terror_spider/healer/strong
+	maxHealth = 220
+	health = 220
+	regeneration = 3
+	melee_damage_lower = 20
+	melee_damage_upper = 25
 
 /mob/living/simple_animal/hostile/poison/terror_spider/healer/New()
 	..()
@@ -129,4 +133,3 @@
 	if(istype(C))
 		if(C.eye_blurry < 60)
 			C.AdjustEyeBlurry(30)
-

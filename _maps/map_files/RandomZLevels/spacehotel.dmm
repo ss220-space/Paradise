@@ -2227,9 +2227,7 @@
 	},
 /area/awaymission/spacehotel)
 "fx" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/spacehotel)
 "fy" = (
@@ -2289,9 +2287,7 @@
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/spacehotel)
 "fH" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/indestructible/beach/water,
 /area/awaymission/spacehotel)
 "fI" = (
@@ -2867,7 +2863,7 @@
 "ht" = (
 /obj/machinery/door/airlock{
 	name = "Kitchen";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/indestructible{
@@ -2877,7 +2873,7 @@
 "hu" = (
 /obj/machinery/door/airlock{
 	name = "Kitchen";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/indestructible{
@@ -3054,7 +3050,7 @@
 "hR" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Employees Only";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "whitered";
@@ -3091,7 +3087,7 @@
 	icon_state = "door_locked";
 	locked = 1;
 	name = "Employees Only";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "whitered";
@@ -3181,7 +3177,7 @@
 "ii" = (
 /obj/machinery/door/airlock{
 	name = "Supply";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
@@ -3196,14 +3192,14 @@
 "ik" = (
 /obj/machinery/door/airlock{
 	name = "Security";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/spacehotel)
 "il" = (
 /obj/machinery/door/airlock{
 	name = "Electrical Room";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/structure/cable/heavyduty{
 	d1 = 1;
@@ -3215,7 +3211,7 @@
 "im" = (
 /obj/machinery/door/airlock{
 	name = "Employees Only";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/spacehotel)
@@ -3360,7 +3356,7 @@
 "iJ" = (
 /obj/structure{
 	desc = "It appears to be similar to a SMES.";
-	icon = 'icons/obj/power.dmi';
+	icon = 'icons/obj/engines_and_power/power.dmi';
 	icon_state = "smes";
 	name = "WaffeCo PSU"
 	},
@@ -3369,7 +3365,7 @@
 "iK" = (
 /obj/structure{
 	desc = "It appears to be some sort of generator.";
-	icon = 'icons/obj/power.dmi';
+	icon = 'icons/obj/engines_and_power/power.dmi';
 	icon_state = "teg";
 	name = "WaffeCo PGU"
 	},
@@ -3501,7 +3497,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/indestructible/plating,
 /area/awaymission/spacehotel)
 "ja" = (
@@ -3602,11 +3598,11 @@
 "jn" = (
 /obj/structure{
 	desc = "It appears to be similar to a SMES.";
-	icon = 'icons/obj/power.dmi';
+	icon = 'icons/obj/engines_and_power/power.dmi';
 	icon_state = "smes";
 	name = "WaffeCo PSU"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/indestructible/plating,
 /area/awaymission/spacehotel)
 "jo" = (

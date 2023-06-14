@@ -186,8 +186,9 @@
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles the gps.</span>", \
 						"<span class='notice'>You start to disassemble the gps...</span>", "You hear clanking and banging noises.")
-		if(do_after(user, 20 * W.toolspeed, target = src))
-			new /obj/item/gps(loc)
+		if(do_after(user, 20 * W.toolspeed * gettoolspeedmod(user), target = src))
+			var/obj/item/gps/gps = new(loc)
+			gps.add_fingerprint(user)
 			qdel(src)
 			return ..()
 
@@ -233,7 +234,7 @@
 	return
 
 /obj/machinery/smartfridge/survival_pod/accept_check(obj/item/O)
-	return isitem(O)
+	return isitem(O) && !(O.flags & ABSTRACT)
 
 /obj/machinery/smartfridge/survival_pod/default_unfasten_wrench()
 	return FALSE
@@ -278,7 +279,7 @@
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles the fan.</span>", \
 							 "<span class='notice'>You start to disassemble the fan...</span>", "You hear clanking and banging noises.")
-		if(do_after(user, 20 * W.toolspeed, target = src))
+		if(do_after(user, 20 * W.toolspeed * gettoolspeedmod(user), target = src))
 			deconstruct()
 			return ..()
 
@@ -321,8 +322,9 @@
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
 							 "<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
-		if(do_after(user, 20 * W.toolspeed, target = src))
-			new /obj/item/stack/rods(loc)
+		if(do_after(user, 20 * W.toolspeed * gettoolspeedmod(user), target = src))
+			var/obj/item/stack/rods/rods = new(loc)
+			rods.add_fingerprint(user)
 			qdel(src)
 			return ..()
 

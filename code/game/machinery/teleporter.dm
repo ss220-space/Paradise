@@ -51,10 +51,10 @@
 	if(istype(I, /obj/item/gps))
 		var/obj/item/gps/L = I
 		if(L.locked_location && !(stat & (NOPOWER|BROKEN)))
-			if(!user.unEquip(L))
+			if(!user.drop_transfer_item_to_loc(L, src))
 				to_chat(user, "<span class='warning'>[I] is stuck to your hand, you cannot put it in [src]</span>")
 				return
-			L.forceMove(src)
+			add_fingerprint(user)
 			locked = L
 			to_chat(user, "<span class='caution'>You insert the GPS device into the [src]'s slot.</span>")
 	else
@@ -71,6 +71,7 @@
 	attack_hand(user)
 
 /obj/machinery/computer/teleporter/attack_hand(mob/user)
+	add_fingerprint(user)
 	ui_interact(user)
 
 
@@ -111,10 +112,10 @@
 		return
 
 	if(!check_hub_connection())
-		atom_say("Error: Unable to detect hub.")
+		atom_say("Ошибка: не удаётся обнаружить хаб.")
 		return
 	if(calibrating)
-		atom_say("Error: Calibration in progress. Stand by.")
+		atom_say("Ошибка: калибровка в процессе. Ожидайте.")
 		return
 
 	. = TRUE
@@ -132,7 +133,7 @@
 			resetPowerstation()
 			var/turf/tmpTarget = locate(text2num(params["x"]), text2num(params["y"]), text2num(params["z"]))
 			if(!isturf(tmpTarget))
-				atom_say("No valid targets available.")
+				atom_say("Отсутствуют подходящие цели.")
 				return
 			target = tmpTarget
 			if(regime == REGIME_TELEPORT)
@@ -141,15 +142,15 @@
 				gate_helper()
 		if("calibrate")
 			if(!target)
-				atom_say("Error: No target set to calibrate to.")
+				atom_say("Ошибка: не указана цель для калибровки.")
 				return
 			if(power_station.teleporter_hub.calibrated || power_station.teleporter_hub.accurate >= 3)
-				atom_say("Hub is already calibrated.")
+				atom_say("Хаб уже откалиброван.")
 				return
 
-			atom_say("Processing hub calibration to target...")
+			atom_say("Калибровка хаба до указанной цели в процессе...")
 			calibrating = TRUE
-			addtimer(CALLBACK(src, .proc/calibrateCallback), 50 * (3 - power_station.teleporter_hub.accurate)) //Better parts mean faster calibration
+			addtimer(CALLBACK(src, PROC_REF(calibrateCallback)), 50 * (3 - power_station.teleporter_hub.accurate)) //Better parts mean faster calibration
 
 /**
 *	Resets the connected powerstation to initial values. Helper function of ui_act
@@ -166,9 +167,9 @@
 	calibrating = FALSE
 	if(check_hub_connection())
 		power_station.teleporter_hub.calibrated = TRUE
-		atom_say("Calibration complete.")
+		atom_say("Калибровка завершена.")
 	else
-		atom_say("Error: Unable to detect hub.")
+		atom_say("Ошибка: не удаётся обнаружить хаб")
 
 /obj/machinery/computer/teleporter/proc/check_hub_connection()
 	if(!power_station)
@@ -467,7 +468,7 @@
 		if(tele_delay)
 			recalibrating = TRUE
 			update_icon()
-			addtimer(CALLBACK(src, .proc/BumpedCallback), tele_delay)
+			addtimer(CALLBACK(src, PROC_REF(BumpedCallback)), tele_delay)
 
 /obj/machinery/teleport/perma/proc/BumpedCallback()
 	recalibrating = FALSE
@@ -560,6 +561,7 @@
 	if(exchange_parts(user, I))
 		return
 	if(panel_open && istype(I, /obj/item/circuitboard/teleporter_perma))
+		add_fingerprint(user)
 		var/obj/item/circuitboard/teleporter_perma/C = I
 		C.target = teleporter_console.target
 		to_chat(user, "<span class='caution'>You copy the targeting information from [src] to [C]</span>")
@@ -606,6 +608,7 @@
 	attack_hand()
 
 /obj/machinery/teleport/station/attack_hand(mob/user)
+	add_fingerprint(user)
 	if(!panel_open)
 		toggle(user)
 	else

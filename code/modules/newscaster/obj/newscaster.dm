@@ -17,7 +17,7 @@
 /obj/machinery/newscaster
 	name = "newscaster"
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. All the news you absolutely have no use for, in one place!"
-	icon = 'icons/obj/terminals.dmi'
+	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "newscaster_normal"
 	max_integrity = 200
 	integrity_failure = 50
@@ -136,7 +136,8 @@
 		new /obj/item/shard(loc)
 	else
 		to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [name].</span>")
-		new /obj/item/mounted/frame/newscaster_frame(loc)
+		var/obj/item/mounted/frame/newscaster_frame/frame = new(loc)
+		transfer_fingerprints_to(frame)
 	qdel(src)
 
 /obj/machinery/newscaster/welder_act(mob/user, obj/item/I)
@@ -360,9 +361,8 @@
 				return
 			if(ishuman(usr))
 				var/obj/item/photo/P = usr.get_active_hand()
-				if(istype(P) && usr.unEquip(P))
+				if(istype(P) && usr.drop_transfer_item_to_loc(P, src))
 					photo = P
-					P.forceMove(src)
 					usr.visible_message("<span class='notice'>[usr] inserts [P] into [src]'s photo slot.</span>",\
 										"<span class='notice'>You insert [P] into [src]'s photo slot.</span>")
 					playsound(loc, 'sound/machines/terminal_insert_disc.ogg', 30, TRUE)
@@ -586,7 +586,7 @@
 	var/obj/item/photo/P = photo
 	photo = null
 	P.forceMove(loc)
-	if(ishuman(user) && user.put_in_active_hand(P))
+	if(ishuman(user) && user.put_in_active_hand(P, ignore_anim = FALSE))
 		visible_message("<span class='notice'>[src] ejects [P] from its photo slot into [user]'s hand.")
 	else
 		visible_message("<span class='notice'>[src] ejects [P] from its photo slot.")
@@ -621,7 +621,7 @@
 		// Try to get the ID
 		var/obj/item/card/id/id = M.wear_id.GetID()
 		if(istype(id))
-			return list(name = "[id.registered_name] ([id.assignment])", security = has_access(list(), list(ACCESS_SECURITY), id.access))
+			return list(name = "[id.registered_name] ([id.assignment])", security = has_access(list(ACCESS_SECURITY), TRUE, id.access))
 	else if(issilicon(user))
 		var/mob/living/silicon/ai_user = user
 		return list(name = "[ai_user.name] ([ai_user.job])", security = TRUE)
@@ -649,7 +649,7 @@
 	is_printing = TRUE
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 	visible_message("<span class='notice'>[src] whirs as it prints a newspaper.</span>")
-	addtimer(CALLBACK(src, .proc/print_newspaper_finish), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(print_newspaper_finish)), 5 SECONDS)
 
 /**
   * Called when the timer following a call to [/obj/machinery/newscaster/proc/print_newspaper] finishes.
@@ -677,7 +677,7 @@
 	if(!is_operational())
 		return
 	if(wanted_notice)
-		atom_say("Attention! Wanted issue distributed!")
+		atom_say("Внимание! Объявлен розыск!")
 		playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
 	else if(length(announcement))
 		atom_say("[announcement]!")
@@ -686,7 +686,7 @@
 	else
 		return
 	alert = TRUE
-	addtimer(CALLBACK(src, .proc/alert_timer_finish), 30 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(alert_timer_finish)), 30 SECONDS)
 	update_icon()
 
 /**

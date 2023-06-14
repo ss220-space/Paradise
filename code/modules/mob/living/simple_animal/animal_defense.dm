@@ -1,9 +1,13 @@
 /mob/living/simple_animal/attackby(obj/item/O, mob/living/user)
-	if(can_collar && istype(O, /obj/item/clothing/accessory/petcollar) && !pcollar)
-		add_collar(O, user)
-		return
-	else
-		return ..()
+	if(user.a_intent == INTENT_HELP || user.a_intent == INTENT_GRAB)
+		if(can_collar && istype(O, /obj/item/clothing/accessory/petcollar) && !pcollar)
+			add_collar(O, user)
+			return
+		if(istype(O, /obj/item/pet_carrier))
+			var/obj/item/pet_carrier/C = O
+			if(C.put_in_carrier(src, user))
+				return
+	return ..()
 
 /mob/living/simple_animal/attack_hand(mob/living/carbon/human/M)
 	..()
@@ -15,10 +19,12 @@
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
 		if(INTENT_GRAB)
-			grabbedby(M)
-
+			if(holder_type)
+				get_scooped(M)
+			else
+				grabbedby(M)
 		if(INTENT_HARM, INTENT_DISARM)
-			if(HAS_TRAIT(M, TRAIT_PACIFISM))
+			if(HAS_TRAIT(M, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
 				to_chat(M, "<span class='warning'>You don't want to hurt [src]!</span>")
 				return
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
@@ -36,7 +42,7 @@
 			visible_message("<span class='danger'>[M] [response_disarm] [name]!</span>", "<span class='userdanger'>[M] [response_disarm] you!</span>")
 			add_attack_logs(M, src, "Alien disarmed")
 		else
-			var/damage = rand(15, 30)
+			var/damage = M.attack_damage
 			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
 					"<span class='userdanger'>[M] has slashed at [src]!</span>")
 			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)

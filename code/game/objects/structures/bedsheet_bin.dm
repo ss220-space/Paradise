@@ -35,7 +35,7 @@ LINEN BINS
 
 
 /obj/item/bedsheet/attack_self(mob/user as mob)
-	user.drop_item()
+	user.drop_from_active_hand()
 	if(layer == initial(layer))
 		layer = 5
 	else
@@ -262,9 +262,12 @@ LINEN BINS
 
 /obj/structure/bedsheetbin/update_icon()
 	switch(amount)
-		if(0)				icon_state = "linenbin-empty"
-		if(1 to amount / 2)	icon_state = "linenbin-half"
-		else				icon_state = "linenbin-full"
+		if(0)
+			icon_state = "linenbin-empty"
+		if(1 to 10)
+			icon_state = "linenbin-half"
+		else
+			icon_state = "linenbin-full"
 
 
 /obj/structure/bedsheetbin/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
@@ -280,14 +283,14 @@ LINEN BINS
 
 /obj/structure/bedsheetbin/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/bedsheet))
-		user.drop_item()
-		I.loc = src
+		add_fingerprint(user)
+		user.drop_transfer_item_to_loc(I, src)
 		sheets.Add(I)
 		amount++
 		to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
 	else if(amount && !hidden && I.w_class < WEIGHT_CLASS_BULKY)	//make sure there's sheets to hide it among, make sure nothing else is hidden in there.
-		user.drop_item()
-		I.loc = src
+		add_fingerprint(user)
+		user.drop_transfer_item_to_loc(I, src)
 		hidden = I
 		to_chat(user, "<span class='notice'>You hide [I] among the sheets.</span>")
 
@@ -305,8 +308,8 @@ LINEN BINS
 		else
 			B = new /obj/item/bedsheet(loc)
 
-		B.loc = user.loc
-		user.put_in_hands(B)
+		B.forceMove_turf()
+		user.put_in_hands(B, ignore_anim = FALSE)
 		to_chat(user, "<span class='notice'>You take [B] out of [src].</span>")
 
 		if(hidden)

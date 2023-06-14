@@ -235,7 +235,7 @@
 				Nuke_request(input, usr)
 				to_chat(usr, "<span class='notice'>Request sent.</span>")
 				add_game_logs("has requested the nuclear codes from Centcomm: [input]", usr)
-				GLOB.priority_announcement.Announce("The codes for the on-station nuclear self-destruct have been requested by [usr]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self Destruct Codes Requested",'sound/AI/commandreport.ogg')
+				GLOB.priority_announcement.Announce("Коды активации ядерной боеголовки на станции были запрошены [usr]. Решение о подтверждении или отклонении данного запроса будет отправлено в ближайшее время.", "Запрошены коды активации ядерной боеголовки.",'sound/AI/commandreport.ogg')
 				centcomm_message_cooldown = world.time + 6000 // 10 minutes
 			setMenuState(usr, COMM_SCREEN_MAIN)
 
@@ -520,7 +520,7 @@
 /proc/print_command_report(text = "", title = "Central Command Update", add_to_records = TRUE, var/datum/station_goal/goal = null)
 	for(var/obj/machinery/computer/communications/C in GLOB.shuttle_caller_list)
 		if(!(C.stat & (BROKEN|NOPOWER)) && is_station_contact(C.z))
-			var/obj/item/paper/P = new /obj/item/paper(C.loc)
+			var/obj/item/paper/P = new (C.loc)
 			P.name = "paper- '[title]'"
 			P.info = text
 			P.update_icon()
@@ -528,6 +528,8 @@
 				C.messagetitle.Add("[title]")
 				C.messagetext.Add(text)
 			if(goal)
+				var/obj/item/stamp/navcom/stamp = new()
+				P.stamp(stamp)
 				goal.papers_list.Add(P)
 
 /proc/print_centcom_report(text = "", title = "Incoming Message")

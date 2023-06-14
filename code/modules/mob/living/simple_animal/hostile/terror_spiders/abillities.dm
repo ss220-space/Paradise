@@ -8,13 +8,13 @@
 /obj/effect/proc_holder/spell/targeted/genetic/terror/stealth
 	name = "Stealth"
 	desc = "Become completely invisible for a short time."
-	charge_max = 300
+	charge_max = 250
 	action_icon_state = "stealth"
 	action_background_icon_state = "bg_terror"
 	clothes_req = FALSE
 	range = -1
 	include_user = 1
-	duration = 70
+	duration = 80
 	sound = 'sound/creatures/terrorspiders/stealth.ogg'
 
 /obj/effect/proc_holder/spell/targeted/genetic/terror/stealth/cast(list/targets, mob/user = usr)
@@ -36,24 +36,21 @@
 	desc = "Exude feromones to heal your allies"
 	action_icon_state = "heal"
 	action_background_icon_state = "bg_terror"
-	charge_max = 250
+	charge_max = 300
 	clothes_req = FALSE
 	range = 6
 	sound = 'sound/creatures/terrorspiders/heal.ogg'
 
-/obj/effect/proc_holder/spell/aoe_turf/terror/healing/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/aoe_turf/terror/healing_lesser/cast(list/targets, mob/user = usr)
 	for(var/turf/T in targets)
 		for(var/mob/target in T.contents)
 			if(isterrorspider(target))
 				var/mob/living/M  = target
 				visible_message("<span class='green'>[src] exudes feromones and heals spiders around!</span>")
-				M.adjustBruteLoss(-25)
+				M.adjustBruteLoss(-20)
 				new /obj/effect/temp_visual/heal(get_turf(M), "#00ff0d")
 				new /obj/effect/temp_visual/heal(get_turf(M), "#09ff00")
-
-//KNIGHT//
-//coming soon
-
+				new /obj/effect/temp_visual/heal(get_turf(M), "#09ff00")
 
 //TIER 2 SPIDERS
 
@@ -83,12 +80,12 @@
 	. = ..()
 	var/datum/effect_system/smoke_spread/chem/S = new
 	var/turf/T = get_turf(target)
-	create_reagents(75)
-	reagents.add_reagent("thc", 15)
-	reagents.add_reagent("psilocybin", 15)
-	reagents.add_reagent("lsd", 15)
-	reagents.add_reagent("space_drugs", 15)
-	reagents.add_reagent("terror_black_toxin", 15)
+	create_reagents(1250)
+	reagents.add_reagent("thc", 250)
+	reagents.add_reagent("psilocybin", 250)
+	reagents.add_reagent("lsd", 250)
+	reagents.add_reagent("space_drugs", 250)
+	reagents.add_reagent("terror_black_toxin", 250)
 	S.set_up(reagents, T, TRUE)
 	S.start()
 
@@ -125,7 +122,7 @@
 	desc = "Emits a shriek that causes EMP pulse."
 	action_icon_state = "emp_new"
 	action_background_icon_state = "bg_terror"
-	charge_max = 300
+	charge_max = 400
 	clothes_req = FALSE
 	range = -1
 	include_user = 1
@@ -134,7 +131,7 @@
 /obj/effect/proc_holder/spell/targeted/terror/emp/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
 		if(isturf(usr.loc)) //to avoid cast from vents
-			empulse(usr.loc, 7, 10, TRUE, cause = usr)
+			empulse(usr.loc, 3, 2, TRUE, cause = usr)
 
 //EXPLOSION
 /obj/effect/proc_holder/spell/targeted/terror/burn
@@ -142,7 +139,7 @@
 	desc = "Release your energy to create a massive fire ring."
 	action_icon_state = "explosion"
 	action_background_icon_state = "bg_terror"
-	charge_max = 400
+	charge_max = 600
 	clothes_req = FALSE
 	range = -1
 	include_user = 1
@@ -151,7 +148,7 @@
 /obj/effect/proc_holder/spell/targeted/terror/burn/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
 		if(isturf(usr.loc)) //to avoid cast from vents
-			explosion(usr.loc, flame_range = 7, cause = usr)
+			explosion(usr.loc, flame_range = 5, cause = usr)
 
 //GUARD//
 
@@ -165,7 +162,7 @@
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
-	delay = 10
+	delay = 0
 	range = 0
 	cast_sound = 'sound/creatures/terrorspiders/mod_defence.ogg'
 	summon_type = list(/obj/effect/forcefield/terror)
@@ -175,7 +172,7 @@
 	name = "Guardian shield"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "terror_shield"
-	lifetime = 160                       //max 2 shields existing at one time
+	lifetime = 165                       //max 2 shields existing at one time
 	light_color = LIGHT_COLOR_PURPLE
 
 /obj/effect/forcefield/terror/CanPass(atom/movable/mover, turf/target)
@@ -192,7 +189,7 @@
 /obj/effect/proc_holder/spell/targeted/terror/smoke
 	name = "Smoke"
 	desc = "Erupt a smoke to confuse your enemies."
-	charge_max = 100
+	charge_max = 80
 	clothes_req = FALSE
 	range = -1
 	include_user = 1
@@ -211,60 +208,51 @@
 /obj/effect/proc_holder/spell/targeted/terror/parasmoke
 	name = "Paralyzing Smoke"
 	desc = "Erupt a smoke to paralyze your enemies."
-	charge_max = 400
+	charge_max = 600
 	clothes_req = FALSE
 	range = -1
 	include_user = 1
 	sound = 'sound/creatures/terrorspiders/attack2.ogg'
-	action_icon_state = "biohazard"
+	action_icon_state = "biohazard2"
 	action_background_icon_state = "bg_terror"
 
 /obj/effect/proc_holder/spell/targeted/terror/parasmoke/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
 		if(isturf(usr.loc)) //to avoid cast from vents
 			var/datum/effect_system/smoke_spread/chem/S = new
-			create_reagents(50)
-			reagents.add_reagent("neurotoxin", 25)
-			reagents.add_reagent("capulettium_plus", 25)
+			create_reagents(2000)
+			reagents.add_reagent("neurotoxin", 1000)
+			reagents.add_reagent("capulettium_plus", 1000)
 			S.set_up(reagents, usr, TRUE)
 			S.start()
 
-//INFESTING SMOKE
-/obj/effect/proc_holder/spell/targeted/terror/infest
-	name = "Infesting Smoke"
-	desc = "Erupt a smoke to infest your enemies with spider eggs."
-	charge_max = 700
-	clothes_req = FALSE
-	range = -1
-	include_user = 1
-	sound = 'sound/creatures/terrorspiders/white_shriek.ogg'
-	action_icon_state = "biohazard2"
+//TERRIFYING SHRIEK
+/obj/effect/proc_holder/spell/aoe_turf/terror/terrify
+	name = "Terrify"
+	desc = "Emit a loud shriek to terrify your enemies."
+	action_icon_state = "terror_shriek"
 	action_background_icon_state = "bg_terror"
+	charge_max = 600
+	clothes_req = FALSE
+	range = 7
+	sound = 'sound/creatures/terrorspiders/white_shriek.ogg'
 
-/obj/effect/proc_holder/spell/targeted/terror/infest/cast(list/targets, mob/user = usr)
-	for(var/mob/living/target in targets)
-		if(isturf(usr.loc)) //to avoid cast from vents
-			var/datum/effect_system/smoke_spread/chem/S = new
-			create_reagents(50)
-			reagents.add_reagent("terror_egs", 25)
-			reagents.add_reagent("space_drugs", 25)
-			S.set_up(reagents, usr, TRUE)
-			S.start()
-
-/datum/reagent/terror_eggs
-	name = "terror spider eggs"
-	id = "terror_eggs"
-	description = "An incredibly toxic venom that spreads infestation."
-	color = "#ffffff"
-	metabolization_rate = 1 * REAGENTS_METABOLISM
-
-/datum/reagent/terror_eggs/on_mob_life(mob/living/M)
-	if(volume > 5)
-		if(iscarbon(M))
-			if(!M.get_int_organ(/obj/item/organ/internal/body_egg))
-				new/obj/item/organ/internal/body_egg/terror_eggs(M)
-	return ..()
-
+/obj/effect/proc_holder/spell/aoe_turf/terror/terrify/cast(list/targets, mob/user = usr)
+	for(var/turf/T in targets)
+		for(var/mob/target in T.contents)
+			if(iscarbon(target))
+				var/mob/living/carbon/M = target
+				to_chat(M, "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>")
+				M.AdjustConfused(10)
+				M.slowed = 1
+				M.Jitter(300)
+			else if(issilicon(target))
+				var/mob/living/silicon/S = target
+				to_chat(S, "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>")
+				S << 'sound/misc/interference.ogg'
+				playsound(S, 'sound/machines/warning-buzzer.ogg', 50, 1)
+				do_sparks(5, 1, S)
+				S.Weaken(6)
 
 //TIER 3
 
@@ -276,7 +264,7 @@
 	desc = "Emits a loud shriek that weakens your enemies."
 	action_icon_state = "terror_shriek"
 	action_background_icon_state = "bg_terror"
-	charge_max = 300
+	charge_max = 600
 	clothes_req = FALSE
 	range = 6
 	sound = 'sound/creatures/terrorspiders/princess_shriek.ogg'
@@ -287,9 +275,9 @@
 			if(iscarbon(target))
 				var/mob/living/carbon/M = target
 				to_chat(M, "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>")
-				M.AdjustConfused(5)
-				M.AdjustWeakened(1)
-				M.slowed = 3
+				M.adjustStaminaLoss(30)
+				M.Jitter(300)
+				M.slowed = 5
 			else if(issilicon(target))
 				var/mob/living/silicon/S = target
 				to_chat(S, "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>")
@@ -306,25 +294,22 @@
 	desc = "Slam the ground with your body."
 	action_icon_state = "slam"
 	action_background_icon_state = "bg_terror"
-	charge_max = 200
+	charge_max = 350
 	clothes_req = FALSE
 	range = 2
 
 /obj/effect/proc_holder/spell/aoe_turf/terror/slam/cast(list/targets, mob/user = usr)
 	playsound(usr, 'sound/creatures/terrorspiders/prince_attack.ogg', 150, 0)
-	visible_message("<span class='warning'>[src] wildly roars and prepares for the slam!</span>")
-	sleep(13)  //synced with sound, first plays roar, then, after 1.3 sec plays slam sound and applies abbillity effect
 	for(var/turf/T in targets)
 		for(var/mob/target in T.contents)
 			if(iscarbon(target))
 				var/mob/living/carbon/M = target
 				M.AdjustWeakened(1)
-				M.slowed = 6
 				M.adjustBruteLoss(20)
+				M.slowed = 4
 		var/turf/simulated/floor/tile = user.loc
 		for(tile in range(2, user))
 			tile.break_tile()
-			visible_message("<span class='warning'>[src] slams the ground!</span>")
 
 //MOTHER//
 
@@ -338,7 +323,7 @@
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
-	delay = 20
+	delay = 33
 	range = 0
 	cast_sound = 'sound/creatures/terrorspiders/jelly.ogg'
 	summon_type = list(/obj/structure/spider/royaljelly)
@@ -349,9 +334,9 @@
 	desc = "Exude feromones to heal your allies"
 	action_icon_state = "heal"
 	action_background_icon_state = "bg_terror"
-	charge_max = 350
+	charge_max = 400
 	clothes_req = FALSE
-	range = 8
+	range = 7
 	sound = 'sound/creatures/terrorspiders/heal.ogg'
 
 /obj/effect/proc_holder/spell/aoe_turf/terror/healing/cast(list/targets, mob/user = usr)
@@ -360,7 +345,8 @@
 			if(isterrorspider(target))
 				var/mob/living/M  = target
 				visible_message("<span class='green'>[src] exudes feromones and heals spiders around!</span>")
-				M.adjustBruteLoss(-120)
+				M.apply_status_effect(STATUS_EFFECT_TERROR_REGEN)
+				M.adjustBruteLoss(-30)
 				new /obj/effect/temp_visual/heal(get_turf(M), "#8c00ff")
 				new /obj/effect/temp_visual/heal(get_turf(M), "#8c00ff")
 				new /obj/effect/temp_visual/heal(get_turf(M), "#8c00ff")
@@ -375,9 +361,9 @@
 	desc = "Emit a loud shriek that weakens your enemies."
 	action_icon_state = "terror_shriek"
 	action_background_icon_state = "bg_terror"
-	charge_max = 350
+	charge_max = 450
 	clothes_req = FALSE
-	range = 8
+	range = 7
 	sound = 'sound/creatures/terrorspiders/queen_shriek.ogg'
 
 /obj/effect/proc_holder/spell/aoe_turf/terror/queen/cast(list/targets, mob/user = usr)
@@ -386,16 +372,17 @@
 			if(iscarbon(target))
 				var/mob/living/carbon/M = target
 				to_chat(M, "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>")
-				M.AdjustConfused(10)
 				M.AdjustWeakened(2)
-				M.slowed = 6
+				M.adjustStaminaLoss(50)
+				M.Jitter(500)
+				M.slowed = 7
 			else if(issilicon(target))
 				var/mob/living/silicon/S = target
 				to_chat(S, "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>")
 				S << 'sound/misc/interference.ogg'
 				playsound(S, 'sound/machines/warning-buzzer.ogg', 50, 1)
 				do_sparks(5, 1, S)
-				S.Weaken(6)
+				S.Weaken(8)
 		for(var/obj/machinery/light/L in T.contents)
 			L.break_light_tube()
 

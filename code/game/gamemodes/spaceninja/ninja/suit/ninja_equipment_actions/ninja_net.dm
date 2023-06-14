@@ -24,15 +24,16 @@
 			ninja_action.use_action()
 			break
 		ninja.put_in_hands(net_emitter)
+
 /obj/item/ninja_net_emitter
 	name = "Energy Net Emitter"
 	desc = "A device sneakily hidden inside Spider Clan ninja suits. Emits a powerfull energy net that instantly ensnares a person"
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "net_emitter"
 	item_state = ""
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = 0
-	flags = DROPDEL | ABSTRACT
+	flags = DROPDEL | ABSTRACT | NOBLUDGEON
 	var/obj/item/clothing/suit/space/space_ninja/my_suit = null
 	var/datum/action/item_action/advanced/ninja/ninjanet/my_action = null
 
@@ -44,14 +45,18 @@
 	my_action.use_action()
 	my_action = null
 
-/obj/item/ninja_net_emitter/equip_to_best_slot(mob/M)
+
+/obj/item/ninja_net_emitter/equip_to_best_slot(mob/user, force = FALSE, drop_on_fail = FALSE, qdel_on_fail = FALSE)
 	qdel(src)
+
+
+/obj/item/ninja_net_emitter/run_drop_held_item(mob/user)
+	qdel(src)
+
 
 /obj/item/ninja_net_emitter/attack_self(mob/user)
 	return
 
-/obj/item/ninja_net_emitter/attack()
-	return
 
 /obj/item/ninja_net_emitter/afterattack(atom/target, mob/living/user, proximity)
 	var/mob/target_mob = get_mob_in_atom_without_warning(target)

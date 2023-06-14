@@ -70,8 +70,7 @@
 			return
 		master = F
 		F.ptank = src
-		user.unEquip(src)
-		loc = F
+		user.drop_transfer_item_to_loc(src, F)
 		F.update_icon()
 	else
 		return ..()
@@ -152,6 +151,11 @@
 	name = "suspicious emergency oxygen tank"
 	icon_state = "emergency_syndi"
 	desc = "A dark emergency oxygen tank. The label on the back reads \"Original Oxygen Tank Design, Do Not Steal.\""
+
+/obj/item/tank/internals/emergency_oxygen/engi/sec
+	name = "security extended-capacity emergency oxygen tank"
+	icon_state = "emergency_sec"
+	desc = "A black-red emergency oxygen tank. Used by corporate security departments."
 
 /obj/item/tank/internals/emergency_oxygen/double
 	name = "double emergency oxygen tank"

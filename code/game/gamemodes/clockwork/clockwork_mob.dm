@@ -39,16 +39,17 @@
 /mob/living/simple_animal/hostile/clockwork/marauder/Initialize(mapload)
 	. = ..()
 	real_name = text("clockwork marauder ([rand(1, 1000)])")
+	name = real_name
 
 /mob/living/simple_animal/hostile/clockwork/marauder/death(gibbed)
 	. = ..()
 	SSticker.mode.remove_clocker(mind, FALSE)
 
 /mob/living/simple_animal/hostile/clockwork/marauder/AttackingTarget()
-	if(a_intent == INTENT_HELP && isliving(target) && !isclocker(target)) // yes i know, it's not a disarm
+	if(a_intent == INTENT_DISARM && isliving(target) && !isclocker(target))
 		var/mob/living/L = target
 		playsound(loc, 'sound/weapons/clash.ogg', 50, TRUE)
-		L.adjustStaminaLoss(20)
+		L.adjustStaminaLoss(25)
 		src.do_attack_animation(target)
 		target.visible_message("<span class='danger'>[src] hits [target] with flat of the sword!</span>", \
 						"<span class='userdanger'>[src] hits you with flat of the sword!</span>")
@@ -99,6 +100,31 @@
 		return TRUE
 	return FALSE
 
+/mob/living/simple_animal/hostile/clockwork/marauder/a_intent_change(input as text)
+	set name = "a-intent"
+	set hidden = 1
+	if(can_change_intents)
+		switch(input)
+			if(INTENT_HELP,INTENT_DISARM,INTENT_HARM)
+				a_intent = input
+			if("right")
+				if(a_intent == INTENT_HELP)
+					a_intent = INTENT_DISARM
+				else if(a_intent == INTENT_DISARM)
+					a_intent = INTENT_HARM
+				else if(a_intent == INTENT_HARM)
+					a_intent = INTENT_HELP
+			if("left")
+				if(a_intent == INTENT_HELP)
+					a_intent = INTENT_HARM
+				else if(a_intent == INTENT_DISARM)
+					a_intent = INTENT_HELP
+				else if(a_intent == INTENT_HARM)
+					a_intent = INTENT_DISARM
+		if(hud_used && hud_used.action_intent)
+			hud_used.action_intent.icon_state = "[a_intent]"
+
+
 /*MOUSE*/
 /mob/living/simple_animal/mouse/clockwork
 	name = "moaus"
@@ -129,7 +155,7 @@
 		investigate_log("was chewed through by a clock mouse in [get_area(F)]([F.x], [F.y], [F.z] - [ADMIN_JMP(F)])","wires")
 		C.deconstruct()
 
-/mob/living/simple_animal/mouse/clockwork/splat()
+/mob/living/simple_animal/mouse/clockwork/splat(var/obj/item/item = null, var/mob/living/user = null)
 	return
 
 /mob/living/simple_animal/mouse/clockwork/toast()

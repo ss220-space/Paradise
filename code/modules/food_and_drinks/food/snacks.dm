@@ -17,6 +17,7 @@
 	var/cooked_type = null  //for microwave cooking. path of the resulting item after microwaving
 	var/total_w_class = 0 //for the total weight an item of food can carry
 	var/list/tastes  // for example list("crisps" = 2, "salt" = 1)
+	var/opened = TRUE // FALSE if it needed to be opened first
 
 /obj/item/reagent_containers/food/snacks/add_initial_reagents()
 	if(tastes && tastes.len)
@@ -30,6 +31,12 @@
 	else
 		..()
 
+/obj/item/reagent_containers/food/snacks/update_icon()
+	if(!opened)
+		icon_state = "[initial(icon_state)]-closed"
+	else
+		icon_state = "[initial(icon_state)]"
+
 //Placeholder for effect that trigger on eating that aren't tied to reagents.
 /obj/item/reagent_containers/food/snacks/proc/On_Consume(mob/M, mob/user)
 	if(!user)
@@ -38,7 +45,7 @@
 		if(M == user)
 			to_chat(user, "<span class='notice'>You finish eating \the [src].</span>")
 		user.visible_message("<span class='notice'>[M] finishes eating \the [src].</span>")
-		user.unEquip(src)	//so icons update :[
+		user.drop_item_ground(src)	//so icons update :[
 		Post_Consume(M)
 		var/obj/item/trash_item = generate_trash(usr)
 		usr.put_in_hands(trash_item)
@@ -49,13 +56,29 @@
 	return
 
 /obj/item/reagent_containers/food/snacks/attack_self(mob/user)
-	return
+	if(!opened)
+		opened = TRUE
+		to_chat(user, "<span class='notice'>You open the [src].</span>")
+		update_icon()
+		return ..()
+	else
+		return
 
 /obj/item/reagent_containers/food/snacks/attack(mob/M, mob/user, def_zone)
+	if(!opened)
+		to_chat(user, "<span class='notice'>You need to open the [src]!</span>")
+		return
 	if(reagents && !reagents.total_volume)						//Shouldn't be needed but it checks to see if it has anything left in it.
 		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
-		M.unEquip(src)	//so icons update :[
+		M.drop_item_ground(src)	//so icons update :[
 		qdel(src)
+		return FALSE
+
+	if(!get_location_accessible(M, "mouth"))
+		if(M == user)
+			to_chat(user, "<span class='warning'>Your face is obscured, so you cant eat.</span>")
+		else
+			to_chat(user, "<span class='warning'>[M]'s face is obscured, so[M.p_they()] cant eat.</span>")
 		return FALSE
 
 	if(iscarbon(M))
@@ -190,13 +213,12 @@
 		return
 	if(!iscarbon(user))
 		return
-	if(!user.drop_item())
+	if(!user.drop_transfer_item_to_loc(I, src))
 		to_chat(user, "<span class='warning'>You cannot slip [I] inside [src]!</span>")
 		return
 	to_chat(user, "<span class='warning'>You slip [I] inside [src].</span>")
 	total_w_class += I.w_class
 	add_fingerprint(user)
-	I.forceMove(src)
 
 /obj/item/reagent_containers/food/snacks/sliceable/attackby(obj/item/I, mob/user, params)
 	if((slices_num <= 0 || !slices_num) || !slice_path)

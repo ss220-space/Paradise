@@ -17,6 +17,7 @@
 	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_WING | HAS_SKIN_COLOR
 	reagent_tag = PROCESS_ORG
 	tox_mod = 1.5
+	blood_species = "Nian"
 	blood_color = "#b9ae9c"
 	unarmed_type = /datum/unarmed_attack/claws
 	scream_verb = "жужжит"
@@ -82,10 +83,10 @@
 	if(!cocoon)
 		cocoon = new
 		cocoon.Grant(H)
-	RegisterSignal(H, COMSIG_LIVING_FIRE_TICK, .proc/check_burn_wings)
-	RegisterSignal(H, COMSIG_LIVING_AHEAL, .proc/on_aheal)
-	RegisterSignal(H, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY, .proc/on_change_body_accessory)
-	RegisterSignal(H, COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY, .proc/on_change_head_accessory)
+	RegisterSignal(H, COMSIG_LIVING_FIRE_TICK, PROC_REF(check_burn_wings))
+	RegisterSignal(H, COMSIG_LIVING_AHEAL, PROC_REF(on_aheal))
+	RegisterSignal(H, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY, PROC_REF(on_change_body_accessory))
+	RegisterSignal(H, COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY, PROC_REF(on_change_head_accessory))
 
 /datum/species/moth/on_species_loss(mob/living/carbon/human/H)
 	..()
@@ -179,7 +180,7 @@
 		C.preparing_to_emerge = TRUE
 		H.apply_status_effect(STATUS_EFFECT_COCOONED)
 		H.KnockOut()
-		addtimer(CALLBACK(src, .proc/emerge, C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(emerge), C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
 	else
 		to_chat(H, "<span class='warning'>You need to hold still in order to weave a cocoon!</span>")
 

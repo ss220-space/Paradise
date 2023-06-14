@@ -120,6 +120,7 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 	equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(src), slot_wear_mask)
 	equip_to_slot_or_del(new /obj/item/reagent_containers/food/snacks/grown/banana(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/bikehorn(src), slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/clown_recorder(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/stamp/clown(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/toy/crayon/rainbow(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/reagent_containers/spray/waterflower(src), slot_in_backpack)
@@ -129,6 +130,8 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 	else
 		equip_to_slot_or_del(new /obj/item/gun/throw/piecannon(src), slot_in_backpack)
 	src.mutations.Add(CLUMSY)
+	var/obj/item/implant/sad_trombone/S = new/obj/item/implant/sad_trombone(src)
+	S.implant(src)
 
 
 	var/obj/item/card/id/I = new(src)

@@ -32,7 +32,7 @@
 	species = "oat"
 	plantname = "Oat Stalks"
 	product = /obj/item/reagent_containers/food/snacks/grown/oat
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/wheat/buckwheat)
 
 /obj/item/reagent_containers/food/snacks/grown/oat
 	seed = /obj/item/seeds/wheat/oat
@@ -44,6 +44,27 @@
 	tastes = list("oat" = 1)
 	bitesize_mod = 2
 	distill_reagent = "ale"
+
+// Buckwheat
+/obj/item/seeds/wheat/buckwheat
+	name = "pack of buckwheat seeds"
+	desc = "These may, or may not, grow into buckwheat."
+	icon_state = "seed-buckwheat"
+	species = "buckwheat"
+	plantname = "Buckwheat Stalks"
+	product = /obj/item/reagent_containers/food/snacks/grown/buckwheat
+	mutatelist = list()
+
+/obj/item/reagent_containers/food/snacks/grown/buckwheat
+	seed = /obj/item/seeds/wheat/buckwheat
+	name = "buckwheat"
+	desc = "You asked for this."
+	gender = PLURAL
+	icon_state = "buckwheat"
+	filling_color = "#8e633c"
+	bitesize_mod = 2
+	tastes = list("buckwheat" = 1)
+	can_distill = FALSE
 
 // Rice
 /obj/item/seeds/wheat/rice
@@ -92,8 +113,8 @@
 /obj/item/reagent_containers/food/snacks/grown/meatwheat/attack_self(mob/living/user)
 	user.visible_message("<span class='notice'>[user] crushes [src] into meat.</span>", "<span class='notice'>You crush [src] into something that resembles meat.</span>")
 	playsound(user, 'sound/effects/blobattack.ogg', 50, 1)
-	var/obj/item/reagent_containers/food/snacks/meat/meatwheat/M = new(get_turf(user))
-	user.drop_item()
+	var/obj/item/reagent_containers/food/snacks/meat/meatwheat/M = new(drop_location())
+	user.temporarily_remove_item_from_inventory(src)
 	qdel(src)
-	user.put_in_hands(M)
+	user.put_in_hands(M, ignore_anim = FALSE)
 	return 1

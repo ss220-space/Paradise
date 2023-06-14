@@ -20,8 +20,10 @@
 	var/explosion_in_progress = 0 //sit back and relax
 	var/list/datum/mind/modePlayer = new
 	var/list/restricted_jobs = list()	// Jobs it doesn't make sense to be.  I.E chaplain or AI cultist
-	var/list/protected_jobs = list()	// Jobs that can't be traitors
-	var/list/protected_species = list() // Species that can't be traitors
+	var/list/protected_jobs = list()	// Jobs that can't be antags
+	var/list/protected_species = list() // Species that can't be antags
+	var/list/prefered_species = list()	// Species duplicate for antags
+	var/prefered_species_mod = 0
 	var/required_players = 0
 	var/required_enemies = 0
 	var/recommended_enemies = 0
@@ -242,17 +244,10 @@
 			if((role in player.client.prefs.be_special) && !(player.client.prefs.species in protected_species))
 				player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
 				candidates += player.mind
+				if(length(prefered_species) && (player.client.prefs.species in prefered_species))
+					for (var/i in 1 to prefered_species_mod)	//prefered mod
+						candidates += player.mind
 				players -= player
-
-	// If we don't have enough antags, draft people who voted for the round.
-	if(candidates.len < recommended_enemies)
-		for(var/key in SSvote.round_voters)
-			for(var/mob/new_player/player in players)
-				if(player.ckey == key)
-					player_draft_log += "[player.key] voted for this round, so we are drafting them."
-					candidates += player.mind
-					players -= player
-					break
 
 	// Remove candidates who want to be antagonist but have a job that precludes it
 	if(restricted_jobs)
@@ -501,12 +496,11 @@
 
 /datum/game_mode/proc/send_station_goals_message()
 	for(var/datum/station_goal/G in station_goals)
-		var/message_text = "<div style='text-align:center;'><img src='ntlogo.png'>"
+		var/message_text = "<div style='text-align:center;'><img src = ntlogo.png>"
 		message_text += "<h3>Приказания [command_name()]</h3></div><hr>"
 		message_text += "<b>Особые указания для [station_name()]</b><br><br>"
 		G.on_report()
 		message_text += G.get_report()
-		message_text += "<hr>"
 		print_command_report(message_text, "Приказания [command_name()]", FALSE, G)
 
 /datum/game_mode/proc/declare_station_goal_completion()

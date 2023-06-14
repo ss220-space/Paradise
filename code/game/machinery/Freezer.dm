@@ -1,6 +1,6 @@
 /obj/machinery/atmospherics/unary/cold_sink/freezer
 	name = "охладитель"
-	icon = 'icons/obj/cryogenic2.dmi'
+	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "freezer"
 	density = 1
 	var/min_temperature = 0
@@ -110,6 +110,7 @@
 		to_chat(user, "<span class='notice'>Сначала закройте панель техобслуживания.</span>")
 		return
 
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -164,7 +165,7 @@
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/
 	name = "нагреватель"
-	icon = 'icons/obj/cryogenic2.dmi'
+	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "heater"
 	density = 1
 	var/max_temperature = 0
@@ -277,6 +278,8 @@
 	if(panel_open)
 		to_chat(user, "<span class='notice'>Сначала закройте панель техобслуживания.</span>")
 		return
+
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)

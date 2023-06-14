@@ -8,7 +8,7 @@
 /obj/item/camera_assembly
 	name = "camera assembly"
 	desc = "A pre-fabricated security camera kit, ready to be assembled and mounted to a surface."
-	icon = 'icons/obj/monitors.dmi'
+	icon = 'icons/obj/machines/monitors.dmi'
 	icon_state = "cameracase"
 	w_class = WEIGHT_CLASS_SMALL
 	anchored = FALSE
@@ -36,13 +36,11 @@
 
 	// Upgrades!
 	else if(is_type_in_list(I, possible_upgrades) && !is_type_in_list(I, upgrades)) // Is a possible upgrade and isn't in the camera already.
-		if(!user.unEquip(I))
+		if(!user.drop_transfer_item_to_loc(I, src))
 			to_chat(user, "<span class='warning'>[I] is stuck!</span>")
 			return
 		to_chat(user, "<span class='notice'>You attach [I] into the assembly inner circuits.</span>")
 		upgrades += I
-		user.drop_item()
-		I.loc = src
 		return
 	else
 		return ..()

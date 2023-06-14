@@ -1,6 +1,6 @@
 #define LIGHT_DAM_THRESHOLD 4
 #define LIGHT_HEAL_THRESHOLD 2
-#define LIGHT_DAMAGE_TAKEN 4
+#define LIGHT_DAMAGE_TAKEN 6
 
 /*
 
@@ -159,6 +159,7 @@ Made by Xhuis
 		update_shadow_icons_added(new_thrall_mind)
 		add_conversion_logs(new_thrall_mind.current, "Became a Shadow thrall")
 		new_thrall_mind.current.add_language("Shadowling Hivemind")
+		//If you add spells to thrall, be sure to remove them on dethrallize
 		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_shadow_walk(null))
 		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_vision/thrall(null))
 		to_chat(new_thrall_mind.current, "<span class='shadowling'><b>You see the truth. Reality has been torn away and you realize what a fool you've been.</b></span>")
@@ -171,7 +172,7 @@ Made by Xhuis
 			replace_jobbanned_player(new_thrall_mind.current, ROLE_SHADOWLING)
 		if(!victory_warning_announced && (length(shadowling_thralls) >= warning_threshold))//are the slings very close to winning?
 			victory_warning_announced = TRUE	//then let's give the station a warning
-			GLOB.command_announcement.Announce("Large concentration of psychic bluespace energy detected by long-ranged scanners. Shadowling ascension event imminent. Prevent it at all costs!", "Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
+			GLOB.command_announcement.Announce("Сканерами дальнего действия обнаружена большая концентрация психической блюспейс-энергии. Событие вознесения тенеморфов неизбежно. Предотвратите его любой ценой!", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/spanomalies.ogg')
 		return 1
 
 /datum/game_mode/proc/remove_thrall(datum/mind/thrall_mind, var/kill = 0)
@@ -181,8 +182,9 @@ Made by Xhuis
 	add_conversion_logs(thrall_mind.current, "De-shadow thralled")
 	thrall_mind.special_role = null
 	update_shadow_icons_removed(thrall_mind)
-	for(var/obj/effect/proc_holder/spell/S in thrall_mind.spell_list)
-		thrall_mind.RemoveSpell(S)
+	//If you add spells to thrall, be sure to remove them on dethrallize
+	thrall_mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/lesser_shadow_walk)
+	thrall_mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/shadow_vision/thrall)
 	thrall_mind.current.remove_language("Shadowling Hivemind")
 	if(kill && ishuman(thrall_mind.current)) //If dethrallization surgery fails, kill the mob as well as dethralling them
 		var/mob/living/carbon/human/H = thrall_mind.current

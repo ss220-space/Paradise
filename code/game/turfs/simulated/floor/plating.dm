@@ -53,7 +53,7 @@
 			return TRUE
 		else
 			to_chat(user, "<span class='notice'>You begin reinforcing the floor...</span>")
-			if(do_after(user, 30 * C.toolspeed, target = src))
+			if(do_after(user, 30 * C.toolspeed * gettoolspeedmod(user), target = src))
 				if(R.get_amount() >= 2 && !istype(src, /turf/simulated/floor/engine))
 					ChangeTurf(/turf/simulated/floor/engine)
 					playsound(src, C.usesound, 80, 1)
@@ -81,7 +81,7 @@
 			to_chat(user, "<span class='warning'>You need two sheets to build a [C.name] floor!</span>")
 			return TRUE
 		to_chat(user, "<span class='notice'>You begin swapping the plating for [C]...</span>")
-		if(do_after(user, 3 SECONDS * C.toolspeed, target = src))
+		if(do_after(user, 3 SECONDS * C.toolspeed * gettoolspeedmod(user), target = src))
 			if(R.get_amount() >= 2 && !transparent_floor)
 				if(istype(C, /obj/item/stack/sheet/plasmaglass)) //So, what type of glass floor do we want today?
 					ChangeTurf(/turf/simulated/floor/transparent/glass/plasma)
@@ -189,7 +189,7 @@
 	if(istype(C, /obj/item/wrench))
 		to_chat(user, "<span class='notice'>You begin removing rods...</span>")
 		playsound(src, C.usesound, 80, 1)
-		if(do_after(user, 30 * C.toolspeed, target = src))
+		if(do_after(user, 30 * C.toolspeed * gettoolspeedmod(user), target = src))
 			if(!istype(src, /turf/simulated/floor/engine))
 				return
 			new /obj/item/stack/rods(src, 2)
@@ -226,7 +226,8 @@
 /turf/simulated/floor/engine/cult/Initialize(mapload)
 	. = ..()
 	if(SSticker.mode)//only do this if the round is going..otherwise..fucking asteroid..
-		icon_state = SSticker.cultdat.cult_floor_icon_state
+		if(!icon_state == "holy")
+			icon_state = SSticker.cultdat.cult_floor_icon_state
 
 /turf/simulated/floor/engine/cult/narsie_act()
 	return
@@ -237,6 +238,9 @@
 		var/previouscolor = color
 		color = "#FAE48C"
 		animate(src, color = previouscolor, time = 8)
+
+/turf/simulated/floor/engine/cult/holy
+	icon_state = "holy"
 
 //air filled floors; used in atmos pressure chambers
 

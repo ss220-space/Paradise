@@ -6,6 +6,7 @@
 	var/active = FALSE //Used by toggle based abilities.
 	var/ranged_mousepointer
 	var/mob/ranged_ability_user
+	var/datum/action/spell_action/action = null
 
 /obj/effect/proc_holder/singularity_act()
 	return
@@ -49,6 +50,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	user.client.click_intercept = new /datum/click_intercept/proc_holder(user.client, user.ranged_ability)
 	add_mousepointer(user.client)
 	active = TRUE
+	if(action)
+		action.UpdateButtonIcon()
 	if(msg)
 		to_chat(user, msg)
 	update_icon()
@@ -64,9 +67,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/proc/remove_ranged_ability(mob/user, var/msg)
 	if(!user || (user.ranged_ability && user.ranged_ability != src)) //To avoid removing the wrong ability
 		return
+	active = FALSE
+	if(user.ranged_ability.action)
+		user.ranged_ability.action.UpdateButtonIcon()
 	user.ranged_ability = null
 	ranged_ability_user = null
-	active = FALSE
 	if(user.client)
 		qdel(user.client.click_intercept)
 		user.client.click_intercept = null
@@ -123,11 +128,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/critfailchance = 0
 	var/centcom_cancast = 1 //Whether or not the spell should be allowed on z2
 
-	var/datum/action/spell_action/action = null
 	var/action_icon = 'icons/mob/actions/actions.dmi'
 	var/action_icon_state = "spell_default"
 	var/action_background_icon_state = "bg_spell"
 	var/special_availability_check = 0//Whether the spell needs to bypass the action button's IsAvailable()
+	var/can_select = FALSE
 
 	var/sound = null //The sound the spell makes when it is cast
 
@@ -435,6 +440,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/selection_deactivated_message	= "<span class='notice'>You choose to not cast this spell.</span>"
 	var/allowed_type = /mob/living	// Which type the targets have to be
 	var/auto_target_single = TRUE	// If the spell should auto select a target if only one is found
+	var/auto_target_nearest = FALSE // If the spell should always auto select a nearest target
 	/// does this spell generate attack logs?
 	var/create_logs = TRUE
 
@@ -448,14 +454,36 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		remove_ranged_ability(user, selection_deactivated_message)
 	else
 		if(cast_check(TRUE, FALSE, user))
-			if(auto_target_single && attempt_auto_target(user))
+			if(auto_target_nearest)
+				if(!attempt_auto_target_nearest(user))
+					to_chat(user, "<span class='warning'>No targets found!</span>")
+				return
+
+			if(auto_target_single && attempt_auto_target_single(user))
 				return
 
 			add_ranged_ability(user, selection_activated_message)
 		else
 			to_chat(user, "<span class='warning'>[src] is not ready to be used yet.</span>")
 
-/obj/effect/proc_holder/spell/targeted/click/proc/attempt_auto_target(mob/user)
+/obj/effect/proc_holder/spell/targeted/click/proc/attempt_auto_target_nearest(mob/user)
+	var/atom/target
+	var/current_distance
+	var/min_distance = range + 1
+	for(var/atom/A in view_or_range(range, user, selection_type))
+		if(valid_target(A, user))
+			current_distance = get_dist(A, user)
+			if(current_distance < min_distance)
+				target = A
+				min_distance = current_distance
+
+	if(target && cast_check(TRUE, TRUE, user))
+		to_chat(user, "<span class='warning'>Casting [src] on nearest target: [target]!</span>")
+		perform(list(target), user = user, make_attack_logs = create_logs)
+		return TRUE
+	return FALSE
+
+/obj/effect/proc_holder/spell/targeted/click/proc/attempt_auto_target_single(mob/user)
 	var/atom/target
 	for(var/atom/A in view_or_range(range, user, selection_type))
 		if(valid_target(A, user))
@@ -510,8 +538,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		revert_cast(user)
 		return FALSE
 
-	perform(targets, user = user, make_attack_logs = create_logs)
 	remove_ranged_ability(user)
+	perform(targets, user = user, make_attack_logs = create_logs)
 	return TRUE
 
 /* Checks if a target is valid
@@ -529,8 +557,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/aoe_turf/choose_targets(mob/user = usr)
 	var/list/targets = list()
 
-	for(var/turf/target in view_or_range(range,user,selection_type))
-		if(!(target in view_or_range(inner_radius,user,selection_type)))
+	for(var/turf/target in view_or_range(range, user ,selection_type))
+		if(!(target in view_or_range(inner_radius, user ,selection_type)))
 			targets += target
 
 	if(!targets.len) //doesn't waste the spell
@@ -565,7 +593,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			to_chat(user, "<span class='warning'>You shouldn't have this spell! Something's wrong.</span>")
 		return 0
 
-	if(is_admin_level(user.z) && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
+	var/turf/T = get_turf(user)
+	if(is_admin_level(T.z) && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
 		return 0
 
 	if(charge_check)

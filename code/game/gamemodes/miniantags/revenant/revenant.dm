@@ -126,7 +126,7 @@
 	remove_from_all_data_huds()
 	random_revenant_name()
 
-	addtimer(CALLBACK(src, .proc/firstSetupAttempt), 15 SECONDS) // Give admin 15 seconds to put in a ghost (Or wait 15 seconds before giving it objectives)
+	addtimer(CALLBACK(src, PROC_REF(firstSetupAttempt)), 15 SECONDS) // Give admin 15 seconds to put in a ghost (Or wait 15 seconds before giving it objectives)
 
 /mob/living/simple_animal/revenant/proc/random_revenant_name()
 	var/built_name = ""
@@ -142,7 +142,7 @@
 		giveSpells()
 	else
 		message_admins("Revenant was created but has no mind. Put a ghost inside, or a poll will be made in one minute.")
-		addtimer(CALLBACK(src, .proc/setupOrDelete), 1 MINUTES)
+		addtimer(CALLBACK(src, PROC_REF(setupOrDelete)), 1 MINUTES)
 
 /mob/living/simple_animal/revenant/proc/setupOrDelete()
 	if(mind)
@@ -220,6 +220,7 @@
 	var/reforming_essence = essence_regen_cap //retain the gained essence capacity
 	R.essence = max(reforming_essence - 15 * perfectsouls, 75) //minus any perfect souls
 	R.client_to_revive = src.client //If the essence reforms, the old revenant is put back in the body
+	R.reforming = TRUE
 	ghostize()
 	qdel(src)
 
@@ -375,7 +376,7 @@
 		return ..()
 	user.visible_message("<span class='notice'>[user] scatters [src] in all directions.</span>", \
 						 "<span class='notice'>You scatter [src] across the area. The particles slowly fade away.</span>")
-	user.drop_item()
+	user.drop_from_active_hand()
 	qdel(src)
 
 /obj/item/ectoplasm/revenant/throw_impact(atom/hit_atom)

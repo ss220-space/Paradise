@@ -208,8 +208,10 @@
 
 /obj/machinery/abductor/console/attackby(obj/O, mob/user, params)
 	if(istype(O, /obj/item/abductor/gizmo) && AddGizmo(O))
+		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>You link the tool to the console.</span>")
 	else if(istype(O, /obj/item/clothing/suit/armor/abductor/vest) && AddVest(O))
+		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>You link the vest to the console.</span>")
 	else
 		return ..()
@@ -217,11 +219,11 @@
 /obj/machinery/abductor/console/proc/Dispense(item,cost=1)
 	if(experiment && experiment.credits >= cost)
 		experiment.credits -=cost
-		atom_say("Incoming supply!")
+		atom_say("Поставка прибывает!")
 		if(pad)
 			flick("alien-pad", pad)
 			new item(pad.loc)
 		else
 			new item(src.loc)
 	else
-		atom_say("Insufficent data!")
+		atom_say("Недостаточно данных!")

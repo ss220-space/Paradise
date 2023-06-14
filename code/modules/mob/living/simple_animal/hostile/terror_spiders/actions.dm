@@ -32,12 +32,39 @@
 	var/mob/living/simple_animal/hostile/poison/terror_spider/healer/user = owner
 	user.DoLayGreenEggs()
 
+// ---------- KNIGHT ACTIONS
+/datum/action/innate/terrorspider/knight/defaultm
+	name = "Default"
+	icon_icon = 'icons/mob/terrorspider.dmi'
+	button_icon_state = "terror_princess1"
+
+/datum/action/innate/terrorspider/knight/defaultm/Activate()
+	var/mob/living/simple_animal/hostile/poison/terror_spider/knight/user = owner
+	user.activate_mode(0)
+
+/datum/action/innate/terrorspider/knight/attackm
+	name = "Rage"
+	icon_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "attack"
+
+/datum/action/innate/terrorspider/knight/attackm/Activate()
+	var/mob/living/simple_animal/hostile/poison/terror_spider/knight/user = owner
+	user.activate_mode(1)
+
+/datum/action/innate/terrorspider/knight/defencem
+	name = "Keratosis"
+	icon_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "defence"
+
+/datum/action/innate/terrorspider/knight/defencem/Activate()
+	var/mob/living/simple_animal/hostile/poison/terror_spider/knight/user = owner
+	user.activate_mode(2)
 
 // ---------- BOSS ACTIONS
 
 /datum/action/innate/terrorspider/ventsmash
 	name = "Smash Welded Vent"
-	icon_icon = 'icons/atmos/vent_pump.dmi'
+	icon_icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/vent_pump.dmi'
 	button_icon_state = "map_vent"
 
 /datum/action/innate/terrorspider/ventsmash/Activate()
@@ -154,14 +181,12 @@
 			return 1
 		if(prob(80))
 			to_chat(mover, "<span class='danger'>You get stuck in [src] for a moment.</span>")
-			M.Stun(2) // 4 seconds.
-			M.Weaken(2) // 4 seconds.
+			M.Stun(1) // 2 seconds.
+			M.Weaken(1) // 2 seconds.
+			M.slowed = 5
 			if(iscarbon(mover))
 				var/mob/living/carbon/C = mover
 				web_special_ability(C)
-				spawn(70)
-					if(C.loc == loc)
-						qdel(src)
 			return 1
 		else
 			return 0
@@ -241,10 +266,10 @@
 						if(!mobIsWrappable(L))
 							continue
 						if(iscarbon(L))
-							adjustBruteLoss(-heal_per_kill)
+							apply_status_effect(STATUS_EFFECT_TERROR_FOOD_REGEN)
 							fed++
 							visible_message("<span class='danger'>[src] sticks a proboscis into [L] and sucks a viscous substance out.</span>")
-							to_chat(src, "<span class='notice'>You feel invigorated!</span>")
+							to_chat(src, "<span class='notice'>You begin to regenerate quickly!</span>")
 						else
 							visible_message("<span class='danger'>[src] wraps [L] in a web.</span>")
 						large_cocoon = 1
@@ -270,8 +295,8 @@
 	if(!valid_target)
 		to_chat(src, "<span class='warning'>No welded vent or scrubber nearby!</span>")
 		return
-	playsound(get_turf(src), 'sound/machines/airlock_alien_prying.ogg', 50, 0)
-	if(do_after(src, 40, target = loc))
+	playsound(get_turf(src), 'sound/creatures/terrorspiders/ventbreak.ogg', 75, 0)
+	if(do_after(src, 43, target = loc))
 		for(var/obj/machinery/atmospherics/unary/vent_pump/P in range(1, get_turf(src)))
 			if(P.welded)
 				P.welded = 0

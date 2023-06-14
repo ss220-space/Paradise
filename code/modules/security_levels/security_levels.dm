@@ -41,7 +41,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_green")
+						FA.overlays += image('icons/obj/machines/monitors.dmi', "overlay_green")
 						FA.update_icon()
 
 			if(SEC_LEVEL_BLUE)
@@ -56,7 +56,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_blue")
+						FA.overlays += image('icons/obj/machines/monitors.dmi', "overlay_blue")
 						FA.update_icon()
 
 			if(SEC_LEVEL_RED)
@@ -76,11 +76,11 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_red")
+						FA.overlays += image('icons/obj/machines/monitors.dmi', "overlay_red")
 						FA.update_icon()
 
 			if(SEC_LEVEL_GAMMA)
-				GLOB.security_announcement_up.Announce("Центральным Командованием был установлен код ГАММА на станции. Служба Безопасности должна быть полностью вооружена. Гражданский персонал обязан немедленно обратиться к Главам отделов для получения указаний к эвакуации.", "Внимание! Код ГАММА!", sound('sound/effects/new_siren.ogg'))
+				GLOB.security_announcement_up.Announce("Центральным Командованием был установлен Код Гамма на станции. Служба безопасности должна быть полностью вооружена. Гражданский персонал обязан немедленно обратиться к Главам отделов для получения дальнейших указаний.", "Внимание! Код ГАММА!", sound('sound/effects/new_siren.ogg'))
 				GLOB.security_level = SEC_LEVEL_GAMMA
 
 				if(GLOB.security_level < SEC_LEVEL_RED)
@@ -94,7 +94,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_gamma")
+						FA.overlays += image('icons/obj/machines/monitors.dmi', "overlay_gamma")
 						FA.update_icon()
 
 			if(SEC_LEVEL_EPSILON)
@@ -106,8 +106,21 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_epsilon")
+						FA.overlays += image('icons/obj/machines/monitors.dmi', "overlay_epsilon")
 						FA.update_icon()
+				// Empty the manifest
+				GLOB.PDA_Manifest = list(\
+					"heads" = list(),\
+					"pro" = list(),\
+					"sec" = list(),\
+					"eng" = list(),\
+					"med" = list(),\
+					"sci" = list(),\
+					"ser" = list(),\
+					"sup" = list(),\
+					"bot" = list(),\
+					"misc" = list()\
+					)
 
 			if(SEC_LEVEL_DELTA)
 				GLOB.security_announcement_up.Announce("Механизм самоуничтожения станции задействован. Все члены экипажа обязан подчиняться всем указаниям, данными Главами отделов. Любые нарушения этих приказов наказуемы уничтожением на месте. Это не учебная тревога.","ВНИМАНИЕ! КОД ДЕЛЬТА!", new_sound = sound('sound/effects/deltaalarm.ogg'))
@@ -118,7 +131,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_delta")
+						FA.overlays += image('icons/obj/machines/monitors.dmi', "overlay_delta")
 						FA.update_icon()
 
 		SSnightshift.check_nightshift(TRUE)

@@ -34,7 +34,7 @@
 /obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
 	if(!iscultist(user))
 		user.Weaken(5)
-		user.unEquip(src, 1)
+		user.drop_item_ground(src, force = TRUE)
 		user.visible_message("<span class='warning'>A powerful force shoves [user] away from [target]!</span>",
 							 "<span class='cultlarge'>\"You shouldn't play with sharp things. You'll poke someone's eye out.\"</span>")
 		if(ishuman(user))
@@ -47,15 +47,16 @@
 
 /obj/item/melee/cultblade/pickup(mob/living/user)
 	. = ..()
+
+	if(HULK in user.mutations)
+		to_chat(user, "<span class='danger'>You can't seem to hold the blade properly!</span>")
+		return FALSE
+
 	if(!iscultist(user))
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.Confused(10)
 		user.Jitter(6)
-
-	if(HULK in user.mutations)
-		to_chat(user, "<span class='danger'>You can't seem to hold the blade properly!</span>")
-		return FALSE
 
 /obj/item/restraints/legcuffs/bola/cult
 	name = "runed bola"
@@ -76,7 +77,7 @@
 	icon_state = "culthood"
 	desc = "A hood worn by the followers of a cult."
 	flags = BLOCKHAIR
-	flags_inv = HIDEFACE
+	flags_inv = HIDENAME
 	flags_cover = HEADCOVERSEYES
 	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 	cold_protection = HEAD
@@ -99,6 +100,9 @@
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 40, "energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 	flags_inv = HIDEJUMPSUIT
 	magical = TRUE
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
 
 /obj/item/clothing/suit/hooded/cultrobes/alt
 	icon_state = "cultrobesalt"
@@ -148,16 +152,17 @@
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 40,"energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 	body_parts_covered = HEAD
 	flags = BLOCKHAIR
-	flags_inv = HIDEFACE
+	flags_inv = HIDENAME
 	flags_cover = HEADCOVERSEYES
 	magical = TRUE
 
-/obj/item/clothing/suit/hooded/cultrobes/cult_shield/equipped(mob/living/user, slot)
-	..()
+/obj/item/clothing/suit/hooded/cultrobes/cult_shield/equipped(mob/living/user, slot, initial)
+	. = ..()
+
 	if(!iscultist(user)) // Todo: Make this only happen when actually equipped to the correct slot. (For all cult items)
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
-		user.unEquip(src, 1)
+		user.drop_item_ground(src, force = TRUE)
 		user.Confused(10)
 		user.Weaken(5)
 
@@ -198,12 +203,13 @@
 	hoodtype = /obj/item/clothing/head/hooded/flagellant_hood
 
 
-/obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/equipped(mob/living/user, slot)
-	..()
+/obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/equipped(mob/living/user, slot, initial)
+	. = ..()
+
 	if(!iscultist(user))
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
-		user.unEquip(src, 1)
+		user.drop_item_ground(src, force = TRUE)
 		user.Confused(10)
 		user.Weaken(5)
 	else if(slot == slot_wear_suit)
@@ -220,7 +226,7 @@
 	icon_state = "flagellanthood"
 	item_state = "flagellanthood"
 	flags = BLOCKHAIR
-	flags_inv = HIDEFACE
+	flags_inv = HIDENAME
 	flags_cover = HEADCOVERSEYES
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	sprite_sheets = list(
@@ -270,11 +276,12 @@
 	prescription = TRUE
 	origin_tech = null
 
-/obj/item/clothing/glasses/hud/health/night/cultblind/equipped(mob/user, slot)
-	..()
+/obj/item/clothing/glasses/hud/health/night/cultblind/equipped(mob/user, slot, initial)
+	. = ..()
+
 	if(!iscultist(user))
 		to_chat(user, "<span class='cultlarge'>\"You want to be blind, do you?\"</span>")
-		user.unEquip(src, 1)
+		user.drop_item_ground(src, force = TRUE)
 		user.Confused(30)
 		user.Weaken(5)
 		user.EyeBlind(30)
@@ -288,7 +295,7 @@
 
 /obj/item/shuttle_curse/attack_self(mob/user)
 	if(!iscultist(user))
-		user.unEquip(src, 1)
+		user.drop_item_ground(src, force = TRUE)
 		user.Weaken(5)
 		to_chat(user, "<span class='warning'>A powerful force shoves you away from [src]!</span>")
 		return
@@ -307,7 +314,8 @@
 		playsound(user.loc, 'sound/effects/glassbr1.ogg', 50, TRUE)
 		curselimit++
 		var/message = pick(CULT_CURSES)
-		GLOB.command_announcement.Announce("[message] The shuttle will be delayed by [cursetime / 600] minute\s.", "System Failure", 'sound/misc/notice1.ogg')
+		var/curse_delay = cursetime / 600
+		GLOB.command_announcement.Announce("[message] Шаттл задерживается на [curse_delay] [declension_ru(curse_delay,"минуту","минуты","минут")].", "Системный сбой.", 'sound/misc/notice1.ogg')
 		qdel(src)
 
 /obj/item/cult_shift
@@ -336,7 +344,7 @@
 		to_chat(user, "<span class='warning'>[src] is dull and unmoving in your hands.</span>")
 		return
 	if(!iscultist(user))
-		user.unEquip(src, 1)
+		user.drop_item_ground(src, force = TRUE)
 		step(src, pick(GLOB.alldirs))
 		to_chat(user, "<span class='warning'>[src] flickers out of your hands, too eager to move!</span>")
 		return
@@ -440,6 +448,14 @@
 	/// Shatter threshold for Energy weapons
 	var/energy_threshold = 20
 
+/obj/item/shield/mirror/Initialize(mapload)
+	. = ..()
+	GLOB.mirrors += src
+
+/obj/item/shield/mirror/Destroy()
+	GLOB.mirrors -= src
+	return ..()
+
 /**
   * Reflect/Block/Shatter proc.
   *
@@ -490,7 +506,7 @@
 			playsound(src, 'sound/weapons/parry.ogg', 100, TRUE)
 			if(illusions > 0)
 				illusions--
-				addtimer(CALLBACK(src, .proc/readd), 45 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(readd)), 45 SECONDS)
 				if(prob(60))
 					spawn_illusion(owner, TRUE) // Hostile illusion
 				else
@@ -626,7 +642,7 @@
 		cooldown = world.time + 20
 		if(isliving(spear.loc))
 			var/mob/living/L = spear.loc
-			L.unEquip(spear)
+			L.drop_item_ground(spear)
 			L.visible_message("<span class='warning'>An unseen force pulls the blood spear from [L]'s hands!</span>")
 		spear.throw_at(owner, 10, 2, null)
 

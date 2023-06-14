@@ -29,6 +29,11 @@
 	transaction_amount = 500
 	duty_mode = TRUE
 
+/obj/item/eftpos/cyborg
+	name = "Service EFTPOS"
+	desc = "Swipe a crew ID card to pay taxes."
+	transaction_purpose = "Payment for the glory of NanoTrasen!"
+
 /obj/item/paper/check
 	desc = "Printed by the financial terminal."
 	icon = 'icons/obj/bureaucracy.dmi'
@@ -55,7 +60,7 @@
 /obj/item/eftpos/proc/print_check(mob/user)
 	playsound(src, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	num_check++
-	var/obj/item/paper/check/ch = new(get_turf(src))
+	var/obj/item/paper/check/ch = new(drop_location())
 	ch.name = "Receipt: [machine_name]"
 	ch.info = {"<tt><b><big>Receipt No.[num_check]</big></b> <br>
 		-------------------------------------- <br>
@@ -66,18 +71,18 @@
 		-------------------------------------- <br>
 		This notice does not require a signature.</tt>"}
 	ch.stamps += "<hr><i>This paper has been stamped by the [machine_name].</i>"
-	user.put_in_hands(ch)
+	user.put_in_hands(ch, ignore_anim = FALSE)
 
 /obj/item/eftpos/proc/print_reference(mob/user)
 	playsound(src, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
-	var/obj/item/paper/check/ref = new(get_turf(src))
+	var/obj/item/paper/check/ref = new(drop_location())
 	ref.name = "Reference: [machine_name]"
 	ref.info = {"<tt><b><big>EFTPOS Reference</big></b> <br>
 		-------------------------------------- <br>
 		<b>Access code:</b> [access_code] <br>
 		Do not lose or misplace this note.</tt>"}
 	ref.stamps += "<hr><i>This paper has been stamped by the [machine_name].</i>"
-	user.put_in_hands(ref)
+	user.put_in_hands(ref, ignore_anim = FALSE)
 
 /obj/item/eftpos/proc/reconnect_database()
 	var/turf/location = get_turf(src)
@@ -105,9 +110,9 @@
 	var/obj/item/card/id/id_card = active_hand.GetID()
 	if(!istype(id_card))
 		return
-	if(!target.is_in_hands(/obj/item/eftpos))
+	if(!target.is_type_in_hands(/obj/item/eftpos))
 		return
-	var/obj/item/eftpos/device = target.is_in_hands(/obj/item/eftpos)
+	var/obj/item/eftpos/device = target.is_type_in_hands(/obj/item/eftpos)
 	device.scan_card(id_card, user)
 
 /obj/item/eftpos/emag_act(mob/user)
@@ -294,8 +299,12 @@
 		if(confirm == "No")
 			return during_paid = FALSE
 
-		var/attempt_pin = input("Enter your pin code", "EFTPOS transaction") as num
-		var/datum/money_account/card_account = attempt_account_access(id_card.associated_account_number, attempt_pin, 2)
+		var/datum/money_account/card_account
+		if(isrobot(user))
+			card_account = attempt_account_access(id_card.associated_account_number, pin_needed = FALSE)
+		else
+			var/attempt_pin = input("Enter your pin code", "EFTPOS transaction") as num
+			card_account = attempt_account_access(id_card.associated_account_number, attempt_pin, 2)
 		if(!card_account || card_account.suspended)
 			to_chat(user, "[bicon(src)]<span class='warning'> Server Error #403 Unable To Access Account. Check security settings and try again.</span>")
 			playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
