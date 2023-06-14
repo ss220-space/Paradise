@@ -44,7 +44,7 @@
 
 /obj/item/autoimplanter/oneuse/attack_self(mob/user)
 	. = ..()
-	user.drop_item_ground()
+	user.drop_from_active_hand()
 	visible_message("<span class='warning'>[src] beeps ominously, and a moment later it bursts up in flames.</span>")
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
@@ -55,7 +55,7 @@
 		storedorgan = null
 		to_chat(user, "<span class='notice'>You remove the [storedorgan] from [src].</span>")
 		playsound(get_turf(user), I.usesound, 50, 1)
-		user.drop_item_ground()
+		user.temporarily_remove_item_from_inventory(src, force = TRUE)
 		visible_message("<span class='warning'>[src] beeps ominously, and a moment later it bursts up in flames.</span>")
 		new /obj/effect/decal/cleanable/ash(get_turf(src))
 		qdel(src)
