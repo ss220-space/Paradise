@@ -39,7 +39,7 @@
 	var/list/categories = list("Tools", "Electronics", "Construction", "Communication", "Security", "Machinery", "Medical", "Miscellaneous", "Dinnerware", "Imported")
 
 /obj/machinery/autolathe/New()
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS), _show_on_examine=TRUE, _after_insert=CALLBACK(src, .proc/AfterMaterialInsert))
+	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS), _show_on_examine=TRUE, _after_insert=CALLBACK(src, PROC_REF(AfterMaterialInsert)))
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/autolathe(null)
@@ -245,11 +245,13 @@
 
 /obj/machinery/autolathe/attackby(obj/item/O, mob/user, params)
 	if(busy)
+		add_fingerprint(user)
 		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
 		return 1
 	if(exchange_parts(user, O))
 		return
 	if(stat)
+		add_fingerprint(user)
 		return 1
 
 	// Disks in general
@@ -272,6 +274,7 @@
 				playsound(get_turf(src), 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 				busy = TRUE
 				if(do_after(user, 14.4, target = src))
+					add_fingerprint(user)
 					imported[design.id] = TRUE
 					files.AddDesign2Known(design)
 					recipiecache = list()
@@ -384,8 +387,7 @@
 		SStgui.update_uis(src)
 		sleep(32/coeff)
 		if(is_stack)
-			var/obj/item/stack/S = new D.build_path(BuildTurf)
-			S.amount = multiplier
+			new D.build_path(BuildTurf, multiplier)
 		else
 			var/obj/item/new_item = new D.build_path(BuildTurf)
 			new_item.update_materials_coeff(coeff)

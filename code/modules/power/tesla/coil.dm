@@ -38,6 +38,7 @@
 		return
 
 	else if(istype(W, /obj/item/assembly/signaler) && panel_open)
+		add_fingerprint(user)
 		wires.Interact(user)
 
 	else
@@ -87,7 +88,7 @@
 		flick("coilhit", src)
 		playsound(src.loc, 'sound/magic/lightningshock.ogg', 100, 1, extrarange = 5)
 		tesla_zap(src, 5, power_produced)
-		addtimer(CALLBACK(src, .proc/reset_shocked), 10)
+		addtimer(CALLBACK(src, PROC_REF(reset_shocked)), 10)
 	else
 		..()
 

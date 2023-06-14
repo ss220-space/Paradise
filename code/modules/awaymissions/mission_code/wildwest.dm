@@ -157,9 +157,6 @@
 
 /////For the Wishgranter///////////
 
-/mob/living/carbon
-	var/revival_in_progress = FALSE
-
 /mob/living/carbon/proc/immortality()
 	set category = "Immortality"
 	set name = "Resurrection"
@@ -173,7 +170,7 @@
 		return //no spam callbacks
 	C.revival_in_progress = TRUE
 	to_chat(C, "<span class='notice'>Death is not your end!</span>")
-	addtimer(CALLBACK(C, .proc/resurrect, C), rand(80 SECONDS, 120 SECONDS))
+	addtimer(CALLBACK(C, PROC_REF(resurrect), C), rand(80 SECONDS, 120 SECONDS))
 
 /mob/living/carbon/proc/resurrect(var/mob/living/carbon/user)
 	user.revive()

@@ -15,6 +15,7 @@
 	var/mob/living/L = locate() in buckled_mobs
 	if(!L)
 		return
+	add_fingerprint(user)
 	to_chat(user, "<span class='notice'>You attempt to sacrifice [L] by invoking the sacrificial ritual.</span>")
 	L.gib()
 	message_admins("[ADMIN_LOOKUPFLW(user)] has sacrificed [key_name_admin(L)] on the sacrificial altar at [AREACOORD(src)].")
@@ -40,7 +41,7 @@
 	to_chat(user, "<span class='notice'>The water feels warm and soothing as you touch it. The fountain immediately dries up shortly afterwards.</span>")
 	user.reagents.add_reagent("godblood", 20)
 	update_icon()
-	addtimer(CALLBACK(src, .proc/update_icon), time_between_uses)
+	addtimer(CALLBACK(src, PROC_REF(update_icon)), time_between_uses)
 
 /obj/structure/healingfountain/update_icon()
 	if(last_process + time_between_uses > world.time)

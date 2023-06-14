@@ -116,7 +116,7 @@
 	qdel(first)
 	return TRUE
 
-/obj/item/assembly/infra/equipped(var/mob/user, var/slot)
+/obj/item/assembly/infra/equipped(mob/user, slot, initial)
 	qdel(first)
 	return ..()
 
@@ -136,7 +136,7 @@
 	if(first)
 		qdel(first)
 	cooldown = 2
-	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
+	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
 	pulse(FALSE, triggered)
 
 /obj/item/assembly/infra/interact(mob/user)//TODO: change this this to the wire control panel

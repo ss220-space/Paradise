@@ -23,6 +23,8 @@
 	if(!iscarbon(M) || owner == M)
 		return
 
+	do_pickup_animation(src, M)
+
 	var/obj/item/organ/internal/replaced = M.get_organ_slot(slot)
 	if(replaced)
 		if(dont_remove_slot)
@@ -136,18 +138,14 @@
 	name = "appendix"
 	icon_state = "appendix"
 	icon = 'icons/obj/surgery.dmi'
-
-/obj/item/reagent_containers/food/snacks/organ/New()
-	..()
-
-	reagents.add_reagent("nutriment", 5)
+	list_reagents = list("nutriment" = 5)
 
 /obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
 	if(M == user && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/reagent_containers/food/snacks/S = prepare_eat()
 		if(S)
-			H.drop_item()
+			H.drop_from_active_hand()
 			H.put_in_active_hand(S)
 			S.attack(H, H)
 			qdel(src)
@@ -291,7 +289,7 @@
 			var/mob/living/carbon/human/H = owner
 			if(isobj(H.shoes))
 				var/thingy = H.shoes
-				if(H.unEquip(H.shoes))
+				if(H.drop_item_ground(H.shoes))
 					walk_away(thingy,H,15,2)
 					spawn(20)
 						if(thingy)

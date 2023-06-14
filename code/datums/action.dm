@@ -3,6 +3,7 @@
 	var/desc = null
 	var/obj/target = null
 	var/check_flags = 0
+	var/invisibility = FALSE
 	var/obj/screen/movable/action_button/button = null
 	var/button_icon = 'icons/mob/actions/actions.dmi'
 	var/background_icon_state = "bg_default"
@@ -61,6 +62,19 @@
 
 /datum/action/proc/override_location() // Override to set coordinates manually
 	return
+
+/datum/action/proc/ToggleInvisibility()
+	if(!owner || !owner?.client)
+		return
+	if(invisibility)
+		invisibility = FALSE
+		owner.client.screen += button
+		owner.actions += src
+	else
+		invisibility = TRUE
+		owner.client.screen -= button
+		owner.actions -= src
+	owner.update_action_buttons()
 
 /datum/action/proc/IsAvailable()// returns 1 if all checks pass
 	if(!owner)
@@ -492,6 +506,18 @@
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "clown"
 
+/datum/action/item_action/gravity_jump
+	name = "Gravity jump"
+	desc = "Directs a pulse of gravity in front of the user, pulling them forward rapidly."
+
+/datum/action/item_action/gravity_jump/Trigger(attack_self = FALSE)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	var/obj/item/clothing/shoes/magboots/gravity/G = target
+	G.dash(usr)
+
 ///prset for organ actions
 /datum/action/item_action/organ_action
 	check_flags = AB_CHECK_CONSCIOUS
@@ -603,9 +629,10 @@
 	if(!target)
 		return FALSE
 	var/obj/effect/proc_holder/spell/targeted/click/S = target
-	if(!istype(S))
+	if(istype(S) || S?.can_select)
+		return TRUE
+	else
 		return ..()
-	return TRUE
 
 /datum/action/spell_action/toggle_active_overlay()
 	var/obj/effect/proc_holder/spell/targeted/click/S = target

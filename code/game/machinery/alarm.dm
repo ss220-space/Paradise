@@ -947,7 +947,6 @@
 		return
 
 /obj/machinery/alarm/attackby(obj/item/I, mob/user, params)
-	add_fingerprint(user)
 
 	switch(buildstage)
 		if(2)
@@ -957,6 +956,7 @@
 					return
 				else
 					if(allowed(usr) && !wires.is_cut(WIRE_IDSCAN))
+						add_fingerprint(user)
 						locked = !locked
 						to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the Air Alarm interface.</span>")
 						SStgui.update_uis(src)
@@ -971,6 +971,7 @@
 					to_chat(user, "You need more cable for this!")
 					return
 
+				add_fingerprint(user)
 				to_chat(user, "You wire \the [src]!")
 				playsound(get_turf(src), coil.usesound, 50, 1)
 				coil.use(5)
@@ -983,6 +984,7 @@
 				return
 		if(0)
 			if(istype(I, /obj/item/airalarm_electronics))
+				add_fingerprint(user)
 				to_chat(user, "You insert the circuit!")
 				playsound(get_turf(src), I.usesound, 50, 1)
 				qdel(I)
@@ -1036,8 +1038,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(wires.is_all_cut()) // all wires cut
-		var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil(user.drop_location())
-		new_coil.amount = 5
+		new /obj/item/stack/cable_coil(user.drop_location(), 5)
 		buildstage = AIR_ALARM_BUILDING
 		update_icon()
 	if(wiresexposed)

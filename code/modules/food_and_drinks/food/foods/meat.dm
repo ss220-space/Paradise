@@ -195,6 +195,14 @@
 	new /obj/item/reagent_containers/food/snacks/goliath_steak(loc)
 	qdel(src)
 
+/obj/item/reagent_containers/food/snacks/monstermeat/rotten
+	name = "rotten meat"
+	desc = "A slab of rotten meat. Looks really awful, a couple of flies sit on it."
+	icon_state = "rottenmeatslab"
+	list_reagents = list("protein" = 1, "toxin" = 10, "????" = 20)
+	tastes = list("slimy meat" = 3, "rotten meat" = 3, "stink" = 3)
+	foodtype = MEAT | GROSS | RAW | TOXIC
+
 //////////////////////
 //	Cooked Meat		//
 //////////////////////
@@ -361,7 +369,7 @@
 		return Expand()
 
 /obj/item/reagent_containers/food/snacks/monkeycube/wash(mob/user, atom/source)
-	user.drop_item()
+	user.drop_from_active_hand()
 	forceMove(get_turf(source))
 	return 1
 
@@ -478,12 +486,11 @@
 /obj/item/reagent_containers/food/snacks/egg/gland
 	desc = "An egg! It looks weird..."
 
-/obj/item/reagent_containers/food/snacks/egg/gland/New()
-	..()
+/obj/item/reagent_containers/food/snacks/egg/gland/Initialize(mapload)
 	reagents.add_reagent(get_random_reagent_id(), 15)
 
-	var/reagent_color = mix_color_from_reagents(reagents.reagent_list)
-	color = reagent_color
+	color = mix_color_from_reagents(reagents.reagent_list)
+	. = ..()
 
 /obj/item/reagent_containers/food/snacks/friedegg
 	name = "fried egg"

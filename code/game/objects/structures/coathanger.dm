@@ -20,9 +20,10 @@
 
 /obj/structure/coatrack/attack_hand(mob/living/user)
 	if(coat)
+		add_fingerprint(user)
 		user.visible_message("[user] takes [coat] off \the [src].", "You take [coat] off the \the [src].")
-		if(!user.put_in_active_hand(coat))
-			coat.loc = get_turf(user)
+		coat.forceMove_turf()
+		user.put_in_active_hand(coat, ignore_anim = FALSE)
 		coat = null
 		update_icon()
 
@@ -34,10 +35,10 @@
 			continue
 
 	if(can_hang && !coat)
+		add_fingerprint(user)
 		user.visible_message("[user] hangs [W] on \the [src].", "You hang [W] on the \the [src].")
 		coat = W
-		user.drop_item(src)
-		coat.loc = src
+		user.drop_transfer_item_to_loc(W, src)
 		update_icon()
 	else
 		return ..()

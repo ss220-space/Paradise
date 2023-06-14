@@ -56,7 +56,6 @@
 /obj/structure/dispenser/attack_hand(mob/user)
 	if(..())
 		return 1
-	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/structure/dispenser/attack_ghost(mob/user)
@@ -98,6 +97,7 @@
 		return
 
 	if(istype(I, /obj/item/wrench))
+		add_fingerprint(user)
 		if(anchored)
 			to_chat(user, "<span class='notice'>You lean down and unwrench [src].</span>")
 			anchored = 0
@@ -115,8 +115,8 @@
 	var/obj/item/tank/internals/T = tank_list[1]
 	tank_list.Remove(T)
 
-	if(!user.put_in_hands(T))
-		T.forceMove(loc) // If the user's hands are full, place it on the tile of the dispenser.
+	T.forceMove_turf()
+	user.put_in_hands(T)
 
 	to_chat(user, "<span class='notice'>You take [T] out of [src].</span>")
 	update_icon()
@@ -127,11 +127,11 @@
 		to_chat(user, "<span class='warning'>[src] is full.</span>")
 		return
 
-	if(!user.drop_item()) // Antidrop check
+	if(!user.drop_transfer_item_to_loc(T, src)) // Antidrop check
 		to_chat(user, "<span class='warning'>[T] is stuck to your hand!</span>")
 		return
 
-	T.forceMove(src)
+	add_fingerprint(user)
 	tank_list.Add(T)
 	update_icon()
 	to_chat(user, "<span class='notice'>You put [T] in [src].</span>")

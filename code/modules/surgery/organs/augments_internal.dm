@@ -146,7 +146,7 @@
 	if(crit_fail || emp_proof)
 		return
 	crit_fail = TRUE
-	addtimer(CALLBACK(src, .proc/reboot), 90 / severity)
+	addtimer(CALLBACK(src, PROC_REF(reboot)), 90 / severity)
 
 /obj/item/organ/internal/cyberimp/brain/anti_stun/proc/reboot()
 	crit_fail = FALSE
@@ -174,7 +174,7 @@
 		owner.AdjustParalysis(-100, FALSE)
 		to_chat(owner, "<span class='notice'>You feel a rush of energy course through your body!</span>")
 		cooldown = TRUE
-		addtimer(CALLBACK(src, .proc/sleepy_timer_end), 50)
+		addtimer(CALLBACK(src, PROC_REF(sleepy_timer_end)), 50)
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/proc/sleepy_timer_end()
 		cooldown = FALSE
@@ -187,7 +187,7 @@
 	crit_fail = TRUE
 	owner.AdjustSleeping(200)
 	cooldown = TRUE
-	addtimer(CALLBACK(src, .proc/reboot), 90 / severity)
+	addtimer(CALLBACK(src, PROC_REF(reboot)), 90 / severity)
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/proc/reboot()
 	crit_fail = FALSE
@@ -297,7 +297,7 @@
 		synthesizing = TRUE
 		to_chat(owner, "<span class='notice'>You feel less hungry...</span>")
 		owner.adjust_nutrition(50)
-		addtimer(CALLBACK(src, .proc/synth_cool), 50)
+		addtimer(CALLBACK(src, PROC_REF(synth_cool)), 50)
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/proc/synth_cool()
 	synthesizing = FALSE
@@ -341,7 +341,7 @@
 		return
 	if(reviving)
 		if(owner.health <= HEALTH_THRESHOLD_CRIT)
-			addtimer(CALLBACK(src, .proc/heal), 30)
+			addtimer(CALLBACK(src, PROC_REF(heal)), 30)
 		else
 			reviving = FALSE
 			return
@@ -375,7 +375,7 @@
 		var/mob/living/carbon/human/H = owner
 		if(H.stat != DEAD && prob(50 / severity))
 			H.set_heartattack(TRUE)
-			addtimer(CALLBACK(src, .proc/undo_heart_attack), 600 / severity)
+			addtimer(CALLBACK(src, PROC_REF(undo_heart_attack)), 600 / severity)
 
 /obj/item/organ/internal/cyberimp/chest/reviver/proc/undo_heart_attack()
 	var/mob/living/carbon/human/H = owner
@@ -392,11 +392,24 @@
 	desc = "A sleek, sturdy box."
 	icon_state = "cyber_implants"
 
-/obj/item/storage/box/cyber_implants/New(loc, implant)
-	..()
+/obj/item/storage/box/cyber_implants/populate_contents()
 	new /obj/item/autoimplanter(src)
-	if(ispath(implant))
-		new implant(src)
+
+/obj/item/storage/box/cyber_implants/thermals/populate_contents()
+	..()
+	new /obj/item/organ/internal/cyberimp/eyes/thermals(src)
+
+/obj/item/storage/box/cyber_implants/xray/populate_contents()
+	..()
+	new /obj/item/organ/internal/cyberimp/eyes/xray(src)
+
+/obj/item/storage/box/cyber_implants/reviver_hardened/populate_contents()
+	..()
+	new /obj/item/organ/internal/cyberimp/chest/reviver/hardened(src)
+
+/obj/item/storage/box/cyber_implants/anti_stun_hardened/populate_contents()
+	..()
+	new /obj/item/organ/internal/cyberimp/brain/anti_stun/hardened(src)
 
 /obj/item/storage/box/cyber_implants/bundle
 	name = "boxed cybernetic implants"
@@ -404,7 +417,7 @@
 						/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened, /obj/item/organ/internal/cyberimp/chest/reviver/hardened)
 	var/amount = 5
 
-/obj/item/storage/box/cyber_implants/bundle/New()
+/obj/item/storage/box/cyber_implants/bundle/populate_contents()
 	..()
 	var/implant
 	while(amount > 0)

@@ -22,7 +22,7 @@
 	if(get_dist(get_turf(src), get_turf(A)) > 3)
 		to_chat(src, "<span class='danger'>Слишком далеко от [A] чтобы скрыть это как бомбу.</span>")
 		return
-	if(istype(A, /obj/) && can_plant(A))
+	if(isobj(A) && can_plant(A))
 		if(bomb_cooldown <= world.time && !stat)
 			var/obj/item/guardian_bomb/B = new /obj/item/guardian_bomb(get_turf(A))
 			add_attack_logs(src, A, "booby trapped (summoner: [summoner])")
@@ -49,6 +49,8 @@
 	if(istype(A, /obj/machinery/disposal)) // Have no idea why they just destroy themselves
 		to_chat(src, "<span class='warning'>Бомбы не мусор! Нельзя минировать мусорки!</span>")
 		return FALSE
+	if(istype(A, /obj/item/guardian_bomb)) //No multibombing, be aware of infinite bombs if you dare removing this
+		return FALSE
 	return TRUE
 
 /obj/item/guardian_bomb
@@ -66,7 +68,7 @@
 	appearance = A.appearance
 	dir = A.dir
 	move_resist = A.move_resist
-	addtimer(CALLBACK(src, .proc/disable), 600)
+	addtimer(CALLBACK(src, PROC_REF(disable)), 600)
 
 /obj/item/guardian_bomb/proc/disable()
 	add_attack_logs(null, stored_obj, "booby trap expired")
@@ -116,8 +118,8 @@
 	detonate(user)
 
 /obj/item/guardian_bomb/pickup(mob/living/user)
-	detonate(user)
-	return FALSE // Disarm or blow up. No picking up
+	SHOULD_CALL_PARENT(FALSE)
+	detonate(user) // Disarm or blow up. No picking up
 
 /obj/item/guardian_bomb/MouseDrop_T(obj/item/I, mob/living/user)
 	detonate(user)

@@ -197,11 +197,13 @@
 	if(!R || !patient || !SG || !(SG in chassis.equipment))
 		return 0
 	var/to_inject = min(R.volume, inject_amount)
-	if(to_inject && patient.reagents.get_reagent_amount(R.id) + to_inject <= inject_amount*2)
+	if(to_inject)
 		occupant_message("Injecting [patient] with [to_inject] units of [R.name].")
 		log_message("Injecting [patient] with [to_inject] units of [R.name].")
 		add_attack_logs(chassis.occupant, patient, "Injected with [name] containing [R], transferred [to_inject] units", R.harmless ? ATKLOG_ALMOSTALL : null)
 		SG.reagents.trans_id_to(patient,R.id,to_inject)
+		var/fraction = min(inject_amount/R.volume, 1)
+		SG.reagents.reaction(patient, REAGENT_INGEST, fraction)
 		update_equip_info()
 	return
 
@@ -306,6 +308,8 @@
 		return
 	if(mode)
 		return analyze_reagents(target)
+	if(!is_faced_target(target))
+		return FALSE
 	if(!syringes.len)
 		occupant_message("<span class=\"alert\">No syringes loaded.</span>")
 		return
@@ -630,4 +634,8 @@
 	if(istype(src.loc, /obj/mecha/medical/odysseus))
 		var/obj/mecha/medical/odysseus/O = src.loc
 		O.step_in = initial(O.step_in)
+		return ..()
+	if(istype(src.loc, /obj/mecha/combat/lockersyndie))
+		var/obj/mecha/combat/lockersyndie/S = src.loc
+		S.step_in = initial(S.step_in)
 		return ..()

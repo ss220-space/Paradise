@@ -66,7 +66,9 @@
 		"<span class='notice'>You start emptying [pod]'s contents onto the floor.</span>", "<span class='warning'>You hear a loud noise! As if somebody is throwing stuff on the floor!</span>")
 	if(!do_after(user, 20, target = pod))
 		return
+	add_fingerprint(user)
 	for(var/atom/movable/AM in pod)
+		AM.add_fingerprint(user)
 		pod.eject(AM)
 		if(ismob(AM))
 			var/mob/M = AM
@@ -74,6 +76,7 @@
 
 
 /obj/structure/transit_tube/station/attackby(obj/item/W, mob/user, params)
+	add_fingerprint(user)
 	if(istype(W, /obj/item/grab) && hatch_state == TRANSIT_TUBE_OPEN)
 		var/obj/item/grab/G = W
 		if(ismob(G.affecting) && G.state >= GRAB_AGGRESSIVE)
@@ -81,6 +84,7 @@
 			for(var/obj/structure/transit_tube_pod/pod in loc)
 				pod.visible_message("<span class='warning'>[user] starts putting [GM] into the [pod]!</span>")
 				if(do_after(user, 30, target = GM) && GM && G && G.affecting == GM)
+					GM.add_fingerprint(user)
 					GM.Weaken(5)
 					Bumped(GM)
 					qdel(G)
@@ -90,7 +94,7 @@
 	if(hatch_state == TRANSIT_TUBE_CLOSED)
 		icon_state = "opening"
 		hatch_state = TRANSIT_TUBE_OPENING
-		addtimer(CALLBACK(src, .proc/open_hatch_callback), OPEN_DURATION)
+		addtimer(CALLBACK(src, PROC_REF(open_hatch_callback)), OPEN_DURATION)
 
 /obj/structure/transit_tube/station/proc/open_hatch_callback()
 	if(hatch_state == TRANSIT_TUBE_OPENING)
@@ -103,7 +107,7 @@
 	if(hatch_state == TRANSIT_TUBE_OPEN)
 		icon_state = "closing"
 		hatch_state = TRANSIT_TUBE_CLOSING
-		addtimer(CALLBACK(src, .proc/close_hatch_calllback), CLOSE_DURATION)
+		addtimer(CALLBACK(src, PROC_REF(close_hatch_calllback)), CLOSE_DURATION)
 
 /obj/structure/transit_tube/station/proc/close_hatch_calllback()
 	if(hatch_state == TRANSIT_TUBE_CLOSING)
@@ -113,7 +117,7 @@
 /obj/structure/transit_tube/station/proc/launch_pod()
 	for(var/obj/structure/transit_tube_pod/pod in loc)
 		if(!pod.moving && (pod.dir in directions()))
-			addtimer(CALLBACK(src, .proc/launch_pod_callback, pod), 5)
+			addtimer(CALLBACK(src, PROC_REF(launch_pod_callback), pod), 5)
 			return
 
 /obj/structure/transit_tube/station/proc/launch_pod_callback(obj/structure/transit_tube_pod/pod)
@@ -142,7 +146,7 @@
 
 /obj/structure/transit_tube/station/pod_stopped(obj/structure/transit_tube_pod/pod, from_dir)
 	pod_moving = TRUE
-	addtimer(CALLBACK(src, .proc/pod_stopped_callback, pod), 5)
+	addtimer(CALLBACK(src, PROC_REF(pod_stopped_callback), pod), 5)
 
 /obj/structure/transit_tube/station/proc/pod_stopped_callback(obj/structure/transit_tube_pod/pod)
 	launch_cooldown = world.time + LAUNCH_COOLDOWN

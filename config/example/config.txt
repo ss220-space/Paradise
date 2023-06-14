@@ -515,6 +515,9 @@ BYOND_ACCOUNT_AGE_THRESHOLD 7
 ## Webhook URLs for the admin discord webhook. Separate multiple URLs with a | (EG: https://url1|https://url2)
 #DISCORD_WEBHOOKS_ADMIN_URL
 
+## Webhook URLs for the requests discord webhook. Separate multiple URLs with a | (EG: https://url1|https://url2)
+#DISCORD_WEBHOOKS_REQUESTS_URL
+
 ## Webhook URLs for the mentor discord webhook. Separate multiple URLs with a | (EG: https://url1|https://url2)
 #DISCORD_WEBHOOKS_MENTOR_URL
 
@@ -563,6 +566,7 @@ TOPIC_FILTERING_WHITELIST 127.0.0.1
 
 ## Silero Text-to-speech
 #TTS_TOKEN_SILERO mytoken
+#TTS_URL_SILERO https://example.com
 #TTS_ENABLED
 #TTS_CACHE
 
@@ -585,4 +589,7 @@ DEFAULT_MAP /datum/map/cyberiad
 
 ## Override server map by specified, uncomment to apply
 # OVERRIDE_MAP /datum/map/delta
+
+## Enable animations on item pickup and drop down
+# ITEM_ANIMATIONS_ENABLED
 

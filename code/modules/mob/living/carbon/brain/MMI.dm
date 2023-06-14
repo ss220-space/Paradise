@@ -12,6 +12,7 @@
 	var/clock = 0
 	var/syndiemmi = 0 //Whether or not this is a Syndicate MMI
 	var/syndicate = 0 //Used to replace standart modules with the syndicate modules in module pick proc
+	var/ninja = FALSE //Like the syndicate, it is necessary to select modules.
 	var/mob/living/carbon/brain/brainmob = null//The current occupant.
 	var/obj/item/organ/internal/brain/held_brain = null // This is so MMI's aren't brainscrubber 9000's
 	var/mob/living/silicon/robot/robot = null//Appears unused.
@@ -44,8 +45,7 @@
 			to_chat(user, "<span class='userdanger'>Somehow, this MMI still has a brain in it. Report this to the bug tracker.</span>")
 			log_runtime(EXCEPTION("[user] tried to stick a [O] into [src] in [get_area(src)], but the held brain variable wasn't cleared"), src)
 			return
-		if(user.drop_item())
-			B.forceMove(src)
+		if(user.drop_transfer_item_to_loc(B, src))
 			visible_message("<span class='notice'>[user] sticks \a [O] into \the [src].</span>")
 			brainmob = B.brainmob
 			B.brainmob = null
@@ -85,7 +85,7 @@
 			user.visible_message("<span class='notice'>[user] begins to install the [O] into [src]...</span>", \
 				"<span class='notice'>You start to install the [O] into [src]...</span>")
 			if(do_after(user, 20, target=src))
-				if(user.drop_item())
+				if(user.drop_transfer_item_to_loc(O, src))
 					user.visible_message("<span class='notice'>[user] installs [O] in [src].</span>", \
 						"<span class='notice'>You install [O] in [src].</span>")
 					if(brainmob)

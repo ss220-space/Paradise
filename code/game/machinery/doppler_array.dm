@@ -39,6 +39,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 
 /obj/machinery/doppler_array/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/disk/tech_disk))
+		add_fingerprint(user)
 		var/obj/item/disk/tech_disk/disk = I
 		disk.load_tech(toxins_tech)
 		to_chat(user, "<span class='notice'>You swipe the disk into [src].</span>")
@@ -81,6 +82,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do that!</span>")
 		return
+	add_fingerprint(user)
 	dir = turn(dir, 90)
 	to_chat(user, "<span class='notice'>You rotate [src].</span>")
 
@@ -92,7 +94,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 		to_chat(user, "<span class='notice'>[src] is already printing something, please wait.</span>")
 		return
 	atom_say("Printing explosive log. Standby...")
-	addtimer(CALLBACK(src, .proc/print), 50)
+	addtimer(CALLBACK(src, PROC_REF(print)), 50)
 
 /obj/machinery/doppler_array/proc/print()
 	visible_message("<span class='notice'>[src] prints a piece of paper!</span>")

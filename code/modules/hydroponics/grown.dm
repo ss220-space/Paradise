@@ -110,7 +110,7 @@
 // Various gene procs
 /obj/item/reagent_containers/food/snacks/grown/attack_self(mob/user)
 	if(seed && seed.get_gene(/datum/plant_gene/trait/squash))
-		squash(user)
+		squash(user, user)
 	..()
 
 /obj/item/reagent_containers/food/snacks/grown/throw_impact(atom/hit_atom)
@@ -175,7 +175,7 @@
 
 // For item-containing growns such as eggy or gatfruit
 /obj/item/reagent_containers/food/snacks/grown/shell/attack_self(mob/user)
-	user.unEquip(src)
+	user.temporarily_remove_item_from_inventory(src)
 	if(trash)
 		var/obj/item/T = generate_trash()
 		user.put_in_hands(T)

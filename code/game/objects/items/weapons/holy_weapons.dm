@@ -48,7 +48,7 @@
 			user.adjustBruteLoss(force)
 			user.adjustFireLoss(sanctify_force)
 			user.Weaken(5)
-			user.unEquip(src, 1)
+			user.drop_item_ground(src, force = TRUE)
 			user.visible_message("<span class='warning'>[src] slips out of the grip of [user] as they try to pick it up, bouncing upwards and smacking [user.p_them()] in the face!</span>", \
 			"<span class='warning'>[src] slips out of your grip as you pick it up, bouncing upwards and smacking you in the face!</span>")
 			playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
@@ -72,7 +72,7 @@
 		variant_names[initial(rod.name)] = rod
 		variant_icons += list(initial(rod.name) = image(icon = initial(rod.icon), icon_state = initial(rod.icon_state)))
 	var/mob/living/carbon/human/H = user
-	var/choice = show_radial_menu(H, src, variant_icons, null, 40, CALLBACK(src, .proc/radial_check, H), TRUE)
+	var/choice = show_radial_menu(H, src, variant_icons, null, 40, CALLBACK(src, PROC_REF(radial_check), H), TRUE)
 	if(!choice || !radial_check(H))
 		return
 
@@ -90,7 +90,7 @@
 			new_rod.name = "sanctified " + new_rod.name
 
 /obj/item/nullrod/proc/radial_check(mob/living/carbon/human/user)
-	if(!src || !user.is_in_hands(src) || user.incapacitated() || reskinned)
+	if(!src || !user.is_type_in_hands(src) || user.incapacitated() || reskinned)
 		return FALSE
 	return TRUE
 

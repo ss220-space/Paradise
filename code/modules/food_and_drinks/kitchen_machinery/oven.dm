@@ -16,6 +16,7 @@
 	updatefood()
 
 /obj/machinery/cooking/attackby(obj/item/I, mob/user, params)
+	add_fingerprint(user)
 	if(on)
 		to_chat(user, "The machine is already running.")
 		return
@@ -27,8 +28,7 @@
 			return
 		else
 			to_chat(user, "You put [F] into [src] for cooking.")
-			user.drop_item()
-			F.loc = src
+			user.drop_transfer_item_to_loc(F, src)
 			on = TRUE
 			if(!candy)
 				icon_state = "oven_on"

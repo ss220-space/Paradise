@@ -46,8 +46,7 @@
 
 	//Tanning!
 	for(var/obj/item/stack/sheet/hairlesshide/HH in contents)
-		var/obj/item/stack/sheet/wetleather/WL = new(src)
-		WL.amount = HH.amount
+		new /obj/item/stack/sheet/wetleather(src, HH.amount)
 		qdel(HH)
 
 
@@ -210,14 +209,15 @@
 		panel = !panel
 		to_chat(user, "<span class='notice'>you [panel ? </span>"open" : "close"] the [src]'s maintenance panel")*/
 	if(default_unfasten_wrench(user, W))
+		add_fingerprint(user)
 		power_change()
 		return
 	if(istype(W,/obj/item/toy/crayon) ||istype(W,/obj/item/stamp))
 		if( state in list(	1, 3, 6 ) )
 			if(!crayon)
-				user.drop_item()
+				add_fingerprint(user)
+				user.drop_transfer_item_to_loc(W, src)
 				crayon = W
-				crayon.loc = src
 				update_icon()
 			else
 				return ..()
@@ -227,6 +227,7 @@
 		if( (state == 1) && hacked)
 			var/obj/item/grab/G = W
 			if(ishuman(G.assailant) && iscorgi(G.affecting))
+				add_fingerprint(user)
 				G.affecting.loc = src
 				qdel(G)
 				state = 3
@@ -288,8 +289,8 @@
 
 		if(contents.len < 5)
 			if( state in list(1, 3) )
-				user.drop_item()
-				W.loc = src
+				add_fingerprint(user)
+				user.drop_transfer_item_to_loc(W, src)
 				state = 3
 			else
 				to_chat(user, "<span class='notice'>You can't put the item in right now.</span>")
@@ -300,6 +301,7 @@
 		return ..()
 
 /obj/machinery/washing_machine/attack_hand(mob/user as mob)
+	add_fingerprint(user)
 	switch(state)
 		if(1)
 			state = 2

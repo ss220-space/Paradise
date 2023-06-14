@@ -59,9 +59,8 @@
 
 /obj/item/clothing/suit/armor/vest/security/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/accessory/holobadge) && !attached_badge)
-		if(user.unEquip(I))
+		if(user.drop_transfer_item_to_loc(I, src))
 			add_fingerprint(user)
-			I.forceMove(src)
 			attached_badge = I
 			var/datum/action/A = new /datum/action/item_action/remove_badge(src)
 			A.Grant(user)
@@ -310,7 +309,7 @@
 	if(istype(loc, /mob/living/carbon/human))
 		var/mob/living/carbon/human/C = loc
 		C.update_inv_wear_suit()
-		addtimer(CALLBACK(src, .proc/reboot), 100 / severity)
+		addtimer(CALLBACK(src, PROC_REF(reboot)), 100 / severity)
 	..()
 
 /obj/item/clothing/suit/armor/reactive/proc/reboot()
@@ -566,3 +565,11 @@
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
 		)
+
+/obj/item/clothing/suit/armor/makeshift_armor
+	name = "makeshift armor"
+	desc = "This is a makeshift armor. Somehow duct tape grants more protection, than a sign itself."
+	icon_state = "makeshift_armor"
+	item_state = "makeshift_armor"
+	resistance_flags = FIRE_PROOF
+	armor = list("melee" = 8, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)

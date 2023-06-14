@@ -29,11 +29,13 @@
 	if(!M.restrained() && !M.stat && can_use())
 		switch(over_object.name)
 			if("r_hand")
-				M.unEquip(src)
-				M.put_in_r_hand(src)
+				if(!remove_item_from_storage(drop_location()))
+					M.drop_item_ground(src)
+				M.put_in_r_hand(src, ignore_anim = FALSE)
 			if("l_hand")
-				M.unEquip(src)
-				M.put_in_l_hand(src)
+				if(!remove_item_from_storage(drop_location()))
+					M.drop_item_ground(src)
+				M.put_in_l_hand(src, ignore_anim = FALSE)
 		src.add_fingerprint(usr)
 		return
 
@@ -63,8 +65,7 @@
 		/obj/item/radio,
 		/obj/item/robotanalyzer)
 
-/obj/item/storage/belt/utility/full/New()
-	..()
+/obj/item/storage/belt/utility/full/populate_contents()
 	new /obj/item/screwdriver(src)
 	new /obj/item/wrench(src)
 	new /obj/item/weldingtool(src)
@@ -73,13 +74,12 @@
 	new /obj/item/stack/cable_coil/random(src, 30)
 	update_icon()
 
-/obj/item/storage/belt/utility/full/multitool/New()
+/obj/item/storage/belt/utility/full/multitool/populate_contents()
 	..()
 	new /obj/item/multitool(src)
 	update_icon()
 
-/obj/item/storage/belt/utility/atmostech/New()
-	..()
+/obj/item/storage/belt/utility/atmostech/populate_contents()
 	new /obj/item/screwdriver(src)
 	new /obj/item/wrench(src)
 	new /obj/item/weldingtool(src)
@@ -95,8 +95,7 @@
 	icon_state = "utilitybelt_ce"
 	item_state = "utility_ce"
 
-/obj/item/storage/belt/utility/chief/full/New()
-	..()
+/obj/item/storage/belt/utility/chief/full/populate_contents()
 	new /obj/item/screwdriver/power(src)
 	new /obj/item/crowbar/power(src)
 	new /obj/item/weldingtool/experimental(src)//This can be changed if this is too much
@@ -160,10 +159,7 @@
 		/obj/item/cautery,
 		/obj/item/radio)
 
-/obj/item/storage/belt/medical/surgery/loaded
-
-/obj/item/storage/belt/medical/surgery/loaded/New()
-	..()
+/obj/item/storage/belt/medical/surgery/loaded/populate_contents()
 	new /obj/item/scalpel(src)
 	new /obj/item/hemostat(src)
 	new /obj/item/retractor(src)
@@ -174,10 +170,7 @@
 	new /obj/item/surgicaldrill(src)
 	new /obj/item/cautery(src)
 
-/obj/item/storage/belt/medical/response_team
-
-/obj/item/storage/belt/medical/response_team/New()
-	..()
+/obj/item/storage/belt/medical/response_team/populate_contents()
 	new /obj/item/reagent_containers/food/pill/salbutamol(src)
 	new /obj/item/reagent_containers/food/pill/salbutamol(src)
 	new /obj/item/reagent_containers/food/pill/charcoal(src)
@@ -241,8 +234,7 @@
 		/obj/item/eftpos/sec,
 		/obj/item/radio)
 
-/obj/item/storage/belt/security/sec/New()
-	..()
+/obj/item/storage/belt/security/sec/populate_contents()
 	new /obj/item/reagent_containers/spray/pepper(src)
 	new /obj/item/restraints/handcuffs(src)
 	new /obj/item/grenade/flashbang(src)
@@ -256,8 +248,7 @@
 	icon_state = "detective_belt"
 	item_state = "detective_belt"
 
-/obj/item/storage/belt/security/response_team/New()
-	..()
+/obj/item/storage/belt/security/response_team/populate_contents()
 	new /obj/item/reagent_containers/spray/pepper(src)
 	new /obj/item/melee/baton/loaded(src)
 	new /obj/item/flash(src)
@@ -265,8 +256,7 @@
 	new /obj/item/grenade/flashbang(src)
 	update_icon()
 
-/obj/item/storage/belt/security/response_team_gamma/New()
-	..()
+/obj/item/storage/belt/security/response_team_gamma/populate_contents()
 	new /obj/item/melee/baton/loaded(src)
 	new /obj/item/reagent_containers/spray/pepper(src)
 	new /obj/item/flash(src)
@@ -286,8 +276,7 @@
 	name = "SRT webbing"
 	desc = "Unique and versatile chest rig, can hold SRT gear."
 
-/obj/item/storage/belt/security/webbing/srt/full/New()
-	..()
+/obj/item/storage/belt/security/webbing/srt/full/populate_contents()
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/restraints/handcuffs(src)
@@ -307,16 +296,10 @@
 		"/obj/item/soulstone"
 		)
 
-/obj/item/storage/belt/soulstone/full/New()
-	..()
-	new /obj/item/soulstone(src)
-	new /obj/item/soulstone(src)
-	new /obj/item/soulstone(src)
-	new /obj/item/soulstone(src)
-	new /obj/item/soulstone(src)
-	new /obj/item/soulstone(src)
+/obj/item/storage/belt/soulstone/full/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/soulstone(src)
 	update_icon()
-
 
 /obj/item/storage/belt/champion
 	name = "championship belt"
@@ -346,10 +329,7 @@
 	item_state = "utility"
 	use_item_overlays = 1 // So it will still show tools in it in case sec get lazy and just glance at it.
 
-/obj/item/storage/belt/military/traitor/hacker
-
-/obj/item/storage/belt/military/traitor/hacker/New()
-	..()
+/obj/item/storage/belt/military/traitor/hacker/populate_contents()
 	new /obj/item/screwdriver(src, "red")
 	new /obj/item/wrench(src)
 	new /obj/item/weldingtool/largetank(src)
@@ -378,68 +358,46 @@
 		/obj/item/reagent_containers/food/drinks/bottle/molotov
 		)
 
-/obj/item/storage/belt/grenade/full/New()
-	..()
-	new /obj/item/grenade/smokebomb(src) //4
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/empgrenade(src) //2
-	new /obj/item/grenade/empgrenade(src)
-	new /obj/item/grenade/gluon(src) //4
-	new /obj/item/grenade/gluon(src)
-	new /obj/item/grenade/gluon(src)
-	new /obj/item/grenade/gluon(src)
+/obj/item/storage/belt/grenade/full/populate_contents()
+	for(var/I in 1 to 4)// Four of each
+		new /obj/item/grenade/smokebomb(src)
+		new /obj/item/grenade/gluon(src)
+	for(var/I in 1 to 10)//10
+		new /obj/item/grenade/frag(src)
+	for(var/I in 1 to 2)//2
+		new /obj/item/grenade/gas/plasma(src)
+		new /obj/item/grenade/empgrenade(src)
+		new /obj/item/grenade/syndieminibomb(src)
 	new /obj/item/grenade/chem_grenade/facid(src) //1
 	new /obj/item/grenade/chem_grenade/saringas(src) //1
-	new /obj/item/grenade/gas/plasma(src) //2
-	new /obj/item/grenade/gas/plasma(src)
-	new /obj/item/grenade/frag(src) //10
-	new /obj/item/grenade/frag(src)
-	new /obj/item/grenade/frag(src)
-	new /obj/item/grenade/frag(src)
-	new /obj/item/grenade/frag(src)
-	new /obj/item/grenade/frag(src)
-	new /obj/item/grenade/frag(src)
-	new /obj/item/grenade/frag(src)
-	new /obj/item/grenade/frag(src)
-	new /obj/item/grenade/frag(src)
-	new /obj/item/grenade/syndieminibomb(src) //2
-	new /obj/item/grenade/syndieminibomb(src)
 
+/obj/item/storage/belt/grenade/nonlethal/populate_contents()
+	for(var/I in 1 to 14)
+		new /obj/item/grenade/smokebomb(src) //14
+	for(var/I in 1 to 6)
+		new /obj/item/grenade/chem_grenade/teargas(src)	//6
+	for(var/I in 1 to 4)
+		new /obj/item/grenade/chem_grenade/metalfoam(src) //4
+	for(var/I in 1 to 2)//2
+		new /obj/item/grenade/chem_grenade/lube(src) //2
+		new /obj/item/grenade/chem_grenade/drugs(src) //2
+		new /obj/item/grenade/gas/knockout(src)	//2
 
-/obj/item/storage/belt/grenade/nonlethal/New()
-	..()
-	new /obj/item/grenade/smokebomb(src) //14
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/chem_grenade/teargas(src)	//6
-	new /obj/item/grenade/chem_grenade/teargas(src)
-	new /obj/item/grenade/chem_grenade/teargas(src)
-	new /obj/item/grenade/chem_grenade/teargas(src)
-	new /obj/item/grenade/chem_grenade/teargas(src)
-	new /obj/item/grenade/chem_grenade/teargas(src)
-	new /obj/item/grenade/chem_grenade/metalfoam(src) //4
-	new /obj/item/grenade/chem_grenade/metalfoam(src)
-	new /obj/item/grenade/chem_grenade/metalfoam(src)
-	new /obj/item/grenade/chem_grenade/metalfoam(src)
-	new /obj/item/grenade/chem_grenade/lube(src) //2
-	new /obj/item/grenade/chem_grenade/lube(src)
-	new /obj/item/grenade/chem_grenade/drugs(src) //2
-	new /obj/item/grenade/chem_grenade/drugs(src)
-	new /obj/item/grenade/gas/knockout(src)	//2
-	new /obj/item/grenade/gas/knockout(src)
+/obj/item/storage/belt/rocketman
+	name = "rocket belt"
+	desc = "A belt for holding rockets."
+	icon_state = "assaultbelt"
+	item_state = "assault"
+	storage_slots = 7
+	max_combined_w_class = 30 //just to be sure..
+	max_w_class = WEIGHT_CLASS_NORMAL //Rockets are normal
+	can_hold = /obj/item/ammo_casing/caseless/rocket
+
+/obj/item/storage/belt/rocketman/populate_contents()
+	for(var/I in 1 to 3)
+		new /obj/item/ammo_casing/caseless/rocket(src)
+	for(var/I in 1 to 3)
+		new /obj/item/ammo_casing/caseless/rocket/hedp(src)
 
 /obj/item/storage/belt/military/abductor
 	name = "agent belt"
@@ -448,8 +406,7 @@
 	icon_state = "belt"
 	item_state = "security"
 
-/obj/item/storage/belt/military/abductor/full/New()
-	..()
+/obj/item/storage/belt/military/abductor/full/populate_contents()
 	new /obj/item/screwdriver/abductor(src)
 	new /obj/item/wrench/abductor(src)
 	new /obj/item/weldingtool/abductor(src)
@@ -465,8 +422,7 @@
 	item_state = "assault"
 	storage_slots = 6
 
-/obj/item/storage/belt/military/assault/marines/full/New()
-	..()
+/obj/item/storage/belt/military/assault/marines/full/populate_contents()
 	new /obj/item/ammo_box/magazine/m12g(src)
 	new /obj/item/ammo_box/magazine/m12g(src)
 	new /obj/item/ammo_box/magazine/m12g(src)
@@ -475,8 +431,7 @@
 	new /obj/item/ammo_box/magazine/m45(src)
 	update_icon()
 
-/obj/item/storage/belt/military/assault/marines/elite/full/New()
-	..()
+/obj/item/storage/belt/military/assault/marines/elite/full/populate_contents()
 	new /obj/item/ammo_box/magazine/m556(src)
 	new /obj/item/ammo_box/magazine/m556(src)
 	new /obj/item/ammo_box/magazine/m556(src)
@@ -484,8 +439,7 @@
 	new /obj/item/ammo_box/magazine/m45(src)
 	update_icon()
 
-/obj/item/storage/belt/military/assault/soviet/full/New()
-	..()
+/obj/item/storage/belt/military/assault/soviet/full/populate_contents()
 	new /obj/item/ammo_box/magazine/ak814(src)
 	new /obj/item/ammo_box/magazine/ak814(src)
 	new /obj/item/ammo_box/magazine/ak814(src)
@@ -511,8 +465,7 @@
 		/obj/item/melee/flyswatter,
 		/obj/item/radio)
 
-/obj/item/storage/belt/janitor/full/New()
-	..()
+/obj/item/storage/belt/janitor/full/populate_contents()
 	new /obj/item/lightreplacer(src)
 	new /obj/item/holosign_creator/janitor(src)
 	new /obj/item/reagent_containers/spray/cleaner(src)
@@ -535,22 +488,21 @@
 		/obj/item/mobcapsule,
 		/obj/item/radio)
 
-/obj/item/storage/belt/lazarus/New()
-	..()
+/obj/item/storage/belt/lazarus/Initialize(mapload)
+	. = ..()
 	update_icon()
-
 
 /obj/item/storage/belt/lazarus/update_icon()
 	..()
-	icon_state = "[initial(icon_state)]_[contents.len]"
+	icon_state = "[initial(icon_state)]_[length(contents)]"
 
 /obj/item/storage/belt/lazarus/attackby(obj/item/W, mob/user)
-	var/amount = contents.len
+	var/amount = length(contents)
 	. = ..()
-	if(amount != contents.len)
+	if(amount != length(contents))
 		update_icon()
 
-/obj/item/storage/belt/lazarus/remove_from_storage(obj/item/W as obj, atom/new_location)
+/obj/item/storage/belt/lazarus/remove_from_storage(obj/item/W, atom/new_location)
 	..()
 	update_icon()
 
@@ -564,41 +516,26 @@
 	display_contents_with_number = TRUE
 	can_hold = list(/obj/item/ammo_casing/shotgun)
 
-/obj/item/storage/belt/bandolier/New()
-	..()
+/obj/item/storage/belt/bandolier/Initialize(mapload)
+	. = ..()
 	update_icon()
 
-/obj/item/storage/belt/bandolier/full/New()
-	..()
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
+/obj/item/storage/belt/bandolier/full/populate_contents()
+	for(var/I in 1 to 16)
+		new /obj/item/ammo_casing/shotgun/beanbag(src)
 	update_icon()
 
 /obj/item/storage/belt/bandolier/update_icon()
 	..()
-	icon_state = "[initial(icon_state)]_[contents.len]"
+	icon_state = "[initial(icon_state)]_[length(contents)]"
 
 /obj/item/storage/belt/bandolier/attackby(obj/item/W, mob/user)
-	var/amount = contents.len
+	var/amount = length(contents)
 	. = ..()
-	if(amount != contents.len)
+	if(amount != length(contents))
 		update_icon()
 
-/obj/item/storage/belt/bandolier/remove_from_storage(obj/item/W as obj, atom/new_location)
+/obj/item/storage/belt/bandolier/remove_from_storage(obj/item/W, atom/new_location)
 	..()
 	update_icon()
 
@@ -626,8 +563,7 @@
 		/obj/item/gun/magic/wand
 		)
 
-/obj/item/storage/belt/wands/full/New()
-	..()
+/obj/item/storage/belt/wands/full/populate_contents()
 	new /obj/item/gun/magic/wand/death(src)
 	new /obj/item/gun/magic/wand/resurrection(src)
 	new /obj/item/gun/magic/wand/polymorph(src)
@@ -708,8 +644,7 @@
 	max_w_class = WEIGHT_CLASS_BULKY
 	can_hold = list(/obj/item/melee/rapier)
 
-/obj/item/storage/belt/rapier/New()
-	..()
+/obj/item/storage/belt/rapier/populate_contents()
 	new /obj/item/melee/rapier(src)
 	update_icon()
 
@@ -726,7 +661,7 @@
 	if(length(contents))
 		var/obj/item/I = contents[1]
 		H.visible_message("<span class='notice'>[H] takes [I] out of [src].</span>", "<span class='notice'>You take [I] out of [src].</span>")
-		H.put_in_hands(I)
+		H.put_in_hands(I, ignore_anim = FALSE)
 		update_icon()
 	else
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
@@ -788,16 +723,16 @@
 	var/bolacount = 0
 	var/cooldown = 0
 
-/obj/item/storage/belt/bluespace/owlman/New()
-	..()
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/restraints/legcuffs/bola(src)
-	new /obj/item/restraints/legcuffs/bola(src)
+/obj/item/storage/belt/bluespace/owlman/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 	cooldown = world.time
+
+/obj/item/storage/belt/bluespace/owlman/populate_contents()
+	for(var/I in 1 to 4)
+		new /obj/item/grenade/smokebomb(src)
+	new /obj/item/restraints/legcuffs/bola(src)
+	new /obj/item/restraints/legcuffs/bola(src)
 
 /obj/item/storage/belt/bluespace/owlman/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -843,8 +778,7 @@
 	max_combined_w_class = 280
 	can_hold = list()
 
-/obj/item/storage/belt/bluespace/admin/New()
-	..()
+/obj/item/storage/belt/bluespace/admin/populate_contents()
 	new /obj/item/crowbar(src)
 	new /obj/item/screwdriver(src)
 	new /obj/item/weldingtool/hugetank(src)
@@ -872,8 +806,7 @@
 	max_combined_w_class = 280
 	can_hold = list()
 
-/obj/item/storage/belt/bluespace/sandbox/New()
-	..()
+/obj/item/storage/belt/bluespace/sandbox/populate_contents()
 	new /obj/item/crowbar(src)
 	new /obj/item/screwdriver(src)
 	new /obj/item/weldingtool/hugetank(src)

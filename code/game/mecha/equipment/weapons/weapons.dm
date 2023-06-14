@@ -28,6 +28,8 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/action(target, params)
 	if(!action_checks(target))
 		return 0
+	if(!is_faced_target(target))
+		return FALSE
 
 	var/turf/curloc = get_turf(chassis)
 	var/turf/targloc = get_turf(target)
@@ -64,11 +66,11 @@
 	size = 2
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
-	equip_cooldown = 8
+	equip_cooldown = 4
 	name = "CH-PS \"Firedart\" Laser"
 	icon_state = "mecha_laser"
 	origin_tech = "magnets=3;combat=3;engineering=3"
-	energy_drain = 30
+	energy_drain = 40
 	projectile = /obj/item/projectile/beam
 	fire_sound = 'sound/weapons/gunshots/1laser4.ogg'
 	harmful = TRUE
@@ -100,6 +102,17 @@
 	projectile = /obj/item/projectile/ion
 	fire_sound = 'sound/weapons/ionrifle.ogg'
 
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/ionshotgun
+	name = "G.M. Ion Shotgun"
+	desc = "Having carefully studied the ion rifle, the brightest minds of the Gorlex Marauders found duct tape and stuck two more barrels! Impressive, isn't it?"
+	icon_state = "mecha_ion"
+	origin_tech = "materials=4;combat=5;magnets=4"
+	energy_drain = 40
+	projectile = /obj/item/projectile/ion/weak
+	fire_sound = 'sound/weapons/ionrifle.ogg'
+	projectiles_per_shot = 3
+	variance = 15
+
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/tesla
 	equip_cooldown = 35
 	name = "P-X Tesla Cannon"
@@ -112,12 +125,12 @@
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/xray
-	equip_cooldown = 35
+	equip_cooldown = 10
 	name = "S-1 X-Ray Projector"
 	desc = "A weapon for combat exosuits. Fires beams of X-Rays that pass through solid matter."
 	icon_state = "mecha_laser"
-	origin_tech = "materials=3;combat=5;magnets=2;syndicate=2"
-	energy_drain = 80
+	origin_tech = "combat=6;materials=4;programming=6"
+	energy_drain = 120
 	projectile = /obj/item/projectile/beam/xray
 	fire_sound = 'sound/weapons/gunshots/1xray.ogg'
 	harmful = TRUE
@@ -128,7 +141,7 @@
 	projectile_delay = 1
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/immolator
-	equip_cooldown = 35
+	equip_cooldown = 8
 	name = "ZFI Immolation Beam Gun"
 	desc = "A weapon for combat exosuits. Fires beams of extreme heat that set targets on fire."
 	icon_state = "mecha_laser"
@@ -221,7 +234,7 @@
 			var/mob/living/carbon/human/H = M
 			if(isobj(H.shoes) && !(H.shoes.flags & NODROP))
 				var/thingy = H.shoes
-				H.unEquip(H.shoes)
+				H.drop_item_ground(H.shoes)
 				walk_away(thingy,chassis,15,2)
 				spawn(20)
 					if(thingy)
@@ -240,6 +253,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic
 	name = "General Ballisic Weapon"
 	size = 2
+
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/action_checks(atom/target)
 	if(..())
 		if(projectiles > 0)
@@ -271,8 +285,8 @@
 	name = "FNX-99 \"Hades\" Carbine"
 	icon_state = "mecha_carbine"
 	origin_tech = "materials=4;combat=4"
-	equip_cooldown = 5
-	projectile = /obj/item/projectile/bullet/incendiary/shell/dragonsbreath
+	equip_cooldown = 8
+	projectile = /obj/item/projectile/bullet/incendiary/shell/dragonsbreath/mecha
 	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
 	projectiles = 24
 	projectile_energy_cost = 15
@@ -310,7 +324,7 @@
 	name = "Ultra AC 2"
 	icon_state = "mecha_uac2"
 	origin_tech = "combat=4"
-	equip_cooldown = 10
+	equip_cooldown = 12
 	projectile = /obj/item/projectile/bullet/weakbullet3
 	fire_sound = 'sound/weapons/gunshots/1mg2.ogg'
 	projectiles = 300
@@ -327,8 +341,8 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/amlg
 	name = "AMLG-90"
 	icon_state = "mecha_amlg90"
-	origin_tech = "combat=6;magnets=6;powerstorage=5"
-	equip_cooldown = 10
+	origin_tech = "combat=4"
+	equip_cooldown = 12
 	projectile = /obj/item/projectile/beam/laser
 	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
 	projectiles = 150
@@ -354,6 +368,8 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/action(target, params)
 	if(!action_checks(target))
 		return
+	if(!is_faced_target(target))
+		return FALSE
 	var/obj/item/missile/M = new projectile(chassis.loc)
 	M.primed = 1
 	playsound(chassis, fire_sound, 50, 1)
@@ -407,11 +423,14 @@
 	projectile_energy_cost = 800
 	equip_cooldown = 60
 	var/det_time = 20
+	harmful = TRUE
 	size=1
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/action(target, params)
 	if(!action_checks(target))
 		return
+	if(!is_faced_target(target))
+		return FALSE
 	var/obj/item/grenade/flashbang/F = new projectile(chassis.loc)
 	playsound(chassis, fire_sound, 50, 1)
 	F.throw_at(target, missile_range, missile_speed)
@@ -457,6 +476,8 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar/action(target, params)
 	if(!action_checks(target))
 		return
+	if(!is_faced_target(target))
+		return FALSE
 	var/obj/item/grown/bananapeel/B = new projectile(chassis.loc)
 	playsound(chassis, fire_sound, 60, 1)
 	B.throw_at(target, missile_range, missile_speed)
@@ -484,6 +505,8 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar/action(target, params)
 	if(!action_checks(target))
 		return
+	if(!is_faced_target(target))
+		return FALSE
 	var/obj/item/assembly/mousetrap/M = new projectile(chassis.loc)
 	M.secured = 1
 	playsound(chassis, fire_sound, 60, 1)
@@ -514,6 +537,8 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola/action(target, params)
 	if(!action_checks(target))
 		return
+	if(!is_faced_target(target))
+		return FALSE
 	var/obj/item/restraints/legcuffs/bola/M = new projectile(chassis.loc)
 	playsound(chassis, fire_sound, 50, 1)
 	M.throw_at(target, missile_range, missile_speed)

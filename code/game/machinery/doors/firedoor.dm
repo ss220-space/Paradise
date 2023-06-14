@@ -88,6 +88,7 @@
 
 /obj/machinery/door/firedoor/attack_hand(mob/user)
 	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+		add_fingerprint(user)
 		user.changeNext_move(CLICK_CD_MELEE)
 		attack_generic(user, user.dna.species.obj_damage)
 		return
@@ -98,7 +99,6 @@
 		to_chat(user, "<span class='warning'>[src] is welded shut!</span>")
 		return
 
-	add_fingerprint(user)
 	user.changeNext_move(CLICK_CD_MELEE)
 
 	user.visible_message(
@@ -106,15 +106,15 @@
 		"<span class='notice'>You operate the manual lever on [src].</span>")
 
 	if(do_after(user, manual_open_time, target = src))
+		add_fingerprint(user)
 		user.visible_message(
 			"<span class='notice'>[user] opens [src].</span>",
 			"<span class='notice'>You open [src].</span>")
 		open(auto_close = FALSE)
 
 /obj/machinery/door/firedoor/attackby(obj/item/C, mob/user, params)
-	add_fingerprint(user)
-
 	if(operating)
+		add_fingerprint(user)
 		return
 	return ..()
 
@@ -199,10 +199,10 @@
 	switch(animation)
 		if("opening")
 			flick("door_opening", src)
-			playsound(src, 'sound/machines/airlock_ext_open.ogg', 30, 1)
+			playsound(src, 'sound/machines/firedoor.ogg', 60, 1)
 		if("closing")
 			flick("door_closing", src)
-			playsound(src, 'sound/machines/airlock_ext_close.ogg', 30, 1)
+			playsound(src, 'sound/machines/firedoor.ogg', 60, 1)
 
 /obj/machinery/door/firedoor/update_icon()
 	overlays.Cut()
@@ -387,6 +387,7 @@
 				if(do_after(user, 60 * C.toolspeed * gettoolspeedmod(user), target = src))
 					if(constructionStep != CONSTRUCTION_PANEL_OPEN || reinforced || P.get_amount() < 2 || !P)
 						return
+					add_fingerprint(user)
 					user.visible_message("<span class='notice'>[user] reinforces [src].</span>", \
 										 "<span class='notice'>You reinforce [src].</span>")
 					playsound(get_turf(src), C.usesound, 50, 1)
@@ -405,6 +406,7 @@
 				if(do_after(user, 60 * B.toolspeed * gettoolspeedmod(user), target = src))
 					if(constructionStep != CONSTRUCTION_GUTTED || B.get_amount() < 5 || !B)
 						return
+					add_fingerprint(user)
 					user.visible_message("<span class='notice'>[user] adds wires to [src].</span>", \
 										 "<span class='notice'>You wire [src].</span>")
 					playsound(get_turf(src), B.usesound, 50, 1)
@@ -421,7 +423,8 @@
 					return
 				if(constructionStep != CONSTRUCTION_NOCIRCUIT)
 					return
-				user.drop_item()
+				add_fingerprint(user)
+				user.drop_transfer_item_to_loc(C, src)
 				qdel(C)
 				user.visible_message("<span class='notice'>[user] adds a circuit to [src].</span>", \
 									 "<span class='notice'>You insert and secure [C].</span>")
@@ -485,8 +488,7 @@
 		return
 	user.visible_message("<span class='notice'>[user] removes the wires from [src].</span>", \
 						 "<span class='notice'>You remove the wiring from [src], exposing the circuit board.</span>")
-	var/obj/item/stack/cable_coil/B = new(get_turf(src))
-	B.amount = 5
+	new /obj/item/stack/cable_coil(drop_location(), 5)
 	constructionStep = CONSTRUCTION_GUTTED
 	update_icon()
 

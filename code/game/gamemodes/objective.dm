@@ -65,7 +65,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 		SEND_SOUND(owner.current, 'sound/ambience/alarm4.ogg')
 	SSticker.mode.victims.Remove(target)
 	target = null
-	INVOKE_ASYNC(src, .proc/post_target_cryo)
+	INVOKE_ASYNC(src, PROC_REF(post_target_cryo))
 
 /**
   * Called a tick after when the objective's target goes to cryo.
@@ -233,6 +233,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 
 /datum/objective/protect/mindslave //subtype for mindslave implants
 
+/datum/objective/protect/contractor //subtype for support units
 
 /datum/objective/hijack
 	martyr_compatible = 0 //Technically you won't get both anyway.
@@ -345,7 +346,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 /datum/objective/escape/escape_with_identity/find_target()
 	var/list/possible_targets = list() //Copypasta because NO_DNA races, yay for snowflakes.
 	for(var/datum/mind/possible_target in SSticker.minds)
-		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && possible_target.current.client)
+		if(!(is_invalid_target(possible_target)))
 			var/mob/living/carbon/human/H = possible_target.current
 			if(!(NO_DNA in H.dna.species.species_traits))
 				possible_targets += possible_target
@@ -1025,7 +1026,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 	if(owner?.current)
 		to_chat(owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
 		SEND_SOUND(owner.current, 'sound/ambience/alarm4.ogg')
-	INVOKE_ASYNC(src, .proc/post_target_cryo)
+	INVOKE_ASYNC(src, PROC_REF(post_target_cryo))
 
 /datum/objective/protect/ninja/post_target_cryo()
 	find_target()
@@ -1080,7 +1081,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 		SEND_SOUND(owner.current, 'sound/ambience/alarm4.ogg')
 	if(!completed)
 		target = null
-		INVOKE_ASYNC(src, .proc/post_target_cryo)
+		INVOKE_ASYNC(src, PROC_REF(post_target_cryo))
 
 /datum/objective/set_up/check_completion()
 	if(issilicon(target.current))

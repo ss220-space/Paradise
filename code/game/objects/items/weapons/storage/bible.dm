@@ -51,13 +51,13 @@
 	desc = "To be applied to the head repeatedly."
 	icon_state ="bible"
 
-/obj/item/storage/bible/booze/New()
-	..()
+/obj/item/storage/bible/booze/populate_contents()
 	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
 	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
 	new /obj/item/stack/spacecash(src)
 	new /obj/item/stack/spacecash(src)
 	new /obj/item/stack/spacecash(src)
+
 //BS12 EDIT
  // All cult functionality moved to Null Rod
 /obj/item/storage/bible/proc/bless(mob/living/carbon/M)
@@ -165,7 +165,7 @@
 		var/image/bible_image = image('icons/obj/storage.dmi', icon_state = icons["state"])
 		skins[I] = bible_image
 
-	var/choice = show_radial_menu(user, src, skins, null, 40, CALLBACK(src, .proc/radial_check, user), TRUE)
+	var/choice = show_radial_menu(user, src, skins, null, 40, CALLBACK(src, PROC_REF(radial_check), user), TRUE)
 	if(!choice || !radial_check(user))
 		return
 	var/choice_icons = bible_variants[choice]
@@ -200,6 +200,6 @@
 	if(!user?.mind.isholy || !ishuman(user))
 		return FALSE
 	var/mob/living/carbon/human/H = user
-	if(!src || !H.is_in_hands(src) || H.incapacitated())
+	if(!src || !H.is_type_in_hands(src) || H.incapacitated())
 		return FALSE
 	return TRUE

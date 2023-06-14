@@ -116,7 +116,7 @@
 
 /datum/chemical_reaction/slimemobspawn/proc/summon_mobs(datum/reagents/holder, turf/T)
 	T.visible_message("<span class='danger'>The slime extract begins to vibrate violently!</span>")
-	addtimer(CALLBACK(src, .proc/chemical_mob_spawn, holder, 5, "Gold Slime", HOSTILE_SPAWN), 50)
+	addtimer(CALLBACK(src, PROC_REF(chemical_mob_spawn), holder, 5, "Gold Slime", HOSTILE_SPAWN), 50)
 
 /datum/chemical_reaction/slimemobspawn/lesser
 	name = "Slime Crit Lesser"
@@ -125,7 +125,7 @@
 
 /datum/chemical_reaction/slimemobspawn/lesser/summon_mobs(datum/reagents/holder, turf/T)
 	T.visible_message("<span class='danger'>The slime extract begins to vibrate violently!</span>")
-	addtimer(CALLBACK(src, .proc/chemical_mob_spawn, holder, 3, "Lesser Gold Slime", HOSTILE_SPAWN, "neutral"), 50)
+	addtimer(CALLBACK(src, PROC_REF(chemical_mob_spawn), holder, 3, "Lesser Gold Slime", HOSTILE_SPAWN, "neutral"), 50)
 
 /datum/chemical_reaction/slimemobspawn/friendly
 	name = "Slime Crit Friendly"
@@ -134,7 +134,7 @@
 
 /datum/chemical_reaction/slimemobspawn/friendly/summon_mobs(datum/reagents/holder, turf/T)
 	T.visible_message("<span class='danger'>The slime extract begins to vibrate adorably!</span>")
-	addtimer(CALLBACK(src, .proc/chemical_mob_spawn, holder, 1, "Friendly Gold Slime", FRIENDLY_SPAWN, "neutral"), 50)
+	addtimer(CALLBACK(src, PROC_REF(chemical_mob_spawn), holder, 1, "Friendly Gold Slime", FRIENDLY_SPAWN, "neutral"), 50)
 
 //Silver
 /datum/chemical_reaction/slimebork
@@ -622,9 +622,7 @@
 
 /datum/chemical_reaction/slimefloor2/on_reaction(datum/reagents/holder, created_volume)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/stack/tile/bluespace/P = new
-	P.amount = 25
-	P.forceMove(get_turf(holder.my_atom))
+	new /obj/item/stack/tile/bluespace(get_turf(holder.my_atom), 25)
 
 /datum/chemical_reaction/slimeteleportation
 	name = "Slime Steroid 2"
@@ -745,9 +743,7 @@
 
 /datum/chemical_reaction/slimefloor/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/stack/tile/sepia/P = new
-	P.amount = 25
-	P.forceMove(get_turf(holder.my_atom))
+	new /obj/item/stack/tile/sepia(get_turf(holder.my_atom), 25)
 
 
 //Pyrite

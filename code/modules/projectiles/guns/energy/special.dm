@@ -550,7 +550,7 @@
 	if(sibyl_mod && sibyl_mod.voice_is_enabled && !sound_cd)
 		var/temp_select = select
 		if(sound_voice[select] && select == temp_select)
-			sound_cd = addtimer(CALLBACK(src, .proc/select_playvoice, user, temp_select), 2 SECONDS)
+			sound_cd = addtimer(CALLBACK(src, PROC_REF(select_playvoice), user, temp_select), 2 SECONDS)
 	return
 
 /obj/item/gun/energy/dominator/proc/select_playvoice(mob/living/user, temp_select)
@@ -602,15 +602,17 @@
 	is_equipped = ismob(loc)
 	return
 
-/obj/item/gun/energy/dominator/equipped(mob/user)
+/obj/item/gun/energy/dominator/equipped(mob/user, slot, initial)
 	. = ..()
+
 	update_icon()
-	return .
+
 
 /obj/item/gun/energy/dominator/dropped(mob/user)
 	. = ..()
+
 	update_icon()
-	return .
+
 
 /obj/item/gun/energy/dominator/proc/set_drop_icon()
 	icon_state = initial(icon_state)

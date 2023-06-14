@@ -313,7 +313,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	universal_speak = 1
 
 /mob/living/automatedannouncer/New()
-	lifetime_timer = addtimer(CALLBACK(src, .proc/autocleanup), 10 SECONDS, TIMER_STOPPABLE)
+	lifetime_timer = addtimer(CALLBACK(src, PROC_REF(autocleanup)), 10 SECONDS, TIMER_STOPPABLE)
 	..()
 
 /mob/living/automatedannouncer/Destroy()
@@ -474,7 +474,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		tcm.zlevels = list(position.z)
 		if(!instant)
 			// Simulate two seconds of lag
-			addtimer(CALLBACK(src, .proc/broadcast_callback, tcm), 2 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(broadcast_callback), tcm), 2 SECONDS)
 		else
 			// Nukeops + Deathsquad headsets are instant and should work the same, whether there is comms or not
 			broadcast_message(tcm)
@@ -604,7 +604,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/emp_act(severity)
 	on = 0
 	disable_timer++
-	addtimer(CALLBACK(src, .proc/enable_radio), rand(100, 200))
+	addtimer(CALLBACK(src, PROC_REF(enable_radio)), rand(100, 200))
 
 	if(listening)
 		visible_message("<span class='warning'>[src] buzzes violently!</span>")
@@ -689,8 +689,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 			return
 
 		if(!keyslot)
-			user.drop_item()
-			W.loc = src
+			user.drop_transfer_item_to_loc(W, src)
 			keyslot = W
 
 		recalculateChannels()
@@ -789,3 +788,11 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/phone/medbay/New()
 	..()
 	internal_channels = GLOB.default_medbay_channels.Copy()
+
+/obj/item/radio/bot
+	tts_seed = null
+
+/obj/item/radio/phone/ussp
+	name = "Red phone"
+	has_loudspeaker = TRUE
+	frequency = SOV_FREQ

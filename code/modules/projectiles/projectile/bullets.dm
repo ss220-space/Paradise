@@ -219,6 +219,10 @@
 	name = "dragonsbreath round"
 	damage = 5
 
+/obj/item/projectile/bullet/incendiary/shell/dragonsbreath/mecha
+	name = "liquidlava round"
+	damage = 20
+
 /obj/item/projectile/bullet/meteorshot
 	name = "meteor"
 	icon = 'icons/obj/meteor.dmi'
@@ -336,3 +340,14 @@
 /obj/item/projectile/bullet/cap/fire()
 	loc = null
 	qdel(src)
+
+/obj/item/projectile/bullet/f545 // Rusted AK
+	name = "Fusty FMJ 5.45 bullet"
+	damage = 18
+	stamina = 6
+
+/obj/item/projectile/bullet/ftt762 // Rusted PPSh
+	name = "Fusty FMJ 7.62 TT bullet"
+	damage = 8
+	stamina = 1
+	armour_penetration = 5

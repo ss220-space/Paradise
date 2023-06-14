@@ -51,10 +51,10 @@
 	if(istype(I, /obj/item/gps))
 		var/obj/item/gps/L = I
 		if(L.locked_location && !(stat & (NOPOWER|BROKEN)))
-			if(!user.unEquip(L))
+			if(!user.drop_transfer_item_to_loc(L, src))
 				to_chat(user, "<span class='warning'>[I] is stuck to your hand, you cannot put it in [src]</span>")
 				return
-			L.forceMove(src)
+			add_fingerprint(user)
 			locked = L
 			to_chat(user, "<span class='caution'>You insert the GPS device into the [src]'s slot.</span>")
 	else
@@ -71,6 +71,7 @@
 	attack_hand(user)
 
 /obj/machinery/computer/teleporter/attack_hand(mob/user)
+	add_fingerprint(user)
 	ui_interact(user)
 
 
@@ -149,7 +150,7 @@
 
 			atom_say("Калибровка хаба до указанной цели в процессе...")
 			calibrating = TRUE
-			addtimer(CALLBACK(src, .proc/calibrateCallback), 50 * (3 - power_station.teleporter_hub.accurate)) //Better parts mean faster calibration
+			addtimer(CALLBACK(src, PROC_REF(calibrateCallback)), 50 * (3 - power_station.teleporter_hub.accurate)) //Better parts mean faster calibration
 
 /**
 *	Resets the connected powerstation to initial values. Helper function of ui_act
@@ -467,7 +468,7 @@
 		if(tele_delay)
 			recalibrating = TRUE
 			update_icon()
-			addtimer(CALLBACK(src, .proc/BumpedCallback), tele_delay)
+			addtimer(CALLBACK(src, PROC_REF(BumpedCallback)), tele_delay)
 
 /obj/machinery/teleport/perma/proc/BumpedCallback()
 	recalibrating = FALSE
@@ -560,6 +561,7 @@
 	if(exchange_parts(user, I))
 		return
 	if(panel_open && istype(I, /obj/item/circuitboard/teleporter_perma))
+		add_fingerprint(user)
 		var/obj/item/circuitboard/teleporter_perma/C = I
 		C.target = teleporter_console.target
 		to_chat(user, "<span class='caution'>You copy the targeting information from [src] to [C]</span>")
@@ -606,6 +608,7 @@
 	attack_hand()
 
 /obj/machinery/teleport/station/attack_hand(mob/user)
+	add_fingerprint(user)
 	if(!panel_open)
 		toggle(user)
 	else

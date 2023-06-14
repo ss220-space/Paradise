@@ -11,10 +11,11 @@
 
 /obj/structure/ore_box/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/ore))
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(W, src))
 			return
-		W.forceMove(src)
+		add_fingerprint(user)
 	else if(istype(W, /obj/item/storage))
+		add_fingerprint(user)
 		var/obj/item/storage/S = W
 		S.hide_from(usr)
 		for(var/obj/item/stack/ore/O in S.contents)
@@ -32,6 +33,7 @@
 
 /obj/structure/ore_box/attack_hand(mob/user)
 	if(Adjacent(user))
+		add_fingerprint(user)
 		show_contents(user)
 
 /obj/structure/ore_box/attack_robot(mob/user)

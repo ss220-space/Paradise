@@ -558,7 +558,7 @@
 /datum/species/golem/sand/handle_death(gibbed, mob/living/carbon/human/H)
 	H.visible_message("<span class='danger'>[H] рассыпал[genderize_ru(H.gender,"ся","ась","ось","ись")] в кучу песка!</span>")
 	for(var/obj/item/W in H)
-		H.unEquip(W)
+		H.drop_item_ground(W)
 	for(var/i=1, i <= rand(3, 5), i++)
 		new /obj/item/stack/ore/glass(get_turf(H))
 	qdel(H)
@@ -603,7 +603,7 @@
 	playsound(H, "shatter", 70, 1)
 	H.visible_message("<span class='danger'>[H] разбил[genderize_ru(H.gender,"ся","ась","ось","ись")] в дребезги!</span>")
 	for(var/obj/item/W in H)
-		H.unEquip(W)
+		H.drop_item_ground(W)
 	for(var/i=1, i <= rand(3, 5), i++)
 		new /obj/item/shard(get_turf(H))
 	qdel(H)
@@ -724,7 +724,7 @@
 	var/mob/living/carbon/human/H = owner
 	H.visible_message("<span class='warning'>[H] начинает вибрировать!</span>", "<span class='danger'>Вы начали заряжать своё блюспейс-ядро…</span>")
 	playsound(get_turf(H), 'sound/weapons/flash.ogg', 25, 1)
-	addtimer(CALLBACK(src, .proc/teleport, H), 15)
+	addtimer(CALLBACK(src, PROC_REF(teleport), H), 15)
 
 /datum/action/innate/unstable_teleport/proc/teleport(mob/living/carbon/human/H)
 	activated = FALSE
@@ -905,6 +905,6 @@
 /datum/species/golem/clockwork/handle_death(gibbed, mob/living/carbon/human/H)
 	H.visible_message("<span class='danger'>[H] crumbles into cogs and gears! Then leftovers suddenly dusts!</span>")
 	for(var/obj/item/W in H)
-		H.unEquip(W)
+		H.drop_item_ground(W)
 	new /obj/item/clockwork/clockgolem_remains(get_turf(H))
 	H.dust() // One-try only

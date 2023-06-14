@@ -3,13 +3,14 @@
 	caste = "h"
 	maxHealth = 205
 	health = 205
+	devour_time = 2 SECONDS
 	icon_state = "alienh_s"
 
-	var/datum/action/innate/xeno_action/plant/plant_action = new
+	var/obj/effect/proc_holder/spell/xeno_plant/plant_spell = new
 
 /mob/living/carbon/alien/humanoid/hunter/GrantAlienActions()
 	. = ..()
-	plant_action.Grant(src)
+	plant_spell.action.Grant(src)
 
 /mob/living/carbon/alien/humanoid/hunter/New()
 	if(name == "alien hunter")
@@ -67,7 +68,7 @@
 	else //Maybe uses plasma in the future, although that wouldn't make any sense...
 		leaping = 1
 		update_icons()
-		throw_at(A, MAX_ALIEN_LEAP_DIST, 1, spin = 0, diagonals_first = 1, callback = CALLBACK(src, .proc/leap_end))
+		throw_at(A, MAX_ALIEN_LEAP_DIST, 1, spin = 0, diagonals_first = 1, callback = CALLBACK(src, PROC_REF(leap_end)))
 
 /mob/living/carbon/alien/humanoid/hunter/proc/leap_end()
 	leaping = 0

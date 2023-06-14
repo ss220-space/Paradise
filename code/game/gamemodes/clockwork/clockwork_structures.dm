@@ -33,6 +33,7 @@
 		if(hidden)
 			to_chat(user, "<span class='warning'>You have to clear the view of this structure in order to manipulate with it!</span>")
 			return TRUE
+		add_fingerprint(user)
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
 		if(!anchored)
@@ -97,7 +98,7 @@
 	name = "herald's beacon"
 	desc = "An imposing spire formed of brass. It somewhat pulsates."
 	icon_state = "beacon"
-	max_integrity = 750 // A very important one
+	max_integrity = 250 // A very important one
 	death_message = "<span class='danger'>The beacon crumbles and falls in parts to the ground relaesing it's power!</span>"
 	death_sound = 'sound/effects/creepyshriek.ogg'
 	var/heal_delay = 6 SECONDS
@@ -347,7 +348,7 @@
 			return
 		GLOB.command_announcement.Announce("Была обнаружена аномально высокая концентрация энергии в [A.map_name]. Источник энергии указывает на попытку вызвать потустороннего бога по имени Ратвар. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/spanomalies.ogg')
 		visible_message("<span class='biggerdanger'>[user] ominously presses [I] into [src] as the mechanism inside starts to shine!</span>")
-		user.unEquip(I)
+		user.temporarily_remove_item_from_inventory(I)
 		qdel(I)
 		begin_the_ritual()
 

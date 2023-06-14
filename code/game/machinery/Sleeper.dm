@@ -137,6 +137,7 @@
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return
 
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/sleeper/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -290,12 +291,12 @@
 /obj/machinery/sleeper/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/glass))
 		if(!beaker)
-			if(!user.drop_item())
+			if(!user.drop_transfer_item_to_loc(I, src))
 				to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 				return
 
+			add_fingerprint(user)
 			beaker = I
-			I.forceMove(src)
 			user.visible_message("[user] adds \a [I] to [src]!", "You add \a [I] to [src]!")
 			SStgui.update_uis(src)
 			return
@@ -474,7 +475,8 @@
 
 	if(beaker)
 		filtering = FALSE
-		usr.put_in_hands(beaker)
+		beaker.forceMove_turf()
+		usr.put_in_hands(beaker, ignore_anim = FALSE)
 		beaker = null
 		SStgui.update_uis(src)
 	add_fingerprint(usr)

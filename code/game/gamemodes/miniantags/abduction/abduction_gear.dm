@@ -519,11 +519,13 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		C.visible_message("<span class='danger'>[user] begins restraining [C] with [src]!</span>", \
 								"<span class='userdanger'>[user] begins shaping an energy field around your hands!</span>")
 		if(do_mob(user, C, 30))
-			if(!C.handcuffed)
-				C.handcuffed = new /obj/item/restraints/handcuffs/energy/used(C)
-				C.update_handcuffed()
-				to_chat(user, "<span class='notice'>You handcuff [C].</span>")
-				add_attack_logs(user, C, "Handcuffed ([src])")
+			if(C.handcuffed)
+				return
+
+			C.set_handcuffed(new /obj/item/restraints/handcuffs/cable/zipties/used(C))
+
+			to_chat(user, "<span class='notice'>You handcuff [C].</span>")
+			add_attack_logs(user, C, "Handcuffed ([src])")
 		else
 			to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
 
@@ -829,8 +831,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	throw_speed = 2
 	throw_range = 8
 
-/obj/item/storage/firstaid_abductor/New()
-	..()
+/obj/item/storage/firstaid_abductor/populate_contents()
 	new /obj/item/reagent_containers/applicator/abductor/brute(src)
 	new /obj/item/reagent_containers/applicator/abductor/burn(src)
 	new /obj/item/reagent_containers/glass/bottle/abductor/rezadone(src)

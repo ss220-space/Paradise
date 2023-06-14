@@ -22,7 +22,7 @@
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
-		unEquip(W)
+		drop_item_ground(W)
 	notransform = 1
 	canmove = 0
 	icon = null
@@ -51,7 +51,7 @@
 
 	O.tts_seed = tts_seed
 
-	INVOKE_ASYNC(GLOBAL_PROC, .proc/qdel, src) // To prevent the proc from returning null.
+	INVOKE_ASYNC(GLOBAL_PROC, /proc/qdel, src) // To prevent the proc from returning null.
 	return O
 
 
@@ -68,7 +68,7 @@
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
-		unEquip(W)
+		drop_item_ground(W)
 
 	notransform = 1
 	canmove = 0
@@ -118,14 +118,14 @@
 
 	O.tts_seed = tts_seed
 
-	INVOKE_ASYNC(GLOBAL_PROC, .proc/qdel, src) // To prevent the proc from returning null.
+	INVOKE_ASYNC(GLOBAL_PROC, /proc/qdel, src) // To prevent the proc from returning null.
 	return O
 
 /mob/living/carbon/human/proc/corgize()
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
-		unEquip(W)
+		drop_item_ground(W)
 	regenerate_icons()
 	notransform = 1
 	canmove = 0
@@ -149,7 +149,7 @@
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
-		unEquip(W)
+		drop_item_ground(W)
 
 	regenerate_icons()
 	notransform = 1

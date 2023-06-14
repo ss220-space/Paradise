@@ -20,13 +20,13 @@
 	switch(state)
 		if(EMPTY_CORE)
 			if(istype(P, /obj/item/circuitboard/aicore))
-				if(!user.drop_item())
+				if(!user.drop_transfer_item_to_loc(P, src))
 					return
+				add_fingerprint(user)
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You place the circuit board inside the frame.</span>")
 				update_icon()
 				state = CIRCUIT_CORE
-				P.forceMove(src)
 				circuit = P
 				return
 		if(SCREWED_CORE)
@@ -36,6 +36,7 @@
 					playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 					to_chat(user, "<span class='notice'>You start to add cables to the frame...</span>")
 					if(do_after(user, 20, target = src) && state == SCREWED_CORE && C.use(5))
+						add_fingerprint(user)
 						to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
 						state = CABLED_CORE
 						update_icon()
@@ -49,6 +50,7 @@
 					playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 					to_chat(user, "<span class='notice'>You start to put in the glass panel...</span>")
 					if(do_after(user, 20, target = src) && state == CABLED_CORE && G.use(2))
+						add_fingerprint(user)
 						to_chat(user, "<span class='notice'>You put in the glass panel.</span>")
 						state = GLASS_CORE
 						update_icon()
@@ -57,11 +59,13 @@
 				return
 
 			if(istype(P, /obj/item/aiModule/purge))
+				add_fingerprint(user)
 				laws.clear_inherent_laws()
 				to_chat(usr, "<span class='notice'>Law module applied.</span>")
 				return
 
 			if(istype(P, /obj/item/aiModule/freeform))
+				add_fingerprint(user)
 				var/obj/item/aiModule/freeform/M = P
 				laws.add_inherent_law(M.newFreeFormLaw)
 				to_chat(usr, "<span class='notice'>Added a freeform law.</span>")
@@ -72,6 +76,7 @@
 				if(!M.laws)
 					to_chat(usr, "<span class='warning'>This AI module can not be applied directly to AI cores.</span>")
 					return
+				add_fingerprint(user)
 				laws = M.laws
 
 			if(istype(P, /obj/item/mmi) && !brain)
@@ -99,10 +104,10 @@
 					to_chat(user, "<span class='warning'>This MMI does not seem to fit!</span>")
 					return
 
-				if(!user.drop_item())
+				if(!user.drop_transfer_item_to_loc(M, src))
 					return
 
-				M.forceMove(src)
+				add_fingerprint(user)
 				brain = M
 				to_chat(user, "<span class='notice'>You add [M.name] to the frame.</span>")
 				update_icon()
@@ -185,8 +190,7 @@
 		to_chat(user, "<span class='notice'>You remove the cables.</span>")
 		state = SCREWED_CORE
 		update_icon()
-		var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( loc )
-		A.amount = 5
+		new /obj/item/stack/cable_coil(loc, 5)
 
 /obj/structure/AIcore/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE

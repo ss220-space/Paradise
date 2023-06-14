@@ -3,8 +3,8 @@
 #define EXTRACTION_PHASE_PREPARE 5 SECONDS
 #define EXTRACTION_PHASE_PORTAL 5 SECONDS
 #define COMPLETION_NOTIFY_DELAY 5 SECONDS
-#define RETURN_BRUISE_CHANCE 50
-#define RETURN_BRUISE_DAMAGE 20
+#define RETURN_BRUISE_CHANCE 80
+#define RETURN_BRUISE_DAMAGE 40
 #define RETURN_SOUVENIR_CHANCE 10
 
 /**
@@ -39,9 +39,9 @@
 	/// The base credits reward upon completion. Multiplied by the two lower bounds below.
 	var/credits_base = 100
 	// The lower bound of the credits reward multiplier.
-	var/credits_lower_mult = 25
+	var/credits_lower_mult = 50
 	// The upper bound of the credits reward multiplier.
-	var/credits_upper_mult = 40
+	var/credits_upper_mult = 75
 	// Implants (non cybernetic ones) that shouldn't be removed when a victim gets kidnapped.
 	// Typecache; initialized in New()
 	var/static/implants_to_keep = null
@@ -198,7 +198,7 @@
 	status = CONTRACT_STATUS_COMPLETED
 	completed_time = station_time_timestamp()
 	dead_extraction = target_dead
-	addtimer(CALLBACK(src, .proc/notify_completion, final_tc_reward, reward_credits, target_dead), COMPLETION_NOTIFY_DELAY)
+	addtimer(CALLBACK(src, PROC_REF(notify_completion), final_tc_reward, reward_credits, target_dead), COMPLETION_NOTIFY_DELAY)
 
 /**
   * Marks the contract as invalid and effectively cancels it for later use.
@@ -280,8 +280,8 @@
 		extraction_deadline = world.time + extraction_cooldown
 		M.visible_message("<span class='notice'>[M] enters a mysterious code on [U] and pulls a black and gold flare from [M.p_their()] belongings before lighting it.</span>",\
 						  "<span class='notice'>You finish entering the signal on [U] and light an extraction flare, initiating the extraction process.</span>")
-		addtimer(CALLBACK(src, .proc/open_extraction_portal, U, M, F), EXTRACTION_PHASE_PORTAL)
-		extraction_timer_handle = addtimer(CALLBACK(src, .proc/deadline_reached), portal_duration, TIMER_STOPPABLE)
+		addtimer(CALLBACK(src, PROC_REF(open_extraction_portal), U, M, F), EXTRACTION_PHASE_PORTAL)
+		extraction_timer_handle = addtimer(CALLBACK(src, PROC_REF(deadline_reached)), portal_duration, TIMER_STOPPABLE)
 
 /**
   * Opens the extraction portal.
@@ -319,7 +319,7 @@
   * * P - The extraction portal.
   */
 /datum/syndicate_contract/proc/target_received(mob/living/M, obj/effect/portal/redspace/contractor/P)
-	INVOKE_ASYNC(src, .proc/clean_up)
+	INVOKE_ASYNC(src, PROC_REF(clean_up))
 	complete(M.stat == DEAD)
 	handle_target_experience(M, P)
 
@@ -350,7 +350,7 @@
 	var/mob/living/carbon/human/H = M
 
 	// Prepare their return
-	prisoner_timer_handle = addtimer(CALLBACK(src, .proc/handle_target_return, M, T), prison_time, TIMER_STOPPABLE)
+	prisoner_timer_handle = addtimer(CALLBACK(src, PROC_REF(handle_target_return), M, T), prison_time, TIMER_STOPPABLE)
 	LAZYSET(GLOB.prisoner_belongings.prisoners, M, src)
 
 	// Shove all of the victim's items in the secure locker.
@@ -395,7 +395,7 @@
 			qdel(I)
 			continue
 
-		if(M.unEquip(I))
+		if(M.drop_item_ground(I))
 			stuff_to_transfer += I
 
 	// Transfer it all (or drop it if not possible)
@@ -418,8 +418,8 @@
 			mask = new /obj/item/clothing/mask/breath(H)
 
 		if(tank)
-			H.equip_to_appropriate_slot(tank)
-			H.equip_to_appropriate_slot(mask)
+			tank.equip_to_best_slot(H)
+			mask.equip_to_best_slot(H)
 			tank.toggle_internals(H, TRUE)
 
 	M.update_icons()
@@ -506,8 +506,17 @@
 		var/obj/item/souvenir = pick(souvenirs)
 		new souvenir(closet)
 	else if(prob(RETURN_BRUISE_CHANCE) && M.health >= 50)
-		to_chat(M, "<span class='warning'>You were roughed up a little by your captors before being sent back!</span>")
-		M.adjustBruteLoss(RETURN_BRUISE_DAMAGE)
+		var/mob/living/carbon/human/H = M
+		if(istype(H))
+			to_chat(M,"<span class='warning'>Your kidnappers beat you badly before sending you back!</span>")
+			var/parts_to_fuck_up = pick(BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_HEAD)
+			var/obj/item/organ/external/BP = H.bodyparts_by_name[parts_to_fuck_up]
+			if(!BP)
+				BP = H.bodyparts_by_name[BODY_ZONE_CHEST]
+			H.apply_damage(RETURN_BRUISE_DAMAGE, BRUTE, BP)
+			BP.fracture()
+		else
+			M.take_overall_damage(RETURN_BRUISE_DAMAGE)
 
 	// Return them a bit confused.
 	M.visible_message("<span class='notice'>[M] vanishes...</span>")

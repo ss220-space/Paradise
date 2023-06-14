@@ -41,7 +41,7 @@
 	var/randomspread = 1
 
 	var/unique_rename = TRUE //allows renaming with a pen
-	var/unique_reskin = FALSE //allows one-time reskinning
+	var/unique_reskin = FALSE //allows reskinning
 	var/current_skin = null //the skin choice if we had a reskin
 	var/list/options = list()
 
@@ -72,12 +72,21 @@
 	var/zoom_amt = 3 //Distance in TURFs to move the user's screen forward (the "zoom" effect)
 	var/datum/action/toggle_scope_zoom/azoom
 
-/obj/item/gun/New()
-	..()
+	//Rusted
+	var/rusted_weapon = FALSE
+	var/self_shot_divisor = 3 // higher value means more shots in the face
+	var/malf_low_bound = 40 // shots before gun exploding
+	var/malf_high_bound = 80
+	var/malf_counter // random number between malf_low_bound and malf_high_bound
+
+/obj/item/gun/Initialize()
+	. = ..()
 	appearance_flags |= KEEP_TOGETHER
 	if(gun_light)
 		verbs += /obj/item/gun/proc/toggle_gunlight
 	build_zooming()
+	if(rusted_weapon == TRUE)
+		malf_counter = rand(malf_low_bound, malf_high_bound)
 
 /obj/item/gun/Destroy()
 	QDEL_NULL(bayonet)
@@ -90,7 +99,7 @@
 
 /obj/item/gun/examine(mob/user)
 	. = ..()
-	if(unique_reskin && !current_skin)
+	if(unique_reskin)
 		. += "<span class='info'>Alt-click it to reskin it.</span>"
 	if(unique_rename)
 		. += "<span class='info'>Use a pen on it to rename it.</span>"
@@ -178,7 +187,7 @@
 				to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with \the [src]!</span>")
 				var/shot_leg = pick("l_foot", "r_foot")
 				process_fire(user, user, 0, params, zone_override = shot_leg)
-				user.drop_item()
+				user.drop_from_active_hand()
 				return
 
 	if(weapon_weight == WEAPON_HEAVY && user.get_inactive_hand())
@@ -196,7 +205,7 @@
 			else if(G.can_trigger_gun(user))
 				bonus_spread += 24 * G.weapon_weight
 				loop_counter++
-				addtimer(CALLBACK(G, .proc/process_fire, target, user, 1, params, null, bonus_spread), loop_counter)
+				addtimer(CALLBACK(G, PROC_REF(process_fire), target, user, 1, params, null, bonus_spread), loop_counter)
 
 	process_fire(target,user,1,params, null, bonus_spread)
 
@@ -287,6 +296,21 @@
 		else
 			user.update_inv_r_hand()
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
+	if(rusted_weapon == TRUE)
+		malf_counter -= burst_size
+		if(malf_counter <= 0 && prob(50))
+			new /obj/effect/decal/cleanable/ash(user.loc)
+			user.take_organ_damage(0,30)
+			user.flash_eyes()
+			to_chat(user, "<span class='userdanger'>WOAH! [src] blows up in your hands!</span>")
+			playsound(user, 'sound/effects/explosion1.ogg', 30, 1)
+			qdel(src)
+			return FALSE
+		if(prob(40 - (malf_counter > 0 ? round(malf_counter / self_shot_divisor) : 0)))
+			playsound(user, fire_sound, 30, 1)
+			to_chat(user, "<span class='userdanger'>[src] blows up in your face!</span>")
+			user.take_organ_damage(0,10)
+			return FALSE
 
 /obj/item/gun/attack(mob/M, mob/user)
 	if(user.a_intent == INTENT_HARM) //Flogging
@@ -307,13 +331,12 @@
 		var/obj/item/flashlight/seclite/S = I
 		if(can_flashlight)
 			if(!gun_light)
-				if(!user.unEquip(I))
+				if(!user.drop_transfer_item_to_loc(I, src))
 					return
 				to_chat(user, "<span class='notice'>You click [S] into place on [src].</span>")
 				if(S.on)
 					set_light(0)
 				gun_light = S
-				I.loc = src
 				update_icon()
 				update_gun_light(user)
 				var/datum/action/A = new /datum/action/item_action/toggle_gunlight(src)
@@ -329,9 +352,8 @@
 		var/obj/item/kitchen/knife/K = I
 		if(!can_bayonet || !K.bayonet || bayonet) //ensure the gun has an attachment point available, and that the knife is compatible with it.
 			return ..()
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(K, src))
 			return
-		K.forceMove(src)
 		to_chat(user, "<span class='notice'>You attach [K] to [src]'s bayonet lug.</span>")
 		bayonet = K
 		var/state = "bayonet"							//Generic state.
@@ -419,13 +441,13 @@
 	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
-	if(unique_reskin && !current_skin && loc == user)
+	if(unique_reskin && loc == user)
 		reskin_gun(user)
 
 /obj/item/gun/proc/reskin_gun(mob/M)
-	var/choice = input(M,"Warning, you can only reskin your weapon once!","Reskin Gun") in options
+	var/choice = input(M,"Select your skin.","Reskin Gun") in options
 
-	if(src && choice && !current_skin && !M.incapacitated() && in_range(M,src))
+	if(src && choice && !M.incapacitated() && in_range(M,src))
 		if(options[choice] == null)
 			return
 		current_skin = options[choice]
@@ -528,7 +550,7 @@
 	if(zoomable)
 		azoom = new()
 		azoom.gun = src
-		RegisterSignal(src, COMSIG_ITEM_EQUIPPED, .proc/ZoomGrantCheck)
+		RegisterSignal(src, COMSIG_ITEM_EQUIPPED, PROC_REF(ZoomGrantCheck))
 
 /**
  * Proc which will be called when the gun receives the `COMSIG_ITEM_EQUIPPED` signal.

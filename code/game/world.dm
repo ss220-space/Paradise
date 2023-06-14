@@ -1,5 +1,9 @@
 GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
+#ifdef UNIT_TESTS
+GLOBAL_DATUM(test_runner, /datum/test_runner)
+#endif
+
 /proc/enable_debugging(mode, port)
 	CRASH("auxtools not loaded")
 
@@ -67,7 +71,8 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
 
 	#ifdef UNIT_TESTS
-	HandleTestRun()
+	GLOB.test_runner = new
+	GLOB.test_runner.Start()
 	#endif
 
 	return
@@ -144,7 +149,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 
 	// If we were running unit tests, finish that run
 	#ifdef UNIT_TESTS
-	FinishTestRun()
+	GLOB.test_runner.Finalize()
 	return
 	#endif
 
@@ -295,6 +300,9 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	var/F = file("data/logpath.txt")
 	fdel(F)
 	F << GLOB.log_directory
+
+	var/latest_changelog = file("html/changelogs/archive/" + time2text(world.timeofday, "YYYY-MM") + ".yml")
+	GLOB.changelog_hash = fexists(latest_changelog) ? md5(latest_changelog) : 0 //for telling if the changelog has changed recently
 
 
 /world/Del()

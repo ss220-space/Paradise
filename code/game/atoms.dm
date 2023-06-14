@@ -227,7 +227,7 @@
 			var/atom/movable/M = A
 			if(istype(M.loc, /mob/living))
 				var/mob/living/L = M.loc
-				L.unEquip(M)
+				L.drop_item_ground(M)
 			M.forceMove(src)
 
 /atom/proc/assume_air(datum/gas_mixture/giver)
@@ -473,7 +473,7 @@
 
 /atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
-		addtimer(CALLBACK(src, .proc/hitby_react, AM), 2)
+		addtimer(CALLBACK(src, PROC_REF(hitby_react), AM), 2)
 
 /atom/proc/hitby_react(atom/movable/AM)
 	if(AM && isturf(AM.loc))
@@ -620,6 +620,12 @@
 	if(fingerprintshidden)
 		A.fingerprintshidden |= fingerprintshidden.Copy()    //admin
 	A.fingerprintslast = fingerprintslast
+
+/**
+* Proc thats checks if mobs can leave fingerprints and fibers on the atom
+*/
+/atom/proc/has_prints()
+	return FALSE
 
 GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
@@ -937,7 +943,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(length(speech_bubble_hearers))
 		var/image/I = image('icons/mob/talk.dmi', src, "[bubble_icon][say_test(message)]", FLY_LAYER)
 		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-		INVOKE_ASYNC(GLOBAL_PROC, /.proc/flick_overlay, I, speech_bubble_hearers, 30)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, I, speech_bubble_hearers, 30)
 
 /atom/proc/select_voice(mob/user, silent_target = FALSE)
 	if(!ismob(src) && !user)

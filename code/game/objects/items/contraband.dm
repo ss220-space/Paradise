@@ -6,42 +6,27 @@
 	desc = "Highly illegal drug. When you want to see the rainbow."
 	wrapper_color = COLOR_PINK
 
-/obj/item/storage/pill_bottle/happy/New()
-	..()
-	new /obj/item/reagent_containers/food/pill/happy( src )
-	new /obj/item/reagent_containers/food/pill/happy( src )
-	new /obj/item/reagent_containers/food/pill/happy( src )
-	new /obj/item/reagent_containers/food/pill/happy( src )
-	new /obj/item/reagent_containers/food/pill/happy( src )
-	new /obj/item/reagent_containers/food/pill/happy( src )
-	new /obj/item/reagent_containers/food/pill/happy( src )
+/obj/item/storage/pill_bottle/happy/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/reagent_containers/food/pill/happy(src)
 
 /obj/item/storage/pill_bottle/zoom
 	name = "Zoom pills"
 	desc = "Highly illegal drug. Trade brain for speed."
 	wrapper_color = COLOR_BLUE
 
-/obj/item/storage/pill_bottle/zoom/New()
-	..()
-	new /obj/item/reagent_containers/food/pill/zoom( src )
-	new /obj/item/reagent_containers/food/pill/zoom( src )
-	new /obj/item/reagent_containers/food/pill/zoom( src )
-	new /obj/item/reagent_containers/food/pill/zoom( src )
-	new /obj/item/reagent_containers/food/pill/zoom( src )
-	new /obj/item/reagent_containers/food/pill/zoom( src )
-	new /obj/item/reagent_containers/food/pill/zoom( src )
+/obj/item/storage/pill_bottle/zoom/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/reagent_containers/food/pill/zoom(src)
 
 /obj/item/storage/pill_bottle/sovietstimulants
 	name = "\improper Soviet combat stimulants"
 	desc = "Increases user speed and performance for surprise and shock warfare. Effects wear off quickly. Take at the moment of enemy contact for maximum effect."
 	wrapper_color = COLOR_RED
 
-/obj/item/storage/pill_bottle/sovietstimulants/New()
-	..()
-	new /obj/item/reagent_containers/food/pill/stimulative_agent(src)
-	new /obj/item/reagent_containers/food/pill/stimulative_agent(src)
-	new /obj/item/reagent_containers/food/pill/stimulative_agent(src)
-	new /obj/item/reagent_containers/food/pill/stimulative_agent(src)
+/obj/item/storage/pill_bottle/sovietstimulants/populate_contents()
+	for(var/I in 1 to 4)
+		new /obj/item/reagent_containers/food/pill/stimulative_agent(src)
 
 
 /obj/item/reagent_containers/food/pill/random_drugs
@@ -49,8 +34,7 @@
 	icon_state = "pillrandom"
 	desc = "A cocktail of illicit designer drugs, who knows what might be in here."
 
-/obj/item/reagent_containers/food/pill/random_drugs/New()
-	..()
+/obj/item/reagent_containers/food/pill/random_drugs/Initialize(mapload)
 	icon_state = "pill" + pick("2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20")
 
 	name = "[pick_list("chemistry_tools.json", "CYBERPUNK_drug_prefixes")] [pick_list("chemistry_tools.json", "CYBERPUNK_drug_suffixes")]"
@@ -64,6 +48,8 @@
 	while(adulterants > 0)
 		adulterants--
 		reagents.add_reagent(pick_list("chemistry_tools.json", "CYBERPUNK_drug_adulterants"), 3)
+
+	. = ..()
 
 /obj/item/storage/pill_bottle/random_drug_bottle
 	name = "pill bottle (???)"

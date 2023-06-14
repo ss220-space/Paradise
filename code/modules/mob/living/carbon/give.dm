@@ -41,8 +41,8 @@
 					to_chat(target, "<span class='warning'> Your hands are full.</span>")
 					to_chat(usr, "<span class='warning'> Their hands are full.</span>")
 					return
-				usr.unEquip(I)
-				target.put_in_hands(I)
+				usr.drop_item_ground(I)
+				target.put_in_hands(I, ignore_anim = FALSE)
 				I.add_fingerprint(target)
 				target.visible_message("<span class='notice'> [usr.name] handed [I] to [target.name].</span>")
 				I.on_give(usr, target)
@@ -185,7 +185,7 @@
 	giver.apply_status_effect(STATUS_EFFECT_OFFERING_ITEM, receiver_UID, item_UID)
 	add_overlay(icon(I.icon, I.icon_state, SOUTH))
 	add_overlay("alert_flash")
-	RegisterSignal(I, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), .proc/cancel_give)
+	RegisterSignal(I, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(cancel_give))
 	// If either of these atoms are deleted, we need to cancel everything. Also saves having to do null checks before interacting with these atoms.
 	RegisterSignal(I, COMSIG_PARENT_QDELETING, /datum/proc/signal_qdel)
 	RegisterSignal(giver, COMSIG_PARENT_QDELETING, /datum/proc/signal_qdel)
@@ -223,8 +223,8 @@
 		to_chat(receiver, "<span class='warning'>[I] stays stuck to [giver]'s hand when you try to take it!</span>")
 		return
 	UnregisterSignal(I, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED)) // We don't want these triggering `cancel_give` at this point, since the give is successful.
-	giver.unEquip(I)
-	receiver.put_in_hands(I)
+	giver.drop_item_ground(I)
+	receiver.put_in_hands(I, ignore_anim = FALSE)
 	I.add_fingerprint(receiver)
 	I.on_give(giver, receiver)
 	receiver.visible_message("<span class='notice'>[giver] handed [I] to [receiver].</span>")

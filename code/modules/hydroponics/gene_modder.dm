@@ -96,6 +96,7 @@
 
 /obj/machinery/plantgenes/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "dnamod", "dnamod", I))
+		add_fingerprint(user)
 		update_icon()
 		return
 	if(exchange_parts(user, I))
@@ -109,8 +110,9 @@
 		if(seed)
 			to_chat(user, "<span class='warning'>A sample is already loaded into the machine!</span>")
 		else
-			if(!user.drop_item())
+			if(!user.drop_from_active_hand())
 				return
+			add_fingerprint(user)
 			insert_seed(I)
 			to_chat(user, "<span class='notice'>You add [I] to the machine.</span>")
 			interact(user)
@@ -119,10 +121,10 @@
 		if(disk)
 			to_chat(user, "<span class='warning'>A data disk is already loaded into the machine!</span>")
 		else
-			if(!user.drop_item())
+			if(!user.drop_transfer_item_to_loc(I, src))
 				return
+			add_fingerprint(user)
 			disk = I
-			disk.forceMove(src)
 			to_chat(user, "<span class='notice'>You add [I] to the machine.</span>")
 			interact(user)
 	else
@@ -305,7 +307,7 @@
 		else
 			var/obj/item/I = usr.get_active_hand()
 			if(istype(I, /obj/item/seeds))
-				if(!usr.drop_item())
+				if(!usr.drop_from_active_hand())
 					return
 				insert_seed(I)
 				to_chat(usr, "<span class='notice'>You add [I] to the machine.</span>")
@@ -319,10 +321,9 @@
 		else
 			var/obj/item/I = usr.get_active_hand()
 			if(istype(I, /obj/item/disk/plantgene))
-				if(!usr.drop_item())
+				if(!usr.drop_transfer_item_to_loc(I, src))
 					return
 				disk = I
-				disk.forceMove(src)
 				to_chat(usr, "<span class='notice'>You add [I] to the machine.</span>")
 	else if(href_list["op"] == "insert" && disk && disk.gene && seed)
 		if(!operation) // Wait for confirmation
@@ -415,6 +416,7 @@
 /obj/machinery/plantgenes/proc/insert_seed(obj/item/seeds/S)
 	if(!istype(S) || seed)
 		return
+	S.do_pickup_animation(src)
 	S.forceMove(src)
 	seed = S
 	update_genes()
@@ -550,7 +552,6 @@
 	name = "plant data disks box"
 	icon_state = "disk_kit"
 
-/obj/item/storage/box/disks_plantgene/New()
-	..()
+/obj/item/storage/box/disks_plantgene/populate_contents()
 	for(var/i in 1 to 7)
 		new /obj/item/disk/plantgene(src)

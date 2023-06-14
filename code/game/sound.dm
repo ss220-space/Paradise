@@ -138,7 +138,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		S.falloff = max_distance || 1 //use max_distance, else just use 1 as we are a direct sound so falloff isnt relevant.
 
 		if(S.file == 'sound/goonstation/voice/howl.ogg' && distance > 0 && S.volume > 60 && isvulpkanin(src))
-			addtimer(CALLBACK(src, /mob/.proc/emote, "howl"), rand(10,30)) // Vulps cant resist! >)
+			addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, emote), "howl"), rand(10,30)) // Vulps cant resist! >)
 
 		// Sounds can't have their own environment. A sound's environment will be:
 		// 1. the mob's
@@ -230,9 +230,9 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 			if("honkbot_e")
 				soundin = pick('sound/items/bikehorn.ogg', 'sound/items/AirHorn2.ogg', 'sound/misc/sadtrombone.ogg', 'sound/items/AirHorn.ogg', 'sound/items/WEEOO1.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bcreep.ogg','sound/magic/Fireball.ogg' ,'sound/effects/pray.ogg', 'sound/voice/hiss1.ogg','sound/machines/buzz-sigh.ogg', 'sound/machines/ping.ogg', 'sound/weapons/flashbang.ogg', 'sound/weapons/bladeslice.ogg')
 			if("u_fscream")
-				soundin = pick('sound/goonstation/voice/unathi/f_u_scream.ogg', 'sound/goonstation/voice/unathi/f_u_scream2.ogg')
+				soundin = pick('sound/voice/unathi/f_u_scream.ogg', 'sound/voice/unathi/f_u_scream2.ogg')
 			if("u_mscream")
-				soundin = pick('sound/goonstation/voice/unathi/m_u_scream.ogg', 'sound/goonstation/voice/unathi/m_u_scream2.ogg')
+				soundin = pick('sound/voice/unathi/m_u_scream.ogg', 'sound/voice/unathi/m_u_scream2.ogg')
 			if("clownstep")
 				soundin = pick('sound/effects/clownstep1.ogg','sound/effects/clownstep2.ogg')
 			else

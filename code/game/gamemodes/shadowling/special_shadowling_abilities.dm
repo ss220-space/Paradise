@@ -31,7 +31,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 									"<span class='shadowling'>You remove any equipment which would hinder your hatching and begin regurgitating the resin which will protect you.</span>")
 
 				for(var/obj/item/I in H.contents - (H.bodyparts | H.internal_organs)) //drops all items except organs
-					H.unEquip(I)
+					H.drop_item_ground(I)
 
 				sleep(50)
 				var/turf/simulated/floor/F
@@ -167,7 +167,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 					to_chat(M, "<span class='userdanger'>An immense pressure slams you onto the ground!</span>")
 				for(var/thing in GLOB.apcs)
 					var/obj/machinery/power/apc/A = thing
-					INVOKE_ASYNC(A, /obj/machinery/power/apc.proc/overload_lighting)
+					INVOKE_ASYNC(A, TYPE_PROC_REF(/obj/machinery/power/apc, overload_lighting))
 				var/mob/living/simple_animal/ascendant_shadowling/A = new /mob/living/simple_animal/ascendant_shadowling(H.loc)
 				A.announce("VYSHA NERADA YEKHEZET U'RUU!!", 5, 'sound/hallucinations/veryfar_noise.ogg')
 				for(var/obj/effect/proc_holder/spell/S in H.mind.spell_list)

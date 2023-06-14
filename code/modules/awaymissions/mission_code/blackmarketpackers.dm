@@ -144,17 +144,9 @@
 	storage_slots = 2
 	can_hold = list(/obj/item/assembly/mousetrap, /obj/item/paper)
 
-/obj/item/storage/firstaid/with_mousetrap/tactical/New()
-	..()
+/obj/item/storage/firstaid/with_mousetrap/tactical/populate_contents()
 	new /obj/item/assembly/mousetrap/armed(src)
 	new /obj/item/paper/taunt(src)
-
-/obj/item/storage/firstaid/with_mousetrap/tactical/AltClick(var/mob/user)
-	if (isliving(user))
-		return ..()
-
-/obj/item/storage/firstaid/with_mousetrap/tactical/attack_ghost(var/mob/user)
-	return
 
 /obj/item/paper/taunt
 	name = "Shrot note"
@@ -169,17 +161,9 @@
 	storage_slots = 2
 	can_hold = list(/obj/item/assembly/mousetrap, /obj/item/paper)
 
-/obj/item/storage/firstaid/with_mousetrap/syndie/New()
-	..()
+/obj/item/storage/firstaid/with_mousetrap/syndie/populate_contents()
 	new /obj/item/assembly/mousetrap/armed(src)
 	new /obj/item/paper/taunt(src)
-
-/obj/item/storage/firstaid/with_mousetrap/syndie/AltClick(var/mob/user)
-	if (isliving(user))
-		return ..()
-
-/obj/item/storage/firstaid/with_mousetrap/syndie/attack_ghost(var/mob/user)
-	return
 
 // Дисплей кейс с лодкой
 

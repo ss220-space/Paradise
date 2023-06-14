@@ -61,6 +61,7 @@
 		to_chat(user, "<span class ='danger'>The controls seem unresponsive.</span>")
 		return
 
+	add_fingerprint(user)
 	pick_sign()
 
 /obj/structure/sign/barsign/screwdriver_act(mob/user, obj/item/I)
@@ -93,6 +94,7 @@
 
 		var/obj/item/stack/cable_coil/C = I
 		if(C.use(2))
+			add_fingerprint(user)
 			to_chat(user, "<span class='notice'>You replace the burnt wiring.</span>")
 			broken = FALSE
 		else
@@ -110,7 +112,7 @@
 		to_chat(user, "<span class='warning'>Nothing interesting happens!</span>")
 		return
 	to_chat(user, "<span class='notice'>You emag the barsign. Takeover in progress...</span>")
-	addtimer(CALLBACK(src, .proc/post_emag), 100)
+	addtimer(CALLBACK(src, PROC_REF(post_emag)), 100)
 
 /obj/structure/sign/barsign/proc/post_emag()
 	if(broken || emagged)

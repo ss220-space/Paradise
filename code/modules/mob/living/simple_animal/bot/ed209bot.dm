@@ -54,6 +54,8 @@
 	set_weapon() //giving it the right projectile and firing sound.
 	setup_access()
 
+	AddSpell(new /obj/effect/proc_holder/spell/targeted/bot_speed)
+
 	if(lasercolor)
 		shot_delay = 6//Longer shot delay because JESUS CHRIST
 		check_records = 0//Don't actively target people set to arrest
@@ -585,16 +587,25 @@
 	C.visible_message("<span class='danger'>[src] has stunned [C]!</span>",\
 							"<span class='userdanger'>[src] has stunned you!</span>")
 
+
 /mob/living/simple_animal/bot/ed209/proc/cuff(mob/living/carbon/C)
 	mode = BOT_ARREST
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
 	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",\
 						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
+	addtimer(CALLBACK(src, PROC_REF(cuff_callback), C), 6 SECONDS)
 
-	spawn(60)
-		if( !Adjacent(C) || !isturf(C.loc) ) //if he's in a closet or not adjacent, we cancel cuffing.
-			return
-		if(!C.handcuffed)
-			C.handcuffed = new /obj/item/restraints/handcuffs/cable/zipties/used(C)
-			C.update_handcuffed()
-			back_to_idle()
+
+/mob/living/simple_animal/bot/ed209/proc/cuff_callback(mob/living/carbon/C)
+	if(!Adjacent(C))
+		return FALSE
+
+	if(!isturf(C.loc))
+		return FALSE
+
+	if(C.handcuffed)
+		return FALSE
+
+	C.set_handcuffed(new /obj/item/restraints/handcuffs/cable/zipties/used(C))
+
+	back_to_idle()

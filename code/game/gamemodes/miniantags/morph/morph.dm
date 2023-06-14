@@ -79,12 +79,25 @@
 	AddSpell(mimic_spell)
 	ambush_spell = new
 	AddSpell(ambush_spell)
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/morph_spell/reproduce)
 	AddSpell(new /obj/effect/proc_holder/spell/targeted/click/morph_spell/open_vent)
 	pass_airlock_spell = new
 	AddSpell(pass_airlock_spell)
 	GLOB.morphs_alive_list += src
 	check_morphs()
+
+/**
+ * This proc enables or disables morph reproducing ability
+ *
+ * Arguments
+ * * boolean - TRUE = enabled, FALSE = disabled
+ */
+/mob/living/simple_animal/hostile/morph/proc/enable_reproduce(boolean)
+	if(boolean)
+		can_reproduce = TRUE
+		AddSpell(new /obj/effect/proc_holder/spell/targeted/morph_spell/reproduce)
+	else
+		can_reproduce = FALSE
+		RemoveSpell(/obj/effect/proc_holder/spell/targeted/morph_spell/reproduce)
 
 /mob/living/simple_animal/hostile/morph/Stat(Name, Value)
 	..()
@@ -188,7 +201,7 @@
 	ambush_prepared = TRUE
 	to_chat(src, "<span class='sinister'>You are ready to ambush any unsuspected target. Your next attack will hurt a lot more and weaken the target! Moving will break your focus. Standing still will perfect your disguise.</span>")
 	apply_status_effect(/datum/status_effect/morph_ambush)
-	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/on_move)
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 
 /mob/living/simple_animal/hostile/morph/proc/failed_ambush()
 	ambush_prepared = FALSE
@@ -260,7 +273,7 @@
 		var/food_value = calc_food_gained(item)
 		if(food_value + gathered_food > 0)
 			to_chat(user, "<span class='warning'>[src] just ate your [item]!</span>")
-			user.unEquip(item)
+			user.drop_item_ground(item)
 			eat(item)
 			return ..()
 
@@ -342,7 +355,7 @@
 
 
 /mob/living/simple_animal/hostile/morph/proc/make_morph_antag(give_default_objectives = TRUE)
-	can_reproduce = TRUE
+	enable_reproduce(TRUE)
 	mind.assigned_role = SPECIAL_ROLE_MORPH
 	mind.special_role = SPECIAL_ROLE_MORPH
 	SSticker.mode.traitors |= mind

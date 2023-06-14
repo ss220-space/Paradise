@@ -1056,19 +1056,6 @@
 		var/target = href_list["notessearch"]
 		show_note(index = target)
 
-	else if(href_list["noteedits"])
-		var/note_id = text2num(href_list["noteedits"])
-		var/datum/db_query/query_noteedits = SSdbcore.NewQuery("SELECT edits FROM [sqlfdbkdbutil].[format_table_name("notes")] WHERE id=:note_id", list(
-			"note_id" = note_id
-		))
-		if(!query_noteedits.warn_execute())
-			qdel(query_noteedits)
-			return
-		if(query_noteedits.NextRow())
-			var/edit_log = {"<meta charset="UTF-8">"} + query_noteedits.item[1]
-			usr << browse(edit_log,"window=noteedits")
-		qdel(query_noteedits)
-
 	else if(href_list["removejobban"])
 		if(!check_rights(R_BAN))	return
 
@@ -1303,11 +1290,7 @@
 
 		//strip their stuff and stick it in the crate
 		for(var/obj/item/I in M)
-			if(M.unEquip(I))
-				I.loc = locker
-				I.layer = initial(I.layer)
-				I.plane = initial(I.plane)
-				I.dropped(M)
+			M.drop_transfer_item_to_loc(I, locker)
 		M.update_icons()
 
 		//so they black out before warping
@@ -1501,12 +1484,7 @@
 			return
 
 		for(var/obj/item/I in M)
-			M.unEquip(I)
-			if(I)
-				I.loc = M.loc
-				I.layer = initial(I.layer)
-				I.plane = initial(I.plane)
-				I.dropped(M)
+			M.drop_item_ground(I)
 
 		M.Paralyse(5)
 		sleep(5)
@@ -1530,12 +1508,7 @@
 			return
 
 		for(var/obj/item/I in M)
-			M.unEquip(I)
-			if(I)
-				I.loc = M.loc
-				I.layer = initial(I.layer)
-				I.plane = initial(I.plane)
-				I.dropped(M)
+			M.drop_item_ground(I)
 
 		M.Paralyse(5)
 		sleep(5)
@@ -1580,12 +1553,7 @@
 			return
 
 		for(var/obj/item/I in M)
-			M.unEquip(I)
-			if(I)
-				I.loc = M.loc
-				I.layer = initial(I.layer)
-				I.plane = initial(I.plane)
-				I.dropped(M)
+			M.drop_item_ground(I)
 
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/observer = M
@@ -1643,7 +1611,7 @@
 		if(time_seconds < 0)
 			return
 
-		contract.prisoner_timer_handle = addtimer(CALLBACK(contract, /datum/syndicate_contract.proc/handle_target_return, M), time_seconds * 10, TIMER_STOPPABLE)
+		contract.prisoner_timer_handle = addtimer(CALLBACK(contract, TYPE_PROC_REF(/datum/syndicate_contract, handle_target_return), M), time_seconds * 10, TIMER_STOPPABLE)
 		to_chat(usr, "Started automatic return of [M] from the Syndicate Jail in [time_seconds] second\s.")
 		message_admins("[key_name_admin(usr)] has started the automatic return of [key_name_admin(M)] from the Syndicate Jail in [time_seconds] second\s")
 		log_admin("[key_name(usr)] has started the automatic return of [key_name(M)] from the Syndicate Jail in [time_seconds] second\s")
@@ -2194,7 +2162,7 @@
 			P.ico = new
 		P.ico += "paper_stamp-[stampvalue]"
 		P.overlays += stampoverlay
-		P.stamps += "<hr><img src='large_stamp-[stampvalue].png'>"
+		P.stamps += "<hr><img src=large_stamp-[stampvalue].png>"
 		P.update_icon()
 		P.faxmachineid = fax.UID()
 		P.loc = fax.loc // Do not use fax.receivefax(P) here, as it won't preserve the type. Physically teleporting the fax paper is required.
@@ -2289,7 +2257,7 @@
 			P.ico = new
 		P.ico += "paper_stamp-[stampvalue]"
 		P.overlays += stampoverlay
-		P.stamps += "<hr><img src='large_stamp-[stampvalue].png'>"
+		P.stamps += "<hr><img src=large_stamp-[stampvalue].png>"
 		P.update_icon()
 		fax.receivefax(P)
 		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
@@ -2393,12 +2361,17 @@
 		var/destination
 		var/notify
 		var/obj/item/paper/P
-		var/use_letterheard = alert("Use letterhead? If so, do not add your own header or a footer. Type and format only your actual message.",,"Nanotrasen","Syndicate", "No")
+		var/use_letterheard = alert("Use letterhead? If so, do not add your own header or a footer. Type and format only your actual message.",,"Yes","No")
 		switch(use_letterheard)
-			if("Nanotrasen")
-				P = new /obj/item/paper/central_command(null)
-			if("Syndicate")
-				P = new /obj/item/paper/syndicate(null)
+			if("Yes")
+				var/choose_letterheard = alert("Which style of header and footer do you want to use?",,"Nanotrasen","Syndicate","USSP")
+				switch(choose_letterheard)
+					if("Nanotrasen")
+						P = new /obj/item/paper/central_command(null)
+					if("Syndicate")
+						P = new /obj/item/paper/syndicate(null)
+					if("USSP")
+						P = new /obj/item/paper/ussp(null)
 			if("No")
 				P = new /obj/item/paper(null)
 		if(!fax)
@@ -2436,10 +2409,14 @@
 				stamptype = "icon"
 				stampvalue = "syndicate"
 				sendername = "UNKNOWN"
+			if("USSP Central Committee")
+				stamptype = "icon"
+				stampvalue = "ussp"
+				sendername = "Первый секретарь народного комиссара космических станций и планетоидов СССП"
 			if("Administrator")
 				stamptype = input(src.owner, "Pick a stamp type.", "Stamp Type") as null|anything in list("icon","text","none")
 				if(stamptype == "icon")
-					stampname = input(src.owner, "Pick a stamp icon.", "Stamp Icon") as null|anything in list("centcom","syndicate","granted","denied","clown")
+					stampname = input(src.owner, "Pick a stamp icon.", "Stamp Icon") as null|anything in list("centcom","syndicate","granted","denied","clown","ussp")
 					switch(stampname)
 						if("centcom")
 							stampvalue = "cent"
@@ -2451,6 +2428,8 @@
 							stampvalue = "deny"
 						if("clown")
 							stampvalue = "clown"
+						if("ussp")
+							stampvalue = "ussp"
 				else if(stamptype == "text")
 					stampvalue = clean_input("What should the stamp say?", "Stamp Text", , owner)
 				else if(stamptype == "none")
@@ -2490,7 +2469,7 @@
 					P.stamped = new
 				P.stamped += /obj/item/stamp/centcom
 				P.overlays += stampoverlay
-				P.stamps += "<hr><img src='large_stamp-[stampvalue].png'>"
+				P.stamps += "<hr><img src=large_stamp-[stampvalue].png>"
 
 			else if(stamptype == "text")
 				if(!P.stamped)
@@ -2888,14 +2867,7 @@
 							if(istype(W, /obj/item/organ/external))
 								continue
 								//don't strip organs
-							H.unEquip(W)
-							if(H.client)
-								H.client.screen -= W
-							if(W)
-								W.loc = H.loc
-								W.dropped(H)
-								W.layer = initial(W.layer)
-								W.plane = initial(W.plane)
+							H.drop_item_ground(W)
 						//teleport person to cell
 						H.loc = pick(GLOB.prisonwarp)
 						H.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(H), slot_w_uniform)

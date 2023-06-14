@@ -12,6 +12,7 @@
 	var/resultlvl = null
 
 /obj/machinery/slot_machine/attack_hand(mob/user as mob)
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/slot_machine/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -49,7 +50,7 @@
 		working = TRUE
 		icon_state = "slots-on"
 		playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
-		addtimer(CALLBACK(src, .proc/spin_slots, usr.name), 25)
+		addtimer(CALLBACK(src, PROC_REF(spin_slots), usr.name), 25)
 
 /obj/machinery/slot_machine/proc/spin_slots(userName)
 	switch(rand(1,5000))

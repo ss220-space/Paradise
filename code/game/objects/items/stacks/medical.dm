@@ -5,6 +5,7 @@
 	amount = 6
 	max_amount = 6
 	w_class = WEIGHT_CLASS_TINY
+	full_w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	throw_range = 7
 	resistance_flags = FLAMMABLE
@@ -272,7 +273,7 @@
 		to_chat(user, "<span class='danger'>No splints left!</span>")
 		return 1
 	else
-		.=..()
+		. = ..()
 /obj/item/stack/medical/splint/attack(mob/living/M, mob/user)
 	if(..())
 		return TRUE
@@ -316,3 +317,10 @@
 	name = "tribal splints"
 	icon_state = "tribal_splint"
 	other_delay = 50
+
+/obj/item/stack/medical/splint/makeshift
+	name = "makeshift splints"
+	desc = "Makeshift splint for fixing bones. Better than nothing and more based than others."
+	icon_state = "makeshift_splint"
+	other_delay = 3 SECONDS
+	self_delay = 15 SECONDS

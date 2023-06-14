@@ -63,7 +63,7 @@
 			return
 		M.forceMove(src)
 		occupant = M
-		icon_state = "body_scanner_1"
+		icon_state = "bodyscanner"
 		add_fingerprint(user)
 		qdel(TYPECAST_YOUR_SHIT)
 		SStgui.update_uis(src)
@@ -125,6 +125,7 @@
 	else
 		visible_message("[user] puts [H] into the body scanner.")
 
+	add_fingerprint(user)
 	H.forceMove(src)
 	occupant = H
 	icon_state = "bodyscanner"
@@ -148,6 +149,7 @@
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return
 
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/bodyscanner/relaymove(mob/user)
@@ -170,7 +172,7 @@
 		return
 	occupant.forceMove(loc)
 	occupant = null
-	icon_state = "body_scanner_0"
+	icon_state = "bodyscanner-open"
 	// eject trash the occupant dropped
 	for(var/atom/movable/A in contents - component_parts)
 		A.forceMove(loc)

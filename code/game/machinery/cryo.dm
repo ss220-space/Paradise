@@ -139,6 +139,7 @@
 		to_chat(user, "<span class='warning'>[L] нельзя поместить в [src], поскольку к [genderize_ru(L.gender,"его","её","его","их")] голове прилеплен слайм.</span>")
 		return
 	if(put_mob(L))
+		add_fingerprint(user)
 		if(L == user)
 			visible_message("[user] залеза[pluralize_ru(user.gender,"ет","ют")] в криокапсулу.")
 		else
@@ -201,6 +202,7 @@
 		to_chat(usr, "<span class='boldnotice'>Сначала закройте панель техобслуживания.</span>")
 		return
 
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/atmospherics/unary/cryo_cell/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -291,10 +293,10 @@
 		if(beaker)
 			to_chat(user, "<span class='warning'>В криокапсулу уже загружена другая ёмкость.</span>")
 			return
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(B, src))
 			to_chat(user, "Вы не можете бросить [B]!")
 			return
-		B.forceMove(src)
+		add_fingerprint(user)
 		beaker =  B
 		add_attack_logs(user, null, "Added [B] containing [B.reagents.log_list()] to a cryo cell at [COORD(src)]")
 		user.visible_message("[user] загружа[pluralize_ru(user.gender,"ет","ют")] [B] в криокапсулу!", "Вы загружаете [B] в криокапсулу!")
@@ -316,6 +318,7 @@
 			return
 		var/mob/M = GG.affecting
 		if(put_mob(M))
+			add_fingerprint(user)
 			qdel(GG)
 		return
 	return ..()

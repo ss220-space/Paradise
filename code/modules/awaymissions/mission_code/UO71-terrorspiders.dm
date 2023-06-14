@@ -203,12 +203,7 @@
 
 /obj/item/reagent_containers/glass/beaker/terror_black_toxin
 	name = "beaker 'Black Terror Venom'"
-
-/obj/item/reagent_containers/glass/beaker/terror_black_toxin/New()
-	..()
-	reagents.add_reagent("terror_black_toxin", 50)
-	update_icon()
-
+	list_reagents = list("terror_black_toxin" = 50)
 
 /obj/machinery/computer/id_upgrader
 	name = "ID Upgrade Machine"
@@ -232,6 +227,7 @@
 				D.access |= this_access
 				did_upgrade = 1
 		if(did_upgrade)
+			add_fingerprint(user)
 			to_chat(user, "<span class='notice'>An access type was added to your ID card.</span>")
 			if(beenused)
 				return

@@ -35,7 +35,7 @@
 /obj/item/soulstone/proc/was_used()
 	if(!reusable)
 		spent = TRUE
-		name = "dull [name]"
+		name = "dull [initial(name)]"
 		desc = "A fragment of the legendary treasure known simply as \
 			the 'Soul Stone'. The shard lies still, dull and lifeless; \
 			whatever spark it once held long extinguished."
@@ -233,7 +233,7 @@
 	name = "empty shell"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "construct-cult"
-	desc = "A wicked machine used by those skilled in magical arts. It is inactive"
+	desc = "A wicked machine used by those skilled in magical arts. It is inactive."
 	/// Is someone currently placing a soulstone into the shell
 	var/active = FALSE
 
@@ -254,9 +254,42 @@
 			user.Confused(10)
 			return
 		SS.transfer_soul("CONSTRUCT", src, user)
-		SS.was_used()
 	else
 		return ..()
+
+/obj/structure/constructshell/holy
+	name = "empty holy shell"
+	icon_state = "construct-holy"
+	desc = "A holy machine used by those who are pure in soul and mind. It is inactive."
+	var/defiled = FALSE
+
+/obj/structure/constructshell/holy/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/storage/bible) && !iscultist(user) && user.mind.isholy)
+		if(!defiled)
+			return
+		name = initial(name)
+		icon_state = initial(icon_state)
+		desc = initial(desc)
+		defiled = FALSE
+	if(defiled)
+		return ..()
+	if(istype(I, /obj/item/soulstone))
+		var/obj/item/soulstone/SS = I
+		if(!SS.purified || iscultist(user))
+			to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you attempt to place the soulstone into the shell.</span>")
+			user.Confused(15)
+			return
+		SS.transfer_soul("CONSTRUCT", src, user)
+		return
+	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
+		if(do_after(user, 4 SECONDS, target = src))
+			user.visible_message("<span class='warning'>[user] defile [src] with dark magic!!</span>", "<span class='cult'>You sanctified [src]. Yes-yes. I need more acolytes!</span>")
+			name = "empty shell"
+			icon_state = "construct-cult"
+			desc = "A wicked machine used by those skilled in magical arts. It is inactive."
+			defiled = TRUE
+		return
+	return ..()
 
 ////////////////////////////Proc for moving soul in and out off stone//////////////////////////////////////
 
@@ -317,18 +350,33 @@
 			var/list/construct_types = list("Juggernaut" = /mob/living/simple_animal/hostile/construct/armoured,
 											"Wraith" = /mob/living/simple_animal/hostile/construct/wraith,
 											"Artificer" = /mob/living/simple_animal/hostile/construct/builder)
+
+			var/list/holy_construct_types = list("Juggernaut" = /mob/living/simple_animal/hostile/construct/armoured/holy,
+												"Wraith" = /mob/living/simple_animal/hostile/construct/wraith/holy,
+												"Artificer" = /mob/living/simple_animal/hostile/construct/builder/holy)
 			/// Custom construct icons for different cults
 			var/list/construct_icons = list("Juggernaut" = image(icon = 'icons/mob/mob.dmi', icon_state = SSticker.cultdat.get_icon("juggernaut")),
 											"Wraith" = image(icon = 'icons/mob/mob.dmi', icon_state = SSticker.cultdat.get_icon("wraith")),
 											"Artificer" = image(icon = 'icons/mob/mob.dmi', icon_state = SSticker.cultdat.get_icon("builder")))
 
+			var/list/holy_construct_icons = list("Juggernaut" = image(icon = 'icons/mob/mob.dmi', icon_state = "holy_juggernaut"),
+											"Wraith" = image(icon = 'icons/mob/mob.dmi', icon_state = "holy_shifter"),
+											"Artificer" = image(icon = 'icons/mob/mob.dmi', icon_state = "holy_artificer"))
+
 			if(shade)
-				var/construct_choice = show_radial_menu(user, shell, construct_icons, custom_check = CALLBACK(src, .proc/radial_check, user), require_near = TRUE)
-				var/picked_class = construct_types[construct_choice]
+				var/construct_choice = 0
+				var/picked_class = 0
+				if(purified)
+					construct_choice = show_radial_menu(user, shell, holy_construct_icons, custom_check = CALLBACK(src, PROC_REF(radial_check), user), require_near = TRUE)
+					picked_class = holy_construct_types[construct_choice]
+				else
+					construct_choice = show_radial_menu(user, shell, construct_icons, custom_check = CALLBACK(src, PROC_REF(radial_check), user), require_near = TRUE)
+					picked_class = construct_types[construct_choice]
 				if((picked_class && !QDELETED(shell) && !QDELETED(src)) && user.Adjacent(shell) && !user.incapacitated() && radial_check(user))
 					var/mob/living/simple_animal/hostile/construct/C = new picked_class(shell.loc)
 					C.init_construct(shade, src, shell)
 					to_chat(C, C.playstyle_string)
+					was_used()
 			else
 				to_chat(user, "<span class='danger'>Creation failed!</span>: The soul stone is empty! Go kill someone!")
 
@@ -337,7 +385,7 @@
 		return FALSE
 
 	var/mob/living/carbon/human/H = user
-	if(!H.is_in_hands(src)) // Not holding the soulstone
+	if(!H.is_type_in_hands(src)) // Not holding the soulstone
 		return FALSE
 	return TRUE
 
@@ -349,9 +397,6 @@
 		name = "Holy [name]"
 		real_name = "Holy [real_name]"
 
-		// Replace regular soulstone summoning with purified soulstones
-		RemoveSpell(/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone)
-		AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/holy)
 
 	else if(iscultist(src)) // Re-grant cult actions, lost in the transfer
 		var/datum/action/innate/cult/comm/CC = new
@@ -414,7 +459,7 @@
 		M.dust()
 	else
 		for(var/obj/item/I in M)
-			M.unEquip(I)
+			M.drop_item_ground(I)
 		M.dust()
 
 /obj/item/soulstone/proc/get_shade_type()

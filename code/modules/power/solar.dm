@@ -197,8 +197,7 @@
 // Give back the glass type we were supplied with
 /obj/item/solar_assembly/proc/give_glass()
 	if(glass_type)
-		var/obj/item/stack/sheet/S = new glass_type(src.loc)
-		S.amount = 2
+		new glass_type(src.loc, 2)
 		glass_type = null
 
 
@@ -206,12 +205,14 @@
 
 	if(!anchored && isturf(loc))
 		if(istype(W, /obj/item/wrench))
+			add_fingerprint(user)
 			anchored = 1
 			user.visible_message("[user] wrenches the solar assembly into place.", "<span class='notice'>You wrench the solar assembly into place.</span>")
 			playsound(src.loc, W.usesound, 50, 1)
 			return 1
 	else
 		if(istype(W, /obj/item/wrench))
+			add_fingerprint(user)
 			anchored = 0
 			user.visible_message("[user] unwrenches the solar assembly from its place.", "<span class='notice'>You unwrench the solar assembly from its place.</span>")
 			playsound(src.loc, W.usesound, 50, 1)
@@ -220,6 +221,7 @@
 		if(istype(W, /obj/item/stack/sheet/glass) || istype(W, /obj/item/stack/sheet/rglass))
 			var/obj/item/stack/sheet/S = W
 			if(S.use(2))
+				add_fingerprint(user)
 				glass_type = W.type
 				playsound(loc, S.usesound, 50, 1)
 				user.visible_message("[user] places the glass on the solar assembly.", "<span class='notice'>You place the glass on the solar assembly.</span>")
@@ -234,14 +236,16 @@
 
 	if(!tracker)
 		if(istype(W, /obj/item/tracker_electronics))
-			if(!user.drop_item())
+			if(!user.drop_transfer_item_to_loc(W, src))
 				return
 			tracker = 1
 			qdel(W)
 			user.visible_message("[user] inserts the electronics into the solar assembly.", "<span class='notice'>You insert the electronics into the solar assembly.</span>")
 			return 1
 	else if(istype(W, /obj/item/crowbar))
-		new /obj/item/tracker_electronics(src.loc)
+		add_fingerprint(user)
+		var/obj/item/tracker_electronics/electronics = new(src.loc)
+		electronics.add_fingerprint(user)
 		tracker = 0
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("[user] takes out the electronics from the solar assembly.", "<span class='notice'>You take out the electronics from the solar assembly.</span>")
@@ -429,10 +433,14 @@
 		if(do_after(user, 20 * I.toolspeed * gettoolspeedmod(user), target = src))
 			if(src.stat & BROKEN)
 				to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
-				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-				new /obj/item/shard( src.loc )
-				var/obj/item/circuitboard/solar_control/M = new /obj/item/circuitboard/solar_control( A )
+				var/obj/structure/computerframe/A = new /obj/structure/computerframe(src.loc)
+				A.add_fingerprint(user)
+				var/obj/item/shard/shard = new(src.loc)
+				shard.add_fingerprint(user)
+				var/obj/item/circuitboard/solar_control/M = new /obj/item/circuitboard/solar_control(A)
+				M.add_fingerprint(user)
 				for(var/obj/C in src)
+					C.add_fingerprint(user)
 					C.loc = src.loc
 				A.circuit = M
 				A.state = 3
@@ -441,9 +449,12 @@
 				qdel(src)
 			else
 				to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
-				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-				var/obj/item/circuitboard/solar_control/M = new /obj/item/circuitboard/solar_control( A )
+				var/obj/structure/computerframe/A = new /obj/structure/computerframe(src.loc)
+				A.add_fingerprint(user)
+				var/obj/item/circuitboard/solar_control/M = new /obj/item/circuitboard/solar_control(A)
+				M.add_fingerprint(user)
 				for(var/obj/C in src)
+					C.add_fingerprint(user)
 					C.loc = src.loc
 				A.circuit = M
 				A.state = 4

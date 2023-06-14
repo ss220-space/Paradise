@@ -1,6 +1,7 @@
 GLOBAL_LIST_EMPTY(allfaxes)
 GLOBAL_LIST_INIT(admin_departments, list("Central Command"))
 GLOBAL_LIST_INIT(hidden_admin_departments, list("Syndicate"))
+GLOBAL_LIST_INIT(hidden_ussp, list("USSP Central Committee"))
 GLOBAL_LIST_EMPTY(alldepartments)
 GLOBAL_LIST_EMPTY(hidden_departments)
 GLOBAL_LIST_EMPTY(fax_blacklist)
@@ -14,7 +15,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	var/fax_network = "Local Fax Network"
 	/// If true, prevents fax machine from sending messages to NT machines
 	var/syndie_restricted = FALSE
-
+	var/ussp_restricted = FALSE
 	/// Can we send messages off-station?
 	var/long_range_enabled = FALSE
 	req_access = list(ACCESS_LAWYER, ACCESS_HEADS, ACCESS_ARMORY)
@@ -48,7 +49,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/proc/update_network()
 	if(department != "Unknown")
-		if(!(("[department]" in GLOB.alldepartments) || ("[department]" in GLOB.hidden_departments) || ("[department]" in GLOB.admin_departments) || ("[department]" in GLOB.hidden_admin_departments)))
+		if(!(("[department]" in GLOB.alldepartments) || ("[department]" in GLOB.hidden_departments) || ("[department]" in GLOB.admin_departments) || ("[department]" in GLOB.hidden_admin_departments) || ("[department]" in GLOB.hidden_ussp)))
 			GLOB.alldepartments |= department
 
 /obj/machinery/photocopier/faxmachine/longrange
@@ -67,7 +68,20 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	if(department != "Unknown")
 		GLOB.hidden_departments |= department
 
+/obj/machinery/photocopier/faxmachine/longrange/ussp
+	name = "USSP long range fax machine"
+	fax_network = "USSP Quantum Entanglement Network"
+	ussp_restricted = TRUE
+	req_access = list(ACCESS_USSP_MARINE_CAPTAIN)
+	idle_power_usage = 60
+	active_power_usage = 300
+
+/obj/machinery/photocopier/faxmachine/longrange/ussp/update_network()
+	if(department != "Unknown")
+		GLOB.hidden_ussp |= department
+
 /obj/machinery/photocopier/faxmachine/attack_hand(mob/user)
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/photocopier/faxmachine/attack_ghost(mob/user)
@@ -75,6 +89,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/attackby(obj/item/item, mob/user, params)
 	if(istype(item,/obj/item/card/id) && !scan)
+		add_fingerprint(user)
 		scan(item)
 	else if(istype(item, /obj/item/paper) || istype(item, /obj/item/photo) || istype(item, /obj/item/paper_bundle))
 		..()
@@ -164,16 +179,15 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 			if(copyitem)
 				copyitem.forceMove(get_turf(src))
 				if(ishuman(usr))
-					if(!usr.get_active_hand() && Adjacent(usr))
-						usr.put_in_hands(copyitem)
+					if(Adjacent(usr))
+						usr.put_in_hands(copyitem, ignore_anim = FALSE)
 				to_chat(usr, "<span class='notice'>You eject [copyitem] from [src].</span>")
 				copyitem = null
 			else
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/paper_bundle))
-					usr.drop_item()
+					usr.drop_transfer_item_to_loc(I, src)
 					copyitem = I
-					I.forceMove(src)
 					to_chat(usr, "<span class='notice'>You insert [I] into [src].</span>")
 					flick(insert_anim, src)
 				else
@@ -202,6 +216,10 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 				var/list/combineddepartments = GLOB.alldepartments.Copy()
 				if(long_range_enabled)
 					combineddepartments += GLOB.admin_departments.Copy()
+					if(z == level_name_to_num(CENTCOMM))
+						for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
+							if(F.ussp_restricted)
+								combineddepartments |= F.department
 				if(emagged)
 					combineddepartments += GLOB.hidden_admin_departments.Copy()
 					combineddepartments += GLOB.hidden_departments.Copy()
@@ -210,6 +228,11 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 					combineddepartments += GLOB.hidden_departments.Copy()
 					for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 						if(F.emagged)//we can contact emagged faxes on the station
+							combineddepartments |= F.department
+				if(ussp_restricted)
+					combineddepartments = GLOB.hidden_ussp.Copy()
+					for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
+						if(F.ussp_restricted)
 							combineddepartments |= F.department
 				destination = input(usr, "To which department?", "Choose a department", "") as null|anything in combineddepartments
 				if(!destination)
@@ -226,7 +249,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 				to_chat(usr, "<span class='warning'>[src] is not ready for another [cooldown_seconds] seconds.</span>")
 				return
 
-			if((destination in GLOB.admin_departments) || (destination in GLOB.hidden_admin_departments))
+			if((destination in GLOB.admin_departments) || (destination in GLOB.hidden_admin_departments) || (destination in GLOB.hidden_ussp))
 				sendcooldown = world.time + cooldown_time
 				SStgui.update_uis(src)
 				send_admin_fax(usr, destination)
@@ -241,8 +264,8 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	if(scan) // Card is in machine
 		if(ishuman(usr))
 			scan.forceMove(get_turf(src))
-			if(!usr.get_active_hand() && Adjacent(usr))
-				usr.put_in_hands(scan)
+			if(Adjacent(usr))
+				usr.put_in_hands(scan, ignore_anim = FALSE)
 			scan = null
 		else
 			scan.forceMove(get_turf(src))
@@ -251,12 +274,10 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		if(!card)
 			var/obj/item/I = usr.get_active_hand()
 			if(istype(I, /obj/item/card/id))
-				usr.drop_item()
-				I.forceMove(src)
+				usr.drop_transfer_item_to_loc(I, src)
 				scan = I
 		else if(istype(card))
-			usr.drop_item()
-			card.forceMove(src)
+			usr.drop_transfer_item_to_loc(card, src)
 			scan = card
 	SStgui.update_uis(src)
 
@@ -271,8 +292,8 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	if(scan)
 		to_chat(usr, "You remove [scan] from [src].")
 		scan.forceMove(get_turf(src))
-		if(!usr.get_active_hand() && Adjacent(usr))
-			usr.put_in_hands(scan)
+		if(Adjacent(usr))
+			usr.put_in_hands(scan, ignore_anim = FALSE)
 		scan = null
 	else
 		to_chat(usr, "There is nothing to remove from [src].")
@@ -345,6 +366,8 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 			message_admins(sender, "CENTCOM FAX", destination, copyitem, "#006100")
 		if("Syndicate")
 			message_admins(sender, "SYNDICATE FAX", destination, copyitem, "#DC143C")
+		if("USSP Central Committee")
+			message_admins(sender, "USSP FAX", destination, copyitem, "#b60226")
 	for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 		if(F.department == destination)
 			F.receivefax(copyitem)
@@ -356,12 +379,87 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	return round((sendcooldown - world.time) / 10)
 
 /obj/machinery/photocopier/faxmachine/proc/message_admins(var/mob/sender, var/faxname, var/faxtype, var/obj/item/sent, font_colour="#9A04D1")
-	var/msg = "<span class='boldnotice'><font color='[font_colour]'>[faxname]: </font> [key_name_admin(sender)] | REPLY: (<A HREF='?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : "CentcommReply"]=[sender.UID()]'>RADIO</A>) (<a href='?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<A HREF='?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=\ref[src]'>TEMPLATE</A>) ([ADMIN_BSA(sender,"BSA")]) (<A HREF='?_src_=holder;EvilFax=[sender.UID()];originfax=\ref[src]'>EVILFAX</A>) </span>: Receiving '[sent.name]' via secure connection... <a href='?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
+	var/msg = "<span class='boldnotice'><font color='[font_colour]'>[faxname]: </font> [key_name_admin(sender)] | REPLY: (<A HREF='?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : ""]=[sender.UID()][faxname == "USSP FAX" ? "USSPReply" : ""]=[sender.UID()][faxname == "CENTCOM FAX" ? "CentcommReply" : ""]=[sender.UID()]'>RADIO</A>) (<a href='?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<A HREF='?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=\ref[src]'>TEMPLATE</A>) ([ADMIN_BSA(sender,"BSA")]) (<A HREF='?_src_=holder;EvilFax=[sender.UID()];originfax=\ref[src]'>EVILFAX</A>) </span>: Receiving '[sent.name]' via secure connection... <a href='?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_EVENT, 0, C.mob))
 			to_chat(C, msg)
 			if(C.prefs.sound & SOUND_ADMINHELP)
 				C << 'sound/effects/adminhelp.ogg'
+
+	var/datum/discord_webhook_payload/payload = new()
+	if(istype(sent, /obj/item/paper))
+		var/obj/item/paper/P = sent
+		var/data = sanitize_paper(P)
+		var/datum/discord_embed/embed = new()
+		embed.embed_title = P.name
+		embed.embed_content = data
+		embed.embed_colour = replacetext(font_colour, "#", "")
+		payload.embeds += embed
+		payload.webhook_content = "**\[FAX\]** [sender.client.ckey]/([sender.name]) sent a Paper Fax at [get_area(src)]"
+		SSdiscord.send2discord_complex(DISCORD_WEBHOOK_REQUESTS, payload)
+	else if(istype(sent, /obj/item/paper_bundle))
+		var/obj/item/paper_bundle/bundle = sent
+		for(var/obj/item/paper/P in bundle)
+			var/datum/discord_embed/embed = new()
+			embed.embed_title = P.name
+			embed.embed_colour = replacetext(font_colour, "#", "")
+			embed.embed_content = sanitize_paper(P)
+			payload.embeds += embed
+		for(var/obj/item/photo/P in bundle)
+			var/datum/discord_embed/embed = new()
+			embed.embed_title = P.name
+			embed.embed_colour = replacetext(font_colour, "#", "")
+			embed.embed_content = P.log_text
+			payload.embeds += embed
+		payload.webhook_content = "**\[FAX\]** [sender.client.ckey]/([sender.name]) sent a Bundle Fax at [get_area(src)]"
+		SSdiscord.send2discord_complex(DISCORD_WEBHOOK_REQUESTS, payload)
+	else if(istype(sent, /obj/item/photo))
+		var/obj/item/photo/P = sent
+		var/datum/discord_embed/embed = new()
+		embed.embed_title = P.name
+		embed.embed_colour = font_colour
+		embed.embed_content = P.log_text
+		payload.embeds += embed
+		payload.webhook_content = "**\[FAX\]** [sender.client.ckey]/([sender.name]) sent a Photo at [get_area(src)]"
+		SSdiscord.send2discord_complex(DISCORD_WEBHOOK_REQUESTS, payload)
+
+/obj/machinery/photocopier/faxmachine/proc/sanitize_paper(obj/item/paper/paper) // html to discord markdown-101
+	var/text = paper.show_content(forceshow = 1, view = 0)
+	text = replacetext(text, "<BR>", "\n")
+	text = replacetext(text, "</U>", "__")
+	text = replacetext(text, "<B>", "**")
+	text = replacetext(text, "</B>", "**")
+	text = replacetext(text, "<I>", "*")
+	text = replacetext(text, "</I>", "*")
+	text = replacetext(text, "<U>", "__")
+	text = replacetext(text, "</U>", "__")
+	text = replacetext(text, "<span class=\"paper_field\"></span>", "`_FIELD_`")
+
+	text = replacetext(text, "<H1>", "# ")
+	text = replacetext(text, "<H2>", "## ")
+	text = replacetext(text, "<H3>", "### ")
+
+	text = replacetext(text, "<li>", "- ")
+	text = replacetext(text, "<HR>", "\n`----- Horizontal Rule -----`\n")
+	text = replacetext(text, "<table border=1 cellspacing=0 cellpadding=3 style='border: 1px solid black;'>", "`_TABLE START_`\n")
+	text = replacetext(text, "<table>", "`_GRID START_`\n")
+	text = replacetext(text, "<tr>", "\n") // starts table, \ns it when splits every cell with |
+	text = replacetext(text, "<td>", " | ")
+	text = replacetext(text, "<table>", "`_TABLE END_`\n")
+	text = replacetext(text, "<img src = ntlogo.png>", "` NT LOGO `\n")
+	text = replacetext(text, "<img src = syndielogo.png>", "` SYNDIE LOGO `\n")
+	text = replacetextEx(text, "<img src = syndielogo.png>", "` SYNDIE LOGO `\n")
+	var/textstamps = paper.stamps
+	for(var/type in paper.stamped)
+		var/obj/item/stamp/stamp = new type()
+		if(istype(stamp, /obj/item/stamp/chameleon))
+			var/text_stamp = replacetext(textstamps, regex(".*?<img src=large_stamp-(.*?).png>.*"), "$1") // pops from textstamps.
+			textstamps = replacetext(textstamps, regex("<img src=large_stamp-.*?.png>"), "")
+			text += "` [text_stamp] (CHAMELEON) stamp `"
+		else
+			text += "` [replacetext(replacetext(stamp.name, "rubber", ""), "'s", "")] `"
+
+	return strip_html_properly(text, MAX_PAPER_MESSAGE_LEN, TRUE) //So satisfying that max paper length equals max description disorcd
 
 /obj/machinery/photocopier/faxmachine/proc/become_mimic()
 	if(scan)

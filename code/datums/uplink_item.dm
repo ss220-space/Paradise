@@ -379,8 +379,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A massive and incredibly deadly Syndicate exosuit(Not realy)."
 	reference = "SLM"
 	item = /obj/mecha/combat/lockersyndie/loaded
-	cost = 10
-	job = list("Civilian")
+	cost = 6
+	job = list("Civilian", "Roboticist")
 	surplus = 0
 
 /datum/uplink_item/jobspecific/stungloves
@@ -426,6 +426,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/gloves/color/yellow/power
 	cost = 8
 	job = list("Station Engineer", "Trainee Engineer", "Chief Engineer")
+
+/datum/uplink_item/jobspecific/supertoolbox
+	name = "Superior Suspicious Toolbox"
+	desc = "Ultimate version of all toolboxes, this one more robust and more useful than his cheaper version. Comes with experimental type tools, combat gloves and cool sunglasses."
+	item = /obj/item/storage/toolbox/syndisuper
+	reference = "CSSTB"
+	cost = 2
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	job = list("Station Engineer", "Trainee Engineer", "Chief Engineer", "Mechanic", "Roboticist", "Paramedic")
 
 //RD
 /datum/uplink_item/jobspecific/telegun
@@ -998,6 +1007,23 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 1
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/ammo/rocketHE
+	name = "84mm High Explosive rocket"
+	desc = "A rocket from a rocketlauncher. This one deals a devastating explosion, enough to tear the station and civillian apart."
+	reference = "RHE"
+	item = /obj/item/ammo_casing/caseless/rocket
+	cost = 8
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+
+/datum/uplink_item/ammo/rocketHEDP
+	name = "84mm High Explosive Dual Purpose rocket"
+	desc = "A rocket from a rocketlauncher. This one emits shrapnel and incendiary ammunition. The rocket itself is strong enough to destroy station mechs and robots with one shot."
+	reference = "RHEDP"
+	item = /obj/item/ammo_casing/caseless/rocket/hedp
+	cost = 6
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 // STEALTHY WEAPONS
 
 /datum/uplink_item/stealthy_weapons
@@ -1230,6 +1256,24 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/grenade/syndieminibomb
 	cost = 6
 
+/datum/uplink_item/explosives/rocketlauncher
+	name = "84mm Rocket Propelled Grenade Launcher"
+	desc = "A reusable rocket propelled grenade launcher preloaded with a low-yield 84mm HE round. Guaranteed to send your target out with a bang or your money back!"
+	reference = "PML9"
+	item = /obj/item/gun/projectile/revolver/rocketlauncher
+	cost = 10
+	surplus = 0 // no way
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/explosives/rocketbelt
+	name = "84mm Rocket Belt"
+	desc = "A belt full of rockets for a rocket propelled grenade launcher. Guaranteed to eliminate most of your targets. Just don't blow up your mates!"
+	reference = "PMLB"
+	item = /obj/item/storage/belt/rocketman
+	cost = 35
+	surplus = 0
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 /datum/uplink_item/explosives/detomatix
 	name = "Detomatix PDA Cartridge"
 	desc = "When inserted into a personal digital assistant, this cartridge gives you five opportunities to detonate PDAs of crewmembers who have their message feature enabled. The concussive effect from the explosion will knock the recipient out for a short period, and deafen them for longer. It has a chance to detonate your PDA."
@@ -1458,6 +1502,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
+/datum/uplink_item/stealthy_tools/chameleon_counter
+	name = "Chameleon Counterfeiter"
+	desc = "This device disguises itself as any object scanned by it. It's unstable and disguise will be disabled in about 30 minutes. The box contains three counterfeiters."
+	reference = "CC"
+	item = /obj/item/storage/box/syndie_kit/chameleon_counter
+	cost = 2
 // DEVICE AND TOOLS
 
 /datum/uplink_item/device_tools
@@ -1484,6 +1534,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "FLTB"
 	item = /obj/item/storage/toolbox/syndicate
 	cost = 1
+
+/datum/uplink_item/device_tools/supertoolbox
+	name = "Superior Suspicious Toolbox"
+	desc = "Ultimate version of all toolboxes, this one more robust and more useful than his cheaper version. Comes with experimental type tools, combat gloves and cool sunglasses."
+	item = /obj/item/storage/toolbox/syndisuper
+	reference = "SSTB"
+	cost = 2
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/device_tools/holster
 	name = "Shoulder Holster"
@@ -1541,11 +1599,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Syndicate Personal AI Device (SPAI)"
 	desc = "You will have your personal assistant. It comes with an increased amount of memory and special programs."
 	reference = "SPAI"
-	item = /obj/item/paicard/uplink
+	item = /obj/item/storage/box/syndie_kit/pai
 	cost = 5
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 	refundable = TRUE
+	refund_path = /obj/item/paicard_upgrade/unused
 	cant_discount = TRUE
 
 /datum/uplink_item/device_tools/thermal_drill
@@ -1810,28 +1869,18 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 0
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/cyber_implants/spawn_item(turf/loc, obj/item/uplink/U)
-	if(item)
-		if(findtext(item, /obj/item/organ/internal/cyberimp))
-			U.uses -= max(cost, 0)
-			U.used_TC += cost
-			SSblackbox.record_feedback("nested tally", "traitor_uplink_items_bought", 1, list("[initial(name)]", "[cost]")) //this one and the line before copypasted because snowflaek code
-			return new /obj/item/storage/box/cyber_implants(loc, item)
-		else
-			return ..()
-
 /datum/uplink_item/cyber_implants/thermals
 	name = "Thermal Vision Implant"
 	desc = "These cybernetic eyes will give you thermal vision. Comes with an automated implanting tool."
 	reference = "CIT"
-	item = /obj/item/organ/internal/cyberimp/eyes/thermals
+	item = /obj/item/storage/box/cyber_implants/thermals
 	cost = 8
 
 /datum/uplink_item/cyber_implants/xray
 	name = "X-Ray Vision Implant"
 	desc = "These cybernetic eyes will give you X-ray vision. Comes with an automated implanting tool."
 	reference = "CIX"
-	item = /obj/item/organ/internal/cyberimp/eyes/xray
+	item = /obj/item/storage/box/cyber_implants/xray
 	cost = 10
 
 /datum/uplink_item/cyber_implants/antistun
@@ -1839,14 +1888,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "This implant will help you get back up on your feet faster after being stunned. It is invulnerable to EMPs. \
 			Comes with an automated implanting tool."
 	reference = "CIAS"
-	item = /obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
+	item = /obj/item/storage/box/cyber_implants/anti_stun_hardened
 	cost = 12
 
 /datum/uplink_item/cyber_implants/reviver
 	name = "Hardened Reviver Implant"
 	desc = "This implant will attempt to revive you if you lose consciousness. It is invulnerable to EMPs. Comes with an automated implanting tool."
 	reference = "CIR"
-	item = /obj/item/organ/internal/cyberimp/chest/reviver/hardened
+	item = /obj/item/storage/box/cyber_implants/reviver_hardened
 	cost = 8
 
 // POINTLESS BADASSERY

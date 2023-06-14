@@ -54,6 +54,17 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/razorgloves
+	name = "Razor Gloves"
+	result = /obj/item/clothing/gloves/color/black/razorgloves
+	reqs = list(/obj/item/stack/tape_roll = 4,
+				/obj/item/clothing/gloves/color/black = 1,
+				/obj/item/cultivator = 1)
+	time = 40
+	tools = list(TOOL_WIRECUTTER)
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
 /datum/crafting_recipe/ed209
 	name = "ED209"
 	result = /mob/living/simple_animal/bot/ed209
@@ -581,6 +592,14 @@
 	time = 30
 	reqs = list(/obj/item/stack/sheet/wood = 2,
 				 /obj/item/stack/sheet/sinew = 1)
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/bola_s
+	name = "Skull Bola"
+	result = /obj/item/restraints/legcuffs/bola/sinew
+	reqs = list(/obj/item/restraints/handcuffs/sinew = 2, //We don't have a "hand craft" version due to the need for 2 restraints in crafting.
+				/obj/item/stack/sheet/bone = 3)
+	time = 20
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/boneaxe
@@ -1197,4 +1216,12 @@
 				/obj/item/stack/rods = 20,
 				/obj/item/stack/sheet/mineral/silver = 5)
 	tools = list(TOOL_WELDER, TOOL_WRENCH)
+	category = CAT_MISC
+
+/datum/crafting_recipe/makeshift_splint
+	name = "Makeshift splint"
+	result = /obj/item/stack/medical/splint/makeshift
+	time = 5 SECONDS
+	reqs = list(/obj/item/stack/sheet/wood = 2,
+				/obj/item/stack/sheet/cloth = 3)
 	category = CAT_MISC

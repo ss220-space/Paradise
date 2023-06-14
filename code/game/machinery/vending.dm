@@ -175,7 +175,7 @@
 		return FALSE
 
 	flickering = TRUE
-	INVOKE_ASYNC(src, /obj/machinery/vending/.proc/flicker_event)
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/vending, flicker_event))
 
 	return TRUE
 
@@ -295,14 +295,15 @@
 		if(coin)
 			to_chat(user, "<span class='warning'>There is already a coin in this machine!</span>")
 			return
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(I, src))
 			return
-		I.forceMove(src)
+		add_fingerprint(user)
 		coin = I
 		to_chat(user, "<span class='notice'>You insert [I] into the [src]</span>")
 		SStgui.update_uis(src)
 		return
 	if(refill_canister && istype(I, refill_canister))
+		add_fingerprint(user)
 		if(!panel_open)
 			to_chat(user, "<span class='warning'>You should probably unscrew the service panel first!</span>")
 		else if (stat & (BROKEN|NOPOWER))
@@ -321,6 +322,7 @@
 					to_chat(user, "<span class='warning'>There's nothing to restock!</span>")
 		return
 	if(item_slot_check(user, I))
+		add_fingerprint(user)
 		insert_item(user, I)
 		return
 	return ..()
@@ -408,11 +410,10 @@
 /obj/machinery/vending/proc/insert_item(mob/user, obj/item/I)
 	if(!item_slot || inserted_item)
 		return
-	if(!user.drop_item())
+	if(!user.drop_transfer_item_to_loc(I, src))
 		to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't seem to put it down!</span>")
 		return
 	inserted_item = I
-	I.forceMove(src)
 	to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
 	SStgui.update_uis(src)
 
@@ -421,7 +422,8 @@
 		return
 	var/put_on_turf = TRUE
 	if(user && iscarbon(user) && user.Adjacent(src))
-		if(user.put_in_hands(inserted_item))
+		inserted_item.forceMove_turf()
+		if(user.put_in_hands(inserted_item, ignore_anim = FALSE))
 			put_on_turf = FALSE
 	if(put_on_turf)
 		var/turf/T = get_turf(src)
@@ -445,8 +447,10 @@
 
 	if(src.seconds_electrified != 0)
 		if(src.shock(user, 100))
+			add_fingerprint(user)
 			return
 
+	add_fingerprint(user)
 	ui_interact(user)
 	wires.Interact(user)
 
@@ -571,7 +575,8 @@
 				to_chat(usr, "<span class='warning'>You lack hands.</span>")
 				return
 			to_chat(usr, "<span class='notice'>You remove [coin] from [src].</span>")
-			usr.put_in_hands(coin)
+			coin.forceMove_turf()
+			usr.put_in_hands(coin, ignore_anim = FALSE)
 			coin = null
 			. = TRUE
 		if("vend")
@@ -700,7 +705,7 @@
 	if(icon_vend) //Show the vending animation if needed
 		flick(icon_vend, src)
 	playsound(get_turf(src), 'sound/machines/machine_vend.ogg', 50, TRUE)
-	addtimer(CALLBACK(src, .proc/delayed_vend, R, user), vend_delay)
+	addtimer(CALLBACK(src, PROC_REF(delayed_vend), R, user), vend_delay)
 
 /obj/machinery/vending/proc/delayed_vend(datum/data/vending_product/R, mob/user)
 	do_vend(R, user)
@@ -711,9 +716,9 @@
 /obj/machinery/vending/proc/do_vend(datum/data/vending_product/R, mob/user)
 	if(!item_slot || !inserted_item)
 		var/put_on_turf = TRUE
-		var/obj/vended = new R.product_path()
+		var/obj/vended = new R.product_path(drop_location())
 		if(user && iscarbon(user) && user.Adjacent(src))
-			if(user.put_in_hands(vended))
+			if(user.put_in_hands(vended, ignore_anim = FALSE))
 				put_on_turf = FALSE
 		if(put_on_turf)
 			var/turf/T = get_turf(src)
@@ -930,7 +935,8 @@
 	if(istype(vended, /obj/item/reagent_containers/food/drinks/mug))
 		var/put_on_turf = TRUE
 		if(user && iscarbon(user) && user.Adjacent(src))
-			if(user.put_in_hands(vended))
+			vended.forceMove_turf()
+			if(user.put_in_hands(vended, ignore_anim = FALSE))
 				put_on_turf = FALSE
 		if(put_on_turf)
 			var/turf/T = get_turf(src)
@@ -941,7 +947,8 @@
 	if(vended.reagents.total_volume)
 		var/put_on_turf = TRUE
 		if(user && iscarbon(user) && user.Adjacent(src))
-			if(user.put_in_hands(vended))
+			vended.forceMove_turf()
+			if(user.put_in_hands(vended, ignore_anim = FALSE))
 				put_on_turf = FALSE
 		if(put_on_turf)
 			var/turf/T = get_turf(src)
@@ -1071,9 +1078,9 @@
 	vend_delay = 34
 	icon_state = "cigs"
 	products = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 12, /obj/item/storage/fancy/cigarettes/cigpack_uplift = 6, /obj/item/storage/fancy/cigarettes/cigpack_random = 6, /obj/item/reagent_containers/food/pill/patch/nicotine = 10, /obj/item/storage/box/matches = 10,/obj/item/lighter/random = 4,/obj/item/storage/fancy/rollingpapers = 5)
-	contraband = list(/obj/item/lighter/zippo = 4)
+	contraband = list(/obj/item/lighter/zippo = 4, /obj/item/clothing/mask/cigarette/pipe/oldpipe = 3)
 	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2, /obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1)
-	prices = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 60, /obj/item/storage/fancy/cigarettes/cigpack_uplift = 80, /obj/item/storage/fancy/cigarettes/cigpack_random = 120, /obj/item/reagent_containers/food/pill/patch/nicotine = 70, /obj/item/storage/box/matches = 10,/obj/item/lighter/random = 60, /obj/item/storage/fancy/rollingpapers = 20)
+	prices = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 180, /obj/item/storage/fancy/cigarettes/cigpack_uplift = 240, /obj/item/storage/fancy/cigarettes/cigpack_random = 360, /obj/item/reagent_containers/food/pill/patch/nicotine = 70, /obj/item/storage/box/matches = 10,/obj/item/lighter/random = 60, /obj/item/storage/fancy/rollingpapers = 20, /obj/item/clothing/mask/cigarette/pipe/oldpipe = 250)
 	refill_canister = /obj/item/vending_refill/cigarette
 
 /obj/machinery/vending/cigarette/free
@@ -1375,7 +1382,7 @@
 					/obj/item/twohanded/staff = 3,
 					/obj/item/clothing/mask/gas/clown_hat/sexy = 1,
 					/obj/item/clothing/under/rank/clown/sexy = 1,
-					/obj/item/clothing/mask/gas/sexymime = 1,
+					/obj/item/clothing/mask/gas/mime/sexy = 1,
 					/obj/item/clothing/under/sexymime = 1,
 					/obj/item/clothing/mask/face/bat = 1,
 					/obj/item/clothing/mask/face/bee = 1,
@@ -1706,7 +1713,7 @@
 					/obj/item/clothing/neck/mantle = 2,
 					/obj/item/clothing/neck/mantle/old = 1,
 					/obj/item/clothing/neck/mantle/regal = 2,
-					/obj/item/clothing/neck/cloak = 1)
+					/obj/item/clothing/neck/cloak/grey = 1)
 
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 1,
 					  /obj/item/clothing/mask/balaclava = 1,

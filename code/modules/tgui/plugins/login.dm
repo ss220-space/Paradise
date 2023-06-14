@@ -56,7 +56,12 @@ GLOBAL_LIST(ui_logins)
 		"rank" = state.rank,
 		"logged_in" = state.logged_in,
 	)
-	data["isAI"] = isAI(user)
+	if(ispAI(user))
+		var/mob/living/silicon/pai/pai = user
+		if(pai.syndipai)
+			data["isAI"] = TRUE
+	else
+		data["isAI"] = isAI(user)
 	data["isRobot"] = isrobot(user)
 	data["isAdmin"] = user.can_admin_interact()
 
@@ -86,8 +91,7 @@ GLOBAL_LIST(ui_logins)
 
 	if(istype(O, /obj/item/card/id))
 		// Move the ID inside
-		usr.drop_item()
-		O.forceMove(src)
+		usr.drop_transfer_item_to_loc(O, src)
 
 		// Update the state
 		state.id = O
@@ -106,8 +110,8 @@ GLOBAL_LIST(ui_logins)
 
 	// Drop the ID
 	state.id.forceMove(loc)
-	if(ishuman(usr) && !usr.get_active_hand())
-		usr.put_in_hands(state.id)
+	if(ishuman(usr))
+		usr.put_in_hands(state.id, ignore_anim = FALSE)
 
 	// Update the state
 	state.id = null
@@ -133,7 +137,7 @@ GLOBAL_LIST(ui_logins)
 		else
 			to_chat(usr, "<span class='warning'>Access Denied</span>")
 			return
-	else if(login_type == LOGIN_TYPE_AI && isAI(usr))
+	else if(login_type == LOGIN_TYPE_AI && (isAI(usr) || ispAI(usr)))
 		state.name = usr.name
 		state.rank = "AI"
 	else if(iscogscarab(usr))

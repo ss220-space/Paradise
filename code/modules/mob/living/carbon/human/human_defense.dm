@@ -556,7 +556,7 @@ emp_act
 /mob/living/carbon/human/proc/embed_item_inside(var/obj/item/I)
 	if(ismob(I.loc))
 		var/mob/M = I.loc
-		M.remove_from_mob(I)
+		M.drop_item_ground(I)
 	throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
 	var/obj/item/organ/external/L = pick(bodyparts)
 	L.embedded_objects |= I
@@ -610,13 +610,13 @@ emp_act
 		if(M.a_intent == INTENT_HARM)
 			if(w_uniform)
 				w_uniform.add_fingerprint(M)
-			var/damage = prob(90) ? 20 : 0
+			var/damage = prob(90) ? M.attack_damage : 0
 			if(!damage)
 				playsound(loc, 'sound/weapons/slashmiss.ogg', 50, TRUE, -1)
 				visible_message("<span class='danger'>[M] has lunged at [src]!</span>")
 				return 0
 			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
-			var/armor_block = run_armor_check(affecting, "melee", armour_penetration = 10)
+			var/armor_block = run_armor_check(affecting, "melee", armour_penetration = M.armour_penetration)
 
 			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
@@ -628,14 +628,14 @@ emp_act
 
 		if(M.a_intent == INTENT_DISARM) //Always drop item in hand, if no item, get stun instead.
 			var/obj/item/I = get_active_hand()
-			if(I && unEquip(I))
+			if(I && drop_item_ground(I))
 				playsound(loc, 'sound/weapons/slash.ogg', 25, TRUE, -1)
 				visible_message("<span class='danger'>[M] disarms [src]!</span>", "<span class='userdanger'>[M] disarms you!</span>", "<span class='hear'>You hear aggressive shuffling!</span>")
 				to_chat(M, "<span class='danger'>You disarm [src]!</span>")
 			else
 				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
 				playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
-				src.adjustStaminaLoss(rand(10,20))
+				src.adjustStaminaLoss(M.disarm_stamina_damage)
 				if(prob(40))
 					apply_effect(1, WEAKEN, run_armor_check(affecting, "melee"))
 					add_attack_logs(M, src, "Alien tackled")
