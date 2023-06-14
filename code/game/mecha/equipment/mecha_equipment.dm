@@ -58,7 +58,11 @@
 	else
 		txt += "[name]"
 
+	txt += "[get_module_equip_info()]"
 	return txt
+
+/obj/item/mecha_parts/mecha_equipment/proc/get_module_equip_info()
+	return
 
 /obj/item/mecha_parts/mecha_equipment/proc/is_ranged()//add a distance restricted equipment. Why not?
 	return range & MECHA_RANGED
@@ -138,8 +142,13 @@
 	if(!M.selected)
 		M.selected = src
 	update_chassis_page()
+	attach_act(M)
+
+/obj/item/mecha_parts/mecha_equipment/proc/attach_act(obj/mecha/M)
+	return
 
 /obj/item/mecha_parts/mecha_equipment/proc/detach(atom/moveto = null)
+	detach_act()
 	moveto = moveto || get_turf(chassis)
 	if(Move(moveto))
 		chassis.equipment -= src
@@ -150,11 +159,12 @@
 		chassis = null
 		set_ready_state(1)
 
+/obj/item/mecha_parts/mecha_equipment/proc/detach_act()
+	return
 
 /obj/item/mecha_parts/mecha_equipment/Topic(href,href_list)
 	if(href_list["detach"])
 		detach()
-
 
 /obj/item/mecha_parts/mecha_equipment/proc/set_ready_state(state)
 	equip_ready = state

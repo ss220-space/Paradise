@@ -145,8 +145,9 @@
 			return 1
 
 
-/obj/item/mecha_parts/mecha_equipment/gravcatapult/get_equip_info()
-	return "[..()] [mode==1?"([locked||"Nothing"])":null] \[<a href='?src=[UID()];mode=1'>S</a>|<a href='?src=[UID()];mode=2'>P</a>\]"
+/obj/item/mecha_parts/mecha_equipment/gravcatapult/get_module_equip_info()
+	. = ..()
+	. += " [mode==1?"([locked||"Nothing"])":null] \[<a href='?src=[UID()];mode=1'>S</a>|<a href='?src=[UID()];mode=2'>P</a>\]"
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/Topic(href, href_list)
 	..()
@@ -214,20 +215,19 @@
 		chassis.overlays -= droid_overlay
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/repair_droid/attach(obj/mecha/M)
+/obj/item/mecha_parts/mecha_equipment/repair_droid/attach_act(obj/mecha/M)
 	..()
 	droid_overlay = new(icon, icon_state = "repair_droid")
 	M.overlays += droid_overlay
 
-/obj/item/mecha_parts/mecha_equipment/repair_droid/detach()
+/obj/item/mecha_parts/mecha_equipment/repair_droid/detach_act()
 	chassis.overlays -= droid_overlay
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/repair_droid/get_equip_info()
-	if(!chassis) return
-	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp; [name] - <a href='?src=[UID()];toggle_repairs=1'>[equip_ready?"A":"Dea"]ctivate</a>"
-
+/obj/item/mecha_parts/mecha_equipment/repair_droid/get_module_equip_info()
+	. = ..()
+	. += " <a href='?src=[UID()];toggle_repairs=1'>[equip_ready?"A":"Dea"]ctivate</a>"
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/Topic(href, href_list)
 	..()
@@ -293,7 +293,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/detach()
+/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/detach_act()
 	STOP_PROCESSING(SSobj, src)
 	..()
 
@@ -327,9 +327,9 @@
 			set_ready_state(1)
 			log_message("Deactivated.")
 
-/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/get_equip_info()
-	if(!chassis) return
-	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp; [name] - <a href='?src=[UID()];toggle_relay=1'>[equip_ready?"A":"Dea"]ctivate</a>"
+/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/get_module_equip_info()
+	. = ..()
+	. += " <a href='?src=[UID()];toggle_relay=1'>[equip_ready?"A":"Dea"]ctivate</a>"
 
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/process()
@@ -378,7 +378,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/generator/detach()
+/obj/item/mecha_parts/mecha_equipment/generator/detach_act()
 	STOP_PROCESSING(SSobj, src)
 	..()
 
@@ -394,10 +394,9 @@
 			STOP_PROCESSING(SSobj, src)
 			log_message("Deactivated.")
 
-/obj/item/mecha_parts/mecha_equipment/generator/get_equip_info()
-	var/output = ..()
-	if(output)
-		return "[output] \[[fuel_name]: [round(fuel_amount,0.1)] cm<sup>3</sup>\] - <a href='?src=[UID()];toggle=1'>[equip_ready?"A":"Dea"]ctivate</a>"
+/obj/item/mecha_parts/mecha_equipment/generator/get_module_equip_info()
+	. = ..()
+	. += " \[[fuel_name]: [round(fuel_amount,0.1)] cm<sup>3</sup>\] - <a href='?src=[UID()];toggle=1'>[equip_ready?"A":"Dea"]ctivate</a>"
 
 /obj/item/mecha_parts/mecha_equipment/generator/action(target)
 	if(chassis)
@@ -524,14 +523,14 @@
 		return FALSE
 	. = ..()
 
-/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/attach(obj/mecha/M)
+/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/attach_act(obj/mecha/M)
 	M.strafe_allowed = TRUE
 	M.actuator = src
 	if(M.occupant)
 		M.strafe_action.Grant(M.occupant, M)
 	. = ..()
 
-/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/detach()
+/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/detach_act()
 	chassis.strafe_allowed = FALSE
 	chassis.strafe = FALSE
 	chassis.actuator = null

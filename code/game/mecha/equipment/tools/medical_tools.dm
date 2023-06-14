@@ -13,7 +13,7 @@
 			return TRUE
 	return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/medical/attach(obj/mecha/M)
+/obj/item/mecha_parts/mecha_equipment/medical/attach_act(obj/mecha/M)
 	..()
 	START_PROCESSING(SSobj, src)
 
@@ -26,7 +26,7 @@
 		STOP_PROCESSING(SSobj, src)
 		return 1
 
-/obj/item/mecha_parts/mecha_equipment/medical/detach()
+/obj/item/mecha_parts/mecha_equipment/medical/detach_act()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
@@ -96,21 +96,16 @@
 	patient = null
 	update_equip_info()
 
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper/detach()
+/obj/item/mecha_parts/mecha_equipment/medical/sleeper/detach_act()
 	if(patient)
 		occupant_message("<span class='warning'>Unable to detach [src] - equipment occupied!</span>")
 		return
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper/get_equip_info()
-	var/output = ..()
-	if(output)
-		var/temp = ""
-		if(patient)
-			temp = "<br />\[Occupant: [patient] ([patient.stat > 1 ? "*DECEASED*" : "Health: [patient.health]%"])\]<br /><a href='?src=[UID()];view_stats=1'>View stats</a>|<a href='?src=[UID()];eject=1'>Eject</a>"
-		return "[output] [temp]"
-	return
+/obj/item/mecha_parts/mecha_equipment/medical/sleeper/get_module_equip_info()
+	. = ..()
+	. += " <br />\[Occupant: [patient] ([patient.stat > 1 ? "*DECEASED*" : "Health: [patient.health]%"])\]<br /><a href='?src=[UID()];view_stats=1'>View stats</a>|<a href='?src=[UID()];eject=1'>Eject</a>"
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/Topic(href,href_list)
 	..()
@@ -268,7 +263,7 @@
 	known_reagents = list("epinephrine"="Epinephrine","charcoal"="Charcoal")
 	processed_reagents = new
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/detach()
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/detach_act()
 	STOP_PROCESSING(SSobj, src)
 	if(istype(src.loc, /obj/mecha/medical/odysseus))
 		var/obj/mecha/medical/odysseus/O = src.loc
@@ -291,11 +286,10 @@
 			return 1
 	return 0
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/get_equip_info()
-	var/output = ..()
-	if(output)
-		return "[output] \[<a href=\"?src=[UID()];toggle_mode=1\">[mode? "Analyze" : "Launch"]</a>\]<br />\[Syringes: [syringes.len]/[max_syringes] | Reagents: [reagents.total_volume]/[reagents.maximum_volume]\]<br /><a href='?src=[UID()];show_reagents=1'>Reagents list</a>"
-	return
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/get_module_equip_info()
+	. = ..()
+	. += " \[<a href=\"?src=[UID()];toggle_mode=1\">[mode? "Analyze" : "Launch"]</a>\]<br />\[Syringes: [syringes.len]/[max_syringes] | Reagents: [reagents.total_volume]/[reagents.maximum_volume]\]<br /><a href='?src=[UID()];show_reagents=1'>Reagents list</a>"
+
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/action(atom/movable/target)
 	if(!action_checks(target))
@@ -555,14 +549,14 @@
 			return 1
 	return 0
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/attach(obj/mecha/M)
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/attach_act(obj/mecha/M)
 	..()
 	for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/S in chassis.equipment)
 		S.max_volume = improv_max_volume
 		S.synth_speed = imrov_synth_speed
 		S.reagents.maximum_volume = improv_max_volume
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/detach()
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/detach_act()
 	for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/S in chassis.equipment)
 		S.max_volume = initial(S.max_volume)
 		S.synth_speed = initial(S.synth_speed)
@@ -626,11 +620,11 @@
 	selectable = 0
 	var/improv_step_in = 2
 
-/obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system/attach(obj/mecha/M)
+/obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system/attach_act(obj/mecha/M)
 	..()
 	M.step_in = improv_step_in
 
-/obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system/detach()
+/obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system/detach_act()
 	if(istype(src.loc, /obj/mecha/medical/odysseus))
 		var/obj/mecha/medical/odysseus/O = src.loc
 		O.step_in = initial(O.step_in)
