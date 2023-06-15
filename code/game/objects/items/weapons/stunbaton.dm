@@ -214,7 +214,9 @@
 
 /obj/item/melee/baton/emp_act(severity)
 	if(cell)
-		deductcharge(1000 / severity)
+		deductcharge(cell.maxcharge / (severity*2))
+		status = 0
+		update_icon()
 	..()
 
 /obj/item/melee/baton/wash(mob/user, atom/source)

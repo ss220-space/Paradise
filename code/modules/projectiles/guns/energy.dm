@@ -17,6 +17,8 @@
 	var/selfcharge = 0
 	var/charge_tick = 0
 	var/charge_delay = 4
+	var/emp_jammed = FALSE
+	var/emp_jam_timer
 
 	var/can_add_sibyl_system = TRUE //if a sibyl system's mod can be added or removed if it already has one
 	var/obj/item/sibyl_system_mod/sibyl_mod = null
@@ -120,7 +122,12 @@
 		return
 
 /obj/item/gun/energy/emp_act(severity)
-	cell.use(round(cell.charge / severity))
+	cell.use(round(cell.charge / (severity*2)))
+	emp_jammed = TRUE
+	deltimer(emp_jam_timer)
+	// 5-10 seconds depending on severity, then give or take 0.2 seconds to prevent piercing ears
+	var/unjam_time = ((10/severity) + (rand(-20,20)*0.01)) SECONDS
+	emp_jam_timer = addtimer(CALLBACK(src, PROC_REF(emp_unjam)), unjam_time, TIMER_STOPPABLE)
 	if(chambered)//phil235
 		if(chambered.BB)
 			qdel(chambered.BB)
@@ -128,6 +135,17 @@
 		chambered = null
 	newshot() //phil235
 	update_icon()
+
+/obj/item/gun/energy/shoot_with_empty_chamber(mob/living/user as mob|obj)
+	if(emp_jammed)
+		to_chat(user, span_danger("*EMP-JAMMED*"))
+		playsound(src, 'sound/weapons/empty.ogg', 30, 1)
+	else
+		..()
+
+/obj/item/gun/energy/proc/emp_unjam()
+	emp_jammed = FALSE
+	playsound(src, "sound/machines/twobeep.ogg", 50)
 
 /obj/item/gun/energy/get_cell()
 	return cell
@@ -188,6 +206,8 @@
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	var/check_charge = cell.charge >= shot.e_cost
 	if(sibyl_mod && !sibyl_mod.check_auth(check_charge, user))
+		return FALSE
+	if(emp_jammed)
 		return FALSE
 	return check_charge
 
