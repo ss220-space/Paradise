@@ -3137,7 +3137,7 @@
 	opacity = 1;
 	req_access = list(113)
 	},
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/wood,
 /area/centcom/zone2)
 "bAO" = (
 /turf/simulated/wall/indestructible{
@@ -5194,10 +5194,8 @@
 	},
 /area/ninja/holding)
 "cCV" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	icon = 'icons/obj/decals.dmi';
-	icon_state = "nanotrasen_sign3";
-	pixel_x = -16
+/obj/effect/decal/nanotrasen_logo{
+	icon_state = "logo4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -5298,10 +5296,8 @@
 	},
 /area/centcom/specops)
 "cFo" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	icon = 'icons/obj/decals.dmi';
-	icon_state = "nanotrasen_sign5";
-	pixel_x = -16
+/obj/effect/decal/nanotrasen_logo{
+	icon_state = "logo6"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -7100,6 +7096,17 @@
 	name = "floor"
 	},
 /area/vox_station)
+"dEV" = (
+/obj/effect/decal/nanotrasen_logo{
+	icon_state = "logo2"
+	},
+/obj/effect/decal/nanotrasen_logo{
+	icon_state = "logo5"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
 "dFh" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -8406,10 +8413,11 @@
 /turf/simulated/floor/plating,
 /area/centcom/supply)
 "erk" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	icon = 'icons/obj/decals.dmi';
-	icon_state = "ntsing_alt4";
-	pixel_x = -16
+/obj/effect/decal/nanotrasen_logo{
+	icon_state = "logo2"
+	},
+/obj/effect/decal/nanotrasen_logo{
+	icon_state = "logo5"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -10570,6 +10578,10 @@
 	opacity = 1;
 	req_access = list(114)
 	},
+/obj/machinery/door/poddoor/shutters/invincible{
+	id_tag = "CC_BUDKA";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -11093,10 +11105,8 @@
 	},
 /area/centcom/bridge)
 "fHh" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	icon = 'icons/obj/decals.dmi';
-	icon_state = "ntsing_alt5";
-	pixel_x = -16
+/obj/effect/decal/nanotrasen_logo{
+	icon_state = "logo6"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -11903,6 +11913,14 @@
 /obj/item/storage/box/disks_plantgene,
 /turf/simulated/floor/wood,
 /area/centcom/evac)
+"gcZ" = (
+/obj/effect/decal/nanotrasen_logo{
+	icon_state = "logo3"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
 "gdi" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -13786,6 +13804,14 @@
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/mining)
+"hjL" = (
+/obj/effect/decal/nanotrasen_logo{
+	icon_state = "logo4"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
 "hjQ" = (
 /obj/machinery/access_button{
 	command = "cycle_exterior";
@@ -15524,6 +15550,12 @@
 /obj/item/pen/multi/fountain,
 /turf/simulated/floor/wood,
 /area/centcom/zone2)
+"ilv" = (
+/obj/effect/decal/nanotrasen_logo,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
 "ilI" = (
 /turf/simulated/wall/indestructible/abductor{
 	icon_state = "alien18"
@@ -19662,6 +19694,14 @@
 	icon_state = "gray_walls_corners_smoothed"
 	},
 /area/shuttle/vox)
+"ksN" = (
+/obj/effect/decal/nanotrasen_logo{
+	icon_state = "logo2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
 "ktf" = (
 /obj/structure/table/abductor,
 /obj/item/bonegel/alien,
@@ -22039,6 +22079,14 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership/jail)
+"lwk" = (
+/obj/effect/decal/nanotrasen_logo{
+	icon_state = "logo6"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
 "lwI" = (
 /obj/effect/turf_decal/stripes/line{
 	icon = 'icons/turf/floors.dmi';
@@ -26444,10 +26492,8 @@
 /turf/simulated/floor/plasteel,
 /area/ninja/outpost)
 "njy" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	icon = 'icons/obj/decals.dmi';
-	icon_state = "ntsing_alt";
-	pixel_x = -16
+/obj/effect/decal/nanotrasen_logo{
+	icon_state = "logo2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -27787,10 +27833,8 @@
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
 "nMv" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	icon = 'icons/obj/decals.dmi';
-	icon_state = "ntsing_alt2";
-	pixel_x = -16
+/obj/effect/decal/nanotrasen_logo{
+	icon_state = "logo3"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -28735,6 +28779,20 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
+"oks" = (
+/obj/machinery/door_control{
+	id = "CC_BUDKA";
+	name = "Overwatch Cabinet";
+	pixel_x = 24;
+	pixel_y = -24;
+	req_access = list(114);
+	wires = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "navybluealtstrip"
+	},
+/area/centcom/specops)
 "okv" = (
 /turf/simulated/wall/shuttle/nosmooth{
 	dir = 6;
@@ -29040,10 +29098,8 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
 "osp" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	icon = 'icons/obj/decals.dmi';
-	icon_state = "ntsing_alt3";
-	pixel_x = -16
+/obj/effect/decal/nanotrasen_logo{
+	icon_state = "logo4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -29464,7 +29520,7 @@
 	anchored = 1;
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
-	name = "Not In My Watch";
+	name = "Not In My Watch Closet";
 	req_access = list(114)
 	},
 /obj/item/gun/energy/pulse/destroyer/annihilator,
@@ -32321,10 +32377,8 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "pUv" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	icon = 'icons/obj/decals.dmi';
-	icon_state = "nanotrasen_sign2";
-	pixel_x = -16
+/obj/effect/decal/nanotrasen_logo{
+	icon_state = "logo3"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -39513,10 +39567,8 @@
 	},
 /area/syndicate_mothership/cargo)
 "tjJ" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	icon = 'icons/obj/decals.dmi';
-	icon_state = "nanotrasen_sign1";
-	pixel_x = -16
+/obj/effect/decal/nanotrasen_logo{
+	icon_state = "logo2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -45674,6 +45726,18 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/specops)
+"vYK" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/door_control{
+	id = "CC_BUDKA";
+	name = "Overwatch Cabinet";
+	req_access = list(114);
+	wires = 1;
+	pixel_y = 24;
+	pixel_x = -24
+	},
+/turf/simulated/floor/carpet/black,
+/area/centcom/specops)
 "vYT" = (
 /obj/machinery/door_control/alt{
 	emagged = 1;
@@ -45765,6 +45829,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/cargo)
 "waY" = (
+/obj/effect/decal/nanotrasen_logo,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkgrey"
@@ -47876,6 +47941,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone3)
 "xfI" = (
+/obj/effect/decal/nanotrasen_logo,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkgrey"
@@ -48932,10 +48998,11 @@
 /turf/simulated/floor/carpet/green,
 /area/shuttle/trade/sol)
 "xEI" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	icon = 'icons/obj/decals.dmi';
-	icon_state = "nanotrasen_sign4";
-	pixel_x = -16
+/obj/effect/decal/nanotrasen_logo{
+	icon_state = "logo2"
+	},
+/obj/effect/decal/nanotrasen_logo{
+	icon_state = "logo5"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -96678,7 +96745,7 @@ nAN
 tnc
 ftv
 hTD
-fAg
+ilv
 kZY
 hmX
 daM
@@ -96935,7 +97002,7 @@ nAN
 pwF
 pwF
 hTD
-fAg
+ksN
 moU
 ncA
 oIc
@@ -97192,7 +97259,7 @@ nAN
 xXq
 iky
 hTD
-fAg
+gcZ
 abk
 nAN
 bNp
@@ -97449,7 +97516,7 @@ nAN
 xmI
 xmI
 hTD
-fAg
+hjL
 kZY
 hmX
 uoZ
@@ -97706,7 +97773,7 @@ nAN
 ftv
 gDk
 hTD
-fAg
+dEV
 kZY
 hmX
 tto
@@ -97963,7 +98030,7 @@ nAN
 pwF
 pwF
 hTD
-fAg
+lwk
 kZY
 hmX
 jDr
@@ -102600,7 +102667,7 @@ qbO
 nAN
 efU
 cFn
-mzs
+oks
 hHu
 hHu
 fDP
@@ -103114,7 +103181,7 @@ pNy
 aPL
 tmQ
 qTo
-gXI
+vYK
 cBt
 nAN
 nAN
