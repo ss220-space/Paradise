@@ -9,7 +9,9 @@
 #define MAX_PLAYERS_COUNT 16
 #define MIN_PLAYERS_COUNT 2
 #define SPAWN_COEFFICENT 0.85 //how many (polled * spawn_coefficent) players will go brawling
-/* Uncomment this if you want to mess up with thunderdome alone
+#define PICK_PENALTY 30 SECONDS //Prevents fast handed guys from picking polls twice in a row.
+// Uncomment this if you want to mess up with thunderdome alone
+/*
 #define THUND_TESTING
 #ifdef THUND_TESTING
 #define DEFAULT_TIME_LIMIT 30 SECONDS
@@ -45,12 +47,10 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 	var/melee_random_items_count = 1
 	var/ranged_random_items_count = 2
 	var/mixed_random_items_count = 1
+	var/who_started_last_poll = null //storing ckey of whoever started poll last. Preventing fastest hands of Wild West from polling twice in a row
+	var/when_cleansing_happened = 0 //storing (in ticks) moment of arena cleansing
 
 	var/list/melee_pool = list(
-		/obj/item/CQC_manual = 1,
-		/obj/item/sleeping_carp_scroll = 1,
-		/obj/item/clothing/gloves/color/black/krav_maga/sec = 1,
-		/obj/item/clothing/gloves/fingerless/rapid = 1,
 		/obj/item/melee/baton/loaded = 1,
 		/obj/item/melee/baseball_bat = 1,
 		/obj/item/melee/rapier = 1,
@@ -61,7 +61,10 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 		/obj/item/twohanded/chainsaw = 1,
 		/obj/item/twohanded/dualsaber = 1,
 		/obj/item/twohanded/singularityhammer = 1,
-		/obj/item/twohanded/fireaxe = 1
+		/obj/item/twohanded/fireaxe = 1,
+		/obj/item/melee/icepick = 1,
+		/obj/item/melee/candy_sword = 1,
+		/obj/item/melee/energy/sword/pirate = 1
 	)
 
 	var/list/ranged_pool = list(
@@ -72,12 +75,21 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 		/obj/item/gun/projectile/automatic/l6_saw = 1,
 		/obj/item/gun/projectile/automatic/lasercarbine = 1,
 		/obj/item/gun/projectile/automatic/shotgun/bulldog = 1,
-		/obj/item/gun/magic/wand/fireball = 1,
+		/obj/item/gun/magic/staff/slipping = 1,
 		/obj/item/gun/projectile/revolver/mateba = 3,
 		/obj/item/gun/projectile/shotgun/automatic = 2,
 		/obj/item/gun/projectile/shotgun/riot = 2,
 		/obj/item/gun/projectile/automatic/ak814 = 1,
-		/obj/item/gun/projectile/automatic/shotgun/bulldog = 2
+		/obj/item/gun/projectile/shotgun/riot/buckshot = 3,
+		/obj/item/gun/projectile/shotgun/boltaction = 1,
+		/obj/item/gun/projectile/shotgun/automatic/combat = 2,
+		/obj/item/gun/projectile/automatic/pistol/enforcer = 2,
+		/obj/item/gun/projectile/automatic/pistol/APS = 1,
+		/obj/item/gun/projectile/automatic/pistol/sp8ar = 1,
+		/obj/item/gun/projectile/automatic/pistol/m1911 = 1,
+		/obj/item/gun/projectile/revolver/golden = 1,
+		/obj/item/gun/projectile/revolver/nagant = 1,
+		/obj/item/gun/energy/gun/nuclear = 2
 	)
 
 /**
@@ -196,9 +208,10 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 	clear_area(tdome_arena_melee)
 
 	isGoing = FALSE
+	when_cleansing_happened = world.time
 	add_game_logs("Thunderdome battle has ended.")
 	var/image/alert_overlay = image('icons/obj/assemblies.dmi', "thunderdome-bomb-active-wires")
-	notify_ghosts(message = "Thunderdome is ready for battle!", title="Thunderdome News", alert_overlay = alert_overlay, ghost_sound = 'sound/misc/notice2.ogg')
+	notify_ghosts(message = "Thunderdome is ready for battle!", title="Thunderdome News", alert_overlay = alert_overlay, source = tdome_arena, action = NOTIFY_JUMP)
 
 /**
  * Clears area from:
@@ -263,12 +276,19 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 	. = ..()
 	if(!thunderdome)
 		thunderdome = GLOB.thunderdome_battle
+	var/can_we_roll = thunderdome.when_cleansing_happened + PICK_PENALTY
+	if(SSticker.current_state != GAME_STATE_PLAYING)
+		return
+	if((thunderdome.who_started_last_poll == user.ckey) && (can_we_roll > world.time) && !thunderdome.isGoing)
+		to_chat(user, "Вы сможете начать набор только спустя [PICK_PENALTY / 10] секунд после очистки Тандердома.")
+		return
 	if(!SSghost_spawns.is_eligible(user, ROLE_THUNDERDOME))
 		to_chat(user, "Вы не можете использовать Тандердом. Включите эту возможность в Game Preferences!")
 		return
 	if(thunderdome.isGoing)
 		to_chat(user, "Битва все ещё идёт или прошло недостаточно времени с момента последнего голосования!")
 		return
+	thunderdome.who_started_last_poll = user.ckey
 	thunderdome.start(gamemode, src)
 
 /obj/item/storage/backpack/thunderdome_infinite
@@ -324,7 +344,6 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 	backpack_contents = list(
 		/obj/item/CQC_manual = 1,
 		/obj/item/sleeping_carp_scroll = 1,
-		/obj/item/ipc_combat_upgrade = 1,
 		/obj/item/clothing/gloves/color/black/krav_maga/sec = 1,
 		/obj/item/clothing/gloves/fingerless/rapid = 1
 	)
@@ -390,3 +409,4 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 #undef MAX_PLAYERS_COUNT
 #undef MIN_PLAYERS_COUNT
 #undef SPAWN_COEFFICENT
+#undef PICK_PENALTY
