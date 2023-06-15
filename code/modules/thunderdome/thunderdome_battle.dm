@@ -165,7 +165,7 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 		var/ang = phi * 180 / PI
 		curr_x = center.x + radius * cos(ang)
 		curr_y = center.y + radius * sin(ang)
-		var/obj/effect/mob_spawn/human/thunderdome/brawler = new brawler_type(get_rounded_location(curr_x, curr_y, center.z))
+		var/obj/effect/mob_spawn/human/thunderdome/brawler = new brawler_type(locate(curr_x, curr_y, center.z))
 		brawler.outfit.backpack_contents += random_stuff
 		var/mob/dead/observer/ghost = candidates[currpoint]
 		brawler.attack_ghost(ghost)
