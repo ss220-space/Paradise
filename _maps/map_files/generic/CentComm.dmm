@@ -7098,9 +7098,6 @@
 /area/vox_station)
 "dEV" = (
 /obj/effect/decal/nanotrasen_logo{
-	icon_state = "logo2"
-	},
-/obj/effect/decal/nanotrasen_logo{
 	icon_state = "logo5"
 	},
 /turf/simulated/floor/plasteel{
@@ -8413,9 +8410,6 @@
 /turf/simulated/floor/plating,
 /area/centcom/supply)
 "erk" = (
-/obj/effect/decal/nanotrasen_logo{
-	icon_state = "logo2"
-	},
 /obj/effect/decal/nanotrasen_logo{
 	icon_state = "logo5"
 	},
@@ -48998,9 +48992,6 @@
 /turf/simulated/floor/carpet/green,
 /area/shuttle/trade/sol)
 "xEI" = (
-/obj/effect/decal/nanotrasen_logo{
-	icon_state = "logo2"
-	},
 /obj/effect/decal/nanotrasen_logo{
 	icon_state = "logo5"
 	},
