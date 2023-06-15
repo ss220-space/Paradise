@@ -2219,9 +2219,9 @@
 	icon_vend = "nta_vend"
 	req_access = list(ACCESS_SECURITY)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
-	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/storage/box/slug = 4,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
+	products = list(/obj/item/ammo_box/magazine/sp8  = 8,/obj/item/storage/box/slug = 4,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
 					/obj/item/storage/box/buck = 4,/obj/item/ammo_box/magazine/enforcer = 8,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 8,
-					/obj/item/ammo_box/magazine/enforcer/lethal = 8, /obj/item/ammo_box/magazine/laser = 18, /obj/item/ammo_box/magazine/wt550m9 = 8, /obj/item/storage/box/rubbershot = 4,
+					/obj/item/ammo_box/magazine/enforcer/lethal = 8, /obj/item/ammo_box/magazine/laser = 12, /obj/item/ammo_box/magazine/wt550m9 = 8, /obj/item/storage/box/rubbershot = 4,
 					/obj/item/ammo_box/magazine/m556 = 12, /obj/item/ammo_box/a40mm = 4, /obj/item/ammo_box/shotgun/universal = 8, /obj/item/ammo_box/magazine/sp8 = 8,
 					)
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/grenade/clusterbuster/apocalypsefake = 1)
@@ -2235,10 +2235,10 @@
 	icon_deny = "nta_blue_deny"
 	req_access = list(ACCESS_CENT_SECURITY)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
-	products = list(/obj/item/gun/energy/gun = 6, /obj/item/gun/energy/ionrifle/carbine = 3, /obj/item/gun/projectile/automatic/lasercarbine = 6,
-					/obj/item/ammo_box/magazine/laser = 12, /obj/item/suppressor = 8, /obj/item/gun/projectile/automatic/wt550 = 6, /obj/item/ammo_box/magazine/wt550m9 = 12,
-					/obj/item/gun/projectile/shotgun/riot = 6, /obj/item/storage/box/rubbershot = 6, /obj/item/storage/box/beanbag = 8, /obj/item/storage/box/tranquilizer = 8,
-					/obj/item/ammo_box/shotgun/universal = 12, /obj/item/gun/projectile/automatic/sfg = 6, /obj/item/ammo_box/magazine/sfg9mm = 12,
+	products = list(/obj/item/gun/energy/gun = 3, /obj/item/gun/energy/ionrifle/carbine = 1, /obj/item/gun/projectile/automatic/lasercarbine = 3,
+					/obj/item/ammo_box/magazine/laser = 6, /obj/item/suppressor = 4, /obj/item/gun/projectile/automatic/wt550 = 3, /obj/item/ammo_box/magazine/wt550m9 = 6,
+					/obj/item/gun/projectile/shotgun/riot = 6, /obj/item/storage/box/rubbershot = 6, /obj/item/storage/box/beanbag = 4, /obj/item/storage/box/tranquilizer = 4,
+					/obj/item/ammo_box/shotgun/universal = 4, /obj/item/gun/projectile/automatic/sfg = 3, /obj/item/ammo_box/magazine/sfg9mm = 6,
 					)
 	contraband = list(/obj/item/storage/fancy/donut_box = 2)
 	refill_canister = /obj/item/vending_refill/nta
@@ -2250,10 +2250,10 @@
 	icon_deny = "nta_red_deny"
 	req_access = list(ACCESS_CENT_SECURITY)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
-	products = list(/obj/item/gun/projectile/automatic/ar = 6, /obj/item/ammo_box/magazine/m556 = 12, /obj/item/gun/energy/sniperrifle = 3, /obj/item/gun/energy/lasercannon = 6,
-					/obj/item/gun/energy/immolator = 6, /obj/item/gun/energy/gun/nuclear = 6, /obj/item/gun/projectile/shotgun/automatic/combat = 6, /obj/item/storage/box/slug = 6,
-					/obj/item/storage/box/buck = 6, /obj/item/storage/box/dragonsbreath = 6, /obj/item/ammo_box/shotgun/universal = 12, /obj/item/storage/lockbox/t4 = 6,
-					/obj/item/grenade/smokebomb = 8, /obj/item/grenade/frag = 12,
+	products = list(/obj/item/gun/projectile/automatic/ar = 3, /obj/item/ammo_box/magazine/m556 = 6, /obj/item/gun/energy/sniperrifle = 1, /obj/item/gun/energy/lasercannon = 3,
+					/obj/item/gun/energy/immolator = 3, /obj/item/gun/energy/gun/nuclear = 3, /obj/item/gun/projectile/shotgun/automatic/combat = 3, /obj/item/storage/box/slug = 4,
+					/obj/item/storage/box/buck = 4, /obj/item/storage/box/dragonsbreath = 2, /obj/item/ammo_box/shotgun/universal = 4, /obj/item/storage/lockbox/t4 = 3,
+					/obj/item/grenade/smokebomb = 3, /obj/item/grenade/frag = 4,
 					)
 	contraband = list(/obj/item/storage/fancy/donut_box = 2)
 	refill_canister = /obj/item/vending_refill/nta
@@ -2265,9 +2265,9 @@
 	icon_deny = "nta_green_deny"
 	req_access = list(ACCESS_CENT_SECURITY)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
-	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
-					/obj/item/gun/energy/gun/advtaser = 6, /obj/item/gun/projectile/automatic/pistol/enforcer = 12, /obj/item/storage/box/barrier = 4,
-					/obj/item/gun/projectile/shotgun/riot = 2, /obj/item/storage/box/rubbershot = 8, /obj/item/ammo_box/shotgun/universal = 8, /obj/item/gun/energy/dominator/sibyl = 4
+	products = list(/obj/item/restraints/handcuffs = 5,/obj/item/restraints/handcuffs/cable/zipties = 5,/obj/item/grenade/flashbang = 3,/obj/item/flash = 2,
+					/obj/item/gun/energy/gun/advtaser = 4, /obj/item/gun/projectile/automatic/pistol/enforcer = 6, /obj/item/storage/box/barrier = 2,
+					/obj/item/gun/projectile/shotgun/riot = 1, /obj/item/storage/box/rubbershot = 3, /obj/item/ammo_box/shotgun/universal = 4, /obj/item/gun/energy/dominator/sibyl = 2
 					)
 	contraband = list(/obj/item/storage/fancy/donut_box = 2)
 	refill_canister = /obj/item/vending_refill/nta

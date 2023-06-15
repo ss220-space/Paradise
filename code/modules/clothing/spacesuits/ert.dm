@@ -340,7 +340,7 @@
 	name = "ERT Amber Spacesuit"
 	icon_state = "ert_eva_amber"
 	item_state = "ert_evasuit"
-	desc = "A lightweight space suit with the basic ability to protect the wearer from the vacuum of space during mission."
+	desc = "A lightweight space suit with the basic ability to protect the wearer from the vacuum of space during peacemaker's mission."
 	w_class = WEIGHT_CLASS_NORMAL
 	armor = list(melee = 20, bullet = 20, laser = 20, energy = 15, bomb = 10, bio = 100, rad = 20, fire = 50, acid = 65)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/t_scanner, /obj/item/rcd, /obj/item/crowbar, \
@@ -354,7 +354,7 @@
 	name = "ERT Amber Space helmet"
 	icon_state = "ert_eva_amber"
 	item_state = "ert_eva_helmet"
-	desc = "A lightweight space helmet with the basic ability to protect the wearer from the vacuum of space during mission."
+	desc = "A lightweight space helmet with the basic ability to protect the wearer from the vacuum of space during mission. Has camera module inside, can be activated."
 	w_class = WEIGHT_CLASS_NORMAL
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES
 	armor = list(melee = 20, bullet = 20, laser = 20, energy = 15, bomb = 10, bio = 100, rad = 20, fire = 50, acid = 65)
