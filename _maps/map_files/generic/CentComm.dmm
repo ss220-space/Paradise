@@ -5198,8 +5198,7 @@
 	icon_state = "logo4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "dark"
 	},
 /area/centcom/evac)
 "cDk" = (
@@ -5300,8 +5299,7 @@
 	icon_state = "logo6"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "dark"
 	},
 /area/centcom/evac)
 "cFY" = (
@@ -32375,8 +32373,7 @@
 	icon_state = "logo3"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "dark"
 	},
 /area/centcom/evac)
 "pUC" = (
@@ -39565,8 +39562,7 @@
 	icon_state = "logo2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "dark"
 	},
 /area/centcom/evac)
 "tjO" = (
@@ -47937,8 +47933,7 @@
 "xfI" = (
 /obj/effect/decal/nanotrasen_logo,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "dark"
 	},
 /area/centcom/evac)
 "xfK" = (
@@ -48996,8 +48991,7 @@
 	icon_state = "logo5"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "dark"
 	},
 /area/centcom/evac)
 "xEX" = (
