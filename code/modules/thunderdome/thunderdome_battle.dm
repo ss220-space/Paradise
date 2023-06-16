@@ -52,8 +52,6 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 	var/when_cleansing_happened = 0 //storing (in ticks) moment of arena cleansing
 
 	var/list/melee_pool = list(
-		/obj/item/melee/baton/loaded = 1,
-		/obj/item/melee/baseball_bat = 1,
 		/obj/item/melee/rapier = 1,
 		/obj/item/melee/energy/axe = 1,
 		/obj/item/melee/energy/sword/saber/red = 1,
@@ -65,7 +63,10 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 		/obj/item/twohanded/fireaxe = 1,
 		/obj/item/melee/icepick = 1,
 		/obj/item/melee/candy_sword = 1,
-		/obj/item/melee/energy/sword/pirate = 1
+		/obj/item/melee/energy/sword/pirate = 1,
+		/obj/item/storage/toolbox/surgery = 1,
+		/obj/item/storage/toolbox/mechanical = 1,
+		/obj/item/storage/toolbox/syndicate = 1,
 	)
 
 	var/list/ranged_pool = list(
@@ -84,7 +85,6 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 		/obj/item/gun/projectile/shotgun/riot/buckshot = 3,
 		/obj/item/gun/projectile/shotgun/boltaction = 1,
 		/obj/item/gun/projectile/shotgun/automatic/combat = 2,
-		/obj/item/gun/projectile/automatic/pistol/enforcer = 2,
 		/obj/item/gun/projectile/automatic/pistol/APS = 1,
 		/obj/item/gun/projectile/automatic/pistol/sp8ar = 1,
 		/obj/item/gun/projectile/automatic/pistol/m1911 = 1,
@@ -396,6 +396,12 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "remains"
 	var/time_to_live = DEFAULT_TIME_LIMIT
+	actions_types = list(/datum/action/item_action/postponed_death)
+
+/datum/action/item_action/postponed_death
+	name = "Suicide"
+	check_flags = FALSE
+
 
 /obj/item/implant/postponed_death/implant(mob/source, mob/user)
 	. = ..()
