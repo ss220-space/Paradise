@@ -73,4 +73,4 @@
 
 /obj/effect/decal/ants/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/caltrop, 5)
+	AddComponent(/datum/component/caltrop, 5, 5, 100, CALTROP_BYPASS_WALKERS, list("Kidan", "Wryn"))
