@@ -225,18 +225,29 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 
 /obj/structure/cult/functional/pylon/Initialize(mapload)
 	. = ..()
-
-	AddComponent( \
-		/datum/component/aura_healing, \
-		range = 5, \
-		brute_heal = 0.4, \
-		burn_heal = 0.4, \
-		blood_heal = 0.4, \
-		simple_heal = 1.2, \
-		requires_visibility = FALSE, \
-		limit_to_trait = TRAIT_HEALS_FROM_CULT_PYLONS, \
-		healing_color = COLOR_CULT_RED, \
-	)
+	if(holy)
+		AddComponent( \
+			/datum/component/aura_healing, \
+			range = 5, \
+			brute_heal = 0.4, \
+			burn_heal = 0.4, \
+			blood_heal = 0.4, \
+			simple_heal = 1.2, \
+			requires_visibility = FALSE, \
+			healing_color = COLOR_CULT_RED, \
+		)
+	else
+		AddComponent( \
+			/datum/component/aura_healing, \
+			range = 5, \
+			brute_heal = 0.4, \
+			burn_heal = 0.4, \
+			blood_heal = 0.4, \
+			simple_heal = 1.2, \
+			requires_visibility = FALSE, \
+			limit_to_trait = TRAIT_HEALS_FROM_CULT_PYLONS, \
+			healing_color = COLOR_CULT_RED, \
+		)
 
 	START_PROCESSING(SSobj, src)
 	if(cult_icon_changing)
