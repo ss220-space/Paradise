@@ -22,18 +22,16 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+
 /obj/item/nuke_core/attackby(obj/item/nuke_core_container/container, mob/user)
-	if(istype(container))
-		container.load(src, user)
-	else
-		return ..()
+	return
 
 /obj/item/nuke_core/process()
 	if(cooldown < world.time - 2 SECONDS)
 		cooldown = world.time
 		flick(pulseicon, src)
-		for(var/mob/living/L in view(5, src))
-			L.apply_effect(80, IRRADIATE)
+		for(var/mob/living/L in view(7, src))
+			L.apply_effect(120, IRRADIATE)
 
 /obj/item/nuke_core/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is rubbing [src] against [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -108,7 +106,7 @@
 	if(!istype(core) || cracked)
 		return ..()
 
-	if(!user.drop_item_ground())
+	if(!user.drop_item_ground(core))
 		to_chat(user, "<span class='warning'>[core] is stuck to your hand!</span>")
 		return
 	else

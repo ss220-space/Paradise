@@ -381,7 +381,8 @@
 			if(W.use_tool(src, M, 10 SECONDS, volume = 100))
 				if(scalpel.uses_left)
 					to_chat(M, "<span class='danger'>You extract a sliver from [src], and it begins to react violently!</span>")
-					power += 600 //well...
+					power += 800 //well...
+					damage += 200
 					supermatter_zap()
 					scalpel.uses_left--
 					if(!scalpel.uses_left)
