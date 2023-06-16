@@ -432,7 +432,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 		steal_target = O
 
 		explanation_text = "Украсть [steal_target]. Последнее местоположение было в [get_location()]. "
-		if(islist(O.protected_jobs) && O.protected_jobs.len)
+		if(islist(O.protected_jobs) && O.protected_jobs.len && O.job_possession)
 			explanation_text += "Оно также может находиться у [jointext(O.protected_jobs, ", ")]."
 		if(steal_target.special_equipment)
 			give_kit(steal_target.special_equipment)

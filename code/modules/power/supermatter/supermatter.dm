@@ -373,18 +373,33 @@
 				consume_wrench(W)
 			user.visible_message("<span class='danger'>As [user] loosen bolts of \the [src] with \a [W] the tool disappears</span>")
 	if(istype(W, /obj/item/scalpel/supermatter))
-		var/obj/item/scalpel/supermatter/scalpel = W
-		to_chat(user, "<span class='notice'>You carefully begin to scrape [src] with [W]...</span>")
-		if(W.use_tool(src, user, 10 SECONDS, volume = 100))
-			if(scalpel.uses_left)
-				to_chat(user, "<span class='danger'>You extract a sliver from [src], and it begins to react violently!</span>")
-				new /obj/item/nuke_core/supermatter_sliver(drop_location())
-				damage += 200
-				scalpel.uses_left--
-				if(!scalpel.uses_left)
-					to_chat(user, "<span class='boldwarning'>A tiny piece of [W] falls off, rendering it useless!</span>")
-			else
-				to_chat(user, "<span class='warning'>You fail to extract a sliver from [src]! [W] isn't sharp enough anymore.</span>")
+		if(ishuman(user))
+			var/mob/living/carbon/human/M = user
+			var/obj/item/scalpel/supermatter/scalpel = W
+			to_chat(user, "<span class='notice'>You carefully begin to scrape [src] with [W]...</span>")
+
+			if(W.use_tool(src, M, 10 SECONDS, volume = 100))
+				if(scalpel.uses_left)
+					to_chat(M, "<span class='danger'>You extract a sliver from [src], and it begins to react violently!</span>")
+					power += 600 //well...
+					supermatter_zap()
+					scalpel.uses_left--
+					if(!scalpel.uses_left)
+						to_chat(user, "<span class='boldwarning'>A tiny piece of [W] falls off, rendering it useless!</span>")
+					var/obj/item/nuke_core/supermatter_sliver/S = new /obj/item/nuke_core/supermatter_sliver(drop_location())
+
+					var/obj/item/retractor/supermatter/tongs = M.is_in_hands(/obj/item/retractor/supermatter)
+					if(tongs && !tongs.sliver)
+						tongs.sliver = S
+						S.forceMove(tongs)
+						tongs.icon_state = "supermatter_tongs_loaded"
+						tongs.item_state = "supermatter_tongs_loaded"
+						to_chat(M, "<span class='notice'>You pick up [S] with [tongs]!</span>")
+				else
+					to_chat(user, "<span class='warning'>You fail to extract a sliver from [src]! [W] isn't sharp enough anymore.</span>")
+		return
+	if(istype(W, /obj/item/retractor/supermatter))
+		to_chat(user, "<span class='notice'>[W] bounces off [src], you need to cut a sliver off first!</span>")
 	else if(!istype(W) || (W.flags & ABSTRACT) || !istype(user))
 		return
 	else if(user.drop_item_ground(W))
