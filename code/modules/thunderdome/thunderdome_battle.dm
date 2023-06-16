@@ -18,6 +18,7 @@
 #define ARENA_COOLDOWN 30 SECONDS
 #define VOTING_POLL_TIME 10 SECONDS
 #define MIN_PLAYERS_COUNT 1
+#define PICK_PENALTY 0
 #endif
 */
 
@@ -147,16 +148,21 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 		for(var/obj/machinery/door/poddoor/M in GLOB.airlocks)
 			if(M.id_tag != "TD_CloseCombat")
 				continue
-			spawn(0)
-				M.close()
+			M.do_animate("closing")
+			M.density = TRUE
+			M.set_opacity(1)
+			M.layer = M.closingLayer
+			M.update_icon()
 
 	if(mode == RANGED_MODE || mode == MIXED_MODE)
 		for(var/obj/machinery/door/poddoor/M in GLOB.airlocks)
 			if(M.id_tag != "TD_CloseCombat")
 				continue
 			if(M.density)
-				spawn(0)
-					M.open()
+				M.do_animate("opening")
+				M.density = FALSE
+				M.set_opacity(0)
+				M.update_icon()
 
 
 	while(currpoint <= points)
