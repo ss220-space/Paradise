@@ -5,7 +5,7 @@
 #define ARENA_COOLDOWN 5 MINUTES //After which time thunderdome will be once again allowed to use
 #define CQC_ARENA_RADIUS 6 //how much tiles away from a center players will spawn
 #define RANGED_ARENA_RADIUS 10
-#define VOTING_POLL_TIME 35 SECONDS
+#define VOTING_POLL_TIME 30 SECONDS
 #define MAX_PLAYERS_COUNT 16
 #define MIN_PLAYERS_COUNT 2
 #define SPAWN_COEFFICENT 0.85 //how many (polled * spawn_coefficent) players will go brawling
@@ -67,6 +67,7 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 		/obj/item/storage/toolbox/surgery = 1,
 		/obj/item/storage/toolbox/mechanical = 1,
 		/obj/item/storage/toolbox/syndicate = 1,
+		/obj/item/storage/box/syndie_kit/mantisblade = 1
 	)
 
 	var/list/ranged_pool = list(
