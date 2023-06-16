@@ -55,9 +55,7 @@
 		var/foundghost = FALSE
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			if(G.mind == brainmob.mind)
-				foundghost = TRUE
-				if(G.can_reenter_corpse == FALSE)
-					foundghost = FALSE
+				foundghost = G.can_reenter_corpse
 				break
 		if(foundghost)
 			. += "You can feel the small spark of life still left in this one."
