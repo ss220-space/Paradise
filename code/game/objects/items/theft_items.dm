@@ -73,7 +73,7 @@
 	else if(dented) // Not cracked, but dented.
 		. += "<span class='notice'>[src] looks dented. Perhaps a bigger explosion may break it.</span>"
 	else // Not cracked or dented.
-		+= "Fine print on the box reads \"Cybersun Industries secure container, guaranteed thermite proof, assistant proof, and explosive resistant.\""
+		. += "Fine print on the box reads \"Cybersun Industries secure container, guaranteed thermite proof, assistant proof, and explosive resistant.\""
 
 /obj/item/nuke_core_container/attack_hand(mob/user)
 	if(cracked && core)
