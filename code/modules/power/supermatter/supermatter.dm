@@ -381,15 +381,14 @@
 			if(W.use_tool(src, M, 10 SECONDS, volume = 100))
 				if(scalpel.uses_left)
 					to_chat(M, "<span class='danger'>You extract a sliver from [src], and it begins to react violently!</span>")
-					power += 800 //well...
-					damage += 200
+					power += 1800 //well...
 					supermatter_zap()
 					scalpel.uses_left--
 					if(!scalpel.uses_left)
 						to_chat(user, "<span class='boldwarning'>A tiny piece of [W] falls off, rendering it useless!</span>")
 					var/obj/item/nuke_core/supermatter_sliver/S = new /obj/item/nuke_core/supermatter_sliver(drop_location())
 
-					var/obj/item/retractor/supermatter/tongs = M.is_in_hands(/obj/item/retractor/supermatter)
+					var/obj/item/retractor/supermatter/tongs = M.get_inactive_hand(/obj/item/retractor/supermatter)
 					if(tongs && !tongs.sliver)
 						tongs.sliver = S
 						S.forceMove(tongs)
