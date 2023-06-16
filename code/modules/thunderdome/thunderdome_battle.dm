@@ -290,7 +290,7 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 		to_chat(user, "Вы сможете начать набор только спустя [PICK_PENALTY / 10] секунд после очистки Тандердома.")
 		return
 	if(!SSghost_spawns.is_eligible(user, ROLE_THUNDERDOME))
-		to_chat(user, "Вы не можете использовать Тандердом. Включите эту возможность в Game Preferences!")
+		to_chat(user, "Вы не можете использовать Тандердом. Включите эту возможность, отметив роль Thunderdome в Game Preferences!")
 		return
 	if(thunderdome.isGoing)
 		to_chat(user, "Битва все ещё идёт или прошло недостаточно времени с момента последнего голосования!")
