@@ -12,8 +12,7 @@
 	)
 
 	for(var/res in common_ore)
-		var/obj/item/stack/R = new res(src)
-		R.amount = rand(15, 30)
+		new res(src, rand(15, 30))
 
 	var/list/rare_ore = list(
 		/obj/item/stack/ore/diamond,
@@ -21,8 +20,7 @@
 		/obj/item/stack/sheet/mineral/abductor // few ruins of it often spawn, should be fine.
 	)
 	for(var/res in rare_ore)
-		var/obj/item/stack/R = new res(src)
-		R.amount = rand(10, 15) //ash drakes drop 5, this is perfectly fine
+		new res(src, rand(10, 15))
 
 /obj/structure/closet/crate/necropolis/ancient/ex_act(severity)
 	return

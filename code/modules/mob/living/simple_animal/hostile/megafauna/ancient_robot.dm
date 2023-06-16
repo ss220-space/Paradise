@@ -390,10 +390,10 @@ Difficulty: Very Hard
 	var/anger = 0
 	var/cap = 0
 	for(var/mob/living/carbon/human/H in range(10, src))
-		if(stat == DEAD)
+		if(H.stat == DEAD)
 			continue
 		anger++
-		cap = (is_station_level(loc.z) ? EXTRA_PLAYER_ANGER_STATION_CAP : EXTRA_PLAYER_ANGER_NORMAL_CAP)
+	cap = (is_station_level(loc.z) ? EXTRA_PLAYER_ANGER_STATION_CAP : EXTRA_PLAYER_ANGER_NORMAL_CAP)
 	extra_player_anger = clamp(anger,1,cap) - 1
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/self_destruct()
@@ -551,7 +551,7 @@ Difficulty: Very Hard
 	wander = 0
 	robust_searching = TRUE
 	ranged_ignores_vision = TRUE
-	stat_attack = DEAD
+	stat_attack = UNCONSCIOUS
 	var/range = 3
 	var/mob/living/simple_animal/hostile/megafauna/ancient_robot/core = null
 	var/fake_max_hp = 300
@@ -679,7 +679,7 @@ Difficulty: Very Hard
 	damage_type = BRUTE
 
 /obj/item/projectile/rock
-	name= "thrown rock"
+	name = "thrown rock"
 	damage = 25
 	damage_type = BRUTE
 	icon = 'icons/obj/meteor.dmi'
