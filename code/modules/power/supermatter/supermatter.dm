@@ -3,7 +3,7 @@
 #define PLASMA_RELEASE_MODIFIER 1500		//Higher == less phor.. plasma released by reaction
 #define OXYGEN_RELEASE_MODIFIER 15000		//Higher == less oxygen released at high temperature/power
 #define REACTION_POWER_MODIFIER 1.1			//Higher == more overall power
-#define SHARD_CUT_COEF 10
+#define SHARD_CUT_COEF 7
 
 /*
 	How to tweak the SM
@@ -382,18 +382,13 @@
 			if(W.use_tool(src, M, 10 SECONDS, volume = 100))
 				if(scalpel.uses_left)
 					to_chat(M, "<span class='danger'>You extract a sliver from [src], and it begins to react violently!</span>")
-					//power += 2000 //well...
+					power += 200 //well...
 					var/turf/shard_loc = get_turf(src)
 					var/datum/gas_mixture/shard_env = shard_loc.return_air()
 					var/datum/gas_mixture/new_mixture = new
 					new_mixture.toxins = 10000
-					new_mixture.oxygen = 10000
-					if(istype(get_area(src),  /area/engine/supermatter))
-						new_mixture.toxins += 40000
-						new_mixture.oxygen += 40000
-					shard_env.temperature += src.power*SHARD_CUT_COEF
+					new_mixture.temperature += src.power*SHARD_CUT_COEF
 					shard_env.merge(new_mixture)
-					shard_loc.hotspot_expose(1000,2500,1)
 					scalpel.uses_left--
 					if(!scalpel.uses_left)
 						to_chat(user, "<span class='boldwarning'>A tiny piece of [W] falls off, rendering it useless!</span>")
