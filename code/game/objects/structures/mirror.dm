@@ -85,10 +85,13 @@
 /obj/structure/mirror/handle_ricochet(obj/item/projectile/P)
 	if(!anchored)
 		return FALSE
-	if(broken && prob(90))
+
+	if(broken)
+		if(prob(90))
+			return FALSE
+	else if(prob(70))
 		return FALSE
-	if(prob(70))
-		return FALSE
+
 	var/turf/p_turf = get_turf(P)
 	var/face_direction = get_dir(get_turf(src), p_turf)
 	var/face_angle = dir2angle(face_direction)
