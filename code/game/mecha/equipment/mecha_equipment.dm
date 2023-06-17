@@ -130,9 +130,12 @@
 
 /obj/item/mecha_parts/mecha_equipment/proc/can_attach(obj/mecha/M)
 	if(istype(M))
-		if(M.equipment.len<M.max_equip)
-			return 1
-	return 0
+		if(length(M.equipment) < M.max_equip)
+			return TRUE
+	return FALSE
+
+/obj/item/mecha_parts/mecha_equipment/proc/can_detach()
+	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/proc/attach(obj/mecha/M)
 	M.equipment += src
@@ -148,6 +151,8 @@
 	return
 
 /obj/item/mecha_parts/mecha_equipment/proc/detach(atom/moveto = null)
+	if(!can_detach())
+		return
 	detach_act()
 	moveto = moveto || get_turf(chassis)
 	if(Move(moveto))

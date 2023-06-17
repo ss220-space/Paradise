@@ -17,12 +17,9 @@
 	return 0
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/attach_act(obj/mecha/M)
-	..()
 	cargo_holder = M
-	return
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/detach_act()
-	..()
 	cargo_holder = null
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/action(atom/target)
@@ -161,7 +158,6 @@
 
 /obj/item/mecha_parts/mecha_equipment/rcd/attach_act(obj/mecha/M)
 	rcd_holder.chassis = M
-	. = ..()
 
 /obj/item/mecha_parts/mecha_equipment/rcd/action(atom/target)
 	if(!action_checks(target) || get_dist(chassis, target)>3)
@@ -193,8 +189,7 @@
 				occupant_message("Switched RCD to Construct Firelock.")
 
 /obj/item/mecha_parts/mecha_equipment/rcd/get_module_equip_info()
-	. = ..()
-	. += " \[<a href='?src=[UID()];mode=[RCD_MODE_DECON]'>D</a>|<a href='?src=[UID()];mode=[RCD_MODE_TURF]'>C</a>|<a href='?src=[UID()];mode=[RCD_MODE_AIRLOCK]'>A</a>|<a href='?src=[UID()];mode=[RCD_MODE_WINDOW]'>W</a>|<a href='?src=[UID()];mode=[RCD_MODE_FIRELOCK]'>F</a>\]"
+	return " \[<a href='?src=[UID()];mode=[RCD_MODE_DECON]'>D</a>|<a href='?src=[UID()];mode=[RCD_MODE_TURF]'>C</a>|<a href='?src=[UID()];mode=[RCD_MODE_AIRLOCK]'>A</a>|<a href='?src=[UID()];mode=[RCD_MODE_WINDOW]'>W</a>|<a href='?src=[UID()];mode=[RCD_MODE_FIRELOCK]'>F</a>\]"
 
 /obj/item/mecha_parts/mecha_equipment/mimercd
 	name = "mounted MRCD"
@@ -253,14 +248,12 @@
 
 
 /obj/item/mecha_parts/mecha_equipment/multimodule/attach_act(obj/mecha/M)
-	..()
 	for(var/thing in modules)
 		var/obj/item/mecha_parts/mecha_equipment/module = modules[thing]
 		module.chassis = src.chassis
 		module.attach_act(M)
 
 /obj/item/mecha_parts/mecha_equipment/multimodule/detach_act()
-	. = ..()
 	for(var/thing in modules)
 		var/obj/item/mecha_parts/mecha_equipment/module = modules[thing]
 		module.detach_act()
@@ -276,8 +269,7 @@
 	. = "<dt>[..()]"
 
 /obj/item/mecha_parts/mecha_equipment/multimodule/get_module_equip_info()
-	. = ..()
-	. += "</dt>"
+	. = "</dt>"
 	for(var/thing in modules)
 		var/obj/item/mecha_parts/mecha_equipment/module = modules[thing]
 		if(module == targeted_module)
@@ -329,12 +321,10 @@
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/attach_act()
-	..()
 	RegisterSignal(chassis, COMSIG_MOVABLE_MOVED, PROC_REF(layCable))
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/detach_act()
 	UnregisterSignal(chassis, COMSIG_MOVABLE_MOVED)
-	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/action(var/obj/item/stack/cable_coil/target)
 	if(!action_checks(target))
@@ -376,8 +366,7 @@
 	return
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/get_module_equip_info()
-	. = ..()
-	. += " \[Cable: [cable ? cable.amount : 0] m\][(cable && cable.amount) ? "- <a href='?src=[UID()];toggle=1'>[!equip_ready?"Dea":"A"]ctivate</a>|<a href='?src=[UID()];cut=1'>Cut</a>" : null]"
+	return " \[Cable: [cable ? cable.amount : 0] m\][(cable && cable.amount) ? "- <a href='?src=[UID()];toggle=1'>[!equip_ready?"Dea":"A"]ctivate</a>|<a href='?src=[UID()];cut=1'>Cut</a>" : null]"
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/proc/use_cable(amount)
 	if(!cable || cable.amount<1)
@@ -495,8 +484,7 @@
 		return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/get_module_equip_info()
-	. = ..()
-	. += " \[[src.reagents.total_volume]\]"
+	return " \[[src.reagents.total_volume]\]"
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/on_reagent_change()
 	return
@@ -555,8 +543,7 @@
 				occupant_message("<span class='notice'>[src] is projecting at max capacity!</span>")
 
 /obj/item/mecha_parts/mecha_equipment/holowall/get_module_equip_info()
-	. = ..()
-	. += " \[Holobarriers left: [max_barriers - length(barriers)]|<a href='?src=[UID()];remove_all=1'>Return all barriers</a>\]"
+	return " \[Holobarriers left: [max_barriers - length(barriers)]|<a href='?src=[UID()];remove_all=1'>Return all barriers</a>\]"
 
 /obj/item/mecha_parts/mecha_equipment/holowall/Topic(href,href_list)
 	..()

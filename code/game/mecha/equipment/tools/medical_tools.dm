@@ -14,7 +14,6 @@
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/medical/attach_act(obj/mecha/M)
-	..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/mecha_parts/mecha_equipment/medical/Destroy()
@@ -28,7 +27,6 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/detach_act()
 	STOP_PROCESSING(SSobj, src)
-	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper
 	name = "mounted sleeper"
@@ -96,16 +94,15 @@
 	patient = null
 	update_equip_info()
 
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper/detach_act()
+/obj/item/mecha_parts/mecha_equipment/medical/sleeper/can_detach()
 	if(patient)
 		occupant_message("<span class='warning'>Unable to detach [src] - equipment occupied!</span>")
-		return
-	STOP_PROCESSING(SSobj, src)
-	return ..()
+		return FALSE
+	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/get_module_equip_info()
-	. = ..()
-	. += " <br />\[Occupant: [patient] ([patient.stat > 1 ? "*DECEASED*" : "Health: [patient.health]%"])\]<br /><a href='?src=[UID()];view_stats=1'>View stats</a>|<a href='?src=[UID()];eject=1'>Eject</a>"
+	if(patient)
+		return " <br />\[Occupant: [patient] ([patient.stat > 1 ? "*DECEASED*" : "Health: [patient.health]%"])\]<br /><a href='?src=[UID()];view_stats=1'>View stats</a>|<a href='?src=[UID()];eject=1'>Eject</a>"
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/Topic(href,href_list)
 	..()
@@ -269,7 +266,6 @@
 		var/obj/mecha/medical/odysseus/O = src.loc
 		for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/S in O.equipment)
 			S.detach()
-	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -287,9 +283,7 @@
 	return 0
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/get_module_equip_info()
-	. = ..()
-	. += " \[<a href=\"?src=[UID()];toggle_mode=1\">[mode? "Analyze" : "Launch"]</a>\]<br />\[Syringes: [syringes.len]/[max_syringes] | Reagents: [reagents.total_volume]/[reagents.maximum_volume]\]<br /><a href='?src=[UID()];show_reagents=1'>Reagents list</a>"
-
+	return " \[<a href=\"?src=[UID()];toggle_mode=1\">[mode? "Analyze" : "Launch"]</a>\]<br />\[Syringes: [syringes.len]/[max_syringes] | Reagents: [reagents.total_volume]/[reagents.maximum_volume]\]<br /><a href='?src=[UID()];show_reagents=1'>Reagents list</a>"
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/action(atom/movable/target)
 	if(!action_checks(target))
@@ -550,7 +544,6 @@
 	return 0
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/attach_act(obj/mecha/M)
-	..()
 	for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/S in chassis.equipment)
 		S.max_volume = improv_max_volume
 		S.synth_speed = imrov_synth_speed
@@ -561,7 +554,6 @@
 		S.max_volume = initial(S.max_volume)
 		S.synth_speed = initial(S.synth_speed)
 		S.reagents.maximum_volume = S.max_volume
-	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw
 	name = "rescue jaw"
@@ -621,15 +613,9 @@
 	var/improv_step_in = 2
 
 /obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system/attach_act(obj/mecha/M)
-	..()
 	M.step_in = improv_step_in
 
 /obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system/detach_act()
-	if(istype(src.loc, /obj/mecha/medical/odysseus))
-		var/obj/mecha/medical/odysseus/O = src.loc
+	if(istype(src.loc, /obj/mecha/medical/odysseus) || istype(src.loc, /obj/mecha/combat/lockersyndie))
+		var/obj/mecha/O = src.loc
 		O.step_in = initial(O.step_in)
-		return ..()
-	if(istype(src.loc, /obj/mecha/combat/lockersyndie))
-		var/obj/mecha/combat/lockersyndie/S = src.loc
-		S.step_in = initial(S.step_in)
-		return ..()

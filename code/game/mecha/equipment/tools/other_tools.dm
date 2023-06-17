@@ -146,8 +146,7 @@
 
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/get_module_equip_info()
-	. = ..()
-	. += " [mode==1?"([locked||"Nothing"])":null] \[<a href='?src=[UID()];mode=1'>S</a>|<a href='?src=[UID()];mode=2'>P</a>\]"
+	return " [mode==1?"([locked||"Nothing"])":null] \[<a href='?src=[UID()];mode=1'>S</a>|<a href='?src=[UID()];mode=2'>P</a>\]"
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/Topic(href, href_list)
 	..()
@@ -216,18 +215,15 @@
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/attach_act(obj/mecha/M)
-	..()
 	droid_overlay = new(icon, icon_state = "repair_droid")
 	M.overlays += droid_overlay
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/detach_act()
 	chassis.overlays -= droid_overlay
 	STOP_PROCESSING(SSobj, src)
-	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/get_module_equip_info()
-	. = ..()
-	. += " <a href='?src=[UID()];toggle_repairs=1'>[equip_ready?"A":"Dea"]ctivate</a>"
+	return " <a href='?src=[UID()];toggle_repairs=1'>[equip_ready?"A":"Dea"]ctivate</a>"
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/Topic(href, href_list)
 	..()
@@ -295,7 +291,6 @@
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/detach_act()
 	STOP_PROCESSING(SSobj, src)
-	..()
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/proc/get_charge()
 	if(equip_ready) //disabled
@@ -328,8 +323,7 @@
 			log_message("Deactivated.")
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/get_module_equip_info()
-	. = ..()
-	. += " <a href='?src=[UID()];toggle_relay=1'>[equip_ready?"A":"Dea"]ctivate</a>"
+	return " <a href='?src=[UID()];toggle_relay=1'>[equip_ready?"A":"Dea"]ctivate</a>"
 
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/process()
@@ -380,7 +374,6 @@
 
 /obj/item/mecha_parts/mecha_equipment/generator/detach_act()
 	STOP_PROCESSING(SSobj, src)
-	..()
 
 /obj/item/mecha_parts/mecha_equipment/generator/Topic(href, href_list)
 	..()
@@ -528,7 +521,6 @@
 	M.actuator = src
 	if(M.occupant)
 		M.strafe_action.Grant(M.occupant, M)
-	. = ..()
 
 /obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/detach_act()
 	chassis.strafe_allowed = FALSE
@@ -536,7 +528,6 @@
 	chassis.actuator = null
 	if(chassis.occupant)
 		chassis.strafe_action.Remove(chassis.occupant)
-	. = ..()
 
 /obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/Destroy()
 	if(chassis)
