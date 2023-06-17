@@ -14,6 +14,11 @@ jobs:
     steps:
     - name: 'Update Branch'
       uses: actions/checkout@v3
+      with:
+        fetch-depth: 1000
+
+    - name: 'Install Dependencies'
+      run: pip3 install GitPython
 
     - name: 'Generate Changelog'
       run: 'python3 tools/changelog/gen_changelog.py'
@@ -22,6 +27,6 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "Changelog Generation"
-        git commit -m "Automatic changelog generation"
         git add html/changelogs/archive/\*.yml
+        git commit -m "Automatic changelog generation"
         git push
