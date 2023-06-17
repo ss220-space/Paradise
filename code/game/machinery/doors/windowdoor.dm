@@ -73,6 +73,7 @@
 	close()
 
 /obj/machinery/door/window/Bumped(atom/movable/AM)
+	SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, AM)
 	if(operating || !density)
 		return
 	if(!ismob(AM))

@@ -144,6 +144,8 @@
 	. = ..()
 
 /obj/structure/fence/Bumped(atom/user)
+	..()
+
 	if(!ismob(user))
 		return
 	if(shock_cooldown)

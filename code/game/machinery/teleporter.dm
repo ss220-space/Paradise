@@ -366,6 +366,8 @@
 	return power_station
 
 /obj/machinery/teleport/hub/Bumped(M as mob|obj)
+	..()
+
 	if(!is_teleport_allowed(z) && !admin_usage)
 		if(ismob(M))
 			to_chat(M, "You can't use this here.")
@@ -456,6 +458,8 @@
 	return FALSE
 
 /obj/machinery/teleport/perma/Bumped(atom/A)
+	..()
+
 	if(stat & (BROKEN|NOPOWER))
 		return
 	if(!is_teleport_allowed(z))

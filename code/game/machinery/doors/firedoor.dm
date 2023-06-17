@@ -73,6 +73,7 @@
 
 /obj/machinery/door/firedoor/Bumped(atom/AM)
 	if(panel_open || operating)
+		SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, AM)
 		return
 	if(!density)
 		return ..()

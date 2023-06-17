@@ -93,6 +93,7 @@
 		Bumped(AM)
 
 /obj/machinery/recycler/Bumped(atom/movable/AM)
+	..()
 
 	if(stat & (BROKEN|NOPOWER))
 		return

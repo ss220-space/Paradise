@@ -350,7 +350,7 @@
 		return ..()
 
 /mob/living/silicon/robot/drone/Bumped(atom/movable/AM)
-	return
+	return ..()
 
 /mob/living/silicon/robot/drone/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 

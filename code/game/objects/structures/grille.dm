@@ -97,6 +97,8 @@
 	return RCD_ACT_SUCCESSFULL
 
 /obj/structure/grille/Bumped(atom/user)
+	..()
+
 	if(ismob(user))
 		if(!(shockcooldown <= world.time))
 			return

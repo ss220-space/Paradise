@@ -579,6 +579,8 @@
 	return
 
 /obj/machinery/disposal/deliveryChute/Bumped(atom/movable/AM) //Go straight into the chute
+	..()
+
 	if(istype(AM, /obj/item/projectile))  return
 	switch(dir)
 		if(NORTH)

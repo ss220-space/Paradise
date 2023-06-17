@@ -73,6 +73,8 @@
 	density = 1
 
 /obj/machinery/mass_driver/bumper/Bumped(M as mob|obj)
+	..()
+
 	density = 0
 	step(M, get_dir(M,src))
 	spawn(1)

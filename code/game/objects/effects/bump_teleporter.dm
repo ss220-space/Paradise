@@ -26,6 +26,8 @@ GLOBAL_LIST_EMPTY(bump_teleporters)
 	return
 
 /obj/effect/bump_teleporter/Bumped(atom/user)
+	..()
+
 	if(!ismob(user))
 		//user.loc = src.loc	//Stop at teleporter location
 		return

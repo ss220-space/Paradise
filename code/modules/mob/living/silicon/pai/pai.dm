@@ -508,7 +508,7 @@
 	return
 
 /mob/living/silicon/pai/Bumped()
-	return
+	return ..()
 
 /mob/living/silicon/pai/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	return FALSE

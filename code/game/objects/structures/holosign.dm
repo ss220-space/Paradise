@@ -152,6 +152,8 @@
 			addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)
 
 /obj/structure/holosign/barrier/cyborg/hacked/Bumped(atom/movable/AM)
+	..()
+
 	if(shockcd)
 		return
 

@@ -30,6 +30,7 @@
 	return
 
 /obj/machinery/door/poddoor/Bumped(atom/AM)
+	SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, AM)
 	if(density)
 		return
 	else

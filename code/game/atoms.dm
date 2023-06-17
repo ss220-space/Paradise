@@ -254,6 +254,7 @@
 	return
 
 /atom/proc/Bumped(atom/movable/AM)
+	SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, AM)
 	return
 
 /// Convenience proc to see if a container is open for chemistry handling

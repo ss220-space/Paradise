@@ -70,6 +70,8 @@
 	update_icon()
 
 /obj/machinery/transformer/Bumped(atom/movable/AM)
+	..()
+
 	// They have to be human to be transformed.
 	if(is_on_cooldown || !ishuman(AM))
 		return
@@ -120,6 +122,8 @@
 	desc = "Turns anything placed inside black and white."
 
 /obj/machinery/transformer/mime/Bumped(atom/movable/AM)
+	..()
+
 	if(is_on_cooldown)
 		return
 
@@ -180,6 +184,8 @@
 		icon_state = initial(icon_state)
 
 /obj/machinery/transformer/xray/Bumped(atom/movable/AM)
+	..()
+
 	if(is_on_cooldown)
 		return
 

@@ -3,6 +3,7 @@
 
 /obj/machinery/door/unpowered/Bumped(atom/AM)
 	if(locked)
+		SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, AM)
 		return
 	..()
 
