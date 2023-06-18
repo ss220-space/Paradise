@@ -70,6 +70,7 @@
 
 	var/ventcrawler = VENTCRAWLER_NONE //Determines if the mob can go through the vents.
 	var/has_fine_manipulation = 1 // Can use small items.
+	var/fingers_count = 10
 
 	///Sounds to override barefeet walking
 	var/list/special_step_sounds

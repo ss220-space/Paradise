@@ -12,6 +12,7 @@
 	species_traits = list(IS_WHITELISTED)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS
+	fingers_count = 6
 	eyes = "kidan_eyes_s"
 	flesh_color = "#ba7814"
 	blood_species = "Kidan"
@@ -67,6 +68,19 @@
 	..()
 	H.verbs |= /mob/living/carbon/human/proc/emote_click
 	H.verbs |= /mob/living/carbon/human/proc/emote_clack
+	H.verbs -= /mob/living/carbon/human/verb/emote_pale
+	H.verbs -= /mob/living/carbon/human/verb/emote_blink
+	H.verbs -= /mob/living/carbon/human/verb/emote_blink_r
+	H.verbs -= /mob/living/carbon/human/verb/emote_blush
+	H.verbs -= /mob/living/carbon/human/verb/emote_wink
+	H.verbs -= /mob/living/carbon/human/verb/emote_smile
+	H.verbs -= /mob/living/carbon/human/verb/emote_snuffle
+	H.verbs -= /mob/living/carbon/human/verb/emote_grin
+	H.verbs -= /mob/living/carbon/human/verb/emote_eyebrow
+	H.verbs -= /mob/living/carbon/human/verb/emote_frown
+	H.verbs -= /mob/living/carbon/human/verb/emote_sniff
+	H.verbs -= /mob/living/carbon/human/verb/emote_glare
+	H.verbs -= /mob/living/carbon/human/verb/emote_cry
 
 /datum/species/kidan/on_species_loss(mob/living/carbon/human/H)
 	..()
