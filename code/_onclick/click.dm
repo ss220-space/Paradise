@@ -104,8 +104,10 @@
 	if(incapacitated(ignore_restraints = 1, ignore_grab = 1, ignore_lying = 1))
 		return
 
-	if(is_ventcrawling(usr)) // stops actions in vents
-		return
+	if(is_ventcrawling(usr) && isitem(A)) // stops inventory actions in vents
+		var/obj/item/item = A
+		if(item.in_inventory)
+			return
 
 	face_atom(A)
 
