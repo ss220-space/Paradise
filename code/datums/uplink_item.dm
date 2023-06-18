@@ -1579,8 +1579,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 
 /datum/uplink_item/device_tools/bonerepair
-	name = "Prototype Bone Repair Kit"
-	desc = "Stolen prototype bone repair nanites. Contains one nanocalcium autoinjector and guide."
+	name = "Prototype Nanite Autoinjector Kit"
+	desc = "Stolen prototype full body repair nanites. Contains one prototype nanite autoinjector and guide."
 	reference = "NCAI"
 	item = /obj/item/storage/box/syndie_kit/bonerepair
 	cost = 2
@@ -1862,6 +1862,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/implanter/explosive
 	cost = 2
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/implants/mantisblade
+	name = "Mantis blades"
+	desc = "A box containing a set of two Gorlex Hidden Blade Implants comes with self-destructing auto-implanters. After the EMP, they return to service to show that it's too early to write you off."
+	reference = "MABI"
+	item = /obj/item/storage/box/syndie_kit/mantisblade
+	cost = 13
+	surplus = 90
 
 // Cybernetics
 /datum/uplink_item/cyber_implants

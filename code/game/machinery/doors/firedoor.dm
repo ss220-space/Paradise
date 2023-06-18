@@ -199,10 +199,10 @@
 	switch(animation)
 		if("opening")
 			flick("door_opening", src)
-			playsound(src, 'sound/machines/airlock_ext_open.ogg', 30, 1)
+			playsound(src, 'sound/machines/firedoor.ogg', 60, 1)
 		if("closing")
 			flick("door_closing", src)
-			playsound(src, 'sound/machines/airlock_ext_close.ogg', 30, 1)
+			playsound(src, 'sound/machines/firedoor.ogg', 60, 1)
 
 /obj/machinery/door/firedoor/update_icon()
 	overlays.Cut()
@@ -488,8 +488,7 @@
 		return
 	user.visible_message("<span class='notice'>[user] removes the wires from [src].</span>", \
 						 "<span class='notice'>You remove the wiring from [src], exposing the circuit board.</span>")
-	var/obj/item/stack/cable_coil/B = new(get_turf(src))
-	B.amount = 5
+	new /obj/item/stack/cable_coil(drop_location(), 5)
 	constructionStep = CONSTRUCTION_GUTTED
 	update_icon()
 
