@@ -14,12 +14,12 @@
 /obj/item/autoimplanter/attack_self(mob/user)//when the object it used...
 	if(!storedorgan)
 		to_chat(user, "<span class='notice'>[src] currently has no implant stored.</span>")
-		return 0
+		return FALSE
 	storedorgan.insert(user)//insert stored organ into the user
 	user.visible_message("<span class='notice'>[user] presses a button on [src], and you hear a short mechanical noise.</span>", "<span class='notice'>You feel a sharp sting as [src] plunges into your body.</span>")
 	playsound(get_turf(user), usesound, 50, 1)
 	storedorgan = null
-	return 1
+	return TRUE
 
 /obj/item/autoimplanter/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/organ/internal/cyberimp))
@@ -83,6 +83,7 @@
 		visible_message("<span class='warning'>[src] beeps ominously, and a moment later it bursts up in flames.</span>")
 		new /obj/effect/decal/cleanable/ash(get_turf(src))
 		qdel(src)
+
 /obj/item/autoimplanter/traitor/examine(mob/user)
 	. = ..()
 	if(uses)
