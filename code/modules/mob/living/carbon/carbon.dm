@@ -449,6 +449,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	if(vent_found)
 		if(vent_found.parent && (vent_found.parent.members.len || vent_found.parent.other_atmosmch))
+			if(isalien(src) && ventcrawlerlocal < 2 && (get_active_hand() || get_inactive_hand()))
+				to_chat(src, SPAN_WARNING("Вы не можете ползать по вентиляции с предметами в руках."))
+				return
+
 			visible_message("<span class='notice'>[src.name] начина[pluralize_ru(src.gender,"ет","ют")] лезть в вентиляцию...</span>", \
 							"<span class='notice'>Вы начинаете лезть в вентиляцию...</span>")
 
@@ -466,7 +470,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			if(!client)
 				return
 
-			if(iscarbon(src) && contents.len && ventcrawlerlocal < 2)//It must have atleast been 1 to get this far
+			if((iscarbon(src) && !isalien(src)) && contents.len && ventcrawlerlocal < 2)//It must have atleast been 1 to get this far
 				for(var/obj/item/I in contents)
 					var/failed = 0
 					if(istype(I, /obj/item/implant))
@@ -481,10 +485,16 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 					if(failed)
 						to_chat(src, "<span class='warning'>Вы не можете ползать по вентиляции с предметами</span>")
 						return
+
+			if(isalien(src) && ventcrawlerlocal < 2 && (get_active_hand() || get_inactive_hand()))
+				to_chat(src, SPAN_WARNING("Вы не можете ползать по вентиляции с предметами в руках."))
+				return
+
 			if(isswarmer(src))
 				var/mob/living/simple_animal/hostile/swarmer/S = src
 				if(S.light_range)
 					S.ToggleLight()
+
 			if(issilicon(src))
 				var/mob/living/silicon/S = src
 				if (S.inventory_head)

@@ -104,6 +104,9 @@
 	if(incapacitated(ignore_restraints = 1, ignore_grab = 1, ignore_lying = 1))
 		return
 
+	if(is_ventcrawling(usr)) // stops actions in vents
+		return
+
 	face_atom(A)
 
 	if(next_move > world.time) // in the year 2000...
