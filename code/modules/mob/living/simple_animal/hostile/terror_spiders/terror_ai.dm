@@ -166,7 +166,7 @@
 			spider_special_action()
 		..()
 
-/mob/living/simple_animal/hostile/poison/terror_spider/adjustBruteLoss(amount, updating_health)
+/mob/living/simple_animal/hostile/poison/terror_spider/adjustBruteLoss(amount, updating_health = TRUE)
 	. = ..()
 	Retaliate()
 

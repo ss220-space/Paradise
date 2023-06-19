@@ -12,7 +12,7 @@
 	if(updating_health)
 		updatehealth()
 
-/mob/living/simple_animal/adjustBruteLoss(amount, updating_health)
+/mob/living/simple_animal/adjustBruteLoss(amount, updating_health = TRUE)
 	if(damage_coeff[BRUTE])
 		return adjustHealth(amount * damage_coeff[BRUTE], updating_health)
 

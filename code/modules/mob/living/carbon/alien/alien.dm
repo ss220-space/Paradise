@@ -90,11 +90,11 @@
 	else
 		return ..(amount)
 
-/mob/living/carbon/alien/adjustBruteLoss(amount)
+/mob/living/carbon/alien/adjustBruteLoss(amount, updating_health = TRUE)
 	if(amount > 0)
-		return ..(amount * ALIEN_BRUTE_MOD)
+		return ..(amount * ALIEN_BRUTE_MOD, updating_health)
 	else
-		return ..(amount)
+		return ..(amount, updating_health)
 
 
 /mob/living/carbon/alien/check_eye_prot()
