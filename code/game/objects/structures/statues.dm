@@ -220,7 +220,7 @@
 	name = "statue of a clown"
 	icon_state = "clown"
 
-/obj/structure/statue/bananium/Bumped(atom/user)
+/obj/structure/statue/bananium/Bumped(atom/movable/moving_atom)
 	honk()
 	..()
 
