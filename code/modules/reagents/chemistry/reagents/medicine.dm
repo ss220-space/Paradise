@@ -1393,7 +1393,7 @@
 	reagent_state = LIQUID
 	color = "#00ff15"
 	metabolization_rate = REAGENTS_METABOLISM
-	shock_reduction = 20
+	species_shock_reduction = 20
 	taste_description = "blessing"
 	can_synth = FALSE
 
@@ -1410,7 +1410,7 @@
 	reagent_state = LIQUID
 	color = "#b521c2"
 	metabolization_rate = REAGENTS_METABOLISM
-	shock_reduction = 20
+	species_shock_reduction = 20
 	taste_description = "Superiority"
 	can_synth = FALSE
 

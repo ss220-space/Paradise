@@ -9,6 +9,7 @@
 	var/metabolization_rate = REAGENTS_METABOLISM
 	var/color = "#000000" // rgb: 0, 0, 0 (does not support alpha channels - yet!)
 	var/shock_reduction = 0
+	var/species_shock_reduction = 0
 	var/heart_rate_increase = 0
 	var/heart_rate_decrease = 0
 	var/heart_rate_stop = 0

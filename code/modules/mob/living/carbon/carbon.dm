@@ -971,3 +971,11 @@ so that different stomachs can handle things in different ways VB*/
 			if(R.shock_reduction)
 				shock_reduction += R.shock_reduction
 	return shock_reduction
+
+/mob/living/carbon/proc/species_shock_reduction()
+	var/species_shock_reduction = 0
+	if(reagents)
+		for(var/datum/reagent/R in reagents.reagent_list)
+			if(R.species_shock_reduction)
+				species_shock_reduction += R.species_shock_reduction
+	return species_shock_reduction

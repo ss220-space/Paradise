@@ -286,6 +286,8 @@
 			for(var/datum/reagent/R in H.reagents.reagent_list)
 				if(R.shock_reduction)
 					health_deficiency -= R.shock_reduction
+				if(R.species_shock_reduction)
+					health_deficiency -= R.species_shock_reduction
 		if(health_deficiency >= 40 && !isnucleation(H))
 			if(flight)
 				. += (health_deficiency / 75)
