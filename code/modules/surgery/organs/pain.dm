@@ -3,7 +3,7 @@
 	var/next_pain_time = 0
 
 /mob/living/carbon/human/proc/has_pain()
-	if(!stat)
+	if(stat)
 		return FALSE
 	if(NO_PAIN in dna.species.species_traits)
 		return FALSE
