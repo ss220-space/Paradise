@@ -2,18 +2,25 @@
 	var/last_pain_message = ""
 	var/next_pain_time = 0
 
+/mob/living/carbon/human/proc/has_pain()
+	if(!stat)
+		return FALSE
+	if(NO_PAIN in dna.species.species_traits)
+		return FALSE
+	if(reagents.has_reagent("morphine"))
+		return FALSE
+	if(reagents.has_reagent("syntmorphine"))
+		return FALSE
+	if(reagents.has_reagent("hydrocodone"))
+		return FALSE
+	return TRUE
+
 // partname is the name of a body part
 // amount is a num from 1 to 100
 /mob/living/carbon/human/proc/pain(partname, amount)
-	if(stat >= UNCONSCIOUS)
+	if(reagents.has_reagent("sal_acid"))
 		return
-	if(reagents?.has_reagent("sal_acid"))
-		return
-	if(reagents?.has_reagent("morphine"))
-		return
-	if(reagents?.has_reagent("syntmorphine"))
-		return
-	if(reagents?.has_reagent("hydrocodone"))
+	if(!has_pain())
 		return
 	if(world.time < next_pain_time)
 		return
@@ -33,16 +40,7 @@
 
 // message is the custom message to be displayed
 /mob/living/carbon/human/proc/custom_pain(message)
-	if(stat >= UNCONSCIOUS)
-		return
-
-	if(NO_PAIN in dna.species.species_traits)
-		return
-	if(reagents?.has_reagent("morphine"))
-		return
-	if(reagents?.has_reagent("syntmorphine"))
-		return
-	if(reagents?.has_reagent("hydrocodone"))
+	if(!has_pain())
 		return
 
 	var/msg = "<span class='userdanger'>[message]</span>"
@@ -56,15 +54,7 @@
 /mob/living/carbon/human/proc/handle_pain()
 	// not when sleeping
 
-	if(stat >= UNCONSCIOUS)
-		return
-	if(NO_PAIN in dna.species.species_traits)
-		return
-	if(reagents?.has_reagent("morphine"))
-		return
-	if(reagents?.has_reagent("syntmorphine"))
-		return
-	if(reagents?.has_reagent("hydrocodone"))
+	if(!has_pain())
 		return
 
 	var/maxdam = 0
