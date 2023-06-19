@@ -1228,7 +1228,8 @@
 	icon_state = "suragi_jacket_med"
 	item_state = "suragi_jacket_med"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 5, "rad" = 0, "fire" = 0, "acid" = 0)
-	allowed = list(/obj/item/analyzer, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/telescopic)
+	allowed = list(/obj/item/analyzer, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/healthanalyzer,
+	/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/telescopic, /obj/item/stack/medical, /obj/item/paper, /obj/item/rad_laser)
 
 /obj/item/clothing/suit/storage/suragi_jacket/medsec
 	name = "Medical Security Suragi Jacket"
@@ -1236,7 +1237,8 @@
 	icon_state = "suragi_jacket_brigmed"
 	item_state = "suragi_jacket_brigmed"
 	armor = list("melee" = 5, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 5, "rad" = 0, "fire" = 0, "acid" = 0)
-	allowed = list(/obj/item/stack/medical, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/reagent_containers/syringe, /obj/item/healthanalyzer, /obj/item/flashlight, /obj/item/radio, /obj/item/tank/internals/emergency_oxygen, /obj/item/rad_laser)
+	allowed = list(/obj/item/stack/medical, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/reagent_containers/syringe, /obj/item/healthanalyzer, /obj/item/flashlight, /obj/item/radio, /obj/item/tank/internals/emergency_oxygen, /obj/item/rad_laser,
+	/obj/item/reagent_containers/hypospray, /obj/item/flashlight/pen,/obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/food/pill, /obj/item/storage/pill_bottle,/obj/item/paper,)
 
 /obj/item/clothing/suit/storage/suragi_jacket/virus
 	name = "Virology Suragi Jacket"
@@ -1244,7 +1246,8 @@
 	icon_state = "suragi_jacket_virus"
 	item_state = "suragi_jacket_virus"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 5, "rad" = 0, "fire" = 0, "acid" = 0)
-	allowed = list(/obj/item/analyzer, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper)
+	allowed = list(/obj/item/analyzer, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/paper,
+	/obj/item/stack/medical, /obj/item/dnainjector, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/food/pill, /obj/item/storage/pill_bottle, /obj/item/rad_laser)
 
 /obj/item/clothing/suit/storage/suragi_jacket/chem
 	name = "Chemistry Suragi Jacket"
@@ -1252,7 +1255,8 @@
 	icon_state = "suragi_jacket_chem"
 	item_state = "suragi_jacket_chem"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 5, "acid" = 5)
-	allowed = list(/obj/item/analyzer, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/applicator, /obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper)
+	allowed = list(/obj/item/analyzer, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/applicator, /obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper,
+	/obj/item/stack/medical,/obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/healthanalyzer, /obj/item/reagent_containers/food/pill, /obj/item/rad_laser)
 
 /obj/item/clothing/suit/storage/suragi_jacket/genetics
 	name = "Genetics Suragi Jacket"
@@ -1260,7 +1264,7 @@
 	icon_state = "suragi_jacket_genet"
 	item_state = "suragi_jacket_genet"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 5, "fire" = 0, "acid" = 0)
-	allowed = list(/obj/item/analyzer, /obj/item/reagent_containers/syringe, /obj/item/dnainjector, /obj/item/paper)
+	allowed = list(/obj/item/analyzer,/obj/item/stack/medical,/obj/item/dnainjector,/obj/item/reagent_containers/dropper,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/hypospray,/obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen,/obj/item/reagent_containers/glass/bottle,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/food/pill,/obj/item/storage/pill_bottle,/obj/item/paper,/obj/item/rad_laser)
 
 /obj/item/clothing/suit/storage/suragi_jacket/robot
 	name = "Robotiscist Suragi Jacket"
@@ -1268,7 +1272,7 @@
 	icon_state = "suragi_jacket_robotist"
 	item_state = "suragi_jacket_robotist"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 5,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	allowed = list(/obj/item/robotanalyzer, /obj/item/clothing/glasses/welding)
+	allowed = list(/obj/item/robotanalyzer, /obj/item/clothing/glasses/welding, /obj/item/analyzer,/obj/item/stack/medical,/obj/item/dnainjector,/obj/item/reagent_containers/dropper,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/hypospray,/obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen,/obj/item/reagent_containers/glass/bottle,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/food/pill,/obj/item/storage/pill_bottle,/obj/item/paper,/obj/item/rad_laser)
 
 /obj/item/clothing/suit/storage/suragi_jacket/sci
 	name = "Science Suragi Jacket"
@@ -1276,7 +1280,7 @@
 	icon_state = "suragi_jacket_scien"
 	item_state = "suragi_jacket_scien"
 	armor = list("melee" = 1, "bullet" = 1, "laser" = 1, "energy" = 1, "bomb" = 1, "bio" = 1, "rad" = 1, "fire" = 1, "acid" = 1)
-	allowed = list(/obj/item/analyzer, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/glass/bottle)
+	allowed = list(/obj/item/analyzer,/obj/item/stack/medical,/obj/item/dnainjector,/obj/item/reagent_containers/dropper,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/hypospray,/obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen,/obj/item/reagent_containers/glass/bottle,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/food/pill,/obj/item/storage/pill_bottle,/obj/item/paper,/obj/item/rad_laser)
 
 /obj/item/clothing/suit/storage/suragi_jacket/janitor
 	name = "Janitor Suragi Jacket"
