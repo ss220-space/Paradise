@@ -161,18 +161,32 @@
 	item_color = "berserker"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	heat_protection = HEAD
-	armor = list(melee = 65, bullet = 40, laser = 40, energy = 40, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)
+	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/species/grey/helmet.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
+		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
+		"Vox" = 'icons/mob/species/vox/helmet.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		)
 
 /obj/item/clothing/suit/space/hardsuit/champion
 	name = "champion's hardsuit"
 	desc = "Voices echo from the hardsuit, driving the user insane."
 	icon_state = "hardsuit-berserker"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	species_restricted = list("Human", "Slime People", "Skeleton", "Nucleation", "Machine", "Plasmaman", "Diona", "Kidan", "Shadow") // only humanoids
 	slowdown = 0.25 // you are wearing a POWERFUL energy suit, after all
+	cant_be_faster = TRUE // no heretic magic
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/champion
 	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
-	armor = list(melee = 65, bullet = 40, laser = 40, energy = 40, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)
+	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/species/grey/helmet.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
+		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
+		"Vox" = 'icons/mob/species/vox/helmet.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		)
 
 /obj/item/clothing/head/helmet/space/hardsuit/champion/templar
 	name = "dark templar's helmet"
@@ -186,6 +200,7 @@
 	icon_state = "darktemplar-follower0"
 	item_color = "darktemplar-follower0"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/champion/templar
+	species_restricted = list("Human", "Slime People", "Skeleton", "Nucleation", "Machine", "Plasmaman", "Diona", "Kidan", "Shadow") // only humanoids. And we don't have animal sprites.
 
 /obj/item/clothing/head/helmet/space/hardsuit/champion/templar/premium
 	name = "high dark templar's helmet"
