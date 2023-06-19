@@ -1,3 +1,5 @@
+#define MIN_SHOCK_REDUCTION 50 //The minimum amount of shock reduction in reagents for absence of pain
+
 /mob/living/carbon/human
 	var/last_pain_message = ""
 	var/next_pain_time = 0
@@ -7,11 +9,7 @@
 		return FALSE
 	if(NO_PAIN in dna.species.species_traits)
 		return FALSE
-	if(reagents.has_reagent("morphine"))
-		return FALSE
-	if(reagents.has_reagent("syntmorphine"))
-		return FALSE
-	if(reagents.has_reagent("hydrocodone"))
+	if(shock_reduction() >= MIN_SHOCK_REDUCTION)
 		return FALSE
 	return TRUE
 
@@ -78,3 +76,5 @@
 		if(I.damage > 2 && prob(2))
 			var/obj/item/organ/external/parent = get_organ(I.parent_organ)
 			custom_pain("You feel a sharp pain in your [parent.limb_name]")
+
+#undef MIN_SHOCK_REDUCTION
