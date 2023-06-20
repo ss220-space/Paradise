@@ -77,7 +77,8 @@ GLOBAL_VAR(bomb_set)
 	previous_level = get_security_level()
 	GLOB.poi_list |= src
 	core = new /obj/item/nuke_core/plutonium(src)
-	STOP_PROCESSING(SSobj, core) //Let us not irradiate the vault by default.
+	STOP_PROCESSING(SSobj, core)
+	ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, src) //Let us not irradiate the vault by default.
 
 /obj/machinery/nuclearbomb/Destroy()
 	SStgui.close_uis(wires)
@@ -119,6 +120,7 @@ GLOBAL_VAR(bomb_set)
 			removal_stage = NUKE_CORE_PANEL_UNWELDED
 			if(core)
 				STOP_PROCESSING(SSobj, core)
+				ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, src)
 			return
 	if(istype(O, /obj/item/stack/sheet/metal) && removal_stage == NUKE_CORE_PANEL_EXPOSED)
 		var/obj/item/stack/S = O
@@ -174,6 +176,7 @@ GLOBAL_VAR(bomb_set)
 		new /obj/item/stack/sheet/mineral/titanium(loc, 5)
 		if(core)
 			START_PROCESSING(SSobj, core)
+			REMOVE_TRAIT(core, TRAIT_BLOCK_RADIATION, src)
 	if(removal_stage == NUKE_UNWRENCHED)
 		user.visible_message("[user] begins lifting [src] off of the anchors.", "You begin lifting the device off the anchors...")
 		if(!I.use_tool(src, user, 80, volume = I.tool_volume) || removal_stage != NUKE_UNWRENCHED)

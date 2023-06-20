@@ -16,6 +16,12 @@
 
 /obj/item/nuke_core/Initialize()
 	. = ..()
+	AddComponent(/datum/component/radioactivity, \
+				rad_per_cycle = 40, \
+				rad_cycle = 2 SECONDS, \
+				rad_cycle_radius = 5, \
+				negate_armor = TRUE \
+	)
 	START_PROCESSING(SSobj, src)
 
 /obj/item/nuke_core/Destroy()
@@ -30,8 +36,6 @@
 	if(cooldown < world.time - 2 SECONDS)
 		cooldown = world.time
 		flick(pulseicon, src)
-		for(var/mob/living/L in view(7, src))
-			L.apply_effect(120, IRRADIATE)
 
 /obj/item/nuke_core/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is rubbing [src] against [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -97,6 +101,7 @@
 /obj/item/nuke_core_container/proc/seal()
 	if(!QDELETED(core))
 		STOP_PROCESSING(SSobj, core)
+		ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, src)
 		icon_state = "core_container_sealed"
 		playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
 		if(ismob(loc))
@@ -116,6 +121,7 @@
 	visible_message("<span class='boldnotice'>[src] bursts open!</span>")
 	if(core)
 		START_PROCESSING(SSobj, core)
+		REMOVE_TRAIT(core, TRAIT_BLOCK_RADIATION, src)
 		icon_state = "core_container_cracked_loaded"
 	else
 		icon_state = "core_container_cracked_empty"
@@ -140,10 +146,11 @@
 /obj/item/paper/guides/antag/supermatter_sliver
 	info = "Как безопасно получить осколок Суперматерии:<br>\
 	<ul>\
-	<li>Подойдите к активному кристаллу Суперматерии одетым в СИЗ от радиации со включенными магнитными ботинками. НЕ ПРИКАСАЙТЕСЬ К КРИСТАЛЛУ СУПЕРМАТЕРИИ.</li>\
+	<li>Добудьте лекарственные препараты для лечения возможного радиационного отравления и ожогов, вызванных взаимодействием с кристаллом. </li>\
+	<li>Подойдите к активному кристаллу Суперматерии одетым в СИЗ от радиации и высоких температур, со включенными магнитными ботинками. НЕ ПРИКАСАЙТЕСЬ К КРИСТАЛЛУ СУПЕРМАТЕРИИ.</li>\
 	<li>Используя предоставленный вам скальпель, предназначенный для работы с Суперматерией, отрежьте осколок от кристалла.</li>\
 	<li>Используя так же предоставленные вам щипцы, осторожно возьмите осколок, который вы до этого срезали.</li>\
-	<li>Физический контакт любого предмета с осколком приведет к уничтожению как предмета, так и вас.</li>\
+	<li>Физический контакт любого предмета или живого существа с осколком приведет к уничтожению как предмета, так и вас.</li>\
 	<li>Используя щипцы, аккуратно положите осколок в предоставленный контейнер и дождитесь закрытия контейнера.</li>\
 	<li>Уходите оттуда, пока кристалл не расслоился.</li>\
 	<li>???</li>\
@@ -155,7 +162,7 @@
 	icon_state = "supermatter_sliver"
 	pulseicon = "supermatter_sliver_pulse"
 
-/obj/item/nuke_core/supermatter_sliver/attack_tk(mob/user) // no TK dusting memes
+/obj/item/nuke_core/supermatter_sliver/attack_tk(mob/user) // no TK gibbing memes
 	return
 
 /obj/item/nuke_core/supermatter_sliver/can_be_pulled(user) // no drag memes
@@ -175,7 +182,7 @@
 	else if(istype(I, /obj/item/scalpel/supermatter) || istype(I, /obj/item/nuke_core_container/supermatter)) // we don't want it to dust
 		return
 	else
-		to_chat(user, "<span class='danger'>As it touches [src], both [src] and [I] burst into dust!</span>")
+		to_chat(user, "<span class='danger'>As it touches [src], both [src] and [I] bursts into flames!</span>")
 		for(var/mob/living/L in view(5, src))
 			L.apply_effect(80, IRRADIATE)
 		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
@@ -196,10 +203,10 @@
 	else
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)] via throw impact.")
 		investigate_log("has consumed [key_name(victim)] via throw impact.", "supermatter")
-		victim.visible_message("<span class='danger'>As [victim] is hit by [src], both flash into dust and silence fills the room...</span>",
-		"<span class='userdanger'>You're hit by [src] and everything suddenly goes silent.\n[src] flashes into dust, and soon as you can register this, you do as well.</span>",
+		victim.visible_message("<span class='danger'>As [victim] is hit by [src], both burst into flames and silence fills the room...</span>",
+		"<span class='userdanger'>You're hit by [src] and everything suddenly goes silent.\n[src] bursts into flames, and soon as you can register this, you do as well.</span>",
 		"<span class='hear'>Everything suddenly goes silent.</span>")
-		victim.dust()
+		victim.gib()
 		for(var/mob/living/L in view(5, src))
 			L.apply_effect(120, IRRADIATE)
 		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
@@ -209,13 +216,13 @@
 	..()
 	if(!isliving(user) || user.status_flags & GODMODE) //try to keep this in sync with supermatter's consume fail conditions
 		return FALSE
-	user.visible_message("<span class='danger'>[user] reaches out and tries to pick up [src]. [user.p_their()] body starts to glow and bursts into flames before flashing into dust!</span>",
+	user.visible_message("<span class='danger'>[user] reaches out and tries to pick up [src]. [user.p_their()] body starts to glow and bursts into flames before bursting into flames!</span>",
 			"<span class='userdanger'>You reach for [src] with your hands. That was dumb.</span>",
 			"<span class='hear'>Everything suddenly goes silent.</span>")
 	for(var/mob/living/L in view(5, src))
 		L.apply_effect(80, IRRADIATE)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
-	user.dust()
+	user.gib()
 
 /obj/item/nuke_core_container/supermatter
 	name = "supermatter bin"
@@ -272,7 +279,7 @@
 	if(cracked && sliver) //What did we say about touching the shard...
 		if(!isliving(user) || user.status_flags & GODMODE)
 			return FALSE
-		user.visible_message("<span class='danger'>[user] reaches out and tries to pick up [sliver]. [user.p_their()] body starts to glow and bursts into flames before flashing into dust!</span>",
+		user.visible_message("<span class='danger'>[user] reaches out and tries to pick up [sliver]. [user.p_their()] body starts to glow and bursts into flames!</span>",
 				"<span class='userdanger'>You reach for [sliver] with your hands. That was dumb.</span>",
 				"<span class='italics'>Everything suddenly goes silent.</span>")
 		for(var/mob/living/L in view(5, src))
@@ -280,7 +287,7 @@
 		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 		message_admins("[sliver] has consumed [key_name_admin(user)] [ADMIN_JMP(src)].")
 		investigate_log("has consumed [key_name(user)].", "supermatter")
-		user.dust()
+		user.gib()
 		icon_state = "core_container_cracked_empty"
 		qdel(sliver)
 	else
@@ -350,7 +357,7 @@
 		var/mob/living/victim = AM
 		if(victim.incorporeal_move || victim.status_flags & GODMODE) //try to keep this in sync with supermatter's consume fail conditions
 			return
-		victim.dust()
+		victim.gib()
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)].")
 		investigate_log("has irradiated [key_name(victim)].", "supermatter")
 	else if(istype(AM, /obj/singularity))
@@ -364,10 +371,10 @@
 		qdel(AM)
 	if(user)
 		add_attack_logs(user, AM, "[AM] and [user] consumed by melee attack with [src] by [user]")
-		user.visible_message("<span class='danger'>As [user] touches [AM] with [src], both flash into dust and silence fills the room...</span>",
-			"<span class='userdanger'>You touch [AM] with [src], and everything suddenly goes silent.\n[AM] and [sliver] flash into dust, and soon as you can register this, you do as well.</span>",
+		user.visible_message("<span class='danger'>As [user] touches [AM] with [src], both bursts into flames and silence fills the room...</span>",
+			"<span class='userdanger'>You touch [AM] with [src], and everything suddenly goes silent.\n[AM] and [sliver] bursts into flames, and soon as you can register this, you do as well.</span>",
 			"<span class='hear'>Everything suddenly goes silent.</span>")
-		user.dust()
+		user.gib()
 	for(var/mob/living/L in view(5, src))
 		L.apply_effect(60, IRRADIATE)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
