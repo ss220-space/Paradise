@@ -89,7 +89,7 @@
 	core = new_core
 	icon_state = "core_container_loaded"
 	to_chat(user, "<span class='warning'>Container is sealing...</span>")
-	addtimer(CALLBACK(src, PROC_REF(seal)), 100)
+	addtimer(CALLBACK(src, PROC_REF(seal)), 10 SECONDS)
 
 /obj/item/nuke_core_container/proc/unload(mob/user)
 	core.add_fingerprint(user)

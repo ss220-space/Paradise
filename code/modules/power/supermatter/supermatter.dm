@@ -394,7 +394,9 @@
 						to_chat(user, "<span class='boldwarning'>A tiny piece of [W] falls off, rendering it useless!</span>")
 					var/obj/item/nuke_core/supermatter_sliver/S = new /obj/item/nuke_core/supermatter_sliver(drop_location())
 
-					var/obj/item/retractor/supermatter/tongs = M.get_inactive_hand(/obj/item/retractor/supermatter)
+					var/obj/item/retractor/supermatter/tongs = M.get_inactive_hand()
+					if(!istype(tongs)
+						return
 					if(tongs && !tongs.sliver)
 						tongs.sliver = S
 						S.forceMove(tongs)
