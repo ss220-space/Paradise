@@ -162,3 +162,34 @@
 	explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2, cause = src)
 	charges--
 	..()
+
+/////////////////////////////////////
+//WAND OF SLIPPING
+/////////////////////////////////////
+
+/obj/item/gun/magic/wand/slipping
+	name = "wand of slipping"
+	desc = "This wand shoots... banana peels?"
+	fire_sound = 'sound/items/bikehorn.ogg'
+	ammo_type = /obj/item/ammo_casing/magic/slipping
+	icon_state = "wandofslipping"
+	item_state = "staffofslipping"
+	variable_charges = 0
+	max_charges = 5
+
+/obj/item/gun/magic/wand/slipping/zap_self(mob/living/user)
+	to_chat(user, "<span class='notice'>You feel rather silly!</span>")
+	charges--
+	..()
+
+/obj/item/gun/magic/wand/slipping/afterattack(atom/target, mob/living/user)
+	. = ..()
+	if(!charges)
+		to_chat(usr, "<span class='notice'>[src] is regaining his charge. Be patient!</span>")
+		addtimer(CALLBACK(src, PROC_REF(recharge)), 30 SECONDS, TIMER_UNIQUE)
+
+/obj/item/gun/magic/wand/slipping/proc/recharge()
+	charges++
+	playsound(src, 'sound/items/bikehorn.ogg', 50, TRUE)
+	to_chat(usr, "<span class='notice'>[src] is regained his charge!</span>")
+	update_icon()
