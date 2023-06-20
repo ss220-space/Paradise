@@ -395,7 +395,7 @@
 					var/obj/item/nuke_core/supermatter_sliver/S = new /obj/item/nuke_core/supermatter_sliver(drop_location())
 
 					var/obj/item/retractor/supermatter/tongs = M.get_inactive_hand()
-					if(!istype(tongs)
+					if(!istype(tongs))
 						return
 					if(tongs && !tongs.sliver)
 						tongs.sliver = S

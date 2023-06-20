@@ -247,6 +247,7 @@
 /obj/item/nuke_core_container/supermatter/seal()
 	if(!QDELETED(sliver))
 		STOP_PROCESSING(SSobj, sliver)
+		ADD_TRAIT(sliver, TRAIT_BLOCK_RADIATION, src)
 		icon_state = "supermatter_container_sealed"
 		playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
 		if(ismob(loc))
@@ -297,6 +298,7 @@
 	visible_message("<span class='boldnotice'>[src] bursts open!</span>")
 	if(sliver)
 		START_PROCESSING(SSobj, sliver)
+		REMOVE_TRAIT(sliver, TRAIT_BLOCK_RADIATION, src)
 		icon_state = "supermatter_container_cracked_loaded"
 	else
 		icon_state = "core_container_cracked_empty"
@@ -378,3 +380,5 @@
 		L.apply_effect(60, IRRADIATE)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	QDEL_NULL(sliver)
+	icon_state = "supermatter_tongs"
+	item_state = "supermatter_tongs"
