@@ -19,8 +19,7 @@
 	AddComponent(/datum/component/radioactivity, \
 				rad_per_cycle = 40, \
 				rad_cycle = 2 SECONDS, \
-				rad_cycle_radius = 5, \
-				negate_armor = TRUE \
+				rad_cycle_radius = 5 \
 	)
 	START_PROCESSING(SSobj, src)
 
