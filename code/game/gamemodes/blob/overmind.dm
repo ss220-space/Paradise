@@ -10,6 +10,7 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 
+
 	pass_flags = PASSBLOB
 	faction = list(ROLE_BLOB)
 
