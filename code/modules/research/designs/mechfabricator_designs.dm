@@ -859,20 +859,11 @@
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_extinguisher
-	name = "Exosuit Engineering Equipment (Extinguisher)"
-	id = "mech_extinguisher"
+/datum/design/mech_atmos_module
+	name = "Exosuit Engineering Module (ATMOS module)"
+	id = "mech_atmos_module"
 	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/extinguisher
-	materials = list(MAT_METAL=10000)
-	construction_time = 100
-	category = list("Exosuit Equipment")
-
-/datum/design/mech_cable_layer
-	name = "Exosuit Engineering Equipment (Cable Layer)"
-	id = "mech_cable_layer"
-	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/cable_layer
+	build_path = /obj/item/mecha_parts/mecha_equipment/multimodule/atmos_module
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
@@ -886,6 +877,17 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/rcd
 	materials = list(MAT_METAL=30000,MAT_GOLD=20000,MAT_PLASMA=25000,MAT_SILVER=20000)
 	construction_time = 300
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_eng_toolset
+	name = "Exosuit Engineering Equipment (Engineering Toolset)"
+	desc = "Exosuit toolset. Gives a set of good tools."
+	id = "mech_eng_toolset"
+	build_type = MECHFAB
+	req_tech = list("materials" = 6, "engineering" = 4)
+	build_path = /obj/item/mecha_parts/mecha_equipment/eng_toolset
+	materials = list(MAT_METAL=10000,MAT_TITANIUM =2000,MAT_PLASMA=2000)
+	construction_time = 20 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_gravcatapult
@@ -922,8 +924,8 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_servo_hydra_actuator
-	name = "Exosuit Common Equipment (Strafe module)"
-	desc = "Exosuit servo-motors. Allows strafe mode"
+	name = "Exosuit Common Equipment (Strafe Module)"
+	desc = "Exosuit servo-motors. Allows strafe mode."
 	id = "mech_servo_hydra_actuator"
 	build_type = MECHFAB
 	req_tech = list("powerstorage" = 7, "programming" = 7, "engineering" = 7,"combat" = 7)
@@ -1381,6 +1383,16 @@
 	req_tech = list("biotech" = 7, "materials" = 7)
 	materials = list(MAT_METAL=15000, MAT_URANIUM=2000, MAT_DIAMOND=5000, MAT_SILVER=10000)
 	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_hypospray_pierce
+	name = "Medical Cyborg Upgrade (Hypospray Advanced Injector)"
+	id = "borg_upgrade_hypospray_pierce"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/hypospray_pierce
+	req_tech = list("materials" = 5, "biotech" = 6, "engineering" = 6)
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 3000, MAT_DIAMOND = 500, MAT_TITANIUM = 10000)
+	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_abductor_medi

@@ -185,13 +185,22 @@
 /mob/living/silicon/proc/damage_mob(var/brute = 0, var/fire = 0, var/tox = 0)
 	return
 
-/mob/living/silicon/can_inject(mob/user, error_msg, target_zone, penetrate_thick)
+/mob/living/silicon/can_inject(mob/user, error_msg, target_zone, penetrate_thick, ignore_pierceimmune)
 	if(error_msg)
 		to_chat(user, "<span class='alert'>[p_their(TRUE)] outer shell is too tough.</span>")
 	return FALSE
 
 /mob/living/silicon/IsAdvancedToolUser()
 	return TRUE
+
+
+/mob/living/silicon/handle_ventcrawl(atom/clicked_on)
+	. = ..()
+
+	if(. && inventory_head)
+		drop_hat()
+		visible_message("<b>[name] опрокинул шляпу при залезании в вентиляцию!</b>", "Помеха корпуса была утеряна.")
+
 
 /mob/living/silicon/robot/welder_act(mob/user, obj/item/I)
 	if(user.a_intent != INTENT_HELP)
@@ -374,7 +383,7 @@
 			to_chat(src, "Sensor augmentations disabled.")
 
 
-/mob/living/silicon/adjustToxLoss(var/amount)
+/mob/living/silicon/adjustToxLoss(amount, updating_health)
 	return STATUS_UPDATE_NONE
 
 /mob/living/silicon/get_access()

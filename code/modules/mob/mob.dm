@@ -369,7 +369,11 @@
 	set category = null
 	set src = usr
 
-	if(istype(loc,/obj/mecha)) return
+	if(ismecha(loc))
+		var/obj/mecha/mecha = loc
+		if(src == mecha.occupant)
+			mecha.selected?.self_occupant_attack()
+		return
 
 	var/obj/item/I = get_active_hand()
 	if(I)
@@ -946,8 +950,14 @@
 /mob/shuttleRotate(rotation)
 	dir = angle2dir(rotation+dir2angle(dir))
 
-/mob/proc/handle_ventcrawl()
-	return // Only living mobs can ventcrawl
+
+/mob/proc/can_ventcrawl(atom/clicked_on, override = FALSE)
+	return FALSE
+
+
+/mob/proc/handle_ventcrawl(atom/clicked_on)
+	return FALSE // Only living mobs can ventcrawl
+
 
 /**
   * Buckle to another mob
@@ -1017,6 +1027,11 @@
 	. = list()
 	for(var/obj/item/access_location in get_access_locations())
 		. |= access_location.GetAccess()
+
+/mob/update_tts_seed(new_tts_seed)
+	. = ..()
+	if(. && dna)
+		dna.tts_seed_dna = new_tts_seed
 
 /*
  * * Creates Log Record for Log Viewer
