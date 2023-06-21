@@ -875,7 +875,6 @@
 	damtype = BURN
 	armour_penetration = 40
 	block_chance = 50
-	sharp = TRUE //weird, but okay
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut", "savaged", "clawed")
 	toolspeed = 0.5
@@ -919,7 +918,7 @@
 	name = "Fusion gauntlets"
 	desc = "Cybersun Industries developed these gloves after a grifter fought one of their soldiers, who attached a pyro core to an energy sword, and found it mostly effective."
 	item_state = "pyro"
-	item_color = "pyro" // I will kill washing machines one day
+	item_color = "pyro"
 	icon_state = "pyro"
 	can_be_cut = FALSE
 	actions_types = list(/datum/action/item_action/toggle)
@@ -938,6 +937,10 @@
 	else
 		. += "<span class='warning'>It is missing a pyroclastic anomaly core.</span>"
 
+/obj/item/clothing/gloves/color/black/pyro_claws/item_action_slot_check(slot)
+	if(slot == slot_gloves)
+		return TRUE
+
 /obj/item/clothing/gloves/color/black/pyro_claws/ui_action_click(mob/user)
 	var/obj/item/W = new /obj/item/twohanded/required/pyro_claws
 	if(!core)
@@ -949,7 +952,7 @@
 		return
 	if(used)
 		visible_message("<span class='warning'>[W] slides back into the depths of [loc]'s wrists.</span>")
-		user.drop_from_active_hand(force = TRUE)//dropdel stuff
+		user.drop_from_active_hand(force = TRUE)//dropdel stuff. only ui act, without hotkeys
 		do_sparks(rand(1,6), 1, loc)
 		on_cooldown = TRUE
 		addtimer(CALLBACK(src, PROC_REF(reboot)), 1 MINUTES)
