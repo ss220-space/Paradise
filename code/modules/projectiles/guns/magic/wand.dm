@@ -176,6 +176,7 @@
 	item_state = "staffofslipping"
 	variable_charges = 0
 	max_charges = 5
+	var/charging = 0
 
 /obj/item/gun/magic/wand/slipping/zap_self(mob/living/user)
 	to_chat(user, "<span class='notice'>You feel rather silly!</span>")
@@ -185,11 +186,14 @@
 /obj/item/gun/magic/wand/slipping/afterattack(atom/target, mob/living/user)
 	. = ..()
 	if(!charges)
-		to_chat(usr, "<span class='notice'>[src] is regaining his charge. Be patient!</span>")
+		if(!charging)
+			to_chat(usr, "<span class='notice'>[src] has started to regain its charge.</span>")
+			charging = 1
 		addtimer(CALLBACK(src, PROC_REF(recharge)), 30 SECONDS, TIMER_UNIQUE)
 
 /obj/item/gun/magic/wand/slipping/proc/recharge()
 	charges++
 	playsound(src, 'sound/items/bikehorn.ogg', 50, TRUE)
-	to_chat(usr, "<span class='notice'>[src] is regained his charge!</span>")
+	to_chat(usr, "<span class='notice'>[src] has regained its charge!</span>")
+	charging = 0
 	update_icon()
