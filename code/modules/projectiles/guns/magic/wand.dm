@@ -185,8 +185,7 @@
 
 /obj/item/gun/magic/wand/slipping/afterattack(atom/target, mob/living/user)
 	. = ..()
-	if(!charges)
-		if(!charging)
+	if(!charges && !charging)
 			to_chat(usr, "<span class='notice'>[src] has started to regain its charge.</span>")
 			charging = TRUE
 			addtimer(CALLBACK(src, PROC_REF(recharge)), 30 SECONDS, TIMER_UNIQUE)
