@@ -493,6 +493,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	if(!disintegrate)
 		disintegrate = DROPLIMB_SHARP
+
 	if(disintegrate == DROPLIMB_BURN && istype(src, /obj/item/organ/external/head))
 		disintegrate = DROPLIMB_SHARP //Lets not make sharp burn weapons delete brains.
 
