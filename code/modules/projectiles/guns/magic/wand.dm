@@ -186,9 +186,9 @@
 /obj/item/gun/magic/wand/slipping/afterattack(atom/target, mob/living/user)
 	. = ..()
 	if(!charges && !charging)
-			to_chat(usr, "<span class='notice'>[src] has started to regain its charge.</span>")
-			charging = TRUE
-			addtimer(CALLBACK(src, PROC_REF(recharge)), 30 SECONDS, TIMER_UNIQUE)
+		to_chat(usr, "<span class='notice'>[src] has started to regain its charge.</span>")
+		charging = TRUE
+		addtimer(CALLBACK(src, PROC_REF(recharge)), 30 SECONDS, TIMER_UNIQUE)
 
 /obj/item/gun/magic/wand/slipping/shoot_with_empty_chamber(mob/living/user as mob|obj)
 	to_chat(user, "<span class='warning'>[src] is still regaining its charge!</span>")
