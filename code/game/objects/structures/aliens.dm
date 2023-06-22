@@ -168,10 +168,12 @@
 		to_chat(user, SPAN_NOTICE("You can't find a way to manipulate with this door."))
 		return FALSE
 
+	return ..()
+
 
 /obj/structure/alien/resin/door/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
-		switch_state(user)
+		switch_state()
 
 
 /obj/structure/alien/resin/door/attack_tk(mob/user)
