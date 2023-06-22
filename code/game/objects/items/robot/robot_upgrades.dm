@@ -43,11 +43,15 @@
 	instant_use = TRUE
 
 
-/obj/item/borg/upgrade/reset/action(mob/living/silicon/robot/robot)
-	if(..())
-		if(!isclocker(robot))
-			robot.reset_module()
+/obj/item/borg/upgrade/reset/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
 
+	if(isclocker(robot))
+		to_chat(user, "[SPAN_DANGER("UPGRADE ERROR: ")]" + "[SPAN_NOTICE("this unit somehow refuses to reset!")]")
+		return FALSE
+
+	robot.reset_module()
 	return TRUE
 
 
