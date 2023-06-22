@@ -141,7 +141,7 @@
 	if(!..())
 		return FALSE
 
-	robot.speed = -1 // Gotta go fast.
+	robot.speed -= 1 // Gotta go fast.
 	return TRUE
 
 
@@ -149,7 +149,7 @@
 	if(!..())
 		return FALSE
 
-	robot.speed = 0
+	robot.speed += 1
 	return TRUE
 
 
