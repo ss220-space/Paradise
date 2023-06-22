@@ -20,6 +20,13 @@
 		)
 	w_class = WEIGHT_CLASS_NORMAL
 
+/obj/item/clothing/suit/armor/attackby(obj/item/match/W, mob/user, params)
+	..()
+	if(istype(W, /obj/item/match) && !W.lit)
+		W.matchignite()
+		playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
+	return
+
 /obj/item/clothing/suit/armor/vest
 	name = "armor"
 	desc = "An armored vest that protects against some damage."

@@ -298,7 +298,10 @@
 	. = ..()
 
 /obj/item/match/attack(mob/living/carbon/M, mob/living/carbon/user)
-	if(!isliving(M))
+	if(issilicon(M) || ismachineperson(M))
+		if(user.a_intent == INTENT_HELP)
+			matchignite()
+	else if(isliving(M))
 		return ..()
 	if(lit && M.IgniteMob())
 		add_attack_logs(user, M, "set on fire", ATKLOG_FEW)
