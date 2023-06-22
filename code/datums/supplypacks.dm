@@ -1654,7 +1654,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/misc/patriotic
 	name = "Patriotic Crate"
 	cost = 111
-	containertype = /obj/structure/closet/crate/critter
+	containertype = /obj/structure/closet/crate/trashcart
 	contains = list(/obj/item/flag/nt,
 					/obj/item/flag/nt,
 					/obj/item/flag/nt,
