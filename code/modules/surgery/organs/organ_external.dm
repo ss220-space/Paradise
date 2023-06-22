@@ -494,7 +494,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(!disintegrate)
 		disintegrate = DROPLIMB_SHARP
 
-
 	switch(disintegrate)
 		if(DROPLIMB_SHARP)
 			if(!clean)
