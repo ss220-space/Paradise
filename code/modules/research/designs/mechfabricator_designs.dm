@@ -1375,7 +1375,7 @@
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_hypospray_pierce
-	name = "Medical Cyborg Upgrade (Advanced Hypospray Injector)"
+	name = "Medical Cyborg Upgrade (Hypospray Advanced Injector)"
 	id = "borg_upgrade_hypospray_pierce"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/hypospray_pierce

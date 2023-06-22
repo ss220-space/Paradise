@@ -166,12 +166,12 @@
 	if(!..())
 		return FALSE
 
-	var/obj/item/gun/energy/disabler/cyborg/cooler = locate() in robot.module.modules
-	if(!cooler)
+	var/obj/item/gun/energy/disabler/cyborg/disabler = locate() in robot.module.modules
+	if(!disabler)
 		to_chat(user, "[SPAN_DANGER("UPGRADE ERROR: ")]" + "[SPAN_NOTICE("there's no disabler in this unit!")]")
 		return FALSE
 
-	cooler.charge_delay = max(2 , cooler.charge_delay - 4)
+	disabler.charge_delay = max(2 , disabler.charge_delay - 4)
 	return TRUE
 
 
@@ -281,7 +281,7 @@
 
 /obj/item/borg/upgrade/gps
 	name = "cyborg gps upgrade"
-	desc = "upgraded GPS for cyborgs."
+	desc = "Upgraded GPS for cyborgs."
 	icon_state = "cyborg_upgrade3"
 
 
@@ -617,7 +617,7 @@
 
 /obj/item/borg/upgrade/storageincreaser
 	name = "storage increaser"
-	desc = "Improves cyborg storage with bluespace technology to store more medicines"
+	desc = "Improves cyborg storage with bluespace technology to store more medicines."
 	icon_state = "cyborg_upgrade2"
 	origin_tech = "bluespace=4;materials=5;engineering=3"
 	require_module = TRUE
@@ -647,7 +647,7 @@
 
 /obj/item/borg/upgrade/hypospray
 	name = "cyborg hypospray upgrade"
-	desc = "Adds and replaces some reagents with better ones"
+	desc = "Adds and replaces some reagents with better ones."
 	icon_state = "cyborg_upgrade2"
 	origin_tech = "biotech=6;materials=5"
 	require_module = TRUE
@@ -697,8 +697,8 @@
 
 
 /obj/item/borg/upgrade/hypospray_pierce
-	name = "cyborg advanced hypospray injector"
-	desc = "Adds and upgrade allowing hypospray to pierce thick tissue and materials"
+	name = "cyborg hypospray advanced injector"
+	desc = "Upgrades cyborg hypospray with advanced injector allowing it to pierce thick tissue and materials."
 	icon_state = "cyborg_upgrade2"
 	origin_tech = "materials=4;biotech=5;engineering=5"
 	require_module = TRUE
