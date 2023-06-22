@@ -494,8 +494,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(!disintegrate)
 		disintegrate = DROPLIMB_SHARP
 
-	if(disintegrate == DROPLIMB_BURN && istype(src, /obj/item/organ/external/head))
-		disintegrate = DROPLIMB_SHARP //Lets not make sharp burn weapons delete brains.
 
 	switch(disintegrate)
 		if(DROPLIMB_SHARP)
@@ -561,6 +559,12 @@ Note that amputating the affected organ does in fact remove the infection from t
 		else
 			qdel(src) // If you flashed away to ashes, YOU FLASHED AWAY TO ASHES
 			return null
+
+/obj/item/organ/external/head/droplimb(clean,disintegrate, ignore_children, nodamage)
+	if(disintegrate == DROPLIMB_BURN)
+		. = ..(clean, DROPLIMB_SHARP, ignore_children, nodamage)
+	else
+		. = ..()
 
 /obj/item/organ/external/proc/disembowel(spillage_zone = "chest")
 	if(!owner)
