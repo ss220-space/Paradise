@@ -221,7 +221,9 @@ BLIND     // can't see anything
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/gloves.dmi',
-		"Drask" = 'icons/mob/species/drask/gloves.dmi'
+		"Drask" = 'icons/mob/species/drask/gloves.dmi',
+		"Grey" = 'icons/mob/species/grey/gloves.dmi',
+		"Monkey" = 'icons/mob/species/monkey/gloves.dmi'
 		)
 
 // Called just before an attack_hand(), in mob/UnarmedAttack()
