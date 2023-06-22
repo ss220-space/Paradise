@@ -116,6 +116,192 @@
 			return ..()
 	if(attack_generic(A, damage, BRUTE, "melee", 0, 100))
 		playsound(loc, 'sound/effects/attackblob.ogg', 50, TRUE)
+
+
+#define RESIN_DOOR_CLOSED 0
+#define RESIN_DOOR_OPENED 1
+
+
+/obj/structure/alien/resin/door
+	name = "resin door"
+	desc = "Thick resin solidified into a weird looking door."
+	icon = 'icons/obj/smooth_structures/alien/nest_door.dmi'
+	icon_state = "nest_door_closed"
+	max_integrity = 160
+	resintype = "door"
+	canSmoothWith = null
+	smooth = SMOOTH_FALSE
+	var/state = RESIN_DOOR_CLOSED
+	var/operating = FALSE
+	var/autoclose = TRUE
+	var/autoclose_delay = 10 SECONDS
+
+
+/obj/structure/alien/resin/door/Initialize()
+	. = ..()
+	update_freelook_sight()
+
+
+/obj/structure/alien/resin/door/Destroy()
+	density = FALSE
+	update_freelook_sight()
+	return ..()
+
+
+/obj/structure/alien/resin/door/update_icon()
+	switch(state)
+		if(RESIN_DOOR_CLOSED)
+			icon_state = "nest_door_closed"
+		if(RESIN_DOOR_OPENED)
+			icon_state = "nest_door_opened"
+
+
+/obj/structure/alien/resin/door/attack_alien(mob/living/carbon/alien/humanoid/user)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	try_switch_state(user)
+
+
+/obj/structure/alien/resin/door/attack_hand(mob/living/user)
+	if(!isalien(user))
+		to_chat(user, SPAN_NOTICE("You can't find a way to manipulate with this door."))
+		return FALSE
+
+
+/obj/structure/alien/resin/door/attack_ghost(mob/user)
+	if(user.can_advanced_admin_interact())
+		switch_state(user)
+
+
+/obj/structure/alien/resin/door/attack_tk(mob/user)
+	return
+
+
+/obj/structure/alien/resin/door/Bumped(atom/movable/moving_atom)
+	..()
+
+	if(operating)
+		return
+
+	if(isliving(moving_atom))
+		var/mob/living/living = moving_atom
+		if(world.time - living.last_bumped <= 1 SECONDS)
+			return
+		living.last_bumped = world.time
+
+	try_switch_state(moving_atom)
+
+
+/obj/structure/alien/resin/door/CanPass(atom/movable/mover, turf/target, height = 0)
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+		return TRUE
+
+	return !density
+
+
+/obj/structure/alien/resin/door/proc/try_switch_state(atom/movable/user)
+	if(operating)
+		return
+
+	add_fingerprint(user)
+
+	if(!isalien(user))
+		return
+
+	var/mob/living/carbon/alien/alien = user
+	if(alien.stat || alien.incapacitated())
+		return
+
+	switch_state()
+
+
+/obj/structure/alien/resin/door/proc/switch_state()
+	switch(state)
+		if(RESIN_DOOR_CLOSED)
+			open()
+		if(RESIN_DOOR_OPENED)
+			close()
+
+
+/obj/structure/alien/resin/door/proc/open()
+
+	if(operating)
+		return
+
+	flick("nest_door_opening", src)
+	set_opacity(0)
+
+	operating = TRUE
+	sleep(0.5 SECONDS)
+	density = FALSE
+	sleep(0.5 SECONDS)
+	operating = FALSE
+
+	playsound(loc, 'sound/effects/attackblob.ogg', 100, TRUE)
+	state = RESIN_DOOR_OPENED
+	update_icon()
+	set_opacity(FALSE)
+	air_update_turf(TRUE)
+	update_freelook_sight()
+
+	if(autoclose)
+		autoclose_in(autoclose_delay)
+
+
+/obj/structure/alien/resin/door/proc/close()
+
+	if(operating)
+		return
+
+	var/turf/source_turf = get_turf(src)
+	for(var/atom/movable/moving_atom in source_turf)
+		if(moving_atom.density && moving_atom != src)
+			if(autoclose)
+				autoclose_in(autoclose_delay * 0.5)
+			return
+
+	flick("nest_door_closing", src)
+
+	operating = TRUE
+	sleep(0.5 SECONDS)
+	density = TRUE
+	sleep(0.5 SECONDS)
+	operating = FALSE
+
+	playsound(loc, 'sound/effects/attackblob.ogg', 100, TRUE)
+	state = RESIN_DOOR_CLOSED
+	update_icon()
+	set_opacity(TRUE)
+	air_update_turf(TRUE)
+	update_freelook_sight()
+	check_mobs()
+
+
+/obj/structure/alien/resin/door/proc/check_mobs()
+	if(locate(/mob/living) in get_turf(src))
+		sleep(0.1 SECONDS)
+		open()
+
+
+/obj/structure/alien/resin/door/proc/autoclose()
+	if(!QDELETED(src) && !density && !operating && autoclose)
+		close()
+
+
+/obj/structure/alien/resin/door/proc/autoclose_in(wait)
+	addtimer(CALLBACK(src, PROC_REF(autoclose)), wait, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
+
+
+/obj/structure/alien/resin/door/proc/update_freelook_sight()
+	if(GLOB.cameranet)
+		GLOB.cameranet.updateVisibility(src, FALSE)
+
+
+#undef RESIN_DOOR_CLOSED
+#undef RESIN_DOOR_OPENED
+
+
 /*
  * Weeds
  */
