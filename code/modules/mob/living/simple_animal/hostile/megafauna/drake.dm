@@ -613,7 +613,7 @@ Difficulty: Medium
 	health = 250
 	faction = list("neutral")
 	desc = "A space carp turned dragon by vile magic.  Has the same ferocity of a space carp, but also a much more enabling body."
-	icon = 'icons/mob/spacedragon.dmi'
+	icon = 'icons/mob/spacedragon_new.dmi'
 	icon_state = "spacedragon"
 	icon_living = "spacedragon"
 	icon_dead = "spacedragon_dead"
