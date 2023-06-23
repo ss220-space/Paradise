@@ -293,7 +293,7 @@ Doesn't work on other aliens/AI.*/
 	var/mob/living/carbon/alien/host = owner
 
 	if(!COOLDOWN_FINISHED(src, last_used_xeno_resin))
-		to_chat(host, SPAN_WARNING("Secrete Resin ability is still recharging"))
+		to_chat(host, SPAN_WARNING("Secrete Resin ability is still recharging!"))
 		return
 
 	var/list/resin_params = list()
