@@ -3492,7 +3492,7 @@
 "if" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/derelict/annex)
 "ig" = (
 /obj/effect/landmark/tiles/damageturf,
@@ -3658,14 +3658,6 @@
 	icon_state = "purple"
 	},
 /area/derelict/rnd)
-"iD" = (
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/annex)
 "iE" = (
 /turf/simulated/floor/engine{
 	name = "vacuum floor";
@@ -3735,7 +3727,7 @@
 "iR" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/derelict/garden)
 "iS" = (
 /obj/structure/closet/crate,
@@ -3995,14 +3987,6 @@
 "jA" = (
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plating/airless,
-/area/derelict/annex)
-"jB" = (
-/turf/simulated/wall/mineral/titanium,
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
 /area/derelict/annex)
 "jC" = (
 /obj/structure/closet/radiation,
@@ -8079,10 +8063,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/no_grav)
-"xX" = (
-/turf/simulated/wall/mineral/titanium,
-/turf/space,
-/area/derelict/annex)
 "xZ" = (
 /obj/effect/decal/cleanable/ash,
 /obj/machinery/atmospherics/pipe/simple/visible,
@@ -9298,7 +9278,7 @@
 "Ke" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "Kk" = (
 /obj/item/stack/sheet/mineral/titanium,
@@ -18671,7 +18651,7 @@ ag
 ac
 dW
 eg
-iD
+eg
 im
 ii
 ii
@@ -18792,7 +18772,7 @@ ac
 ag
 dW
 eg
-iD
+eg
 iE
 ko
 ii
@@ -18913,7 +18893,7 @@ jh
 ac
 ac
 eg
-iD
+eg
 iE
 QD
 ii
@@ -19163,7 +19143,7 @@ xZ
 ii
 ld
 iE
-iD
+eg
 eg
 ac
 ac
@@ -19284,7 +19264,7 @@ ii
 iE
 kp
 JS
-iD
+eg
 eg
 dW
 ac
@@ -19403,9 +19383,9 @@ ac
 Zq
 iY
 iZ
-jB
+dW
 iE
-iD
+eg
 eg
 dW
 ac
@@ -19524,7 +19504,7 @@ ac
 ac
 sp
 ac
-xX
+dW
 eg
 kn
 eg
