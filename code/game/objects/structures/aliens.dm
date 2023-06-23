@@ -232,6 +232,7 @@
 		return
 
 	flick("nest_door_opening", src)
+	playsound(loc, 'sound/creatures/alien/xeno_door_open.ogg', 100, TRUE)
 	set_opacity(0)
 
 	operating = TRUE
@@ -240,7 +241,6 @@
 	sleep(0.5 SECONDS)
 	operating = FALSE
 
-	playsound(loc, 'sound/effects/attackblob.ogg', 100, TRUE)
 	state = RESIN_DOOR_OPENED
 	update_icon()
 	set_opacity(FALSE)
@@ -264,6 +264,7 @@
 			return
 
 	flick("nest_door_closing", src)
+	playsound(loc, 'sound/creatures/alien/xeno_door_close.ogg', 100, TRUE)
 
 	operating = TRUE
 	sleep(0.5 SECONDS)
@@ -271,7 +272,6 @@
 	sleep(0.5 SECONDS)
 	operating = FALSE
 
-	playsound(loc, 'sound/effects/attackblob.ogg', 100, TRUE)
 	state = RESIN_DOOR_CLOSED
 	update_icon()
 	set_opacity(TRUE)
