@@ -341,6 +341,9 @@ Doesn't work on other aliens/AI.*/
 	if(!do_after(host, resin_params["Process Time"][choice], target = host))
 		return
 
+	if(!check_availability(host))
+		return
+
 	COOLDOWN_START(src, last_used_xeno_resin, resin_params["Cooldown"][choice])
 	host.adjustPlasma(-(resin_params["Plasma Amount"][choice]))
 
