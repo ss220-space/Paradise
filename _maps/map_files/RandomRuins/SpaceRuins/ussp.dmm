@@ -5898,13 +5898,6 @@
 /obj/item/stack/tile,
 /turf/space,
 /area/derelict/med)
-"oo" = (
-/turf/simulated/floor/plasteel/airless{
-	dir = 5;
-	icon_state = "green"
-	},
-/turf/simulated/wall/mineral/titanium,
-/area/derelict/garden)
 "op" = (
 /obj/item/stack/ore/iron,
 /turf/simulated/floor/plasteel/airless{
@@ -6133,10 +6126,6 @@
 	icon_state = "bar"
 	},
 /area/derelict/dining)
-"oQ" = (
-/turf/space,
-/turf/simulated/wall/mineral/titanium,
-/area/derelict/garden)
 "oR" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -6455,10 +6444,6 @@
 	icon_state = "delivery"
 	},
 /area/derelict/common)
-"pG" = (
-/turf/space,
-/turf/simulated/wall/mineral/titanium,
-/area/derelict/med)
 "pH" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/item/hemostat,
@@ -16500,7 +16485,7 @@ ac
 ac
 ac
 ac
-pG
+tk
 oc
 on
 oc
@@ -16514,7 +16499,7 @@ oc
 oc
 oc
 qf
-pG
+tk
 ac
 ac
 Zq
@@ -17118,7 +17103,7 @@ ac
 ac
 ai
 ac
-pG
+tk
 tk
 pI
 mS
@@ -17967,8 +17952,8 @@ Ox
 Ox
 EN
 Su
-oo
-oQ
+AE
+AE
 ac
 ac
 ac
