@@ -281,7 +281,7 @@ Doesn't work on other aliens/AI.*/
 #define ALIEN_RESIN_NEST		"Resin Nest (30)"
 
 
-/datum/action/innate/xeno_action/resin // -- TLE
+/datum/action/innate/xeno_action/resin
 	name = "Secrete Resin"
 	desc = "Secrete tough malleable resin (Use Ctrl+Click on self)."
 	button_icon_state = "alien_resin"
@@ -352,10 +352,10 @@ Doesn't work on other aliens/AI.*/
 
 
 /datum/action/innate/xeno_action/resin/proc/check_availability(mob/living/carbon/user)
-	if(QDELETED(user) || QDELETED(src))
-		return
-
 	if(!istype(user))
+		return FALSE
+
+	if(QDELETED(user) || QDELETED(src))
 		return FALSE
 
 	if(user.stat || user.incapacitated())
