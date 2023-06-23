@@ -274,33 +274,117 @@ Doesn't work on other aliens/AI.*/
 		start_recharge()
 	return
 
+
+/// Defines include required plasma in brackets
+#define ALIEN_RESIN_WALL		"Resin Wall (60)"
+#define ALIEN_RESIN_MEMBRANE	"Resin Membrane (40)"
+#define ALIEN_RESIN_NEST		"Resin Nest (30)"
+
+
 /datum/action/innate/xeno_action/resin // -- TLE
-	name = "Secrete Resin (55)"
-	desc = "Secrete tough malleable resin."
+	name = "Secrete Resin"
+	desc = "Secrete tough malleable resin (Use Ctrl+Click on self)."
 	button_icon_state = "alien_resin"
+	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUNNED | AB_CHECK_LYING | AB_CHECK_CONSCIOUS | AB_CHECK_TURF
+	COOLDOWN_DECLARE(last_used_xeno_resin)
+
 
 /datum/action/innate/xeno_action/resin/Activate()
 	var/mob/living/carbon/alien/host = owner
 
-	if(plasmacheck(55))
-		var/choice = input("Choose what you wish to shape.","Resin building") as null|anything in list("resin wall","resin membrane","resin nest") //would do it through typesof but then the player choice would have the type path and we don't want the internal workings to be exposed ICly - Urist
+	if(!COOLDOWN_FINISHED(src, last_used_xeno_resin))
+		to_chat(host, SPAN_WARNING("Secrete Resin ability is still recharging"))
+		return
 
-		if(!choice || !plasmacheck(55))	return
-		var/turf/T = get_turf(host.loc)
-		if(locate(/obj/structure/alien/resin) in T.contents || locate(/obj/structure/bed/nest) in T.contents)
-			to_chat(host, "<span class ='warning'>Это место уже занято!</span>")
-			return
-		host.adjustPlasma(-55)
-		for(var/mob/O in viewers(host, null))
-			O.show_message(text("<span class='alertalien'>[host] vomits up a thick purple substance and shapes it!</span>"), 1)
-		switch(choice)
-			if("resin wall")
-				new /obj/structure/alien/resin/wall(host.loc)
-			if("resin membrane")
-				new /obj/structure/alien/resin/membrane(host.loc)
-			if("resin nest")
-				new /obj/structure/bed/nest(host.loc)
-	return
+	var/list/resin_params = list()
+
+	resin_params["Plasma Amount"] = list(
+		ALIEN_RESIN_WALL 		= 60,
+		ALIEN_RESIN_MEMBRANE 	= 40,
+		ALIEN_RESIN_NEST 		= 30
+	)
+
+	resin_params["Process Time"] = list(
+		ALIEN_RESIN_WALL 		= 2 SECONDS,
+		ALIEN_RESIN_MEMBRANE 	= 2 SECONDS,
+		ALIEN_RESIN_NEST 		= 1 SECONDS
+	)
+
+	resin_params["Cooldown"] = list(
+		ALIEN_RESIN_WALL 		= 3 SECONDS,
+		ALIEN_RESIN_MEMBRANE 	= 3 SECONDS,
+		ALIEN_RESIN_NEST 		= 2 SECONDS
+	)
+
+	resin_params["Structure"] = list(
+		ALIEN_RESIN_WALL 		= /obj/structure/alien/resin/wall,
+		ALIEN_RESIN_MEMBRANE 	= /obj/structure/alien/resin/membrane,
+		ALIEN_RESIN_NEST 		= /obj/structure/bed/nest
+	)
+
+	resin_params["Image"] = list(
+		ALIEN_RESIN_WALL		= image(icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi', icon_state = "resin"),
+		ALIEN_RESIN_MEMBRANE 	= image(icon = 'icons/obj/smooth_structures/alien/resin_membrane.dmi', icon_state = "membrane"),
+		ALIEN_RESIN_NEST 		= image(icon = 'icons/mob/alien.dmi', icon_state = "nest")
+	)
+
+	var/choice = show_radial_menu(host, host, resin_params["Image"], custom_check = CALLBACK(src, PROC_REF(check_availability), host))
+
+	if(!choice || !check_availability(host))
+		return
+
+	if(!plasmacheck(resin_params["Plasma Amount"][choice]))
+		return
+
+	host.visible_message(SPAN_WARNING("[host] starts vomitting purple substance on the surface!"), \
+		SPAN_NOTICE("You start vomitting resin for future use."))
+	if(!do_after(host, resin_params["Process Time"][choice], target = host))
+		return
+
+	COOLDOWN_START(src, last_used_xeno_resin, resin_params["Cooldown"][choice])
+	host.adjustPlasma(-(resin_params["Plasma Amount"][choice]))
+
+	var/build_path = resin_params["Structure"][choice]
+	var/obj/alien_structure = new build_path(host.loc)
+
+	host.visible_message(span_alertalien("[host] vomits up a thick purple substance and shapes it into [alien_structure.name]!"), \
+		span_alertalien("You finished shaping vomited resin into [alien_structure.name]."))
+
+
+/datum/action/innate/xeno_action/resin/proc/check_availability(mob/living/carbon/user)
+	if(QDELETED(user) || QDELETED(src))
+		return
+
+	if(!istype(user))
+		return FALSE
+
+	if(user.stat || user.incapacitated())
+		to_chat(user, SPAN_WARNING("You can't do this right now!"))
+		return FALSE
+
+	var/turf/source_turf = get_turf(user)
+	if(locate(/obj/structure/alien/resin) in source_turf.contents || locate(ALIEN_RESIN_NEST) in source_turf.contents)
+		to_chat(user, SPAN_WARNING("This place is already occupied!"))
+		return FALSE
+
+	return TRUE
+
+
+/mob/living/carbon/alien/humanoid/CtrlClick(mob/living/carbon/alien/humanoid/alien)
+	if(!istype(alien) || usr != alien)
+		return
+
+	var/datum/action/innate/xeno_action/resin/resin = locate(/datum/action/innate/xeno_action/resin) in alien.actions
+	if(!resin)
+		return
+
+	resin.Activate()
+
+
+#undef ALIEN_RESIN_WALL
+#undef ALIEN_RESIN_MEMBRANE
+#undef ALIEN_RESIN_NEST
+
 
 /datum/action/innate/xeno_action/break_vents
 	name = "Break Welded Vent"
