@@ -253,7 +253,7 @@
 
 /obj/item/clothing/gloves/knuckles
 	name = "knuckles"
-	desc = "Do u kno da way?"
+	desc = "The choice of the professional to beat the shit out of some jerk!"
 	icon_state = "knuckles"
 	item_state = "knuckles"
 	sharp = FALSE
