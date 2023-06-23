@@ -3997,7 +3997,7 @@
 /turf/simulated/floor/plating/airless,
 /area/derelict/annex)
 "jB" = (
-/turf/simulated/wall/mineral/titanium/nodecon/nosmooth,
+/turf/simulated/wall/mineral/titanium,
 /turf/simulated/floor/engine{
 	name = "vacuum floor";
 	nitrogen = 0.01;
@@ -4641,9 +4641,6 @@
 	dir = 1
 	},
 /turf/space,
-/area/derelict/annex)
-"lc" = (
-/turf/simulated/wall/mineral/titanium/nodecon/nosmooth,
 /area/derelict/annex)
 "ld" = (
 /obj/structure/flora/rock,
@@ -5906,7 +5903,7 @@
 	dir = 5;
 	icon_state = "green"
 	},
-/turf/simulated/wall/mineral/titanium/nodecon/nosmooth,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/garden)
 "op" = (
 /obj/item/stack/ore/iron,
@@ -6138,7 +6135,7 @@
 /area/derelict/dining)
 "oQ" = (
 /turf/space,
-/turf/simulated/wall/mineral/titanium/nodecon/nosmooth,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/garden)
 "oR" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6460,7 +6457,7 @@
 /area/derelict/common)
 "pG" = (
 /turf/space,
-/turf/simulated/wall/mineral/titanium/nodecon/nosmooth,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/med)
 "pH" = (
 /obj/effect/landmark/tiles/damageturf,
@@ -8098,7 +8095,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/no_grav)
 "xX" = (
-/turf/simulated/wall/mineral/titanium/nodecon/nosmooth,
+/turf/simulated/wall/mineral/titanium,
 /turf/space,
 /area/derelict/annex)
 "xZ" = (
@@ -9788,12 +9785,11 @@
 	},
 /area/derelict/crew_quarters)
 "PF" = (
-/obj/structure/lattice,
-/obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	icon_state = "1-2";
 	tag = ""
 	},
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/template_noop)
 "PL" = (
@@ -18570,7 +18566,7 @@ ac
 dW
 eg
 xF
-lc
+dW
 ii
 ac
 ac
