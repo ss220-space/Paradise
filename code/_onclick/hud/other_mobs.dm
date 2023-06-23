@@ -14,6 +14,23 @@
 	static_inventory += using
 	action_intent = using
 
+//Ians
+/mob/living/simple_animal/pet/dog/create_mob_hud()
+	if(client && !hud_used)
+		hud_used = new /datum/hud/corgi(src)
+
+/datum/hud/corgi/New(mob/user)
+	..()
+
+	mymob.healths = new /obj/screen/healths/corgi()
+	infodisplay += mymob.healths
+
+	mymob.pullin = new /obj/screen/pull()
+	mymob.pullin.icon = 'icons/mob/screen_corgi.dmi'
+	mymob.pullin.update_icon(mymob)
+	mymob.pullin.screen_loc = ui_construct_pull
+	static_inventory += mymob.pullin
+
 //spiders
 /mob/living/simple_animal/hostile/poison/giant_spider/create_mob_hud()
 	if(client && !hud_used)
