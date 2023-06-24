@@ -11,19 +11,28 @@ Doesn't work on other aliens/AI.*/
 
 /datum/action/innate/xeno_action/Activate()
 
-/datum/action/proc/plasmacheck(X, Y)//Y is optional, checks for weed planting. X can be null.
+
+/**
+ * `turf_check` is optional, checks for weed planting.
+ * `plasma_amount` can be null.
+ */
+/datum/action/proc/plasmacheck(plasma_amount, turf_check)
 	var/mob/living/carbon/alien/host = owner
 
 	if(!IsAvailable())
-		to_chat(host, "<span class='noticealien'>You can't do that yet.</span>")
-		return 0
-	if(X && host.getPlasma() < X)
-		to_chat(host, "<span class='noticealien'>Not enough plasma stored.</span>")
-		return 0
-	if(Y && (!isturf(host.loc) || istype(host.loc, /turf/space)))
-		to_chat(host, "<span class='noticealien'>You can't place that here!</span>")
-		return 0
-	return 1
+		to_chat(host, span_noticealien("You can't do that yet."))
+		return FALSE
+
+	if(plasma_amount && host.getPlasma() < plasma_amount)
+		to_chat(host, span_noticealien("Not enough plasma stored."))
+		return FALSE
+
+	if(turf_check && (!isturf(host.loc) || istype(host.loc, /turf/space)))
+		to_chat(host, span_noticealien("You can't place that here!"))
+		return FALSE
+
+	return TRUE
+
 
 /datum/action/innate/xeno_action/nightvisiontoggle
 	name = "Toggle Night Vision"
@@ -331,18 +340,15 @@ Doesn't work on other aliens/AI.*/
 
 	var/choice = show_radial_menu(host, host, resin_params["Image"], custom_check = CALLBACK(src, PROC_REF(check_availability), host))
 
-	if(!choice || !check_availability(host))
+	if(!choice || !check_availability(host, resin_params["Plasma Amount"][choice]))
 		return
 
-	if(!plasmacheck(resin_params["Plasma Amount"][choice]))
-		return
-
-	host.visible_message(SPAN_WARNING("[host] starts vomitting purple substance on the surface!"), \
-		SPAN_NOTICE("You start vomitting resin for future use."))
+	host.visible_message(span_warning("[host] starts vomitting purple substance on the surface!"), \
+		span_notice("You start vomitting resin for future use."))
 	if(!do_after(host, resin_params["Process Time"][choice], target = host))
 		return
 
-	if(!check_availability(host))
+	if(!check_availability(host, resin_params["Plasma Amount"][choice]))
 		return
 
 	COOLDOWN_START(src, last_used_xeno_resin, resin_params["Cooldown"][choice])
@@ -352,24 +358,27 @@ Doesn't work on other aliens/AI.*/
 	var/obj/alien_structure = new build_path(host.loc)
 
 	playsound_xenobuild(alien_structure)
-	host.visible_message(span_alertalien("[host] vomits up a thick purple substance and shapes it into [alien_structure.name]!"), \
+	host.visible_message(span_warning("[host] vomits up a thick purple substance and shapes it into [alien_structure.name]!"), \
 		span_alertalien("You finished shaping vomited resin into [alien_structure.name]."))
 
 
-/datum/action/innate/xeno_action/resin/proc/check_availability(mob/living/carbon/user)
+/datum/action/innate/xeno_action/resin/proc/check_availability(mob/living/carbon/user, plasma_amount)
 	if(!istype(user))
 		return FALSE
 
 	if(QDELETED(user) || QDELETED(src))
 		return FALSE
 
-	if(user.stat || user.incapacitated())
-		to_chat(user, SPAN_WARNING("You can't do this right now!"))
+	if(!plasmacheck(plasma_amount, turf_check = TRUE))
+		return FALSE
+
+	if(user.incapacitated())
+		to_chat(user, span_noticealien("You can't do this right now!"))
 		return FALSE
 
 	var/turf/source_turf = get_turf(user)
-	if(locate(/obj/structure/alien/resin) in source_turf.contents || locate(ALIEN_RESIN_NEST) in source_turf.contents)
-		to_chat(user, SPAN_WARNING("This place is already occupied!"))
+	if((locate(/obj/structure/alien/resin) in source_turf.contents) || (locate(/obj/structure/bed/nest) in source_turf.contents))
+		to_chat(user, span_noticealien("This place is already occupied!"))
 		return FALSE
 
 	return TRUE
