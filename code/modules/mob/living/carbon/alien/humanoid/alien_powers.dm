@@ -72,6 +72,7 @@ Doesn't work on other aliens/AI.*/
 			for(var/mob/O in viewers(host, null))
 				O.show_message(text("<span class='alertalien'>[host] has planted some alien weeds!</span>"), 1)
 			new /obj/structure/alien/weeds/node(host.loc)
+			playsound_xenobuild(host)
 			charge_counter = 0
 			start_recharge()
 	return
@@ -350,6 +351,7 @@ Doesn't work on other aliens/AI.*/
 	var/build_path = resin_params["Structure"][choice]
 	var/obj/alien_structure = new build_path(host.loc)
 
+	playsound_xenobuild(alien_structure)
 	host.visible_message(span_alertalien("[host] vomits up a thick purple substance and shapes it into [alien_structure.name]!"), \
 		span_alertalien("You finished shaping vomited resin into [alien_structure.name]."))
 
@@ -468,5 +470,21 @@ Doesn't work on other aliens/AI.*/
 		return 1
 
 	return 0
+
+
+/proc/playsound_xenobuild(object)
+	var/random = rand(1, 3)
+	var/turf/object_turf = get_turf(object)
+	if(!object_turf)
+		return
+
+	switch(random)
+		if(1)
+			playsound(object_turf, 'sound/creatures/alien/xeno_resin_build1.ogg', 30)
+		if(2)
+			playsound(object_turf, 'sound/creatures/alien/xeno_resin_build2.ogg', 30)
+		if(3)
+			playsound(object_turf, 'sound/creatures/alien/xeno_resin_build3.ogg', 30)
+
 
 #undef WORLD_VIEW
