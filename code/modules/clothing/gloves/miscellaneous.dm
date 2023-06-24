@@ -262,6 +262,7 @@
 	var/knock_damage_low = 5 // stamina damage
 	var/knock_damage_high = 10 // min and max
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 0)
+	species_exception = list(/datum/species/monkey)
 
 /obj/item/clothing/gloves/knuckles/Touch(atom/A, proximity)
 	. = FALSE
