@@ -296,14 +296,19 @@ Doesn't work on other aliens/AI.*/
 	desc = "Secrete tough malleable resin (Use Ctrl+Click on self)."
 	button_icon_state = "alien_resin"
 	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUNNED | AB_CHECK_LYING | AB_CHECK_CONSCIOUS | AB_CHECK_TURF
+	var/in_process = FALSE
 	COOLDOWN_DECLARE(last_used_xeno_resin)
 
 
 /datum/action/innate/xeno_action/resin/Activate()
 	var/mob/living/carbon/alien/host = owner
 
+	if(in_process)
+		to_chat(host, span_noticealien("Ability is already in use!"))
+		return
+
 	if(!COOLDOWN_FINISHED(src, last_used_xeno_resin))
-		to_chat(host, span_warning("Secrete Resin ability is still recharging!"))
+		to_chat(host, span_noticealien("Ability is still recharging!"))
 		return
 
 	var/list/resin_params = list()
@@ -345,8 +350,12 @@ Doesn't work on other aliens/AI.*/
 
 	host.visible_message(span_warning("[host] starts vomitting purple substance on the surface!"), \
 		span_notice("You start vomitting resin for future use."))
+
+	in_process = TRUE
 	if(!do_after(host, resin_params["Process Time"][choice], target = host))
+		in_process = FALSE
 		return
+	in_process = FALSE
 
 	if(!check_availability(host, resin_params["Plasma Amount"][choice]))
 		return
