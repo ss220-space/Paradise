@@ -12,7 +12,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/can_attach(obj/mecha/M)
 	if(..())
-		if(istype(M, /obj/mecha/working))
+		if(istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat/lockersyndie))
 			return TRUE
 	return FALSE
 
