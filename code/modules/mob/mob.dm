@@ -369,7 +369,11 @@
 	set category = null
 	set src = usr
 
-	if(istype(loc,/obj/mecha)) return
+	if(ismecha(loc))
+		var/obj/mecha/mecha = loc
+		if(src == mecha.occupant)
+			mecha.selected?.self_occupant_attack()
+		return
 
 	var/obj/item/I = get_active_hand()
 	if(I)
@@ -1017,6 +1021,11 @@
 	. = list()
 	for(var/obj/item/access_location in get_access_locations())
 		. |= access_location.GetAccess()
+
+/mob/update_tts_seed(new_tts_seed)
+	. = ..()
+	if(. && dna)
+		dna.tts_seed_dna = new_tts_seed
 
 /*
  * * Creates Log Record for Log Viewer

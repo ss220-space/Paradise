@@ -155,11 +155,9 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill
 	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/extinguisher
+	ME = new /obj/item/mecha_parts/mecha_equipment/multimodule/atmos_module
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/rcd
-	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/cable_layer
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/wormhole_generator
 	ME.attach(src)
@@ -170,6 +168,8 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/teleporter/precise
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/mining_scanner
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/eng_toolset
 	ME.attach(src)
 
 /obj/mecha/working/ripley/full_load/add_cell()

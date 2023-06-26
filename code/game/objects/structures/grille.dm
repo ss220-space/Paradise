@@ -96,11 +96,13 @@
 	QDEL_IN(src, 0.2)
 	return RCD_ACT_SUCCESSFULL
 
-/obj/structure/grille/Bumped(atom/user)
-	if(ismob(user))
+/obj/structure/grille/Bumped(atom/movable/moving_atom)
+	..()
+
+	if(ismob(moving_atom))
 		if(!(shockcooldown <= world.time))
 			return
-		shock(user, 70)
+		shock(moving_atom, 70)
 		shockcooldown = world.time + my_shockcooldown
 
 /obj/structure/grille/attack_animal(mob/user)
@@ -331,7 +333,7 @@
 	take_damage(rand(1, 3), BRUTE)
 	if(src)
 		var/previouscolor = color
-		color = "#960000"
+		color = COLOR_CULT_RED
 		animate(src, color = previouscolor, time = 8)
 
 /obj/structure/grille/ratvar/ratvar_act()
