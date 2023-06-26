@@ -45,7 +45,7 @@
 		if(11)
 			new /obj/item/ship_in_a_bottle(src)
 		if(12)
-			new /obj/item/clothing/suit/space/hardsuit/ert/paranormal/berserker(src)
+			new /obj/item/clothing/suit/space/hardsuit/champion(src)
 		if(13)
 			new /obj/item/jacobs_ladder(src)
 		if(14)
@@ -53,7 +53,8 @@
 		if(15)
 			new /obj/item/nullrod/armblade(src)
 		if(16)
-			new /obj/item/guardiancreator(src)
+			new /obj/item/borg/upgrade/modkit/lifesteal(src)
+			new /obj/item/bedsheet/cult(src)
 		if(17)
 			if(prob(50))
 				new /obj/item/disk/design_disk/modkit_disc/mob_and_turf_aoe(src)
@@ -72,8 +73,12 @@
 		if(23)
 			new /obj/item/grenade/clusterbuster/inferno(src)
 		if(24)
-			new /obj/item/reagent_containers/food/drinks/bottle/holywater/hell(src)
-			new /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor(src)
+			if(prob(60))
+				new /obj/item/reagent_containers/food/drinks/bottle/holywater/hell(src)
+				new /obj/item/clothing/suit/space/hardsuit/champion/templar(src)
+			else
+				new /obj/item/reagent_containers/food/drinks/bottle/holywater(src)
+				new /obj/item/clothing/suit/space/hardsuit/champion/templar/premium(src)
 		if(25)
 			new /obj/item/spellbook/oneuse/summonitem(src)
 		if(26)
@@ -91,7 +96,6 @@
 			new /obj/item/clothing/suit/armor/clockwork_fake(src)
 			new /obj/item/clothing/head/helmet/clockwork_fake(src)
 			new /obj/item/stack/sheet/brass_fake/fifty(src)
-
 
 /obj/structure/closet/crate/necropolis/puzzle
 	name = "puzzling chest"
