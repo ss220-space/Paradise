@@ -57,6 +57,32 @@
 		"протыкает себя челюстями!",
 		"задерживает дыхание!")
 
+	speech_sounds = list('sound/voice/kidan/speak1.mp3', 'sound/voice/kidan/speak2.mp3', 'sound/voice/kidan/speak3.mp3' )
+	speech_chance = 35
+	scream_verb = "визжит"
+	female_giggle_sound = list('sound/voice/kidan/giggles1.mp3', 'sound/voice/kidan/giggles2.wav')
+	male_giggle_sound = list('sound/voice/kidan/giggles1.mp3', 'sound/voice/kidan/giggles2.wav')
+	male_scream_sound = list('sound/voice/kidan/scream1.mp3', 'sound/voice/kidan/scream2.mp3', 'sound/voice/kidan/scream3.mp3')
+	female_scream_sound = list('sound/voice/kidan/scream1.mp3', 'sound/voice/kidan/scream2.mp3', 'sound/voice/kidan/scream3.mp3')
+	female_laugh_sound = list('sound/voice/kidan/laugh1.mp3', 'sound/voice/kidan/laugh2.mp3', 'sound/voice/kidan/laugh3.wav', 'sound/voice/kidan/laugh4.wav')
+	male_laugh_sound = list('sound/voice/kidan/laugh1.mp3', 'sound/voice/kidan/laugh2.mp3', 'sound/voice/kidan/laugh3.wav', 'sound/voice/kidan/laugh4.wav')
+	//death_sounds = list()
+	//male_dying_gasp_sounds = list('sound/voice/kidan/moan1.mp3')
+	//female_dying_gasp_sounds = list('sound/voice/kidan/moan1.mp3')
+	//gasp_sound = list()
+	male_cough_sounds = list('sound/voice/kidan/cough1.mp3')
+	female_cough_sounds = list('sound/voice/kidan/cough1.mp3')
+	male_sneeze_sound = list('sound/voice/kidan/sneeze1.mp3', 'sound/voice/kidan/sneeze2.mp3', 'sound/voice/kidan/sneeze3.mp3')
+	female_sneeze_sound = list('sound/voice/kidan/sneeze1.mp3', 'sound/voice/kidan/sneeze2.mp3', 'sound/voice/kidan/sneeze3.mp3')
+	female_cry_sound = list('sound/voice/kidan/cry1.wav', 'sound/voice/kidan/cry2.wav')
+	male_cry_sound = list('sound/voice/kidan/cry1.wav', 'sound/voice/kidan/cry2.wav')
+	female_grumble_sound = list('sound/voice/kidan/grumble1.wav', 'sound/voice/kidan/grumble2.wav', 'sound/voice/kidan/grumble3.wav')
+	male_grumble_sound = list('sound/voice/kidan/grumble1.wav', 'sound/voice/kidan/grumble2.wav', 'sound/voice/kidan/grumble3.wav')
+	male_moan_sound = list('sound/voice/kidan/moan1.mp3')
+	female_moan_sound = list('sound/voice/kidan/moan1.mp3')
+	female_sigh_sound = list('sound/voice/kidan/sigh1.wav')
+	male_sigh_sound = list('sound/voice/kidan/sigh2.wav')
+
 	disliked_food = FRIED | DAIRY
 	liked_food = SUGAR | ALCOHOL | GROSS | FRUIT
 
@@ -67,6 +93,8 @@
 /datum/species/kidan/on_species_gain(mob/living/carbon/human/H)
 	..()
 	H.verbs |= /mob/living/carbon/human/proc/emote_click
+	H.verbs |= /mob/living/carbon/human/proc/emote_wiggle
+	H.verbs |= /mob/living/carbon/human/proc/emote_waves_antennae
 	H.verbs |= /mob/living/carbon/human/proc/emote_clack
 	H.verbs -= /mob/living/carbon/human/verb/emote_pale
 	H.verbs -= /mob/living/carbon/human/verb/emote_blink

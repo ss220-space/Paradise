@@ -429,6 +429,16 @@
 	set category = "Эмоции"
 	usr.user_triggered_emote("clack")
 
+/mob/living/carbon/human/proc/emote_wiggle()
+	set name = "< Шевелить усиками >"
+	set category = "Эмоции"
+	usr.user_triggered_emote("wiggle")
+
+/mob/living/carbon/human/proc/emote_waves_antennae()
+	set name = "< Взмахнуть усиками >"
+	set category = "Эмоции"
+	usr.user_triggered_emote("waves_antennae")
+
 /mob/living/carbon/human/proc/emote_hum()
 	set name = "< Гудеть >"
 	set category = "Эмоции"
