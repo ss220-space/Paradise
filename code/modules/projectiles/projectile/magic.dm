@@ -359,6 +359,7 @@
 	damage_type = BURN
 	flag = "magic"
 	dismemberment = 50
+	dismember_head = TRUE
 	nodamage = 0
 
 /obj/item/projectile/magic/slipping
