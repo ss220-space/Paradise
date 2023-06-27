@@ -720,7 +720,7 @@
 
 /obj/item/storage/backpack/guitarbag
 	name = "Guitar bag"
-	desc = "Guitar storage bag. This one is specially designed for storage musical instruments in it."
+	desc = "Bag for comfortable carrying your favorite guitar."
 	icon_state = "guitarbag"
 	item_state = "guitarbag"
 	resistance_flags = FLAMMABLE
