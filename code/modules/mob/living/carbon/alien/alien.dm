@@ -140,6 +140,14 @@
 		clear_alert("alien_fire")
 
 
+/mob/living/carbon/alien/can_ventcrawl(atom/clicked_on, override = FALSE)
+	if(!override && ventcrawler == 1 && (get_active_hand() || get_inactive_hand()))
+		to_chat(src, span_warning("Вы не можете ползать по вентиляции с предметами в руках."))
+		return FALSE
+
+	return ..(clicked_on, override = TRUE)
+
+
 /mob/living/carbon/alien/IsAdvancedToolUser()
 	return has_fine_manipulation
 

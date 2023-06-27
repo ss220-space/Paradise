@@ -399,9 +399,18 @@
 	dna = newDNA
 
 
-GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber))
+/mob/living/carbon/can_ventcrawl(atom/clicked_on, override = FALSE)
+	if(!override && ventcrawler == 1)
+		var/list/weared_items = get_all_slots()
+		for(var/obj/item/item in weared_items)
+			if(item)
+				to_chat(src, span_warning("Вы не можете ползать по вентиляции с [item.name]."))
+				return FALSE
 
-/mob/living/handle_ventcrawl(var/atom/clicked_on) // -- TLE -- Merged by Carn
+	return ..()
+
+
+/mob/living/proc/handle_ventcrawl_old(atom/clicked_on)
 	if(!Adjacent(clicked_on))
 		return
 
@@ -426,12 +435,12 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(buckled)
 		to_chat(src, "<span class='warning'>Пока вы пристегнуты, вы не можете заползти в вентиляцию!</span>")
 		return
-	if(ishuman(src))
+	/*if(ishuman(src))
 		var/mob/living/carbon/human/H = src
 		if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under/contortionist))//IMMA SPCHUL SNOWFLAKE
 			var/obj/item/clothing/under/contortionist/C = H.w_uniform
 			if(!C.check_clothing(src))//return values confuse me right now
-				return
+				return*/
 
 	var/obj/machinery/atmospherics/unary/vent_found
 
@@ -507,48 +516,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	else
 		to_chat(src, "<span class='warning'>Эта вентиляция ни к чему не подключена!</span>")
-
-
-/mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine, obj/machinery/atmospherics/target_move)
-	if(!istype(starting_machine) || !starting_machine.returnPipenet(target_move) || !starting_machine.can_see_pipes())
-		return
-	var/datum/pipeline/pipeline = starting_machine.returnPipenet(target_move)
-	var/list/totalMembers = list()
-	totalMembers |= pipeline.members
-	totalMembers |= pipeline.other_atmosmch
-	for(var/obj/machinery/atmospherics/A in totalMembers)
-		if(!A.pipe_image)
-			A.update_pipe_image()
-		pipes_shown += A.pipe_image
-		client.images += A.pipe_image
-
-
-/mob/living/proc/remove_ventcrawl()
-	if(client)
-		for(var/image/current_image in pipes_shown)
-			client.images -= current_image
-		client.eye = src
-
-	pipes_shown.len = 0
-
-
-//OOP
-/atom/proc/update_pipe_vision()
-	return
-
-
-/mob/living/update_pipe_vision(obj/machinery/atmospherics/target_move)
-	if(!client)
-		pipes_shown.Cut()
-		return
-	if(length(pipes_shown) && !target_move)
-		if(!is_ventcrawling(src))
-			remove_ventcrawl()
-	else
-		if(is_ventcrawling(src))
-			if(target_move)
-				remove_ventcrawl()
-			add_ventcrawl(loc, target_move)
 
 
 //Throwing stuff
