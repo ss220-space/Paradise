@@ -1241,10 +1241,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		return FALSE
 
 	if(!vent_found.parent)
-		to_chat(src, span_warning("Эта вентиляция ни к чему не подключена!"))
 		return FALSE
 
-	if(!vent_found.parent.members.len && !vent_found.parent.other_atmosmch)
+	if(!length(vent_found.parent.members))
+		to_chat(src, span_warning("Эта вентиляция ни к чему не подключена!"))
 		return FALSE
 
 	return TRUE
