@@ -391,7 +391,9 @@
 					ui_modal_input(src, id, "Please enter the amount of patches to make (max [MAX_MULTI_AMOUNT] at a time):", null, arguments, pillamount, 5)
 				if("change_patch_style")
 					if(!patch_styles)
-						patch_styles = list("bandaid_med", "bandaid_brute", "bandaid_burn", "bandaid", "bandaid_clown")
+						patch_styles = list("bandaid_med", "bandaid_brute", "bandaid_burn", "bandaid", "bandaid_clown", "bandaid_custom1", "bandaid_custom2",
+						"bandaid_custom3", "bandaid_custom4", "bandaid_custom5", "bandaid_custom6", "bandaid_custom7", "bandaid_custom8", "bandaid_big_brute", "bandaid_big_burn",
+						"bandaid_oxygen", "bandaid_toxin", "bandaid_emergency", "bandaid_acid", "bandaid_heart")
 					var/list/patch_styles_png = list()
 					for(var/style in patch_styles)
 						patch_styles_png += "[style].png"

@@ -244,7 +244,9 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		assets["pill[i].png"] = icon('icons/obj/chemical.dmi', "pill[i]")
 	for(var/i in list("bottle", "small_bottle", "wide_bottle", "round_bottle", "reagent_bottle"))
 		assets["[i].png"] = icon('icons/obj/chemical.dmi', "[i]")
-	for(var/i in list("bandaid_med", "bandaid_brute", "bandaid_burn", "bandaid", "bandaid_clown"))
+	for(var/i in list("bandaid_med", "bandaid_brute", "bandaid_burn", "bandaid", "bandaid_clown", "bandaid_custom1", "bandaid_custom2", "bandaid_custom3",
+						"bandaid_custom4", "bandaid_custom5", "bandaid_custom6", "bandaid_custom7", "bandaid_custom8", "bandaid_big_brute", "bandaid_big_burn",
+						"bandaid_oxygen", "bandaid_toxin", "bandaid_emergency", "bandaid_acid", "bandaid_heart"))
 		assets["[i].png"] = icon('icons/obj/chemical.dmi', "[i]")
 	for(var/asset_name in assets)
 		register_asset(asset_name, assets[asset_name])

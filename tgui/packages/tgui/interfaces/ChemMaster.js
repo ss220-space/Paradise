@@ -14,11 +14,26 @@ const bottleStyles = [
   "reagent_bottle.png",
 ];
 const patchStyles = [
-  "bandaid_med.png", 
-  "bandaid_brute.png", 
-  "bandaid_burn.png", 
-  "bandaid.png", 
+  "bandaid_med.png",
+  "bandaid_brute.png",
+  "bandaid_burn.png",
+  "bandaid.png",
   "bandaid_clown.png",
+  "bandaid_custom1.png",
+  "bandaid_custom2.png",
+  "bandaid_custom3.png",
+  "bandaid_custom4.png",
+  "bandaid_custom5.png",
+  "bandaid_custom6.png",
+  "bandaid_custom7.png",
+  "bandaid_custom8.png",
+  "bandaid_big_brute.png",
+  "bandaid_big_burn.png",
+  "bandaid_oxygen.png",
+  "bandaid_toxin.png",
+  "bandaid_emergency.png",
+  "bandaid_acid.png",
+  "bandaid_heart.png"
 ];
 
 const analyzeModalBodyOverride = (modal, context) => {
