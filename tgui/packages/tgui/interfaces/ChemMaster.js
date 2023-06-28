@@ -33,7 +33,7 @@ const patchStyles = [
   "bandaid_toxin.png",
   "bandaid_emergency.png",
   "bandaid_acid.png",
-  "bandaid_heart.png"
+  "bandaid_heart.png",
 ];
 
 const analyzeModalBodyOverride = (modal, context) => {

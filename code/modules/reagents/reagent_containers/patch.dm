@@ -30,29 +30,31 @@
 /obj/item/reagent_containers/food/pill/patch/styptic
 	name = "healing patch"
 	desc = "Helps with brute injuries."
-	icon_state = "bandaid_brute"
+	icon_state = "bandaid_big_brute"
 	instant_application = 1
 	list_reagents = list("styptic_powder" = 20)
 
 /obj/item/reagent_containers/food/pill/patch/styptic/small
 	name = "healing mini-patch"
+	icon_state = "bandaid_brute"
 	list_reagents = list("styptic_powder" = 10)
 
 /obj/item/reagent_containers/food/pill/patch/silver_sulf
 	name = "burn patch"
 	desc = "Helps with burn injuries."
-	icon_state = "bandaid_burn"
+	icon_state = "bandaid_big_burn"
 	instant_application = 1
 	list_reagents = list("silver_sulfadiazine" = 20)
 
 /obj/item/reagent_containers/food/pill/patch/silver_sulf/small
 	name = "burn mini-patch"
+	icon_state = "bandaid_burn"
 	list_reagents = list("silver_sulfadiazine" = 10)
 
 /obj/item/reagent_containers/food/pill/patch/synthflesh
 	name = "synthflesh patch"
 	desc = "Helps with brute and burn injuries."
-	icon_state = "bandaid_med"
+	icon_state = "bandaid_emergency"
 	instant_application = 1
 	list_reagents = list("synthflesh" = 10)
 
