@@ -51,6 +51,7 @@
 	back = /obj/item/storage/backpack
 	belt = /obj/item/gun/projectile/automatic/pistol/APS
 	l_pocket = /obj/item/melee/classic_baton/telescopic
+	r_pocket = /obj/item/ammo_box/magazine/pistolm9mm
 	id = /obj/item/card/id/ussp_general
 	implants = list(/obj/item/implant/weapons_auth)
 
@@ -262,3 +263,17 @@
 
 	empty.dir = WEST
 	return ..()
+
+
+// Wall safe with areaeditor
+/obj/item/storage/secure/safe/ussp_blueprints
+	name = "Emergency blueprints"
+
+/obj/item/storage/secure/safe/ussp_blueprints/Initialize(mapload)
+	. = ..()
+	l_code = "[GLOB.sc_safecode1][GLOB.sc_safecode2][GLOB.sc_safecode3][GLOB.sc_safecode4][GLOB.sc_safecode5]"
+	l_set = 1
+
+/obj/item/storage/secure/safe/ussp_blueprints/populate_contents()
+	new /obj/item/areaeditor/ussp(src)
+	new /obj/item/megaphone(src)

@@ -528,6 +528,10 @@
 "bn" = (
 /turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/derelict/arrival)
+"bo" = (
+/obj/effect/spawner/lootdrop/spentcasing/pistol,
+/turf/simulated/floor/plasteel,
+/area/derelict/dock)
 "bp" = (
 /obj/structure/chair/comfy/red{
 	dir = 4
@@ -570,8 +574,9 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
+/turf/simulated/floor/wood{
+	broken = 1;
+	icon_state = "wood-broken"
 	},
 /area/derelict/bridge)
 "bt" = (
@@ -1616,6 +1621,10 @@
 /area/derelict/engineer_area)
 "dY" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/spot{
+	dir = 8;
+	tag = "icon-tube1 (WEST)"
+	},
 /turf/simulated/floor/plasteel,
 /area/derelict/common)
 "dZ" = (
@@ -1892,19 +1901,14 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/item/trash/spentcasing{
-	pixel_x = 9;
-	pixel_y = -10
-	},
+/obj/item/spentcasing,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken";
 	tag = "icon-wood-broken"
 	},
 /area/derelict/crew_quarters)
 "eH" = (
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
+/obj/item/spentcasing/rifle,
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
 	},
@@ -2082,10 +2086,8 @@
 /turf/simulated/floor/plating,
 /area/derelict/engineer_area)
 "fb" = (
-/obj/item/trash/spentcasing{
-	icon_state = "s-casing"
-	},
 /obj/effect/decal/cleanable/dust,
+/obj/item/spentcasing/pistol,
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
 	},
@@ -2315,13 +2317,11 @@
 	},
 /area/derelict/security)
 "fB" = (
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
 /obj/structure/cable{
 	icon_state = "2-4";
 	tag = ""
 	},
+/obj/item/spentcasing/rifle,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2335,14 +2335,11 @@
 	},
 /area/derelict/security)
 "fD" = (
-/obj/item/trash/spentcasing{
-	pixel_x = -4;
-	pixel_y = -10
-	},
 /obj/structure/cable{
 	icon_state = "1-8";
 	tag = ""
 	},
+/obj/item/spentcasing,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2495,19 +2492,14 @@
 	},
 /area/derelict/crew_quarters)
 "fU" = (
-/obj/item/trash/spentcasing{
-	pixel_y = 12;
-	pixel_x = -10
-	},
+/obj/item/spentcasing,
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
 	},
 /area/derelict/crew_quarters)
 "fV" = (
 /obj/structure/chair/stool/bar,
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
+/obj/item/spentcasing/rifle,
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
 	},
@@ -2675,10 +2667,7 @@
 	},
 /area/derelict/crew_quarters)
 "gr" = (
-/obj/item/trash/spentcasing{
-	pixel_x = 6;
-	pixel_y = -4
-	},
+/obj/item/spentcasing,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2809,11 +2798,8 @@
 	},
 /area/derelict/crew_quarters)
 "gH" = (
-/obj/item/trash/spentcasing{
-	pixel_x = -7;
-	pixel_y = -8
-	},
 /obj/effect/decal/ants,
+/obj/item/spentcasing,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -2838,9 +2824,7 @@
 	},
 /area/derelict/security)
 "gM" = (
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
+/obj/item/spentcasing/rifle,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3355,10 +3339,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/item/trash/spentcasing{
-	pixel_x = -4;
-	pixel_y = -9
-	},
+/obj/item/spentcasing,
 /turf/simulated/floor/plasteel,
 /area/derelict/dock)
 "ia" = (
@@ -3546,12 +3527,10 @@
 	},
 /area/derelict/annex)
 "in" = (
-/obj/item/trash/spentcasing{
-	icon_state = "s-casing"
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/item/spentcasing/pistol,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "chapel"
@@ -3682,15 +3661,15 @@
 "iJ" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /obj/effect/decal/cleanable/dust,
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
 /obj/machinery/power/apc/noalarm{
 	dir = 8;
 	start_charge = 0;
 	pixel_x = -32;
 	req_access = list(130)
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3701,12 +3680,15 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"
 	},
 /area/derelict/church)
 "iL" = (
-/obj/item/trash/spentcasing,
+/obj/item/spentcasing,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3749,9 +3731,14 @@
 /area/derelict/dock)
 "iU" = (
 /obj/effect/landmark/tiles/burnturf,
+/obj/item/gun/projectile/revolver/nagant/rusted{
+	malf_high_bound = 3;
+	malf_low_bound = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/derelict/dock)
 "iV" = (
+/obj/item/spentcasing/rifle,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -3895,9 +3882,8 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "jo" = (
-/obj/item/trash/spentcasing{
-	icon_state = "s-casing"
-	},
+/obj/effect/decal/cleanable/dust,
+/obj/effect/spawner/lootdrop/spentcasing/pistol,
 /turf/simulated/floor/plasteel,
 /area/derelict/dock)
 "jp" = (
@@ -3909,9 +3895,7 @@
 /area/derelict/dock)
 "jq" = (
 /obj/effect/landmark/tiles/burnturf,
-/obj/item/trash/spentcasing{
-	icon_state = "s-casing"
-	},
+/obj/item/spentcasing/pistol,
 /turf/simulated/floor/plasteel,
 /area/derelict/dock)
 "jr" = (
@@ -3929,7 +3913,7 @@
 	},
 /area/derelict/rnd)
 "jt" = (
-/obj/item/trash/spentcasing,
+/obj/item/spentcasing,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "rampbottom";
@@ -4094,18 +4078,11 @@
 	},
 /area/derelict/dock)
 "jW" = (
-/obj/item/gun/projectile/revolver/nagant/rusted{
-	malf_high_bound = 3;
-	malf_low_bound = 1
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "derelict13"
 	},
 /area/derelict/dock)
 "jX" = (
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "derelict14"
 	},
@@ -4172,9 +4149,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
+/obj/item/spentcasing/rifle,
 /turf/simulated/floor/plasteel,
 /area/derelict/dock)
 "kf" = (
@@ -4513,10 +4488,7 @@
 	},
 /area/derelict/dock)
 "kN" = (
-/obj/item/trash/spentcasing{
-	pixel_x = 9;
-	pixel_y = -9
-	},
+/obj/item/spentcasing,
 /turf/simulated/floor/plasteel{
 	icon_state = "derelict3"
 	},
@@ -4527,6 +4499,7 @@
 	},
 /area/derelict/dock)
 "kP" = (
+/obj/effect/spawner/lootdrop/spentcasing/rifle,
 /turf/simulated/floor/plasteel{
 	icon_state = "derelict5"
 	},
@@ -4558,9 +4531,7 @@
 /area/derelict/dock)
 "kU" = (
 /obj/machinery/light/small,
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
+/obj/item/spentcasing/rifle,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "redblue"
@@ -4692,9 +4663,7 @@
 	},
 /area/derelict/church)
 "ll" = (
-/obj/item/trash/spentcasing{
-	icon_state = "s-casing"
-	},
+/obj/item/spentcasing/pistol,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4780,11 +4749,7 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/dock)
 "lv" = (
-/obj/effect/decal/cleanable/blood/splatter,
-/obj/effect/decal/remains/human{
-	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
-	name = "Human remains"
-	},
+/obj/item/spentcasing,
 /turf/simulated/floor/plasteel,
 /area/derelict/dock)
 "lw" = (
@@ -5065,9 +5030,7 @@
 	},
 /area/derelict/dock)
 "mf" = (
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
+/obj/item/spentcasing/rifle,
 /turf/simulated/floor/plasteel,
 /area/derelict/dock)
 "mg" = (
@@ -5574,7 +5537,7 @@
 /area/derelict/med)
 "ny" = (
 /obj/effect/landmark/tiles/burnturf,
-/obj/machinery/light/small{
+/obj/machinery/light_construct{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -6335,11 +6298,11 @@
 	},
 /obj/structure/rack,
 /obj/item/mop,
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/item/storage/bag/trash,
 /obj/structure/spider/stickyweb,
+/obj/machinery/light/spot{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
@@ -6374,6 +6337,9 @@
 /obj/structure/dispenser/oxygen,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
+/obj/machinery/light/spot{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
 	},
@@ -6436,38 +6402,29 @@
 	},
 /area/derelict/med)
 "pI" = (
-/obj/effect/landmark/tiles/burnturf,
-/obj/machinery/light/small{
-	dir = 4;
-	tag = "icon-bulb1 (EAST)"
+/obj/machinery/light/spot{
+	dir = 8;
+	tag = "icon-tube1 (WEST)"
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
-	},
-/area/derelict/med)
+/turf/simulated/floor/plasteel,
+/area/derelict/crew_quarters)
 "pJ" = (
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/derelict/med)
 "pK" = (
-/obj/structure/window/reinforced,
 /obj/structure/janitorialcart,
-/obj/machinery/light/small{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
 	},
 /area/derelict/common)
 "pL" = (
-/obj/structure/window/reinforced,
-/obj/structure/spider/stickyweb,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark";
-	tag = "icon-dark"
+/obj/item/storage/secure/safe/ussp_blueprints{
+	pixel_x = 4
 	},
-/area/derelict/common)
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/derelict/bridge)
 "pM" = (
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
@@ -6492,9 +6449,6 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/common)
 "pP" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/machinery/camera{
 	c_tag = "Хранилище";
 	dir = 8;
@@ -6989,7 +6943,6 @@
 /area/derelict/common)
 "qX" = (
 /obj/item/solar_assembly,
-/obj/machinery/light/small,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel,
 /area/derelict/common)
@@ -7687,6 +7640,11 @@
 "tk" = (
 /turf/simulated/wall/mineral/titanium,
 /area/derelict/med)
+"tp" = (
+/obj/effect/landmark/tiles/burnturf,
+/obj/effect/spawner/lootdrop/spentcasing/rifle,
+/turf/simulated/floor/plasteel,
+/area/derelict/dock)
 "tr" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -7886,6 +7844,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/derelict/church)
+"vK" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken6";
+	tag = "icon-wood-broken6"
+	},
+/area/derelict/bridge)
 "vR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/portable_atmospherics/canister/air,
@@ -8552,6 +8517,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/light/spot,
 /turf/simulated/floor/plasteel,
 /area/derelict/common)
 "Dp" = (
@@ -8637,9 +8603,6 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/dock)
 "DD" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/structure/closet/crate,
 /obj/item/seeds/apple,
 /obj/item/seeds/banana,
@@ -8689,6 +8652,9 @@
 /obj/structure/cable{
 	icon_state = "1-2";
 	tag = ""
+	},
+/obj/machinery/light_construct{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
@@ -8894,10 +8860,7 @@
 /area/derelict/dock)
 "Gk" = (
 /obj/effect/decal/cleanable/dust,
-/obj/item/trash/spentcasing{
-	pixel_x = 11;
-	pixel_y = -7
-	},
+/obj/item/spentcasing,
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
 	},
@@ -9002,6 +8965,13 @@
 /obj/structure/window/full/shuttle,
 /turf/simulated/floor/plating,
 /area/derelict/dining)
+"Hk" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken3";
+	tag = "icon-wood-broken3"
+	},
+/area/derelict/bridge)
 "Hl" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -9088,6 +9058,14 @@
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
+"Im" = (
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/spawner/lootdrop/spentcasing,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/derelict/security)
 "Io" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1379;
@@ -9416,6 +9394,10 @@
 /obj/item/stack/rods,
 /turf/space,
 /area/ruin/unpowered/no_grav)
+"LT" = (
+/obj/item/spentcasing/pistol,
+/turf/simulated/floor/plasteel,
+/area/derelict/dock)
 "Md" = (
 /turf/simulated/wall/mineral/titanium,
 /area/derelict/rnd)
@@ -9530,6 +9512,11 @@
 	icon_state = "orangefull"
 	},
 /area/derelict/common)
+"NI" = (
+/obj/effect/decal/cleanable/dust,
+/obj/item/spentcasing/pistol,
+/turf/simulated/floor/plasteel,
+/area/derelict/dock)
 "NJ" = (
 /obj/machinery/camera{
 	c_tag = "Карго лобби";
@@ -9622,6 +9609,13 @@
 "Ox" = (
 /turf/space,
 /area/derelict/garden)
+"Oy" = (
+/obj/effect/decal/remains/human{
+	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
+	name = "Human remains"
+	},
+/turf/simulated/floor/plasteel,
+/area/derelict/dock)
 "OK" = (
 /turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/derelict/garden)
@@ -15116,7 +15110,7 @@ iS
 UI
 NJ
 kL
-vU
+Oy
 lK
 Gi
 ac
@@ -15235,10 +15229,10 @@ Gi
 Gi
 Gi
 iT
-vU
+bo
 jT
 kM
-lv
+lx
 lL
 Gi
 Gi
@@ -15357,10 +15351,10 @@ hI
 hX
 iv
 VQ
-jo
+vU
 jU
 kN
-VQ
+NI
 vU
 me
 mu
@@ -15479,7 +15473,7 @@ hJ
 VQ
 ah
 vU
-vU
+LT
 jV
 kO
 lw
@@ -15598,14 +15592,14 @@ gL
 dn
 hu
 hK
-vU
+lv
 UI
-iU
+tp
 VQ
 jW
 kP
 vU
-VQ
+jo
 vU
 iw
 mH
@@ -15723,7 +15717,7 @@ Ta
 vU
 ix
 vU
-vU
+lv
 jX
 kQ
 UI
@@ -17043,7 +17037,7 @@ cq
 bE
 bS
 cn
-cB
+Im
 Fj
 cB
 dr
@@ -17085,7 +17079,7 @@ ai
 ac
 tk
 tk
-pI
+pA
 mS
 mU
 nl
@@ -17653,7 +17647,7 @@ bp
 bI
 bV
 OP
-Se
+Hk
 cP
 am
 ag
@@ -17896,7 +17890,7 @@ Se
 br
 bK
 ba
-am
+pL
 am
 am
 al
@@ -18139,7 +18133,7 @@ aH
 bb
 bt
 bb
-bK
+vK
 cs
 as
 ac
@@ -21074,7 +21068,7 @@ da
 db
 db
 dI
-db
+pI
 aV
 aV
 ac
@@ -21111,7 +21105,7 @@ ac
 yg
 yg
 pC
-pL
+pM
 pX
 qe
 qo
@@ -21813,7 +21807,7 @@ bm
 eE
 fc
 fv
-WS
+fb
 gl
 gE
 bm
