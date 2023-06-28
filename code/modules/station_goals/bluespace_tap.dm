@@ -131,8 +131,19 @@
 		/obj/item/dnainjector/morph = 5,
 		/obj/item/dnainjector/regenerate = 5,
 		/mob/living/simple_animal/pet/dog/corgi/ = 5,
+		/mob/living/simple_animal/pet/dog/brittany = 2,
+		/mob/living/simple_animal/pet/dog/german = 2,
+		/mob/living/simple_animal/pet/dog/tamaskan = 2,
+		/mob/living/simple_animal/pet/dog/bullterrier = 2,
 		/mob/living/simple_animal/pet/cat = 5,
+		/mob/living/simple_animal/pet/cat/cak = 2,
+		/mob/living/simple_animal/pet/cat/white = 2,
+		/mob/living/simple_animal/pet/cat/birman = 2,
+		/mob/living/simple_animal/pet/cat/spacecat = 2,
 		/mob/living/simple_animal/pet/dog/fox/ = 5,
+		/mob/living/simple_animal/pet/dog/fox/forest = 2,
+		/mob/living/simple_animal/pet/dog/fox/fennec = 2,
+		/mob/living/simple_animal/possum = 2,
 		/mob/living/simple_animal/pet/penguin = 5,
 		/mob/living/simple_animal/pig = 5,
 		/obj/item/slimepotion/sentience = 5,
@@ -326,7 +337,7 @@
 	else if(input_level > desired_level)
 		input_level--
 	if(prob(input_level - safe_levels + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
-		GLOB.event_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [get_area(src)]. [emagged ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : "Emergency shutdown initiated."]", "Bluespace Harvester Malfunction")
+		GLOB.event_announcement.Announce("Непредвиденный скачок напряжения во время работы блюспейс-сборщика. Внимание, обнаружены появления внепространственных объектов. Возможная локация: [get_area(src)]. [emagged ? "ВНИМАНИЕ: Ошибка аварийного отключения! Пожалуйста, перейдите к ручной остановке." : "Запущено аварийное отключение."]", "ВНИМАНИЕ: Сбой блюспейс-сборщика.")
 		if(!emagged)
 			input_level = 0	//emergency shutdown unless we're sabotaged
 			desired_level = 0

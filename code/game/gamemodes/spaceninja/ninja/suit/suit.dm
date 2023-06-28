@@ -9,6 +9,7 @@
 /obj/item/clothing/suit/space/space_ninja
 	name = "ninja suit"
 	desc = "A unique, vacuum-proof suit of nano-enhanced armor designed specifically for Spider Clan assassins."
+	tts_seed = "Sorceress"
 	icon = 'icons/obj/ninjaobjects.dmi'
 	lefthand_file = 'icons/mob/inhands/antag/ninja_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'
@@ -21,7 +22,7 @@
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 20,"energy" = 30, "bomb" = 30, "bio" = 100, "rad" = 30, "fire" = 100, "acid" = 100)
 	strip_delay = 12
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
-	flags_inv = HIDEJUMPSUIT|HIDETAIL
+	flags_inv = HIDEGLOVES|HIDEJUMPSUIT|HIDETAIL
 	/// Абилки костюма
 	actions_types = list(
 		/datum/action/item_action/advanced/ninja/SpiderOS,
@@ -133,7 +134,8 @@
 		"ninja_clones", "emp", "chem_injector", "healthstatus", "caltrop",
 		"cloning", "spider_green", "spider_red", "spider_blue", "work_in_progress",
 		"ninja_sleeper", "ai_face", "ninja_borg", "server", "buckler",
-		"cash", "handcuff", "spider_charge", "ninja_teleport", "headset_green")
+		"cash", "handcuff", "spider_charge", "ninja_teleport", "headset_green",
+		"BSM", "changeling", "vampire", "syndicate")
 
 	/// Превью отображающееся сейчас в tgui.
 	/// Позволяет предпросмотреть настройки внешности костюма
@@ -243,7 +245,7 @@
 		"I'LL CUT YOU IN TWO!", "I'M FUCKING INVINCIBLE!",
 		"I'M LIGHTNING! THE RAIN TRANSFORMED!")
 
-	/// Флаг доступности лечащих химикатов для применения
+	/// Лечащие химикаты. Для удобства обращения к ним костюма.
 	var/datum/action/item_action/advanced/ninja/ninjaheal/heal_chems = null
 	/// Сколько кусков урана требуется для восстановления адреналина/лечащего коктейля?
 	/// От этой цифры так же зависит объём радия вводимый в тело после адренала
@@ -253,7 +255,8 @@
 	var/auto_dust = FALSE
 	/// Сколько у ниндзя должно быть здоровья, чтобы его автоматически убило. (Переключается между -90 и 0)
 	var/health_threshold = -90
-
+	/// Флаг дающий защиту от некоторых способностей вампира пока на нас костюм
+	var/vamp_protection_active = FALSE
 
 /obj/item/clothing/suit/space/space_ninja/examine(mob/ninja)
 	. = ..()
@@ -348,7 +351,7 @@
 	jetpack = null
 	to_chat(user, "<span class='notice'>You successfully remove the jetpack from [src].</span>")
 
-/obj/item/clothing/suit/space/space_ninja/equipped(mob/user, slot)
+/obj/item/clothing/suit/space/space_ninja/equipped(mob/user, slot, initial)
 	. = ..()
 	if(jetpack)
 		if(slot == slot_wear_suit)
@@ -408,10 +411,10 @@
 				used_power += s_acost
 			if(spirited) // If spirit form is active.
 				if(istype(ninja.r_hand, /obj/item/grab))
-					ninja.unEquip(ninja.r_hand, TRUE)
+					ninja.drop_item_ground(ninja.r_hand, force = TRUE)
 					to_chat(ninja, span_warning("You can't hold anyone that tight, when \"Spirit Form\" is active!"))
 				if(istype(ninja.l_hand, /obj/item/grab))
-					ninja.unEquip(ninja.l_hand, TRUE)
+					ninja.drop_item_ground(ninja.l_hand, force = TRUE)
 					to_chat(ninja, span_warning("You can't hold anyone that tight, when \"Spirit Form\" is active!"))
 				used_power += cell.maxcharge * s_spirit_form__percent_cost //that shit is NOT cheap
 			if(cell.charge < used_power) // Проверка на случай когда он не может отнять энергию до нуля и в итоге вечно торчит в инвизе/форме духа/хамелионе
@@ -655,7 +658,7 @@
 	var/mob/living/carbon/human/ninja = affecting
 	if(!n_scarf)
 		var/obj/item/clothing/neck/ninjascarf/new_scarf = new
-		if(!ninja.equip_to_slot_if_possible(new_scarf, slot_neck, 1))		//Уже что то надето в слоте шеи? Алярма, снимите помеху прежде чем продолжить.
+		if(!ninja.equip_to_slot_if_possible(new_scarf, slot_neck, qdel_on_fail = TRUE))		//Уже что то надето в слоте шеи? Алярма, снимите помеху прежде чем продолжить.
 			to_chat(ninja, "[span_userdanger("ERROR")]: 100220 UNABLE TO TRANSFORM HEAD GEAR\nABORTING...")
 			return FALSE
 		n_scarf = new_scarf

@@ -112,17 +112,11 @@
 	wrapper_color = COLOR_PALE_BTL_GREEN
 
 // Why the hell is this in the closets folder?
-/obj/item/storage/pill_bottle/psychiatrist/New()
-	..()
-	new /obj/item/reagent_containers/food/pill/haloperidol(src)
-	new /obj/item/reagent_containers/food/pill/haloperidol(src)
-	new /obj/item/reagent_containers/food/pill/haloperidol(src)
-	new /obj/item/reagent_containers/food/pill/methamphetamine(src)
-	new /obj/item/reagent_containers/food/pill/methamphetamine(src)
-	new /obj/item/reagent_containers/food/pill/methamphetamine(src)
-	new /obj/item/reagent_containers/food/pill/patch/nicotine(src)
-	new /obj/item/reagent_containers/food/pill/patch/nicotine(src)
-	new /obj/item/reagent_containers/food/pill/patch/nicotine(src)
+/obj/item/storage/pill_bottle/psychiatrist/populate_contents()
+	for(var/I in 1 to 3)
+		new /obj/item/reagent_containers/food/pill/haloperidol(src)
+		new /obj/item/reagent_containers/food/pill/methamphetamine(src)
+		new /obj/item/reagent_containers/food/pill/patch/nicotine(src)
 	new /obj/item/reagent_containers/food/pill/hydrocodone(src)
 	new /obj/item/reagent_containers/food/pill/hydrocodone(src)
 
@@ -165,9 +159,6 @@
 	else
 		new /obj/item/storage/backpack/satchel_med(src)
 	new /obj/item/storage/backpack/duffel/medical(src)
-	new /obj/item/clothing/suit/bio_suit/cmo(src)
-	new /obj/item/clothing/head/bio_hood/cmo(src)
-	new /obj/item/clothing/shoes/white(src)
 	switch(pick("blue", "green", "purple"))
 		if("blue")
 			new /obj/item/clothing/under/rank/medical/blue(src)
@@ -178,15 +169,8 @@
 		if("purple")
 			new /obj/item/clothing/under/rank/medical/purple(src)
 			new /obj/item/clothing/head/surgery/purple(src)
-	new /obj/item/clothing/suit/storage/labcoat/cmo(src)
-	new /obj/item/clothing/under/rank/chief_medical_officer(src)
-	new /obj/item/clothing/neck/mantle/chief_medical_officer(src)
-	new /obj/item/clothing/neck/cloak/chief_medical_officer(src)
-	new /obj/item/clothing/head/beret/elo(src)
-	new /obj/item/clothing/shoes/brown	(src)
 	new /obj/item/radio/headset/heads/cmo(src)
-	new /obj/item/clothing/gloves/color/latex/nitrile(src)
-	new /obj/item/defibrillator/compact/loaded(src)
+	new /obj/item/defibrillator/compact/advanced/loaded(src)
 	new /obj/item/handheld_defibrillator(src)
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/flash(src)
@@ -195,7 +179,8 @@
 	new /obj/item/door_remote/chief_medical_officer(src)
 	new /obj/item/reagent_containers/food/drinks/mug/cmo(src)
 	new /obj/item/clothing/accessory/medal/medical(src)
-
+	new /obj/item/megaphone(src)	//added here deleted on maps
+	new /obj/item/storage/garmentbag/CMO(src)
 
 /obj/structure/closet/secure_closet/animal
 	name = "animal control locker"

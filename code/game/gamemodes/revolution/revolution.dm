@@ -118,7 +118,7 @@
 		add_game_logs("has been selected as a head rev", rev_mind.current)
 		forge_revolutionary_objectives(rev_mind)
 
-		addtimer(CALLBACK(src, .proc/equip_revolutionary, rev_mind.current), rand(10, 100))
+		addtimer(CALLBACK(src, PROC_REF(equip_revolutionary), rev_mind.current), rand(10, 100))
 
 	for(var/datum/mind/rev_mind in head_revolutionaries)
 		greet_revolutionary(rev_mind)
@@ -176,7 +176,7 @@
 		"left hand" = slot_l_hand,
 		"right hand" = slot_r_hand,
 	)
-	var/where2 = mob.equip_in_one_of_slots(C, slots)
+	var/where2 = mob.equip_in_one_of_slots(C, slots, qdel_on_fail = TRUE)
 	mob.equip_in_one_of_slots(R,slots)
 
 	mob.update_icons()

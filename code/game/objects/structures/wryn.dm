@@ -25,6 +25,8 @@
 	smooth = SMOOTH_TRUE
 
 /obj/structure/wryn/wax/Initialize()
+	if(usr)
+		add_fingerprint(usr)
 	air_update_turf(1)
 	..()
 
@@ -35,7 +37,7 @@
 
 /obj/structure/wryn/wax/Move()
 	var/turf/T = loc
-	..()
+	. = ..()
 	move_update_air(T)
 
 /obj/structure/wryn/wax/CanAtmosPass()

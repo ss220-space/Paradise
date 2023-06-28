@@ -11,6 +11,7 @@
 	life_tick++
 
 	voice = GetVoice()
+	tts_seed = GetTTSVoice()
 
 	if(.) //not dead
 
@@ -338,15 +339,17 @@
 
 	//Body temperature is adjusted in two steps. Firstly your body tries to stabilize itself a bit.
 	if(stat != DEAD)
-		stabilize_temperature_from_calories()
+		body_thermal_regulation(loc_temp)
 
-	//After then, it reacts to the surrounding atmosphere based on your thermal protection
-	if(!on_fire) //If you're on fire, you do not heat up or cool down based on surrounding gases
+	// After then, it reacts to the surrounding atmosphere based on your thermal protection
+	// If we are on fire, we do not heat up or cool down based on surrounding gases
+	// Works only if environment temperature is not comfortable for our species
+	if(!on_fire && (loc_temp < dna.species.cold_level_1 || loc_temp > dna.species.heat_level_1 || bodytemperature <= dna.species.cold_level_1 || bodytemperature >= dna.species.heat_level_1))
 		if(loc_temp < bodytemperature)
 			//Place is colder than we are
 			var/thermal_protection = get_cold_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
 			if(thermal_protection < 1)
-				bodytemperature += min((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_COLD_DIVISOR), BODYTEMP_COOLING_MAX)
+				bodytemperature += max((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_COLD_DIVISOR), BODYTEMP_COOLING_MAX)
 		else
 			//Place is hotter than we are
 			var/thermal_protection = get_heat_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
@@ -358,19 +361,27 @@
 		//Body temperature is too hot.
 		if(status_flags & GODMODE)	return 1	//godmode
 		var/mult = dna.species.heatmod
-
-		if(bodytemperature >= dna.species.heat_level_1 && bodytemperature <= dna.species.heat_level_2)
-			throw_alert("temp", /obj/screen/alert/hot, 1)
-			take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_1, updating_health = TRUE, used_weapon = "High Body Temperature")
-		if(bodytemperature > dna.species.heat_level_2 && bodytemperature <= dna.species.heat_level_3)
-			throw_alert("temp", /obj/screen/alert/hot, 2)
-			take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, updating_health = TRUE, used_weapon = "High Body Temperature")
-		if(bodytemperature > dna.species.heat_level_3 && bodytemperature < INFINITY)
-			throw_alert("temp", /obj/screen/alert/hot, 3)
-			if(on_fire)
-				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_3, updating_health = TRUE, used_weapon = "Fire")
-			else
+		if(mult>0)
+			if(bodytemperature >= dna.species.heat_level_1 && bodytemperature <= dna.species.heat_level_2)
+				throw_alert("temp", /obj/screen/alert/hot, 1)
+				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_1, updating_health = TRUE, used_weapon = "High Body Temperature")
+			if(bodytemperature > dna.species.heat_level_2 && bodytemperature <= dna.species.heat_level_3)
+				throw_alert("temp", /obj/screen/alert/hot, 2)
 				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, updating_health = TRUE, used_weapon = "High Body Temperature")
+			if(bodytemperature > dna.species.heat_level_3 && bodytemperature < INFINITY)
+				throw_alert("temp", /obj/screen/alert/hot, 3)
+				if(on_fire)
+					take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_3, updating_health = TRUE, used_weapon = "Fire")
+				else
+					take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, updating_health = TRUE, used_weapon = "High Body Temperature")
+		else
+			mult = abs(mult)
+			if(bodytemperature >= dna.species.heat_level_1 && bodytemperature <= dna.species.heat_level_2)
+				heal_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_1)
+			if(bodytemperature > dna.species.heat_level_2 && bodytemperature <= dna.species.heat_level_3)
+				heal_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2)
+			if(bodytemperature > dna.species.heat_level_3 && bodytemperature < INFINITY)
+				heal_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_3)
 
 	else if(bodytemperature < dna.species.cold_level_1)
 		if(status_flags & GODMODE)
@@ -380,17 +391,28 @@
 
 		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 			var/mult = dna.species.coldmod
-			if(bodytemperature >= dna.species.cold_level_2 && bodytemperature <= dna.species.cold_level_1)
-				throw_alert("temp", /obj/screen/alert/cold, 1)
-				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_1, updating_health = TRUE, used_weapon = "Low Body Temperature")
-			if(bodytemperature >= dna.species.cold_level_3 && bodytemperature < dna.species.cold_level_2)
-				throw_alert("temp", /obj/screen/alert/cold, 2)
-				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_2, updating_health = TRUE, used_weapon = "Low Body Temperature")
-			if(bodytemperature > -INFINITY && bodytemperature < dna.species.cold_level_3)
-				throw_alert("temp", /obj/screen/alert/cold, 3)
-				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_3, updating_health = TRUE, used_weapon = "Low Body Temperature")
+			if(mult>0)
+				if(bodytemperature >= dna.species.cold_level_2 && bodytemperature <= dna.species.cold_level_1)
+					throw_alert("temp", /obj/screen/alert/cold, 1)
+					take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_1, used_weapon = "Low Body Temperature")
+				if(bodytemperature >= dna.species.cold_level_3 && bodytemperature < dna.species.cold_level_2)
+					throw_alert("temp", /obj/screen/alert/cold, 2)
+					take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_2, used_weapon = "Low Body Temperature")
+				if(bodytemperature > -INFINITY && bodytemperature < dna.species.cold_level_3)
+					throw_alert("temp", /obj/screen/alert/cold, 3)
+					take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_3, used_weapon = "Low Body Temperature")
+				else
+					clear_alert("temp")
 			else
-				clear_alert("temp")
+				mult = abs(mult)
+				if(bodytemperature >= dna.species.cold_level_2 && bodytemperature <= dna.species.cold_level_1)
+					heal_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_1)
+				if(bodytemperature >= dna.species.cold_level_3 && bodytemperature < dna.species.cold_level_2)
+					heal_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_2)
+				if(bodytemperature > -INFINITY && bodytemperature < dna.species.cold_level_3)
+					heal_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_3)
+				else
+					clear_alert("temp")
 	else
 		clear_alert("temp")
 
@@ -454,16 +476,27 @@
 
 //END FIRE CODE
 
-/mob/living/carbon/human/proc/stabilize_temperature_from_calories()
+/mob/living/carbon/human/proc/body_thermal_regulation(loc_temp)
 	var/body_temperature_difference = dna.species.body_temperature - bodytemperature
 
 	if(bodytemperature <= dna.species.cold_level_1) //260.15 is 310.15 - 50, the temperature where you start to feel effects.
-		bodytemperature += max((body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_AUTORECOVERY_MINIMUM)
-	if(bodytemperature >= dna.species.cold_level_1 && bodytemperature <= dna.species.heat_level_1)
-		bodytemperature += body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR
+		bodytemperature += max(metabolism_efficiency * (body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_AUTORECOVERY_MINIMUM)
 	if(bodytemperature >= dna.species.heat_level_1) //360.15 is 310.15 + 50, the temperature where you start to feel effects.
-		//We totally need a sweat system cause it totally makes sense...~
-		bodytemperature += min((body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), -BODYTEMP_AUTORECOVERY_MINIMUM)	//We're dealing with negative numbers
+		bodytemperature += min(metabolism_efficiency * (body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), -BODYTEMP_AUTORECOVERY_MINIMUM)	//We're dealing with negative numbers
+
+	// simple thermal regulation when the body temperature is OK for our species
+	if(bodytemperature > dna.species.cold_level_1 && bodytemperature < dna.species.heat_level_1)
+		// if environment temperature is within the safe levels we are using it to shift recovery slightly
+		var/enviro_shift = (loc_temp < dna.species.heat_level_1) && (loc_temp > dna.species.cold_level_1) ? ((loc_temp - bodytemperature) / dna.species.body_temperature) : 0
+
+		if(dna.species.body_temperature < bodytemperature)
+			// body temperature is HIGHER than that of our species, we are cooling
+			var/clothing_factor = 2 - get_heat_protection(loc_temp) // thermal clothing with heat protection slows down recovery
+			bodytemperature += max(clothing_factor * metabolism_efficiency * ((body_temperature_difference + enviro_shift) / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_COOLING_MAX)
+		else
+			// body temperature is LOWER than that of our species, we are heating
+			var/clothing_factor = 2 - get_cold_protection(loc_temp) // thermal clothing with cold protection slows down recovery
+			bodytemperature += min(clothing_factor * metabolism_efficiency * ((body_temperature_difference + enviro_shift) / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_HEATING_MAX)
 
 
 	//This proc returns a number made up of the flags for body parts which you are protected on. (such as HEAD, UPPER_TORSO, LOWER_TORSO, etc. See setup.dm for the full list)
@@ -837,14 +870,17 @@
 						to_chat(src, "<span class='userdanger'>You feel [pick("terrible", "awful", "like shit", "sick", "numb", "cold", "sweaty", "tingly", "horrible")]!</span>")
 						Weaken(3)
 
+#define BODYPART_PAIN_REDUCTION 5
+
 /mob/living/carbon/human/update_health_hud()
 	if(!client)
 		return
 	if(dna.species.update_health_hud())
 		return
 	else
+		var/shock_reduction = shock_reduction()
 		if(healths)
-			var/health_amount = get_perceived_trauma()
+			var/health_amount = get_perceived_trauma(shock_reduction)
 			if(..(health_amount)) //not dead
 				switch(hal_screwyhud)
 					if(SCREWYHUD_CRIT)
@@ -868,9 +904,10 @@
 				healthdoll.icon_state = "healthdoll_DEAD"
 				for(var/obj/item/organ/external/O in bodyparts)
 					var/damage = O.burn_dam + O.brute_dam
+					damage -= shock_reduction / BODYPART_PAIN_REDUCTION
 					var/comparison = (O.max_damage/5)
 					var/icon_num = 0
-					if(damage)
+					if(damage > 0)
 						icon_num = 1
 					if(damage > (comparison))
 						icon_num = 2
@@ -889,6 +926,8 @@
 				healthdoll.overlays += (new_overlays - cached_overlays)
 				healthdoll.overlays -= (cached_overlays - new_overlays)
 				healthdoll.cached_healthdoll_overlays = new_overlays
+
+#undef BODYPART_PAIN_REDUCTION
 
 /mob/living/carbon/human/proc/handle_nutrition_alerts() //This is a terrible abuse of the alert system; something like this should be a HUD element
 	if(NO_HUNGER in dna.species.species_traits)

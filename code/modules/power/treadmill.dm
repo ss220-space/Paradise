@@ -2,7 +2,7 @@
 #define MAX_SPEED		2
 
 /obj/machinery/power/treadmill
-	icon = 'icons/obj/recycling.dmi'
+	icon = 'icons/obj/machines/recycling.dmi'
 	icon_state = "conveyor0"
 	name = "treadmill"
 	desc = "A power-generating treadmill."
@@ -99,6 +99,7 @@
 
 /obj/machinery/power/treadmill/attackby(obj/item/W, mob/user)
 	if(default_unfasten_wrench(user, W, time = 60))
+		add_fingerprint(user)
 		if(anchored)
 			connect_to_network()
 		else

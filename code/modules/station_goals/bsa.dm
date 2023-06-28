@@ -29,7 +29,7 @@
 	return FALSE
 
 /obj/machinery/bsa
-	icon = 'icons/obj/machines/particle_accelerator3.dmi'
+	icon = 'icons/obj/engines_and_power/particle_accelerator3.dmi'
 	density = 1
 	anchored = 1
 
@@ -40,10 +40,12 @@
 
 /obj/machinery/bsa/back/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/multitool))
+		add_fingerprint(user)
 		var/obj/item/multitool/M = W
 		M.buffer = src
 		to_chat(user, "<span class='notice'>You store linkage information in [W]'s buffer.</span>")
 	else if(istype(W, /obj/item/wrench))
+		add_fingerprint(user)
 		default_unfasten_wrench(user, W, 10)
 		return TRUE
 	else
@@ -56,10 +58,12 @@
 
 /obj/machinery/bsa/front/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/multitool))
+		add_fingerprint(user)
 		var/obj/item/multitool/M = W
 		M.buffer = src
 		to_chat(user, "<span class='notice'>You store linkage information in [W]'s buffer.</span>")
 	else if(istype(W, /obj/item/wrench))
+		add_fingerprint(user)
 		default_unfasten_wrench(user, W, 10)
 		return TRUE
 	else
@@ -76,6 +80,7 @@
 	if(istype(W, /obj/item/multitool))
 		var/obj/item/multitool/M = W
 		if(M.buffer)
+			add_fingerprint(user)
 			if(istype(M.buffer,/obj/machinery/bsa/back))
 				back = M.buffer
 				M.buffer = null
@@ -85,6 +90,7 @@
 				M.buffer = null
 				to_chat(user, "<span class='notice'>You link [src] with [front].</span>")
 	else if(istype(W, /obj/item/wrench))
+		add_fingerprint(user)
 		default_unfasten_wrench(user, W, 10)
 		return TRUE
 	else
@@ -261,7 +267,7 @@
 	var/target
 	use_power = NO_POWER_USE
 	circuit = /obj/item/circuitboard/computer/bsa_control
-	icon = 'icons/obj/machines/particle_accelerator3.dmi'
+	icon = 'icons/obj/engines_and_power/particle_accelerator3.dmi'
 	icon_state = "control_boxp"
 	var/icon_state_broken = "control_box"
 	var/icon_state_nopower = "control_boxw"

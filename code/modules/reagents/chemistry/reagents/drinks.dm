@@ -251,6 +251,7 @@
 	id ="chocolate_milk"
 	description = "Chocolate-flavored milk, tastes like being a kid again."
 	color = "#85432C"
+	drink_name = "Glass of chocolate milk"
 	taste_description = "chocolate milk"
 
 /datum/reagent/consumable/drink/hot_coco
@@ -290,12 +291,9 @@
 
 /datum/reagent/consumable/drink/coffee/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustStaminaLoss(-1, FALSE)
 	if(holder.has_reagent("frostoil"))
 		holder.remove_reagent("frostoil", 5)
-	if(prob(50))
-		update_flags |= M.AdjustParalysis(-1, FALSE)
-		update_flags |= M.AdjustStunned(-1, FALSE)
-		update_flags |= M.AdjustWeakened(-1, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/coffee/overdose_process(mob/living/M, severity)
@@ -535,3 +533,27 @@
 	drink_name = "Iced Cocoa"
 	drink_desc = "A sweeter drink to perk you up and refresh you!"
 	taste_description = "refreshingly cold cocoa"
+
+/datum/reagent/consumable/drink/non_alcoholic_beer
+	name = "Non-alcoholic beer"
+	id = "alcohol_free_beer"
+	description = "The most meaningless thing."
+	drink_icon = "alcohol_free_beer"
+	drink_name = "Non-alcoholic beer"
+	color = "#572c13"
+	taste_description = "beer"
+
+/datum/reagent/consumable/drink/laughsyrup
+	name = "Laughin' Syrup"
+	description = "The product of juicing Laughin' Peas. Fizzy, and seems to change flavour based on what it's used with!"
+	id = "laughsyrup"
+	color = "#803280"
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	taste_mult = 2
+	taste_description = "fizzy sweetness"
+
+/datum/reagent/consumable/drink/laughsyrup/on_mob_life(mob/living/M)
+	if(prob(5))
+		M.emote(pick("laugh", "giggle", "smile"))
+	else if(prob(2))
+		M.say(pick(list("Ха-ха!", "Хе-хе")))

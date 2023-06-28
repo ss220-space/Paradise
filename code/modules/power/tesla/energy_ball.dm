@@ -4,7 +4,7 @@
 /obj/singularity/energy_ball
 	name = "energy ball"
 	desc = "An energy ball."
-	icon = 'icons/obj/tesla_engine/energy_ball.dmi'
+	icon = 'icons/obj/engines_and_power/tesla/energy_ball.dmi'
 	icon_state = "energy_ball"
 	pixel_x = -32
 	pixel_y = -32
@@ -84,7 +84,7 @@
 		energy_to_raise = energy_to_raise * 1.25
 
 		playsound(src.loc, 'sound/magic/lightning_chargeup.ogg', 100, 1, extrarange = 30)
-		addtimer(CALLBACK(src, .proc/new_mini_ball), 100)
+		addtimer(CALLBACK(src, PROC_REF(new_mini_ball)), 100)
 
 	else if(energy < energy_to_lower && orbiting_balls.len)
 		energy_to_raise = energy_to_raise / 1.25
@@ -113,8 +113,8 @@
 /obj/singularity/energy_ball/Bump(atom/A)
 	dust_mobs(A)
 
-/obj/singularity/energy_ball/Bumped(atom/A)
-	dust_mobs(A)
+/obj/singularity/energy_ball/Bumped(atom/movable/moving_atom)
+	dust_mobs(moving_atom)
 
 /obj/singularity/energy_ball/attack_tk(mob/user)
 	if(iscarbon(user))

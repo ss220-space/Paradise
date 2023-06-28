@@ -68,10 +68,10 @@
 	playsound(user, activation_sound, 100, 1)
 	return 1
 
-/obj/machinery/anomalous_crystal/Bumped(atom/AM as mob|obj)
+/obj/machinery/anomalous_crystal/Bumped(atom/movable/moving_atom)
 	..()
-	if(ismob(AM))
-		ActivationReaction(AM,"mob_bump")
+	if(ismob(moving_atom))
+		ActivationReaction(moving_atom,"mob_bump")
 
 /obj/machinery/anomalous_crystal/ex_act()
 	ActivationReaction(null,"bomb")
@@ -90,7 +90,7 @@
 	if(..() && ishuman(user) && !(user in affected_targets))
 		var/mob/living/carbon/human/H = user
 		for(var/obj/item/W in H)
-			H.unEquip(W)
+			H.drop_item_ground(W)
 		var/datum/job/clown/C = SSjobs.GetJob("Clown")
 		C.equip(H)
 		affected_targets.Add(H)

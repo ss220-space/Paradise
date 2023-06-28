@@ -1,6 +1,6 @@
 /obj/machinery/computer/prisoner
 	name = "labor camp points manager"
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "security_key"
 	icon_screen = "explosive"
 	req_access = list(ACCESS_ARMORY)
@@ -98,8 +98,7 @@
 			if("0")
 				var/obj/item/card/id/prisoner/I = usr.get_active_hand()
 				if(istype(I))
-					usr.drop_item()
-					I.loc = src
+					usr.drop_transfer_item_to_loc(I, src)
 					inserted_id = I
 				else
 					to_chat(usr, "<span class='warning'>No valid ID.</span>")

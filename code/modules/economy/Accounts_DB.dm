@@ -8,7 +8,7 @@ GLOBAL_VAR(current_date_string)
 	name = "Accounts Uplink Terminal"
 	desc = "Access transaction logs, account data and all kinds of other financial records."
 	icon_screen = "accounts"
-	req_one_access = list(ACCESS_HOP, ACCESS_CAPTAIN, ACCESS_CENT_COMMANDER)
+	req_access = list(ACCESS_HOP, ACCESS_CAPTAIN, ACCESS_CENT_COMMANDER)
 	light_color = LIGHT_COLOR_GREEN
 	var/receipt_num
 	var/machine_id = ""
@@ -52,10 +52,12 @@ GLOBAL_VAR(current_date_string)
 
 /obj/machinery/computer/account_database/attackby(obj/O, mob/user, params)
 	if(ui_login_attackby(O, user))
+		add_fingerprint(user)
 		return
 	return ..()
 
 /obj/machinery/computer/account_database/attack_hand(mob/user)
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/computer/account_database/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)

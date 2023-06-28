@@ -125,6 +125,7 @@
 	if(rig)
 		usr.visible_message("<span class='notice'>[usr] begins to detach [rig] from [src].</span>", "<span class='notice'>You begin to detach [rig] from [src].</span>")
 		if(do_after(usr, 20, target = src))
+			add_fingerprint(usr)
 			usr.visible_message("<span class='notice'>[usr] detaches [rig] from [src].</span>", "<span class='notice'>You detach [rig] from [src].</span>")
 			rig.forceMove(get_turf(usr))
 			rig = null
@@ -139,6 +140,7 @@
 			return ..()
 		user.visible_message("[user] begins rigging [I] to [src].", "You begin rigging [I] to [src]")
 		if(do_after(user, 20, target = src))
+			add_fingerprint(user)
 			user.visible_message("<span class='notice'>[user] rigs [I] to [src].</span>", "<span class='notice'>You rig [I] to [src].</span>")
 
 			var/obj/item/assembly_holder/H = I
@@ -148,8 +150,7 @@
 
 				lastrigger = "[key_name_log(user)]"
 				rig = H
-				user.drop_item()
-				H.forceMove(src)
+				user.drop_transfer_item_to_loc(H, src)
 				if(rig.has_prox_sensors())
 					AddComponent(/datum/component/proximity_monitor)
 				var/icon/test = getFlatIcon(H)
@@ -174,7 +175,7 @@
 
 
 /obj/structure/reagent_dispensers/fueltank/Move()
-	..()
+	. = ..()
 	if(rig)
 		rig.process_movement()
 
@@ -211,7 +212,7 @@
 /obj/structure/reagent_dispensers/water_cooler
 	name = "liquid cooler"
 	desc = "A machine that dispenses liquid to drink."
-	icon = 'icons/obj/vending.dmi'
+	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "water_cooler"
 	anchored = 1
 	tank_volume = 500
@@ -227,9 +228,10 @@
 	if(!paper_cups)
 		to_chat(user, "<span class='warning'>There aren't any cups left!</span>")
 		return
+	add_fingerprint(user)
 	user.visible_message("<span class='notice'>[user] takes a cup from [src].</span>", "<span class='notice'>You take a paper cup from [src].</span>")
 	var/obj/item/reagent_containers/food/drinks/sillycup/S = new(get_turf(src))
-	user.put_in_hands(S)
+	user.put_in_hands(S, ignore_anim = FALSE)
 	paper_cups--
 
 /obj/structure/reagent_dispensers/water_cooler/wrench_act(mob/user, obj/item/I)
@@ -259,6 +261,7 @@
 		has_lid = FALSE
 
 /obj/structure/reagent_dispensers/beerkeg/attack_hand(mob/user)
+	add_fingerprint(user)
 	if(has_lid)
 		to_chat(usr, "<span class='notice'>You take the lid off [src].</span>")
 		remove_lid()

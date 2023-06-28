@@ -3,7 +3,7 @@
 
 /obj/machinery/computer/salvage_ship
 	name = "salvage ship terminal"
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "syndie_key"
 	icon_screen = "syndishuttle"
 	req_access = list(ACCESS_SALVAGE_CAPTAIN)
@@ -47,6 +47,7 @@
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 
+	add_fingerprint(user)
 	user.set_machine(src)
 
 	var/dat = {"<meta charset="UTF-8">Location: [curr_location]<br>

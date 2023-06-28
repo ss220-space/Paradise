@@ -142,6 +142,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 
 /obj/machinery/libraryscanner/attackby(obj/item/I, mob/user)
 	if(default_unfasten_wrench(user, I))
+		add_fingerprint(user)
 		power_change()
 		return
 	if(istype(I, /obj/item/book))
@@ -150,8 +151,8 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 		if(B.has_drm)
 			atom_say("Copyrighted material detected. Scanner is unable to copy book to memory.")
 			return FALSE
-		user.drop_item()
-		I.forceMove(src)
+		add_fingerprint(user)
+		user.drop_transfer_item_to_loc(I, src)
 		return 1
 	else
 		return ..()
@@ -160,6 +161,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	if(istype(user,/mob/dead))
 		to_chat(user, "<span class='danger'>Nope.</span>")
 		return
+	add_fingerprint(user)
 	usr.set_machine(src)
 	var/dat = {"<meta charset="UTF-8"><HEAD><TITLE>Scanner Control Interface</TITLE></HEAD><BODY>\n"} // <META HTTP-EQUIV='Refresh' CONTENT='10'>
 	if(cache)
@@ -207,10 +209,12 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 /obj/machinery/bookbinder/attackby(obj/item/I, mob/user)
 	var/obj/item/paper/P = I
 	if(default_unfasten_wrench(user, I))
+		add_fingerprint(user)
 		power_change()
 		return
 	if(istype(P))
-		user.drop_item()
+		add_fingerprint(user)
+		user.drop_transfer_item_to_loc(P, src)
 		user.visible_message("[user] loads some paper into [src].", "You load some paper into [src].")
 		src.visible_message("[src] begins to hum as it warms up its printing drums.")
 		sleep(rand(200,400))

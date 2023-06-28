@@ -22,7 +22,7 @@
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
-		unEquip(W)
+		drop_item_ground(W)
 	notransform = 1
 	canmove = 0
 	icon = null
@@ -51,7 +51,7 @@
 
 	O.tts_seed = tts_seed
 
-	INVOKE_ASYNC(GLOBAL_PROC, .proc/qdel, src) // To prevent the proc from returning null.
+	INVOKE_ASYNC(GLOBAL_PROC, /proc/qdel, src) // To prevent the proc from returning null.
 	return O
 
 
@@ -68,7 +68,7 @@
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
-		unEquip(W)
+		drop_item_ground(W)
 
 	notransform = 1
 	canmove = 0
@@ -118,14 +118,14 @@
 
 	O.tts_seed = tts_seed
 
-	INVOKE_ASYNC(GLOBAL_PROC, .proc/qdel, src) // To prevent the proc from returning null.
+	INVOKE_ASYNC(GLOBAL_PROC, /proc/qdel, src) // To prevent the proc from returning null.
 	return O
 
 /mob/living/carbon/human/proc/corgize()
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
-		unEquip(W)
+		drop_item_ground(W)
 	regenerate_icons()
 	notransform = 1
 	canmove = 0
@@ -149,7 +149,7 @@
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
-		unEquip(W)
+		drop_item_ground(W)
 
 	regenerate_icons()
 	notransform = 1
@@ -225,7 +225,23 @@
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/pig))
 		return 1
+	if(ispath(MP, /mob/living/simple_animal/cock))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/goose))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/turkey))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/mouse/hamster))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/mouse/rat))
+		return 1
 	if(ispath(MP, /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/possum))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/pet/slugcat))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/frog))
 		return 1
 
 	if(ispath(MP, /mob/living/simple_animal/borer) && !jobban_isbanned(src, ROLE_BORER) && !jobban_isbanned(src, "Syndicate"))

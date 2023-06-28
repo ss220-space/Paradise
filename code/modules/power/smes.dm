@@ -91,29 +91,31 @@
 	overlays.Cut()
 	if(stat & BROKEN)	return
 
-	overlays += image('icons/obj/power.dmi', "smes-op[outputting]")
+	overlays += image('icons/obj/engines_and_power/power.dmi', "smes-op[outputting]")
 
 	if(inputting == 2)
-		overlays += image('icons/obj/power.dmi', "smes-oc2")
+		overlays += image('icons/obj/engines_and_power/power.dmi', "smes-oc2")
 	else if(inputting == 1)
-		overlays += image('icons/obj/power.dmi', "smes-oc1")
+		overlays += image('icons/obj/engines_and_power/power.dmi', "smes-oc1")
 	else
 		if(input_attempt)
-			overlays += image('icons/obj/power.dmi', "smes-oc0")
+			overlays += image('icons/obj/engines_and_power/power.dmi', "smes-oc0")
 
 	var/clevel = chargedisplay()
 	if(clevel>0)
-		overlays += image('icons/obj/power.dmi', "smes-og[clevel]")
+		overlays += image('icons/obj/engines_and_power/power.dmi', "smes-og[clevel]")
 	return
 
 /obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
 	//opening using screwdriver
 	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I))
+		add_fingerprint(user)
 		update_icon()
 		return
 
 	//changing direction using wrench
 	if(default_change_direction_wrench(user, I))
+		add_fingerprint(user)
 		terminal = null
 		var/turf/T = get_step(src, dir)
 		for(var/obj/machinery/power/terminal/term in T)
@@ -182,6 +184,7 @@
 
 		if(do_after(user, 50, target = src))
 			if(!terminal && panel_open)
+				add_fingerprint(user)
 				T = get_turf(user)
 				var/obj/structure/cable/N = T.get_cable_node() //get the connecting node cable, if there's one
 				if(prob(50) && electrocute_mob(usr, N, N, 1, TRUE)) //animate the electrocution if uncautious and unlucky
@@ -194,6 +197,7 @@
 					"<span class='notice'>You add the cables and connect the power terminal.</span>")
 
 				make_terminal(user, tempDir, tempLoc)
+				terminal.add_fingerprint(user)
 				terminal.connect_to_network()
 		return
 
@@ -490,5 +494,11 @@
 	capacity = INFINITY
 	charge = INFINITY
 	..()
+
+/obj/machinery/power/smes/vintage
+	name = "power storage unit"
+	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit. Old but not useless."
+	icon_state = "oldsmes"
+	capacity = 2500000
 
 #undef SMESRATE

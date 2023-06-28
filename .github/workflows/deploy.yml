@@ -1,0 +1,207 @@
+name: Deploy
+
+concurrency:
+  group: deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      ci_required:
+        description: 'CI Suite is required'
+        type: boolean
+        required: true
+        default: true
+      perform_deploy_main:
+        description: 'Deploy Paradise Main/Secondary'
+        type: boolean
+        required: true
+        default: true
+      perform_deploy_vega:
+        description: 'Deploy Paradise Vega'
+        type: boolean
+        required: true
+        default: true
+      perform_deploy_cleo:
+        description: 'Deploy Paradise Cleo'
+        type: boolean
+        required: true
+        default: true
+      perform_deploy_prime:
+        description: 'Deploy Paradise Prime'
+        type: boolean
+        required: true
+        default: true
+      perform_deploy_wl:
+        description: 'Deploy Paradise WL'
+        type: boolean
+        required: true
+        default: true
+      perform_deploy_tutorial:
+        description: 'Deploy Paradise Tutorial'
+        type: boolean
+        required: true
+        default: true
+      # perform_deploy_test:
+      #   description: 'Deploy Paradise Test'
+      #   type: boolean
+      #   required: true
+      #   default: true
+
+jobs:
+  CI:
+    uses: ./.github/workflows/ci.yml  # use the callable tests job to run tests
+    if: ${{ inputs.ci_required }}
+
+  update-isp-lists:
+    name: Update ISP Lists
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Update ISP Lists
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.PRODUCTION_HOST }}
+          username: ${{ secrets.PRODUCTION_USERNAME }}
+          key: ${{ secrets.PRODUCTION_SSH_KEY }}
+          passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
+          script: /var/lib/byond/update_isp_lists.sh
+
+  deploy-main:
+    name: Deploy Paradise Main/Secondary
+    runs-on: ubuntu-latest
+    needs: [update-isp-lists, CI]
+    if: always() && !cancelled() && !failure() && inputs.perform_deploy_main
+
+    steps:
+    - name: Update and Build Paradise Main/Secondary
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.PRODUCTION_HOST }}
+        username: ${{ secrets.PRODUCTION_USERNAME }}
+        key: ${{ secrets.PRODUCTION_SSH_KEY }}
+        passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
+        script: |
+          TIME=$(date +'%Y-%m-%d%T')
+          sudo systemctl --wait start deploy-main
+          journalctl --since $TIME -u deploy-main --no-pager --all
+          systemctl is-failed deploy-main | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
+
+  deploy-vega:
+    name: Deploy Paradise Vega
+    runs-on: ubuntu-latest
+    needs: [update-isp-lists, CI]
+    if: always() && !cancelled() && !failure() && inputs.perform_deploy_vega
+
+    steps:
+    - name: Update and Build Paradise Vega
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.PRODUCTION_HOST }}
+        username: ${{ secrets.PRODUCTION_USERNAME }}
+        key: ${{ secrets.PRODUCTION_SSH_KEY }}
+        passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
+        script: |
+          TIME=$(date +'%Y-%m-%d%T')
+          sudo systemctl --wait start deploy-vega
+          journalctl --since $TIME -u deploy-vega --no-pager --all
+          systemctl is-failed deploy-vega | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
+
+  deploy-cleo:
+    name: Deploy Paradise Cleo
+    runs-on: ubuntu-latest
+    needs: [update-isp-lists, CI]
+    if: always() && !cancelled() && !failure() && inputs.perform_deploy_cleo
+
+    steps:
+    - name: Update and Build Paradise Cleo
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.PRODUCTION_HOST }}
+        username: ${{ secrets.PRODUCTION_USERNAME }}
+        key: ${{ secrets.PRODUCTION_SSH_KEY }}
+        passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
+        script: |
+          TIME=$(date +'%Y-%m-%d%T')
+          sudo systemctl --wait start deploy-cleo
+          journalctl --since $TIME -u deploy-cleo --no-pager --all
+          systemctl is-failed deploy-cleo | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
+
+  deploy-prime:
+    name: Deploy Paradise Prime
+    runs-on: ubuntu-latest
+    needs: [update-isp-lists, CI]
+    if: always() && !cancelled() && !failure() && inputs.perform_deploy_prime
+
+    steps:
+    - name: Update and Build Paradise Prime
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.PRODUCTION_HOST }}
+        username: ${{ secrets.PRODUCTION_USERNAME }}
+        key: ${{ secrets.PRODUCTION_SSH_KEY }}
+        passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
+        script: |
+          TIME=$(date +'%Y-%m-%d%T')
+          sudo systemctl --wait start deploy-prime
+          journalctl --since $TIME -u deploy-prime --no-pager --all
+          systemctl is-failed deploy-prime | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
+
+  deploy-wl:
+    name: Deploy Paradise WL
+    runs-on: ubuntu-latest
+    needs: [update-isp-lists, CI]
+    if: always() && !cancelled() && !failure() && inputs.perform_deploy_wl
+
+    steps:
+    - name: Update and Build Paradise WL
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.PRODUCTION_HOST }}
+        username: ${{ secrets.PRODUCTION_USERNAME }}
+        key: ${{ secrets.PRODUCTION_SSH_KEY }}
+        passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
+        script: |
+          TIME=$(date +'%Y-%m-%d%T')
+          sudo systemctl --wait start deploy-wl
+          journalctl --since $TIME -u deploy-wl --no-pager --all
+          systemctl is-failed deploy-wl | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
+
+  deploy-tutorial:
+    name: Deploy Paradise Tutorial
+    runs-on: ubuntu-latest
+    needs: [update-isp-lists, CI]
+    if: always() && !cancelled() && !failure() && inputs.perform_deploy_tutorial
+
+    steps:
+    - name: Update and Build Paradise Tutorial
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.PRODUCTION_HOST }}
+        username: ${{ secrets.PRODUCTION_USERNAME }}
+        key: ${{ secrets.PRODUCTION_SSH_KEY }}
+        passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
+        script: |
+          TIME=$(date +'%Y-%m-%d%T')
+          sudo systemctl --wait start deploy-tutorial
+          journalctl --since $TIME -u deploy-tutorial --no-pager --all
+          systemctl is-failed deploy-tutorial | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
+
+  # deploy-test:
+  #   name: Deploy Paradise Test
+  #   runs-on: ubuntu-latest
+  #   needs: [update-isp-lists, CI]
+  #   if: always() && !cancelled() && !failure() && inputs.perform_deploy_test
+
+  #   steps:
+  #   - name: Update and Build Paradise Test
+  #     uses: appleboy/ssh-action@master
+  #     with:
+  #       host: ${{ secrets.PRODUCTION_HOST }}
+  #       username: ${{ secrets.PRODUCTION_USERNAME }}
+  #       key: ${{ secrets.PRODUCTION_SSH_KEY }}
+  #       passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
+  #       script: |
+  #         TIME=$(date +'%Y-%m-%d%T')
+  #         sudo systemctl --wait start deploy-test
+  #         journalctl --since $TIME -u deploy-test --no-pager --all
+  #         systemctl is-failed deploy-test | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0

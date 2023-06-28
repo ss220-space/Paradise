@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(tts)
 	name = "Text-to-Speech"
 	init_order = INIT_ORDER_DEFAULT
 	wait = 1 SECONDS
+	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 
 	var/tts_wanted = 0
 	var/tts_request_failed = 0
@@ -168,6 +169,13 @@ SUBSYSTEM_DEF(tts)
 	msg += "F:[tts_request_failed] "
 	msg += "S:[tts_request_succeeded] "
 	msg += "R:[tts_reused] "
+	msg += "Q:[LAZYLEN(tts_requests_queue)]/[tts_requests_queue_limit] |"
+
+	var/datum/tts_provider/silero/_silero = tts_providers["Silero"]
+	msg += "Shared: "
+	msg += "RPS:[_silero.tts_shared_rps] "
+	msg += "Q:[_silero.tts_shared_requests_in_queue] "
+
 	..(msg)
 
 /datum/controller/subsystem/tts/PreInit()
@@ -209,17 +217,16 @@ SUBSYSTEM_DEF(tts)
 		rps_sum += rps
 	tts_sma_rps = round(rps_sum / tts_rps_list.len, 0.1)
 
-	var/requests
-	if(LAZYLEN(tts_requests_queue) >= tts_rps_limit)
-		requests = tts_requests_queue.Cut(1,tts_rps_limit+1)
-	else
-		requests = tts_requests_queue.Copy()
+	var/free_rps = clamp(tts_rps_limit - tts_rps, 0, tts_rps_limit)
+	var/requests = tts_requests_queue.Copy(1, clamp(LAZYLEN(tts_requests_queue), 0, free_rps) + 1)
 	for(var/request in requests)
 		var/text = request[1]
 		var/datum/tts_seed/seed = request[2]
 		var/datum/callback/proc_callback = request[3]
 		var/datum/tts_provider/provider = seed.provider
 		provider.request(text, seed, proc_callback)
+		tts_rps_counter++
+	tts_requests_queue.Cut(1, clamp(LAZYLEN(tts_requests_queue), 0, free_rps) + 1)
 
 	if(sanitized_messages_caching)
 		sanitized_messages_cache.Cut()
@@ -238,7 +245,15 @@ SUBSYSTEM_DEF(tts)
 /datum/controller/subsystem/tts/proc/queue_request(text, datum/tts_seed/seed, datum/callback/proc_callback)
 	if(LAZYLEN(tts_requests_queue) > tts_requests_queue_limit)
 		is_enabled = FALSE
+		to_chat(world, span_announce("SERVER: очередь запросов превысила лимит, подсистема SStts принудительно отключена!"))
 		return FALSE
+
+	if(tts_rps_counter < tts_rps_limit)
+		var/datum/tts_provider/provider = seed.provider
+		provider.request(text, seed, proc_callback)
+		tts_rps_counter++
+		return TRUE
+
 	tts_requests_queue += list(list(text, seed, proc_callback))
 	return TRUE
 
@@ -277,10 +292,11 @@ SUBSYSTEM_DEF(tts)
 	if(traits & TTS_TRAIT_PITCH_WHISPER)
 		text = provider.pitch_whisper(text)
 
-	var/hash = rustg_hash_string(RUSTG_HASH_MD5, text)
+	var/hash = rustg_hash_string(RUSTG_HASH_MD5, lowertext(text))
 	var/filename = "sound/tts_cache/[seed.name]/[hash]"
 
-	var/datum/callback/play_tts_cb = CALLBACK(src, .proc/play_tts, speaker, listener, filename, is_local, effect, preSFX, postSFX)
+	var/hash_old = rustg_hash_string(RUSTG_HASH_MD5, text)
+	var/filename_old = "sound/tts_cache/[seed.name]/[hash_old]"
 
 	if(fexists("[filename].ogg"))
 		tts_reused++
@@ -288,16 +304,24 @@ SUBSYSTEM_DEF(tts)
 		play_tts(speaker, listener, filename, is_local, effect, preSFX, postSFX)
 		return
 
+	if(fexists("[filename_old].ogg"))
+		fcopy("[filename_old].ogg", "[filename].ogg")
+		tts_reused++
+		tts_rrps_counter++
+		play_tts(speaker, listener, filename, is_local, effect, preSFX, postSFX)
+		return
+
+	var/datum/callback/play_tts_cb = CALLBACK(src, PROC_REF(play_tts), speaker, listener, filename, is_local, effect, preSFX, postSFX)
+
 	if(LAZYLEN(tts_queue[filename]))
 		tts_reused++
 		tts_rrps_counter++
 		LAZYADD(tts_queue[filename], play_tts_cb)
 		return
 
-	var/datum/callback/cb = CALLBACK(src, .proc/get_tts_callback, speaker, listener, filename, seed, is_local, effect, preSFX, postSFX)
-	provider.request(text, seed, cb)
+	var/datum/callback/cb = CALLBACK(src, PROC_REF(get_tts_callback), speaker, listener, filename, seed, is_local, effect, preSFX, postSFX)
+	queue_request(text, seed, cb)
 	LAZYADD(tts_queue[filename], play_tts_cb)
-	tts_rps_counter++
 
 /datum/controller/subsystem/tts/proc/get_tts_callback(atom/speaker, mob/listener, filename, datum/tts_seed/seed, is_local, effect, preSFX, postSFX, datum/http_response/response)
 	var/datum/tts_provider/provider = seed.provider
@@ -305,16 +329,18 @@ SUBSYSTEM_DEF(tts)
 	// Bail if it errored
 	if(response.errored)
 		provider.failed_requests++
-		if(provider.failed_requests >= provider.failed_requests_limit)
-			provider.is_enabled = FALSE
-		message_admins("<span class='warning'>Error connecting to [provider.name] TTS API. Please inform a maintainer or server host.</span>")
+		// if(provider.failed_requests >= provider.failed_requests_limit)
+		// 	provider.is_enabled = FALSE
+		log_game(SPAN_WARNING("Error connecting to [provider.name] TTS API. Please inform a maintainer or server host."))
+		message_admins(SPAN_WARNING("Error connecting to [provider.name] TTS API. Please inform a maintainer or server host."))
 		return
 
 	if(response.status_code != 200)
 		provider.failed_requests++
-		if(provider.failed_requests >= provider.failed_requests_limit)
-			provider.is_enabled = FALSE
-		message_admins("<span class='warning'>Error performing [provider.name] TTS API request (Code: [response.status_code])</span>")
+		// if(provider.failed_requests >= provider.failed_requests_limit)
+		// 	provider.is_enabled = FALSE
+		log_game(SPAN_WARNING("Error performing [provider.name] TTS API request (Code: [response.status_code])"))
+		message_admins(SPAN_WARNING("Error performing [provider.name] TTS API request (Code: [response.status_code])"))
 		tts_request_failed++
 		if(response.status_code)
 			if(tts_errors["[response.status_code]"])
@@ -334,7 +360,7 @@ SUBSYSTEM_DEF(tts)
 	rustg_file_write(voice, "[filename].ogg", "true")
 
 	if(!config.tts_cache)
-		addtimer(CALLBACK(src, .proc/cleanup_tts_file, "[filename].ogg"), 30 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(cleanup_tts_file), "[filename].ogg"), 30 SECONDS)
 
 	for(var/datum/callback/cb in tts_queue[filename])
 		cb.InvokeAsync()
@@ -364,7 +390,7 @@ SUBSYSTEM_DEF(tts)
 			CRASH("Invalid sound effect chosen.")
 	if(effect != SOUND_EFFECT_NONE)
 		if(!fexists(voice))
-			var/datum/callback/play_tts_cb = CALLBACK(src, .proc/play_tts, speaker, listener, filename, is_local, effect, preSFX, postSFX)
+			var/datum/callback/play_tts_cb = CALLBACK(src, PROC_REF(play_tts), speaker, listener, filename, is_local, effect, preSFX, postSFX)
 			if(LAZYLEN(tts_effects_queue[voice]))
 				LAZYADD(tts_effects_queue[voice], play_tts_cb)
 				return

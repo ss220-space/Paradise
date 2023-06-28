@@ -26,12 +26,12 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 				charge_counter = charge_max
 				return
 			if("Yes")
-				H.canmove = FALSE
+				H.Stun(INFINITY)
 				H.visible_message("<span class='warning'>[H]'s things suddenly slip off. They hunch over and vomit up a copious amount of purple goo which begins to shape around them!</span>", \
 									"<span class='shadowling'>You remove any equipment which would hinder your hatching and begin regurgitating the resin which will protect you.</span>")
 
 				for(var/obj/item/I in H.contents - (H.bodyparts | H.internal_organs)) //drops all items except organs
-					H.unEquip(I)
+					H.drop_item_ground(I)
 
 				sleep(50)
 				var/turf/simulated/floor/F
@@ -41,8 +41,13 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 				for(var/obj/structure/alien/resin/wall/shadowling/R in shadowturf) //extremely hacky
 					qdel(R)
 					new /obj/structure/alien/weeds/node(shadowturf) //Dim lighting in the chrysalis -- removes itself afterwards
-				var/temp_flags = H.status_flags
-				H.status_flags |= GODMODE //Can't die while hatching
+				//Can't die while hatching
+				H.dna.species.brute_mod = 0;
+				H.dna.species.burn_mod = 0;
+				H.dna.species.tox_mod = 0;
+				H.dna.species.oxy_mod = 0;
+				H.dna.species.clone_mod = 0;
+				H.dna.species.brain_mod = 0;
 
 				H.visible_message("<span class='warning'>A chrysalis forms around [H], sealing [H.p_them()] inside.</span>", \
 									"<span class='shadowling'>You create your chrysalis and begin to contort within.</span>")
@@ -64,7 +69,6 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 				sleep(10)
 				playsound(H.loc, 'sound/weapons/slice.ogg', 25, 1)
 				to_chat(H, "<i><b>You are free!</b></i>")
-				H.status_flags = temp_flags
 				sleep(10)
 				playsound(H.loc, 'sound/effects/ghost.ogg', 50, TRUE)
 				var/newNameId = pick(GLOB.possibleShadowlingNames)
@@ -73,7 +77,6 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 				H.name = user.real_name
 				H.SetStunned(0)
 				to_chat(H, "<i><b><font size=3>YOU LIVE!!!</i></b></font>")
-				H.canmove = TRUE
 				for(var/obj/structure/alien/resin/wall/shadowling/W in orange(H, 1))
 					playsound(W, 'sound/effects/splat.ogg', 50, 1)
 					qdel(W)
@@ -99,6 +102,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 				sleep(10)
 				to_chat(H, "<span class='shadowling'><b><i>Your powers are awoken. You may now live to your fullest extent. Remember your goal. Cooperate with your thralls and allies.</b></i></span>")
 				H.ExtinguishMob()
+				H.set_nutrition(NUTRITION_LEVEL_FED + 50)
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_vision(null))
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/enthrall(null))
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/glare(null))
@@ -164,7 +168,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 					to_chat(M, "<span class='userdanger'>An immense pressure slams you onto the ground!</span>")
 				for(var/thing in GLOB.apcs)
 					var/obj/machinery/power/apc/A = thing
-					INVOKE_ASYNC(A, /obj/machinery/power/apc.proc/overload_lighting)
+					INVOKE_ASYNC(A, TYPE_PROC_REF(/obj/machinery/power/apc, overload_lighting))
 				var/mob/living/simple_animal/ascendant_shadowling/A = new /mob/living/simple_animal/ascendant_shadowling(H.loc)
 				A.announce("VYSHA NERADA YEKHEZET U'RUU!!", 5, 'sound/hallucinations/veryfar_noise.ogg')
 				for(var/obj/effect/proc_holder/spell/S in H.mind.spell_list)

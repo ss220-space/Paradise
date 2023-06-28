@@ -200,15 +200,15 @@
 				user.adjustBrainLoss(10)
 		else
 			to_chat(user, "<span class='notice'>You attach the ends of the two energy swords, making a single double-bladed weapon! You're cool.</span>")
-			var/obj/item/twohanded/dualsaber/newSaber = new /obj/item/twohanded/dualsaber(user.loc)
+			var/obj/item/twohanded/dualsaber/newSaber = new /obj/item/twohanded/dualsaber(drop_location())
 			if(src.hacked) // That's right, we'll only check the "original" esword.
 				newSaber.hacked = 1
 				newSaber.item_color = "rainbow"
-			user.unEquip(W)
-			user.unEquip(src)
+			user.temporarily_remove_item_from_inventory(W)
+			user.temporarily_remove_item_from_inventory(src)
 			qdel(W)
 			qdel(src)
-			user.put_in_hands(newSaber)
+			user.put_in_hands(newSaber, ignore_anim = FALSE)
 	else if(istype(W, /obj/item/multitool))
 		if(hacked == 0)
 			hacked = 1
@@ -285,6 +285,8 @@
 	var/swiping = FALSE
 
 /obj/item/melee/energy/cleaving_saw/nemesis_effects(mob/living/user, mob/living/target)
+	if(istype(target, /mob/living/simple_animal/hostile/asteroid/elite)) // you get the bonus damage, but the bleed buildup is too much.
+		return
 	var/datum/status_effect/saw_bleed/B = target.has_status_effect(STATUS_EFFECT_SAWBLEED)
 	if(!B)
 		if(!active) //This isn't in the above if-check so that the else doesn't care about active

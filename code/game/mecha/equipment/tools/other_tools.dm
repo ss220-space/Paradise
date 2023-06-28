@@ -9,13 +9,15 @@
 	icon_state = "mecha_teleport"
 	origin_tech = "bluespace=7"
 	equip_cooldown = 150
-	energy_drain = 8000
+	energy_drain = 4000
 	range = MECHA_RANGED
 	var/tele_precision = 4
 
 /obj/item/mecha_parts/mecha_equipment/teleporter/action(atom/target)
 	if(!action_checks(target) || !is_teleport_allowed(loc.z))
 		return
+	if(!is_faced_target(target))
+		return FALSE
 	var/turf/T = get_turf(target)
 	if(T)
 		chassis.use_power(energy_drain)
@@ -46,6 +48,8 @@
 /obj/item/mecha_parts/mecha_equipment/wormhole_generator/action(atom/target)
 	if(!action_checks(target) || !is_teleport_allowed(loc.z))
 		return
+	if(!is_faced_target(target))
+		return FALSE
 	var/list/theareas = get_areas_in_range(100, chassis)
 	if(!theareas.len)
 		return
@@ -97,6 +101,8 @@
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/action(atom/movable/target)
 	if(!action_checks(target))
 		return
+	if(!is_faced_target(target))
+		return FALSE
 	if(cooldown_timer > world.time)
 		occupant_message("<span class='warning'>[src] is still recharging.</span>")
 		return
@@ -139,8 +145,8 @@
 			return 1
 
 
-/obj/item/mecha_parts/mecha_equipment/gravcatapult/get_equip_info()
-	return "[..()] [mode==1?"([locked||"Nothing"])":null] \[<a href='?src=[UID()];mode=1'>S</a>|<a href='?src=[UID()];mode=2'>P</a>\]"
+/obj/item/mecha_parts/mecha_equipment/gravcatapult/get_module_equip_info()
+	return " [mode==1?"([locked||"Nothing"])":null] \[<a href='?src=[UID()];mode=1'>S</a>|<a href='?src=[UID()];mode=2'>P</a>\]"
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/Topic(href, href_list)
 	..()
@@ -208,20 +214,16 @@
 		chassis.overlays -= droid_overlay
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/repair_droid/attach(obj/mecha/M)
-	..()
+/obj/item/mecha_parts/mecha_equipment/repair_droid/attach_act(obj/mecha/M)
 	droid_overlay = new(icon, icon_state = "repair_droid")
 	M.overlays += droid_overlay
 
-/obj/item/mecha_parts/mecha_equipment/repair_droid/detach()
+/obj/item/mecha_parts/mecha_equipment/repair_droid/detach_act()
 	chassis.overlays -= droid_overlay
 	STOP_PROCESSING(SSobj, src)
-	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/repair_droid/get_equip_info()
-	if(!chassis) return
-	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp; [name] - <a href='?src=[UID()];toggle_repairs=1'>[equip_ready?"A":"Dea"]ctivate</a>"
-
+/obj/item/mecha_parts/mecha_equipment/repair_droid/get_module_equip_info()
+	return " <a href='?src=[UID()];toggle_repairs=1'>[equip_ready?"A":"Dea"]ctivate</a>"
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/Topic(href, href_list)
 	..()
@@ -287,9 +289,8 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/detach()
+/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/detach_act()
 	STOP_PROCESSING(SSobj, src)
-	..()
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/proc/get_charge()
 	if(equip_ready) //disabled
@@ -321,9 +322,8 @@
 			set_ready_state(1)
 			log_message("Deactivated.")
 
-/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/get_equip_info()
-	if(!chassis) return
-	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp; [name] - <a href='?src=[UID()];toggle_relay=1'>[equip_ready?"A":"Dea"]ctivate</a>"
+/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/get_module_equip_info()
+	return " <a href='?src=[UID()];toggle_relay=1'>[equip_ready?"A":"Dea"]ctivate</a>"
 
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/process()
@@ -372,9 +372,8 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/generator/detach()
+/obj/item/mecha_parts/mecha_equipment/generator/detach_act()
 	STOP_PROCESSING(SSobj, src)
-	..()
 
 /obj/item/mecha_parts/mecha_equipment/generator/Topic(href, href_list)
 	..()
@@ -388,10 +387,8 @@
 			STOP_PROCESSING(SSobj, src)
 			log_message("Deactivated.")
 
-/obj/item/mecha_parts/mecha_equipment/generator/get_equip_info()
-	var/output = ..()
-	if(output)
-		return "[output] \[[fuel_name]: [round(fuel_amount,0.1)] cm<sup>3</sup>\] - <a href='?src=[UID()];toggle=1'>[equip_ready?"A":"Dea"]ctivate</a>"
+/obj/item/mecha_parts/mecha_equipment/generator/get_module_equip_info()
+	return " \[[fuel_name]: [round(fuel_amount,0.1)] cm<sup>3</sup>\] - <a href='?src=[UID()];toggle=1'>[equip_ready?"A":"Dea"]ctivate</a>"
 
 /obj/item/mecha_parts/mecha_equipment/generator/action(target)
 	if(chassis)
@@ -399,16 +396,16 @@
 		if(result)
 			send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
 
-/obj/item/mecha_parts/mecha_equipment/generator/proc/load_fuel(var/obj/item/I)
+/obj/item/mecha_parts/mecha_equipment/generator/proc/load_fuel(obj/item/I)
 	if(istype(I) && (fuel_type in I.materials))
 		if(istype(I, /obj/item/stack/sheet))
 			var/obj/item/stack/sheet/P = I
-			var/to_load = max(max_fuel - P.amount*P.perunit,0)
+			var/to_load = max(max_fuel - fuel_amount, 0)
 			if(to_load)
 				var/units = min(max(round(to_load / P.perunit),1),P.amount)
 				if(units)
 					var/added_fuel = units * P.perunit
-					fuel_amount += added_fuel
+					fuel_amount = min(fuel_amount + added_fuel, max_fuel)
 					P.use(units)
 					occupant_message("[units] unit\s of [fuel_name] successfully loaded.")
 					return added_fuel
@@ -502,3 +499,40 @@
 	if(..())
 		for(var/mob/living/carbon/M in view(chassis))
 			M.apply_effect((rad_per_cycle * 3),IRRADIATE,0)
+
+/////////////////////////////////// SERVO-HYDRAULIC ACTUATOR ////////////////////////////////////////////////
+
+/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator
+	name = "Servo-Hydraulic Actuator"
+	desc = "Boosts exosuit servo-motors, allowing it to activate strafe mode. Requires energy to operate."
+	icon_state = "actuator"
+	origin_tech = "powerstorage=5;programming=5;engineering=5;combat=5"
+	selectable = 0
+	var/energy_per_step = 50 //How much energy this module drains per step in strafe mode
+
+/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/can_attach(obj/mecha/M)
+	if(M.strafe_allowed)
+		return FALSE
+	. = ..()
+
+/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/attach_act(obj/mecha/M)
+	M.strafe_allowed = TRUE
+	M.actuator = src
+	if(M.occupant)
+		M.strafe_action.Grant(M.occupant, M)
+
+/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/detach_act()
+	chassis.strafe_allowed = FALSE
+	chassis.strafe = FALSE
+	chassis.actuator = null
+	if(chassis.occupant)
+		chassis.strafe_action.Remove(chassis.occupant)
+
+/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/Destroy()
+	if(chassis)
+		chassis.strafe_allowed = FALSE
+		chassis.strafe = FALSE
+		chassis.actuator = null
+		if(chassis.occupant)
+			chassis.strafe_action.Remove(chassis.occupant)
+	. = ..()

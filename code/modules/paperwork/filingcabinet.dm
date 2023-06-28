@@ -39,9 +39,9 @@
 
 /obj/structure/filingcabinet/attackby(obj/item/P, mob/user, params)
 	if(istype(P, /obj/item/paper) || istype(P, /obj/item/folder) || istype(P, /obj/item/photo) || istype(P, /obj/item/paper_bundle) || istype(P, /obj/item/documents))
+		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>You put [P] in [src].</span>")
-		user.drop_item()
-		P.loc = src
+		user.drop_transfer_item_to_loc(P, src)
 		icon_state = "[initial(icon_state)]-open"
 		sleep(5)
 		icon_state = initial(icon_state)
@@ -67,6 +67,7 @@
 		to_chat(user, "<span class='notice'>[src] is empty.</span>")
 		return
 
+	add_fingerprint(user)
 	user.set_machine(src)
 	var/dat = {"<meta charset="UTF-8"><center><table>"}
 	for(var/obj/item/P in src)
@@ -102,7 +103,8 @@
 		//var/retrieveindex = text2num(href_list["retrieve"])
 		var/obj/item/P = locate(href_list["retrieve"])//contents[retrieveindex]
 		if(istype(P) && (P.loc == src) && src.Adjacent(usr))
-			usr.put_in_hands(P)
+			P.forceMove_turf()
+			usr.put_in_hands(P, ignore_anim = FALSE)
 			updateUsrDialog()
 			icon_state = "[initial(icon_state)]-open"
 			sleep(5)
@@ -213,6 +215,7 @@ GLOBAL_LIST_EMPTY(employmentCabinets)
 		to_chat(user, "<span class='warning'>[src] is jammed, give it a few seconds.</span>")
 	else
 		if(!populated)
+			add_fingerprint(user)
 			fillCurrent()
 			populated = TRUE
 		if(user.mind.special_role != "devil")

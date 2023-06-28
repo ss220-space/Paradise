@@ -45,8 +45,8 @@
 	butt_sprite = "unathi"
 	male_scream_sound = "u_mscream"
 	female_scream_sound = "u_fscream"
-	male_sneeze_sound = 'sound/goonstation/voice/unathi/m_u_sneeze.ogg'
-	female_sneeze_sound = 'sound/goonstation/voice/unathi/f_u_sneeze.ogg'
+	male_sneeze_sound = 'sound/voice/unathi/m_u_sneeze.ogg'
+	female_sneeze_sound = 'sound/voice/unathi/f_u_sneeze.ogg'
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/unathi,
@@ -81,14 +81,19 @@
 		"сворачивает себе шею!",
 		"задерживает дыхание!")
 
-	disliked_food = VEGETABLES | FRUIT | GRAIN | SUGAR | JUNKFOOD
-	liked_food = MEAT | RAW | EGG | GROSS
+	toxic_food = SUGAR | GRAIN | JUNKFOOD
+	disliked_food = FRIED
+	liked_food = MEAT | RAW | EGG | GROSS | FRUIT | VEGETABLES
 
 /datum/action/innate/tail_lash
 	name = "Взмах хвостом"
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "tail"
 	check_flags = AB_CHECK_LYING | AB_CHECK_CONSCIOUS | AB_CHECK_STUNNED
+
+/datum/action/innate/tail_lash/Trigger()
+	if(IsAvailable(show_message = TRUE))
+		..()
 
 /datum/action/innate/tail_lash/Activate()
 	var/mob/living/carbon/human/user = owner
@@ -118,14 +123,16 @@
 				to_chat(user, "<span class='warning'>Вы выбились из сил!</span>")
 				return
 
-/datum/action/innate/tail_lash/IsAvailable()
+/datum/action/innate/tail_lash/IsAvailable(show_message = FALSE)
 	. = ..()
 	var/mob/living/carbon/human/user = owner
 	if(!user.bodyparts_by_name["tail"])
-		to_chat(user, "<span class='warning'>У вас НЕТ ХВОСТА!</span>")
+		if(show_message)
+			to_chat(user, "<span class='warning'>У вас НЕТ ХВОСТА!</span>")
 		return FALSE
 	if(!istype(user.bodyparts_by_name["tail"], /obj/item/organ/external/tail/unathi))
-		to_chat(user, "<span class='warning'>У вас слабый хвост!</span>")
+		if(show_message)
+			to_chat(user, "<span class='warning'>У вас слабый хвост!</span>")
 		return FALSE
 	return .
 
@@ -143,7 +150,7 @@
 	default_language = "Sinta'unathi"
 
 	speed_mod = -0.80
-	species_traits = list(NOGUNS)
+	species_traits = list(NOGUNS, LIPS, PIERCEIMMUNE)
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/unathi,
@@ -164,6 +171,7 @@
 	H.verbs |= /mob/living/carbon/human/proc/emote_threat
 	H.verbs |= /mob/living/carbon/human/proc/emote_whip
 	H.verbs |= /mob/living/carbon/human/proc/emote_whips
+	H.verbs |= /mob/living/carbon/human/proc/emote_rumble
 	var/datum/action/innate/tail_lash/lash = locate() in H.actions
 	if(!lash)
 		lash = new
@@ -178,6 +186,7 @@
 	H.verbs -= /mob/living/carbon/human/proc/emote_threat
 	H.verbs -= /mob/living/carbon/human/proc/emote_whip
 	H.verbs -= /mob/living/carbon/human/proc/emote_whips
+	H.verbs -= /mob/living/carbon/human/proc/emote_rumble
 
 	var/datum/action/innate/tail_lash/lash = locate() in H.actions
 	if(lash)
@@ -186,17 +195,20 @@
 /datum/species/unathi/handle_life(mob/living/carbon/human/H)
 	if(H.stat == DEAD)
 		return
+	..()
 	if(H.reagents.get_reagent_amount("zessulblood") < 5)         //unique unathi chemical, heals over time and increases shock reduction for 20
 		H.reagents.add_reagent("zessulblood", 1)
-	if(H.bodytemperature < 273)                       //anabiosis. unathi falls asleep if body temp is too low
-		switch(H.bodytemperature)
-			if(200 to 260)
-				H.EyeBlurry(3)
-			if(170 to 200)
-				H.AdjustDrowsy(3)
-			if(170 to 200)
-				to_chat(H, "<span class='danger'>Слишком холодно, я сейчас усну...</span>")
-			if(0 to 170)
+	switch(H.bodytemperature)
+		if(200 to 260)
+			H.EyeBlurry(3)
+			if(prob(5))
+				to_chat(H, "<span class='danger'>Здесь холодно, голова раскалывается...</span>")
+		if(0 to 200)
+			H.AdjustDrowsy(3)
+			//"anabiosis. unathi falls asleep if body temp is too low" (с) captainnelly
+			//sorry Nelly, no anabiosis for ya without proper temperature regulation system
+			if(prob(5) && H.bodytemperature <= 170)
 				H.AdjustSleeping(2)
-	else
-		return
+				to_chat(H, "<span class='danger'>Слишком холодно, я засыпаю...</span>")
+		else
+			return

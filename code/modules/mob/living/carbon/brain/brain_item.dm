@@ -48,10 +48,20 @@
 
 /obj/item/organ/internal/brain/examine(mob/user) // -- TLE
 	. = ..()
-	if(brainmob && brainmob.client)//if thar be a brain inside... the brain.
-		. += "<span class='notice'>You can feel the small spark of life still left in this one.</span>"
-	else
-		. += "<span class='notice'>This one seems particularly lifeless. Perhaps it will regain some of its luster later...</span>"
+	if(brainmob && brainmob.client)//if there be a brain inside... the brain.
+		. += "You can feel a bright spark of life in this one!"
+		return
+	if(brainmob?.mind)
+		var/foundghost = FALSE
+		for(var/mob/dead/observer/G in GLOB.player_list)
+			if(G.mind == brainmob.mind)
+				foundghost = G.can_reenter_corpse
+				break
+		if(foundghost)
+			. += "You can feel the small spark of life still left in this one."
+			return
+
+	. += "This one seems particularly lifeless. Perhaps it will regain some of its luster later.."
 
 /obj/item/organ/internal/brain/remove(var/mob/living/user,special = 0)
 	if(dna)
@@ -94,6 +104,11 @@
 				target.key = brainmob.key
 	else
 		log_debug("Multibrain shenanigans at ([target.x],[target.y],[target.z]), mob '[target]'")
+
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		H.special_post_clone_handling()
+
 	..(target, special = special)
 
 /obj/item/organ/internal/brain/receive_damage(amount, silent = 0) //brains are special; if they receive damage by other means, we really just want the damage to be passed ot the owner and back onto the brain.
@@ -137,3 +152,4 @@
 	if(ishuman(target) && make_cluwne)
 		var/mob/living/carbon/human/H = target
 		H.makeCluwne() //No matter where you go, no matter what you do, you cannot escape
+

@@ -98,6 +98,7 @@
 	icon_state = "shield2"
 	density = FALSE
 	var/boing = FALSE
+	var/knockdown = FALSE
 	aSignal = /obj/item/assembly/signaler/anomaly/grav
 
 /obj/effect/anomaly/grav/anomalyEffect()
@@ -112,7 +113,7 @@
 		if(!M.mob_negates_gravity())
 			step_towards(M,src)
 	for(var/obj/O in range(0, src))
-		if(!O.anchored)
+		if(!O.anchored && O.loc != src && O.move_resist < MOVE_FORCE_OVERPOWERING) // so it cannot throw the anomaly core or super big things)
 			var/mob/living/target = locate() in view(4, src)
 			if(target && !target.stat)
 				O.throw_at(target, 5, 10)
@@ -124,12 +125,13 @@
 /obj/effect/anomaly/grav/Bump(atom/A)
 	gravShock(A)
 
-/obj/effect/anomaly/grav/Bumped(atom/movable/AM)
-	gravShock(AM)
+/obj/effect/anomaly/grav/Bumped(atom/movable/moving_atom)
+	gravShock(moving_atom)
 
 /obj/effect/anomaly/grav/proc/gravShock(mob/living/A)
 	if(boing && isliving(A) && !A.stat)
-		A.Weaken(2)
+		if(!knockdown) //no hurdstuns with megafauna
+			A.Weaken(2)
 		var/atom/target = get_edge_target_turf(A, get_dir(src, get_step_away(A, src)))
 		A.throw_at(target, 5, 1)
 		boing = FALSE
@@ -162,8 +164,8 @@
 /obj/effect/anomaly/flux/Bump(atom/A)
 	mobShock(A)
 
-/obj/effect/anomaly/flux/Bumped(atom/movable/AM)
-	mobShock(AM)
+/obj/effect/anomaly/flux/Bumped(atom/movable/moving_atom)
+	mobShock(moving_atom)
 
 /obj/effect/anomaly/flux/proc/mobShock(mob/living/M)
 	if(canshock && istype(M))
@@ -180,10 +182,15 @@
 
 /obj/effect/anomaly/bluespace
 	name = "bluespace anomaly"
-	icon = 'icons/obj/projectiles.dmi'
+	icon = 'icons/obj/weapons/projectiles.dmi'
 	icon_state = "bluespace"
 	density = TRUE
+	var/mass_teleporting = TRUE
 	aSignal = /obj/item/assembly/signaler/anomaly/bluespace
+
+/obj/effect/anomaly/bluespace/Initialize(mapload, new_lifespan, drops_core = TRUE, _mass_teleporting = TRUE)
+	. = ..()
+	mass_teleporting = _mass_teleporting
 
 /obj/effect/anomaly/bluespace/anomalyEffect()
 	..()
@@ -191,12 +198,14 @@
 		do_teleport(M, M, 4)
 		investigate_log("teleported [key_name_log(M)] to [COORD(M)]", INVESTIGATE_TELEPORTATION)
 
-/obj/effect/anomaly/bluespace/Bumped(atom/movable/AM)
-	if(isliving(AM))
-		do_teleport(AM, AM, 8)
-		investigate_log("teleported [key_name_log(AM)] to [COORD(AM)]", INVESTIGATE_TELEPORTATION)
+/obj/effect/anomaly/bluespace/Bumped(atom/movable/moving_atom)
+	if(isliving(moving_atom))
+		do_teleport(moving_atom, moving_atom, 8)
+		investigate_log("teleported [key_name_log(moving_atom)] to [COORD(moving_atom)]", INVESTIGATE_TELEPORTATION)
 
 /obj/effect/anomaly/bluespace/detonate()
+	if(!mass_teleporting)
+		return
 	var/turf/T = pick(get_area_turfs(impact_area))
 	if(T)
 		// Calculate new position (searches through beacons in world)
@@ -216,7 +225,7 @@
 			var/turf/turf_to = get_turf(chosen) // the turf of origin we're travelling TO
 
 			playsound(turf_to, 'sound/effects/phasein.ogg', 100, TRUE)
-			GLOB.event_announcement.Announce("Massive bluespace translocation detected.", "Anomaly Alert")
+			GLOB.event_announcement.Announce("Обнаружено перемещение крупной блюспейс-аномалии.", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.")
 
 			var/list/flashers = list()
 			for(var/mob/living/carbon/C in viewers(turf_to, null))
@@ -238,7 +247,7 @@
 				if(ismob(A) && !(A in flashers)) // don't flash if we're already doing an effect
 					var/mob/M = A
 					if(M.client)
-						INVOKE_ASYNC(src, .proc/blue_effect, M)
+						INVOKE_ASYNC(src, PROC_REF(blue_effect), M)
 
 /obj/effect/anomaly/bluespace/proc/blue_effect(mob/M)
 	var/obj/blueeffect = new /obj(src)
@@ -260,7 +269,12 @@
 	name = "pyroclastic anomaly"
 	icon_state = "mustard"
 	var/ticks = 0
+	var/produces_slime = TRUE
 	aSignal = /obj/item/assembly/signaler/anomaly/pyro
+
+/obj/effect/anomaly/pyro/Initialize(mapload, new_lifespan, drops_core = TRUE, _produces_slime = TRUE)
+	. = ..()
+	produces_slime = _produces_slime
 
 /obj/effect/anomaly/pyro/anomalyEffect()
 	..()
@@ -274,7 +288,8 @@
 		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 5)
 
 /obj/effect/anomaly/pyro/detonate()
-	INVOKE_ASYNC(src, .proc/makepyroslime)
+	if(produces_slime)
+		INVOKE_ASYNC(src, PROC_REF(makepyroslime))
 
 /obj/effect/anomaly/pyro/proc/makepyroslime()
 	var/turf/simulated/T = get_turf(src)

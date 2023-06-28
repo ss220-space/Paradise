@@ -144,17 +144,9 @@
 	storage_slots = 2
 	can_hold = list(/obj/item/assembly/mousetrap, /obj/item/paper)
 
-/obj/item/storage/firstaid/with_mousetrap/tactical/New()
-	..()
+/obj/item/storage/firstaid/with_mousetrap/tactical/populate_contents()
 	new /obj/item/assembly/mousetrap/armed(src)
 	new /obj/item/paper/taunt(src)
-
-/obj/item/storage/firstaid/with_mousetrap/tactical/AltClick(var/mob/user)
-	if (isliving(user))
-		return ..()
-
-/obj/item/storage/firstaid/with_mousetrap/tactical/attack_ghost(var/mob/user)
-	return
 
 /obj/item/paper/taunt
 	name = "Shrot note"
@@ -169,23 +161,15 @@
 	storage_slots = 2
 	can_hold = list(/obj/item/assembly/mousetrap, /obj/item/paper)
 
-/obj/item/storage/firstaid/with_mousetrap/syndie/New()
-	..()
+/obj/item/storage/firstaid/with_mousetrap/syndie/populate_contents()
 	new /obj/item/assembly/mousetrap/armed(src)
 	new /obj/item/paper/taunt(src)
-
-/obj/item/storage/firstaid/with_mousetrap/syndie/AltClick(var/mob/user)
-	if (isliving(user))
-		return ..()
-
-/obj/item/storage/firstaid/with_mousetrap/syndie/attack_ghost(var/mob/user)
-	return
 
 // Дисплей кейс с лодкой
 
 /obj/structure/displaycase/boat
 	desc = "A display case containing a bottle whith an ancient ship. Could it surf space?"
-	req_access_txt = "111"
+	req_access = list(ACCESS_CENT_BLACKOPS)
 	start_showpiece_type = /obj/item/ship_in_a_bottle
 
 //Сейф с рандомными документами
@@ -200,7 +184,7 @@
 /obj/machinery/broken/porta_turret
 	name = "Broken turret"
 	desc = "Seriously battered turret, gun mount torn out"
-	icon = 'icons/obj/turrets.dmi'
+	icon = 'icons/obj/machines/turrets.dmi'
 	icon_state = "destroyed_target_prism"
 
 /obj/machinery/broken/porta_turret/attackby(obj/item/I, mob/user)

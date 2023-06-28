@@ -66,7 +66,7 @@
 	whisper_action.Grant(src)
 	if(istype(loc, /obj/effect/dummy/slaughter))
 		bloodspell.phased = 1
-	addtimer(CALLBACK(src, .proc/attempt_objectives), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(attempt_objectives)), 5 SECONDS)
 
 
 /mob/living/simple_animal/slaughter/Life(seconds, times_fired)
@@ -258,7 +258,7 @@
 		user.visible_message("<span class='warning'>[user]'s eyes flare a deep crimson!</span>", \
 						 "<span class='userdanger'>You feel a strange power seep into your body... you have absorbed the demon's blood-travelling powers!</span>")
 		ADD_TRAIT(user, TRAIT_BLOODCRAWL, "bloodcrawl")
-		user.drop_item()
+		user.drop_from_active_hand()
 		insert(user) //Consuming the heart literally replaces your heart with a demon heart. H A R D C O R E.
 		return TRUE
 

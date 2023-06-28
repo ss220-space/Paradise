@@ -1,6 +1,7 @@
 /obj/item/robot_module
 	name = "Placeholder name"
 	var/name_disguise //used by examine
+	var/has_transform_animation = FALSE
 	icon = 'icons/obj/module.dmi'
 	icon_state = "std_mod"
 	w_class = 100
@@ -174,6 +175,7 @@
 		"Default" = "Standard",
 		"Noble-STD" = "Noble-STD"
 	)
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/standard/New()
 	..()
@@ -181,7 +183,7 @@
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/gps/cyborg(src)
 	// sec
-	modules += new /obj/item/restraints/handcuffs/cable/zipties/cyborg(src)
+	modules += new /obj/item/restraints/handcuffs/cable/zipties(src)
 	modules += new /obj/item/melee/classic_baton/telescopic(src) // for minimal possablity to execute sec part of the module and also for tests
 	// janitorial
 	modules += new /obj/item/soap/nanotrasen(src)
@@ -234,13 +236,14 @@
 		"Noble-MED" = "Noble-MED",
 		"Cricket" = "Cricket-MEDI"
 	)
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/medical/New()
 	..()
 	modules += new /obj/item/healthanalyzer/advanced(src)
 	modules += new /obj/item/robotanalyzer(src)
 	modules += new /obj/item/reagent_scanner/adv(src)
-	modules += new /obj/item/borg_defib(src)
+	modules += new /obj/item/twohanded/shockpaddles/borg(src)
 	modules += new /obj/item/handheld_defibrillator(src)
 	modules += new /obj/item/roller_holder(src)
 	modules += new /obj/item/reagent_containers/borghypo(src)
@@ -263,11 +266,12 @@
 	modules += new /obj/item/gripper/medical(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/gps/cyborg(src)
+	modules += new /obj/item/rlf(src)
 
 	emag = new /obj/item/reagent_containers/spray(src)
 
-	emag.reagents.add_reagent("facid", 250)
-	emag.name = "Polyacid spray"
+	emag.reagents.add_reagent("sacid", 250)
+	emag.name = "Sulfuric acid spray"
 
 	fix_modules()
 	handle_storages()
@@ -275,7 +279,7 @@
 /obj/item/robot_module/medical/respawn_consumable(mob/living/silicon/robot/R)
 	if(emag)
 		var/obj/item/reagent_containers/spray/PS = emag
-		PS.reagents.add_reagent("facid", 2)
+		PS.reagents.add_reagent("sacid", 2)
 	..()
 
 /obj/item/robot_module/engineering
@@ -295,6 +299,7 @@
 		"Noble-ENG" = "Noble-ENG",
 		"Cricket" = "Cricket-ENGI"
 	)
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/engineering/New()
 	..()
@@ -322,7 +327,7 @@
 	modules += new /obj/item/stack/rods/cyborg(src)
 	modules += new /obj/item/stack/tile/plasteel/cyborg(src)
 	modules += new /obj/item/gps/cyborg(src)
-	emag = new /obj/item/borg/stun(src)
+	emag = new /obj/item/gun/energy/emittercannon(src)
 
 	fix_modules()
 	handle_storages()
@@ -347,10 +352,11 @@
 		"Noble-SEC" = "Noble-SEC",
 		"Cricket" = "Cricket-SEC"
 	)
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/security/New()
 	..()
-	modules += new /obj/item/restraints/handcuffs/cable/zipties/cyborg(src)
+	modules += new /obj/item/restraints/handcuffs/cable/zipties(src)
 	modules += new /obj/item/melee/baton/loaded(src)
 	modules += new /obj/item/gun/energy/disabler/cyborg(src)
 	modules += new /obj/item/holosign_creator/security(src)
@@ -375,6 +381,7 @@
 		"Noble-CLN" = "Noble-CLN",
 		"Cricket" = "Cricket-JANI"
 	)
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/janitor/New()
 	..()
@@ -408,22 +415,24 @@
 		"Noble-SRV" = "Noble-SRV",
 		"Cricket" = "Cricket-SERV"
 	)
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/butler/New()
 	..()
 
 	modules += new /obj/item/handheld_chem_dispenser/booze(src)
 	modules += new /obj/item/handheld_chem_dispenser/soda(src)
-
 	modules += new /obj/item/pen(src)
 	modules += new /obj/item/razor(src)
 	modules += new /obj/item/instrument/piano_synth(src)
 	modules += new /obj/item/healthanalyzer/advanced(src)
 	modules += new /obj/item/reagent_scanner/adv(src)
+	modules += new /obj/item/gripper/service(src)
+	modules += new /obj/item/eftpos/cyborg(src)
+	modules += new /obj/item/camera/spooky(src)
 
-	var/obj/item/rsf/M = new /obj/item/rsf(src)
-	M.matter = 30
-	modules += M
+	modules += new /obj/item/rsf(src)
+	modules += new /obj/item/rsf/rff(src)
 
 	modules += new /obj/item/reagent_containers/dropper/cyborg(src)
 	modules += new /obj/item/lighter/zippo(src)
@@ -471,6 +480,9 @@
 	var/obj/item/storage/bag/tray/cyborg/T = locate(/obj/item/storage/bag/tray/cyborg) in modules
 	if(istype(T))
 		T.drop_inventory(R)
+	var/obj/item/gripper/service/G = locate() in modules
+	if(G)
+		G.drop_gripped_item(silent = TRUE)
 
 
 /obj/item/robot_module/miner
@@ -491,6 +503,7 @@
 		"Cricket" = "Cricket-MINE",
 		"Lavaland" = "lavaland"
 	)
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/miner/New()
 	..()
@@ -522,6 +535,9 @@
 	module_actions = list(
 		/datum/action/innate/robot_sight/thermal,
 	)
+	default_skin = "nano_bloodhound"
+	borg_skins = list("Deathsquad" = "nano_bloodhound")
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/deathsquad/New()
 	..()
@@ -538,6 +554,9 @@
 /obj/item/robot_module/syndicate
 	name = "Syndicate Bloodhound"
 	module_type = "Malf" // cuz it looks cool
+	default_skin = "syndie_bloodhound"
+	borg_skins = list("Syndicate Bloodhound" = "syndie_bloodhound")
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/syndicate/New()
 	..()
@@ -558,13 +577,16 @@
 /obj/item/robot_module/syndicate_medical
 	name = "Syndicate Medical"
 	module_type = "Malf"
+	default_skin = "syndi-medi"
+	borg_skins = list("Syndicate Medical" = "syndi-medi")
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/syndicate_medical/New()
 	..()
 	modules += new /obj/item/healthanalyzer/advanced(src)
 	modules += new /obj/item/reagent_scanner/adv(src)
 	modules += new /obj/item/bodyanalyzer/borg/syndicate(src)
-	modules += new /obj/item/borg_defib(src)
+	modules += new /obj/item/twohanded/shockpaddles/borg(src)
 	modules += new /obj/item/handheld_defibrillator(src)
 	modules += new /obj/item/roller_holder(src)
 	modules += new /obj/item/reagent_containers/borghypo/syndicate(src)
@@ -598,6 +620,9 @@
 	name = "Syndicate Saboteur"
 	name_disguise = "Engineering"
 	module_type = "Malf"
+	default_skin = "syndi-engi"
+	borg_skins = list("Syndicate Saboteur" = "syndi-engi")
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/syndicate_saboteur/New()
 	..()
@@ -646,7 +671,7 @@
 
 	modules += new /obj/item/gun/energy/immolator/multi/cyborg(src) // See comments on /robot_module/combat below
 	modules += new /obj/item/melee/baton/loaded(src) // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
-	modules += new /obj/item/restraints/handcuffs/cable/zipties/cyborg(src)
+	modules += new /obj/item/restraints/handcuffs/cable/zipties(src)
 	modules += new /obj/item/pickaxe/drill/jackhammer(src) // for breaking walls to execute flanking moves
 	modules += new /obj/item/borg/destroyer/mobility(src)
 	modules += new /obj/item/crowbar/cyborg(src)
@@ -663,6 +688,7 @@
 	module_actions = list()
 	default_skin = "ertgamma"
 	borg_skins = list("ERT-GAMMA" = "ertgamma")
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/combat/New()
 	..()
@@ -672,7 +698,7 @@
 	// Organic gamma sec ERT carries alternate weapons, including a box of flashbangs, and can load up on a huge number of guns from science. Borg cannot do either.
 	// Overall, gamma borg has higher skill floor but lower skill ceiling.
 	modules += new /obj/item/melee/baton/loaded(src) // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
-	modules += new /obj/item/restraints/handcuffs/cable/zipties/cyborg(src)
+	modules += new /obj/item/restraints/handcuffs/cable/zipties(src)
 	modules += new /obj/item/pickaxe/drill/jackhammer(src) // for breaking walls to execute flanking moves
 	modules += new /obj/item/extinguisher/mini(src)
 	modules += new /obj/item/crowbar/cyborg(src)
@@ -857,7 +883,7 @@
 	modules += new /obj/item/stack/sheet/rglass/cyborg(src)
 	modules += new /obj/item/stack/rods/cyborg(src)
 	// Наручники
-	modules += new /obj/item/restraints/handcuffs/cable/zipties/cyborg(src)
+	modules += new /obj/item/restraints/handcuffs/cable/zipties(src)
 	// Мед. инструменты
 	modules += new /obj/item/scalpel/laser/laser1(src)
 	modules += new /obj/item/hemostat(src)
@@ -869,7 +895,7 @@
 	modules += new /obj/item/surgicaldrill(src)
 	modules += new /obj/item/healthanalyzer/advanced(src)
 	modules += new /obj/item/bodyanalyzer/borg/syndicate(src)
-	modules += new /obj/item/borg_defib(src)
+	modules += new /obj/item/twohanded/shockpaddles/borg(src)
 	modules += new /obj/item/handheld_defibrillator(src)
 	modules += new /obj/item/roller_holder(src)
 	modules += new /obj/item/reagent_containers/borghypo/upgraded(src)
@@ -959,6 +985,6 @@
 	name = "Splints"
 
 /datum/robot_energy_storage/wood
-	max_energy = 40
+	max_energy = 160
 	recharge_rate = 2
 	name = "Wood Storage"

@@ -5,8 +5,10 @@
 	icon_state = "marker"
 
 	see_in_dark = 8
+	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	invisibility = INVISIBILITY_OBSERVER
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
 
 	pass_flags = PASSBLOB
 	faction = list(ROLE_BLOB)
@@ -86,7 +88,7 @@
 		return
 
 	var/verb = "states,"
-	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([blob_reagent_datum.name])</span> <span class='message'>[verb] \"[message]\"</span></span></i></font>"
+	var/rendered = "<font color=\"#008000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([blob_reagent_datum.name])</span> <span class='message'>[verb] \"[message]\"</span></span></i></font>"
 
 	for(var/mob/M in GLOB.mob_list)
 		if(isovermind(M) || isobserver(M) || istype((M), /mob/living/simple_animal/hostile/blob/blobbernaut))

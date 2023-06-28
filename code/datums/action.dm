@@ -3,6 +3,7 @@
 	var/desc = null
 	var/obj/target = null
 	var/check_flags = 0
+	var/invisibility = FALSE
 	var/obj/screen/movable/action_button/button = null
 	var/button_icon = 'icons/mob/actions/actions.dmi'
 	var/background_icon_state = "bg_default"
@@ -61,6 +62,19 @@
 
 /datum/action/proc/override_location() // Override to set coordinates manually
 	return
+
+/datum/action/proc/ToggleInvisibility()
+	if(!owner || !owner?.client)
+		return
+	if(invisibility)
+		invisibility = FALSE
+		owner.client.screen += button
+		owner.actions += src
+	else
+		invisibility = TRUE
+		owner.client.screen -= button
+		owner.actions -= src
+	owner.update_action_buttons()
 
 /datum/action/proc/IsAvailable()// returns 1 if all checks pass
 	if(!owner)
@@ -362,6 +376,9 @@
 /datum/action/item_action/YEEEAAAAAHHHHHHHHHHHHH
 	name = "YEAH!"
 
+/datum/action/item_action/laugh_track
+	name = "Laugh Track"
+
 /datum/action/item_action/adjust
 
 /datum/action/item_action/adjust/New(Target)
@@ -483,6 +500,24 @@
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "jetboot"
 
+/datum/action/item_action/bhop/clown
+	name = "Activate Honk Boots"
+	desc = "Activates the jump boot's internal honk system, allowing the user to flip over 6-wide gaps."
+	icon_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "clown"
+
+/datum/action/item_action/gravity_jump
+	name = "Gravity jump"
+	desc = "Directs a pulse of gravity in front of the user, pulling them forward rapidly."
+
+/datum/action/item_action/gravity_jump/Trigger(attack_self = FALSE)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	var/obj/item/clothing/shoes/magboots/gravity/G = target
+	G.dash(usr)
+
 ///prset for organ actions
 /datum/action/item_action/organ_action
 	check_flags = AB_CHECK_CONSCIOUS
@@ -544,6 +579,10 @@
 /datum/action/item_action/accessory/petcollar
 	name = "Remove ID"
 
+/datum/action/item_action/accessory/herald
+	name = "Mirror Walk"
+	desc = "Use near a mirror to enter it"
+
 //Preset for spells
 /datum/action/spell_action
 	check_flags = 0
@@ -590,9 +629,10 @@
 	if(!target)
 		return FALSE
 	var/obj/effect/proc_holder/spell/targeted/click/S = target
-	if(!istype(S))
+	if(istype(S) || S?.can_select)
+		return TRUE
+	else
 		return ..()
-	return TRUE
 
 /datum/action/spell_action/toggle_active_overlay()
 	var/obj/effect/proc_holder/spell/targeted/click/S = target
@@ -695,7 +735,6 @@
 
 // This item actions have their own charges/cooldown system like spell procholders, but without all the unnecessary magic stuff
 /datum/action/item_action/advanced
-	check_flags = 0
 	var/recharge_text_color = "#FFFFFF"
 	var/charge_type = ADV_ACTION_TYPE_RECHARGE //can be recharge, toggle, toggle_recharge or charges, see description in the defines file
 	var/charge_max = 100 //recharge time in deciseconds if charge_type = "recharge" or "toggle_recharge", alternatively counts as starting charges if charge_type = "charges"
@@ -710,11 +749,14 @@
 	var/coold_overlay_icon = 'icons/mob/screen_white.dmi'
 	var/coold_overlay_icon_state = "template"
 	var/no_count = FALSE  // This means that the action is charged but unavailable due to something else
+	var/wait_time = 2 SECONDS // Prevents spamming the button. Only for "charges" type actions
+	var/last_use_time = null
 
 /datum/action/item_action/advanced/New()
 	. = ..()
 	still_recharging_msg = "<span class='notice'>[name] is still recharging.</span>"
 	icon_state_disabled = background_icon_state
+	last_use_time = world.time
 	if(charge_type == ADV_ACTION_TYPE_CHARGES)
 		UpdateButtonIcon()
 		add_charges_overlay()
@@ -764,6 +806,7 @@
 			start_recharge()
 		if(ADV_ACTION_TYPE_CHARGES)
 			charge_counter--
+			last_use_time = world.time
 			UpdateButtonIcon()
 			add_charges_overlay()
 
@@ -773,7 +816,8 @@
  * ignore_ready - Are we ignoring the "action_ready" flag? Usefull when u call this check indirrectly.
  */
 /datum/action/item_action/advanced/IsAvailable(show_message = FALSE, ignore_ready = FALSE)
-	. = ..()
+	if(!..())
+		return FALSE
 	switch(charge_type)
 		if(ADV_ACTION_TYPE_RECHARGE)
 			if(charge_counter < charge_max)
@@ -788,6 +832,10 @@
 					to_chat(owner, still_recharging_msg)
 				return FALSE
 		if(ADV_ACTION_TYPE_CHARGES)
+			if(world.time < last_use_time + wait_time)
+				if(show_message)
+					to_chat(owner, "<span class='warning'>[name] is already being used.</span>")
+				return FALSE
 			if(!charge_counter)
 				if(show_message)
 					to_chat(owner, "<span class='notice'>[name] has no charges left.</span>")

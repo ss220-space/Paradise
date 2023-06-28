@@ -61,13 +61,16 @@
 
 /obj/machinery/kitchen_machine/attackby(obj/item/O, mob/user, params)
 	if(operating)
+		add_fingerprint(user)
 		return
 	if(!broken && dirty < 100)
 		if(default_deconstruction_screwdriver(user, open_icon, off_icon, O))
+			add_fingerprint(user)
 			return
 		if(exchange_parts(user, O))
 			return
 	if(!broken && istype(O, /obj/item/wrench))
+		add_fingerprint(user)
 		playsound(src, O.usesound, 50, 1)
 		if(anchored)
 			anchored = 0
@@ -78,17 +81,20 @@
 			to_chat(user, "<span class='alert'>\The [src] is now secured.</span>")
 			return
 
-	default_deconstruction_crowbar(user, O)
+	if(default_deconstruction_crowbar(user, O))
+		return
 
 	if(broken > 0)
 		if(broken == 2 && istype(O, /obj/item/screwdriver)) // If it's broken and they're using a screwdriver
 			user.visible_message("<span class='notice'>[user] starts to fix part of [src].</span>", "<span class='notice'>You start to fix part of [src].</span>")
 			if(do_after(user, 20 * O.toolspeed * gettoolspeedmod(user), target = src))
+				add_fingerprint(user)
 				user.visible_message("<span class='notice'>[user] fixes part of [src].</span>", "<span class='notice'>You have fixed part of \the [src].</span>")
 				broken = 1 // Fix it a bit
 		else if(broken == 1 && istype(O, /obj/item/wrench)) // If it's broken and they're doing the wrench
 			user.visible_message("<span class='notice'>[user] starts to fix part of [src].</span>", "<span class='notice'>You start to fix part of [src].</span>")
 			if(do_after(user, 20 * O.toolspeed * gettoolspeedmod(user), target = src))
+				add_fingerprint(user)
 				user.visible_message("<span class='notice'>[user] fixes [src].</span>", "<span class='notice'>You have fixed [src].</span>")
 				icon_state = off_icon
 				broken = 0 // Fix it!
@@ -101,6 +107,7 @@
 		if(istype(O, /obj/item/reagent_containers/spray/cleaner) || istype(O, /obj/item/soap)) // If they're trying to clean it then let them
 			user.visible_message("<span class='notice'>[user] starts to clean [src].</span>", "<span class='notice'>You start to clean [src].</span>")
 			if(do_after(user, 20 * O.toolspeed * gettoolspeedmod(user), target = src))
+				add_fingerprint(user)
 				user.visible_message("<span class='notice'>[user] has cleaned [src].</span>", "<span class='notice'>You have cleaned [src].</span>")
 				dirty = 0 // It's clean!
 				broken = 0 // just to be sure
@@ -113,10 +120,11 @@
 		if(contents.len>=max_n_of_items)
 			to_chat(user, "<span class='alert'>This [src] is full of ingredients, you cannot put more.</span>")
 			return 1
+		add_fingerprint(user)
 		if(istype(O,/obj/item/stack))
 			var/obj/item/stack/S = O
 			if(S.amount > 1)
-				var/obj/item/stack/to_add = S.split(user, 1)
+				var/obj/item/stack/to_add = S.split_stack(user, 1)
 				to_add.forceMove(src)
 				user.visible_message("<span class='notice'>[user] adds one of [S] to [src].</span>", "<span class='notice'>You add one of [S] to [src].</span>")
 			else
@@ -124,6 +132,7 @@
 		else
 			add_item(O, user)
 	else if(is_type_in_list(O, list(/obj/item/reagent_containers/glass, /obj/item/reagent_containers/food/drinks, /obj/item/reagent_containers/food/condiment)))
+		add_fingerprint(user)
 		if(!O.reagents)
 			return 1
 		for(var/datum/reagent/R in O.reagents.reagent_list)
@@ -139,7 +148,7 @@
 	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/add_item(obj/item/I, mob/user)
-	if(!user.drop_item())
+	if(!user.drop_transfer_item_to_loc(I, src))
 		to_chat(user, "<span class='notice'>\The [I] is stuck to your hand, you cannot put it in [src]</span>")
 		//return 0
 	else
@@ -150,12 +159,16 @@
 	return 0
 
 /obj/machinery/kitchen_machine/attack_hand(mob/user)
+	add_fingerprint(user)
 	user.set_machine(src)
 	interact(user)
 
 /obj/machinery/kitchen_machine/proc/special_attack(obj/item/grab/G, mob/user)
 	to_chat(user, "<span class='alert'>This is ridiculous. You can not fit [G.affecting] in this [src].</span>")
 	return 0
+
+/obj/machinery/kitchen_machine/on_deconstruction()
+	dropContents()
 
 /********************
 *   Machine Menu	*

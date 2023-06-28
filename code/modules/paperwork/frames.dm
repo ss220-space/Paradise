@@ -85,7 +85,7 @@
 		qdel(src)
 	else if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/poster))
 		if(!displayed)
-			user.unEquip(I)
+			user.drop_item_ground(I)
 			insert(I)
 			update_icon()
 		else
@@ -129,7 +129,7 @@
 			to_chat(user, "<span class='notice'>You cannot reach \the [T] from here!</span>")
 			return
 
-	user.unEquip(src)
+	user.drop_item_ground(src)
 	var/obj/structure/sign/picture_frame/PF = new(user.loc, src)
 	PF.dir = newdir
 	PF.pixel_x = px
@@ -216,6 +216,7 @@
 		if(do_after(user, 100 * I.toolspeed * gettoolspeedmod(user), target = src))
 			playsound(src, I.usesound, 100, 1)
 			user.visible_message("<span class='warning'>[user] unfastens \the [src] from the wall.</span>", "<span class='warning'>You unfasten \the [src] from the wall.</span>")
+			transfer_fingerprints_to(frame)
 			frame.forceMove(user.loc)
 			frame = null
 			if(explosive)
@@ -233,10 +234,10 @@
 		if(do_after(user, 150, target = src))
 			if(explosive || !tilted)
 				return
+			add_fingerprint(user)
 			playsound(src, 'sound/weapons/handcuffs.ogg', 50, 1)
-			user.unEquip(I)
+			user.drop_transfer_item_to_loc(I, src)
 			explosive = I
-			I.forceMove(src)
 			user.visible_message("<span class='notice'>[user] fiddles with the back of \the [src].</span>", "<span class='notice'>You secure \the [I] behind \the [src].</span>")
 
 			message_admins("[key_name_admin(user)] attached [I] to a picture frame.")

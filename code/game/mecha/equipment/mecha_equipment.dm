@@ -3,7 +3,7 @@
 
 /obj/item/mecha_parts/mecha_equipment
 	name = "mecha equipment"
-	icon = 'icons/mecha/mecha_equipment.dmi'
+	icon = 'icons/obj/mecha/mecha_equipment.dmi'
 	icon_state = "mecha_equip"
 	force = 5
 	origin_tech = "materials=2;engineering=2"
@@ -58,7 +58,11 @@
 	else
 		txt += "[name]"
 
+	txt += "[get_module_equip_info()]"
 	return txt
+
+/obj/item/mecha_parts/mecha_equipment/proc/get_module_equip_info()
+	return
 
 /obj/item/mecha_parts/mecha_equipment/proc/is_ranged()//add a distance restricted equipment. Why not?
 	return range & MECHA_RANGED
@@ -79,13 +83,31 @@
 		return 0
 	return 1
 
+/**
+ * Proc that checks if the target of the mecha is in front of it
+ *
+ * Arguments
+ * * target - target we want to check
+ */
+/obj/item/mecha_parts/mecha_equipment/proc/is_faced_target(atom/target)
+	if(!chassis || !target)
+		return FALSE
+	var/dir_to_target = get_dir(chassis, target)
+	return dir_to_target == chassis.dir || dir_to_target == get_clockwise_dir(chassis.dir) || dir_to_target == get_anticlockwise_dir(chassis.dir)
+
 /obj/item/mecha_parts/mecha_equipment/proc/action(atom/target)
 	return 0
 
 /obj/item/mecha_parts/mecha_equipment/proc/start_cooldown()
 	set_ready_state(0)
 	chassis.use_power(energy_drain)
-	addtimer(CALLBACK(src, .proc/set_ready_state, 1), equip_cooldown)
+
+	var/cooldown = equip_cooldown
+	var/obj/item/mecha_parts/mecha_equipment/weapon/W = src
+	if(istype(W))
+		cooldown += (W.projectiles_per_shot - 1) * W.projectile_delay
+
+	addtimer(CALLBACK(src, PROC_REF(set_ready_state), 1), cooldown)
 
 /obj/item/mecha_parts/mecha_equipment/proc/do_after_cooldown(atom/target)
 	if(!chassis)
@@ -93,7 +115,7 @@
 	var/C = chassis.loc
 	set_ready_state(0)
 	chassis.use_power(energy_drain)
-	. = do_after(chassis.occupant, equip_cooldown, needhand = FALSE, target = target)
+	. = do_after(chassis.occupant, equip_cooldown * gettoolspeedmod(chassis.occupant), needhand = FALSE, target = target)
 	set_ready_state(1)
 	if(!chassis || 	chassis.loc != C || src != chassis.selected || !(get_dir(chassis, target) & chassis.dir))
 		return FALSE
@@ -102,15 +124,18 @@
 	if(!chassis)
 		return
 	var/C = chassis.loc
-	. = do_after(chassis.occupant, delay, target = target)
+	. = do_after(chassis.occupant, delay * gettoolspeedmod(chassis.occupant), target = target)
 	if(!chassis || 	chassis.loc != C || src != chassis.selected || !(get_dir(chassis, target) & chassis.dir))
 		return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/proc/can_attach(obj/mecha/M)
 	if(istype(M))
-		if(M.equipment.len<M.max_equip)
-			return 1
-	return 0
+		if(length(M.equipment) < M.max_equip)
+			return TRUE
+	return FALSE
+
+/obj/item/mecha_parts/mecha_equipment/proc/can_detach()
+	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/proc/attach(obj/mecha/M)
 	M.equipment += src
@@ -120,8 +145,26 @@
 	if(!M.selected)
 		M.selected = src
 	update_chassis_page()
+	attach_act(M)
+	if(M.occupant)
+		give_targeted_action()
+
+/obj/item/mecha_parts/mecha_equipment/proc/attach_act(obj/mecha/M)
+	return
+
+/obj/item/mecha_parts/mecha_equipment/proc/give_targeted_action()
+	if(!selectable)
+		return
+	var/datum/action/innate/mecha/select_module/select_action = new
+	select_action.Grant(chassis.occupant, chassis, src)
+	chassis.select_actions[src] = select_action
 
 /obj/item/mecha_parts/mecha_equipment/proc/detach(atom/moveto = null)
+	if(!can_detach())
+		return
+	if(chassis.occupant)
+		remove_targeted_action()
+	detach_act()
 	moveto = moveto || get_turf(chassis)
 	if(Move(moveto))
 		chassis.equipment -= src
@@ -132,11 +175,19 @@
 		chassis = null
 		set_ready_state(1)
 
+/obj/item/mecha_parts/mecha_equipment/proc/detach_act()
+	return
+
+/obj/item/mecha_parts/mecha_equipment/proc/remove_targeted_action()
+	if(!selectable)
+		return
+	if(chassis.select_actions[src])
+		var/datum/action/innate/mecha/select_module/select_action = chassis.select_actions[src]
+		select_action.Remove(chassis.occupant)
 
 /obj/item/mecha_parts/mecha_equipment/Topic(href,href_list)
 	if(href_list["detach"])
 		detach()
-
 
 /obj/item/mecha_parts/mecha_equipment/proc/set_ready_state(state)
 	equip_ready = state
@@ -150,3 +201,6 @@
 /obj/item/mecha_parts/mecha_equipment/proc/log_message(message)
 	if(chassis)
 		chassis.log_message("<i>[src]:</i> [message]")
+
+/obj/item/mecha_parts/mecha_equipment/proc/self_occupant_attack()
+	return

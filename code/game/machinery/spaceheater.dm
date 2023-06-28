@@ -1,7 +1,7 @@
 /obj/machinery/space_heater
 	anchored = 0
 	density = 1
-	icon = 'icons/obj/atmos.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos.dmi'
 	icon_state = "sheater0"
 	name = "space heater"
 	desc = "Made by Space Amish using traditional space techniques, this heater is guaranteed not to set the station on fire."
@@ -59,10 +59,10 @@
 				// insert cell
 				var/obj/item/stock_parts/cell/C = user.get_active_hand()
 				if(istype(C))
-					if(user.drop_item())
+					if(user.drop_transfer_item_to_loc(C, src))
 						cell = C
-						C.forceMove(src)
 						C.add_fingerprint(user)
+						add_fingerprint(user)
 
 						user.visible_message("<span class='notice'>[user] inserts a power cell into [src].</span>", "<span class='notice'>You insert the power cell into [src].</span>")
 		else
@@ -136,7 +136,8 @@
 			if("cellremove")
 				if(open && cell && !usr.get_active_hand())
 					cell.update_icon()
-					usr.put_in_hands(cell)
+					cell.forceMove_turf()
+					usr.put_in_hands(cell, ignore_anim = FALSE)
 					cell.add_fingerprint(usr)
 					cell = null
 					usr.visible_message("<span class='notice'>[usr] removes the power cell from [src].</span>", "<span class='notice'>You remove the power cell from [src].</span>")
@@ -146,9 +147,8 @@
 				if(open && !cell)
 					var/obj/item/stock_parts/cell/C = usr.get_active_hand()
 					if(istype(C))
-						usr.drop_item()
+						usr.drop_transfer_item_to_loc(C, src)
 						cell = C
-						C.loc = src
 						C.add_fingerprint(usr)
 
 						usr.visible_message("<span class='notice'>[usr] inserts a power cell into [src].</span>", "<span class='notice'>You insert the power cell into [src].</span>")

@@ -198,6 +198,24 @@
 	else
 		..()
 
+/turf/simulated/wall/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	. = ..()
+	if(our_rcd.checkResource(5, user))
+		to_chat(user, "Deconstructing wall...")
+		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+		if(do_after(user, 40 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+			if(!our_rcd.useResource(5, user))
+				return RCD_ACT_FAILED
+			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
+			add_attack_logs(user, src, "Deconstructed wall with RCD")
+			src.ChangeTurf(our_rcd.floor_type)
+			return RCD_ACT_SUCCESSFULL
+		to_chat(user, span_warning("ERROR! Deconstruction interrupted!"))
+		return RCD_ACT_FAILED
+	to_chat(user, span_warning("ERROR! Not enough matter in unit to deconstruct this wall!"))
+	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+	return RCD_ACT_FAILED
+
 /turf/simulated/wall/mech_melee_attack(obj/mecha/M)
 	M.do_attack_animation(src)
 	switch(M.damtype)
@@ -276,6 +294,22 @@
 
 /turf/simulated/wall/attack_hand(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
+
+	if(isalien(user))
+		var/mob/living/carbon/alien/A = user
+		A.do_attack_animation(src)
+
+		if(A.environment_smash & ENVIRONMENT_SMASH_RWALLS)
+			dismantle_wall(1)
+			to_chat(A, "<span class='info'>You smash through the wall.</span>")
+			return
+		if(A.environment_smash & ENVIRONMENT_SMASH_WALLS)
+			to_chat(A, text("<span class='notice'>You smash against the wall.</span>"))
+			take_damage(A.obj_damage)
+			return
+
+		to_chat(A, "<span class='notice'>You push the wall but nothing happens!</span>")
+		return
 	if(rotting)
 		if(hardness <= 10)
 			to_chat(user, "<span class='notice'>This wall feels rather unstable.</span>")
@@ -430,7 +464,7 @@
 					"<span class='notice'>You finish drilling [src] and push [P] into the void.</span>",
 					"<span class='notice'>You hear a ratchet.</span>")
 
-				user.drop_item()
+				user.drop_from_active_hand()
 				if(P.is_bent_pipe())  // bent pipe rotation fix see construction.dm
 					P.setDir(5)
 					if(user.dir == 1)

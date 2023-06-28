@@ -38,6 +38,7 @@
 	if(dna)
 		dna.ready_dna(src)
 		dna.real_name = real_name
+		dna.tts_seed_dna = tts_seed
 		sync_organ_dna(1)
 
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
@@ -483,9 +484,9 @@
 /mob/living/carbon/human/get_visible_name(var/id_override = FALSE)
 	if(name_override)
 		return name_override
-	if(wear_mask && (wear_mask.flags_inv & HIDEFACE))	//Wearing a mask which hides our face, use id-name if possible
+	if(wear_mask && (wear_mask.flags_inv & HIDENAME))	//Wearing a mask which hides our face, use id-name if possible
 		return get_id_name("Unknown")
-	if(head && (head.flags_inv & HIDEFACE))
+	if(head && (head.flags_inv & HIDENAME))
 		return get_id_name("Unknown")		//Likewise for hats
 	var/face_name = get_face_name()
 	var/id_name = get_id_name("")
@@ -615,7 +616,7 @@
 				if(pocket_item.flags & NODROP)
 					to_chat(usr, "<span class='warning'>You try to empty [src]'s [pocket_side] pocket, it seems to be stuck!</span>")
 				to_chat(usr, "<span class='notice'>You try to empty [src]'s [pocket_side] pocket.</span>")
-			else if(place_item && place_item.mob_can_equip(src, pocket_id, 1) && !(place_item.flags&ABSTRACT))
+			else if(place_item && place_item.mob_can_equip(src, pocket_id, TRUE) && !(place_item.flags&ABSTRACT))
 				to_chat(usr, "<span class='notice'>You try to place [place_item] into [src]'s [pocket_side] pocket.</span>")
 				delay_denominator = 4
 			else
@@ -624,14 +625,14 @@
 			if(do_mob(usr, src, POCKET_STRIP_DELAY/delay_denominator)) //placing an item into the pocket is 4 times faster
 				if(pocket_item)
 					if(pocket_item == (pocket_id == slot_r_store ? r_store : l_store)) //item still in the pocket we search
-						unEquip(pocket_item)
+						drop_item_ground(pocket_item)
 						if(thief_mode)
 							usr.put_in_hands(pocket_item)
 						add_attack_logs(usr, src, "Stripped of [pocket_item]")
 				else
 					if(place_item)
-						usr.unEquip(place_item)
-						equip_to_slot_if_possible(place_item, pocket_id, FALSE, TRUE)
+						usr.drop_item_ground(place_item)
+						equip_to_slot_if_possible(place_item, pocket_id, disable_warning = TRUE)
 						add_attack_logs(usr, src, "Equipped with [place_item]")
 
 				// Update strip window
@@ -953,7 +954,7 @@
 			xylophone=0
 	return
 
-/mob/living/carbon/human/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE)
+/mob/living/carbon/human/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE, ignore_pierceimmune = FALSE)
 	. = TRUE
 
 	if(!target_zone)
@@ -963,7 +964,7 @@
 		else
 			target_zone = user.zone_selected
 
-	if(PIERCEIMMUNE in dna.species.species_traits)
+	if((PIERCEIMMUNE in dna.species.species_traits) && !ignore_pierceimmune)
 		. = FALSE
 
 	var/obj/item/organ/external/affecting = get_organ(target_zone)
@@ -1001,9 +1002,9 @@
 	if(head)
 		if(head.flags_inv & HIDEMASK)
 			obscured |= slot_wear_mask
-		if(head.flags_inv & HIDEEYES)
+		if(head.flags_inv & HIDEGLASSES)
 			obscured |= slot_glasses
-		if(head.flags_inv & HIDEEARS)
+		if(head.flags_inv & HIDEHEADSETS)
 			obscured |= slot_r_ear
 			obscured |= slot_l_ear
 
@@ -1021,7 +1022,7 @@
 
 /mob/living/carbon/human/proc/get_visible_gender()
 	var/list/obscured = check_obscured_slots()
-	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDEFACE)) || (head && (head.flags_inv & HIDEFACE))
+	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDENAME)) || (head && (head.flags_inv & HIDENAME))
 	if((slot_w_uniform in obscured) && skipface)
 		return PLURAL
 	return gender
@@ -1119,11 +1120,11 @@
 /mob/living/carbon/human/cuff_resist(obj/item/I)
 	if(HULK in mutations)
 		say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
-		if(..(I, cuff_break = 1))
-			unEquip(I)
+		if(..(I, cuff_break = TRUE))
+			drop_item_ground(I, force = TRUE)
 	else
 		if(..())
-			unEquip(I)
+			drop_item_ground(I, force = TRUE)
 
 /mob/living/carbon/human/resist_restraints()
 	if(wear_suit && wear_suit.breakouttime)
@@ -1558,7 +1559,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(current_size >= STAGE_THREE)
 		var/list/handlist = list(l_hand, r_hand)
 		for(var/obj/item/hand in handlist)
-			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)	&& unEquip(hand))
+			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)	&& drop_item_ground(hand))
 				step_towards(hand, src)
 				to_chat(src, "<span class='warning'>\The [S] pulls \the [hand] from your grip!</span>")
 	apply_effect(current_size * 3, IRRADIATE)
@@ -1860,6 +1861,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/special_post_clone_handling()
 	if(mind && mind.assigned_role == "Cluwne") //HUNKE your suffering never stops
 		makeCluwne()
+	if(mind && ("high_rp" in mind.curses)) // Probably need to make a new proc to handle curses in case if there will be new ones
+		curse_high_rp()
 
 /mob/living/carbon/human/proc/influenceSin()
 	var/datum/objective/sintouched/O
@@ -1897,9 +1900,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	return getBrainLoss() < 100
 
 
-/mob/living/carbon/human/fakefire(var/fire_icon = "Generic_mob_burning")
+/mob/living/carbon/human/fakefire()
 	if(!overlays_standing[FIRE_LAYER])
-		overlays_standing[FIRE_LAYER] = image("icon"=fire_dmi, "icon_state"=fire_icon)
+		overlays_standing[FIRE_LAYER] = image(FIRE_DMI, icon_state = "Generic_mob_burning")
 		update_icons()
 
 /mob/living/carbon/human/fakefireextinguish()
@@ -1924,8 +1927,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		O.toggle_biolum(TRUE)
 		visible_message("<span class='danger'>[src] is engulfed in shadows and fades into the darkness.</span>", "<span class='danger'>A sense of dread washes over you as you suddenly dim dark.</span>")
 
-/mob/living/carbon/human/proc/get_perceived_trauma()
-	return min(health, maxHealth - getStaminaLoss())
+/mob/living/carbon/human/proc/get_perceived_trauma(shock_reduction)
+	return min(health, maxHealth - getStaminaLoss()) + shock_reduction
 
 /mob/living/carbon/human/WakeUp(updating = TRUE)
 	if(dna.species.spec_WakeUp(src))
@@ -1939,12 +1942,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
   */
 /mob/living/carbon/human/get_runechat_color()
    return dna.species.get_species_runechat_color(src)
-
-/mob/living/carbon/human/update_runechat_msg_location()
-	if(ismecha(loc))
-		runechat_msg_location = loc
-	else
-		runechat_msg_location = src
 
 /mob/living/carbon/human/limb_attack_self()
 	var/obj/item/organ/external/arm = hand ? get_organ(BODY_ZONE_L_ARM) : get_organ(BODY_ZONE_R_ARM)

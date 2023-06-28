@@ -100,11 +100,14 @@
 	if(holding)
 		. += "<span class='notice'>\The [src] contains [holding]. Alt-click [src] to remove it.</span>"
 
+/obj/machinery/portable_atmospherics/return_analyzable_air()
+	return air_contents
+
 /obj/machinery/portable_atmospherics/proc/replace_tank(mob/living/user, close_valve, obj/item/tank/new_tank)
 	if(holding)
 		holding.forceMove(drop_location())
 		if(Adjacent(user) && !issilicon(user))
-			user.put_in_hands(holding)
+			user.put_in_hands(holding, ignore_anim = FALSE)
 	if(new_tank)
 		holding = new_tank
 	else
@@ -113,21 +116,17 @@
 	return TRUE
 
 /obj/machinery/portable_atmospherics/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/tank))
+	var/obj/item/tank/T = W
+	if(istype(T) && T.fillable)
 		if(!(stat & BROKEN))
-			if(!user.drop_item())
+			if(!user.drop_transfer_item_to_loc(T, src))
 				return
-			var/obj/item/tank/T = W
-			user.drop_item()
+			add_fingerprint(user)
 			if(src.holding)
 				to_chat(user, "<span class='notice'>[holding ? "In one smooth motion you pop [holding] out of [src]'s connector and replace it with [T]" : "You insert [T] into [src]"].</span>")
 				replace_tank(user, FALSE)
-			T.loc = src
 			src.holding = T
 			update_icon()
-		return
-	if((istype(W, /obj/item/analyzer)) && get_dist(user, src) <= 1)
-		atmosanalyzer_scan(air_contents, user)
 		return
 	return ..()
 

@@ -27,7 +27,8 @@
 		/obj/item/reagent_containers/food/snacks/grown/berries = "berryjuice",
 		/obj/item/reagent_containers/food/snacks/grown/pumpkin = "pumpkinjuice",
 		/obj/item/reagent_containers/food/snacks/grown/blumpkin = "blumpkinjuice",
-		/obj/item/reagent_containers/food/snacks/grown/pineapple = "pineapplejuice"
+		/obj/item/reagent_containers/food/snacks/grown/pineapple = "pineapplejuice",
+		/obj/item/reagent_containers/food/snacks/grown/peaslaugh = "laughsyrup"
 	)
 
 /obj/machinery/juicer/New()
@@ -45,10 +46,10 @@
 		if(beaker)
 			return 1
 		else
-			if(!user.unEquip(O))
+			if(!user.drop_transfer_item_to_loc(O, src))
 				to_chat(user, "<span class='notice'>\the [O] is stuck to your hand, you cannot put it in \the [src]</span>")
 				return 0
-			O.forceMove(src)
+			add_fingerprint(user)
 			beaker = O
 			verbs += /obj/machinery/juicer/verb/detach
 			update_icon()
@@ -57,10 +58,10 @@
 	if(!is_type_in_list(O, allowed_items))
 		to_chat(user, "It doesn't look like that contains any juice.")
 		return 1
-	if(!user.unEquip(O))
+	if(!user.drop_transfer_item_to_loc(O, src))
 		to_chat(user, "<span class='notice'>\the [O] is stuck to your hand, you cannot put it in \the [src]</span>")
 		return 0
-	O.forceMove(src)
+	add_fingerprint(user)
 	updateUsrDialog()
 	return 0
 
@@ -68,6 +69,7 @@
 	return 0
 
 /obj/machinery/juicer/attack_hand(mob/user)
+	add_fingerprint(user)
 	user.set_machine(src)
 	interact(user)
 

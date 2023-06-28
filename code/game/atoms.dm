@@ -23,6 +23,7 @@
 	var/simulated = TRUE //filter for actions - used by lighting overlays
 	var/atom_say_verb = "says"
 	var/bubble_icon = "default" ///what icon the mob uses for speechbubbles
+	var/bubble_emote_icon = "emote" ///what icon the mob uses for emotebubbles
 	var/dont_save = FALSE // For atoms that are temporary by necessity - like lighting overlays
 
 	///Chemistry.
@@ -67,7 +68,6 @@
 	var/list/ru_names
 	// Can it be drained of energy by ninja?
 	var/drain_act_protected = FALSE
-	var/list/description_holders = list("info" = null, "antag" = null, "fluff" = null)
 
 	var/tts_seed = "Arthas"
 
@@ -227,7 +227,7 @@
 			var/atom/movable/M = A
 			if(istype(M.loc, /mob/living))
 				var/mob/living/L = M.loc
-				L.unEquip(M)
+				L.drop_item_ground(M)
 			M.forceMove(src)
 
 /atom/proc/assume_air(datum/gas_mixture/giver)
@@ -243,13 +243,18 @@
 	else
 		return null
 
+///Return the air if we can analyze it
+/atom/proc/return_analyzable_air()
+	return null
+
 /atom/proc/check_eye(mob/user)
 	return
 
 /atom/proc/on_reagent_change()
 	return
 
-/atom/proc/Bumped(atom/movable/AM)
+/atom/proc/Bumped(atom/movable/moving_atom)
+	SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, moving_atom)
 	return
 
 /// Convenience proc to see if a container is open for chemistry handling
@@ -355,29 +360,34 @@
 			else
 				. += "<span class='danger'>It's empty.</span>"
 
+	//Detailed description
 	var/descriptions
-	description_holders["info"] = get_description_info()
-	description_holders["antag"] = (isAntag(user) || isobserver(user)) ? get_description_antag() : ""
-	description_holders["fluff"] = get_description_fluff()
-
-	if(description_holders["info"])
+	if(get_description_info())
 		descriptions += "<a href='?src=[UID()];description_info=`'>\[Справка\]</a> "
-	if(description_holders["antag"])
-		descriptions += "<a href='?src=[UID()];description_antag=`'>\[Антагонист\]</a> "
-	if(description_holders["fluff"])
+	if(get_description_antag())
+		if(isAntag(user) || isobserver(user))
+			descriptions += "<a href='?src=[UID()];description_antag=`'>\[Антагонист\]</a> "
+	if(get_description_fluff())
 		descriptions += "<a href='?src=[UID()];description_fluff=`'>\[Забавная информация\]</a>"
 
-	. += descriptions
+	if(descriptions)
+		. += descriptions
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
 /atom/Topic(href, href_list)
+	. = ..()
+	if(.)
+		return TRUE
 	if(href_list["description_info"])
-		to_chat(usr, "<div class='examine'><span class='info'>[description_holders["info"]]</span></div>")
+		to_chat(usr, "<div class='examine'><span class='info'>[get_description_info()]</span></div>")
+		return TRUE
 	if(href_list["description_antag"])
-		to_chat(usr, "<div class='examine'><span class='syndradio'>[description_holders["antag"]]</span></div>")
+		to_chat(usr, "<div class='examine'><span class='syndradio'>[get_description_antag()]</span></div>")
+		return TRUE
 	if(href_list["description_fluff"])
-		to_chat(usr, "<div class='examine'><span class='notice'>[description_holders["fluff"]]</span></div>")
+		to_chat(usr, "<div class='examine'><span class='notice'>[get_description_fluff()]</span></div>")
+		return TRUE
 
 /atom/proc/relaymove()
 	return
@@ -437,6 +447,9 @@
 /atom/proc/emag_act()
 	return
 
+/atom/proc/cmag_act()
+	return
+
 /atom/proc/fart_act(mob/living/M)
 	return FALSE
 
@@ -447,9 +460,21 @@
 	// Atoms that return TRUE prevent RPDs placing any kind of pipes on their turf.
 	return FALSE
 
+// Wrapper, called by an RCD
+/atom/proc/rcd_act(mob/user, obj/item/rcd/our_rcd, rcd_mode)
+	if(rcd_mode == RCD_MODE_DECON)
+		return rcd_deconstruct_act(user, our_rcd)
+	return rcd_construct_act(user, our_rcd, rcd_mode)
+
+/atom/proc/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	return RCD_NO_ACT
+
+/atom/proc/rcd_construct_act(mob/user, obj/item/rcd/our_rcd, rcd_mode)
+	return RCD_NO_ACT
+
 /atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
-		addtimer(CALLBACK(src, .proc/hitby_react, AM), 2)
+		addtimer(CALLBACK(src, PROC_REF(hitby_react), AM), 2)
 
 /atom/proc/hitby_react(atom/movable/AM)
 	if(AM && isturf(AM.loc))
@@ -596,6 +621,12 @@
 	if(fingerprintshidden)
 		A.fingerprintshidden |= fingerprintshidden.Copy()    //admin
 	A.fingerprintslast = fingerprintslast
+
+/**
+* Proc thats checks if mobs can leave fingerprints and fibers on the atom
+*/
+/atom/proc/has_prints()
+	return FALSE
 
 GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
@@ -788,13 +819,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(lip_style && !(head && head.flags_inv & HIDEMASK))
 		lip_style = null
 		update_body()
-	if(glasses && !(wear_mask && wear_mask.flags_inv & HIDEEYES))
+	if(glasses && !(wear_mask && wear_mask.flags_inv & HIDEGLASSES))
 		if(glasses.clean_blood())
 			update_inv_glasses()
-	if(l_ear && !(wear_mask && wear_mask.flags_inv & HIDEEARS))
+	if(l_ear && !(wear_mask && wear_mask.flags_inv & HIDEHEADSETS))
 		if(l_ear.clean_blood())
 			update_inv_ears()
-	if(r_ear && !(wear_mask && wear_mask.flags_inv & HIDEEARS))
+	if(r_ear && !(wear_mask && wear_mask.flags_inv & HIDEHEADSETS))
 		if(r_ear.clean_blood())
 			update_inv_ears()
 	if(belt)
@@ -913,15 +944,15 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(length(speech_bubble_hearers))
 		var/image/I = image('icons/mob/talk.dmi', src, "[bubble_icon][say_test(message)]", FLY_LAYER)
 		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-		INVOKE_ASYNC(GLOBAL_PROC, /.proc/flick_overlay, I, speech_bubble_hearers, 30)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, I, speech_bubble_hearers, 30)
 
-/atom/proc/select_voice(mob/user, silent_target = FALSE)
+/atom/proc/select_voice(mob/user, silent_target = FALSE, override = FALSE)
 	if(!ismob(src) && !user)
 		return null
 	var/tts_test_str = "Так звучит мой голос."
 
 	var/tts_seeds
-	if(user && check_rights(R_ADMIN, 0, user))
+	if(user && (check_rights(R_ADMIN, 0, user) || override))
 		tts_seeds = SStts.tts_seeds_names
 	else
 		tts_seeds = SStts.get_available_seeds(src)
@@ -935,11 +966,14 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, user, tts_test_str, new_tts_seed, FALSE)
 	return new_tts_seed
 
-/atom/proc/change_voice(mob/user)
+/atom/proc/change_voice(mob/user, override = FALSE)
 	set waitfor = FALSE
-	var/new_tts_seed = select_voice(user)
+	var/new_tts_seed = select_voice(user, override = override)
 	if(!new_tts_seed)
 		return null
+	return update_tts_seed(new_tts_seed)
+
+/atom/proc/update_tts_seed(new_tts_seed)
 	tts_seed = new_tts_seed
 	return new_tts_seed
 

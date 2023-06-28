@@ -30,6 +30,11 @@ if grep -P '/obj/merge_conflict_marker' _maps/**/*.dmm; then
 	echo
     st=1
 fi;
+# Check for non-515 compatable .proc/ syntax
+if grep -P --exclude='__byond_version_compat.dm' '(\.proc\/)|(CALLBACK\((?!GLOBAL_PROC)[^,\(\)]+,[^,\(\)]+proc[^,\(\)]+[,\)])|(INVOKE_ASYNC\((?!GLOBAL_PROC)[^,\(\)]+,[^,\(\)]+proc[^,\(\)]+[,\)])' code/**/*.dm; then
+    echo "ERROR: Outdated proc reference use detected in code, please use proc reference helpers."
+    st=1
+fi;
 # TODO: Uncomment in the future, when our maps are standardized
 # if grep -P '^\ttag = \"icon' _maps/**/*.dmm;	then
 #     echo -e "${RED}ERROR: Tag vars from icon state generation detected in maps, please remove them.${NC}"
@@ -98,6 +103,11 @@ if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/grille(?<type>[/\w]*),\n[^)]*?/ob
 fi;
 if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/girder(?<type>[/\w]*),\n[^)]*?/obj/structure/girder\g{type},\n[^)]*?/area/.+\)' _maps/**/*.dmm;	then
     echo -e "${RED}ERROR: Found multiple identical girders on the same tile, please remove them.${NC}"
+	echo
+    st=1
+fi;
+if grep -Pzo '"\w+" = \([^)]*?(/[^{]+\{[^}]*?(((\n\s*(?<var>\w+)\s*=.*);[^}]*?\n\s*(\g{var})\s*=.*)+)[^}]*?\})+[^)]*?/area/.+\)' _maps/**/*.dmm;	then
+    echo -e "${RED}ERROR: Found multiple set of same atom variable, please remove them.${NC}"
 	echo
     st=1
 fi;

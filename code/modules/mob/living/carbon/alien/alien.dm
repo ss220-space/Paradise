@@ -1,3 +1,6 @@
+#define ALIEN_BURN_MOD 1.25
+#define ALIEN_BRUTE_MOD 0.75
+
 /mob/living/carbon/alien
 	name = "alien"
 	voice_name = "alien"
@@ -19,9 +22,18 @@
 	status_flags = CANPARALYSE|CANPUSH
 	var/heal_rate = 5
 
+	var/attack_damage = 20
+	var/armour_penetration = 20
+	var/disarm_stamina_damage = 20
+	var/obj_damage = 60
+	var/devour_time = 3 SECONDS
+	var/environment_smash = ENVIRONMENT_SMASH_STRUCTURES
+	var/time_to_open_doors = 5 SECONDS
+
 	var/large = FALSE
 	var/heat_protection = 0.5
 	var/leaping = FALSE
+	var/dirslash_enabled = TRUE
 	ventcrawler = 2
 	var/list/alien_organs = list()
 	var/death_message = "lets out a waning guttural screech, green blood bubbling from its maw..."
@@ -69,14 +81,20 @@
 	return verb
 
 
-/mob/living/carbon/alien/adjustToxLoss(amount)
+/mob/living/carbon/alien/adjustToxLoss(amount, updating_health)
 	return STATUS_UPDATE_NONE
 
-/mob/living/carbon/alien/adjustFireLoss(amount) // Weak to Fire
+/mob/living/carbon/alien/adjustFireLoss(amount, updating_health) // Weak to Fire
 	if(amount > 0)
-		return ..(amount * 2)
+		return ..(amount * ALIEN_BURN_MOD)
 	else
 		return ..(amount)
+
+/mob/living/carbon/alien/adjustBruteLoss(amount, updating_health = TRUE)
+	if(amount > 0)
+		return ..(amount * ALIEN_BRUTE_MOD, updating_health)
+	else
+		return ..(amount, updating_health)
 
 
 /mob/living/carbon/alien/check_eye_prot()
@@ -120,6 +138,7 @@
 					apply_damage(HEAT_DAMAGE_LEVEL_2, BURN)
 	else
 		clear_alert("alien_fire")
+
 
 /mob/living/carbon/alien/IsAdvancedToolUser()
 	return has_fine_manipulation
@@ -276,3 +295,6 @@ Des: Removes all infected images from the alien.
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
+
+#undef ALIEN_BURN_MOD
+#undef ALIEN_BRUTE_MOD

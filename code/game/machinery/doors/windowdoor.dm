@@ -56,6 +56,8 @@
 	. = ..()
 	if(emagged)
 		. += "<span class='warning'>Its access panel is smoking slightly.</span>"
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		. += "<span class='warning'>The access panel is coated in yellow ooze...</span>"
 
 /obj/machinery/door/window/emp_act(severity)
 	. = ..()
@@ -70,20 +72,27 @@
 		sleep(20)
 	close()
 
-/obj/machinery/door/window/Bumped(atom/movable/AM)
+/obj/machinery/door/window/Bumped(atom/movable/moving_atom)
+	SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, moving_atom)
 	if(operating || !density)
 		return
-	if(!ismob(AM))
-		if(ismecha(AM))
-			var/obj/mecha/mecha = AM
+	if(!ismob(moving_atom))
+		if(ismecha(moving_atom))
+			var/obj/mecha/mecha = moving_atom
 			if(mecha.occupant && allowed(mecha.occupant))
+				if(HAS_TRAIT(src, TRAIT_CMAGGED))
+					cmag_switch(FALSE)
+					return
 				open_and_close()
 			else
+				if(HAS_TRAIT(src, TRAIT_CMAGGED))
+					cmag_switch(TRUE)
+					return
 				do_animate("deny")
 		return
 	if(!SSticker)
 		return
-	var/mob/living/M = AM
+	var/mob/living/M = moving_atom
 	if(!M.restrained() && M.mob_size > MOB_SIZE_TINY && (!(isrobot(M) && M.stat)))
 		bumpopen(M)
 
@@ -92,8 +101,14 @@
 		return
 	add_fingerprint(user)
 	if(!requiresID() || allowed(user))
+		if(HAS_TRAIT(src, TRAIT_CMAGGED))
+			cmag_switch(FALSE, user)
+			return
 		open_and_close()
 	else
+		if(HAS_TRAIT(src, TRAIT_CMAGGED))
+			cmag_switch(TRUE, user)
+			return
 		do_animate("deny")
 
 /obj/machinery/door/window/CanPass(atom/movable/mover, turf/target, height=0)
@@ -217,6 +232,11 @@
 		return attack_hand(user)
 
 /obj/machinery/door/window/attack_hand(mob/user)
+	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+		add_fingerprint(user)
+		user.changeNext_move(CLICK_CD_MELEE)
+		attack_generic(user, user.dna.species.obj_damage)
+		return
 	return try_to_activate_door(user)
 
 /obj/machinery/door/window/emag_act(mob/user, obj/weapon)
@@ -230,6 +250,17 @@
 		operating = FALSE
 		open(2)
 		return 1
+
+/obj/machinery/door/window/cmag_act(mob/user, obj/weapon)
+	if(operating || !density || HAS_TRAIT(src, TRAIT_CMAGGED) || emagged)
+		return
+	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+	operating = TRUE
+	flick("[base_state]spark", src)
+	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	sleep(6)
+	operating = FALSE
+	return TRUE
 
 /obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
 	//If it's in the process of opening/closing, ignore the click
@@ -296,11 +327,8 @@
 					ae = new/obj/item/airlock_electronics(loc)
 					if(!req_access)
 						check_access()
-					if(req_access.len)
-						ae.selected_accesses = req_access
-					else if(req_one_access.len)
-						ae.selected_accesses = req_one_access
-						ae.one_access = 1
+					ae.selected_accesses = req_access
+					ae.one_access = check_one_access
 				else
 					ae = electronics
 					electronics = null
@@ -378,7 +406,7 @@
 	take_damage(rand(30, 60), BRUTE)
 	if(src)
 		var/previouscolor = color
-		color = "#960000"
+		color = COLOR_CULT_RED
 		animate(src, color = previouscolor, time = 8)
 
 /obj/machinery/door/window/northleft

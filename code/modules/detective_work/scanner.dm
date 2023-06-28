@@ -70,15 +70,16 @@
 		scanning = TRUE
 		to_chat(usr, "<span class='notice'>Printing report, please wait...</span>")
 		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
-
-		addtimer(CALLBACK(src, .proc/make_paper, log), 10 SECONDS) // Create our paper
+		flick("Detective_anim", src)
+		sleep(3 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(make_paper), log), 10 SECONDS) // Create our paper
 		log = list() // Clear the logs
 		scanning = FALSE
 	else
 		to_chat(usr, "<span class='warning'>The scanner has no logs or is in use.</span>")
 
 /obj/item/detective_scanner/proc/make_paper(log) // Moved to a proc because 'spawn()' is evil
-	var/obj/item/paper/P = new(get_turf(src))
+	var/obj/item/paper/P = new(drop_location())
 	P.name = "paper- 'Scanner Report'"
 	P.info = "<center><font size='6'><B>Scanner Report</B></font></center><HR><BR>"
 	P.info += jointext(log, "<BR>")
@@ -87,7 +88,7 @@
 
 	if(ismob(loc))
 		var/mob/M = loc
-		M.put_in_hands(P)
+		M.put_in_hands(P, ignore_anim = FALSE)
 		to_chat(M, "<span class='notice'>Report printed. Log cleared.</span>")
 
 
@@ -95,7 +96,7 @@
 	if(length(log) && !scanning)
 		log = list()
 		playsound(loc, 'sound/machines/ding.ogg', 40)
-		addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, usr, "<span class='notice'>Scanner logs cleared.</span>"), 1.5 SECONDS) //Timer so that it clears on the 'ding'
+		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, usr, "<span class='notice'>Scanner logs cleared.</span>"), 1.5 SECONDS) //Timer so that it clears on the 'ding'
 	else
 		to_chat(usr, "<span class='warning'>The scanner has no logs or is in use.</span>")
 

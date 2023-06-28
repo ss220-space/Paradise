@@ -36,12 +36,12 @@
 /obj/structure/grille/fence/east_west
 	//width=80
 	//height=42
-	icon='icons/fence-ew.dmi'
+	icon='icons/obj/fence-ew.dmi'
 
 /obj/structure/grille/fence/north_south
 	//width=80
 	//height=42
-	icon='icons/fence-ns.dmi'
+	icon='icons/obj/fence-ns.dmi'
 
 /obj/structure/grille/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
@@ -61,11 +61,48 @@
 		new /obj/structure/grille/ratvar(loc)
 	qdel(src)
 
-/obj/structure/grille/Bumped(atom/user)
-	if(ismob(user))
+/obj/structure/grille/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	. = ..()
+	if(!our_rcd.checkResource(2, user))
+		to_chat(user, span_warning("ERROR! Not enough matter in unit to deconstruct this window!"))
+		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+		return RCD_ACT_FAILED
+	to_chat(user, "Deconstructing window...")
+	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+	if(!do_after(user, 20 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+		to_chat(user, span_warning("ERROR! Deconstruction interrupted!"))
+		return RCD_ACT_FAILED
+	if(!our_rcd.useResource(2, user))
+		return RCD_ACT_FAILED
+	playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
+	var/turf/T1 = get_turf(src)
+	add_attack_logs(user, src, "Deconstructed window with RCD")
+	for(var/obj/structure/window/del_window in T1.contents)
+		qdel(del_window)
+	for(var/cdir in GLOB.cardinal)
+		var/turf/T2 = get_step(T1, cdir)
+		var/is_fulltile = our_rcd.fulltile_window
+		if(!(locate(/obj/structure/grille) in T2))
+			continue
+		for(var/obj/structure/window/check_window in T2)
+			if(check_window.fulltile)
+				is_fulltile = TRUE // Fulltile windows? Nah. We don't need extra windows there.
+				continue
+			if(check_window.dir == turn(cdir, 180))
+				qdel(check_window)
+		if(!is_fulltile)
+			var/obj/structure/window/new_window = new our_rcd.window_type(T2)
+			new_window.dir = turn(cdir, 180)
+	QDEL_IN(src, 0.2)
+	return RCD_ACT_SUCCESSFULL
+
+/obj/structure/grille/Bumped(atom/movable/moving_atom)
+	..()
+
+	if(ismob(moving_atom))
 		if(!(shockcooldown <= world.time))
 			return
-		shock(user, 70)
+		shock(moving_atom, 70)
 		shockcooldown = world.time + my_shockcooldown
 
 /obj/structure/grille/attack_animal(mob/user)
@@ -78,17 +115,20 @@
 	if(.)
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
+	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+		user.changeNext_move(CLICK_CD_MELEE)
+		attack_generic(user, user.dna.species.obj_damage)
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
 	user.visible_message("<span class='warning'>[user] hits [src].</span>")
 	if(!shock(user, 70))
 		take_damage(rand(5,10), BRUTE, "melee", 1)
 
-/obj/structure/grille/attack_alien(mob/living/user)
+/obj/structure/grille/attack_alien(mob/living/carbon/alien/user)
 	user.do_attack_animation(src)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.visible_message("<span class='warning'>[user] mangles [src].</span>")
 	if(!shock(user, 70))
-		take_damage(20, BRUTE, "melee", 1)
+		take_damage(user.obj_damage, BRUTE, "melee", 1)
 
 /obj/structure/grille/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0)
@@ -109,7 +149,6 @@
 
 /obj/structure/grille/attackby(obj/item/W, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
-	add_fingerprint(user)
 	if(istype(W, /obj/item/stack/rods) && broken)
 		var/obj/item/stack/rods/R = W
 		if(!shock(user, 90))
@@ -122,6 +161,7 @@
 
 //window placing begin
 	else if(is_glass_sheet(W))
+		add_fingerprint(user)
 		build_window(W, user)
 		return
 //window placing end
@@ -293,7 +333,7 @@
 	take_damage(rand(1, 3), BRUTE)
 	if(src)
 		var/previouscolor = color
-		color = "#960000"
+		color = COLOR_CULT_RED
 		animate(src, color = previouscolor, time = 8)
 
 /obj/structure/grille/ratvar/ratvar_act()

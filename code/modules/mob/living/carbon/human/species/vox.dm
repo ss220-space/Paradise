@@ -17,7 +17,7 @@
 	smell.<br/><br/>Most humans will never meet a Vox raider, instead learning of this insular species through \
 	dealing with their traders and merchants; those that do rarely enjoy the experience."
 
-	brute_mod = 1.2 //20% more brute damage. Fragile bird bones.
+	bonefragility = 1.2 //20% more chance to break bones. Fragile bird bones.
 
 	breathid = "n2"
 
@@ -89,8 +89,9 @@
 
 	speciesbox = /obj/item/storage/box/survival_vox
 
-	disliked_food = GROSS | DAIRY | FRIED
-	liked_food = GRAIN | MEAT | FRUIT
+	toxic_food = NONE
+	disliked_food = NONE //According to lore voxes does not care about food. Food is food.
+	liked_food = NONE
 
 /datum/species/vox/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
@@ -109,7 +110,7 @@
 
 /datum/species/vox/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	if(!H.mind || !H.mind.assigned_role || H.mind.assigned_role != "Clown" && H.mind.assigned_role != "Mime")
-		H.unEquip(H.wear_mask)
+		H.drop_item_ground(H.wear_mask)
 
 	H.equip_or_collect(new /obj/item/clothing/mask/breath/vox(H), slot_wear_mask)
 	var/tank_pref = H.client && H.client.prefs ? H.client.prefs.speciesprefs : null
@@ -118,9 +119,9 @@
 		internal_tank = new /obj/item/tank/internals/nitrogen(H)
 	else
 		internal_tank = new /obj/item/tank/internals/emergency_oxygen/double/vox(H)
-	if(!H.equip_to_appropriate_slot(internal_tank))
+	if(!internal_tank.equip_to_best_slot(H))
 		if(!H.put_in_any_hand_if_possible(internal_tank))
-			H.unEquip(H.l_hand)
+			H.drop_item_ground(H.l_hand)
 			H.equip_or_collect(internal_tank, slot_l_hand)
 			to_chat(H, "<span class='boldannounce'>Could not find an empty slot for internals! Please report this as a bug</span>")
 	H.internal = internal_tank

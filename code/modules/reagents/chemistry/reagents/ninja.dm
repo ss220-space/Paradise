@@ -34,7 +34,7 @@
 	if(prob(5) && !rend)
 		rend = new(get_turf(our_mob))
 		rend.GetOccupant(our_mob)
-		addtimer(CALLBACK(src, .proc/clearRend), rend.duration)
+		addtimer(CALLBACK(src, PROC_REF(clearRend)), rend.duration)
 	if(prob(25))
 		last_random_turf = get_turf(our_mob)
 	//We don't tolerate ANY other reagent.
@@ -98,7 +98,7 @@
 				var/obj/item/organ/internal/ears/our_ears = mob_human.get_int_organ(/obj/item/organ/internal/ears)
 				if(istype(our_ears))
 					our_ears.AdjustEarDamage(-5)
-					if(our_ears.ear_damage < 25 && prob(30))
+					if(our_ears.damage < 25 && prob(30))
 						our_ears.deaf = 0
 				//ALL viruses
 				for(var/thing in mob_human.viruses)

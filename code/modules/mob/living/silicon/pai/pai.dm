@@ -1,6 +1,6 @@
 /mob/living/silicon/pai
 	name = "pAI"
-	icon = 'icons/mob/pai.dmi'//
+	icon = 'icons/mob/pai.dmi'
 	icon_state = "repairbot"
 
 	robot_talk_understand = 0
@@ -14,9 +14,10 @@
 	var/userDNA		// The DNA string of our assigned user
 	var/obj/item/paicard/card	// The card we inhabit
 	var/obj/item/radio/radio		// Our primary radio
+	var/sight_mode = 0
 
 	var/chassis = "repairbot"   // A record of your chosen chassis.
-	var/global/list/possible_chassis = list(
+	var/global/list/base_possible_chassis = list(
 		"Drone" = "repairbot",
 		"Cat" = "cat",
 		"Mouse" = "mouse",
@@ -27,8 +28,12 @@
 		"Box Bot" = "boxbot",
 		"Spider Bot" = "spiderbot",
 		"Fairy" = "fairy",
-		"Espeon" = "pAIkemon_Espeon"
+		"Espeon" = "pAIkemon_Espeon",
+		"Mushroom" = "mushroom",
+		"Crow" = "crow"
 		)
+
+	var/global/list/special_possible_chassis = list("Snake" = "snake")
 
 	var/global/list/possible_say_verbs = list(
 		"Robotic" = list("states","declares","queries"),
@@ -56,6 +61,7 @@
 
 	var/obj/item/pda/silicon/pai/pda = null
 
+	var/adv_secHUD = 0		// Toggles whether the Advanced Security HUD is active or not
 	var/secHUD = 0			// Toggles whether the Security HUD is active or not
 	var/medHUD = 0			// Toggles whether the Medical  HUD is active or not
 
@@ -67,6 +73,13 @@
 
 	var/obj/item/integrated_radio/signal/sradio // AI's signaller
 
+	var/ai_capability = FALSE //AI's interaction capabilities
+	var/ai_capability_cooldown = 10 SECONDS
+	var/capa_is_cooldown = FALSE
+
+	var/obj/machinery/computer/security/camera_bug/integrated_console //Syndicate's pai camera bug
+	var/obj/machinery/computer/secure_data/integrated_records
+
 	var/translator_on = 0 // keeps track of the translator module
 	var/flashlight_on = FALSE //keeps track of the flashlight module
 
@@ -74,7 +87,13 @@
 	var/custom_sprite = 0
 	var/slowdown = 0
 
-/mob/living/silicon/pai/New(var/obj/item/paicard)
+	/// max chemicals and cooldown recovery for chemicals module
+	var/chemicals = 20
+	var/last_change_chemicals = 0
+
+	var/syndipai = FALSE
+
+/mob/living/silicon/pai/New(obj/item/paicard/paicard)
 	loc = paicard
 	card = paicard
 	if(card)
@@ -97,6 +116,9 @@
 	verbs += /mob/living/silicon/pai/proc/choose_verbs
 	verbs += /mob/living/silicon/pai/proc/pai_change_voice
 
+	var/datum/action/innate/pai_soft/P = new
+	P.Grant(src)
+
 	//PDA
 	pda = new(src)
 	pda.ownjob = "Personal Assistant"
@@ -105,6 +127,20 @@
 	var/datum/data/pda/app/messenger/M = pda.find_program(/datum/data/pda/app/messenger)
 	M.toff = TRUE
 
+	integrated_console = new(src)
+	integrated_console.parent = src
+	integrated_console.network = list("SS13")
+
+	integrated_records = new(src)
+	integrated_records.parent = src
+	integrated_records.req_access = list()
+
+	reset_software()
+	..()
+
+/mob/living/silicon/pai/proc/reset_software()
+	QDEL_LIST(installed_software)
+
 	// Software modules. No these var names have nothing to do with photoshop
 	for(var/PS in subtypesof(/datum/pai_software))
 		var/datum/pai_software/PSD = new PS(src)
@@ -112,7 +148,7 @@
 			installed_software[PSD.id] = PSD
 
 	active_software = installed_software["mainmenu"] // Default us to the main menu
-	..()
+	ram = initial(ram)
 
 /mob/living/silicon/pai/can_unbuckle()
 	return FALSE
@@ -251,7 +287,7 @@
 /mob/living/silicon/pai/proc/force_fold_out()
 	if(istype(card.loc, /mob))
 		var/mob/holder = card.loc
-		holder.unEquip(card)
+		holder.drop_item_ground(card)
 	else if(istype(card.loc, /obj/item/pda))
 		var/obj/item/pda/holder = card.loc
 		holder.pai = null
@@ -304,7 +340,9 @@
 				custom_sprite = 1
 				my_choices["Custom"] = "[ckey]-pai"
 
-	my_choices = possible_chassis.Copy()
+	my_choices = base_possible_chassis.Copy()
+	if(syndipai)
+		my_choices += special_possible_chassis.Copy()
 	if(custom_sprite)
 		my_choices["Custom"] = "[ckey]-pai"
 
@@ -359,6 +397,40 @@
 	update_icons()
 	update_canmove()
 
+/mob/living/silicon/pai/update_sight()
+	if(!client)
+		return
+
+	if(stat == DEAD)
+		grant_death_vision()
+		return
+
+	see_invisible = initial(see_invisible)
+	see_in_dark = initial(see_in_dark)
+	sight = initial(sight)
+	lighting_alpha = initial(lighting_alpha)
+
+	if(client.eye != src)
+		var/atom/A = client.eye
+		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
+			return
+
+	if(sight_mode & SILICONMESON)
+		sight |= SEE_TURFS
+		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+
+	if(sight_mode & SILICONTHERM)
+		sight |= SEE_MOBS
+		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+
+	if(sight_mode & SILICONNIGHTVISION)
+		see_in_dark = 8
+		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
+	sync_lighting_plane_alpha()
+
+
 //Overriding this will stop a number of headaches down the track.
 /mob/living/silicon/pai/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/stack/nanopaste))
@@ -372,8 +444,12 @@
 				"<span class='notice'>You apply some [W] at [name]'s damaged areas.</span>")
 		else
 			to_chat(user, "<span class='notice'>All [name]'s systems are nominal.</span>")
-
 		return
+
+	else if(istype(W, /obj/item/paicard_upgrade))
+		to_chat(user, "<span class='warning'>[src] must be in card form.</span>")
+		return
+
 	else if(W.force)
 		visible_message("<span class='danger'>[user.name] attacks [src] with [W]!</span>")
 		adjustBruteLoss(W.force)
@@ -416,7 +492,7 @@
 	if(istype(H))
 		var/mob/living/M = H.loc
 		if(istype(M))
-			M.unEquip(H)
+			M.drop_item_ground(H)
 		H.loc = get_turf(src)
 		loc = get_turf(H)
 
@@ -431,8 +507,8 @@
 /mob/living/silicon/pai/Bump()
 	return
 
-/mob/living/silicon/pai/Bumped()
-	return
+/mob/living/silicon/pai/Bumped(atom/movable/moving_atom)
+	return ..()
 
 /mob/living/silicon/pai/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	return FALSE
@@ -537,9 +613,13 @@
 	set_light(0)
 	card.set_light(0)
 
+/datum/action/innate/pai_soft
+	name = "Pai Sowtware"
+	desc = "Activation of your internal application interface."
+	icon_icon = 'icons/obj/aicards.dmi'
+	button_icon_state = "pai-action"
+	check_flags = AB_CHECK_CONSCIOUS
 
-/mob/living/silicon/pai/update_runechat_msg_location()
-	if(istype(loc, /obj/item/paicard))
-		runechat_msg_location = loc
-	else
-		runechat_msg_location = src
+/datum/action/innate/pai_soft/Activate()
+	var/mob/living/silicon/pai/P = owner
+	P.ui_interact(P)

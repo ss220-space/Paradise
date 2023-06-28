@@ -5,7 +5,7 @@
 	var/obj/effect/tear/TE
 
 /datum/event/tear/announce()
-	GLOB.event_announcement.Announce("На борту станции зафиксирован пространственно-временной разрыв. Предполагаемая локация: [impact_area.name].", "ВНИМАНИЕ: АНОМАЛИЯ")
+	GLOB.event_announcement.Announce("На борту станции зафиксирован пространственно-временной разрыв. Предполагаемая локация: [impact_area.name].", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.")
 
 /datum/event/tear/start()
 	var/turf/T = pick(get_area_turfs(impact_area))
@@ -38,7 +38,7 @@
 		if(animation)
 			qdel(animation)
 
-	addtimer(CALLBACK(src, .proc/spew_critters), rand(30, 120))
+	addtimer(CALLBACK(src, PROC_REF(spew_critters)), rand(30, 120))
 
 /obj/effect/tear/proc/spew_critters()
 	for(var/i in 1 to 5)

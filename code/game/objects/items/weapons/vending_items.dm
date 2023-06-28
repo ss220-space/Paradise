@@ -105,6 +105,15 @@
 /obj/item/vending_refill/clothing/law
 	machine_name = "Law Departament ClothesMate"
 
+/obj/item/vending_refill/clothing/service
+	machine_name = "Service Departament ClothesMate"
+
+/obj/item/vending_refill/clothing/service/chaplain
+	machine_name = "Service Departament ClothesMate Chaplain"
+
+/obj/item/vending_refill/clothing/service/botanical
+	machine_name = "Service Departament ClothesMate Botanical"
+
 /obj/item/vending_refill/crittercare
 	machine_name = "CritterCare"
 	icon_state = "refill_pet"
@@ -166,3 +175,7 @@
 /obj/item/vending_refill/robotics
 	machine_name = "Robotech Deluxe"
 	icon_state = "refill_engi"
+
+/obj/item/vending_refill/nta
+	machine_name = "NT Ammunition"
+	icon_state = "refill_nta"

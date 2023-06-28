@@ -30,6 +30,9 @@
 	strip_delay = 60
 	put_on_delay = 60
 	resistance_flags = FIRE_PROOF
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
 
 /obj/item/clothing/suit/fire/firefighter
 	icon_state = "firesuit"
@@ -78,7 +81,7 @@
 	icon_state = "bombsuit"
 	flags = BLOCKHAIR | THICKMATERIAL
 	armor = list("melee" = 20, "bullet" = 0, "laser" = 20,"energy" = 10, "bomb" = 100, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50)
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	cold_protection = HEAD
 	min_cold_protection_temperature = HELMET_MIN_TEMP_PROTECT

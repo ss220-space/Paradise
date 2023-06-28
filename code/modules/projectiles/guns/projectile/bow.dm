@@ -28,6 +28,8 @@
 		ready_to_fire = FALSE
 		update_icon()
 
+	. = ..()
+
 /obj/item/gun/projectile/bow/attack_self(mob/living/user)
 	if(!ready_to_fire && magazine.ammo_count())
 		ready_to_fire = TRUE
@@ -93,7 +95,6 @@
 		/obj/item/ammo_casing/caseless/arrow
 		)
 
-/obj/item/storage/backpack/quiver/full/New()
-	..()
+/obj/item/storage/backpack/quiver/full/populate_contents()
 	for(var/i in 1 to storage_slots)
 		new /obj/item/ammo_casing/caseless/arrow(src)

@@ -67,17 +67,17 @@
 	if (check_item_eat(target, user))
 		return FALSE
 
-	if(force && HAS_TRAIT(user, TRAIT_PACIFISM))
+	if(force && (HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))
 		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
 		return
 
 	if(!force)
-		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), 1, -1)
+		playsound(target.loc, 'sound/weapons/tap.ogg', get_clamped_volume(), 1, -1)
 	else
 		SEND_SIGNAL(target, COMSIG_ITEM_ATTACK)
 		add_attack_logs(user, target, "Attacked with [name] ([uppertext(user.a_intent)]) ([uppertext(damtype)]), DMG: [force])", (target.ckey && force > 0 && damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
 		if(hitsound)
-			playsound(loc, hitsound, get_clamped_volume(), 1, -1)
+			playsound(target.loc, hitsound, get_clamped_volume(), 1, -1)
 
 	target.lastattacker = user.real_name
 	target.lastattackerckey = user.ckey
@@ -104,7 +104,7 @@
 /obj/attacked_by(obj/item/I, mob/living/user)
 	if(I.force)
 		user.visible_message("<span class='danger'>[user] has hit [src] with [I]!</span>", "<span class='danger'>You hit [src] with [I]!</span>")
-	take_damage(I.force, I.damtype, "melee", 1)
+	take_damage(I.force, I.damtype, "melee", 1, get_dir(src, user))
 
 /mob/living/attacked_by(obj/item/I, mob/living/user, def_zone)
 	send_item_attack_message(I, user)

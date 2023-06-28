@@ -27,13 +27,13 @@
 
 /obj/structure/bed/post_buckle_mob(mob/living/M)
 	. = ..()
-	M.resting = TRUE
-	M.update_canmove()
+	if(!M.resting)
+		M.StartResting()
 
 /obj/structure/bed/post_unbuckle_mob(mob/living/M)
 	. = ..()
-	M.resting = FALSE
-	M.update_canmove()
+	if(M.resting)
+		M.StopResting()
 
 /obj/structure/bed/psych
 	name = "psych bed"
@@ -46,6 +46,16 @@
 	desc = "This looks similar to contraptions from Earth. Could aliens be stealing our technology?"
 	icon_state = "abed"
 	comfort = 0.3
+
+/obj/structure/bed/sandstone
+	name = "sandstone plate"
+	desc = "This is used to lie on, feels farm."
+	icon_state = "bed_sand"
+	resistance_flags = FIRE_PROOF
+	max_integrity = 200
+	buildstacktype = /obj/item/stack/sheet/mineral/sandstone
+	buildstackamount = 15
+	buckle_offset = -7
 
 /obj/structure/bed/proc/handle_rotation()
 	return
@@ -77,11 +87,15 @@
 	resistance_flags = NONE
 	anchored = FALSE
 	comfort = 1
+	var/icon_up = "up"
+	var/icon_down = "down"
+	var/folded = /obj/item/roller
 	pull_push_speed_modifier = 1
 
 /obj/structure/bed/roller/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/roller_holder))
 		if(has_buckled_mobs())
+			add_fingerprint(user)
 			if(buckled_mobs.len > 1)
 				unbuckle_all_mobs()
 				user.visible_message("<span class='notice'>[user] unbuckles all creatures from [src].</span>")
@@ -89,7 +103,7 @@
 				user_unbuckle_mob(buckled_mobs[1], user)
 		else
 			user.visible_message("<span class='notice'>[user] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
-			new/obj/item/roller(get_turf(src))
+			new folded(get_turf(src))
 			qdel(src)
 	else
 		return ..()
@@ -97,25 +111,33 @@
 /obj/structure/bed/roller/post_buckle_mob(mob/living/M)
 	. = ..()
 	density = TRUE
-	icon_state = "up"
+	icon_state = icon_up
 	M.pixel_y = initial(M.pixel_y)
 
 /obj/structure/bed/roller/post_unbuckle_mob(mob/living/M)
 	. = ..()
 	density = FALSE
-	icon_state = "down"
+	icon_state = icon_down
 	M.pixel_x = M.get_standard_pixel_x_offset(M.lying)
 	M.pixel_y = M.get_standard_pixel_y_offset(M.lying)
+
+/obj/structure/bed/roller/holo
+	name = "holo stretcher"
+	icon_state = "holo_down"
+	icon_up = "holo_up"
+	icon_down = "holo_down"
+	folded = /obj/item/roller/holo
 
 /obj/item/roller
 	name = "roller bed"
 	desc = "A collapsed roller bed that can be carried around."
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "folded"
+	var/extended = /obj/structure/bed/roller
 	w_class = WEIGHT_CLASS_BULKY // Can't be put in backpacks.
 
 /obj/item/roller/attack_self(mob/user)
-	var/obj/structure/bed/roller/R = new /obj/structure/bed/roller(user.loc)
+	var/obj/structure/bed/roller/R = new extended(user.loc)
 	R.add_fingerprint(user)
 	qdel(src)
 
@@ -135,8 +157,19 @@
 		if(has_buckled_mobs())
 			return 0
 		usr.visible_message("<span class='notice'>[usr] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
-		new/obj/item/roller(get_turf(src))
+		new folded(get_turf(src))
 		qdel(src)
+
+/obj/item/roller/holo
+	name = "holo stretcher"
+	desc = "A retracted hardlight stretcher that can be carried around."
+	icon_state = "holo_retracted"
+	w_class = WEIGHT_CLASS_SMALL
+	origin_tech = "magnets=3;biotech=4;powerstorage=3"
+	extended = /obj/structure/bed/roller/holo
+
+/obj/item/roller/holo/attackby(obj/item/W, mob/user, params)
+	return
 
 /obj/item/roller_holder
 	name = "roller bed rack"
@@ -186,4 +219,9 @@
 /obj/structure/bed/dogbed/runtime
 	desc = "A comfy-looking cat bed. You can even strap your pet in, in case the gravity turns off."
 	name = "Runtime's bed"
+	anchored = TRUE
+
+/obj/structure/bed/dogbed/pet
+	name = "Удобная лежанка"
+	desc = "Комфортная лежанка для любимейшего питомца отдела."
 	anchored = TRUE

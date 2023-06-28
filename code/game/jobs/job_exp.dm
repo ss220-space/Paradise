@@ -1,6 +1,9 @@
 // Playtime requirements for special roles (hours)
 
 GLOBAL_LIST_INIT(role_playtime_requirements, list(
+	// SPECIFIC ROLES
+	ROLE_THUNDERDOME = 0,
+
 	// NT ROLES
 	ROLE_PAI = 0,
 	ROLE_POSIBRAIN = 5, // Same as cyborg job.
@@ -21,6 +24,8 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	ROLE_NINJA = 50,
 	ROLE_MORPH = 30,
 	ROLE_DEMON = 30,
+	ROLE_THIEF = 30,
+	ROLE_ELITE = 100,
 
 	// DUO ANTAGS
 	ROLE_GUARDIAN = 40,

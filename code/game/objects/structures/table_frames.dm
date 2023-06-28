@@ -77,6 +77,7 @@
 	T.frame = type
 	T.framestack = framestack
 	T.framestackamount = framestackamount
+	T.add_fingerprint(usr)
 	qdel(src)
 
 /obj/structure/table_frame/deconstruct(disassembled = TRUE)
@@ -148,5 +149,5 @@
 	..()
 	if(src) //do we still exist?
 		var/previouscolor = color
-		color = "#960000"
+		color = COLOR_CULT_RED
 		animate(src, color = previouscolor, time = 8)

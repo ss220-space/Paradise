@@ -34,7 +34,7 @@
 
 	ratvar_spawn_animation()
 
-	addtimer(CALLBACK(src, .proc/call_shuttle), 7 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(call_shuttle)), 7 SECONDS)
 
 /obj/singularity/ratvar/proc/call_shuttle()
 	SSshuttle.emergency.request(null, 0.3)
@@ -69,8 +69,8 @@
 	godsmack(A)
 	return
 
-/obj/singularity/ratvar/Bumped(atom/A)
-	godsmack(A)
+/obj/singularity/ratvar/Bumped(atom/movable/moving_atom)
+	godsmack(moving_atom)
 	return
 
 /obj/singularity/ratvar/proc/godsmack(atom/A)

@@ -41,8 +41,8 @@
 	..()
 	add_language("Galactic Common")
 	init_subsystems()
-	RegisterSignal(SSalarm, COMSIG_TRIGGERED_ALARM, .proc/alarm_triggered)
-	RegisterSignal(SSalarm, COMSIG_CANCELLED_ALARM, .proc/alarm_cancelled)
+	RegisterSignal(SSalarm, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
+	RegisterSignal(SSalarm, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
 
 /mob/living/silicon/Initialize()
 	. = ..()
@@ -83,7 +83,7 @@
 	if(in_cooldown)
 		return
 
-	addtimer(CALLBACK(src, .proc/show_alarms), 3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(show_alarms)), 3 SECONDS)
 
 /mob/living/silicon/proc/show_alarms()
 	if(alarms_to_show.len < 5)
@@ -162,7 +162,7 @@
 /mob/living/silicon/proc/show_laws()
 	return
 
-/mob/living/silicon/drop_item()
+/mob/living/silicon/drop_from_active_hand(force = FALSE)
 	return
 
 /mob/living/silicon/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
@@ -185,7 +185,7 @@
 /mob/living/silicon/proc/damage_mob(var/brute = 0, var/fire = 0, var/tox = 0)
 	return
 
-/mob/living/silicon/can_inject(mob/user, error_msg, target_zone, penetrate_thick)
+/mob/living/silicon/can_inject(mob/user, error_msg, target_zone, penetrate_thick, ignore_pierceimmune)
 	if(error_msg)
 		to_chat(user, "<span class='alert'>[p_their(TRUE)] outer shell is too tough.</span>")
 	return FALSE
@@ -214,6 +214,7 @@
 
 /mob/living/silicon/bullet_act(var/obj/item/projectile/Proj)
 
+	Proj.on_hit(src,2)
 
 	if(!Proj.nodamage)
 		switch(Proj.damage_type)
@@ -222,7 +223,6 @@
 			if(BURN)
 				adjustFireLoss(Proj.damage)
 
-	Proj.on_hit(src,2)
 
 	return 2
 
@@ -300,7 +300,7 @@
 			if(L == default_language)
 				default_str = " - default - <a href='byond://?src=[UID()];default_lang=reset'>reset</a>"
 			else
-				default_str = " - <a href='byond://?src=[UID()];default_lang=[L]'>set default</a>"
+				default_str = " - <a href=\"byond://?src=[UID()];default_lang=[L]\">set default</a>"
 
 			var/synth = (L in speech_synthesizer_langs)
 			. += "<b>[L.name] (:[L.key])</b>[synth ? default_str : null]<br>Speech Synthesizer: <i>[synth ? "YES" : "NOT SUPPORTED"]</i><br>[L.desc]<br><br>"
@@ -374,7 +374,7 @@
 			to_chat(src, "Sensor augmentations disabled.")
 
 
-/mob/living/silicon/adjustToxLoss(var/amount)
+/mob/living/silicon/adjustToxLoss(amount, updating_health)
 	return STATUS_UPDATE_NONE
 
 /mob/living/silicon/get_access()

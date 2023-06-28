@@ -1,7 +1,7 @@
 /obj/machinery/particle_accelerator/control_box
 	name = "Particle Accelerator Control Console"
 	desc = "This part controls the density of the particles."
-	icon = 'icons/obj/machines/particle_accelerator.dmi'
+	icon = 'icons/obj/engines_and_power/particle_accelerator.dmi'
 	icon_state = "control_box"
 	reference = "control_box"
 	anchored = 0
@@ -37,6 +37,7 @@
 	return attack_hand(user)
 
 /obj/machinery/particle_accelerator/control_box/attack_hand(mob/user as mob)
+	add_fingerprint(user)
 	if(construction_state >= 3)
 		interact(user)
 	else if(construction_state == 2) // Wires exposed
@@ -279,7 +280,7 @@
 
 	//user << browse(dat, "window=pacontrol;size=420x500")
 	//onclose(user, "pacontrol")
-	var/datum/browser/popup = new(user, "pacontrol", name, 420, 500)
+	var/datum/browser/popup = new(user, "pacontrol", name, 420, 500, src)
 	popup.set_content(dat)
 	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()

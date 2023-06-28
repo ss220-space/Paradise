@@ -35,15 +35,19 @@
 			return FALSE // No multitile structures
 	if(user != target && istype(target, /mob/living/simple_animal/hostile/morph))
 		return FALSE
+	if(target.alpha < 255)
+		return FALSE
+	if(target.invisibility)
+		return FALSE
 	return ..()
 
 /obj/effect/proc_holder/spell/targeted/click/mimic/cast(list/targets, mob/user)
 	var/atom/movable/A = targets[1]
 	if(A == user)
-		INVOKE_ASYNC(src, .proc/pick_form, user)
+		INVOKE_ASYNC(src, PROC_REF(pick_form), user)
 		return
 
-	INVOKE_ASYNC(src, .proc/remember_form, A, user)
+	INVOKE_ASYNC(src, PROC_REF(remember_form), A, user)
 
 /obj/effect/proc_holder/spell/targeted/click/mimic/proc/remember_form(atom/movable/A, mob/user)
 	if(A.name in available_forms)
@@ -106,15 +110,15 @@
 		user.transform = initial(user.transform)
 		user.pixel_y = initial(user.pixel_y)
 		user.pixel_x = initial(user.pixel_x)
-		user.layer = MOB_LAYER // Avoids weirdness when mimicing something below the vent layer
+		user.layer = MOB_LAYER // Avoids weirdness when mimicking something below the vent layer
 
 	playsound(user, "bonebreak", 75, TRUE)
 	show_change_form_message(user, old_name, "[user]")
 	add_misc_logs(user, "Mimicked into [user]")
 
 	if(!selected_form)
-		RegisterSignal(user, COMSIG_PARENT_EXAMINE, .proc/examine_override)
-		RegisterSignal(user, COMSIG_MOB_DEATH, .proc/on_death)
+		RegisterSignal(user, COMSIG_PARENT_EXAMINE, PROC_REF(examine_override))
+		RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_death))
 
 	selected_form = form
 
@@ -133,6 +137,7 @@
 		H.name_override = null
 		H.regenerate_icons()
 	else
+		user.appearance = initial(user.appearance)
 		user.name = initial(user.name)
 		user.desc = initial(user.desc)
 		user.color = initial(user.color)

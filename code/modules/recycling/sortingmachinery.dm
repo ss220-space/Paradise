@@ -29,9 +29,11 @@
 		wrapped.forceMove(get_turf(src))
 		if(istype(wrapped, /obj/structure/closet))
 			var/obj/structure/closet/O = wrapped
+			O.add_fingerprint(user)
 			O.welded = init_welded
 	var/turf/T = get_turf(src)
 	for(var/atom/movable/AM in src)
+		AM.add_fingerprint(user)
 		AM.loc = T
 
 	qdel(src)
@@ -41,6 +43,7 @@
 		var/obj/item/destTagger/O = W
 
 		if(sortTag != O.currTag)
+			add_fingerprint(user)
 			var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
 			to_chat(user, "<span class='notice'>*[tag]*</span>")
 			sortTag = O.currTag
@@ -53,6 +56,7 @@
 		if(sp.sealed)
 			return
 		else
+			add_fingerprint(user)
 			sortTag = sp.sortTag
 			if(iconLabeled)
 				icon_state = iconLabeled
@@ -61,11 +65,13 @@
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 
 	else if(istype(W, /obj/item/pen))
+		add_fingerprint(user)
 		rename_interactive(user, W)
 
 	else if(istype(W, /obj/item/stack/wrapping_paper) && !giftwrapped)
 		var/obj/item/stack/wrapping_paper/WP = W
 		if(WP.use(3))
+			add_fingerprint(user)
 			user.visible_message("<span class='notice'>[user] wraps the package in festive paper!</span>")
 			giftwrapped = 1
 			if(istype(wrapped, /obj/structure/closet/crate))
@@ -73,7 +79,8 @@
 			else
 				icon_state = "giftcloset"
 			if(WP.amount <= 0 && !WP.loc) //if we used our last wrapping paper, drop a cardboard tube
-				new /obj/item/c_tube( get_turf(user) )
+				var/obj/item/c_tube/tube = new(get_turf(user))
+				tube.add_fingerprint(user)
 		else
 			to_chat(user, "<span class='notice'>You need more paper.</span>")
 	else
@@ -117,6 +124,7 @@
 		var/obj/item/destTagger/O = W
 
 		if(sortTag != O.currTag)
+			add_fingerprint(user)
 			var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
 			to_chat(user, "<span class='notice'>*[tag]*</span>")
 			sortTag = O.currTag
@@ -129,6 +137,7 @@
 		if(sp.sealed)
 			return
 		else
+			add_fingerprint(user)
 			sortTag = sp.sortTag
 			if(iconLabeled)
 				icon_state = iconLabeled
@@ -137,6 +146,7 @@
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 
 	else if(istype(W, /obj/item/pen))
+		add_fingerprint(user)
 		rename_interactive(user, W)
 
 	else if(istype(W, /obj/item/stack/wrapping_paper) && !giftwrapped)
@@ -146,7 +156,8 @@
 			giftwrapped = 1
 			user.visible_message("<span class='notice'>[user] wraps the package in festive paper!</span>")
 			if(WP.amount <= 0 && !WP.loc) //if we used our last wrapping paper, drop a cardboard tube
-				new /obj/item/c_tube( get_turf(user) )
+				var/obj/item/c_tube/tube = new(get_turf(user))
+				tube.add_fingerprint(user)
 		else
 			to_chat(user, "<span class='notice'>You need more paper.</span>")
 	else
@@ -306,15 +317,14 @@
 		to_chat(user, "<span class='notice'>[src] already contains \a [wrapped].</span>")
 		return
 	if(istype(O, /obj/item) && !istype(O, /obj/item/storage) && !istype(O, /obj/item/shippingPackage))
-		if(!user.canUnEquip(O))
+		if(!user.can_unEquip(O))
 			to_chat(user, "<span class='warning'>[O] is stuck to your hand, you cannot put it in [src]!</span>")
 			return
 		if(O.w_class > 3)
 			to_chat(user, "<span class='notice'>[O] is too large to fit in [src].</span>")
 		else
 			wrapped = O
-			user.unEquip(O)
-			O.forceMove(src)
+			user.drop_transfer_item_to_loc(O, src)
 			O.add_fingerprint(usr)
 			add_fingerprint(usr)
 			to_chat(user, "<span class='notice'>You put [O] in [src].</span>")
@@ -323,7 +333,7 @@
 	if(sealed)
 		to_chat(user, "<span class='notice'>You tear open [src], dropping the contents onto the floor.</span>")
 		playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
-		user.unEquip(src)
+		user.temporarily_remove_item_from_inventory(src)
 		wrapped.forceMove(get_turf(user))
 		wrapped = null
 		qdel(src)
@@ -342,7 +352,7 @@
 		if(alert("Do you want to tear up the package?",, "Yes", "No") == "Yes")
 			to_chat(user, "<span class='notice'>You shred [src].</span>")
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
-			user.unEquip(src)
+			user.temporarily_remove_item_from_inventory(src)
 			qdel(src)
 
 /obj/item/shippingPackage/proc/update_desc()

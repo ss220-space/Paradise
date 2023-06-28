@@ -4,6 +4,7 @@
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "closed"
 	density = 1
+	layer = LOW_ITEM_LAYER	//Prevents items from dropping on turf visually
 	max_integrity = 200
 	integrity_failure = 50
 	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 60)
@@ -30,7 +31,7 @@
 		// This includes maint loot spawners. The problem with that is if a closet loads before a spawner,
 		// the loot will just be in a pile. Adding a timer with 0 delay will cause it to only take in contents once the MC has loaded,
 		// therefore solving the issue on mapload. During rounds, everything will happen as normal
-		addtimer(CALLBACK(src, .proc/take_contents), 0)
+		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
 	update_icon() // Set it to the right icon if needed
 	populate_contents() // Spawn all its stuff
 
@@ -163,7 +164,8 @@
 /obj/structure/closet/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/rcs) && !opened)
 		var/obj/item/rcs/E = W
-		E.try_send_container(user, src)
+		if(E.try_send_container(user, src))
+			add_fingerprint(user)
 		return
 
 	if(opened)
@@ -179,13 +181,14 @@
 			return
 		if(isrobot(user))
 			return
-		if(!user.drop_item()) //couldn't drop the item
+		if(!user.transfer_item_to_loc(W, src.loc)) //couldn't drop the item
 			to_chat(user, "<span class='notice'>\The [W] is stuck to your hand, you cannot put it in \the [src]!</span>")
 			return
 		if(W)
-			W.forceMove(loc)
+			add_fingerprint(user)
 			return TRUE // It's resolved. No afterattack needed. Stops you from emagging lockers when putting in an emag
 	else if(can_be_emaged && (istype(W, /obj/item/card/emag) || istype(W, /obj/item/melee/energy/blade) && !broken))
+		add_fingerprint(user)
 		emag_act(user)
 	else if(istype(W, /obj/item/stack/packageWrap))
 		return

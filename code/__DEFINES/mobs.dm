@@ -24,6 +24,10 @@
 
 #define SPLINT_LIFE 2000 //number of steps splints stay on
 
+//BONE DEFINE
+
+#define FRAGILITY(A) (ishuman(A) ? A.dna.species.bonefragility : 1)
+
 
 //Pulse levels, very simplified
 #define PULSE_NONE		0	//so !M.pulse checks would be possible
@@ -185,7 +189,6 @@
 #define STATUS_UPDATE_NONE 0
 #define STATUS_UPDATE_ALL (~0)
 #define INVISIBILITY_ABSTRACT 101
-#define UNHEALING_EAR_DAMAGE 100
 
 // Incorporeal movement
 #define INCORPOREAL_NONE 0
@@ -280,3 +283,5 @@
 #define HEARING_PROTECTION_MINOR	1
 #define HEARING_PROTECTION_MAJOR	2
 #define HEARING_PROTECTION_TOTAL	3
+
+#define FIRE_DMI (issmall(src) ? 'icons/mob/species/monkey/OnFire.dmi' : 'icons/mob/OnFire.dmi')

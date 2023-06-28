@@ -82,7 +82,7 @@
 	title = "Botanist"
 	flag = JOB_BOTANIST
 	department_flag = JOBCAT_SUPPORT
-	total_positions = 3
+	total_positions = 2
 	spawn_positions = 2
 	is_service = 1
 	supervisors = "the head of personnel"
@@ -274,8 +274,11 @@
 		/obj/item/storage/fancy/crayons = 1,
 		/obj/item/reagent_containers/spray/waterflower = 1,
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana = 1,
-		/obj/item/instrument/bikehorn = 1
+		/obj/item/instrument/bikehorn = 1,
+		/obj/item/clown_recorder = 1
 	)
+
+	implants = list(/obj/item/implant/sad_trombone)
 
 	backpack = /obj/item/storage/backpack/clown
 	satchel = /obj/item/storage/backpack/satchel_clown
@@ -365,8 +368,8 @@
 /datum/outfit/job/mime/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(H.gender == FEMALE)
-		uniform = /obj/item/clothing/under/sexymime
-		suit = /obj/item/clothing/mask/gas/sexymime
+		uniform = /obj/item/clothing/under/mimeskirt
+		mask = /obj/item/clothing/mask/gas/mime/sexy
 
 /datum/outfit/job/mime/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()

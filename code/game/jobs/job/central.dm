@@ -36,6 +36,8 @@
 	backpack = /obj/item/storage/backpack/satchel
 	backpack_contents = list(
 		/obj/item/stamp/centcom = 1,
+		/obj/item/stamp/ploho = 1,
+		/obj/item/stamp/BIGdeny = 1,
 	)
 	box = /obj/item/storage/box/centcomofficer
 	cybernetic_implants = list(
@@ -132,6 +134,9 @@
 	shoes =	/obj/item/clothing/shoes/cowboy/white
 	gloves = /obj/item/clothing/gloves/color/white
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/aviators
+	backpack_contents = list(
+		/obj/item/stamp/navcom = 1
+	)
 
 //Tran-Solar Federation General
 /datum/job/ntspecops/solgovspecops

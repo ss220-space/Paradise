@@ -21,6 +21,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
 	/client/proc/cmd_admin_delete,		/*delete an instance/object/mob/etc*/
+	/client/proc/cmd_admin_offer_control,
 	/client/proc/cmd_admin_check_contents,	/*displays the contents of an instance*/
 	/client/proc/cmd_admin_open_logging_view,
 	/client/proc/getserverlogs,			/*allows us to fetch server logs (diary) for other days*/
@@ -67,8 +68,11 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
 	/client/proc/toggle_mentor_chat,
 	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
+	/client/proc/start_vote,
 	/client/proc/list_ssds_afks,
-	/client/proc/ccbdb_lookup_ckey
+	/client/proc/ccbdb_lookup_ckey,
+	/client/proc/toggle_pacifism_gt,
+	/client/proc/toogle_ghost_vision
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
@@ -125,6 +129,7 @@ GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/datum/admins/proc/toggleaban,
 	/datum/admins/proc/toggleenter,		/*toggles whether people can join the current game*/
 	/datum/admins/proc/toggleguests,	/*toggles whether guests can join the current game*/
+	/client/proc/select_next_map,
 	/client/proc/toggle_log_hrefs,
 	/client/proc/toggle_twitch_censor,
 	/client/proc/everyone_random,
@@ -175,6 +180,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/dmjit_debug_dump_deopts,
 	/client/proc/timer_log,
 	/client/proc/debug_timers,
+	/client/proc/force_verb_bypass,
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -802,7 +808,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			logmsg = "floor cluwne"
 		if("Shamebrero")
 			if(H.head)
-				H.unEquip(H.head, TRUE)
+				H.drop_item_ground(H.head, force = TRUE)
 			var/obj/item/clothing/head/sombrero/shamebrero/S = new(H.loc)
 			H.equip_to_slot_or_del(S, slot_head)
 			logmsg = "shamebrero"
@@ -815,12 +821,29 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			goblin.GiveTarget(M)
 			logmsg = "shitcurity goblin"
 		if("High RP")
-			var/obj/item/organ/internal/lungs/cursed/L = H.get_int_organ(/obj/item/organ/internal/lungs/cursed)
-			if(!L)
-				var/obj/item/organ/internal/lungs/cursed/O = new
-				O.insert(H)
+			var/obj/item/organ/internal/high_rp_tumor/hrp_tumor = H.get_int_organ(/obj/item/organ/internal/high_rp_tumor)
+			if(!hrp_tumor)
+				var/list/effect_variants = list("15 - 50", "30 - 45", "30 - 75",
+				"30 - 100", "60 - 100", "60 - 150", "60 - 200", "custom")
+				var/effect_strength = input("What effect strength do you want?(delay in seconds -  oxy damage)", "") as null|anything in effect_variants
+				var/pdelay
+				var/oxy_dmg
+				if(effect_strength == "custom")
+					pdelay = input("Input pump delay.") as num|null
+					oxy_dmg = input("Input oxy damage.") as num|null
+				else
+					var/list/strenght = text2numlist(effect_strength, " - ")
+					pdelay = strenght[1]
+					oxy_dmg = strenght[2]
+				H.curse_high_rp(pdelay*10, oxy_dmg)
+				H.mind.curses += "high_rp"
+				logmsg = "high rp([pdelay] - [oxy_dmg])"
 			else
-				L.remove(H)
+				hrp_tumor.remove(H)
+				qdel(hrp_tumor)
+				H.mind.curses -= "high_rp"
+				logmsg = "high rp(cure)"
+
 	if(logmsg)
 		log_and_message_admins("smited [key_name_log(M)] with: [logmsg]")
 
@@ -1030,6 +1053,22 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		verbs -= /client/proc/readmin
 		GLOB.deadmins -= ckey
 		return
+
+/client/proc/select_next_map()
+	set name = "Select next map"
+	set category = "Server"
+
+	if(!check_rights(R_SERVER))
+		return
+
+	var/list/all_maps = subtypesof(/datum/map)
+	var/next_map = input("Select next map:", "Next map", SSmapping.map_datum.type) as null|anything in all_maps
+
+	if(next_map)
+		message_admins("[key_name_admin(usr)] select [next_map] as next map")
+		log_admin("[key_name(usr)] select [next_map] as next map")
+		SSmapping.next_map = new next_map
+		to_chat(world, "<B>The next map is - [SSmapping.next_map.name]!</B>")
 
 /client/proc/toggle_log_hrefs()
 	set name = "Toggle href logging"

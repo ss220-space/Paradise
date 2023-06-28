@@ -119,7 +119,7 @@
 	cargo_hold.max_w_class = 5		//fit almost anything
 	cargo_hold.max_combined_w_class = 0 //you can optimize your stash with larger items
 	START_PROCESSING(SSobj, src)
-	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/create_trail)
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(create_trail))
 
 /obj/spacepod/proc/create_trail()
 	var/turf/T = get_turf(src)
@@ -244,9 +244,9 @@
 		add_attack_logs(user, src, "attacked")
 		return TRUE
 
-/obj/spacepod/attack_alien(mob/user)
+/obj/spacepod/attack_alien(mob/living/carbon/alien/user)
 	user.changeNext_move(CLICK_CD_MELEE)
-	deal_damage(15)
+	deal_damage(user.attack_damage)
 	playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1, -1)
 	to_chat(user, "<span class='warning'>You slash at [src]!</span>")
 	visible_message("<span class='warning'>The [user] slashes at [src.name]'s armor!</span>")
@@ -344,10 +344,19 @@
 			to_chat(user, "<span class='notice'>The pod already has a battery.</span>")
 			return
 		to_chat(user, "<span class='notice'>You insert [W] into the pod.</span>")
-		user.drop_item(W)
+		user.drop_transfer_item_to_loc(W, src)
 		battery = W
-		W.forceMove(src)
 		return
+
+	else if(istype(W, /obj/item/spacepod_equipment/key) && istype(equipment_system.lock_system, /obj/item/spacepod_equipment/lock/keyed))
+		var/obj/item/spacepod_equipment/key/key = W
+		if(key.id == equipment_system.lock_system.id)
+			lock_pod()
+			return
+		else
+			to_chat(user, "<span class='warning'>This is the wrong key!</span>")
+			return
+
 	else if(istype(W, /obj/item/spacepod_equipment))
 		if(!hatch_open)
 			to_chat(user, "<span class='warning'>The maintenance hatch is closed!</span>")
@@ -369,15 +378,6 @@
 			return
 		if(istype(W, /obj/item/spacepod_equipment/lock))
 			add_equipment(user, W, "lock_system")
-			return
-
-	else if(istype(W, /obj/item/spacepod_key) && istype(equipment_system.lock_system, /obj/item/spacepod_equipment/lock/keyed))
-		var/obj/item/spacepod_key/key = W
-		if(key.id == equipment_system.lock_system.id)
-			lock_pod()
-			return
-		else
-			to_chat(user, "<span class='warning'>This is the wrong key!</span>")
 			return
 
 	else if(istype(W, /obj/item/lock_buster))
@@ -444,8 +444,7 @@
 		return
 	else
 		to_chat(user, "<span class='notice'>You insert [SPE] into the pod.</span>")
-		user.drop_item(SPE)
-		SPE.forceMove(src)
+		user.drop_transfer_item_to_loc(SPE, src)
 		equipment_system.vars[slot] = SPE
 		var/obj/item/spacepod_equipment/system = equipment_system.vars[slot]
 		system.my_atom = src
@@ -870,6 +869,7 @@
 		user.forceMove(get_turf(src))
 		passengers -= user
 		to_chat(user, "<span class='notice'>You climb out of [src].</span>")
+	user.update_gravity(user.mob_has_gravity())
 
 /obj/spacepod/verb/lock_pod()
 	set name = "Lock Doors"
@@ -1101,6 +1101,15 @@
 		return 0
 	battery.charge = max(0, battery.charge - 1)
 	next_move = world.time + move_delay
+
+//// Damaged spacepod
+/obj/spacepod/civilian/damaged
+	desc = "Heavy damaged spacepod"
+
+/obj/spacepod/civilian/damaged/Initialize()
+	..()
+	deal_damage(200)
+	update_icon()
 
 #undef DAMAGE
 #undef FIRE

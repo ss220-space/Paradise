@@ -10,9 +10,13 @@
 	var/list/examine_extensions = null
 
 
-/obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot)
-	..()
+/obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot, initial)
+	. = ..()
+
 	if(HUDType && slot == slot_glasses)
+		var/datum/atom_hud/H = GLOB.huds[HUDType]
+		H.add_hud_to(user)
+	if(HUDType && slot == slot_head)
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
 		H.add_hud_to(user)
 
@@ -196,7 +200,7 @@
 	desc = "A heads-up display capable of analyzing the health and status of plants growing in hydro trays and soil."
 	icon_state = "hydroponichud"
 	HUDType = DATA_HUD_HYDROPONIC
-
+	examine_extensions = list(DATA_HUD_HYDROPONIC)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',

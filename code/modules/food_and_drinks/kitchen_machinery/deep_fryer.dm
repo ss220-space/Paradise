@@ -1,7 +1,7 @@
 /obj/machinery/cooker/deepfryer
 	name = "deep fryer"
 	desc = "Deep fried <i>everything</i>."
-	icon = 'icons/obj/cooking_machines.dmi'
+	icon = 'icons/obj/machines/cooking_machines.dmi'
 	icon_state = "fryer_off"
 	thiscooktype = "deep fried"
 	burns = 1
@@ -53,6 +53,7 @@
 		if(!head)
 			to_chat(user, "<span class='warning'>This person doesn't have a head!</span>")
 			return 0
+		add_fingerprint(user)
 		C.visible_message("<span class='danger'>[user] dunks [C]'s face into [src]!</span>", \
 						"<span class='userdanger'>[user] dunks your face into [src]!</span>")
 		C.emote("scream")
@@ -82,6 +83,9 @@
 	if(!recipe.output)
 		return 0
 	new recipe.output(get_turf(src))
+
+/obj/machinery/cooker/deepfryer/on_deconstruction()
+	dropContents()
 
 //////////////////////////////////
 //		Deepfryer Special		//

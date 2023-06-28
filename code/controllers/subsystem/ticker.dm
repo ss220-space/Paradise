@@ -61,6 +61,10 @@ SUBSYSTEM_DEF(ticker)
 	var/end_state = "undefined"
 	/// Time the real reboot kicks in
 	var/real_reboot_time = 0
+	/// Do we need to switch pacifism after Greentext
+	var/toggle_pacifism = TRUE
+	/// Do we need to make ghosts visible after greentext
+	var/toogle_gv = TRUE
 
 	var/list/randomtips = list()
 	var/list/memetips = list()
@@ -121,7 +125,7 @@ SUBSYSTEM_DEF(ticker)
 			mode.process_job_tasks()
 
 			if(world.time > next_autotransfer)
-				SSvote.autotransfer()
+				SSvote.start_vote(new /datum/vote/crew_transfer)
 				next_autotransfer = world.time + config.vote_autotransfer_interval
 
 			var/game_finished = SSshuttle.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
@@ -143,6 +147,29 @@ SUBSYSTEM_DEF(ticker)
 					reboot_helper("Station destroyed by Nuclear Device.", "nuke")
 				else
 					reboot_helper("Round ended.", "proper completion")
+
+			if(!SSmapping.next_map) //Next map already selected by admin
+				var/list/all_maps = subtypesof(/datum/map)
+				for(var/x in all_maps)
+					var/datum/map/M = x
+					if(initial(M.admin_only))
+						all_maps -= M
+				switch(config.map_rotate)
+					if("rotate")
+						for(var/i in 1 to all_maps.len)
+							if(istype(SSmapping.map_datum, all_maps[i]))
+								var/target_map = all_maps[(i % all_maps.len) + 1]
+								SSmapping.next_map = new target_map
+								break
+					if("random")
+						var/target_map = pick(all_maps)
+						SSmapping.next_map = new target_map
+					if("vote")
+						SSvote.start_vote(new /datum/vote/map)
+					else
+						SSmapping.next_map = SSmapping.map_datum
+			if(SSmapping.next_map)
+				to_chat(world, "<B>The next map is - [SSmapping.next_map.name]!</B>")
 
 /datum/controller/subsystem/ticker/proc/setup()
 	cultdat = setupcult()
@@ -279,15 +306,12 @@ SUBSYSTEM_DEF(ticker)
 
 	if(config.restrict_maint)
 		for(var/obj/machinery/door/airlock/maintenance/M in GLOB.airlocks)
-			if(ACCESS_MAINT_TUNNELS == text2num(M.req_access_txt))
+			if(M.req_access && M.req_access.len == 1 && M.req_access[1] == ACCESS_MAINT_TUNNELS)
 				M.req_access = null
-				M.req_one_access = null
 				if(config.restrict_maint == 1)
-					M.req_access_txt = "0"
-					M.req_one_access_txt = "[ACCESS_BRIG];[ACCESS_ENGINE]"
+					M.req_access = list(ACCESS_BRIG, ACCESS_ENGINE)
 				if(config.restrict_maint == 2)
-					M.req_access_txt = "[ACCESS_BRIG]"
-					M.req_one_access_txt = "0"
+					M.req_access = list(ACCESS_BRIG)
 
 	// Sets the auto shuttle vote to happen after the config duration
 	next_autotransfer = world.time + config.vote_autotransfer_initial
@@ -307,7 +331,9 @@ SUBSYSTEM_DEF(ticker)
 		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
 
 	#ifdef UNIT_TESTS
-	RunUnitTests()
+	// Run map tests first in case unit tests futz with map state
+	GLOB.test_runner.RunMap()
+	GLOB.test_runner.Run()
 	#endif
 	return TRUE
 
@@ -446,6 +472,8 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/declare_completion()
 	GLOB.nologevent = TRUE //end of round murder and shenanigans are legal; there's no need to jam up attack logs past this point.
+	if(toogle_gv)
+		set_observer_default_invisibility(0) //spooks things up
 	//Round statistics report
 	var/datum/station_state/ending_station_state = new /datum/station_state()
 	ending_station_state.count()
@@ -510,6 +538,9 @@ SUBSYSTEM_DEF(ticker)
 
 	// Declare the completion of the station goals
 	mode.declare_station_goal_completion()
+
+	if(toggle_pacifism)
+		GLOB.pacifism_after_gt = TRUE
 
 	//Ask the event manager to print round end information
 	SSevents.RoundEnd()

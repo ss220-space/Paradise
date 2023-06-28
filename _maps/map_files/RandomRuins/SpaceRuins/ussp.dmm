@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
 	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "cautionfull");
 	icon_state = "4-i"
@@ -22,6 +22,21 @@
 	icon_state = "solarpanel"
 	},
 /area/template_noop)
+"ae" = (
+/obj/structure/computerframe{
+	desc = "This computer is a husk of what it once was. Time and decay has worn its cheap circuitry to dust.";
+	name = "decrepit computer"
+	},
+/obj/machinery/camera{
+	c_tag = "Мостик";
+	dir = 2;
+	network = list("USSP")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
+/area/derelict/bridge)
 "af" = (
 /obj/machinery/power/solar/fake{
 	desc = "A broken solar panel. This one is beyond of any possible repair.";
@@ -73,16 +88,16 @@
 /turf/simulated/floor/plating,
 /area/derelict/bridge)
 "ao" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/bridge)
 "ap" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/bridge)
 "aq" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
 /obj/machinery/door/poddoor/shutters{
@@ -94,7 +109,7 @@
 /turf/simulated/floor/plating,
 /area/derelict/bridge)
 "ar" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
 /obj/machinery/door/poddoor/shutters{
@@ -140,17 +155,6 @@
 	icon_state = "darkblue"
 	},
 /area/derelict/bridge)
-"aw" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door_control{
-	id = "rusbridge";
-	name = "Bridge Shutters"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
-	},
-/area/derelict/bridge)
 "ax" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -164,16 +168,6 @@
 	icon_state = "black"
 	},
 /area/space)
-"ay" = (
-/obj/structure/computerframe{
-	desc = "This computer is a husk of what it once was. Time and decay has worn its cheap circuitry to dust.";
-	name = "decrepit computer"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
-	},
-/area/derelict/bridge)
 "az" = (
 /obj/machinery/computer{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
@@ -285,8 +279,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -308,8 +300,8 @@
 /obj/structure/chair/comfy/red{
 	dir = 1
 	},
-/obj/effect/landmark/burnturf,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/burnturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -318,7 +310,7 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -340,7 +332,7 @@
 	},
 /area/derelict/bridge)
 "aQ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "Human remains"
@@ -532,26 +524,11 @@
 "bn" = (
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/arrival)
-"bo" = (
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	pixel_x = -24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
-/area/derelict/bridge)
 "bp" = (
 /obj/structure/chair/comfy/red{
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -561,8 +538,6 @@
 "bq" = (
 /obj/structure/table/wood,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/item/paper/djstation{
@@ -576,8 +551,6 @@
 "br" = (
 /obj/structure/chair/stool,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -587,8 +560,6 @@
 /area/derelict/bridge)
 "bs" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -598,29 +569,12 @@
 /area/derelict/bridge)
 "bt" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/carpet,
 /area/derelict/bridge)
-"bu" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/door/airlock/command/glass{
-	name = "Command Wing"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/derelict/bridge)
 "bv" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -630,8 +584,6 @@
 /area/derelict/bridge)
 "bw" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -640,17 +592,7 @@
 /area/derelict/bridge)
 "bx" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/derelict/bridge)
-"by" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Command Wing"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -742,15 +684,6 @@
 	icon_state = "darkredcorners"
 	},
 /area/derelict/arrival)
-"bH" = (
-/obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
-/area/derelict/bridge)
 "bI" = (
 /obj/structure/table/wood,
 /obj/item/storage/ashtray/glass{
@@ -779,8 +712,6 @@
 /area/derelict/bridge)
 "bL" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -819,13 +750,6 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "darkblue"
-	},
-/area/derelict/bridge)
-"bQ" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "darkblue"
 	},
 /area/derelict/bridge)
@@ -1002,34 +926,10 @@
 	icon_state = "darkred"
 	},
 /area/derelict/arrival)
-"co" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/bot/secbot/buzzsky{
-	desc = "It's Comrade Blyatsky! Powered by vodka, communism, and hardbass.";
-	name = "Comrade Blyatsky"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
-	},
-/area/derelict/arrival)
-"cp" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
-	},
-/area/derelict/arrival)
 "cq" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Command Wing"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
-/area/derelict/bridge)
+/obj/machinery/chem_dispenser,
+/turf/simulated/floor/plasteel,
+/area/derelict/annex)
 "cr" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
@@ -1054,8 +954,6 @@
 /area/derelict/bridge)
 "cu" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/carpet,
@@ -1144,30 +1042,9 @@
 	icon_state = "wood"
 	},
 /area/derelict/bridge)
-"cF" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/door/poddoor/impassable{
-	id_tag = "ruslockcom";
-	layer = 3;
-	name = "Bridge Lockdown"
-	},
-/obj/machinery/door/airlock/command/glass{
-	name = "Command Wing"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/derelict/bridge)
 "cG" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/double,
 /obj/item/trash/can,
 /obj/item/trash/semki,
 /turf/simulated/floor/plasteel{
@@ -1219,16 +1096,6 @@
 /obj/structure/sign/securearea,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/arrival)
-"cN" = (
-/obj/machinery/door/airlock/hatch{
-	desc = "A sturdy armoury door. If you listen closely, you can barely make out a soviet marching tune coming from the other side of the door.";
-	name = "Armoury"
-	},
-/obj/effect/decal/cleanable/blood/tracks,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/derelict/arrival)
 "cO" = (
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower{
@@ -1257,13 +1124,6 @@
 	icon_state = "wood"
 	},
 /area/derelict/bridge)
-"cQ" = (
-/obj/structure/bed,
-/obj/item/bedsheet/red,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
-/area/derelict/bridge)
 "cR" = (
 /obj/item/shard{
 	icon_state = "small"
@@ -1274,8 +1134,6 @@
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -1284,8 +1142,6 @@
 /area/derelict/annex)
 "cT" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -1350,14 +1206,6 @@
 "db" = (
 /turf/simulated/floor/plasteel,
 /area/derelict/crew_quarters)
-"dc" = (
-/obj/item/bedsheet/blue,
-/obj/structure/bed,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "blue"
-	},
-/area/derelict/crew_quarters)
 "dd" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/cleanable/dirt,
@@ -1399,8 +1247,6 @@
 /obj/structure/grille,
 /obj/item/shard,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -1409,8 +1255,6 @@
 /area/derelict/annex)
 "dj" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/light/spot{
@@ -1433,14 +1277,6 @@
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/crew_quarters)
-"dm" = (
-/obj/machinery/computer/security,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
-	},
-/area/derelict/arrival)
 "dn" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -1506,8 +1342,6 @@
 	icon_state = "brokengrille"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -1533,15 +1367,6 @@
 "dx" = (
 /turf/simulated/floor/plasteel{
 	dir = 0;
-	icon_state = "blue"
-	},
-/area/derelict/crew_quarters)
-"dy" = (
-/obj/structure/bed,
-/obj/item/bedsheet/blue,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
 	icon_state = "blue"
 	},
 /area/derelict/crew_quarters)
@@ -1630,8 +1455,6 @@
 	icon_state = "small"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -1701,26 +1524,6 @@
 	icon_state = "4-i"
 	},
 /area/derelict/arrival)
-"dP" = (
-/obj/item/clothing/under/retro/security,
-/obj/item/clothing/under/retro/security,
-/obj/structure/closet,
-/obj/item/clothing/gloves/combat,
-/obj/item/clothing/gloves/combat,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
-	pixel_y = 24
-	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
-	},
-/area/derelict/arrival)
 "dQ" = (
 /obj/machinery/recharger,
 /obj/structure/table/reinforced,
@@ -1770,8 +1573,6 @@
 /area/derelict/arrival)
 "dV" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -1785,29 +1586,9 @@
 "dX" = (
 /obj/structure/sign/securearea,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
-/area/derelict/annex)
-"dY" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/door/poddoor/impassable{
-	id_tag = "ruslock";
-	layer = 3;
-	name = "Central Annex Lockdown"
-	},
-/obj/machinery/door/airlock/command/glass{
-	name = "Command Wing"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
 /area/derelict/annex)
 "dZ" = (
 /obj/structure/closet/crate/can,
@@ -1863,8 +1644,6 @@
 	tag = "icon-tube1 (NORTH)"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -1874,8 +1653,6 @@
 /area/derelict/annex)
 "ei" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1891,8 +1668,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -1903,21 +1678,6 @@
 "ek" = (
 /obj/machinery/door/airlock/shuttle{
 	name = "Dormitories"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
-/area/derelict/crew_quarters)
-"el" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 1
-	},
-/obj/structure/piano,
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
-	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
@@ -2011,8 +1771,6 @@
 /area/derelict/annex)
 "ev" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -2023,8 +1781,6 @@
 "ew" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -2052,8 +1808,6 @@
 "ey" = (
 /obj/machinery/atmospherics/unary/tank/oxygen,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -2113,8 +1867,6 @@
 /area/derelict/crew_quarters)
 "eG" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/wood{
@@ -2161,8 +1913,6 @@
 	name = "Security Wing Lockdown"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -2225,8 +1975,6 @@
 "eR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -2236,8 +1984,6 @@
 /area/derelict/annex)
 "eS" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2248,8 +1994,6 @@
 /area/derelict/annex)
 "eT" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -2282,8 +2026,6 @@
 	dir = 5
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -2343,8 +2085,6 @@
 /area/derelict/crew_quarters)
 "fd" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -2388,32 +2128,20 @@
 	icon_state = "darkred"
 	},
 /area/derelict/arrival)
-"fi" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "purple"
-	},
-/area/derelict/annex)
 "fj" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/annex)
 "fk" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/annex)
 "fl" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/science{
@@ -2425,14 +2153,10 @@
 /area/derelict/annex)
 "fm" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -2442,13 +2166,9 @@
 /area/derelict/annex)
 "fn" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2458,13 +2178,9 @@
 /area/derelict/annex)
 "fo" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -2474,8 +2190,6 @@
 /area/derelict/annex)
 "fp" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/engineering{
@@ -2487,34 +2201,24 @@
 /area/derelict/annex)
 "fq" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/annex)
 "fr" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/annex)
 "fs" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -2563,8 +2267,6 @@
 /area/derelict/crew_quarters)
 "fx" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/table/wood,
@@ -2599,8 +2301,6 @@
 	icon_state = "762-casing"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -2610,8 +2310,6 @@
 /area/derelict/arrival)
 "fC" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -2621,8 +2319,6 @@
 "fD" = (
 /obj/item/trash/spentcasing,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -2680,8 +2376,6 @@
 /area/derelict/annex)
 "fJ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -2699,8 +2393,6 @@
 "fM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -2710,8 +2402,6 @@
 /area/derelict/annex)
 "fN" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -2720,13 +2410,9 @@
 /area/derelict/annex)
 "fO" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -2740,13 +2426,9 @@
 	tag = "icon-tube1 (WEST)"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -2756,8 +2438,6 @@
 /area/derelict/annex)
 "fQ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
@@ -2824,8 +2504,6 @@
 /area/derelict/crew_quarters)
 "fX" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -2906,13 +2584,6 @@
 	icon_state = "darkblue"
 	},
 /area/derelict/annex)
-"gg" = (
-/obj/structure/table/wood,
-/obj/item/storage/ashtray,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
-/area/derelict/annex)
 "gh" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -2933,16 +2604,19 @@
 	},
 /area/derelict/annex)
 "gj" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Безопасность вход";
+	dir = 4;
+	network = list("USSP")
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "caution"
+	dir = 9;
+	icon_state = "darkred"
 	},
-/area/derelict/annex)
+/area/derelict/arrival)
 "gk" = (
 /obj/structure/sign/poster/contraband/random,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
@@ -2981,15 +2655,6 @@
 	icon_state = "grimy"
 	},
 /area/derelict/crew_quarters)
-"gq" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
-	},
-/area/derelict/arrival)
 "gr" = (
 /obj/item/trash/spentcasing,
 /turf/simulated/floor/plasteel{
@@ -3005,13 +2670,12 @@
 	},
 /area/derelict/arrival)
 "gt" = (
-/obj/structure/window/reinforced,
-/obj/machinery/light/small{
-	dir = 8
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer/rdconsole{
+	req_access = list(202,203,204)
 	},
-/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
-	dir = 10;
+	dir = 6;
 	icon_state = "purple"
 	},
 /area/derelict/annex)
@@ -3051,7 +2715,7 @@
 	},
 /area/derelict/annex)
 "gy" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/annex)
 "gz" = (
@@ -3059,7 +2723,7 @@
 	desc = "This computer is a husk of what it once was. Time and decay has worn its cheap circuitry to dust.";
 	name = "decrepit computer"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/cable_coil/cut{
 	amount = 2
 	},
@@ -3084,21 +2748,6 @@
 	icon_state = "solarpanel"
 	},
 /area/space/nearstation)
-"gC" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 1
-	},
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
-	pixel_y = 24
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "caution"
-	},
-/area/derelict/annex)
 "gD" = (
 /obj/structure/rack,
 /obj/item/t_scanner,
@@ -3136,17 +2785,6 @@
 /area/derelict/crew_quarters)
 "gH" = (
 /obj/item/trash/spentcasing,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/derelict/crew_quarters)
-"gI" = (
-/obj/structure/closet/secure_closet/bar,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/obj/item/reagent_containers/food/drinks/bottle/rum,
-/obj/item/reagent_containers/food/drinks/bottle/kahlua,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -3213,23 +2851,11 @@
 /mob/living/simple_animal/hostile/carp,
 /turf/template_noop,
 /area/space/nearstation)
-"gS" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/stack/cable_coil/cut{
-	amount = 1
-	},
-/turf/simulated/floor/plating,
-/area/derelict/annex)
 "gT" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -3263,31 +2889,14 @@
 	icon_state = "grimy"
 	},
 /area/derelict/crew_quarters)
-"gX" = (
-/obj/structure/table/reinforced,
-/obj/item/wrench,
-/obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/derelict/crew_quarters)
 "gY" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/lattice/catwalk,
@@ -3338,8 +2947,6 @@
 /area/derelict/arrival)
 "he" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -3354,22 +2961,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/derelict/annex)
-"hg" = (
-/obj/structure/computerframe,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "purple"
-	},
-/area/derelict/annex)
 "hi" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/glass,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -3384,16 +2981,12 @@
 	name = "отчет об тех. обслухивании"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/annex)
 "hk" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -3446,14 +3039,10 @@
 /area/space/nearstation)
 "hs" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/template_noop,
@@ -3476,8 +3065,6 @@
 /area/derelict/arrival)
 "hv" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/security/glass{
@@ -3505,18 +3092,8 @@
 	icon_state = "purple"
 	},
 /area/derelict/annex)
-"hy" = (
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "purple"
-	},
-/area/derelict/annex)
 "hz" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/annex)
 "hA" = (
@@ -3529,7 +3106,7 @@
 	},
 /area/derelict/annex)
 "hB" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
@@ -3538,8 +3115,6 @@
 "hC" = (
 /obj/structure/chair/stool,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
@@ -3557,8 +3132,6 @@
 /area/derelict/annex)
 "hE" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/public/glass{
@@ -3623,8 +3196,6 @@
 /area/derelict/arrival)
 "hL" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -3655,8 +3226,6 @@
 /area/derelict/annex)
 "hP" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -3666,14 +3235,10 @@
 /area/derelict/annex)
 "hQ" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/chair/stool,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -3687,8 +3252,6 @@
 /area/derelict/annex)
 "hS" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3738,8 +3301,6 @@
 /area/derelict/arrival)
 "hZ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/item/trash/spentcasing,
@@ -3793,7 +3354,7 @@
 /turf/simulated/floor/plating,
 /area/derelict/annex)
 "ig" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/flora/rock/pile,
 /turf/simulated/floor/plating/airless,
 /area/derelict/annex)
@@ -3808,8 +3369,6 @@
 /obj/machinery/recharge_station,
 /obj/effect/decal/cleanable/blood/oil,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -3838,8 +3397,6 @@
 /area/derelict/crew_quarters)
 "im" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -3876,6 +3433,17 @@
 /obj/item/stack/tile,
 /turf/template_noop,
 /area/space/nearstation)
+"is" = (
+/obj/machinery/camera{
+	c_tag = "Лобби 2";
+	dir = 2;
+	network = list("USSP")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "redblue"
+	},
+/area/derelict/annex)
 "iv" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3895,8 +3463,6 @@
 /area/derelict/arrival)
 "iy" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -3975,13 +3541,6 @@
 	},
 /turf/template_noop,
 /area/derelict/annex)
-"iH" = (
-/obj/structure/closet/secure_closet/engineering_welding,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "caution"
-	},
-/area/derelict/annex)
 "iI" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
@@ -3991,8 +3550,6 @@
 /area/derelict/annex)
 "iJ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/blood/splatter,
@@ -4027,10 +3584,7 @@
 /area/space/nearstation)
 "iS" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/double,
 /obj/structure/sign/poster/contraband/communist_state{
 	pixel_x = -32
 	},
@@ -4047,7 +3601,7 @@
 	},
 /area/derelict/arrival)
 "iU" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "iV" = (
@@ -4072,8 +3626,6 @@
 /area/derelict/annex)
 "iX" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/science{
@@ -4095,7 +3647,7 @@
 /turf/template_noop,
 /area/derelict/annex)
 "iZ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "Human remains"
@@ -4108,8 +3660,6 @@
 /area/derelict/annex)
 "jb" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/engineering{
@@ -4125,8 +3675,6 @@
 	name = "Engineering Wing"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -4136,8 +3684,6 @@
 /area/derelict/annex)
 "jd" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/chair/wood{
@@ -4199,15 +3745,13 @@
 /area/derelict/arrival)
 "jp" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "jq" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /obj/item/trash/spentcasing{
 	icon_state = "s-casing"
 	},
@@ -4237,16 +3781,8 @@
 /area/derelict/annex)
 "ju" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "redblue"
-	},
-/area/derelict/annex)
-"jv" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redblue"
@@ -4279,7 +3815,7 @@
 /turf/template_noop,
 /area/derelict/annex)
 "jz" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/derelict/annex)
 "jA" = (
@@ -4312,16 +3848,8 @@
 	icon_state = "caution"
 	},
 /area/derelict/annex)
-"jD" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "caution"
-	},
-/area/derelict/annex)
 "jE" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -4331,8 +3859,6 @@
 /area/derelict/annex)
 "jF" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -4374,8 +3900,6 @@
 /obj/effect/decal/warning_stripes/southeastcorner,
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -4402,11 +3926,6 @@
 	icon_state = "solarpanel"
 	},
 /area/space/nearstation)
-"jS" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "derelict9"
-	},
-/area/derelict/arrival)
 "jT" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "derelict10"
@@ -4438,13 +3957,9 @@
 /area/derelict/arrival)
 "jY" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -4453,8 +3968,6 @@
 /area/derelict/arrival)
 "jZ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -4463,16 +3976,12 @@
 /area/derelict/arrival)
 "ka" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "kb" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/shuttle{
@@ -4482,8 +3991,6 @@
 /area/derelict/arrival)
 "kc" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/light/small{
@@ -4493,8 +4000,6 @@
 /area/derelict/annex)
 "kd" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4502,8 +4007,6 @@
 /area/derelict/annex)
 "ke" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4514,8 +4017,6 @@
 /area/derelict/annex)
 "kf" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/blood/splatter,
@@ -4523,8 +4024,6 @@
 /area/derelict/annex)
 "kg" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/shuttle{
@@ -4540,8 +4039,6 @@
 /area/derelict/annex)
 "kh" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/blood/tracks{
@@ -4554,8 +4051,6 @@
 /area/derelict/annex)
 "ki" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/blood/tracks{
@@ -4572,8 +4067,6 @@
 /area/derelict/annex)
 "kj" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/blood/tracks{
@@ -4623,7 +4116,7 @@
 /turf/simulated/floor/plating/airless,
 /area/derelict/annex)
 "kp" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/ore/slag,
 /turf/simulated/floor/plating/airless,
 /area/derelict/annex)
@@ -4640,8 +4133,6 @@
 /area/derelict/annex)
 "kr" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/external{
@@ -4655,8 +4146,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4667,8 +4156,6 @@
 	name = "External Airlock"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/poddoor/impassable{
@@ -4680,8 +4167,6 @@
 /area/derelict/annex)
 "ku" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4693,21 +4178,15 @@
 /area/derelict/annex)
 "kv" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/annex)
 "kw" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -4718,8 +4197,6 @@
 /area/derelict/annex)
 "kx" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/poddoor/impassable{
@@ -4734,8 +4211,6 @@
 /area/derelict/annex)
 "ky" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/light/small,
@@ -4743,8 +4218,6 @@
 /area/derelict/annex)
 "kz" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/shuttle{
@@ -4755,8 +4228,6 @@
 /area/derelict/crew_quarters)
 "kA" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4764,24 +4235,18 @@
 /area/derelict/crew_quarters)
 "kB" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/carpet,
 /area/derelict/crew_quarters)
 "kC" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/carpet,
 /area/derelict/crew_quarters)
 "kD" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/table/wood/fancy,
@@ -4797,8 +4262,6 @@
 /area/derelict/crew_quarters)
 "kE" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4808,8 +4271,6 @@
 /area/derelict/crew_quarters)
 "kF" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -4818,8 +4279,6 @@
 /area/derelict/crew_quarters)
 "kG" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/morgue{
@@ -4852,18 +4311,12 @@
 "kJ" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/template_noop,
@@ -4871,18 +4324,12 @@
 "kK" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/template_noop,
@@ -4920,8 +4367,6 @@
 /area/derelict/arrival)
 "kR" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -5038,8 +4483,6 @@
 "lf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -5048,13 +4491,9 @@
 /area/derelict/annex)
 "lg" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -5063,13 +4502,9 @@
 /area/derelict/annex)
 "lh" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -5080,8 +4515,6 @@
 "li" = (
 /obj/machinery/light/small,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -5093,8 +4526,6 @@
 "lj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -5108,8 +4539,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -5132,8 +4561,6 @@
 /area/derelict/crew_quarters)
 "ln" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/item/shard{
@@ -5143,8 +4570,6 @@
 /area/derelict/annex)
 "lo" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/item/stack/tile,
@@ -5155,8 +4580,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/access_button{
@@ -5192,14 +4615,10 @@
 /area/derelict/annex)
 "ls" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/template_noop,
@@ -5262,20 +4681,16 @@
 /area/derelict/annex)
 "lC" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/template_noop,
 /area/template_noop)
 "lD" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/engine{
 	name = "vacuum floor";
 	nitrogen = 0.01;
@@ -5284,8 +4699,6 @@
 /area/derelict/annex)
 "lE" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/public/glass{
@@ -5327,10 +4740,7 @@
 /area/derelict/arrival)
 "lL" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -5387,8 +4797,6 @@
 /area/derelict/annex)
 "lT" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -5450,8 +4858,6 @@
 /area/derelict/annex)
 "mb" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/lattice/catwalk,
@@ -5485,7 +4891,7 @@
 	},
 /area/derelict/annex)
 "mi" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel,
 /area/derelict/annex)
 "mj" = (
@@ -5493,14 +4899,14 @@
 /turf/simulated/floor/plating/airless,
 /area/derelict/annex)
 "mk" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel/airless{
 	dir = 5;
 	icon_state = "green"
 	},
 /area/derelict/annex)
 "ml" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/grille/broken,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating/airless,
@@ -5519,8 +4925,6 @@
 /area/derelict/annex)
 "mp" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5592,7 +4996,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/derelict/annex)
 "mz" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/derelict/annex)
 "mA" = (
@@ -5623,8 +5027,6 @@
 /area/template_noop)
 "mF" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk,
@@ -5650,8 +5052,6 @@
 /area/derelict/arrival)
 "mJ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/medical/glass{
@@ -5669,7 +5069,7 @@
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/arrival)
 "mL" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel/airless{
 	dir = 8;
 	icon_state = "green"
@@ -5684,8 +5084,6 @@
 /area/derelict/annex)
 "mN" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -5694,8 +5092,6 @@
 /area/derelict/annex)
 "mO" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/chair/stool,
@@ -5734,8 +5130,6 @@
 /area/derelict/arrival)
 "mT" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -5781,8 +5175,6 @@
 /area/derelict/annex)
 "na" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/window/reinforced{
@@ -5799,8 +5191,6 @@
 /area/derelict/annex)
 "nb" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/table/reinforced,
@@ -5894,8 +5284,6 @@
 /area/derelict/annex)
 "no" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -5905,8 +5293,6 @@
 /area/derelict/annex)
 "np" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -5971,13 +5357,13 @@
 	},
 /area/derelict/arrival)
 "nx" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
 /area/derelict/arrival)
 "ny" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -6034,16 +5420,14 @@
 	},
 /area/derelict/arrival)
 "nG" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
 /area/derelict/arrival)
 "nH" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = "90Curve"
 	},
@@ -6053,8 +5437,6 @@
 /area/derelict/arrival)
 "nI" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -6087,12 +5469,12 @@
 /turf/simulated/floor/plating/airless,
 /area/derelict/annex)
 "nN" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/ore/iron,
 /turf/simulated/floor/plating/airless,
 /area/derelict/annex)
 "nO" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/clothing/suit/tracksuit,
 /obj/item/clothing/under/pants/track,
 /obj/item/clothing/shoes/black,
@@ -6105,13 +5487,6 @@
 /area/derelict/annex)
 "nP" = (
 /obj/structure/chair/comfy/brown,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/derelict/annex)
-"nQ" = (
-/obj/item/storage/ashtray,
-/obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -6138,8 +5513,6 @@
 /area/derelict/annex)
 "nT" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/kitchen_machine/grill,
@@ -6197,8 +5570,6 @@
 /area/derelict/arrival)
 "nZ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -6206,7 +5577,7 @@
 	},
 /area/derelict/arrival)
 "oa" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
@@ -6221,14 +5592,14 @@
 /turf/template_noop,
 /area/derelict/arrival)
 "od" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/burnturf,
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "oe" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel/airless,
 /area/derelict/annex)
 "of" = (
@@ -6246,8 +5617,6 @@
 /area/derelict/annex)
 "oh" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -6257,8 +5626,6 @@
 /area/derelict/annex)
 "oi" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/table/reinforced,
@@ -6326,7 +5693,7 @@
 	},
 /area/derelict/annex)
 "or" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/flora/rock/pile,
 /turf/simulated/floor/plasteel/airless,
 /area/derelict/annex)
@@ -6349,8 +5716,6 @@
 /area/derelict/annex)
 "ou" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -6359,8 +5724,6 @@
 /area/derelict/annex)
 "ov" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -6369,8 +5732,6 @@
 /area/derelict/annex)
 "ow" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/public/glass{
@@ -6387,8 +5748,6 @@
 /area/derelict/annex)
 "ox" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -6397,8 +5756,6 @@
 /area/derelict/annex)
 "oy" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/chair/stool,
@@ -6450,14 +5807,14 @@
 /turf/template_noop,
 /area/derelict/arrival)
 "oE" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/grille/broken,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
 /area/derelict/arrival)
 "oF" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
@@ -6505,8 +5862,6 @@
 /area/derelict/annex)
 "oN" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -6547,7 +5902,7 @@
 	},
 /area/derelict/crew_quarters)
 "oS" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/ore/iron,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
@@ -6583,8 +5938,6 @@
 /area/derelict/annex)
 "oW" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -6698,21 +6051,15 @@
 /area/derelict/crew_quarters)
 "pk" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/annex)
 "pl" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/shuttle{
@@ -6738,7 +6085,7 @@
 /turf/simulated/floor/plating/airless,
 /area/derelict/arrival)
 "pp" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/derelict/arrival)
 "pq" = (
@@ -6753,8 +6100,6 @@
 /area/derelict/arrival)
 "ps" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -6818,15 +6163,13 @@
 	},
 /area/derelict/crew_quarters)
 "pA" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
 /area/derelict/arrival)
 "pB" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/light/small{
@@ -6876,14 +6219,14 @@
 	},
 /area/derelict/arrival)
 "pH" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/hemostat,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
 /area/derelict/arrival)
 "pI" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /obj/machinery/light/small{
 	dir = 4;
 	tag = "icon-bulb1 (EAST)"
@@ -6893,7 +6236,7 @@
 	},
 /area/derelict/arrival)
 "pJ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/arrival)
 "pK" = (
@@ -7035,7 +6378,7 @@
 	},
 /area/derelict/crew_quarters)
 "qa" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /obj/item/stack/cable_coil/cut{
 	amount = 1
 	},
@@ -7043,8 +6386,6 @@
 /area/derelict/arrival)
 "qb" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/light/small{
@@ -7076,7 +6417,7 @@
 	},
 /area/derelict/crew_quarters)
 "qf" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/ore/slag,
 /obj/structure/grille/broken,
 /turf/simulated/floor/plasteel/airless{
@@ -7155,7 +6496,7 @@
 	},
 /area/derelict/crew_quarters)
 "qp" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/arrival)
 "qq" = (
@@ -7204,8 +6545,6 @@
 /area/derelict/arrival)
 "qx" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/shuttle{
@@ -7241,8 +6580,6 @@
 /area/derelict/crew_quarters)
 "qB" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -7251,8 +6588,6 @@
 /area/derelict/arrival)
 "qC" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -7261,8 +6596,6 @@
 /area/derelict/arrival)
 "qD" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/medical/glass{
@@ -7275,8 +6608,6 @@
 /area/derelict/arrival)
 "qE" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -7296,8 +6627,6 @@
 /area/derelict/arrival)
 "qH" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -7453,8 +6782,6 @@
 /area/derelict/arrival)
 "rb" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/chair/stool,
@@ -7462,8 +6789,6 @@
 /area/derelict/arrival)
 "rc" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/table,
@@ -7471,8 +6796,6 @@
 /area/derelict/arrival)
 "rd" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/table,
@@ -7482,8 +6805,6 @@
 /area/derelict/arrival)
 "re" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/chair/stool,
@@ -7491,8 +6812,6 @@
 /area/derelict/arrival)
 "rf" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -7502,8 +6821,6 @@
 /area/derelict/arrival)
 "rg" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -7513,8 +6830,6 @@
 /area/derelict/arrival)
 "rh" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -7524,8 +6839,6 @@
 /area/derelict/arrival)
 "ri" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -7534,8 +6847,6 @@
 /area/derelict/arrival)
 "rj" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -7720,8 +7031,6 @@
 "rE" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/template_noop,
@@ -7760,10 +7069,7 @@
 /area/derelict/arrival)
 "rJ" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/double,
 /obj/item/trash/popcorn,
 /obj/item/trash/semki,
 /obj/item/paper/crumpled{
@@ -7837,22 +7143,6 @@
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
-/area/derelict/arrival)
-"rQ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
-/obj/effect/decal/warning_stripes/south,
-/obj/machinery/access_button{
-	command = "cycle_interior";
-	frequency = 1379;
-	master_tag = "rus_airlock_1";
-	name = "exterior access button";
-	pixel_y = -24
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -8015,8 +7305,6 @@
 "sm" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/template_noop,
@@ -8036,13 +7324,9 @@
 /area/template_noop)
 "sr" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -8053,13 +7337,9 @@
 /area/template_noop)
 "st" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/lattice/catwalk,
@@ -8067,18 +7347,12 @@
 /area/template_noop)
 "su" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/lattice/catwalk,
@@ -8111,12 +7385,26 @@
 /area/ruin/unpowered/no_grav)
 "tr" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/bridge)
+"tz" = (
+/obj/effect/mob_spawn/human/ussp_general{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "wood"
+	},
+/area/derelict/bridge)
+"tE" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/derelict/arrival)
 "tI" = (
 /obj/machinery/computer/shuttle/ruins_transport_shuttle,
 /turf/simulated/floor/plasteel{
@@ -8128,8 +7416,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/driver_button{
@@ -8141,11 +7427,18 @@
 	icon_state = "dark"
 	},
 /area/derelict/crew_quarters)
+"tQ" = (
+/obj/effect/mob_spawn/human/ussp_engineer{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "blue"
+	},
+/area/derelict/crew_quarters)
 "tT" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
@@ -8156,8 +7449,22 @@
 	icon_state = "solarpanel"
 	},
 /area/space/nearstation)
+"tZ" = (
+/obj/effect/mob_spawn/human/ussp_security{
+	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "Дормы лобби";
+	dir = 8;
+	network = list("USSP")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "blue"
+	},
+/area/derelict/crew_quarters)
 "ui" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/bridge)
 "ul" = (
@@ -8189,8 +7496,6 @@
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -8218,28 +7523,30 @@
 /area/derelict/arrival)
 "ww" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/bridge)
-"wL" = (
-/obj/effect/decal/warning_stripes/south,
-/obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/derelict/crew_quarters)
 "xa" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/space/nearstation)
+"xe" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/camera{
+	c_tag = "Инженерия";
+	dir = 8;
+	network = list("USSP")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "caution"
+	},
+/area/derelict/annex)
 "xo" = (
 /obj/structure/shuttle/engine/large{
 	dir = 8
@@ -8248,6 +7555,20 @@
 	icon_state = "floorscorched2"
 	},
 /area/ruin/unpowered/no_grav)
+"xN" = (
+/obj/machinery/light/spot{
+	dir = 8;
+	tag = "icon-tube1 (WEST)"
+	},
+/obj/machinery/camera{
+	c_tag = "Капитанская";
+	dir = 4;
+	network = list("USSP")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "wood"
+	},
+/area/derelict/bridge)
 "xP" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -8257,13 +7578,9 @@
 	name = "Bridge Lockdown"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -8287,8 +7604,6 @@
 /area/ruin/unpowered/no_grav)
 "yy" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/carpet,
@@ -8300,8 +7615,6 @@
 /area/ruin/unpowered/no_grav)
 "yG" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
@@ -8317,6 +7630,35 @@
 /obj/structure/closet/crate,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
+"zn" = (
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2";
+	pixel_y = 1
+	},
+/obj/structure/piano,
+/obj/machinery/power/apc/noalarm{
+	dir = 1;
+	pixel_y = 24;
+	req_access = list(202,203,204)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "wood"
+	},
+/area/derelict/crew_quarters)
+"zw" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/machinery/camera{
+	c_tag = "Оружейная";
+	dir = 8;
+	network = list("USSP")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/derelict/arrival)
 "zE" = (
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
 	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "orangefull");
@@ -8326,6 +7668,15 @@
 	icon_state = "hydrofloor"
 	},
 /area/derelict/crew_quarters)
+"zS" = (
+/obj/structure/closet/secure_closet/engineering_welding{
+	req_access = list(202,203,204)
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "caution"
+	},
+/area/derelict/annex)
 "zW" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -8337,25 +7688,29 @@
 	},
 /turf/template_noop,
 /area/template_noop)
+"An" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "purplefull"
+	},
+/area/derelict/annex)
 "Ao" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
 /area/template_noop)
+"Aq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/r_n_d/destructive_analyzer,
+/turf/simulated/floor/plasteel,
+/area/derelict/annex)
 "Aw" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable{
@@ -8373,24 +7728,30 @@
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/derelict/annex)
+"AF" = (
+/obj/structure/table/wood,
+/obj/item/storage/ashtray,
+/obj/machinery/camera{
+	c_tag = "Лобби 1";
+	dir = 1;
+	network = list("USSP")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/derelict/annex)
 "AO" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/crew_quarters)
 "Bb" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/wall/mineral/titanium/nodecon,
@@ -8409,6 +7770,16 @@
 /obj/machinery/door/airlock/mining,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
+"Cd" = (
+/obj/machinery/camera{
+	c_tag = "Церковь";
+	dir = 8;
+	network = list("USSP")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "wood"
+	},
+/area/derelict/crew_quarters)
 "Cg" = (
 /obj/item/stack/cable_coil/cut{
 	amount = 1
@@ -8426,8 +7797,6 @@
 	name = "Bridge Lockdown"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -8437,8 +7806,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -8451,10 +7818,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/no_grav)
+"CW" = (
+/obj/machinery/camera{
+	c_tag = "Дормы вход";
+	dir = 4;
+	network = list("USSP")
+	},
+/turf/simulated/floor/plasteel,
+/area/derelict/crew_quarters)
 "CX" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
@@ -8480,6 +7853,22 @@
 	icon_state = "solarpanel"
 	},
 /area/space/nearstation)
+"Dp" = (
+/obj/structure/table/reinforced,
+/obj/item/wrench,
+/obj/machinery/light/spot{
+	dir = 4;
+	tag = "icon-tube1 (EAST)"
+	},
+/obj/machinery/camera{
+	c_tag = "Бар";
+	dir = 8;
+	network = list("USSP")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/derelict/crew_quarters)
 "Ds" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 1;
@@ -8502,11 +7891,53 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
+/area/derelict/crew_quarters)
+"Du" = (
+/obj/item/clothing/under/retro/security,
+/obj/item/clothing/under/retro/security,
+/obj/structure/closet,
+/obj/item/clothing/gloves/combat,
+/obj/item/clothing/gloves/combat,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc/noalarm{
+	dir = 1;
+	pixel_y = 24;
+	req_access = list(202,203,204)
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkred"
+	},
+/area/derelict/arrival)
+"DD" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/closet/crate,
+/obj/item/seeds/apple,
+/obj/item/seeds/banana,
+/obj/item/seeds/cabbage,
+/obj/item/seeds/carrot,
+/obj/item/seeds/cherry,
+/obj/item/seeds/cocoapod,
+/obj/item/seeds/corn,
+/obj/item/seeds/cucumber,
+/obj/item/seeds/grape,
+/obj/item/seeds/onion,
+/obj/item/seeds/orange,
+/obj/item/seeds/peanuts,
+/obj/item/seeds/potato,
+/obj/item/seeds/tomato,
+/obj/item/seeds/wheat,
+/obj/item/seeds/ambrosia,
+/turf/simulated/floor/plasteel,
 /area/derelict/crew_quarters)
 "DQ" = (
 /obj/item/mounted/frame/light_fixture,
@@ -8516,30 +7947,35 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/template_noop)
+"Ep" = (
+/obj/structure/table,
+/obj/item/storage/bag/tray{
+	pixel_y = 6
+	},
+/obj/item/storage/toolbox/mechanical,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "purple"
+	},
+/area/derelict/annex)
 "EK" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/bridge)
 "ER" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
 /area/template_noop)
 "ET" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/cable_coil/cut{
 	amount = 1
 	},
@@ -8555,19 +7991,26 @@
 /area/ruin/unpowered/no_grav)
 "Fi" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/wall/mineral/titanium/nodecon,
 /area/derelict/crew_quarters)
+"Fj" = (
+/obj/machinery/door/airlock/hatch{
+	desc = "A sturdy armoury door. If you listen closely, you can barely make out a soviet marching tune coming from the other side of the door.";
+	name = "Armoury";
+	req_access = list(202)
+	},
+/obj/effect/decal/cleanable/blood/tracks,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/derelict/arrival)
 "Gi" = (
 /obj/structure/chair/wood{
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -8578,6 +8021,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/crew_quarters)
+"GD" = (
+/obj/machinery/r_n_d/circuit_imprinter,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "purple"
+	},
+/area/derelict/annex)
 "GG" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -8594,16 +8044,12 @@
 	name = "External Access"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/derelict/crew_quarters)
 "GU" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
@@ -8611,12 +8057,32 @@
 "Hc" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/template_noop,
 /area/template_noop)
+"Hr" = (
+/obj/machinery/camera{
+	c_tag = "Кухня";
+	dir = 8;
+	network = list("USSP")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/derelict/annex)
+"HJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/camera{
+	c_tag = "Переговорная";
+	dir = 8;
+	network = list("USSP")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkblue"
+	},
+/area/derelict/bridge)
 "HN" = (
 /obj/structure/chair/comfy/shuttle,
 /obj/machinery/light/built{
@@ -8627,14 +8093,10 @@
 /area/ruin/unpowered/no_grav)
 "Ih" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/template_noop,
@@ -8648,8 +8110,6 @@
 	name = "External Access"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -8670,6 +8130,9 @@
 	icon_state = "solarpanel"
 	},
 /area/space/nearstation)
+"IF" = (
+/turf/simulated/mineral/random,
+/area/template_noop)
 "IP" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -8685,37 +8148,25 @@
 /area/space/nearstation)
 "IQ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/template_noop,
 /area/template_noop)
 "IR" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/lattice/catwalk,
@@ -8723,12 +8174,22 @@
 /area/template_noop)
 "IV" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/arrival)
+"Jd" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/command/glass{
+	name = "Command Wing";
+	req_access = list(202,203)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/derelict/bridge)
 "Je" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/space_heater,
@@ -8736,6 +8197,18 @@
 	icon_state = "dark"
 	},
 /area/derelict/crew_quarters)
+"Jq" = (
+/obj/item/storage/ashtray,
+/obj/structure/table/glass,
+/obj/machinery/camera{
+	c_tag = "Лобби 3";
+	dir = 2;
+	network = list("USSP")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/derelict/annex)
 "JC" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
@@ -8745,8 +8218,6 @@
 "JP" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/access_button{
@@ -8759,19 +8230,52 @@
 	},
 /turf/template_noop,
 /area/derelict/crew_quarters)
+"Kk" = (
+/obj/machinery/camera{
+	c_tag = "Отдых";
+	dir = 4;
+	network = list("USSP")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "hydrofloor"
+	},
+/area/derelict/crew_quarters)
 "Km" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/no_grav)
+"KE" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Command Wing";
+	req_access = list(202,203)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/derelict/bridge)
 "KK" = (
 /obj/structure/table_frame,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/no_grav)
+"KO" = (
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2";
+	pixel_y = 1
+	},
+/obj/machinery/power/apc/noalarm{
+	dir = 1;
+	pixel_y = 24;
+	req_access = list(202,203,204)
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "caution"
+	},
+/area/derelict/annex)
 "KP" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/template_noop,
@@ -8782,23 +8286,32 @@
 /area/ruin/unpowered/no_grav)
 "La" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/template_noop,
 /area/template_noop)
+"Ll" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/light/spot{
+	dir = 4;
+	tag = "icon-tube1 (EAST)"
+	},
+/obj/machinery/camera{
+	c_tag = "Церковь выбрасывательная";
+	dir = 8;
+	network = list("USSP")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/derelict/crew_quarters)
 "Lr" = (
 /obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plating/airless,
@@ -8812,6 +8325,15 @@
 /obj/item/stack/rods,
 /turf/template_noop,
 /area/ruin/unpowered/no_grav)
+"Md" = (
+/obj/machinery/hydroponics/constructable,
+/obj/machinery/camera{
+	c_tag = "Хранилище";
+	dir = 8;
+	network = list("USSP")
+	},
+/turf/simulated/floor/plasteel,
+/area/derelict/crew_quarters)
 "Mw" = (
 /obj/machinery/power/solar/fake{
 	desc = "A broken solar panel. This one is beyond of any possible repair."
@@ -8820,6 +8342,17 @@
 	icon_state = "solarpanel"
 	},
 /area/space/nearstation)
+"Mx" = (
+/obj/machinery/camera{
+	c_tag = "Безопасность лобби";
+	dir = 4;
+	network = list("USSP")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/derelict/arrival)
 "MA" = (
 /obj/item/clothing/mask/breath/medical,
 /turf/simulated/floor/plasteel,
@@ -8832,6 +8365,16 @@
 /obj/item/pickaxe/mini,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
+"NJ" = (
+/obj/machinery/camera{
+	c_tag = "Карго лобби";
+	dir = 4;
+	network = list("USSP")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "derelict9"
+	},
+/area/derelict/arrival)
 "NP" = (
 /obj/machinery/access_button{
 	command = "cycle_exterior";
@@ -8844,17 +8387,17 @@
 /area/derelict/arrival)
 "Od" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/crew_quarters)
+"Oe" = (
+/obj/structure/table,
+/turf/simulated/floor/plasteel,
+/area/derelict/crew_quarters)
 "Ot" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/template_noop,
@@ -8870,22 +8413,73 @@
 /obj/structure/table,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
+"OP" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Command Wing";
+	req_access = list(202,203)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "wood"
+	},
+/area/derelict/bridge)
 "OU" = (
 /obj/structure/closet/crate/secure/loot,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
+"OW" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/cable_coil/cut{
+	amount = 1
+	},
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/simulated/floor/plating,
+/area/derelict/annex)
+"Pe" = (
+/obj/structure/window/reinforced,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/machinery/camera{
+	c_tag = "Учённые";
+	dir = 4;
+	network = list("USSP")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "purple"
+	},
+/area/derelict/annex)
+"Ps" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1379;
+	master_tag = "rus_airlock_1";
+	name = "exterior access button";
+	pixel_y = -24
+	},
+/obj/machinery/camera{
+	c_tag = "Прибытие";
+	dir = 1;
+	network = list("USSP")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
+	},
+/area/derelict/arrival)
 "Pz" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/annex)
 "PL" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
@@ -8895,10 +8489,26 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/no_grav)
+"PU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/r_n_d/protolathe,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "purple"
+	},
+/area/derelict/annex)
+"Qf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mob_spawn/human/ussp_security{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "blue"
+	},
+/area/derelict/crew_quarters)
 "Qp" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/wall/mineral/titanium/nodecon,
@@ -8920,6 +8530,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/no_grav)
+"Rc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/dispenser,
+/turf/simulated/floor/plasteel,
+/area/derelict/annex)
 "Rh" = (
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
@@ -8935,8 +8550,6 @@
 /area/space/nearstation)
 "RJ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
@@ -8949,19 +8562,13 @@
 /area/ruin/unpowered/no_grav)
 "Sl" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = "90Curve"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/lattice/catwalk,
@@ -8969,23 +8576,30 @@
 /area/template_noop)
 "St" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
 /area/template_noop)
+"SJ" = (
+/obj/structure/closet/secure_closet/bar{
+	req_access = list(201,202,203,204)
+	},
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/food/drinks/bottle/rum,
+/obj/item/reagent_containers/food/drinks/bottle/kahlua,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/derelict/crew_quarters)
 "SL" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -9000,13 +8614,9 @@
 /area/ruin/unpowered/no_grav)
 "TV" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -9016,10 +8626,30 @@
 "Ue" = (
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/ruin/unpowered/no_grav)
+"Uo" = (
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc/noalarm{
+	dir = 8;
+	pixel_x = -24;
+	req_access = list(202,203,204)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "wood"
+	},
+/area/derelict/bridge)
 "UF" = (
 /mob/living/simple_animal/hostile/carp,
 /turf/template_noop,
 /area/template_noop)
+"UJ" = (
+/obj/machinery/autolathe,
+/turf/simulated/floor/plasteel{
+	icon_state = "cautionfull"
+	},
+/area/derelict/annex)
 "UM" = (
 /obj/structure/lattice,
 /obj/item/solar_assembly,
@@ -9029,25 +8659,63 @@
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/derelict/crew_quarters)
+"Vb" = (
+/obj/machinery/camera{
+	c_tag = "Лобби 4";
+	dir = 2;
+	network = list("USSP")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "caution"
+	},
+/area/derelict/annex)
 "Vf" = (
 /obj/item/shard{
 	icon_state = "small"
 	},
 /turf/template_noop,
 /area/template_noop)
+"VB" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door_control{
+	id = "rusbridge";
+	name = "Bridge Shutters";
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/machinery/door_control{
+	id = "ruslockcom";
+	name = "Comand lockdown";
+	pixel_x = -5;
+	pixel_y = 8
+	},
+/obj/machinery/door_control{
+	id = "ruslocksec";
+	name = "Security lockdown";
+	pixel_x = 6;
+	pixel_y = 8
+	},
+/obj/machinery/door_control{
+	id = "ruslock";
+	name = "Central Annex lockdown";
+	pixel_x = 6;
+	pixel_y = -2
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkblue"
+	},
+/area/derelict/bridge)
 "VG" = (
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 8
@@ -9060,6 +8728,23 @@
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
+"VZ" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "ruslock";
+	layer = 3;
+	name = "Central Annex Lockdown"
+	},
+/obj/machinery/door/airlock/command/glass{
+	name = "Command Wing";
+	req_access = list(202,203)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/derelict/annex)
 "Wo" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -9080,8 +8765,6 @@
 /area/space)
 "WS" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
@@ -9101,24 +8784,54 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating,
 /area/derelict/crew_quarters)
+"XK" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "ruslockcom";
+	layer = 3;
+	name = "Bridge Lockdown"
+	},
+/obj/machinery/door/airlock/command/glass{
+	name = "Command Wing";
+	req_access = list(202,203)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/derelict/bridge)
 "Yg" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
 /area/template_noop)
+"Yr" = (
+/obj/machinery/computer/security{
+	network = list("USSP")
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkred"
+	},
+/area/derelict/arrival)
+"YD" = (
+/obj/effect/mob_spawn/human/ussp_scientist{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "purple"
+	},
+/area/derelict/annex)
 "YL" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/wall/mineral/titanium/nodecon,
@@ -9126,26 +8839,18 @@
 "YN" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/template_noop,
 /area/template_noop)
 "Zh" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/lattice/catwalk,
@@ -9178,11 +8883,11 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -9264,18 +8969,18 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -9355,20 +9060,20 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -9447,20 +9152,20 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ag
@@ -9539,20 +9244,20 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ag
 ag
@@ -9631,20 +9336,20 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ag
 ac
@@ -9723,21 +9428,21 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -9760,7 +9465,7 @@ ac
 bn
 iS
 jn
-jS
+NJ
 kL
 hY
 lK
@@ -9815,21 +9520,21 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -9908,20 +9613,20 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -10000,19 +9705,19 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -10027,7 +9732,7 @@ aW
 bn
 bn
 dO
-gq
+gj
 gK
 ha
 ht
@@ -10093,18 +9798,18 @@ ag
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -10186,17 +9891,17 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -10279,16 +9984,16 @@ Vf
 ab
 ag
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -10372,15 +10077,15 @@ jK
 ab
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -10465,13 +10170,13 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ag
 ac
@@ -10479,7 +10184,7 @@ ac
 ac
 aW
 bn
-dP
+Du
 dV
 dV
 dV
@@ -10557,13 +10262,13 @@ ac
 sp
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -10650,19 +10355,19 @@ ac
 ag
 ac
 ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
 aW
 bn
-dm
+Yr
 dA
-dL
+Mx
 do
 do
 do
@@ -11210,7 +10915,7 @@ bE
 bS
 cn
 cB
-cN
+Fj
 cB
 dr
 dE
@@ -11300,7 +11005,7 @@ jK
 bn
 bF
 bT
-co
+tE
 cA
 cM
 dg
@@ -11392,7 +11097,7 @@ Bb
 IV
 bG
 bU
-cp
+zw
 cC
 bn
 dh
@@ -11573,8 +11278,8 @@ ac
 ac
 as
 aX
-bo
-bH
+Uo
+xN
 bK
 am
 cD
@@ -11668,7 +11373,7 @@ aY
 bp
 bI
 bV
-cq
+OP
 ba
 cP
 ww
@@ -11683,15 +11388,15 @@ ac
 ac
 dW
 eM
-gt
+Pe
 gP
 fk
 eP
-eP
+cq
 ic
 iB
 eg
-jv
+is
 eP
 kY
 eg
@@ -11762,7 +11467,7 @@ bJ
 ba
 am
 cE
-cQ
+tz
 ww
 ac
 ac
@@ -12048,13 +11753,13 @@ ac
 ac
 dW
 eM
-fi
+YD
 eP
 fj
 fJ
-fR
+Aq
 hf
-hy
+PU
 eL
 ac
 ac
@@ -12125,7 +11830,7 @@ al
 am
 am
 am
-bu
+Jd
 am
 am
 yG
@@ -12139,13 +11844,13 @@ ac
 ac
 ac
 eg
-eN
+Ep
 eP
 fj
 fJ
 eP
-fK
-hg
+GD
+gt
 eg
 dW
 ac
@@ -12236,7 +11941,7 @@ fj
 fJ
 eP
 gw
-eM
+An
 eL
 dW
 ag
@@ -12490,7 +12195,7 @@ ac
 ac
 ac
 an
-aw
+VB
 aL
 be
 bw
@@ -12674,27 +12379,27 @@ ac
 ac
 ac
 ui
-ay
+ae
 aM
 bf
 bx
 bL
 bL
 cu
-cF
+XK
 cT
 dj
 cT
 cT
 dj
 cT
-dY
+VZ
 ei
 ev
 eS
 fn
 fN
-gg
+AF
 eL
 ac
 ac
@@ -12714,7 +12419,7 @@ ac
 ac
 ac
 if
-nQ
+Jq
 of
 ou
 oN
@@ -12734,7 +12439,7 @@ rj
 rs
 rz
 qu
-rQ
+Ps
 bn
 bn
 bn
@@ -13229,7 +12934,7 @@ al
 am
 am
 am
-by
+KE
 am
 am
 EK
@@ -13248,7 +12953,7 @@ eP
 fs
 fQ
 fs
-gS
+OW
 hi
 hz
 dW
@@ -13340,7 +13045,7 @@ ft
 eP
 fs
 lo
-fR
+Rc
 hj
 hA
 eL
@@ -13435,7 +13140,7 @@ fs
 fQ
 fk
 hB
-eZ
+UJ
 eL
 dW
 ac
@@ -13522,7 +13227,7 @@ ag
 dW
 eZ
 fS
-gj
+xe
 ps
 fq
 pk
@@ -13615,13 +13320,13 @@ ag
 dW
 eg
 eg
-gC
+KO
 gT
 hk
 hk
 fQ
 fk
-iH
+zS
 eg
 jC
 ku
@@ -13634,7 +13339,7 @@ lU
 na
 np
 nB
-nB
+Hr
 dW
 dW
 ag
@@ -13715,7 +13420,7 @@ fk
 fk
 gA
 eg
-jD
+Vb
 fs
 lf
 eg
@@ -13782,7 +13487,7 @@ ac
 as
 bl
 bD
-bQ
+HJ
 ch
 bh
 cH
@@ -14343,7 +14048,7 @@ db
 db
 dI
 db
-db
+CW
 aV
 aV
 ac
@@ -14430,9 +14135,9 @@ ac
 aV
 aV
 cK
-dc
-dc
-dy
+tQ
+tZ
+Qf
 bm
 db
 dJ
@@ -14657,7 +14362,7 @@ pw
 pw
 db
 db
-db
+Md
 dl
 aV
 ac
@@ -14740,7 +14445,7 @@ aV
 dH
 nU
 ng
-ng
+Kk
 ng
 ng
 ng
@@ -14748,15 +14453,15 @@ pn
 px
 db
 db
-db
+Oe
 aV
 aV
 ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -14839,18 +14544,18 @@ pg
 bm
 py
 dJ
-pP
+DD
 aV
 aV
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -14935,15 +14640,15 @@ bm
 aV
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -14989,7 +14694,7 @@ aV
 bm
 bm
 bm
-el
+zn
 eG
 fd
 fx
@@ -15026,16 +14731,16 @@ bm
 aV
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -15117,17 +14822,17 @@ aV
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -15209,17 +14914,17 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -15301,17 +15006,17 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -15363,8 +15068,8 @@ aV
 dH
 dH
 bm
-gI
-gX
+SJ
+Dp
 ho
 bm
 hV
@@ -15392,18 +15097,18 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -15463,7 +15168,7 @@ hW
 ip
 ms
 jg
-eD
+Cd
 kF
 eD
 lG
@@ -15484,18 +15189,18 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -15576,18 +15281,18 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -15668,18 +15373,18 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -15760,18 +15465,18 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -15831,7 +15536,7 @@ ac
 dH
 je
 vU
-wL
+Ll
 kI
 BT
 hU
@@ -15852,18 +15557,18 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -15944,18 +15649,18 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -16036,18 +15741,18 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -16128,18 +15833,18 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -16220,18 +15925,18 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -16312,18 +16017,18 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -16404,18 +16109,18 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -16496,18 +16201,18 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -16589,17 +16294,17 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -16683,14 +16388,14 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
+IF
+IF
+IF
+IF
+IF
+IF
+IF
+IF
 ac
 ac
 ac
@@ -16779,9 +16484,9 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
+IF
+IF
+IF
 ac
 ac
 ac

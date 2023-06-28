@@ -1,7 +1,7 @@
 /obj/machinery/power/tesla_coil
 	name = "tesla coil"
 	desc = "For the union!"
-	icon = 'icons/obj/tesla_engine/tesla_coil.dmi'
+	icon = 'icons/obj/engines_and_power/tesla/tesla_coil.dmi'
 	icon_state = "coil0"
 	anchored = 0
 	density = 1
@@ -38,6 +38,7 @@
 		return
 
 	else if(istype(W, /obj/item/assembly/signaler) && panel_open)
+		add_fingerprint(user)
 		wires.Interact(user)
 
 	else
@@ -87,7 +88,7 @@
 		flick("coilhit", src)
 		playsound(src.loc, 'sound/magic/lightningshock.ogg', 100, 1, extrarange = 5)
 		tesla_zap(src, 5, power_produced)
-		addtimer(CALLBACK(src, .proc/reset_shocked), 10)
+		addtimer(CALLBACK(src, PROC_REF(reset_shocked)), 10)
 	else
 		..()
 
@@ -105,7 +106,7 @@
 /obj/machinery/power/grounding_rod
 	name = "grounding rod"
 	desc = "Keep an area from being fried from Edison's Bane."
-	icon = 'icons/obj/tesla_engine/tesla_coil.dmi'
+	icon = 'icons/obj/engines_and_power/tesla/tesla_coil.dmi'
 	icon_state = "grounding_rod0"
 	anchored = 0
 	density = 1

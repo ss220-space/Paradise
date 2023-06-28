@@ -15,7 +15,7 @@
 /obj/machinery/disposal
 	name = "disposal unit"
 	desc = "A pneumatic waste disposal unit."
-	icon = 'icons/obj/pipes/disposal.dmi'
+	icon = 'icons/obj/pipes_and_stuff/not_atmos/disposal.dmi'
 	icon_state = "disposal"
 	anchored = 1
 	density = 1
@@ -132,8 +132,6 @@
 	if(stat & BROKEN || !I || !user)
 		return
 
-	src.add_fingerprint(user)
-
 	if(istype(I, /obj/item/melee/energy/blade))
 		to_chat(user, "You can't place that item inside the disposal unit.")
 		return
@@ -141,6 +139,7 @@
 	if(istype(I, /obj/item/storage))
 		var/obj/item/storage/S = I
 		if((S.allow_quick_empty || S.allow_quick_gather) && S.contents.len)
+			add_fingerprint(user)
 			S.hide_from(user)
 			for(var/obj/item/O in S.contents)
 				if(!can_be_inserted(O))
@@ -162,6 +161,7 @@
 			for(var/mob/V in viewers(usr))
 				V.show_message("[usr] starts putting [GM.name] into the disposal.", 3)
 			if(do_after(usr, 20, target = GM))
+				add_fingerprint(user)
 				GM.forceMove(src)
 				for(var/mob/C in viewers(src))
 					C.show_message("<span class='warning'>[GM.name] has been placed in the [src] by [user].</span>", 3)
@@ -174,11 +174,10 @@
 
 	if(!can_be_inserted(I))
 		return
-	if(!user.drop_item())
+	if(!user.drop_transfer_item_to_loc(I, src))
 		return
-	if(I)
-		I.forceMove(src)
 
+	add_fingerprint(user)
 	to_chat(user, "You place \the [I] into the [src].")
 	for(var/mob/M in viewers(src))
 		if(M == user)
@@ -383,7 +382,7 @@
 
 	// flush handle
 	if(flush)
-		overlays += image('icons/obj/pipes/disposal.dmi', "dispover-handle")
+		overlays += image('icons/obj/pipes_and_stuff/not_atmos/disposal.dmi', "dispover-handle")
 
 	// only handle is shown if no power
 	if(stat & NOPOWER || mode == -1)
@@ -391,13 +390,13 @@
 
 	// 	check for items in disposal - occupied light
 	if(contents.len > 0)
-		overlays += image('icons/obj/pipes/disposal.dmi', "dispover-full")
+		overlays += image('icons/obj/pipes_and_stuff/not_atmos/disposal.dmi', "dispover-full")
 
 	// charging and ready light
 	if(mode == CHARGING)
-		overlays += image('icons/obj/pipes/disposal.dmi', "dispover-charge")
+		overlays += image('icons/obj/pipes_and_stuff/not_atmos/disposal.dmi', "dispover-charge")
 	else if(mode == CHARGED)
-		overlays += image('icons/obj/pipes/disposal.dmi', "dispover-ready")
+		overlays += image('icons/obj/pipes_and_stuff/not_atmos/disposal.dmi', "dispover-ready")
 
 // timed process
 // charge the gas reservoir and perform flush if ready
@@ -561,6 +560,7 @@
 
 /obj/machinery/disposal/deliveryChute/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/destTagger))
+		add_fingerprint(user)
 		to_waste = !to_waste
 		playsound(src.loc, 'sound/machines/twobeep.ogg', 100, 1)
 		to_chat(user, "<span class='notice'>The chute is now set to [to_waste ? "waste" : "cargo"] disposals.</span>")
@@ -578,26 +578,35 @@
 /obj/machinery/disposal/deliveryChute/update()
 	return
 
-/obj/machinery/disposal/deliveryChute/Bumped(atom/movable/AM) //Go straight into the chute
-	if(istype(AM, /obj/item/projectile))  return
+/obj/machinery/disposal/deliveryChute/Bumped(atom/movable/moving_atom) //Go straight into the chute
+	..()
+
+	if(istype(moving_atom, /obj/item/projectile))  return
 	switch(dir)
 		if(NORTH)
-			if(AM.loc.y != src.loc.y+1) return
+			if(moving_atom.loc.y != src.loc.y+1) return
 		if(EAST)
-			if(AM.loc.x != src.loc.x+1) return
+			if(moving_atom.loc.x != src.loc.x+1) return
 		if(SOUTH)
-			if(AM.loc.y != src.loc.y-1) return
+			if(moving_atom.loc.y != src.loc.y-1) return
 		if(WEST)
-			if(AM.loc.x != src.loc.x-1) return
+			if(moving_atom.loc.x != src.loc.x-1) return
 
-	if(istype(AM, /obj))
-		var/obj/O = AM
+	if(istype(moving_atom, /obj))
+		var/obj/O = moving_atom
 		O.loc = src
-	else if(istype(AM, /mob))
-		var/mob/M = AM
+	else if(istype(moving_atom, /mob))
+		var/mob/M = moving_atom
 		M.loc = src
 	if(mode != OFF)
 		flush()
+
+/obj/machinery/disposal/deliveryChute/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	if(istype(AM, /obj/item/projectile))
+		return ..() //chutes won't eat bullets
+	if(dir == reverse_direction(throwingdatum.init_dir))
+		return
+	..()
 
 /obj/machinery/disposal/deliveryChute/flush_animation()
 	flick("intake-closing", src)
@@ -791,7 +800,7 @@
 // Disposal pipes
 
 /obj/structure/disposalpipe
-	icon = 'icons/obj/pipes/disposal.dmi'
+	icon = 'icons/obj/pipes_and_stuff/not_atmos/disposal.dmi'
 	name = "disposal pipe"
 	desc = "An underfloor disposal pipe."
 	anchored = 1
@@ -1006,12 +1015,11 @@
 //weldingtool: unfasten and convert to obj/disposalconstruct
 
 /obj/structure/disposalpipe/attackby(var/obj/item/I, var/mob/user, params)
+	add_fingerprint(user)
 	var/turf/T = get_turf(src)
 	if(T.intact || T.transparent_floor)
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 		return 		// prevent interaction with T-scanner revealed pipes and pipes under glass
-
-	add_fingerprint(user)
 
 /obj/structure/disposalpipe/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -1198,6 +1206,8 @@
 
 	return P
 
+/obj/structure/disposalpipe/sortjunction/reversed
+	icon_state = "pipe-j2s"
 
 //a three-way junction that sorts objects destined for the mail office mail table (tomail = 1)
 /obj/structure/disposalpipe/wrapsortjunction
@@ -1257,6 +1267,9 @@
 
 	return P
 
+/obj/structure/wrapsortjunction/reversed
+	icon_state = "pipe-j2s"
+
 //a trunk joining to a disposal bin or outlet on the same turf
 /obj/structure/disposalpipe/trunk
 	icon_state = "pipe-t"
@@ -1265,7 +1278,7 @@
 /obj/structure/disposalpipe/trunk/Initialize(mapload)
 	. = ..()
 	dpdir = dir
-	addtimer(CALLBACK(src, .proc/getlinked), 0) // This has a delay of 0, but wont actually start until the MC is done
+	addtimer(CALLBACK(src, PROC_REF(getlinked)), 0) // This has a delay of 0, but wont actually start until the MC is done
 
 	update()
 	return
@@ -1316,6 +1329,7 @@
 
 	// Override attackby so we disallow trunkremoval when somethings ontop
 /obj/structure/disposalpipe/trunk/attackby(var/obj/item/I, var/mob/user, params)
+	add_fingerprint(user)
 
 	//Disposal bins or chutes
 	//Disposal constructors
@@ -1326,7 +1340,6 @@
 	var/turf/T = src.loc
 	if(T.intact || T.transparent_floor)
 		return		// prevent interaction with T-scanner revealed pipes
-	src.add_fingerprint(user)
 
 	// would transfer to next pipe segment, but we are in a trunk
 	// if not entering from disposal bin,
@@ -1385,7 +1398,7 @@
 /obj/structure/disposaloutlet
 	name = "disposal outlet"
 	desc = "An outlet for the pneumatic disposal system."
-	icon = 'icons/obj/pipes/disposal.dmi'
+	icon = 'icons/obj/pipes_and_stuff/not_atmos/disposal.dmi'
 	icon_state = "outlet"
 	density = 1
 	anchored = 1
@@ -1396,7 +1409,7 @@
 
 /obj/structure/disposaloutlet/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/setup), 0) // Wait of 0, but this wont actually do anything until the MC is firing
+	addtimer(CALLBACK(src, PROC_REF(setup)), 0) // Wait of 0, but this wont actually do anything until the MC is firing
 
 /obj/structure/disposaloutlet/proc/setup()
 	target = get_ranged_target_turf(src, dir, 10)

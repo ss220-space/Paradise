@@ -11,6 +11,7 @@
 	var/win_prob = 5
 
 /obj/structure/cursed_slot_machine/attack_hand(mob/user)
+	add_fingerprint(user)
 	interact(user)
 
 /obj/structure/cursed_slot_machine/interact(mob/living/carbon/human/user)
@@ -30,7 +31,7 @@
 		know it'll be worth it.</span>")
 	icon_state = "slots-on"
 	playsound(src, 'sound/lavaland/cursed_slot_machine.ogg', 50, 0)
-	addtimer(CALLBACK(src, .proc/determine_victor, user), 50)
+	addtimer(CALLBACK(src, PROC_REF(determine_victor), user), 50)
 
 /obj/structure/cursed_slot_machine/proc/determine_victor(mob/living/user)
 	icon_state = "slots-off"
@@ -55,7 +56,7 @@
 
 /obj/structure/cursed_money/Initialize()
 	. = ..()
-	addtimer(CALLBACK(src, .proc/collapse), 600)
+	addtimer(CALLBACK(src, PROC_REF(collapse)), 600)
 
 /obj/structure/cursed_money/proc/collapse()
 	visible_message("<span class='warning'>[src] falls in on itself, \
@@ -72,9 +73,9 @@
 		"<span class='boldwarning'>You open the bag...!</span>\n\
 		<span class='danger'>And see a bag full of dice. Confused, \
 		you take one... and the bag vanishes.</span>")
-	var/turf/T = get_turf(user)
-	var/obj/item/dice/d20/fate/one_use/critical_fail = new(T)
-	user.put_in_hands(critical_fail)
+
+	var/obj/item/dice/d20/fate/one_use/critical_fail = new(drop_location())
+	user.put_in_hands(critical_fail, ignore_anim = FALSE)
 	qdel(src)
 
 // Gluttony
@@ -115,12 +116,19 @@
 	for(var/level in levels)
 		if(!is_teleport_allowed(level))
 			levels -= level
+			continue
+		if(is_taipan(level))
+			levels -= level
+			continue
+		if(text2num(level) == T.z)
+			levels -= level
+			continue
 
 	T.ChangeTurf(/turf/simulated/floor/chasm)
 	var/turf/simulated/floor/chasm/C = T
 	C.drop_x = T.x
 	C.drop_y = T.y
-	C.drop_z = pick(levels)
+	C.drop_z = text2num(pick(levels))
 	C.drop(user)
 
 // Envy

@@ -43,10 +43,10 @@
 /obj/item/projectile/beam/xray
 	name = "xray beam"
 	icon_state = "xray"
-	damage = 15
+	damage = 10
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
 	tile_dropoff = 0.75
-	irradiate = 30
+	irradiate = 40
 	forcedodge = 1
 	range = 15
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
@@ -74,7 +74,7 @@
 	light_color = LIGHT_COLOR_DARKBLUE
 
 /obj/item/projectile/beam/pulse/on_hit(var/atom/target, var/blocked = 0)
-	if(istype(target,/turf/)||istype(target,/obj/structure/))
+	if(istype(target, /turf) || istype(target, /obj/structure) || istype(target, /obj/machinery))
 		target.ex_act(2)
 	..()
 

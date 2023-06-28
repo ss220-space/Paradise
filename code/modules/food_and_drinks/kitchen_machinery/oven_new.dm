@@ -2,7 +2,7 @@
 /obj/machinery/kitchen_machine/oven
 	name = "oven"
 	desc = "Cookies are ready, dear."
-	icon = 'icons/obj/cooking_machines.dmi'
+	icon = 'icons/obj/machines/cooking_machines.dmi'
 	icon_state = "oven_off"
 	cook_verbs = list("Baking", "Roasting", "Broiling")
 	recipe_type = RECIPE_OVEN
@@ -54,6 +54,7 @@
 		if(!head)
 			to_chat(user, "<span class='warning'>This person doesn't have a head!</span>")
 			return 0
+		add_fingerprint(user)
 		C.visible_message("<span class='danger'>[user] bashes [C]'s head in [src]'s door!</span>", \
 						"<span class='userdanger'>[user] bashes your head in [src]'s door! It feels rather hot in the oven!</span>")
 		C.emote("scream")

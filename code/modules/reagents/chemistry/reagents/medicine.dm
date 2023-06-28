@@ -23,6 +23,10 @@
 	shock_reduction = 200
 	taste_description = "numbness"
 
+/datum/reagent/medicine/hydrocodone/on_mob_life(mob/living/M) //Needed so the hud updates when injested / removed from system
+	var/update_flags = STATUS_UPDATE_HEALTH
+	return ..() | update_flags
+
 /datum/reagent/medicine/sterilizine
 	name = "Sterilizine"
 	id = "sterilizine"
@@ -102,6 +106,8 @@
 
 		//Mitocholide is hard enough to get, it's probably fair to make this all internal organs
 		for(var/obj/item/organ/internal/I in H.internal_organs)
+			if(I.status & ORGAN_DEAD)
+				I.status &= ~ORGAN_DEAD
 			I.heal_internal_damage(0.4)
 	return ..()
 
@@ -243,10 +249,13 @@
 	if(iscarbon(M))
 		if(method == REAGENT_TOUCH)
 			M.adjustBruteLoss(-volume)
-			if(show_message)
+			var/has_pain = TRUE
+			if(ishuman(M))
+				var/mob/living/carbon/human/H = M
+				has_pain = H.has_pain()
+			if(show_message && has_pain)
 				to_chat(M, "<span class='notice'>The styptic powder stings like hell as it closes some of your wounds!</span>")
-				M.emote("scream")
-		if(method == REAGENT_INGEST)
+		else if(method == REAGENT_INGEST)
 			M.adjustToxLoss(0.5*volume)
 			if(show_message)
 				to_chat(M, "<span class='warning'>You feel gross!</span>")
@@ -638,6 +647,10 @@
 			M.Drowsy(20)
 	return ..() | update_flags
 
+/datum/reagent/medicine/morphine/syntmorphine
+	name = "Syntmorphine"
+	id = "syntmorphine"
+
 /datum/reagent/medicine/oculine
 	name = "Oculine"
 	id = "oculine"
@@ -652,15 +665,17 @@
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M
 			var/obj/item/organ/internal/eyes/E = C.get_int_organ(/obj/item/organ/internal/eyes)
-			if(istype(E))
+			if(istype(E) && !(E.status & ORGAN_DEAD))
 				E.heal_internal_damage(1)
+				update_flags |= M.AdjustEyeBlurry(-1, FALSE)
 			var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
-			if(istype(ears))
+			if(istype(ears) && !(ears.status & ORGAN_DEAD))
 				ears.AdjustEarDamage(-1)
-				if(ears.ear_damage < 25 && prob(30))
+				if(ears.damage < 25 && prob(30))
 					ears.deaf = 0
-		update_flags |= M.AdjustEyeBlurry(-1, FALSE)
-		update_flags |= M.AdjustEarDamage(-1)
+		else
+			update_flags |= M.AdjustEyeBlurry(-1, FALSE)
+			update_flags |= M.AdjustEarDamage(-1)
 	return ..() | update_flags
 
 /datum/reagent/medicine/atropine
@@ -1181,6 +1196,22 @@
 	update_flags |= M.adjustBrainLoss(-3, FALSE)
 	return ..() | update_flags
 
+//Coolant: Antihol
+/datum/reagent/medicine/coolant
+	name = "Coolant"
+	id = "coolant"
+	description = "Fixes speech bugs"
+	reagent_state = LIQUID
+	color = "#0af0f0"
+	process_flags = SYNTHETIC
+	taste_description = "error"
+
+/datum/reagent/medicine/coolant/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	M.SetSlur(0)
+	M.AdjustDrunk(-4)
+	M.reagents.remove_all_type(/datum/reagent/consumable/ethanol/synthanol, 8, 0, 1)
+	return ..() | update_flags
 
 
 //Trek-Chems. DO NOT USE THES OUTSIDE OF BOTANY OR FOR VERY SPECIFIC PURPOSES. NEVER GIVE A RECIPE UNDER ANY CIRCUMSTANCES//
@@ -1266,12 +1297,12 @@
 /datum/reagent/medicine/nanocalcium
 	name = "Nano-Calcium"
 	id = "nanocalcium"
-	description = "Highly advanced nanites equipped with calcium payloads designed to repair bones. Nanomachines son."
+	description = "Highly advanced nanites equipped with an unknown payload designed to repair a body. Nanomachines son."
 	color = "#9b3401"
 	metabolization_rate = 1.25 * REAGENTS_METABOLISM
 	can_synth = FALSE
 	harmless = FALSE
-	taste_description = "wholeness"
+	taste_description = "2 minutes of suffering"
 	var/list/stimulant_list = list("methamphetamine", "crank", "bath_salts", "stimulative_agent", "stimulants")
 
 /datum/reagent/medicine/nanocalcium/on_mob_life(mob/living/carbon/human/M)
@@ -1286,6 +1317,10 @@
 			M.AdjustJitter(4)
 			if(prob(10))
 				to_chat(M, "<span class='warning'>Your skin feels hot and your veins are on fire!</span>")
+				update_flags |= M.adjustFireLoss(1, FALSE)
+			for(var/datum/reagent/R in M.reagents.reagent_list)
+				if(stimulant_list.Find(R.id))
+					M.reagents.remove_reagent(R.id, 0.5) //We will be generous (for nukies really) and purge out the chemicals during this phase, so they don't fucking die during the next phase. Of course, if they try to use adrenals in the next phase, well...
 		if(20 to 43)
 			//If they have stimulants or stimulant drugs then just apply toxin damage instead.
 			if(has_stimulant == TRUE)
@@ -1303,11 +1338,33 @@
 				return ..()
 			else
 				for(var/obj/item/organ/external/E in M.bodyparts)
-					if(E.is_broken())
-						if(prob(50)) // Each tick has a 50% chance of repearing a bone.
+					if(prob(25)) // Each tick has a 25% chance of repearing a bone.
+						if(E.status & (ORGAN_BROKEN | ORGAN_SPLINTED)) //I can't just check for !E.status
 							to_chat(M, "<span class='notice'>You feel a burning sensation in your [E.name] as it straightens involuntarily!</span>")
 							E.rejuvenate() //Repair it completely.
-							break
+						if(E.internal_bleeding)
+							to_chat(M, "<span class='notice'>You feel a burning sensation in your [E.name] as your veins begin to recover!</span>")
+							E.internal_bleeding = FALSE
+
+
+				if(ishuman(M))
+					var/mob/living/carbon/human/H = M
+					for(var/obj/item/organ/internal/I in M.internal_organs) // 60 healing to all internal organs.
+						I.heal_internal_damage(4)
+					if(H.blood_volume < BLOOD_VOLUME_NORMAL * 0.9)// If below 90% blood, regenerate 225 units total
+						H.blood_volume += 15
+					for(var/datum/disease/critical/heart_failure/HF in H.viruses)
+						HF.cure() //Won't fix a stopped heart, but it will sure fix a critical one. Shock is not fixed as healing will fix it
+				if(M.health < 40)
+					update_flags |= M.adjustOxyLoss(-3, FALSE)
+					update_flags |= M.adjustToxLoss(-1, FALSE)
+					update_flags |= M.adjustBruteLoss(-2, FALSE)
+					update_flags |= M.adjustFireLoss(-2, FALSE)
+				else
+					if(prob(25))
+						to_chat(M, "<span class='warning'>Your skin feels like it is ripping apart and your veins are on fire!</span>") //It is experimental and does cause scars, after all.
+						update_flags |= M.adjustBruteLoss(2, FALSE)
+						update_flags |= M.adjustFireLoss(2, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/lavaland_extract
@@ -1342,9 +1399,32 @@
 	metabolization_rate = REAGENTS_METABOLISM
 	shock_reduction = 20
 	taste_description = "blessing"
+	can_synth = FALSE
 
 /datum/reagent/medicine/zessulblood/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustBruteLoss(-1, FALSE)
 	update_flags |= M.adjustFireLoss(-1, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/medicine/pure_plasma   //unique chemical for plasmaman
+	name = "Pure plasma"
+	id = "pure_plasma"
+	description = "A product of plasma metabolism in the body of plasmaman, confirming their weak susceptibility to pain. Extremely toxic."
+	reagent_state = LIQUID
+	color = "#b521c2"
+	metabolization_rate = REAGENTS_METABOLISM
+	shock_reduction = 20
+	taste_description = "Superiority"
+	can_synth = FALSE
+
+/datum/reagent/medicine/pure_plasma/on_mob_life(mob/living/carbon/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(isplasmaman(M))
+		if(M.bodytemperature < 310)
+			M.bodytemperature = min(310, M.bodytemperature + (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
+		update_flags |= M.adjustBruteLoss(-0.25, FALSE)
+		update_flags |= M.adjustFireLoss(-0.25, FALSE)
+	else
+		update_flags |= M.adjustToxLoss(4, FALSE)
 	return ..() | update_flags

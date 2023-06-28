@@ -1,5 +1,5 @@
 /obj/machinery/atmospherics/unary/tank
-	icon = 'icons/atmos/tank.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/tank.dmi'
 	icon_state = "air_map"
 	layer = GAS_PIPE_VISIBLE_LAYER
 	name = "pressure tank"
@@ -19,12 +19,8 @@
 			return
 		add_underlay(T, node, dir)
 
-/obj/machinery/atmospherics/unary/tank/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/analyzer))
-		atmosanalyzer_scan(air_contents, user)
-		return
-
-	return ..()
+/obj/machinery/atmospherics/unary/tank/return_analyzable_air()
+	return air_contents
 
 /obj/machinery/atmospherics/unary/tank/air
 	name = "Pressure Tank (Air)"

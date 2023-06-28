@@ -90,7 +90,7 @@
 							vaccine_name = D.name
 							vaccine_type = path
 				else if(vaccine_type)
-					var/datum/disease/D = new vaccine_type(0, null)
+					var/datum/disease/D = new vaccine_type
 					if(D)
 						vaccine_name = D.name
 
@@ -111,10 +111,10 @@
 				D = GetVirusByIndex(text2num(href_list["create_virus_culture"]))
 				var/datum/disease/advance/A = GLOB.archive_diseases[D.GetDiseaseID()]
 				if(A)
-					D = new A.type(0, A)
+					D = A.Copy()
 			else if(type)
 				if(type in GLOB.diseases) // Make sure this is a disease
-					D = new type(0, null)
+					D = new type()
 			if(!D)
 				return
 			var/name = stripped_input(usr,"Name:","Name the culture",D.name,MAX_NAME_LEN)
@@ -305,7 +305,7 @@
 							if(A)
 								disease_name = A.name
 						else
-							var/datum/disease/D = new type(0, null)
+							var/datum/disease/D = new type()
 							disease_name = D.name
 
 						dat += "<li>[disease_name] - <A href='?src=[UID()];create_vaccine=[i]'>Создать бутылёк с вакциной</A></li>"
@@ -325,6 +325,7 @@
 
 /obj/machinery/computer/pandemic/attackby(obj/item/I, mob/user, params)
 	if(default_unfasten_wrench(user, I))
+		add_fingerprint(user)
 		power_change()
 		return
 	if(istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER))
@@ -333,17 +334,18 @@
 		if(beaker)
 			to_chat(user, "<span class='warning'>В машину уже вставлена мензурка!</span>")
 			return
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(I, src))
 			return
 
+		add_fingerprint(user)
 		beaker =  I
-		beaker.loc = src
 		to_chat(user, "<span class='notice'>Вы вставили мензурку в машину.</span>")
 		updateUsrDialog()
 		icon_state = "mixer1"
 
 	else if(istype(I, /obj/item/screwdriver))
 		if(beaker)
+			add_fingerprint(user)
 			beaker.forceMove(get_turf(src))
 	else
 		return ..()

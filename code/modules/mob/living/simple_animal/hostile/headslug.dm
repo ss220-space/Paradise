@@ -25,6 +25,7 @@
 	var/datum/mind/origin
 	var/egg_lain = 0
 	sentience_type = SENTIENCE_OTHER
+	holder_type = /obj/item/holder/headslug
 
 /mob/living/simple_animal/hostile/headslug/examine(mob/user)
 	. = ..()
@@ -55,7 +56,7 @@
 				return
 			Infect(target)
 			to_chat(src, "<span class='userdanger'>With our egg laid, our death approaches rapidly...</span>")
-			addtimer(CALLBACK(src, .proc/death), 10 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(death)), 10 SECONDS)
 
 /obj/item/organ/internal/body_egg/changeling_egg
 	name = "changeling egg"

@@ -33,6 +33,7 @@
 			/obj/item/grown/nettle/basic = list("sacid" = 0),
 			/obj/item/grown/nettle/death = list("facid" = 0, "sacid" = 0),
 			/obj/item/grown/novaflower = list("capsaicin" = 0, "condensedcapsaicin" = 0),
+			/obj/item/stack/sheet/cheese = list("milk" = 20),
 
 			//Blender Stuff
 			/obj/item/reagent_containers/food/snacks/grown/tomato = list("ketchup" = 0),
@@ -80,7 +81,8 @@
 			/obj/item/reagent_containers/food/snacks/grown/apple = list("applejuice" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/grapes = list("grapejuice" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/grapes/green = list("grapejuice" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/pineapple = list("pineapplejuice" = 0)
+			/obj/item/reagent_containers/food/snacks/grown/pineapple = list("pineapplejuice" = 0),
+			/obj/item/reagent_containers/food/snacks/grown/peaslaugh = list("laughsyrup" = 0)
 	)
 
 	var/list/dried_items = list(
@@ -145,7 +147,7 @@
 		return
 	if(!I.tool_use_check(user, 0))
 		return
-	default_deconstruction_crowbar(I)
+	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/reagentgrinder/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -172,10 +174,10 @@
 		else if(panel_open)
 			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
 		else
-			if(!user.drop_item())
+			if(!user.drop_transfer_item_to_loc(I, src))
 				return FALSE
+			add_fingerprint(user)
 			beaker =  I
-			beaker.loc = src
 			update_icon()
 			updateUsrDialog()
 		return TRUE //no afterattack
@@ -198,6 +200,7 @@
 			to_chat(user, "<span class='warning'>[B] is empty.</span>")
 			return FALSE
 
+		add_fingerprint(user)
 		var/original_contents_len = B.contents.len
 
 		for(var/obj/item/G in B.contents)
@@ -226,8 +229,8 @@
 			to_chat(user, "<span class='warning'>Cannot refine into a reagent!</span>")
 			return TRUE
 
-	if(user.drop_item())
-		I.loc = src
+	if(user.drop_transfer_item_to_loc(I, src))
+		add_fingerprint(user)
 		holdingitems += I
 		src.updateUsrDialog()
 		return FALSE

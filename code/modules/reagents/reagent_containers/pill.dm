@@ -13,16 +13,22 @@
 	can_taste = FALSE
 	antable = FALSE
 
-/obj/item/reagent_containers/food/pill/New()
-	..()
+/obj/item/reagent_containers/food/pill/Initialize(mapload)
 	if(!icon_state)
 		icon_state = "pill[rand(1,20)]"
+	. = ..()
 
 /obj/item/reagent_containers/food/pill/attack_self(mob/user)
 	return
 
 /obj/item/reagent_containers/food/pill/attack(mob/living/carbon/M, mob/user, def_zone)
 	if(!istype(M))
+		return FALSE
+	if(!get_location_accessible(M, "mouth"))
+		if(M == user)
+			to_chat(user, "<span class='warning'>Your face is obscured, so you cant eat.</span>")
+		else
+			to_chat(user, "<span class='warning'>[M]'s face is obscured, so[M.p_they()] cant eat.</span>")
 		return FALSE
 	bitesize = reagents.total_volume
 	if(M.eat(src, user))

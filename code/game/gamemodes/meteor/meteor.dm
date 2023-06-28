@@ -13,7 +13,7 @@
 
 /datum/game_mode/meteor/post_setup()
 	spawn(rand(waittime_l, waittime_h))
-		GLOB.command_announcement.Announce("The station is on the path of an incoming wave of meteors. Reinforce the hull and prepare damage control parties.", "Incoming Meteors", 'sound/effects/siren.ogg')
+		GLOB.command_announcement.Announce("Станция находится на пути надвигающегося потока метеоров. Укрепите обшивку и подготовьте группы по устранению повреждений.", "ВНИМАНИЕ: ПРИБЛИЖЕНИЕ МЕТЕОРОВ.", 'sound/effects/siren.ogg')
 	spawn(initialmeteordelay)
 		sendmeteors()
 	..()

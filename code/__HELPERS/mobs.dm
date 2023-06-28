@@ -338,7 +338,7 @@
 	if(target)
 		Tloc = target.loc
 
-	var/atom/Uloc = user.loc
+	var/turf/Uturf = get_turf(user)
 
 	var/drifting = FALSE
 	if(!user.Process_Spacemove(0) && user.inertia_dir)
@@ -361,8 +361,12 @@
 	// By default, checks for weakness and stunned get added to the extra_checks list.
 	// Setting `use_default_checks` to FALSE means that you don't want the do_after to check for these statuses, or that you will be supplying your own checks.
 	if(use_default_checks)
-		extra_checks += CALLBACK(user, /mob.proc/IsWeakened)
-		extra_checks += CALLBACK(user, /mob.proc/IsStunned)
+		extra_checks += CALLBACK(user, TYPE_PROC_REF(/mob, IsWeakened))
+		extra_checks += CALLBACK(user, TYPE_PROC_REF(/mob, IsStunned))
+		if(istype(holding, /obj/item/gripper/))
+			var/obj/item/gripper/gripper = holding
+			if(!(gripper.isEmpty()))
+				extra_checks += CALLBACK(gripper, TYPE_PROC_REF(/obj/item/gripper, isEmpty))
 
 	while(world.time < endtime)
 		sleep(1)
@@ -371,9 +375,9 @@
 
 		if(drifting && !user.inertia_dir)
 			drifting = FALSE
-			Uloc = user.loc
+			Uturf = get_turf(user)
 
-		if(!user || user.stat || (!drifting && user.loc != Uloc) || check_for_true_callbacks(extra_checks))
+		if(!user || user.stat || (!drifting && get_turf(user) != Uturf) || check_for_true_callbacks(extra_checks))
 			. = FALSE
 			break
 
@@ -413,7 +417,7 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 		to_chat(user, "<span class='warning'>[attempt_cancel_message]</span>")
 		return FALSE
 	GLOB.do_after_once_tracker[cache_key] = TRUE
-	. = do_after(user, delay, needhand, target, progress, extra_checks = list(CALLBACK(GLOBAL_PROC, .proc/do_after_once_checks, cache_key)))
+	. = do_after(user, delay, needhand, target, progress, extra_checks = list(CALLBACK(GLOBAL_PROC, /proc/do_after_once_checks, cache_key)))
 	GLOB.do_after_once_tracker[cache_key] = FALSE
 
 /proc/do_after_once_checks(cache_key)

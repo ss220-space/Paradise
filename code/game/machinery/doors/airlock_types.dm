@@ -152,17 +152,14 @@
 	paintable = FALSE
 	var/event_step = 20
 
-/obj/machinery/door/airlock/uranium/New()
-	..()
-	addtimer(CALLBACK(src, .proc/radiate), event_step)
-
-
-/obj/machinery/door/airlock/uranium/proc/radiate()
-	if(prob(50))
-		for(var/mob/living/L in range (3,src))
-			L.apply_effect(15,IRRADIATE,0)
-	addtimer(CALLBACK(src, .proc/radiate), event_step)
-
+/obj/machinery/door/airlock/uranium/Initialize()
+	. = ..()
+	AddComponent(/datum/component/radioactivity, \
+				rad_per_cycle = 15, \
+				rad_cycle_chance = 50, \
+				rad_cycle = 2 SECONDS, \
+				rad_cycle_radius = 3 \
+	)
 
 /obj/machinery/door/airlock/uranium/glass
 	opacity = 0
@@ -198,6 +195,7 @@
 
 /obj/machinery/door/airlock/plasma/attackby(obj/C, mob/user, params)
 	if(is_hot(C) > 300)
+		add_fingerprint(user)
 		add_attack_logs(user, src, "ignited using [C]", ATKLOG_FEW)
 		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name_log(user)]", INVESTIGATE_ATMOS)
 		ignite(is_hot(C))
@@ -347,11 +345,11 @@
 
 /obj/machinery/door/airlock/hatch/syndicate
 	name = "syndicate hatch"
-	req_access_txt = "150"
+	req_access = list(ACCESS_SYNDICATE)
 
 /obj/machinery/door/airlock/hatch/syndicate/command
 	name = "Command Center"
-	req_access_txt = "153"
+	req_access = list(ACCESS_SYNDICATE_COMMAND)
 	explosion_block = 2
 	normal_integrity = 1000
 	security_level = 6
@@ -362,7 +360,7 @@
 
 /obj/machinery/door/airlock/hatch/syndicate/vault
 	name = "syndicate vault hatch"
-	req_access_txt = "151"
+	req_access = list(ACCESS_SYNDICATE_LEADER)
 	icon = 'icons/obj/doors/airlocks/vault/vault.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/vault/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_vault
@@ -381,6 +379,7 @@
 	if(!issilicon(user))
 		if(isElectrified())
 			if(shock(user, 75))
+				add_fingerprint(user)
 				return
 	if(istype(C, /obj/item/detective_scanner))
 		return
@@ -442,6 +441,7 @@
 	if(!issilicon(user))
 		if(isElectrified())
 			if(shock(user, 75))
+				add_fingerprint(user)
 				return
 	if(istype(C, /obj/item/detective_scanner))
 		return
@@ -793,7 +793,7 @@
 /obj/machinery/door/airlock/syndicate/command
 	name = "evil looking command airlock"
 	icon = 'icons/obj/doors/airlocks/syndicate/command.dmi'
-	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_research
+	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_com
 	normal_integrity = 500
 
 /obj/machinery/door/airlock/syndicate/command/glass

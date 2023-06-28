@@ -116,7 +116,7 @@
 	qdel(first)
 	return TRUE
 
-/obj/item/assembly/infra/equipped(var/mob/user, var/slot)
+/obj/item/assembly/infra/equipped(mob/user, slot, initial)
 	qdel(first)
 	return ..()
 
@@ -136,7 +136,7 @@
 	if(first)
 		qdel(first)
 	cooldown = 2
-	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
+	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
 	pulse(FALSE, triggered)
 
 /obj/item/assembly/infra/interact(mob/user)//TODO: change this this to the wire control panel
@@ -149,10 +149,9 @@
 				</TT>
 				<BR><BR><A href='?src=[UID()];refresh=1'>Refresh</A>
 				<BR><BR><A href='?src=[UID()];close=1'>Close</A>"}
-	var/datum/browser/popup = new(user, "infra", name, 400, 400)
+	var/datum/browser/popup = new(user, "infra", name, 400, 400, src)
 	popup.set_content(dat)
-	popup.open(0)
-	onclose(user, "infra")
+	popup.open()
 
 /obj/item/assembly/infra/Topic(href, href_list)
 	..()
@@ -209,7 +208,7 @@
 
 /obj/effect/beam/i_beam
 	name = "i beam"
-	icon = 'icons/obj/projectiles.dmi'
+	icon = 'icons/obj/weapons/projectiles.dmi'
 	icon_state = "ibeam"
 	var/obj/effect/beam/i_beam/next = null
 	var/obj/effect/beam/i_beam/previous = null
@@ -270,8 +269,8 @@
 /obj/effect/beam/i_beam/Bump()
 	qdel(src)
 
-/obj/effect/beam/i_beam/Bumped(atom/movable/AM)
-	hit(AM)
+/obj/effect/beam/i_beam/Bumped(atom/movable/moving_atom)
+	hit(moving_atom)
 
 /obj/effect/beam/i_beam/Crossed(atom/movable/AM, oldloc)
 	if(!isobj(AM) && !isliving(AM))

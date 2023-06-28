@@ -527,6 +527,14 @@
 	build_path = /obj/item/ammo_box/c38
 	category = list("initial", "Security")
 
+/datum/design/c38hp
+	name = "Speed Loader (.38 Hollow-Point)"
+	id = "c38hp"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 30000)
+	build_path = /obj/item/ammo_box/c38/hp
+	category = list("hacked", "Security")
+
 /datum/design/recorder
 	name = "Universal Recorder"
 	id = "recorder"
@@ -679,6 +687,14 @@
 	build_path = /obj/item/reagent_containers/applicator
 	category = list("initial", "Medical")
 
+/datum/design/iv_bag
+	name = "IV bag"
+	id = "iv_bag"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 3000)
+	build_path = /obj/item/reagent_containers/iv_bag
+	category = list("initial", "Medical")
+
 /datum/design/prox_sensor
 	name = "Proximity Sensor"
 	id = "prox_sensor"
@@ -800,6 +816,22 @@
 	build_path = /obj/item/ammo_casing/shotgun
 	category = list("hacked", "Security")
 
+/datum/design/sp8box
+	name = "Ammo Box (40n&r)"
+	id = "fortynrbox"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 45000)
+	build_path = /obj/item/ammo_box/fortynr
+	category = list("hacked", "Security")
+
+/datum/design/sp8mag
+	name = "handgun magazine (40n&r)"
+	id = "fortynrmag"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 13000)
+	build_path = /obj/item/ammo_box/magazine/sp8
+	category = list("hacked", "Security")
+
 /datum/design/buckshot_shell
 	name = "Buckshot shell"
 	id = "buckshot_shell"
@@ -894,6 +926,14 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 30500)
 	build_path = /obj/item/ammo_box/c9mm
+	category = list("hacked", "Security")
+
+/datum/design/knuckles
+	name = "Knuckles"
+	id = "knuckles"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 18000)
+	build_path = /obj/item/clothing/gloves/knuckles
 	category = list("hacked", "Security")
 
 /datum/design/cleaver

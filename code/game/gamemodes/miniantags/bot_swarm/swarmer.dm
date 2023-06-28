@@ -390,6 +390,17 @@
 			return TRUE
 	return ..()
 
+/turf/simulated/mineral/ancient/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	var/isonshuttle = istype(loc, /area/shuttle)
+	for(var/turf/T in range(1, src))
+		var/area/A = get_area(T)
+		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || istype(A, /area/space))) || (isonshuttle && !istype(A, /area/shuttle)))
+			to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
+			S.target = null
+			return TRUE
+	return ..()
+
+
 /obj/structure/window/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	var/isonshuttle = istype(get_area(src), /area/shuttle)
 	for(var/turf/T in range(1, src))
@@ -532,9 +543,8 @@
 	// them to keep them away from us a little longer
 
 	var/mob/living/carbon/human/H = target
-	if(ishuman(target) && (!H.handcuffed))
-		var/obj/item/restraints/handcuffs/energy/used/Z = new /obj/item/restraints/handcuffs/energy/used(src)
-		Z.apply_cuffs(target, src)
+	if(istype(H) && (!H.handcuffed))
+		H.set_handcuffed(new /obj/item/restraints/handcuffs/energy/used(H))
 
 	do_sparks(4, 0, target)
 	playsound(src,'sound/effects/sparks4.ogg', 50, TRUE)

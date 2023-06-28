@@ -60,19 +60,41 @@
 Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
 */
 
+//atom traits
+/// Trait used to prevent an atom from component radiation emission (see radioactivity.dm)
+#define TRAIT_BLOCK_RADIATION	"block_radiation"
+
 //mob traits
 #define TRAIT_PACIFISM			"pacifism"
 #define TRAIT_WATERBREATH		"waterbreathing"
 #define TRAIT_BLOODCRAWL		"bloodcrawl"
 #define TRAIT_BLOODCRAWL_EAT	"bloodcrawl_eat"
 #define TRAIT_JESTER			"jester"
+#define TRAIT_ELITE_CHALLENGER "elite_challenger"
+
+//item traits
+#define TRAIT_CMAGGED "cmagged"
+#define CMAGGED "clown_emag"
+#define ABSTRACT_ITEM_TRAIT "abstract-item"
+/// The items needs two hands to be carried
+#define TRAIT_NEEDS_TWO_HANDS "needstwohands"
+/// Properly wielded two handed item
+#define TRAIT_WIELDED "wielded"
 
 //
 // common trait sources
 #define ROUNDSTART_TRAIT "roundstart" //cannot be removed without admin intervention
 #define CULT_TRAIT "cult"
 #define CLOCK_TRAIT "clockwork cult"
+#define INNATE_TRAIT "innate"
 
 // unique trait sources
 #define CULT_EYES "cult_eyes"
 #define CLOCK_HANDS "clock_hands"
+
+// Healing traits
+/// This mob heals from carp rifts.
+#define TRAIT_HEALS_FROM_CARP_RIFTS "heals_from_carp_rifts"
+
+/// This mob heals from cult pylons.
+#define TRAIT_HEALS_FROM_CULT_PYLONS "heals_from_cult_pylons"

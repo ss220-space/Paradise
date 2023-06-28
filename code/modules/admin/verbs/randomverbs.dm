@@ -10,7 +10,7 @@
 		return
 
 	for(var/obj/item/W in M)
-		M.unEquip(W)
+		M.drop_item_ground(W)
 
 	log_and_message_admins("made [key_name_admin(M)] drop everything!")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Everything") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -28,7 +28,7 @@
 			return
 		//strip their stuff before they teleport into a cell :downs:
 		for(var/obj/item/W in M)
-			M.unEquip(W)
+			M.drop_item_ground(W)
 		//teleport person to cell
 		M.Paralyse(5)
 		sleep(5)	//so they black out before warping
@@ -457,8 +457,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			call(/datum/game_mode/proc/equip_syndicate)(new_character)
 
 		if("Death Commando")//Leaves them at late-join spawn.
-			new_character.equip_death_commando()
-			new_character.internal = new_character.s_store
+			new_character.equipOutfit(/datum/outfit/admin/death_commando)
 			new_character.update_action_buttons_icon()
 		else//They may also be a cyborg or AI.
 			switch(new_character.mind.assigned_role)
@@ -588,6 +587,20 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	log_and_message_admins("<span class='warning'>healed / revived [key_name_admin(M)]!</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Rejuvenate") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/proc/cmd_admin_offer_control(mob/M as mob in GLOB.mob_list)
+	set category = null
+	set name = "\[Admin\] Offer control to ghosts"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	if(!mob)
+		return
+	if(!istype(M))
+		alert("This can only be used on instances of type /mob")
+		return
+	offer_control(M)
 
 /client/proc/cmd_admin_create_centcom_report()
 	set category = "Event"
@@ -858,6 +871,53 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	log_admin("[key_name(usr)] admin-recalled the emergency shuttle.")
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] admin-recalled the emergency shuttle.</span>")
 	return
+
+/client/proc/toggle_pacifism_gt()
+	set name = "Toggle Pacifism After Greentext"
+	set category = "Admin"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	if(SSticker.current_state == GAME_STATE_FINISHED)
+		if(GLOB.pacifism_after_gt)
+			if(alert(src, "Вы готовы убрать пацифизм у всех?",,"Да", "Нет") == "Нет")
+				return
+			GLOB.pacifism_after_gt = FALSE
+			log_and_message_admins("removed pacifism from all mobs.")
+		else
+			if(alert(src, "Вы хотите вернуть пацифизм всем?",,"Да", "Нет") == "Нет")
+				return
+			GLOB.pacifism_after_gt = TRUE
+			log_and_message_admins("added pacifism to all mobs.")
+
+	else
+		SSticker.toggle_pacifism = (SSticker.toggle_pacifism) ? FALSE : TRUE
+		log_and_message_admins("toggled pacifism after greentext in [(SSticker.toggle_pacifism) ? "On" : "Off"].")
+
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Pacifism")
+
+/client/proc/toogle_ghost_vision()
+	set name = "Toggle Ghost Vision After Greentext"
+	set category = "Admin"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	if(SSticker.current_state == GAME_STATE_FINISHED)
+		if(!GLOB.observer_default_invisibility)
+			if(alert(src, "Вы хотите выключить видимость призраков?",, "Да", "Нет") == "Нет")
+				return
+			set_observer_default_invisibility(INVISIBILITY_OBSERVER)
+			log_and_message_admins("Ghosts are no longer visible.")
+		else
+			if(alert(src, "Вы хотите включить видимость призраков?",,"Да", "Нет") == "Нет")
+				return
+			set_observer_default_invisibility(0)
+			log_and_message_admins("Ghosts are now visible.")
+	else
+		SSticker.toogle_gv = (SSticker.toogle_gv) ? FALSE : TRUE
+		log_and_message_admins("toggled ghost vision after greentext in [(SSticker.toogle_gv) ? "On" : "Off"].")
 
 /client/proc/admin_deny_shuttle()
 	set category = "Admin"

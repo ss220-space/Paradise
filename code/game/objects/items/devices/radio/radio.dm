@@ -236,15 +236,15 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	return user.has_internal_radio_channel_access(user, internal_channels[freq])
 
-/mob/proc/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
+/mob/proc/has_internal_radio_channel_access(var/mob/user, var/list/req_accesses)
 	var/obj/item/card/id/I = user.get_id_card()
-	return has_access(list(), req_one_accesses, I ? I.GetAccess() : list())
+	return has_access(req_accesses, TRUE, I ? I.GetAccess() : list())
 
-/mob/living/silicon/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
+/mob/living/silicon/has_internal_radio_channel_access(var/mob/user, var/list/req_accesses)
 	var/list/access = get_all_accesses()
-	return has_access(list(), req_one_accesses, access)
+	return has_access(req_accesses, TRUE, access)
 
-/mob/dead/observer/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
+/mob/dead/observer/has_internal_radio_channel_access(var/mob/user, var/list/req_accesses)
 	return can_admin_interact()
 
 /obj/item/radio/proc/ToggleBroadcast()
@@ -303,6 +303,10 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		C.handle_message(tcm)
 	qdel(tcm) // Delete the message datum
 	qdel(A)
+/obj/item/radio/sec
+	name = "security station bounced radio"
+	icon_state = "walkietalkie_sec"
+	frequency = SEC_FREQ
 
 // Just a dummy mob used for making announcements, so we don't create AIs to do this
 // I'm not sure who thought that was a good idea. -- Crazylemon
@@ -313,7 +317,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	universal_speak = 1
 
 /mob/living/automatedannouncer/New()
-	lifetime_timer = addtimer(CALLBACK(src, .proc/autocleanup), 10 SECONDS, TIMER_STOPPABLE)
+	lifetime_timer = addtimer(CALLBACK(src, PROC_REF(autocleanup)), 10 SECONDS, TIMER_STOPPABLE)
 	..()
 
 /mob/living/automatedannouncer/Destroy()
@@ -474,7 +478,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		tcm.zlevels = list(position.z)
 		if(!instant)
 			// Simulate two seconds of lag
-			addtimer(CALLBACK(src, .proc/broadcast_callback, tcm), 2 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(broadcast_callback), tcm), 2 SECONDS)
 		else
 			// Nukeops + Deathsquad headsets are instant and should work the same, whether there is comms or not
 			broadcast_message(tcm)
@@ -604,7 +608,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/emp_act(severity)
 	on = 0
 	disable_timer++
-	addtimer(CALLBACK(src, .proc/enable_radio), rand(100, 200))
+	addtimer(CALLBACK(src, PROC_REF(enable_radio)), rand(100, 200))
 
 	if(listening)
 		visible_message("<span class='warning'>[src] buzzes violently!</span>")
@@ -689,8 +693,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 			return
 
 		if(!keyslot)
-			user.drop_item()
-			W.loc = src
+			user.drop_transfer_item_to_loc(W, src)
 			keyslot = W
 
 		recalculateChannels()
@@ -789,3 +792,11 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/phone/medbay/New()
 	..()
 	internal_channels = GLOB.default_medbay_channels.Copy()
+
+/obj/item/radio/bot
+	tts_seed = null
+
+/obj/item/radio/phone/ussp
+	name = "Red phone"
+	has_loudspeaker = TRUE
+	frequency = SOV_FREQ

@@ -164,6 +164,7 @@
 	icon_state = "flare"
 	item_state = "flare"
 	togglesound = 'sound/goonstation/misc/matchstick_light.ogg'
+	var/can_fire_cigs = TRUE
 	var/fuel = 0
 	var/on_damage = 7
 	var/produce_heat = 1500
@@ -234,6 +235,7 @@
 	icon_state = "glowstick"
 	item_state = "glowstick"
 	togglesound = 'sound/effects/bone_break_1.ogg'
+	can_fire_cigs = FALSE
 	produce_heat = 0
 	fuel_lower = 1600
 	fuel_upp = 2000
@@ -371,8 +373,6 @@
 	if(!proximity) return
 	if(emp_cur_charges > 0)
 		emp_cur_charges -= 1
-		A.visible_message("<span class='danger'>[user] blinks \the [src] at \the [A].", \
-											"<span class='userdanger'>[user] blinks \the [src] at \the [A].")
 		if(ismob(A))
 			var/mob/M = A
 			add_attack_logs(user, M, "Hit with EMP-light")

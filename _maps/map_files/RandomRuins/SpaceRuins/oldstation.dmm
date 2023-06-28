@@ -4,8 +4,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/maintenance_hatch,
@@ -45,8 +43,6 @@
 /area/ruin/space/ancientstation/hivebot)
 "aA" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -58,8 +54,6 @@
 /area/ruin/space/ancientstation/sec)
 "aC" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -272,8 +266,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/light{
@@ -363,8 +355,6 @@
 "da" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/maintenance_hatch,
@@ -406,8 +396,6 @@
 "dp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -454,8 +442,6 @@
 /area/ruin/space/ancientstation/betanorth)
 "dU" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
@@ -806,8 +792,6 @@
 /area/ruin/space/ancientstation)
 "gg" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/alarm/all_access{
@@ -888,6 +872,10 @@
 	icon_state = "white"
 	},
 /area/ruin/space/ancientstation)
+"gF" = (
+/obj/effect/decal/cleanable/fungus,
+/turf/simulated/wall/rust,
+/area/ruin/space/ancientstation/thetacorridor)
 "gG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -930,12 +918,10 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/maintenance_hatch{
-	req_one_access_txt = "271"
+	req_access = list(271)
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/thetacorridor)
@@ -956,8 +942,6 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -980,8 +964,6 @@
 /area/ruin/space/ancientstation/thetacorridor)
 "hj" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/item/twohanded/required/kirbyplants{
@@ -1066,8 +1048,6 @@
 "hH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/item/shard,
@@ -1084,7 +1064,7 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/betanorth)
 "hR" = (
@@ -1142,8 +1122,6 @@
 	obj_integrity = 200
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
@@ -1172,8 +1150,6 @@
 /area/template_noop)
 "iB" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/maintenance_hatch,
@@ -1216,8 +1192,6 @@
 "iS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -1236,7 +1210,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/safe/floor,
 /obj/item/clothing/suit/space/hardsuit/mining{
-	armor = list("melee" = 10, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 35, "bio" = 80, "rad" = 35, "fire" = 40, "acid" = 60);
+	armor = list("melee"=10,"bullet"=5,"laser"=5,"energy"=5,"bomb"=35,"bio"=80,"rad"=35,"fire"=40,"acid"=60);
 	desc = "A special suit that protects against hazardous, low pressure environments. Has reinforced plating. Dusty plates covered with a bit of rust, it has been left long time ago. The date of made says 2535 year, how it came up here...";
 	name = "An old aged mining hardsuit"
 	},
@@ -1273,14 +1247,12 @@
 /area/ruin/space/ancientstation/rnd)
 "ji" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/highsecurity{
 	name = "Prototype Laboratory";
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
@@ -1343,13 +1315,9 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1357,8 +1325,6 @@
 /area/ruin/space/ancientstation/thetacorridor)
 "jK" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1403,8 +1369,6 @@
 	name = "Artificial Program Core Room"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -1429,8 +1393,6 @@
 	dir = 6
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -1520,8 +1482,6 @@
 	dir = 10
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -1581,8 +1541,6 @@
 /area/ruin/space/ancientstation/atmos)
 "lp" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1668,11 +1626,11 @@
 /obj/effect/decal/warning_stripes/southeast,
 /obj/effect/decal/warning_stripes/northwest,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mob_spawn/human/oldeng,
+/obj/effect/mob_spawn/human/oldstation/oldeng,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation)
 "mF" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/betanorth)
 "mH" = (
@@ -1704,8 +1662,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/item/paper/fluff/ruins/oldstation/generator_manual,
@@ -1740,14 +1696,12 @@
 /area/template_noop)
 "mT" = (
 /obj/item/stack/ore/iron,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
 "mU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/command{
@@ -1764,13 +1718,9 @@
 "nb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -1787,8 +1737,6 @@
 /area/ruin/space/ancientstation)
 "nh" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1975,6 +1923,10 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
+"ou" = (
+/obj/effect/decal/cleanable/fungus,
+/turf/simulated/wall/rust,
+/area/ruin/space/ancientstation)
 "oy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
@@ -1983,8 +1935,6 @@
 /area/ruin/space/ancientstation/betacargo)
 "oE" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2008,8 +1958,6 @@
 "oX" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/template_noop,
@@ -2149,8 +2097,6 @@
 "qx" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2161,8 +2107,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2204,8 +2148,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -2259,8 +2201,6 @@
 /area/ruin/space/ancientstation/thetacorridor)
 "rq" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2291,13 +2231,9 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2370,9 +2306,13 @@
 /area/ruin/space/ancientstation/betanorth)
 "sA" = (
 /obj/structure/flora/rock/pile,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/betanorth)
+"sD" = (
+/obj/effect/decal/cleanable/fungus,
+/turf/simulated/wall/rust,
+/area/ruin/space/ancientstation/engi)
 "sF" = (
 /obj/item/solar_assembly,
 /obj/structure/lattice,
@@ -2420,8 +2360,6 @@
 "ta" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2453,7 +2391,7 @@
 "tt" = (
 /obj/machinery/door/airlock/external{
 	name = "Mining Internal Access";
-	req_one_access_txt = "271"
+	req_access = list(271)
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/airless,
@@ -2525,8 +2463,6 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -2542,8 +2478,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2576,18 +2510,12 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2595,8 +2523,6 @@
 /area/ruin/space/ancientstation)
 "uM" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/light/small{
@@ -2646,8 +2572,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/light{
@@ -2717,7 +2641,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/highsecurity{
 	name = "Prototype Laboratory";
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
@@ -2842,8 +2766,6 @@
 /area/ruin/space/ancientstation/betanorth)
 "wW" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/alarm/all_access{
@@ -2914,8 +2836,6 @@
 /area/ruin/space/ancientstation/thetacorridor)
 "xx" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2970,8 +2890,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3021,6 +2939,7 @@
 "yO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/paper/safe_code{
+	language = "Sol Common";
 	owner = "theta";
 	pixel_x = -6;
 	pixel_y = -6
@@ -3056,8 +2975,6 @@
 /area/template_noop)
 "zd" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3146,8 +3063,6 @@
 /area/ruin/space/ancientstation/rnd)
 "zR" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/firealarm{
@@ -3206,8 +3121,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -3236,8 +3149,6 @@
 /area/ruin/space/ancientstation)
 "Au" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3247,8 +3158,6 @@
 /area/ruin/space/ancientstation/thetacorridor)
 "Av" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/firealarm{
@@ -3325,8 +3234,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3353,13 +3260,11 @@
 	},
 /area/ruin/space/ancientstation/proto)
 "Bn" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/atmos)
 "Bp" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -3409,7 +3314,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/highsecurity{
 	name = "Theta Longterm Storage";
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
@@ -3423,8 +3328,6 @@
 /obj/machinery/door/firedoor/closed,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3444,8 +3347,6 @@
 /obj/machinery/door/firedoor/closed,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -3453,8 +3354,6 @@
 "BN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/public/glass{
@@ -3496,13 +3395,9 @@
 "Ca" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -3510,22 +3405,16 @@
 "Cc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/ancientstation/betanorth)
 "Cf" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3553,8 +3442,6 @@
 /area/ruin/space/ancientstation/betanorth)
 "Cq" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3600,8 +3487,6 @@
 /area/ruin/space/ancientstation/comm)
 "Cw" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = "90Curve"
 	},
@@ -3630,8 +3515,6 @@
 /area/ruin/space/ancientstation/rnd)
 "CJ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/light/small{
@@ -3678,8 +3561,6 @@
 /area/ruin/space/ancientstation/sec)
 "Dn" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
@@ -3692,8 +3573,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/machinery/meter,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3744,7 +3623,7 @@
 "DC" = (
 /obj/structure/lattice,
 /obj/item/shard,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/template_noop,
 /area/ruin/space/ancientstation/atmos)
 "DE" = (
@@ -3838,7 +3717,7 @@
 "EH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/ore/iron,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/cable_coil{
 	amount = 4;
 	desc = "And another piece of cable. Seems this one is all what left from that APCs terminal."
@@ -3910,8 +3789,6 @@
 /area/ruin/space/ancientstation/betanorth)
 "Fl" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/item/twohanded/required/kirbyplants{
@@ -3924,8 +3801,6 @@
 /area/ruin/space/ancientstation/thetacorridor)
 "Fm" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
@@ -3952,13 +3827,9 @@
 "FB" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4010,8 +3881,6 @@
 /area/ruin/space/ancientstation/thetacorridor)
 "FS" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4022,8 +3891,6 @@
 /area/ruin/space/ancientstation/thetacorridor)
 "FT" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4084,8 +3951,6 @@
 /area/ruin/space/ancientstation/hydroponics)
 "GA" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4112,8 +3977,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4161,8 +4024,6 @@
 /area/ruin/space/ancientstation/sec)
 "Hj" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/light{
@@ -4298,7 +4159,7 @@
 /obj/effect/decal/warning_stripes/southeast,
 /obj/effect/decal/warning_stripes/northwest,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mob_spawn/human/oldsec,
+/obj/effect/mob_spawn/human/oldstation/oldsec,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation)
 "IH" = (
@@ -4306,18 +4167,12 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4351,9 +4206,13 @@
 /area/ruin/space/ancientstation/thetacorridor)
 "IP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/betacargo)
+"IQ" = (
+/obj/effect/decal/cleanable/fungus,
+/turf/simulated/wall/r_wall/rust,
+/area/ruin/space/ancientstation/thetacorridor)
 "IV" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -4533,8 +4392,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4581,8 +4438,6 @@
 /area/ruin/space/ancientstation/thetacorridor)
 "Kj" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4777,7 +4632,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	name = "Engineering External Access";
-	req_one_access_txt = "271"
+	req_access = list(271)
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/engi)
@@ -4791,8 +4646,6 @@
 /area/ruin/space/ancientstation/thetacorridor)
 "Me" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -4830,8 +4683,6 @@
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/power/apc{
@@ -4911,8 +4762,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4940,8 +4789,6 @@
 /area/template_noop)
 "Ni" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
@@ -4959,8 +4806,6 @@
 /area/ruin/space/ancientstation/kitchen)
 "Nk" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/maintenance_hatch,
@@ -4981,8 +4826,6 @@
 /area/ruin/space/ancientstation/hydroponics)
 "Nr" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -5000,6 +4843,7 @@
 /obj/item/storage/backpack/old,
 /obj/item/storage/backpack/old,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/storage/backpack/old,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation)
 "Ny" = (
@@ -5007,8 +4851,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5022,8 +4864,6 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -5045,8 +4885,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5082,7 +4920,7 @@
 /obj/effect/decal/warning_stripes/southeast,
 /obj/effect/decal/warning_stripes/northwest,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mob_spawn/human/oldsci,
+/obj/effect/mob_spawn/human/oldstation/oldsci,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation)
 "NX" = (
@@ -5120,13 +4958,9 @@
 /area/ruin/space/ancientstation/betacargo)
 "OD" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5171,7 +5005,7 @@
 /turf/simulated/wall/rust,
 /area/ruin/space/ancientstation/rnd)
 "OX" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -5296,8 +5130,6 @@
 /area/ruin/space/ancientstation/thetacorridor)
 "PS" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5390,8 +5222,6 @@
 "Qz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -5435,8 +5265,6 @@
 /area/ruin/space/ancientstation/thetacorridor)
 "QM" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -5472,8 +5300,6 @@
 /area/ruin/space/ancientstation/betanorth)
 "QU" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5494,8 +5320,6 @@
 /area/ruin/space/ancientstation)
 "QZ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5597,8 +5421,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -5612,8 +5434,6 @@
 /area/ruin/space/ancientstation/thetacorridor)
 "Se" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5699,8 +5519,6 @@
 /area/ruin/space/ancientstation/engi)
 "SX" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5713,8 +5531,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5722,8 +5538,6 @@
 /area/ruin/space/ancientstation/thetacorridor)
 "Td" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
@@ -5794,7 +5608,7 @@
 "TP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /obj/effect/decal/remains/robot,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/rnd)
@@ -5803,8 +5617,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/poddoor{
@@ -5870,8 +5682,6 @@
 /area/ruin/space/ancientstation/atmos)
 "Un" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/light{
@@ -5883,13 +5693,9 @@
 /area/ruin/space/ancientstation/thetacorridor)
 "Uo" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5974,8 +5780,6 @@
 /area/ruin/space/ancientstation/thetacorridor)
 "UL" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
@@ -6008,8 +5812,6 @@
 /area/ruin/space/ancientstation)
 "UX" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/light/small{
@@ -6199,7 +6001,7 @@
 /obj/effect/decal/warning_stripes/southeast,
 /obj/effect/decal/warning_stripes/northwest,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mob_spawn/human/oldmed,
+/obj/effect/mob_spawn/human/oldstation/oldmed,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation)
 "VS" = (
@@ -6248,8 +6050,6 @@
 	dir = 9
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -6344,7 +6144,6 @@
 /area/ruin/space/ancientstation/hydroponics)
 "WO" = (
 /obj/structure/table,
-/obj/item/book/manual/security_space_law,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -6384,8 +6183,6 @@
 /area/ruin/space/ancientstation/comm)
 "Xb" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -6402,8 +6199,6 @@
 /area/ruin/space/ancientstation/atmos)
 "Xg" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -6411,8 +6206,6 @@
 /area/ruin/space/ancientstation/betanorth)
 "Xj" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/item/solar_assembly,
@@ -6477,8 +6270,6 @@
 /area/ruin/space/ancientstation)
 "XO" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -6514,7 +6305,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	name = "Engineering External Access";
-	req_one_access_txt = "271"
+	req_access = list(271)
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/engi)
@@ -6563,8 +6354,6 @@
 /area/ruin/space/ancientstation)
 "Yv" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -6591,8 +6380,6 @@
 /area/ruin/space/ancientstation/rnd)
 "YD" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -6644,8 +6431,6 @@
 /area/ruin/space/ancientstation)
 "Zb" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/firealarm{
@@ -6663,8 +6448,6 @@
 /area/ruin/space/ancientstation/betacargo)
 "Zl" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -9463,7 +9246,7 @@ bZ
 cG
 uD
 By
-cp
+sD
 Uz
 Zo
 KR
@@ -10335,7 +10118,7 @@ Zs
 DR
 TT
 Fx
-Zs
+ou
 Zs
 Zs
 ZO
@@ -11915,7 +11698,7 @@ tz
 Ia
 AQ
 Ia
-tz
+gF
 WQ
 hm
 tz
@@ -11994,7 +11777,7 @@ ZO
 NO
 AK
 Yj
-uk
+IQ
 Qk
 QB
 uk

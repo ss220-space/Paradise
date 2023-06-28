@@ -10,12 +10,13 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "ore"
 	max_amount = 50
+	full_w_class = WEIGHT_CLASS_BULKY
 	singular_name = "ore chunk"
 	var/points = 0 //How many points this ore gets you from the ore redemption machine
 	var/refined_type = null //What this ore defaults to being refined into
 
-/obj/item/stack/ore/New(loc, new_amount, merge = TRUE)
-	..()
+/obj/item/stack/ore/Initialize(mapload, new_amount , merge = TRUE)
+	. = ..()
 	pixel_x = rand(0, 16) - 8
 	pixel_y = rand(0, 8) - 8
 	if(is_mining_level(z))
@@ -105,8 +106,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		))
 
 /obj/item/stack/ore/glass/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.sand_recipes
 	. = ..()
+	recipes = GLOB.sand_recipes
 
 /obj/item/stack/ore/glass/throw_impact(atom/hit_atom)
 	if(..() || !ishuman(hit_atom))
@@ -137,6 +138,13 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	icon_state = "volcanic_sand"
 	icon_state = "volcanic_sand"
 	singular_name = "volcanic ash pile"
+	desc = "Looks like you could shove some on a girder to make a false rock wall"
+
+/obj/item/stack/ore/glass/basalt/ancient
+	name = "ancient sand"
+	icon_state = "volcanic_sand"
+	item_state = "volcanic_sand"
+	singular_name = "ancient sand pile"
 
 /obj/item/stack/ore/plasma
 	name = "plasma ore"
@@ -402,6 +410,13 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	sideslist = list("heads")
 	credits = 20
 
+/obj/item/coin/twoheaded/thief
+	name = "монета Гильдии Воров"
+	icon_state = "coin_thief_heads"
+	cmineral = "thief"
+	desc = "Монета Гильдии Воров, которую выдают каждому уважающему себя члену гильдии для взаимной идентификации. Странный сплав с изображением бюстов черной и белой кошки, стоящих спиной к спине. Ценится коллекционерами, и как правило у них же и возвращают."
+	credits = 600
+
 /obj/item/coin/antagtoken
 	name = "antag token"
 	icon_state = "coin_valid_valid"
@@ -414,6 +429,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 /obj/item/coin/antagtoken/syndicate
 	name = "syndicate coin"
 	credits = 160
+
 
 /obj/item/coin/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/stack/cable_coil))
@@ -435,8 +451,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 			..()
 			return
 
-		var/obj/item/stack/cable_coil/CC = new/obj/item/stack/cable_coil(user.loc)
-		CC.amount = 1
+		var/obj/item/stack/cable_coil/CC = new/obj/item/stack/cable_coil(user.loc, 1)
 		CC.update_icon()
 		overlays = list()
 		string_attached = null

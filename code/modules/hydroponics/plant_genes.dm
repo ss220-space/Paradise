@@ -159,7 +159,7 @@
 			return FALSE
 	return TRUE
 
-/datum/plant_gene/trait/proc/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/proc/on_new(obj/item/reagent_containers/food/snacks/grown/G)
 	if(!origin_tech) // This ugly code segment adds RnD tech levels to resulting plants.
 		return
 
@@ -206,7 +206,7 @@
 	examine_line = "<span class='info'>It has a very slippery skin.</span>"
 	dangerous = TRUE
 
-/datum/plant_gene/trait/slip/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/slip/on_new(obj/item/reagent_containers/food/snacks/grown/G)
 	. = ..()
 	if(istype(G) && ispath(G.trash, /obj/item/grown))
 		return
@@ -278,9 +278,17 @@
 /datum/plant_gene/trait/glow/proc/glow_power(obj/item/seeds/S)
 	return max(S.potency*rate, 0.1)
 
-/datum/plant_gene/trait/glow/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/glow/on_new(obj/item/reagent_containers/food/snacks/grown/G)
 	..()
 	G.set_light(glow_range(G.seed), glow_power(G.seed), glow_color)
+
+/datum/plant_gene/trait/glow/blue
+	name = "Blue Bioluminescence"
+	glow_color = "#6699FF"
+
+/datum/plant_gene/trait/glow/purple
+	name = "Purple Bioluminescence"
+	glow_color = "#b434df"
 
 /datum/plant_gene/trait/glow/shadow
 	//makes plant emit slightly purple shadows
@@ -308,14 +316,20 @@
 	origin_tech = list("bluespace" = 5)
 	dangerous = TRUE
 
-/datum/plant_gene/trait/teleport/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+/datum/plant_gene/trait/teleport/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target, mob/thrower)
 	if(isliving(target))
+		var/mob/living/living_target = target
+		if(thrower == living_target && !do_after(living_target, 1 SECONDS, target = living_target))
+			to_chat(target, "<span class='notice'>You need to hold still to squash [G.name].</span>")
+			return
 		var/teleport_radius = max(round(G.seed.potency / 10), 1)
-		var/turf/T = get_turf(target)
+		var/turf/T = get_turf(living_target)
 		new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...
 		add_attack_logs(target, T, "teleport squash [G](max radius: [teleport_radius])")
 		do_teleport(target, T, teleport_radius)
-		target.investigate_log("teleported from [COORD(T)] to [COORD(target)], squashing [G](max radius: [teleport_radius])", INVESTIGATE_BOTANY)
+		if(thrower == living_target)
+			living_target.adjustStaminaLoss(33)
+		living_target.investigate_log("teleported from [COORD(T)] to [COORD(living_target)], squashing [G](max radius: [teleport_radius])", INVESTIGATE_BOTANY)
 
 /datum/plant_gene/trait/teleport/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	var/teleport_radius = max(round(G.seed.potency / 10), 1)
@@ -339,7 +353,7 @@
 	// Makes plant reagents not react until squashed.
 	name = "Separated Chemicals"
 
-/datum/plant_gene/trait/noreact/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/noreact/on_new(obj/item/reagent_containers/food/snacks/grown/G)
 	..()
 	G.reagents.set_reacting(FALSE)
 
@@ -361,7 +375,7 @@
 	name = "Densified Chemicals"
 	rate = 2
 
-/datum/plant_gene/trait/maxchem/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/maxchem/on_new(obj/item/reagent_containers/food/snacks/grown/G)
 	..()
 	G.reagents.maximum_volume *= rate
 
@@ -437,7 +451,7 @@
 	for(var/datum/reagent/R in G.reagents.reagent_list)
 		reglist += "[R.name] [R.volume], "
 	target.investigate_log("started a chemical smoke, squashing [G]. [reglist]")
-	addtimer(CALLBACK(S, /datum/effect_system/smoke_spread/chem/.proc/start, smoke_amount), 1 * rand(1, 8), TIMER_STOPPABLE | TIMER_DELETE_ME)
+	addtimer(CALLBACK(S, TYPE_PROC_REF(/datum/effect_system/smoke_spread/chem, start), smoke_amount), 1 * rand(1, 8), TIMER_STOPPABLE | TIMER_DELETE_ME)
 
 /datum/plant_gene/trait/fire_resistance // Lavaland
 	name = "Fire Resistance"
@@ -446,7 +460,7 @@
 	if(!(S.resistance_flags & FIRE_PROOF))
 		S.resistance_flags |= FIRE_PROOF
 
-/datum/plant_gene/trait/fire_resistance/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/fire_resistance/on_new(obj/item/reagent_containers/food/snacks/grown/G)
 	if(!(G.resistance_flags & FIRE_PROOF))
 		G.resistance_flags |= FIRE_PROOF
 
@@ -462,3 +476,22 @@
 
 /datum/plant_gene/trait/plant_type/alien_properties
 	name ="?????"
+
+//laughter gene
+
+/**
+ * Plays a laughter sound when someone slips on it.
+ * Like the sitcom component but for plants.
+ * Just like slippery skin, if we have a trash type this only functions on that. (Banana peels)
+ */
+/datum/plant_gene/trait/plant_laughter
+	name = "Hallucinatory Feedback"
+	//description = "Makes sounds when people slip on it."
+	/// Sounds that play when this trait triggers
+	var/list/sounds = list('sound/items/SitcomLaugh1.ogg', 'sound/items/SitcomLaugh2.ogg', 'sound/items/SitcomLaugh3.ogg')
+
+/datum/plant_gene/trait/plant_laughter/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
+
+	if(C.stunned)
+		playsound(G, pick(sounds), 100, 1)
+		C.visible_message("<span class='notice'>[G] lets out burst of laughter.</span>")

@@ -56,6 +56,7 @@
 
 #define ui_alien_storage_l "CENTER-2:14,SOUTH:5"//alien
 #define ui_alien_storage_r "CENTER+1:18,SOUTH:5"//alien
+#define ui_alien_leap "CENTER+2:20,SOUTH:5"//alien
 #define ui_alien_language_menu "EAST-3:25,SOUTH+1:7"//alien
 #define ui_alienlarva_language_menu "EAST-3:26,SOUTH:5"//alien
 
@@ -113,6 +114,9 @@
 
 //aliens
 #define ui_alien_health "EAST-1:28,CENTER-1:15" //aliens have the health display where humans have the pressure damage indicator.
+
+//aliens
+#define ui_cogscarab_timer "EAST-1:27,CENTER+0:16" //Under health tab
 
 //constructs
 #define ui_construct_pull "EAST-1:28,SOUTH+1:10" //above the zone_sel icon

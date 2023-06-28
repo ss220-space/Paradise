@@ -426,7 +426,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 //Updates brute_damn and burn_damn from wound damages. Updates BLEEDING status.
 /obj/item/organ/external/proc/check_fracture(damage)
 	if(config.bones_can_break && brute_dam + burn_dam + damage > min_broken_damage && !is_robotic())
-		if(prob(damage))
+		if(prob(damage * FRAGILITY(owner)))
 			fracture()
 			add_attack_logs(owner, null, "Suffered fracture to [src](Damage: [damage], Organ HP: [max_damage - (brute_dam + burn_dam) ])")
 
@@ -559,6 +559,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			qdel(src) // If you flashed away to ashes, YOU FLASHED AWAY TO ASHES
 			return null
 
+
 /obj/item/organ/external/proc/disembowel(spillage_zone = "chest")
 	if(!owner)
 		return
@@ -628,12 +629,12 @@ Note that amputating the affected organ does in fact remove the infection from t
 		holder.visible_message(\
 			"\The [holder.handcuffed.name] falls off of [holder.name].",\
 			"\The [holder.handcuffed.name] falls off you.")
-		holder.unEquip(holder.handcuffed)
+		holder.drop_item_ground(holder.handcuffed)
 	if(holder.legcuffed && (body_part in list(FOOT_LEFT, FOOT_RIGHT, LEG_LEFT, LEG_RIGHT)))
 		holder.visible_message(\
 			"\The [holder.legcuffed.name] falls off of [holder.name].",\
 			"\The [holder.legcuffed.name] falls off you.")
-		holder.unEquip(holder.legcuffed)
+		holder.drop_item_ground(holder.legcuffed)
 
 /obj/item/organ/external/proc/fracture()
 	if(is_robotic())
@@ -648,13 +649,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"<span class='danger'>Something feels like it shattered in your [name]!</span>",\
 			"You hear a sickening crack.")
 		playsound(owner, "bonebreak", 150, 1)
-		if(owner.reagents.has_reagent("morphine"))
-			return
-		if(owner.reagents.has_reagent("hydrocodone"))
-			return
-		if(owner.stat == UNCONSCIOUS)
-			return
-		if(owner.dna.species && !(NO_PAIN in owner.dna.species.species_traits))
+		if(owner.has_pain())
 			owner.emote("scream")
 
 	status |= ORGAN_BROKEN
@@ -664,6 +659,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 	// Fractures have a chance of getting you out of restraints
 	if(prob(25))
 		release_restraints()
+
+/mob/living/carbon/human/proc/check_fractures()
+	var/list/fractures = list()
+	for(var/obj/item/organ/external/limb in bodyparts)
+		if(limb.status == ORGAN_BROKEN)
+			fractures.Add(limb)
+	return fractures
 
 /obj/item/organ/external/proc/mend_fracture()
 	if(is_robotic())
@@ -848,3 +850,17 @@ Note that amputating the affected organ does in fact remove the infection from t
 		var/obj/item/organ/external/L = X
 		for(var/obj/item/I in L.embedded_objects)
 			return 1
+
+/mob/living/carbon/human/proc/check_limbs_with_embedded_objects()
+	var/list/limbs = list()
+	for(var/obj/item/organ/external/limb in bodyparts)
+		if(limb.embedded_objects.len)
+			limbs.Add()
+	return limbs
+
+/mob/living/carbon/human/proc/check_embedded_objects()
+	var/list/items = list()
+	for(var/obj/item/organ/external/limb in bodyparts)
+		for(var/obj/item/item in limb.embedded_objects)
+			items.Add(item)
+	return items

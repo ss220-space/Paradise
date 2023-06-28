@@ -61,6 +61,21 @@
 		else
 			to_chat(H, "<span class='notice'>You break your vow of silence.</span>")
 
+/obj/effect/proc_holder/spell/targeted/mime/speak/mask
+	var/from_mask = TRUE
+
+/obj/effect/proc_holder/spell/targeted/mime/speak/mask/process()
+	..()
+	if(charge_counter >= charge_max)
+		var/mob/living/carbon/human/H = action.owner
+		if(!H)
+			return
+		if(H && H.wear_mask && istype(H.wear_mask, /obj/item/clothing/mask/gas/mime/))
+			return
+		if(H.mind?.miming)
+			cast(list(H))
+		H.mind.RemoveSpell(src)
+
 //Advanced Mimery traitor item spells
 
 /obj/effect/proc_holder/spell/targeted/forcewall/mime
@@ -110,7 +125,7 @@
 	for(var/mob/living/carbon/human/C in targets)
 		if(!istype(C.get_active_hand(), gun) && !istype(C.get_inactive_hand(), gun))
 			to_chat(user, "<span class='notice'>You draw your fingers!</span>")
-			C.drop_item()
+			C.drop_from_active_hand()
 			C.put_in_hands(new gun)
 		else
 			to_chat(user, "<span class='notice'>Holster your fingers first.</span>")

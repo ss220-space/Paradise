@@ -2,6 +2,9 @@
  * tgui
  *
  * /tg/station user interface library
+ *
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
  */
 
 /**
@@ -197,7 +200,7 @@
 		"fancy" = user.client.prefs.toggles2 & PREFTOGGLE_2_FANCYUI,
 		"observer" = isobserver(user),
 		"window" = window_id,
-		"map" = (GLOB.using_map && GLOB.using_map.name) ? GLOB.using_map.name : "Unknown",
+		"map" = (SSmapping.map_datum && SSmapping.map_datum.name) ? SSmapping.map_datum.name : "Unknown",
 		"ref" = "[src.UID()]"
 	)
 
@@ -273,7 +276,7 @@
  *
  * optional force bool If the UI should be forced to update.
  */
-/datum/tgui/process(force = FALSE)
+/datum/tgui/process(seconds_per_tick, force = FALSE)
 	var/datum/host = src_object.ui_host(user)
 	if(!src_object || !host || !user) // If the object or user died (or something else), abort.
 		close()

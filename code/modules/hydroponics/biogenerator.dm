@@ -4,7 +4,7 @@
 /obj/machinery/biogenerator
 	name = "biogenerator"
 	desc = "Converts plants into biomass, which can be used to construct useful items."
-	icon = 'icons/obj/biogenerator.dmi'
+	icon = 'icons/obj/machines/biogenerator.dmi'
 	icon_state = "biogen-empty"
 	density = TRUE
 	anchored = TRUE
@@ -112,10 +112,10 @@
 		if(container)
 			to_chat(user, "<span class='warning'>A container is already loaded into [src].</span>")
 			return
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(O, src))
 			return
 
-		O.forceMove(src)
+		add_fingerprint(user)
 		container = O
 		to_chat(user, "<span class='notice'>You add the [container] to [src].</span>")
 		update_icon()
@@ -127,11 +127,13 @@
 			to_chat(user, "<span class='warning'>[src] can't hold any more plants!</span>")
 			return
 
+		add_fingerprint(user)
 		var/obj/item/storage/bag/plants/PB = O
 		for(var/obj/item/reagent_containers/food/snacks/grown/G in PB.contents)
 			if(length(stored_plants) >= max_storable_plants)
 				break
 			PB.remove_from_storage(G, src)
+			PB.add_fingerprint(user)
 			stored_plants += G
 
 		if(length(stored_plants) < max_storable_plants)
@@ -146,10 +148,10 @@
 		if(length(stored_plants) >= max_storable_plants)
 			to_chat(user, "<span class='warning'>[src] can't hold any more plants!</span>")
 			return
-		if(!user.unEquip(O))
+		if(!user.drop_transfer_item_to_loc(O, src))
 			return
 
-		O.forceMove(src)
+		add_fingerprint(user)
 		stored_plants += O
 		to_chat(user, "<span class='info'>You put [O] in [src].</span>")
 		SStgui.update_uis(src)
@@ -166,10 +168,12 @@
 		if(do_after(user, 1 SECONDS, target = src))
 			files.AddDesign2Known(D.blueprint)
 
+		add_fingerprint(user)
 		processing = FALSE
 		update_ui_product_list()
 		return TRUE
 	else
+		add_fingerprint(user)
 		to_chat(user, "<span class='warning'>You cannot put this in [name]!</span>")
 
 /**
@@ -188,7 +192,8 @@
 			product_list[category][D.name] = list(
 				"name" = D.name,
 				"id" = D.id,
-				"cost" = D.materials[MAT_BIOMASS] / efficiency
+				"cost" = D.materials[MAT_BIOMASS] / efficiency,
+				"needs_container" = length(D.make_reagents)
 			)
 
 	SStgui.update_uis(src, update_static_data = TRUE)
@@ -271,7 +276,7 @@
 	stored_plants.Cut()
 	playsound(loc, 'sound/machines/blender.ogg', 50, 1)
 	use_power(plants_processed * 150)
-	addtimer(CALLBACK(src, .proc/end_processing), (plants_processed * 5) / productivity)
+	addtimer(CALLBACK(src, PROC_REF(end_processing)), (plants_processed * 5) / productivity)
 
 /obj/machinery/biogenerator/proc/end_processing()
 	processing = FALSE

@@ -76,7 +76,7 @@
 				shake_camera(M, 3, 1)
 	playsound(loc, 'sound/effects/meteorimpact.ogg', 40, 1)
 
-	INVOKE_ASYNC(src, .proc/impact_meteor, A) // ex_act can have some sleeps in it
+	INVOKE_ASYNC(src, PROC_REF(impact_meteor), A) // ex_act can have some sleeps in it
 
 /obj/effect/space_dust/proc/impact_meteor(atom/A)
 	var/turf/where = get_turf(A)
@@ -94,8 +94,8 @@
 /obj/effect/space_dust/proc/on_shatter(turf/where)
 	return
 
-/obj/effect/space_dust/Bumped(atom/A)
-	Bump(A)
+/obj/effect/space_dust/Bumped(atom/movable/moving_atom)
+	Bump(moving_atom)
 	return
 
 /obj/effect/space_dust/ex_act(severity)

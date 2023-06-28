@@ -29,7 +29,7 @@
 	qdel(src)
 
 /obj/structure/chair/Move(atom/newloc, direct)
-	..()
+	. = ..()
 	handle_rotation()
 
 /obj/structure/chair/buckle_mob(mob/living/M, force, check_loc)
@@ -47,8 +47,9 @@
 		if(!SK.status)
 			to_chat(user, "<span class='notice'>[SK] is not ready to be attached!</span>")
 			return
-		user.drop_item()
+		user.drop_from_active_hand()
 		var/obj/structure/chair/e_chair/E = new /obj/structure/chair/e_chair(get_turf(src), SK)
+		E.add_fingerprint(user)
 		playsound(src.loc, W.usesound, 50, 1)
 		E.dir = dir
 		SK.loc = E
@@ -89,8 +90,9 @@
 		if(!ishuman(usr))
 			return
 		usr.visible_message("<span class='notice'>[usr] grabs \the [src.name].</span>", "<span class='notice'>You grab \the [src.name].</span>")
-		var/C = new item_chair(loc)
-		usr.put_in_hands(C)
+		var/C = new item_chair(drop_location())
+		usr.put_in_hands(C, ignore_anim = FALSE)
+		transfer_fingerprints_to(C)
 		qdel(src)
 
 /obj/structure/chair/attack_tk(mob/user as mob)
@@ -130,6 +132,7 @@
 	set src in oview(1)
 
 	if(config.ghost_interaction)
+		add_fingerprint(usr)
 		setDir(turn(dir, 90))
 		handle_rotation()
 		return
@@ -137,6 +140,7 @@
 	if(usr.incapacitated())
 		return
 
+	add_fingerprint(usr)
 	setDir(turn(dir, 90))
 	handle_rotation()
 
@@ -353,7 +357,6 @@
 	name = "stool"
 	desc = "Apply butt."
 	icon_state = "stool"
-	can_buckle = FALSE
 	item_chair = /obj/item/chair/stool
 
 /obj/structure/chair/stool/bar
@@ -361,6 +364,13 @@
 	desc = "It has some unsavory stains on it..."
 	icon_state = "bar"
 	item_chair = /obj/item/chair/stool/bar
+
+/obj/structure/chair/stool/bar/dark
+	icon_state = "bar_dark"
+	item_chair = /obj/item/chair/stool/bar/dark
+
+/obj/structure/chair/stool/handle_layer()
+	return
 
 /obj/item/chair
 	name = "chair"
@@ -398,17 +408,26 @@
 	item_state = "stool_bar"
 	origin_type = /obj/structure/chair/stool/bar
 
+/obj/item/chair/stool/bar/dark
+	icon_state = "bar_toppled_dark"
+	item_state = "stool_bar_dark"
+	origin_type = /obj/structure/chair/stool/bar/dark
+
 /obj/item/chair/attack_self(mob/user)
 	plant(user)
 
 /obj/item/chair/proc/plant(mob/user)
+	if(QDELETED(src))
+		return
+
 	for(var/obj/A in get_turf(loc))
 		if(istype(A, /obj/structure/chair))
-			to_chat(user, "<span class='danger'>There is already a chair here.</span>")
+			to_chat(user, "<span class='danger'>There is already [A] here.</span>")
 			return
 
 	user.visible_message("<span class='notice'>[user] rights \the [src.name].</span>", "<span class='notice'>You right \the [name].</span>")
 	var/obj/structure/chair/C = new origin_type(get_turf(loc))
+	transfer_fingerprints_to(C)
 	C.setDir(dir)
 	qdel(src)
 
@@ -444,17 +463,10 @@
 				playsound(src.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
 		smash(user)
 
-/obj/item/chair/stool/attack_self(mob/user as mob)
-	..()
-	new origin_type(get_turf(loc))
-	user.unEquip(src)
-	user.visible_message("<span class='notice'>[user] puts [src] down.</span>", "<span class='notice'>You put [src] down.</span>")
-	qdel(src)
-
 /obj/item/chair/stool/attack(mob/M as mob, mob/user as mob)
 	if(prob(5) && istype(M,/mob/living))
 		user.visible_message("<span class='danger'>[user] breaks [src] over [M]'s back!.</span>")
-		user.unEquip(src)
+		user.drop_item_ground(src)
 		var/obj/item/stack/sheet/metal/m = new/obj/item/stack/sheet/metal
 		m.loc = get_turf(src)
 		qdel(src)
@@ -518,6 +530,7 @@
 		return
 	if(!in_range(src, user))
 		return
+	add_fingerprint(user)
 	turns = 0
 	if(!isprocessing)
 		user.visible_message("<span class='notice'>[user] spins [src] around, and Ratvarian technology keeps it spinning FOREVER.</span>", \

@@ -1,7 +1,7 @@
 /obj/machinery/transformer
 	name = "Automatic Robotic Factory 5000"
 	desc = "A large metalic machine with an entrance and an exit. A sign on the side reads, 'human go in, robot come out', human must be lying down and alive. Has to cooldown between each use."
-	icon = 'icons/obj/recycling.dmi'
+	icon = 'icons/obj/machines/recycling.dmi'
 	icon_state = "separator-AO1"
 	layer = MOB_LAYER+1 // Overhead
 	anchored = 1
@@ -69,12 +69,14 @@
 	is_on_cooldown = FALSE
 	update_icon()
 
-/obj/machinery/transformer/Bumped(atom/movable/AM)
+/obj/machinery/transformer/Bumped(atom/movable/moving_atom)
+	..()
+
 	// They have to be human to be transformed.
-	if(is_on_cooldown || !ishuman(AM))
+	if(is_on_cooldown || !ishuman(moving_atom))
 		return
 
-	var/mob/living/carbon/human/H = AM
+	var/mob/living/carbon/human/H = moving_atom
 	var/move_dir = get_dir(loc, H.loc)
 
 	if((transform_standing || H.lying) && move_dir == acceptdir)
@@ -96,8 +98,8 @@
 	// Activate the cooldown
 	is_on_cooldown = TRUE
 	update_icon()
-	addtimer(CALLBACK(src, .proc/reset_cooldown), cooldown_duration)
-	addtimer(CALLBACK(null, .proc/playsound, loc, 'sound/machines/ping.ogg', 50, 0), 3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), cooldown_duration)
+	addtimer(CALLBACK(null, PROC_REF(playsound), loc, 'sound/machines/ping.ogg', 50, 0), 3 SECONDS)
 
 	H.emote("scream")
 	if(!masterAI) // If the factory was placed via admin spawning or other means, it wont have an owner_AI.
@@ -119,16 +121,18 @@
 	name = "Mimetech Greyscaler"
 	desc = "Turns anything placed inside black and white."
 
-/obj/machinery/transformer/mime/Bumped(atom/movable/AM)
+/obj/machinery/transformer/mime/Bumped(atom/movable/moving_atom)
+	..()
+
 	if(is_on_cooldown)
 		return
 
 	// Crossed didn't like people lying down.
-	if(istype(AM))
-		AM.forceMove(drop_location())
-		do_transform_mime(AM)
+	if(istype(moving_atom))
+		moving_atom.forceMove(drop_location())
+		do_transform_mime(moving_atom)
 	else
-		to_chat(AM, "Only items can be greyscaled.")
+		to_chat(moving_atom, "Only items can be greyscaled.")
 		return
 
 /obj/machinery/transformer/proc/do_transform_mime(obj/item/I)
@@ -145,7 +149,7 @@
 	// Activate the cooldown
 	is_on_cooldown = TRUE
 	update_icon()
-	addtimer(CALLBACK(src, .proc/reset_cooldown), cooldown_duration)
+	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), cooldown_duration)
 
 /obj/machinery/transformer/xray
 	name = "Automatic X-Ray 5000"
@@ -179,23 +183,25 @@
 	else
 		icon_state = initial(icon_state)
 
-/obj/machinery/transformer/xray/Bumped(atom/movable/AM)
+/obj/machinery/transformer/xray/Bumped(atom/movable/moving_atom)
+	..()
+
 	if(is_on_cooldown)
 		return
 
 	// Crossed didn't like people lying down.
-	if(ishuman(AM))
+	if(ishuman(moving_atom))
 		// Only humans can enter from the west side, while lying down.
-		var/mob/living/carbon/human/H = AM
+		var/mob/living/carbon/human/H = moving_atom
 		var/move_dir = get_dir(loc, H.loc)
 
 		if(H.lying && move_dir == acceptdir)
 			H.forceMove(drop_location())
 			irradiate(H)
 
-	else if(istype(AM))
-		AM.forceMove(drop_location())
-		scan(AM)
+	else if(istype(moving_atom))
+		moving_atom.forceMove(drop_location())
+		scan(moving_atom)
 
 /obj/machinery/transformer/xray/proc/irradiate(mob/living/carbon/human/H)
 	if(stat & (BROKEN|NOPOWER))
@@ -325,6 +331,7 @@
 		if(!D.buf)
 			to_chat(user, "<span class='warning'>Error: No data found.</span>")
 			return FALSE
+		add_fingerprint(user)
 		template = D.buf.dna.Clone()
 		to_chat(user, "<span class='notice'>Upload of gene template for '[template.real_name]' complete!</span>")
 		return TRUE

@@ -12,6 +12,8 @@
 	var/list/items_list = list()// I would use contents, but they shuffle on every activation/deactivation leading to interface inconsistencies.
 	/// You can use this var for item path, it would be converted into an item on New().
 	var/obj/item/active_item
+	var/sound_on = 'sound/mecha/mechmove03.ogg'
+	var/sound_off = 'sound/mecha/mechmove03.ogg'
 
 /obj/item/organ/internal/cyberimp/arm/Initialize()
 	. = ..()
@@ -50,19 +52,19 @@
 	var/side = parent_organ == BODY_ZONE_R_ARM ? BODY_ZONE_R_ARM : BODY_ZONE_L_ARM
 	hand = owner.bodyparts_by_name[side]
 	if(hand)
-		RegisterSignal(hand, COMSIG_ITEM_ATTACK_SELF, .proc/on_item_attack_self) //If the limb gets an attack-self, open the menu. Only happens when hand is empty
-		RegisterSignal(arm_owner, COMSIG_MOB_DROP_ITEM, .proc/dropkey) //We're nodrop, but we'll watch for the drop hotkey anyway and then stow if possible.
+		RegisterSignal(hand, COMSIG_ITEM_ATTACK_SELF, PROC_REF(on_item_attack_self)) //If the limb gets an attack-self, open the menu. Only happens when hand is empty
+		RegisterSignal(arm_owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN, PROC_REF(dropkey)) //We're nodrop, but we'll watch for the drop hotkey anyway and then stow if possible.
 
 /obj/item/organ/internal/cyberimp/arm/remove(mob/living/carbon/arm_owner, special = 0)
 	Retract()
 	if(hand)
 		UnregisterSignal(hand, COMSIG_ITEM_ATTACK_SELF)
-		UnregisterSignal(arm_owner, COMSIG_MOB_DROP_ITEM)
+		UnregisterSignal(arm_owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
 	. = ..()
 
 /obj/item/organ/internal/cyberimp/arm/proc/on_item_attack_self()
 	SIGNAL_HANDLER
-	INVOKE_ASYNC(src, .proc/ui_action_click)
+	INVOKE_ASYNC(src, PROC_REF(ui_action_click))
 
 /obj/item/organ/internal/cyberimp/arm/emag_act()
 	return 0
@@ -100,10 +102,10 @@
 		"<span class='notice'>[active_item] snaps back into your [parent_organ == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>",
 		"<span class='italics'>You hear a short mechanical noise.</span>")
 
-	owner.unEquip(active_item, 1)
+	owner.drop_item_ground(active_item, force = TRUE)
 	active_item.forceMove(src)
 	active_item = null
-	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
+	playsound(get_turf(owner), src.sound_off, 50, 1)
 	return TRUE
 
 /obj/item/organ/internal/cyberimp/arm/proc/Extend(obj/item/augment)
@@ -122,7 +124,7 @@
 	var/obj/item/arm_item = owner.get_item_by_slot(arm_slot)
 
 	if(arm_item)
-		if(!owner.unEquip(arm_item))
+		if(!owner.drop_item_ground(arm_item))
 			to_chat(owner, "<span class='warning'>Your [arm_item] interferes with [src]!</span>")
 			return
 		else
@@ -139,7 +141,7 @@
 	owner.visible_message("<span class='notice'>[owner] extends [active_item] from [owner.p_their()] [parent_organ == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>",
 		"<span class='notice'>You extend [active_item] from your [parent_organ == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>",
 		"<span class='italics'>You hear a short mechanical noise.</span>")
-	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
+	playsound(get_turf(owner), src.sound_on, 50, 1)
 
 /obj/item/organ/internal/cyberimp/arm/ui_action_click()
 	if(crit_fail || (!active_item && !contents.len))
@@ -167,7 +169,7 @@
 	var/list/choices = list()
 	for(var/obj/I in items_list)
 		choices["[I.name]"] = image(icon = I.icon, icon_state = I.icon_state)
-	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, .proc/check_menu, user))
+	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
 	if(!check_menu(user))
 		return
 	var/obj/item/selected
@@ -321,9 +323,56 @@
 	name = "NT specops cybernetics implant"
 	desc = "An extremely powerful cybernetic implant that contains combat and utility modules used by NT special forces."
 	contents = newlist(/obj/item/gun/energy/pulse/pistol/m1911, /obj/item/door_remote/omni, /obj/item/melee/energy/blade/hardlight, /obj/item/reagent_containers/hypospray/combat/nanites, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/implanter/mindshield, /obj/item/flash/armimplant)
-	icon = 'icons/obj/guns/energy.dmi'
+	icon = 'icons/obj/weapons/energy.dmi'
 	icon_state = "m1911"
 	emp_proof = 1
+
+/obj/item/organ/internal/cyberimp/arm/toolset/mantisblade
+	sound_on = 'sound/weapons/wristblades_on.ogg'
+	sound_off = 'sound/weapons/wristblades_off.ogg'
+
+/obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/horlex
+	name = "hidden blade implant"
+	desc = "A blade designed to be hidden just beneath the skin. The brain is directly linked to this bad boy, allowing it to spring into action."
+	contents = newlist(/obj/item/melee/mantisblade)
+	origin_tech = "materials=6;combat=6;biotech=6;syndicate=4;programming=5;"
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/surgery.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "syndie_mantis")
+	icon_state = "syndie_mantis"
+
+/obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/update_icon()
+	if(parent_organ == BODY_ZONE_R_ARM)
+		transform = null
+
+	else // Mirroring the icon
+		transform = matrix(-1, 0, 0, 0, 1, 0)
+
+/obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/horlex/l
+	parent_organ = "l_arm"
+
+/obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/shellguard
+	name = "hidden blade implant"
+	desc = "A blade designed to be hidden just beneath the skin. The brain is directly linked to this bad boy, allowing it to spring into action."
+	contents = newlist(/obj/item/melee/mantisblade/shellguard)
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/surgery.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "mantis")
+	origin_tech = "materials=6;combat=6;biotech=6;programming=5;"
+	icon_state = "mantis"
+
+/obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/shellguard/l
+	parent_organ = "l_arm"
+
+/obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/emp_act(severity)
+	..()
+
+	if(crit_fail || emp_proof)
+		return
+	crit_fail = TRUE
+	Retract()
+	addtimer(CALLBACK(src, PROC_REF(reboot)), 10 SECONDS)
+
+/obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/proc/reboot()
+	crit_fail = FALSE
 
 /obj/item/organ/internal/cyberimp/arm/surgery
 	name = "surgical toolset implant"
@@ -385,7 +434,7 @@
 /obj/item/apc_powercord
 	name = "power cable"
 	desc = "Insert into a nearby APC to draw power from it."
-	icon = 'icons/obj/power.dmi'
+	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "wire1"
 	flags = NOBLUDGEON
 	var/drawing_power = FALSE
@@ -408,7 +457,7 @@
 			if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
 				to_chat(user, "<span class='warning'>You are already fully charged!</span>")
 			else
-				INVOKE_ASYNC(src, .proc/powerdraw_loop, A, H)
+				INVOKE_ASYNC(src, PROC_REF(powerdraw_loop), A, H)
 		else
 			to_chat(user, "<span class='warning'>There is no charge to draw from that APC.</span>")
 	else

@@ -10,7 +10,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 //Except this is pretty heavily modified so it's more like conveyor2.5
 
 /obj/machinery/conveyor
-	icon = 'icons/obj/recycling.dmi'
+	icon = 'icons/obj/machines/recycling.dmi'
 	icon_state = "conveyor_stopped_cw"
 	name = "conveyor belt"
 	desc = "It's a conveyor belt, commonly used to transport large numbers of items elsewhere quite quickly.<br>\
@@ -60,14 +60,15 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		var/obj/item/conveyor_switch_construct/S = I
 		if(S.id == id)
 			return ..()
+		add_fingerprint(user)
 		for(var/obj/machinery/conveyor_switch/CS in GLOB.conveyor_switches)
 			if(CS.id == id)
 				CS.conveyors -= src
 		id = S.id
 		to_chat(user, "<span class='notice'>You link [I] with [src].</span>")
 	else if(user.a_intent != INTENT_HARM)
-		if(user.drop_item())
-			I.forceMove(loc)
+		add_fingerprint(user)
+		user.transfer_item_to_loc(I, loc)
 	else
 		return ..()
 
@@ -92,6 +93,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 
 // attack with hand, move pulled object onto conveyor
 /obj/machinery/conveyor/attack_hand(mob/user as mob)
+	add_fingerprint(user)
 	user.Move_Pulled(src)
 
 /obj/machinery/conveyor/update_icon()
@@ -186,7 +188,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		// spawn hundreds of callbacks for the same thing.
 		// (they don't behave weirdly or anything, just eat CPU)
 		affecting.Add(AM)
-		addtimer(CALLBACK(src, .proc/move_thing, AM), slow_factor)
+		addtimer(CALLBACK(src, PROC_REF(move_thing), AM), slow_factor)
 		CHECK_TICK
 
 	// Use speedy process only if the belt is actually in use, and use normal process otherwise.
@@ -253,7 +255,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	<span class='notice'>Use a <b>multitool</b> to configure.<br>\
 	Use a <b>crowbar</b> to dislodge it.<br>\
 	Dislodge the switch and <b>use</b> it on a section of conveyor belt or conveyor placer to link them.</span>"
-	icon = 'icons/obj/recycling.dmi'
+	icon = 'icons/obj/machines/recycling.dmi'
 	icon_state = "switch-off"
 	anchored = TRUE
 	var/id	// The unique (hopefully) id of our conveyor network.
@@ -399,7 +401,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 // CONVEYOR CONSTRUCTION STARTS HERE
 
 /obj/item/conveyor_construct
-	icon = 'icons/obj/recycling.dmi'
+	icon = 'icons/obj/machines/recycling.dmi'
 	icon_state = "conveyor_loose"
 	name = "conveyor belt assembly"
 	desc = "A conveyor belt assembly, used for the assembly of conveyor belt systems.<br>\
@@ -438,7 +440,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	desc = "A conveyor control switch assembly. When set up, it'll control any and all conveyor belts it is linked to.<br>\
 	<span class='notice'><b>Use</b> it on a section of conveyor belt to link them together.<br>\
 	<b>Use</b> the assembly on the ground to finalize it.<span>"
-	icon = 'icons/obj/recycling.dmi'
+	icon = 'icons/obj/machines/recycling.dmi'
 	icon_state = "switch"
 	w_class = WEIGHT_CLASS_BULKY
 	var/id
@@ -497,6 +499,10 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	update_icon()
 
 //Other types of conveyor, mostly for saving yourself a headache during mapping
+
+/obj/machinery/conveyor/auto/ccw
+	icon_state = "conveyor_stopped_ccw"
+	clockwise = FALSE
 
 /obj/machinery/conveyor/north
 	dir = NORTH

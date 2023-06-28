@@ -69,31 +69,17 @@
 	name = "increment ticket counter"
 	desc = "Use this button after you've served someone to tell the next person to come forward."
 	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "doorctrl0"
 	req_access = list()
 	id = 1
 	var/cooldown = FALSE
 
-
-/obj/machinery/door_control/ticket_machine_button/attack_hand(mob/user)
-	if(allowed(usr) || user.can_advanced_admin_interact())
-		icon_state = "doorctrl1"
-		addtimer(CALLBACK(src, /obj/machinery/door_control/ticket_machine_button/.proc/update_icon), 15)
-		for(var/obj/machinery/ticket_machine/M in GLOB.machines)
-			if(M.id == id)
-				if(cooldown)
-					return
-				cooldown = TRUE
-				M.increment()
-				addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 10)
-	else
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
-		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
-		flick("doorctrl-denied", src)
-
-/obj/machinery/door_control/ticket_machine_button/update_icon()
-	if(!(stat & NOPOWER))
-		icon_state = "doorctrl0"
+/obj/machinery/door_control/ticket_machine_button/do_main_action(mob/user as mob)
+	for(var/obj/machinery/ticket_machine/M in GLOB.machines)
+		if(M.id != id || cooldown)
+			continue
+		cooldown = TRUE
+		M.increment()
+		addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 10)
 
 /obj/machinery/ticket_machine/update_icon()
 	switch(ticket_number) //Gives you an idea of how many tickets are left
@@ -126,8 +112,9 @@
 			return
 		to_chat(user, "<span class='notice'>You start to refill [src]'s ticket holder (doing this will reset its ticket count!).</span>")
 		if(do_after(user, 30, target = src))
+			add_fingerprint(user)
 			to_chat(user, "<span class='notice'>You insert [I] into [src] as it whirs nondescriptly.</span>")
-			user.drop_item()
+			user.drop_transfer_item_to_loc(I, src)
 			qdel(I)
 			ticket_number = 0
 			current_number = 0
@@ -141,6 +128,7 @@
 	else if(I.GetID())
 		var/obj/item/card/id/heldID = I.GetID()
 		if(ACCESS_HOP in heldID.access)
+			add_fingerprint(user)
 			dispense_enabled = !dispense_enabled
 			to_chat(user, "<span class='notice'>You [dispense_enabled ? "enable" : "disable"] [src], it will [dispense_enabled ? "now" : "no longer"] dispense tickets!</span>")
 			handle_maptext()
@@ -176,14 +164,14 @@
 	theirticket.ticket_number = ticket_number
 	theirticket.source = src
 	theirticket.owner = user.UID()
-	user.put_in_hands(theirticket)
+	user.put_in_hands(theirticket, ignore_anim = FALSE)
 	ticket_holders += user.UID()
 	tickets += theirticket
 	if(emagged) //Emag the machine to destroy the HOP's life.
 		ready = FALSE
-		addtimer(CALLBACK(src, .proc/reset_cooldown), cooldown)//Small cooldown to prevent piles of flaming tickets
+		addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), cooldown)//Small cooldown to prevent piles of flaming tickets
 		theirticket.fire_act()
-		user.drop_item()
+		user.drop_from_active_hand()
 		user.adjust_fire_stacks(1)
 		user.IgniteMob()
 
@@ -220,7 +208,7 @@
 		if((CLUMSY in user.mutations) && prob(10))
 			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
 								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
-			user.drop_item()
+			user.drop_from_active_hand()
 			user.adjust_fire_stacks(1)
 			user.IgniteMob()
 			return

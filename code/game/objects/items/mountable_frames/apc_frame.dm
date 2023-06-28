@@ -1,7 +1,7 @@
 /obj/item/mounted/frame/apc_frame
 	name = "APC frame"
 	desc = "Used for repairing or building APCs"
-	icon = 'icons/obj/apc_repair.dmi'
+	icon = 'icons/obj/engines_and_power/apc_repair.dmi'
 	icon_state = "apc_frame"
 	mount_reqs = list("simfloor", "nospace")
 
@@ -21,12 +21,12 @@
 			to_chat(user, "<span class='warning'>There is another network terminal here!</span>")
 			return
 		else
-			var/obj/item/stack/cable_coil/C = new /obj/item/stack/cable_coil(T)
-			C.amount = 10
+			new /obj/item/stack/cable_coil(T, 10)
 			to_chat(user, "<span class='notice'>You cut the cables and disassemble the unused power terminal.</span>")
 			qdel(E)
 	return TRUE
 
 /obj/item/mounted/frame/apc_frame/do_build(turf/on_wall, mob/user)
-	new /obj/machinery/power/apc(get_turf(src), get_dir(user, on_wall), 1)
+	var/obj/machinery/power/apc/apc = new(get_turf(src), get_dir(user, on_wall), 1)
+	apc.add_fingerprint(user)
 	qdel(src)

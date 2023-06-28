@@ -55,6 +55,9 @@
 	log_and_message_admins("used THERE CAN BE ONLY ONE! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-")
 	GLOB.nologevent = 1
 
+	GLOB.pacifism_after_gt = FALSE
+	SSticker.toggle_pacifism = FALSE
+
 	var/sound/music = sound('sound/music/thunderdome.ogg', channel = CHANNEL_ADMIN)
 	for(var/mob/M in GLOB.player_list)
 		if(M.client.prefs.sound & SOUND_MIDI)
@@ -88,7 +91,7 @@
 		var/obj/item/slot_item_ID = H.get_item_by_slot(slot_wear_id)
 		qdel(slot_item_ID)
 		var/obj/item/slot_item_hand = H.get_item_by_slot(slot_r_hand)
-		H.unEquip(slot_item_hand)
+		H.drop_item_ground(slot_item_hand)
 
 		var/obj/item/multisword/pure_evil/multi = new(H)
 		H.equip_to_slot_or_del(multi, slot_r_hand)

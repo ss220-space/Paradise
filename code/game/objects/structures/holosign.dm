@@ -7,19 +7,32 @@
 	anchored = TRUE
 	max_integrity = 1
 	armor = list("melee" = 0, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 20)
-	var/obj/item/holosign_creator/projector
+	var/obj/item/projector
 
 /obj/structure/holosign/Initialize(mapload, source_projector)
 	. = ..()
-	if(source_projector)
-		projector = source_projector
-		projector.signs += src
+	if(istype(source_projector, /obj/item/holosign_creator))
+		var/obj/item/holosign_creator/holosign = source_projector
+		holosign.signs += src
+		projector = holosign
+	else if(istype(source_projector, /obj/item/mecha_parts/mecha_equipment/holowall))
+		var/obj/item/mecha_parts/mecha_equipment/holowall/holoproj = source_projector
+		holoproj.barriers += src
+		projector = holoproj
 
 /obj/structure/holosign/Destroy()
-	if(projector)
-		projector.signs -= src
+	if(istype(projector, /obj/item/holosign_creator))
+		var/obj/item/holosign_creator/holosign = projector
+		holosign.signs -= src
+		projector = null
+	else if(istype(projector, /obj/item/mecha_parts/mecha_equipment/holowall))
+		var/obj/item/mecha_parts/mecha_equipment/holowall/holoproj = projector
+		holoproj.barriers -= src
 		projector = null
 	return ..()
+
+/obj/structure/holosign/has_prints()
+	return FALSE
 
 /obj/structure/holosign/attack_hand(mob/living/user)
 	. = ..()
@@ -42,7 +55,7 @@
 	icon_state = "holosign"
 
 /obj/structure/holosign/wetsign/proc/wet_timer_start(obj/item/holosign_creator/HS_C)
-	addtimer(CALLBACK(src, .proc/wet_timer_finish, HS_C), 82 SECONDS, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(wet_timer_finish), HS_C), 82 SECONDS, TIMER_UNIQUE)
 
 /obj/structure/holosign/wetsign/proc/wet_timer_finish(obj/item/holosign_creator/HS_C)
 	playsound(HS_C.loc, 'sound/machines/chime.ogg', 20, 1)
@@ -146,16 +159,18 @@
 			var/mob/living/M = user
 			M.electrocute_act(15, "Energy Barrier", safety = TRUE)
 			shockcd = TRUE
-			addtimer(CALLBACK(src, .proc/cooldown), 5)
+			addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)
 
-/obj/structure/holosign/barrier/cyborg/hacked/Bumped(atom/movable/AM)
+/obj/structure/holosign/barrier/cyborg/hacked/Bumped(atom/movable/moving_atom)
+	..()
+
 	if(shockcd)
 		return
 
-	if(!isliving(AM))
+	if(!isliving(moving_atom))
 		return
 
-	var/mob/living/M = AM
+	var/mob/living/M = moving_atom
 	M.electrocute_act(15, "Energy Barrier", safety = TRUE)
 	shockcd = TRUE
-	addtimer(CALLBACK(src, .proc/cooldown), 5)
+	addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)

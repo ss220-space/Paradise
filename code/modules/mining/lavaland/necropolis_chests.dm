@@ -12,7 +12,7 @@
 	desc = "It's watching you suspiciously."
 
 /obj/structure/closet/crate/necropolis/tendril/populate_contents()
-	var/loot = rand(1, 27)
+	var/loot = rand(1, 26)
 	switch(loot)
 		if(1)
 			new /obj/item/shared_storage/red(src)
@@ -42,7 +42,7 @@
 		if(11)
 			new /obj/item/ship_in_a_bottle(src)
 		if(12)
-			new /obj/item/clothing/suit/space/hardsuit/ert/paranormal/berserker(src)
+			new /obj/item/clothing/suit/space/hardsuit/champion(src)
 		if(13)
 			new /obj/item/jacobs_ladder(src)
 		if(14)
@@ -50,7 +50,8 @@
 		if(15)
 			new /obj/item/nullrod/armblade(src)
 		if(16)
-			new /obj/item/guardiancreator(src)
+			new /obj/item/borg/upgrade/modkit/lifesteal(src)
+			new /obj/item/bedsheet/cult(src)
 		if(17)
 			if(prob(50))
 				new /obj/item/disk/design_disk/modkit_disc/mob_and_turf_aoe(src)
@@ -69,15 +70,16 @@
 		if(23)
 			new /obj/item/grenade/clusterbuster/inferno(src)
 		if(24)
-			new /obj/item/reagent_containers/food/drinks/bottle/holywater/hell(src)
-			new /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor(src)
+			if(prob(60))
+				new /obj/item/reagent_containers/food/drinks/bottle/holywater/hell(src)
+				new /obj/item/clothing/suit/space/hardsuit/champion/templar(src)
+			else
+				new /obj/item/reagent_containers/food/drinks/bottle/holywater(src)
+				new /obj/item/clothing/suit/space/hardsuit/champion/templar/premium(src)
 		if(25)
 			new /obj/item/spellbook/oneuse/summonitem(src)
 		if(26)
 			new /obj/item/book_of_babel(src)
-		if(27)
-			new /obj/item/borg/upgrade/modkit/lifesteal(src)
-			new /obj/item/bedsheet/cult(src)
 
 /obj/structure/closet/crate/necropolis/puzzle
 	name = "puzzling chest"
@@ -128,7 +130,7 @@
 	id = "hyperaoemod"
 	materials = list(MAT_METAL = 7000, MAT_GLASS = 3000, MAT_SILVER= 3000, MAT_GOLD = 3000, MAT_DIAMOND = 4000)
 	build_path = /obj/item/borg/upgrade/modkit/aoe/turfs/andmobs
-	category = list("Mining", "Cyborg Upgrade Modules")
+	category = list("Mining")
 
 /datum/design/unique_modkit/rapid_repeater
 	name = "Kinetic Accelerator Rapid Repeater Mod"
@@ -136,7 +138,7 @@
 	id = "repeatermod"
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 5000, MAT_URANIUM = 8000, MAT_BLUESPACE = 2000)
 	build_path = /obj/item/borg/upgrade/modkit/cooldown/repeater
-	category = list("Mining", "Cyborg Upgrade Modules")
+	category = list("Mining")
 
 /datum/design/unique_modkit/resonator_blast
 	name = "Kinetic Accelerator Resonator Blast Mod"
@@ -144,7 +146,7 @@
 	id = "resonatormod"
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 5000, MAT_SILVER= 5000, MAT_URANIUM = 5000)
 	build_path = /obj/item/borg/upgrade/modkit/resonator_blasts
-	category = list("Mining", "Cyborg Upgrade Modules")
+	category = list("Mining")
 
 /datum/design/unique_modkit/bounty
 	name = "Kinetic Accelerator Death Syphon Mod"
@@ -153,7 +155,7 @@
 	materials = list(MAT_METAL = 4000, MAT_SILVER = 4000, MAT_GOLD = 4000, MAT_BLUESPACE = 4000)
 	reagents_list = list("blood" = 40)
 	build_path = /obj/item/borg/upgrade/modkit/bounty
-	category = list("Mining", "Cyborg Upgrade Modules")
+	category = list("Mining")
 
 //Spooky special loot
 
@@ -163,6 +165,7 @@
 	desc = "A wooden rod about the size of your forearm with a snake carved around it, winding its way up the sides of the rod. Something about it seems to inspire in you the responsibilty and duty to help others."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "asclepius_dormant"
+	item_state = "asclepius_dormant"
 	var/activated = FALSE
 	var/usedHand
 
@@ -183,22 +186,37 @@
 	var/failText = "<span class='warning'>The snake seems unsatisfied with your incomplete oath and returns to its previous place on the rod, returning to its dormant, wooden state. You must stand still while completing your oath!</span>"
 	to_chat(itemUser, "<span class='notice'>The wooden snake that was carved into the rod seems to suddenly come alive and begins to slither down your arm! The compulsion to help others grows abnormally strong...</span>")
 	if(do_after_once(itemUser, 40, target = itemUser))
-		itemUser.say("I swear to fulfill, to the best of my ability and judgment, this covenant:")
+		itemUser.say("Клянусь Аполлоном врачом, Асклепием, всеми богами и богинями, беря их в свидетели, исполнять честно, соответственно моим силам и здравому смыслу, следующую клятву:")
 	else
 		to_chat(itemUser, failText)
 		return
-	if(do_after(itemUser, 20, target = itemUser))
-		itemUser.say("I will apply, for the benefit of the sick, all measures that are required, avoiding those twin traps of overtreatment and therapeutic nihilism.")
+	if(do_after(itemUser, 40, target = itemUser))
+		itemUser.say("Я буду применять во благо больного все необходимые меры, воздерживаясь от причинения всякого вреда и несправедливости.")
 	else
 		to_chat(itemUser, failText)
 		return
-	if(do_after(itemUser, 30, target = itemUser))
-		itemUser.say("I will remember that I remain a member of society, with special obligations to all my fellow human beings, those sound of mind and body as well as the infirm.")
+	if(do_after(itemUser, 40, target = itemUser))
+		itemUser.say("Я буду предотвращать болезнь всякий раз, как смогу, поскольку предотвращение предпочтительнее, чем лечение.")
 	else
 		to_chat(itemUser, failText)
 		return
-	if(do_after(itemUser, 30, target = itemUser))
-		itemUser.say("If I do not violate this oath, may I enjoy life and art, respected while I live and remembered with affection thereafter. May I always act so as to preserve the finest traditions of my calling and may I long experience the joy of healing those who seek my help.")
+	if(do_after(itemUser, 40, target = itemUser))
+		itemUser.say("Я не выдам никому просимого у меня смертельного средства и не покажу пути для исполнения подобного замысла.")
+	else
+		to_chat(itemUser, failText)
+		return
+	if(do_after(itemUser, 40, target = itemUser))
+		itemUser.say("Я буду уважать личную жизнь своих пациентов, поскольку их проблемы раскрываются мне не для того, чтобы о них мог узнать весь мир. Особенно с большой осторожностью я обязуюсь поступать в вопросах жизни и смерти. Если мне будет дано спасти жизнь — я выражу благодарность. Но также может оказаться в моей власти и лишение жизни, эта колоссальная ответственность должна встречаться с великим смирением и осознанием моей собственной бренности.")
+	else
+		to_chat(itemUser, failText)
+		return
+	if(do_after(itemUser, 40, target = itemUser))
+		itemUser.say("Я буду помнить, что остаюсь членом общества, но с особыми обязательствами ко всем моим собратьям, как к немощным, так и к здоровым телом и умом.")
+	else
+		to_chat(itemUser, failText)
+		return
+	if(do_after(itemUser, 40, target = itemUser))
+		itemUser.say("Пока я не нарушаю эту клятву, да смогу я наслаждаться этим, заслуженно чтимым, искусством, пока я живу и меня вспоминают с любовью. Да буду я всегда действовать так, чтобы сохранить лучшие традиции моего призвания, и буду долго я испытывать радость исцеления тех, кто обращается за моей помощью.")
 	else
 		to_chat(itemUser, failText)
 		return
@@ -211,4 +229,5 @@
 	flags =  NODROP | DROPDEL
 	desc = "A short wooden rod with a mystical snake inseparably gripping itself and the rod to your forearm. It flows with a healing energy that disperses amongst yourself and those around you. "
 	icon_state = "asclepius_active"
+	item_state = "asclepius_active"
 	activated = TRUE

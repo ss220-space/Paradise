@@ -3,7 +3,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 /obj/machinery/power/rad_collector
 	name = "Radiation Collector Array"
 	desc = "A device which uses Hawking Radiation and plasma to produce power."
-	icon = 'icons/obj/singularity.dmi'
+	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "ca"
 	anchored = 0
 	density = 1
@@ -39,6 +39,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 /obj/machinery/power/rad_collector/attack_hand(mob/user as mob)
 	if(anchored)
 		if(!src.locked)
+			add_fingerprint(user)
 			toggle_power()
 			user.visible_message("[user.name] turns the [src.name] [active? "on":"off"].", \
 			"You turn the [src.name] [active? "on":"off"].")
@@ -51,10 +52,9 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 
 /obj/machinery/power/rad_collector/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/multitool))
+		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>The [W.name] detects that [last_power]W were recently produced.</span>")
 		return 1
-	else if(istype(W, /obj/item/analyzer) && P)
-		atmosanalyzer_scan(P.air_contents, user)
 	else if(istype(W, /obj/item/tank/internals/plasma))
 		if(!src.anchored)
 			to_chat(user, "<span class='warning'>The [src] needs to be secured to the floor first.</span>")
@@ -62,18 +62,20 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		if(src.P)
 			to_chat(user, "<span class='warning'>There's already a plasma tank loaded.</span>")
 			return 1
-		user.drop_item()
+		add_fingerprint(user)
+		user.drop_transfer_item_to_loc(W, src)
 		src.P = W
-		W.loc = src
 		update_icons()
 	else if(istype(W, /obj/item/crowbar))
 		if(P && !src.locked)
+			add_fingerprint(user)
 			eject()
 			return 1
 	else if(istype(W, /obj/item/wrench))
 		if(P)
 			to_chat(user, "<span class='notice'>Remove the plasma tank first.</span>")
 			return 1
+		add_fingerprint(user)
 		playsound(src.loc, W.usesound, 75, 1)
 		src.anchored = !src.anchored
 		user.visible_message("[user.name] [anchored? "secures":"unsecures"] the [src.name].", \
@@ -85,6 +87,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 			disconnect_from_network()
 	else if(W.GetID() || ispda(W))
 		if(src.allowed(user))
+			add_fingerprint(user)
 			if(active)
 				src.locked = !src.locked
 				to_chat(user, "The controls are now [src.locked ? "locked." : "unlocked."]")
@@ -96,6 +99,11 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 			return 1
 	else
 		return ..()
+
+/obj/machinery/power/rad_collector/return_analyzable_air()
+	if(P)
+		return P.return_analyzable_air()
+	return null
 
 /obj/machinery/power/rad_collector/obj_break(damage_flag)
 	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
@@ -129,11 +137,11 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 /obj/machinery/power/rad_collector/proc/update_icons()
 	overlays.Cut()
 	if(P)
-		overlays += image('icons/obj/singularity.dmi', "ptank")
+		overlays += image('icons/obj/engines_and_power/singularity.dmi', "ptank")
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if(active)
-		overlays += image('icons/obj/singularity.dmi', "on")
+		overlays += image('icons/obj/engines_and_power/singularity.dmi', "on")
 
 
 /obj/machinery/power/rad_collector/proc/toggle_power()

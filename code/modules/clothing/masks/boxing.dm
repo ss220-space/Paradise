@@ -4,7 +4,7 @@
 	icon_state = "balaclava"
 	item_state = "balaclava"
 	flags = BLOCKHAIR
-	flags_inv = HIDEFACE
+	flags_inv = HIDENAME
 	w_class = WEIGHT_CLASS_SMALL
 	actions_types = list(/datum/action/item_action/adjust)
 	adjusted_flags = SLOT_HEAD
@@ -26,13 +26,17 @@
 /obj/item/clothing/mask/balaclava/attack_self(var/mob/user)
 	adjustmask(user)
 
+/obj/item/clothing/mask/balaclava/adjustmask(user)
+	..()
+	flags = mask_adjusted ? null : initial(flags)
+
 /obj/item/clothing/mask/luchador
 	name = "Luchador Mask"
 	desc = "Worn by robust fighters, flying high to defeat their foes!"
 	icon_state = "luchag"
 	item_state = "luchag"
 	flags = BLOCKHAIR
-	flags_inv = HIDEFACE
+	flags_inv = HIDENAME
 	w_class = WEIGHT_CLASS_SMALL
 
 	sprite_sheets = list(

@@ -87,7 +87,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 			if(donator_level > 0)
 				if((prefs.toggles & PREFTOGGLE_DONATOR_PUBLIC))
-					var/icon/donator = icon('icons/ooc_tag_16x.dmi', "donator")
+					var/icon/donator = icon('icons/ooc_tag_16x.png')
 					display_name = "[bicon(donator)][display_name]"
 
 			if(holder)
@@ -106,8 +106,12 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	config.ooc_allowed = ( !config.ooc_allowed )
 	if(config.ooc_allowed)
 		to_chat(world, "<B>The OOC channel has been globally enabled!</B>")
+		log_admin("OOC was toggled on automatically.")
+		message_admins("OOC has been toggled on automatically.")
 	else
 		to_chat(world, "<B>The OOC channel has been globally disabled!</B>")
+		log_admin("OOC was toggled off automatically.")
+		message_admins("OOC has been toggled off automatically.")
 
 /proc/auto_toggle_ooc(var/on)
 	if(config.auto_toggle_ooc_during_round && config.ooc_allowed != on)

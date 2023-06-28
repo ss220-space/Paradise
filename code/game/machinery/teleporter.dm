@@ -51,10 +51,10 @@
 	if(istype(I, /obj/item/gps))
 		var/obj/item/gps/L = I
 		if(L.locked_location && !(stat & (NOPOWER|BROKEN)))
-			if(!user.unEquip(L))
+			if(!user.drop_transfer_item_to_loc(L, src))
 				to_chat(user, "<span class='warning'>[I] is stuck to your hand, you cannot put it in [src]</span>")
 				return
-			L.forceMove(src)
+			add_fingerprint(user)
 			locked = L
 			to_chat(user, "<span class='caution'>You insert the GPS device into the [src]'s slot.</span>")
 	else
@@ -71,6 +71,7 @@
 	attack_hand(user)
 
 /obj/machinery/computer/teleporter/attack_hand(mob/user)
+	add_fingerprint(user)
 	ui_interact(user)
 
 
@@ -149,7 +150,7 @@
 
 			atom_say("Калибровка хаба до указанной цели в процессе...")
 			calibrating = TRUE
-			addtimer(CALLBACK(src, .proc/calibrateCallback), 50 * (3 - power_station.teleporter_hub.accurate)) //Better parts mean faster calibration
+			addtimer(CALLBACK(src, PROC_REF(calibrateCallback)), 50 * (3 - power_station.teleporter_hub.accurate)) //Better parts mean faster calibration
 
 /**
 *	Resets the connected powerstation to initial values. Helper function of ui_act
@@ -364,13 +365,15 @@
 			break
 	return power_station
 
-/obj/machinery/teleport/hub/Bumped(M as mob|obj)
+/obj/machinery/teleport/hub/Bumped(atom/movable/moving_atom)
+	..()
+
 	if(!is_teleport_allowed(z) && !admin_usage)
-		if(ismob(M))
-			to_chat(M, "You can't use this here.")
+		if(ismob(moving_atom))
+			to_chat(moving_atom, "You can't use this here.")
 		return
-	if(power_station && power_station.engaged && !panel_open && !blockAI(M) && !istype(M, /obj/spacepod))
-		if(!teleport(M) && isliving(M)) // the isliving(M) is needed to avoid triggering errors if a spark bumps the telehub
+	if(power_station && power_station.engaged && !panel_open && !blockAI(moving_atom) && !istype(moving_atom, /obj/spacepod))
+		if(!teleport(moving_atom) && isliving(moving_atom)) // the isliving(M) is needed to avoid triggering errors if a spark bumps the telehub
 			visible_message("<span class='warning'>[src] emits a loud buzz, as its teleport portal flickers and fails!</span>")
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 			power_station.toggle() // turn off the portal.
@@ -454,20 +457,22 @@
 		return TRUE
 	return FALSE
 
-/obj/machinery/teleport/perma/Bumped(atom/A)
+/obj/machinery/teleport/perma/Bumped(atom/movable/moving_atom)
+	..()
+
 	if(stat & (BROKEN|NOPOWER))
 		return
 	if(!is_teleport_allowed(z))
-		to_chat(A, "You can't use this here.")
+		to_chat(moving_atom, "You can't use this here.")
 		return
 
-	if(target && !recalibrating && !panel_open && !blockAI(A))
-		do_teleport(A, target)
+	if(target && !recalibrating && !panel_open && !blockAI(moving_atom))
+		do_teleport(moving_atom, target)
 		use_power(5000)
 		if(tele_delay)
 			recalibrating = TRUE
 			update_icon()
-			addtimer(CALLBACK(src, .proc/BumpedCallback), tele_delay)
+			addtimer(CALLBACK(src, PROC_REF(BumpedCallback)), tele_delay)
 
 /obj/machinery/teleport/perma/proc/BumpedCallback()
 	recalibrating = FALSE
@@ -560,6 +565,7 @@
 	if(exchange_parts(user, I))
 		return
 	if(panel_open && istype(I, /obj/item/circuitboard/teleporter_perma))
+		add_fingerprint(user)
 		var/obj/item/circuitboard/teleporter_perma/C = I
 		C.target = teleporter_console.target
 		to_chat(user, "<span class='caution'>You copy the targeting information from [src] to [C]</span>")
@@ -606,6 +612,7 @@
 	attack_hand()
 
 /obj/machinery/teleport/station/attack_hand(mob/user)
+	add_fingerprint(user)
 	if(!panel_open)
 		toggle(user)
 	else

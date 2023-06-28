@@ -4,7 +4,7 @@
 	Which allows passing almost through anything, at the cost of a big passive increase to energy consumption. \
 	Also all restraining effects like handcuffs will drop off from you! \
 	Remember that this module is still a prototipe and won't make you invincible! Passively encrease suit energy consumption."
-	check_flags = AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_LYING | AB_CHECK_CONSCIOUS
 	charge_type = ADV_ACTION_TYPE_TOGGLE_RECHARGE
 	charge_max = 25 SECONDS
 	use_itemicon = FALSE
@@ -34,9 +34,9 @@
 			to_chat(ninja, span_warning("You don't have enough power to enable spirit form!"))
 			return
 		if(istype(ninja.r_hand, /obj/item/grab))
-			ninja.unEquip(ninja.r_hand, TRUE)
+			ninja.drop_item_ground(ninja.r_hand, force = TRUE)
 		if(istype(ninja.l_hand, /obj/item/grab))
-			ninja.unEquip(ninja.l_hand, TRUE)
+			ninja.drop_item_ground(ninja.l_hand, force = TRUE)
 		spirited = !spirited
 		animate(ninja, color ="#00ff00", time = 6)
 		if(!stealth)

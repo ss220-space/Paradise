@@ -16,6 +16,7 @@
 	var/list/stage4 = list("You feel white bread.")
 	var/list/stage5 = list("Oh the humanity!")
 	var/new_form = /mob/living/carbon/human
+	var/is_new_mind = FALSE
 
 /datum/disease/transformation/stage_act()
 	..()
@@ -53,12 +54,7 @@
 			if(istype(W, /obj/item/implant))
 				qdel(W)
 				continue
-			if(affected_mob.unEquip(W)) //Если вещь снимается - снимаем
-				affected_mob.unEquip(W)
-			W.layer = initial(W.layer)
-			W.plane = initial(W.plane)
-			W.loc = affected_mob.loc
-			W.dropped(affected_mob)
+			affected_mob.drop_item_ground(W) //Если вещь снимается - снимаем
 		if(isobj(affected_mob.loc))
 			var/obj/O = affected_mob.loc
 			O.force_eject_occupant(affected_mob)
@@ -67,6 +63,8 @@
 			new_mob.a_intent = "harm"
 			if(affected_mob.mind)
 				affected_mob.mind.transfer_to(new_mob)
+				if(is_new_mind)
+					new_mob.mind.wipe_memory()
 			else
 				new_mob.key = affected_mob.key
 		qdel(affected_mob)
@@ -89,6 +87,7 @@
 	visibility_flags = 0
 	agent = "Kongey Vibrion M-909"
 	new_form = /mob/living/carbon/human/lesser/monkey
+	is_new_mind = TRUE
 
 	stage1	= null
 	stage2	= null
@@ -126,12 +125,14 @@
 	desc = "This disease, actually acute nanomachine infection, converts the victim into a cyborg."
 	severity = DANGEROUS
 	visibility_flags = 0
+	new_form = /mob/living/silicon/robot
+	is_new_mind = TRUE
+
 	stage1	= null
 	stage2	= list("Your joints feel stiff.", "<span class='danger'>Beep...boop..</span>")
 	stage3	= list("<span class='danger'>Your joints feel very stiff.</span>", "Your skin feels loose.", "<span class='danger'>You can feel something move...inside.</span>")
 	stage4	= list("<span class='danger'>Your skin feels very loose.</span>", "<span class='danger'>You can feel... something...inside you.</span>")
 	stage5	= list("<span class='danger'>Your skin feels as if it's about to burst off!</span>")
-	new_form = /mob/living/silicon/robot
 
 
 /datum/disease/transformation/robot/stage_act()
@@ -224,6 +225,7 @@
 	stage4	= list("<span class='danger'>Visions of washing machines assail your mind!</span>")
 	stage5	= list("<span class='danger'>AUUUUUU!!!</span>")
 	new_form = /mob/living/simple_animal/pet/dog/corgi
+	is_new_mind = TRUE
 
 /datum/disease/transformation/corgi/stage_act()
 	..()
@@ -248,5 +250,7 @@
 	stage2	= list("Your skin feels saggy.")
 	stage3	= list("<span class='danger'>Your appendages are melting away.</span>", "<span class='danger'>Your limbs begin to lose their shape.</span>")
 	stage4	= list("<span class='danger'>You're ravenous.</span>")
-	stage5	= list("<span class='danger'>You have become a morph.</span>")
+	stage5	= list("<span class='danger'><FONT size = 5><B>ТЕПЕРЬ ВЫ МОРФ!</B></FONT></span> \n \
+	Хоть Вы и трансформировались в отвратительную зелёную жижу, но это не повлияло на Ваше сознание \
+	и память. Вы не являетесь антагонистом.")
 	new_form = /mob/living/simple_animal/hostile/morph

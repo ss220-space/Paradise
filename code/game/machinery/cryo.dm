@@ -4,12 +4,13 @@
 /obj/machinery/atmospherics/unary/cryo_cell
 	name = "криокапсула"
 	desc = "Понижает температуру тела, позволяя применять определённые лекарства."
-	icon = 'icons/obj/cryogenics.dmi'
+	icon = 'icons/obj/machines/cryogenics.dmi'
 	icon_state = "pod0"
 	density = 1
 	anchored = 1.0
 	layer = ABOVE_WINDOW_LAYER
 	plane = GAME_PLANE
+	resistance_flags = null
 	interact_offline = 1
 	max_integrity = 350
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 30, "acid" = 30)
@@ -139,6 +140,7 @@
 		to_chat(user, "<span class='warning'>[L] нельзя поместить в [src], поскольку к [genderize_ru(L.gender,"его","её","его","их")] голове прилеплен слайм.</span>")
 		return
 	if(put_mob(L))
+		add_fingerprint(user)
 		if(L == user)
 			visible_message("[user] залеза[pluralize_ru(user.gender,"ет","ют")] в криокапсулу.")
 		else
@@ -201,6 +203,7 @@
 		to_chat(usr, "<span class='boldnotice'>Сначала закройте панель техобслуживания.</span>")
 		return
 
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/atmospherics/unary/cryo_cell/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -291,10 +294,10 @@
 		if(beaker)
 			to_chat(user, "<span class='warning'>В криокапсулу уже загружена другая ёмкость.</span>")
 			return
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(B, src))
 			to_chat(user, "Вы не можете бросить [B]!")
 			return
-		B.forceMove(src)
+		add_fingerprint(user)
 		beaker =  B
 		add_attack_logs(user, null, "Added [B] containing [B.reagents.log_list()] to a cryo cell at [COORD(src)]")
 		user.visible_message("[user] загружа[pluralize_ru(user.gender,"ет","ют")] [B] в криокапсулу!", "Вы загружаете [B] в криокапсулу!")
@@ -316,6 +319,7 @@
 			return
 		var/mob/M = GG.affecting
 		if(put_mob(M))
+			add_fingerprint(user)
 			qdel(GG)
 		return
 	return ..()
@@ -485,8 +489,8 @@
 	if(usr == occupant)//If the user is inside the tube...
 		if(usr.stat == DEAD)
 			return
-		to_chat(usr, "<span class='notice'>Активирована высвобождающая последовательность. Время ожидания: две минуты.</span>")
-		sleep(600)
+		to_chat(usr, "<span class='notice'>Активирована высвобождающая последовательность. Время ожидания: одна минута.</span>")
+		sleep(60 SECONDS)
 		if(!src || !usr || !occupant || (occupant != usr)) //Check if someone's released/replaced/bombed him already
 			return
 		go_out()//and release him from the eternal prison.
