@@ -156,7 +156,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(MAT_METAL = 100)
 
-/obj/item/spentcasing/New()
+/obj/item/spentcasing/Initialize()
 	..()
 	pixel_x = rand(-10.0, 10)
 	pixel_y = rand(-10.0, 10)
