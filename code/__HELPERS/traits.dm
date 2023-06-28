@@ -60,6 +60,10 @@
 Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
 */
 
+//atom traits
+/// Trait used to prevent an atom from component radiation emission (see radioactivity.dm)
+#define TRAIT_BLOCK_RADIATION	"block_radiation"
+
 //mob traits
 #define TRAIT_PACIFISM			"pacifism"
 #define TRAIT_WATERBREATH		"waterbreathing"
@@ -82,8 +86,15 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define ROUNDSTART_TRAIT "roundstart" //cannot be removed without admin intervention
 #define CULT_TRAIT "cult"
 #define CLOCK_TRAIT "clockwork cult"
+#define INNATE_TRAIT "innate"
 
 // unique trait sources
 #define CULT_EYES "cult_eyes"
 #define CLOCK_HANDS "clock_hands"
 
+// Healing traits
+/// This mob heals from carp rifts.
+#define TRAIT_HEALS_FROM_CARP_RIFTS "heals_from_carp_rifts"
+
+/// This mob heals from cult pylons.
+#define TRAIT_HEALS_FROM_CULT_PYLONS "heals_from_cult_pylons"

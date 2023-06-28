@@ -10,6 +10,7 @@
 	anchored = 1.0
 	layer = ABOVE_WINDOW_LAYER
 	plane = GAME_PLANE
+	resistance_flags = null
 	interact_offline = 1
 	max_integrity = 350
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 30, "acid" = 30)
@@ -488,8 +489,8 @@
 	if(usr == occupant)//If the user is inside the tube...
 		if(usr.stat == DEAD)
 			return
-		to_chat(usr, "<span class='notice'>Активирована высвобождающая последовательность. Время ожидания: две минуты.</span>")
-		sleep(600)
+		to_chat(usr, "<span class='notice'>Активирована высвобождающая последовательность. Время ожидания: одна минута.</span>")
+		sleep(60 SECONDS)
 		if(!src || !usr || !occupant || (occupant != usr)) //Check if someone's released/replaced/bombed him already
 			return
 		go_out()//and release him from the eternal prison.

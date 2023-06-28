@@ -136,6 +136,14 @@
 	desc = "A sleek, sturdy box"
 	icon_state = "box_of_doom"
 
+/obj/item/storage/box/syndie_kit/mantisblade
+	name = "Boxed Space Suit and Helmet"
+	max_w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/storage/box/syndie_kit/mantisblade/populate_contents()
+	new /obj/item/autoimplanter/oneuse/mantisblade(src)
+	new /obj/item/autoimplanter/oneuse/mantisblade/l(src)
+
 /obj/item/storage/box/syndie_kit/space
 	name = "Boxed Space Suit and Helmet"
 	can_hold = list(/obj/item/clothing/suit/space/syndicate/black/red, /obj/item/clothing/head/helmet/space/syndicate/black/red, /obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate)
@@ -290,22 +298,22 @@
 	new/obj/item/toy/crayon/spraycan(src)
 
 /obj/item/storage/box/syndie_kit/bonerepair
-	name = "bone repair kit"
-	desc = "A box containing one prototype field bone repair kit."
+	name = "emergency nanite kit"
+	desc = "A box containing one prototype nanite repair system."
 
 /obj/item/storage/box/syndie_kit/bonerepair/populate_contents()
 	new /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium(src)
 	var/obj/item/paper/P = new /obj/item/paper(src)
-	P.name = "Bone repair guide"
+	P.name = "Prototype nanite repair guide"
 	P.desc = "For when you want to safely get off Mr Bones' Wild Ride."
 	P.info = {"
-<font face="Verdana" color=black></font><font face="Verdana" color=black><center><B>Prototype Bone Repair Nanites</B><HR></center><BR><BR>
+<font face="Verdana" color=black></font><font face="Verdana" color=black><center><B>Prototype Emergency Repair Nanites</B><HR></center><BR><BR>
 
 <B>Usage:</B> <BR><BR><BR>
 
-<font size = "1">This is a highly experimental prototype chemical designed to repair damaged bones of soldiers in the field, use only as a last resort. The autoinjector contains prototype nanites bearing a calcium based payload. The nanites will simultaneously shut down body systems whilst aiding bone repair.<BR><BR><BR>Warning: Side effects can cause temporary paralysis, loss of co-ordination and sickness. <B>Do not use with any kind of stimulant or drugs. Serious damage can occur!</B><BR><BR><BR>
+<font size = "1">This is a highly experimental prototype chemical designed to repair damaged bones, organs, and treat interenal bleeding of soldiers in the field, use only as a last resort. The autoinjector contains prototype nanites bearing a classifed payload. The nanites will simultaneously shut down body systems whilst aiding in repair.<BR><BR><BR>Warning: Side effects can cause temporary paralysis, loss of co-ordination and sickness. <B>Do not use with any kind of stimulant or drugs. Serious damage can occur!</B><BR><BR><BR>
 
-To apply, hold the injector a short distance away from the outer thigh before applying firmly to the skin surface. Bones should begin repair after a short time, during which you are advised to remain still. <BR><BR><BR><BR>After use you are advised to see a doctor at the next available opportunity. Mild scarring and tissue damage may occur after use. This is a prototype.</font><BR><HR></font>
+To apply, hold the injector a short distance away from the outer thigh before applying firmly to the skin surface. The process of repairing should begin repair after a short time, during which you are advised to remain still. <BR><BR><BR><BR>After use you are advised to see a doctor at the next available opportunity. Mild scarring and tissue damage may occur after use. This is a prototype. We are not liable for any bone spurs, cancers, extra limbs, or creation of new viruses from use of the product.</font><BR><HR></font>
 	"}
 
 /obj/item/storage/box/syndie_kit/safecracking
@@ -343,6 +351,27 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/reagent_containers/syringe/capulettium_plus(src)
 	new /obj/item/reagent_containers/syringe/sarin(src)
 	new /obj/item/reagent_containers/syringe/pancuronium(src)
+
+/obj/item/storage/box/syndie_kit/nuke
+	name = "box"  //Bit of stealth, since you spawn with it
+	desc = "It's just an ordinary box."
+	icon_state = "box"
+
+/obj/item/storage/box/syndie_kit/nuke/populate_contents()
+	new /obj/item/screwdriver/nuke(src)
+	new /obj/item/nuke_core_container(src)
+	new /obj/item/paper/guides/antag/nuke_instructions(src)
+
+/obj/item/storage/box/syndie_kit/supermatter
+	name = "box"
+	desc = "It's just an ordinary box."
+	icon_state = "box"
+
+/obj/item/storage/box/syndie_kit/supermatter/populate_contents()
+	new /obj/item/scalpel/supermatter(src)
+	new /obj/item/retractor/supermatter(src)
+	new /obj/item/nuke_core_container/supermatter(src)
+	new /obj/item/paper/guides/antag/supermatter_sliver(src)
 
 /obj/item/storage/box/syndie_kit/genes
 	name = "Genetic superiority bundle"
@@ -406,3 +435,17 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/chameleon_counterfeiter(src)
 	new /obj/item/chameleon_counterfeiter(src)
 	new /obj/item/chameleon_counterfeiter(src)
+
+/obj/item/storage/box/syndie_kit/pistol_ammo
+	name = "additional 10mm ammunition kit"
+
+/obj/item/storage/box/syndie_kit/pistol_ammo/populate_contents()
+	new /obj/item/ammo_box/magazine/m10mm(src)
+	new /obj/item/ammo_box/magazine/m10mm(src)
+
+/obj/item/storage/box/syndie_kit/revolver_ammo
+	name = "additional .357 ammunition kit"
+
+/obj/item/storage/box/syndie_kit/revolver_ammo/populate_contents()
+	new /obj/item/ammo_box/a357(src)
+	new /obj/item/ammo_box/a357(src)
