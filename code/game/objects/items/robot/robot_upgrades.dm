@@ -657,10 +657,11 @@
 	if(!..())
 		return FALSE
 
+	var/does_bypass_protection
 	var/obj/item/reagent_containers/borghypo/basic/borghypo_basic = locate() in robot.module.modules
 	if(borghypo_basic)
 		qdel(borghypo_basic)
-		var/does_bypass_protection = borghypo_basic.bypass_protection
+		does_bypass_protection = borghypo_basic.bypass_protection
 		var/obj/item/reagent_containers/borghypo/basic/upgraded/hypo = new /obj/item/reagent_containers/borghypo/basic/upgraded(robot.module)
 		robot.module.modules += hypo
 		hypo.bypass_protection = does_bypass_protection
@@ -670,7 +671,7 @@
 	var/obj/item/reagent_containers/borghypo/borghypo = locate() in robot.module.modules
 	if(borghypo)
 		qdel(borghypo)
-		var/does_bypass_protection = borghypo.bypass_protection
+		does_bypass_protection = borghypo.bypass_protection
 		var/obj/item/reagent_containers/borghypo/upgraded/hypo = new /obj/item/reagent_containers/borghypo/upgraded(robot.module)
 		robot.module.modules += hypo
 		hypo.bypass_protection = does_bypass_protection
