@@ -45,6 +45,8 @@
 
 	connect_types = list(1,2) //connects to regular and supply pipes
 
+	multitool_menu_type = /datum/multitool_menu/idtag/freq/vent_pump
+
 /obj/machinery/atmospherics/unary/vent_pump/on
 	on = 1
 	icon_state = "map_vent_out"
@@ -65,9 +67,6 @@
 	if(!id_tag)
 		assign_uid()
 		id_tag = num2text(uid)
-
-/obj/machinery/atmospherics/unary/vent_pump/init_multitool_menu()
-	multitool_menu = new /datum/multitool_menu/idtag/freq/vent_pump(src)
 
 /obj/machinery/atmospherics/unary/vent_pump/high_volume
 	name = "large air vent"
@@ -357,7 +356,7 @@
 
 /obj/machinery/atmospherics/unary/vent_pump/multitool_act(mob/user, obj/item/I)
 	. = TRUE
-	multitool_menu.interact(user, I)
+	multitool_menu_interact(user, I)
 
 /obj/machinery/atmospherics/unary/vent_pump/screwdriver_act(mob/user, obj/item/I)
 	if(welded)

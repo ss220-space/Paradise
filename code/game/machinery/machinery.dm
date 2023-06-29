@@ -127,8 +127,6 @@ Class Procs:
 	var/datum/radio_frequency/radio_connection
 	/// This is if the machinery is being repaired
 	var/being_repaired = FALSE
-	/// initialize this in the overridden init_multitool_menu() proc if an object should show the multitool menu
-	var/datum/multitool_menu/multitool_menu
 
 /*
  * reimp, attempts to flicker this machinery if the behavior is supported.
@@ -158,11 +156,6 @@ Class Procs:
 
 	power_change()
 
-	init_multitool_menu()
-
-/obj/machinery/proc/init_multitool_menu()
-	return
-
 // gotta go fast
 /obj/machinery/makeSpeedProcess()
 	if(speed_process)
@@ -187,7 +180,6 @@ Class Procs:
 		STOP_PROCESSING(SSmachines, src)
 	else
 		STOP_PROCESSING(SSfastprocess, src)
-	QDEL_NULL(multitool_menu)
 	return ..()
 
 /obj/machinery/has_prints()

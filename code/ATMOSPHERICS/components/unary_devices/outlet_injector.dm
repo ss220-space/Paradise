@@ -21,6 +21,8 @@
 
 	var/id
 
+	multitool_menu_type = /datum/multitool_menu/idtag/freq/outlet_injector
+
 /obj/machinery/atmospherics/unary/outlet_injector/on
 	on = 1
 
@@ -34,9 +36,6 @@
 		SSradio.remove_object(src, frequency)
 	radio_connection = null
 	return ..()
-
-/obj/machinery/atmospherics/unary/outlet_injector/init_multitool_menu()
-	multitool_menu = new /datum/multitool_menu/idtag/freq/outlet_injector(src)
 
 /obj/machinery/atmospherics/unary/outlet_injector/update_icon()
 	..()
@@ -170,7 +169,7 @@
 
 /obj/machinery/atmospherics/unary/outlet_injector/multitool_act(mob/user, obj/item/I)
 	. = TRUE
-	multitool_menu.interact(user, I)
+	multitool_menu_interact(user, I)
 
 /obj/machinery/atmospherics/unary/outlet_injector/hide(var/i)
 	update_underlays()
