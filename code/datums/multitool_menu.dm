@@ -106,7 +106,7 @@
 ////////////////////////////////
 /datum/multitool_menu
 	/// The object the state of which can be changed via the multitool menu.
-	var/obj/machinery/holder
+	var/obj/holder
 	/// The holder type; used to make sure that the holder is the correct type.
 	var/holder_type
 	/// Which menu should be opened for the holder. For example "default_no_machine".
@@ -115,7 +115,7 @@
 	/// Do not apply any changes while this is null.
 	var/obj/item/multitool/multitool
 
-/datum/multitool_menu/New(obj/machinery/holder)
+/datum/multitool_menu/New(obj/holder)
 	..()
 	if(!istype(holder, holder_type))
 		CRASH("My holder is null/the wrong type!")
@@ -651,7 +651,7 @@
 		return TRUE
 	return FALSE
 
-/datum/multitool_menu/idtag/freq/general_air_control/large_tank_control/proc/frequency_change_reminder(obj/machinery/device_linked)
+/datum/multitool_menu/idtag/freq/general_air_control/large_tank_control/proc/frequency_change_reminder(obj/device_linked)
 	if(!istype(device_linked.multitool_menu, /datum/multitool_menu/idtag/freq))
 		return
 	var/datum/multitool_menu/idtag/freq/menu_linked = device_linked.multitool_menu

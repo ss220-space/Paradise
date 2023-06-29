@@ -31,6 +31,9 @@
 	var/force_blueprints = FALSE //forces the obj to be on the blueprints, regardless of when it was created.
 	var/suicidal_hands = FALSE // Does it requires you to hold it to commit suicide with it?
 
+	var/multitool_menu_type = null // Typepath of a datum/multitool_menu subtype or null.
+	var/datum/multitool_menu/multitool_menu
+
 /obj/New()
 	..()
 	if(obj_integrity == null)
@@ -79,6 +82,7 @@
 		else
 			STOP_PROCESSING(SSfastprocess, src)
 	SStgui.close_uis(src)
+	QDEL_NULL(multitool_menu)
 	return ..()
 
 //user: The mob that is suiciding
@@ -289,6 +293,13 @@
 	// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.
 	// In the event that the object doesn't have an overriden version of this proc to do it, log a runtime so one can be added.
 	CRASH("Proc force_eject_occupant() is not overriden on a machine containing a mob.")
+
+/obj/proc/multitool_menu_interact(mob/user, obj/item/multitool)
+	if(!multitool_menu_type)
+		return
+	if(!multitool_menu)
+		multitool_menu = new multitool_menu_type(src)
+	multitool_menu.interact(user, multitool)
 
 /proc/get_obj_in_atom_without_warning(atom/A)
 	if(!istype(A))
