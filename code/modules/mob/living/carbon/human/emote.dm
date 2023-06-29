@@ -340,14 +340,14 @@
 			var/M = handle_emote_param(param)
 
 			message = "шевелит усиками[M ? " на [M]" : ""]."
-			playsound(loc, pick('sound/voice/kidan/wiggles_antennae1.mp3', 'sound/voice/kidan/wiggles_antennae2.mp3', 'sound/voice/kidan/wiggles_antennae3.mp3'), 50, 1, frequency = get_age_pitch())
+			playsound(loc, pick('sound/voice/kidan/wiggles_antennae1.ogg', 'sound/voice/kidan/wiggles_antennae2.ogg', 'sound/voice/kidan/wiggles_antennae3.ogg'), 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("waves_antennae")
 			var/M = handle_emote_param(param)
 
 			message = "резко взмахивает усиками[M ? " на [M]" : ""]."
-			playsound(loc, pick('sound/voice/kidan/waves_antennae_sharply1.mp3', 'sound/voice/kidan/waves_antennae_sharply2.mp3'), 50, 1, frequency = get_age_pitch())
+			playsound(loc, pick('sound/voice/kidan/waves_antennae_sharply1.ogg', 'sound/voice/kidan/waves_antennae_sharply2.ogg'), 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("creaks", "creak")
