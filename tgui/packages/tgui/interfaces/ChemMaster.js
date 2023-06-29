@@ -13,13 +13,6 @@ const bottleStyles = [
   "round_bottle.png",
   "reagent_bottle.png",
 ];
-const patchStyles = [
-  "bandaid_med.png", 
-  "bandaid_brute.png", 
-  "bandaid_burn.png", 
-  "bandaid.png", 
-  "bandaid_clown.png",
-];
 
 const analyzeModalBodyOverride = (modal, context) => {
   const { act, data } = useBackend(context);
@@ -338,7 +331,7 @@ const ChemMasterProductionChemical = (props, context) => {
             + "width: 20px;"
             + "height: 16px;"
             + "vertical-align: middle;"
-            + "background: url(" + patchStyles[data.patchsprite - 1] + ");"
+            + "background: url(bandaid" + data.patchsprite + ".png);"
             + "background-size: 200%;"
             + "background-position: left -12px bottom -12px;"
           } />
