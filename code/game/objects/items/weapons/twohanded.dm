@@ -950,7 +950,7 @@
 		do_sparks(rand(1,6), 1, loc)
 		return
 	if(used)
-		visible_message("<span class='warning'>[W] slides back into the depths of [loc]'s wrists.</span>")
+		visible_message("<span class='warning'>[user.get_active_hand()] slides back into the depths of [loc]'s wrists.</span>")
 		user.drop_from_active_hand(force = TRUE)//dropdel stuff. only ui act, without hotkeys
 		do_sparks(rand(1,6), 1, loc)
 		on_cooldown = TRUE
