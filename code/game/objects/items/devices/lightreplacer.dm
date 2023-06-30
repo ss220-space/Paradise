@@ -80,7 +80,6 @@
 			to_chat(user, "<span class='warning'>[src] is full.</span>")
 			return
 		else if(G.use(decrement))
-			I.do_pickup_animation(src)
 			AddUses(increment)
 			to_chat(user, "<span class='notice'>You insert a piece of glass into [src]. You have [uses] light\s remaining.</span>")
 			return
@@ -102,11 +101,9 @@
 		var/obj/item/light/L = I
 		if(L.status == 0) // LIGHT OKAY
 			if(uses < max_uses)
-				L.do_pickup_animation(src)
 				AddUses(1)
 				qdel(L)
 		else
-			L.do_pickup_animation(src)
 			to_chat(user, "<span class='notice'>You insert [L] into [src].</span>")
 			AddShards(1, user)
 			qdel(L)
