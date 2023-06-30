@@ -37,6 +37,14 @@
 
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 
+	if(designation != "Syndicate Medical" && designation != "Spider Clan") // По предложке только ассаултборгу даем
+		var/obj/item/borg/upgrade/selfrepair/SR = new /obj/item/borg/upgrade/selfrepair(src)
+		SR.action(src)
+
+	if(designation != "Syndicate Medical" && designation != "Spider Clan")
+		var/datum/action/thermals = new /datum/action/innate/robot_sight/thermal()
+		thermals.Grant(src)
+
 	if(is_taipan(z))
 		radio = new /obj/item/radio/borg/syndicate/taipan(src)
 	else
@@ -101,12 +109,6 @@
 	..()
 	QDEL_NULL(module)
 	module = new /obj/item/robot_module/syndicate_saboteur(src)
-
-	var/obj/item/borg/upgrade/selfrepair/SR = new /obj/item/borg/upgrade/selfrepair(src)
-	SR.action(src)
-
-	var/datum/action/thermals = new /datum/action/innate/robot_sight/thermal()
-	thermals.Grant(src)
 
 /mob/living/silicon/robot/syndicate/saboteur/verb/modify_name()
 	set name = "Modify Name"
