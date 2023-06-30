@@ -91,6 +91,8 @@
 		if(uses >= max_uses)
 			to_chat(user, "<span class='warning'>[src] is full.</span>")
 			return
+		if(!user.drop_item_ground(I))
+			return
 		I.do_pickup_animation(src)
 		AddUses(round(increment * 0.75))
 		to_chat(user, "<span class='notice'>You insert a shard of glass into [src]. You have [uses] light\s remaining.</span>")
@@ -101,9 +103,15 @@
 		var/obj/item/light/L = I
 		if(L.status == 0) // LIGHT OKAY
 			if(uses < max_uses)
+				if(!user.drop_item_ground(L))
+					return
+				L.do_pickup_animation(src)
 				AddUses(1)
 				qdel(L)
 		else
+			if(!user.drop_item_ground(L))
+				return
+			L.do_pickup_animation(src)
 			to_chat(user, "<span class='notice'>You insert [L] into [src].</span>")
 			AddShards(1, user)
 			qdel(L)
