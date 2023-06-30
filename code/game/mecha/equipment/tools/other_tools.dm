@@ -553,6 +553,12 @@
 	var/durand_step_in = 3.3
 	var/locker_step_in = 2
 
+/obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system/can_attach(obj/mecha/M)
+	if(..())
+		if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/combat/lockersyndie) || istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat/durand))
+			return TRUE
+	return FALSE
+
 /obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system/attach_act()
 	if(istype(src.loc, /obj/mecha/working/ripley)) // for ripley/firefighter
 		var/obj/mecha/working/ripley/R = src.loc
