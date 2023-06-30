@@ -44,7 +44,7 @@
 	//Since we already did the checks in afterattack, the denonator must be a ninja with the bomb objective.
 	if(!detonator || !detonation_objective)
 		return
-	if(!check_loc(detonator)) // if its moved, deactivate the c4
+	if(!check_loc(AM, detonator)) // if its moved, deactivate the c4
 		var/obj/item/grenade/plastic/c4/ninja/new_c4 = new /obj/item/grenade/plastic/c4/ninja(target.loc)
 		new_c4.detonation_objective = detonation_objective
 		to_chat(lanced_by, span_warning("Invalid location!"))
@@ -59,14 +59,15 @@
  * Checks to see if the c4 is in the correct place when being planted.
  *
  * Arguments
+ * * atom/movable/target - The plant of the c4
  * * mob/user - The planter of the c4
  */
-/obj/item/grenade/plastic/c4/ninja/proc/check_loc(mob/user)
+/obj/item/grenade/plastic/c4/ninja/proc/check_loc(atom/movable/target, mob/user)
 	if(!detonation_objective || !detonation_objective.detonation_location)				//Если у нашей бомбы нету цели/зоны, мы попробуем её взять из наших целей
 		detonation_objective = locate(/datum/objective/plant_explosive) in user.mind.objectives
 		to_chat(user, span_warning("ERROR REQUIRED ZONE NOT FOUND... Reloading... Try again later!"))
 		return FALSE
-	if((get_area(target) != detonation_objective.detonation_location) && (get_area(src) != detonation_objective.detonation_location))
+	if((get_area(target) != detonation_objective.detonation_location) || (get_area(user) != detonation_objective.detonation_location))
 		if(!active)
 			to_chat(user, span_notice("This isn't the location you're supposed to use this!"))
 		return FALSE
