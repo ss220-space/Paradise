@@ -942,7 +942,6 @@
 		return TRUE
 
 /obj/item/clothing/gloves/color/black/pyro_claws/ui_action_click(mob/user)
-	var/obj/item/W = new /obj/item/twohanded/required/pyro_claws
 	if(!core)
 		to_chat(user, "<span class='notice'>[src] has no core to power it!</span>")
 		return
@@ -960,7 +959,7 @@
 	if(user.get_active_hand() && !user.drop_from_active_hand())
 		to_chat(user, "<span class='notice'>[src] are unable to deploy the blades with the items in your hands!</span>")
 		return
-
+	var/obj/item/W = new /obj/item/twohanded/required/pyro_claws
 	user.visible_message("<span class='warning'>[user] deploys [W] from [user.p_their()] wrists in a shower of sparks!</span>", "<span class='notice'>You deploy [W] from your wrists!</span>", "<span class='warning'>You hear the shower of sparks!</span>")
 	user.put_in_hands(W)
 	flags |= NODROP
