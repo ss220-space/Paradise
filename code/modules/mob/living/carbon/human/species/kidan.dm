@@ -67,20 +67,22 @@
 	female_laugh_sound = list('sound/voice/kidan/laugh1.ogg', 'sound/voice/kidan/laugh2.ogg', 'sound/voice/kidan/laugh3.ogg', 'sound/voice/kidan/laugh4.ogg')
 	male_laugh_sound = list('sound/voice/kidan/laugh1.ogg', 'sound/voice/kidan/laugh2.ogg', 'sound/voice/kidan/laugh3.ogg', 'sound/voice/kidan/laugh4.ogg')
 	death_sounds = list('sound/voice/kidan/deathgasp1.ogg', 'sound/voice/kidan/deathgasp2.ogg')
-	male_dying_gasp_sounds = list('sound/voice/kidan/dying_gasp1.ogg', 'sound/voice/kidan/dying_gasp2.ogg', 'sound/voice/kidan/dying_gasp1.ogg')
-	female_dying_gasp_sounds = list('sound/voice/kidan/dying_gasp1.ogg', 'sound/voice/kidan/dying_gasp2.ogg', 'sound/voice/kidan/dying_gasp1.ogg')
+	male_dying_gasp_sounds = list('sound/voice/kidan/dying_gasp1.ogg', 'sound/voice/kidan/dying_gasp2.ogg', 'sound/voice/kidan/dying_gasp3.ogg')
+	female_dying_gasp_sounds = list('sound/voice/kidan/dying_gasp1.ogg', 'sound/voice/kidan/dying_gasp2.ogg', 'sound/voice/kidan/dying_gasp3.ogg')
 	male_cough_sounds = list('sound/voice/kidan/cough1.ogg')
 	female_cough_sounds = list('sound/voice/kidan/cough1.ogg')
-	male_sneeze_sound = list('sound/voice/kidan/sneeze1.ogg', 'sound/voice/kidan/sneeze2.ogg', 'sound/voice/kidan/sneeze3.ogg')
-	female_sneeze_sound = list('sound/voice/kidan/sneeze1.ogg', 'sound/voice/kidan/sneeze2.ogg', 'sound/voice/kidan/sneeze3.ogg')
+	male_sneeze_sound = list('sound/voice/kidan/sneeze1.ogg', 'sound/voice/kidan/sneeze2.ogg', 'sound/voice/kidan/sneeze3.ogg', 'sound/voice/kidan/sneeze4.ogg')
+	female_sneeze_sound = list('sound/voice/kidan/sneeze1.ogg', 'sound/voice/kidan/sneeze2.ogg', 'sound/voice/kidan/sneeze3.ogg', 'sound/voice/kidan/sneeze4.ogg')
 	female_cry_sound = list('sound/voice/kidan/cry1.ogg', 'sound/voice/kidan/cry2.ogg')
 	male_cry_sound = list('sound/voice/kidan/cry1.ogg', 'sound/voice/kidan/cry2.ogg')
 	female_grumble_sound = list('sound/voice/kidan/grumble1.ogg', 'sound/voice/kidan/grumble2.ogg', 'sound/voice/kidan/grumble3.ogg')
 	male_grumble_sound = list('sound/voice/kidan/grumble1.ogg', 'sound/voice/kidan/grumble2.ogg', 'sound/voice/kidan/grumble3.ogg')
 	male_moan_sound = list('sound/voice/kidan/moan1.ogg')
 	female_moan_sound = list('sound/voice/kidan/moan1.ogg')
-	female_sigh_sound = list('sound/voice/kidan/sigh1.ogg')
-	male_sigh_sound = list('sound/voice/kidan/sigh2.ogg')
+	female_sigh_sound = list('sound/voice/kidan/sigh1.ogg', 'sound/voice/kidan/sigh2.ogg')
+	male_sigh_sound = list('sound/voice/kidan/sigh1.ogg', 'sound/voice/kidan/sigh2.ogg')
+	female_choke_sound = list('sound/voice/kidan/dying_gasp1.ogg', 'sound/voice/kidan/dying_gasp2.ogg', 'sound/voice/kidan/dying_gasp3.ogg')
+	male_choke_sound = list('sound/voice/kidan/dying_gasp1.ogg', 'sound/voice/kidan/dying_gasp2.ogg', 'sound/voice/kidan/dying_gasp3.ogg')
 
 	disliked_food = FRIED | DAIRY
 	liked_food = SUGAR | ALCOHOL | GROSS | FRUIT
@@ -92,9 +94,9 @@
 /datum/species/kidan/on_species_gain(mob/living/carbon/human/H)
 	..()
 	H.verbs |= /mob/living/carbon/human/proc/emote_click
+	H.verbs |= /mob/living/carbon/human/proc/emote_clack
 	H.verbs |= /mob/living/carbon/human/proc/emote_wiggle
 	H.verbs |= /mob/living/carbon/human/proc/emote_waves_antennae
-	H.verbs |= /mob/living/carbon/human/proc/emote_clack
 	H.verbs -= /mob/living/carbon/human/verb/emote_pale
 	H.verbs -= /mob/living/carbon/human/verb/emote_blink
 	H.verbs -= /mob/living/carbon/human/verb/emote_blink_r
@@ -107,10 +109,23 @@
 	H.verbs -= /mob/living/carbon/human/verb/emote_frown
 	H.verbs -= /mob/living/carbon/human/verb/emote_sniff
 	H.verbs -= /mob/living/carbon/human/verb/emote_glare
-	H.verbs -= /mob/living/carbon/human/verb/emote_cry
 
 /datum/species/kidan/on_species_loss(mob/living/carbon/human/H)
 	..()
 	H.verbs -= /mob/living/carbon/human/proc/emote_click
 	H.verbs -= /mob/living/carbon/human/proc/emote_clack
+	H.verbs -= /mob/living/carbon/human/proc/emote_wiggle
+	H.verbs -= /mob/living/carbon/human/proc/emote_waves_antennae
+	H.verbs |= /mob/living/carbon/human/verb/emote_pale
+	H.verbs |= /mob/living/carbon/human/verb/emote_blink
+	H.verbs |= /mob/living/carbon/human/verb/emote_blink_r
+	H.verbs |= /mob/living/carbon/human/verb/emote_blush
+	H.verbs |= /mob/living/carbon/human/verb/emote_wink
+	H.verbs |= /mob/living/carbon/human/verb/emote_smile
+	H.verbs |= /mob/living/carbon/human/verb/emote_snuffle
+	H.verbs |= /mob/living/carbon/human/verb/emote_grin
+	H.verbs |= /mob/living/carbon/human/verb/emote_eyebrow
+	H.verbs |= /mob/living/carbon/human/verb/emote_frown
+	H.verbs |= /mob/living/carbon/human/verb/emote_sniff
+	H.verbs |= /mob/living/carbon/human/verb/emote_glare
 

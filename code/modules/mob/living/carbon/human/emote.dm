@@ -340,14 +340,14 @@
 			var/M = handle_emote_param(param)
 
 			message = "шевелит усиками[M ? " на [M]" : ""]."
-			playsound(loc, pick('sound/voice/kidan/wiggles_antennae1.ogg', 'sound/voice/kidan/wiggles_antennae2.ogg', 'sound/voice/kidan/wiggles_antennae3.ogg'), 50, 1, frequency = get_age_pitch())
+			playsound(loc, pick('sound/voice/kidan/wiggles_antennae1.ogg', 'sound/voice/kidan/wiggles_antennae2.ogg', 'sound/voice/kidan/wiggles_antennae3.ogg'), 50, 1, frequency = 1)
 			m_type = 2
 
 		if("waves_antennae")
 			var/M = handle_emote_param(param)
 
 			message = "резко взмахивает усиками[M ? " на [M]" : ""]."
-			playsound(loc, pick('sound/voice/kidan/waves_antennae_sharply1.ogg', 'sound/voice/kidan/waves_antennae_sharply2.ogg'), 50, 1, frequency = get_age_pitch())
+			playsound(loc, pick('sound/voice/kidan/waves_antennae_sharply1.ogg', 'sound/voice/kidan/waves_antennae_sharply2.ogg'), 50, 1, frequency = 1)
 			m_type = 2
 
 		if("creaks", "creak")
@@ -581,9 +581,9 @@
 				if(!muzzled)
 					message = "подавил[genderize_ru(src.gender,"ся","ась","ось","ись")]!"
 					if(gender == FEMALE)
-						playsound(src, pick('sound/voice/gasp_female1.ogg','sound/voice/gasp_female2.ogg','sound/voice/gasp_female3.ogg','sound/voice/gasp_female4.ogg','sound/voice/gasp_female5.ogg','sound/voice/gasp_female6.ogg','sound/voice/gasp_female7.ogg'), 50, 1, frequency = get_age_pitch())
+						playsound(src, pick(dna.species.female_choke_sound), 50, 1, frequency = get_age_pitch())
 					else
-						playsound(src, pick('sound/voice/gasp_male1.ogg','sound/voice/gasp_male2.ogg','sound/voice/gasp_male3.ogg','sound/voice/gasp_male4.ogg','sound/voice/gasp_male5.ogg','sound/voice/gasp_male6.ogg','sound/voice/gasp_male7.ogg'), 50, 1, frequency = get_age_pitch())
+						playsound(src, pick(dna.species.male_choke_sound), 50, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
 					message = "изда[pluralize_ru(src.gender,"ёт","ют")] громкие звуки."
