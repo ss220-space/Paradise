@@ -580,3 +580,7 @@
 	if(istype(src.loc, /obj/mecha))
 		var/obj/mecha/O = src.loc
 		O.step_in = initial(O.step_in)
+	if(istype(src.loc, /obj/mecha/working))
+		var/obj/mecha/working/W = src.loc
+		W.slow_pressure_step_in = initial(W.slow_pressure_step_in)
+		W.fast_pressure_step_in = initial(W.fast_pressure_step_in)
