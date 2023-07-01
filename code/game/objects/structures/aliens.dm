@@ -166,7 +166,7 @@
 
 /obj/structure/alien/resin/door/attack_hand(mob/living/user)
 	if(!isalien(user))
-		to_chat(user, SPAN_NOTICE("You can't find a way to manipulate with this door."))
+		to_chat(user, span_notice("You can't find a way to manipulate with this door."))
 		return FALSE
 
 	return ..()
@@ -213,7 +213,7 @@
 		return
 
 	var/mob/living/carbon/alien/alien = user
-	if(alien.stat || alien.incapacitated())
+	if(alien.incapacitated())
 		return
 
 	switch_state()
