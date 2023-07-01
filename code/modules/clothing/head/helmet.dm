@@ -45,7 +45,7 @@
 				playsound(src.loc, "[toggle_sound]", 100, 0, 4)
 
 /obj/item/clothing/head/helmet/attackby(obj/item/match/W, mob/user, params)
-	..()
+	. = ..()
 	if(istype(W, /obj/item/match) && !W.lit)
 		W.matchignite()
 		playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
