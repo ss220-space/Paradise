@@ -1151,7 +1151,7 @@ About the new airlock wires panel:
 			if(density && !prying_so_hard)
 				playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
 				prying_so_hard = TRUE //so you dont pry the door when you are already trying to pry it
-				var/result = do_after(user, 50 * gettoolspeedmod(user), target = src)
+				var/result = do_after(user, 5 SECONDS * gettoolspeedmod(user), target = src)
 				prying_so_hard = FALSE
 				if(result)
 					open(TRUE)
