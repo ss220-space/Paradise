@@ -49,7 +49,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	name = "airlock"
 	icon = 'icons/obj/doors/airlocks/station/public.dmi'
 	icon_state = "closed"
-	anchored = 1
+	anchored = TRUE
 	max_integrity = 300
 	integrity_failure = 70
 	damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_N
@@ -70,11 +70,11 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	var/lights = TRUE // bolt lights show by default
 	var/datum/wires/airlock/wires
 	var/aiDisabledIdScanner = FALSE
-	var/aiHacking = 0
+	var/aiHacking = FALSE
 	var/obj/machinery/door/airlock/closeOther
 	var/closeOtherId
-	var/lockdownbyai = 0
-	var/justzap = 0
+	var/lockdownbyai = FALSE
+	var/justzap = FALSE
 	var/obj/item/airlock_electronics/electronics
 	var/shockCooldown = FALSE //Prevents multiple shocks from happening
 	var/obj/item/note //Any papers pinned to the airlock
@@ -83,7 +83,6 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	var/overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 	var/note_overlay_file = 'icons/obj/doors/airlocks/station/overlays.dmi' //Used for papers and photos pinned to the airlock
 	var/normal_integrity = AIRLOCK_INTEGRITY_N
-	var/prying_so_hard = FALSE
 	var/paintable = TRUE // If the airlock type can be painted with an airlock painter
 	var/id //ID for tint controlle
 
@@ -190,9 +189,9 @@ About the new airlock wires panel:
 		if(isElectrified())
 			if(!justzap)
 				if(shock(user, 100))
-					justzap = 1
+					justzap = TRUE
 					spawn (10)
-						justzap = 0
+						justzap = FALSE
 					return
 			else
 				return
@@ -206,8 +205,8 @@ About the new airlock wires panel:
 
 /obj/machinery/door/airlock/proc/isElectrified()
 	if(electrified_until != 0)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/machinery/door/airlock/proc/canAIControl()
 	return ((aiControlDisabled != AICONTROLDISABLED_ON) && (!isAllPowerLoss()))
@@ -217,7 +216,7 @@ About the new airlock wires panel:
 
 /obj/machinery/door/airlock/proc/arePowerSystemsOn()
 	if(stat & (NOPOWER|BROKEN))
-		return 0
+		return FALSE
 	return (main_power_lost_until==0 || backup_power_lost_until==0)
 
 /obj/machinery/door/airlock/requiresID()
@@ -225,10 +224,10 @@ About the new airlock wires panel:
 
 /obj/machinery/door/airlock/proc/isAllPowerLoss()
 	if(stat & (NOPOWER|BROKEN))
-		return 1
+		return TRUE
 	if(wires.is_cut(WIRE_MAIN_POWER1) && wires.is_cut(WIRE_BACKUP_POWER1))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/machinery/door/airlock/proc/loseMainPower()
 	main_power_lost_until = wires.is_cut(WIRE_MAIN_POWER1) ? -1 : world.time + 60 SECONDS
@@ -872,18 +871,18 @@ About the new airlock wires panel:
 			if(wires.is_cut(WIRE_SAFETY))
 				to_chat(usr, "<span class='warning'>The safety wire is cut - Cannot secure the door.</span>")
 			else if(safe)
-				safe = 0
+				safe = FALSE
 				to_chat(usr, "<span class='notice'>The door safeties have been disabled.</span>")
 			else
-				safe = 1
+				safe = TRUE
 				to_chat(usr, "<span class='notice'>The door safeties have been enabled.</span>")
 		if("speed-toggle")
 			if(wires.is_cut(WIRE_SPEED))
 				to_chat(usr, "<span class='warning'>The timing wire is cut - Cannot alter timing.</span>")
 			else if(normalspeed)
-				normalspeed = 0
+				normalspeed = FALSE
 			else
-				normalspeed = 1
+				normalspeed = TRUE
 		if("open-close")
 			open_close(usr)
 		else
@@ -1148,27 +1147,23 @@ About the new airlock wires panel:
 	if(istype(I, /obj/item/twohanded/fireaxe)) //let's make this more specific //FUCK YOU
 		var/obj/item/twohanded/fireaxe/F = I
 		if(F.wielded)
-			if(density && !prying_so_hard)
+			if(density)
 				playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
-				prying_so_hard = TRUE //so you dont pry the door when you are already trying to pry it
-				var/result = do_after(user, 50 * gettoolspeedmod(user), target = src)
-				prying_so_hard = FALSE
+				var/result = do_after_once(user, 50 * gettoolspeedmod(user), target = src)
 				if(result)
 					open(TRUE)
-					if(density && !open(TRUE))
+					if(!open(TRUE))
 						to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
 		else
 			to_chat(user, "<span class='warning'>You need to be wielding the fire axe to do that!</span>")
 		return
 	if(istype(I, /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw))
-		if(density && !prying_so_hard)
+		if(density)
 			playsound(src, 'sound/machines/airlock_force_open.ogg', 100, 1) //scary
-			prying_so_hard = TRUE //so you dont pry the door when you are already trying to pry it
-			var/result = do_after(user, 40 * gettoolspeedmod(user), target = src) // faster because of ITS A MECH
-			prying_so_hard = FALSE
+			var/result = do_after_once(user, 40 * gettoolspeedmod(user), target = src) // faster because of ITS A MECH
 			if(result)
 				open(TRUE)
-				if(density && !open(TRUE))
+				if(!open(TRUE))
 					to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
 		return
 	var/beingcrowbarred = FALSE
@@ -1189,9 +1184,9 @@ About the new airlock wires panel:
 	else if(!arePowerSystemsOn())
 		spawn(0)
 			if(density)
-				open(1)
+				open(TRUE)
 			else
-				close(1)
+				close(FALSE)
 		return
 	else if(!ispowertool(I))
 		to_chat(user, "<span class='warning'>The airlock's motors resist your efforts to force it!</span>")
@@ -1203,15 +1198,12 @@ About the new airlock wires panel:
 	if(!density)//already open
 		return
 
-	if(!prying_so_hard)
-		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
-		prying_so_hard = TRUE
-		var/result = do_after(user, 50 * gettoolspeedmod(user), target = src)
-		prying_so_hard = FALSE
-		if(result)
-			open(1)
-			if(density && !open(1))
-				to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
+	playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
+	var/result = do_after_once(user, 50 * gettoolspeedmod(user), target = src)
+	if(result)
+		open(TRUE)
+		if(!open(TRUE))
+			to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
 
 /obj/machinery/door/airlock/open(forced=0)
 	if(operating || welded || locked || emagged)
@@ -1295,15 +1287,15 @@ About the new airlock wires panel:
 
 /obj/machinery/door/airlock/lock(forced=0)
 	if(locked)
-		return 0
+		return FALSE
 
 	if(operating && !forced)
-		return 0
+		return FALSE
 
 	locked = 1
 	playsound(src, boltDown, 30, 0, 3)
 	update_icon()
-	return 1
+	return TRUE
 
 /obj/machinery/door/airlock/unlock(forced=0)
 	if(!locked)
@@ -1313,10 +1305,10 @@ About the new airlock wires panel:
 		if(operating || !arePowerSystemsOn() || wires.is_cut(WIRE_DOOR_BOLTS))
 			return
 
-	locked = 0
+	locked = FALSE
 	playsound(src,boltUp, 30, 0, 3)
 	update_icon()
-	return 1
+	return TRUE
 
 /obj/machinery/door/airlock/CanAStarPass(obj/item/card/id/ID)
 //Airlock is passable if it is open (!density), bot has access, and is not bolted or welded shut)
@@ -1334,7 +1326,7 @@ About the new airlock wires panel:
 		if(!open())
 			update_icon(AIRLOCK_CLOSED, 1)
 		emagged = TRUE
-		return 1
+		return TRUE
 
 /obj/machinery/door/airlock/cmag_act(mob/user)
 	if(operating || HAS_TRAIT(src, TRAIT_CMAGGED) || !density || !arePowerSystemsOn() || emagged)
