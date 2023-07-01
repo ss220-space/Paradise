@@ -133,7 +133,7 @@
 
 	add_attack_logs(user, target, "POWER FISTED with [src]")
 	user.changeNext_move(CLICK_CD_MELEE * click_delay)
-	if(cell.charge > 0 && cell)
+	if(cell && cell.charge > 0)
 		target.emp_act(1)
 		spark_system.start()
 		if(cell.charge >= 15000)
@@ -141,7 +141,7 @@
 		cell.charge = 0
 		to_chat(user, "[src] sparkles violently")
 
-/obj/item/melee/powerfist/afterattack(atom/A as obj|mob, mob/user, proximity)
+/obj/item/melee/powerfist/afterattack(atom/movable/A, mob/user, proximity)
 	if(!proximity) return
 	if(!ismob(A))
 		if(!tank)
