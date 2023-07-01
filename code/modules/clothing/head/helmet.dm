@@ -49,7 +49,6 @@
 	if(istype(W, /obj/item/match) && !W.lit)
 		W.matchignite()
 		playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
-	return
 
 
 /obj/item/clothing/head/helmet/visor
