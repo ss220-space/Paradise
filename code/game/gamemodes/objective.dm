@@ -143,7 +143,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 /datum/objective/maroon/find_target()
 	..()
 	if(target && target.current)
-		explanation_text = "Prevent from escaping alive or assassinate [target.current.real_name], the [target.assigned_role]."
+		explanation_text = "Prevent from escaping alive or free [target.current.real_name], the [target.assigned_role]."
 		if (!(target in SSticker.mode.victims))
 			SSticker.mode.victims.Add(target)
 	else
@@ -161,6 +161,9 @@ GLOBAL_LIST_EMPTY(all_objectives)
 		if(isbrain(target.current))
 			return 1
 		if(isalien(target.current))
+			return 1
+		var/mob/living/carbon/human/H = target.current
+		if(H.handcuffed)
 			return 1
 		var/turf/T = get_turf(target.current)
 		if(is_admin_level(T.z))
