@@ -1151,7 +1151,7 @@ About the new airlock wires panel:
 			if(density && !prying_so_hard)
 				playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
 				prying_so_hard = TRUE //so you dont pry the door when you are already trying to pry it
-				var/result = do_after(user, 5 SECONDS, target = src)
+				var/result = do_after(user, 50 * gettoolspeedmod(user), target = src)
 				prying_so_hard = FALSE
 				if(result)
 					open(TRUE)
@@ -1159,6 +1159,17 @@ About the new airlock wires panel:
 						to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
 		else
 			to_chat(user, "<span class='warning'>You need to be wielding the fire axe to do that!</span>")
+		return
+	if(istype(I, /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw))
+		if(density && !prying_so_hard)
+			playsound(src, 'sound/machines/airlock_force_open.ogg', 100, 1) //scary
+			prying_so_hard = TRUE //so you dont pry the door when you are already trying to pry it
+			var/result = do_after(user, 40 * gettoolspeedmod(user), target = src) // faster because of ITS A MECH
+			prying_so_hard = FALSE
+			if(result)
+				open(TRUE)
+				if(density && !open(TRUE))
+					to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
 		return
 	var/beingcrowbarred = FALSE
 	if(I.tool_behaviour == TOOL_CROWBAR && I.tool_use_check(user, 0))
@@ -1192,12 +1203,10 @@ About the new airlock wires panel:
 	if(!density)//already open
 		return
 
-	var/time_to_open = 5
 	if(!prying_so_hard)
-		time_to_open = 50
 		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
 		prying_so_hard = TRUE
-		var/result = do_after(user, time_to_open, target = src)
+		var/result = do_after(user, 50 * gettoolspeedmod(user), target = src)
 		prying_so_hard = FALSE
 		if(result)
 			open(1)
