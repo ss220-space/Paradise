@@ -1149,7 +1149,7 @@ About the new airlock wires panel:
 		if(F.wielded)
 			if(density)
 				playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
-				var/result = do_after_once(user, 50 * gettoolspeedmod(user), target = src)
+				var/result = do_after_once(user, 5 SECONDS * gettoolspeedmod(user), target = src)
 				if(result)
 					open(TRUE)
 					if(!open(TRUE))
@@ -1160,19 +1160,20 @@ About the new airlock wires panel:
 	if(istype(I, /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw))
 		if(density)
 			playsound(src, 'sound/machines/airlock_force_open.ogg', 100, 1) //scary
-			var/result = do_after_once(user, 40 * gettoolspeedmod(user), target = src) // faster because of ITS A MECH
+			var/result = do_after_once(user, 4 SECONDS * gettoolspeedmod(user), target = src) // faster because of ITS A MECH
 			if(result)
 				open(TRUE)
 				if(!open(TRUE))
 					to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
 		return
+
 	var/beingcrowbarred = FALSE
 	if(I.tool_behaviour == TOOL_CROWBAR && I.tool_use_check(user, 0))
 		beingcrowbarred = TRUE
 	if(beingcrowbarred && panel_open && (emagged || (density && welded && !operating && !arePowerSystemsOn() && !locked)))
 		user.visible_message("[user] removes the electronics from the airlock assembly.", \
 							 "<span class='notice'>You start to remove electronics from the airlock assembly...</span>")
-		if(I.use_tool(src, user, 40, volume = I.tool_volume))
+		if(I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
 			deconstruct(TRUE, user)
 		return
 	if(welded)
@@ -1199,18 +1200,18 @@ About the new airlock wires panel:
 		return
 
 	playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
-	var/result = do_after_once(user, 50 * gettoolspeedmod(user), target = src)
+	var/result = do_after_once(user, 5 SECONDS * gettoolspeedmod(user), target = src)
 	if(result)
 		open(TRUE)
 		if(!open(TRUE))
 			to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
 
-/obj/machinery/door/airlock/open(forced=0)
+/obj/machinery/door/airlock/open(forced=FALSE)
 	if(operating || welded || locked || emagged)
-		return 0
+		return FALSE
 	if(!forced)
 		if(!arePowerSystemsOn() || wires.is_cut(WIRE_OPEN_DOOR))
-			return 0
+			return FALSE
 	use_power(360)	//360 W seems much more appropriate for an actuator moving an industrial door capable of crushing people
 	if(forced)
 		playsound(loc, 'sound/machines/airlock_force_open.ogg', 30, 1)
