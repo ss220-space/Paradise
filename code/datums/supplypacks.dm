@@ -55,6 +55,10 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	var/list/announce_beacons = list() // Particular beacons that we'll notify the relevant department when we reach
 	var/special = FALSE //Event/Station Goals/Admin enabled packs
 	var/special_enabled = FALSE
+	/// The number of times one can order a cargo crate, before it becomes restricted. -1 for infinite
+	var/order_limit = -1
+	/// Number of times a crate has been ordered in a shift
+	var/times_ordered = 0
 	/// List of names for being done in TGUI
 	var/list/ui_manifest = list()
 
@@ -207,10 +211,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/emergency/syndicate
 	name = "ERROR_NULL_ENTRY"
 	contains = list(/obj/item/storage/box/syndicate)
-	cost = 560
+	cost = 200
 	containertype = /obj/structure/closet/crate
 	containername = "crate"
 	hidden = 1
+	order_limit = 5
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Security ////////////////////////////////////////
@@ -509,6 +514,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/gun/projectile/automatic/wt550)
 	cost = 35
 	containername = "auto rifle crate"
+	
+/datum/supply_packs/security/armory/ga12
+	name = "Tkach Ya-Sui GA 12 Crate"
+	contains = list(/obj/item/gun/projectile/revolver/ga12,
+					/obj/item/gun/projectile/revolver/ga12)
+	cost = 50
+	containername = "Tkach supply crate"
 
 /datum/supply_packs/security/armory/lr30
 	name = "LR-30 Crate"

@@ -554,5 +554,15 @@
 	req_tech = list("syndicate" = 3, "programming" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_GOLD=500, MAT_GLASS=500)
-	build_path = /obj/item/paicard_upgrade
+	build_path = /obj/item/paicard_upgrade/protolate
 	category = list("ILLEGAL")
+
+/datum/design/pyroclaw
+	name = "Fusion gauntlets"
+	desc = "A pair of gloves designed to make superheated claws capable of cutting through almost anything. Needs a pyro anomaly core"
+	id = "pyro_gloves"
+	req_tech = list("combat" = 7, "materials" = 7, "engineering" = 7, "plasmatech" = 7)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_SILVER = 4000, MAT_TITANIUM = 4000, MAT_PLASMA = 8000)
+	build_path = /obj/item/clothing/gloves/color/black/pyro_claws
+	category = list("Weapons")
