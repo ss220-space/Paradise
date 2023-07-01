@@ -397,7 +397,7 @@ Doesn't work on other aliens/AI.*/
 	if(!istype(alien) || usr != alien)
 		return
 
-	var/datum/action/innate/xeno_action/resin/resin = locate(/datum/action/innate/xeno_action/resin) in alien.actions
+	var/datum/action/innate/xeno_action/resin/resin = locate() in alien.actions
 	if(!resin)
 		return
 
@@ -491,18 +491,14 @@ Doesn't work on other aliens/AI.*/
 
 
 /proc/playsound_xenobuild(object)
-	var/random = rand(1, 3)
 	var/turf/object_turf = get_turf(object)
+
 	if(!object_turf)
 		return
 
-	switch(random)
-		if(1)
-			playsound(object_turf, 'sound/creatures/alien/xeno_resin_build1.ogg', 30)
-		if(2)
-			playsound(object_turf, 'sound/creatures/alien/xeno_resin_build2.ogg', 30)
-		if(3)
-			playsound(object_turf, 'sound/creatures/alien/xeno_resin_build3.ogg', 30)
+	playsound(object_turf, pick('sound/creatures/alien/xeno_resin_build1.ogg', \
+								'sound/creatures/alien/xeno_resin_build2.ogg', \
+								'sound/creatures/alien/xeno_resin_build3.ogg'), 30)
 
 
 #undef WORLD_VIEW
