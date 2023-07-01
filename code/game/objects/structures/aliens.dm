@@ -229,32 +229,33 @@
 
 /obj/structure/alien/resin/door/proc/open()
 
-	if(operating)
+	if(operating || !density)
 		return
-
-	flick("resin_door_opening", src)
-	playsound(loc, 'sound/creatures/alien/xeno_door_open.ogg', 100, TRUE)
-	set_opacity(0)
-
-	operating = TRUE
-	sleep(0.5 SECONDS)
-	density = FALSE
-	sleep(0.5 SECONDS)
-	operating = FALSE
-
-	state = RESIN_DOOR_OPENED
-	update_icon()
-	set_opacity(FALSE)
-	air_update_turf(TRUE)
-	update_freelook_sight()
 
 	if(autoclose)
 		autoclose_in(autoclose_delay)
 
+	flick("resin_door_opening", src)
+	playsound(loc, 'sound/creatures/alien/xeno_door_open.ogg', 100, TRUE)
+	operating = TRUE
+
+	sleep(0.1 SECONDS)
+	set_opacity(FALSE)
+	update_freelook_sight()
+
+	sleep(0.4 SECONDS)
+	density = FALSE
+	air_update_turf(TRUE)
+
+	sleep(0.1 SECONDS)
+	operating = FALSE
+	state = RESIN_DOOR_OPENED
+	update_icon()
+
 
 /obj/structure/alien/resin/door/proc/close()
 
-	if(operating)
+	if(operating || density)
 		return
 
 	var/turf/source_turf = get_turf(src)
@@ -266,18 +267,20 @@
 
 	flick("resin_door_closing", src)
 	playsound(loc, 'sound/creatures/alien/xeno_door_close.ogg', 100, TRUE)
-
 	operating = TRUE
-	sleep(0.5 SECONDS)
-	density = TRUE
-	sleep(0.5 SECONDS)
-	operating = FALSE
 
+	sleep(0.1 SECONDS)
+	density = TRUE
+	air_update_turf(TRUE)
+
+	sleep(0.4 SECONDS)
+	set_opacity(TRUE)
+	update_freelook_sight()
+
+	sleep(0.1 SECONDS)
+	operating = FALSE
 	state = RESIN_DOOR_CLOSED
 	update_icon()
-	set_opacity(TRUE)
-	air_update_turf(TRUE)
-	update_freelook_sight()
 	check_mobs()
 
 
