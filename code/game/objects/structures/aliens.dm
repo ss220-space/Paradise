@@ -126,8 +126,8 @@
 /obj/structure/alien/resin/door
 	name = "resin door"
 	desc = "Thick resin solidified into a weird looking door."
-	icon = 'icons/obj/smooth_structures/alien/nest_door.dmi'
-	icon_state = "nest_door_closed"
+	icon = 'icons/obj/smooth_structures/alien/resin_door.dmi'
+	icon_state = "resin_door_closed"
 	max_integrity = 160
 	resintype = "door"
 	canSmoothWith = null
@@ -152,9 +152,9 @@
 /obj/structure/alien/resin/door/update_icon()
 	switch(state)
 		if(RESIN_DOOR_CLOSED)
-			icon_state = "nest_door_closed"
+			icon_state = "resin_door_closed"
 		if(RESIN_DOOR_OPENED)
-			icon_state = "nest_door_opened"
+			icon_state = "resin_door_opened"
 
 
 /obj/structure/alien/resin/door/attack_alien(mob/living/carbon/alien/humanoid/user)
@@ -232,7 +232,7 @@
 	if(operating)
 		return
 
-	flick("nest_door_opening", src)
+	flick("resin_door_opening", src)
 	playsound(loc, 'sound/creatures/alien/xeno_door_open.ogg', 100, TRUE)
 	set_opacity(0)
 
@@ -264,7 +264,7 @@
 				autoclose_in(autoclose_delay * 0.5)
 			return
 
-	flick("nest_door_closing", src)
+	flick("resin_door_closing", src)
 	playsound(loc, 'sound/creatures/alien/xeno_door_close.ogg', 100, TRUE)
 
 	operating = TRUE
