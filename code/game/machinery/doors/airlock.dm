@@ -1169,7 +1169,7 @@ About the new airlock wires panel:
 			if(result)
 				open(TRUE)
 				if(density && !open(TRUE))
-					to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
+					to_chat(user, span_warning("Despite your attempts, [src] refuses to open"))
 		return
 	var/beingcrowbarred = FALSE
 	if(I.tool_behaviour == TOOL_CROWBAR && I.tool_use_check(user, 0))
