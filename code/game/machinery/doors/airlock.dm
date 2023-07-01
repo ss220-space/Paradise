@@ -1110,7 +1110,7 @@ About the new airlock wires panel:
 				"<span class='notice'>You begin [welded ? "unwelding":"welding"] the airlock...</span>", \
 				"<span class='italics'>You hear welding.</span>")
 
-			if(I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(weld_checks), I, user)))
+			if(I.use_tool(src, user, 4 SECONDS * gettoolspeedmod(user), volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(weld_checks), I, user)))
 				if(!density && !welded)
 					return
 				welded = !welded
