@@ -37,7 +37,7 @@
 		if(tank)
 			. += "<span class='notice'>[bicon(tank)] It has [tank] mounted onto it.</span>"
 		if(cell)
-			. += "<span class='notice'>[bicon(cell)]The fist is charged for [cell.charge] KW.</span>"
+			. += "<span class='notice'>[bicon(cell)]The fist is charged for [cell.charge] W.</span>"
 	else . += "<span class='notice'>You'll need to get closer to see any more.</span>"
 
 /obj/item/melee/powerfist/attackby(obj/item/W, mob/user, params)
@@ -53,16 +53,10 @@
 		if(cell)
 			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
 		else
-			if(!user.drop_transfer_item_to_loc(W, src))
-				return
-			cell = W
-			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
-			update_icon()
+			updateCell(W, 0, user)
 
 /obj/item/melee/powerfist/attack_self(mob/user)
-	cell.loc = get_turf(src.loc)
-	cell = null
-	to_chat(user, "<span class='notice'>You remove a cell from [src].</span>")
+	updateCell(cell, 1, user)
 
 /obj/item/melee/powerfist/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -91,8 +85,8 @@
 			to_chat(user, "<span class='notice'>[src] currently has no tank attached to it.</span>")
 			return
 		to_chat(user, "<span class='notice'>You detach [thetank] from [src].</span>")
-		tank.forceMove(get_turf(user))
-		user.put_in_hands(tank)
+		tank.forceMove_turf()
+		user.put_in_hands(tank, ignore_anim = FALSE)
 		tank = null
 	if(!removing)
 		if(tank)
@@ -102,10 +96,30 @@
 			return
 		to_chat(user, "<span class='notice'>You hook [thetank] up to [src].</span>")
 		tank = thetank
-		thetank.forceMove(src)
 
+/obj/item/melee/powerfist/proc/updateCell(obj/item/stock_parts/cell/thecell, removing = 0, mob/living/carbon/human/user)
+	if(removing)
+		if(!cell)
+			to_chat(user, "<span class='notice'>[src] currently has no cell inside.</span>")
+			return
+		to_chat(user, "<span class='notice'>You detach [thecell] from [src].</span>")
+		cell.forceMove_turf()
+		user.put_in_hands(cell, ignore_anim = FALSE)
+		cell = null
+	if(!removing)
+		if(cell)
+			to_chat(user, "<span class='warning'>[src] already has a cell.</span>")
+			return
+		if(!user.drop_transfer_item_to_loc(thecell, src))
+			return
+		to_chat(user, "<span class='notice'>You insert [thecell] in to [src].</span>")
+		cell = thecell
 
-/obj/item/melee/powerfist/attack(mob/living/target, mob/living/user)
+/obj/item/melee/powerfist/attack()
+
+/obj/item/melee/powerfist/afterattack(atom/target as mob|obj, mob/living/user, proximity)
+	if(!proximity || !isobj(target) && !ismob(target))
+		return
 	if(!tank)
 		to_chat(user, "<span class='warning'>[src] can't operate without a source of gas!</span>")
 		return
@@ -115,53 +129,30 @@
 		return
 
 	user.do_attack_animation(target)
-
 	new /obj/effect/temp_visual/kinetic_blast(target.loc)
 	playsound(loc, 'sound/weapons/resonator_blast.ogg', 50, 1)
 	playsound(loc, 'sound/weapons/genhit2.ogg', 50, 1)
 
-	target.apply_damage(force * fisto_setting, BRUTE)
-	target.visible_message("<span class='danger'>[user]'s powerfist lets out a loud hiss as [user.p_they()] punch[user.p_es()] [target.name]!</span>", \
-		"<span class='userdanger'>You cry out in pain as [user]'s punch flings you backwards!</span>")
-	new /obj/effect/temp_visual/kinetic_blast(target.loc)
-	playsound(loc, 'sound/weapons/resonator_blast.ogg', 50, 1)
-	playsound(loc, 'sound/weapons/genhit2.ogg', 50, 1)
-
-	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
-
-	target.throw_at(throw_target, 5 * fisto_setting, 0.5 + (fisto_setting / 2))
-
-	add_attack_logs(user, target, "POWER FISTED with [src]")
-	user.changeNext_move(CLICK_CD_MELEE * click_delay)
-	if(cell && cell.charge > 0)
-		target.emp_act(1)
-		spark_system.start()
-		if(cell.charge >= 15000)
-			target.electrocute_act(cell.charge/1250, src, 1)
-		cell.charge = 0
-		to_chat(user, "[src] sparkles violently")
-
-/obj/item/melee/powerfist/afterattack(atom/movable/A, mob/user, proximity)
-	if(!proximity) return
-	if(!ismob(A))
-		if(!tank)
-			to_chat(user, "<span class='warning'>[src] can't operate without a source of gas!</span>")
-			return
-		if(tank && !tank.air_contents.remove(gasperfist * fisto_setting))
-			to_chat(user, "<span class='warning'>[src]'s piston-ram lets out a weak hiss, it needs more gas!</span>")
-			playsound(loc, 'sound/effects/refill.ogg', 50, 1)
-			return
-		user.do_attack_animation(A)
-		if(cell.charge > 0)
-			A.emp_act(1)
+	if(ismob(target))
+		var/mob/living/mobtarget = target
+		var/atom/throw_target = get_edge_target_turf(mobtarget, get_dir(src, get_step_away(target, src)))
+		mobtarget.throw_at(throw_target, 5 * fisto_setting, 0.5 + (fisto_setting / 2))
+		mobtarget.apply_damage(force * fisto_setting, BRUTE)
+		mobtarget.visible_message("<span class='danger'>[user]'s powerfist lets out a loud hiss as [user.p_they()] punch[user.p_es()] [mobtarget.name]!</span>", \
+			"<span class='userdanger'>You cry out in pain as [user]'s punch flings you backwards!</span>")
+		if(cell?.charge > 0)
+			mobtarget.emp_act(1)
+			spark_system.start()
+			if(cell.charge >= 15000)
+				mobtarget.electrocute_act(cell.charge/1250, src, 1)
+			cell.charge = 0
+			to_chat(user, "[src] sparkles violently")
+	else
+		target.visible_message("<span class='danger'>As [user]'s powerfist comes into contact with an [target.name], you see how it remain cracked at the point of impact!</span>")
+		if(cell?.charge > 0)
+			target.emp_act(1)
 			cell.charge = 0
 			spark_system.start()
-			new /obj/effect/temp_visual/kinetic_blast(A.loc)
-			playsound(loc, 'sound/weapons/resonator_blast.ogg', 50, 1)
-			playsound(loc, 'sound/weapons/genhit2.ogg', 50, 1)
-			A.visible_message("<span class='danger'>As [user]'s powerfist comes into contact with an [A.name], you see how sparks fly out of it and it remain cracked at the point of impact!</span>")
-		else if(!ismob(A))
-			new /obj/effect/temp_visual/kinetic_blast(A.loc)
-			playsound(loc, 'sound/weapons/resonator_blast.ogg', 50, 1)
-			playsound(loc, 'sound/weapons/genhit2.ogg', 50, 1)
-			A.visible_message("<span class='danger'>As [user]'s powerfist comes into contact with an [A.name], you see how it remain cracked at the point of impact!</span>")
+			to_chat(user, "[src] sparkles violently")
+	user.changeNext_move(CLICK_CD_MELEE * click_delay)
+	add_attack_logs(user, target, "POWER FISTED with [src]")
