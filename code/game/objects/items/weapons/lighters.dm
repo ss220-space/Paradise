@@ -301,7 +301,7 @@
 	if(issilicon(M) || ismachineperson(M))
 		if(user.a_intent == INTENT_HELP)
 			matchignite()
-	else if(isliving(M))
+	if(!isliving(M))
 		return ..()
 	if(lit && M.IgniteMob())
 		add_attack_logs(user, M, "set on fire", ATKLOG_FEW)
