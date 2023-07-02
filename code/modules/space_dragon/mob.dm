@@ -35,7 +35,7 @@
 	attacktext = "кусает"
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	death_sound = 'sound/creatures/space_dragon_roar.ogg'
-	icon = 'icons/mob/spacedragon.dmi'
+	icon = 'icons/mob/spacedragon_new.dmi'
 	icon_state = "spacedragon"
 	icon_living = "spacedragon"
 	icon_dead = "spacedragon_dead"
