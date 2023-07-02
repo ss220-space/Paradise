@@ -1184,7 +1184,7 @@ About the new airlock wires panel:
 			if(density)
 				open(TRUE)
 			else
-				close(FALSE)
+				close(TRUE)
 		return
 	else if(!ispowertool(I))
 		to_chat(user, "<span class='warning'>The airlock's motors resist your efforts to force it!</span>")
