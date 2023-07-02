@@ -526,7 +526,7 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 		new /datum/stack_recipe("Bronze ashtray", /obj/item/storage/ashtray/bronze, 2, one_per_turf = TRUE, on_floor = TRUE),
 		null,
 		new /datum/stack_recipe("Clockwork floor tile", /obj/item/stack/tile/clockwork, res_amount = 4, max_res_amount = 20),
-		new /datum/stack_recipe/window("Brass windoor", /obj/machinery/door/window/clockwork/fake, 2, time = 30, on_floor = TRUE, window_checks = TRUE),
+		new /datum/stack_recipe/window("Brass windoor", /obj/machinery/door/window/clockwork_fake, 2, time = 30, on_floor = TRUE, window_checks = TRUE),
 		new /datum/stack_recipe/window("Directional brass window", /obj/structure/window/reinforced/clockworkfake, on_floor = TRUE, window_checks = TRUE),
 		new /datum/stack_recipe/window("Fulltile brass window", /obj/structure/window/reinforced/clockworkfake/fulltile, 2, on_floor = TRUE, window_checks = TRUE),
 	)),

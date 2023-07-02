@@ -381,14 +381,21 @@
 	cancolor = FALSE
 	var/made_glow = FALSE
 
-/obj/machinery/door/window/clockwork/fake
+/obj/machinery/door/window/clockwork_fake
+	name = "brass windoor"
 	desc = "A completely not magical thin door with translucent brass paneling."
+	icon_state = "clockwork"
+	base_state = "clockwork"
+	shards = 0
+	rods = 0
+	resistance_flags = ACID_PROOF | FIRE_PROOF
+	cancolor = FALSE
 
 /obj/machinery/door/window/clockwork/New(loc, set_dir)
 	..()
 	debris += new/obj/item/stack/sheet/brass(src, 2)
 
-/obj/machinery/door/window/clockwork/fake/New(loc, set_dir)
+/obj/machinery/door/window/clockwork_fake/New(loc, set_dir)
 	. = ..()
 	debris += new/obj/item/stack/sheet/brass_fake(src, 2)
 
@@ -405,9 +412,6 @@
 
 /obj/machinery/door/window/clockwork/ratvar_act()
 	obj_integrity = max_integrity
-
-/obj/machinery/door/window/clockwork/fake/ratvar_act()
-	return
 
 /obj/machinery/door/window/clockwork/hasPower()
 	return TRUE //yup that's power all right
