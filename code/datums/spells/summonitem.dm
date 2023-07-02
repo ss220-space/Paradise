@@ -102,20 +102,18 @@
 			if(!item_to_retrieve)
 				return
 
+			var/turf/target_turf = get_turf(target)
+			if(!target_turf)
+				return
+
 			item_to_retrieve.loc.visible_message(span_warning("The [item_to_retrieve.name] suddenly disappears!"))
+			playsound(target_turf, 'sound/magic/summonitems_generic.ogg', 50, TRUE)
 
 			if(!target.put_in_active_hand(item_to_retrieve) && !target.put_in_inactive_hand(item_to_retrieve))
-				var/turf/target_turf = get_turf(target)
-				if(!target_turf)
-					return
-
 				item_to_retrieve.loc = target_turf
 				item_to_retrieve.loc.visible_message(span_caution("The [item_to_retrieve.name] suddenly appears!"))
-				playsound(target_turf, 'sound/magic/summonitems_generic.ogg', 50, TRUE)
-
 			else
 				item_to_retrieve.loc.visible_message(span_caution("The [item_to_retrieve.name] suddenly appears in [target]'s hand!"))
-				playsound(get_turf(target), 'sound/magic/summonitems_generic.ogg', 50, TRUE)
 
 		if(message)
 			to_chat(target, message)
