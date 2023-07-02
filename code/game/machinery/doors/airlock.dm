@@ -1197,11 +1197,8 @@ About the new airlock wires panel:
 		return
 
 	playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
-	var/result = do_after_once(user, 5 SECONDS * gettoolspeedmod(user), target = src)
-	if(result)
-		open(TRUE)
-		if(!open(TRUE))
-			to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
+	if(do_after_once(user, 5 SECONDS * gettoolspeedmod(user), target = src) && !open(TRUE) && density)
+		to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
 
 /obj/machinery/door/airlock/open(forced=FALSE)
 	if(operating || welded || locked || emagged)
