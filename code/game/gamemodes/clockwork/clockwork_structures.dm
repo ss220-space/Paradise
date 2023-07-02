@@ -188,9 +188,6 @@
 	GLOB.clockwork_altars += src
 	START_PROCESSING(SSprocessing, src)
 
-/obj/structure/clockwork/functional/fake_altar/Initialize(mapload)
-	. = ..()
-
 /obj/structure/clockwork/functional/altar/Destroy()
 	GLOB.clockwork_altars -= src
 	if(converting)
