@@ -129,28 +129,8 @@
 			update_icon() // For content-sensitive icons
 			return
 
-		if(!(istype(over_object, /obj/screen)))
-			return ..()
-		if(!(loc == usr) || (loc && loc.loc == usr))
-			return
-		playsound(loc, "rustle", 50, TRUE, -5)
-		if(!(M.restrained()) && !(M.stat))
-			switch(over_object.name)
-				if("r_hand")
-					if(!M.drop_item_ground(src))
-						return
-					M.put_in_r_hand(src, ignore_anim = FALSE)
-				if("l_hand")
-					if(!M.drop_item_ground(src))
-						return
-					M.put_in_l_hand(src, ignore_anim = FALSE)
-			add_fingerprint(usr)
-			return
-		if(over_object == usr && in_range(src, usr) || usr.contents.Find(src))
-			if(usr.s_active)
-				usr.s_active.close(usr)
-			open(usr)
-			return
+		return ..()
+
 
 /obj/item/storage/AltClick(mob/user)
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
