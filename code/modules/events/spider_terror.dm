@@ -25,7 +25,7 @@
 	var/spider_type
 	var/infestation_type
 	if((length(GLOB.clients)) <= TS_MIDPOP_TRIGGER)
-		infestation_type = pick(1, 2)
+		infestation_type = 2 //temp. change for balancing. Return pick(1,2) if you want defilers spawning in lowpop
 	else if((length(GLOB.clients)) >= TS_HIGHPOP_TRIGGER)
 		infestation_type = pick(5, 6)
 	else
