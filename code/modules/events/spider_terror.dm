@@ -1,4 +1,5 @@
-#define TS_HIGHPOP_TRIGGER 60
+#define TS_HIGHPOP_TRIGGER 80
+#define TS_MIDPOP_TRIGGER 50
 #define TS_MINPLAYERS_TRIGGER 35
 
 /datum/event/spider_terror
@@ -29,20 +30,28 @@
 		EC.next_event_time = world.time + (60 * 10)
 		return	//we don't spawn spiders on lowpop. Instead, we reroll!
 	else if((length(GLOB.clients)) >= TS_HIGHPOP_TRIGGER)
+		infestation_type = pick(5, 6)
+	else if((length(GLOB.clients)) >= TS_MIDPOP_TRIGGER)
 		infestation_type = pick(3, 4)
 	else
 		infestation_type = pick(1, 2)
 	switch(infestation_type)
-		if(1)          //midpop spawns
+		if(1)          //lowpop spawns
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/defiler
-			spawncount = 3
+			spawncount = 2
 		if(2)
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess
+			spawncount = 2
+		if(3)          //midpop spawns
+			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/defiler
 			spawncount = 3
-		if(3)          //highpop spawns
+		if(4)
+			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess
+			spawncount = 3
+		if(5)          //highpop spawns
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen
 			spawncount = 1
-		if(4)
+		if(6)
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/prince
 			spawncount = 1
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Паука Ужаса?", ROLE_TERROR_SPIDER, TRUE, 60 SECONDS, source = spider_type)
