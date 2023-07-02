@@ -455,7 +455,7 @@
 		return
 
 	var/turf/effect_turf = get_turf(effect)
-	if(!source_turf)
+	if(!effect_turf)
 		stack_trace("[effect] is outside of the turf contents")
 		return
 
