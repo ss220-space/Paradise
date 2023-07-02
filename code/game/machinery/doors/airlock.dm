@@ -1144,61 +1144,60 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/try_to_crowbar(mob/living/user, obj/item/I)
 	if(operating)
 		return
-	if(istype(I, /obj/item/twohanded/fireaxe)) //let's make this more specific //FUCK YOU
-		var/obj/item/twohanded/fireaxe/F = I
-		if(F.wielded && density)
-			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
-			if(do_after_once(user, 5 SECONDS * gettoolspeedmod(user), target = src))
-				open(TRUE)
-			else
-				to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
-		else
-			to_chat(user, "<span class='warning'>You need to be wielding the fire axe to do that!</span>")
-		return
-	if(istype(I, /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw))
-		if(density)
-			playsound(src, 'sound/machines/airlock_force_open.ogg', 100, 1) //scary
-			if(do_after_once(user, 4 SECONDS * gettoolspeedmod(user), target = src)) // faster because of ITS A MECH
-				open(TRUE)
-			else
-				to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
-		return
 
-	var/beingcrowbarred = FALSE
-	if(I.tool_behaviour == TOOL_CROWBAR && I.tool_use_check(user, 0))
-		beingcrowbarred = TRUE
-	if(beingcrowbarred && panel_open && (emagged || (density && welded && !operating && !arePowerSystemsOn() && !locked)))
+	if(I.tool_behaviour == TOOL_CROWBAR && I.tool_use_check(user, 0) && panel_open && (emagged || (density && welded && !operating && !arePowerSystemsOn() && !locked)))
 		user.visible_message("[user] removes the electronics from the airlock assembly.", \
 							 "<span class='notice'>You start to remove electronics from the airlock assembly...</span>")
 		if(I.use_tool(src, user, 4 SECONDS * gettoolspeedmod(user), volume = I.tool_volume))
 			deconstruct(TRUE, user)
 		return
+
 	if(welded)
-		to_chat(user, "<span class='warning'>[src] is welded shut!</span>")
+		to_chat(user, span_warning("[src] is welded shut!"))
 		return
+
 	if(locked)
-		to_chat(user, "<span class='warning'>The airlock's bolts prevent it from being forced!</span>")
+		to_chat(user, span_warning("The airlock's bolts prevent it from being forced!"))
 		return
-	else if(!arePowerSystemsOn())
+
+	if(!arePowerSystemsOn())
 		spawn(0)
 			if(density)
 				open(TRUE)
 			else
 				close(TRUE)
 		return
-	else if(!ispowertool(I))
-		to_chat(user, "<span class='warning'>The airlock's motors resist your efforts to force it!</span>")
-		return
-	if(isElectrified())
-		shock(user, 100)//it's like sticking a forck in a power socket
-		return
 
 	if(!density)//already open
 		return
 
+	if(istype(I, /obj/item/twohanded/fireaxe)) //let's make this more specific //FUCK YOU
+		var/obj/item/twohanded/fireaxe/F = I
+		if(!F.wielded)
+			to_chat(user, span_warning("You need to be wielding the fire axe to do that!"))
+			return
+		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
+		if(do_after_once(user, 5 SECONDS * gettoolspeedmod(user), target = src) && !open(TRUE) && density)
+			to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
+		return
+
+	if(istype(I, /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw))
+		playsound(src, 'sound/machines/airlock_force_open.ogg', 100, 1) //scary
+		if(do_after_once(user, 4 SECONDS * gettoolspeedmod(user), target = src) && !open(TRUE) && density) // faster because of ITS A MECH
+			to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
+		return
+
+	if(isElectrified())
+		shock(user, 100)//it's like sticking a forck in a power socket
+		return
+
+	if(!ispowertool(I))
+		to_chat(user, span_warning("The airlock's motors resist your efforts to force it!"))
+		return
+
 	playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
 	if(do_after_once(user, 5 SECONDS * gettoolspeedmod(user), target = src) && !open(TRUE) && density)
-		to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
+		to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
 
 /obj/machinery/door/airlock/open(forced=FALSE)
 	if(operating || welded || locked || emagged)
