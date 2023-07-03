@@ -54,6 +54,8 @@
 			to_chat(user, span_notice("[src] already has a cell."))
 		else
 			updateCell(W, FALSE, user)
+	else
+		return ..()
 
 /obj/item/melee/powerfist/attack_self(mob/user)
 	updateCell(cell, TRUE, user)
@@ -115,7 +117,7 @@
 		to_chat(user, span_notice("You insert [thecell] in to [src]."))
 		cell = thecell
 
-/obj/item/melee/powerfist/afterattack(atom/target as mob|obj, mob/living/user, proximity)
+/obj/item/melee/powerfist/afterattack(atom/movable/target, mob/living/user, proximity)
 	if(!proximity)
 		return
 	if(QDELETED(target))
