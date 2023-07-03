@@ -481,10 +481,10 @@
 
 	if(I.in_inventory)
 
-		if(I.equip_delay_self && !user.is_general_slot(user.get_slot_by_item(I)))
+		if(I.equip_delay_self && !I.in_storage && !user.is_general_slot(user.get_slot_by_item(I)))
 			user.visible_message(span_notice("[user] начинает снимать [I.name]..."), \
 								span_notice("Вы начинаете снимать [I.name]..."))
-			if(!do_after_once(user, I.equip_delay_self, target = user))
+			if(!do_after_once(user, I.equip_delay_self, target = user, attempt_cancel_message = "Снятие [I.name] было прервано!"))
 				return FALSE
 
 			if((slot_id == slot_l_hand && user.l_hand) || (slot_id == slot_r_hand && user.r_hand))

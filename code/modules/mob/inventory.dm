@@ -431,7 +431,7 @@
 	. = do_unEquip(I, force, drop_location(), FALSE, invdrop, silent)
 
 	if(!. || !I)
-		return FALSE
+		return
 
 	I.do_pickup_animation(newloc)
 	I.forceMove(newloc)
@@ -453,7 +453,7 @@
 	. = do_unEquip(I, force, drop_location(), FALSE, invdrop, silent)
 
 	if(!. || !I) //ensure the item exists and that it was dropped properly.
-		return FALSE
+		return
 
 	if(!(I.flags & NO_PIXEL_RANDOM_DROP))
 		I.pixel_x += rand(-6, 6)

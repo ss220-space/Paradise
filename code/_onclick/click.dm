@@ -171,13 +171,6 @@
 			else
 				if(ismob(A))
 					changeNext_move(CLICK_CD_MELEE)
-				if(isitem(A)) // inventory unequip_delay
-					var/obj/item/item = A
-					if(item.equip_delay_self && item.in_inventory && !is_general_slot(get_slot_by_item(item)))
-						visible_message(span_notice("[src] начинает снимать [item.name]..."), \
-										span_notice("Вы начинаете снимать [item.name]..."))
-						if(!do_after_once(src, item.equip_delay_self, target = src))
-							return
 				UnarmedAttack(A, 1)
 
 			return
