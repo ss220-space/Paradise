@@ -364,8 +364,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	add_fingerprint(user)
 
 	if(!user.put_in_active_hand(src, ignore_anim = FALSE))
-		dropped(user)
-		forceMove(user.drop_location())
+		user.drop_item_ground(src)
 		return FALSE
 
 
