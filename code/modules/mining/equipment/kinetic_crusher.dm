@@ -198,7 +198,7 @@
 		else
 			var/turf/simulated/mineral/M = target_turf
 			new /obj/effect/temp_visual/kinetic_blast(M)
-			M.gets_drilled(firer)
+			M.attempt_drill(firer)
 	..()
 
 //trophies

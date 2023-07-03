@@ -506,7 +506,7 @@ Difficulty: Hard
 	. = ..()
 	if(ismineralturf(loc))
 		var/turf/simulated/mineral/M = loc
-		M.gets_drilled(caster)
+		M.attempt_drill(caster)
 
 /obj/effect/temp_visual/hierophant/wall //smoothing and pooling were not friends, but pooling is dead.
 	name = "vortex wall"
@@ -643,7 +643,7 @@ Difficulty: Hard
 		hit_things += new_caster
 	if(ismineralturf(loc)) //drill mineral turfs
 		var/turf/simulated/mineral/M = loc
-		M.gets_drilled(caster)
+		M.attempt_drill(caster)
 	INVOKE_ASYNC(src, PROC_REF(blast))
 
 /obj/effect/temp_visual/hierophant/blast/proc/blast()

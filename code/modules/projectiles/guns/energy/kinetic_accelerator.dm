@@ -249,7 +249,7 @@
 			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
 		else
 			var/turf/simulated/mineral/M = target_turf
-			M.gets_drilled(firer)
+			M.attempt_drill(firer)
 	var/obj/effect/temp_visual/kinetic_blast/K = new /obj/effect/temp_visual/kinetic_blast(target_turf)
 	K.color = color
 
@@ -430,7 +430,7 @@
 		for(var/T in RANGE_TURFS(1, target_turf) - target_turf)
 			if(ismineralturf(T) && !isancientturf(T))
 				var/turf/simulated/mineral/M = T
-				M.gets_drilled(K.firer)
+				M.attempt_drill(K.firer)
 	if(modifier)
 		for(var/mob/living/L in range(1, target_turf) - K.firer - target)
 			var/armor = L.run_armor_check(K.def_zone, K.flag, "", "", K.armour_penetration)

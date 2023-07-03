@@ -261,7 +261,7 @@
 			return
 		forcedodge = 1
 		var/turf/simulated/mineral/M = target
-		M.gets_drilled(firer)
+		M.attempt_drill(firer)
 	else
 		forcedodge = 0
 
