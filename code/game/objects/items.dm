@@ -350,6 +350,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			if(!do_after_once(user, equip_delay_self, target = user, attempt_cancel_message = "Снятие [name] было прервано!"))
 				return
 
+			if(user.get_active_hand())
+				return
+
 		if(!user.temporarily_remove_item_from_inventory(src))
 			return
 
