@@ -48,14 +48,11 @@
 				to_chat(user, span_warning("[IT] is too small for [src]."))
 				return
 			updateTank(W, FALSE, user)
-			return
-	else if(istype(W, /obj/item/stock_parts/cell))
-		if(cell)
-			to_chat(user, span_notice("[src] already has a cell."))
-		else
-			updateCell(W, FALSE, user)
-	else
-		return ..()
+		return
+	if(istype(W, /obj/item/stock_parts/cell))
+		updateCell(W, FALSE, user)
+		return
+	return ..()
 
 /obj/item/melee/powerfist/attack_self(mob/user)
 	updateCell(cell, TRUE, user)
@@ -117,7 +114,7 @@
 		to_chat(user, span_notice("You insert [thecell] in to [src]."))
 		cell = thecell
 
-/obj/item/melee/powerfist/afterattack(atom/movable/target, mob/living/user, proximity)
+/obj/item/melee/powerfist/afterattack(atom/target, mob/living/user, proximity)
 	if(!proximity)
 		return
 	if(QDELETED(target))
