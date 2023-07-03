@@ -19,6 +19,8 @@
 
 #define ROUND_TIME_TEXT(...) ( "[world.time - SSticker.round_start_time > MIDNIGHT_ROLLOVER ? "[round((world.time - SSticker.round_start_time)/MIDNIGHT_ROLLOVER)]:[worldtime2text()]" : worldtime2text()]" )
 
+#define SHIFT_TIME_TEXT(...) ( "[SSticker.round_start_time > MIDNIGHT_ROLLOVER ? "[round(SSticker.round_start_time/MIDNIGHT_ROLLOVER)]:[shifttime2text()]" : shifttime2text()]" )
+
 /* This proc should only be used for world/Topic.
  * If you want to display the time for which dream daemon has been running ("round time") use worldtime2text.
  * If you want to display the canonical station "time" (aka the in-character time of the station) use station_time_timestamp
@@ -30,6 +32,9 @@
 //Returns the world time in english
 /proc/worldtime2text()
 	return gameTimestamp("hh:mm:ss", world.time)
+
+/proc/shifttime2text()
+	return gameTimestamp("hh:mm:ss", world.time - SSticker.round_start_time)
 
 // This is ISO-8601
 // If anything that uses this proc shouldn't be ISO-8601, change that thing, not this proc. This is important for logging.
