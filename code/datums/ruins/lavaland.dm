@@ -245,3 +245,10 @@
 	cost = 5
 	allow_duplicates = FALSE
 
+/datum/map_template/ruin/lavaland/worldanvil
+	name = "World Anvil"
+	id = "worldanvil"
+	description = "An ancient anvil, standing untainted for millennia. Wonders were once forged here."
+	suffix = "lavaland_surface_worldanvil.dmm"
+	always_place = TRUE
+	allow_duplicates = FALSE

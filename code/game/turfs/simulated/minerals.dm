@@ -697,12 +697,3 @@
 /turf/simulated/mineral/magmite/volcanic/hard
 	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
 	hardness = 2
-
-//temp
-/obj/item/magmite
-	name = "plasma magmite"
-	desc = "A chunk of plasma magmite, crystallized deep under the planet's surface. It seems to lose strength as it gets further from the planet!"
-	icon = 'icons/obj/mining.dmi'
-	icon_state = "Magmite ore"
-	w_class = WEIGHT_CLASS_NORMAL
-
