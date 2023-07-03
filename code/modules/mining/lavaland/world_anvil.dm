@@ -57,15 +57,15 @@
 				qdel(I)
 				to_chat(user, "You carefully forge the rough plasma magmite into plasma magmite upgrade parts.")
 				success = TRUE
-			if(/obj/item/magmite_parts)
-				var/obj/item/magmite_parts/parts = I
+		if(/obj/item/magmite_parts)
+			var/obj/item/magmite_parts/parts = I
 
-				if(!parts.inert)
-					to_chat(user,"The magmite upgrade parts are already glowing and usable!")
-					return
-				if(do_after(user,5 SECONDS, target = src))
-					parts.restore()
-					to_chat(user, "You successfully reheat the magmite upgrade parts. They are now glowing and usable again.")
+			if(!parts.inert)
+				to_chat(user,"The magmite upgrade parts are already glowing and usable!")
+				return
+			if(do_after(user,5 SECONDS, target = src))
+				parts.restore()
+				to_chat(user, "You successfully reheat the magmite upgrade parts. They are now glowing and usable again.")
 	if(!success)
 		return
 	forge_charges--
