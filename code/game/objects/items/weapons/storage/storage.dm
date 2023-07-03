@@ -358,6 +358,13 @@
 		to_chat(usr, "<span class='notice'>\the [W] is stuck to your hand, you can't put it in \the [src]</span>")
 		return FALSE
 
+	// item unequip delay
+	if(usr && W.equip_delay_self && W.in_inventory && !W.in_storage && !usr.is_general_slot(usr.get_slot_by_item(W)))
+		usr.visible_message(span_notice("[usr] начинает снимать [W.name]..."), \
+							span_notice("Вы начинаете снимать [W.name]..."))
+		if(!do_after_once(usr, W.equip_delay_self, target = usr, attempt_cancel_message = "Снятие [W.name] было прервано!"))
+			return FALSE
+
 	return TRUE
 
 //This proc handles items being inserted. It does not perform any checks of whether an item can or can't be inserted. That's done by can_be_inserted()

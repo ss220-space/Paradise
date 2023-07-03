@@ -368,7 +368,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return FALSE
 
 
-// If we want to stop manual unequipping of item by hands, but only for user himself (almost NODROP)
+/**
+ * If we want to stop manual unequipping of item by hands, but only for user himself (almost NODROP)
+ */
 /obj/item/proc/allow_attack_hand_drop(mob/user)
 	return TRUE
 
