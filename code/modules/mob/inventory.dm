@@ -456,8 +456,8 @@
 		return
 
 	if(!(I.flags & NO_PIXEL_RANDOM_DROP))
-		I.pixel_x = clamp(rand(-6, 6), -(world.icon_size), world.icon_size)
-		I.pixel_y = clamp(rand(-6, 6), -(world.icon_size), world.icon_size)
+		I.pixel_x = clamp(rand(-6, 6), -(world.icon_size / 2), world.icon_size / 2)
+		I.pixel_y = clamp(rand(-6, 6), -(world.icon_size / 2), world.icon_size / 2)
 	I.do_drop_animation(src)
 
 
