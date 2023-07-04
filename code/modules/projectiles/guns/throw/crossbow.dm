@@ -193,20 +193,37 @@
 	embed_chance = 50
 	embedded_ignore_throwspeed_threshold = TRUE
 
+/obj/item/arrow/rod/proc/reset_rod() //Doing this in case rod was not destroyed in process.
+	throwforce = initial(throwforce)
+	superheated = initial(superheated)
+	armour_penetration = initial(armour_penetration)
+	embed_chance = initial(embed_chance)
+	embedded_ignore_throwspeed_threshold = initial(embedded_ignore_throwspeed_threshold)
+
+/obj/item/arrow/rod/afterattack(atom/target, mob/user, proximity, params)
+	. = ..()
+	reset_rod()
+
 /obj/item/arrow/rod/removed()
 	if(superheated) // The rod has been superheated - we don't want it to be useable when removed from the bow.
 		visible_message("[src] shatters into a scattering of overstressed metal shards as it leaves the crossbow.")
 		qdel(src)
 
 /obj/item/arrow/rod/fire
-	name = "flame rod"
+	name = "Oiled bolt"
 	desc = "A sharpened metal rod that can be fired out of a crossbow. You can see cloth with oil substance on it."
 	throwforce = 10
 	icon = 'icons/obj/weapons/crossbow_rod.dmi'
 	icon_state = "oiled_rod"
 	resistance_flags = FIRE_PROOF
 	var/flamed = FALSE
+	var/fire_duration = 5 MINUTES
 	overlay_prefix = "oiled"
+
+/obj/item/arrow/rod/fire/examine(mob/user)
+	. = ..()
+	if(flamed)
+		. += span_notice("The bolt is on fire!")
 
 /datum/crafting_recipe/oiled_makeshift_rod
 	name = "Oiled makeshift rod"
@@ -239,9 +256,10 @@
 	if(user)
 		to_chat(user, span_warning("You fire up a rod!"))
 	flamed = TRUE
+	addtimer(CALLBACK(src, PROC_REF(fire_down)), fire_duration)
 
 /obj/item/arrow/rod/fire/proc/fire_down()
-	new /obj/item/arrow/rod(src.loc)
+	new /obj/item/arrow/rod(get_turf(src))
 	qdel(src)
 
 /obj/item/arrow/rod/fire/throw_impact(atom/A)
