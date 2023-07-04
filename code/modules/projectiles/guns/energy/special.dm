@@ -186,10 +186,20 @@
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
 	icon_state = "adv_plasmacutter"
+	item_state = "adv_plasmacutter"
 	modifystate = "adv_plasmacutter"
 	origin_tech = "combat=3;materials=4;magnets=3;plasmatech=4;engineering=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
 	force = 15
+
+/obj/item/gun/energy/plasmacutter/shotgun
+	name = "plasma cutter shotgun"
+	desc = "An industrial-grade heavy-duty mining shotgun."
+	icon_state = "miningshotgun"
+	item_state = "miningshotgun"
+	origin_tech = "combat=5;materials=54;magnets=5;plasmatech=6;engineering=5"
+	ammo_type = list(/obj/item/ammo_casing/energy/plasma/shotgun)
+	force = 10
 
 // Wormhole Projectors //
 /obj/item/gun/energy/wormhole_projector

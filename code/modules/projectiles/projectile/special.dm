@@ -273,6 +273,11 @@
 	damage = 10
 	range = 9
 
+/obj/item/projectile/plasma/shotgun
+	damage = 2
+	range = 5
+	dismemberment = 0
+
 /obj/item/projectile/energy/teleport
 	name = "teleportation burst"
 	icon_state = "bluespace"

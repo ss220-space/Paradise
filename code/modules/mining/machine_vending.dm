@@ -41,9 +41,12 @@
 		EQUIPMENT("Lazarus Capsule belt",			/obj/item/storage/belt/lazarus, 									200),
 		EQUIPMENT("Mining Hardsuit",				/obj/item/clothing/suit/space/hardsuit/mining, 						2000),
 		EQUIPMENT("Tracking Implant Kit",			/obj/item/storage/box/minertracker, 								600),
+		EQUIPMENT("Plasma Cutter",                  /obj/item/gun/energy/plasmacutter,                                  1500),
 	)
 	prize_list["Consumables"] = list(
 		EQUIPMENT("10 Marker Beacons", 				/obj/item/stack/marker_beacon/ten, 									100),
+		EQUIPMENT("30 Marker Beacons",              /obj/item/stack/marker_beacon/thirty,                               500),
+		EQUIPMENT("Pocket Fire Extinguisher",       /obj/item/extinguisher/mini,                                        200),
 		EQUIPMENT("Brute First-Aid Kit", 			/obj/item/storage/firstaid/brute,									600),
 		EQUIPMENT("Fire First-Aid Kit",				/obj/item/storage/firstaid/fire,									600),
 		EQUIPMENT("Whetstone",						/obj/item/whetstone,												400),
@@ -242,7 +245,7 @@
   * * redeemer - The person holding it
   */
 /obj/machinery/mineral/equipment_vendor/proc/redeem_voucher(obj/item/mining_voucher/voucher, mob/redeemer)
-	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Mining Conscription Kit")
+	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Plasma Cutter Kit", "Crusher Kit", "Mining Conscription Kit")
 
 	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in items
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
@@ -263,6 +266,8 @@
 			new /obj/item/extraction_pack(drop_location)
 			new /obj/item/fulton_core(drop_location)
 			new /obj/item/stack/marker_beacon/thirty(drop_location)
+		if("Plasma Cutter Kit")
+			new /obj/item/gun/energy/plasmacutter(drop_location)
 		if("Crusher Kit")
 			new /obj/item/extinguisher/mini(drop_location)
 			new /obj/item/twohanded/kinetic_crusher(drop_location)

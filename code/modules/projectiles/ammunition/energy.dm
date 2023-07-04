@@ -193,12 +193,19 @@
 	select_name = "plasma burst"
 	fire_sound = 'sound/weapons/pulse.ogg'
 	delay = 15
-	e_cost = 25
+	e_cost = 50 //30 shots
 
 /obj/item/ammo_casing/energy/plasma/adv
 	projectile_type = /obj/item/projectile/plasma/adv
 	delay = 10
-	e_cost = 10
+	e_cost = 25 //60 shots
+
+/obj/item/ammo_casing/energy/plasma/shotgun
+	projectile_type = /obj/item/projectile/plasma/shotgun
+	delay = 15
+	e_cost = 74 //~20 shots
+	pellets = 5
+	variance = 35
 
 /obj/item/ammo_casing/energy/wormhole
 	projectile_type = /obj/item/projectile/beam/wormhole
