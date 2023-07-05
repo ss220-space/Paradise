@@ -216,9 +216,19 @@
 	var/list/all_objectives = list()
 
 	for(var/datum/antagonist/antag in antag_datums)
-		all_objectives |= antag.objectives // Add all antag datum objectives.
+		if(QDELETED(antag))
+			continue
+
+		for(var/datum/objective/objective in objectives)
+			if(QDELETED(objective))
+				continue
+
+			all_objectives += objective // Add all antag datum objectives.
 
 	for(var/datum/objective/objective in objectives)
+		if(QDELETED(objective))
+			continue
+
 		all_objectives += objective // Add all mind objectives.
 
 	return all_objectives
