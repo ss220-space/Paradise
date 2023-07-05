@@ -174,7 +174,7 @@
 	throwforce = 20
 	w_class = WEIGHT_CLASS_NORMAL
 	sharp = TRUE
-	var/overlay_prefix = "" //used for crossbow render. Don't override it in children if you don't have an overlay icon for your bolt
+	var/overlay_prefix = "" //used for crossbow bolt overlay render. Don't override it in children if you don't have an overlay icon for your bolt
 
 /obj/item/arrow/proc/removed() //Helper for metal rods falling apart.
 	return
