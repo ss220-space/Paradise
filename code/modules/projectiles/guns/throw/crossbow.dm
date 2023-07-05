@@ -217,7 +217,7 @@
 	icon_state = "oiled_rod"
 	resistance_flags = FIRE_PROOF
 	var/flamed = FALSE
-	var/fire_duration = 5 MINUTES
+	var/fire_duration = 3 MINUTES
 	overlay_prefix = "oiled"
 
 /obj/item/arrow/rod/fire/examine(mob/user)
@@ -266,7 +266,6 @@
 	if(ishuman(A) && flamed)
 		var/mob/living/carbon/human = A
 		human.fire_act()
-		fire_down()
 
 /obj/item/arrow/rod/fire/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
 	. = ..()
