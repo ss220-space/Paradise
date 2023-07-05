@@ -48,12 +48,14 @@
 		return FALSE
 
 	var/num_traitors = 1
+	var/num_players = num_players()
 
 	if(config.traitor_scaling)
-		num_traitors = max(1, round((num_players())/(config.traitor_scaling))+1)
+		num_traitors = max(1, round(num_players / config.traitor_scaling) + 1)
 	else
-		num_traitors = max(1, min(num_players(), traitors_possible))
-		add_game_logs("Number of traitors chosen: [num_traitors]")
+		num_traitors = max(1, min(num_players, traitors_possible))
+
+	add_game_logs("Number of traitors chosen: [num_traitors]")
 
 	var/num_contractors = max(min_contractors, CEILING(num_traitors * contractor_traitor_ratio, 1))
 

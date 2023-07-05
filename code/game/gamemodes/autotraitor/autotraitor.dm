@@ -11,59 +11,14 @@
 	to_chat(world, "Syndicate traitors will be added to the round automagically as needed.</B>")
 
 
-/datum/game_mode/traitor/autotraitor/pre_setup()
-
-	if(config.protect_roles_from_antagonist)
-		restricted_jobs += protected_jobs
-
-	var/list/possible_traitors = get_players_for_role(ROLE_TRAITOR)
-
-	// Stop setup if no possible traitors
-	if(!length(possible_traitors))
-		return FALSE
-
-	var/num_players = 0
-	for(var/mob/new_player/player in GLOB.player_list)
-		if(player.client && player.ready)
-			num_players++
-
-	var/num_traitors = 1
-	var/max_traitors = 1
-	var/traitor_prob = 0
-	var/traitor_scale = 10
-	if(config.traitor_scaling)
-		traitor_scale = config.traitor_scaling
-	max_traitors = round(num_players / traitor_scale) + 1
-	traitor_prob = (num_players - (max_traitors - 1) * 10) * 10
-	add_game_logs("Number of traitors chosen: [max_traitors]")
-
-	if(config.traitor_scaling)
-		num_traitors = max_traitors - 1 + prob(traitor_prob)
-		add_game_logs("Players counted: [num_players]  Number of traitors chosen: [num_traitors]")
-		message_admins("Players counted: [num_players]  Number of traitors chosen: [num_traitors]")
-	else
-		num_traitors = max(1, min(num_players(), traitors_possible))
-
-	for(var/i = 0, i < num_traitors, i++)
-		var/datum/mind/traitor = pick(possible_traitors)
-		pre_traitors += traitor
-		possible_traitors.Remove(traitor)
-
-	for(var/datum/mind/traitor in pre_traitors)
-		if(!istype(traitor))
-			pre_traitors.Remove(traitor)
-			continue
-
-		traitor.special_role = SPECIAL_ROLE_TRAITOR
-		traitor.restricted_roles = restricted_jobs
-
-	return TRUE
-
-
 /datum/game_mode/traitor/autotraitor/post_setup()
 	..()
 	// better to use subsystem, but its good for now
 	addtimer(CALLBACK(src, PROC_REF(autotraitor_check)), 15 MINUTES, TIMER_UNIQUE | TIMER_LOOP | TIMER_STOPPABLE)
+
+
+/datum/game_mode/traitor/autotraitor/latespawn(mob/living/carbon/human/player)
+	autotraitor_check(max_traitors = 2)
 
 
 /datum/game_mode/traitor/autotraitor/proc/autotraitor_check(max_traitors = 1)
@@ -137,6 +92,3 @@
 	new_traitor.add_antag_datum(/datum/antagonist/traitor)
 	message_admins("[new_traitor.current.real_name] is the new Traitor.")
 
-
-/datum/game_mode/traitor/autotraitor/latespawn(mob/living/carbon/human/player)
-	autotraitor_check(max_traitors = 2)
