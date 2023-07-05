@@ -258,8 +258,7 @@
 	flamed = TRUE
 	addtimer(CALLBACK(src, PROC_REF(fire_down)), fire_duration)
 
-/obj/item/arrow/rod/fire/proc/fire_down()
-	new /obj/item/arrow/rod(get_turf(src))
+/obj/item/arrow/rod/fire/proc/fire_down() //burn it!
 	qdel(src)
 
 /obj/item/arrow/rod/fire/throw_impact(atom/A)
