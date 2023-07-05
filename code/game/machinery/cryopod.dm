@@ -412,10 +412,6 @@
 		if(occupant.mind.objectives.len)
 			occupant.mind.objectives.Cut()
 			occupant.mind.special_role = null
-		else
-			if(SSticker.mode.name == "AutoTraitor")
-				var/datum/game_mode/traitor/autotraitor/current_mode = SSticker.mode
-				current_mode.possible_traitors.Remove(occupant)
 
 	// Delete them from datacore.
 
