@@ -243,7 +243,7 @@
 		antag.assigned_targets -= "[objective.target]"
 		if(istype(objective, /datum/objective/steal))
 			var/datum/objective/steal/steal_objective = objective
-			antag.assigned_targets -= "[steal_objective.steal_target]"
+			antag.assigned_targets -= "[steal_objective.steal_target.name]"
 	objectives -= objective
 	qdel(objective)
 

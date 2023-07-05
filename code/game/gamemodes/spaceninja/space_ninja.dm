@@ -265,10 +265,10 @@
 					var/datum/objective/steal/steal_objective = new
 					steal_objective.owner = ninja_mind
 					steal_objective.find_target()
-					if("[steal_objective.steal_target]" in ninja_datum.assigned_targets)
+					if("[steal_objective.steal_target.name]" in ninja_datum.assigned_targets)
 						steal_objective.find_target()
 					else if(steal_objective.steal_target)
-						ninja_datum.assigned_targets.Add("[steal_objective.steal_target]")
+						ninja_datum.assigned_targets.Add("[steal_objective.steal_target.name]")
 					ninja_mind.objectives += steal_objective
 
 	//Выжить//
@@ -328,10 +328,10 @@
 		var/datum/objective/steal/steal_objective = new
 		steal_objective.owner = ninja_mind
 		steal_objective.find_target()
-		if("[steal_objective.steal_target]" in ninja_datum.assigned_targets)
+		if("[steal_objective.steal_target.name]" in ninja_datum.assigned_targets)
 			steal_objective.find_target()
 		else if(steal_objective.steal_target)
-			ninja_datum.assigned_targets.Add("[steal_objective.steal_target]")
+			ninja_datum.assigned_targets.Add("[steal_objective.steal_target.name]")
 		ninja_mind.objectives += steal_objective
 
 	//Нанесение увечий. Цели не будет если target совпадает с прошлыми.
@@ -404,10 +404,10 @@
 	var/datum/objective/steal/steal_objective = new
 	steal_objective.owner = ninja_mind
 	steal_objective.find_target()
-	if("[steal_objective.steal_target]" in ninja_datum.assigned_targets)
+	if("[steal_objective.steal_target.name]" in ninja_datum.assigned_targets)
 		steal_objective.find_target()
 	else if(steal_objective.steal_target)
-		ninja_datum.assigned_targets.Add("[steal_objective.steal_target]")
+		ninja_datum.assigned_targets.Add("[steal_objective.steal_target.name]")
 	ninja_mind.objectives += steal_objective
 
 	//Банальное убийство

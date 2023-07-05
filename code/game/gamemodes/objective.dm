@@ -475,14 +475,14 @@ GLOBAL_LIST_EMPTY(all_objectives)
 	var/list/theft_types = temp.Copy()
 	while(!steal_target && length(theft_types))
 		var/thefttype = pick_n_take(theft_types)
-		var/datum/theft_objective/O = new thefttype
-		if((owner.assigned_role in O.protected_jobs))
+		var/datum/theft_objective/new_theft_objective = new thefttype
+		if((owner.assigned_role in new_theft_objective.protected_jobs))
 			continue
 
-		steal_target = O
-		explanation_text = "Украсть [steal_target]. Последнее местоположение было в [get_location()]. "
-		if(length(O.protected_jobs) && O.job_possession)
-			explanation_text += "Оно также может находиться у [jointext(O.protected_jobs, ", ")]."
+		steal_target = new_theft_objective
+		explanation_text = "Украсть [steal_target.name]. Последнее местоположение было в [get_location()]. "
+		if(length(new_theft_objective.protected_jobs) && new_theft_objective.job_possession)
+			explanation_text += "Оно также может находиться у [jointext(new_theft_objective.protected_jobs, ", ")]."
 		if(steal_target.special_equipment)
 			give_kit(steal_target.special_equipment)
 
