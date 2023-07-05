@@ -101,22 +101,23 @@
 
 
 /datum/game_mode/proc/auto_declare_completion_traitor()
-	if(traitors.len)
+	if(length(traitors))
 		var/text = "<FONT size = 2><B>The traitors were:</B></FONT><br>"
 		for(var/datum/mind/traitor in traitors)
 			var/traitorwin = TRUE
 			text += printplayer(traitor) + "<br>"
 
 			var/TC_uses = 0
-			var/uplink_true = 0
+			var/used_uplink = FALSE
 			var/purchases = ""
-			for(var/obj/item/uplink/H in GLOB.world_uplinks)
-				if(H && H.uplink_owner && H.uplink_owner==traitor.key)
-					TC_uses += H.used_TC
-					uplink_true=1
-					purchases += H.purchase_log
+			for(var/obj/item/uplink/uplink in GLOB.world_uplinks)
+				if(uplink?.uplink_owner && uplink.uplink_owner == traitor.key)
+					TC_uses += uplink.used_TC
+					purchases += uplink.purchase_log
+					used_uplink = TRUE
 
-			if(uplink_true) text += " (used [TC_uses] TC) [purchases]"
+			if(used_uplink)
+				text += " (used [TC_uses] TC) [purchases]"
 
 			var/all_objectives = traitor.get_all_objectives()
 
@@ -126,15 +127,15 @@
 					if(objective.check_completion())
 						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
 						if(istype(objective, /datum/objective/steal))
-							var/datum/objective/steal/S = objective
-							SSblackbox.record_feedback("nested tally", "traitor_steal_objective", 1, list("Steal [S.steal_target]", "SUCCESS"))
+							var/datum/objective/steal/steal_objective = objective
+							SSblackbox.record_feedback("nested tally", "traitor_steal_objective", 1, list("Steal [steal_objective.steal_target]", "SUCCESS"))
 						else
 							SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "SUCCESS"))
 					else
 						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
 						if(istype(objective, /datum/objective/steal))
-							var/datum/objective/steal/S = objective
-							SSblackbox.record_feedback("nested tally", "traitor_steal_objective", 1, list("Steal [S.steal_target]", "FAIL"))
+							var/datum/objective/steal/steal_objective = objective
+							SSblackbox.record_feedback("nested tally", "traitor_steal_objective", 1, list("Steal [steal_objective.steal_target]", "FAIL"))
 						else
 							SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "FAIL"))
 						traitorwin = FALSE
@@ -150,21 +151,19 @@
 			if(istype(contractor) && contractor.contractor_uplink)
 				var/count = 1
 				var/earned_tc = contractor.contractor_uplink.hub.reward_tc_paid_out
-				for(var/c in contractor.contractor_uplink.hub.contracts)
-					var/datum/syndicate_contract/C = c
+				for(var/datum/syndicate_contract/s_contract in contractor.contractor_uplink.hub.contracts)
 					// Locations
 					var/locations = list()
-					for(var/a in C.contract.candidate_zones)
-						var/area/A = a
-						locations += (A == C.contract.extraction_zone ? "<b><u>[A.map_name]</u></b>" : A.map_name)
+					for(var/area/c_area in s_contract.contract.candidate_zones)
+						locations += (c_area == s_contract.contract.extraction_zone ? "<b><u>[c_area.map_name]</u></b>" : c_area.map_name)
 					var/display_locations = english_list(locations, and_text = " or ")
 					// Result
 					var/result = ""
-					if(C.status == CONTRACT_STATUS_COMPLETED)
+					if(s_contract.status == CONTRACT_STATUS_COMPLETED)
 						result = "<font color='green'><B>Success!</B></font>"
-					else if(C.status != CONTRACT_STATUS_INACTIVE)
+					else if(s_contract.status != CONTRACT_STATUS_INACTIVE)
 						result = "<font color='red'>Fail.</font>"
-					text += "<br><font color='orange'><B>Contract #[count]</B></font>: Kidnap and extract [C.target_name] at [display_locations]. [result]"
+					text += "<br><font color='orange'><B>Contract #[count]</B></font>: Kidnap and extract [s_contract.target_name] at [display_locations]. [result]"
 					count++
 				text += "<br><font color='orange'><B>[earned_tc] TC were earned from the contracts.</B></font>"
 
