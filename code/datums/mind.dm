@@ -219,7 +219,7 @@
 		if(QDELETED(antag))
 			continue
 
-		for(var/datum/objective/objective in objectives)
+		for(var/datum/objective/objective in antag.objectives)
 			if(QDELETED(objective))
 				continue
 
