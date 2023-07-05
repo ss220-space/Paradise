@@ -105,13 +105,13 @@
 			to_chat(src, "<span class='warning'>Намордник препятствует рвоте!</span>")
 		return FALSE
 	if(stun)
-		Stun(4)
+		Stun(8 SECONDS)
 	if(nutrition < 100 && !blood)
 		if(message)
 			visible_message("<span class='warning'>[src.name] сухо кашля[pluralize_ru(src.gender,"ет","ют")]!</span>", \
 							"<span class='userdanger'>Вы пытаетесь проблеваться, но в вашем желудке пусто!</span>")
 		if(stun)
-			Weaken(10)
+			Weaken(20 SECONDS)
 	else
 		if(message)
 			visible_message("<span class='danger'>[src.name] блю[pluralize_ru(src.gender,"ет","ют")]!</span>", \
@@ -150,52 +150,38 @@
 		M.forceMove(drop_location())
 		visible_message("<span class='danger'>[M] вырыва[pluralize_ru(M.gender,"ет","ют")]ся из [src.name]!</span>")
 
-/mob/living/carbon/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
-	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage)
-	if(status_flags & GODMODE)	//godmode
-		return FALSE
-	if(NO_SHOCK in mutations) //shockproof
-		return FALSE
-	if(tesla_shock && tesla_ignore)
-		return FALSE
-	shock_damage *= siemens_coeff
-	if(dna && dna.species)
-		shock_damage *= dna.species.siemens_coeff
-	if(shock_damage < 1 && !override)
-		return FALSE
-	if(reagents.has_reagent("teslium"))
-		shock_damage *= 1.5 //If the mob has teslium in their body, shocks are 50% more damaging!
-	if(illusion)
-		adjustStaminaLoss(shock_damage)
-	else
-		take_overall_damage(0, shock_damage, TRUE, used_weapon = "Electrocution")
-		shock_internal_organs(shock_damage)
-	visible_message(
-		"<span class='danger'>[src.name] получил[genderize_ru(src.gender,"","а","о","и")] разряд током [source]!</span>",
-		"<span class='userdanger'>Вы чувствуете электрический разряд проходящий через ваше тело!</span>",
-		"<span class='italics'>Вы слышите сильный электрический треск.</span>")
-	AdjustJitter(1000) //High numbers for violent convulsions
-	do_jitter_animation(jitteriness)
-	AdjustStuttering(2)
-	if((!tesla_shock || (tesla_shock && siemens_coeff > 0.5)) && stun)
-		Stun(2)
-	spawn(20)
-		AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
-		if((!tesla_shock || (tesla_shock && siemens_coeff > 0.5)) && stun)
-			Stun(2)
-			Weaken(2)
-	if(shock_damage > 200)
-		src.visible_message(
-			"<span class='danger'>[src.name] был[genderize_ru(src.gender,"","а","о","и")] прожжен[genderize_ru(src.gender,"","а","о","ы")] дугой [source]!</span>",
-			"<span class='userdanger'>Дуга [source] вспыхивает и ударяет вас электрическим током!</span>",
-			"<span class='italics'>Вы слышите треск похожий на молнию!</span>")
-		playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
-		explosion(loc, -1, 0, 2, 2, cause = "[source] over electrocuted [name]")
+///Adds to the parent by also adding functionality to propagate shocks through pulling and doing some fluff effects.
+/mob/living/carbon/electrocute_act(shock_damage, obj/source, siemens_coeff, safety, override, tesla_shock, illusion, stun)
+	. = ..()
+	if(!.)
+		return
+	//Propagation through pulling
+	var/list/shocking_queue = list()
+	if(iscarbon(pulling) && source != pulling)
+		shocking_queue += pulling
+	if(iscarbon(pulledby) && source != pulledby)
+		shocking_queue += pulledby
+	if(iscarbon(buckled) && source != buckled)
+		shocking_queue += buckled
+	for(var/mob/living/carbon/carried in buckled_mobs)
+		if(source != carried)
+			shocking_queue += carried
+	//Found our victims, now lets shock them all
+	for(var/victim in shocking_queue)
+		var/mob/living/carbon/C = victim
+		C.electrocute_act(shock_damage * 0.75, src, 1)
+	//Stun
+	Stun(4 SECONDS)
+	//Jitter and other fluff.
+	AdjustJitter(2000 SECONDS)
+	AdjustStuttering(4 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(secondary_shock)), 2 SECONDS)
+	return shock_damage
 
-	if(override)
-		return override
-	else
-		return shock_damage
+///Called slightly after electrocute act to reduce jittering and apply a secondary stun.
+/mob/living/carbon/proc/secondary_shock()
+	AdjustJitter(-2000 SECONDS, bound_lower = 20 SECONDS) //Still jittery, but vastly less
+	Weaken(4 SECONDS)
 
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
@@ -212,12 +198,12 @@
 					var/mob/living/carbon/human/H = src
 					if(H.w_uniform)
 						H.w_uniform.add_fingerprint(M)
-				AdjustSleeping(-5)
-				if(sleeping == 0)
+				AdjustSleeping(-10 SECONDS)
+				if(!AmountSleeping())
 					StopResting()
-				AdjustParalysis(-3)
-				AdjustStunned(-3)
-				AdjustWeakened(-3)
+				AdjustParalysis(-6 SECONDS)
+				AdjustStunned(-6 SECONDS)
+				AdjustWeakened(-6 SECONDS)
 				adjustStaminaLoss(-10)
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				if(!player_logged)
@@ -327,7 +313,7 @@
 		if(visual)
 			return
 		if(weakeyes)
-			Stun(2)
+			Stun(4 SECONDS)
 
 		var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
 		if(!E || (E && E.weld_proof))
@@ -361,8 +347,8 @@
 				E.receive_damage(rand(12, 16) + extra_damage, 1)
 
 		if(E.damage > E.min_bruised_damage)
-			AdjustEyeBlind(damage)
-			AdjustEyeBlurry(damage * rand(3, 6))
+			AdjustEyeBlind(damage STATUS_EFFECT_CONSTANT)
+			AdjustEyeBlurry(damage * rand(6 SECONDS, 12 SECONDS))
 
 			if(E.damage > (E.min_bruised_damage + E.min_broken_damage) / 2)
 				if(!E.is_robotic())
@@ -423,7 +409,7 @@
 				hurt = FALSE*/
 	if(hit_atom.density && isturf(hit_atom))
 		if(hurt)
-			Weaken(1)
+			Weaken(2 SECONDS)
 			take_organ_damage(10)
 	if(iscarbon(hit_atom) && hit_atom != src)
 		var/mob/living/carbon/victim = hit_atom
@@ -432,8 +418,8 @@
 		if(hurt)
 			victim.take_organ_damage(10)
 			take_organ_damage(10)
-			victim.Weaken(1)
-			Weaken(1)
+			victim.Weaken(2 SECONDS)
+			Weaken(2 SECONDS)
 			visible_message("<span class='danger'>[src.name] вреза[pluralize_ru(src.gender,"ет","ют")]ся в [victim.name], сбивая друг друга с ног!</span>", "<span class='userdanger'>Вы жестко врезаетесь в [victim.name]!</span>")
 		playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
 
@@ -557,7 +543,7 @@
 
 /mob/living/carbon/resist_fire()
 	fire_stacks -= 5
-	Weaken(3, 1, 1) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
+	Weaken(6 SECONDS, TRUE) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
 	update_canmove()
 	spin(32,2)
 	visible_message("<span class='danger'>[src.name] ката[pluralize_ru(src.gender,"ет","ют")]ся по полу, пытаясь потушиться!</span>", \
@@ -595,7 +581,7 @@
 			stat(null, "Wax: [glands.wax]")
 
 
-/mob/living/carbon/proc/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, grav_ignore = FALSE, slipVerb = "поскользнулись")
+/mob/living/carbon/proc/slip(description, weaken, tilesSlipped, walkSafely, slipAny, grav_ignore = FALSE, slipVerb = "поскользнулись")
 	if(flying || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
 		return FALSE
 
@@ -629,7 +615,6 @@
 	playsound(loc, 'sound/misc/slip.ogg', 50, 1, -3)
 	// Something something don't run with scissors
 	moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
-	Stun(stun)
 	Weaken(weaken)
 	return TRUE
 

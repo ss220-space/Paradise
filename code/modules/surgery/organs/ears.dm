@@ -61,7 +61,7 @@
 	if(ears)
 		ears.AdjustEarDamage(ddmg, ddeaf)
 
-/mob/living/carbon/MinimumDeafTicks(value)
+/mob/living/carbon/proc/MinimumDeafTicks(value)
 	var/obj/item/organ/internal/ears/ears = get_int_organ(/obj/item/organ/internal/ears)
 	if(ears)
 		ears.MinimumDeafTicks(value)

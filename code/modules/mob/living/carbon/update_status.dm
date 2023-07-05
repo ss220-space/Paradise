@@ -5,7 +5,7 @@
 		if(health <= HEALTH_THRESHOLD_DEAD && check_death_method())
 			death()
 			return
-		if(paralysis || sleeping || (check_death_method() && getOxyLoss() > 50) || (status_flags & FAKEDEATH) || health <= HEALTH_THRESHOLD_CRIT && check_death_method())
+		if(IsParalyzed() || IsSleeping() || (check_death_method() && getOxyLoss() > 50) || (status_flags & FAKEDEATH) || health <= HEALTH_THRESHOLD_CRIT && check_death_method())
 			if(stat == CONSCIOUS)
 				KnockOut()
 		else

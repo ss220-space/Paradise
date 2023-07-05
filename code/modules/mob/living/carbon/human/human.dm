@@ -259,7 +259,7 @@
 			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
 				AdjustEarDamage(30, 120)
 			if(prob(70) && !shielded)
-				Paralyse(10)
+				Paralyse(20 SECONDS)
 
 		if(3)
 			b_loss += 30
@@ -283,7 +283,7 @@
 			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
 				AdjustEarDamage(15, 60)
 			if(prob(50) && !shielded)
-				Paralyse(10)
+				Paralyse(20 SECONDS)
 
 	take_overall_damage(b_loss,f_loss, TRUE, used_weapon = "Explosive Blast")
 
@@ -1597,7 +1597,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(H.health <= HEALTH_THRESHOLD_CRIT)
 			H.adjustOxyLoss(-15)
 			H.SetLoseBreath(0)
-			H.AdjustParalysis(-1)
+			H.AdjustParalysis(-2 SECONDS)
 			H.updatehealth("cpr")
 			visible_message("<span class='danger'>[src] performs CPR on [H.name]!</span>", "<span class='notice'>You perform CPR on [H.name].</span>")
 

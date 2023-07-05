@@ -154,6 +154,9 @@
 	. = ..()
 	if(stat == DEAD)
 		. += "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>"
+		return
+	if(IsSleeping())
+		. += "<span class='notice'>Upon closer examination, [p_they()] appear[p_s()] to be asleep.</span>"
 
 /mob/living/simple_animal/updatehealth(reason = "none given", should_log = FALSE)
 	..()
@@ -183,8 +186,11 @@
 		if(health <= 0)
 			death()
 		else
-			WakeUp()
-	..()
+			if(IsSleeping() && (stat == CONSCIOUS))
+				KnockOut()
+			else
+				WakeUp()
+	med_hud_set_status()
 
 /mob/living/simple_animal/proc/handle_automated_action()
 	set waitfor = FALSE
@@ -535,7 +541,7 @@
 		. |= pcollar.GetAccess()
 
 /mob/living/simple_animal/update_canmove(delay_action_updates = 0)
-	if(paralysis || stunned || IsWeakened() || stat || resting)
+	if(IsParalyzed() || IsStunned() || IsWeakened() || stat || resting)
 		drop_r_hand()
 		drop_l_hand()
 		canmove = 0
