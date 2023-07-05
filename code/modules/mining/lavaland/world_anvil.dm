@@ -52,7 +52,8 @@
 	var/success = FALSE
 	switch(I.type)
 		if(/obj/item/magmite)
-			if(do_after(user,10 SECONDS, target = src))
+			playsound(src, 'sound/effects/anvil_start.ogg', 50)
+			if(do_after(user, 7 SECONDS, target = src))
 				new /obj/item/magmite_parts(get_turf(src))
 				qdel(I)
 				to_chat(user, "You carefully forge the rough plasma magmite into plasma magmite upgrade parts.")
@@ -63,7 +64,8 @@
 			if(!parts.inert)
 				to_chat(user,"The magmite upgrade parts are already glowing and usable!")
 				return
-			if(do_after(user,5 SECONDS, target = src))
+			playsound(src,'sound/effects/anvil_end.ogg', 50)
+			if(do_after(user, 3 SECONDS, target = src))
 				parts.restore()
 				to_chat(user, "You successfully reheat the magmite upgrade parts. They are now glowing and usable again.")
 	if(!success)

@@ -36,3 +36,25 @@
 	desc = initial(desc)
 	addtimer(CALLBACK(src, PROC_REF(go_inert)), 10 MINUTES)
 
+/obj/item/magmite_parts/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(inert)
+		to_chat(span_warning("[src] appears inert! Perhaps the World Anvil can restore it!"))
+		return
+	switch(target.type)
+		if(/obj/item/gun/energy/kinetic_accelerator/experimental)
+			var/obj/item/gun/energy/kinetic_accelerator/gun = target
+			if(gun.bayonet)
+				gun.bayonet.forceMove(drop_location())
+				gun.clear_bayonet()
+			if(gun.gun_light)
+				for(var/obj/item/flashlight/seclite/S in gun)
+					S.loc = get_turf(user)
+					S.update_brightness(user)
+			for(var/obj/item/borg/upgrade/modkit/kit in gun.modkits)
+				kit.uninstall(gun)
+			qdel(gun)
+			var/obj/item/gun/energy/kinetic_accelerator/mega/newgun = new(get_turf(user))
+			user.put_in_hands(newgun)
+			to_chat(user, span_notice("Harsh tendrils wrap around the kinetic accelerator, merging the parts and kinetic accelerator to form a mega kinetic accelerator."))
+			qdel(src)
+

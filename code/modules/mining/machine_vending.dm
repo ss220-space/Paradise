@@ -68,6 +68,7 @@
 		EQUIPMENT("KA Minebot Passthrough", 		/obj/item/borg/upgrade/modkit/minebot_passthrough, 					100),
 		EQUIPMENT("KA Range Increase", 				/obj/item/borg/upgrade/modkit/range, 								1000),
 		EQUIPMENT("KA Super Chassis", 				/obj/item/borg/upgrade/modkit/chassis_mod, 							250),
+		EQUIPMENT("KA Hardness Increase",           /obj/item/borg/upgrade/modkit/hardness                              1200),
 		EQUIPMENT("KA White Tracer Rounds", 		/obj/item/borg/upgrade/modkit/tracer, 								100),
 	)
 	prize_list["Digging Tools"] = list(
