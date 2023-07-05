@@ -124,9 +124,10 @@
 		D.forcesay(GLOB.hit_appends)
 	return TRUE
 
-/datum/martial_art/proc/objective_damage(var/mob/living/user, var/mob/living/target, var/damage, var/damage_type)
-	if(target.mind && user?.mind?.objectives)
-		for(var/datum/objective/pain_hunter/objective in user.mind.objectives)
+/datum/martial_art/proc/objective_damage(mob/living/user, mob/living/target, damage, damage_type)
+	var/all_objectives = user?.mind?.get_all_objectives()
+	if(target.mind && all_objectives)
+		for(var/datum/objective/pain_hunter/objective in all_objectives)
 			if(target.mind == objective.target)
 				objective.take_damage(damage, damage_type)
 

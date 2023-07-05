@@ -1,21 +1,37 @@
 GLOBAL_LIST_EMPTY(all_objectives)
 
 /datum/objective
-	var/datum/mind/owner = null			//Who owns the objective.
-	var/explanation_text = "Nothing"	//What that person is supposed to do.
-	var/datum/mind/target = null		//If they are focused on a particular person.
-	var/target_amount = 0				//If they are focused on a particular number. Steal objectives have their own counter.
-	var/completed = 0					//currently only used for custom objectives.
-	var/martyr_compatible = 0			//If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
-	var/check_cryo = TRUE				 //if the objective goes cryo, do we check for a new objective or ignore it
+	/**
+	 * Proper name of the objective. Not player facing, only shown to admins when adding objectives.
+	 * Leave as null (or override to null) if you don't want admins to see that objective as a viable one to add (such as the mindslave objective).
+	 */
+	var/name
+	/// Owner of the objective.
+	var/datum/mind/owner
+	/// The target of the objective.
+	var/datum/mind/target
+	/// What the owner is supposed to do to complete the objective.
+	var/explanation_text = "Nothing"
+	/// If the objective should have `find_target()` called for it.
+	var/needs_target = TRUE
+	/// If they are focused on a particular number. Steal objectives have their own counter.
+	var/target_amount = 0
+	/// If the objective has been completed.
+	var/completed = 0
+	/// If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
+	var/martyr_compatible = 0
+	/// If the objective goes cryo, do we check for a new objective or ignore it
+	var/check_cryo = TRUE
 
 /datum/objective/New(text)
 	GLOB.all_objectives += src
 	if(text)
 		explanation_text = text
 
-/datum/objective/Destroy()
+/datum/objective/Destroy(force, ...)
 	GLOB.all_objectives -= src
+	owner = null
+	target = null
 	return ..()
 
 /datum/objective/proc/check_completion()
@@ -24,7 +40,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 /datum/objective/proc/is_invalid_target(datum/mind/possible_target)
 	if(possible_target == owner)
 		return TARGET_INVALID_IS_OWNER
-	for(var/datum/objective/objective in owner.objectives)
+	for(var/datum/objective/objective in owner.get_all_objectives())
 		if(istype(objective) && objective.target == possible_target)
 			return TARGET_INVALID_IS_TARGET
 	if(!ishuman(possible_target.current))
@@ -43,16 +59,22 @@ GLOBAL_LIST_EMPTY(all_objectives)
 		return TARGET_INVALID_EVENT
 
 
-/datum/objective/proc/find_target()
+/datum/objective/proc/find_target(list/target_blacklist)
+	if(!needs_target)
+		return
+
 	var/list/possible_targets = list()
 	for(var/datum/mind/possible_target in SSticker.minds)
-		if(is_invalid_target(possible_target))
+		if(is_invalid_target(possible_target) || (possible_target in target_blacklist))
 			continue
-		possible_targets[possible_target.assigned_role] += list(possible_target)
+		//possible_targets[possible_target.assigned_role] += list(possible_target)
+		possible_targets += possible_target
 
 	if(possible_targets.len > 0)
-		var/target_role = pick(possible_targets)
-		target = pick(possible_targets[target_role])
+		//var/target_role = pick(possible_targets)
+		//target = pick(possible_targets[target_role])
+		target = pick(possible_targets)
+
 
 /**
   * Called when the objective's target goes to cryo.
@@ -74,8 +96,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 	find_target()
 	if(!target)
 		GLOB.all_objectives -= src
-		owner?.objectives -= src
-		qdel(src)
+		owner?.remove_objective(src)
 	owner?.announce_objectives()
 
 /datum/objective/assassinate
@@ -101,7 +122,6 @@ GLOBAL_LIST_EMPTY(all_objectives)
 			return TRUE
 		return FALSE
 	return TRUE
-
 
 
 /datum/objective/mutiny
@@ -206,7 +226,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 
 /datum/objective/protect/find_target()
 	var/list/datum/mind/temp_victims = SSticker.mode.victims.Copy()
-	for(var/datum/objective/objective in owner.objectives)
+	for(var/datum/objective/objective in owner.get_all_objectives())
 		temp_victims.Remove(objective.target)
 	temp_victims.Remove(owner)
 
@@ -234,14 +254,30 @@ GLOBAL_LIST_EMPTY(all_objectives)
 		return TRUE
 	return FALSE
 
-/datum/objective/protect/mindslave //subtype for mindslave implants
+
+/datum/objective/protect/mindslave //subytpe for mindslave implants
+	needs_target = FALSE // To be clear, this objective should have a target, but it will always be manually set to the mindslaver through the mindslave antag datum.
+
+
+// This objective should only be given to a single owner. We can use `owner` and not `get_owners()`.
+/datum/objective/protect/mindslave/on_target_cryo()
+	if(owner?.current)
+		SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
+		owner.remove_antag_datum(/datum/antagonist/mindslave)
+		to_chat(owner.current, "<BR><span class='userdanger'>You notice that your master has entered cryogenic storage, and revert to your normal self.</span>")
+		log_admin("[key_name(owner.current)]'s mindslave master has cryo'd, and is no longer a mindslave.")
+		message_admins("[key_name_admin(owner.current)]'s mindslave master has cryo'd, and is no longer a mindslave.") //Since they were on antag hud earlier, this feels important to log
+		qdel(src)
+
 
 /datum/objective/protect/contractor //subtype for support units
 
 /datum/objective/hijack
-	martyr_compatible = 0 //Technically you won't get both anyway.
+	name = "Hijack"
+	martyr_compatible = FALSE //Technically you won't get both anyway.
 	explanation_text = "Hijack the shuttle by escaping on it with no loyalist Nanotrasen crew on board and free. \
 	Syndicate agents, other enemies of Nanotrasen, cyborgs, pets, and cuffed/restrained hostages may be allowed on the shuttle alive."
+	needs_target = FALSE
 
 /datum/objective/hijack/check_completion()
 	if(!owner.current || owner.current.stat)
@@ -258,8 +294,10 @@ GLOBAL_LIST_EMPTY(all_objectives)
 	return SSshuttle.emergency.is_hijacked()
 
 /datum/objective/hijackclone
+	name = "Hijack (with clones)"
 	explanation_text = "Hijack the shuttle by ensuring only you (or your copies) escape."
-	martyr_compatible = 0
+	martyr_compatible = FALSE
+	needs_target = FALSE
 
 /datum/objective/hijackclone/check_completion()
 	if(!owner.current)
@@ -289,8 +327,10 @@ GLOBAL_LIST_EMPTY(all_objectives)
 	return FALSE
 
 /datum/objective/block
+	name = "Silicon supremacy"
 	explanation_text = "Do not allow any lifeforms, be it organic or synthetic to escape on the shuttle alive. AIs, Cyborgs, Maintenance drones, and pAIs are not considered alive."
-	martyr_compatible = 1
+	martyr_compatible = TRUE
+	needs_target = FALSE
 
 /datum/objective/block/check_completion()
 	if(!istype(owner.current, /mob/living/silicon))
@@ -315,7 +355,9 @@ GLOBAL_LIST_EMPTY(all_objectives)
 	return TRUE
 
 /datum/objective/escape
+	name = "Escape"
 	explanation_text = "Escape on the shuttle or an escape pod alive and free."
+	needs_target = FALSE
 
 /datum/objective/escape/check_completion()
 	if(issilicon(owner.current))
@@ -376,7 +418,9 @@ GLOBAL_LIST_EMPTY(all_objectives)
 	return FALSE
 
 /datum/objective/die
+	name = "Glorious Death"
 	explanation_text = "Die a glorious death."
+	needs_target = FALSE
 
 /datum/objective/die/check_completion()
 	if(!owner.current || owner.current.stat == DEAD || isbrain(owner.current))
@@ -386,9 +430,11 @@ GLOBAL_LIST_EMPTY(all_objectives)
 	return FALSE
 
 
-
 /datum/objective/survive
+	name = "Survive"
 	explanation_text = "Stay alive until the end."
+	needs_target = FALSE
+
 
 /datum/objective/survive/check_completion()
 	if(!owner.current || owner.current.stat == DEAD || isbrain(owner.current))
@@ -398,12 +444,15 @@ GLOBAL_LIST_EMPTY(all_objectives)
 	return TRUE
 
 /datum/objective/nuclear
+	name = "Nuke station"
 	explanation_text = "Destroy the station with a nuclear device."
-	martyr_compatible = 1
+	martyr_compatible = TRUE
+	needs_target = FALSE
 
 /datum/objective/steal
+	name = "Steal Item"
 	var/datum/theft_objective/steal_target
-	martyr_compatible = 0
+	martyr_compatible = FALSE
 	var/theft_area
 	var/type_theft_flag = 0
 
@@ -420,29 +469,28 @@ GLOBAL_LIST_EMPTY(all_objectives)
 			return "[theft_area]"
 	return "неизвестной зоне"
 
-/datum/objective/steal/find_target()
-	var/list/valid_theft_objectives = list()
-	for(var/thefttype in get_theft_list_objectives(type_theft_flag))
-		for(var/datum/objective/steal/objective in owner.objectives)
-			if(istype(objective) && istype(objective.steal_target, thefttype))
-				continue
-		var/datum/theft_objective/O = new thefttype
-		if(owner.assigned_role in O.protected_jobs)
-			continue
-		valid_theft_objectives += O
-	if(length(valid_theft_objectives))
-		var/datum/theft_objective/O = pick(valid_theft_objectives)
-		steal_target = O
 
+/datum/objective/steal/find_target()
+	var/list/temp = get_theft_list_objectives(type_theft_flag)
+	var/list/theft_types = temp.Copy()
+	while(!steal_target && length(theft_types))
+		var/thefttype = pick_n_take(theft_types)
+		var/datum/theft_objective/O = new thefttype
+		if((owner.assigned_role in O.protected_jobs))
+			continue
+
+		steal_target = O
 		explanation_text = "Украсть [steal_target]. Последнее местоположение было в [get_location()]. "
-		if(islist(O.protected_jobs) && O.protected_jobs.len && O.job_possession)
+		if(length(O.protected_jobs) && O.job_possession)
 			explanation_text += "Оно также может находиться у [jointext(O.protected_jobs, ", ")]."
 		if(steal_target.special_equipment)
 			give_kit(steal_target.special_equipment)
+
 		return TRUE
 
 	explanation_text = "Free Objective."
 	return FALSE
+
 
 /datum/objective/steal/proc/select_target()
 	var/list/possible_items_all = get_theft_list_objectives(type_theft_flag)+"custom"
@@ -507,6 +555,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 
 /datum/objective/steal/exchange
 	martyr_compatible = 0
+	needs_target = FALSE
 
 /datum/objective/steal/exchange/proc/set_faction(var/faction,var/otheragent)
 	target = otheragent
@@ -529,6 +578,8 @@ GLOBAL_LIST_EMPTY(all_objectives)
 	steal_target = targetinfo
 
 /datum/objective/download
+	needs_target = FALSE
+
 /datum/objective/download/proc/gen_amount_goal()
 	target_amount = rand(10,20)
 	explanation_text = "Download [target_amount] research levels."
@@ -539,8 +590,9 @@ GLOBAL_LIST_EMPTY(all_objectives)
 	return FALSE
 
 
-
 /datum/objective/capture
+	needs_target = FALSE
+
 /datum/objective/capture/proc/gen_amount_goal()
 	target_amount = rand(5,10)
 	explanation_text = "Accumulate [target_amount] capture points."
@@ -551,9 +603,11 @@ GLOBAL_LIST_EMPTY(all_objectives)
 	return FALSE
 
 
-
-
 /datum/objective/absorb
+	name = "Absorb DNA"
+	needs_target = FALSE
+
+
 /datum/objective/absorb/proc/gen_amount_goal(var/lowbound = 4, var/highbound = 6)
 	target_amount = rand (lowbound,highbound)
 	if(SSticker)
@@ -604,7 +658,9 @@ GLOBAL_LIST_EMPTY(all_objectives)
 	return TRUE
 
 /datum/objective/steal_five_of_type
+	name = "Steal Five Items"
 	explanation_text = "Steal at least five items!"
+	needs_target = FALSE
 	var/list/wanted_items = list()
 
 /datum/objective/steal_five_of_type/New()
@@ -651,7 +707,12 @@ GLOBAL_LIST_EMPTY(all_objectives)
 			stolen_count++
 	return stolen_count >= 5
 
+
 /datum/objective/blood
+	name = "Spread blood"
+	needs_target = FALSE
+
+
 /datum/objective/blood/proc/gen_amount_goal(low = 150, high = 400)
 	target_amount = rand(low,high)
 	target_amount = round(round(target_amount/5)*5)
@@ -667,6 +728,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 // /vg/; Vox Inviolate for humans :V
 /datum/objective/minimize_casualties
 	explanation_text = "Minimise casualties."
+	needs_target = FALSE
 
 /datum/objective/minimize_casualties/check_completion()
 	return TRUE
@@ -675,6 +737,8 @@ GLOBAL_LIST_EMPTY(all_objectives)
 //Vox heist objectives.
 
 /datum/objective/heist
+	needs_target = FALSE
+
 /datum/objective/heist/proc/choose_target()
 	return
 
@@ -792,6 +856,8 @@ GLOBAL_LIST_EMPTY(all_objectives)
 	return FALSE
 
 /datum/objective/heist/salvage
+	needs_target = FALSE
+
 /datum/objective/heist/salvage/choose_target()
 	switch(rand(1,6))
 		if(1)
@@ -859,6 +925,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 
 /datum/objective/heist/inviolate_crew
 	explanation_text = "Do not leave any Vox behind, alive or dead."
+	needs_target = FALSE
 
 /datum/objective/heist/inviolate_crew/check_completion()
 	var/datum/game_mode/heist/H = SSticker.mode
@@ -868,6 +935,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 
 /datum/objective/heist/inviolate_death
 	explanation_text = "Follow the Inviolate. Minimise death and loss of resources."
+	needs_target = FALSE
 
 /datum/objective/heist/inviolate_death/check_completion()
 	return TRUE
@@ -880,20 +948,24 @@ GLOBAL_LIST_EMPTY(all_objectives)
 
 /datum/objective/trade/plasma/choose_target()
 	explanation_text = "Acquire at least 15 sheets of plasma through trade."
+	needs_target = FALSE
 
 /datum/objective/trade/credits/choose_target()
 	explanation_text = "Acquire at least 10,000 credits through trade."
+	needs_target = FALSE
 
 //wizard
 
 /datum/objective/wizchaos
 	explanation_text = "Wreak havoc upon the station as much you can. Send those wandless Nanotrasen scum a message!"
+	needs_target = FALSE
 	completed = 1
 
 //Space Ninja
 
 /datum/objective/cyborg_hijack
 	explanation_text = "Используя свои перчатки обратите на свою сторону хотя бы одного киборга, чтобы он помог вам в саботаже станции!"
+	needs_target = FALSE
 
 /datum/objective/plant_explosive
 	///Where we should KABOOM
@@ -901,6 +973,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 	var/list/area_blacklist = list(
 		/area/engine/engineering, /area/engine/supermatter,
 		/area/toxins/test_area, /area/turret_protected/ai)
+	needs_target = FALSE
 
 /datum/objective/plant_explosive/proc/choose_target_area()
 	for(var/sanity in 1 to 100) // 100 checks at most.
@@ -1008,8 +1081,8 @@ GLOBAL_LIST_EMPTY(all_objectives)
 			killer.silent = TRUE //Позже поздороваемся
 			newtraitormind.add_antag_datum(killer)
 			//Подменяем цель на того кого нам выпало защищать
-			var/datum/objective/maroon/killer_maroon_objective = locate() in newtraitormind.objectives
-			var/datum/objective/assassinate/killer_kill_objective = locate() in newtraitormind.objectives
+			var/datum/objective/maroon/killer_maroon_objective = locate() in killer.objectives
+			var/datum/objective/assassinate/killer_kill_objective = locate() in killer.objectives
 			if(killer_maroon_objective)
 				killer_maroon_objective.target = target
 				killer_maroon_objective.check_cryo = FALSE
@@ -1021,29 +1094,22 @@ GLOBAL_LIST_EMPTY(all_objectives)
 				killer_kill_objective.explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]."
 				killers_objectives += killer_kill_objective
 			else //Не нашли целей на убийство? Значит подставляем пресет из трёх целей вместо того, что нагенерил стандартный код. Прости хиджакер, не при ниндзя.
-				QDEL_LIST(newtraitormind.objectives)	// Очищаем листы
+				QDEL_LIST(killer.objectives)	// Очищаем листы
 				QDEL_LIST(killer.assigned_targets)
+				killer.objectives = list()
+				killer.assigned_targets = list()
 				//Подставная цель для трейтора
-				var/datum/objective/maroon/maroon_objective = new
-				maroon_objective.owner = newtraitormind
-				maroon_objective.target = target
+				var/datum/objective/maroon/maroon_objective = killer.add_objective(/datum/objective/maroon, target_override = target)
 				maroon_objective.check_cryo = FALSE
-				killer.assigned_targets.Add("[maroon_objective.target]")
-				maroon_objective.explanation_text = "Prevent from escaping alive or assassinate [target.current.real_name], the [target.assigned_role]."
-				killer.add_objective(maroon_objective)
 				killers_objectives += maroon_objective
 				//Кража для трейтора
-				var/datum/objective/steal/steal_objective = new
-				steal_objective.owner = newtraitormind
-				steal_objective.find_target()
-				killer.assigned_targets.Add("[steal_objective.steal_target]")
-				killer.add_objective(steal_objective)
+				killer.add_objective(/datum/objective/steal)
 				//Ну и банальное - Выживи
-				var/datum/objective/escape/escape_objective = new
-				escape_objective.owner = newtraitormind
-				killer.add_objective(escape_objective)
+				killer.add_objective(/datum/objective/escape)
 			killer.greet()	// Вот теперь здороваемся!
-			killer.update_traitor_icons_added()	// Фикс худа, а то порой те кому выпал хиджак при ниндзя - получали замену целек, но не худа
+			killer.silent = FALSE
+			killer.remove_antag_hud(newtraitormind.current)
+			killer.add_antag_hud(newtraitormind.current)	// Фикс худа, а то порой те кому выпал хиджак при ниндзя - получали замену целек, но не худа
 
 /datum/objective/protect/ninja/on_target_cryo()
 	if(!check_cryo)

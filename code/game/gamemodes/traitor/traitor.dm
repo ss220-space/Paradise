@@ -1,8 +1,9 @@
 /datum/game_mode
-	// this includes admin-appointed traitors and multitraitors. Easy!
+	/// A list of all minds which have the traitor antag datum.
 	var/list/datum/mind/traitors = list()
-	var/list/datum/mind/implanter = list()
+	/// An associative list with mindslave minds as keys and their master's minds as values.
 	var/list/datum/mind/implanted = list()
+	/// The Contractor Support Units
 	var/list/datum/mind/support = list()
 
 	var/datum/mind/exchange_red
@@ -16,11 +17,10 @@
 	required_players = 0
 	required_enemies = 1
 	recommended_enemies = 4
-
+	/// A list containing references to the minds of soon-to-be traitors. This is seperate to avoid duplicate entries in the `traitors` list.
 	var/list/datum/mind/pre_traitors = list()
-	var/traitors_possible = 4 //hard limit on traitors if scaling is turned off
-//	var/const/traitor_scaling_coeff = 5.0 //how much does the amount of players get divided by to determine traitors
-	var/antag_datum = /datum/antagonist/traitor //what type of antag to create
+	/// Hard limit on traitors if scaling is turned off.
+	var/traitors_possible = 4
 	// Contractor related
 	/// Minimum number of possible contractors regardless of the number of traitors.
 	var/min_contractors = 1
@@ -29,6 +29,7 @@
 	var/contractor_traitor_ratio = 0.25
 	/// List of traitors who are eligible to become a contractor.
 	var/list/datum/mind/selected_contractors = list()
+
 
 /datum/game_mode/traitor/announce()
 	to_chat(world, "<B>The current game mode is - Traitor!</B>")
@@ -43,8 +44,8 @@
 	var/list/possible_traitors = get_players_for_role(ROLE_TRAITOR)
 
 	// stop setup if no possible traitors
-	if(!possible_traitors.len)
-		return 0
+	if(!length(possible_traitors))
+		return FALSE
 
 	var/num_traitors = 1
 
@@ -57,7 +58,7 @@
 	var/num_contractors = max(min_contractors, CEILING(num_traitors * contractor_traitor_ratio, 1))
 
 	for(var/j = 0, j < num_traitors, j++)
-		if(!possible_traitors.len)
+		if(!length(possible_traitors))
 			break
 		var/datum/mind/traitor = pick(possible_traitors)
 		possible_traitors.Remove(traitor)
@@ -69,16 +70,17 @@
 		if(num_contractors-- > 0)
 			selected_contractors += traitor
 
-	if(!pre_traitors.len)
-		return 0
-	return 1
+	if(!length(pre_traitors))
+		return FALSE
+
+	return TRUE
 
 
 /datum/game_mode/traitor/post_setup()
 	for(var/datum/mind/traitor in pre_traitors)
-		var/datum/antagonist/traitor/new_antag = new antag_datum()
+		var/datum/antagonist/traitor/new_antag = new
 		new_antag.is_contractor = (traitor in selected_contractors)
-		addtimer(CALLBACK(traitor, TYPE_PROC_REF(/datum/mind, add_antag_datum), new_antag), rand(10,100))
+		addtimer(CALLBACK(traitor, TYPE_PROC_REF(/datum/mind, add_antag_datum), new_antag), rand(1 SECONDS, 10 SECONDS))
 	if(!exchange_blue)
 		exchange_blue = -1 //Block latejoiners from getting exchange objectives
 	..()
@@ -88,20 +90,21 @@
 	..()
 	return//Traitors will be checked as part of check_extra_completion. Leaving this here as a reminder.
 
+
 /datum/game_mode/traitor/process()
 	// Make sure all objectives are processed regularly, so that objectives
 	// which can be checked mid-round are checked mid-round.
 	for(var/datum/mind/traitor_mind in traitors)
-		for(var/datum/objective/objective in traitor_mind.objectives)
+		for(var/datum/objective/objective in traitor_mind.get_all_objectives())
 			objective.check_completion()
-	return 0
+	return FALSE
 
 
 /datum/game_mode/proc/auto_declare_completion_traitor()
 	if(traitors.len)
 		var/text = "<FONT size = 2><B>The traitors were:</B></FONT><br>"
 		for(var/datum/mind/traitor in traitors)
-			var/traitorwin = 1
+			var/traitorwin = TRUE
 			text += printplayer(traitor) + "<br>"
 
 			var/TC_uses = 0
@@ -115,17 +118,26 @@
 
 			if(uplink_true) text += " (used [TC_uses] TC) [purchases]"
 
+			var/all_objectives = traitor.get_all_objectives()
 
-			if(traitor.objectives && traitor.objectives.len)//If the traitor had no objectives, don't need to process this.
+			if(length(all_objectives))//If the traitor had no objectives, don't need to process this.
 				var/count = 1
-				for(var/datum/objective/objective in traitor.objectives)
+				for(var/datum/objective/objective in all_objectives)
 					if(objective.check_completion())
 						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
-						SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "SUCCESS"))
+						if(istype(objective, /datum/objective/steal))
+							var/datum/objective/steal/S = objective
+							SSblackbox.record_feedback("nested tally", "traitor_steal_objective", 1, list("Steal [S.steal_target]", "SUCCESS"))
+						else
+							SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "SUCCESS"))
 					else
 						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
-						SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "FAIL"))
-						traitorwin = 0
+						if(istype(objective, /datum/objective/steal))
+							var/datum/objective/steal/S = objective
+							SSblackbox.record_feedback("nested tally", "traitor_steal_objective", 1, list("Steal [S.steal_target]", "FAIL"))
+						else
+							SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "FAIL"))
+						traitorwin = FALSE
 					count++
 
 			var/special_role_text
@@ -134,7 +146,7 @@
 			else
 				special_role_text = "antagonist"
 
-			var/datum/antagonist/traitor/contractor/contractor = traitor.has_antag_datum(/datum/antagonist/traitor/contractor)
+			var/datum/antagonist/contractor/contractor = traitor.has_antag_datum(/datum/antagonist/contractor)
 			if(istype(contractor) && contractor.contractor_uplink)
 				var/count = 1
 				var/earned_tc = contractor.contractor_uplink.hub.reward_tc_paid_out
@@ -168,8 +180,8 @@
 			for(var/datum/mind/mindslave in SSticker.mode.implanted)
 				text += printplayer(mindslave)
 				var/datum/mind/master_mind = SSticker.mode.implanted[mindslave]
-				var/mob/living/carbon/human/master = master_mind.current
-				text += " (slaved by: <b>[master]</b>)<br>"
+				text += " (slaved by: <b>[master_mind.current]</b>)<br>"
+
 		if(length(SSticker.mode.support))
 			text += "<br><br><FONT size = 2><B>The Contractor Support Units were:</B></FONT><br>"
 			for(var/datum/mind/csu in SSticker.mode.support)
@@ -182,4 +194,4 @@
 					<b>The code responses were:</b> <span class='danger'>[responses]</span><br><br>"
 
 		to_chat(world, text)
-	return 1
+	return TRUE

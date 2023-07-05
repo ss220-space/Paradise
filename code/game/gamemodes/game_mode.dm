@@ -409,7 +409,7 @@
 
 	var/obj_count = 1
 	to_chat(player.current, "<span class='notice'>Your current objectives:</span>")
-	for(var/datum/objective/objective in player.objectives)
+	for(var/datum/objective/objective in player.get_all_objectives())
 		to_chat(player.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
 
@@ -481,8 +481,9 @@
 
 /proc/printobjectives(datum/mind/ply)
 	var/list/objective_parts = list()
+	var/list/all_objectives = ply.get_all_objectives()
 	var/count = 1
-	for(var/datum/objective/objective in ply.objectives)
+	for(var/datum/objective/objective in all_objectives)
 		if(objective.check_completion())
 			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
 		else

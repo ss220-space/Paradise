@@ -400,6 +400,8 @@
 			if(O.target != occupant.mind)
 				continue
 			O.on_target_cryo()
+		occupant.mind.remove_all_antag_datums()
+
 	if(occupant.mind && occupant.mind.assigned_role)
 		//Handle job slot/tater cleanup.
 		var/job = occupant.mind.assigned_role
