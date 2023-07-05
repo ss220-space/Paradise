@@ -215,13 +215,11 @@
 /datum/mind/proc/get_all_objectives()
 	var/list/all_objectives = list()
 
-	for(var/antag in antag_datums)
-		var/datum/antagonist/A = antag
-		all_objectives += A.objectives // Add all antag datum objectives.
+	for(var/datum/antagonist/antag in antag_datums)
+		all_objectives |= antag.objectives // Add all antag datum objectives.
 
-	for(var/objective in objectives)
-		var/datum/objective/O = objective
-		all_objectives += O // Add all mind objectives.
+	for(var/datum/objective/objective in objectives)
+		all_objectives += objective // Add all mind objectives.
 
 	return all_objectives
 
