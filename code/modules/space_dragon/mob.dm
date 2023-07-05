@@ -140,7 +140,6 @@
 	. = ..()
 	add_dragon_overlay()
 	UnregisterSignal(small_sprite, COMSIG_ACTION_TRIGGER)
-	space_dragon_gust.Remove(src)
 
 /mob/living/simple_animal/hostile/space_dragon/AttackingTarget()
 	if(using_special)
