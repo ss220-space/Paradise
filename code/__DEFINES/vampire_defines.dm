@@ -1,4 +1,4 @@
-#define SUBCLASS_HEMOMANCER /datum/vampire_subclass/hemomancer
+/*#define SUBCLASS_HEMOMANCER /datum/vampire_subclass/hemomancer
 #define SUBCLASS_GARGANTUA /datum/vampire_subclass/gargantua
 #define SUBCLASS_UMBRAE /datum/vampire_subclass/umbrae
 #define SUBCLASS_DANTALION /datum/vampire_subclass/dantalion
@@ -9,4 +9,4 @@
 #define FULLPOWER_BLOODTOTAL_REQUIREMENT 1000 // the amount of blood you need to suck to get full power.
 
 #define VAMPIRE_NULLIFICATION_CAP 120 // the maximum amount a vampire can be nullified naturally.
-#define VAMPIRE_COMPLETE_NULLIFICATION 100 // the point of nullification where vampires can no longer use abilities.
+#define VAMPIRE_COMPLETE_NULLIFICATION 100 // the point of nullification where vampires can no longer use abilities.*/
