@@ -214,7 +214,7 @@
 	if(!.)
 		return
 	owner.EyeBlurry(4 SECONDS)
-	if(prob(5))
+	if(prob(1))
 		owner.AdjustSleeping(2 SECONDS)
 		owner.Paralyse(10 SECONDS)
 
@@ -255,13 +255,10 @@
 	if(!.)
 		return
 
-	// Adjust actual drunkenness based on trait and organ presence
-	var/alcohol_resistance = 1
+	// Adjust actual drunkenness based organ presence
 	var/actual_strength = strength
 	var/datum/mind/M = owner.mind
 	var/is_ipc = ismachineperson(owner)
-
-	actual_strength /= alcohol_resistance
 
 	var/obj/item/organ/internal/liver/L
 	if(!is_ipc)
@@ -287,26 +284,26 @@
 		else if(istype(M.martial_art, DRUNK_BRAWLING))
 			M.martial_art.remove(src)
 	// THRESHOLD_CONFUSION (80 SECONDS)
-	if(actual_strength >= THRESHOLD_CONFUSION && prob(3.3))
-		owner.AdjustConfused(6 SECONDS / alcohol_resistance, bound_lower = 2 SECONDS, bound_upper = 1 MINUTES)
-		owner.AdjustDizzy(6 SECONDS / alcohol_resistance, bound_lower = 2 SECONDS, bound_upper = 2 MINUTES)
+	if(actual_strength >= THRESHOLD_CONFUSION && prob(0.66))
+		owner.AdjustConfused(6 SECONDS, bound_lower = 2 SECONDS, bound_upper = 1 MINUTES)
+		owner.AdjustDizzy(6 SECONDS, bound_lower = 2 SECONDS, bound_upper = 2 MINUTES)
 	// THRESHOLD_SPARK (100 SECONDS)
-	if(is_ipc && actual_strength >= THRESHOLD_SPARK && prob(2.5))
+	if(is_ipc && actual_strength >= THRESHOLD_SPARK && prob(0.5))
 		do_sparks(3, 1, owner)
 	// THRESHOLD_VOMIT (120 SECONDS)
-	if(!is_ipc && actual_strength >= THRESHOLD_VOMIT && prob(0.8))
+	if(!is_ipc && actual_strength >= THRESHOLD_VOMIT && prob(0.2))
 		owner.fakevomit()
 	// THRESHOLD_BLUR (150 SECONDS)
 	if(actual_strength >= THRESHOLD_BLUR)
-		owner.EyeBlurry(20 SECONDS / alcohol_resistance)
+		owner.EyeBlurry(20 SECONDS)
 	// THRESHOLD_COLLAPSE (150 SECONDS)
-	if(actual_strength >= THRESHOLD_COLLAPSE && prob(1))
+	if(actual_strength >= THRESHOLD_COLLAPSE && prob(0.2))
 		owner.emote("collapse")
 		do_sparks(3, 1, src)
 	// THRESHOLD_FAINT (180 SECONDS)
-	if(actual_strength >= THRESHOLD_FAINT && prob(1))
-		owner.Paralyse(10 SECONDS / alcohol_resistance)
-		owner.Drowsy(60 SECONDS / alcohol_resistance)
+	if(actual_strength >= THRESHOLD_FAINT && prob(0.2))
+		owner.Paralyse(10 SECONDS)
+		owner.Drowsy(60 SECONDS)
 		if(L)
 			L.receive_damage(1, TRUE)
 		if(!is_ipc)
@@ -471,7 +468,7 @@
 /// This is multiplied with [/mob/var/hallucination] to determine the final cooldown. A higher hallucination value means shorter cooldown.
 #define HALLUCINATE_COOLDOWN_FACTOR 0.003
 /// Percentage defining the chance at which an hallucination may spawn past the cooldown.
-#define HALLUCINATE_CHANCE 8
+#define HALLUCINATE_CHANCE 20
 // Severity weights, should sum up to 100!
 #define HALLUCINATE_MINOR_WEIGHT 60
 #define HALLUCINATE_MODERATE_WEIGHT 30
