@@ -288,7 +288,7 @@
 /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(attempt_cast(user))
 		for(var/turf/T in targets)
-			INVOKE_ASYNC(src, .proc/effect, user, T)
+			INVOKE_ASYNC(src, PROC_REF(effect), user, T)
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction/proc/effect(mob/living/simple_animal/revenant/user, turf/T)
 	T.rev_malfunction(TRUE)
