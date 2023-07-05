@@ -4,7 +4,6 @@
 /datum/game_mode/traitor/autotraitor
 	name = "AutoTraitor"
 	config_tag = "extend-a-traitormongous"
-	var/num_players = 0
 
 
 /datum/game_mode/traitor/autotraitor/announce()
@@ -23,6 +22,7 @@
 	if(!length(possible_traitors))
 		return FALSE
 
+	var/num_players = 0
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(player.client && player.ready)
 			num_players++
@@ -73,14 +73,14 @@
 
 	message_admins("Performing AutoTraitor Check")
 
-	var/playercount = 0
+	var/num_players = 0
 	var/traitorcount = 0
 	var/list/possible_traitors = list()
 
 	for(var/mob/living/player in GLOB.mob_list)
 		if(!player.client || player.stat == DEAD)
 			continue
-		playercount += 1
+		num_players += 1
 
 		if(!player.mind)
 			continue
@@ -118,7 +118,7 @@
 		traitor_scale = config.traitor_scaling
 
 	max_traitors = round(num_players / traitor_scale) + 1
-	traitor_prob = (playercount - (max_traitors - 1) * 10) * 5
+	traitor_prob = (num_players - (max_traitors - 1) * 10) * 5
 
 	if(traitorcount < max_traitors - 1)
 		traitor_prob += 50
