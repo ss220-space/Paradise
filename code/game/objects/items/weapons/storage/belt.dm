@@ -829,6 +829,7 @@
 	use_item_overlays = 0
 	can_hold = list(
 		/obj/item/crowbar,
+		/obj/item/grenade/plastic/miningcharge,
 		/obj/item/screwdriver,
 		/obj/item/weldingtool,
 		/obj/item/wirecutters,
@@ -869,6 +870,8 @@
 /obj/item/storage/belt/mining/vendor/Initialize(mapload)
 	. = ..()
 	new /obj/item/survivalcapsule(src)
+	new /obj/item/grenade/plastic/miningcharge/lesser(src)
+	new /obj/item/grenade/plastic/miningcharge/lesser(src)
 
 /obj/item/storage/belt/mining/alt
 	icon_state = "explorer2"

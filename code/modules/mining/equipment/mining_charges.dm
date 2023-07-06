@@ -58,7 +58,7 @@
 	desc = "A mining charge. This one seems less powerful than industrial. Only works on rocks!"
 	icon_state = "mining-charge-1"
 	smoke_amount = 1
-	boom_sizes = list(1,2,2)
+	boom_sizes = list(1,2,3)
 
 /obj/item/grenade/plastic/miningcharge/mega
 	name = "experimental mining charge"
@@ -68,9 +68,9 @@
 	boom_sizes = list(2,5,7) //5 ticks of stun, if in center
 
 /obj/item/storage/backpack/duffel/miningcharges/populate_contents()
-	for(var/i in 1 to 4)
+	for(var/i in 1 to 5)
 		new /obj/item/grenade/plastic/miningcharge/lesser(src)
-	for(var/i in 1 to 1)
+	for(var/i in 1 to 2)
 		new /obj/item/grenade/plastic/miningcharge(src)
 
 
