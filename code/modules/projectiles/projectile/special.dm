@@ -282,7 +282,7 @@
 
 /obj/item/projectile/plasma/adv/mega/shotgun
 	damage = 2
-	range = 7
+	range = 6
 	dismemberment = 0
 
 /obj/item/projectile/plasma/adv/mech
@@ -291,7 +291,7 @@
 
 /obj/item/projectile/plasma/shotgun
 	damage = 2
-	range = 5
+	range = 4
 	dismemberment = 0
 
 /obj/item/projectile/energy/teleport
