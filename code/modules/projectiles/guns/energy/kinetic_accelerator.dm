@@ -174,7 +174,7 @@
 	max_mod_capacity = 150
 
 /obj/item/gun/energy/kinetic_accelerator/mega
-	name = "mega proto-kinetic accelerator"
+	name = "magmite proto-kinetic accelerator"
 	icon_state = "kineticgun_m"
 	item_state = "kineticgun_mega"
 	empty_state = "kineticgun_m_empty"

@@ -27,6 +27,7 @@
 	var/light_on = FALSE
 	var/brightness_on = 5
 	var/adaptive_damage_bonus = 0
+	var/upgraded = FALSE //whether is our crusher is magmite-upgraded
 
 /obj/item/twohanded/kinetic_crusher/Destroy()
 	QDEL_LIST(trophies)
@@ -164,7 +165,10 @@
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.UpdateButtonIcon()
-	item_state = "crusher[wielded]"
+	if(!upgraded)
+		item_state = "crusher[wielded]"
+	else
+		item_state = "magmite_crusher[wielded]"
 
 //destablizing force
 /obj/item/projectile/destabilizer
@@ -476,3 +480,52 @@
 	. = ..()
 	if(.)
 		H.adaptive_damage_bonus -= bonus_value
+
+//Magmite Crusher
+
+/obj/item/twohanded/kinetic_crusher/mega
+	icon_state = "magmite_crusher"
+	item_state = "magmite_crusher0"
+	name = "magmite proto-kinetic crusher"
+	desc = "An early design of the proto-kinetic accelerator, it is now a combination of various mining tools infused with magmite, forming a high-tech club, increasing its capacity as a mining tool."
+	upgraded = TRUE
+
+/obj/item/twohanded/kinetic_crusher/mega/afterattack(atom/target, mob/living/user, proximity_flag, clickparams)
+	if(!wielded)
+		return
+	if(!proximity_flag && charged)//Mark a target, or mine a tile.
+		var/turf/proj_turf = user.loc
+		if(!isturf(proj_turf))
+			return
+		var/obj/item/projectile/destabilizer/mega/D = new /obj/item/projectile/destabilizer/mega(proj_turf)
+		for(var/t in trophies)
+			var/obj/item/crusher_trophy/T = t
+			T.on_projectile_fire(D, user)
+		D.preparePixelProjectile(target, get_turf(target), user, clickparams)
+		D.firer = user
+		D.hammer_synced = src
+		playsound(user, 'sound/weapons/crusher_shot.ogg', 160, 1)
+		D.fire()
+		charged = FALSE
+		update_icon()
+		addtimer(CALLBACK(src, PROC_REF(Recharge)), charge_time)
+		return
+	..()
+/obj/item/projectile/destabilizer/mega
+	icon_state = "pulse0"
+	range = 5 //you know...
+
+/obj/item/projectile/destabilizer/mega/on_hit(atom/target, blocked = FALSE)
+	var/target_turf = get_turf(target)
+	if(ismineralturf(target_turf))
+		if(isancientturf(target_turf))
+			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+			forcedodge = 0
+		else
+			var/turf/simulated/mineral/M = target_turf
+			new /obj/effect/temp_visual/kinetic_blast(M)
+			forcedodge = 1
+			M.attempt_drill(firer)
+	else
+		forcedodge = 0
+	..()

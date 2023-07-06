@@ -55,6 +55,30 @@
 			qdel(gun)
 			var/obj/item/gun/energy/kinetic_accelerator/mega/newgun = new(get_turf(user))
 			user.put_in_hands(newgun)
-			to_chat(user, span_notice("Harsh tendrils wrap around the kinetic accelerator, merging the parts and kinetic accelerator to form a mega kinetic accelerator."))
+			to_chat(user, span_notice("Harsh tendrils wraps around the kinetic accelerator, merging the parts and kinetic accelerator to form a mega kinetic accelerator."))
+			qdel(src)
+		if(/obj/item/gun/energy/plasmacutter/adv)
+			var/obj/item/gun/energy/plasmacutter/adv/gun = target
+			qdel(gun)
+			var/obj/item/gun/energy/plasmacutter/adv/mega/newgun = new(get_turf(user))
+			user.put_in_hands(newgun)
+			to_chat(user,span_notice("Harsh tendrils wraps around the plasma cutter, merging the parts and cutter to form a mega plasma cutter."))
+			qdel(src)
+		if(/obj/item/gun/energy/plasmacutter/shotgun)
+			var/obj/item/gun/energy/plasmacutter/shotgun/gun = target
+			qdel(gun)
+			var/obj/item/gun/energy/plasmacutter/shotgun/mega/newgun = new(get_turf(user))
+			user.put_in_hands(newgun)
+			to_chat(user,span_notice("Harsh tendrils wraps around the plasma cutter shotgun, merging the parts and cutter to form a mega plasma cutter shotgun."))
+			qdel(src)
+		if(/obj/item/twohanded/kinetic_crusher) //sure hope there is a better way to do it..
+			var/obj/item/twohanded/kinetic_crusher/gun = target
+			for(var/t in gun.trophies)
+				var/obj/item/crusher_trophy/T = t
+				T.remove_from(gun, user)
+			qdel(gun)
+			var/obj/item/twohanded/kinetic_crusher/mega/newgun = new(get_turf(user))
+			user.put_in_hands(newgun)
+			to_chat(user,span_notice("Harsh tendrils wraps around the kinetic crusher, merging the parts and crusher to form a mega kinetic crusher."))
 			qdel(src)
 

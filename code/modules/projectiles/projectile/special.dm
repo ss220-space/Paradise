@@ -269,6 +269,22 @@
 	damage = 7
 	range = 5
 
+/obj/item/projectile/plasma/adv/mega
+	icon_state = "plasmacutter_mega"
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
+	range = 7
+
+/obj/item/projectile/plasma/adv/mega/on_hit(atom/target)
+	if(istype(target, /turf/simulated/mineral/gibtonite))
+		var/turf/simulated/mineral/gibtonite/gib = target
+		gib.defuse()
+	. = ..()
+
+/obj/item/projectile/plasma/adv/mega/shotgun
+	damage = 2
+	range = 7
+	dismemberment = 0
+
 /obj/item/projectile/plasma/adv/mech
 	damage = 10
 	range = 9
