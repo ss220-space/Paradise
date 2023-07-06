@@ -146,6 +146,12 @@
 	max_w_class = WEIGHT_CLASS_BULKY
 	can_hold = list(/obj/item/stack/ore)
 
+/obj/item/storage/bag/ore/bigger
+	name = "industrial mining satchel"
+	desc = "This bugger can be used to store and transport ores. This one has additional utility pockets for ore."
+	icon_state = "satchel_better"
+	storage_slots = 16 //little better
+
 /obj/item/storage/bag/ore/cyborg
 	name = "cyborg mining satchel"
 	flags = NODROP

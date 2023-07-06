@@ -42,6 +42,7 @@
 		EQUIPMENT("Mining Hardsuit",				/obj/item/clothing/suit/space/hardsuit/mining, 						2000),
 		EQUIPMENT("Tracking Implant Kit",			/obj/item/storage/box/minertracker, 								600),
 		EQUIPMENT("Plasma Cutter",                  /obj/item/gun/energy/plasmacutter,                                  1500),
+		EQUIPMENT("Industrial Mining Satchel",      /obj/item/storage/bag/ore/bigger,                                   500),
 	)
 	prize_list["Consumables"] = list(
 		EQUIPMENT("10 Marker Beacons", 				/obj/item/stack/marker_beacon/ten, 									100),
@@ -49,6 +50,8 @@
 		EQUIPMENT("Pocket Fire Extinguisher",       /obj/item/extinguisher/mini,                                        200),
 		EQUIPMENT("Brute First-Aid Kit", 			/obj/item/storage/firstaid/brute,									600),
 		EQUIPMENT("Fire First-Aid Kit",				/obj/item/storage/firstaid/fire,									600),
+		EQUIPMENT("Mining Charge",                  /obj/item/grenade/plastic/miningcharge/lesser,                      250),
+		EQUIPMENT("Industrial Mining Charge",       /obj/item/grenade/plastic/miningcharge,                             600),
 		EQUIPMENT("Whetstone",						/obj/item/whetstone,												400),
 		EQUIPMENT("Fulton Pack", 					/obj/item/extraction_pack, 											1000),
 		EQUIPMENT("Jaunter", 						/obj/item/wormhole_jaunter, 										750),
@@ -246,7 +249,7 @@
   * * redeemer - The person holding it
   */
 /obj/machinery/mineral/equipment_vendor/proc/redeem_voucher(obj/item/mining_voucher/voucher, mob/redeemer)
-	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Plasma Cutter Kit", "Crusher Kit", "Mining Conscription Kit")
+	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Plasma Cutter Kit", "Mining Explosives Kit", "Crusher Kit", "Mining Conscription Kit")
 
 	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in items
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
@@ -269,6 +272,9 @@
 			new /obj/item/stack/marker_beacon/thirty(drop_location)
 		if("Plasma Cutter Kit")
 			new /obj/item/gun/energy/plasmacutter(drop_location)
+			new /obj/item/storage/bag/ore/bigger(drop_location)
+		if("Mining Explosives Kit")
+			new /obj/item/storage/backpack/duffel/miningcharges(drop_location)
 		if("Crusher Kit")
 			new /obj/item/extinguisher/mini(drop_location)
 			new /obj/item/twohanded/kinetic_crusher(drop_location)

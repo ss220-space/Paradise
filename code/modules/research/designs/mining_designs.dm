@@ -131,3 +131,13 @@
 	materials = list(MAT_METAL = 2000, MAT_PLASMA = 500, MAT_TITANIUM = 1000)
 	build_path = /obj/item/stack/fireproof_rods
 	category = list("Mining")
+
+/datum/design/mining_charge
+	name = "Experimental Mining Charge"
+	desc = "An experimental mining charge"
+	id = "megacharge"
+	req_tech = list("materials" = 5, "engineering" = 5, "plasmatech" = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 4000, MAT_PLASMA = 6000, MAT_URANIUM = 1000)
+	build_path = /obj/item/grenade/plastic/miningcharge/mega
+	category = list("Mining")
