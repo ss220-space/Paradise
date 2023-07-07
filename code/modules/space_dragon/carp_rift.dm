@@ -29,7 +29,7 @@
 		to_chat(owner, span_warning("Вы не можете открыть разлом здесь! Для него нужна поверхность!"))
 		return
 	to_chat(owner, span_notice("Вы начинаете открывать разлом..."))
-	if(!do_after(owner, 8 SECONDS, target = owner))
+	if(!do_after(owner, 10 SECONDS, target = owner))
 		return
 	if(locate(/obj/structure/carp_rift) in owner.loc)
 		return
@@ -55,27 +55,27 @@
 /obj/structure/carp_rift
 	name = "carp rift"
 	desc = "Разлом, позвляющий космическим карпам перемещаться на огромные расстояния."
-	armor = list("melee" = 80, "bullet" = 50, "laser" = 50, "energy" = 100, "bomb" = 50, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 30, "bullet" = 40, "laser" = 20, "energy" = 100, "bomb" = 50, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 100)
 	max_integrity = 300
 	icon = 'icons/obj/carp_rift.dmi'
 	icon_state = "carp_rift_carpspawn"
 	light_color = LIGHT_COLOR_PURPLE
-	light_range = 10
+	light_range = 8
 	anchored = TRUE
 	density = FALSE
 	plane = OBJ_LAYER
 	/// The amount of time the rift has charged for.
 	var/time_charged = 0
 	/// The maximum charge the rift can have.
-	var/max_charge = 300
+	var/max_charge = 400
 	/// How many carp spawns it has available.
-	var/carp_stored = 1
+	var/carp_stored = 2
 	/// A reference to the Space Dragon antag that created it.
 	var/datum/antagonist/space_dragon/dragon
 	/// Current charge state of the rift.
 	var/charge_state = CHARGE_ONGOING
 	/// The interval for adding additional space carp spawns to the rift.
-	var/carp_interval = 30
+	var/carp_interval = 45
 	/// The time since an extra carp was added to the ghost role spawning pool.
 	var/last_carp_inc = 0
 	/// A list of all the ckeys which have used this carp rift to spawn in as carps.
@@ -86,8 +86,8 @@
 
 	AddComponent( \
 		/datum/component/aura_healing, \
-		range = 6, \
-		simple_heal = 5, \
+		range = 5, \
+		simple_heal = 4, \
 		limit_to_trait = TRAIT_HEALS_FROM_CARP_RIFTS, \
 		healing_color = COLOR_BLUE, \
 	)
@@ -189,7 +189,7 @@
 		return
 
 	// Do we need to give a final warning to the station at the halfway mark?
-	if(charge_state < CHARGE_FINALWARNING && time_charged >= (max_charge * 0.5))
+	if(charge_state < CHARGE_FINALWARNING && time_charged >= (max_charge * 0.6))
 		charge_state = CHARGE_FINALWARNING
 		var/area/A = get_area(src)
 
