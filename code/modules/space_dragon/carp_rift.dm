@@ -164,7 +164,7 @@
 		if(light_color != LIGHT_COLOR_PURPLE)
 			light_color = LIGHT_COLOR_PURPLE
 			update_light()
-		notify_ghosts("Разлом может призвать дополнительного карпа! Нажмите ЛКМ на разлом, чтобы им стать!", source = src, action = NOTIFY_FOLLOW, flashwindow = FALSE, title = "Доступен космический карп")
+		notify_ghosts("Разлом может призвать дополнительного карпа! Нажмите ЛКМ на разлом, чтобы им стать! Не более двух раз на портал!", source = src, action = NOTIFY_FOLLOW, flashwindow = FALSE, title = "Доступен космический карп")
 		last_carp_inc -= carp_interval
 
 	// Is the rift now fully charged?
@@ -209,11 +209,11 @@
 		return FALSE
 	var/is_listed = FALSE
 	if (user.ckey in ckey_list)
-		if(carp_stored == 1)
-			to_chat(user, span_warning("Вы уже появлялись карпом из этого разлома! Пожалуйста, ожидайте избытка карпов или следующего разлома!"))
+		if(carp_stored == 2)
+			to_chat(user, span_warning("Вы уже появлялись карпом из этого разлома дважды! Пожалуйста, ожидайте избытка карпов или следующего разлома!"))
 			return FALSE
 		is_listed = TRUE
-	var/carp_ask = alert(user, "Стать карпом?", "Разлом карпов", "Да", "Нет")
+	var/carp_ask = alert(user, "Стать карпом? количество смертей: [carp_stored]", "Разлом карпов", "Да", "Нет")
 	if(carp_ask != "Да" || QDELETED(src) || QDELETED(user))
 		return FALSE
 	if(carp_stored <= 0)
