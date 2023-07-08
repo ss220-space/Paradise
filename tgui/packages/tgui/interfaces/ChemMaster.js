@@ -64,7 +64,6 @@ const analyzeModalBodyOverride = (modal, context) => {
 
 const changePatchStyleModalBodyOverride = (modal, context) => {
   const { data } = useBackend(context);
-  const result = modal.args.analysis;
   return (
     <Flex
       spacingPrecise="1"
