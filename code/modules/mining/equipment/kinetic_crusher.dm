@@ -26,6 +26,7 @@
 	var/backstab_bonus = 30
 	var/light_on = FALSE
 	var/brightness_on = 5
+	var/adaptive_damage_bonus = 0
 
 /obj/item/twohanded/kinetic_crusher/Destroy()
 	QDEL_LIST(trophies)
@@ -68,7 +69,16 @@
 	if(!C)
 		C = target.apply_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
 	var/target_health = target.health
+	var/temp_force_bonus = 0
+	var/datum/status_effect/adaptive_learning/A = target.has_status_effect(STATUS_EFFECT_ADAPTIVELEARNING)
+	if(!A && adaptive_damage_bonus)
+		A = target.apply_status_effect(STATUS_EFFECT_ADAPTIVELEARNING)
+	if(A)
+		temp_force_bonus = A.bonus_damage
+		A.bonus_damage = min((A.bonus_damage + adaptive_damage_bonus), 20)
+	force += temp_force_bonus
 	..()
+	force -= temp_force_bonus
 	for(var/t in trophies)
 		if(!QDELETED(target))
 			var/obj/item/crusher_trophy/T = t
@@ -91,7 +101,7 @@
 		D.preparePixelProjectile(target, get_turf(target), user, clickparams)
 		D.firer = user
 		D.hammer_synced = src
-		playsound(user, 'sound/weapons/plasma_cutter.ogg', 100, 1)
+		playsound(user, 'sound/weapons/crusher_shot.ogg', 160, 1)
 		D.fire()
 		charged = FALSE
 		update_icon()
@@ -119,7 +129,7 @@
 				if(!QDELETED(C))
 					C.total_damage += detonation_damage + backstab_bonus //cheat a little and add the total before killing it, so certain mobs don't have much lower chances of giving an item
 				L.apply_damage(detonation_damage + backstab_bonus, BRUTE, blocked = def_check)
-				playsound(user, 'sound/weapons/kenetic_accel.ogg', 100, 1) //Seriously who spelled it wrong
+				playsound(user, 'sound/weapons/crusher_backstab.ogg', 130) //Seriously who spelled it wrong
 			else
 				if(!QDELETED(C))
 					C.total_damage += detonation_damage
@@ -129,7 +139,7 @@
 	if(!charged)
 		charged = TRUE
 		update_icon()
-		playsound(src.loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
+		playsound(src.loc, 'sound/weapons/crusher_reload.ogg', 135)
 
 /obj/item/twohanded/kinetic_crusher/ui_action_click(mob/user, actiontype)
 	light_on = !light_on
@@ -446,3 +456,23 @@
 
 /obj/effect/temp_visual/hierophant/wall/crusher
 	duration = 75
+
+/obj/item/crusher_trophy/adaptive_intelligence_core
+	name = "adaptive intelligence core"
+	desc = "Seems to be one of the cores from a massive robot. Suitable as a trophy for a kinetic crusher."
+	icon_state = "adaptive_core"
+	denied_type = /obj/item/crusher_trophy/adaptive_intelligence_core
+	bonus_value = 2
+
+/obj/item/crusher_trophy/adaptive_intelligence_core/effect_desc()
+	return "melee hits deal <b>[bonus_value]</b> more damage per hit after hitting a target, up to <b>[bonus_value * 10]</b> extra damage to that target"
+
+/obj/item/crusher_trophy/adaptive_intelligence_core/add_to(obj/item/twohanded/kinetic_crusher/H, mob/living/user)
+	. = ..()
+	if(.)
+		H.adaptive_damage_bonus += bonus_value
+
+/obj/item/crusher_trophy/adaptive_intelligence_core/remove_from(obj/item/twohanded/kinetic_crusher/H, mob/living/user)
+	. = ..()
+	if(.)
+		H.adaptive_damage_bonus -= bonus_value

@@ -22,6 +22,7 @@ validPrefixes = [
     "bugfix",
     "code_imp",
     "config",
+    "del",
     "expansion",
     "experiment",
     "image",
@@ -48,7 +49,7 @@ commitsSet = set()
 
 def add_commits(commit):
     if date.fromtimestamp(commit.committed_date).month >= today.month - 1:
-        if commit.message != "Automatic changelog generation":
+        if not commit.message.startswith("Automatic changelog generation"):
             commitsSet.add(commit)
         for parent in commit.parents:
             add_commits(parent)

@@ -223,6 +223,7 @@
 	name = "potted plant"
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "plant-1"
+	flags = NO_PIXEL_RANDOM_DROP
 	anchored = 0
 	layer = ABOVE_MOB_LAYER
 	w_class = WEIGHT_CLASS_HUGE
@@ -333,16 +334,6 @@
 	. = ..()
 	if(prob(20))
 		opacity = 1
-
-/*
-/obj/structure/bush/Bumped(M as mob)
-	if(istype(M, /mob/living/simple_animal))
-		var/mob/living/simple_animal/A = M
-		A.loc = get_turf(src)
-	else if(istype(M, /mob/living/carbon/monkey))
-		var/mob/living/carbon/monkey/A = M
-		A.loc = get_turf(src)
-*/
 
 /obj/structure/bush/attackby(var/obj/I as obj, var/mob/user as mob, params)
 	//hatchets can clear away undergrowth

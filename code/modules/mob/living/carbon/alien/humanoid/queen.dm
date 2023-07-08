@@ -41,7 +41,7 @@
 	. = ..()
 	. += 3
 
-/mob/living/carbon/alien/humanoid/queen/can_inject(mob/user, error_msg, target_zone, penetrate_thick)
+/mob/living/carbon/alien/humanoid/queen/can_inject(mob/user, error_msg, target_zone, penetrate_thick, ignore_pierceimmune)
 	return FALSE
 
 /mob/living/carbon/alien/humanoid/queen/is_strong()
@@ -65,6 +65,7 @@
 		for(var/mob/O in viewers(host, null))
 			O.show_message(text("<span class=notice'><B>[host] has laid an egg!</B></span>"), 1)
 		new /obj/structure/alien/egg(host.loc)
+		playsound_xenobuild(host)
 	return
 
 /mob/living/carbon/alien/humanoid/queen/large

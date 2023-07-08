@@ -666,8 +666,6 @@
 	go_out()
 	add_fingerprint(usr)
 
-	name = initial(name)
-
 /obj/machinery/cryopod/verb/move_inside()
 	set name = "Enter Pod"
 	set category = "Object"
@@ -730,6 +728,8 @@
 	else
 		icon_state = base_icon_state
 
+	name = initial(name)
+
 	return
 
 
@@ -759,7 +759,7 @@
 	on_store_name = "Robotic Storage Oversight"
 	on_enter_occupant_message = "The storage unit broadcasts a sleep signal to you. Your systems start to shut down, and you enter low-power mode."
 	allow_occupant_types = list(/mob/living/silicon/robot)
-	disallow_occupant_types = list(/mob/living/silicon/robot/drone)
+	disallow_occupant_types = list()
 
 /obj/machinery/cryopod/robot/right
 	orient_right = 1

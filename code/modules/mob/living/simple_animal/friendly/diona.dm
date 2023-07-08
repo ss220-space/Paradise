@@ -29,8 +29,8 @@
 	response_disarm = "pushes"
 	response_harm   = "kicks"
 
-	melee_damage_lower = 5
-	melee_damage_upper = 8
+	melee_damage_lower = 1
+	melee_damage_upper = 1
 	attacktext = "кусает"
 	attack_sound = 'sound/weapons/bite.ogg'
 	var/chirp_sound = 'sound/creatures/nymphchirp.ogg' //used in emote
@@ -275,6 +275,8 @@
 
 /mob/living/simple_animal/diona/put_in_hands(obj/item/I, force = FALSE, qdel_on_fail = FALSE, merge_stacks = TRUE, ignore_anim = TRUE)
 	I.forceMove(drop_location())
+	I.pixel_x = initial(I.pixel_x)
+	I.pixel_y = initial(I.pixel_y)
 	I.layer = initial(I.layer)
 	I.plane = initial(I.plane)
 	I.dropped()

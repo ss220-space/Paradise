@@ -153,8 +153,7 @@
 
 /datum/reagent/medicine/rezadone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.setCloneLoss(0, FALSE) //Rezadone is almost never used in favor of cryoxadone. Hopefully this will change that.
-	update_flags |= M.adjustCloneLoss(-1, FALSE) //What? We just set cloneloss to 0. Why? Simple; this is so external organs properly unmutate. // why don't you fix the code instead
+	update_flags |= M.adjustCloneLoss(-5, FALSE) //What? We just set cloneloss to 0. Why? Simple; this is so external organs properly unmutate. // why don't you fix the code instead // i fix the code dont worry
 	update_flags |= M.adjustBruteLoss(-1, FALSE)
 	update_flags |= M.adjustFireLoss(-1, FALSE)
 	if(ishuman(M))
@@ -249,9 +248,13 @@
 	if(iscarbon(M))
 		if(method == REAGENT_TOUCH)
 			M.adjustBruteLoss(-volume)
-			if(show_message && !(NO_PAIN in M.dna.species.species_traits))
+			var/has_pain = TRUE
+			if(ishuman(M))
+				var/mob/living/carbon/human/H = M
+				has_pain = H.has_pain()
+			if(show_message && has_pain)
 				to_chat(M, "<span class='notice'>The styptic powder stings like hell as it closes some of your wounds!</span>")
-		if(method == REAGENT_INGEST)
+		else if(method == REAGENT_INGEST)
 			M.adjustToxLoss(0.5*volume)
 			if(show_message)
 				to_chat(M, "<span class='warning'>You feel gross!</span>")
@@ -838,7 +841,8 @@
 
 /datum/reagent/medicine/mannitol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustBrainLoss(-3, FALSE)
+	if(M.getBrainLoss() <= 100)
+		update_flags |= M.adjustBrainLoss(-3, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/fomepizole
@@ -1293,12 +1297,12 @@
 /datum/reagent/medicine/nanocalcium
 	name = "Nano-Calcium"
 	id = "nanocalcium"
-	description = "Highly advanced nanites equipped with calcium payloads designed to repair bones. Nanomachines son."
+	description = "Highly advanced nanites equipped with an unknown payload designed to repair a body. Nanomachines son."
 	color = "#9b3401"
 	metabolization_rate = 1.25 * REAGENTS_METABOLISM
 	can_synth = FALSE
 	harmless = FALSE
-	taste_description = "wholeness"
+	taste_description = "2 minutes of suffering"
 	var/list/stimulant_list = list("methamphetamine", "crank", "bath_salts", "stimulative_agent", "stimulants")
 
 /datum/reagent/medicine/nanocalcium/on_mob_life(mob/living/carbon/human/M)
@@ -1313,6 +1317,10 @@
 			M.AdjustJitter(4)
 			if(prob(10))
 				to_chat(M, "<span class='warning'>Your skin feels hot and your veins are on fire!</span>")
+				update_flags |= M.adjustFireLoss(1, FALSE)
+			for(var/datum/reagent/R in M.reagents.reagent_list)
+				if(stimulant_list.Find(R.id))
+					M.reagents.remove_reagent(R.id, 0.5) //We will be generous (for nukies really) and purge out the chemicals during this phase, so they don't fucking die during the next phase. Of course, if they try to use adrenals in the next phase, well...
 		if(20 to 43)
 			//If they have stimulants or stimulant drugs then just apply toxin damage instead.
 			if(has_stimulant == TRUE)
@@ -1330,11 +1338,33 @@
 				return ..()
 			else
 				for(var/obj/item/organ/external/E in M.bodyparts)
-					if(E.is_broken())
-						if(prob(50)) // Each tick has a 50% chance of repearing a bone.
+					if(prob(25)) // Each tick has a 25% chance of repearing a bone.
+						if(E.status & (ORGAN_BROKEN | ORGAN_SPLINTED)) //I can't just check for !E.status
 							to_chat(M, "<span class='notice'>You feel a burning sensation in your [E.name] as it straightens involuntarily!</span>")
 							E.rejuvenate() //Repair it completely.
-							break
+						if(E.internal_bleeding)
+							to_chat(M, "<span class='notice'>You feel a burning sensation in your [E.name] as your veins begin to recover!</span>")
+							E.internal_bleeding = FALSE
+
+
+				if(ishuman(M))
+					var/mob/living/carbon/human/H = M
+					for(var/obj/item/organ/internal/I in M.internal_organs) // 60 healing to all internal organs.
+						I.heal_internal_damage(4)
+					if(H.blood_volume < BLOOD_VOLUME_NORMAL * 0.9)// If below 90% blood, regenerate 225 units total
+						H.blood_volume += 15
+					for(var/datum/disease/critical/heart_failure/HF in H.viruses)
+						HF.cure() //Won't fix a stopped heart, but it will sure fix a critical one. Shock is not fixed as healing will fix it
+				if(M.health < 40)
+					update_flags |= M.adjustOxyLoss(-3, FALSE)
+					update_flags |= M.adjustToxLoss(-1, FALSE)
+					update_flags |= M.adjustBruteLoss(-2, FALSE)
+					update_flags |= M.adjustFireLoss(-2, FALSE)
+				else
+					if(prob(25))
+						to_chat(M, "<span class='warning'>Your skin feels like it is ripping apart and your veins are on fire!</span>") //It is experimental and does cause scars, after all.
+						update_flags |= M.adjustBruteLoss(2, FALSE)
+						update_flags |= M.adjustFireLoss(2, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/lavaland_extract

@@ -69,6 +69,7 @@
 		toggle(user)
 
 /obj/structure/falsewall/attack_hand(mob/user)
+	. = ..()
 	toggle(user)
 
 /obj/structure/falsewall/proc/toggle(mob/user)
@@ -139,7 +140,7 @@
 	else
 		to_chat(user, "<span class='warning'>You can't reach, close it first!</span>")
 
-	if(istype(W, /obj/item/gun/energy/plasmacutter) || istype(W, /obj/item/pickaxe/drill/diamonddrill) || istype(W, /obj/item/pickaxe/drill/jackhammer) || istype(W, /obj/item/melee/energy/blade))
+	if(istype(W, /obj/item/gun/energy/plasmacutter) || istype(W, /obj/item/pickaxe/drill/diamonddrill) || istype(W, /obj/item/pickaxe/drill/jackhammer) || istype(W, /obj/item/melee/energy/blade) || istype(W, /obj/item/twohanded/required/pyro_claws))
 		dismantle(user, TRUE)
 
 /obj/structure/falsewall/welder_act(mob/user, obj/item/I)
@@ -225,26 +226,15 @@
 	var/last_event = 0
 	canSmoothWith = list(/obj/structure/falsewall/uranium, /turf/simulated/wall/mineral/uranium)
 
-/obj/structure/falsewall/uranium/attackby(obj/item/W as obj, mob/user as mob, params)
-	radiate()
-	..()
+/obj/structure/falsewall/uranium/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/radioactivity, \
+				rad_per_interaction = 12, \
+				rad_interaction_radius = 3, \
+				rad_interaction_cooldown = 1.5 SECONDS \
+	)
 
-/obj/structure/falsewall/uranium/attack_hand(mob/user as mob)
-	radiate()
-	..()
 
-/obj/structure/falsewall/uranium/proc/radiate()
-	if(!active)
-		if(world.time > last_event+15)
-			active = 1
-			for(var/mob/living/L in range(3,src))
-				L.apply_effect(12,IRRADIATE,0)
-			for(var/turf/simulated/wall/mineral/uranium/T in range(3,src))
-				T.radiate()
-			last_event = world.time
-			active = null
-			return
-	return
 /*
  * Other misc falsewall types
  */
