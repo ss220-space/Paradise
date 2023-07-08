@@ -145,7 +145,7 @@ window "mainwindow"
 		saved-params = "pos;size;is-minimized;is-maximized"
 		on-size = "fitviewport"
 		is-maximized = true
-		icon = 'icons\\paradise.png'
+		icon = 'icons\\utopialogo.png'
 		macro = "default"
 		menu = "menu"
 	elem "asset_cache_browser"
