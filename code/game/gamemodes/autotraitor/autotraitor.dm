@@ -35,13 +35,13 @@
 	for(var/mob/living/player in GLOB.mob_list)
 		if(!player.client || player.stat == DEAD)
 			continue
-		num_players += 1
+		num_players++
 
 		if(!player.mind)
 			continue
 
 		if(player.mind.special_role)
-			traitorcount += 1
+			traitorcount++
 			continue
 
 		if(!player.job || player.mind.offstation_role) //Golems, special events stuff, etc.

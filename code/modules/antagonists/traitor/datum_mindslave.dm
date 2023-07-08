@@ -98,5 +98,5 @@
 
 
 // Helper proc that determines if a mob is a mindslave.
-/proc/ismindslave(mob/living/carbon/human/H)
-	return istype(H) && H.mind.has_antag_datum(/datum/antagonist/mindslave, FALSE)
+/proc/ismindslave(mob/living/carbon/human/slave)
+	return istype(slave) && slave.mind?.has_antag_datum(/datum/antagonist/mindslave, FALSE)

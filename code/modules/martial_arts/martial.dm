@@ -264,11 +264,11 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll2"
 
-/obj/item/sleeping_carp_scroll/attack_self(mob/living/carbon/human/user as mob)
+/obj/item/sleeping_carp_scroll/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
 		return
-	if(user.mind && (user.mind.changeling || user.mind.vampire)) //Prevents changelings and vampires from being able to learn it
-		if(user.mind && user.mind.changeling) //Changelings
+	if(user.mind && (ischangeling(user) || user.mind.vampire)) //Prevents changelings and vampires from being able to learn it
+		if(ischangeling(user)) //Changelings
 			to_chat(user, "<span class ='warning'>We try multiple times, but we are not able to comprehend the contents of the scroll!</span>")
 			return
 		else //Vampires

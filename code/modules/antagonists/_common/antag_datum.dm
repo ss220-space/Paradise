@@ -46,8 +46,10 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 
 /datum/antagonist/Destroy(force, ...)
-	for(var/datum/objective/O as anything in objectives)
-		objectives -= O
+	for(var/datum/objective/objective as anything in objectives)
+		objectives -= objective
+		if(!objective.team)
+			qdel(objective)
 	remove_owner_from_gamemode()
 	GLOB.antagonists -= src
 	if(!silent)
@@ -70,7 +72,7 @@ GLOBAL_LIST_EMPTY(antagonists)
  */
 /datum/antagonist/proc/can_be_owned(datum/mind/new_owner)
 	var/datum/mind/tested = new_owner || owner
-	if(tested.has_antag_datum(type))
+	if(tested?.has_antag_datum(type))
 		return FALSE
 	for(var/i in tested.antag_datums)
 		var/datum/antagonist/A = i

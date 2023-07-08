@@ -31,7 +31,7 @@
 
 /datum/antagonist/traitor/Destroy(force, ...)
 	// Remove contractor if present
-	var/datum/antagonist/contractor/contractor_datum = owner.has_antag_datum(/datum/antagonist/contractor)
+	var/datum/antagonist/contractor/contractor_datum = owner?.has_antag_datum(/datum/antagonist/contractor)
 	if(contractor_datum)
 		contractor_datum.silent = TRUE
 		owner.remove_antag_datum(contractor_datum)
@@ -305,7 +305,7 @@
 	if(!uplink_holder)
 		return FALSE
 
-	if(istype(uplink_holder, /obj/item/radio))
+	if(isradio(uplink_holder))
 		// generate list of radio freqs
 		var/obj/item/radio/target_radio = uplink_holder
 		var/freq = PUBLIC_LOW_FREQ
@@ -326,7 +326,7 @@
 		antag_memory += ("<B>Radio Freq:</B> [format_frequency(freq)] ([target_radio.name]).")
 		return TRUE
 
-	if(istype(uplink_holder, /obj/item/pda))
+	if(ispda(uplink_holder))
 		// generate a passcode if the uplink is hidden in a PDA
 		var/obj/item/pda/target_pda = uplink_holder
 		var/obj/item/uplink/hidden/new_uplink = new(target_pda)
@@ -368,11 +368,11 @@
 
 	var/obj/item/uplink_holder = hidden_uplink.loc
 
-	if(istype(uplink_holder, /obj/item/pda))
+	if(ispda(uplink_holder))
 		var/obj/item/pda/pda_uplink = uplink_holder
 		to_chat(owner.current, "The Syndicate have cunningly disguised a Syndicate Uplink as your [uplink_holder.name]. Simply enter the code \"[pda_uplink.lock_code]\" into the ringtone select to unlock its hidden features.")
 
-	else if(istype(uplink_holder, /obj/item/radio))
+	else if(isradio(uplink_holder))
 		var/obj/item/radio/radio_uplink = uplink_holder
 		to_chat(owner.current, "The Syndicate have cunningly disguised a Syndicate Uplink as your [uplink_holder.name]. Simply dial the frequency [format_frequency(radio_uplink.traitor_frequency)] to unlock its hidden features.")
 

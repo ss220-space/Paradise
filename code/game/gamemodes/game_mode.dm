@@ -462,10 +462,7 @@
 			continue //Happy connected client
 
 		for(var/mob/dead/observer/observer in GLOB.mob_list)
-			if(!observer)
-				continue
-
-			if(observer.mind && (observer.mind.original == mob_living || observer.mind.current == mob_living))
+			if(observer.mind && (observer.mind.is_original_mob(mob_living) || observer.mind.current == mob_living))
 				if(mob_living.stat == DEAD)
 					if(mob_living.suiciding)	//Suicider
 						msg += "<b>[mob_living.name]</b> ([ckey(observer.mind.key)]), the [mob_living.job] (<font color='red'><b>Suicide</b></font>)\n"

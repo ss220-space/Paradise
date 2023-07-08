@@ -149,7 +149,7 @@
 			else
 				special_role_text = "antagonist"
 
-			var/datum/antagonist/contractor/contractor = traitor.has_antag_datum(/datum/antagonist/contractor)
+			var/datum/antagonist/contractor/contractor = traitor?.has_antag_datum(/datum/antagonist/contractor)
 			if(istype(contractor) && contractor.contractor_uplink)
 				var/count = 1
 				var/earned_tc = contractor.contractor_uplink.hub.reward_tc_paid_out

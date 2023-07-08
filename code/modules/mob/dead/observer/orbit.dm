@@ -105,7 +105,7 @@
 						other_antags += list(
 							"Abductees — ([SSticker.mode.abductees.len])" = (mind in SSticker.mode.abductees),
 							"Abductors — ([SSticker.mode.abductors.len])" = (mind in SSticker.mode.abductors),
-							"Changelings — ([SSticker.mode.changelings.len])" = (mind.changeling != null),
+							"Changelings — ([SSticker.mode.changelings.len])" = (mind in SSticker.mode.changelings),
 							"Devils — ([SSticker.mode.devils.len])" = (mind in SSticker.mode.devils),
 							"Event Roles — ([SSticker.mode.eventmiscs.len])" = (mind in SSticker.mode.eventmiscs),
 							"Nar’Sie Cultists — ([SSticker.mode.cult.len])" = (mind in SSticker.mode.cult),

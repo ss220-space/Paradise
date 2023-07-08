@@ -260,7 +260,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		if(UI_MODAL_ANSWER)
 			if(id == "become_contractor")
 				if(text2num(params["answer"]))
-					var/datum/antagonist/contractor/C = usr.mind.has_antag_datum(/datum/antagonist/contractor)
+					var/datum/antagonist/contractor/C = usr?.mind?.has_antag_datum(/datum/antagonist/contractor)
 					C?.become_contractor(usr, src)
 				return
 	return FALSE

@@ -26,8 +26,7 @@
 
 	if(LAZYLEN(processing_patches))
 		handle_patches()
-	if(mind)
-		handle_changeling()
+
 	handle_wetness(times_fired)
 
 	// Increase germ_level regularly
@@ -223,8 +222,6 @@
 /mob/living/carbon/proc/handle_blood()
 	return
 
-/mob/living/carbon/proc/handle_changeling()
-	return
 
 /mob/living/carbon/proc/handle_disgust()
 	if(disgust)

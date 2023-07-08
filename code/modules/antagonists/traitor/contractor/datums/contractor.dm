@@ -23,7 +23,7 @@
 
 
 /datum/antagonist/contractor/Destroy(force, ...)
-	var/datum/antagonist/traitor/traitor_datum = owner.has_antag_datum(/datum/antagonist/traitor)
+	var/datum/antagonist/traitor/traitor_datum = owner?.has_antag_datum(/datum/antagonist/traitor)
 	if(traitor_datum)
 		traitor_datum.hidden_uplink?.contractor = null
 
@@ -45,7 +45,7 @@
 /datum/antagonist/contractor/finalize_antag()
 
 	// Setup the vars and contractor stuff in the uplink
-	var/datum/antagonist/traitor/traitor_datum = owner.has_antag_datum(/datum/antagonist/traitor)
+	var/datum/antagonist/traitor/traitor_datum = owner?.has_antag_datum(/datum/antagonist/traitor)
 	if(!traitor_datum)
 		return
 

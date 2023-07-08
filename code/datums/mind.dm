@@ -21,10 +21,16 @@
 
 /datum/mind
 	var/key
-	var/name				//replaces mob/var/original_name
+	/// Replaces mob/var/original_name
+	var/name
+	/// Current mob of our mind.
 	var/mob/living/current
-	var/mob/living/original	//TODO: remove.not used in any meaningful way ~Carn. First I'll need to tweak the way silicon-mobs handle minds.
-	var/active = 0
+	/// The original mob's UID. Used for example to see if a silicon with antag status is actually malf. Or just an antag put in a borg.
+	var/original_mob_UID
+	/// The original mob's name. Used in dead chat messages.
+	var/original_mob_name
+
+	var/active = FALSE
 
 	var/memory
 
@@ -45,11 +51,13 @@
 	var/list/datum/objective/objectives = list()
 	var/list/datum/objective/special_verbs = list()
 
+	var/list/targets = list()
+
 	var/has_been_rev = 0//Tracks if this mind has been a rev or not
 
 	var/miming = 0 // Mime's vow of silence
 	var/list/antag_datums
-	var/datum/changeling/changeling		//changeling holder
+
 	var/linglink
 	var/datum/vampire/vampire			//vampire holder
 	var/datum/ninja/ninja				//ninja holder
@@ -101,16 +109,56 @@
 		qdel(antag)
 
 	current = null
-	original = null
 	soulOwner = null
 	return ..()
 
 
+/datum/mind/proc/set_original_mob(mob/original)
+	original_mob_UID = original.UID()
+
+
+/datum/mind/proc/is_original_mob(mob/o_mob)
+	return original_mob_UID == o_mob.UID()
+
+
+// Do not use for admin related things as this can hide the mob's ckey
+/datum/mind/proc/get_display_key()
+	// Lets try find a client so we can check their prefs
+	var/client/C = null
+
+	var/cannonical_key = ckey(key)
+
+	if(current?.client)
+		// Active client
+		C = current.client
+	else if(cannonical_key in GLOB.directory)
+		// Do a directory lookup on the last ckey this mind had
+		// If theyre online we can grab them still and check prefs
+		C = GLOB.directory[cannonical_key]
+
+	// Ok we found a client, be it their active or their last
+	// Now we see if we need to respect their privacy
+	var/out_ckey
+	if(C)
+		if(C.prefs.toggles2 & PREFTOGGLE_2_ANONDCHAT)
+			out_ckey = "(Anon)"
+		else
+			out_ckey = C.ckey
+	else
+		// No client. Just mark as DC'd.
+		out_ckey = "(Disconnected)"
+
+	return out_ckey
+
+
 /datum/mind/proc/transfer_to(mob/living/new_character)
+
+	if(!istype(new_character))
+		stack_trace("transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob.")
+
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud //we need this because leave_hud() will clear this list
 	var/mob/living/old_current = current
-	if(!istype(new_character))
-		log_runtime(EXCEPTION("transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob."), src)
+
 	if(current)					//remove ourself from our old body's mind variable
 		current.mind = null
 		leave_all_huds() //leave all the huds in the old body, so it won't get huds if somebody else enters it
@@ -119,12 +167,15 @@
 
 	if(new_character.mind)		//remove any mind currently in our new body's mind variable
 		new_character.mind.current = null
+
 	current = new_character		//link ourself to our new body
 	new_character.mind = src	//and link our new body to ourself
+
 	for(var/datum/antagonist/antag in antag_datums)	//Makes sure all antag datums effects are applied in the new body
 		antag.on_body_transfer(old_current, current)
 	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
 	transfer_actions(new_character, old_current)
+
 	if(martial_art)
 		if(martial_art.temporary)
 			martial_art.remove(current)
@@ -133,6 +184,7 @@
 
 	if(active)
 		new_character.key = key		//now transfer the key to link the client to our new body
+
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSER_TO, new_character)
 
 
@@ -144,16 +196,16 @@
 	memory = null
 
 
-/datum/mind/proc/show_memory(mob/recipient, window = 1)
+/datum/mind/proc/show_memory(mob/recipient, window = TRUE)
 	if(!recipient)
 		recipient = current
 	var/output = {"<meta charset="UTF-8"><B>[name]'s Memories:</B><HR>"}
 	output += memory
 
 	var/antag_datum_objectives = FALSE
-	for(var/datum/antagonist/A in antag_datums)
-		output += A.antag_memory
-		if(!antag_datum_objectives && LAZYLEN(A.objectives))
+	for(var/datum/antagonist/antag in antag_datums)
+		output += antag.antag_memory
+		if(!antag_datum_objectives && LAZYLEN(antag.objectives))
 			antag_datum_objectives = TRUE
 
 	if(LAZYLEN(objectives) || antag_datum_objectives)
@@ -342,18 +394,23 @@
 		. += "<b>NO</b>|<a href='?src=[UID()];wizard=wizard'>wizard</a>|<a href='?src=[UID()];wizard=apprentice'>apprentice</a>"
 	. += _memory_edit_role_enabled(ROLE_WIZARD)
 
+
 /datum/mind/proc/memory_edit_changeling(mob/living/carbon/human/H)
 	. = _memory_edit_header("changeling", list("traitorchan", "traitorthiefchan", "thiefchan", "changelingthief"))
-	if(src in SSticker.mode.changelings)
+	var/datum/antagonist/changeling/cling = has_antag_datum(/datum/antagonist/changeling)
+	if(cling)
 		. += "<b><font color='red'>CHANGELING</font></b>|<a href='?src=[UID()];changeling=clear'>no</a>"
-		if(!length(objectives))
+		if(!length(cling.objectives))
 			. += "<br>Objectives are empty! <a href='?src=[UID()];changeling=autoobjectives'>Randomize!</a>"
-		if(changeling && changeling.absorbed_dna.len && (current.real_name != changeling.absorbed_dna[1]))
-			. += "<br><a href='?src=[UID()];changeling=initialdna'>Transform to initial appearance.</a>"
+		if(length(cling.absorbed_dna))
+			var/datum/dna/DNA = cling.absorbed_dna[1]
+			if(current.real_name != DNA.real_name)
+				. += "<br><a href='?src=[UID()];changeling=initialdna'>Transform to initial appearance.</a>"
 	else
 		. += "<a href='?src=[UID()];changeling=changeling'>changeling</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_CHANGELING)
+
 
 /datum/mind/proc/memory_edit_vampire(mob/living/carbon/human/H)
 	. = _memory_edit_header("vampire", list("traitorvamp", "traitorthiefvamp", "thiefvamp", "vampirethief"))
@@ -1340,35 +1397,34 @@
 	else if(href_list["changeling"])
 		switch(href_list["changeling"])
 			if("clear")
-				remove_changeling_role()
-				to_chat(current, "<FONT color='red' size = 3><B>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</B></FONT>")
-				log_admin("[key_name(usr)] has de-changelinged [key_name(current)]")
-				message_admins("[key_name_admin(usr)] has de-changelinged [key_name_admin(current)]")
+				if(ischangeling(current))
+					remove_antag_datum(/datum/antagonist/changeling)
+					log_admin("[key_name(usr)] has de-changelinged [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has de-changelinged [key_name_admin(current)]")
+
 			if("changeling")
-				if(!(src in SSticker.mode.changelings))
-					SSticker.mode.changelings += src
-					SSticker.mode.grant_changeling_powers(current)
-					SSticker.mode.update_change_icons_added(src)
-					special_role = SPECIAL_ROLE_CHANGELING
-					SEND_SOUND(current, 'sound/ambience/antag/ling_aler.ogg')
-					to_chat(current, "<B><font color='red'>Your powers have awoken. A flash of memory returns to us... we are a changeling!</font></B>")
+				if(!ischangeling(current))
+					add_antag_datum(/datum/antagonist/changeling)
+					to_chat(current, "<span class='biggerdanger'>Your powers have awoken. A flash of memory returns to us... we are a changeling!</span>")
 					log_admin("[key_name(usr)] has changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has changelinged [key_name_admin(current)]")
 
 			if("autoobjectives")
-				SSticker.mode.forge_changeling_objectives(src)
+				var/datum/antagonist/changeling/cling = has_antag_datum(/datum/antagonist/changeling)
+				cling.give_objectives()
 				to_chat(usr, "<span class='notice'>The objectives for changeling [key] have been generated. You can edit them and announce manually.</span>")
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
 
 			if("initialdna")
-				if(!changeling || !changeling.absorbed_dna.len)
+				var/datum/antagonist/changeling/cling = has_antag_datum(/datum/antagonist/changeling)
+				if(!cling || !length(cling.absorbed_dna))
 					to_chat(usr, "<span class='warning'>Resetting DNA failed!</span>")
 				else
-					current.dna = changeling.absorbed_dna[1]
+					current.dna = cling.absorbed_dna[1]
 					current.real_name = current.dna.real_name
 					current.UpdateAppearance()
-					domutcheck(current, null)
+					domutcheck(current)
 					log_admin("[key_name(usr)] has reset [key_name(current)]'s DNA")
 					message_admins("[key_name_admin(usr)] has reset [key_name_admin(current)]'s DNA")
 
@@ -2133,16 +2189,12 @@
 		SSticker.mode.update_wiz_icons_removed(src)
 
 /datum/mind/proc/remove_changeling_role()
-	if(src in SSticker.mode.changelings)
-		SSticker.mode.changelings -= src
-		special_role = null
-		if(changeling)
-			current.remove_changeling_powers()
-			qdel(current.middleClickOverride) // In case the old changeling has a targeted sting prepared (`datum/middleClickOverride`), delete it.
-			current.middleClickOverride = null
-			qdel(changeling)
-			changeling = null
-		SSticker.mode.update_change_icons_removed(src)
+	var/datum/antagonist/traitor/chan_datum = has_antag_datum(/datum/antagonist/changeling)
+	if(!chan_datum)
+		return
+
+	chan_datum.silent = TRUE
+	remove_antag_datum(chan_datum)
 
 /datum/mind/proc/remove_vampire_role()
 	if(src in SSticker.mode.vampires)
@@ -2330,14 +2382,6 @@
 		SSticker.mode.greet_vampire(src)
 		SSticker.mode.update_vampire_icons_added(src)
 
-/datum/mind/proc/make_Changeling()
-	if(!(src in SSticker.mode.changelings))
-		SSticker.mode.changelings += src
-		SSticker.mode.grant_changeling_powers(current)
-		special_role = SPECIAL_ROLE_CHANGELING
-		SSticker.mode.forge_changeling_objectives(src)
-		SSticker.mode.greet_changeling(src)
-		SSticker.mode.update_change_icons_added(src)
 
 /datum/mind/proc/make_Overmind()
 	if(!(src in SSticker.mode.blob_overminds))
