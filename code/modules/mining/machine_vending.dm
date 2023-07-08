@@ -101,7 +101,7 @@
 		EQUIPMENT("GPS upgrade", 					/obj/item/gpsupgrade, 												1000),
 		EQUIPMENT("Laser Pointer", 					/obj/item/laser_pointer, 											300),
 		EQUIPMENT("Luxury Shelter Capsule", 		/obj/item/survivalcapsule/luxury, 									3000),
-		EQUIPMENT("Luxury Elite Bar Capsule",		/obj/item/survivalcapsule/luxuryelite,								15000),
+		EQUIPMENT("Luxury Elite Bar Capsule",		/obj/item/survivalcapsule/luxuryelite,								10000),
 		EQUIPMENT("Soap", 							/obj/item/soap/nanotrasen, 											200),
 		EQUIPMENT("Space Cash", 					/obj/item/stack/spacecash/c1000, 									2000),
 		EQUIPMENT("Whiskey", 						/obj/item/reagent_containers/food/drinks/bottle/whiskey, 			100),

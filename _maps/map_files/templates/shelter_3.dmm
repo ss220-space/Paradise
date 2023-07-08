@@ -15,7 +15,8 @@
 /area/survivalpod)
 "c" = (
 /obj/machinery/door/airlock/survival_pod/glass,
-/turf/simulated/floor/carpet/black,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/pod,
 /area/survivalpod)
 "d" = (
 /obj/machinery/light,
@@ -164,12 +165,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/survivalpod)
-"E" = (
-/obj/machinery/door/window/survival_pod{
-	dir = 9
-	},
-/turf/simulated/floor/pod,
-/area/survivalpod)
 "F" = (
 /obj/machinery/door/airlock/survival_pod/glass,
 /turf/simulated/floor/pod,
@@ -253,7 +248,7 @@
 (1,1,1) = {"
 a
 T
-F
+c
 T
 G
 T
@@ -358,7 +353,7 @@ u
 a
 m
 H
-E
+F
 L
 L
 F
@@ -371,7 +366,7 @@ a
 s
 K
 H
-o
+a
 p
 z
 a
