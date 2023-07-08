@@ -93,8 +93,6 @@
 	damage_type = BRUTE
 	hitsound = 'sound/weapons/whip.ogg'
 	weaken = 2 SECONDS
-	var/chain
-
 
 /obj/item/projectile/johyo/fire(setAngle)
 	if(firer)
