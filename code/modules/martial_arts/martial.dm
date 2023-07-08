@@ -10,6 +10,7 @@
 	var/deflection_chance = 0 //Chance to deflect projectiles
 	var/reflection_chance = 0 //Chance to reflect projectiles
 	var/block_chance = 0 //Chance to block melee attacks using items while on throw mode.
+	var/interception_chance = 0 //Chance to intercept melee attacks while on throw mode.
 	var/help_verb = null
 	var/no_guns = FALSE	//set to TRUE to prevent users of this style from using guns (sleeping carp, highlander). They can still pick them up, but not fire them.
 	var/no_guns_message = ""	//message to tell the style user if they try and use a gun while no_guns = TRUE (DISHONORABRU!)
@@ -124,10 +125,19 @@
 		D.forcesay(GLOB.hit_appends)
 	return TRUE
 
-/datum/martial_art/proc/objective_damage(mob/living/user, mob/living/target, damage, damage_type)
+/datum/martial_art/proc/attack_reaction(var/mob/living/carbon/human/defender, var/mob/living/carbon/human/attacker, var/obj/item/I)
+	if(can_use(src) && defender.in_throw_mode && !defender.incapacitated(FALSE, TRUE))
+		if(prob(interception_chance))
+			defender.visible_message("<span class='warning'>[defender] intercept attack of [attacker]!</span>")
+			return TRUE
+		if(prob(block_chance))
+			defender.visible_message("<span class='warning'>[defender] blocks [I]!</span>")
+			return TRUE
+
+/datum/martial_art/proc/objective_damage(var/mob/living/user, var/mob/living/target, var/damage, var/damage_type)
 	var/all_objectives = user?.mind?.get_all_objectives()
 	if(target.mind && all_objectives)
-		for(var/datum/objective/pain_hunter/objective in all_objectives)
+		for(var/datum/objective/pain_hunter/objective in user.mind.objectives)
 			if(target.mind == objective.target)
 				objective.take_damage(damage, damage_type)
 
