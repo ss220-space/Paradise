@@ -664,8 +664,6 @@
 	go_out()
 	add_fingerprint(usr)
 
-	name = initial(name)
-
 /obj/machinery/cryopod/verb/move_inside()
 	set name = "Enter Pod"
 	set category = "Object"
@@ -727,6 +725,8 @@
 		icon_state = "[base_icon_state]-r"
 	else
 		icon_state = base_icon_state
+
+	name = initial(name)
 
 	return
 

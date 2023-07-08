@@ -44,3 +44,42 @@
   - refactor: Immortality Talisman Consume (#3118)
   Сиротка:
   - unknown: ATMOS module & X-ray (#3083)
+'2023-07-05':
+  Dimach:
+  - tweak: add cerestation to map rotation (#3141)
+  Rerik007:
+  - bugfix: big ruins create infinity loop (#3128)
+  - qol: configurable loading taipan and lavaland (#3129)
+  - bugfix: holster logic and dupe naming cryopod (#3131)
+  - bugfix: aoe KAmods for borgs don't install (#3139)
+  - add: agent card save slots (#2951)
+  Vladisvell:
+  - bugfix: indestructible tiles can't be pried, screwdrivered, weldered. (#3127)
+  - add: fire makeshift bolts (#3133)
+  aeternaclose:
+  - add: Cere improvements part 3 (#3097)
+  captainnelly:
+  - tweak: replace TSF traders autoimplanter by old one (#3132)
+  mqopi:
+  - add: patriotic-crate (cargo) (#3017)
+  Сиротка:
+  - balance: Space dragon (#3134)
+'2023-07-06':
+  Rerik007:
+  - qol: html-tgui links(f.e. in changelog) send you into your browser (#3140)
+  - bugfix: puppy collars don't remove (#3137)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3142)
+'2023-07-08':
+  Rerik007:
+  - bugfix: chasm can be pried (#3144)
+  Vladisvell:
+  - bugfix: now teleporter console shows correct calibration state (#3125)
+  Zwei:
+  - refactor: Inventory Code Tweaks (#3124)
+  captainnelly:
+  - bugfix: wrong sniper ammo type in traitor uplink (#3145)
+  Сиротка:
+  - balance: Space Dragon (#3146)
+  - tweak: Increase laugh threshold for N2O (#3143)
+  - add: new weapon - B.S.G (#3138)
