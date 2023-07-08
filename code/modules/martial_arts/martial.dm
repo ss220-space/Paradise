@@ -10,6 +10,7 @@
 	var/deflection_chance = 0 //Chance to deflect projectiles
 	var/reflection_chance = 0 //Chance to reflect projectiles
 	var/block_chance = 0 //Chance to block melee attacks using items while on throw mode.
+	var/interception_chance = 0 //Chance to intercept melee attacks while on throw mode.
 	var/help_verb = null
 	var/no_guns = FALSE	//set to TRUE to prevent users of this style from using guns (sleeping carp, highlander). They can still pick them up, but not fire them.
 	var/no_guns_message = ""	//message to tell the style user if they try and use a gun while no_guns = TRUE (DISHONORABRU!)
