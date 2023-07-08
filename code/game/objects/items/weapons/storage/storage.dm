@@ -441,7 +441,7 @@
 		else
 			W.layer = initial(W.layer)
 			W.plane = initial(W.plane)
-		if(usr && config.item_animations_enabled)
+		if(usr)
 			W.loc = get_turf(src)
 			W.do_pickup_animation(usr)
 		W.forceMove(new_location)
