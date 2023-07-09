@@ -58,7 +58,6 @@
 	var/miming = 0 // Mime's vow of silence
 	var/list/antag_datums
 
-	var/linglink
 	var/datum/vampire/vampire			//vampire holder
 	var/datum/ninja/ninja				//ninja holder
 
@@ -808,19 +807,6 @@
 		var/objective_pos
 		var/def_value
 
-		/*if(href_list["obj_edit"])
-			objective = locate(href_list["obj_edit"])
-			if(!objective)
-				return
-			objective_pos = objectives.Find(objective)
-
-			//Text strings are easy to manipulate. Revised for simplicity.
-			var/temp_obj_type = "[objective.type]"//Convert path into a text string.
-			def_value = copytext(temp_obj_type, 19)//Convert last part of path into an objective keyword.
-			if(!def_value)//If it's a custom objective, it will be an empty string.
-				def_value = "custom"*/
-
-
 		if(href_list["obj_edit"])
 			objective = locate(href_list["obj_edit"])
 			if(!objective)
@@ -840,7 +826,7 @@
 				def_value = "custom"
 
 		var/list/objective_types = list(
-			"assassinate", "prevent from escape", "pain hunter", "steal brain", "protect", "escape", "survive",
+			"assassinate", "maroon", "pain_hunter", "debrain", "protect", "escape", "survive",
 			"steal", "thief hard", "thief medium", "thief collect", "thief pet", "thief structure",
 			"download", "nuclear", "capture", "blood", "absorb",
 			"destroy", "identity theft", "hijack", "kill all humans",
@@ -857,7 +843,7 @@
 		var/datum/objective/new_objective = null
 
 		switch(new_obj_type)
-			if("assassinate", "protect", "steal brain", "prevent from escape", "pain hunter")
+			if("assassinate", "protect", "debrain", "maroon", "pain_hunter")
 				//To determine what to name the objective in explanation text.
 				var/objective_type_capital = uppertext(copytext(new_obj_type, 1,2))	//Capitalize first letter.
 				var/objective_type_text = copytext(new_obj_type, 2)	//Leave the rest of the text.
@@ -911,50 +897,6 @@
 					new_objective:target = new_target:mind
 					//Will display as special role if assigned mode is equal to special role.. Ninjas/commandos/nuke ops.
 					new_objective.explanation_text = "[objective_type] [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
-
-				/*var/obj_type = list("assassinate" = /datum/objective/assassinate,
-								"protect" = /datum/objective/protect,
-								"steal brain" = /datum/objective/debrain,
-								"prevent from escape" = /datum/objective/maroon,
-								"pain hunter" = /datum/objective/pain_hunter
-								)[new_obj_type]
-				new_objective = new obj_type
-				new_objective.owner = src
-
-				if(alert(usr, "Do you want to pick the target yourself? No will randomise it", "Pick target", "Yes", "No") == "Yes")
-					var/list/possible_targets = list()
-					for(var/datum/mind/possible_target in SSticker.minds)
-						if((possible_target != src) && ishuman(possible_target.current))
-							possible_targets += possible_target.current
-
-					var/mob/def_target = null
-					if(objective && objective.target)
-						def_target = objective.target.current
-					possible_targets = sortAtom(possible_targets)
-					possible_targets += "Free objective"
-					var/new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
-					if(!new_target || new_target == "Free objective")
-						new_objective.target = null
-						new_objective.explanation_text = "Free objective"
-					else
-						new_objective.target = new_target:mind
-						var/description = ""
-						switch(new_obj_type)
-							if("assassinate")
-								description = "Assassinate"
-							if("protect")
-								description = "Protect"
-							if("steal brain")
-								description = "Steal the brain of"
-							if("prevent from escape")
-								description = "Prevent from escaping alive or assassinate"
-							if("pain hunter")
-								var/datum/objective/pain_hunter/choose_objective = new_objective
-								choose_objective.update_find_objective()
-						if(description)
-							new_objective.explanation_text = "[description] [new_target:real_name], the [new_target:mind:assigned_role]."
-				else
-					new_objective.find_target()*/
 
 			if("destroy")
 				var/list/possible_targets = active_ais(1)
