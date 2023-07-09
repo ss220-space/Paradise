@@ -413,6 +413,9 @@
 		orient2hud(usr)
 		if(usr.s_active)
 			usr.s_active.show_to(usr)
+
+	W.pixel_y = initial(W.pixel_y)
+	W.pixel_x = initial(W.pixel_x)
 	W.mouse_opacity = MOUSE_OPACITY_OPAQUE //So you can click on the area around the item to equip it, instead of having to pixel hunt
 	W.in_inventory = TRUE
 	update_icon()
