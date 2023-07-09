@@ -290,6 +290,7 @@
 		user.gib()
 		icon_state = "core_container_cracked_empty"
 		qdel(sliver)
+		sliver = null
 	else
 		return ..()
 
