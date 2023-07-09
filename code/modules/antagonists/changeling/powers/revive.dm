@@ -23,11 +23,14 @@
 	user.updatehealth("revive sting")
 	user.update_blind_effects()
 	user.update_blurry_effects()
-	cling.regenerating = FALSE
 	user.UpdateAppearance() //Ensures that the user's appearance matches their DNA.
 	user.regenerate_icons()
-
+	user.lying = FALSE
+	user.resting = FALSE
+	user.update_canmove()
 	user.update_revive() //Handle waking up the changeling after the regenerative stasis has completed.
+
+	cling.regenerating = FALSE
 	cling.acquired_powers -= src
 	Remove(user)
 	user.med_hud_set_status()

@@ -23,13 +23,14 @@
 	user.update_canmove()
 	cling.regenerating = TRUE
 
-	addtimer(CALLBACK(src, PROC_REF(ready_to_regenerate), user), LING_FAKEDEATH_TIME)
+	addtimer(CALLBACK(src, PROC_REF(ready_to_regenerate), user), (LING_FAKEDEATH_TIME + cling.fakedeath_delay))
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
 
 /datum/action/changeling/fakedeath/proc/ready_to_regenerate(mob/user)
-	if(!QDELETED(user) && !QDELETED(src) && user.mind && cling?.acquired_powers)
+	if(!QDELETED(user) && !QDELETED(src) && ischangeling(user) && cling?.acquired_powers)
+		cling.fakedeath_delay = 0 SECONDS
 		to_chat(user, span_notice("We are ready to regenerate."))
 		cling.give_power(new /datum/action/changeling/revive)
 

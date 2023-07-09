@@ -1,5 +1,5 @@
 /// Time before changeling can revive himself.
-#define LING_FAKEDEATH_TIME					40 SECONDS
+#define LING_FAKEDEATH_TIME					60 SECONDS
 /// The lowest value of genetic_damage [/datum/antagonist/changeling/process()] can take it to while dead.
 #define LING_DEAD_GENETIC_DAMAGE_HEAL_CAP	50
 /// The amount of recent spoken lines to gain on absorbing a mob
@@ -53,6 +53,8 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	var/changelingID = "Changeling"
 	/// The current amount of genetic damage incurred from power use.
 	var/genetic_damage = 0
+	/// This variable is applied to default [LING_FAKEDEATH_TIME]
+	var/fakedeath_delay = 0 SECONDS
 	/// If the changeling is in the process of absorbing someone.
 	var/is_absorbing = FALSE
 	/// If the changeling is in the process of linking with someone.
@@ -524,6 +526,12 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	var/mob/living/carbon/human/h_user = user
 	if(!istype(h_user))
 		return
+
+	fakedeath_delay += genetic_damage * 1 SECONDS
+
+	if(h_user.on_fire)
+		fakedeath_delay += 20 SECONDS
+		fakedeath_delay += round(h_user.fire_stacks) * 2 SECONDS
 
 	if(!h_user.get_organ_slot("brain"))
 		to_chat(user, span_notice("The brain is a useless organ to us, we are able to regenerate!"))
