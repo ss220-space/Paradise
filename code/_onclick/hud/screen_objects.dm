@@ -479,7 +479,7 @@
 	if(slot_id != slot_l_hand && slot_id != slot_r_hand)
 		return FALSE
 
-	if(I.is_equipped())
+	if(I.is_equipped(include_pockets = TRUE))
 
 		if(I.equip_delay_self && !user.is_general_slot(user.get_slot_by_item(I)))
 			user.visible_message(span_notice("[user] начинает снимать [I.name]..."), \
@@ -490,7 +490,8 @@
 			if((slot_id == slot_l_hand && user.l_hand) || (slot_id == slot_r_hand && user.r_hand))
 				return FALSE
 
-		user.drop_item_ground(I)
+		if(!user.drop_item_ground(I))
+			return FALSE
 
 	if((slot_id == slot_l_hand && !user.put_in_l_hand(I, ignore_anim = FALSE)) || \
 		(slot_id == slot_r_hand && !user.put_in_r_hand(I, ignore_anim = FALSE)))
