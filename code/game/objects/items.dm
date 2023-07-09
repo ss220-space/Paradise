@@ -330,9 +330,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 					H.UpdateDamageIcon()
 
 	if(istype(src.loc, /obj/item/storage))
-		//If the item is in a storage item, take it out
-		var/obj/item/storage/S = src.loc
-		S.remove_from_storage(src, drop_location())
+		//If the item is in a storage drop it
+		user.drop_item_ground(src)
 	if(QDELETED(src)) //moving it out of the storage to the floor destroyed it.
 		return
 

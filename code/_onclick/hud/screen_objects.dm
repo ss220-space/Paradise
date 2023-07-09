@@ -490,8 +490,7 @@
 			if((slot_id == slot_l_hand && user.l_hand) || (slot_id == slot_r_hand && user.r_hand))
 				return FALSE
 
-		if(!I.remove_item_from_storage(I.drop_location()))
-			user.drop_item_ground(I)
+		user.drop_item_ground(I)
 
 	if((slot_id == slot_l_hand && !user.put_in_l_hand(I, ignore_anim = FALSE)) || \
 		(slot_id == slot_r_hand && !user.put_in_r_hand(I, ignore_anim = FALSE)))
