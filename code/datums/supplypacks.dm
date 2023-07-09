@@ -514,7 +514,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/gun/projectile/automatic/wt550)
 	cost = 35
 	containername = "auto rifle crate"
-	
+
 /datum/supply_packs/security/armory/ga12
 	name = "Tkach Ya-Sui GA 12 Crate"
 	contains = list(/obj/item/gun/projectile/revolver/ga12,
@@ -1132,6 +1132,27 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 80
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "machine prototype crate"
+	access = ACCESS_RESEARCH
+
+/datum/supply_packs/science/resources
+	name = "Science Resources Crate"
+	contains = list(/obj/item/stack/sheet/metal/fifty,
+					/obj/item/stack/sheet/glass/fifty,
+					/obj/item/stack/sheet/bluespace_crystal,
+					/obj/item/stack/sheet/mineral/plasma/fifty,
+					/obj/item/stack/sheet/mineral/silver,
+					/obj/item/stack/sheet/mineral/silver,
+					/obj/item/stack/sheet/mineral/uranium,
+					/obj/item/stack/sheet/mineral/uranium,
+					/obj/item/stack/sheet/mineral/diamond/fifty,
+					/obj/item/stack/sheet/mineral/titanium/fifty,
+					/obj/item/stack/sheet/mineral/plastitanium,
+					/obj/item/stack/sheet/mineral/gold,
+					/obj/item/stack/sheet/plastic/fifty,
+					/obj/item/stack/sheet/mineral/gold)
+	cost = 60
+	containertype = /obj/structure/closet/crate/secure/scisec
+	containername = "science resources crate"
 	access = ACCESS_RESEARCH
 
 /datum/supply_packs/science/oil

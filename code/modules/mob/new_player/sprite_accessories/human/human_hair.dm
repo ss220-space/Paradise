@@ -500,7 +500,7 @@
 	icon_state = "longeralt2"
 
 /datum/sprite_accessory/hair/nia
-	name = "Nia"
+	name = "Niа"
 	icon_state = "nia"
 
 /datum/sprite_accessory/hair/eighties

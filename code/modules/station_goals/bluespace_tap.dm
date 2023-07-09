@@ -12,7 +12,7 @@
 	<br><br>
 	Be advised that the device is experimental and might act in slightly unforseen ways if sufficiently powered.
 	<br>
-	Nanotrasen Science Directorate"}
+	Syndiecate"}
 
 /datum/station_goal/bluespace_tap/on_report()
 	var/datum/supply_packs/misc/station_goal/bluespace_tap/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bluespace_tap]"]

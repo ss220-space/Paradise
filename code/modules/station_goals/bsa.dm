@@ -12,7 +12,7 @@
 	<br><br>
 	Its base parts should be available for shipping by your cargo shuttle.
 	<br>
-	-Nanotrasen Naval Command"}
+	-Syndieacate"}
 
 /datum/station_goal/bluespace_cannon/on_report()
 	//Unlock BSA parts
@@ -71,7 +71,7 @@
 
 /obj/machinery/bsa/middle
 	name = "Bluespace Artillery Fusor"
-	desc = "Contents classifed by Nanotrasen Naval Command. Needs to be linked with the other BSA parts using multitool."
+	desc = "Contents classifed by Syndiecate. Needs to be linked with the other BSA parts using multitool."
 	icon_state = "fuel_chamber"
 	var/obj/machinery/bsa/back/back
 	var/obj/machinery/bsa/front/front
