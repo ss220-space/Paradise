@@ -2,14 +2,12 @@ name: CI
 on:
   push:
     branches:
-    - master220
-    - whitelist220
-    - testmerge
+    - master
+    - Update-SS220
     - dev
   pull_request:
     branches:
-    - master220
-    - whitelist220
+    - master
   workflow_call:
 
 jobs:
