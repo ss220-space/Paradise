@@ -343,7 +343,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			return
 
 		// inventory unequip delay
-		if(equip_delay_self && in_inventory && !in_storage && !user.is_general_slot(user.get_slot_by_item(src)))
+		if(equip_delay_self && !user.is_general_slot(user.get_slot_by_item(src)))
 			user.visible_message(span_notice("[user] начинает снимать [name]..."), \
 							span_notice("Вы начинаете снимать [name]..."))
 			if(!do_after_once(user, equip_delay_self, target = user, attempt_cancel_message = "Снятие [name] было прервано!"))

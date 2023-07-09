@@ -359,7 +359,7 @@
 		return FALSE
 
 	// item unequip delay
-	if(usr && W.equip_delay_self && W.in_inventory && !W.in_storage && !usr.is_general_slot(usr.get_slot_by_item(W)))
+	if(usr && W.equip_delay_self && W.is_equipped() && !usr.is_general_slot(usr.get_slot_by_item(W)))
 		usr.visible_message(span_notice("[usr] начинает снимать [W.name]..."), \
 							span_notice("Вы начинаете снимать [W.name]..."))
 		if(!do_after_once(usr, W.equip_delay_self, target = usr, attempt_cancel_message = "Снятие [W.name] было прервано!"))
@@ -439,6 +439,8 @@
 			W.layer = ABOVE_HUD_LAYER
 			W.plane = ABOVE_HUD_PLANE
 		else
+			W.pixel_y = initial(W.pixel_y)
+			W.pixel_x = initial(W.pixel_x)
 			W.layer = initial(W.layer)
 			W.plane = initial(W.plane)
 		if(usr && config.item_animations_enabled)
