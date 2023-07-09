@@ -322,20 +322,32 @@
 
 /datum/mind/proc/memory_edit_revolution(mob/living/carbon/human/H)
 	. = _memory_edit_header("revolution")
-	if(src in SSticker.mode.head_revolutionaries)
+	if(ismindshielded(H))
+		. += "<b>NO</b>|headrev|rev"
+	else if(src in SSticker.mode.head_revolutionaries)
 		. += "<a href='?src=[UID()];revolution=clear'>no</a>|<b><font color='red'>HEADREV</font></b>|<a href='?src=[UID()];revolution=rev'>rev</a>"
+		. += "<br>Flash: <a href='?src=[UID()];revolution=flash'>give</a>"
 
-		. += " <a href='?src=[UID()];revolution=reequip'>Reequip</a> (gives security HUD and spray can)."
-		if(!length(objectives))
+		var/list/contents_list = current.get_contents()
+		var/obj/item/flash/flash = locate() in contents_list
+		if(flash)
+			if(!flash.broken)
+				. += "|<a href='?src=[UID()];revolution=takeflash'>take</a>."
+			else
+				. += "|<a href='?src=[UID()];revolution=takeflash'>take</a>|<a href='?src=[UID()];revolution=repairflash'>repair</a>."
+		else
+			. += "."
+
+		. += " <a href='?src=[UID()];revolution=reequip'>Reequip</a> (gives traitor uplink)."
+		if(objectives.len==0)
 			. += "<br>Objectives are empty! <a href='?src=[UID()];revolution=autoobjectives'>Set to kill all heads</a>."
 	else if(src in SSticker.mode.revolutionaries)
 		. += "<a href='?src=[UID()];revolution=clear'>no</a>|<a href='?src=[UID()];revolution=headrev'>headrev</a>|<b><font color='red'>REV</font></b>"
-	else if(ismindshielded(H))
-		. += "<b>NO</b>|headrev|rev"
 	else
 		. += "<b>NO</b>|<a href='?src=[UID()];revolution=headrev'>headrev</a>|<a href='?src=[UID()];revolution=rev'>rev</a>"
 
 	. += _memory_edit_role_enabled(ROLE_REV)
+
 
 /datum/mind/proc/memory_edit_cult(mob/living/carbon/human/H)
 	. = _memory_edit_header("cult")
@@ -796,7 +808,7 @@
 		var/objective_pos
 		var/def_value
 
-		if(href_list["obj_edit"])
+		/*if(href_list["obj_edit"])
 			objective = locate(href_list["obj_edit"])
 			if(!objective)
 				return
@@ -805,6 +817,25 @@
 			//Text strings are easy to manipulate. Revised for simplicity.
 			var/temp_obj_type = "[objective.type]"//Convert path into a text string.
 			def_value = copytext(temp_obj_type, 19)//Convert last part of path into an objective keyword.
+			if(!def_value)//If it's a custom objective, it will be an empty string.
+				def_value = "custom"*/
+
+
+		if(href_list["obj_edit"])
+			objective = locate(href_list["obj_edit"])
+			if(!objective)
+				return
+
+			if(objectives.Find(objective))
+				objective_pos = list(objectives.Find(objective), null)
+			else
+				for(var/datum/antagonist/antag as anything in antag_datums)
+					if(antag.objectives.Find(objective))
+						objective_pos = list(antag.objectives.Find(objective), antag)
+
+			//Text strings are easy to manipulate. Revised for simplicity.
+			var/temp_obj_type = "[objective.type]"//Convert path into a text string.
+			def_value = copytext(temp_obj_type, 18)//Convert last part of path into an objective keyword.
 			if(!def_value)//If it's a custom objective, it will be an empty string.
 				def_value = "custom"
 
@@ -827,7 +858,61 @@
 
 		switch(new_obj_type)
 			if("assassinate", "protect", "steal brain", "prevent from escape", "pain hunter")
-				var/obj_type = list("assassinate" = /datum/objective/assassinate,
+				//To determine what to name the objective in explanation text.
+				var/objective_type_capital = uppertext(copytext(new_obj_type, 1,2))	//Capitalize first letter.
+				var/objective_type_text = copytext(new_obj_type, 2)	//Leave the rest of the text.
+				var/objective_type = "[objective_type_capital][objective_type_text]"	//Add them together into a text string.
+
+				var/list/possible_targets = list()
+				var/list/possible_targets_random = list()
+				for(var/datum/mind/possible_target in SSticker.minds)
+					if((possible_target != src) && ishuman(possible_target.current))
+						possible_targets += possible_target.current // Allows for admins to pick off station roles
+						if(!is_invalid_target(possible_target))
+							possible_targets_random += possible_target.current // For random picking, only valid targets
+
+				var/mob/def_target = null
+				var/objective_list[] = list(/datum/objective/assassinate, \
+											/datum/objective/protect, \
+											/datum/objective/debrain, \
+											/datum/objective/maroon, \
+											/datum/objective/pain_hunter)
+
+				if(objective && (objective.type in objective_list) && objective:target)
+					def_target = objective.target.current
+				possible_targets = sortAtom(possible_targets)
+
+				var/new_target
+				if(length(possible_targets))
+					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
+						possible_targets += "Free objective"
+						new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
+					else
+						if(!length(possible_targets_random))
+							to_chat(usr, span_warning("No random target found. Pick one manually."))
+							return
+						new_target = pick(possible_targets_random)
+
+					if(!new_target)
+						return
+				else
+					to_chat(usr, "<span class='warning'>No possible target found. Defaulting to a Free objective.</span>")
+					new_target = "Free objective"
+
+				var/objective_path = text2path("/datum/objective/[new_obj_type]")
+				if(new_target == "Free objective")
+					new_objective = new objective_path
+					new_objective.owner = src
+					new_objective:target = null
+					new_objective.explanation_text = "Free objective"
+				else
+					new_objective = new objective_path
+					new_objective.owner = src
+					new_objective:target = new_target:mind
+					//Will display as special role if assigned mode is equal to special role.. Ninjas/commandos/nuke ops.
+					new_objective.explanation_text = "[objective_type] [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
+
+				/*var/obj_type = list("assassinate" = /datum/objective/assassinate,
 								"protect" = /datum/objective/protect,
 								"steal brain" = /datum/objective/debrain,
 								"prevent from escape" = /datum/objective/maroon,
@@ -869,7 +954,8 @@
 						if(description)
 							new_objective.explanation_text = "[description] [new_target:real_name], the [new_target:mind:assigned_role]."
 				else
-					new_objective.find_target()
+					new_objective.find_target()*/
+
 			if("destroy")
 				var/list/possible_targets = active_ais(1)
 				if(possible_targets.len)
@@ -1104,19 +1190,23 @@
 						possible_targets += possible_target
 				possible_targets = sortAtom(possible_targets)
 				possible_targets += "Free objective"
+
 				var/new_target = input("Select target:", "Objective target") as null|anything in possible_targets
 				if(!new_target)
 					return
+
 				var/datum/mind/targ = new_target
 				if(!istype(targ))
 					log_runtime(EXCEPTION("Invalid target for identity theft objective, cancelling"), src)
 					return
+
 				var/datum/objective/escape/escape_with_identity/identity_objective = new
 				identity_objective.owner = src
 				identity_objective.target = new_target
 				identity_objective.target_real_name = targ.current.real_name
 				identity_objective.explanation_text = "Escape on the shuttle or an escape pod with the identity of [targ.current.real_name], the [targ.assigned_role] while wearing [targ.current.p_their()] identification card."
 				new_objective = identity_objective
+
 			if("custom")
 				var/expl = sanitize(copytext_char(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null,1,MAX_MESSAGE_LEN))
 				if(!expl)
@@ -1131,8 +1221,8 @@
 		if(objective)
 			remove_objective(objective)
 			if(objective_pos[2])
-				var/datum/antagonist/A = objective_pos[2]
-				A.objectives.Insert(objective_pos[1], new_objective)
+				var/datum/antagonist/antag = objective_pos[2]
+				antag.objectives.Insert(objective_pos[1], new_objective)
 			else
 				objectives.Insert(objective_pos[1], new_objective)
 		else
@@ -1222,34 +1312,76 @@
 				special_role = SPECIAL_ROLE_REV
 				log_admin("[key_name(usr)] has rev'd [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has rev'd [key_name_admin(current)]")
+				current.create_log(MISC_LOG, "[current] was made into a revolutionary by [key_name_admin(usr)]")
 
 			if("headrev")
 				if(src in SSticker.mode.revolutionaries)
 					SSticker.mode.revolutionaries -= src
 					SSticker.mode.update_rev_icons_removed(src)
-					to_chat(current, "<span class='userdanger'>You have proven your devotion to revolution! You are a head revolutionary now!</span>")
+					to_chat(current, span_userdanger("You have proven your devotion to revolution! You are a head revolutionary now!"))
 				else if(!(src in SSticker.mode.head_revolutionaries))
-					to_chat(current, "<span class='notice'>You are a member of the revolutionaries' leadership now!</span>")
+					to_chat(current, span_notice("You are a member of the revolutionaries' leadership now!"))
 				else
 					return
+
+				if(SSticker.mode.head_revolutionaries.len > 0)
+					// copy targets
+					var/datum/mind/valid_head = locate() in SSticker.mode.head_revolutionaries
+					if(valid_head)
+						for(var/datum/objective/mutiny/mutiny_obj in valid_head.objectives)
+							var/datum/objective/mutiny/rev_obj = new
+							rev_obj.owner = src
+							rev_obj.target = mutiny_obj.target
+							rev_obj.explanation_text = "Assassinate [mutiny_obj.target.name], the [mutiny_obj.target.assigned_role]."
+							objectives += rev_obj
+						SSticker.mode.greet_revolutionary(src, 0)
+
 				SSticker.mode.head_revolutionaries += src
 				SSticker.mode.update_rev_icons_added(src)
 				special_role = SPECIAL_ROLE_HEAD_REV
-				var/datum/action/innate/revolution_recruitment/C = new()
-				C.Grant(src.current)
 				log_admin("[key_name(usr)] has head-rev'd [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has head-rev'd [key_name_admin(current)]")
+				current.create_log(MISC_LOG, "[current] was made into a head revolutionary by [key_name_admin(usr)]")
 
 			if("autoobjectives")
 				SSticker.mode.forge_revolutionary_objectives(src)
 				log_admin("[key_name(usr)] has automatically forged revolutionary objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged revolutionary objectives for [key_name_admin(current)]")
 
+			if("flash")
+				if(!SSticker.mode.equip_revolutionary(current))
+					to_chat(usr, span_warning("Spawning flash failed!"))
+				log_admin("[key_name(usr)] has given [key_name(current)] a flash")
+				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] a flash")
+
+			if("takeflash")
+				var/list/L = current.get_contents()
+				var/obj/item/flash/flash = locate() in L
+				if(!flash)
+					to_chat(usr, span_warning("Deleting flash failed!"))
+				qdel(flash)
+				log_admin("[key_name(usr)] has taken [key_name(current)]'s flash")
+				message_admins("[key_name_admin(usr)] has taken [key_name_admin(current)]'s flash")
+
+			if("repairflash")
+				var/list/L = current.get_contents()
+				var/obj/item/flash/flash = locate() in L
+				if(!flash)
+					to_chat(usr, span_warning("Repairing flash failed!"))
+				else
+					flash.broken = FALSE
+					log_admin("[key_name(usr)] has repaired [key_name(current)]'s flash")
+					message_admins("[key_name_admin(usr)] has repaired [key_name_admin(current)]'s flash")
+
 			if("reequip")
+				var/list/contents_list = current.get_contents()
+				var/obj/item/flash/flash = locate() in contents_list
+				qdel(flash)
+				take_uplink()
 				var/fail = 0
 				fail |= !SSticker.mode.equip_revolutionary(current)
 				if(fail)
-					to_chat(usr, "<span class='warning'>Reequipping revolutionary goes wrong!</span>")
+					to_chat(usr, span_warning("Reequipping revolutionary goes wrong!"))
 					return
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a revolutionary")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a revolutionary")
@@ -2040,18 +2172,10 @@
 						current.drop_item_ground(W, TRUE)
 				log_admin("[key_name(usr)] has unequipped [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has unequipped [key_name_admin(current)]")
+
 			if("takeuplink")
-				var/obj/item/uplink/hidden/uplink = find_syndicate_uplink()
-				if(!uplink)
-					return
-
-				var/obj/item/uplink_holder = uplink.loc
-				uplink_holder.hidden_uplink = null
+				take_uplink()
 				var/datum/antagonist/traitor/traitor_datum = has_antag_datum(/datum/antagonist/traitor)
-				if(traitor_datum.hidden_uplink == uplink)
-					traitor_datum.hidden_uplink = null
-
-				qdel(uplink)
 				traitor_datum.antag_memory = "" //Remove any antag memory they may have had (uplink codes, code phrases)
 				log_admin("[key_name(usr)] has taken [key_name(current)]'s uplink")
 				message_admins("[key_name_admin(usr)] has taken [key_name_admin(current)]'s uplink")
@@ -2068,6 +2192,7 @@
 							suplink.uses = crystals
 							log_admin("[key_name(usr)] has set [key_name(current)]'s telecrystals to [crystals]")
 							message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s telecrystals to [crystals]")
+
 			if("uplink")
 				var/datum/antagonist/traitor/traitor_datum = has_antag_datum(/datum/antagonist/traitor)
 				if(!traitor_datum)
@@ -2160,9 +2285,17 @@
 
 /datum/mind/proc/remove_revolutionary_role()
 	if(src in SSticker.mode.revolutionaries)
-		SSticker.mode.remove_revolutionary(src)
+		SSticker.mode.revolutionaries -= src
+		to_chat(current, span_warning("<FONT size = 3><B>You have been brainwashed! You are no longer a revolutionary!</B></FONT>"))
+		SSticker.mode.update_rev_icons_removed(src)
+		special_role = null
+
 	if(src in SSticker.mode.head_revolutionaries)
-		SSticker.mode.remove_revolutionary(src)
+		SSticker.mode.head_revolutionaries -= src
+		to_chat(current, span_warning("<FONT size = 3><B>You have been brainwashed! You are no longer a head revolutionary!</B></FONT>"))
+		SSticker.mode.update_rev_icons_removed(src)
+		special_role = null
+
 
 /datum/mind/proc/remove_cult_role()
 	if(src in SSticker.mode.cult)
@@ -2188,6 +2321,7 @@
 		current.faction = list("Station")
 		SSticker.mode.update_wiz_icons_removed(src)
 
+
 /datum/mind/proc/remove_changeling_role()
 	var/datum/antagonist/traitor/chan_datum = has_antag_datum(/datum/antagonist/changeling)
 	if(!chan_datum)
@@ -2195,6 +2329,7 @@
 
 	chan_datum.silent = TRUE
 	remove_antag_datum(chan_datum)
+
 
 /datum/mind/proc/remove_vampire_role()
 	if(src in SSticker.mode.vampires)
@@ -2336,6 +2471,21 @@
 	// We will return first found uplink in mob contents if its not a traitor
 	var/list/uplinks = current?.collect_all_atoms_of_type(/obj/item/uplink/hidden)
 	return length(uplinks) ? uplinks[1] : null
+
+
+/datum/mind/proc/take_uplink()
+	var/obj/item/uplink/hidden/uplink = find_syndicate_uplink()
+	if(!uplink)
+		return
+
+	var/obj/item/uplink_holder = uplink.loc
+	uplink_holder.hidden_uplink = null
+
+	var/datum/antagonist/traitor/traitor_datum = has_antag_datum(/datum/antagonist/traitor)
+	if(traitor_datum?.hidden_uplink == uplink)
+		traitor_datum.hidden_uplink = null
+
+	qdel(uplink)
 
 
 /datum/mind/proc/make_Traitor()
