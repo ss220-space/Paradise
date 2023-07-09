@@ -53,19 +53,26 @@
 	var/obj/item/nuke_core/plutonium/core
 	var/dented = FALSE
 	var/cracked = FALSE
+	var/sealed = FALSE
 
 /obj/item/nuke_core_container/Destroy()
 	QDEL_NULL(core)
 	return ..()
 
 /obj/item/nuke_core_container/ex_act(severity)
-	switch(severity)
-		if(EXPLODE_DEVASTATE)
-			if(!cracked)
-				crack_open()
-		if(EXPLODE_HEAVY)
-			if(!dented)
-				dented = TRUE
+	if(!sealed) //core now immune to blast if not used yet
+		return
+	if(isturf(loc)) //if in hands/backpack, can't be cracked open
+		switch(severity)
+			if(EXPLODE_DEVASTATE)
+				if(!cracked)
+					crack_open()
+					sealed = FALSE
+			if(EXPLODE_HEAVY)
+				if(!dented)
+					dented = TRUE
+	else
+		return
 
 /obj/item/nuke_core_container/examine(mob/user)
 	. = ..()
@@ -102,6 +109,7 @@
 		STOP_PROCESSING(SSobj, core)
 		ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, src)
 		icon_state = "core_container_sealed"
+		sealed = TRUE
 		playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
 		if(ismob(loc))
 			to_chat(loc, "<span class='warning'>[src] is permanently sealed, [core]'s radiation is contained.</span>")
@@ -250,6 +258,7 @@
 		ADD_TRAIT(sliver, TRAIT_BLOCK_RADIATION, src)
 		icon_state = "supermatter_container_sealed"
 		playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
+		sealed = TRUE
 		if(ismob(loc))
 			to_chat(loc, "<span class='warning'>[src] is permanently sealed, [sliver] is safely contained.</span>")
 
