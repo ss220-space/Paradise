@@ -1,9 +1,9 @@
 /obj/machinery/disco
-	name = "radiant dance machine mark IV"
-	desc = "The first three prototypes were discontinued after mass casualty incidents."
-	icon = 'icons/obj/lighting.dmi'
-	icon_state = "disco0"
-	anchored = FALSE
+	name = "Музыкальный аппарат"
+	desc = "Какой полёт в космос без музыки? Врубай, кислотный диджей!"
+	icon = 'icons/obj/jukebox.dmi'
+	icon_state = "jukebox2"
+	anchored = TRUE
 	atom_say_verb = "states"
 	density = TRUE
 	var/active = FALSE
@@ -13,11 +13,19 @@
 	var/list/spotlights = list()
 	var/list/sparkles = list()
 	var/static/list/songs = list(
-		new /datum/track("Engineering's Basic Beat", 					'sound/misc/disco.ogg', 	600, 	5),
-		new /datum/track("Engineering's Domination Dance", 				'sound/misc/e1m1.ogg', 		950, 	6),
-		new /datum/track("Engineering's Superiority Shimmy", 			'sound/misc/paradox.ogg', 	2400, 	4),
-		new /datum/track("Engineering's Ultimate High-Energy Hustle",	'sound/misc/boogie2.ogg',	1770, 	5),
-		)
+		new /datum/track("Craspore - Molchanie", 						'sound/jukebox/CRSPmolchanie.ogg', 			2100, 	5),
+		new /datum/track("Craspore - Lost Reality", 					'sound/jukebox/CRSPlost-reality.ogg',		2640,	4),
+		new /datum/track("Craspore - Monogamy",							'sound/jukebox/CRSPmonogamy.ogg',			2460,	6),
+		new /datum/track("Craspore - Sexual Glitches",					'sound/jukebox/CRSPsex-glitches.ogg',		3000,	5),
+		new /datum/track("Craspore - Tvoe Future",						'sound/jukebox/CRSPtvoe-future.ogg',		2580,	6),
+		new /datum/track("Craspore - War",								'sound/jukebox/CRSPwar.ogg',				1950,	4),
+		new /datum/track("Craspore - Web Plague",						'sound/jukebox/CRSPweb-plague.ogg',			2670,	5),
+		new /datum/track("Edipov Complex - All That I Can See",			'sound/jukebox/all-that-i-can-see.ogg',		2680,	5),
+		new /datum/track("Chris Handfield - Is Somebody Singing",		'sound/jukebox/ISS.ogg',					2630,	6),
+		new /datum/track("SS13 - Space Asshole",						'sound/jukebox/space-asshole.ogg',			2490,	4),
+		new /datum/track("SS13 - Human",								'sound/jukebox/SS13-human.ogg',				2130,	4),
+		new /datum/track("SS13 - title",								'sound/jukebox/SS13-title.ogg',				2100,	5)
+	)
 	var/datum/track/selection = null
 
 /datum/track
@@ -26,6 +34,7 @@
 	var/song_length = 0
 	var/song_beat = 0
 	var/GBP_required = 0
+	var/repeat = 1
 
 /datum/track/New(name, path, length, beat)
 	song_name = name
@@ -73,9 +82,9 @@
 
 /obj/machinery/disco/update_icon()
 	if(active)
-		icon_state = "disco1"
+		icon_state = "jukebox-run"
 	else
-		icon_state = "disco0"
+		icon_state = "jukebox2"
 	..()
 
 
@@ -320,7 +329,7 @@
 			INVOKE_ASYNC(src, PROC_REF(hierofunk))
 		sleep(selection.song_beat)
 
-
+/*
 /obj/machinery/disco/proc/dance(mob/living/M) //Show your moves
 	set waitfor = FALSE
 	if(M.client && !(M.client.prefs.sound & SOUND_DISCO)) //We have a client that doesn't want to dance.
@@ -439,7 +448,7 @@
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
 		sleep(1)
 	M.lying_fix()
-
+*/
 
 
 /mob/living/proc/lying_fix()
@@ -474,8 +483,8 @@
 				if(!L || !L.client)
 					continue
 				L.stop_sound_channel(CHANNEL_JUKEBOX)
-			else if(prob(9) && L.canmove && isliving(L))
-				dance(L)
+			//else if(prob(9) && L.canmove && isliving(L))
+			//	dance(L)
 	else if(active)
 		active = FALSE
 		STOP_PROCESSING(SSobj, src)
