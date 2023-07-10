@@ -1473,7 +1473,7 @@
 	update_flags |= M.adjustFireLoss(-1, FALSE)
 	M.Druggy(30 SECONDS)
 	M.Jitter(10 SECONDS)
-	M.AdjustHallucinate(20 SECONDS)
+	M.AdjustHallucinate(10 SECONDS)
 	M.last_hallucinator_log = name
 	return ..() | update_flags
 

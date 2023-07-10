@@ -526,11 +526,11 @@
 	if(istype(get_turf(M), /turf/space)) // Can't fall onto nothing.
 		return
 
-	if((istype(M,/mob/living/carbon/human/)) && (M.m_intent == MOVE_INTENT_RUN))
-		M.Weaken(10 SECONDS)
-
-	else if(istype(M,/mob/living/carbon/human/))
-		M.Weaken(4 SECONDS)
+	if(ishuman(M))
+		if(M.m_intent == MOVE_INTENT_RUN)
+			M.Weaken(10 SECONDS)
+		else
+			M.Weaken(4 SECONDS)
 
 
 	to_chat(M, "Gravity!")

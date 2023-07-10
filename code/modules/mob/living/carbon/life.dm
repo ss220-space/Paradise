@@ -10,7 +10,6 @@
 
 	if(stat != DEAD)
 		handle_organs()
-		handle_disgust() //todo when you port stomachs that should happen there instead
 
 	//stuff in the stomach
 	if(LAZYLEN(stomach_contents))
@@ -225,27 +224,6 @@
 /mob/living/carbon/proc/handle_changeling()
 	return
 
-/mob/living/carbon/proc/handle_disgust()
-	if(AmountDisgust())
-		if(AmountDisgust() >= DISGUST_LEVEL_GROSS)
-			if(prob(10))
-				AdjustStuttering(2 SECONDS)
-				AdjustConfused(4 SECONDS)
-			if(prob(10) && !stat)
-				to_chat(src, "<span class='warning'>[pick("You feel nauseous.", "You feel like you're going to throw up!")]</span>")
-			AdjustJitter(6 SECONDS)
-		if(AmountDisgust() >= DISGUST_LEVEL_VERYGROSS)
-			var/pukeprob = 5 + 0.05 * AmountDisgust()
-			if(prob(pukeprob))
-				AdjustConfused(6 SECONDS)
-				AdjustStuttering(2 SECONDS)
-				vomit(10, FALSE, TRUE, 0, FALSE)
-			Dizzy(10 SECONDS)
-		if(AmountDisgust() >= DISGUST_LEVEL_DISGUSTED)
-			if(prob(25))
-				AdjustEyeBlurry(6 SECONDS)
-
-		AdjustDisgust(-1 SECONDS)
 
 /mob/living/carbon/handle_mutations_and_radiation()
 	if(radiation)

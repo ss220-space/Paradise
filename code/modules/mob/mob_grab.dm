@@ -283,7 +283,7 @@
 			affecting.LAssailant = assailant
 		hud.icon_state = "kill"
 		hud.name = "kill"
-		affecting.Stun(20 SECONDS) //10 ticks of ensured grab
+		affecting.Stun(20 SECONDS) //20 seconds of ensured grab
 	else if(state < GRAB_UPGRADING)
 		assailant.visible_message("<span class='danger'>[assailant] начина[pluralize_ru(assailant.gender,"ет","ют")] сдавливать шею [affecting]!</span>") //[assailant.p_their()]
 		hud.icon_state = "kill1"

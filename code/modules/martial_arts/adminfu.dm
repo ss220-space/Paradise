@@ -17,7 +17,7 @@
 /datum/martial_art/adminfu/disarm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	A.do_attack_animation(D)
-	D.Stun(50 SECONDS)
+	D.Weaken(50 SECONDS)
 	return TRUE
 
 /datum/martial_art/adminfu/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)

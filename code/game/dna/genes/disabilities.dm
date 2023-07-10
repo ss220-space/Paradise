@@ -50,7 +50,7 @@
 
 /datum/dna/gene/disability/hallucinate/OnMobLife(mob/living/carbon/human/H)
 	if(prob(1))
-		H.AdjustHallucinate(90 SECONDS)
+		H.AdjustHallucinate(45 SECONDS)
 		H.last_hallucinator_log = "Hallucination Gene"
 
 /datum/dna/gene/disability/epilepsy

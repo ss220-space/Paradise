@@ -251,7 +251,6 @@
 			message_admins("[ADMIN_LOOKUPFLW(rev_mind.current)] has been borged while being a [remove_head ? "leader" : " member"] of the revolution.")
 		else
 			to_chat(rev_mind.current, "<span class='danger'><FONT size = 3>You have been brainwashed! You are no longer a revolutionary!</FONT></span>")
-			rev_mind.current.Paralyse(10 SECONDS)
 
 		update_rev_icons_removed(rev_mind)
 

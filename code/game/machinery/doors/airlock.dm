@@ -195,7 +195,7 @@ About the new airlock wires panel:
 					return
 			else
 				return
-		else if(user.AmountHallucinate() > 100 SECONDS && prob(10) && !operating)
+		else if(user.AmountHallucinate() > 50 SECONDS && prob(10) && !operating)
 			if(user.electrocute_act(50, src, 1, illusion = TRUE)) // We'll just go with a flat 50 damage, instead of doing powernet checks
 				return
 	..(user)

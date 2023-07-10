@@ -2652,7 +2652,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		character.dna.default_blocks.Add(GLOB.colourblindblock)
 
 	if(disabilities & DISABILITY_FLAG_MUTE)
-		ADD_TRAIT(character, TRAIT_MUTE, "prefs")
+		character.dna.SetSEState(GLOB.muteblock, TRUE, TRUE)
+		character.dna.default_blocks.Add(GLOB.muteblock)
 
 	if(disabilities & DISABILITY_FLAG_NERVOUS)
 		character.dna.SetSEState(GLOB.nervousblock, TRUE, TRUE)

@@ -100,6 +100,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	var/smoke_message = pick("You feel relaxed.", "You feel calmed.", "You feel less stressed.", "You feel more placid.", "You feel more undivided.")
 	M.AdjustParalysis(-2 SECONDS)
+	M.AdjustStunned(-2 SECONDS)
 	M.AdjustWeakened(-2 SECONDS)
 	if(prob(5))
 		to_chat(M, "<span class='notice'>[smoke_message]</span>")
@@ -823,7 +824,6 @@
 		if(421 to 470)
 			to_chat(M, "<span class='warning'>You REALLY crave some [name]!</span>")
 			M.emote(pick("twitch", "sigh", "cry", "sniff"))
-		else return
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/consumable/laughter/addiction_act_stage5(mob/living/carbon/M)
@@ -857,8 +857,6 @@
 			to_chat(M, "<span class='warning'>You would DIE for some [name] right now!</span>")
 			M.emote(pick("twitch", "sigh", "cry", "groan"))
 			update_flags |= M.adjustBrainLoss(rand(1, 5))
-		else
-			return
 	return update_flags
 
 //////////////////////////////

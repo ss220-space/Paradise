@@ -51,7 +51,7 @@
 
 		H.Weaken(4 SECONDS)
 		H.AdjustSilence(20 SECONDS)
-		H.adjustStaminaLoss(40 SECONDS)
+		H.adjustStaminaLoss(20)
 		H.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 
 	else //Distant glare

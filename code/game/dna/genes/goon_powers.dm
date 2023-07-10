@@ -429,7 +429,6 @@
 			user.visible_message("<span class='danger'>[user.name]</b> crashes due to [user.p_their()] heavy weight!</span>")
 			//playsound(user.loc, 'zhit.wav', 50, 1)
 			user.AdjustWeakened(20 SECONDS)
-			user.AdjustStunned(10 SECONDS)
 
 		user.layer = prevLayer
 

@@ -54,7 +54,6 @@
 				M.visible_message("<span class='disarm'><b>[M]</b> screams and collapses!</span>")
 				to_chat(M, "<span class='userdanger'><font size=3>AAAAGH!</font></span>")
 				M.Weaken(30 SECONDS) //hella stunned
-				M.Stun(30 SECONDS)
 				if(ishuman(M))
 					M.emote("scream")
 					var/mob/living/carbon/human/H = M

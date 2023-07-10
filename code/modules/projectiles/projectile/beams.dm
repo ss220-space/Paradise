@@ -134,7 +134,6 @@
 	icon_state = "sniperlaser"
 	damage = 60
 	hitsound = 'sound/weapons/resonator_blast.ogg'
-	stun = 4 SECONDS
 	weaken = 4 SECONDS
 	stutter = 4 SECONDS
 	stamina = 40

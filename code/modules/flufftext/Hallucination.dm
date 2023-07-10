@@ -19,35 +19,12 @@ Gunshots/explosions/opening doors/less rare audio (done)
 GLOBAL_LIST_INIT(minor_hallutinations, list("sounds"=25,"bolts_minor"=5,"whispers"=15,"message"=10,"hudscrew"=15))
 GLOBAL_LIST_INIT(medium_hallutinations, list("fake_alert"=15,"items"=10,"items_other"=10,"dangerflash"=10,"bolts"=5,"flood"=5,"husks"=10,"battle"=15,"self_delusion"=10))
 GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"singulo"=10,"borer"=10,"delusion"=20,"koolaid"=10))
-/mob/living/carbon
+
+/mob/living
 	var/image/halimage
 	var/image/halbody
 	var/obj/halitem
 	var/hal_screwyhud = SCREWYHUD_NONE
-	var/handling_hal = FALSE
-
-/mob/living/carbon/proc/handle_hallucinations()
-	if(handling_hal)
-		return
-
-	handling_hal = TRUE
-	var/hallucination = AmountHallucinate()
-	while(hallucination > 20)
-		sleep(rand(200, 500) / (hallucination * 0.04))
-		if(prob(20))
-			continue
-		var/list/current = list()
-		switch(rand(100))
-			if(0 to 50)
-				current = GLOB.minor_hallutinations.Copy()
-			if(51 to 85)
-				current = GLOB.medium_hallutinations.Copy()
-			if(86 to 100)
-				current = GLOB.major_hallutinations.Copy()
-
-		hallucinate(pickweight(current))
-	handling_hal = FALSE
-
 
 /obj/effect/hallucination
 	invisibility = INVISIBILITY_OBSERVER
@@ -154,7 +131,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 			return
 		Expand()
 		if((get_turf(target) in flood_turfs) && !target.internal)
-			target.hallucinate("fake_alert", "too_much_tox")
+			target.hallucinate_living("fake_alert", "too_much_tox")
 		next_expand = world.time + FAKE_FLOOD_EXPAND_TIME
 
 /obj/effect/hallucination/fake_flood/proc/Expand()
@@ -785,7 +762,14 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 	to_chat(target, chosen)
 	qdel(src)
 
-/mob/living/carbon/proc/hallucinate(hal_type, specific) // specific is used to specify a particular hallucination
+/**
+  * Spawns an hallucination for the mob.
+  *
+  * Arguments:
+  * * H - The name of the hallucination. "xeno", etc.
+  * * specific - used to specify a particular hallucination
+  */
+/mob/living/proc/hallucinate_living(hal_type, specific) // specific is used to specify a particular hallucination
 	investigate_log("was afflicted with a hallucination of type [hal_type] by [last_hallucinator_log ? last_hallucinator_log : "Unknown source"].", INVESTIGATE_HALLUCINATIONS)
 	switch(hal_type)
 		if("xeno")

@@ -4,7 +4,6 @@
 	desc = "Остальные продолжат видеть вас огромным."
 	button_icon_state = "carp"
 	background_icon_state = "bg_alien"
-	check_flags = AB_CHECK_CONSCIOUS
 	var/small = FALSE
 	var/small_icon = 'icons/mob/carp.dmi'
 	var/small_icon_state = "carp"

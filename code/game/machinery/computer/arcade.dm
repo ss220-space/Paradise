@@ -447,7 +447,7 @@
 				if(ORION_TRAIL_RAIDERS)
 					if(prob(50))
 						to_chat(usr, "<span class='userdanger'>You hear battle shouts. The tramping of boots on cold metal. Screams of agony. The rush of venting air. Are you going insane?</span>")
-						M.AdjustHallucinate(60 SECONDS)
+						M.AdjustHallucinate(30 SECONDS)
 						M.last_hallucinator_log = "Emagged Orion Trail"
 					else
 						to_chat(usr, "<span class='userdanger'>Something strikes you from behind! It hurts like hell and feel like a blunt weapon, but nothing is there...</span>")

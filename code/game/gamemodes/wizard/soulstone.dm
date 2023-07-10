@@ -292,7 +292,6 @@
 	return ..()
 
 ////////////////////////////Proc for moving soul in and out off stone//////////////////////////////////////
-// this whole proc is pain
 /obj/item/soulstone/proc/transfer_soul(choice, target, mob/living/user)
 	switch(choice)
 		if("FORCE")

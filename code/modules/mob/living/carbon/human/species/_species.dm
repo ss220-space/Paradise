@@ -408,7 +408,7 @@
 	H.updatehealth("apply damage")
 	return 1
 
-/datum/species/proc/spec_stun(mob/living/carbon/human/H,amount)
+/datum/species/proc/spec_stun(mob/living/carbon/human/H, amount)
 	. = amount
 	if(!H.frozen) //admin freeze has no breaks
 		. = stun_mod * amount

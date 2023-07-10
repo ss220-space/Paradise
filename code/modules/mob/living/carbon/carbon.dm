@@ -150,38 +150,53 @@
 		M.forceMove(drop_location())
 		visible_message("<span class='danger'>[M] вырыва[pluralize_ru(M.gender,"ет","ют")]ся из [src.name]!</span>")
 
-///Adds to the parent by also adding functionality to propagate shocks through pulling and doing some fluff effects.
-/mob/living/carbon/electrocute_act(shock_damage, obj/source, siemens_coeff, safety, override, tesla_shock, illusion, stun)
-	. = ..()
-	if(!.)
-		return
-	//Propagation through pulling
-	var/list/shocking_queue = list()
-	if(iscarbon(pulling) && source != pulling)
-		shocking_queue += pulling
-	if(iscarbon(pulledby) && source != pulledby)
-		shocking_queue += pulledby
-	if(iscarbon(buckled) && source != buckled)
-		shocking_queue += buckled
-	for(var/mob/living/carbon/carried in buckled_mobs)
-		if(source != carried)
-			shocking_queue += carried
-	//Found our victims, now lets shock them all
-	for(var/victim in shocking_queue)
-		var/mob/living/carbon/C = victim
-		C.electrocute_act(shock_damage * 0.75, src, 1)
-	//Stun
-	Stun(4 SECONDS)
-	//Jitter and other fluff.
-	AdjustJitter(2000 SECONDS)
+/mob/living/carbon/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage)
+	if(status_flags & GODMODE)	//godmode
+		return FALSE
+	if(NO_SHOCK in mutations) //shockproof
+		return FALSE
+	if(tesla_shock && tesla_ignore)
+		return FALSE
+	shock_damage *= siemens_coeff
+	if(dna && dna.species)
+		shock_damage *= dna.species.siemens_coeff
+	if(shock_damage < 1 && !override)
+		return FALSE
+	if(reagents.has_reagent("teslium"))
+		shock_damage *= 1.5 //If the mob has teslium in their body, shocks are 50% more damaging!
+	if(illusion)
+		adjustStaminaLoss(shock_damage)
+	else
+		take_overall_damage(0, shock_damage, TRUE, used_weapon = "Electrocution")
+		shock_internal_organs(shock_damage)
+	visible_message(
+		"<span class='danger'>[src.name] получил[genderize_ru(src.gender,"","а","о","и")] разряд током [source]!</span>",
+		"<span class='userdanger'>Вы чувствуете электрический разряд проходящий через ваше тело!</span>",
+		"<span class='italics'>Вы слышите сильный электрический треск.</span>")
+	AdjustJitter(2000 SECONDS) //High numbers for violent convulsions
 	AdjustStuttering(4 SECONDS)
-	addtimer(CALLBACK(src, PROC_REF(secondary_shock)), 2 SECONDS)
-	return shock_damage
+	if((!tesla_shock || (tesla_shock && siemens_coeff > 0.5)) && stun)
+		Stun(4 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(secondary_shock), tesla_shock, siemens_coeff, stun), 2 SECONDS)
+	if(shock_damage > 200)
+		visible_message(
+			"<span class='danger'>[src.name] был[genderize_ru(src.gender,"","а","о","и")] прожжен[genderize_ru(src.gender,"","а","о","ы")] дугой [source]!</span>",
+			"<span class='userdanger'>Дуга [source] вспыхивает и ударяет вас электрическим током!</span>",
+			"<span class='italics'>Вы слышите треск похожий на молнию!</span>")
+		playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
+		explosion(loc, -1, 0, 2, 2, cause = "[source] over electrocuted [name]")
+
+	if(override)
+		return override
+	else
+		return shock_damage
 
 ///Called slightly after electrocute act to reduce jittering and apply a secondary stun.
-/mob/living/carbon/proc/secondary_shock()
+/mob/living/carbon/proc/secondary_shock(tesla_shock, siemens_coeff, stun)
 	AdjustJitter(-2000 SECONDS, bound_lower = 20 SECONDS) //Still jittery, but vastly less
-	Weaken(4 SECONDS)
+	if((!tesla_shock || (tesla_shock && siemens_coeff > 0.5)) && stun)
+		Weaken(4 SECONDS)
 
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)

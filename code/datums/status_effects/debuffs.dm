@@ -471,8 +471,8 @@
 #define HALLUCINATE_CHANCE 20
 // Severity weights, should sum up to 100!
 #define HALLUCINATE_MINOR_WEIGHT 60
-#define HALLUCINATE_MODERATE_WEIGHT 30
-#define HALLUCINATE_MAJOR_WEIGHT 10
+#define HALLUCINATE_MODERATE_WEIGHT 25
+#define HALLUCINATE_MAJOR_WEIGHT 15
 
 /datum/status_effect/transient/hallucination
 	id = "hallucination"
@@ -481,6 +481,9 @@
 /datum/status_effect/transient/hallucination/tick()
 	. = ..()
 	if(!.)
+		return
+
+	if(!iscarbon(owner))
 		return
 
 	if(next_hallucination > world.time)
@@ -500,19 +503,7 @@
 		if((HALLUCINATE_MINOR_WEIGHT + HALLUCINATE_MODERATE_WEIGHT + 1) to 100)
 			severity = GLOB.major_hallutinations.Copy()
 
-	hallucinate(pickweight(severity))
-
-
-/**
-  * Spawns an hallucination for the mob.
-  *
-  * Arguments:
-  * * H - The type path of the hallucination to spawn.
-  */
-/datum/status_effect/transient/hallucination/proc/hallucinate(hallucination_type)
-	if(iscarbon(owner))
-		var/mob/living/carbon/C = owner
-		return C.hallucinate(hallucination_type)
+	owner.hallucinate_living(pickweight(severity))
 
 #undef HALLUCINATE_COOLDOWN_MIN
 #undef HALLUCINATE_COOLDOWN_MAX
@@ -586,13 +577,37 @@
 	owner.update_druggy_effects()
 
 /datum/status_effect/transient/disgust
-	tick_interval = 2 SECONDS
 	id = "disgust"
+	tick_interval = 2 SECONDS
 
 /datum/status_effect/transient/disgust/tick()
-	if(!ishuman(owner))
+	. = ..()
+
+	if(!.)
 		return
-	owner.update_disgust_alert()
+
+	if(!iscarbon(owner))
+		return
+
+	var/mob/living/carbon/carbon = owner
+	if(strength >= DISGUST_LEVEL_GROSS)
+		if(prob(10))
+			carbon.AdjustStuttering(4 SECONDS)
+			carbon.AdjustConfused(6 SECONDS)
+		if(prob(10) && !carbon.stat)
+			to_chat(carbon, "<span class='warning'>[pick("You feel nauseous.", "You feel like you're going to throw up!")]</span>")
+		carbon.Jitter(9 SECONDS)
+	if(strength >= DISGUST_LEVEL_VERYGROSS)
+		var/pukeprob = 5 + 0.005 * carbon.AmountDisgust()
+		if(prob(pukeprob))
+			carbon.AdjustConfused(9 SECONDS)
+			carbon.AdjustStuttering(3 SECONDS)
+			carbon.vomit(15, FALSE, TRUE, 0, FALSE)
+		carbon.Dizzy(15 SECONDS)
+	if(strength >= DISGUST_LEVEL_DISGUSTED)
+		if(prob(25))
+			carbon.AdjustEyeBlurry(9 SECONDS)
+	carbon.update_disgust_alert()
 
 /datum/status_effect/transient/disgust/on_apply()
 	. = ..()

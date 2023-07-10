@@ -103,24 +103,6 @@
 
 	else if(!vision || vision.is_broken())   // Vision organs cut out or broken? Permablind.
 		EyeBlind(4 SECONDS)
-		EyeBlurry(4 SECONDS)
-
-	else
-		//blindness
-		if(BLINDNESS in mutations) // Disabled-blind, doesn't get better on its own
-
-		else if(AmountBlinded())		       // Blindness, heals slowly over time
-			AdjustEyeBlind(-2 SECONDS)
-
-		else if(istype(glasses, /obj/item/clothing/glasses/sunglasses/blindfold) && AmountEyeBlurry())	//resting your eyes with a blindfold heals blurry eyes faster
-			AdjustEyeBlurry(-6 SECONDS)
-
-		//blurry sight
-		if(vision.is_bruised())   // Vision organs impaired? Permablurry.
-			EyeBlurry(4 SECONDS)
-
-		if(AmountEyeBlurry())	           // Blurry eyes heal slowly
-			AdjustEyeBlurry(-2 SECONDS)
 
 	if(getBrainLoss() >= 60 && stat != DEAD)
 		if(prob(3))
@@ -706,27 +688,6 @@
 				to_chat(src, "<span class='notice'>You no longer feel vigorous.</span>")
 			metabolism_efficiency = 1
 
-	if(get_drowsiness())
-		AdjustDrowsy(-2 SECONDS)
-		EyeBlurry(4 SECONDS)
-		if(prob(5))
-			AdjustSleeping(2 SECONDS)
-			Paralyse(10 SECONDS)
-
-	if(get_confusion())
-		AdjustConfused(-2 SECONDS)
-	// decrement dizziness counter, clamped to 0
-	if(resting)
-		if(get_dizziness())
-			AdjustDizzy(-30 SECONDS)
-		if(AmountJitter())
-			AdjustJitter(-30 SECONDS)
-	else
-		if(get_dizziness())
-			AdjustDizzy(-6 SECONDS)
-		if(AmountJitter())
-			AdjustJitter(-6 SECONDS)
-
 	if(NO_INTORGANS in dna.species.species_traits)
 		return
 
@@ -954,7 +915,7 @@
 	var/temp = PULSE_NORM
 
 	if(blood_volume <= BLOOD_VOLUME_BAD)//how much blood do we have
-		temp = PULSE_THREADY	//not enough :(     ) fuck you bracket colouriser
+		temp = PULSE_THREADY	//not enough :(
 
 	if(status_flags & FAKEDEATH)
 		temp = PULSE_NONE		//pretend that we're dead. unlike actual death, can be inflienced by meds

@@ -186,7 +186,7 @@
 	add_attack_logs(user, target, "LSD sting (changeling)")
 	spawn(rand(300,600))
 		if(target)
-			target.Hallucinate(800 SECONDS)
+			target.Hallucinate(400 SECONDS)
 			target.last_hallucinator_log = "Hallucination sting (changeling)"
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1

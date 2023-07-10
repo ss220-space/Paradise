@@ -186,11 +186,8 @@
 		if(health <= 0)
 			death()
 		else
-			if(IsSleeping() && (stat == CONSCIOUS))
-				KnockOut()
-			else
-				WakeUp()
-	med_hud_set_status()
+			WakeUp()
+	..()
 
 /mob/living/simple_animal/proc/handle_automated_action()
 	set waitfor = FALSE

@@ -483,7 +483,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	L.lastattacker = user.real_name
 	L.lastattackerckey = user.ckey
 
-	L.Stun(14 SECONDS)
 	L.Weaken(14 SECONDS)
 	L.Stuttering(14 SECONDS)
 
