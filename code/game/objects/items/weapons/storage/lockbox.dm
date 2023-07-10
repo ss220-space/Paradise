@@ -144,7 +144,7 @@
 	storage_slots = 1
 
 /obj/item/storage/lockbox/research/mantis
-	name = lockbox(hidden blade implant)
+	name = "lockbox(hidden blade implant)"
 	req_access = list(ACCESS_ARMORY)
 
 /obj/item/storage/lockbox/research/mantis/populate_contents()
