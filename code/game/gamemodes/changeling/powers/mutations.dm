@@ -471,7 +471,9 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90) //No armor at all
 	species_restricted = null
 	sprite_sheets = list(
-		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
+		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
+		"Draconid" = 'icons/mob/species/unathi/suit.dmi'
 		)
 
 /obj/item/clothing/suit/space/changeling/New()
@@ -493,7 +495,9 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
 	species_restricted = null
 	sprite_sheets = list(
-		"Unathi" = 'icons/mob/species/unathi/helmet.dmi'
+		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
+		"Ash Walker" = 'icons/mob/species/unathi/helmet.dmi',
+		"Draconid" = 'icons/mob/species/unathi/helmet.dmi'
 		)
 
 
@@ -528,7 +532,9 @@
 	cold_protection = 0
 	heat_protection = 0
 	sprite_sheets = list(
-		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
+		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
+		"Draconid" = 'icons/mob/species/unathi/suit.dmi'
 		)
 
 /obj/item/clothing/suit/armor/changeling/New()

@@ -212,3 +212,43 @@
 				to_chat(H, "<span class='danger'>Слишком холодно, я засыпаю...</span>")
 		else
 			return
+
+/*
+draconids
+These guys only come from the dragon's blood bottle from lavaland.
+They're basically just lizards with all-around marginally better stats and fire resistance.
+*/
+/datum/species/unathi/draconid
+	name = "Draconid"
+	name_plural = "Draconids"
+	flesh_color = "#A02720"
+	base_color = "#110101"
+	brute_mod = 0.8 //something something dragon scales
+	burn_mod = 0.9
+	clothing_flags = null //no clothing.
+	punchdamagelow = 9
+	punchdamagehigh = 18
+	punchstunthreshold = 18	//+8 claws of powergaming
+	species_traits = list(LIPS, PIERCEIMMUNE, RESISTHOT) //Dragons like fire
+	no_equip = list(slot_shoes) //everyone have to pay for
+	speed_mod = -0.25			//beeing slightly faster
+
+/datum/species/unathi/draconid/on_species_gain(mob/living/carbon/human/C, datum/species/old_species)
+	. = ..()
+	var/obj/shoes = C.get_item_by_slot(slot_shoes)
+	if(shoes && C.can_unEquip(shoes))
+		C.drop_item_ground(shoes)
+	var/obj/item/organ/external/head/head_organ = C.get_organ("head")
+	C.skin_colour = base_color
+	head_organ.h_style = "Drake"
+	C.change_eye_color("#A02720")
+	C.update_dna()
+	C.update_inv_head()
+	C.update_inv_wear_suit() //update sprites for digi legs
+	C.weather_immunities |= "ash"
+
+/datum/species/unathi/draconid/on_species_loss(mob/living/carbon/C)
+	. = ..()
+	C.update_inv_head()
+	C.update_inv_wear_suit()
+	C.weather_immunities -= "ash"

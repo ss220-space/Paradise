@@ -645,7 +645,9 @@
 	flags_inv = HIDEJUMPSUIT
 	magical = TRUE
 	sprite_sheets = list(
-		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
+		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
+		"Draconid" = 'icons/mob/species/unathi/suit.dmi'
 		)
 
 /obj/item/clothing/suit/hooded/clockrobe/can_store_weighted()
@@ -748,7 +750,9 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/clockwork, /obj/item/twohanded/ratvarian_spear, /obj/item/twohanded/clock_hammer, /obj/item/melee/clock_sword)
 	sprite_sheets = list(
-		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
+		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
+		"Draconid" = 'icons/mob/species/unathi/suit.dmi'
 		)
 	var/absorb_uses = 2
 	var/reflect_uses = 3

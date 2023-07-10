@@ -34,7 +34,9 @@
 	icon = 'icons/obj/clothing/species/unathi/hats.dmi'
 	species_restricted = list("Unathi")
 	sprite_sheets = list(
-		"Unathi" = 'icons/mob/species/unathi/helmet.dmi'
+		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
+		"Ash Walker" = 'icons/mob/species/unathi/helmet.dmi',
+		"Draconid" = 'icons/mob/species/unathi/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/space/unathi/helmet_cheap
@@ -48,7 +50,9 @@
 	icon = 'icons/obj/clothing/species/unathi/suits.dmi'
 	species_restricted = list("Unathi")
 	sprite_sheets = list(
-		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
+		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
+		"Draconid" = 'icons/mob/species/unathi/suit.dmi'
 		)
 
 /obj/item/clothing/suit/space/unathi/rig_cheap

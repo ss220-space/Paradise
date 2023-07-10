@@ -13,6 +13,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
 		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
+		"Ash Walker" = 'icons/mob/species/unathi/helmet.dmi',
+		"Draconid" = 'icons/mob/species/unathi/helmet.dmi',
 		"Grey" = 'icons/mob/species/grey/helmet.dmi'
 		)
 
@@ -41,7 +43,9 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
+		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
+		"Draconid" = 'icons/mob/species/unathi/suit.dmi'
 		)
 
 	//Deathsquad space suit, not hardsuits because no flashlight!
@@ -261,6 +265,8 @@
 		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
 		"Drask" = 'icons/mob/species/drask/helmet.dmi',
 		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
+		"Ash Walker" = 'icons/mob/species/unathi/helmet.dmi',
+		"Draconid" = 'icons/mob/species/unathi/helmet.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi',
 		)
 	sprite_sheets_obj = list(
@@ -281,6 +287,8 @@
 		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
 		"Drask" = 'icons/mob/species/drask/suit.dmi',
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
+		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
+		"Draconid" = 'icons/mob/species/unathi/suit.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
 		)
 	sprite_sheets_obj = list(
@@ -298,6 +306,8 @@
 	sprite_sheets = list(
 		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
+		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
+		"Draconid" = 'icons/mob/species/unathi/suit.dmi',
 		"Vox" = 'icons/mob/species/vox/suit.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
 		)
@@ -320,6 +330,8 @@
 	sprite_sheets = list(
 		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
 		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
+		"Ash Walker" = 'icons/mob/species/unathi/helmet.dmi',
+		"Draconid" = 'icons/mob/species/unathi/helmet.dmi',
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi',
 		"Grey" = 'icons/mob/species/grey/helmet.dmi'

@@ -344,6 +344,8 @@
 		"Drask" = 'icons/mob/species/drask/helmet.dmi',
 		"Grey" = 'icons/mob/species/grey/helmet.dmi',
 		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
+		"Ash Walker" = 'icons/mob/species/unathi/helmet.dmi',
+		"Draconid" = 'icons/mob/species/unathi/helmet.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi',
 		"Kidan" = 'icons/mob/species/kidan/head.dmi',
