@@ -505,6 +505,7 @@
 	desc = "A set of armor worn by paranormal members of the Nanotrasen Emergency Response Team. Has crusader sigils."
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
+	hide_tail_by_species = list("Vox", "Vulpkanin")
 	sprite_sheets = list(
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi'
 		)

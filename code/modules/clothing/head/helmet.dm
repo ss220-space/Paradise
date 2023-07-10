@@ -86,7 +86,6 @@
 	dog_fashion = null
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/riot
@@ -151,6 +150,7 @@
 	strip_delay = 80
 	dog_fashion = null
 	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi',
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
 		"Monkey" = 'icons/mob/species/monkey/head.dmi',
 		"Farwa" = 'icons/mob/species/monkey/head.dmi',
