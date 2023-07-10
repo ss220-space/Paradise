@@ -1060,7 +1060,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_weapons/mr_chang
 	name = "Mr. Chang's Aggressive Marketing Technique"
-	desc = "Mr. Chang's Aggressive Marketing Technique123"
+	desc = "This package was kindly provided to us by Mr. Cheng's corporation. It contains a wide range of implements for the most effective promotion of products in a free market environment."
 	reference = "MRCH"
 	item = /obj/item/storage/box/syndie_kit/mr_chang_technique
 	cost = 3
