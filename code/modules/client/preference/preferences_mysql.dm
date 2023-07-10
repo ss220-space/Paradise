@@ -196,6 +196,7 @@
 					med_record,
 					sec_record,
 					gen_record,
+					exploit_record,
 					disabilities,
 					player_alt_titles,
 					organ_data,
@@ -271,6 +272,7 @@
 		med_record = query.item[40]
 		sec_record = query.item[41]
 		gen_record = query.item[42]
+		exploit_record = query.item[43]
 		// Apparently, the preceding vars weren't always encoded properly...
 		if(findtext(flavor_text, "<")) // ... so let's clumsily check for tags!
 			flavor_text = html_encode(flavor_text)
@@ -278,33 +280,33 @@
 			med_record = html_encode(med_record)
 		if(findtext(sec_record, "<"))
 			sec_record = html_encode(sec_record)
-		if(findtext(gen_record, "<"))
-			gen_record = html_encode(gen_record)
-		disabilities = text2num(query.item[43])
-		player_alt_titles = params2list(query.item[44])
-		organ_data = params2list(query.item[45])
-		rlimb_data = params2list(query.item[46])
-		nanotrasen_relation = query.item[47]
-		speciesprefs = text2num(query.item[48])
+		if(findtext(exploit_record, "<"))
+			exploit_record = html_encode(exploit_record)
+		disabilities = text2num(query.item[44])
+		player_alt_titles = params2list(query.item[45])
+		organ_data = params2list(query.item[46])
+		rlimb_data = params2list(query.item[47])
+		nanotrasen_relation = query.item[48]
+		speciesprefs = text2num(query.item[49])
 
 		//socks
-		socks = query.item[49]
-		body_accessory = query.item[50]
-		loadout_gear = params2list(query.item[51])
-		autohiss_mode = text2num(query.item[52])
-		uplink_pref = query.item[53]
+		socks = query.item[50]
+		body_accessory = query.item[51]
+		loadout_gear = params2list(query.item[52])
+		autohiss_mode = text2num(query.item[53])
+		uplink_pref = query.item[54]
 
 		// TTS
-		tts_seed = query.item[54]
+		tts_seed = query.item[55]
 
 		//Emotes
-		custom_emotes_tmp = query.item[55]
+		custom_emotes_tmp = query.item[56]
 
 		// Gradient
-		h_grad_style = query.item[56]
-		h_grad_offset_x = query.item[57] // parsed down below
-		h_grad_colour = query.item[58]
-		h_grad_alpha = query.item[59]
+		h_grad_style = query.item[57]
+		h_grad_offset_x = query.item[58] // parsed down below
+		h_grad_colour = query.item[59]
+		h_grad_alpha = query.item[60]
 
 		saved = TRUE
 
@@ -453,6 +455,7 @@
 												med_record=:med_record,
 												sec_record=:sec_record,
 												gen_record=:gen_record,
+												exploit_record=:exploit_record,
 												player_alt_titles=:playertitlelist,
 												disabilities=:disabilities,
 												organ_data=:organlist,
@@ -515,6 +518,7 @@
 													"med_record" = med_record,
 													"sec_record" = sec_record,
 													"gen_record" = gen_record,
+													"exploit_record" = exploit_record,
 													"playertitlelist" = (playertitlelist ? playertitlelist : ""), // This it intentnional. It wont work without it!
 													"disabilities" = disabilities,
 													"organlist" = (organlist ? organlist : ""),
@@ -571,6 +575,7 @@
 											med_record,
 											sec_record,
 											gen_record,
+											exploit_record,
 											player_alt_titles,
 											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
 											socks, body_accessory, gear, autohiss, hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, uplink_pref, tts_seed, custom_emotes)
@@ -599,6 +604,7 @@
 											:med_record,
 											:sec_record,
 											:gen_record,
+											:exploit_record,
 											:playertitlelist,
 											:disabilities, :organlist, :rlimblist, :nanotrasen_relation, :speciesprefs,
 											:socks, :body_accessory, :gearlist, :autohiss_mode, :h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :uplink_pref, :tts_seed, :custom_emotes)
@@ -649,6 +655,7 @@
 		"med_record" = med_record,
 		"sec_record" = sec_record,
 		"gen_record" = gen_record,
+		"exploit_record" = exploit_record,
 		"playertitlelist" = (playertitlelist ? playertitlelist : ""), // This it intentnional. It wont work without it!
 		"disabilities" = disabilities,
 		"organlist" = (organlist ? organlist : ""),

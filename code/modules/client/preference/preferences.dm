@@ -193,6 +193,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/med_record = ""
 	var/sec_record = ""
 	var/gen_record = ""
+	var/exploit_record = ""
 	var/disabilities = 0
 
 	var/nanotrasen_relation = "Neutral"
@@ -1082,11 +1083,18 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	HTML += "<br><a href=\"byond://?_src_=prefs;preference=records;task=sec_record\">Security Records</a><br>"
 
 	if(length(sec_record) <= 40)
-		HTML += "[sec_record]<br>"
+		HTML += "[sec_record]"
 	else
-		HTML += "[copytext_char(sec_record, 1, 37)]...<br>"
+		HTML += "[copytext_char(sec_record, 1, 37)]..."
 
-	HTML += "<a href=\"byond://?_src_=prefs;preference=records;records=-1\">\[Done\]</a>"
+	HTML += "<br><a href=\"byond://?_src_=prefs;preference=records;task=exploit_record\">Exploit Records</a><br>"
+
+	if(length(exploit_record) <= 40)
+		HTML += "[exploit_record]"
+	else
+		HTML += "[copytext_char(exploit_record, 1, 37)]..."
+
+	HTML += "<br><br><a href=\"byond://?_src_=prefs;preference=records;records=-1\">\[Done\]</a>"
 	HTML += "</center></tt>"
 
 	var/datum/browser/popup = new(user, "records", "<div align='center'>Character Records</div>", 350, 300)
@@ -1343,6 +1351,17 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				gen_record = genmsg
 				SetRecords(user)
+
+		if(href_list["task"] == "exploit_record")
+			var/expmsg = input(usr,"Напишите здесь то, что может быть использовано против вас. Ваши страхи, проблемы, беспокойства. Эта информация доступна только предателям. Рекомендуется к заполнению, если не любите кормить карпов в космосе. Вульпы-хосы-бывшие космодесантники 17 лет наемники Горлекс Мародеров могут привести к бану.","Эксплуатационные записи.",html_decode(exploit_record)) as message
+
+			if(expmsg != null)
+				expmsg = copytext(expmsg, 1, MAX_PAPER_MESSAGE_LEN)
+				expmsg = html_encode(expmsg)
+
+				exploit_record = expmsg
+				SetRecords(user)
+
 
 	if(href_list["preference"] == "gear")
 		if(href_list["toggle_gear"])
@@ -2522,6 +2541,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	character.med_record = med_record
 	character.sec_record = sec_record
 	character.gen_record = gen_record
+	character.exploit_record = exploit_record
 
 	character.change_gender(gender)
 	character.age = age

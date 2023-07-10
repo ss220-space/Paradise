@@ -240,6 +240,9 @@ const ExploitableInfoPage = (_properties, context) => {
             <Box>Sex: {selectedRecord.sex}</Box>
             <Box>Species: {selectedRecord.species}</Box>
           </Section>
+          <Section title={"Exploitable Records"}>
+            <Box prewrap>{selectedRecord.exploit_record}</Box>
+          </Section>
         </Flex.Item>
       </Flex>
     </Section>
