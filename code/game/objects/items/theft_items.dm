@@ -62,17 +62,16 @@
 /obj/item/nuke_core_container/ex_act(severity)
 	if(!sealed) //core now immune to blast if not used yet
 		return
-	if(isturf(loc)) //if in hands/backpack, can't be cracked open
-		switch(severity)
-			if(EXPLODE_DEVASTATE)
-				if(!cracked)
-					crack_open()
-					sealed = FALSE
-			if(EXPLODE_HEAVY)
-				if(!dented)
-					dented = TRUE
-	else
+	if(!isturf(loc)) //if in hands/backpack, can't be cracked open
 		return
+	switch(severity)
+		if(EXPLODE_DEVASTATE)
+			if(!cracked)
+				crack_open()
+				sealed = FALSE
+		if(EXPLODE_HEAVY)
+			if(!dented)
+				dented = TRUE
 
 /obj/item/nuke_core_container/examine(mob/user)
 	. = ..()
