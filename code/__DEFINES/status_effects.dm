@@ -107,6 +107,7 @@
 #define STATUS_EFFECT_BLINDED /datum/status_effect/transient/blindness
 #define STATUS_EFFECT_DRUGGED /datum/status_effect/transient/drugged
 #define STATUS_EFFECT_DISGUST /datum/status_effect/transient/disgust
+#define STATUS_EFFECT_DEAF /datum/status_effect/transient/deaf
 
 /////////////
 // NEUTRAL //

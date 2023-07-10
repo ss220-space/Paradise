@@ -684,7 +684,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		else if(istype(I,/obj/item/bikehorn))
 			to_chat(target, "<span class='userdanger'>HONK</span>")
 			target << 'sound/items/airhorn.ogg'
-			target.MinimumDeafTicks(3)
+			target.Deaf(6 SECONDS)
 			GiveHint(target)
 		cooldown = world.time +cooldown_time
 		return

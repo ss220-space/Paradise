@@ -342,7 +342,7 @@
 				if(istype(H.l_ear, /obj/item/clothing/ears/earmuffs) || istype(H.r_ear, /obj/item/clothing/ears/earmuffs))
 					continue
 			M.AdjustStuttering(4 SECONDS)
-			M.AdjustEarDamage(rand(0, 2))
+			M.AdjustDeaf(4 SECONDS)
 			M.Weaken(4 SECONDS)
 			var /turf/simulated/victim_loc = M.loc
 			victim_loc.MakeSlippery(TURF_WET_LUBE, 5 SECONDS)

@@ -276,7 +276,7 @@
 		to_chat(owner, "<font color='red' size='7'>HONK</font>")
 		owner.SetSleeping(0)
 		owner.Stuttering(40 SECONDS)
-		owner.MinimumDeafTicks(30)
+		owner.Deaf(60 SECONDS)
 		owner.Weaken(6 SECONDS)
 		SEND_SOUND(owner, sound('sound/items/airhorn.ogg'))
 		if(prob(30))

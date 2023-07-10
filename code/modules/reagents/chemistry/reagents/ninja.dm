@@ -57,7 +57,7 @@
 			update_flags |= our_mob.adjustToxLoss(-5, FALSE)
 			//Eyes and ears
 			our_mob.AdjustEyeBlurry(-2 SECONDS)
-			update_flags |= our_mob.AdjustEarDamage(-1)
+			our_mob.AdjustDeaf(-2 SECONDS)
 			//Clone and brain
 			update_flags |= our_mob.adjustBrainLoss(-5, FALSE)
 			update_flags |= our_mob.adjustCloneLoss(-5, FALSE)
@@ -96,9 +96,9 @@
 					our_eyes.heal_internal_damage(5, robo_repair = TRUE)
 				var/obj/item/organ/internal/ears/our_ears = mob_human.get_int_organ(/obj/item/organ/internal/ears)
 				if(istype(our_ears))
-					our_ears.AdjustEarDamage(-5)
+					our_ears.heal_internal_damage(-5)
 					if(our_ears.damage < 25 && prob(30))
-						our_ears.deaf = 0
+						mob_human.SetDeaf(0)
 				//ALL viruses
 				for(var/thing in mob_human.viruses)
 					var/datum/disease/our_disease = thing

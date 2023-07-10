@@ -615,3 +615,14 @@
 
 /datum/status_effect/transient/disgust/on_remove()
 	owner.update_disgust_alert()
+
+/datum/status_effect/transient/deaf
+	id = "deafened"
+
+/datum/status_effect/transient/deaf/on_apply()
+	. = ..()
+	ADD_TRAIT(owner, TRAIT_DEAF, EAR_DAMAGE)
+
+/datum/status_effect/transient/deaf/on_remove()
+	. = ..()
+	REMOVE_TRAIT(owner, TRAIT_DEAF, EAR_DAMAGE)

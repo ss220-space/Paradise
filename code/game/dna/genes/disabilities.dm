@@ -190,8 +190,12 @@
 	block = GLOB.deafblock
 
 /datum/dna/gene/disability/deaf/activate(mob/living/carbon/M, connected, flags)
-	..()
-	M.MinimumDeafTicks(1)
+	. = ..()
+	ADD_TRAIT(M, TRAIT_DEAF, "dna")
+
+/datum/dna/gene/disability/deaf/deactivate(mob/living/M, connected, flags)
+	. = ..()
+	REMOVE_TRAIT(M, TRAIT_DEAF, "dna")
 
 /datum/dna/gene/disability/nearsighted
 	name = "Nearsightedness"

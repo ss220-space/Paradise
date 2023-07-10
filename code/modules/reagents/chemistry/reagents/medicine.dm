@@ -667,12 +667,11 @@
 				update_flags |= M.AdjustEyeBlurry(-2 SECONDS)
 			var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
 			if(istype(ears) && !(ears.status & ORGAN_DEAD))
-				ears.AdjustEarDamage(-1)
+				ears.heal_internal_damage(1)
 				if(ears.damage < 25 && prob(30))
-					ears.deaf = 0
+					C.SetDeaf(0)
 		else
 			update_flags |= M.AdjustEyeBlurry(-2 SECONDS)
-			update_flags |= M.AdjustEarDamage(-1)
 	return ..() | update_flags
 
 /datum/reagent/medicine/atropine

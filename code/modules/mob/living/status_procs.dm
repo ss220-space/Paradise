@@ -23,7 +23,9 @@
 // Status effects sorted alphabetically:
 /*
 	* Confused()				*
-			Movement is scrambled
+			Movement is scrambled.
+	* Deaf()				*
+			You cannot hear.
 	* Disgust()				*
 			Some jitter and blurry effects
 	* Dizzy()					*
@@ -689,6 +691,26 @@
 /mob/living/proc/AdjustDisgust(amount, bound_lower = 0, bound_upper = INFINITY)
 	SetDisgust(directional_bounded_sum(AmountDisgust(), amount, bound_lower, bound_upper))
 
+//DEAFNESS
+/mob/living/proc/AmountDeaf()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DEAF)
+
+/mob/living/proc/Deaf(amount)
+	SetDeaf(max(amount, AmountDeaf()))
+
+/mob/living/proc/SetDeaf(amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DEAF, amount)
+
+/mob/living/proc/AdjustDeaf(amount, bound_lower = 0, bound_upper = INFINITY)
+	SetDeaf(directional_bounded_sum(AmountDeaf(), amount, bound_lower, bound_upper))
+
+/mob/living/proc/BecomeDeaf()
+	mutations |= DEAF
+
+/mob/living/proc/CureDeaf()
+	mutations -= DEAF
+	CureIfHasDisability(GLOB.deafblock)
+
 
 //
 //		DISABILITIES
@@ -720,15 +742,6 @@
 /mob/living/proc/CureCoughing()
 	mutations -= COUGHING
 	CureIfHasDisability(GLOB.coughblock)
-
-// Deaf
-
-/mob/living/proc/BecomeDeaf()
-	mutations |= DEAF
-
-/mob/living/proc/CureDeaf()
-	mutations -= DEAF
-	CureIfHasDisability(GLOB.deafblock)
 
 // Epilepsy
 

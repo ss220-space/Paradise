@@ -257,7 +257,11 @@
 				else valid_limbs -= processing_dismember
 
 			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
-				AdjustEarDamage(30, 120)
+				AdjustDeaf(120 SECONDS)
+				var/obj/item/organ/internal/ears/ears = get_int_organ(/obj/item/organ/internal/ears)
+				if(istype(ears))
+					ears.receive_damage(30)
+
 			if(prob(70) && !shielded)
 				Paralyse(20 SECONDS)
 
@@ -281,7 +285,7 @@
 					else valid_limbs -= processing_dismember
 
 			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
-				AdjustEarDamage(15, 60)
+				AdjustDeaf(60 SECONDS)
 			if(prob(50) && !shielded)
 				Paralyse(20 SECONDS)
 

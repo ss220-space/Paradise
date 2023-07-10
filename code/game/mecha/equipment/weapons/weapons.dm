@@ -222,7 +222,7 @@
 		to_chat(M, "<font color='red' size='7'>HONK</font>")
 		M.SetSleeping(0)
 		M.Stuttering(40 SECONDS)
-		M.MinimumDeafTicks(30)
+		M.Deaf(60 SECONDS)
 		M.Weaken(6 SECONDS)
 		if(prob(30))
 			M.Stun(20 SECONDS)
