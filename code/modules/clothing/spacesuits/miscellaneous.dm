@@ -107,6 +107,13 @@
 	flags_inv = 0
 	flags =  STOPSPRESSUREDMAGE | THICKMATERIAL
 	flags_cover = null
+	sprite_sheets = list(
+		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+	)
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret/supreme
 	name = "Офицерская фуражка Верховного Главнокомандующего"
