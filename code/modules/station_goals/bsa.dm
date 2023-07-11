@@ -12,7 +12,7 @@
 	<br><br>
 	Its base parts should be available for shipping by your cargo shuttle.
 	<br>
-	-Syndieacate"}
+	-Syndicate"}
 
 /datum/station_goal/bluespace_cannon/on_report()
 	//Unlock BSA parts

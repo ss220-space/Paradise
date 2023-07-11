@@ -16,7 +16,7 @@
 /datum/station_goal/proc/send_report()
 	var/directive = "Syndicate Directive [pick(GLOB.phonetic_alphabet)] \Roman[rand(1,50)]"
 	GLOB.priority_announcement.Announce("Поступила приоритетная директива Синдиката. Отправлены подробности проекта «[name]».", "Приоритетное оповещение.", 'sound/AI/commandreport.ogg')
-	print_command_report("<div style='text-align:center;'><img src = ntlogo.png>" + "<h3>[directive]</h3></div><hr>" + get_report(), "[directive]", FALSE, src)
+	print_command_report("<div style='text-align:center;'><img src = large_stamp-taipan.png>" + "<h3>[directive]</h3></div><hr>" + get_report(), "[directive]", FALSE, src)
 	on_report()
 
 /datum/station_goal/proc/on_report()

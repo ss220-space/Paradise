@@ -9,7 +9,7 @@
 	<br>
 	In order to complete the mission, you must to order a special pack in cargo called BFL Mission goal, and install it content anywhere on the station.
 	<br><br>
-	-Syndiecate"}
+	-Syndicate"}
 
 
 /datum/station_goal/bfl/on_report()
