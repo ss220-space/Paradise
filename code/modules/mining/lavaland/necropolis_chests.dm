@@ -12,7 +12,7 @@
 	desc = "It's watching you suspiciously."
 
 /obj/structure/closet/crate/necropolis/tendril/populate_contents()
-	var/loot = rand(1, 26)
+	var/loot = rand(1, 29)
 	switch(loot)
 		if(1)
 			new /obj/item/shared_storage/red(src)
@@ -75,6 +75,26 @@
 			new /obj/item/stack/sheet/mineral/mythril(src)
 		if(26)
 			new /obj/item/eflowers(src)
+		if(27)
+			new /obj/item/rune_scimmy(src)
+		if(28)
+			new /obj/item/dnainjector/midgit(src)
+			new /obj/item/grenade/plastic/miningcharge/mega(src)
+			new /obj/item/grenade/plastic/miningcharge/mega(src)
+			new /obj/item/grenade/plastic/miningcharge/mega(src)
+		if(29)
+			var/mega = rand(1, 4)
+			switch(mega)
+				if(1)
+					new /obj/item/twohanded/kinetic_crusher/mega(src)
+				if(2)
+					new /obj/item/gun/energy/plasmacutter/shotgun/mega(src)
+				if(3)
+					new /obj/item/gun/energy/plasmacutter/adv/mega(src)
+				if(4)
+					new /obj/item/gun/energy/kinetic_accelerator/mega(src)
+
+
 /obj/structure/closet/crate/necropolis/puzzle
 	name = "puzzling chest"
 
@@ -286,3 +306,15 @@
 		summons |= M
 	..()
 
+//Runite Scimitar. Some weird runescape reference
+/obj/item/rune_scimmy
+	name = "rune scimitar"
+	desc = "A curved sword smelted from an unknown metal. Looking at it gives you the otherworldly urge to pawn it off for '30k', whatever that means."
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	icon_state = "rune_scimmy"
+	force = 28
+	slot_flags = SLOT_BELT
+	damtype = BRUTE
+	sharp = TRUE
+	hitsound = 'sound/weapons/rs_slash.ogg'
+	attack_verb = list("slashed","pk'd","atk'd")
