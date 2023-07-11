@@ -5,33 +5,31 @@ GLOBAL_LIST_INIT(bluespace_rifts_scanner_list, list())
 
 // BRS - Bluespace Rift Scanner
 // The goal is to research the anomalous bluespace rift with the creation of portable and static scanners
-/datum/station_goal/brs
+/datum/station_goal/bluespace_rift
 	name = "Сканер Блюспейс Разлома"
 	var/scanner_goal = 25000
-	var/list/rifts_list = list()
 	var/is_give_reward = FALSE
+	var/datum/bluespace_rift/rift
 
-/datum/station_goal/brs/get_report()
+/datum/station_goal/bluespace_rift/Destroy()
+	QDEL_NULL(rift)
+	. = ..()
+
+/datum/station_goal/bluespace_rift/get_report()
 	return {"<b>Сканирование блюспейс разломов</b><br>
 	Научно-исследовательская станция расположена на месте дислокации блюспейс разлома. <br>
 	Задача станции изучить все аномалии производимые разломом с сбором данных. <br>
 	Собранные данные отправятся на изучение центральным научно-исследовательским отделом Нанотрейзен. <br>
 	<br>
 	Обнаруженные разломы: <br>
-	[get_rift_types()]
+	[rift.name]
 	<br>
 	Изучите блюспейс и получите платы для исследования разлома через научный отдел."}
 
-/datum/station_goal/brs/proc/get_rift_types()
-	var/result = ""
-	for (var/obj/brs_rift/rift in rifts_list)
-		result += "[rift.name] <br>"
-	return result
+/datum/station_goal/bluespace_rift/on_report()
+	spawn_rift()
 
-/datum/station_goal/brs/on_report()
-	random_bluespace_rift()
-
-/datum/station_goal/brs/check_completion()
+/datum/station_goal/bluespace_rift/check_completion()
 	if(..())
 		return TRUE
 	return check_scanners_goal()
@@ -55,48 +53,14 @@ GLOBAL_LIST_INIT(bluespace_rifts_scanner_list, list())
 			return TRUE
 	return FALSE
 
-
-/datum/station_goal/brs/Destroy()
-	QDEL_LIST(rifts_list)
-	. = ..()
-
-/datum/station_goal/brs/proc/random_bluespace_rift()
-	if (length(rifts_list))
-		return
-
-	var/type_rift = rand(1, MAX_TYPES_RIFT)
-	switch(type_rift)
-		if(TWINS_RIFT)		// the same occurrence of anomalies between the two
-			for(var/i in 1 to 2)
-				var/obj/brs_rift/rift = create_bluespace_rift(type_rift)
-				rifts_list.Add(rift)
-		if(CRACK_RIFT)	// random appearance of anomalies in 4 places
-			for(var/i in 1 to 4)
-				var/obj/brs_rift/rift = create_bluespace_rift(type_rift)
-				rifts_list.Add(rift)
-		else
-			var/obj/brs_rift/rift = create_bluespace_rift(type_rift)
-			rifts_list.Add(rift)
-
-	for(var/obj/brs_rift/rift in rifts_list)
-		rift.related_rifts_list = rifts_list
-
-/datum/station_goal/brs/proc/create_bluespace_rift(var/type_rift = DEFAULT_RIFT)
-	var/turf/temp_turf = find_safe_turf()
-	var/obj/brs_rift/rift
-
-	switch(type_rift)
-		if(CRACK_RIFT)
-			rift = new /obj/brs_rift/crack(temp_turf)
-		if(TWINS_RIFT)
-			rift = new /obj/brs_rift/twin(temp_turf)
-		if(DEFAULT_RIFT)
-			rift = new /obj/brs_rift(temp_turf)
-		if(BIG_RIFT)
-			rift = new /obj/brs_rift/big(temp_turf)
-		if(FOG_RIFT)
-			rift = new /obj/brs_rift/fog(temp_turf)
-		if(HUNTER_RIFT)
-			rift = new /obj/brs_rift/hunter(temp_turf)
-
-	return rift
+/datum/station_goal/bluespace_rift/proc/spawn_rift()
+	var/rift_types = list(
+		/datum/bluespace_rift,
+		/datum/bluespace_rift/big,
+		/datum/bluespace_rift/fog,
+		/datum/bluespace_rift/twin,
+		/datum/bluespace_rift/crack,
+		/datum/bluespace_rift/hunter,
+	)
+	var/rand_rift_type = pick(rift_types)
+	rift = new rand_rift_type()

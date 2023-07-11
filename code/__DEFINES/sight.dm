@@ -18,7 +18,7 @@
 #define INVISIBILITY_SPIRIT 50
 #define SEE_SPIRITS 50
 
-#define INVISIBILITY_ANOMALY 40	//значение видимости аномалии/разлома гостами и сканерами
+#define INVISIBILITY_ANOMALY 40	// Can be seen by observers or using a t-ray scanner
 
 #define SEE_INVISIBLE_OBSERVER_NOOBSERVERS 59
 #define INVISIBILITY_OBSERVER 60

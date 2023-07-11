@@ -1,3 +1,60 @@
+/datum/bluespace_rift
+	var/name = "Блюспейс Разлом"
+	var/effect_type = /obj/effect/abstract/bluespace_rift
+	var/list/rift_objects
+	var/rift_count = 1
+	var/rift_size = 5
+	var/time_per_tile = 10 SECONDS
+
+/datum/bluespace_rift/New()
+	..()
+	rift_objects = list()
+	for(var/i in 1 to rift_count)
+		var/new_rift_obj = new effect_type(null, src, rift_size, time_per_tile)
+		rift_objects += new_rift_obj
+	START_PROCESSING(SSprocessing, src)
+
+/datum/bluespace_rift/Destroy()
+	STOP_PROCESSING(SSprocessing, src)
+	QDEL_LIST(rift_objects)
+	return ..()
+
+/datum/bluespace_rift/process()
+	for(var/obj/effect/abstract/bluespace_rift/rift as anything in rift_objects)
+		rift.move()
+
+/datum/bluespace_rift/big
+	name = "Большой Блюспейс Разлом"
+	rift_count = 1
+	rift_size = 7
+	time_per_tile = 14 SECONDS
+
+/datum/bluespace_rift/fog
+	name = "Блюспейс Туманность"
+	rift_count = 1
+	rift_size = 9
+	time_per_tile = 18 SECONDS
+
+/datum/bluespace_rift/twin
+	name = "Разлом-Близнец"
+	rift_count = 1
+	rift_size = 3
+	time_per_tile = 8 SECONDS
+
+/datum/bluespace_rift/crack
+	name = "Блюспейс Трещина"
+	rift_count = 1
+	rift_size = 1
+	time_per_tile = 6 SECONDS
+
+/datum/bluespace_rift/hunter
+	name = "Разлом-Охотник"
+	effect_type = /obj/effect/abstract/bluespace_rift/hunter
+	rift_count = 1
+	rift_size = 3
+
+
+/*
 //Bluespace rift for create fun and running around the station
 /obj/brs_rift
 	name = "Блюспейс Разлом"
@@ -282,3 +339,4 @@
 			continue
 		scanners_count++
 	return scanners_count
+*/
