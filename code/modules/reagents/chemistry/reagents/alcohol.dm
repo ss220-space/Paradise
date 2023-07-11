@@ -1460,7 +1460,7 @@
 	id = "rainbow_sky"
 	description = "A drink that shimmers with all the colors of the rainbow with notes of the galaxy."
 	color = "#ffffff"
-	dizzy_adj = 10
+	dizzy_adj = 20 SECONDS
 	alcohol_perc = 1.5
 	drink_icon = "rainbow_sky"
 	drink_name = "Rainbow Sky"
@@ -1505,7 +1505,7 @@
 	description = "The drunkard hunter came from deep space, and it looks like he found a victim."
 	color = "#200b0b"
 	alcohol_perc = 0.4
-	dizzy_adj = 3
+	dizzy_adj = 6 SECONDS
 	drink_icon = "jagermeisterglass"
 	drink_name = "Glass of Jagermeister"
 	drink_desc = "The drunkard hunter came from deep space, and it looks like he found a victim."
@@ -1517,7 +1517,7 @@
 	description = "From such a schnapps it's not a sin to start yodeling."
 	color = "#e0e0e0"
 	alcohol_perc = 0.4
-	dizzy_adj = 1
+	dizzy_adj = 2 SECONDS
 	drink_icon = "schnapsglass"
 	drink_name = "Glass of Schnaps"
 	drink_desc = "From such a schnapps it's not a sin to start yodeling."
@@ -1529,7 +1529,7 @@
 	description = "Flying into space, many thought that they had grasped fate."
 	color = "#e0e0e0"
 	alcohol_perc = 0.45
-	dizzy_adj = 1
+	dizzy_adj = 2 SECONDS
 	drink_icon = "sambukaglass"
 	drink_name = "Glass of Sambuka"
 	drink_desc = "Flying into space, many thought that they had grasped fate."
@@ -1552,7 +1552,7 @@
 	description = "Don't mix up the label sizes, because I won't change anything."
 	color = "#d44071"
 	alcohol_perc = 0.45
-	dizzy_adj = 2
+	dizzy_adj = 4 SECONDS
 	drink_icon = "bitterglass"
 	drink_name = "Glass of bitter"
 	drink_desc = "Don't mix up the label sizes, because I won't change anything."
