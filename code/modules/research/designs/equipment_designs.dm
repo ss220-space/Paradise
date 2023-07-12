@@ -13,8 +13,8 @@
 
 /datum/design/rcd
 	name = "Rapid Construction Device (RCD)"
-	desc = "An experimental welder capable of self-fuel generation."
-	id = "exwelder"
+	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks."
+	id = "rcd"
 	req_tech = list("materials" = 1, "engineering" = 3, "programming" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 30000)
