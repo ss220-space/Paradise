@@ -184,6 +184,9 @@
 	. = ..(user, show_contents_info = FALSE)
 
 /obj/item/tank/jetpack/suit/cycle(mob/user)
+	if(!istype(loc, /obj/item/clothing/suit/space))
+		to_chat(user, "<span class='warning'>[src] must be connected to your suit!</span>")
+		return
 	var/mob/living/carbon/human/H = user
 	if(!istype(H.s_store, /obj/item/tank))
 		to_chat(user, "<span class='warning'>You need a tank in your suit storage!</span>")
