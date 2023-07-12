@@ -98,9 +98,9 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	protected_jobs = list("Captain")
 
 /datum/theft_objective/highrisk/hoslaser
-	name = "the head of security's X-01 multiphase energy gun"
+	name = "the Peacemaker's leader's X-01 multiphase energy gun"
 	typepath = /obj/item/gun/energy/gun/hos
-	protected_jobs = list("Head Of Security")
+	protected_jobs = list("Peacemakers Leader")
 
 /datum/theft_objective/highrisk/hand_tele
 	name = "a hand teleporter"

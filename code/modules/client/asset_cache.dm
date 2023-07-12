@@ -326,7 +326,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	// They are relatively big
 	verify = FALSE
 	assets = list(
-		"Cyberiad_nanomap_z1.png"		= 'icons/_nanomaps/Cyberiad_nanomap_z1.png',
+		"Utopia_nanomap_z1.png"		= 'icons/_nanomaps/Utopia_nanomap_z1.png',
 		"Delta_nanomap_z1.png"			= 'icons/_nanomaps/Delta_nanomap_z1.png',
 		"MetaStation_nanomap_z1.png"	= 'icons/_nanomaps/MetaStation_nanomap_z1.png',
 		"Cerestation_nanomap_z1.png"		= 'icons/_nanomaps/Cerestation_nanomap_z1.png',

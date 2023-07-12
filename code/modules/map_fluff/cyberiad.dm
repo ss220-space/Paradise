@@ -1,9 +1,9 @@
 /datum/map/cyberiad
-	name = "Cyberiad"
+	name = "Utopia"
 	map_path = "_maps/map_files/cyberiad/cyberiad.dmm"
 
-	station_name  = "NSS Cyberiad"
-	station_short = "Cyberiad"
+	station_name  = "NSS Utopia"
+	station_short = "Utopia"
 	dock_name     = "Syndicate"
 	company_name  = "Syndicate"
 	company_short = "SY"

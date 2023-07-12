@@ -226,7 +226,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/secure/gear
 	access = ACCESS_SECURITY
 	group = SUPPLY_SECURITY
-	announce_beacons = list("Security" = list("Head of Security's Desk", "Warden", "Security"))
+	announce_beacons = list("Security" = list("Peacemakers Leader Desk", "Warden", "Peacemaker"))
 
 
 /datum/supply_packs/security/supplies

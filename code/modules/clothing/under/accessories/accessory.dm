@@ -294,8 +294,8 @@
 		to_chat(user, "Waving around a badge before swiping an ID would be pretty pointless.")
 		return
 	if(isliving(user))
-		user.visible_message("<span class='warning'>[user] displays [user.p_their()] Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.</span>",
-		"<span class='warning'>You display your Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.</span>")
+		user.visible_message("<span class='warning'>[user] displays [user.p_their()] Utopia Peacemakers Badge.\nIt reads: [stored_name], Peacemaker.</span>",
+		"<span class='warning'>You display your Utopia Peacemakers Badge.\nIt reads: [stored_name], Peacemaker.</span>")
 
 /obj/item/clothing/accessory/holobadge/attackby(obj/item/I, mob/user, params)
 	if(I.GetID())
@@ -355,8 +355,8 @@
 		to_chat(usr, "Waving around a badge before swiping an ID would be pretty pointless.")
 		return
 	if(isliving(usr))
-		usr.visible_message("<span class='warning'>[usr] displays [usr.p_their()] Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [holobadge_ref.stored_name], NT Security.</span>",
-		"<span class='warning'>You display your Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [holobadge_ref.stored_name], NT Security.</span>")
+		user.visible_message("<span class='warning'>[user] displays [user.p_their()] Utopia Peacemakers Badge.\nIt reads: [stored_name], Peacemaker.</span>",
+		"<span class='warning'>You display your Utopia Peacemakers Badge.\nIt reads: [stored_name], Peacemaker.</span>")
 //////////////
 //OBJECTION!//
 //////////////

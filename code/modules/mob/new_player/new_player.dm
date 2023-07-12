@@ -317,10 +317,10 @@
 	if(config.assistantlimit)
 		if(job.title == "Civilian")
 			var/count = 0
-			var/datum/job/cadet = SSjobs.GetJob("Security Cadet")
-			var/datum/job/officer = SSjobs.GetJob("Security Officer")
+			var/datum/job/cadet = SSjobs.GetJob("Peacemaker Cadet")
+			var/datum/job/officer = SSjobs.GetJob("Peacemaker Officer")
 			var/datum/job/warden = SSjobs.GetJob("Warden")
-			var/datum/job/hos = SSjobs.GetJob("Head of Security")
+			var/datum/job/hos = SSjobs.GetJob("Peacemakers Leader")
 			count += (officer.current_positions + warden.current_positions + hos.current_positions + cadet.current_positions)
 			if(job.current_positions > (config.assistantratio * count))
 				if(count >= 5) // if theres more than 5 security on the station just let assistants join regardless, they should be able to handle the tide
@@ -559,7 +559,7 @@
 	var/list/categorizedJobs = list(
 		"Command" = list(jobs = list(), titles = GLOB.command_positions, color = "#aac1ee"),
 		"Engineering" = list(jobs = list(), titles = GLOB.engineering_positions, color = "#ffd699"),
-		"Security" = list(jobs = list(), titles = GLOB.security_positions, color = "#ff9999"),
+		"Peacemakers" = list(jobs = list(), titles = GLOB.security_positions, color = "#ff9999"),
 		"Miscellaneous" = list(jobs = list(), titles = list(), color = "#ffffff", colBreak = 1),
 		"Synthetic" = list(jobs = list(), titles = GLOB.nonhuman_positions, color = "#ccffcc"),
 		"Support / Service" = list(jobs = list(), titles = GLOB.service_positions, color = "#cccccc"),

@@ -49,13 +49,13 @@
 	uniform = /obj/item/clothing/under/plasmaman/janitor
 
 /datum/outfit/plasmaman/security
-	name = "Security Plasmaman"
+	name = "Peacemaker Plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/security
 	uniform = /obj/item/clothing/under/plasmaman/security
 
 /datum/outfit/plasmaman/security/pod
-	name = "Security Pod Pilot Plasmaman"
+	name = "Peacemaker Pod Pilot Plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/security
 	uniform = /obj/item/clothing/under/plasmaman/security
@@ -75,7 +75,7 @@
 	uniform = /obj/item/clothing/under/plasmaman/security/warden
 
 /datum/outfit/plasmaman/hos
-	name = "Head of Security Plasmaman"
+	name = "Peacemakers Leader Plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/security/hos
 	uniform = /obj/item/clothing/under/plasmaman/security/hos
