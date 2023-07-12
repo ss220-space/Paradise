@@ -751,7 +751,7 @@
 	stat(null, "Current Map: [SSmapping.map_datum.name]")
 	if(SSmapping.next_map)
 		stat(null, "Next Map: [SSmapping.next_map.name]")
-	stat(null, "Round Time: [worldtime2text()]")
+	stat(null, "Round Time: [ROUND_TIME_TEXT()]")
 	stat(null, "Station Time: [station_time_timestamp()]")
 	stat(null, "Server TPS: [world.fps]")
 	stat(null, "Desired Client FPS: [client?.prefs?.clientfps]")
@@ -950,8 +950,14 @@
 /mob/shuttleRotate(rotation)
 	dir = angle2dir(rotation+dir2angle(dir))
 
-/mob/proc/handle_ventcrawl()
-	return // Only living mobs can ventcrawl
+
+/mob/proc/can_ventcrawl(atom/clicked_on, override = FALSE)
+	return FALSE
+
+
+/mob/proc/handle_ventcrawl(atom/clicked_on)
+	return FALSE // Only living mobs can ventcrawl
+
 
 /**
   * Buckle to another mob
