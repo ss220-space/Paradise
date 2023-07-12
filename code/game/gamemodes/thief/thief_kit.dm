@@ -319,3 +319,10 @@
 		/obj/item/storage/box/candythief,
 		)
 
+/datum/thief_kit/mr_chang
+	name = "Набор Мистера Чанга"
+	desc = "Техника Агрессивного Маркетинга Мистера Чанга"
+	item_list = list(
+		/obj/item/storage/box/syndie_kit/mr_chang_technique
+		)
+
