@@ -38,9 +38,10 @@ SUBSYSTEM_DEF(mapping)
 	// Load the station
 	loadStation()
 
-	loadLavaland()
-
-	loadTaipan()
+	if(!config.disable_lavaland)
+		loadLavaland()
+	if(!config.disable_taipan)
+		loadTaipan()
 	// Pick a random away mission.
 	if(!config.disable_away_missions)
 		createRandomZlevel()
@@ -69,12 +70,13 @@ SUBSYSTEM_DEF(mapping)
 	// Setup the Z-level linkage
 	GLOB.space_manager.do_transition_setup()
 
-	// Spawn Lavaland ruins and rivers.
-	log_startup_progress("Populating lavaland...")
-	var/lavaland_setup_timer = start_watch()
-	seedRuins(list(level_name_to_num(MINING)), config.lavaland_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
-	spawn_rivers(level_name_to_num(MINING))
-	log_startup_progress("Successfully populated lavaland in [stop_watch(lavaland_setup_timer)]s.")
+	if(!config.disable_lavaland)
+		// Spawn Lavaland ruins and rivers.
+		log_startup_progress("Populating lavaland...")
+		var/lavaland_setup_timer = start_watch()
+		seedRuins(list(level_name_to_num(MINING)), config.lavaland_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
+		spawn_rivers(level_name_to_num(MINING))
+		log_startup_progress("Successfully populated lavaland in [stop_watch(lavaland_setup_timer)]s.")
 
 	// Now we make a list of areas for teleport locs
 	// TOOD: Make these locs into lists on the SS itself, not globs
@@ -173,73 +175,78 @@ SUBSYSTEM_DEF(mapping)
 	var/list/ruins = potentialRuins.Copy()
 
 	var/list/forced_ruins = list()		//These go first on the z level associated (same random one by default)
+	var/list/big_ruins = list()	// Large ruins that require a separate z level
 	var/list/ruins_availible = list()	//we can try these in the current pass
-	var/forced_z	//If set we won't pick z level and use this one instead.
+	var/list/picked_ruins = list()
 
 	//Set up the starting ruin list
 	for(var/key in ruins)
 		var/datum/map_template/ruin/R = ruins[key]
 		if(R.cost > budget) //Why would you do that
 			continue
+		if(R.height >= MAX_RUIN_SIZE_VALUE || R.width >= MAX_RUIN_SIZE_VALUE)
+			big_ruins[R] = -1
 		if(R.always_place)
 			forced_ruins[R] = -1
 		if(R.unpickable)
 			continue
 		ruins_availible[R] = R.placement_weight
 
-	while(budget > 0 && (ruins_availible.len || forced_ruins.len))
+	while(budget > 0 && (length(ruins_availible) || length(forced_ruins)))
 		var/datum/map_template/ruin/current_pick
-		var/forced = FALSE
-		if(forced_ruins.len) //We have something we need to load right now, so just pick it
+
+		if(length(forced_ruins)) //We have something we need to load right now, so just pick it
 			for(var/ruin in forced_ruins)
 				current_pick = ruin
-				if(forced_ruins[ruin] > 0) //Load into designated z
-					forced_z = forced_ruins[ruin]
-				forced = TRUE
+				forced_ruins -= ruin
 				break
 		else //Otherwise just pick random one
 			current_pick = pickweight(ruins_availible)
 
-		var/placement_tries = PLACEMENT_TRIES
-		var/failed_to_place = TRUE
-		var/z_placed = 0
-		while(placement_tries > 0)
-			placement_tries--
-			z_placed = pick(z_levels)
-			if(!current_pick.try_to_place(forced_z ? forced_z : z_placed,whitelist))
-				continue
-			else
-				failed_to_place = FALSE
-				break
-
-		//That's done remove from priority even if it failed
-		if(forced)
-			//TODO : handle forced ruins with multiple variants
-			forced_ruins -= current_pick
-			forced = FALSE
-
-		if(failed_to_place)
-			for(var/datum/map_template/ruin/R in ruins_availible)
+		budget -= current_pick.cost
+		if(!current_pick.allow_duplicates)
+			for(var/datum/map_template/ruin/R as anything in ruins_availible)
 				if(R.id == current_pick.id)
 					ruins_availible -= R
-			log_world("Failed to place [current_pick.name] ruin.")
-		else
-			budget -= current_pick.cost
-			if(!current_pick.allow_duplicates)
-				for(var/datum/map_template/ruin/R in ruins_availible)
-					if(R.id == current_pick.id)
-						ruins_availible -= R
-			if(current_pick.never_spawn_with)
-				for(var/blacklisted_type in current_pick.never_spawn_with)
-					for(var/possible_exclusion in ruins_availible)
-						if(istype(possible_exclusion,blacklisted_type))
-							ruins_availible -= possible_exclusion
-		forced_z = 0
+
+		if(current_pick.never_spawn_with)
+			for(var/blacklisted_type in current_pick.never_spawn_with)
+				for(var/possible_exclusion in ruins_availible)
+					if(istype(possible_exclusion,blacklisted_type))
+						ruins_availible -= possible_exclusion
 
 		//Update the availible list
-		for(var/datum/map_template/ruin/R in ruins_availible)
+		for(var/datum/map_template/ruin/R as anything in ruins_availible)
 			if(R.cost > budget)
 				ruins_availible -= R
+
+		if(current_pick in big_ruins)
+			picked_ruins.Insert(1, current_pick)
+		else
+			picked_ruins.Add(current_pick)
+
+	for(var/datum/map_template/ruin/current_pick as anything in picked_ruins)
+		var/failed_to_place = TRUE
+		var/z_placed = 0
+
+		if(current_pick in big_ruins)
+			z_placed = pick(z_levels)
+			if(current_pick.try_to_place(z_placed, whitelist))
+				failed_to_place = FALSE
+				z_levels -= z_placed //If there is a big ruin, there is no place for small ones here.
+		else
+			var/placement_tries = PLACEMENT_TRIES
+			while(placement_tries > 0)
+				placement_tries--
+				z_placed = pick(z_levels)
+				if(!current_pick.try_to_place(z_placed, whitelist))
+					continue
+				else
+					failed_to_place = FALSE
+					break
+
+		if(failed_to_place)
+			log_world("Failed to place [current_pick.name] ruin.")
 
 	log_world("Ruin loader finished with [budget] left to spend.")
 

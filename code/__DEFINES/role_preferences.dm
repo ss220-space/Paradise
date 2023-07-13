@@ -33,6 +33,7 @@
 #define ROLE_TRADER				"trader"
 #define ROLE_VAMPIRE			"vampire"
 #define ROLE_THIEF 				"thief"
+#define ROLE_TERROR_SPIDER		"Terror Spider"
 // Role tags for EVERYONE!
 #define ROLE_BORER				"cortical borer"
 #define ROLE_DEMON				"slaughter demon"
@@ -48,6 +49,7 @@
 #define ROLE_EVENTMISC			"eventmisc"
 #define ROLE_GHOST				"ghost role"
 #define ROLE_ELITE				"lavaland elite"
+#define ROLE_SPACE_DRAGON 		"space dragon"
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough
@@ -73,6 +75,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_SHADOWLING = /datum/game_mode/shadowling, 		// Shadowling
 	ROLE_DEMON, 										// Slaguther demon
 	ROLE_NINJA, 										// Space ninja
+	ROLE_TERROR_SPIDER,									// Terror Spider
 	ROLE_THIEF = /datum/game_mode/thief,				// Thief
 	ROLE_THUNDERDOME,									// Thunderdome
 	ROLE_TRADER, 										// Trader
@@ -80,7 +83,8 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_VAMPIRE = /datum/game_mode/vampire, 			// Vampire
 	ROLE_RAIDER = /datum/game_mode/heist, 				// Vox raider
 	ROLE_ALIEN, 										// Xenomorph
-	ROLE_WIZARD = /datum/game_mode/wizard 				// Wizard
+	ROLE_WIZARD = /datum/game_mode/wizard, 				// Wizard
+	ROLE_SPACE_DRAGON,
 	// UNUSED/BROKEN ANTAGS
 //	ROLE_HOG_GOD = /datum/game_mode/hand_of_god,
 //	ROLE_HOG_CULTIST = /datum/game_mode/hand_of_god,

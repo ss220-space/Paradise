@@ -42,6 +42,7 @@
 	resistance_flags = FIRE_PROOF
 
 	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi',
 		"Vox" = 'icons/mob/species/vox/head.dmi',
 		"Drask" = 'icons/mob/species/drask/head.dmi',
 		"Grey" = 'icons/mob/species/grey/head.dmi',
@@ -190,8 +191,8 @@
 /obj/item/clothing/head/helmet/space/hardsuit/champion/templar
 	name = "dark templar's helmet"
 	desc = "Through darkness we see the light"
-	icon_state = "darktemplar-follower1"
-	item_color = "darktemplar-follower1"
+	icon_state = "hardsuit0-templar"
+	item_color = "templar"
 
 /obj/item/clothing/suit/space/hardsuit/champion/templar
 	name = "dark templar's hardsuit"
@@ -204,8 +205,8 @@
 /obj/item/clothing/head/helmet/space/hardsuit/champion/templar/premium
 	name = "high dark templar's helmet"
 	desc = "The galaxy is the Emperor's.."
-	icon_state = "darktemplar-chaplain1"
-	item_color = "darktemplar-chaplain1"
+	icon_state = "hardsuit0-hightemplar"
+	item_color = "hightemplar"
 
 /obj/item/clothing/suit/space/hardsuit/champion/templar/premium
 	name = "high dark templar's hardsuit"
