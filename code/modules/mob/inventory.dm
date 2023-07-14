@@ -451,6 +451,7 @@
  * * 'force' overrides flag NODROP and clothing obscuration.
  * * 'invdrop' prevents stuff in belt/id/pockets/PDA slots from dropping if item was in jumpsuit slot. Only set to `FALSE` if it's going to be immediately replaced.
  * * 'silent' set to `TRUE` if you want to disable warning messages.
+ * * 'ignore_pixel_shift' set to `TRUE`if you want to prevent item random pixel shifting.
 */
 /mob/proc/drop_item_ground(obj/item/I, force = FALSE, invdrop = TRUE, silent = FALSE, ignore_pixel_shift = FALSE)
 
