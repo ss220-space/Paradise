@@ -77,7 +77,7 @@
 		qdel(src)
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/bullet_act(obj/item/projectile/P)
-	visible_message("<span class='danger'>[P.name] was repelled by [name]'s blubberous girth!</span>")
+	visible_message("<span class='danger'>[P.name] was repelled by \the [name]'s blubberous girth!</span>")
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/adjustHealth(amount, updating_health = TRUE)
 	vision_range = 9
@@ -88,4 +88,4 @@
 	desc = "Gross, slimy, and green intestines retrieved from a Gold Grub. Legends say it is valuable in traditional medicines."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "goldgrubguts"
-	list_reagents = list("grub_juice" = 10)
+	list_reagents = list("grub_juice" = 5)

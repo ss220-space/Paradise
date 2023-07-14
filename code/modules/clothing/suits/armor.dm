@@ -575,7 +575,7 @@
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
 		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
-		"Draconid" = 'icons/mob/species/unathi/suit.dmi',
+		"Draconid" = 'icons/mob/species/unathi/suit.dmi'
 		)
 
 /obj/item/clothing/suit/armor/makeshift_armor

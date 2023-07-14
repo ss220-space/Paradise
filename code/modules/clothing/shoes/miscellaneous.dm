@@ -401,6 +401,22 @@
  	icon_state = "brown_wrap"
  	item_state = "brown_wrap"
 
+/obj/item/clothing/shoes/footwraps/goliath
+	name = "goliath hide footwraps"
+	desc = "These wraps, made from goliath hide, make your feet feel snug and secure, while still being breathable and light."
+	icon_state = "footwraps_goliath"
+	item_state = "footwraps_goliath"
+	armor = list("melee" = 5, "bullet" = 5, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 10, "acid" = 0)
+	resistance_flags = FIRE_PROOF
+
+/obj/item/clothing/shoes/footwraps/dragon
+	name = "ash drake hide footwraps"
+	desc = "These wraps, made from ash drake hide, make your feet feel snug and secure, while still being breathable and light."
+	icon_state = "footwraps_dragon"
+	item_state = "footwraps_dragon"
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 15, "energy" = 10, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 15, "acid" = 0)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+
 /obj/item/clothing/shoes/bhop
 	name = "jump boots"
 	desc = "A specialized pair of combat boots with a built-in propulsion system for rapid foward movement."

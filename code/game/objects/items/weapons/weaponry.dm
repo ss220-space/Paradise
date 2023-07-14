@@ -401,3 +401,15 @@
 		H.update_inv_r_hand()
 	playsound(loc, extend_sound, 50, TRUE)
 	add_fingerprint(user)
+
+/obj/item/claymore/bone
+	name = "bone sword"
+	desc = "Jagged pieces of bone are tied to what looks like a goliath's femur."
+	icon_state = "bone_sword"
+	item_state = "bone_sword"
+	slot_flags = SLOT_BELT | SLOT_BACK
+	force = 18
+	throwforce = 10
+	armour_penetration = 15
+	w_class = WEIGHT_CLASS_BULKY
+	block_chance = 30
