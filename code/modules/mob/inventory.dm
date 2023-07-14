@@ -451,7 +451,7 @@
  * * 'force' overrides flag NODROP and clothing obscuration.
  * * 'invdrop' prevents stuff in belt/id/pockets/PDA slots from dropping if item was in jumpsuit slot. Only set to `FALSE` if it's going to be immediately replaced.
  * * 'silent' set to `TRUE` if you want to disable warning messages.
- * * 'ignore_pixel_shift' set to `TRUE`if you want to prevent item random pixel shifting.
+ * * 'ignore_pixel_shift' set to `TRUE` if you want to prevent item's visual position randomization.
 */
 /mob/proc/drop_item_ground(obj/item/I, force = FALSE, invdrop = TRUE, silent = FALSE, ignore_pixel_shift = FALSE)
 
@@ -460,9 +460,20 @@
 	if(!. || !I) //ensure the item exists and that it was dropped properly.
 		return
 
-	if(!ignore_pixel_shift && !(I.flags & NO_PIXEL_RANDOM_DROP))
-		I.pixel_x = clamp(rand(-6, 6), -(world.icon_size / 2), world.icon_size / 2)
-		I.pixel_y = clamp(rand(-6, 6), -(world.icon_size / 2), world.icon_size / 2)
+	var/initial_mob_x = initial(pixel_x)
+	var/initial_mob_y = initial(pixel_y)
+	var/shift_x
+	var/shift_y
+
+	if(ignore_pixel_shift || (I.flags & NO_PIXEL_RANDOM_DROP))
+		shift_x = clamp(pixel_x, -(initial_mob_x + (world.icon_size / 2)), (initial_mob_x + (world.icon_size / 2)))
+		shift_y = clamp(pixel_y, -(initial_mob_y + (world.icon_size / 2)), (initial_mob_y + (world.icon_size / 2)))
+	else
+		shift_x = clamp(pixel_x + rand(-6, 6), -(initial_mob_x + (world.icon_size / 2)), (initial_mob_x + (world.icon_size / 2)))
+		shift_y = clamp(pixel_y + rand(-6, 6), -(initial_mob_y + (world.icon_size / 2)), (initial_mob_y + (world.icon_size / 2)))
+
+	I.pixel_x = shift_x
+	I.pixel_y = shift_y
 	I.do_drop_animation(src)
 
 
