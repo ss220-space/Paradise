@@ -460,17 +460,18 @@
 	if(!. || !I) //ensure the item exists and that it was dropped properly.
 		return
 
-	var/initial_mob_x = initial(pixel_x)
-	var/initial_mob_y = initial(pixel_y)
+	var/shift_max = world.icon_size / 2
+	var/shift_limit_x = initial(pixel_x) + shift_max
+	var/shift_limit_y = initial(pixel_y) + shift_max
 	var/shift_x
 	var/shift_y
 
 	if(ignore_pixel_shift || (I.flags & NO_PIXEL_RANDOM_DROP))
-		shift_x = clamp(pixel_x, -(initial_mob_x + (world.icon_size / 2)), (initial_mob_x + (world.icon_size / 2)))
-		shift_y = clamp(pixel_y, -(initial_mob_y + (world.icon_size / 2)), (initial_mob_y + (world.icon_size / 2)))
+		shift_x = clamp(pixel_x, -shift_limit_x, shift_limit_x)
+		shift_y = clamp(pixel_y, -shift_limit_y, shift_limit_y)
 	else
-		shift_x = clamp(pixel_x + rand(-6, 6), -(initial_mob_x + (world.icon_size / 2)), (initial_mob_x + (world.icon_size / 2)))
-		shift_y = clamp(pixel_y + rand(-6, 6), -(initial_mob_y + (world.icon_size / 2)), (initial_mob_y + (world.icon_size / 2)))
+		shift_x = clamp(pixel_x + rand(-6, 6), -shift_limit_x, shift_limit_x)
+		shift_y = clamp(pixel_y + rand(-6, 6), -shift_limit_y, shift_limit_y)
 
 	I.pixel_x = shift_x
 	I.pixel_y = shift_y
