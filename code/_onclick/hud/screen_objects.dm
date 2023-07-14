@@ -54,7 +54,7 @@
 
 /obj/screen/drop/Click()
 	if(usr.stat == CONSCIOUS)
-		usr.drop_item_ground(usr.get_active_hand())
+		usr.drop_item_ground(usr.get_active_hand(), ignore_pixel_shift = TRUE)
 
 
 /obj/screen/grab

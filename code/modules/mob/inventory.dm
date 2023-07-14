@@ -452,14 +452,14 @@
  * * 'invdrop' prevents stuff in belt/id/pockets/PDA slots from dropping if item was in jumpsuit slot. Only set to `FALSE` if it's going to be immediately replaced.
  * * 'silent' set to `TRUE` if you want to disable warning messages.
 */
-/mob/proc/drop_item_ground(obj/item/I, force = FALSE, invdrop = TRUE, silent = FALSE)
+/mob/proc/drop_item_ground(obj/item/I, force = FALSE, invdrop = TRUE, silent = FALSE, ignore_pixel_shift = FALSE)
 
 	. = do_unEquip(I, force, drop_location(), FALSE, invdrop, silent)
 
 	if(!. || !I) //ensure the item exists and that it was dropped properly.
 		return
 
-	if(!(I.flags & NO_PIXEL_RANDOM_DROP))
+	if(!ignore_pixel_shift && !(I.flags & NO_PIXEL_RANDOM_DROP))
 		I.pixel_x = clamp(rand(-6, 6), -(world.icon_size / 2), world.icon_size / 2)
 		I.pixel_y = clamp(rand(-6, 6), -(world.icon_size / 2), world.icon_size / 2)
 	I.do_drop_animation(src)
