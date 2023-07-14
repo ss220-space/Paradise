@@ -247,6 +247,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
 	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi',
 		"Grey" = 'icons/mob/species/grey/head.dmi',
 		"Monkey" = 'icons/mob/species/monkey/head.dmi',
 		"Farwa" = 'icons/mob/species/monkey/head.dmi',
@@ -326,6 +327,7 @@
 	species_disguise = "High-tech robot"
 	dog_fashion = /datum/dog_fashion/head/cardborg
 	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi',
 		"Grey" = 'icons/mob/species/grey/head.dmi',
 		"Monkey" = 'icons/mob/species/monkey/head.dmi',
 		"Farwa" = 'icons/mob/species/monkey/head.dmi',

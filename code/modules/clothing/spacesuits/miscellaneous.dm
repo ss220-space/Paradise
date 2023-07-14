@@ -11,6 +11,7 @@
 	species_restricted = list("exclude", "Wryn", "lesser form")
 
 	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi',
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
 		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
 		"Ash Walker" = 'icons/mob/species/unathi/helmet.dmi',
@@ -42,6 +43,7 @@
 	species_restricted = list("exclude", "Wryn", "lesser form")
 
 	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
 		"Vox" = 'icons/mob/species/vox/suit.dmi',
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
 		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
@@ -97,6 +99,7 @@
 	species_restricted = list("exclude", "Wryn", "lesser form")
 
 	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
 
@@ -108,6 +111,13 @@
 	flags_inv = 0
 	flags =  STOPSPRESSUREDMAGE | THICKMATERIAL
 	flags_cover = null
+	sprite_sheets = list(
+		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+	)
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret/supreme
 	name = "Офицерская фуражка Верховного Главнокомандующего"
@@ -350,6 +360,7 @@
 	item_state = "spacemimehelmet"
 	species_restricted = list("exclude","Wryn", "lesser form")
 	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi',
 		"Vox" = 'icons/mob/species/vox/helmet.dmi')
 	sprite_sheets_obj = null
 
@@ -361,6 +372,7 @@
 	item_state = "spacemime_items"
 	species_restricted = list("exclude","Wryn", "lesser form")
 	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
 		"Vox" = 'icons/mob/species/vox/suit.dmi')
 	sprite_sheets_obj = null
 
@@ -372,6 +384,7 @@
 	item_state = "clownhelmet"
 	species_restricted = list("exclude","Wryn", "lesser form")
 	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi',
 		"Vox" = 'icons/mob/species/vox/helmet.dmi')
 	sprite_sheets_obj = null
 
@@ -383,5 +396,6 @@
 	item_state = "spaceclown_items"
 	species_restricted = list("exclude","Wryn", "lesser form")
 	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
 		"Vox" = 'icons/mob/species/vox/suit.dmi')
 	sprite_sheets_obj = null

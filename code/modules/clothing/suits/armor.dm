@@ -211,18 +211,31 @@
 	icon_state = "knight_green"
 	item_state = "knight_green"
 	slowdown = 1
+	hide_tail_by_species = list("Vulpkanin")
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi'
+		)
 
 /obj/item/clothing/suit/armor/riot/knight/yellow
 	icon_state = "knight_yellow"
 	item_state = "knight_yellow"
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi'
+		)
 
 /obj/item/clothing/suit/armor/riot/knight/blue
 	icon_state = "knight_blue"
 	item_state = "knight_blue"
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi'
+		)
 
 /obj/item/clothing/suit/armor/riot/knight/red
 	icon_state = "knight_red"
 	item_state = "knight_red"
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi'
+		)
 
 /obj/item/clothing/suit/armor/riot/knight/templar
 	name = "crusader armour"
@@ -231,6 +244,9 @@
 	item_state = "knight_templar"
 	allowed = list(/obj/item/nullrod/claymore)
 	armor = list(melee = 25, bullet = 5, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 80, acid = 80)
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi'
+		)
 
 /obj/item/clothing/suit/armor/vest/durathread
 	name = "durathread vest"
@@ -435,6 +451,9 @@
 	slowdown = 3
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	hide_tail_by_species = list("Vox")
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi'
+	)
 
 /obj/item/clothing/suit/armor/tdome
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 90)
@@ -443,19 +462,25 @@
 	flags = THICKMATERIAL
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	hide_tail_by_species = list("Vox")
+	hide_tail_by_species = list("Vox", "Vulpkanin")
 
 /obj/item/clothing/suit/armor/tdome/red
 	name = "Red Thunderdome Armor"
 	desc = "Armor worn by the red Thunderdome team."
 	icon_state = "tdred"
 	item_state = "tdred"
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi'
+	)
 
 /obj/item/clothing/suit/armor/tdome/green
 	name = "Green Thunderdome Armor"
 	desc = "Armor worn by the green Thunderdome team."
 	icon_state = "tdgreen"
 	item_state = "tdgreen"
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi'
+	)
 
 //Non-hardsuit ERT armor.
 /obj/item/clothing/suit/armor/vest/ert
@@ -482,6 +507,10 @@
 	desc = "A set of armor worn by paranormal members of the Nanotrasen Emergency Response Team. Has crusader sigils."
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
+	hide_tail_by_species = list("Vox", "Vulpkanin")
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi'
+		)
 
 //Engineer
 /obj/item/clothing/suit/armor/vest/ert/engineer
@@ -528,6 +557,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
 		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
 		"Draconid" = 'icons/mob/species/unathi/suit.dmi'
 		)
@@ -543,6 +573,9 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		)
 
 /obj/item/clothing/suit/hooded/goliath
 	name = "goliath cloak"
@@ -574,6 +607,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
 		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
 		"Draconid" = 'icons/mob/species/unathi/suit.dmi'
 		)
