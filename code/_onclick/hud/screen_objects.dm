@@ -49,7 +49,7 @@
 
 
 /obj/screen/drop
-	name = "drop"
+	name = "accurate drop"
 	icon_state = "act_drop"
 
 /obj/screen/drop/Click()
