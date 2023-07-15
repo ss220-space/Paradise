@@ -14,12 +14,16 @@
 		defender.SpinAnimation(10,1)
 		attacker.SpinAnimation(10,1)
 		add_attack_logs(defender, attacker, "Intercepted attack with [src]: Stunning discounts!")
-
 		var/msg = pick("Сногсшибательные скидки!", "От скидок кругом голова!", "Предложение — хоть стой, хоть падай!", \
 					"Пол тоже продаётся!", "С вас 350000 кредитов!", "Вы за это заплатите!")
 		defender.say(msg)
 
-		spawn(40)
+		var/sound = pick('sound/weapons/mr_chang/mr_chang_1.mp3', 'sound/weapons/mr_chang/mr_chang_2.mp3', \
+						'sound/weapons/mr_chang/mr_chang_3.mp3', 'sound/weapons/mr_chang/mr_chang_4.mp3', \
+						'sound/weapons/mr_chang/mr_chang_5.mp3')
+		playsound(get_turf(defender), sound, 50, 1, -1)
+
+		spawn(4 SECONDS)
 			stun_on_cooldown = FALSE
 		return TRUE
 
