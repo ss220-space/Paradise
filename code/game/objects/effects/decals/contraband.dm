@@ -604,62 +604,62 @@
 	desc = "Advertising poster of vodka, drink from real men for real men. Feel like a space bear."
 	icon_state = "poster41_legit"
 
-obj/structure/sign/poster/official/tsf_emblem
+/obj/structure/sign/poster/official/tsf_emblem
 	name = "TSF Emblem"
 	desc = "Patriotic poster with an emblem of TSF and some dull text for marine honor on it."
 	icon_state = "poster42_legit"
 
-obj/structure/sign/poster/official/wetskrell
+/obj/structure/sign/poster/official/wetskrell
 	name = "WetSkrell"
 	desc = "You can see a pretty skrell in red dress and with long headtails, which have decorative bands. It is advertising a site with \"adult recreation procedures\", the wetskrell.nt."
 	icon_state = "poster43_legit"
 
-obj/structure/sign/poster/official/keepcalm
+/obj/structure/sign/poster/official/keepcalm
 	name = "Keep Calm"
 	desc = "This particular one is of a famous New Earth design, although a bit modified. Someone has scribbled an O over the A on the poster."
 	icon_state = "poster44_legit"
 
-obj/structure/sign/poster/official/pinup_a
+/obj/structure/sign/poster/official/pinup_a
 	name = "Pinup Girl Cindy"
 	desc = "This particular one is of a historical corporate PR girl, Cindy, in a particularly feminine pose."
 	icon_state = "poster45_legit"
 
-obj/structure/sign/poster/official/pinup_b
+/obj/structure/sign/poster/official/pinup_b
 	name = "Pinup Girl Amy"
 	desc = "This particular one is of Amy, the nymphomaniac urban legend of deep space. How this photograph came to be is not known."
 	icon_state = "poster46_legit"
 
-obj/structure/sign/poster/official/insp_law
+/obj/structure/sign/poster/official/insp_law
 	name = "Inspirational Lawyer"
 	desc = "An inspirational poster depicting a Skrellian lawyer. He seems to be shouting something, while pointing fiercely to the right."
 	icon_state = "poster47_legit"
 
-obj/structure/sign/poster/official/space_a
+/obj/structure/sign/poster/official/space_a
 	name = "Space Appreciation Poster"
 	desc = "This is a poster produced by the Generic Space Company, as a part of a series of commemorative posters on the wonders of space. One of three."
 	icon_state = "poster48_legit"
 
-obj/structure/sign/poster/official/space_b
+/obj/structure/sign/poster/official/space_b
 	name = "Mars Appreciation Poster"
 	desc = "This is a poster produced by the Generic Space Company, as a part of a series of commemorative posters on the wonders of space. Three of three."
 	icon_state = "poster49_legit"
 
-obj/structure/sign/poster/official/wild_west
+/obj/structure/sign/poster/official/wild_west
 	name = "Wild Cargo"
 	desc = "The beautiful wild place with their own sheriff."
 	icon_state = "poster50_legit"
 
-obj/structure/sign/poster/official/razumause
+/obj/structure/sign/poster/official/razumause
 	name = "Razumause"
 	desc = "Hey hey! What`s can go wrong, yeah?"
 	icon_state = "poster51_legit"
 
-obj/structure/sign/poster/official/assist_pride
+/obj/structure/sign/poster/official/assist_pride
 	name = "Assistant pride"
 	desc = "Even in space, the profession of assistant is in demand. And this poster shows you their beauty."
 	icon_state = "poster52_legit"
 
-obj/structure/sign/poster/official/mr_cheng
+/obj/structure/sign/poster/official/mr_cheng
 	name = "Mr. Cheng!"
 	desc = "Stunning discounts! The best product quality! Good prices for lots and lots of goods! Only Mr. Cheng."
 	icon_state = "poster53_legit"
