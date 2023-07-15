@@ -244,6 +244,7 @@
 		/obj/item/t_scanner = 1,
 		/obj/item/stack/sheet/glass/fifty = 1,
 		/obj/item/stack/sheet/metal/fifty = 1,
+		/obj/item/rpd = 1,
 		/obj/item/flashlight = 1
 	)
 
@@ -264,6 +265,7 @@
 		/obj/item/ammo_box/magazine/sp8 = 2,
 		/obj/item/rcd/preloaded = 1,
 		/obj/item/rcd_ammo = 3,
+		/obj/item/rpd = 1,
 		/obj/item/gun/energy/gun/sibyl = 1
 	)
 
@@ -293,7 +295,8 @@
 		/obj/item/gun/projectile/automatic/pistol/sp8t = 1,
 		/obj/item/ammo_box/magazine/sp8 = 2,
 		/obj/item/rcd/combat = 1,
-		/obj/item/rcd_ammo/large = 3
+		/obj/item/rcd_ammo/large = 3,
+		/obj/item/rpd/bluespace = 1
 	)
 
 	cybernetic_implants = list(
@@ -522,7 +525,8 @@
 		/obj/item/storage/bag/trash = 1,
 		/obj/item/storage/box/lights/mixed = 1,
 		/obj/item/holosign_creator/janitor = 1,
-		/obj/item/flashlight = 1)
+		/obj/item/flashlight = 1,
+		/obj/item/melee/flyswatter = 1)
 
 /datum/outfit/job/centcom/response_team/janitorial/amber
 	name = "RT Janitor (Amber)"

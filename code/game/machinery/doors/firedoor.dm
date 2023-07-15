@@ -71,8 +71,9 @@
 	affecting_areas.Cut()
 	return ..()
 
-/obj/machinery/door/firedoor/Bumped(atom/AM)
+/obj/machinery/door/firedoor/Bumped(atom/movable/moving_atom)
 	if(panel_open || operating)
+		SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, moving_atom)
 		return
 	if(!density)
 		return ..()
@@ -199,10 +200,10 @@
 	switch(animation)
 		if("opening")
 			flick("door_opening", src)
-			playsound(src, 'sound/machines/airlock_ext_open.ogg', 30, 1)
+			playsound(src, 'sound/machines/firedoor.ogg', 60, 1)
 		if("closing")
 			flick("door_closing", src)
-			playsound(src, 'sound/machines/airlock_ext_close.ogg', 30, 1)
+			playsound(src, 'sound/machines/firedoor.ogg', 60, 1)
 
 /obj/machinery/door/firedoor/update_icon()
 	overlays.Cut()
@@ -424,7 +425,7 @@
 				if(constructionStep != CONSTRUCTION_NOCIRCUIT)
 					return
 				add_fingerprint(user)
-				user.drop_item()
+				user.drop_transfer_item_to_loc(C, src)
 				qdel(C)
 				user.visible_message("<span class='notice'>[user] adds a circuit to [src].</span>", \
 									 "<span class='notice'>You insert and secure [C].</span>")
@@ -488,8 +489,7 @@
 		return
 	user.visible_message("<span class='notice'>[user] removes the wires from [src].</span>", \
 						 "<span class='notice'>You remove the wiring from [src], exposing the circuit board.</span>")
-	var/obj/item/stack/cable_coil/B = new(get_turf(src))
-	B.amount = 5
+	new /obj/item/stack/cable_coil(drop_location(), 5)
 	constructionStep = CONSTRUCTION_GUTTED
 	update_icon()
 

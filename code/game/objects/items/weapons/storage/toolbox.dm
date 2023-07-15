@@ -14,6 +14,26 @@
 	origin_tech = "combat=1;engineering=1"
 	attack_verb = list("robusted")
 	hitsound = 'sound/weapons/smash.ogg'
+	var/blurry_chance = 5
+
+/obj/item/storage/toolbox/attack(mob/living/carbon/human/H, mob/living/carbon/user)
+	. = ..()
+
+	if(!istype(H))
+		return
+
+	if(user.zone_selected != "eyes" && user.zone_selected != "head")
+		return
+
+	if(!prob(blurry_chance))
+		return
+
+	if(force && (HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))
+		to_chat(user, SPAN_WARNING("You don't want to harm other living beings!"))
+		return
+
+	H.AdjustEyeBlurry(4)
+	to_chat(H, SPAN_DANGER("You feel a buzz in your head and your vision gets blurry."))
 
 /obj/item/storage/toolbox/emergency
 	name = "emergency toolbox"
@@ -65,12 +85,12 @@
 	new /obj/item/wirecutters(src)
 	new /obj/item/t_scanner(src)
 	new /obj/item/crowbar(src)
-	new /obj/item/stack/cable_coil(src, 30, paramcolor = pickedcolor)
-	new /obj/item/stack/cable_coil(src, 30, paramcolor = pickedcolor)
+	new /obj/item/stack/cable_coil(src, MAXCOIL, FALSE, pickedcolor)
+	new /obj/item/stack/cable_coil(src, MAXCOIL, FALSE, pickedcolor)
 	if(prob(5))
 		new /obj/item/clothing/gloves/color/yellow(src)
 	else
-		new /obj/item/stack/cable_coil(src, 30, paramcolor = pickedcolor)
+		new /obj/item/stack/cable_coil(src, MAXCOIL, FALSE, pickedcolor)
 
 /obj/item/storage/toolbox/syndicate
 	name = "suspicious looking toolbox"
@@ -80,6 +100,7 @@
 	silent = 1
 	force = 15.0
 	throwforce = 18.0
+	blurry_chance = 8
 
 /obj/item/storage/toolbox/syndicate/populate_contents()
 	new /obj/item/screwdriver(src, "red")
@@ -89,6 +110,26 @@
 	new /obj/item/wirecutters(src, "red")
 	new /obj/item/multitool(src)
 	new /obj/item/clothing/gloves/combat(src)
+
+/obj/item/storage/toolbox/syndisuper
+	name = "exteremely suspicious looking toolbox"
+	desc = "Danger. Robust - his second name."
+	icon_state = "syndicate"
+	item_state = "toolbox_syndi"
+	origin_tech = "combat=5;syndicate=1;engineering=5"
+	silent = 1
+	force = 18.0 //robuster because of rarity
+	throwforce = 20.0
+	blurry_chance = 12
+
+/obj/item/storage/toolbox/syndisuper/populate_contents()
+	new /obj/item/screwdriver/power(src)
+	new /obj/item/weldingtool/experimental(src)
+	new /obj/item/crowbar/power(src)
+	new /obj/item/multitool/cyborg(src)
+	new /obj/item/stack/cable_coil(src, MAXCOIL)
+	new /obj/item/clothing/gloves/combat(src)
+	new /obj/item/clothing/glasses/sunglasses(src)
 
 /obj/item/storage/toolbox/fakesyndi
 	name = "suspicous looking toolbox"
@@ -107,7 +148,7 @@
 	new /obj/item/wrench(src)
 	new /obj/item/weldingtool(src)
 	new /obj/item/crowbar(src)
-	new /obj/item/stack/cable_coil(src, 30, paramcolor = pickedcolor)
+	new /obj/item/stack/cable_coil(src, MAXCOIL, TRUE, pickedcolor)
 	new /obj/item/wirecutters(src)
 	new /obj/item/multitool(src)
 

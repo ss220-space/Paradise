@@ -91,7 +91,7 @@
 		if(uses >= max_uses)
 			to_chat(user, "<span class='warning'>[src] is full.</span>")
 			return
-		if(!user.unEquip(I))
+		if(!user.drop_transfer_item_to_loc(I, src))
 			return
 		AddUses(round(increment * 0.75))
 		to_chat(user, "<span class='notice'>You insert a shard of glass into [src]. You have [uses] light\s remaining.</span>")
@@ -102,12 +102,12 @@
 		var/obj/item/light/L = I
 		if(L.status == 0) // LIGHT OKAY
 			if(uses < max_uses)
-				if(!user.unEquip(L))
+				if(!user.drop_transfer_item_to_loc(L, src))
 					return
 				AddUses(1)
 				qdel(L)
 		else
-			if(!user.unEquip(L))
+			if(!user.drop_transfer_item_to_loc(L, src))
 				return
 			to_chat(user, "<span class='notice'>You insert [L] into [src].</span>")
 			AddShards(1, user)
@@ -126,11 +126,15 @@
 				if(uses >= max_uses)
 					break
 				if(L.status == LIGHT_OK)
+					L.remove_item_from_storage(user.drop_location())
+					L.do_pickup_animation(src)
 					replaced_something = TRUE
 					AddUses(1)
 					qdel(L)
 
 				else if(L.status == LIGHT_BROKEN || L.status == LIGHT_BURNED)
+					L.remove_item_from_storage(user.drop_location())
+					L.do_pickup_animation(src)
 					replaced_something = TRUE
 					AddShards(1, user)
 					qdel(L)

@@ -92,7 +92,8 @@
 	if(AM)
 		Bumped(AM)
 
-/obj/machinery/recycler/Bumped(atom/movable/AM)
+/obj/machinery/recycler/Bumped(atom/movable/moving_atom)
+	..()
 
 	if(stat & (BROKEN|NOPOWER))
 		return
@@ -101,9 +102,9 @@
 	if(emergency_mode)
 		return
 
-	var/move_dir = get_dir(loc, AM.loc)
+	var/move_dir = get_dir(loc, moving_atom.loc)
 	if(move_dir == eat_dir)
-		eat(AM)
+		eat(moving_atom)
 
 /obj/machinery/recycler/proc/eat(atom/AM0, sound = 1)
 	var/list/to_eat = list(AM0)
@@ -179,7 +180,7 @@
 	// Remove and recycle the equipped items
 	if(eat_victim_items)
 		for(var/obj/item/I in L.get_equipped_items(TRUE))
-			if(L.unEquip(I))
+			if(L.drop_item_ground(I))
 				eat(I, sound = 0)
 
 	// Instantly lie down, also go unconscious from the pain, before you die.

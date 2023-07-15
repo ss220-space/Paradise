@@ -209,7 +209,9 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		"thieflogo.png"		    	= 'icons/misc/paper_icons/thieflogo.png',
 		"large_stamp-ploho.png"		= 'icons/misc/paper_icons/large_stamp-ploho.png',
 		"large_stamp-BIGdeny.png"	= 'icons/misc/paper_icons/large_stamp-BIGdeny.png',
-		"large_stamp-navcom.png"	= 'icons/misc/paper_icons/large_stamp-navcom.png'
+		"large_stamp-navcom.png"	= 'icons/misc/paper_icons/large_stamp-navcom.png',
+		"large_stamp-ussp.png"		= 'icons/misc/paper_icons/large_stamp-ussp.png',
+		"ussplogo.png"			= 'icons/misc/paper_icons/ussplogo.png'
 	)
 
 /datum/asset/simple/chess
@@ -242,8 +244,8 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		assets["pill[i].png"] = icon('icons/obj/chemical.dmi', "pill[i]")
 	for(var/i in list("bottle", "small_bottle", "wide_bottle", "round_bottle", "reagent_bottle"))
 		assets["[i].png"] = icon('icons/obj/chemical.dmi', "[i]")
-	for(var/i in list("bandaid_med", "bandaid_brute", "bandaid_burn", "bandaid", "bandaid_clown"))
-		assets["[i].png"] = icon('icons/obj/chemical.dmi', "[i]")
+	for(var/i = 1 to 20)
+		assets["bandaid[i].png"] = icon('icons/obj/chemical.dmi', "bandaid[i]")
 	for(var/asset_name in assets)
 		register_asset(asset_name, assets[asset_name])
 
@@ -345,3 +347,15 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		assets["sheet-[n].png"] = icon('icons/obj/items.dmi', "sheet-[n]")
 	assets["sheet-bluespace.png"] = icon('icons/obj/telescience.dmi', "polycrystal")
 	..()
+
+/datum/asset/changelog_item
+	var/item_filename
+
+/datum/asset/changelog_item/New(date)
+	item_filename = sanitize_filename("[date].yml")
+	register_asset(item_filename, file("html/changelogs/archive/" + item_filename))
+
+/datum/asset/changelog_item/send(client)
+	if (!item_filename)
+		return
+	. = send_asset(client, item_filename)

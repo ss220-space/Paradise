@@ -92,7 +92,7 @@
 			return
 		if(QDELETED(I) || QDELETED(user) || QDELETED(src) || parent != current_parent || user.incapacitated() || !in_range(current_parent, user) || user.l_hand != I && user.r_hand != I)
 			return
-	if(!user.drop_item())
+	if(!user.drop_transfer_item_to_loc(I, parent))
 		to_chat(user, "<span class='warning'>[I] is stuck to you and cannot be placed into [parent].</span>")
 		return
 	var/inserted = insert_item(I, stack_amt = requested_amount)

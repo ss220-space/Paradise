@@ -161,6 +161,9 @@
 	desc = "A colorful clown mask for the clown that loves to dazzle and impress. Its form can be changed by using it in your hand."
 	icon_state = "rainbow"
 	item_state = "rainbow"
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi'
+	)
 
 /obj/item/clothing/mask/gas/clownwiz
 	name = "wizard clown wig and mask"
@@ -183,6 +186,44 @@
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
 
+/obj/item/clothing/mask/gas/mime/equipped(mob/user, slot, initial)
+	. = ..()
+
+	if(user && user.mind)
+		var/obj/effect/proc_holder/spell/targeted/mime/speak/mask/S = locate(/obj/effect/proc_holder/spell/targeted/mime/speak/mask) in user.mind.spell_list
+		if(S && !S.from_mask)
+			return
+
+		if(slot == slot_wear_mask)
+			if(!S)
+				var/obj/effect/proc_holder/spell/targeted/mime/speak/mask/new_spell = new
+				user.mind.AddSpell(new_spell)
+				new_spell.start_recharge()
+			else
+				if(S.action?.invisibility)
+					S.action?.ToggleInvisibility()
+
+/obj/item/clothing/mask/gas/mime/dropped(mob/user)
+	. = ..()
+
+	if(user && user.mind)
+		var/obj/effect/proc_holder/spell/targeted/mime/speak/mask/S = locate(/obj/effect/proc_holder/spell/targeted/mime/speak/mask) in user.mind.spell_list
+		if(!S || !S?.from_mask)
+			return
+
+		if(S.charge_counter < S.charge_max)
+			if(!S.action?.invisibility)
+				S.action?.ToggleInvisibility()
+		else
+			if(user.mind.miming)
+				S.cast(list(user))
+			user.mind.RemoveSpell(S)
+
+
+/obj/item/clothing/mask/gas/mime/item_action_slot_check(slot, mob/user)
+	if(slot == slot_wear_mask)
+		return 1
+
 /obj/item/clothing/mask/gas/mime/wizard
 	name = "magical mime mask"
 	desc = "A mime mask glowing with power. Its eyes gaze deep into your soul."
@@ -199,13 +240,11 @@
 	item_state = "monkeymask"
 	resistance_flags = FLAMMABLE
 
-/obj/item/clothing/mask/gas/sexymime
+/obj/item/clothing/mask/gas/mime/sexy
 	name = "sexy mime mask"
 	desc = "A traditional female mime's mask."
 	icon_state = "sexymime"
 	item_state = "sexymime"
-	flags_cover = MASKCOVERSEYES
-	resistance_flags = FLAMMABLE
 
 /obj/item/clothing/mask/gas/cyborg
 	name = "cyborg visor"

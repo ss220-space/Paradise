@@ -310,7 +310,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 
 /obj/effect/hallucination/oh_yeah/proc/bubble_attack(turf/landing)
 	var/charged = FALSE //only get hit once
-	while(get_turf(bubblegum) != landing && target && target.stat != DEAD)
+	while(get_turf(bubblegum) != landing && target && target.stat != DEAD && get_dist(landing, get_turf(bubblegum)) <= 7)
 		bubblegum.forceMove(get_step_towards(bubblegum, landing))
 		bubblegum.setDir(get_dir(bubblegum, landing))
 		target.playsound_local(get_turf(bubblegum), 'sound/effects/meteorimpact.ogg', 150, 1)
@@ -886,7 +886,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 					for(var/i in 0 to rand(1,3))
 						playsound_local(null, 'sound/weapons/empty.ogg', 15, 1)
 						sleep(rand(10,30))
-					playsound_local(null, 'sound/machines/airlockforced.ogg', 15, 1)
+					playsound_local(null, 'sound/machines/airlock_force_open.ogg', 15, 1)
 				if(17)
 					playsound_local(null, 'sound/weapons/saberon.ogg', 35, 1)
 				if(18)

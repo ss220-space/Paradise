@@ -23,7 +23,7 @@
 	see_in_dark = 5
 	speak_chance = 1
 	turns_per_move = 10
-	mob_size = MOB_SIZE_HUMAN
+	mob_size = MOB_SIZE_SMALL
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/bark_sound = list('sound/creatures/dog_bark1.ogg','sound/creatures/dog_bark2.ogg') //Used in emote.
 	var/growl_sound = list('sound/creatures/dog_grawl1.ogg','sound/creatures/dog_grawl2.ogg') //Used in emote.
@@ -218,7 +218,8 @@
 					if(inventory_head.flags & NODROP)
 						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
 						return
-					usr.put_in_hands(inventory_head)
+					drop_item_ground(inventory_head)
+					usr.put_in_hands(inventory_head, ignore_anim = FALSE)
 					inventory_head = null
 					update_corgi_fluff()
 					regenerate_icons()
@@ -230,7 +231,8 @@
 					if(inventory_back.flags & NODROP)
 						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
 						return
-					usr.put_in_hands(inventory_back)
+					drop_item_ground(inventory_back)
+					usr.put_in_hands(inventory_back, ignore_anim = FALSE)
 					inventory_back = null
 					update_corgi_fluff()
 					regenerate_icons()
@@ -240,8 +242,8 @@
 			if("collar")
 				if(pcollar)
 					var/the_collar = pcollar
-					unEquip(pcollar)
-					usr.put_in_hands(the_collar)
+					drop_item_ground(pcollar)
+					usr.put_in_hands(the_collar, ignore_anim = FALSE)
 					pcollar = null
 					update_corgi_fluff()
 					regenerate_icons()
@@ -271,7 +273,7 @@
 						usr.visible_message("<span class='notice'>[usr] pets [src].</span>", "<span class='notice'>You rest your hand on [src]'s back for a moment.</span>")
 						return
 
-					if(!usr.unEquip(item_to_add))
+					if(!usr.drop_item_ground(item_to_add))
 						to_chat(usr, "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s back!</span>")
 						return
 
@@ -324,7 +326,7 @@
 			return
 		return
 
-	if(user && !user.unEquip(item_to_add))
+	if(user && !user.drop_item_ground(item_to_add))
 		to_chat(user, "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s head!</span>")
 		return 0
 
@@ -667,6 +669,8 @@
 
 //puppies cannot wear anything.
 /mob/living/simple_animal/pet/dog/corgi/puppy/Topic(href, href_list)
+	if(href_list["remove_inv"] == "collar" || href_list["add_inv"] == "collar")
+		return ..()
 	if(href_list["remove_inv"] || href_list["add_inv"])
 		to_chat(usr, "<span class='warning'>You can't fit this on [src]!</span>")
 		return

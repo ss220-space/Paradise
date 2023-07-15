@@ -126,6 +126,7 @@
 				/obj/item/wrench = 40,
 				/obj/item/relic = 35,
 				/obj/item/weaponcrafting/receiver = 2,
+				/obj/item/clothing/gloves/knuckles = 1,
 				/obj/item/clothing/shoes/brown = 30,
 				/obj/item/seeds/ambrosia/deus = 10,
 				/obj/item/seeds/ambrosia = 20,
@@ -266,8 +267,7 @@
 			if(!lootdoubles)
 				loot.Remove(lootspawn)
 			if(lootspawn)
-				var/obj/item/stack/sheet/S = new lootspawn(get_turf(src))
-				S.amount = 25
+				new lootspawn(get_turf(src), 25)
 	qdel(src)
 
 
@@ -301,7 +301,7 @@
 		/obj/item/assembly/signaler/anomaly = 50,
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/xray = 50,
 		/obj/item/mecha_parts/mecha_equipment/teleporter/precise = 50,
-		/obj/item/autoimplanter = 50,
+		/obj/item/autoimplanter/old = 50,
 		/obj/item/paper/researchnotes = 100,
 		/obj/item/slimepotion/clothing/fireproof = 50,
 		/obj/item/slimepotion/speed = 50,

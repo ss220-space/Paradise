@@ -333,6 +333,16 @@
 	build_path = /obj/item/organ/internal/cyberimp/arm/toolset
 	category = list("Medical")
 
+/datum/design/mantisblade
+	name = "ShellGuard Mantis Blade"
+	desc = "A blade designed to be hidden just beneath the skin. The brain is directly linked to this bad boy, allowing it to spring into action."
+	id = "ci-mantisblade"
+	req_tech = list("materials" = 7, "combat" = 7, "biotech" = 7, "programming" = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 10000, MAT_TITANIUM = 6000, MAT_DIAMOND = 6000)
+	build_path = /obj/item/storage/lockbox/research/mantis
+	category = list("Medical")
+
 /datum/design/cyberimp_atmostoolset
 	name = "Atmos Arm Implant"
 	desc = "A stripped-down version of engineering cyborg toolset, designed to be installed on subject's arm. Contains all neccessary tools for atmos-techs."

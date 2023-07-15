@@ -237,7 +237,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		s += "<br>[config.server_tag_line]"
 
 	if(SSticker && ROUND_TIME > 0)
-		s += "<br>[round(ROUND_TIME / 36000)]:[add_zero(num2text(ROUND_TIME / 600 % 60), 2)], " + capitalize(get_security_level())
+		s += "<br>[ROUND_TIME_TEXT()], " + capitalize(get_security_level())
 	else
 		s += "<br><b>STARTING</b>"
 
@@ -300,6 +300,9 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	var/F = file("data/logpath.txt")
 	fdel(F)
 	F << GLOB.log_directory
+
+	var/latest_changelog = file("html/changelogs/archive/" + time2text(world.timeofday, "YYYY-MM") + ".yml")
+	GLOB.changelog_hash = fexists(latest_changelog) ? md5(latest_changelog) : 0 //for telling if the changelog has changed recently
 
 
 /world/Del()

@@ -295,10 +295,9 @@
 		if(coin)
 			to_chat(user, "<span class='warning'>There is already a coin in this machine!</span>")
 			return
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(I, src))
 			return
 		add_fingerprint(user)
-		I.forceMove(src)
 		coin = I
 		to_chat(user, "<span class='notice'>You insert [I] into the [src]</span>")
 		SStgui.update_uis(src)
@@ -411,11 +410,10 @@
 /obj/machinery/vending/proc/insert_item(mob/user, obj/item/I)
 	if(!item_slot || inserted_item)
 		return
-	if(!user.drop_item())
+	if(!user.drop_transfer_item_to_loc(I, src))
 		to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't seem to put it down!</span>")
 		return
 	inserted_item = I
-	I.forceMove(src)
 	to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
 	SStgui.update_uis(src)
 
@@ -424,7 +422,8 @@
 		return
 	var/put_on_turf = TRUE
 	if(user && iscarbon(user) && user.Adjacent(src))
-		if(user.put_in_hands(inserted_item))
+		inserted_item.forceMove_turf()
+		if(user.put_in_hands(inserted_item, ignore_anim = FALSE))
 			put_on_turf = FALSE
 	if(put_on_turf)
 		var/turf/T = get_turf(src)
@@ -576,7 +575,8 @@
 				to_chat(usr, "<span class='warning'>You lack hands.</span>")
 				return
 			to_chat(usr, "<span class='notice'>You remove [coin] from [src].</span>")
-			usr.put_in_hands(coin)
+			coin.forceMove_turf()
+			usr.put_in_hands(coin, ignore_anim = FALSE)
 			coin = null
 			. = TRUE
 		if("vend")
@@ -716,9 +716,9 @@
 /obj/machinery/vending/proc/do_vend(datum/data/vending_product/R, mob/user)
 	if(!item_slot || !inserted_item)
 		var/put_on_turf = TRUE
-		var/obj/vended = new R.product_path()
+		var/obj/vended = new R.product_path(drop_location())
 		if(user && iscarbon(user) && user.Adjacent(src))
-			if(user.put_in_hands(vended))
+			if(user.put_in_hands(vended, ignore_anim = FALSE))
 				put_on_turf = FALSE
 		if(put_on_turf)
 			var/turf/T = get_turf(src)
@@ -935,7 +935,8 @@
 	if(istype(vended, /obj/item/reagent_containers/food/drinks/mug))
 		var/put_on_turf = TRUE
 		if(user && iscarbon(user) && user.Adjacent(src))
-			if(user.put_in_hands(vended))
+			vended.forceMove_turf()
+			if(user.put_in_hands(vended, ignore_anim = FALSE))
 				put_on_turf = FALSE
 		if(put_on_turf)
 			var/turf/T = get_turf(src)
@@ -946,7 +947,8 @@
 	if(vended.reagents.total_volume)
 		var/put_on_turf = TRUE
 		if(user && iscarbon(user) && user.Adjacent(src))
-			if(user.put_in_hands(vended))
+			vended.forceMove_turf()
+			if(user.put_in_hands(vended, ignore_anim = FALSE))
 				put_on_turf = FALSE
 		if(put_on_turf)
 			var/turf/T = get_turf(src)
@@ -1076,9 +1078,9 @@
 	vend_delay = 34
 	icon_state = "cigs"
 	products = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 12, /obj/item/storage/fancy/cigarettes/cigpack_uplift = 6, /obj/item/storage/fancy/cigarettes/cigpack_random = 6, /obj/item/reagent_containers/food/pill/patch/nicotine = 10, /obj/item/storage/box/matches = 10,/obj/item/lighter/random = 4,/obj/item/storage/fancy/rollingpapers = 5)
-	contraband = list(/obj/item/lighter/zippo = 4)
+	contraband = list(/obj/item/lighter/zippo = 4, /obj/item/clothing/mask/cigarette/pipe/oldpipe = 3)
 	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2, /obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1)
-	prices = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 60, /obj/item/storage/fancy/cigarettes/cigpack_uplift = 80, /obj/item/storage/fancy/cigarettes/cigpack_random = 120, /obj/item/reagent_containers/food/pill/patch/nicotine = 70, /obj/item/storage/box/matches = 10,/obj/item/lighter/random = 60, /obj/item/storage/fancy/rollingpapers = 20)
+	prices = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 180, /obj/item/storage/fancy/cigarettes/cigpack_uplift = 240, /obj/item/storage/fancy/cigarettes/cigpack_random = 360, /obj/item/reagent_containers/food/pill/patch/nicotine = 70, /obj/item/storage/box/matches = 10,/obj/item/lighter/random = 60, /obj/item/storage/fancy/rollingpapers = 20, /obj/item/clothing/mask/cigarette/pipe/oldpipe = 250)
 	refill_canister = /obj/item/vending_refill/cigarette
 
 /obj/machinery/vending/cigarette/free
@@ -1244,6 +1246,7 @@
 					/obj/item/seeds/onion = 3,
 					/obj/item/seeds/orange = 3,
 					/obj/item/seeds/peanuts = 3,
+					/obj/item/seeds/peas =3,
 					/obj/item/seeds/pineapple = 3,
 					/obj/item/seeds/poppy = 3,
 					/obj/item/seeds/potato = 3,
@@ -1380,7 +1383,7 @@
 					/obj/item/twohanded/staff = 3,
 					/obj/item/clothing/mask/gas/clown_hat/sexy = 1,
 					/obj/item/clothing/under/rank/clown/sexy = 1,
-					/obj/item/clothing/mask/gas/sexymime = 1,
+					/obj/item/clothing/mask/gas/mime/sexy = 1,
 					/obj/item/clothing/under/sexymime = 1,
 					/obj/item/clothing/mask/face/bat = 1,
 					/obj/item/clothing/mask/face/bee = 1,
@@ -2207,3 +2210,124 @@
 		/obj/item/clothing/shoes/leather = 2
 	)
 	refill_canister = /obj/item/vending_refill/clothing/service/botanical
+
+/obj/machinery/vending/nta
+	name = "NT Ammunition"
+	desc = "A special equipment vendor."
+	ads_list = list("Возьми патрон!","Не забывай, снаряжаться - полезно!","Бжж-Бзз-з!.","Обезопасить, Удержать, Сохранить!","Стоять, снярядись на задание!")
+	icon_state = "nta"
+	icon_deny = "nta_deny"
+	icon_vend = "nta_vend"
+	req_access = list(ACCESS_SECURITY)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	products = list(/obj/item/ammo_box/magazine/sp8  = 8,/obj/item/storage/box/slug = 4,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
+					/obj/item/storage/box/buck = 4,/obj/item/ammo_box/magazine/enforcer = 8,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 8,
+					/obj/item/ammo_box/magazine/enforcer/lethal = 8, /obj/item/ammo_box/magazine/laser = 12, /obj/item/ammo_box/magazine/wt550m9 = 8, /obj/item/storage/box/rubbershot = 4,
+					/obj/item/ammo_box/magazine/m556 = 12, /obj/item/ammo_box/a40mm = 4, /obj/item/ammo_box/shotgun/universal = 8, /obj/item/ammo_box/magazine/sp8 = 8,
+					)
+	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/grenade/clusterbuster/apocalypsefake = 1)
+	refill_canister = /obj/item/vending_refill/nta
+
+/obj/machinery/vending/nta/ertarmory/blue
+	name = "NT ERT Medium Gear & Ammunition"
+	desc = "A ERT Medium equipment vendor."
+	ads_list = list("Круши черепа синдиката!","Не забывай, спасать - полезно!","Бжж-Бзз-з!.","Обезопасить, Удержать, Сохранить!","Стоять, снярядись на задание!")
+	icon_state = "nta_blue"
+	icon_deny = "nta_blue_deny"
+	req_access = list(ACCESS_CENT_SECURITY)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	products = list(/obj/item/gun/energy/gun = 3, /obj/item/gun/energy/ionrifle/carbine = 1, /obj/item/gun/projectile/automatic/lasercarbine = 3,
+					/obj/item/ammo_box/magazine/laser = 6, /obj/item/suppressor = 4, /obj/item/gun/projectile/automatic/wt550 = 3, /obj/item/ammo_box/magazine/wt550m9 = 6,
+					/obj/item/gun/projectile/shotgun/riot = 6, /obj/item/storage/box/rubbershot = 6, /obj/item/storage/box/beanbag = 4, /obj/item/storage/box/tranquilizer = 4,
+					/obj/item/ammo_box/shotgun/universal = 4, /obj/item/gun/projectile/automatic/sfg = 3, /obj/item/ammo_box/magazine/sfg9mm = 6,
+					)
+	contraband = list(/obj/item/storage/fancy/donut_box = 2)
+	refill_canister = /obj/item/vending_refill/nta
+/obj/machinery/vending/nta/ertarmory/red
+	name = "NT ERT Heavy Gear & Ammunition"
+	desc = "A ERT Heavy equipment vendor."
+	ads_list = list("Круши черепа синдиката!","Не забывай, спасать - полезно!","Бжж-Бзз-з!.","Обезопасить, Удержать, Сохранить!","Стоять, снярядись на задание!")
+	icon_state = "nta_red"
+	icon_deny = "nta_red_deny"
+	req_access = list(ACCESS_CENT_SECURITY)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	products = list(/obj/item/gun/projectile/automatic/ar = 3, /obj/item/ammo_box/magazine/m556 = 6, /obj/item/gun/energy/sniperrifle = 1, /obj/item/gun/energy/lasercannon = 3,
+					/obj/item/gun/energy/xray = 2, /obj/item/gun/energy/immolator/multi = 2, /obj/item/gun/energy/gun/nuclear = 3, /obj/item/gun/projectile/shotgun/automatic/combat = 3, /obj/item/storage/box/slug = 4,
+					/obj/item/storage/box/buck = 4, /obj/item/storage/box/dragonsbreath = 2, /obj/item/ammo_box/shotgun/universal = 4, /obj/item/storage/lockbox/t4 = 3,
+					/obj/item/grenade/smokebomb = 3, /obj/item/grenade/frag = 4,
+					)
+	contraband = list(/obj/item/storage/fancy/donut_box = 2)
+	refill_canister = /obj/item/vending_refill/nta
+/obj/machinery/vending/nta/ertarmory/green
+	name = "NT ERT Light Gear & Ammunition"
+	desc = "A ERT Light equipment vendor."
+	ads_list = list("Круши черепа синдиката!","Не забывай, спасать - полезно!","Бжж-Бзз-з!.","Обезопасить, Удержать, Сохранить!","Стоять, снярядись на задание!")
+	icon_state = "nta_green"
+	icon_deny = "nta_green_deny"
+	req_access = list(ACCESS_CENT_SECURITY)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	products = list(/obj/item/restraints/handcuffs = 5,/obj/item/restraints/handcuffs/cable/zipties = 5,/obj/item/grenade/flashbang = 3,/obj/item/flash = 2,
+					/obj/item/gun/energy/gun/advtaser = 4, /obj/item/gun/projectile/automatic/pistol/enforcer = 6, /obj/item/storage/box/barrier = 2,
+					/obj/item/gun/projectile/shotgun/riot = 1, /obj/item/storage/box/rubbershot = 3, /obj/item/ammo_box/shotgun/universal = 4, /obj/item/gun/energy/dominator/sibyl = 2
+					)
+	contraband = list(/obj/item/storage/fancy/donut_box = 2)
+	refill_canister = /obj/item/vending_refill/nta
+/obj/machinery/vending/nta/ertarmory/yellow
+	name = "NT ERT Death Wish Gear & Ammunition"
+	desc = "A ERT Death Wish equipment vendor."
+	ads_list = list("Круши черепа ВСЕХ!","Не забывай, УБИВАТЬ - полезно!","УБИВАТЬ УБИВАТЬ УБИВАТЬ УБИВАТЬ!.","УБИВАТЬ, Удержать, УБИВАТЬ!","Стоять, снярядись на УБИВАТЬ!")
+	icon_state = "nta_yellow"
+	icon_deny = "nta_yellow_deny"
+	req_access = list(ACCESS_CENT_SECURITY)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	products = list(/obj/item/gun/projectile/automatic/gyropistol = 8, /obj/item/ammo_box/magazine/m75 = 12, /obj/item/gun/projectile/automatic/l6_saw = 6, /obj/item/ammo_box/magazine/mm556x45/ap = 12,
+					/obj/item/gun/projectile/automatic/shotgun/bulldog = 6, /obj/item/gun/energy/immolator = 6, /obj/item/storage/backpack/duffel/syndie/ammo/shotgun = 12, /obj/item/gun/energy/xray = 8, /obj/item/gun/energy/pulse/destroyer/annihilator = 8,
+					/obj/item/grenade/clusterbuster/inferno = 3, /obj/item/grenade/clusterbuster/emp = 3,
+					)
+	contraband = list(/obj/item/storage/fancy/donut_box = 2)
+	refill_canister = /obj/item/vending_refill/nta
+/obj/machinery/vending/nta/ertarmory/medical
+	name = "NT ERT Medical Gear"
+	desc = "A ERT medical equipment vendor."
+	ads_list = list("Лечи раненых от рук синдиката!","Не забывай, лечить - полезно!","Бжж-Бзз-з!.","Перевязать, Оперировать, Выписать!","Стоять, снярядись медикаментами на задание!")
+	icon_state = "nta_medical"
+	icon_deny = "nta_medical_deny"
+	req_access = list(ACCESS_CENT_MEDICAL)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	products = list(/obj/item/storage/firstaid/tactical = 2, /obj/item/reagent_containers/applicator/dual = 2, /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis = 4, /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis = 2,
+					/obj/item/storage/belt/medical/surgery/loaded = 2, /obj/item/storage/belt/medical/response_team = 3, /obj/item/storage/pill_bottle/ert = 4,
+					/obj/item/reagent_containers/food/pill/mannitol = 10, /obj/item/reagent_containers/food/pill/salbutamol = 10, /obj/item/reagent_containers/food/pill/morphine = 8, /obj/item/reagent_containers/food/pill/charcoal = 10,
+					/obj/item/reagent_containers/food/pill/mutadone = 8, /obj/item/storage/pill_bottle/patch_pack = 4, /obj/item/reagent_containers/food/pill/patch/silver_sulf = 10,
+					/obj/item/reagent_containers/food/pill/patch/styptic = 10, /obj/item/storage/toolbox/surgery = 2, /obj/item/scalpel/laser/manager = 2, /obj/item/reagent_containers/applicator/brute = 4, /obj/item/reagent_containers/applicator/burn = 4,
+					/obj/item/healthanalyzer/advanced = 4, /obj/item/roller/holo = 2,
+					)
+	contraband = list()
+	refill_canister = /obj/item/vending_refill/nta
+/obj/machinery/vending/nta/ertarmory/engineer
+	name = "NT ERT Engineer Gear"
+	desc = "A ERT engineering equipment vendor."
+	ads_list = list("Чини станцию от рук синдиката!","Не забывай, чинить - полезно!","Бжж-Бзз-з!.","Починить, Заварить, Трубить!","Стоять, снярядись на починку труб!")
+	icon_state = "nta_engi"
+	icon_deny = "nta_engi_deny"
+	req_access = list(ACCESS_CENT_GENERAL)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	products = list(/obj/item/storage/belt/utility/chief/full = 2,/obj/item/clothing/mask/gas/welding = 4, /obj/item/weldingtool/experimental = 3, /obj/item/crowbar/power = 3,
+					/obj/item/screwdriver/power  = 3, /obj/item/extinguisher/mini = 3, /obj/item/multitool = 3, /obj/item/rcd/preloaded = 2,
+					/obj/item/rcd_ammo  = 8, /obj/item/stack/cable_coil = 4,
+					)
+	contraband = list(/obj/item/clothing/head/welding/flamedecal = 1, /obj/item/storage/fancy/donut_box = 2, /obj/item/clothing/head/welding/flamedecal/white  = 1, /obj/item/clothing/head/welding/flamedecal/blue = 1)
+	refill_canister = /obj/item/vending_refill/nta
+/obj/machinery/vending/nta/ertarmory/janitor
+	name = "NT ERT Janitor Gear"
+	desc = "A ERT ccleaning equipment vendor."
+	ads_list = list("Чисть станцию от рук синдиката!","Не забывай, чистить - полезно!","Вилкой чисти!.","Помыть, Постирать, Оттереть!","Стоять, снярядись клинерами!")
+	icon_state = "nta_janitor"
+	icon_deny = "nta_janitor_deny"
+	req_access = list(ACCESS_CENT_GENERAL)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	products = list(/obj/item/storage/belt/janitor/full = 2, /obj/item/clothing/shoes/galoshes = 2, /obj/item/grenade/chem_grenade/antiweed = 2, /obj/item/reagent_containers/spray/cleaner = 1,
+					/obj/item/storage/bag/trash = 2, /obj/item/storage/box/lights/mixed = 4, /obj/item/melee/flyswatter= 1, /obj/item/soap = 2,
+					/obj/item/grenade/chem_grenade/cleaner = 4, /obj/item/clothing/mask/gas = 3, /obj/item/watertank/janitor  = 4, /obj/item/lightreplacer = 2,
+					)
+	contraband = list(/obj/item/grenade/clusterbuster/cleaner = 1, /obj/item/storage/fancy/donut_box = 2, )
+	refill_canister = /obj/item/vending_refill/nta

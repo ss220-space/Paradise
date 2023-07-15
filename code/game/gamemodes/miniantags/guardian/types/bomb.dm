@@ -118,8 +118,8 @@
 	detonate(user)
 
 /obj/item/guardian_bomb/pickup(mob/living/user)
-	detonate(user)
-	return FALSE // Disarm or blow up. No picking up
+	SHOULD_CALL_PARENT(FALSE)
+	detonate(user) // Disarm or blow up. No picking up
 
 /obj/item/guardian_bomb/MouseDrop_T(obj/item/I, mob/living/user)
 	detonate(user)
@@ -130,8 +130,8 @@
 /obj/item/guardian_bomb/MouseDrop(mob/living/user)
 	detonate(user)
 
-/obj/item/guardian_bomb/Bumped(mob/living/user)
-	detonate(user)
+/obj/item/guardian_bomb/Bumped(atom/movable/moving_atom)
+	detonate(moving_atom)
 
 /obj/item/guardian_bomb/can_be_pulled(mob/living/user)
 	detonate(user)

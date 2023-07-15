@@ -74,7 +74,7 @@
 		var/mob/living/carbon/human/H = loc
 		if(H.l_ear == src || H.r_ear == src)
 			return ..()
-	else if(isanimal(loc) || isAI(loc))
+	else if(isanimal(loc) || isAI(loc) || istype(loc, /obj/item/paicard))
 		return ..()
 
 	return FALSE
@@ -398,12 +398,10 @@
 			return
 
 		if(!keyslot1)
-			user.drop_item()
-			W.loc = src
+			user.drop_transfer_item_to_loc(W, src)
 			keyslot1 = W
 		else
-			user.drop_item()
-			W.loc = src
+			user.drop_transfer_item_to_loc(W, src)
 			keyslot2 = W
 		recalculateChannels()
 	else

@@ -116,6 +116,11 @@
 	var/nightshift_lights = FALSE
 	var/last_nightshift_switch = 0
 
+	///Used to determine if emergency lights should be on or off
+	var/emergency_power = TRUE
+	var/emergency_power_timer
+	var/emergency_lights = FALSE
+
 /obj/machinery/power/apc/worn_out
 	name = "\improper Worn out APC"
 	keep_preset_name = 1
@@ -124,6 +129,7 @@
 	equipment = 0
 	lighting = 0
 	operating = 0
+	emergency_power = FALSE
 
 /obj/machinery/power/apc/noalarm
 	report_power_alarm = FALSE
@@ -481,10 +487,9 @@
 			if(stat & MAINT)
 				to_chat(user, "<span class='warning'>There is no connector for your power cell!</span>")
 				return
-			if(!user.drop_item())
+			if(!user.drop_transfer_item_to_loc(W, src))
 				return
 			add_fingerprint(user)
-			W.forceMove(src)
 			cell = W
 			user.visible_message(\
 				"[user.name] has inserted the power cell to [name]!",\
@@ -609,8 +614,7 @@
 			"<span class='clock'>Replicant alloy rapidly covers the APC's innards, replacing the machinery.</span><br>\
 			<span class='clockitalic'>This APC will now passively provide power for the cult!</span>")
 			playsound(user, 'sound/machines/clockcult/integration_cog_install.ogg', 50, TRUE)
-			user.unEquip(W, 1)
-			W.forceMove(src)
+			user.drop_transfer_item_to_loc(W, src, force = TRUE)
 			cog = W
 			START_PROCESSING(SSfastprocess, W)
 			opened = FALSE
@@ -811,7 +815,8 @@
 	if(usr == user && opened && !issilicon(user))
 		if(cell)
 			user.visible_message("<span class='warning'>[user.name] removes [cell] from [src]!", "You remove the [cell].</span>")
-			user.put_in_hands(cell)
+			cell.forceMove_turf()
+			user.put_in_hands(cell, ignore_anim = FALSE)
 			cell.add_fingerprint(user)
 			cell.update_icon()
 			cell = null
@@ -877,6 +882,7 @@
 	data["siliconLock"] = locked
 	data["malfStatus"] = get_malf_status(user)
 	data["nightshiftLights"] = nightshift_lights
+	data["emergencyLights"] = !emergency_lights
 
 	var/powerChannels[0]
 	powerChannels[++powerChannels.len] = list(
@@ -928,6 +934,13 @@
 		area.power_light = (lighting > 1)
 		area.power_equip = (equipment > 1)
 		area.power_environ = (environ > 1)
+		if(lighting)
+			emergency_power = TRUE
+			if(emergency_power_timer)
+				deltimer(emergency_power_timer)
+				emergency_power_timer = null
+		else
+			emergency_power_timer = addtimer(CALLBACK(src, PROC_REF(turn_emergency_power_off)), 10 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
 //		if(area.name == "AI Chamber")
 //			spawn(10)
 //				to_chat(world, " [area.name] [area.power_equip]")
@@ -935,9 +948,15 @@
 		area.power_light = 0
 		area.power_equip = 0
 		area.power_environ = 0
+		emergency_power_timer = addtimer(CALLBACK(src, PROC_REF(turn_emergency_power_off)), 10 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
 //		if(area.name == "AI Chamber")
 //			to_chat(world, "[area.power_equip]")
 	area.power_change()
+
+/obj/machinery/power/apc/proc/turn_emergency_power_off()
+	emergency_power = FALSE
+	for(var/obj/machinery/light/L in area)
+		INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
 
 /obj/machinery/power/apc/proc/can_use(var/mob/user, var/loud = 0) //used by attack_hand() and Topic()
 	if(user.can_admin_interact())
@@ -1044,6 +1063,12 @@
 		if("deoccupy")
 			if(get_malf_status(usr))
 				malfvacate()
+		if("emergency_lighting")
+			emergency_lights = !emergency_lights
+			for(var/obj/machinery/light/L in area)
+				INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
+				CHECK_TICK
+
 
 /obj/machinery/power/apc/proc/toggle_breaker()
 	operating = !operating

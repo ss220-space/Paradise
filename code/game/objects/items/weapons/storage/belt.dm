@@ -9,7 +9,7 @@
 	slot_flags = SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined")
 	max_integrity = 300
-	var/use_item_overlays = 0 // Do we have overlays for items held inside the belt?
+	var/use_item_overlays = FALSE // Do we have overlays for items held inside the belt?
 
 /obj/item/storage/belt/update_icon()
 	if(use_item_overlays)
@@ -21,21 +21,6 @@
 /obj/item/storage/belt/proc/can_use()
 	return is_equipped()
 
-/obj/item/storage/belt/MouseDrop(obj/over_object as obj, src_location, over_location)
-	var/mob/M = usr
-	if(!istype(over_object, /obj/screen))
-		return ..()
-	playsound(src.loc, "rustle", 50, 1, -5)
-	if(!M.restrained() && !M.stat && can_use())
-		switch(over_object.name)
-			if("r_hand")
-				M.unEquip(src)
-				M.put_in_r_hand(src)
-			if("l_hand")
-				M.unEquip(src)
-				M.put_in_l_hand(src)
-		src.add_fingerprint(usr)
-		return
 
 /obj/item/storage/belt/deserialize(list/data)
 	..()
@@ -46,7 +31,7 @@
 	desc = "Can hold various tools."
 	icon_state = "utilitybelt"
 	item_state = "utility"
-	use_item_overlays = 1
+	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/crowbar,
 		/obj/item/screwdriver,
@@ -110,7 +95,7 @@
 	desc = "Can hold various medical equipment."
 	icon_state = "medicalbelt"
 	item_state = "medical"
-	use_item_overlays = 1
+	use_item_overlays = TRUE
 	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(
 		/obj/item/healthanalyzer,
@@ -144,7 +129,7 @@
 	name = "surgical belt"
 	desc = "Can hold various surgical tools."
 	storage_slots = 9
-	use_item_overlays = 1
+	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/scalpel,
 		/obj/item/hemostat,
@@ -183,7 +168,7 @@
 	desc = "Can hold various botanical supplies."
 	icon_state = "botanybelt"
 	item_state = "botany"
-	use_item_overlays = 1
+	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/plant_analyzer,
 		/obj/item/cultivator,
@@ -209,7 +194,7 @@
 	item_state = "security"//Could likely use a better one.
 	storage_slots = 5
 	max_w_class = WEIGHT_CLASS_NORMAL
-	use_item_overlays = 1
+	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/grenade/flashbang,
 		/obj/item/grenade/chem_grenade/teargas,
@@ -220,6 +205,7 @@
 		/obj/item/ammo_casing/shotgun,
 		/obj/item/ammo_box,
 		/obj/item/reagent_containers/food/snacks/donut,
+		/obj/item/reagent_containers/food/snacks/candy/confectionery/toffee,
 		/obj/item/kitchen/knife/combat,
 		/obj/item/melee/baton,
 		/obj/item/melee/classic_baton,
@@ -289,7 +275,7 @@
 	icon_state = "soulstonebelt"
 	item_state = "soulstonebelt"
 	storage_slots = 6
-	use_item_overlays = 1
+	use_item_overlays = TRUE
 	can_hold = list(
 		"/obj/item/soulstone"
 		)
@@ -325,7 +311,7 @@
 	desc = "Can hold various tools. This model seems to have additional compartments."
 	icon_state = "utilitybelt"
 	item_state = "utility"
-	use_item_overlays = 1 // So it will still show tools in it in case sec get lazy and just glance at it.
+	use_item_overlays = TRUE // So it will still show tools in it in case sec get lazy and just glance at it.
 
 /obj/item/storage/belt/military/traitor/hacker/populate_contents()
 	new /obj/item/screwdriver(src, "red")
@@ -380,6 +366,22 @@
 		new /obj/item/grenade/chem_grenade/lube(src) //2
 		new /obj/item/grenade/chem_grenade/drugs(src) //2
 		new /obj/item/grenade/gas/knockout(src)	//2
+
+/obj/item/storage/belt/rocketman
+	name = "rocket belt"
+	desc = "A belt for holding rockets."
+	icon_state = "assaultbelt"
+	item_state = "assault"
+	storage_slots = 7
+	max_combined_w_class = 30 //just to be sure..
+	max_w_class = WEIGHT_CLASS_NORMAL //Rockets are normal
+	can_hold = /obj/item/ammo_casing/caseless/rocket
+
+/obj/item/storage/belt/rocketman/populate_contents()
+	for(var/I in 1 to 3)
+		new /obj/item/ammo_casing/caseless/rocket(src)
+	for(var/I in 1 to 3)
+		new /obj/item/ammo_casing/caseless/rocket/hedp(src)
 
 /obj/item/storage/belt/military/abductor
 	name = "agent belt"
@@ -436,7 +438,7 @@
 	item_state = "janibelt"
 	storage_slots = 6
 	max_w_class = WEIGHT_CLASS_BULKY // Set to this so the  light replacer can fit.
-	use_item_overlays = 1
+	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/grenade/chem_grenade/cleaner,
 		/obj/item/lightreplacer,
@@ -454,7 +456,6 @@
 	new /obj/item/soap(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
-	new /obj/item/melee/flyswatter(src)
 	update_icon()
 
 /obj/item/storage/belt/lazarus
@@ -540,7 +541,7 @@
 	icon_state = "soulstonebelt"
 	item_state = "soulstonebelt"
 	storage_slots = 6
-	use_item_overlays = 1
+	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/gun/magic/wand
 		)
@@ -643,7 +644,7 @@
 	if(length(contents))
 		var/obj/item/I = contents[1]
 		H.visible_message("<span class='notice'>[H] takes [I] out of [src].</span>", "<span class='notice'>You take [I] out of [src].</span>")
-		H.put_in_hands(I)
+		H.put_in_hands(I, ignore_anim = FALSE)
 		update_icon()
 	else
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
@@ -808,7 +809,6 @@
 	storage_slots = 6
 	max_w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 20
-	use_item_overlays = 0
 	can_hold = list(
 		/obj/item/crowbar,
 		/obj/item/screwdriver,
@@ -859,9 +859,23 @@
 /obj/item/storage/belt/mining/primitive
 	name = "hunter's belt"
 	desc = "A versatile belt, woven from sinew."
-	icon_state = "ebelt"
+	icon_state = "hunter_belt"
 	item_state = "ebelt"
-	storage_slots = 5
+	use_item_overlays = TRUE
+	max_w_class = WEIGHT_CLASS_NORMAL
+	can_hold = list(
+		/obj/item/hatchet,
+		/obj/item/flashlight/lantern,
+		/obj/item/pickaxe,
+		/obj/item/shovel,
+		/obj/item/stack/sheet/animalhide,
+		/obj/item/stack/sheet/sinew,
+		/obj/item/stack/sheet/bone,
+		/obj/item/kitchen/knife,
+		/obj/item/organ/internal/regenerative_core,
+		/obj/item/stack/ore,
+		/obj/item/reagent_containers/food/snacks/grown,
+		/obj/item/reagent_containers/applicator)
 
 /obj/item/storage/belt/chef
 	name = "culinary tool apron"

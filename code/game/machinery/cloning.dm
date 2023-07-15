@@ -305,8 +305,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	maim_clone(H)
 	H.Paralyse(4)
 
-	H.tts_seed = SStts.get_random_seed(H)
-
 	if(grab_ghost_when == CLONER_FRESH_CLONE)
 		clonemind.transfer_to(H)
 		H.ckey = R.ckey
@@ -427,7 +425,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 // A user can feed in biomass sources manually.
 	else if(is_type_in_list(I, GLOB.cloner_biomass_items))
-		if(user.drop_item())
+		if(user.drop_transfer_item_to_loc(I, src))
 			add_fingerprint(user)
 			to_chat(user, "<span class='notice'>[src] processes [I].</span>")
 			biomass += BIOMASS_BASE_AMOUNT

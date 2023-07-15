@@ -1,3 +1,10 @@
+/mob/living
+	/// True devil variables
+	var/list/ownedSoullinks //soullinks we are the owner of
+	var/list/sharedSoullinks //soullinks we are a/the sharer of
+	var/canEnterVentWith = "/obj/item/implant=0&/obj/item/clothing/mask/facehugger=0&/obj/item/radio/borg=0&/obj/machinery/camera=0"
+	var/datum/middleClickOverride/middleClickOverride = null
+
 /mob/living/Initialize()
 	. = ..()
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
@@ -5,6 +12,19 @@
 	faction += "\ref[src]"
 	determine_move_and_pull_forces()
 	GLOB.mob_living_list += src
+
+/mob/living/Destroy()
+	for(var/s in ownedSoullinks)
+		var/datum/soullink/S = s
+		S.ownerDies(FALSE)
+		qdel(s) //If the owner is destroy()'d, the soullink is destroy()'d
+	ownedSoullinks = null
+	for(var/s in sharedSoullinks)
+		var/datum/soullink/S = s
+		S.sharerDies(FALSE)
+		S.removeSoulsharer(src) //If a sharer is destroy()'d, they are simply removed
+	sharedSoullinks = null
+	return ..()
 
 // Used to determine the forces dependend on the mob size
 // Will only change the force if the force was not set in the mob type itself
@@ -138,6 +158,9 @@
 
 			now_pushing = FALSE
 			return TRUE
+
+	if(pulledby == M && !(a_intent == INTENT_HELP && M.a_intent == INTENT_HELP)) //prevents boosting the person pulling you, but you can still move through them on help or grab intent (see above)
+		return TRUE
 
 	// okay, so we didn't switch. but should we push?
 	// not if he's not CANPUSH of course
@@ -414,7 +437,7 @@
 	return 0
 
 // Living mobs use can_inject() to make sure that the mob is not syringe-proof in general.
-/mob/living/proc/can_inject(mob/user, error_msg, target_zone, penetrate_thick)
+/mob/living/proc/can_inject(mob/user, error_msg, target_zone, penetrate_thick, ignore_pierceimmune)
 	return TRUE
 
 /mob/living/is_injectable(mob/user, allowmobs = TRUE)
@@ -432,14 +455,10 @@
 		var/mob/living/carbon/C = src
 
 		if(C.handcuffed && !initial(C.handcuffed))
-			C.unEquip(C.handcuffed)
-		C.handcuffed = initial(C.handcuffed)
-		C.update_handcuffed()
+			C.drop_item_ground(C.handcuffed, TRUE)
 
 		if(C.legcuffed && !initial(C.legcuffed))
-			C.unEquip(C.legcuffed)
-		C.legcuffed = initial(C.legcuffed)
-		C.update_inv_legcuffed()
+			C.drop_item_ground(C.legcuffed, TRUE)
 
 		if(C.reagents)
 			C.reagents.clear_reagents()
@@ -501,7 +520,7 @@
 
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
-		C.handcuffed = initial(C.handcuffed)
+		C.uncuff()
 
 		for(var/thing in C.viruses)
 			var/datum/disease/D = thing
@@ -603,19 +622,14 @@
 					M.makeTrail(dest)
 				if(ishuman(pulling))
 					var/mob/living/carbon/human/H = pulling
-					var/obj/item/organ/external/head
 					if(!H.lying)
 						if(H.confused > 0 && prob(4))
-							H.setStaminaLoss(100)
-							head = H.get_organ("head")
-							head?.receive_damage(5, 0, FALSE)
+							H.Stun(2)
 							pulling.stop_pulling()
-							visible_message("<span class='danger'>Ноги [H] путаются и [genderize_ru(H.gender,"он","она","оно","они")] с грохотом падает на пол, сильно ударяясь головой!</span>")
+							visible_message(span_danger("Ноги [H] путаются и [genderize_ru(H.gender,"он","она","оно","они")] с грохотом падает на пол!"))
 						if(H.m_intent == MOVE_INTENT_WALK && prob(4))
-							H.setStaminaLoss(100)
-							head = H.get_organ("head")
-							head?.receive_damage(5, 0, FALSE)
-							visible_message("<span class='danger'>[H] не поспевает за [src] и с грохотом падает на пол, сильно ударяясь головой!</span>")
+							H.Stun(2)
+							visible_message(span_danger("[H] не поспевает за [src] и с грохотом падает на пол!"))
 			else
 				pulling.pixel_x = initial(pulling.pixel_x)
 				pulling.pixel_y = initial(pulling.pixel_y)
@@ -882,7 +896,7 @@
 
 // The src mob is trying to strip an item from someone
 // Override if a certain type of mob should be behave differently when stripping items (can't, for example)
-/mob/living/stripPanelUnequip(obj/item/what, mob/who, where, var/silent = 0)
+/mob/living/stripPanelUnequip(obj/item/what, mob/who, where, silent = FALSE)
 	if(what.flags & NODROP)
 		to_chat(src, "<span class='warning'>You can't remove \the [what.name], it appears to be stuck!</span>")
 		return
@@ -892,28 +906,28 @@
 	what.add_fingerprint(src)
 	if(do_mob(src, who, what.strip_delay))
 		if(what && what == who.get_item_by_slot(where) && Adjacent(who))
-			who.unEquip(what)
+			who.drop_item_ground(what)
 			if(silent)
 				put_in_hands(what)
 			add_attack_logs(src, who, "Stripped of [what]")
 
 // The src mob is trying to place an item on someone
 // Override if a certain mob should be behave differently when placing items (can't, for example)
-/mob/living/stripPanelEquip(obj/item/what, mob/who, where, var/silent = 0)
+/mob/living/stripPanelEquip(obj/item/what, mob/who, where, silent = FALSE)
 	what = get_active_hand()
 	if(what && (what.flags & NODROP))
 		to_chat(src, "<span class='warning'>You can't put \the [what.name] on [who], it's stuck to your hand!</span>")
 		return
 	if(what)
-		if(!what.mob_can_equip(who, where, 1))
+		if(!what.mob_can_equip(who, where, TRUE, TRUE))
 			to_chat(src, "<span class='warning'>\The [what.name] doesn't fit in that place!</span>")
 			return
 		if(!silent)
 			visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>")
 		if(do_mob(src, who, what.put_on_delay))
 			if(what && Adjacent(who) && !(what.flags & NODROP))
-				unEquip(what)
-				who.equip_to_slot_if_possible(what, where, FALSE, TRUE)
+				drop_item_ground(what)
+				who.equip_to_slot_if_possible(what, where, disable_warning = TRUE)
 				add_attack_logs(src, who, "Equipped [what]")
 
 /mob/living/singularity_act()
@@ -1190,3 +1204,103 @@
 			update_transform()
 		if("lighting_alpha")
 			sync_lighting_plane_alpha()
+
+
+GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber))
+
+/mob/living/can_ventcrawl(atom/clicked_on, override = FALSE)
+	if(QDELETED(src))
+		return FALSE
+
+	if(!ventcrawler)
+		return FALSE
+
+	if(!clicked_on || QDELETED(clicked_on))
+		return FALSE
+
+	if(!Adjacent(clicked_on))
+		return FALSE
+
+	if(incapacitated())
+		to_chat(src, span_warning("Вы не можете сделать этого в текущем состоянии!"))
+		return FALSE
+
+	if(has_buckled_mobs())
+		to_chat(src, span_warning("Пока на вас другие существа, вы не можете заползти в вентиляцию!"))
+		return FALSE
+
+	if(buckled)
+		to_chat(src, span_warning("Пока вы пристегнуты, вы не можете заползти в вентиляцию!"))
+		return FALSE
+
+	var/obj/machinery/atmospherics/unary/vent_found = clicked_on
+
+	if(!is_type_in_list(vent_found, GLOB.ventcrawl_machinery) || !vent_found.can_crawl_through())
+		return FALSE
+
+	if(!vent_found.parent)
+		return FALSE
+
+	if(!length(vent_found.parent.members))
+		to_chat(src, span_warning("Эта вентиляция ни к чему не подключена!"))
+		return FALSE
+
+	return TRUE
+
+
+/mob/living/handle_ventcrawl(atom/clicked_on)
+
+	if(!can_ventcrawl(clicked_on))
+		return FALSE
+
+	visible_message(span_notice("[src.name] начина[pluralize_ru(src.gender,"ет","ют")] лезть в вентиляцию..."), \
+					span_notice("Вы начинаете лезть в вентиляцию..."))
+
+	if(!do_after(src, 4.5 SECONDS, target = src))
+		return FALSE
+
+	if(!can_ventcrawl(clicked_on))
+		return FALSE
+
+	visible_message("<b>[src.name] залез[genderize_ru(src.gender,"","ла","ло","ли")] в вентиляцию!</b>", \
+					"Вы залезли в вентиляцию.")
+	loc = clicked_on
+	add_ventcrawl(clicked_on)
+	return TRUE
+
+
+/mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine, obj/machinery/atmospherics/target_move)
+	if(!istype(starting_machine) || !starting_machine.returnPipenet(target_move) || !starting_machine.can_see_pipes())
+		return
+	var/datum/pipeline/pipeline = starting_machine.returnPipenet(target_move)
+	var/list/totalMembers = list()
+	totalMembers |= pipeline.members
+	totalMembers |= pipeline.other_atmosmch
+	for(var/obj/machinery/atmospherics/A in totalMembers)
+		if(!A.pipe_image)
+			A.update_pipe_image()
+		pipes_shown += A.pipe_image
+		client.images += A.pipe_image
+
+
+/mob/living/proc/remove_ventcrawl()
+	if(client)
+		for(var/image/current_image in pipes_shown)
+			client.images -= current_image
+		client.eye = src
+
+	pipes_shown.len = 0
+
+
+/mob/living/update_pipe_vision(obj/machinery/atmospherics/target_move)
+	if(!client)
+		pipes_shown.Cut()
+		return
+	if(length(pipes_shown) && !target_move)
+		if(!is_ventcrawling(src))
+			remove_ventcrawl()
+	else
+		if(is_ventcrawling(src))
+			if(target_move)
+				remove_ventcrawl()
+			add_ventcrawl(loc, target_move)

@@ -145,8 +145,8 @@
 				L.pulling.forceMove(T)
 
 		//now we're on the new z_level, proceed the space drifting
-		sleep(0)//Let a diagonal move finish, if necessary
-		A.newtonian_move(A.inertia_dir)
+		spawn(0)//Let a diagonal move finish, if necessary
+			A.newtonian_move(A.inertia_dir)
 
 /turf/space/proc/check_taipan_availability(atom/movable/A as mob|obj, destination_z)
 	var/mob/living/check_mob = A
@@ -156,7 +156,7 @@
 			to_chat(A, span_info("Вы вернулись в ваш родной скрытый от чужих глаз сектор..."))
 			return destination_z
 	// if we are not from taipan's crew, then we cannot get there until there is enought players on Taipan
-	if(is_taipan(destination_z) && length(GLOB.taipan_players_active) < 6)
+	if(is_taipan(destination_z) && length(GLOB.taipan_players_active) < TAIPAN_PLAYER_LIMIT)
 		var/datum/space_level/taipan_zlvl
 		var/datum/space_level/direct
 		for(var/list_parser in GLOB.space_manager.z_list)

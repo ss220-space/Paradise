@@ -28,9 +28,14 @@
 				I.drop_ungibbable_items()
 			continue
 
+		var/obj/item/storage/holder_storage = I.loc
+		if(istype(holder_storage))
+			holder_storage.remove_from_storage(I, drop_location())
+			continue
+
 		var/mob/holder_mob = I.loc
 		if(istype(holder_mob))
-			holder_mob.unEquip(I)
+			holder_mob.drop_item_ground(I, force = TRUE)
 			continue
 
 		I.forceMove(get_turf(I))
@@ -48,3 +53,17 @@
 			// E.g. medals.
 			if(I.vars[var_name] == src)
 				I.vars[var_name] = null
+
+
+/**
+ * Proc that collects all atoms of passed `path` in our atom contents
+ * and returns it in a list()
+ */
+/atom/proc/collect_all_atoms_of_type(path)
+	var/list/atoms = list()
+	for(var/atom/check in contents)
+		if(istype(check, path))
+			atoms += check
+		if(length(check.contents))
+			check.collect_all_atoms_of_type(path)
+	return atoms

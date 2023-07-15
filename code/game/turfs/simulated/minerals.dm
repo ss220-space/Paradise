@@ -104,23 +104,23 @@
 		to_chat(M, "<span class='notice'>You tunnel into the rock.</span>")
 		gets_drilled(M)
 
-/turf/simulated/mineral/Bumped(atom/movable/AM)
+/turf/simulated/mineral/Bumped(atom/movable/moving_atom)
 	..()
-	if(ishuman(AM))
-		var/mob/living/carbon/human/H = AM
+	if(ishuman(moving_atom))
+		var/mob/living/carbon/human/H = moving_atom
 		if((istype(H.l_hand,/obj/item/pickaxe)) && (!H.hand))
 			attackby(H.l_hand,H)
 		else if((istype(H.r_hand,/obj/item/pickaxe)) && H.hand)
 			attackby(H.r_hand,H)
 		return
 
-	else if(isrobot(AM))
-		var/mob/living/silicon/robot/R = AM
+	else if(isrobot(moving_atom))
+		var/mob/living/silicon/robot/R = moving_atom
 		if(istype(R.module_active, /obj/item/pickaxe))
 			attackby(R.module_active, R)
 
-	else if(ismecha(AM))
-		var/obj/mecha/M = AM
+	else if(ismecha(moving_atom))
+		var/obj/mecha/M = moving_atom
 		if(istype(M.selected, /obj/item/mecha_parts/mecha_equipment/drill))
 			M.selected.action(src)
 
@@ -510,7 +510,7 @@
 	. = ..()
 
 /turf/simulated/mineral/gibtonite/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner) && stage == 1)
+	if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/mecha_parts/mecha_equipment/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner) && stage == 1)
 		user.visible_message("<span class='notice'>[user] holds [I] to [src]...</span>", "<span class='notice'>You use [I] to locate where to cut off the chain reaction and attempt to stop it...</span>")
 		defuse()
 	else

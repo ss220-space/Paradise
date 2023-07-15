@@ -163,7 +163,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		"right pocket" = slot_r_store)
 	var/T = new item_path(H)
 	var/item_name = initial(item_path.name)
-	var/where = H.equip_in_one_of_slots(T, slots)
+	var/where = H.equip_in_one_of_slots(T, slots, qdel_on_fail = TRUE)
 	if(!where)
 		to_chat(H, "<span class='userdanger'>Unfortunately, you weren't able to get a [item_name]. This is very bad and you should adminhelp immediately (press F1).</span>")
 		return FALSE
@@ -184,6 +184,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		cult += cult_mind
 		cult_mind.current.faction |= "cult"
 		cult_mind.special_role = SPECIAL_ROLE_CULTIST
+		ADD_TRAIT(cult_mind.current, TRAIT_HEALS_FROM_CULT_PYLONS, CULT_TRAIT)
 
 		if(cult_mind.assigned_role == "Clown")
 			to_chat(cult_mind.current, "<span class='cultitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
@@ -265,6 +266,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		for(var/datum/objective/servecult/O in cult_mind.objectives)
 			cult_mind.objectives -= O
 			qdel(O)
+		REMOVE_TRAIT(cult_mind.current, TRAIT_HEALS_FROM_CULT_PYLONS, CULT_TRAIT)
 		for(var/datum/action/innate/cult/C in cultist.actions)
 			qdel(C)
 		update_cult_icons_removed(cult_mind)

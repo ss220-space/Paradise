@@ -66,17 +66,18 @@
 	size = 2
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
-	equip_cooldown = 8
+	equip_cooldown = 4
 	name = "CH-PS \"Firedart\" Laser"
-	icon_state = "mecha_laser"
+	icon_state = "mecha_firedart"
 	origin_tech = "magnets=3;combat=3;engineering=3"
-	energy_drain = 30
+	energy_drain = 40
 	projectile = /obj/item/projectile/beam
 	fire_sound = 'sound/weapons/gunshots/1laser4.ogg'
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler
 	name = "CH-PD Disabler"
+	icon_state = "mecha_disabler"
 	origin_tech = "combat=3"
 	projectile = /obj/item/projectile/beam/disabler
 	fire_sound = 'sound/weapons/plasma_cutter.ogg'
@@ -87,7 +88,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy
 	equip_cooldown = 10
 	name = "CH-LC \"Solaris\" Laser Cannon"
-	icon_state = "mecha_laser"
+	icon_state = "mecha_solaris"
 	origin_tech = "magnets=4;combat=4;engineering=3"
 	energy_drain = 60
 	projectile = /obj/item/projectile/beam/laser/heavylaser
@@ -102,11 +103,22 @@
 	projectile = /obj/item/projectile/ion
 	fire_sound = 'sound/weapons/ionrifle.ogg'
 
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/ionshotgun
+	name = "G.M. Ion Shotgun"
+	desc = "Having carefully studied the ion rifle, the brightest minds of the Gorlex Marauders found duct tape and stuck two more barrels! Impressive, isn't it?"
+	icon_state = "mecha_ion"
+	origin_tech = "materials=4;combat=5;magnets=4"
+	energy_drain = 40
+	projectile = /obj/item/projectile/ion/weak
+	fire_sound = 'sound/weapons/ionrifle.ogg'
+	projectiles_per_shot = 3
+	variance = 15
+
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/tesla
 	equip_cooldown = 35
 	name = "P-X Tesla Cannon"
 	desc = "A weapon for combat exosuits. Fires bolts of electricity similar to the experimental tesla engine"
-	icon_state = "mecha_laser"
+	icon_state = "mecha_teslacannon"
 	origin_tech = "materials=4;engineering=4;combat=6;magnets=6"
 	energy_drain = 500
 	projectile = /obj/item/projectile/energy/shock_revolver
@@ -114,12 +126,12 @@
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/xray
-	equip_cooldown = 35
+	equip_cooldown = 10
 	name = "S-1 X-Ray Projector"
 	desc = "A weapon for combat exosuits. Fires beams of X-Rays that pass through solid matter."
-	icon_state = "mecha_laser"
-	origin_tech = "materials=3;combat=5;magnets=2;syndicate=2"
-	energy_drain = 80
+	icon_state = "mecha_xray"
+	origin_tech = "combat=6;materials=4;programming=6"
+	energy_drain = 120
 	projectile = /obj/item/projectile/beam/xray
 	fire_sound = 'sound/weapons/gunshots/1xray.ogg'
 	harmful = TRUE
@@ -130,10 +142,10 @@
 	projectile_delay = 1
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/immolator
-	equip_cooldown = 35
+	equip_cooldown = 8
 	name = "ZFI Immolation Beam Gun"
 	desc = "A weapon for combat exosuits. Fires beams of extreme heat that set targets on fire."
-	icon_state = "mecha_laser"
+	icon_state = "mecha_immolator"
 	origin_tech = "materials=4;engineering=4;combat=6;magnets=6"
 	energy_drain = 80
 	projectile = /obj/item/projectile/beam/immolator
@@ -223,7 +235,7 @@
 			var/mob/living/carbon/human/H = M
 			if(isobj(H.shoes) && !(H.shoes.flags & NODROP))
 				var/thingy = H.shoes
-				H.unEquip(H.shoes)
+				H.drop_item_ground(H.shoes)
 				walk_away(thingy,chassis,15,2)
 				spawn(20)
 					if(thingy)
@@ -249,8 +261,8 @@
 			return 1
 	return 0
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/get_equip_info()
-	return "[..()]\[[projectiles]\][(projectiles < initial(projectiles))?" - <a href='?src=[UID()];rearm=1'>Rearm</a>":null]"
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/get_module_equip_info()
+	return "\[[projectiles]\][(projectiles < initial(projectiles))?" - <a href='?src=[UID()];rearm=1'>Rearm</a>":null]"
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/proc/rearm()
 	if(projectiles < initial(projectiles))
@@ -274,8 +286,8 @@
 	name = "FNX-99 \"Hades\" Carbine"
 	icon_state = "mecha_carbine"
 	origin_tech = "materials=4;combat=4"
-	equip_cooldown = 5
-	projectile = /obj/item/projectile/bullet/incendiary/shell/dragonsbreath
+	equip_cooldown = 8
+	projectile = /obj/item/projectile/bullet/incendiary/shell/dragonsbreath/mecha
 	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
 	projectiles = 24
 	projectile_energy_cost = 15
@@ -313,7 +325,7 @@
 	name = "Ultra AC 2"
 	icon_state = "mecha_uac2"
 	origin_tech = "combat=4"
-	equip_cooldown = 10
+	equip_cooldown = 12
 	projectile = /obj/item/projectile/bullet/weakbullet3
 	fire_sound = 'sound/weapons/gunshots/1mg2.ogg'
 	projectiles = 300
@@ -330,8 +342,8 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/amlg
 	name = "AMLG-90"
 	icon_state = "mecha_amlg90"
-	origin_tech = "combat=6;magnets=6;powerstorage=5"
-	equip_cooldown = 10
+	origin_tech = "combat=4"
+	equip_cooldown = 12
 	projectile = /obj/item/projectile/beam/laser
 	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
 	projectiles = 150
@@ -343,7 +355,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
 	name = "SRM-8 Light Missile Rack"
-	icon_state = "mecha_missilerack"
+	icon_state = "mecha_missilerack_six"
 	origin_tech = "combat=5;materials=4;engineering=4"
 	projectile = /obj/item/missile/light
 	fire_sound = 'sound/weapons/gunshots/1launcher.ogg'
@@ -372,10 +384,12 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy
 	name = "SRX-13 Heavy Missile Launcher"
+	icon_state = "mecha_missilerack"
 	projectile = /obj/item/missile/heavy
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium
 	name = "SRM-8 Missile Rack"
+	icon_state = "mecha_missilerack"
 	projectile = /obj/item/missile
 
 /obj/item/missile
@@ -412,6 +426,7 @@
 	projectile_energy_cost = 800
 	equip_cooldown = 60
 	var/det_time = 20
+	harmful = TRUE
 	size=1
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/action(target, params)
@@ -438,8 +453,8 @@
 	equip_cooldown = 90
 	size=1
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang/limited/get_equip_info()//Limited version of the clusterbang launcher that can't reload
-	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp;[chassis.selected==src?"<b>":"<a href='?src=[chassis.UID()];select_equip=\ref[src]'>"][name][chassis.selected==src?"</b>":"</a>"]\[[projectiles]\]"
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang/limited/get_module_equip_info()//Limited version of the clusterbang launcher that can't reload
+	return " \[[projectiles]\]"
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang/limited/rearm()
 	return//Extra bit of security

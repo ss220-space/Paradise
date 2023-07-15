@@ -65,6 +65,22 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/emittergun
+	name = "Handicraft Emitter Rifle"
+	result = /obj/item/gun/energy/emittergun
+	reqs = list(/obj/item/stack/tape_roll = 1,
+				/obj/item/stack/cable_coil  = 10,
+				/obj/item/light/tube = 1,
+				/obj/item/stock_parts/cell  = 2,
+				/obj/item/stock_parts/capacitor = 1,
+				/obj/item/pipe = 1,
+				/obj/item/circuitboard/emitter = 1,
+				/obj/item/stack/sheet/plasteel = 10)
+	time = 120
+	tools = list(TOOL_WIRECUTTER, TOOL_WELDER)
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
 /datum/crafting_recipe/ed209
 	name = "ED209"
 	result = /mob/living/simple_animal/bot/ed209
@@ -510,6 +526,14 @@
 	reqs = list(/obj/item/stack/sheet/bone = 4)
 	category = CAT_PRIMAL
 
+/datum/crafting_recipe/beltprimitive
+	name = "Hunter's Belt"
+	result = /obj/item/storage/belt/mining/primitive
+	time = 30
+	reqs = list(/obj/item/stack/sheet/sinew = 4,
+				/obj/item/stack/sheet/animalhide/goliath_hide = 2)
+	category = CAT_PRIMAL
+
 /datum/crafting_recipe/goliathcloak
 	name = "Goliath Cloak"
 	result = /obj/item/clothing/suit/hooded/goliath
@@ -592,6 +616,14 @@
 	time = 30
 	reqs = list(/obj/item/stack/sheet/wood = 2,
 				 /obj/item/stack/sheet/sinew = 1)
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/bola_s
+	name = "Skull Bola"
+	result = /obj/item/restraints/legcuffs/bola/sinew
+	reqs = list(/obj/item/restraints/handcuffs/sinew = 2, //We don't have a "hand craft" version due to the need for 2 restraints in crafting.
+				/obj/item/stack/sheet/bone = 3)
+	time = 20
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/boneaxe

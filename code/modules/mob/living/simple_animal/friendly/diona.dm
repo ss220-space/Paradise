@@ -29,8 +29,8 @@
 	response_disarm = "pushes"
 	response_harm   = "kicks"
 
-	melee_damage_lower = 5
-	melee_damage_upper = 8
+	melee_damage_lower = 1
+	melee_damage_upper = 1
 	attacktext = "кусает"
 	attack_sound = 'sound/weapons/bite.ogg'
 	var/chirp_sound = 'sound/creatures/nymphchirp.ogg' //used in emote
@@ -206,7 +206,7 @@
 	mind.transfer_to(adult)
 
 	for(var/obj/item/W in contents)
-		unEquip(W)
+		drop_item_ground(W)
 
 	qdel(src)
 	return TRUE
@@ -273,13 +273,16 @@
 		to_chat(src, "<span class='noticealien'>The blood seeps into your small form, and you draw out the echoes of memories and personality from it, working them into your budding mind.</span>")
 
 
-/mob/living/simple_animal/diona/put_in_hands(obj/item/W)
-	W.forceMove(get_turf(src))
-	W.layer = initial(W.layer)
-	W.plane = initial(W.plane)
-	W.dropped()
+/mob/living/simple_animal/diona/put_in_hands(obj/item/I, force = FALSE, qdel_on_fail = FALSE, merge_stacks = TRUE, ignore_anim = TRUE)
+	I.forceMove(drop_location())
+	I.pixel_x = initial(I.pixel_x)
+	I.pixel_y = initial(I.pixel_y)
+	I.layer = initial(I.layer)
+	I.plane = initial(I.plane)
+	I.dropped()
 
-/mob/living/simple_animal/diona/put_in_active_hand(obj/item/W)
+
+/mob/living/simple_animal/diona/put_in_active_hand(obj/item/I, force = FALSE, ignore_anim = TRUE)
 	to_chat(src, "<span class='warning'>You don't have any hands!</span>")
 	return
 

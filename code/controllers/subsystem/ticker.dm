@@ -63,6 +63,8 @@ SUBSYSTEM_DEF(ticker)
 	var/real_reboot_time = 0
 	/// Do we need to switch pacifism after Greentext
 	var/toggle_pacifism = TRUE
+	/// Do we need to make ghosts visible after greentext
+	var/toogle_gv = TRUE
 
 	var/list/randomtips = list()
 	var/list/memetips = list()
@@ -470,12 +472,14 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/declare_completion()
 	GLOB.nologevent = TRUE //end of round murder and shenanigans are legal; there's no need to jam up attack logs past this point.
+	if(toogle_gv)
+		set_observer_default_invisibility(0) //spooks things up
 	//Round statistics report
 	var/datum/station_state/ending_station_state = new /datum/station_state()
 	ending_station_state.count()
 	var/station_integrity = min(round( 100.0 *  GLOB.start_state.score(ending_station_state), 0.1), 100.0)
 
-	to_chat(world, "<BR>[TAB]Shift Duration: <B>[round(ROUND_TIME / 36000)]:[add_zero("[ROUND_TIME / 600 % 60]", 2)]:[ROUND_TIME / 100 % 6][ROUND_TIME / 100 % 10]</B>")
+	to_chat(world, "<BR>[TAB]Shift Duration: <B>[SHIFT_TIME_TEXT()]</B>")
 	to_chat(world, "<BR>[TAB]Station Integrity: <B>[mode.station_was_nuked ? "<font color='red'>Destroyed</font>" : "[station_integrity]%"]</B>")
 	to_chat(world, "<BR>")
 

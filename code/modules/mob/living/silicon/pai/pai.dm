@@ -13,7 +13,7 @@
 	var/ram = 100	// Used as currency to purchase different abilities
 	var/userDNA		// The DNA string of our assigned user
 	var/obj/item/paicard/card	// The card we inhabit
-	var/obj/item/radio/radio		// Our primary radio
+	var/obj/item/radio/headset/radio		// Our primary radio, keyslot1 for regular encryptionkey, keyslot2 for additional.
 	var/sight_mode = 0
 
 	var/chassis = "repairbot"   // A record of your chosen chassis.
@@ -101,7 +101,7 @@
 	sradio = new(src)
 	if(card)
 		if(!card.radio)
-			card.radio = new /obj/item/radio(card)
+			card.radio = new /obj/item/radio/headset(card)
 		radio = card.radio
 
 	//Default languages without universal translator software
@@ -287,7 +287,7 @@
 /mob/living/silicon/pai/proc/force_fold_out()
 	if(istype(card.loc, /mob))
 		var/mob/holder = card.loc
-		holder.unEquip(card)
+		holder.drop_item_ground(card)
 	else if(istype(card.loc, /obj/item/pda))
 		var/obj/item/pda/holder = card.loc
 		holder.pai = null
@@ -492,7 +492,7 @@
 	if(istype(H))
 		var/mob/living/M = H.loc
 		if(istype(M))
-			M.unEquip(H)
+			M.drop_item_ground(H)
 		H.loc = get_turf(src)
 		loc = get_turf(H)
 
@@ -507,8 +507,8 @@
 /mob/living/silicon/pai/Bump()
 	return
 
-/mob/living/silicon/pai/Bumped()
-	return
+/mob/living/silicon/pai/Bumped(atom/movable/moving_atom)
+	return ..()
 
 /mob/living/silicon/pai/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	return FALSE

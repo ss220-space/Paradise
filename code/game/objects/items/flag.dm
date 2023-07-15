@@ -5,6 +5,7 @@
 	icon_state = "ntflag"
 	lefthand_file = 'icons/mob/inhands/flags_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/flags_righthand.dmi'
+	flags = NO_PIXEL_RANDOM_DROP
 	w_class = WEIGHT_CLASS_BULKY
 	max_integrity = 40
 	resistance_flags = FLAMMABLE
@@ -201,6 +202,11 @@
 	desc = "A flag proudly boasting the logo of the fearfull Spider Clan, known for their assassins, they work for the ones who pay them most."
 	icon_state = "ninjaflag"
 
+/obj/item/flag/ussp
+	name = "USSP flag"
+	desc = "A flag proudly boasting the logo of the Union of Soviet Socialist Planets, proclaiming the superior heritage of Revolution and Soviet People."
+	icon_state = "usspflag"
+
 //Chameleon
 
 /obj/item/flag/chameleon
@@ -245,10 +251,9 @@
 
 /obj/item/flag/chameleon/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/grenade) && !boobytrap)
-		if(user.drop_item())
+		if(user.drop_transfer_item_to_loc(I, src))
 			boobytrap = I
 			trapper = user
-			I.forceMove(src)
 			to_chat(user, "<span class='notice'>You hide [I] in the [src]. It will detonate some time after the flag is lit on fire.</span>")
 			var/turf/bombturf = get_turf(src)
 			add_game_logs("has hidden [I] in the [src] ready for detonation at [AREACOORD(bombturf)].", user)

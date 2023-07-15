@@ -128,12 +128,14 @@ emp_act
 	var/obj/item/organ/external/affecting = get_organ(check_zone(def_zone))
 	if(affecting && !affecting.cannot_amputate && affecting.get_damage() >= (affecting.max_damage - P.dismemberment))
 		var/damtype = DROPLIMB_SHARP
-		switch(P.damage_type)
-			if(BRUTE)
-				damtype = DROPLIMB_BLUNT
-			if(BURN)
-				damtype = DROPLIMB_BURN
-
+		if(!P.dismember_limbs)
+			switch(P.damage_type)
+				if(BRUTE)
+					damtype = DROPLIMB_BLUNT
+				if(BURN)
+					damtype = DROPLIMB_BURN
+		if(P.dismember_head && istype(affecting, /obj/item/organ/external/head))
+			damtype = DROPLIMB_SHARP
 		affecting.droplimb(FALSE, damtype)
 
 /mob/living/carbon/human/getarmor(var/def_zone, var/type)
@@ -556,7 +558,7 @@ emp_act
 /mob/living/carbon/human/proc/embed_item_inside(var/obj/item/I)
 	if(ismob(I.loc))
 		var/mob/M = I.loc
-		M.remove_from_mob(I)
+		M.drop_item_ground(I)
 	throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
 	var/obj/item/organ/external/L = pick(bodyparts)
 	L.embedded_objects |= I
@@ -628,7 +630,7 @@ emp_act
 
 		if(M.a_intent == INTENT_DISARM) //Always drop item in hand, if no item, get stun instead.
 			var/obj/item/I = get_active_hand()
-			if(I && unEquip(I))
+			if(I && drop_item_ground(I))
 				playsound(loc, 'sound/weapons/slash.ogg', 25, TRUE, -1)
 				visible_message("<span class='danger'>[M] disarms [src]!</span>", "<span class='userdanger'>[M] disarms you!</span>", "<span class='hear'>You hear aggressive shuffling!</span>")
 				to_chat(M, "<span class='danger'>You disarm [src]!</span>")

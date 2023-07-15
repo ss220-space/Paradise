@@ -541,7 +541,7 @@
 	dir = S1.dir
 
 	// Update mining and labor shuttle ash storm audio
-	if(id in list("mining", "laborcamp"))
+	if(id in list("mining", "laborcamp") && !config.disable_lavaland)
 		var/mining_zlevel = level_name_to_num(MINING)
 		var/datum/weather/ash_storm/W = SSweather.get_weather(mining_zlevel, /area/lavaland/surface/outdoors)
 		if(W)
@@ -932,7 +932,7 @@
 	desc = "Used to control the Transport Shuttle."
 	circuit = /obj/item/circuitboard/ruins_transport_shuttle
 	shuttleId = "ruins_transport_shuttle"
-	possible_destinations = "ussp_dock;dj_post;sindiecake_dock"
+	possible_destinations = "ussp_dock;dj_post;sindiecake_dock;ussp_gorky17"
 
 
 /obj/machinery/computer/shuttle/ruins_civil_shuttle // made another shuttle, this one will fly between spacebar and twin nexus hotel. just another way to get to it.

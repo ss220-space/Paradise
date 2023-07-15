@@ -10,7 +10,7 @@
 		return
 
 	for(var/obj/item/W in M)
-		M.unEquip(W)
+		M.drop_item_ground(W)
 
 	log_and_message_admins("made [key_name_admin(M)] drop everything!")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Everything") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -28,7 +28,7 @@
 			return
 		//strip their stuff before they teleport into a cell :downs:
 		for(var/obj/item/W in M)
-			M.unEquip(W)
+			M.drop_item_ground(W)
 		//teleport person to cell
 		M.Paralyse(5)
 		sleep(5)	//so they black out before warping
@@ -896,6 +896,28 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		log_and_message_admins("toggled pacifism after greentext in [(SSticker.toggle_pacifism) ? "On" : "Off"].")
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Pacifism")
+
+/client/proc/toogle_ghost_vision()
+	set name = "Toggle Ghost Vision After Greentext"
+	set category = "Admin"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	if(SSticker.current_state == GAME_STATE_FINISHED)
+		if(!GLOB.observer_default_invisibility)
+			if(alert(src, "Вы хотите выключить видимость призраков?",, "Да", "Нет") == "Нет")
+				return
+			set_observer_default_invisibility(INVISIBILITY_OBSERVER)
+			log_and_message_admins("Ghosts are no longer visible.")
+		else
+			if(alert(src, "Вы хотите включить видимость призраков?",,"Да", "Нет") == "Нет")
+				return
+			set_observer_default_invisibility(0)
+			log_and_message_admins("Ghosts are now visible.")
+	else
+		SSticker.toogle_gv = (SSticker.toogle_gv) ? FALSE : TRUE
+		log_and_message_admins("toggled ghost vision after greentext in [(SSticker.toogle_gv) ? "On" : "Off"].")
 
 /client/proc/admin_deny_shuttle()
 	set category = "Admin"

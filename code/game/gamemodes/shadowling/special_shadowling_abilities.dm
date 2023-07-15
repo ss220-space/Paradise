@@ -31,7 +31,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 									"<span class='shadowling'>You remove any equipment which would hinder your hatching and begin regurgitating the resin which will protect you.</span>")
 
 				for(var/obj/item/I in H.contents - (H.bodyparts | H.internal_organs)) //drops all items except organs
-					H.unEquip(I)
+					H.drop_item_ground(I)
 
 				sleep(50)
 				var/turf/simulated/floor/F
@@ -102,6 +102,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 				sleep(10)
 				to_chat(H, "<span class='shadowling'><b><i>Your powers are awoken. You may now live to your fullest extent. Remember your goal. Cooperate with your thralls and allies.</b></i></span>")
 				H.ExtinguishMob()
+				H.set_nutrition(NUTRITION_LEVEL_FED + 50)
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_vision(null))
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/enthrall(null))
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/glare(null))

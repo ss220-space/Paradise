@@ -36,6 +36,7 @@
 	var/allow_species_pick = FALSE
 	var/allow_gender_pick = FALSE
 	var/allow_name_pick = FALSE
+	var/allow_tts_pick = TRUE // defaulted to TRUE because some "simple mob" mob_spawns may require custom voice
 	var/mob_species = null
 
 	var/assignedrole
@@ -130,6 +131,9 @@
 		GLOB.mob_spawners -= name
 	return ..()
 
+/obj/effect/mob_spawn/is_mob_spawnable()
+	return TRUE
+
 /obj/effect/mob_spawn/proc/use_prefs_prompt(mob/user)
 	return
 
@@ -152,8 +156,10 @@
 	var/mob/living/M = new mob_type(get_turf(src)) //living mobs only
 	if(!random)
 		M.real_name = mob_name ? mob_name : M.name
+		M.tts_seed = SStts.get_random_seed(M)
 		if(M.dna)
 			M.dna.real_name = mob_name
+			M.dna.tts_seed_dna = M.tts_seed
 		if(M.mind)
 			M.mind.name = mob_name
 		if(!mob_gender)
@@ -187,13 +193,12 @@
 		M.mind.offstation_role = offstation_role
 		special(M, name)
 		MM.name = M.real_name
-		M.change_voice()
+		if(allow_tts_pick)
+			M.change_voice()
 	if(uses > 0)
 		uses--
 	if(!permanent && !uses)
 		qdel(src)
-	else
-		M.tts_seed = SStts.get_random_seed(M)
 
 // Base version - place these on maps/templates.
 /obj/effect/mob_spawn/human
@@ -204,6 +209,7 @@
 	allow_prefs_prompt = FALSE
 	allow_gender_pick = FALSE
 	allow_name_pick = FALSE
+	allow_tts_pick = TRUE
 	var/list/pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona")
 	var/datum/outfit/outfit = /datum/outfit	//If this is a path, it will be instanced in Initialize()
 	var/disable_pda = TRUE
@@ -794,6 +800,20 @@
 	name = "Dead carp"
 	icon = 'icons/mob/carp.dmi'
 	icon_state = "base_dead"
+
+/obj/effect/mob_spawn/mousedead
+	mob_type = /mob/living/simple_animal/mouse
+	death = TRUE
+	name = "Dead mouse"
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "mouse_brown_splat"
+
+/obj/effect/mob_spawn/ratdead
+	mob_type = /mob/living/simple_animal/mouse/rat
+	death = TRUE
+	name = "Dead rat"
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "rat_white_splat"
 
 //For black market packers gate
 

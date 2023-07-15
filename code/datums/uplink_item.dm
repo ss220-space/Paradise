@@ -379,8 +379,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A massive and incredibly deadly Syndicate exosuit(Not realy)."
 	reference = "SLM"
 	item = /obj/mecha/combat/lockersyndie/loaded
-	cost = 10
-	job = list("Civilian")
+	cost = 6
+	job = list("Civilian", "Roboticist")
 	surplus = 0
 
 /datum/uplink_item/jobspecific/stungloves
@@ -426,6 +426,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/gloves/color/yellow/power
 	cost = 8
 	job = list("Station Engineer", "Trainee Engineer", "Chief Engineer")
+
+/datum/uplink_item/jobspecific/supertoolbox
+	name = "Superior Suspicious Toolbox"
+	desc = "Ultimate version of all toolboxes, this one more robust and more useful than his cheaper version. Comes with experimental type tools, combat gloves and cool sunglasses."
+	item = /obj/item/storage/toolbox/syndisuper
+	reference = "CSSTB"
+	cost = 2
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	job = list("Station Engineer", "Trainee Engineer", "Chief Engineer", "Mechanic", "Roboticist", "Paramedic")
 
 //RD
 /datum/uplink_item/jobspecific/telegun
@@ -760,10 +769,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 40
 
 /datum/uplink_item/ammo/pistol
-	name = "Stechkin - 10mm Magazine"
-	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds that are cheap but around half as effective as .357"
+	name = "Stechkin - Two 10mm Magazines"
+	desc = "A 2 additional 8-round 10mm magazines for use in the syndicate pistol, loaded with rounds that are cheap but around half as effective as .357"
 	reference = "10MM"
-	item = /obj/item/ammo_box/magazine/m10mm
+	item = /obj/item/storage/box/syndie_kit/pistol_ammo
 	cost = 1
 
 /datum/uplink_item/ammo/pistolap
@@ -983,10 +992,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/revolver
-	name = ".357 Revolver - Speedloader"
-	desc = "A speed loader that contains seven additional .357 Magnum rounds for the syndicate revolver. For when you really need a lot of things dead."
+	name = ".357 Revolver - Two Speedloaders"
+	desc = "A box with 2 speed loaders that contains fourteen additional .357 Magnum rounds for the syndicate revolver. For when you really need a lot of things dead."
 	reference = "357"
-	item = /obj/item/ammo_box/a357
+	item = /obj/item/storage/box/syndie_kit/revolver_ammo
 	cost = 1
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -996,6 +1005,23 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = ".50AE"
 	item = /obj/item/ammo_box/magazine/m50
 	cost = 1
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/ammo/rocketHE
+	name = "84mm High Explosive rocket"
+	desc = "A rocket from a rocketlauncher. This one deals a devastating explosion, enough to tear the station and civillian apart."
+	reference = "RHE"
+	item = /obj/item/ammo_casing/caseless/rocket
+	cost = 8
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+
+/datum/uplink_item/ammo/rocketHEDP
+	name = "84mm High Explosive Dual Purpose rocket"
+	desc = "A rocket from a rocketlauncher. This one emits shrapnel and incendiary ammunition. The rocket itself is strong enough to destroy station mechs and robots with one shot."
+	reference = "RHEDP"
+	item = /obj/item/ammo_casing/caseless/rocket/hedp
+	cost = 6
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 // STEALTHY WEAPONS
@@ -1009,7 +1035,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			will instantly put them in your grasp and silence them, as well as causing rapid suffocation. Does not work on those who do not need to breathe."
 	reference = "GAR"
 	item = /obj/item/twohanded/garrote
-	cost = 6
+	cost = 4
 
 /datum/uplink_item/stealthy_weapons/martialarts
 	name = "Martial Arts Scroll"
@@ -1229,6 +1255,24 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SMB"
 	item = /obj/item/grenade/syndieminibomb
 	cost = 6
+
+/datum/uplink_item/explosives/rocketlauncher
+	name = "84mm Rocket Propelled Grenade Launcher"
+	desc = "A reusable rocket propelled grenade launcher preloaded with a low-yield 84mm HE round. Guaranteed to send your target out with a bang or your money back!"
+	reference = "PML9"
+	item = /obj/item/gun/projectile/revolver/rocketlauncher
+	cost = 10
+	surplus = 0 // no way
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/explosives/rocketbelt
+	name = "84mm Rocket Belt"
+	desc = "A belt full of rockets for a rocket propelled grenade launcher. Guaranteed to eliminate most of your targets. Just don't blow up your mates!"
+	reference = "PMLB"
+	item = /obj/item/storage/belt/rocketman
+	cost = 35
+	surplus = 0
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/explosives/detomatix
 	name = "Detomatix PDA Cartridge"
@@ -1491,6 +1535,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/toolbox/syndicate
 	cost = 1
 
+/datum/uplink_item/device_tools/supertoolbox
+	name = "Superior Suspicious Toolbox"
+	desc = "Ultimate version of all toolboxes, this one more robust and more useful than his cheaper version. Comes with experimental type tools, combat gloves and cool sunglasses."
+	item = /obj/item/storage/toolbox/syndisuper
+	reference = "SSTB"
+	cost = 2
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 /datum/uplink_item/device_tools/holster
 	name = "Shoulder Holster"
 	desc = "For holding your favourite gun close and always being ready for a cowboy duel with clown."
@@ -1527,8 +1579,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 
 /datum/uplink_item/device_tools/bonerepair
-	name = "Prototype Bone Repair Kit"
-	desc = "Stolen prototype bone repair nanites. Contains one nanocalcium autoinjector and guide."
+	name = "Prototype Nanite Autoinjector Kit"
+	desc = "Stolen prototype full body repair nanites. Contains one prototype nanite autoinjector and guide."
 	reference = "NCAI"
 	item = /obj/item/storage/box/syndie_kit/bonerepair
 	cost = 2
@@ -1587,6 +1639,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/borg/upgrade/vtec
 	cost = 6
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/device_tools/autoimplanter
+	name = "Syndicate Autoimplanter"
+	desc = "Cheaper version of nuclear operatives autoimplanter, this model allows you to install three cybernetic implants on the field."
+	reference = "SAI"
+	item = /obj/item/autoimplanter/traitor
+	cost = 6
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 //Space Suits and Hardsuits
 /datum/uplink_item/suits
@@ -1810,6 +1870,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/implanter/explosive
 	cost = 2
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/implants/mantisblade
+	name = "Mantis blades"
+	desc = "A box containing a set of two Gorlex Hidden Blade Implants comes with self-destructing auto-implanters. After the EMP, they return to service to show that it's too early to write you off."
+	reference = "MABI"
+	item = /obj/item/storage/box/syndie_kit/mantisblade
+	cost = 12
+	surplus = 90
 
 // Cybernetics
 /datum/uplink_item/cyber_implants

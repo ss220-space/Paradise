@@ -34,7 +34,7 @@
 /obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
 	if(!iscultist(user))
 		user.Weaken(5)
-		user.unEquip(src, 1)
+		user.drop_item_ground(src, force = TRUE)
 		user.visible_message("<span class='warning'>A powerful force shoves [user] away from [target]!</span>",
 							 "<span class='cultlarge'>\"You shouldn't play with sharp things. You'll poke someone's eye out.\"</span>")
 		if(ishuman(user))
@@ -47,15 +47,16 @@
 
 /obj/item/melee/cultblade/pickup(mob/living/user)
 	. = ..()
+
+	if(HULK in user.mutations)
+		to_chat(user, "<span class='danger'>You can't seem to hold the blade properly!</span>")
+		return FALSE
+
 	if(!iscultist(user))
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.Confused(10)
 		user.Jitter(6)
-
-	if(HULK in user.mutations)
-		to_chat(user, "<span class='danger'>You can't seem to hold the blade properly!</span>")
-		return FALSE
 
 /obj/item/restraints/legcuffs/bola/cult
 	name = "runed bola"
@@ -116,6 +117,9 @@
 	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75)
 	magical = TRUE
 	species_restricted = null
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		)
 
 /obj/item/clothing/suit/space/cult
 	name = "cult armor"
@@ -129,6 +133,9 @@
 	flags_inv = HIDEGLOVES|HIDEJUMPSUIT|HIDETAIL
 	magical = TRUE
 	species_restricted = null
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi'
+	)
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield
 	name = "empowered cultist robes"
@@ -143,6 +150,10 @@
 	var/current_charges = 3
 	var/shield_state = "shield-cult"
 	var/shield_on = "shield-cult"
+	species_restricted = null
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi'
+	)
 
 /obj/item/clothing/head/hooded/cult_hoodie
 	name = "empowered cultist hood"
@@ -155,12 +166,13 @@
 	flags_cover = HEADCOVERSEYES
 	magical = TRUE
 
-/obj/item/clothing/suit/hooded/cultrobes/cult_shield/equipped(mob/living/user, slot)
-	..()
+/obj/item/clothing/suit/hooded/cultrobes/cult_shield/equipped(mob/living/user, slot, initial)
+	. = ..()
+
 	if(!iscultist(user)) // Todo: Make this only happen when actually equipped to the correct slot. (For all cult items)
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
-		user.unEquip(src, 1)
+		user.drop_item_ground(src, force = TRUE)
 		user.Confused(10)
 		user.Weaken(5)
 
@@ -201,12 +213,13 @@
 	hoodtype = /obj/item/clothing/head/hooded/flagellant_hood
 
 
-/obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/equipped(mob/living/user, slot)
-	..()
+/obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/equipped(mob/living/user, slot, initial)
+	. = ..()
+
 	if(!iscultist(user))
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
-		user.unEquip(src, 1)
+		user.drop_item_ground(src, force = TRUE)
 		user.Confused(10)
 		user.Weaken(5)
 	else if(slot == slot_wear_suit)
@@ -273,11 +286,12 @@
 	prescription = TRUE
 	origin_tech = null
 
-/obj/item/clothing/glasses/hud/health/night/cultblind/equipped(mob/user, slot)
-	..()
+/obj/item/clothing/glasses/hud/health/night/cultblind/equipped(mob/user, slot, initial)
+	. = ..()
+
 	if(!iscultist(user))
 		to_chat(user, "<span class='cultlarge'>\"You want to be blind, do you?\"</span>")
-		user.unEquip(src, 1)
+		user.drop_item_ground(src, force = TRUE)
 		user.Confused(30)
 		user.Weaken(5)
 		user.EyeBlind(30)
@@ -291,7 +305,7 @@
 
 /obj/item/shuttle_curse/attack_self(mob/user)
 	if(!iscultist(user))
-		user.unEquip(src, 1)
+		user.drop_item_ground(src, force = TRUE)
 		user.Weaken(5)
 		to_chat(user, "<span class='warning'>A powerful force shoves you away from [src]!</span>")
 		return
@@ -340,7 +354,7 @@
 		to_chat(user, "<span class='warning'>[src] is dull and unmoving in your hands.</span>")
 		return
 	if(!iscultist(user))
-		user.unEquip(src, 1)
+		user.drop_item_ground(src, force = TRUE)
 		step(src, pick(GLOB.alldirs))
 		to_chat(user, "<span class='warning'>[src] flickers out of your hands, too eager to move!</span>")
 		return
@@ -638,7 +652,7 @@
 		cooldown = world.time + 20
 		if(isliving(spear.loc))
 			var/mob/living/L = spear.loc
-			L.unEquip(spear)
+			L.drop_item_ground(spear)
 			L.visible_message("<span class='warning'>An unseen force pulls the blood spear from [L]'s hands!</span>")
 		spear.throw_at(owner, 10, 2, null)
 

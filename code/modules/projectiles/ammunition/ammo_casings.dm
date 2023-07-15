@@ -32,6 +32,15 @@
 	materials = list(MAT_METAL = 1000)
 	projectile_type = /obj/item/projectile/bullet/weakbullet3
 
+/obj/item/ammo_casing/ftt762
+	desc = "A fusty 7.62mm TT bullet casing."
+	icon_state = "r-casing"
+	materials = list(MAT_METAL = 1000)
+	caliber = "ftt762"
+	projectile_type = /obj/item/projectile/bullet/ftt762
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+
 /obj/item/ammo_casing/a50
 	desc = "A .50AE bullet casing."
 	materials = list(MAT_METAL = 4000)
@@ -168,6 +177,20 @@
 	throwforce = 15 //still deadly when thrown
 	throw_speed = 3
 	muzzle_flash_color = null
+
+/obj/item/ammo_casing/caseless/rocket
+	name = "\improper PM-9HE"
+	desc = "An 84mm High Explosive rocket. Fire at people and pray."
+	caliber = "84mm"
+	w_class = WEIGHT_CLASS_NORMAL //thats the rocket!
+	icon_state = "84mm-he"
+	projectile_type = /obj/item/projectile/bullet/a84mm_he
+
+/obj/item/ammo_casing/caseless/rocket/hedp
+	name = "\improper PM-9HEDP"
+	desc = "An 84mm High Explosive Dual Purpose rocket. Pointy end toward mechs and unarmed civilians."
+	icon_state = "84mm-hedp"
+	projectile_type = /obj/item/projectile/bullet/a84mm_hedp
 
 /obj/item/ammo_casing/shotgun
 	name = "shotgun slug"
@@ -362,6 +385,13 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
+/obj/item/ammo_casing/a545/fusty
+	desc = "A fusty 5.45x39mm bullet casing."
+	materials = list(MAT_METAL = 1000)
+	projectile_type = /obj/item/projectile/bullet/f545
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+
 /obj/item/ammo_casing/shotgun/fakebeanbag
 	name = "beanbag shell"
 	desc = "A weak beanbag shell."
@@ -440,10 +470,9 @@
 		FD.damage_type = BRUTE
 		update_icon()
 	else if((istype(A, /obj/item/pen)) && modified && !FD.pen)
-		if(!user.unEquip(A))
+		if(!user.drop_transfer_item_to_loc(A, FD))
 			return
 		harmful = TRUE
-		A.loc = FD
 		FD.log_override = FALSE
 		FD.pen = A
 		FD.damage = 5

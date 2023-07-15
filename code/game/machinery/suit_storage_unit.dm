@@ -45,6 +45,12 @@
 	helmet_type  = /obj/item/clothing/head/helmet/space/eva
 	mask_type    = /obj/item/clothing/mask/breath
 
+/obj/machinery/suit_storage_unit/standard_unit/ertamber
+	name = "ERT Amber storage unit"
+	suit_type    = /obj/item/clothing/suit/space/ert_eva_amber
+	helmet_type  = /obj/item/clothing/head/helmet/space/ert_eva_amber
+	mask_type    = /obj/item/clothing/mask/gas/sechailer
+	storage_type = /obj/item/tank/internals/oxygen/red
 /obj/machinery/suit_storage_unit/captain
 	name = "captain's suit storage unit"
 	desc = "An industrial U-Stor-It Storage unit designed to accomodate all kinds of space suits. Its on-board equipment also allows the user to decontaminate the contents through a UV-ray purging cycle. There's a warning label dangling from the control pad, reading \"STRICTLY NO BIOLOGICALS IN THE CONFINES OF THE UNIT\". This one looks kind of fancy."
@@ -337,8 +343,7 @@
 		storage = I
 		. = TRUE
 	if(.)
-		user.drop_item()
-		I.forceMove(src)
+		user.drop_transfer_item_to_loc(I, src)
 
 
 /obj/machinery/suit_storage_unit/power_change()
@@ -587,7 +592,7 @@
 	else
 		helmet.forceMove(loc)
 		if(ishuman(usr))
-			usr.put_in_active_hand(helmet)
+			usr.put_in_active_hand(helmet, ignore_anim = FALSE)
 		helmet = null
 
 /obj/machinery/suit_storage_unit/proc/dispense_suit()
@@ -596,7 +601,7 @@
 	else
 		suit.forceMove(loc)
 		if(ishuman(usr))
-			usr.put_in_active_hand(suit)
+			usr.put_in_active_hand(suit, ignore_anim = FALSE)
 		suit = null
 
 /obj/machinery/suit_storage_unit/proc/dispense_mask()
@@ -605,7 +610,7 @@
 	else
 		mask.forceMove(loc)
 		if(ishuman(usr))
-			usr.put_in_active_hand(mask)
+			usr.put_in_active_hand(mask, ignore_anim = FALSE)
 		mask = null
 
 /obj/machinery/suit_storage_unit/proc/dispense_magboots()
@@ -614,7 +619,7 @@
 	else
 		magboots.forceMove(loc)
 		if(ishuman(usr))
-			usr.put_in_active_hand(magboots)
+			usr.put_in_active_hand(magboots, ignore_anim = FALSE)
 		magboots = null
 
 /obj/machinery/suit_storage_unit/proc/dispense_storage()
@@ -623,7 +628,7 @@
 	else
 		storage.forceMove(loc)
 		if(ishuman(usr))
-			usr.put_in_active_hand(storage)
+			usr.put_in_active_hand(storage, ignore_anim = FALSE)
 		storage = null
 
 /obj/machinery/suit_storage_unit/proc/toggle_open(mob/user as mob)

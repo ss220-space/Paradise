@@ -303,6 +303,10 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		C.handle_message(tcm)
 	qdel(tcm) // Delete the message datum
 	qdel(A)
+/obj/item/radio/sec
+	name = "security station bounced radio"
+	icon_state = "walkietalkie_sec"
+	frequency = SEC_FREQ
 
 // Just a dummy mob used for making announcements, so we don't create AIs to do this
 // I'm not sure who thought that was a good idea. -- Crazylemon
@@ -689,8 +693,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 			return
 
 		if(!keyslot)
-			user.drop_item()
-			W.loc = src
+			user.drop_transfer_item_to_loc(W, src)
 			keyslot = W
 
 		recalculateChannels()
@@ -789,3 +792,11 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/phone/medbay/New()
 	..()
 	internal_channels = GLOB.default_medbay_channels.Copy()
+
+/obj/item/radio/bot
+	tts_seed = null
+
+/obj/item/radio/phone/ussp
+	name = "Red phone"
+	has_loudspeaker = TRUE
+	frequency = SOV_FREQ

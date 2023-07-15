@@ -3,6 +3,7 @@ GLOBAL_PROTECT(preferences_datums) // These feel like something that shouldnt be
 
 GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts to play these roles
 	ROLE_PAI = 0,
+	ROLE_THUNDERDOME = 0,
 	ROLE_POSIBRAIN = 0,
 	ROLE_GUARDIAN = 0,
 	ROLE_TRAITOR = 7,
@@ -2340,9 +2341,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					toggles ^= PREFTOGGLE_AMBIENT_OCCLUSION
 					if(parent && parent.screen && parent.screen.len)
 						var/obj/screen/plane_master/game_world/PM = locate(/obj/screen/plane_master/game_world) in parent.screen
-						PM.remove_filter(AMBIENT_OCCLUSION_FILTER_KEY)
+						PM.remove_screen_filter(AMBIENT_OCCLUSION_FILTER_KEY)
 						if(toggles & PREFTOGGLE_AMBIENT_OCCLUSION)
-							PM.add_filter(AMBIENT_OCCLUSION_FILTER_KEY, FILTER_AMBIENT_OCCLUSION)
+							PM.add_screen_filter(AMBIENT_OCCLUSION_FILTER_KEY, FILTER_AMBIENT_OCCLUSION)
 
 				if("parallax")
 					var/parallax_styles = list(
@@ -2526,6 +2527,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	character.age = age
 
 	character.tts_seed = tts_seed
+	character.dna.tts_seed_dna = tts_seed
 
 	//Head-specific
 	var/obj/item/organ/external/head/H = character.get_organ("head")
