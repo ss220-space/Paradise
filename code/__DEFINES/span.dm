@@ -3,6 +3,7 @@
 #define SPAN_ALERT(str) ("<span class='alert'>" + str + "</span>")
 #define SPAN_DANGER(str) ("<span class='danger'>" + str + "</span>")
 #define SPAN_NOTICE(str) ("<span class='notice'>" + str + "</span>")
+#define SPAN_NOTICE_BOLD(str) ("<span class='boldnotice'>" + str + "</span>")
 
 // Нагло скопировано мною с ТГ, то чего у нас в билде нету - закоменчено
 // Старые капсом написанные SPAN_WARNING() и т.д. удалены и заменены в файлах где применялись, на аналоги ниже. без КАПСА!
@@ -34,6 +35,7 @@
 #define span_boldnotice(str) ("<span class='boldnotice'>" + str + "</span>")
 #define span_boldwarning(str) ("<span class='boldwarning'>" + str + "</span>")
 //#define span_centcomradio(str) ("<span class='centcomradio'>" + str + "</span>")
+#define span_caution(str) ("<span class='caution'>" + str + "</span>")
 #define span_changeling(str) ("<span class='changeling'>" + str + "</span>")
 #define span_clown(str) ("<span class='clown'>" + str + "</span>")
 #define span_colossus(str) ("<span class='colossus'>" + str + "</span>")

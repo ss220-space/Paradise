@@ -267,7 +267,7 @@
 	name = "Compressed Matter Cartridge"
 	id = "rcd_ammo"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 16000, MAT_GLASS=8000)
+	materials = list(MAT_METAL = 48000, MAT_GLASS=24000)
 	build_path = /obj/item/rcd_ammo
 	category = list("initial","Construction")
 
@@ -752,14 +752,6 @@
 	build_path = /obj/item/flamethrower/full
 	category = list("hacked", "Security")
 
-/datum/design/rcd
-	name = "Rapid Construction Device (RCD)"
-	id = "rcd"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30000)
-	build_path = /obj/item/rcd
-	category = list("hacked", "Construction")
-
 /datum/design/rpd
 	name = "Rapid Pipe Dispenser (RPD)"
 	id = "rpd"
@@ -926,6 +918,14 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 30500)
 	build_path = /obj/item/ammo_box/c9mm
+	category = list("hacked", "Security")
+
+/datum/design/knuckles
+	name = "Knuckles"
+	id = "knuckles"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 18000)
+	build_path = /obj/item/clothing/gloves/knuckles
 	category = list("hacked", "Security")
 
 /datum/design/cleaver

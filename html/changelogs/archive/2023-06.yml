@@ -224,8 +224,64 @@
   - qol: Equip PDA To Appropriate Slot (#3055)
   - bugfix: Ninja's Vermit Hunt (#3049)
   - bugfix: Bubblegum Hallucination (#3047)
+  - bugfix: Twohaned Fracture Fix (#3036)
   captainnelly:
   - tweak: increase hardsuit equip sould volume (#3054)
   - add: new crusher sounds (#3052)
   Сиротка:
   - tweak: Sharp bolts (#3053)
+'2023-06-26':
+  ArtemDerp:
+  - add: new plan - peas (#2633)
+  NightDawnFox:
+  - tweak: two 10mm mag and .357 speedloader in uplink instead of one (#3073)
+  - add: 'new antag targets: noke core and suppermatter sliver (#2957)'
+  - tweak: replace staff of slipping with wand of slipping in clowns biodome (#3048)
+  - add: animations for paper printing (#3074)
+  - del: taro cards from lavaland loot (#3072)
+  - add: contractor tablet now show dir to extraction location (#3075)
+  - tweak: cutter don't gib head, spellblade don gib limbs (#3051)
+  - bugfix: contractor button stop work (#3078)
+  ReloadKey:
+  - refactor: cleanup vendings sprites (#3069)
+  Rerik007:
+  - add: mecha eng_toolset (#3070)
+  - bugfix: dupe actions in mecha (#3077)
+  Zwei:
+  - bugfix: Shadowling Nutrition (#3061)
+  - bugfix: Transparent Floor Replacing (#3067)
+  - add: Hypospray Upgrade (#3060)
+  Сиротка:
+  - add: More flammable cigs (#3058)
+  - add: new lavaland armor (#3032)
+  - add: Knuckles (#3059)
+'2023-06-30':
+  LiquidPotroh:
+  - add: New kidan emotes (#3096)
+  NightDawnFox:
+  - bugfix: contractor victims can take card and weapons in prison (#3076)
+  - add: new item - fusion gauntlets (#2987)
+  ReloadKey:
+  - bugfix: Fixes for new CC, armory and vednings fixes (#3098)
+  Rerik007:
+  - bugfix: simple mob reconnect in vents make screen black (#3084)
+  - add: guitar bag (#3082)
+  UEDCommander:
+  - add: Tkach Ya-Sui GA 12 revolver (#3093)
+  Vladisvell:
+  - bugfix: now piercing upgrade doesn't remove when upgraded hypospray applied (#3100)
+  Zwei:
+  - bugfix: Vox Post Equip (#3087)
+  - bugfix: Power Gloves Unlimited Range (#3091)
+  - tweak: Few Item Animation Tweaks (#3092)
+  - bugfix: No Warning Messages On Implant Force Drop (#3090)
+  - bugfix: Cooldown On Item Attack (#3089)
+  - tweak: Adding missing no random drop flag (#3088)
+  - bugfix: Vampire Chapel Burn (#3081)
+  - refactor: Ventcrawling (#3025)
+  captainnelly:
+  - add: inhands sprites for plushy toys (#3086)
+  Сиротка:
+  - qol: Shitspawn Mecha (#3094)
+  - tweak: Loadout suits allowed items rework (#3038)
+  - bugfix: Dark Templar helmet (#3085)

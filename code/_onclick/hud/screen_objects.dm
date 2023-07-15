@@ -168,6 +168,9 @@
 	if(ismecha(usr.loc)) // stops inventory actions in a mech
 		return TRUE
 
+	if(is_ventcrawling(usr)) // stops inventory actions in vents
+		return TRUE
+
 	if(master)
 		var/obj/item/I = usr.get_active_hand()
 		if(I)
@@ -194,7 +197,10 @@
 
 
 /obj/screen/storage/MouseDrop_T(obj/item/I, mob/user)
-	if(!I ||!user || !istype(I) || user.incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE) || ismecha(user.loc) || !master)
+	if(!user || !istype(I) || user.incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE) || ismecha(user.loc) || !master)
+		return FALSE
+
+	if(is_ventcrawling(user))
 		return FALSE
 
 	var/obj/item/storage/S = master
@@ -445,6 +451,9 @@
 	if(ismecha(usr.loc)) // stops inventory actions in a mech
 		return TRUE
 
+	if(is_ventcrawling(usr)) // stops inventory actions in vents
+		return TRUE
+
 	if(hud?.mymob && slot_id)
 		var/obj/item/inv_item = hud.mymob.get_item_by_slot(slot_id)
 		if(inv_item)
@@ -454,6 +463,39 @@
 		usr.update_inv_hands()
 
 	return TRUE
+
+
+/obj/screen/inventory/MouseDrop_T(obj/item/I, mob/user)
+
+	if(!user || !istype(I) || user.incapacitated() || ismecha(user.loc) || is_ventcrawling(user))
+		return FALSE
+
+	if(!hud?.mymob || !slot_id)
+		return FALSE
+
+	if(hud.mymob != user)
+		return FALSE
+
+	if(slot_id != slot_l_hand && slot_id != slot_r_hand)
+		return FALSE
+
+	if(I.is_equipped(include_pockets = TRUE))
+
+		if(I.equip_delay_self && !user.is_general_slot(user.get_slot_by_item(I)))
+			user.visible_message(span_notice("[user] начинает снимать [I.name]..."), \
+								span_notice("Вы начинаете снимать [I.name]..."))
+			if(!do_after_once(user, I.equip_delay_self, target = user, attempt_cancel_message = "Снятие [I.name] было прервано!"))
+				return FALSE
+
+			if((slot_id == slot_l_hand && user.l_hand) || (slot_id == slot_r_hand && user.r_hand))
+				return FALSE
+
+		if(!user.drop_item_ground(I))
+			return FALSE
+
+	if((slot_id == slot_l_hand && !user.put_in_l_hand(I, ignore_anim = FALSE)) || \
+		(slot_id == slot_r_hand && !user.put_in_r_hand(I, ignore_anim = FALSE)))
+		return FALSE
 
 
 /obj/screen/inventory/hand
@@ -499,6 +541,9 @@
 		return TRUE
 
 	if(ismecha(user.loc)) // stops inventory actions in a mech
+		return TRUE
+
+	if(is_ventcrawling(user)) // stops inventory actions in vents
 		return TRUE
 
 	if(ismob(user))
@@ -572,6 +617,9 @@
 	if(ishuman(usr) && !usr.is_dead())
 		var/mob/living/carbon/H = usr
 		H.check_self_for_injuries()
+
+/obj/screen/healthdoll/living
+	var/filtered = FALSE //so we don't repeatedly create the mask of the mob every update
 
 /obj/screen/component_button
 	var/obj/screen/parent

@@ -253,7 +253,6 @@
 	range = 8
 	hitsound = 'sound/weapons/thudswoosh.ogg'
 	armour_penetration = 0
-	var/chain
 	var/intent = INTENT_HELP
 	var/obj/item/ammo_casing/magic/tentacle/source //the item that shot it
 
@@ -528,7 +527,9 @@
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
+	hide_tail_by_species = list("Vulpkanin", "Unathi")
 	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
 		)
 
