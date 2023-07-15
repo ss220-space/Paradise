@@ -486,7 +486,6 @@
 /area/syndicate_mothership/control)
 "ald" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -518,7 +517,6 @@
 	req_access = list(153)
 	},
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "syndFB_base"
 	},
 /turf/simulated/floor/wood{
@@ -1537,7 +1535,6 @@
 /area/ninja/outside)
 "aII" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
@@ -1850,6 +1847,7 @@
 "aTE" = (
 /obj/structure/table,
 /obj/item/clothing/head/soft/solgov,
+/obj/item/reagent_containers/food/drinks/coffee,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -2379,9 +2377,7 @@
 	pixel_x = -4;
 	pixel_y = -2
 	},
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkyellowalt"
@@ -2595,7 +2591,7 @@
 /area/syndicate_mothership)
 "blt" = (
 /obj/item/paper/djstation{
-	info = "Блять, сука. Блять. Я знал, что эта миссия была ошибкой, что этот идиот Томас был убит каким-то разъяренным русским роботом-охранником в оружейной, а лейтенант вбежал на станцию, как идиот, и попал в ловушку. Теперь я просто сижу , потому что этот шаттл, черт возьми, не двигается. Этот тупой кусок дерьма, стыковочный рычаг USSP, должно быть, заклинило, а у меня нет скафандра, чтобы выйти и починить его.<br><br>Кто, черт возьми, атакует космическую станцию ​​без него? В любом случае, без ригов выходить в открытый космос? Нельзя же, черт возьми, выйти в откртый космос с горячим кофе и раслабиться";
+	info = "Блять, сука. Блятьблять. Я знал, что эта миссия была ошибкой, этот идиот Томас самоубился о какого-то разъяренного русского робота-охранника в оружейной. А лейтенант вбежал на станцию, как идиот, и попал в ловушку. Теперь я просто просиживаю штаны взаперти, потому что этот шаттл, черт возьми, не двигается. Этот тупой кусок дерьма, стыковочный рычаг СССП, должно быть, заклинило, а у меня нет скафандра, чтобы выйти и починить его.<br><br>Кто, черт возьми, атакует космическую станцию ​​без скафандров!? В любом случае, без ригов выходить в открытый космос? Нельзя же, черт возьми, начинать кровавую заварушку в космосе лишь с горячим кофе и забить на всё болт.";
 	name = "неизвестный отчет"
 	},
 /turf/simulated/floor/shuttle{
@@ -3880,7 +3876,6 @@
 	req_access = list(153)
 	},
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SyndFB_prison_outside"
 	},
 /turf/simulated/floor/plasteel{
@@ -4318,7 +4313,6 @@
 	icon_state = "logo18"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -4627,7 +4621,6 @@
 	},
 /obj/effect/turf_decal/siding/thinplating/dark,
 /obj/machinery/door/poddoor/multi_tile/four_tile_hor{
-	color = null;
 	id_tag = "SyndFB_prison_outside"
 	},
 /turf/simulated/floor/plasteel{
@@ -5308,7 +5301,6 @@
 	icon_state = "logo17"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -7888,7 +7880,6 @@
 /area/syndicate_mothership/outside)
 "edZ" = (
 /obj/effect/turf_decal/arrows/white{
-	color = null;
 	dir = 4;
 	name = "ERT shuttle"
 	},
@@ -8960,9 +8951,7 @@
 "eMS" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/delivery/red,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -9562,7 +9551,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
@@ -10284,7 +10272,6 @@
 /area/centcom/jail)
 "fwf" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -11632,7 +11619,6 @@
 	icon_state = "logo2"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
@@ -14052,7 +14038,6 @@
 /area/shuttle/ussp)
 "hCL" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -15718,9 +15703,7 @@
 /area/syndicate_mothership/outside)
 "iBM" = (
 /obj/effect/turf_decal/delivery/red,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -15854,9 +15837,7 @@
 /area/ninja/outside)
 "iEH" = (
 /obj/effect/turf_decal/delivery/white,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -15997,7 +15978,6 @@
 /area/syndicate_mothership/outside)
 "iIo" = (
 /obj/effect/turf_decal/arrows/white{
-	color = null;
 	dir = 1;
 	name = "Canteen, Shooting range, Zone 2, Medical block"
 	},
@@ -17580,7 +17560,6 @@
 "jAC" = (
 /obj/structure/spacepoddoor/invincible,
 /obj/machinery/door/poddoor/multi_tile/two_tile_ver{
-	color = null;
 	id_tag = "Aspid_poddor_left"
 	},
 /turf/simulated/floor/plasteel{
@@ -17706,7 +17685,6 @@
 "jEv" = (
 /obj/structure/fans/tiny/invisible,
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SST_pod_ready"
 	},
 /turf/simulated/floor/plasteel{
@@ -17789,7 +17767,6 @@
 	icon_state = "logo3"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
@@ -17903,7 +17880,6 @@
 	icon_state = "siding8"
 	},
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SIT_outside"
 	},
 /turf/simulated/floor/plasteel{
@@ -18409,9 +18385,7 @@
 	pixel_x = 4;
 	pixel_y = 8
 	},
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkyellowalt"
@@ -18545,7 +18519,6 @@
 	dir = 8
 	},
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SyndFB_prison_outside"
 	},
 /turf/simulated/floor/plasteel{
@@ -18795,7 +18768,6 @@
 "kln" = (
 /obj/structure/railing,
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -19095,9 +19067,7 @@
 /area/abductor_ship)
 "ktr" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -20713,9 +20683,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery/white,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -25506,12 +25474,10 @@
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -26696,9 +26662,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery/white,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -27697,7 +27661,6 @@
 "oky" = (
 /obj/structure/spacepoddoor/invincible,
 /obj/machinery/door/poddoor/multi_tile/two_tile_ver{
-	color = null;
 	id_tag = "Aspid_poddor_right"
 	},
 /turf/simulated/floor/plasteel{
@@ -28170,9 +28133,7 @@
 	pixel_x = 4;
 	pixel_y = -2
 	},
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkyellowalt"
@@ -29131,7 +29092,6 @@
 /area/syndicate_mothership/infteam)
 "oRQ" = (
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SST_pod_ready"
 	},
 /turf/simulated/floor/plasteel{
@@ -29183,7 +29143,6 @@
 /area/syndicate_mothership/infteam)
 "oTb" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -29192,7 +29151,6 @@
 /area/syndicate_mothership/outside)
 "oTy" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -29231,7 +29189,6 @@
 /area/syndicate_mothership/jail)
 "oUj" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -32764,12 +32721,10 @@
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -32822,7 +32777,6 @@
 /area/centcom/specops)
 "qLW" = (
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SST_pod_ready"
 	},
 /turf/simulated/floor/plasteel{
@@ -32928,7 +32882,6 @@
 /area/centcom/zone3)
 "qOg" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
@@ -32987,7 +32940,6 @@
 /area/centcom/zone1)
 "qPu" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
@@ -33887,7 +33839,6 @@
 /area/syndicate_mothership/elite_squad)
 "rlQ" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -33932,7 +33883,6 @@
 /area/syndicate_mothership/control)
 "rmG" = (
 /obj/machinery/door/airlock/syndicate/extmai/glass{
-	id = null;
 	id_tag = "syndicate_jail_cell";
 	name = "Cell";
 	req_access = list(153)
@@ -35098,7 +35048,6 @@
 /area/centcom/supply)
 "rNF" = (
 /obj/structure/fence/corner{
-	color = null;
 	invulnerable = 1
 	},
 /turf/simulated/floor/indestructible/grass,
@@ -35143,7 +35092,6 @@
 /area/shuttle/supply)
 "rOV" = (
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SST_to_ATOM"
 	},
 /turf/simulated/floor/plasteel{
@@ -35164,7 +35112,6 @@
 /area/centcom/specops)
 "rQr" = (
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SST_to_ATOM"
 	},
 /turf/simulated/floor/plasteel{
@@ -37278,9 +37225,7 @@
 	},
 /area/centcom/jail)
 "sUD" = (
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -37417,9 +37362,7 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowalt"
 	},
@@ -37724,12 +37667,10 @@
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -38844,12 +38785,10 @@
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -39842,7 +39781,6 @@
 	icon_state = "siding8"
 	},
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SIT_outside"
 	},
 /turf/simulated/floor/plasteel{
@@ -39922,12 +39860,10 @@
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -40701,7 +40637,6 @@
 /area/shuttle/escape)
 "uvw" = (
 /obj/effect/turf_decal/arrows/white{
-	color = null;
 	dir = 4;
 	name = "ERT shuttle"
 	},
@@ -40800,12 +40735,10 @@
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -41913,9 +41846,7 @@
 	dir = 5
 	},
 /obj/effect/turf_decal/delivery/white,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -42913,12 +42844,10 @@
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -43151,7 +43080,6 @@
 	icon_state = "siding8"
 	},
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SST_outside"
 	},
 /turf/simulated/floor/plasteel{
@@ -44188,12 +44116,10 @@
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -46048,9 +45974,7 @@
 /area/shuttle/vox)
 "xhG" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
