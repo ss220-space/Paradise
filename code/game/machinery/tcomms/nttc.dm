@@ -65,12 +65,12 @@
 		// Security
 		"Brig Physician" = "secradio",
 		"Detective" = "secradio",
-		"Head of Security" = "secradio",
+		"Peacemakers Leader" = "secradio",
 		"Internal Affairs Agent" = "secradio",
 		"Magistrate" = "secradio",
-		"Security Officer" = "secradio",
-		"Security Cadet" = "secradio",
-		"Security Pod Pilot" = "secradio",
+		"Peacemaker" = "secradio",
+		"Peacemaker Cadet" = "secradio",
+		"Peacemaker Pod Pilot" = "secradio",
 		"Warden" = "secradio",
 		// Supply
 		"Quartermaster" = "supradio",

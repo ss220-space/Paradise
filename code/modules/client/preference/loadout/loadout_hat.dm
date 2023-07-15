@@ -55,14 +55,14 @@
 	path = /obj/item/clothing/head/fedora/brownfedora
 
 /datum/gear/hat/capcsec
-	display_name = "security corporate cap"
+	display_name = "peacemakers corporate cap"
 	path = /obj/item/clothing/head/soft/sec/corp
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Cadet", "Security Pod Pilot")
+	allowed_roles = list("Peacemakers Leader", "Warden", "Peacemaker", "Peacemaker Cadet", "Peacemaker Pod Pilot")
 
 /datum/gear/hat/capsec
-	display_name = "security cap"
+	display_name = "peacemakers cap"
 	path = /obj/item/clothing/head/soft/sec
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Cadet", "Security Pod Pilot")
+	allowed_roles = list("Peacemakers Leader", "Warden", "Peacemaker", "Peacemaker Cadet", "Peacemaker Pod Pilot")
 
 /datum/gear/hat/capred
 	display_name = "cap, red"
@@ -141,24 +141,24 @@
 	subtype_cost_overlap = FALSE
 
 /datum/gear/hat/beret_job/sec
-	display_name = "security beret"
+	display_name = "peacemakers beret"
 	path = /obj/item/clothing/head/beret/sec
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Cadet", "Security Pod Pilot")
+	allowed_roles = list("Peacemakers Leader", "Warden", "Peacemaker", "Peacemaker Cadet", "Peacemaker Pod Pilot")
 
 /datum/gear/hat/beret_job/sec_black
-	display_name = "black security beret"
+	display_name = "black peacemakers beret"
 	path = /obj/item/clothing/head/beret/sec/black
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Cadet", "Security Pod Pilot")
+	allowed_roles = list("Peacemakers Leader", "Warden", "Peacemaker", "Peacemaker Cadet", "Peacemaker Pod Pilot")
 
 /datum/gear/hat/beret_job/marine
 	display_name = "royal marines commando beret"
 	path = /obj/item/clothing/head/beret/centcom/officer/sparkyninja_beret
-	allowed_roles = list("Head of Security", "Blueshield")
+	allowed_roles = list("Peacemakers Leader", "Blueshield")
 
 /datum/gear/hat/beret_job/marine_old
 	display_name = "marine lieutenant beret"
 	path = /obj/item/clothing/head/beret/centcom/officer/sigholt
-	allowed_roles = list("Head of Security", "Blueshield")
+	allowed_roles = list("Peacemakers Leader", "Blueshield")
 
 /datum/gear/hat/beret_job/sci
 	display_name = "science beret"

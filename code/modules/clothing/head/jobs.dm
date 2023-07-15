@@ -145,28 +145,28 @@
 
 //Security
 /obj/item/clothing/head/HoS
-	name = "head of security cap"
-	desc = "The robust standard-issue cap of the Head of Security. For showing the officers who's in charge."
+	name = "peacemakers leader cap"
+	desc = "The robust standard-issue cap of the Peacemakers Leader. For showing the peacemakers who's in charge."
 	icon_state = "hoscap"
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
 	strip_delay = 80
 
 /obj/item/clothing/head/HoS/beret
-	name = "head of security beret"
-	desc = "A robust beret for the Head of Security, for looking stylish while not sacrificing protection."
+	name = "peacemakers leader beret"
+	desc = "A robust beret for the Peacemakers Leader, for looking stylish while not sacrificing protection."
 	icon_state = "beret_hos_black"
 	snake_fashion = /datum/snake_fashion/head/beret_hos_black
 
 /obj/item/clothing/head/warden
 	name = "warden's police hat"
-	desc = "It's a special armored hat issued to the Warden of a security force. Protects the head from impacts."
+	desc = "It's a special armored hat issued to the Warden of a peacemakers force. Protects the head from impacts."
 	icon_state = "policehelm"
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 60)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/warden
 
 /obj/item/clothing/head/officer
-	name = "officer's cap"
+	name = "peacemakers cap"
 	desc = "A red cap with an old-fashioned badge on the front for establishing that you are, in fact, the law."
 	icon_state = "customshelm"
 	item_state = "customshelm"
@@ -174,8 +174,8 @@
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/sec
-	name = "security beret"
-	desc = "A beret with the security insignia emblazoned on it. For officers that are more inclined towards style than safety."
+	name = "peacemakers beret"
+	desc = "A beret with the peacemakers insignia emblazoned on it. For peacemakers that are more inclined towards style than safety."
 	icon_state = "beret_officer"
 	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
 	strip_delay = 60
@@ -183,8 +183,8 @@
 	muhtar_fashion = /datum/muhtar_fashion/head/beret
 
 /obj/item/clothing/head/beret/sec/black
-	name = "black security beret"
-	desc = "A beret with the security insignia emblazoned on it. For officers that are more inclined towards style than safety."
+	name = "black peacemakers beret"
+	desc = "A beret with the peacemakers insignia emblazoned on it. For officers that are more inclined towards style than safety."
 	icon_state = "beret_officer_black"
 
 /obj/item/clothing/head/beret/sec/warden

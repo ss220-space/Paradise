@@ -86,10 +86,10 @@
 		if("Chef")
 			O = new /datum/outfit/plasmaman/chef
 
-		if("Security Officer", "Security Cadet", "Special Operations Officer")
+		if("Peacemaker", "Peacemaker Cadet", "Special Operations Officer")
 			O = new /datum/outfit/plasmaman/security
 
-		if("Security Pod Pilot")
+		if("Peacemaker Pod Pilot")
 			O = new /datum/outfit/plasmaman/security/pod
 
 		if("Detective")
@@ -98,7 +98,7 @@
 		if("Warden")
 			O = new /datum/outfit/plasmaman/warden
 
-		if("Head of Security")
+		if("Peacemakers Leader")
 			O = new /datum/outfit/plasmaman/hos
 
 		if("Cargo Technician", "Quartermaster")

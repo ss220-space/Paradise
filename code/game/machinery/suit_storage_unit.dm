@@ -77,7 +77,7 @@
 	req_access = list(ACCESS_CE)
 
 /obj/machinery/suit_storage_unit/security
-	name = "security suit storage unit"
+	name = "peacemakers suit storage unit"
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/security
 	mask_type    = /obj/item/clothing/mask/gas/sechailer
 	storage_type = /obj/item/tank/jetpack/oxygen/security
@@ -85,7 +85,7 @@
 	req_access = list(ACCESS_SECURITY)
 
 /obj/machinery/suit_storage_unit/security/hos
-	name = "head of security suit storage unit"
+	name = "peacemakers leader suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/hardsuit/security/hos
 	storage_type = /obj/item/tank/internals/oxygen/red
 	req_access = list(ACCESS_HOS)

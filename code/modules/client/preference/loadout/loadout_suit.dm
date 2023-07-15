@@ -16,14 +16,14 @@
 	subtype_cost_overlap = FALSE
 
 /datum/gear/suit/coat/job/sec
-	display_name = "winter coat, security"
+	display_name = "winter coat, peacemakers"
 	path = /obj/item/clothing/suit/hooded/wintercoat/security
-	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Cadet", "Security Pod Pilot", "Brig Physician")
+	allowed_roles = list("Peacemakers Leader", "Warden", "Detective", "Peacemaker", "Peacemaker Cadet", "Peacemaker Pod Pilot", "Brig Physician")
 
 /datum/gear/suit/coat/job/hos
-	display_name = "winter coat, head of security"
+	display_name = "winter coat, peacemakers leader"
 	path = /obj/item/clothing/suit/hooded/wintercoat/security/hos
-	allowed_roles = list("Head of Security")
+	allowed_roles = list("Peacemakers Leader")
 
 /datum/gear/suit/coat/job/captain
 	display_name = "winter coat, captain"
@@ -134,9 +134,9 @@
 	path = /obj/item/clothing/suit/jacket/miljacket/white
 
 /datum/gear/suit/secjacket
-	display_name = "security jacket"
+	display_name = "peacemakers jacket"
 	path = /obj/item/clothing/suit/armor/secjacket
-	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Cadet", "Security Pod Pilot")
+	allowed_roles = list("Peacemakers Leader", "Warden", "Detective", "Peacemaker", "Peacemaker Cadet", "Peacemaker Pod Pilot")
 
 /datum/gear/suit/coat/russian
 	display_name = "russian coat"
@@ -152,9 +152,9 @@
 
 
 /datum/gear/suit/suragi_jacket/sec
-	display_name = "Suragi Jacket - Security"
+	display_name = "Suragi Jacket - Peacemakers"
 	path = /obj/item/clothing/suit/storage/suragi_jacket/sec
-	allowed_roles = list("Warden", "Detective", "Security Officer", "Security Cadet", "Security Pod Pilot")
+	allowed_roles = list("Warden", "Detective", "Peacemaker", "Peacemaker Cadet", "Peacemaker Pod Pilot")
 
 
 /datum/gear/suit/suragi_jacket/cargo
@@ -188,7 +188,7 @@
 
 
 /datum/gear/suit/suragi_jacket/medsec
-	display_name = "Suragi Jacket - Medical Security"
+	display_name = "Suragi Jacket - Medical Peacemakers"
 	path = /obj/item/clothing/suit/storage/suragi_jacket/medsec
 	allowed_roles = list("Brig Physician")
 

@@ -1,6 +1,6 @@
 /obj/item/clothing/under/plasmaman/security
-	name = "security plasma envirosuit"
-	desc = "A plasmaman containment suit designed for security officers, offering a limited amount of extra protection."
+	name = "peacemakers plasma envirosuit"
+	desc = "A plasmaman containment suit designed for peacemakers, offering a limited amount of extra protection."
 	icon_state = "security_envirosuit"
 	item_state = "security_envirosuit"
 	item_color = "security_envirosuit"
@@ -14,8 +14,8 @@
 	item_color = "warden_envirosuit"
 
 /obj/item/clothing/under/plasmaman/security/hos
-	name = "head of security plasma envirosuit"
-	desc = "A plasmaman containment suit designed for the head of security."
+	name = "peacemakers leader plasma envirosuit"
+	desc = "A plasmaman containment suit designed for the peacemakers leader."
 	icon_state = "hos_envirosuit"
 	item_state = "hos_envirosuit"
 	item_color = "hos_envirosuit"

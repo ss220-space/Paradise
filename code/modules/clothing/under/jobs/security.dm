@@ -26,7 +26,7 @@
 	item_color = "wardenf"
 
 /obj/item/clothing/under/rank/security
-	name = "security officer's jumpsuit"
+	name = "peacemakers jumpsuit"
 	desc = "It's made of a slightly sturdier material than standard jumpsuits, to allow for robust protection."
 	icon_state = "security"
 	item_state = "r_suit"
@@ -39,44 +39,44 @@
 	random_sensor = FALSE
 
 /obj/item/clothing/under/rank/security/cadet
-	name = "security cadet jumpsuit"
+	name = "peacemakers cadet jumpsuit"
 	icon_state = "cadet_s"
 	item_color = "cadet"
 
 /obj/item/clothing/under/rank/security/cadet/skirt
-	name = "security cadet jumpskirt"
+	name = "peacemakers cadet jumpskirt"
 	icon_state = "cadetf_s"
 	item_color = "cadetf"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/rank/security/cadet/assistant
-	name = "security assistant jumpsuit"
+	name = "peacemakers assistant jumpsuit"
 	icon_state = "sec_ass_s"
 	item_color = "sec_ass"
 
 /obj/item/clothing/under/rank/security/cadet/assistant/skirt
-	name = "security assistant jumpskirt"
+	name = "peacemakers assistant jumpskirt"
 	icon_state = "sec_ass_f_s"
 	item_color = "sec_ass_f"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/rank/security/skirt
-	name = "security officer's jumpskirt"
-	desc = "Standard feminine fashion for Security Officers.  It's made of sturdier material than the standard jumpskirts."
+	name = "peacemakers jumpskirt"
+	desc = "Standard feminine fashion for Peacemakers.  It's made of sturdier material than the standard jumpskirts."
 	icon_state = "secredf"
 	item_state = "r_suit"
 	item_color = "secredf"
 
 /obj/item/clothing/under/rank/dispatch
 	name = "dispatcher's uniform"
-	desc = "A dress shirt and khakis with a security patch sewn on."
+	desc = "A dress shirt and khakis with a peacemakers patch sewn on."
 	icon_state = "dispatch"
 	item_state = "dispatch"
 	item_color = "dispatch"
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 
 /obj/item/clothing/under/rank/security2
-	name = "security officer's uniform"
+	name = "peacemakers uniform"
 	desc = "It's made of a slightly sturdier material, to allow for robust protection."
 	icon_state = "redshirt2"
 	item_state = "r_suit"
@@ -119,8 +119,8 @@
  * Head of Security
  */
 /obj/item/clothing/under/rank/head_of_security
-	desc = "It's a jumpsuit worn by those few with the dedication to achieve the position of \"Head of Security\". It has additional armor to protect the wearer."
-	name = "head of security's jumpsuit"
+	desc = "It's a jumpsuit worn by those few with the dedication to achieve the position of \"Peacemakers Leader\". It has additional armor to protect the wearer."
+	name = "peacemakers leader jumpsuit"
 	icon_state = "hos"
 	item_state = "r_suit"
 	item_color = "hosred"
@@ -128,8 +128,8 @@
 	strip_delay = 60
 
 /obj/item/clothing/under/rank/head_of_security/skirt
-	desc = "It's a fashionable jumpskirt worn by those few with the dedication to achieve the position of \"Head of Security\". It has additional armor to protect the wearer."
-	name = "head of security's jumpskirt"
+	desc = "It's a fashionable jumpskirt worn by those few with the dedication to achieve the position of \"Peacemakers Leader\". It has additional armor to protect the wearer."
+	name = "peacemakers leader jumpskirt"
 	icon_state = "hosredf"
 	item_state = "r_suit"
 	item_color = "hosredf"
@@ -147,7 +147,7 @@
 //Jensen cosplay gear
 /obj/item/clothing/under/rank/head_of_security/jensen
 	desc = "You never asked for anything that stylish."
-	name = "head of security's jumpsuit"
+	name = "peacemakers leader jumpsuit"
 	icon_state = "jensen"
 	item_state = "jensen"
 	item_color = "jensen"
@@ -155,12 +155,12 @@
 //Paradise Station
 
 /obj/item/clothing/suit/armor/hos/hosnavyjacket
-	name = "head of security navy jacket"
+	name = "peacemakers leader navy jacket"
 	icon_state = "hosdnavyjacket"
 	item_state = "hosdnavyjacket"
 
 /obj/item/clothing/suit/armor/hos/hosbluejacket
-	name = "head of security blue jacket"
+	name = "peacemakers leader blue jacket"
 	icon_state = "hosbluejacket"
 	item_state = "hosbluejacket"
 
@@ -177,22 +177,22 @@
 //TG Station
 
 /obj/item/clothing/under/rank/security/formal
-	name = "security suit"
-	desc = "A formal security suit for officers complete with nanotrasen belt buckle."
+	name = "peacemakers suit"
+	desc = "A formal peacemakers suit for officers complete with Utopia belt buckle."
 	icon_state = "security_formal"
 	item_state = "gy_suit"
 	item_color = "security_formal"
 
 /obj/item/clothing/under/rank/warden/formal
 	name = "warden's suit"
-	desc = "A formal security suit for the warden with blue desginations and '/Warden/' stiched into the shoulders."
+	desc = "A formal peacemakers suit for the warden with blue desginations and '/Warden/' stiched into the shoulders."
 	icon_state = "warden_formal"
 	item_state = "gy_suit"
 	item_color = "warden_formal"
 
 /obj/item/clothing/under/rank/head_of_security/formal
-	name = "head of security's suit"
-	desc = "A security suit decorated for those few with the dedication to achieve the position of Head of Security."
+	name = "peacemakers leader suit"
+	desc = "A peacemakers suit decorated for those few with the dedication to achieve the position of Peacemakers Leader."
 	icon_state = "hos_formal"
 	item_state = "gy_suit"
 	item_color = "hos_formal"
@@ -200,7 +200,7 @@
 
 //Brig Physician
 /obj/item/clothing/under/rank/security/brigphys
-	desc = "Jumpsuit for Brig Physician it has both medical and security protection."
+	desc = "Jumpsuit for Brig Physician it has both medical and peacemakers protection."
 	name = "brig physician's jumpsuit"
 	icon_state = "brig_phys"
 	item_state = "brig_phys"
@@ -209,7 +209,7 @@
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0, fire = 30, acid = 30)
 
 /obj/item/clothing/under/rank/security/brigphys/skirt
-	desc = "A skirted Brig Physician uniform. It has both security and medical protection."
+	desc = "A skirted Brig Physician uniform. It has both peacemakers and medical protection."
 	name = "brig physician's jumpskirt"
 	icon_state = "brig_physf"
 	item_state = "brig_physf"
@@ -217,7 +217,7 @@
 	permeability_coefficient = 0.50
 
 /obj/item/clothing/under/rank/security/brigmedical
-	desc = "Комбинезон медика СБ синего цвета 26-го века. Является компромиссом между санитарными нормами и стандартами защиты."
+	desc = "Комбинезон медика Миротворцев синего цвета 26-го века. Является компромиссом между санитарными нормами и стандартами защиты."
 	name = "brig medical's jumpsuit"
 	icon_state = "brig_medical"
 	item_state = "brig_medical"

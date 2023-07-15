@@ -371,7 +371,7 @@
 	icon_state = "Robo"
 
 /obj/effect/landmark/start/head_of_security
-	name = "Head of Security"
+	name = "Peacemakers Leader"
 	icon_state = "HoS"
 
 /obj/effect/landmark/start/warden
@@ -383,11 +383,11 @@
 	icon_state = "Det"
 
 /obj/effect/landmark/start/security_officer
-	name = "Security Officer"
+	name = "Peacemaker"
 	icon_state = "Sec"
 
 /obj/effect/landmark/start/security_cadet
-	name = "Security Cadet"
+	name = "Peacemaker Cadet"
 	icon_state = "Sec_Cadet"
 
 /obj/effect/landmark/start/brig_physician
@@ -395,7 +395,7 @@
 	icon_state = "Brig_MD"
 
 /obj/effect/landmark/start/security_pod_pilot
-	name = "Security Pod Pilot"
+	name = "Peacemaker Pod Pilot"
 	icon_state = "Security_Pod"
 
 /obj/effect/landmark/start/ai

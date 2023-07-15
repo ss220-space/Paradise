@@ -43,7 +43,7 @@
 	item_color = "hop"
 
 /obj/item/stamp/hos
-	name = "head of security's rubber stamp"
+	name = "peacemakers leader rubber stamp"
 	icon_state = "stamp-hos"
 	item_color = "hosred"
 
@@ -106,7 +106,7 @@
 	name = "BIG DENY rubber stamp"
 	icon_state = "stamp-BIGdeny"
 	item_color = "redcoat"
-	
+
 /obj/item/stamp/navcom
 	name = "Nanotrasen Naval Command rubber stamp"
 	icon_state = "stamp-navcom"

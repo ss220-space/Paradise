@@ -154,22 +154,22 @@
 	ks1type = /obj/item/encryptionkey/binary
 
 /obj/item/radio/headset/headset_sec
-	name = "security radio headset"
-	desc = "This is used by your elite security force."
+	name = "peacemakers radio headset"
+	desc = "This is used by your elite peacemakers force."
 	icon_state = "sec_headset"
 	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/headset_sec
 
 /obj/item/radio/headset/headset_sec/alt
-	name = "security bowman headset"
-	desc = "This is used by your elite security force. Protects ears from flashbangs."
+	name = "peacemakers bowman headset"
+	desc = "This is used by your elite peacemakers force. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	icon_state = "sec_headset_alt"
 	item_state = "sec_headset_alt"
 
 /obj/item/radio/headset/headset_brigphys
 	name = "brig physician's bowman headset"
-	desc = "This is used by your elite security's medical personnel. Protects ears from flashbangs."
+	desc = "This is used by your elite peacemakers medical personnel. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	icon_state = "sec_headset_alt"
 	item_state = "sec_headset_alt"
@@ -247,14 +247,14 @@
 	ks2type = /obj/item/encryptionkey/heads/rd
 
 /obj/item/radio/headset/heads/hos
-	name = "head of security's headset"
+	name = "peacemakers leader headset"
 	desc = "The headset of the man who protects your worthless lives."
 	icon_state = "com_headset"
 	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/hos
 
 /obj/item/radio/headset/heads/hos/alt
-	name = "\proper the head of security's bowman headset"
+	name = "\proper the peacemakers leader bowman headset"
 	desc = "The headset of the man in charge of keeping order and protecting the station. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"

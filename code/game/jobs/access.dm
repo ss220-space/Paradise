@@ -195,7 +195,7 @@
 		if(REGION_GENERAL) //station general
 			return "General"
 		if(REGION_SECURITY) //security
-			return "Security"
+			return "Peacemakers"
 		if(REGION_MEDBAY) //medbay
 			return "Medbay"
 		if(REGION_RESEARCH) //research
@@ -219,7 +219,7 @@
 		if(ACCESS_CARGO_BOT)
 			return "Cargo Bot Delivery"
 		if(ACCESS_SECURITY)
-			return "Security"
+			return "Peacemakers"
 		if(ACCESS_BRIG)
 			return "Holding Cells"
 		if(ACCESS_COURT)
@@ -331,7 +331,7 @@
 		if(ACCESS_HOP)
 			return "Head of Personnel"
 		if(ACCESS_HOS)
-			return "Head of Security"
+			return "Peacemakers Leader"
 		if(ACCESS_CE)
 			return "Chief Engineer"
 		if(ACCESS_RC_ANNOUNCE)
@@ -355,7 +355,7 @@
 		if(ACCESS_MECHANIC)
 			return "Mechanic Workshop"
 		if(ACCESS_PILOT)
-			return "Security Pod Pilot"
+			return "Peacemaker Pod Pilot"
 		if(ACCESS_MAGISTRATE)
 			return "Magistrate"
 		if(ACCESS_MINERAL_STOREROOM)
@@ -374,7 +374,7 @@
 		if(ACCESS_CENT_MEDICAL)
 			return "Medical"
 		if(ACCESS_CENT_SECURITY)
-			return "Security"
+			return "Peacemakers"
 		if(ACCESS_CENT_STORAGE)
 			return "Storage"
 		if(ACCESS_CENT_SHUTTLES)

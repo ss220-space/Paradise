@@ -1,5 +1,5 @@
 /datum/job/hos
-	title = "Head of Security"
+	title = "Peacemakers Leader"
 	flag = JOB_HOS
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
@@ -25,7 +25,7 @@
 	outfit = /datum/outfit/job/hos
 
 /datum/outfit/job/hos
-	name = "Head of Security"
+	name = "Peacemakers Leader"
 	jobtype = /datum/job/hos
 
 	uniform = /obj/item/clothing/under/rank/head_of_security
@@ -162,7 +162,7 @@
 	H.check_mutations = 1
 
 /datum/job/officer
-	title = "Security Officer"
+	title = "Peacemaker"
 	flag = JOB_OFFICER
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 7
@@ -180,7 +180,7 @@
 	outfit = /datum/outfit/job/officer
 
 /datum/outfit/job/officer
-	name = "Security Officer"
+	name = "Peacemaker"
 	jobtype = /datum/job/officer
 	uniform = /obj/item/clothing/under/rank/security
 	suit = /obj/item/clothing/suit/armor/vest/security
@@ -203,7 +203,7 @@
 
 
 /datum/job/officer/cadet
-	title = "Security Cadet"
+	title = "Peacemaker Cadet"
 	flag = JOB_CADET
 	total_positions = 3
 	spawn_positions = 3
@@ -218,7 +218,7 @@
 	outfit = /datum/outfit/job/officer/cadet
 
 /datum/outfit/job/officer/cadet
-	name = "Security Cadet"
+	name = "Peacemaker Cadet"
 	jobtype = /datum/job/officer/cadet
 	uniform = /obj/item/clothing/under/rank/security/cadet
 	head = /obj/item/clothing/head/soft/sec
@@ -234,11 +234,11 @@
 		uniform = /obj/item/clothing/under/rank/security/cadet/skirt
 	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
-			if("Security Assistant")
+			if("Peacemakers Assistant")
 				uniform = /obj/item/clothing/under/rank/security/cadet/assistant
 				if(H.gender == FEMALE)
 					uniform = /obj/item/clothing/under/rank/security/cadet/assistant/skirt
-			if("Security Graduate")
+			if("Peacemakers Graduate")
 				head = /obj/item/clothing/head/beret/sec
 
 /datum/job/brigdoc
@@ -277,7 +277,7 @@
 
 
 /datum/job/pilot
-	title = "Security Pod Pilot"
+	title = "Peacemaker Pod Pilot"
 	flag = JOB_PILOT
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
@@ -294,7 +294,7 @@
 	outfit = /datum/outfit/job/pilot
 
 /datum/outfit/job/pilot
-	name = "Security Pod Pilot"
+	name = "Peacemaker Pod Pilot"
 	jobtype = /datum/job/pilot
 	uniform = /obj/item/clothing/under/rank/security/pod_pilot
 	suit = /obj/item/clothing/suit/jacket/pilot

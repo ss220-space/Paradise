@@ -63,7 +63,7 @@
 					else
 						job = pick(GLOB.supply_positions)
 						result = pick_list_weight("ambition_objectives_supply.json", job)
-				if("Head of Security")
+				if("Peacemakers Leader")
 					job = pick(GLOB.security_positions)
 					result = pick_list_weight("ambition_objectives_security.json", job)
 				if("Chief Engineer")

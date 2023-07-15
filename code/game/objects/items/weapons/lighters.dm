@@ -193,7 +193,7 @@
 	icon_off = "zippo_hop"
 
 /obj/item/lighter/zippo/hos
-	name = "Head of Security zippo"
+	name = "Peacemakers Leader zippo"
 	desc = "A limited edition Zippo for NT Heads. Fuel it with clown's tears."
 	icon_state = "zippo_hos"
 	item_state = "hoszippo"

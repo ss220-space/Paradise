@@ -78,7 +78,7 @@
 */
 
 /obj/structure/closet/secure_closet/hos
-	name = "head of security's locker"
+	name = "peacemakers leader locker"
 	req_access = list(ACCESS_HOS)
 	icon_state = "hossecure1"
 	icon_closed = "hossecure"
@@ -148,7 +148,7 @@
 	new /obj/item/ammo_box/magazine/sp8(src)
 
 /obj/structure/closet/secure_closet/security
-	name = "security officer's locker"
+	name = "peacemaker locker"
 	req_access = list(ACCESS_SECURITY)
 	icon_state = "sec1"
 	icon_closed = "sec"

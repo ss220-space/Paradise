@@ -1970,8 +1970,8 @@
 	toysay = "Papers, please!"
 
 /obj/item/toy/figure/hos
-	name = "Head of Security action figure"
-	desc = "The bloodlust-filled Head of Security, from Space Life's SS12 figurine collection."
+	name = "Peacemakers Leader action figure"
+	desc = "The bloodlust-filled Peacemakers Leader, from Space Life's SS12 figurine collection."
 	icon_state = "hos"
 	toysay = "Space law? What?"
 
@@ -2054,8 +2054,8 @@
 	toysay = "Get that fucking disk!"
 
 /obj/item/toy/figure/secofficer
-	name = "Security Officer action figure"
-	desc = "The power-tripping Security Officer, from Space Life's SS12 figurine collection."
+	name = "Peacemaker action figure"
+	desc = "The power-tripping Peacemaker, from Space Life's SS12 figurine collection."
 	icon_state = "secofficer"
 	toysay = "I am the law!"
 

@@ -420,7 +420,7 @@
 	icon_state = "winterhood_captain"
 
 /obj/item/clothing/suit/hooded/wintercoat/security
-	name = "security winter coat"
+	name = "peacemakers winter coat"
 	icon_state = "wintercoat_sec"
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatsecurity"
@@ -432,7 +432,7 @@
 	icon_state = "winterhood_sec"
 
 /obj/item/clothing/suit/hooded/wintercoat/security/hos
-	name = "head of securiry winter coat"
+	name = "peacemakers leader winter coat"
 	icon_state = "wintercoat_hos"
 	item_state = "coathos"
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/security/hos
@@ -907,8 +907,8 @@
 		)
 
 /obj/item/clothing/suit/jacket/pilot
-	name = "security bomber jacket"
-	desc = "A stylish and worn-in armoured black bomber jacket emblazoned with the NT Security crest on the left breast. Looks rugged."
+	name = "peacemakers bomber jacket"
+	desc = "A stylish and worn-in armoured black bomber jacket emblazoned with the Peacemakers crest on the left breast. Looks rugged."
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "bombersec"
 	item_state = "bombersec"
@@ -1187,7 +1187,7 @@
 	armor = list("melee" = 5, "bullet" = 2, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 
 /obj/item/clothing/suit/storage/suragi_jacket/sec
-	name = "Security Suragi Jacket"
+	name = "Peacemakers Suragi Jacket"
 	desc = "Standard issue black and red jacket manufactured by Suragi Kit. Extremely durable. Is that a blood stain?"
 	icon_state = "suragi_jacket_sec"
 	item_state = "suragi_jacket_sec"
@@ -1236,7 +1236,7 @@
 	/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/telescopic, /obj/item/stack/medical, /obj/item/paper, /obj/item/rad_laser)
 
 /obj/item/clothing/suit/storage/suragi_jacket/medsec
-	name = "Medical Security Suragi Jacket"
+	name = "Medical Peacemakers Suragi Jacket"
 	desc = "Standard issue white and red jacket manufactured by Suragi Kit. Extremely durable. Wear this and every single soul will know that you didn't take the Hippocratic Oath."
 	icon_state = "suragi_jacket_brigmed"
 	item_state = "suragi_jacket_brigmed"

@@ -17,13 +17,13 @@
 	colour = "#535353"
 
 /obj/item/clothing/neck/cloak/head_of_security
-	name = "head of security's cloak"
+	name = "peacemakers leader cloak"
 	desc = "Worn by the leader of Brigston, ruling the station with an iron fist."
 	icon_state = "hoscloak"
 
 /obj/item/clothing/neck/cloak/security
-	name = "security officer's cloak"
-	desc = "Worn by security officers."
+	name = "peacemakers cloak"
+	desc = "Worn by peacemakers."
 	icon_state = "seccloak"
 
 /obj/item/clothing/neck/cloak/quartermaster

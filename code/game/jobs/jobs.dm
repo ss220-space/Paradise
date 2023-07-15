@@ -5,7 +5,7 @@ GLOBAL_LIST_EMPTY(assistant_occupations)
 GLOBAL_LIST_INIT(command_positions, list(
 	"Captain",
 	"Head of Personnel",
-	"Head of Security",
+	"Peacemakers Leader",
 	"Chief Engineer",
 	"Research Director",
 	"Chief Medical Officer",
@@ -47,14 +47,14 @@ GLOBAL_LIST_INIT(science_positions, list(
 ))
 
 GLOBAL_LIST_INIT(security_positions, list(
-	"Head of Security",
+	"Peacemakers Leader",
 	"Warden",
 	"Detective",
-	"Security Officer",
+	"Peacemaker",
 	"Brig Physician",
-	"Security Pod Pilot",
+	"Peacemaker Pod Pilot",
 	"Magistrate",
-	"Security Cadet"
+	"Peacemaker Cadet"
 ))
 
 GLOBAL_LIST_INIT(technically_security_positions,(
@@ -110,7 +110,7 @@ GLOBAL_LIST_INIT(whitelisted_positions, list(
 	"Mechanic",
 	"Brig Physician",
 	"Magistrate",
-	"Security Pod Pilot",
+	"Peacemaker Pod Pilot",
 ))
 
 

@@ -107,8 +107,8 @@
 		H.remove_hud_from(user)
 
 /obj/item/clothing/head/helmet/space/plasmaman/security
-	name = "security plasma envirosuit helmet"
-	desc = "A plasmaman containment helmet designed for security officers, protecting them from being flashed and burning alive, alongside other undesirables."
+	name = "peacemakers plasma envirosuit helmet"
+	desc = "A plasmaman containment helmet designed for peacemakers, protecting them from being flashed and burning alive, alongside other undesirables."
 	icon_state = "security_envirohelm"
 	item_state = "security_envirohelm"
 	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 25, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 50)
@@ -131,8 +131,8 @@
 	item_state = "warden_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/hos
-	name = "security plasma envirosuit helmet"
-	desc = "A plasmaman containment helmet designed for the head of security."
+	name = "peacemakers plasma envirosuit helmet"
+	desc = "A plasmaman containment helmet designed for the peacemakers leader."
 	icon_state = "hos_envirohelm"
 	item_state = "hos_envirohelm"
 
