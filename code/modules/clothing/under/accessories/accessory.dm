@@ -355,8 +355,9 @@
 		to_chat(usr, "Waving around a badge before swiping an ID would be pretty pointless.")
 		return
 	if(isliving(usr))
-		user.visible_message("<span class='warning'>[user] displays [user.p_their()] Utopia Peacemakers Badge.\nIt reads: [stored_name], Peacemaker.</span>",
-		"<span class='warning'>You display your Utopia Peacemakers Badge.\nIt reads: [stored_name], Peacemaker.</span>")
+		usr.visible_message("<span class='warning'>[usr] displays [usr.p_their()] You display your Utopia Peacemakers Badge.\nIt reads: [holobadge_ref.stored_name], Peacemaker.</span>",
+		"<span class='warning'>You display your Utopia Peacemakers Badge.\nIt reads: [holobadge_ref.stored_name], Peacemaker.</span>")
+
 //////////////
 //OBJECTION!//
 //////////////
