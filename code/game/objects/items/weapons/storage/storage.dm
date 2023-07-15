@@ -129,28 +129,8 @@
 			update_icon() // For content-sensitive icons
 			return
 
-		if(!(istype(over_object, /obj/screen)))
-			return ..()
-		if(!(loc == usr) || (loc && loc.loc == usr))
-			return
-		playsound(loc, "rustle", 50, TRUE, -5)
-		if(!(M.restrained()) && !(M.stat))
-			switch(over_object.name)
-				if("r_hand")
-					if(!M.drop_item_ground(src))
-						return
-					M.put_in_r_hand(src, ignore_anim = FALSE)
-				if("l_hand")
-					if(!M.drop_item_ground(src))
-						return
-					M.put_in_l_hand(src, ignore_anim = FALSE)
-			add_fingerprint(usr)
-			return
-		if(over_object == usr && in_range(src, usr) || usr.contents.Find(src))
-			if(usr.s_active)
-				usr.s_active.close(usr)
-			open(usr)
-			return
+		return ..()
+
 
 /obj/item/storage/AltClick(mob/user)
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
@@ -378,6 +358,13 @@
 		to_chat(usr, "<span class='notice'>\the [W] is stuck to your hand, you can't put it in \the [src]</span>")
 		return FALSE
 
+	// item unequip delay
+	if(usr && W.equip_delay_self && W.is_equipped(include_pockets = TRUE) && !usr.is_general_slot(usr.get_slot_by_item(W)))
+		usr.visible_message(span_notice("[usr] начинает снимать [W.name]..."), \
+							span_notice("Вы начинаете снимать [W.name]..."))
+		if(!do_after_once(usr, W.equip_delay_self, target = usr, attempt_cancel_message = "Снятие [W.name] было прервано!"))
+			return FALSE
+
 	return TRUE
 
 //This proc handles items being inserted. It does not perform any checks of whether an item can or can't be inserted. That's done by can_be_inserted()
@@ -426,6 +413,9 @@
 		orient2hud(usr)
 		if(usr.s_active)
 			usr.s_active.show_to(usr)
+
+	W.pixel_y = initial(W.pixel_y)
+	W.pixel_x = initial(W.pixel_x)
 	W.mouse_opacity = MOUSE_OPACITY_OPAQUE //So you can click on the area around the item to equip it, instead of having to pixel hunt
 	W.in_inventory = TRUE
 	update_icon()
@@ -452,6 +442,8 @@
 			W.layer = ABOVE_HUD_LAYER
 			W.plane = ABOVE_HUD_PLANE
 		else
+			W.pixel_y = initial(W.pixel_y)
+			W.pixel_x = initial(W.pixel_x)
 			W.layer = initial(W.layer)
 			W.plane = initial(W.plane)
 		if(usr && config.item_animations_enabled)
