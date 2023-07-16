@@ -108,6 +108,7 @@
 
 /mob // On `/mob` for now, to support legacy code
 	var/confused = 0
+	var/disoriented = 0
 	var/cultslurring = 0
 	var/clockslurring = 0
 	var/dizziness = 0
@@ -151,17 +152,22 @@
 
 // CONFUSED
 
-/mob/living/Confused(amount)
-	SetConfused(max(confused, amount))
+/mob/living/Confused(amount, set_disoriented = FALSE)
+	SetConfused(max(confused, amount), set_disoriented)
 
-/mob/living/SetConfused(amount)
+/mob/living/SetConfused(amount, set_disoriented = FALSE)
 	confused = max(amount, 0)
 	if(status_flags & GODMODE)
 		confused = 0
 
-/mob/living/AdjustConfused(amount, bound_lower = 0, bound_upper = INFINITY)
+	if(set_disoriented)
+		disoriented = set_disoriented
+	if(!confused)
+		disoriented = FALSE
+
+/mob/living/AdjustConfused(amount, bound_lower = 0, bound_upper = INFINITY, set_disoriented = FALSE)
 	var/new_value = directional_bounded_sum(confused, amount, bound_lower, bound_upper)
-	SetConfused(new_value)
+	SetConfused(new_value, set_disoriented)
 
 // DIZZY
 
