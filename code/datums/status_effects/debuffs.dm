@@ -209,6 +209,27 @@
 	return ..()
 
 /**
+ * # Disoriented
+ *
+ * Modification of confusion effect. Makes you crash and take damage if confused
+ */
+/datum/status_effect/transient/disoriented
+	id = "disoriented"
+
+/datum/status_effect/transient/disoriented/on_creation(mob/living/new_owner)
+	strength = 1
+	. = ..()
+
+/datum/status_effect/transient/disoriented/tick()
+	if(QDELETED(src) || QDELETED(owner))
+		return FALSE
+	. = TRUE
+	if(strength <= 0)
+		if(owner.get_confusion() <= 0)
+			qdel(src)
+			return FALSE
+
+/**
  * # Dizziness
  *
  * Slightly offsets the client's screen randomly every tick.

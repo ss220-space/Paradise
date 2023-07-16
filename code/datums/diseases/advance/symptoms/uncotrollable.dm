@@ -164,9 +164,9 @@ Uncontrollable Actions
 	var/obj/item/target = locate(/obj/item) in shuffle(targets)
 	if(istype(target))
 		target.forceMove(get_turf(H))
-		H.put_in_hands(I)
+		H.put_in_hands(target)
 
-/datum/symptom/obsession/proc/GunAttack(mob/living/carbon/human/aggressor, obj/item/gun/attacking_item)
+/datum/symptom/obsession/proc/UseGun(mob/living/carbon/human/aggressor, obj/item/gun/attacking_item)
 	var/list/targets = range(7, aggressor)
 	var/turf/target = locate(/turf) in shuffle(targets)
 	if(istype(target))
