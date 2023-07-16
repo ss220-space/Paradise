@@ -2247,7 +2247,8 @@
 		/obj/item/ammo_box/c46x30mm = 8,
 		/obj/item/ammo_box/inc46x30mm = 4,
 		/obj/item/ammo_box/tox46x30mm = 4,
-		/obj/item/ammo_box/ap46x30mm = 4
+		/obj/item/ammo_box/ap46x30mm = 4,
+		/obj/item/ammo_box/laserammobox = 4
 	)
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/grenade/clusterbuster/apocalypsefake = 1)
 	refill_canister = /obj/item/vending_refill/nta
