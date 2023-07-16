@@ -63,3 +63,13 @@
 /datum/disease/advance/preset/aggression
 	name = "Uncontrollable Aggression"
 	symptoms = list(new/datum/symptom/aggression)
+
+//Uncontrollable Actions
+/datum/disease/advance/preset/obsession
+	name = "Uncontrollable Actions"
+	symptoms = list(new/datum/symptom/obsession)
+
+//Uncontrollable Aggression
+/datum/disease/advance/preset/confusion
+	name = "Topographical Cretinism"
+	symptoms = list(new/datum/symptom/confusion)

@@ -353,6 +353,18 @@
 	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/advance/preset/aggression
 
+/obj/item/reagent_containers/glass/bottle/obsession
+	name = "obsession"
+	desc = "obsession"
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/advance/preset/obsession
+
+/obj/item/reagent_containers/glass/bottle/confusion
+	name = "confusion"
+	desc = "confusion"
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/advance/preset/confusion
+
 /obj/item/reagent_containers/glass/bottle/retrovirus
 	name = "Retrovirus culture bottle"
 	desc = "A small bottle. Contains a retrovirus culture in a synthblood medium."
