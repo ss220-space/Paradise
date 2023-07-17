@@ -103,6 +103,7 @@
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
 		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/suit.dmi',
 		"Draconid" = 'icons/mob/species/unathi/suit.dmi'
 		)
 

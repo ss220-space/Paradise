@@ -506,3 +506,16 @@
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(/obj/item/slime_extract,/obj/item/reagent_containers/food/snacks/monkeycube,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/glass/bottle,/obj/item/reagent_containers/iv_bag,/obj/item/reagent_containers/hypospray/autoinjector)
 	resistance_flags = FLAMMABLE
+
+/*
+ *  Medicinal Pouch (mostly for ashwalkers)
+ */
+
+/obj/item/storage/bag/medpouch
+	name = "medicinal pouch"
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "pouch_ash"
+	desc = "A small pouch for holding plants, poultices, resin, and pestles."
+	storage_slots = 40
+	max_combined_w_class = 200
+	can_hold = list(/obj/item/reagent_containers/food/snacks/grown, /obj/item/stack/medical)

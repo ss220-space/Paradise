@@ -201,6 +201,7 @@
 		"Neara" = 'icons/mob/species/monkey/suit.dmi',
 		"Stok" = 'icons/mob/species/monkey/suit.dmi',
 		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/suit.dmi',
 		"Draconid" = 'icons/mob/species/unathi/suit.dmi',
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
 		)
@@ -559,6 +560,7 @@
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
 		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/suit.dmi',
 		"Draconid" = 'icons/mob/species/unathi/suit.dmi'
 		)
 
@@ -609,6 +611,7 @@
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
 		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/suit.dmi',
 		"Draconid" = 'icons/mob/species/unathi/suit.dmi'
 		)
 

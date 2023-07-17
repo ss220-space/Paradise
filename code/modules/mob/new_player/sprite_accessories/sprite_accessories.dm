@@ -543,6 +543,7 @@
 	"Vox" = 'icons/mob/species/vox/underwear.dmi',
 	"Unathi" = 'icons/mob/species/unathi/underwear.dmi',
 	"Ash Walker" = 'icons/mob/species/unathi/underwear.dmi',
+	"Ash Walker Shaman" = 'icons/mob/species/unathi/underwear.dmi',
 	"Draconid" = 'icons/mob/species/unathi/underwear.dmi')
 	gender = NEUTER
 

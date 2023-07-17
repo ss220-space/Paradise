@@ -577,3 +577,9 @@
 	desc = "Now just to find some maracas!"
 	icon_state = "cuban_hat"
 	item_state = "cuban_hat"
+
+/obj/item/clothing/head/shamanash
+	name = "shaman skull"
+	desc = "The skull of a long dead animal bolted to the front of a repurposed pan."
+	icon_state = "shamskull"
+	species_restricted = list("Unathi", "Ash Walker", "Ash Walker Shaman", "Draconid")

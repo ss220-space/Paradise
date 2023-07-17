@@ -196,6 +196,7 @@
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
 	sprite_sheets = list(
 		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/suit.dmi',
 		"Draconid" = 'icons/mob/species/unathi/suit.dmi',
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
 		)
@@ -305,6 +306,7 @@
 	hoodtype = /obj/item/clothing/head/hooded/carp_hood
 	sprite_sheets = list(
 		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/suit.dmi',
 		"Draconid" = 'icons/mob/species/unathi/suit.dmi',
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
 		)
@@ -360,6 +362,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	sprite_sheets = list(
 		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/suit.dmi',
 		"Draconid" = 'icons/mob/species/unathi/suit.dmi',
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
 		)
@@ -662,6 +665,7 @@
 	breakouttime = 3000
 	sprite_sheets = list(
 		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/suit.dmi',
 		"Draconid" = 'icons/mob/species/unathi/suit.dmi',
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
 		)
@@ -833,6 +837,7 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	sprite_sheets = list(
 		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/suit.dmi',
 		"Draconid" = 'icons/mob/species/unathi/suit.dmi',
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
 		)

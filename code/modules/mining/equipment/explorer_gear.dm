@@ -21,6 +21,7 @@
 		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
 		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/suit.dmi',
 		"Draconid" = 'icons/mob/species/unathi/suit.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
 		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
@@ -170,6 +171,7 @@
 		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
 		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
 		"Ash Walker" = 'icons/mob/species/unathi/helmet.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/helmet.dmi',
 		"Draconid" = 'icons/mob/species/unathi/helmet.dmi',
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
@@ -189,6 +191,7 @@
 		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
 		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/suit.dmi',
 		"Draconid" = 'icons/mob/species/unathi/suit.dmi',
 		"Vox" = 'icons/mob/species/vox/suit.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi'
