@@ -8,17 +8,14 @@ GLOBAL_LIST_INIT(command_positions, list(
 	"Peacemakers Leader",
 	"Chief Engineer",
 	"Research Director",
-	"Chief Medical Officer",
-	"Nanotrasen Representative"
+	"Chief Medical Officer"
 ))
 
 
 GLOBAL_LIST_INIT(engineering_positions, list(
 	"Chief Engineer",
 	"Station Engineer",
-	"Life Support Specialist",
-	"Mechanic",
-	"Trainee Engineer"
+	"Mechanic"
 ))
 
 
@@ -41,9 +38,7 @@ GLOBAL_LIST_INIT(additional_medical_positions, list(
 GLOBAL_LIST_INIT(science_positions, list(
 	"Research Director",
 	"Scientist",
-	"Geneticist",	//Part of both medical and science
-	"Roboticist",
-	"Student Scientist"
+	"Geneticist"	//Part of both medical and science
 ))
 
 GLOBAL_LIST_INIT(security_positions, list(
@@ -51,9 +46,7 @@ GLOBAL_LIST_INIT(security_positions, list(
 	"Warden",
 	"Detective",
 	"Peacemaker",
-	"Brig Physician",
 	"Peacemaker Pod Pilot",
-	"Magistrate",
 	"Peacemaker Cadet"
 ))
 
@@ -76,11 +69,7 @@ GLOBAL_LIST_INIT(support_positions, list(
 	"Chaplain",
 	"Clown",
 	"Mime",
-	"Barber",
-	"Magistrate",
-	"Nanotrasen Representative",
-	"Blueshield",
-	"Explorer"
+	"Barber"
 ))
 
 GLOBAL_LIST_INIT(supply_positions, list(
@@ -93,7 +82,8 @@ GLOBAL_LIST_INIT(supply_positions, list(
 GLOBAL_LIST_INIT(service_positions, (list("Head of Personnel") + (support_positions - supply_positions)))
 
 GLOBAL_LIST_INIT(civilian_positions, list(
-	"Civilian"
+	"Civilian",
+	"Prisoner"
 ))
 
 GLOBAL_LIST_INIT(nonhuman_positions, list(
@@ -104,13 +94,9 @@ GLOBAL_LIST_INIT(nonhuman_positions, list(
 ))
 
 GLOBAL_LIST_INIT(whitelisted_positions, list(
-	"Blueshield",
-	"Nanotrasen Representative",
 	"Barber",
 	"Mechanic",
-	"Brig Physician",
-	"Magistrate",
-	"Peacemaker Pod Pilot",
+	"Peacemaker Pod Pilot"
 ))
 
 

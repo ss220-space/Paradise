@@ -26,4 +26,23 @@
 	l_pocket = /obj/item/paper/deltainfo
 	shoes = /obj/item/clothing/shoes/black
 
+/datum/job/prisoner
+	title = "Prisoner"
+	flag = JOB_PRISONER
+	department_flag = JOBCAT_SUPPORT
+	total_positions = 0
+	spawn_positions = 2
+	supervisors = "Warden"
+	department_head = list("Head of Security", "Warden", "Security Officer")
+	selection_color = "#dddddd"
+	access = list()
+	minimal_access = list()
+	outfit = /datum/outfit/job/prisoner
 
+/datum/outfit/job/prisoner
+	name = "Prisoner"
+	jobtype = /datum/job/prisoner
+
+	uniform = /obj/item/clothing/under/color/orange
+	shoes = /obj/item/clothing/shoes/orange
+	id = /obj/item/card/id/prisoner

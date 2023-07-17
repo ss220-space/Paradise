@@ -75,7 +75,7 @@
 
 /datum/storeitem/crayons
 	name = "Crayons"
-	desc = "Let security know how they're doing by scrawling love notes all over their hallways."
+	desc = "Let peacemakers know how they're doing by scrawling love notes all over their hallways."
 	typepath = /obj/item/storage/fancy/crayons
 	cost = 175
 

@@ -620,7 +620,8 @@
 	text = replacetext(text, "</td></tr></table>",		"\[/grid\]")
 	text = replacetext(text, "</td><tr>",				"\[row\]")
 	text = replacetext(text, "<td>",					"\[cell\]")
-	text = replacetext(text, "<img src = ntlogo.png>",	"\[logo\]")
+	text = replacetext(text, "<img src = ntlogo.png>",	"\[ntlogo\]")
+	text = replacetext(text, "<img src = utopialogo.png>",	"\[utlogo\]")
 	text = replacetext(text, "<img src = syndielogo.png>",	"\[slogo\]")
 	text = replacetext(text, "<img src = ussplogo.png>",	"\[ussplogo\]")
 	return text

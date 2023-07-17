@@ -388,8 +388,8 @@
 	icon_state = "poster1_legit"
 
 /obj/structure/sign/poster/official/nanotrasen_logo
-	name = "Nanotrasen Logo"
-	desc = "A poster depicting the Nanotrasen logo."
+	name = "Utopia Station"
+	desc = "A poster depicting the Utopia logo."
 	icon_state = "poster2_legit"
 
 /obj/structure/sign/poster/official/cleanliness

@@ -5,8 +5,8 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "Nanotrasen officials"
-	department_head = list("Nanotrasen Navy Officer")
+	supervisors = "Crew"
+	department_head = list("Central Command Navy Officer")
 	selection_color = "#ccccff"
 	req_admin_notify = 1
 	is_command = 1
@@ -106,7 +106,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	implants = list()
 
 
-
+/*
 /datum/job/nanotrasenrep
 	title = "Nanotrasen Representative"
 	flag = JOB_NANO
@@ -208,7 +208,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the Nanotrasen Supreme Court"
+	supervisors = "Law NSS Utopia"
 	department_head = list("Captain")
 	selection_color = "#ddddff"
 	req_admin_notify = 1
@@ -291,3 +291,4 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
 	box = /obj/item/storage/box/survival_laws
+*/

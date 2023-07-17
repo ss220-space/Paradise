@@ -240,8 +240,8 @@ GLOBAL_LIST_EMPTY(all_objectives)
 
 /datum/objective/hijack
 	martyr_compatible = 0 //Technically you won't get both anyway.
-	explanation_text = "Hijack the shuttle by escaping on it with no loyalist Nanotrasen crew on board and free. \
-	Syndicate agents, other enemies of Nanotrasen, cyborgs, pets, and cuffed/restrained hostages may be allowed on the shuttle alive."
+	explanation_text = "Hijack the shuttle by escaping on it with no loyalist Utopia crew on board and free. \
+	Syndicate agents, other enemies of Utopia, cyborgs, pets, and cuffed/restrained hostages may be allowed on the shuttle alive."
 
 /datum/objective/hijack/check_completion()
 	if(!owner.current || owner.current.stat)
@@ -887,7 +887,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 //wizard
 
 /datum/objective/wizchaos
-	explanation_text = "Wreak havoc upon the station as much you can. Send those wandless Nanotrasen scum a message!"
+	explanation_text = "Wreak havoc upon the station as much you can. Send those wandless Utopia scum a message!"
 	completed = 1
 
 //Space Ninja
