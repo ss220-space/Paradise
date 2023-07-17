@@ -45,7 +45,7 @@
 			var/distance = get_dist_euclidian(location,C)
 			C.flash_eyes()
 			C.Weaken((boom_sizes[2] - distance) * 1 SECONDS) //1 second for how close you are to center if you're in range
-			C.AdjustEarDamage(0, (boom_sizes[3] - distance) * 5) //5 ear damage for every tile you're closer to the center
+			C.AdjustDeaf(0, (boom_sizes[3] - distance) * 10 SECONDS) // i dont know what am i doing
 			to_chat(C, span_warning("<font size='2'><b>You are knocked down by the power of the mining charge!</font></b>"))
 	qdel(src)
 
