@@ -13,7 +13,7 @@
 	name = "revolution"
 	config_tag = "revolution"
 	restricted_jobs = list("Peacemaker", "Peacemaker Cadet", "Warden", "Detective", "Internal Affairs Agent", "AI", "Cyborg","Captain", "Head of Personnel", "Peacemakers Leader", "Chief Engineer", "Research Director", "Chief Medical Officer", "Blueshield", "Nanotrasen Representative", "Peacemaker Pod Pilot", "Magistrate", "Brig Physician")
-	required_players = 20
+	required_players = 0
 	required_enemies = 1
 	recommended_enemies = 3
 

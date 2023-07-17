@@ -5,7 +5,7 @@
 /datum/game_mode/wizard
 	name = "wizard"
 	config_tag = "wizard"
-	required_players = 20
+	required_players = 0
 	required_enemies = 1
 	recommended_enemies = 1
 	var/use_huds = 1

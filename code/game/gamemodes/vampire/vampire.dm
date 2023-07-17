@@ -13,7 +13,7 @@
 	restricted_jobs = list("AI", "Cyborg")
 	protected_jobs = list("Security Officer", "Security Cadet", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer", "Special Operations Officer", "Supreme Commander", "Syndicate Officer")
 	protected_species = list("Machine", "Голем")
-	required_players = 15
+	required_players = 8
 	required_enemies = 1
 	recommended_enemies = 4
 

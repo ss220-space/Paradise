@@ -74,7 +74,7 @@
 /obj/item/storage/lockbox/hear_message(mob/living/M as mob, msg)
 
 /obj/item/storage/lockbox/mindshield
-	name = "Lockbox (Mindshield Implants)"
+	name = "Lockbox (Insights Implants)"
 	req_access = list(ACCESS_SECURITY)
 
 /obj/item/storage/lockbox/mindshield/populate_contents()

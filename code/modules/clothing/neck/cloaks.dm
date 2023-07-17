@@ -53,7 +53,7 @@
 
 /obj/item/clothing/neck/cloak/captain
 	name = "captain's cloak"
-	desc = "Worn by the supreme leader of the NSS Cyberiad."
+	desc = "Worn by the supreme leader of the NSS Utopia."
 	icon_state = "capcloak"
 
 /obj/item/clothing/neck/cloak/captain/Initialize(mapload)

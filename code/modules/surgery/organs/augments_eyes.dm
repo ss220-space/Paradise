@@ -121,8 +121,8 @@
 	HUD_type = DATA_HUD_DIAGNOSTIC
 
 /obj/item/organ/internal/cyberimp/eyes/hud/security
-	name = "Security HUD implant"
-	desc = "These cybernetic eye implants will display a security HUD over everything you see."
+	name = "Peacemakers HUD implant"
+	desc = "These cybernetic eye implants will display a peacemakers HUD over everything you see."
 	eye_colour = "#D00000"
 	implant_color = "#CC0000"
 	origin_tech = "materials=4;programming=4;biotech=3;combat=3"

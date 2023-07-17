@@ -4,7 +4,7 @@
 /datum/game_mode/space_ninja
 	name = "Space Ninja"
 	config_tag = "space-ninja"
-	required_players = 25
+	required_players = 5
 	required_enemies = 1
 	recommended_enemies = 1
 	var/use_huds = 1

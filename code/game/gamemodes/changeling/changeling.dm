@@ -13,7 +13,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	restricted_jobs = list("AI", "Cyborg")
 	protected_jobs = list("Security Officer", "Peacemaker Cadet", "Warden", "Detective", "Peacemakers Leader", "Captain", "Blueshield", "Nanotrasen Representative", "Peacemaker Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer", "Special Operations Officer", "Supreme Commander", "Syndicate Officer")
 	protected_species = list("Machine")
-	required_players = 15
+	required_players = 7
 	required_enemies = 1
 	recommended_enemies = 4
 

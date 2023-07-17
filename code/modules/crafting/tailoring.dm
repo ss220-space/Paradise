@@ -58,7 +58,7 @@
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/hudsunsec
-	name = "Security HUDsunglasses"
+	name = "Peacemakers HUDsunglasses"
 	result = /obj/item/clothing/glasses/hud/security/sunglasses
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
@@ -68,7 +68,7 @@
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/hudsunsecremoval
-	name = "Security HUD removal"
+	name = "Peacemakers HUD removal"
 	result = /obj/item/clothing/glasses/sunglasses
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)

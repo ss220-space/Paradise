@@ -2,7 +2,7 @@
 	name = "flag"
 	desc = "It's a flag."
 	icon = 'icons/obj/flag.dmi'
-	icon_state = "ntflag"
+	icon_state = "utopiaflag"
 	lefthand_file = 'icons/mob/inhands/flags_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/flags_righthand.dmi'
 	flags = NO_PIXEL_RANDOM_DROP
@@ -51,9 +51,9 @@
 	icon_state = initial(icon_state)
 
 /obj/item/flag/nt
-	name = "Nanotrasen flag"
-	desc = "A flag proudly boasting the logo of NT."
-	icon_state = "ntflag"
+	name = "Utopia flag"
+	desc = "A flag proudly boasting the logo of Utopia."
+	icon_state = "utopiaflag"
 
 /obj/item/flag/clown
 	name = "Clown Planet flag"
@@ -173,7 +173,7 @@
 /obj/item/flag/command
 	name = "Command flag"
 	desc = "The flag of the independent, sovereign nation of Command."
-	icon_state = "ntflag"
+	icon_state = "utopiaflag"
 
 //Antags
 
@@ -212,7 +212,7 @@
 /obj/item/flag/chameleon
 	name = "Chameleon flag"
 	desc = "A poor recreation of the official NT flag. It seems to shimmer a little."
-	icon_state = "ntflag"
+	icon_state = "utopiaflag"
 	origin_tech = "syndicate=1;magnets=4"
 	var/updated_icon_state = null
 	var/used = FALSE

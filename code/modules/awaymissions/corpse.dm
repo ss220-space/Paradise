@@ -447,6 +447,12 @@
 	id_job = "Assistant"
 	outfit = /datum/outfit/job/assistant
 
+/obj/effect/mob_spawn/human/corpse/prisoner
+	name = "Prisoner"
+	mob_name = "Prisoner"
+	id_job = "Prisoner"
+	outfit = /datum/outfit/job/prisoner
+
 /obj/effect/mob_spawn/human/corpse/assistant/beesease_infection
 	disease = /datum/disease/beesease
 

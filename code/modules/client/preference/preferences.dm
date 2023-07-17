@@ -796,6 +796,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if((job_support_low & JOB_CIVILIAN) && (job.title != "Civilian"))
 				html += "<font color=orange>[rank]</font></td><td></td></tr>"
 				continue
+			if((job_support_low & JOB_PRISONER) && (job.title != "Prisoner"))
+				html += "<font color=orange>[rank]</font></td><td></td></tr>"
+				continue
 			if((job.title in GLOB.command_positions) || (job.title == "AI"))//Bold head jobs
 				html += "<b><span class='dark'>[rank]</span></b>"
 			else

@@ -585,8 +585,8 @@
 	category = list("Medical")
 
 /datum/design/implant_mindshield
-	name = "Mindshield Implant Case"
-	desc = "A glass case containing an implant."
+	name = "Insights Implant Case"
+	desc = "Стеклянный кейс содержащий имплант озарения."
 	id = "implant_mindshield"
 	req_tech = list("materials" = 3, "biotech" = 5, "magnets" = 4, "programming" = 4)
 	build_type = PROTOLATHE

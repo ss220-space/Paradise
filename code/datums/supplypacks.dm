@@ -559,10 +559,10 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /////// Implants & etc
 
 /datum/supply_packs/security/armory/mindshield
-	name = "Mindshield Implants Crate"
+	name = "Insights Implants Crate"
 	contains = list (/obj/item/storage/lockbox/mindshield)
 	cost = 40
-	containername = "mindshield implant crate"
+	containername = "insights implant crate"
 
 /datum/supply_packs/security/armory/trackingimp
 	name = "Tracking Implants Crate"
