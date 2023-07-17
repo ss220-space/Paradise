@@ -45,7 +45,7 @@
 		/obj/item/melee/classic_baton/telescopic = 1
 	)
 
-	implants = list(/obj/item/implant/mindshield/ert)
+	implants = list(/obj/item/implant/mindshield/)
 
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec

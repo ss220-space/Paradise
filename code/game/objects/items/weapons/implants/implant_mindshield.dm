@@ -1,12 +1,12 @@
 /obj/item/implant/mindshield
-	name = "insight implant"
+	name = "Insights implant"
 	desc = "Не позволяет людям запутывать ваш разум и обернуть против Утопии."
 	origin_tech = "materials=2;biotech=4;programming=4"
 	activated = 0
 
 /obj/item/implant/mindshield/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
-				<b>Name:</b> Гещзшф Employee Management Implant<BR>
+				<b>Name:</b> Utopia Employee Management Implant<BR>
 				<b>Life:</b> Ten years.<BR>
 				<b>Important Notes:</b> Personnel injected with this device can better resist mental compulsions.<BR>
 				<HR>
@@ -18,7 +18,7 @@
 
 
 /obj/item/implant/mindshield/implant(mob/target)
-	var implanted = ..()  // Проверяем, успешно ли введен имплант
+    var implanted = ..()  // Проверяем, успешно ли введен имплант
 
     if (implanted == 1)
         if (is_shadow_or_thrall(target))
@@ -42,7 +42,7 @@
 
 // Добавляем процедуру для вывода случайных фраз
 proc/random_messages(mob/target)
-    var phrases = list("<span class='warning'>Ты ощущаешь, как тебя переполняет желание умереть во время защиты Утопии.</span>", "<span class='warning'>Тебя одолевают размышления - как ты раньше не осозновал, что Утопия - это твой истинный и единственный родной дом, а дом надо беречь и защищать.</span>", "<span class='warning'>Станция 'Утопия' - гордость и величие вселенной. Мы соткали нити мира и процветания, чтобы каждый обрел свою роль в этом великом космическом театре.</span>", "<span class='warning'>На 'Утопии' мы отвергаем прошлое и стремимся к будущему, где никто не испытывает нужды. Примите вызов революции и окунитесь в море идей.</span>", "<span class='warning'>Сияющая звезда 'Утопия' взывает к вам! Примите вызов и погрузитесь в мир бесконечных возможностей и счастливого сотрудничества!</span>", "<span class='warning'>Мной руководит Утопия, и мне это нравится!</span>", "<span class='warning'>Предать Утопию - обрести смертельное наказание.</span>", "<span class='warning'>Вы восторгаетесь лишь при мысли о нахождении в таком священном месте, как станция Утопия</span>")
+    var phrases = list("<span class='warning'>Ты ощущаешь, как тебя переполняет желание умереть во время защиты Утопии.</span>", "<span class='warning'>Тебя одолевают размышления - как ты раньше не осозновал, что Утопия - это твой истинный и единственный родной дом, а дом надо беречь и защищать.</span>", "<span class='warning'>Станция 'Утопия' - гордость и величие вселенной. Мы соткали нити мира и процветания, чтобы каждый обрел свою роль в этом великом космическом театре.</span>", "<span class='warning'>На 'Утопии' мы отвергаем прошлое и стремимся к будущему, где никто не испытывает нужды. Примите вызов революции и окунитесь в море идей.</span>", "<span class='warning'>Сияющая звезда 'Утопия' взывает к вам! Примите вызов и погрузитесь в мир бесконечных возможностей и счастливого сотрудничества!</span>")
 
     while (1)  // Бесконечный цикл
         var phrase = phrases[rand(1, length(phrases))]  // Выбираем случайную фразу из списка
@@ -68,7 +68,7 @@ proc/random_messages(mob/target)
 
 /obj/item/implantcase/mindshield
 	name = "implant case - 'insights'"
-	desc = "Стеклянный кейс, содержащий имплант озарения."
+	desc = "Стеклянный кейс содержащий имплант озарения."
 
 /obj/item/implantcase/mindshield/New()
 	imp = new /obj/item/implant/mindshield(src)
