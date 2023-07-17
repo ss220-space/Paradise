@@ -1158,7 +1158,7 @@
 	name = "Форма UT-SEC-01"
 	id = "UT-SEC-01"
 	altername = "Свидетельские показания"
-	category = "Отдел Миротворцев"
+	category = "Отдел миротворцев"
 	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Информация о свидетеле</B></font></center><BR><table></td><tr><td>Имя свидетеля:<BR><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Номер аккаунта свидетеля:<BR><font size = \"1\">Эта информация есть у главы персонала</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Должность свидетеля:<BR><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><BR></td></tr></table><BR><HR><BR><center><font size=\"4\"><B>Свидетельство </B></font></center><BR><span class=\"paper_field\"></span><BR><BR><font size = \"1\">Я, (подпись свидетеля) <span class=\"paper_field\"></span>, подтверждаю, что приведенная выше информация является правдивой и точной, насколько мне известно, и передана в меру моих возможностей. Подписываясь ниже, я тем самым подтверждаю, что Верховный Суд может признать меня неуважительным или виновным в лжесвидетельстве согласно Закону SolGov 552 (a) (c) и Постановлению корпорации Nanotrasen 7716 (c).</font><BR><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись сотрудника, получающего показания:<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
 	footer = footer_confidential
 
