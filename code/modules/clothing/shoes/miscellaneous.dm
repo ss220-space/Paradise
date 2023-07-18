@@ -515,3 +515,15 @@
 /obj/item/clothing/shoes/ducky/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/items/squeaktoy.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
+
+/obj/item/clothing/shoes/pathtreads
+	name = "pathfinder treads"
+	desc = "Massive boots made from chitin, they look hand-crafted."
+	icon_state = "pathtreads"
+	item_state = "pathtreads"
+	body_parts_covered = LEGS|FEET
+	resistance_flags = FIRE_PROOF
+	heat_protection = LEGS|FEET
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	cold_protection = LEGS|FEET
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
