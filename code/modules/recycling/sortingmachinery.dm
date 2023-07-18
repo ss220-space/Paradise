@@ -172,7 +172,16 @@
 	amount = 25
 	max_amount = 25
 	resistance_flags = FLAMMABLE
-	var/static/list/no_wrap = list(/obj/item/smallDelivery, /obj/structure/bigDelivery, /obj/item/evidencebag, /obj/structure/closet/body_bag, /obj/item/twohanded/required)
+	var/static/list/no_wrap = list(
+		/obj/item/shippingPackage,
+		/obj/item/smallDelivery,
+		/obj/structure/bigDelivery,
+		/obj/item/evidencebag,
+		/obj/structure/closet/body_bag,
+		/obj/item/twohanded/required,
+		/obj/item/storage,
+		/obj/item/mecha_parts/chassis
+	)
 
 
 /obj/item/stack/packageWrap/afterattack(obj/target, mob/user, proximity)
@@ -187,7 +196,7 @@
 	if(target in user)
 		return
 
-	if(isitem(target) && !isstorage(target) && !istype(target, /obj/item/shippingPackage))
+	if(isitem(target))
 		var/obj/item/item = target
 		if(!use(1))
 			return
