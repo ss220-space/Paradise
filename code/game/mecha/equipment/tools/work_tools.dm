@@ -156,7 +156,7 @@
 	if(istype(src.loc, /obj/mecha/working))
 		var/obj/mecha/working/R = src.loc
 		R.cargo_expanded = FALSE
-		R.cargo_capacity = 15
+		R.cargo_capacity = initial(R.cargo_capacity)
 
 /obj/item/mecha_parts/mecha_equipment/rcd
 	name = "Mounted RCD"
