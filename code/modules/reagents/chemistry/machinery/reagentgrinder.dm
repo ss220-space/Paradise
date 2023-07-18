@@ -82,8 +82,7 @@
 			/obj/item/reagent_containers/food/snacks/grown/grapes = list("grapejuice" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/grapes/green = list("grapejuice" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/pineapple = list("pineapplejuice" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/peaslaugh = list("laughsyrup" = 0),
-			/obj/item/reagent_containers/food/goldgrubguts = list("grub_juice" = 0)
+			/obj/item/reagent_containers/food/snacks/grown/peaslaugh = list("laughsyrup" = 0)
 	)
 
 	var/list/dried_items = list(

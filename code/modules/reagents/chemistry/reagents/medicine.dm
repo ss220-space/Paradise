@@ -1432,11 +1432,11 @@
 	description = "A potent medicinal product that can have dangerous side effects if used too much."
 	color = "#43bf1d"
 	taste_description = "bug intestines"
-	overdose_threshold = 20
+	overdose_threshold = 10
 	can_synth = FALSE
 
 /datum/reagent/medicine/grubjuice/on_mob_life(mob/living/carbon/M) //huge heal for huge liver problems
-	M.heal_overall_damage(5,5, FALSE)
+	M.heal_overall_damage(4,4, FALSE)
 	..()
 	return TRUE
 

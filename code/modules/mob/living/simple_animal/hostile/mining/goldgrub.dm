@@ -23,7 +23,7 @@
 	speak_emote = list("screeches")
 	throw_message = "sinks in slowly, before being pushed out of "
 	deathmessage = "spits up the contents of its stomach before dying!"
-	butcher_results = list(/obj/item/reagent_containers/food/goldgrubguts = 1)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/goldgrub = 1)
 	status_flags = CANPUSH
 	search_objects = 1
 	wanted_objects = list(/obj/item/stack/ore/diamond, /obj/item/stack/ore/gold, /obj/item/stack/ore/silver,
@@ -82,10 +82,3 @@
 /mob/living/simple_animal/hostile/asteroid/goldgrub/adjustHealth(amount, updating_health = TRUE)
 	vision_range = 9
 	. = ..()
-
-/obj/item/reagent_containers/food/goldgrubguts
-	name= "goldgrub guts"
-	desc = "Gross, slimy, and green intestines retrieved from a Gold Grub. Legends say it is valuable in traditional medicines."
-	icon = 'icons/obj/mining.dmi'
-	icon_state = "goldgrubguts"
-	list_reagents = list("grub_juice" = 5)
