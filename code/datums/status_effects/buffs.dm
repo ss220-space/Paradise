@@ -128,6 +128,8 @@
 		clone_heal = 0.4, \
 		simple_heal = 1.4, \
 		organ_healing = organ_healing, \
+		heal_fractures = TRUE, \
+		heal_internal_bleedings = TRUE, \
 		healing_color = "#375637", \
 	)
 

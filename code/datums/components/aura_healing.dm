@@ -35,6 +35,12 @@
 	/// Map of organ (such as ORGAN_SLOT_BRAIN) to damage heal over a second
 	var/list/organ_healing = null
 
+	/// Shows that aura heals fractures
+	var/heal_fractures = FALSE
+
+	/// Shows that aura heals internal bleedings
+	var/heal_internal_bleedings = FALSE
+
 	/// Amount of damage to heal on simple mobs over a second
 	var/simple_heal = 0
 
@@ -60,6 +66,8 @@
 	clone_heal = 0,
 	blood_heal = 0,
 	organ_healing = null,
+	heal_fractures = FALSE,
+	heal_internal_bleedings = FALSE,
 	simple_heal = 0,
 	limit_to_trait = null,
 	healing_color = COLOR_GREEN,
@@ -79,6 +87,8 @@
 	src.clone_heal = clone_heal
 	src.blood_heal = blood_heal
 	src.organ_healing = organ_healing
+	src.heal_fractures = heal_fractures
+	src.heal_internal_bleedings = heal_internal_bleedings
 	src.simple_heal = simple_heal
 	src.limit_to_trait = limit_to_trait
 	src.healing_color = healing_color
@@ -133,6 +143,15 @@
 		else if (isanimal(candidate))
 			var/mob/living/simple_animal/animal_candidate = candidate
 			animal_candidate.adjustHealth(-simple_heal * seconds_per_tick, updating_health = FALSE)
+
+		if (ishuman(candidate) && (heal_fractures || heal_internal_bleedings))
+			var/mob/living/carbon/human/H = candidate
+			for(var/obj/item/organ/external/E in H.bodyparts)
+				if(prob(10))
+					if(heal_fractures)
+						E.mend_fracture()
+					if(heal_internal_bleedings)
+						E.internal_bleeding = FALSE
 
 		if (candidate.blood_volume < BLOOD_VOLUME_NORMAL)
 			candidate.blood_volume += blood_heal * seconds_per_tick
