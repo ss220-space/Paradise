@@ -120,7 +120,7 @@
 								S.use(1)
 								glass = TRUE
 					if(!mineral)
-						if(istype(S, /obj/item/stack/sheet/mineral) && S.sheettype)
+						if(S.sheettype && (istype(S, /obj/item/stack/sheet/mineral) || istype(S, /obj/item/stack/sheet/wood)))
 							var/M = S.sheettype
 							if(S.get_amount() >= 2)
 								playsound(loc, S.usesound, 100, 1)
