@@ -318,6 +318,8 @@
 			else
 				new /obj/item/shard(T)
 		if(mineral)
-			var/obj/item/stack/sheet/mineral/mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
+			var/mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
+			if(mineral == "wood")
+				mineral_path = /obj/item/stack/sheet/wood
 			new mineral_path(T, 2)
 	qdel(src)
