@@ -154,7 +154,6 @@
 		user.visible_message("<span class='danger'>[user] accidentally hits [user.p_them()]self with [src]!</span>", \
 							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
 		user.Weaken(stunforce * 3)
-		user.Confused(stunforce * 3)
 		deductcharge(hitcost)
 		return
 
@@ -201,7 +200,6 @@
 		C.shock_internal_organs(33)
 
 	L.Weaken(stunforce)
-	L.Confused(stunforce)
 	L.SetStuttering(stunforce)
 	L.adjustStaminaLoss(staminaforce)
 	if(user)
