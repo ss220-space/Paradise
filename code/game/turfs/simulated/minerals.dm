@@ -355,6 +355,25 @@
 		/turf/simulated/mineral/plasma/volcanic/hard = 20, /turf/simulated/mineral/bscrystal/volcanic/hard = 2, /turf/simulated/mineral/gibtonite/volcanic/hard = 4,
 		/turf/simulated/mineral/iron/volcanic/hard = 20)
 
+/turf/simulated/mineral/random/volcanic/hard/double
+	name = "hardened volcanic basalt"
+	icon_state = "rock_volcanic"
+	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	mineralChance = 40
+	hardness = 3
+	mineralSpawnChanceList = list(
+		/turf/simulated/mineral/uranium/volcanic/hard = 5, /turf/simulated/mineral/diamond/volcanic/hard = 1, /turf/simulated/mineral/gold/volcanic/hard = 10,
+		/turf/simulated/mineral/titanium/volcanic/hard = 11, /turf/simulated/mineral/magmite/volcanic/hard = 0.5, /turf/simulated/mineral/silver/volcanic/hard = 12,
+		/turf/simulated/mineral/plasma/volcanic/hard = 20, /turf/simulated/mineral/bscrystal/volcanic/hard = 2, /turf/simulated/mineral/gibtonite/volcanic/hard = 4,
+		/turf/simulated/mineral/iron/volcanic/hard = 20)
+
+/turf/simulated/mineral/random/volcanic/hard/double/high_chance
+	icon_state = "rock_volcanic"
+	mineralChance = 100
+	mineralSpawnChanceList = list(
+		/turf/simulated/mineral/uranium = 35, /turf/simulated/mineral/diamond = 30, /turf/simulated/mineral/gold = 45, /turf/simulated/mineral/titanium = 45,
+		/turf/simulated/mineral/silver = 50, /turf/simulated/mineral/plasma = 50, /turf/simulated/mineral/bscrystal = 20)
+
 // Actual minerals
 /turf/simulated/mineral/iron
 	mineralType = /obj/item/stack/ore/iron
