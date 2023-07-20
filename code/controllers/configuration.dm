@@ -116,7 +116,6 @@
 	var/discordurl = "http://example.org"
 	var/discordforumurl = "http://example.org"
 	var/discordbugreporturl = "http://example.org"
-	var/interactivemapurl = "http://example.org"
 
 	var/overflow_server_url
 	var/tutorial_server_url
