@@ -312,7 +312,7 @@
  * Weeds
  */
 
-#define NODERANGE 3
+#define NODERANGE 5
 
 /obj/structure/alien/weeds
 	gender = PLURAL
@@ -335,9 +335,9 @@
 		qdel(src)
 		return
 	if(icon_state == "weeds")
-		icon_state = pick("weeds", "weeds1", "weeds2")
+		icon_state = pick("weeds", "weeds1", "weeds2", "weeds3", "weeds4", "weeds5", "weeds6", "weeds7", "weeds8", "weeds9", "weeds10", "weeds11", "weeds12", "weeds13", "weeds14", "weeds15")
 	fullUpdateWeedOverlays()
-	spawn(rand(150, 200))
+	spawn(rand(50, 150))
 		if(src)
 			Life()
 

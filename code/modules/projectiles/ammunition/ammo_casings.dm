@@ -19,6 +19,12 @@
 	caliber = "40nr"
 	projectile_type = /obj/item/projectile/bullet/weakbullet3/fortynr
 
+/obj/item/ammo_casing/a776
+	desc = "A 7.76 bullet casing."
+	materials = list(MAT_METAL = 4000)
+	caliber = "a776"
+	projectile_type = /obj/item/projectile/bullet/m4a1e
+
 /obj/item/ammo_casing/a762
 	desc = "A 7.62mm bullet casing."
 	icon_state = "762-casing"

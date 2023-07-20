@@ -4,6 +4,7 @@
 	maxHealth = 180
 	health = 180
 	obj_damage = 60
+	icon = 'icons/mob/drone.dmi'
 	icon_state = "aliend_s"
 	time_to_open_doors = 0.2 SECONDS
 

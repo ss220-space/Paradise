@@ -87,7 +87,7 @@
 	ammo_type = /obj/item/ammo_casing/cap
 	caliber = "cap"
 	max_ammo = 7
-	
+
 /obj/item/ammo_box/magazine/internal/cylinder/ga12
 	name = ".12 revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/shotgun
@@ -403,6 +403,21 @@
 	caliber = "75"
 	multiple_sprites = 2
 	max_ammo = 8
+
+//M4A1E
+/obj/item/ammo_box/magazine/a776
+	name = "M4A1E magazine (7.76mm)"
+	desc = "An unique magazine with caliber 7.76 for M4A1E"
+	icon_state = "m4a1e"
+	origin_tech = "combat=5"
+	ammo_type = /obj/item/ammo_casing/a776
+	caliber = "a776"
+	max_ammo = 25
+	multiple_sprites = 2
+
+/obj/item/ammo_box/magazine/m776/update_icon()
+	..()
+	icon_state = "m4a1e-[round(ammo_count(),30)]"
 
 /obj/item/ammo_box/magazine/m556
 	name = "toploader magazine (5.56mm)"

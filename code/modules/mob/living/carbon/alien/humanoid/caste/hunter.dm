@@ -4,6 +4,7 @@
 	maxHealth = 205
 	health = 205
 	devour_time = 2 SECONDS
+	icon = 'icons/mob/drone.dmi'
 	icon_state = "alienh_s"
 
 	var/obj/effect/proc_holder/spell/xeno_plant/plant_spell = new

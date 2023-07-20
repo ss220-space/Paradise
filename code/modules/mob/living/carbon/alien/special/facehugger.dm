@@ -9,7 +9,7 @@
 /obj/item/clothing/mask/facehugger
 	name = "alien"
 	desc = "It has some sort of a tube at the end of its tail."
-	icon = 'icons/mob/alien.dmi'
+	icon = 'icons/mob/facehugger.dmi'
 	icon_state = "facehugger"
 	item_state = "facehugger"
 	w_class = WEIGHT_CLASS_TINY //note: can be picked up by aliens unlike most other items of w_class below 4

@@ -7,7 +7,7 @@
 	language = "Vox-pidgin"
 	tail = "voxtail"
 	speech_sounds = list('sound/voice/shriek1.ogg')
-	speech_chance = 20
+	speech_chance = 100
 	unarmed_type = /datum/unarmed_attack/claws	//I dont think it will hurt to give vox claws too.
 
 	blurb = "The Vox are the broken remnants of a once-proud race, now reduced to little more than \
