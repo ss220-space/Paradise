@@ -254,6 +254,24 @@
 	burst_size = 3
 	fire_delay = 1
 
+//M4A1e
+/obj/item/gun/projectile/automatic/M4A1e
+	name = "\improper M4A1e"
+	desc = "A robust combat rifle used for any infiestation"
+	icon_state = "m4a1e"
+	item_state = "m4a1e"
+	origin_tech = "combat=7;engineering=5;materials=3"
+	mag_type = /obj/item/ammo_box/magazine/a776
+	fire_sound = 'sound/weapons/gunshots/m4a1e-1.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/m4a1e_magin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/m4a1e_magout.ogg'
+	can_suppress = 0
+	burst_size = 3
+	fire_delay = 2
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = 0
+	actions_types = list(/datum/action/item_action/toggle_firemode)
+
 //AK-814 Soviet Assault Rifle
 /obj/item/gun/projectile/automatic/ak814
 	name = "\improper AK-814 assault rifle"

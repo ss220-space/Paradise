@@ -5,6 +5,7 @@
 	health = 250
 	attack_damage = 25
 	time_to_open_doors = 0.2 SECONDS
+	icon = 'icons/mob/drone.dmi'
 	icon_state = "aliens_s"
 
 	var/obj/effect/proc_holder/spell/xeno_plant/plant_spell = new
@@ -30,7 +31,7 @@
 	name = "Evolve (500)"
 	desc = "Become a Praetorian, Royal Guard to the Queen."
 	button_icon_state = "aliens_s"
-	icon_icon = 'icons/mob/alien.dmi'
+	icon_icon = 'icons/mob/drone.dmi'
 
 
 /datum/action/innate/xeno_action/evolve_to_praetorian/Activate()
@@ -49,13 +50,13 @@
 
 /mob/living/carbon/alien/humanoid/praetorian
 	name = "alien praetorian"
-	icon = 'icons/mob/alienlarge.dmi'
+	icon = 'icons/mob/queen.dmi'
 	icon_state = "prat_s"
 	pixel_x = -16
 	maxHealth = 300
 	health = 300
 	large = 1
-	ventcrawler = 0
+	ventcrawler = VENTCRAWLER_ALWAYS
 	attack_damage = 30
 	armour_penetration = 30
 	obj_damage = 80

@@ -13,6 +13,11 @@
 	damage = 5
 	stamina = 55
 
+/obj/item/projectile/bullet/m4a1e
+	damage = 20
+	armour_penetration = 50
+	stamina = 40
+
 /obj/item/projectile/bullet/weakbullet/booze
 
 /obj/item/projectile/bullet/weakbullet/booze/on_hit(atom/target, blocked = 0)

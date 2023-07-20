@@ -5,6 +5,7 @@ These are general powers. Specific powers are stored under the appropriate alien
 /*Alien spit now works like a taser shot. It won't home in on the target but will act the same once it does hit.
 Doesn't work on other aliens/AI.*/
 #define WORLD_VIEW "15x15"
+var/playsound
 
 /datum/action/innate/xeno_action
 	background_icon_state = "bg_alien"
@@ -174,7 +175,7 @@ Doesn't work on other aliens/AI.*/
 	name = "Corrossive Acid"
 	desc = "Drench an object in acid, destroying it over time."
 	button_icon_state = "alien_acid"
-	var/cost = 200
+	var/cost = 100
 	var/acid_power = 400
 
 /datum/action/innate/xeno_action/corrosive_acid/sentinel
@@ -269,6 +270,7 @@ Doesn't work on other aliens/AI.*/
 		var/mob/living/carbon/alien/host = user
 		host.adjustPlasma(-50)
 		host.visible_message("<span class='danger'>[host] spits neurotoxin!", "<span class='alertalien'>You spit neurotoxin.</span>")
+		playsound('sound/voice/spitacid_1.ogg')
 
 		var/turf/T = host.loc
 		var/turf/U = get_step(host, host.dir) // Get the tile infront of the move, based on their direction

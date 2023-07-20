@@ -490,7 +490,7 @@
 		STOP_PROCESSING(SSobj, src)
 		dance_over()
 		playsound(src,'sound/machines/terminal_off.ogg',50,1)
-		icon_state = "disco0"
+		icon_state = "jukebox2"
 		stop = world.time + 100
 
 

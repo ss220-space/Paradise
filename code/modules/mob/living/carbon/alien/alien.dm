@@ -7,7 +7,7 @@
 	speak_emote = list("hisses")
 	tts_seed = "Ladyvashj"
 	bubble_icon = "alien"
-	icon = 'icons/mob/alien.dmi'
+	icon = 'icons/mob/drone.dmi'
 	gender = NEUTER
 	dna = null
 	alien_talk_understand = TRUE

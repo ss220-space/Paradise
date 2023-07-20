@@ -8,6 +8,13 @@
 	multiple_sprites = 1 // see: /obj/item/ammo_box/update_icon()
 	icon_prefix = "357" // icon prefix, used in above formula to generate dynamic icons
 
+/obj/item/ammo_box/a776
+	name = "ammo box (7.76)"
+	icon_state = "776box"
+	origin_tech = "combat=3"
+	ammo_type = /obj/item/ammo_casing/a776
+	max_ammo = 120
+
 /obj/item/ammo_box/c38
 	name = "speed loader (.38)"
 	desc = "Designed to quickly reload revolvers."
