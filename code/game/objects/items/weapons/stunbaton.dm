@@ -226,7 +226,6 @@
 		flick("baton_active", source)
 		user.Stun(stunforce)
 		user.Weaken(stunforce)
-		user.Confused(stunforce)
 		user.SetStuttering(stunforce)
 		deductcharge(hitcost)
 		user.visible_message("<span class='warning'>[user] shocks [user.p_them()]self while attempting to wash the active [src]!</span>", \
