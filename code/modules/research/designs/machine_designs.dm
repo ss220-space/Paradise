@@ -579,7 +579,7 @@
 	req_tech = list("engineering" = 4, "bluespace" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_BLUESPACE = 200)
-	build_path = /obj/item/circuitboard/brs_scanner
+	build_path = /obj/item/circuitboard/brs_portable_scanner
 	category = list ("Research Machinery")
 
 /datum/design/brs_scanner_static
@@ -589,5 +589,5 @@
 	req_tech = list("engineering" = 6, "bluespace" = 5)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_BLUESPACE = 500)
-	build_path = /obj/item/circuitboard/brs_scanner/s_static
+	build_path = /obj/item/circuitboard/brs_stationary_scanner
 	category = list ("Research Machinery")

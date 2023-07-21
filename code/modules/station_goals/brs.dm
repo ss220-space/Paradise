@@ -1,14 +1,14 @@
-GLOBAL_LIST_INIT(bluespace_rifts_list, list())
-GLOBAL_LIST_INIT(bluespace_rifts_server_list, list())
-GLOBAL_LIST_INIT(bluespace_rifts_scanner_list, list())
+GLOBAL_LIST_EMPTY(bluespace_rifts_list)
+GLOBAL_LIST_EMPTY(bluespace_rifts_server_list)
+GLOBAL_LIST_EMPTY(bluespace_rifts_scanner_list)
 
 
 // BRS - Bluespace Rift Scanner
 // The goal is to research the anomalous bluespace rift with the creation of portable and static scanners
 /datum/station_goal/bluespace_rift
 	name = "Сканер Блюспейс Разлома"
-	var/scanner_goal = 25000
-	var/is_give_reward = FALSE
+	var/target_research_points = 25000
+	var/reward_given = FALSE
 	var/datum/bluespace_rift/rift
 
 /datum/station_goal/bluespace_rift/Destroy()
@@ -32,26 +32,14 @@ GLOBAL_LIST_INIT(bluespace_rifts_scanner_list, list())
 /datum/station_goal/bluespace_rift/check_completion()
 	if(..())
 		return TRUE
-	return check_scanners_goal()
+	var/is_research_complete = (get_current_research_points() >= target_research_points)
+	return is_research_complete
 
-/datum/station_goal/brs/proc/check_scanners_goal()
-	for(var/obj/machinery/brs_server/S in GLOB.bluespace_rifts_server_list)
-		if(S.research_points < scanner_goal)
-			continue
-		return TRUE
-	return FALSE
-
-/datum/station_goal/brs/proc/get_max_server_points_goal()
+/datum/station_goal/bluespace_rift/proc/get_current_research_points()
 	var/max_points = 0
-	for(var/obj/machinery/brs_server/S in GLOB.bluespace_rifts_server_list)
-		max_points = max(max_points, S.research_points)
+	for(var/obj/machinery/brs_server/server in GLOB.bluespace_rifts_server_list)
+		max_points = max(max_points, server.research_points)
 	return max_points
-
-/datum/station_goal/brs/proc/check_can_give_reward()
-	for(var/datum/station_goal/brs/G in SSticker.mode.station_goals)
-		if(!G.is_give_reward)
-			return TRUE
-	return FALSE
 
 /datum/station_goal/bluespace_rift/proc/spawn_rift()
 	var/rift_types = list(
