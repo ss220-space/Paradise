@@ -99,6 +99,27 @@
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku.</span>")
 	return BRUTELOSS
 
+/obj/item/katana/basalt
+	name = "basalt katana"
+	desc = "a katana made out of hardened basalt. Particularly damaging to lavaland fauna."
+	icon_state = "basalt_katana"
+	item_state = "basalt_katana"
+	force = 40
+	block_chance = 50
+
+	var/fauna_damage_bonus = 40
+	var/fauna_damage_type = BRUTE
+
+/obj/item/katana/basalt/afterattack(atom/target, mob/user, proximity)
+	. = ..()
+	if(!proximity)
+		return
+	if(isliving(target))
+		var/mob/living/L = target
+		if(ismegafauna(L) || istype(L, /mob/living/simple_animal/hostile/asteroid))
+			L.apply_damage(fauna_damage_bonus,fauna_damage_type)
+			playsound(L, 'sound/weapons/sear.ogg', 100, 1)
+
 /obj/item/harpoon
 	name = "harpoon"
 	sharp = 1
