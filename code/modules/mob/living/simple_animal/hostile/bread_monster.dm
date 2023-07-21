@@ -1,6 +1,5 @@
 #define BREAD_MONSTERS_MAXCAP 20
 
-GLOBAL_VAR_INIT(alive_bread_monsters_count, 0)
 GLOBAL_VAR_INIT(bread_monsters_maxcap, 20)
 GLOBAL_LIST_EMPTY(bread_monsters)
 
