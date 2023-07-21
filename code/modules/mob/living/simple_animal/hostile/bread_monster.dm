@@ -12,6 +12,8 @@ GLOBAL_LIST_EMPTY(bread_monsters)
 	harm_intent_damage = 7
 	icon = 'icons/mob/bread_monster.dmi'
 	icon_state = "bread_monster"
+	icon_living = "bread_monster"
+	icon_resting = "bread_monster"
 	icon_dead = "bread_monster_dead"
 	death_sound = 'sound/misc/demon_dies.ogg'
 
@@ -19,7 +21,7 @@ GLOBAL_LIST_EMPTY(bread_monsters)
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/breadslice/burned = 2)
 	response_help = "pets"
 	response_disarm = "gently pushes aside"
-	response_harm = list("hits", "gnawing", "bites")
+	response_harm = "hits"
 	emote_taunt = list("gnashes")
 	attack_sound = 'sound/weapons/bite.ogg'
 	melee_damage_lower = 7
@@ -50,13 +52,20 @@ GLOBAL_LIST_EMPTY(bread_monsters)
 /mob/living/simple_animal/hostile/bread_monster/revive()
 	. = ..()
 	GLOB.bread_monsters += src
+	regenerate_icons()
 
 /mob/living/simple_animal/hostile/bread_monster/death(gibbed)
 	. = ..()
 	if(src in GLOB.bread_monsters)
 		GLOB.bread_monsters -= src
+	regenerate_icons()
 
 /mob/living/simple_animal/hostile/bread_monster/Destroy()
 	. = ..()
 	if(src in GLOB.bread_monsters)
 		GLOB.bread_monsters -= src
+
+/mob/living/simple_animal/hostile/bread_monster/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect)
+	if(!no_effect && !visual_effect_icon)
+		visual_effect_icon = ATTACK_EFFECT_BITE
+	..()
