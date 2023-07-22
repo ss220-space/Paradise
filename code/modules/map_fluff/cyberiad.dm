@@ -8,3 +8,4 @@
 	company_name  = "Syndicate"
 	company_short = "SY"
 	starsys_name  = "Epsilon Eridani "
+	webmap_url = "https://affectedarc07.github.io/SS13WebMap/SS220Paradise/Cyberiad/"
