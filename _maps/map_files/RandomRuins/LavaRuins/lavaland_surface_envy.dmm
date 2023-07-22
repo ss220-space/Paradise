@@ -95,10 +95,6 @@
 /obj/item/flashlight/lantern,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/table/wood,
-/obj/item/paper{
-	name = "Зависть";
-	info = ...потомучтовыещеплотские.Ибоеслимеждувамизависть,спорыиразногласия,тонеплотскиеливы?инепочеловеческомулиобычаюпоступаете?
-	},
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/misc_lavaruin)
 "x" = (

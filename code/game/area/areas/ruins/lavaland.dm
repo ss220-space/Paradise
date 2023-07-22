@@ -31,6 +31,10 @@
 	name = "Hierophant's Arena"
 	icon_state = "dk_yellow"
 
+/area/ruin/unpowered/drake
+	name = "Acnient Temple"
+	icon_state = "dk_yellow"
+
 /area/ruin/powered/pride
 	icon_state = "dk_yellow"
 
