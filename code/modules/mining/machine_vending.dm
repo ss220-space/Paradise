@@ -31,7 +31,8 @@
 	. = ..()
 	prize_list = list()
 	prize_list["Gear"] = list(
-		EQUIPMENT("Advanced Scanner",				/obj/item/t_scanner/adv_mining_scanner, 							800),
+		EQUIPMENT("Automatic Scanner",				/obj/item/t_scanner/adv_mining_scanner/lesser, 						800),
+		EQUIPMENT("Advanced Scanner",				/obj/item/t_scanner/adv_mining_scanner, 							3000),
 		EQUIPMENT("Explorer's Webbing",				/obj/item/storage/belt/mining, 										500),
 		EQUIPMENT("Fulton Beacon",					/obj/item/fulton_core, 												400),
 		EQUIPMENT("Mining Conscription Kit",		/obj/item/storage/backpack/duffel/mining_conscript, 				1500),

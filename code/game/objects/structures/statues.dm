@@ -449,3 +449,9 @@
 	name = "large ribs"
 	desc = "a large ribs that belong to the unknown creature"
 	icon_state = "r_ribs"
+
+/obj/structure/statue/bone/rib
+	name = "colossal rib"
+	desc = "It's staggering to think that something this big could have lived, let alone died."
+	icon = 'icons/obj/statuelarge.dmi'
+	icon_state = "rib"
