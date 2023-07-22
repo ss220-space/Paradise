@@ -1045,6 +1045,7 @@
 #include "code\game\objects\items\dehy_carp.dm"
 #include "code\game\objects\items\documents.dm"
 #include "code\game\objects\items\flag.dm"
+#include "code\game\objects\items\gems.dm"
 #include "code\game\objects\items\hourglass.dm"
 #include "code\game\objects\items\latexballoon.dm"
 #include "code\game\objects\items\misc.dm"

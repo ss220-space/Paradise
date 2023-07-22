@@ -6,6 +6,7 @@
 	var/list/choices = subtypesof(/obj/machinery/anomalous_crystal)
 	var/random_crystal = pick(choices)
 	new random_crystal(src)
+	new /obj/item/gem/void(src)
 	var/loot = rand(1,2)
 	switch(loot)
 		if(1)

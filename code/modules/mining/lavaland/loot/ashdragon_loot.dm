@@ -2,6 +2,7 @@
 	name = "dragon chest"
 
 /obj/structure/closet/crate/necropolis/dragon/populate_contents()
+	new /obj/item/gem/amber(src)
 	var/loot = rand(1,4)
 	switch(loot)
 		if(1)

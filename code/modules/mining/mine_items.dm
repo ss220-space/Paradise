@@ -57,6 +57,7 @@
 	new /obj/item/radio/headset/headset_cargo/mining(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/storage/bag/plants(src)
+	new /obj/item/storage/bag/gem(src)
 	new /obj/item/storage/bag/ore(src)
 	new /obj/item/mining_scanner(src)
 	new /obj/item/gun/energy/kinetic_accelerator(src)

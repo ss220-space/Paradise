@@ -168,6 +168,19 @@
 	name = "cyborg mining satchel of holding"
 	flags = NODROP
 
+/obj/item/storage/bag/gem
+	name = "gem satchel"
+	desc = "You thought it would be more like what those cartoon robbers wear."
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "gem_satchel"
+	slot_flags = SLOT_BELT | SLOT_POCKET
+	w_class = WEIGHT_CLASS_NORMAL
+	storage_slots = 48
+	max_combined_w_class = 48
+	max_w_class = WEIGHT_CLASS_NORMAL
+	can_hold = list(/obj/item/gem)
+
+
 // -----------------------------
 //          Plant bag
 // -----------------------------

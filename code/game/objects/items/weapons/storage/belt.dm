@@ -857,7 +857,8 @@
 		/obj/item/organ/internal/regenerative_core,
 		/obj/item/wormhole_jaunter,
 		/obj/item/storage/bag/plants,
-		/obj/item/stack/marker_beacon)
+		/obj/item/stack/marker_beacon,
+		/obj/item/gem)
 
 /obj/item/storage/belt/mining/vendor/Initialize(mapload)
 	. = ..()

@@ -505,6 +505,7 @@
 	new /obj/item/kitchen/knife/combat/survival(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/clothing/suit/hooded/explorer(src)
+	new /obj/item/storage/bag/gem(src)
 
 
 /obj/item/storage/backpack/duffel/syndie/ammo/smg
