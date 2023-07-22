@@ -12843,8 +12843,8 @@
 "jEO" = (
 /obj/docking_port/stationary/transit{
 	dir = 8;
-	dwidth = 8;
-	height = 20;
+	dwidth = 9;
+	height = 30;
 	id = "freegolem_transit";
 	name = "free golem in transit";
 	turf_type = /turf/space/transit/west;
