@@ -1,0 +1,1035 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/stone_tile/cracked,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"b" = (
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"c" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"d" = (
+/obj/structure/stone_tile/block/cracked,
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"e" = (
+/obj/effect/baseturf_helper/lava_land/surface,
+/mob/living/simple_animal/hostile/megafauna/dragon/lesser,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"f" = (
+/obj/structure/flora/rock/basalt4,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"j" = (
+/obj/structure/flora/rock/basalt3,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"k" = (
+/obj/structure/flora/rock/lava2,
+/obj/structure/stone_tile/cracked,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"l" = (
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"m" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"n" = (
+/obj/structure/flora/rock/lava2,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"o" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"p" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"q" = (
+/obj/structure/stone_tile/cracked,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"r" = (
+/obj/structure/flora/rock/lava3,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"s" = (
+/obj/structure/bones/ribs_right,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"t" = (
+/turf/simulated/wall/indestructible/boss,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"u" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"v" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"w" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"x" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"y" = (
+/obj/structure/flora/rock/basalt2,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"A" = (
+/obj/structure/bones,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"B" = (
+/obj/structure/bones/skull,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"C" = (
+/obj/structure/flora/rock/lava3,
+/obj/structure/bones/ribs_left,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"D" = (
+/obj/structure/bones/right,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"E" = (
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"F" = (
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/block,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"G" = (
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"H" = (
+/obj/structure/flora/rock/lava1,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"I" = (
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"J" = (
+/obj/structure/stone_tile/block/cracked,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"K" = (
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"L" = (
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"M" = (
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"N" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"O" = (
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"P" = (
+/obj/structure/stone_tile/block/cracked,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"Q" = (
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"R" = (
+/obj/structure/flora/rock/basalt1,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"S" = (
+/obj/structure/flora/rock/lava2,
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"T" = (
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"U" = (
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"V" = (
+/obj/structure/closet/crate/necropolis,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"W" = (
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"Y" = (
+/obj/structure/flora/rock/lava2,
+/turf/simulated/wall/indestructible/boss,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+"Z" = (
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/hierophant{
+	name = "Acnient Temple"
+	})
+
+(1,1,1) = {"
+c
+c
+c
+c
+c
+K
+K
+c
+c
+c
+c
+Q
+c
+c
+c
+c
+c
+K
+K
+K
+K
+c
+c
+c
+c
+"}
+(2,1,1) = {"
+c
+c
+c
+c
+K
+K
+K
+K
+K
+K
+c
+c
+T
+q
+K
+K
+K
+K
+K
+K
+K
+c
+c
+c
+c
+"}
+(3,1,1) = {"
+c
+c
+K
+K
+K
+K
+c
+K
+K
+K
+K
+G
+o
+E
+K
+K
+K
+c
+K
+c
+K
+K
+K
+c
+c
+"}
+(4,1,1) = {"
+c
+c
+K
+K
+K
+K
+c
+c
+c
+K
+K
+K
+d
+a
+K
+K
+c
+c
+c
+c
+K
+K
+K
+K
+c
+"}
+(5,1,1) = {"
+c
+K
+K
+K
+K
+c
+t
+t
+c
+c
+K
+U
+F
+Q
+K
+c
+r
+t
+c
+K
+c
+K
+K
+K
+c
+"}
+(6,1,1) = {"
+K
+K
+K
+K
+c
+c
+n
+c
+y
+c
+c
+b
+Z
+v
+c
+c
+t
+c
+c
+f
+n
+c
+K
+K
+c
+"}
+(7,1,1) = {"
+c
+K
+K
+K
+c
+c
+f
+c
+c
+c
+n
+t
+G
+j
+c
+N
+c
+c
+c
+c
+c
+c
+K
+K
+c
+"}
+(8,1,1) = {"
+c
+c
+K
+K
+c
+c
+c
+c
+t
+c
+L
+Z
+c
+c
+c
+c
+L
+H
+c
+c
+t
+K
+K
+K
+c
+"}
+(9,1,1) = {"
+c
+c
+K
+K
+K
+c
+t
+H
+c
+f
+c
+c
+q
+Z
+P
+t
+c
+y
+c
+c
+t
+c
+K
+K
+c
+"}
+(10,1,1) = {"
+c
+K
+K
+K
+t
+t
+c
+y
+D
+c
+r
+K
+H
+q
+c
+c
+c
+c
+r
+t
+c
+c
+K
+K
+c
+"}
+(11,1,1) = {"
+c
+K
+K
+t
+t
+V
+c
+c
+c
+B
+D
+c
+K
+c
+c
+K
+c
+c
+c
+c
+c
+c
+K
+K
+c
+"}
+(12,1,1) = {"
+K
+K
+K
+t
+L
+q
+T
+k
+c
+c
+c
+K
+K
+K
+K
+c
+T
+c
+c
+c
+c
+K
+K
+c
+c
+"}
+(13,1,1) = {"
+K
+K
+K
+t
+V
+c
+S
+c
+c
+A
+r
+K
+e
+K
+R
+Z
+c
+n
+l
+K
+c
+K
+K
+c
+c
+"}
+(14,1,1) = {"
+K
+K
+K
+t
+t
+V
+c
+c
+j
+c
+K
+K
+K
+K
+c
+c
+q
+c
+c
+c
+K
+K
+K
+K
+K
+"}
+(15,1,1) = {"
+K
+K
+K
+K
+t
+t
+c
+c
+c
+T
+c
+K
+c
+K
+P
+y
+T
+c
+c
+c
+c
+K
+K
+K
+c
+"}
+(16,1,1) = {"
+c
+K
+K
+K
+K
+c
+c
+t
+Z
+c
+K
+P
+c
+c
+K
+Z
+c
+l
+c
+H
+K
+K
+K
+K
+c
+"}
+(17,1,1) = {"
+c
+K
+K
+K
+c
+c
+c
+c
+p
+q
+r
+c
+T
+T
+H
+c
+c
+c
+t
+c
+c
+K
+K
+c
+c
+"}
+(18,1,1) = {"
+c
+c
+K
+K
+c
+c
+n
+w
+t
+c
+c
+c
+Z
+c
+T
+c
+C
+c
+c
+c
+c
+K
+K
+K
+c
+"}
+(19,1,1) = {"
+c
+c
+K
+K
+K
+c
+c
+c
+c
+c
+L
+w
+t
+c
+c
+c
+c
+c
+c
+c
+c
+c
+K
+K
+c
+"}
+(20,1,1) = {"
+c
+c
+K
+K
+c
+t
+c
+c
+c
+c
+f
+u
+c
+q
+c
+L
+s
+c
+y
+c
+Y
+c
+K
+K
+c
+"}
+(21,1,1) = {"
+c
+K
+K
+K
+c
+t
+c
+y
+c
+c
+w
+O
+q
+j
+c
+c
+c
+c
+c
+Z
+t
+c
+K
+K
+c
+"}
+(22,1,1) = {"
+c
+c
+K
+K
+K
+c
+t
+c
+c
+c
+W
+m
+J
+c
+c
+c
+t
+c
+c
+c
+c
+K
+K
+c
+c
+"}
+(23,1,1) = {"
+c
+c
+K
+K
+K
+K
+K
+K
+c
+K
+K
+I
+x
+K
+c
+K
+K
+t
+c
+K
+c
+K
+K
+c
+c
+"}
+(24,1,1) = {"
+c
+c
+c
+c
+K
+K
+K
+K
+K
+K
+M
+w
+a
+K
+K
+K
+K
+K
+K
+c
+K
+K
+c
+c
+c
+"}
+(25,1,1) = {"
+c
+c
+c
+c
+c
+c
+c
+K
+K
+K
+c
+T
+q
+c
+c
+K
+c
+K
+K
+K
+K
+K
+c
+c
+c
+"}
