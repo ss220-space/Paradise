@@ -132,10 +132,6 @@
 /obj/structure/flora/tree/jungle,
 /turf/simulated/floor/indestructible/grass,
 /area/ruin/powered/green_bio)
-"kn" = (
-/turf/space,
-/turf/simulated/floor/indestructible/grass,
-/area/ruin/powered/green_bio)
 "lC" = (
 /obj/structure/bed,
 /obj/item/bedsheet/purple,
@@ -658,13 +654,6 @@
 /obj/effect/turf_decal/siding/green{
 	dir = 4
 	},
-/turf/simulated/floor/indestructible/grass,
-/area/ruin/powered/green_bio)
-"PA" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/space,
 /turf/simulated/floor/indestructible/grass,
 /area/ruin/powered/green_bio)
 "PE" = (
@@ -1537,7 +1526,7 @@ Gh
 Gh
 gm
 gm
-kn
+ol
 ol
 ol
 ol
@@ -1574,7 +1563,7 @@ Cl
 Cl
 rp
 gm
-PA
+ic
 ol
 ol
 ol
@@ -1611,7 +1600,7 @@ pg
 Cl
 Cl
 Gh
-kn
+ol
 ol
 KU
 KU
@@ -1648,7 +1637,7 @@ Cl
 Cl
 Cl
 Gh
-kn
+ol
 GD
 qn
 ol
@@ -1685,7 +1674,7 @@ Cl
 De
 Zs
 gm
-kn
+ol
 GD
 JY
 ol
@@ -1722,7 +1711,7 @@ Cl
 gP
 lC
 gm
-PA
+ic
 ol
 ol
 ol
@@ -1759,7 +1748,7 @@ Fl
 gm
 gm
 gm
-kn
+ol
 GD
 rj
 ol
