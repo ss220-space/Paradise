@@ -264,7 +264,7 @@
 	name = "Ash Drake Nest"
 	id = "drakenest"
 	description = "A huge nest for horrific monster, surrouded by it's victims."
-	suffix = "lavaland_surface_drake.dmm"
+	suffix = "lavaland_surface_dragon.dmm"
 	cost = 5
 	allow_duplicates = FALSE
 
