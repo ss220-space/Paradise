@@ -176,9 +176,9 @@
 		if("carp" in L.faction)
 			to_chat(src, span_warning("Вы почти укусили своего сородича, но вовремя остановились."))
 			return
-	if (istype(target, /obj/structure/carp_rift))
+	if(istype(target, /obj/structure/carp_rift))
 		var/obj/structure/carp_rift/rift = target
-		if (rift.dragon == src)
+		if(rift.dragon == src)
 			to_chat(src, span_warning("Вы почти укусили свой разлом, но вовремя остановились."))
 	. = ..()
 	if(ismecha(target))
