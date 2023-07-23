@@ -6,6 +6,7 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "defib-on"
 	item_state = "defib"
+	belt_icon = "handheld_defibrillator"
 	var/shield_ignore = FALSE
 	var/icon_base = "defib"
 	var/cooldown = FALSE
@@ -72,8 +73,8 @@
 					else
 						to_chat(user, "<span class='danger'>[H] doesn't respond!</span>")
 
-				H.AdjustWeakened(2)
-				H.AdjustStuttering(10)
+				H.AdjustWeakened(4 SECONDS)
+				H.AdjustStuttering(20 SECONDS)
 				to_chat(H, "<span class='danger'>You feel a powerful jolt!</span>")
 				H.shock_internal_organs(100)
 

@@ -295,7 +295,7 @@
 	var/obj/item/grab/G = C.grabbedby(firer, 1)
 	if(istype(G))
 		G.state = GRAB_PASSIVE
-		C.Weaken(2)
+		C.Weaken(4 SECONDS)
 
 /obj/item/projectile/tentacle/proc/tentacle_stab(mob/living/carbon/C)
 	if(!firer || !C)
@@ -527,7 +527,9 @@
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
+	hide_tail_by_species = list("Vulpkanin", "Unathi")
 	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
 		)
 
