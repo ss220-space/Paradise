@@ -3630,13 +3630,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/northwest)
-"azh" = (
-/obj/machinery/kitchen_machine/candy_maker,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
-	},
-/area/crew_quarters/kitchen)
 "azu" = (
 /turf/simulated/wall,
 /area/security/range)
@@ -116141,7 +116134,7 @@ cjJ
 xlg
 myn
 jWw
-azh
+mrt
 dNs
 nsX
 bSU
