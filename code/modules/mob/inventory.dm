@@ -587,8 +587,10 @@
 	if(wear_mask)
 		items += wear_mask
 	if(include_hands)
-		items += l_hand
-		items += r_hand
+		if(l_hand)
+			items += l_hand
+		if(r_hand)
+			items += r_hand
 	return items
 
 
