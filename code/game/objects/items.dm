@@ -626,12 +626,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
  * Returns `TRUE` if the item is equipped by a mob, `FALSE` otherwise.
  * This might need some error trapping, not sure if get_equipped_items() is safe for non-human mobs.
  */
-/obj/item/proc/is_equipped(include_pockets = FALSE)
+/obj/item/proc/is_equipped(include_pockets = FALSE, include_hands = FALSE)
 	if(!ismob(loc))
 		return FALSE
 
 	var/mob/M = loc
-	if(src in M.get_equipped_items(include_pockets))
+	if(src in M.get_equipped_items(include_pockets, include_hands))
 		return TRUE
 	else
 		return FALSE
@@ -686,14 +686,14 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			return container.handle_item_insertion(src)
 
 	if(drop_on_fail)
-		if(src in user.get_equipped_items(include_pockets = TRUE))
+		if(src in user.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 			user.drop_item_ground(src)
 		else
 			forceMove(drop_location())
 		return FALSE
 
 	if(qdel_on_fail)
-		if(src in user.get_equipped_items(include_pockets = TRUE))
+		if(src in user.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 			user.temporarily_remove_item_from_inventory(src, force = TRUE)
 		qdel(src)
 

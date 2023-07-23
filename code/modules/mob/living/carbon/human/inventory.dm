@@ -628,7 +628,7 @@
 		qdel(slot)
 
 
-/mob/living/carbon/human/get_equipped_items(include_pockets = FALSE)
+/mob/living/carbon/human/get_equipped_items(include_pockets = FALSE, include_hands = FALSE)
 	var/list/items = ..()
 	if(belt)
 		items += belt
