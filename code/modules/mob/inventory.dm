@@ -114,7 +114,7 @@
 /mob/proc/put_in_any_hand_if_possible(obj/item/I, drop_on_fail = FALSE, qdel_on_fail = FALSE, disable_warning = TRUE)
 	if(equip_to_slot_if_possible(I, slot_l_hand, disable_warning = disable_warning))
 		return TRUE
-	else if(equip_to_slot_if_possible(I, slot_l_hand, disable_warning = disable_warning))
+	else if(equip_to_slot_if_possible(I, slot_r_hand, disable_warning = disable_warning))
 		return TRUE
 
 	if(drop_on_fail)
