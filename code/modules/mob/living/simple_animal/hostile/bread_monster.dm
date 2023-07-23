@@ -14,15 +14,18 @@ GLOBAL_LIST_EMPTY(bread_monsters)
 	icon_living = "bread_monster"
 	icon_resting = "bread_monster"
 	icon_dead = "bread_monster_dead"
-	death_sound = 'sound/misc/demon_dies.ogg'
-
+	speak = list("Rawr!")
+	a_intent = INTENT_HARM
 	intent = INTENT_HARM
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/breadslice/burned = 2)
 	response_help = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm = "hits"
 	emote_taunt = list("gnashes")
-	attack_sound = 'sound/weapons/bite.ogg'
+	attack_sound = 'sound/creatures/breadmonster/bread_bite.ogg'
+	damaged_sound = 'sound/creatures/breadmonster/bread_damaged.ogg'
+	talk_sound = 'sound/creatures/breadmonster/bread_talk.ogg'
+	death_sound = 'sound/creatures/breadmonster/bread_death.ogg'
 	melee_damage_lower = 7
 	melee_damage_upper = 7
 	tts_seed = "Peon"
