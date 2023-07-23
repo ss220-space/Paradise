@@ -943,14 +943,15 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	remove_outline()
 
 
-/obj/item/MouseDrop_T(obj/item/I, mob/user)
-	if(!user || user.incapacitated(ignore_lying = TRUE) || src == I)
-		return
+/obj/item/MouseDrop_T(atom/dropping, mob/user)
+	if(!user || user.incapacitated(ignore_lying = TRUE) || src == dropping)
+		return FALSE
 
-	if(loc && I.loc == loc && istype(loc, /obj/item/storage) && loc.Adjacent(user)) // Are we trying to swap two items in the storage?
+	if(loc && dropping.loc == loc && istype(loc, /obj/item/storage) && loc.Adjacent(user)) // Are we trying to swap two items in the storage?
 		var/obj/item/storage/S = loc
-		S.swap_items(src, I, user)
+		S.swap_items(src, dropping, user)
 	remove_outline() //get rid of the hover effect in case the mouse exit isn't called if someone drags and drops an item and somthing goes wrong
+	return TRUE
 
 
 /obj/item/proc/apply_outline(mob/user, outline_color = null)
