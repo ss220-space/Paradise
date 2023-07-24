@@ -1141,8 +1141,8 @@
 	var/cooldown = FALSE
 	var/ashwalkerbite = 'sound/effects/unathihiss.ogg'
 
-/obj/item/toy/plushie/ashwalkerplushie/Initialize()
-	. = ..()
+/obj/item/toy/plushie/ashwalkerplushie/New()
+	..()
 	if(prob(50))
 		icon_state = "plushie_ashwalker2"
 
