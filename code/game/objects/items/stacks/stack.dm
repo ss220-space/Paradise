@@ -400,11 +400,14 @@
 	for(var/obj/item/stack/item_stack in contents)
 		if(item_stack.is_cyborg)
 			continue
+
 		if(item_stack.w_class > max_w_class)
-			var/drop_loc = drop_location()
-			item_stack.remove_item_from_storage(drop_loc)
-			var/mob/holder = get(src, /mob)
-			if(holder?.mind)
+			var/drop_loc = get_turf(src)
+			item_stack.pixel_x = pixel_x
+			item_stack.pixel_y = pixel_y
+			item_stack.forceMove(drop_loc)
+			var/mob/holder = usr
+			if(holder)
 				to_chat(holder, span_warning("[item_stack] exceeds [src] weight limits and drops to [drop_loc]"))
 
 
