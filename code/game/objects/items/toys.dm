@@ -1146,7 +1146,7 @@
 	if(prob(50))
 		icon_state = "plushie_ashwalker2"
 
-/obj/item/toy/plushie/ashwalkerplushie/attack(mob/M as mob, mob/user as mob)
+/obj/item/toy/plushie/ashwalkerplushie/attack(mob/M, mob/user)
 	switch(rand(1, 10))
 		if(1 to 6)
 			playsound(loc, ashwalkerbite, 40, 1)
