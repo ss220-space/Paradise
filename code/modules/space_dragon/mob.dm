@@ -180,6 +180,7 @@
 		var/obj/structure/carp_rift/rift = target
 		if(rift.dragon == src)
 			to_chat(src, span_warning("Вы почти укусили свой разлом, но вовремя остановились."))
+			return
 	. = ..()
 	if(ismecha(target))
 		var/obj/mecha/M = target
