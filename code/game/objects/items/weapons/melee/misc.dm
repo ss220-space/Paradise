@@ -3,7 +3,7 @@
 
 /obj/item/melee/proc/check_martial_counter(mob/living/carbon/human/target, mob/living/carbon/human/user)
 	if(target.check_martial_art_defense(target, user, src))
-		user.Stun(2)
+		user.Stun(4 SECONDS)
 		return TRUE
 
 /obj/item/melee/chainofcommand
