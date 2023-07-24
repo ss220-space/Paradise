@@ -65,6 +65,7 @@
 	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
 	var/speed_mod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
 	var/bonefragility = 1 // higher numbers - higher chances to break bones
+	var/fragile_bones_chance = 0	//chance to break bones while walking, pulling and beating
 	var/blood_damage_type = OXY //What type of damage does this species take if it's low on blood?
 	var/total_health = 100
 	var/punchdamagelow = 0       //lowest possible punch damage
