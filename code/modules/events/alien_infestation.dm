@@ -1,3 +1,6 @@
+#define ALIEN_HIGHPOP_TRIGGER 80
+#define ALIEN_MIDPOP_TRIGGER 40
+
 /datum/event/alien_infestation
 	announceWhen	= 400
 	var/highpop_trigger = 80
@@ -18,6 +21,9 @@
 /datum/event/alien_infestation/start()
 	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
 	playercount = length(GLOB.clients)//grab playercount when event starts not when game starts
+	if(playercount <= ALIEN_MIDPOP_TRIGGER)
+		spawn_vectors()
+		return
 	if(playercount >= highpop_trigger) //spawn with 4 if highpop
 		spawncount = 4
 
@@ -36,3 +42,24 @@
 
 				spawncount--
 				successSpawn = TRUE
+
+/datum/event/alien_infestation/proc/spawn_vectors(list/vents, playercount)
+	spawncount = 1
+	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за Чужого?", ROLE_ALIEN, TRUE, source = /mob/living/carbon/alien/larva)
+	while(spawncount && length(vents) && length(candidates))
+		var/obj/vent = pick_n_take(vents)
+		var/mob/C = pick_n_take(candidates)
+		if(C)
+			GLOB.respawnable_list -= C.client
+			var/mob/living/carbon/alien/humanoid/hunter/vector/new_xeno = new(vent.loc)
+			new_xeno.amount_grown += (0.75 * new_xeno.max_grown)	//event spawned larva start off almost ready to evolve.
+			new_xeno.key = C.key
+			if(SSticker && SSticker.mode)
+				SSticker.mode.xenos += new_xeno.mind
+
+			spawncount--
+			successSpawn = TRUE
+
+
+#undef ALIEN_HIGHPOP_TRIGGER 80
+#undef ALIEN_MIDPOP_TRIGGER 40
