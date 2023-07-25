@@ -60,13 +60,11 @@ GLOBAL_LIST_INIT(changeling_mutations, list(
 
 
 /datum/action/changeling/Remove(mob/user)
-	remove_changeling_mutations(user, actions_check = TRUE)
 	user?.update_action_buttons(TRUE)
 	..()
 
 
 /datum/action/changeling/Destroy(force, ...)
-	remove_changeling_mutations(owner, actions_check = TRUE)
 	owner?.update_action_buttons(TRUE)
 	cling.acquired_powers -= src
 	cling = null
