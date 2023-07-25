@@ -323,23 +323,13 @@
 	. = _memory_edit_header("revolution")
 	if(src in SSticker.mode.head_revolutionaries)
 		. += "<a href='?src=[UID()];revolution=clear'>no</a>|<b><font color='red'>HEADREV</font></b>|<a href='?src=[UID()];revolution=rev'>rev</a>"
-		/*. += "<br>Flash: <a href='?src=[UID()];revolution=flash'>give</a>"
-
-		var/list/contents_list = current.get_contents()
-		var/obj/item/flash/flash = locate() in contents_list
-		if(flash)
-			if(!flash.broken)
-				. += "|<a href='?src=[UID()];revolution=takeflash'>take</a>."
-			else
-				. += "|<a href='?src=[UID()];revolution=takeflash'>take</a>|<a href='?src=[UID()];revolution=repairflash'>repair</a>."
-		else
-			. += "."*/
-
 		. += " <a href='?src=[UID()];revolution=reequip'>Reequip</a> (gives security HUD and spray can)."
-		if(objectives.len==0)
+		if(!length(objectives))
 			. += "<br>Objectives are empty! <a href='?src=[UID()];revolution=autoobjectives'>Set to kill all heads</a>."
 	else if(src in SSticker.mode.revolutionaries)
 		. += "<a href='?src=[UID()];revolution=clear'>no</a>|<a href='?src=[UID()];revolution=headrev'>headrev</a>|<b><font color='red'>REV</font></b>"
+	else if(ismindshielded(H))
+		. += "<b>NO</b>|headrev|rev"
 	else
 		. += "<b>NO</b>|<a href='?src=[UID()];revolution=headrev'>headrev</a>|<a href='?src=[UID()];revolution=rev'>rev</a>"
 
@@ -824,7 +814,7 @@
 				def_value = "custom"
 
 		var/list/objective_types = list(
-			"assassinate", "maroon", "pain_hunter", "debrain", "protect", "escape", "survive",
+			"assassinate", "prevent from escape", "pain hunter", "steal brain", "protect", "escape", "survive",
 			"steal", "thief hard", "thief medium", "thief collect", "thief pet", "thief structure",
 			"download", "nuclear", "capture", "blood", "absorb",
 			"destroy", "identity theft", "hijack", "kill all humans",
@@ -841,11 +831,7 @@
 		var/datum/objective/new_objective = null
 
 		switch(new_obj_type)
-			if("assassinate", "protect", "debrain", "maroon", "pain_hunter")
-				//To determine what to name the objective in explanation text.
-				var/objective_type_capital = uppertext(copytext(new_obj_type, 1,2))	//Capitalize first letter.
-				var/objective_type_text = copytext(new_obj_type, 2)	//Leave the rest of the text.
-				var/objective_type = "[objective_type_capital][objective_type_text]"	//Add them together into a text string.
+			if("assassinate", "protect", "steal brain", "prevent from escape", "pain hunter")
 
 				var/list/possible_targets = list()
 				var/list/possible_targets_random = list()
@@ -856,12 +842,12 @@
 							possible_targets_random += possible_target.current // For random picking, only valid targets
 
 				var/mob/def_target = null
-				var/objective_list[] = list(/datum/objective/assassinate, \
-											/datum/objective/protect, \
-											/datum/objective/debrain, \
-											/datum/objective/maroon, \
-											/datum/objective/pain_hunter)
-
+				var/objective_list[] = list(/datum/objective/assassinate,
+											/datum/objective/protect,
+											/datum/objective/debrain,
+											/datum/objective/maroon,
+											/datum/objective/pain_hunter
+										)
 				if(objective && (objective.type in objective_list) && objective:target)
 					def_target = objective.target.current
 				possible_targets = sortAtom(possible_targets)
@@ -880,21 +866,42 @@
 					if(!new_target)
 						return
 				else
-					to_chat(usr, "<span class='warning'>No possible target found. Defaulting to a Free objective.</span>")
+					to_chat(usr, span_warning("No possible target found. Defaulting to a Free objective."))
 					new_target = "Free objective"
 
-				var/objective_path = text2path("/datum/objective/[new_obj_type]")
+				var/obj_type = list("assassinate" = /datum/objective/assassinate,
+								"protect" = /datum/objective/protect,
+								"steal brain" = /datum/objective/debrain,
+								"prevent from escape" = /datum/objective/maroon,
+								"pain hunter" = /datum/objective/pain_hunter
+								)[new_obj_type]
+
 				if(new_target == "Free objective")
-					new_objective = new objective_path
+					new_objective = new obj_type
 					new_objective.owner = src
 					new_objective:target = null
 					new_objective.explanation_text = "Free objective"
 				else
-					new_objective = new objective_path
+					new_objective = new obj_type
 					new_objective.owner = src
 					new_objective:target = new_target:mind
-					//Will display as special role if assigned mode is equal to special role.. Ninjas/commandos/nuke ops.
-					new_objective.explanation_text = "[objective_type] [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
+
+					var/description = ""
+					switch(new_obj_type)
+						if("assassinate")
+							description = "Assassinate"
+						if("protect")
+							description = "Protect"
+						if("steal brain")
+							description = "Steal the brain of"
+						if("prevent from escape")
+							description = "Prevent from escaping alive or assassinate"
+						if("pain hunter")
+							var/datum/objective/pain_hunter/choose_objective = new_objective
+							choose_objective.update_find_objective()
+					if(description)
+						//Will display as special role if assigned mode is equal to special role.. Ninjas/commandos/nuke ops.
+						new_objective.explanation_text = "[description] [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
 
 			if("destroy")
 				var/list/possible_targets = active_ais(1)
@@ -1263,18 +1270,6 @@
 					to_chat(current, span_notice("You are a member of the revolutionaries' leadership now!"))
 				else
 					return
-
-				if(SSticker.mode.head_revolutionaries.len > 0)
-					// copy targets
-					var/datum/mind/valid_head = locate() in SSticker.mode.head_revolutionaries
-					if(valid_head)
-						for(var/datum/objective/mutiny/mutiny_obj in valid_head.objectives)
-							var/datum/objective/mutiny/rev_obj = new
-							rev_obj.owner = src
-							rev_obj.target = mutiny_obj.target
-							rev_obj.explanation_text = "Assassinate [mutiny_obj.target.name], the [mutiny_obj.target.assigned_role]."
-							objectives += rev_obj
-						SSticker.mode.greet_revolutionary(src, 0)
 
 				SSticker.mode.head_revolutionaries += src
 				SSticker.mode.update_rev_icons_added(src)
