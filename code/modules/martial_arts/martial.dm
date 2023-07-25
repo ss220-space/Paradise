@@ -124,10 +124,13 @@
 		D.forcesay(GLOB.hit_appends)
 	return TRUE
 
-/datum/martial_art/proc/attack_reaction(var/mob/living/carbon/human/defender, var/mob/living/carbon/human/attacker, var/obj/item/I)
+/datum/martial_art/proc/attack_reaction(var/mob/living/carbon/human/defender, var/mob/living/carbon/human/attacker, var/obj/item/I, var/visible_message, var/self_message)
 	if(can_use(src) && defender.in_throw_mode && !defender.incapacitated(FALSE, TRUE))
 		if(prob(block_chance))
-			defender.visible_message("<span class='warning'>[defender] blocks [I]!</span>")
+			if(visible_message || self_message)
+				defender.visible_message(visible_message, self_message)
+			else
+				defender.visible_message("<span class='warning'>[defender] blocks [I]!</span>")
 			return TRUE
 
 /datum/martial_art/proc/objective_damage(var/mob/living/user, var/mob/living/target, var/damage, var/damage_type)
