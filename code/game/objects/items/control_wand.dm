@@ -3,7 +3,6 @@
 #define WAND_EMERGENCY "Toggle Emergency Access"
 #define WAND_SPEED "Change Closing Speed"
 #define WAND_ELECTRIFY "Electrify Door"
-#define WAND_REACH 10
 
 /obj/item/door_remote
 	icon_state = "gangtool-white"
@@ -18,7 +17,6 @@
 	var/additional_access = list()
 	var/obj/item/card/id/ID
 	var/emagged = FALSE
-	var/reach_distance = WAND_REACH
 
 /obj/item/door_remote/New()
 	..()
@@ -242,4 +240,3 @@
 #undef WAND_BOLT
 #undef WAND_EMERGENCY
 #undef WAND_SPEED
-#undef WAND_REACH
