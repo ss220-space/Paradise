@@ -122,6 +122,7 @@
 		else
 			button.icon = button_background_icon
 			button.icon_state = background_icon_state
+		button.name = name
 		button.desc = desc
 
 		ApplyIcon(button)
@@ -653,11 +654,11 @@
 	var/obj/effect/proc_holder/spell/spell = target
 	var/image/I = image('icons/mob/screen_gen.dmi', icon_state = "selector")
 	I.appearance_flags |= RESET_COLOR | RESET_ALPHA
-	I.plane = FLOAT_PLANE + 1.1
+	I.plane = FLOAT_PLANE + 1.2
 	if(spell.active)
-		button.overlays += I
+		button.add_overlay(I)
 	else
-		button.overlays -= I
+		button.cut_overlay(I)
 
 
 /datum/action/spell_action/ApplyIcon(obj/screen/movable/action_button/current_button)
@@ -667,7 +668,7 @@
 		img.appearance_flags = RESET_COLOR | RESET_ALPHA
 		img.pixel_x = 0
 		img.pixel_y = 0
-		current_button.overlays += img
+		current_button.add_overlay(img)
 
 
 /datum/action/spell_action/apply_unavailable_effect()
@@ -685,7 +686,7 @@
 	button.add_overlay(img)
 	// Make a holder for the charge text
 	var/image/count_down_holder = image('icons/effects/effects.dmi', icon_state = "nothing")
-	count_down_holder.plane = FLOAT_PLANE + 1.2
+	count_down_holder.plane = FLOAT_PLANE + 1.1
 	var/text = spell.cooldown_handler.statpanel_info()
 	count_down_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[text]</div>"
 	button.add_overlay(count_down_holder)
