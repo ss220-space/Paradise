@@ -380,6 +380,9 @@
 	mymob.pullin.screen_loc = ui_pull_resist
 	static_inventory += mymob.pullin
 
+	mymob.stamina_bar = new /obj/screen/stamina_bar()
+	infodisplay += mymob.stamina_bar
+
 	lingchemdisplay = new /obj/screen/ling/chems()
 	infodisplay += lingchemdisplay
 
