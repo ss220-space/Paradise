@@ -20,11 +20,12 @@
 /obj/effect/abstract/bluespace_rift/Initialize(mapload, rift, size, time_per_tile)
 	. = ..()
 	if(!(isnull(loc) || rift || size || time_per_tile))
-		// The object spawned incorrectly, possibly by admin.
+		// The object spawned incorrectly, it won't work that way.
 		return INITIALIZE_HINT_QDEL
 	
 	loc = pick_turf_to_go()
 	src.rift = rift
+	src.size = size
 	src.time_per_tile = time_per_tile
 	next_step = world.time
 	change_direction()

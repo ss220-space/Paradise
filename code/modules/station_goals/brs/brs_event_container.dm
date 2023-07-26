@@ -8,258 +8,305 @@
 #define ASSIGNMENT_SCIENTIST "Scientist"
 #define ASSIGNMENT_SECURITY "Security"
 
-/*
-GLOBAL_LIST_INIT(brs_severity_to_string, list(
-	BRS_EVENT_MESS 		= "Mess",
-	BRS_EVENT_MINOR 	= "Minor",
-	BRS_EVENT_MAJOR 	= "Major",
-	BRS_EVENT_CRITICAL 	= "Critical"
-	))*/
+#define ONE_EVENT 10000 //! 1 event in `cumulative_event_expectancy` units.
+#define MAX_EVENTS_PER_CHECK (ONE_EVENT * 6)
 
-//event_container.dm
-//====================BRS GOAL====================
-/datum/event_container/brs_minor
-	severity = BRS_EVENT_MINOR
+#define MAX_RIFT_EVENT_RANGE 5
+#define RIFT_EVENT_RANGE(rift_size) min(rift_size * 2, MAX_RIFT_EVENT_RANGE)
+
+/datum/brs_event_container
+
+	var/datum/bluespace_rift/rift
+	var/list/available_events
+
+	/// Expected number of events, in 0.0001 (adding 10 000 means adding 1 event, to not mess with really small fractions).
+	var/cumulative_event_expectancy = 0
+	/// How often this should be processed
+	var/time_between_checks = 1 MINUTES
+
+	var/last_check = 0
+
+/datum/brs_event_container/New(datum/bluespace_rift/rift)
+	. = ..()
+	src.rift = rift
+
+/datum/brs_event_container/process()
+	if(world.time < (last_check + time_between_checks))
+		return
+
+	if(cumulative_event_expectancy == 0)
+		last_check = world.time
+		return
+	
+	if(cumulative_event_expectancy > MAX_EVENTS_PER_CHECK)
+		cumulative_event_expectancy = MAX_EVENTS_PER_CHECK
+
+	// More than one event expected
+	while(cumulative_event_expectancy >= ONE_EVENT)
+		cumulative_event_expectancy -= ONE_EVENT
+		start_event()
+	
+	// Less than one event expected
+	if(cumulative_event_expectancy > 0)
+		if(rand(ONE_EVENT) < cumulative_event_expectancy)
+			start_event()
+			cumulative_event_expectancy = 0
+
+	last_check = world.time
+
+/datum/brs_event_container/proc/start_event()
+	var/datum/event_meta/picked_event_meta = pick_event()
+	if(!picked_event_meta)
+		return
+
+	// Just to be sure. This prevents the event from being added to the the round's random event pool.
+	picked_event_meta.severity = EVENT_LEVEL_NONE
+
+	if(istype(picked_event_meta, /datum/event_meta/bluespace_rift_event_meta))
+		var/datum/event_meta/bluespace_rift_event_meta/t_meta = picked_event_meta
+		t_meta.rift = rift
+	
+	new picked_event_meta.event_type(picked_event_meta)
+
+/datum/brs_event_container/proc/pick_event()
+	if(!length(available_events))
+		return
+	var/list/possible_events = list()
+	var/active_with_role = number_active_with_role()
+	for(var/datum/event_meta/event_meta as anything in available_events)
+		var/event_weight = event_meta.get_weight(active_with_role)
+		if(event_meta.enabled && event_weight)
+			possible_events[event_meta] = event_weight
+	
+	var/picked_event_meta = pickweight(possible_events)
+	return picked_event_meta
+
+/datum/brs_event_container/normal
 	available_events = list(
-		// Severity level, event name, event type, base weight, role weights, one shot, min weight, max weight. Last two only used if set.
-		new /datum/event_meta(BRS_EVENT_MINOR, "Ничего",					/datum/event/nothing,			350),
-		new /datum/event_meta(BRS_EVENT_MINOR, "Денежная лотерея",			/datum/event/money_lotto, 		100, 		list(ASSIGNMENT_ANY = 1)),
-		new /datum/event_meta(BRS_EVENT_MINOR, "Взлом аккаунта",			/datum/event/money_hacker, 		300, 	list(ASSIGNMENT_ANY = 4)),
-		new /datum/event_meta(BRS_EVENT_MINOR, "Стенной грибок",			/datum/event/wallrot, 			400,		list(ASSIGNMENT_ENGINEER = 30, ASSIGNMENT_GARDENER = 50)),
-		new /datum/event_meta(BRS_EVENT_MINOR, "Отходы из вытяжек",			/datum/event/vent_clog,			600),
-		new /datum/event_meta(BRS_EVENT_MINOR, "Гравитационная аномалия",	/datum/event/anomaly/anomaly_grav,		400),
-		new /datum/event_meta(BRS_EVENT_MINOR, "Массовые галлюцинации",		/datum/event/mass_hallucination,		500),
-		new /datum/event_meta(BRS_EVENT_MINOR, "Ничего",					/datum/event/nothing,					100),
-		new /datum/event_meta(BRS_EVENT_MINOR, "Пространственный разрыв",	/datum/event/tear,						150,	list(ASSIGNMENT_SECURITY = 35)),
-		new /datum/event_meta(BRS_EVENT_MINOR, "Червоточины",				/datum/event/wormholes,					10),
-		new /datum/event_meta(BRS_EVENT_MINOR, "Атмосферная аномалия",		/datum/event/anomaly/anomaly_pyro,		150,	list(ASSIGNMENT_ENGINEER = 60)),
-		new /datum/event_meta(BRS_EVENT_MINOR, "Вортекс-аномалия",			/datum/event/anomaly/anomaly_vortex,	75,		list(ASSIGNMENT_ENGINEER = 25)),
-		new /datum/event_meta(BRS_EVENT_MINOR, "Блюспейс-аномалия",			/datum/event/anomaly/anomaly_bluespace,	200,	list(ASSIGNMENT_ENGINEER = 25)),
-		new /datum/event_meta(BRS_EVENT_MINOR, "Флюкс-аномалия",			/datum/event/anomaly/anomaly_flux,		200,	list(ASSIGNMENT_ENGINEER = 50)),
-		new /datum/event_meta(BRS_EVENT_MINOR, "Гравитационная аномалия",	/datum/event/anomaly/anomaly_grav,		300),
-		new /datum/event_meta(BRS_EVENT_MINOR, "Скопление кои",				/datum/event/carp_migration/koi,		80),
-		new /datum/event_meta(BRS_EVENT_MINOR, "Телекоммуникационный сбой",	/datum/event/communications_blackout,	500,	list(ASSIGNMENT_AI = 150, ASSIGNMENT_SECURITY = 120)),
-		new /datum/event_meta(BRS_EVENT_MINOR, "Массовые галлюцинации",		/datum/event/mass_hallucination,		100),
-		new /datum/event_meta(BRS_EVENT_MINOR, "Сбой работы дверей",		/datum/event/door_runtime,				50,		list(ASSIGNMENT_ENGINEER = 25, ASSIGNMENT_AI = 150)),
-		new /datum/event_meta(BRS_EVENT_MINOR, "Space Dust",				/datum/event/dust,						50,		list(ASSIGNMENT_ENGINEER = 50)),
-		new /datum/event_meta(BRS_EVENT_MINOR, "Мясной дождь",				/datum/event/dust/meaty,				50,		list(ASSIGNMENT_ENGINEER = 20)),
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Ничего",					/datum/event/nothing,					400),
+
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Стенной грибок",			/datum/event/wallrot, 					50,		list(ASSIGNMENT_ENGINEER = 10)),
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Отходы из вытяжек",		/datum/event/vent_clog,					100),
+
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Массовые галлюцинации",	/datum/event/mass_hallucination,		500),
+
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Сбой работы дверей",		/datum/event/door_runtime,				50,		list(ASSIGNMENT_ENGINEER = 10, ASSIGNMENT_AI = 50)),
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Телекоммуникационный сбой",/datum/event/communications_blackout,	100),
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Замыкание ЛКП",			/datum/event/apc_short, 				300,	list(ASSIGNMENT_ENGINEER = 25)),
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Перегрузка ЛКП",			/datum/event/apc_overload,				300,	list(ASSIGNMENT_ENGINEER = 25)),
+
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Пространственный разрыв",	/datum/event/tear,						50,		list(ASSIGNMENT_SECURITY = 25)),
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Червоточины",				/datum/event/wormholes,					100),
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Атмосферная аномалия",		/datum/event/anomaly/anomaly_pyro,		100),
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Вортекс-аномалия",			/datum/event/anomaly/anomaly_vortex,	100),
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Блюспейс-аномалия",		/datum/event/anomaly/anomaly_bluespace,	100),
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Флюкс-аномалия",			/datum/event/anomaly/anomaly_flux,		100),
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Гравитационная аномалия",	/datum/event/anomaly/anomaly_grav,		100),
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Хонкономалия",				/datum/event/tear/honk,					50),
+
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Скопление кои",			/datum/event/carp_migration/koi,		50),
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Скопление карпов",			/datum/event/carp_migration,			50),
+
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Space Dust",				/datum/event/dust,						50,		list(ASSIGNMENT_ENGINEER = 5)),
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Мясной дождь",				/datum/event/dust/meaty,				50,		list(ASSIGNMENT_ENGINEER = 5)),
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Солнечная вспышка",		/datum/event/solar_flare,				50,		list(ASSIGNMENT_ENGINEER = 5)),
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Электрический шторм",		/datum/event/electrical_storm, 			50,		list(ASSIGNMENT_ENGINEER = 5)),
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Радиационный шторм",		/datum/event/radiation_storm, 			50,		list(ASSIGNMENT_MEDICAL = 5)),
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Ионный шторм",				/datum/event/ion_storm, 				50,		list(ASSIGNMENT_AI = 50, ASSIGNMENT_CYBORG = 10)),
+
+		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Телепортация живых",			/datum/event/bluespace_rift_event/teleport_living,							500),
+		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Поменять местами живых",		/datum/event/bluespace_rift_event/teleport_living/shuffle,					500),
+		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Телепортация живых далеко",	/datum/event/bluespace_rift_event/teleport_living/within_z,					500),
+
+		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Взрывы",						/datum/event/bluespace_rift_event/explosions,								300),
+		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "ЭМИ",						/datum/event/bluespace_rift_event/explosions/em_pulses,						300),
+		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Химические взрывы",			/datum/event/bluespace_rift_event/explosions/random_chem_effect,			300),
+		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Конфетти",					/datum/event/bluespace_rift_event/explosions/random_chem_effect/confetti,	50),
 	)
 
-/datum/event_container/brs_major
-	severity = BRS_EVENT_MAJOR
-	available_events = list(
-		new /datum/event_meta(BRS_EVENT_MAJOR, 	"Ничего",					/datum/event/nothing,					100),
-		new /datum/event_meta(BRS_EVENT_MAJOR, "Солнечная вспышка",			/datum/event/solar_flare,				150,	list(ASSIGNMENT_ENGINEER = 25)),
-		new /datum/event_meta(BRS_EVENT_MAJOR, "Электрический шторм",		/datum/event/electrical_storm, 			250,	list(ASSIGNMENT_ENGINEER = 20, ASSIGNMENT_JANITOR = 150)),
-		new /datum/event_meta(BRS_EVENT_MAJOR, "Радиационный шторм",		/datum/event/radiation_storm, 			50,		list(ASSIGNMENT_MEDICAL = 50)),
-		new /datum/event_meta(BRS_EVENT_MAJOR, "Побег",						/datum/event/prison_break,				100,	list(ASSIGNMENT_SECURITY = 100)),
-		new /datum/event_meta(BRS_EVENT_MAJOR, "Замыкание ЛКП",				/datum/event/apc_short, 				300,	list(ASSIGNMENT_ENGINEER = 60)),
-		new /datum/event_meta(BRS_EVENT_MAJOR, "Сбойные дроны",				/datum/event/rogue_drone, 				10,		list(ASSIGNMENT_SECURITY = 20)),
-		new /datum/event_meta(BRS_EVENT_MAJOR, "Скопление карпов",			/datum/event/carp_migration,			100, 	list(ASSIGNMENT_ENGINEER = 10, ASSIGNMENT_SECURITY = 20)),
-		new /datum/event_meta(BRS_EVENT_MAJOR, "Ионный шторм",				/datum/event/ion_storm, 				25,		list(ASSIGNMENT_AI = 50, ASSIGNMENT_CYBORG = 50, ASSIGNMENT_ENGINEER = 15, ASSIGNMENT_SCIENTIST = 5)),
-		new /datum/event_meta(BRS_EVENT_MAJOR, "Вспышка болезни",			/datum/event/disease_outbreak, 			10,		list(ASSIGNMENT_MEDICAL = 150)),
-		new /datum/event_meta(BRS_EVENT_MAJOR, "Хедкрабы",					/datum/event/headcrabs, 				100,	list(ASSIGNMENT_SECURITY = 20)),
-		new /datum/event_meta(BRS_EVENT_MAJOR, "Сбой работы дверей",		/datum/event/door_runtime,				80,		list(ASSIGNMENT_ENGINEER = 25, ASSIGNMENT_AI = 150)),
-		new /datum/event_meta(BRS_EVENT_MAJOR, "Вортекс-аномалия",			/datum/event/anomaly/anomaly_vortex,	75,		list(ASSIGNMENT_ENGINEER = 25)),
+/**
+*	event_meta for bluespace rift events. Keeps a reference to the rift. 
+*/
+/datum/event_meta/bluespace_rift_event_meta
+	var/datum/bluespace_rift/rift
 
-	)
+/** 
+*	Base class.
+*	Event that affects things in the area around the rift. Should use bluespace_rift_event_meta.
+*/
+/datum/event/bluespace_rift_event
+	// Rift objects in the range of which the event will go
+	var/list/obj/effect/abstract/bluespace_rift/rift_objects
 
-/datum/event_container/brs_critical
-	severity = BRS_EVENT_CRITICAL
-	available_events = list(
-		new /datum/event_meta(BRS_EVENT_CRITICAL, "Червоточины",			/datum/event/wormholes,					150),
-		new /datum/event_meta(BRS_EVENT_CRITICAL, "Цифровой вирус",			/datum/event/brand_intelligence,		150, 	list(ASSIGNMENT_ENGINEER = 25)),
-		new /datum/event_meta(BRS_EVENT_CRITICAL, "Перегрузка ЛКП",			/datum/event/apc_overload,				200),
-		new /datum/event_meta(BRS_EVENT_CRITICAL, "Миграция карпов",		/datum/event/carp_migration,			25,		list(ASSIGNMENT_SECURITY =  3)),
-		new /datum/event_meta(BRS_EVENT_CRITICAL, "Хонкономалия",			/datum/event/tear/honk,					50),
-		new /datum/event_meta(BRS_EVENT_CRITICAL, "Сбой работы дверей",		/datum/event/door_runtime,				80,		list(ASSIGNMENT_ENGINEER = 25, ASSIGNMENT_AI = 150))
-	)
+/datum/event/bluespace_rift_event/setup()
+	pick_rift_objects()
 
+/datum/event/bluespace_rift_event/proc/pick_rift_objects()
+	if(!istype(event_meta, /datum/event_meta/bluespace_rift_event_meta))
+		rift_objects = list()
+		return
+	var/datum/event_meta/bluespace_rift_event_meta/t_meta = event_meta
+	if(!length(t_meta.rift.rift_objects))
+		rift_objects = list()
+		return
+	rift_objects = t_meta.rift.rift_objects
 
+// The class is not supposed to have any instances, but let's add something funny just in case it does.
+/datum/event/bluespace_rift_event/start()
+	for(var/rift_obj in rift_objects)
+		playsound(rift_obj, 'sound/misc/sadtrombone.ogg', 100)
 
-#undef ASSIGNMENT_ANY
-#undef ASSIGNMENT_AI
-#undef ASSIGNMENT_CYBORG
-#undef ASSIGNMENT_ENGINEER
-#undef ASSIGNMENT_BOTANIST
-#undef ASSIGNMENT_JANITOR
-#undef ASSIGNMENT_MEDICAL
-#undef ASSIGNMENT_SCIENTIST
-#undef ASSIGNMENT_SECURITY
+/datum/event/bluespace_rift_event/end()
+	// Since it appears that SSevents keeps references to all ended events,
+	// these might interfere with the deletion of the rift.
+	rift_objects = null
+	var/datum/event_meta/bluespace_rift_event_meta/t_meta = event_meta
+	t_meta.rift = null
 
+/** 
+*	Teleports random mobs around the rift not too far from where they were. 
+*/
+/datum/event/bluespace_rift_event/teleport_living
+	// min/max objects that will be chosen to teleport
+	var/max_num_objects = 30
+	var/min_num_objects = 5
 
+	// How far the objects can be teleported
+	var/teleport_radius = 6
 
-//==========================================
-//============== Local Events ==============
-//==========================================
-// Local Event Selection
-/obj/brs_rift/proc/choose_random_event(var/list/objects)
-	var/prob_chance = 85
-	if(prob_chance)
-		local_random_grenade(objects)
-	else
-		if(prob(prob_chance))
-			local_emp(objects)
-		else
-			local_explosive(objects)
+	var/list/objects_in_range
+	var/num_objects_to_teleport
 
-// Local Related Event Selection
-/obj/brs_rift/proc/choose_random_related_event(var/list/objects)
-	var/prob_chance = 70
-	var/prob_living_chance = 50
-	var/choosen = rand(1, 4)
-	switch(choosen)
-		if(1)
-			if(prob(prob_chance))
-				if(prob(prob_living_chance))
-					local_teleport_living(objects)
-				else
-					local_teleport_objects(objects)
-			else
-				local_teleport_all(objects)
-		if(2)
-			if(prob(prob_chance))
-				if(prob(prob_living_chance))
-					local_teleport_living_zloc(objects)
-				else
-					local_teleport_objects_zloc(objects)
-			else
-				local_teleport_all(objects)
-		if(3)
-			if(prob(prob_chance))
-				if(prob(prob_living_chance))
-					local_teleport_living_reshuffle(objects)
-				else
-					local_teleport_objects_reshuffle(objects)
-			else
-				local_teleport_all_reshuffle(objects)
-		if(4)
-			local_random_grenade_living(objects)
+/datum/event/bluespace_rift_event/teleport_living/setup()
+	..()
 
+	// Get objects in range
+	objects_in_range = list()
+	for(var/obj/effect/abstract/bluespace_rift/rift_obj as anything in rift_objects)
+		for(var/mob/living/mob in view(RIFT_EVENT_RANGE(rift_obj.size), rift_obj))
+			objects_in_range |= mob
+	
+	// Set the number of objects that will be teleported
+	min_num_objects = min(min_num_objects, length(objects_in_range))
+	max_num_objects = min(max_num_objects, length(objects_in_range))
+	num_objects_to_teleport = rand(min_num_objects, max_num_objects)
 
-//============ Teleports ============
+/datum/event/bluespace_rift_event/teleport_living/start()
+	for(var/i in 1 to num_objects_to_teleport)
+		var/mob = pick_n_take(objects_in_range)
+		do_teleport(mob, mob, teleport_radius)
 
-// Teleports in a small radius
-/obj/brs_rift/proc/local_teleport_living(var/list/objects)
-	for(var/mob/living/H in objects)
-		do_teleport(H, get_turf(H), 7)
-		investigate_log("teleported [key_name_log(H)] to [COORD(H)]", INVESTIGATE_TELEPORTATION)
+/datum/event/bluespace_rift_event/teleport_living/end()
+	..()
+	objects_in_range = null
 
-/obj/brs_rift/proc/local_teleport_objects(var/list/objects)
-	var/count = 0
-	for(var/obj/O in objects)
-		if(O.anchored)
-			continue
-		count++
-		if(count >= force_sized * 5)
+/** 
+*	Makes random mobs around the rift switch their places.
+*/
+/datum/event/bluespace_rift_event/teleport_living/shuffle
+
+/datum/event/bluespace_rift_event/teleport_living/shuffle/start()
+	if(num_objects_to_teleport < 2)
+		return
+	for(var/i in 1 to FLOOR(num_objects_to_teleport / 2, 1))
+		var/mob1 = pick_n_take(objects_in_range)
+		var/mob2 = pick_n_take(objects_in_range)
+		var/mob1_was_here = get_turf(mob1)
+		do_teleport(mob1, mob2)
+		do_teleport(mob2, mob1_was_here)
+
+/** 
+*	Teleports random mobs around the rift not too far from where they were. 
+*/
+/datum/event/bluespace_rift_event/teleport_living/within_z
+
+/datum/event/bluespace_rift_event/teleport_living/within_z/start()
+	var/rift_z = length(rift_objects) ? rift_objects[1].z : null
+	if(isnull(rift_z))
+		return
+	for(var/i in 1 to num_objects_to_teleport)
+		var/mob = pick_n_take(objects_in_range)
+		var/turf = find_safe_turf(rift_z)
+		if(!turf)
 			return
-		if(count <= force_sized)
-			do_teleport(O, get_turf(O), 7)
-		else
-			O.forceMove(get_turf(O), 7)
+		do_teleport(mob, turf)
 
+/** 
+*	Random number of explosions around the rift. 
+*/
+/datum/event/bluespace_rift_event/explosions
+	// min/max total number of explosions
+	var/max_explosions = 9
+	var/min_explosions = 3
 
-// Teleport to a random safe point in the station
-/obj/brs_rift/proc/local_teleport_living_zloc(var/list/objects)
-	for(var/mob/living/H in objects)
-		var/turf/simulated/floor/F = find_safe_turf(zlevels = src.z)
-		do_teleport(H, F)
-		investigate_log("teleported [key_name_log(H)] to [COORD(F)]", INVESTIGATE_TELEPORTATION)
+	// min/max explosion radius in tiles
+	var/max_explosion_radius = 3
+	var/min_explosion_radius = 1
 
-/obj/brs_rift/proc/local_teleport_objects_zloc(var/list/objects)
-	var/count = 0
-	for(var/obj/O in objects)
-		if (O.anchored)
-			continue
-		count++
-		if(count >= force_sized * 5)
-			return
-		var/turf/simulated/floor/F = find_safe_turf(zlevels = src.z)
-		if(count <= force_sized)
-			do_teleport(O, F)
-		else
-			O.forceMove(F)
+	var/list/turf/turfs_in_range
+	var/num_explosions
 
+/datum/event/bluespace_rift_event/explosions/setup()
+	..()
 
+	// Get turfs in range
+	turfs_in_range = list()
+	for(var/obj/effect/abstract/bluespace_rift/rift_obj as anything in rift_objects)
+		turfs_in_range |= RANGE_TURFS(RIFT_EVENT_RANGE(rift_obj.size), rift_obj)
+	// Set the number of explosions
+	min_explosions = min(min_explosions, length(turfs_in_range))
+	max_explosions = min(max_explosions, length(turfs_in_range))
+	num_explosions = rand(min_explosions, max_explosions)
 
-// Shuffling objects together
-/obj/brs_rift/proc/local_teleport_living_reshuffle(var/list/objects)
-	var/mob/living/temp_mob
-	for(var/mob/living/H in objects)
-		if (temp_mob)
-			var/turf/T = get_turf(H)
-			do_teleport(H, get_turf(temp_mob))
-			do_teleport(temp_mob, T)
-			investigate_log("switched places [key_name_log(H)][COORD(H.loc)] and [key_name_log(temp_mob)][COORD(temp_mob.loc)]", INVESTIGATE_TELEPORTATION)
-			temp_mob = null
-		else
-			temp_mob = H
+/datum/event/bluespace_rift_event/explosions/start()
+	for(var/i in 1 to num_explosions)
+		var/radius = rand(min_explosion_radius, max_explosion_radius)
+		var/epicenter = pick_n_take(turfs_in_range)
+		explosion(
+			epicenter, 
+			light_impact_range = radius,
+			flash_range = radius, 
+			flame_range =  radius, 
+			cause = "Bluespace rift event \"[name]\""
+		)
 
-/obj/brs_rift/proc/local_teleport_objects_reshuffle(var/list/objects)
-	var/obj/temp_object
-	var/count = 0
-	for(var/obj/O in objects)
-		if (O.anchored)
-			continue
-		count++
-		if(count >= force_sized * 5)
-			return
-		if (temp_object)
-			var/turf/T = get_turf(O)
-			if(count <= force_sized)
-				do_teleport(O, get_turf(temp_object))
-				do_teleport(temp_object, T)
-			else
-				O.forceMove(get_turf(temp_object))
-				temp_object.forceMove(T)
-			temp_object = null
-		else
-			temp_object = O
+/datum/event/bluespace_rift_event/explosions/end()
+	..()
+	turfs_in_range = null
 
+/** 
+*	Random number of em pulses around the rift. 
+*/
+/datum/event/bluespace_rift_event/explosions/em_pulses
 
-// Teleports of all objects
-/obj/brs_rift/proc/local_teleport_all(var/list/objects)
-	local_teleport_living(objects)
-	local_teleport_objects(objects)
+/datum/event/bluespace_rift_event/explosions/em_pulses/start()
+	for(var/i in 1 to num_explosions)
+		var/radius = rand(min_explosion_radius, max_explosion_radius)
+		var/epicenter = pick_n_take(turfs_in_range)
+		empulse(
+			epicenter, 
+			heavy_range = radius,
+			light_range = radius, 
+			log =  TRUE, 
+			cause = "Bluespace rift event \"[name]\""
+		)
 
-/obj/brs_rift/proc/local_teleport_all_zloc(var/list/objects)
-	local_teleport_living_zloc(objects)
-	local_teleport_objects_zloc(objects)
+/** 
+*	Random number of random chemical effects around the rift.
+*/
+/datum/event/bluespace_rift_event/explosions/random_chem_effect
 
-/obj/brs_rift/proc/local_teleport_all_reshuffle(var/list/objects)
-	local_teleport_living_reshuffle(objects)
-	local_teleport_objects_reshuffle(objects)
+/datum/event/bluespace_rift_event/explosions/random_chem_effect/start()
+	for(var/i in 1 to num_explosions)
+		var/epicenter = pick_n_take(turfs_in_range)
 
-//============ AOE effects ============
-/obj/brs_rift/proc/local_explosive(var/list/objects)
-	for(var/obj/O in objects)
-		var/fs = force_sized
-		explosion(O.loc, 0, 1, fs, 2*fs, flame_range = 3*fs, cause = O)
+		// Spawn a random grenade and immediately detonate it
+		var/grenade_type = pick_effect_type()
+		var/obj/item/grenade/grenade = new grenade_type(epicenter)
+		grenade.prime()
 
-/obj/brs_rift/proc/local_emp(var/list/objects)
-	for(var/obj/O in objects)
-		var/fs = force_sized
-		empulse(O.loc, fs, 2*fs, TRUE, name)
-
-
-//============ Random grenade effects ============
-/obj/brs_rift/proc/local_random_grenade_living(var/list/objects)
-	var/obj/item/grenade/grenade_type = get_random_grenade_type()
-	for(var/mob/living/carbon/human/H in objects)
-		if(grenade_type)
-			var/obj/item/grenade/gr = new grenade_type(H)
-			gr.prime()
-
-/obj/brs_rift/proc/local_random_grenade(var/list/objects)
-	var/obj/item/grenade/grenade_type = get_random_grenade_type()
-	for(var/obj/O in objects)
-		if(grenade_type)
-			var/obj/item/grenade/gr = new grenade_type(O)
-			gr.prime()
-
-//Select a grenade and immediately detonate it, thereby "stealing" its effect ke-ke-ke
-/obj/brs_rift/proc/get_random_grenade_type()
-	var/static/list/grenade_list = list(
+/datum/event/bluespace_rift_event/explosions/random_chem_effect/proc/pick_effect_type()
+	var/static/list/grenade_types = list(
 		/obj/item/grenade/smokebomb,
 		/obj/item/grenade/frag,
 		/obj/item/grenade/flashbang,
@@ -284,5 +331,30 @@ GLOBAL_LIST_INIT(brs_severity_to_string, list(
 		/obj/item/grenade/chem_grenade/teargas,
 		/obj/item/grenade/chem_grenade/facid
 		)
+	return pick(grenade_types)
 
-	return pick(grenade_list)
+/** 
+*	Makes a confetti shower. Wooo-hooo!
+*/
+/datum/event/bluespace_rift_event/explosions/random_chem_effect/confetti
+	max_explosions = 10
+	min_explosions = 5
+
+/datum/event/bluespace_rift_event/explosions/random_chem_effect/confetti/pick_effect_type()
+	return /obj/item/grenade/confetti
+
+#undef MAX_RIFT_EVENT_RANGE
+#undef RIFT_EVENT_RANGE
+
+#undef ONE_EVENT
+#undef MAX_EVENTS_PER_CHECK
+
+#undef ASSIGNMENT_ANY
+#undef ASSIGNMENT_AI
+#undef ASSIGNMENT_CYBORG
+#undef ASSIGNMENT_ENGINEER
+#undef ASSIGNMENT_BOTANIST
+#undef ASSIGNMENT_JANITOR
+#undef ASSIGNMENT_MEDICAL
+#undef ASSIGNMENT_SCIENTIST
+#undef ASSIGNMENT_SECURITY
