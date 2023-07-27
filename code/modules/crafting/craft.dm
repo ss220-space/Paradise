@@ -192,7 +192,7 @@
 	var/list/item_stacks_for_deletion = list()
 
 	for(var/atom/movable/thing in surroundings)
-		if(thing.type in recipe.blacklist)
+		if(thing.type in recipe.expanded_blacklist)
 			surroundings -= thing
 
 	for(var/thing in recipe.reqs)

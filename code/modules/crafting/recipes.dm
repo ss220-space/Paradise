@@ -12,6 +12,15 @@
 	var/subcategory = CAT_NONE
 	var/always_availible = TRUE //Set to FALSE if it needs to be learned first.
 	var/alert_admins_on_craft = FALSE
+	var/ban_blacklisted_subtypes = TRUE //Set to FALSE if you want to allow specific items for crafting derived from blacklisted ones
+	var/expanded_blacklist[] = list() //like original blacklist, but with subtypes
+
+/datum/crafting_recipe/New()
+	. = ..()
+	if(ban_blacklisted_subtypes)
+		for(var/item in blacklist)
+			expanded_blacklist += subtypesof(item)
+	expanded_blacklist += blacklist
 
 /datum/crafting_recipe/IED
 	name = "IED"
