@@ -190,9 +190,9 @@
 	var/list/parts_used = list()
 	var/list/reagent_containers_for_deletion = list()
 	var/list/item_stacks_for_deletion = list()
-
+	var/list/blacklist = recipe.ban_blacklisted_subtypes ? recipe.typecached_blacklist : recipe.blacklist
 	for(var/atom/movable/thing in surroundings)
-		if(thing.type in recipe.expanded_blacklist)
+		if(thing.type in blacklist)
 			surroundings -= thing
 
 	for(var/thing in recipe.reqs)
