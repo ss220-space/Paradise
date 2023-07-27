@@ -2,8 +2,9 @@
 #define IMPREGNATION_PROCESS_TIME 5 SECONDS
 
 /obj/effect/proc_holder/spell/alien_spell/impregnate
-	name = "Inject Larva"
-	desc = "Impregnate your victim with Alien Larva."
+	name = "Inject Embryo"
+	desc = "Impregnate your victim with Alien Embryo."
+	action_icon_state = "alien_hide"
 	plasma_cost = 0
 	base_cooldown = INJECT_LARVA_COOLDOWN
 
