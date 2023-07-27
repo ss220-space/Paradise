@@ -585,46 +585,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 			user.temporarily_remove_item_from_inventory(mutation, force = TRUE)
 			qdel(mutation)
 
-	/*var/datum/antagonist/changeling/ling = user.mind?.has_antag_datum(/datum/antagonist/changeling)
-	if(!ling || !actions_check)
-		return
-
-	var/datum/action/changeling/weapon/weapon_power = locate() in user.actions
-	if(weapon_power)
-
-		if(istype(user.l_hand, weapon_power.weapon_type))
-			var/obj/item/hand_item = user.l_hand
-			user.temporarily_remove_item_from_inventory(hand_item, force = TRUE)
-			qdel(hand_item)
-
-		if(istype(user.r_hand, weapon_power.weapon_type))
-			var/obj/item/hand_item = user.r_hand
-			user.temporarily_remove_item_from_inventory(hand_item, force = TRUE)
-			qdel(hand_item)
-
-	var/datum/action/changeling/suit/suit_power = locate() in user.actions
-	if(suit_power)
-
-		if(istype(user.wear_suit, suit_power.suit_type))
-			var/obj/item/suit = user.wear_suit
-			user.temporarily_remove_item_from_inventory(suit, force = TRUE)
-			qdel(suit)
-
-		if(istype(user.head, suit_power.helmet_type))
-			var/obj/item/helmet = user.head
-			user.temporarily_remove_item_from_inventory(helmet, force = TRUE)
-			qdel(helmet)
-
-		ling.chem_recharge_slowdown -= suit_power.recharge_slowdown
-
-	var/datum/action/changeling/augmented_eyesight/eyes_power = locate() in user.actions
-	if(eyes_power)
-
-		var/obj/item/organ/internal/cyberimp/eyes/eyes = user.get_organ_slot("eye_ling")
-		if(eyes)
-			eyes.remove(user)
-			qdel(eyes)*/
-
 
 /**
  * Takes any datum `source` and checks it for changeling datum.
