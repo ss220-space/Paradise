@@ -194,6 +194,7 @@
 							H.last_hallucinator_log = "Supermatter explosion"
 						var/rads = DETONATION_RADS * sqrt( 1 / (get_dist(mob, src) + 1) )
 						mob.apply_effect(rads, IRRADIATE)
+				handle_special_effects()
 
 			explode()
 			emergency_lighting(0)
@@ -279,6 +280,94 @@
 	handle_admin_warnings()
 
 	return 1
+
+/obj/machinery/power/supermatter_shard/proc/handle_special_effects()
+	//1. All APCs in current sector will roll 40% upon breaking
+	handle_apc_breaking()
+	//2. All machinery will have 30% on each one machine messing up wires AND 20%
+	handle_machinery_breakdown()
+	//3. Ionospheric anomaly
+	handle_ion_storm()
+	//4. Give every simplemob on current z level chance to be open-minded
+	handle_mind_giving()
+
+/obj/machinery/power/supermatter_shard/proc/handle_apc_breaking()
+	var/affected_apc_count = 0
+	for(var/obj/machinery/power/apc/apc in GLOB.apcs)
+		if(src.z == apc.z)
+			var/area/current_area = get_area(apc)
+			if(prob(40))
+				if(apc.wires)
+					if(!apc.wires.is_cut(WIRE_MAIN_POWER1))
+						apc.wires.cut(WIRE_MAIN_POWER1)
+					if(!apc.wires.is_cut(WIRE_MAIN_POWER2))
+						apc.wires.cut(WIRE_MAIN_POWER2)
+				if(apc.operating)
+					apc.toggle_breaker()
+				current_area.power_change()
+				affected_apc_count++
+	log_and_message_admins("Supermatter breakdown affected [affected_apc_count] APCs")
+
+/obj/machinery/power/supermatter_shard/proc/handle_machinery_breakdown()
+	for(var/obj/machinery/vending/vendor in GLOB.machines)
+		if(vendor.z == src.z)
+			if(prob(30))
+				vendor.wires.pulse(WIRE_THROW_ITEM)
+				vendor.wires.pulse(WIRE_ELECTRIFY)
+				vendor.wires.pulse(WIRE_CONTRABAND)
+				continue
+			if(prob(20))
+				vendor.deconstruct()
+
+	for(var/obj/machinery/door/airlock/door in GLOB.airlocks)
+		if(door.z == src.z)
+			if(prob(30))
+				door.wires.pulse(WIRE_IDSCAN)
+				door.wires.pulse(WIRE_MAIN_POWER1)
+				door.wires.pulse(WIRE_ELECTRIFY)
+				door.wires.pulse(WIRE_AI_CONTROL)
+				continue
+			if(prob(20))
+				door.electronics = null
+
+	for(var/obj/machinery/alarm/alarm in GLOB.air_alarms)
+		if(alarm.z == src.z)
+			if(prob(30))
+				alarm.wires.pulse(WIRE_SYPHON)
+				continue
+			if(prob(20))
+				alarm.take_damage(40, BURN)
+
+	for(var/mob/living/simple_animal/bot/mulebot/bot in GLOB.mob_living_list)
+		if(bot.z == src.z)
+			if(prob(30))
+				bot.wires.pulse(WIRE_MOB_AVOIDANCE)
+				bot.wires.pulse(WIRE_LOADCHECK)
+				bot.wires.pulse(WIRE_REMOTE_RX)
+				continue
+			if(prob(20))
+				bot.take_overall_damage(0,40)
+
+	for(var/obj/machinery/autolathe/autolathe in GLOB.machines)
+		if(autolathe.z == src.z)
+			if(prob(30))
+				autolathe.wires.pulse(WIRE_AUTOLATHE_DISABLE)
+				autolathe.wires.pulse(WIRE_AUTOLATHE_HACK)
+				continue
+			if(prob(20))
+				autolathe.wires.cut(WIRE_AUTOLATHE_DISABLE)
+				autolathe.take_damage(40, BURN)
+
+/obj/machinery/power/supermatter_shard/proc/handle_ion_storm()
+	for(var/obj/machinery/tcomms/core/T in GLOB.tcomms_machines)
+		T.start_ion()
+		addtimer(CALLBACK(T, TYPE_PROC_REF(/obj/machinery/tcomms, end_ion)), rand(1800, 3000))
+
+/obj/machinery/power/supermatter_shard/proc/handle_mind_giving()
+
+	for(var/mob/living/animal in GLOB.simple_animals)
+		if(animal.z == src.z)
+			return //TODO
 
 /obj/machinery/power/supermatter_shard
 
