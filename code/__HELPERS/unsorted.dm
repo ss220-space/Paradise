@@ -558,7 +558,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		return TRUE
 
 	for(var/atom/target in target_turf)
-		if(target.density && (!exclude_mobs || ismob(target)))
+		if(target.density && (!exclude_mobs || !ismob(target)))
 			return TRUE
 
 	return FALSE
