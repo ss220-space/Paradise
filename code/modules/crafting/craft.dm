@@ -191,6 +191,10 @@
 	var/list/reagent_containers_for_deletion = list()
 	var/list/item_stacks_for_deletion = list()
 
+	for(var/atom/movable/thing in surroundings)
+		if(thing.type in recipe.blacklist)
+			surroundings -= thing
+
 	for(var/thing in recipe.reqs)
 		var/needed_amount = recipe.reqs[thing]
 		if(ispath(thing, /datum/reagent))
