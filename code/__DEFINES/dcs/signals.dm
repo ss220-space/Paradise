@@ -317,6 +317,8 @@
 #define COMSIG_MOB_ATTACK_RANGED "mob_attack_ranged"
 ///from base of /mob/throw_item(): (atom/target)
 #define COMSIG_MOB_THROW "mob_throw"
+///called when a user is getting new weapon and we want to remove previous weapon to clear hands
+#define COMSIG_MOB_WEAPON_APPEARS "mob_weapon_appears"
 ///from base of /mob/verb/examinate(): (atom/target)
 #define COMSIG_MOB_EXAMINATE "mob_examinate"
 ///from base of /mob/update_sight(): ()
@@ -485,9 +487,9 @@
 #define COMSIG_ITEM_PICKUP "item_pickup"
 ///from base of mob/living/carbon/attacked_by(): (mob/living/carbon/target, mob/living/user, hit_zone)
 #define COMSIG_ITEM_ATTACK_ZONE "item_attack_zone"
-///return a truthy value to prevent ensouling, checked in /obj/effect/proc_holder/spell/targeted/lichdom/cast(): (mob/user)
+///return a truthy value to prevent ensouling, checked in /obj/effect/proc_holder/spell/lichdom/cast(): (mob/user)
 #define COMSIG_ITEM_IMBUE_SOUL "item_imbue_soul"
-///called before marking an object for retrieval, checked in /obj/effect/proc_holder/spell/targeted/summonitem/cast() : (mob/user)
+///called before marking an object for retrieval, checked in /obj/effect/proc_holder/spell/summonitem/cast() : (mob/user)
 #define COMSIG_ITEM_MARK_RETRIEVAL "item_mark_retrieval"
 	#define COMPONENT_BLOCK_MARK_RETRIEVAL (1<<0)
 ///from base of obj/item/hit_reaction(): (list/args)
@@ -780,3 +782,11 @@
 ///SSalarm signals
 #define COMSIG_TRIGGERED_ALARM "ssalarm_triggered"
 #define COMSIG_CANCELLED_ALARM "ssalarm_cancelled"
+
+// /datum/objective signals
+///from datum/objective/proc/find_target()
+#define COMSIG_OBJECTIVE_TARGET_FOUND "objective_target_found"
+///from datum/objective/is_invalid_target()
+#define COMSIG_OBJECTIVE_CHECK_VALID_TARGET "objective_check_valid_target"
+	#define OBJECTIVE_VALID_TARGET		(1<<0)
+	#define OBJECTIVE_INVALID_TARGET	(1<<1)

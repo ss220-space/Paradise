@@ -226,8 +226,9 @@
 
 		target.visible_message("<span class='danger'>[user] cuts [target] with razor gloves!</span>")
 
-		if(target.mind && user?.mind?.objectives)
-			for(var/datum/objective/pain_hunter/objective in user.mind.objectives)
+		var/all_objectives = user?.mind?.get_all_objectives()
+		if(target.mind && all_objectives)
+			for(var/datum/objective/pain_hunter/objective in all_objectives)
 				if(target.mind == objective.target)
 					objective.take_damage(damage, BRUTE)
 
@@ -255,6 +256,7 @@
 	desc = "The choice of the professional to beat the shit out of some jerk!"
 	icon_state = "knuckles"
 	item_state = "knuckles"
+	material_type = MATERIAL_CLASS_NONE
 	sharp = FALSE
 	extra_knock_chance = 15 //20% overall
 	var/knuckle_damage = 5 //additional fists damage
@@ -290,8 +292,9 @@
 
 		target.visible_message("<span class='danger'>[user] smash [target] with knuckles!</span>")
 
-		if(target.mind && user?.mind?.objectives)
-			for(var/datum/objective/pain_hunter/objective in user.mind.objectives)
+		var/all_objectives = user?.mind?.get_all_objectives()
+		if(target.mind && all_objectives)
+			for(var/datum/objective/pain_hunter/objective in all_objectives)
 				if(target.mind == objective.target)
 					objective.take_damage(damage, BRUTE)
 

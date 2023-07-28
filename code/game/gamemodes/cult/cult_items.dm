@@ -223,12 +223,14 @@
 		user.Confused(20 SECONDS)
 		user.Weaken(10 SECONDS)
 	else if(slot == slot_wear_suit)
-		user.status_flags |= GOTTAGOFAST
+		ADD_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes[UID()]")
+
 
 /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/dropped(mob/user)
 	. = ..()
 	if(user)
-		user.status_flags &= ~GOTTAGOFAST
+		REMOVE_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes[UID()]")
+
 
 /obj/item/clothing/head/hooded/flagellant_hood
 	name = "flagellant's robes"
@@ -312,7 +314,7 @@
 	if(curselimit > 1)
 		to_chat(user, "<span class='notice'>We have exhausted our ability to curse the shuttle.</span>")
 		return
-	if(locate(/obj/singularity/narsie) in GLOB.poi_list || locate(/mob/living/simple_animal/slaughter/cult) in GLOB.mob_list)
+	if(locate(/obj/singularity/narsie) in GLOB.poi_list || locate(/mob/living/simple_animal/demon/slaughter/cult) in GLOB.mob_list)
 		to_chat(user, "<span class='danger'>Nar'Sie or her avatars are already on this plane, there is no delaying the end of all things.</span>")
 		return
 

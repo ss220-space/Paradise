@@ -84,7 +84,7 @@
 		for(var/datum/mind/vampire in vampires)
 			var/traitorwin = 1
 
-			text += "<br>[vampire.key] [genderize_ru(vampire.current.gender, "был", "была", "было", "были")] [vampire.name] ("
+			text += "<br>[vampire.get_display_key()] [genderize_ru(vampire.current.gender, "был", "была", "было", "были")] [vampire.name] ("
 			if(vampire.current)
 				if(vampire.current.stat == DEAD)
 					text += "[genderize_ru(vampire.current.gender, "умер", "умерла", "умерло", "умерли")]"
@@ -128,7 +128,7 @@
 	if(vampire_enthralled.len)
 		var/text = "<FONT size = 2><B>Рабами вампиров были:</B></FONT>"
 		for(var/datum/mind/Mind in vampire_enthralled)
-			text += "<br>[Mind.key] [genderize_ru(Mind.current.gender, "был", "была", "было", "были")] [Mind.name] ("
+			text += "<br>[Mind.get_display_key()] [genderize_ru(Mind.current.gender, "был", "была", "было", "были")] [Mind.name] ("
 			if(Mind.current)
 				if(Mind.current.stat == DEAD)
 					text += "[genderize_ru(Mind.current.gender, "умер", "умерла", "умерло", "умерли")]"
@@ -211,19 +211,19 @@
 	var/mob/living/carbon/human/draining // who the vampire is draining of blood
 	var/nullified = 0 //Nullrod makes them useless for a short while.
 	var/list/upgrade_tiers = list(
-		/obj/effect/proc_holder/spell/vampire/self/rejuvenate = 0,
-		/obj/effect/proc_holder/spell/vampire/targetted/hypnotise = 0,
-		/obj/effect/proc_holder/spell/vampire/mob_aoe/glare = 0,
+		/obj/effect/proc_holder/spell/goon_vampire/self/rejuvenate = 0,
+		/obj/effect/proc_holder/spell/goon_vampire/targetted/hypnotise = 0,
+		/obj/effect/proc_holder/spell/goon_vampire/glare = 0,
 		/datum/vampire_passive/vision = 100,
-		/obj/effect/proc_holder/spell/vampire/self/shapeshift = 100,
-		/obj/effect/proc_holder/spell/vampire/self/cloak = 150,
-		/obj/effect/proc_holder/spell/vampire/targetted/disease = 150,
-		/obj/effect/proc_holder/spell/vampire/bats = 200,
-		/obj/effect/proc_holder/spell/vampire/self/screech = 200,
+		/obj/effect/proc_holder/spell/goon_vampire/self/shapeshift = 100,
+		/obj/effect/proc_holder/spell/goon_vampire/self/cloak = 150,
+		/obj/effect/proc_holder/spell/goon_vampire/targetted/disease = 150,
+		/obj/effect/proc_holder/spell/goon_vampire/bats = 200,
+		/obj/effect/proc_holder/spell/goon_vampire/self/screech = 200,
 		/datum/vampire_passive/regen = 200,
-		/obj/effect/proc_holder/spell/vampire/shadowstep = 250,
-		/obj/effect/proc_holder/spell/vampire/self/jaunt = 300,
-		/obj/effect/proc_holder/spell/vampire/targetted/enthrall = 300,
+		/obj/effect/proc_holder/spell/goon_vampire/shadowstep = 250,
+		/obj/effect/proc_holder/spell/goon_vampire/self/jaunt = 300,
+		/obj/effect/proc_holder/spell/goon_vampire/targetted/enthrall = 300,
 		/datum/vampire_passive/full = 500)
 	// list of the peoples UIDs that we have drained, and how much blood from each one
 	var/list/drained_humans = list()
@@ -368,8 +368,8 @@
 /datum/vampire/proc/announce_new_power(list/old_powers)
 	for(var/p in powers)
 		if(!(p in old_powers))
-			if(istype(p, /obj/effect/proc_holder/spell/vampire))
-				var/obj/effect/proc_holder/spell/vampire/power = p
+			if(istype(p, /obj/effect/proc_holder/spell/goon_vampire))
+				var/obj/effect/proc_holder/spell/goon_vampire/power = p
 				to_chat(owner, "<span class='notice'>[power.gain_desc]</span>")
 			else if(istype(p, /datum/vampire_passive))
 				var/datum/vampire_passive/power = p

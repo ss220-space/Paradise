@@ -251,6 +251,25 @@
 		return picked
 	return null
 
+
+/**
+ * Picks multiple unique elements from the suplied list.
+ * If the given list has a length less than the amount given then it will return a list with an equal amount
+ *
+ * Arguments:
+ * * listfrom - The list where to pick from
+ * * amount - The amount of elements it tries to pick.
+ */
+/proc/pick_multiple_unique(list/listfrom, amount)
+	var/list/result = list()
+	var/list/copy = listfrom.Copy() // Ensure the original ain't modified
+	while(length(copy) && length(result) < amount)
+		var/picked = pick(copy)
+		result += picked
+		copy -= picked
+	return result
+
+
 //Returns the top(last) element from the list and removes it from the list (typical stack function)
 /proc/pop(list/L)
 	if(L.len)
@@ -724,6 +743,9 @@ proc/dd_sortedObjectList(list/incoming)
 #define LAZYACCESS(L, I) (L ? (isnum(I) ? (I > 0 && I <= L.len ? L[I] : null) : L[I]) : null)
 #define LAZYLEN(L) length(L) // Despite how pointless this looks, it's still needed in order to convey that the list is specificially a 'Lazy' list.
 #define LAZYCLEARLIST(L) if(L) L.Cut()
+
+///If the lazy list is currently initialized find item I in list L
+#define LAZYIN(L, I) (L && (I in L))
 
 // LAZYING PT 2: THE LAZENING
 #define LAZYREINITLIST(L) LAZYCLEARLIST(L); LAZYINITLIST(L);
