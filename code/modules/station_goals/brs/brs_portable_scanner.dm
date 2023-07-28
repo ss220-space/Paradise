@@ -84,7 +84,7 @@
 /obj/machinery/brs_portable_scanner/ComponentInitialize()
 	AddComponent(/datum/component/bluespace_rift_scanner, max_range)
 
-/obj/machinery/brs_portable_scanner/process()
+/obj/machinery/brs_portable_scanner/process(seconds_per_tick)
 	if(stat & (BROKEN|NOPOWER))
 		return
 	if(!anchored)
@@ -95,7 +95,7 @@
 	var/previous_status = scanning_status
 	
 	// Set status
-	var/scan_result = SEND_SIGNAL(src, COMSIG_SCANNING_RIFTS)
+	var/scan_result = SEND_SIGNAL(src, COMSIG_SCANNING_RIFTS, seconds_per_tick)
 	if(scan_result & COMPONENT_SCANNED_NOTHING)
 		scanning_status = SCAN_NO_RIFTS
 	else if(scan_result & COMPONENT_SCANNED_NORMAL)
@@ -190,15 +190,18 @@
 
 /obj/machinery/brs_portable_scanner/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
-	default_unfasten_wrench(user, I, 4 SECONDS)
-	/*
-	if(anchored && (scanning_status != SCAN_OFF))
+
+	if(anchored && (scanning_status != SCAN_OFF) && !(stat & (NOPOWER|BROKEN)))
 		to_chat(user, span_warning("Болты заблокированы протоколом безопасности. Выключите сканер."))
 		return
+
+	scanning_status = SCAN_OFF
+	default_unfasten_wrench(user, I, 4 SECONDS)
+	update_icon()
+
 	if(!anchored)
 		SStgui.close_uis(src)
-	*/
-	update_icon()
+
 
 /obj/machinery/brs_portable_scanner/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -277,6 +280,8 @@
 	if(..())
 		return
 	if(stat & (NOPOWER|BROKEN))
+		return
+	if(!anchored || panel_open)
 		return
 
 	switch(action)

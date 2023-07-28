@@ -105,7 +105,7 @@
 	var/previous_status = scanning_status
 
 	// Set status
-	var/scan_result = SEND_SIGNAL(src, COMSIG_SCANNING_RIFTS)
+	var/scan_result = SEND_SIGNAL(src, COMSIG_SCANNING_RIFTS, seconds_per_tick)
 	if(scan_result & COMPONENT_SCANNED_NOTHING)
 		scanning_status = SCAN_NO_RIFTS
 	else if(scan_result & COMPONENT_SCANNED_NORMAL)

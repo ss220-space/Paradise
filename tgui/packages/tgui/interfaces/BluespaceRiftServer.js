@@ -51,7 +51,7 @@ export const BluespaceRiftServer = (props, context) => {
           <Box
             color={probePoints ? (enoughProbePoints ? "good" : "average") : "bad"}
             as="span">
-            {probePoints}
+            {Math.floor(probePoints)}
           </Box>
           <Button
             icon="atom"
@@ -87,7 +87,7 @@ export const BluespaceRiftServer = (props, context) => {
     return (
       <LabeledList.Item label={servName}>
         <Box>
-          {servData.riftName} — {servData.probePoints} данных.
+          {servData.riftName} — {Math.floor(servData.probePoints)} данных.
         </Box>
       </LabeledList.Item>
     );

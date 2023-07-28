@@ -28,14 +28,6 @@
 	idle_power_usage = 4000
 	active_power_usage = 12000
 
-	//var/activate_sound = 'sound/effects/electheart.ogg'
-	//var/deactivate_sound = 'sound/effects/basscannon.ogg'
-	//var/active = FALSE
-	//var/emagged_prob_division = 5	// For division roulette points
-	//var/research_time = 10 SECONDS		// time for the process of learning "active animation"
-	//var/counter_research_time = 0		// counter until animation completes
-	//var/static/gid = 0
-
 	/// Points needed to complete the station goal
 	var/research_points = 0
 	/// Points needed to "probe" a rift
@@ -46,6 +38,10 @@
 	var/points_per_probe_emagged = 100
 	/// Needed for users to distinguish between servers
 	var/id
+
+	var/times_rift_scanned = 0
+	var/goal_points_mined = 0
+	var/probe_points_mined = 0
 
 /obj/machinery/brs_server/Initialize(mapload)
 	. = ..()
@@ -70,6 +66,15 @@
 	return ..()
 
 /obj/machinery/brs_server/process()
+	if(!times_rift_scanned)
+		return
+	
+	research_points += goal_points_mined * (1 + log(times_rift_scanned))
+	probe_points += probe_points_mined * (1 + log(times_rift_scanned))
+
+	times_rift_scanned = 0
+	goal_points_mined = 0
+	probe_points_mined = 0
 
 /obj/machinery/brs_server/proc/research_process(added_research_points, added_probe_points)
 	research_points += added_research_points

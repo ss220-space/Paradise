@@ -792,7 +792,7 @@
 	#define OBJECTIVE_INVALID_TARGET	(1<<1)
 
 // /datum/component/bluespace_rift_scanner signals
-/// from scanner's `process()` : ()
+/// from scanner's `process()` : (seconds)
 #define COMSIG_SCANNING_RIFTS "scanning_rifts"
 	/// No rifts within the scanner's range
 	#define COMPONENT_SCANNED_NOTHING (1<<0)

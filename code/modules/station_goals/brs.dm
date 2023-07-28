@@ -37,7 +37,7 @@ GLOBAL_LIST_EMPTY(bluespace_rifts_scanner_list)
 
 /datum/station_goal/bluespace_rift/proc/get_current_research_points()
 	var/max_points = 0
-	for(var/obj/machinery/brs_server/server in GLOB.bluespace_rifts_server_list)
+	for(var/obj/machinery/brs_server/server as anything in GLOB.bluespace_rifts_server_list)
 		max_points = max(max_points, server.research_points)
 	return max_points
 
@@ -51,4 +51,4 @@ GLOBAL_LIST_EMPTY(bluespace_rifts_scanner_list)
 		/datum/bluespace_rift/hunter,
 	)
 	var/rand_rift_type = pick(rift_types)
-	rift = new rand_rift_type()
+	rift = new rand_rift_type(goal_uid = UID())

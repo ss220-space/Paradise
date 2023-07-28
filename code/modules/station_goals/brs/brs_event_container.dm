@@ -183,7 +183,7 @@
 	// Get objects in range
 	objects_in_range = list()
 	for(var/obj/effect/abstract/bluespace_rift/rift_obj as anything in rift_objects)
-		for(var/mob/living/mob in view(RIFT_EVENT_RANGE(rift_obj.size), rift_obj))
+		for(var/mob/living/mob in range(RIFT_EVENT_RANGE(rift_obj.size), rift_obj))
 			objects_in_range |= mob
 	
 	// Set the number of objects that will be teleported
