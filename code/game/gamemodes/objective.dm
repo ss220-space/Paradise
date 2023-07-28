@@ -399,8 +399,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/hijack
 	name = "Hijack"
 	martyr_compatible = FALSE //Technically you won't get both anyway.
-	explanation_text = "Hijack the shuttle by escaping on it with no loyalist Nanotrasen crew on board and free. \
-	Syndicate agents, other enemies of Nanotrasen, cyborgs, pets, and cuffed/restrained hostages may be allowed on the shuttle alive."
+	explanation_text = "Hijack the shuttle by escaping on it with no loyalist Utopia crew on board and free. \
+	Syndicate agents, other enemies of Syndicate, cyborgs, pets, and cuffed/restrained hostages may be allowed on the shuttle alive."
 	needs_target = FALSE
 
 
@@ -1015,7 +1015,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /datum/objective/heist/kidnap/choose_target()
-	var/list/roles = list("Chief Engineer","Research Director","Chief Medical Officer","Head of Personal","Head of Security","Nanotrasen Representative","Magistrate","Roboticist","Chemist")
+	var/list/roles = list("Chief Engineer","Research Director","Chief Medical Officer","Head of Personal","Peacemakers Leader","Nanotrasen Representative","Magistrate","Roboticist","Chemist")
 	var/list/possible_targets = list()
 	var/list/priority_targets = list()
 
@@ -1234,7 +1234,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/wizchaos
 	needs_target = FALSE
-	explanation_text = "Wreak havoc upon the station as much you can. Send those wandless Nanotrasen scum a message!"
+	explanation_text = "Wreak havoc upon the station as much you can. Send those wandless Syndicate scum a message!"
 	completed = TRUE
 
 //Space Ninja
@@ -1492,7 +1492,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/find_and_scan/find_target()
 	var/list/roles = list("Clown", "Mime", "Cargo Technician",
 	"Shaft Miner", "Scientist", "Roboticist",
-	"Medical Doctor", "Geneticist", "Security Officer",
+	"Medical Doctor", "Geneticist", "Peacemaker",
 	"Chemist", "Station Engineer", "Civilian",
 	"Botanist", "Chemist", "Virologist",
 	"Life Support Specialist")
