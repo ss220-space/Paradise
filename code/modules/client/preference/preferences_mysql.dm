@@ -180,7 +180,9 @@
 					alt_head_name,
 					eye_colour,
 					underwear,
+					underwear_color,
 					undershirt,
+					undershirt_color,
 					backbag,
 					b_type,
 					alternate_option,
@@ -250,7 +252,9 @@
 		alt_head = query.item[20]
 		e_colour = query.item[21]
 		underwear = query.item[22]
+		//underwear_color = query.item[23]
 		undershirt = query.item[23]
+		//undershirt_color = query.item[24]
 		backbag = query.item[24]
 		b_type = query.item[25]
 
@@ -342,7 +346,9 @@
 	alt_head		= sanitize_inlist(alt_head, GLOB.alt_heads_list, initial(alt_head))
 	e_colour		= sanitize_hexcolor(e_colour)
 	underwear		= sanitize_text(underwear, initial(underwear))
+	underwear_color	= sanitize_hexcolor(underwear_color)
 	undershirt		= sanitize_text(undershirt, initial(undershirt))
+	undershirt_color= sanitize_hexcolor(undershirt_color)
 	backbag			= sanitize_text(backbag, initial(backbag))
 	b_type			= sanitize_text(b_type, initial(b_type))
 	autohiss_mode	= sanitize_integer(autohiss_mode, 0, 2, initial(autohiss_mode))
@@ -437,7 +443,9 @@
 												alt_head_name=:alt_head,
 												eye_colour=:e_colour,
 												underwear=:underwear,
+												underwear_color=:underwear_color,
 												undershirt=:undershirt,
+												undershirt_color=:undershirt_color,
 												backbag=:backbag,
 												b_type=:b_type,
 												alternate_option=:alternate_option,
@@ -499,7 +507,9 @@
 													"alt_head" = alt_head || "",
 													"e_colour" = e_colour,
 													"underwear" = underwear,
+													"underwear_color" = underwear_color,
 													"undershirt" = undershirt,
+													"undershirt_color" = undershirt_color,
 													"backbag" = backbag,
 													"b_type" = b_type,
 													"alternate_option" = alternate_option,
@@ -565,7 +575,7 @@
 											head_accessory_style_name,
 											alt_head_name,
 											eye_colour,
-											underwear, undershirt,
+											underwear, underwear_color, undershirt, undershirt_color,
 											backbag, b_type, alternate_option,
 											job_support_high, job_support_med, job_support_low,
 											job_medsci_high, job_medsci_med, job_medsci_low,
@@ -593,7 +603,7 @@
 											:ha_style,
 											:alt_head,
 											:e_colour,
-											:underwear, :undershirt,
+											:underwear, :underwear_color, :undershirt, :undershirt_color,
 											:backbag, :b_type, :alternate_option,
 											:job_support_high, :job_support_med, :job_support_low,
 											:job_medsci_high, :job_medsci_med, :job_medsci_low,
@@ -633,7 +643,9 @@
 		"alt_head" = alt_head,
 		"e_colour" = e_colour,
 		"underwear" = underwear,
+		"underwear_color" = underwear_color,
 		"undershirt" = undershirt,
+		"undershirt_color" = undershirt_color,
 		"backbag" = backbag,
 		"b_type" = b_type,
 		"alternate_option" = alternate_option,
