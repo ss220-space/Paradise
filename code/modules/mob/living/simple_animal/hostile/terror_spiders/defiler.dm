@@ -25,9 +25,9 @@
 	gender = MALE
 	web_type = /obj/structure/spider/terrorweb/white
 	delay_web = 10
-	special_abillity = list(/obj/effect/proc_holder/spell/targeted/terror/smoke,
-							/obj/effect/proc_holder/spell/targeted/terror/parasmoke,
-							/obj/effect/proc_holder/spell/aoe_turf/terror/terrify)
+	special_abillity = list(/obj/effect/proc_holder/spell/terror_smoke,
+							/obj/effect/proc_holder/spell/terror_parasmoke,
+							/obj/effect/proc_holder/spell/aoe/terror_shriek)
 	spider_intro_text = "Будучи Осквернителем Ужаса, ваша цель - атаковать ничего не подозревающих гуманоидов, чтобы заразить их яйцами. Вы наносите мало урона, но можете парализовать цель за три укуса, а ваш яд заставит её замолчать. Вы также можете генерировать различные дымы вредящие противникам. И помните, не нужно убивать заражённых, они послужат носителями для новых пауков!"
 
 
@@ -43,13 +43,13 @@
 	return ..(gibbed)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/defiler/spider_specialattack(mob/living/carbon/human/L, poisonable)
-	L.AdjustSilence(10)
+	L.AdjustSilence(20 SECONDS)
 	L.adjustStaminaLoss(39)
 	L.attack_animal(src)
 	if(!poisonable)
 		return ..()
 	var/inject_target = pick("chest", "head")
-	if(L.paralysis || L.can_inject(null, FALSE, inject_target, FALSE) && prob(50))
+	if(L.IsParalyzed() || L.can_inject(null, FALSE, inject_target, FALSE) && prob(50))
 		new /obj/item/organ/internal/body_egg/terror_eggs(L)
 		visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [target]!</span>")
 	else

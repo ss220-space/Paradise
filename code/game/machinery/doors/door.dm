@@ -142,6 +142,8 @@
 /obj/machinery/door/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
 		return TRUE
+	if(istype(mover) && mover.checkpass(PASSDOOR) && !locked)
+		return TRUE
 	else if(istype(mover) && mover.checkpass(PASSGLASS))
 		return !opacity
 	return !density
@@ -417,7 +419,7 @@
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
 			if(L.stat == CONSCIOUS)
 				L.emote("scream")
-			L.Weaken(5)
+			L.Weaken(10 SECONDS)
 		else //for simple_animals & borgs
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
 		var/turf/location = get_turf(src)

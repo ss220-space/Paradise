@@ -262,9 +262,9 @@
 	. = 0	//We start at 0.
 
 	if(has_gravity(H))
-		if(H.status_flags & GOTTAGOFAST)
+		if(HAS_TRAIT(H, TRAIT_GOTTAGOFAST))
 			. -= 1
-		else if(H.status_flags & GOTTAGONOTSOFAST)
+		else if(HAS_TRAIT(H, TRAIT_GOTTAGONOTSOFAST))
 			. -= 0.5
 
 		var/ignoreslow = FALSE
@@ -408,8 +408,10 @@
 	H.updatehealth("apply damage")
 	return 1
 
-/datum/species/proc/spec_stun(mob/living/carbon/human/H,amount)
-	return
+/datum/species/proc/spec_stun(mob/living/carbon/human/H, amount)
+	. = amount
+	if(!H.frozen) //admin freeze has no breaks
+		. = stun_mod * amount
 
 /datum/species/proc/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
 	return
@@ -417,7 +419,7 @@
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style && attacker_style.help_act(user, target) == TRUE)//adminfu only...
 		return TRUE
-	if(target.health >= HEALTH_THRESHOLD_CRIT && !(target.status_flags & FAKEDEATH))
+	if(target.health >= HEALTH_THRESHOLD_CRIT && !HAS_TRAIT(target, TRAIT_FAKEDEATH))
 		target.help_shake_act(user)
 		return TRUE
 	else
@@ -499,8 +501,9 @@
 
 		target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] [attack_species] [target.declent_ru(ACCUSATIVE)]!</span>")
 
-		if(target.mind && user?.mind?.objectives)
-			for(var/datum/objective/pain_hunter/objective in user.mind.objectives)
+		var/all_objectives = user?.mind?.get_all_objectives()
+		if(target.mind && all_objectives)
+			for(var/datum/objective/pain_hunter/objective in all_objectives)
 				if(target.mind == objective.target)
 					objective.take_damage(damage, damage_type)
 
@@ -508,7 +511,7 @@
 		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
 			target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] ослабля[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>", \
 							"<span class='userdanger'>[user.declent_ru(NOMINATIVE)] ослабля[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>")
-			target.apply_effect(2, WEAKEN, armor_block)
+			target.apply_effect(4 SECONDS, WEAKEN, armor_block)
 			target.forcesay(GLOB.hit_appends)
 		else if(target.lying)
 			target.forcesay(GLOB.hit_appends)
@@ -533,7 +536,7 @@
 				var/obj/item/clothing/gloves/gloves = user.gloves
 				extra_knock_chance = gloves.extra_knock_chance
 		if(randn <= 10 + extra_knock_chance)
-			target.apply_effect(2, WEAKEN, target.run_armor_check(affecting, "melee"))
+			target.apply_effect(4 SECONDS, WEAKEN, target.run_armor_check(affecting, "melee"))
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] толка[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>")
 			add_attack_logs(user, target, "Pushed over", ATKLOG_ALL)
@@ -1061,7 +1064,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/can_hear(mob/living/carbon/human/H)
 	. = FALSE
 	var/obj/item/organ/internal/ears/ears = H.get_int_organ(/obj/item/organ/internal/ears)
-	if(istype(ears) && !ears.deaf)
+	if(istype(ears) && !HAS_TRAIT(H, TRAIT_DEAF))
 		. = TRUE
 
 /datum/species/proc/spec_Process_Spacemove(mob/living/carbon/human/H)

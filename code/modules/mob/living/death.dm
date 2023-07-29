@@ -66,6 +66,9 @@
 	if(!gibbed && deathgasp_on_death)
 		emote("deathgasp", force = TRUE)
 
+	if(HAS_TRAIT(src, TRAIT_SECDEATH))
+		playsound(loc, pick('sound/misc/die1.ogg', 'sound/misc/die2.ogg', 'sound/misc/die3.ogg', 'sound/misc/die4.ogg'), 80)
+
 	if(mind && suiciding)
 		mind.suicided = TRUE
 	reset_perspective(null)
@@ -115,6 +118,6 @@
 
 /mob/living/proc/delayed_gib()
 	visible_message("<span class='danger'><b>[src]</b> starts convulsing violently!</span>", "You feel as if your body is tearing itself apart!")
-	Weaken(15)
-	do_jitter_animation(1000, -1)
-	addtimer(CALLBACK(src, PROC_REF(gib)), rand(20, 100))
+	Weaken(30 SECONDS)
+	do_jitter_animation(1000, -1) // jitter until they are gibbed
+	addtimer(CALLBACK(src, PROC_REF(gib)), rand(2 SECONDS, 10 SECONDS))

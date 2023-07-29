@@ -20,9 +20,6 @@
 #define DROWSY		"drowsy"
 #define JITTER		"jitter"
 
-/// Jitter decays at a rate of 3 per life cycle, 15 if resting.
-#define SECONDS_TO_JITTER SECONDS_TO_LIFE_CYCLES*3
-
 //I hate adding defines like this but I'd much rather deal with bitflags than lists and string searches
 #define BRUTELOSS 1
 #define FIRELOSS 2
@@ -42,8 +39,6 @@
 #define IGNORE_SPEED_CHANGES	256
 #define GOTTAGONOTSOFAST 512 //This is used for nukacola, mormal meth is a "1" speed up, nuka is 0.5 and they don't stack, feel free to use this one somewhere else
 #define GODMODE		4096
-#define FAKEDEATH	8192	//Replaces stuff like changeling.changeling_fakedeath
-#define XENO_HOST	16384	//Tracks whether we're gonna be a baby alien's mummy.
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0
@@ -127,3 +122,9 @@
 
 #define EMP_HEAVY 1
 #define EMP_LIGHT 2
+
+/*
+* converts life cycle values into deciseconds. try and avoid usage of this.
+* this is needed as many functions for stun durations used to output cycles as values, but we now track stun times in deciseconds.
+*/
+#define STATUS_EFFECT_CONSTANT * 20

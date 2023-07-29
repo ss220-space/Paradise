@@ -79,7 +79,7 @@
 		occupantData["oxyLoss"] = occupant.getOxyLoss()
 		occupantData["toxLoss"] = occupant.getToxLoss()
 		occupantData["fireLoss"] = occupant.getFireLoss()
-		occupantData["paralysis"] = occupant.paralysis
+		occupantData["paralysis"] = occupant.AmountParalyzed()
 		occupantData["hasBlood"] = 0
 		occupantData["bodyTemperature"] = occupant.bodytemperature
 		occupantData["maxTemp"] = 1000 // If you get a burning vox armalis into the sleeper, congratulations
@@ -188,7 +188,7 @@
 	var/patientStatus // Tell the computer what to say based on the status of the patient on the table.
 	var/isNewPatient = (table.patient != currentPatient) //Is this a new Patient?
 
-	if(table.patient.stat == DEAD || table.patient.status_flags & FAKEDEATH)
+	if(table.patient.stat == DEAD || HAS_TRAIT(table.patient, TRAIT_FAKEDEATH))
 		patientStatus = "умер"
 	else if(table.patient.stat == CONSCIOUS)
 		patientStatus = "в сознании"

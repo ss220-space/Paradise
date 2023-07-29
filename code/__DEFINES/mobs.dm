@@ -52,10 +52,10 @@
 #define ALIEN_SELECT_AFK_BUFFER 1 // How many minutes that a person can be AFK before not being allowed to be an alien.
 #define SHOES_SLOWDOWN 0			// How much shoes slow you down by default. Negative values speed you up
 
-#define DISGUST_LEVEL_MAXEDOUT 150
-#define DISGUST_LEVEL_DISGUSTED 75
-#define DISGUST_LEVEL_VERYGROSS 50
-#define DISGUST_LEVEL_GROSS 25
+#define DISGUST_LEVEL_MAXEDOUT 150 STATUS_EFFECT_CONSTANT
+#define DISGUST_LEVEL_DISGUSTED 75 STATUS_EFFECT_CONSTANT
+#define DISGUST_LEVEL_VERYGROSS 50 STATUS_EFFECT_CONSTANT
+#define DISGUST_LEVEL_GROSS 25 STATUS_EFFECT_CONSTANT
 
 //Mob attribute defaults.
 #define DEFAULT_MARKING_STYLES list("head" = "None", "body" = "None", "tail" = "None") //Marking styles. Use instead of initial() for m_styles.
@@ -179,12 +179,9 @@
 
 #define STATUS_UPDATE_HEALTH 1
 #define STATUS_UPDATE_STAT 2
-#define STATUS_UPDATE_CANMOVE 4
 #define STATUS_UPDATE_STAMINA 8
 #define STATUS_UPDATE_BLIND 16
-#define STATUS_UPDATE_BLURRY 32
 #define STATUS_UPDATE_NEARSIGHTED 64
-#define STATUS_UPDATE_DRUGGY 128
 
 #define STATUS_UPDATE_NONE 0
 #define STATUS_UPDATE_ALL (~0)
@@ -236,6 +233,9 @@
 #define isnymph(A)      (istype((A), /mob/living/simple_animal/diona))
 #define ishostile(A) 	(istype(A, /mob/living/simple_animal/hostile))
 #define isterrorspider(A) (istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))
+#define isslaughterdemon(A) (istype((A), /mob/living/simple_animal/demon/slaughter))
+#define isdemon(A) 			(istype((A), /mob/living/simple_animal/demon))
+#define ismorph(A)		(istype((A), /mob/living/simple_animal/hostile/morph))
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))
 #define isAI(A)			(istype((A), /mob/living/silicon/ai))

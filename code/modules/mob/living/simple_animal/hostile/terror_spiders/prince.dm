@@ -36,7 +36,7 @@
 	spider_tier = TS_TIER_3
 	spider_opens_doors = 2
 	web_type = null
-	special_abillity = list(/obj/effect/proc_holder/spell/aoe_turf/terror/slam)
+	special_abillity = list(/obj/effect/proc_holder/spell/aoe/terror_slam)
 	spider_intro_text = "Будучи Принцом Ужаса, ваша задача - устроить резню. У вас больше здоровья и урона, чем у любого другого паука, вы можете отрывать конечности, быстро уничтожать мехи, однако, если вы не будете пожирать трупы, сразу потеряете способность регенерировать. Ваша активная способность оглушает противников в радиусе двух плиток, попутно замедляя их."
 	gender = MALE
 	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
@@ -53,7 +53,7 @@
 		if(L.stat != DEAD) //no dismemberment for dead carbons, less griefy
 			do_attack_animation(L)
 			L.adjustBruteLoss(25)
-			L.Weaken(1)
+			L.Weaken(2 SECONDS)
 			playsound(src, 'sound/creatures/terrorspiders/rip.ogg', 100, 1)
 			var/obj/item/organ/external/NB = pick(L.bodyparts)
 			visible_message("<span class='warning'>[src] Tears appart the [NB.name] of [L] with his razor sharp jaws!</span>")
