@@ -48,6 +48,8 @@
 		dependent_disabilities -= COLOURBLIND
 		M.dna.SetSEState(GLOB.colourblindblock,1)
 		genemutcheck(M,GLOB.colourblindblock,null,MUTCHK_FORCED)
+	if(HAS_TRAIT(M, ECHO_VISION) && !lighting_alpha)
+		lighting_alpha = LIGHTING_PLANE_ALPHA_NV_TRAIT
 	else
 		M.update_client_colour() //If we're here, that means the mob acquired the colourblindness gene while they didn't have eyes. Better handle it.
 

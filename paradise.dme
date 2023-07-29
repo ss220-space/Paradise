@@ -361,6 +361,7 @@
 #include "code\datums\components\caltrop.dm"
 #include "code\datums\components\decal.dm"
 #include "code\datums\components\ducttape.dm"
+#include "code\datums\components\echolocation.dm"
 #include "code\datums\components\edit_complainer.dm"
 #include "code\datums\components\examine_override.dm"
 #include "code\datums\components\footstep.dm"

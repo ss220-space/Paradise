@@ -2640,8 +2640,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		character.dna.default_blocks.Add(GLOB.glassesblock)
 
 	if(disabilities & DISABILITY_FLAG_BLIND)
-		character.dna.SetSEState(GLOB.blindblock, TRUE, TRUE)
-		character.dna.default_blocks.Add(GLOB.blindblock)
+		//character.dna.SetSEState(GLOB.blindblock, TRUE, TRUE)
+		//character.dna.default_blocks.Add(GLOB.blindblock)
+		character.AddComponent(/datum/component/echolocation)
 
 	if(disabilities & DISABILITY_FLAG_DEAF)
 		character.dna.SetSEState(GLOB.deafblock, TRUE, TRUE)

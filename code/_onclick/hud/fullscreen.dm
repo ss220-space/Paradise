@@ -141,6 +141,11 @@
 	blend_mode = BLEND_ADD
 	show_when_dead = TRUE
 
+/obj/screen/fullscreen/echolocation
+	icon_state = "echo"
+	layer = CAMERA_STATIC_LAYER
+	plane = CAMERA_STATIC_PLANE
+
 #undef FULLSCREEN_LAYER
 #undef BLIND_LAYER
 #undef CRIT_LAYER

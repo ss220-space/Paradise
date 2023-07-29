@@ -17,7 +17,14 @@
 /mob/proc/update_client_colour(var/time = 10) //Update the mob's client.color with an animation the specified time in length.
 	if(!client) //No client_colour without client. If the player logs back in they'll be back through here anyway.
 		return
-	client.colour_transition(get_screen_colour(), time = time) //Get the colour matrix we're going to transition to depending on relevance (magic glasses first, eyes second).
+	client.color = ""
+	if(!client_colours.len)
+		return
+	var/datum/client_colour/CC = client_colours[1]
+	if(CC)
+		client.color = CC.colour
+	else
+		client.colour_transition(get_screen_colour(), time = time) //Get the colour matrix we're going to transition to depending on relevance (magic glasses first, eyes second).
 
 /mob/living/carbon/human/get_screen_colour() //Fetch the colour matrix from wherever (e.g. eyes) so it can be compared to client.color.
 	. = ..()

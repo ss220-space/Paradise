@@ -157,3 +157,9 @@
 #define EXOTIC_COLOR	"exotic_blood_colour"
 #define NO_OBESITY		"no_obesity"
 #define RUNIC_MIND		"runic_mind"
+
+//echo traits
+
+#define TRAIT_ECHOLOCATION_RECEIVER "echolocation_receiver"
+#define ECHOLOCATION_TRAIT "echolocation_trait"
+#define ECHO_VISION "echo_vision"

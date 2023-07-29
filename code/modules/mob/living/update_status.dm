@@ -6,6 +6,9 @@
 	else
 		clear_fullscreen("blind")
 		clear_alert("blind")
+		var/datum/component/echo_component = GetComponent(/datum/component/echolocation)
+		if(echo_component)
+			echo_component.Destroy()
 		return 0
 
 /mob/living/update_blurry_effects()

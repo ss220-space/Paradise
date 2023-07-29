@@ -523,7 +523,7 @@
 		name = "gibtonite deposit"
 		desc = "An active gibtonite reserve. Run!"
 		stage = GIBTONITE_ACTIVE
-		visible_message("<span class='danger'>There was gibtonite inside! It's going to explode!</span>")
+		visible_message("<span class='danger'>There was gibtonite inside! It's going to explode!</span>", span_danger("You hear an evil hissing!"))
 		var/turf/bombturf = get_turf(src)
 
 		var/notify_admins = 0
