@@ -56,7 +56,7 @@ export const BluespaceRiftServer = (props, context) => {
           <Button
             icon="atom"
             tooltip={"Для генерации одного зондирующего импульса нужно собрать " + pointsPerProbeMessage + " данных."}
-            content={"Зондировать разлом (" + probesLeft + ")"}
+            content={"Зондировать (" + probesLeft + ")"}
             disabled={!enoughProbePoints}
             onClick={() => act('probe', {
               rift_id: riftId,

@@ -11,25 +11,22 @@
 	alpha = 180
 	var/size
 	var/time_per_tile
-
-	var/goal_uid
 	
 	/// World time when the next step should happen.
 	var/next_step
 	/// An object on the map (turf, mob, etc.) Typecasted to /datum to perform QDELETED check.
 	var/datum/target_loc
 
-/obj/effect/abstract/bluespace_rift/Initialize(mapload, goal_uid, size, time_per_tile)
+/obj/effect/abstract/bluespace_rift/Initialize(mapload, size, time_per_tile)
 	. = ..()
 
 	if(!isnull(loc))
 		// Most likely admin-spawned, it won't work that way.
 		return INITIALIZE_HINT_QDEL
 
-	if(isnull(goal_uid) || !size || !time_per_tile)
+	if(!size || !time_per_tile)
 		CRASH("Missing arguments")
 
-	src.goal_uid = goal_uid
 	src.size = size
 	src.time_per_tile = time_per_tile
 

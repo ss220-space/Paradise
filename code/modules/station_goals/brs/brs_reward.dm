@@ -1,75 +1,53 @@
-/obj/machinery/brs_server/proc/give_reward(var/turf/temp_loc)
-	new /obj/item/paper/researchnotes_brs(temp_loc)
-	new /obj/structure/toilet/bluespace/brs(temp_loc)
-	spawn_effect(temp_loc)
-
-/obj/machinery/brs_server/proc/give_random_reward(var/turf/temp_loc)
-	new /obj/effect/spawner/lootdrop/brs(temp_loc)
-	spawn_effect(temp_loc)
-
-/obj/machinery/brs_server/proc/spawn_effect(var/turf/temp_loc)
-	playsound(temp_loc, 'sound/magic/blink.ogg', 50)
-	do_sparks(2, FALSE, temp_loc)
-	new /obj/effect/portal(temp_loc, null, null, 40)
-
-
-//================ Objects ================
 /obj/item/paper/researchnotes_brs
 	name = "Исследования Блюспейс Разлома"
 	info = "<b>Долгожданные научные исследования блюспейс разлома, продвигающие науку изучения Синего Космоса далеко вперед. \nВ записке написана тарабарщина на машинном языке. \nТребуется деструктивный анализ.</b>"
 	origin_tech = "bluespace=9;magnets=8"
 
-//Bluspace Tolkan
 /obj/structure/toilet/bluespace
 	name = "Научный унитаз"
 	desc = "Загадка современной науки о возникновении данного научного экземпляра."
 	icon_state = "bluespace_toilet00"
+	open = 1
+	cistern = 0
 	var/teleport_sound = 'sound/magic/lightning_chargeup.ogg'
-
-/obj/structure/toilet/bluespace/brs
-	name = "Воронка Бездны Синего Космоса"
-	desc = "То, ради чего наука и была создана и первый гуманоид ударил палку о камень. Главное не смотреть в бездну."
-	icon_state = "bluespace_toilet00-NT"
 
 /obj/structure/toilet/bluespace/update_icon()
 	. = ..()
 	icon_state = "bluespace_toilet[open][cistern]"
-
-/obj/structure/toilet/bluespace/brs/update_icon()
-	. = ..()
-	icon_state = "bluespace_toilet[open][cistern]-NT"
-
-/obj/structure/toilet/bluespace/attack_hand(mob/living/user)
-	. = ..()
 	overlays.Cut()
 	if(open)
 		overlays += image(icon, "bluespace_toilet_singularity")
 
-		if(do_after(user, 100, target = src))
-			playsound(loc, teleport_sound, 100, 1)
-			teleport(1)
-
-/obj/structure/toilet/bluespace/proc/teleport(var/range_dist = 1)
-	var/list/objects = range(range_dist, src)
-
-	var/turf/simulated/floor/F = find_safe_turf(zlevels = src.z)
-	for(var/mob/living/H in objects)
-		do_teleport(H, F, range_dist * 3)
-		investigate_log("teleported [key_name_log(H)] to [COORD(F)]", INVESTIGATE_TELEPORTATION)
-
-	for(var/obj/O in objects)
-		if (O.anchored)
-			continue
-		do_teleport(O, F, range_dist * 3)
-
-	do_teleport(src, F)
+/obj/structure/toilet/bluespace/attack_hand(mob/living/user)
+	. = ..()
+	if(open)
+		// Teleport user
+		to_chat(user, span_warning("Вы чувствуете, что куда-то перемещаетесь..."))
+		if(do_after(user, 5 SECONDS, target = src))
+			playsound(src, teleport_sound, 100, vary = TRUE)
+			do_teleport(user, user, 7)
+			investigate_log("teleported [key_name_log(user)] to [COORD(user)]", INVESTIGATE_TELEPORTATION)
 
 /obj/structure/toilet/bluespace/Destroy()
-	playsound(loc, teleport_sound, 100, 1)
-	teleport(9)
-	. = ..()
 
-/obj/effect/spawner/lootdrop/brs/
+	// Teleport all the mobs that were nearby
+	playsound(src, teleport_sound, 100, vary = TRUE)
+	for(var/mob/living/mob in range(7, src))
+		do_teleport(mob, mob, 7)
+		investigate_log("teleported [key_name_log(mob)] to [COORD(mob)]", INVESTIGATE_TELEPORTATION)
+
+	return ..()
+
+/obj/structure/toilet/bluespace/nt
+	name = "Воронка Бездны Синего Космоса"
+	desc = "То, ради чего наука и была создана и первый гуманоид ударил палку о камень. Главное не смотреть в бездну."
+	icon_state = "bluespace_toilet00-NT"
+
+/obj/structure/toilet/bluespace/nt/update_icon()
+	. = ..()
+	icon_state = "bluespace_toilet[open][cistern]-NT"
+
+/obj/effect/spawner/lootdrop/bluespace_rift
 	name = "brs loot"
 	lootcount = 1
 	loot = list(
@@ -232,3 +210,13 @@
 		/obj/item/storage/bag/cash = 10,
 		/obj/item/storage/secure/briefcase/syndie = 30,
 	)
+
+/obj/effect/spawner/lootdrop/bluespace_rift/New()
+	playsound(loc, 'sound/magic/blink.ogg', 50)
+	do_sparks(2, FALSE, loc)
+	if(!locate(/obj/effect/portal) in get_turf(loc))
+		new /obj/effect/portal(loc, null, null, 4 SECONDS)
+	return ..()
+
+/obj/effect/spawner/lootdrop/bluespace_rift/goal_complete
+	loot = list(/obj/structure/toilet/bluespace/nt)

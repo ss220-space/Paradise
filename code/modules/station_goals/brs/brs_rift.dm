@@ -21,10 +21,10 @@
 
 	rift_objects = list()
 	for(var/i in 1 to rift_count)
-		var/new_rift_obj = new effect_type(null, goal_uid, rift_size, time_per_tile)
+		var/new_rift_obj = new effect_type(null, rift_size, time_per_tile)
 		rift_objects += new_rift_obj
 
-	events = new(rift = src)
+	events = new /datum/brs_event_container/normal(rift = src)
 
 	GLOB.bluespace_rifts_list |= src
 
@@ -45,9 +45,10 @@
 	
 	// Process events
 
+	// Spawn events only when they are scanning
 	if(!times_rift_scanned)
 		return
-	
+
 	// Update event probability
 	events.cumulative_event_expectancy += events_mined * (1 + (2 * log(times_rift_scanned)))
 
@@ -56,6 +57,18 @@
 	
 	// Process events spawn 
 	events.process()
+
+/datum/bluespace_rift/proc/probe(successful = FALSE)
+	if(!successful)
+		events.start_event()
+		return
+
+	var/picked_rift_obj = pick(rift_objects)
+	new /obj/effect/spawner/lootdrop/bluespace_rift(get_turf(picked_rift_obj))
+
+/datum/bluespace_rift/proc/spawn_reward()
+	var/picked_rift_obj = pick(rift_objects)
+	new /obj/effect/spawner/lootdrop/bluespace_rift/goal_complete(get_turf(picked_rift_obj))
 
 /datum/bluespace_rift/big
 	name = "Большой Блюспейс Разлом"

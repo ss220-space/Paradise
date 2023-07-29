@@ -48,7 +48,7 @@
 /datum/component/bluespace_rift_scanner/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_SCANNING_RIFTS)
 
-/datum/component/bluespace_rift_scanner/proc/scan(datum/source, seconds)
+/datum/component/bluespace_rift_scanner/proc/scan(datum/source, seconds, emagged)
 	var/scanner_status_after_scan = COMPONENT_SCANNED_NOTHING
 
 	for(var/datum/bluespace_rift/rift as anything in GLOB.bluespace_rifts_list)
@@ -63,6 +63,9 @@
 				is_critical = TRUE
 			else if(dist_to_rift <= max_range)
 				rift_scanned = TRUE
+
+		if(emagged && rift_scanned)
+			is_critical = TRUE
 
 		// Update scanner status
 		var/scan_status = COMPONENT_SCANNED_NOTHING

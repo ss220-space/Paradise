@@ -54,7 +54,9 @@
 
 	last_check = world.time
 
+/** Immediately spawns one random event. */
 /datum/brs_event_container/proc/start_event()
+
 	var/datum/event_meta/picked_event_meta = pick_event()
 	if(!picked_event_meta)
 		return
@@ -88,7 +90,7 @@
 		new /datum/event_meta(EVENT_LEVEL_NONE, "Стенной грибок",			/datum/event/wallrot, 					50,		list(ASSIGNMENT_ENGINEER = 10)),
 		new /datum/event_meta(EVENT_LEVEL_NONE, "Отходы из вытяжек",		/datum/event/vent_clog,					100),
 
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Массовые галлюцинации",	/datum/event/mass_hallucination,		500),
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Массовые галлюцинации",	/datum/event/mass_hallucination,		400),
 
 		new /datum/event_meta(EVENT_LEVEL_NONE, "Сбой работы дверей",		/datum/event/door_runtime,				50,		list(ASSIGNMENT_ENGINEER = 10, ASSIGNMENT_AI = 50)),
 		new /datum/event_meta(EVENT_LEVEL_NONE, "Телекоммуникационный сбой",/datum/event/communications_blackout,	100),
@@ -118,10 +120,10 @@
 		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Поменять местами живых",		/datum/event/bluespace_rift_event/teleport_living/shuffle,					500),
 		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Телепортация живых далеко",	/datum/event/bluespace_rift_event/teleport_living/within_z,					500),
 
-		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Взрывы",						/datum/event/bluespace_rift_event/explosions,								300),
-		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "ЭМИ",						/datum/event/bluespace_rift_event/explosions/em_pulses,						300),
+		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Взрывы",						/datum/event/bluespace_rift_event/explosions,								400),
+		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "ЭМИ",						/datum/event/bluespace_rift_event/explosions/em_pulses,						400),
 		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Химические взрывы",			/datum/event/bluespace_rift_event/explosions/random_chem_effect,			300),
-		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Конфетти",					/datum/event/bluespace_rift_event/explosions/random_chem_effect/confetti,	50),
+		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Конфетти",					/datum/event/bluespace_rift_event/explosions/random_chem_effect/confetti,	100),
 	)
 
 /**

@@ -32,10 +32,18 @@
 	var/research_points = 0
 	/// Points needed to "probe" a rift
 	var/probe_points = 0
+
 	/// One probe price
 	var/points_per_probe = 500
 	/// One probe price if the server is emagged
-	var/points_per_probe_emagged = 100
+	var/points_per_probe_emagged = 250
+	/// 0 <= chance <= 1, 0-never, 1-always
+	var/probe_success_chance = 0.5
+	///	0 <= chance <= 1, 0-never, 1-always
+	var/probe_success_chance_emagged = 0.2
+
+	var/research_points_on_probe_success = 100
+
 	/// Needed for users to distinguish between servers
 	var/id
 
@@ -152,6 +160,8 @@
 	if(emagged)
 		return
 	emagged = TRUE
+	points_per_probe = points_per_probe_emagged
+	probe_success_chance = probe_success_chance_emagged
 	playsound(loc, 'sound/effects/sparks4.ogg', 60, TRUE)
 	update_icon()
 	to_chat(user, span_warning("@?%!№@Протоколы безопасности сканнера перезаписаны@?%!№@"))
@@ -197,6 +207,7 @@
 	var/list/data = list()
 
 	data["pointsPerProbe"] = points_per_probe
+	data["emagged"] = emagged
 
 	data["goals"] = list()
 	var/datum/station_goal/bluespace_rift/goal = locate() in SSticker.mode.station_goals
@@ -257,7 +268,7 @@
 
 	if(stat & (NOPOWER|BROKEN))
 		return
-	
+
 	switch(action)
 		if("toggle_scanner")
 			var/scanner_uid = params["scanner_id"]
@@ -266,5 +277,41 @@
 			return TRUE
 		if("probe")
 			flick_active()
+			var/goal_uid = params["rift_id"]
+			var/datum/station_goal/bluespace_rift/goal = locateUID(goal_uid)
+			probe(goal.rift)
+			return TRUE
 		if("reward")
 			flick_active()
+			var/goal_uid = params["rift_id"]
+			var/datum/station_goal/bluespace_rift/goal = locateUID(goal_uid)
+			if(goal.reward_given)
+				return FALSE
+			goal.rift.spawn_reward()
+			goal.reward_given = TRUE
+			visible_message(span_notice("Исследование завершено. Судя по индикации сервера, из разлома выпало что-то, что может представлять большую научную ценность."))
+			return TRUE
+
+/obj/machinery/brs_server/proc/probe(datum/bluespace_rift/rift)
+	if(probe_points < points_per_probe)
+		return
+
+	use_power(active_power_usage)
+
+	probe_points -= points_per_probe
+
+	var/successful
+	if(probe_success_chance == 0)
+		successful = FALSE
+	else if(rand() <= probe_success_chance)
+		successful = TRUE
+	else
+		successful = FALSE
+
+	if(successful)
+		rift.probe(successful = TRUE)
+		visible_message(span_notice("Судя по индикации сервера, зондирование прошло успешно. Из разлома удалось извлечь какой-то предмет."))
+		research_points += research_points_on_probe_success
+	else
+		rift.probe(successful = FALSE)
+		visible_message(span_warning("Судя по индикации сервера, зондирование спровоцировало изменение стабильности блюспейс-разлома. Это не хорошо."))
