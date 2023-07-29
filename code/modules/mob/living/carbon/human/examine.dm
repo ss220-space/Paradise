@@ -319,7 +319,7 @@
 	else if(nutrition >= NUTRITION_LEVEL_FAT)
 		msg += "[p_they(TRUE)] [p_are()] quite chubby.\n"
 
-	if(dna.species.can_be_pale && blood_volume < BLOOD_VOLUME_PALE && !is_body_full_covered())
+	if(dna.species.can_be_pale && blood_volume < BLOOD_VOLUME_PALE && get_covered_bodyparts() != FULL_BODY)
 		msg += "[p_they(TRUE)] [p_have()] pale skin.\n"
 
 	if(bleedsuppress)
