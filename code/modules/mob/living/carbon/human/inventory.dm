@@ -447,6 +447,17 @@
 		else
 			return FALSE
 
+/**
+ * Returns TRUE, if body is completely covered
+ */
+/mob/living/carbon/human/proc/is_body_full_covered(bodypart)
+	var/covered_bodyparts = 0
+	var/list/clothing = list(head, wear_suit, w_uniform, shoes, gloves, neck, glasses)
+
+	for (var/obj/item/C in clothing)
+		covered_bodyparts |= C.body_parts_covered
+	return covered_bodyparts == FULL_BODY
+
 
 /**
  * Returns the item currently in the slot
