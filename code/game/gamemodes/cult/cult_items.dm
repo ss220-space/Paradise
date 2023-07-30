@@ -314,7 +314,7 @@
 	if(curselimit > 1)
 		to_chat(user, "<span class='notice'>We have exhausted our ability to curse the shuttle.</span>")
 		return
-	if(locate(/obj/singularity/narsie) in GLOB.poi_list || locate(/mob/living/simple_animal/slaughter/cult) in GLOB.mob_list)
+	if(locate(/obj/singularity/narsie) in GLOB.poi_list || locate(/mob/living/simple_animal/demon/slaughter/cult) in GLOB.mob_list)
 		to_chat(user, "<span class='danger'>Nar'Sie or her avatars are already on this plane, there is no delaying the end of all things.</span>")
 		return
 
@@ -509,7 +509,7 @@
 				qdel(src)
 				return FALSE
 
-			if(P.is_reflectable)
+			if(P.is_reflectable(REFLECTABILITY_ENERGY))
 				return FALSE //To avoid reflection chance double-dipping with block chance
 
 		// Hit by a melee weapon or blocked a projectile
