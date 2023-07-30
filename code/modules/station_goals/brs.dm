@@ -33,6 +33,10 @@ GLOBAL_LIST_EMPTY(bluespace_rifts_scanner_list)
 /datum/station_goal/bluespace_rift/on_report()
 	spawn_rift()
 
+	var/datum/supply_packs/misc/station_goal/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bluespace_rift]"]
+	P.special_enabled = TRUE
+	supply_list.Add(P)
+
 /datum/station_goal/bluespace_rift/check_completion()
 	if(..())
 		return TRUE

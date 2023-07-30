@@ -566,27 +566,27 @@
 	name = "Machine Design (Rift Scan Server)"
 	desc = "Плата для сбора сервера изучения сканирования разломов."
 	id = "brs_server"
-	req_tech = list("engineering" = 4, "bluespace" = 3)
+	req_tech = list("bluespace" = 20) // unreachable
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_BLUESPACE = 100)
 	build_path = /obj/item/circuitboard/brs_server
 	category = list ("Research Machinery")
 
-/datum/design/brs_scanner
+/datum/design/brs_portable_scanner
 	name = "Machine Design (Portable Rift Scanner)"
 	desc = "Плата для сбора данных при сканировании разломов."
-	id = "brs_scanner"
-	req_tech = list("engineering" = 4, "bluespace" = 3)
+	id = "brs_portable_scanner"
+	req_tech = list("bluespace" = 20) // unreachable
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_BLUESPACE = 200)
 	build_path = /obj/item/circuitboard/brs_portable_scanner
 	category = list ("Research Machinery")
 
-/datum/design/brs_scanner_static
+/datum/design/brs_stationary_scanner
 	name = "Machine Design (Static Rift Scanner)"
 	desc = "Плата для сбора данных при сканировании разломов."
-	id = "brs_scanner_static"
-	req_tech = list("engineering" = 6, "bluespace" = 5)
+	id = "brs_stationary_scanner"
+	req_tech = list("bluespace" = 20) // unreachable
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_BLUESPACE = 500)
 	build_path = /obj/item/circuitboard/brs_stationary_scanner
