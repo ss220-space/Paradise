@@ -5,7 +5,7 @@
 	hitsound = 'sound/weapons/tap.ogg'
 	damage_type = BURN
 	flag = "energy"
-	reflectability = REFLECTABILITY_ENERGY
+	is_reflectable = TRUE
 
 /obj/item/projectile/energy/electrode
 	name = "electrode"

@@ -2,7 +2,6 @@
 	name = "Mindslave Implant"
 	desc = "Divide and Conquer"
 	origin_tech = "programming=5;biotech=5;syndicate=8"
-	actions_types = list()
 	activated = FALSE
 	/// The UID of the mindslave's `mind`. Stored to solve GC race conditions and ensure we can remove their mindslave status even when they're deleted or gibbed.
 	var/mindslave_UID
@@ -32,7 +31,7 @@
 		return FALSE
 
 	// Fails if they're already a mindslave of someone, or if they're mindshielded.
-	if(ismindslave(mindslave_target) || ismindshielded(mindslave_target) || isvampirethrall(mindslave_target))
+	if(ismindslave(mindslave_target) || ismindshielded(mindslave_target))
 		mindslave_target.visible_message(
 			span_warning("[mindslave_target] seems to resist the bio-chip!"), \
 			span_warning("You feel a strange sensation in your head that quickly dissipates."))
@@ -46,9 +45,7 @@
 		return FALSE
 
 	// Create a new mindslave datum for the target with the user as their master.
-	var/datum/antagonist/mindslave/slave_datum = new(user.mind)
-	slave_datum.special = TRUE
-	mindslave_target.mind.add_antag_datum(slave_datum)
+	mindslave_target.mind.add_antag_datum(new /datum/antagonist/mindslave(user.mind))
 	mindslave_UID = mindslave_target.mind.UID()
 	activated = TRUE
 	log_admin("[key_name_admin(user)] has mind-slaved [key_name_admin(mindslave_target)].")

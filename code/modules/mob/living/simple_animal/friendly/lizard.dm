@@ -21,8 +21,7 @@
 	density = 0
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
-	can_hide = TRUE
-	pass_door_while_hidden = TRUE
+	can_hide = 1
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN

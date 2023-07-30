@@ -21,18 +21,17 @@
 
 	return
 
-
 /mob/living/silicon/robot/drone/verb/hide()
 	set name = "Hide"
 	set desc = "Allows you to hide beneath tables or certain items. Toggled on or off."
 	set category = "Drone"
 
-	var/datum/action/innate/hide/drone/hide = locate() in actions
-	if(!hide)
-		return
-
-	hide.Activate()
-
+	if(layer != TURF_LAYER+0.2)
+		layer = TURF_LAYER+0.2
+		to_chat(src, text("<span class='notice'>You are now hiding.</span>"))
+	else
+		layer = MOB_LAYER
+		to_chat(src, text("<span class='notice'>You have stopped hiding.</span>"))
 
 /mob/living/silicon/robot/drone/verb/light()
 	set name = "Light On/Off"

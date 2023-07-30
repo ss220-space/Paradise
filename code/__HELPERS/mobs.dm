@@ -281,7 +281,7 @@
 	update_all_mob_security_hud()
 	return 1
 
-/proc/do_mob(mob/user, mob/target, time = 30, progress = 1, list/extra_checks = list(), only_use_extra_checks = FALSE)
+/proc/do_mob(mob/user, mob/target, time = 30, uninterruptible = 0, progress = 1, list/extra_checks = list())
 	if(!user || !target)
 		return 0
 	var/user_loc = user.loc
@@ -307,10 +307,7 @@
 		if(!user || !target)
 			. = 0
 			break
-		if(only_use_extra_checks)
-			if(check_for_true_callbacks(extra_checks))
-				. = 0
-				break
+		if(uninterruptible)
 			continue
 
 		if(drifting && !user.inertia_dir)

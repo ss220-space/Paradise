@@ -7,7 +7,6 @@
 	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 3
 	var/protected_species_changeling = list("Machine")
-	var/list/datum/mind/pre_changelings = list()
 
 /datum/game_mode/traitor/changeling/announce()
 	to_chat(world, "<B>The current game mode is - Traitor+Changeling!</B>")
@@ -24,17 +23,18 @@
 		if((player.mind in possible_changelings) && (player.client.prefs.species in protected_species_changeling))
 			possible_changelings -= player.mind
 
-	if(length(possible_changelings))
+	if(possible_changelings.len > 0)
 		var/datum/mind/changeling = pick(possible_changelings)
-		pre_changelings += changeling
+		changelings += changeling
+		modePlayer += changelings
 		changeling.restricted_roles = restricted_jobs
 		changeling.special_role = SPECIAL_ROLE_CHANGELING
 		return ..()
 	else
-		return FALSE
+		return 0
 
 /datum/game_mode/traitor/changeling/post_setup()
-	for(var/datum/mind/changeling in pre_changelings)
+	for(var/datum/mind/changeling in changelings)
 		changeling.add_antag_datum(/datum/antagonist/changeling)
 	..()
 

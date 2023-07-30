@@ -1,16 +1,15 @@
-/obj/effect/proc_holder/spell/touch/cluwne
+/obj/effect/proc_holder/spell/targeted/touch/cluwne
 	name = "Curse of the Cluwne"
 	desc = "Turns the target into a fat and cursed monstrosity of a clown."
 	hand_path = /obj/item/melee/touch_attack/cluwne
 
 	school = "transmutation"
 
-	base_cooldown = 1 MINUTES
-	clothes_req = TRUE
-	cooldown_min = 20 SECONDS //100 deciseconds reduction per rank
+	charge_max = 600
+	clothes_req = 1
+	cooldown_min = 200 //100 deciseconds reduction per rank
 
-	action_icon_state = "cluwne"
-
+	action_icon_state = "clown"
 
 /mob/living/carbon/human/proc/makeCluwne()
 	to_chat(src, "<span class='danger'>You feel funny.</span>")
@@ -41,7 +40,6 @@
 	equip_to_slot_or_del(new /obj/item/clothing/gloves/cursedclown, slot_gloves)
 	equip_to_slot_or_del(new /obj/item/clothing/mask/cursedclown, slot_wear_mask)
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/cursedclown, slot_shoes)
-
 
 /mob/living/carbon/human/proc/makeAntiCluwne()
 	to_chat(src, "<span class='danger'>You don't feel very funny.</span>")
@@ -87,4 +85,3 @@
 
 	equip_to_slot_or_del(new /obj/item/clothing/under/lawyer/black, slot_w_uniform)
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/black, slot_shoes)
-

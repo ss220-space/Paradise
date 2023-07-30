@@ -1,7 +1,6 @@
 /datum/game_mode
 	var/list/datum/mind/thieves = list()
 
-
 /datum/game_mode/thief
 	name = "thief"
 	config_tag = "thief"
@@ -15,11 +14,9 @@
 
 	var/thieves_amount = 3
 
-
 /datum/game_mode/thief/announce()
 	to_chat(world, "<B>The current game mode is - thief!</B>")
 	to_chat(world, "<B>На станции зафиксирована деятельность гильдии воров. Не допустите кражу дорогостоящего оборудования!</B>")
-
 
 /datum/game_mode/thief/pre_setup()
 
@@ -44,16 +41,14 @@
 			modePlayer += thieves
 			M.special_role = SPECIAL_ROLE_THIEF
 		..()
-		return TRUE
+		return 1
 	else
-		return FALSE
-
+		return 0
 
 /datum/game_mode/thief/post_setup()
 	for(var/datum/mind/thief in thieves)
 		thief.make_Thief()
 	..()
-
 
 /datum/game_mode/proc/forge_thief_objectives(datum/mind/thief)
 	var/datum/objective/thief_objective

@@ -430,7 +430,7 @@
 
 /obj/item/clothing/glasses/sunglasses/lasers/equipped(mob/user, slot, initial) //grant them laser eyes upon equipping it.
 	if(slot == slot_glasses)
-		ADD_TRAIT(user, TRAIT_LASEREYES, "admin_zapglasses")
+		user.mutations.Add(LASER)
 		user.regenerate_icons()
 	. = ..(user, slot)
 

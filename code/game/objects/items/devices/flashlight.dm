@@ -84,7 +84,7 @@
 	else
 		return ..()
 
-/obj/item/flashlight/extinguish_light(force = FALSE)
+/obj/item/flashlight/extinguish_light()
 	if(on)
 		on = FALSE
 		update_brightness()
@@ -301,13 +301,8 @@
 	new T(loc)
 	qdel(src) // return INITIALIZE_HINT_QDEL <-- Doesn't work
 
-
-/obj/item/flashlight/flare/extinguish_light(force = FALSE)
-	if(force)
-		fuel = 0
-		visible_message(span_danger("[src] burns up rapidly!"))
-	else
-		visible_message(span_danger("[src] dims slightly before scattering the shadows around it."))
+/obj/item/flashlight/flare/extinguish_light()
+	visible_message("<span class='danger'>[src] dims slightly before scattering the shadows around it.</span>")
 
 /obj/item/flashlight/flare/torch
 	name = "torch"
@@ -344,12 +339,8 @@
 /obj/item/flashlight/slime/attack_self(mob/user)
 	return //Bio-luminescence does not toggle.
 
-/obj/item/flashlight/slime/extinguish_light(force = FALSE)
-	if(force)
-		visible_message(span_danger("[src] withers away."))
-		qdel(src)
-	else
-		visible_message(span_danger("[src] dims slightly before scattering the shadows around it."))
+/obj/item/flashlight/slime/extinguish_light()
+	visible_message("<span class='danger'>[src] dims slightly before scattering the shadows around it.</span>")
 
 /obj/item/flashlight/emp
 	origin_tech = "magnets=3;syndicate=1"

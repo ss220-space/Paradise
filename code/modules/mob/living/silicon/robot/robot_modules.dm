@@ -767,7 +767,6 @@
 	modules += new /obj/item/stack/tile/plasteel/cyborg(src)
 	modules += new /obj/item/stack/sheet/metal/cyborg(src)
 	modules += new /obj/item/stack/sheet/glass/cyborg(src)
-	modules += new /obj/item/floor_painter(src)
 	modules += new /obj/item/stack/cable_coil/cyborg(src)
 	modules += new /obj/item/analyzer(src)
 	modules += new /obj/item/extinguisher(src)

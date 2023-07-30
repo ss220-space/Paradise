@@ -200,9 +200,6 @@
 	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
 		return TRUE
 
-	if(istype(mover) && mover.checkpass(PASSDOOR))
-		return TRUE
-
 	return !density
 
 
@@ -413,7 +410,6 @@
 	desc = "Blue bioluminescence shines from beneath the surface."
 	icon_state = "weednode"
 	light_range = 1
-	layer = MID_TURF_LAYER
 	var/node_range = NODERANGE
 
 

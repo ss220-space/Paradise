@@ -53,12 +53,12 @@
 	. = ..()
 	extinguish_light()
 
-/obj/item/clothing/head/hardhat/extinguish_light(force = FALSE)
+/obj/item/clothing/head/hardhat/extinguish_light()
 	if(on)
 		on = FALSE
 		turn_off()
 		update_icon()
-		visible_message(span_danger("[src]'s light fades and turns off."))
+		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
 
 /obj/item/clothing/head/hardhat/orange
 	icon_state = "hardhat0_orange"

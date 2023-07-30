@@ -26,7 +26,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	/// If they are focused on a particular number. Steal objectives have their own counter.
 	var/target_amount = 0
 	/// If the objective has been completed.
-	var/completed = FALSE
+	var/completed = 0
 	/// If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
 	var/martyr_compatible = FALSE
 	/// If the objective goes cryo, do we check for a new objective or ignore it
@@ -978,16 +978,19 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /datum/objective/blood/check_completion()
+	if(owner && owner.vampire && owner.vampire.bloodtotal && owner.vampire.bloodtotal >= target_amount)
+		return TRUE
+	else
+		return FALSE
+
+
+/*/datum/objective/blood/check_completion()
 	for(var/datum/mind/player in get_owners())
 		var/datum/antagonist/vampire/vampire = player.has_antag_datum(/datum/antagonist/vampire)
 		if(vampire.bloodtotal >= target_amount)
 			return TRUE
-
-		var/datum/antagonist/goon_vampire/g_vampire = player.has_antag_datum(/datum/antagonist/goon_vampire)
-		if(g_vampire.bloodtotal >= target_amount)
-			return TRUE
-
-		return FALSE
+		else
+			return FALSE*/
 
 
 // /vg/; Vox Inviolate for humans :V
@@ -1216,9 +1219,9 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	needs_target = FALSE
 
 
+
 /datum/objective/trade/proc/choose_target()
 	return
-
 
 /datum/objective/trade/plasma/choose_target()
 	explanation_text = "Acquire at least 15 sheets of plasma through trade."
@@ -1227,12 +1230,11 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/trade/credits/choose_target()
 	explanation_text = "Acquire at least 10,000 credits through trade."
 
-
 //wizard
 
 /datum/objective/wizchaos
-	explanation_text = "Wreak havoc upon the station as much you can. Send those wandless Nanotrasen scum a message!"
 	needs_target = FALSE
+	explanation_text = "Wreak havoc upon the station as much you can. Send those wandless Nanotrasen scum a message!"
 	completed = TRUE
 
 //Space Ninja
@@ -1602,7 +1604,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		var/vampires_num = max(1, round((SSticker.mode.num_players_started())/(config.traitor_scaling))+1)
 		for(var/j = 0, j < vampires_num, j++)
 			var/datum/mind/new_vampires_mind = pick(possible_vampires)
-			new_vampires_mind.add_antag_datum(/datum/antagonist/vampire)
+			new_vampires_mind.make_Vampire()
 			possible_vampires.Remove(new_vampires_mind)
 
 /datum/objective/research_corrupt

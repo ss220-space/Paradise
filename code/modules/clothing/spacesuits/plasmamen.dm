@@ -89,7 +89,7 @@
 		var/datum/action/A=X
 		A.UpdateButtonIcon()
 
-/obj/item/clothing/head/helmet/space/plasmaman/extinguish_light(force = FALSE)
+/obj/item/clothing/head/helmet/space/plasmaman/extinguish_light()
 	if(on)
 		toggle_light()
 

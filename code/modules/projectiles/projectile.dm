@@ -39,8 +39,7 @@
 	var/flag = "bullet" //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb	//Cael - bio and rad are also valid
 	var/projectile_type = "/obj/item/projectile"
 	var/range = 50 //This will de-increment every step. When 0, it will delete the projectile.
-	/// Determines the reflectability level of a projectile, either REFLECTABILITY_NEVER, REFLECTABILITY_PHYSICAL, REFLECTABILITY_ENERGY in order of ease to reflect.
-	var/reflectability = REFLECTABILITY_PHYSICAL
+	var/is_reflectable = FALSE // Can it be reflected or not?
 	var/fire_log_text //Full log text. gets filled in fire() type, damage, reagents e.t.c.
 	//Effects
 	var/stun = 0
@@ -183,7 +182,7 @@
 	if(!yes) //prevents double bumps.
 		return
 
-	if(check_ricochet(A) && check_ricochet_flag(A) && ricochets < ricochets_max && is_reflectable(REFLECTABILITY_PHYSICAL))
+	if(check_ricochet(A) && check_ricochet_flag(A) && ricochets < ricochets_max)
 		ricochets++
 		if(A.handle_ricochet(src))
 			on_ricochet(A)
@@ -353,10 +352,3 @@
 
 /obj/item/projectile/experience_pressure_difference()
 	return
-
-/obj/item/projectile/proc/is_reflectable(desired_reflectability_level)
-	if(reflectability == REFLECTABILITY_NEVER) //You'd trust coders not to try and override never reflectable things, but heaven help us I do not
-		return FALSE
-	if(reflectability < desired_reflectability_level)
-		return FALSE
-	return TRUE

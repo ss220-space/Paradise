@@ -19,8 +19,7 @@
 	stop_automated_movement = 1
 	friendly = "pinches"
 	ventcrawler = 2
-	can_hide = TRUE
-	pass_door_while_hidden = TRUE
+	can_hide = 1
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
 	tts_seed = "Riki"
