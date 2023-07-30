@@ -89,11 +89,9 @@
 			continue
 		
 		var/goal_points_mined = seconds * GET_CURRENT_SCAN_VALUE(goal_points_generator, goal_points_critical_multiplier, is_critical)
-		var/probe_points_mined = goal_points_mined / length(GLOB.bluespace_rifts_server_list) // TODO: give each server random amount of goal_points_mined
+		var/probe_points_mined = goal_points_mined / length(GLOB.bluespace_rifts_server_list) // TODO: give each server random amount of that
 
 		for(var/obj/machinery/brs_server/server as anything in GLOB.bluespace_rifts_server_list)
-			server.goal_points_mined += goal_points_mined
-			server.probe_points_mined += probe_points_mined
-			server.times_rift_scanned += 1
+			server.add_points(rift.goal_uid, goal_points_mined, probe_points_mined)
 
 	return scanner_status_after_scan

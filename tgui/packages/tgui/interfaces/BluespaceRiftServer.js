@@ -86,9 +86,17 @@ export const BluespaceRiftServer = (props, context) => {
     } = serverData;
     return (
       <LabeledList.Item label={servName}>
-        <Box>
-          {servData.riftName} — {Math.floor(servData.probePoints)} данных.
-        </Box>
+        {servData.length ? (
+          servData.map((oneRiftData, index) => (
+            <Box key={index}>
+              {oneRiftData.riftName} — {Math.floor(oneRiftData.probePoints)} данных.
+            </Box>
+          ))
+        ) : (
+          <Box>
+            Нет данных
+          </Box>
+        )}
       </LabeledList.Item>
     );
   };

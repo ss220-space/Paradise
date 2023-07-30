@@ -12,6 +12,10 @@ GLOBAL_LIST_EMPTY(bluespace_rifts_scanner_list)
 	var/datum/bluespace_rift/rift
 
 /datum/station_goal/bluespace_rift/Destroy()
+
+	for(var/obj/machinery/brs_server/server as anything in GLOB.bluespace_rifts_server_list)
+		server.remove_rift_data(UID())
+
 	QDEL_NULL(rift)
 	. = ..()
 
@@ -38,7 +42,7 @@ GLOBAL_LIST_EMPTY(bluespace_rifts_scanner_list)
 /datum/station_goal/bluespace_rift/proc/get_current_research_points()
 	var/max_points = 0
 	for(var/obj/machinery/brs_server/server as anything in GLOB.bluespace_rifts_server_list)
-		max_points = max(max_points, server.research_points)
+		max_points = max(max_points, server.get_goal_points(UID()))
 	return max_points
 
 /datum/station_goal/bluespace_rift/proc/spawn_rift()

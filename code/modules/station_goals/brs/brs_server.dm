@@ -1,4 +1,11 @@
-//Server to control scanners and monitor the execution of the goal
+#define DATA_RECORD_RIFT_ID 1
+#define DATA_RECORD_GOAL_POINTS 2
+#define DATA_RECORD_PROBE_POINTS 3
+#define DATA_RECORD_TIMES_RIFT_SCANNED 4
+#define DATA_RECORD_MINED_GOAL_POINTS 5
+#define DATA_RECORD_MINED_PROBE_POINTS 6
+#define DATA_RECORD_LENGTH 6
+
 /obj/item/circuitboard/brs_server
 	name = "Сервер сканирирования разлома (Computer Board)"
 	desc = "Плата для сбора сервера изучения сканирования разломов."
@@ -28,11 +35,6 @@
 	idle_power_usage = 4000
 	active_power_usage = 12000
 
-	/// Points needed to complete the station goal
-	var/research_points = 0
-	/// Points needed to "probe" a rift
-	var/probe_points = 0
-
 	/// One probe price
 	var/points_per_probe = 500
 	/// One probe price if the server is emagged
@@ -44,15 +46,22 @@
 
 	var/research_points_on_probe_success = 100
 
+	/// Keeps goal points and probe points.
+	/// Goal points - needed to complete the station goal.
+	/// Probe points - needed to "probe" a rift.
+	var/list/data
+
 	/// Needed for users to distinguish between servers
 	var/id
 
-	var/times_rift_scanned = 0
-	var/goal_points_mined = 0
-	var/probe_points_mined = 0
-
 /obj/machinery/brs_server/Initialize(mapload)
 	. = ..()
+
+	// init data list
+	data = list()
+	for(var/datum/station_goal/bluespace_rift/goal in SSticker.mode.station_goals)
+		var/record = get_record(goal.UID())
+		data[record][DATA_RECORD_GOAL_POINTS] = goal.get_current_research_points()
 
 	// Assign an id
 	var/list/existing_ids = list()
@@ -74,19 +83,56 @@
 	return ..()
 
 /obj/machinery/brs_server/process()
-	if(!times_rift_scanned)
-		return
-	
-	research_points += goal_points_mined * (1 + log(times_rift_scanned))
-	probe_points += probe_points_mined * (1 + log(times_rift_scanned))
+	for(var/list/record in data)
+		if(record[DATA_RECORD_TIMES_RIFT_SCANNED] == 0)
+			continue
+		
+		record[DATA_RECORD_GOAL_POINTS] += record[DATA_RECORD_MINED_GOAL_POINTS] * (1 + log(record[DATA_RECORD_TIMES_RIFT_SCANNED]))
+		record[DATA_RECORD_PROBE_POINTS] += record[DATA_RECORD_MINED_PROBE_POINTS] * (1 + log(record[DATA_RECORD_TIMES_RIFT_SCANNED]))
 
-	times_rift_scanned = 0
-	goal_points_mined = 0
-	probe_points_mined = 0
+		record[DATA_RECORD_TIMES_RIFT_SCANNED] = 0
+		record[DATA_RECORD_MINED_GOAL_POINTS] = 0
+		record[DATA_RECORD_MINED_PROBE_POINTS] = 0
 
-/obj/machinery/brs_server/proc/research_process(added_research_points, added_probe_points)
-	research_points += added_research_points
-	probe_points += added_probe_points
+/** Points mined by scanners shoud be added by this proc. */
+/obj/machinery/brs_server/proc/add_points(rift_id, added_research_points, added_probe_points)
+	var/record = get_record(rift_id)
+	data[record][DATA_RECORD_TIMES_RIFT_SCANNED] += 1
+	data[record][DATA_RECORD_MINED_GOAL_POINTS] += added_research_points
+	data[record][DATA_RECORD_MINED_PROBE_POINTS] += added_probe_points
+
+/** Removes rift record from `data` */
+/obj/machinery/brs_server/proc/remove_rift_data(rift_id)
+	var/index = get_record(rift_id)
+	data.Cut(index, index + 1)
+
+/** Returns goal points amount for a particular goal. */
+/obj/machinery/brs_server/proc/get_goal_points(rift_id)
+	var/record = get_record(rift_id)
+	return data[record][DATA_RECORD_GOAL_POINTS]
+
+/** Returns the index of the rift record in `data`. Creates a new record if there is no such `rift_id` in `data`. */
+/obj/machinery/brs_server/proc/get_record(rift_id)
+
+	// Search for that record
+	for(var/record in 1 to length(data))
+		if(data[record][DATA_RECORD_RIFT_ID] == rift_id)
+			return record
+
+	// Add a new record if not found
+	var/list/new_record[DATA_RECORD_LENGTH]
+
+	new_record[DATA_RECORD_RIFT_ID] = rift_id
+	new_record[DATA_RECORD_GOAL_POINTS] = 0
+	new_record[DATA_RECORD_PROBE_POINTS] = 0
+
+	new_record[DATA_RECORD_TIMES_RIFT_SCANNED] = 0
+	new_record[DATA_RECORD_MINED_GOAL_POINTS] = 0
+	new_record[DATA_RECORD_MINED_PROBE_POINTS] = 0
+
+	data += list(new_record)
+	// Return index of the last element
+	return length(data)
 
 /obj/machinery/brs_server/update_icon()
 	var/prefix = initial(icon_state)
@@ -204,30 +250,31 @@
 		ui.open()
 
 /obj/machinery/brs_server/ui_data(mob/user)
-	var/list/data = list()
+	var/list/uidata = list()
 
-	data["pointsPerProbe"] = points_per_probe
-	data["emagged"] = emagged
+	uidata["pointsPerProbe"] = points_per_probe
+	uidata["emagged"] = emagged
 
-	data["goals"] = list()
-	var/datum/station_goal/bluespace_rift/goal = locate() in SSticker.mode.station_goals
-	var/rift_name = goal.rift.name
-	data["goals"] += list(list(
-		"riftId" = goal.UID(),
-		"riftName" = rift_name,
-		"targetResearchPoints" = goal.target_research_points,
-		"researchPoints" = research_points,
-		"probePoints" = probe_points,
-		"rewardGiven" = goal.reward_given,
-	))
+	uidata["goals"] = list()
+	for(var/datum/station_goal/bluespace_rift/goal in SSticker.mode.station_goals)
+		var/rift_id = goal.UID()
+		var/record = get_record(rift_id)
+		uidata["goals"] += list(list(
+			"riftId" = rift_id,
+			"riftName" = goal.rift.name,
+			"targetResearchPoints" = goal.target_research_points,
+			"rewardGiven" = goal.reward_given,
+			"researchPoints" = data[record][DATA_RECORD_GOAL_POINTS],
+			"probePoints" = data[record][DATA_RECORD_PROBE_POINTS],
+		))
 
-	data["scanners"] = list()
+	uidata["scanners"] = list()
 	for(var/obj/machinery/power/brs_stationary_scanner/scanner in GLOB.bluespace_rifts_scanner_list)
 		if(scanner.z != z)
 			continue
 		if(scanner.stat & (BROKEN|NOPOWER))
 			continue
-		data["scanners"] += list(list(
+		uidata["scanners"] += list(list(
 			"scannerId" = scanner.UID(),
 			"scannerName" = scanner.name,
 			"scanStatus" = scanner.scanning_status,
@@ -239,28 +286,34 @@
 			continue
 		if(scanner.stat & (BROKEN|NOPOWER))
 			continue
-		data["scanners"] += list(list(
+		uidata["scanners"] += list(list(
 			"scannerName" = scanner.name,
 			"scanStatus" = scanner.scanning_status,
 			"canSwitch" = 0,
 			"switching" = scanner.switching,
 		))
 
-	data["servers"] = list()
+	uidata["servers"] = list()
 	for(var/obj/machinery/brs_server/server in GLOB.bluespace_rifts_server_list)
 		if(server.z != z)
 			continue
 		if(server.stat & (BROKEN|NOPOWER))
 			continue
-		data["servers"] += list(list(
+
+		var/list/server_probe_points = list()
+		for(var/datum/station_goal/bluespace_rift/goal in SSticker.mode.station_goals)
+			var/record = server.get_record(goal.UID())
+			server_probe_points += list(list(
+				"riftName" = goal.rift.name,
+				"probePoints" = server.data[record][DATA_RECORD_PROBE_POINTS],
+			))
+
+		uidata["servers"] += list(list(
 			"servName" = server.name,
-			"servData" = list(
-				"riftName" = rift_name,
-				"probePoints" = probe_points,
-			)
+			"servData" = server_probe_points,
 		))
 
-	return data
+	return uidata
 
 /obj/machinery/brs_server/ui_act(action, list/params)
 	if(..())
@@ -278,27 +331,34 @@
 		if("probe")
 			flick_active()
 			var/goal_uid = params["rift_id"]
-			var/datum/station_goal/bluespace_rift/goal = locateUID(goal_uid)
-			probe(goal.rift)
+			probe(goal_uid)
 			return TRUE
 		if("reward")
 			flick_active()
 			var/goal_uid = params["rift_id"]
 			var/datum/station_goal/bluespace_rift/goal = locateUID(goal_uid)
+
 			if(goal.reward_given)
 				return FALSE
+
+			var/record = get_record(goal_uid)
+			if(data[record][DATA_RECORD_GOAL_POINTS] < goal.target_research_points)
+				return FALSE
+
 			goal.rift.spawn_reward()
 			goal.reward_given = TRUE
 			visible_message(span_notice("Исследование завершено. Судя по индикации сервера, из разлома выпало что-то, что может представлять большую научную ценность."))
 			return TRUE
 
-/obj/machinery/brs_server/proc/probe(datum/bluespace_rift/rift)
-	if(probe_points < points_per_probe)
+/obj/machinery/brs_server/proc/probe(goal_uid)
+	var/record = get_record(goal_uid)
+
+	if(data[record][DATA_RECORD_PROBE_POINTS] < points_per_probe)
 		return
 
 	use_power(active_power_usage)
 
-	probe_points -= points_per_probe
+	data[record][DATA_RECORD_PROBE_POINTS] -= points_per_probe
 
 	var/successful
 	if(probe_success_chance == 0)
@@ -308,10 +368,20 @@
 	else
 		successful = FALSE
 
+	var/datum/station_goal/bluespace_rift/goal = locateUID(goal_uid)
+
 	if(successful)
-		rift.probe(successful = TRUE)
+		goal.rift.probe(successful = TRUE)
 		visible_message(span_notice("Судя по индикации сервера, зондирование прошло успешно. Из разлома удалось извлечь какой-то предмет."))
-		research_points += research_points_on_probe_success
+		data[record][DATA_RECORD_GOAL_POINTS] += research_points_on_probe_success
 	else
-		rift.probe(successful = FALSE)
+		goal.rift.probe(successful = FALSE)
 		visible_message(span_warning("Судя по индикации сервера, зондирование спровоцировало изменение стабильности блюспейс-разлома. Это не хорошо."))
+
+#undef DATA_RECORD_RIFT_ID
+#undef DATA_RECORD_GOAL_POINTS
+#undef DATA_RECORD_PROBE_POINTS
+#undef DATA_RECORD_TIMES_RIFT_SCANNED
+#undef DATA_RECORD_MINED_GOAL_POINTS
+#undef DATA_RECORD_MINED_PROBE_POINTS
+#undef DATA_RECORD_LENGTH
