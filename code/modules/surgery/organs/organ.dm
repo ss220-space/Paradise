@@ -188,7 +188,7 @@
 	if(germ_level >= INFECTION_LEVEL_ONE / 2)
 		//aiming for germ level to go from ambient to INFECTION_LEVEL_TWO in an average of 15 minutes
 		if(prob(round(germ_level / 6)))
-			germ_level++
+			germ_level += owner?.dna.species.germs_growth_rate
 
 	if(germ_level >= INFECTION_LEVEL_ONE)
 		var/fever_temperature = (owner.dna.species.heat_level_1 - owner.dna.species.body_temperature - 5) * min(germ_level / INFECTION_LEVEL_TWO, 1) + owner.dna.species.body_temperature
@@ -198,7 +198,7 @@
 		var/obj/item/organ/external/parent = owner.get_organ(parent_organ)
 		//spread germs
 		if(parent.germ_level < germ_level && ( parent.germ_level < INFECTION_LEVEL_ONE * 2 || prob(30)))
-			parent.germ_level++
+			parent.germ_level += owner?.dna.species.germs_growth_rate
 
 /obj/item/organ/proc/rejuvenate()
 	damage = 0
