@@ -350,7 +350,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 		else
 			var/list/general_targets = list()
 			for(var/datum/objective/general_objective in owner.get_all_objectives())
-				if(istype(new_objective, /datum/objective/steal))
+				if(istype(general_objective, /datum/objective/steal))
 					continue
 
 				general_targets |= general_objective.target
