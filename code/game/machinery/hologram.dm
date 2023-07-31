@@ -378,7 +378,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		return hologram
 
 
-	to_chat(user, span_danger("ERROR:</span> Hologram Projection Malfunction."))
+	to_chat(user, span_danger("ERROR: ") + "Hologram Projection Malfunction.")
 	clear_holo(user)//safety check
 
 /*This is the proc for special two-way communication between AI and holopad/people talking near holopad.
