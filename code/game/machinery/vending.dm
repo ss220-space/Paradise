@@ -564,7 +564,7 @@
 	if(.)
 		return
 	if(issilicon(usr) && !isrobot(usr))
-		to_chat(usr, "<span class='warning'>The vending machine refuses to interface with you, as you are not in its target demographic!</span>")
+		to_chat(usr, span_warning("The vending machine refuses to interface with you, as you are not in its target demographic!"))
 		return
 	switch(action)
 		if("toggle_voice")
@@ -576,44 +576,44 @@
 			. = TRUE
 		if("remove_coin")
 			if(!coin)
-				to_chat(usr, "<span class='warning'>There is no coin in this machine.</span>")
+				to_chat(usr, span_warning("There is no coin in this machine."))
 				return
 			if(istype(usr, /mob/living/silicon))
-				to_chat(usr, "<span class='warning'>You lack hands.</span>")
+				to_chat(usr, span_warning("You lack hands."))
 				return
-			to_chat(usr, "<span class='notice'>You remove [coin] from [src].</span>")
+			to_chat(usr, span_notice("You remove [coin] from [src]."))
 			coin.forceMove_turf()
 			usr.put_in_hands(coin, ignore_anim = FALSE)
 			coin = null
 			. = TRUE
 		if("vend")
 			if(!vend_ready)
-				to_chat(usr, "<span class='warning'>The vending machine is busy!</span>")
+				to_chat(usr, span_warning("The vending machine is busy!"))
 				return
 			if(panel_open)
-				to_chat(usr, "<span class='warning'>The vending machine cannot dispense products while its service panel is open!</span>")
+				to_chat(usr, span_warning("The vending machine cannot dispense products while its service panel is open!"))
 				return
 			var/key = text2num(params["inum"])
 			var/list/display_records = product_records + coin_records
 			if(extended_inventory)
 				display_records = product_records + coin_records + hidden_records
 			if(key < 1 || key > length(display_records))
-				to_chat(usr, "<span class='warning'>ERROR: invalid inum passed to vendor. Report this bug.</span>")
+				to_chat(usr, span_warning("ERROR: invalid inum passed to vendor. Report this bug."))
 				return
 			var/datum/data/vending_product/R = display_records[key]
 			if(!istype(R))
-				to_chat(usr, "<span class='warning'>ERROR: unknown vending_product record. Report this bug.</span>")
+				to_chat(usr, span_warning("ERROR: unknown vending_product record. Report this bug."))
 				return
 			var/list/record_to_check = product_records + coin_records
 			if(extended_inventory)
 				record_to_check = product_records + coin_records + hidden_records
 			if(!R || !istype(R) || !R.product_path)
-				to_chat(usr, "<span class='warning'>ERROR: unknown product record. Report this bug.</span>")
+				to_chat(usr, span_warning("ERROR: unknown product record. Report this bug."))
 				return
 			if(R in hidden_records)
 				if(!extended_inventory)
 					// Exploit prevention, stop the user purchasing hidden stuff if they haven't hacked the machine.
-					to_chat(usr, "<span class='warning'>ERROR: machine does not allow extended_inventory in current state. Report this bug.</span>")
+					to_chat(usr, span_warning("ERROR: machine does not allow extended_inventory in current state. Report this bug."))
 					return
 			else if (!(R in record_to_check))
 				// Exploit prevention, stop the user
@@ -654,10 +654,10 @@
 				// this is important because it lets people buy stuff with someone else's ID by holding it while using the vendor
 				paid = pay_with_card(usr, currently_vending.price, currently_vending.name)
 			else if(usr.can_advanced_admin_interact())
-				to_chat(usr, "<span class='notice'>Vending object due to admin interaction.</span>")
+				to_chat(usr, span_notice("Vending object due to admin interaction."))
 				paid = TRUE
 			else
-				to_chat(usr, "<span class='warning'>Payment failure: you have no ID or other method of payment.")
+				to_chat(usr, span_warning("Payment failure: you have no ID or other method of payment."))
 				vend_ready = TRUE
 				flick(icon_deny, src)
 				. = TRUE // we set this because they shouldn't even be able to get this far, and we want the UI to update.
@@ -666,7 +666,7 @@
 				vend(currently_vending, usr)
 				. = TRUE
 			else
-				to_chat(usr, "<span class='warning'>Payment failure: unable to process payment.")
+				to_chat(usr, span_warning("Payment failure: unable to process payment."))
 				vend_ready = TRUE
 	if(.)
 		add_fingerprint(usr)
