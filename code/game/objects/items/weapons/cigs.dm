@@ -210,6 +210,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return
 	smoke()
 
+/obj/item/clothing/mask/cigarette/extinguish_light(force = FALSE)
+	if(!force)
+		return
+	die()
 
 /obj/item/clothing/mask/cigarette/attack_self(mob/user)
 	if(lit)
@@ -391,6 +395,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(flavor_text)
 			var/turf/T = get_turf(src)
 			T.visible_message(flavor_text)
+		if(ishuman(loc))
+			var/mob/living/carbon/human/H = loc
+			if(H.wear_mask == src) // Don't update if it's just in their hand
+				H.wear_mask_update(src)
 		START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/mask/cigarette/pipe/process()

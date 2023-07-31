@@ -164,7 +164,7 @@
 
 /obj/structure/clockwork/functional/altar
 	name = "credence"
-	desc = "A strange brass platform with spinning cogs inside. It demands somethinge in exchange for goods..."
+	desc = "A strange brass platform with spinning cogs inside. It demands something in exchange for goods..."
 	icon_state = "altar"
 	density = 0
 	death_message = "<span class='danger'>The alter breaks in pieces as it dusts into nothing!</span>"
@@ -313,7 +313,7 @@
 	if(!is_convertable_to_clocker(target.mind) || target.stat == DEAD) // mindshield or holy or mindless monkey. or dead guy
 		target.visible_message("<span class='warning'>[src] in glowing manner starts corrupting [target]!</span>", \
 		"<span class='danger'>You feel as your body starts to corrupt by [src] underneath!</span>")
-		target.Weaken(10)
+		target.Weaken(20 SECONDS)
 	else // just a living non-clocker civil
 		to_chat(target, "<span class='clocklarge'><b>\"You belong to me now.\"</b></span>")
 		target.heal_overall_damage(50, 50, TRUE)
@@ -321,8 +321,8 @@
 			target.mind.wipe_memory()
 			target.set_species(/datum/species/golem/clockwork)
 		SSticker.mode.add_clocker(target.mind)
-		target.Weaken(5) //Accept new power... and new information
-		target.EyeBlind(5)
+		target.Weaken(10 SECONDS) //Accept new power... and new information
+		target.EyeBlind(10 SECONDS)
 		stop_convert(TRUE)
 
 /obj/structure/clockwork/functional/altar/proc/stop_convert(var/silent = FALSE)

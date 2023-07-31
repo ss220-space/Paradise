@@ -6,6 +6,7 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "defib-on"
 	item_state = "defib"
+	belt_icon = "handheld_defibrillator"
 	var/shield_ignore = FALSE
 	var/icon_base = "defib"
 	var/cooldown = FALSE
@@ -55,12 +56,11 @@
 	if(emagged || (H.health <= HEALTH_THRESHOLD_CRIT) || (H.undergoing_cardiac_arrest()))
 		user.visible_message("<span class='notice'>[user] shocks [H] with [src].</span>", "<span class='notice'>You tried to shock [H] with [src].</span>")
 		add_attack_logs(user, H, "defibrillated with [src]")
-		playsound(user.loc, "sound/weapons/Egloves.ogg", 75, 1)
+		playsound(get_turf(src), "sound/weapons/Egloves.ogg", 75, 1)
 		if(!blocked)
 			if(H.stat == DEAD)
 				to_chat(user, "<span class='danger'>[H] doesn't respond at all!</span>")
 			if(H.stat != DEAD)
-				playsound(user.loc, "sound/weapons/Egloves.ogg", 75, 1)
 				H.set_heartattack(FALSE)
 				var/total_damage = H.getBruteLoss() + H.getFireLoss() + H.getToxLoss()
 				if(H.health <= HEALTH_THRESHOLD_CRIT)
@@ -72,8 +72,8 @@
 					else
 						to_chat(user, "<span class='danger'>[H] doesn't respond!</span>")
 
-				H.AdjustWeakened(2)
-				H.AdjustStuttering(10)
+				H.AdjustWeakened(4 SECONDS)
+				H.AdjustStuttering(20 SECONDS)
 				to_chat(H, "<span class='danger'>You feel a powerful jolt!</span>")
 				H.shock_internal_organs(100)
 

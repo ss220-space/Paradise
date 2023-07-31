@@ -68,7 +68,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
 	equip_cooldown = 4
 	name = "CH-PS \"Firedart\" Laser"
-	icon_state = "mecha_laser"
+	icon_state = "mecha_firedart"
 	origin_tech = "magnets=3;combat=3;engineering=3"
 	energy_drain = 40
 	projectile = /obj/item/projectile/beam
@@ -77,6 +77,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler
 	name = "CH-PD Disabler"
+	icon_state = "mecha_disabler"
 	origin_tech = "combat=3"
 	projectile = /obj/item/projectile/beam/disabler
 	fire_sound = 'sound/weapons/plasma_cutter.ogg'
@@ -87,7 +88,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy
 	equip_cooldown = 10
 	name = "CH-LC \"Solaris\" Laser Cannon"
-	icon_state = "mecha_laser"
+	icon_state = "mecha_solaris"
 	origin_tech = "magnets=4;combat=4;engineering=3"
 	energy_drain = 60
 	projectile = /obj/item/projectile/beam/laser/heavylaser
@@ -117,7 +118,7 @@
 	equip_cooldown = 35
 	name = "P-X Tesla Cannon"
 	desc = "A weapon for combat exosuits. Fires bolts of electricity similar to the experimental tesla engine"
-	icon_state = "mecha_laser"
+	icon_state = "mecha_teslacannon"
 	origin_tech = "materials=4;engineering=4;combat=6;magnets=6"
 	energy_drain = 500
 	projectile = /obj/item/projectile/energy/shock_revolver
@@ -128,7 +129,7 @@
 	equip_cooldown = 10
 	name = "S-1 X-Ray Projector"
 	desc = "A weapon for combat exosuits. Fires beams of X-Rays that pass through solid matter."
-	icon_state = "mecha_laser"
+	icon_state = "mecha_xray"
 	origin_tech = "combat=6;materials=4;programming=6"
 	energy_drain = 120
 	projectile = /obj/item/projectile/beam/xray
@@ -144,7 +145,7 @@
 	equip_cooldown = 8
 	name = "ZFI Immolation Beam Gun"
 	desc = "A weapon for combat exosuits. Fires beams of extreme heat that set targets on fire."
-	icon_state = "mecha_laser"
+	icon_state = "mecha_immolator"
 	origin_tech = "materials=4;engineering=4;combat=6;magnets=6"
 	energy_drain = 80
 	projectile = /obj/item/projectile/beam/immolator
@@ -221,14 +222,14 @@
 				continue
 		to_chat(M, "<font color='red' size='7'>HONK</font>")
 		M.SetSleeping(0)
-		M.Stuttering(20)
-		M.MinimumDeafTicks(30)
-		M.Weaken(3)
+		M.Stuttering(40 SECONDS)
+		M.Deaf(60 SECONDS)
+		M.Weaken(6 SECONDS)
 		if(prob(30))
-			M.Stun(10)
-			M.Paralyse(4)
+			M.Stun(20 SECONDS)
+			M.Paralyse(8 SECONDS)
 		else
-			M.Jitter(500)
+			M.Jitter(1000 SECONDS)
 		///else the mousetraps are useless
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M
@@ -354,7 +355,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
 	name = "SRM-8 Light Missile Rack"
-	icon_state = "mecha_missilerack"
+	icon_state = "mecha_missilerack_six"
 	origin_tech = "combat=5;materials=4;engineering=4"
 	projectile = /obj/item/missile/light
 	fire_sound = 'sound/weapons/gunshots/1launcher.ogg'
@@ -383,10 +384,12 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy
 	name = "SRX-13 Heavy Missile Launcher"
+	icon_state = "mecha_missilerack"
 	projectile = /obj/item/missile/heavy
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium
 	name = "SRM-8 Missile Rack"
+	icon_state = "mecha_missilerack"
 	projectile = /obj/item/missile
 
 /obj/item/missile

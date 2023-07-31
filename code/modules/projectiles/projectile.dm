@@ -39,7 +39,8 @@
 	var/flag = "bullet" //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb	//Cael - bio and rad are also valid
 	var/projectile_type = "/obj/item/projectile"
 	var/range = 50 //This will de-increment every step. When 0, it will delete the projectile.
-	var/is_reflectable = FALSE // Can it be reflected or not?
+	/// Determines the reflectability level of a projectile, either REFLECTABILITY_NEVER, REFLECTABILITY_PHYSICAL, REFLECTABILITY_ENERGY in order of ease to reflect.
+	var/reflectability = REFLECTABILITY_PHYSICAL
 	var/fire_log_text //Full log text. gets filled in fire() type, damage, reagents e.t.c.
 	//Effects
 	var/stun = 0
@@ -58,6 +59,9 @@
 	var/ricochets = 0
 	var/ricochets_max = 2
 	var/ricochet_chance = 30
+
+	/// For when you want your projectile to have a chain coming out of the gun
+	var/chain = null
 
 	var/log_override = FALSE //whether print to admin attack logs or just keep it in the diary. example: laser tag or practice lasers
 
@@ -151,7 +155,7 @@
 								"<span class='userdanger'>[L] is hit by \a [src][organ_hit_text]!</span>")	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
 
 		if(L.mind && firer?.mind?.objectives)
-			for(var/datum/objective/pain_hunter/objective in firer.mind.objectives)
+			for(var/datum/objective/pain_hunter/objective in firer.mind.get_all_objectives())
 				if(L.mind == objective.target)
 					objective.take_damage(damage, damage_type)
 
@@ -179,7 +183,7 @@
 	if(!yes) //prevents double bumps.
 		return
 
-	if(check_ricochet(A) && check_ricochet_flag(A) && ricochets < ricochets_max)
+	if(check_ricochet(A) && check_ricochet_flag(A) && ricochets < ricochets_max && is_reflectable(REFLECTABILITY_PHYSICAL))
 		ricochets++
 		if(A.handle_ricochet(src))
 			on_ricochet(A)
@@ -349,3 +353,10 @@
 
 /obj/item/projectile/experience_pressure_difference()
 	return
+
+/obj/item/projectile/proc/is_reflectable(desired_reflectability_level)
+	if(reflectability == REFLECTABILITY_NEVER) //You'd trust coders not to try and override never reflectable things, but heaven help us I do not
+		return FALSE
+	if(reflectability < desired_reflectability_level)
+		return FALSE
+	return TRUE

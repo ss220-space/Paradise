@@ -334,6 +334,7 @@
 	desc = "A robust satchel for security related needs."
 	icon_state = "satchel-sec"
 
+
 /obj/item/storage/backpack/satchel_detective
 	name = "forensic satchel"
 	desc = "For every man, who at the bottom of his heart believes that he is a born detective."
@@ -717,3 +718,52 @@
 	name = "\improper TSF marine backpack"
 	desc = "A spacious backpack with lots of pockets, worn by marines of the Trans-Solar Federation."
 	icon_state = "ert_solgov"
+
+/obj/item/storage/backpack/guitarbag
+	name = "Guitar bag"
+	desc = "Bag for comfortable carrying your favorite guitar."
+	icon_state = "guitarbag"
+	item_state = "guitarbag"
+	resistance_flags = FLAMMABLE
+	w_class = WEIGHT_CLASS_BULKY
+	max_w_class = WEIGHT_CLASS_BULKY
+	min_w_class = WEIGHT_CLASS_NORMAL
+	max_combined_w_class = 4
+	storage_slots = 1
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/back.dmi',
+		"Drask" = 'icons/mob/species/drask/back.dmi',
+		"Grey" = 'icons/mob/species/grey/back.dmi',
+		"Monkey" = 'icons/mob/species/monkey/back.dmi',
+		"Farwa" = 'icons/mob/species/monkey/back.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/back.dmi',
+		"Neara" = 'icons/mob/species/monkey/back.dmi',
+		"Stok" = 'icons/mob/species/monkey/back.dmi'
+		)
+	can_hold = list(/obj/item/instrument, /obj/item/gun)
+	cant_hold = list(/obj/item/instrument/accordion, /obj/item/instrument/harmonica)
+
+/obj/item/storage/backpack/guitarbag/handle_item_insertion(obj/item/W, prevent_warning)
+	if(!..())
+		return
+	playsound(src, 'sound/items/zip.ogg', 20)
+
+/obj/item/storage/backpack/guitarbag/remove_from_storage(obj/item/W, atom/new_location)
+	if(!..())
+		return
+	playsound(src, 'sound/items/zip.ogg', 20)
+
+/obj/item/storage/backpack/guitarbag/with_guitar/populate_contents()
+	new /obj/item/instrument/guitar(src)
+
+/obj/item/storage/backpack/detective
+	name = "forensic backpack"
+	desc = "For every man, who at the bottom of his heart believes that he is a born detective."
+	icon_state = "backpack_detective"
+	item_state = "backpack_detective"
+
+/obj/item/storage/backpack/duffel/detective
+	name = "forensic duffelbag"
+	desc = "For every man, who at the bottom of his heart believes that he is a born detective."
+	icon_state = "duffel_detective"
+	item_state = "duffel_detective"

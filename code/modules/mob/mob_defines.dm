@@ -35,6 +35,10 @@
 	var/lastattacker = null // real name of the person  doing the attacking
 	var/lastattackerckey = null // their ckey
 
+	var/list/debug_log = null
+	var/last_log = 0
+	var/list/attack_log_old = list()
+
 	var/last_known_ckey = null	// Used in logging
 
 	var/obj/machinery/machine = null
@@ -154,7 +158,6 @@
 
 	var/area/lastarea = null
 
-	var/digitalcamo = 0 // Can they be tracked by the AI?
 	var/weakeyes = 0 //Are they vulnerable to flashes?
 
 	var/has_unlimited_silicon_privilege = 0 // Can they interact with station electronics
@@ -208,3 +211,4 @@
 
 	/// The datum receiving keyboard input. parent mob by default.
 	var/datum/input_focus = null
+	var/last_emote = null

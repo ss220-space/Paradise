@@ -10,7 +10,7 @@
 /**
   * # Syndicate Contract
   *
-  * Describes a contract that can be completed by a [/datum/antagonist/traitor/contractor].
+  * Describes a contract that can be completed by a [/datum/antagonist/contractor].
   */
 /datum/syndicate_contract
 	// Settings
@@ -398,6 +398,14 @@
 		if(M.drop_item_ground(I))
 			stuff_to_transfer += I
 
+	// Remove accessories from the suit if present
+	if(length(H.w_uniform?.accessories))
+		for(var/obj/item/clothing/accessory/A in H.w_uniform.accessories)
+			A.on_removed(H)
+			H.w_uniform.accessories -= A
+			H.drop_item_ground(A)
+			stuff_to_transfer += A
+
 	// Transfer it all (or drop it if not possible)
 	for(var/i in stuff_to_transfer)
 		var/obj/item/I = i
@@ -446,10 +454,10 @@
 		M.reagents.add_reagent("omnizine", 20)
 
 		to_chat(M, "<span class='warning'>You feel strange...</span>")
-		M.Paralyse(30 SECONDS_TO_LIFE_CYCLES)
-		M.EyeBlind(35 SECONDS_TO_LIFE_CYCLES)
-		M.EyeBlurry(35 SECONDS_TO_LIFE_CYCLES)
-		M.AdjustConfused(35 SECONDS_TO_LIFE_CYCLES)
+		M.Paralyse(30 SECONDS)
+		M.EyeBlind(35 SECONDS)
+		M.EyeBlurry(35 SECONDS)
+		M.AdjustConfused(35 SECONDS)
 
 		sleep(6 SECONDS)
 		to_chat(M, "<span class='warning'>That portal did something to you...</span>")
@@ -521,10 +529,10 @@
 	// Return them a bit confused.
 	M.visible_message("<span class='notice'>[M] vanishes...</span>")
 	M.forceMove(closet)
-	M.Paralyse(3 SECONDS_TO_LIFE_CYCLES)
-	M.EyeBlurry(5 SECONDS_TO_LIFE_CYCLES)
-	M.AdjustConfused(5 SECONDS_TO_LIFE_CYCLES)
-	M.Dizzy(35)
+	M.Paralyse(3 SECONDS)
+	M.EyeBlurry(5 SECONDS)
+	M.AdjustConfused(5 SECONDS)
+	M.Dizzy(70 SECONDS)
 	do_sparks(4, FALSE, destination)
 
 	// Newscaster story

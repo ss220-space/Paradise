@@ -515,6 +515,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 35
 	containername = "auto rifle crate"
 
+/datum/supply_packs/security/armory/ga12
+	name = "Tkach Ya-Sui GA 12 Crate"
+	contains = list(/obj/item/gun/projectile/revolver/ga12,
+					/obj/item/gun/projectile/revolver/ga12)
+	cost = 50
+	containername = "Tkach supply crate"
+
 /datum/supply_packs/security/armory/lr30
 	name = "LR-30 Crate"
 	contains = list(/obj/item/gun/projectile/automatic/lr30,
@@ -540,6 +547,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 30
 	containername = "auto rifle ammo crate"
 
+/datum/supply_packs/security/armory/wt550apammo
+	name = "WT-550 Rifle Armor-Piercing Ammo Crate"
+	contains = list(/obj/item/ammo_box/magazine/wt550m9/wtap,
+					/obj/item/ammo_box/magazine/wt550m9/wtap,
+					/obj/item/ammo_box/magazine/wt550m9/wtap,
+					/obj/item/ammo_box/magazine/wt550m9/wtap)
+	cost = 40
+	containername = "auto rifle armor-piercing ammo crate"
+
 /datum/supply_packs/security/armory/wt550ammobox
 	name = "WT-550 Rifle Ammobox Crate"
 	contains = list(/obj/item/ammo_box/c46x30mm,
@@ -548,6 +564,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/ammo_box/c46x30mm)
 	cost = 60
 	containername = "auto rifle ammobox crate"
+
+/datum/supply_packs/security/armory/wt550apammobox
+	name = "WT-550 Rifle Armor-Piercing Ammobox Crate"
+	contains = list(/obj/item/ammo_box/ap46x30mm,
+					/obj/item/ammo_box/ap46x30mm,
+					/obj/item/ammo_box/ap46x30mm,
+					/obj/item/ammo_box/ap46x30mm)
+	cost = 80
+	containername = "auto rifle armor-piercing ammobox crate"
 
 /////// Implants & etc
 
@@ -1655,6 +1680,32 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/storage/backpack/duffel/mining_conscript)
 	containertype = /obj/structure/closet/crate/secure
 	containername = "shaft miner starter kit"
+
+/datum/supply_packs/misc/patriotic
+	name = "Patriotic Crate"
+	cost = 111
+	containertype = /obj/structure/closet/crate/trashcart
+	contains = list(/obj/item/flag/nt,
+					/obj/item/flag/nt,
+					/obj/item/flag/nt,
+					/obj/item/flag/nt,
+					/obj/item/flag/nt,
+					/obj/item/flag/nt,
+					/obj/item/book/manual/security_space_law,
+					/obj/item/book/manual/security_space_law,
+					/obj/item/book/manual/security_space_law,
+					/obj/item/book/manual/security_space_law,
+					/obj/item/book/manual/security_space_law,
+					/obj/item/book/manual/security_space_law,
+					/obj/item/poster/random_official,
+					/obj/item/poster/random_official,
+					/obj/item/poster/random_official,
+					/obj/item/poster/random_official,
+					/obj/item/poster/random_official,
+					/obj/item/poster/random_official
+					)
+
+	containername = "patriotic crate"
 
 
 ///////////// Paper Work

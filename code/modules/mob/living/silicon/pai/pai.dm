@@ -13,7 +13,7 @@
 	var/ram = 100	// Used as currency to purchase different abilities
 	var/userDNA		// The DNA string of our assigned user
 	var/obj/item/paicard/card	// The card we inhabit
-	var/obj/item/radio/radio		// Our primary radio
+	var/obj/item/radio/headset/radio		// Our primary radio, keyslot1 for regular encryptionkey, keyslot2 for additional.
 	var/sight_mode = 0
 
 	var/chassis = "repairbot"   // A record of your chosen chassis.
@@ -101,7 +101,7 @@
 	sradio = new(src)
 	if(card)
 		if(!card.radio)
-			card.radio = new /obj/item/radio(card)
+			card.radio = new /obj/item/radio/headset(card)
 		radio = card.radio
 
 	//Default languages without universal translator software
@@ -266,7 +266,7 @@
 	set category = "pAI Commands"
 	set name = "Unfold Chassis"
 
-	if(stat || sleeping || paralysis || IsWeakened())
+	if(stat || IsSleeping() || IsParalyzed() || IsWeakened())
 		return
 
 	if(loc != card)
@@ -301,7 +301,7 @@
 	set category = "pAI Commands"
 	set name = "Collapse Chassis"
 
-	if(stat || sleeping || paralysis || IsWeakened())
+	if(stat || IsSleeping() || IsParalyzed() || IsWeakened())
 		return
 
 	if(loc == card)
@@ -608,7 +608,7 @@
 		CRASH("pAI without card")
 	loc = card
 
-/mob/living/silicon/pai/extinguish_light()
+/mob/living/silicon/pai/extinguish_light(force = FALSE)
 	flashlight_on = FALSE
 	set_light(0)
 	card.set_light(0)

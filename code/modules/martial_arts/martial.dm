@@ -38,7 +38,7 @@
 	return act(MARTIAL_COMBO_STEP_HELP, A, D)
 
 /datum/martial_art/proc/can_use(mob/living/carbon/human/H)
-	return TRUE
+	return !HAS_TRAIT(H, TRAIT_PACIFISM)
 
 /datum/martial_art/proc/act(step, mob/living/carbon/human/user, mob/living/carbon/human/target)
 	if(!can_use(user))
@@ -118,15 +118,16 @@
 	if((D.stat != DEAD) && damage >= A.dna.species.punchstunthreshold)
 		D.visible_message("<span class='danger'>[A] has weakened [D]!!</span>", \
 								"<span class='userdanger'>[A] has weakened [D]!</span>")
-		D.apply_effect(2, WEAKEN, armor_block)
+		D.apply_effect(4 SECONDS, WEAKEN, armor_block)
 		D.forcesay(GLOB.hit_appends)
 	else if(D.lying)
 		D.forcesay(GLOB.hit_appends)
 	return TRUE
 
-/datum/martial_art/proc/objective_damage(var/mob/living/user, var/mob/living/target, var/damage, var/damage_type)
-	if(target.mind && user?.mind?.objectives)
-		for(var/datum/objective/pain_hunter/objective in user.mind.objectives)
+/datum/martial_art/proc/objective_damage(mob/living/user, mob/living/target, damage, damage_type)
+	var/all_objectives = user?.mind?.get_all_objectives()
+	if(target.mind && all_objectives)
+		for(var/datum/objective/pain_hunter/objective in all_objectives)
 			if(target.mind == objective.target)
 				objective.take_damage(damage, damage_type)
 
@@ -223,6 +224,9 @@
 		return
 	if(slot == slot_belt)
 		var/mob/living/carbon/human/H = user
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, "<span class='warning'>In spite of the grandiosity of the belt, you don't feel like getting into any fights.</span>")
+			return
 		style.teach(H,1)
 		to_chat(user, "<span class='sciradio'>You have an urge to flex your muscles and get into a fight. You have the knowledge of a thousand wrestlers before you. You can remember more by using the show info verb in the martial arts tab.</span>")
 
@@ -263,11 +267,11 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll2"
 
-/obj/item/sleeping_carp_scroll/attack_self(mob/living/carbon/human/user as mob)
+/obj/item/sleeping_carp_scroll/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
 		return
-	if(user.mind && (user.mind.changeling || user.mind.vampire)) //Prevents changelings and vampires from being able to learn it
-		if(user.mind && user.mind.changeling) //Changelings
+	if(user.mind && (ischangeling(user) || isvampire(user))) //Prevents changelings and vampires from being able to learn it
+		if(ischangeling(user)) //Changelings
 			to_chat(user, "<span class ='warning'>We try multiple times, but we are not able to comprehend the contents of the scroll!</span>")
 			return
 		else //Vampires
@@ -296,6 +300,18 @@
 /obj/item/CQC_manual/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
 		return
+
+	if(user.mind) //Prevents changelings and vampires from being able to learn it
+		if(ischangeling(user))
+			to_chat(user, "<span class='warning'>We try multiple times, but we simply cannot grasp the basics of CQC!</span>")
+			return
+		else if(isvampire(user)) //Vampires
+			to_chat(user, "<span class='warning'>Your blood lust distracts you from the basics of CQC!</span>")
+			return
+		else if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, "<span class='warning'>The mere thought of combat, let alone CQC, makes your head spin!</span>")
+			return
+
 	to_chat(user, "<span class='boldannounce'>You remember the basics of CQC.</span>")
 
 	var/datum/martial_art/cqc/CQC = new(null)
@@ -357,7 +373,7 @@
 	add_fingerprint(user)
 	if((CLUMSY in user.mutations) && prob(50))
 		to_chat(user, "<span class ='warning'>You club yourself over the head with [src].</span>")
-		user.Weaken(3)
+		user.Weaken(6 SECONDS)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			H.apply_damage(2*force, BRUTE, "head")
@@ -371,6 +387,9 @@
 	var/mob/living/carbon/C = target
 	if(C.stat)
 		to_chat(user, "<span class='warning'>It would be dishonorable to attack a foe while [C.p_they()] cannot retaliate.</span>")
+		return
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='warning'>You feel violence is not the answer.</span>")
 		return
 	switch(user.a_intent)
 		if(INTENT_DISARM)
@@ -392,13 +411,13 @@
 			if(prob(10))
 				H.visible_message("<span class='warning'>[H] collapses!</span>", \
 									   "<span class='userdanger'>Your legs give out!</span>")
-				H.Weaken(4)
-			if(H.staminaloss && !H.sleeping)
+				H.Weaken(8 SECONDS)
+			if(H.staminaloss && !H.IsSleeping())
 				var/total_health = (H.health - H.staminaloss)
 				if(total_health <= HEALTH_THRESHOLD_CRIT && !H.stat)
 					H.visible_message("<span class='warning'>[user] delivers a heavy hit to [H]'s head, knocking [H.p_them()] out cold!</span>", \
 										   "<span class='userdanger'>[user] knocks you unconscious!</span>")
-					H.SetSleeping(30)
+					H.SetSleeping(60 SECONDS)
 					H.adjustBrainLoss(25)
 			return
 		else

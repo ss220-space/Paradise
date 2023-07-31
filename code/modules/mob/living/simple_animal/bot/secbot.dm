@@ -96,7 +96,7 @@
 		access_card.access += J.get_access()
 		prev_access = access_card.access
 
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/bot_speed)
+	AddSpell(new /obj/effect/proc_holder/spell/bot_speed)
 
 	//SECHUD
 	var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
@@ -280,9 +280,8 @@
 	var/threat = C.assess_threat(src)
 	if(ishuman(C) && harmbaton) // Bots with harmbaton enabled become shitcurity. - Dave
 		C.apply_damage(10, BRUTE)
-	C.SetStuttering(5)
-	C.Stun(2)
-	C.Weaken(2)
+	C.SetStuttering(10 SECONDS)
+	C.Weaken(4 SECONDS)
 	C.adjustStaminaLoss(45)
 	add_attack_logs(src, C, "stunned")
 	if(declare_arrests)
@@ -481,7 +480,7 @@
 						  "[C] trips over [src] and falls!", \
 						  "[C] topples over [src]!", \
 						  "[C] leaps out of [src]'s way!")]</span>")
-		C.Weaken(2)
+		C.Weaken(4 SECONDS)
 		return
 	..()
 

@@ -5,7 +5,6 @@
 	name = "Cerestation"
 	map_path = "_maps/map_files/cerestation/cerestation.dmm"
 	lavaland_path = "_maps/map_files/cerestation/Lavaland.dmm"
-	admin_only = TRUE
 
 	station_name  = "NSS Farragus"
 	station_short = "Farragus"
@@ -13,3 +12,4 @@
 	company_name  = "Nanotrasen"
 	company_short = "NT"
 	starsys_name  = "Epsilon Eridani"
+	webmap_url = "https://affectedarc07.github.io/SS13WebMap/SS220Paradise/CereStation/"

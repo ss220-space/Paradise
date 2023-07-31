@@ -44,7 +44,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 		/mob/dead/observer/proc/open_spawners_menu)
 
 	// Our new boo spell.
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/click/boo(null))
+	AddSpell(new /obj/effect/proc_holder/spell/boo(null))
 
 	can_reenter_corpse = flags & GHOST_CAN_REENTER
 	started_as_observer = flags & GHOST_IS_OBSERVER
@@ -591,13 +591,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	..()
 //END TELEPORT HREF CODE
 
-/mob/dead/observer/verb/toggle_anonsay()
-	set name = "Toggle Anonymous Dead-chat"
-	set category = "Ghost"
-	set desc = "Toggles showing your key in dead chat."
-	client.prefs.toggles2 ^= PREFTOGGLE_2_ANONDCHAT
-	to_chat(src, "As a ghost, your key will [(client.prefs.toggles2 & PREFTOGGLE_2_ANONDCHAT) ? "no longer" : "now"] be shown when you speak in dead chat.</span>")
-	client.prefs.save_preferences(src)
 
 /mob/dead/observer/verb/toggle_ghostsee()
 	set name = "Toggle Ghost Vision"

@@ -16,6 +16,8 @@
 
 #define isstack(A) (istype(A, /obj/item/stack))
 
+#define isstorage(A) (istype(A, /obj/item/storage))
+
 #define ispda(A) (istype(A, /obj/item/pda))
 
 #define ismachinery(A) (istype(A, /obj/machinery))
@@ -31,6 +33,10 @@
 #define is_cleanable(A) (istype(A, /obj/effect/decal/cleanable) || istype(A, /obj/effect/rune)) //if something is cleanable
 
 #define is_pen(W) (istype(W, /obj/item/pen))
+
+#define is_pda(W) (istype(W, /obj/item/pda))
+
+#define isradio(A) istype(A, /obj/item/radio)
 
 #define isclothing(A) (istype(A, /obj/item/clothing))
 
@@ -108,6 +114,5 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 // Misc
 #define isclient(A) istype(A, /client)
-#define isradio(A) istype(A, /obj/item/radio)
 #define ispill(A) istype(A, /obj/item/reagent_containers/food/pill)
 

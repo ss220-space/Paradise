@@ -45,6 +45,7 @@
 							You can restore yourself to your original form while morphed by shift-clicking yourself.<br> \
 							Finally, you can attack any item or dead creature to consume it - creatures will restore 1/3 of your max health.</b>"
 
+	/// If the morph can reproduce or not
 	var/can_reproduce = FALSE
 	/// If the morph is disguised or not
 	var/morphed = FALSE
@@ -53,13 +54,13 @@
 	/// How much damage a successful ambush attack does
 	var/ambush_damage = 25
 	/// How much weaken a successful ambush attack applies
-	var/ambush_weaken = 3
+	var/ambush_weaken = 6 SECONDS
 	/// The spell the morph uses to morph
-	var/obj/effect/proc_holder/spell/targeted/click/mimic/morph/mimic_spell
+	var/obj/effect/proc_holder/spell/mimic/morph/mimic_spell
 	/// The ambush action used by the morph
-	var/obj/effect/proc_holder/spell/targeted/morph_spell/ambush/ambush_spell
+	var/obj/effect/proc_holder/spell/morph_spell/ambush/ambush_spell
 	/// The spell the morph uses to pass through airlocks
-	var/obj/effect/proc_holder/spell/targeted/click/morph_spell/pass_airlock/pass_airlock_spell
+	var/obj/effect/proc_holder/spell/morph_spell/pass_airlock/pass_airlock_spell
 
 	/// How much the morph has gathered in terms of food. Used to reproduce and such
 	var/gathered_food = 20 // Start with a bit to use abilities
@@ -79,7 +80,7 @@
 	AddSpell(mimic_spell)
 	ambush_spell = new
 	AddSpell(ambush_spell)
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/click/morph_spell/open_vent)
+	AddSpell(new /obj/effect/proc_holder/spell/morph_spell/open_vent)
 	pass_airlock_spell = new
 	AddSpell(pass_airlock_spell)
 	GLOB.morphs_alive_list += src
@@ -94,10 +95,10 @@
 /mob/living/simple_animal/hostile/morph/proc/enable_reproduce(boolean)
 	if(boolean)
 		can_reproduce = TRUE
-		AddSpell(new /obj/effect/proc_holder/spell/targeted/morph_spell/reproduce)
+		AddSpell(new /obj/effect/proc_holder/spell/morph_spell/reproduce)
 	else
 		can_reproduce = FALSE
-		RemoveSpell(/obj/effect/proc_holder/spell/targeted/morph_spell/reproduce)
+		RemoveSpell(/obj/effect/proc_holder/spell/morph_spell/reproduce)
 
 /mob/living/simple_animal/hostile/morph/Stat(Name, Value)
 	..()
@@ -112,8 +113,8 @@
 
 /mob/living/simple_animal/hostile/morph/wizard/New()
 	. = ..()
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/smoke)
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/forcewall)
+	AddSpell(new /obj/effect/proc_holder/spell/smoke)
+	AddSpell(new /obj/effect/proc_holder/spell/forcewall)
 
 
 /mob/living/simple_animal/hostile/morph/proc/try_eat(atom/movable/item)
@@ -374,11 +375,13 @@
 		eat.owner = mind
 		eat.explanation_text = "Eat as many living beings as possible to still the hunger within you."
 		eat.completed = TRUE
+		eat.needs_target = FALSE
 		mind.objectives += eat
 		var/datum/objective/procreate = new /datum/objective
 		procreate.owner = mind
 		procreate.explanation_text = "Split yourself in as many other [name]'s as possible!"
 		procreate.completed = TRUE
+		procreate.needs_target = FALSE
 		mind.objectives += procreate
 		mind.announce_objectives()
 

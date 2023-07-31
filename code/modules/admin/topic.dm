@@ -1294,9 +1294,12 @@
 		M.update_icons()
 
 		//so they black out before warping
-		M.Paralyse(5)
+		if(isliving(M))
+			var/mob/living/L = M
+			L.Paralyse(10 SECONDS)
 		sleep(5)
-		if(!M)	return
+		if(!M)
+			return
 
 		M.loc = prison_cell
 		if(istype(M, /mob/living/carbon/human))
@@ -1486,7 +1489,9 @@
 		for(var/obj/item/I in M)
 			M.drop_item_ground(I)
 
-		M.Paralyse(5)
+		if(isliving(M))
+			var/mob/living/L = M
+			L.Paralyse(10 SECONDS)
 		sleep(5)
 		M.loc = pick(GLOB.tdome1)
 		spawn(50)
@@ -1510,7 +1515,9 @@
 		for(var/obj/item/I in M)
 			M.drop_item_ground(I)
 
-		M.Paralyse(5)
+		if(isliving(M))
+			var/mob/living/L = M
+			L.Paralyse(10 SECONDS)
 		sleep(5)
 		M.loc = pick(GLOB.tdome2)
 		spawn(50)
@@ -1531,7 +1538,9 @@
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
-		M.Paralyse(5)
+		if(isliving(M))
+			var/mob/living/L = M
+			L.Paralyse(10 SECONDS)
 		sleep(5)
 		M.loc = pick(GLOB.tdomeadmin)
 		spawn(50)
@@ -1559,7 +1568,9 @@
 			var/mob/living/carbon/human/observer = M
 			observer.equip_to_slot_or_del(new /obj/item/clothing/under/suit_jacket(observer), slot_w_uniform)
 			observer.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(observer), slot_shoes)
-		M.Paralyse(5)
+		if(isliving(M))
+			var/mob/living/L = M
+			L.Paralyse(10 SECONDS)
 		sleep(5)
 		M.loc = pick(GLOB.tdomeobserve)
 		spawn(50)
@@ -1651,7 +1662,9 @@
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
-		M.Paralyse(5)
+		if(isliving(M))
+			var/mob/living/L = M
+			L.Paralyse(10 SECONDS)
 		sleep(5)
 		M.loc = pick(GLOB.aroomwarp)
 		spawn(50)
@@ -1795,6 +1808,60 @@
 
 	else if(href_list["check_antagonist"])
 		check_antagonists()
+
+	else if(href_list["check_teams"])
+		if(!check_rights(R_ADMIN))
+			return
+		check_teams()
+
+	else if(href_list["team_command"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/datum/team/team
+		var/datum/mind/member
+		if(href_list["team"])
+			team = locateUID(href_list["team"])
+			if(QDELETED(team))
+				to_chat(usr, "<span class='warning'>This team doesn't exist anymore!</span>")
+				return
+
+		if(href_list["member"])
+			member = locateUID(href_list["member"])
+			if(QDELETED(member))
+				to_chat(usr, "<span class='warning'>This team member doesn't exist anymore!</span>")
+				return
+
+		switch(href_list["team_command"])
+			if("communicate")
+				team.admin_communicate(usr)
+
+			if("delete_team")
+				message_admins("[key_name_admin(usr)] has deleted the '[team.name]' team.")
+				log_admin("[key_name_admin(usr)] has deleted the '[team.name]' team.")
+				qdel(team)
+
+			if("rename_team")
+				team.admin_rename_team(usr)
+
+			if("admin_add_member")
+				team.admin_add_member(usr)
+
+			if("remove_member")
+				team.admin_remove_member(usr, member)
+
+			if("view_member")
+				show_player_panel(member.current)
+
+			if("add_objective")
+				team.admin_add_objective(usr)
+
+			if("remove_objective")
+				var/datum/objective/objective = locateUID(href_list["objective"])
+				if(objective)
+					team.admin_remove_objective(usr, objective)
+
+		check_teams()
 
 	else if(href_list["randomizename"])
 		if(!check_rights(R_ADMIN))	return
@@ -2083,9 +2150,8 @@
 			M.gib()
 		else
 			M.adjustBruteLoss(min(99,(M.health - 1)))
-			M.Stun(20)
-			M.Weaken(20)
-			M.Stuttering(20)
+			M.Weaken(40 SECONDS)
+			M.Stuttering(40 SECONDS)
 
 	else if(href_list["CentcommReply"])
 		if(!check_rights(R_ADMIN))
@@ -2854,7 +2920,7 @@
 
 //don't warp them if they aren't ready or are already there
 						continue
-					H.Paralyse(5)
+					H.Paralyse(10 SECONDS)
 					if(H.wear_id)
 						var/obj/item/card/id/id = H.get_id_card()
 						if(istype(id))

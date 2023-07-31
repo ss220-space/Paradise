@@ -242,6 +242,13 @@
 		"Stok" = 'icons/mob/species/monkey/suit.dmi'
 		)
 
+/obj/item/clothing/suit/storage/det_suit/black
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/species/drask/suit.dmi'
+		)
+	icon_state = "detective_black"
+
 //Forensics
 /obj/item/clothing/suit/storage/det_suit/forensics
 	name = "jacket"
@@ -261,6 +268,24 @@
 	desc = "A blue forensics technician jacket."
 	icon_state = "forensics_blue"
 
+/obj/item/clothing/suit/storage/det_suit/forensics/blaser
+	name = "black jacket"
+	desc = "A black forensics technician jacket."
+	icon_state = "dec_blazer_black"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Drask" =  'icons/mob/species/drask/suit.dmi'
+		)
+
+/obj/item/clothing/suit/storage/det_suit/forensics/blaser/brown
+	name = "brown jacket"
+	desc = "A brown forensics technician jacket."
+	icon_state = "dec_blazer_brown"
+
+/obj/item/clothing/suit/storage/det_suit/forensics/blaser/grey
+	name = "grey jacket"
+	desc = "A grey forensics technician jacket."
+	icon_state = "dec_blazer_grey"
 //Blueshield
 /obj/item/clothing/suit/storage/blueshield
 	name = "blueshield coat"
@@ -357,7 +382,7 @@
 	item_state = "qm_jacket_open"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	flags_inv = HIDEJUMPSUIT
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/storage/fancy/cigarettes, /obj/item/clothing/mask/cigarette, /obj/item/lighter, /obj/item/rcs, /obj/item/stack/packageWrap, /obj/item/stack/wrapping_paper, /obj/item/destTagger)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/storage/fancy/cigarettes, /obj/item/clothing/mask/cigarette, /obj/item/lighter, /obj/item/rcs, /obj/item/stack/packageWrap, /obj/item/stack/wrapping_paper, /obj/item/destTagger, /obj/item/pen, /obj/item/paper, /obj/item/stamp)
 	ignore_suitadjust = 0
 	suit_adjusted = 1
 	actions_types = list(/datum/action/item_action/button)

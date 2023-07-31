@@ -4,8 +4,8 @@
 	icon_state = "ripley"
 	initial_icon = "ripley"
 	step_in = 4 //Move speed, lower is faster.
-	var/fast_pressure_step_in = 2 //step_in while in normal pressure conditions
-	var/slow_pressure_step_in = 4 //step_in while in better pressure conditions
+	fast_pressure_step_in = 2 //step_in while in normal pressure conditions
+	slow_pressure_step_in = 4 //step_in while in better pressure conditions
 	max_temperature = 20000
 	max_integrity = 200
 	lights_power = 7
@@ -14,10 +14,6 @@
 	max_equip = 6
 	wreckage = /obj/structure/mecha_wreckage/ripley
 	var/hides = 0
-
-/obj/mecha/working/ripley/Move()
-	. = ..()
-	update_pressure()
 
 /obj/mecha/working/ripley/update_icon()
 	..()
@@ -109,18 +105,6 @@
 			cargo -= O
 			O.forceMove(drop_location())
 
-/obj/mecha/working/ripley/proc/update_pressure()
-	var/turf/T = get_turf(loc)
-
-	if(lavaland_equipment_pressure_check(T))
-		step_in = fast_pressure_step_in
-		for(var/obj/item/mecha_parts/mecha_equipment/drill/drill in equipment)
-			drill.equip_cooldown = initial(drill.equip_cooldown)/2
-	else
-		step_in = slow_pressure_step_in
-		for(var/obj/item/mecha_parts/mecha_equipment/drill/drill in equipment)
-			drill.equip_cooldown = initial(drill.equip_cooldown)
-
 /obj/mecha/working/ripley/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
@@ -134,7 +118,7 @@
 /obj/mecha/working/ripley/full_load
 	name = "Тестовый Рипли"
 	desc = "Рипли, который несет в себе все возможные модули, предназначенные для рабочих мехов, с целью их испытания в индивидуальном порядке. Конструкция надежна как Nokia 3310, скорость как у гоночного болида, но стоимость производства настолько высока, что в массовое производство он никогда не пойдет. Специально для ведущих гениев робототехники."
-	max_equip = 11
+	max_equip = 40
 	strafe_allowed = TRUE
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0) // для тестов урона
 	max_integrity = 1000
@@ -170,6 +154,8 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/mining_scanner
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/eng_toolset
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/cargo_upgrade
 	ME.attach(src)
 
 /obj/mecha/working/ripley/full_load/add_cell()

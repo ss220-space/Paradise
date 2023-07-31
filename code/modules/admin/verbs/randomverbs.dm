@@ -30,7 +30,9 @@
 		for(var/obj/item/W in M)
 			M.drop_item_ground(W)
 		//teleport person to cell
-		M.Paralyse(5)
+		if(isliving(M))
+			var/mob/living/L = M
+			L.Paralyse(10 SECONDS)
 		sleep(5)	//so they black out before warping
 		M.loc = pick(GLOB.prisonwarp)
 		if(istype(M, /mob/living/carbon/human))
@@ -442,8 +444,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	switch(new_character.mind.special_role)
 		if("traitor")
 			if(new_character.mind.has_antag_datum(/datum/antagonist/traitor))
-				var/datum/antagonist/traitor/T = new_character.mind.has_antag_datum(/datum/antagonist/traitor)
-				T.equip_traitor(src)
+				var/datum/antagonist/traitor/T = new_character?.mind?.has_antag_datum(/datum/antagonist/traitor)
+				T.give_uplink()
 			else
 				new_character.mind.add_antag_datum(/datum/antagonist/traitor)
 		if("Wizard")

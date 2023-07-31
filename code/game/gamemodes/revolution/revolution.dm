@@ -34,7 +34,7 @@
 /datum/action/innate/revolution_recruitment
 	name = "Recruitment"
 	button_icon_state = "genetic_mindscan"
-	background_icon_state = "bg_vampire"
+	background_icon_state = "bg_vampire_old"
 
 /datum/action/innate/revolution_recruitment/IsAvailable()
 	return ..()
@@ -136,6 +136,7 @@
 
 /datum/game_mode/proc/forge_revolutionary_objectives(datum/mind/rev_mind)
 	var/datum/objective/rev_obj = new
+	rev_obj.needs_target = FALSE
 	rev_obj.owner = rev_mind
 	rev_obj.explanation_text = "Вы или ваши сподвижники должны занять командные должности, отправив в отставку занимающий их экипаж"
 	rev_mind.objectives += rev_obj

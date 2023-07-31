@@ -225,9 +225,8 @@
 		return
 	if(M.health > 0)
 		M.adjustOxyLoss(-1)
-	M.AdjustStunned(-4)
-	M.AdjustWeakened(-4)
-	M.AdjustStunned(-4)
+	M.AdjustStunned(-8 SECONDS)
+	M.AdjustWeakened(-8 SECONDS)
 	if(M.reagents.get_reagent_amount("epinephrine") < 5)
 		M.reagents.add_reagent("epinephrine", 5)
 	chassis.use_power(energy_drain)
@@ -601,21 +600,3 @@
 		if(M.equipment.len < M.max_equip)
 			return TRUE
 	return FALSE
-
-/obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system
-	name = "improved exosuit control system"
-	desc = "Equipment for medical exosuits. A system that provides more precise control of exosuit movement. In other words - Gotta go fast!"
-	icon = 'icons/obj/mecha/mecha_equipment.dmi'
-	icon_state = "move_plating"
-	origin_tech = "materials=5;engineering=5;magnets=4;powerstorage=4"
-	energy_drain = 20
-	selectable = 0
-	var/improv_step_in = 2
-
-/obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system/attach_act(obj/mecha/M)
-	M.step_in = improv_step_in
-
-/obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system/detach_act()
-	if(istype(src.loc, /obj/mecha/medical/odysseus) || istype(src.loc, /obj/mecha/combat/lockersyndie))
-		var/obj/mecha/O = src.loc
-		O.step_in = initial(O.step_in)

@@ -30,6 +30,8 @@
 	if(I.pulledby)
 		I.pulledby.stop_pulling()
 
+	I.pixel_x = initial(I.pixel_x)
+	I.pixel_y = initial(I.pixel_y)
 	I.screen_loc = null
 	I.forceMove(src)
 	I.equipped(src, slot, initial)
@@ -55,12 +57,11 @@
 
 		if(slot_handcuffed)
 			handcuffed = I
-			update_handcuffed()
+			update_handcuffed_status()
 
 		if(slot_legcuffed)
 			legcuffed = I
-			update_inv_legcuffed()
-			toggle_move_intent()
+			update_legcuffed_status()
 
 
 /mob/living/carbon/alien/humanoid/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)

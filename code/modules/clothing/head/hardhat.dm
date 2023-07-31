@@ -53,12 +53,12 @@
 	. = ..()
 	extinguish_light()
 
-/obj/item/clothing/head/hardhat/extinguish_light()
+/obj/item/clothing/head/hardhat/extinguish_light(force = FALSE)
 	if(on)
 		on = FALSE
 		turn_off()
 		update_icon()
-		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
+		visible_message(span_danger("[src]'s light fades and turns off."))
 
 /obj/item/clothing/head/hardhat/orange
 	icon_state = "hardhat0_orange"
@@ -110,6 +110,7 @@
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	dog_fashion = null
 	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi',
 		"Grey" = 'icons/mob/species/grey/helmet.dmi',
 		"Monkey" = 'icons/mob/species/monkey/head.dmi',
 		"Farwa" = 'icons/mob/species/monkey/head.dmi',

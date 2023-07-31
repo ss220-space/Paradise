@@ -218,7 +218,11 @@
 						if(istype(P, /obj/item/stack))
 							var/obj/item/stack/S = P
 							var/camt = min(S.get_amount(), req_components[I])
-							var/obj/item/stack/NS = new P.type(src, camt)
+							var/obj/item/stack/NS
+							if (S.is_cyborg && S.cyborg_construction_stack)
+								NS = new S.cyborg_construction_stack(src, camt)
+							else
+								NS = new P.type(src, camt)
 							NS.update_icon()
 							S.use(camt)
 							components += NS
@@ -559,6 +563,7 @@ to destroy them and players will be able to make replacements.
 							"\improper Refrigerated Medicine Storage" = /obj/machinery/smartfridge/medbay,
 							"\improper Slime Extract Storage" = /obj/machinery/smartfridge/secure/extract,
 							"\improper Secure Refrigerated Medicine Storage" = /obj/machinery/smartfridge/secure/medbay,
+							"\improper Secure Refrigerated Organ Storage" = /obj/machinery/smartfridge/secure/medbay/organ,
 							"\improper Smart Chemical Storage" = /obj/machinery/smartfridge/secure/chemistry,
 							"smart virus storage" = /obj/machinery/smartfridge/secure/chemistry/virology,
 							"\improper Drink Showcase" = /obj/machinery/smartfridge/drinks,

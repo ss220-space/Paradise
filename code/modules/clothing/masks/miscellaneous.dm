@@ -192,15 +192,15 @@
 
 /obj/item/clothing/mask/muzzle/safety/shock/proc/process_activation(var/obj/D, var/normal = 1, var/special = 1)
 	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
-	var/mob/M = can_shock(loc)
-	if(M)
-		to_chat(M, "<span class='danger'>You feel a sharp shock!</span>")
-		do_sparks(3, 1, M)
+	var/mob/living/L = can_shock(loc)
+	if(!L)
+		return
+	to_chat(L, "<span class='danger'>You feel a sharp shock!</span>")
+	do_sparks(3, 1, L)
 
-		M.Weaken(5)
-		M.Stuttering(1)
-		M.Jitter(20)
-	return
+	L.Weaken(10 SECONDS)
+	L.Stuttering(2 SECONDS)
+	L.Jitter(40 SECONDS)
 
 /obj/item/clothing/mask/muzzle/safety/shock/HasProximity(atom/movable/AM)
 	if(trigger)
@@ -390,48 +390,72 @@
 	desc = "A mask made of soft vinyl and latex, representing the head of a rat."
 	icon_state = "rat"
 	item_state = "rat"
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi'
+	)
 
 /obj/item/clothing/mask/face/fox
 	name = "fox mask"
 	desc = "A mask made of soft vinyl and latex, representing the head of a fox."
 	icon_state = "fox"
 	item_state = "fox"
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi'
+	)
 
 /obj/item/clothing/mask/face/bee
 	name = "bee mask"
 	desc = "A mask made of soft vinyl and latex, representing the head of a bee."
 	icon_state = "bee"
 	item_state = "bee"
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi'
+	)
 
 /obj/item/clothing/mask/face/bear
 	name = "bear mask"
 	desc = "A mask made of soft vinyl and latex, representing the head of a bear."
 	icon_state = "bear"
 	item_state = "bear"
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi'
+	)
 
 /obj/item/clothing/mask/face/bat
 	name = "bat mask"
 	desc = "A mask made of soft vinyl and latex, representing the head of a bat."
 	icon_state = "bat"
 	item_state = "bat"
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi'
+	)
 
 /obj/item/clothing/mask/face/raven
 	name = "raven mask"
 	desc = "A mask made of soft vinyl and latex, representing the head of a raven."
 	icon_state = "raven"
 	item_state = "raven"
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi'
+	)
 
 /obj/item/clothing/mask/face/jackal
 	name = "jackal mask"
 	desc = "A mask made of soft vinyl and latex, representing the head of a jackal."
 	icon_state = "jackal"
 	item_state = "jackal"
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi'
+	)
 
 /obj/item/clothing/mask/face/tribal
 	name = "tribal mask"
 	desc = "A mask carved out of wood, detailed carefully by hand."
 	icon_state = "bumba"
 	item_state = "bumba"
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi'
+	)
 
 /obj/item/clothing/mask/face/fawkes
 	name = "Guy Fawkes mask"
@@ -439,12 +463,18 @@
 	icon_state = "fawkes"
 	item_state = "fawkes"
 	w_class = WEIGHT_CLASS_SMALL
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi'
+	)
 
 /obj/item/clothing/mask/gas/pennywise
 	name = "Pennywise Mask"
 	desc = "It's the eater of worlds, and of children."
 	icon_state = "pennywise_mask"
 	item_state = "pennywise_mask"
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi'
+	)
 
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 

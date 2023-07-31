@@ -549,14 +549,20 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	return 1
 
-/proc/is_blocked_turf(turf/T, exclude_mobs)
-	if(T.density)
-		return 1
-	for(var/i in T)
-		var/atom/A = i
-		if(A.density && (!exclude_mobs || !ismob(A)))
-			return 1
-	return 0
+
+/proc/is_blocked_turf(turf/target_turf, exclude_mobs)
+	if(target_turf.density)
+		return TRUE
+
+	if(locate(/mob/living/silicon/ai) in target_turf) //Prevents jaunting onto the AI core cheese, AI should always block a turf due to being a dense mob even when unanchored
+		return TRUE
+
+	for(var/atom/target in target_turf)
+		if(target.density && (!exclude_mobs || !ismob(target)))
+			return TRUE
+
+	return FALSE
+
 
 /proc/get_step_towards2(var/atom/ref , var/atom/trg)
 	var/base_dir = get_dir(ref, get_step_towards(ref,trg))
@@ -586,11 +592,17 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	else return get_step(ref, base_dir)
 
-//Takes: Anything that could possibly have variables and a varname to check.
-//Returns: 1 if found, 0 if not.
-/proc/hasvar(var/datum/A, var/varname)
-	if(A.vars.Find(lowertext(varname))) return 1
-	else return 0
+
+/**
+ * Takes: Anything that could possibly have variables and a varname to check.
+ * Returns: `TRUE` if found, `FALSE` if not.
+ */
+/proc/has_variable(datum/check, varname)
+	if(check.vars.Find(lowertext(varname)))
+		return TRUE
+
+	return FALSE
+
 
 //Returns: all the areas in the world
 /proc/return_areas()

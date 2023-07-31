@@ -143,6 +143,14 @@
 	if(statpanel("Status"))
 		stat("Resources:",resources)
 
+
+/mob/living/simple_animal/hostile/swarmer/handle_ventcrawl(atom/clicked_on)
+	. = ..()
+
+	if(. && light_range)
+		ToggleLight()
+
+
 /mob/living/simple_animal/hostile/swarmer/emp_act()
 	if(health > 1)
 		adjustHealth(health-1)
@@ -645,7 +653,7 @@
 			playsound(loc,'sound/effects/snap.ogg',50, 1, -1)
 			L.electrocute_act(0, src, 1, TRUE, TRUE)
 			if(isrobot(L) || ismachineperson(L))
-				L.Weaken(5)
+				L.Weaken(10 SECONDS)
 			qdel(src)
 	..()
 

@@ -49,6 +49,27 @@
 /turf/simulated/floor/chasm/ex_act()
 	return
 
+/turf/simulated/floor/chasm/acid_act(acidpwr, acid_volume)
+	return
+
+/turf/simulated/floor/chasm/singularity_act()
+	return
+
+/turf/simulated/floor/chasm/singularity_pull(S, current_size)
+	return
+
+/turf/simulated/floor/chasm/crowbar_act()
+	return
+
+/turf/simulated/floor/chasm/make_plating()
+	return
+
+/turf/simulated/floor/chasm/remove_plating()
+	return
+
+/turf/simulated/floor/chasm/rcd_act()
+	return RCD_NO_ACT
+
 /turf/simulated/floor/chasm/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/floors.dmi'
 	underlay_appearance.icon_state = "basalt"
@@ -129,7 +150,7 @@
 		AM.forceMove(T)
 		if(isliving(AM))
 			var/mob/living/L = AM
-			L.Weaken(5)
+			L.Weaken(10 SECONDS)
 			L.adjustBruteLoss(30)
 	falling_atoms -= AM
 
@@ -163,7 +184,7 @@
 	if(isliving(AM))
 		var/mob/living/L = AM
 		L.notransform = TRUE
-		L.Stun(200)
+		L.Stun(400 SECONDS)
 		L.resting = TRUE
 	var/oldtransform = AM.transform
 	var/oldcolor = AM.color
