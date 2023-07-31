@@ -632,6 +632,12 @@
 /mob/living/simple_animal/mouse/white,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
+"abZ" = (
+/obj/machinery/smartfridge/secure/medbay/organ,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/surgery/south)
 "ack" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -15737,24 +15743,7 @@
 	},
 /area/crew_quarters/fitness)
 "bPj" = (
-/obj/structure/closet/crate/freezer,
-/obj/machinery/door_control{
-	id = "First Surgery Window";
-	name = "Surgery Window Shutters Control";
-	pixel_y = -26
-	},
 /obj/machinery/light,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-/obj/item/reagent_containers/iv_bag/blood/diona,
-/obj/item/reagent_containers/iv_bag/blood/grey,
-/obj/item/reagent_containers/iv_bag/blood/kidan,
-/obj/item/reagent_containers/iv_bag/blood/nian,
-/obj/item/reagent_containers/iv_bag/blood/skrell,
-/obj/item/reagent_containers/iv_bag/blood/tajaran,
-/obj/item/reagent_containers/iv_bag/blood/unathi,
-/obj/item/reagent_containers/iv_bag/blood/vulpkanin,
-/obj/item/reagent_containers/iv_bag/blood/wryn,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -57811,6 +57800,26 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/reception)
+"hlF" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/blood/diona,
+/obj/item/reagent_containers/iv_bag/blood/grey,
+/obj/item/reagent_containers/iv_bag/blood/kidan,
+/obj/item/reagent_containers/iv_bag/blood/nian,
+/obj/item/reagent_containers/iv_bag/blood/skrell,
+/obj/item/reagent_containers/iv_bag/blood/tajaran,
+/obj/item/reagent_containers/iv_bag/blood/unathi,
+/obj/item/reagent_containers/iv_bag/blood/vulpkanin,
+/obj/item/reagent_containers/iv_bag/blood/wryn,
+/obj/effect/decal/warning_stripes/blue/hollow,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/medical/sleeper)
 "hlG" = (
 /obj/effect/decal/warning_stripes/southwestcorner,
 /obj/structure/rack,
@@ -85538,9 +85547,7 @@
 	},
 /area/crew_quarters/locker)
 "nRD" = (
-/obj/machinery/vending/dinnerware{
-	products = list(/obj/item/storage/bag/tray=1,/obj/item/kitchen/utensil/fork=2,/obj/item/kitchen/knife=0,/obj/item/kitchen/rollingpin=0,/obj/item/kitchen/sushimat=1,/obj/item/reagent_containers/food/drinks/drinkingglass=2,/obj/item/clothing/suit/chef/classic=1,/obj/item/storage/belt/chef=0,/obj/item/reagent_containers/food/condiment/pack/ketchup=1,/obj/item/reagent_containers/food/condiment/pack/hotsauce=0,/obj/item/reagent_containers/food/condiment/saltshaker=1,/obj/item/reagent_containers/food/condiment/peppermill=2,/obj/item/whetstone=1,/obj/item/mixing_bowl=3,/obj/item/kitchen/mould/bear=1,/obj/item/kitchen/mould/worm=0,/obj/item/kitchen/mould/bean=0,/obj/item/kitchen/mould/ball=1,/obj/item/kitchen/mould/cane=1,/obj/item/kitchen/mould/cash=0,/obj/item/kitchen/mould/coin=0,/obj/item/kitchen/mould/loli=1,/obj/item/kitchen/cutter=0,/obj/item/eftpos=1)
-	},
+/obj/machinery/vending/dinnerware/old,
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite"
 	},
@@ -87354,7 +87361,6 @@
 	},
 /area/hallway/primary/port/west)
 "omQ" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = 25
@@ -91295,7 +91301,6 @@
 	},
 /area/security/permabrig)
 "pke" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "south bump";
@@ -91309,7 +91314,14 @@
 	pixel_y = -23
 	},
 /obj/item/radio/intercom{
-	pixel_x = -28
+	pixel_x = -28;
+	pixel_y = -8
+	},
+/obj/machinery/door_control{
+	id = "First Surgery Window";
+	name = "Surgery Window Shutters Control";
+	pixel_y = 7;
+	pixel_x = -25
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -95561,6 +95573,18 @@
 	},
 /area/medical/medbay)
 "qfg" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/blood/diona,
+/obj/item/reagent_containers/iv_bag/blood/grey,
+/obj/item/reagent_containers/iv_bag/blood/kidan,
+/obj/item/reagent_containers/iv_bag/blood/nian,
+/obj/item/reagent_containers/iv_bag/blood/skrell,
+/obj/item/reagent_containers/iv_bag/blood/tajaran,
+/obj/item/reagent_containers/iv_bag/blood/unathi,
+/obj/item/reagent_containers/iv_bag/blood/vulpkanin,
+/obj/item/reagent_containers/iv_bag/blood/wryn,
 /obj/effect/decal/warning_stripes/blue/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -98901,26 +98925,9 @@
 /turf/simulated/floor/plating,
 /area/toxins/sm_test_chamber)
 "qQk" = (
-/obj/structure/closet/crate/freezer,
-/obj/machinery/door_control{
-	id = "Second Surgery Window";
-	name = "Surgery Window Shutters Control";
-	pixel_y = 26
-	},
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-/obj/item/reagent_containers/iv_bag/blood/diona,
-/obj/item/reagent_containers/iv_bag/blood/grey,
-/obj/item/reagent_containers/iv_bag/blood/kidan,
-/obj/item/reagent_containers/iv_bag/blood/nian,
-/obj/item/reagent_containers/iv_bag/blood/skrell,
-/obj/item/reagent_containers/iv_bag/blood/tajaran,
-/obj/item/reagent_containers/iv_bag/blood/unathi,
-/obj/item/reagent_containers/iv_bag/blood/vulpkanin,
-/obj/item/reagent_containers/iv_bag/blood/wryn,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -111643,7 +111650,6 @@
 	},
 /area/medical/medbay)
 "tML" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light_switch{
 	pixel_x = 5;
 	pixel_y = 25
@@ -111654,7 +111660,14 @@
 	pixel_y = 25
 	},
 /obj/item/radio/intercom{
-	pixel_x = -28
+	pixel_x = -27;
+	pixel_y = 3
+	},
+/obj/machinery/door_control{
+	id = "Second Surgery Window";
+	name = "Surgery Window Shutters Control";
+	pixel_y = -7;
+	pixel_x = -25
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
@@ -115800,7 +115813,6 @@
 	},
 /area/security/processing)
 "uKo" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = 25
@@ -171939,7 +171951,7 @@ aSE
 mkg
 pFE
 xik
-ggC
+hlF
 krY
 mWR
 rMN
@@ -175286,7 +175298,7 @@ qrR
 pQs
 dnQ
 bPj
-qwC
+abZ
 qQk
 oHq
 wZR
