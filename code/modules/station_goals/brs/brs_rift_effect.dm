@@ -5,17 +5,19 @@
 	icon_state = "singularity_fog"
 	appearance_flags = 0
 	layer = MASSIVE_OBJ_LAYER
-	invisibility =  INVISIBILITY_ANOMALY
+	invisibility = INVISIBILITY_ANOMALY
 	level = 1 // t-ray scaners show only things with level = 1
 	luminosity = 1
 	alpha = 180
 	var/size
 	var/time_per_tile
 	
+	/// z-level the rift object should remain on.
+	var/rift_z
 	/// World time when the next step should happen.
 	var/next_step
-	/// An object on the map (turf, mob, etc.) Typecasted to /datum to perform QDELETED check.
-	var/datum/target_loc
+	/// An object on the map (turf, mob, etc.)
+	var/atom/target_loc
 
 /obj/effect/abstract/bluespace_rift/Initialize(mapload, size, time_per_tile)
 	. = ..()
@@ -30,8 +32,10 @@
 	src.size = size
 	src.time_per_tile = time_per_tile
 
-	loc = pick_turf_to_go()
 	next_step = 0
+	rift_z = level_name_to_num(MAIN_STATION)
+
+	check_z()
 	change_direction()
 
 	GLOB.poi_list |= src
@@ -50,35 +54,63 @@
 
 /** Movement processing, must be called from `process` function. */
 /obj/effect/abstract/bluespace_rift/proc/move()
-	if(QDELETED(target_loc))
+
+	// Check rift z level
+	check_z()
+
+	// Check if the target is still reachable
+	if(QDELETED(target_loc) || (target_loc.z != rift_z))
 		change_direction()
 
+	// Move the object by the required steps
 	var/iterations = 0
 	while(next_step < world.time)
+
 		// Safety check against infinite loop
 		if(iterations > 10)
 			next_step = world.time + time_till_next_step()
 			break
 		iterations++
+
 		// The actual step
 		forceMove(get_step_towards(src, target_loc))
 		next_step += time_till_next_step()
+		
 		if(is_target_reached())
 			change_direction()
+
+/** Check if the object is on the right z-level. If not, teleport it to the right z-level. */
+/obj/effect/abstract/bluespace_rift/proc/check_z()
+	if(isnull(rift_z))
+		CRASH("Missing z_level value.")
+	if(z != rift_z)
+		loc = pick_turf_to_go()
 
 /obj/effect/abstract/bluespace_rift/proc/change_direction()
 	target_loc = pick_turf_to_go()
 
 /obj/effect/abstract/bluespace_rift/proc/pick_turf_to_go()
-	var/rand_area = findEventArea()
-	if(!rand_area)
-		log_runtime(EXCEPTION("Couldn't find any station turfs."))
-		// Use random coordinates if failing to find a station turf. Should never happen.
-		var/rand_x = rand(0, world.maxx)
-		var/rand_y = rand(0, world.maxy)
-		var/station_z = level_name_to_num(MAIN_STATION)
-		return locate(rand_x, rand_y, station_z)
-	var/rand_turf = pick(get_area_turfs(rand_area))
+
+	var/min_x = TRANSITION_BORDER_WEST + 1
+	var/max_x = TRANSITION_BORDER_EAST - 1
+	var/min_y = TRANSITION_BORDER_SOUTH + 1
+	var/max_y = TRANSITION_BORDER_NORTH - 1
+
+	// Pick a random turf, any non-space is acceptable.
+	for(var/i in 1 to 50)
+		var/rand_x = rand(min_x, max_x)
+		var/rand_y = rand(min_y, max_y)
+
+		var/turf/rand_turf = locate(rand_x, rand_y, rift_z)
+		if(istype(rand_turf.loc, /area/space))
+			continue
+
+		return rand_turf
+
+	// Use a turf with random coordinates if failing to find a station turf.
+	var/rand_x = rand(min_x, max_x)
+	var/rand_y = rand(min_y, max_y)
+	var/rand_turf = locate(rand_x, rand_y, rift_z)
 	return rand_turf
 
 /obj/effect/abstract/bluespace_rift/proc/is_target_reached()
@@ -92,6 +124,9 @@
 
 /obj/effect/abstract/bluespace_rift/hunter/change_direction()
 	target_loc = pick_mob_to_chase()
+	if(!target_loc)
+		// Use a random turf if there are no players on the station
+		..()
 
 /obj/effect/abstract/bluespace_rift/hunter/time_till_next_step()
 	var/dist_to_target = get_dist(src, target_loc)
@@ -100,19 +135,20 @@
 
 /obj/effect/abstract/bluespace_rift/hunter/proc/pick_mob_to_chase()
 	var/list/candidate_players = list()
-	for(var/mob/M in GLOB.player_list)
-		if(!is_station_level(M.z))
+
+	for(var/mob/player in GLOB.player_list)
+		if(player.z != rift_z)
 			continue
-		if(!isliving(M))
+		if(!isliving(player))
 			continue
-		if(!M.client)
+		if(!player.client)
 			continue
-		if(M == target_loc)
+		if(player == target_loc)
 			continue
-		candidate_players += M
+		candidate_players += player
 	
 	if(!length(candidate_players))
-		// Use random turf if there are no players on the station
-		return pick_turf_to_go()
+		return
+
 	var/rand_player = pick(candidate_players)
 	return rand_player
