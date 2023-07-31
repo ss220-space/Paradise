@@ -111,13 +111,15 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		return
 
 	var/list/possible_targets = list()
-	for(var/datum/mind/possible_target in SSticker.minds)
+	var/list/all_minds = SSticker.minds.Copy()
+	shuffle(all_minds)	// More random
+	for(var/datum/mind/possible_target in all_minds)
 		if(is_invalid_target(possible_target) || (possible_target in target_blacklist))
 			continue
 		//possible_targets[possible_target.assigned_role] += list(possible_target)
 		possible_targets += possible_target
 
-	if(possible_targets.len > 0)
+	if(length(possible_targets))
 		//var/target_role = pick(possible_targets)
 		//target = pick(possible_targets[target_role])
 		target = pick(possible_targets)
@@ -523,20 +525,20 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	name = null
 	/// Stored because the target's `[mob/var/real_name]` can change over the course of the round.
 	var/target_real_name
-	/// If the objective has an assassinate objective tied to it.
-	var/has_assassinate_objective = FALSE
+	/// If the objective has an special objective objective tied to it.
+	var/has_special_objective = FALSE
 
 
-/datum/objective/escape/escape_with_identity/New(text, datum/team/team_to_join, datum/objective/assassinate/assassinate)
+/datum/objective/escape/escape_with_identity/New(text, datum/team/team_to_join, datum/objective/special_objective)
 	..()
-	if(!assassinate)
+	if(!special_objective)
 		return
-	target = assassinate.target
-	target_real_name = assassinate.target.current.real_name
+	target = special_objective.target
+	target_real_name = special_objective.target.current.real_name
 	explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [target.assigned_role] while wearing [target.p_their()] identification card."
-	has_assassinate_objective = TRUE
-	RegisterSignal(assassinate, COMSIG_OBJECTIVE_TARGET_FOUND, PROC_REF(assassinate_found_target))
-	RegisterSignal(assassinate, COMSIG_OBJECTIVE_CHECK_VALID_TARGET, PROC_REF(assassinate_checking_target))
+	has_special_objective = TRUE
+	RegisterSignal(special_objective, COMSIG_OBJECTIVE_TARGET_FOUND, PROC_REF(special_objective_found_target))
+	RegisterSignal(special_objective, COMSIG_OBJECTIVE_CHECK_VALID_TARGET, PROC_REF(special_objective_checking_target))
 
 
 /datum/objective/escape/escape_with_identity/is_invalid_target(datum/mind/possible_target)
@@ -555,33 +557,33 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		explanation_text = "Free Objective"
 
 
-/datum/objective/escape/escape_with_identity/proc/assassinate_checking_target(datum/source, datum/mind/possible_target)
+/datum/objective/escape/escape_with_identity/proc/special_objective_checking_target(datum/source, datum/mind/possible_target)
 	SIGNAL_HANDLER
 	if(!possible_target.current.client || has_no_DNA(possible_target.current))
-		// Stop our linked assassinate objective from choosing a clientless/geneless target.
+		// Stop our linked special objective objective from choosing a clientless/geneless target.
 		return OBJECTIVE_INVALID_TARGET
 	return OBJECTIVE_VALID_TARGET
 
 
-/datum/objective/escape/escape_with_identity/proc/assassinate_found_target(datum/source, datum/mind/new_target)
+/datum/objective/escape/escape_with_identity/proc/special_objective_found_target(datum/source, datum/mind/new_target)
 	SIGNAL_HANDLER
 	if(new_target)
 		target_real_name = new_target.current.real_name
 		return
-	// The assassinate objective was unable to find a new target after the old one cryo'd as was qdel'd. We're on our own.
+	// The special objective objective was unable to find a new target after the old one cryo'd as was qdel'd. We're on our own.
 	find_target()
-	has_assassinate_objective = FALSE
+	has_special_objective = FALSE
 
 
 /datum/objective/escape/escape_with_identity/on_target_cryo()
-	if(has_assassinate_objective)
-		return // Our assassinate objective will handle this.
+	if(has_special_objective)
+		return // Our special objective objective will handle this.
 	..()
 
 
 /datum/objective/escape/escape_with_identity/post_target_cryo()
-	if(has_assassinate_objective)
-		return // Our assassinate objective will handle this.
+	if(has_special_objective)
+		return // Our special objective objective will handle this.
 	..()
 
 
