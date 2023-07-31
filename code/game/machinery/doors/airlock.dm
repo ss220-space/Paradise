@@ -717,8 +717,6 @@ About the new airlock wires panel:
 		set_light(0)
 
 /obj/machinery/door/airlock/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && (mover.checkpass(PASS_OTHER_THINGS) || mover.checkpass(PASSDOOR)))
-		return TRUE
 	if(isElectrified() && density && istype(mover, /obj/item))
 		var/obj/item/I = mover
 		if(I.flags & CONDUCT)
@@ -1017,7 +1015,7 @@ About the new airlock wires panel:
 		if(I.use_tool(src, user, 40, volume = I.tool_volume))
 			if(!panel_open || security_level != AIRLOCK_SECURITY_PLASTEEL_I_S)
 				return
-			user.visible_message("<span class='notice'>[user] remove \the [src]'s shielding.</span>",
+			user.visible_message("<span class='notice'>[user] removes \the [src]'s shielding.</span>",
 								"<span class='notice'>You remove \the [src]'s inner shielding.</span>")
 			security_level = AIRLOCK_SECURITY_NONE
 			modify_max_integrity(normal_integrity)
@@ -1029,7 +1027,7 @@ About the new airlock wires panel:
 		if(I.use_tool(src, user, 40, volume = I.tool_volume))
 			if(!panel_open || security_level != AIRLOCK_SECURITY_PLASTEEL_O_S)
 				return
-			user.visible_message("<span class='notice'>[user] remove \the [src]'s shielding.</span>",
+			user.visible_message("<span class='notice'>[user] removes \the [src]'s shielding.</span>",
 								"<span class='notice'>You remove \the [src]'s shielding.</span>")
 			security_level = AIRLOCK_SECURITY_PLASTEEL_I
 			spawn_atom_to_turf(/obj/item/stack/sheet/plasteel, user.loc, 1)
@@ -1349,6 +1347,9 @@ About the new airlock wires panel:
 		shock(user, 100) //Mmm, fried xeno!
 		return
 	if(!density) //Already open
+		if(!arePowerSystemsOn())
+			close(TRUE)
+			return
 		return
 	if(locked || welded) //Extremely generic, as aliens only understand the basics of how airlocks work.
 		to_chat(user, "<span class='warning'>[src] refuses to budge!</span>")
