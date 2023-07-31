@@ -676,13 +676,13 @@
 
 /obj/machinery/vending/proc/vend(datum/data/vending_product/R, mob/user)
 	if(!allowed(user) && !user.can_admin_interact() && !emagged && scan_id)	//For SECURE VENDING MACHINES YEAH
-		to_chat(user, "<span class='warning'>Access denied.</span>")//Unless emagged of course
+		to_chat(user, span_warning("Access denied."))//Unless emagged of course
 		flick(icon_deny, src)
 		vend_ready = TRUE
 		return
 
 	if(!R.amount)
-		to_chat(user, "<span class='warning'>The vending machine has ran out of that product.</span>")
+		to_chat(user, span_warning("The vending machine has ran out of that product."))
 		vend_ready = TRUE
 		return
 
@@ -690,14 +690,14 @@
 
 	if(coin_records.Find(R))
 		if(!coin)
-			to_chat(user, "<span class='notice'>You need to insert a coin to get this item.</span>")
+			to_chat(user, span_notice("You need to insert a coin to get this item."))
 			vend_ready = TRUE
 			return
 		if(coin.string_attached)
 			if(prob(50))
-				to_chat(user, "<span class='notice'>You successfully pull the coin out before [src] could swallow it.</span>")
+				to_chat(user, span_notice("You successfully pull the coin out before [src] could swallow it."))
 			else
-				to_chat(user, "<span class='notice'>You weren't able to pull the coin out fast enough, the machine ate it, string and all.</span>")
+				to_chat(user, span_notice("You weren't able to pull the coin out fast enough, the machine ate it, string and all."))
 				QDEL_NULL(coin)
 		else
 			QDEL_NULL(coin)
