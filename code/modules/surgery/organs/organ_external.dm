@@ -404,23 +404,23 @@ Note that amputating the affected organ does in fact remove the infection from t
 				target_organ = pick(candidate_organs)
 
 		if(target_organ)
-			target_organ.germ_level++
+			target_organ.germ_level += owner.dna.species.germs_growth_rate
 
 		//spread the infection to child and parent organs
 		if(children)
 			for(var/obj/item/organ/external/child in children)
 				if(child.germ_level < germ_level && !child.is_robotic())
 					if(child.germ_level < INFECTION_LEVEL_ONE * 2 || prob(30))
-						child.germ_level++
+						child.germ_level += owner.dna.species.germs_growth_rate
 
 		if(parent)
 			if(parent.germ_level < germ_level && !parent.is_robotic())
 				if(parent.germ_level < INFECTION_LEVEL_ONE * 2 || prob(30))
-					parent.germ_level++
+					parent.germ_level += owner.dna.species.germs_growth_rate
 
 	if(germ_level >= INFECTION_LEVEL_THREE)
 		necrotize()
-		germ_level++
+		germ_level += owner.dna.species.germs_growth_rate
 		owner.adjustToxLoss(1)
 
 //Updates brute_damn and burn_damn from wound damages. Updates BLEEDING status.
