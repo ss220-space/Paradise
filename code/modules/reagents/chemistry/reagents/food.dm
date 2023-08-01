@@ -12,7 +12,7 @@
 	var/diet_flags = DIET_OMNI | DIET_HERB | DIET_CARN
 
 /datum/reagent/consumable/on_mob_life(mob/living/M)
-	if(!(M.mind in SSticker.mode.vampires))
+	if(!isvampire(M))
 		M.adjust_nutrition(nutriment_factor)	// For hunger and fatness
 	return ..()
 
@@ -28,7 +28,7 @@
 
 /datum/reagent/consumable/nutriment/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(!(M.mind in SSticker.mode.vampires))
+	if(!isvampire(M))
 		update_flags |= M.adjustBruteLoss(-brute_heal, FALSE)
 		update_flags |= M.adjustFireLoss(-burn_heal, FALSE)
 	return ..() | update_flags
@@ -404,7 +404,8 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.mind && H.mind.vampire && !H.mind.vampire.get_ability(/datum/vampire_passive/full)) //incapacitating but not lethal.
+		var/datum/antagonist/goon_vampire/g_vamp = H.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
+		if(g_vamp && !g_vamp.get_ability(/datum/goon_vampire_passive/full)) //incapacitating but not lethal.
 			if(prob(min(25, current_cycle)))
 				to_chat(H, "<span class='danger'>You can't get the scent of garlic out of your nose! You can barely think...</span>")
 				H.Weaken(2 SECONDS)
@@ -884,12 +885,16 @@
 
 /datum/reagent/msg/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(5))
-		if(prob(10))
-			update_flags |= M.adjustToxLoss(rand(2,4), FALSE)
-		if(prob(7))
-			to_chat(M, "<span class='warning'>A horrible migraine overpowers you.</span>")
-			M.Stun(rand(4 SECONDS, 10 SECONDS))
+	if(istype(M.mind?.martial_art, /datum/martial_art/mr_chang))
+		update_flags |= M.adjustBruteLoss(-0.75)
+		update_flags |= M.adjustFireLoss(-0.75)
+	else
+		if(prob(5))
+			if(prob(10))
+				update_flags |= M.adjustToxLoss(rand(2,4), FALSE)
+			if(prob(7))
+				to_chat(M, "<span class='warning'>A horrible migraine overpowers you.</span>")
+				M.Stun(rand(4 SECONDS, 10 SECONDS))
 	return ..() | update_flags
 
 /datum/reagent/cholesterol
