@@ -343,7 +343,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(forced_module)
 		modtype = forced_module
 	else
-		modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
+		modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules //
 	if(!modtype)
 		robot_module_hat_offset(icon_state)
 		return
@@ -1432,7 +1432,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(length(module?.borg_skins) > 1)
 		for(var/skin in module.borg_skins)
 			var/image/skin_image = image(icon = icon, icon_state = module.borg_skins[skin])
-			skin_image.add_overlay("eyes-[module.borg_skins[skin]]")
+			skin_image.add_overlay("eyes-[module.borg_skins[skin]]") //
 			choices[skin] = skin_image
 		choice = show_radial_menu(src, src, choices, require_near = TRUE)
 
