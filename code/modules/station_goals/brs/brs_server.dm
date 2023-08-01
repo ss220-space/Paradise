@@ -8,7 +8,7 @@
 
 /obj/item/circuitboard/brs_server
 	name = "Сервер сканирирования разлома (Computer Board)"
-	desc = "Плата для сбора сервера изучения сканирования разломов."
+	desc = "Плата сервера сканирования и изучения блюспейс разлома."
 	build_path = /obj/machinery/brs_server
 	icon_state = "cpuboard_super"
 	board_type = "machine"
@@ -22,7 +22,7 @@
 	)
 
 /obj/machinery/brs_server
-	name = "Сервер сканирования разлома"
+	name = "Сервер сканирования блюспейс разлома"
 	icon = 'icons/obj/machines/BRS/scanner_server.dmi'
 	icon_state = "scan_server"
 	anchored = TRUE

@@ -8,7 +8,8 @@
 #define SCAN_CRITICAL 3 //! The scanner is within critical range of a rift
 
 /obj/item/circuitboard/brs_stationary_scanner
-	name = "Статичный сканер разлома (Машинная Плата)"
+	name = "Стационарный сканер разлома (Machine Board)"
+	desc = "Плата стационарного сканера блюспейс разлома."
 	build_path = /obj/machinery/power/brs_stationary_scanner
 	icon_state = "bluespace_scannerplat"
 	board_type = "machine"
@@ -22,7 +23,7 @@
 	)
 
 /obj/machinery/power/brs_stationary_scanner
-	name = "Статичный сканер разлома"
+	name = "Стационарный сканер блюспейс разлома"
 	icon = 'icons/obj/machines/BRS/scanner_static.dmi'
 	icon_state = "scanner"
 	pixel_x = -32

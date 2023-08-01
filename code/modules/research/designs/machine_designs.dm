@@ -564,7 +564,7 @@
 
 /datum/design/brs_server
 	name = "Machine Design (Rift Scan Server)"
-	desc = "Плата для сбора сервера изучения сканирования разломов."
+	desc = "Плата сервера сканирования и изучения блюспейс разлома."
 	id = "brs_server"
 	req_tech = list("bluespace" = 20) // unreachable
 	build_type = IMPRINTER
@@ -574,7 +574,7 @@
 
 /datum/design/brs_portable_scanner
 	name = "Machine Design (Portable Rift Scanner)"
-	desc = "Плата для сбора данных при сканировании разломов."
+	desc = "Плата портативного сканера блюспейс разлома."
 	id = "brs_portable_scanner"
 	req_tech = list("bluespace" = 20) // unreachable
 	build_type = IMPRINTER
@@ -583,8 +583,8 @@
 	category = list ("Research Machinery")
 
 /datum/design/brs_stationary_scanner
-	name = "Machine Design (Static Rift Scanner)"
-	desc = "Плата для сбора данных при сканировании разломов."
+	name = "Machine Design (Stationary Rift Scanner)"
+	desc = "Плата стационарного сканера блюспейс разлома."
 	id = "brs_stationary_scanner"
 	req_tech = list("bluespace" = 20) // unreachable
 	build_type = IMPRINTER

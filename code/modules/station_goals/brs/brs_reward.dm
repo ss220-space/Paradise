@@ -1,11 +1,15 @@
 /obj/item/paper/researchnotes_brs
-	name = "Исследования Блюспейс Разлома"
-	info = "<b>Долгожданные научные исследования блюспейс разлома, продвигающие науку изучения Синего Космоса далеко вперед. \nВ записке написана тарабарщина на машинном языке. \nТребуется деструктивный анализ.</b>"
+	name = "Исследование Блюспейс Разлома"
+	info = "<b>Какие-то заметки о блюспейс разломе. Возможно, это продвинет науку далеко вперед. \nК сожалению, вы не можете разобрать ни слова. \nТребуется деструктивный анализ.</b>"
 	origin_tech = "bluespace=9;magnets=8"
+	icon_state = "docs_part"
+
+/obj/item/paper/researchnotes_brs/update_icon()
+	return
 
 /obj/structure/toilet/bluespace
-	name = "Научный унитаз"
-	desc = "Загадка современной науки о возникновении данного научного экземпляра."
+	name = "Блюспейс унитаз"
+	desc = "It is high technological utilization system. We don't need 'выгребная яма' anymore, all the stuff goes directly to the black hole."
 	icon_state = "bluespace_toilet00"
 	open = 1
 	cistern = 0
@@ -39,8 +43,6 @@
 	return ..()
 
 /obj/structure/toilet/bluespace/nt
-	name = "Воронка Бездны Синего Космоса"
-	desc = "То, ради чего наука и была создана и первый гуманоид ударил палку о камень. Главное не смотреть в бездну."
 	icon_state = "bluespace_toilet00-NT"
 
 /obj/structure/toilet/bluespace/nt/update_icon()

@@ -1,6 +1,6 @@
 /obj/effect/abstract/bluespace_rift
 	name = "Блюспейс Разлом"
-	desc = "Аномальное образование с неизвестными свойствами загадочного синего космоса."
+	desc = "Аномальное образование с неизвестными свойствами."
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "singularity_fog"
 	appearance_flags = 0
