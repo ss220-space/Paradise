@@ -37,9 +37,13 @@
 	addtimer(CALLBACK(src, PROC_REF(go_inert)), 10 MINUTES)
 
 /obj/item/magmite_parts/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(!proximity_flag)
+		return
+
 	if(inert)
 		to_chat(user, span_warning("[src] appears inert! Perhaps the World Anvil can restore it!"))
 		return
+
 	switch(target.type)
 		if(/obj/item/gun/energy/kinetic_accelerator/experimental)
 			var/obj/item/gun/energy/kinetic_accelerator/gun = target

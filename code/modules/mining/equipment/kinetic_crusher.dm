@@ -28,6 +28,7 @@
 	var/brightness_on = 5
 	var/adaptive_damage_bonus = 0
 	var/upgraded = FALSE //whether is our crusher is magmite-upgraded
+	var/obj/item/projectile/destabilizer/destab = /obj/item/projectile/destabilizer
 
 /obj/item/twohanded/kinetic_crusher/Destroy()
 	QDEL_LIST(trophies)
@@ -95,7 +96,7 @@
 		var/turf/proj_turf = user.loc
 		if(!isturf(proj_turf))
 			return
-		var/obj/item/projectile/destabilizer/D = new /obj/item/projectile/destabilizer(proj_turf)
+		var/obj/item/projectile/destabilizer/D = new destab(proj_turf)
 		for(var/t in trophies)
 			var/obj/item/crusher_trophy/T = t
 			T.on_projectile_fire(D, user)
@@ -483,29 +484,9 @@
 	item_state = "magmite_crusher0"
 	name = "magmite proto-kinetic crusher"
 	desc = "An early design of the proto-kinetic accelerator, it is now a combination of various mining tools infused with magmite, forming a high-tech club, increasing its capacity as a mining tool."
+	destab = /obj/item/projectile/destabilizer/mega
 	upgraded = TRUE
 
-/obj/item/twohanded/kinetic_crusher/mega/afterattack(atom/target, mob/living/user, proximity_flag, clickparams)
-	if(!wielded)
-		return
-	if(!proximity_flag && charged)//Mark a target, or mine a tile.
-		var/turf/proj_turf = user.loc
-		if(!isturf(proj_turf))
-			return
-		var/obj/item/projectile/destabilizer/mega/D = new /obj/item/projectile/destabilizer/mega(proj_turf)
-		for(var/t in trophies)
-			var/obj/item/crusher_trophy/T = t
-			T.on_projectile_fire(D, user)
-		D.preparePixelProjectile(target, get_turf(target), user, clickparams)
-		D.firer = user
-		D.hammer_synced = src
-		playsound(user, 'sound/weapons/crusher_shot.ogg', 160, 1)
-		D.fire()
-		charged = FALSE
-		update_icon()
-		addtimer(CALLBACK(src, PROC_REF(Recharge)), charge_time)
-		return
-	..()
 /obj/item/projectile/destabilizer/mega
 	icon_state = "pulse0"
 	range = 5 //you know...

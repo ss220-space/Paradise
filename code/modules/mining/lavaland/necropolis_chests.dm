@@ -295,7 +295,7 @@
 		if(M.sentience_type != SENTIENCE_ORGANIC)
 			to_chat(user, span_warning("[M] cannot be tamed!"))
 			return
-		if(!do_after(user, 1.5 SECONDS, M))
+		if(!do_after(user, 1.5 SECONDS, target = M))
 			return
 		M.visible_message(span_notice("[M] seems happy with you after exposure to the bouquet!"))
 		M.add_atom_colour("#11c42f", FIXED_COLOUR_PRIORITY)
