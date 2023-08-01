@@ -67,20 +67,20 @@
 /obj/docking_port/stationary{
 	area_type = /area/ruin/powered/golem_ship;
 	dir = 8;
-	dwidth = 8;
-	height = 20;
+	dwidth = 10;
+	height = 30;
 	id = "freegolem_lavaland";
 	name = "Lavaland Surface";
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface;
-	width = 16
+	width = 20
 	},
 /obj/docking_port/mobile{
 	dir = 8;
-	dwidth = 9;
+	dwidth = 10;
 	height = 30;
 	id = "freegolem";
 	name = "Free Golem Ship";
-	width = 16
+	width = 20
 	},
 /turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
@@ -151,10 +151,6 @@
 	},
 /turf/simulated/floor/pod,
 /area/shuttle/freegolem)
-"iu" = (
-/obj/machinery/door/airlock/survival_pod/glass,
-/turf/simulated/wall/mineral/titanium/survival/pod,
-/area/shuttle/freegolem)
 "jd" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/pod,
@@ -221,6 +217,13 @@
 	dir = 8
 	},
 /turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"ls" = (
+/obj/machinery/light{
+	dir = 8;
+	pixel_y = -32
+	},
+/turf/simulated/wall/mineral/titanium/survival/pod,
 /area/shuttle/freegolem)
 "lZ" = (
 /obj/structure/table/reinforced,
@@ -476,6 +479,7 @@
 /turf/template_noop,
 /area/template_noop)
 "yO" = (
+/obj/machinery/light,
 /turf/simulated/floor/mech_bay_recharge_floor{
 	icon_state = "recharge_floor_dark"
 	},
@@ -897,13 +901,6 @@
 	},
 /turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
-"Xq" = (
-/obj/machinery/light{
-	dir = 8;
-	pixel_y = -32
-	},
-/turf/simulated/floor/pod/dark,
-/area/shuttle/freegolem)
 "XV" = (
 /obj/machinery/light{
 	dir = 8;
@@ -1055,7 +1052,7 @@ cI
 cI
 cI
 cI
-cI
+ls
 Lv
 Md
 cI
@@ -1099,7 +1096,7 @@ uO
 sa
 Wn
 yf
-Xq
+yf
 iq
 yf
 tc
@@ -1328,7 +1325,7 @@ gr
 yf
 pz
 yf
-iu
+gr
 yf
 yf
 yf
