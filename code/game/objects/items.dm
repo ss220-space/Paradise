@@ -847,13 +847,13 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return
 
 
-/obj/item/throw_impact(atom/A)
+/obj/item/throw_impact(atom/A, datum/thrownthing/throwingdatum)
 	if(A && !QDELETED(A))
 		SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, A)
-		var/itempush = 1
+		var/itempush = TRUE
 		if(w_class < WEIGHT_CLASS_BULKY)
-			itempush = 0 // too light to push anything
-		return A.hitby(src, 0, itempush)
+			itempush = FALSE // too light to push anything
+		return A.hitby(src, FALSE, itempush, throwingdatum = throwingdatum)
 
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
