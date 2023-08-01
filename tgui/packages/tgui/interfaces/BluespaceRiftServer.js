@@ -44,7 +44,7 @@ export const BluespaceRiftServer = (props, context) => {
           value={researchPoints}
           maxValue={targetResearchPoints}
           mt={1} mb={2}>
-          {percentage} %
+          {percentage <= 100 ? percentage : 100} %
         </ProgressBar>
         <Box>
           {"Данные для зондирования: "}

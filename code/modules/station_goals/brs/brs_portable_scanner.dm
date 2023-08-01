@@ -335,6 +335,8 @@
 	for(var/obj/machinery/brs_server/server as anything in GLOB.bluespace_rifts_server_list)
 		if(server.z == z)
 			return TRUE
+		if(server.stat & (NOPOWER|BROKEN))
+			continue
 	return FALSE
 
 #undef SCAN_OFF

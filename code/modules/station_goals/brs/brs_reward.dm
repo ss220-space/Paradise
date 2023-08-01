@@ -11,8 +11,6 @@
 	name = "Блюспейс унитаз"
 	desc = "It is high technological utilization system. We don't need 'выгребная яма' anymore, all the stuff goes directly to the black hole."
 	icon_state = "bluespace_toilet00"
-	open = 1
-	cistern = 0
 	var/teleport_sound = 'sound/magic/lightning_chargeup.ogg'
 
 /obj/structure/toilet/bluespace/update_icon()
@@ -221,4 +219,9 @@
 	return ..()
 
 /obj/effect/spawner/lootdrop/bluespace_rift/goal_complete
-	loot = list(/obj/structure/toilet/bluespace/nt)
+	lootcount = 2
+	lootdoubles = FALSE	
+	loot = list(
+		/obj/structure/toilet/bluespace/nt,
+		/obj/item/paper/researchnotes_brs,
+	)
