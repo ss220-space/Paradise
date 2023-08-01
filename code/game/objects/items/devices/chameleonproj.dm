@@ -191,7 +191,7 @@
 										"Medical" = list("Standard-Medi", "Robot-MED", "surgeon", "droid-medical", "Robot-SRG", "Noble-MED", "Cricket-MEDI"),
 										"Engineering" = list("Robot-ENG", "Robot-ENG2", "landmate", "Standard-Engi", "Noble-ENG", "Cricket-ENGI"),
 										"Security" = list("Robot-SEC", "Security", "securityrobot", "bloodhound", "Standard-Secy", "Noble-SEC", "Cricket-SEC"),
-										"Service" = list("Robod-LDY", "toiletbot", "Robot-RLX", "maximillion", "Robot-MAN", "Standard-Serv", "Noble-SRV", "Cricket-SERV"),
+										"Service" = list("Robot-LDY", "toiletbot", "Robot-RLX", "maximillion", "Robot-MAN", "Standard-Serv", "Noble-SRV", "Cricket-SERV"),
 										"Miner" = list("Robot-MNR", "droid-miner", "Miner", "Standard-Mine", "Noble-DIG", "Cricket-MINE", "lavaland"),
 										"Syndicate" = list("syndie_bloodhound", "syndi-medi"))
 
