@@ -527,3 +527,9 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	cold_protection = LEGS|FEET
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+
+/obj/item/clothing/shoes/mr_chang_sandals
+	name = "Flashy slippers"
+	desc = "Made of wood. Used to support world's economics stable."
+	icon_state = "mr_chang_sandals"
+	item_state = "mr_chang_sandals"
