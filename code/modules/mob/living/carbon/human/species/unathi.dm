@@ -172,12 +172,12 @@
 	punchdamagehigh = 7
 	punchstunthreshold = 7
 	toolspeedmod = 0.9 //they're smart and efficient unlike other lizards
-	var/obj/effect/proc_holder/spell/targeted/touch/healtouch/goodtouch
+	var/obj/effect/proc_holder/spell/touch/healtouch/goodtouch
 
 //gives the heal spell
 /datum/species/unathi/ashwalker/shaman/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
-	goodtouch = new /obj/effect/proc_holder/spell/targeted/touch/healtouch
+	goodtouch = new /obj/effect/proc_holder/spell/touch/healtouch
 	C.AddSpell(goodtouch)
 
 //removes the heal spell
@@ -187,14 +187,14 @@
 		C.RemoveSpell(goodtouch)
 
 //basic touch ability that heals brute and burn, only accessed by the ashwalker shaman
-/obj/effect/proc_holder/spell/targeted/touch/healtouch
+/obj/effect/proc_holder/spell/touch/healtouch
 	name = "healing touch"
 	desc = "This spell charges your hand with the vile energy of the Necropolis, permitting you to undo some external injuries from a target."
 	hand_path = /obj/item/melee/touch_attack/healtouch
 
 	school = "evocation"
 	panel = "Ashwalker"
-	charge_max = 20 SECONDS
+	base_cooldown = 20 SECONDS
 	clothes_req = FALSE
 
 	action_icon_state = "spell_default"
