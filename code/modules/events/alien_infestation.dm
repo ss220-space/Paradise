@@ -47,7 +47,7 @@
 
 /datum/event/alien_infestation/proc/spawn_vectors(list/vents, playercount)
 	spawncount = 1
-	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за Чужого?", ROLE_ALIEN, TRUE, source = /mob/living/carbon/alien/larva)
+	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за Чужого Вектора?", ROLE_ALIEN, TRUE, source = /mob/living/carbon/alien/humanoid/hunter/vector)
 	while(spawncount && length(vents) && length(candidates))
 		var/obj/vent = pick_n_take(vents)
 		var/mob/C = pick_n_take(candidates)
