@@ -3,7 +3,6 @@
 
 /datum/event/alien_infestation
 	announceWhen	= 400
-	var/highpop_trigger = 80
 	var/spawncount = 2
 	var/list/playercount
 	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
@@ -28,7 +27,7 @@
 	if(playercount <= ALIEN_MIDPOP_TRIGGER)
 		spawn_vectors(vents, playercount)
 		return
-	if(playercount >= highpop_trigger) //spawn with 4 if highpop
+	if(playercount >= ALIEN_HIGHPOP_TRIGGER) //spawn with 4 if highpop
 		spawncount = 4
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за Чужого?", ROLE_ALIEN, TRUE, source = /mob/living/carbon/alien/larva)
 	while(spawncount && length(vents) && length(candidates))

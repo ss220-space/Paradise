@@ -20,8 +20,6 @@
 /obj/effect/proc_holder/spell/alien_spell/impregnate/valid_target(target, user)
 	if(ishuman(target))
 		var/mob/living/carbon/human/human = target
-		if(!length(human.grabbed_by))
-			return FALSE
 		for(var/obj/item/grab/grab in human.grabbed_by)
 			if(grab.assailant == user)
 				if(human.is_mouth_covered())
@@ -30,10 +28,11 @@
 				if(!human.check_has_mouth())
 					to_chat(user, span_warning("It appears victim doesn't have mouth..."))
 					return FALSE
-				if(!(human.is_dead()))
-					return TRUE
-				else
+				if(human.is_dead())
+					to_chat(user, span_warning("Victim is dead!"))
 					return FALSE
+				else
+					return TRUE
 	return FALSE
 
 /obj/effect/proc_holder/spell/alien_spell/impregnate/cast(list/targets, mob/user)
