@@ -266,6 +266,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	job = list("Chef")
 	surplus = 0 //because it's useless for all non-chefs
 
+/datum/uplink_item/jobspecific/dangertray
+	name = "Dangerous Tray pack"
+	desc = "Contains a set of three sharp metal trays capable of cutting off limbs. "
+	reference = "DT"
+	item = /obj/item/storage/box/syndie_kit/dangertray
+	cost = 3
+	job = list("Chef")
+
 //Chaplain
 /datum/uplink_item/jobspecific/voodoo
 	name = "Voodoo Doll"
@@ -1058,6 +1066,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 10
 	cant_discount = TRUE
 
+/datum/uplink_item/stealthy_weapons/mr_chang
+	name = "Mr. Chang's Aggressive Marketing Technique"
+	desc = "This package was kindly provided to us by Mr. Cheng's corporation. It contains a wide range of implements for the most effective promotion of products in a free market environment."
+	reference = "MRCH"
+	item = /obj/item/storage/box/syndie_kit/mr_chang_technique
+	cost = 3
+	cant_discount = FALSE
+
 /datum/uplink_item/stealthy_weapons/cameraflash
 	name = "Camera Flash"
 	desc = "A flash disguised as a camera with a self-charging safety system preventing the flash from burning out.\
@@ -1590,7 +1606,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "The Syndicate teleporter is a handheld device that teleports the user 4-8 meters forward. \
 			Beware, teleporting into a wall will make the teleporter do a parallel emergency teleport, \
 			but if that emergency teleport fails, it will kill you. \
-			Has 4 charges, recharges, warrenty voided if exposed to EMP."
+			Has 4 charges, recharges, warranty voided if exposed to EMP."
 	reference = "TELE"
 	item = /obj/item/storage/box/syndie_kit/teleporter
 	cost = 8

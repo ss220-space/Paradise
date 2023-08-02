@@ -13,7 +13,7 @@ emp_act
 	if(!dna.species.bullet_act(P, src))
 		add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by species '[dna.species]'")
 		return FALSE
-	if(P.is_reflectable)
+	if(P.is_reflectable(REFLECTABILITY_ENERGY))
 		var/can_reflect = check_reflect(def_zone)
 		var/reflected = FALSE
 
@@ -55,6 +55,15 @@ emp_act
 	if(mind?.martial_art?.deflection_chance) //Some martial arts users can deflect projectiles!
 		if(!lying && !(HULK in mutations) && prob(mind.martial_art.deflection_chance)) //But only if they're not lying down, and hulks can't do it
 			add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by martial arts '[mind.martial_art]'")
+			if(HAS_TRAIT(src, TRAIT_PACIFISM) || !P.is_reflectable(REFLECTABILITY_PHYSICAL)) //if it cannot be reflected, it hits the floor. This is the exception to the rule
+				// Pacifists can deflect projectiles, but not reflect them.
+				// Instead, they deflect them into the ground below them.
+				var/turf/T = get_turf(src)
+				P.firer = src
+				T.bullet_act(P)
+				visible_message("<span class='danger'>[src] deflects the projectile into the ground!</span>", "<span class='userdanger'>You deflect the projectile towards the ground beneath your feet!</span>")
+				return FALSE
+
 			visible_message("<span class='danger'>[src] deflects the projectile; [p_they()] can't be hit with ranged weapons!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
 			return FALSE
 
@@ -244,9 +253,9 @@ emp_act
 			return 1
 	return 0
 
-/mob/living/carbon/human/proc/check_block()
-	if(mind && mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
-		return TRUE
+/mob/living/carbon/human/proc/check_martial_art_defense(var/mob/living/carbon/human/defender, var/mob/living/carbon/human/attacker, var/obj/item/I, var/visible_message, var/self_message)
+	if(mind && mind.martial_art)
+		return mind.martial_art.attack_reaction(defender, attacker, I, visible_message, self_message)
 
 /mob/living/carbon/human/acid_act(acidpwr, acid_volume, bodyzone_hit) //todo: update this to utilize check_obscured_slots() //and make sure it's check_obscured_slots(TRUE) to stop aciding through visors etc
 	var/list/damaged = list()
@@ -443,8 +452,7 @@ emp_act
 		if(check_shields(I, I.force, "the [I.name]", MELEE_ATTACK, I.armour_penetration))
 			return 0
 
-	if(check_block())
-		visible_message("<span class='warning'>[src] blocks [I]!</span>")
+	if(check_martial_art_defense(src, user, I, "<span class='warning'>[src] blocks [I]!</span>"))
 		return FALSE
 
 	if(istype(I,/obj/item/card/emag))

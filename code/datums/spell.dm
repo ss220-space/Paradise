@@ -304,6 +304,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	targeting = targeting_datums[type]
 	cooldown_handler = create_new_cooldown()
 	cooldown_handler.cooldown_init(src)
+	after_spell_init()
 
 
 /obj/effect/proc_holder/spell/Destroy()
@@ -341,6 +342,12 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	s_cooldown.recharge_duration = base_cooldown
 	s_cooldown.starts_off_cooldown = starts_charged
 	return s_cooldown
+
+
+/**
+ * This proc will trigger when all necessary initialization is done. Usefull for staff like changing spell name.
+ */
+/obj/effect/proc_holder/spell/proc/after_spell_init()
 
 
 /**
@@ -546,8 +553,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		action.UpdateButtonIcon()
 
 
-/obj/effect/proc_holder/spell/proc/updateButtonIcon()
+/obj/effect/proc_holder/spell/proc/updateButtonIcon(change_name = FALSE)
 	if(action)
+		if(change_name)
+			action.name = name
+			action.desc = desc
 		action.UpdateButtonIcon()
 
 
@@ -611,9 +621,12 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			return FALSE
 
 	if(!ghost)
-		if(user.stat && !stat_allowed)
+		if(stat_allowed < user.stat)
 			if(show_message)
-				to_chat(user, span_notice("You can't cast this spell while incapacitated."))
+				if(user.stat == UNCONSCIOUS)
+					to_chat(user, span_notice("You can't use <b>[name]</b> while unconscious."))
+				if(user.stat == DEAD)
+					to_chat(user, span_notice("You can't use <b>[name]</b> while dead."))
 			return FALSE
 
 		if(!phase_allowed && istype(user.loc, /obj/effect/dummy) || istype(user.loc, /obj/effect/immovablerod/wizard))

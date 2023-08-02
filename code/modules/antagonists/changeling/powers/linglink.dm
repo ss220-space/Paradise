@@ -8,11 +8,11 @@
 	req_human = TRUE
 
 
-/datum/action/changeling/linglink/can_sting(mob/living/carbon/user)
+/datum/action/changeling/linglink/can_sting(mob/living/carbon/user, ignore_linking = FALSE)
 	if(!..())
 		return FALSE
 
-	if(cling.is_linking)
+	if(cling.is_linking && !ignore_linking)
 		to_chat(user, span_warning("We have already formed a link with the victim!"))
 		return FALSE
 
@@ -51,7 +51,7 @@
 /datum/action/changeling/linglink/sting_action(mob/user)
 	var/obj/item/grab/grab = user.get_active_hand()
 	var/mob/living/carbon/human/target = grab.affecting
-	cling.is_absorbing = TRUE
+	cling.is_linking = TRUE
 
 	for(var/stage in 1 to 3)
 		switch(stage)
@@ -66,7 +66,7 @@
 			if(3)
 				to_chat(target, span_userdanger("A migraine throbs behind your eyes, you hear yourself screaming - but your mouth has not opened!"))
 
-		if(!do_mob(user, target, 2 SECONDS) || !can_sting(user))
+		if(!do_mob(user, target, 2 SECONDS) || !can_sting(user, TRUE))
 			to_chat(user, span_warning("Linking process was interrupted!"))
 			cling?.is_linking = FALSE
 			return FALSE

@@ -341,6 +341,7 @@
 	needs_target = FALSE
 
 
+
 /datum/objective/revenantFluff/New()
 	var/list/explanationTexts = list("Assist and exacerbate existing threats at critical moments.", \
 									 "Cause as much chaos and anger as you can without being killed.", \
@@ -396,7 +397,7 @@
 	qdel(src)
 
 
-/obj/item/ectoplasm/revenant/throw_impact(atom/hit_atom)
+/obj/item/ectoplasm/revenant/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
 	if(inert)
 		return

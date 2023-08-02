@@ -99,7 +99,7 @@
 	update_icon()
 	return
 
-/obj/item/toy/balloon/throw_impact(atom/hit_atom)
+/obj/item/toy/balloon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(reagents.total_volume >= 1)
 		visible_message("<span class='warning'>The [src] bursts!</span>","You hear a pop and a splash.")
 		reagents.reaction(get_turf(hit_atom))
@@ -273,7 +273,7 @@
 	w_class = WEIGHT_CLASS_TINY
 
 
-/obj/item/toy/snappop/virus/throw_impact(atom/hit_atom)
+/obj/item/toy/snappop/virus/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
 	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/ash(src.loc)
@@ -304,7 +304,7 @@
 	..()
 	pop_burst()
 
-/obj/item/toy/snappop/throw_impact(atom/hit_atom)
+/obj/item/toy/snappop/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
 	pop_burst()
 
@@ -520,25 +520,22 @@
 		update_icon()
 
 
-/obj/item/toy/cards/deck/MouseDrop(atom/over_object)
-	var/mob/M = usr
-	if(M.incapacitated() || !Adjacent(M))
-		return
-	if(!ishuman(M))
-		return
-	if(over_object == M)
-		M.put_in_hands(src, ignore_anim = FALSE)
-	if(istype(over_object, /obj/screen))
-		if(!remove_item_from_storage(M))
-			M.drop_item_ground(src)
-		if(over_object != M)
-			switch(over_object.name)
-				if("l_hand")
-					M.put_in_l_hand(src, ignore_anim = FALSE)
-				if("r_hand")
-					M.put_in_r_hand(src, ignore_anim = FALSE)
-	add_fingerprint(M)
-	usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
+/obj/item/toy/cards/deck/MouseDrop(atom/over)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	var/mob/user = usr
+	if(over != user || user.incapacitated() || !ishuman(user))
+		return FALSE
+
+	if(user.put_in_hands(src, ignore_anim = FALSE))
+		add_fingerprint(user)
+		user.visible_message(span_notice("[user] picks up [src]."))
+		return TRUE
+
+	return FALSE
+
 
 /obj/item/toy/cards/deck/update_icon()
 	switch(cards.len)
@@ -882,7 +879,7 @@
 	icon_state = "minimeteor"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/toy/minimeteor/throw_impact(atom/hit_atom)
+/obj/item/toy/minimeteor/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
 	playsound(src, 'sound/effects/meteorimpact.ogg', 40, 1)
 	for(var/mob/M in range(10, src))
@@ -1422,30 +1419,23 @@
 			name = "green rubber piggy"
 			desc = "Watch out for angry voxes!"
 
-/obj/item/toy/plushie/pig/MouseDrop(atom/over_object)
-	var/mob/M = usr
-	if(M.restrained() || M.stat || !Adjacent(M))
-		return
-	if(!ishuman(M))
-		return
 
-	if(over_object == M)
-		if(!remove_item_from_storage(M))
-			M.drop_item_ground(src)
-		M.put_in_hands(src, ignore_anim = FALSE)
+/obj/item/toy/plushie/pig/MouseDrop(atom/over)
+	. = ..()
+	if(!.)
+		return FALSE
 
-	else if(istype(over_object, /obj/screen))
-		switch(over_object.name)
-			if("r_hand")
-				if(!remove_item_from_storage(M))
-					M.drop_item_ground(src)
-				M.put_in_r_hand(src, ignore_anim = FALSE)
-			if("l_hand")
-				if(!remove_item_from_storage(M))
-					M.drop_item_ground(src)
-				M.put_in_l_hand(src, ignore_anim = FALSE)
+	var/mob/user = usr
+	if(over != user || user.incapacitated() || !ishuman(user))
+		return FALSE
 
-	add_fingerprint(M)
+	if(user.put_in_hands(src, ignore_anim = FALSE))
+		add_fingerprint(user)
+		user.visible_message(span_notice("[user] picks up [src]."))
+		return TRUE
+
+	return FALSE
+
 
 /obj/item/toy/plushie/bubblegumplushie
 	name = "bubblegum plushie"
@@ -1758,7 +1748,7 @@
 
 /obj/item/toy/russian_revolver
 	name = "russian revolver"
-	desc = "for fun and games!"
+	desc = "For fun and games!"
 	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "detective_gold"
 	item_state = "gun"

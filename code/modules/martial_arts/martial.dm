@@ -38,7 +38,7 @@
 	return act(MARTIAL_COMBO_STEP_HELP, A, D)
 
 /datum/martial_art/proc/can_use(mob/living/carbon/human/H)
-	return TRUE
+	return !HAS_TRAIT(H, TRAIT_PACIFISM)
 
 /datum/martial_art/proc/act(step, mob/living/carbon/human/user, mob/living/carbon/human/target)
 	if(!can_use(user))
@@ -123,6 +123,15 @@
 	else if(D.lying)
 		D.forcesay(GLOB.hit_appends)
 	return TRUE
+
+/datum/martial_art/proc/attack_reaction(var/mob/living/carbon/human/defender, var/mob/living/carbon/human/attacker, var/obj/item/I, var/visible_message, var/self_message)
+	if(can_use(src) && defender.in_throw_mode && !defender.incapacitated(FALSE, TRUE))
+		if(prob(block_chance))
+			if(visible_message || self_message)
+				defender.visible_message(visible_message, self_message)
+			else
+				defender.visible_message("<span class='warning'>[defender] blocks [I]!</span>")
+			return TRUE
 
 /datum/martial_art/proc/objective_damage(mob/living/user, mob/living/target, damage, damage_type)
 	var/all_objectives = user?.mind?.get_all_objectives()
@@ -224,6 +233,9 @@
 		return
 	if(slot == slot_belt)
 		var/mob/living/carbon/human/H = user
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, "<span class='warning'>In spite of the grandiosity of the belt, you don't feel like getting into any fights.</span>")
+			return
 		style.teach(H,1)
 		to_chat(user, "<span class='sciradio'>You have an urge to flex your muscles and get into a fight. You have the knowledge of a thousand wrestlers before you. You can remember more by using the show info verb in the martial arts tab.</span>")
 
@@ -267,7 +279,7 @@
 /obj/item/sleeping_carp_scroll/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
 		return
-	if(user.mind && (ischangeling(user) || user.mind.vampire)) //Prevents changelings and vampires from being able to learn it
+	if(user.mind && (ischangeling(user) || isvampire(user))) //Prevents changelings and vampires from being able to learn it
 		if(ischangeling(user)) //Changelings
 			to_chat(user, "<span class ='warning'>We try multiple times, but we are not able to comprehend the contents of the scroll!</span>")
 			return
@@ -297,6 +309,18 @@
 /obj/item/CQC_manual/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
 		return
+
+	if(user.mind) //Prevents changelings and vampires from being able to learn it
+		if(ischangeling(user))
+			to_chat(user, "<span class='warning'>We try multiple times, but we simply cannot grasp the basics of CQC!</span>")
+			return
+		else if(isvampire(user)) //Vampires
+			to_chat(user, "<span class='warning'>Your blood lust distracts you from the basics of CQC!</span>")
+			return
+		else if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, "<span class='warning'>The mere thought of combat, let alone CQC, makes your head spin!</span>")
+			return
+
 	to_chat(user, "<span class='boldannounce'>You remember the basics of CQC.</span>")
 
 	var/datum/martial_art/cqc/CQC = new(null)
@@ -336,6 +360,24 @@
 		new /obj/effect/decal/cleanable/ash(get_turf(src))
 		qdel(src)
 
+/obj/item/mr_chang_technique
+	name = "«Aggressive Marketing Technique»"
+	desc = "Even a sneak peek on a cover of this magazine just made you 23 credit of clear profit! Wow!"
+	icon = 'icons/obj/library.dmi'
+	icon_state = "mr_cheng_manual"
+
+/obj/item/mr_chang_technique/attack_self(mob/living/carbon/human/user)
+	if(!istype(user) || !user)
+		return
+	to_chat(user, "<span class='boldannounce'>You remember the basics of mr_chang_technique.</span>")
+
+	var/datum/martial_art/mr_chang/mr_chang = new(null)
+	mr_chang.teach(user)
+	user.temporarily_remove_item_from_inventory(src)
+	visible_message("<span class='warning'>[src] beeps ominously, and a moment later it bursts up in flames.</span>")
+	new /obj/effect/decal/cleanable/ash(get_turf(src))
+	qdel(src)
+
 /obj/item/twohanded/bostaff
 	name = "bo staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts. Can be wielded to both kill and incapacitate."
@@ -372,6 +414,9 @@
 	var/mob/living/carbon/C = target
 	if(C.stat)
 		to_chat(user, "<span class='warning'>It would be dishonorable to attack a foe while [C.p_they()] cannot retaliate.</span>")
+		return
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='warning'>You feel violence is not the answer.</span>")
 		return
 	switch(user.a_intent)
 		if(INTENT_DISARM)
