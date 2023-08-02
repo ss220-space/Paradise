@@ -17,6 +17,7 @@
 	var/additional_access = list()
 	var/obj/item/card/id/ID
 	var/emagged = FALSE
+	var/z_cross = TRUE //Allows using remoters cross-sectory
 
 /obj/item/door_remote/New()
 	..()
@@ -68,7 +69,8 @@
 		D = locate() in get_turf(D)
 	if(!istype(D))
 		return
-	if(D.z != user.z)
+	var/turf/t = get_turf(user)
+	if((D.z != t.z) && !z_cross)
 		to_chat(user, span_danger("[D] is too far away to be controlled!"))
 		return
 	if(HAS_TRAIT(D, TRAIT_CMAGGED))
@@ -206,6 +208,7 @@
 	desc = "High-ranking Syndicate officials only."
 	icon_state = "gangtool-syndie"
 	region_access = list(REGION_TAIPAN)
+	z_cross = FALSE
 
 /obj/item/door_remote/omni/access_tuner
 	name = "access tuner"
@@ -218,9 +221,6 @@
 
 /obj/item/door_remote/omni/access_tuner/afterattack(obj/machinery/door/airlock/D, mob/user)
 	if(!istype(D))
-		return
-	if(D.z != user.z)
-		to_chat(user, span_danger("[D] is too far away to be controlled!"))
 		return
 	if(HAS_TRAIT(D, TRAIT_CMAGGED))
 		to_chat(user, span_danger("The door doesn't respond to [src]!"))
