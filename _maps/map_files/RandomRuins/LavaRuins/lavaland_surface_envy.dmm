@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/turf/simulated/mineral/volcanic/lava_land_surface,
+/turf/simulated/mineral/random/volcanic/hard,
 /area/lavaland/surface/outdoors)
 "b" = (
 /obj/structure/mirror{
@@ -55,6 +55,9 @@
 	icon_state = "wood-broken"
 	},
 /area/ruin/unpowered/misc_lavaruin)
+"l" = (
+/turf/simulated/mineral/random/volcanic/hard/double,
+/area/lavaland/surface/outdoors)
 "n" = (
 /obj/item/clothing/suit/bloated_human,
 /obj/item/clothing/head/human_head,
@@ -218,9 +221,9 @@ f
 (2,1,1) = {"
 a
 a
-a
-a
-a
+l
+l
+l
 a
 a
 a
@@ -230,7 +233,7 @@ f
 (3,1,1) = {"
 a
 a
-a
+l
 Q
 Q
 Q
@@ -241,7 +244,7 @@ f
 "}
 (4,1,1) = {"
 a
-a
+l
 Q
 Q
 T
@@ -253,7 +256,7 @@ y
 "}
 (5,1,1) = {"
 a
-a
+l
 Q
 n
 c
@@ -265,7 +268,7 @@ y
 "}
 (6,1,1) = {"
 a
-a
+l
 Q
 Q
 u
@@ -278,7 +281,7 @@ f
 (7,1,1) = {"
 a
 a
-a
+l
 Q
 Q
 G
@@ -290,7 +293,7 @@ f
 (8,1,1) = {"
 f
 a
-a
+l
 Q
 V
 H
@@ -302,7 +305,7 @@ f
 (9,1,1) = {"
 f
 a
-a
+l
 Q
 N
 B
@@ -314,7 +317,7 @@ f
 (10,1,1) = {"
 f
 a
-a
+l
 Q
 h
 H
@@ -339,7 +342,7 @@ f
 f
 f
 a
-a
+l
 Q
 Q
 Q

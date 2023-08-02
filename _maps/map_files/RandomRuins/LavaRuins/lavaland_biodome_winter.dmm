@@ -368,7 +368,7 @@
 /area/ruin/powered/snow_cabin)
 "tg" = (
 /obj/structure/fans,
-/turf/space,
+/turf/simulated/wall/mineral/wood,
 /area/ruin/powered/snow_cabin)
 "tl" = (
 /turf/simulated/floor/pod/light,
