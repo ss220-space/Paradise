@@ -59,6 +59,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/is_speedslimepotioned = FALSE
 	var/cant_be_faster = FALSE
 	var/armour_penetration = 0 //percentage of armour effectiveness to remove
+	/// Allows you to override the attack animation with an attack effect
+	var/attack_effect_override
 	var/list/allowed = null //suit storage stuff.
 	var/obj/item/uplink/hidden/hidden_uplink = null // All items can have an uplink hidden inside, just remember to add the triggers.
 
@@ -626,12 +628,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
  * Returns `TRUE` if the item is equipped by a mob, `FALSE` otherwise.
  * This might need some error trapping, not sure if get_equipped_items() is safe for non-human mobs.
  */
-/obj/item/proc/is_equipped(include_pockets = FALSE)
+/obj/item/proc/is_equipped(include_pockets = FALSE, include_hands = FALSE)
 	if(!ismob(loc))
 		return FALSE
 
 	var/mob/M = loc
-	if(src in M.get_equipped_items(include_pockets))
+	if(src in M.get_equipped_items(include_pockets, include_hands))
 		return TRUE
 	else
 		return FALSE
@@ -686,14 +688,14 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			return container.handle_item_insertion(src)
 
 	if(drop_on_fail)
-		if(src in user.get_equipped_items(include_pockets = TRUE))
+		if(src in user.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 			user.drop_item_ground(src)
 		else
 			forceMove(drop_location())
 		return FALSE
 
 	if(qdel_on_fail)
-		if(src in user.get_equipped_items(include_pockets = TRUE))
+		if(src in user.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 			user.temporarily_remove_item_from_inventory(src, force = TRUE)
 		qdel(src)
 
@@ -845,13 +847,13 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return
 
 
-/obj/item/throw_impact(atom/A)
-	if(A && !QDELETED(A))
-		SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, A)
-		var/itempush = 1
+/obj/item/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	if(hit_atom && !QDELETED(hit_atom))
+		SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum)
+		var/itempush = TRUE
 		if(w_class < WEIGHT_CLASS_BULKY)
-			itempush = 0 // too light to push anything
-		return A.hitby(src, 0, itempush)
+			itempush = FALSE // too light to push anything
+		return hit_atom.hitby(src, FALSE, itempush, throwingdatum = throwingdatum)
 
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
@@ -943,14 +945,15 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	remove_outline()
 
 
-/obj/item/MouseDrop_T(obj/item/I, mob/user)
-	if(!user || user.incapacitated(ignore_lying = TRUE) || src == I)
-		return
+/obj/item/MouseDrop_T(atom/dropping, mob/user)
+	if(!user || user.incapacitated(ignore_lying = TRUE) || src == dropping)
+		return FALSE
 
-	if(loc && I.loc == loc && istype(loc, /obj/item/storage) && loc.Adjacent(user)) // Are we trying to swap two items in the storage?
+	if(loc && dropping.loc == loc && istype(loc, /obj/item/storage) && loc.Adjacent(user)) // Are we trying to swap two items in the storage?
 		var/obj/item/storage/S = loc
-		S.swap_items(src, I, user)
+		S.swap_items(src, dropping, user)
 	remove_outline() //get rid of the hover effect in case the mouse exit isn't called if someone drags and drops an item and somthing goes wrong
+	return TRUE
 
 
 /obj/item/proc/apply_outline(mob/user, outline_color = null)

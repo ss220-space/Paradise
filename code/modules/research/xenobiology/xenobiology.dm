@@ -506,11 +506,22 @@
 	O.add_atom_colour("#FF0000", WASHABLE_COLOUR_PRIORITY)
 	qdel(src)
 
-/obj/item/slimepotion/speed/MouseDrop(obj/over_object)
-	if(usr.incapacitated())
-		return
-	if(loc == usr && loc.Adjacent(over_object))
-		afterattack(over_object, usr, TRUE)
+
+/obj/item/slimepotion/speed/MouseDrop(atom/over)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	var/mob/user = usr
+	if(istype(over, /obj/screen))
+		return FALSE
+
+	if(over == user || loc != user || user.incapacitated() || !ishuman(user))
+		return FALSE
+
+	afterattack(over, user, TRUE)
+	return TRUE
+
 
 /obj/item/slimepotion/clothing
 	var/inapplicable_caption
@@ -562,11 +573,22 @@
 	if (!uses)
 		qdel(src)
 
-/obj/item/slimepotion/clothing/MouseDrop(obj/over_object)
-	if(usr.incapacitated())
-		return
-	if(loc == usr && loc.Adjacent(over_object))
-		afterattack(over_object, usr, TRUE)
+
+/obj/item/slimepotion/clothing/MouseDrop(atom/over)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	var/mob/user = usr
+	if(istype(over, /obj/screen))
+		return FALSE
+
+	if(over == user || loc != user || user.incapacitated() || !ishuman(user))
+		return FALSE
+
+	afterattack(over, user, TRUE)
+	return TRUE
+
 
 /obj/item/slimepotion/clothing/fireproof
 	name = "slime chill potion"
@@ -741,7 +763,7 @@
 /obj/effect/timestop/New()
 	..()
 	for(var/mob/living/M in GLOB.player_list)
-		for(var/obj/effect/proc_holder/spell/aoe_turf/conjure/timestop/T in M.mind.spell_list) //People who can stop time are immune to timestop
+		for(var/obj/effect/proc_holder/spell/aoe/conjure/timestop/T in M.mind.spell_list) //People who can stop time are immune to timestop
 			immune |= M
 
 

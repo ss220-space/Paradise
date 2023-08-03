@@ -386,12 +386,11 @@
 			add_misc_logs(what = "Cube ([monkey_type]) inflated, last touched by: " + fingerprintslast)
 		else
 			add_misc_logs(what = "Cube ([monkey_type]) inflated, last touched by: NO_DATA")
-		var/mob/living/carbon/human/creature = new /mob/living/carbon/human(get_turf(src))
+		var/mob/living/carbon/human/lesser/creature = new(get_turf(src), monkey_type)
 		if(faction)
 			creature.faction = faction
 		if(LAZYLEN(fingerprintshidden))
 			creature.fingerprintshidden = fingerprintshidden
-		creature.set_species(monkey_type)
 		SSmobs.cubemonkeys += creature
 		qdel(src)
 
@@ -428,7 +427,7 @@
 	tastes = list("egg" = 1)
 	foodtype = EGG
 
-/obj/item/reagent_containers/food/snacks/egg/throw_impact(atom/hit_atom)
+/obj/item/reagent_containers/food/snacks/egg/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
 	var/turf/T = get_turf(hit_atom)
 	new/obj/effect/decal/cleanable/egg_smudge(T)
