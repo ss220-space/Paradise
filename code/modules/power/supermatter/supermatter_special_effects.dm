@@ -115,15 +115,34 @@
 	var/sentience_type = SENTIENCE_ORGANIC
 	for(var/mob/living/simple_animal/animal in GLOB.alive_mob_list)
 		if(animal.z == src.z)
-			if(prob(SIMPLE_ANIMAL_MINDGIVING_CHANCE))
-				if(!(animal in GLOB.player_list) && !animal.mind && (animal.sentience_type == sentience_type))
+			if(!(animal in GLOB.player_list) && !animal.mind && (animal.sentience_type == sentience_type))
+				if(prob(SIMPLE_ANIMAL_MINDGIVING_CHANCE))
 					INVOKE_ASYNC(src, PROC_REF(give_mind), animal)
+
+	for(var/mob/living/carbon/human/lesser/monke in GLOB.alive_mob_list)
+		var/turf/T = get_turf(monke)
+		if (T.z != src.z)
+			continue
+		if (monke.health <= monke.maxHealth - 50)
+			continue
+		if(!(monke in GLOB.player_list) && !monke.mind)
+			if(prob(SIMPLE_ANIMAL_MINDGIVING_CHANCE))
+				INVOKE_ASYNC(src, PROC_REF(give_mind_lesser), monke)
 	return
+
+/datum/supermatter_explosive_effects/proc/give_mind_lesser(mob/living/carbon/human/lesser/monke)
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to awaken as [monke]?", ROLE_SENTIENT, TRUE, source = monke)
+	if(!length(candidates))
+		return
+	var/mob/SG = pick(candidates)
+	monke.key = SG.key
+	monke.health = monke.maxHealth
+	greet_sentient(monke)
 
 //Gives mind to a random simple animal. Works asynchronically.
 /datum/supermatter_explosive_effects/proc/give_mind(mob/living/simple_animal/animal)
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to awaken as a [animal]?", ROLE_SENTIENT, TRUE, source = animal.type)
-	if(!candidates)
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to awaken as [animal]?", ROLE_SENTIENT, TRUE, source = animal)
+	if(!length(candidates))
 		return
 	var/mob/SG = pick(candidates)
 	animal.key = SG.key
