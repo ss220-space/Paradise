@@ -145,5 +145,8 @@
 //All seeds-on-ground will become strange-like
 /datum/supermatter_explosive_effects/proc/handle_seeds_mutation()
 	for(var/obj/item/seeds/seed in GLOB.plant_seeds)
-		if(seed.z == src.z)
+		var/turf/t = seed.get_loc_turf()
+		if(!t)
+			continue
+		if(t.z == src.z)
 			seed.transform_into_random()
