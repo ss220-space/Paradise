@@ -142,7 +142,7 @@
 	 						human level intelligence and the ability to speak and understand \
 							human language!"))
 
-//All seeds-on-ground will become strange-like
+//All seeds in sector will become strange-like
 /datum/supermatter_explosive_effects/proc/handle_seeds_mutation()
 	for(var/obj/item/seeds/seed in GLOB.plant_seeds)
 		var/turf/t = seed.get_loc_turf()
