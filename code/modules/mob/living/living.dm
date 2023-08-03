@@ -1028,6 +1028,10 @@
 		var/obj/mecha/M = loc
 		loc_temp =  M.return_temperature()
 
+	if(isvampirecoffin(loc))
+		var/obj/structure/closet/coffin/vampire/coffin = loc
+		loc_temp = coffin.return_temperature()
+
 	else if(istype(loc, /obj/spacepod))
 		var/obj/spacepod/S = loc
 		loc_temp = S.return_temperature()

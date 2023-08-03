@@ -436,6 +436,11 @@
 	var/message = "<span class='warning'>[target.declent_ru(NOMINATIVE)] блокиру[pluralize_ru(target.gender,"ет","ют")] попытку захвата [user.declent_ru(GENITIVE)]!</span>"
 	if(target.check_martial_art_defense(target, user, null, message))
 		return FALSE
+
+	var/datum/antagonist/vampire/vampire = user.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(vampire?.get_ability(/datum/vampire_passive/upgraded_grab) && vampire.grab_act(user, target))
+		return TRUE
+
 	if(attacker_style && attacker_style.grab_act(user, target) == TRUE)
 		return TRUE
 	else
