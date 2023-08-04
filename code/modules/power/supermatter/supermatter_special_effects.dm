@@ -169,6 +169,7 @@
 			continue
 		if(t.z == src.z)
 			if(prob(50))
+				//We don't actually make them *strange*, just changing their properties to look like *strange* because of optimization.
 				seed.transform_into_random()
 			else
 				seed.product = /obj/item/reagent_containers/food/snacks/grown/random
