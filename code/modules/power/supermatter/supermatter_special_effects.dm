@@ -9,10 +9,10 @@
 	var/z = 0
 
 /datum/supermatter_explosive_effects/proc/handle_special_effects()
-	//1. All APCs in current sector will roll 40% chance for breaking
-	addtimer(CALLBACK(src, PROC_REF(handle_apc_breaking)), SPECIAL_EFFECTS_TIMER_DELAY)
-	//2. All machinery will have 30% on each one machine messing up wires AND 20% of having damage
-	addtimer(CALLBACK(src, PROC_REF(handle_machinery_breakdown)), SPECIAL_EFFECTS_TIMER_DELAY*2)
+	//1. All machinery will have 30% on each one machine messing up wires AND 20% of having damage
+	addtimer(CALLBACK(src, PROC_REF(handle_machinery_breakdown)), SPECIAL_EFFECTS_TIMER_DELAY)
+	//2. All APCs in current sector will roll 40% chance for breaking
+	addtimer(CALLBACK(src, PROC_REF(handle_apc_breaking)), SPECIAL_EFFECTS_TIMER_DELAY*2)
 	//3. Ionospheric anomaly
 	addtimer(CALLBACK(src, PROC_REF(handle_ion_storm)), SPECIAL_EFFECTS_TIMER_DELAY*3)
 	//4. Give every simplemob on current z level chance to be open-minded
