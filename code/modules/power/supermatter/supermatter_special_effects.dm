@@ -168,4 +168,8 @@
 		if(!t)
 			continue
 		if(t.z == src.z)
-			seed.transform_into_random()
+			if(prob(50))
+				seed.transform_into_random()
+			else
+				seed.product = /obj/item/reagent_containers/food/snacks/grown/random
+				seed.transform_into_random()
