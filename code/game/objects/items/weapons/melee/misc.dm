@@ -160,8 +160,8 @@
 	force = 8
 	throwforce = 8
 	var/bonus_damage = 10
-	icon_state = "flyswatter"
-	item_state = "flyswatter"
+	icon_state = "big_iron"
+	item_state = "big_iron"
 	attack_verb = list("burned", "dominated", "robusted")
 
 /obj/item/melee/bigiron/afterattack(atom/target, mob/user, proximity, params)
