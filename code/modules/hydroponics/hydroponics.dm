@@ -1,3 +1,5 @@
+#define LID_LAYER OBJ_LAYER + 0.02
+
 /obj/machinery/hydroponics
 	name = "hydroponics tray"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
@@ -288,9 +290,6 @@
 			overlays += image('icons/obj/hydroponics/equipment.dmi', icon_state = "gaia_blessing")
 		set_light(3)
 
-	if(lid_state)
-		overlays += image('icons/obj/hydroponics/equipment.dmi', icon_state = "hydrocover")
-
 	update_icon_hoses()
 
 	if(myseed)
@@ -303,6 +302,9 @@
 			set_light(G.glow_range(myseed), G.glow_power(myseed), G.glow_color)
 		else
 			set_light(0)
+
+	if(lid_state)
+		overlays += image(icon='icons/obj/hydroponics/equipment.dmi', icon_state = "hydrocover", layer = LID_LAYER)
 
 	return
 
