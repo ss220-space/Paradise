@@ -44,6 +44,7 @@
 	addtimer(CALLBACK(src, PROC_REF(handle_alarm_breakdown)), SPECIAL_EFFECTS_TIMER_DELAY*3)
 	addtimer(CALLBACK(src, PROC_REF(handle_mulebot_breakdown)), SPECIAL_EFFECTS_TIMER_DELAY*4)
 	addtimer(CALLBACK(src, PROC_REF(handle_autolathe_breakdown)), SPECIAL_EFFECTS_TIMER_DELAY*5)
+	addtimer(CALLBACK(src, PROC_REF(handle_camera_breakdown)), SPECIAL_EFFECTS_TIMER_DELAY*6)
 
 //Break vendors
 /datum/supermatter_explosive_effects/proc/handle_vendor_breakdown()
@@ -103,6 +104,12 @@
 			if(prob(DETONATION_MACHINE_BREAKDOWN_CHANCE))
 				autolathe.wires?.cut(WIRE_AUTOLATHE_DISABLE)
 				autolathe.take_damage(40, BURN)
+
+/datum/supermatter_explosive_effects/proc/handle_camera_breakdown()
+	for(var/obj/machinery/camera/camera in GLOB.cameranet.cameras)
+		if(camera.z == src.z)
+			if(prob(DETONATION_MACHINE_EFFECT_CHANCE))
+				camera.wires?.pulse_random()
 
 //Summons ion storm on tcomms without warning
 /datum/supermatter_explosive_effects/proc/handle_ion_storm()
