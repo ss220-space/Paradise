@@ -1,3 +1,4 @@
+#define PLANT_LAYER OBJ_LAYER + 0.01
 #define LID_LAYER OBJ_LAYER + 0.02
 
 /obj/machinery/hydroponics
@@ -329,7 +330,7 @@
 	else
 		var/t_growthstate = clamp(round((age / myseed.maturation) * myseed.growthstages), 1, myseed.growthstages)
 		I = image(icon = myseed.growing_icon, icon_state = "[myseed.icon_grow][t_growthstate]")
-	I.layer = OBJ_LAYER + 0.01
+	I.layer = PLANT_LAYER
 	overlays += I
 
 /obj/machinery/hydroponics/proc/update_icon_lights()
@@ -1057,3 +1058,6 @@
 		qdel(src)
 	else
 		return ..()
+
+#undef PLANT_LAYER
+#undef LID_LAYER
