@@ -184,6 +184,9 @@
 			if(locate(/obj/structure/clockwork) in usr.drop_location())
 				to_chat(usr, "<span class='warning'>There is a structure here!</span>")
 				return FALSE
+			if(locate(/obj/structure/falsewall) in usr.drop_location())
+				to_chat(usr, "<span class='warning'>There is a structure here!</span>")
+				return FALSE
 		var/area/A = get_area(usr)
 		if(R.result_type == /obj/structure/clockwork/functional/beacon)
 			if(!is_station_level(usr.z))
@@ -480,10 +483,10 @@
 /obj/item/stack/proc/merge_without_del(obj/item/stack/target_stack, limit)
 	// Cover edge cases where multiple stacks are being merged together and haven't been deleted properly.
 	// Also cover edge case where a stack is being merged into itself, which is supposedly possible.
-	//if(QDELETED(target_stack))
-	//	CRASH("Stack merge attempted on qdeleted target stack.")
-	//if(QDELETED(src))	// omitted until I find a way
-	//	CRASH("Stack merge attempted on qdeleted source stack.")
+	if(!target_stack)
+		CRASH("Stack merge attempted on qdeleted target stack.")
+	if(!src)
+		CRASH("Stack merge attempted on qdeleted source stack.")
 	if(target_stack == src)
 		CRASH("Stack attempted to merge into itself.")
 
