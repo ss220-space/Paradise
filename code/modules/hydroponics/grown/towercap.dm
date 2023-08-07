@@ -65,7 +65,7 @@
 			if(G.amount >= G.max_amount)
 				continue
 			new_amount += G.amount
-		if(new_amount)
+		if(new_amount > 1)
 			to_chat(user, span_notice("You add the newly-formed [plank_name] to the stack. It now contains [new_amount] [plank_name]."))
 		qdel(src)
 
