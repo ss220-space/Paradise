@@ -302,7 +302,7 @@
 
 /datum/design/laser_arm
 	name = "Laser arm implant"
-	desc = "An arm cannon implant that fires lethal laser beams. Come with a self-charge."
+	desc = "An arm cannon implant that fires lethal laser beams. Comes with a self-charging module."
 	id = "laser_arm_imp"
 	req_tech = list("materials" = 7, "magnets" = 7, "powerstorage" = 7, "plasmatech" = 7, "biotech" = 7, "combat" = 7)
 	build_type = PROTOLATHE
