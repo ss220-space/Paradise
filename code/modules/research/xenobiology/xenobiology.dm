@@ -254,7 +254,7 @@
 		to_chat(user, "<span class='notice'>You offer [src.name] to [SM]...</span>")
 		being_used = TRUE
 
-		var/ghostmsg = "Play as [SM.name], pet of [user.name]?\nReason: [reason_text]\n"
+		var/ghostmsg = "Play as [SM.name], pet of [user.name]?[reason_text? "\nReason: [reason_text]\n":""]"
 		var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_SENTIENT, FALSE, 10 SECONDS, source = M, reason = reason_text)
 
 		if(!src)
@@ -308,7 +308,7 @@
 		to_chat(user, "<span class='notice'>Вы предлагаете [src] [LF]... Он[genderize_ru(LF.gender, "", "а", "о", "и")] осторожно осматрива[pluralize_ru(LF.gender,"ет","ют")] его</span>")
 		being_used = TRUE
 
-		var/ghostmsg = "Play as [LF.name], pet of [user.name]?\nReason: [reason_text]\n"
+		var/ghostmsg = "Play as [LF.name], pet of [user.name]?[reason_text? "\nReason: [reason_text]\n":""]"
 		var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_SENTIENT, FALSE, 10 SECONDS, source = M, reason = reason_text)
 
 		if(!src)
