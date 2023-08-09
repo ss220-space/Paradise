@@ -288,7 +288,7 @@
 		owner.clear_alert("drunk")
 		owner.sound_environment_override = SOUND_ENVIRONMENT_NONE
 	if(owner.mind && istype(owner.mind.martial_art, DRUNK_BRAWLING))
-		
+		owner.mind.martial_art.remove(owner)
 	return ..()
 
 /datum/status_effect/transient/drunkenness/tick()
