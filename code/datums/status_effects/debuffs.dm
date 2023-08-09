@@ -287,6 +287,8 @@
 		alert_thrown = FALSE
 		owner.clear_alert("drunk")
 		owner.sound_environment_override = SOUND_ENVIRONMENT_NONE
+	if(owner.mind && istype(owner.mind.martial_art, DRUNK_BRAWLING))
+		
 	return ..()
 
 /datum/status_effect/transient/drunkenness/tick()
@@ -321,7 +323,7 @@
 				var/datum/martial_art/MA = new
 				MA.teach(owner, TRUE)
 		else if(istype(M.martial_art, DRUNK_BRAWLING))
-			M.martial_art.remove(src)
+			M.martial_art.remove(owner)
 	// THRESHOLD_CONFUSION (80 SECONDS)
 	if(actual_strength >= THRESHOLD_CONFUSION && prob(0.66))
 		owner.AdjustConfused(6 SECONDS, bound_lower = 2 SECONDS, bound_upper = 1 MINUTES)
