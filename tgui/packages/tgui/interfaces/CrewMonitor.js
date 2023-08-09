@@ -34,14 +34,16 @@ const getStatColor = (cm, critThreshold) => {
 
 export const CrewMonitor = (props, context) => {
   const { act, data } = useBackend(context);
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', data.isBS ? 0 : 1);
+  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', data.IndexToggler);
   const decideTab = index => {
     switch (index) {
       case 0:
         return <ComCrewMonitorDataView />;
       case 1:
-        return <CrewMonitorDataView />;
+        return <SecCrewMonitorDataView />;
       case 2:
+        return <CrewMonitorDataView />;
+      case 3:
         return <CrewMonitorMapView />;
       default:
         return "WE SHOULDN'T BE HERE!";
@@ -63,16 +65,26 @@ export const CrewMonitor = (props, context) => {
                 </Tabs.Tab>
               )
               : null}
+            {data.isBM
+              ? (
+                <Tabs.Tab
+                  key="SecDataView"
+                  selected={1 === tabIndex}
+                  onClick={() => setTabIndex(1)}>
+                  <Icon name="table" /> Security Data View
+                </Tabs.Tab>
+              )
+              : null}
             <Tabs.Tab
               key="DataView"
-              selected={1 === tabIndex}
-              onClick={() => setTabIndex(1)}>
+              selected={2 === tabIndex}
+              onClick={() => setTabIndex(2)}>
               <Icon name="table" /> Data View
             </Tabs.Tab>
             <Tabs.Tab
               key="MapView"
-              selected={2 === tabIndex}
-              onClick={() => setTabIndex(2)}>
+              selected={3 === tabIndex}
+              onClick={() => setTabIndex(3)}>
               <Icon name="map-marked-alt" /> Map View
             </Tabs.Tab>
           </Tabs>
@@ -190,6 +202,17 @@ const ComCrewMonitorDataView = (_properties, context) => {
   return (
     <CrewMonitorTable
       crewData={commandCrew}
+      context={context}
+    />
+  );
+};
+
+const SecCrewMonitorDataView = (_properties, context) => {
+  const { act, data } = useBackend(context);
+  const securityCrew = data.crewmembers.filter(cm => cm.is_security) || [];
+  return (
+    <CrewMonitorTable
+      crewData={securityCrew}
       context={context}
     />
   );

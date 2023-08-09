@@ -50,3 +50,11 @@
 /obj/item/sensor_device/command/Initialize(mapload)
 	. = ..()
 	crew_monitor.with_command = TRUE
+
+/obj/item/sensor_device/security
+	name = "security crew monitor"
+	icon_state = "c_scanner"
+
+/obj/item/sensor_device/security/Initialize(mapload)
+	. = ..()
+	crew_monitor.with_security = TRUE
