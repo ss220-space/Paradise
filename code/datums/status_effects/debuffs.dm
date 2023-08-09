@@ -320,7 +320,7 @@
 	if(M)
 		if(actual_strength >= THRESHOLD_BRAWLING)
 			if(!istype(M.martial_art, DRUNK_BRAWLING))
-				var/datum/martial_art/MA = new
+				var/datum/martial_art/drunk_brawling/MA = new
 				MA.teach(owner, TRUE)
 		else if(istype(M.martial_art, DRUNK_BRAWLING))
 			M.martial_art.remove(owner)
