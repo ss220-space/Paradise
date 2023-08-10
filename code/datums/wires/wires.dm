@@ -381,9 +381,10 @@
  *
  */
 /datum/wires/proc/pulse_random()
-	if(is_cut(wires[rand(1, length(wires))]))
+	var/cable = wires[rand(1, length(wires))]
+	if(is_cut(cable))
 		return
-	on_pulse(wires[rand(1, length(wires))])
+	on_pulse(cable)
 
 /**
  * Pulses the wire associated with the given color.
