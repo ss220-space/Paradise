@@ -139,7 +139,6 @@
 		else
 			return
 	else if(istype(C, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/cable = C
 		var/obj/structure/lattice/catwalk/fireproof/W = locate(/obj/structure/lattice/catwalk/fireproof, src)
 		if(!W)
 			return
