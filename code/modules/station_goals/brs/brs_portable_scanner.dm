@@ -333,10 +333,10 @@
 
 /obj/machinery/brs_portable_scanner/proc/is_there_any_servers()
 	for(var/obj/machinery/brs_server/server as anything in GLOB.bluespace_rifts_server_list)
-		if(server.z == z)
-			return TRUE
 		if(server.stat & (NOPOWER|BROKEN))
 			continue
+		if(server.z == z)
+			return TRUE
 	return FALSE
 
 #undef SCAN_OFF
