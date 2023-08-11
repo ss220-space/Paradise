@@ -269,7 +269,7 @@
 			light_impact_range = radius,
 			flash_range = radius, 
 			flame_range =  radius, 
-			cause = "Bluespace rift event \"[name]\""
+			cause = "Bluespace rift event \"[event_meta.name]\""
 		)
 
 /datum/event/bluespace_rift_event/explosions/end()
@@ -290,7 +290,7 @@
 			heavy_range = radius,
 			light_range = radius, 
 			log =  TRUE, 
-			cause = "Bluespace rift event \"[name]\""
+			cause = "Bluespace rift event \"[event_meta.name]\""
 		)
 
 /** 
@@ -300,6 +300,11 @@
 
 /datum/event/bluespace_rift_event/explosions/random_chem_effect/start()
 	for(var/i in 1 to num_explosions)
+
+		if(isnull(turfs_in_range))
+			// Something has slept, the event is already over.
+			break
+
 		var/epicenter = pick_n_take(turfs_in_range)
 
 		// Spawn a random grenade and immediately detonate it

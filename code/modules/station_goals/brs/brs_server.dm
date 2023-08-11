@@ -261,7 +261,7 @@
 		var/record = get_record(rift_id)
 		uidata["goals"] += list(list(
 			"riftId" = rift_id,
-			"riftName" = goal.rift.name,
+			"riftName" = goal.rift ? goal.rift.name : "Unknown",
 			"targetResearchPoints" = goal.target_research_points,
 			"rewardGiven" = goal.reward_given,
 			"researchPoints" = data[record][DATA_RECORD_GOAL_POINTS],
@@ -304,7 +304,7 @@
 		for(var/datum/station_goal/bluespace_rift/goal in SSticker.mode.station_goals)
 			var/record = server.get_record(goal.UID())
 			server_probe_points += list(list(
-				"riftName" = goal.rift.name,
+				"riftName" = goal.rift ? goal.rift.name : "Unknown",
 				"probePoints" = server.data[record][DATA_RECORD_PROBE_POINTS],
 			))
 
