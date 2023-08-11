@@ -10940,13 +10940,6 @@
 /obj/item/paper/crumpled,
 /turf/simulated/floor/plasteel/airless,
 /area/space)
-"aBY" = (
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint2)
 "aBZ" = (
 /obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel/airless,
@@ -12539,13 +12532,6 @@
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/wood,
 /area/crew_quarters/courtroom)
-"aGw" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint2)
 "aGx" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -18403,11 +18389,14 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/sortjunction{
+	dir = 8;
+	icon_state = "pipe-j2s";
+	name = "Library";
+	sortType = 16
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
@@ -19295,10 +19284,6 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "aYL" = (
@@ -19363,10 +19348,7 @@
 "aYY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
-	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "aYZ" = (
@@ -20743,11 +20725,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/sortjunction{
-	dir = 4;
-	icon_state = "pipe-j2s";
-	name = "Library";
-	sortType = 16
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
@@ -22044,10 +22024,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "bfo" = (
@@ -84006,9 +83983,6 @@
 	},
 /area/security/range)
 "tuP" = (
-/mob/living/simple_animal/hostile/hivebot{
-	faction = list("slime")
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 4
@@ -130642,9 +130616,9 @@ yig
 eAt
 aMz
 bbY
-bkN
-aBY
-aGw
+aGY
+aGY
+aGY
 aGY
 aGY
 aTg
@@ -130899,7 +130873,7 @@ aMz
 aMz
 aMz
 bbY
-bkN
+aGY
 aGY
 bau
 bau
@@ -131156,7 +131130,7 @@ bbF
 rcs
 aZX
 aWg
-bkN
+aGY
 bau
 bau
 btl
@@ -131413,7 +131387,7 @@ aVQ
 cXQ
 aGY
 bbY
-bkN
+aGY
 bau
 bco
 bhw
