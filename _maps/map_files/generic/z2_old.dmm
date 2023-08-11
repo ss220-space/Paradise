@@ -10710,6 +10710,111 @@
 	icon_state = "grimy"
 	},
 /area/centcom/zone1)
+"ifK" = (
+/obj/structure/window/reinforced{
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	layer = 3.4
+	},
+/obj/structure/window/reinforced{
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	dir = 1;
+	layer = 2.8
+	},
+/obj/structure/closet/secure_closet/guncabinet{
+	anchored = 1;
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	layer = 2.9;
+	name = "Automatic Shotgun";
+	req_access = list(114)
+	},
+/obj/item/gun/projectile/automatic/shotgun/bulldog{
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	name = "Pancor Jackhammer"
+	},
+/obj/item/gun/projectile/automatic/shotgun/bulldog{
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	name = "Pancor Jackhammer"
+	},
+/obj/item/gun/projectile/automatic/shotgun/bulldog{
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	name = "Pancor Jackhammer"
+	},
+/obj/item/gun/projectile/automatic/shotgun/bulldog{
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	name = "Pancor Jackhammer"
+	},
+/obj/item/gun/projectile/automatic/shotgun/bulldog{
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	name = "Pancor Jackhammer"
+	},
+/obj/item/gun/projectile/automatic/shotgun/bulldog{
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	name = "Pancor Jackhammer"
+	},
+/obj/item/gun/projectile/automatic/shotgun/bulldog{
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	name = "Pancor Jackhammer"
+	},
+/obj/item/gun/projectile/automatic/shotgun/bulldog{
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	name = "Pancor Jackhammer"
+	},
+/obj/item/gun/projectile/automatic/shotgun/bulldog{
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	name = "Pancor Jackhammer"
+	},
+/obj/item/gun/projectile/automatic/shotgun/bulldog{
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	name = "Pancor Jackhammer"
+	},
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
+	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
+	name = "12g duffelbag"
+	},
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
+	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
+	name = "12g duffelbag"
+	},
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
+	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
+	name = "12g duffelbag"
+	},
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
+	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
+	name = "12g duffelbag"
+	},
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
+	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
+	name = "12g duffelbag"
+	},
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
+	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
+	name = "12g duffelbag"
+	},
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
+	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
+	name = "12g duffelbag"
+	},
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
+	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
+	name = "12g duffelbag"
+	},
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
+	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
+	name = "12g duffelbag"
+	},
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
+	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
+	name = "12g duffelbag"
+	},
+/turf/simulated/floor/indestructible{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
 "igo" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /obj/structure/railing{
@@ -12840,20 +12945,6 @@
 	icon_state = "iron3"
 	},
 /area/syndicate_mothership)
-"jEO" = (
-/obj/docking_port/stationary/transit{
-	dir = 8;
-	dwidth = 9;
-	height = 30;
-	id = "freegolem_transit";
-	name = "free golem in transit";
-	turf_type = /turf/space/transit/west;
-	width = 16
-	},
-/turf/space/transit/west{
-	icon_state = "speedspace_1"
-	},
-/area/space)
 "jEV" = (
 /obj/docking_port/stationary{
 	area_type = /area/syndicate_mothership;
@@ -15222,6 +15313,35 @@
 	icon_state = "carpet"
 	},
 /area/centcom/zone1)
+"lmy" = (
+/obj/structure/closet/secure_closet/guncabinet{
+	anchored = 1;
+	name = "Weapons";
+	req_access = null
+	},
+/obj/item/gun/projectile/revolver/doublebarrel,
+/obj/item/gun/projectile/revolver/doublebarrel,
+/obj/item/gun/projectile/revolver/doublebarrel,
+/obj/item/gun/projectile/revolver/doublebarrel,
+/obj/item/gun/projectile/revolver/doublebarrel,
+/obj/item/gun/projectile/revolver/doublebarrel,
+/obj/item/ammo_box/magazine/m12g,
+/obj/item/ammo_box/magazine/m12g,
+/obj/item/ammo_box/magazine/m12g,
+/obj/item/ammo_box/magazine/m12g,
+/obj/item/ammo_box/magazine/m12g,
+/obj/item/ammo_box/magazine/m12g,
+/obj/item/ammo_box/magazine/m12g,
+/obj/item/ammo_box/magazine/m12g,
+/obj/item/ammo_box/magazine/m12g,
+/obj/item/ammo_box/magazine/m12g,
+/obj/item/ammo_box/magazine/m12g,
+/obj/item/ammo_box/magazine/m12g,
+/turf/simulated/floor/indestructible{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ussp_ship)
 "lmC" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/tommygun,
@@ -15583,111 +15703,6 @@
 	icon_state = "stage_bleft"
 	},
 /area/centcom/jail)
-"lBX" = (
-/obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	layer = 3.4
-	},
-/obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	dir = 1;
-	layer = 2.8
-	},
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	layer = 2.9;
-	name = "Automatic Shotgun";
-	req_access = list(114)
-	},
-/obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
-	name = "Pancor Jackhammer"
-	},
-/obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
-	name = "Pancor Jackhammer"
-	},
-/obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
-	name = "Pancor Jackhammer"
-	},
-/obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
-	name = "Pancor Jackhammer"
-	},
-/obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
-	name = "Pancor Jackhammer"
-	},
-/obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
-	name = "Pancor Jackhammer"
-	},
-/obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
-	name = "Pancor Jackhammer"
-	},
-/obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
-	name = "Pancor Jackhammer"
-	},
-/obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
-	name = "Pancor Jackhammer"
-	},
-/obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
-	name = "Pancor Jackhammer"
-	},
-/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
-	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
-	name = "12g duffelbag"
-	},
-/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
-	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
-	name = "12g duffelbag"
-	},
-/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
-	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
-	name = "12g duffelbag"
-	},
-/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
-	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
-	name = "12g duffelbag"
-	},
-/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
-	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
-	name = "12g duffelbag"
-	},
-/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
-	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
-	name = "12g duffelbag"
-	},
-/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
-	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
-	name = "12g duffelbag"
-	},
-/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
-	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
-	name = "12g duffelbag"
-	},
-/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
-	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
-	name = "12g duffelbag"
-	},
-/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
-	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
-	name = "12g duffelbag"
-	},
-/turf/simulated/floor/indestructible{
-	icon_state = "dark"
-	},
-/area/centcom/specops)
 "lBZ" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Prison Cell";
@@ -23171,6 +23186,20 @@
 	},
 /turf/space,
 /area/space)
+"qKD" = (
+/obj/docking_port/stationary/transit{
+	dir = 8;
+	dwidth = 9;
+	height = 30;
+	id = "freegolem_transit";
+	name = "free golem in transit";
+	turf_type = /turf/space/transit/west;
+	width = 16
+	},
+/turf/space/transit/west{
+	icon_state = "speedspace_1"
+	},
+/area/space)
 "qKG" = (
 /obj/structure/table/holotable,
 /obj/machinery/readybutton,
@@ -24790,35 +24819,6 @@
 	icon_state = "darkred"
 	},
 /area/centcom/zone3)
-"rQA" = (
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	name = "Weapons";
-	req_access = null
-	},
-/obj/item/gun/projectile/revolver/doublebarrel,
-/obj/item/gun/projectile/revolver/doublebarrel,
-/obj/item/gun/projectile/revolver/doublebarrel,
-/obj/item/gun/projectile/revolver/doublebarrel,
-/obj/item/gun/projectile/revolver/doublebarrel,
-/obj/item/gun/projectile/revolver/doublebarrel,
-/obj/item/ammo_box/magazine/m12g/buckshot,
-/obj/item/ammo_box/magazine/m12g/buckshot,
-/obj/item/ammo_box/magazine/m12g/buckshot,
-/obj/item/ammo_box/magazine/m12g/buckshot,
-/obj/item/ammo_box/magazine/m12g/buckshot,
-/obj/item/ammo_box/magazine/m12g/buckshot,
-/obj/item/ammo_box/magazine/m12g/buckshot,
-/obj/item/ammo_box/magazine/m12g/buckshot,
-/obj/item/ammo_box/magazine/m12g/buckshot,
-/obj/item/ammo_box/magazine/m12g/buckshot,
-/obj/item/ammo_box/magazine/m12g/buckshot,
-/obj/item/ammo_box/magazine/m12g/buckshot,
-/turf/simulated/floor/indestructible{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/ussp_ship)
 "rQK" = (
 /turf/simulated/floor/indestructible{
 	icon_state = "darkredcorners"
@@ -40448,7 +40448,7 @@ lAC
 lAC
 lAC
 lAC
-jEO
+qKD
 lAC
 lAC
 lAC
@@ -83675,7 +83675,7 @@ noL
 noL
 ffr
 dJo
-lBX
+ifK
 tKP
 mZi
 kyn
@@ -85772,7 +85772,7 @@ eIW
 eIW
 fOy
 gvF
-rQA
+lmy
 sjT
 sjT
 sjT
