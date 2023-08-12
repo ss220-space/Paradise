@@ -79,6 +79,17 @@
 		if(is_target_reached())
 			change_direction()
 
+/** Returns `TRUE` if the rift is close to a singularity or tesla, `FLASE` otherwise. 
+	Use this before doing anything destructive.
+*/
+/obj/effect/abstract/bluespace_rift/proc/is_close_to_singularity(radius = 15)
+	for(var/singularity in GLOB.singularities)
+		if(!atoms_share_level(src, singularity))
+			continue
+		if(get_dist(src, singularity) <= radius)
+			return TRUE
+	return FALSE
+
 /** Check if the object is on the right z-level. If not, teleport it to the right z-level. */
 /obj/effect/abstract/bluespace_rift/proc/check_z()
 	if(isnull(rift_z))

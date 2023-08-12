@@ -125,14 +125,20 @@
 	pick_rift_objects()
 
 /datum/event/bluespace_rift_event/proc/pick_rift_objects()
+	rift_objects = list()
+
 	if(!istype(event_meta, /datum/event_meta/bluespace_rift_event_meta))
-		rift_objects = list()
 		return
+
 	var/datum/event_meta/bluespace_rift_event_meta/t_meta = event_meta
 	if(!length(t_meta.rift.rift_objects))
-		rift_objects = list()
 		return
-	rift_objects = t_meta.rift.rift_objects
+
+	for(var/obj/effect/abstract/bluespace_rift/rift_obj as anything in t_meta.rift.rift_objects)
+		if(rift_obj.is_close_to_singularity())
+			// Don't blow up the engine area
+			continue
+		rift_objects += rift_obj
 
 // The class is not supposed to have any instances, but let's add something funny just in case it does.
 /datum/event/bluespace_rift_event/start()
