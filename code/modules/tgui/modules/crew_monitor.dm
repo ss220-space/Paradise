@@ -45,7 +45,7 @@
 		data["isBS"] = 1
 		data["IndexToggler"] = 0
 	else if(with_security)
-		data["isBM"] = 1
+		data["isBP"] = 1
 		data["IndexToggler"] = 1
 	else
 		data["IndexToggler"] = 2

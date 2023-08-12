@@ -3,6 +3,7 @@
 	desc = "A miniature machine that tracks suit sensors across the station."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "scanner"
+	item_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = SLOT_BELT
 	origin_tech = "programming=3;materials=3;magnets=3"
@@ -53,7 +54,7 @@
 
 /obj/item/sensor_device/security
 	name = "security crew monitor"
-	icon_state = "c_scanner"
+	icon_state = "s_scanner"
 
 /obj/item/sensor_device/security/Initialize(mapload)
 	. = ..()

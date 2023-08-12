@@ -65,7 +65,7 @@ export const CrewMonitor = (props, context) => {
                 </Tabs.Tab>
               )
               : null}
-            {data.isBM
+            {data.isBP
               ? (
                 <Tabs.Tab
                   key="SecDataView"
@@ -222,26 +222,26 @@ const CrewMonitorMapView = (_properties, context) => {
   const { act, data } = useBackend(context);
   const [zoom, setZoom] = useLocalState(context, 'zoom', 1);
   const getIcon = cm => {
-    return cm.is_command && data.isBS ? "square" : "circle";
+    return (cm.is_command && data.isBS) || (cm.is_security && data.isBP) ? "square" : "circle";
   };
   const getSize = cm => {
-    return cm.is_command && data.isBS ? 10 : 6;
+    return (cm.is_command && data.isBS) || (cm.is_security && data.isBP) ? 10 : 6;
   };
   const getExtendedStatColor = (cm, critThreshold) => {
-    if (!cm.is_command || !data.isBS) {
+    if ((cm.is_command && data.isBS) || (cm.is_security && data.isBP)) {
+      if (cm.dead) {
+        return "red";
+      }
+      if (parseInt(cm.health, 10) <= critThreshold) { // Critical
+        return "orange";
+      }
+      if (parseInt(cm.stat, 10) === 1) { // Unconscious
+        return "blue";
+      }
+      return "violet";
+    } else {
       return getStatColor(cm, critThreshold);
     }
-
-    if (cm.dead) {
-      return "red";
-    }
-    if (parseInt(cm.health, 10) <= critThreshold) { // Critical
-      return "orange";
-    }
-    if (parseInt(cm.stat, 10) === 1) { // Unconscious
-      return "blue";
-    }
-    return "violet";
   };
   return (
     <Box height="526px" mb="0.5rem" overflow="hidden">
