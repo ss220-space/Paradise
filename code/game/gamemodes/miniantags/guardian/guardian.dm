@@ -139,6 +139,8 @@
 		if(loc == summoner)
 			return
 		summoner.adjustBruteLoss(damage)
+		if(damage <= 0)
+			return
 		if(damage > 0)
 			to_chat(summoner, span_danger("Ваш [name] под атакой! Вы получаете урон!"))
 			summoner.visible_message(span_danger("Кровь хлещет из [summoner] ибо [src] получает урон!"))
