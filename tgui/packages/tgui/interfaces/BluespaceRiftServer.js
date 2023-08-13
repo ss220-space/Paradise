@@ -14,6 +14,7 @@ export const BluespaceRiftServer = (props, context) => {
   const {
     emagged,
     pointsPerProbe,
+    cooldown,
     goals,
     servers,
     scanners,
@@ -29,9 +30,10 @@ export const BluespaceRiftServer = (props, context) => {
       rewardGiven,
     } = goalData;
     const percentage = Math.floor((researchPoints / targetResearchPoints) * 100);
-    const probesLeft = Math.floor(probePoints / pointsPerProbe);
+    const probesLeft = (pointsPerProbe > 0) ? Math.floor(probePoints / pointsPerProbe) : 0;
     const pointsPerProbeMessage = emagged ? ("@?%%!№@" + pointsPerProbe) : pointsPerProbe;
     const enoughProbePoints = probePoints >= pointsPerProbe;
+    const displayed_cooldown = cooldown - (cooldown % 5) + ((cooldown % 5) > 0 ? 5 : 0)
     return (
       <Section title="Исследование Разлома">
         <Box
@@ -56,8 +58,8 @@ export const BluespaceRiftServer = (props, context) => {
           <Button
             icon="atom"
             tooltip={"Для генерации одного зондирующего импульса нужно собрать " + pointsPerProbeMessage + " данных."}
-            content={"Зондировать (" + probesLeft + ")"}
-            disabled={!enoughProbePoints}
+            content={(cooldown > 0) ? ("Подготовка " + displayed_cooldown + " секунд") : ("Зондировать (" + probesLeft + ")")}
+            disabled={!enoughProbePoints || (cooldown > 0)}
             onClick={() => act('probe', {
               rift_id: riftId,
             })}

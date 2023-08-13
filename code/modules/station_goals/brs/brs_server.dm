@@ -44,6 +44,11 @@
 	///	0 <= chance <= 1, 0-never, 1-always
 	var/probe_success_chance_emagged = 0.2
 
+	/// Minimal time delay between probes
+	var/probe_cooldown_time = 15 SECONDS
+	/// World time when probe cooldown ends
+	var/probe_cooldown_end_time = 0
+
 	var/research_points_on_probe_success = 100
 
 	/// Keeps goal points and probe points.
@@ -75,6 +80,9 @@
 	name = "[name] \[#[id]\]"
 
 	GLOB.bluespace_rifts_server_list.Add(src)
+
+	probe_cooldown_end_time = world.time + probe_cooldown_time
+
 	new_component_parts()
 	update_icon()
 
@@ -255,6 +263,9 @@
 	uidata["pointsPerProbe"] = points_per_probe
 	uidata["emagged"] = emagged
 
+	var/cooldown_ends_in = (probe_cooldown_end_time > world.time) ? (probe_cooldown_end_time - world.time) : 0
+	uidata["cooldown"] = cooldown_ends_in / (1 SECONDS)
+
 	uidata["goals"] = list()
 	for(var/datum/station_goal/bluespace_rift/goal in SSticker.mode.station_goals)
 		var/rift_id = goal.UID()
@@ -332,6 +343,9 @@
 			return TRUE
 		if("probe")
 			flick_active()
+			if(probe_cooldown_end_time > world.time)
+				return FALSE
+			probe_cooldown_end_time = world.time + probe_cooldown_time
 			var/goal_uid = params["rift_id"]
 			probe(goal_uid)
 			return TRUE
