@@ -607,6 +607,20 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"amm" = (
+/obj/docking_port/stationary/transit{
+	dir = 8;
+	dwidth = 0;
+	height = 30;
+	id = "freegolem_transit";
+	name = "free golem in transit";
+	pixel_x = 32;
+	width = 20
+	},
+/turf/space/transit/west{
+	icon_state = "black"
+	},
+/area/space)
 "amE" = (
 /obj/structure/kitchenspike,
 /obj/effect/decal/cleanable/blood/old,
@@ -2219,6 +2233,18 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/control)
+"bci" = (
+/obj/machinery/door/airlock/syndicate/extmai/glass{
+	damage_deflection = 999;
+	id_tag = "syndicate_jail_cell";
+	locked = 1;
+	name = "Cell";
+	req_access = list(153)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
+/area/syndicate_mothership/jail)
 "bdh" = (
 /obj/structure/chair,
 /obj/effect/landmark/voxstart,
@@ -3476,19 +3502,6 @@
 	icon_state = "floorgrime"
 	},
 /area/ninja/holding)
-"bKc" = (
-/obj/machinery/door/airlock/centcom{
-	damage_deflection = 999;
-	name = "Prison";
-	opacity = 1;
-	req_access = list(104)
-	},
-/obj/effect/decal/warning_stripes/red/hollow,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkredaltstrip"
-	},
-/area/centcom/zone3)
 "bKz" = (
 /obj/machinery/light,
 /obj/effect/decal/warning_stripes/south,
@@ -4745,6 +4758,23 @@
 	name = "floor"
 	},
 /area/vox_station)
+"crJ" = (
+/obj/machinery/door/airlock/centcom{
+	damage_deflection = 999;
+	name = "Prison Cell";
+	opacity = 1
+	},
+/obj/machinery/door/poddoor/shutters/invincible{
+	id_tag = "CC_space_jail_cell";
+	layer = 5;
+	locked = 1;
+	name = "Central Command Jail"
+	},
+/obj/effect/decal/warning_stripes/red,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/centcom/jail)
 "csh" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/turf_decal/siding/wideplating{
@@ -4765,6 +4795,15 @@
 	icon_state = "iron14"
 	},
 /area/syndicate_mothership/jail)
+"csM" = (
+/obj/machinery/vending/cigarette/free{
+	slogan_list = list("Помните!  Никаких  капиталистов!","Лучше  всего  употреблять  вместе  с  водкой!","Затянитесь!","Девять  из  десяти  учёных  СССП  считают  что  курение  снимает  стресс","Прочим  сигаретам  далеко  до  русских  сигарет!","Сигареты!  Теперь  на  100%  меньше  капитализма.")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/elite_squad)
 "csN" = (
 /obj/structure/filingcabinet/filingcabinet,
 /turf/simulated/floor/carpet/black,
@@ -4810,18 +4849,6 @@
 /obj/machinery/computer/camera_advanced/shuttle_docker/vox,
 /turf/simulated/floor/shuttle/objective_check/vox,
 /area/shuttle/vox)
-"ctU" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkredfull"
-	},
-/area/centcom/bridge)
 "cuf" = (
 /obj/machinery/vending/cigarette/free,
 /obj/structure/curtain/black{
@@ -5503,12 +5530,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership)
-"cLz" = (
-/obj/machinery/computer/security/wooden_tv{
-	network = list("SS13","Research  Outpost","Mining  Outpost")
-	},
-/turf/simulated/floor/carpet/black,
-/area/syndicate_mothership/jail)
 "cLC" = (
 /obj/effect/turf_decal/stripes/asteroid/corner{
 	dir = 8
@@ -8258,23 +8279,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/evac)
-"emr" = (
-/obj/machinery/door/airlock/centcom{
-	damage_deflection = 999;
-	name = "Prison Cell";
-	opacity = 1
-	},
-/obj/machinery/door/poddoor/shutters/invincible{
-	id_tag = "CC_space_jail_cell";
-	layer = 5;
-	locked = 1;
-	name = "Central Command Jail"
-	},
-/obj/effect/decal/warning_stripes/red,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/centcom/jail)
 "emw" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo7"
@@ -10140,6 +10144,41 @@
 	icon_state = "grimy"
 	},
 /area/centcom/jail)
+"fmZ" = (
+/obj/machinery/door/airlock/centcom{
+	damage_deflection = 999;
+	name = "Prison";
+	opacity = 1;
+	req_access = list(104)
+	},
+/obj/machinery/door/poddoor/shutters/invincible{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "CC_space_jail_sec";
+	layer = 50;
+	level = 3;
+	locked = 1;
+	name = "Central Command Jail";
+	opacity = 0
+	},
+/obj/effect/decal/warning_stripes/red/hollow,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/jail)
+"fne" = (
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_x = -32
+	},
+/obj/machinery/computer/security{
+	network = list("SS13","Research  Outpost","Mining  Outpost","Telecomms")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkred"
+	},
+/area/shuttle/escape)
 "fnh" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -10619,24 +10658,6 @@
 	},
 /turf/simulated/floor/shuttle/objective_check/vox,
 /area/shuttle/vox)
-"fxx" = (
-/obj/machinery/door/airlock/centcom{
-	damage_deflection = 999;
-	name = "Prison Cell";
-	opacity = 1
-	},
-/obj/machinery/door/poddoor/shutters/invincible{
-	dir = 8;
-	id_tag = "CC_space_jail_cell";
-	layer = 5;
-	locked = 1;
-	name = "Central Command Jail"
-	},
-/obj/effect/decal/warning_stripes/red,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/centcom/jail)
 "fxA" = (
 /obj/effect/turf_decal/tile{
 	alpha = 128;
@@ -13215,6 +13236,18 @@
 	icon_state = "sepia"
 	},
 /area/ninja/outpost)
+"gPg" = (
+/obj/machinery/door/airlock/centcom{
+	damage_deflection = 999;
+	name = "Prison";
+	opacity = 1;
+	req_access = list(104)
+	},
+/obj/effect/decal/warning_stripes/red,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/jail)
 "gPk" = (
 /obj/structure/rack,
 /obj/item/plant_analyzer,
@@ -13809,29 +13842,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/cargo)
-"hkc" = (
-/obj/machinery/door/airlock/centcom{
-	damage_deflection = 999;
-	name = "Prison";
-	opacity = 1;
-	req_access = list(104)
-	},
-/obj/machinery/door/poddoor/shutters/invincible{
-	density = 0;
-	dir = 2;
-	icon_state = "open";
-	id_tag = "CC_space_jail_sec";
-	layer = 50;
-	level = 3;
-	locked = 1;
-	name = "Central Command Jail";
-	opacity = 0
-	},
-/obj/effect/decal/warning_stripes/red,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/jail)
 "hke" = (
 /obj/machinery/optable,
 /obj/machinery/defibrillator_mount/loaded{
@@ -14164,6 +14174,24 @@
 /obj/structure/flora/grass/both,
 /turf/simulated/floor/indestructible/snow,
 /area/ninja/outside)
+"htR" = (
+/obj/machinery/door/airlock/centcom{
+	damage_deflection = 999;
+	name = "Prison Cell";
+	opacity = 1
+	},
+/obj/machinery/door/poddoor/shutters/invincible{
+	dir = 8;
+	id_tag = "CC_space_jail_cell";
+	layer = 5;
+	locked = 1;
+	name = "Central Command Jail"
+	},
+/obj/effect/decal/warning_stripes/red,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/centcom/jail)
 "htS" = (
 /obj/effect/turf_decal{
 	dir = 8;
@@ -16333,6 +16361,18 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
+"iFB" = (
+/obj/machinery/door/airlock/centcom{
+	damage_deflection = 999;
+	name = "Prison";
+	opacity = 1;
+	req_access = list(104)
+	},
+/obj/effect/decal/warning_stripes/red,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/centcom/jail)
 "iFF" = (
 /obj/machinery/light,
 /turf/simulated/floor/carpet/red,
@@ -18876,18 +18916,6 @@
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/ninja/outpost)
-"kav" = (
-/obj/machinery/door/airlock/centcom{
-	damage_deflection = 999;
-	name = "Prison";
-	opacity = 1;
-	req_access = list(104)
-	},
-/obj/effect/decal/warning_stripes/red,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/jail)
 "kaY" = (
 /obj/structure/sign/poster/official/random{
 	pixel_x = -30
@@ -19031,20 +19059,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone1)
-"kfh" = (
-/obj/docking_port/stationary/transit{
-	dir = 8;
-	dwidth = 0;
-	height = 30;
-	id = "freegolem_transit";
-	name = "free golem in transit";
-	pixel_x = 32;
-	width = 20
-	},
-/turf/space/transit/west{
-	icon_state = "black"
-	},
-/area/space)
 "kfj" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
 /obj/item/reagent_containers/food/condiment/milk,
@@ -19761,6 +19775,24 @@
 	},
 /turf/simulated/floor/carpet/cyan,
 /area/centcom/zone1)
+"kvN" = (
+/obj/machinery/door/airlock/centcom{
+	damage_deflection = 999;
+	name = "Prison Cell";
+	opacity = 1
+	},
+/obj/machinery/door/poddoor/shutters/invincible{
+	dir = 1;
+	id_tag = "CC_space_jail_cell";
+	layer = 5;
+	locked = 1;
+	name = "Central Command Jail"
+	},
+/obj/effect/decal/warning_stripes/red,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/centcom/jail)
 "kvR" = (
 /turf/simulated/wall/indestructible/abductor{
 	icon_state = "alien8"
@@ -21705,24 +21737,6 @@
 	icon_state = "darkbluealt"
 	},
 /area/centcom/zone2)
-"lpT" = (
-/obj/machinery/door/airlock/centcom{
-	damage_deflection = 999;
-	name = "Prison Cell";
-	opacity = 1
-	},
-/obj/machinery/door/poddoor/shutters/invincible{
-	dir = 1;
-	id_tag = "CC_space_jail_cell";
-	layer = 5;
-	locked = 1;
-	name = "Central Command Jail"
-	},
-/obj/effect/decal/warning_stripes/red,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/centcom/jail)
 "lqs" = (
 /obj/structure/chair/comfy/brown{
 	dir = 1
@@ -24120,6 +24134,99 @@
 	},
 /turf/simulated/floor/carpet/cyan,
 /area/wizard_station)
+"mvM" = (
+/obj/structure/closet/secure_closet/guncabinet{
+	anchored = 1;
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	layer = 2.9;
+	name = "Automatic Shotgun";
+	req_access = list(114)
+	},
+/obj/item/gun/projectile/automatic/shotgun/bulldog{
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	name = "Pancor Jackhammer"
+	},
+/obj/item/gun/projectile/automatic/shotgun/bulldog{
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	name = "Pancor Jackhammer"
+	},
+/obj/item/gun/projectile/automatic/shotgun/bulldog{
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	name = "Pancor Jackhammer"
+	},
+/obj/item/gun/projectile/automatic/shotgun/bulldog{
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	name = "Pancor Jackhammer"
+	},
+/obj/item/gun/projectile/automatic/shotgun/bulldog{
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	name = "Pancor Jackhammer"
+	},
+/obj/item/gun/projectile/automatic/shotgun/bulldog{
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	name = "Pancor Jackhammer"
+	},
+/obj/item/gun/projectile/automatic/shotgun/bulldog{
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	name = "Pancor Jackhammer"
+	},
+/obj/item/gun/projectile/automatic/shotgun/bulldog{
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	name = "Pancor Jackhammer"
+	},
+/obj/item/gun/projectile/automatic/shotgun/bulldog{
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	name = "Pancor Jackhammer"
+	},
+/obj/item/gun/projectile/automatic/shotgun/bulldog{
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	name = "Pancor Jackhammer"
+	},
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
+	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
+	name = "12g duffelbag"
+	},
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
+	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
+	name = "12g duffelbag"
+	},
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
+	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
+	name = "12g duffelbag"
+	},
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
+	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
+	name = "12g duffelbag"
+	},
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
+	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
+	name = "12g duffelbag"
+	},
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
+	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
+	name = "12g duffelbag"
+	},
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
+	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
+	name = "12g duffelbag"
+	},
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
+	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
+	name = "12g duffelbag"
+	},
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
+	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
+	name = "12g duffelbag"
+	},
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
+	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
+	name = "12g duffelbag"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "navyblue"
+	},
+/area/centcom/specops)
 "mvP" = (
 /obj/structure/rack/holorack,
 /obj/item/clothing/accessory/black{
@@ -24473,17 +24580,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/syndicate_mothership/elite_squad)
-"mBg" = (
-/obj/machinery/door/airlock/syndicate/extmai/glass{
-	damage_deflection = 999;
-	id_tag = "syndicate_jail_cell";
-	name = "Cell";
-	req_access = list(153)
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkfull"
-	},
-/area/syndicate_mothership/jail)
 "mBi" = (
 /obj/structure/shuttle/engine/platform{
 	dir = 1;
@@ -25138,6 +25234,19 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
+"mOD" = (
+/obj/machinery/door/airlock/centcom{
+	damage_deflection = 999;
+	name = "Prison";
+	opacity = 1;
+	req_access = list(104)
+	},
+/obj/effect/decal/warning_stripes/red/hollow,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkredaltstrip"
+	},
+/area/centcom/zone3)
 "mOZ" = (
 /obj/machinery/light{
 	dir = 8
@@ -26311,18 +26420,6 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership/infteam)
-"niW" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = -32
-	},
-/obj/machinery/computer/security{
-	network = list("SS13","Research  Outpost","Mining  Outpost","Telecomms")
-	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
-	},
-/area/shuttle/escape)
 "nja" = (
 /obj/structure/window/reinforced{
 	color = "red";
@@ -26804,18 +26901,6 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/ninja/outpost)
-"nsG" = (
-/obj/machinery/door/airlock/centcom{
-	damage_deflection = 999;
-	name = "Prison";
-	opacity = 1;
-	req_access = list(104)
-	},
-/obj/effect/decal/warning_stripes/red,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/centcom/jail)
 "nsM" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/window/reinforced{
@@ -27268,6 +27353,29 @@
 	icon_state = "dark"
 	},
 /area/centcom/bridge)
+"nCA" = (
+/obj/machinery/door/airlock/centcom{
+	damage_deflection = 999;
+	name = "Prison";
+	opacity = 1;
+	req_access = list(104)
+	},
+/obj/machinery/door/poddoor/shutters/invincible{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "CC_space_jail_sec";
+	layer = 50;
+	level = 3;
+	locked = 1;
+	name = "Central Command Jail";
+	opacity = 0
+	},
+/obj/effect/decal/warning_stripes/red,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/jail)
 "nCH" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
@@ -29376,6 +29484,35 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/bridge)
+"oCT" = (
+/obj/structure/closet/secure_closet/guncabinet{
+	anchored = 1;
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	layer = 2.9;
+	name = "Not In My Watch Closet";
+	req_access = list(114)
+	},
+/obj/item/gun/energy/pulse/destroyer/annihilator,
+/obj/item/gun/energy/pulse/destroyer/annihilator,
+/obj/item/gun/energy/pulse/destroyer/annihilator,
+/obj/item/gun/projectile/automatic/l6_saw{
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
+	name = "M249 SAW"
+	},
+/obj/item/gun/projectile/automatic/shotgun/bulldog{
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
+	name = "Pancor Jackhammer"
+	},
+/obj/item/gun/energy/xray,
+/obj/machinery/door/window/brigdoor{
+	color = "#d70000";
+	dir = 1;
+	icon_state = "rightsecure";
+	name = "Emergency Only";
+	req_access = list(114)
+	},
+/turf/simulated/floor/wood,
+/area/centcom/specops)
 "oCU" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -29782,29 +29919,6 @@
 	icon_state = "fancy-wood-cherry"
 	},
 /area/syndicate_mothership/infteam)
-"oLg" = (
-/obj/machinery/door/airlock/centcom{
-	damage_deflection = 999;
-	name = "Prison";
-	opacity = 1;
-	req_access = list(104)
-	},
-/obj/machinery/door/poddoor/shutters/invincible{
-	density = 0;
-	dir = 2;
-	icon_state = "open";
-	id_tag = "CC_space_jail_sec";
-	layer = 50;
-	level = 3;
-	locked = 1;
-	name = "Central Command Jail";
-	opacity = 0
-	},
-/obj/effect/decal/warning_stripes/red/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/jail)
 "oLJ" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -29843,18 +29957,6 @@
 	},
 /turf/simulated/floor/shuttle/plating/vox,
 /area/shuttle/vox)
-"oMF" = (
-/obj/machinery/door/airlock/centcom{
-	damage_deflection = 999;
-	name = "Prison";
-	opacity = 1;
-	req_access = list(104)
-	},
-/obj/effect/decal/warning_stripes/red,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/zone3)
 "oMJ" = (
 /obj/structure/shuttle/engine/propulsion{
 	icon_state = "burst_l";
@@ -30513,18 +30615,6 @@
 /obj/structure/closet/crate/can,
 /turf/simulated/floor/wood,
 /area/centcom/zone2)
-"pbq" = (
-/obj/machinery/computer/communications,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the Special Ops team.";
-	name = "Security Station Monitor";
-	network = list("SS13","Research  Outpost","Mining  Outpost");
-	pixel_y = -30
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
-	},
-/area/shuttle/specops)
 "pbE" = (
 /obj/structure/bookcase/manuals,
 /obj/item/book/manual/sop_service,
@@ -31913,99 +32003,6 @@
 	icon_state = "darkbluealtstrip"
 	},
 /area/centcom/zone2)
-"pMY" = (
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	layer = 2.9;
-	name = "Automatic Shotgun";
-	req_access = list(114)
-	},
-/obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
-	name = "Pancor Jackhammer"
-	},
-/obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
-	name = "Pancor Jackhammer"
-	},
-/obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
-	name = "Pancor Jackhammer"
-	},
-/obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
-	name = "Pancor Jackhammer"
-	},
-/obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
-	name = "Pancor Jackhammer"
-	},
-/obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
-	name = "Pancor Jackhammer"
-	},
-/obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
-	name = "Pancor Jackhammer"
-	},
-/obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
-	name = "Pancor Jackhammer"
-	},
-/obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
-	name = "Pancor Jackhammer"
-	},
-/obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
-	name = "Pancor Jackhammer"
-	},
-/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
-	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
-	name = "12g duffelbag"
-	},
-/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
-	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
-	name = "12g duffelbag"
-	},
-/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
-	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
-	name = "12g duffelbag"
-	},
-/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
-	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
-	name = "12g duffelbag"
-	},
-/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
-	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
-	name = "12g duffelbag"
-	},
-/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
-	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
-	name = "12g duffelbag"
-	},
-/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
-	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
-	name = "12g duffelbag"
-	},
-/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
-	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
-	name = "12g duffelbag"
-	},
-/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
-	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
-	name = "12g duffelbag"
-	},
-/obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
-	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
-	name = "12g duffelbag"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "navyblue"
-	},
-/area/centcom/specops)
 "pNo" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -32948,15 +32945,6 @@
 "qiR" = (
 /turf/simulated/floor/plating,
 /area/syndicate_mothership)
-"qjc" = (
-/obj/machinery/vending/cigarette/free{
-	slogan_list = list("Помните!  Никаких  капиталистов!","Лучше  всего  употреблять  вместе  с  водкой!","Затянитесь!","Девять  из  десяти  учёных  СССП  считают  что  курение  снимает  стресс","Прочим  сигаретам  далеко  до  русских  сигарет!","Сигареты!  Теперь  на  100%  меньше  капитализма.")
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate_mothership/elite_squad)
 "qjA" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/light{
@@ -35055,6 +35043,18 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/syndicate)
+"rhN" = (
+/obj/machinery/computer/communications,
+/obj/machinery/computer/security/telescreen{
+	desc = "Used for watching the Special Ops team.";
+	name = "Security Station Monitor";
+	network = list("SS13","Research  Outpost","Mining  Outpost");
+	pixel_y = -30
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/specops)
 "rhO" = (
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 8;
@@ -38846,6 +38846,18 @@
 	},
 /turf/simulated/wall/indestructible/reinforced,
 /area/centcom/zone2)
+"sVL" = (
+/obj/machinery/door/airlock/centcom{
+	damage_deflection = 999;
+	name = "Prison";
+	opacity = 1;
+	req_access = list(104)
+	},
+/obj/effect/decal/warning_stripes/red,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/zone3)
 "sVV" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -41888,6 +41900,18 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/grass,
 /area/centcom/evac)
+"unn" = (
+/obj/machinery/computer/security{
+	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkredfull"
+	},
+/area/centcom/bridge)
 "unO" = (
 /obj/item/flag/nt,
 /obj/machinery/light/small{
@@ -42695,6 +42719,12 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/zone2)
+"uET" = (
+/obj/machinery/computer/security/wooden_tv{
+	network = list("SS13","Research  Outpost","Mining  Outpost")
+	},
+/turf/simulated/floor/carpet/black,
+/area/syndicate_mothership/jail)
 "uEU" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
@@ -43656,35 +43686,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/centcom/jail)
-"vbW" = (
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	layer = 2.9;
-	name = "Not In My Watch Closet";
-	req_access = list(114)
-	},
-/obj/item/gun/energy/pulse/destroyer/annihilator,
-/obj/item/gun/energy/pulse/destroyer/annihilator,
-/obj/item/gun/energy/pulse/destroyer/annihilator,
-/obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
-	name = "M249 SAW"
-	},
-/obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
-	name = "Pancor Jackhammer"
-	},
-/obj/item/gun/energy/xray,
-/obj/machinery/door/window/brigdoor{
-	color = "#d70000";
-	dir = 1;
-	icon_state = "rightsecure";
-	name = "Emergency Only";
-	req_access = list(114)
-	},
-/turf/simulated/floor/wood,
-/area/centcom/specops)
 "vcj" = (
 /obj/machinery/computer/crew,
 /turf/simulated/floor/wood,
@@ -64597,7 +64598,7 @@ pwa
 wkN
 xnF
 pSS
-niW
+fne
 qzL
 vAA
 esN
@@ -71373,7 +71374,7 @@ psf
 usR
 vnx
 rzg
-pbq
+rhN
 usR
 psf
 psf
@@ -71972,7 +71973,7 @@ dfm
 dfm
 gro
 azv
-cLz
+uET
 nKg
 kJh
 azv
@@ -72379,7 +72380,7 @@ oFJ
 oFJ
 nbA
 nbA
-kfh
+amm
 nbA
 nbA
 oFJ
@@ -73481,7 +73482,7 @@ kKP
 kKP
 oeH
 oEe
-qjc
+csM
 pbN
 pbN
 pbN
@@ -74804,7 +74805,7 @@ nKg
 ghO
 sFq
 azv
-mBg
+bci
 azv
 gpg
 tek
@@ -74812,7 +74813,7 @@ swu
 kBd
 gpg
 azv
-mBg
+bci
 azv
 sFq
 vPe
@@ -76603,15 +76604,15 @@ dfm
 olI
 sFq
 azv
-mBg
+bci
 azv
 nGy
 azv
-mBg
+bci
 azv
 nGy
 azv
-mBg
+bci
 azv
 sFq
 vPe
@@ -86140,19 +86141,19 @@ pqb
 pqb
 pqb
 iXj
-emr
+crJ
 iXj
 pqb
 iXj
-emr
+crJ
 iXj
 pqb
 iXj
-emr
+crJ
 iXj
 pqb
 iXj
-emr
+crJ
 iXj
 pqb
 pqb
@@ -86668,7 +86669,7 @@ sSK
 sSK
 fXZ
 fqy
-lpT
+kvN
 myg
 myg
 ovc
@@ -87696,7 +87697,7 @@ myp
 xKI
 eNf
 awK
-lpT
+kvN
 myg
 myg
 ovc
@@ -88724,7 +88725,7 @@ ipn
 ltP
 eNf
 viw
-lpT
+kvN
 myg
 myg
 ovc
@@ -89752,7 +89753,7 @@ uVO
 uVO
 rWg
 oNj
-lpT
+kvN
 myg
 myg
 ovc
@@ -90256,15 +90257,15 @@ myp
 trB
 pqb
 rMa
-fxx
+htR
 rMa
 pqb
 rMa
-fxx
+htR
 rMa
 pqb
 rMa
-fxx
+htR
 rMa
 pqb
 pqb
@@ -91274,7 +91275,7 @@ kWm
 kWm
 kWm
 kWm
-bKc
+mOD
 pqb
 cQm
 thl
@@ -91532,7 +91533,7 @@ pqb
 sSU
 lKS
 qTJ
-hkc
+nCA
 myp
 myp
 myp
@@ -91785,7 +91786,7 @@ xGr
 oBC
 oBC
 tDo
-oLg
+fmZ
 beg
 myp
 axr
@@ -92018,7 +92019,7 @@ oNa
 fMQ
 rgF
 eru
-ctU
+unn
 rnv
 eru
 rRF
@@ -92313,8 +92314,8 @@ trB
 pqb
 pqb
 pqb
-kav
-kav
+gPg
+gPg
 pqb
 pqb
 pqb
@@ -92556,7 +92557,7 @@ nGk
 oBC
 oBC
 tDo
-oLg
+fmZ
 beg
 myp
 axr
@@ -93069,11 +93070,11 @@ kWm
 kWm
 kWm
 kWm
-oMF
+sVL
 pqb
 pqb
 pqb
-kav
+gPg
 pqb
 pqb
 pqb
@@ -95382,10 +95383,10 @@ fAg
 abk
 pqb
 brM
-nsG
+iFB
 kaY
 vep
-kav
+gPg
 xmb
 sSK
 gRK
@@ -95896,7 +95897,7 @@ fAg
 kZY
 pqb
 jBs
-nsG
+iFB
 ayr
 ayr
 pqb
@@ -103614,7 +103615,7 @@ aPL
 rbD
 shp
 gXI
-vbW
+oCT
 nAN
 nAN
 nNb
@@ -105681,7 +105682,7 @@ nAN
 wJo
 kAd
 qxb
-pMY
+mvM
 nAN
 nAN
 nAN
