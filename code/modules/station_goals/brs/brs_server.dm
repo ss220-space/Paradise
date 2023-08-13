@@ -274,6 +274,8 @@
 			continue
 		if(scanner.stat & (BROKEN|NOPOWER))
 			continue
+		if(!scanner.cable_powered)
+			continue
 		uidata["scanners"] += list(list(
 			"scannerId" = scanner.UID(),
 			"scannerName" = scanner.name,

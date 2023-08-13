@@ -67,7 +67,7 @@ export const BluespaceRiftServer = (props, context) => {
           <Button
             fluid
             textAlign="center"
-            content="Получить результат исследований"
+            content={rewardGiven ? "Результат получен" : "Получить результат исследований"}
             disabled={rewardGiven || (percentage < 100)}
             onClick={() => act('reward', {
               rift_id: riftId,
@@ -127,13 +127,15 @@ export const BluespaceRiftServer = (props, context) => {
     const statusText = getStatusText();
   
     return (
-      <LabeledList.Item label={scannerName}>
+      <LabeledList.Item
+        label={scannerName}
+        py={0}>
         {switching ? (
           <Icon 
             name="circle-notch"
             color="silver"
             spin
-            ml={1.85} mr={1.79} my={0.83}
+            ml={1.85} mr={1.79} my={0.84}
           />
         ) : (
           canSwitch ? (
@@ -149,7 +151,7 @@ export const BluespaceRiftServer = (props, context) => {
             <Icon 
               name="power-off"
               color={scanStatusTxt === "OFF" ? "bad" : "good"}
-              ml={1.85} mr={1.79}
+              ml={1.85} mr={1.79} my={0.84}
             />
           )
         )}
