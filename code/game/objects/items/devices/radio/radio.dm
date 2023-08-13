@@ -23,7 +23,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio
 	icon = 'icons/obj/radio.dmi'
 	name = "shortwave radio"
-	desc = "A basic handheld radio that communicates with local telecommunication networks."
+	desc = "A basic handheld radio that can communicate with local telecommunication networks."
 	dog_fashion = /datum/dog_fashion/back
 	suffix = "\[3\]"
 	icon_state = "walkietalkie"
@@ -308,7 +308,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 /obj/item/radio/sec
 	name = "security shortwave radio"
-	desc = "A basic handheld radio that communicates with local telecommunication networks. This model is painted in black colors."
+	desc = "A basic handheld radio that can communicate with local telecommunication networks. This model is painted in black colors."
 	icon_state = "walkietalkie_sec"
 	frequency = SEC_FREQ
 
