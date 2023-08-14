@@ -347,7 +347,7 @@
 				return FALSE
 			probe_cooldown_end_time = world.time + probe_cooldown_time
 			var/goal_uid = params["rift_id"]
-			probe(goal_uid)
+			probe(goal_uid, usr)
 			return TRUE
 		if("reward")
 			flick_active()
@@ -367,7 +367,7 @@
 			visible_message(span_notice("Исследование завершено. Судя по индикации сервера, из разлома выпало что-то, что может представлять большую научную ценность."))
 			return TRUE
 
-/obj/machinery/brs_server/proc/probe(goal_uid)
+/obj/machinery/brs_server/proc/probe(goal_uid, mob/user)
 	var/record = get_record(goal_uid)
 
 	if(data[record][DATA_RECORD_PROBE_POINTS] < points_per_probe)
@@ -394,6 +394,12 @@
 	else
 		goal.rift.probe(successful = FALSE)
 		visible_message(span_warning("Судя по индикации сервера, зондирование спровоцировало изменение стабильности блюспейс-разлома. Это не хорошо."))
+
+	// Log it
+	if(successful)
+		add_game_logs("used [src] to probe a bluespace rift, successful (random reward given).", user)
+	else
+		add_game_logs("used [src] to probe a bluespace rift, unsuccessful (random rift event triggered).", user)
 
 #undef DATA_RECORD_RIFT_ID
 #undef DATA_RECORD_GOAL_POINTS
