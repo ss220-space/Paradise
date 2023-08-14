@@ -81,9 +81,9 @@
 	switch(environment.temperature)
 		if(0 to T0C)
 			health = min(100, health + 1)
-		if((T0C + 1) to (T20C + 20))
+		if(T0C to (T20C + 20))
 			health = clamp(health, 0, 100)
-		if((T20C + 21) to INFINITY)
+		if((T20C + 20) to INFINITY)
 			health = max(0, health - 1)
 	if(health <= 0)
 		/*griefProtection() This seems to get called twice before running any code that deletes/damages the server or it's files anwyay.
