@@ -23,9 +23,8 @@
 		pick_turfs |= new_turf
 
 	var/list/temp_turfs = pick_turfs.Copy()
-	var/turf/anomaly_turf
 	for(var/i in 1 to number_of_wormholes)
-		anomaly_turf = pick_n_take(temp_turfs)
+		var/turf/anomaly_turf = anomaly_turf = pick_n_take(temp_turfs)
 		if(anomaly_turf)
 			wormholes |= new /obj/effect/portal/wormhole(anomaly_turf, null, null, -1)
 
@@ -37,9 +36,8 @@
 /datum/event/wormholes/tick()
 	if(activeFor % shift_frequency == 0)
 		var/list/temp_turfs = pick_turfs.Copy()
-		var/turf/anomaly_turf
 		for(var/obj/effect/portal/wormhole/wormhole in wormholes)
-			anomaly_turf = pick_n_take(temp_turfs)
+			var/turf/anomaly_turf = anomaly_turf = pick_n_take(temp_turfs)
 			if(anomaly_turf)
 				wormhole.forceMove(anomaly_turf)
 
