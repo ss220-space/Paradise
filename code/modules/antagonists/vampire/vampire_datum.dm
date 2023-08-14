@@ -418,10 +418,10 @@
 
 
 /datum/antagonist/vampire/proc/draw_HUD()
-	if(!owner.current?.hud_used)
+	var/datum/hud/hud = owner?.current?.hud_used
+	if(!hud)
 		return
 
-	var/datum/hud/hud = owner.current.hud_used
 	if(!hud.vampire_blood_display)
 		hud.vampire_blood_display = new /obj/screen()
 		hud.vampire_blood_display.name = "Usable Blood"
