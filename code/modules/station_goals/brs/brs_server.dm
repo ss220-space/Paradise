@@ -36,9 +36,9 @@
 	active_power_usage = 12000
 
 	/// One probe price
-	var/points_per_probe = 500
+	var/points_per_probe = 1500
 	/// One probe price if the server is emagged
-	var/points_per_probe_emagged = 250
+	var/points_per_probe_emagged = 500
 	/// 0 <= chance <= 1, 0-never, 1-always
 	var/probe_success_chance = 0.5
 	///	0 <= chance <= 1, 0-never, 1-always
@@ -361,6 +361,7 @@
 			if(data[record][DATA_RECORD_GOAL_POINTS] < goal.target_research_points)
 				return FALSE
 
+			new /obj/effect/spawner/lootdrop/bluespace_rift_server(get_turf(src))
 			goal.rift.spawn_reward()
 			goal.reward_given = TRUE
 			visible_message(span_notice("Исследование завершено. Судя по индикации сервера, из разлома выпало что-то, что может представлять большую научную ценность."))
