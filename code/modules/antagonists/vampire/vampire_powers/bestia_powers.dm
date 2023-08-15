@@ -1837,7 +1837,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 						vampire.get_trophies("kidneys") + vampire.get_trophies("eyes") + vampire.get_trophies("ears")
 	// 4 bats MAX
 	if(all_trophies <= 40)
-		num_bats += round(all_trophies / 2)
+		num_bats += round(all_trophies / 20)
 	else if(all_trophies > 40)
 		num_bats += all_trophies < 52 ? 2 : 3
 
