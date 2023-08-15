@@ -108,8 +108,8 @@
 	max_combined_w_class = 400 // can store a ton of shit!
 
 /obj/item/storage/backpack/santabag/update_icon()
-	var/weight = length(contents)
-	switch(weight)
+	var/items_count = length(contents)
+	switch(items_count)
 		if(1 to 10)
 			icon_state = "giftbag0"
 		if(11 to 20)
