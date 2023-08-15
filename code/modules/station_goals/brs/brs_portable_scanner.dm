@@ -275,6 +275,8 @@
 	data["scanStatus"] = scanning_status
 	data["noServers"] = !is_there_any_servers()
 	data["switching"] = switching
+	data["time_for_failure"] = time_for_failure
+	data["time_till_failure"] = (world.time < failure_time) ? (failure_time - world.time) : 0
 	return data
 
 /obj/machinery/brs_portable_scanner/ui_act(action, params)

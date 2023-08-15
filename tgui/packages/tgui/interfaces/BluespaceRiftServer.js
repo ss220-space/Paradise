@@ -33,7 +33,7 @@ export const BluespaceRiftServer = (props, context) => {
     const probesLeft = (pointsPerProbe > 0) ? Math.floor(probePoints / pointsPerProbe) : 0;
     const pointsPerProbeMessage = emagged ? ("@?%%!№@" + pointsPerProbe) : pointsPerProbe;
     const enoughProbePoints = probePoints >= pointsPerProbe;
-    const displayed_cooldown = cooldown - (cooldown % 5) + ((cooldown % 5) > 0 ? 5 : 0)
+    const displayed_cooldown = cooldown - (cooldown % 5) + ((cooldown % 5) > 0 ? 5 : 0);
     return (
       <Section title="Исследование Разлома">
         <Box

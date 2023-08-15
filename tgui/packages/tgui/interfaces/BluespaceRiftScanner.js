@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Button, Section, Icon, Dimmer, Flex } from '../components';
+import { Box, Button, Section, Icon, Dimmer, Flex, ProgressBar } from '../components';
 import { Window } from '../layouts';
 
 const status_table = {
@@ -15,6 +15,8 @@ export const BluespaceRiftScanner = (props, context) => {
     scanStatus,
     noServers,
     switching,
+    time_for_failure,
+    time_till_failure,
   } = data;
   const status = status_table[scanStatus];
 
@@ -41,6 +43,8 @@ export const BluespaceRiftScanner = (props, context) => {
   const powerIconColor = status === "OFF" ? ["grey", inactiveIconOpacity] : ["good", 1];
   const scanIconColor = status === "SOME_RIFTS" ? [(noServers ? "average" : "good"), 1] : ["grey", inactiveIconOpacity];
   const dangerIconColor = status === "DANGER" ? ["bad", 1] : ["grey", inactiveIconOpacity];
+
+  const failurePercentage = (time_for_failure && time_till_failure) ? Math.floor((time_for_failure - time_till_failure) / time_for_failure * 100) : 0;
 
   return (
     <Window resizable>
@@ -106,6 +110,15 @@ export const BluespaceRiftScanner = (props, context) => {
                   />
                   {statusText[0]}
                 </Box>
+              )}
+              {(status === "DANGER") && (
+                <ProgressBar
+                  color="bad"
+                  value={failurePercentage}
+                  maxValue={100}
+                  mt={1.5}>
+                  <Box color="orange">ПЕРЕГРУЗКА {failurePercentage} %</Box>
+                </ProgressBar>
               )}
             </Section>
             <Section>
