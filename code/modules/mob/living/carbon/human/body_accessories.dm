@@ -220,8 +220,15 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list())
 	name = "Feathery Wings"
 	icon_state = "feathery"
 
+//Unathi
+/datum/body_accessory/tail/smooth
+	name = "Smooth"
+	icon_state = "smooth"
+	animated_icon_state = "smooth_a"
+	allowed_species = list("Unathi")
+
 /datum/body_accessory/tail/tiger
-	name = "Dark Tiger"
+	name = "Tiger"
 	icon_state = "dtiger"
 	animated_icon_state = "dtiger_a"
 	allowed_species = list("Unathi")
