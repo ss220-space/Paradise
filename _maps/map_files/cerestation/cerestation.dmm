@@ -10566,8 +10566,9 @@
 	},
 /area/storage/primary)
 "bqf" = (
+/obj/effect/decal/warning_stripes/blue,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	icon_state = "dark"
 	},
 /area/medical/surgery/south)
 "bqh" = (
@@ -15397,7 +15398,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
+	icon_state = "white"
 	},
 /area/medical/medbreak)
 "bLa" = (
@@ -75116,8 +75117,9 @@
 /turf/simulated/mineral/ancient,
 /area/teleporter/quantum/docking)
 "qWJ" = (
+/obj/effect/decal/warning_stripes/blue,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	icon_state = "dark"
 	},
 /area/medical/surgery/north)
 "qWS" = (
@@ -79286,7 +79288,7 @@
 	req_access = list(45)
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	icon_state = "dark"
 	},
 /area/medical/surgery/south)
 "siv" = (
@@ -81447,7 +81449,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	icon_state = "dark"
 	},
 /area/medical/surgery/north)
 "sSG" = (
@@ -95771,7 +95773,9 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/toxins/rdoffice)
 "xnA" = (
 /turf/simulated/wall/r_wall,
