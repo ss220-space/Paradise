@@ -5,6 +5,8 @@ from tts_processor import tts_creator
 api = Flask(__name__)
 primary_speaker = 'aidar'
 
+host = "127.0.0.1"
+port = 5000
 
 #Packaging response into Silero API-like format
 def build_response(audio):
@@ -34,4 +36,7 @@ def process_tts():
    return json.dumps(payload)
 
 if __name__ == '__main__':
-    api.run()
+    #Note: if you don't change host and port, default setting to import to sensitive.dm will be "http://127.0.0.1:5000/tts/"
+    print(f'Server is starting up. Copy and paste this into sensitive.dm var tts_url_silero: "http://{host}:{port}/tts/"')
+    api.run(host=host, port=port)
+
