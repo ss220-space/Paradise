@@ -1818,7 +1818,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 \*======================================================================================================================================*/
 /obj/effect/proc_holder/spell/vampire/self/bats_spawn
 	name = "Summon Bats"
-	desc = "Calls the swarms of space bats from nearby bluespace planes. They might assist you in the battle and will be more powerful the more trophies you have."
+	desc = "Calls the swarms of space bats from nearby bluespace planes. They might assist you in the battle and will be more powerful the more trophies you have. You can swap places with the bats by clicking on them in HELP intent."
 	gain_desc = "You have gained the ability to summon space bats. Number of packs and combat stats will heavily depend on the collected trophies."
 	action_icon_state = "bats_new"
 	sound = 'sound/creatures/bats_spawn.ogg'
@@ -2248,8 +2248,34 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 	. = ..()
 	if(isliving(target))
 		var/mob/living/l_target = target
-		if(l_target.stat != CONSCIOUS && !(isvampire(user) || isvampirethrall(user)))	// will change target on attacker instantly if its current target is unconscious or dead
+		if(l_target.stat != CONSCIOUS && (!isvampire(user) && !isvampirethrall(user)))	// will change target on attacker instantly if its current target is unconscious or dead
 			target = user
+
+
+/mob/living/simple_animal/hostile/vampire/bats_summoned/Found(atom/A)
+	if(isliving(A))
+		var/mob/living/victim = A
+		if(victim.mind && (!isvampire(victim) && !isvampirethrall(victim)))	// target sentient first
+			return TRUE
+	return FALSE
+
+
+/mob/living/simple_animal/hostile/vampire/bats_summoned/attack_hand(mob/living/user)
+	if(!istype(user) || user.a_intent != INTENT_HELP || health <= 0 || (!isvampire(user) && !isvampirethrall(user)))
+		return ..()
+
+	var/turf/bats_turf = get_turf(src)
+	for(var/atom/check in (bats_turf.contents - src))
+		if(check.density)
+			return ..()
+
+	var/direction = get_dir(src, user)
+	step(src, direction)
+	step(user, GetOppositeDir(direction))
+
+	visible_message(span_notice("[user] swaps places with [src]."), \
+					span_notice("[user] has swapped places with you."))
+	playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
 
 #undef MAX_TROPHIES_PER_TYPE_GENERAL
