@@ -24,9 +24,10 @@ GLOBAL_LIST_EMPTY(bluespace_rifts_scanner_list)
 	<br><br>
 	По нашим данным, в непосредственной бизости от станции образовалось редкое аномальное явление — блюспейс разлом.
 	<br><br>
-	Обнаруженные разломы были классифицированы как:<br>
-	[rift.name]
-	<br><br>
+	Обнаруженный разлом был классифицирован как [rift.name],<br>
+	идексы его экземпляров:<br>
+	[get_rift_object_names()]
+	<br>
 	Получите экспериментальные проекты сканеров в отделе карго и соберите как можно больше данных о разломе.\
 	Собранные данные отправятся на изучение в центральный научно-исследовательский отдел Нанотрейзен.
 	<br><br>
@@ -68,3 +69,12 @@ GLOBAL_LIST_EMPTY(bluespace_rifts_scanner_list)
 	)
 	var/rand_rift_type = pick(rift_types)
 	rift = new rand_rift_type(goal_uid = UID())
+
+/datum/station_goal/bluespace_rift/proc/get_rift_object_names()
+	if(!length(rift.rift_objects))
+		return "Объекты не найдены <br>"
+
+	var/result = ""
+	for (var/obj/effect/abstract/bluespace_rift/rift_obj as anything in rift.rift_objects)
+		result += "[rift_obj.name] <br>"
+	return result
