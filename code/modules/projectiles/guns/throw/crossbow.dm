@@ -175,7 +175,7 @@
 	icon_state = "bolt"
 	item_state = "bolt"
 	throwforce = 20
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_SMALL
 	sharp = TRUE
 	var/overlay_prefix = "" //used for crossbow bolt overlay render. Don't override it in children if you don't have an overlay icon for your bolt
 
@@ -234,6 +234,7 @@
 	reqs = list(/datum/reagent/fuel = 10,
 				/obj/item/stack/sheet/cloth = 1,
 				/obj/item/arrow/rod = 1)
+	blacklist = list(/obj/item/arrow/rod/fire)
 	time = 5
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
@@ -255,7 +256,7 @@
 /obj/item/arrow/rod/fire/proc/fire_up(mob/user)
 	icon_state = "flame_rod_act"
 	overlay_prefix = "flame"
-	w_class = WEIGHT_CLASS_BULKY
+	w_class = WEIGHT_CLASS_SMALL
 	if(user)
 		to_chat(user, span_warning("You fire up a rod!"))
 	flamed = TRUE

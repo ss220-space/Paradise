@@ -6,12 +6,12 @@
 
 /obj/structure/clockwork/beacon
 	name = "herald's beacon"
-	desc = "An imposing spire formed of brass. It somewhat pulsates."
+	desc = "An imposing spire formed of brass. It somewhat pulsates. Cool and pretty!"
 	icon_state = "beacon"
 
 /obj/structure/clockwork/altar
 	name = "credence"
-	desc = "A strange brass platform with spinning cogs inside. It demands something in exchange for goods..."
+	desc = "A strange brass platform with spinning cogs inside. It demands somethinge in exchange for goods... once upon a time. Now it's just a dull piece of brass."
 	icon_state = "altar"
 	density = 0
 
@@ -32,6 +32,15 @@
 			return TRUE
 		if(hidden)
 			to_chat(user, "<span class='warning'>You have to clear the view of this structure in order to manipulate with it!</span>")
+			return TRUE
+		if(!anchored && !isfloorturf(loc))
+			to_chat(usr, "<span class='warning'>A floor must be present to secure [src]!</span>")
+			return TRUE
+		if(locate(/obj/structure/clockwork) in (loc.contents-src))
+			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
+			return TRUE
+		if(locate(/obj/structure/falsewall) in loc)
+			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
 			return TRUE
 		add_fingerprint(user)
 		anchored = !anchored
@@ -178,6 +187,9 @@
 	var/second_stage = FALSE // Did we started to gib someone?
 	var/convert_timer = 0
 
+/obj/structure/clockwork/functional/fake_altar
+	desc = "A strange brass platform with spinning cogs inside. It demands somethinge in exchange for goods... once upon a time. Now it's just a dull piece of brass."
+
 /obj/structure/clockwork/functional/altar/Initialize(mapload)
 	. = ..()
 	var/area/A = get_area(src)
@@ -215,11 +227,15 @@
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			I.deplete_spell()
 			return TRUE
-		if(!anchored)
-			for(var/obj/structure/clockwork/functional/altar in range(0, src))
-				if(altar != src)
-					to_chat(user, "<span class='warning'>You can not place the credence into another credence!</span>")
-					return FALSE
+		if(!anchored && !isfloorturf(loc))
+			to_chat(usr, "<span class='warning'>A floor must be present to secure [src]!</span>")
+			return TRUE
+		if(!anchored && locate(/obj/structure/clockwork) in (loc.contents-src))
+			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
+			return FALSE
+		if(locate(/obj/structure/falsewall) in loc)
+			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
+			return TRUE
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
 		if(!anchored)

@@ -129,15 +129,19 @@
 				src.visible_message("<span class='warning'>[target]'s holy weapon absorbs the light!</span>")
 				deplete_spell()
 				return
-			living.Weaken(10 SECONDS)
-			living.Silence(16 SECONDS)
+			living.Weaken(4 SECONDS)
+			living.adjustStaminaLoss(30)
+			living.apply_status_effect(STATUS_EFFECT_STAMINADOT)
+			living.flash_eyes(1, TRUE)
 			if(isrobot(living))
 				var/mob/living/silicon/robot/robot = living
 				robot.emp_act(EMP_HEAVY)
 			else if(iscarbon(target))
 				var/mob/living/carbon/carbon = living
-				carbon.Stuttering(32 SECONDS)
-				carbon.ClockSlur(32 SECONDS)
+				carbon.Silence(10 SECONDS)
+				carbon.Stuttering(16 SECONDS)
+				carbon.ClockSlur(20 SECONDS)
+				carbon.Jitter(16 SECONDS)
 			add_attack_logs(user, target, "Stunned by [src]")
 			deplete_spell()
 		if(KNOCK_SPELL)
@@ -647,6 +651,22 @@
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
 		)
 
+/obj/item/clothing/suit/hooded/clockrobe_fake
+	name = "clock robes"
+	desc = "A set of robes worn by the followers of a clockwork cult. But now its just a good armour."
+	icon = 'icons/obj/clockwork.dmi'
+	icon_state = "clockwork_robe"
+	item_state = "clockwork_robe"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	hoodtype = /obj/item/clothing/head/hooded/clockhood_fake
+	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe) // some miners stuff
+	armor = list("melee" = 40, "bullet" = 30, "laser" = 40, "energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
+	flags_inv = HIDEJUMPSUIT
+	magical = TRUE
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
+
 /obj/item/clothing/suit/hooded/clockrobe/can_store_weighted()
 	return TRUE
 
@@ -715,6 +735,18 @@
 	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 	magical = TRUE
 
+/obj/item/clothing/head/hooded/clockhood_fake
+	name = "clock hood"
+	icon = 'icons/obj/clockwork.dmi'
+	icon_state = "clockhood"
+	item_state = "clockhood"
+	desc = "A hood worn by the followers of ratvar. but now its just a simple hood."
+	flags = BLOCKHAIR
+	flags_inv = HIDENAME
+	flags_cover = HEADCOVERSEYES
+	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
+	magical = TRUE
+
 /obj/item/clothing/suit/hooded/clockrobe/equipped(mob/living/user, slot, initial)
 	. = ..()
 
@@ -755,6 +787,22 @@
 	var/reflect_uses = 3
 	var/normal_armor
 	var/harden_armor = list("melee" = 80, "bullet" = 60, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+
+/obj/item/clothing/suit/armor/clockwork_fake
+	name = "clockwork cuirass"
+	desc = "A bulky cuirass made of brass. This looks tarnished."
+	icon = 'icons/obj/clockwork.dmi'
+	icon_state = "clockwork_cuirass"
+	item_state = "clockwork_cuirass"
+	w_class = WEIGHT_CLASS_BULKY
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe) // some miners stuff
+	flags_inv = HIDEJUMPSUIT
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	allowed = list(/obj/item/clockwork, /obj/item/twohanded/ratvarian_spear, /obj/item/twohanded/clock_hammer, /obj/item/melee/clock_sword)
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
 
 /obj/item/clothing/suit/armor/clockwork/can_store_weighted()
 	return TRUE
@@ -873,6 +921,15 @@
 	var/north_star = FALSE
 	var/fire_casting = FALSE
 
+/obj/item/clothing/gloves/clockwork_fake
+	name = "clockwork gauntlets"
+	desc = "Heavy, fire-resistant gauntlets with brass reinforcement. Even without magic an excellent gloves."
+	icon = 'icons/obj/clockwork.dmi'
+	icon_state = "clockwork_gauntlets"
+	item_state = "clockwork_gauntlets"
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 30, "bomb" = 40, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100)
+
 /obj/item/clothing/gloves/clockwork/Initialize(mapload)
 	. = ..()
 	enchants = GLOB.gloves_spell
@@ -980,6 +1037,16 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 30, "bomb" = 40, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100)
 
+/obj/item/clothing/shoes/clockwork_fake
+	name = "clockwork treads"
+	desc = "Industrial boots made of brass. They're very heavy, and magic can't deny it."
+	icon = 'icons/obj/clockwork.dmi'
+	icon_state = "clockwork_treads"
+	item_state = "clockwork_treads"
+	strip_delay = 60
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 30, "bomb" = 40, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100)
+
 /obj/item/clothing/shoes/clockwork/equipped(mob/living/user, slot, initial)
 	. = ..()
 
@@ -1014,6 +1081,18 @@
 	sprite_sheets = list(
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
 		)
+
+/obj/item/clothing/head/helmet/clockwork_fake
+	name = "clockwork helmet"
+	desc = "A heavy helmet made of brass."
+	icon = 'icons/obj/clockwork.dmi'
+	icon_state = "clockwork_helmet"
+	item_state = "clockwork_helmet"
+	w_class = WEIGHT_CLASS_NORMAL
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDENAME
+	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
+	armor = list(melee = 45, bullet = 65, laser = 10, energy = 0, bomb = 60, bio = 0, rad = 0, fire = 100, acid = 100)
 
 /obj/item/clothing/head/helmet/clockwork/equipped(mob/living/user, slot, initial)
 	. = ..()

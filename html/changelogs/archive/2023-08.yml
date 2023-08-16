@@ -28,3 +28,112 @@
   - tweak: Stack Check (#3288)
   - bugfix: Mouse Drop In Hands (#3210)
   - refactor: Bind Soul (#3263)
+'2023-08-06':
+  BeebBeebBoob:
+  - tweak: Final touches on my brass creation. (#3313)
+  Den109G:
+  - bugfix: Round tips (#3305)
+  Dimach:
+  - tweak: buff pepper spray agains people in glasses (#3318)
+  JoharDude:
+  - add: Biosuit boots & gloves (#3261)
+  Ksaikok46:
+  - add: cargo - jetpack upgrade crate (#3299)
+  NightDawnFox:
+  - bugfix: bad detective sprites (#3297)
+  Roman:
+  - tweak: arrow size (#3306)
+  Shakalchik:
+  - add: CQC for Blueshield (#3308)
+  aeternaclose:
+  - add: CereImprovement-pt5 (#3300)
+'2023-08-08':
+  LiquidPotroh:
+  - tweak: Slime potions added to the Smart Fridge (#3323)
+  - add: explanation text for Mr. Chang's Aggressive Marketing (#3309)
+  Rerik007:
+  - bugfix: simplemob alien queen's typo in icon_dead state (#3321)
+  Vladisvell:
+  - refactor: atmospherics span messages (#3289)
+  - tweak: hydroponics tray lid overlay position (#3314)
+  - refactor: 'span refactor: machinery pack part 1 (#3278)'
+  Zardesse:
+  - tweak: Laser arm implant tech requirements (#3316)
+  Zwei:
+  - bugfix: Few Stack Fixes (#3310)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3320)
+'2023-08-09':
+  DeDerevce:
+  - unknown: organ fridge (#3327)
+  Den109G:
+  - bugfix: Drasks can break doors on centcomm (#3312)
+  Ksaikok46:
+  - add: new automatic shotgun for nuclear operatives and nuclear shotgun ammo tweaks
+      (#3319)
+  LiquidPotroh:
+  - add: Reason text for sentience potion (#3325)
+  NightDawnFox:
+  - add: snake petcollars, new cargo crate and ability to "wear" snake on the neck
+      (#3301)
+  Rerik007:
+  - bugfix: drunk martial art not removing (#3328)
+  Vladisvell:
+  - add: Rubber Toolbox (#3315)
+  - tweak: taipan remoter no longer works cross-sector (#3228)
+  - bugfix: blacklisted items usage in crafting (#3243)
+  Zwei:
+  - bugfix: Logging All Objectives Again (#3330)
+  spaghetti:
+  - add: mimejutsu (#3311)
+'2023-08-10':
+  Vladisvell:
+  - refactor: turfs span messages (#3282)
+  - add: Big Iron (#3317)
+  - qol: allow cables to be laid on fireproof catwalks on lava (#3331)
+  - qol: Broken APCs cover now can be pried off. (#3326)
+  WolfLox:
+  - add: braindamage from holywater (#3329)
+  yosoyrebelde:
+  - add: new station goal - bluespace rift scan (#3295)
+'2023-08-12':
+  Daeberdir:
+  - add: Brig Healer Handheld Crew Monitor (#3336)
+  Den109G:
+  - bugfix: bolts on syndie-prison (#3335)
+  Dimach:
+  - tweak: prevent send multiple messages to same radio channel (#3337)
+  Vladisvell:
+  - bugfix: holoparasites no longer get spammed by healing pylons (#3339)
+  Zwei:
+  - bugfix: Cuffs and Welding Visor Fixes (#3332)
+  aeternaclose:
+  - bugfix: CorobImprovement-pt1 (#3307)
+  - bugfix: CereBeltFix (#3334)
+  captainnelly:
+  - tweak: health hud no longer displayed on 100% HP mobs (#3302)
+  Сиротка:
+  - tweak: increase Space Dragon min players (#3333)
+'2023-08-13':
+  Vladisvell:
+  - add: bread monster (#3197)
+  Zwei:
+  - add: Accurate Item Drop (#3171)
+  - tweak: Clever Odysseus Sleeper (#3192)
+'2023-08-14':
+  Bizzonium:
+  - add: force kick client on redirection
+  Den109G:
+  - bugfix: icons for holders (#3341)
+  - del: Reverts changes in USSP (#3345)
+  Honker9999999:
+  - bugfix: rnd server now die properly (#3348)
+  WolfLox:
+  - bugfix: problem with spawn red sec ERT (#3349)
+  Zwei:
+  - bugfix: Few Objectives Fixes (#3346)
+  - bugfix: More Runtimes Fixed (#3298)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3340)
+  Сиротка:
+  - add: Fake cult sheets and armour (#3080)

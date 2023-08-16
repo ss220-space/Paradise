@@ -159,7 +159,7 @@
 				/obj/item/storage/secure/briefcase/syndie = 2,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 2,
 				/obj/item/storage/pill_bottle/fakedeath = 2,
-				/obj/item/storage/box/syndie_kit/mr_chang_technique = 2,
+				/obj/item/storage/box/syndie_kit/mr_chang_technique = 1,
 				"" = 68
 				)
 
@@ -321,7 +321,9 @@
 		/obj/item/assembly/signaler/anomaly/bluespace = 50,
 		/obj/item/assembly/signaler/anomaly/flux = 50,
 		/obj/item/assembly/signaler/anomaly/grav = 50,
-		/obj/item/assembly/signaler/anomaly/pyro = 50)
+		/obj/item/assembly/signaler/anomaly/pyro = 50,
+		/obj/item/t_scanner/science = 50,
+		/obj/item/t_scanner/experimental = 5)
 
 /obj/effect/spawner/lootdrop/trade_sol/med
 	name = "5. Medical gear"
@@ -395,7 +397,7 @@
 	/obj/item/grenade/clusterbuster/metalfoam = 50,
 	/obj/item/crowbar/power = 50,
 	/obj/item/screwdriver/power = 50,
-	/obj/item/t_scanner/extended_range = 50,
+	/obj/item/t_scanner/advanced = 50,
 	/obj/item/borg/upgrade/abductor_engi = 50)
 
 /obj/effect/spawner/lootdrop/trade_sol/largeitem
