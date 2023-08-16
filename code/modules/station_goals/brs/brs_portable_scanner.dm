@@ -59,6 +59,7 @@
 	var/switching
 
 	var/scanning_status = SCAN_OFF
+	var/is_there_any_servers = FALSE
 
 /obj/machinery/brs_portable_scanner/Initialize(mapload)
 	. = ..()
@@ -105,6 +106,8 @@
 		scanning_status = SCAN_CRITICAL
 	else
 		CRASH("Component returned unexpected value.")
+
+	is_there_any_servers = (scan_result & COMPONENT_SCANNED_NO_SERVERS) ? FALSE : TRUE
 	
 	if(scanning_status != previous_status)
 		status_change()
@@ -273,7 +276,7 @@
 /obj/machinery/brs_portable_scanner/ui_data(mob/user)
 	var/list/data = list()
 	data["scanStatus"] = scanning_status
-	data["noServers"] = !is_there_any_servers()
+	data["serversFound"] = is_there_any_servers
 	data["switching"] = switching
 	data["time_for_failure"] = time_for_failure
 	data["time_till_failure"] = (world.time < failure_time) ? (failure_time - world.time) : 0
@@ -332,14 +335,6 @@
 	status_change()
 	if(!(stat & (NOPOWER|BROKEN)))
 		playsound(loc, deactivation_sound, 100)
-
-/obj/machinery/brs_portable_scanner/proc/is_there_any_servers()
-	for(var/obj/machinery/brs_server/server as anything in GLOB.bluespace_rifts_server_list)
-		if(server.stat & (NOPOWER|BROKEN))
-			continue
-		if(server.z == z)
-			return TRUE
-	return FALSE
 
 #undef SCAN_OFF
 #undef SCAN_NO_RIFTS

@@ -13,7 +13,7 @@ export const BluespaceRiftScanner = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     scanStatus,
-    noServers,
+    serversFound,
     switching,
     time_for_failure,
     time_till_failure,
@@ -26,7 +26,7 @@ export const BluespaceRiftScanner = (props, context) => {
     } else if (status === "NO_RIFTS") {
       return ["Нет разломов в радиусе сканирования.", "silver"];
     } else if (status === "SOME_RIFTS") {
-      if (noServers) {
+      if (!serversFound) {
         return ["Сервер не найден. Передача данных приостановлена.", "average"];
       } else {
         return ["Сканирование проходит успешно.", "good"];
@@ -41,7 +41,7 @@ export const BluespaceRiftScanner = (props, context) => {
   const inactiveIconOpacity = 0.11;
 
   const powerIconColor = status === "OFF" ? ["grey", inactiveIconOpacity] : ["good", 1];
-  const scanIconColor = status === "SOME_RIFTS" ? [(noServers ? "average" : "good"), 1] : ["grey", inactiveIconOpacity];
+  const scanIconColor = status === "SOME_RIFTS" ? [(!serversFound ? "average" : "good"), 1] : ["grey", inactiveIconOpacity];
   const dangerIconColor = status === "DANGER" ? ["bad", 1] : ["grey", inactiveIconOpacity];
 
   const failurePercentage = (time_for_failure && time_till_failure) ? Math.floor((time_for_failure - time_till_failure) / time_for_failure * 100) : 0;

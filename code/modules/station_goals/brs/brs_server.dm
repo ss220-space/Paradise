@@ -281,8 +281,6 @@
 
 	uidata["scanners"] = list()
 	for(var/obj/machinery/power/brs_stationary_scanner/scanner in GLOB.bluespace_rifts_scanner_list)
-		if(scanner.z != z)
-			continue
 		if(scanner.stat & (BROKEN|NOPOWER))
 			continue
 		if(!scanner.cable_powered)
@@ -295,8 +293,6 @@
 			"switching" = scanner.switching,
 		))
 	for(var/obj/machinery/brs_portable_scanner/scanner in GLOB.bluespace_rifts_scanner_list)
-		if(scanner.z != z)
-			continue
 		if(scanner.stat & (BROKEN|NOPOWER))
 			continue
 		uidata["scanners"] += list(list(
@@ -308,8 +304,6 @@
 
 	uidata["servers"] = list()
 	for(var/obj/machinery/brs_server/server in GLOB.bluespace_rifts_server_list)
-		if(server.z != z)
-			continue
 		if(server.stat & (BROKEN|NOPOWER))
 			continue
 
