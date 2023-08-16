@@ -25,7 +25,8 @@ def build_response(audio):
 def process_tts():
    request_data = request.get_json()
    text = request_data['text']
-   print(f'Got request with text {text}') #Strictly debugging thing, uncomment if uncomfortable.
+   original_speaker = request_data['speaker']
+   print(f'Got request with text "{text}" and speaker: "{original_speaker}"') #Strictly debugging thing, uncomment if uncomfortable.
    sample_rate = request_data['sample_rate']
    speaker = primary_speaker
    tts_module = tts_creator()
