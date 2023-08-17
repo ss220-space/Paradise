@@ -59,7 +59,7 @@
 
 		for(var/obj/effect/abstract/bluespace_rift/rift_obj as anything in rift.rift_objects)
 			var/dist_to_rift = get_dist(parent, rift_obj)
-			if(dist_to_rift <= rift_obj.size)
+			if(dist_to_rift <= rift_obj.scanner_overload_range)
 				rift_scanned = TRUE
 				is_critical = TRUE
 			else if(dist_to_rift <= max_range)

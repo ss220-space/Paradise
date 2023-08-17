@@ -11,13 +11,23 @@
 	alpha = 180
 	var/size
 	var/time_per_tile
-	
+
+	var/max_scanner_overload_range = 9
+	var/min_scanner_overload_range = 1
+
+	// How often scanner overload range changes.
+	var/max_range_update_interval = 120 SECONDS
+	var/min_range_update_interval = 30 SECONDS
+
 	/// z-level the rift object should remain on.
 	var/rift_z
 	/// World time when the next step should happen.
 	var/next_step
 	/// An object on the map (turf, mob, etc.)
 	var/atom/target_loc
+
+	var/scanner_overload_range = 0
+	var/range_update_time = 0
 
 /obj/effect/abstract/bluespace_rift/Initialize(mapload, size, time_per_tile)
 	. = ..()
@@ -81,6 +91,11 @@
 		
 		if(is_target_reached())
 			change_direction()
+
+	// Update scanner overload range
+	if(range_update_time < world.time)
+		scanner_overload_range = rand(min_scanner_overload_range, max_scanner_overload_range)
+		range_update_time = world.time + rand(min_range_update_interval, max_range_update_interval)
 
 /** Returns `TRUE` if the rift is close to a singularity or tesla, `FLASE` otherwise. 
 	Use this before doing anything destructive.
