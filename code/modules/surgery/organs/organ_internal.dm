@@ -365,8 +365,8 @@
 /obj/item/organ/internal/handle_germs()
 	..()
 	if(germ_level >= INFECTION_LEVEL_TWO)
-		if(prob(3))	//about once every 30 seconds
-			receive_damage(owner.dna.species.germs_growth_rate, silent = prob(30))
+		if(prob(3 * owner.dna.species.germs_growth_rate))
+			receive_damage(1, silent = prob(30))
 
 /mob/living/carbon/human/proc/check_infections()
 	var/list/infections = list()
