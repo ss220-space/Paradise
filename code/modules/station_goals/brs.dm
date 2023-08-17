@@ -59,6 +59,8 @@ GLOBAL_LIST_EMPTY(bluespace_rifts_scanner_list)
 	return max_points
 
 /datum/station_goal/bluespace_rift/proc/spawn_rift()
+	if(rift)
+		return
 	var/rift_types = list(
 		/datum/bluespace_rift,
 		/datum/bluespace_rift/big,
