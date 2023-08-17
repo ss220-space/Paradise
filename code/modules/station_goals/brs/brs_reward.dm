@@ -12,6 +12,7 @@
 	desc = "It is high technological utilization system. We don't need 'выгребная яма' anymore, all the stuff goes directly to the black hole."
 	icon_state = "bluespace_toilet00"
 	var/teleport_sound = 'sound/magic/lightning_chargeup.ogg'
+	var/teleport_sound_cooldown = FALSE
 
 /obj/structure/toilet/bluespace/update_icon()
 	. = ..()
@@ -25,8 +26,11 @@
 	if(open)
 		// Teleport user
 		to_chat(user, span_warning("Вы чувствуете, что куда-то перемещаетесь..."))
-		if(do_after(user, 5 SECONDS, target = src))
+		if(!teleport_sound_cooldown)
 			playsound(src, teleport_sound, 100, vary = TRUE)
+			teleport_sound_cooldown = TRUE
+			addtimer(VARSET_CALLBACK(src, teleport_sound_cooldown, FALSE), 10 SECONDS)
+		if(do_after(user, 5 SECONDS, target = src))
 			do_teleport(user, user, 7)
 			investigate_log("teleported [key_name_log(user)] to [COORD(user)]", INVESTIGATE_TELEPORTATION)
 
