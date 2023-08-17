@@ -15,10 +15,13 @@ Toxification syndrome
 	stage_speed = -4
 	transmittable = -3
 	level = 5
+	var/germs_multiplier = 0
 
 /datum/symptom/infection/Start(datum/disease/advance/A)
 	var/mob/living/carbon/human/H = A.affected_mob
-	H.dna.species.germs_growth_rate *= 20
+	if(istype(H))
+		germs_multiplier = 4 + sqrtor0(25 + A.totalTransmittable()) //~~8 on average
+		H.dna.species.germs_growth_rate *= germs_multiplier
 
 /datum/symptom/infection/Activate(datum/disease/advance/A)
 	..()
@@ -31,10 +34,11 @@ Toxification syndrome
 
 	if(prob((A.stage - 2) - M.count_of_infected_organs()/4))
 		var/obj/item/organ/O = pick(M.internal_organs + M.bodyparts)
-		O.germ_level = INFECTION_LEVEL_ONE
-		to_chat(M, "<span class='warning'>Заражен орган: [O], germ_level: [O.germ_level]</span>")
+		if(O.germ_level < INFECTION_LEVEL_ONE)
+			O.germ_level = INFECTION_LEVEL_ONE
 	return
 
 /datum/symptom/infection/End(datum/disease/advance/A)
 	var/mob/living/carbon/human/H = A.affected_mob
-	H.dna.species.germs_growth_rate /= 20
+	if(germs_multiplier)
+		H.dna.species.germs_growth_rate /= germs_multiplier
