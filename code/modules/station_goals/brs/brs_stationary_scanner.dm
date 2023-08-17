@@ -82,12 +82,14 @@
 	name = "[name] \[#[id]\]"
 
 	GLOB.bluespace_rifts_scanner_list.Add(src)
+	GLOB.poi_list |= src
 	new_component_parts()
 	connect_to_network()
 	update_icon()
 
 /obj/machinery/power/brs_stationary_scanner/Destroy()
 	GLOB.bluespace_rifts_scanner_list.Remove(src)
+	GLOB.poi_list.Remove(src)
 	return ..()
 
 /obj/machinery/power/brs_stationary_scanner/ComponentInitialize()

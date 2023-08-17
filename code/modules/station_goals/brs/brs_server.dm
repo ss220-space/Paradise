@@ -80,6 +80,7 @@
 	name = "[name] \[#[id]\]"
 
 	GLOB.bluespace_rifts_server_list.Add(src)
+	GLOB.poi_list |= src
 
 	probe_cooldown_end_time = world.time + probe_cooldown_time
 
@@ -88,6 +89,7 @@
 
 /obj/machinery/brs_server/Destroy()
 	GLOB.bluespace_rifts_server_list.Remove(src)
+	GLOB.poi_list.Remove(src)
 	return ..()
 
 /obj/machinery/brs_server/process()

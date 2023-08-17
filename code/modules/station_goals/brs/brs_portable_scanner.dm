@@ -76,11 +76,13 @@
 	name = "[name] \[#[id]\]"
 
 	GLOB.bluespace_rifts_scanner_list.Add(src)
+	GLOB.poi_list |= src
 	new_component_parts()
 	status_change()
 
 /obj/machinery/brs_portable_scanner/Destroy()
 	GLOB.bluespace_rifts_scanner_list.Remove(src)
+	GLOB.poi_list.Remove(src)
 	return ..()
 
 /obj/machinery/brs_portable_scanner/ComponentInitialize()
