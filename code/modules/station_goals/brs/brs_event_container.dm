@@ -105,6 +105,8 @@
 		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Опасные химические взрывы",	/datum/event/bluespace_rift_event/explosions/random_chem_effect/dangerous,	100),
 		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Клоунские химические взрывы",/datum/event/bluespace_rift_event/explosions/random_chem_effect/funny,		100),
 		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Испачкать пол",				/datum/event/bluespace_rift_event/explosions/random_chem_effect/dirt,		100),
+
+		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Снег",						/datum/event/bluespace_rift_event/snow,										200),
 	)
 
 /**
@@ -385,6 +387,42 @@
 	grenade_types = list(
 		/obj/item/grenade/chem_grenade/dirt,
 	)
+
+/** 
+*	Covers the area around the rift with snow.
+*/
+/datum/event/bluespace_rift_event/snow
+	var/list/turf/turfs_in_range
+
+/datum/event/bluespace_rift_event/snow/setup()
+	..()
+	// Get turfs in range
+	turfs_in_range = list()
+	for(var/obj/effect/abstract/bluespace_rift/rift_obj as anything in rift_objects)
+		turfs_in_range |= RANGE_TURFS(RIFT_EVENT_RANGE(rift_obj.size), rift_obj)
+
+/datum/event/bluespace_rift_event/snow/start()
+
+	for(var/turf/turf as anything in turfs_in_range)
+		if(isspaceturf(turf))
+			continue
+		if(turf.density)
+			continue
+		if(!issimulatedturf(turf))
+			continue
+
+		var/turf/simulated/t_turf = turf
+
+		t_turf.air.temperature = T0C - 1
+		t_turf.air_update_turf()
+
+		if(locate(/obj/effect/snowcloud, t_turf))
+			continue
+		new /obj/effect/snow(t_turf)
+		
+/datum/event/bluespace_rift_event/snow/end()
+	..()
+	turfs_in_range = null
 
 #undef MAX_RIFT_EVENT_RANGE
 #undef RIFT_EVENT_RANGE
