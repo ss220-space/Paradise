@@ -219,9 +219,9 @@
 
 /obj/item/organ/internal/heart/gland/viral/activate()
 	to_chat(owner, "<span class='warning'>You feel sick.</span>")
-	var/datum/disease/advance/rand_virus = random_virus(pick(2, 6), 6)
+	var/datum/disease/advance/rand_virus = random_virus(rand(2, 6), 6)
 	rand_virus.carrier = TRUE
-	var/datum/disease/check = locate() in owner.viruses
+	var/datum/disease/advance/check = locate() in owner.viruses
 	if(check)
 		check.cure(resistance = FALSE)
 	owner.ForceContractDisease(rand_virus)
