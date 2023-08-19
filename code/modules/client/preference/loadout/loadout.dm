@@ -22,6 +22,7 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	var/subtype_path = /datum/gear //for skipping organizational subtypes (optional)
 	var/subtype_cost_overlap = TRUE //if subtypes can take points at the same time
 	var/donator_tier = 0
+	var/implantable = FALSE    //For organ-like implants (huds, pumps, etc)
 
 /datum/gear/New()
 	..()
