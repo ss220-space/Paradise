@@ -283,7 +283,7 @@
 	var/turf/T = get_turf(ranged_ability_user)
 	if(!isturf(T))
 		return FALSE
-	if(target in view(7, ranged_ability_user))
+	if(target in view(user.client.maxview(), ranged_ability_user))
 		if(!ishuman(target) || iscultist(target))
 			return
 		var/mob/living/carbon/human/H = target

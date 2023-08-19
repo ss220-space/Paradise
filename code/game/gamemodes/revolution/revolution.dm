@@ -41,7 +41,7 @@
 
 /datum/action/innate/revolution_recruitment/proc/choose_targets(mob/user = usr)
 	var/list/validtargets = list()
-	for(var/mob/living/carbon/human/M in view(user.client.view, get_turf(user)))
+	for(var/mob/living/carbon/human/M in view(user.client.maxview(), get_turf(user)))
 		if(M && M.mind && M.stat == CONSCIOUS)
 			if(M == user)
 				continue

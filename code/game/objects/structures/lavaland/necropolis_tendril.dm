@@ -50,7 +50,7 @@ GLOBAL_LIST_INIT(tendrils, list())
 
 	if(last_tendril && !admin_spawned)
 		if(SSmedals.hub_enabled)
-			for(var/mob/living/L in view(7,src))
+			for(var/mob/living/L in viewers(src))
 				if(L.stat || !L.client)
 					continue
 				SSmedals.UnlockMedal("[BOSS_MEDAL_TENDRIL] [ALL_KILL_MEDAL]", L.client)
@@ -87,7 +87,7 @@ GLOBAL_LIST_INIT(tendrils, list())
 	return ..()
 
 /obj/effect/collapse/proc/collapse()
-	for(var/mob/M in range(7, src))
+	for(var/mob/M in viewers(src))
 		shake_camera(M, 15, 1)
 	playsound(get_turf(src),'sound/effects/explosionfar.ogg', 200, TRUE)
 	visible_message("<span class='boldannounce'>The tendril falls inward, the ground around it widening into a yawning chasm!</span>")

@@ -132,7 +132,7 @@
 	if (!msg)
 		return
 	msg = admin_pencode_to_html(msg)
-	for(var/mob/living/M in view(7,A))
+	for(var/mob/living/M in view(maxview(),A))
 		to_chat(M, msg)
 	log_and_message_admins("<span class='boldnotice'>local narrated at [AREACOORD(A)]: [msg]<BR></span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Local Narrate") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

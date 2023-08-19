@@ -1988,7 +1988,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	tY = tY[1]
 	tX = splittext(tX[1], ":")
 	tX = tX[1]
-	var/list/actual_view = getviewsize(C ? C.view : world.view)
+	var/list/actual_view = getviewsize(C ? C.maxview() : world.view)
 	tX = clamp(origin.x + text2num(tX) - round(actual_view[1] / 2) - 1, 1, world.maxx)
 	tY = clamp(origin.y + text2num(tY) - round(actual_view[2] / 2) - 1, 1, world.maxy)
 	return locate(tX, tY, tZ)

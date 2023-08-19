@@ -82,7 +82,7 @@
 
 /obj/effect/sliding_puzzle/proc/finish()
 	finished = TRUE
-	for(var/mob/M in range(7,src))
+	for(var/mob/M in viewers(src))
 		shake_camera(M, COLLAPSE_DURATION , 1)
 	for(var/obj/structure/puzzle_element/E in elements)
 		E.collapse()

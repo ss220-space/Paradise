@@ -691,13 +691,13 @@
 				if(stealth_ambient_chance >= 15)
 					spark_system.start()
 				else
-					for(var/mob/living/carbon/other_mob in view(7,ninja))
+					for(var/mob/living/carbon/other_mob in viewers(ninja))
 						if(other_mob == ninja)
 							continue
 						to_chat(other_mob, span_info(random_subtle_text))
 			if(2)
 				if(stealth_ambient_chance >= 40)
-					for(var/mob/living/carbon/other_mob in view(7,ninja))
+					for(var/mob/living/carbon/other_mob in viewers(ninja))
 						if(other_mob == ninja)
 							continue
 						to_chat(other_mob, span_danger(random_danger_text))

@@ -120,9 +120,9 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 
 	if(GLOB.intercom_range_display_status)
 		for(var/obj/item/radio/intercom/I in GLOB.global_radios)
-			for(var/turf/T in orange(7,I))
+			for(var/turf/T in orange(maxview(),I))
 				var/obj/effect/debugging/marker/F = new/obj/effect/debugging/marker(T)
-				if(!(F in view(7,I.loc)))
+				if(!(F in view(maxview(),I.loc)))
 					qdel(F)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Intercom Range Display") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

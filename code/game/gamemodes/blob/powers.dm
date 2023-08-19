@@ -186,7 +186,7 @@
 		to_chat(src, "Unable to use this blob, find a normal one.")
 		return
 
-	for(var/obj/structure/blob/factory/blob in orange(7, T))
+	for(var/obj/structure/blob/factory/blob in orange(7, T)) //hmm
 		to_chat(src, "There is a factory blob nearby, move more than 7 tiles away from it!")
 		return
 

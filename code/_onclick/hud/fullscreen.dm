@@ -7,14 +7,14 @@
 		// needs to be recreated
 		clear_fullscreen(category, FALSE)
 		screens[category] = screen = new type()
-	else if ((!severity || severity == screen.severity) && (!client || screen.screen_loc != "CENTER-7,CENTER-7" || screen.view == client.view))
+	else if ((!severity || severity == screen.severity) && (!client || screen.screen_loc != "CENTER-7,CENTER-7" || screen.view == client.maxview()))
 		// doesn't need to be updated
 		return screen
 
 	screen.icon_state = "[initial(screen.icon_state)][severity]"
 	screen.severity = severity
 	if (client && screen.should_show_to(src))
-		screen.update_for_view(client.view)
+		screen.update_for_view(client.maxview())
 		client.screen += screen
 
 	return screen
@@ -49,7 +49,7 @@
 		for(var/category in screens)
 			screen = screens[category]
 			if(screen.should_show_to(mymob))
-				screen.update_for_view(mymob.client.view)
+				screen.update_for_view(mymob.client.maxview())
 				mymob.client.screen |= screen
 			else
 				mymob.client.screen -= screen

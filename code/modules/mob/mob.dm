@@ -105,7 +105,7 @@
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
 
 /mob/visible_message(var/message, var/self_message, var/blind_message)
-	for(var/mob/M in get_mobs_in_view(7, src))
+	for(var/mob/M in get_mobs_in_view(client.maxview(), src))
 		if(M.see_invisible < invisibility)
 			continue //can't view the invisible
 		var/msg = message

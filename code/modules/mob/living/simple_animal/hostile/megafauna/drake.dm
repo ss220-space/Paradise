@@ -377,7 +377,7 @@ Difficulty: Medium
 	for(var/obj/mecha/M in orange(1, src))
 		M.take_damage(75, BRUTE, "melee", 1)
 
-	for(var/mob/M in range(7, src))
+	for(var/mob/M in viewers(src))
 		shake_camera(M, 15, 1)
 
 	density = TRUE
