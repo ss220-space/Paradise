@@ -381,6 +381,7 @@
 	r_pocket = /obj/item/reagent_containers/hypospray/autoinjector/epinephrine
 
 
+
 	backpack_contents = list(
 		/obj/item/bodyanalyzer/advanced = 1,
 		/obj/item/storage/firstaid/ert = 1,
