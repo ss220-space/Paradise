@@ -51,7 +51,7 @@
 
 /obj/item/sensor_device/advanced/command/Initialize(mapload)
 	. = ..()
-	crew_monitor.crew_vision = COMMAND_CREW_VISION
+	crew_monitor.crew_vision = CREW_VISION_COMMAND
 
 /obj/item/sensor_device/advanced/security
 	name = "security crew monitor"
@@ -59,4 +59,4 @@
 
 /obj/item/sensor_device/advanced/security/Initialize(mapload)
 	. = ..()
-	crew_monitor.crew_vision = SECURITY_CREW_VISION
+	crew_monitor.crew_vision = CREW_VISION_SECURITY

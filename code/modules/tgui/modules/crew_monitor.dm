@@ -1,6 +1,6 @@
 /datum/ui_module/crew_monitor
 	name = "Crew monitor"
-	var/crew_vision = COMMON_CREW_VISION
+	var/crew_vision = CREW_VISION_COMMON
 
 /datum/ui_module/crew_monitor/ui_act(action, params)
 	if(..())
@@ -42,8 +42,8 @@
 	data["critThreshold"] = HEALTH_THRESHOLD_CRIT
 	data["IndexToggler"] = crew_vision
 	switch(crew_vision)
-		if(COMMAND_CREW_VISION)
+		if(CREW_VISION_COMMAND)
 			data["isBS"] = 1
-		if(SECURITY_CREW_VISION)
+		if(CREW_VISION_SECURITY)
 			data["isBP"] = 1
 	return data

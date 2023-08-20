@@ -1,4 +1,4 @@
 // Used in sensor devices. I hope this will make smthng good.
-#define COMMAND_CREW_VISION 0
-#define SECURITY_CREW_VISION 1
-#define COMMON_CREW_VISION 2
+#define CREW_VISION_COMMAND 0
+#define CREW_VISION_SECURITY 1
+#define CREW_VISION_COMMON 2
