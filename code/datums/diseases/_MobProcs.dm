@@ -29,10 +29,30 @@
 /mob/proc/ContractDisease(datum/disease/D)
 	if(!CanContractDisease(D))
 		return 0
-	AddDisease(D)
+	AddCopyOfDisease(D)
 
-
+/**
+ * Infects a mob with disease D, even if it already has an affected_mob, it will be replaced with scr
+ *
+ * Arguments:
+ * * D - the fully created and prepared disease
+ */
 /mob/proc/AddDisease(datum/disease/D)
+	if(istype(D.affected_mob))
+		D.remove_virus()
+
+	viruses += D
+	D.affected_mob = src
+	GLOB.active_diseases += D
+	D.affected_mob.med_hud_set_status()
+
+/**
+ * Creates a copy of the virus and infects the mob with it.
+ *
+ * Arguments:
+ * * D - the main disease, a copy of which is being created
+ */
+/mob/proc/AddCopyOfDisease(datum/disease/D)
 	var/datum/disease/DD = new D.type()
 	viruses += DD
 	DD.affected_mob = src
@@ -52,7 +72,7 @@
 	DD.affected_mob.med_hud_set_status()
 
 
-/mob/living/carbon/ContractDisease(datum/disease/D)
+/mob/living/carbon/ContractDisease(datum/disease/D, var/create_copy = TRUE)
 	if(!CanContractDisease(D))
 		return 0
 
@@ -123,7 +143,10 @@
 		passed = (prob((50*D.permeability_mod) - 1))
 
 	if(passed)
-		AddDisease(D)
+		if(create_copy)
+			AddCopyOfDisease(D)
+		else
+			AddDisease(D)
 
 
 /**
@@ -137,7 +160,7 @@
 /mob/proc/ForceContractDisease(datum/disease/D)
 	if(!CanContractDisease(D))
 		return FALSE
-	AddDisease(D)
+	AddCopyOfDisease(D)
 	return TRUE
 
 
