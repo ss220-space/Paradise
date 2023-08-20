@@ -50,12 +50,12 @@
 
 
 /obj/screen/drop
-	name = "drop"
+	name = "accurate drop"
 	icon_state = "act_drop"
 
 /obj/screen/drop/Click()
 	if(usr.stat == CONSCIOUS)
-		usr.drop_item_ground(usr.get_active_hand())
+		usr.drop_item_ground(usr.get_active_hand(), ignore_pixel_shift = TRUE)
 
 
 /obj/screen/grab
@@ -469,6 +469,9 @@
 /obj/screen/inventory/MouseDrop_T(obj/item/I, mob/user)
 
 	if(!user || !istype(I) || user.incapacitated() || ismecha(user.loc) || is_ventcrawling(user))
+		return FALSE
+
+	if(!in_range(get_turf(I), get_turf(user)))
 		return FALSE
 
 	if(!hud?.mymob || !slot_id)

@@ -275,13 +275,13 @@
 // Bulldog shotgun //
 /obj/item/gun/projectile/automatic/shotgun/bulldog
 	name = "\improper 'Bulldog' Shotgun"
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 8-round drum magazines."
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 12/24-round drum magazines."
 	icon_state = "bulldog"
 	item_state = "bulldog"
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=6;materials=4;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/m12g
-	fire_sound = 'sound/weapons/gunshots/1shotgunpipe.ogg'
+	fire_sound = 'sound/weapons/gunshots/bulldog.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = 0
@@ -322,6 +322,30 @@
 	..()
 	empty_alarm()
 
+//AS-12 Minotaur//
+/obj/item/gun/projectile/automatic/shotgun/minotaur
+	name = "\improper AS-12 'Minotaur' Shotgun"
+	desc = "Smooth, powerful, highly illegal. The newest full auto shotgun available at the market, utilizes standard 12g drum mags. Property of Gorlex Marauders."
+	icon_state = "minotaur"
+	item_state = "minotaur"
+	w_class = WEIGHT_CLASS_NORMAL
+	origin_tech = "combat=6;materials=4;syndicate=6"
+	mag_type = /obj/item/ammo_box/magazine/m12g
+	fire_sound = 'sound/weapons/gunshots/minotaur.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/autoshotgun_mag_in.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/autoshotgun_mag_out.ogg'
+	can_suppress = 0
+	burst_size = 3
+	fire_delay = 1.5
+
+/obj/item/gun/projectile/automatic/shotgun/minotaur/New()
+	magazine = new/obj/item/ammo_box/magazine/m12g/XtrLrg
+	..()
+
+/obj/item/gun/projectile/automatic/shotgun/minotaur/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
+	..()
+	empty_alarm()
+
 //Laser carbine//
 /obj/item/gun/projectile/automatic/lasercarbine
 	name = "\improper IK-60 Laser Carbine"
@@ -342,7 +366,7 @@
 	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
 
 /obj/item/gun/projectile/automatic/lr30
-	name = "\improper IR-30 Laser Rifle"
+	name = "\improper LR-30 Laser Rifle"
 	desc = "A compact rifle, relying more on battery cartridges rather than a built in power cell. Utilized by the Nanotrasen Navy for combat operations."
 	icon_state = "lr30"
 	item_state = "lr30"
