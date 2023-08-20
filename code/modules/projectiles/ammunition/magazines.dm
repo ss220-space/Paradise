@@ -623,3 +623,4 @@
 	caliber = "mm55645"
 	max_ammo = 24
 	multiple_sprites = 2
+
