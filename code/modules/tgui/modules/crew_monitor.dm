@@ -1,7 +1,6 @@
 /datum/ui_module/crew_monitor
 	name = "Crew monitor"
-	var/with_command = FALSE
-	var/with_security = FALSE
+	var/crew_vision = COMMON_CREW_VISION
 
 /datum/ui_module/crew_monitor/ui_act(action, params)
 	if(..())
@@ -41,12 +40,10 @@
 	data["isAI"] = isAI(user)
 	data["crewmembers"] = GLOB.crew_repository.health_data(T)
 	data["critThreshold"] = HEALTH_THRESHOLD_CRIT
-	if(with_command)
-		data["isBS"] = 1
-		data["IndexToggler"] = 0
-	else if(with_security)
-		data["isBP"] = 1
-		data["IndexToggler"] = 1
-	else
-		data["IndexToggler"] = 2
+	data["IndexToggler"] = crew_vision
+	switch(crew_vision)
+		if(COMMAND_CREW_VISION)
+			data["isBS"] = 1
+		if(SECURITY_CREW_VISION)
+			data["isBP"] = 1
 	return data
