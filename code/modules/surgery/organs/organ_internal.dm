@@ -192,7 +192,7 @@
 /obj/item/organ/internal/appendix/insert(mob/living/carbon/M, special = 0)
 	..()
 	if(inflamed)
-		M.AddDisease(new /datum/disease/appendicitis)
+		M.AddCopyOfDisease(new /datum/disease/appendicitis)
 
 /obj/item/organ/internal/appendix/prepare_eat()
 	var/obj/S = ..()
