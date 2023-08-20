@@ -260,6 +260,7 @@
 	create_attack_logs = FALSE
 	base_cooldown = 5 SECONDS
 	required_blood = 20
+	deduct_blood_on_cast = FALSE
 	var/is_dissecting = FALSE
 
 
@@ -396,6 +397,10 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 	if(target.stat == DEAD)	// grip was too strong mr. vampire
 		to_chat(user, span_warning("[target] is dead and no longer fit for the ritual"))
 		return
+
+	var/datum/spell_handler/vampire/handler = custom_handler
+	var/blood_cost = handler.calculate_blood_cost(vampire)
+	vampire.bloodusable -= blood_cost
 
 	var/obj/item/thing = organ_to_dissect.remove(target)
 	qdel(thing)
