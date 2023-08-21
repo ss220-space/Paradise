@@ -225,7 +225,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 /**
  * Clears area from:
  * All mobs
- * All object except thunderdome poller and poddors (shutters included)
+ * All objects except thunderdome poller and poddors (shutters included)
  * *Arguments:
  * *zone - specific area
  */
@@ -250,7 +250,6 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
  * Handles thunderdome's participants deaths. Called from /datum/component/death_timer_reset/
  */
 /datum/thunderdome_battle/proc/handle_participant_death(mob/living/dead_fighter)
-	message_admins(span_dangerbigger("[dead_fighter] has been tracked for being dead. What a shame")) //debug message
 	if(dead_fighter in fighters)
 		fighters -= dead_fighter
 	if(length(fighters) == 0)
@@ -258,8 +257,8 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 			qdel(timer)
 		addtimer(CALLBACK(src, PROC_REF(clear_thunderdome)), 5 SECONDS) //Everyone died. Time to reset.
 		//Also avoiding all issues with death handling of thunderdome participants by letting fighters' components do their stuff.
-
-		//Maybe it will be a good idea to add winner tracker
+		if(last_poller)
+			last_poller.visible_message(span_danger("Thunderdome has ended with death of all participants! Cleansing in 5 seconds..."))
 	return
 
 /**

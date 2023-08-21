@@ -11,17 +11,13 @@
 
 /datum/component/death_timer_reset/Initialize(death_time)
 	death_time_before = death_time
-	RegisterSignal(parent, list(COMSIG_MOB_DEATH), PROC_REF(reset_death_time))
+	RegisterSignal(parent, list(COMSIG_MOB_GHOSTIZE), PROC_REF(reset_death_time))
 
 /**
- * A bit of a trick with ghostizing dead without possibility to return to left body.
+ * A bit of a trick with ghostized dead without possibility to return to left body. (Because it resets time of death to world.time)
  */
-/datum/component/death_timer_reset/proc/reset_death_time()
-	var/mob/living/L = parent
-	var/mob/dead/observer/ghost = L.ghostize()
-	if(ghost)
-		ghost.can_reenter_corpse = FALSE
-		ghost.timeofdeath = death_time_before
-		//message_admins("time of death for [ghost.ckey] has been successfully reset to [death_time_before]") //debug message
-	UnregisterSignal(parent, list(COMSIG_MOB_DEATH))
+/datum/component/death_timer_reset/proc/reset_death_time(mob/living/creature, mob/dead/observer/ghost)
+	ghost.timeofdeath = death_time_before
+	ghost.can_reenter_corpse = FALSE
+	UnregisterSignal(parent, list(COMSIG_MOB_GHOSTIZE))
 
