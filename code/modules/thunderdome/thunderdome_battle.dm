@@ -54,6 +54,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 	var/when_cleansing_happened = 0 //storing (in ticks) moment of arena cleansing
 	var/obj/thunderdome_poller/last_poller = null
 	var/list/fighters = list()	//list of current players on thunderdome, used for tracking winners and stuff.
+	var/is_cleansing_going = FALSE
 
 	var/list/melee_pool = list(
 		/obj/item/melee/rapier = 1,
@@ -213,6 +214,8 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
  *
 */
 /datum/thunderdome_battle/proc/clear_thunderdome()
+	is_cleansing_going = TRUE
+
 	clear_area(GLOB.tdome_arena)
 	clear_area(GLOB.tdome_arena_melee)
 
@@ -221,6 +224,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 	add_game_logs("Thunderdome battle has ended.")
 	var/image/alert_overlay = image('icons/obj/assemblies.dmi', "thunderdome-bomb-active-wires")
 	notify_ghosts(message = "Thunderdome is ready for battle!", title="Thunderdome News", alert_overlay = alert_overlay, source = last_poller, action = NOTIFY_JUMP)
+	is_cleansing_going = FALSE
 
 /**
  * Clears area from:
@@ -252,7 +256,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 /datum/thunderdome_battle/proc/handle_participant_death(mob/living/dead_fighter)
 	if(dead_fighter in fighters)
 		fighters -= dead_fighter
-	if(length(fighters) == 0)
+	if(length(fighters) == 0 && !is_cleansing_going)
 		for(var/datum/timedevent/timer in active_timers)
 			qdel(timer)
 		addtimer(CALLBACK(src, PROC_REF(clear_thunderdome)), 5 SECONDS) //Everyone died. Time to reset.
