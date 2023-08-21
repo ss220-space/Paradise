@@ -418,7 +418,6 @@
 	icon_state = "l_arm"
 	speed = 2
 	range = 3
-	//animate_movement = 0
 	flag = "melee"
 	damage = 20
 	damage_type = BRUTE

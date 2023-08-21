@@ -35,10 +35,9 @@ Bonus
 			if(prob(SYMPTOM_ACTIVATION_PROB))
 				to_chat(M, "<span class='warning'>[pick("Your head hurts.", "Your mind blanks for a moment.")]</span>")
 		else
-			M.AdjustConfused(4 SECONDS, bound_lower = 0, bound_upper = 200 SECONDS)
-			M.Disoriented(1)
 			if(prob(SYMPTOM_ACTIVATION_PROB * 3))
 				to_chat(M, "<span class='userdanger'>You can't think straight!</span>")
-				M.AdjustConfused(10 SECONDS, bound_lower = 0, bound_upper = 200 SECONDS)
+				M.AdjustConfused(20 SECONDS, bound_lower = 0, bound_upper = 200 SECONDS)
+				M.Disoriented(1)
 
 	return
