@@ -665,7 +665,7 @@
 
 					return attack_self(user)
 
-				if("Следующая цель")
+				if("Следующая Цель")
 					if(!length(current_targets))
 						to_chat(user, span_warning("Не удалось идентифицировать режим отслеживания!"))
 						return
@@ -676,7 +676,7 @@
 						to_chat(user, span_warning("Доступные цели закончились, возвращаемся к первой!"))
 
 					else
-						to_chat(user, span_notice("Вы переключили пинпоинтер на следующую цель."))
+						to_chat(user, span_notice("Вы переключили пинпоинтер на <b>[targets_index]</b> цель из <b>[length(current_targets)]</b>."))
 
 					target = current_targets[targets_index]
 
