@@ -20,32 +20,32 @@
 	if(!istype(A))
 		return
 	if(get_dist(get_turf(src), get_turf(A)) > 3)
-		to_chat(src, "<span class='danger'>Слишком далеко от [A] чтобы скрыть это как бомбу.</span>")
+		to_chat(src, span_danger("Слишком далеко от [A] чтобы скрыть это как бомбу."))
 		return
 	if(isobj(A) && can_plant(A))
 		if(bomb_cooldown <= world.time && !stat)
 			add_attack_logs(src, A, "booby trapped (summoner: [summoner])")
-			to_chat(src, "<span class='danger'>Успех! Бомба на [A] взведена!</span>")
+			to_chat(src, span_danger("Успех! Бомба на [A] взведена!"))
 			if(summoner)
-				to_chat(summoner, "<span class='warning'>Ваш Подрывник взвел [A] для взрыва!</span>")
+				to_chat(summoner, span_warning("Ваш Подрывник взвел [A] для взрыва!"))
 			bomb_cooldown = world.time + default_bomb_cooldown
 			A.AddComponent(/datum/component/guardian_mine, src)
 		else
-			to_chat(src, "<span class='danger'>Ваши силы на перезарядке! Вы должны ждать ещё [max(round((bomb_cooldown - world.time)*0.1, 0.1), 0)] секунд до установки следующей бомбы.</span>")
+			to_chat(src, span_danger("Ваши силы на перезарядке! Вы должны ждать ещё [max(round((bomb_cooldown - world.time)*0.1, 0.1), 0)] секунд до установки следующей бомбы."))
 
 /mob/living/simple_animal/hostile/guardian/bomb/proc/can_plant(atom/movable/A)
 	if(istype(A, /obj/mecha))
 		var/obj/mecha/target = A
 		if(target.occupant)
-			to_chat(src, "<span class='warning'>Пилотируемые мехи непригодны для минирования!</span>")
+			to_chat(src, span_warning("Пилотируемые мехи непригодны для минирования!"))
 			return FALSE
 	if(istype(A, /obj/spacepod))
 		var/obj/spacepod/target = A
 		if(target.pilot)
-			to_chat(src, "<span class='warning'>Челноки не пригодны для минирования!</span>")
+			to_chat(src, span_warning("Челноки не пригодны для минирования!"))
 			return FALSE
 	if(istype(A, /obj/machinery/disposal)) // Have no idea why they just destroy themselves
-		to_chat(src, "<span class='warning'>Бомбы не мусор! Нельзя минировать мусорки!</span>")
+		to_chat(src, span_warning("Бомбы не мусор! Нельзя минировать мусорки!"))
 		return FALSE
 	return TRUE
 
