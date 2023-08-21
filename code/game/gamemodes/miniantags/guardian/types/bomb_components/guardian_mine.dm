@@ -3,6 +3,7 @@
  */
 #define MINE_LIFE_TIME 60 SECONDS
 
+///Datum specialized for guardian(holoparasite)-bomber.
 /datum/component/guardian_mine
 	var/mob/living/simple_animal/hostile/guardian/bomb/bomber
 	var/is_exploded = FALSE
@@ -46,6 +47,8 @@
 /datum/component/guardian_mine/proc/defuse()
 	if(is_exploded)
 		return
+	if(bomber)
+		to_chat(bomber, "Провал! Ваша мина на [parent] не смогла никого поймать на сей раз.")
 	UnregisterFromParent()
 
 /datum/component/guardian_mine/proc/examine_mined(atom/parent_atom, mob/victim)
