@@ -105,11 +105,11 @@
 	overlays.Cut()
 	if(!opened)
 		icon_state = initial(icon_state)
-		overlays += overlay_locker
 		if(custom_door_overlay)
 			overlays += "[custom_door_overlay]_door"
 		else
 			overlays += "[initial(icon_state)]_door"
+		overlays += overlay_locker
 		if(welded)
 			overlays += "welded"
 		if(!broken)

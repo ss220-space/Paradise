@@ -11,8 +11,8 @@
 /obj/structure/closet/gmcloset
 	name = "formal closet"
 	desc = "It's a storage unit for formal clothing."
-	icon_state = "black"
-	icon_closed = "black"
+	icon_state = "closed"
+	custom_door_overlay = "black"
 
 /obj/structure/closet/gmcloset/populate_contents()
 	new /obj/item/clothing/head/that(src)
