@@ -8,8 +8,16 @@
 	max_integrity = 200
 	integrity_failure = 50
 	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 60)
-	var/icon_closed = "closed"
+	var/icon_closed = "closed" //stays here for compatibility issues
 	var/icon_opened = "open"
+
+	//following overlays are used by default for states, override if necessary
+	var/overlay_sparking = "sparking"
+	var/overlay_unlocked = "unlocked"
+	var/overlay_locked = "locked"
+	var/overlay_locker = "locker"
+	var/custom_door_overlay = null
+
 	var/opened = FALSE
 	var/welded = FALSE
 	var/locked = FALSE
@@ -294,15 +302,18 @@
 	else
 		to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
 
-/obj/structure/closet/update_icon()//Putting the welded stuff in updateicon() so it's easy to overwrite for special cases (Fridges, cabinets, and whatnot)
+/obj/structure/closet/update_icon() //Putting the welded stuff in updateicon() so it's easy to overwrite for special cases (Fridges, cabinets, and whatnot)
 	overlays.Cut()
+	icon_state = initial(icon_state)
 	if(!opened)
-		icon_state = initial(icon_state)
+		if(custom_door_overlay)
+			overlays += "[custom_door_overlay]_door"
+		else
+			overlays += "[initial(icon_state)]_door"
 		if(welded)
 			overlays += "welded"
 	else
-		icon_state = "[initial(icon_state)]_open"
-		overlays += "[initial(icon_state)]_door"
+		overlays += "[initial(icon_state)]_open"
 
 // Objects that try to exit a locker by stepping were doing so successfully,
 // and due to an oversight in turf/Enter() were going through walls.  That
@@ -383,8 +394,6 @@
 	desc = "A storage unit that moves and stores through the fourth dimension."
 	density = 0
 	icon_state = "bluespace"
-	icon_closed = "bluespace"
-	icon_opened = "bluespaceopen"
 	storage_capacity = 60
 	var/materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
 	var/transparent = FALSE
@@ -408,14 +417,18 @@
 		icon_state = initial(icon_state)
 		if(welded)
 			overlays += "welded"
-	else
-		icon_state = "[initial(icon_state)]_open"
 		if(transparent)
+			icon_state += "_trans"
 			overlays += "[initial(icon_state)]_door_trans"
 		else
 			overlays += "[initial(icon_state)]_door"
-	if(transparent)
-		icon_state += "_trans"
+	else
+		icon_state = initial(icon_state)
+		if(transparent)
+			icon_state += "_trans"
+			overlays += "[initial(icon_state)]_open_trans"
+		else
+			overlays += "[initial(icon_state)]_open"
 
 /obj/structure/closet/bluespace/Crossed(atom/movable/AM, oldloc)
 	if(AM.density)

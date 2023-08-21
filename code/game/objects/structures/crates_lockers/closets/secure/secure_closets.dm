@@ -2,7 +2,7 @@
 	name = "secure locker"
 	desc = "It's an immobile card-locked storage unit."
 	icon = 'icons/obj/closet.dmi'
-	icon_state = "secure1"
+	icon_state = "secure"
 	density = 1
 	opened = 0
 	locked = 1
@@ -11,11 +11,6 @@
 	max_integrity = 250
 	armor = list("melee" = 30, "bullet" = 50, "laser" = 50, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
 	damage_deflection = 20
-	icon_closed = "secure"
-	var/icon_locked = "secure1"
-	icon_opened = "secureopen"
-	var/icon_broken = "securebroken"
-	var/icon_off = "secureoff"
 	wall_mounted = 0 //never solid (You can always pass over it)
 
 /obj/structure/closet/secure_closet/can_open()
@@ -28,7 +23,7 @@
 /obj/structure/closet/secure_closet/close()
 	if(..())
 		if(broken)
-			icon_state = icon_off
+			update_icon()
 		return 1
 	else
 		return 0
@@ -81,8 +76,8 @@
 		add_attack_logs(user, src, "emagged")
 		broken = TRUE
 		locked = FALSE
-		icon_state = icon_off
-		flick(icon_broken, src)
+		overlays += overlay_sparking
+		addtimer(CALLBACK(src, PROC_REF(update_icon)), 1 SECONDS)
 		to_chat(user, "<span class='notice'>You break the lock on \the [src].</span>")
 
 /obj/structure/closet/secure_closet/attack_hand(mob/user)
@@ -110,18 +105,21 @@
 	overlays.Cut()
 	if(!opened)
 		icon_state = initial(icon_state)
+		overlays += overlay_locker
+		if(custom_door_overlay)
+			overlays += "[custom_door_overlay]_door"
+		else
+			overlays += "[initial(icon_state)]_door"
 		if(welded)
 			overlays += "welded"
-		if(broken)
-			overlays += "sparking"
-		else
+		if(!broken)
 			if(locked)
-				overlays += "locked"
+				overlays += overlay_locked
 			else
-				overlays += "unlocked"
+				overlays += overlay_unlocked
 	else
-		icon_state = "[initial(icon_state)]_open"
-		overlays += "[initial(icon_state)]_door"
+		icon_state = "[initial(icon_state)]"
+		overlays += "[initial(icon_state)]_open"
 
 /obj/structure/closet/secure_closet/container_resist(var/mob/living/L)
 	var/breakout_time = 2 //2 minutes by default
@@ -149,10 +147,9 @@
 
 			//Well then break it!
 			desc = "It appears to be broken."
-			icon_state = icon_off
-			flick(icon_broken, src)
+			flick_overlay_view(image(icon=icon, icon_state=overlay_sparking), 1 SECONDS)
 			sleep(10)
-			flick(icon_broken, src)
+			flick_overlay_view(image(icon=icon, icon_state=overlay_sparking), 1 SECONDS)
 			sleep(10)
 			broken = 1
 			locked = 0
@@ -175,7 +172,8 @@
 				to_chat(user, "<span class='notice'>Вы успешно открутили и сняли панель с замка [src]!</span>")
 				desc += " Панель управления снята."
 				broken = 3
-				icon_state = icon_off
+				update_icon()
+				//icon_state = icon_off
 			else // Bad day)
 				var/mob/living/carbon/human/H = user
 				var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? "l_hand" : "r_hand")
