@@ -109,14 +109,19 @@
 /obj/structure/closet/secure_closet/update_icon()//Putting the welded stuff in updateicon() so it's easy to overwrite for special cases (Fridges, cabinets, and whatnot)
 	overlays.Cut()
 	if(!opened)
-		if(locked)
-			icon_state = icon_locked
-		else
-			icon_state = icon_closed
+		icon_state = initial(icon_state)
 		if(welded)
 			overlays += "welded"
+		if(broken)
+			overlays += "sparking"
+		else
+			if(locked)
+				overlays += "locked"
+			else
+				overlays += "unlocked"
 	else
-		icon_state = icon_opened
+		icon_state = "[initial(icon_state)]_open"
+		overlays += "[initial(icon_state)]_door"
 
 /obj/structure/closet/secure_closet/container_resist(var/mob/living/L)
 	var/breakout_time = 2 //2 minutes by default

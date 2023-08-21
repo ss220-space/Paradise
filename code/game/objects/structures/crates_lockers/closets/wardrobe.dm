@@ -1,8 +1,19 @@
 /obj/structure/closet/wardrobe
 	name = "wardrobe"
 	desc = "It's a storage unit for standard-issue Nanotrasen attire."
-	icon_state = "blue"
-	icon_closed = "blue"
+	icon_state = "generic"
+	icon_opened = "generic"
+	icon_closed = "generic"
+
+/obj/structure/closet/wardrobe/update_icon() //Special case here.
+	overlays.Cut()
+	if(!opened)
+		if(welded)
+			overlays += "welded"
+		icon_state = initial(icon_state)
+	else
+		icon_state = "generic_open"
+		overlays += "generic_door"
 
 /obj/structure/closet/wardrobe/generic
 	// Identical to the base wardrobe, aside from containing some stuff.

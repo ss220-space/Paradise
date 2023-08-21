@@ -89,8 +89,8 @@
 
 	dump_contents()
 
-	icon_state = icon_opened
 	opened = TRUE
+	update_icon()
 	if(sound)
 		playsound(loc, sound, 15, 1, -3)
 	else
@@ -133,8 +133,8 @@
 		M.forceMove(src)
 		itemcount++
 
-	icon_state = icon_closed
 	opened = FALSE
+	update_icon()
 	if(sound)
 		playsound(loc, sound, 15, 1, -3)
 	else
@@ -297,11 +297,12 @@
 /obj/structure/closet/update_icon()//Putting the welded stuff in updateicon() so it's easy to overwrite for special cases (Fridges, cabinets, and whatnot)
 	overlays.Cut()
 	if(!opened)
-		icon_state = icon_closed
+		icon_state = initial(icon_state)
 		if(welded)
 			overlays += "welded"
 	else
-		icon_state = icon_opened
+		icon_state = "[initial(icon_state)]_open"
+		overlays += "[initial(icon_state)]_door"
 
 // Objects that try to exit a locker by stepping were doing so successfully,
 // and due to an oversight in turf/Enter() were going through walls.  That
@@ -386,24 +387,40 @@
 	icon_opened = "bluespaceopen"
 	storage_capacity = 60
 	var/materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
+	var/transparent = FALSE
 
 /obj/structure/closet/bluespace/CheckExit(atom/movable/AM)
 	UpdateTransparency(AM, loc)
 	return TRUE
 
 /obj/structure/closet/bluespace/proc/UpdateTransparency(atom/movable/AM, atom/location)
-	var/transparent = FALSE
+	var/transparency = FALSE
 	for(var/atom/A in location)
 		if(A.density && A != src && A != AM)
-			transparent = TRUE
+			transparency = TRUE
 			break
-	icon_opened = transparent ? "bluespaceopentrans" : "bluespaceopen"
-	icon_closed = transparent ? "bluespacetrans" : "bluespace"
-	icon_state = opened ? icon_opened : icon_closed
+	transparent = transparency
+	update_icon()
+
+/obj/structure/closet/bluespace/update_icon()
+	overlays.Cut()
+	if(!opened)
+		icon_state = initial(icon_state)
+		if(welded)
+			overlays += "welded"
+	else
+		icon_state = "[initial(icon_state)]_open"
+		if(transparent)
+			overlays += "[initial(icon_state)]_door_trans"
+		else
+			overlays += "[initial(icon_state)]_door"
+	if(transparent)
+		icon_state += "_trans"
 
 /obj/structure/closet/bluespace/Crossed(atom/movable/AM, oldloc)
 	if(AM.density)
-		icon_state = opened ? "bluespaceopentrans" : "bluespacetrans"
+		transparent = TRUE
+		update_icon()
 
 /obj/structure/closet/bluespace/Move(NewLoc, direct) // Allows for "phasing" throug objects but doesn't allow you to stuff your EOC homebois in one of these and push them through walls.
 	var/turf/T = get_turf(NewLoc)
