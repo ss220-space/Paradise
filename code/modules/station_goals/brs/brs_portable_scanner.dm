@@ -179,6 +179,10 @@
 /obj/machinery/brs_portable_scanner/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 
+	if(stat & BROKEN)
+		to_chat(user, span_warning("[src] сломан, [panel_open ? "за" : "от"]крыть панель невозможно."))
+		return
+
 	var/operating = (scanning_status != SCAN_OFF) && (!(stat & NOPOWER))
 	if((!panel_open) && operating)
 		to_chat(user, span_warning("Панель заблокирована протоколом безопасности. Выключите сканер."))
@@ -192,10 +196,19 @@
 
 /obj/machinery/brs_portable_scanner/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
+
+	if(panel_open && (stat & BROKEN))
+		to_chat(user, span_warning("[src] сломан, извлечь детали невозможно."))
+		return
+
 	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/brs_portable_scanner/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
+
+	if(stat & BROKEN)
+		to_chat(user, span_warning("[src] сломан, [anchored ? "от" : "за"]крутить болты невозможно."))
+		return
 
 	if(anchored && (scanning_status != SCAN_OFF) && !(stat & (NOPOWER|BROKEN)))
 		to_chat(user, span_warning("Болты заблокированы протоколом безопасности. Выключите сканер."))
@@ -208,6 +221,21 @@
 	if(!anchored)
 		SStgui.close_uis(src)
 
+	// Allow only one anchored scanner per tile
+	if(anchored)
+		for(var/obj/machinery/brs_portable_scanner/scanner in get_turf(src))
+			if(scanner == src)
+				continue
+			if(scanner.anchored)
+				anchored = FALSE
+				update_icon()
+				return
+
+	// Update density
+	if(anchored)
+		density = TRUE
+	else
+		density = FALSE
 
 /obj/machinery/brs_portable_scanner/welder_act(mob/user, obj/item/I)
 	. = TRUE
