@@ -39,6 +39,6 @@ Bonus
 			M.Disoriented(1)
 			if(prob(SYMPTOM_ACTIVATION_PROB * 3))
 				to_chat(M, "<span class='userdanger'>You can't think straight!</span>")
-				M.AdjustConfused(2 SECONDS, bound_lower = 0, bound_upper = 200 SECONDS)
+				M.AdjustConfused(10 SECONDS, bound_lower = 0, bound_upper = 200 SECONDS)
 
 	return
