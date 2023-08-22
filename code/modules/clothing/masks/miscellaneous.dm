@@ -603,7 +603,7 @@
 	name = "modified gas mask"
 	desc = "The usual gas mask for firefighters with attached voice change sensor."
 	icon_state = "voice_modulator"
-	icon_state = "voice_modulator"
+	item_state = "voice_modulator"
 
 	var/obj/item/voice_changer/voice_modulator/voice_modulator
 
