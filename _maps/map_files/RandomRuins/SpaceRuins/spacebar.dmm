@@ -28,9 +28,6 @@
 /obj/structure/spacepoddoor,
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
-"ai" = (
-/turf/simulated/mineral,
-/area/ruin/powered)
 "am" = (
 /turf/simulated/wall,
 /area/ruin/powered/space_bar)
@@ -39,14 +36,10 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/powered)
+/area/ruin/unpowered)
 "ao" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/ruin/powered)
-"aq" = (
-/obj/structure/window/reinforced/polarized,
-/turf/simulated/wall,
-/area/ruin/powered/space_bar)
 "ar" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/carpet/arcade,
@@ -66,10 +59,9 @@
 /area/ruin/powered/space_bar)
 "aw" = (
 /obj/structure/grille,
-/obj/structure/grille,
 /obj/structure/window/full/basic,
 /obj/structure/curtain/black,
-/turf/space,
+/turf/simulated/floor/plating,
 /area/ruin/powered/space_bar)
 "ay" = (
 /obj/effect/decal/remains/human,
@@ -138,12 +130,6 @@
 /area/ruin/powered/space_bar)
 "aO" = (
 /turf/simulated/floor/plasteel,
-/area/ruin/powered/space_bar)
-"aQ" = (
-/obj/structure/grille,
-/obj/structure/window/full/basic,
-/obj/structure/curtain/black,
-/turf/space,
 /area/ruin/powered/space_bar)
 "aR" = (
 /obj/structure/sign/poster/contraband/tools,
@@ -266,7 +252,7 @@
 /area/ruin/powered/space_bar)
 "bp" = (
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/powered)
+/area/ruin/unpowered)
 "bq" = (
 /obj/machinery/light{
 	dir = 8
@@ -289,13 +275,11 @@
 /obj/structure/sink/puddle,
 /obj/item/toy/carpplushie/dehy_carp,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/powered)
+/area/ruin/unpowered)
 "dN" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/airless,
-/area/ruin/powered)
+/area/ruin/unpowered)
 "eb" = (
 /turf/simulated/floor/carpet/green,
 /area/ruin/powered/space_bar)
@@ -310,9 +294,6 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/space_bar)
 "fi" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
@@ -343,7 +324,7 @@
 "gz" = (
 /obj/structure/closet/crate/trashcart,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/powered)
+/area/ruin/unpowered)
 "gT" = (
 /obj/structure/sign/barsign,
 /turf/simulated/wall,
@@ -360,7 +341,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating/airless,
-/area/ruin/powered/space_bar)
+/area/ruin/unpowered)
 "iH" = (
 /obj/structure/window/reinforced/polarized,
 /turf/simulated/floor/plasteel,
@@ -368,7 +349,7 @@
 "jq" = (
 /obj/structure/mineral_door/wood,
 /turf/simulated/floor/indestructible/plating,
-/area/ruin/powered/space_bar)
+/area/ruin/unpowered)
 "jL" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -384,14 +365,14 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/mineral_door/wood,
 /turf/simulated/floor/indestructible/plating,
-/area/ruin/powered/space_bar)
+/area/ruin/unpowered)
 "mH" = (
 /obj/machinery/camera{
 	c_tag = "Spacebar Shuttle and Pods LZ";
 	network = list("spacebar")
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/powered)
+/area/ruin/unpowered)
 "mN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sink{
@@ -450,8 +431,11 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/space_bar)
 "qB" = (
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/powered/space_bar)
+/area/ruin/unpowered)
 "qZ" = (
 /obj/machinery/vending/clothing,
 /turf/simulated/floor/plasteel,
@@ -545,7 +529,7 @@
 "zI" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/mineral,
-/area/ruin/powered/space_bar)
+/area/ruin/unpowered)
 "zS" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/carpet/green,
@@ -605,7 +589,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/airless,
-/area/ruin/powered/space_bar)
+/area/ruin/unpowered)
 "EM" = (
 /obj/structure/coatrack,
 /turf/simulated/floor/wood,
@@ -655,7 +639,7 @@
 "It" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
-/turf/space,
+/turf/simulated/floor/plating,
 /area/ruin/powered/space_bar)
 "IH" = (
 /obj/structure/dresser,
@@ -686,7 +670,7 @@
 "Kp" = (
 /obj/item/trash/plate,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/powered)
+/area/ruin/unpowered)
 "Kw" = (
 /obj/item/chair/stool/bar,
 /turf/simulated/floor/wood,
@@ -712,18 +696,8 @@
 	},
 /turf/template_noop,
 /area/template_noop)
-"KC" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
-/turf/space,
-/area/ruin/powered)
 "KD" = (
 /obj/item/reagent_containers/syringe/antiviral,
-/obj/machinery/camera{
-	c_tag = "Research and Development";
-	dir = 9;
-	network = list("Research","SS13")
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/reagent_containers/food/pill/methamphetamine,
 /turf/simulated/floor/plasteel,
@@ -788,7 +762,6 @@
 /turf/simulated/mineral,
 /area/ruin/unpowered)
 "QL" = (
-/obj/machinery/camera,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -798,7 +771,7 @@
 /obj/structure/bookcase,
 /obj/item/book/manual/barman_recipes/part_eight,
 /obj/item/book/manual/barman_recipes/part_seven,
-/obj/item/spellbook/oneuse/random,
+/obj/item/book/manual/barman_recipes/part_six,
 /turf/simulated/floor/wood,
 /area/ruin/powered/space_bar)
 "Sg" = (
@@ -817,12 +790,11 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/powered)
 "Tp" = (
-/obj/structure/grille,
-/obj/structure/window/full/basic,
-/obj/structure/curtain/black,
-/obj/structure/curtain/black,
-/turf/space,
-/area/ruin/powered/space_bar)
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/unpowered)
 "Tq" = (
 /obj/machinery/light{
 	dir = 4
@@ -863,7 +835,7 @@
 /area/ruin/powered/space_bar)
 "TZ" = (
 /turf/space,
-/area/ruin/powered)
+/area/ruin/unpowered)
 "Ug" = (
 /obj/structure/table/wood,
 /obj/item/toy/cards/deck{
@@ -913,8 +885,8 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/space_bar)
 "Xu" = (
-/turf/simulated/mineral,
-/area/ruin/powered/space_bar)
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
 "Xv" = (
 /obj/item/kitchen/knife,
 /turf/simulated/floor/carpet/arcade,
@@ -922,7 +894,7 @@
 "XS" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/powered)
+/area/ruin/unpowered)
 "YT" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -1214,9 +1186,9 @@ ab
 ab
 ab
 ab
-ai
-ai
-ai
+ab
+ab
+PH
 bm
 aY
 aY
@@ -1258,14 +1230,14 @@ am
 am
 am
 am
-KC
+ad
 bm
 aY
 aY
 aY
 aY
 bm
-KC
+Sx
 Sx
 aJ
 Gj
@@ -1310,7 +1282,7 @@ bm
 bp
 bp
 aJ
-dN
+aY
 aJ
 ac
 ab
@@ -1500,7 +1472,7 @@ ac
 ac
 ac
 ac
-aJ
+ae
 am
 am
 am
@@ -1542,9 +1514,9 @@ ac
 ac
 ac
 ac
-KC
-Xu
-Xu
+ad
+PH
+PH
 gz
 gz
 am
@@ -1584,9 +1556,9 @@ ac
 ac
 ac
 ae
-aJ
-Xu
-Xu
+ae
+PH
+PH
 bp
 bp
 bp
@@ -1627,7 +1599,7 @@ ac
 ac
 ae
 QL
-OY
+dN
 kZ
 bp
 bp
@@ -1635,9 +1607,9 @@ bp
 bp
 bp
 bp
-be
+Tp
 bp
-be
+Tp
 bp
 bp
 ao
@@ -1668,9 +1640,9 @@ ac
 ac
 ac
 ad
-OY
+dN
 DF
-Xu
+PH
 am
 am
 am
@@ -1679,7 +1651,7 @@ am
 am
 am
 bj
-aq
+am
 mH
 bp
 CS
@@ -1710,9 +1682,9 @@ ab
 ac
 ac
 PD
-aT
-hA
 Xu
+hA
+PH
 am
 JK
 TN
@@ -1752,9 +1724,9 @@ ab
 ab
 ac
 ae
-OY
+dN
 zI
-Xu
+PH
 am
 ry
 aR
@@ -1795,7 +1767,7 @@ ab
 PH
 ae
 jq
-Xu
+PH
 am
 am
 am
@@ -1810,12 +1782,12 @@ am
 am
 am
 am
-aQ
+aw
 bp
 bp
 bp
 bp
-ai
+PH
 bp
 SF
 ae
@@ -1837,7 +1809,7 @@ ab
 ae
 XS
 bp
-Xu
+PH
 am
 TB
 az
@@ -1853,12 +1825,12 @@ vh
 iH
 gv
 Xv
-Tp
+aw
 bp
 bp
-ai
-ai
-ai
+PH
+PH
+PH
 bp
 ae
 ab
@@ -1896,10 +1868,10 @@ iH
 bs
 ar
 sO
-aQ
+aw
 bp
-ai
-ai
+PH
+PH
 bp
 bp
 af
@@ -2066,7 +2038,7 @@ Ky
 am
 bl
 am
-ai
+PH
 bp
 bp
 bp
@@ -2108,7 +2080,7 @@ aO
 am
 Zc
 am
-ai
+PH
 bp
 bp
 bp
@@ -2150,8 +2122,8 @@ aO
 YT
 aO
 am
-ai
-ai
+PH
+PH
 bp
 bp
 af
@@ -2192,8 +2164,8 @@ aO
 aO
 Hi
 am
-ai
-ai
+PH
+PH
 bp
 bp
 af
@@ -2234,9 +2206,9 @@ fp
 aO
 KD
 am
-ai
-ai
-ai
+PH
+PH
+PH
 bp
 af
 ac
@@ -2265,20 +2237,20 @@ am
 am
 am
 am
-aQ
-aQ
-aQ
+aw
+aw
+aw
 aw
 am
 am
 am
-aQ
-Tp
+aw
+aw
 am
 am
-ai
-ai
-ai
+PH
+PH
+PH
 bp
 af
 ac
@@ -2307,20 +2279,20 @@ bp
 bp
 bp
 bp
+bp
+bp
+bp
+bp
 qB
-bp
-bp
-bp
-tK
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
+PH
+PH
+PH
+PH
+PH
+PH
+PH
+PH
+PH
 bp
 ae
 ac
@@ -2356,12 +2328,12 @@ bp
 bp
 bp
 bp
-ai
-ai
-ai
-ai
-ai
-ai
+PH
+PH
+PH
+PH
+PH
+PH
 bp
 bp
 Sx
