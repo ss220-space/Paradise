@@ -114,7 +114,7 @@
 		// Type 2 (Audible) emotes are sent to anyone in hear range
 		// of the *LOCATION* -- this is important for pAIs to be heard
 		else if(m_type & EMOTE_SOUND)
-			for(var/mob/O in get_mobs_in_view(client.maxview(),src))
+			for(var/mob/O in get_mobs_in_view(19,src))
 
 				if(O.status_flags & PASSEMOTES)
 
@@ -231,7 +231,7 @@
 			// Gives the ability to be heard by atoms(For example: recorder)
 			// based on say code
 			var/list/listening_obj = new
-			for(var/atom/movable/A in view(client.maxview(), src))
+			for(var/atom/movable/A in view(19, src))
 				if(istype(A, /mob))
 					var/mob/M = A
 					for(var/obj/O in M.contents)

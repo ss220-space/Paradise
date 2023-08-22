@@ -109,7 +109,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 /obj/effect/hallucination/fake_flood/New(loc, mob/living/carbon/T)
 	..()
 	target = T
-	for(var/obj/machinery/atmospherics/unary/vent_pump/U in orange(target.client.maxview(),target))
+	for(var/obj/machinery/atmospherics/unary/vent_pump/U in orange(19,target))
 		if(!U.welded)
 			src.loc = U.loc
 			break
@@ -176,7 +176,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 /obj/effect/hallucination/xeno_attack/New(loc, mob/living/carbon/T)
 	. = ..()
 	target = T
-	for(var/obj/machinery/atmospherics/unary/vent_pump/U in orange(target.client.maxview(),target))
+	for(var/obj/machinery/atmospherics/unary/vent_pump/U in orange(19,target))
 		if(!U.welded)
 			pump = U
 			break
@@ -226,7 +226,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 /obj/effect/hallucination/borer/New(loc, mob/living/carbon/T)
 	..()
 	target = T
-	for(var/obj/machinery/atmospherics/unary/vent_pump/U in orange(target.client.maxview(), target))
+	for(var/obj/machinery/atmospherics/unary/vent_pump/U in orange(19, target))
 		if(!U.welded)
 			pump = U
 			break
@@ -263,7 +263,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	..()
 	target = C
 	var/turf/simulated/wall/wall
-	for(var/turf/simulated/wall/W in range(target.client.maxview(), target))
+	for(var/turf/simulated/wall/W in range(19, target))
 		wall = W
 		break
 	if(!wall)
@@ -394,7 +394,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	var/item = pick(list("esword","dual_esword","stunpaper","chainsaw","ttv","flash","armblade"))
 	var/image_file
 	var/image/A = null
-	for(var/mob/living/carbon/human/H in view(target.client.maxview(),target))
+	for(var/mob/living/carbon/human/H in view(19,target))
 		if(H != target)
 			var/hand = H.l_hand
 			if(!hand)

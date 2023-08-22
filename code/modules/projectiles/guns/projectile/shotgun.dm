@@ -277,7 +277,7 @@
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/proc/discard_gun(mob/living/user)
 	user.visible_message("<span class='warning'>[user] tosses aside the spent rifle!</span>")
-	user.throw_item(pick(oview(user.client.maxview(), get_turf(user))))
+	user.throw_item(pick(oview(19, get_turf(user))))
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage
 	name = "arcane barrage"
