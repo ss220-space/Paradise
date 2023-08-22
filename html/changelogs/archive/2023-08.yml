@@ -120,3 +120,47 @@
   Zwei:
   - add: Accurate Item Drop (#3171)
   - tweak: Clever Odysseus Sleeper (#3192)
+'2023-08-14':
+  Bizzonium:
+  - add: force kick client on redirection
+  Den109G:
+  - bugfix: icons for holders (#3341)
+  - del: Reverts changes in USSP (#3345)
+  Honker9999999:
+  - bugfix: rnd server now die properly (#3348)
+  WolfLox:
+  - bugfix: problem with spawn red sec ERT (#3349)
+  Zwei:
+  - bugfix: Few Objectives Fixes (#3346)
+  - bugfix: More Runtimes Fixed (#3298)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3340)
+  Сиротка:
+  - add: Fake cult sheets and armour (#3080)
+'2023-08-16':
+  Den109G:
+  - bugfix: Dead do not should spam death message (#3352)
+  Furukia:
+  - bugfix: taipan sector accessibility (#3350)
+  LiquidPotroh:
+  - bugfix: Invisible viruses (#3358)
+  Vladisvell:
+  - imageadd: some missing sprites for drasks and voxes, flags (#3354)
+  Zwei:
+  - bugfix: Defined Descreation Sound (#3351)
+  aeternaclose:
+  - bugfix: Cere CMO Fix (#3360)
+'2023-08-17':
+  Den109G:
+  - bugfix: few fixes (#3357)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3362)
+'2023-08-18':
+  Den109G:
+  - bugfix: cult-healing to robots (#3363)
+  Zwei:
+  - bugfix: MouseDrop In Range (#3364)
+'2023-08-19':
+  Den109G:
+  - bugfix: ACTUALLY healing robot parts (#3366)
+  - bugfix: more fixes (#3367)

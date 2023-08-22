@@ -44,6 +44,9 @@
 	/// Chance to mend fractures
 	var/mend_fractures_chance = 0
 
+	/// Its healing robots parts as well?
+	var/robot_heal = FALSE
+
 	/// Map of external organs (such as "tail", "wing", "r_foot" etc.). Will stop internal bleedings only on these organs if specified.
 	var/list/external_organ_bleeding_healing
 
@@ -80,6 +83,7 @@
 	stop_internal_bleeding_chance = 0,
 	limit_to_trait = null,
 	healing_color = COLOR_GREEN,
+	robot_heal = FALSE
 )
 	if (!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -103,6 +107,7 @@
 	src.stop_internal_bleeding_chance = stop_internal_bleeding_chance
 	src.limit_to_trait = limit_to_trait
 	src.healing_color = healing_color
+	src.robot_heal = robot_heal
 
 
 /datum/component/aura_healing/Destroy(force, silent)
@@ -141,9 +146,18 @@
 
 		var/old_health = candidate.health
 
-		if(iscarbon(candidate) || issilicon(candidate) || isanimal(candidate))
+		if(issilicon(candidate) || isanimal(candidate))
 			candidate.adjustBruteLoss(-brute_heal * seconds_per_tick, updating_health = FALSE)
 			candidate.adjustFireLoss(-burn_heal * seconds_per_tick, updating_health = FALSE)
+
+		if(iscarbon(candidate)) //another if, because porotic parts
+			if(ishuman(candidate)) //humans, tajarans...
+				var/mob/living/carbon/human/healing = candidate
+				healing.adjustBruteLoss(-brute_heal * seconds_per_tick, updating_health = FALSE, robotic = robot_heal)
+				healing.adjustFireLoss(-burn_heal * seconds_per_tick, updating_health = FALSE, robotic = robot_heal)
+			else
+				candidate.adjustBruteLoss(-brute_heal * seconds_per_tick, updating_health = FALSE) //aliens, brains...
+				candidate.adjustFireLoss(-burn_heal * seconds_per_tick, updating_health = FALSE)
 
 		if(iscarbon(candidate))
 			// Toxin healing is forced for slime people
@@ -173,7 +187,7 @@
 
 					for(var/index in external_organ_fracture_healing)
 						body_part = human.bodyparts_by_name[index]
-						if(QDELETED(body_part) || !(body_part.status & ORGAN_BROKEN) || body_part.is_robotic())
+						if(QDELETED(body_part) || !(body_part.status & ORGAN_BROKEN) || (body_part.is_robotic() && !robot_heal))
 							continue
 
 						if(prob(mend_fractures_chance))
@@ -183,7 +197,7 @@
 
 				else
 					for(var/obj/item/organ/external/body_part in human.bodyparts)
-						if(QDELETED(body_part) || !(body_part.status & ORGAN_BROKEN) || body_part.is_robotic())
+						if(QDELETED(body_part) || !(body_part.status & ORGAN_BROKEN) || (body_part.is_robotic() && !robot_heal))
 							continue
 
 						if(prob(mend_fractures_chance))
