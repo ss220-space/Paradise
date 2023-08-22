@@ -199,7 +199,7 @@
 
 	switch(m_type)
 		if(EMOTE_VISUAL) //Visible
-			for(var/mob/M in get_mobs_in_view(client.maxview(), src))
+			for(var/mob/M in get_mobs_in_view(19, src))
 				if(!M.client)
 					continue
 				if(M.see_invisible < invisibility)
@@ -211,7 +211,7 @@
 					M.create_chat_message(src, input, FALSE, TRUE, TRUE)
 			return 1
 		if(EMOTE_SOUND) //Audible
-			for(var/mob/M in get_mobs_in_view(client.maxview(), src))
+			for(var/mob/M in get_mobs_in_view(19, src))
 				if(!M.client)
 					continue
 				if(!M.can_hear())
