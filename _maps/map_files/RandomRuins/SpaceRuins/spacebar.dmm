@@ -303,9 +303,6 @@
 "eb" = (
 /turf/simulated/floor/carpet/green,
 /area/ruin/powered/space_bar)
-"ee" = (
-/turf/simulated/wall,
-/area/space/nearstation)
 "es" = (
 /obj/machinery/computer/arcade/battle,
 /turf/simulated/floor/carpet/arcade,
@@ -465,11 +462,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/powered/space_bar)
-"qB" = (
-/obj/structure/closet/crate/trashcart,
-/obj/structure/closet/crate/trashcart,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/powered)
 "qZ" = (
 /obj/machinery/vending/clothing,
 /turf/simulated/floor/plasteel,
@@ -1276,8 +1268,8 @@ aa
 aa
 ac
 ac
-ee
-ee
+am
+am
 am
 am
 am
@@ -1573,7 +1565,7 @@ KC
 Xu
 Xu
 gz
-qB
+gz
 am
 am
 am
