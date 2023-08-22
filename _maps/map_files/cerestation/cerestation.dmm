@@ -2740,6 +2740,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/hos)
+"asZ" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4;
+	icon_state = "xeno2"
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/mine/unexplored/cere/orbiting)
 "atc" = (
 /turf/simulated/floor/wood,
 /area/security/hos)
@@ -5884,6 +5891,11 @@
 	icon_state = "dark"
 	},
 /area/bridge)
+"aRq" = (
+/obj/effect/mob_spawn/human/corpse,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/mine/unexplored/cere/orbiting)
 "aRv" = (
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating/asteroid/ancient,
@@ -8050,7 +8062,7 @@
 	id = "QMLoad2"
 	},
 /obj/machinery/door/poddoor{
-	id_tag = "QMLoaddoor";
+	id_tag = "QMLoaddoor2";
 	name = "supply dock loading door"
 	},
 /turf/simulated/floor/plating,
@@ -10998,13 +11010,13 @@
 	id = "QMLoaddoor";
 	name = "Loading Doors";
 	pixel_x = 24;
-	pixel_y = 8
+	pixel_y = -8
 	},
 /obj/machinery/door_control{
 	id = "QMLoaddoor2";
 	name = "Loading Doors";
 	pixel_x = 24;
-	pixel_y = -8
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -12926,6 +12938,10 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/port/north)
+"bAq" = (
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/simulated/floor/grass,
+/area/mine/unexplored/cere/orbiting)
 "bAx" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating/asteroid/ancient,
@@ -14284,7 +14300,7 @@
 	id = "QMLoad"
 	},
 /obj/machinery/door/poddoor{
-	id_tag = "QMLoaddoor2";
+	id_tag = "QMLoaddoor";
 	name = "supply dock loading door"
 	},
 /turf/simulated/floor/plating,
@@ -21465,6 +21481,12 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/toxins/storage)
+"coF" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	icon_state = "xeno2"
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/mine/unexplored/cere/orbiting)
 "coK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/research{
@@ -34662,6 +34684,11 @@
 	icon_state = "purplefull"
 	},
 /area/hallway/primary/aft/west)
+"eOv" = (
+/obj/item/stack/ore/iron,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/mine/unexplored/cere/orbiting)
 "eOx" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -35131,6 +35158,13 @@
 	icon_state = "neutral"
 	},
 /area/hallway/secondary/entry/north)
+"eVT" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	basecolor = "#030303";
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/mine/unexplored/cere/orbiting)
 "eVY" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/portable_atmospherics/canister/air,
@@ -40825,6 +40859,9 @@
 /obj/structure/closet/jcloset,
 /turf/simulated/floor/plasteel,
 /area/janitor)
+"gJU" = (
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/mine/unexplored/cere/orbiting)
 "gJV" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -40903,6 +40940,10 @@
 	icon_state = "darkbluecorners"
 	},
 /area/medical/surgery/south)
+"gKW" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/mine/unexplored/cere/orbiting)
 "gLj" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plating{
@@ -45710,6 +45751,10 @@
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
 /area/hallway/primary/fore)
+"ien" = (
+/obj/effect/decal/cleanable/blood/tracks,
+/turf/simulated/floor/grass,
+/area/mine/unexplored/cere/orbiting)
 "ier" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
@@ -45964,6 +46009,10 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/central)
+"ijc" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/simulated/floor/grass,
+/area/mine/unexplored/cere/orbiting)
 "ije" = (
 /obj/structure/table,
 /obj/item/stack/sheet/glass/fifty,
@@ -50724,6 +50773,11 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
+"jCT" = (
+/obj/effect/decal/cleanable/dust,
+/obj/structure/mineral_door/wood,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/mine/unexplored/cere/orbiting)
 "jDh" = (
 /obj/effect/decal/warning_stripes/northeastcorner,
 /obj/effect/turf_decal/stripes/line{
@@ -56722,6 +56776,14 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/spacebridge/comeng)
+"lox" = (
+/obj/item/twohanded/spear{
+	desc = "Recovered from the aftermath of a revolt aboard Defense Outpost Theta Aegis, in which a seemingly endless tide of Assistants caused heavy casualities among Nanotrasen military forces.";
+	name = "Grey Tide"
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/mine/unexplored/cere/orbiting)
 "loD" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = 31
@@ -59672,6 +59734,15 @@
 	icon_state = "asteroidplating"
 	},
 /area/maintenance/fore2)
+"mkQ" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	basecolor = "#030303";
+	desc = "It's black and greasy. Looks like Beepsky made another mess.";
+	drydesc = "It's dry and crusty. Someone is not doing their job.";
+	layer = 2.2
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/mine/unexplored/cere/orbiting)
 "mkR" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -61791,6 +61862,12 @@
 /obj/structure/mineral_door/iron,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/security/execution)
+"mUx" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	icon_state = "blood2"
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/mine/unexplored/cere/orbiting)
 "mUN" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -62731,6 +62808,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
+"njq" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/mine/unexplored/cere/orbiting)
 "njx" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -65227,6 +65308,11 @@
 	icon_state = "blue"
 	},
 /area/hallway/primary/fore)
+"nUa" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/item/stack/ore/iron,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/mine/unexplored/cere/orbiting)
 "nUj" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -66410,6 +66496,9 @@
 	icon_state = "asteroidplating"
 	},
 /area/maintenance/port2)
+"oqb" = (
+/turf/simulated/floor/grass,
+/area/mine/unexplored/cere/orbiting)
 "oqj" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -66649,6 +66738,10 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel/white,
 /area/toxins/hallway)
+"otZ" = (
+/obj/structure/flora/ausbushes/stalkybush,
+/turf/simulated/floor/grass,
+/area/mine/unexplored/cere/orbiting)
 "ouf" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
@@ -70085,6 +70178,12 @@
 	icon_state = "dark"
 	},
 /area/toxins/lab)
+"puB" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/mine/unexplored/cere/orbiting)
 "puO" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/transparent/glass/reinforced{
@@ -76038,6 +76137,10 @@
 	icon_state = "dark"
 	},
 /area/quartermaster/office)
+"rmD" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/grass,
+/area/mine/unexplored/cere/orbiting)
 "rmJ" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -76752,6 +76855,16 @@
 "rza" = (
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"rzd" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/decal/cleanable/blood/tracks{
+	basecolor = "#030303";
+	desc = "It's black and greasy. Looks like Beepsky made another mess.";
+	drydesc = "It's dry and crusty. Someone is not doing their job.";
+	layer = 2.2
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/mine/unexplored/cere/orbiting)
 "rzh" = (
 /turf/simulated/floor/plating/asteroid/ancient/airless,
 /area/mine/unexplored/cere/cargo)
@@ -79091,6 +79204,10 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/north)
+"sgA" = (
+/obj/item/storage/toolbox/mechanical/old,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/mine/unexplored/cere/orbiting)
 "sgB" = (
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -79367,6 +79484,11 @@
 	icon_state = "dark"
 	},
 /area/atmos)
+"skU" = (
+/obj/structure/rack,
+/obj/item/clothing/gloves/color/yellow/fake,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/mine/unexplored/cere/orbiting)
 "sla" = (
 /obj/structure/chair{
 	dir = 4
@@ -80152,6 +80274,10 @@
 	icon_state = "dark"
 	},
 /area/turret_protected/ai_upload)
+"sxw" = (
+/obj/effect/decal/cleanable/blood/tracks,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/mine/unexplored/cere/orbiting)
 "sxI" = (
 /obj/structure/closet/firecloset/full,
 /turf/simulated/floor/plating/asteroid/ancient,
@@ -81723,6 +81849,10 @@
 	icon_state = "dark"
 	},
 /area/turret_protected/ai)
+"sYl" = (
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/grass,
+/area/mine/unexplored/cere/orbiting)
 "sYp" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -81979,6 +82109,10 @@
 	icon_state = "yellow"
 	},
 /area/hallway/primary/central)
+"tdj" = (
+/obj/item/flag/grey,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/mine/unexplored/cere/orbiting)
 "tdA" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/simulated/floor/grass,
@@ -83575,6 +83709,10 @@
 	icon_state = "neutral"
 	},
 /area/hallway/primary/port/north)
+"tCg" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/grass,
+/area/mine/unexplored/cere/orbiting)
 "tCy" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -85474,6 +85612,11 @@
 	icon_state = "dark"
 	},
 /area/engine/break_room)
+"ugd" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/item/pickaxe,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/mine/unexplored/cere/orbiting)
 "ugi" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -87311,6 +87454,13 @@
 	icon_state = "white"
 	},
 /area/medical/virology)
+"uIs" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 8;
+	layer = 2.1
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/mine/unexplored/cere/orbiting)
 "uIE" = (
 /obj/machinery/light{
 	dir = 8
@@ -88436,6 +88586,10 @@
 	icon_state = "neutralfull"
 	},
 /area/security/lobby)
+"vaQ" = (
+/obj/effect/landmark/tiles/burnturf,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/mine/unexplored/cere/orbiting)
 "vaY" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
@@ -91067,6 +91221,10 @@
 	icon_state = "asteroidplating"
 	},
 /area/maintenance/port)
+"vRQ" = (
+/obj/structure/flora/rock/jungle,
+/turf/simulated/floor/grass,
+/area/mine/unexplored/cere/orbiting)
 "vRR" = (
 /obj/item/radio/beacon,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -96475,6 +96633,11 @@
 	tag = "icon-whiteblue"
 	},
 /area/medical/patients_rooms)
+"xzQ" = (
+/obj/structure/rack,
+/obj/item/crowbar,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/mine/unexplored/cere/orbiting)
 "xAa" = (
 /obj/machinery/photocopier,
 /turf/simulated/floor/wood,
@@ -97874,6 +98037,10 @@
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/port)
+"xZB" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/mine/unexplored/cere/orbiting)
 "xZC" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -156435,8 +156602,8 @@ rNK
 lRR
 lRR
 jft
-jft
-jft
+vaQ
+nUa
 jft
 jft
 jft
@@ -156691,13 +156858,13 @@ rNK
 rNK
 lRR
 jft
+njq
+gKW
 jft
 jft
-jft
-jft
-jft
-jft
-jft
+gKW
+gJU
+gJU
 jft
 jft
 jft
@@ -156948,18 +157115,18 @@ rNK
 rNK
 lRR
 jft
+njq
+nUa
 jft
+vaQ
+gKW
 jft
-jft
-jft
-jft
-jft
-jft
-jft
-jft
-jft
-jft
-jft
+gKW
+gJU
+oqb
+rmD
+oqb
+sYl
 jft
 jft
 jft
@@ -157205,18 +157372,18 @@ rNK
 rNK
 lRR
 jft
+eOv
+ugd
+gKW
+njq
 jft
 jft
 jft
-jft
-jft
-jft
-jft
-jft
-jft
-jft
-jft
-jft
+bAq
+oqb
+oqb
+ijc
+oqb
 jft
 jft
 jft
@@ -157462,19 +157629,19 @@ rNK
 rNK
 lRR
 jft
+eOv
+njq
+njq
 jft
 jft
 jft
-jft
-jft
-jft
-jft
-jft
-jft
-jft
-jft
-jft
-jft
+xzQ
+gKW
+vRQ
+oqb
+oqb
+gJU
+xZB
 jft
 jft
 jft
@@ -157725,16 +157892,16 @@ jft
 jft
 jft
 jft
-jft
-jft
-jft
-jft
-jft
-jft
-jft
-jft
-jft
-jft
+gJU
+mUx
+ien
+tCg
+oqb
+otZ
+gKW
+sxw
+sxw
+coF
 jft
 jft
 jft
@@ -157982,17 +158149,17 @@ jft
 jft
 jft
 jft
+gKW
+gKW
+gKW
+gJU
+oqb
 jft
 jft
 jft
 jft
-jft
-jft
-jft
-jft
-jft
-jft
-jft
+gKW
+xZB
 jft
 jft
 jft
@@ -158239,6 +158406,8 @@ jft
 jft
 jft
 jft
+uIs
+gJU
 jft
 jft
 jft
@@ -158247,15 +158416,13 @@ jft
 jft
 jft
 jft
+gKW
+sxw
+gJU
 jft
-jft
-jft
-jft
-jft
-jft
-jft
-jft
-jft
+sgA
+lox
+aRq
 jft
 lRR
 rNK
@@ -158495,6 +158662,8 @@ lRR
 jft
 jft
 jft
+gJU
+eVT
 jft
 jft
 jft
@@ -158506,13 +158675,11 @@ jft
 jft
 jft
 jft
-jft
-jft
-jft
-jft
-jft
-jft
-jft
+puB
+rzd
+xZB
+mkQ
+asZ
 jft
 lRR
 rNK
@@ -158752,6 +158919,8 @@ lRR
 lRR
 jft
 jft
+gKW
+xZB
 jft
 jft
 jft
@@ -158763,11 +158932,9 @@ jft
 jft
 jft
 jft
-jft
-jft
-jft
-jft
-jft
+skU
+gJU
+tdj
 jft
 jft
 jft
@@ -159008,8 +159175,8 @@ rNK
 rNK
 lRR
 lRR
-lRR
-jft
+gKW
+gKW
 jft
 jft
 jft
@@ -159264,8 +159431,8 @@ rNK
 rNK
 rNK
 rNK
-rNK
 lRR
+jCT
 lRR
 lRR
 jft
