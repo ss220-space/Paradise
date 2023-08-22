@@ -482,7 +482,7 @@
 	icon_far = "pinonfar_crew"
 	var/turf/location = null
 	var/obj/target = null
-	var/setting = 0
+	var/setting = NONE
 	var/list/current_targets
 	var/targets_index = 1
 
@@ -619,7 +619,7 @@
 			return attack_self(user)
 
 		if("Цели")
-			var/input_type = alert("Какую операцию стоит произвести?", "Выбор Операции", "Показать Цели", "Следующая цель")
+			var/input_type = alert("Какую операцию стоит произвести?", "Выбор Операции", "Показать Цели", "Следующая Цель")
 			switch(input_type)
 				if("Показать Цели")
 					setting = SETTING_OBJECT
@@ -673,13 +673,14 @@
 					targets_index++
 					if(targets_index > length(current_targets))
 						targets_index = 1
-						to_chat(user, span_warning("Доступные цели закончились, возвращаемся к первой!"))
+						var/atom/temp_target = current_targets[targets_index]
+						to_chat(user, span_warning("Доступные цели, с сигнатурой <b>[initial(temp_target.name)]</b>, закончились, возвращаемся к первой!"))
 
 					else
-						to_chat(user, span_notice("Вы переключили пинпоинтер на <b>[targets_index]</b> цель из <b>[length(current_targets)]</b>."))
+						var/atom/temp_target = current_targets[targets_index]
+						to_chat(user, span_notice("Вы переключили пинпоинтер на <b>[targets_index]</b> цель из <b>[length(current_targets)]</b>, сигнатура: <b>[initial(temp_target.name)]</b>."))
 
 					target = current_targets[targets_index]
-
 
 
 /obj/item/pinpointer/tendril
