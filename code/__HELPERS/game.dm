@@ -55,7 +55,7 @@
 	var/lum = source.luminosity
 	source.luminosity = 6
 
-	var/list/heard = view(range, source)
+	var/list/heard = viewers(range, source)
 	source.luminosity = lum
 
 	return heard

@@ -105,7 +105,7 @@
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
 
 /mob/visible_message(var/message, var/self_message, var/blind_message)
-	for(var/mob/M in get_mobs_in_view(19, src))
+	for(var/mob/M in get_mobs_in_view(9, src))
 		if(M.see_invisible < invisibility)
 			continue //can't view the invisible
 		var/msg = message
@@ -118,7 +118,7 @@
 // message is output to anyone who can see, e.g. "The [src] does something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
 /atom/proc/visible_message(var/message, var/blind_message)
-	for(var/mob/M in get_mobs_in_view(7, src))
+	for(var/mob/M in get_mobs_in_view(9, src))
 		if(!M.client)
 			continue
 		M.show_message(message, 1, blind_message, 2)

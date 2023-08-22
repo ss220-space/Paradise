@@ -394,7 +394,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	var/item = pick(list("esword","dual_esword","stunpaper","chainsaw","ttv","flash","armblade"))
 	var/image_file
 	var/image/A = null
-	for(var/mob/living/carbon/human/H in view(19,target))
+	for(var/mob/living/carbon/human/H in view(9,target))
 		if(H != target)
 			var/hand = H.l_hand
 			if(!hand)
