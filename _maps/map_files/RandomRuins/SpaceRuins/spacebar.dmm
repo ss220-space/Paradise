@@ -28,6 +28,10 @@
 /obj/structure/spacepoddoor,
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
+"ai" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
 "am" = (
 /turf/simulated/wall,
 /area/ruin/powered/space_bar)
@@ -40,6 +44,12 @@
 "ao" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/ruin/powered)
+"aq" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/unpowered)
 "ar" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/carpet/arcade,
@@ -131,6 +141,12 @@
 "aO" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/space_bar)
+"aQ" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/unpowered)
 "aR" = (
 /obj/structure/sign/poster/contraband/tools,
 /obj/structure/sign/poster/ripped,
@@ -275,10 +291,6 @@
 /obj/structure/sink/puddle,
 /obj/item/toy/carpplushie/dehy_carp,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/unpowered)
-"dN" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "eb" = (
 /turf/simulated/floor/carpet/green,
@@ -430,12 +442,6 @@
 /obj/item/reagent_containers/food/snacks/cheeseburger,
 /turf/simulated/floor/wood,
 /area/ruin/powered/space_bar)
-"qB" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/unpowered)
 "qZ" = (
 /obj/machinery/vending/clothing,
 /turf/simulated/floor/plasteel,
@@ -696,6 +702,9 @@
 	},
 /turf/template_noop,
 /area/template_noop)
+"KC" = (
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
 "KD" = (
 /obj/item/reagent_containers/syringe/antiviral,
 /obj/effect/decal/cleanable/dirt,
@@ -789,12 +798,6 @@
 /obj/machinery/light,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/powered)
-"Tp" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/unpowered)
 "Tq" = (
 /obj/machinery/light{
 	dir = 4
@@ -884,9 +887,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/powered/space_bar)
-"Xu" = (
-/turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
 "Xv" = (
 /obj/item/kitchen/knife,
 /turf/simulated/floor/carpet/arcade,
@@ -1599,7 +1599,7 @@ ac
 ac
 ae
 QL
-dN
+ai
 kZ
 bp
 bp
@@ -1607,9 +1607,9 @@ bp
 bp
 bp
 bp
-Tp
+aQ
 bp
-Tp
+aQ
 bp
 bp
 ao
@@ -1640,7 +1640,7 @@ ac
 ac
 ac
 ad
-dN
+ai
 DF
 PH
 am
@@ -1682,7 +1682,7 @@ ab
 ac
 ac
 PD
-Xu
+KC
 hA
 PH
 am
@@ -1724,7 +1724,7 @@ ab
 ab
 ac
 ae
-dN
+ai
 zI
 PH
 am
@@ -2283,7 +2283,7 @@ bp
 bp
 bp
 bp
-qB
+aq
 PH
 PH
 PH
@@ -2484,7 +2484,7 @@ aa
 aa
 aa
 aa
-ac
+aa
 ac
 ac
 aa
