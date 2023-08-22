@@ -550,7 +550,7 @@
 				to_chat(user, "<span class='notice'><b>Mood</b>: You sense hostile thoughts from [M.name].</span>")
 			if(INTENT_HARM)
 				to_chat(user, "<span class='notice'><b>Mood</b>: You sense cruel thoughts from [M.name].</span>")
-				for(var/mob/living/L in view(19, M))
+				for(var/mob/living/L in view(9, M))
 					if(L == M)
 						continue
 					thoughts = "thinking about punching [L.name]"
