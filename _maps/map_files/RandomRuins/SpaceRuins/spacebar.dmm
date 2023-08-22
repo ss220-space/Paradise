@@ -173,11 +173,7 @@
 /area/ruin/powered/space_bar)
 "aW" = (
 /obj/structure/table/wood,
-/obj/item/nullrod/salt,
-/obj/item/reagent_containers/food/condiment/peppermill{
-	pixel_x = 3;
-	pixel_y = 11
-	},
+/obj/item/paicard,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/space_bar)
 "aX" = (
@@ -450,17 +446,11 @@
 /area/ruin/powered/space_bar)
 "qr" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/reagent_containers/food/snacks/baconpizzaslice{
-	pixel_w = null;
-	pixel_x = 5
-	},
-/obj/item/reagent_containers/food/snacks/baconpizzaslice{
-	pixel_w = null
-	},
-/obj/item/reagent_containers/food/snacks/diablopizzaslice{
-	pixel_y = 5
-	},
+/obj/item/reagent_containers/food/snacks/cheeseburger,
 /turf/simulated/floor/wood,
+/area/ruin/powered/space_bar)
+"qB" = (
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/powered/space_bar)
 "qZ" = (
 /obj/machinery/vending/clothing,
@@ -883,17 +873,8 @@
 /area/ruin/powered/space_bar)
 "Un" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/coffee{
-	desc = "Its cold like the space outside noo!";
-	pixel_x = -6;
-	pixel_y = 8;
-	volume = 10
-	},
+/obj/item/clothing/mask/cigarette/menthol,
 /obj/item/storage/ashtray,
-/obj/item/clothing/mask/cigarette/medical_marijuana{
-	pixel_x = 10;
-	pixel_y = 10
-	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/space_bar)
 "Up" = (
@@ -2326,7 +2307,7 @@ bp
 bp
 bp
 bp
-bp
+qB
 bp
 bp
 bp
