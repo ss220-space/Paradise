@@ -109,7 +109,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 /obj/effect/hallucination/fake_flood/New(loc, mob/living/carbon/T)
 	..()
 	target = T
-	for(var/obj/machinery/atmospherics/unary/vent_pump/U in orange(19,target))
+	for(var/obj/machinery/atmospherics/unary/vent_pump/U in orange(9,target))
 		if(!U.welded)
 			src.loc = U.loc
 			break
@@ -176,7 +176,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 /obj/effect/hallucination/xeno_attack/New(loc, mob/living/carbon/T)
 	. = ..()
 	target = T
-	for(var/obj/machinery/atmospherics/unary/vent_pump/U in orange(19,target))
+	for(var/obj/machinery/atmospherics/unary/vent_pump/U in orange(9,target))
 		if(!U.welded)
 			pump = U
 			break
@@ -226,7 +226,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 /obj/effect/hallucination/borer/New(loc, mob/living/carbon/T)
 	..()
 	target = T
-	for(var/obj/machinery/atmospherics/unary/vent_pump/U in orange(19, target))
+	for(var/obj/machinery/atmospherics/unary/vent_pump/U in orange(9, target))
 		if(!U.welded)
 			pump = U
 			break
@@ -263,7 +263,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	..()
 	target = C
 	var/turf/simulated/wall/wall
-	for(var/turf/simulated/wall/W in range(19, target))
+	for(var/turf/simulated/wall/W in range(9, target))
 		wall = W
 		break
 	if(!wall)
