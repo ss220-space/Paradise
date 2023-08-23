@@ -16,7 +16,8 @@
 	var/overlay_unlocked = "unlocked"
 	var/overlay_locked = "locked"
 	var/overlay_locker = "locker"
-	var/custom_door_overlay = null
+	var/custom_door_overlay = null //handles overlay of door looking into screen
+	var/custom_open_overlay = null //handles overlay of opened door (its inner side)
 
 	var/opened = FALSE
 	var/welded = FALSE
@@ -308,14 +309,14 @@
 		if(custom_door_overlay)
 			overlays += "[custom_door_overlay]_door"
 		else
-			overlays += "[icon_state]_door"
+			overlays += "[initial(icon_state)]_door"
 		if(welded)
 			overlays += "welded"
 	else
-		if(custom_door_overlay)
-			overlays += "[custom_door_overlay]_open"
+		if(custom_open_overlay)
+			overlays += "[custom_open_overlay]_open"
 		else
-			overlays += "[icon_state]_open"
+			overlays += "[initial(icon_state)]_open"
 
 // Objects that try to exit a locker by stepping were doing so successfully,
 // and due to an oversight in turf/Enter() were going through walls.  That
