@@ -102,24 +102,14 @@
 		to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
 
 /obj/structure/closet/secure_closet/update_icon()//Putting the welded stuff in updateicon() so it's easy to overwrite for special cases (Fridges, cabinets, and whatnot)
-	overlays.Cut()
+	..()
 	if(!opened)
-		icon_state = initial(icon_state)
-		if(custom_door_overlay)
-			overlays += "[custom_door_overlay]_door"
-		else
-			overlays += "[initial(icon_state)]_door"
 		overlays += overlay_locker
-		if(welded)
-			overlays += "welded"
 		if(!broken)
 			if(locked)
 				overlays += overlay_locked
 			else
 				overlays += overlay_unlocked
-	else
-		icon_state = "[initial(icon_state)]"
-		overlays += "[initial(icon_state)]_open"
 
 /obj/structure/closet/secure_closet/container_resist(var/mob/living/L)
 	var/breakout_time = 2 //2 minutes by default
@@ -173,7 +163,6 @@
 				desc += " Панель управления снята."
 				broken = 3
 				update_icon()
-				//icon_state = icon_off
 			else // Bad day)
 				var/mob/living/carbon/human/H = user
 				var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? "l_hand" : "r_hand")

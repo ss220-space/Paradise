@@ -304,16 +304,18 @@
 
 /obj/structure/closet/update_icon() //Putting the welded stuff in updateicon() so it's easy to overwrite for special cases (Fridges, cabinets, and whatnot)
 	overlays.Cut()
-	icon_state = initial(icon_state)
 	if(!opened)
 		if(custom_door_overlay)
 			overlays += "[custom_door_overlay]_door"
 		else
-			overlays += "[initial(icon_state)]_door"
+			overlays += "[icon_state]_door"
 		if(welded)
 			overlays += "welded"
 	else
-		overlays += "[initial(icon_state)]_open"
+		if(custom_door_overlay)
+			overlays += "[custom_door_overlay]_open"
+		else
+			overlays += "[icon_state]_open"
 
 // Objects that try to exit a locker by stepping were doing so successfully,
 // and due to an oversight in turf/Enter() were going through walls.  That
@@ -413,8 +415,8 @@
 
 /obj/structure/closet/bluespace/update_icon()
 	overlays.Cut()
+	icon_state = initial(icon_state)
 	if(!opened)
-		icon_state = initial(icon_state)
 		if(welded)
 			overlays += "welded"
 		if(transparent)
@@ -423,7 +425,6 @@
 		else
 			overlays += "[initial(icon_state)]_door"
 	else
-		icon_state = initial(icon_state)
 		if(transparent)
 			icon_state += "_trans"
 			overlays += "[initial(icon_state)]_open_trans"
