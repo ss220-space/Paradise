@@ -20912,6 +20912,9 @@
 	},
 /area/security/execution)
 "ckI" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-22"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluecorners"
 	},
@@ -22020,9 +22023,6 @@
 	},
 /area/toxins/hallway)
 "crx" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplefull"
@@ -22985,20 +22985,10 @@
 	},
 /area/security/range)
 "cyp" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/door/window{
-	dir = 8;
-	icon_state = "right";
-	name = "Research Delivery Chute"
-	},
-/obj/effect/turf_decal/delivery,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/toxins/misc_lab)
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance/double,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/maintenance/starboard)
 "cyt" = (
 /obj/structure/girder,
 /obj/structure/disposalpipe/segment,
@@ -23054,6 +23044,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -23084,15 +23075,10 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/misc_lab)
-"cze" = (
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/insulated,
-/turf/simulated/floor/plating,
-/area/toxins/misc_lab)
 "czg" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-22"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredcorners"
@@ -23981,6 +23967,7 @@
 	dir = 8;
 	location = "Engineering"
 	},
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
 /area/engine/engine_smes)
 "cFE" = (
@@ -33214,6 +33201,7 @@
 	codes_txt = "delivery";
 	location = "Hydroponics"
 	},
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
 /area/hydroponics)
 "emn" = (
@@ -37308,14 +37296,12 @@
 	},
 /area/maintenance/fpmaint)
 "fGC" = (
-/obj/structure/cable/orange{
-	icon_state = "1-2"
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whiteblue"
 	},
-/obj/effect/spawner/random_spawners/grille_often,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/maintenance/apmaint2)
+/area/medical/medbay)
 "fGN" = (
 /turf/simulated/wall,
 /area/crew_quarters/sleep)
@@ -40114,7 +40100,7 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "gzZ" = (
@@ -40245,7 +40231,6 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/obj/effect/spawner/random_barrier/possibly_welded_airlock,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "gCb" = (
@@ -42734,15 +42719,12 @@
 	},
 /area/medical/medbay)
 "hmB" = (
-/obj/structure/cable/orange{
-	icon_state = "4-8"
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkgreenfull"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/effect/spawner/random_barrier/possibly_welded_airlock,
-/turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/hydroponics)
 "hmG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -43686,7 +43668,6 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/obj/structure/barricade/wooden,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -44655,12 +44636,18 @@
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "hNi" = (
-/obj/structure/disposalpipe/segment{
+/obj/structure/chair{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/grille_often,
-/turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutral"
+	},
+/area/hallway/secondary/exit)
 "hNv" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -45125,7 +45112,8 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 8;
+	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
@@ -46245,7 +46233,6 @@
 /obj/structure/cable/orange{
 	icon_state = "1-8"
 	},
-/obj/effect/spawner/random_spawners/grille_maybe,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -46476,10 +46463,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -46655,7 +46639,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/closet/firecloset/full,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/fsmaint4)
 "itW" = (
@@ -50718,7 +50701,6 @@
 /obj/structure/cable/orange{
 	icon_state = "2-4"
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -52549,6 +52531,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/toxins/misc_lab)
 "kfe" = (
@@ -52716,6 +52699,7 @@
 	dir = 4;
 	pixel_x = 32
 	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkyellowcorners"
@@ -55205,6 +55189,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple"
@@ -56117,12 +56102,12 @@
 	},
 /area/medical/medbay)
 "lfD" = (
-/obj/structure/grille,
-/obj/structure/cable/orange{
-	icon_state = "2-8"
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitepurplefull"
 	},
-/turf/simulated/floor/plating,
-/area/maintenance/apmaint2)
+/area/toxins/misc_lab)
 "lfH" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -57364,12 +57349,13 @@
 /turf/simulated/floor/plating,
 /area/medical/surgery/north)
 "lxz" = (
-/obj/structure/cable/orange{
-	icon_state = "4-8"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/obj/effect/spawner/random_barrier/possibly_welded_airlock,
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint4)
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/maintenance/apmaint2)
 "lxD" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -59472,7 +59458,9 @@
 	name = "emergency evac bay";
 	width = 29
 	},
-/turf/space,
+/turf/space{
+	icon_state = "black"
+	},
 /area/space)
 "mgv" = (
 /obj/structure/table/wood,
@@ -68829,15 +68817,16 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboardaux)
 "oYK" = (
-/obj/structure/closet,
 /obj/structure/cable/orange{
-	icon_state = "1-2"
+	icon_state = "4-8"
 	},
-/obj/effect/spawner/lootdrop/maintenance/double,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
-/area/maintenance/starboard)
+/area/maintenance/apmaint2)
 "oYM" = (
 /obj/machinery/gateway{
 	dir = 6
@@ -69710,6 +69699,7 @@
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -71721,6 +71711,7 @@
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
 /area/crew_quarters/kitchen)
 "pSX" = (
@@ -72653,6 +72644,10 @@
 	dir = 4
 	},
 /obj/machinery/vending/snack,
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "qeO" = (
@@ -73361,9 +73356,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "qnV" = (
@@ -73647,7 +73639,6 @@
 	},
 /area/hallway/primary/central)
 "qsM" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 5
 	},
@@ -75145,19 +75136,6 @@
 	icon_state = "neutral"
 	},
 /area/hallway/secondary/entry/south)
-"qVr" = (
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/spawner/random_spawners/grille_often,
-/turf/simulated/floor/plating,
-/area/maintenance/apmaint2)
 "qVA" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -76214,10 +76192,10 @@
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/door/window/eastright{
 	dir = 8
 	},
+/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/bar)
 "rob" = (
@@ -78583,6 +78561,7 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "rYx" = (
@@ -78590,10 +78569,6 @@
 /obj/machinery/camera{
 	c_tag = "Docking Asteroid Hall 6";
 	dir = 4
-	},
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -81074,6 +81049,7 @@
 /obj/machinery/door/window/southright{
 	dir = 4
 	},
+/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plating,
 /area/security/range)
 "sLc" = (
@@ -85435,6 +85411,7 @@
 	dir = 8;
 	pixel_x = -28
 	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkredcorners"
@@ -91563,6 +91540,7 @@
 	icon_state = "left";
 	name = "Medical Delivery"
 	},
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
 /area/medical/medbay)
 "vWD" = (
@@ -93257,14 +93235,6 @@
 	icon_state = "whitebluefull"
 	},
 /area/medical/cloning)
-"wwg" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurple"
-	},
-/area/toxins/misc_lab)
 "wwl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -93968,10 +93938,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "wGA" = (
@@ -94330,6 +94296,7 @@
 "wNA" = (
 /obj/structure/table,
 /obj/item/storage/box/syringes,
+/obj/item/storage/box/monkeycubes,
 /obj/item/storage/box/monkeycubes,
 /obj/item/storage/box/monkeycubes,
 /obj/item/storage/box/beakers,
@@ -96585,17 +96552,7 @@
 	},
 /area/toxins/lab)
 "xzt" = (
-/obj/machinery/navbeacon{
-	codes_txt = "delivery";
-	dir = 8;
-	location = "Research Division"
-	},
-/obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/insulated,
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
-	},
 /turf/simulated/floor/plating,
 /area/toxins/misc_lab)
 "xzG" = (
@@ -98366,6 +98323,10 @@
 "ygz" = (
 /obj/structure/chair/comfy{
 	dir = 4
+	},
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -110055,7 +110016,7 @@ cRz
 kFn
 uCK
 uCK
-mHL
+uCK
 vtY
 vtY
 vtY
@@ -111345,7 +111306,7 @@ uCK
 uCK
 uCK
 cxI
-uCK
+mHL
 vtY
 vtY
 ccW
@@ -111602,7 +111563,7 @@ vtY
 vtY
 vtY
 uCK
-mHL
+uCK
 uCK
 vtY
 vtY
@@ -112376,7 +112337,7 @@ ccW
 ccW
 vtY
 vtY
-uCK
+mHL
 uCK
 vtY
 ccW
@@ -118063,7 +118024,7 @@ wRF
 tuz
 quI
 yhC
-qVr
+dsY
 jfl
 ccW
 ajM
@@ -118785,7 +118746,7 @@ rZo
 rZo
 btd
 biB
-prN
+hmB
 btd
 aXn
 aXn
@@ -120116,7 +120077,7 @@ dWg
 dWg
 iqA
 czb
-wwg
+dWg
 kRz
 keU
 hUy
@@ -120376,7 +120337,7 @@ czc
 czG
 vVt
 pon
-gYw
+lxz
 fNF
 cGd
 pqg
@@ -120628,12 +120589,12 @@ cuW
 cvR
 czH
 cxv
-crx
+lfD
 czd
 czH
 idU
 pon
-gYw
+oYK
 dEm
 cGd
 pon
@@ -120885,7 +120846,7 @@ pon
 pon
 pon
 pon
-cyp
+pon
 pon
 pon
 pon
@@ -121143,10 +121104,10 @@ vey
 khS
 dHO
 xzt
-cze
+xzt
 qsM
 jBW
-cBM
+qpu
 wGy
 xLp
 kFc
@@ -126267,7 +126228,7 @@ qez
 pQN
 ccW
 sJg
-lfD
+wZD
 qpu
 whv
 wIq
@@ -126529,7 +126490,7 @@ wsR
 wZD
 gEj
 qpu
-fGC
+qpu
 hGX
 rjn
 oQY
@@ -139064,7 +139025,7 @@ cab
 lpT
 tuD
 wJC
-ixu
+wJC
 eAS
 eAS
 eAS
@@ -145933,7 +145894,7 @@ xEK
 xEK
 xEK
 gBs
-lxz
+aYT
 aRx
 alc
 alc
@@ -147286,7 +147247,7 @@ bFJ
 dEE
 bIQ
 hQy
-ovq
+fGC
 vvz
 cKk
 cKk
@@ -148584,7 +148545,7 @@ wvp
 rki
 yfZ
 gSQ
-hNi
+mqf
 aZN
 aZM
 aZM
@@ -148607,8 +148568,8 @@ aXn
 aXn
 aXn
 cdT
-aXn
-jpk
+cdT
+cdT
 cdT
 cdT
 kWx
@@ -148878,7 +148839,7 @@ wCL
 jhJ
 pGz
 fNw
-jhJ
+hNi
 vNg
 kAx
 rns
@@ -151372,7 +151333,7 @@ aZM
 aZM
 aZM
 pyp
-hmB
+iFS
 vHH
 vHH
 lnN
@@ -151698,13 +151659,13 @@ vgt
 vgt
 cdT
 wTg
-wwD
+cdT
 wTg
 cdT
 cdT
 vgt
 vgt
-cdT
+wwD
 cdT
 bhO
 bhO
@@ -153222,35 +153183,35 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 mgu
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -153479,35 +153440,35 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -153736,35 +153697,35 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -153993,35 +153954,35 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -154250,35 +154211,35 @@ gEl
 lJs
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -154507,35 +154468,35 @@ nll
 bvg
 mUV
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 mUV
@@ -154764,35 +154725,35 @@ gEl
 lJs
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -155021,35 +154982,35 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -155278,35 +155239,35 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -155535,35 +155496,35 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -155792,35 +155753,35 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -156049,35 +156010,35 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -156274,7 +156235,7 @@ gSQ
 gSQ
 vHH
 kbR
-gSQ
+cyp
 tQO
 xXN
 gFg
@@ -156306,35 +156267,35 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -156531,7 +156492,7 @@ vFQ
 xTb
 xTb
 xTb
-oYK
+vFQ
 xFO
 vFQ
 vFQ
@@ -156563,35 +156524,35 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -156820,35 +156781,35 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -157077,35 +157038,35 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -157334,35 +157295,35 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
@@ -157591,35 +157552,35 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 rNK
