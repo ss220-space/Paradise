@@ -96,5 +96,11 @@
 
 //Toxification syndrome
 /datum/disease/advance/preset/infection
-	name = "//Toxification syndrome"
+	name = "Toxification syndrome"
 	symptoms = list(new/datum/symptom/infection)
+
+/datum/disease/advance/preset/pre_loyalty
+	name = "Merry sufferer"
+	symptoms = list(new/datum/symptom/laugh, /datum/symptom/moan, /datum/symptom/hallucigen)
+	mutation_reagents = list("love")
+	possible_mutations = list(/datum/disease/loyalty)

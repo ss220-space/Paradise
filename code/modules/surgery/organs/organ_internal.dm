@@ -192,7 +192,8 @@
 /obj/item/organ/internal/appendix/insert(mob/living/carbon/M, special = 0)
 	..()
 	if(inflamed)
-		M.AddCopyOfDisease(new /datum/disease/appendicitis)
+		var/datum/disease/appendicitis/D = new
+		D.Contract(M)
 
 /obj/item/organ/internal/appendix/prepare_eat()
 	var/obj/S = ..()

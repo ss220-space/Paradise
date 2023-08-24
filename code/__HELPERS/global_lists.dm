@@ -168,6 +168,15 @@
 		"damage_converter:heal:viralevolution" = new /datum/disease/advance/preset/advanced_regeneration(),
 		"dizzy:flesh_eating:viraladaptation:youth" = new /datum/disease/advance/preset/stealth_necrosis(),
 		"beard:itching:voice_change" = new /datum/disease/advance/preset/pre_kingstons()
+		"love" = new /datum/disease/advance/preset/love()
+		"aggression" = new /datum/disease/advance/preset/aggression()
+		"obsession" = new /datum/disease/advance/preset/obsession()
+		"confusion" = new /datum/disease/advance/preset/confusion()
+		"bones" = new /datum/disease/advance/preset/bones()
+		"laugh" = new /datum/disease/advance/preset/laugh()
+		"moan" = new /datum/disease/advance/preset/moan()
+		"infection" = new /datum/disease/advance/preset/infection()
+		"laugh:moan:hallucigen" = new /datum/disease/advance/preset/pre_loyalty()
 	)
 
 //creates every subtype of prototype (excluding prototype) and adds it to list L.

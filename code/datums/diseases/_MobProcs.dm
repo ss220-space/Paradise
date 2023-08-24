@@ -29,50 +29,9 @@
 /mob/proc/ContractDisease(datum/disease/D)
 	if(!CanContractDisease(D))
 		return 0
-	AddCopyOfDisease(D)
+	D.Contract(src)
 
-/**
- * Infects a mob with disease D, even if it already has an affected_mob, it will be replaced with scr
- *
- * Arguments:
- * * D - the fully created and prepared disease
- */
-/mob/proc/AddDisease(datum/disease/D)
-	if(istype(D.affected_mob))
-		D.remove_virus()
-
-	viruses += D
-	D.affected_mob = src
-	GLOB.active_diseases += D
-	D.affected_mob.med_hud_set_status()
-
-/**
- * Creates a copy of the virus and infects the mob with it.
- *
- * Arguments:
- * * D - the main disease, a copy of which is being created
- */
-/mob/proc/AddCopyOfDisease(datum/disease/D)
-	var/datum/disease/DD = new D.type()
-	viruses += DD
-	DD.affected_mob = src
-	GLOB.active_diseases += DD //Add it to the active diseases list, now that it's actually in a mob and being processed.
-
-	//Copy properties over. This is so edited diseases persist.
-	var/list/skipped = list("affected_mob","holder","carrier","stage","type","parent_type","vars","transformed")
-	for(var/V in DD.vars)
-		if(V in skipped)
-			continue
-		if(istype(DD.vars[V],/list))
-			var/list/L = D.vars[V]
-			DD.vars[V] = L.Copy()
-		else
-			DD.vars[V] = D.vars[V]
-
-	DD.affected_mob.med_hud_set_status()
-
-
-/mob/living/carbon/ContractDisease(datum/disease/D, var/create_copy = TRUE)
+/mob/living/carbon/ContractDisease(datum/disease/D)
 	if(!CanContractDisease(D))
 		return 0
 
@@ -143,10 +102,7 @@
 		passed = (prob((50*D.permeability_mod) - 1))
 
 	if(passed)
-		if(create_copy)
-			AddCopyOfDisease(D)
-		else
-			AddDisease(D)
+		D.Contract(src)
 
 
 /**
@@ -160,7 +116,7 @@
 /mob/proc/ForceContractDisease(datum/disease/D)
 	if(!CanContractDisease(D))
 		return FALSE
-	AddCopyOfDisease(D)
+	D.Contract(src)
 	return TRUE
 
 
