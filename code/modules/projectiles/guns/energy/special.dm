@@ -368,7 +368,7 @@
 			to_chat(user, "<span class='notice'>[src] уже имеет [O]!</span>")
 			return
 		to_chat(user, "<span class='notice'>Вы вставили [O] в [src], и [src] начинает разогреваться.</span>")
-		core = O
+		core = TRUE
 		qdel(O)
 		update_icon()
 	else
