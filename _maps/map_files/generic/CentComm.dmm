@@ -607,20 +607,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
-"amm" = (
-/obj/docking_port/stationary/transit{
-	dir = 8;
-	dwidth = 0;
-	height = 30;
-	id = "freegolem_transit";
-	name = "free golem in transit";
-	pixel_x = 32;
-	width = 20
-	},
-/turf/space/transit/west{
-	icon_state = "black"
-	},
-/area/space)
 "amE" = (
 /obj/structure/kitchenspike,
 /obj/effect/decal/cleanable/blood/old,
@@ -1649,6 +1635,18 @@
 	name = "floor"
 	},
 /area/vox_station)
+"aLx" = (
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_x = -32
+	},
+/obj/machinery/computer/security{
+	network = list("SS13","Research  Outpost","Mining  Outpost","Telecomms")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkred"
+	},
+/area/shuttle/escape)
 "aLC" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt{
@@ -2233,18 +2231,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/control)
-"bci" = (
-/obj/machinery/door/airlock/syndicate/extmai/glass{
-	damage_deflection = 999;
-	id_tag = "syndicate_jail_cell";
-	locked = 1;
-	name = "Cell";
-	req_access = list(153)
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkfull"
-	},
-/area/syndicate_mothership/jail)
 "bdh" = (
 /obj/structure/chair,
 /obj/effect/landmark/voxstart,
@@ -3136,6 +3122,18 @@
 	name = "floor"
 	},
 /area/vox_station)
+"bzm" = (
+/obj/machinery/computer/communications,
+/obj/machinery/computer/security/telescreen{
+	desc = "Used for watching the Special Ops team.";
+	name = "Security Station Monitor";
+	network = list("SS13","Research  Outpost","Mining  Outpost");
+	pixel_y = -30
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/specops)
 "bAh" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -3357,6 +3355,15 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone3)
+"bDe" = (
+/obj/machinery/vending/cigarette/free{
+	slogan_list = list("Помните!  Никаких  капиталистов!","Лучше  всего  употреблять  вместе  с  водкой!","Затянитесь!","Девять  из  десяти  учёных  СССП  считают  что  курение  снимает  стресс","Прочим  сигаретам  далеко  до  русских  сигарет!","Сигареты!  Теперь  на  100%  меньше  капитализма.")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/elite_squad)
 "bDo" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -4795,15 +4802,6 @@
 	icon_state = "iron14"
 	},
 /area/syndicate_mothership/jail)
-"csM" = (
-/obj/machinery/vending/cigarette/free{
-	slogan_list = list("Помните!  Никаких  капиталистов!","Лучше  всего  употреблять  вместе  с  водкой!","Затянитесь!","Девять  из  десяти  учёных  СССП  считают  что  курение  снимает  стресс","Прочим  сигаретам  далеко  до  русских  сигарет!","Сигареты!  Теперь  на  100%  меньше  капитализма.")
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate_mothership/elite_squad)
 "csN" = (
 /obj/structure/filingcabinet/filingcabinet,
 /turf/simulated/floor/carpet/black,
@@ -9245,9 +9243,6 @@
 	icon_state = "grimy"
 	},
 /area/syndicate_mothership)
-"eNQ" = (
-/turf/simulated/wall/indestructible/splashcreen,
-/area/start)
 "eNU" = (
 /obj/structure/chair/sofa/left{
 	dir = 8
@@ -10167,18 +10162,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/jail)
-"fne" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = -32
-	},
-/obj/machinery/computer/security{
-	network = list("SS13","Research  Outpost","Mining  Outpost","Telecomms")
-	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
-	},
-/area/shuttle/escape)
 "fnh" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -12346,6 +12329,20 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
+"gmP" = (
+/obj/docking_port/stationary/transit{
+	dir = 8;
+	dwidth = 0;
+	height = 30;
+	id = "freegolem_transit";
+	name = "free golem in transit";
+	pixel_x = 32;
+	width = 20
+	},
+/turf/space/transit/west{
+	icon_state = "black"
+	},
+/area/space)
 "gmQ" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -20209,6 +20206,13 @@
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/syndicate_mothership/outside)
+"kFE" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/court)
 "kFV" = (
 /obj/structure/flora/junglebush/b,
 /obj/structure/flora/grass/jungle,
@@ -20709,6 +20713,42 @@
 	icon_state = "darkgrey"
 	},
 /area/centcom/zone2)
+"kQR" = (
+/obj/machinery/power/apc{
+	name = "Gamma Armory APC";
+	pixel_y = -24
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/structure/sign/securearea{
+	pixel_x = -32
+	},
+/obj/structure/closet/secure_closet/guncabinet,
+/obj/item/gun/rocketlauncher,
+/obj/item/ammo_casing/rocket,
+/obj/item/ammo_casing/rocket,
+/obj/item/ammo_casing/rocket,
+/obj/item/kitchen/knife/combat,
+/obj/item/kitchen/knife/combat,
+/obj/item/kitchen/knife/combat,
+/obj/item/grenade/chem_grenade/incendiary{
+	name = "Incendiary Grenade"
+	},
+/obj/item/grenade/clusterbuster,
+/obj/machinery/light/spot{
+	dir = 8;
+	tag = "icon-tube1 (WEST)"
+	},
+/obj/item/gun/projectile/automatic/m52,
+/obj/item/ammo_box/magazine/m52mag,
+/obj/item/ammo_box/magazine/m52mag,
+/obj/item/ammo_box/magazine/m52mag,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/gamma/space)
 "kQT" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
@@ -26542,6 +26582,9 @@
 	icon_state = "warndarkgreyred"
 	},
 /area/syndicate_mothership/infteam)
+"nll" = (
+/turf/simulated/wall/indestructible/splashscreen,
+/area/start)
 "nlx" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -29833,38 +29876,6 @@
 	icon_state = "darkredcorners"
 	},
 /area/syndicate_mothership/infteam)
-"oKD" = (
-/obj/machinery/power/apc{
-	name = "Gamma Armory APC";
-	pixel_y = -24
-	},
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/structure/sign/securearea{
-	pixel_x = -32
-	},
-/obj/structure/closet/secure_closet/guncabinet,
-/obj/item/gun/rocketlauncher,
-/obj/item/ammo_casing/rocket,
-/obj/item/ammo_casing/rocket,
-/obj/item/ammo_casing/rocket,
-/obj/item/kitchen/knife/combat,
-/obj/item/kitchen/knife/combat,
-/obj/item/kitchen/knife/combat,
-/obj/item/grenade/chem_grenade/incendiary{
-	name = "Incendiary Grenade"
-	},
-/obj/item/grenade/clusterbuster,
-/obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
-	},
-/area/shuttle/gamma/space)
 "oKG" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -31209,6 +31220,18 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/centcom/zone1)
+"ptl" = (
+/obj/machinery/computer/security{
+	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkredfull"
+	},
+/area/centcom/bridge)
 "ptt" = (
 /turf/simulated/wall/shuttle/nosmooth{
 	dir = 10;
@@ -32210,6 +32233,12 @@
 	icon_state = "white"
 	},
 /area/centcom/specops)
+"pSF" = (
+/obj/machinery/computer/security/wooden_tv{
+	network = list("SS13","Research  Outpost","Mining  Outpost")
+	},
+/turf/simulated/floor/carpet/black,
+/area/syndicate_mothership/jail)
 "pSJ" = (
 /obj/structure/shuttle/engine/propulsion{
 	icon_state = "burst_r";
@@ -35043,18 +35072,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/syndicate)
-"rhN" = (
-/obj/machinery/computer/communications,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the Special Ops team.";
-	name = "Security Station Monitor";
-	network = list("SS13","Research  Outpost","Mining  Outpost");
-	pixel_y = -30
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
-	},
-/area/shuttle/specops)
 "rhO" = (
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 8;
@@ -35232,6 +35249,18 @@
 /obj/item/stamp/syndicate/taipan,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/control)
+"rmG" = (
+/obj/machinery/door/airlock/syndicate/extmai/glass{
+	damage_deflection = 999;
+	id_tag = "syndicate_jail_cell";
+	locked = 1;
+	name = "Cell";
+	req_access = list(153)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
+/area/syndicate_mothership/jail)
 "rns" = (
 /obj/structure/flora/tree/dead,
 /turf/simulated/floor/indestructible/snow,
@@ -41900,18 +41929,6 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/grass,
 /area/centcom/evac)
-"unn" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkredfull"
-	},
-/area/centcom/bridge)
 "unO" = (
 /obj/item/flag/nt,
 /obj/machinery/light/small{
@@ -42719,12 +42736,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/zone2)
-"uET" = (
-/obj/machinery/computer/security/wooden_tv{
-	network = list("SS13","Research  Outpost","Mining  Outpost")
-	},
-/turf/simulated/floor/carpet/black,
-/area/syndicate_mothership/jail)
 "uEU" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
@@ -46696,20 +46707,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/assault_pod)
-"wyB" = (
-/obj/machinery/camera{
-	c_tag = "Centaral Command Supreme Court";
-	dir = 1;
-	network = list("SS13","CentComm");
-	pixel_x = 12;
-	pixel_y = -6
-	},
-/obj/item/twohanded/required/kirbyplants,
-/obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/court)
 "wyU" = (
 /obj/item/flag/nt,
 /turf/simulated/floor/wood,
@@ -64598,7 +64595,7 @@ pwa
 wkN
 xnF
 pSS
-fne
+aLx
 qzL
 vAA
 esN
@@ -71374,7 +71371,7 @@ psf
 usR
 vnx
 rzg
-rhN
+bzm
 usR
 psf
 psf
@@ -71973,7 +71970,7 @@ dfm
 dfm
 gro
 azv
-uET
+pSF
 nKg
 kJh
 azv
@@ -72380,7 +72377,7 @@ oFJ
 oFJ
 nbA
 nbA
-amm
+gmP
 nbA
 nbA
 oFJ
@@ -73482,7 +73479,7 @@ kKP
 kKP
 oeH
 oEe
-csM
+bDe
 pbN
 pbN
 pbN
@@ -74805,7 +74802,7 @@ nKg
 ghO
 sFq
 azv
-bci
+rmG
 azv
 gpg
 tek
@@ -74813,7 +74810,7 @@ swu
 kBd
 gpg
 azv
-bci
+rmG
 azv
 sFq
 vPe
@@ -76604,15 +76601,15 @@ dfm
 olI
 sFq
 azv
-bci
+rmG
 azv
 nGy
 azv
-bci
+rmG
 azv
 nGy
 azv
-bci
+rmG
 azv
 sFq
 vPe
@@ -87148,7 +87145,7 @@ cko
 cko
 hLB
 qcB
-wyB
+kFE
 xAD
 pKU
 vqd
@@ -92019,7 +92016,7 @@ oNa
 fMQ
 rgF
 eru
-unn
+ptl
 rnv
 eru
 rRF
@@ -107990,7 +107987,7 @@ iNd
 mUo
 fRj
 vhb
-oKD
+kQR
 odz
 jMD
 mVX
@@ -111105,21 +111102,21 @@ mVX
 mVX
 "}
 (237,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+nll
 mVX
 mVX
 mVX
@@ -111362,21 +111359,21 @@ mVX
 mVX
 "}
 (238,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
 mVX
 mVX
 mVX
@@ -111619,21 +111616,21 @@ mVX
 mVX
 "}
 (239,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
 mVX
 mVX
 mVX
@@ -111876,21 +111873,21 @@ mVX
 mVX
 "}
 (240,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
 mVX
 mVX
 mVX
@@ -112147,7 +112144,7 @@ xVn
 xVn
 xVn
 xVn
-eNQ
+xVn
 mVX
 mVX
 mVX
@@ -113425,7 +113422,7 @@ xVn
 xVn
 xVn
 xVn
-xVn
+dEd
 xVn
 xVn
 xVn
@@ -113939,7 +113936,7 @@ xVn
 xVn
 xVn
 xVn
-dEd
+xVn
 xVn
 xVn
 xVn

@@ -137,3 +137,74 @@
   - server: Automatic NanoMap Update (#3340)
   Сиротка:
   - add: Fake cult sheets and armour (#3080)
+'2023-08-16':
+  Den109G:
+  - bugfix: Dead do not should spam death message (#3352)
+  Furukia:
+  - bugfix: taipan sector accessibility (#3350)
+  LiquidPotroh:
+  - bugfix: Invisible viruses (#3358)
+  Vladisvell:
+  - imageadd: some missing sprites for drasks and voxes, flags (#3354)
+  Zwei:
+  - bugfix: Defined Descreation Sound (#3351)
+  aeternaclose:
+  - bugfix: Cere CMO Fix (#3360)
+'2023-08-17':
+  Den109G:
+  - bugfix: few fixes (#3357)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3362)
+'2023-08-18':
+  Den109G:
+  - bugfix: cult-healing to robots (#3363)
+  Zwei:
+  - bugfix: MouseDrop In Range (#3364)
+'2023-08-19':
+  Den109G:
+  - bugfix: ACTUALLY healing robot parts (#3366)
+  - bugfix: more fixes (#3367)
+  Dimach:
+  - bugfix: runtime in taipan code (#3369)
+  - bugfix: wormholes teleport only to other wormholes (#3370)
+'2023-08-22':
+  Albonix:
+  - add: new spraycan icons (#3372)
+  Daeberdir:
+  - tweak: security medic's sensor device now stored in cryo storage. (#3379)
+  Den109G:
+  - bugfix: delete CC camera (#3382)
+  - bugfix: station trurl -> ship trurl (#3378)
+  Dimach:
+  - bugfix: return normal font (#3389)
+  Igz0m:
+  - tweak: Increase the required playtime for cadets to 10 hours crew (#3386)
+  NightDawnFox:
+  - tweak: event tweaks (#3375)
+  - add: 3 new tail options for unathi. Also tail clipping fix (#3353)
+  - add: new engiborg skin (#3377)
+  Vladisvell:
+  - add: thunderdome clears after all player death (#3380)
+  Zwei:
+  - add: WideScreen Port (#3204)
+'2023-08-23':
+  DeDerevce:
+  - imageadd: holy constructs (#3347)
+  Honker9999999:
+  - tweak: vault stun gene+golem (#3381)
+  LiquidPotroh:
+  - tweak: Holy water braindamage (#3393)
+  NightDawnFox:
+  - add: gas mask with voice modulator (#3359)
+  - add: new weapon to Gamma ERT/armory (#3374)
+  SAAD:
+  - add: Remap Bridge, Central Hallway, Barber (#3361)
+  Vladisvell:
+  - add: New icons for quiver and Santa's gift bag (#3355)
+  Zardesse:
+  - add: Rockso costume (#3376)
+  Zwei:
+  - bugfix: Items Offer Fix (#3391)
+  - tweak: Abductors Fixes (#3373)
+  Сиротка:
+  - bugfix: Guardian issues (#3390)

@@ -269,7 +269,6 @@
 	tools = list(TOOL_WIRECUTTER)
 	category = CAT_CLOTHING
 
-
 /datum/crafting_recipe/footwrapsgoliath
 	name = "Goliath Hide Footwraps"
 	result = /obj/item/clothing/shoes/footwraps/goliath
@@ -300,4 +299,14 @@
 	time = 2 SECONDS
 	reqs = list(/obj/item/stack/sheet/leather = 1,
 				/obj/item/stack/sheet/animalhide/weaver_chitin = 3)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/voice_modulator
+	name = "Voice Modulator Mask"
+	result = list(/obj/item/clothing/mask/gas/voice_modulator)
+	time = 45
+	tools = list(TOOL_SCREWDRIVER, TOOL_MULTITOOL)
+	reqs = list(/obj/item/clothing/mask/gas = 1,
+				  /obj/item/assembly/voice = 1,
+				  /obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
