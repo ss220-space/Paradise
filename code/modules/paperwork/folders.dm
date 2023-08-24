@@ -58,7 +58,7 @@
 		dat += "<A href='?src=[UID()];remove=\ref[doc]'>Remove</A> - <A href='?src=[UID()];look=\ref[doc]'>[doc.name]</A><BR>"
 	user << browse(dat, "window=folder")
 	onclose(user, "folder")
-	add_fingerprint(usr)
+	add_fingerprint(user)
 	return
 
 /obj/item/folder/Topic(href, href_list)

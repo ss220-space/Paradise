@@ -171,7 +171,7 @@
 
 /obj/item/paper_bundle/attack_self(mob/user as mob)
 	src.show_content(user)
-	add_fingerprint(usr)
+	add_fingerprint(user)
 	update_icon()
 	return
 

@@ -26,12 +26,12 @@
 	else
 		return 1
 
-/obj/item/clothing/accessory/holster/attack_self()
-	var/holsteritem = usr.get_active_hand()
+/obj/item/clothing/accessory/holster/attack_self(mob/user = usr)
+	var/holsteritem = user.get_active_hand()
 	if(!holstered)
-		holster(holsteritem, usr)
+		holster(holsteritem, user)
 	else
-		unholster(usr)
+		unholster(user)
 
 /obj/item/clothing/accessory/holster/proc/holster(obj/item/I, mob/user as mob)
 	if(holstered)

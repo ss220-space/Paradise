@@ -401,6 +401,12 @@
 	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/loyalty
 
+/obj/item/reagent_containers/glass/bottle/pre_loyalty
+	name = "pre_loyalty"
+	desc = "pre_loyalty"
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/advance/preset/pre_loyalty
+
 /obj/item/reagent_containers/glass/bottle/retrovirus
 	name = "Retrovirus culture bottle"
 	desc = "A small bottle. Contains a retrovirus culture in a synthblood medium."

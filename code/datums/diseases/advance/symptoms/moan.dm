@@ -18,7 +18,7 @@ Groaning Syndrome
 
 /datum/symptom/moan/Activate(datum/disease/advance/A)
 	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
+	if(prob(SYMPTOM_ACTIVATION_PROB * 2))
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2, 3)

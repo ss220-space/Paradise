@@ -69,7 +69,7 @@ Uncontrollable Aggression
 							UnarmedAttack(aggressor)
 
 	if(A.stage >=5 && prob(SYMPTOM_ACTIVATION_PROB * 5))
-		aggressor.say(pick("AAARRGGHHH!!!!", "GRR!!!", "FUCK!! FUUUUUUCK!!!", "FUCKING SHITCOCK!!", "WROOAAAGHHH!!"))
+		aggressor.say(pick("ААААААААААА!!!!", "ГРРР!!!", "СУКА!! БЛЯТЬ!!!", "ЁБАНЫЕ ГОВНЮКИ!!", "ВАААААААГХХ!!"))
 	return
 
 /datum/symptom/aggression/proc/UnarmedAttack(mob/living/carbon/human/aggressor)
@@ -151,20 +151,26 @@ Uncontrollable Actions
 					item = possesed.get_item_by_slot(slot_l_hand)
 				if(!item)
 					item = TakeItem(possesed)
+				if(!item)
+					return
 
 				if(istype(item, /obj/item/gun))
 					var/obj/item/gun/gun = item
 					UseGun(possesed, gun)
 				else
 					item.attack_self(possesed)
+					if(item != possesed.get_active_hand())
+						possesed.swap_hand()
+					possesed.throw_item(locate(/turf) in shuffle(view(3, possesed)))
 	return
 
 /datum/symptom/obsession/proc/TakeItem(mob/living/carbon/human/H)
-	var/list/targets = range(1, H)
+	var/list/targets = orange(1, H)
 	var/obj/item/target = locate(/obj/item) in shuffle(targets)
-	if(istype(target))
+	if(istype(target) && !target.anchored)
 		target.forceMove(get_turf(H))
 		H.put_in_hands(target)
+		return target
 
 /datum/symptom/obsession/proc/UseGun(mob/living/carbon/human/aggressor, obj/item/gun/attacking_item)
 	var/list/targets = range(7, aggressor)

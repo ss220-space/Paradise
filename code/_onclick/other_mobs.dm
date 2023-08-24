@@ -21,7 +21,7 @@
 	A.attack_hand(src)
 
 /mob/living/carbon/human/beforeAdjacentClick(atom/A, params)
-	if(prob(dna.species.fragile_bones_chance * 10))
+	if(prob(dna.species.fragile_bones_chance))
 		var/zone = "[hand ? "l" : "r"]_[pick("hand", "arm")]"
 		var/obj/item/organ/external/active_hand = get_organ(zone)
 		if(!(active_hand.status & ORGAN_BROKEN))

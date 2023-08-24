@@ -34,6 +34,7 @@ Limb Rejection
 
 	base_cooldown = 0 SECONDS
 	clothes_req = FALSE
+	need_active_overlay = TRUE
 	invocation = ""
 
 	selection_activated_message		= "<span class='notice'>Your prepare to throw a limb!! <B>Left-click to cast at a target!</B></span>"

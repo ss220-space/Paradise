@@ -104,13 +104,13 @@
 		container_type |= REFILLABLE | DRAINABLE
 		update_icon()
 
-/obj/item/reagent_containers/attack_self(mob/user)
+/obj/item/reagent_containers/attack_self(mob/user = usr)
 	if(has_lid)
 		if(is_open_container())
-			to_chat(usr, "<span class='notice'>You put the lid on [src].</span>")
+			to_chat(user, "<span class='notice'>You put the lid on [src].</span>")
 			add_lid()
 		else
-			to_chat(usr, "<span class='notice'>You take the lid off [src].</span>")
+			to_chat(user, "<span class='notice'>You take the lid off [src].</span>")
 			remove_lid()
 
 /obj/item/reagent_containers/attack(mob/M, mob/user, def_zone)

@@ -26,7 +26,7 @@
 	origin_tech = "magnets=3;bluespace=2"
 
 /obj/item/locator/attack_self(mob/user as mob)
-	add_fingerprint(usr)
+	add_fingerprint(user)
 	var/dat = {"<meta charset="UTF-8">"}
 	if(temp)
 		dat += "[src.temp]<BR><BR><A href='byond://?src=[UID()];temp=1'>Clear</A>"
