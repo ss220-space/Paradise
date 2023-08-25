@@ -2466,7 +2466,7 @@
 
 /obj/machinery/vending/paivendor
 	name = "\improper PAI Vendor machine"
-	desc = "Uh Oh Fuck this test desc."
+	desc = "Wonderful vendor of friends"
 	icon_state = "paivend"
 	ads_list = list("А вы любите нас?","Мы твои друзья!","Эта покупка войдет в историю","Я ПАИ простой, купишь меня, а я тебе друга!","Спасибо за покупку.")
 	resistance_flags = FIRE_PROOF
