@@ -17,8 +17,8 @@
 		emote["name"] = name
 		emote["id"] = GLOB.base_pai_emotions[name]
 		emotions[++emotions.len] = emote
-	if(pai_holder.syndipai)
-		for(var/name in GLOB.spec_pai_emotions)
+	for(var/name in GLOB.spec_pai_emotions)
+		if((pai_holder.syndiemote || pai_holder.syndipai) && name == "Syndicate")
 			var/list/emote = list()
 			emote["name"] = name
 			emote["id"] = GLOB.spec_pai_emotions[name]
@@ -349,7 +349,7 @@
 		return
 	while(progress < 100)
 		if(cable && cable.machine == D && cable.machine == hackdoor && get_dist(pai_holder, hackdoor) <= 1)
-			progress = min(progress + rand(1, 20), 100)
+			progress = min(progress + rand(1, 20), 100)*pai_holder.doorjack_factor
 		else
 			cleanup_hack()
 			return
