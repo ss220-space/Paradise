@@ -18,7 +18,11 @@
 	/// for Syndicate pAI type
 	var/is_syndicate_type = FALSE
 	var/extra_memory = 0
-	var/obj/item/paicard_upgrade/upgrade
+	var/obj/item/paicard_upgrade/syndicate/upgrade
+	var/obj/item/paicard_upgrade/memory/mem_upgrade
+	var/obj/item/paicard_upgrade/spaiemote/spaiemote_upgrade
+	var/obj/item/paicard_upgrade/doorjack/doorjack_upgrade
+	var/obj/item/paicard_upgrade/womanform/womanform_upgrade
 
 /obj/item/paicard/syndicate // Only seems that it is syndicard
 	name = "syndicate personal AI device"
@@ -345,8 +349,8 @@
 
 /obj/item/paicard/attackby(obj/item/I, mob/user, params)
 	. = ..()
-	if(istype(I, /obj/item/paicard_upgrade))
-		var/obj/item/paicard_upgrade/P = I
+	if(istype(I, /obj/item/paicard_upgrade/syndicate))
+		var/obj/item/paicard_upgrade/syndicate/P = I
 		if(pai)
 			if(pai.syndipai)
 				return
@@ -362,6 +366,82 @@
 		user.drop_transfer_item_to_loc(P, src)
 		extra_memory += P.extra_memory
 		is_syndicate_type = TRUE
+		return
+
+	if(istype(I, /obj/item/paicard_upgrade/memory))
+		var/obj/item/paicard_upgrade/memory/P = I
+		if(!pai)
+			to_chat(user, "<span class='notice'>PAI must be active to install the cartridge.</span>")
+			return
+		if(mem_upgrade)
+			to_chat(user, "<span class='notice'>PAI can hold only one memory cartridge.</span>")
+			return
+		mem_upgrade = P
+		user.drop_transfer_item_to_loc(P, src)
+		if(pai.syndipai)
+			pai.ram += P.extra_memory - 10
+		else
+			pai.ram += P.extra_memory
+		to_chat(user, "<span class='notice'>You install cartridge.</span>")
+		return
+
+	if(istype(I, /obj/item/paicard_upgrade/reset))
+		var/obj/item/paicard_upgrade/reset/P = I
+		if(!pai)
+			to_chat(user, "<span class='notice'>PAI must be active to install the cartridge.</span>")
+			return
+		pai.reset_software()
+		if(pai.syndipai)
+			pai.ram += upgrade.extra_memory
+		if(mem_upgrade.extra_memory)
+			if(pai.syndipai)
+				pai.ram += mem_upgrade.extra_memory - 10
+			else
+				pai.ram += mem_upgrade.extra_memory
+		QDEL_NULL(P)
+		to_chat(user, "<span class='notice'>You install cartridge.</span>")
+		return
+
+	if(istype(I, /obj/item/paicard_upgrade/spaiemote))
+		var/obj/item/paicard_upgrade/spaiemote/P = I
+		if(!pai)
+			to_chat(user, "<span class='notice'>PAI must be active to install the cartridge.</span>")
+			return
+		if(spaiemote_upgrade)
+			to_chat(user, "<span class='notice'>PAI can hold only one special emote cartridge.</span>")
+			return
+		spaiemote_upgrade = P
+		user.drop_transfer_item_to_loc(P, src)
+		pai.syndiemote = TRUE
+		to_chat(user, "<span class='notice'>You install cartridge.</span>")
+		return
+
+	if(istype(I, /obj/item/paicard_upgrade/doorjack))
+		var/obj/item/paicard_upgrade/doorjack/P = I
+		if(!pai)
+			to_chat(user, "<span class='notice'>PAI must be active to install the cartridge.</span>")
+			return
+		if(doorjack_upgrade)
+			to_chat(user, "<span class='notice'>PAI can hold only one doorjack upgrade cartridge.</span>")
+			return
+		doorjack_upgrade = P
+		user.drop_transfer_item_to_loc(P, src)
+		pai.doorjack_factor = P.factor
+		to_chat(user, "<span class='notice'>You install cartridge.</span>")
+		return
+
+	if(istype(I, /obj/item/paicard_upgrade/womanform))
+		var/obj/item/paicard_upgrade/womanform/P = I
+		if(!pai)
+			to_chat(user, "<span class='notice'>PAI must be active to install the cartridge.</span>")
+			return
+		if(womanform_upgrade)
+			to_chat(user, "<span class='notice'>PAI can hold only one female form cartridge.</span>")
+			return
+		womanform_upgrade = P
+		user.drop_transfer_item_to_loc(P, src)
+		pai.womanform_possible = TRUE
+		to_chat(user, "<span class='notice'>You install cartridge.</span>")
 		return
 
 	if(istype(I, /obj/item/encryptionkey))
@@ -422,21 +502,53 @@
 	name = "PAI upgrade"
 	desc = "A data cartridge for portable AI."
 	icon = 'icons/obj/pda.dmi'
-	icon_state = "pai-spai"
+	icon_state = "pai-ram"
 	w_class = WEIGHT_CLASS_TINY
+	origin_tech = "programming=2"
+/obj/item/paicard_upgrade/syndicate
+	name = "PAI upgrade"
+	desc = "A data cartridge for portable AI."
+	icon = 'icons/obj/pda.dmi'
+	icon_state = "pai-spai"
 	origin_tech = "programming=2;syndicate=2"
 	var/extra_memory = 50
 	var/used = TRUE
 
-/obj/item/paicard_upgrade/check_uplink_validity()
+/obj/item/paicard_upgrade/memory
+	name = "PAI memory card"
+	desc = "A data cartridge for portable AI."
+	var/extra_memory = 30
+
+/obj/item/paicard_upgrade/spaiemote
+	name = "PAI special emote card"
+	desc = "A data cartridge for portable AI."
+	icon_state = "pai-spaiemote"
+
+/obj/item/paicard_upgrade/doorjack
+	name = "PAI doorjack upgrade"
+	desc = "A data cartridge for portable AI."
+	icon_state = "pai-doorjack"
+	var/factor = 2
+
+/obj/item/paicard_upgrade/reset
+	name = "PAI reset card"
+	desc = "A data cartridge for portable AI."
+	icon_state = "pai-reset"
+
+/obj/item/paicard_upgrade/womanform
+	name = "PAI female form card"
+	desc = "A data cartridge for portable AI."
+	icon_state = "pai-woman"
+
+/obj/item/paicard_upgrade/syndicate/check_uplink_validity()
 	return !used
 
-/obj/item/paicard_upgrade/unused
+/obj/item/paicard_upgrade/syndicate/unused
 	used = FALSE
 
-/obj/item/paicard_upgrade/protolate
+/obj/item/paicard_upgrade/syndicate/protolate
 
-/obj/item/paper/pai_upgrade
+/obj/item/paper/pai_upgrade/syndicate
 	name = "Инструкция по применению"
 	icon_state = "paper"
 	info = {"<center> <b>Инструкция по применению СпИИ</b> </center><br>
@@ -471,6 +583,6 @@
 
 /obj/item/storage/box/syndie_kit/pai/populate_contents()
 	new /obj/item/paicard(src)
-	new /obj/item/paicard_upgrade/unused(src)
+	new /obj/item/paicard_upgrade/syndicate/unused(src)
 	new /obj/item/screwdriver(src)
-	new /obj/item/paper/pai_upgrade(src)
+	new /obj/item/paper/pai_upgrade/syndicate(src)
