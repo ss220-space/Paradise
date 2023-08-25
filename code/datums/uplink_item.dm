@@ -1653,7 +1653,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 	refundable = TRUE
-	refund_path = /obj/item/paicard_upgrade/unused
+	refund_path = /obj/item/paicard_upgrade/syndicate/unused
 	cant_discount = TRUE
 
 /datum/uplink_item/device_tools/thermal_drill
