@@ -33,7 +33,10 @@
 		"Crow" = "crow"
 		)
 
-	var/global/list/special_possible_chassis = list("Snake" = "snake")
+	var/global/list/special_possible_chassis = list(
+		"Snake" = "snake",
+		"Female" = "paifemale"
+		)
 
 	var/global/list/possible_say_verbs = list(
 		"Robotic" = list("states","declares","queries"),
@@ -92,6 +95,9 @@
 	var/last_change_chemicals = 0
 
 	var/syndipai = FALSE
+	var/doorjack_factor = 1
+	var/syndiemote = FALSE
+	var/womanform_possible = FALSE
 
 /mob/living/silicon/pai/New(obj/item/paicard/paicard)
 	loc = paicard
@@ -341,8 +347,11 @@
 				my_choices["Custom"] = "[ckey]-pai"
 
 	my_choices = base_possible_chassis.Copy()
-	if(syndipai)
-		my_choices += special_possible_chassis.Copy()
+	for(var/name in special_possible_chassis)
+		if(womanform_possible && name == "Female")
+			my_choices += special_possible_chassis.Copy(name, name)
+		if(syndipai)
+			my_choices += special_possible_chassis.Copy(name, name)
 	if(custom_sprite)
 		my_choices["Custom"] = "[ckey]-pai"
 
