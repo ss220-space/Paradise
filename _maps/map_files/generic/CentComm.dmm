@@ -1168,9 +1168,7 @@
 /obj/item/ammo_box/magazine/m45,
 /obj/item/ammo_box/magazine/m45,
 /obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed";
+	icon_state = "cabinet";
 	req_access = list(114)
 	},
 /obj/item/clothing/head/helmet/space/deathsquad/beret,
@@ -11931,8 +11929,7 @@
 /area/centcom/evac)
 "gdW" = (
 /obj/structure/closet{
-	icon_closed = "red";
-	icon_state = "red";
+	custom_door_overlay = "red";
 	name = "Sec. gear"
 	},
 /obj/effect/spawner/lootdrop/trade_sol/sec,
@@ -12052,7 +12049,6 @@
 "gfU" = (
 /obj/structure/closet{
 	custom_door_overlay = "pink";
-	icon_closed = "pink";
 	name = "Science gear"
 	},
 /obj/machinery/light/spot{
@@ -14032,9 +14028,7 @@
 /area/centcom/specops)
 "hrp" = (
 /obj/structure/closet{
-	icon_closed = "syndicate1";
-	icon_opened = "syndicate1open";
-	icon_state = "syndicate1"
+	icon_state = "syndicate"
 	},
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
@@ -15418,7 +15412,6 @@
 "ika" = (
 /obj/structure/closet{
 	custom_door_overlay = "white";
-	icon_closed = "white";
 	name = "Medical gear"
 	},
 /obj/effect/spawner/lootdrop/trade_sol/med,
@@ -20812,7 +20805,6 @@
 "kTJ" = (
 /obj/structure/closet{
 	custom_door_overlay = "green";
-	icon_closed = "green";
 	name = "Service gear"
 	},
 /obj/effect/spawner/lootdrop/trade_sol/serv,
@@ -22784,9 +22776,7 @@
 /area/centcom/zone1)
 "lNN" = (
 /obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
+	icon_state = "cabinet"
 	},
 /obj/item/clothing/under/color/lightpurple,
 /obj/item/clothing/under/color/purple,
@@ -23165,7 +23155,6 @@
 "maf" = (
 /obj/structure/closet{
 	custom_door_overlay = "black";
-	icon_closed = "black";
 	name = "Mineral's"
 	},
 /obj/effect/spawner/lootdrop/trade_sol/minerals,
@@ -37563,9 +37552,7 @@
 /area/syndicate_mothership/elite_squad)
 "sqx" = (
 /obj/structure/closet{
-	icon_closed = "syndicate1";
-	icon_opened = "syndicate1open";
-	icon_state = "syndicate1"
+	icon_state = "syndicate"
 	},
 /obj/machinery/light{
 	dir = 4
@@ -44307,7 +44294,6 @@
 "vqZ" = (
 /obj/structure/closet{
 	custom_door_overlay = "grey";
-	icon_closed = "grey";
 	name = "Donksoft gear"
 	},
 /obj/effect/spawner/lootdrop/trade_sol/donksoft,
@@ -49505,7 +49491,6 @@
 "xPW" = (
 /obj/structure/closet{
 	custom_door_overlay = "yellow";
-	icon_closed = "yellow";
 	name = "Engineering gear"
 	},
 /obj/machinery/light/spot,

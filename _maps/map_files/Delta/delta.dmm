@@ -33836,9 +33836,7 @@
 /area/crew_quarters/fitness)
 "dod" = (
 /obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
+	icon_state = "cabinet"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/shoes/sandal/white,
@@ -57675,8 +57673,7 @@
 	dir = 4
 	},
 /obj/structure/closet{
-	icon_closed = "white";
-	icon_state = "white";
+	custom_door_overlay = "white";
 	name = "Medical gear";
 	opened = 1
 	},
@@ -94577,9 +94574,7 @@
 /area/security/processing)
 "pVM" = (
 /obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
+	icon_state = "cabinet"
 	},
 /obj/item/reagent_containers/food/drinks/bottle/whiskey,
 /obj/item/reagent_containers/food/drinks/drinkingglass,
@@ -99193,8 +99188,6 @@
 /area/maintenance/fpmaint)
 "qVB" = (
 /obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
 	icon_state = "cabinet"
 	},
 /obj/effect/spawner/lootdrop/maintenance/tripple,
@@ -102864,8 +102857,7 @@
 "rMp" = (
 /obj/structure/closet{
 	desc = "It's a storage unit for foodservice garments.";
-	icon_closed = "black";
-	icon_state = "black";
+	custom_door_overlay = "black";
 	name = "chef's closet"
 	},
 /obj/item/storage/belt/chef,
