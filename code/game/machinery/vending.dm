@@ -1416,9 +1416,6 @@
 					/obj/item/clothing/head/jester = 1,
 					/obj/item/clothing/under/pennywise = 1,
 					/obj/item/clothing/mask/gas/pennywise = 1,
-					/obj/item/clothing/head/rockso = 1,
-					/obj/item/clothing/mask/gas/rockso = 1,
-					/obj/item/clothing/under/rockso = 1,
 					/obj/item/clothing/under/pants/camo = 1,
 					/obj/item/clothing/mask/bandana = 1,
 					/obj/item/clothing/mask/bandana/black = 1,
@@ -2316,8 +2313,6 @@
 	products = list(
 		/obj/item/gun/projectile/automatic/ar = 3,
 		/obj/item/ammo_box/magazine/m556 = 6,
-		/obj/item/gun/projectile/automatic/m52 = 3,
-		/obj/item/ammo_box/magazine/m52mag = 6,
 		/obj/item/gun/energy/sniperrifle = 1,
 		/obj/item/gun/energy/lasercannon = 3,
 		/obj/item/gun/energy/xray = 2,
@@ -2468,3 +2463,28 @@
 	)
 	contraband = list(/obj/item/grenade/clusterbuster/cleaner = 1, /obj/item/storage/fancy/donut_box = 2, )
 	refill_canister = /obj/item/vending_refill/nta
+
+/obj/machinery/vending/paivendor
+	name = "\improper PAI Vendor machine"
+	desc = "Uh Oh Fuck this test desc."
+	icon_state = "paivend"
+	ads_list = list("А вы любите нас?","Мы твои друзья!","Эта покупка войдет в историю","Я ПАИ простой, купишь меня, а я тебе друга!","Спасибо за покупку.")
+	resistance_flags = FIRE_PROOF
+	products = list(
+		/obj/item/paicard = 10,
+		/obj/item/paicard_upgrade/womanform = 10,
+		/obj/item/paicard_upgrade/doorjack = 5,
+		/obj/item/paicard_upgrade/memory = 5,
+		/obj/item/robot_parts/l_arm = 1,
+		/obj/item/robot_parts/r_arm = 1
+	)
+	contraband = list(/obj/item/paicard_upgrade/spaiemote = 1)
+	prices = list(
+		/obj/item/paicard = 200,
+		/obj/item/robot_parts/l_arm = 550,
+		/obj/item/robot_parts/r_arm = 550,
+		/obj/item/paicard_upgrade/womanform = 150,
+		/obj/item/paicard_upgrade/doorjack = 400,
+		/obj/item/paicard_upgrade/spaiemote = 650,
+		/obj/item/paicard_upgrade/memory = 350
+	)
