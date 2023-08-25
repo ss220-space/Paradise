@@ -23457,7 +23457,6 @@
 /area/crew_quarters/captain/bedroom)
 "cyh" = (
 /obj/structure/table/wood,
-/obj/item/paicard,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
 	},
@@ -39115,7 +39114,6 @@
 /area/medical/virology/lab)
 "dKy" = (
 /obj/structure/table,
-/obj/item/paicard,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -47141,7 +47139,6 @@
 /area/hallway/primary/central/sw)
 "eSm" = (
 /obj/structure/table/wood,
-/obj/item/paicard,
 /turf/simulated/floor/plasteel/grimy,
 /area/civilian/vacantoffice)
 "eSo" = (
@@ -52649,7 +52646,6 @@
 /area/security/prisonershuttle)
 "ghN" = (
 /obj/structure/table,
-/obj/item/paicard,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -80055,9 +80051,7 @@
 	},
 /area/storage/primary)
 "mJJ" = (
-/obj/structure/table/reinforced,
-/obj/item/paper_bin,
-/obj/item/pen,
+/obj/machinery/vending/paivendor,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "purple"
@@ -82203,7 +82197,6 @@
 "nji" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table/wood,
-/obj/item/paicard,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -99827,7 +99820,6 @@
 /area/maintenance/bar)
 "rcp" = (
 /obj/structure/table/reinforced,
-/obj/item/paicard,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
