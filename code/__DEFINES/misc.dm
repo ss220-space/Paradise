@@ -525,3 +525,21 @@
 
 /// This isnt in client_defines due to scoping issues
 #define DEFAULT_CLIENT_VIEWSIZE "17x15"
+
+// widescreens
+#define SCREEN_Y_CLASSIC 15 // Y
+
+#define SCREEN_X_CLASSIC 15 // X
+#define SCREEN_X_WIDE 17
+#define SCREEN_X_ULTRAWIDE 19
+
+// math for code involving screen
+#define SCREEN_RADIUSY_CLASSIC 7 // Y
+
+#define SCREEN_RADIUSX_CLASSIC 7 // X
+#define SCREEN_RADIUSX_WIDE 8
+#define SCREEN_RADIUSX_ULTRAWIDE 9
+
+#define CLASSIC_SCREEN list(SCREEN_RADIUSX_CLASSIC, SCREEN_RADIUSY_CLASSIC) //screen
+#define WIDE_SCREEN list(SCREEN_RADIUSX_WIDE, SCREEN_RADIUSY_CLASSIC)
+#define ULTRAWIDE_SCREEN list(SCREEN_RADIUSX_ULTRAWIDE, SCREEN_RADIUSY_CLASSIC)

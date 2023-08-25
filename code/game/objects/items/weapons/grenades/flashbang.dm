@@ -19,7 +19,7 @@
 		playsound(T, 'sound/effects/bang.ogg', 100, TRUE)
 		new /obj/effect/dummy/lighting_obj(T, light_color, range + 2, light_power, light_time)
 		// Blob damage
-		for(var/obj/structure/blob/B in hear(range + 1, T))
+		for(var/obj/structure/blob/B in hear(range + 1, source = T))
 			var/damage = round(30 / (get_dist(B, T) + 1))
 			B.take_damage(damage, BURN, "melee", FALSE)
 

@@ -329,7 +329,7 @@
 	if(isXRay())
 		see = range(view_range, pos)
 	else
-		see = hear(view_range, pos)
+		see = hear(view_range, source = pos)
 	return see
 
 /obj/machinery/camera/proc/update_computers_watched_by()

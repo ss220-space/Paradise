@@ -51,12 +51,23 @@
 
 // Like view but bypasses luminosity check
 
-/proc/hear(var/range, var/atom/source)
-	var/lum = source.luminosity
-	source.luminosity = 6
+/proc/in_block(var/raduis_x, var/raduis_y, var/atom/source, view = FALSE)
+	var/anything = list(RECT_TURFS(raduis_x, raduis_y, source))
+	if(!view)
+		return anything
+	var/seeing_things = list(view(max(raduis_x, raduis_y), source))
+	anything = anything ^ difflist(anything, seeing_things)
+	return anything
 
-	var/list/heard = viewers(range, source)
-	source.luminosity = lum
+/proc/hear(var/radiuses, var/atom/source)
+	if(!islist(radiuses))
+		radiuses = list(radiuses, radiuses)
+	var/raduis_x = radiuses[1]
+	var/raduis_y = radiuses[2]
+	if(!raduis_y)
+		raduis_y = raduis_x
+
+	var/list/heard = in_block(raduis_x, raduis_y, source, view = TRUE)
 
 	return heard
 
@@ -183,7 +194,7 @@
 	if(!T)
 		return hear
 
-	var/list/range = hear(R, T)
+	var/list/range = hear(R, source = T)
 
 	for(var/atom/A in range)
 		if(ismob(A))
@@ -218,7 +229,7 @@
 
 			var/turf/speaker = get_turf(R)
 			if(speaker)
-				for(var/turf/T in hear(R.canhear_range,speaker))
+				for(var/turf/T in hear(R.canhear_range, source = speaker))
 					speaker_coverage[T] = T
 
 
