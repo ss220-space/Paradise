@@ -12051,7 +12051,7 @@
 /area/ninja/outpost)
 "gfU" = (
 /obj/structure/closet{
-	custom_door_overlay = pink;
+	custom_door_overlay = "pink";
 	icon_closed = "pink";
 	name = "Science gear"
 	},
