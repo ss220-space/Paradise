@@ -15417,7 +15417,7 @@
 /area/syndicate_mothership/outside)
 "ika" = (
 /obj/structure/closet{
-	custom_door_overlay = white;
+	custom_door_overlay = "white";
 	icon_closed = "white";
 	name = "Medical gear"
 	},
@@ -20811,7 +20811,7 @@
 /area/centcom/jail)
 "kTJ" = (
 /obj/structure/closet{
-	custom_door_overlay = green;
+	custom_door_overlay = "green";
 	icon_closed = "green";
 	name = "Service gear"
 	},
@@ -23164,7 +23164,7 @@
 /area/centcom/bridge)
 "maf" = (
 /obj/structure/closet{
-	custom_door_overlay = black;
+	custom_door_overlay = "black";
 	icon_closed = "black";
 	name = "Mineral's"
 	},
@@ -44306,7 +44306,7 @@
 /area/centcom/zone1)
 "vqZ" = (
 /obj/structure/closet{
-	custom_door_overlay = grey;
+	custom_door_overlay = "grey";
 	icon_closed = "grey";
 	name = "Donksoft gear"
 	},
@@ -49504,7 +49504,7 @@
 /area/syndicate_mothership/cargo)
 "xPW" = (
 /obj/structure/closet{
-	custom_door_overlay = yellow;
+	custom_door_overlay = "yellow";
 	icon_closed = "yellow";
 	name = "Engineering gear"
 	},
