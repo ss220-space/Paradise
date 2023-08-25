@@ -49,7 +49,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 			card.looking_for_personality = 0
 			if(card.upgrade)
 				card.upgrade.used = TRUE
-				if(!istype(card.upgrade, /obj/item/paicard_upgrade/protolate))
+				if(!istype(card.upgrade, /obj/item/paicard_upgrade/syndicate/protolate))
 					card.radio.keyslot2 = new /obj/item/encryptionkey/syndicate(card.radio)
 					if(card.radio.keyslot2.syndie)
 						card.radio.syndiekey = card.radio.keyslot2
