@@ -2480,6 +2480,7 @@
 		/obj/item/paicard_upgrade/womanform = 10,
 		/obj/item/paicard_upgrade/doorjack = 5,
 		/obj/item/paicard_upgrade/memory = 5,
+		/obj/item/paicard_upgrade/reset = 5,
 		/obj/item/robot_parts/l_arm = 1,
 		/obj/item/robot_parts/r_arm = 1
 	)
@@ -2490,6 +2491,7 @@
 		/obj/item/robot_parts/r_arm = 550,
 		/obj/item/paicard_upgrade/womanform = 150,
 		/obj/item/paicard_upgrade/doorjack = 400,
+		/obj/item/paicard_upgrade/reset = 500,
 		/obj/item/paicard_upgrade/spaiemote = 650,
 		/obj/item/paicard_upgrade/memory = 350
 	)
