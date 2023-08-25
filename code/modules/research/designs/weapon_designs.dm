@@ -565,7 +565,7 @@
 	req_tech = list("syndicate" = 3, "programming" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_GOLD=500, MAT_GLASS=500)
-	build_path = /obj/item/paicard_upgrade/protolate
+	build_path = /obj/item/paicard_upgrade/syndicate/protolate
 	category = list("ILLEGAL")
 
 /datum/design/pyroclaw
