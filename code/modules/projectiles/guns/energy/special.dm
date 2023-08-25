@@ -330,7 +330,7 @@
 	slot_flags = SLOT_BACK
 	cell_type = /obj/item/stock_parts/cell/bsg
 	shaded_charge = TRUE
-	var/obj/item/assembly/signaler/anomaly/flux/core = null
+	var/obj/item/assembly/signaler/anomaly/flux/core = FALSE
 	var/has_bluespace_crystal = FALSE
 	var/admin_model = FALSE //For the admin gun, prevents crystal shattering, so anyone can use it, and you dont need to carry backup crystals.
 
