@@ -505,3 +505,12 @@
 /obj/item/clothing/suit/hop_jacket/female
 	icon_state = "suitjacket_hop_fem_open"
 	item_state = "suitjacket_hop_fem_open"
+
+//Culinary Artist
+
+/obj/item/clothing/suit/bluza
+   name = "chief bluza"
+   desc = "Well made expensive chief suit"
+   icon_state = "chief_bluza"
+   item_state = "chief_bluza"
+   blood_overlay_type = "coat"

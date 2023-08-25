@@ -913,3 +913,15 @@
 		/obj/item/reagent_containers/food/condiment,
 		/obj/item/reagent_containers/glass/beaker,
 		/obj/item/radio)
+
+/obj/item/storage/belt/chef/artist
+	name = "chief's apron"
+	desc = "Apron with pockets. Ideal for the best butchers!"
+	icon_state = "megachief_apron"
+	item_state = "megachief_apron"
+
+/obj/item/storage/belt/chef/artistred
+	name = "red chief's apron"
+	desc = "Apron with pockets. Ideal for the best butchers!"
+	icon_state = "redmegachief_apron"
+	item_state = "redmegachief_apron"

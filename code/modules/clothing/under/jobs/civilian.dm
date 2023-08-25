@@ -240,3 +240,10 @@
 	icon_state = "barber"
 	item_state = "barber"
 	item_color = "barber"
+
+/obj/item/clothing/under/artist
+   desc = "Formal uniform with buttons on a side"
+   name = "chef's parade uniform"
+   icon_state = "chef_new_uniform"
+   item_state = "chef_new_uniform"
+   item_color = "chef_new_uniform"

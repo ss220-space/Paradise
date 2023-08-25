@@ -77,6 +77,15 @@
 	var/datum/martial_art/cqc/under_siege/justacook = new
 	justacook.teach(H)
 
+/datum/outfit/job/chef/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(H.mind && H.mind.role_alt_title)
+		switch(H.mind.role_alt_title)
+			if("Culinary Artist")
+				uniform = /obj/item/clothing/under/artist
+				head = /obj/item/clothing/head/redcapchief
+				belt = /obj/item/storage/belt/chef/artistred
+				suit = /obj/item/clothing/suit/bluza
 
 /datum/job/hydro
 	title = "Botanist"
