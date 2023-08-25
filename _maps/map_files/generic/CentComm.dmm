@@ -12051,8 +12051,8 @@
 /area/ninja/outpost)
 "gfU" = (
 /obj/structure/closet{
+	custom_door_overlay = pink;
 	icon_closed = "pink";
-	icon_state = "pink";
 	name = "Science gear"
 	},
 /obj/machinery/light/spot{
@@ -15417,8 +15417,8 @@
 /area/syndicate_mothership/outside)
 "ika" = (
 /obj/structure/closet{
+	custom_door_overlay = white;
 	icon_closed = "white";
-	icon_state = "white";
 	name = "Medical gear"
 	},
 /obj/effect/spawner/lootdrop/trade_sol/med,
@@ -20811,8 +20811,8 @@
 /area/centcom/jail)
 "kTJ" = (
 /obj/structure/closet{
+	custom_door_overlay = green;
 	icon_closed = "green";
-	icon_state = "green";
 	name = "Service gear"
 	},
 /obj/effect/spawner/lootdrop/trade_sol/serv,
@@ -23164,8 +23164,8 @@
 /area/centcom/bridge)
 "maf" = (
 /obj/structure/closet{
+	custom_door_overlay = black;
 	icon_closed = "black";
-	icon_state = "black";
 	name = "Mineral's"
 	},
 /obj/effect/spawner/lootdrop/trade_sol/minerals,
@@ -44306,8 +44306,8 @@
 /area/centcom/zone1)
 "vqZ" = (
 /obj/structure/closet{
+	custom_door_overlay = grey;
 	icon_closed = "grey";
-	icon_state = "grey";
 	name = "Donksoft gear"
 	},
 /obj/effect/spawner/lootdrop/trade_sol/donksoft,
@@ -49504,8 +49504,8 @@
 /area/syndicate_mothership/cargo)
 "xPW" = (
 /obj/structure/closet{
+	custom_door_overlay = yellow;
 	icon_closed = "yellow";
-	icon_state = "yellow";
 	name = "Engineering gear"
 	},
 /obj/machinery/light/spot,
