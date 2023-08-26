@@ -335,6 +335,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 	death = FALSE
 	min_hours = 0
 	allow_tts_pick = FALSE
+	banType = ROLE_THUNDERDOME
 	var/datum/thunderdome_battle/thunderdome
 
 /obj/effect/mob_spawn/human/thunderdome/attack_ghost(mob/dead/observer/user)
