@@ -171,7 +171,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	D.affected_mob.med_hud_set_status()
 	return
 
-/datum/disease/proc/cure()
+/datum/disease/proc/cure(resistance = TRUE)
 	if(affected_mob)
 		if(disease_flags & CAN_RESIST)
 			if(!(type in affected_mob.resistances))
