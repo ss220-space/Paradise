@@ -27,11 +27,16 @@ Toxification syndrome
 	..()
 	var/mob/living/carbon/human/M = A.affected_mob
 
-	if(prob(SYMPTOM_ACTIVATION_PROB))
+	if(prob(SYMPTOM_ACTIVATION_PROB*3))
 		switch(A.stage)
-			if(1, 2, 3, 4, 5)
-				to_chat(M, "<span class='warning'>[pick("Tox  Message")]</span>")
-
+			if(3, 4, 5)
+				to_chat(M, span_warning(pick("You feel like something is not right within you",\
+					"Why my inners start hurting?",\
+					"Where did the pain come from?",\
+					"I smell awful"\
+				)))
+				if(prob(5))
+					M.emote("groan", "pale")
 	if(prob((A.stage - 2) - M.count_of_infected_organs()/4))
 		var/obj/item/organ/O = pick(M.internal_organs + M.bodyparts)
 		if(O.germ_level < INFECTION_LEVEL_ONE)

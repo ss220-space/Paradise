@@ -49,9 +49,9 @@ Uncontrollable Aggression
 					)]</span>"}
 				)
 				if(aggressor.incapacitated())
-					aggressor.visible_message("<span class='danger'>[aggressor] spasms and twitches!</span>")
+					aggressor.visible_message(span_danger("[aggressor] spasms and twitches!"))
 					return
-				aggressor.visible_message("<span class='danger'>[aggressor] thrashes around violently!</span>")
+				aggressor.visible_message(span_danger("[aggressor] thrashes around violently!"))
 
 				var/obj/item/attacking_item = aggressor.get_item_by_slot(slot_r_hand)
 				if(!attacking_item)
@@ -79,7 +79,7 @@ Uncontrollable Aggression
 
 /datum/symptom/aggression/proc/GunAttack(mob/living/carbon/human/aggressor, obj/item/gun/attacking_item)
 	var/mob/living/victim = GetLivingTarget(7, aggressor)
-	if(istype(victim) && victim.stat == CONSCIOUS)
+	if(istype(victim))
 		attacking_item.process_fire(victim, aggressor)
 
 /datum/symptom/aggression/proc/WeaponAttack(mob/living/carbon/human/aggressor, obj/item/attacking_item)
@@ -89,8 +89,12 @@ Uncontrollable Aggression
 
 /datum/symptom/proc/GetLivingTarget(distance, mob/living/carbon/human/aggressor)
 	var/list/victims = oview(distance, aggressor) - aggressor
-	var/mob/living/victim = locate(/mob/living) in shuffle(victims)
-	return victim
+	var/length = victims.len
+	var/mob/living/victim
+	for(var/i = 0, i < length, i++)
+		victim = pick_n_take(victims)
+		if(istype(victim) && victim.stat == CONSCIOUS)
+			return victim
 
 /*
 //////////////////////////////////////
@@ -119,32 +123,22 @@ Uncontrollable Actions
 	if(prob(SYMPTOM_ACTIVATION_PROB * 15))
 		switch(A.stage)
 			if(2, 3)
-				to_chat(possesed, {"<span class='alert'>[pick(\
-					"You can't control yourself",\
-					"1",\
-					"2",\
-					"3"\
-					)]</span>"}
-				)
-			if(4)
-				to_chat(possesed, {"<span class='alert'>[pick(\
-					"4",\
-					"5",\
-					"6"\
-					)]</span>"}
-				)
-			if(5)
-				to_chat(possesed, {"<span class='danger'>[pick(\
-					"7",\
-					"8",\
-					"9",\
-					"10"\
-					)]</span>"}
-				)
+				to_chat(possesed, span_alert(pick("You can't control yourself",\
+					"You notice your actions differ from your thoughts",\
+					"Why did I do that?",\
+					"What just happened?"\
+				)))
+			if(4, 5)
+				possesed.emote(pick("twitch_s", "twitch", "drool","blink_r"))
+				to_chat(possesed, span_alert(pick("Everything falls out of hand",\
+					"It's almost like something is controlling your body",\
+					"You feel an urge to do something",\
+					"You can't control yourself!"\
+				)))
+
 				if(possesed.incapacitated())
-					possesed.visible_message("<span class='danger'>[possesed] 12345!</span>")
+					possesed.visible_message(span_danger("[possesed] twitches!"))
 					return
-				possesed.visible_message("<span class='danger'>[possesed] 1234567890!</span>")
 
 				var/obj/item/item = possesed.get_item_by_slot(slot_r_hand)
 				if(!item)

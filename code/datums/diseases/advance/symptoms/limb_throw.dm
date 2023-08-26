@@ -41,7 +41,7 @@ Limb Rejection
 	selection_deactivated_message	= "<span class='notice'>You decided not to throw a limb...for now.</span>"
 
 	action_icon_state = "limb_throw"
-	action_background_icon_state = "bg_default"
+	action_background_icon_state = "bg_changeling"
 
 /obj/effect/proc_holder/spell/limb_throw/create_new_targeting()
 	var/datum/spell_targeting/clicked_atom/T = new()

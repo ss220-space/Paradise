@@ -99,6 +99,7 @@
 	name = "Toxification syndrome"
 	symptoms = list(new/datum/symptom/infection)
 
+// Uncontrolled Laughter Effect + Groaning Syndrome + Hullucigen
 /datum/disease/advance/preset/pre_loyalty
 	name = "Merry sufferer"
 	symptoms = list(new/datum/symptom/laugh, /datum/symptom/moan, /datum/symptom/hallucigen)

@@ -176,7 +176,7 @@
 		"laugh" = new /datum/disease/advance/preset/laugh(),
 		"moan" = new /datum/disease/advance/preset/moan(),
 		"infection" = new /datum/disease/advance/preset/infection(),
-		"laugh:moan:hallucigen" = new /datum/disease/advance/preset/pre_loyalty()
+		"hallucigen:laugh:moan:" = new /datum/disease/advance/preset/pre_loyalty()
 	)
 
 //creates every subtype of prototype (excluding prototype) and adds it to list L.

@@ -22,9 +22,11 @@ Groaning Syndrome
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2, 3)
-				to_chat(M, "<span notice='warning'>[pick("")]</span>")
+				to_chat(M, span_notice("Your muscles spasm, making you want to moan"))
 			else
 				M.emote("moan")
+				if(prob(1))
+					M.emote("blush")
 				var/obj/item/I = M.get_active_hand()
 				if(I && I.w_class == 1)
 					M.drop_from_active_hand()

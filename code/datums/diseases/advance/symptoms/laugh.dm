@@ -22,9 +22,13 @@ Uncontrolled Laughter Effect
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2, 3)
-				to_chat(M, "<span notice='warning'>[pick("")]</span>")
+				to_chat(M, span_notice(pick("He-he, that's a funny sight",\
+					"You feel like laughing",\
+					"It tickles!",\
+					"Oh, yeah! That joke!"\
+				)))
 			else
-				M.emote("laugh")
+				M.emote(pick("laugh", "giggle"))
 				var/obj/item/I = M.get_active_hand()
 				if(I && I.w_class == 1)
 					M.drop_from_active_hand()

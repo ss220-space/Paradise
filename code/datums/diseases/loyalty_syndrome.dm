@@ -13,7 +13,7 @@
 	var/is_master = FALSE
 	var/mob/living/carbon/human/master
 	var/timer = 0
-	var/say_prob = 6
+	var/say_prob = 8
 	var/weaken_prob = 1
 	var/need_meating_message = FALSE
 	var/need_master_death_message = FALSE
