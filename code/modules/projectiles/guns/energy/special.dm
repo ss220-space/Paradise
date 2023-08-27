@@ -14,6 +14,7 @@
 	zoom_amt = 7
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
 	ammo_x_offset = 3
+	can_flashlight = 1
 	flight_x_offset = 17
 	flight_y_offset = 9
 
@@ -28,6 +29,7 @@
 	slot_flags = SLOT_BELT
 	zoomable = FALSE
 	ammo_x_offset = 2
+	can_flashlight = 1
 	flight_x_offset = 18
 	flight_y_offset = 11
 
@@ -300,6 +302,15 @@
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/toxplasma)
 	shaded_charge = 1
+	can_flashlight = 1
+
+/obj/item/gun/energy/toxgun/update_icon()
+	..()
+	if(gun_light)
+		var/iconF = "toxgun_light"
+		if(gun_light.on)
+			iconF = "toxgun_light-on"
+		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
 
 // Energy Sniper //
 /obj/item/gun/energy/sniperrifle
@@ -433,6 +444,7 @@
 
 	ammo_type = list(/obj/item/ammo_casing/energy/temp)
 	selfcharge = 1
+	can_flashlight = 1
 
 	var/powercost = ""
 	var/powercostcolor = ""
@@ -580,6 +592,11 @@
 	update_temperature()
 	update_user()
 	update_charge()
+	if(gun_light)
+		var/iconF = "freezegun_light"
+		if(gun_light.on)
+			iconF = "freezegun_light-on"
+		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
 
 /obj/item/gun/energy/temperature/proc/update_user()
 	if(istype(loc,/mob/living/carbon))

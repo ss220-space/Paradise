@@ -178,6 +178,22 @@
 	spread = 15
 	recoil = 1
 	fire_delay = 5
+	can_flashlight = 1
+
+/obj/item/gun/projectile/revolver/ga12/update_icon()
+	..()
+	if(gun_light)
+		var/iconF = "12garevolver_light"
+		if(gun_light.on)
+			iconF = "12garevolver_light-on"
+		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
+
+/obj/item/gun/projectile/revolver/ga12/ui_action_click(var/owner, var/action_type)
+	if(..()) return TRUE
+	if(action_type == /datum/action/item_action/toggle_gunlight)
+		toggle_gunlight()
+		return TRUE
+
 
 /obj/item/gun/projectile/revolver/golden
 	name = "\improper Golden revolver"

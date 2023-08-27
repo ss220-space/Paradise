@@ -9,6 +9,9 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
 	ammo_x_offset = 1
 	shaded_charge = 1
+	can_flashlight = 1
+	flight_x_offset = 18
+	flight_y_offset = 11
 
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"
@@ -23,6 +26,7 @@
 	icon_state = "retro"
 	desc = "An older model of the basic lasergun, no longer used by Nanotrasen's private security or military forces. Nevertheless, it is still quite deadly and easy to maintain, making it a favorite amongst pirates and other outlaws."
 	ammo_x_offset = 3
+	can_flashlight = 0
 
 /obj/item/gun/energy/laser/captain
 	name = "antique laser gun"
@@ -35,6 +39,7 @@
 	selfcharge = 1
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	unique_reskin = TRUE
+	can_flashlight = 0
 
 /obj/item/gun/energy/laser/captain/New()
 	..()
@@ -65,6 +70,7 @@
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/cyborg)
 	origin_tech = null
+	can_flashlight = 0
 
 /obj/item/gun/energy/laser/cyborg/newshot()
 	..()
@@ -77,6 +83,7 @@
 	name = "scatter laser gun"
 	desc = "A laser gun equipped with a refraction kit that spreads bolts."
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter, /obj/item/ammo_casing/energy/laser)
+	can_flashlight = 0
 
 ///Laser Cannon
 
@@ -93,6 +100,9 @@
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/accelerator)
 	ammo_x_offset = 3
+	can_flashlight = 1
+	flight_x_offset = 18
+	flight_y_offset = 8
 
 /obj/item/ammo_casing/energy/laser/accelerator
 	projectile_type = /obj/item/projectile/beam/laser/accelerator

@@ -8,6 +8,9 @@
 	force = 10
 	flags =  CONDUCT
 	slot_flags = SLOT_BACK
+	can_flashlight = 1
+	flight_x_offset = 17
+	flight_y_offset = 11
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser/pulse , /obj/item/ammo_casing/energy/laser)
 	cell_type = /obj/item/stock_parts/cell/pulse
 
@@ -42,6 +45,7 @@
 	can_holster = TRUE
 	cell_type = /obj/item/stock_parts/cell/pulse/pistol
 	can_charge = 0
+	can_flashlight = 0
 
 /obj/item/gun/energy/pulse/destroyer
 	name = "pulse destroyer"
@@ -64,6 +68,7 @@
 	item_state = "gun"
 	can_holster = TRUE
 	cell_type = /obj/item/stock_parts/cell/infinite
+	can_flashlight = 0
 
 /obj/item/gun/energy/pulse/turret
 	name = "pulse turret gun"
@@ -77,3 +82,4 @@
 	can_flashlight = 0
 	trigger_guard = TRIGGER_GUARD_NONE
 	ammo_x_offset = 2
+	can_flashlight = 0

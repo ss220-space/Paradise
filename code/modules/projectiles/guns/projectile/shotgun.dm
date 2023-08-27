@@ -84,6 +84,21 @@
 	sawn_desc = "Come with me if you want to live."
 	sawn_state = SAWN_INTACT
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
+	can_flashlight = 1
+
+/obj/item/gun/projectile/shotgun/riot/update_icon()
+	..()
+	if(gun_light)
+		var/iconF = "riotshotgun_light"
+		if(gun_light.on)
+			iconF = "riotshotgun_light-on"
+		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
+
+/obj/item/gun/projectile/shotgun/riot/ui_action_click(var/owner, var/action_type)
+	if(..()) return TRUE
+	if(action_type == /datum/action/item_action/toggle_gunlight)
+		toggle_gunlight()
+		return TRUE
 
 /obj/item/gun/projectile/shotgun/riot/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))
@@ -100,6 +115,9 @@
 /obj/item/gun/projectile/shotgun/riot/sawoff(mob/user)
 	if(sawn_state == SAWN_OFF)
 		to_chat(user, "<span class='warning'>[src] has already been shortened!</span>")
+		return
+	if(gun_light)
+		to_chat(user, "<span class='warning'>You can't modify [src] while it has a flashlight!</span>")
 		return
 	if(istype(loc, /obj/item/storage))	//To prevent inventory exploits
 		to_chat(user, "<span class='info'>How do you plan to modify [src] while it's in a bag.</span>")
@@ -137,6 +155,7 @@
 	slot_flags |= SLOT_BELT     //but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 	sawn_state = SAWN_OFF
 	magazine.max_ammo = 3
+	can_flashlight = 0
 	update_icon()
 
 
@@ -313,6 +332,21 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
 	w_class = WEIGHT_CLASS_HUGE
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
+	can_flashlight = 1
+
+/obj/item/gun/projectile/shotgun/automatic/combat/update_icon()
+	..()
+	if(gun_light)
+		var/iconF = "cshotgun_light"
+		if(gun_light.on)
+			iconF = "cshotgun_light-on"
+		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
+
+/obj/item/gun/projectile/shotgun/automatic/combat/ui_action_click(var/owner, var/action_type)
+	if(..()) return TRUE
+	if (action_type == /datum/action/item_action/toggle_gunlight)
+		toggle_gunlight()
+		return TRUE
 
 //Dual Feed Shotgun
 

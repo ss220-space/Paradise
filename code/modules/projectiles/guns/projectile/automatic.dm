@@ -360,10 +360,22 @@
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = 0
 	burst_size = 2
+	can_flashlight = 1
 
 /obj/item/gun/projectile/automatic/lasercarbine/update_icon()
 	..()
 	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
+	if(gun_light)
+		var/iconF = "lasercarbine_light"
+		if(gun_light.on)
+			iconF = "lasercarbine_light-on"
+		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
+
+/obj/item/gun/projectile/automatic/lasercarbine/ui_action_click(var/owner, var/action_type)
+	if(..()) return TRUE
+	if(action_type == /datum/action/item_action/toggle_gunlight)
+		toggle_gunlight()
+		return TRUE
 
 /obj/item/gun/projectile/automatic/lr30
 	name = "\improper LR-30 Laser Rifle"
@@ -379,10 +391,22 @@
 	can_suppress = 0
 	burst_size = 1
 	actions_types = list()
+	can_flashlight = 1
 
 /obj/item/gun/projectile/automatic/lr30/update_icon()
 	..()
 	icon_state = "lr30[magazine ? "-[CEILING(get_ammo(0)/3, 1)*3]" : ""]"
+	if(gun_light)
+		var/iconF = "lr30_light"
+		if(gun_light.on)
+			iconF = "lr30_light-on"
+		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
+
+/obj/item/gun/projectile/automatic/lr30/ui_action_click(var/owner, var/action_type)
+	if(..()) return TRUE
+	if(action_type == /datum/action/item_action/toggle_gunlight)
+		toggle_gunlight()
+		return TRUE
 
 //Semi-Machine Gun SFG
 
