@@ -47,7 +47,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 	var/ranged_arena_radius = RANGED_ARENA_RADIUS
 	var/voting_poll_time = VOTING_POLL_TIME
 	var/role = ROLE_THUNDERDOME
-	var/melee_random_items_count = 1
+	var/melee_random_items_count = 2
 	var/ranged_random_items_count = 2
 	var/mixed_random_items_count = 1
 	var/who_started_last_poll = null //storing ckey of whoever started poll last. Preventing fastest hands of Wild West from polling twice in a row
