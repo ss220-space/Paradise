@@ -167,17 +167,8 @@
 	icon_state = null
 
 
-/obj/item/projectile/magic/demonic_grasp/Initialize(mapload)
+/obj/item/projectile/magic/demonic_grasp/pixel_move(trajectory_multiplier)
 	. = ..()
-	START_PROCESSING(SSprojectiles, src)
-
-
-/obj/item/projectile/magic/demonic_grasp/Destroy()
-	STOP_PROCESSING(SSprojectiles, src)
-	return ..()
-
-
-/obj/item/projectile/magic/demonic_grasp/process()
 	new /obj/effect/temp_visual/demonic_grasp(loc)
 
 

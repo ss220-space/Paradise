@@ -91,6 +91,7 @@
 	weaken = 4 SECONDS
 	dismemberment = 50
 	armour_penetration = 50
+	forced_accuracy = TRUE
 	var/breakthings = TRUE
 
 /obj/item/projectile/bullet/sniper/on_hit(atom/target, blocked = 0, hit_zone)

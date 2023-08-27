@@ -76,7 +76,7 @@
 			if("Power")
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
 				to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
-				user.mutations.Add(LASER)
+				user.mutations.Add(LASEREYES)
 				user.mutations.Add(COLDRES)
 				user.mutations.Add(XRAY)
 				if(ishuman(user))

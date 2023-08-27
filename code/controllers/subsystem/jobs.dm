@@ -19,7 +19,7 @@ SUBSYSTEM_DEF(jobs)
 	var/list/job_debug = list()
 
 
-/datum/controller/subsystem/jobs/Initialize(timeofday)
+/datum/controller/subsystem/jobs/Initialize()
 	if(!length(occupations))
 		SetupOccupations()
 	LoadJobs("config/jobs.txt")

@@ -137,6 +137,7 @@
 	weaken = 4 SECONDS
 	stutter = 4 SECONDS
 	stamina = 40
+	forced_accuracy = TRUE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 	light_color = LIGHT_COLOR_PINK
 

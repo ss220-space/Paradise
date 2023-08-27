@@ -4,7 +4,7 @@ SUBSYSTEM_DEF(holiday)
 	flags = SS_NO_FIRE
 	var/list/holidays
 
-/datum/controller/subsystem/holiday/Initialize(start_timeofday)
+/datum/controller/subsystem/holiday/Initialize()
 	if(!config.allow_holidays)
 		return //Holiday stuff was not enabled in the config!
 
