@@ -376,8 +376,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 
 /datum/outfit/thunderdome
 	implants = list(
-		/obj/item/implant/postponed_death,
-		/obj/item/implant/adrenalin
+		/obj/item/implant/postponed_death
 	)
 	uniform = /obj/item/clothing/under/misc/durathread
 	shoes = /obj/item/clothing/shoes/combat
