@@ -72,7 +72,12 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 		/obj/item/storage/toolbox/surgery = 1,
 		/obj/item/storage/toolbox/mechanical = 1,
 		/obj/item/storage/toolbox/syndicate = 1,
-		/obj/item/storage/box/syndie_kit/mantisblade = 1
+		/obj/item/storage/box/syndie_kit/mantisblade = 1,
+		/obj/item/CQC_manual = 1,
+		/obj/item/sleeping_carp_scroll = 1,
+		/obj/item/clothing/gloves/color/black/krav_maga/sec = 1,
+		/obj/item/clothing/gloves/fingerless/rapid = 1,
+		/obj/item/storage/box/syndie_kit/mr_chang_technique
 	)
 
 	var/list/ranged_pool = list(
@@ -382,10 +387,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 /datum/outfit/thunderdome/cqc
 	name = "Fighter"
 	backpack_contents = list(
-		/obj/item/CQC_manual = 1,
-		/obj/item/sleeping_carp_scroll = 1,
-		/obj/item/clothing/gloves/color/black/krav_maga/sec = 1,
-		/obj/item/clothing/gloves/fingerless/rapid = 1
+
 	)
 
 /datum/outfit/thunderdome/ranged
