@@ -119,6 +119,7 @@
 	var/icon_prefix // boxes with multiple sprites use this as their base
 	var/caliber
 	var/multiload = 1
+	var/accept_subtypes = TRUE //Can you load rounds with the same caliber, but not same type
 	var/list/initial_mats
 
 /obj/item/ammo_box/New()
@@ -150,6 +151,8 @@
 /obj/item/ammo_box/proc/give_round(obj/item/ammo_casing/R, replace_spent = 0)
 	// Boxes don't have a caliber type, magazines do. Not sure if it's intended or not, but if we fail to find a caliber, then we fall back to ammo_type.
 	if(!R || (caliber && R.caliber != caliber) || (!caliber && R.type != ammo_type))
+		return 0
+	if(!accept_subtypes && R != src.ammo_type)
 		return 0
 
 	if(stored_ammo.len < max_ammo)
