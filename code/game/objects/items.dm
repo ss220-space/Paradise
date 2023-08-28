@@ -158,7 +158,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	. = ..()
 	if(istype(loc, /obj/item/storage)) //marks all items in storage as being such
 		in_storage = TRUE
-	item_pixel_shift = new(src)
 
 
 /obj/item/proc/determine_move_resist()

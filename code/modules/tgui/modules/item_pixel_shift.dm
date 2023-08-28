@@ -6,6 +6,9 @@
 	if(!isturf(src.loc) || usr.incapacitated() || src.anchored || src.density)
 		return
 
+	if(!item_pixel_shift)
+		item_pixel_shift = new(src)
+
 	item_pixel_shift.ui_interact(usr)
 
 
