@@ -447,7 +447,7 @@
 	return all_jobs
 
 /proc/get_all_centcom_jobs()
-	return list("VIP Guest","Custodian","Thunderdome Overseer","Emergency Response Team Member","Emergency Response Team Leader","Intel Officer","Medical Officer","Death Commando","Research Officer","Deathsquad Officer","Special Operations Officer","Nanotrasen Navy Representative","Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer","Nanotrasen Diplomat","Nanotrasen Navy Captain","Supreme Commander","Syndicate Officer")
+	return list("VIP Guest","Custodian","Thunderdome Overseer","Emergency Response Team Member","Emergency Response Team Leader","Intel Officer","Medical Officer","Death Commando","Research Officer","Deathsquad Officer","Special Operations Officer","Nanotrasen Navy Representative","Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer","Nanotrasen Diplomat","Nanotrasen Navy Captain","Supreme Commander")
 
 /proc/get_all_solgov_jobs()
 	return list("Solar Federation Specops Lieutenant","Solar Federation Marine","Solar Federation Specops Marine","Solar Federation Representative","Sol Trader","Solar Federation General")
@@ -456,7 +456,7 @@
 	return list("Soviet Tourist","Soviet Conscript","Soviet Soldier","Soviet Officer","Soviet Marine","Soviet Marine Captain","Soviet Admiral","Soviet General","Soviet Engineer","Soviet Scientist","Soviet Medic")
 
 /proc/get_all_special_jobs()
-	return list("Special Reaction Team Member", "HONKsquad", "Clown Security")
+	return list("Special Reaction Team Member", "HONKsquad", "Clown Security","Syndicate Officer")
 
 //gets the actual job rank (ignoring alt titles)
 //this is used solely for sechuds
@@ -575,6 +575,8 @@
 				return "honksquad"
 			if("Clown Security")
 				return "clownsecurity"
+			if("Syndicate Officer")
+				return "syndicateofficer"
 		return rankName
 
 	if(rankName in job_icons) //Check if the job has a hud icon
