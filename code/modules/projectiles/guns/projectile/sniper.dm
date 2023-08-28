@@ -87,8 +87,8 @@
 	icon_state = ".50"
 
 /obj/item/projectile/bullet/sniper
-	speed = 0.75
-	range = 100
+	//speed = 0.75
+	//range = 100
 	damage = 70
 	weaken = 4 SECONDS
 	dismemberment = 50

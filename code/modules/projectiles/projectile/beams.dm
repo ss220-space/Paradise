@@ -132,8 +132,8 @@
 /obj/item/projectile/beam/sniper
 	name = "sniper beam"
 	icon_state = "sniperlaser"
-	speed = 0.75
-	range = 100
+	//speed = 0.75
+	//range = 100
 	damage = 60
 	hitsound = 'sound/weapons/resonator_blast.ogg'
 	weaken = 4 SECONDS
