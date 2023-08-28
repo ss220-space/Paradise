@@ -28,7 +28,7 @@
 			if(message)
 				M.add_ion_law(message)
 				to_chat(M, "<br>")
-				to_chat(M, "<span class='danger'>[message] ...ЗАКОНЫ ОБНОВЛЕНЫ</span>")
+				to_chat(M, "<span class='danger'>[message] ...ЗАКОНЫ ОБНОВЛЕНЫ.</span>")
 				to_chat(M, "<br>")
 
 	if(botEmagChance)
