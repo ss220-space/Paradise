@@ -188,6 +188,10 @@
   Zwei:
   - add: WideScreen Port (#3204)
 '2023-08-23':
+  Bizzonium:
+  - del: use and migrate old TTS cache"
+  - bugfix: move play tts callback creation
+  - unknown: bump rust-g to 3.0.0-ss220
   DeDerevce:
   - imageadd: holy constructs (#3347)
   Honker9999999:
@@ -199,6 +203,7 @@
   - add: new weapon to Gamma ERT/armory (#3374)
   SAAD:
   - add: Remap Bridge, Central Hallway, Barber (#3361)
+  - bugfix: Bridge accesses and account console (#3394)
   Vladisvell:
   - add: New icons for quiver and Santa's gift bag (#3355)
   Zardesse:
@@ -208,3 +213,68 @@
   - tweak: Abductors Fixes (#3373)
   Сиротка:
   - bugfix: Guardian issues (#3390)
+'2023-08-24':
+  SAAD:
+  - bugfix: Bridge disposal pipes and some improvements (#3403)
+  Vladisvell:
+  - refactor: Closets render (#3384)
+  - refactor: 'span refactor: machinery pack part 2 (#3279)'
+  - add: New xenomorph type - Alien Vector (#3247)
+  - refactor: Guardian booby traps refactor to component (#3383)
+  Zwei:
+  - bugfix: Morph Reproduce Fix (#3399)
+  - bugfix: Borgs Gripper And Smartfridges (#3401)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3398)
+'2023-08-25':
+  Honker9999999:
+  - add: capitalism (starting money depending on job) (#3343)
+  Vladisvell:
+  - bugfix: custom closets render (#3406)
+  - add: Supermatter Engine explosion special effects (#3303)
+  - qol: Fireproof rods design can be imported into ore redemption (#3402)
+  Zwei:
+  - bugfix: Stack Fixes Once More (#3404)
+  - refactor: Datumized Thief (#3387)
+  aeternaclose:
+  - add: CereImprovement-pt6 (#3392)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3405)
+  yosoyrebelde:
+  - tweak: (bluespace rift) patch pack for new station goal (#3365)
+'2023-08-27':
+  Daeberdir:
+  - bugfix: completed plasmamen operations. (#3416)
+  Vladisvell:
+  - tweak: overlay locker and critter closet fix (#3414)
+  Zwei:
+  - refactor: Subsystems Polishing (#3271)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3413)
+  Сиротка:
+  - bugfix: BSG (#3397)
+  - tweak: RND SPAI nerf (#3395)
+  - tweak: chameleon counterfeiter illegal level (#3396)
+  - tweak: Ninja borgo hypo pierce (#3412)
+'2023-08-28':
+  Daxya:
+  - add: Spacebar update (#3388)
+  DeDerevce:
+  - add: culinary artist clothes (#3415)
+  Den109G:
+  - bugfix: check syndie ban in ninja objectives (#3428)
+  Dimach:
+  - bugfix: wormholes runtime (#3425)
+  NightDawnFox:
+  - bugfix: unathi cult robes  (#3421)
+  - add: radio AltClick, radio CtrlShiftClick, new intercom sprites (#3342)
+  Vladisvell:
+  - tweak: bluespace closet icon adjust (#3419)
+  - tweak: Thunderdome update (#3420)
+  Zwei:
+  - bugfix: Mass Hallucination Runtime (#3424)
+  - bugfix: Radioactivity Fix (#3422)
+  - tweak: GPS & PDA Mousedrop (#3426)
+  Сиротка:
+  - balance: Guns (#3417)
+  - tweak: increase solaris damage (#3418)
