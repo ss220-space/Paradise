@@ -1,9 +1,10 @@
 SUBSYSTEM_DEF(jobs)
 	name = "Jobs"
-	init_order = INIT_ORDER_JOBS // 12
+	init_order = INIT_ORDER_JOBS // 9
 	wait = 5 MINUTES // Dont ever make this a super low value since EXP updates are calculated from this value
 	runlevels = RUNLEVEL_GAME
 	offline_implications = "Время игры на профессиях больше не будет сохраняться. Немедленных действий не требуется."
+	cpu_display = SS_CPUDISPLAY_LOW
 
 	//List of all jobs
 	var/list/occupations = list()
@@ -17,17 +18,19 @@ SUBSYSTEM_DEF(jobs)
 	//Debug info
 	var/list/job_debug = list()
 
+
 /datum/controller/subsystem/jobs/Initialize(timeofday)
-	if(!occupations.len)
+	if(!length(occupations))
 		SetupOccupations()
 	LoadJobs("config/jobs.txt")
-	return ..()
+
 
 // Only fires every 5 minutes
 /datum/controller/subsystem/jobs/fire()
 	if(!SSdbcore.IsConnected() || !config.use_exp_tracking)
 		return
 	batch_update_player_exp(announce = FALSE) // Set this to true if you ever want to inform players about their EXP gains
+
 
 /datum/controller/subsystem/jobs/proc/SetupOccupations(var/list/faction = list("Station"))
 	occupations = list()
@@ -304,10 +307,8 @@ SUBSYSTEM_DEF(jobs)
 
 	//Get the players who are ready
 	for(var/mob/new_player/player in GLOB.player_list)
-		if(player.ready && player.has_valid_preferences() && player.mind && !player.mind.assigned_role)
+		if(player.ready && player.mind && !player.mind.assigned_role)
 			unassigned += player
-			if(player.client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
-				player.client.prefs.load_random_character_slot(player.client)
 
 	Debug("DO, Len: [unassigned.len]")
 	if(unassigned.len == 0)
@@ -627,7 +628,7 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
-	var/datum/money_account/M = create_account(H.real_name, rand(50,500)*10, null)
+	var/datum/money_account/M = create_account(H.real_name, rand(500, 1500)*get_job_factor(job, job.random_money_factor), null)
 	var/remembered_info = ""
 
 	remembered_info += "<b>Номер вашего аккаунта:</b> #[M.account_number]<br>"
@@ -655,6 +656,12 @@ SUBSYSTEM_DEF(jobs)
 
 	spawn(0)
 		to_chat(H, "<span class='boldnotice'>Номер вашего аккаунта: [M.account_number], ПИН вашего аккаунта: [M.remote_access_pin]</span>")
+
+/datum/controller/subsystem/jobs/proc/get_job_factor(datum/job/job, randomized)
+	if(randomized)
+		return job.money_factor*rand(0.25, 4) // for now only used for civillians
+	else
+		return job.money_factor
 
 /datum/controller/subsystem/jobs/proc/format_jobs_for_id_computer(obj/item/card/id/tgtcard)
 	var/list/jobs_to_formats = list()
