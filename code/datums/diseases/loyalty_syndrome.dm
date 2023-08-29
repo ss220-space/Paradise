@@ -3,8 +3,8 @@
 	max_stages = 5
 	spread_text = "On contact"
 	spread_flags = CONTACT_GENERAL
-	cure_text = "Ethanol"
-	cures = list("ethanol")
+	cure_text = "Haloperidol"
+	cures = list("haloperidol")
 	cure_chance = 3
 	agent = "Halomonas minomae"
 	viable_mobtypes = list(/mob/living/carbon/human)
