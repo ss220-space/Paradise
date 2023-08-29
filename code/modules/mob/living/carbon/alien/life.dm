@@ -47,7 +47,7 @@
 		if(M.loc != src)
 			LAZYREMOVE(stomach_contents, M)
 			continue
-		if(stat != DEAD && times_fired % 3 == 1)
-			M.Weaken(10 SECONDS)
-			M.adjustBruteLoss(5)
-			adjust_nutrition(10)
+		if(stat != DEAD)
+			M.Weaken(3 SECONDS)
+			M.EyeBlind(3 SECONDS)
+			M.adjustBruteLoss(1.5)
