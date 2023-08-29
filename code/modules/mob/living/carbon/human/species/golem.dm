@@ -432,6 +432,7 @@
 	..()
 	H.languages.Cut()
 	H.add_language("Golem Mindlink")
+	H.add_language("Psionic Communication") // still grey enouhg to speak in psi link
 
 //Regenerates like dionas, less resistant
 /datum/species/golem/wood
