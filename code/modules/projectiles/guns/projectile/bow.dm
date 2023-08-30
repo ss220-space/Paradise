@@ -130,7 +130,7 @@
 /obj/item/storage/backpack/quiver/full/populate_contents()
 	for(var/i in 1 to storage_slots)
 		new /obj/item/ammo_casing/caseless/arrow(src)
-		update_icon()
+	update_icon()
 
 /obj/item/storage/backpack/quiver/update_icon()
 	if(length(contents) > 0)
