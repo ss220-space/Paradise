@@ -316,7 +316,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 				italics = TRUE
 				sound_vol *= 0.5 //muffle the sound a bit, so it's like we're actually talking through contact
 
-		var/list/hear = hear(message_range, source = T)
+		var/list/hear = hear(message_range, source = T, mobs_see = TRUE)
 		var/list/hearturfs = list()
 
 		for(var/I in hear)
@@ -484,7 +484,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		verb = "[verb] [adverb]"
 
 	var/atom/whisper_loc = get_whisper_loc()
-	var/list/listening = hear(message_range, source = whisper_loc)
+	var/list/listening = hear(message_range, source = whisper_loc, mobs_see = TRUE)
 	listening |= src
 
 	var/list/hearturfs = list()

@@ -50,24 +50,17 @@
 		. |= get_area(I)
 
 // Like view but bypasses luminosity check
+/proc/hear(var/radiuse, var/atom/source, mobs_see = FALSE)
+	if(islist(radiuse))
+		radiuse = max(radiuse, radiuse)
 
-/proc/in_block(var/raduis_x, var/raduis_y, var/atom/source, view = FALSE)
-	var/anything = list(RECT_TURFS(raduis_x, raduis_y, source))
-	if(!view)
-		return anything
-	var/seeing_things = list(view(max(raduis_x, raduis_y), source))
-	anything = anything ^ difflist(anything, seeing_things)
-	return anything
-
-/proc/hear(var/radiuses, var/atom/source)
-	if(!islist(radiuses))
-		radiuses = list(radiuses, radiuses)
-	var/raduis_x = radiuses[1]
-	var/raduis_y = radiuses[2]
-	if(!raduis_y)
-		raduis_y = raduis_x
-
-	var/list/heard = in_block(raduis_x, raduis_y, source, view = TRUE)
+	var/list/heard = hearers(radiuse, source)
+	if(!mobs_see)
+		return heard
+	heard |= viewers(radiuse, source)
+	for(var/i in heard)
+		if(!can_see(source, heard[i], radiuse) || !can_see(heard[i], source, radiuse))
+			heard -= heard[i]
 
 	return heard
 
@@ -194,7 +187,7 @@
 	if(!T)
 		return hear
 
-	var/list/range = hear(R, source = T)
+	var/list/range = hear(R, source = T, mobs_see = TRUE)
 
 	for(var/atom/A in range)
 		if(ismob(A))
@@ -229,7 +222,7 @@
 
 			var/turf/speaker = get_turf(R)
 			if(speaker)
-				for(var/turf/T in hear(R.canhear_range, source = speaker))
+				for(var/turf/T in hear(R.canhear_range, source = speaker, mobs_see = TRUE))
 					speaker_coverage[T] = T
 
 
