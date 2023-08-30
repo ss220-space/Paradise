@@ -1,4 +1,4 @@
-#define REGENERATION_DELAY 60  // After taking damage, how long it takes for automatic regeneration to begin for megacarps (ty robustin!)
+#define REGENERATION_DELAY 20  // After taking damage, how long it takes for automatic regeneration to begin for megacarps (ty robustin!)
 
 /mob/living/simple_animal/hostile/carp
 	name = "space carp"
@@ -16,14 +16,14 @@
 	response_harm = list("hits", "gnawing", "bites")
 	emote_taunt = list("gnashes")
 	taunt_chance = 30
-	speed = -0.1
-	maxHealth = 60
-	health = 60
+	speed = -0.2
+	maxHealth = 65
+	health = 65
 
 	harm_intent_damage = 8
 	obj_damage = 50
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage_lower = 18
+	melee_damage_upper = 18
 	attacktext = "кусает"
 	attack_sound = 'sound/weapons/bite.ogg'
 	speak_emote = list("gnashes")
@@ -99,7 +99,7 @@
 	. = ..()
 	if(. && ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.adjustStaminaLoss(8)
+		H.adjustStaminaLoss(18)
 
 /mob/living/simple_animal/hostile/carp/death(gibbed)
 	. = ..()
@@ -124,7 +124,6 @@
 	icon_state = "holocarp"
 	icon_living = "holocarp"
 	maxbodytemp = INFINITY
-	gold_core_spawnable = NO_SPAWN
 	del_on_death = 1
 	random_color = FALSE
 
@@ -141,8 +140,8 @@
 	random_color = FALSE
 
 	obj_damage = 80
-	melee_damage_lower = 20
-	melee_damage_upper = 20
+	melee_damage_lower = 30
+	melee_damage_upper = 30
 
 	var/regen_cooldown = 0
 	tts_seed = "Shaker"
