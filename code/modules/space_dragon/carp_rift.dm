@@ -5,8 +5,6 @@
 /// The carp rift is now fully charged.
 #define CHARGE_COMPLETED 2
 
-var/list/obj/structure/carp_rift/rift_list = list()
-
 /datum/action/innate/summon_rift
 	name = "Summon Rift"
 	desc = "Открывает разлом призыва орды космических карпов."
@@ -187,8 +185,8 @@ var/list/obj/structure/carp_rift/rift_list = list()
 			dragon.rift_ability.Grant(dragon.owner.current)
 			dragon.riftTimer = 0
 			dragon.rift_empower()
-		for(var/obj/structure/carp_rift/rift as anything in rift_list)
-			rift.carp_stored += 15
+		for(var/obj/structure/carp_rift/rift as anything in dragon.rift_list)
+			rift.carp_stored +=15
 		// Early return, nothing to do after this point.
 		return
 
