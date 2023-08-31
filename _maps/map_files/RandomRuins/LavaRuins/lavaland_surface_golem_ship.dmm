@@ -391,14 +391,6 @@
 /obj/machinery/computer/mech_bay_power_console,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
-"tu" = (
-/obj/machinery/door_control{
-	id = "bridge_lockdown";
-	name = "bridge lockdown";
-	pixel_x = -32
-	},
-/turf/simulated/wall/mineral/titanium/survival/pod,
-/area/shuttle/freegolem)
 "tF" = (
 /obj/machinery/hydroponics/constructable,
 /obj/effect/decal/warning_stripes/green/hollow,
@@ -533,10 +525,6 @@
 /turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
 "BI" = (
-/obj/machinery/light{
-	dir = 4;
-	switchcount = 50
-	},
 /obj/structure/closet/crate/hydroponics/prespawned,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
@@ -550,14 +538,6 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/carpet/black,
-/area/shuttle/freegolem)
-"Ch" = (
-/obj/machinery/door_control{
-	id = "golem_shuttle";
-	name = "shuttle lockdown";
-	pixel_x = -32
-	},
-/turf/simulated/wall/mineral/titanium/survival/pod,
 /area/shuttle/freegolem)
 "Cl" = (
 /obj/machinery/hydroponics/constructable,
@@ -642,7 +622,7 @@
 	},
 /obj/structure/rack,
 /obj/item/resonator,
-/turf/simulated/wall/mineral/titanium/survival/pod,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
 "FH" = (
 /obj/structure/chair/comfy/shuttle{
@@ -660,11 +640,6 @@
 	},
 /obj/effect/mob_spawn/human/golem/adamantine,
 /obj/effect/turf_decal/box/white,
-/obj/machinery/door_control{
-	id = "golem_shuttle";
-	name = "shuttle lockdown";
-	pixel_x = -32
-	},
 /turf/simulated/floor/carpet/black,
 /area/shuttle/freegolem)
 "GE" = (
@@ -806,9 +781,6 @@
 /turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
 "PZ" = (
-/obj/effect/turf_decal/number/number_3{
-	dir = 1
-	},
 /obj/effect/turf_decal/number/number_3{
 	dir = 1
 	},
@@ -1131,7 +1103,7 @@ yB
 (11,1,1) = {"
 yB
 zc
-yf
+fo
 yf
 yf
 yf
@@ -1206,7 +1178,7 @@ cI
 cI
 cI
 cI
-Ch
+cI
 cI
 cI
 Gs
@@ -1389,7 +1361,7 @@ cI
 cI
 cI
 cI
-tu
+cI
 GE
 cI
 cI
