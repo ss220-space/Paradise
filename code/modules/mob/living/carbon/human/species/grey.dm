@@ -19,6 +19,7 @@
 
 	total_health = 90
 	oxy_mod = 1.2  //greys are fragile
+	stamina_mod = 1.2
 
 	toolspeedmod = 0.8 //25% faster
 
