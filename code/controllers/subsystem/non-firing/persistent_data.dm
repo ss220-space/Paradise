@@ -13,6 +13,13 @@ SUBSYSTEM_DEF(persistent_data)
 	flags = SS_NO_FIRE
 	/// List of atoms registered into the subsystem for persistent data storage. Can be anything at all
 	var/list/registered_atoms = list()
+
+	// May be used in future.
+	var/list/saved_modes = list(1,2,3)
+	var/list/saved_maps = list()
+	var/list/blocked_maps = list()
+	// end
+
 	/// Set to true after a the end of the round to prevent griefing being saved
 	var/data_saved = FALSE
 
