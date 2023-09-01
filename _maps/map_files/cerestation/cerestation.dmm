@@ -1855,7 +1855,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light{
+	color = "gray"
+	},
 /area/magistrateoffice)
 "amV" = (
 /obj/structure/cable/orange{
@@ -3318,7 +3320,7 @@
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light,
 /area/lawoffice)
 "awY" = (
 /obj/structure/cable/orange{
@@ -3442,7 +3444,7 @@
 /area/tcommsat/chamber)
 "axz" = (
 /obj/machinery/papershredder,
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light,
 /area/lawoffice)
 "axB" = (
 /obj/structure/table,
@@ -6004,7 +6006,7 @@
 /obj/item/book/manual/sop_general,
 /obj/item/book/manual/sop_legal,
 /obj/item/book/manual/sop_command,
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light,
 /area/lawoffice)
 "aRZ" = (
 /obj/structure/flora/ausbushes/ppflowers,
@@ -6318,7 +6320,7 @@
 	dir = 4
 	},
 /obj/machinery/photocopier,
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light,
 /area/lawoffice)
 "aTz" = (
 /turf/simulated/mineral/ancient,
@@ -19796,7 +19798,7 @@
 	pixel_x = 24
 	},
 /obj/machinery/vending/coffee/free,
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light,
 /area/lawoffice)
 "cdI" = (
 /obj/machinery/status_display{
@@ -23488,7 +23490,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light{
+	color = "gray"
+	},
 /area/magistrateoffice)
 "cBC" = (
 /obj/item/radio/intercom{
@@ -23510,7 +23514,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light{
+	color = "gray"
+	},
 /area/magistrateoffice)
 "cBG" = (
 /obj/structure/table/reinforced,
@@ -23518,7 +23524,9 @@
 	dir = 4
 	},
 /obj/item/clothing/head/helmet/skull/Yorick,
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light{
+	color = "gray"
+	},
 /area/magistrateoffice)
 "cBH" = (
 /obj/structure/chair/comfy/brown{
@@ -23531,7 +23539,7 @@
 	pixel_x = -24;
 	range = 8
 	},
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light,
 /area/lawoffice)
 "cBI" = (
 /obj/structure/table/reinforced,
@@ -23551,7 +23559,7 @@
 /obj/item/stamp/law,
 /obj/item/pen/multi,
 /obj/item/taperecorder,
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light,
 /area/lawoffice)
 "cBM" = (
 /obj/structure/cable/orange{
@@ -27428,14 +27436,14 @@
 	pixel_y = -5
 	},
 /obj/item/taperecorder,
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light,
 /area/lawoffice)
 "cYh" = (
 /obj/machinery/photocopier/faxmachine/longrange{
 	department = "Internal Affairs Office"
 	},
 /obj/structure/table/reinforced,
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light,
 /area/lawoffice)
 "cYj" = (
 /obj/effect/landmark/start/intern,
@@ -27916,7 +27924,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start/internal_affairs,
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light,
 /area/lawoffice)
 "ddo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -32929,7 +32937,9 @@
 	dir = 1;
 	pixel_x = 24
 	},
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light{
+	color = "gray"
+	},
 /area/magistrateoffice)
 "ehn" = (
 /obj/structure/disposalpipe/segment{
@@ -35761,7 +35771,7 @@
 	c_tag = "Internal Affairs Office";
 	dir = 4
 	},
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light,
 /area/lawoffice)
 "ffO" = (
 /obj/structure/chair/sofa/corp/right{
@@ -38450,7 +38460,9 @@
 	dir = 6
 	},
 /obj/machinery/hologram/holopad,
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light{
+	color = "gray"
+	},
 /area/magistrateoffice)
 "fXS" = (
 /obj/machinery/door/firedoor,
@@ -44412,7 +44424,7 @@
 	dir = 8
 	},
 /obj/machinery/disposal,
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light,
 /area/lawoffice)
 "hHg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -44751,7 +44763,7 @@
 	pixel_x = -21
 	},
 /obj/structure/filingcabinet/chestdrawer,
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light,
 /area/lawoffice)
 "hNb" = (
 /turf/simulated/floor/plasteel{
@@ -54392,7 +54404,7 @@
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-21"
 	},
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light,
 /area/lawoffice)
 "kCM" = (
 /obj/machinery/conveyor/auto,
@@ -58935,7 +58947,7 @@
 	req_access = list(74)
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light,
 /area/lawoffice)
 "lUl" = (
 /obj/machinery/light,
@@ -61020,7 +61032,9 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light{
+	color = "gray"
+	},
 /area/magistrateoffice)
 "mCx" = (
 /obj/structure/closet/secure_closet/brig{
@@ -61431,7 +61445,9 @@
 	name = "Magistrate's Office";
 	req_access = list(74)
 	},
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light{
+	color = "gray"
+	},
 /area/crew_quarters/courtroom)
 "mJb" = (
 /obj/structure/disposalpipe/segment,
@@ -63492,7 +63508,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/light{
+	color = "gray"
+	},
 /area/magistrateoffice)
 "npV" = (
 /turf/simulated/mineral/ancient,
@@ -64811,7 +64829,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light{
+	color = "gray"
+	},
 /area/magistrateoffice)
 "nJm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -67830,7 +67850,7 @@
 	req_access = list(38)
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light,
 /area/lawoffice)
 "oGF" = (
 /obj/structure/sign/security,
@@ -73862,7 +73882,9 @@
 /obj/machinery/alarm{
 	pixel_y = 24
 	},
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light{
+	color = "gray"
+	},
 /area/magistrateoffice)
 "qqD" = (
 /obj/structure/dresser,
@@ -82037,7 +82059,7 @@
 	dir = 8
 	},
 /obj/structure/filingcabinet/security,
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light,
 /area/lawoffice)
 "sVu" = (
 /obj/effect/spawner/lootdrop/crate_spawner,
@@ -82472,7 +82494,7 @@
 	name = "Internal Affairs Requests Console";
 	pixel_x = -30
 	},
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light,
 /area/lawoffice)
 "teB" = (
 /obj/machinery/light{
@@ -85850,7 +85872,9 @@
 	},
 /area/medical/medbreak)
 "ude" = (
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light{
+	color = "gray"
+	},
 /area/magistrateoffice)
 "udk" = (
 /turf/simulated/wall,
@@ -86928,7 +86952,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light,
 /area/lawoffice)
 "uut" = (
 /obj/structure/cable/orange{
@@ -90741,7 +90765,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint4)
 "vFG" = (
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light,
 /area/lawoffice)
 "vFP" = (
 /obj/machinery/iv_drip,
@@ -98004,7 +98028,9 @@
 	c_tag = "Magistrate's Office";
 	dir = 4
 	},
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light{
+	color = "gray"
+	},
 /area/magistrateoffice)
 "xSH" = (
 /obj/effect/spawner/window/reinforced,
