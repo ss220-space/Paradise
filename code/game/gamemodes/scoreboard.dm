@@ -93,6 +93,9 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 	/// How damaged was the most injured person on the shuttle?
 	var/damaged_health
 
+	/// Associative list that contains information on all antagonists that went cryo. Used for logging.
+	var/list/cryo_antags_info
+
 
 /datum/scoreboard/proc/scoreboard()
 	// Print a list of antagonists to the server log.
@@ -130,9 +133,64 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 	for(var/I in total_antagonists)
 		log_game("[I]s[total_antagonists[I]].")
 
-	//log antags and their objectives
+	// Log antags and their objectives
 	for(var/datum/mind/antag in SSticker.minds)
 		log_antag_objectives(antag)
+
+	// Log antags that went cryo during the round (and their objectives)
+	log_cryo_antags()
+
+
+/datum/scoreboard/proc/log_cryo_antags()
+	if(!cryo_antags_info || !length(cryo_antags_info))
+		return
+
+	var/list/total_antagonists = list()
+	for(var/i in 1 to length(cryo_antags_info))
+		var/antag = cryo_antags_info[i]
+		var/role = cryo_antags_info[antag][1]
+
+		if(total_antagonists[role])
+			total_antagonists[role] += ", [antag]"
+		else
+			total_antagonists[role] += ": [antag]"
+
+	log_game("Antagonists that went cryo were...")
+	for(var/antag in total_antagonists)
+		log_game("[antag]s[total_antagonists[antag]].")
+
+	for(var/i in 1 to length(cryo_antags_info))
+		var/antag = cryo_antags_info[i]
+		var/role = cryo_antags_info[antag][1]
+
+		if(length(cryo_antags_info[antag]) > 1)	// antag had objectives
+			log_game("Start objective log for [antag]-[role]")
+			for(var/objective in 2 to length(cryo_antags_info[antag]))
+				log_game(cryo_antags_info[antag][objective])
+			log_game("End objective log for [antag]-[role]")
+
+	QDEL_LIST_ASSOC(cryo_antags_info)
+
+
+/datum/scoreboard/proc/save_antag_info(datum/mind/antag_mind)
+	if(!antag_mind || !SSticker?.score)
+		return
+
+	if(!cryo_antags_info)
+		cryo_antags_info = list()
+
+	var/current_index = "[html_decode(antag_mind.name)]([html_decode(antag_mind.key)])"
+	cryo_antags_info[current_index] = list()
+	cryo_antags_info[current_index] += "[html_decode(antag_mind.special_role)]"
+
+	var/list/all_objectives = antag_mind.get_all_objectives()
+	if(!length(all_objectives))
+		return
+
+	var/count = 1
+	for(var/datum/objective/objective in all_objectives)
+		cryo_antags_info[current_index] += "Objective #[count]: [objective.explanation_text]"
+		count++
 
 
 /datum/scoreboard/proc/check_station_player(mob/mob)
