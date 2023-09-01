@@ -136,6 +136,10 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		ss.Shutdown()
 	log_world("Shutdown complete")
 
+/datum/controller/master/proc/OnConfigLoad()
+	for (var/thing in subsystems)
+		var/datum/controller/subsystem/SS = thing
+		SS.OnConfigLoad()
 
 // Returns 1 if we created a new mc, 0 if we couldn't due to a recent restart,
 // -1 if we encountered a runtime trying to recreate it
