@@ -107,7 +107,7 @@ SUBSYSTEM_DEF(dbcore)
 	if(CONFIG_GET(flag/sql_enabled))
 		// The unit tests have their own version of this check, which wont hold the server up infinitely, so this is disabled if we are running unit tests
 		#ifndef UNIT_TESTS
-		if(CONFIG_GET(flag/sql_enabled) && sql_version != SQL_VERSION)
+		if(CONFIG_GET(flag/sql_enabled) && CONFIG_GET(number/sql_version) != SQL_VERSION)
 			CONFIG_SET(flag/sql_enabled, FALSE)
 			schema_valid = FALSE
 			SSticker.ticker_going = FALSE

@@ -53,7 +53,7 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	if(byond_version < MIN_COMPILER_VERSION || byond_build < MIN_COMPILER_BUILD)
 		log_world("Your server's byond version does not meet the recommended requirements for this code. Please update BYOND")
 
-	if(config && CONFIG_GET(string/server_name) != null && CONFIG_GET(string/server_suffix) && world.port > 0)
+	if(config && CONFIG_GET(string/server_name) != null && CONFIG_GET(number/server_suffix) && world.port > 0)
 		// dumb and hardcoded but I don't care~
 		CONFIG_SET(string/server_name, CONFIG_GET(string/server_name) + " #[(world.port % 1000) / 100]")
 

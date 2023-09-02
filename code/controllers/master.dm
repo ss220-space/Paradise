@@ -250,7 +250,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 	//IMPORTANT NOTE: world.fps through config is now possible!
 
-	world.tick_lag = CONFIG_GET(number/Ticklag)
+	world.tick_lag = CONFIG_GET(number/ticklag)
 	var/initialized_tod = REALTIMEOFDAY
 
 	if(sleep_offline_after_initializations)

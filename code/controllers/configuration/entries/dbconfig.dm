@@ -65,8 +65,13 @@
 /datum/config_entry/string/db_daemon
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
 
-/datum/config_entry/number/db_version
+/datum/config_entry/number/sql_version
+	default = SQL_VERSION
 
 /datum/config_entry/string/utility_database
 
 /datum/config_entry/number/rust_sql_thread_limit
+	default = 50
+
+/datum/config_entry/number/async_sql_query_timeout
+	default = 10 SECONDS
