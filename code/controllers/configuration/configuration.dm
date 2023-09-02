@@ -241,6 +241,29 @@
 		return
 	return E.ValidateAndSet("[new_val]")
 
+/datum/controller/configuration/proc/pick_mode(mode_name)
+	for(var/T in subtypesof(/datum/game_mode))
+		var/datum/game_mode/M = T
+		if(initial(M.config_tag) && initial(M.config_tag) == mode_name)
+			return new T()
+	return new /datum/game_mode/extended()
+
+/datum/controller/configuration/proc/get_runnable_modes()
+	var/list/datum/game_mode/runnable_modes = new
+	for(var/T in subtypesof(/datum/game_mode))
+		var/datum/game_mode/M = new T()
+//		to_chat(world, "DEBUG: [T], tag=[M.config_tag], prob=[probabilities[M.config_tag]]")
+		if(!(M.config_tag in modes))
+			qdel(M)
+			continue
+		if(CONFIG_GET(keyed_list/probability)[M.config_tag]<=0)
+			qdel(M)
+			continue
+		if(M.can_start())
+			runnable_modes[M] = CONFIG_GET(keyed_list/probability)[M.config_tag]
+//			to_chat(world, "DEBUG: runnable_mode\[[runnable_modes.len]\] = [M.config_tag]")
+	return runnable_modes
+
 ///datum/controller/configuration/proc/LoadMOTD()
 //	var/list/motd_contents = list()
 //

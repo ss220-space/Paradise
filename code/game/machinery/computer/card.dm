@@ -452,7 +452,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
 					visible_message(span_warning("[src]: Reassigning a demoted individual requires a full ID computer."))
 					return FALSE
-				if(!job_in_department(SSjobs.GetJob(modify.rank), config.allow_head_of_departaments_assign_civilian))
+				if(!job_in_department(SSjobs.GetJob(modify.rank), CONFIG_GET(flag/allow_head_of_departaments_assign_civilian)))
 					playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
 					visible_message(span_warning("[src]: Reassigning someone outside your department requires a full ID computer."))
 					return FALSE

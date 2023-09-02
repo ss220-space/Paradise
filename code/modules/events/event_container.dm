@@ -34,7 +34,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	if(delayed)
 		next_event_time += (world.time - last_world_time)
 	else if(world.time > next_event_time)
-		if(config.allow_random_events)
+		if(CONFIG_GET(flag/allow_random_events))
 			start_event()
 
 	last_world_time = world.time
@@ -72,7 +72,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 
 	for(var/event_meta in last_event_time) if(possible_events[event_meta])
 		var/time_passed = world.time - GLOB.event_last_fired[event_meta]
-		var/weight_modifier = max(0, (config.expected_round_length - time_passed) / 300)
+		var/weight_modifier = max(0, (CONFIG_GET(number/expected_round_length) - time_passed) / 300)
 		var/new_weight = max(possible_events[event_meta] - weight_modifier, 0)
 
 		if(new_weight)
@@ -90,9 +90,9 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 
 /datum/event_container/proc/set_event_delay()
 	// If the next event time has not yet been set and we have a custom first time start
-	if(next_event_time == 0 && config.event_first_run[severity])
-		var/lower = config.event_first_run[severity]["lower"]
-		var/upper = config.event_first_run[severity]["upper"]
+	if(next_event_time == 0 && CONFIG_GET(keyed_list/event_first_run)[severity])
+		var/lower = CONFIG_GET(keyed_list/event_first_run)[severity]["lower"]
+		var/upper = CONFIG_GET(keyed_list/event_first_run)[severity]["upper"]
 		var/event_delay = rand(lower, upper)
 		next_event_time = world.time + event_delay
 	// Otherwise, follow the standard setup process
@@ -116,7 +116,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 
 		playercount_modifier = playercount_modifier * delay_modifier
 
-		var/event_delay = rand(config.event_delay_lower[severity], config.event_delay_upper[severity]) * playercount_modifier
+		var/event_delay = rand(CONFIG_GET(keyed_list/event_delay_lower)[severity], CONFIG_GET(keyed_list/event_delay_upper)[severity]) * playercount_modifier
 		next_event_time = world.time + event_delay
 
 	log_debug("Next event of severity [GLOB.severity_to_string[severity]] in [(next_event_time - world.time)/600] minutes.")

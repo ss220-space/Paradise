@@ -43,7 +43,7 @@
 			else
 				proxy = "<span style='color: red'>true</span>"
 
-				if(config.proxy_autoban)
+				if(CONFIG_GET(flag/proxy_autoban))
 					var/reason = "Ваш IP определяется как прокси. Прокси запрещены на сервере. Обратитесь к администрации за разрешением. Client ISP: ([isp])"
 					// var/list/play_records = params2list(C.prefs.exp)
 					// var/livingtime = text2num(play_records[EXP_TYPE_LIVING])
@@ -54,8 +54,8 @@
 					AddBan(C.ckey, C.computer_id, reason, "SyndiCat", 0, 0, C.mob.lastKnownIP)
 					to_chat(C, "<span class='danger'><BIG><B>You have been banned by SyndiCat.\nReason: [reason].</B></BIG></span>")
 					to_chat(C, "<span class='red'>This is a permanent ban.</span>")
-					if(config.banappeals)
-						to_chat(C, "<span class='red'>To try to resolve this matter head to [config.banappeals]</span>")
+					if(CONFIG_GET(string/banappeals))
+						to_chat(C, "<span class='red'>To try to resolve this matter head to [CONFIG_GET(string/banappeals)]</span>")
 					else
 						to_chat(C, "<span class='red'>No ban appeals URL has been set.</span>")
 					ban_unban_log_save("SyndiCat has permabanned [C.ckey]. - Reason: [reason] - This is a permanent ban.")

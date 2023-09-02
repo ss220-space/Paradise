@@ -32,7 +32,7 @@
 				return ..()
 
 	if(existence_stops_round_end)
-		config.continuous_rounds = FALSE
+		CONFIG_SET(flag/continuous_rounds, FALSE)
 
 	return ..()
 
@@ -116,9 +116,9 @@
 		to_chat(user, span_warning("Your soul snaps back to your body since [item] is out of reach!"))
 		return
 
-	if(!config.continuous_rounds)
+	if(!CONFIG_GET(flag/continuous_rounds))
 		existence_stops_round_end = TRUE
-		config.continuous_rounds = TRUE
+		CONFIG_SET(flag/continuous_rounds, TRUE)
 
 	name = "RISE!"
 	desc = "Rise from the dead! You will reform at the location of your phylactery and your old body will crumble away."

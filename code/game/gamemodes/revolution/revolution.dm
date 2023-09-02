@@ -86,7 +86,7 @@
 /datum/game_mode/revolution/pre_setup()
 	var/list/possible_revolutionaries = get_players_for_role(ROLE_REV)
 
-	if(config.protect_roles_from_antagonist)
+	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 
 	for(var/i=1 to max_headrevs)

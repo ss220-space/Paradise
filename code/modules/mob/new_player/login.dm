@@ -2,11 +2,11 @@
 	update_Login_details()	//handles setting lastKnownIP and computer_id for use by the ban systems as well as checking for multikeying
 
 	//Overflow rerouting, if set, forces players to be moved to a different server once a player cap is reached. Less rough than a pure kick.
-	if(config.player_overflow_cap && config.overflow_server_url)
+	if(CONFIG_GET(number/player_overflow_cap) && CONFIG_GET(string/overflow_server_url))
 		if(!whitelist_check())
-			if(config.player_overflow_cap == 1 || length(GLOB.clients) > config.player_overflow_cap)
+			if(CONFIG_GET(number/player_overflow_cap) == 1 || length(GLOB.clients) > CONFIG_GET(number/player_overflow_cap))
 				src << browse(null, "window=privacy_consent")
-				src << link(config.overflow_server_url)
+				src << link(CONFIG_GET(string/overflow_server_url))
 
 	if(GLOB.join_motd)
 		to_chat(src, "<div class=\"motd\">[GLOB.join_motd]</div>")
@@ -45,11 +45,13 @@
 	if(check_rights(rights_required = 0, show_msg = 0))
 		return TRUE
 
-	if(config.usewhitelist_nojobbanned && GLOB.jobban_assoclist[src.ckey])
+	if(CONFIG_GET(flag/usewhitelist_nojobbanned) && GLOB.jobban_assoclist[src.ckey])
 		return FALSE
 
+	var/list/overflow_whitelist = CONFIG_GET(str_list/overflow_whitelist)
+
 	//Whitelisted people are immune to overflow rerouting.
-	if(config.usewhitelist_database && SSdbcore.IsConnected())
+	if(CONFIG_GET(flag/usewhitelist_database) && SSdbcore.IsConnected())
 		var/datum/db_query/find_ticket = SSdbcore.NewQuery(
 			"SELECT ckey FROM [sqlfdbkdbutil].[format_table_name("ckey_whitelist")] WHERE ckey=:ckey AND is_valid=true AND port=:port AND date_start<=NOW() AND (NOW()<date_end OR date_end IS NULL)",
 			list("ckey" = src.ckey, "port" = "[world.port]")
@@ -62,6 +64,6 @@
 			return FALSE
 		QDEL_NULL(find_ticket)
 		return TRUE
-	else if(config.overflow_whitelist.Find(lowertext(src.ckey)))
+	else if(overflow_whitelist.Find(lowertext(src.ckey)))
 		return TRUE
 	return FALSE

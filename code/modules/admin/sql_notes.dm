@@ -54,8 +54,8 @@
 		adminckey = ckey(adminckey)
 
 	if(!server)
-		if(config && config.server_name)
-			server = config.server_name
+		if(config && CONFIG_GET(string/server_name))
+			server = CONFIG_GET(string/server_name)
 
 	var/datum/db_query/query_noteadd = SSdbcore.NewQuery({"
 		INSERT INTO [sqlfdbkdbutil].[format_table_name("notes")] (ckey, timestamp, notetext, adminckey, server, crew_playtime)
@@ -138,8 +138,8 @@
 		if(!new_note)
 			return
 		var/server
-		if(config && config.server_name)
-			server = config.server_name
+		if(config && CONFIG_GET(string/server_name))
+			server = CONFIG_GET(string/server_name)
 		var/edit_text = "Last edit by [usr.ckey] at [SQLtime()][server ? " on [server]" : ""]"
 		var/datum/db_query/query_update_note = SSdbcore.NewQuery("UPDATE [sqlfdbkdbutil].[format_table_name("notes")] SET notetext=:new_note, last_editor=:akey, edits = CONCAT(IFNULL(edits,''),:edit_text) WHERE id=:note_id", list(
 			"new_note" = new_note,
