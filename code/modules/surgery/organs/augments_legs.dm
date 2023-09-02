@@ -127,6 +127,8 @@
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_RESTRAINED|AB_CHECK_STUNNED //lying jumps is real
 
 /datum/action/bhop/Trigger()
+	if(!IsAvailable())
+		return
 	if(recharging_time > world.time)
 		to_chat(owner, "<span class='warning'>The boot's internal propulsion needs to recharge still!</span>")
 		return
