@@ -960,6 +960,7 @@
 /datum/config_entry/string/forum_link_url
 
 /datum/config_entry/str_list/resource_urls
+	default = null
 
 /datum/config_entry/string/discordurl
 
