@@ -64,3 +64,9 @@
 /// Shouldn't really be set on production servers, primarily for EZDB.
 /datum/config_entry/string/db_daemon
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
+
+/datum/config_entry/number/db_version
+
+/datum/config_entry/string/utility_database
+
+/datum/config_entry/number/rust_sql_thread_limit

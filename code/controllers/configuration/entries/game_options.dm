@@ -335,7 +335,7 @@
 	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/string/tts_http_token
-	protection = CONFIG_ENTRY_LOCKED|CONFIG_ENTRY_HIDDEN
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
 
 /datum/config_entry/number/tts_max_concurrent_requests
 	default = 4
@@ -346,3 +346,17 @@
 /datum/config_entry/flag/give_tutorials_without_db
 
 /datum/config_entry/string/new_player_alert_role_id
+
+/datum/config/entry/flag/bones_can_break
+
+/datum/config/entry/flag/revival_cloning
+
+/datum/config/entry/number/run_speed
+
+/datum/config/entry/number/walk_speed
+
+/datum/config/entry/number/monkey_delay
+
+/datum/config/entry/number/cubemonkey_cap
+
+/datum/config/entry/flag/can_cult_convert

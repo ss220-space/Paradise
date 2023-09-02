@@ -209,8 +209,10 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	GLOB.join_motd = file2text("config/motd.txt")
 	GLOB.join_tos = file2text("config/tos.txt")
 
-/proc/load_configuration()
+/proc/load_configuration() //entry point for config load, i guessssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
 	config = new /datum/configuration()
+	config1 = new /datum/controller/configuration()
+	config1.Load()
 	config.load("config/config.txt")
 	config.load("config/game_options.txt","game_options")
 	config.loadsql("config/dbconfig.txt")

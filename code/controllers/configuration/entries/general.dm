@@ -702,3 +702,133 @@
 /datum/config_entry/number/upload_limit_admin
 	default = 5242880
 	min_val = 0
+
+/datum/config_entry/flag/ban_legacy_system
+
+/datum/config_entry/number/minimum_client_build
+
+/datum/config_entry/flag/log_debug
+
+/datum/config_entry/flag/log_conversion
+
+/datum/config_entry/flag/log_runtime
+
+/datum/config_entry/flag/log_world_output
+
+/datum/config_entry/flag/log_adminwarn
+
+/datum/config_entry/number/warn_afk_minimum
+
+
+//Needs proper validation
+/datum/config_entry/keyed_list/probability
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+	splitter = " "
+
+/datum/config_entry/keyed_list/minplayers
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+	splitter = " "
+
+/datum/config_entry/number/shadowling_max_age
+
+/datum/config_entry/number/traitor_scaling
+
+/datum/config_entry/flag/allow_metadata
+
+/datum/config_entry/number/pregame_timestart
+
+/datum/config_entry/number/vote_autotransfer_initial
+
+/datum/config_entry/number/vote_autotransfer_interval
+
+/datum/config_entry/flag/allow_antag_hud
+
+/datum/config_entry/flag/antag_hud_restricted
+
+/datum/config_entry/flag/guest_jobban
+
+/datum/config_entry/number/panic_bunker_threshold
+
+/datum/config_entry/flag/check_randomizer
+
+/datum/config_entry/number/clientfps
+
+/datum/config_entry/number/socket_talk
+
+/datum/config_entry/flag/proxy_autoban
+
+/datum/config_entry/flag/assistant_maint
+
+/datum/config_entry/flag/assistant_limit
+
+/datum/config_entry/number/assistant_ratio
+
+/datum/config_entry/number/auto_cryo_ssd_mins
+
+/datum/config_entry/flag/ssd_warning
+
+/datum/config_entry/flag/continuous_rounds
+
+/datum/config_entry/flag/usealienwhitelist
+
+/datum/config_entry/number/alien_player_ratio
+
+/datum/config_entry/number/expected_round_length
+
+//Needs proper handling!
+/datum/config_entry/number_list/event_delay_lower
+
+//Needs proper handling!
+/datum/config_entry/number_list/event_delay_upper
+
+//Needs proper handling!
+/datum/config_entry/number_list/event_custom_start_major
+
+//Needs proper handling!
+/datum/config_entry/number_list/event_custom_start_moderate
+
+//Needs proper handling!
+/datum/config_entry/number_list/event_custom_start_minor
+
+/datum/config_entry/number/player_reroute_cap
+
+/datum/config_entry/flag/disable_away_missions
+
+/datum/config_entry/flag/disable_space_ruins
+
+/datum/config_entry/number/extra_space_ruin_levels_min
+
+/datum/config_entry/number/extra_space_ruin_levels_max
+
+/datum/config_entry/number/tick_limit_mc_init
+
+/datum/config_entry/number/byond_account_age_threshold
+
+/datum/config_entry/string/centcom_ban_db_url
+
+/datum/config_entry/flag/respawn_observer
+
+/datum/config_entry/number/respawn_delay_drone
+
+/datum/config_entry/str_list/topic_filtering_whitelist
+
+/datum/config_entry/string/tts_token_silero
+
+/datum/config_entry/flag/tts_enabled
+
+/datum/config_entry/flag/tts_cache
+
+//Needs proper handling?
+/datum/config_entry/string/default_map
+
+/datum/config_entry/string/map_rotate
+
+/datum/config_entry/string/override_map
+
+/datum/config_entry/flag/item_animations_enabled
+
+/datum/config_entry/flag/disable_taipan
+
+/datum/config_entry/flag/disable_lavaland
