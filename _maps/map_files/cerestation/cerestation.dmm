@@ -882,7 +882,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -2015,7 +2014,6 @@
 	},
 /area/toxins/mixing)
 "anS" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/multi_tile/glass{
@@ -4362,7 +4360,6 @@
 /obj/structure/mirror{
 	pixel_x = -27
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -6742,15 +6739,16 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "aVZ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
-	icon_state = "neutral"
+	dir = 8;
+	icon_state = "neutralfull"
 	},
 /area/hallway/primary/port/east)
 "aWa" = (
@@ -8342,9 +8340,6 @@
 /area/security/range)
 "beN" = (
 /obj/machinery/light,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -9184,6 +9179,10 @@
 	dir = 4
 	},
 /obj/structure/table/wood,
+/obj/item/radio/intercom{
+	dir = 0;
+	pixel_x = -28
+	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "gray"
 	},
@@ -9623,6 +9622,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -11570,7 +11570,6 @@
 	},
 /area/toxins/hallway)
 "buG" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/carpet,
@@ -12214,9 +12213,6 @@
 	},
 /area/storage/primary)
 "bxp" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -15317,9 +15313,6 @@
 	name = "Bar Access";
 	req_access = list(25)
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -15699,9 +15692,6 @@
 	},
 /area/hydroponics)
 "bLI" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -20998,11 +20988,12 @@
 	},
 /area/hallway/secondary/entry/south)
 "ckV" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/effect/turf_decal/siding/wood{
 	do_not_delete_me = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "gray"
@@ -27798,7 +27789,6 @@
 "dcy" = (
 /obj/item/razor,
 /obj/item/twohanded/required/kirbyplants,
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -30071,7 +30061,6 @@
 	},
 /area/atmos)
 "dvf" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -31745,13 +31734,14 @@
 /turf/simulated/floor/plating,
 /area/engine/engine_smes)
 "dNk" = (
-/obj/structure/disposalpipe/junction{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
-/turf/simulated/floor/wood/fancy/light{
-	color = "gray"
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutral"
 	},
-/area/crew_quarters/bar)
+/area/hallway/primary/port/east)
 "dNm" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -33327,7 +33317,6 @@
 "enj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/carpet,
 /area/hallway/primary/port/east)
 "enx" = (
@@ -34003,6 +33992,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -36159,9 +36149,6 @@
 	},
 /area/hallway/spacebridge/cargocom)
 "fmt" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -46787,7 +46774,6 @@
 /area/security/seceqstorage)
 "isY" = (
 /obj/structure/table/reinforced,
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -47867,16 +47853,9 @@
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
 "iKJ" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
-/turf/simulated/floor/wood/fancy/light{
-	color = "gray"
-	},
+/obj/effect/spawner/window/reinforced,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating,
 /area/crew_quarters/bar)
 "iKQ" = (
 /obj/structure/cable/orange{
@@ -52013,7 +51992,6 @@
 	},
 /area/storage/primary)
 "jTV" = (
-/obj/structure/disposalpipe/segment,
 /obj/item/kitchen/utensil/fork,
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -54165,6 +54143,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/wood/fancy/light{
 	color = "gray"
 	},
@@ -54439,7 +54418,6 @@
 /turf/simulated/wall/r_wall,
 /area/maintenance/fsmaint3)
 "kDk" = (
-/obj/structure/disposalpipe/segment,
 /obj/item/candle,
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -61693,11 +61671,12 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/junction{
+	dir = 8;
+	icon_state = "pipe-j2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -62176,7 +62155,6 @@
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
 "mVq" = (
-/obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
 	},
@@ -67351,7 +67329,6 @@
 /turf/simulated/wall,
 /area/hallway/primary/starboard/south)
 "ozf" = (
-/obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
@@ -68053,10 +68030,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "gray"
@@ -68854,9 +68827,12 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/apmaint2)
 "oVd" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "gray"
@@ -70334,6 +70310,10 @@
 "prH" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "gray"
@@ -74076,7 +74056,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -74589,10 +74572,6 @@
 	},
 /area/security/podbay)
 "qFn" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -78038,19 +78017,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/fore)
-"rLN" = (
-/obj/structure/disposalpipe/junction{
-	dir = 8;
-	icon_state = "pipe-j2"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/hallway/primary/port/east)
 "rLQ" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -81296,10 +81262,6 @@
 	dir = 1;
 	pixel_y = -24
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -83498,12 +83460,13 @@
 	},
 /area/medical/surgery/south)
 "ttU" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/sortjunction/reversed{
+	dir = 8;
+	name = "disposal pipe - Bar";
+	sortType = 19
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -86591,11 +86554,6 @@
 	icon_state = "white"
 	},
 /area/medical/virology)
-"upi" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plating,
-/area/civilian/barber)
 "upy" = (
 /obj/structure/cable/orange{
 	icon_state = "2-4"
@@ -86657,6 +86615,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -90404,6 +90363,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -91186,6 +91146,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -92125,20 +92086,6 @@
 	icon_state = "purple"
 	},
 /area/hallway/primary/aft/east)
-"vYn" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/sortjunction/reversed{
-	dir = 8;
-	name = "disposal pipe - Bar";
-	sortType = 19
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/hallway/primary/port/east)
 "vYo" = (
 /obj/machinery/newscaster{
 	dir = 4;
@@ -92913,7 +92860,8 @@
 	},
 /obj/structure/cable/orange,
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 1;
+	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -93857,7 +93805,6 @@
 	},
 /area/turret_protected/aisat_interior/secondary)
 "wze" = (
-/obj/structure/disposalpipe/segment,
 /obj/item/kitchen/utensil/fork,
 /obj/structure/table/wood{
 	color = "#996633"
@@ -95342,10 +95289,6 @@
 "wXJ" = (
 /obj/machinery/reagentgrinder,
 /obj/structure/table/wood,
-/obj/item/radio/intercom{
-	dir = 0;
-	pixel_x = -28
-	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "gray"
 	},
@@ -95441,8 +95384,8 @@
 	},
 /area/maintenance/starboard)
 "wYU" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/structure/disposalpipe/junction{
+	dir = 1
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "gray"
@@ -95655,9 +95598,6 @@
 	},
 /area/toxins/mixing)
 "xct" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/light{
 	dir = 1
 	},
@@ -96345,7 +96285,7 @@
 "xnr" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/structure/disposalpipe/segment{
-	dir = 2;
+	dir = 8;
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -116632,9 +116572,9 @@ sBU
 qKk
 fGN
 tmw
-rLN
-aVZ
-upi
+gio
+dmN
+kOk
 dcy
 isY
 aFA
@@ -116889,7 +116829,7 @@ rWQ
 pYw
 rVw
 tmw
-iDw
+gio
 acd
 oOg
 uNw
@@ -117917,8 +117857,8 @@ lxm
 fGN
 fGN
 ppn
-iDw
-dmN
+aVZ
+dNk
 aZZ
 qiy
 kjG
@@ -118176,8 +118116,8 @@ bEM
 tmw
 ttU
 qtt
-bjn
-wmR
+iKJ
+veg
 xnr
 qFn
 ogY
@@ -119716,7 +119656,7 @@ cFF
 cFF
 bHF
 tmw
-vYn
+gio
 agH
 enj
 buG
@@ -119984,14 +119924,14 @@ mVq
 wze
 kDk
 ozf
-veg
+wmR
 mVq
 dvf
 jTV
 ozf
-dNk
-veg
-iKJ
+wmR
+wmR
+amj
 bRP
 nLa
 phF
@@ -120237,17 +120177,17 @@ euQ
 aZZ
 aAv
 prH
-wmR
-wmR
-wmR
-wmR
-wmR
-wmR
+veg
+veg
+veg
+veg
+veg
+veg
 kzY
-wmR
-wmR
+veg
+veg
 wYU
-wmR
+veg
 ckV
 xiv
 sup
