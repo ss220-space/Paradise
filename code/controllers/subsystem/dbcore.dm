@@ -33,7 +33,7 @@ SUBSYSTEM_DEF(dbcore)
 // This is in Initialize() so that its actually seen in chat
 /datum/controller/subsystem/dbcore/Initialize()
 	if(!schema_valid)
-		log_startup_progress("Database schema ([sql_version]) doesn't match the latest schema version ([SQL_VERSION]). Roundstart has been delayed.")
+		log_startup_progress("Database schema ([CONFIG_GET(number/db_version)]) doesn't match the latest schema version ([SQL_VERSION]). Roundstart has been delayed.")
 
 
 /datum/controller/subsystem/dbcore/fire()
@@ -79,11 +79,11 @@ SUBSYSTEM_DEF(dbcore)
 		return FALSE
 
 	var/result = json_decode(rustg_sql_connect_pool(json_encode(list(
-		"host" = sqladdress,
-		"port" = text2num(sqlport),
-		"user" = sqlfdbklogin,
-		"pass" = sqlfdbkpass,
-		"db_name" = sqlfdbkdb,
+		"host" = CONFIG_GET(string/address),
+		"port" = CONFIG_GET(number/port),
+		"user" = CONFIG_GET(string/feedback_login),
+		"pass" = CONFIG_GET(string/feedback_password),
+		"db_name" = CONFIG_GET(string/feedback_database),
 		"read_timeout" = CONFIG_GET(number/async_sql_query_timeout),
 		"write_timeout" = CONFIG_GET(number/async_sql_query_timeout),
 		"max_threads" = CONFIG_GET(number/rust_sql_thread_limit),
@@ -107,7 +107,7 @@ SUBSYSTEM_DEF(dbcore)
 	if(CONFIG_GET(flag/sql_enabled))
 		// The unit tests have their own version of this check, which wont hold the server up infinitely, so this is disabled if we are running unit tests
 		#ifndef UNIT_TESTS
-		if(CONFIG_GET(flag/sql_enabled) && CONFIG_GET(number/sql_version) != SQL_VERSION)
+		if(CONFIG_GET(flag/sql_enabled) && CONFIG_GET(number/db_version) != SQL_VERSION)
 			CONFIG_SET(flag/sql_enabled, FALSE)
 			schema_valid = FALSE
 			SSticker.ticker_going = FALSE

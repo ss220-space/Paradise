@@ -53,7 +53,7 @@
 	//Whitelisted people are immune to overflow rerouting.
 	if(CONFIG_GET(flag/usewhitelist_database) && SSdbcore.IsConnected())
 		var/datum/db_query/find_ticket = SSdbcore.NewQuery(
-			"SELECT ckey FROM [sqlfdbkdbutil].[format_table_name("ckey_whitelist")] WHERE ckey=:ckey AND is_valid=true AND port=:port AND date_start<=NOW() AND (NOW()<date_end OR date_end IS NULL)",
+			"SELECT ckey FROM [CONFIG_GET(string/utility_database)].[format_table_name("ckey_whitelist")] WHERE ckey=:ckey AND is_valid=true AND port=:port AND date_start<=NOW() AND (NOW()<date_end OR date_end IS NULL)",
 			list("ckey" = src.ckey, "port" = "[world.port]")
 		)
 		if(!find_ticket.warn_execute(async = FALSE))

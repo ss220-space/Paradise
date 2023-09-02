@@ -74,7 +74,7 @@
 			sql_query_params["cid"] = computer_id
 
 			var/datum/db_query/ban_wl_query = SSdbcore.NewQuery({"
-			SELECT computerid FROM [sqlfdbkdbutil].[format_table_name("ban_whitelist")]
+			SELECT computerid FROM [CONFIG_GET(string/utility_database)].[format_table_name("ban_whitelist")]
 			WHERE ckey=:ckeytext [cidquery]"}, sql_query_params)
 
 			if(!ban_wl_query.warn_execute())
@@ -87,7 +87,7 @@
 			qdel(ban_wl_query)
 
 		var/datum/db_query/query = SSdbcore.NewQuery({"
-		SELECT ckey, ip, computerid, a_ckey, reason, expiration_time, duration, bantime, bantype FROM [sqlfdbkdbutil].[format_table_name("ban")]
+		SELECT ckey, ip, computerid, a_ckey, reason, expiration_time, duration, bantime, bantype FROM [CONFIG_GET(string/utility_database)].[format_table_name("ban")]
 		WHERE (ckey=:ckeytext [ipquery] [cidquery]) AND (bantype = 'PERMABAN' OR bantype = 'ADMIN_PERMABAN'
 		OR ((bantype = 'TEMPBAN' OR bantype = 'ADMIN_TEMPBAN') AND expiration_time > Now())) AND isnull(unbanned)"}, sql_query_params)
 

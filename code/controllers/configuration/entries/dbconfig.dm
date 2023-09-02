@@ -2,7 +2,7 @@
 	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/string/address
-	default = "localhost"
+	default = "127.0.0.1"
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
 
 /datum/config_entry/number/port
@@ -12,7 +12,11 @@
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
 
 /datum/config_entry/string/feedback_database
-	default = "test"
+	default = "feedback"
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
+
+/datum/config_entry/string/utility_database
+	default = "feedback"
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
 
 /datum/config_entry/string/feedback_login
@@ -23,6 +27,7 @@
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
 
 /datum/config_entry/string/feedback_tableprefix
+	default = "erro_"
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
 
 /datum/config_entry/number/query_debug_log_timeout
@@ -65,10 +70,7 @@
 /datum/config_entry/string/db_daemon
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
 
-/datum/config_entry/number/sql_version
-	default = SQL_VERSION
-
-/datum/config_entry/string/utility_database
+/datum/config_entry/number/db_version
 
 /datum/config_entry/number/rust_sql_thread_limit
 	default = 50

@@ -543,10 +543,6 @@
 
 /datum/config_entry/flag/allow_head_of_departaments_assign_civilian
 
-/datum/config_entry/flag/tts_enabled
-
-/datum/config_entry/flag/tts_cache
-
 /datum/config_entry/number/auto_extended_players_num
 
 /datum/config_entry/string/map_rotate
