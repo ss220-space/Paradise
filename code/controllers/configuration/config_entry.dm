@@ -30,7 +30,7 @@
 	set_default()
 
 /datum/config_entry/Destroy()
-	config1.RemoveEntry(src)
+	config.RemoveEntry(src)
 	return ..()
 
 /**

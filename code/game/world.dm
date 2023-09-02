@@ -210,14 +210,14 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	GLOB.join_tos = file2text("config/tos.txt")
 
 /proc/load_configuration() //entry point for config load, i guessssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-	config = new /datum/configuration()
-	config1 = new /datum/controller/configuration()
-	config1.Load()
-	config.load("config/config.txt")
-	config.load("config/game_options.txt","game_options")
-	config.loadsql("config/dbconfig.txt")
-	config.loadoverflowwhitelist("config/ofwhitelist.txt")
-	config.load("config/twitch_censor.txt", "twitch_censor")
+	//config = new /datum/configuration()
+	config = new /datum/controller/configuration()
+	config.Load()
+	//config.load("config/config.txt")
+	//config.load("config/game_options.txt","game_options")
+	//config.loadsql("config/dbconfig.txt")
+	//config.loadoverflowwhitelist("config/ofwhitelist.txt")
+	//config.load("config/twitch_censor.txt", "twitch_censor")
 	// apply some settings from config..
 
 /world/proc/update_status()

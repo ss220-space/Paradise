@@ -215,7 +215,7 @@
 	. = ..()
 	if(.)
 		sync_validate = TRUE
-		var/datum/config_entry/number/ticklag/TL = config1.entries_by_type[/datum/config_entry/number/ticklag]
+		var/datum/config_entry/number/ticklag/TL = config.entries_by_type[/datum/config_entry/number/ticklag]
 		if(!TL.sync_validate)
 			TL.ValidateAndSet(10 / config_entry_value)
 		sync_validate = FALSE
@@ -233,7 +233,7 @@
 	. = text2num(str_val) > 0 && ..()
 	if(.)
 		sync_validate = TRUE
-		var/datum/config_entry/number/fps/FPS = config1.entries_by_type[/datum/config_entry/number/fps]
+		var/datum/config_entry/number/fps/FPS = config.entries_by_type[/datum/config_entry/number/fps]
 		if(!FPS.sync_validate)
 			FPS.ValidateAndSet(10 / config_entry_value)
 		sync_validate = FALSE
@@ -832,3 +832,42 @@
 /datum/config_entry/flag/disable_taipan
 
 /datum/config_entry/flag/disable_lavaland
+
+/datum/config_entry/flag/disable_root_log
+
+/datum/config_entry/flag/developer_express_start
+
+/datum/config_entry/number/Ticklag
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
+
+/datum/config_entry/number/disable_high_pop_mc_mode_amount
+
+/datum/config_entry/number/base_mc_tick_rate
+
+/datum/config_entry/number/high_pop_mc_tick_rate
+
+/datum/config_entry/number/high_pop_mc_mode_amount
+
+/datum/config_entry/number/auto_cryo_afk
+
+/datum/config_entry/number/auto_despawn_afk
+
+/datum/config_entry/number/async_sql_query_timeout
+
+/datum/config_entry/flag/discord_webhooks_enabled
+
+//Needs attention
+/datum/config_entry/str_list/discord_admin_webhook_urls
+
+//Needs attention
+/datum/config_entry/str_list/discord_requests_webhook_urls
+
+//Needs attention
+/datum/config_entry/str_list/discord_main_webhook_urls
+
+//Needs attention
+/datum/config_entry/str_list/discord_mentor_webhook_urls
+
+/datum/config_entry/flag/discord_forward_all_ahelps
+
+/datum/config_entry/string/discord_admin_role_id
