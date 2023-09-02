@@ -496,8 +496,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Special RCD capable to destroy reinforced walls and have 500 matter units instead of 100."
 	reference = "SRCD"
 	item = /obj/item/rcd/combat
-	cost = 8
-	job = list("Chief Engineer")
+	cost = 5
+	job = list("Station Engineer", "Trainee Engineer", "Mechanic", "Life Support Specialist", "Chief Engineer")
 	surplus = 0
 
 //Stimulants
