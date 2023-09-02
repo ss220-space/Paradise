@@ -164,7 +164,6 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/check_bomb_impacts,
 	/client/proc/test_movable_UI,
 	/client/proc/test_snap_UI,
-	/client/proc/cinematic,
 	/proc/machine_upgrade,
 	/client/proc/map_template_load,
 	/client/proc/map_template_upload,

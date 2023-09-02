@@ -9,6 +9,7 @@
 #define FLOOR_PLANE -2
 #define FLOOR_OVERLAY_PLANE -1.5
 #define GAME_PLANE -1
+#define CINEMATIC_LAYER -1
 #define BLACKNESS_PLANE 0 //To keep from conflicts with SEE_BLACKNESS internals
 
 #define SPACE_LAYER 1.8
