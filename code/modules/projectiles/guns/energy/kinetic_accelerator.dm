@@ -476,7 +476,7 @@
 /obj/item/borg/upgrade/modkit/hardness
 	name = "hardness increase"
 	desc = "Increases the maximum piercing power of a kinetic accelerator when installed."
-	cost = 10
+	cost = 50 //balance reasons
 
 /obj/item/borg/upgrade/modkit/hardness/modify_projectile(obj/item/projectile/kinetic/K)
 	K.power += modifier

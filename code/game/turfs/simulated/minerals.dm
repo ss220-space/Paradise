@@ -256,7 +256,7 @@
 		/turf/simulated/mineral/silver = 12, /turf/simulated/mineral/plasma = 20, /turf/simulated/mineral/iron = 40, /turf/simulated/mineral/titanium = 11,
 		/turf/simulated/mineral/gibtonite = 4, /turf/simulated/floor/plating/asteroid/airless/cave = 2, /turf/simulated/mineral/bscrystal = 1)
 		//Currently, Adamantine won't spawn as it has no uses. -Durandan
-	var/mineralChance = 8
+	var/mineralChance = 6
 	var/display_icon_state = "rock"
 
 /turf/simulated/mineral/random/Initialize(mapload)
@@ -354,30 +354,30 @@
 	mineralChance = 10
 	hardness = 2
 	mineralSpawnChanceList = list(
-		/turf/simulated/mineral/uranium/volcanic/hard = 10, /turf/simulated/mineral/diamond/volcanic/hard = 5, /turf/simulated/mineral/gold/volcanic/hard = 10,
+		/turf/simulated/mineral/uranium/volcanic/hard = 10, /turf/simulated/mineral/diamond/volcanic/hard = 4, /turf/simulated/mineral/gold/volcanic/hard = 10,
 		/turf/simulated/mineral/titanium/volcanic/hard = 11, /turf/simulated/mineral/magmite/volcanic/hard = 0.5, /turf/simulated/mineral/silver/volcanic/hard = 12,
-		/turf/simulated/mineral/plasma/volcanic/hard = 20, /turf/simulated/mineral/bscrystal/volcanic/hard = 5, /turf/simulated/mineral/gibtonite/volcanic/hard = 4,
-		/turf/simulated/mineral/iron/volcanic/hard = 10, /turf/simulated/mineral/gem/volcanic/hard = 2)
+		/turf/simulated/mineral/plasma/volcanic/hard = 20, /turf/simulated/mineral/bscrystal/volcanic/hard = 4, /turf/simulated/mineral/gibtonite/volcanic/hard = 4,
+		/turf/simulated/mineral/iron/volcanic/hard = 50, /turf/simulated/mineral/gem/volcanic/hard = 2)
 
 /turf/simulated/mineral/random/volcanic/hard/double
 	name = "hardened volcanic basalt"
 	icon_state = "rock_volcanic"
 	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
-	mineralChance = 35
+	mineralChance = 30
 	hardness = 3
 	mineralSpawnChanceList = list(
-		/turf/simulated/mineral/uranium/volcanic/hard/double = 15, /turf/simulated/mineral/diamond/volcanic/hard/double = 10, /turf/simulated/mineral/gold/volcanic/hard/double = 15,
+		/turf/simulated/mineral/uranium/volcanic/hard/double = 15, /turf/simulated/mineral/diamond/volcanic/hard/double = 7, /turf/simulated/mineral/gold/volcanic/hard/double = 15,
 		/turf/simulated/mineral/titanium/volcanic/hard/double = 21, /turf/simulated/mineral/magmite/volcanic/hard/double = 1, /turf/simulated/mineral/silver/volcanic/hard/double = 12,
-		/turf/simulated/mineral/plasma/volcanic/hard/double = 25, /turf/simulated/mineral/bscrystal/volcanic/hard/double = 10, /turf/simulated/mineral/gibtonite/volcanic/hard/double = 4,
-		/turf/simulated/mineral/iron/volcanic/hard/double = 25, /turf/simulated/mineral/gem/volcanic/hard/double = 5)
+		/turf/simulated/mineral/plasma/volcanic/hard/double = 25, /turf/simulated/mineral/bscrystal/volcanic/hard/double = 7, /turf/simulated/mineral/gibtonite/volcanic/hard/double = 4,
+		/turf/simulated/mineral/iron/volcanic/hard/double = 45, /turf/simulated/mineral/gem/volcanic/hard/double = 5)
 
 /turf/simulated/mineral/random/volcanic/hard/double/high_chance
 	icon_state = "rock_highchance"
-	mineralChance = 70
+	mineralChance = 60
 	mineralSpawnChanceList = list(
-		/turf/simulated/mineral/uranium/volcanic/hard/double = 25, /turf/simulated/mineral/diamond/volcanic/hard/double = 30, /turf/simulated/mineral/gold/volcanic/hard/double = 45,
+		/turf/simulated/mineral/uranium/volcanic/hard/double = 25, /turf/simulated/mineral/diamond/volcanic/hard/double = 15, /turf/simulated/mineral/gold/volcanic/hard/double = 45,
 		/turf/simulated/mineral/titanium/volcanic/hard/double = 35, /turf/simulated/mineral/silver/volcanic/hard/double = 20, /turf/simulated/mineral/plasma/volcanic/hard/double = 50,
-		/turf/simulated/mineral/bscrystal/volcanic/hard/double = 25, /turf/simulated/mineral/magmite/volcanic/hard/double = 2, /turf/simulated/mineral/gem/volcanic/hard/double = 10)
+		/turf/simulated/mineral/bscrystal/volcanic/hard/double = 15, /turf/simulated/mineral/magmite/volcanic/hard/double = 2, /turf/simulated/mineral/gem/volcanic/hard/double = 10)
 
 // Actual minerals
 /turf/simulated/mineral/iron

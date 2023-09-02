@@ -45,7 +45,10 @@
 			var/distance = get_dist_euclidian(location,C)
 			C.flash_eyes()
 			C.Weaken((boom_sizes[2] - distance) * 1 SECONDS) //1 second for how close you are to center if you're in range
-			C.AdjustDeaf(0, (boom_sizes[3] - distance) * 10 SECONDS) // i dont know what am i doing
+			C.AdjustDeaf((boom_sizes[3] - distance) * 10 SECONDS)
+			var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
+			if(istype(ears))
+				ears.receive_damage((boom_sizes[3] - distance) * 2) //something like that i guess. Mega charge makes 12 damage to ears if nearby
 			to_chat(C, span_warning("<font size='2'><b>You are knocked down by the power of the mining charge!</font></b>"))
 	qdel(src)
 
