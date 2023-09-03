@@ -1,4 +1,5 @@
 GLOBAL_LIST(twitch_censor_list)
+GLOBAL_LIST_EMPTY(overflow_whitelist)
 
 /datum/controller/configuration
 	name = "Configuration"
@@ -57,6 +58,9 @@ GLOBAL_LIST(twitch_censor_list)
 	if(CONFIG_GET(flag/usewhitelist))
 		load_whitelist()
 
+
+	load_overflow_whitelist()
+
 	load_twitch_censor_list()
 
 	loaded = TRUE
@@ -64,6 +68,20 @@ GLOBAL_LIST(twitch_censor_list)
 	if (Master)
 		Master.OnConfigLoad()
 	process_config_errors()
+
+/datum/controller/configuration/proc/load_overflow_whitelist()
+	if(fexists("[directory]/ofwhitelist.txt"))
+		var/list/Lines = file2list("[directory]/ofwhitelist.txt")
+		for(var/t in Lines)
+			if(!t)
+				continue
+			t = trim(t)
+			if(length(t) == 0)
+				continue
+			else if(copytext(t, 1, 2) == "#")
+				continue
+
+			GLOB.overflow_whitelist += t
 
 /datum/controller/configuration/proc/full_wipe()
 	if(IsAdminAdvancedProcCall())
@@ -296,6 +314,8 @@ GLOBAL_LIST(twitch_censor_list)
 
 		GLOB.twitch_censor_list = twitch_censor_list
 		return TRUE
+
+	log_config("[directory]/twitch_censor.txt does not exist, twitch censoring disabled")
 	return FALSE
 
 ///datum/controller/configuration/proc/LoadMOTD()

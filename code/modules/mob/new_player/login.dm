@@ -48,8 +48,6 @@
 	if(CONFIG_GET(flag/usewhitelist_nojobbanned) && GLOB.jobban_assoclist[src.ckey])
 		return FALSE
 
-	var/list/overflow_whitelist = CONFIG_GET(str_list/overflow_whitelist)
-
 	//Whitelisted people are immune to overflow rerouting.
 	if(CONFIG_GET(flag/usewhitelist_database) && SSdbcore.IsConnected())
 		var/datum/db_query/find_ticket = SSdbcore.NewQuery(
@@ -64,6 +62,6 @@
 			return FALSE
 		QDEL_NULL(find_ticket)
 		return TRUE
-	else if(overflow_whitelist.Find(lowertext(src.ckey)))
+	else if(GLOB.overflow_whitelist.Find(lowertext(src.ckey)))
 		return TRUE
 	return FALSE

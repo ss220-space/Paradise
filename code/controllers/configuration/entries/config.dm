@@ -446,9 +446,6 @@
 ///number of players before the server starts rerouting
 /datum/config_entry/number/player_reroute_cap
 
-///whitelist for overflow
-/datum/config_entry/str_list/overflow_whitelist
-
 /datum/config_entry/flag/disable_away_missions
 
 /datum/config_entry/flag/disable_space_ruins
