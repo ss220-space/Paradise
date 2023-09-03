@@ -107,7 +107,7 @@ GLOBAL_PROTECT(log_end)
 
 /proc/log_admin_private(text, mob/speaker)
 	if(CONFIG_GET(flag/log_adminchat))
-		WRITE_LOG(GLOB.world_game_log, "ADMINSAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+		WRITE_LOG(GLOB.world_game_log, "ADMINPRIVATE: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_qdel(text)
 	WRITE_LOG(GLOB.world_qdel_log, "QDEL: [text][GLOB.log_end]")
