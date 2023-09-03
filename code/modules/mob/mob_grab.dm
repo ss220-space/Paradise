@@ -18,6 +18,7 @@
 	var/allow_upgrade = 1
 	var/last_upgrade = 0
 	var/last_hit_zone = 0
+	var/strength = 1 //how hard is it to get out of this grip
 //	var/force_down //determines if the affecting mob will be pinned to the ground //disabled due to balance, kept for an example for any new things.
 	var/dancing //determines if assailant and affecting keep looking at each other. Basically a wrestling position
 
@@ -38,6 +39,10 @@
 	loc = user
 	assailant = user
 	affecting = victim
+
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		strength = H.dna.species.strength_modifier
 
 	if(affecting.anchored)
 		qdel(src)

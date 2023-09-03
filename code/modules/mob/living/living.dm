@@ -817,21 +817,31 @@
 		resisting++
 		switch(G.state)
 			if(GRAB_PASSIVE)
-				qdel(G)
+				if(prob(100 / get_grab_strength(G, src)))
+					qdel(G)
 
 			if(GRAB_AGGRESSIVE)
-				if(prob(60))
+				if(prob(60 / get_grab_strength(G, src)))
 					visible_message("<span class='danger'>[src] has broken free of [G.assailant]'s grip!</span>")
 					qdel(G)
 
 			if(GRAB_NECK)
-				if(prob(5))
+				if(prob(5 / get_grab_strength(G, src)))
 					visible_message("<span class='danger'>[src] has broken free of [G.assailant]'s headlock!</span>")
 					qdel(G)
 
 	if(resisting)
 		visible_message("<span class='danger'>[src] resists!</span>")
 		return 1
+
+/mob/living/proc/get_grab_strength(obj/item/grab/G, mob/living/M)
+	var/modifier = 0
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		modifier = G.strength / H.dna.species.strength_modifier
+	else
+		modifier = G.strength
+	return modifier
 
 /mob/living/proc/resist_buckle()
 	spawn(0)
