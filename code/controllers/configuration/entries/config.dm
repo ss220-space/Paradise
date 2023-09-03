@@ -400,7 +400,7 @@
 
 //Needs testing
 /datum/config_entry/keyed_list/event_delay_lower
-	default = list(EVENT_LEVEL_MUNDANE = 10, EVENT_LEVEL_MODERATE = 30, EVENT_LEVEL_MAJOR = 50) //minutes
+	default = list("ev_level_mundane" = 10, "ev_level_moderate" = 30, "ev_level_major" = 50) //minutes
 
 	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_NUM
@@ -413,7 +413,7 @@
 
 //Needs testing
 /datum/config_entry/keyed_list/event_delay_upper
-	default = list(EVENT_LEVEL_MUNDANE = 15, EVENT_LEVEL_MODERATE = 45, EVENT_LEVEL_MAJOR = 70) //minutes
+	default = list("ev_level_mundane" = 15, "ev_level_moderate" = 45, "ev_level_major" = 70) //minutes
 	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_NUM
 
