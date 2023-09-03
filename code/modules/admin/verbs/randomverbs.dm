@@ -284,14 +284,14 @@
 		return
 
 	var/action=""
-	if(CONFIG_GET(flag/antag_hud_allowed))
+	if(CONFIG_GET(flag/allow_antag_hud))
 		for(var/mob/dead/observer/g in get_ghosts())
 			if(g.antagHUD)
 				g.antagHUD = FALSE						// Disable it on those that have it enabled
 				g.has_enabled_antagHUD = FALSE				// We'll allow them to respawn
 				to_chat(g, "<span class='danger'>The Administrator has disabled AntagHUD </span>")
 
-		CONFIG_SET(flag/antag_hud_allowed, FALSE)
+		CONFIG_SET(flag/allow_antag_hud, FALSE)
 		to_chat(src, "<span class='danger'>AntagHUD usage has been disabled</span>")
 		action = "disabled"
 	else
@@ -299,7 +299,7 @@
 			if(!g.client.holder)						// Add the verb back for all non-admin ghosts
 				to_chat(g, "<span class='boldnotice'>The Administrator has enabled AntagHUD </span>")// Notify all observers they can now use AntagHUD
 
-		CONFIG_SET(flag/antag_hud_allowed, TRUE)
+		CONFIG_SET(flag/allow_antag_hud, TRUE)
 		action = "enabled"
 		to_chat(src, "<span class='boldnotice'>AntagHUD usage has been enabled</span>")
 

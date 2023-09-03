@@ -114,7 +114,7 @@
 /datum/config_entry/flag/vote_no_dead
 
 /// vote does not default to nochange/norestart (tbi)
-/datum/config_entry/flag/vote_no_default
+/datum/config_entry/flag/default_no_vote
 
 /// qdel's new players if they log before they spawn in
 /datum/config_entry/flag/del_new_on_log
@@ -183,7 +183,7 @@
 /datum/config_entry/str_list/resource_urls
 	default = null
 /// Ghosts can turn on Antagovision to see a HUD of who is the bad guys this round.
-/datum/config_entry/flag/antag_hud_allowed
+/datum/config_entry/flag/allow_antag_hud
 
 /// Ghosts that turn on Antagovision cannot rejoin the round.
 /datum/config_entry/flag/antag_hud_restricted
@@ -223,10 +223,10 @@
 	default = null
 
 ///enables assistant limiting
-/datum/config_entry/flag/assistantlimit
+/datum/config_entry/flag/assistant_limit
 
 ///how many assistants to security members
-/datum/config_entry/number/assistantratio
+/datum/config_entry/number/assistant_ratio
 	default = 2
 
 // The AFK subsystem will not be activated if any of the below config values are equal or less than 0
@@ -496,10 +496,6 @@
 	integer = FALSE
 	min_val = 0
 
-/datum/config_entry/number/cubemonkeycap
-	default = 20
-	min_val = 0
-
 /datum/config_entry/number/can_cult_convert
 	default = TRUE
 
@@ -583,3 +579,10 @@
 	splitter = " "
 
 /datum/config_entry/number/shadowling_max_age
+
+/datum/config_entry/flag/guest_ban
+
+/datum/config_entry/flag/guest_ban/ValidateAndSet(str_val)
+	. = ..()
+	if(.)
+		GLOB.guests_allowed = config_entry_value

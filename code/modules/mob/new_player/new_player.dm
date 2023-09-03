@@ -314,7 +314,7 @@
 	if(!job.can_novice_play(client))
 		return 0
 
-	if(CONFIG_GET(flag/assistantlimit))
+	if(CONFIG_GET(flag/assistant_limit))
 		if(job.title == "Civilian")
 			var/count = 0
 			var/datum/job/cadet = SSjobs.GetJob("Security Cadet")
@@ -322,7 +322,7 @@
 			var/datum/job/warden = SSjobs.GetJob("Warden")
 			var/datum/job/hos = SSjobs.GetJob("Head of Security")
 			count += (officer.current_positions + warden.current_positions + hos.current_positions + cadet.current_positions)
-			if(job.current_positions > (CONFIG_GET(number/assistantratio) * count))
+			if(job.current_positions > (CONFIG_GET(number/assistant_ratio) * count))
 				if(count >= 5) // if theres more than 5 security on the station just let assistants join regardless, they should be able to handle the tide
 					return 1
 				return 0

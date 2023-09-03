@@ -76,3 +76,7 @@
 		GLOB.max_ex_light_range = config_entry_value
 		GLOB.max_ex_flash_range = config_entry_value
 		GLOB.max_ex_flame_range = config_entry_value
+
+/datum/config_entry/number/cubemonkey_cap
+	default = 20
+	min_val = 0
