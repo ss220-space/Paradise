@@ -274,8 +274,6 @@
 				return
 
 			return key_path
-		if(KEY_MODE_NUM)
-			return text2num(key)
 
 
 /// Takes a given config value and validates it. If successful, returns the formatted key. If unsuccessful, returns null.

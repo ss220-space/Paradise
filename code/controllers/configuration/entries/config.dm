@@ -401,21 +401,45 @@
 	default = 2 HOURS
 
 //Needs testing
-/datum/config_entry/keyed_list/event_first_run
-	default = list(EVENT_LEVEL_MUNDANE = null, 	EVENT_LEVEL_MODERATE = null,	EVENT_LEVEL_MAJOR = list("lower" = 48000, "upper" = 60000))
-	key_mode = KEY_MODE_NUM
+/datum/config_entry/keyed_list/event_delay_lower
+	default = list(EVENT_LEVEL_MUNDANE = 6000,	EVENT_LEVEL_MODERATE = 18000, EVENT_LEVEL_MAJOR = 30000) //deciseconds
+
+	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_NUM
 
-//Needs testing
-/datum/config_entry/keyed_list/event_delay_lower
-	default = list(EVENT_LEVEL_MUNDANE = 6000,	EVENT_LEVEL_MODERATE = 18000, EVENT_LEVEL_MAJOR = 30000)
-	key_mode = KEY_MODE_NUM
-	value_mode = VALUE_MODE_NUM
+/datum/config_entry/keyed_list/event_delay_lower/ValidateAndSet(str_val)
+	. = ..()
+	if(.)	//Немного костыльно, но обеспечивает обновление с конвертацией в минуты.
+		for(var/i in config_entry_value)
+			GLOB.event_delay_lower[i] = config_entry_value[i] MINUTES
 
 //Needs testing
 /datum/config_entry/keyed_list/event_delay_upper
-	default = list(EVENT_LEVEL_MUNDANE = 9000,	EVENT_LEVEL_MODERATE = 27000,	EVENT_LEVEL_MAJOR = 42000)
-	key_mode = KEY_MODE_NUM
+	default = list(EVENT_LEVEL_MUNDANE = 9000,	EVENT_LEVEL_MODERATE = 27000, EVENT_LEVEL_MAJOR = 42000) //deciseconds
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+
+/datum/config_entry/keyed_list/event_delay_upper/ValidateAndSet(str_val)
+	. = ..()
+	if(.)	//Немного костыльно, но обеспечивает обновление с конвертацией в минуты.
+		for(var/i in config_entry_value)
+			GLOB.event_delay_upper[i] = config_entry_value[i] MINUTES
+
+//The delay until the first time an event of the given severity runs in minutes.
+//Unset setting use the EVENT_DELAY_LOWER and EVENT_DELAY_UPPER values instead.
+/datum/config_entry/keyed_list/event_custom_start_minor
+	default = list("lower" = 10, "upper" = 15) //minutes
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+
+/datum/config_entry/keyed_list/event_custom_start_moderate
+	default = list("lower" = 30, "upper" = 40) //minutes
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+
+/datum/config_entry/keyed_list/event_custom_start_major
+	default = list("lower" = 80, "upper" = 80) //minutes
+	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_NUM
 
 /// Whether space turfs have ambient light or not
@@ -424,7 +448,7 @@
 /datum/config_entry/flag/allow_holidays
 
 ///number of players before the server starts rerouting
-/datum/config_entry/number/player_overflow_cap
+/datum/config_entry/number/player_reroute_cap
 
 ///whitelist for overflow
 /datum/config_entry/str_list/overflow_whitelist

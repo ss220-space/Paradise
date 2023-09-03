@@ -14,6 +14,19 @@ GLOBAL_LIST_INIT(severity_to_string, list(
 	EVENT_LEVEL_MAJOR = "Major",
 	EVENT_LEVEL_NONE = "None",
 ))
+
+GLOBAL_LIST_INIT(event_delay_lower, list(  //redacted by /datum/config_entry/keyed_list/event_delay_lower
+	EVENT_LEVEL_MUNDANE = 10 MINUTES,
+	EVENT_LEVEL_MODERATE = 30 MINUTES,
+	EVENT_LEVEL_MAJOR = 50 MINUTES
+))
+
+GLOBAL_LIST_INIT(event_delay_upper, list( //redacted by /datum/config_entry/keyed_list/event_delay_upper
+	EVENT_LEVEL_MUNDANE = 10 MINUTES,
+	EVENT_LEVEL_MODERATE = 45 MINUTES,
+	EVENT_LEVEL_MAJOR = 70 MINUTES
+))
+
 GLOBAL_LIST_EMPTY(event_last_fired)
 
 /datum/event_container
@@ -89,10 +102,22 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	return picked_event
 
 /datum/event_container/proc/set_event_delay()
+
+	var/list/bounds = null
+	switch(severity)
+		if(EVENT_LEVEL_MUNDANE)
+			bounds = CONFIG_GET(keyed_list/event_custom_start_minor)
+		if(EVENT_LEVEL_MODERATE)
+			bounds = CONFIG_GET(keyed_list/event_custom_start_moderate)
+		if(EVENT_LEVEL_MAJOR)
+			bounds = CONFIG_GET(keyed_list/event_custom_start_major)
+		else
+			bounds = null //не должно происходить
+
 	// If the next event time has not yet been set and we have a custom first time start
-	if(next_event_time == 0 && CONFIG_GET(keyed_list/event_first_run)[severity])
-		var/lower = CONFIG_GET(keyed_list/event_first_run)[severity]["lower"]
-		var/upper = CONFIG_GET(keyed_list/event_first_run)[severity]["upper"]
+	if(next_event_time == 0 && bounds)
+		var/lower = bounds["lower"] MINUTES
+		var/upper = bounds["upper"] MINUTES
 		var/event_delay = rand(lower, upper)
 		next_event_time = world.time + event_delay
 	// Otherwise, follow the standard setup process
@@ -116,7 +141,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 
 		playercount_modifier = playercount_modifier * delay_modifier
 
-		var/event_delay = rand(CONFIG_GET(keyed_list/event_delay_lower)[severity], CONFIG_GET(keyed_list/event_delay_upper)[severity]) * playercount_modifier
+		var/event_delay = rand(GLOB.event_delay_lower[severity], GLOB.event_delay_upper[severity]) * playercount_modifier
 		next_event_time = world.time + event_delay
 
 	log_debug("Next event of severity [GLOB.severity_to_string[severity]] in [(next_event_time - world.time)/600] minutes.")
