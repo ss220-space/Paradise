@@ -398,7 +398,7 @@
 /datum/config_entry/number/expected_round_length
 	default = 2 HOURS
 
-//Needs testing
+//Made that way because compatibility reasons.
 /datum/config_entry/keyed_list/event_delay_lower
 	default = list("ev_level_mundane" = 10, "ev_level_moderate" = 30, "ev_level_major" = 50) //minutes
 
@@ -411,7 +411,7 @@
 		for(var/i in config_entry_value)
 			GLOB.event_delay_lower[GLOB.string_to_severity[i]] = config_entry_value[i] MINUTES
 
-//Needs testing
+//Made that way because compatibility reasons.
 /datum/config_entry/keyed_list/event_delay_upper
 	default = list("ev_level_mundane" = 15, "ev_level_moderate" = 45, "ev_level_major" = 70) //minutes
 	key_mode = KEY_MODE_TEXT

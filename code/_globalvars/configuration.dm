@@ -1,5 +1,3 @@
-//GLOBAL_REAL(config, /datum/configuration)
-//made strictly for work-in-progress compatibility
 GLOBAL_REAL(config, /datum/controller/configuration)
 
 GLOBAL_VAR(host)
