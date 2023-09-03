@@ -400,7 +400,7 @@
 
 //Needs testing
 /datum/config_entry/keyed_list/event_delay_lower
-	default = list(EVENT_LEVEL_MUNDANE = 6000,	EVENT_LEVEL_MODERATE = 18000, EVENT_LEVEL_MAJOR = 30000) //deciseconds
+	default = list(EVENT_LEVEL_MUNDANE = 10, EVENT_LEVEL_MODERATE = 30, EVENT_LEVEL_MAJOR = 50) //minutes
 
 	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_NUM
@@ -409,11 +409,11 @@
 	. = ..()
 	if(.)	//Немного костыльно, но обеспечивает обновление с конвертацией в минуты.
 		for(var/i in config_entry_value)
-			GLOB.event_delay_lower[i] = config_entry_value[i] MINUTES
+			GLOB.event_delay_lower[GLOB.string_to_severity[i]] = config_entry_value[i] MINUTES
 
 //Needs testing
 /datum/config_entry/keyed_list/event_delay_upper
-	default = list(EVENT_LEVEL_MUNDANE = 9000,	EVENT_LEVEL_MODERATE = 27000, EVENT_LEVEL_MAJOR = 42000) //deciseconds
+	default = list(EVENT_LEVEL_MUNDANE = 15, EVENT_LEVEL_MODERATE = 45, EVENT_LEVEL_MAJOR = 70) //minutes
 	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_NUM
 
@@ -421,7 +421,7 @@
 	. = ..()
 	if(.)	//Немного костыльно, но обеспечивает обновление с конвертацией в минуты.
 		for(var/i in config_entry_value)
-			GLOB.event_delay_upper[i] = config_entry_value[i] MINUTES
+			GLOB.event_delay_upper[GLOB.string_to_severity[i]] = config_entry_value[i] MINUTES
 
 //The delay until the first time an event of the given severity runs in minutes.
 //Unset setting use the EVENT_DELAY_LOWER and EVENT_DELAY_UPPER values instead.

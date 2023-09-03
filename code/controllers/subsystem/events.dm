@@ -39,7 +39,7 @@ SUBSYSTEM_DEF(events)
 	for(var/datum/event/E in active_events)
 		E.process()
 
-	for(var/i in event_containers) //since we have only defines as keys
+	for(var/i = EVENT_LEVEL_MUNDANE to EVENT_LEVEL_MAJOR) //since we have only defines as keys
 		var/datum/event_container/EC = event_containers[i]
 		EC.process()
 
@@ -135,7 +135,7 @@ SUBSYSTEM_DEF(events)
 
 		html += "<table[table_options]>"
 		html += "<tr[head_options]><td[row_options1]>Severity</td><td[row_options1]>Starts At</td><td[row_options1]>Starts In</td><td[row_options3]>Adjust Start</td><td[row_options1]>Pause</td><td[row_options1]>Interval Mod</td></tr>"
-		for(var/severity in event_containers)
+		for(var/severity = EVENT_LEVEL_MUNDANE to EVENT_LEVEL_MAJOR)
 			var/datum/event_container/EC = event_containers[severity]
 			var/next_event_at = max(0, EC.next_event_time - world.time)
 			html += "<tr>"
@@ -162,7 +162,7 @@ SUBSYSTEM_DEF(events)
 		html += "<h2>Next Event</h2>"
 		html += "<table[table_options]>"
 		html += "<tr[head_options]><td[row_options1]>Severity</td><td[row_options2]>Name</td><td[row_options3]>Event Rotation</td><td>Clear</td></tr>"
-		for(var/severity in event_containers)
+		for(var/severity = EVENT_LEVEL_MUNDANE to EVENT_LEVEL_MAJOR)
 			var/datum/event_container/EC = event_containers[severity]
 			var/datum/event_meta/EM = EC.next_event
 			html += "<tr>"
