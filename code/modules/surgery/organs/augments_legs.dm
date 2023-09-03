@@ -116,7 +116,7 @@
 
 /datum/action/bhop
 	name = "Activate Jump Boots"
-	desc = "Activates the jump boot's internal propulsion system, allowing the user to dash over 4-wide gaps."
+	desc = "Activates the jump boot's implant internal propulsion system, allowing the user to dash over 4-wide gaps."
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "jetboot"
 	var/jumpdistance = 5 //-1 from to see the actual distance, e.g 4 goes over 3 tiles
@@ -124,8 +124,11 @@
 	var/recharging_rate = 60 //default 6 seconds between each dash
 	var/recharging_time = 0 //time until next dash
 	var/datum/callback/last_jump = null
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_RESTRAINED|AB_CHECK_STUNNED //lying jumps is real
 
 /datum/action/bhop/Trigger()
+	if(!IsAvailable())
+		return
 	if(recharging_time > world.time)
 		to_chat(owner, "<span class='warning'>The boot's internal propulsion needs to recharge still!</span>")
 		return

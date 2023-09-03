@@ -1,6 +1,8 @@
 // Atoms
 #define isatom(A) (isloc(A))
 
+#define isdatum(thing) (istype(thing, /datum))
+
 // Mobs
 #define ismegafauna(A) istype(A, /mob/living/simple_animal/hostile/megafauna)
 
