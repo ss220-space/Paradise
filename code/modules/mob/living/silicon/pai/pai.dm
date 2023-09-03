@@ -33,7 +33,11 @@
 		"Crow" = "crow"
 		)
 
-	var/global/list/special_possible_chassis = list("Snake" = "snake")
+	var/global/list/special_possible_chassis = list(
+		"Snake" = "snake",
+		"Female" = "female",
+		"Red Female" = "redfemale"
+		)
 
 	var/global/list/possible_say_verbs = list(
 		"Robotic" = list("states","declares","queries"),
@@ -93,6 +97,11 @@
 
 	var/syndipai = FALSE
 
+	var/doorjack_factor = 1
+	var/syndi_emote = FALSE
+	var/female_chassis = FALSE
+	var/snake_chassis = FALSE
+
 /mob/living/silicon/pai/New(obj/item/paicard/paicard)
 	loc = paicard
 	card = paicard
@@ -138,17 +147,19 @@
 	reset_software()
 	..()
 
-/mob/living/silicon/pai/proc/reset_software()
+/mob/living/silicon/pai/proc/reset_software(var/extra_memory = 0)
 	QDEL_LIST(installed_software)
 
 	// Software modules. No these var names have nothing to do with photoshop
 	for(var/PS in subtypesof(/datum/pai_software))
 		var/datum/pai_software/PSD = new PS(src)
+		if(PSD.is_active(src))
+			PSD.toggle(src)
 		if(PSD.default)
 			installed_software[PSD.id] = PSD
 
 	active_software = installed_software["mainmenu"] // Default us to the main menu
-	ram = initial(ram)
+	ram = min(initial(ram) + extra_memory, 170)
 
 /mob/living/silicon/pai/can_unbuckle()
 	return FALSE
@@ -341,10 +352,14 @@
 				my_choices["Custom"] = "[ckey]-pai"
 
 	my_choices = base_possible_chassis.Copy()
-	if(syndipai)
-		my_choices += special_possible_chassis.Copy()
-	if(custom_sprite)
-		my_choices["Custom"] = "[ckey]-pai"
+	for(var/name in special_possible_chassis)
+		if(female_chassis && (name == "Female" || name == "Red Female"))
+			my_choices += special_possible_chassis.Copy(2)
+			my_choices += special_possible_chassis[3]
+		if(snake_chassis && (name == "Snake"))
+			my_choices += special_possible_chassis.Copy(1)
+		if(custom_sprite)
+			my_choices["Custom"] = "[ckey]-pai"
 
 	if(loc == card)		//don't let them continue in card form, since they won't be able to actually see their new mobile form sprite.
 		to_chat(src, "<span class='warning'>You must be in your mobile form to reconfigure your chassis.</span>")
@@ -446,7 +461,7 @@
 			to_chat(user, "<span class='notice'>All [name]'s systems are nominal.</span>")
 		return
 
-	else if(istype(W, /obj/item/paicard_upgrade))
+	else if(istype(W, /obj/item/paicard_upgrade) || istype(W, /obj/item/pai_cartridge))
 		to_chat(user, "<span class='warning'>[src] must be in card form.</span>")
 		return
 
