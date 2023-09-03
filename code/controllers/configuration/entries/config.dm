@@ -16,6 +16,7 @@
 /datum/config_entry/flag/twitch_censor
 
 /datum/config_entry/keyed_list/twitch_censor_list
+	default = null
 	splitter = "="
 
 /datum/config_entry/str_list/topic_filtering_whitelist
@@ -402,14 +403,20 @@
 //Needs testing
 /datum/config_entry/keyed_list/event_first_run
 	default = list(EVENT_LEVEL_MUNDANE = null, 	EVENT_LEVEL_MODERATE = null,	EVENT_LEVEL_MAJOR = list("lower" = 48000, "upper" = 60000))
+	key_mode = KEY_MODE_NUM
+	value_mode = VALUE_MODE_NUM
 
 //Needs testing
 /datum/config_entry/keyed_list/event_delay_lower
-	default = list(EVENT_LEVEL_MUNDANE = 6000,	EVENT_LEVEL_MODERATE = 18000,	EVENT_LEVEL_MAJOR = 30000)
+	default = list(EVENT_LEVEL_MUNDANE = 6000,	EVENT_LEVEL_MODERATE = 18000, EVENT_LEVEL_MAJOR = 30000)
+	key_mode = KEY_MODE_NUM
+	value_mode = VALUE_MODE_NUM
 
 //Needs testing
 /datum/config_entry/keyed_list/event_delay_upper
 	default = list(EVENT_LEVEL_MUNDANE = 9000,	EVENT_LEVEL_MODERATE = 27000,	EVENT_LEVEL_MAJOR = 42000)
+	key_mode = KEY_MODE_NUM
+	value_mode = VALUE_MODE_NUM
 
 /// Whether space turfs have ambient light or not
 /datum/config_entry/flag/starlight
