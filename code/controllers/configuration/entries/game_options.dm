@@ -64,3 +64,15 @@
 
 /datum/config_entry/flag/humans_need_surnames
 
+/datum/config_entry/number/bombcap
+	default = 14
+	min_val = 4
+
+/datum/config_entry/number/bombcap/ValidateAndSet(str_val)
+	. = ..()
+	if(.)
+		GLOB.max_ex_devastation_range = round(config_entry_value / 4)
+		GLOB.max_ex_heavy_range = round(config_entry_value / 2)
+		GLOB.max_ex_light_range = config_entry_value
+		GLOB.max_ex_flash_range = config_entry_value
+		GLOB.max_ex_flame_range = config_entry_value
