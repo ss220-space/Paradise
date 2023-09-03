@@ -9,16 +9,15 @@
 	if(!target.IsWeakened() && !target.resting && !target.stat)
 		target.apply_damage(10, BRUTE, BODY_ZONE_HEAD)
 		target.adjustBrainLoss(5)
-		target.Weaken(4 SECONDS)
+		target.Weaken(6 SECONDS)
 		target.visible_message("<span class='warning'>[user] бьет [target] ногой по голове, впечатывая лицо в пол!</span>",
 						"<span class='userdanger'>Вы получили удар ногой по голове от [user], вы теперь целуете пол!</span>")
 	else
 		target.apply_damage(5, BRUTE, BODY_ZONE_HEAD)
 		target.adjustBrainLoss(5)
-		target.apply_damage(20, STAMINA)
 		target.emote("scream")
 		target.visible_message("<span class='warning'>[user] пинает [target] по голове, оставляя корчиться в боли!</span>",
 							"<span class='userdanger'>Вы пропустили пинок по голове от [user], и вы корчитесь от боли!</span>")
-	target.apply_damage(40, STAMINA)
+	target.apply_damage(61, STAMINA) //fuck you unathi
 	add_attack_logs(user, target, "Melee attacked with martial-art [MA] : Keelhaul", ATKLOG_ALL)
 	return MARTIAL_COMBO_DONE
