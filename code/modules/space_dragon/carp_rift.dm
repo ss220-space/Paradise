@@ -185,7 +185,7 @@
 			dragon.rift_ability.Grant(dragon.owner.current)
 			dragon.riftTimer = 0
 			dragon.rift_empower()
-		for(var/obj/structure/carp_rift/rift as anything in dragon.rift_list)
+		for(var/obj/structure/carp_rift/rift in dragon.rift_list)
 			rift.carp_stored +=15
 		// Early return, nothing to do after this point.
 		return
