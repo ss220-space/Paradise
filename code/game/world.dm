@@ -212,11 +212,6 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 /proc/load_configuration()
 	config = new /datum/controller/configuration()
 	config.Load()
-	//config.load("config/config.txt")
-	//config.load("config/game_options.txt","game_options")
-	//config.loadsql("config/dbconfig.txt")
-	//config.loadoverflowwhitelist("config/ofwhitelist.txt")
-	//config.load("config/twitch_censor.txt", "twitch_censor")
 	// apply some settings from config..
 
 /world/proc/update_status()
