@@ -1326,6 +1326,16 @@
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
+/datum/design/borg_magboots
+	name = "Cyborg Common Upgrade (F-Magnet)"
+	id = "borg_update_magboots"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/magboots
+	req_tech = list("engineering" = 5, "materials" = 5, "powerstorage" = 5)
+	materials = list(MAT_METAL=5000, MAT_SILVER=3000, MAT_GOLD=4000)
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+
 /datum/design/borg_upgrade_thrusters
 	name = "Cyborg Common Upgrade (Ion Thrusters)"
 	id = "borg_upgrade_thrusters"
