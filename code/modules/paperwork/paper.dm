@@ -86,8 +86,8 @@
 	else
 		data = "[header]<div id='markdown'>[infolinks ? info_links : info]</div>[footer][stamps]"
 	if(CONFIG_GET(flag/twitch_censor))
-		for(var/char in CONFIG_GET(keyed_list/twitch_censor_list))
-			data = replacetext(data, char, CONFIG_GET(keyed_list/twitch_censor_list)[char])
+		for(var/char in GLOB.twitch_censor_list)
+			data = replacetext(data, char, GLOB.twitch_censor_list[char])
 	if(view)
 		if(!istype(src, /obj/item/paper/form) && length(info) > 1024)
 			paper_width = paper_width_big

@@ -39,10 +39,10 @@
 	return t
 
 /proc/sanitize_censored_patterns(var/t)
-	if(!global.config || !CONFIG_GET(flag/twitch_censor) || !CONFIG_GET(keyed_list/twitch_censor_list))
+	if(!global.config || !CONFIG_GET(flag/twitch_censor) || !GLOB.twitch_censor_list)
 		return t
 
-	var/text = sanitize_simple(t, CONFIG_GET(keyed_list/twitch_censor_list))
+	var/text = sanitize_simple(t, GLOB.twitch_censor_list)
 	if(t != text)
 		message_admins("CENSOR DETECTION: [ADMIN_FULLMONTY(usr)] inputs: \"[html_encode(t)]\"")
 		log_adminwarn("CENSOR DETECTION: [key_name_log(usr)] inputs: \"[t]\"")

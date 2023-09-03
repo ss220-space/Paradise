@@ -15,10 +15,6 @@
 
 /datum/config_entry/flag/twitch_censor
 
-/datum/config_entry/keyed_list/twitch_censor_list
-	default = null
-	splitter = "="
-
 /datum/config_entry/str_list/topic_filtering_whitelist
 
 /// log messages sent in OOC

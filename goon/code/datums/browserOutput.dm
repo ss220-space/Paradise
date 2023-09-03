@@ -323,8 +323,8 @@ var/to_chat_src
 			message = replacetext(message, "\proper", "")
 
 		if(CONFIG_GET(flag/twitch_censor))
-			for(var/char in CONFIG_GET(keyed_list/twitch_censor_list))
-				message = replacetext(message, char, CONFIG_GET(keyed_list/twitch_censor_list)[char])
+			for(var/char in GLOB.twitch_censor_list)
+				message = replacetext(message, char, GLOB.twitch_censor_list[char])
 
 		var/client/C
 		if(istype(target, /client))

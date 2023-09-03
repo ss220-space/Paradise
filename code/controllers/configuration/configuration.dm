@@ -1,3 +1,5 @@
+GLOBAL_LIST(twitch_censor_list)
+
 /datum/controller/configuration
 	name = "Configuration"
 
@@ -54,6 +56,8 @@
 
 	if(CONFIG_GET(flag/usewhitelist))
 		load_whitelist()
+
+	load_twitch_censor_list()
 
 	loaded = TRUE
 
@@ -263,6 +267,36 @@
 			runnable_modes[M] = CONFIG_GET(keyed_list/probability)[M.config_tag]
 //			to_chat(world, "DEBUG: runnable_mode\[[runnable_modes.len]\] = [M.config_tag]")
 	return runnable_modes
+
+/datum/controller/configuration/proc/load_twitch_censor_list()
+	var/list/twitch_censor_list = list()
+	if(fexists("[directory]/twitch_censor.txt"))
+		var/list/lines = file2list("[directory]/twitch_censor.txt")
+		for(var/L in lines)
+			L = trim(L)
+			if(!L)
+				continue
+
+			var/firstchar = L[1]
+			if(firstchar == "#")
+				continue
+			var/pos = findtext(L, "=")
+			var/entry = null
+			var/value = null
+			if(pos)
+				entry = copytext(L, 1, pos)
+				value = copytext(L, pos + length(L[pos]))
+			else
+				continue
+
+			if(!entry)
+				continue
+
+			twitch_censor_list[entry] = value
+
+		GLOB.twitch_censor_list = twitch_censor_list
+		return TRUE
+	return FALSE
 
 ///datum/controller/configuration/proc/LoadMOTD()
 //	var/list/motd_contents = list()

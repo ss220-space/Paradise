@@ -209,8 +209,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	GLOB.join_motd = file2text("config/motd.txt")
 	GLOB.join_tos = file2text("config/tos.txt")
 
-/proc/load_configuration() //entry point for config load, i guessssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-	//config = new /datum/configuration()
+/proc/load_configuration()
 	config = new /datum/controller/configuration()
 	config.Load()
 	//config.load("config/config.txt")
