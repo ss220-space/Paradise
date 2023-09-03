@@ -39,7 +39,7 @@ SUBSYSTEM_DEF(events)
 	for(var/datum/event/E in active_events)
 		E.process()
 
-	for(var/i = EVENT_LEVEL_MUNDANE to EVENT_LEVEL_MAJOR) //since we have only defines as keys
+	for(var/i = EVENT_LEVEL_MUNDANE to EVENT_LEVEL_MAJOR)
 		var/datum/event_container/EC = event_containers[i]
 		EC.process()
 
