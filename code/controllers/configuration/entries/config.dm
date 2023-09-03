@@ -254,8 +254,10 @@
 /datum/config_entry/flag/usealienwhitelist
 
 /datum/config_entry/number/alien_player_ratio
+	integer = FALSE
 
 /datum/config_entry/number/alien_to_human_ratio
+	integer = FALSE
 
 /datum/config_entry/string/server
 	default = null
