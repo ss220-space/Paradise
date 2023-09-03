@@ -416,6 +416,15 @@
 	new /obj/item/ammo_box/magazine/m45(src)
 	update_icon()
 
+/obj/item/storage/belt/military/assault/marines/cats/full/populate_contents()
+	new /obj/item/ammo_box/magazine/cats12g(src)
+	new /obj/item/ammo_box/magazine/cats12g(src)
+	new /obj/item/ammo_box/magazine/cats12g(src)
+	new /obj/item/ammo_box/magazine/cats12g/beanbang(src)
+	new /obj/item/ammo_box/magazine/cats12g/beanbang(src)
+	new /obj/item/ammo_box/magazine/cats12g/large(src)
+	update_icon()
+
 /obj/item/storage/belt/military/assault/marines/elite/full/populate_contents()
 	new /obj/item/ammo_box/magazine/m556(src)
 	new /obj/item/ammo_box/magazine/m556(src)
