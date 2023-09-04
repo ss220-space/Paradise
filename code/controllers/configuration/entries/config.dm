@@ -605,3 +605,13 @@
 	. = ..()
 	if(.)
 		GLOB.guests_allowed = config_entry_value
+
+///CPU Affinity for FFmpeg. Check out taskset man page.
+/datum/config_entry/string/ffmpeg_cpuaffinity
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
+
+//Example valid values: "0-3" or "1,4-7"
+/datum/config_entry/string/ffmpeg_cpuaffinity/ValidateAndSet(str_val)
+	. = ..()
+	if(.)
+		GLOB.ffmpeg_cpuaffinity = config_entry_value
