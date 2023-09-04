@@ -352,12 +352,11 @@
 				my_choices["Custom"] = "[ckey]-pai"
 
 	my_choices = base_possible_chassis.Copy()
-	for(var/name in special_possible_chassis)
-		if(female_chassis && (name == "Female" || name == "Red Female"))
-			my_choices += special_possible_chassis.Copy(2)
-			my_choices += special_possible_chassis[3]
-		if(snake_chassis && (name == "Snake"))
-			my_choices += special_possible_chassis.Copy(1)
+	for(var/i = 1, i<=special_possible_chassis.len, i++)
+		if(female_chassis && (special_possible_chassis[i] == "Female" || special_possible_chassis[i] == "Red Female"))
+			my_choices += special_possible_chassis.Copy(i, i+1)
+		if((syndipai || snake_chassis) && special_possible_chassis[i] == "Snake")
+			my_choices += special_possible_chassis.Copy(i, i+1)
 		if(custom_sprite)
 			my_choices["Custom"] = "[ckey]-pai"
 
