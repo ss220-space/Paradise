@@ -322,6 +322,20 @@
 	if(dna.species.can_be_pale && blood_volume < BLOOD_VOLUME_PALE && ((get_covered_bodyparts() & FULL_BODY) != FULL_BODY))
 		msg += "[p_they(TRUE)] [p_have()] pale skin.\n"
 
+	var/protection = 0
+	var/obj/item/clothing/C = head
+	if(istype(C))
+		protection = max(protection, C.flash_protect)
+	C = glasses
+	if(istype(C))
+		protection = max(protection, C.flash_protect)
+	C = wear_mask
+	if(istype(C))
+		protection = max(protection, C.flash_protect)
+
+	if(mind?.has_disability_datum(/datum/disability/hemophage) && protection < 1)
+		msg += "<i>[p_their(TRUE)] eyes are abnormally bloodshot!</i>\n"
+
 	if(bleedsuppress)
 		msg += "[p_they(TRUE)] [p_are()] bandaged with something.\n"
 	else if(bleed_rate)

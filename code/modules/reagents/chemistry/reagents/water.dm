@@ -351,16 +351,19 @@
 
 	if(ishuman(M) && (vamp && !vamp.get_ability(/datum/vampire_passive/full) || hemo) && prob(80))
 		var/mob/living/carbon/V = M
-		var/bloodusable = vamp? vamp.bloodusable: hemo.bloodusable
-		var/bloodtotal = vamp? vamp.bloodtotal: hemo.bloodtotal
+		var/bloodusable = vamp ? vamp.bloodusable : hemo.bloodusable
+		var/bloodtotal = vamp ? vamp.bloodtotal : hemo.bloodtotal
 		if(bloodusable)
 			M.Stuttering(2 SECONDS)
 			M.Jitter(60 SECONDS)
 			update_flags |= M.adjustStaminaLoss(5, FALSE)
 			if(prob(20))
 				M.emote("scream")
-			vamp.adjust_nullification(20, 4)
-			vamp? vamp.bloodusable = max(vamp.bloodusable - 3,0) : hemo.bloodusable = max(hemo.bloodusable - 3,0)
+			vamp?.adjust_nullification(20, 4)
+			if(vamp)
+				vamp.bloodusable = max(vamp.bloodusable - 3,0)
+			else
+				hemo.bloodusable = max(hemo.bloodusable - 3,0)
 			if(bloodusable)
 				V.vomit(0, TRUE, FALSE)
 				V.adjustBruteLoss(3)
@@ -374,7 +377,7 @@
 			switch(current_cycle)
 				if(1 to 4)
 					to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
-					vamp.adjust_nullification(20, 4)
+					vamp?.adjust_nullification(20, 4)
 				if(5 to 12)
 					to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
 					update_flags |= M.adjustFireLoss(1, FALSE)
@@ -382,7 +385,7 @@
 					M.Jitter(40 SECONDS)
 					if(prob(20))
 						M.emote("scream")
-					vamp.adjust_nullification(20, 4)
+					vamp?.adjust_nullification(20, 4)
 				if(13 to INFINITY)
 					M.visible_message("<span class='danger'>[M] suddenly bursts into flames!</span>",
 									"<span class='danger'>You suddenly ignite in a holy fire!</span>")
@@ -393,7 +396,7 @@
 					M.Jitter(60 SECONDS)
 					if(prob(40))
 						M.emote("scream")
-					vamp.adjust_nullification(20, 4)
+					vamp?.adjust_nullification(20, 4)
 
 	var/datum/antagonist/goon_vampire/g_vamp = M.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
 	if(ishuman(M) && g_vamp && !g_vamp.get_ability(/datum/goon_vampire_passive/full) && prob(80))

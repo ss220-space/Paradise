@@ -187,7 +187,7 @@
 		var/datum/disability/hemophage/hemophage_target = target.mind?.has_disability_datum(/datum/disability/hemophage)
 		if(hemophage_target)
 			hemophage_target.bloodusable = max(0, hemophage_target.bloodusable - 10)
-			target.adjust_nutrition(-10)
+			target.adjust_nutrition(-20)
 
 		//Blood level warnings (Code 'borrowed' from Fulp)
 		if(target.blood_volume)
