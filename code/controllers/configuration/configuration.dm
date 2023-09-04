@@ -190,7 +190,7 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 
 		var/datum/config_entry/E = _entries[entry]
 		if(!E)
-			log_config("Unknown setting in configuration: '[entry]'")
+			log_config_error("Unknown setting in configuration: '[entry]'")
 			continue
 
 		if(lockthis)
