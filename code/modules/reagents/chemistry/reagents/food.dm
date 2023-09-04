@@ -12,7 +12,7 @@
 	var/diet_flags = DIET_OMNI | DIET_HERB | DIET_CARN
 
 /datum/reagent/consumable/on_mob_life(mob/living/M)
-	if(!isvampire(M))
+	if(!isvampire(M) && !ishemophage(M))
 		M.adjust_nutrition(nutriment_factor)	// For hunger and fatness
 	return ..()
 
@@ -28,7 +28,7 @@
 
 /datum/reagent/consumable/nutriment/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(!isvampire(M))
+	if(!isvampire(M) && !ishemophage(M))
 		update_flags |= M.adjustBruteLoss(-brute_heal, FALSE)
 		update_flags |= M.adjustFireLoss(-burn_heal, FALSE)
 	return ..() | update_flags

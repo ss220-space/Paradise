@@ -57,6 +57,7 @@
 
 	var/miming = 0 // Mime's vow of silence
 	var/list/antag_datums
+	var/list/disability_datums
 
 	var/datum/ninja/ninja				//ninja holder
 
@@ -2876,6 +2877,26 @@
 		return current
 	else
 		return get_ghost(even_if_they_cant_reenter = TRUE)
+
+/datum/mind/proc/has_disability_datum(datum_type)
+	for(var/datum/disability/dsb as anything in disability_datums)
+		if(dsb.type == datum_type)
+			return dsb
+
+/datum/mind/proc/add_disability_datum(datum_type, var/mob/current_mob)
+	if(!datum_type)
+		return
+	var/datum/disability/dsb
+	dsb = new datum_type()
+	dsb.owner = src
+	LAZYADD(disability_datums, dsb)
+	dsb.on_gain(current_mob)
+	return dsb
+
+/datum/mind/proc/remove_disability_datum(datum_type)
+	var/datum/disability/dsb = has_disability_datum(datum_type)
+	if(dsb)
+		qdel(dsb)
 
 //Initialisation procs
 /mob/proc/mind_initialize()

@@ -37,6 +37,10 @@
 	name = get_visible_name()
 	pulse = handle_pulse(times_fired)
 
+	var/datum/disability/hemophage/hemophage = mind?.has_disability_datum(/datum/disability/hemophage)
+	if(hemophage)
+		hemophage.handle_hemophage()
+
 	var/datum/antagonist/vampire/vamp = mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(vamp)
 		vamp.handle_vampire()

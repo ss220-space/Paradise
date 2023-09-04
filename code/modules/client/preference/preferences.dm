@@ -1054,6 +1054,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_TEA_ADDICT, "Tea addict")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_COFFEE_ADDICT, "Coffee addict")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_ALCOHOLE_ADDICT, "Alcohole addict")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_HEMOPHAGE, "Hemophage")
 
 
 	HTML += {"</ul>
@@ -2631,6 +2632,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	character.change_eye_color(e_colour)
 	character.original_eye_color = e_colour
+
+	if(disabilities & DISABILITY_FLAG_HEMOPHAGE)
+		if(!parent?.mob?.mind?.has_disability_datum(/datum/disability/hemophage))
+			parent?.mob?.mind?.add_disability_datum(/datum/disability/hemophage, character)
 
 	if(disabilities & DISABILITY_FLAG_COFFEE_ADDICT)
 		var/datum/reagent/new_reagent = new /datum/reagent/consumable/drink/coffee()

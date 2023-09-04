@@ -347,17 +347,21 @@
 						H.drop_item_ground(I)
 
 	var/datum/antagonist/vampire/vamp = M.mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(ishuman(M) && vamp && !vamp.get_ability(/datum/vampire_passive/full) && prob(80))
+	var/datum/disability/hemophage/hemo = M.mind?.has_disability_datum(/datum/disability/hemophage)
+
+	if(ishuman(M) && (vamp && !vamp.get_ability(/datum/vampire_passive/full) || hemo) && prob(80))
 		var/mob/living/carbon/V = M
-		if(vamp.bloodusable)
+		var/bloodusable = vamp? vamp.bloodusable: hemo.bloodusable
+		var/bloodtotal = vamp? vamp.bloodtotal: hemo.bloodtotal
+		if(bloodusable)
 			M.Stuttering(2 SECONDS)
 			M.Jitter(60 SECONDS)
 			update_flags |= M.adjustStaminaLoss(5, FALSE)
 			if(prob(20))
 				M.emote("scream")
 			vamp.adjust_nullification(20, 4)
-			vamp.bloodusable = max(vamp.bloodusable - 3,0)
-			if(vamp.bloodusable)
+			vamp? vamp.bloodusable = max(vamp.bloodusable - 3,0) : hemo.bloodusable = max(hemo.bloodusable - 3,0)
+			if(bloodusable)
 				V.vomit(0, TRUE, FALSE)
 				V.adjustBruteLoss(3)
 			else
@@ -365,7 +369,7 @@
 				V.vomit(0, FALSE, FALSE)
 				return
 		else
-			if(!vamp.bloodtotal)
+			if(!bloodtotal)
 				return ..() | update_flags
 			switch(current_cycle)
 				if(1 to 4)

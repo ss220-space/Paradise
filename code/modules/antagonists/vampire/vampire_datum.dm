@@ -184,6 +184,10 @@
 				to_chat(owner.current, span_boldnotice("You have accumulated [bloodtotal] unit\s of blood, and have [bloodusable] left to use."))
 
 		target.blood_volume = max(target.blood_volume - 25, 0)
+		var/datum/disability/hemophage/hemophage_target = target.mind?.has_disability_datum(/datum/disability/hemophage)
+		if(hemophage_target)
+			hemophage_target.bloodusable = max(0, hemophage_target.bloodusable - 10)
+			target.adjust_nutrition(-10)
 
 		//Blood level warnings (Code 'borrowed' from Fulp)
 		if(target.blood_volume)

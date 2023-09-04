@@ -110,7 +110,7 @@
 				return
 		playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
 		to_chat(user, "<span class='notice'>You take a [huffable ? "huff" : "bite"] of the [name]. Delicious!</span>")
-		if(!isvampire(user))
+		if(!isvampire(user) && !ishemophage(user))
 			user.adjust_nutrition(5)
 		if(uses)
 			uses -= 5

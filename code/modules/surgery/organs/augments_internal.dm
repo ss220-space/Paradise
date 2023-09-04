@@ -291,7 +291,7 @@
 		return
 	if(ismachineperson(owner))
 		return
-	if(isvampire(owner))
+	if(isvampire(owner) || ishemophage(owner))
 		return
 	if(owner.nutrition <= hunger_threshold)
 		synthesizing = TRUE

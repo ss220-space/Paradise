@@ -445,6 +445,27 @@
 		to_chat(user, "<span class='warning'>[pluralize_ru(user.gender,"Ты не хочешь","Вы не хотите")] навредить [target.declent_ru(DATIVE)]!</span>")
 		return FALSE
 
+	//Hemophage code
+	// x3 repeat xd
+	var/datum/disability/hemophage/hemophage = user?.mind?.has_disability_datum(/datum/disability/hemophage)
+	if(hemophage && !hemophage.draining && user.zone_selected == "head" && target != user)
+		if((NO_BLOOD in target.dna.species.species_traits) || target.dna.species.exotic_blood || !target.blood_volume)
+			to_chat(user, "<span class='warning'>They have no blood!</span>")
+			return
+		if(target.mind && (target.mind.has_antag_datum(/datum/antagonist/vampire) || \
+						   target.mind.has_antag_datum(/datum/antagonist/mindslave/thrall) || \
+						   //hemophages can't draining other hemophages, but normal vampires can
+						   target.mind.has_disability_datum(/datum/disability/hemophage)))
+			to_chat(user, "<span class='warning'>Your fangs fail to pierce [target.name]'s cold flesh</span>")
+			return
+		if(SKELETON in target.mutations)
+			to_chat(user, "<span class='warning'>There is no blood in a skeleton!</span>")
+			return
+		hemophage.handle_bloodsucking(target)
+		add_attack_logs(user, target, "vampirebit")
+		return
+
+
 	//Vampire code
 	var/datum/antagonist/vampire/vamp = user?.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(vamp && !vamp.draining && user.zone_selected == "head" && target != user)

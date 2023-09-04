@@ -406,7 +406,7 @@
 		user.visible_message("<span class='danger'>[user.name] поглоща[pluralize_ru(user.gender,"ет","ют")] [affecting.name]!</span>")
 		if(affecting.mind)
 			add_attack_logs(attacker, affecting, "Devoured")
-		if(isvampire(user))
+		if(isvampire(user) || ishemophage(user))
 			user.adjust_nutrition(affecting.blood_nutrients)
 		else
 			user.adjust_nutrition(10 * affecting.health)
