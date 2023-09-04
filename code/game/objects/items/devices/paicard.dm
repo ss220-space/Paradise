@@ -26,6 +26,7 @@
 	faction = list("syndicate")
 	is_syndicate_type = TRUE
 	extra_memory = 50
+	upgrade = new()
 
 /obj/item/paicard/New()
 	..()
