@@ -618,3 +618,35 @@
 		if(config_entry_value != sanitized)
 			log_config("Wrong value for setting in configuration: '[name]'. Check out taskset man page.")
 		GLOB.ffmpeg_cpuaffinity = config_entry_value
+
+/datum/config_entry/string/python_path
+	default = null
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
+
+/datum/config_entry/string/python_path/ValidateAndSet(str_val)
+	. = ..()
+	if(.)
+		if(config_entry_value)
+			GLOB.python_path = config_entry_value
+		else
+			if(world.system_type == UNIX)
+				GLOB.python_path = "/usr/bin/env python2"
+			else //probably windows, if not this should work anyway
+				GLOB.python_path = "pythonw"
+
+/datum/config_entry/string/shutdown_shell_command
+	default = null
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
+
+/datum/config_entry/string/shutdown_shell_command/ValidateAndSet(str_val)
+	. = ..()
+	if(.)
+		GLOB.shutdown_shell_command = config_entry_value
+
+/datum/config_entry/flag/disable_respawn
+
+/datum/config_entry/flag/disable_respawn/ValidateAndSet(str_val)
+	. = ..()
+	if(.)
+		GLOB.abandon_allowed = config_entry_value
+
