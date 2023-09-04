@@ -614,4 +614,7 @@
 /datum/config_entry/string/ffmpeg_cpuaffinity/ValidateAndSet(str_val)
 	. = ..()
 	if(.)
+		var/sanitized = regex(@"[^0-9,-]", "g").Replace(config_entry_value, "")
+		if(config_entry_value != sanitized)
+			log_config("Wrong value for setting in configuration: '[name]'. Check out taskset man page.")
 		GLOB.ffmpeg_cpuaffinity = config_entry_value
