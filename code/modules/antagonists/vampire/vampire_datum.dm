@@ -71,6 +71,9 @@
 
 /datum/antagonist/vampire/apply_innate_effects(mob/living/mob_override)
 	mob_override = ..()
+	var/datum/disability/hemophage/H = mob_override.mind.has_disability_datum(/datum/disability/hemophage)
+	if(H)
+		H.Destroy()
 	if(!owner.som) //thralls and mindslaves
 		owner.som = new()
 		owner.som.masters += owner
@@ -91,6 +94,9 @@
 	mob_override.dna.species.hunger_icon = initial(mob_override.dna.species.hunger_icon)
 	animate(mob_override, alpha = 255)
 	REMOVE_TRAITS_IN(mob_override, VAMPIRE_TRAIT)
+
+	if(mob_override.client.prefs.disabilities & DISABILITY_FLAG_HEMOPHAGE)
+		mob_override.mind.add_disability_datum(/datum/disability/hemophage, mob_override)
 
 
 /**

@@ -5,6 +5,7 @@
 	var/datum/mind/owner
 
 /datum/disability/Destroy(force, ...)
+	remove_disability()
 	if(owner)
 		LAZYREMOVE(owner.disability_datums, src)
 	owner = null
@@ -17,4 +18,7 @@
 	return TRUE
 
 /datum/disability/proc/apply_disability(var/mob/current_mob)
+	return
+
+/datum/disability/proc/remove_disability()
 	return

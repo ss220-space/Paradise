@@ -93,6 +93,17 @@
 	current_mob.dna.species.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
 	return
 
+/datum/disability/hemophage/remove_disability()
+	var/mob/living/M = owner?.current
+	if(!M)
+		return
+	var/datum/hud/hud = M.hud_used
+	if(hud?.vampire_blood_display)
+		hud.remove_vampire_hud()
+	M.dna?.species.hunger_type = initial(owner.current.dna.species.hunger_type)
+	M.dna?.species.hunger_icon = initial(owner.current.dna.species.hunger_icon)
+	return
+
 /datum/disability/hemophage/proc/check_sun()
 	var/ax = owner.current.x
 	var/ay = owner.current.y

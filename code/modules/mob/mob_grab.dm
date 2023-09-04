@@ -424,7 +424,8 @@
 	var/mob/living/carbon/human/H = attacker
 	var/datum/antagonist/vampire/vamp = H.mind?.has_antag_datum(/datum/antagonist/vampire)
 	var/datum/antagonist/goon_vampire/g_vamp = H.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-	if(ishuman(H) && (vamp || g_vamp) && istype(prey, /mob/living/simple_animal/mouse)) //vampires can eat mice despite race
+	var/datum/disability/hemophage/hemo = H.mind?.has_disability_datum(/datum/disability/hemophage)
+	if(ishuman(H) && (vamp || g_vamp || hemo) && istype(prey, /mob/living/simple_animal/mouse)) //vampires can eat mice despite race
 		return 1
 	if(ishuman(H) && is_type_in_list(prey,  H.dna.species.allowed_consumed_mobs)) //species eating of other mobs
 		return 1
