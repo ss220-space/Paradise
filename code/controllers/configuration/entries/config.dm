@@ -1,8 +1,11 @@
 /datum/config_entry/string/servername
+	default = null
 
 /datum/config_entry/string/server_tag_line
+	default = null
 
 /datum/config_entry/string/server_extra_features
+	default = null
 
 /datum/config_entry/number/server_suffix
 
