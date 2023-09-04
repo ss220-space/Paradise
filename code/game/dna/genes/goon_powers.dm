@@ -304,6 +304,10 @@
 			limb.droplimb(0, DROPLIMB_SHARP)
 			doHeal(user)
 	else
+		if(the_item.flags & ABSTRACT)
+			to_chat(usr, "Вы не можете съесть это!")
+			revert_cast()
+			return FALSE
 		user.visible_message("<span class='danger'>[user] eats \the [the_item].</span>")
 		playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 		qdel(the_item)
