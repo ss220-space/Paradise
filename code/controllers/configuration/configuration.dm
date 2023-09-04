@@ -47,10 +47,10 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 		CRASH("/datum/controller/configuration/Load() called more than once!")
 	configuration_errors ||= list()
 	InitEntries()
-	var/list/configs = list("game_options.txt", "dbconfig.txt", "config.txt", "twitch_censor.txt")
+	//Note: `$include`s are supported. Feel free to use them.
+	var/list/configs = list("game_options.txt", "dbconfig.txt", "config.txt")
 	for(var/I in configs)
 		if(fexists("[directory]/[I]"))
-			//log_config("No $include directives found in config.txt! Loading legacy [legacy_configs.Join("/")] files...")
 			for(var/J in configs)
 				LoadEntries(J)
 			break
