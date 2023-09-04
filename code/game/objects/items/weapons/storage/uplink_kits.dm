@@ -174,7 +174,7 @@
 	can_hold = list(/obj/item/clothing/suit/space/hardsuit/contractor/agent, /obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate)
 	max_w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/storage/box/syndie_kit/chamaleon_hardsuit/populate_contents()
+/obj/item/storage/box/syndie_kit/chameleon_hardsuit/populate_contents()
 	new /obj/item/clothing/suit/space/hardsuit/contractor/agent(src)
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)

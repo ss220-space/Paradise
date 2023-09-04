@@ -1723,11 +1723,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 6
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/suits/hardsuit/chameleon_hardsuit
+/datum/uplink_item/suits/chameleon_hardsuit
 	name = "Chameleon Hardsuit"
 	desc = "A top-tier Hardsuit developed with cooperation of Cybersun Industries and the Gorlex Marauders, a favorite of Syndicate Contractors. \
 	In addition, it has an in-built chameleon system, allowing you to disguise your hardsuit to the most common variations on your mission area. \
 	This one disquised as engineering hardsuit."
+	reference = "CHS"
 	cost = 10 //reskinned blood-red hardsuit with chameleon
 	item = /obj/item/storage/box/syndie_kit/chameleon_hardsuit
 
@@ -1742,7 +1743,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/suits/hardsuit/shielded
 	name = "Shielded Hardsuit"
-	desc = "An advanced hardsuit with built in energy shielding. The shields will rapidly recharge when not under fire."
+	desc = "An advanced hardsuit with built-in energy shielding. The shields will rapidly recharge when not under fire."
 	item = /obj/item/clothing/suit/space/hardsuit/syndi/shielded
 	cost = 30
 	reference = "SHS"
