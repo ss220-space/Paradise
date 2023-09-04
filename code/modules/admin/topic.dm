@@ -178,7 +178,7 @@
 				break
 
 		if(banround)
-			banreason = "Round [GLOB.round_id || "NULL"] [CONFIG_GET(string/server_name)]: " + banreason
+			banreason = "Round [GLOB.round_id || "NULL"] [CONFIG_GET(string/servername)]: " + banreason
 		banreason = "(MANUAL BAN) "+banreason
 
 		if(!playermob)

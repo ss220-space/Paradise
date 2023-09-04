@@ -53,9 +53,9 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	if(byond_version < MIN_COMPILER_VERSION || byond_build < MIN_COMPILER_BUILD)
 		log_world("Your server's byond version does not meet the recommended requirements for this code. Please update BYOND")
 
-	if(config && CONFIG_GET(string/server_name) != null && CONFIG_GET(number/server_suffix) && world.port > 0)
+	if(config && CONFIG_GET(string/servername) != null && CONFIG_GET(number/server_suffix) && world.port > 0)
 		// dumb and hardcoded but I don't care~
-		CONFIG_SET(string/server_name, CONFIG_GET(string/server_name) + " #[(world.port % 1000) / 100]")
+		CONFIG_SET(string/servername, CONFIG_GET(string/servername) + " #[(world.port % 1000) / 100]")
 
 	GLOB.timezoneOffset = text2num(time2text(0, "hh")) * 36000
 
@@ -223,8 +223,8 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 /world/proc/get_status_text()
 	var/s = ""
 
-	if(config && CONFIG_GET(string/server_name))
-		s += "<b>[CONFIG_GET(string/server_name)]</b> &#8212; "
+	if(config && CONFIG_GET(string/servername))
+		s += "<b>[CONFIG_GET(string/servername)]</b> &#8212; "
 	s += "<b>[station_name()]</b> "
 	if(config && CONFIG_GET(string/githuburl))
 		s+= "([GLOB.game_version])"

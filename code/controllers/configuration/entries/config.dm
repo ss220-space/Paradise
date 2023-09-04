@@ -1,4 +1,4 @@
-/datum/config_entry/string/server_name
+/datum/config_entry/string/servername
 
 /datum/config_entry/string/server_tag_line
 
@@ -16,6 +16,16 @@
 /datum/config_entry/flag/twitch_censor
 
 /datum/config_entry/str_list/topic_filtering_whitelist
+
+/datum/config_entry/flag/dont_del_newmob
+
+/datum/config_entry/string/hostedby
+
+//unused
+/datum/config_entry/flag/disable_dead_ooc
+
+//unused
+/datum/config_entry/flag/disable_dsay
 
 /// log messages sent in OOC
 /datum/config_entry/flag/log_ooc
