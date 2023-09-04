@@ -2,7 +2,7 @@
 	name = "microbomb implant"
 	desc = "And boom goes the weasel."
 	icon_state = "explosive"
-	origin_tech = "materials=2;combat=3;biotech=4;syndicate=4"
+	origin_tech = "materials=2;combat=3;biotech=4;syndicate=1" // 2 тк с 4 нелегалом :clueless:
 	var/weak = 2
 	var/medium = 0.8
 	var/heavy = 0.4

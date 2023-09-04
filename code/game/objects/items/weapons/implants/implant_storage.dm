@@ -12,7 +12,7 @@
 	name = "storage implant"
 	desc = "Stores up to two big items in a bluespace pocket."
 	icon_state = "storage"
-	origin_tech = "materials=2;magnets=4;bluespace=5;syndicate=4"
+	origin_tech = "materials=2;magnets=4;bluespace=5;syndicate=3"
 	item_color = "r"
 	var/obj/item/storage/hidden/implant/storage
 

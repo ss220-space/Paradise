@@ -36,6 +36,7 @@
 	desc = "A pistol of modern design."
 	icon_state = "enforcer_grey"
 	force = 10
+	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/enforcer
 	fire_sound = 'sound/weapons/gunshots/1colt.ogg'
 	can_suppress = TRUE
@@ -83,7 +84,6 @@
 	name = "Enforcer"
 	desc = "Стандартный дешевый пистолет для сотрудников службы безопасности."
 	w_class = WEIGHT_CLASS_NORMAL
-	origin_tech = "combat=4;materials=2"
 	can_suppress = TRUE
 
 //SP8 Pistol OBR and Warden//
@@ -92,6 +92,7 @@
 	desc = "Базовая версия новейшего пистолета сил защиты активов. Под патрон 40N&R."
 	icon_state = "sp8_black"  // thanks split
 	force = 10
+	origin_tech = "combat=4;materials=2" // никакого нелегала раундстартом
 	mag_type = /obj/item/ammo_box/magazine/sp8
 	fire_sound = 'sound/weapons/gunshots/sp8.ogg'
 	can_suppress = TRUE

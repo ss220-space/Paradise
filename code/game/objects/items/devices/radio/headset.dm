@@ -87,7 +87,7 @@
 	item_state = "com_headset_alt"
 
 /obj/item/radio/headset/syndicate
-	origin_tech = "syndicate=3"
+	origin_tech = "syndicate=1" //рескин наушников с 3 нелегалом, чего еще расскажешь? :clueless:
 	ks1type = /obj/item/encryptionkey/syndicate/nukeops
 	requires_tcomms = FALSE
 	instant = TRUE // Work instantly if there are no comms
@@ -97,7 +97,6 @@
 	name = "syndicate headset"
 	desc = "A syndicate headset that can be used to hear all radio frequencies. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
-	origin_tech = "syndicate=3"
 	icon_state = "syndie_headset"
 	item_state = "syndie_headset"
 
@@ -150,7 +149,7 @@
 
 
 /obj/item/radio/headset/binary
-	origin_tech = "syndicate=3"
+	origin_tech = "syndicate=2" // слишком дешево для 3 нелегала
 	ks1type = /obj/item/encryptionkey/binary
 
 /obj/item/radio/headset/headset_sec

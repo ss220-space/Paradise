@@ -17,6 +17,7 @@
 
 /obj/item/grenade/gas/plasma
 	icon_state = "plasma"
+	origin_tech = "materials=3;magnets=4;syndicate=3"
 
 /obj/item/grenade/gas/knockout
 	name = "knockout grenade"

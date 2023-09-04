@@ -450,6 +450,7 @@
 /obj/item/bombcore/miniature
 	name = "small bomb core"
 	w_class = WEIGHT_CLASS_SMALL
+	origin_tech = "syndicate=1;combat=6" // мелкая бомба от пиццы за 3(1 по скидке) тк не должна давать 3 нелегал
 	range_heavy = 1
 	range_medium = 2
 	range_light = 4
