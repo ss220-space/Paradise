@@ -631,8 +631,11 @@
 	ammo_type = /obj/item/ammo_casing/shotgun
 	caliber = ".12"
 	accept_subtypes = FALSE
-	multiple_sprites = 2
 	max_ammo = 8
+
+/obj/item/ammo_box/magazine/cats12g/update_icon()
+	..()
+	icon_state = "[initial(icon_state)][stored_ammo.len ? "" : "-0"]"
 
 /obj/item/ammo_box/magazine/cats12g/universal
 	icon_state = "cats_mag"
