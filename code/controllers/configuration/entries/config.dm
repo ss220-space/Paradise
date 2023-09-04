@@ -7,6 +7,7 @@
 /datum/config_entry/number/server_suffix
 
 /datum/config_entry/number/minimum_client_build
+	default = 1421 // Build 1421 due to the middle mouse button exploit
 
 /datum/config_entry/number/minimum_byondacc_age
 
