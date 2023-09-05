@@ -75,7 +75,7 @@
 	/// Current charge state of the rift.
 	var/charge_state = CHARGE_ONGOING
 	/// The interval for adding additional space carp spawns to the rift.
-	var/carp_interval = 45
+	var/carp_interval = 30
 	/// The time since an extra carp was added to the ghost role spawning pool.
 	var/last_carp_inc = 0
 	/// A list of all the ckeys which have used this carp rift to spawn in as carps.
@@ -185,6 +185,8 @@
 			dragon.rift_ability.Grant(dragon.owner.current)
 			dragon.riftTimer = 0
 			dragon.rift_empower()
+		for(var/obj/structure/carp_rift/rift in dragon.rift_list)
+			rift.carp_stored +=15
 		// Early return, nothing to do after this point.
 		return
 
