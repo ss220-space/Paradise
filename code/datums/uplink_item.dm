@@ -1936,6 +1936,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 12
 	surplus = 90
 
+/datum/uplink_item/implants/stealthbox
+    name = "Stealth Implant"
+    desc = "An implant injected into the body, and later activated manually to deploy a box, fully hiding you in the surroundings. Can be used indefinitely"
+    reference = "SB"
+    item = /obj/item/implanter/stealth
+    cost = 8
+
 // Cybernetics
 /datum/uplink_item/cyber_implants
 	category = "Cybernetic Implants"
