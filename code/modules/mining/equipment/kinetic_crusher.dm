@@ -507,13 +507,13 @@
 	..()
 
 //almost ready magmite crusher
-obj/item/twohanded/kinetic_crusher/almost
+/obj/item/twohanded/kinetic_crusher/almost
 	icon_state = "magmite_crusher"
 	item_state = "magmite_crusher0"
 	name = "unfinished proto-kinetic crusher"
 	desc = "An early design of the proto-kinetic accelerator, it is now a combination of various mining tools infused with magmite, forming a new design, but there is not enough magmite to upgrade it's destabilizer."
 	upgraded = TRUE
 
-obj/item/twohanded/kinetic_crusher/almost/examine(mob/living/user)
+/obj/item/twohanded/kinetic_crusher/almost/examine(mob/living/user)
 	. = ..()
 	. += "<span class='notice'>Perhaps you could use another magmite upgrade part to fully upgrade your crusher.</span>"
