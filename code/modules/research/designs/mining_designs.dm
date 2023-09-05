@@ -124,8 +124,8 @@
 
 /datum/design/f_rods
 	name = "Fireproof Rods"
-	desc = "Rods made of a complex heat-resistant alloy"
-	id = "firerods"
+	desc = "Iron (x2) + Plasma + Titanium"
+	id = "f_rods"
 	req_tech = list("materials" = 6, "engineering" = 3, "plasmatech" = 4)
 	build_type = PROTOLATHE | SMELTER
 	materials = list(MAT_METAL = 2000, MAT_PLASMA = 500, MAT_TITANIUM = 1000)

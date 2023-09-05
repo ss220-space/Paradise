@@ -82,3 +82,5 @@
 
 	update_client_colour(0)
 	update_morgue()
+
+	SEND_SIGNAL(src, COMSIG_MOB_CLIENT_LOGIN, client)
