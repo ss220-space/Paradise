@@ -121,15 +121,17 @@
 
 /obj/item/projectile/grenade/improvised/flame_shot/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
-	explosion(loc, 0, 0, 0, flame_range = 6, cause = src)
+	explosion(loc, 0, 0, 0, flame_range = 8, cause = src)
+	fireflash(loc, 2, 682)
 
 /obj/item/projectile/grenade/improvised/smoke_shot
 	icon_state = "smoke_shot"
 
 /obj/item/projectile/grenade/improvised/smoke_shot/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
-	var/datum/effect_system/smoke_spread/smoke = new /datum/effect_system/smoke_spread()
-	smoke.set_up(15, FALSE, loc)
+	var/datum/effect_system/smoke_spread/smoke = new /datum/effect_system/smoke_spread/bad()
+	smoke.set_up(18, FALSE, loc)
+	smoke.custom_lifetime = 20
 	smoke.color = "#800080"
 	smoke.start()
 
