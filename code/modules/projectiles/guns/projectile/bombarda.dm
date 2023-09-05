@@ -39,12 +39,12 @@
 	playsound(M, 'sound/weapons/gun_interactions/sawclose.ogg', 60, 1)
 	pump_unload(M)
 	pump_reload(M)
-	update_icon() //I.E. fix the desc
+	update_icon()
 	return 1
 
 /obj/item/gun/projectile/bombarda/proc/pump_unload(mob/M)
-	if(chambered)//We have a shell in the chamber
-		chambered.loc = get_turf(src)//Eject casing
+	if(chambered)
+		chambered.loc = get_turf(src)
 		chambered.SpinAnimation(5, 1)
 		playsound(src, chambered.drop_sound, 60, 1)
 		chambered = null
@@ -52,7 +52,7 @@
 /obj/item/gun/projectile/bombarda/proc/pump_reload(mob/M)
 	if(!magazine.ammo_count())
 		return 0
-	var/obj/item/ammo_casing/AC = magazine.get_round() //load next casing.
+	var/obj/item/ammo_casing/AC = magazine.get_round()
 	chambered = AC
 
 /obj/item/ammo_box/magazine/internal/bombarda
