@@ -83,10 +83,10 @@
 	icon_state = "magma"
 	materials = list(MAT_GOLD = 50000)
 	sheet_type = /obj/item/stack/sheet/mineral/gold{amount = 25}
-	point_value = 250 //prevent farming from tendrills
-	sell_value = 150
-	light_range = 2
-	light_power = 1
+	point_value = 700 //there is no magmawing tendrills, silly me
+	sell_value = 450
+	light_range = 4
+	light_power = 2
 	light_color = "#ff7b00"
 
 /obj/item/gem/fdiamond
@@ -106,8 +106,8 @@
 	sheet_type = /obj/item/stack/sheet/mineral/plasma{amount = 40}
 	point_value = 2400
 	sell_value = 800
-	light_range = 2
-	light_power = 2
+	light_range = 4
+	light_power = 4
 	light_color = "#62326a"
 
 /obj/item/gem/purple
@@ -116,8 +116,8 @@
 	icon_state = "purple"
 	point_value = 2600
 	sell_value = 900
-	light_range = 2
-	light_power = 1
+	light_range = 4
+	light_power = 2
 	light_color = "#b714cc"
 
 	var/obj/item/gps/internal
@@ -138,8 +138,8 @@
 	icon_state = "amber"
 	point_value = 2600
 	sell_value = 1200
-	light_range = 2
-	light_power = 2
+	light_range = 4
+	light_power = 4
 	light_color = "#FFBF00"
 
 /obj/item/gem/void
@@ -148,8 +148,8 @@
 	icon_state ="void"
 	point_value = 2400
 	sell_value = 1100
-	light_range = 2
-	light_power = 1
+	light_range = 4
+	light_power = 2
 	light_color = "#4785a4"
 
 /obj/item/gem/bloodstone
@@ -158,8 +158,8 @@
 	icon_state = "red"
 	point_value = 3000
 	sell_value = 1500
-	light_range = 2
-	light_power = 3
+	light_range = 4
+	light_power = 6
 	light_color = "#800000"
 
 /obj/item/gem/data
@@ -169,8 +169,8 @@
 	materials = list(MAT_BLUESPACE = 24000)
 	sheet_type = /obj/item/stack/sheet/bluespace_crystal{amount = 12}
 	origin_tech = "materials=6;bluespace=7" //uh-oh
-	light_range = 2
-	light_power = 6
+	light_range = 4
+	light_power = 8
 	light_color = "#0004ff"
 	point_value = 2500
 	sell_value = 1800
