@@ -156,7 +156,7 @@
 				/obj/item/assembly/prox_sensor = 1)
 	time = 2 SECONDS
 	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
+	subcategory = CAT_AMMO
 
 /datum/crafting_recipe/flame_shell
 	name = "Improvised flame shell"
@@ -170,7 +170,7 @@
 					/datum/reagent/plasma_dust = 10)
 	time = 2 SECONDS
 	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
+	subcategory = CAT_AMMO
 
 /datum/crafting_recipe/smoke_shell
 	name = "Improvised smoke shell"
@@ -183,4 +183,4 @@
 				/obj/item/reagent_containers/spray/pestspray = 1)
 	time = 2 SECONDS
 	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
+	subcategory = CAT_AMMO
