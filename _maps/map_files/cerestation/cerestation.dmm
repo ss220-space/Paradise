@@ -21231,6 +21231,10 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
+/obj/machinery/camera{
+	c_tag = "Bar south";
+	dir = 1
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/crew_quarters/bar)
 "cmN" = (
@@ -27849,15 +27853,13 @@
 /turf/simulated/wall,
 /area/hallway/spacebridge/scidock)
 "dcS" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Bar";
-	req_access = list(12)
+/obj/machinery/camera{
+	c_tag = "Bar private"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/turf/simulated/floor/wood/fancy/light{
+	color = "gray"
 	},
-/turf/simulated/floor/plating,
-/area/maintenance/gambling_den2)
+/area/crew_quarters/bar)
 "dcU" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -32598,6 +32600,9 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/machinery/light/small{
 	dir = 8
+	},
+/obj/machinery/firealarm{
+	pixel_y = 24
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "gray"
@@ -55438,6 +55443,9 @@
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-21"
 	},
+/obj/machinery/firealarm{
+	pixel_y = 24
+	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "gray"
 	},
@@ -62294,6 +62302,15 @@
 /mob/living/simple_animal/mouse/white,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/asmaint5)
+"mYj" = (
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/maintenance/gambling_den2)
 "mYI" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
@@ -67888,14 +67905,14 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboardaux)
 "oIf" = (
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+/obj/machinery/newscaster{
+	dir = 1;
+	pixel_y = -28
 	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
+/turf/simulated/floor/wood/fancy/light{
+	color = "gray"
 	},
-/area/maintenance/gambling_den2)
+/area/crew_quarters/bar)
 "oIk" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -87863,9 +87880,9 @@
 /turf/simulated/mineral/ancient,
 /area/mimeoffice)
 "uJt" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 4;
-	do_not_delete_me = 1
+/obj/effect/turf_decal/siding/wood/corner,
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "gray"
@@ -91124,10 +91141,9 @@
 	},
 /area/toxins/launch)
 "vLA" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/structure/disposalpipe/junction{
+	dir = 1
 	},
-/obj/effect/turf_decal/siding/wood/corner,
 /turf/simulated/floor/wood/fancy/light{
 	color = "gray"
 	},
@@ -93128,6 +93144,10 @@
 	pixel_x = 32
 	},
 /obj/machinery/computer/arcade,
+/obj/machinery/camera{
+	c_tag = "Bar East";
+	dir = 8
+	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar)
 "woJ" = (
@@ -95384,12 +95404,14 @@
 	},
 /area/maintenance/starboard)
 "wYU" = (
-/obj/structure/disposalpipe/junction{
-	dir = 1
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
-/turf/simulated/floor/wood/fancy/light{
-	color = "gray"
+/obj/machinery/door/airlock/maintenance{
+	name = "Bar";
+	req_access = list(12)
 	},
+/turf/simulated/floor/plating,
 /area/crew_quarters/bar)
 "wZv" = (
 /turf/simulated/wall,
@@ -116845,7 +116867,7 @@ aZZ
 xzi
 xwM
 tpL
-wmR
+oIf
 baF
 obz
 mrt
@@ -117356,7 +117378,7 @@ wmR
 kSA
 bDN
 aZZ
-wmR
+dcS
 fEG
 fZP
 tjU
@@ -120186,8 +120208,8 @@ veg
 kzY
 veg
 veg
-wYU
 veg
+vLA
 ckV
 xiv
 sup
@@ -120443,7 +120465,7 @@ wSx
 jpO
 sQg
 gDw
-vLA
+wmR
 uJt
 tPU
 baF
@@ -120700,8 +120722,8 @@ onH
 nxb
 hkq
 pxb
-dcS
 fkt
+wYU
 fkt
 uzY
 uzY
@@ -120957,8 +120979,8 @@ fkt
 fkt
 fkt
 fkt
-oIf
-scR
+fkt
+mYj
 nZv
 scR
 pbO
