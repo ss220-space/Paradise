@@ -809,17 +809,21 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 	var/client_view = prefs.viewrange
+
 	if(view == client_view)
-		var/input = input("Select view range:", "View Range", 7) in list(1,2,3,4,5,6,7,8,9,10,11,12,13,14,128)
+		var/input = input("Select view range:", "View Range", 7) in list(1,2,3,4,5,6,7,8,9,10,11,12,13,14,"MAX")
 		if(!input)
 			return
 
+		input = input == "MAX" ? 28 : input
 		var/list/viewscales = getviewsize(client_view)
 		var/aspect_ratio = viewscales[1] / viewscales[2]
-		var/view_y = (input * 2) % 2 ? input * 2 : input * 2 + 1
+
+		var/view_y =  (input * 2) % 2 ? input * 2 : input * 2 + 1
 		var/rounded_x = round(view_y * aspect_ratio)
 		var/view_x = rounded_x % 2 ? rounded_x : rounded_x + 1
 		view = "[view_x]x[view_y]"
+
 	else
 		view = client_view
 
