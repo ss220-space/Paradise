@@ -149,10 +149,9 @@
 /mob/living/simple_animal/hostile/carp/megacarp/Initialize()
 	. = ..()
 	name = "[pick(GLOB.megacarp_first_names)] [pick(GLOB.megacarp_last_names)]"
-	melee_damage_lower += rand(2, 10)
+	melee_damage_lower += rand(5, 10)
 	melee_damage_upper += rand(10, 20)
-	maxHealth += rand(30, 60)
-	move_to_delay = rand(3, 7)
+	maxHealth += rand(60, 90)
 
 /mob/living/simple_animal/hostile/carp/megacarp/adjustHealth(amount, updating_health = TRUE)
 	. = ..()
@@ -191,6 +190,9 @@
 	harm_intent_damage = 1
 	melee_damage_lower = 2
 	melee_damage_upper = 2
+	obj_damage = 5
+	maxHealth = 25
+	health = 25
 	speak_emote = list("blurps")
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/salmonmeat = 1)
 
