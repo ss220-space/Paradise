@@ -159,7 +159,7 @@
 
 	// Can we increase the carp spawn pool size?
 	if(last_carp_inc >= carp_interval)
-		carp_stored++
+		carp_stored += 3
 		icon_state = "carp_rift_carpspawn"
 		if(light_color != LIGHT_COLOR_PURPLE)
 			light_color = LIGHT_COLOR_PURPLE
@@ -186,7 +186,7 @@
 			dragon.riftTimer = 0
 			dragon.rift_empower()
 		for(var/obj/structure/carp_rift/rift in dragon.rift_list)
-			rift.carp_stored +=15
+			rift.carp_stored += 15
 		// Early return, nothing to do after this point.
 		return
 
