@@ -799,6 +799,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		to_chat(usr, "[t] [ADMIN_VV(t,"VV")] ")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Contents") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+
 /client/proc/toggle_view_range()
 	set category = "Admin"
 	set name = "Change View Range"
@@ -807,15 +808,26 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
-	if(view == world.view)
-		view = input("Select view range:", "View Range", world.view) in list(1,2,3,4,5,6,7,8,9,10,11,12,13,14,128)
+	var/client_view = prefs.viewrange
+	if(view == client_view)
+		var/input = input("Select view range:", "View Range", 7) in list(1,2,3,4,5,6,7,8,9,10,11,12,13,14,128)
+		if(!input)
+			return
+
+		var/list/viewscales = getviewsize(client_view)
+		var/aspect_ratio = viewscales[1] / viewscales[2]
+		var/view_y = (input * 2) % 2 ? input * 2 : input * 2 + 1
+		var/rounded_x = round(view_y * aspect_ratio)
+		var/view_x = rounded_x % 2 ? rounded_x : rounded_x + 1
+		view = "[view_x]x[view_y]"
 	else
-		view = world.view
+		view = client_view
+
+	fit_viewport()
 
 	log_admin("[key_name(usr)] changed their view range to [view].")
-	//message_admins("<span class='notice'>[key_name_admin(usr)] changed their view range to [view].</span>", 1)	//why? removed by order of XSI
-
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Change View Range") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 
 /client/proc/admin_call_shuttle()
 

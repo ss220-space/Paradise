@@ -2251,6 +2251,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 					if(actual_new_range != parent.view)
 						parent.view = actual_new_range
+						parent.fit_viewport()
 						// Update the size of the click catcher
 						var/list/actualview = getviewsize(parent.view)
 						parent.void.UpdateGreed(actualview[1],actualview[2])
