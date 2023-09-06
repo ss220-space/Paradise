@@ -815,13 +815,23 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(!input)
 			return
 
-		input = input == "MAX" ? 28 : input
 		var/list/viewscales = getviewsize(client_view)
 		var/aspect_ratio = viewscales[1] / viewscales[2]
 
-		var/view_y =  (input * 2) % 2 ? input * 2 : input * 2 + 1
-		var/rounded_x = round(view_y * aspect_ratio)
-		var/view_x = rounded_x % 2 ? rounded_x : rounded_x + 1
+		var/view_x
+		var/view_y
+		if(input == "MAX")
+			if(viewscales[1] == viewscales[2])
+				view_x = 71	// 71 is max for X
+				view_y = 67	// 67 is max for Y
+			else
+				view_x = 71
+				view_y = round(71 / aspect_ratio)
+		else
+			view_y = (input * 2) % 2 ? input * 2 : input * 2 + 1
+			var/rounded_x = round(view_y * aspect_ratio)
+			view_x = rounded_x % 2 ? rounded_x : rounded_x + 1
+
 		view = "[view_x]x[view_y]"
 
 	else
