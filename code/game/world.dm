@@ -20,7 +20,6 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 
 	//temporary file used to record errors with loading config and the database, moved to log directory once logging is set up
 	GLOB.config_error_log = GLOB.world_game_log = GLOB.world_runtime_log = GLOB.sql_log = "data/logs/config_error.log"
-	load_configuration()
 
 	// Proc to enable the extools debugger, which allows breakpoints, live var checking, and many other useful tools
 	// The DLL is injected into the env by visual studio code. If not running VSCode, the proc will not call the initialization
@@ -29,6 +28,7 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 		CALL_EXT(debug_server, "auxtools_init")()
 		enable_debugging()
 
+	load_configuration()
 	// Right off the bat, load up the DB
 	SSdbcore.CheckSchemaVersion() // This doesnt just check the schema version, it also connects to the db! This needs to happen super early! I cannot stress this enough!
 	SSdbcore.SetRoundID() // Set the round ID here

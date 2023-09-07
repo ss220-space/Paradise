@@ -603,13 +603,11 @@
 /datum/config_entry/keyed_list/probability
 	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_NUM
-	splitter = " "
 
 //Needs proper testing
 /datum/config_entry/keyed_list/minplayers
 	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_NUM
-	splitter = " "
 
 /datum/config_entry/number/shadowling_max_age
 

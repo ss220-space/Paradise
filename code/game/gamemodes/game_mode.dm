@@ -76,7 +76,7 @@
 	if(playerC < required_enemies)
 		return FALSE
 
-	if(!CONFIG_GET(flag/enable_gamemode_player_limit) || (playerC >= CONFIG_GET(keyed_list/minplayers)[src.config_tag]))
+	if(!CONFIG_GET(flag/enable_gamemode_player_limit) || (playerC >= config.mode_required_players[src.config_tag]))
 		return TRUE
 
 	return FALSE

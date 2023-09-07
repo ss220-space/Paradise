@@ -20,6 +20,8 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 	var/list/mode_names
 	var/list/mode_reports
 	var/list/mode_false_report_weight
+	var/list/mode_required_players
+	var/list/probabilities
 
 	var/motd
 	var/policy
@@ -29,6 +31,7 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 
 	/// A list of configuration errors that occurred during load
 	var/static/list/configuration_errors
+
 
 /datum/controller/configuration/proc/admin_reload()
 	if(IsAdminAdvancedProcCall())
@@ -47,6 +50,7 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 		CRASH("/datum/controller/configuration/Load() called more than once!")
 	configuration_errors ||= list()
 	InitEntries()
+
 	//Note: `$include`s are supported. Feel free to use them.
 	var/list/configs = list("game_options.txt", "dbconfig.txt", "config.txt")
 	for(var/I in configs)
@@ -54,6 +58,8 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 			for(var/J in configs)
 				LoadEntries(J)
 			break
+
+	LoadModes()
 
 	if(CONFIG_GET(flag/usewhitelist))
 		load_whitelist()
@@ -264,7 +270,7 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 	return E.ValidateAndSet("[new_val]")
 
 /datum/controller/configuration/proc/pick_mode(mode_name)
-	for(var/T in subtypesof(/datum/game_mode))
+	for(var/T in gamemode_cache)
 		var/datum/game_mode/M = T
 		if(initial(M.config_tag) && initial(M.config_tag) == mode_name)
 			return new T()
@@ -274,16 +280,16 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 	var/list/datum/game_mode/runnable_modes = new
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = new T()
-//		to_chat(world, "DEBUG: [T], tag=[M.config_tag], prob=[probabilities[M.config_tag]]")
+//		log_debug(world, "DEBUG: [T], tag=[M.config_tag], prob=[probabilities[M.config_tag]]")
 		if(!(M.config_tag in modes))
 			qdel(M)
 			continue
-		if(CONFIG_GET(keyed_list/probability)[M.config_tag]<=0)
+		if(probabilities[M.config_tag]<=0)
 			qdel(M)
 			continue
 		if(M.can_start())
-			runnable_modes[M] = CONFIG_GET(keyed_list/probability)[M.config_tag]
-//			to_chat(world, "DEBUG: runnable_mode\[[runnable_modes.len]\] = [M.config_tag]")
+			runnable_modes[M] = probabilities[M.config_tag]
+//			log_debug(world, "DEBUG: runnable_mode\[[runnable_modes.len]\] = [M.config_tag]")
 	return runnable_modes
 
 /datum/controller/configuration/proc/load_twitch_censor_list()
@@ -318,27 +324,37 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 	log_config("[directory]/twitch_censor.txt does not exist, twitch censoring disabled")
 	return FALSE
 
-///datum/controller/configuration/proc/LoadMOTD()
-//	var/list/motd_contents = list()
-//
-//	var/list/motd_list = CONFIG_GET(str_list/motd)
-//	if (motd_list.len == 0 && fexists("[directory]/motd.txt"))
-//		motd_list = list("motd.txt")
-//
-//	for (var/motd_file in motd_list)
-//		if (fexists("[directory]/[motd_file]"))
-//			motd_contents += file2text("[directory]/[motd_file]")
-//		else
-//			log_config("MOTD file [motd_file] didn't exist")
-//			DelayedMessageAdmins("MOTD file [motd_file] didn't exist")
-//
-//	motd = motd_contents.Join("\n")
-//
-//	var/tm_info = GLOB.revdata.GetTestMergeInfo()
-//	if(motd || tm_info)
-//		motd = motd ? "[motd]<br>[tm_info]" : tm_info
-
 
 //Message admins when you can.
 /datum/controller/configuration/proc/DelayedMessageAdmins(text)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(message_admins), text), 0)
+
+
+/datum/controller/configuration/proc/LoadModes()
+	gamemode_cache = typecacheof(/datum/game_mode, TRUE)
+	modes = list()
+	mode_names = list()
+	votable_modes = list()
+	mode_required_players = list()
+	probabilities = list()
+	var/list/probabilities_conf = CONFIG_GET(keyed_list/probability)
+	var/list/minplayers_conf = CONFIG_GET(keyed_list/minplayers)
+	for(var/T in gamemode_cache)
+		var/datum/game_mode/M = T
+
+		if(initial(M.config_tag))
+			if(!(initial(M.config_tag) in modes))		// ensure each mode is added only once
+				modes += initial(M.config_tag)
+				log_debug("getting mode [initial(M.config_tag)]")
+				mode_names[initial(M.config_tag)] = initial(M.name)
+				probabilities[initial(M.config_tag)] = initial(M.probability)
+				mode_required_players[initial(M.config_tag)] = initial(M.required_players)
+				if(initial(M.votable))
+					votable_modes += initial(M.config_tag)
+
+				if(initial(M.config_tag) in minplayers_conf)
+					mode_required_players[initial(M.config_tag)] = minplayers_conf[initial(M.config_tag)]
+				if(initial(M.config_tag) in probabilities_conf)
+					probabilities[initial(M.config_tag)] = probabilities_conf[initial(M.config_tag)]
+
+	votable_modes += "secret"
