@@ -259,7 +259,7 @@
 	var/mob/living/silicon/robot/R = owner
 	instruments = list()
 	for(var/path in instrument_types)
-		var/module = locate(path) in d_owner.module.modules
+		var/module = locate(path) in R.module.modules
 		if(module)
 			instruments += module
 	radial_menu(owner, instruments)
