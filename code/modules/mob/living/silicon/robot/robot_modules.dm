@@ -237,6 +237,56 @@
 		"Cricket" = "Cricket-MEDI"
 	)
 	has_transform_animation = TRUE
+	module_actions = list(/datum/action/item_action/surgery_toolset)
+
+/datum/action/item_action/surgery_toolset
+	name = "Surgery Toolset"
+	button_icon = 'icons/obj/storage.dmi'
+	button_icon_state = "duffel-med"
+	var/list/instruments = null
+	var/list/instrument_types = list(
+		/obj/item/scalpel/laser/laser1,
+		/obj/item/hemostat,
+		/obj/item/retractor,
+		/obj/item/bonegel,
+		/obj/item/bonesetter,
+		/obj/item/circular_saw,
+		/obj/item/surgicaldrill,
+	)
+
+/datum/action/item_action/surgery_toolset/proc/refresh_items()
+	var/mob/living/silicon/robot/R = owner
+	instruments = list()
+	for(var/path in instrument_types)
+		instruments += locate(path) in R.module.modules
+	radial_menu(owner, instruments)
+
+/datum/action/item_action/surgery_toolset/Trigger()
+	if(!istype(owner, /mob/living/silicon/robot))
+		return
+
+	if(!IsAvailable())
+		return FALSE
+
+	if(instruments)
+		refresh_items()
+
+/datum/action/item_action/surgery_toolset/proc/radial_menu(mob/user, instruments)
+	var/list/choices = list()
+	for(var/obj/I in instruments)
+		choices["[I.name]"] = image(icon = I.icon, icon_state = I.icon_state)
+	var/choice = show_radial_menu(user, src, choices)
+	if(!choice)
+		return 0
+	var/obj/item/selected
+	for(var/obj/item in instruments)
+		if(item.name == choice)
+			selected = item
+			break
+	if(istype(selected))
+		selected.attack_ai(user)
+
+
 
 /obj/item/robot_module/medical/New()
 	..()
@@ -523,11 +573,11 @@
 	fix_modules()
 
 /obj/item/robot_module/miner/handle_custom_removal(component_id, mob/living/user, obj/item/W)
-    if(component_id == "KA modkits")
-        for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/D in src)
-            D.attackby(W, user)
-        return TRUE
-    return ..()
+	if(component_id == "KA modkits")
+		for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/D in src)
+			D.attackby(W, user)
+		return TRUE
+	return ..()
 
 /obj/item/robot_module/deathsquad
 	name = "Deathsquad"
