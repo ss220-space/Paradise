@@ -43,14 +43,11 @@
 	build_path = /obj/machinery/power/bfl_emitter
 	origin_tech = "engineering=4;combat=4;bluespace=4"
 	req_components = list(
-					/obj/item/stack/sheet/metal = 5,
-					/obj/item/stack/rods = 20,
+					/obj/item/stack/sheet/plasteel = 10,
 					/obj/item/stack/sheet/plasmaglass = 4,
-					/obj/item/stock_parts/manipulator/femto = 2,
 					/obj/item/stock_parts/capacitor/quadratic = 5,
-					/obj/item/stock_parts/micro_laser/quadultra = 20,
-					/obj/item/gun/energy/lasercannon = 4,
-					/obj/item/stack/cable_coil = 6)
+					/obj/item/stock_parts/micro_laser/quadultra = 10,
+					/obj/item/stack/sheet/mineral/diamond = 2)
 
 /obj/item/circuitboard/machine/bfl_receiver
 	name = "BFL Receiver (Machine Board)"
@@ -60,8 +57,7 @@
 	req_components = list(
 					/obj/item/stack/sheet/metal = 20,
 					/obj/item/stack/sheet/plasteel = 10,
-					/obj/item/stack/sheet/plasmaglass = 20,
-					/obj/item/stack/sheet/mineral/diamond = 8)
+					/obj/item/stack/sheet/plasmaglass = 20)
 
 ///////////
 //Emitter//
