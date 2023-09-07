@@ -271,7 +271,7 @@
 	if(!IsAvailable())
 		return FALSE
 
-	if(instruments)
+	if(!instruments)
 		refresh_items()
 
 /datum/action/item_action/surgery_toolset/proc/radial_menu(mob/user, instruments)
