@@ -2468,3 +2468,35 @@
 	)
 	contraband = list(/obj/item/grenade/clusterbuster/cleaner = 1, /obj/item/storage/fancy/donut_box = 2, )
 	refill_canister = /obj/item/vending_refill/nta
+
+
+/obj/machinery/vending/paivendor
+	name = "\improper PAI Vendor machine"
+	desc = "Wonderful vendor of friends"
+	icon_state = "paivend"
+	ads_list = list("А вы любите нас?","Мы твои друзья!","Эта покупка войдет в историю","Я ПАИ простой, купишь меня, а я тебе друга!","Спасибо за покупку.")
+	resistance_flags = FIRE_PROOF
+	products = list(
+		/obj/item/paicard = 10,
+		/obj/item/pai_cartridge/female = 10,
+		/obj/item/pai_cartridge/doorjack = 5,
+		/obj/item/pai_cartridge/memory = 5,
+		/obj/item/pai_cartridge/reset = 5,
+		/obj/item/robot_parts/l_arm = 1,
+		/obj/item/robot_parts/r_arm = 1
+	)
+	contraband = list(
+		/obj/item/pai_cartridge/syndi_emote = 1,
+		/obj/item/pai_cartridge/snake = 1
+	)
+	prices = list(
+		/obj/item/paicard = 200,
+		/obj/item/robot_parts/l_arm = 550,
+		/obj/item/robot_parts/r_arm = 550,
+		/obj/item/pai_cartridge/female = 150,
+		/obj/item/pai_cartridge/doorjack = 400,
+		/obj/item/pai_cartridge/syndi_emote = 650,
+		/obj/item/pai_cartridge/snake = 600,
+		/obj/item/pai_cartridge/reset = 500,
+		/obj/item/pai_cartridge/memory = 350
+	)
