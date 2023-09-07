@@ -32,6 +32,8 @@
 	var/melee_damage_upper_angery0 = 16
 	var/melee_damage_lower_angery1 = 15
 	var/melee_damage_upper_angery1 = 20
+	var/anger_move_to_delay = 8
+	var/anger_speed = 4
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/adjustHealth(amount)
 	if(buttmad == 0)
@@ -40,8 +42,8 @@
 			visible_message(span_danger("[src] chitters in rage, baring its fangs!"))
 			melee_damage_lower = melee_damage_lower_angery1
 			melee_damage_upper = melee_damage_upper_angery1
-			move_to_delay = 8
-			speed = 3
+			move_to_delay = anger_move_to_delay
+			speed = anger_speed
 			poison_type = "venom"
 			poison_per_bite = 6
 	else if(buttmad == 1)
@@ -51,6 +53,7 @@
 			melee_damage_lower = melee_damage_lower_angery0
 			melee_damage_upper = melee_damage_upper_angery0
 			poison_type = initial(poison_type)
+			speed = initial(speed)
 			poison_per_bite = initial(poison_per_bite)
 	..()
 
@@ -96,3 +99,17 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "chitin"
 	singular_name = "chitin chunk"
+
+//better and dangerous subtype for regular lavaland. Has X-ray and slightly faster
+
+/mob/living/simple_animal/hostile/asteroid/marrowweaver/dangerous
+	health = 320
+	maxHealth = 320
+	vision_range = 8
+	see_in_dark = 8
+	speed = 5
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
+	move_to_delay = 14
+	anger_move_to_delay = 6
+	anger_speed = 6

@@ -32,7 +32,7 @@
 	icon_state = "dk_yellow"
 
 /area/ruin/unpowered/drake
-	name = "Acnient Temple"
+	name = "Ancient Temple"
 	icon_state = "dk_yellow"
 
 /area/ruin/powered/pride

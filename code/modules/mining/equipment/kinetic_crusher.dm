@@ -489,7 +489,7 @@
 
 /obj/item/projectile/destabilizer/mega
 	icon_state = "pulse0"
-	range = 5 //you know...
+	range = 4 //you know....
 
 /obj/item/projectile/destabilizer/mega/on_hit(atom/target, blocked = FALSE)
 	var/target_turf = get_turf(target)
@@ -505,3 +505,15 @@
 	else
 		forcedodge = 0
 	..()
+
+//almost ready magmite crusher
+/obj/item/twohanded/kinetic_crusher/almost
+	icon_state = "magmite_crusher"
+	item_state = "magmite_crusher0"
+	name = "unfinished proto-kinetic crusher"
+	desc = "An early design of the proto-kinetic accelerator, it is now a combination of various mining tools infused with magmite, forming a new design, but there is not enough magmite to upgrade it's destabilizer."
+	upgraded = TRUE
+
+/obj/item/twohanded/kinetic_crusher/almost/examine(mob/living/user)
+	. = ..()
+	. += "<span class='notice'>Perhaps you could use another magmite upgrade part to fully upgrade your crusher.</span>"
