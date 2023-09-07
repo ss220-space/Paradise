@@ -2,8 +2,8 @@
 	a_intent = INTENT_HARM
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	health = 60
-	maxHealth = 60
+	health = 65
+	maxHealth = 65
 	/// Ability which lets carp teleport around
 	var/datum/action/innate/lesser_carp_rift/teleport
 
