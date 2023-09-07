@@ -161,9 +161,7 @@
 		else if (href_list["interaction"] == "spit")
 			if(((H.Adjacent(P) && !istype(P.loc, /obj/structure/closet)) || (H.loc == P.loc)) && mouthfree)
 				H.custom_emote(message = "<span class='danger'>плю[pluralize_ru(H.gender,"ёт","ют")] в [P]!</span>")
-				if(ishuman(P))
-					P.AdjustEyeBlurry(4 SECONDS)
-				if(istype(P.loc, /obj/structure/closet))
+				if (istype(P.loc, /obj/structure/closet))
 					P.custom_emote(message = "<span class='danger'>плю[pluralize_ru(H.gender,"ёт","ют")] в [P]!</span>")
 
 		else if (href_list["interaction"] == "threaten")
