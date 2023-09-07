@@ -7126,7 +7126,7 @@
 	pixel_x = -32
 	},
 /obj/machinery/computer/security{
-	network = list("SS13","Research  Outpost","Mining  Outpost","Telecomms")
+	network = list("SS13","Research  Outpost","Mining Outpost","Telecomms")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -13759,7 +13759,7 @@
 /area/shuttle/pod_3)
 "hgG" = (
 /obj/machinery/computer/security{
-	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Telecomms","Research  Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -17275,7 +17275,7 @@
 /obj/machinery/computer/security/telescreen{
 	desc = "Used for watching the Special Ops team.";
 	name = "Security Station Monitor";
-	network = list("SS13","Research  Outpost","Mining  Outpost");
+	network = list("SS13","Research  Outpost","Mining Outpost");
 	pixel_y = -30
 	},
 /turf/simulated/floor/shuttle{
@@ -23677,7 +23677,7 @@
 /area/wizard_station)
 "mmX" = (
 /obj/machinery/computer/security/wooden_tv{
-	network = list("SS13","Research  Outpost","Mining  Outpost")
+	network = list("SS13","Research  Outpost","Mining Outpost")
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)

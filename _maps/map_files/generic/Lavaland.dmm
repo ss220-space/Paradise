@@ -649,7 +649,7 @@
 /obj/machinery/camera{
 	c_tag = "EVA";
 	dir = 4;
-	network = list("Mining    Outpost")
+	network = list("Mining Outpost")
 	},
 /obj/machinery/alarm{
 	dir = 4;
@@ -1110,7 +1110,7 @@
 /obj/machinery/camera{
 	c_tag = "Shuttle Docking Foyer North";
 	dir = 8;
-	network = list("Mining    Outpost")
+	network = list("Mining Outpost")
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
@@ -1541,7 +1541,7 @@
 /obj/machinery/camera{
 	c_tag = "Shuttle Docking Foyer South";
 	dir = 8;
-	network = list("Mining    Outpost")
+	network = list("Mining Outpost")
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
@@ -1576,7 +1576,7 @@
 /obj/machinery/camera{
 	c_tag = "Communications Relay";
 	dir = 8;
-	network = list("Mining    Outpost")
+	network = list("Mining Outpost")
 	},
 /turf/simulated/floor/bluegrid,
 /area/mine/maintenance)
@@ -1584,7 +1584,7 @@
 /obj/machinery/camera{
 	c_tag = "Processing Area Room";
 	dir = 8;
-	network = list("Mining    Outpost")
+	network = list("Mining Outpost")
 	},
 /obj/item/radio/intercom{
 	dir = 8;
@@ -1602,7 +1602,7 @@
 /obj/machinery/camera{
 	c_tag = "Sleeper Room";
 	dir = 1;
-	network = list("Mining    Outpost")
+	network = list("Mining Outpost")
 	},
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
@@ -1818,7 +1818,7 @@
 "ec" = (
 /obj/machinery/camera{
 	c_tag = "Crew Area Hallway East";
-	network = list("Mining    Outpost")
+	network = list("Mining Outpost")
 	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
@@ -1828,7 +1828,7 @@
 "ed" = (
 /obj/machinery/camera{
 	c_tag = "Crew Area Hallway West";
-	network = list("Mining    Outpost")
+	network = list("Mining Outpost")
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
@@ -2457,7 +2457,7 @@
 "fv" = (
 /obj/machinery/camera{
 	c_tag = "Storage";
-	network = list("Mining    Outpost")
+	network = list("Mining Outpost")
 	},
 /obj/structure/reagent_dispensers/watertank,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -2573,7 +2573,7 @@
 /obj/machinery/camera{
 	c_tag = "Dormitories";
 	dir = 4;
-	network = list("Mining    Outpost")
+	network = list("Mining Outpost")
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -2828,7 +2828,7 @@
 /obj/machinery/camera{
 	c_tag = "Crew Area";
 	dir = 1;
-	network = list("Mining    Outpost")
+	network = list("Mining Outpost")
 	},
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = -32
