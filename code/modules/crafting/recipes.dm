@@ -164,6 +164,17 @@
 	time = 40
 	category = CAT_ROBOT
 
+/datum/crafting_recipe/armour_plate
+	name = "Броневая плита"
+	result = list(/obj/item/stack/sheet/armour_plate,
+				/obj/item/stack/sheet/armour_plate)
+	reqs = list(/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster = 1,
+				/obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster = 1,
+				/obj/item/stack/cable_coil = 5)
+	tools = list(TOOL_WELDER)
+	time = 20
+	category = CAT_ROBOT
+
 /datum/crafting_recipe/flamethrower
 	name = "Flamethrower"
 	result = /obj/item/flamethrower
