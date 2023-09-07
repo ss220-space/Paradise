@@ -166,7 +166,7 @@
 	if(robot.magpulse)
 		return FALSE
 
-	robot.magpulse = 1
+	robot.magpulse = TRUE
 	return TRUE
 
 /obj/item/borg/upgrade/magboots/deactivate(mob/living/silicon/robot/robot, mob/user)
