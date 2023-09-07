@@ -245,13 +245,14 @@
 	button_icon_state = "duffel-med"
 	var/list/instruments = null
 	var/list/instrument_types = list(
-		/obj/item/scalpel/laser/laser1,
 		/obj/item/hemostat,
 		/obj/item/retractor,
 		/obj/item/bonegel,
 		/obj/item/bonesetter,
 		/obj/item/circular_saw,
 		/obj/item/surgicaldrill,
+		/obj/item/scalpel,
+		/obj/item/FixOVein
 	)
 
 /datum/action/item_action/surgery_toolset/proc/refresh_items()
