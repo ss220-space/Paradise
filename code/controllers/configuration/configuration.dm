@@ -345,7 +345,6 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 		if(initial(M.config_tag))
 			if(!(initial(M.config_tag) in modes))		// ensure each mode is added only once
 				modes += initial(M.config_tag)
-				log_debug("getting mode [initial(M.config_tag)]")
 				mode_names[initial(M.config_tag)] = initial(M.name)
 				probabilities[initial(M.config_tag)] = initial(M.probability)
 				mode_required_players[initial(M.config_tag)] = initial(M.required_players)
