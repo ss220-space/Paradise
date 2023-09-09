@@ -75841,6 +75841,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
+/obj/item/storage/fancy/donut_box{
+	pixel_y = 7
+	},
+/obj/item/storage/fancy/donut_box{
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -86829,6 +86835,12 @@
 "okD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
+/obj/item/storage/fancy/donut_box{
+	pixel_y = 7
+	},
+/obj/item/storage/fancy/donut_box{
+	pixel_y = 7
+	},
 /obj/item/toy/figure/clown,
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
@@ -102846,8 +102858,8 @@
 /area/crew_quarters/trading)
 "rMp" = (
 /obj/structure/closet{
-	desc = "It's a storage unit for foodservice garments.";
 	custom_door_overlay = "black";
+	desc = "It's a storage unit for foodservice garments.";
 	name = "chef's closet"
 	},
 /obj/item/storage/belt/chef,
