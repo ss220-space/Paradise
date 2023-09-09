@@ -534,7 +534,7 @@
 /mob/living/proc/Stun(amount, ignore_canstun = FALSE) //Can't go below remaining duration
 	if(IS_STUN_IMMUNE(src, ignore_canstun))
 		return
-	if(absorb_stun(amount, ignore_canstun))
+	if(absorb_status_effect(amount, ignore_canstun, STUN))
 		return
 	var/datum/status_effect/incapacitating/stun/S = IsStunned()
 	if(S)
@@ -551,7 +551,7 @@
 		if(S)
 			qdel(S)
 	else
-		if(absorb_stun(amount, ignore_canstun))
+		if(absorb_status_effect(amount, ignore_canstun, STUN))
 			return
 		if(S)
 			S.duration = world.time + amount
@@ -562,7 +562,7 @@
 /mob/living/proc/AdjustStunned(amount, ignore_canstun = FALSE) //Adds to remaining duration
 	if(IS_STUN_IMMUNE(src, ignore_canstun))
 		return
-	if(absorb_stun(amount, ignore_canstun))
+	if(absorb_status_effect(amount, ignore_canstun, STUN))
 		return
 	var/datum/status_effect/incapacitating/stun/S = IsStunned()
 	if(S)
@@ -644,7 +644,7 @@
 /mob/living/proc/Weaken(amount, ignore_canweaken = FALSE) //Can't go below remaining duration
 	if(IS_WEAKEN_IMMUNE(src, ignore_canweaken))
 		return
-	if(absorb_stun(amount, ignore_canweaken))
+	if(absorb_status_effect(amount, ignore_canweaken, WEAKEN))
 		return
 	var/datum/status_effect/incapacitating/weakened/P = IsWeakened(FALSE)
 	if(P)
@@ -661,7 +661,7 @@
 		if(P)
 			qdel(P)
 	else
-		if(absorb_stun(amount, ignore_canweaken))
+		if(absorb_status_effect(amount, ignore_canweaken, WEAKEN))
 			return
 		if(P)
 			P.duration = world.time + amount
@@ -672,7 +672,7 @@
 /mob/living/proc/AdjustWeakened(amount, ignore_canweaken = FALSE) //Adds to remaining duration
 	if(IS_WEAKEN_IMMUNE(src, ignore_canweaken))
 		return
-	if(absorb_stun(amount, ignore_canweaken))
+	if(absorb_status_effect(amount, ignore_canweaken, WEAKEN))
 		return
 	var/datum/status_effect/incapacitating/weakened/P = IsWeakened(FALSE)
 	if(P)
@@ -809,33 +809,36 @@
 /mob/living/proc/IsFrozen()
 	return has_status_effect(/datum/status_effect/freon)
 
-///////////////////////////////////// STUN ABSORPTION /////////////////////////////////////
+///////////////////////////////////// STATUS EFFECT ABSORPTION /////////////////////////////////////
 
-/mob/living/proc/add_stun_absorption(key, duration, priority, message, self_message, examine_message)
-//adds a stun absorption with a key, a duration in deciseconds, its priority, and the messages it makes when you're stun/examined, if any
-	if(!islist(stun_absorption))
-		stun_absorption = list()
-	if(stun_absorption[key])
-		stun_absorption[key]["end_time"] = world.time + duration
-		stun_absorption[key]["priority"] = priority
-		stun_absorption[key]["stuns_absorbed"] = 0
+/mob/living/proc/add_status_effect_absorption(key, duration, priority, message, self_message, examine_message, status_effect)
+//adds a status effect absorption with a key, a duration in deciseconds, its priority, and the messages it makes when you're status effected/examined, if any
+	if(!islist(status_effect_absorption))
+		status_effect_absorption = list()
+	if(status_effect_absorption[key])
+		status_effect_absorption[key]["end_time"] = world.time + duration
+		status_effect_absorption[key]["priority"] = priority
+		status_effect_absorption[key]["stuns_absorbed"] = 0
+		status_effect_absorption[key]["status_effect"] = status_effect
 	else
-		stun_absorption[key] = list("end_time" = world.time + duration, "priority" = priority, "stuns_absorbed" = 0, \
-		"visible_message" = message, "self_message" = self_message, "examine_message" = examine_message)
+		status_effect_absorption[key] = list("end_time" = world.time + duration, "priority" = priority, "stuns_absorbed" = 0, \
+		"visible_message" = message, "self_message" = self_message, "examine_message" = examine_message, "status_effect" = status_effect)
 
-/mob/living/proc/absorb_stun(amount, ignoring_flag_presence)
-	if(amount < 0 || stat || ignoring_flag_presence || !islist(stun_absorption))
+/mob/living/proc/absorb_status_effect(amount, ignoring_flag_presence, status_effect)
+	if(amount < 0 || stat || ignoring_flag_presence || !islist(status_effect_absorption))
 		return FALSE
 	if(!amount)
 		amount = 0
 	var/priority_absorb_key
 	var/highest_priority
-	for(var/i in stun_absorption)
-		if(stun_absorption[i]["end_time"] > world.time && (!priority_absorb_key || stun_absorption[i]["priority"] > highest_priority))
-			priority_absorb_key = stun_absorption[i]
+	for(var/i in status_effect_absorption)
+		if(status_effect_absorption[i]["status_effect"] != status_effect)
+			continue
+		if(status_effect_absorption[i]["end_time"] > world.time && (!priority_absorb_key || status_effect_absorption[i]["priority"] > highest_priority))
+			priority_absorb_key = status_effect_absorption[i]
 			highest_priority = priority_absorb_key["priority"]
 	if(priority_absorb_key)
-		if(amount) //don't spam up the chat for continuous stuns
+		if(amount) //don't spam up the chat for continuous status effects
 			if(priority_absorb_key["visible_message"] || priority_absorb_key["self_message"])
 				if(priority_absorb_key["visible_message"] && priority_absorb_key["self_message"])
 					visible_message("<span class='warning'>[src][priority_absorb_key["visible_message"]]</span>", "<span class='boldwarning'>[priority_absorb_key["self_message"]]</span>")
@@ -843,7 +846,7 @@
 					visible_message("<span class='warning'>[src][priority_absorb_key["visible_message"]]</span>")
 				else if(priority_absorb_key["self_message"])
 					to_chat(src, "<span class='boldwarning'>[priority_absorb_key["self_message"]]</span>")
-			priority_absorb_key["stuns_absorbed"] += amount
+			priority_absorb_key["status_effect_absorbed"] += amount
 		return TRUE
 
 #undef RETURN_STATUS_EFFECT_STRENGTH
