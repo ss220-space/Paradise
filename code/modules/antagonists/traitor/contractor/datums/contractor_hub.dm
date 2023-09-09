@@ -38,6 +38,7 @@
 		/datum/rep_purchase/item/balloon,
 		/datum/rep_purchase/item/contractor_partner,
 		/datum/rep_purchase/item/contractor_hardsuit,
+		/datum/rep_purchase/item/spai_kit,
 	)
 	// Variables
 	/// The contractor associated to this hub.

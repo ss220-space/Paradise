@@ -970,9 +970,6 @@ About the new airlock wires panel:
 
 	if(istype(C, /obj/item/assembly/signaler))
 		return interact_with_panel(user)
-	else if(istype(C, /obj/item/pai_cable))	// -- TLE
-		var/obj/item/pai_cable/cable = C
-		cable.plugin(src, user)
 	else if(istype(C, /obj/item/paper) || istype(C, /obj/item/photo))
 		if(note)
 			to_chat(user, span_warning("There's already something pinned to this airlock! Use wirecutters or your hands to remove it."))

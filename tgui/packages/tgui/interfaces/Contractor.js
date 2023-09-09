@@ -352,7 +352,14 @@ const Hub = (properties, context) => {
       {buyables.map(buyable => (
         <Section
           key={buyable.uid}
-          title={buyable.name}>
+          title={buyable.name}
+          buttons={buyable.refundable
+              && <Button.Confirm
+                content={"Refund (" + buyable.cost + " Rep)"}
+                onClick={() => act('refund', {
+                  uid: buyable.uid,
+                })}
+              />}>
           {buyable.description}<br />
           <Button.Confirm
             disabled={rep < buyable.cost || buyable.stock === 0}

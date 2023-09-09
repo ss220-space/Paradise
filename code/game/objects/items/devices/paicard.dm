@@ -319,7 +319,7 @@
 
 /obj/item/paicard
 	var/current_emotion = 1
-/obj/item/paicard/proc/setEmotion(var/emotion)
+/obj/item/paicard/proc/setEmotion(emotion)
 	if(pai)
 		overlays.Cut()
 		switch(emotion)
@@ -333,6 +333,8 @@
 			if(8) overlays += "pai-angry"
 			if(9) overlays += "pai-what"
 			if(10) overlays += "pai-spai"
+			if(11) overlays += "pai-spaic"
+			if(12) overlays += "pai_spaiv"
 		current_emotion = emotion
 
 /obj/item/paicard/proc/alertUpdate()
@@ -487,7 +489,7 @@
 /obj/item/pai_cartridge/doorjack
 	name = "PAI doorjack upgrade cartridge"
 	icon_state = "pai-doorjack"
-	var/factor = 1
+	var/factor = -0.5
 
 /obj/item/pai_cartridge/syndi_emote
 	name = "PAI special emote cartridge"
