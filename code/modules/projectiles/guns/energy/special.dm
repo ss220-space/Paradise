@@ -303,14 +303,9 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/toxplasma)
 	shaded_charge = 1
 	can_flashlight = 1
+	flight_x_offset = 13
+	flight_y_offset = 10
 
-/obj/item/gun/energy/toxgun/update_icon()
-	..()
-	if(gun_light)
-		var/iconF = "toxgun_light"
-		if(gun_light.on)
-			iconF = "toxgun_light-on"
-		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
 
 // Energy Sniper //
 /obj/item/gun/energy/sniperrifle

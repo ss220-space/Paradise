@@ -88,6 +88,7 @@
 
 /obj/item/gun/projectile/shotgun/riot/update_icon()
 	..()
+	overlays.Cut()
 	if(gun_light)
 		var/iconF = "riotshotgun_light"
 		if(gun_light.on)
@@ -95,7 +96,6 @@
 		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
 
 /obj/item/gun/projectile/shotgun/riot/ui_action_click(var/owner, var/action_type)
-	if(..()) return TRUE
 	if(action_type == /datum/action/item_action/toggle_gunlight)
 		toggle_gunlight()
 		return TRUE
@@ -336,6 +336,7 @@
 
 /obj/item/gun/projectile/shotgun/automatic/combat/update_icon()
 	..()
+	overlays.Cut()
 	if(gun_light)
 		var/iconF = "cshotgun_light"
 		if(gun_light.on)
@@ -343,8 +344,7 @@
 		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
 
 /obj/item/gun/projectile/shotgun/automatic/combat/ui_action_click(var/owner, var/action_type)
-	if(..()) return TRUE
-	if (action_type == /datum/action/item_action/toggle_gunlight)
+	if(action_type == /datum/action/item_action/toggle_gunlight)
 		toggle_gunlight()
 		return TRUE
 
