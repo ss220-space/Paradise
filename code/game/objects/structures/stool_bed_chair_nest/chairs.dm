@@ -284,7 +284,7 @@
 // SOFAS
 /obj/structure/chair/sofa
 	name = "sofa"
-	icon_state = "sofamiddle"
+	icon_state = "leather_sofa_middle"
 	anchored = TRUE
 	item_chair = null
 	buildstackamount = 1
@@ -317,13 +317,13 @@
 		cut_overlay(armrest)
 
 /obj/structure/chair/sofa/left
-	icon_state = "sofaend_left"
+	icon_state = "leather_sofa_left"
 
 /obj/structure/chair/sofa/right
-	icon_state = "sofaend_right"
+	icon_state = "leather_sofa_right"
 
 /obj/structure/chair/sofa/corner
-	icon_state = "sofacorner"
+	icon_state = "leather_sofa_corner"
 
 /obj/structure/chair/sofa/corp
 	name = "sofa"

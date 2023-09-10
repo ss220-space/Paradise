@@ -6,7 +6,7 @@
 	icon_state = "mining-charge-2"
 	det_time = 5
 	var/smoke_amount = 3
-	var/boom_sizes = list(1,3,5)
+	var/boom_sizes = list(2,3,5)
 
 /obj/item/grenade/plastic/miningcharge/Initialize()
 	. = ..()
@@ -68,7 +68,7 @@
 	desc = "A mining charge. This one seems much more powerful than normal!"
 	icon_state = "mining-charge-3"
 	smoke_amount = 5
-	boom_sizes = list(2,5,7) //5 ticks of stun, if in center
+	boom_sizes = list(4,6,8) //did you see the price? It has to be better..
 
 /obj/item/storage/backpack/duffel/miningcharges/populate_contents()
 	for(var/i in 1 to 5)

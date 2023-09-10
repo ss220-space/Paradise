@@ -153,6 +153,29 @@
 	return TRUE
 
 
+/obj/item/borg/upgrade/magboots
+	name = "cyborg floor magnet module"
+	desc = "Данный модуль позволить киборгу примагничиваться к полу, таким образом позволяя эффективно передвигаться в условиях отсутсвия гравитации."
+	icon_state = "cyborg_upgrade3"
+	origin_tech = "engineering=4;materials=4powerstorage=4"
+
+/obj/item/borg/upgrade/magboots/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	if(robot.magpulse)
+		return FALSE
+
+	robot.magpulse = TRUE
+	return TRUE
+
+/obj/item/borg/upgrade/magboots/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	robot.magpulse = initial(robot.magpulse)
+	return TRUE
+
 /obj/item/borg/upgrade/disablercooler
 	name = "cyborg rapid disabler cooling module"
 	desc = "Used to cool a mounted disabler, increasing the potential current in it and thus its recharge rate."

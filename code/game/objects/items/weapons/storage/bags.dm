@@ -181,6 +181,10 @@
 	can_hold = list(/obj/item/gem)
 
 
+/obj/item/storage/bag/gem/cyborg
+	name = "cyborg gem satchel"
+	flags = NODROP
+
 // -----------------------------
 //          Plant bag
 // -----------------------------

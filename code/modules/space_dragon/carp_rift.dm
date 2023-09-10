@@ -75,7 +75,7 @@
 	/// Current charge state of the rift.
 	var/charge_state = CHARGE_ONGOING
 	/// The interval for adding additional space carp spawns to the rift.
-	var/carp_interval = 45
+	var/carp_interval = 30
 	/// The time since an extra carp was added to the ghost role spawning pool.
 	var/last_carp_inc = 0
 	/// A list of all the ckeys which have used this carp rift to spawn in as carps.
@@ -159,7 +159,7 @@
 
 	// Can we increase the carp spawn pool size?
 	if(last_carp_inc >= carp_interval)
-		carp_stored++
+		carp_stored += 3
 		icon_state = "carp_rift_carpspawn"
 		if(light_color != LIGHT_COLOR_PURPLE)
 			light_color = LIGHT_COLOR_PURPLE
@@ -185,6 +185,8 @@
 			dragon.rift_ability.Grant(dragon.owner.current)
 			dragon.riftTimer = 0
 			dragon.rift_empower()
+		for(var/obj/structure/carp_rift/rift in dragon.rift_list)
+			rift.carp_stored += 15
 		// Early return, nothing to do after this point.
 		return
 
@@ -208,12 +210,12 @@
 	if(carp_stored <= 0)//Not enough carp points
 		return FALSE
 	var/is_listed = FALSE
-	if (user.ckey in ckey_list)
+	if(user.ckey in ckey_list)
 		if(carp_stored == 2)
 			to_chat(user, span_warning("Вы уже появлялись карпом из этого разлома дважды! Пожалуйста, ожидайте избытка карпов или следующего разлома!"))
 			return FALSE
 		is_listed = TRUE
-	var/carp_ask = alert(user, "Стать карпом? количество смертей: [carp_stored]", "Разлом карпов", "Да", "Нет")
+	var/carp_ask = alert(user, "Стать карпом?", "Разлом карпов", "Да", "Нет")
 	if(carp_ask != "Да" || QDELETED(src) || QDELETED(user))
 		return FALSE
 	if(carp_stored <= 0)
