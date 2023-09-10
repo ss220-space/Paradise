@@ -416,6 +416,15 @@
 	new /obj/item/ammo_box/magazine/m45(src)
 	update_icon()
 
+/obj/item/storage/belt/military/assault/marines/cats/full/populate_contents()
+	new /obj/item/ammo_box/magazine/cats12g(src)
+	new /obj/item/ammo_box/magazine/cats12g(src)
+	new /obj/item/ammo_box/magazine/cats12g(src)
+	new /obj/item/ammo_box/magazine/cats12g/beanbang(src)
+	new /obj/item/ammo_box/magazine/cats12g/beanbang(src)
+	new /obj/item/ammo_box/magazine/cats12g/large(src)
+	update_icon()
+
 /obj/item/storage/belt/military/assault/marines/elite/full/populate_contents()
 	new /obj/item/ammo_box/magazine/m556(src)
 	new /obj/item/ammo_box/magazine/m556(src)
@@ -821,6 +830,7 @@
 	max_combined_w_class = 20
 	can_hold = list(
 		/obj/item/crowbar,
+		/obj/item/grenade/plastic/miningcharge,
 		/obj/item/screwdriver,
 		/obj/item/weldingtool,
 		/obj/item/wirecutters,
@@ -856,11 +866,14 @@
 		/obj/item/organ/internal/regenerative_core,
 		/obj/item/wormhole_jaunter,
 		/obj/item/storage/bag/plants,
-		/obj/item/stack/marker_beacon)
+		/obj/item/stack/marker_beacon,
+		/obj/item/gem)
 
 /obj/item/storage/belt/mining/vendor/Initialize(mapload)
 	. = ..()
 	new /obj/item/survivalcapsule(src)
+	new /obj/item/grenade/plastic/miningcharge/lesser(src)
+	new /obj/item/grenade/plastic/miningcharge/lesser(src)
 
 /obj/item/storage/belt/mining/alt
 	icon_state = "explorer2"
@@ -913,3 +926,15 @@
 		/obj/item/reagent_containers/food/condiment,
 		/obj/item/reagent_containers/glass/beaker,
 		/obj/item/radio)
+
+/obj/item/storage/belt/chef/artist
+	name = "delicate apron"
+	desc = "Apron with pockets. Ideal for the best butchers!"
+	icon_state = "cabelt"
+	item_state = "cabelt"
+
+/obj/item/storage/belt/chef/artistred
+	name = "red delicate apron"
+	desc = "Red apron with pockets. Ideal for the best butchers!"
+	icon_state = "cabeltred"
+	item_state = "cabeltred"

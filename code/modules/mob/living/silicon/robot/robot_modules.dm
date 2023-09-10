@@ -509,6 +509,7 @@
 /obj/item/robot_module/miner/New()
 	..()
 	modules += new /obj/item/storage/bag/ore/cyborg(src)
+	modules += new /obj/item/storage/bag/gem/cyborg(src)
 	modules += new /obj/item/pickaxe/drill/cyborg(src)
 	modules += new /obj/item/shovel(src)
 	modules += new /obj/item/weldingtool/mini(src)

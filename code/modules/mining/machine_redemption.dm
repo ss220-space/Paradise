@@ -1,7 +1,7 @@
 #define BASE_POINT_MULT 0.65
-#define BASE_SHEET_MULT 0.65
+#define BASE_SHEET_MULT 0.5
 #define POINT_MULT_ADD_PER_RATING 0.35
-#define SHEET_MULT_ADD_PER_RATING 0.35
+#define SHEET_MULT_ADD_PER_RATING 0.2
 
 /**
   * # Ore Redemption Machine
@@ -44,7 +44,7 @@
 	/// The number of unclaimed points.
 	var/points = 0
 	/// Sheet multiplier applied when smelting ore. Updated by [/obj/machinery/proc/RefreshParts].
-	var/sheet_per_ore = 1
+	var/sheet_per_ore = 0.7
 	/// Point multiplier applied when smelting ore. Updated by [/obj/machinery/proc/RefreshParts].
 	var/point_upgrade = 1
 	/// Whether the message to relevant supply consoles was sent already or not for an ore dump. If FALSE, another will be sent.
@@ -287,6 +287,7 @@
 		alloys += list(list(
 			"id" = D.id,
 			"name" = D.name,
+			"description" = D.desc,
 			"amount" = get_num_smeltable_alloy(D)
 		))
 	data["alloys"] = alloys
@@ -334,8 +335,8 @@
 				materials.use_amount(D.materials, desired)
 				// Spawn the alloy
 				var/result = new D.build_path(src)
-				if(istype(result, /obj/item/stack/sheet))
-					var/obj/item/stack/sheet/mineral/A = result
+				if(istype(result, /obj/item/stack))
+					var/obj/item/stack/A = result
 					A.amount = amount
 					unload_mineral(A)
 				else
@@ -378,7 +379,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "OreRedemption", name, 400, 600)
+		ui = new(user, src, ui_key, "OreRedemption", name, 500, 820)
 		ui.open()
 		ui.set_autoupdate(FALSE)
 

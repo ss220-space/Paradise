@@ -23457,7 +23457,6 @@
 /area/crew_quarters/captain/bedroom)
 "cyh" = (
 /obj/structure/table/wood,
-/obj/item/paicard,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
 	},
@@ -23896,12 +23895,6 @@
 	icon_state = "grimy"
 	},
 /area/crew_quarters/heads/hop)
-"czU" = (
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "conferenceroomwindows"
-	},
-/turf/simulated/wall,
-/area/crew_quarters/locker)
 "czV" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -39113,7 +39106,6 @@
 /area/medical/virology/lab)
 "dKy" = (
 /obj/structure/table,
-/obj/item/paicard,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -47139,7 +47131,6 @@
 /area/hallway/primary/central/sw)
 "eSm" = (
 /obj/structure/table/wood,
-/obj/item/paicard,
 /turf/simulated/floor/plasteel/grimy,
 /area/civilian/vacantoffice)
 "eSo" = (
@@ -52647,7 +52638,6 @@
 /area/security/prisonershuttle)
 "ghN" = (
 /obj/structure/table,
-/obj/item/paicard,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -63806,6 +63796,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -80052,9 +80043,7 @@
 	},
 /area/storage/primary)
 "mJJ" = (
-/obj/structure/table/reinforced,
-/obj/item/paper_bin,
-/obj/item/pen,
+/obj/machinery/vending/paivendor,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "purple"
@@ -102209,6 +102198,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -179904,7 +179894,7 @@ cnP
 cnP
 cnP
 cnP
-czU
+cnP
 cnP
 cnP
 cnP

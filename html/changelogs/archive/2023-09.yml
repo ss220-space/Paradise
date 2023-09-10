@@ -1,0 +1,63 @@
+'2023-09-01':
+  Den109G:
+  - bugfix: pylons fix roundstart cultists (#3453)
+  LiquidPotroh:
+  - tweak: Sleepy pen ignore pierceimmune (#3451)
+  Zardesse:
+  - tweak: Holy pylons heal (#3436)
+  Zwei:
+  - refactor: Scoreboard Datum (#3452)
+  - bugfix: Thief Mode Completion Text (#3450)
+  - bugfix: Parrot Collar Fix (#3457)
+'2023-09-02':
+  Den109G:
+  - bugfix: Admin-spawn key for steal target (#3458)
+  LiquidPotroh:
+  - add: Blindness in xeno's stomach (#3441)
+  NightDawnFox:
+  - bugfix: another lavaland fix (#3455)
+  Zwei:
+  - refactor: TG Style Cinematics (#3454)
+'2023-09-05':
+  SAAD:
+  - add: '"Mages Tavern" space ruin (#3461)'
+  UEDCommander:
+  - tweak: Alert rewrite (#3462)
+  Сиротка:
+  - bugfix: chamaleon hardsuit (#3470)
+  - balance: space dragon (#3444)
+'2023-09-07':
+  Albonix:
+  - tweak: survivcapsule_box (#3473)
+  Honker9999999:
+  - add: CATS (#3467)
+  - add: magboots cyborg upgrade (#3465)
+  - bugfix: you can't eat abstract items (#3468)
+  NightDawnFox:
+  - tweak: another lava tweaks (#3474)
+  Roman:
+  - add: Pai Update || New Sprites || New Modules || New Emote (#3463)
+  SSefuss:
+  - bugfix: Plastic Dupe through the Curtain Disassembly (#3475)
+  Vladisvell:
+  - bugfix: Not working cameras on Lavaland Outposts (#3481)
+  Zwei:
+  - bugfix: View Range Fixes (#3476)
+  aeternaclose:
+  - add: CereImprovement-pt7 (#3456)
+  mqopi:
+  - add: baggie craft (#3471)
+  Сиротка:
+  - tweak: dragon (#3477)
+  - tweak: Grey heath mods (#3439)
+'2023-09-09':
+  Dimach:
+  - bugfix: remove not used runtime (#3486)
+  Saichi23:
+  - bugfix: F7 for moderators (#3482)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3487)
+  Сиротка:
+  - bugfix: Megafauna blink to other level (#3484)
+  - tweak: Human spit blur (#3478)
+  - tweak: Cheaper BFL (#3485)

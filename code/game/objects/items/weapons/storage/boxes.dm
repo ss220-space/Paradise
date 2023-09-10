@@ -94,6 +94,7 @@
 	new /obj/item/crowbar/red(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
+	new /obj/item/survivalcapsule(src)
 
 /obj/item/storage/box/survival_security
 	icon_state = "box_sec"
