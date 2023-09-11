@@ -230,7 +230,7 @@
 	if(!.)
 		return
 	var/dir = sin(world.time)
-	var/amplitude = min(strength * 0.02, 32)
+	var/amplitude = min(strength * 0.003, 32)
 	px_diff = cos(world.time * 3) * amplitude * dir
 	py_diff = sin(world.time * 3) * amplitude * dir
 	owner.client?.pixel_x = px_diff
