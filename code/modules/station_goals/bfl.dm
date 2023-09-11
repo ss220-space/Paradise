@@ -432,6 +432,8 @@
 	if(step_count > 5)
 		Destroy()
 	step_count++
+	pixel_x = -32
+	pixel_y = -32 //Explictly stating, that pixel_x and pixel_y will ALWAYS be -32/-32 when moved, because moving objects reset their offset.
 
 
 //everything else
