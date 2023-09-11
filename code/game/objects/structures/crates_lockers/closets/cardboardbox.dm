@@ -10,6 +10,7 @@
 	integrity_failure = 0
 	sound = 'sound/effects/rustle2.ogg'
 	material_drop = /obj/item/stack/sheet/cardboard
+	var/decal = ""
 	var/amt = 4
 	var/move_delay = 0
 	var/egged = 0
@@ -82,12 +83,24 @@
 			if(W != user.get_active_hand())
 				to_chat(user, "You must be holding the pen to perform this action.")
 				return
-			if(! Adjacent(user))
+			if(!Adjacent(user))
 				to_chat(user, "You have moved too far away from the cardboard box.")
 				return
 			add_fingerprint(user)
 			decalselection = replacetext(decalselection, " ", "_")
 			decalselection = lowertext(decalselection)
-			icon_opened = ("cardboard_open_"+decalselection)
-			icon_closed = ("cardboard_"+decalselection)
-			update_icon() // a proc declared in the closets parent file used to update opened/closed sprites on normal closets
+			decal = decalselection
+
+			update_icon()
+
+/obj/structure/closet/cardboard/update_icon() //Not deriving, because of different logic.
+	if(!opened)
+		if(decal)
+			icon_state = "cardboard_" + decal
+		else
+			icon_state = "cardboard"
+	else
+		if(decal)
+			icon_state = "cardboard_open_" + decal
+		else
+			icon_state = "cardboard_open"
