@@ -8,7 +8,7 @@
 #define SCAN_CRITICAL 3 //! The scanner is within critical range of a rift
 
 /obj/item/circuitboard/brs_portable_scanner
-	name = "Портативный сканер разлома (Machine Board)"
+	board_name = "Портативный сканер разлома"
 	desc = "Плата портативного сканера блюспейс разлома."
 	build_path = /obj/machinery/brs_portable_scanner
 	icon_state = "scannerplat"
@@ -97,7 +97,7 @@
 		return
 
 	var/previous_status = scanning_status
-	
+
 	// Set status
 	var/scan_result = SEND_SIGNAL(src, COMSIG_SCANNING_RIFTS, seconds_per_tick, emagged)
 	if(scan_result & COMPONENT_SCANNED_NOTHING)
@@ -110,7 +110,7 @@
 		CRASH("Component returned unexpected value.")
 
 	is_there_any_servers = (scan_result & COMPONENT_SCANNED_NO_SERVERS) ? FALSE : TRUE
-	
+
 	if(scanning_status != previous_status)
 		status_change()
 
@@ -123,10 +123,10 @@
 	else
 		obj_break()
 		explosion(
-			loc, 
-			light_impact_range = failure_force, 
-			flash_range = 2 * failure_force, 
-			flame_range =  2 * failure_force, 
+			loc,
+			light_impact_range = failure_force,
+			flash_range = 2 * failure_force,
+			flame_range =  2 * failure_force,
 			cause = "[src] was working too long within critical range of a rift."
 		)
 
@@ -140,11 +140,11 @@
 
 	if(panel_open)
 		overlays += image(icon, "[prefix]-panel")
-	
+
 	if(!anchored)
 		icon_state = prefix
 		return
-	
+
 	if((scanning_status == SCAN_OFF) || (stat & NOPOWER))
 		icon_state ="[prefix]-anchored"
 		return
@@ -276,7 +276,7 @@
 	if(panel_open)
 		to_chat(user, span_warning("Управление заблокировано протоколом безопасности. Закройте и зафиксируйте панель."))
 		return TRUE
-	
+
 	ui_interact(user)
 	return TRUE
 
@@ -335,12 +335,12 @@
 		idle_power_usage = initial(idle_power_usage)
 	else
 		use_power = ACTIVE_POWER_USE
-	
+
 	if(scanning_status == SCAN_CRITICAL)
 		// Our state just changed to critical
 		// Set timer to kaboom
 		failure_time = world.time + time_for_failure
-	
+
 	update_icon()
 
 /obj/machinery/brs_portable_scanner/proc/toggle()

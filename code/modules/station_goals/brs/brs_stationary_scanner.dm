@@ -8,7 +8,7 @@
 #define SCAN_CRITICAL 3 //! The scanner is within critical range of a rift
 
 /obj/item/circuitboard/brs_stationary_scanner
-	name = "Стационарный сканер разлома (Machine Board)"
+	board_name = "Стационарный сканер разлома"
 	desc = "Плата стационарного сканера блюспейс разлома."
 	build_path = /obj/machinery/power/brs_stationary_scanner
 	icon_state = "bluespace_scannerplat"
@@ -105,7 +105,7 @@
 		return
 	if(scanning_status == SCAN_OFF)
 		return
-	
+
 	var/previous_status = scanning_status
 
 	// Set status
@@ -120,7 +120,7 @@
 		CRASH("Component returned unexpected value.")
 
 	is_there_any_servers = (scan_result & COMPONENT_SCANNED_NO_SERVERS) ? FALSE : TRUE
-	
+
 	if(scanning_status != previous_status)
 		status_change()
 
@@ -146,7 +146,7 @@
 	if(!cable_powered)
 		cable_powered = TRUE
 		on_power_change()
-	
+
 	add_load(current_power_need)
 
 /obj/machinery/power/brs_stationary_scanner/proc/process_critical_status()
@@ -155,10 +155,10 @@
 	else
 		obj_break()
 		explosion(
-			loc, 
-			light_impact_range = failure_force, 
-			flash_range = 2 * failure_force, 
-			flame_range =  2 * failure_force, 
+			loc,
+			light_impact_range = failure_force,
+			flash_range = 2 * failure_force,
+			flame_range =  2 * failure_force,
 			cause = "[src] was working too long within critical range of a rift."
 		)
 
@@ -168,7 +168,7 @@
 	overlays.Cut()
 	if(panel_open)
 		overlays += image(icon, "[prefix]-panel")
-	
+
 	if (stat & BROKEN)
 		icon_state = "[prefix]-broken"
 		return
@@ -201,12 +201,12 @@
 
 	// It's a large machine, add a delay
 	user.visible_message(
-		"[user] начина[pluralize_ru(user.gender, "ет", "ют")] [panel_open ? "От" : "За"]кручивать панель [src].", 
+		"[user] начина[pluralize_ru(user.gender, "ет", "ют")] [panel_open ? "От" : "За"]кручивать панель [src].",
 		"Вы начинаете [panel_open ? "От" : "За"]кручивать панель [src]."
 	)
 	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
 		return
-	
+
 	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 	update_icon()
 
@@ -309,7 +309,7 @@
 			return TRUE
 
 /** This should be called every time `scanning_status` has been changed. */
-/obj/machinery/power/brs_stationary_scanner/proc/status_change()	
+/obj/machinery/power/brs_stationary_scanner/proc/status_change()
 	if(scanning_status == SCAN_CRITICAL)
 		// Our state just changed to critical
 		// Set timer to kaboom
