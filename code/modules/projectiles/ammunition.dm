@@ -91,12 +91,13 @@
 		..()
 
 /obj/item/ammo_casing/proc/leave_residue(mob/living/carbon/human/H)
-	for(H)
-		if(H.gloves)
-			var/obj/item/clothing/G = H.gloves
-			G.gunshot_residue = caliber
-		else
-			H.gunshot_residue = caliber
+	if(QDELETED(H))
+		return
+	if(H.gloves)
+		var/obj/item/clothing/G = H.gloves
+		G.gunshot_residue = caliber
+	else
+		H.gunshot_residue = caliber
 
 //Boxes of ammo
 /obj/item/ammo_box
