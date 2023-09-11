@@ -61,3 +61,13 @@
   - bugfix: Megafauna blink to other level (#3484)
   - tweak: Human spit blur (#3478)
   - tweak: Cheaper BFL (#3485)
+'2023-09-11':
+  Rerik007:
+  - qol: Makes machine frames show their circuit name (#3494)
+  - bugfix: add other immune flags, alien move delay after stunbaton, absorb_status_effect
+      (#3493)
+  Vladisvell:
+  - bugfix: BFL lens offset issue (#3498)
+  - bugfix: wrong icon state for engineers' closets (#3497)
+  Zwei:
+  - bugfix: Xenos Mousedrop (#3495)
