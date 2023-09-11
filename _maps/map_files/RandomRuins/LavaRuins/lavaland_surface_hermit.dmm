@@ -124,6 +124,7 @@
 "A" = (
 /obj/structure/table,
 /obj/item/kitchen/knife/combat/survival,
+/obj/item/reagent_containers/hypospray/autoinjector/survival,
 /turf/simulated/floor/plating,
 /area/ruin/powered)
 "B" = (
@@ -186,6 +187,10 @@
 	name = "Резная тяпка"
 	},
 /turf/simulated/floor/plating,
+/area/ruin/powered)
+"S" = (
+/obj/item/gun/energy/kinetic_accelerator,
+/turf/simulated/floor/plating/asteroid/basalt,
 /area/ruin/powered)
 "X" = (
 /obj/item/flashlight/lantern,
@@ -393,7 +398,7 @@ s
 (12,1,1) = {"
 b
 b
-f
+S
 k
 X
 b
