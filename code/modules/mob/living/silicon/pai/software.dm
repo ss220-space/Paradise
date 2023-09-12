@@ -10,7 +10,7 @@ GLOBAL_LIST_INIT(base_pai_emotions, list(
 		"What" = 9
 ))
 
-GLOBAL_LIST_INIT(spec_pai_emotions, list("Syndicate" = 10))
+GLOBAL_LIST_INIT(spec_pai_emotions, list("Syndicate" = 10, "Contractor" = 11, "Thief" = 12))
 
 GLOBAL_LIST_EMPTY(pai_software_by_key)
 

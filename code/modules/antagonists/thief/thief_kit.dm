@@ -326,3 +326,9 @@
 		/obj/item/storage/box/syndie_kit/mr_chang_technique
 		)
 
+/datum/thief_kit/spai_kit
+	name = "Набор ПИИ"
+	desc = "Украденная технология персонального ИИ синдиката, которая была перепрошита под нужды гильдии воров."
+	item_list = list(
+		/obj/item/storage/box/syndie_kit/pai
+		)

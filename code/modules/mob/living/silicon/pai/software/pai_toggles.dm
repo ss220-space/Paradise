@@ -1,7 +1,7 @@
 // Security Hud //
 /datum/pai_software/sec_hud
 	name = "Security HUD"
-	ram_cost = 20
+	ram_cost = 15
 	id = "sec_hud"
 	ui_icon = "exclamation-triangle"
 	toggle_software = TRUE
@@ -18,7 +18,7 @@
 // Medical Hud //
 /datum/pai_software/med_hud
 	name = "Medical HUD"
-	ram_cost = 20
+	ram_cost = 15
 	id = "med_hud"
 	ui_icon = "first-aid"
 	toggle_software = TRUE
@@ -35,7 +35,7 @@
 // Universal Translator //
 /datum/pai_software/translator
 	name = "Universal Translator"
-	ram_cost = 35
+	ram_cost = 25
 	id = "translator"
 	ui_icon = "language"
 	toggle_software = TRUE
@@ -117,7 +117,7 @@
 // Meson Vision //
 /datum/pai_software/vision/meson_vision
 	name = "Meson Vision"
-	ram_cost = 10
+	ram_cost = 5
 	id = "meson_vis"
 	ui_icon = "adjust"
 	toggle_software = TRUE
@@ -144,7 +144,7 @@
 // Weakened AI Сapability //
 /datum/pai_software/weak_ai
 	name = "Weakened AI Capability"
-	ram_cost = 75
+	ram_cost = 60
 	id = "weak_ai"
 	ui_icon = "bug"
 	toggle_software = TRUE
