@@ -13546,11 +13546,12 @@
 	},
 /area/storage/primary)
 "bDR" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	name = "Restaurant"
-	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/multi_tile/glass{
+	name = "Bridge West Hallway";
+	req_access = list(19)
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -70698,15 +70699,16 @@
 	},
 /area/security/checkpoint/south)
 "kxK" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	name = "Restaurant"
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/multi_tile/glass{
+	name = "Bridge East Hallway";
+	req_access = list(19)
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -87245,10 +87247,6 @@
 	},
 /area/medical/surgery/south)
 "oqr" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	dir = 1;
-	name = "Restaurant"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -87266,6 +87264,11 @@
 	name = "Bridge Lockdown"
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 1;
+	name = "Bridge East Hallway";
+	req_access = list(19)
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -98483,7 +98486,8 @@
 "qMD" = (
 /obj/machinery/door/airlock/multi_tile/glass{
 	dir = 1;
-	name = "Restaurant"
+	name = "Bridge West Hallway";
+	req_access = list(19)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
