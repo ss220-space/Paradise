@@ -66,8 +66,24 @@
   - qol: Makes machine frames show their circuit name (#3494)
   - bugfix: add other immune flags, alien move delay after stunbaton, absorb_status_effect
       (#3493)
+  - bugfix: replace 'for' with 'if' where for is not needed (#3489)
   Vladisvell:
   - bugfix: BFL lens offset issue (#3498)
   - bugfix: wrong icon state for engineers' closets (#3497)
   Zwei:
   - bugfix: Xenos Mousedrop (#3495)
+  aeternaclose:
+  - add: Donut For My Man (#3491)
+'2023-09-12':
+  Albonix:
+  - imageadd: update_sprite_riotshotgun (#3492)
+  NightDawnFox:
+  - bugfix: unathi subtypes tail clipping (#3504)
+  - bugfix: no more supressable m52 (#3505)
+  Rerik007:
+  - tweak: minor pai adds and tweaks (#3490)
+  SAAD:
+  - bugfix: No Restaurant at bridge (#3499)
+  Vladisvell:
+  - bugfix: cardboard boxes rendering (#3503)
+  - bugfix: Plasma glass smelting not giving plasma back (#3500)
