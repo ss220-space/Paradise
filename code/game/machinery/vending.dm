@@ -1857,6 +1857,7 @@
 		/obj/item/clothing/under/rank/dispatch 			= 5,
 
 		/obj/item/clothing/suit/tracksuit/red				= 5,
+		/obj/item/clothing/suit/hooded/wintercoat/security	= 5,
 
 		/obj/item/clothing/mask/balaclava 		= 10,
 		/obj/item/clothing/mask/bandana/red 	= 10,
@@ -1931,6 +1932,7 @@
 		/obj/item/clothing/suit/storage/labcoat 	= 10,
 		/obj/item/clothing/suit/apron/surgical 		= 10,
 		/obj/item/clothing/suit/storage/fr_jacket 	= 5,
+		/obj/item/clothing/suit/hooded/wintercoat/medical	= 5,
 
 		/obj/item/clothing/mask/surgical 		= 10,
 
@@ -2006,6 +2008,7 @@
 
 		/obj/item/clothing/suit/storage/hazardvest = 10,
 		/obj/item/clothing/suit/storage/suragi_jacket/eng = 5,
+		/obj/item/clothing/suit/hooded/wintercoat/engineering = 5,
 
 		/obj/item/clothing/mask/gas  = 10,
 		/obj/item/clothing/mask/bandana/red 	= 10,
@@ -2030,6 +2033,7 @@
 		/obj/item/clothing/under/rank/atmospheric_technician = 3,
 		/obj/item/clothing/under/rank/atmospheric_technician/skirt = 3,
 		/obj/item/clothing/head/beret/atmos = 3,
+		/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 5,
 		/obj/item/storage/backpack/duffel/atmos = 3.
 		)
 
@@ -2056,6 +2060,7 @@
 		/obj/item/clothing/suit/storage/labcoat/science = 10,
 		/obj/item/clothing/suit/storage/labcoat 		= 10,
 		/obj/item/clothing/suit/storage/suragi_jacket/sci = 5,
+		/obj/item/clothing/suit/hooded/wintercoat/medical/science = 5,
 
 		/obj/item/clothing/gloves/color/latex 	= 10,
 		/obj/item/clothing/gloves/color/white 	= 10,
@@ -2123,6 +2128,9 @@
 
 		/obj/item/clothing/under/pants/tan 		= 10,
 		/obj/item/clothing/under/pants/track 	= 10,
+
+		/obj/item/clothing/suit/hooded/wintercoat/cargo	= 5,
+		/obj/item/clothing/suit/hooded/wintercoat/miner	= 5,
 		)
 
 
@@ -2231,6 +2239,7 @@
 		/obj/item/clothing/suit/storage/suragi_jacket/botany = 3,
 		/obj/item/clothing/suit/apron = 4,
 		/obj/item/clothing/suit/apron/overalls = 2,
+		/obj/item/clothing/suit/hooded/wintercoat/hydro = 5,
 		/obj/item/clothing/mask/bandana/botany = 4,
 		/obj/item/clothing/accessory/scarf/green = 2,
 		/obj/item/clothing/head/flatcap = 2,
