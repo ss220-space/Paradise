@@ -157,6 +157,8 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/cargo_upgrade
 	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun
+	ME.attach(src)
 
 /obj/mecha/working/ripley/full_load/add_cell()
-	cell = new /obj/item/stock_parts/cell/bluespace(src)
+	cell = new /obj/item/stock_parts/cell/bluespace(src) // для тестов энергопотребления.
