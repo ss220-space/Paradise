@@ -1,6 +1,6 @@
 /obj/mecha/working/ripley
-	desc = "Автономный энергопогрузчик. Эта новая модель оснащена мощной броней, защищающей от опасностей, связанных с процессом добычи полезных ископаемых в агрессивной внешней среде."
-	name = "АЭП \"Рипли\""
+	desc = "Autonomous Power Loader Unit. This newer model is refitted with powerful armour against the dangers of the EVA mining process."
+	name = "APLU \"Ripley\""
 	icon_state = "ripley"
 	initial_icon = "ripley"
 	step_in = 4 //Move speed, lower is faster.
@@ -22,19 +22,19 @@
 		cut_overlays()
 		if(hides < 3)
 			add_overlay(occupant ? "ripley-g" : "ripley-g-open")
-			desc = "Автономный энергопогрузчик. Вы видите укрепления из пластин шкуры голиафа, прицепленные к броне."
+			desc = "Autonomous Power Loader Unit. You see reinforcements made of plates of goliath hide attached to the armor."
 		else
 			add_overlay(occupant ? "ripley-g-full" : "ripley-g-full-open")
-			desc = "Автономный энергопогрузчик. У него устрашающий панцирь, полностью состоящий из пластин шкуры голиафа, - его пилот, должно быть, опытный охотник на чудовищ."
+			desc = "Autonomous Power Loader Unit. It has an intimidating carapace composed entirely of plates of goliath hide - its pilot must be an experienced monster hunter."
 
 	if(plates && !hides)
 		cut_overlays()
 		if(plates < 3)
 			add_overlay(occupant ? "ripley-a" : "ripley-a-open")
-			desc = "Автономный энергопогрузчик. Вы видите куски самодельной брони на корпусе."
+			desc = "Autonomous Power Loader Unit. You can see the pieces of homemade armor on the hull."
 		else
 			add_overlay(occupant ? "ripley-a-full" : "ripley-a-full-open")
-			desc = "Автономный энергопогрузчик. Полностью облепленный крепким мусором, этот сияющий комочек металла выглядит невероятно крепким."
+			desc = "Autonomous Power Loader Unit. Completely encrusted with reinforced debris, this shiny lump of metal looks incredibly durable."
 
 	if(plates && hides)
 		cut_overlays()
@@ -42,26 +42,28 @@
 			cut_overlays()
 			add_overlay(occupant ? "ripley-g-full" : "ripley-g-full-open")
 			add_overlay(occupant ? "ripley-a" : "ripley-a-open")
-			desc = "Автономный энергопогрузчик. Мало устрашающего панциря из шкуры голиафа, он дополнительно обвешан кусками самодельной брони. Как это убивать?!"
+			desc = "Autonomous Power Loader Unit. Not only is the goliath hide armor intimidating, it's additionally covered in pieces of homemade armor. How do you kill that?!"
 		if(plates < 3 && hides < 3)
 			cut_overlays()
 			add_overlay(occupant ? "ripley-a-full" : "ripley-a-full-open")
 			add_overlay(occupant ? "ripley-g" : "ripley-g-open")
-			desc = "Автономный энергопогрузчик. Хозяин меха решил пойти во все тяжкие - облепившись кусками самодельной брони и шкурами голиафа."
+			desc = "Autonomous Power Loader Unit. The owner of the mech decided to go all out - clad in pieces of homemade armor and goliath skins."
 		if(plates == 3 && hides < 3)
 			cut_overlays()
 			add_overlay(occupant ? "ripley-a-full" : "ripley-a-full-open")
 			add_overlay(occupant ? "ripley-g" : "ripley-g-open")
-			desc = "Автономный энергопогрузчик. Облепленный самодельной броней с ушей до пят, еще и плиты голиафа сверху - настоящий танк, не иначе."
+			desc = "Autonomous Power Loader Unit. Clad in homemade armor from ear to toe, with Goliath plates on top - a real tank, no other way."
 		if(plates == 3 && hides == 3)
 			cut_overlays()
 			add_overlay(occupant ? "ripley-g-full" : "ripley-g-full-open")
 			add_overlay(occupant ? "ripley-a" : "ripley-a-open")
 
 
+
+
 /obj/mecha/working/ripley/firefighter
-	desc = "Шасси стандартного энергопогрузчика было дооснащено дополнительной тепловой защитой и слоями брони."
-	name = "АЭП \"Огнеборец\""
+	desc = "Standart APLU chassis was refitted with additional thermal protection and cistern."
+	name = "APLU \"Firefighter\""
 	icon_state = "firefighter"
 	initial_icon = "firefighter"
 	max_temperature = 65000
