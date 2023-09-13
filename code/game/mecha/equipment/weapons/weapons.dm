@@ -580,6 +580,6 @@
 	fire_sound = 'sound/weapons/kenetic_accel.ogg'
 	harmful = FALSE
 
-/obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun/can_attach(obj/mecha/M as obj)
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun/can_attach(obj/mecha/M)
 	if(istype(M, /obj/mecha))
 		return TRUE
