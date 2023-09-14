@@ -1092,6 +1092,18 @@
 	name = "tuxedo cat plushie"
 	icon_state = "tuxedocat"
 
+/obj/item/toy/plushie/kotrazumist
+	name = "Razumist Cat"
+	desc = "Cat with wanrning cone on it. Wonder what do itself so smart ?"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "razymist_cat"
+
+/obj/item/toy/plushie/kotwithfunnyhat
+	name = "Rice Cat"
+	desc = "White cat plushie with straw hat for hard work on rice field !"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "ricehat_cat"
+
 /obj/item/toy/plushie/voxplushie
 	name = "vox plushie"
 	desc = "A stitched-together vox, fresh from the skipjack. Press its belly to hear it skree!"
