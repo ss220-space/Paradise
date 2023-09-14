@@ -1518,10 +1518,12 @@
 
 	to_chat(user, "<span class='notice'>You modify the appearance of [target] based on the kit blueprints.</span>")
 	var/obj/spacepod/pod = target
+	pod.overlays.Cut()
 	pod.icon = 'icons/48x48/custom_pod.dmi'
 	pod.icon_state = "pod_dece"
 	pod.name = "sleek spacepod"
 	pod.desc = "A modified varient of a space pod."
+	pod.pod_paint_effect = null
 	pod.can_paint = FALSE
 	used = 1
 	qdel(src)
