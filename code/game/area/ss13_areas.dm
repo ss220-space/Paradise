@@ -545,6 +545,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "cave"
 	requires_power = FALSE
 	outdoors = TRUE
+	min_ambience_cooldown = 70 SECONDS
+	max_ambience_cooldown = 220 SECONDS
 
 /area/asteroid/artifactroom
 	name = "\improper Asteroid - Artifact"
@@ -1674,6 +1676,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/medical
 	ambientsounds = MEDICAL_SOUNDS
 	sound_environment = SOUND_AREA_STANDARD_STATION
+	min_ambience_cooldown = 90 SECONDS
+	max_ambience_cooldown = 180 SECONDS
 
 /area/medical/medbay
 	name = "\improper Medbay"
