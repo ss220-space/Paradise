@@ -1525,6 +1525,8 @@
 	pod.desc = "A modified varient of a space pod."
 	pod.pod_paint_effect = null
 	pod.can_paint = FALSE
+	pod.has_paint = FALSE
+	pod.update_icons()
 	used = 1
 	qdel(src)
 
