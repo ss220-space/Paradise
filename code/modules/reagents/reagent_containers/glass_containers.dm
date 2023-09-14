@@ -312,6 +312,23 @@
 	slot_flags = SLOT_HEAD
 	resistance_flags = NONE
 	container_type = OPENCONTAINER
+	color = "#2877d2"
+	var/paintable = TRUE
+
+/obj/item/reagent_containers/glass/bucket/attackby(obj/D, mob/user, params)
+	. = ..()
+	if(paintable && istype(D, /obj/item/toy/crayon/spraycan))
+		var/obj/item/toy/crayon/spraycan/can = D
+		if(!can.capped && Adjacent(can, 1))
+			color = can.colour
+			update_icon()
+
+/obj/item/reagent_containers/glass/bucket/update_icon()
+	. = ..()
+	overlays.Cut()
+	var/mutable_appearance/hand = mutable_appearance(icon='icons/obj/janitor.dmi', icon_state = "bucket_hand")
+	hand.appearance_flags |= RESET_COLOR
+	overlays += hand
 
 /obj/item/reagent_containers/glass/bucket/wooden
 	name = "wooden bucket"
@@ -320,6 +337,8 @@
 	materials = null
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50)
 	resistance_flags = FLAMMABLE
+	color = null
+	paintable = FALSE
 
 /obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot, initial)
     . = ..()

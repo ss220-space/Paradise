@@ -3,7 +3,7 @@
 	name = "\improper Cleanbot"
 	desc = "A little cleaning robot, he looks so excited!"
 	icon = 'icons/obj/aibots.dmi'
-	icon_state = "cleanbot0"
+	icon_state = "cleanbot"
 	density = 0
 	anchored = 0
 	health = 25
@@ -18,7 +18,7 @@
 	window_name = "Automatic Station Cleaner v1.1"
 	pass_flags = PASSMOB
 	path_image_color = "#993299"
-
+	color = "#2877d2"
 
 	var/blood = 1
 	var/list/target_types = list()
@@ -34,19 +34,24 @@
 /mob/living/simple_animal/bot/cleanbot/New()
 	..()
 	get_targets()
-	icon_state = "cleanbot[on]"
 
 	var/datum/job/janitor/J = new/datum/job/janitor
 	access_card.access += J.get_access()
 	prev_access = access_card.access
+	update_icon()
 
-/mob/living/simple_animal/bot/cleanbot/turn_on()
-	..()
-	icon_state = "cleanbot[on]"
+/mob/living/simple_animal/bot/cleanbot/update_icon()
+	overlays.Cut()
+	var/overlay_state
+	switch(mode)
+		if(BOT_CLEANING)
+			overlay_state = "-c"
+		if(BOT_IDLE)
+			overlay_state = "[on]"
 
-/mob/living/simple_animal/bot/cleanbot/turn_off()
-	..()
-	icon_state = "cleanbot[on]"
+	var/mutable_appearance/m_appearance = mutable_appearance(icon, "[icon_state][overlay_state]")
+	m_appearance.appearance_flags |= RESET_COLOR
+	overlays += m_appearance
 
 /mob/living/simple_animal/bot/cleanbot/bot_reset()
 	..()
@@ -60,17 +65,11 @@
 	text_dehack_fail = "[name] does not seem to respond to your repair code!"
 
 /mob/living/simple_animal/bot/cleanbot/attackby(obj/item/W, mob/user, params)
-	if(W.GetID() || ispda(W))
-		if(bot_core.allowed(user) && !open && !emagged)
-			locked = !locked
-			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] \the [src] behaviour controls.</span>")
-		else
-			if(emagged)
-				to_chat(user, "<span class='warning'>ERROR</span>")
-			if(open)
-				to_chat(user, "<span class='warning'>Please close the access panel before locking it.</span>")
-			else
-				to_chat(user, "<span class='notice'>\The [src] doesn't seem to respect your authority.</span>")
+	if(istype(W, /obj/item/toy/crayon/spraycan))
+		var/obj/item/toy/crayon/spraycan/can = W
+		if(!can.capped && Adjacent(user))
+			src.color = can.colour
+			update_icon()
 	else
 		return ..()
 
@@ -165,15 +164,15 @@
 
 /mob/living/simple_animal/bot/cleanbot/proc/clean(obj/effect/decal/cleanable/target)
 	anchored = 1
-	icon_state = "cleanbot-c"
 	visible_message("<span class='notice'>[src] begins to clean up [target]</span>")
 	mode = BOT_CLEANING
+	update_icon()
 	spawn(50)
 		if(mode == BOT_CLEANING)
 			QDEL_NULL(target)
 			anchored = 0
 		mode = BOT_IDLE
-		icon_state = "cleanbot[on]"
+		update_icon()
 
 /mob/living/simple_animal/bot/cleanbot/explode()
 	on = 0
