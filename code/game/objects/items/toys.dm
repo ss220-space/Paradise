@@ -1393,7 +1393,7 @@
 		add_fingerprint(user)
 		if(message_spam_flag == 0)
 			message_spam_flag = 1
-			user.visible_message("notice", "[user] [msg] \the [src] in hand!")
+			user.visible_message(span_notice("[user] has [msg] \the [src] in hand!"),span_notice("You have [msg] \the [src] in hand!"))
 			spawn(30)
 				message_spam_flag = 0
 		spawn(3)
@@ -1401,10 +1401,10 @@
 	return
 
 /obj/item/toy/plushie/pig/attack_self(mob/user)
-	oink(user, "squeezes")
+	oink(user, "squeezed")
 
 /obj/item/toy/plushie/pig/attack_hand(mob/user)
-	oink(user, pick("presses", "squeezes", "squashes", "champs", "pinches"))
+	oink(user, pick("pressed", "squeezed", "squashed", "champed", "pinched"))
 
 /obj/item/toy/plushie/pig/Initialize()
 	. = ..()
