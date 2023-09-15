@@ -87,3 +87,25 @@
   Vladisvell:
   - bugfix: cardboard boxes rendering (#3503)
   - bugfix: Plasma glass smelting not giving plasma back (#3500)
+'2023-09-13':
+  NightDawnFox:
+  - add: wintercoats on station (#3507)
+  Vladisvell:
+  - add: standalone tts readme update (#3508)
+  Сиротка:
+  - add: mech Kinetic Accelerator (#3479)
+'2023-09-15':
+  Daeberdir:
+  - bugfix: inwallet genetics ID sprite. (#3518)
+  Den109G:
+  - bugfix: Fakekey display ping (#3509)
+  NightDawnFox:
+  - bugfix: wrong energy claws text (#3523)
+  - bugfix: rocketlauncher logic fix (#3521)
+  - bugfix: double delay on bluespace tomatoes (#3520)
+  - bugfix: minor sprite fixes (#3519)
+  ROdenFL:
+  - bugfix: pig oinks correctly (#3515)
+  - bugfix: delete painted parts after adding kit (#3512)
+  Vladisvell:
+  - bugfix: removed 100 units cap for spilling on hydroponics tray (#3510)
