@@ -161,13 +161,14 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return 0
 	return 1
 
-/obj/structure/window/CanAStarPass(ID, to_dir)
-	if(!density)
-		return 1
-	if((dir == FULLTILE_WINDOW_DIR) || (dir == to_dir))
-		return 0
 
-	return 1
+/obj/structure/window/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+	if(!density)
+		return TRUE
+	if((dir == FULLTILE_WINDOW_DIR) || (dir == to_dir) || fulltile)
+		return FALSE
+	return TRUE
+
 
 /obj/structure/window/attack_tk(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)

@@ -50,11 +50,13 @@
 /obj/structure/blob/CanAtmosPass(turf/T)
 	return !atmosblock
 
-/obj/structure/blob/CanAStarPass(ID, dir, caller)
-	. = 0
+
+/obj/structure/blob/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
+	. = FALSE
 	if(ismovable(caller))
 		var/atom/movable/mover = caller
 		. = . || mover.checkpass(PASSBLOB)
+
 
 /obj/structure/blob/process()
 	Life()
