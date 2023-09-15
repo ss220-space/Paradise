@@ -110,9 +110,6 @@
 /obj/item/storage/box/survival_security/hos
 	icon_state = "box_hos"
 
-/obj/item/storage/box/survival_security/cadet
-	icon_state = "box_cadet"
-
 /obj/item/storage/box/survival_security/warden
 	icon_state = "box_warden"
 

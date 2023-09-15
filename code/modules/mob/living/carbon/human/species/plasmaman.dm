@@ -86,7 +86,7 @@
 		if("Chef")
 			O = new /datum/outfit/plasmaman/chef
 
-		if("Security Officer", "Security Cadet", "Special Operations Officer")
+		if("Security Officer", "Special Operations Officer")
 			O = new /datum/outfit/plasmaman/security
 
 		if("Security Pod Pilot")

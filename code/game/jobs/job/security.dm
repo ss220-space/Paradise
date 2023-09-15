@@ -176,7 +176,7 @@
 	selection_color = "#ffeeee"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
-	alt_titles = list("Security Trainer")
+	alt_titles = list("Duty Officer")
 	minimal_player_age = 14
 	exp_requirements = 600
 	exp_type = EXP_TYPE_SECURITY
@@ -204,47 +204,6 @@
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
 	box = /obj/item/storage/box/survival_security
-
-
-/datum/job/officer/cadet
-	title = "Security Cadet"
-	flag = JOB_CADET
-	total_positions = 3
-	spawn_positions = 3
-	department_head = list("Head of Security", "Security Officer")
-	selection_color = "#ffeeee"
-	alt_titles = list("Security Assistant", "Security Graduate")
-	exp_requirements = 600
-	exp_type = EXP_TYPE_CREW
-	exp_max	= 600
-	exp_type_max = EXP_TYPE_SECURITY
-	is_novice = TRUE
-	money_factor = 2
-	outfit = /datum/outfit/job/officer/cadet
-
-/datum/outfit/job/officer/cadet
-	name = "Security Cadet"
-	jobtype = /datum/job/officer/cadet
-	uniform = /obj/item/clothing/under/rank/security/cadet
-	head = /obj/item/clothing/head/soft/sec
-	id = /obj/item/card/id/security/cadet
-	l_pocket = /obj/item/reagent_containers/spray/pepper
-	r_pocket = /obj/item/paper/deltainfo
-	suit_store = /obj/item/gun/energy/gun/advtaser
-	box = /obj/item/storage/box/survival_security/cadet
-
-/datum/outfit/job/officer/cadet/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(H.mind && H.gender == FEMALE)
-		uniform = /obj/item/clothing/under/rank/security/cadet/skirt
-	if(H.mind && H.mind.role_alt_title)
-		switch(H.mind.role_alt_title)
-			if("Security Assistant")
-				uniform = /obj/item/clothing/under/rank/security/cadet/assistant
-				if(H.gender == FEMALE)
-					uniform = /obj/item/clothing/under/rank/security/cadet/assistant/skirt
-			if("Security Graduate")
-				head = /obj/item/clothing/head/beret/sec
 
 /datum/job/brigdoc
 	title = "Brig Physician"

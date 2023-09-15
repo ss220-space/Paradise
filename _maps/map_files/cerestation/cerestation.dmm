@@ -4733,8 +4733,6 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/obj/effect/landmark/start/security_cadet,
-/obj/effect/landmark/start/security_cadet,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5492,7 +5490,6 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/effect/landmark/start/security_cadet,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -25080,7 +25077,6 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/start/security_cadet,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -40242,7 +40238,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/landmark/start/security_cadet,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -43376,7 +43371,6 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/obj/effect/landmark/start/security_cadet,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -50381,7 +50375,6 @@
 	},
 /area/crew_quarters/sleep)
 "jvI" = (
-/obj/effect/landmark/start/security_cadet,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -63215,7 +63208,6 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/effect/landmark/start/security_cadet,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -66989,7 +66981,6 @@
 /obj/machinery/vending/wallmed{
 	pixel_y = 28
 	},
-/obj/effect/landmark/start/security_cadet,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -71789,7 +71780,6 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/obj/effect/landmark/start/security_cadet,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -76622,7 +76612,6 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "roH" = (
-/obj/effect/landmark/start/security_cadet,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -87413,7 +87402,6 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/effect/landmark/start/security_cadet,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -93902,7 +93890,6 @@
 	dir = 1;
 	pixel_y = -24
 	},
-/obj/effect/landmark/start/security_cadet,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},

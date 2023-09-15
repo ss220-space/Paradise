@@ -69,7 +69,6 @@
 		"Internal Affairs Agent" = "secradio",
 		"Magistrate" = "secradio",
 		"Security Officer" = "secradio",
-		"Security Cadet" = "secradio",
 		"Security Pod Pilot" = "secradio",
 		"Warden" = "secradio",
 		// Supply

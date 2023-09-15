@@ -600,12 +600,6 @@
 	id_job = "Security Officer"
 	outfit = /datum/outfit/job/officer
 
-/obj/effect/mob_spawn/human/cadet
-	name = "Security Cadet"
-	mob_name = "Security Cadet"
-	id_job = "Security Cadet"
-	outfit = /datum/outfit/job/officer/cadet
-
 /obj/effect/mob_spawn/human/miner
 	name = "Shaft Miner"
 	mob_name = "Shaft Miner"

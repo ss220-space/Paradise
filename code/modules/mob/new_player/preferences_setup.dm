@@ -795,7 +795,7 @@
 						clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel-norm"), ICON_OVERLAY)
 					if(4)
 						clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel"), ICON_OVERLAY)
-			if(JOB_OFFICER, JOB_CADET)
+			if(JOB_OFFICER)
 				clothes_s = new /icon(uniform_dmi, "secred_s")
 				clothes_s.Blend(new /icon('icons/mob/feet.dmi', "jackboots"), ICON_UNDERLAY)
 				if(prob(1))
