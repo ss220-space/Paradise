@@ -76,7 +76,7 @@
 
 
 /datum/action/proc/enable_invisibility(enable = TRUE)
-	if(!owner || !owner?.client)
+	if(!owner?.client)
 		return
 	if(enable)
 		if(invisibility)
