@@ -1045,6 +1045,9 @@
 /mob/proc/can_see_reagents()
 	return 0
 
+/mob/proc/can_see_food()
+	return FALSE
+
 //Can this mob leave its location without breaking things terrifically?
 /mob/proc/can_safely_leave_loc()
 	return 1 // Yes, you can

@@ -135,3 +135,4 @@
 
 	if(possible_transfer_amounts)
 		. += "<span class='notice'>Alt-click to change the transfer amount.</span>"
+
