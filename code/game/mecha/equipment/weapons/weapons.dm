@@ -321,20 +321,6 @@
 	variance = 25
 	harmful = TRUE
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/syndi
-	name = "LBX AC 11 \"Ram\""
-	desc = "Minotaur go brr right into your face!"
-	icon_state = "mecha_scatter"
-	origin_tech = "combat=4"
-	equip_cooldown = 8
-	projectile = /obj/item/projectile/bullet/pellet/flechette
-	fire_sound = 'sound/weapons/gunshots/1shotgun_auto.ogg'
-	projectiles = 50
-	projectile_energy_cost = 10 // сохраняется то же энергопотребление при увеличенном дпс
-	projectiles_per_shot = 5
-	variance = 15
-	harmful = TRUE
-
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
 	name = "Ultra AC 2"
 	icon_state = "mecha_uac2"
@@ -344,21 +330,6 @@
 	fire_sound = 'sound/weapons/gunshots/1mg2.ogg'
 	projectiles = 300
 	projectile_energy_cost = 20
-	projectiles_per_shot = 3
-	variance = 6
-	projectile_delay = 2
-	harmful = TRUE
-
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/syndi
-	name = "AC 2 \"Special\""
-	desc = "Cr20c inside!"
-	icon_state = "mecha_uac2"
-	origin_tech = "combat=4"
-	equip_cooldown = 8
-	projectile = /obj/item/projectile/bullet/midbullet_AC2S
-	fire_sound = 'sound/weapons/gunshots/1mg2.ogg'
-	projectiles = 300
-	projectile_energy_cost = 14
 	projectiles_per_shot = 3
 	variance = 6
 	projectile_delay = 2

@@ -80,7 +80,7 @@
 
 /obj/mecha/combat/durand/rover/loaded/New()
 	..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/syndi
+	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/repair_droid
 	ME.attach(src)
