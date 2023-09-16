@@ -119,7 +119,7 @@ SUBSYSTEM_DEF(tts)
 		"detective" = "Детектив",
 		"forensic technician" = "Криминалист",
 		"security officer" = "Офицер службы безопасности",
-		"duty officer" = "Дежурный офицер"
+		"duty officer" = "Дежурный офицер",
 		"brig physician" = "Врач брига",
 		"security pod pilot" = "Пилот пода службы безопасности",
 		"ai" = "И И",
