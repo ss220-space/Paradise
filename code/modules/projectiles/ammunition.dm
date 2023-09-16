@@ -93,7 +93,7 @@
 /obj/item/ammo_casing/proc/leave_residue(mob/living/carbon/human/H)
 	if(QDELETED(H))
 		return
-	if(H.gloves)
+	if(istype(H) && H.gloves)
 		var/obj/item/clothing/G = H.gloves
 		G.gunshot_residue = caliber
 	else
