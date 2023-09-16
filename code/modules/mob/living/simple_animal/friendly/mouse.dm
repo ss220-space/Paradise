@@ -51,7 +51,7 @@
 /mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability) && isturf(loc))
 		var/turf/simulated/floor/F = get_turf(src)
-		if(istype(F) && !F.intact)
+		if(istype(F) && !F.intact && !F.transparent_floor)
 			var/obj/structure/cable/C = locate() in F
 			if(C && prob(15))
 				if(C.avail())
