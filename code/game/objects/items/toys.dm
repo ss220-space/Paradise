@@ -1125,7 +1125,7 @@
 	if(scream_cooldown)
 		return
 	scream_cooldown = TRUE //water_act executes the scream_cooldown var, setting it on cooldown.
-	addtimer(CALLBACK(src, .proc/reset_screamdown), 30 SECONDS) //After 30 seconds the reset_coolodown() proc will execute, resetting the cooldown. Hug interaction is unnaffected by this.
+	addtimer(CALLBACK(src, PROC_REF(reset_screamdown)), 30 SECONDS) //After 30 seconds the reset_coolodown() proc will execute, resetting the cooldown. Hug interaction is unnaffected by this.
 	playsound(src, 'sound/goonstation/voice/male_scream.ogg', 10, FALSE)//If the plushie gets wet it screams and "AAAAAH!" appears in chat.
 	visible_message("<span class='danger'>AAAAAAH!</span>")
 	if(singed)
