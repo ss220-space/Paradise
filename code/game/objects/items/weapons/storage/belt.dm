@@ -527,6 +527,14 @@
 		new /obj/item/ammo_casing/shotgun/beanbag(src)
 	update_icon()
 
+/obj/item/storage/belt/bandolier/booze
+	description_antag = "Этот бандольер содержит 16 усыпляющих алкопатрон для превращения противника или жертву в беспомощное нечто. Учтите, патроны супер эффективны против цели с алкоголем внутри, на трезвых работают не так здорово!"
+
+/obj/item/storage/belt/bandolier/booze/populate_contents()
+	for(var/I in 1 to 16)
+		new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
+	update_icon()
+
 /obj/item/storage/belt/bandolier/update_icon()
 	..()
 	icon_state = "[initial(icon_state)]_[length(contents)]"
