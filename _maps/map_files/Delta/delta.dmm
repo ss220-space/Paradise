@@ -65351,7 +65351,6 @@
 /area/quartermaster/storage)
 "jhc" = (
 /obj/effect/decal/warning_stripes/southeast,
-/obj/item/reagent_containers/glass/beaker/sulphuric,
 /obj/machinery/r_n_d/circuit_imprinter{
 	pixel_x = -1;
 	pixel_y = 3
@@ -81512,7 +81511,6 @@
 /obj/machinery/r_n_d/circuit_imprinter{
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/glass/beaker/sulphuric,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel{
@@ -83142,7 +83140,6 @@
 	pixel_x = -1;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/glass/beaker/sulphuric,
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
