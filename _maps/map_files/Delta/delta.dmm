@@ -2618,6 +2618,15 @@
 	icon_state = "yellow"
 	},
 /area/engine/mechanic_workshop)
+"avq" = (
+/obj/effect/decal/warning_stripes/arrow{
+	pixel_y = 15
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/bridge/vip)
 "avr" = (
 /obj/machinery/power/solar{
 	id = "portsolar";
@@ -35818,9 +35827,6 @@
 	},
 /area/hallway/secondary/entry)
 "dwM" = (
-/obj/effect/decal/warning_stripes/arrow{
-	dir = 1
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
@@ -71668,6 +71674,15 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
+"kJL" = (
+/obj/effect/decal/warning_stripes/arrow{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/bridge/vip)
 "kJV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -105342,7 +105357,6 @@
 /area/maintenance/engineering)
 "srp" = (
 /obj/effect/decal/warning_stripes/yellow/partial,
-/obj/effect/decal/warning_stripes/arrow,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
@@ -164999,7 +165013,7 @@ kpT
 bSE
 ukJ
 dwM
-ciD
+kJL
 lRu
 wrB
 csK
@@ -167055,7 +167069,7 @@ psg
 xQd
 dPO
 srp
-ciD
+avq
 tCB
 vte
 unk
