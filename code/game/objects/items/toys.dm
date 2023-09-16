@@ -1146,7 +1146,7 @@
 	if(hug_cooldown)
 		return
 	hug_cooldown = TRUE
-	addtimer(CALLBACK(src, .proc/reset_hugdown), 5 SECONDS) //Hug interactions only put the plushie on a 5 second cooldown.
+	addtimer(CALLBACK(src, PROC_REF(reset_hugdown)), 5 SECONDS) //Hug interactions only put the plushie on a 5 second cooldown.
 	if(singed)//If the plushie is water damaged it'll say Ow instead of talking in wingdings.
 		visible_message("<span class='danger'>Ow...</span>")
 	else//If the plushie has not touched water they'll say Greetings in wingdings.
