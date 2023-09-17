@@ -139,7 +139,7 @@
 					log_and_message_admins("has transfered the [ALs.name] laws to [owner].")
 					ALs.sync(owner, 0, TRUE)
 					current_view = 0
-					SSticker?.score?.save_silicon_laws(owner, usr, "admin/malf used law manager, '[ALs.name]' laws set was loaded")
+					SSticker?.score?.save_silicon_laws(owner, usr, "admin/malf used law manager, '[ALs.name]' laws set was loaded", log_all_laws = TRUE)
 
 		if("notify_laws")
 			to_chat(owner, "<span class='danger'>Law Notice</span>")

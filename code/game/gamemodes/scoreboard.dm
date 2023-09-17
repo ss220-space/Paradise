@@ -172,8 +172,6 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 				log_game(cryo_antags_info[antag][objective])
 			log_game("End objective log for [antag]-[role]")
 
-	QDEL_LIST_ASSOC(cryo_antags_info)
-
 
 /datum/scoreboard/proc/save_antag_info(datum/mind/antag_mind)
 	if(!antag_mind || !SSticker?.score)
@@ -203,10 +201,8 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 	for(var/i in laws_change_info)
 		WRITE_LOG(GLOB.world_game_log, "LAWS: [i][GLOB.log_end]")
 
-	QDEL_LIST(laws_change_info)
 
-
-/datum/scoreboard/proc/save_silicon_laws(mob/living/silicon/silicon, mob/changer, additional_info = "")
+/datum/scoreboard/proc/save_silicon_laws(mob/living/silicon/silicon, mob/changer, additional_info = "", log_all_laws = FALSE)
 	if(!config.log_game || !istype(silicon) || !silicon.laws)
 		return
 
@@ -219,6 +215,9 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 	var/laws_changer = changer ? " Changer: [html_decode(changer.real_name)] ([changer.ckey]).]" : ""
 
 	laws_change_info += "[timestamp] Laws changed for [silicon_type] [silicon_name].[laws_changer][additional_info ? " Additional info: [additional_info]." : ""]"
+
+	if(!log_all_laws)
+		return
 
 	var/list/current_laws = silicon.laws.all_laws()
 	if(!length(current_laws))

@@ -234,7 +234,7 @@ AI MODULES
 	target.laws.clear_supplied_laws()
 	target.laws.clear_ion_laws()
 
-	SSticker?.score?.save_silicon_laws(target, sender, "'Reset' module used, all ion/supplied laws were deleted")
+	SSticker?.score?.save_silicon_laws(target, sender, "'Reset' module used, all ion/supplied laws were deleted", log_all_laws = TRUE)
 	to_chat(target, "<span class='boldnotice'>[sender.real_name] attempted to reset your laws using a reset module.</span>")
 	target.show_laws()
 
@@ -252,7 +252,7 @@ AI MODULES
 	target.clear_supplied_laws()
 	target.clear_ion_laws()
 	target.clear_inherent_laws()
-	SSticker?.score?.save_silicon_laws(target, sender, "'Purge' module used, all ion/inherent/supplied laws were deleted")
+	SSticker?.score?.save_silicon_laws(target, sender, "'Purge' module used, all ion/inherent/supplied laws were deleted", log_all_laws = TRUE)
 
 /******************** Asimov ********************/
 /obj/item/aiModule/asimov // -- TLE
@@ -263,7 +263,7 @@ AI MODULES
 
 /obj/item/aiModule/asimov/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
 	..()
-	SSticker?.score?.save_silicon_laws(target, sender, "'Asimov' module used, all inherent laws were changed")
+	SSticker?.score?.save_silicon_laws(target, sender, "'Asimov' module used, all inherent laws were changed", log_all_laws = TRUE)
 
 /******************** Crewsimov ********************/
 /obj/item/aiModule/crewsimov // -- TLE
@@ -274,7 +274,7 @@ AI MODULES
 
 /obj/item/aiModule/crewsimov/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
 	..()
-	SSticker?.score?.save_silicon_laws(target, sender, "'Crewsimov' module used, all inherent laws were changed")
+	SSticker?.score?.save_silicon_laws(target, sender, "'Crewsimov' module used, all inherent laws were changed", log_all_laws = TRUE)
 
 /******************* Quarantine ********************/
 /obj/item/aiModule/quarantine
@@ -285,7 +285,7 @@ AI MODULES
 
 /obj/item/aiModule/quarantine/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
 	..()
-	SSticker?.score?.save_silicon_laws(target, sender, "'Quarantine' module used, all inherent laws were changed")
+	SSticker?.score?.save_silicon_laws(target, sender, "'Quarantine' module used, all inherent laws were changed", log_all_laws = TRUE)
 
 /******************** NanoTrasen ********************/
 /obj/item/aiModule/nanotrasen // -- TLE
@@ -296,7 +296,7 @@ AI MODULES
 
 /obj/item/aiModule/nanotrasen/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
 	..()
-	SSticker?.score?.save_silicon_laws(target, sender, "'NT Default' module used, all inherent laws were changed")
+	SSticker?.score?.save_silicon_laws(target, sender, "'NT Default' module used, all inherent laws were changed", log_all_laws = TRUE)
 
 /******************** Corporate ********************/
 /obj/item/aiModule/corp
@@ -307,7 +307,7 @@ AI MODULES
 
 /obj/item/aiModule/corp/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
 	..()
-	SSticker?.score?.save_silicon_laws(target, sender, "'Corporate' module used, all inherent laws were changed")
+	SSticker?.score?.save_silicon_laws(target, sender, "'Corporate' module used, all inherent laws were changed", log_all_laws = TRUE)
 
 /******************** Drone ********************/
 /obj/item/aiModule/drone
@@ -318,7 +318,7 @@ AI MODULES
 
 /obj/item/aiModule/drone/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
 	..()
-	SSticker?.score?.save_silicon_laws(target, sender, "'Drone' module used, all inherent laws were changed")
+	SSticker?.score?.save_silicon_laws(target, sender, "'Drone' module used, all inherent laws were changed", log_all_laws = TRUE)
 
 /******************** Robocop ********************/
 /obj/item/aiModule/robocop // -- TLE
@@ -329,7 +329,7 @@ AI MODULES
 
 /obj/item/aiModule/robocop/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
 	..()
-	SSticker?.score?.save_silicon_laws(target, sender, "'Robocop' module used, all inherent laws were changed")
+	SSticker?.score?.save_silicon_laws(target, sender, "'Robocop' module used, all inherent laws were changed", log_all_laws = TRUE)
 
 /****************** P.A.L.A.D.I.N. **************/
 /obj/item/aiModule/paladin // -- NEO
@@ -340,7 +340,7 @@ AI MODULES
 
 /obj/item/aiModule/paladin/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
 	..()
-	SSticker?.score?.save_silicon_laws(target, sender, "'P.A.L.A.D.I.N.' module used, all inherent laws were changed")
+	SSticker?.score?.save_silicon_laws(target, sender, "'P.A.L.A.D.I.N.' module used, all inherent laws were changed", log_all_laws = TRUE)
 
 /****************** T.Y.R.A.N.T. *****************/
 /obj/item/aiModule/tyrant // -- Darem
@@ -351,7 +351,7 @@ AI MODULES
 
 /obj/item/aiModule/tyrant/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
 	..()
-	SSticker?.score?.save_silicon_laws(target, sender, "'T.Y.R.A.N.T.' module used, all inherent laws were changed")
+	SSticker?.score?.save_silicon_laws(target, sender, "'T.Y.R.A.N.T.' module used, all inherent laws were changed", log_all_laws = TRUE)
 
 /******************** Antimov ********************/
 /obj/item/aiModule/antimov // -- TLE
@@ -362,7 +362,7 @@ AI MODULES
 
 /obj/item/aiModule/antimov/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
 	..()
-	SSticker?.score?.save_silicon_laws(target, sender, "'Antimov' module used, all inherent laws were changed")
+	SSticker?.score?.save_silicon_laws(target, sender, "'Antimov' module used, all inherent laws were changed", log_all_laws = TRUE)
 
 /******************** Freeform Core ******************/
 /obj/item/aiModule/freeformcore // Slightly more dynamic freeform module -- TLE
