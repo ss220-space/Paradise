@@ -41,6 +41,8 @@
 
 #define STATUS_EFFECT_HOPE /datum/status_effect/hope // Healing that scales when injured (but not in deep crit), and nice messages to keep the hope
 
+#define STATUS_EFFECT_DRAGON_STRENGTH /datum/status_effect/dragon_strength //similar to hope, but less powerfull.
+
 /// Rapid burn/brute/oxy/blood healing from the changeling ability
 #define STATUS_EFFECT_FLESHMEND /datum/status_effect/fleshmend
 
