@@ -109,3 +109,35 @@
   - bugfix: delete painted parts after adding kit (#3512)
   Vladisvell:
   - bugfix: removed 100 units cap for spilling on hydroponics tray (#3510)
+'2023-09-17':
+  Daeberdir:
+  - bugfix: name correcting for QM wintercoat sprite. (#3525)
+  Den109G:
+  - tweak: server cooling on Delta (#3529)
+  Ksaikok46:
+  - bugfix: deleting "illegal" tech from laser arm implant (#3524)
+  LiquidPotroh:
+  - add: New symptoms (#3400)
+  Roman:
+  - add: two cats and two tail | New Plushie Cats (#3513)
+  SAAD:
+  - tweak: Arrows wrong position (#3539)
+  Vladisvell:
+  - bugfix: no glowing eyes examine for eyeless cultists (#3538)
+  - bugfix: mice no longer eat cables under transparent floor (#3537)
+  Zwei:
+  - bugfix: Runtime Fixes (#3534)
+  - bugfix: Put In Hand Fix (#3530)
+  - bugfix: Mime Mask Fix (#3527)
+  - bugfix: Widescreen Fixes (#3526)
+  aeternaclose:
+  - add: CereImprovement-pt8 (#3488)
+  Сиротка:
+  - tweak: remove sacid beakers from imprinters (#3533)
+  - tweak: Booze shells buff (#3531)
+  - add: +4 Grey Tattoos (#3535)
+  - tweak: ion typhoon (#3427)
+  - tweak: More dangerous syndi mecha weapon (#3532)
+  - add: Serega plushie toy (#3536)
+  - add: armour plate for ripley (#3480)
+  - tweak: Drill buff (#3528)
