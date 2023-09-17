@@ -150,6 +150,26 @@
 /mob/living/proc/AdjustConfused(amount, bound_lower = 0, bound_upper = INFINITY)
 	SetConfused(directional_bounded_sum(get_confusion(), amount, bound_lower, bound_upper))
 
+/**
+ * Returns current amount of [disoriented][/datum/status_effect/transient/disoriented], 0 if none.
+ */
+/mob/living/proc/get_disoriented()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DISORIENTED)
+
+/**
+ * Sets [disoriented][/datum/status_effect/transient/disoriented].
+ */
+/mob/living/proc/SetDisoriented(amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DISORIENTED, amount)
+
+/**
+ * Sets [disoriented][/datum/status_effect/decaying/disoriented] if it's higher than current.
+ */
+/mob/living/proc/Disoriented(amount)
+	if(status_flags & GODMODE)
+		return
+	SetDisoriented(max(get_disoriented(), amount))
+
 // DIZZY
 
 /**
