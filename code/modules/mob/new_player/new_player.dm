@@ -413,6 +413,7 @@
 		AnnounceCyborg(ai_character, rank, "has been downloaded to the empty core in \the [get_area(ai_character)]")
 
 		SSticker.mode.latespawn(ai_character)
+		SSticker?.score?.save_silicon_laws(ai_character, additional_info = "latespawn", log_all_laws = TRUE)
 		qdel(src)
 		return
 
