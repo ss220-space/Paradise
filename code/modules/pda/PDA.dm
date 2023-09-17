@@ -42,7 +42,11 @@ GLOBAL_LIST_EMPTY(PDAs)
 								"holy" = 'sound/items/PDA/ambicha4-short.ogg',
 								"xeno" = 'sound/voice/hiss1.ogg',
 								"stalk" = 'sound/items/PDA/stalk1.ogg',
-								"stalk2" = 'sound/items/PDA/stalk2.ogg')
+								"stalk2" = 'sound/items/PDA/stalk2.ogg',
+								"bwonk"	=	'sound/effects/adminhelp.ogg',
+								"pop"	=	'sound/effects/pop.ogg',
+								"snap"	=	'sound/effects/snap.ogg',
+								"squeak"	=	'sound/creatures/mouse_squeak.ogg')
 
 	var/list/programs = list(
 		new/datum/data/pda/app/main_menu,
