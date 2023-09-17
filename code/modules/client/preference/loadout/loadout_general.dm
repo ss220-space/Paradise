@@ -80,7 +80,10 @@
 /datum/gear/bubblegumplushie
 	display_name = "Bubblegum plushie"
 	path = /obj/item/toy/plushie/bubblegumplushie
-	cost = 1
+
+/datum/gear/greyplushie
+	display_name = "Grey Plushie"
+	path = /obj/item/toy/plushie/greyplushie
 
 /datum/gear/sechud
 	display_name = "a classic security HUD"
