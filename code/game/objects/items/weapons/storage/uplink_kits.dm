@@ -186,13 +186,6 @@
 	new /obj/item/conversion_kit(src)
 	new /obj/item/ammo_box/a357(src)
 
-/obj/item/storage/box/syndie_kit/boolets
-	name = "Shotgun shells"
-
-/obj/item/storage/box/syndie_kit/boolets/populate_contents()
-	for(var/I in 1 to 6)
-		new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
-
 /obj/item/storage/box/syndie_kit/emp
 	name = "boxed EMP kit"
 

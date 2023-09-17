@@ -412,7 +412,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Boozey Shotgun Shells"
 	desc = "A box containing 6 shotgun shells that simulate the effects of extreme drunkenness on the target, more effective for each type of alcohol in the target's system."
 	reference = "BSS"
-	item = /obj/item/storage/box/syndie_kit/boolets
+	item = /obj/item/storage/belt/bandolier/booze
 	cost = 3
 	job = list("Bartender")
 

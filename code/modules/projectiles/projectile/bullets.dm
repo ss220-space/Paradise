@@ -23,6 +23,7 @@
 		M.AdjustConfused(40 SECONDS)
 		M.AdjustEyeBlurry(40 SECONDS)
 		M.AdjustDrowsy(40 SECONDS)
+		M.AdjustDrunk(50 SECONDS)
 		for(var/datum/reagent/consumable/ethanol/A in M.reagents.reagent_list)
 			M.AdjustParalysis(4 SECONDS)
 			M.AdjustDizzy(20 SECONDS)
