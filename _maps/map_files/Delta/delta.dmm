@@ -87898,7 +87898,8 @@
 	external_pressure_bound_default = 140;
 	name = "server vent";
 	on = 1;
-	pressure_checks = 0
+	pressure_checks = 0;
+	pump_direction = 0
 	},
 /turf/simulated/floor/bluegrid{
 	icon_state = "gcircuit";
