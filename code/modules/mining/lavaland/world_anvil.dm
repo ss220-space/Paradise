@@ -46,6 +46,13 @@
 		qdel(placed_ore)
 		update_icon()
 		return
+	if(istype(I, /obj/item/gem/amber))
+		var/obj/item/gem/amber/gem = I
+		forge_charges += 3
+		to_chat(user,"You place down the draconic amber on the World Anvil, and watch as amber melts into it. The World Anvil is now heated enough for [forge_charges] forge[forge_charges > 1 ? "s" : ""].")
+		qdel(gem)
+		update_icon()
+		return
 	if(forge_charges <= 0)
 		to_chat(user,"The World Anvil is not hot enough to be usable!")
 		return
