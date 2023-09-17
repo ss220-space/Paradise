@@ -285,11 +285,10 @@
 /obj/item/reagent_containers/glass/beaker/cryoxadone
 	list_reagents = list("cryoxadone" = 30)
 
-/obj/item/reagent_containers/glass/beaker/sulphuric
+/obj/item/reagent_containers/glass/beaker/sacid
 	list_reagents = list("sacid" = 50)
 
-
-/obj/item/reagent_containers/glass/beaker/slime
+/obj/item/reagent_containers/glass/beaker/slimejelly
 	list_reagents = list("slimejelly" = 50)
 
 /obj/item/reagent_containers/glass/beaker/drugs/meth
