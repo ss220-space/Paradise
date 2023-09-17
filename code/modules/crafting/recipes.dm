@@ -751,6 +751,18 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
 	category = CAT_MISC
 
+/datum/crafting_recipe/drill_alt
+	name = "Thermal Drill(Alternative)"
+	result = /obj/item/thermal_drill
+	time = 60
+	reqs = list(/obj/item/stack/cable_coil = 5,
+		        /obj/item/surgicaldrill = 1,
+		        /obj/item/stock_parts/cell = 1,
+		        /obj/item/stack/rods = 2,
+		        /obj/item/assembly/timer = 1)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
+	category = CAT_MISC
+
 /datum/crafting_recipe/d_drill
 	name = "Diamond Tipped Thermal Drill"
 	result = /obj/item/thermal_drill/diamond_drill
