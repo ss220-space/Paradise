@@ -1539,6 +1539,7 @@
 #include "code\modules\antagonists\traitor\contractor\items\extraction_items.dm"
 #include "code\modules\antagonists\vampire\vampire_datum.dm"
 #include "code\modules\antagonists\vampire\vampire_subclasses.dm"
+#include "code\modules\antagonists\vampire\vampire_powers\bestia_powers.dm"
 #include "code\modules\antagonists\vampire\vampire_powers\dantalion_powers.dm"
 #include "code\modules\antagonists\vampire\vampire_powers\gargantua_powers.dm"
 #include "code\modules\antagonists\vampire\vampire_powers\hemomancer_powers.dm"

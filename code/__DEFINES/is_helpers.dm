@@ -26,6 +26,8 @@
 
 #define ismecha(A) (istype(A, /obj/mecha))
 
+#define isvampirecoffin(A) (istype(A, /obj/structure/closet/coffin/vampire))
+
 #define isspacepod(A) (istype(A, /obj/spacepod))
 
 #define iseffect(A) (istype(A, /obj/effect))
@@ -110,6 +112,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define isaliensentinel(A) (istype(A, /mob/living/carbon/alien/humanoid/sentinel))
 
 #define isslime(A)		(istype((A), /mob/living/simple_animal/slime))
+
+#define isvampireanimal(A)		(istype((A), /mob/living/simple_animal/hostile/vampire))
 
 //Structures
 #define isstructure(A)	(istype((A), /obj/structure))

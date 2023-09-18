@@ -64,8 +64,13 @@
 
 /obj/effect/proc_holder/spell/proc/update_vampire_spell_name(mob/user = usr)
 	var/datum/spell_handler/vampire/handler = custom_handler
-	if(istype(handler) && handler.required_blood)
-		var/new_name = "[name] ([handler.required_blood])"
+	if(istype(handler))
+		var/new_name
+		if(handler.required_blood)
+			new_name = "[initial(name)] ([handler.required_blood])"
+		else
+			new_name = "[initial(name)]"
+
 		name = new_name
 		action?.name = new_name
 		action?.UpdateButtonIcon()
@@ -148,7 +153,7 @@
 /obj/effect/proc_holder/spell/vampire/self/specialize/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "VampireSpecMenu", "Specialisation Menu", 1200, 760, master_ui, state)
+		ui = new(user, src, ui_key, "VampireSpecMenu", "Specialisation Menu", 1500, 820, master_ui, state)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -186,11 +191,17 @@
 			vamp.add_subclass(SUBCLASS_DANTALION)
 			vamp.upgrade_tiers -= type
 			vamp.remove_ability(src)
+		if("bestia")
+			vamp.add_subclass(SUBCLASS_BESTIA)
+			vamp.upgrade_tiers -= type
+			vamp.remove_ability(src)
 
 
 /datum/antagonist/vampire/proc/add_subclass(subclass_to_add, announce = TRUE, log_choice = TRUE)
 	var/datum/vampire_subclass/new_subclass = new subclass_to_add
 	subclass = new_subclass
+	if(subclass_to_add == SUBCLASS_BESTIA)
+		suck_rate = BESTIA_SUCK_RATE
 	check_vampire_upgrade(announce)
 	if(log_choice)
 		SSblackbox.record_feedback("nested tally", "vampire_subclasses", 1, list("[new_subclass.name]"))
