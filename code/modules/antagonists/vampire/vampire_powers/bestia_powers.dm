@@ -807,12 +807,10 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 	var/confusion_amt = (t_kidneys * 2) SECONDS		// 20s. MAX
 	var/weaken_amt = 1 + (t_hearts / 2) SECONDS		// 4s. MAX
 	var/blood_vamp_get = t_kidneys					// +10 vampire blood MAX
-	if(!blood_victim_lose)
-		blood_victim_lose = t_kidneys * 10			// 100 bloodlose MAX
-	if(!effect_aoe)
-		effect_aoe = 1 + round(vampire.get_trophies("ears") / 5)	// 3 MAX
+	var/actual_blood_loss = blood_victim_lose ? blood_victim_lose : t_kidneys * 10	// 100 bloodlose MAX
+	var/actual_aoe = effect_aoe ? effect_aoe : 1 + round(vampire.get_trophies("ears") / 5)	// 3 MAX
 
-	for(var/mob/living/victim in view(effect_aoe, get_turf(user)))
+	for(var/mob/living/victim in view(actual_aoe, get_turf(user)))
 		if(victim.loc == user)	// yeah apparently mobs can see what is inside them
 			continue
 		if(!victim.affects_vampire(user))
@@ -831,7 +829,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 			if(NO_BLOOD in h_victim.dna?.species?.species_traits)
 				continue
 
-			h_victim.bleed(blood_victim_lose)
+			h_victim.bleed(actual_blood_loss)
 			h_victim.Confused(confusion_amt)
 			h_victim.emote("moan")
 			if(h_victim.mind && h_victim.ckey)
@@ -839,8 +837,6 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 				vampire.adjust_blood(h_victim, blood_vamp_get)
 				to_chat(h_victim, span_userdanger("You sense a sharp pain inside your body and suddenly feel very weak!"))
 
-	blood_victim_lose = initial(blood_victim_lose)
-	effect_aoe = initial(effect_aoe)
 	if(blood_gained)
 		to_chat(user, span_notice("You pinch arteries on fly and absorb <b>[blood_gained]</b> amount of blood!"))
 
