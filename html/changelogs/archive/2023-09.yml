@@ -141,3 +141,10 @@
   - add: Serega plushie toy (#3536)
   - add: armour plate for ripley (#3480)
   - tweak: Drill buff (#3528)
+'2023-09-18':
+  Vladisvell:
+  - bugfix: glowing creatures in ventilation aren't glowing properly. (#3543)
+  Zwei:
+  - refactor: Projectiles Subsystem (#3423)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3545)
