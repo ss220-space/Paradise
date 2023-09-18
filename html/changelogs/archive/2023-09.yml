@@ -142,9 +142,16 @@
   - add: armour plate for ripley (#3480)
   - tweak: Drill buff (#3528)
 '2023-09-18':
+  Albonix:
+  - bugfix: survivcapsule_box (#3542)
+  LiquidPotroh:
+  - bugfix: Loyalty syndrom don't work & tweaks (#3547)
   Vladisvell:
   - bugfix: glowing creatures in ventilation aren't glowing properly. (#3543)
   Zwei:
   - refactor: Projectiles Subsystem (#3423)
+  - add: Silicon Laws Logging (#3541)
+  - add: New Vampire Subclass - Bestia (#3338)
+  - bugfix: Projectiles Speed Hotfix (#3548)
   github-actions[bot]:
   - server: Automatic NanoMap Update (#3545)
