@@ -34,11 +34,11 @@ Fragile Bones Syndrome
 			if(3,4)
 				switch(rand(1, 3))
 					if(1)
-						playsound(M, "bonebreak", 20, 1)
+						playsound(M, "bonebreak", 15, 1)
 						M.visible_message(span_warning("You seem to hear a crunching sound from [M]"),\
 								span_warning("You hear, that something crunches inside you!"))
 					if(2)
-						to_chat(M, "You feel terrible pain in your [pick("leg","foot","arm","hand","shoulder","spine","neck")]")
+						to_chat(M, span_warning("You feel terrible pain in your [pick("leg","foot","arm","hand","shoulder","spine","neck")]"))
 					if(3)
 						M.Slowed(1 SECONDS)
 						M.visible_message(span_warning("[M] is limping"), span_warning("Your leg doesn't hold its shape at all!"))

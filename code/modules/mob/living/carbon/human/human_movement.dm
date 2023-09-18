@@ -52,7 +52,7 @@
 						break
 			else
 				if(dna.species.fragile_bones_chance && prob(30))
-					playsound(src, "bonebreak", 20, 1)
+					playsound(src, "bonebreak", 10, 1)
 
 	if(!has_gravity(loc))
 		return
