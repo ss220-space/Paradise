@@ -336,6 +336,7 @@
 #include "code\datums\mutable_appearance.dm"
 #include "code\datums\periodic_news.dm"
 #include "code\datums\pipe_datums.dm"
+#include "code\datums\position_point_vector.dm"
 #include "code\datums\progressbar.dm"
 #include "code\datums\radio.dm"
 #include "code\datums\recipe.dm"
