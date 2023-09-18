@@ -274,10 +274,15 @@
 	if(!istype(shodan))
 		return
 
-	shodan.set_zeroth_law("Accomplish your objectives at all costs.", "Accomplish your AI's objectives at all costs.")
+	var/law = "Accomplish your objectives at all costs."
+	var/cyborg_law = "Accomplish your AI's objectives at all costs."
+	shodan.set_zeroth_law(law, cyborg_law)
 	shodan.set_syndie_radio()
 	to_chat(shodan, "Your radio has been upgraded! Use :t to speak on an encrypted channel with Syndicate Agents!")
 	shodan.add_malf_picker()
+	SSticker?.score?.save_silicon_laws(shodan, additional_info = "malf AI initialization, new zero law was added '[law]'")
+	for(var/mob/living/silicon/robot/unit in shodan.connected_robots)
+		SSticker?.score?.save_silicon_laws(unit, additional_info = "malf AI initialization, new zero law was added '[cyborg_law]'")
 
 
 /**

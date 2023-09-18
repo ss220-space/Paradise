@@ -27,6 +27,7 @@
 			var/message = generate_ion_law(ionMessage)
 			if(message)
 				M.add_ion_law(message)
+				SSticker?.score?.save_silicon_laws(M, additional_info = "ion storm event, new ion law was added '[message]'")
 				to_chat(M, "<br>")
 				to_chat(M, "<span class='danger'>[message] ...ЗАКОНЫ ОБНОВЛЕНЫ.</span>")
 
