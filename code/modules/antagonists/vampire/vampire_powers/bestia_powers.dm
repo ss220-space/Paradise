@@ -1614,7 +1614,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 				continue
 			if(!body_part.internal_bleeding)
 				continue
-			if(prob(chance_mend_fracture))
+			if(prob(chance_stop_internal_bleeding))
 				body_part.internal_bleeding = FALSE
 				break
 
