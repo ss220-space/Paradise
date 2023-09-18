@@ -30,11 +30,11 @@ Uncontrollable Aggression
 					"You can't control yourself",\
 					"It's been a while since you last time punched someone",\
 					"You feel anger and anxiety",\
-					"You admit that [possible_victim? possible_victim: "that bastard"] have a punchable face"\
+					"You admit that [possible_victim ? possible_victim : "that bastard"] have a punchable face"\
 				)))
 			if(4)
 				to_chat(aggressor, span_alert(pick(\
-					"You think about choking [possible_victim? possible_victim: "someone"] and you [span_danger("LIKE IT!")]",\
+					"You think about choking [possible_victim ? possible_victim : "someone"] and you [span_danger("LIKE IT!")]",\
 					"I fucking hate these people!",\
 					"You never heard the crack of someone\'s skull, let\'s fix that"\
 				)))
