@@ -839,6 +839,8 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 				vampire.adjust_blood(h_victim, blood_vamp_get)
 				to_chat(h_victim, span_userdanger("You sense a sharp pain inside your body and suddenly feel very weak!"))
 
+	blood_victim_lose = initial(blood_victim_lose)
+	effect_aoe = initial(effect_aoe)
 	if(blood_gained)
 		to_chat(user, span_notice("You pinch arteries on fly and absorb <b>[blood_gained]</b> amount of blood!"))
 
