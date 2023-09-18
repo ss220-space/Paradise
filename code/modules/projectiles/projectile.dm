@@ -35,7 +35,7 @@
 	/// The pixel location Y of the tile that the player clicked. Default is the center.
 	var/p_y = 16
 	/// Amount of deciseconds it takes for projectile to travel.
-	var/speed = 0.2
+	var/speed = 0.5
 	var/Angle = null
 	/// Amount (in degrees) of projectile spread.
 	var/spread = 0
