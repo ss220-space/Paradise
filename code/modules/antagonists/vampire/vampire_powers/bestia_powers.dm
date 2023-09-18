@@ -1281,7 +1281,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 			targets |= victim
 
 	if(length(targets))
-		shuffle(targets)
+		targets = shuffle(targets)
 		for(var/mob/living/victim in targets)
 			if((victim.UID() in same_targets) && length(targets) == 1)
 				INVOKE_ASYNC(lunge, PROC_REF(cast), list(victim), user)
