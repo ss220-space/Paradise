@@ -7,7 +7,7 @@ SUBSYSTEM_DEF(discord)
 	var/last_administration_ping = 0
 
 
-/datum/controller/subsystem/discord/Initialize(start_timeofday)
+/datum/controller/subsystem/discord/Initialize()
 	if(CONFIG_GET(flag/discord_webhooks_enabled))
 		enabled = TRUE
 
