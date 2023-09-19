@@ -5,7 +5,7 @@
 	icon_state = "wire1"
 	flags = NOBLUDGEON
 	var/obj/machinery/machine
-	var/list/allowed_types = list(/obj/machinery/door, /obj/machinery/power/apc, /obj/machinery/alarm)
+	var/list/allowed_types = list(/obj/machinery/door, /obj/machinery/power/apc, /obj/machinery/alarm, /obj/machinery/computer/rdconsole)
 
 /obj/item/pai_cable/proc/plugin(obj/machinery/M, mob/user)
 	if(is_type_in_list(M, allowed_types))

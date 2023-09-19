@@ -334,7 +334,7 @@
 			if(9) overlays += "pai-what"
 			if(10) overlays += "pai-spai"
 			if(11) overlays += "pai-spaic"
-			if(12) overlays += "pai_spaiv"
+			if(12) overlays += "pai-spaiv"
 		current_emotion = emotion
 
 /obj/item/paicard/proc/alertUpdate()

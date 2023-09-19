@@ -338,7 +338,7 @@
 /**
   * Door jack hack loop
   *
-  * Self-contained proc for handling the hacking of a door.
+  * Self-contained proc for handling the hacking of a machinery.
   * Invoked asyncly, but will only allow one instance at a time
   */
 /datum/pai_software/door_jack/proc/hackloop()
@@ -346,7 +346,7 @@
 		cleanup_hack()
 		return
 	var/obj/machinery/machinery = cable.machine
-	var/hack_time = rand(5, 100) SECONDS * pai_holder.doorjack_factor
+	var/hack_time = 10 SECONDS * pai_holder.doorjack_factor
 	var/turf/pai_turf = get_turf(pai_holder)
 	for(var/mob/living/silicon/ai/AI in GLOB.ai_list)
 		if(!is_station_level(pai_turf.z))
@@ -356,19 +356,32 @@
 		to_chat(AI, span_warning("Несанкционированный взлом от персонального искусственного интеллекта. Локация: ошибка."))
 		last_message_time = world.time
 
-	to_chat(pai_holder, span_warning("Начался взлом объекта. Необходимо избегать любого передвижения для сохранения сигнала. Время ожидания: [hack_time] секунд."))
-	if(do_after_once(pai_holder, hack_time, target = machinery))
-		if(cable && cable.machine == machinery && cable.machine == hackmachine)
-			if(istype(machinery, /obj/machinery/door))
-				var/obj/machinery/door/D = machinery
-				D.open()
-			else if(istype(machinery, /obj/machinery/power/apc))
-				var/obj/machinery/power/apc/apc = machinery
-				apc.locked = FALSE
-				apc.update_icon()
-			else if(istype(machinery, /obj/machinery/alarm))
-				var/obj/machinery/alarm/alarm = machinery
-				alarm.locked = FALSE
+	to_chat(pai_holder, span_warning("Начался взлом объекта. Необходимо избегать любого передвижения для сохранения сигнала. Время ожидания: [hack_time/10] секунд."))
+	if(!do_after_once(pai_holder, hack_time, target = machinery))
+		to_chat(pai_holder, span_notice("Ошибка. Взлом объекта завершён."))
+		cleanup_hack()
+		return
+	if(cable && cable.machine == machinery && cable.machine == hackmachine)
+		if(istype(machinery, /obj/machinery/door))
+			var/obj/machinery/door/D = machinery
+			D.open()
+		else if(istype(machinery, /obj/machinery/power/apc))
+			var/obj/machinery/power/apc/apc = machinery
+			apc.locked = FALSE
+			apc.update_icon()
+		else if(istype(machinery, /obj/machinery/alarm))
+			var/obj/machinery/alarm/alarm = machinery
+			alarm.locked = FALSE
+		else if(istype(machinery, /obj/machinery/computer/rdconsole))
+			var/obj/machinery/computer/rdconsole/rdconsole = machinery
+			var/list/current_access = rdconsole.req_access.Copy()
+			if(!length(current_access))
+				to_chat(pai_holder, span_notice("Консоль уже не имеет доступа."))
+				cleanup_hack()
+				return
+			rdconsole.req_access = list()
+			addtimer(VARSET_CALLBACK(rdconsole, req_access, current_access), 180 SECONDS)
+	to_chat(pai_holder, span_notice("Взлом завершён."))
 	cleanup_hack()
 
 /**
