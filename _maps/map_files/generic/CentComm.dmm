@@ -1486,7 +1486,6 @@
 /area/centcom/specops)
 "aIb" = (
 /obj/structure/table/wood,
-/obj/item/paicard,
 /obj/item/paper_bin,
 /obj/item/pen,
 /turf/simulated/floor/carpet/black,
@@ -18831,7 +18830,6 @@
 /area/centcom/zone1)
 "jXe" = (
 /obj/structure/table/wood,
-/obj/item/paicard,
 /obj/item/paper_bin,
 /obj/item/pen,
 /turf/simulated/floor/carpet/arcade,

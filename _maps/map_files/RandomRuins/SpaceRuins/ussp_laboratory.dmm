@@ -908,10 +908,6 @@
 	pixel_x = 6;
 	pixel_y = 12
 	},
-/obj/item/paicard{
-	pixel_x = -7;
-	pixel_y = 12
-	},
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"

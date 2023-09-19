@@ -41499,7 +41499,6 @@
 /area/hallway/secondary/exit)
 "dTM" = (
 /obj/structure/table/reinforced,
-/obj/item/paicard,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -53021,7 +53020,6 @@
 	pixel_y = -32
 	},
 /obj/machinery/light,
-/obj/item/paicard,
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
@@ -60591,7 +60589,6 @@
 /area/security/processing)
 "hZa" = (
 /obj/structure/table/reinforced,
-/obj/item/paicard,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 28
 	},
@@ -82210,7 +82207,6 @@
 "nji" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table/wood,
-/obj/item/paicard,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -99838,7 +99834,6 @@
 /area/maintenance/bar)
 "rcp" = (
 /obj/structure/table/reinforced,
-/obj/item/paicard,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
@@ -123398,7 +123393,6 @@
 /area/security/reception)
 "wAs" = (
 /obj/structure/table/reinforced,
-/obj/item/paicard,
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 30
 	},
@@ -124794,7 +124788,6 @@
 	},
 /obj/item/wrench,
 /obj/item/crowbar,
-/obj/item/paicard,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/storage/tech)

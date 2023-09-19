@@ -9374,7 +9374,6 @@
 /area/quartermaster/office)
 "bjz" = (
 /obj/structure/table,
-/obj/item/paicard,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
 "bjD" = (
@@ -11516,7 +11515,6 @@
 /area/crew_quarters/locker)
 "bui" = (
 /obj/structure/table/wood,
-/obj/item/paicard,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -73374,7 +73372,6 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/paicard,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -97108,9 +97105,6 @@
 /area/maintenance/disposal/external/southwest)
 "xng" = (
 /obj/structure/rack,
-/obj/item/paicard{
-	pixel_x = 4
-	},
 /obj/item/taperecorder{
 	pixel_x = -3
 	},
