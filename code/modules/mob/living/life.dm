@@ -59,6 +59,10 @@
 
 	handle_fire()
 
+	var/datum/antagonist/vampire/vamp = mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(vamp)
+		vamp.handle_vampire()
+
 	update_gravity(mob_has_gravity())
 
 	if(pulling)

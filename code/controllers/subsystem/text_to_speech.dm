@@ -198,7 +198,7 @@ SUBSYSTEM_DEF(tts)
 	tts_seeds_names = sortTim(tts_seeds_names, cmp = /proc/cmp_text_asc)
 
 
-/datum/controller/subsystem/tts/Initialize(start_timeofday)
+/datum/controller/subsystem/tts/Initialize()
 	is_enabled = config.tts_enabled
 	if(!is_enabled)
 		flags |= SS_NO_FIRE

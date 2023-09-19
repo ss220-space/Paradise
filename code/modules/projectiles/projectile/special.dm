@@ -262,7 +262,7 @@
 			return
 		forcedodge = 1
 		var/turf/simulated/mineral/M = target
-		M.gets_drilled(firer)
+		M.attempt_drill(firer)
 	else
 		forcedodge = 0
 
@@ -270,9 +270,30 @@
 	damage = 7
 	range = 5
 
+/obj/item/projectile/plasma/adv/mega
+	icon_state = "plasmacutter_mega"
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
+	range = 7
+
+/obj/item/projectile/plasma/adv/mega/on_hit(atom/target)
+	if(istype(target, /turf/simulated/mineral/gibtonite))
+		var/turf/simulated/mineral/gibtonite/gib = target
+		gib.defuse()
+	. = ..()
+
+/obj/item/projectile/plasma/adv/mega/shotgun
+	damage = 2
+	range = 6
+	dismemberment = 0
+
 /obj/item/projectile/plasma/adv/mech
 	damage = 10
 	range = 9
+
+/obj/item/projectile/plasma/shotgun
+	damage = 2
+	range = 4
+	dismemberment = 0
 
 /obj/item/projectile/energy/teleport
 	name = "teleportation burst"
@@ -412,3 +433,21 @@
 	..()
 	explosion(target, 1, 3, 5, 7) //devastating
 
+/obj/item/projectile/limb
+	name = "limb"
+	icon = 'icons/mob/human_races/r_human.dmi'
+	icon_state = "l_arm"
+	speed = 2
+	range = 3
+	flag = "melee"
+	damage = 20
+	damage_type = BRUTE
+	stun = 0.5
+	eyeblur = 20
+
+/obj/item/projectile/limb/New(loc, var/obj/item/organ/external/limb)
+	..(loc)
+	if(istype(limb))
+		name = limb.name
+		icon = limb.icobase
+		icon_state = limb.icon_name

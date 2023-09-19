@@ -13,6 +13,9 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
+		"Ash Walker" = 'icons/mob/species/unathi/mask.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/mask.dmi',
+		"Draconid" = 'icons/mob/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Drask" = 'icons/mob/species/drask/mask.dmi',
@@ -57,6 +60,9 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
+		"Ash Walker" = 'icons/mob/species/unathi/mask.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/mask.dmi',
+		"Draconid" = 'icons/mob/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Drask" = 'icons/mob/species/drask/mask.dmi',
@@ -193,14 +199,19 @@
 	if(!user?.mind || slot != slot_wear_mask)
 		return
 
-	var/obj/effect/proc_holder/spell/mime/speak/mask/spell = locate() in user.mind.spell_list
-	if(!spell)
-		var/obj/effect/proc_holder/spell/mime/speak/mask/new_spell = new
-		new_spell.cooldown_handler?.starts_off_cooldown = FALSE
-		user.mind.AddSpell(new_spell)
-	else
-		if(spell.action?.invisibility)
-			spell.action?.ToggleInvisibility()
+	var/obj/effect/proc_holder/spell/mime/speak/mask/mask_spell = null
+	for(var/obj/effect/proc_holder/spell/mime/speak/spell in user.mind.spell_list)
+		if(istype(spell, /obj/effect/proc_holder/spell/mime/speak/mask))
+			mask_spell = spell
+			continue
+		if(spell)
+			return
+
+	if(mask_spell)
+		mask_spell.action.enable_invisibility(FALSE)
+		return
+
+	user.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak/mask)
 
 
 /obj/item/clothing/mask/gas/mime/dropped(mob/user)
@@ -210,21 +221,17 @@
 		return
 
 	var/obj/effect/proc_holder/spell/mime/speak/mask/spell = locate() in user.mind.spell_list
-	if(!spell?.cooldown_handler)
+	if(!spell)
 		return
 
 	if(spell.cooldown_handler.is_on_cooldown())
-		if(!spell.action?.invisibility)
-			spell.action.ToggleInvisibility()
-	else
-		if(user.mind.miming)
-			spell.cast(list(user))
-		user.mind.RemoveSpell(spell)
+		spell.action.enable_invisibility(TRUE)
+		return
 
+	if(user.mind.miming)
+		spell.cast(list(user))
+	user.mind.RemoveSpell(spell)
 
-/obj/item/clothing/mask/gas/mime/item_action_slot_check(slot, mob/user)
-	if(slot == slot_wear_mask)
-		return TRUE
 
 /obj/item/clothing/mask/gas/mime/wizard
 	name = "magical mime mask"

@@ -38,10 +38,8 @@
 	pulse = handle_pulse(times_fired)
 
 	var/datum/antagonist/vampire/vamp = mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(vamp)
-		vamp.handle_vampire()
-		if(life_tick == 1)
-			regenerate_icons() // Make sure the inventory updates
+	if(vamp && life_tick == 1)
+		regenerate_icons() // Make sure the inventory updates
 
 	var/datum/antagonist/goon_vampire/g_vamp = mind?.has_antag_datum(/datum/antagonist/goon_vampire)
 	if(g_vamp)

@@ -424,6 +424,13 @@
 		. += "<br>Subclass: <a href='?src=[UID()];vampire=change_subclass'>[has_subclass ? capitalize(vamp.subclass.name) : "None"]</a>"
 		if(has_subclass)
 			. += " | Force full power: <a href='?src=[UID()];vampire=full_power_override'>[vamp.subclass.full_power_override ? "Yes" : "No"]</a>"
+			if(istype(vamp.subclass, /datum/vampire_subclass/bestia) || istype(vamp.subclass, /datum/vampire_subclass/ancient))
+				. += "<br><b>Trophies:</b><br>Hearts: <a href='?src=[UID()];vampire=edit_hearts'>[vamp.subclass.trophies["hearts"]]</a>"
+				. += " | Lungs: <a href='?src=[UID()];vampire=edit_lungs'>[vamp.subclass.trophies["lungs"]]</a>"
+				. += " | Livers: <a href='?src=[UID()];vampire=edit_livers'>[vamp.subclass.trophies["livers"]]</a>"
+				. += "<br>Kidneys: <a href='?src=[UID()];vampire=edit_kidneys'>[vamp.subclass.trophies["kidneys"]]</a>"
+				. += " | Eyes: <a href='?src=[UID()];vampire=edit_eyes'>[vamp.subclass.trophies["eyes"]]</a>"
+				. += " | Ears: <a href='?src=[UID()];vampire=edit_ears'>[vamp.subclass.trophies["ears"]]</a>"
 		if(!length(vamp.objectives))
 			. += "<br>Objectives are empty! <a href='?src=[UID()];vampire=autoobjectives'>Randomize!</a>"
 	else
@@ -1688,6 +1695,84 @@
 				vamp.check_full_power_upgrade()
 				log_admin("[key_name(usr)] set [key_name(current)]'s vampire 'full_power_overide' to [vamp.subclass.full_power_override].")
 				message_admins("[key_name_admin(usr)] set [key_name_admin(current)]'s vampire 'full_power_overide' to [vamp.subclass.full_power_override].")
+
+			if("edit_hearts")
+				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+				if(!vamp || QDELETED(vamp.subclass))
+					return
+
+				var/new_total = input(usr, "Adjust a new value:", "Modify hearts trophies") as null|num
+				if(isnull(new_total))
+					return
+
+				vamp.adjust_trophies("hearts", new_total)
+				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s hearts trophies by [new_total].")
+				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s hearts trophies by [new_total].")
+
+			if("edit_lungs")
+				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+				if(!vamp || QDELETED(vamp.subclass))
+					return
+
+				var/new_total = input(usr, "Adjust a new value:", "Modify lungs trophies") as null|num
+				if(isnull(new_total))
+					return
+
+				vamp.adjust_trophies("lungs", new_total)
+				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s lungs trophies by [new_total].")
+				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s lungs trophies by [new_total].")
+
+			if("edit_livers")
+				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+				if(!vamp || QDELETED(vamp.subclass))
+					return
+
+				var/new_total = input(usr, "Adjust a new value:", "Modify livers trophies") as null|num
+				if(isnull(new_total))
+					return
+
+				vamp.adjust_trophies("livers", new_total)
+				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s livers trophies by [new_total].")
+				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s livers trophies by [new_total].")
+
+			if("edit_kidneys")
+				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+				if(!vamp || QDELETED(vamp.subclass))
+					return
+
+				var/new_total = input(usr, "Adjust a new value:", "Modify kidneys trophies") as null|num
+				if(isnull(new_total))
+					return
+
+				vamp.adjust_trophies("kidneys", new_total)
+				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s kidneys trophies by [new_total].")
+				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s kidneys trophies by [new_total].")
+
+			if("edit_eyes")
+				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+				if(!vamp || QDELETED(vamp.subclass))
+					return
+
+				var/new_total = input(usr, "Adjust a new value:", "Modify eyes trophies") as null|num
+				if(isnull(new_total))
+					return
+
+				vamp.adjust_trophies("eyes", new_total)
+				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s eyes trophies by [new_total].")
+				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s eyes trophies by [new_total].")
+
+			if("edit_ears")
+				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+				if(!vamp || QDELETED(vamp.subclass))
+					return
+
+				var/new_total = input(usr, "Adjust a new value:", "Modify ears trophies") as null|num
+				if(isnull(new_total))
+					return
+
+				vamp.adjust_trophies("ears", new_total)
+				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s ears trophies by [new_total].")
+				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s ears trophies by [new_total].")
 
 			if("autoobjectives")
 				if(!isvampire(src))

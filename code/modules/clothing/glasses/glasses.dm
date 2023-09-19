@@ -17,6 +17,8 @@
 			to_chat(H, "You fit \the [name] with lenses from \the [O].")
 			prescription = 1
 			name = "prescription [name]"
+			if(H.glasses == src)
+				H.update_nearsighted_effects()
 			return
 		if(prescription && istype(O, /obj/item/screwdriver))
 			var/obj/item/clothing/glasses/regular/G = locate() in src
@@ -26,6 +28,8 @@
 			prescription = 0
 			name = initial(name)
 			H.put_in_hands(G)
+			if(H.glasses == src)
+				H.update_nearsighted_effects()
 			return
 	return ..()
 
@@ -386,16 +390,16 @@
 	var/punused = null
 	actions_types = list(/datum/action/item_action/YEEEAAAAAHHHHHHHHHHHHH)
 
-/obj/item/clothing/glasses/sunglasses/yeah/attack_self()
-	pun()
+/obj/item/clothing/glasses/sunglasses/yeah/attack_self(mob/user)
+	pun(user)
 
-/obj/item/clothing/glasses/sunglasses/yeah/proc/pun()
+/obj/item/clothing/glasses/sunglasses/yeah/proc/pun(mob/user)
 	if(!punused)//one per round
 		punused = 1
 		playsound(src.loc, 'sound/misc/yeah.ogg', 100, 0)
-		usr.visible_message("<span class='biggerdanger'>YEEEAAAAAHHHHHHHHHHHHH!!</span>")
+		user.visible_message("<span class='biggerdanger'>YEEEAAAAAHHHHHHHHHHHHH!!</span>")
 	else
-		to_chat(usr, "The moment is gone.")
+		to_chat(user, "The moment is gone.")
 
 
 /obj/item/clothing/glasses/sunglasses/reagent
@@ -549,7 +553,7 @@
 	flags = NODROP
 
 
-/obj/item/clothing/glasses/godeye
+/obj/item/clothing/glasses/hud/godeye
 	name = "eye of god"
 	desc = "A strange eye, said to have been torn from an omniscient creature that used to roam the wastes."
 	icon_state = "godeye"
@@ -561,6 +565,7 @@
 	flags_cover = null
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	HUDType = DATA_HUD_MEDICAL_ADVANCED
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/species/grey/eyes.dmi',
@@ -572,7 +577,7 @@
 		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
 		)
 
-/obj/item/clothing/glasses/godeye/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/clothing/glasses/hud/godeye/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, src) && W != src && W.loc == user)
 		if(W.icon_state == "godeye")
 			W.icon_state = "doublegodeye"
@@ -622,22 +627,22 @@
 	icon_state = "tajblind_cargo"
 	item_state = "tajblind_cargo"
 
-/obj/item/clothing/glasses/tajblind/attack_self()
-	toggle_veil()
+/obj/item/clothing/glasses/tajblind/attack_self(mob/user = usr)
+	toggle_veil(user)
 
-/obj/item/clothing/glasses/proc/toggle_veil()
-	if(usr.canmove && !usr.incapacitated())
+/obj/item/clothing/glasses/proc/toggle_veil(mob/user)
+	if(user.canmove && !user.incapacitated())
 		if(up)
 			up = !up
 			tint = initial(tint)
-			to_chat(usr, "You activate [src], allowing you to see.")
+			to_chat(user, "You activate [src], allowing you to see.")
 		else
 			up = !up
 			tint = 3
-			to_chat(usr, "You deactivate [src], obscuring your vision.")
-		var/mob/living/carbon/user = usr
-		user.update_tint()
-		user.update_inv_glasses()
+			to_chat(user, "You deactivate [src], obscuring your vision.")
+		var/mob/living/carbon/user1 = user
+		user1.update_tint()
+		user1.update_inv_glasses()
 
 /obj/item/clothing/glasses/sunglasses/blindfold/cucumbermask
 	desc = "A simple pair of two cucumber slices. Medically proven to be able to heal your eyes over time."

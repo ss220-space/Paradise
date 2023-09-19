@@ -819,6 +819,15 @@
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
+/datum/design/mech_kineticgun
+	name = "Exosuit Working Equipment (Proto-kinetic Accelerator)"
+	id = "mech_kineticgun"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun
+	materials = list(MAT_METAL=10000)
+	construction_time = 100
+	category = list("Exosuit Equipment")
+
 /datum/design/mech_diamond_drill
 	name = "Exosuit Working Equipment (Diamond Mining Drill)"
 	desc = "An upgraded version of the standard drill."
@@ -1323,6 +1332,16 @@
 	build_path = /obj/item/borg/upgrade/vtec
 	req_tech = list("engineering" = 4, "materials" = 5, "programming" = 4)
 	materials = list(MAT_METAL=80000 , MAT_GLASS=6000 , MAT_URANIUM= 5000)
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_magboots
+	name = "Cyborg Common Upgrade (F-Magnet)"
+	id = "borg_update_magboots"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/magboots
+	req_tech = list("engineering" = 5, "materials" = 5, "powerstorage" = 5)
+	materials = list(MAT_METAL=5000, MAT_SILVER=3000, MAT_GOLD=4000)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 

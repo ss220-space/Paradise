@@ -2618,6 +2618,15 @@
 	icon_state = "yellow"
 	},
 /area/engine/mechanic_workshop)
+"avq" = (
+/obj/effect/decal/warning_stripes/arrow{
+	pixel_y = 15
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/bridge/vip)
 "avr" = (
 /obj/machinery/power/solar{
 	id = "portsolar";
@@ -13546,11 +13555,12 @@
 	},
 /area/storage/primary)
 "bDR" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	name = "Restaurant"
-	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/multi_tile/glass{
+	name = "Bridge West Hallway";
+	req_access = list(19)
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -23457,7 +23467,6 @@
 /area/crew_quarters/captain/bedroom)
 "cyh" = (
 /obj/structure/table/wood,
-/obj/item/paicard,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
 	},
@@ -23896,12 +23905,6 @@
 	icon_state = "grimy"
 	},
 /area/crew_quarters/heads/hop)
-"czU" = (
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "conferenceroomwindows"
-	},
-/turf/simulated/wall,
-/area/crew_quarters/locker)
 "czV" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -35824,9 +35827,6 @@
 	},
 /area/hallway/secondary/entry)
 "dwM" = (
-/obj/effect/decal/warning_stripes/arrow{
-	dir = 1
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
@@ -39113,7 +39113,6 @@
 /area/medical/virology/lab)
 "dKy" = (
 /obj/structure/table,
-/obj/item/paicard,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -47139,7 +47138,6 @@
 /area/hallway/primary/central/sw)
 "eSm" = (
 /obj/structure/table/wood,
-/obj/item/paicard,
 /turf/simulated/floor/plasteel/grimy,
 /area/civilian/vacantoffice)
 "eSo" = (
@@ -52647,7 +52645,6 @@
 /area/security/prisonershuttle)
 "ghN" = (
 /obj/structure/table,
-/obj/item/paicard,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -63806,6 +63803,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -65359,7 +65357,6 @@
 /area/quartermaster/storage)
 "jhc" = (
 /obj/effect/decal/warning_stripes/southeast,
-/obj/item/reagent_containers/glass/beaker/sulphuric,
 /obj/machinery/r_n_d/circuit_imprinter{
 	pixel_x = -1;
 	pixel_y = 3
@@ -70707,15 +70704,16 @@
 	},
 /area/security/checkpoint/south)
 "kxK" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	name = "Restaurant"
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/multi_tile/glass{
+	name = "Bridge East Hallway";
+	req_access = list(19)
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -71675,6 +71673,15 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
+"kJL" = (
+/obj/effect/decal/warning_stripes/arrow{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/bridge/vip)
 "kJV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -75849,6 +75856,12 @@
 /obj/item/pen,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
+	},
+/obj/item/storage/fancy/donut_box{
+	pixel_y = 7
+	},
+/obj/item/storage/fancy/donut_box{
+	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -80052,9 +80065,7 @@
 	},
 /area/storage/primary)
 "mJJ" = (
-/obj/structure/table/reinforced,
-/obj/item/paper_bin,
-/obj/item/pen,
+/obj/machinery/vending/paivendor,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "purple"
@@ -81515,7 +81526,6 @@
 /obj/machinery/r_n_d/circuit_imprinter{
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/glass/beaker/sulphuric,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel{
@@ -83145,7 +83155,6 @@
 	pixel_x = -1;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/glass/beaker/sulphuric,
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -86840,6 +86849,12 @@
 "okD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
+/obj/item/storage/fancy/donut_box{
+	pixel_y = 7
+	},
+/obj/item/storage/fancy/donut_box{
+	pixel_y = 7
+	},
 /obj/item/toy/figure/clown,
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
@@ -87244,10 +87259,6 @@
 	},
 /area/medical/surgery/south)
 "oqr" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	dir = 1;
-	name = "Restaurant"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -87265,6 +87276,11 @@
 	name = "Bridge Lockdown"
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 1;
+	name = "Bridge East Hallway";
+	req_access = list(19)
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -87882,7 +87898,8 @@
 	external_pressure_bound_default = 140;
 	name = "server vent";
 	on = 1;
-	pressure_checks = 0
+	pressure_checks = 0;
+	pump_direction = 0
 	},
 /turf/simulated/floor/bluegrid{
 	icon_state = "gcircuit";
@@ -98482,7 +98499,8 @@
 "qMD" = (
 /obj/machinery/door/airlock/multi_tile/glass{
 	dir = 1;
-	name = "Restaurant"
+	name = "Bridge West Hallway";
+	req_access = list(19)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -102209,6 +102227,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -102856,8 +102875,8 @@
 /area/crew_quarters/trading)
 "rMp" = (
 /obj/structure/closet{
-	desc = "It's a storage unit for foodservice garments.";
 	custom_door_overlay = "black";
+	desc = "It's a storage unit for foodservice garments.";
 	name = "chef's closet"
 	},
 /obj/item/storage/belt/chef,
@@ -105336,7 +105355,6 @@
 /area/maintenance/engineering)
 "srp" = (
 /obj/effect/decal/warning_stripes/yellow/partial,
-/obj/effect/decal/warning_stripes/arrow,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
@@ -164993,7 +165011,7 @@ kpT
 bSE
 ukJ
 dwM
-ciD
+kJL
 lRu
 wrB
 csK
@@ -167049,7 +167067,7 @@ psg
 xQd
 dPO
 srp
-ciD
+avq
 tCB
 vte
 unk
@@ -179904,7 +179922,7 @@ cnP
 cnP
 cnP
 cnP
-czU
+cnP
 cnP
 cnP
 cnP

@@ -10,9 +10,22 @@
 #define STAMINA 	"stamina"
 #define BRAIN		"brain"
 
+//damage flags
+#define MELEE 		"melee"
+#define BULLET 		"bullet"
+#define LASER 		"laser"
+#define ENERGY 		"energy"
+#define BOMB 		"bomb"
+#define BIO 		"bio"
+#define RAD 		"rad"
+#define FIRE 		"fire"
+#define ACID 		"acid"
+//#define MAGIC		"magic"
+
 #define STUN		"stun"
 #define WEAKEN		"weaken"
 #define PARALYZE	"paralize"
+#define IMMOBILIZE	"immobilize"
 #define IRRADIATE	"irradiate"
 #define STUTTER		"stutter"
 #define SLUR		"slur"
@@ -34,11 +47,9 @@
 #define CANPARALYSE	4
 #define CANPUSH		8
 #define PASSEMOTES	16      //Mob has a cortical borer or holders inside of it that need to see emotes.
-#define GOTTAGOFAST	32
-#define IGNORESLOWDOWN	128
-#define IGNORE_SPEED_CHANGES	256
-#define GOTTAGONOTSOFAST 512 //This is used for nukacola, mormal meth is a "1" speed up, nuka is 0.5 and they don't stack, feel free to use this one somewhere else
-#define GODMODE		4096
+#define IGNORESLOWDOWN	32
+#define IGNORE_SPEED_CHANGES	64
+#define GODMODE		128
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0

@@ -360,7 +360,7 @@
 /area/derelict/bridge)
 "aS" = (
 /obj/machinery/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
+	slogan_list = list("Just  remember!  No  capitalist.","Best  enjoyed  with  Vodka!.","Smoke!","Nine  out  of  ten  USSP  scientists  agree,  smoking  reduces  stress!","There's  no  cigarette  like  a  Russian  cigarette!","Cigarettes!  Now  with  100%  less  capitalism.")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -2660,7 +2660,7 @@
 	name = "suspicious button"
 	},
 /obj/machinery/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
+	slogan_list = list("Just  remember!  No  capitalist.","Best  enjoyed  with  Vodka!.","Smoke!","Nine  out  of  ten  USSP  scientists  agree,  smoking  reduces  stress!","There's  no  cigarette  like  a  Russian  cigarette!","Cigarettes!  Now  with  100%  less  capitalism.")
 	},
 /turf/simulated/floor/wood{
 	broken = 1;
@@ -3472,7 +3472,7 @@
 "hM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
+	slogan_list = list("Just  remember!  No  capitalist.","Best  enjoyed  with  Vodka!.","Smoke!","Nine  out  of  ten  USSP  scientists  agree,  smoking  reduces  stress!","There's  no  cigarette  like  a  Russian  cigarette!","Cigarettes!  Now  with  100%  less  capitalism.")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -5440,7 +5440,7 @@
 /area/space/nearstation)
 "mY" = (
 /obj/machinery/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
+	slogan_list = list("Just  remember!  No  capitalist.","Best  enjoyed  with  Vodka!.","Smoke!","Nine  out  of  ten  USSP  scientists  agree,  smoking  reduces  stress!","There's  no  cigarette  like  a  Russian  cigarette!","Cigarettes!  Now  with  100%  less  capitalism.")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -6746,7 +6746,7 @@
 /area/derelict/arrival)
 "ql" = (
 /obj/machinery/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
+	slogan_list = list("Just  remember!  No  capitalist.","Best  enjoyed  with  Vodka!.","Smoke!","Nine  out  of  ten  USSP  scientists  agree,  smoking  reduces  stress!","There's  no  cigarette  like  a  Russian  cigarette!","Cigarettes!  Now  with  100%  less  capitalism.")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull";
@@ -7887,11 +7887,11 @@
 "zW" = (
 /obj/docking_port/stationary{
 	dir = 8;
-	dwidth = 8;
+	dwidth = 10;
 	height = 20;
 	id = "freegolem_ussp";
 	name = "Near USSP Station";
-	width = 16
+	width = 20
 	},
 /turf/template_noop,
 /area/template_noop)

@@ -482,13 +482,14 @@
 
 
 /mob/living/carbon/proc/throw_mode_off()
-	src.in_throw_mode = 0
+	src.in_throw_mode = FALSE
 	if(src.throw_icon) //in case we don't have the HUD and we use the hotkey
 		src.throw_icon.icon_state = "act_throw_off"
 
 
 /mob/living/carbon/proc/throw_mode_on()
-	src.in_throw_mode = 1
+	SIGNAL_HANDLER
+	src.in_throw_mode = TRUE
 	if(src.throw_icon)
 		src.throw_icon.icon_state = "act_throw_on"
 
@@ -692,7 +693,7 @@
 		var/this_bite = bitesize_override ? bitesize_override : toEat.bitesize
 		add_attack_logs(user, src, "Force Fed [toEat](bite volume: [this_bite*toEat.transfer_efficiency]u) containing [toEat.reagents.log_list()]")
 	consume(toEat, bitesize_override, can_taste_container = toEat.can_taste)
-	GLOB.score_foodeaten++
+	SSticker.score.score_food_eaten++
 	return 1
 
 

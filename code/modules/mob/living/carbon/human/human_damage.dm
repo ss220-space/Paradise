@@ -26,7 +26,7 @@
 		if(sponge)
 			if(dna.species && amount > 0)
 				if(use_brain_mod)
-					amount = amount * dna.species.brain_mod
+					amount = amount * (dna.species.brain_mod + get_vampire_bonus("brain"))
 			sponge.damage = clamp(sponge.damage + amount, 0, 120)
 			if(sponge.damage >= 120 && stat != DEAD)
 				visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
@@ -44,7 +44,7 @@
 		if(sponge)
 			if(dna.species && amount > 0)
 				if(use_brain_mod)
-					amount = amount * dna.species.brain_mod
+					amount = amount * (dna.species.brain_mod + get_vampire_bonus("brain"))
 			sponge.damage = clamp(amount, 0, 120)
 			if(sponge.damage >= 120 && stat != DEAD)
 				visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
@@ -90,7 +90,7 @@
 /mob/living/carbon/human/adjustBruteLoss(amount, updating_health = TRUE, damage_source = null, robotic = FALSE)
 	if(amount > 0)
 		if(dna.species)
-			amount = amount * dna.species.brute_mod
+			amount = amount * (dna.species.brute_mod + get_vampire_bonus("brute"))
 		take_overall_damage(amount, 0, updating_health, used_weapon = damage_source)
 	else
 		heal_overall_damage(-amount, 0, updating_health, FALSE, robotic)
@@ -100,7 +100,7 @@
 /mob/living/carbon/human/adjustFireLoss(amount, updating_health = TRUE, damage_source = null, robotic = FALSE)
 	if(amount > 0)
 		if(dna.species)
-			amount = amount * dna.species.burn_mod
+			amount = amount * (dna.species.burn_mod + get_vampire_bonus("burn"))
 		take_overall_damage(0, amount, updating_health, used_weapon = damage_source)
 	else
 		heal_overall_damage(0, -amount, updating_health, FALSE, robotic)
@@ -109,7 +109,7 @@
 
 /mob/living/carbon/human/proc/adjustBruteLossByPart(amount, organ_name, obj/damage_source = null, updating_health = TRUE)
 	if(dna.species && amount > 0)
-		amount = amount * dna.species.brute_mod
+		amount = amount * (dna.species.brute_mod + get_vampire_bonus("brute"))
 	if(organ_name in bodyparts_by_name)
 		var/obj/item/organ/external/O = get_organ(organ_name)
 
@@ -122,7 +122,7 @@
 
 /mob/living/carbon/human/proc/adjustFireLossByPart(amount, organ_name, obj/damage_source = null, updating_health = TRUE)
 	if(dna.species && amount > 0)
-		amount = amount * dna.species.burn_mod
+		amount = amount * (dna.species.burn_mod + get_vampire_bonus("burn"))
 
 	if(organ_name in bodyparts_by_name)
 		var/obj/item/organ/external/O = get_organ(organ_name)
@@ -136,7 +136,7 @@
 
 /mob/living/carbon/human/adjustCloneLoss(amount, updating_health)
 	if(dna.species && amount > 0)
-		amount = amount * dna.species.clone_mod
+		amount = amount * (dna.species.clone_mod + get_vampire_bonus("clone"))
 	. = ..()
 
 	var/heal_prob = max(0, 80 - getCloneLoss())
@@ -179,7 +179,7 @@
 		oxyloss = 0
 		return FALSE
 	if(dna.species && amount > 0)
-		amount = amount * dna.species.oxy_mod
+		amount = amount * (dna.species.oxy_mod + get_vampire_bonus("oxy"))
 	. = ..()
 
 /mob/living/carbon/human/setOxyLoss(amount, updating_health)
@@ -187,12 +187,12 @@
 		oxyloss = 0
 		return FALSE
 	if(dna.species && amount > 0)
-		amount = amount * dna.species.oxy_mod
+		amount = amount * (dna.species.oxy_mod + get_vampire_bonus("oxy"))
 	. = ..()
 
 /mob/living/carbon/human/adjustToxLoss(amount, updating_health)
 	if(dna.species && amount > 0)
-		amount = amount * dna.species.tox_mod
+		amount = amount * (dna.species.tox_mod + get_vampire_bonus("tox"))
 	. = ..()
 
 	if(amount > 0 && mind)
@@ -202,17 +202,17 @@
 
 /mob/living/carbon/human/setToxLoss(amount, updating_health)
 	if(dna.species && amount > 0)
-		amount = amount * dna.species.tox_mod
+		amount = amount * (dna.species.tox_mod + get_vampire_bonus("tox"))
 	. = ..()
 
 /mob/living/carbon/human/adjustStaminaLoss(amount, updating_health)
 	if(dna.species && amount > 0)
-		amount = amount * dna.species.stamina_mod
+		amount = amount * (dna.species.stamina_mod + get_vampire_bonus("stamina"))
 	. = ..()
 
 /mob/living/carbon/human/setStaminaLoss(amount, updating_health)
 	if(dna.species && amount > 0)
-		amount = amount * dna.species.stamina_mod
+		amount = amount * (dna.species.stamina_mod + get_vampire_bonus("stamina"))
 	. = ..()
 
 ////////////////////////////////////////////

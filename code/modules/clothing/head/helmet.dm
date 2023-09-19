@@ -300,7 +300,8 @@
 	item_state = "skull"
 	strip_delay = 100
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi',
+		"Grey" = 'icons/mob/species/grey/head.dmi'
 	)
 
 /obj/item/clothing/head/helmet/skull/Yorick
@@ -390,6 +391,9 @@
 		"Drask" = 'icons/mob/species/drask/helmet.dmi',
 		"Grey" = 'icons/mob/species/grey/helmet.dmi',
 		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
+		"Ash Walker" = 'icons/mob/species/unathi/helmet.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/helmet.dmi',
+		"Draconid" = 'icons/mob/species/unathi/helmet.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi',
 		"Kidan" = 'icons/mob/species/kidan/head.dmi',

@@ -652,6 +652,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		to_chat(R, "<span class='danger'>ERROR: Master AI has be&# &#@)!-")
 		to_chat(R, "<span class='clocklarge'>\"Your master is under my control, so do you\"")
 		R.ratvar_act(TRUE)
+		SSticker?.score?.save_silicon_laws(R, additional_info = "Ratvar act via master AI conversion", log_all_laws = TRUE)
 
 /mob/living/silicon/ai/Topic(href, href_list)
 	if(usr != src)

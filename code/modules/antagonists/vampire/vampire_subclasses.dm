@@ -11,6 +11,21 @@
 	var/thrall_cap = 1
 	/// If true, lets the vampire have access to their full power abilities without meeting the blood requirement, or needing a certain number of drained humans.
 	var/full_power_override = FALSE
+	/// Maximum number of dissections vampire can proceed from one target.
+	var/dissect_cap = 1
+	/// Maximum number of critical organs vampire can dissect.
+	var/crit_organ_cap = 2
+	/// Link to a spell with TGUI.
+	var/obj/effect/proc_holder/spell/vampire/self/dissect_info/spell_TGUI
+	/// Associated list of all trophies bestia subclass got via round.
+	var/list/trophies = list(
+		"hearts" = 0,
+		"lungs" = 0,
+		"livers" = 0,
+		"kidneys" = 0,
+		"eyes" = 0,
+		"ears" = 0
+	)
 
 
 /datum/vampire_subclass/proc/add_subclass_ability(datum/antagonist/vampire/vamp)
@@ -78,13 +93,36 @@
 								/datum/vampire_passive/increment_thrall_cap/three)
 
 
+/datum/vampire_subclass/bestia
+	name = "bestia"
+	standard_powers = list(/obj/effect/proc_holder/spell/vampire/self/dissect_info = 150,
+							/obj/effect/proc_holder/spell/vampire/self/dissect = 150,
+							/obj/effect/proc_holder/spell/vampire/self/infected_trophy = 150,
+							/obj/effect/proc_holder/spell/vampire/lunge = 250,
+							/obj/effect/proc_holder/spell/vampire/mark = 250,
+							/obj/effect/proc_holder/spell/vampire/metamorphosis/bats = 400,
+							/obj/effect/proc_holder/spell/vampire/self/anabiosis = 600,
+							/datum/vampire_passive/dissection_cap = 600,
+							/obj/effect/proc_holder/spell/vampire/self/bats_spawn = 800,
+							/datum/vampire_passive/upgraded_grab = 800)
+	fully_powered_abilities = list(/datum/vampire_passive/full,
+								/obj/effect/proc_holder/spell/vampire/metamorphosis/hound,
+								/datum/vampire_passive/dissection_cap/two)
+	improved_rejuv_healing = TRUE
+
+
 /datum/vampire_subclass/ancient
 	name = "ancient"
-	standard_powers = list(/obj/effect/proc_holder/spell/vampire/self/vamp_claws,
+	standard_powers = list(/obj/effect/proc_holder/spell/vampire/self/dissect_info,
+							/obj/effect/proc_holder/spell/vampire/self/dissect,
+							/obj/effect/proc_holder/spell/vampire/self/infected_trophy,
+							/obj/effect/proc_holder/spell/vampire/self/vamp_claws,
 							/obj/effect/proc_holder/spell/vampire/self/blood_swell,
 							/obj/effect/proc_holder/spell/vampire/self/cloak,
 							/obj/effect/proc_holder/spell/vampire/enthrall,
 							/obj/effect/proc_holder/spell/vampire/thrall_commune,
+							/obj/effect/proc_holder/spell/vampire/lunge,
+							/obj/effect/proc_holder/spell/vampire/mark,
 							/obj/effect/proc_holder/spell/vampire/blood_tendrils,
 							/obj/effect/proc_holder/spell/vampire/blood_barrier,
 							/obj/effect/proc_holder/spell/vampire/self/blood_rush,
@@ -94,10 +132,12 @@
 							/obj/effect/proc_holder/spell/vampire/pacify,
 							/obj/effect/proc_holder/spell/vampire/switch_places,
 							/obj/effect/proc_holder/spell/ethereal_jaunt/blood_pool,
+							/obj/effect/proc_holder/spell/vampire/metamorphosis/bats,
 							/datum/vampire_passive/blood_swell_upgrade,
 							/obj/effect/proc_holder/spell/vampire/dark_passage,
 							/obj/effect/proc_holder/spell/vampire/self/decoy,
 							/obj/effect/proc_holder/spell/vampire/blood_eruption,
+							/obj/effect/proc_holder/spell/vampire/self/anabiosis,
 							/obj/effect/proc_holder/spell/vampire/predator_senses,
 							/obj/effect/proc_holder/spell/vampire/self/overwhelming_force,
 							/obj/effect/proc_holder/spell/vampire/vamp_extinguish,
@@ -105,7 +145,10 @@
 							/obj/effect/proc_holder/spell/vampire/self/share_damage,
 							/obj/effect/proc_holder/spell/fireball/demonic_grasp,
 							/obj/effect/proc_holder/spell/vampire/shadow_boxing,
+							/obj/effect/proc_holder/spell/vampire/self/bats_spawn,
+							/datum/vampire_passive/upgraded_grab,
 							/datum/vampire_passive/full,
+							/obj/effect/proc_holder/spell/vampire/metamorphosis/hound,
 							/obj/effect/proc_holder/spell/vampire/self/blood_spill,
 							/obj/effect/proc_holder/spell/vampire/charge,
 							/obj/effect/proc_holder/spell/vampire/self/eternal_darkness,
@@ -114,4 +157,6 @@
 							/datum/vampire_passive/xray)
 	improved_rejuv_healing = TRUE
 	thrall_cap = 150 // can thrall high pop
+	dissect_cap = 6
+	crit_organ_cap = 6
 

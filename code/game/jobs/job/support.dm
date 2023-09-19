@@ -87,7 +87,7 @@
 				uniform = /obj/item/clothing/under/artist
 				belt = /obj/item/storage/belt/chef/artistred
 				head = /obj/item/clothing/head/chefcap
-				suit = /obj/item/clothing/suit/chefbluza
+				suit = /obj/item/clothing/suit/storage/chefbluza
 
 
 /datum/job/hydro
@@ -215,10 +215,11 @@
 	id = /obj/item/card/id/supply
 	pda = /obj/item/pda/shaftminer
 	backpack_contents = list(
-		/obj/item/flashlight/seclite=1,\
-		/obj/item/kitchen/knife/combat/survival=1,\
-		/obj/item/mining_voucher=1,\
-		/obj/item/stack/marker_beacon/ten=1
+		/obj/item/flashlight/seclite = 1,
+		/obj/item/kitchen/knife/combat/survival = 1,
+		/obj/item/mining_voucher = 1,
+		/obj/item/stack/marker_beacon/ten = 1,
+		/obj/item/survivalcapsule = 1
 	)
 
 	backpack = /obj/item/storage/backpack/explorer
@@ -234,12 +235,12 @@
 	suit_store = /obj/item/tank/internals/emergency_oxygen
 	internals_slot = slot_s_store
 	backpack_contents = list(
-		/obj/item/flashlight/seclite=1,\
-		/obj/item/kitchen/knife/combat/survival=1,
-		/obj/item/mining_voucher=1,
-		/obj/item/t_scanner/adv_mining_scanner/lesser=1,
-		/obj/item/gun/energy/kinetic_accelerator=1,\
-		/obj/item/stack/marker_beacon/ten=1
+		/obj/item/flashlight/seclite = 1,
+		/obj/item/kitchen/knife/combat/survival = 1,
+		/obj/item/mining_voucher = 1,
+		/obj/item/t_scanner/adv_mining_scanner/lesser = 1,
+		/obj/item/gun/energy/kinetic_accelerator = 1,
+		/obj/item/stack/marker_beacon/ten = 1
 	)
 
 /datum/outfit/job/miner/equipped/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

@@ -100,6 +100,18 @@
 	//Even if we don't push/swap places, we "touched" them, so spread fire
 	spreadFire(M)
 
+	if(get_confusion() && get_disoriented())
+		Weaken(1 SECONDS)
+		take_organ_damage(rand(5, 10))
+		var/mob/living/victim = M
+		if(istype(victim))
+			victim.Weaken(1 SECONDS)
+			victim.take_organ_damage(rand(5, 10))
+		visible_message("<span class='danger'>[name] вреза[pluralize_ru(gender,"ет","ют")]ся в [M.name], сбивая друг друга с ног!</span>", \
+					 "<span class='userdanger'>Вы жестко врезаетесь в [M.name]!</span>")
+		playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
+		return
+
 	// No pushing if we're already pushing past something, or if the mob we're pushing into is anchored.
 	if(now_pushing || M.anchored)
 		return TRUE
@@ -174,6 +186,12 @@
 
 //Called when we bump into an obj
 /mob/living/proc/ObjBump(obj/O)
+	if(get_confusion() && get_disoriented())
+		Weaken(1 SECONDS)
+		take_organ_damage(rand(5, 10))
+		visible_message("<span class='danger'>[name] вреза[pluralize_ru(gender,"ет","ют")]ся в [O.name]!</span>", \
+						"<span class='userdanger'>Вы жестко врезаетесь в [O.name]!</span>")
+		playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
 	return
 
 /mob/living/get_pull_push_speed_modifier(current_delay)
@@ -630,11 +648,11 @@
 				if(ishuman(pulling))
 					var/mob/living/carbon/human/H = pulling
 					if(!H.lying)
-						if(H.get_confusion() > 0 && prob(4))
+						if(H.get_confusion() > 0 && m_intent != MOVE_INTENT_WALK && prob(4))
 							H.Weaken(4 SECONDS)
 							pulling.stop_pulling()
 							visible_message(span_danger("Ноги [H] путаются и [genderize_ru(H.gender,"он","она","оно","они")] с грохотом падает на пол!"))
-						if(H.m_intent == MOVE_INTENT_WALK && prob(4))
+						if(H.m_intent == MOVE_INTENT_WALK && m_intent != MOVE_INTENT_WALK && prob(4))
 							H.Weaken(4 SECONDS)
 							visible_message(span_danger("[H] не поспевает за [src] и с грохотом падает на пол!"))
 			else
@@ -1009,6 +1027,10 @@
 	if(istype(loc, /obj/mecha))
 		var/obj/mecha/M = loc
 		loc_temp =  M.return_temperature()
+
+	if(isvampirecoffin(loc))
+		var/obj/structure/closet/coffin/vampire/coffin = loc
+		loc_temp = coffin.return_temperature()
 
 	else if(istype(loc, /obj/spacepod))
 		var/obj/spacepod/S = loc

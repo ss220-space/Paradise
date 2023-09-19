@@ -1046,8 +1046,8 @@ Returns 1 if the chain up to the area contains the given typepath
 	var/turf/T = get_turf(AM) //use AM's turfs, as it's coords are the same as AM's AND AM's coords are lost if it is inside another atom
 	if(!T)
 		return null
-	var/final_x = T.x + rough_x
-	var/final_y = T.y + rough_y
+	var/final_x = clamp(T.x + rough_x, 1, world.maxx)
+	var/final_y = clamp(T.y + rough_y, 1, world.maxy)
 
 	if(final_x || final_y)
 		return locate(final_x, final_y, T.z)

@@ -17,3 +17,5 @@
 	new /obj/item/cultivator(src)
 	new /obj/item/hatchet(src)
 	new /obj/item/storage/box/disks_plantgene(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/hydro(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/hydro(src)

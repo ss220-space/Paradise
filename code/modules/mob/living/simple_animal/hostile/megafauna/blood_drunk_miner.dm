@@ -39,8 +39,8 @@ Difficulty: Medium
 	ranged = TRUE
 	ranged_cooldown_time = 16
 	pixel_x = -7
-	crusher_loot = list(/obj/item/melee/energy/cleaving_saw, /obj/item/gun/energy/kinetic_accelerator, /obj/item/crusher_trophy/miner_eye)
-	loot = list(/obj/item/melee/energy/cleaving_saw, /obj/item/gun/energy/kinetic_accelerator)
+	crusher_loot = list(/obj/item/melee/energy/cleaving_saw, /obj/item/gun/energy/kinetic_accelerator, /obj/item/crusher_trophy/miner_eye, /obj/item/gem/phoron)
+	loot = list(/obj/item/melee/energy/cleaving_saw, /obj/item/gun/energy/kinetic_accelerator, /obj/item/gem/phoron)
 	wander = FALSE
 	del_on_death = TRUE
 	blood_volume = BLOOD_VOLUME_NORMAL
@@ -113,9 +113,11 @@ Difficulty: Medium
 	force_on = 10
 
 /obj/item/melee/energy/cleaving_saw/miner/attack(mob/living/target, mob/living/carbon/human/user)
-	target.add_stun_absorption("miner", 10, INFINITY)
+	target.add_status_effect_absorption("miner_weaken", 10, INFINITY, status_effect = WEAKEN)
+	target.add_status_effect_absorption("miner_stun", 10, INFINITY, status_effect = STUN)
 	..()
-	target.stun_absorption -= "miner"
+	target.status_effect_absorption -= "miner_weaken"
+	target.status_effect_absorption -= "miner_stun"
 
 /obj/item/projectile/kinetic/miner
 	damage = 20

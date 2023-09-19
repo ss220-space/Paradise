@@ -1,5 +1,5 @@
 #define DAMAGE			1
-#define FIRE			2
+#define FIRE_OLAY		2
 #define POD_LIGHT		1
 #define WINDOW			2
 #define RIM	    		3
@@ -96,7 +96,7 @@
 	if(!pod_overlays)
 		pod_overlays = new/list(2)
 		pod_overlays[DAMAGE] = image(icon, icon_state="pod_damage")
-		pod_overlays[FIRE] = image(icon, icon_state="pod_fire")
+		pod_overlays[FIRE_OLAY] = image(icon, icon_state="pod_fire")
 	if(!pod_paint_effect)
 		pod_paint_effect = new/list(4)
 		pod_paint_effect[POD_LIGHT] = image(icon,icon_state = "LIGHTS")
@@ -171,7 +171,7 @@
 	if(!pod_overlays)
 		pod_overlays = new/list(2)
 		pod_overlays[DAMAGE] = image(icon, icon_state="pod_damage")
-		pod_overlays[FIRE] = image(icon, icon_state="pod_fire")
+		pod_overlays[FIRE_OLAY] = image(icon, icon_state="pod_fire")
 
 	if(!pod_paint_effect)
 		pod_paint_effect = new/list(4)
@@ -202,7 +202,7 @@
 	if(health <= round(initial(health)/2))
 		overlays += pod_overlays[DAMAGE]
 		if(health <= round(initial(health)/4))
-			overlays += pod_overlays[FIRE]
+			overlays += pod_overlays[FIRE_OLAY]
 
 
 	light_color = icon_light_color[src.icon_state]
@@ -1119,7 +1119,7 @@
 	update_icon()
 
 #undef DAMAGE
-#undef FIRE
+#undef FIRE_OLAY
 #undef WINDOW
 #undef POD_LIGHT
 #undef RIM

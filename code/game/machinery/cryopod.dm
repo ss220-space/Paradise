@@ -162,12 +162,12 @@
 		dispense_item(I)
 
 /obj/item/circuitboard/cryopodcontrol
-	name = "Circuit board (Cryogenic Oversight Console)"
+	board_name = "Cryogenic Oversight Console"
 	build_path = "/obj/machinery/computer/cryopod"
 	origin_tech = "programming=1"
 
 /obj/item/circuitboard/robotstoragecontrol
-	name = "Circuit board (Robotic Storage Console)"
+	board_name = "Robotic Storage Console"
 	build_path = "/obj/machinery/computer/cryopod/robot"
 	origin_tech = "programming=1"
 
@@ -384,6 +384,10 @@
 			control_computer.freeze_item(I, preserve)
 		else
 			I.forceMove(loc)
+
+	// Log antag special role and objectives
+	if(SSticker?.score && occupant.mind?.special_role)
+		SSticker.score.save_antag_info(occupant.mind)
 
 	// Find a new sacrifice target if needed, if unable allow summoning
 	if(is_sacrifice_target(occupant.mind))

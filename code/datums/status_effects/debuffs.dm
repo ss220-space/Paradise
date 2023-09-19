@@ -172,6 +172,136 @@
 /datum/status_effect/bluespace_slowdown/on_remove()
 	owner.next_move_modifier /= 2
 
+
+/**
+ * Vampire mark.
+ */
+/datum/status_effect/mark_prey
+	id = "mark_prey"
+	duration = 5 SECONDS
+	tick_interval = 1 SECONDS
+	alert_type = null
+	var/mutable_appearance/marked_overlay
+	var/datum/antagonist/vampire/vamp
+	var/t_eyes
+	var/t_hearts
+	var/static/list/trash_talk = list("СКАЖИ ПРИВЕТ МОЕМУ МАЛЕНЬКОМУ ДРУГУ!!!",
+									"АРРРРРГГГГГХХХ!!!",
+									"МОЯ ГОЛОВА!!!",
+									"ПОМОГИТЕ! МОИ РУКИ ДВИГАЮТСЯ САМИ ПО СЕБЕ!!!",
+									"ЭТО ДЕЛАЕТ [pick("МОЙ БРАТ БЛИЗНЕЦ", "БОРЕР", "СИНДИКАТ", "ВОЛШЕБНИК")]!!!",
+									"ОН УКРАЛ МОЙ СЛАДКИЙ РУЛЕТ!!!",
+									"Я ПРОСТО ДОЖЕВАЛ ЖВАЧКУ!!!",
+									"ПРИШЕЛ ДЕНЬ РАСПЛАТЫ!!!",
+									"ЖИВОТНЫЕ НЕ ЧЛЕНЫ ЭКИПАЖА!!!")
+
+
+/datum/status_effect/mark_prey/on_creation(mob/living/new_owner, datum/antagonist/vampire/antag_datum)
+	if(antag_datum)
+		vamp = antag_datum
+		var/t_kidneys = vamp.get_trophies("kidneys")
+		duration += t_kidneys SECONDS	// 15s. MAX
+		t_eyes = vamp.get_trophies("eyes")
+		t_hearts = vamp.get_trophies("hearts")
+	return ..()
+
+
+/datum/status_effect/mark_prey/Destroy()
+	if(owner)
+		owner.cut_overlay(marked_overlay)
+	QDEL_NULL(marked_overlay)
+	vamp = null
+	return ..()
+
+
+/datum/status_effect/mark_prey/on_apply()
+	if(owner.stat == DEAD || !vamp)
+		return FALSE
+
+	owner.Slowed(duration)
+	to_chat(owner, span_danger("You feel the unbearable heaviness of being..."))
+	new /obj/effect/temp_visual/cult/sparks(get_turf(owner))
+
+	marked_overlay = mutable_appearance('icons/effects/effects.dmi', "cult_halo1")
+	marked_overlay.pixel_y = 3
+	owner.add_overlay(marked_overlay)
+	return ..()
+
+
+/datum/status_effect/mark_prey/tick()
+	if(owner.stat == DEAD)
+		qdel(src)
+		return
+
+	if(t_hearts && prob(t_hearts * 10))	// 60% on MAX
+		owner.adjustFireLoss(t_hearts)	// 6 MAX
+
+	if(t_eyes && !owner.incapacitated() && prob(30 + t_eyes * 7))	// 100% on MAX
+		// lets check our arms first
+		var/obj/item/left_hand = owner.l_hand
+		var/obj/item/right_hand = owner.r_hand
+
+		// next we will find THE GUN .\_/.
+		var/obj/item/gun/found_gun
+		if(istype(left_hand, /obj/item/gun))
+			found_gun = left_hand
+
+		if(!found_gun && istype(right_hand, /obj/item/gun))
+			found_gun = right_hand
+
+		// now we will find the target
+		var/new_range = found_gun ? 7 : 1	// we need to check close range only if no guns found
+		var/mob/living/target
+		for(var/mob/living/check in (view(new_range, owner) - owner))
+			if(!check.mind || check.stat == DEAD || isvampire(check) || isvampirethrall(check))
+				continue
+			target = check
+			if(target)
+				if(prob(30))
+					owner.say(pick(trash_talk))
+				break
+
+		// if nothing is found we are the target
+		if(!target)
+			target = owner
+
+		// if no gun found or target is owner we will attack ourselves in HARM intent
+		if(!found_gun || target == owner)
+			if(target != owner)
+				owner.face_atom(target)
+
+			if(owner.a_intent != INTENT_HARM)
+				owner.a_intent_change(INTENT_HARM)
+
+			// empty hands or not a human = unarmed attack
+			if((!left_hand && !right_hand) || !ishuman(owner))
+				owner.UnarmedAttack(target)
+				return
+
+			// otherwise lets find a better weapon
+			var/force_left = left_hand ? left_hand.force : 0
+			var/force_right = right_hand ? right_hand.force : 0
+			if(force_left > force_right)
+				if(!owner.hand)
+					owner.swap_hand()
+				left_hand.attack(target, owner, "head")	// yes! right in the neck
+			else if(force_right)
+				if(owner.hand)
+					owner.swap_hand()
+				right_hand.attack(target, owner, "head")
+			return
+
+		// here goes nothing!
+		if(found_gun)
+			owner.face_atom(target)
+			if(owner.a_intent != INTENT_HARM)
+				owner.a_intent_change(INTENT_HARM)
+			if(owner.hand && owner.l_hand != found_gun)
+				owner.swap_hand()
+			found_gun.process_fire(target, owner, zone_override = "head")	// hell yeah! few headshots for mr. vampire!
+			found_gun.attack(owner, owner, "head")	// attack ourselves also in case gun has no ammo
+
+
 // start of `living` level status procs.
 
 /**
@@ -209,6 +339,27 @@
 	return ..()
 
 /**
+ * # Disoriented
+ *
+ * Modification of confusion effect. Makes you crash and take damage if confused
+ */
+/datum/status_effect/transient/disoriented
+	id = "disoriented"
+
+/datum/status_effect/transient/disoriented/on_creation(mob/living/new_owner)
+	strength = 1
+	. = ..()
+
+/datum/status_effect/transient/disoriented/tick()
+	if(QDELETED(src) || QDELETED(owner))
+		return FALSE
+	. = TRUE
+	if(strength <= 0)
+		if(owner.get_confusion() <= 0)
+			qdel(src)
+			return FALSE
+
+/**
  * # Dizziness
  *
  * Slightly offsets the client's screen randomly every tick.
@@ -230,7 +381,7 @@
 	if(!.)
 		return
 	var/dir = sin(world.time)
-	var/amplitude = min(strength * 0.02, 32)
+	var/amplitude = min(strength * 0.003, 32)
 	px_diff = cos(world.time * 3) * amplitude * dir
 	py_diff = sin(world.time * 3) * amplitude * dir
 	owner.client?.pixel_x = px_diff
@@ -669,3 +820,51 @@
 /datum/status_effect/transient/deaf/on_remove()
 	. = ..()
 	REMOVE_TRAIT(owner, TRAIT_DEAF, EAR_DAMAGE)
+
+// lavaland flowers stuff
+/datum/status_effect/taming
+	id = "taming"
+	duration = -1
+	tick_interval = 6
+	alert_type = null
+	var/tame_amount = 1
+	var/tame_buildup = 1
+	var/tame_crit = 35
+	var/needs_to_tame = FALSE
+	var/mob/living/tamer
+
+/datum/status_effect/taming/on_creation(mob/living/owner, mob/living/user)
+	. = ..()
+	if(!.)
+		return
+	tamer = user
+
+/datum/status_effect/taming/on_apply()
+	if(owner.stat == DEAD)
+		return FALSE
+	return ..()
+
+/datum/status_effect/taming/tick()
+	if(owner.stat == DEAD)
+		qdel(src)
+
+/datum/status_effect/taming/proc/add_tame(amount)
+	tame_amount += amount
+	if(tame_amount)
+		if(tame_amount >= tame_crit)
+			needs_to_tame = TRUE
+			qdel(src)
+	else
+		qdel(src)
+
+/datum/status_effect/taming/on_remove()
+	var/mob/living/simple_animal/hostile/M = owner
+	if(needs_to_tame)
+		var/turf/T = get_turf(M)
+		new /obj/effect/temp_visual/love_heart(T)
+		M.drop_loot()
+		M.loot = null
+		M.add_atom_colour("#11c42f", FIXED_COLOUR_PRIORITY)
+		M.faction = tamer.faction
+		to_chat(tamer, span_notice("[M] is now friendly after exposure to the flowers!"))
+		. = ..()

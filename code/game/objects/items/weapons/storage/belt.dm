@@ -416,6 +416,15 @@
 	new /obj/item/ammo_box/magazine/m45(src)
 	update_icon()
 
+/obj/item/storage/belt/military/assault/marines/cats/full/populate_contents()
+	new /obj/item/ammo_box/magazine/cats12g(src)
+	new /obj/item/ammo_box/magazine/cats12g(src)
+	new /obj/item/ammo_box/magazine/cats12g(src)
+	new /obj/item/ammo_box/magazine/cats12g/beanbang(src)
+	new /obj/item/ammo_box/magazine/cats12g/beanbang(src)
+	new /obj/item/ammo_box/magazine/cats12g/large(src)
+	update_icon()
+
 /obj/item/storage/belt/military/assault/marines/elite/full/populate_contents()
 	new /obj/item/ammo_box/magazine/m556(src)
 	new /obj/item/ammo_box/magazine/m556(src)
@@ -516,6 +525,14 @@
 /obj/item/storage/belt/bandolier/full/populate_contents()
 	for(var/I in 1 to 16)
 		new /obj/item/ammo_casing/shotgun/beanbag(src)
+	update_icon()
+
+/obj/item/storage/belt/bandolier/booze
+	description_antag = "Этот бандольер содержит 16 усыпляющих алкопатрон для превращения противника или жертву в беспомощное нечто. Учтите, патроны супер эффективны против цели с алкоголем внутри, на трезвых работают не так здорово!"
+
+/obj/item/storage/belt/bandolier/booze/populate_contents()
+	for(var/I in 1 to 16)
+		new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
 	update_icon()
 
 /obj/item/storage/belt/bandolier/update_icon()
@@ -821,6 +838,7 @@
 	max_combined_w_class = 20
 	can_hold = list(
 		/obj/item/crowbar,
+		/obj/item/grenade/plastic/miningcharge,
 		/obj/item/screwdriver,
 		/obj/item/weldingtool,
 		/obj/item/wirecutters,
@@ -856,11 +874,14 @@
 		/obj/item/organ/internal/regenerative_core,
 		/obj/item/wormhole_jaunter,
 		/obj/item/storage/bag/plants,
-		/obj/item/stack/marker_beacon)
+		/obj/item/stack/marker_beacon,
+		/obj/item/gem)
 
 /obj/item/storage/belt/mining/vendor/Initialize(mapload)
 	. = ..()
 	new /obj/item/survivalcapsule(src)
+	new /obj/item/grenade/plastic/miningcharge/lesser(src)
+	new /obj/item/grenade/plastic/miningcharge/lesser(src)
 
 /obj/item/storage/belt/mining/alt
 	icon_state = "explorer2"

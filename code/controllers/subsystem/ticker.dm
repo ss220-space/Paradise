@@ -52,8 +52,6 @@ SUBSYSTEM_DEF(ticker)
 	var/triai = FALSE
 	/// Holder for inital autotransfer vote timer
 	var/next_autotransfer = 0
-	/// Used for station explosion cinematic
-	var/obj/screen/cinematic = null
 	/// Spam Prevention. Announce round end only once.
 	var/round_end_announced = FALSE
 	/// Is the ticker currently processing? If FALSE, roundstart is delayed
@@ -64,6 +62,8 @@ SUBSYSTEM_DEF(ticker)
 	var/end_state = "undefined"
 	/// Time the real reboot kicks in
 	var/real_reboot_time = 0
+	/// Datum used to generate the end of round scoreboard.
+	var/datum/scoreboard/score = null
 	/// Do we need to switch pacifism after Greentext
 	var/toggle_pacifism = TRUE
 	/// Do we need to make ghosts visible after greentext
@@ -181,6 +181,7 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/setup()
 	cultdat = setupcult()
+	score = new()
 
 	// Create and announce mode
 	if(GLOB.master_mode == "secret")
@@ -375,93 +376,52 @@ SUBSYSTEM_DEF(ticker)
 
 
 /datum/controller/subsystem/ticker/proc/station_explosion_cinematic(station_missed = 0, override = null)
-	if(cinematic)
-		return	//already a cinematic in progress!
 
 	auto_toggle_ooc(TRUE) // Turn it on
-	//initialise our cinematic screen object
-	cinematic = new /obj/screen(src)
-	cinematic.icon = 'icons/effects/station_explosion.dmi'
-	cinematic.icon_state = "station_intact"
-	cinematic.layer = 21
-	cinematic.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	cinematic.screen_loc = "1,0"
 
-	if(station_missed)
-		for(var/mob/M in GLOB.mob_list)
-			if(M.client)
-				M.client.screen += cinematic	//show every client the cinematic
-	else	//nuke kills everyone on z-level 1 to prevent "hurr-durr I survived"
+	if(!station_missed)	//nuke kills everyone on z-level 1 to prevent "hurr-durr I survived"
 		for(var/mob/M in GLOB.mob_list)
 			if(M.stat != DEAD && !(issilicon(M) && override == "AI malfunction"))
 				var/turf/T = get_turf(M)
 				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer))
-					var/mob/ghost = M.ghostize()
+					M.ghostize()
 					M.dust() //no mercy
-					if(ghost && ghost.client) //Play the victims an uninterrupted cinematic.
-						ghost.client.screen += cinematic
 					CHECK_TICK
-			if(M && M.client) //Play the survivors a cinematic.
-				M.client.screen += cinematic
 
 	//Now animate the cinematic
 	switch(station_missed)
 		if(1)	//nuke was nearby but (mostly) missed
 			if(mode && !override)
 				override = mode.name
+
 			switch(override)
 				if("nuclear emergency") //Nuke wasn't on station when it blew up
-					flick("intro_nuke", cinematic)
-					sleep(35)
-					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
-					flick("station_intact_fade_red", cinematic)
-					cinematic.icon_state = "summary_nukefail"
-				if("fake") //The round isn't over, we're just freaking people out for fun
-					flick("intro_nuke", cinematic)
-					sleep(35)
-					SEND_SOUND(world, sound('sound/items/bikehorn.ogg'))
-					flick("summary_selfdes", cinematic)
-				else
-					flick("intro_nuke", cinematic)
-					sleep(35)
-					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
+					play_cinematic(/datum/cinematic/nuke/ops_miss, world)
 
+				if("fake") //The round isn't over, we're just freaking people out for fun
+					play_cinematic(/datum/cinematic/nuke/fake, world)
+
+				else
+					play_cinematic(/datum/cinematic/nuke/self_destruct_miss, world)
 
 		if(2)	//nuke was nowhere nearby	//TODO: a really distant explosion animation
-			sleep(50)
-			SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
+			play_cinematic(/datum/cinematic/nuke/far_explosion, world)
+
 		else	//station was destroyed
 			if(mode && !override)
 				override = mode.name
 			switch(override)
 				if("nuclear emergency") //Nuke Ops successfully bombed the station
-					flick("intro_nuke", cinematic)
-					sleep(35)
-					flick("station_explode_fade_red", cinematic)
-					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
-					cinematic.icon_state = "summary_nukewin"
+					play_cinematic(/datum/cinematic/nuke/ops_victory, world)
+
 				if("AI malfunction") //Malf (screen,explosion,summary)
-					flick("intro_malf", cinematic)
-					sleep(76)
-					flick("station_explode_fade_red", cinematic)
-					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
-					cinematic.icon_state = "summary_malf"
+					play_cinematic(/datum/cinematic/malf, world)
+
 				if("blob") //Station nuked (nuke,explosion,summary)
-					flick("intro_nuke", cinematic)
-					sleep(35)
-					flick("station_explode_fade_red", cinematic)
-					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
-					cinematic.icon_state = "summary_selfdes"
+					play_cinematic(/datum/cinematic/nuke/self_destruct, world)
+
 				else //Station nuked (nuke,explosion,summary)
-					flick("intro_nuke", cinematic)
-					sleep(35)
-					flick("station_explode_fade_red", cinematic)
-					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
-					cinematic.icon_state = "summary_selfdes"
-	//If its actually the end of the round, wait for it to end.
-	//Otherwise if its a verb it will continue on afterwards.
-	spawn(300)
-		QDEL_NULL(cinematic)		//end the cinematic
+					play_cinematic(/datum/cinematic/nuke/self_destruct, world)
 
 
 
@@ -472,6 +432,7 @@ SUBSYSTEM_DEF(ticker)
 				player.close_spawn_windows()
 				var/mob/living/silicon/ai/ai_character = player.AIize()
 				ai_character.moveToAILandmark()
+				SSticker?.score?.save_silicon_laws(ai_character, additional_info = "job assignment", log_all_laws = TRUE)
 			else if(!player.mind.assigned_role)
 				continue
 			else
@@ -578,7 +539,8 @@ SUBSYSTEM_DEF(ticker)
 		if(findtext("[handler]","auto_declare_completion_"))
 			call(mode, handler)()
 
-	scoreboard()
+	// Display the scoreboard window
+	score.scoreboard()
 
 	// Declare the completion of the station goals
 	mode.declare_station_goal_completion()

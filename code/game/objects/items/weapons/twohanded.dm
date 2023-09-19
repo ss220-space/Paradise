@@ -389,6 +389,16 @@
 	armour_penetration = 15				//Enhanced armor piercing
 	icon_prefix = "bone_spear"
 
+/obj/item/twohanded/spear/bonespear/chitinspear //like a mix of a bone spear and bone axe, but more like a bone spear. And better.
+	icon_state = "chitin_spear0"
+	name = "chitin spear"
+	desc = "A well constructed spear with a sharpened edge akin to a naginata, making it equally great for slicing and throwing."
+	force = 14
+	force_unwielded = 14
+	force_wielded = 24 // I have no idea about balance too
+	throwforce = 26
+	icon_prefix = "chitin_spear"
+
 //GREY TIDE
 /obj/item/twohanded/spear/grey_tide
 	icon_state = "spearglass0"
@@ -951,7 +961,7 @@
 		do_sparks(rand(1,6), 1, loc)
 		return
 	if(used)
-		visible_message("<span class='warning'>[user.get_active_hand()] slides back into the depths of [loc]'s wrists.</span>")
+		visible_message("<span class='warning'>Energy claws slides back into the depths of [loc]'s wrists.</span>")
 		user.drop_from_active_hand(force = TRUE)//dropdel stuff. only ui act, without hotkeys
 		do_sparks(rand(1,6), 1, loc)
 		on_cooldown = TRUE

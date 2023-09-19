@@ -5689,7 +5689,6 @@
 	icon_state = "syndie_circuit_imprinter"
 	},
 /obj/effect/decal/warning_stripes/southwest,
-/obj/item/reagent_containers/glass/beaker/sulphuric,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault";

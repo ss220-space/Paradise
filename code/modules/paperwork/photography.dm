@@ -289,7 +289,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	return res
 
 
-/obj/item/camera/proc/get_mobs(turf/the_turf as turf)
+/obj/item/camera/proc/get_mobs(turf/the_turf)
 	var/mob_detail
 	for(var/mob/M in the_turf)
 		if(M.invisibility)
@@ -322,7 +322,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 				mob_detail += "You can also see [A] on the photo[A:health < 75 ? " - [A] looks hurt":""].[holding ? " [holding]":"."]."
 	return mob_detail
 
-/obj/item/camera/proc/add_log(turf/the_turf as turf)
+/obj/item/camera/proc/add_log(turf/the_turf)
 	var/mob_detail
 	for(var/mob/M in the_turf)
 		var/holding = null
@@ -336,9 +336,9 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 					else
 						holding = "holding [A.r_hand]"
 			if(!mob_detail)
-				mob_detail = "[A.client.ckey]/([A]) on photo[A:health < 75 ? " hurt":""].[holding ? " [holding]":"."]. "
+				mob_detail = "[A.client ? "[A.client.ckey]/" : "nockey"]([A]) on photo[A:health < 75 ? " hurt":""].[holding ? " [holding]":"."]. "
 			else
-				mob_detail += "Also [A.client.ckey]/([A]) on the photo[A:health < 75 ? " hurt":""].[holding ? " [holding]":"."]."
+				mob_detail += "Also [A.client ? "[A.client.ckey]/" : "nockey"]([A]) on the photo[A:health < 75 ? " hurt":""].[holding ? " [holding]":"."]."
 	return mob_detail
 
 /obj/item/camera/afterattack(atom/target, mob/user, flag)

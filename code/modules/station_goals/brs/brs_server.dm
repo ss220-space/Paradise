@@ -7,7 +7,7 @@
 #define DATA_RECORD_LENGTH 6
 
 /obj/item/circuitboard/brs_server
-	name = "Сервер сканирирования разлома (Computer Board)"
+	board_name = "Сервер сканирирования разлома"
 	desc = "Плата сервера сканирования и изучения блюспейс разлома."
 	build_path = /obj/machinery/brs_server
 	icon_state = "cpuboard_super"
@@ -96,7 +96,7 @@
 	for(var/list/record in data)
 		if(record[DATA_RECORD_TIMES_RIFT_SCANNED] == 0)
 			continue
-		
+
 		record[DATA_RECORD_GOAL_POINTS] += record[DATA_RECORD_MINED_GOAL_POINTS] * (1 + log(record[DATA_RECORD_TIMES_RIFT_SCANNED]))
 		record[DATA_RECORD_PROBE_POINTS] += record[DATA_RECORD_MINED_PROBE_POINTS] * (1 + log(record[DATA_RECORD_TIMES_RIFT_SCANNED]))
 
@@ -199,7 +199,7 @@
 	component_parts = list()
 
 	component_parts += new /obj/item/circuitboard/brs_server(null)
-	
+
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
 
@@ -245,7 +245,7 @@
 /obj/machinery/brs_server/attack_hand(mob/user)
 	if(..())
 		return TRUE
-	
+
 	add_fingerprint(user)
 
 	if(stat & (BROKEN|NOPOWER))

@@ -346,6 +346,32 @@
 	..()
 	empty_alarm()
 
+//Combat Automatic Tactical Shotgun//
+
+/obj/item/gun/projectile/automatic/cats
+	name = "\improper C.A.T. Shotgun"
+	desc = "Terra Light Armories - Combat Automatic Tactical Shotgun - мощный автоматический дробовик, в основном используемый силами Транс-Солнечной Федерации. Производится корпорацией Terra Industries."
+	icon_state = "tla_cats"
+	item_state = "arg"
+	w_class = WEIGHT_CLASS_NORMAL
+	mag_type = /obj/item/ammo_box/magazine/cats12g
+	fire_delay = 0
+	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
+	burst_size = 2
+	can_suppress = 0
+
+/obj/item/gun/projectile/automatic/cats/update_icon()
+	..()
+	icon_state = "tla_cats[magazine ? "" : "-e"]"
+
+/obj/item/gun/projectile/automatic/cats/examine(mob/user)
+	. = ..()
+	if(Adjacent(user))
+		if(user.say_understands(null, GLOB.all_languages["Sol Common"]))
+			. += "Вы видите гравировку на прикладе, написанную на Общесолнечном: 'Свобода через тотальное превосходство'"
+		else
+			. += "Вы видите символы на прикладе, но не понимаете что они значат."
+
 //Laser carbine//
 /obj/item/gun/projectile/automatic/lasercarbine
 	name = "\improper IK-60 Laser Carbine"
@@ -418,4 +444,5 @@
 	icon_state = "M52"
 	item_state = "arg"
 	mag_type = /obj/item/ammo_box/magazine/m52mag
+	can_suppress = 0
 

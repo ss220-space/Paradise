@@ -82,9 +82,13 @@
 
 #define STATUS_EFFECT_BLUESPACESLOWDOWN /datum/status_effect/bluespace_slowdown //Halfs victims next move modifier
 
+#define STATUS_EFFECT_TAMING /datum/status_effect/taming //tames the target after enough tame stacks
+
 #define STATUS_EFFECT_PACIFIED /datum/status_effect/pacifism //forces the pacifism trait
 
 #define STATUS_EFFECT_SHADOW_BOXING /datum/status_effect/shadow_boxing
+
+#define STATUS_EFFECT_MARK_PREY /datum/status_effect/mark_prey
 
 //#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
 //#define CURSE_BLINDING	1 //makes the edges of the target's screen obscured
@@ -113,6 +117,7 @@
 
 // transient
 #define STATUS_EFFECT_CONFUSION /datum/status_effect/transient/confusion
+#define STATUS_EFFECT_DISORIENTED /datum/status_effect/transient/disoriented
 #define STATUS_EFFECT_DIZZINESS /datum/status_effect/transient/dizziness
 #define STATUS_EFFECT_DROWSINESS /datum/status_effect/transient/drowsiness
 #define STATUS_EFFECT_DRUNKENNESS /datum/status_effect/transient/drunkenness

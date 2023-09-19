@@ -104,6 +104,7 @@
 	H.emote("scream")
 	if(!masterAI) // If the factory was placed via admin spawning or other means, it wont have an owner_AI.
 		var/mob/living/silicon/robot/R = H.Robotize(robot_cell_type)
+		SSticker?.score?.save_silicon_laws(R, additional_info = "malf AI factory transformation", log_all_laws = TRUE)
 		R.emagged = TRUE
 		return
 
@@ -116,6 +117,8 @@
 			return
 		var/mob/dead/observer/O = pick(candidates)
 		R.key= O.key
+	SSticker?.score?.save_silicon_laws(R, additional_info = "malf AI factory transformation", log_all_laws = TRUE)
+
 
 /obj/machinery/transformer/mime
 	name = "Mimetech Greyscaler"
