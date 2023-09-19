@@ -156,7 +156,6 @@
 /area/ruin/powered/space_bar)
 "aW" = (
 /obj/structure/table/wood,
-/obj/item/paicard,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/space_bar)
 "aX" = (

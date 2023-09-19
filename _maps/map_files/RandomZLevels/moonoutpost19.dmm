@@ -4343,9 +4343,6 @@
 /area/moonoutpost19/mo19arrivals)
 "ip" = (
 /obj/structure/rack,
-/obj/item/paicard{
-	pixel_x = 4
-	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"

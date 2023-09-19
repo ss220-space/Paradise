@@ -1551,7 +1551,6 @@
 /area/ruin/space/spacehotelv1/entryhallway)
 "kX" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/paicard,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom2)
 "lg" = (
@@ -2009,7 +2008,6 @@
 /area/ruin/space/spacehotelv1/kitchen)
 "oM" = (
 /obj/structure/table/glass,
-/obj/item/paicard,
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/space/spacehotelv1/guestroom3)
 "oQ" = (
@@ -6411,7 +6409,6 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/paicard,
 /turf/simulated/floor/carpet,
 /area/ruin/space/spacehotelv1/guestroom4)
 "SL" = (
@@ -6749,7 +6746,6 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/paicard,
 /turf/simulated/floor/plasteel{
 	icon_state = "bcarpet05"
 	},

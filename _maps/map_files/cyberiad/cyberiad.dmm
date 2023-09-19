@@ -20518,7 +20518,6 @@
 "bbX" = (
 /obj/structure/window/reinforced,
 /obj/structure/table/wood,
-/obj/item/paicard,
 /turf/simulated/floor/wood,
 /area/crew_quarters/dorms)
 "bbY" = (
@@ -27824,7 +27823,6 @@
 /area/civilian/vacantoffice)
 "btF" = (
 /obj/structure/table/wood,
-/obj/item/paicard,
 /turf/simulated/floor/carpet,
 /area/civilian/vacantoffice)
 "btG" = (
