@@ -65,7 +65,7 @@ emp_act
 				playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
 			if(mind.martial_art.reroute_deflection)
 				P.firer = src
-				P.setAngle(rand(0, 360))
+				P.set_angle(rand(0, 360))
 				return -1
 			else
 				return FALSE
