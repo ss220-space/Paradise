@@ -40,6 +40,7 @@
 	var/barefootstep = null
 	var/clawfootstep = null
 	var/heavyfootstep = null
+	var/buffs
 
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)

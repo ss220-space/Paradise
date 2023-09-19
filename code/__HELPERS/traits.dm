@@ -196,3 +196,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 //traits that should be properly converted to genetic mutations one day
 #define TRAIT_LASEREYES "laser_eyes"
+
+//***** TURF TRAITS *****//
+
+/// Removes slowdown while walking on these tiles.
+#define TRAIT_BLUESPACE_SPEED "bluespace_speed_trait"
+
+// turf trait sources
+#define FLOOR_EFFECT_TRAIT "floor_effect_trait"

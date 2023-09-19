@@ -275,7 +275,7 @@
 			. -= 0.5
 
 		var/ignoreslow = FALSE
-		if((H.status_flags & IGNORESLOWDOWN) || (RUN in H.mutations) || (H.status_flags & GODMODE))
+		if(HAS_TRAIT(H, IGNORE_SPEED_CHANGES))
 			ignoreslow = TRUE
 
 		var/flight = H.flying	//Check for flight and flying items
@@ -285,16 +285,22 @@
 		if(H.status_flags & IGNORE_SPEED_CHANGES)
 			return .
 
-		if(H.wear_suit && !H.wear_suit.is_speedslimepotioned)
-			ADD_SLOWDOWN(H.wear_suit.slowdown)
-		if(!H.buckled && H.shoes && !H.shoes.is_speedslimepotioned)
-			ADD_SLOWDOWN(H.shoes.slowdown)
-		if(H.back && !H.back.is_speedslimepotioned)
-			ADD_SLOWDOWN(H.back.slowdown)
-		if(H.l_hand && (H.l_hand.flags & HANDSLOW) && !H.l_hand.is_speedslimepotioned)
-			ADD_SLOWDOWN(H.l_hand.slowdown)
-		if(H.r_hand && (H.r_hand.flags & HANDSLOW) && !H.r_hand.is_speedslimepotioned)
-			ADD_SLOWDOWN(H.r_hand.slowdown)
+		var/turf/simulated/floor/T = get_turf(H)
+		if(!HAS_TRAIT(T, TRAIT_BLUESPACE_SPEED))
+			if(H.wear_suit && !H.wear_suit.is_speedslimepotioned)
+				ADD_SLOWDOWN(H.wear_suit.slowdown)
+			if(H.head)
+				ADD_SLOWDOWN(H.head.slowdown)
+			if(H.gloves)
+				ADD_SLOWDOWN(H.gloves.slowdown)
+			if(!H.buckled && H.shoes)
+				ADD_SLOWDOWN(H.shoes.slowdown)
+			if(H.back && !H.back.is_speedslimepotioned)
+				ADD_SLOWDOWN(H.back.slowdown)
+			if(H.l_hand && (H.l_hand.flags & HANDSLOW) && !H.l_hand.is_speedslimepotioned)
+				ADD_SLOWDOWN(H.l_hand.slowdown)
+			if(H.r_hand && (H.r_hand.flags & HANDSLOW) && !H.r_hand.is_speedslimepotioned)
+				ADD_SLOWDOWN(H.r_hand.slowdown)
 
 		if(ignoreslow)
 			return . // Only malusses after here
