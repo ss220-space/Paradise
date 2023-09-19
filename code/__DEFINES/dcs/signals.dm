@@ -426,6 +426,8 @@
 #define COMSIG_CARBON_EMBED_REMOVAL "item_embed_remove_safe"
 ///called when something thrown hits a mob, from /mob/living/carbon/human/hitby(mob/living/carbon/target, /obj/item)
 #define COMSIG_CARBON_HITBY "carbon_hitby"
+/// From /mob/living/carbon/human/hitby()
+#define COMSIG_CARBON_THROWN_ITEM_CAUGHT "carbon_thrown_item_caught"
 
 // /mob/living/simple_animal signals
 ///from /mob/living/attack_animal():	(mob/living/simple_animal/M)
