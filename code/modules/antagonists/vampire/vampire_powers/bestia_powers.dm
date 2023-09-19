@@ -807,12 +807,10 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 	var/confusion_amt = (t_kidneys * 2) SECONDS		// 20s. MAX
 	var/weaken_amt = 1 + (t_hearts / 2) SECONDS		// 4s. MAX
 	var/blood_vamp_get = t_kidneys					// +10 vampire blood MAX
-	if(!blood_victim_lose)
-		blood_victim_lose = t_kidneys * 10			// 100 bloodlose MAX
-	if(!effect_aoe)
-		effect_aoe = 1 + round(vampire.get_trophies("ears") / 5)	// 3 MAX
+	var/actual_blood_loss = blood_victim_lose ? blood_victim_lose : t_kidneys * 10	// 100 bloodlose MAX
+	var/actual_aoe = effect_aoe ? effect_aoe : 1 + round(vampire.get_trophies("ears") / 5)	// 3 MAX
 
-	for(var/mob/living/victim in view(effect_aoe, get_turf(user)))
+	for(var/mob/living/victim in view(actual_aoe, get_turf(user)))
 		if(victim.loc == user)	// yeah apparently mobs can see what is inside them
 			continue
 		if(!victim.affects_vampire(user))
@@ -831,7 +829,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 			if(NO_BLOOD in h_victim.dna?.species?.species_traits)
 				continue
 
-			h_victim.bleed(blood_victim_lose)
+			h_victim.bleed(actual_blood_loss)
 			h_victim.Confused(confusion_amt)
 			h_victim.emote("moan")
 			if(h_victim.mind && h_victim.ckey)
@@ -1281,7 +1279,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 			targets |= victim
 
 	if(length(targets))
-		shuffle(targets)
+		targets = shuffle(targets)
 		for(var/mob/living/victim in targets)
 			if((victim.UID() in same_targets) && length(targets) == 1)
 				INVOKE_ASYNC(lunge, PROC_REF(cast), list(victim), user)
@@ -1614,7 +1612,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 				continue
 			if(!body_part.internal_bleeding)
 				continue
-			if(prob(chance_mend_fracture))
+			if(prob(chance_stop_internal_bleeding))
 				body_part.internal_bleeding = FALSE
 				break
 

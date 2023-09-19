@@ -233,7 +233,7 @@
 		qdel(src)
 		return
 
-	if(t_hearts && prob(t_hearts * 6))	// 60% on MAX
+	if(t_hearts && prob(t_hearts * 10))	// 60% on MAX
 		owner.adjustFireLoss(t_hearts)	// 6 MAX
 
 	if(t_eyes && !owner.incapacitated() && prob(30 + t_eyes * 7))	// 100% on MAX
