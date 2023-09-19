@@ -73,6 +73,14 @@
 						span_notice("Your faith in [SSticker.Bible_deity_name] has kept your mind clear of all evil."))
 		return
 
+	if(isninja(C))
+		var/obj/item/clothing/suit/space/space_ninja/ninja_suit = C.wear_suit
+		if(istype(ninja_suit) && ninja_suit.vamp_protection_active && ninja_suit.s_initialized)
+			C.visible_message(span_warning("Looks like [C] resists!"), \
+								span_notice("You suddenly felt a severe headache and a tiny prick in your neck. It looks like your suit protected your sanity..."))
+			C.setBrainLoss(20)
+			return FALSE
+
 	return TRUE
 
 

@@ -252,6 +252,14 @@
 		if(!target.affects_vampire(user))
 			continue
 
+		if(isninja(target))
+			var/mob/living/carbon/human/target_human = target
+			var/obj/item/clothing/glasses/ninja/ninja_visor = target_human.glasses
+
+			if(istype(ninja_visor) && ninja_visor.vamp_protection_active && ninja_visor.current_mode == "flashprotection")
+				to_chat(target, span_warning("[user]'s eyes emit a blinding flash, but your visor protected you."))
+				continue
+
 		var/deviation
 		if(user.lying || user.resting)
 			deviation = DEVIATION_PARTIAL
