@@ -82878,18 +82878,6 @@
 	id = "qm"
 	},
 /obj/structure/cable/yellow,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
-	},
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
 "sWO" = (

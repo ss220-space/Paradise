@@ -96896,18 +96896,6 @@
 /obj/machinery/keycard_auth{
 	pixel_x = -28
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/alarm{
-	pixel_y = 24;
-	name = "north bump"
-	},
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
