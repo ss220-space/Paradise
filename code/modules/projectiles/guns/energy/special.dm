@@ -204,7 +204,7 @@
 	desc = "An industrial-grade, heavy-duty mining shotgun."
 	icon_state = "miningshotgun"
 	item_state = "miningshotgun"
-	origin_tech = "combat=5;materials=54;magnets=5;plasmatech=6;engineering=5"
+	origin_tech = "combat=5;materials=5;magnets=5;plasmatech=6;engineering=5"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/shotgun)
 	force = 10
 
