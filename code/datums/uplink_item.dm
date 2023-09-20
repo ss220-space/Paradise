@@ -840,7 +840,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/ammo/bullflechette
 	name = "Drum - 12g Flechette"
 	desc = "An additional 12-round flechette magazine for use in the auto shotguns. Works well against armour."
-	reference = "12BS"
+	reference = "12FL"
 	item = /obj/item/ammo_box/magazine/m12g/flechette
 	cost = 2
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
