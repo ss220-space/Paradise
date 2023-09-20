@@ -181,7 +181,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	return usr && usr.client && GLOB.AdminProcCaller == usr.client.ckey
 #endif
 
-/client/proc/callproc_datum(var/A as null|area|mob|obj|turf)
+/client/proc/callproc_datum(atom/A as null|area|mob|obj|turf in view(maxview()))
 	set category = null
 	set name = "\[Admin\] Atom ProcCall"
 
@@ -294,7 +294,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	usr.show_message(t, 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Air Status (Location)") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/cmd_admin_robotize(var/mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_robotize(mob/M in GLOB.mob_list)
 	set category = "Event"
 	set name = "Make Robot"
 
@@ -305,9 +305,12 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		alert("Wait until the game starts")
 		return
 	if(istype(M, /mob/living/carbon/human))
-		log_admin("[key_name(src)] has robotized [M.key].")
+		var/mob/living/carbon/human/human = M
+		log_admin("[key_name(src)] has robotized [human.key].")
 		spawn(10)
-			M:Robotize()
+			var/mob/living/silicon/robot/new_robot = human.Robotize()
+			if(new_robot)
+				SSticker?.score?.save_silicon_laws(new_robot, src.mob, "admin robotized user", log_all_laws = TRUE)
 
 	else
 		alert("Invalid mob")
@@ -720,7 +723,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	var/list/dellog = list("<B>List of things that have gone through qdel this round</B><BR><BR><ol>")
-	sortTim(SSgarbage.items, cmp=/proc/cmp_qdel_item_time, associative = TRUE)
+	sortTim(SSgarbage.items, cmp = /proc/cmp_qdel_item_time, associative = TRUE)
 	for(var/path in SSgarbage.items)
 		var/datum/qdel_item/I = SSgarbage.items[path]
 		dellog += "<li><u>[path]</u><ul>"

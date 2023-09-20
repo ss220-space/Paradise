@@ -195,6 +195,9 @@
 	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO|LEGS|FEET
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
 	sprite_sheets = list(
+		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/suit.dmi',
+		"Draconid" = 'icons/mob/species/unathi/suit.dmi',
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
 		)
 
@@ -302,6 +305,9 @@
 	allowed = list(/obj/item/tank/internals/emergency_oxygen)
 	hoodtype = /obj/item/clothing/head/hooded/carp_hood
 	sprite_sheets = list(
+		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/suit.dmi',
+		"Draconid" = 'icons/mob/species/unathi/suit.dmi',
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
 		)
 
@@ -355,6 +361,9 @@
 	item_state = "lingspacesuit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	sprite_sheets = list(
+		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/suit.dmi',
+		"Draconid" = 'icons/mob/species/unathi/suit.dmi',
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
 		)
 
@@ -655,6 +664,9 @@
 	strip_delay = 60
 	breakouttime = 3000
 	sprite_sheets = list(
+		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/suit.dmi',
+		"Draconid" = 'icons/mob/species/unathi/suit.dmi',
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
 		)
 
@@ -824,6 +836,9 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	sprite_sheets = list(
+		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/suit.dmi',
+		"Draconid" = 'icons/mob/species/unathi/suit.dmi',
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
 		)
 
@@ -1294,3 +1309,18 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 3, "rad" = 0, "fire" = 0, "acid" = 3)
 	allowed = list(/obj/item/soap, /obj/item/reagent_containers/spray/cleaner, /obj/item/storage/bag/trash, /obj/item/lightreplacer)
 // Suragi end
+
+/obj/item/clothing/suit/mr_chang_coat
+	name = "Marketing agent's haori"
+	desc = "Fascinating apparel for every self-respecting salesman. Composition: 95% polyester, 15% cotton, 5% ramen noodles, 456% profit."
+	icon_state = "mr_chang_coat"
+	item_state = "mr_chang_coat"
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 10,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+	allowed = list()
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/species/grey/suit.dmi',
+		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
+	)

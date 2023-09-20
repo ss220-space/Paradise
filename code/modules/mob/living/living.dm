@@ -100,6 +100,18 @@
 	//Even if we don't push/swap places, we "touched" them, so spread fire
 	spreadFire(M)
 
+	if(get_confusion() && get_disoriented())
+		Weaken(1 SECONDS)
+		take_organ_damage(rand(5, 10))
+		var/mob/living/victim = M
+		if(istype(victim))
+			victim.Weaken(1 SECONDS)
+			victim.take_organ_damage(rand(5, 10))
+		visible_message("<span class='danger'>[name] вреза[pluralize_ru(gender,"ет","ют")]ся в [M.name], сбивая друг друга с ног!</span>", \
+					 "<span class='userdanger'>Вы жестко врезаетесь в [M.name]!</span>")
+		playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
+		return
+
 	// No pushing if we're already pushing past something, or if the mob we're pushing into is anchored.
 	if(now_pushing || M.anchored)
 		return TRUE
@@ -174,6 +186,12 @@
 
 //Called when we bump into an obj
 /mob/living/proc/ObjBump(obj/O)
+	if(get_confusion() && get_disoriented())
+		Weaken(1 SECONDS)
+		take_organ_damage(rand(5, 10))
+		visible_message("<span class='danger'>[name] вреза[pluralize_ru(gender,"ет","ют")]ся в [O.name]!</span>", \
+						"<span class='userdanger'>Вы жестко врезаетесь в [O.name]!</span>")
+		playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
 	return
 
 /mob/living/get_pull_push_speed_modifier(current_delay)
@@ -232,25 +250,31 @@
 		AM.setDir(current_dir)
 	now_pushing = FALSE
 
+
 /mob/living/proc/can_track(mob/living/user)
 	//basic fast checks go first. When overriding this proc, I recommend calling ..() at the end.
-	var/turf/T = get_turf(src)
-	if(!T)
-		return 0
-	if(!is_level_reachable(T.z))
-		return 0
-	if(user != null && src == user)
-		return 0
+	var/turf/source_turf = get_turf(src)
+	if(!source_turf)
+		return FALSE
+
+	if(!is_level_reachable(source_turf.z))
+		return FALSE
+
+	if(!isnull(user) && src == user)
+		return FALSE
+
 	if(invisibility || alpha == 0)//cloaked
-		return 0
-	if(digitalcamo)
-		return 0
+		return FALSE
+
+	if(HAS_TRAIT(src, TRAIT_AI_UNTRACKABLE))
+		return FALSE
 
 	// Now, are they viewable by a camera? (This is last because it's the most intensive check)
 	if(!near_camera(src))
-		return 0
+		return FALSE
 
-	return 1
+	return TRUE
+
 
 //mob verbs are a lot faster than object verbs
 //for more info on why this is not atom/pull, see examinate() in mob.dm
@@ -274,10 +298,10 @@
 	stop_pulling()
 
 //same as above
-/mob/living/pointed(atom/A as mob|obj|turf)
+/mob/living/pointed(atom/A as mob|obj|turf in view(client.maxview()))
 	if(incapacitated(ignore_lying = TRUE))
 		return FALSE
-	if(status_flags & FAKEDEATH)
+	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		return FALSE
 	return ..()
 
@@ -485,13 +509,15 @@
 	setStaminaLoss(0)
 	SetSleeping(0)
 	SetDisgust(0)
-	SetParalysis(0, 1, 1)
-	SetStunned(0, 1, 1)
-	SetWeakened(0, 1, 1)
+	SetParalysis(0, TRUE)
+	SetStunned(0, TRUE)
+	SetWeakened(0, TRUE)
 	SetSlowed(0)
+	SetImmobilized(0)
 	SetLoseBreath(0)
 	SetDizzy(0)
 	SetJitter(0)
+	SetStuttering(0)
 	SetConfused(0)
 	SetDrowsy(0)
 	radiation = 0
@@ -509,7 +535,7 @@
 	CureNervous()
 	SetEyeBlind(0)
 	SetEyeBlurry(0)
-	RestoreEars()
+	SetDeaf(0)
 	heal_overall_damage(1000, 1000)
 	ExtinguishMob()
 	fire_stacks = 0
@@ -550,14 +576,13 @@
 	return
 
 /mob/living/proc/remove_CC(should_update_canmove = TRUE)
-	SetWeakened(0, FALSE)
-	SetStunned(0, FALSE)
-	SetParalysis(0, FALSE)
-	SetSleeping(0, FALSE)
+	SetWeakened(0)
+	SetStunned(0)
+	SetParalysis(0)
+	SetImmobilized(0)
+	SetSleeping(0)
 	setStaminaLoss(0)
 	SetSlowed(0)
-	if(should_update_canmove)
-		update_canmove()
 
 /mob/living/proc/UpdateDamageIcon()
 	return
@@ -623,12 +648,12 @@
 				if(ishuman(pulling))
 					var/mob/living/carbon/human/H = pulling
 					if(!H.lying)
-						if(H.confused > 0 && prob(4))
-							H.Stun(2)
+						if(H.get_confusion() > 0 && m_intent != MOVE_INTENT_WALK && prob(4))
+							H.Weaken(4 SECONDS)
 							pulling.stop_pulling()
 							visible_message(span_danger("Ноги [H] путаются и [genderize_ru(H.gender,"он","она","оно","они")] с грохотом падает на пол!"))
-						if(H.m_intent == MOVE_INTENT_WALK && prob(4))
-							H.Stun(2)
+						if(H.m_intent == MOVE_INTENT_WALK && m_intent != MOVE_INTENT_WALK && prob(4))
+							H.Weaken(4 SECONDS)
 							visible_message(span_danger("[H] не поспевает за [src] и с грохотом падает на пол!"))
 			else
 				pulling.pixel_x = initial(pulling.pixel_x)
@@ -848,7 +873,7 @@
 
 /mob/living/proc/Exhaust()
 	to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
-	Weaken(5)
+	Weaken(10 SECONDS)
 
 /mob/living/proc/get_visible_name()
 	return name
@@ -981,6 +1006,8 @@
 /mob/living/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!used_item)
 		used_item = get_active_hand()
+		if(!visual_effect_icon && used_item?.attack_effect_override)
+			visual_effect_icon = used_item.attack_effect_override
 	..()
 	floating = FALSE // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
@@ -1000,6 +1027,10 @@
 	if(istype(loc, /obj/mecha))
 		var/obj/mecha/M = loc
 		loc_temp =  M.return_temperature()
+
+	if(isvampirecoffin(loc))
+		var/obj/structure/closet/coffin/vampire/coffin = loc
+		loc_temp = coffin.return_temperature()
 
 	else if(istype(loc, /obj/spacepod))
 		var/obj/spacepod/S = loc
@@ -1064,8 +1095,9 @@
 	if(isturf(loc))
 		var/turf/T = loc
 		. += T.slowdown
-	if(slowed)
-		. += 10
+	var/datum/status_effect/incapacitating/slowed/S = IsSlowed()
+	if(S)
+		. += S.slowdown_value
 	if(forced_look)
 		. += 3
 	if(ignorewalk)
@@ -1073,7 +1105,7 @@
 	else
 		switch(m_intent)
 			if(MOVE_INTENT_RUN)
-				if(drowsyness > 0)
+				if(get_drowsiness() > 0)
 					. += 6
 				. += config.run_speed
 			if(MOVE_INTENT_WALK)
@@ -1174,7 +1206,7 @@
 /mob/living/proc/fakefire()
 	return
 
-/mob/living/extinguish_light()
+/mob/living/extinguish_light(force = FALSE)
 	for(var/atom/A in src)
 		if(A.light_range > 0)
 			A.extinguish_light()
@@ -1190,20 +1222,17 @@
 				GLOB.dead_mob_list += src
 	. = ..()
 	switch(var_name)
-		if("weakened")
-			SetWeakened(var_value)
-		if("stunned")
-			SetStunned(var_value)
-		if("paralysis")
-			SetParalysis(var_value)
-		if("sleeping")
-			SetSleeping(var_value)
 		if("maxHealth")
 			updatehealth()
 		if("resize")
 			update_transform()
 		if("lighting_alpha")
 			sync_lighting_plane_alpha()
+
+
+/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force)
+	stop_pulling()
+	return ..()
 
 
 GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber))

@@ -211,14 +211,14 @@
 	if(istype(G) && ispath(G.trash, /obj/item/grown))
 		return
 
-	var/stun_len = G.seed.potency * rate * 0.4
+	var/stun_len = G.seed.potency * rate * 0.8 SECONDS
 
 	if(!istype(G, /obj/item/grown/bananapeel) && (!G.reagents || !G.reagents.has_reagent("lube")))
 		stun_len /= 3
 
-	stun_len = min(stun_len, 7) // No fun allowed
+	stun_len = min(stun_len, 14 SECONDS)// No fun allowed
 
-	G.AddComponent(/datum/component/slippery, G, stun_len, stun_len, 100, 0, FALSE)
+	G.AddComponent(/datum/component/slippery, G, stun_len, 100, 0, FALSE)
 
 /datum/plant_gene/trait/cell_charge
 	// Cell recharging trait. Charges all mob's power cells to (potency*rate)% mark when eaten.
@@ -319,9 +319,7 @@
 /datum/plant_gene/trait/teleport/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target, mob/thrower)
 	if(isliving(target))
 		var/mob/living/living_target = target
-		if(thrower == living_target && !do_after(living_target, 1 SECONDS, target = living_target))
-			to_chat(target, "<span class='notice'>You need to hold still to squash [G.name].</span>")
-			return
+		//squash_trait already has "do_after", no need to double it here
 		var/teleport_radius = max(round(G.seed.potency / 10), 1)
 		var/turf/T = get_turf(living_target)
 		new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...
@@ -492,6 +490,6 @@
 
 /datum/plant_gene/trait/plant_laughter/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 
-	if(C.stunned)
+	if(C.IsStunned())
 		playsound(G, pick(sounds), 100, 1)
 		C.visible_message("<span class='notice'>[G] lets out burst of laughter.</span>")

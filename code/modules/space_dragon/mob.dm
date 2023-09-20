@@ -52,7 +52,7 @@
 	turns_per_move = 5
 	ranged = TRUE
 	mouse_opacity = MOUSE_OPACITY_ICON
-	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/bone = 30, /obj/item/reagent_containers/food/snacks/carpmeat = 15)
+	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/bone = 30, /obj/item/reagent_containers/food/snacks/carpmeat = 15)
 	deathmessage = "визжит, крылья превращаются в пыль, а в глазах угасает жизнь, после чего дракон падает замертво."
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_plas" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
@@ -130,7 +130,7 @@
 		playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
 		visible_message(span_danger("[src] vomits up [consumed_mob]!"))
 		consumed_mob.forceMove(loc)
-		consumed_mob.Paralyse(3)
+		consumed_mob.Paralyse(6 SECONDS)
 
 /mob/living/simple_animal/hostile/space_dragon/death(gibbed)
 	for(var/atom/movable/barfed_out in contents)
@@ -175,6 +175,11 @@
 			return
 		if("carp" in L.faction)
 			to_chat(src, span_warning("Вы почти укусили своего сородича, но вовремя остановились."))
+			return
+	if(istype(target, /obj/structure/carp_rift))
+		var/obj/structure/carp_rift/rift = target
+		if(rift.dragon == src)
+			to_chat(src, span_warning("Вы почти укусили свой разлом, но вовремя остановились."))
 			return
 	. = ..()
 	if(ismecha(target))
@@ -406,7 +411,7 @@
 			var/dir_to_target = get_dir(get_turf(src), get_turf(L))
 			var/throwtarget = get_edge_target_turf(target, dir_to_target)
 			L.throw_at(throwtarget, 10, 1, src)
-			L.Paralyse(3)
+			L.Paralyse(6 SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(reset_status)), 4 + ((tiredness * tiredness_mult) / 10))
 	tiredness = tiredness + (gust_tiredness * tiredness_mult)
 

@@ -30,7 +30,9 @@
 		for(var/obj/item/W in M)
 			M.drop_item_ground(W)
 		//teleport person to cell
-		M.Paralyse(5)
+		if(isliving(M))
+			var/mob/living/L = M
+			L.Paralyse(10 SECONDS)
 		sleep(5)	//so they black out before warping
 		M.loc = pick(GLOB.prisonwarp)
 		if(istype(M, /mob/living/carbon/human))
@@ -442,8 +444,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	switch(new_character.mind.special_role)
 		if("traitor")
 			if(new_character.mind.has_antag_datum(/datum/antagonist/traitor))
-				var/datum/antagonist/traitor/T = new_character.mind.has_antag_datum(/datum/antagonist/traitor)
-				T.equip_traitor(src)
+				var/datum/antagonist/traitor/T = new_character?.mind?.has_antag_datum(/datum/antagonist/traitor)
+				T.give_uplink()
 			else
 				new_character.mind.add_antag_datum(/datum/antagonist/traitor)
 		if("Wizard")
@@ -465,12 +467,14 @@ Traitors and the like can also be revived with the previous role mostly intact.
 					new_character = new_character.Robotize()
 					if(new_character.mind.special_role=="traitor")
 						new_character.mind.add_antag_datum(/datum/antagonist/traitor)
+					SSticker?.score?.save_silicon_laws(new_character, src.mob, additional_info = "admin respawn", log_all_laws = TRUE)
 				if("AI")
 					new_character = new_character.AIize()
 					var/mob/living/silicon/ai/ai_character = new_character
 					ai_character.moveToAILandmark()
 					if(new_character.mind.special_role=="traitor")
 						new_character.mind.add_antag_datum(/datum/antagonist/traitor)
+					SSticker?.score?.save_silicon_laws(ai_character, src.mob, additional_info = "admin respawn", log_all_laws = TRUE)
 				//Add aliens.
 				else
 					SSjobs.AssignRank(new_character, new_character.mind.assigned_role, 0)
@@ -651,7 +655,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Create Comms Report") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
-/client/proc/cmd_admin_delete(atom/A as obj|mob|turf in view())
+/client/proc/cmd_admin_delete(atom/A as obj|mob|turf in view(maxview()))
 	set category = null
 	set name = "\[Admin\] Delete"
 
@@ -695,7 +699,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		to_chat(src, "<b>Currently filled job slots (Excluding unlimited): [currentpositiontally] / [totalpositiontally] ([totalpositiontally - currentpositiontally])</b>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "List Free Slots") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/cmd_admin_explosion(atom/O as obj|mob|turf in view())
+/client/proc/cmd_admin_explosion(atom/O as obj|mob|turf in view(maxview()))
 	set category = "Event"
 	set name = "Explosion"
 
@@ -725,7 +729,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	else
 		return
 
-/client/proc/cmd_admin_emp(atom/O as obj|mob|turf in view())
+/client/proc/cmd_admin_emp(atom/O as obj|mob|turf in view(maxview()))
 	set category = "Event"
 	set name = "EM Pulse"
 
@@ -797,6 +801,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		to_chat(usr, "[t] [ADMIN_VV(t,"VV")] ")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Contents") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+
 /client/proc/toggle_view_range()
 	set category = "Admin"
 	set name = "Change View Range"
@@ -805,15 +810,40 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
-	if(view == world.view)
-		view = input("Select view range:", "View Range", world.view) in list(1,2,3,4,5,6,7,8,9,10,11,12,13,14,128)
+	var/client_view = prefs.viewrange
+
+	if(view == client_view)
+		var/input = input("Select view range:", "View Range", 7) in list(1,2,3,4,5,6,7,8,9,10,11,12,13,14,"MAX")
+		if(!input)
+			return
+
+		var/list/viewscales = getviewsize(client_view)
+		var/aspect_ratio = viewscales[1] / viewscales[2]
+
+		var/view_x
+		var/view_y
+		if(input == "MAX")
+			if(viewscales[1] == viewscales[2])
+				view_x = 71	// 71 is max for X
+				view_y = 67	// 67 is max for Y
+			else
+				view_x = 71
+				view_y = round(71 / aspect_ratio)
+		else
+			view_y = (input * 2) % 2 ? input * 2 : input * 2 + 1
+			var/rounded_x = round(view_y * aspect_ratio)
+			view_x = rounded_x % 2 ? rounded_x : rounded_x + 1
+
+		view = "[view_x]x[view_y]"
+
 	else
-		view = world.view
+		view = client_view
+
+	fit_viewport()
 
 	log_admin("[key_name(usr)] changed their view range to [view].")
-	//message_admins("<span class='notice'>[key_name_admin(usr)] changed their view range to [view].</span>", 1)	//why? removed by order of XSI
-
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Change View Range") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 
 /client/proc/admin_call_shuttle()
 

@@ -341,6 +341,72 @@
 	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/advance/preset/pre_kingstons
 
+/obj/item/reagent_containers/glass/bottle/love
+	name = "love"
+	desc = "love"
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/advance/preset/love
+
+/obj/item/reagent_containers/glass/bottle/aggression
+	name = "aggression"
+	desc = "aggression"
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/advance/preset/aggression
+
+/obj/item/reagent_containers/glass/bottle/obsession
+	name = "obsession"
+	desc = "obsession"
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/advance/preset/obsession
+
+/obj/item/reagent_containers/glass/bottle/confusion
+	name = "confusion"
+	desc = "confusion"
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/advance/preset/confusion
+
+/obj/item/reagent_containers/glass/bottle/bones
+	name = "bones"
+	desc = "bones"
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/advance/preset/bones
+
+/obj/item/reagent_containers/glass/bottle/limb_throw
+	name = "limb_throw"
+	desc = "limb_throw"
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/advance/preset/limb_throw
+
+/obj/item/reagent_containers/glass/bottle/laugh
+	name = "laugh"
+	desc = "laugh"
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/advance/preset/laugh
+
+/obj/item/reagent_containers/glass/bottle/moan
+	name = "moan"
+	desc = "moan"
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/advance/preset/moan
+
+/obj/item/reagent_containers/glass/bottle/infection
+	name = "infection"
+	desc = "infection"
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/advance/preset/infection
+
+/obj/item/reagent_containers/glass/bottle/loyalty
+	name = "loyalty"
+	desc = "loyalty"
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/loyalty
+
+/obj/item/reagent_containers/glass/bottle/pre_loyalty
+	name = "pre_loyalty"
+	desc = "pre_loyalty"
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/advance/preset/pre_loyalty
+
 /obj/item/reagent_containers/glass/bottle/retrovirus
 	name = "Retrovirus culture bottle"
 	desc = "A small bottle. Contains a retrovirus culture in a synthblood medium."

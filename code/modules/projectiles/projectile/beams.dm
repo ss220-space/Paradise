@@ -7,9 +7,9 @@
 	hitsound = 'sound/weapons/sear.ogg'
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
 	flag = "laser"
-	eyeblur = 2
+	eyeblur = 4 SECONDS
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
-	is_reflectable = TRUE
+	reflectability = REFLECTABILITY_ENERGY
 	light_range = 2
 	light_color = LIGHT_COLOR_DARKRED
 	ricochets_max = 50	//Honk!
@@ -20,7 +20,7 @@
 /obj/item/projectile/beam/laser/heavylaser
 	name = "heavy laser"
 	icon_state = "heavylaser"
-	damage = 40
+	damage = 50
 	hitsound = 'sound/weapons/resonator_blast.ogg'
 
 /obj/item/projectile/beam/laser/slug
@@ -41,7 +41,7 @@
 	damage = 5
 
 /obj/item/projectile/beam/xray
-	name = "xray beam"
+	name = "x-ray beam"
 	icon_state = "xray"
 	damage = 10
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
@@ -132,12 +132,14 @@
 /obj/item/projectile/beam/sniper
 	name = "sniper beam"
 	icon_state = "sniperlaser"
+	//speed = 0.75
+	//range = 100
 	damage = 60
 	hitsound = 'sound/weapons/resonator_blast.ogg'
-	stun = 2
-	weaken = 2
-	stutter = 2
+	weaken = 4 SECONDS
+	stutter = 4 SECONDS
 	stamina = 40
+	forced_accuracy = TRUE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 	light_color = LIGHT_COLOR_PINK
 

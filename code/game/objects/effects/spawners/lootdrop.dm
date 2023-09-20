@@ -107,7 +107,7 @@
 				/obj/item/hand_labeler = 10,
 				/obj/item/paper/crumpled = 10,
 				/obj/item/pen = 10,
-				 /obj/item/cultivator = 10,
+				/obj/item/cultivator = 10,
 				/obj/item/reagent_containers/spray/pestspray = 10,
 				/obj/item/stock_parts/cell = 30,
 				/obj/item/storage/belt/utility = 20,
@@ -154,10 +154,12 @@
 				/obj/item/storage/box/syndie_kit/space = 2,
 				/obj/item/multitool/ai_detect = 2,
 				/obj/item/implanter/storage = 1,
+				/obj/item/storage/box/syndie_kit/dangertray = 2,
 				/obj/item/toy/cards/deck/syndicate = 2,
 				/obj/item/storage/secure/briefcase/syndie = 2,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 2,
 				/obj/item/storage/pill_bottle/fakedeath = 2,
+				/obj/item/storage/box/syndie_kit/mr_chang_technique = 1,
 				"" = 68
 				)
 
@@ -319,7 +321,9 @@
 		/obj/item/assembly/signaler/anomaly/bluespace = 50,
 		/obj/item/assembly/signaler/anomaly/flux = 50,
 		/obj/item/assembly/signaler/anomaly/grav = 50,
-		/obj/item/assembly/signaler/anomaly/pyro = 50)
+		/obj/item/assembly/signaler/anomaly/pyro = 50,
+		/obj/item/t_scanner/science = 50,
+		/obj/item/t_scanner/experimental = 5)
 
 /obj/effect/spawner/lootdrop/trade_sol/med
 	name = "5. Medical gear"
@@ -393,7 +397,7 @@
 	/obj/item/grenade/clusterbuster/metalfoam = 50,
 	/obj/item/crowbar/power = 50,
 	/obj/item/screwdriver/power = 50,
-	/obj/item/t_scanner/extended_range = 50,
+	/obj/item/t_scanner/advanced = 50,
 	/obj/item/borg/upgrade/abductor_engi = 50)
 
 /obj/effect/spawner/lootdrop/trade_sol/largeitem
@@ -459,3 +463,12 @@
 		/obj/item/toy/desk/fan,
 		/obj/item/hourglass
 	)
+
+/obj/effect/spawner/lootdrop/marrow_weaver
+	name = "40% marrow weaver spawner"
+	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
+	icon_state = "weaver"
+	lootdoubles = 0
+	lootcount = 1
+	loot = list(/mob/living/simple_animal/hostile/asteroid/marrowweaver = 40,
+			"" = 60)

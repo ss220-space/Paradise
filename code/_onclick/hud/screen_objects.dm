@@ -21,6 +21,7 @@
 
 /obj/screen/Destroy()
 	master = null
+	hud = null
 	return ..()
 
 /obj/screen/proc/component_click(obj/screen/component_button/component, params)
@@ -49,12 +50,12 @@
 
 
 /obj/screen/drop
-	name = "drop"
+	name = "accurate drop"
 	icon_state = "act_drop"
 
 /obj/screen/drop/Click()
 	if(usr.stat == CONSCIOUS)
-		usr.drop_item_ground(usr.get_active_hand())
+		usr.drop_item_ground(usr.get_active_hand(), ignore_pixel_shift = TRUE)
 
 
 /obj/screen/grab
@@ -470,6 +471,12 @@
 	if(!user || !istype(I) || user.incapacitated() || ismecha(user.loc) || is_ventcrawling(user))
 		return FALSE
 
+	if(isalien(user) && !I.allowed_for_alien())	// We need to do this here
+		return FALSE
+
+	if(!in_range(get_turf(I), get_turf(user)))
+		return FALSE
+
 	if(!hud?.mymob || !slot_id)
 		return FALSE
 
@@ -479,7 +486,7 @@
 	if(slot_id != slot_l_hand && slot_id != slot_r_hand)
 		return FALSE
 
-	if(I.is_equipped(include_pockets = TRUE))
+	if(I.is_equipped() && !user.is_general_slot(user.get_slot_by_item(I)))
 
 		if(I.equip_delay_self && !user.is_general_slot(user.get_slot_by_item(I)))
 			user.visible_message(span_notice("[user] начинает снимать [I.name]..."), \
@@ -492,6 +499,9 @@
 
 		if(!user.drop_item_ground(I))
 			return FALSE
+
+	else if(user.is_general_slot(user.get_slot_by_item(I)) && !user.drop_item_ground(I))
+		return FALSE
 
 	if((slot_id == slot_l_hand && !user.put_in_l_hand(I, ignore_anim = FALSE)) || \
 		(slot_id == slot_r_hand && !user.put_in_r_hand(I, ignore_anim = FALSE)))

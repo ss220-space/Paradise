@@ -242,6 +242,13 @@
 		"Stok" = 'icons/mob/species/monkey/suit.dmi'
 		)
 
+/obj/item/clothing/suit/storage/det_suit/black
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/species/drask/suit.dmi'
+		)
+	icon_state = "detective_black"
+
 //Forensics
 /obj/item/clothing/suit/storage/det_suit/forensics
 	name = "jacket"
@@ -261,6 +268,24 @@
 	desc = "A blue forensics technician jacket."
 	icon_state = "forensics_blue"
 
+/obj/item/clothing/suit/storage/det_suit/forensics/blaser
+	name = "black jacket"
+	desc = "A black forensics technician jacket."
+	icon_state = "dec_blazer_black"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Drask" =  'icons/mob/species/drask/suit.dmi'
+		)
+
+/obj/item/clothing/suit/storage/det_suit/forensics/blaser/brown
+	name = "brown jacket"
+	desc = "A brown forensics technician jacket."
+	icon_state = "dec_blazer_brown"
+
+/obj/item/clothing/suit/storage/det_suit/forensics/blaser/grey
+	name = "grey jacket"
+	desc = "A grey forensics technician jacket."
+	icon_state = "dec_blazer_grey"
 //Blueshield
 /obj/item/clothing/suit/storage/blueshield
 	name = "blueshield coat"
@@ -480,3 +505,13 @@
 /obj/item/clothing/suit/hop_jacket/female
 	icon_state = "suitjacket_hop_fem_open"
 	item_state = "suitjacket_hop_fem_open"
+
+//Culinary Artist
+/obj/item/clothing/suit/storage/chefbluza
+	name = "deluxe chef suit"
+	desc = "Well made expensive chief suit"
+	icon_state = "bluza"
+	item_state = "bluza"
+	allowed = list(/obj/item/kitchen/utensil,/obj/item/kitchen/knife,/obj/item/kitchen/rollingpin,/obj/item/kitchen/mould,/obj/item/kitchen/sushimat,/obj/item/kitchen/cutter,/obj/item/assembly/mousetrap,/obj/item/reagent_containers/spray/pestspray,/obj/item/reagent_containers/food/drinks/flask,/obj/item/reagent_containers/food/drinks/drinkingglass,/obj/item/reagent_containers/food/drinks/bottle,/obj/item/reagent_containers/food/drinks/cans,/obj/item/reagent_containers/food/drinks/shaker,/obj/item/reagent_containers/food/snacks,/obj/item/reagent_containers/food/condiment,/obj/item/reagent_containers/glass/beaker,/obj/item/radio)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	armor = list(melee = 5, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0, fire = 10, acid = 10)

@@ -11,7 +11,10 @@ export const pai_bioscan = (props, context) => {
     oxy,
     tox,
     burn,
-    temp,
+    reagents,
+    addictions,
+    fractures,
+    internal_bleeding,
   } = data.app_data;
 
   if (!holder) {
@@ -64,6 +67,38 @@ export const pai_bioscan = (props, context) => {
       <LabeledList.Item label="Brute Damage">
         <Box color="red">
           {brute}
+        </Box>
+      </LabeledList.Item>
+      <LabeledList.Item label="Reagents">
+        {reagents
+          ? reagents.map(reagent => (
+            <LabeledList.Item
+              key={reagent.id}
+              label={reagent.title}>
+              <Box color={reagent.overdosed ? 'bad' : 'good'}> {reagent.volume} {reagent.overdosed ? "OVERDOSED" : ""} </Box>
+            </LabeledList.Item>
+          ))
+          : "Reagents not found."}
+      </LabeledList.Item>
+      <LabeledList.Item label="Addictions">
+        {addictions
+          ? addictions.map(addiction => (
+            <LabeledList.Item
+              key={addiction.id}
+              label={addiction.addiction_name}>
+              <Box color="bad"> Stage: {addiction.stage} </Box>
+            </LabeledList.Item>
+          ))
+          : <Box color="good">Addictions not found.</Box>}
+      </LabeledList.Item>
+      <LabeledList.Item label="Fractures">
+        <Box color={fractures ? 'bad' : 'good'}>
+          Fractures {fractures ? '' : "not"} detected.
+        </Box>
+      </LabeledList.Item>
+      <LabeledList.Item label="Internal Bleedings">
+        <Box color={internal_bleeding ? 'bad' : 'good'}>
+          Internal Bleedings {internal_bleeding ? '' : "not"} detected.
         </Box>
       </LabeledList.Item>
     </LabeledList>

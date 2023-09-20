@@ -661,7 +661,7 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.head == src)
-			H.Slur(3) //always slur
+			H.Slur(6 SECONDS) //always slur
 
 /obj/item/clothing/head/beret/fluff/linda //Epic_Charger: Linda Clark
 	name = "Green beret"
@@ -1522,7 +1522,10 @@
 	pod.icon_state = "pod_dece"
 	pod.name = "sleek spacepod"
 	pod.desc = "A modified varient of a space pod."
+	pod.pod_paint_effect = null
 	pod.can_paint = FALSE
+	pod.has_paint = FALSE
+	pod.update_icons()
 	used = 1
 	qdel(src)
 

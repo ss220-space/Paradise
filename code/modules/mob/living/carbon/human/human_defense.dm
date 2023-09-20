@@ -13,7 +13,7 @@ emp_act
 	if(!dna.species.bullet_act(P, src))
 		add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by species '[dna.species]'")
 		return FALSE
-	if(P.is_reflectable)
+	if(P.is_reflectable(REFLECTABILITY_ENERGY))
 		var/can_reflect = check_reflect(def_zone)
 		var/reflected = FALSE
 
@@ -53,10 +53,22 @@ emp_act
 			return FALSE
 
 	if(mind?.martial_art?.deflection_chance) //Some martial arts users can deflect projectiles!
-		if(!lying && !(HULK in mutations) && prob(mind.martial_art.deflection_chance)) //But only if they're not lying down, and hulks can't do it
+		if(!lying && !(HULK in mutations) && mind.martial_art.try_deflect(src)) //But only if they're not lying down, and hulks can't do it
 			add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by martial arts '[mind.martial_art]'")
-			visible_message("<span class='danger'>[src] deflects the projectile; [p_they()] can't be hit with ranged weapons!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
-			return FALSE
+			if(HAS_TRAIT(src, TRAIT_PACIFISM) || !P.is_reflectable(REFLECTABILITY_PHYSICAL)) //if it cannot be reflected, it hits the floor. This is the exception to the rule
+				// Pacifists can deflect projectiles, but not reflect them.
+				// Instead, they deflect them into the ground below them.
+				var/turf/T = get_turf(src)
+				P.firer = src
+				T.bullet_act(P)
+				visible_message("<span class='danger'>[src] deflects the projectile into the ground!</span>", "<span class='userdanger'>You deflect the projectile towards the ground beneath your feet!</span>")
+				playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
+			if(mind.martial_art.reroute_deflection)
+				P.firer = src
+				P.set_angle(rand(0, 360))
+				return -1
+			else
+				return FALSE
 
 	var/obj/item/organ/external/organ = get_organ(check_zone(def_zone))
 	if(isnull(organ))
@@ -244,9 +256,9 @@ emp_act
 			return 1
 	return 0
 
-/mob/living/carbon/human/proc/check_block()
-	if(mind && mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
-		return TRUE
+/mob/living/carbon/human/proc/check_martial_art_defense(var/mob/living/carbon/human/defender, var/mob/living/carbon/human/attacker, var/obj/item/I, var/visible_message, var/self_message)
+	if(mind && mind.martial_art)
+		return mind.martial_art.attack_reaction(defender, attacker, I, visible_message, self_message)
 
 /mob/living/carbon/human/acid_act(acidpwr, acid_volume, bodyzone_hit) //todo: update this to utilize check_obscured_slots() //and make sure it's check_obscured_slots(TRUE) to stop aciding through visors etc
 	var/list/damaged = list()
@@ -443,8 +455,7 @@ emp_act
 		if(check_shields(I, I.force, "the [I.name]", MELEE_ATTACK, I.armour_penetration))
 			return 0
 
-	if(check_block())
-		visible_message("<span class='warning'>[src] blocks [I]!</span>")
+	if(check_martial_art_defense(src, user, I, "<span class='warning'>[src] blocks [I]!</span>"))
 		return FALSE
 
 	if(istype(I,/obj/item/card/emag))
@@ -467,8 +478,9 @@ emp_act
 
 	apply_damage(I.force * weakness, I.damtype, affecting, armor, sharp = weapon_sharp, used_weapon = I)
 
-	if(mind && user?.mind?.objectives)
-		for(var/datum/objective/pain_hunter/objective in user.mind.objectives)
+	var/all_objectives = user?.mind?.get_all_objectives()
+	if(mind && all_objectives)
+		for(var/datum/objective/pain_hunter/objective in all_objectives)
 			if(mind == objective.target)
 				objective.take_damage(I.force * weakness, I.damtype)
 
@@ -492,8 +504,8 @@ emp_act
 						if(prob(I.force))
 							visible_message("<span class='combat danger'>[src] has been knocked down!</span>", \
 											"<span class='combat userdanger'>[src] has been knocked down!</span>")
-							apply_effect(2, WEAKEN, armor)
-							AdjustConfused(15)
+							apply_effect(4 SECONDS, WEAKEN, armor)
+							AdjustConfused(30 SECONDS)
 						if(mind && mind.special_role == SPECIAL_ROLE_REV && prob(I.force + ((100 - health)/2)) && src != user && I.damtype == BRUTE)
 							SSticker.mode.remove_revolutionary(mind)
 
@@ -513,7 +525,7 @@ emp_act
 					if(stat == CONSCIOUS && I.force && prob(I.force + 10))
 						visible_message("<span class='combat danger'>[src] has been knocked down!</span>", \
 										"<span class='combat userdanger'>[src] has been knocked down!</span>")
-						apply_effect(2, WEAKEN, armor)
+						apply_effect(4 SECONDS, WEAKEN, armor)
 
 					if(bloody)
 						if(wear_suit)
@@ -639,7 +651,7 @@ emp_act
 				playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 				src.adjustStaminaLoss(M.disarm_stamina_damage)
 				if(prob(40))
-					apply_effect(1, WEAKEN, run_armor_check(affecting, "melee"))
+					apply_effect(2 SECONDS, WEAKEN, run_armor_check(affecting, "melee"))
 					add_attack_logs(M, src, "Alien tackled")
 					visible_message("<span class='danger'>[M] has tackled down [src]!</span>")
 				else
@@ -693,9 +705,9 @@ emp_act
 			switch(M.damtype)
 				if("brute")
 					if(M.force > 35) // durand and other heavy mechas
-						Paralyse(1)
+						Paralyse(2 SECONDS)
 					else if(M.force > 20 && !IsWeakened()) // lightweight mechas like gygax
-						Weaken(2)
+						Weaken(4 SECONDS)
 					update |= affecting.receive_damage(dmg, 0)
 					playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
 				if("fire")

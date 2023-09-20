@@ -51,7 +51,7 @@
 	if(!charging)
 		..()
 
-/mob/living/simple_animal/hostile/guardian/charger/throw_impact(atom/A)
+/mob/living/simple_animal/hostile/guardian/charger/throw_impact(atom/A, datum/thrownthing/throwingdatum)
 	if(!charging)
 		return ..()
 
@@ -67,7 +67,7 @@
 				if(H.check_shields(src, 90, "[name]", attack_type = THROWN_PROJECTILE_ATTACK))
 					blocked = TRUE
 			if(!blocked)
-				L.Weaken(1)
+				L.Weaken(2 SECONDS)
 				L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] slams into you!</span>")
 				L.apply_damage(30, BRUTE)
 				playsound(get_turf(L), 'sound/effects/meteorimpact.ogg', 100, 1)

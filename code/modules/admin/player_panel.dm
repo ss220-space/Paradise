@@ -3,7 +3,7 @@
 	if(!usr.client.holder)
 		return
 	// This stops the panel from being invoked by mentors who press F7.
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN|R_MOD))
 		message_admins("[key_name_admin(usr)] attempted to invoke player panel without admin rights. If this is a mentor, its a chance they accidentally hit F7. If this is NOT a mentor, there is a high chance an exploit is being used")
 		return
 	var/dat = {"<html><meta charset="UTF-8"><head><title>Admin Player Panel</title></head>"}
@@ -227,7 +227,7 @@
 			var/color = "#e6e6e6"
 			if(i%2 == 0)
 				color = "#f2f2f2"
-			var/is_antagonist = is_special_character(M)
+			var/antagonist_string = get_antag_type_truncated_plaintext_string(M)
 
 			var/M_job = ""
 
@@ -307,7 +307,7 @@
 					<td align='center' bgcolor='[color]'>
 						<span id='notice_span[i]'></span>
 						<a id='link[i]'
-						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]",[is_antagonist],"[M.UID()]","[client_ckey]","[M_eyeUID]")'
+						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]","[antagonist_string]","[M.UID()]","[client_ckey]","[M_eyeUID]")'
 						>
 						<b id='search[i]'>[M_name] - [M_rname] - [M_key] ([M_job])</b>
 						</a>
@@ -365,6 +365,8 @@
 				dat += "ETA: <a href='?_src_=holder;edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]</a><BR>"
 
 		dat += "<a href='?src=[UID()];delay_round_end=1'>[SSticker.delay_end ? "End Round Normally" : "Delay Round End"]</a><br>"
+		dat += "<br><b>Antagonist Teams</b><br>"
+		dat += "<a href='?src=[UID()];check_teams=1'>View Teams</a><br>"
 		if(SSticker.mode.syndicates.len)
 			dat += "<br><table cellspacing=5><tr><td><B>Syndicates</B></td><td></td></tr>"
 			for(var/datum/mind/N in SSticker.mode.syndicates)
@@ -522,6 +524,12 @@
 
 		if(SSticker.mode.abductees.len)
 			dat += check_role_table("Abductees", SSticker.mode.abductees)
+
+		if(SSticker.mode.goon_vampires.len)
+			dat += check_role_table("Goon Vampires", SSticker.mode.goon_vampires)
+
+		if(SSticker.mode.goon_vampire_enthralled.len)
+			dat += check_role_table("Goon Vampire Thralls", SSticker.mode.goon_vampire_enthralled)
 
 		if(SSticker.mode.vampires.len)
 			dat += check_role_table("Vampires", SSticker.mode.vampires)

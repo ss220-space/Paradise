@@ -77,6 +77,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 /obj/item/stack/rods/cyborg
 	materials = list()
 	is_cyborg = 1
+	cyborg_construction_stack = /obj/item/stack/rods
 
 /obj/item/stack/rods/cyborg/update_icon()
 	return
@@ -97,6 +98,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	throw_range = 7
 	max_amount = 50
 	attack_verb = list("hit", "bludgeoned", "whacked")
+	materials = list(MAT_METAL=800, MAT_PLASMA=200, MAT_TITANIUM=400)
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'

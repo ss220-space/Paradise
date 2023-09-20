@@ -21,15 +21,55 @@ REAGENT SCANNER
 	var/scan_range = 1
 	var/pulse_duration = 10
 
-/obj/item/t_scanner/longer_pulse
-	pulse_duration = 50
-
 /obj/item/t_scanner/extended_range
+	name = "T-ray сканер расширенной дальности"
+	desc = "Излучатель и сканер терагерцевого излучения, используемый для обнаружения скрытых объектов и объектов под полом, таких как кабели и трубы. \
+	\nДанная модель обладает расширенным радиусом действия."
+	icon_state = "t-ray-range0"
 	scan_range = 3
+	origin_tech = "magnets=3;engineering=3"
+	materials = list(MAT_METAL=300)
 
-/obj/item/t_scanner/extended_range/longer_pulse
+/obj/item/t_scanner/longer_pulse
+	name = "T-ray сканер с продолжительным импульсом"
+	desc = "Излучатель и сканер терагерцевого излучения, используемый для обнаружения скрытых объектов и объектов под полом, таких как кабели и трубы. \
+	\nДанная модель способна генерировать более продолжительные импульсы."
+	icon_state = "t-ray-pulse0"
+	pulse_duration = 50
+	origin_tech = "magnets=5;engineering=3"
+	materials = list(MAT_METAL=300)
+
+/obj/item/t_scanner/advanced
+	name = "Продвинутый T-ray сканер"
+	desc = "Излучатель и сканер терагерцевого излучения, используемый для обнаружения скрытых объектов и объектов под полом, таких как кабели и трубы. \
+	\nДанная модель способна генерировать более продолжительные импульсы и обладает расширенным радиусом действия."
+	icon_state = "t-ray-advanced0"
 	scan_range = 3
 	pulse_duration = 50
+	origin_tech = "magnets=7;engineering=3"
+	materials = list(MAT_METAL=300)
+
+/obj/item/t_scanner/science
+	name = "Научный T-ray сканер"
+	desc = "Излучатель и сканер терагерцевого излучения, используемый для обнаружения скрытых объектов и объектов под полом, таких как кабели и трубы. \
+	\nВысокотехнологичная модель, способная генерировать очень продолжительные импульсы в пределах большого радиуса."
+	icon_state = "t-ray-science0"
+	scan_range = 5
+	pulse_duration = 100
+	origin_tech = "magnets=8;engineering=5"
+	materials = list(MAT_METAL=500)
+
+/obj/item/t_scanner/experimental	//a high-risk that cannot be disassembled, since this garbage was invented by, well, you know who.
+	name = "Экспериментальный T-ray сканер"
+	desc = "Излучатель и сканер терагерцевого излучения, используемый для обнаружения скрытых объектов и объектов под полом, таких как кабели и трубы. \
+	\nЭкспериментальный образец, обладающий расширенным радиусом действия и более продолжительным импульсом. \
+	\nСудя по его виду, эта вещь была собрана безумными учеными в ходе спонтанных экспериментов."
+	icon_state = "t-ray-experimental0"
+	scan_range = 3
+	pulse_duration = 80
+	origin_tech = null
+	materials = list()
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/t_scanner/Destroy()
 	if(on)
@@ -63,7 +103,9 @@ REAGENT SCANNER
 			if(in_turf_object.level != 1)
 				continue
 
-			if(in_turf_object.invisibility == 101)
+			var/temp_invisibility = in_turf_object.invisibility
+			var/temp_alpha = in_turf_object.alpha
+			if(temp_invisibility == 101 || temp_invisibility == INVISIBILITY_ANOMALY)
 				in_turf_object.invisibility = 0
 				in_turf_object.alpha = 128
 				in_turf_object.drain_act_protected = TRUE
@@ -71,8 +113,8 @@ REAGENT SCANNER
 					if(in_turf_object)
 						var/turf/objects_turf = in_turf_object.loc
 						if(objects_turf && objects_turf.intact)
-							in_turf_object.invisibility = 101
-						in_turf_object.alpha = 255
+							in_turf_object.invisibility = temp_invisibility
+						in_turf_object.alpha = temp_alpha
 						in_turf_object.drain_act_protected = FALSE
 		for(var/mob/living/in_turf_mob in scan_turf.contents)
 			var/oldalpha = in_turf_mob.alpha
@@ -100,8 +142,8 @@ REAGENT SCANNER
 	icon_state = "sb_t-ray0"
 	scan_range = 2
 	pulse_duration = 30
-	var/was_alerted = FALSE // Защита от спама алёртов от этого сканера
-	var/burnt = FALSE // Сломало ли нас емп?
+	var/was_alerted = FALSE // Protection against spam alerts from this scanner
+	var/burnt = FALSE // Did emp break us?
 	var/datum/effect_system/spark_spread/spark_system	//The spark system, used for generating... sparks?
 	origin_tech = "combat=3;magnets=5;biotech=5"
 
@@ -185,6 +227,7 @@ REAGENT SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "health"
 	item_state = "healthanalyzer"
+	belt_icon = "health_analyzer"
 	desc = "Ручной сканер тела, способный определить жизненные показатели субъекта."
 	flags = CONDUCT | NOBLUDGEON
 	slot_flags = SLOT_BELT
@@ -388,7 +431,7 @@ REAGENT SCANNER
 		else
 			. += "Общий статус: <span class='danger'>МЕРТВ</span>"
 	else //Если живой или отключка
-		if(H.status_flags & FAKEDEATH)
+		if(HAS_TRAIT(H, TRAIT_FAKEDEATH))
 			OX = fake_oxy > 50 			? 	"<b>[fake_oxy]</b>" 			: fake_oxy
 			. += "Общий статус: <span class='danger'>МЕРТВ</span>"
 		else
@@ -396,7 +439,7 @@ REAGENT SCANNER
 	. += "Тип повреждений: <font color='#0080ff'>Удушение</font>/<font color='green'>Токсины</font>/<font color='#FF8000'>Ожоги</font>/<font color='red'>Физ.</font>"
 	. += "Уровень повреждений: <font color='#0080ff'>[OX]</font> - <font color='green'>[TX]</font> - <font color='#FF8000'>[BU]</font> - <font color='red'>[BR]</font>"
 	. += "Температура тела: [H.bodytemperature-T0C]&deg;C ([H.bodytemperature*1.8-459.67]&deg;F)"
-	if(H.timeofdeath && (H.stat == DEAD || (H.status_flags & FAKEDEATH)))
+	if(H.timeofdeath && (H.stat == DEAD || HAS_TRAIT(H, TRAIT_FAKEDEATH)))
 		. += "Время смерти: [station_time_timestamp("hh:mm:ss", H.timeofdeath)]"
 		var/tdelta = round(world.time - H.timeofdeath)
 		if(tdelta < DEFIB_TIME_LIMIT && !DNR)
@@ -683,7 +726,7 @@ REAGENT SCANNER
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
 
 /obj/item/slime_scanner/attack(mob/living/M, mob/living/user)
-	if(user.incapacitated() || user.eye_blind)
+	if(user.incapacitated() || user.AmountBlinded())
 		return
 	if(!isslime(M))
 		to_chat(user, "<span class='warning'>This device can only scan slimes!</span>")
@@ -891,7 +934,7 @@ REAGENT SCANNER
 	extra_font = (target.getBrainLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
 	dat += "[extra_font]\tApprox. Brain Damage %: [target.getBrainLoss()]<br>"
 
-	dat += "Paralysis Summary %: [target.paralysis] ([round(target.paralysis / 4)] seconds left!)<br>"
+	dat += "Paralysis Summary %: [target.AmountParalyzed()] ([round(target.AmountParalyzed() / 10)] seconds left!)<br>"
 	dat += "Body Temperature: [target.bodytemperature-T0C]&deg;C ([target.bodytemperature*1.8-459.67]&deg;F)<br>"
 
 	dat += "<hr>"

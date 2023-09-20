@@ -300,19 +300,6 @@
 	if(mode == BOT_HEALING)
 		return
 
-	if(stunned)
-		icon_state = "medibota"
-		stunned--
-
-		oldpatient = patient
-		patient = null
-		mode = BOT_IDLE
-
-		if(stunned <= 0)
-			update_icon()
-			stunned = 0
-		return
-
 	if(frustration > 8)
 		oldpatient = patient
 		soft_reset()
@@ -442,7 +429,7 @@
 	else
 		..()
 
-/mob/living/simple_animal/bot/medbot/examinate(atom/A as mob|obj|turf in view())
+/mob/living/simple_animal/bot/medbot/examinate(atom/A as mob|obj|turf in view(client.maxview(), src))
 	..()
 	if(has_vision(information_only=TRUE))
 		chemscan(src, A)
@@ -457,7 +444,7 @@
 		soft_reset()
 		return
 
-	if(C.stat == DEAD || (C.status_flags & FAKEDEATH))
+	if(C.stat == DEAD || HAS_TRAIT(C, TRAIT_FAKEDEATH))
 		var/list/messagevoice = list("No! Stay with me!" = 'sound/voice/mno.ogg', "Live, damnit! LIVE!" = 'sound/voice/mlive.ogg', "I...I've never lost a patient before. Not today, I mean." = 'sound/voice/mlost.ogg')
 		var/message = pick(messagevoice)
 		speak(message)
@@ -552,11 +539,6 @@
 	if(current_volume + injection_amount > R.overdose_threshold)
 		return 1
 	return 0
-
-/mob/living/simple_animal/bot/medbot/bullet_act(obj/item/projectile/Proj)
-	if(Proj.flag == "taser")
-		stunned = min(stunned+10,20)
-	..()
 
 /mob/living/simple_animal/bot/medbot/explode()
 	on = 0

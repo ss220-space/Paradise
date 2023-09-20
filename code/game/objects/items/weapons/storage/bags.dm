@@ -123,7 +123,7 @@
 			if(H.get_item_by_slot(slot_head) == src)
 				if(H.internal)
 					return
-				H.AdjustLoseBreath(1)
+				H.AdjustLoseBreath(2 SECONDS)
 	else
 		storage_slots = 7
 		STOP_PROCESSING(SSobj, src)
@@ -146,6 +146,12 @@
 	max_w_class = WEIGHT_CLASS_BULKY
 	can_hold = list(/obj/item/stack/ore)
 
+/obj/item/storage/bag/ore/bigger
+	name = "industrial mining satchel"
+	desc = "This bugger can be used to store and transport ores. This one has additional utility pockets for ore."
+	icon_state = "satchel_better"
+	storage_slots = 16 //little better
+
 /obj/item/storage/bag/ore/cyborg
 	name = "cyborg mining satchel"
 	flags = NODROP
@@ -160,6 +166,23 @@
 
 /obj/item/storage/bag/ore/holding/cyborg
 	name = "cyborg mining satchel of holding"
+	flags = NODROP
+
+/obj/item/storage/bag/gem
+	name = "gem satchel"
+	desc = "You thought it would be more like what those cartoon robbers wear."
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "gem_satchel"
+	slot_flags = SLOT_BELT | SLOT_POCKET
+	w_class = WEIGHT_CLASS_NORMAL
+	storage_slots = 48
+	max_combined_w_class = 48
+	max_w_class = WEIGHT_CLASS_NORMAL
+	can_hold = list(/obj/item/gem)
+
+
+/obj/item/storage/bag/gem/cyborg
+	name = "cyborg gem satchel"
 	flags = NODROP
 
 // -----------------------------
@@ -402,7 +425,7 @@
 
 	if(ishuman(M))
 		if(prob(10))
-			M.Weaken(2)
+			M.Weaken(4 SECONDS)
 
 /obj/item/storage/bag/tray/proc/rebuild_overlays()
 	overlays.Cut()
@@ -472,6 +495,61 @@
 	cookie = /obj/item/reagent_containers/food/snacks/sugarcookie
 
 /*
+ *	Antag Tray
+ */
+/obj/item/storage/bag/dangertray
+	name = "tray"
+	icon = 'icons/obj/food/containers.dmi'
+	icon_state = "dangertray"
+	desc = "A metal tray to lay food on. The edges are razor sharp"
+	force = 25
+	throwforce = 25.0
+	throw_speed = 3
+	throw_range = 7
+	armour_penetration = 15
+	sharp = TRUE
+	w_class = WEIGHT_CLASS_NORMAL
+	flags = CONDUCT
+	materials = list(MAT_METAL=3000)
+
+/obj/item/storage/bag/dangertray/attack(mob/living/M, mob/living/user)
+	..()
+	// Drop all the things. All of them.
+	var/list/obj/item/oldContents = contents.Copy()
+	drop_inventory(user)
+
+	// Make each item scatter a bit
+	for(var/obj/item/I in oldContents)
+		spawn()
+			for(var/i = 1, i <= rand(1,2), i++)
+				if(I)
+					step(I, pick(NORTH,SOUTH,EAST,WEST))
+					sleep(rand(2,4))
+
+	if(prob(50))
+		playsound(M, 'sound/items/trayhit1.ogg', 50, 1)
+	else
+		playsound(M, 'sound/items/trayhit2.ogg', 50, 1)
+
+	if(ishuman(M))
+		if(prob(10))
+			M.Weaken(4 SECONDS)
+
+
+/obj/item/storage/bag/dangertray/proc/rebuild_overlays()
+	overlays.Cut()
+	for(var/obj/item/I in contents)
+		overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
+
+/obj/item/storage/bag/dangertray/remove_from_storage(obj/item/W, atom/new_location)
+	..()
+	rebuild_overlays()
+
+/obj/item/storage/bag/dangertray/handle_item_insertion(obj/item/I, prevent_warning = 0)
+	overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
+	..()
+
+/*
  *	Chemistry bag
  */
 
@@ -500,3 +578,16 @@
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(/obj/item/slime_extract,/obj/item/reagent_containers/food/snacks/monkeycube,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/glass/bottle,/obj/item/reagent_containers/iv_bag,/obj/item/reagent_containers/hypospray/autoinjector)
 	resistance_flags = FLAMMABLE
+
+/*
+ *  Medicinal Pouch (mostly for ashwalkers)
+ */
+
+/obj/item/storage/bag/medpouch
+	name = "medicinal pouch"
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "pouch_ash"
+	desc = "A small pouch for holding plants, poultices, resin, and pestles."
+	storage_slots = 40
+	max_combined_w_class = 200
+	can_hold = list(/obj/item/reagent_containers/food/snacks/grown, /obj/item/stack/medical)

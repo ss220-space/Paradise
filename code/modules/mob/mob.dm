@@ -92,7 +92,7 @@
 				if(type & 1 && !has_vision(information_only=TRUE))
 					return
 	// Added voice muffling for Issue 41.
-	if(stat == UNCONSCIOUS || (sleeping > 0 && stat != DEAD))
+	if(stat == UNCONSCIOUS)
 		to_chat(src, "<I>…Вам почти удаётся расслышать чьи-то слова…</I>")
 	else
 		to_chat(src, msg)
@@ -175,9 +175,9 @@
 
 /mob/proc/get_visible_mobs()
 	var/list/seen_mobs = list()
-	for(var/mob/M in view(src))
+	var/list/actual_view = client ? view(client) : view(src)
+	for(var/mob/M in actual_view)
 		seen_mobs += M
-
 	return seen_mobs
 
 /**
@@ -279,7 +279,7 @@
 	popup.open()
 
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
-/mob/verb/examinate(atom/A as mob|obj|turf in view())
+/mob/verb/examinate(atom/A as mob|obj|turf in view(client.maxview()))
 	set name = "Examine"
 	set category = "IC"
 
@@ -288,7 +288,7 @@
 /mob/proc/run_examinate(atom/A)
 	if(!has_vision(information_only = TRUE) && !isobserver(src))
 		to_chat(src, "<span class='notice'>Здесь что-то есть, но вы не видите — что именно.</span>")
-		return 1
+		return TRUE
 
 	face_atom(A)
 	var/list/result = A.examine(src)
@@ -298,7 +298,7 @@
 //note: ghosts can point, this is intended
 //visible_message will handle invisibility properly
 //overriden here and in /mob/dead/observer for different point span classes and sanity checks
-/mob/verb/pointed(atom/A as mob|obj|turf)
+/mob/verb/pointed(atom/A as mob|obj|turf in view(client.maxview()))
 	set name = "Point To"
 	set category = "Object"
 
@@ -312,7 +312,7 @@
 /// possibly delayed verb that finishes the pointing process starting in [/mob/verb/pointed()].
 /// either called immediately or in the tick after pointed() was called, as per the [DEFAULT_QUEUE_OR_CALL_VERB()] macro
 /mob/proc/run_pointed(atom/A)
-	if(client && !(A in view(client.view, src)))
+	if(client && !(A in view(client.maxview())))
 		return FALSE
 
 	changeNext_move(CLICK_CD_POINT)
@@ -638,6 +638,10 @@
 	if(href_list["flavor_change"])
 		update_flavor_text()
 
+	if(href_list["scoreboard"])
+		usr << browse(GLOB.scoreboard, "window=roundstats;size=700x900")
+
+
 // The src mob is trying to strip an item from someone
 // Defined in living.dm
 /mob/proc/stripPanelUnequip(obj/item/what, mob/who)
@@ -718,16 +722,20 @@
 			add_spell_to_statpanel(S)
 
 	// Allow admins + PR reviewers to VIEW the panel. Doesnt mean they can click things.
-	if(is_admin(src) || check_rights(R_VIEWRUNTIMES, FALSE))
-		if(statpanel("MC")) //looking at that panel
+	if((is_admin(src) || check_rights(R_VIEWRUNTIMES, FALSE)) && (client?.prefs.toggles2 & PREFTOGGLE_2_MC_TABS))
+		// Below are checks to see which MC panel you are looking at
+
+		// Shows MC Metadata
+		if(statpanel("MC|M"))
+			stat("Info", "Showing MC metadata")
 			var/turf/T = get_turf(client.eye)
 			stat("Location:", COORD(T))
-			stat("CPU:", "[Master.formatcpu()]")
-			stat("Map CPU:", "[Master.format_mapcpu()]")
+			stat("CPU:", "[Master.formatcpu(world.cpu)]")
+			stat("Map CPU:", "[Master.formatcpu(world.map_cpu)]")
+			//stat("Map CPU:", "[Master.formatcpu(world.map_cpu)]")
 			stat("Instances:", "[num2text(world.contents.len, 10)]")
 			GLOB.stat_entry()
 			stat("Server Time:", time_stamp())
-			stat(null)
 			if(Master)
 				Master.stat_entry()
 			else
@@ -736,15 +744,46 @@
 				Failsafe.stat_entry()
 			else
 				stat("Failsafe Controller:", "ERROR")
+
+		// Shows subsystems with SS_NO_FIRE
+		if(statpanel("MC|N"))
+			stat("Info", "Showing subsystems that do not fire")
 			if(Master)
-				stat(null)
-				for(var/datum/controller/subsystem/SS in Master.subsystems)
-					SS.stat_entry()
+				for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
+					if(SS.flags & SS_NO_FIRE)
+						SS.stat_entry()
+
+		// Shows subsystems with the SS_CPUDISPLAY_LOW flag
+		if(statpanel("MC|L"))
+			stat("Info", "Showing subsystems marked as low intensity")
+			if(Master)
+				for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
+					if((SS.cpu_display == SS_CPUDISPLAY_LOW) && !(SS.flags & SS_NO_FIRE))
+						SS.stat_entry()
+
+		// Shows subsystems with the SS_CPUDISPLAY_DEFAULT flag
+		if(statpanel("MC|D"))
+			stat("Info", "Showing subsystems marked as default intensity")
+			if(Master)
+				for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
+					if((SS.cpu_display == SS_CPUDISPLAY_DEFAULT) && !(SS.flags & SS_NO_FIRE))
+						SS.stat_entry()
+
+		// Shows subsystems with the SS_CPUDISPLAY_HIGH flag
+		if(statpanel("MC|H"))
+			stat("Info", "Showing subsystems marked as high intensity")
+			if(Master)
+				for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
+					if((SS.cpu_display == SS_CPUDISPLAY_HIGH) && !(SS.flags & SS_NO_FIRE))
+						SS.stat_entry()
 
 	statpanel("Status") // Switch to the Status panel again, for the sake of the lazy Stat procs
 
-	if(client && client.statpanel == "Status" && SSticker)
-		show_stat_station_time()
+	if(client?.statpanel == "Status")
+		if(SSticker)
+			show_stat_station_time()
+		stat(null, "Players Connected: [length(GLOB.clients)]")
+
 
 // this function displays the station time in the status panel
 /mob/proc/show_stat_station_time()
@@ -783,14 +822,8 @@
 				statpanel_things += A
 			statpanel(listed_turf.name, null, statpanel_things)
 
-/mob/proc/add_spell_to_statpanel(var/obj/effect/proc_holder/spell/S)
-	switch(S.charge_type)
-		if("recharge")
-			statpanel(S.panel,"[S.charge_counter/10.0]/[S.charge_max/10]",S)
-		if("charges")
-			statpanel(S.panel,"[S.charge_counter]/[S.charge_max]",S)
-		if("holdervar")
-			statpanel(S.panel,"[S.holder_var_type] [S.holder_var_amount]",S)
+/mob/proc/add_spell_to_statpanel(obj/effect/proc_holder/spell/S)
+	statpanel(S.panel,"[S.cooldown_handler.statpanel_info()]", S)
 
 // facing verbs
 /mob/proc/canface()
@@ -1049,6 +1082,54 @@
 	var/datum/log_record/record = new(log_type, src, what, target, where, world.time)
 	GLOB.logging.add_log(real_ckey, record)
 
+
+/mob/proc/create_attack_log(text, collapse = TRUE)
+	LAZYINITLIST(attack_log_old)
+	create_log_in_list(attack_log_old, text, collapse, last_log)
+	last_log = world.timeofday
+
+
+/mob/proc/create_debug_log(text, collapse = TRUE)
+	LAZYINITLIST(debug_log)
+	create_log_in_list(debug_log, text, collapse, world.timeofday)
+
+
+/proc/create_log_in_list(list/target, text, collapse = TRUE, last_log)//forgive me code gods for this shitcode proc
+	//this proc enables lovely stuff like an attack log that looks like this: "[18:20:29-18:20:45]21x John Smith attacked Andrew Jackson with a crowbar."
+	//That makes the logs easier to read, but because all of this is stored in strings, weird things have to be used to get it all out.
+	var/new_log = "\[[time_stamp()]] [text]"
+
+	if(target.len)//if there are other logs already present
+		var/previous_log = target[target.len]//get the latest log
+		var/last_log_is_range = (copytext(previous_log, 10, 11) == "-") //whether the last log is a time range or not. The "-" will be an indicator that it is.
+		var/x_sign_position = findtext(previous_log, "x")
+
+		if(world.timeofday - last_log > 100)//if more than 10 seconds from last log
+			collapse = 0//don't collapse anyway
+
+		//the following checks if the last log has the same contents as the new one
+		if(last_log_is_range)
+			if(!(copytext(previous_log, x_sign_position + 13) == text))//the 13 is there because of span classes; you won't see those normally in-game
+				collapse = 0
+		else
+			if(!(copytext(previous_log, 12) == text))
+				collapse = 0
+
+
+		if(collapse == 1)
+			var/rep = 0
+			var/old_timestamp = copytext(previous_log, 2, 10)//copy the first time value. This one doesn't move when it's a timespan, so no biggie
+			//An attack log entry can either be a time range with multiple occurences of an action or a single one, with just one time stamp
+			if(last_log_is_range)
+
+				rep = text2num(copytext(previous_log, 44, x_sign_position))//get whatever number is right before the 'x'
+
+			new_log = "\[[old_timestamp]-[time_stamp()]]<font color='purple'><b>[rep?rep+1:2]x</b></font> [text]"
+			target -= target[target.len]//remove the last log
+
+	target += new_log
+
+
 /mob/vv_get_dropdown()
 	. = ..()
 	.["Show player panel"] = "?_src_=vars;mob_player_panel=[UID()]"
@@ -1200,3 +1281,42 @@
 	else
 		. = invoked_callback.Invoke()
 	usr = temp
+
+
+GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
+	/area/chapel,
+	/area/maintenance/chapel
+)))
+
+
+/mob/proc/holy_check()
+	if(!is_type_in_typecache(get_area(src), GLOB.holy_areas))
+		return FALSE
+
+	if(!mind)
+		return FALSE
+
+	//Allows cult to bypass holy areas once they summon
+	var/datum/game_mode/gamemode = SSticker.mode
+	if(iscultist(src) && gamemode.cult_objs.cult_status == NARSIE_HAS_RISEN)
+		return FALSE
+
+	//Execption for Holy Constructs
+	if(isconstruct(src) && !iscultist(src))
+		return FALSE
+
+	to_chat(src, span_warning("Your powers are useless on this holy ground."))
+	return TRUE
+
+
+/mob/proc/reset_visibility()
+	invisibility = initial(invisibility)
+	alpha = initial(alpha)
+	add_to_all_human_data_huds()
+
+
+/mob/proc/make_invisible()
+	invisibility = INVISIBILITY_LEVEL_TWO
+	alpha = 128
+	remove_from_all_data_huds()
+

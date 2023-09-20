@@ -119,6 +119,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "beaker"
 	item_state = "beaker"
+	belt_icon = "beaker"
 	materials = list(MAT_GLASS=500)
 	var/obj/item/assembly_holder/assembly = null
 	var/can_assembly = 1
@@ -216,6 +217,7 @@
 	name = "large beaker"
 	desc = "A large beaker. Can hold up to 100 units."
 	icon_state = "beakerlarge"
+	belt_icon = "large_beaker"
 	materials = list(MAT_GLASS=2500)
 	volume = 100
 	amount_per_transfer_from_this = 10
@@ -226,6 +228,7 @@
 	name = "vial"
 	desc = "A small glass vial. Can hold up to 25 units."
 	icon_state = "vial"
+	belt_icon = "vial"
 	materials = list(MAT_GLASS=250)
 	volume = 25
 	amount_per_transfer_from_this = 10
@@ -282,11 +285,10 @@
 /obj/item/reagent_containers/glass/beaker/cryoxadone
 	list_reagents = list("cryoxadone" = 30)
 
-/obj/item/reagent_containers/glass/beaker/sulphuric
+/obj/item/reagent_containers/glass/beaker/sacid
 	list_reagents = list("sacid" = 50)
 
-
-/obj/item/reagent_containers/glass/beaker/slime
+/obj/item/reagent_containers/glass/beaker/slimejelly
 	list_reagents = list("slimejelly" = 50)
 
 /obj/item/reagent_containers/glass/beaker/drugs/meth

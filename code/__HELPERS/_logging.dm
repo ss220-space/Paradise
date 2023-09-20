@@ -133,10 +133,11 @@ GLOBAL_PROTECT(log_end)
 	WRITE_LOG(GLOB.world_game_log, "MISC: [text][GLOB.log_end]")
 
 /proc/log_antag_objectives(datum/mind/Mind)
-	if(length(Mind.objectives))
+	var/list/all_objectives = Mind.get_all_objectives()
+	if(length(all_objectives))
 		WRITE_LOG(GLOB.world_game_log, "GAME: Start objective log for [html_decode(Mind.key)]/[html_decode(Mind.name)][GLOB.log_end]")
 		var/count = 1
-		for(var/datum/objective/objective in Mind.objectives)
+		for(var/datum/objective/objective in all_objectives)
 			WRITE_LOG(GLOB.world_game_log, "GAME: Objective #[count]: [objective.explanation_text][GLOB.log_end]")
 			count++
 		WRITE_LOG(GLOB.world_game_log, "GAME: End objective log for [html_decode(Mind.key)]/[html_decode(Mind.name)][GLOB.log_end]")
@@ -173,9 +174,9 @@ GLOBAL_PROTECT(log_end)
 /**
  * Standardized method for tracking startup times.
  */
-/proc/log_startup_progress(var/message)
-	to_chat(world, "<span class='danger'>[message]</span>")
-	log_world(message)
+/proc/log_startup_progress_global(prefix, message)
+	to_chat(world, "<span class='danger'><small>\[[prefix]]</small> [message]</span>")
+	log_world("\[[prefix]] [message]")
 
 // A logging proc that only outputs after setup is done, to
 // help devs test initialization stuff that happens a lot
@@ -259,8 +260,10 @@ GLOBAL_PROTECT(log_end)
 	//sending logs to Log Viewer and then logs into game.log
 	if(istype(MU))
 		MU.create_log(ATTACK_LOG, what_done, target, get_turf(user))
+		MU.create_attack_log("<font color='red'>Attacked [target_str]: [what_done]</font>")
 	if(istype(MT))
 		MT.create_log(DEFENSE_LOG, what_done, user, get_turf(MT))
+		MT.create_attack_log("<font color='orange'>Attacked by [user_str]: [what_done]</font>")
 	var/mob/living/alive = target
 	if(istype(alive))
 		newhp += "\[HP:[alive.health]:[alive.getOxyLoss()]-[alive.getToxLoss()]-[alive.getFireLoss()]-[alive.getBruteLoss()]-[alive.getStaminaLoss()]-[alive.getBrainLoss()]-[alive.getCloneLoss()]\]"

@@ -688,6 +688,12 @@
 		else
 			opened = 1
 			update_icon()
+	else if(stat & BROKEN)
+		if(!opened)
+			if(do_after(user, gettoolspeedmod(user)*(3 SECONDS)*I.toolspeed, FALSE, src))
+				to_chat(user, span_notice("You pry out broken frame."))
+				opened = 2
+				update_icon()
 
 /obj/machinery/power/apc/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -848,7 +854,7 @@
 		return FALSE
 
 	// Only if they're a traitor OR they have the malf picker from the combat module
-	if(!malf.mind.has_antag_datum(/datum/antagonist/traitor) && !malf.malf_picker)
+	if(!malf.mind?.has_antag_datum(/datum/antagonist/traitor) && !malf.malf_picker)
 		return FALSE
 
 	if(malfai == (malf.parent || malf))

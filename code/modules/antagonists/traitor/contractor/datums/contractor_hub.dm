@@ -38,6 +38,7 @@
 		/datum/rep_purchase/item/balloon,
 		/datum/rep_purchase/item/contractor_partner,
 		/datum/rep_purchase/item/contractor_hardsuit,
+		/datum/rep_purchase/item/spai_kit,
 	)
 	// Variables
 	/// The contractor associated to this hub.
@@ -186,5 +187,5 @@
   * Arguments:
   * * M - The mob.
   */
-/datum/contractor_hub/proc/is_user_authorized(mob/living/carbon/M)
-	return M.mind.has_antag_datum(/datum/antagonist/traitor/contractor)
+/datum/contractor_hub/proc/is_user_authorized(mob/living/carbon/user)
+	return user?.mind?.has_antag_datum(/datum/antagonist/contractor)

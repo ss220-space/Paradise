@@ -31,8 +31,7 @@
 		///////////////
 		//SOUND STUFF//
 		///////////////
-	var/ambience_playing = 0
-	var/played			= 0
+	var/ambience_playing = FALSE
 
 		////////////
 		//SECURITY//
@@ -55,7 +54,7 @@
 
 	preload_rsc = 0 // This is 0 so we can set it to an URL once the player logs in and have them download the resources from a different server.
 
-	var/global/obj/screen/click_catcher/void
+	var/obj/screen/click_catcher/void
 
 	var/karma = 0
 	var/karma_spent = 0
@@ -65,6 +64,9 @@
 	var/ip_intel = "Disabled"
 
 	var/datum/click_intercept/click_intercept = null
+
+	/// Overlay for showing debug info
+	var/obj/screen/debugtextholder/debug_text_overlay
 
 	var/datum/geoip_data/geoip = null
 

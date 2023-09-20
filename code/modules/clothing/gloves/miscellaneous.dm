@@ -11,6 +11,13 @@
 	put_on_delay = 20
 	clipped = 1
 
+/obj/item/clothing/gloves/fingerless/weaver
+	name = "weaver chitin gloves"
+	desc = "Grey gloves without fingertips made from the hide of a dead arachnid found on lavaland. Makes wearer stronger in disarming ability."
+	icon_state = "weaver_chitin"
+	item_state = "weaver_chitin"
+	extra_knock_chance = 5
+
 /obj/item/clothing/gloves/cyborg
 	desc = "beep boop borp"
 	name = "cyborg gloves"
@@ -86,7 +93,7 @@
 	name = "stun gloves"
 	desc = "Horrendous and awful. It smells like cancer. The fact it has wires attached to it is incidental."
 	var/obj/item/stock_parts/cell/cell = null
-	var/stun_strength = 1
+	var/stun_strength = 2 SECONDS
 	var/stun_cost = 1500
 
 /obj/item/clothing/gloves/color/yellow/stun/get_cell()
@@ -117,9 +124,8 @@
 				H.do_attack_animation(C)
 				visible_message("<span class='danger'>[C] has been touched with [src] by [H]!</span>")
 				add_attack_logs(H, C, "Touched with stun gloves")
-				C.Stun(stun_strength)
 				C.Weaken(stun_strength)
-				C.apply_effect(STUTTER, 5 SECONDS)
+				C.Stuttering(stun_strength)
 				C.adjustStaminaLoss(20)
 			else
 				to_chat(H, "<span class='notice'>Not enough charge!</span>")
@@ -162,7 +168,7 @@
 		return ..()
 	var/mob/living/carbon/human/H = loc
 	if(cell?.use(stun_cost))
-		H.Weaken(4)
+		H.Weaken(8 SECONDS)
 		H.adjustFireLoss(rand(10, 25))
 		H.apply_effect(STUTTER, 5 SECONDS)
 
@@ -227,8 +233,9 @@
 
 		target.visible_message("<span class='danger'>[user] cuts [target] with razor gloves!</span>")
 
-		if(target.mind && user?.mind?.objectives)
-			for(var/datum/objective/pain_hunter/objective in user.mind.objectives)
+		var/all_objectives = user?.mind?.get_all_objectives()
+		if(target.mind && all_objectives)
+			for(var/datum/objective/pain_hunter/objective in all_objectives)
 				if(target.mind == objective.target)
 					objective.take_damage(damage, BRUTE)
 
@@ -256,6 +263,7 @@
 	desc = "The choice of the professional to beat the shit out of some jerk!"
 	icon_state = "knuckles"
 	item_state = "knuckles"
+	material_type = MATERIAL_CLASS_NONE
 	sharp = FALSE
 	extra_knock_chance = 15 //20% overall
 	var/knuckle_damage = 5 //additional fists damage
@@ -291,8 +299,9 @@
 
 		target.visible_message("<span class='danger'>[user] smash [target] with knuckles!</span>")
 
-		if(target.mind && user?.mind?.objectives)
-			for(var/datum/objective/pain_hunter/objective in user.mind.objectives)
+		var/all_objectives = user?.mind?.get_all_objectives()
+		if(target.mind && all_objectives)
+			for(var/datum/objective/pain_hunter/objective in all_objectives)
 				if(target.mind == objective.target)
 					objective.take_damage(damage, BRUTE)
 

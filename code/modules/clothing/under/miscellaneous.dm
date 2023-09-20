@@ -113,7 +113,7 @@
 	item_color = "centcom"
 
 /obj/item/clothing/under/rank/centcom/officer
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant-Commander\" and bears \"N.A.S. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant-Commander\" and bears \"N.A.V. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
 	name = "\improper Nanotrasen Naval Officer Uniform"
 	icon_state = "navy_gold"
 	item_state = "navy_gold"
@@ -122,7 +122,7 @@
 	displays_id = 0
 
 /obj/item/clothing/under/rank/centcom/captain
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears \"N.A.S. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears \"N.A.V. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
 	name = "\improper Nanotrasen Naval Captain Uniform"
 	icon_state = "navy_gold"
 	item_state = "navy_gold"
@@ -434,6 +434,15 @@
 	item_color = "ash"
 	has_sensor = FALSE
 
+/obj/item/clothing/under/ash_walker_shaman
+	name = "shaman tribal rags"
+	desc = "Rags from Lavaland, drenched with ash, it has fine jewel coated bones sewn around the neck. This one seems to be for the shaman of a tribe."
+	icon_state = "shamanrags"
+	item_state = "shamanrags"
+	item_color = "shamanrags"
+	has_sensor = FALSE
+	species_restricted = list("Unathi", "Ash Walker", "Ash Walker Shaman", "Draconid")
+
 //dress
 
 /obj/item/clothing/under/dress/dress_fire
@@ -721,6 +730,21 @@
 	icon_state = "pennywise"
 	item_color = "pennywise"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
+/obj/item/clothing/under/rockso
+	name = "Rockso Costume"
+	desc = "I DO COCAINE!"
+	icon_state = "rocksouniform"
+	item_color = "rocksouniform"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/uniform.dmi',
+		"Monkey" = 'icons/mob/species/monkey/uniform.dmi',
+		"Drask" = 'icons/mob/species/drask/uniform.dmi',
+		"Grey" = 'icons/mob/species/grey/uniform.dmi',
+		"Kidan" = 'icons/mob/species/kidan/uniform.dmi',
+		"Wryn" = 'icons/mob/species/wryn/uniform.dmi'
+	)
 
 /obj/item/clothing/under/assistantformal
 	name = "assistant's formal uniform"

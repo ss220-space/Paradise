@@ -13,6 +13,9 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
+		"Ash Walker" = 'icons/mob/species/unathi/mask.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/mask.dmi',
+		"Draconid" = 'icons/mob/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Drask" = 'icons/mob/species/drask/mask.dmi',
@@ -57,6 +60,9 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
+		"Ash Walker" = 'icons/mob/species/unathi/mask.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/mask.dmi',
+		"Draconid" = 'icons/mob/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Drask" = 'icons/mob/species/drask/mask.dmi',
@@ -186,43 +192,46 @@
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
 
+
 /obj/item/clothing/mask/gas/mime/equipped(mob/user, slot, initial)
 	. = ..()
 
-	if(user && user.mind)
-		var/obj/effect/proc_holder/spell/targeted/mime/speak/mask/S = locate(/obj/effect/proc_holder/spell/targeted/mime/speak/mask) in user.mind.spell_list
-		if(S && !S.from_mask)
+	if(!user?.mind || slot != slot_wear_mask)
+		return
+
+	var/obj/effect/proc_holder/spell/mime/speak/mask/mask_spell = null
+	for(var/obj/effect/proc_holder/spell/mime/speak/spell in user.mind.spell_list)
+		if(istype(spell, /obj/effect/proc_holder/spell/mime/speak/mask))
+			mask_spell = spell
+			continue
+		if(spell)
 			return
 
-		if(slot == slot_wear_mask)
-			if(!S)
-				var/obj/effect/proc_holder/spell/targeted/mime/speak/mask/new_spell = new
-				user.mind.AddSpell(new_spell)
-				new_spell.start_recharge()
-			else
-				if(S.action?.invisibility)
-					S.action?.ToggleInvisibility()
+	if(mask_spell)
+		mask_spell.action.enable_invisibility(FALSE)
+		return
+
+	user.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak/mask)
+
 
 /obj/item/clothing/mask/gas/mime/dropped(mob/user)
 	. = ..()
 
-	if(user && user.mind)
-		var/obj/effect/proc_holder/spell/targeted/mime/speak/mask/S = locate(/obj/effect/proc_holder/spell/targeted/mime/speak/mask) in user.mind.spell_list
-		if(!S || !S?.from_mask)
-			return
+	if(!user?.mind)
+		return
 
-		if(S.charge_counter < S.charge_max)
-			if(!S.action?.invisibility)
-				S.action?.ToggleInvisibility()
-		else
-			if(user.mind.miming)
-				S.cast(list(user))
-			user.mind.RemoveSpell(S)
+	var/obj/effect/proc_holder/spell/mime/speak/mask/spell = locate() in user.mind.spell_list
+	if(!spell)
+		return
 
+	if(spell.cooldown_handler.is_on_cooldown())
+		spell.action.enable_invisibility(TRUE)
+		return
 
-/obj/item/clothing/mask/gas/mime/item_action_slot_check(slot, mob/user)
-	if(slot == slot_wear_mask)
-		return 1
+	if(user.mind.miming)
+		spell.cast(list(user))
+	user.mind.RemoveSpell(spell)
+
 
 /obj/item/clothing/mask/gas/mime/wizard
 	name = "magical mime mask"
@@ -287,7 +296,7 @@
 
 								"halt" 			= "HALT! HALT! HALT! HALT!",
 								"bobby" 		= "Stop in the name of the Law.",
-								"compliance" 	        = "Compliance is in your best interest.",
+								"compliance"	= "Compliance is in your best interest.",
 								"justice"		= "Prepare for justice!",
 								"running"		= "Running will only increase your sentence.",
 								"dontmove"		= "Don't move, Creep!",
@@ -304,6 +313,16 @@
 								"super"			= "Face the wrath of the golden bolt.",
 								"dredd"			= "I am, the LAW!"
 								)
+
+/obj/item/clothing/mask/gas/sechailer/equipped(mob/user, slot, initial)
+	. = ..()
+	if(slot == slot_wear_mask && !HAS_TRAIT(user, TRAIT_SECDEATH))
+		ADD_TRAIT(user, TRAIT_SECDEATH, src)
+
+/obj/item/clothing/mask/gas/sechailer/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_SECDEATH, src)
+
 /obj/item/clothing/mask/gas/sechailer/hos
 	name = "\improper HOS SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a tan stripe."

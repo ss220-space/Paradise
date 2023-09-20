@@ -165,19 +165,26 @@
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
 
+/obj/item/storage/box/syndie_kit/chameleon_hardsuit
+	name = "oxygen deprivation first aid kit"
+	desc = "A first aid kit that contains four pills of salbutamol, which is able to counter injuries caused by suffocation. Also contains a health analyzer to determine the health of the patient."
+	description_antag = "Высокотехнологичная коробка, содержащая набор хардсьюта-хамелеона, искусно скрытая под аптечку первой оксигенной помощи. Можно разобрать на картон, на самом деле это просто качественная краска."
+	icon_state = "o2"
+	item_state = "firstaid-o2"
+	can_hold = list(/obj/item/clothing/suit/space/hardsuit/contractor/agent, /obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate)
+	max_w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/storage/box/syndie_kit/chameleon_hardsuit/populate_contents()
+	new /obj/item/clothing/suit/space/hardsuit/contractor/agent(src)
+	new /obj/item/clothing/mask/gas/syndicate(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
+
 /obj/item/storage/box/syndie_kit/conversion
 	name = "box (CK)"
 
 /obj/item/storage/box/syndie_kit/conversion/populate_contents()
 	new /obj/item/conversion_kit(src)
 	new /obj/item/ammo_box/a357(src)
-
-/obj/item/storage/box/syndie_kit/boolets
-	name = "Shotgun shells"
-
-/obj/item/storage/box/syndie_kit/boolets/populate_contents()
-	for(var/I in 1 to 6)
-		new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
 
 /obj/item/storage/box/syndie_kit/emp
 	name = "boxed EMP kit"
@@ -257,7 +264,6 @@
 /obj/item/storage/box/syndie_kit/mimery/populate_contents()
 	new /obj/item/spellbook/oneuse/mime/greaterwall(src)
 	new	/obj/item/spellbook/oneuse/mime/fingergun(src)
-	new /obj/item/mimejutsu_scroll(src)
 
 
 /obj/item/storage/box/syndie_kit/atmosn2ogrenades
@@ -315,16 +321,6 @@
 
 To apply, hold the injector a short distance away from the outer thigh before applying firmly to the skin surface. The process of repairing should begin repair after a short time, during which you are advised to remain still. <BR><BR><BR><BR>After use you are advised to see a doctor at the next available opportunity. Mild scarring and tissue damage may occur after use. This is a prototype. We are not liable for any bone spurs, cancers, extra limbs, or creation of new viruses from use of the product.</font><BR><HR></font>
 	"}
-
-/obj/item/storage/box/syndie_kit/safecracking
-	name = "Safe-cracking Kit"
-	desc = "Everything you need to quietly open a mechanical combination safe."
-
-/obj/item/storage/box/syndie_kit/safecracking/populate_contents()
-	new /obj/item/clothing/gloves/color/latex/nitrile(src)
-	new /obj/item/clothing/mask/balaclava(src)
-	new /obj/item/clothing/accessory/stethoscope(src)
-	new /obj/item/book/manual/engineering_hacking(src)
 
 /obj/item/storage/box/syndie_kit/chameleon
 	name = "chameleon kit"
@@ -449,3 +445,25 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 /obj/item/storage/box/syndie_kit/revolver_ammo/populate_contents()
 	new /obj/item/ammo_box/a357(src)
 	new /obj/item/ammo_box/a357(src)
+
+/obj/item/storage/box/syndie_kit/dangertray
+	name = "Danger Tray pack"
+	desc = "Normal size box with compartments for trays."
+	can_hold = list(/obj/item/storage/bag/dangertray)
+	max_combined_w_class = 3
+	max_w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/storage/box/syndie_kit/dangertray/populate_contents()
+	for(var/I in 1 to 3)
+		new /obj/item/storage/bag/dangertray(src)
+
+/obj/item/storage/box/syndie_kit/mr_chang_technique
+	name = "Mr. Chang's Aggressive Marketing Technique"
+	desc = "Special delivery package that contains a set of items dedicated to maximize the income. Sell me that pen."
+	icon_state = "box_mr_chang"
+
+/obj/item/storage/box/syndie_kit/mr_chang_technique/populate_contents()
+	new /obj/item/mr_chang_technique(src)
+	new /obj/item/clothing/suit/mr_chang_coat(src)
+	new /obj/item/clothing/shoes/mr_chang_sandals(src)
+	new /obj/item/clothing/head/mr_chang_band(src)

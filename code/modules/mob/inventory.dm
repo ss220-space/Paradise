@@ -80,14 +80,14 @@
 			return TRUE
 
 	if(drop_on_fail)
-		if(I in get_equipped_items(include_pockets = TRUE))
+		if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 			drop_item_ground(I)
 		else
 			forceMove(drop_location())
 		return FALSE
 
 	if(qdel_on_fail)
-		if(I in get_equipped_items(include_pockets = TRUE))
+		if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 			temporarily_remove_item_from_inventory(I, force = TRUE)
 		qdel(I)
 
@@ -111,21 +111,21 @@
 /**
  * Just another helper. Puts item in one of the hands if they are empty.
  */
-/mob/proc/put_in_any_hand_if_possible(obj/item/I, drop_on_fail = FALSE, qdel_on_fail = FALSE, disable_warning = TRUE)
-	if(equip_to_slot_if_possible(I, slot_l_hand, disable_warning = disable_warning))
+/mob/proc/put_in_any_hand_if_possible(obj/item/I, drop_on_fail = FALSE, qdel_on_fail = FALSE, ignore_anim = TRUE)
+	if(put_in_active_hand(I, ignore_anim = ignore_anim))
 		return TRUE
-	else if(equip_to_slot_if_possible(I, slot_l_hand, disable_warning = disable_warning))
+	else if(put_in_inactive_hand(I, ignore_anim = ignore_anim))
 		return TRUE
 
 	if(drop_on_fail)
-		if(I in get_equipped_items(include_pockets = TRUE))
+		if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 			drop_item_ground(I)
 		else
 			forceMove(drop_location())
 		return FALSE
 
 	if(qdel_on_fail)
-		if(I in get_equipped_items(include_pockets = TRUE))
+		if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 			temporarily_remove_item_from_inventory(I, force = TRUE)
 		qdel(I)
 
@@ -147,10 +147,10 @@
 			var/obj/item/storage/backpack = back
 			if(backpack.can_be_inserted(I, stop_messages = TRUE))
 				backpack.handle_item_insertion(I, prevent_warning = TRUE)
-			else
-				var/turf/T = get_turf(src)
-				if(istype(T))
-					I.forceMove(T)
+				return
+		var/turf/T = get_turf(src)
+		if(istype(T))
+			I.forceMove(T)
 
 
 /**
@@ -177,14 +177,14 @@
 
 	if(!I.mob_can_equip(src, slot, disable_warning, bypass_equip_delay_self, bypass_obscured))
 		if(drop_on_fail)
-			if(I in get_equipped_items(include_pockets = TRUE))
+			if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 				drop_item_ground(I)
 			else
 				forceMove(drop_location())
 			return FALSE
 
 		if(qdel_on_fail)
-			if(I in get_equipped_items(include_pockets = TRUE))
+			if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 				temporarily_remove_item_from_inventory(I, force = TRUE)
 			qdel(I)
 
@@ -317,8 +317,8 @@
 	if(pulling == I)
 		stop_pulling()
 
-	// Qdel on equip happened
-	if(QDELETED(I))
+	// Qdel or loc change on equip happened
+	if(QDELETED(I) || I.loc != src)
 		if(hand_id == "HAND_LEFT")
 			l_hand = null
 			update_inv_l_hand()
@@ -451,17 +451,30 @@
  * * 'force' overrides flag NODROP and clothing obscuration.
  * * 'invdrop' prevents stuff in belt/id/pockets/PDA slots from dropping if item was in jumpsuit slot. Only set to `FALSE` if it's going to be immediately replaced.
  * * 'silent' set to `TRUE` if you want to disable warning messages.
+ * * 'ignore_pixel_shift' set to `TRUE` if you want to prevent item's visual position randomization.
 */
-/mob/proc/drop_item_ground(obj/item/I, force = FALSE, invdrop = TRUE, silent = FALSE)
+/mob/proc/drop_item_ground(obj/item/I, force = FALSE, invdrop = TRUE, silent = FALSE, ignore_pixel_shift = FALSE)
 
 	. = do_unEquip(I, force, drop_location(), FALSE, invdrop, silent)
 
 	if(!. || !I) //ensure the item exists and that it was dropped properly.
 		return
 
-	if(!(I.flags & NO_PIXEL_RANDOM_DROP))
-		I.pixel_x = clamp(rand(-6, 6), -(world.icon_size / 2), world.icon_size / 2)
-		I.pixel_y = clamp(rand(-6, 6), -(world.icon_size / 2), world.icon_size / 2)
+	var/shift_max = world.icon_size / 2
+	var/shift_limit_x = initial(pixel_x) + shift_max
+	var/shift_limit_y = initial(pixel_y) + shift_max
+	var/shift_x
+	var/shift_y
+
+	if(ignore_pixel_shift || (I.flags & NO_PIXEL_RANDOM_DROP))
+		shift_x = clamp(pixel_x, -shift_limit_x, shift_limit_x)
+		shift_y = clamp(pixel_y, -shift_limit_y, shift_limit_y)
+	else
+		shift_x = clamp(pixel_x + rand(-6, 6), -shift_limit_x, shift_limit_x)
+		shift_y = clamp(pixel_y + rand(-6, 6), -shift_limit_y, shift_limit_y)
+
+	I.pixel_x = shift_x
+	I.pixel_y = shift_y
 	I.do_drop_animation(src)
 
 
@@ -580,12 +593,17 @@
 
 //Outdated but still in use apparently. This should at least be a human proc.
 //Daily reminder to murder this - Remie.
-/mob/proc/get_equipped_items(include_pockets = FALSE)
+/mob/proc/get_equipped_items(include_pockets = FALSE, include_hands = FALSE)
 	var/list/items = list()
 	if(back)
 		items += back
 	if(wear_mask)
 		items += wear_mask
+	if(include_hands)
+		if(l_hand)
+			items += l_hand
+		if(r_hand)
+			items += r_hand
 	return items
 
 

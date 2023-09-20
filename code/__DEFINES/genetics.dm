@@ -38,7 +38,7 @@
 #define FAT				"fat"
 #define HUSK			"husk"
 #define NOCLONE			"noclone"
-#define LASER			"eyelaser" 			// harm intent - click anywhere to shoot lasers from eyes
+#define LASEREYES		"eyelaser" 			// harm intent - click anywhere to shoot lasers from eyes
 #define WINGDINGS		"wingdings"			// Ayy lmao
 #define SKELETON 		"skeleton"
 #define BREATHLESS		"breathless"		// no breathing
@@ -102,6 +102,7 @@
 #define BLOOD_VOLUME_MAXIMUM		2000
 #define BLOOD_VOLUME_NORMAL			560
 #define BLOOD_VOLUME_SAFE			501
+#define BLOOD_VOLUME_PALE			448
 #define BLOOD_VOLUME_OKAY			346
 #define BLOOD_VOLUME_BAD			234
 #define BLOOD_VOLUME_SURVIVE		168

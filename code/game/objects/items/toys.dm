@@ -17,6 +17,7 @@
  *		Toy xeno
  *		Toy chainsaws
  *		Action Figures
+ *      Rubber Toolbox
  */
 
 
@@ -99,7 +100,7 @@
 	update_icon()
 	return
 
-/obj/item/toy/balloon/throw_impact(atom/hit_atom)
+/obj/item/toy/balloon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(reagents.total_volume >= 1)
 		visible_message("<span class='warning'>The [src] bursts!</span>","You hear a pop and a splash.")
 		reagents.reaction(get_turf(hit_atom))
@@ -273,7 +274,7 @@
 	w_class = WEIGHT_CLASS_TINY
 
 
-/obj/item/toy/snappop/virus/throw_impact(atom/hit_atom)
+/obj/item/toy/snappop/virus/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
 	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/ash(src.loc)
@@ -304,7 +305,7 @@
 	..()
 	pop_burst()
 
-/obj/item/toy/snappop/throw_impact(atom/hit_atom)
+/obj/item/toy/snappop/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
 	pop_burst()
 
@@ -520,25 +521,22 @@
 		update_icon()
 
 
-/obj/item/toy/cards/deck/MouseDrop(atom/over_object)
-	var/mob/M = usr
-	if(M.incapacitated() || !Adjacent(M))
-		return
-	if(!ishuman(M))
-		return
-	if(over_object == M)
-		M.put_in_hands(src, ignore_anim = FALSE)
-	if(istype(over_object, /obj/screen))
-		if(!remove_item_from_storage(M))
-			M.drop_item_ground(src)
-		if(over_object != M)
-			switch(over_object.name)
-				if("l_hand")
-					M.put_in_l_hand(src, ignore_anim = FALSE)
-				if("r_hand")
-					M.put_in_r_hand(src, ignore_anim = FALSE)
-	add_fingerprint(M)
-	usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
+/obj/item/toy/cards/deck/MouseDrop(atom/over)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	var/mob/user = usr
+	if(over != user || user.incapacitated() || !ishuman(user))
+		return FALSE
+
+	if(user.put_in_hands(src, ignore_anim = FALSE))
+		add_fingerprint(user)
+		user.visible_message(span_notice("[user] picks up [src]."))
+		return TRUE
+
+	return FALSE
+
 
 /obj/item/toy/cards/deck/update_icon()
 	switch(cards.len)
@@ -882,7 +880,7 @@
 	icon_state = "minimeteor"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/toy/minimeteor/throw_impact(atom/hit_atom)
+/obj/item/toy/minimeteor/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
 	playsound(src, 'sound/effects/meteorimpact.ogg', 40, 1)
 	for(var/mob/M in range(10, src))
@@ -1094,6 +1092,18 @@
 	name = "tuxedo cat plushie"
 	icon_state = "tuxedocat"
 
+/obj/item/toy/plushie/kotrazumist
+	name = "Razumist Cat"
+	desc = "Cat with wanrning cone on it. Wonder what do itself so smart ?"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "razymist_cat"
+
+/obj/item/toy/plushie/kotwithfunnyhat
+	name = "Rice Cat"
+	desc = "White cat plushie with straw hat for hard work on rice field !"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "ricehat_cat"
+
 /obj/item/toy/plushie/voxplushie
 	name = "vox plushie"
 	desc = "A stitched-together vox, fresh from the skipjack. Press its belly to hear it skree!"
@@ -1101,9 +1111,50 @@
 	item_state = "plushie_vox"
 	var/cooldown = 0
 
+/obj/item/toy/plushie/greyplushie
+	name = "Плюшевый грей"
+	desc = "Плюшевая кукла грея в толстовке. Кукла входит в серию \"Пришелец\" и имеет свитер, большую голову и мультяшные глаза. Любит мехов."
+	icon_state = "plushie_grey"
+	item_state = "plushie_grey"
+	var/hug_cooldown = FALSE //Defaults the plushie to being off coolodown. Sets the hug_cooldown var.
+	var/scream_cooldown = FALSE //Defaults the plushie to being off cooldown. Sets the scream_cooldown var.
+	var/singed = FALSE
+
+/obj/item/toy/plushie/greyplushie/water_act(volume, temperature, source, method = REAGENT_TOUCH) //If water touches the plushie the following code executes.
+	. = ..()
+	if(scream_cooldown)
+		return
+	scream_cooldown = TRUE //water_act executes the scream_cooldown var, setting it on cooldown.
+	addtimer(CALLBACK(src, PROC_REF(reset_screamdown)), 30 SECONDS) //After 30 seconds the reset_coolodown() proc will execute, resetting the cooldown. Hug interaction is unnaffected by this.
+	playsound(src, 'sound/goonstation/voice/male_scream.ogg', 10, FALSE)//If the plushie gets wet it screams and "AAAAAH!" appears in chat.
+	visible_message("<span class='danger'>AAAAAAH!</span>")
+	if(singed)
+		return
+	singed = TRUE
+	icon_state = "grey_singed"
+	item_state = "grey_singed"//If the plushie gets wet the sprite changes to a singed version.
+	desc = "Испорченная плюшевая игрушка грея. Похоже, что кто-то прогнал его под водой."
+
+/obj/item/toy/plushie/greyplushie/proc/reset_screamdown()
+	scream_cooldown = FALSE //Resets the scream interaction cooldown.
+
+/obj/item/toy/plushie/greyplushie/proc/reset_hugdown()
+	hug_cooldown = FALSE //Resets the hug interaction cooldown.
+
+/obj/item/toy/plushie/greyplushie/attack_self(mob/user)//code for talking when hugged.
+	. = ..()
+	if(hug_cooldown)
+		return
+	hug_cooldown = TRUE
+	addtimer(CALLBACK(src, PROC_REF(reset_hugdown)), 5 SECONDS) //Hug interactions only put the plushie on a 5 second cooldown.
+	if(singed)//If the plushie is water damaged it'll say Ow instead of talking in wingdings.
+		visible_message("<span class='danger'>Ow...</span>")
+	else//If the plushie has not touched water they'll say Greetings in wingdings.
+		visible_message("<span class='danger'>☝︎❒︎♏︎♏︎⧫︎♓︎■︎♑︎⬧︎📬︎</span>")
+
 /obj/item/toy/plushie/voxplushie/attack_self(mob/user)
 	if(!cooldown)
-		playsound(user, 'sound/voice/shriek1.ogg', 10, 0)
+		playsound(user, 'sound/voice/shriek1.ogg', 10, FALSE)
 		visible_message("<span class='danger'>Skreee!</span>")
 		cooldown = 1
 		spawn(30) cooldown = 0
@@ -1132,6 +1183,46 @@
 	desc = "An adorable stuffed toy that resembles a lizardperson."
 	icon_state = "plushie_lizard"
 	item_state = "plushie_lizard"
+
+/obj/item/toy/plushie/ashwalkerplushie
+	name = "ash walker plushie"
+	desc = "Wild looking ash walker plush toy."
+	icon_state = "plushie_ashwalker1"
+	attack_verb = list("slashes", "tail whipped", "strikes")
+	var/cooldown = FALSE
+	var/ashwalkerbite = 'sound/effects/unathihiss.ogg'
+
+/obj/item/toy/plushie/ashwalkerplushie/New()
+	..()
+	if(prob(50))
+		icon_state = "plushie_ashwalker2"
+
+/obj/item/toy/plushie/ashwalkerplushie/attack(mob/M, mob/user)
+	switch(rand(1, 10))
+		if(1 to 6)
+			playsound(loc, ashwalkerbite, 40, 1)
+		if(7 to 10)
+			playsound(loc, pick('sound/voice/unathi/roar.ogg', 'sound/voice/unathi/roar2.ogg', 'sound/voice/unathi/roar3.ogg',	\
+								'sound/voice/unathi/threat.ogg', 'sound/voice/unathi/threat2.ogg', 'sound/voice/unathi/whip_short.ogg'), 40, 1)
+	return ..()
+
+/obj/item/toy/plushie/ashwalkerplushie/attack_self(mob/user)
+	if(cooldown)
+		return ..()
+
+	switch(rand(1, 20))
+		if(1 to 12)
+			playsound(src, ashwalkerbite, 40, 1)
+			visible_message("<span class='danger'>Hsss!</span>")
+		if(13 to 19)
+			playsound(src, pick('sound/voice/unathi/roar.ogg', 'sound/voice/unathi/roar2.ogg', 'sound/voice/unathi/roar3.ogg',	\
+								'sound/voice/unathi/threat.ogg', 'sound/voice/unathi/threat2.ogg', 'sound/voice/unathi/whip.ogg'), 40, 1)
+			visible_message("<span class='danger'>RAAAAAWR!</span>")
+		if(20)
+			playsound(src, pick('sound/voice/unathi/rumble.ogg', 'sound/voice/unathi/rumble2.ogg'), 40, 1)
+			visible_message("<span class='notice'>Ash walker looks calm.</span>")
+	cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
 /obj/item/toy/plushie/snakeplushie
 	name = "snake plushie"
@@ -1355,7 +1446,7 @@
 		add_fingerprint(user)
 		if(message_spam_flag == 0)
 			message_spam_flag = 1
-			user.visible_message("notice", "[user] [msg] \the [src] in hand!")
+			user.visible_message(span_notice("[user] has [msg] \the [src] in hand!"),span_notice("You have [msg] \the [src] in hand!"))
 			spawn(30)
 				message_spam_flag = 0
 		spawn(3)
@@ -1363,10 +1454,10 @@
 	return
 
 /obj/item/toy/plushie/pig/attack_self(mob/user)
-	oink(user, "squeezes")
+	oink(user, "squeezed")
 
 /obj/item/toy/plushie/pig/attack_hand(mob/user)
-	oink(user, pick("presses", "squeezes", "squashes", "champs", "pinches"))
+	oink(user, pick("pressed", "squeezed", "squashed", "champed", "pinched"))
 
 /obj/item/toy/plushie/pig/Initialize()
 	. = ..()
@@ -1382,30 +1473,46 @@
 			name = "green rubber piggy"
 			desc = "Watch out for angry voxes!"
 
-/obj/item/toy/plushie/pig/MouseDrop(atom/over_object)
-	var/mob/M = usr
-	if(M.restrained() || M.stat || !Adjacent(M))
-		return
-	if(!ishuman(M))
-		return
 
-	if(over_object == M)
-		if(!remove_item_from_storage(M))
-			M.drop_item_ground(src)
-		M.put_in_hands(src, ignore_anim = FALSE)
+/obj/item/toy/plushie/pig/MouseDrop(atom/over)
+	. = ..()
+	if(!.)
+		return FALSE
 
-	else if(istype(over_object, /obj/screen))
-		switch(over_object.name)
-			if("r_hand")
-				if(!remove_item_from_storage(M))
-					M.drop_item_ground(src)
-				M.put_in_r_hand(src, ignore_anim = FALSE)
-			if("l_hand")
-				if(!remove_item_from_storage(M))
-					M.drop_item_ground(src)
-				M.put_in_l_hand(src, ignore_anim = FALSE)
+	var/mob/user = usr
+	if(over != user || user.incapacitated() || !ishuman(user))
+		return FALSE
 
-	add_fingerprint(M)
+	if(user.put_in_hands(src, ignore_anim = FALSE))
+		add_fingerprint(user)
+		user.visible_message(span_notice("[user] picks up [src]."))
+		return TRUE
+
+	return FALSE
+
+
+/obj/item/toy/plushie/bubblegumplushie
+	name = "bubblegum plushie"
+	desc = "In what passes for a heirarchy among slaughter demon plushies, this one is king."
+	icon_state = "plushie_bubblegum"
+	item_state = "plushie_bubblegum"
+	attack_verb = list("attacks", "strikes")
+	var/cooldown = FALSE
+	var/bubblestep = 'sound/effects/meteorimpact.ogg'
+	var/bubbleattack = 'sound/misc/demon_attack1.ogg'
+
+/obj/item/toy/plushie/bubblegumplushie/attack(mob/M as mob, mob/user as mob)
+	playsound(loc, pick(bubblestep, bubbleattack), 40, 1)
+	return ..()
+
+/obj/item/toy/plushie/bubblegumplushie/attack_self(mob/user)
+	if(cooldown)
+		return ..()
+
+	playsound(src, bubblestep, 40, 1)
+	visible_message("<span class='danger'>Bubblegum stomps...</span>")
+	cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
 /*
  * Foam Armblade
@@ -1695,7 +1802,7 @@
 
 /obj/item/toy/russian_revolver
 	name = "russian revolver"
-	desc = "for fun and games!"
+	desc = "For fun and games!"
 	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "detective_gold"
 	item_state = "gun"
@@ -2204,7 +2311,14 @@
 	else
 		soundloop.stop()
 
-
-
-
-
+/obj/item/toy/toolbox
+	name = "Rubber Toolbox"
+	desc = "Practice your robust!"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "rubber_toolbox"
+	damtype = STAMINA
+	force = 10
+	throwforce = 15
+	w_class = WEIGHT_CLASS_BULKY
+	attack_verb = list("robusted")
+	hitsound = 'sound/items/squeaktoy.ogg'

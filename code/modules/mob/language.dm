@@ -324,6 +324,7 @@
 	colour = "abductor"
 	key = "^"
 	flags = RESTRICTED | HIVEMIND
+	follow = TRUE
 
 /datum/language/grey/broadcast(mob/living/speaker, message, speaker_mask)
 	..(speaker,message,speaker.real_name)
@@ -521,6 +522,7 @@
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
+
 /datum/language/ling
 	name = "Changeling"
 	desc = "Although they are normally wary and suspicious of each other, changelings can commune over a distance."
@@ -530,11 +532,11 @@
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
+
 /datum/language/ling/broadcast(mob/living/speaker, message, speaker_mask)
-	if(speaker.mind && speaker.mind.changeling)
-		..(speaker, message, speaker.mind.changeling.changelingID)
-	else if(speaker.mind && speaker.mind.linglink)
-		..()
+	var/datum/antagonist/changeling/cling = speaker?.mind?.has_antag_datum(/datum/antagonist/changeling)
+	if(cling)
+		..(speaker, message, cling.changelingID)
 	else
 		..(speaker,message)
 
@@ -580,6 +582,7 @@
 /datum/language/abductor/golem
 	name = "Golem Mindlink"
 	desc = "Communicate with other alien alloy golems through a psychic link."
+	follow = TRUE
 
 /datum/language/abductor/golem/check_special_condition(mob/living/carbon/human/other, mob/living/carbon/human/speaker)
 	return TRUE

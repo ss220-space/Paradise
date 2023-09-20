@@ -1,6 +1,6 @@
 /mob/living/carbon/human/emote(act, m_type = 1, message = null, force)
 
-	if((stat == DEAD) || (status_flags & FAKEDEATH))
+	if((stat == DEAD) || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		return // You can't just scream if you dead
 
 	var/param = null
@@ -682,13 +682,13 @@
 								message = "пыта[pluralize_ru(src.gender,"ет","ют")]ся кувыркнуться и с грохотом пада[pluralize_ru(src.gender,"ет","ют")] на пол!"
 								SpinAnimation(5,1)
 								sleep(3)
-								Weaken(2)
+								Weaken(4 SECONDS)
 							else
 								if(prob(5))
 									message = "пыта[pluralize_ru(src.gender,"ет","ют")]ся кувыркнуться и с грохотом пада[pluralize_ru(src.gender,"ет","ют")] на пол!"
 									SpinAnimation(5,1)
 									sleep(3)
-									Weaken(2)
+									Weaken(4 SECONDS)
 								else
 									message = "дела[pluralize_ru(src.gender,"ет","ют")] кувырок!"
 									SpinAnimation(5,1)
@@ -731,9 +731,9 @@
 
 		if("faint", "faints")
 			message = "пада[pluralize_ru(src.gender,"ет","ют")] в обморок!"
-			if(sleeping)
+			if(IsSleeping())
 				return //Can't faint while asleep
-			AdjustSleeping(2)
+			AdjustSleeping(4 SECONDS)
 			m_type = 1
 
 		if("cough", "coughs")
@@ -916,9 +916,9 @@
 			else
 				if(!muzzled)
 					message = "ворч[pluralize_ru(src.gender,"ит","ят")][M ? " на [M]" : ""]!"
-					if(gender == FEMALE)
+					if(gender == FEMALE && length(dna.species.female_grumble_sound))
 						playsound(src, pick(dna.species.female_grumble_sound), 70, 1, frequency = get_age_pitch())
-					else
+					else if(gender == MALE && length(dna.species.male_grumble_sound))
 						playsound(src, pick(dna.species.male_grumble_sound), 70, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
@@ -967,7 +967,7 @@
 			if(!restrained())
 				var/atom/M = null
 				if(param)
-					for(var/atom/A as mob|obj|turf in view())
+					for(var/atom/A as mob|obj|turf in view(client.maxview(), src))
 						if(lowertext(param) == lowertext(A.name))
 							M = A
 							break
@@ -1113,7 +1113,7 @@
 					m_type = 2
 
 		if("collapse", "collapses")
-			Paralyse(2)
+			Paralyse(4 SECONDS)
 			message = "пада[pluralize_ru(src.gender,"ет","ют")]!"
 			m_type = 2
 			if(miming)
@@ -1131,14 +1131,13 @@
 
 		if("handshake")
 			m_type = 1
-			if(!restrained() && !r_hand)
+			if(!restrained())
 				var/mob/M = handle_emote_param(param, 1, 1, 1) //Check to see if the param is valid (mob with the param name is in view) but exclude ourselves, only check mobs in our immediate vicinity (1 tile distance) and return the whole mob instead of just its name.
 
-				if(M)
-					if(M.canmove && !M.r_hand && !M.restrained())
-						message = "пожима[pluralize_ru(src.gender,"ет","ют")] руку [M]."
-					else
-						message = "протягива[pluralize_ru(src.gender,"ет","ют")] руку [M]."
+				if(M && M.canmove && !M.restrained())
+					message = "пожима[pluralize_ru(src.gender,"ет","ют")] руку [M]."
+				else
+					message = "пожима[pluralize_ru(src.gender,"ет","ют")] руку самому себе."
 
 		if("dap", "daps")
 			m_type = 1

@@ -98,6 +98,9 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
+		"Ash Walker" = 'icons/mob/species/unathi/mask.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/mask.dmi',
+		"Draconid" = 'icons/mob/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Grey" = 'icons/mob/species/grey/mask.dmi',
@@ -131,6 +134,9 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
+		"Ash Walker" = 'icons/mob/species/unathi/mask.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/mask.dmi',
+		"Draconid" = 'icons/mob/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Grey" = 'icons/mob/species/grey/mask.dmi',
@@ -192,15 +198,15 @@
 
 /obj/item/clothing/mask/muzzle/safety/shock/proc/process_activation(var/obj/D, var/normal = 1, var/special = 1)
 	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
-	var/mob/M = can_shock(loc)
-	if(M)
-		to_chat(M, "<span class='danger'>You feel a sharp shock!</span>")
-		do_sparks(3, 1, M)
+	var/mob/living/L = can_shock(loc)
+	if(!L)
+		return
+	to_chat(L, "<span class='danger'>You feel a sharp shock!</span>")
+	do_sparks(3, 1, L)
 
-		M.Weaken(5)
-		M.Stuttering(1)
-		M.Jitter(20)
-	return
+	L.Weaken(10 SECONDS)
+	L.Stuttering(2 SECONDS)
+	L.Jitter(40 SECONDS)
 
 /obj/item/clothing/mask/muzzle/safety/shock/HasProximity(atom/movable/AM)
 	if(trigger)
@@ -232,6 +238,9 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
+		"Ash Walker" = 'icons/mob/species/unathi/mask.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/mask.dmi',
+		"Draconid" = 'icons/mob/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Grey" = 'icons/mob/species/grey/mask.dmi',
@@ -258,6 +267,9 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
+		"Ash Walker" = 'icons/mob/species/unathi/mask.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/mask.dmi',
+		"Draconid" = 'icons/mob/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Grey" = 'icons/mob/species/grey/mask.dmi',
@@ -341,7 +353,7 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDENAME
 	w_class = WEIGHT_CLASS_SMALL
-	var/voicechange = 0
+	var/voicechange = FALSE
 	var/temporaryname = " the Horse"
 	var/originalname = ""
 
@@ -380,6 +392,10 @@
 		return
 	if(user.real_name == "[originalname][temporaryname]" || user.real_name == "A Horse With No Name") //if it's somehow changed while the mask is on it doesn't revert
 		user.real_name = originalname
+
+/obj/item/clothing/mask/horsehead/change_speech_verb()
+	if(voicechange)
+		return pick("whinnies", "neighs", "says")
 
 /obj/item/clothing/mask/face
 	flags_inv = HIDENAME
@@ -478,6 +494,25 @@
 
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 
+/obj/item/clothing/mask/gas/rockso
+	name = "Rockso Mask"
+	desc = "THE ROCK AND ROLL CLOWN!"
+	icon_state = "rocksomask"
+	item_state = "rocksomask"
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
+		"Vox" = 'icons/mob/species/vox/mask.dmi',
+		"Monkey" = 'icons/mob/species/monkey/mask.dmi',
+		"Drask" = 'icons/mob/species/drask/mask.dmi',
+		"Grey" = 'icons/mob/species/grey/mask.dmi',
+		"Kidan" = 'icons/mob/species/kidan/mask.dmi',
+		"Wryn" = 'icons/mob/species/wryn/mask.dmi'
+	)
+
+	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
+
 // Bandanas
 /obj/item/clothing/mask/bandana
 	name = "bandana"
@@ -492,6 +527,9 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
+		"Ash Walker" = 'icons/mob/species/unathi/mask.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/mask.dmi',
+		"Draconid" = 'icons/mob/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Grey" = 'icons/mob/species/grey/mask.dmi',
@@ -592,3 +630,25 @@
 		if(user)
 			user.gib()
 	return OBLITERATION
+
+//voice modulator
+
+/obj/item/clothing/mask/gas/voice_modulator
+	name = "modified gas mask"
+	desc = "The usual gas mask for firefighters with attached voice change sensor."
+	icon_state = "voice_modulator"
+	item_state = "voice_modulator"
+
+	var/obj/item/voice_changer/voice_modulator/voice_modulator
+
+/obj/item/clothing/mask/gas/voice_modulator/Initialize(mapload)
+	. = ..()
+	voice_modulator = new(src)
+
+/obj/item/clothing/mask/gas/voice_modulator/Destroy()
+	QDEL_NULL(voice_modulator)
+	return ..()
+
+/obj/item/clothing/mask/gas/voice_modulator/change_speech_verb()
+	if(voice_modulator.active)
+		return pick("modulates", "drones", "hums", "buzzes")

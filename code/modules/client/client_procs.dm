@@ -312,6 +312,11 @@
 		GLOB.preferences_datums[ckey] = prefs
 	else
 		prefs.parent = src
+
+
+	// Setup widescreen
+	view = prefs.viewrange
+
 	prefs.init_keybindings(prefs.keybindings_overrides) //The earliest sane place to do it where prefs are not null, if they are null you can't do crap at lobby
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
@@ -350,6 +355,10 @@
 			winset(src, null, "command=\".configure graphics-hwmode off\"")
 			winset(src, null, "command=\".configure graphics-hwmode on\"")
 
+	// Try doing this before mob login
+	generate_clickcatcher()
+	apply_clickcatcher()
+
 	connection_time = world.time
 	connection_realtime = world.realtime
 	connection_timeofday = world.timeofday
@@ -381,8 +390,6 @@
 	else
 		to_chat(src,"<span class='notice'>You have enabled karma gains.")
 
-	generate_clickcatcher()
-	apply_clickcatcher()
 
 	if(show_update_prompt)
 		show_update_notice()
@@ -397,6 +404,8 @@
 
 	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
 		to_chat(src, "<span class='warning'>Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you.</span>")
+
+	update_ambience_pref()
 
 	if(!geoip)
 		geoip = new(src, address)
@@ -442,6 +451,7 @@
 	return ..()
 
 /client/Destroy()
+	SSdebugview.stop_processing(src)
 	if(holder)
 		holder.owner = null
 		GLOB.admins -= src
@@ -450,6 +460,7 @@
 	if(movingmob)
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
+	SSambience.ambience_listening_clients -= src
 	SSinput.processing -= src
 	SSping.currentrun -= src
 	Master.UpdateTickRate()
@@ -515,6 +526,7 @@
             "},
             "border=0;titlebar=0;size=1x1"
         )
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), 20)
 
 /client/proc/log_client_to_db(connectiontopic)
 	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly
@@ -971,6 +983,7 @@
 	winset(src, "rpane.forumb", "background-color=#40628a;text-color=#FFFFFF")
 	winset(src, "rpane.rulesb", "background-color=#40628a;text-color=#FFFFFF")
 	winset(src, "rpane.githubb", "background-color=#40628a;text-color=#FFFFFF")
+	winset(src, "rpane.webmap", "background-color=#494949;text-color=#a4bad6")
 	/* Mainwindow */
 	winset(src, "mainwindow.saybutton", "background-color=#40628a;text-color=#FFFFFF")
 	winset(src, "mainwindow.mebutton", "background-color=#40628a;text-color=#FFFFFF")
@@ -1003,6 +1016,7 @@
 	winset(src, "rpane.forumb", "background-color=none;text-color=#000000")
 	winset(src, "rpane.rulesb", "background-color=none;text-color=#000000")
 	winset(src, "rpane.githubb", "background-color=none;text-color=#000000")
+	winset(src, "rpane.webmap", "background-color=#494949;text-color=#a4bad6")
 	/* Mainwindow */
 	winset(src, "mainwindow.saybutton", "background-color=none;text-color=#000000")
 	winset(src, "mainwindow.mebutton", "background-color=none;text-color=#000000")
@@ -1069,26 +1083,43 @@
 
 	fit_viewport()
 
+
+// Ported from /tg/, full credit to SpaceManiac and Timberpoes.
 /client/verb/fit_viewport()
 	set name = "Fit Viewport"
+	set desc = "Fit the size of the map window to match the viewport."
 	set category = "OOC"
-	set desc = "Fit the width of the map window to match the viewport"
 
 	// Fetch aspect ratio
-	var/view_size = getviewsize(view)
+	var/list/view_size = getviewsize(view)
 	var/aspect_ratio = view_size[1] / view_size[2]
 
 	// Calculate desired pixel width using window size and aspect ratio
-	var/sizes = params2list(winget(src, "mainwindow.mainvsplit;mapwindow", "size"))
-	var/map_size = splittext(sizes["mapwindow.size"], "x")
+	var/list/sizes = params2list(winget(src, "mainwindow.mainvsplit;mapwindow", "size"))
+
+	// Client closed the window? Some other error? This is unexpected behaviour, let's CRASH with some info.
+	if(!sizes["mapwindow.size"])
+		CRASH("sizes does not contain mapwindow.size key. This means a winget() failed to return what we wanted. --- sizes var: [sizes] --- sizes length: [length(sizes)]")
+
+	var/list/map_size = splittext(sizes["mapwindow.size"], "x")
+
+	// Looks like we didn't expect mapwindow.size to be "ixj" where i and j are numbers.
+	// If we don't get our expected 2 outputs, let's give some useful error info.
+	if(length(map_size) != 2)
+		CRASH("map_size of incorrect length --- map_size var: [map_size] --- map_size length: [length(map_size)]")
+
+
 	var/height = text2num(map_size[2])
 	var/desired_width = round(height * aspect_ratio)
-	if (text2num(map_size[1]) == desired_width)
-		// Nothing to do
+	if(text2num(map_size[1]) == desired_width)
+		// Nothing to do.
 		return
 
-	var/split_size = splittext(sizes["mainwindow.mainvsplit.size"], "x")
+	var/list/split_size = splittext(sizes["mainwindow.mainvsplit.size"], "x")
 	var/split_width = text2num(split_size[1])
+
+	// Avoid auto-resizing the statpanel and chat into nothing.
+	desired_width = min(desired_width, split_width - 300)
 
 	// Calculate and apply a best estimate
 	// +4 pixels are for the width of the splitter's handle
@@ -1100,20 +1131,21 @@
 	for(var/safety in 1 to 10)
 		var/after_size = winget(src, "mapwindow", "size")
 		map_size = splittext(after_size, "x")
-		var/got_width = text2num(map_size[1])
+		var/produced_width = text2num(map_size[1])
 
-		if (got_width == desired_width)
-			// success
+		if(produced_width == desired_width)
+			// Success!
 			return
-		else if (isnull(delta))
-			// calculate a probable delta value based on the difference
-			delta = 100 * (desired_width - got_width) / split_width
-		else if ((delta > 0 && got_width > desired_width) || (delta < 0 && got_width < desired_width))
-			// if we overshot, halve the delta and reverse direction
-			delta = -delta/2
+		else if(isnull(delta))
+			// Calculate a probably delta based on the difference
+			delta = 100 * (desired_width - produced_width) / split_width
+		else if((delta > 0 && produced_width > desired_width) || (delta < 0 && produced_width < desired_width))
+			// If we overshot, halve the delta and reverse direction
+			delta = -delta / 2
 
-		pct += delta
-		winset(src, "mainwindow.mainvsplit", "splitter=[pct]")
+	pct += delta
+	winset(src, "mainwindow.mainvsplit", "splitter=[pct]")
+
 
 /client/verb/fitviewport() // wrapper for mainwindow
 	set hidden = 1
@@ -1316,6 +1348,18 @@
 /client/proc/show_update_notice()
 	to_chat(src, "<span class='userdanger'>Your BYOND client (v: [byond_version].[byond_build]) is out of date. This can cause glitches. We highly suggest you download the latest client from <a href='https://www.byond.com/download/'>byond.com</a> before playing. You can also update via the BYOND launcher application.</span>")
 
+
+/client/proc/update_ambience_pref()
+	if(prefs.sound & SOUND_AMBIENCE)
+		if(SSambience.ambience_listening_clients[src] > world.time)
+			return // If already properly set we don't want to reset the timer.
+
+		SSambience.ambience_listening_clients[src] = world.time + 10 SECONDS //Just wait 10 seconds before the next one aight mate? cheers.
+
+	else
+		SSambience.ambience_listening_clients -= src
+
+
 /**
   * Checks if the client has accepted TOS
   *
@@ -1351,6 +1395,13 @@
 	qdel(query)
 	// If we are here, they have not accepted, and need to read it
 	return FALSE
+
+
+/// Returns the biggest number from client.view so we can do easier maths
+/client/proc/maxview()
+	var/list/screensize = getviewsize(view)
+	return max(screensize[1], screensize[2])
+
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

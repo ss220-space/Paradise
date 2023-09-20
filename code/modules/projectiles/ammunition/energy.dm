@@ -76,6 +76,7 @@
 /obj/item/ammo_casing/energy/xray
 	projectile_type = /obj/item/projectile/beam/xray
 	muzzle_flash_color = LIGHT_COLOR_GREEN
+	delay = 11
 	e_cost = 100
 	fire_sound = 'sound/weapons/gunshots/1xray.ogg'
 
@@ -126,6 +127,7 @@
 /obj/item/ammo_casing/energy/ion
 	projectile_type = /obj/item/projectile/ion
 	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
+	delay = 20
 	select_name = "ion"
 	fire_sound = 'sound/weapons/ionrifle.ogg'
 
@@ -193,12 +195,27 @@
 	select_name = "plasma burst"
 	fire_sound = 'sound/weapons/pulse.ogg'
 	delay = 15
-	e_cost = 25
+	e_cost = 50 //30 shots
 
 /obj/item/ammo_casing/energy/plasma/adv
 	projectile_type = /obj/item/projectile/plasma/adv
 	delay = 10
-	e_cost = 10
+	e_cost = 25 //60 shots
+
+/obj/item/ammo_casing/energy/plasma/adv/mega
+	e_cost = 20 //75 shots
+	projectile_type = /obj/item/projectile/plasma/adv/mega
+
+/obj/item/ammo_casing/energy/plasma/shotgun
+	projectile_type = /obj/item/projectile/plasma/shotgun
+	delay = 15
+	e_cost = 75 //20 shots
+	pellets = 5
+	variance = 35
+
+/obj/item/ammo_casing/energy/plasma/shotgun/mega
+	e_cost = 50 //30 shots
+	projectile_type = /obj/item/projectile/plasma/adv/mega/shotgun
 
 /obj/item/ammo_casing/energy/wormhole
 	projectile_type = /obj/item/projectile/beam/wormhole
@@ -238,8 +255,8 @@
 	damage = 60
 	damage_type = BURN
 	range = 9
-	weaken  = 4 //This is going to knock you off your feet
-	eyeblur = 10
+	weaken  = 8 SECONDS //This is going to knock you off your feet
+	eyeblur = 20 SECONDS
 	speed   = 2
 
 /obj/item/ammo_casing/energy/bsg/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
@@ -278,7 +295,7 @@
 			add_attack_logs(src, M, "Hit heavily by [src]")
 			if(floored)
 				to_chat(M, "<span class='userdanger'>You see a flash of briliant blue light as [src] explodes, knocking you to the ground and burning you!</span>")
-				M.Weaken(4)
+				M.Weaken(8 SECONDS)
 			else
 				to_chat(M, "<span class='userdanger'>You see a flash of briliant blue light as [src] explodes, burning you!</span>")
 		else

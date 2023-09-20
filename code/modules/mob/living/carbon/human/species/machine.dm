@@ -43,6 +43,9 @@
 	female_sneeze_sound = list('sound/effects/mob_effects/f_machine_sneeze.ogg')
 	butt_sprite = "machine"
 
+	hunger_icon = 'icons/mob/screen_hunger_machine.dmi'
+	hunger_type = "machine"
+
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
 		"cell" = /obj/item/organ/internal/cell,
@@ -103,17 +106,6 @@
 	H.verbs -= /mob/living/carbon/human/proc/emote_buzz2
 	H.verbs -= /mob/living/carbon/human/proc/emote_yes
 	H.verbs -= /mob/living/carbon/human/proc/emote_no
-
-/datum/species/machine/handle_death(gibbed, mob/living/carbon/human/H)
-	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-	if(!head_organ)
-		return
-	head_organ.h_style = "Bald"
-	head_organ.f_style = "Shaved"
-	spawn(100)
-		if(H && head_organ)
-			H.update_hair()
-			H.update_fhair()
 
 // Allows IPC's to change their monitor display
 /datum/action/innate/change_monitor

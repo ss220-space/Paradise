@@ -1,6 +1,7 @@
 //задача на принесение боли
 /datum/objective/pain_hunter
-	martyr_compatible = 1
+	name = "pain hunter"
+	martyr_compatible = TRUE
 	var/damage_need = 200
 	var/damage_type = BRUTE
 	var/damage_target = 0
@@ -30,7 +31,7 @@
 		SSticker.mode.victims.Remove(target)
 	. = ..()
 
-/datum/objective/pain_hunter/find_target()
+/datum/objective/pain_hunter/find_target(list/target_blacklist)
 	..()
 	if(target && target.current)
 		update_find_objective()

@@ -160,7 +160,7 @@
 		spawner = new_spawner
 	if(ismineralturf(loc))
 		var/turf/simulated/mineral/M = loc
-		M.gets_drilled()
+		M.attempt_drill()
 	deltimer(timerid)
 	timerid = addtimer(CALLBACK(src, PROC_REF(tripanim)), 7, TIMER_STOPPABLE)
 
@@ -184,7 +184,7 @@
 		if((!QDELETED(spawner) && spawner.faction_check_mob(L)) || L.stat == DEAD)
 			continue
 		visible_message("<span class='danger'>[src] grabs hold of [L]!</span>")
-		L.Stun(5)
+		L.Stun(10 SECONDS)
 		L.adjustBruteLoss(rand(10,15))
 		latched = TRUE
 	if(!latched)

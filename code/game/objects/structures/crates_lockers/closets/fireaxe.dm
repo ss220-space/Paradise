@@ -2,18 +2,26 @@
 /obj/structure/closet/fireaxecabinet
 	name = "fire axe cabinet"
 	desc = "There is small label that reads \"For Emergency use only\" along with details for safe use of the axe. As if."
-	var/obj/item/twohanded/fireaxe/fireaxe = new/obj/item/twohanded/fireaxe
 	icon_state = "fireaxe1000"
 	icon_closed = "fireaxe1000"
 	icon_opened = "fireaxe1100"
 	anchored = TRUE
 	density = FALSE
 	armor = list("melee" = 50, "bullet" = 20, "laser" = 0, "energy" = 100, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 50)
-	var/localopened = FALSE //Setting this to keep it from behaviouring like a normal closet and obstructing movement in the map. -Agouri
 	opened = TRUE
-	var/hitstaken = FALSE
 	locked = TRUE
+	var/obj/item/twohanded/fireaxe/fireaxe
+	var/localopened = FALSE //Setting this to keep it from behaviouring like a normal closet and obstructing movement in the map. -Agouri
+	var/hitstaken = FALSE
 	var/smashed = FALSE
+
+
+/obj/structure/closet/fireaxecabinet/Initialize(mapload)
+	. = ..()
+	if(!fireaxe)
+		fireaxe = new(src)
+		update_icon()
+
 
 /obj/structure/closet/fireaxecabinet/examine(mob/user)
 	. = ..()

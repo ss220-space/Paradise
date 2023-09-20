@@ -173,11 +173,12 @@
 	. = ..()
 	if(wielded && charge == max_charge)
 		if(isliving(M))
+			var/mob/living/target = M
 			charge = 0
 			playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
 			user.visible_message("<span class='danger'>[user] slams the charged axe into [M.name] with all [user.p_their()] might!</span>")
 			do_sparks(1, 1, src)
-			M.Weaken(3)
+			target.Weaken(6 SECONDS)
 			var/atom/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
 			M.throw_at(throw_target, 5, 1)
 
@@ -370,7 +371,7 @@
 		qdel(src)
 
 
-/obj/item/twohanded/spear/throw_impact(atom/target)
+/obj/item/twohanded/spear/throw_impact(atom/target, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(explosive)
 		explosive.prime()
@@ -387,6 +388,16 @@
 	throwforce = 22
 	armour_penetration = 15				//Enhanced armor piercing
 	icon_prefix = "bone_spear"
+
+/obj/item/twohanded/spear/bonespear/chitinspear //like a mix of a bone spear and bone axe, but more like a bone spear. And better.
+	icon_state = "chitin_spear0"
+	name = "chitin spear"
+	desc = "A well constructed spear with a sharpened edge akin to a naginata, making it equally great for slicing and throwing."
+	force = 14
+	force_unwielded = 14
+	force_wielded = 24 // I have no idea about balance too
+	throwforce = 26
+	icon_prefix = "chitin_spear"
 
 //GREY TIDE
 /obj/item/twohanded/spear/grey_tide
@@ -576,7 +587,7 @@
 		icon_state = "chainsaw0"
 	..()
 
-/obj/item/twohanded/chainsaw/attack(mob/target, mob/living/user)
+/obj/item/twohanded/chainsaw/attack(mob/living/target, mob/living/user)
 	if(wielded)
 		playsound(loc, 'sound/weapons/chainsaw.ogg', 100, 1, -1) //incredibly loud; you ain't goin' for stealth with this thing. Credit to Lonemonk of Freesound for this sound.
 		if(isrobot(target))
@@ -585,7 +596,7 @@
 		if(!isliving(target))
 			return
 		else
-			target.Weaken(1)
+			target.Weaken(2 SECONDS)
 			..()
 		return
 	else
@@ -645,7 +656,7 @@
 				var/obj/item/clothing/shoes/magboots/M = H.shoes
 				if(M.magpulse)
 					continue
-			H.apply_effect(1, WEAKEN, 0)
+			H.Weaken(2 SECONDS)
 			step_towards(H, pull)
 			step_towards(H, pull)
 			step_towards(H, pull)
@@ -686,21 +697,21 @@
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	target.throw_at(throw_target, 200, 4)
 
-/obj/item/twohanded/mjollnir/attack(mob/M, mob/user)
+/obj/item/twohanded/mjollnir/attack(mob/living/M, mob/user)
 	..()
 	if(wielded)
 		//if(charged == 5)
 		//charged = 0
 		playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		if(isliving(M))
-			M.Stun(2)
+			M.Stun(4 SECONDS)
 			shock(M)
 
-/obj/item/twohanded/mjollnir/throw_impact(atom/target)
+/obj/item/twohanded/mjollnir/throw_impact(atom/target, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(isliving(target))
 		var/mob/living/L = target
-		L.Stun(2)
+		L.Stun(4 SECONDS)
 		shock(L)
 
 /obj/item/twohanded/mjollnir/update_icon()  //Currently only here to fuck with the on-mob icons.
@@ -950,7 +961,7 @@
 		do_sparks(rand(1,6), 1, loc)
 		return
 	if(used)
-		visible_message("<span class='warning'>[user.get_active_hand()] slides back into the depths of [loc]'s wrists.</span>")
+		visible_message("<span class='warning'>Energy claws slides back into the depths of [loc]'s wrists.</span>")
 		user.drop_from_active_hand(force = TRUE)//dropdel stuff. only ui act, without hotkeys
 		do_sparks(rand(1,6), 1, loc)
 		on_cooldown = TRUE

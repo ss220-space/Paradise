@@ -96,7 +96,7 @@
 		update_fhair()
 		update_head_accessory()
 
-	if(internal && !get_organ_slot("breathing_tube"))
+	if(toggle_off && internal && !get_organ_slot("breathing_tube"))
 		internal = null
 		update_action_buttons_icon()
 
@@ -329,12 +329,11 @@
 
 		if(slot_handcuffed)
 			handcuffed = I
-			update_handcuffed()
+			update_handcuffed_status()
 
 		if(slot_legcuffed)
 			legcuffed = I
-			update_inv_legcuffed()
-			toggle_move_intent()
+			update_legcuffed_status()
 
 		if(slot_l_hand)
 			l_hand = I
@@ -447,7 +446,6 @@
 			return head && (head.flags_inv & HIDEHEADSETS)
 		else
 			return FALSE
-
 
 /**
  * Returns the item currently in the slot
@@ -628,7 +626,7 @@
 		qdel(slot)
 
 
-/mob/living/carbon/human/get_equipped_items(include_pockets = FALSE)
+/mob/living/carbon/human/get_equipped_items(include_pockets = FALSE, include_hands = FALSE)
 	var/list/items = ..()
 	if(belt)
 		items += belt

@@ -4,7 +4,8 @@
 
 	station_name  = "NSS Cyberiad"
 	station_short = "Cyberiad"
-	dock_name     = "NAS Trurl"
+	dock_name     = "NAV Trurl"
 	company_name  = "Nanotrasen"
 	company_short = "NT"
 	starsys_name  = "Epsilon Eridani "
+	webmap_url = "https://affectedarc07.github.io/SS13WebMap/SS220Paradise/Cyberiad/"

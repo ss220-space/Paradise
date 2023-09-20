@@ -5689,7 +5689,6 @@
 	icon_state = "syndie_circuit_imprinter"
 	},
 /obj/effect/decal/warning_stripes/southwest,
-/obj/item/reagent_containers/glass/beaker/sulphuric,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault";
@@ -21593,9 +21592,9 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/ammo_box/magazine/m12g/buckshot,
-/obj/item/ammo_box/magazine/m12g/buckshot,
-/obj/item/ammo_box/magazine/m12g/buckshot,
+/obj/item/ammo_box/magazine/m12g,
+/obj/item/ammo_box/magazine/m12g,
+/obj/item/ammo_box/magazine/m12g,
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "sAa" = (

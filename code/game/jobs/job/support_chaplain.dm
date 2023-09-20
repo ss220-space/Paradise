@@ -11,7 +11,7 @@
 	selection_color = "#dddddd"
 	access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)
-
+	money_factor = 2
 	outfit = /datum/outfit/job/chaplain
 
 /datum/outfit/job/chaplain
@@ -35,6 +35,7 @@
 
 	if(H.mind)
 		H.mind.isholy = TRUE
+		ADD_TRAIT(H, TRAIT_HEALS_FROM_HOLY_PYLONS, INNATE_TRAIT)
 
 	INVOKE_ASYNC(src, PROC_REF(religion_pick), H)
 
@@ -80,7 +81,7 @@
 	B.deity_name = new_deity
 	SSblackbox.record_feedback("text", "religion_deity", 1, "[new_deity]", 1)
 
-	user.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/chaplain_bless(null))
+	user.AddSpell(new /obj/effect/proc_holder/spell/chaplain_bless(null))
 
 	if(SSticker)
 		SSticker.Bible_deity_name = B.deity_name

@@ -473,6 +473,20 @@
 	desc = "A hat with bells, to add some merryness to the suit."
 	icon_state = "jester_hat"
 
+/obj/item/clothing/head/rockso
+	name = "Rockso Hat"
+	desc = "I'M B-B-B-B-B-B-B-B-BACK, BABY!"
+	icon_state = "rocksohat"
+	item_state = "rocksohat"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/head.dmi',
+		"Monkey" = 'icons/mob/species/monkey/head.dmi',
+		"Drask" = 'icons/mob/species/drask/head.dmi',
+		"Grey" = 'icons/mob/species/grey/head.dmi',
+		"Kidan" = 'icons/mob/species/kidan/head.dmi',
+		"Wryn" = 'icons/mob/species/wryn/head.dmi'
+	)
+
 /obj/item/clothing/head/rice_hat
 	name = "rice hat"
 	desc = "Welcome to the rice fields, motherfucker."
@@ -577,3 +591,17 @@
 	desc = "Now just to find some maracas!"
 	icon_state = "cuban_hat"
 	item_state = "cuban_hat"
+
+/obj/item/clothing/head/shamanash
+	name = "shaman skull"
+	desc = "The skull of a long dead animal bolted to the front of a repurposed pan."
+	icon_state = "shamskull"
+	species_restricted = list("Unathi", "Ash Walker", "Ash Walker Shaman", "Draconid")
+
+/obj/item/clothing/head/mr_chang_band
+	name = "Tight headband"
+	desc = "It is a safety tool, designed to prevent all marketing and selling techniques from escaping the wearers skull. Handle with care."
+	w_class = WEIGHT_CLASS_TINY
+	icon_state = "mr_chang_band"
+	item_state = "mr_chang_band"
+

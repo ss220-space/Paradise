@@ -41,6 +41,7 @@
 	var/emagged = FALSE
 	var/frozen = FALSE
 	var/repairing = FALSE
+	var/cargo_expanded = FALSE // for wide cargo module
 
 	//inner atmos
 	var/use_internal_tank = 0
@@ -79,7 +80,7 @@
 	var/activated = FALSE
 	var/power_warned = FALSE
 
-	var/destruction_sleep_duration = 1 //Time that mech pilot is put to sleep for if mech is destroyed
+	var/destruction_sleep_duration = 2 SECONDS //Time that mech pilot is put to sleep for if mech is destroyed
 
 	var/melee_cooldown = 10
 	var/melee_can_hit = 1
@@ -223,7 +224,7 @@
 					return
 				selected.action(target, params)
 		else if(selected && selected.is_melee())
-			if(isliving(target) && selected.harmful)
+			if(ishuman(target) && selected.harmful)
 				to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
 				return
 
@@ -240,6 +241,9 @@
 		if(selected && selected.is_ranged())
 			if(HAS_TRAIT(L, TRAIT_PACIFISM) && selected.harmful)
 				to_chat(L, "<span class='warning'>You don't want to harm other living beings!</span>")
+				return
+			if(user.mind?.martial_art?.no_guns)
+				to_chat(L, "<span class='warning'>[L.mind.martial_art.no_guns_message]</span>")
 				return
 			selected.action(target, params)
 	else if(selected && selected.is_melee())
@@ -528,9 +532,8 @@
 			L.take_overall_damage(5,0)
 			if(L.buckled)
 				L.buckled = 0
-			L.Stun(5)
-			L.Weaken(5)
-			L.apply_effect(STUTTER, 5)
+			L.Weaken(10 SECONDS)
+			L.apply_effect(STUTTER, 10 SECONDS)
 			playsound(src, pick(hit_sound), 50, 0, 0)
 			breakthrough = 1
 
@@ -1179,6 +1182,11 @@
 
 /obj/mecha/proc/toggle_lights()
 	lights_action.Trigger()
+
+/obj/mecha/extinguish_light(force = FALSE)
+	if(!lights || !lights_power)
+		return
+	toggle_lights()
 
 /obj/mecha/proc/toggle_internal_tank()
 	internals_action.Trigger()

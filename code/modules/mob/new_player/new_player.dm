@@ -413,6 +413,7 @@
 		AnnounceCyborg(ai_character, rank, "has been downloaded to the empty core in \the [get_area(ai_character)]")
 
 		SSticker.mode.latespawn(ai_character)
+		SSticker?.score?.save_silicon_laws(ai_character, additional_info = "latespawn", log_all_laws = TRUE)
 		qdel(src)
 		return
 
@@ -648,7 +649,7 @@
 		else if(mind.assigned_role == "Mime")
 			new_character.real_name = pick(GLOB.mime_names)
 			new_character.rename_self("mime")
-		mind.original = new_character
+		mind.set_original_mob(new_character)
 		mind.transfer_to(new_character)					//won't transfer key since the mind is not active
 		GLOB.human_names_list += new_character.real_name
 

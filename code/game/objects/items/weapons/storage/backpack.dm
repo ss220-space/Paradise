@@ -107,6 +107,21 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 400 // can store a ton of shit!
 
+/obj/item/storage/backpack/santabag/update_icon()
+	var/items_count = length(contents)
+	switch(items_count)
+		if(1 to 10)
+			icon_state = "giftbag0"
+		if(11 to 20)
+			icon_state = "giftbag1"
+		if(21 to INFINITY)
+			icon_state = "giftbag2"
+
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		H.update_inv_l_hand()
+		H.update_inv_r_hand()
+
 /obj/item/storage/backpack/cultpack
 	name = "trophy rack"
 	desc = "It's useful for both carrying extra gear and proudly declaring your insanity."
@@ -334,6 +349,7 @@
 	desc = "A robust satchel for security related needs."
 	icon_state = "satchel-sec"
 
+
 /obj/item/storage/backpack/satchel_detective
 	name = "forensic satchel"
 	desc = "For every man, who at the bottom of his heart believes that he is a born detective."
@@ -450,13 +466,11 @@
 	item_state = "duffel-syndiammo"
 
 /obj/item/storage/backpack/duffel/syndie/ammo/shotgun
-	desc = "A large duffelbag, packed to the brim with Bulldog shotgun ammo."
+	desc = "A large duffelbag, packed to the brim with auto shotguns ammo."
 
 /obj/item/storage/backpack/duffel/syndie/ammo/shotgun/populate_contents()
-	for(var/i in 1 to 6)
+	for(var/i in 1 to 8)
 		new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/ammo_box/magazine/m12g/buckshot(src)
-	new /obj/item/ammo_box/magazine/m12g/buckshot(src)
 	new /obj/item/ammo_box/magazine/m12g/dragon(src)
 
 /obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags
@@ -464,7 +478,7 @@
 
 /obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags/populate_contents()
 	new /obj/item/ammo_box/magazine/m12g/XtrLrg(src)
-	new /obj/item/ammo_box/magazine/m12g/XtrLrg/buckshot(src)
+	new /obj/item/ammo_box/magazine/m12g/XtrLrg/flechette(src)
 	new /obj/item/ammo_box/magazine/m12g/XtrLrg/dragon(src)
 
 /obj/item/storage/backpack/duffel/syndie/ammo/lmg
@@ -496,7 +510,7 @@
 /obj/item/storage/backpack/duffel/mining_conscript/populate_contents()
 	new /obj/item/pickaxe(src)
 	new /obj/item/clothing/glasses/meson(src)
-	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
+	new /obj/item/mining_scanner(src)
 	new /obj/item/storage/bag/ore(src)
 	new /obj/item/clothing/under/rank/miner/lavaland(src)
 	new /obj/item/encryptionkey/headset_cargo(src)
@@ -505,6 +519,7 @@
 	new /obj/item/kitchen/knife/combat/survival(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/clothing/suit/hooded/explorer(src)
+	new /obj/item/storage/bag/gem(src)
 
 
 /obj/item/storage/backpack/duffel/syndie/ammo/smg
@@ -754,3 +769,15 @@
 
 /obj/item/storage/backpack/guitarbag/with_guitar/populate_contents()
 	new /obj/item/instrument/guitar(src)
+
+/obj/item/storage/backpack/detective
+	name = "forensic backpack"
+	desc = "For every man, who at the bottom of his heart believes that he is a born detective."
+	icon_state = "backpack_detective"
+	item_state = "backpack_detective"
+
+/obj/item/storage/backpack/duffel/detective
+	name = "forensic duffelbag"
+	desc = "For every man, who at the bottom of his heart believes that he is a born detective."
+	icon_state = "duffel_detective"
+	item_state = "duffel_detective"

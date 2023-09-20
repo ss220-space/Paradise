@@ -142,25 +142,25 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			S.message = "[uppertext(S.message)]!!!"
 			verb = pick("yells", "roars", "hollers")
 
-		if(slurring)
+		if(AmountSluring())
 			if(robot)
 				S.message = slur(S.message, list("@", "!", "#", "$", "%", "&", "?"))
 			else
 				S.message = slur(S.message)
 			verb = "slurs"
 
-		if(stuttering)
+		if(AmountStuttering())
 			if(robot)
 				S.message = robostutter(S.message)
 			else
 				S.message = stutter(S.message)
 			verb = "stammers"
 
-		if(cultslurring)
+		if(AmountCultSlurring())
 			S.message = cultslur(S.message)
 			verb = "slurs"
 
-		if(clockslurring)
+		if(AmountClockSlurring())
 			S.message = clockslur(S.message)
 			verb = "slurs"
 
@@ -364,12 +364,22 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	else //Turf, leave speech bubbles to the mob
 		speech_bubble("[bubble_icon][speech_bubble_test]", src, speech_bubble_recipients)
 
+	hear_message_obj(listening_obj, src, message_pieces, verb)
+
+	return 1
+
+/proc/hear_message_obj(list/listening_obj, mob/M, list/message_pieces, verbage)
+	var/list/transmited_channels = list()
 	for(var/obj/O in listening_obj)
 		spawn(0)
 			if(O) //It's possible that it could be deleted in the meantime.
-				O.hear_talk(src, message_pieces, verb)
-
-	return 1
+				if(isradio(O))
+					var/obj/item/radio/radio = O
+					if(radio.broadcasting && get_dist(radio, M) <= radio.canhear_range && !(radio.frequency in transmited_channels))
+						if(radio.talk_into(M, message_pieces, null, verbage))
+							transmited_channels += radio.frequency
+				else
+					O.hear_talk(M, message_pieces, verbage)
 
 /obj/effect/speech_bubble
 	var/mob/parent
@@ -383,7 +393,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 /mob/living/emote(act, type, message, force) //emote code is terrible, this is so that anything that isn't already snowflaked to shit can call the parent and handle emoting sanely
 	if(client)
 		client.check_say_flood(5)
-		if(client?.prefs.muted & MUTE_IC)
+		if(client?.prefs?.muted & MUTE_IC)
 			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
 			return
 
@@ -511,10 +521,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			listening |= M
 
 	//pass on the message to objects that can hear us.
-	for(var/obj/O in view(message_range, whisper_loc))
-		spawn(0)
-			if(O)
-				O.hear_talk(src, message_pieces, verb)
+	hear_message_obj(view(message_range, whisper_loc), src, message_pieces, verb)
 
 	var/list/eavesdropping = hearers(eavesdropping_range, whisper_loc)
 	eavesdropping -= src

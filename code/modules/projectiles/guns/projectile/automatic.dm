@@ -275,13 +275,13 @@
 // Bulldog shotgun //
 /obj/item/gun/projectile/automatic/shotgun/bulldog
 	name = "\improper 'Bulldog' Shotgun"
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 8-round drum magazines."
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 12/24-round drum magazines."
 	icon_state = "bulldog"
 	item_state = "bulldog"
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=6;materials=4;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/m12g
-	fire_sound = 'sound/weapons/gunshots/1shotgunpipe.ogg'
+	fire_sound = 'sound/weapons/gunshots/bulldog.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = 0
@@ -322,6 +322,56 @@
 	..()
 	empty_alarm()
 
+//AS-12 Minotaur//
+/obj/item/gun/projectile/automatic/shotgun/minotaur
+	name = "\improper AS-12 'Minotaur' Shotgun"
+	desc = "Smooth, powerful, highly illegal. The newest full auto shotgun available at the market, utilizes standard 12g drum mags. Property of Gorlex Marauders."
+	icon_state = "minotaur"
+	item_state = "minotaur"
+	w_class = WEIGHT_CLASS_NORMAL
+	origin_tech = "combat=6;materials=4;syndicate=6"
+	mag_type = /obj/item/ammo_box/magazine/m12g
+	fire_sound = 'sound/weapons/gunshots/minotaur.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/autoshotgun_mag_in.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/autoshotgun_mag_out.ogg'
+	can_suppress = 0
+	burst_size = 3
+	fire_delay = 1.5
+
+/obj/item/gun/projectile/automatic/shotgun/minotaur/New()
+	magazine = new/obj/item/ammo_box/magazine/m12g/XtrLrg
+	..()
+
+/obj/item/gun/projectile/automatic/shotgun/minotaur/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
+	..()
+	empty_alarm()
+
+//Combat Automatic Tactical Shotgun//
+
+/obj/item/gun/projectile/automatic/cats
+	name = "\improper C.A.T. Shotgun"
+	desc = "Terra Light Armories - Combat Automatic Tactical Shotgun - мощный автоматический дробовик, в основном используемый силами Транс-Солнечной Федерации. Производится корпорацией Terra Industries."
+	icon_state = "tla_cats"
+	item_state = "arg"
+	w_class = WEIGHT_CLASS_NORMAL
+	mag_type = /obj/item/ammo_box/magazine/cats12g
+	fire_delay = 0
+	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
+	burst_size = 2
+	can_suppress = 0
+
+/obj/item/gun/projectile/automatic/cats/update_icon()
+	..()
+	icon_state = "tla_cats[magazine ? "" : "-e"]"
+
+/obj/item/gun/projectile/automatic/cats/examine(mob/user)
+	. = ..()
+	if(Adjacent(user))
+		if(user.say_understands(null, GLOB.all_languages["Sol Common"]))
+			. += "Вы видите гравировку на прикладе, написанную на Общесолнечном: 'Свобода через тотальное превосходство'"
+		else
+			. += "Вы видите символы на прикладе, но не понимаете что они значат."
+
 //Laser carbine//
 /obj/item/gun/projectile/automatic/lasercarbine
 	name = "\improper IK-60 Laser Carbine"
@@ -342,7 +392,7 @@
 	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
 
 /obj/item/gun/projectile/automatic/lr30
-	name = "\improper IR-30 Laser Rifle"
+	name = "\improper LR-30 Laser Rifle"
 	desc = "A compact rifle, relying more on battery cartridges rather than a built in power cell. Utilized by the Nanotrasen Navy for combat operations."
 	icon_state = "lr30"
 	item_state = "lr30"
@@ -386,55 +436,13 @@
         toggle_gunlight()
         return TRUE
 
-//////////// Rusted weapons
+//Aussec Armory M-52
 
-/obj/item/gun/projectile/automatic/rusted
-	name = "\improper Rusted gun"
-	desc = "An old gun, be careful using it."
-	icon_state = "aksu"
-	item_state = "aksu"
-	w_class = WEIGHT_CLASS_BULKY
-	weapon_weight = WEAPON_HEAVY
-	origin_tech = "combat=5;materials=3"
-	mag_type = /obj/item/ammo_box/magazine/aksu
-	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
-	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
-	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	can_suppress = FALSE
-	can_bayonet = FALSE
-	slot_flags = SLOT_BACK
-	burst_size = 3
-	fire_delay = 1
-	recoil = 1
-	rusted_weapon = TRUE
-	self_shot_divisor = 3
-	malf_low_bound = 60
-	malf_high_bound = 90
+/obj/item/gun/projectile/automatic/m52
+	name = "aussec armory M-52"
+	desc = "One of the least popular examples of heavy assault rifles. It has impressive firepower."
+	icon_state = "M52"
+	item_state = "arg"
+	mag_type = /obj/item/ammo_box/magazine/m52mag
+	can_suppress = 0
 
-// Rusted AKSU Soviet Assault Rifle
-/obj/item/gun/projectile/automatic/rusted/aksu
-	name = "\improper Rusted AKSU assault rifle"
-	desc = "An old AK assault rifle favored by Soviet soldiers."
-	icon_state = "aksu"
-	item_state = "aksu"
-	mag_type = /obj/item/ammo_box/magazine/aksu
-	w_class = WEIGHT_CLASS_NORMAL
-	origin_tech = "combat=4;materials=3"
-	burst_size = 3
-	fire_delay = 2
-	recoil = 0.8
-
-/obj/item/gun/projectile/automatic/rusted/ppsh
-	name = "\improper Rusted PPSh submachine gun"
-	desc = "An old submachine gun favored by Soviet soldiers."
-	icon_state = "ppsh"
-	item_state = "ppsh"
-	mag_type = /obj/item/ammo_box/magazine/ppsh
-	w_class = WEIGHT_CLASS_HUGE
-	origin_tech = "combat=4;materials=3"
-	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
-	self_shot_divisor = 5
-	malf_high_bound = 100
-	burst_size = 5
-	fire_delay = 1.5
-	recoil = 1.2

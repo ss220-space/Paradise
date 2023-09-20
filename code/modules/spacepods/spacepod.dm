@@ -1,5 +1,5 @@
 #define DAMAGE			1
-#define FIRE			2
+#define FIRE_OLAY		2
 #define POD_LIGHT		1
 #define WINDOW			2
 #define RIM	    		3
@@ -96,7 +96,7 @@
 	if(!pod_overlays)
 		pod_overlays = new/list(2)
 		pod_overlays[DAMAGE] = image(icon, icon_state="pod_damage")
-		pod_overlays[FIRE] = image(icon, icon_state="pod_fire")
+		pod_overlays[FIRE_OLAY] = image(icon, icon_state="pod_fire")
 	if(!pod_paint_effect)
 		pod_paint_effect = new/list(4)
 		pod_paint_effect[POD_LIGHT] = image(icon,icon_state = "LIGHTS")
@@ -171,7 +171,7 @@
 	if(!pod_overlays)
 		pod_overlays = new/list(2)
 		pod_overlays[DAMAGE] = image(icon, icon_state="pod_damage")
-		pod_overlays[FIRE] = image(icon, icon_state="pod_fire")
+		pod_overlays[FIRE_OLAY] = image(icon, icon_state="pod_fire")
 
 	if(!pod_paint_effect)
 		pod_paint_effect = new/list(4)
@@ -202,7 +202,7 @@
 	if(health <= round(initial(health)/2))
 		overlays += pod_overlays[DAMAGE]
 		if(health <= round(initial(health)/4))
-			overlays += pod_overlays[FIRE]
+			overlays += pod_overlays[FIRE_OLAY]
 
 
 	light_color = icon_light_color[src.icon_state]
@@ -453,19 +453,20 @@
 		cargo_hold.storage_slots += SPE.storage_mod["slots"]
 		cargo_hold.max_combined_w_class += SPE.storage_mod["w_class"]
 
-/obj/spacepod/attack_hand(mob/user as mob)
+
+/obj/spacepod/attack_hand(mob/user)
 	if(user.a_intent == INTENT_GRAB && unlocked)
-		var/mob/target
+		var/mob/living/target
 		if(pilot)
 			target = pilot
 		else if(passengers.len > 0)
 			target = passengers[1]
 
-		if(target && istype(target))
+		if(istype(target))
 			src.visible_message("<span class='warning'>[user] is trying to rip the door open and pull [target] out of the [src]!</span>",
 				"<span class='warning'>You see [user] outside the door trying to rip it open!</span>")
 			if(do_after(user, 50, target = src))
-				target.Stun(1)
+				target.Stun(2 SECONDS)
 				if(pilot)
 					eject_pilot()
 				else
@@ -501,11 +502,13 @@
 		possible.Add("Lock System")
 	switch(input(user, "Remove which equipment?", null, null) as null|anything in possible)
 		if("Energy Cell")
-			if(user.put_in_any_hand_if_possible(battery))
-				to_chat(user, "<span class='notice'>You remove [battery] from the space pod</span>")
-				battery = null
-			else
+			if(user.get_active_hand() && user.get_inactive_hand())
 				to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
+				return
+			battery.forceMove_turf()
+			user.put_in_any_hand_if_possible(battery, ignore_anim = FALSE)
+			to_chat(user, "<span class='notice'>You remove [battery] from the space pod</span>")
+			battery = null
 			return
 		if("Weapon System")
 			remove_equipment(user, equipment_system.weapon_system, "weapon_system")
@@ -522,7 +525,8 @@
 		if("Lock System")
 			remove_equipment(user, equipment_system.lock_system, "lock_system")
 
-/obj/spacepod/proc/remove_equipment(mob/user, var/obj/item/spacepod_equipment/SPE, var/slot)
+
+/obj/spacepod/proc/remove_equipment(mob/user, obj/item/spacepod_equipment/SPE, slot)
 
 	if(passengers.len > max_passengers - SPE.occupant_mod)
 		to_chat(user, "<span class='warning'>Someone is sitting in [SPE]!</span>")
@@ -535,17 +539,20 @@
 		to_chat(user, "<span class='warning'>Empty [SPE] first!</span>")
 		return
 
-	if(user.put_in_any_hand_if_possible(SPE))
-		to_chat(user, "<span class='notice'>You remove [SPE] from the equipment system.</span>")
-		equipment_system.installed_modules -= SPE
-		max_passengers -= SPE.occupant_mod
-		cargo_hold.storage_slots -= SPE.storage_mod["slots"]
-		cargo_hold.max_combined_w_class -= SPE.storage_mod["w_class"]
-		SPE.removed(user)
-		SPE.my_atom = null
-		equipment_system.vars[slot] = null
+	if(user.get_active_hand() && user.get_inactive_hand())
+		to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
 		return
-	to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
+
+	SPE.forceMove(get_turf(src))
+	user.put_in_any_hand_if_possible(SPE, ignore_anim = FALSE)
+	to_chat(user, "<span class='notice'>You remove [SPE] from the equipment system.</span>")
+	equipment_system.installed_modules -= SPE
+	max_passengers -= SPE.occupant_mod
+	cargo_hold.storage_slots -= SPE.storage_mod["slots"]
+	cargo_hold.max_combined_w_class -= SPE.storage_mod["w_class"]
+	SPE.removed(user)
+	SPE.my_atom = null
+	equipment_system.vars[slot] = null
 
 
 /obj/spacepod/hear_talk/hear_talk(mob/M, list/message_pieces)
@@ -1112,7 +1119,7 @@
 	update_icon()
 
 #undef DAMAGE
-#undef FIRE
+#undef FIRE_OLAY
 #undef WINDOW
 #undef POD_LIGHT
 #undef RIM

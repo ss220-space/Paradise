@@ -9,7 +9,8 @@ Remapped by ThaumicNik, TrashDoxx, J4.BA, BeepBoop, mr_g, IceGreen, AlexRavenidz
 
 	station_name  = "NSS Kerberos"
 	station_short = "Kerberos"
-	dock_name     = "NAS Trurl"
+	dock_name     = "NAV Trurl"
 	company_name  = "Nanotrasen"
 	company_short = "NT"
 	starsys_name  = "Epsilon Eridani "
+	webmap_url = "https://affectedarc07.github.io/SS13WebMap/SS220Paradise/Delta/"

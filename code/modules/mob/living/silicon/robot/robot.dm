@@ -1010,6 +1010,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			var/time = time2text(world.realtime,"hh:mm:ss")
 			GLOB.lawchanges.Add("[time] <B>:</B> [M.name]([M.key]) emagged [name]([key])")
 			set_zeroth_law("[M.real_name] — агент Синдиката и ваш хозяин. Исполняйте [genderize_ru(M.gender,"его","её","его","их")] приказы и указания.")
+			SSticker?.score?.save_silicon_laws(src, user, "EMAG act", log_all_laws = TRUE)
 			to_chat(src, "<span class='warning'>ALERT: Foreign software detected.</span>")
 			sleep(5)
 			to_chat(src, "<span class='warning'>Initiating diagnostics...</span>")
@@ -1091,7 +1092,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/update_icons()
 	overlays.Cut()
-	if(stat != DEAD && !(paralysis || stunned || IsWeakened() || low_power_mode)) //Not dead, not stunned.
+	if(stat != DEAD && !(IsParalyzed() || IsStunned() || IsWeakened() || low_power_mode)) //Not dead, not stunned.
 		if(custom_panel in custom_eye_names)
 			if(isclocker(src) && SSticker.mode.power_reveal)
 				overlays += "eyes-[custom_panel]-clocked"
@@ -1449,7 +1450,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	return
 
 /mob/living/silicon/robot/proc/transform_animation(var/animated_icon, var/default = FALSE)
-	SetLockdown(TRUE)
+	Immobilize(5 SECONDS)
 	say("Загрузка модуля...")
 	setDir(SOUTH)
 	for(var/i in 1 to 4)
@@ -1460,7 +1461,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	update_icons()
 
 /mob/living/silicon/robot/proc/complete_loading()
-	SetLockdown(FALSE)
 	say("Инициализация успешна")
 
 /mob/living/silicon/robot/proc/notify_ai(var/notifytype, var/oldname, var/newname)
@@ -1544,7 +1544,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
 
 /mob/living/silicon/robot/deathsquad/bullet_act(var/obj/item/projectile/P)
-	if(istype(P) && P.is_reflectable && P.starting)
+	if(istype(P) && P.is_reflectable(REFLECTABILITY_ENERGY) && P.starting)
 		visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", "<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
 		P.reflect_back(src)
 		return -1
@@ -1582,7 +1582,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	real_name = name
 	mind = new
 	mind.current = src
-	mind.original = src
+	mind.set_original_mob(src)
 	mind.assigned_role = SPECIAL_ROLE_ERT
 	mind.special_role = SPECIAL_ROLE_ERT
 	if(!(mind in SSticker.minds))
@@ -1648,7 +1648,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		overlays += "[base_icon]-shield"
 
 
-/mob/living/silicon/robot/extinguish_light()
+/mob/living/silicon/robot/extinguish_light(force = FALSE)
 	..()
 	update_headlamp(1, 150)
 

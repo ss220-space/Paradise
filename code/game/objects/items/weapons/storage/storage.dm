@@ -359,7 +359,7 @@
 		return FALSE
 
 	// item unequip delay
-	if(usr && W.equip_delay_self && W.is_equipped(include_pockets = TRUE) && !usr.is_general_slot(usr.get_slot_by_item(W)))
+	if(usr && W.equip_delay_self && W.is_equipped() && !usr.is_general_slot(usr.get_slot_by_item(W)))
 		usr.visible_message(span_notice("[usr] начинает снимать [W.name]..."), \
 							span_notice("Вы начинаете снимать [W.name]..."))
 		if(!do_after_once(usr, W.equip_delay_self, target = usr, attempt_cancel_message = "Снятие [W.name] было прервано!"))
@@ -436,19 +436,24 @@
 			M.client.screen -= W
 
 	if(new_location)
-		if(ismob(loc))
+		var/is_on_mob = get(loc, /mob)
+		if(is_on_mob)
 			W.dropped(usr)
-		if(ismob(new_location))
+
+		if(ismob(new_location) || get(new_location, /mob))
+			if(usr && !is_on_mob && config.item_animations_enabled)
+				W.loc = get_turf(src)	// This bullshit is required since /image/ registered in turf contents only
+				W.pixel_x = pixel_x
+				W.pixel_y = pixel_y
+				W.do_pickup_animation(usr)
 			W.layer = ABOVE_HUD_LAYER
 			W.plane = ABOVE_HUD_PLANE
-		else
 			W.pixel_y = initial(W.pixel_y)
 			W.pixel_x = initial(W.pixel_x)
+		else
 			W.layer = initial(W.layer)
 			W.plane = initial(W.plane)
-		if(usr && config.item_animations_enabled)
-			W.loc = get_turf(src)
-			W.do_pickup_animation(usr)
+
 		W.forceMove(new_location)
 
 	if(usr)

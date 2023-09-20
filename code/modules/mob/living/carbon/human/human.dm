@@ -8,8 +8,6 @@
 
 /mob/living/carbon/human/New(loc)
 	icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.
-	if(length(args) > 1)
-		log_runtime(EXCEPTION("human/New called with more than 1 argument (REPORT THIS ENTIRE RUNTIME TO A CODER)"))
 	. = ..()
 
 /mob/living/carbon/human/Initialize(mapload, datum/species/new_species = /datum/species/human)
@@ -183,14 +181,24 @@
 			stat("Chemicals", B.chemicals)
 
 		if(mind)
-			if(mind.changeling)
-				stat("Chemical Storage", "[mind.changeling.chem_charges]/[mind.changeling.chem_storage]")
-				stat("Absorbed DNA", mind.changeling.absorbedcount)
-			if(mind.vampire)
-				stat("Всего крови", "[mind.vampire.bloodtotal]")
-				stat("Доступная кровь", "[mind.vampire.bloodusable]")
+			var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
+			if(cling)
+				stat("Chemical Storage", "[cling.chem_charges]/[cling.chem_storage]")
+				stat("Absorbed DNA", cling.absorbed_count)
+
+			var/datum/antagonist/vampire/vamp = mind.has_antag_datum(/datum/antagonist/vampire)
+			if(vamp)
+				stat("Total Blood", "[vamp.bloodtotal]")
+				stat("Usable Blood", "[vamp.bloodusable]")
+
+			var/datum/antagonist/goon_vampire/g_vamp = mind.has_antag_datum(/datum/antagonist/goon_vampire)
+			if(g_vamp)
+				stat("Всего крови", "[g_vamp.bloodtotal]")
+				stat("Доступная кровь", "[g_vamp.bloodusable]")
+
 			if(isclocker(mind.current))
 				stat("Total Power", "[GLOB.clockwork_power]")
+
 			if(mind.ninja && mind.ninja.my_suit)
 				stat("Заряд костюма","[mind.ninja.return_cell_charge()]")
 				stat("Заряд рывков","[mind.ninja.return_dash_charge()]")
@@ -257,9 +265,13 @@
 				else valid_limbs -= processing_dismember
 
 			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
-				AdjustEarDamage(30, 120)
+				AdjustDeaf(120 SECONDS)
+				var/obj/item/organ/internal/ears/ears = get_int_organ(/obj/item/organ/internal/ears)
+				if(istype(ears))
+					ears.receive_damage(30)
+
 			if(prob(70) && !shielded)
-				Paralyse(10)
+				Paralyse(20 SECONDS)
 
 		if(3)
 			b_loss += 30
@@ -281,9 +293,9 @@
 					else valid_limbs -= processing_dismember
 
 			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
-				AdjustEarDamage(15, 60)
+				AdjustDeaf(60 SECONDS)
 			if(prob(50) && !shielded)
-				Paralyse(10)
+				Paralyse(20 SECONDS)
 
 	take_overall_damage(b_loss,f_loss, TRUE, used_weapon = "Explosive Blast")
 
@@ -501,17 +513,26 @@
 		return "Unknown"
 	return real_name
 
-//gets name from ID or PDA itself, ID inside PDA doesn't matter
-//Useful when player is being seen by other mobs
-/mob/living/carbon/human/proc/get_id_name(var/if_no_id = "Unknown")
-	var/obj/item/pda/pda = wear_id
-	var/obj/item/card/id/id = wear_id
-	var/obj/item/storage/wallet/wallet = wear_id
-	if(istype(pda))		. = pda.owner
-	else if(istype(id))	. = id.registered_name
-	else if(istype(wallet)) . = wallet.front_id ? wallet.front_id.registered_name : if_no_id
-	if(!.) 				. = if_no_id	//to prevent null-names making the mob unclickable
-	return
+
+/**
+ * Gets name from ID or PDA itself, ID inside PDA doesn't matter.
+ * Useful when player is being seen by other mobs.
+ */
+/mob/living/carbon/human/proc/get_id_name(if_no_id = "Unknown")
+	var/obj/item/card/id/id = wear_id?.GetID()
+	if(istype(id))
+		return id.registered_name
+
+	if(is_pda(wear_id))
+		var/obj/item/pda/pda = wear_id
+		return pda.owner
+
+	if(istype(wear_id, /obj/item/storage/wallet))
+		var/obj/item/storage/wallet/wallet = wear_id
+		return wallet.front_id ? wallet.front_id.registered_name : if_no_id
+
+	return if_no_id	//to prevent null-names making the mob unclickable
+
 
 //Gets ID card object from hands only
 /mob/living/carbon/human/proc/get_id_from_hands()
@@ -897,9 +918,19 @@
 	for(var/obj/item/organ/internal/cyberimp/eyes/EFP in internal_organs)
 		number += EFP.flash_protect
 
+	var/datum/antagonist/vampire/vampire = mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(vampire?.get_ability(/datum/vampire_passive/eyes_flash_protection))
+		number++
+	if(vampire?.get_ability(/datum/vampire_passive/eyes_welding_protection))
+		number++
+
 	return number
 
+
 /mob/living/carbon/human/check_ear_prot()
+	var/datum/antagonist/vampire/vampire = mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(vampire?.get_ability(/datum/vampire_passive/ears_bang_protection))
+		return HEARING_PROTECTION_TOTAL
 	if(!can_hear())
 		return HEARING_PROTECTION_TOTAL
 	if(istype(l_ear, /obj/item/clothing/ears/earmuffs))
@@ -912,6 +943,7 @@
 		return HEARING_PROTECTION_MINOR
 	if(r_ear && (r_ear.flags & EARBANGPROTECT))
 		return HEARING_PROTECTION_MINOR
+
 
 ///tintcheck()
 ///Checks eye covering items for visually impairing tinting, such as welding masks
@@ -1452,6 +1484,8 @@
 
 /mob/living/carbon/human/proc/get_eye_shine() //Referenced cult constructs for shining in the dark. Needs to be above lighting effects such as shading.
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
+	if(!istype(head_organ))
+		return
 	var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
 	var/icon/hair = new /icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 	var/mutable_appearance/MA = mutable_appearance(get_icon_difference(get_eyecon(), hair), layer = ABOVE_LIGHTING_LAYER)
@@ -1573,7 +1607,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(H == src)
 		to_chat(src, "<span class='warning'>You cannot perform CPR on yourself!</span>")
 		return
-	if(H.stat == DEAD || (H.status_flags & FAKEDEATH))
+	if(H.stat == DEAD || HAS_TRAIT(H, TRAIT_FAKEDEATH))
 		to_chat(src, "<span class='warning'>[H.name] is dead!</span>")
 		return
 	if(!check_has_mouth())
@@ -1597,7 +1631,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(H.health <= HEALTH_THRESHOLD_CRIT)
 			H.adjustOxyLoss(-15)
 			H.SetLoseBreath(0)
-			H.AdjustParalysis(-1)
+			H.AdjustParalysis(-2 SECONDS)
 			H.updatehealth("cpr")
 			visible_message("<span class='danger'>[src] performs CPR on [H.name]!</span>", "<span class='notice'>You perform CPR on [H.name].</span>")
 
@@ -1717,7 +1751,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	. = ..()
 
 	if(G.trigger_guard == TRIGGER_GUARD_NORMAL)
-		if(NOGUNS in dna.species.species_traits)
+		if((NOGUNS in dna.species.species_traits) || HAS_TRAIT(src, TRAIT_CHUNKYFINGERS))
 			to_chat(src, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
 			return FALSE
 
@@ -1918,14 +1952,15 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	to_chat(src, "<span class='whisper'>[pick(GLOB.boo_phrases)]</span>")
 	return TRUE
 
-/mob/living/carbon/human/extinguish_light()
+/mob/living/carbon/human/extinguish_light(force = FALSE)
 	// Parent function handles stuff the human may be holding
 	..()
 
 	var/obj/item/organ/internal/lantern/O = get_int_organ(/obj/item/organ/internal/lantern)
 	if(O && O.glowing)
 		O.toggle_biolum(TRUE)
-		visible_message("<span class='danger'>[src] is engulfed in shadows and fades into the darkness.</span>", "<span class='danger'>A sense of dread washes over you as you suddenly dim dark.</span>")
+		visible_message(span_danger("[src] is engulfed in shadows and fades into the darkness."), \
+						span_danger("A sense of dread washes over you as you suddenly dim dark."))
 
 /mob/living/carbon/human/proc/get_perceived_trauma(shock_reduction)
 	return min(health, maxHealth - getStaminaLoss()) + shock_reduction

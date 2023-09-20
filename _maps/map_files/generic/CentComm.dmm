@@ -497,7 +497,6 @@
 /area/syndicate_mothership/control)
 "ald" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -529,7 +528,6 @@
 	req_access = list(153)
 	},
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "syndFB_base"
 	},
 /turf/simulated/floor/wood{
@@ -575,6 +573,16 @@
 	name = "floor"
 	},
 /area/vox_station)
+"alM" = (
+/obj/structure/closet{
+	custom_door_overlay = "grey";
+	name = "Donksoft gear"
+	},
+/obj/effect/spawner/lootdrop/trade_sol/donksoft,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
 "alO" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -623,8 +631,8 @@
 "amK" = (
 /obj/effect/decal/warning_stripes/white/hollow,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluefull";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbluefull"
 	},
 /area/centcom/specops)
 "amV" = (
@@ -1164,34 +1172,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/syndicate)
-"azT" = (
-/obj/item/gun/projectile/automatic/pistol/m1911,
-/obj/item/ammo_box/magazine/m45,
-/obj/item/ammo_box/magazine/m45,
-/obj/item/ammo_box/magazine/m45,
-/obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed";
-	req_access = list(114)
-	},
-/obj/item/clothing/head/helmet/space/deathsquad/beret,
-/obj/item/clothing/shoes/combat,
-/obj/item/clothing/under/syndicate/combat,
-/obj/item/clothing/gloves/combat,
-/obj/item/clothing/suit/space/deathsquad/officer,
-/obj/item/storage/box/handcuffs,
-/obj/item/storage/box/flashbangs,
-/obj/item/clothing/mask/gas,
-/obj/item/tank/internals/emergency_oxygen/double,
-/obj/item/radio/headset/ert{
-	pixel_x = 6;
-	pixel_y = -6
-	},
-/obj/item/storage/box/centcomofficer,
-/obj/item/clothing/head/beret/centcom/officer,
-/turf/simulated/floor/wood,
-/area/centcom/specops)
 "aAn" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
@@ -1561,7 +1541,6 @@
 /area/ninja/outside)
 "aII" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
@@ -1600,22 +1579,6 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/turf/simulated/floor/indestructible/vox{
-	icon_state = "darkfull";
-	name = "floor"
-	},
-/area/vox_station)
-"aKz" = (
-/obj/structure/closet/secure_closet/freezer/meat{
-	broken = 1;
-	icon_off = "fridgebroken";
-	icon_state = "fridgebroken";
-	locked = 0
-	},
-/obj/item/reagent_containers/food/snacks/meat/meatwheat,
-/obj/item/reagent_containers/food/snacks/meat/meatwheat,
-/obj/item/reagent_containers/food/snacks/meat/meatwheat,
-/obj/item/reagent_containers/food/snacks/meat/meatwheat,
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
 	name = "floor"
@@ -1781,11 +1744,11 @@
 /area/trader_station/sol)
 "aPL" = (
 /obj/machinery/door/poddoor/shutters/invincible{
+	density = 0;
+	dir = 2;
 	id_tag = "ert_vis_turret";
 	locked = 1;
-	opacity = 0;
-	density = 0;
-	dir = 2
+	opacity = 0
 	},
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
@@ -1876,6 +1839,7 @@
 "aTE" = (
 /obj/structure/table,
 /obj/item/clothing/head/soft/solgov,
+/obj/item/reagent_containers/food/drinks/coffee,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -1988,10 +1952,10 @@
 /obj/effect/decal/warning_stripes/red,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/invincible{
+	density = 0;
 	id_tag = "ert_vis_turret";
 	locked = 1;
-	opacity = 0;
-	density = 0
+	opacity = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2164,9 +2128,9 @@
 /obj/structure/table/wood/fancy/black,
 /obj/machinery/door_control{
 	id = "ert_enter_control";
+	name = "Shuttle control";
 	pixel_x = 5;
 	pixel_y = 8;
-	name = "Shuttle control";
 	req_access = list(114)
 	},
 /turf/simulated/floor/carpet/black,
@@ -2413,9 +2377,7 @@
 	pixel_x = -4;
 	pixel_y = -2
 	},
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkyellowalt"
@@ -2540,6 +2502,16 @@
 	name = "floor"
 	},
 /area/centcom/jail)
+"bjJ" = (
+/obj/structure/closet{
+	custom_door_overlay = "green";
+	name = "Service gear"
+	},
+/obj/effect/spawner/lootdrop/trade_sol/serv,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
 "bjM" = (
 /obj/machinery/light{
 	dir = 4
@@ -2619,7 +2591,7 @@
 /area/syndicate_mothership)
 "blt" = (
 /obj/item/paper/djstation{
-	info = "Блять, сука. Блять. Я знал, что эта миссия была ошибкой, что этот идиот Томас был убит каким-то разъяренным русским роботом-охранником в оружейной, а лейтенант вбежал на станцию, как идиот, и попал в ловушку. Теперь я просто сижу , потому что этот шаттл, черт возьми, не двигается. Этот тупой кусок дерьма, стыковочный рычаг USSP, должно быть, заклинило, а у меня нет скафандра, чтобы выйти и починить его.<br><br>Кто, черт возьми, атакует космическую станцию ​​без него? В любом случае, без ригов выходить в открытый космос? Нельзя же, черт возьми, выйти в откртый космос с горячим кофе и раслабиться";
+	info = "Блять, сука. Блятьблять. Я знал, что эта миссия была ошибкой, этот идиот Томас самоубился о какого-то разъяренного русского робота-охранника в оружейной. А лейтенант вбежал на станцию, как идиот, и попал в ловушку. Теперь я просто просиживаю штаны взаперти, потому что этот шаттл, черт возьми, не двигается. Этот тупой кусок дерьма, стыковочный рычаг СССП, должно быть, заклинило, а у меня нет скафандра, чтобы выйти и починить его.<br><br>Кто, черт возьми, атакует космическую станцию ​​без скафандров!? В любом случае, без ригов выходить в открытый космос? Нельзя же, черт возьми, начинать кровавую заварушку в космосе лишь с горячим кофе и забить на всё болт.";
 	name = "неизвестный отчет"
 	},
 /turf/simulated/floor/shuttle{
@@ -3920,7 +3892,6 @@
 	req_access = list(153)
 	},
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SyndFB_prison_outside"
 	},
 /turf/simulated/floor/plasteel{
@@ -4368,7 +4339,6 @@
 	icon_state = "logo18"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -4594,20 +4564,6 @@
 	name = "floor"
 	},
 /area/vox_station)
-"cmH" = (
-/obj/docking_port/stationary/transit{
-	dir = 8;
-	dwidth = 8;
-	height = 20;
-	id = "freegolem_transit";
-	name = "free golem in transit";
-	pixel_x = 32;
-	width = 16
-	},
-/turf/space/transit/west{
-	icon_state = "black"
-	},
-/area/space)
 "cmJ" = (
 /obj/effect/turf_decal/sand{
 	alpha = 128
@@ -4620,7 +4576,7 @@
 "cnn" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating,
 /area/shuttle/spacebar)
 "cnr" = (
 /turf/simulated/wall/shuttle/nosmooth{
@@ -4675,7 +4631,6 @@
 	},
 /obj/effect/turf_decal/siding/thinplating/dark,
 /obj/machinery/door/poddoor/multi_tile/four_tile_hor{
-	color = null;
 	id_tag = "SyndFB_prison_outside"
 	},
 /turf/simulated/floor/plasteel{
@@ -4755,6 +4710,7 @@
 /area/vox_station)
 "crJ" = (
 /obj/machinery/door/airlock/centcom{
+	damage_deflection = 999;
 	name = "Prison Cell";
 	opacity = 1
 	},
@@ -4853,8 +4809,8 @@
 /area/vox_station)
 "cuu" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 8
+	dir = 8;
+	icon_state = "darkred"
 	},
 /area/centcom/specops)
 "cuy" = (
@@ -4954,8 +4910,8 @@
 	},
 /obj/machinery/door/window/brigdoor{
 	dir = 1;
-	req_access = list(104,109);
-	pixel_y = 2
+	pixel_y = 2;
+	req_access = list(104,109)
 	},
 /obj/machinery/suit_storage_unit/standard_unit/ertamber{
 	req_access = list(104,109)
@@ -5141,6 +5097,61 @@
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/court)
+"cAL" = (
+/obj/structure/closet{
+	icon_state = "syndicate"
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/energy/gun/blueshield,
+/obj/item/clothing/glasses/hud/security/sunglasses/aviators,
+/obj/item/reagent_containers/food/snacks/candy/mre,
+/obj/item/reagent_containers/hypospray/combat,
+/obj/item/radio/headset/ert/alt{
+	desc = null;
+	name = "SRT bowman headset"
+	},
+/obj/item/clothing/head/beret/centcom/officer/navy{
+	desc = null;
+	name = "SRT beret"
+	},
+/obj/item/clothing/shoes/combat/swat{
+	name = "SRT special shoes"
+	},
+/obj/item/clothing/gloves/combat{
+	name = "Combat gloves"
+	},
+/obj/item/storage/belt/security/webbing/srt/full,
+/obj/item/storage/backpack/satchel_blueshield/srt,
+/obj/item/clothing/suit/storage/blueshield/srt,
+/obj/item/clothing/suit/armor/bulletproof{
+	name = "SRT bulletproof vest"
+	},
+/obj/item/shield/riot/tele,
+/obj/item/suppressor,
+/obj/item/CQC_manual,
+/obj/item/implanter/mindshield/ert,
+/obj/item/card/id/centcom{
+	name = "Special Reaction Team Member card";
+	rank = "Special Reaction Team Member";
+	registered_name = "Special Reaction Team Member"
+	},
+/obj/item/storage/box/responseteam,
+/obj/item/clothing/under/fluff/jay_turtleneck{
+	desc = null;
+	name = "SRT uniform"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "navyblue"
+	},
+/area/centcom/specops)
 "cBr" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -5304,6 +5315,58 @@
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/wood,
 /area/centcom/jail)
+"cGy" = (
+/obj/structure/closet{
+	icon_state = "syndicate"
+	},
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/energy/gun/blueshield,
+/obj/item/clothing/glasses/hud/security/sunglasses/aviators,
+/obj/item/reagent_containers/food/snacks/candy/mre,
+/obj/item/reagent_containers/hypospray/combat,
+/obj/item/radio/headset/ert/alt{
+	desc = null;
+	name = "SRT bowman headset"
+	},
+/obj/item/clothing/head/beret/centcom/officer/navy{
+	desc = null;
+	name = "SRT beret"
+	},
+/obj/item/clothing/shoes/combat/swat{
+	name = "SRT special shoes"
+	},
+/obj/item/clothing/gloves/combat{
+	name = "Combat gloves"
+	},
+/obj/item/storage/belt/security/webbing/srt/full,
+/obj/item/storage/backpack/satchel_blueshield/srt,
+/obj/item/clothing/suit/storage/blueshield/srt,
+/obj/item/clothing/suit/armor/bulletproof{
+	name = "SRT bulletproof vest"
+	},
+/obj/item/shield/riot/tele,
+/obj/item/suppressor,
+/obj/item/CQC_manual,
+/obj/item/implanter/mindshield/ert,
+/obj/item/card/id/centcom{
+	name = "Special Reaction Team Member card";
+	rank = "Special Reaction Team Member";
+	registered_name = "Special Reaction Team Member"
+	},
+/obj/item/storage/box/responseteam,
+/obj/item/clothing/under/fluff/jay_turtleneck{
+	desc = null;
+	name = "SRT uniform"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "navyblue"
+	},
+/area/centcom/specops)
 "cGz" = (
 /obj/structure/table/wood,
 /obj/item/clothing/suit/space/hardsuit/syndi{
@@ -5324,7 +5387,6 @@
 	icon_state = "logo17"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -6379,8 +6441,8 @@
 /obj/machinery/door_control{
 	id = "admin_ert_enter_2";
 	pixel_x = 24;
-	req_access = list(104,109,114);
-	pixel_y = 8
+	pixel_y = 8;
+	req_access = list(104,109,114)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -6456,8 +6518,8 @@
 	req_access = list(104,109)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "dqG" = (
@@ -6513,10 +6575,10 @@
 /obj/effect/decal/warning_stripes/red,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/invincible{
+	density = 0;
 	id_tag = "ert_vis_turret";
 	locked = 1;
-	opacity = 0;
-	density = 0
+	opacity = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "navybluealt"
@@ -6789,8 +6851,8 @@
 /area/vox_station)
 "dyN" = (
 /obj/machinery/door/poddoor/shutters/invincible{
-	id_tag = "CC_GAMMA";
-	dir = 8
+	dir = 8;
+	id_tag = "CC_GAMMA"
 	},
 /obj/machinery/door/airlock/centcom{
 	name = "Gamma Armory";
@@ -7059,12 +7121,24 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone1)
+"dDZ" = (
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_x = -32
+	},
+/obj/machinery/computer/security{
+	network = list("SS13","Research  Outpost","Mining Outpost","Telecomms")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkred"
+	},
+/area/shuttle/escape)
 "dEb" = (
 /turf/simulated/floor/carpet,
 /area/centcom/specops)
 "dEd" = (
 /obj/effect/landmark/start,
-/turf/simulated/floor/indestructible,
+/turf/simulated/wall/indestructible/splashscreen,
 /area/start)
 "dEr" = (
 /obj/machinery/door_control{
@@ -7499,8 +7573,8 @@
 /area/centcom/evac)
 "dRV" = (
 /obj/item/toy/plushie/orange_fox/grump{
-	name = "savior grumpy fox";
-	desc = "Эта лиса и её друг однажды спасли станцию."
+	desc = "Эта лиса и её друг однажды спасли станцию.";
+	name = "savior grumpy fox"
 	},
 /turf/simulated/floor/holofloor/space,
 /area/centcom/specops)
@@ -7994,7 +8068,6 @@
 /area/syndicate_mothership/outside)
 "edZ" = (
 /obj/effect/turf_decal/arrows/white{
-	color = null;
 	dir = 4;
 	name = "ERT shuttle"
 	},
@@ -9080,8 +9153,8 @@
 	color = "#ff9999";
 	id = "ERT_armory_lvl3";
 	name = "ERT Armory Level 3";
-	req_access = list(114);
-	pixel_x = 8
+	pixel_x = 8;
+	req_access = list(114)
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
@@ -9183,9 +9256,7 @@
 "eMS" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/delivery/red,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -9234,9 +9305,6 @@
 	icon_state = "grimy"
 	},
 /area/syndicate_mothership)
-"eNQ" = (
-/turf/simulated/wall/indestructible/splashcreen,
-/area/start)
 "eNU" = (
 /obj/structure/chair/sofa/left{
 	dir = 8
@@ -9297,12 +9365,12 @@
 /area/syndicate_mothership)
 "ePq" = (
 /obj/machinery/vending/nta/ertarmory/green{
-	req_access = list(104,109);
-	dir = 4
+	dir = 4;
+	req_access = list(104,109)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreen"
 	},
 /area/centcom/specops)
 "ePz" = (
@@ -9595,8 +9663,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 4
+	dir = 4;
+	icon_state = "darkgreen"
 	},
 /area/centcom/specops)
 "eWv" = (
@@ -9791,7 +9859,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
@@ -10136,6 +10203,7 @@
 /area/centcom/jail)
 "fmZ" = (
 /obj/machinery/door/airlock/centcom{
+	damage_deflection = 999;
 	name = "Prison";
 	opacity = 1;
 	req_access = list(104)
@@ -10571,8 +10639,8 @@
 	req_access = list(114)
 	},
 /obj/machinery/door/poddoor/shutters/invincible{
-	id_tag = "CC_BUDKA";
-	dir = 8
+	dir = 8;
+	id_tag = "CC_BUDKA"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -10580,7 +10648,6 @@
 /area/centcom/specops)
 "fwf" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -10980,12 +11047,6 @@
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/ninja/outpost)
-"fFa" = (
-/obj/machinery/computer/security/wooden_tv{
-	network = list("SS13","Research Outpost","Mining Outpost")
-	},
-/turf/simulated/floor/carpet/black,
-/area/syndicate_mothership/jail)
 "fFf" = (
 /obj/machinery/chem_dispenser/beer/upgraded,
 /obj/structure/table/wood/poker,
@@ -11942,17 +12003,6 @@
 	icon_state = "seadeep"
 	},
 /area/centcom/evac)
-"gdW" = (
-/obj/structure/closet{
-	icon_closed = "red";
-	icon_state = "red";
-	name = "Sec. gear"
-	},
-/obj/effect/spawner/lootdrop/trade_sol/sec,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-birch"
-	},
-/area/shuttle/trade/sol)
 "gel" = (
 /obj/machinery/door/window/brigdoor{
 	color = "#d70000";
@@ -11971,7 +12021,6 @@
 	icon_state = "logo2"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
@@ -12063,21 +12112,6 @@
 	},
 /turf/simulated/floor/carpet/cyan,
 /area/ninja/outpost)
-"gfU" = (
-/obj/structure/closet{
-	icon_closed = "pink";
-	icon_state = "pink";
-	name = "Science gear"
-	},
-/obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
-	},
-/obj/effect/spawner/lootdrop/trade_sol/sci,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
-/area/shuttle/trade/sol)
 "ggg" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -12879,8 +12913,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreen"
 	},
 /area/centcom/specops)
 "gDV" = (
@@ -13127,25 +13161,25 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 1
+	dir = 1;
+	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
 "gMv" = (
 /obj/effect/decal/warning_stripes/red,
 /obj/machinery/door/poddoor/shutters/invincible{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	density = 0;
 	dir = 1;
 	id_tag = "ERT_armory_lvl1";
 	layer = 5;
+	locked = 1;
 	name = "Armory Level 1";
-	opacity = 0;
-	density = 0;
-	locked = 1
+	opacity = 0
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreen"
 	},
 /area/centcom/specops)
 "gMB" = (
@@ -13223,6 +13257,7 @@
 /area/ninja/outpost)
 "gPg" = (
 /obj/machinery/door/airlock/centcom{
+	damage_deflection = 999;
 	name = "Prison";
 	opacity = 1;
 	req_access = list(104)
@@ -13722,6 +13757,18 @@
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_3)
+"hgG" = (
+/obj/machinery/computer/security{
+	network = list("SS13","Telecomms","Research  Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkredfull"
+	},
+/area/centcom/bridge)
 "hgS" = (
 /obj/structure/spacepoddoor/invincible,
 /turf/simulated/floor/plasteel{
@@ -14043,60 +14090,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
-"hrp" = (
-/obj/structure/closet{
-	icon_closed = "syndicate1";
-	icon_opened = "syndicate1open";
-	icon_state = "syndicate1"
-	},
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/gun/projectile/automatic/proto,
-/obj/item/gun/energy/gun/blueshield,
-/obj/item/clothing/glasses/hud/security/sunglasses/aviators,
-/obj/item/reagent_containers/food/snacks/candy/mre,
-/obj/item/reagent_containers/hypospray/combat,
-/obj/item/radio/headset/ert/alt{
-	desc = null;
-	name = "SRT bowman headset"
-	},
-/obj/item/clothing/head/beret/centcom/officer/navy{
-	desc = null;
-	name = "SRT beret"
-	},
-/obj/item/clothing/shoes/combat/swat{
-	name = "SRT special shoes"
-	},
-/obj/item/clothing/gloves/combat{
-	name = "Combat gloves"
-	},
-/obj/item/storage/belt/security/webbing/srt/full,
-/obj/item/storage/backpack/satchel_blueshield/srt,
-/obj/item/clothing/suit/storage/blueshield/srt,
-/obj/item/clothing/suit/armor/bulletproof{
-	name = "SRT bulletproof vest"
-	},
-/obj/item/shield/riot/tele,
-/obj/item/suppressor,
-/obj/item/CQC_manual,
-/obj/item/implanter/mindshield/ert,
-/obj/item/card/id/centcom{
-	name = "Special Reaction Team Member card";
-	rank = "Special Reaction Team Member";
-	registered_name = "Special Reaction Team Member"
-	},
-/obj/item/storage/box/responseteam,
-/obj/item/clothing/under/fluff/jay_turtleneck{
-	desc = null;
-	name = "SRT uniform"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "navyblue"
-	},
-/area/centcom/specops)
 "hsz" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -14160,6 +14153,7 @@
 /area/ninja/outside)
 "htR" = (
 /obj/machinery/door/airlock/centcom{
+	damage_deflection = 999;
 	name = "Prison Cell";
 	opacity = 1
 	},
@@ -14461,7 +14455,6 @@
 /area/shuttle/ussp)
 "hCL" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -14809,8 +14802,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
 "hNd" = (
@@ -14979,8 +14972,8 @@
 "hSv" = (
 /obj/machinery/door_control{
 	id = "admin_armory";
-	pixel_y = 24;
 	pixel_x = 8;
+	pixel_y = 24;
 	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel{
@@ -15056,11 +15049,6 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership/cargo)
-"hTP" = (
-/turf/space/transit{
-	icon_state = "speedspace_ns_1"
-	},
-/area/space)
 "hTU" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -15074,15 +15062,15 @@
 	},
 /obj/machinery/door/window/brigdoor{
 	dir = 1;
-	req_access = list(104,109);
-	pixel_y = 2
+	pixel_y = 2;
+	req_access = list(104,109)
 	},
 /obj/machinery/suit_storage_unit/standard_unit/ertamber{
 	req_access = list(104,109)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 6
+	dir = 6;
+	icon_state = "darkgreen"
 	},
 /area/centcom/specops)
 "hUI" = (
@@ -15433,17 +15421,6 @@
 /obj/structure/flora/rock/jungle,
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
-"ika" = (
-/obj/structure/closet{
-	icon_closed = "white";
-	icon_state = "white";
-	name = "Medical gear"
-	},
-/obj/effect/spawner/lootdrop/trade_sol/med,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
-/area/shuttle/trade/sol)
 "ikw" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "applebush"
@@ -16116,8 +16093,8 @@
 	req_access = list(104,109)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "iAZ" = (
@@ -16172,9 +16149,7 @@
 /area/syndicate_mothership/outside)
 "iBM" = (
 /obj/effect/turf_decal/delivery/red,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -16321,9 +16296,7 @@
 /area/ninja/outside)
 "iEH" = (
 /obj/effect/turf_decal/delivery/white,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -16356,6 +16329,7 @@
 /area/centcom/zone1)
 "iFB" = (
 /obj/machinery/door/airlock/centcom{
+	damage_deflection = 999;
 	name = "Prison";
 	opacity = 1;
 	req_access = list(104)
@@ -16464,7 +16438,6 @@
 /area/syndicate_mothership/outside)
 "iIo" = (
 /obj/effect/turf_decal/arrows/white{
-	color = null;
 	dir = 1;
 	name = "Canteen, Shooting range, Zone 2, Medical block"
 	},
@@ -16475,6 +16448,16 @@
 "iIs" = (
 /turf/simulated/wall/indestructible/reinforced,
 /area/centcom/evac)
+"iJi" = (
+/obj/structure/closet{
+	custom_door_overlay = "white";
+	name = "Medical gear"
+	},
+/obj/effect/spawner/lootdrop/trade_sol/med,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
 "iJk" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 8;
@@ -17129,6 +17112,16 @@
 	},
 /turf/simulated/floor/mineral/plasma,
 /area/wizard_station)
+"jcs" = (
+/obj/structure/closet{
+	custom_door_overlay = "red";
+	name = "Sec. gear"
+	},
+/obj/effect/spawner/lootdrop/trade_sol/sec,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-birch"
+	},
+/area/shuttle/trade/sol)
 "jcu" = (
 /obj/effect/turf_decal{
 	dir = 5;
@@ -17277,6 +17270,18 @@
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/syndicate_mothership/outside)
+"jfd" = (
+/obj/machinery/computer/communications,
+/obj/machinery/computer/security/telescreen{
+	desc = "Used for watching the Special Ops team.";
+	name = "Security Station Monitor";
+	network = list("SS13","Research  Outpost","Mining Outpost");
+	pixel_y = -30
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/specops)
 "jfv" = (
 /obj/machinery/computer/shuttle/ruins_transport_shuttle,
 /turf/simulated/floor/shuttle{
@@ -18111,7 +18116,6 @@
 "jAC" = (
 /obj/structure/spacepoddoor/invincible,
 /obj/machinery/door/poddoor/multi_tile/two_tile_ver{
-	color = null;
 	id_tag = "Aspid_poddor_left"
 	},
 /turf/simulated/floor/plasteel{
@@ -18237,7 +18241,6 @@
 "jEv" = (
 /obj/structure/fans/tiny/invisible,
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SST_pod_ready"
 	},
 /turf/simulated/floor/plasteel{
@@ -18321,7 +18324,6 @@
 	icon_state = "logo3"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
@@ -18435,7 +18437,6 @@
 	icon_state = "siding8"
 	},
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SIT_outside"
 	},
 /turf/simulated/floor/plasteel{
@@ -18454,8 +18455,8 @@
 /area/syndicate_mothership/control)
 "jJr" = (
 /obj/machinery/vending/nta/ertarmory/medical{
-	req_access = list(103,104,109);
-	dir = 4
+	dir = 4;
+	req_access = list(103,104,109)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "navyblue"
@@ -18951,9 +18952,7 @@
 	pixel_x = 4;
 	pixel_y = 8
 	},
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkyellowalt"
@@ -19087,7 +19086,6 @@
 	dir = 8
 	},
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SyndFB_prison_outside"
 	},
 /turf/simulated/floor/plasteel{
@@ -19237,8 +19235,8 @@
 	req_access = list(104,109)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "khv" = (
@@ -19355,7 +19353,6 @@
 "kln" = (
 /obj/structure/railing,
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -19703,9 +19700,7 @@
 /area/abductor_ship)
 "ktr" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -19780,6 +19775,7 @@
 /area/centcom/zone1)
 "kvN" = (
 /obj/machinery/door/airlock/centcom{
+	damage_deflection = 999;
 	name = "Prison Cell";
 	opacity = 1
 	},
@@ -20840,17 +20836,6 @@
 	icon_state = "white"
 	},
 /area/centcom/jail)
-"kTJ" = (
-/obj/structure/closet{
-	icon_closed = "green";
-	icon_state = "green";
-	name = "Service gear"
-	},
-/obj/effect/spawner/lootdrop/trade_sol/serv,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
-/area/shuttle/trade/sol)
 "kTP" = (
 /obj/machinery/photocopier,
 /turf/simulated/floor/carpet,
@@ -21381,9 +21366,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery/white,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -22031,10 +22014,10 @@
 /obj/effect/decal/warning_stripes/red,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/invincible{
+	density = 0;
 	id_tag = "ert_vis_turret";
 	locked = 1;
-	opacity = 0;
-	density = 0
+	opacity = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -22094,8 +22077,8 @@
 /area/syndicate_mothership)
 "lwX" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "lxn" = (
@@ -22209,10 +22192,10 @@
 /obj/machinery/door_control{
 	id = "Admin_shuttle_access";
 	name = "Argos Shuttle Access";
+	pixel_x = -24;
 	pixel_y = -24;
 	req_access = list(114);
-	wires = 1;
-	pixel_x = -24
+	wires = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -22740,8 +22723,8 @@
 /area/shuttle/syndicate_sit)
 "lLN" = (
 /obj/machinery/vending/nta{
-	req_access = list(104,109);
-	dir = 4
+	dir = 4;
+	req_access = list(104,109)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -22815,31 +22798,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
-"lNN" = (
-/obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
-	},
-/obj/item/clothing/under/color/lightpurple,
-/obj/item/clothing/under/color/purple,
-/obj/item/storage/backpack/satchel,
-/obj/item/storage/backpack/satchel,
-/obj/item/clothing/head/wizard/red,
-/obj/item/clothing/suit/wizrobe/red,
-/obj/item/clothing/head/wizard,
-/obj/item/clothing/suit/wizrobe,
-/obj/item/clothing/shoes/sandal,
-/obj/item/clothing/shoes/sandal,
-/obj/machinery/light/small{
-	brightness_range = 6;
-	dir = 1;
-	light_range = 8;
-	nightshift_light_range = 6;
-	throw_range = 6
-	},
-/turf/simulated/floor/carpet/cyan,
-/area/wizard_station)
 "lOv" = (
 /obj/structure/flora/junglebush/b,
 /obj/structure/flora/junglebush/c,
@@ -23195,17 +23153,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/bridge)
-"maf" = (
-/obj/structure/closet{
-	icon_closed = "black";
-	icon_state = "black";
-	name = "Mineral's"
-	},
-/obj/effect/spawner/lootdrop/trade_sol/minerals,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
-/area/shuttle/trade/sol)
 "maj" = (
 /obj/machinery/flasher_button{
 	id = "gulagshuttleflasher";
@@ -23429,8 +23376,8 @@
 	req_access = list(104,109)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 4
+	dir = 4;
+	icon_state = "darkgreen"
 	},
 /area/centcom/specops)
 "mdY" = (
@@ -23728,6 +23675,12 @@
 	tag = "icon-wood-broken7"
 	},
 /area/wizard_station)
+"mmX" = (
+/obj/machinery/computer/security/wooden_tv{
+	network = list("SS13","Research  Outpost","Mining Outpost")
+	},
+/turf/simulated/floor/carpet/black,
+/area/syndicate_mothership/jail)
 "mnI" = (
 /obj/structure/chair/comfy/brown{
 	color = "#FF3300";
@@ -23779,6 +23732,15 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership/infteam)
+"mpg" = (
+/obj/machinery/vending/cigarette/free{
+	slogan_list = list("Помните!  Никаких  капиталистов!","Лучше  всего  употреблять  вместе  с  водкой!","Затянитесь!","Девять  из  десяти  учёных  СССП  считают  что  курение  снимает  стресс","Прочим  сигаретам  далеко  до  русских  сигарет!","Сигареты!  Теперь  на  100%  меньше  капитализма.")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/elite_squad)
 "mpj" = (
 /obj/structure/closet/secure_closet/brig,
 /obj/effect/decal/warning_stripes/red/hollow,
@@ -24147,43 +24109,43 @@
 	req_access = list(114)
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
@@ -24424,8 +24386,8 @@
 	},
 /obj/machinery/door/window/brigdoor{
 	dir = 1;
-	req_access = list(104,109);
-	pixel_y = 2
+	pixel_y = 2;
+	req_access = list(104,109)
 	},
 /obj/machinery/suit_storage_unit/standard_unit/ertamber{
 	req_access = list(104,109)
@@ -24445,10 +24407,10 @@
 /obj/machinery/door_control{
 	id = "Admin_shuttle_access";
 	name = "Argos Shuttle Access";
-	req_access = list(114);
-	wires = 1;
 	pixel_x = -24;
-	pixel_y = -8
+	pixel_y = -8;
+	req_access = list(114);
+	wires = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -24484,9 +24446,9 @@
 "mzH" = (
 /obj/structure/table/wood/fancy/black,
 /obj/machinery/door_control{
+	id = "senior_o_shutters";
 	req_access = list(114);
-	wires = 1;
-	id = "senior_o_shutters"
+	wires = 1
 	},
 /turf/simulated/floor/wood,
 /area/centcom/specops)
@@ -25240,6 +25202,7 @@
 /area/syndicate_mothership)
 "mOD" = (
 /obj/machinery/door/airlock/centcom{
+	damage_deflection = 999;
 	name = "Prison";
 	opacity = 1;
 	req_access = list(104)
@@ -25281,9 +25244,9 @@
 "mPp" = (
 /obj/machinery/door_control{
 	id = "ert_vis_turret";
+	name = "ERT Turrets";
 	pixel_x = -10;
 	pixel_y = 8;
-	name = "ERT Turrets";
 	req_access = list(114)
 	},
 /turf/simulated/wall/indestructible/reinforced,
@@ -25375,9 +25338,9 @@
 	id = "CC_Armory_GYGAX";
 	name = "GYGAX";
 	pixel_x = -24;
+	pixel_y = -8;
 	req_access = list(114);
-	wires = 1;
-	pixel_y = -8
+	wires = 1
 	},
 /turf/simulated/wall/indestructible/reinforced,
 /area/centcom/specops)
@@ -25649,12 +25612,12 @@
 	req_access = list(109)
 	},
 /obj/machinery/door/poddoor/impassable{
+	density = 0;
 	id_tag = "ert_enter_control";
-	req_access = list(114);
+	layer = 5;
 	locked = 1;
 	opacity = 0;
-	layer = 5;
-	density = 0
+	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -26136,8 +26099,8 @@
 	operation_req_access = list(109)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "ncA" = (
@@ -26156,10 +26119,10 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door_control{
+	id = "ERT_director_office_shutters";
 	pixel_x = 32;
 	req_access = list(114);
-	wires = 1;
-	id = "ERT_director_office_shutters"
+	wires = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -26328,6 +26291,16 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/infteam)
+"nfO" = (
+/obj/structure/closet{
+	custom_door_overlay = "black";
+	name = "Mineral's"
+	},
+/obj/effect/spawner/lootdrop/trade_sol/minerals,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
 "nfR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
@@ -26498,12 +26471,10 @@
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -26547,6 +26518,20 @@
 	icon_state = "warndarkgreyred"
 	},
 /area/syndicate_mothership/infteam)
+"nli" = (
+/obj/docking_port/stationary/transit{
+	dir = 8;
+	dwidth = 0;
+	height = 30;
+	id = "freegolem_transit";
+	name = "free golem in transit";
+	pixel_x = 32;
+	width = 20
+	},
+/turf/space/transit/west{
+	icon_state = "black"
+	},
+/area/space)
 "nlx" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -27288,8 +27273,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 8
+	dir = 8;
+	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
 "nBq" = (
@@ -27360,6 +27345,7 @@
 /area/centcom/bridge)
 "nCA" = (
 /obj/machinery/door/airlock/centcom{
+	damage_deflection = 999;
 	name = "Prison";
 	opacity = 1;
 	req_access = list(104)
@@ -27457,8 +27443,8 @@
 /area/centcom/bridge)
 "nDM" = (
 /obj/machinery/door/poddoor/shutters/invincible{
-	id_tag = "ert_vis_turret";
-	dir = 2
+	dir = 2;
+	id_tag = "ert_vis_turret"
 	},
 /obj/structure/window/full/reinforced{
 	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
@@ -27753,9 +27739,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery/white,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -28445,8 +28429,8 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 1
+	dir = 1;
+	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
 "ocY" = (
@@ -28752,18 +28736,6 @@
 	icon_state = "vfloor"
 	},
 /area/shuttle/administration)
-"ojv" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkredfull"
-	},
-/area/centcom/bridge)
 "okh" = (
 /obj/structure/flora/tree/jungle,
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -28804,7 +28776,6 @@
 "oky" = (
 /obj/structure/spacepoddoor/invincible,
 /obj/machinery/door/poddoor/multi_tile/two_tile_ver{
-	color = null;
 	id_tag = "Aspid_poddor_right"
 	},
 /turf/simulated/floor/plasteel{
@@ -29283,9 +29254,7 @@
 	pixel_x = 4;
 	pixel_y = -2
 	},
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkyellowalt"
@@ -29521,7 +29490,7 @@
 	name = "M249 SAW"
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/gun/energy/xray,
@@ -29882,6 +29851,10 @@
 	dir = 8;
 	tag = "icon-tube1 (WEST)"
 	},
+/obj/item/gun/projectile/automatic/m52,
+/obj/item/ammo_box/magazine/m52mag,
+/obj/item/ammo_box/magazine/m52mag,
+/obj/item/ammo_box/magazine/m52mag,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -30138,8 +30111,8 @@
 	layer = 2
 	},
 /obj/machinery/door/poddoor/shutters/invincible{
-	id_tag = "ert_vis_turret";
-	dir = 2
+	dir = 2;
+	id_tag = "ert_vis_turret"
 	},
 /turf/simulated/floor/plating,
 /area/centcom/specops)
@@ -30353,7 +30326,6 @@
 /area/syndicate_mothership/infteam)
 "oRQ" = (
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SST_pod_ready"
 	},
 /turf/simulated/floor/plasteel{
@@ -30401,7 +30373,6 @@
 /area/syndicate_mothership/infteam)
 "oTb" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -30410,7 +30381,6 @@
 /area/syndicate_mothership/outside)
 "oTy" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -30422,8 +30392,8 @@
 	req_access = list(104,109)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "oTM" = (
@@ -30439,7 +30409,6 @@
 /area/syndicate_mothership/jail)
 "oUj" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -30594,15 +30563,6 @@
 	icon_state = "seadeep"
 	},
 /area/centcom/evac)
-"oYg" = (
-/obj/machinery/vending/cigarette/free{
-	slogan_list = list("Помните! Никаких капиталистов!","Лучше всего употреблять вместе с водкой!","Затянитесь!","Девять из десяти учёных СССП считают что курение снимает стресс","Прочим сигаретам далеко до русских сигарет!","Сигареты! Теперь на 100% меньше капитализма.")
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate_mothership/elite_squad)
 "oZd" = (
 /obj/machinery/vending/wallmed/syndicate{
 	pixel_y = 32
@@ -30695,17 +30655,17 @@
 /obj/effect/decal/warning_stripes/red,
 /obj/machinery/door/poddoor/shutters/invincible{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	density = 0;
 	dir = 1;
 	id_tag = "ERT_armory_lvl1";
 	layer = 5;
+	locked = 1;
 	name = "Armory Level 1";
-	opacity = 0;
-	density = 0;
-	locked = 1
+	opacity = 0
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 4
+	dir = 4;
+	icon_state = "darkgreen"
 	},
 /area/centcom/specops)
 "pcw" = (
@@ -31446,8 +31406,8 @@
 /area/space)
 "pwb" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 4
+	dir = 4;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "pwr" = (
@@ -32796,8 +32756,8 @@
 /obj/mecha/combat/marauder/loaded,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 5
+	dir = 5;
+	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
 "qdI" = (
@@ -32818,10 +32778,10 @@
 /obj/machinery/door_control{
 	id = "CC_BSA";
 	name = "BSA room";
+	pixel_x = -24;
 	pixel_y = 24;
 	req_access = list(114);
-	wires = 1;
-	pixel_x = -24
+	wires = 1
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
@@ -33005,6 +32965,20 @@
 	icon_state = "dark"
 	},
 /area/centcom/evac)
+"qjX" = (
+/obj/structure/closet{
+	custom_door_overlay = "pink";
+	name = "Science gear"
+	},
+/obj/machinery/light/spot{
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
+	},
+/obj/effect/spawner/lootdrop/trade_sol/sci,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
 "qkl" = (
 /obj/machinery/slot_machine,
 /obj/structure/window/reinforced{
@@ -33041,8 +33015,8 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 9
+	dir = 9;
+	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
 "qlp" = (
@@ -33460,18 +33434,6 @@
 /obj/item/newspaper,
 /turf/simulated/floor/wood,
 /area/centcom/zone2)
-"quJ" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = -32
-	},
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
-	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
-	},
-/area/shuttle/escape)
 "qvD" = (
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plasteel{
@@ -33728,6 +33690,20 @@
 	icon_state = "dark"
 	},
 /area/centcom/evac)
+"qCy" = (
+/obj/structure/closet/secure_closet/freezer/meat{
+	broken = 1;
+	locked = 0
+	},
+/obj/item/reagent_containers/food/snacks/meat/meatwheat,
+/obj/item/reagent_containers/food/snacks/meat/meatwheat,
+/obj/item/reagent_containers/food/snacks/meat/meatwheat,
+/obj/item/reagent_containers/food/snacks/meat/meatwheat,
+/turf/simulated/floor/indestructible/vox{
+	icon_state = "darkfull";
+	name = "floor"
+	},
+/area/vox_station)
 "qCC" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo16"
@@ -34079,12 +34055,10 @@
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -34137,7 +34111,6 @@
 /area/centcom/specops)
 "qLW" = (
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SST_pod_ready"
 	},
 /turf/simulated/floor/plasteel{
@@ -34243,7 +34216,6 @@
 /area/centcom/zone3)
 "qOg" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
@@ -34307,7 +34279,6 @@
 /area/centcom/zone1)
 "qPu" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
@@ -34955,8 +34926,8 @@
 /area/syndicate_mothership)
 "rey" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreen"
 	},
 /area/centcom/specops)
 "reF" = (
@@ -35229,7 +35200,6 @@
 /area/syndicate_mothership/elite_squad)
 "rlQ" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -35274,8 +35244,9 @@
 /area/syndicate_mothership/control)
 "rmG" = (
 /obj/machinery/door/airlock/syndicate/extmai/glass{
-	id = null;
+	damage_deflection = 999;
 	id_tag = "syndicate_jail_cell";
+	locked = 1;
 	name = "Cell";
 	req_access = list(153)
 	},
@@ -35846,8 +35817,8 @@
 	frequency = 2000;
 	master_tag = "CC-OP4";
 	name = "CC-OP4-INT";
-	req_access = list(109);
-	pixel_y = 24
+	pixel_y = 24;
+	req_access = list(109)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -36208,8 +36179,8 @@
 /obj/mecha/combat/marauder/loaded,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 1
+	dir = 1;
+	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
 "rHU" = (
@@ -36370,9 +36341,9 @@
 /obj/item/pen/multi/fountain,
 /obj/machinery/door_control{
 	id = "ert_vis_turret";
+	name = "Windows control";
 	pixel_x = -10;
 	pixel_y = 8;
-	name = "Windows control";
 	req_access = list(114)
 	},
 /obj/item/clothing/mask/cigarette/cigar/cohiba,
@@ -36552,7 +36523,6 @@
 /area/centcom/supply)
 "rNF" = (
 /obj/structure/fence/corner{
-	color = null;
 	invulnerable = 1
 	},
 /turf/simulated/floor/indestructible/grass,
@@ -36596,7 +36566,6 @@
 /area/shuttle/supply)
 "rOV" = (
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SST_to_ATOM"
 	},
 /turf/simulated/floor/plasteel{
@@ -36624,7 +36593,6 @@
 /area/centcom/specops)
 "rQr" = (
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SST_to_ATOM"
 	},
 /turf/simulated/floor/plasteel{
@@ -37002,18 +36970,6 @@
 	water_overlay_image = null
 	},
 /area/syndicate_mothership/outside)
-"rYO" = (
-/obj/machinery/computer/communications,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the Special Ops team.";
-	name = "Security Station Monitor";
-	network = list("SS13","Research Outpost","Mining Outpost");
-	pixel_y = -30
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
-	},
-/area/shuttle/specops)
 "rYU" = (
 /obj/structure/shuttle/engine/propulsion/burst,
 /turf/simulated/floor/shuttle/plating,
@@ -37607,63 +37563,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/elite_squad)
-"sqx" = (
-/obj/structure/closet{
-	icon_closed = "syndicate1";
-	icon_opened = "syndicate1open";
-	icon_state = "syndicate1"
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/gun/projectile/automatic/proto,
-/obj/item/gun/energy/gun/blueshield,
-/obj/item/clothing/glasses/hud/security/sunglasses/aviators,
-/obj/item/reagent_containers/food/snacks/candy/mre,
-/obj/item/reagent_containers/hypospray/combat,
-/obj/item/radio/headset/ert/alt{
-	desc = null;
-	name = "SRT bowman headset"
-	},
-/obj/item/clothing/head/beret/centcom/officer/navy{
-	desc = null;
-	name = "SRT beret"
-	},
-/obj/item/clothing/shoes/combat/swat{
-	name = "SRT special shoes"
-	},
-/obj/item/clothing/gloves/combat{
-	name = "Combat gloves"
-	},
-/obj/item/storage/belt/security/webbing/srt/full,
-/obj/item/storage/backpack/satchel_blueshield/srt,
-/obj/item/clothing/suit/storage/blueshield/srt,
-/obj/item/clothing/suit/armor/bulletproof{
-	name = "SRT bulletproof vest"
-	},
-/obj/item/shield/riot/tele,
-/obj/item/suppressor,
-/obj/item/CQC_manual,
-/obj/item/implanter/mindshield/ert,
-/obj/item/card/id/centcom{
-	name = "Special Reaction Team Member card";
-	rank = "Special Reaction Team Member";
-	registered_name = "Special Reaction Team Member"
-	},
-/obj/item/storage/box/responseteam,
-/obj/item/clothing/under/fluff/jay_turtleneck{
-	desc = null;
-	name = "SRT uniform"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "navyblue"
-	},
-/area/centcom/specops)
 "sqV" = (
 /obj/effect/turf_decal/box/white,
 /obj/item/ammo_box/magazine/m50,
@@ -38120,8 +38019,8 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "sBs" = (
@@ -38867,9 +38766,7 @@
 	},
 /area/centcom/jail)
 "sUD" = (
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -38916,6 +38813,7 @@
 /area/centcom/zone2)
 "sVL" = (
 /obj/machinery/door/airlock/centcom{
+	damage_deflection = 999;
 	name = "Prison";
 	opacity = 1;
 	req_access = list(104)
@@ -39021,9 +38919,7 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowalt"
 	},
@@ -39339,12 +39235,10 @@
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -40459,12 +40353,10 @@
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -41512,7 +41404,6 @@
 	icon_state = "siding8"
 	},
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SIT_outside"
 	},
 /turf/simulated/floor/plasteel{
@@ -41592,12 +41483,10 @@
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -42396,7 +42285,6 @@
 "uvw" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/turf_decal/arrows/white{
-	color = null;
 	dir = 4;
 	name = "ERT shuttle"
 	},
@@ -42472,8 +42360,8 @@
 /area/syndicate_mothership)
 "uxZ" = (
 /obj/item/toy/plushie/orange_cat{
-	name = "savior cat plushie";
-	desc = "Этот котик и его подруга однажды спасли станцию."
+	desc = "Этот котик и его подруга однажды спасли станцию.";
+	name = "savior cat plushie"
 	},
 /turf/simulated/floor/holofloor/space,
 /area/centcom/specops)
@@ -42502,12 +42390,10 @@
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -43345,8 +43231,8 @@
 	switchcount = 50
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 1
+	dir = 1;
+	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
 "uQK" = (
@@ -43519,8 +43405,8 @@
 /area/centcom/specops)
 "uTC" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 1
+	dir = 1;
+	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
 "uUr" = (
@@ -43711,9 +43597,7 @@
 	dir = 5
 	},
 /obj/effect/turf_decal/delivery/white,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -44068,6 +43952,17 @@
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/shuttle/vox)
+"vja" = (
+/obj/structure/closet{
+	custom_door_overlay = "yellow";
+	name = "Engineering gear"
+	},
+/obj/machinery/light/spot,
+/obj/effect/spawner/lootdrop/trade_sol/eng,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
 "vjo" = (
 /obj/effect/turf_decal/box/corners{
 	dir = 1
@@ -44365,17 +44260,6 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone1)
-"vqZ" = (
-/obj/structure/closet{
-	icon_closed = "grey";
-	icon_state = "grey";
-	name = "Donksoft gear"
-	},
-/obj/effect/spawner/lootdrop/trade_sol/donksoft,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
-/area/shuttle/trade/sol)
 "vrm" = (
 /obj/effect/turf_decal{
 	dir = 1;
@@ -44648,11 +44532,11 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/warning_stripes/red,
 /obj/machinery/door/poddoor/impassable{
-	id_tag = "admin_armory";
-	req_access = list(114);
-	locked = 1;
 	density = 0;
-	opacity = 0
+	id_tag = "admin_armory";
+	locked = 1;
+	opacity = 0;
+	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -44775,12 +44659,10 @@
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -45033,7 +44915,6 @@
 	icon_state = "siding8"
 	},
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SST_outside"
 	},
 /turf/simulated/floor/plasteel{
@@ -45041,6 +44922,32 @@
 	tag = "icon-stage_stairs"
 	},
 /area/syndicate_mothership/elite_squad)
+"vIY" = (
+/obj/item/gun/projectile/automatic/pistol/m1911,
+/obj/item/ammo_box/magazine/m45,
+/obj/item/ammo_box/magazine/m45,
+/obj/item/ammo_box/magazine/m45,
+/obj/structure/closet{
+	icon_state = "cabinet";
+	req_access = list(114)
+	},
+/obj/item/clothing/head/helmet/space/deathsquad/beret,
+/obj/item/clothing/shoes/combat,
+/obj/item/clothing/under/syndicate/combat,
+/obj/item/clothing/gloves/combat,
+/obj/item/clothing/suit/space/deathsquad/officer,
+/obj/item/storage/box/handcuffs,
+/obj/item/storage/box/flashbangs,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/radio/headset/ert{
+	pixel_x = 6;
+	pixel_y = -6
+	},
+/obj/item/storage/box/centcomofficer,
+/obj/item/clothing/head/beret/centcom/officer,
+/turf/simulated/floor/wood,
+/area/centcom/specops)
 "vJp" = (
 /obj/machinery/vending/wallmed{
 	name = "Custom Emergency NanoMed";
@@ -45321,8 +45228,8 @@
 /area/syndicate_mothership/control)
 "vPx" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 4
+	dir = 4;
+	icon_state = "darkgreen"
 	},
 /area/centcom/specops)
 "vPy" = (
@@ -45478,8 +45385,8 @@
 /area/shuttle/escape)
 "vSX" = (
 /obj/structure/statue/diamond/ai2{
-	name = "statue of the malfuction AI core";
-	desc = "Этот злой ИИ чуть не уничтожил всю станцию, его имя говорило что-то про таяров ."
+	desc = "Этот злой ИИ чуть не уничтожил всю станцию, его имя говорило что-то про таяров .";
+	name = "statue of the malfuction AI core"
 	},
 /turf/simulated/floor/plating,
 /area/centcom/specops)
@@ -45725,10 +45632,10 @@
 /obj/machinery/door_control{
 	id = "CC_BUDKA";
 	name = "Overwatch Cabinet";
-	req_access = list(114);
-	wires = 1;
+	pixel_x = -24;
 	pixel_y = 24;
-	pixel_x = -24
+	req_access = list(114);
+	wires = 1
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
@@ -46155,12 +46062,10 @@
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -46522,8 +46427,8 @@
 /obj/effect/decal/warning_stripes/white/hollow,
 /obj/effect/decal/warning_stripes/red,
 /obj/machinery/door/poddoor/shutters/invincible{
-	id_tag = "ERT_armory_lvl2";
 	dir = 8;
+	id_tag = "ERT_armory_lvl2";
 	name = "Armory Level 2"
 	},
 /obj/effect/decal/warning_stripes/west,
@@ -46765,13 +46670,6 @@
 	},
 /area/shuttle/assault_pod)
 "wyB" = (
-/obj/machinery/camera{
-	c_tag = "Centaral Command Supreme Court";
-	dir = 1;
-	network = list("SS13","CentComm");
-	pixel_x = 12;
-	pixel_y = -6
-	},
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -46868,10 +46766,10 @@
 "wAL" = (
 /obj/machinery/door_control{
 	id = "admin_armory";
-	pixel_y = 32;
+	name = "Armoury control";
 	pixel_x = 5;
-	req_access = list(104,109,114);
-	name = "Armoury control"
+	pixel_y = 32;
+	req_access = list(104,109,114)
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
@@ -48036,9 +47934,7 @@
 /area/shuttle/vox)
 "xhG" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -48375,6 +48271,29 @@
 	icon_state = "darkyellowaltstrip"
 	},
 /area/centcom/supply)
+"xpw" = (
+/obj/structure/closet{
+	icon_state = "cabinet"
+	},
+/obj/item/clothing/under/color/lightpurple,
+/obj/item/clothing/under/color/purple,
+/obj/item/storage/backpack/satchel,
+/obj/item/storage/backpack/satchel,
+/obj/item/clothing/head/wizard/red,
+/obj/item/clothing/suit/wizrobe/red,
+/obj/item/clothing/head/wizard,
+/obj/item/clothing/suit/wizrobe,
+/obj/item/clothing/shoes/sandal,
+/obj/item/clothing/shoes/sandal,
+/obj/machinery/light/small{
+	brightness_range = 6;
+	dir = 1;
+	light_range = 8;
+	nightshift_light_range = 6;
+	throw_range = 6
+	},
+/turf/simulated/floor/carpet/cyan,
+/area/wizard_station)
 "xpx" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -48854,15 +48773,15 @@
 "xBe" = (
 /obj/machinery/door/window/brigdoor{
 	dir = 1;
-	req_access = list(104,109);
-	pixel_y = 2
+	pixel_y = 2;
+	req_access = list(104,109)
 	},
 /obj/machinery/suit_storage_unit/standard_unit/ertamber{
 	req_access = list(104,109)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 10
+	dir = 10;
+	icon_state = "darkgreen"
 	},
 /area/centcom/specops)
 "xBl" = (
@@ -48956,8 +48875,8 @@
 	},
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 8
+	dir = 8;
+	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
 "xDA" = (
@@ -49020,13 +48939,13 @@
 /obj/effect/decal/warning_stripes/red,
 /obj/machinery/door/poddoor/shutters/invincible{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	density = 0;
 	dir = 1;
 	id_tag = "ERT_armory_lvl1";
 	layer = 5;
+	locked = 1;
 	name = "Armory Level 1";
-	opacity = 0;
-	density = 0;
-	locked = 1
+	opacity = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -49577,18 +49496,6 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership/cargo)
-"xPW" = (
-/obj/structure/closet{
-	icon_closed = "yellow";
-	icon_state = "yellow";
-	name = "Engineering gear"
-	},
-/obj/machinery/light/spot,
-/obj/effect/spawner/lootdrop/trade_sol/eng,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
-/area/shuttle/trade/sol)
 "xQp" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -50557,34 +50464,34 @@ pNM
 pNM
 pNM
 pNM
-kXq
-kXq
-kXq
-kXq
-kXq
-kXq
-kXq
-kXq
-kXq
-kXq
-kXq
-kXq
-kXq
-kXq
-kXq
-kXq
-kXq
-kXq
-kXq
-kXq
-kXq
-kXq
-kXq
-kXq
-kXq
-kXq
-kXq
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ymc
 ymc
@@ -50814,34 +50721,34 @@ pwa
 pwa
 pwa
 pNM
-kXq
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ubE
 ubE
@@ -51071,34 +50978,34 @@ pwa
 pwa
 pwa
 pNM
-kXq
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ubE
 ubE
@@ -51328,34 +51235,34 @@ pwa
 pwa
 pwa
 pNM
-kXq
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ubE
 ubE
@@ -51585,34 +51492,34 @@ pwa
 pwa
 pwa
 pNM
-kXq
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ubE
 ubE
@@ -51842,34 +51749,34 @@ pwa
 pwa
 pwa
 pNM
-kXq
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ubE
 ubE
@@ -52099,34 +52006,34 @@ pwa
 pwa
 pwa
 pNM
-kXq
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-nbA
-nbA
-nbA
-nbA
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ubE
 ubE
@@ -52356,34 +52263,34 @@ pwa
 pwa
 pwa
 pNM
-kXq
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-nbA
-nbA
-nbA
-nbA
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ubE
 ubE
@@ -52613,34 +52520,34 @@ pwa
 pwa
 pwa
 pNM
-kXq
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ubE
 ubE
@@ -52870,34 +52777,34 @@ pwa
 pwa
 pwa
 pNM
-kXq
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ubE
 ubE
@@ -53127,34 +53034,34 @@ pwa
 pwa
 pwa
 pNM
-kXq
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ubE
 ubE
@@ -53384,34 +53291,34 @@ pwa
 pwa
 pwa
 pNM
-kXq
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ubE
 ubE
@@ -53641,34 +53548,34 @@ pwa
 pwa
 pwa
 pNM
-kXq
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ubE
 ubE
@@ -53898,34 +53805,34 @@ pwa
 pwa
 pwa
 pNM
-kXq
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ubE
 ubE
@@ -54155,34 +54062,34 @@ pNM
 pNM
 pNM
 pNM
-kXq
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ubE
 ubE
@@ -54412,34 +54319,34 @@ pNM
 pNM
 pNM
 pNM
-kXq
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ubE
 ubE
@@ -54669,34 +54576,34 @@ pwa
 pwa
 pwa
 pNM
-kXq
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ubE
 ubE
@@ -54926,34 +54833,34 @@ pwa
 pwa
 pwa
 pNM
-kXq
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ubE
 ubE
@@ -55183,34 +55090,34 @@ pwa
 pwa
 pwa
 pNM
-kXq
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ubE
 ubE
@@ -55440,34 +55347,34 @@ pwa
 pwa
 pwa
 pNM
-kXq
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ubE
 ubE
@@ -55697,34 +55604,34 @@ pwa
 pwa
 pwa
 pNM
-kXq
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ubE
 ubE
@@ -55954,34 +55861,34 @@ pwa
 pwa
 pwa
 pNM
-kXq
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ubE
 ubE
@@ -56211,34 +56118,34 @@ pwa
 pwa
 pwa
 pNM
-kXq
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ubE
 ubE
@@ -56468,34 +56375,34 @@ pwa
 pwa
 pwa
 pNM
-kXq
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ubE
 ubE
@@ -56725,34 +56632,34 @@ pwa
 pwa
 pwa
 pNM
-kXq
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ubE
 ubE
@@ -56982,34 +56889,34 @@ pNM
 pNM
 pNM
 pNM
-kXq
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-cmH
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-nbA
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ubE
 ubE
@@ -57239,34 +57146,34 @@ pNM
 pNM
 pNM
 pNM
-kXq
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ubE
 ubE
@@ -57496,34 +57403,34 @@ pwa
 pwa
 pwa
 pNM
-kXq
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ubE
 ubE
@@ -57753,34 +57660,34 @@ pwa
 pwa
 pwa
 pNM
-kXq
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 ymc
 ubE
 ubE
@@ -58010,14 +57917,14 @@ pwa
 pwa
 pwa
 pNM
-kXq
-kXq
-kXq
-kXq
-kXq
-kXq
-kXq
-kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 kXq
 kXq
 kXq
@@ -60083,8 +59990,8 @@ qti
 hHU
 riz
 riz
-vqZ
-kTJ
+alM
+bjJ
 riz
 riz
 hHU
@@ -60335,15 +60242,15 @@ kXq
 oFJ
 oFJ
 wmt
-gdW
+jcs
 vHj
 wJV
-gfU
+qjX
 mHL
 mpN
 mpN
 qZj
-xPW
+vja
 wJV
 vHj
 eDO
@@ -60373,7 +60280,7 @@ ymc
 mVX
 mVX
 mVX
-hTP
+mVX
 mVX
 mVX
 mVX
@@ -60595,12 +60502,12 @@ wJV
 eYE
 jqj
 wJV
-ika
+iJi
 lcs
 khG
 khG
 fsf
-maf
+nfO
 wJV
 jqj
 njE
@@ -63959,28 +63866,28 @@ kXq
 kXq
 kXq
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
 mVX
 pNM
 pNM
@@ -64216,28 +64123,28 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+kXq
 mVX
 yds
 yds
@@ -64473,28 +64380,28 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+kXq
 mVX
 yds
 psf
@@ -64668,7 +64575,7 @@ pwa
 wkN
 xnF
 pSS
-quJ
+dDZ
 qzL
 vAA
 esN
@@ -64730,28 +64637,28 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+kXq
 mVX
 yds
 psf
@@ -64987,28 +64894,28 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+oFJ
+nbA
+nbA
+nbA
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+nbA
+nbA
+nbA
+oFJ
+oFJ
+kXq
 mVX
 yds
 psf
@@ -65244,28 +65151,28 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+oFJ
+nbA
+nbA
+nbA
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+nbA
+nbA
+nbA
+oFJ
+oFJ
+kXq
 mVX
 yds
 psf
@@ -65501,28 +65408,28 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+oFJ
+oFJ
+nbA
+nbA
+nbA
+oFJ
+oFJ
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+kXq
 mVX
 yds
 psf
@@ -65758,28 +65665,28 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+kXq
 mVX
 yds
 psf
@@ -66015,28 +65922,28 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+kXq
 mVX
 yds
 psf
@@ -66272,28 +66179,28 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+kXq
 mVX
 yds
 psf
@@ -66529,28 +66436,28 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+kXq
 mVX
 yds
 psf
@@ -66786,28 +66693,28 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+kXq
 mVX
 yds
 psf
@@ -67043,28 +66950,28 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+oFJ
+kXq
 mVX
 yds
 psf
@@ -67300,28 +67207,28 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+oFJ
+kXq
 mVX
 yds
 psf
@@ -67557,28 +67464,28 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+oFJ
+kXq
 mVX
 yds
 psf
@@ -67814,28 +67721,28 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+oFJ
+kXq
 mVX
 yds
 psf
@@ -68071,28 +67978,28 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+oFJ
+kXq
 mVX
 yds
 psf
@@ -68328,28 +68235,28 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+oFJ
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+oFJ
+oFJ
+kXq
 mVX
 yds
 psf
@@ -68585,28 +68492,28 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+oFJ
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+oFJ
+oFJ
+kXq
 mVX
 yds
 psf
@@ -68842,28 +68749,28 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+oFJ
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+oFJ
+oFJ
+kXq
 mVX
 yds
 psf
@@ -69099,28 +69006,28 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+oFJ
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+oFJ
+oFJ
+kXq
 mVX
 yds
 psf
@@ -69356,28 +69263,28 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+oFJ
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+oFJ
+oFJ
+kXq
 mVX
 yds
 psf
@@ -69613,28 +69520,28 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+oFJ
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+oFJ
+oFJ
+kXq
 mVX
 yds
 psf
@@ -69870,28 +69777,28 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+oFJ
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+oFJ
+oFJ
+kXq
 mVX
 yds
 psf
@@ -70127,28 +70034,28 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+oFJ
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+oFJ
+oFJ
+kXq
 mVX
 yds
 yds
@@ -70384,28 +70291,28 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+oFJ
+oFJ
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+oFJ
+oFJ
+oFJ
+kXq
 mVX
 yds
 psf
@@ -70641,28 +70548,28 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+kXq
 mVX
 yds
 psf
@@ -70898,28 +70805,28 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+kXq
 mVX
 yds
 psf
@@ -71155,28 +71062,28 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+kXq
 mVX
 yds
 psf
@@ -71412,28 +71319,28 @@ kXq
 kXq
 kXq
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+kXq
 mVX
 yds
 psf
@@ -71444,7 +71351,7 @@ psf
 usR
 vnx
 rzg
-rYO
+jfd
 usR
 psf
 psf
@@ -71668,29 +71575,29 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+kXq
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+kXq
 mVX
 yds
 psf
@@ -71925,29 +71832,29 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+kXq
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+kXq
 mVX
 yds
 psf
@@ -72043,7 +71950,7 @@ dfm
 dfm
 gro
 azv
-fFa
+mmX
 nKg
 kJh
 azv
@@ -72182,29 +72089,29 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+kXq
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+nbA
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+kXq
 mVX
 yds
 psf
@@ -72439,29 +72346,29 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+kXq
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+nbA
+nbA
+nli
+nbA
+nbA
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+kXq
 mVX
 yds
 psf
@@ -72696,29 +72603,29 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+kXq
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+kXq
 mVX
 yds
 psf
@@ -72953,29 +72860,29 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+kXq
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+kXq
 mVX
 yds
 psf
@@ -73210,29 +73117,29 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
+kXq
 mVX
 yds
 psf
@@ -73552,7 +73459,7 @@ kKP
 kKP
 oeH
 oEe
-oYg
+mpg
 pbN
 pbN
 pbN
@@ -92089,7 +91996,7 @@ oNa
 fMQ
 rgF
 eru
-ojv
+hgG
 rnv
 eru
 rRF
@@ -97003,7 +96910,7 @@ oIc
 eCT
 oIc
 oIc
-azT
+vIY
 nAN
 lcU
 oIc
@@ -97043,7 +96950,7 @@ mVX
 abm
 amV
 aHl
-aKz
+qCy
 aAL
 bdh
 bzh
@@ -98544,7 +98451,7 @@ fCV
 dVt
 mPp
 rFY
-azT
+vIY
 daM
 eSL
 dRV
@@ -102226,7 +102133,7 @@ kRq
 jlR
 iuf
 hSb
-lNN
+xpw
 mal
 mal
 muA
@@ -107024,11 +106931,11 @@ fID
 fID
 fID
 nAN
-hrp
-hrp
-sqx
-hrp
-hrp
+cGy
+cGy
+cAL
+cGy
+cGy
 nAN
 nAN
 dyN
@@ -111175,21 +111082,21 @@ mVX
 mVX
 "}
 (237,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
 mVX
 mVX
 mVX
@@ -111432,21 +111339,21 @@ mVX
 mVX
 "}
 (238,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
 mVX
 mVX
 mVX
@@ -111689,21 +111596,21 @@ mVX
 mVX
 "}
 (239,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
 mVX
 mVX
 mVX
@@ -111946,21 +111853,21 @@ mVX
 mVX
 "}
 (240,1,1) = {"
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
+xVn
 mVX
 mVX
 mVX
@@ -112217,7 +112124,7 @@ xVn
 xVn
 xVn
 xVn
-eNQ
+xVn
 mVX
 mVX
 mVX
@@ -113495,7 +113402,7 @@ xVn
 xVn
 xVn
 xVn
-xVn
+dEd
 xVn
 xVn
 xVn
@@ -114009,7 +113916,7 @@ xVn
 xVn
 xVn
 xVn
-dEd
+xVn
 xVn
 xVn
 xVn

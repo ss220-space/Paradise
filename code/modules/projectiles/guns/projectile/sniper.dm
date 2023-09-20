@@ -87,11 +87,13 @@
 	icon_state = ".50"
 
 /obj/item/projectile/bullet/sniper
+	//speed = 0.75
+	//range = 100
 	damage = 70
-	stun = 2
-	weaken = 2
+	weaken = 4 SECONDS
 	dismemberment = 50
 	armour_penetration = 50
+	forced_accuracy = TRUE
 	var/breakthings = TRUE
 
 /obj/item/projectile/bullet/sniper/on_hit(atom/target, blocked = 0, hit_zone)
@@ -120,7 +122,6 @@
 /obj/item/projectile/bullet/sniper/soporific
 	armour_penetration = 0
 	nodamage = 1
-	stun = 0
 	dismemberment = 0
 	weaken = 0
 	breakthings = FALSE
@@ -128,7 +129,7 @@
 /obj/item/projectile/bullet/sniper/soporific/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && istype(target, /mob/living))
 		var/mob/living/L = target
-		L.SetSleeping(20)
+		L.SetSleeping(40 SECONDS)
 
 	return ..()
 
@@ -149,9 +150,9 @@
 /obj/item/projectile/bullet/sniper/explosive
 	armour_penetration = 50
 	damage = 85
-	stun = 3
+	stun = 6 SECONDS
 	dismemberment = 0
-	weaken = 3
+	weaken = 6 SECONDS
 	breakthings = TRUE
 
 /obj/item/projectile/bullet/sniper/explosive/on_hit(var/atom/target, blocked = 0, hit_zone)
@@ -177,7 +178,6 @@
 /obj/item/projectile/bullet/sniper/haemorrhage
 	armour_penetration = 15
 	damage = 15
-	stun = 0
 	dismemberment = 0
 	weaken = 0
 	breakthings = FALSE
@@ -209,7 +209,6 @@
 	name = "penetrator round"
 	damage = 60
 	forcedodge = 1
-	stun = 0
 	dismemberment = 0
 	weaken = 0
 	breakthings = FALSE
@@ -232,8 +231,8 @@
 
 /obj/item/projectile/bullet/sniper/compact //Can't dismember, and can't break things; just deals massive damage.
 	damage = 70
-	stun = 2
-	weaken = 2
+	stun = 4 SECONDS
+	weaken = 4 SECONDS
 	armour_penetration = 50
 	breakthings = FALSE
 	dismemberment = 0

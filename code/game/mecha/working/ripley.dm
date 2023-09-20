@@ -14,15 +14,52 @@
 	max_equip = 6
 	wreckage = /obj/structure/mecha_wreckage/ripley
 	var/hides = 0
+	var/plates = 0
 
 /obj/mecha/working/ripley/update_icon()
 	..()
-	if(hides)
+	if(hides && !plates)
 		cut_overlays()
 		if(hides < 3)
 			add_overlay(occupant ? "ripley-g" : "ripley-g-open")
+			desc = "Autonomous Power Loader Unit. You see reinforcements made of plates of goliath hide attached to the armor."
 		else
 			add_overlay(occupant ? "ripley-g-full" : "ripley-g-full-open")
+			desc = "Autonomous Power Loader Unit. It has an intimidating carapace composed entirely of plates of goliath hide - its pilot must be an experienced monster hunter."
+
+	if(plates && !hides)
+		cut_overlays()
+		if(plates < 3)
+			add_overlay(occupant ? "ripley-a" : "ripley-a-open")
+			desc = "Autonomous Power Loader Unit. You can see the pieces of homemade armor on the hull."
+		else
+			add_overlay(occupant ? "ripley-a-full" : "ripley-a-full-open")
+			desc = "Autonomous Power Loader Unit. Completely encrusted with reinforced debris, this shiny lump of metal looks incredibly durable."
+
+	if(plates && hides)
+		cut_overlays()
+		if(plates < 3 && hides == 3)
+			cut_overlays()
+			add_overlay(occupant ? "ripley-g-full" : "ripley-g-full-open")
+			add_overlay(occupant ? "ripley-a" : "ripley-a-open")
+			desc = "Autonomous Power Loader Unit. Not only is the goliath hide armor intimidating, it's additionally covered in pieces of homemade armor. How do you kill that?!"
+		if(plates < 3 && hides < 3)
+			cut_overlays()
+			add_overlay(occupant ? "ripley-a-full" : "ripley-a-full-open")
+			add_overlay(occupant ? "ripley-g" : "ripley-g-open")
+			desc = "Autonomous Power Loader Unit. The owner of the mech decided to go all out - clad in pieces of homemade armor and goliath skins."
+		if(plates == 3 && hides < 3)
+			cut_overlays()
+			add_overlay(occupant ? "ripley-a-full" : "ripley-a-full-open")
+			add_overlay(occupant ? "ripley-g" : "ripley-g-open")
+			desc = "Autonomous Power Loader Unit. Clad in homemade armor from ear to toe, with Goliath plates on top - a real tank, no other way."
+		if(plates == 3 && hides == 3)
+			cut_overlays()
+			add_overlay(occupant ? "ripley-g-full" : "ripley-g-full-open")
+			add_overlay(occupant ? "ripley-a" : "ripley-a-open")
+
+
+
 
 /obj/mecha/working/ripley/firefighter
 	desc = "Standart APLU chassis was refitted with additional thermal protection and cistern."
@@ -118,7 +155,7 @@
 /obj/mecha/working/ripley/full_load
 	name = "Тестовый Рипли"
 	desc = "Рипли, который несет в себе все возможные модули, предназначенные для рабочих мехов, с целью их испытания в индивидуальном порядке. Конструкция надежна как Nokia 3310, скорость как у гоночного болида, но стоимость производства настолько высока, что в массовое производство он никогда не пойдет. Специально для ведущих гениев робототехники."
-	max_equip = 11
+	max_equip = 40
 	strafe_allowed = TRUE
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0) // для тестов урона
 	max_integrity = 1000
@@ -155,6 +192,10 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/eng_toolset
 	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/cargo_upgrade
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun
+	ME.attach(src)
 
 /obj/mecha/working/ripley/full_load/add_cell()
-	cell = new /obj/item/stock_parts/cell/bluespace(src)
+	cell = new /obj/item/stock_parts/cell/bluespace(src) // для тестов энергопотребления.

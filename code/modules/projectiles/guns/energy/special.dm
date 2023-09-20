@@ -186,10 +186,34 @@
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
 	icon_state = "adv_plasmacutter"
+	item_state = "adv_plasmacutter"
 	modifystate = "adv_plasmacutter"
 	origin_tech = "combat=3;materials=4;magnets=3;plasmatech=4;engineering=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
 	force = 15
+
+/obj/item/gun/energy/plasmacutter/adv/mega
+	name = "magmite plasma cutter"
+	icon_state = "adv_plasmacutter_m"
+	item_state = "plasmacutter_mega"
+	desc = "A mining tool capable of expelling concentrated plasma bursts. You could use it to cut limbs off xenos! Or, you know, mine stuff. This one has been enhanced with plasma magmite."
+	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv/mega)
+
+/obj/item/gun/energy/plasmacutter/shotgun
+	name = "plasma cutter shotgun"
+	desc = "An industrial-grade, heavy-duty mining shotgun."
+	icon_state = "miningshotgun"
+	item_state = "miningshotgun"
+	origin_tech = "combat=5;materials=54;magnets=5;plasmatech=6;engineering=5"
+	ammo_type = list(/obj/item/ammo_casing/energy/plasma/shotgun)
+	force = 10
+
+/obj/item/gun/energy/plasmacutter/shotgun/mega
+	name = "magmite plasma cutter shotgun"
+	icon_state = "miningshotgun_mega"
+	item_state = "miningshotgun_mega"
+	desc = "An industrial-grade, heavy-duty mining shotgun. This one seems upgraded with plasma magmite."
+	ammo_type = list(/obj/item/ammo_casing/energy/plasma/shotgun/mega)
 
 // Wormhole Projectors //
 /obj/item/gun/energy/wormhole_projector
@@ -330,19 +354,15 @@
 	slot_flags = SLOT_BACK
 	cell_type = /obj/item/stock_parts/cell/bsg
 	shaded_charge = TRUE
-	var/obj/item/assembly/signaler/anomaly/flux/core = null
+	var/has_core = FALSE
 	var/has_bluespace_crystal = FALSE
 	var/admin_model = FALSE //For the admin gun, prevents crystal shattering, so anyone can use it, and you dont need to carry backup crystals.
 
-/obj/item/gun/energy/bsg/Destroy()
-	QDEL_NULL(core)
-	return ..()
-
 /obj/item/gun/energy/bsg/examine(mob/user)
 	. = ..()
-	if(core && has_bluespace_crystal)
+	if(has_core && has_bluespace_crystal)
 		. += "<span class='notice'>[src] полностью рабочая!</span>"
-	else if(core)
+	else if(has_core)
 		. += "<span class='warning'>Аномалия потока вставлена, но не хватает БС кристалла.</span>"
 	else if(has_bluespace_crystal)
 		. += "<span class='warning'>Имеет инкрустированный БС кристалл, но нет установленного ядра аномалии потока.</span>"
@@ -364,13 +384,12 @@
 		return
 
 	if(istype(O, /obj/item/assembly/signaler/anomaly/flux))
-		if(core)
+		if(has_core)
 			to_chat(user, "<span class='notice'>[src] уже имеет [O]!</span>")
 			return
 		to_chat(user, "<span class='notice'>Вы вставили [O] в [src], и [src] начинает разогреваться.</span>")
-		O.forceMove(src)
-		core = O
-		QDEL_NULL(O)
+		has_core = TRUE
+		qdel(O)
 		update_icon()
 	else
 		return ..()
@@ -379,14 +398,14 @@
 	if(!has_bluespace_crystal)
 		to_chat(user, "<span class='warning'>[src] не имеет БС кристалла для генерации заряда!</span>")
 		return
-	if(!core)
+	if(!has_core)
 		to_chat(user, "<span class='warning'>[src] не имеет аномалии потока для генерации заряда!</span>")
 		return
 	return ..()
 
 /obj/item/gun/energy/bsg/update_icon()
 	. = ..()
-	if(core)
+	if(has_core)
 		if(has_bluespace_crystal)
 			icon_state = "bsg_finished"
 		else
@@ -416,7 +435,7 @@
 
 /obj/item/gun/energy/bsg/prebuilt/Initialize(mapload)
 	. = ..()
-	core = new /obj/item/assembly/signaler/anomaly/flux
+	has_core = TRUE
 	update_icon()
 
 /obj/item/gun/energy/bsg/prebuilt/admin

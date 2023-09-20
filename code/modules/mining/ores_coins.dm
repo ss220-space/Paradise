@@ -14,13 +14,33 @@
 	singular_name = "ore chunk"
 	var/points = 0 //How many points this ore gets you from the ore redemption machine
 	var/refined_type = null //What this ore defaults to being refined into
+	var/list/stack_overlays
+
+/obj/item/stack/ore/update_icon()
+	var/difference = min(ORESTACK_OVERLAYS_MAX, amount) - (LAZYLEN(stack_overlays)+1)
+	if(difference == 0)
+		return
+	else if(difference < 0 && LAZYLEN(stack_overlays))			//amount < stack_overlays, remove excess.
+		cut_overlays()
+		if (LAZYLEN(stack_overlays)-difference <= 0)
+			stack_overlays = null;
+		else
+			stack_overlays.len += difference
+	else if(difference > 0)			//amount > stack_overlays, add some.
+		cut_overlays()
+		for(var/i in 1 to difference)
+			var/mutable_appearance/newore = mutable_appearance(icon, icon_state)
+			newore.pixel_x = rand(-8,8)
+			newore.pixel_y = rand(-8,8)
+			LAZYADD(stack_overlays, newore)
+	if(stack_overlays)
+		add_overlay(stack_overlays)
 
 /obj/item/stack/ore/Initialize(mapload, new_amount , merge = TRUE)
 	. = ..()
 	pixel_x = rand(0, 16) - 8
 	pixel_y = rand(0, 8) - 8
-	if(is_mining_level(z))
-		GLOB.score_oremined++ //When ore spawns, increment score.  Only include ore spawned on mining level (No Clown Planet)
+
 
 /obj/item/stack/ore/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -109,7 +129,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	. = ..()
 	recipes = GLOB.sand_recipes
 
-/obj/item/stack/ore/glass/throw_impact(atom/hit_atom)
+/obj/item/stack/ore/glass/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(..() || !ishuman(hit_atom))
 		return
 	var/mob/living/carbon/human/C = hit_atom
@@ -122,9 +142,9 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	if(C.glasses && C.glasses.flags_cover & GLASSESCOVERSEYES)
 		visible_message("<span class='danger'>[C]'s glasses block the sand!</span>")
 		return
-	C.EyeBlurry(6)
+	C.EyeBlurry(12 SECONDS)
 	C.adjustStaminaLoss(15)//the pain from your eyes burning does stamina damage
-	C.AdjustConfused(5)
+	C.AdjustConfused(10 SECONDS)
 	to_chat(C, "<span class='userdanger'>[src] gets into your eyes! The pain, it burns!</span>")
 	qdel(src)
 
@@ -488,6 +508,22 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 			user.visible_message("<span class='notice'>[user] has flipped [src]. It lands on [coinflip].</span>", \
 								 "<span class='notice'>You flip [src]. It lands on [coinflip].</span>", \
 								 "<span class='notice'>You hear the clattering of loose change.</span>")
+
+/obj/item/coin/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	if(istype(throwingdatum?.thrower?.mind?.martial_art, /datum/martial_art/mr_chang))
+		throwingdatum.thrower.say(pick("Сдачу, пожалуйста!", "За сущие копейки!", "Сдачу!", "Кэшбек в кредит!"))
+		embed_chance = 30
+		embedded_impact_pain_multiplier = 2
+		embedded_ignore_throwspeed_threshold = TRUE
+		sharp = TRUE
+	. = ..()
+
+/obj/item/stack/spacecash/after_throw(datum/callback/callback)
+	embed_chance = initial(embed_chance)
+	embedded_impact_pain_multiplier = initial(embedded_impact_pain_multiplier)
+	embedded_ignore_throwspeed_threshold = initial(embedded_ignore_throwspeed_threshold)
+	sharp = initial(sharp)
+	. = ..()
 
 #undef GIBTONITE_QUALITY_LOW
 #undef GIBTONITE_QUALITY_MEDIUM

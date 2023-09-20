@@ -247,6 +247,7 @@
 
 /datum/design/rglass
 	name = "Reinforced Glass"
+	desc = "Metal + Glass"
 	id = "rglass"
 	build_type = AUTOLATHE | SMELTER
 	materials = list(MAT_METAL = 1000, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
@@ -267,7 +268,7 @@
 	name = "Compressed Matter Cartridge"
 	id = "rcd_ammo"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 16000, MAT_GLASS=8000)
+	materials = list(MAT_METAL = 48000, MAT_GLASS=24000)
 	build_path = /obj/item/rcd_ammo
 	category = list("initial","Construction")
 
@@ -751,14 +752,6 @@
 	materials = list(MAT_METAL = 500)
 	build_path = /obj/item/flamethrower/full
 	category = list("hacked", "Security")
-
-/datum/design/rcd
-	name = "Rapid Construction Device (RCD)"
-	id = "rcd"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30000)
-	build_path = /obj/item/rcd
-	category = list("hacked", "Construction")
 
 /datum/design/rpd
 	name = "Rapid Pipe Dispenser (RPD)"
