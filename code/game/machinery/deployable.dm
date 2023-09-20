@@ -64,8 +64,8 @@
 		return !density
 
 /obj/structure/barricade/attack_hand(mob/user)
-	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user)
 	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+		SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user)
 		add_fingerprint(user)
 		user.changeNext_move(CLICK_CD_MELEE)
 		attack_generic(user, user.dna.species.obj_damage)
