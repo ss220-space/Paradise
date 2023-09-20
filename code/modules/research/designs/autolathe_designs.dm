@@ -849,14 +849,6 @@
 	build_path = /obj/item/ammo_casing/shotgun/incendiary
 	category = list("hacked", "Security")
 
-/datum/design/speedloader_univ
-	name = "Speedloader"
-	id = "speedloader_univ"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 500)
-	build_path = /obj/item/ammo_box/shotgun/universal
-	category = list("hacked", "Security")
-
 /datum/design/riot_dart
 	name = "Foam riot dart"
 	id = "riot_dart"
