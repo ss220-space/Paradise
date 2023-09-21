@@ -15,6 +15,7 @@ Uncontrollable Aggression
 	stage_speed = -3
 	transmittable = 1
 	level = 6
+	severity = 4
 
 /datum/symptom/aggression/Activate(datum/disease/advance/A)
 	..()
@@ -113,6 +114,7 @@ Uncontrollable Actions
 	stage_speed = 0
 	transmittable = -1
 	level = 6
+	severity = 4
 
 /datum/symptom/obsession/Activate(datum/disease/advance/A)
 	..()

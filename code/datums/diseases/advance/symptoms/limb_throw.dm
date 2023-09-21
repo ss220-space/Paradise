@@ -15,6 +15,7 @@ Limb Rejection
 	stage_speed = 3
 	transmittable = -3
 	level = 5
+	severity = 4
 	var/spell_learned = FALSE
 
 /datum/symptom/limb_throw/Activate(datum/disease/advance/A)

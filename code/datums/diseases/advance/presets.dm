@@ -102,6 +102,6 @@
 // Uncontrolled Laughter Effect + Groaning Syndrome + Hullucigen
 /datum/disease/advance/preset/pre_loyalty
 	name = "Merry sufferer"
-	symptoms = list(new/datum/symptom/laugh, /datum/symptom/moan, /datum/symptom/hallucigen)
+	symptoms = list(new/datum/symptom/laugh, new/datum/symptom/moan, new/datum/symptom/hallucigen)
 	mutation_reagents = list("love")
 	possible_mutations = list(/datum/disease/loyalty)
