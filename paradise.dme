@@ -638,6 +638,7 @@
 #include "code\game\gamemodes\scoreboard.dm"
 #include "code\game\gamemodes\setupgame.dm"
 #include "code\game\gamemodes\steal_items.dm"
+#include "code\game\gamemodes\antag_paradise\antag_paradise.dm"
 #include "code\game\gamemodes\autotraitor\autotraitor.dm"
 #include "code\game\gamemodes\blob\blob.dm"
 #include "code\game\gamemodes\blob\blob_finish.dm"
