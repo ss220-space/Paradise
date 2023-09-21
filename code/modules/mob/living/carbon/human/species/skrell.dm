@@ -71,7 +71,7 @@
 /datum/species/skrell/water_act(mob/living/carbon/human/M, volume, temperature, source, method)
 	. = ..()
 	if(method == REAGENT_TOUCH)
-		if(M.getFireLoss() < 25 && M.getBruteLoss() < 25 && M.health != 100) // убираем спам водички х30 на фулхп
+		if(M.getFireLoss() < 25 && M.getBruteLoss() < 25 && M.health != 100)
 			M.adjustBruteLoss(-4)
 			M.adjustFireLoss(-4)
 			to_chat(M, "<span class='notice'>Освежающая вода закрывает ваши мелкие раны!</span>")
