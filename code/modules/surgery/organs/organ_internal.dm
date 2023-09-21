@@ -6,6 +6,7 @@
 	var/slot
 	// DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
 	var/non_primary = 0
+	var/can_see_food = FALSE
 	var/unremovable = FALSE //Whether it shows up as an option to remove during surgery.
 
 /obj/item/organ/internal/New(mob/living/carbon/holder)

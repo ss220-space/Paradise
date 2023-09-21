@@ -1693,47 +1693,52 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	var/slots_to_see = src.get_all_slots() - l_store - r_store
 	for(var/obj/item/clothing/C in slots_to_see) //If they have some clothing equipped that lets them see reagents, they can see reagents
 		if(C.scan_reagents)
-			return 1
+			return TRUE
+
+/mob/living/carbon/human/can_see_food()
+	for(var/obj/item/organ/internal/I in src.internal_organs)
+		if(I.can_see_food)
+			return TRUE
 
 /mob/living/carbon/human/selfFeed(var/obj/item/reagent_containers/food/toEat, fullness)
 	if(!check_has_mouth())
 		to_chat(src, "Where do you intend to put \the [toEat]? You don't have a mouth!")
-		return 0
+		return FALSE
 	return ..()
 
 /mob/living/carbon/human/forceFed(var/obj/item/reagent_containers/food/toEat, mob/user, fullness)
 	if(!check_has_mouth())
 		if(!((istype(toEat, /obj/item/reagent_containers/food/drinks) && (ismachineperson(src)))))
 			to_chat(user, "Where do you intend to put \the [toEat]? \The [src] doesn't have a mouth!")
-			return 0
+			return FALSE
 	return ..()
 
 /mob/living/carbon/human/selfDrink(var/obj/item/reagent_containers/food/drinks/toDrink)
 	if(!check_has_mouth())
 		if(!ismachineperson(src))
 			to_chat(src, "Where do you intend to put \the [src]? You don't have a mouth!")
-			return 0
+			return FALSE
 		else
 			to_chat(src, "<span class='notice'>You pour a bit of liquid from [toDrink] into your connection port.</span>")
 	else
 		to_chat(src, "<span class='notice'>You swallow a gulp of [toDrink].</span>")
-	return 1
+	return TRUE
 
 /mob/living/carbon/human/can_track(mob/living/user)
 	if(wear_id)
 		var/obj/item/card/id/id = wear_id
 		if(istype(id) && id.is_untrackable())
-			return 0
+			return FALSE
 	if(wear_pda)
 		var/obj/item/pda/pda = wear_pda
 		if(istype(pda))
 			var/obj/item/card/id/id = pda.id
 			if(istype(id) && id.is_untrackable())
-				return 0
+				return FALSE
 	if(istype(head, /obj/item/clothing/head))
 		var/obj/item/clothing/head/hat = head
 		if(hat.blockTracking)
-			return 0
+			return FALSE
 
 	return ..()
 
