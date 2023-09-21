@@ -369,7 +369,8 @@
 		/turf/simulated/mineral/uranium/volcanic/hard/double = 15, /turf/simulated/mineral/diamond/volcanic/hard/double = 3, /turf/simulated/mineral/gold/volcanic/hard/double = 15,
 		/turf/simulated/mineral/titanium/volcanic/hard/double = 31, /turf/simulated/mineral/magmite/volcanic/hard/double = 1, /turf/simulated/mineral/silver/volcanic/hard/double = 12,
 		/turf/simulated/mineral/plasma/volcanic/hard/double = 25, /turf/simulated/mineral/bscrystal/volcanic/hard/double = 3, /turf/simulated/mineral/gibtonite/volcanic/hard/double = 4,
-		/turf/simulated/mineral/iron/volcanic/hard/double = 45, /turf/simulated/mineral/gem/volcanic/hard/double = 5, /turf/simulated/floor/plating/asteroid/airless/cave/volcanic = 1)
+		/turf/simulated/mineral/iron/volcanic/hard/double = 45, /turf/simulated/mineral/gem/volcanic/hard/double = 5, /turf/simulated/mineral/clown/volcanic/hard/double = 2,
+		/turf/simulated/mineral/mime/volcanic/hard/double = 2, /turf/simulated/floor/plating/asteroid/airless/cave/volcanic = 1)
 
 /turf/simulated/mineral/random/volcanic/hard/double/high_chance
 	icon_state = "rock_highchance"
@@ -378,14 +379,14 @@
 		/turf/simulated/mineral/uranium/volcanic/hard/double = 25, /turf/simulated/mineral/diamond/volcanic/hard/double = 7, /turf/simulated/mineral/gold/volcanic/hard/double = 45,
 		/turf/simulated/mineral/titanium/volcanic/hard/double = 45, /turf/simulated/mineral/silver/volcanic/hard/double = 20, /turf/simulated/mineral/plasma/volcanic/hard/double = 50,
 		/turf/simulated/mineral/bscrystal/volcanic/hard/double = 7, /turf/simulated/mineral/magmite/volcanic/hard/double = 3, /turf/simulated/mineral/gem/volcanic/hard/double = 7,
-		/turf/simulated/floor/plating/asteroid/airless/cave/volcanic = 1)
+		/turf/simulated/mineral/clown/volcanic/hard/double = 5, /turf/simulated/mineral/mime/volcanic/hard/double = 5, /turf/simulated/floor/plating/asteroid/airless/cave/volcanic = 1)
 
 // Actual minerals
 /turf/simulated/mineral/iron
 	mineralType = /obj/item/stack/ore/iron
 	spreadChance = 20
 	spread = 1
-	scan_state = "rock_Iron"
+	scan_state = "rock_iron"
 
 /turf/simulated/mineral/iron/volcanic
 	environment_type = "basalt"
@@ -410,7 +411,7 @@
 	mineralType = /obj/item/stack/ore/uranium
 	spreadChance = 5
 	spread = 1
-	scan_state = "rock_Uranium"
+	scan_state = "rock_uranium"
 
 /turf/simulated/mineral/uranium/volcanic
 	environment_type = "basalt"
@@ -435,7 +436,7 @@
 	mineralType = /obj/item/stack/ore/diamond
 	spreadChance = 0
 	spread = 1
-	scan_state = "rock_Diamond"
+	scan_state = "rock_diamond"
 
 /turf/simulated/mineral/diamond/volcanic
 	environment_type = "basalt"
@@ -460,7 +461,7 @@
 	mineralType = /obj/item/stack/ore/gold
 	spreadChance = 5
 	spread = 1
-	scan_state = "rock_Gold"
+	scan_state = "rock_gold"
 
 /turf/simulated/mineral/gold/volcanic
 	environment_type = "basalt"
@@ -485,7 +486,7 @@
 	mineralType = /obj/item/stack/ore/silver
 	spreadChance = 5
 	spread = 1
-	scan_state = "rock_Silver"
+	scan_state = "rock_silver"
 
 /turf/simulated/mineral/silver/volcanic
 	environment_type = "basalt"
@@ -510,7 +511,7 @@
 	mineralType = /obj/item/stack/ore/titanium
 	spreadChance = 5
 	spread = 1
-	scan_state = "rock_Titanium"
+	scan_state = "rock_titanium"
 
 /turf/simulated/mineral/titanium/volcanic
 	environment_type = "basalt"
@@ -535,7 +536,7 @@
 	mineralType = /obj/item/stack/ore/plasma
 	spreadChance = 8
 	spread = 1
-	scan_state = "rock_Plasma"
+	scan_state = "rock_plasma"
 
 /turf/simulated/mineral/plasma/volcanic
 	environment_type = "basalt"
@@ -561,7 +562,7 @@
 	mineralAmt = 3
 	spreadChance = 0
 	spread = 0
-	scan_state = "rock_Clown"
+	scan_state = "rock_clown"
 
 /turf/simulated/mineral/clown/volcanic
 	environment_type = "basalt"
@@ -572,11 +573,22 @@
 	temperature = 300
 	defer_change = 1
 
+/turf/simulated/mineral/clown/volcanic/hard
+	name = "hardened basalt"
+	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	hardness = 2
+
+/turf/simulated/mineral/clown/volcanic/hard/double
+	name = "hardened volcanic basalt"
+	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	hardness = 3
+
 /turf/simulated/mineral/mime
 	mineralType = /obj/item/stack/ore/tranquillite
 	mineralAmt = 3
 	spreadChance = 0
 	spread = 0
+	scan_state = "rock_mime"
 
 /turf/simulated/mineral/mime/volcanic
 	environment_type = "basalt"
@@ -587,12 +599,22 @@
 	temperature = 300
 	defer_change = 1
 
+/turf/simulated/mineral/mime/volcanic/hard
+	name = "hardened basalt"
+	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	hardness = 2
+
+/turf/simulated/mineral/mime/volcanic/hard/double
+	name = "hardened volcanic basalt"
+	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	hardness = 3
+
 /turf/simulated/mineral/bscrystal
 	mineralType = /obj/item/stack/ore/bluespace_crystal
 	mineralAmt = 1
 	spreadChance = 0
 	spread = 0
-	scan_state = "rock_BScrystal"
+	scan_state = "rock_bscrystal"
 
 /turf/simulated/mineral/bscrystal/volcanic
 	environment_type = "basalt"
@@ -672,7 +694,7 @@
 	mineralAmt = 1
 	spreadChance = 0
 	spread = 0
-	scan_state = "rock_Gibtonite"
+	scan_state = "rock_gibtonite"
 	var/det_time = 8 //Countdown till explosion, but also rewards the player for how close you were to detonation when you defuse it
 	var/stage = GIBTONITE_UNSTRUCK //How far into the lifecycle of gibtonite we are
 	var/activated_ckey = null //These are to track who triggered the gibtonite deposit for logging purposes

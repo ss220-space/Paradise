@@ -1405,10 +1405,6 @@
 	icon_state = "brown"
 	},
 /area/mine/production)
-"eN" = (
-/obj/item/stack/ore/bananium,
-/turf/simulated/mineral/random/volcanic,
-/area/lavaland/surface/outdoors/unexplored/danger)
 "eU" = (
 /obj/structure/stone_tile/cracked,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
@@ -3888,10 +3884,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp)
-"rl" = (
-/obj/item/stack/ore/tranquillite,
-/turf/simulated/mineral/random/volcanic,
-/area/lavaland/surface/outdoors/unexplored/danger)
 "rr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -5167,10 +5159,6 @@
 /obj/structure/stone_tile,
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
-"Cd" = (
-/obj/item/stack/ore/bananium,
-/turf/simulated/mineral/random/volcanic/hard,
-/area/lavaland/surface/outdoors/unexplored/danger)
 "Ck" = (
 /obj/structure/stone_tile{
 	dir = 8
@@ -6362,10 +6350,6 @@
 	icon_state = "brown"
 	},
 /area/mine/production)
-"LD" = (
-/obj/item/stack/ore/tranquillite,
-/turf/simulated/mineral/random/volcanic/hard,
-/area/lavaland/surface/outdoors/unexplored/danger)
 "LF" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -7079,10 +7063,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
-"RP" = (
-/obj/item/stack/ore/tranquillite,
-/turf/simulated/mineral/random/volcanic/hard/double,
-/area/lavaland/surface/outdoors/unexplored/danger)
 "Sc" = (
 /obj/structure/stone_tile/cracked{
 	dir = 8
@@ -8087,10 +8067,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
-"ZW" = (
-/obj/item/stack/ore/bananium,
-/turf/simulated/mineral/random/volcanic/hard/double,
-/area/lavaland/surface/outdoors/unexplored/danger)
 
 (1,1,1) = {"
 RD
@@ -11729,7 +11705,7 @@ ak
 ak
 ak
 ak
-LD
+kt
 kt
 fq
 Vh
@@ -12764,7 +12740,7 @@ fq
 kt
 kt
 kt
-Cd
+kt
 ak
 ak
 ak
@@ -13067,7 +13043,7 @@ kt
 kt
 kt
 kt
-LD
+kt
 kt
 kt
 kt
@@ -17447,7 +17423,7 @@ kt
 kt
 kt
 kt
-Cd
+kt
 kt
 kt
 ak
@@ -24605,7 +24581,7 @@ kt
 kt
 kt
 kt
-LD
+kt
 kt
 kt
 kt
@@ -26770,7 +26746,7 @@ kt
 ak
 ak
 ak
-LD
+kt
 fq
 kt
 ak
@@ -29575,7 +29551,7 @@ ak
 ak
 ak
 ak
-eN
+ak
 ak
 ak
 ak
@@ -35417,7 +35393,7 @@ kt
 kt
 kt
 kt
-rl
+ak
 ak
 ak
 ak
@@ -38743,7 +38719,7 @@ ak
 ak
 ak
 ak
-eN
+ak
 kt
 kt
 ak
@@ -39311,7 +39287,7 @@ ak
 ak
 ak
 ak
-rl
+ak
 ak
 ak
 ak
@@ -43529,7 +43505,7 @@ kt
 ak
 ak
 ak
-rl
+ak
 ak
 kt
 kt
@@ -44552,7 +44528,7 @@ kt
 kt
 fq
 fq
-ZW
+fq
 fq
 kt
 ak
@@ -46942,7 +46918,7 @@ ak
 ak
 ak
 ak
-eN
+ak
 ak
 ak
 ak
@@ -54853,7 +54829,7 @@ kt
 kt
 kt
 kt
-Cd
+kt
 kt
 fq
 fq
@@ -60742,7 +60718,7 @@ kt
 kt
 kt
 kt
-Cd
+kt
 kt
 fq
 fq
@@ -63833,7 +63809,7 @@ fq
 fq
 kt
 kt
-Cd
+kt
 kt
 kt
 kt
@@ -64068,7 +64044,7 @@ fq
 Vh
 Vh
 fq
-RP
+fq
 kt
 kt
 kt
@@ -66548,7 +66524,7 @@ kt
 kt
 kt
 kt
-LD
+kt
 kt
 kt
 fq
@@ -67759,7 +67735,7 @@ kt
 kt
 kt
 ak
-rl
+ak
 ak
 ak
 ak
@@ -68291,7 +68267,7 @@ kt
 kt
 kt
 kt
-Cd
+kt
 kt
 kt
 kt
@@ -68642,7 +68618,7 @@ fq
 kt
 kt
 kt
-Cd
+kt
 kt
 kt
 kt
