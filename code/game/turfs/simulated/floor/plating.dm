@@ -369,6 +369,21 @@
 	if(..())
 		return TRUE
 
+	if(istype(C, /obj/item/stack/sheet/metal))
+		var/obj/item/stack/sheet/metal/metal = C
+		if(metal.get_amount() < 1)
+			to_chat(user, span_warning("You need at least 1 [metal] to make a plating!"))
+			return TRUE
+		else
+			to_chat(user, span_notice("You begin swapping the plating for [C]..."))
+			if(do_after(user, 3 SECONDS * C.toolspeed * gettoolspeedmod(user), target = src))
+				if(metal.get_amount() >= 1)
+					ChangeTurf(/turf/simulated/floor/plating, FALSE, FALSE)
+					playsound(src, C.usesound, 80, TRUE)
+					metal.use(1)
+					to_chat(user, span_notice("You swap the plating for [C]."))
+				return TRUE
+
 	if(istype(C) && C.force)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)
