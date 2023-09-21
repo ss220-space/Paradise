@@ -45,6 +45,12 @@
 
 	var/mob/living/simple_animal/hostile/headslug/crab = new(cling_turf)
 	crab.origin = user_mind
+	var/datum/antagonist/changeling/cling = usr.mind.has_antag_datum(/datum/antagonist/changeling)
+
+	if(cling.evented) // change colour to native for this slug
+		crab.icon_state = "headslugevent"
+		crab.icon_living = "headslugevent"
+		crab.icon_dead = "headslug_deadevent"
 
 	if(crab.origin)
 		crab.origin.active = TRUE
