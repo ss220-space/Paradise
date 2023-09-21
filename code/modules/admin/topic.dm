@@ -1239,6 +1239,67 @@
 		Game() // updates the main game menu
 		.(href, list("f_secret"=1))
 
+	else if(href_list["change_weights"])
+		if(!check_rights(R_ADMIN))
+			return
+		if(SSticker && SSticker.mode)
+			return alert(usr, "The game has already started.", null, null, null, null)
+		if(GLOB.master_mode != "antag-paradise" && GLOB.secret_force_mode != "antag-paradise")
+			return alert(usr, "The game mode has to be Antag Paradise!", null, null, null, null)
+
+		var/dat = {"<meta charset="UTF-8"><b>What antag weights you want to change. Higher the weight higher the chance for antag to roll. Leave everything at zero if you want total randomness.</b><hr>"}
+		dat += {"<table><tr><td><b>Antag</b></td><td><b>Weight</b></td></tr>"}
+		for(var/antag in GLOB.antag_paradise_weights)
+			dat += {"<tr><td>[capitalize(antag)]</td><td><A href='?src=[UID()];change_weights2=[antag]'>\[[GLOB.antag_paradise_weights[antag]]\]</A></td></tr>"}
+		dat += {"</table><br><A href='?src=[UID()];change_weights2=reset'>Reset to default</A><br><hr>"}
+
+		dat += {"<br><b>Edit the chance to roll double antag for Traitor role. Leave it as it is if you want default 10% chance.</b><hr>"}
+		dat += {"<table><tr><td>Chance = </td><td><A href='?src=[UID()];change_weights2=chance'>[isnull(GLOB.antag_paradise_double_antag_chance) ? "DEFAULT (10%)" : "[GLOB.antag_paradise_double_antag_chance]%"]</A></td></tr></table>"}
+		dat += {"<br><b>Edit the chance to spawn special antag (Malf AI and hijacker only currently). Leave it as it is if you want default 10% chance.</b><hr>"}
+		var/highest_chance = 0
+		for(var/role in GLOB.antag_paradise_special_weights)
+			if(GLOB.antag_paradise_special_weights[role] > highest_chance)
+				highest_chance = GLOB.antag_paradise_special_weights[role]
+		dat += {"<table><tr><td>Chance = </td><td><A href='?src=[UID()];change_weights2=special'>[highest_chance]%</A></td></tr></table>"}
+		usr << browse(dat, "window=change_weights")
+
+	else if(href_list["change_weights2"])
+		if(!check_rights(R_ADMIN))
+			return
+		if(SSticker && SSticker.mode)
+			return alert(usr, "The game has already started.", null, null, null, null)
+		if(GLOB.master_mode != "antag-paradise" && GLOB.secret_force_mode != "antag-paradise")
+			return alert(usr, "The game mode has to be Antag Paradise!", null, null, null, null)
+
+		var/command = href_list["change_weights2"]
+		if(command == "reset")
+			for(var/antag in GLOB.antag_paradise_weights)
+				GLOB.antag_paradise_weights[antag] = 0
+			log_and_message_admins(span_notice("resets the weight for all antagonists in Antag Paradise gamemode."))
+		else if(command == "chance")
+			var/choice = input(usr, "Adjust the chance for [capitalize(ROLE_TRAITOR)] antag to roll additional role on top", "Double Antag Adjustment", 0) as null|num
+			if(isnull(choice))
+				return
+			choice = clamp(choice, 0, 100)
+			GLOB.antag_paradise_double_antag_chance = choice
+			log_and_message_admins(span_notice("set the [choice]% chance to roll double antag for [capitalize(ROLE_TRAITOR)] antagonist in Antag Paradise gamemode."))
+		else if(command == "special")
+			var/choice = input(usr, "Adjust the chance for special antag to spawn", "Special Antag Adjustment", 0) as null|num
+			if(isnull(choice))
+				return
+			choice = clamp(choice, 0, 100)
+			for(var/role in GLOB.antag_paradise_special_weights)
+				GLOB.antag_paradise_special_weights[role] = choice
+			log_and_message_admins(span_notice("set the [choice]% chance to spawn special antagonist in Antag Paradise gamemode."))
+		else
+			var/choice = input(usr, "Adjust the weight for [capitalize(command)] antag", "Antag Weight Adjustment", 0) as null|num
+			if(isnull(choice))
+				return
+			choice = clamp(choice, 0, 100)
+			GLOB.antag_paradise_weights[command] = choice
+			log_and_message_admins(span_notice("set the weight for [capitalize(command)] antagonist to [choice] in Antag Paradise gamemode."))
+		.(href, list("change_weights"=1))
+
 	else if(href_list["monkeyone"])
 		if(!check_rights(R_SPAWN))	return
 

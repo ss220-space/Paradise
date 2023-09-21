@@ -140,14 +140,16 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	if(!check_cryo)
 		return
 
-	var/list/owners = get_owners()
-	for(var/datum/mind/user in owners)
-		to_chat(owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
-		SEND_SOUND(owner.current, 'sound/ambience/alarm4.ogg')
-
+	alarm_changes()
 	SSticker.mode.victims.Remove(target)
 	target = null
-	INVOKE_ASYNC(src, PROC_REF(post_target_cryo), owners)
+	INVOKE_ASYNC(src, PROC_REF(post_target_cryo), get_owners())
+
+
+/datum/objective/proc/alarm_changes()
+	for(var/datum/mind/user in get_owners())
+		to_chat(user.current, span_userdanger("<BR>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!"))
+		SEND_SOUND(user.current, 'sound/ambience/alarm4.ogg')
 
 
 /**
@@ -269,14 +271,15 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/maroon/find_target(list/target_blacklist)
 	..()
+	update_explanation()
+	return target
+
+
+/datum/objective/maroon/proc/update_explanation()
 	if(target?.current)
 		explanation_text = "Prevent from escaping alive or free [target.current.real_name], the [target.assigned_role]."
-		if(!(target in SSticker.mode.victims))
-			SSticker.mode.victims.Add(target)
 	else
 		explanation_text = "Free Objective"
-
-	return target
 
 
 /datum/objective/maroon/check_completion()
