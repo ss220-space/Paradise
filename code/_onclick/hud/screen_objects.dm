@@ -589,6 +589,11 @@
 	icon_state = "health0"
 	screen_loc = ui_health
 
+/obj/screen/stamina_bar
+	name = "stamina"
+	icon_state = "stamina0"
+	screen_loc = ui_stamina
+
 /obj/screen/healths/alien
 	icon = 'icons/mob/screen_alien.dmi'
 	screen_loc = ui_alien_health

@@ -313,7 +313,7 @@
 /mob/living/proc/adjustStaminaLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		staminaloss = 0
-		update_health_hud()
+		update_stamina_hud()
 		update_stamina()
 		return FALSE
 	var/old_stamloss = staminaloss
@@ -326,14 +326,14 @@
 	if(amount > 0)
 		stam_regen_start_time = world.time + (STAMINA_REGEN_BLOCK_TIME * stam_regen_start_modifier)
 	if(updating_health)
-		update_health_hud()
+		update_stamina_hud()
 		update_stamina()
 
 
 /mob/living/proc/setStaminaLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		staminaloss = 0
-		update_health_hud()
+		update_stamina_hud()
 		update_stamina()
 		return FALSE
 	var/old_stamloss = staminaloss
@@ -346,7 +346,7 @@
 	if(amount > 0)
 		stam_regen_start_time = world.time + STAMINA_REGEN_BLOCK_TIME
 	if(updating_health)
-		update_health_hud()
+		update_stamina_hud()
 		update_stamina()
 
 

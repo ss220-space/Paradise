@@ -180,6 +180,32 @@
 		else
 			clear_fullscreen("brute")
 
+/mob/living/update_stamina_hud(shown_stamina_amount)
+	if(!client)
+		return
+
+	if(stamina_bar)
+		if(stat != DEAD)
+			. = TRUE
+			if(shown_stamina_amount == null)
+				shown_stamina_amount = staminaloss
+			if(shown_stamina_amount >= maxHealth)
+				stamina_bar.icon_state = "stamina6"
+			else if(shown_stamina_amount > maxHealth * 0.8)
+				stamina_bar.icon_state = "stamina5"
+			else if(shown_stamina_amount > maxHealth * 0.6)
+				stamina_bar.icon_state = "stamina4"
+			else if(shown_stamina_amount > maxHealth * 0.4)
+				stamina_bar.icon_state = "stamina3"
+			else if(shown_stamina_amount > maxHealth * 0.2)
+				stamina_bar.icon_state = "stamina2"
+			else if(shown_stamina_amount > 0)
+				stamina_bar.icon_state = "stamina1"
+			else
+				stamina_bar.icon_state = "stamina0"
+		else
+			stamina_bar.icon_state = "stamina6"
+
 /mob/living/simple_animal/update_health_hud()
 	if(!client)
 		return
