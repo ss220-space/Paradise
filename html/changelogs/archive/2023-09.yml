@@ -156,6 +156,8 @@
   github-actions[bot]:
   - server: Automatic NanoMap Update (#3545)
 '2023-09-19':
+  Dimach:
+  - bugfix: proc name (#3561)
   Rerik007:
   - bugfix: ipc and non-ipc get speeed where they shouldn't (#3558)
   - bugfix: cryostorage tgui fix (#3557)
@@ -171,3 +173,24 @@
   - add: Mobs now dodging (#3544)
   - bugfix: Grey skull helmet now looks properly (#3549)
   - add: Sleeping Сarp Rework (#3466)
+'2023-09-20':
+  Albonix:
+  - bugfix: Two_blue_capsules (#3570)
+  Igz0m:
+  - tweak: Change Sec HUD icons of Syndicate (#3433)
+  Ksaikok46:
+  - tweak: remove shotgun speedloader from autolathe (#3566)
+  - bugfix: nuclear flechette no more replaces buckshot (#3565)
+  NightDawnFox:
+  - bugfix: wrong tech numbers (#3571)
+  ROdenFL:
+  - tweak: cardboard paint change (#3567)
+  Zwei:
+  - bugfix: Forcedodge Hotfix (#3564)
+'2023-09-21':
+  SAAD:
+  - tweak: Delta Satelite position (#3540)
+  spaghetti:
+  - add: stamina bar (#3240)
+  Сиротка:
+  - tweak: Skrell Rework (#3517)
