@@ -563,6 +563,7 @@
 		"Ash Walker Shaman" = 'icons/mob/species/unathi/suit.dmi',
 		"Draconid" = 'icons/mob/species/unathi/suit.dmi'
 		)
+	hide_tail_by_species = list("Vulpkanin")
 
 /obj/item/clothing/head/hooded/drake
 	name = "drake helmet"
@@ -614,6 +615,7 @@
 		"Ash Walker Shaman" = 'icons/mob/species/unathi/suit.dmi',
 		"Draconid" = 'icons/mob/species/unathi/suit.dmi'
 		)
+	hide_tail_by_species = list("Vulpkanin")
 
 /obj/item/clothing/suit/armor/makeshift_armor
 	name = "makeshift armor"
