@@ -15,6 +15,7 @@ Fragile Bones Syndrome
 	stage_speed = -4
 	transmittable = -4
 	level = 6
+	severity = 5
 	var/bonefragility_multiplier = 2
 	var/fragile_bones_chance = 3
 	var/done = FALSE

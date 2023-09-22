@@ -15,6 +15,7 @@ Uncontrolled Laughter Effect
 	stage_speed = 3
 	transmittable = -1
 	level = 2
+	severity = 1
 
 /datum/symptom/laugh/Activate(datum/disease/advance/A)
 	..()
