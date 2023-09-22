@@ -237,7 +237,6 @@
 
 /datum/antagonist/space_carp
 	name = "\improper Space Carp"
-	special_role = SPECIAL_ROLE_CARP
 	/// The rift to protect
 	var/obj/structure/carp_rift/rift
 
