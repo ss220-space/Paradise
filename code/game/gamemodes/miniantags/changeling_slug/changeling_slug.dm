@@ -8,7 +8,7 @@
 /mob/living/simple_animal/hostile/headslug/evented/proc/make_slug_antag(give_default_objectives = TRUE)
 	mind.assigned_role = SPECIAL_ROLE_HEADSLUG
 	mind.special_role = SPECIAL_ROLE_HEADSLUG
-	to_chat(src, "<b><font size=3 color='red'>You are a headslug.</font><br></b>")
+	to_chat(src, "<b><font size=3 color='red'>We are a headslug.</font><br></b>")
 	to_chat(src, span_changeling("Our eggs can be laid in any dead humanoid, but not in small ones. Use <B>Alt-Click</B> on the valid mob and keep calm for 5 seconds."))
 	to_chat(src, span_notice("Though this form shall perish after laying the egg, our true self shall be reborn in time."))
 
