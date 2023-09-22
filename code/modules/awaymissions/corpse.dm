@@ -822,7 +822,7 @@
 /obj/effect/mob_spawn/human/corpse/tacticool
 	mob_type = /mob/living/carbon/human
 	name = "Tacticool corpse"
-	icon = 'icons/mob/uniform.dmi'
+	icon = 'icons/mob/clothing/uniform.dmi'
 	icon_state = "tactifool_s"
 	mob_name = "Unknown"
 	random = TRUE

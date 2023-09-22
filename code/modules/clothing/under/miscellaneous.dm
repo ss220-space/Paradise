@@ -738,12 +738,12 @@
 	item_color = "rocksouniform"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi',
-		"Monkey" = 'icons/mob/species/monkey/uniform.dmi',
-		"Drask" = 'icons/mob/species/drask/uniform.dmi',
-		"Grey" = 'icons/mob/species/grey/uniform.dmi',
-		"Kidan" = 'icons/mob/species/kidan/uniform.dmi',
-		"Wryn" = 'icons/mob/species/wryn/uniform.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/uniform.dmi',
+		"Wryn" = 'icons/mob/clothing/species/wryn/uniform.dmi'
 	)
 
 /obj/item/clothing/under/assistantformal

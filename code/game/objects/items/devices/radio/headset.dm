@@ -5,13 +5,13 @@
 	icon_state = "headset"
 	item_state = "headset"
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/ears.dmi',
-		"Vox Armalis" = 'icons/mob/species/armalis/ears.dmi',
-		"Monkey" = 'icons/mob/species/monkey/ears.dmi',
-		"Farwa" = 'icons/mob/species/monkey/ears.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/ears.dmi',
-		"Neara" = 'icons/mob/species/monkey/ears.dmi',
-		"Stok" = 'icons/mob/species/monkey/ears.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi',
+		"Vox Armalis" = 'icons/mob/clothing/species/armalis/ears.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/ears.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/ears.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/ears.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/ears.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/ears.dmi'
 	) //We read you loud and skree-er.
 	materials = list(MAT_METAL=75)
 	canhear_range = 0 // can't hear headsets from very far away
