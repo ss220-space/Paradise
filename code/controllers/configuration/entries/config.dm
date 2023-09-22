@@ -421,7 +421,7 @@
 
 /datum/config_entry/keyed_list/event_delay_lower/ValidateAndSet(str_val)
 	. = ..()
-	if(.)	//Немного костыльно, но обеспечивает обновление с конвертацией в минуты.
+	if(.)	//A bit of hacky code, but allows updating with conversion to minutes
 		for(var/i in config_entry_value)
 			GLOB.event_delay_lower[GLOB.string_to_severity[i]] = config_entry_value[i] MINUTES
 
@@ -433,7 +433,7 @@
 
 /datum/config_entry/keyed_list/event_delay_upper/ValidateAndSet(str_val)
 	. = ..()
-	if(.)	//Немного костыльно, но обеспечивает обновление с конвертацией в минуты.
+	if(.)	//A bit of hacky code, but allows updating with conversion to minutes
 		for(var/i in config_entry_value)
 			GLOB.event_delay_upper[GLOB.string_to_severity[i]] = config_entry_value[i] MINUTES
 
