@@ -15,6 +15,7 @@
 	heatmod = 0.8
 	coldmod = 1.2
 	hunger_drain = 0.13
+	var/tail_strength = 1
 
 	blurb = "A heavily reptillian species, Unathi (or 'Sinta as they call themselves) hail from the \
 	Uuosa-Eso system, which roughly translates to 'burning mother'.<br/><br/>Coming from a harsh, radioactive \
@@ -110,7 +111,8 @@
 			user.changeNext_move(CLICK_CD_MELEE) //User бьет С в Е. Сука... С - это цель. Е - это орган.
 			user.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] хлещет хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]! </span>", "<span class='danger'>[pluralize_ru(user.gender,"Ты хлещешь","Вы хлещете")] хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!</span>")
 			user.adjustStaminaLoss(15)
-			C.apply_damage(5, BRUTE, E)
+			var/datum/species/unathi/U = user.dna.species
+			C.apply_damage(5 * U.tail_strength, BRUTE, E)
 			user.spin(20, 1)
 			playsound(user.loc, 'sound/weapons/slash.ogg', 50, 0)
 			add_attack_logs(user, C, "tail whipped")
