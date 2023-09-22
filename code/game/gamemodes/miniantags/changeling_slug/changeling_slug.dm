@@ -1,3 +1,5 @@
+#define EVENT_CLING_GPOINTS 13
+
 /mob/living/simple_animal/hostile/headslug/evented
 	icon_state = "headslugevent"
 	icon_living = "headslugevent"
@@ -24,7 +26,7 @@
 
 /datum/antagonist/changeling/evented // make buffed changeling
 	evented = 1
-	genetic_points = 13
+	genetic_points = EVENT_CLING_GPOINTS
 	absorbed_dna = list()
 
 /datum/antagonist/changeling/evented/on_gain()
@@ -38,6 +40,6 @@
 /datum/antagonist/changeling/evented/respec(keep_innate_powers = TRUE, reset_genetic_points = TRUE)
 	..()
 	if(reset_genetic_points)	//make 13 gen points after respec
-		genetic_points = 13
+		genetic_points = EVENT_CLING_GPOINTS
 
 

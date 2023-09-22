@@ -18,7 +18,10 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 
 	//to_chat(user, span_notice("We feel our consciousness become capable of communion with the hivemind."))
 	//to_chat(user, span_changeling("Use say \":g message\" to communicate with the other changelings. You can use linglink to interrogate properly grabbed victims."))
-	to_chat(user, span_changeling("Use say \":g message\" to communicate with the other changelings."))
+	if(cling.evented)
+		to_chat(user, span_changeling("Use say \":gi message\" to communicate with the other changelings."))
+	else
+		to_chat(user, span_changeling("Use say \":g message\" to communicate with the other changelings."))
 
 	return TRUE
 

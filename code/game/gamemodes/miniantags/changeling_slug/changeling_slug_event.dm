@@ -4,7 +4,6 @@
 
 /datum/event/headslug_infestation
 	announceWhen = 400
-	var/key_of_slug
 	var/spawncount = 1
 	var/successSpawn = FALSE
 
@@ -24,14 +23,11 @@
 
 /datum/event/headslug_infestation/proc/wrappedstart()
 	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE) //check for amount of people
-	if((length(GLOB.clients)) <= HI_MINPLAYERS_TRIGGER)
+	if(eventcheck())
 		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MODERATE]
 		EC.next_event_time = world.time + (60 * 10)
 		return
-	if(GAMEMODE_IS_CULTS || GAMEMODE_IS_NUCLEAR || GAMEMODE_IS_SHADOWLING) //check of gamemode
-		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MODERATE]
-		EC.next_event_time = world.time + (60 * 10)
-		return
+
 
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за Хедслага?", ROLE_CHANGELING, TRUE, source = /mob/living/simple_animal/hostile/headslug/evented)
 	while(spawncount && length(vents) && length(candidates))
@@ -44,6 +40,11 @@
 			new_slug.make_slug_antag() //give objective and plays coolsound
 			spawncount--
 			successSpawn = TRUE
+
+/datum/event/headslug_infestation/proc/eventcheck()
+	if(((length(GLOB.clients)) <= HI_MINPLAYERS_TRIGGER) ||GAMEMODE_IS_CULTS || GAMEMODE_IS_NUCLEAR || GAMEMODE_IS_SHADOWLING)
+		return 1
+
 
 #undef GAMEMODE_IS_CULTS
 #undef GAMEMODE_IS_SHADOWLING
