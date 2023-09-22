@@ -746,7 +746,7 @@ About the new airlock wires panel:
 	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
 		add_fingerprint(user)
 		user.changeNext_move(CLICK_CD_MELEE)
-		attack_generic(user, user.dna.species.obj_damage, damage_flag = "melee")
+		attack_generic(user, user.dna.species.obj_damage)
 		return
 	if(remove_airlock_note(user, FALSE))
 		add_fingerprint(user)
