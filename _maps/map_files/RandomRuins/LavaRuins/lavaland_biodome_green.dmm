@@ -716,7 +716,9 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/green_bio)
 "Wr" = (
-/obj/structure/chair/sofa/corner,
+/obj/structure/chair/sofa/corner{
+	dir = 4
+	},
 /obj/machinery/light/small{
 	dir = 4
 	},
