@@ -15,6 +15,7 @@ Groaning Syndrome
 	stage_speed = -1
 	transmittable = 3
 	level = 2
+	severity = 1
 
 /datum/symptom/moan/Activate(datum/disease/advance/A)
 	..()

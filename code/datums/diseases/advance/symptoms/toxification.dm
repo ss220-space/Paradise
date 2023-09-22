@@ -15,6 +15,7 @@ Toxification syndrome
 	stage_speed = -4
 	transmittable = -3
 	level = 5
+	severity = 5
 	var/germs_multiplier = 1
 
 /datum/symptom/infection/Start(datum/disease/advance/A)
