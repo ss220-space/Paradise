@@ -159,6 +159,7 @@
 			if(H == user)
 				to_chat(user, "<span class='notice'>You wipe off your face with [src].</span>")
 				H.lip_style = null
+				H.lip_color = null
 				H.update_body()
 			else
 				user.visible_message("<span class='warning'>[user] begins to wipe [H]'s face clean with \the [src].</span>", \
@@ -167,6 +168,7 @@
 					user.visible_message("<span class='notice'>[user] wipes [H]'s face clean with \the [src].</span>", \
 										 "<span class='notice'>You wipe off [H]'s face.</span>")
 					H.lip_style = null
+					H.lip_color = null
 					H.update_body()
 	else
 		..()
