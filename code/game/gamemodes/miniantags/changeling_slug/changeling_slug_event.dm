@@ -1,4 +1,4 @@
-#define HI_MINPLAYERS_TRIGGER 0
+#define HI_MINPLAYERS_TRIGGER 59
 #define GAMEMODE_IS_SHADOWLING (SSticker && istype(SSticker.mode, /datum/game_mode/shadowling))
 #define GAMEMODE_IS_CULTS (SSticker && (istype(SSticker.mode, /datum/game_mode/cult) || istype(SSticker.mode, /datum/game_mode/clockwork)))
 
@@ -10,7 +10,7 @@
 
 /datum/event/headslug_infestation/setup()
 	announceWhen = rand(announceWhen, announceWhen + 50) //announce just like borers
-	// spawncount = round(length(GLOB.data_core.general)/30)
+	spawncount = round(length(GLOB.data_core.general)/30)
 
 /datum/event/borer_infestation/announce()
 	if(successSpawn)
