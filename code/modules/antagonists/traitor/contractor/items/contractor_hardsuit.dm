@@ -211,11 +211,11 @@
 		usr.visible_message("<span class='warning'>[usr] changes the look of his hardsuit!</span>", "<span class='notice'>Turning off the disguise..</span>")
 		return
 	var/list/choices = list(
-		"EVA" = image(icon = 'icons/mob/contractor.dmi', icon_state = "EVA"),
-		"Mining Hardsuit" = image(icon = 'icons/mob/contractor.dmi', icon_state = "mining"),
-		"Medical Hardsuit" = image(icon = 'icons/mob/contractor.dmi', icon_state = "medical"),
-		"Security Hardsuit" = image(icon = 'icons/mob/contractor.dmi', icon_state = "security"),
-		"Engineering Hardsuit" = image(icon = 'icons/mob/contractor.dmi', icon_state = "engineering")
+		"EVA" = image(icon = 'icons/mob/clothing/contractor.dmi', icon_state = "EVA"),
+		"Mining Hardsuit" = image(icon = 'icons/mob/clothing/contractor.dmi', icon_state = "mining"),
+		"Medical Hardsuit" = image(icon = 'icons/mob/clothing/contractor.dmi', icon_state = "medical"),
+		"Security Hardsuit" = image(icon = 'icons/mob/clothing/contractor.dmi', icon_state = "security"),
+		"Engineering Hardsuit" = image(icon = 'icons/mob/clothing/contractor.dmi', icon_state = "engineering")
 	)
 	var/selected_chameleon = show_radial_menu(usr, loc, choices, require_near = TRUE)
 	switch(selected_chameleon)

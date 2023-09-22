@@ -49,7 +49,7 @@
 
 	// Restrict some styles to specific species
 	var/list/species_allowed = list("Human", "Slime People")
-	var/list/sprite_sheets = list() //For accessories common across species but need to use 'fitted' sprites (like underwear). e.g. list("Vox" = 'icons/mob/species/vox/iconfile.dmi')
+	var/list/sprite_sheets = list() //For accessories common across species but need to use 'fitted' sprites (like underwear). e.g. list("Vox" = 'icons/mob/clothing/species/vox/iconfile.dmi')
 	var/list/models_allowed = list() //Specifies which, if any, hairstyles or markings can be accessed by which prosthetics. Should equal the manufacturing company name in robolimbs.dm.
 	var/list/heads_allowed = null //Specifies which, if any, alt heads a head marking, hairstyle or facial hair style is compatible with.
 	var/list/tails_allowed = null //Specifies which, if any, tails a tail marking is compatible with.
@@ -85,7 +85,7 @@
 /* HEAD ACCESSORY */
 
 /datum/sprite_accessory/head_accessory
-	icon = 'icons/mob/body_accessory.dmi'
+	icon = 'icons/mob/clothing/body_accessory.dmi'
 	species_allowed = list("Unathi", "Vulpkanin", "Tajaran", "Machine")
 	icon_state = "accessory_none"
 	var/over_hair
@@ -168,11 +168,11 @@
 // Underwear Definitions //
 ///////////////////////////
 /datum/sprite_accessory/underwear
-	icon = 'icons/mob/underwear.dmi'
+	icon = 'icons/mob/clothing/underwear.dmi'
 	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox", "Nian")
 	sprite_sheets = list(
-	"Vox" = 'icons/mob/species/vox/underwear.dmi',
-	"Grey" = 'icons/mob/species/grey/underwear.dmi'
+	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
+	"Grey" = 'icons/mob/clothing/species/grey/underwear.dmi'
 	)
 	gender = NEUTER
 
@@ -298,11 +298,11 @@
 // Undershirt Definitions //
 ////////////////////////////
 /datum/sprite_accessory/undershirt
-	icon = 'icons/mob/underwear.dmi'
+	icon = 'icons/mob/clothing/underwear.dmi'
 	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox", "Nian")
 	sprite_sheets = list(
-	"Vox" = 'icons/mob/species/vox/underwear.dmi',
-	"Grey" = 'icons/mob/species/grey/underwear.dmi')
+	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
+	"Grey" = 'icons/mob/clothing/species/grey/underwear.dmi')
 	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/nude
@@ -537,14 +537,14 @@
 // Socks Definitions //
 ///////////////////////
 /datum/sprite_accessory/socks
-	icon = 'icons/mob/underwear.dmi'
+	icon = 'icons/mob/clothing/underwear.dmi'
 	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox", "Nian")
 	sprite_sheets = list(
-	"Vox" = 'icons/mob/species/vox/underwear.dmi',
-	"Unathi" = 'icons/mob/species/unathi/underwear.dmi',
-	"Ash Walker" = 'icons/mob/species/unathi/underwear.dmi',
-	"Ash Walker Shaman" = 'icons/mob/species/unathi/underwear.dmi',
-	"Draconid" = 'icons/mob/species/unathi/underwear.dmi')
+	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
+	"Unathi" = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	"Ash Walker" = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	"Draconid" = 'icons/mob/clothing/species/unathi/underwear.dmi')
 	gender = NEUTER
 
 /datum/sprite_accessory/socks/nude
