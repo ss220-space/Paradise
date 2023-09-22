@@ -250,10 +250,10 @@
 	name = "Ladies Neko Black"
 	icon_state = "neko_female_black"
 	sprite_sheets = list(
-	"Vox" = 'icons/mob/species/vox/underwear.dmi',
-	"Grey" = 'icons/mob/species/grey/underwear.dmi',
-	"Unathi" = 'icons/mob/species/unathi/underwear.dmi',
-	"Drask" = 'icons/mob/species/drask/underwear.dmi'
+	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
+	"Grey" = 'icons/mob/clothing/species/grey/underwear.dmi',
+	"Unathi" = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	"Drask" = 'icons/mob/clothing/species/drask/underwear.dmi'
 	)
 
 /datum/sprite_accessory/underwear/female/colorized
@@ -291,7 +291,7 @@
 
 /datum/sprite_accessory/underwear/female/colorized/female_thong
 	name = "Ladies Thong"
-	icon_state = "female_thong"
+	icon_state = "thong_female"
 
 ////////////////////////////
 // Undershirt Definitions //
@@ -318,10 +318,10 @@
 	icon_state = "shirt"
 	allow_change_color = TRUE
 	sprite_sheets = list(
-	"Vox" = 'icons/mob/species/vox/underwear.dmi',
-	"Grey" = 'icons/mob/species/grey/underwear.dmi',
-	"Unathi" = 'icons/mob/species/unathi/underwear.dmi',
-	"Drask" = 'icons/mob/species/drask/underwear.dmi'
+	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
+	"Grey" = 'icons/mob/clothing/species/grey/underwear.dmi',
+	"Unathi" = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	"Drask" = 'icons/mob/clothing/species/drask/underwear.dmi'
 	)
 
 /datum/sprite_accessory/undershirt/shirt_colorized/female
