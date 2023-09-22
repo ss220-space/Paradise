@@ -194,3 +194,20 @@
   - add: stamina bar (#3240)
   Сиротка:
   - tweak: Skrell Rework (#3517)
+'2023-09-22':
+  Honker9999999:
+  - add: New gene+new strong effects (#3464)
+  LiquidPotroh:
+  - tweak: new symptoms patch 2 (#3573)
+  NightDawnFox:
+  - bugfix: two tails on drake and bone armor for vulps (#3575)
+  aeternaclose:
+  - bugfix: proper clown and mine ores spawn, fix ores detection (#3580)
+  - bugfix: Sofa Map Fix (#3581)
+  captainnelly:
+  - tweak: aussec armory gunshot sound (#3576)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3572)
+  Сиротка:
+  - refactor: Clothing file (#3552)
+  - bugfix: Drasks now correctly crash any non-admin types of obstacles (#3560)
