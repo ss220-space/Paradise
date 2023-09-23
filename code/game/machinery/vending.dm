@@ -1847,10 +1847,6 @@
 
 		/obj/item/clothing/under/rank/security			= 10,
 		/obj/item/clothing/under/rank/security/skirt 	= 10,
-		/obj/item/clothing/under/rank/security/cadet 	= 10,
-		/obj/item/clothing/under/rank/security/cadet/skirt 		= 10,
-		/obj/item/clothing/under/rank/security/cadet/assistant 	= 10,
-		/obj/item/clothing/under/rank/security/cadet/assistant/skirt = 10,
 		/obj/item/clothing/under/rank/security/formal 	= 5,
 		/obj/item/clothing/under/rank/security/corp 	= 5,
 		/obj/item/clothing/under/rank/security2 		= 5,
