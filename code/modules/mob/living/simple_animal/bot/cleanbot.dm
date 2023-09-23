@@ -18,8 +18,9 @@
 	window_name = "Automatic Station Cleaner v1.1"
 	pass_flags = PASSMOB
 	path_image_color = "#993299"
-	color = "#2877d2"
 
+	///Mask color defines what color of medibot's chassis will be. Made for mappers' sanity.
+	var/mask_color = "#2877d2"
 	var/blood = 1
 	var/list/target_types = list()
 	var/obj/effect/decal/cleanable/target
@@ -49,9 +50,14 @@
 		if(BOT_IDLE)
 			overlay_state = "[on]"
 
-	var/mutable_appearance/m_appearance = mutable_appearance(icon, "[icon_state][overlay_state]")
-	m_appearance.appearance_flags |= RESET_COLOR
-	overlays += m_appearance
+	var/mutable_appearance/state_appearance = mutable_appearance(icon, "[icon_state][overlay_state]")
+	state_appearance.appearance_flags |= RESET_COLOR
+	overlays += state_appearance
+
+	var/mutable_appearance/casing_mask = mutable_appearance(icon, "cleanbot_mask")
+	casing_mask.appearance_flags |= RESET_COLOR
+	casing_mask.color = mask_color
+	overlays += casing_mask
 
 /mob/living/simple_animal/bot/cleanbot/bot_reset()
 	..()
@@ -68,7 +74,7 @@
 	if(istype(W, /obj/item/toy/crayon/spraycan))
 		var/obj/item/toy/crayon/spraycan/can = W
 		if(!can.capped && Adjacent(user))
-			src.color = can.colour
+			src.mask_color = can.colour
 			update_icon()
 	else
 		return ..()

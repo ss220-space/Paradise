@@ -312,8 +312,12 @@
 	slot_flags = SLOT_HEAD
 	resistance_flags = NONE
 	container_type = OPENCONTAINER
-	color = "#2877d2"
 	var/paintable = TRUE
+
+/obj/item/reagent_containers/glass/bucket/Initialize(mapload)
+	. = ..()
+	color = "#2877d2" //helping mappers with not getting weirdo buckets in editor.
+	update_icon()
 
 /obj/item/reagent_containers/glass/bucket/attackby(obj/D, mob/user, params)
 	. = ..()
@@ -326,9 +330,12 @@
 /obj/item/reagent_containers/glass/bucket/update_icon()
 	. = ..()
 	overlays.Cut()
-	var/mutable_appearance/hand = mutable_appearance(icon='icons/obj/janitor.dmi', icon_state = "bucket_hand")
-	hand.appearance_flags |= RESET_COLOR
-	overlays += hand
+	var/mutable_appearance/bucket_mask = mutable_appearance(icon='icons/obj/janitor.dmi', icon_state = "bucket_mask")
+	overlays += bucket_mask
+
+	var/mutable_appearance/bucket_hand = mutable_appearance(icon='icons/obj/janitor.dmi', icon_state = "bucket_hand")
+	bucket_hand.appearance_flags |= RESET_COLOR
+	overlays += bucket_hand
 
 /obj/item/reagent_containers/glass/bucket/wooden
 	name = "wooden bucket"
