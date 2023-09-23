@@ -110,7 +110,7 @@
 		occupantData["btFaren"] = ((occupant.bodytemperature - T0C) * (9.0/5.0))+ 32
 
 		if(ishuman(occupant) && !(NO_BLOOD in occupant.dna.species.species_traits))
-			occupantData["pulse"] = occupant.get_pulse(GETPULSE_TOOL)
+			occupantData["pulse"] = occupant.get_pulse(GETPULSE)
 			occupantData["hasBlood"] = 1
 			occupantData["bloodLevel"] = round(occupant.blood_volume)
 			occupantData["bloodMax"] = occupant.max_blood

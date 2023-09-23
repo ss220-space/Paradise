@@ -564,7 +564,7 @@ REAGENT SCANNER
 		else
 			. += "Уровень крови: [blood_percent] %, [H.blood_volume] cl, тип: [blood_type], кровь расы: [blood_species]"
 
-	. += "Пульс: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "#0080ff"]'>[H.get_pulse(GETPULSE_TOOL)] bpm.</font>"
+	. += "Пульс: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "#0080ff"]'>[H.get_pulse(GETPULSE)] bpm.</font>"
 	var/list/implant_detect = list()
 	for(var/obj/item/organ/internal/cyberimp/CI in H.internal_organs)
 		if(CI.is_robotic())
