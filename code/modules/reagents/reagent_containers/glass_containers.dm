@@ -344,8 +344,16 @@
 	materials = null
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50)
 	resistance_flags = FLAMMABLE
-	color = null
 	paintable = FALSE
+
+/obj/item/reagent_containers/glass/bucket/wooden/Initialize(mapload)
+	. = ..()
+	color = null //Have to do this, because parent initializes with blue color.
+	update_icon()
+
+/obj/item/reagent_containers/glass/bucket/wooden/update_icon()
+	. = ..()
+	overlays.Cut()
 
 /obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot, initial)
     . = ..()
