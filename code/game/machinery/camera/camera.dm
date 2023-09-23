@@ -285,11 +285,9 @@
 	var/change_msg = "deactivates"
 	if(status)
 		change_msg = "reactivates"
-		spawn(100)
-			if(!QDELETED(src))
-				cancelCameraAlarm()
+		addtimer(CALLBACK(src, PROC_REF(cancelCameraAlarm)), 10 SECONDS)
 	else
-		triggerCameraAlarm()
+		addtimer(CALLBACK(src, PROC_REF(triggerCameraAlarm)), 10 SECONDS)
 	if(displaymessage)
 		if(user)
 			visible_message(span_danger("[user] [change_msg] [src]!"))
