@@ -80063,7 +80063,7 @@
 	},
 /area/storage/primary)
 "mJJ" = (
-/obj/machinery/vending/paivendor,
+/obj/machinery/vending/pai,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "purple"
