@@ -199,7 +199,7 @@ VOTE_AUTOTRANSFER_INITIAL 72000
 VOTE_AUTOTRANSFER_INTERVAL 18000
 
 ## prevents dead players from voting or starting votes
-#NO_DEAD_VOTE
+#VOTE_NO_DEAD
 
 ## players' votes default to "No vote" (otherwise,  default to "No change")
 DEFAULT_NO_VOTE
@@ -512,31 +512,31 @@ BYOND_ACCOUNT_AGE_THRESHOLD 7
 ## If you are going to enable discord webhooks, fill out EVERYTHING in this section
 
 ## Uncomment the line below to enable Discord webhooks
-#ENABLE_DISCORD_WEBHOOKS
+#DISCORD_WEBHOOKS_ENABLED
 
 ## Role ID to be pinged with administrative events. If unset, all pings to this role will be disabled
 ## IF YOU ARE DISABLING THIS COMMENT IT OUT ENTIRELY, DONT LEAVE IT BLANK
 #DISCORD_WEBHOOKS_ADMIN_ROLE_ID
 
 ## Webhook URLs for the main discord webhook. Separate multiple URLs with enter, like:
-## DISCORD_WEBHOOKS_MAIN_URL https://url1
-## DISCORD_WEBHOOKS_MAIN_URL https://url2
-#DISCORD_WEBHOOKS_MAIN_URL
+## DISCORD_MAIN_WEBHOOKS_URL https://url1
+## DISCORD_MAIN_WEBHOOKS_URL https://url2
+#DISCORD_MAIN_WEBHOOKS_URL
 
 ## Webhook URLs for the admin discord webhook. Separate multiple URLs with enter, like:)
-## DISCORD_WEBHOOKS_ADMIN_URL https://url1
-## DISCORD_WEBHOOKS_ADMIN_URL https://url2
-#DISCORD_WEBHOOKS_ADMIN_URL
+## DISCORD_ADMIN_WEBHOOKS_URL https://url1
+## DISCORD_ADMIN_WEBHOOKS_URL https://url2
+#DISCORD_ADMIN_WEBHOOKS_URL
 
 ## Webhook URLs for the requests discord webhook. Separate multiple URLs with enter, like:
-## DISCORD_WEBHOOKS_REQUESTS_URL https://url1
-## DISCORD_WEBHOOKS_REQUESTS_URL https://url2
-#DISCORD_WEBHOOKS_REQUESTS_URL
+## DISCORD_REQUESTS_WEBHOOKS_URL https://url1
+## DISCORD_REQUESTS_WEBHOOKS_URL https://url2
+#DISCORD_REQUESTS_WEBHOOKS_URL
 
 ## Webhook URLs for the mentor discord webhook. Separate multiple URLs with enter, like:
-## DISCORD_WEBHOOKS_MENTOR_URL https://url1
-## DISCORD_WEBHOOKS_MENTOR_URL https://url2
-#DISCORD_WEBHOOKS_MENTOR_URL
+## DISCORD_MENTOR_WEBHOOKS_URL https://url1
+## DISCORD_MENTOR_WEBHOOKS_URL https://url2
+#DISCORD_MENTOR_WEBHOOKS_URL
 
 ## Uncomment to send all ahelps to discord. If the line is commented, only ahelps made when no admins are online will be forwarded
 ## Ahelps forwarded when staff are online will never have the role ping, regardless of the setting above
