@@ -519,24 +519,24 @@ BYOND_ACCOUNT_AGE_THRESHOLD 7
 #DISCORD_WEBHOOKS_ADMIN_ROLE_ID
 
 ## Webhook URLs for the main discord webhook. Separate multiple URLs with enter, like:
-## DISCORD_MAIN_WEBHOOKS_URL https://url1
-## DISCORD_MAIN_WEBHOOKS_URL https://url2
-#DISCORD_MAIN_WEBHOOKS_URL
+## DISCORD_MAIN_WEBHOOK_URLS https://url1
+## DISCORD_MAIN_WEBHOOK_URLS https://url2
+#DISCORD_MAIN_WEBHOOK_URLS
 
 ## Webhook URLs for the admin discord webhook. Separate multiple URLs with enter, like:)
-## DISCORD_ADMIN_WEBHOOKS_URL https://url1
-## DISCORD_ADMIN_WEBHOOKS_URL https://url2
-#DISCORD_ADMIN_WEBHOOKS_URL
+## DISCORD_ADMIN_WEBHOOK_URLS https://url1
+## DISCORD_ADMIN_WEBHOOK_URLS https://url2
+#DISCORD_ADMIN_WEBHOOK_URLS
 
 ## Webhook URLs for the requests discord webhook. Separate multiple URLs with enter, like:
-## DISCORD_REQUESTS_WEBHOOKS_URL https://url1
-## DISCORD_REQUESTS_WEBHOOKS_URL https://url2
-#DISCORD_REQUESTS_WEBHOOKS_URL
+## DISCORD_REQUESTS_WEBHOOK_URLS https://url1
+## DISCORD_REQUESTS_WEBHOOK_URLS https://url2
+#DISCORD_REQUESTS_WEBHOOK_URLS
 
 ## Webhook URLs for the mentor discord webhook. Separate multiple URLs with enter, like:
-## DISCORD_MENTOR_WEBHOOKS_URL https://url1
-## DISCORD_MENTOR_WEBHOOKS_URL https://url2
-#DISCORD_MENTOR_WEBHOOKS_URL
+## DISCORD_MENTOR_WEBHOOK_URLS https://url1
+## DISCORD_MENTOR_WEBHOOK_URLS https://url2
+#DISCORD_MENTOR_WEBHOOK_URLS
 
 ## Uncomment to send all ahelps to discord. If the line is commented, only ahelps made when no admins are online will be forwarded
 ## Ahelps forwarded when staff are online will never have the role ping, regardless of the setting above
