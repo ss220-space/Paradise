@@ -22,7 +22,7 @@
 	var/oldloc = loc
 	step(src, direction)
 	if(oldloc != loc)
-		addtimer(CALLBACK(src, PROC_REF(ResetMoveDelay)), config.walk_speed)
+		addtimer(CALLBACK(src, PROC_REF(ResetMoveDelay)), CONFIG_GET(number/walk_speed))
 	else
 		move_delay = FALSE
 

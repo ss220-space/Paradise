@@ -110,9 +110,9 @@
 			assign_exchange_role(SSticker.mode.exchange_blue)
 		objective_count += 1					//Exchange counts towards number of objectives
 
-	var/objective_amount = config.traitor_objectives_amount
+	var/objective_amount = CONFIG_GET(number/traitor_objectives_amount)
 
-	if(is_hijacker && objective_count <= objective_amount) //Don't assign hijack if it would exceed the number of objectives set in config.traitor_objectives_amount
+	if(is_hijacker && objective_count <= objective_amount) //Don't assign hijack if it would exceed the number of objectives set in CONFIG_GET(number/traitor_objectives_amount)
 		if(!(locate(/datum/objective/hijack) in owner.get_all_objectives()))
 			add_objective(/datum/objective/hijack)
 			return
@@ -190,7 +190,7 @@
 	add_objective(/datum/objective/block)
 
 	var/objective_count = 1
-	for(var/i = objective_count, i < config.traitor_objectives_amount)
+	for(var/i = objective_count, i < CONFIG_GET(number/traitor_objectives_amount))
 		add_objective(/datum/objective/assassinate)
 		i += 1
 

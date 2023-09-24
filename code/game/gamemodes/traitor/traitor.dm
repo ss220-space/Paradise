@@ -38,7 +38,7 @@
 
 /datum/game_mode/traitor/pre_setup()
 
-	if(config.protect_roles_from_antagonist)
+	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 
 	var/list/possible_traitors = get_players_for_role(ROLE_TRAITOR)
@@ -50,8 +50,8 @@
 	var/num_traitors = 1
 	var/num_players = num_players()
 
-	if(config.traitor_scaling)
-		num_traitors = max(1, round(num_players / config.traitor_scaling) + 1)
+	if(CONFIG_GET(number/traitor_scaling))
+		num_traitors = max(1, round(num_players / CONFIG_GET(number/traitor_scaling)) + 1)
 	else
 		num_traitors = max(1, min(num_players, traitors_possible))
 
