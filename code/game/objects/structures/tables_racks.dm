@@ -129,7 +129,8 @@
 		return 1
 	if(mover.throwing)
 		return 1
-	if(locate(/obj/structure/table) in get_turf(mover))
+	var/obj/structure/table/S = locate(/obj/structure/table) in get_turf(mover)
+	if(S?.flipped == 0)
 		return 1
 	if(flipped)
 		if(get_dir(loc, target) == dir)
