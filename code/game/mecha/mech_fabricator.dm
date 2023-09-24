@@ -73,6 +73,7 @@
 	categories = list(
 		"Cyborg",
 		"Cyborg Repair",
+		"IPC",
 		"Ripley",
 		"Firefighter",
 		"Clarke",
