@@ -29,6 +29,7 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	del_on_death = TRUE
 	var/datum/action/innate/demon/whisper/whisper_action
+	var/dirslash_enabled = TRUE
 
 
 /mob/living/simple_animal/demon/Initialize(mapload)
@@ -42,6 +43,15 @@
 		whisper_action = null
 	return ..()
 
+/mob/living/simple_animal/demon/RangedAttack(atom/A, params)
+	. = ..()
+	if(dirslash_enabled && a_intent != INTENT_HELP)
+		var/turf/turf_attacking = get_step(src, get_compass_dir(src, A))
+		if(turf_attacking)
+			var/mob/living/target = locate() in turf_attacking
+			if(target && Adjacent(target))
+				changeNext_move(CLICK_CD_MELEE)
+				return UnarmedAttack(target, TRUE)
 
 /mob/living/simple_animal/demon/slaughter
 	name = "slaughter demon"
