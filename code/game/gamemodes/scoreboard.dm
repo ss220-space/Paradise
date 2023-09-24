@@ -203,7 +203,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 
 
 /datum/scoreboard/proc/save_silicon_laws(mob/living/silicon/silicon, mob/changer, additional_info = "", log_all_laws = FALSE)
-	if(!config.log_game || !istype(silicon) || !silicon.laws)
+	if(!CONFIG_GET(flag/log_game) || !istype(silicon) || !silicon.laws)
 		return
 
 	if(!laws_change_info)

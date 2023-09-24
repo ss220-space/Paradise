@@ -175,7 +175,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	if(!message_sound)
 		return
 	for(var/mob/M in receivers)
-		if(config.tts_enabled)
+		if(CONFIG_GET(flag/tts_enabled))
 			var/volume = M.client.prefs.get_channel_volume(CHANNEL_TTS_RADIO)
 			if(volume > 0)
 				continue

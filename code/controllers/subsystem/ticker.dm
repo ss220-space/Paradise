@@ -94,9 +94,9 @@ SUBSYSTEM_DEF(ticker)
 	switch(current_state)
 		if(GAME_STATE_STARTUP)
 			// This is ran as soon as the MC starts firing, and should only run ONCE, unless startup fails
-			round_start_time = world.time + (config.pregame_timestart SECONDS)
+			round_start_time = world.time + (CONFIG_GET(number/pregame_timestart) SECONDS)
 			to_chat(world, "<B><span class='darkmblue'>Welcome to the pre-game lobby!</span></B>")
-			to_chat(world, "Please, setup your character and select ready. Game will start in [config.pregame_timestart] seconds")
+			to_chat(world, "Please, setup your character and select ready. Game will start in [CONFIG_GET(number/pregame_timestart)] seconds")
 			current_state = GAME_STATE_PREGAME
 			fire() // TG says this is a good idea
 			for(var/mob/new_player/N in GLOB.player_list)
@@ -130,10 +130,10 @@ SUBSYSTEM_DEF(ticker)
 
 			if(world.time > next_autotransfer)
 				SSvote.start_vote(new /datum/vote/crew_transfer)
-				next_autotransfer = world.time + config.vote_autotransfer_interval
+				next_autotransfer = world.time + CONFIG_GET(number/vote_autotransfer_interval)
 
 			var/game_finished = SSshuttle.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
-			if(config.continuous_rounds)
+			if(CONFIG_GET(flag/continuous_rounds))
 				mode.check_finished() // some modes contain var-changing code in here, so call even if we don't uses result
 			else
 				game_finished |= mode.check_finished()
@@ -154,7 +154,7 @@ SUBSYSTEM_DEF(ticker)
 					var/datum/map/M = x
 					if(initial(M.admin_only))
 						all_maps -= M
-				switch(config.map_rotate)
+				switch(CONFIG_GET(string/map_rotate))
 					if("rotate")
 						for(var/i in 1 to all_maps.len)
 							if(istype(SSmapping.map_datum, all_maps[i]))
@@ -211,7 +211,7 @@ SUBSYSTEM_DEF(ticker)
 		mode = config.pick_mode(GLOB.master_mode)
 
 	if(!mode.can_start())
-		to_chat(world, "<B>Unable to start [mode.name].</B> Not enough players, [config.enable_gamemode_player_limit ? config.mode_required_players[mode.config_tag] : mode.required_enemies] players needed. Reverting to pre-game lobby.")
+		to_chat(world, "<B>Unable to start [mode.name].</B> Not enough players, [CONFIG_GET(flag/enable_gamemode_player_limit) ? config.mode_required_players[mode.config_tag] : mode.required_enemies] players needed. Reverting to pre-game lobby.")
 		mode = null
 		current_state = GAME_STATE_PREGAME
 		force_start = FALSE
@@ -338,17 +338,17 @@ SUBSYSTEM_DEF(ticker)
 	auto_toggle_ooc(FALSE) // Turn it off
 	time_game_started = world.time
 
-	if(config.restrict_maint)
+	if(CONFIG_GET(number/restrict_maint))
 		for(var/obj/machinery/door/airlock/maintenance/M in GLOB.airlocks)
 			if(M.req_access && M.req_access.len == 1 && M.req_access[1] == ACCESS_MAINT_TUNNELS)
 				M.req_access = null
-				if(config.restrict_maint == 1)
+				if(CONFIG_GET(number/restrict_maint) == 1)
 					M.req_access = list(ACCESS_BRIG, ACCESS_ENGINE)
-				if(config.restrict_maint == 2)
+				if(CONFIG_GET(number/restrict_maint) == 2)
 					M.req_access = list(ACCESS_BRIG)
 
 	// Sets the auto shuttle vote to happen after the config duration
-	next_autotransfer = world.time + config.vote_autotransfer_initial
+	next_autotransfer = world.time + CONFIG_GET(number/vote_autotransfer_initial)
 
 	for(var/mob/new_player/N in GLOB.mob_list)
 		if(N.client)

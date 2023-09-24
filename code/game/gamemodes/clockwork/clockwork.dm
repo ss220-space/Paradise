@@ -65,7 +65,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	to_chat(world, "<B>Some crewmembers are attempting to start a clockwork cult!<BR>\nClockers - complete your objectives. Convert crewmembers to your cause by using the credence structure. Remember - there is no you, there is only the cult.<BR>\nPersonnel - Do not let the cult succeed in its mission. Brainwashing them with holy water reverts them to whatever CentComm-allowed faith they had.</B>")
 
 /datum/game_mode/clockwork/pre_setup()
-	if(config.protect_roles_from_antagonist)
+	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 
 	var/list/clockers_possible = get_players_for_role(ROLE_CLOCKER)

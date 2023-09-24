@@ -418,7 +418,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	if(!check_rights(R_BAN))
 		return
 
-	if(config.ban_legacy_system)
+	if(CONFIG_GET(flag/ban_legacy_system))
 		holder.unbanpanel()
 	else
 		holder.DB_ban_panel()
@@ -969,7 +969,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 	var/datum/admins/D = GLOB.admin_datums[ckey]
 	var/rank = null
-	if(config.admin_legacy_system)
+	if(CONFIG_GET(flag/admin_legacy_system))
 		//load text from file
 		var/list/Lines = file2list("config/admins.txt")
 		for(var/line in Lines)
@@ -1003,7 +1003,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 		qdel(rank_read)
 	if(!D)
-		if(config.admin_legacy_system)
+		if(CONFIG_GET(flag/admin_legacy_system))
 			if(GLOB.admin_ranks[rank] == null)
 				error("Error while re-adminning [src], admin rank ([rank]) does not exist.")
 				to_chat(src, "Error while re-adminning, admin rank ([rank]) does not exist.")
@@ -1081,11 +1081,11 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		return
 
 	if(config)
-		if(config.log_hrefs)
-			config.log_hrefs = 0
+		if(CONFIG_GET(flag/log_hrefs))
+			CONFIG_SET(flag/log_hrefs, FALSE)
 			to_chat(src, "<b>Stopped logging hrefs</b>")
 		else
-			config.log_hrefs = 1
+			CONFIG_SET(flag/log_hrefs, TRUE)
 			to_chat(src, "<b>Started logging hrefs</b>")
 
 /client/proc/toggle_twitch_censor()
@@ -1096,8 +1096,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		return
 
 	if(config)
-		config.twitch_censor = !config.twitch_censor
-		to_chat(src, "<b>Twitch censor is [config.twitch_censor ? "enabled" : "disabled"]</b>")
+		CONFIG_SET(flag/twitch_censor, !CONFIG_GET(flag/twitch_censor))
+		to_chat(src, "<b>Twitch censor is [CONFIG_GET(flag/twitch_censor) ? "enabled" : "disabled"]</b>")
 
 /client/proc/check_ai_laws()
 	set name = "Check AI Laws"
@@ -1273,9 +1273,10 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	if(!check_rights(R_SERVER))
 		return
 
-	config.allow_drone_spawn = !(config.allow_drone_spawn)
-	log_admin("[key_name(usr)] has [config.allow_drone_spawn ? "enabled" : "disabled"] maintenance drones.")
-	message_admins("[key_name_admin(usr)] has [config.allow_drone_spawn ? "enabled" : "disabled"] maintenance drones.")
+	CONFIG_SET(flag/allow_drone_spawn, !CONFIG_GET(flag/allow_drone_spawn))
+
+	log_admin("[key_name(usr)] has [CONFIG_GET(flag/allow_drone_spawn) ? "enabled" : "disabled"] maintenance drones.")
+	message_admins("[key_name_admin(usr)] has [CONFIG_GET(flag/allow_drone_spawn) ? "enabled" : "disabled"] maintenance drones.")
 
 /client/proc/toggledebuglogs()
 	set name = "Toggle Debug Log Messages"

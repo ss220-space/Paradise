@@ -38,15 +38,15 @@ SUBSYSTEM_DEF(mapping)
 	// Load the station
 	loadStation()
 
-	if(!config.disable_lavaland)
+	if(!CONFIG_GET(flag/disable_lavaland))
 		loadLavaland()
-	if(!config.disable_taipan)
+	if(!CONFIG_GET(flag/disable_taipan))
 		loadTaipan()
 	// Pick a random away mission.
-	if(!config.disable_away_missions)
+	if(!CONFIG_GET(flag/disable_away_missions))
 		createRandomZlevel()
 	// Seed space ruins
-	if(!config.disable_space_ruins)
+	if(!CONFIG_GET(flag/disable_space_ruins))
 		handleRuins()
 
 	// Makes a blank space level for the sake of randomness
@@ -56,11 +56,11 @@ SUBSYSTEM_DEF(mapping)
 	// Setup the Z-level linkage
 	GLOB.space_manager.do_transition_setup()
 
-	if(!config.disable_lavaland)
+	if(!CONFIG_GET(flag/disable_lavaland))
 		// Spawn Lavaland ruins and rivers.
 		log_startup_progress("Populating lavaland...")
 		var/lavaland_setup_timer = start_watch()
-		seedRuins(list(level_name_to_num(MINING)), config.lavaland_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
+		seedRuins(list(level_name_to_num(MINING)), CONFIG_GET(number/lavaland_budget), /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
 		spawn_rivers(level_name_to_num(MINING))
 		log_startup_progress("Successfully populated lavaland in [stop_watch(lavaland_setup_timer)]s.")
 	else
@@ -89,8 +89,8 @@ SUBSYSTEM_DEF(mapping)
 	GLOB.ghostteleportlocs = sortAssoc(GLOB.ghostteleportlocs)
 
 	// World name
-	if(config && config.server_name)
-		world.name = "[config.server_name] — [station_name()]"
+	if(config && CONFIG_GET(string/servername))
+		world.name = "[CONFIG_GET(string/servername)] — [station_name()]"
 	else
 		world.name = station_name()
 
@@ -100,7 +100,7 @@ SUBSYSTEM_DEF(mapping)
 	// load in extra levels of space ruins
 	var/load_zlevels_timer = start_watch()
 	log_startup_progress("Creating random space levels...")
-	var/num_extra_space = rand(config.extra_space_ruin_levels_min, config.extra_space_ruin_levels_max)
+	var/num_extra_space = rand(CONFIG_GET(number/extra_space_ruin_levels_min), CONFIG_GET(number/extra_space_ruin_levels_max))
 	for(var/i in 1 to num_extra_space)
 		GLOB.space_manager.add_new_zlevel("Ruin Area #[i]", linkage = CROSSLINKED, traits = list(REACHABLE, SPAWN_RUINS))
 	log_startup_progress("Loaded random space levels in [stop_watch(load_zlevels_timer)]s.")
@@ -115,14 +115,14 @@ SUBSYSTEM_DEF(mapping)
 
 
 /datum/controller/subsystem/mapping/proc/loadStation()
-	if(config.default_map && !config.override_map && map_datum == fallback_map)
-		var/map_datum_path = text2path(config.default_map)
+	if(CONFIG_GET(string/default_map) && !CONFIG_GET(string/override_map) && map_datum == fallback_map)
+		var/map_datum_path = text2path(CONFIG_GET(string/default_map))
 		if(map_datum_path)
 			map_datum = new map_datum_path
 
-	if(config.override_map)
-		log_startup_progress("Station map overridden by configuration to [config.override_map].")
-		var/map_datum_path = text2path(config.override_map)
+	if(CONFIG_GET(string/override_map))
+		log_startup_progress("Station map overridden by configuration to [CONFIG_GET(string/override_map)].")
+		var/map_datum_path = text2path(CONFIG_GET(string/override_map))
 		if(map_datum_path)
 			map_datum = new map_datum_path
 		else
