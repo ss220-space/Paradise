@@ -18,7 +18,7 @@
 /datum/gear/suit/coat/job/sec
 	display_name = "winter coat, security"
 	path = /obj/item/clothing/suit/hooded/wintercoat/security
-	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Cadet", "Security Pod Pilot", "Brig Physician")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot", "Brig Physician")
 
 /datum/gear/suit/coat/job/hos
 	display_name = "winter coat, head of security"
@@ -136,7 +136,7 @@
 /datum/gear/suit/secjacket
 	display_name = "security jacket"
 	path = /obj/item/clothing/suit/armor/secjacket
-	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Cadet", "Security Pod Pilot")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
 
 /datum/gear/suit/coat/russian
 	display_name = "russian coat"
@@ -154,7 +154,7 @@
 /datum/gear/suit/suragi_jacket/sec
 	display_name = "Suragi Jacket - Security"
 	path = /obj/item/clothing/suit/storage/suragi_jacket/sec
-	allowed_roles = list("Warden", "Detective", "Security Officer", "Security Cadet", "Security Pod Pilot")
+	allowed_roles = list("Warden", "Detective", "Security Officer", "Security Pod Pilot")
 
 
 /datum/gear/suit/suragi_jacket/cargo
