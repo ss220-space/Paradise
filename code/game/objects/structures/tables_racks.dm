@@ -129,14 +129,14 @@
 		return 1
 	if(mover.throwing)
 		return 1
-	var/obj/structure/table/S = locate(/obj/structure/table) in get_turf(mover)
-	if(S?.flipped == 0)
-		return 1
 	if(flipped)
 		if(get_dir(loc, target) == dir)
 			return !density
 		else
 			return 1
+	var/obj/structure/table/S = locate(/obj/structure/table) in get_turf(mover)
+	if(S?.flipped == 0)
+		return 1
 	return 0
 
 /obj/structure/table/CanAStarPass(ID, dir, caller)
