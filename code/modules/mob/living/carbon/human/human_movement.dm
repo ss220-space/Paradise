@@ -41,6 +41,18 @@
 		if(!lying && !buckled && !throwing)
 			for(var/obj/item/organ/external/splinted in splinted_limbs)
 				splinted.update_splints()
+		if(m_intent != MOVE_INTENT_WALK || pulling)
+			if(prob(dna.species.fragile_bones_chance))
+				for(var/zone in list("l_leg", "l_foot", "r_leg", "r_foot"))
+					var/obj/item/organ/external/leg = get_organ(zone)
+					if(leg.status & ORGAN_BROKEN)
+						continue
+					else
+						leg.fracture()
+						break
+			else
+				if(dna.species.fragile_bones_chance && prob(30))
+					playsound(src, "bonebreak", 10, 1)
 
 	if(!has_gravity(loc))
 		return

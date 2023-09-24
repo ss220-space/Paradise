@@ -104,7 +104,7 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet)
 	var/helmettype = /obj/item/clothing/head/helmet/space/hardsuit
 
-	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi" , "Tajaran")
+	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi", "Ash Walker", "Ash Walker Shaman", "Draconid", "Tajaran")
 	species_restricted = list("exclude", "Wryn", "lesser form")
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi',

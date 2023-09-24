@@ -918,9 +918,19 @@
 	for(var/obj/item/organ/internal/cyberimp/eyes/EFP in internal_organs)
 		number += EFP.flash_protect
 
+	var/datum/antagonist/vampire/vampire = mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(vampire?.get_ability(/datum/vampire_passive/eyes_flash_protection))
+		number++
+	if(vampire?.get_ability(/datum/vampire_passive/eyes_welding_protection))
+		number++
+
 	return number
 
+
 /mob/living/carbon/human/check_ear_prot()
+	var/datum/antagonist/vampire/vampire = mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(vampire?.get_ability(/datum/vampire_passive/ears_bang_protection))
+		return HEARING_PROTECTION_TOTAL
 	if(!can_hear())
 		return HEARING_PROTECTION_TOTAL
 	if(istype(l_ear, /obj/item/clothing/ears/earmuffs))
@@ -933,6 +943,7 @@
 		return HEARING_PROTECTION_MINOR
 	if(r_ear && (r_ear.flags & EARBANGPROTECT))
 		return HEARING_PROTECTION_MINOR
+
 
 ///tintcheck()
 ///Checks eye covering items for visually impairing tinting, such as welding masks
@@ -1473,6 +1484,8 @@
 
 /mob/living/carbon/human/proc/get_eye_shine() //Referenced cult constructs for shining in the dark. Needs to be above lighting effects such as shading.
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
+	if(!istype(head_organ))
+		return
 	var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
 	var/icon/hair = new /icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 	var/mutable_appearance/MA = mutable_appearance(get_icon_difference(get_eyecon(), hair), layer = ABOVE_LIGHTING_LAYER)
@@ -1680,47 +1693,52 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	var/slots_to_see = src.get_all_slots() - l_store - r_store
 	for(var/obj/item/clothing/C in slots_to_see) //If they have some clothing equipped that lets them see reagents, they can see reagents
 		if(C.scan_reagents)
-			return 1
+			return TRUE
+
+/mob/living/carbon/human/can_see_food()
+	for(var/obj/item/organ/internal/I in src.internal_organs)
+		if(I.can_see_food)
+			return TRUE
 
 /mob/living/carbon/human/selfFeed(var/obj/item/reagent_containers/food/toEat, fullness)
 	if(!check_has_mouth())
 		to_chat(src, "Where do you intend to put \the [toEat]? You don't have a mouth!")
-		return 0
+		return FALSE
 	return ..()
 
 /mob/living/carbon/human/forceFed(var/obj/item/reagent_containers/food/toEat, mob/user, fullness)
 	if(!check_has_mouth())
 		if(!((istype(toEat, /obj/item/reagent_containers/food/drinks) && (ismachineperson(src)))))
 			to_chat(user, "Where do you intend to put \the [toEat]? \The [src] doesn't have a mouth!")
-			return 0
+			return FALSE
 	return ..()
 
 /mob/living/carbon/human/selfDrink(var/obj/item/reagent_containers/food/drinks/toDrink)
 	if(!check_has_mouth())
 		if(!ismachineperson(src))
 			to_chat(src, "Where do you intend to put \the [src]? You don't have a mouth!")
-			return 0
+			return FALSE
 		else
 			to_chat(src, "<span class='notice'>You pour a bit of liquid from [toDrink] into your connection port.</span>")
 	else
 		to_chat(src, "<span class='notice'>You swallow a gulp of [toDrink].</span>")
-	return 1
+	return TRUE
 
 /mob/living/carbon/human/can_track(mob/living/user)
 	if(wear_id)
 		var/obj/item/card/id/id = wear_id
 		if(istype(id) && id.is_untrackable())
-			return 0
+			return FALSE
 	if(wear_pda)
 		var/obj/item/pda/pda = wear_pda
 		if(istype(pda))
 			var/obj/item/card/id/id = pda.id
 			if(istype(id) && id.is_untrackable())
-				return 0
+				return FALSE
 	if(istype(head, /obj/item/clothing/head))
 		var/obj/item/clothing/head/hat = head
 		if(hat.blockTracking)
-			return 0
+			return FALSE
 
 	return ..()
 
@@ -1950,7 +1968,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 						span_danger("A sense of dread washes over you as you suddenly dim dark."))
 
 /mob/living/carbon/human/proc/get_perceived_trauma(shock_reduction)
-	return min(health, maxHealth - getStaminaLoss()) + shock_reduction
+	return min(health, maxHealth) + shock_reduction
 
 /mob/living/carbon/human/WakeUp(updating = TRUE)
 	if(dna.species.spec_WakeUp(src))

@@ -85,7 +85,6 @@
 /obj/structure/closet/proc/dump_contents()
 	var/atom/L = drop_location()
 	for(var/atom/movable/AM in src)
-		AM.layer = src.layer + 0.1
 		AM.forceMove(L)
 		if(throwing) // you keep some momentum when getting out of a thrown closet
 			step(AM, dir)

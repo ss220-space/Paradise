@@ -1092,6 +1092,18 @@
 	name = "tuxedo cat plushie"
 	icon_state = "tuxedocat"
 
+/obj/item/toy/plushie/kotrazumist
+	name = "Razumist Cat"
+	desc = "Cat with wanrning cone on it. Wonder what do itself so smart ?"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "razymist_cat"
+
+/obj/item/toy/plushie/kotwithfunnyhat
+	name = "Rice Cat"
+	desc = "White cat plushie with straw hat for hard work on rice field !"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "ricehat_cat"
+
 /obj/item/toy/plushie/voxplushie
 	name = "vox plushie"
 	desc = "A stitched-together vox, fresh from the skipjack. Press its belly to hear it skree!"
@@ -1099,9 +1111,50 @@
 	item_state = "plushie_vox"
 	var/cooldown = 0
 
+/obj/item/toy/plushie/greyplushie
+	name = "Плюшевый грей"
+	desc = "Плюшевая кукла грея в толстовке. Кукла входит в серию \"Пришелец\" и имеет свитер, большую голову и мультяшные глаза. Любит мехов."
+	icon_state = "plushie_grey"
+	item_state = "plushie_grey"
+	var/hug_cooldown = FALSE //Defaults the plushie to being off coolodown. Sets the hug_cooldown var.
+	var/scream_cooldown = FALSE //Defaults the plushie to being off cooldown. Sets the scream_cooldown var.
+	var/singed = FALSE
+
+/obj/item/toy/plushie/greyplushie/water_act(volume, temperature, source, method = REAGENT_TOUCH) //If water touches the plushie the following code executes.
+	. = ..()
+	if(scream_cooldown)
+		return
+	scream_cooldown = TRUE //water_act executes the scream_cooldown var, setting it on cooldown.
+	addtimer(CALLBACK(src, PROC_REF(reset_screamdown)), 30 SECONDS) //After 30 seconds the reset_coolodown() proc will execute, resetting the cooldown. Hug interaction is unnaffected by this.
+	playsound(src, 'sound/goonstation/voice/male_scream.ogg', 10, FALSE)//If the plushie gets wet it screams and "AAAAAH!" appears in chat.
+	visible_message("<span class='danger'>AAAAAAH!</span>")
+	if(singed)
+		return
+	singed = TRUE
+	icon_state = "grey_singed"
+	item_state = "grey_singed"//If the plushie gets wet the sprite changes to a singed version.
+	desc = "Испорченная плюшевая игрушка грея. Похоже, что кто-то прогнал его под водой."
+
+/obj/item/toy/plushie/greyplushie/proc/reset_screamdown()
+	scream_cooldown = FALSE //Resets the scream interaction cooldown.
+
+/obj/item/toy/plushie/greyplushie/proc/reset_hugdown()
+	hug_cooldown = FALSE //Resets the hug interaction cooldown.
+
+/obj/item/toy/plushie/greyplushie/attack_self(mob/user)//code for talking when hugged.
+	. = ..()
+	if(hug_cooldown)
+		return
+	hug_cooldown = TRUE
+	addtimer(CALLBACK(src, PROC_REF(reset_hugdown)), 5 SECONDS) //Hug interactions only put the plushie on a 5 second cooldown.
+	if(singed)//If the plushie is water damaged it'll say Ow instead of talking in wingdings.
+		visible_message("<span class='danger'>Ow...</span>")
+	else//If the plushie has not touched water they'll say Greetings in wingdings.
+		visible_message("<span class='danger'>☝︎❒︎♏︎♏︎⧫︎♓︎■︎♑︎⬧︎📬︎</span>")
+
 /obj/item/toy/plushie/voxplushie/attack_self(mob/user)
 	if(!cooldown)
-		playsound(user, 'sound/voice/shriek1.ogg', 10, 0)
+		playsound(user, 'sound/voice/shriek1.ogg', 10, FALSE)
 		visible_message("<span class='danger'>Skreee!</span>")
 		cooldown = 1
 		spawn(30) cooldown = 0
@@ -1393,7 +1446,7 @@
 		add_fingerprint(user)
 		if(message_spam_flag == 0)
 			message_spam_flag = 1
-			user.visible_message("notice", "[user] [msg] \the [src] in hand!")
+			user.visible_message(span_notice("[user] has [msg] \the [src] in hand!"),span_notice("You have [msg] \the [src] in hand!"))
 			spawn(30)
 				message_spam_flag = 0
 		spawn(3)
@@ -1401,10 +1454,10 @@
 	return
 
 /obj/item/toy/plushie/pig/attack_self(mob/user)
-	oink(user, "squeezes")
+	oink(user, "squeezed")
 
 /obj/item/toy/plushie/pig/attack_hand(mob/user)
-	oink(user, pick("presses", "squeezes", "squashes", "champs", "pinches"))
+	oink(user, pick("pressed", "squeezed", "squashed", "champed", "pinched"))
 
 /obj/item/toy/plushie/pig/Initialize()
 	. = ..()

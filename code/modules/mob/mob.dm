@@ -175,9 +175,9 @@
 
 /mob/proc/get_visible_mobs()
 	var/list/seen_mobs = list()
-	for(var/mob/M in view(src))
+	var/list/actual_view = client ? view(client) : view(src)
+	for(var/mob/M in actual_view)
 		seen_mobs += M
-
 	return seen_mobs
 
 /**
@@ -1044,6 +1044,9 @@
 //Can the mob see reagents inside of containers?
 /mob/proc/can_see_reagents()
 	return 0
+
+/mob/proc/can_see_food()
+	return FALSE
 
 //Can this mob leave its location without breaking things terrifically?
 /mob/proc/can_safely_leave_loc()

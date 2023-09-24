@@ -19,7 +19,7 @@ SUBSYSTEM_DEF(jobs)
 	var/list/job_debug = list()
 
 
-/datum/controller/subsystem/jobs/Initialize(timeofday)
+/datum/controller/subsystem/jobs/Initialize()
 	if(!length(occupations))
 		SetupOccupations()
 	LoadJobs("config/jobs.txt")
@@ -628,7 +628,8 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
-	var/datum/money_account/M = create_account(H.real_name, rand(500, 1500)*get_job_factor(job, job.random_money_factor), null)
+	var/money_amount = job ? rand(500, 1500) * get_job_factor(job, job.random_money_factor) : rand(500, 1500)
+	var/datum/money_account/M = create_account(H.real_name, money_amount, null)
 	var/remembered_info = ""
 
 	remembered_info += "<b>Номер вашего аккаунта:</b> #[M.account_number]<br>"

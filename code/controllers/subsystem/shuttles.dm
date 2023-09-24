@@ -45,7 +45,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/list/hidden_shuttle_turf_images = list() //only the images from the above list
 
 
-/datum/controller/subsystem/shuttle/Initialize(start_timeofday)
+/datum/controller/subsystem/shuttle/Initialize()
 	ordernum = rand(1,9000)
 
 	if(!emergency)

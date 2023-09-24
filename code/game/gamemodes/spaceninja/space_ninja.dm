@@ -598,7 +598,7 @@
 	var/list/assigned_targets = list() //Prevents duplicate objectives
 	var/purchased_abilities
 	var/allow_guns = FALSE	//Для админ арбузов
-	var/no_guns_message = "Технологии моего клана в разы превосходят это жалкое подобие оружия! Я отказываюсь этим пользоваться!"
+	var/no_guns_message = "Технологии моего клана - гордость и счастье нашего будущего! Я не буду пользоваться этим мусором!"
 	var/datum/martial_art/ninja_martial_art/creeping_widow = null
 	var/obj/item/clothing/suit/space/space_ninja/my_suit = null
 	var/obj/item/melee/energy_katana/my_katana = null

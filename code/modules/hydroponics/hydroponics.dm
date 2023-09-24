@@ -804,6 +804,7 @@
 		//cause I don't want to feel like im juggling 15 tamagotchis and I can get to my real work of ripping flooring apart in hopes of validating my life choices of becoming a space-gardener
 
 			var/datum/reagents/S = new /datum/reagents() //This is a strange way, but I don't know of a better one so I can't fix it at the moment...
+			S.maximum_volume = reagent_source.reagents.maximum_volume
 			S.my_atom = H
 
 			reagent_source.reagents.trans_to(S,split)

@@ -53,3 +53,55 @@
 	symptoms = list(new/datum/symptom/beard, new/datum/symptom/voice_change, new/datum/symptom/itching)
 	mutation_reagents = list("mutagen", "radium")
 	possible_mutations = list(/datum/disease/kingstons)
+
+//Pacifist Syndrome
+/datum/disease/advance/preset/love
+	name = "Pacifist Syndrome"
+	symptoms = list(new/datum/symptom/love)
+
+//Uncontrollable Aggression
+/datum/disease/advance/preset/aggression
+	name = "Uncontrollable Aggression"
+	symptoms = list(new/datum/symptom/aggression)
+
+//Uncontrollable Actions
+/datum/disease/advance/preset/obsession
+	name = "Uncontrollable Actions"
+	symptoms = list(new/datum/symptom/obsession)
+
+//Topographical Cretinism
+/datum/disease/advance/preset/confusion
+	name = "Topographical Cretinism"
+	symptoms = list(new/datum/symptom/confusion)
+
+//Fragile Bones Syndrome
+/datum/disease/advance/preset/bones
+	name = "Fragile Bones Syndrome"
+	symptoms = list(new/datum/symptom/bones)
+
+//Limb Rejection
+/datum/disease/advance/preset/limb_throw
+	name = "Limb Rejection"
+	symptoms = list(new/datum/symptom/limb_throw)
+
+//Uncontrolled Laughter Effect
+/datum/disease/advance/preset/laugh
+	name = "Uncontrolled Laughter Effect"
+	symptoms = list(new/datum/symptom/laugh)
+
+//Groaning Syndrome
+/datum/disease/advance/preset/moan
+	name = "Groaning Syndrome"
+	symptoms = list(new/datum/symptom/moan)
+
+//Toxification syndrome
+/datum/disease/advance/preset/infection
+	name = "Toxification syndrome"
+	symptoms = list(new/datum/symptom/infection)
+
+// Uncontrolled Laughter Effect + Groaning Syndrome + Hullucigen
+/datum/disease/advance/preset/pre_loyalty
+	name = "Merry sufferer"
+	symptoms = list(new/datum/symptom/laugh, /datum/symptom/moan, /datum/symptom/hallucigen)
+	mutation_reagents = list("love")
+	possible_mutations = list(/datum/disease/loyalty)

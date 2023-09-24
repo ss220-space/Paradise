@@ -232,6 +232,15 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
+/obj/item/ammo_casing/shotgun/fakebeanbag
+	name = "beanbag shell"
+	desc = "A weak beanbag slug for riot control."
+	description_antag = "Специальный патрон для усыпления жертв. Крайне эффективен против целей с алкоголем внутри. Любой стан по противнику после выстрела дополнительно приводит ко сну, не позволяя ему кричать о помощи."
+	icon_state = "bshell"
+	projectile_type = /obj/item/projectile/bullet/weakbullet/booze
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+
 /obj/item/ammo_casing/shotgun/improvised
 	name = "improvised shell"
 	desc = "An extremely weak shotgun shell with multiple small pellets made out of metal shards."
@@ -404,14 +413,6 @@
 	materials = list(MAT_METAL = 1000)
 	projectile_type = /obj/item/projectile/bullet/f545
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
-	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
-
-/obj/item/ammo_casing/shotgun/fakebeanbag
-	name = "beanbag shell"
-	desc = "A weak beanbag shell."
-	icon_state = "bshell"
-	projectile_type = /obj/item/projectile/bullet/weakbullet/booze
-	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/rocket

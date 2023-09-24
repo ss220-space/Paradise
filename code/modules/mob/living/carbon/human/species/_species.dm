@@ -43,6 +43,7 @@
 	var/hunger_drain = HUNGER_FACTOR
 	var/digestion_ratio = 1 //How quickly the species digests/absorbs reagents.
 	var/taste_sensitivity = TASTE_SENSITIVITY_NORMAL //the most widely used factor; humans use a different one
+	var/germs_growth_rate = 1 //How quickly germs are growing.
 
 	var/hunger_icon = 'icons/mob/screen_hunger.dmi'
 	var/hunger_type
@@ -65,6 +66,7 @@
 	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
 	var/speed_mod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
 	var/bonefragility = 1 // higher numbers - higher chances to break bones
+	var/fragile_bones_chance = 0	//chance to break bones while walking, pulling and beating
 	var/blood_damage_type = OXY //What type of damage does this species take if it's low on blood?
 	var/total_health = 100
 	var/punchdamagelow = 0       //lowest possible punch damage
@@ -434,6 +436,11 @@
 	var/message = "<span class='warning'>[target.declent_ru(NOMINATIVE)] блокиру[pluralize_ru(target.gender,"ет","ют")] попытку захвата [user.declent_ru(GENITIVE)]!</span>"
 	if(target.check_martial_art_defense(target, user, null, message))
 		return FALSE
+
+	var/datum/antagonist/vampire/vampire = user.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(vampire?.get_ability(/datum/vampire_passive/upgraded_grab) && vampire.grab_act(user, target))
+		return TRUE
+
 	if(attacker_style && attacker_style.grab_act(user, target) == TRUE)
 		return TRUE
 	else

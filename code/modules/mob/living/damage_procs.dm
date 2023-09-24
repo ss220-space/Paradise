@@ -8,9 +8,10 @@
 	Returns
 	standard 0 if fail
 */
-/mob/living/proc/apply_damage(var/damage = 0, var/damagetype = BRUTE, var/def_zone = null, var/blocked = 0, var/sharp = 0, var/used_weapon = null)
-	blocked = (100-blocked)/100
-	if(!damage || (blocked <= 0))	return 0
+/mob/living/proc/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, sharp = 0, used_weapon = null)
+	blocked = (100 - blocked) / 100
+	if(!damage || (blocked <= 0))
+		return FALSE
 	SEND_SIGNAL(src, COMSIG_MOB_APPLY_DAMAGE, damage, damagetype, def_zone)
 	switch(damagetype)
 		if(BRUTE)
@@ -26,7 +27,8 @@
 		if(STAMINA)
 			adjustStaminaLoss(damage * blocked)
 	updatehealth("apply damage")
-	return 1
+	return TRUE
+
 
 /mob/living/proc/apply_damage_type(damage = 0, damagetype = BRUTE) //like apply damage except it always uses the damage procs
 	switch(damagetype)
@@ -45,6 +47,7 @@
 		if(BRAIN)
 			return adjustBrainLoss(damage)
 
+
 /mob/living/proc/get_damage_amount(damagetype = BRUTE)
 	switch(damagetype)
 		if(BRUTE)
@@ -61,19 +64,25 @@
 			return getStaminaLoss()
 
 
-/mob/living/proc/apply_damages(var/brute = 0, var/burn = 0, var/tox = 0, var/oxy = 0, var/clone = 0, var/def_zone = null, var/blocked = 0, var/stamina = 0)
-	if(blocked >= 100)	return 0
-	if(brute)	apply_damage(brute, BRUTE, def_zone, blocked)
-	if(burn)	apply_damage(burn, BURN, def_zone, blocked)
-	if(tox)		apply_damage(tox, TOX, def_zone, blocked)
-	if(oxy)		apply_damage(oxy, OXY, def_zone, blocked)
-	if(clone)	apply_damage(clone, CLONE, def_zone, blocked)
-	if(stamina) apply_damage(stamina, STAMINA, def_zone, blocked)
-	return 1
+/mob/living/proc/apply_damages(brute = 0, burn = 0,tox = 0, oxy = 0, clone = 0, def_zone = null, blocked = 0, stamina = 0)
+	if(blocked >= 100)
+		return FALSE
+	if(brute)
+		apply_damage(brute, BRUTE, def_zone, blocked)
+	if(burn)
+		apply_damage(burn, BURN, def_zone, blocked)
+	if(tox)
+		apply_damage(tox, TOX, def_zone, blocked)
+	if(oxy)
+		apply_damage(oxy, OXY, def_zone, blocked)
+	if(clone)
+		apply_damage(clone, CLONE, def_zone, blocked)
+	if(stamina)
+		apply_damage(stamina, STAMINA, def_zone, blocked)
+	return TRUE
 
 
-
-/mob/living/proc/apply_effect(var/effect = 0,var/effecttype = STUN, var/blocked = 0, var/negate_armor = 0)
+/mob/living/proc/apply_effect(effect = 0, effecttype = STUN, blocked = 0, negate_armor = FALSE)
 	if(status_flags & GODMODE)
 		return FALSE
 	blocked = (100-blocked)/100
@@ -104,23 +113,36 @@
 	updatehealth("apply effect")
 	return TRUE
 
-/mob/living/proc/apply_effects(var/stun = 0, var/weaken = 0, var/paralyze = 0, var/irradiate = 0, var/slur = 0, var/stutter = 0, var/eyeblur = 0, var/drowsy = 0, var/blocked = 0, var/stamina = 0, var/jitter = 0)
-	if(blocked >= 100)	return 0
-	if(stun)		apply_effect(stun, STUN, blocked)
-	if(weaken)		apply_effect(weaken, WEAKEN, blocked)
-	if(paralyze)	apply_effect(paralyze, PARALYZE, blocked)
-	if(irradiate)	apply_effect(irradiate, IRRADIATE, blocked)
-	if(slur) 		apply_effect(slur, SLUR, blocked)
-	if(stutter)		apply_effect(stutter, STUTTER, blocked)
-	if(eyeblur)		apply_effect(eyeblur, EYE_BLUR, blocked)
-	if(drowsy)		apply_effect(drowsy, DROWSY, blocked)
-	if(stamina)		apply_damage(stamina, STAMINA, null, blocked)
-	if(jitter) 		apply_effect(jitter, JITTER, blocked)
-	return 1
+
+/mob/living/proc/apply_effects(stun = 0, weaken = 0, paralyze = 0, irradiate = 0, slur = 0,stutter = 0, eyeblur = 0, drowsy = 0, blocked = 0, stamina = 0, jitter = 0)
+	if(blocked >= 100)
+		return FALSE
+	if(stun)
+		apply_effect(stun, STUN, blocked)
+	if(weaken)
+		apply_effect(weaken, WEAKEN, blocked)
+	if(paralyze)
+		apply_effect(paralyze, PARALYZE, blocked)
+	if(irradiate)
+		apply_effect(irradiate, IRRADIATE, blocked)
+	if(slur)
+		apply_effect(slur, SLUR, blocked)
+	if(stutter)
+		apply_effect(stutter, STUTTER, blocked)
+	if(eyeblur)
+		apply_effect(eyeblur, EYE_BLUR, blocked)
+	if(drowsy)
+		apply_effect(drowsy, DROWSY, blocked)
+	if(stamina)
+		apply_damage(stamina, STAMINA, null, blocked)
+	if(jitter)
+		apply_effect(jitter, JITTER, blocked)
+	return TRUE
 
 
 /mob/living/proc/getBruteLoss()
 	return bruteloss
+
 
 /mob/living/proc/adjustBruteLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
@@ -137,8 +159,10 @@
 	if(updating_health)
 		updatehealth("adjustBruteLoss")
 
+
 /mob/living/proc/getOxyLoss()
 	return oxyloss
+
 
 /mob/living/proc/adjustOxyLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
@@ -158,6 +182,7 @@
 	if(updating_health)
 		updatehealth("adjustOxyLoss")
 
+
 /mob/living/proc/setOxyLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		oxyloss = 0
@@ -176,8 +201,10 @@
 	if(updating_health)
 		updatehealth("setOxyLoss")
 
+
 /mob/living/proc/getToxLoss()
 	return toxloss
+
 
 /mob/living/proc/adjustToxLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
@@ -194,6 +221,7 @@
 	if(updating_health)
 		updatehealth("adjustToxLoss")
 
+
 /mob/living/proc/setToxLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		toxloss = 0
@@ -209,8 +237,10 @@
 	if(updating_health)
 		updatehealth("setToxLoss")
 
+
 /mob/living/proc/getFireLoss()
 	return fireloss
+
 
 /mob/living/proc/adjustFireLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
@@ -227,8 +257,10 @@
 	if(updating_health)
 		updatehealth("adjustFireLoss")
 
+
 /mob/living/proc/getCloneLoss()
 	return cloneloss
+
 
 /mob/living/proc/adjustCloneLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
@@ -245,6 +277,7 @@
 	if(updating_health)
 		updatehealth("adjustCloneLoss")
 
+
 /mob/living/proc/setCloneLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		cloneloss = 0
@@ -260,22 +293,27 @@
 	if(updating_health)
 		updatehealth("setCloneLoss")
 
+
 /mob/living/proc/getBrainLoss()
 	return 0
+
 
 /mob/living/proc/adjustBrainLoss(amount, updating_health = TRUE)
 	return STATUS_UPDATE_NONE
 
+
 /mob/living/proc/setBrainLoss(amount, updating_health = TRUE)
 	return STATUS_UPDATE_NONE
+
 
 /mob/living/proc/getStaminaLoss()
 	return staminaloss
 
+
 /mob/living/proc/adjustStaminaLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		staminaloss = 0
-		update_health_hud()
+		update_stamina_hud()
 		update_stamina()
 		return FALSE
 	var/old_stamloss = staminaloss
@@ -288,13 +326,14 @@
 	if(amount > 0)
 		stam_regen_start_time = world.time + (STAMINA_REGEN_BLOCK_TIME * stam_regen_start_modifier)
 	if(updating_health)
-		update_health_hud()
+		update_stamina_hud()
 		update_stamina()
+
 
 /mob/living/proc/setStaminaLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		staminaloss = 0
-		update_health_hud()
+		update_stamina_hud()
 		update_stamina()
 		return FALSE
 	var/old_stamloss = staminaloss
@@ -307,15 +346,16 @@
 	if(amount > 0)
 		stam_regen_start_time = world.time + STAMINA_REGEN_BLOCK_TIME
 	if(updating_health)
-		update_health_hud()
+		update_stamina_hud()
 		update_stamina()
+
 
 /mob/living/proc/getMaxHealth()
 	return maxHealth
 
+
 /mob/living/proc/setMaxHealth(var/newMaxHealth)
 	maxHealth = newMaxHealth
-
 
 
 // heal ONE external organ, organ gets randomly selected from damaged ones.
@@ -324,6 +364,7 @@
 	adjustFireLoss(-burn, FALSE)
 	if(updating_health)
 		updatehealth("heal organ damage")
+
 
 // damage ONE external organ, organ gets randomly selected from damaged ones.
 /mob/living/proc/take_organ_damage(brute, burn, updating_health = TRUE)
@@ -337,12 +378,14 @@
 	if(updating_health)
 		updatehealth("take organ damage")
 
+
 // heal MANY external organs, in random order
 /mob/living/proc/heal_overall_damage(brute, burn, updating_health = TRUE)
 	adjustBruteLoss(-brute, FALSE)
 	adjustFireLoss(-burn, FALSE)
 	if(updating_health)
 		updatehealth("heal overall damage")
+
 
 // damage MANY external organs, in random order
 /mob/living/proc/take_overall_damage(brute, burn, updating_health = TRUE, used_weapon = null)
@@ -356,8 +399,10 @@
 	if(updating_health)
 		updatehealth("take overall damage")
 
+
 /mob/living/proc/has_organic_damage()
 	return (maxHealth - health)
+
 
 //heal up to amount damage, in a given order
 /mob/living/proc/heal_ordered_damage(amount, list/damage_types)
@@ -370,3 +415,4 @@
 		if(!amount)
 			break
 	. -= amount //if there's leftover healing, remove it from what we return
+

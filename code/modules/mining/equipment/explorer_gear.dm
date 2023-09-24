@@ -13,7 +13,7 @@
 	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 50)
 	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
 	resistance_flags = FIRE_PROOF
-	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi" , "Tajaran")
+	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi", "Ash Walker", "Ash Walker Shaman", "Draconid", "Tajaran")
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi',
@@ -188,7 +188,7 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi" , "Tajaran")
+	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi", "Ash Walker", "Ash Walker Shaman", "Draconid", "Tajaran")
 	hoodtype = /obj/item/clothing/head/hooded/pathfinder
 	species_restricted = list("exclude", "lesser form")
 
@@ -216,7 +216,7 @@
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi',
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
 		"Drask" = 'icons/mob/species/drask/head.dmi',
 		"Grey" = 'icons/mob/species/grey/head.dmi',

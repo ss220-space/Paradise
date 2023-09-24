@@ -92,7 +92,7 @@
 	var/slowdown = 0
 
 	/// max chemicals and cooldown recovery for chemicals module
-	var/chemicals = 20
+	var/chemicals = 30
 	var/last_change_chemicals = 0
 
 	var/syndipai = FALSE
@@ -102,9 +102,15 @@
 	var/female_chassis = FALSE
 	var/snake_chassis = FALSE
 
-/mob/living/silicon/pai/New(obj/item/paicard/paicard)
-	loc = paicard
-	card = paicard
+	var/radio_name
+	var/radio_rank = "Personal AI"
+
+/mob/living/silicon/pai/Initialize(mapload)
+	. = ..()
+
+	if(istype(loc, /obj/item/paicard))
+		card = loc
+
 	if(card)
 		faction = card.faction.Copy()
 	sradio = new(src)
@@ -112,6 +118,8 @@
 		if(!card.radio)
 			card.radio = new /obj/item/radio/headset(card)
 		radio = card.radio
+
+	radio_name = name
 
 	//Default languages without universal translator software
 	add_language("Galactic Common", 1)
@@ -145,7 +153,6 @@
 	integrated_records.req_access = list()
 
 	reset_software()
-	..()
 
 /mob/living/silicon/pai/proc/reset_software(var/extra_memory = 0)
 	QDEL_LIST(installed_software)
@@ -225,7 +232,7 @@
 			M.show_message("<span class='warning'>A shower of sparks spray from [src]'s inner workings.</span>", 3, "<span class='warning'>You hear and smell the ozone hiss of electrical sparks being expelled violently.</span>", 2)
 		return death(0)
 
-	switch(pick(1,2,3))
+	switch(pick(1, 2 ,3))
 		if(1)
 			master = null
 			master_dna = null
@@ -244,20 +251,18 @@
 /mob/living/silicon/pai/ex_act(severity)
 	..()
 
-	switch(severity)
-		if(1.0)
-			if(stat != 2)
-				adjustBruteLoss(100)
-				adjustFireLoss(100)
-		if(2.0)
-			if(stat != 2)
-				adjustBruteLoss(60)
-				adjustFireLoss(60)
-		if(3.0)
-			if(stat != 2)
-				adjustBruteLoss(30)
+	if(stat == DEAD)
+		return
 
-	return
+	switch(severity)
+		if(EXPLODE_DEVASTATE)
+			adjustBruteLoss(100)
+			adjustFireLoss(100)
+		if(EXPLODE_HEAVY)
+			adjustBruteLoss(60)
+			adjustFireLoss(60)
+		if(EXPLODE_LIGHT)
+			adjustBruteLoss(30)
 
 
 // See software.dm for ui_act()

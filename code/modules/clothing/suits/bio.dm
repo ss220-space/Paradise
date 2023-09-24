@@ -131,4 +131,4 @@
 		"Neara" = 'icons/mob/species/monkey/suit.dmi',
 		"Stok" = 'icons/mob/species/monkey/suit.dmi'
 		)
-	hide_tail_by_species = list("Unathi, Tajaran, Vulpkanin")
+	hide_tail_by_species = list("Unathi, Ash Walker, Ash Walker Shaman, Draconid, Tajaran, Vulpkanin")

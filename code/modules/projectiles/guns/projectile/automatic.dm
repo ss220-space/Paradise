@@ -444,4 +444,5 @@
 	icon_state = "M52"
 	item_state = "arg"
 	mag_type = /obj/item/ammo_box/magazine/m52mag
+	can_suppress = 0
 

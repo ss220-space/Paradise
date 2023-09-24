@@ -819,6 +819,15 @@
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
+/datum/design/mech_kineticgun
+	name = "Exosuit Working Equipment (Proto-kinetic Accelerator)"
+	id = "mech_kineticgun"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun
+	materials = list(MAT_METAL=10000)
+	construction_time = 100
+	category = list("Exosuit Equipment")
+
 /datum/design/mech_diamond_drill
 	name = "Exosuit Working Equipment (Diamond Mining Drill)"
 	desc = "An upgraded version of the standard drill."

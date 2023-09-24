@@ -432,6 +432,7 @@ SUBSYSTEM_DEF(ticker)
 				player.close_spawn_windows()
 				var/mob/living/silicon/ai/ai_character = player.AIize()
 				ai_character.moveToAILandmark()
+				SSticker?.score?.save_silicon_laws(ai_character, additional_info = "job assignment", log_all_laws = TRUE)
 			else if(!player.mind.assigned_role)
 				continue
 			else

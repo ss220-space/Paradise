@@ -63,6 +63,7 @@
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/shoes/laceup(src)
 	new /obj/item/clothing/shoes/laceup/cap(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/captain(src)
 
 /obj/item/storage/garmentbag/hop/populate_contents()
 	new /obj/item/clothing/head/hopcap(src)
@@ -79,10 +80,11 @@
 	new /obj/item/clothing/under/rank/head_of_personnel_whimsy(src)
 	new /obj/item/clothing/under/rank/head_of_personnel_alt(src)
 	new /obj/item/clothing/under/rank/head_of_personnel_f(src)
-	new /obj/item/clothing/shoes/leather(src)	//added here delited on maps
+	new /obj/item/clothing/shoes/leather(src)	//added here deleted on maps
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/shoes/white(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/hop(src)
 
 /obj/item/storage/garmentbag/hos/populate_contents()
 	new /obj/item/clothing/head/HoS(src)
@@ -96,6 +98,7 @@
 	new /obj/item/clothing/under/rank/head_of_security/corp(src)
 	new /obj/item/clothing/under/rank/head_of_security/skirt(src)
 	new /obj/item/clothing/under/rank/head_of_security/alt(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/security/hos(src)
 
 /obj/item/storage/garmentbag/warden/populate_contents()
 	new /obj/item/clothing/head/warden(src)
@@ -176,6 +179,7 @@
 	new /obj/item/clothing/under/rank/research_director(src)
 	new /obj/item/clothing/gloves/color/latex(src)
 	new /obj/item/clothing/shoes/white(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/medical/science/rd(src)
 
 /obj/item/storage/garmentbag/CMO/populate_contents()
 	new /obj/item/clothing/head/bio_hood/cmo(src)
@@ -187,7 +191,8 @@
 	new /obj/item/clothing/under/rank/chief_medical_officer(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 	new /obj/item/clothing/shoes/white(src)
-	new /obj/item/clothing/shoes/brown	(src)
+	new /obj/item/clothing/shoes/brown(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/medical/cmo(src)
 
 /obj/item/storage/garmentbag/engineering_chief/populate_contents()
 	new /obj/item/clothing/head/beret/ce(src)
@@ -200,6 +205,7 @@
 	new /obj/item/clothing/under/rank/chief_engineer(src)
 	new /obj/item/clothing/under/rank/chief_engineer/skirt(src)
 	new /obj/item/clothing/shoes/brown(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/engineering/ce(src)
 
 /obj/item/storage/garmentbag/chaplain/populate_contents()
 	new /obj/item/clothing/head/bishopmitre(src)
@@ -228,3 +234,4 @@
 	new /obj/item/clothing/under/rank/cargo/official(src)
 	new /obj/item/clothing/gloves/fingerless(src)
 	new /obj/item/clothing/shoes/brown(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/cargo/qm(src)

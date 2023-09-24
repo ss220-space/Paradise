@@ -71,6 +71,12 @@
 	///Used to decide what kind of reverb the area makes sound have
 	var/sound_environment = SOUND_ENVIRONMENT_NONE
 
+	///Used to decide what the minimum time between ambience is
+	var/min_ambience_cooldown = 30 SECONDS
+	///Used to decide what the maximum time between ambience is
+	var/max_ambience_cooldown = 90 SECONDS
+
+
 /area/New(loc, ...)
 	if(!there_can_be_many) // Has to be done in New else the maploader will fuck up and find subtypes for the parent
 		GLOB.all_unique_areas[type] = src
@@ -461,105 +467,114 @@
 			used_environ += amount
 
 
-/area/Entered(A)
+/area/Entered(atom/movable/arrived)
+
+	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, arrived)
+
 	var/area/newarea
 	var/area/oldarea
 
-	if(istype(A,/mob))
-		var/mob/M=A
+	if(ismob(arrived))
+		var/mob/arrived_mob = arrived
 
-		if(!M.lastarea)
-			M.lastarea = get_area(M)
-		newarea = get_area(M)
-		oldarea = M.lastarea
+		if(!arrived_mob.lastarea)
+			arrived_mob.lastarea = get_area(arrived_mob)
+		newarea = get_area(arrived_mob)
+		oldarea = arrived_mob.lastarea
 
-		if(newarea==oldarea) return
-
-		M.lastarea = src
-
-	if(!istype(A,/mob/living))	return
-
-	var/mob/living/L = A
-	if(!L.ckey)	return
-	if((oldarea.has_gravity == 0) && (newarea.has_gravity == 1) && (L.m_intent == MOVE_INTENT_RUN)) // Being ready when you change areas gives you a chance to avoid falling all together.
-		thunk(L)
-
-	// Ambience goes down here -- make sure to list each area seperately for ease of adding things in later, thanks! Note: areas adjacent to each other should have the same sounds to prevent cutoff when possible.- LastyScratch
-	if(L && L.client && !L.client.ambience_playing && (L.client.prefs.sound & SOUND_BUZZ))	//split off the white noise from the rest of the ambience because of annoyance complaints - Kluys
-		L.client.ambience_playing = TRUE
-		SEND_SOUND(L, sound('sound/ambience/shipambience.ogg', repeat = TRUE, wait = FALSE, volume = 35 * L.client.prefs.get_channel_volume(CHANNEL_BUZZ), channel = CHANNEL_BUZZ))
-	else if(L && L.client && !(L.client.prefs.sound & SOUND_BUZZ))
-		L.client.ambience_playing = FALSE
-
-	if(prob(35) && L && L.client && (L.client.prefs.sound & SOUND_AMBIENCE))
-		var/sound = pick(ambientsounds)
-
-		if(!L.client.played)
-			SEND_SOUND(L, sound(sound, repeat = FALSE, wait = FALSE, volume = 25 * L.client.prefs.get_channel_volume(CHANNEL_AMBIENCE), channel = CHANNEL_AMBIENCE))
-			L.client.played = TRUE
-			addtimer(CALLBACK(L.client, TYPE_PROC_REF(/client, ResetAmbiencePlayed)), 600)
-
-/**
-  * Reset the played var to false on the client
-  */
-/client/proc/ResetAmbiencePlayed()
-	played = FALSE
-
-/area/proc/gravitychange(var/gravitystate = 0, var/area/A)
-	A.has_gravity = gravitystate
-
-	if(gravitystate)
-		for(var/mob/living/carbon/human/M in A)
-			thunk(M)
-
-/area/proc/thunk(var/mob/living/carbon/human/M)
-	if(istype(M,/mob/living/carbon/human/))  // Only humans can wear magboots, so we give them a chance to.
-		if(istype(M.shoes, /obj/item/clothing/shoes/magboots) && (M.shoes.flags & NOSLIP))
+		if(newarea == oldarea)
 			return
 
-	if(M.dna.species.spec_thunk(M)) //Species level thunk overrides
+		arrived_mob.lastarea = src
+
+	if(!isliving(arrived))
 		return
 
-	if(M.buckled) //Cam't fall down if you are buckled
+	var/mob/living/arrived_living = arrived
+	if(!arrived_living.ckey)
 		return
 
-	if(istype(get_turf(M), /turf/space)) // Can't fall onto nothing.
+	if(!oldarea.has_gravity && newarea.has_gravity && arrived_living.m_intent == MOVE_INTENT_RUN) // Being ready when you change areas gives you a chance to avoid falling all together.
+		thunk(arrived_living)
+
+	if(!arrived_living.client)
 		return
 
-	if(ishuman(M))
-		if(M.m_intent == MOVE_INTENT_RUN)
-			M.Weaken(10 SECONDS)
-		else
-			M.Weaken(4 SECONDS)
+	var/client/our_client = arrived_living.client
+
+	//Ship ambience just loops if turned on.
+	if(!our_client.ambience_playing && (our_client.prefs.sound & SOUND_BUZZ))
+		our_client.ambience_playing = TRUE
+		var/amb_volume = 35 * our_client.prefs.get_channel_volume(CHANNEL_BUZZ)
+		SEND_SOUND(arrived_living, sound('sound/ambience/shipambience.ogg', repeat = TRUE, wait = FALSE, volume = amb_volume, channel = CHANNEL_BUZZ))
+
+	else if(!(our_client.prefs.sound & SOUND_BUZZ))
+		our_client.ambience_playing = FALSE
 
 
-	to_chat(M, "Gravity!")
+/area/proc/gravitychange(gravitystate = 0, area/our_area)
+	our_area.has_gravity = gravitystate
 
-/proc/has_gravity(atom/AT, turf/T)
-	if(!T)
-		T = get_turf(AT)
-	var/area/A = get_area(T)
-	if(istype(T, /turf/space)) // Turf never has gravity
-		return 0
-	else if(A && A.has_gravity) // Areas which always has gravity
-		return 1
+	if(gravitystate)
+		for(var/mob/living/carbon/human/user in our_area)
+			thunk(user)
+
+
+/area/proc/thunk(mob/living/carbon/human/user)
+	if(!istype(user)) // Rather not have non-humans get hit with a THUNK
+		return
+
+	if(istype(user.shoes, /obj/item/clothing/shoes/magboots) && (user.shoes.flags & NOSLIP)) // Only humans can wear magboots, so we give them a chance to.
+		return
+
+	if(user.dna.species.spec_thunk(user)) //Species level thunk overrides
+		return
+
+	if(user.buckled) //Can't fall down if you are buckled
+		return
+
+	if(isspaceturf(get_turf(user))) // Can't fall onto nothing.
+		return
+
+	if(user.m_intent == MOVE_INTENT_RUN)
+		user.Weaken(10 SECONDS)
+	else
+		user.Weaken(4 SECONDS)
+
+	to_chat(user, "Gravity!")
+
+
+/proc/has_gravity(atom/our_atom, turf/our_turf)
+	if(!our_turf)
+		our_turf = get_turf(our_atom)
+
+	var/area/our_area = get_area(our_turf)
+
+	if(isspaceturf(our_turf)) // Turf never has gravity
+		return FALSE
+	else if(our_area?.has_gravity) // Areas which always has gravity
+		return TRUE
 	else
 		// There's a gravity generator on our z level
 		// This would do well when integrated with the z level manager
-		if(T && GLOB.gravity_generators["[T.z]"] && length(GLOB.gravity_generators["[T.z]"]))
-			return 1
-	return 0
+		if(our_turf && GLOB.gravity_generators["[our_turf.z]"] && length(GLOB.gravity_generators["[our_turf.z]"]))
+			return TRUE
+	return FALSE
+
 
 /area/proc/prison_break()
 	for(var/obj/machinery/power/apc/temp_apc in src)
 		INVOKE_ASYNC(temp_apc, TYPE_PROC_REF(/obj/machinery/power/apc, overload_lighting), 70)
 	for(var/obj/machinery/door/airlock/temp_airlock in src)
-		temp_airlock.prison_open()
+		INVOKE_ASYNC(temp_airlock, TYPE_PROC_REF(/obj/machinery/door/airlock, prison_open))
 	for(var/obj/machinery/door/window/temp_windoor in src)
-		temp_windoor.open()
+		INVOKE_ASYNC(temp_windoor, TYPE_PROC_REF(/obj/machinery/door, open))
+
 
 /area/AllowDrop()
 	CRASH("Bad op: area/AllowDrop() called")
 
+
 /area/drop_location()
 	CRASH("Bad op: area/drop_location() called")
+

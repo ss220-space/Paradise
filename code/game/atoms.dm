@@ -184,6 +184,16 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, newdir)
 	dir = newdir
 
+
+/atom/proc/set_angle(degrees)
+	var/matrix/M = matrix()
+	M.Turn(degrees)
+	// If we aint 0, make it NN transform
+	if(degrees)
+		appearance_flags |= PIXEL_SCALE
+	transform = M
+
+
 /*
 	Sets the atom's pixel locations based on the atom's `dir` variable, and what pixel offset arguments are passed into it
 	If no arguments are supplied, `pixel_x` or `pixel_y` will be set to 0

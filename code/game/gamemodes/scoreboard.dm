@@ -95,11 +95,14 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 
 	/// Associative list that contains information on all antagonists that went cryo. Used for logging.
 	var/list/cryo_antags_info
+	/// Associative list that contains information about all laws changes during the round.
+	var/list/laws_change_info
 
 
 /datum/scoreboard/proc/scoreboard()
 	// Print a list of antagonists to the server log.
 	log_antags()
+	log_silicon_laws()
 
 	for(var/M in GLOB.mob_list)
 		var/mob/mob = M
@@ -169,8 +172,6 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 				log_game(cryo_antags_info[antag][objective])
 			log_game("End objective log for [antag]-[role]")
 
-	QDEL_LIST_ASSOC(cryo_antags_info)
-
 
 /datum/scoreboard/proc/save_antag_info(datum/mind/antag_mind)
 	if(!antag_mind || !SSticker?.score)
@@ -191,6 +192,42 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 	for(var/datum/objective/objective in all_objectives)
 		cryo_antags_info[current_index] += "Objective #[count]: [objective.explanation_text]"
 		count++
+
+
+/datum/scoreboard/proc/log_silicon_laws()
+	if(!laws_change_info || !length(laws_change_info))
+		return
+
+	for(var/i in laws_change_info)
+		WRITE_LOG(GLOB.world_game_log, "LAWS: [i][GLOB.log_end]")
+
+
+/datum/scoreboard/proc/save_silicon_laws(mob/living/silicon/silicon, mob/changer, additional_info = "", log_all_laws = FALSE)
+	if(!config.log_game || !istype(silicon) || !silicon.laws)
+		return
+
+	if(!laws_change_info)
+		laws_change_info = list()
+
+	var/timestamp = station_time_timestamp()
+	var/silicon_type = isAI(silicon) ? "AI" : "robot"
+	var/silicon_name = "[html_decode(silicon.name)][silicon.ckey ? " ([silicon.ckey])" : " (nockey)"]"
+	var/laws_changer = changer ? " Changer: [html_decode(changer.real_name)] ([changer.ckey]).]" : ""
+
+	laws_change_info += "[timestamp] Laws changed for [silicon_type] [silicon_name].[laws_changer][additional_info ? " Additional info: [additional_info]." : ""]"
+
+	if(!log_all_laws)
+		return
+
+	var/list/current_laws = silicon.laws.all_laws()
+	if(!length(current_laws))
+		laws_change_info += "All [silicon_type] laws are gone."
+		return
+
+	laws_change_info += "Current [silicon_type] laws are:"
+
+	for(var/datum/ai_law/law in current_laws)
+		laws_change_info += "[law.get_index()]. [html_decode(law.law)]"
 
 
 /datum/scoreboard/proc/check_station_player(mob/mob)
