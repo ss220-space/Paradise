@@ -390,6 +390,7 @@
 		if(locate(/obj/structure/table,get_step(src,D)))
 			var/obj/structure/table/T = locate(/obj/structure/table,get_step(src,D))
 			T.unflip()
+	dir = initial(dir)
 	update_icon()
 
 	return 1
