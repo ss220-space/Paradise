@@ -1,7 +1,7 @@
 /datum/martial_combo/sleeping_carp/crashing_kick
 	name = "Удар, Крушащий Волны"
 	steps = list(MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_DISARM)
-	explaination_text = "Бьет цель в солнечное сплетение, отправляя в полет"
+	explaination_text = "Бьет цель в солнечное сплетение, отправляя в полет. Цель после удара замедлена на 5 секунд."
 
 /datum/martial_combo/sleeping_carp/crashing_kick/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(target != user) // no you cannot kick yourself across rooms
