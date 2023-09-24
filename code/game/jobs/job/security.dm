@@ -179,7 +179,7 @@
 	alt_titles = list("Security Trainer")
 	minimal_player_age = 14
 	exp_requirements = 600
-	exp_type = EXP_TYPE_SECURITY
+	exp_type = EXP_TYPE_CREW
 	money_factor = 3
 	outfit = /datum/outfit/job/officer
 
