@@ -234,8 +234,8 @@
 		"Stok" = 'icons/mob/clothing/species/monkey/eyes.dmi'
 		)
 
-/obj/item/clothing/glasses/hud/security/tajblind/attack_self()
-	toggle_veil()
+/obj/item/clothing/glasses/hud/security/tajblind/attack_self(mob/user = usr)
+	toggle_veil(user)
 
 /obj/item/clothing/glasses/hud/health/tajblind
 	name = "lightweight veil"
@@ -257,8 +257,8 @@
 		"Stok" = 'icons/mob/clothing/species/monkey/eyes.dmi'
 		)
 
-/obj/item/clothing/glasses/hud/health/tajblind/attack_self()
-	toggle_veil()
+/obj/item/clothing/glasses/hud/health/tajblind/attack_self(mob/user = usr)
+	toggle_veil(user)
 
 /obj/item/clothing/glasses/hud/skills
 	name = "Skills HUD"
