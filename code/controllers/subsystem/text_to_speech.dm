@@ -120,6 +120,7 @@ SUBSYSTEM_DEF(tts)
 		"forensic technician" = "Криминалист",
 		"security officer" = "Офицер службы безопасности",
 		"security cadet" = "Кадет службы безопасности",
+		"duty officer" = "Дежурный офицер",
 		"Security Assistant" = "Ассистент службы безопасности",
 		"Security Graduate" = "Выпускник кадетской академии",
 		"brig physician" = "Врач брига",

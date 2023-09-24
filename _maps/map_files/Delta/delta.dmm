@@ -6424,7 +6424,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/start/security_cadet,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -51202,7 +51201,6 @@
 /obj/structure/chair/comfy/red{
 	dir = 4
 	},
-/obj/effect/landmark/start/security_cadet,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -81107,7 +81105,6 @@
 "mVd" = (
 /obj/structure/chair,
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/effect/landmark/start/security_cadet,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -111635,7 +111632,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/start/security_cadet,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"

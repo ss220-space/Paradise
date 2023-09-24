@@ -75,7 +75,7 @@
 				if("Chief Medical Officer")
 					job = pick(GLOB.medical_positions)
 					result = pick_list_weight("ambition_objectives_medical.json", job)
-				if("Student Scientist", "Intern", "Trainee Engineer", "Security Cadet")
+				if("Student Scientist", "Intern", "Trainee Engineer")
 					return pick_list_weight("ambition_objectives_generic.json", "Common")
 
 		if (!result)
