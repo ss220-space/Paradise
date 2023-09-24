@@ -211,3 +211,21 @@
   Сиротка:
   - refactor: Clothing file (#3552)
   - bugfix: Drasks now correctly crash any non-admin types of obstacles (#3560)
+'2023-09-24':
+  Albonix:
+  - imageadd: tables icon (#3594)
+  Daeberdir:
+  - bugfix: '"shard -> glass" now dropping glass on shard loc. (#3588)'
+  LiquidPotroh:
+  - bugfix: Cracking steps after cured virus (#3599)
+  ROdenFL:
+  - bugfix: tajblind hud fix (#3583)
+  - bugfix: give carp a special role (#3582)
+  Vladisvell:
+  - qol: Ambience sound is disabled in start area now. (#3586)
+  Zwei:
+  - bugfix: Pixel Shift Fix (#3598)
+  Сиротка:
+  - bugfix: server lag exploit (#3592)
+  - del: Shitcurity Cadet (#3589)
+  - tweak: Bomb implants now can be tapped while inconcious (#3590)
