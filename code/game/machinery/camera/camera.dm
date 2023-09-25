@@ -239,7 +239,7 @@
 		toggle_cam(null, FALSE)
 		wires.cut_all()
 
-/obj/machinery/camera/deconstruct(disassembled = FALSE)
+/obj/machinery/camera/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		if(disassembled)
 			if(!assembly)
