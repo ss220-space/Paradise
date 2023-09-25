@@ -291,7 +291,8 @@ to destroy them and players will be able to make replacements.
 		"Departament Cargo ClothesMate" =		/obj/machinery/vending/clothing/departament/cargo,
 		"Departament Law ClothesMate" =			/obj/machinery/vending/clothing/departament/law,
 		"Service Departament ClothesMate Botanical" = /obj/machinery/vending/clothing/departament/service/botanical,
-		"Service Departament ClothesMate Chaplain" 	= /obj/machinery/vending/clothing/departament/service/chaplain,)
+		"Service Departament ClothesMate Chaplain" 	= /obj/machinery/vending/clothing/departament/service/chaplain,
+		"RoboFriends" =                         /obj/machinery/vending/pai,)
 
 /obj/item/circuitboard/vendor/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
