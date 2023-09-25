@@ -307,7 +307,7 @@
 	if(assembly)
 		if(assembly.state == 1) // checks if camera disasembled
 			return
-	if(alarm_on)
+	if(alarm_on) // you don't have to turn om your alarm twice
 		return
 	if(status) // checks whether alarm is still needed
 		return
@@ -315,7 +315,7 @@
 	SSalarm.triggerAlarm("Camera", get_area(src), list(UID()), src)
 
 /obj/machinery/camera/proc/cancelCameraAlarm()
-	if (!alarm_on) // you don't have to turn off your alarm twice, you shitty heroin addict. THROW OUT YOUR SYRINGE NOW
+	if (!alarm_on) // you don't have to turn off your alarm twice
 		return
 	alarm_on = FALSE
 	SSalarm.cancelAlarm("Camera", get_area(src), src)
