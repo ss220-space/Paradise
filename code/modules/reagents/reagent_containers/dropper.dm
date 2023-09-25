@@ -142,3 +142,6 @@
 
 			var/contained = english_list(injected)
 			add_attack_logs(user, M, "Injected with [src] containing ([contained])")
+			return TRUE
+	else
+		return FALSE
