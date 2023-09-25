@@ -309,13 +309,13 @@
 			return
 	if(alarm_on)
 		return
-	if(status)
+	if(status) // checks whether alarm is still needed
 		return
 	alarm_on = TRUE
 	SSalarm.triggerAlarm("Camera", get_area(src), list(UID()), src)
 
 /obj/machinery/camera/proc/cancelCameraAlarm()
-	if (!alarm_on)
+	if (!alarm_on) // you don't have to turn off your alarm twice, you shitty heroin addict. THROW OUT YOUR SYRINGE NOW
 		return
 	alarm_on = FALSE
 	SSalarm.cancelAlarm("Camera", get_area(src), src)
