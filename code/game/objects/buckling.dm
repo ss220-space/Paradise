@@ -126,28 +126,27 @@
 
 //Wrapper procs that handle sanity and user feedback
 /atom/movable/proc/user_buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
-	if(!in_range(user, src) || !isturf(user.loc) || user.incapacitated() || M.anchored)
+	if(!in_range(user, src) || !isturf(user.loc) || user.incapacitated() || M.anchored || !in_range(M, src))
 		return FALSE
 
 	add_fingerprint(user)
 
-	M.visible_message("<span class='warning'>[user] is trying to buckle [M] to [src]!</span>",\
-						"<span class='warning'>[user] is trying to buckle you to [src]!</span>",\
-						"<span class='italics'>You hear metal clanking.</span>")
-
-	if(M != user)
+	if(M != user) // Cheks if user interacts with himself
+		M.visible_message(span_warning("[user] is trying to buckle [M] to [src]!"),\
+					span_warning("[user] is trying to buckle you to [src]!"),\
+					span_italics("You hear metal clanking."))
 		if(do_mob(user, M, 0.7 SECONDS))
 			if(buckle_mob(M, check_loc = check_loc))
-				M.visible_message("<span class='warning'>[user] buckles [M] to [src]!</span>",\
-					"<span class='warning'>[user] buckles you to [src]!</span>",\
-					"<span class='italics'>You hear metal clanking.</span>")
+				M.visible_message(span_warning("[user] buckles [M] to [src]!"),\
+					span_warning("[user] buckles you to [src]!"),\
+					span_italics("You hear metal clanking."))
 		else
 			to_chat(user, span_warning("You fail to buckle [M]."))
 	else
 		if(buckle_mob(M, check_loc = check_loc))
-			M.visible_message("<span class='notice'>[M] buckles [M.p_them()]self to [src].</span>",\
-				"<span class='notice'>You buckle yourself to [src].</span>",\
-				"<span class='italics'>You hear metal clanking.</span>")
+			M.visible_message(span_notice("[M] buckles [M.p_them()]self to [src]."),\
+				span_notice("You buckle yourself to [src]."),\
+				span_italics("You hear metal clanking."))
 
 /atom/movable/proc/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
 	var/mob/living/M = unbuckle_mob(buckled_mob)
