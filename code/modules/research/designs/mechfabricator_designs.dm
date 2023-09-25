@@ -1060,6 +1060,7 @@
 	materials = list(MAT_METAL=20000,MAT_GOLD=10000,MAT_URANIUM=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
+	locked = TRUE
 
 /datum/design/mech_bola
 	name = "Exosuit Non-lethal Weapon (PCMK-6 Bola Launcher)"
@@ -1103,6 +1104,7 @@
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
+	locked = TRUE
 
 /datum/design/mech_lmg
 	name = "Exosuit Lethal Weapon (\"Ultra AC 2\" LMG)"
@@ -1113,6 +1115,7 @@
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
+	locked = TRUE
 
 /datum/design/mech_almg
 	name = "Exosuit Lethal Weapon (ALMG-90)"
@@ -1124,6 +1127,7 @@
 	materials = list(MAT_METAL=8000,MAT_GLASS=2000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
+	locked = TRUE
 
 /datum/design/mech_scattershot
 	name = "Exosuit Lethal Weapon (LBX AC 10 \"Scattershot\")"
@@ -1135,6 +1139,7 @@
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
+	locked = TRUE
 
 /datum/design/mech_ion
 	name = "Exosuit Lethal Weapon (MKIV Ion Heavy Cannon)"
@@ -1146,6 +1151,7 @@
 	materials = list(MAT_METAL=20000,MAT_SILVER=6000,MAT_URANIUM=2000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
+	locked = TRUE
 
 /datum/design/mech_missile_rack
 	name = "Exosuit Lethal Weapon (SRM-8 Missile Rack)"
@@ -1157,6 +1163,7 @@
 	materials = list(MAT_METAL=22000,MAT_GOLD=6000,MAT_SILVER=8000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
+	locked = TRUE
 
 /datum/design/mech_tesla
 	name = "Exosuit Lethal Weapon (P-X Tesla Cannon)"
@@ -1168,6 +1175,7 @@
 	materials = list(MAT_METAL=20000,MAT_SILVER=8000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
+	locked = TRUE
 
 /datum/design/mech_laser
 	name = "Exosuit Lethal Weapon (CH-PL \"Firedart\" Laser)"
@@ -1179,6 +1187,7 @@
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
+	locked = TRUE
 
 /datum/design/mech_carbine
 	name = "Exosuit Lethal Weapon (FNX-99 \"Hades\" Carbine)"
@@ -1190,6 +1199,7 @@
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
+	locked = TRUE
 
 /datum/design/xray_mecha
 	name = "Exosuit Lethal Weapon (S-1 X-Ray Projector)"
@@ -1201,6 +1211,7 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/xray
 	construction_time = 100
 	category = list("Exosuit Equipment")
+	locked = TRUE
 
 /datum/design/mech_immolator
 	name = "Exosuit Lethal Weapon (ZFI Immolation Beam Gun)"
@@ -1212,6 +1223,7 @@
 	materials = list(MAT_METAL = 10000, MAT_SILVER = 8000, MAT_PLASMA = 8000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
+	locked = TRUE
 
 /datum/design/mech_energy_relay
 	name = "Exosuit Generator Equipment (Tesla Generator)"
