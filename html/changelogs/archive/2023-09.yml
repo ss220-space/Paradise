@@ -214,18 +214,34 @@
 '2023-09-24':
   Albonix:
   - imageadd: tables icon (#3594)
+  Bizzonium:
+  - unknown: unignore data/mode.txt
   Daeberdir:
   - bugfix: '"shard -> glass" now dropping glass on shard loc. (#3588)'
   LiquidPotroh:
   - bugfix: Cracking steps after cured virus (#3599)
+  NightDawnFox:
+  - bugfix: missing tajara sprites for pathcloak (#3579)
   ROdenFL:
   - bugfix: tajblind hud fix (#3583)
   - bugfix: give carp a special role (#3582)
   Vladisvell:
   - qol: Ambience sound is disabled in start area now. (#3586)
+  - refactor: Game configuration through datums (#3459)
+  - refactor: renamed discord webhooks and vote no dead in example config file (#3605)
   Zwei:
   - bugfix: Pixel Shift Fix (#3598)
   Сиротка:
   - bugfix: server lag exploit (#3592)
   - del: Shitcurity Cadet (#3589)
   - tweak: Bomb implants now can be tapped while inconcious (#3590)
+'2023-09-25':
+  Hero998:
+  - tweak: Odysseus 4 slots (#3607)
+  NightDawnFox:
+  - bugfix: normal sec requirements (#3608)
+  captainnelly:
+  - imageadd: Bola's sprites inhands (#3600)
+  Сиротка:
+  - tweak: Carp tweaks (#3601)
+  - bugfix: Undestructuble and Unrepairable vendomates now work properly (#3606)
