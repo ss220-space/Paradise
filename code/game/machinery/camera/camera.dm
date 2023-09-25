@@ -86,19 +86,15 @@
 			emped = emped+1  //Increase the number of consecutive EMP's
 			update_icon()
 			var/thisemp = emped //Take note of which EMP this proc is for
-			spawn(900)
-				if(!QDELETED(src))
-					triggerCameraAlarm() //camera alarm triggers even if multiple EMPs are in effect.
-					if(emped == thisemp) //Only fix it if the camera hasn't been EMP'd again
-						network = previous_network
-						stat &= ~EMPED
-						update_icon()
-						if(can_use())
-							GLOB.cameranet.addCamera(src)
-						emped = 0 //Resets the consecutive EMP count
-						spawn(100)
-							if(!QDELETED(src))
-								cancelCameraAlarm()
+			addtimer(CALLBACK(src, PROC_REF(triggerCameraAlarm)), 10 SECONDS)
+			if(emped == thisemp) //Only fix it if the camera hasn't been EMP'd again
+				network = previous_network
+				stat &= ~EMPED
+				update_icon()
+				if(can_use())
+					GLOB.cameranet.addCamera(src)
+				emped = 0 //Resets the consecutive EMP count
+				cancelCameraAlarm()
 			for(var/mob/M in GLOB.player_list)
 				if(M.client && M.client.eye == src)
 					M.unset_machine()
@@ -243,7 +239,7 @@
 		toggle_cam(null, FALSE)
 		wires.cut_all()
 
-/obj/machinery/camera/deconstruct(disassembled = TRUE)
+/obj/machinery/camera/deconstruct(disassembled = FALSE)
 	if(!(flags & NODECONSTRUCT))
 		if(disassembled)
 			if(!assembly)
@@ -285,7 +281,7 @@
 	var/change_msg = "deactivates"
 	if(status)
 		change_msg = "reactivates"
-		addtimer(CALLBACK(src, PROC_REF(cancelCameraAlarm)), 10 SECONDS)
+		cancelCameraAlarm()
 	else
 		addtimer(CALLBACK(src, PROC_REF(triggerCameraAlarm)), 10 SECONDS)
 	if(displaymessage)
@@ -308,10 +304,19 @@
 			to_chat(O, "The screen bursts into static.")
 
 /obj/machinery/camera/proc/triggerCameraAlarm()
+	if(assembly)
+		if(assembly.state == 1) // checks if camera disasembled
+			return
+	if(alarm_on)
+		return
+	if(status)
+		return
 	alarm_on = TRUE
 	SSalarm.triggerAlarm("Camera", get_area(src), list(UID()), src)
 
 /obj/machinery/camera/proc/cancelCameraAlarm()
+	if (!alarm_on)
+		return
 	alarm_on = FALSE
 	SSalarm.cancelAlarm("Camera", get_area(src), src)
 
