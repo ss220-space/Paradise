@@ -316,8 +316,7 @@
 
 /obj/item/reagent_containers/glass/bucket/Initialize(mapload)
 	. = ..()
-	color = "#2877d2" //helping mappers with not getting weirdo buckets in editor.
-	update_icon()
+	update_icon() //in case bucket's color has been changed in editor or by some deriving buckets
 
 /obj/item/reagent_containers/glass/bucket/attackby(obj/D, mob/user, params)
 	. = ..()
@@ -345,11 +344,6 @@
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50)
 	resistance_flags = FLAMMABLE
 	paintable = FALSE
-
-/obj/item/reagent_containers/glass/bucket/wooden/Initialize(mapload)
-	. = ..()
-	color = null //Have to do this, because parent initializes with blue color.
-	update_icon()
 
 /obj/item/reagent_containers/glass/bucket/wooden/update_icon()
 	. = ..()

@@ -19,7 +19,7 @@
 	pass_flags = PASSMOB
 	path_image_color = "#993299"
 
-	///Mask color defines what color of medibot's chassis will be. Made for mappers' sanity.
+	///Mask color defines what color cleanbot's chassis will be. Format: "#RRGGBB"
 	var/mask_color = "#2877d2"
 	var/blood = 1
 	var/list/target_types = list()
