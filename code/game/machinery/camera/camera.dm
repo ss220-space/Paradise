@@ -304,10 +304,9 @@
 			to_chat(O, "The screen bursts into static.")
 
 /obj/machinery/camera/proc/triggerCameraAlarm()
-	if(assembly)
-		if(assembly.state == 1) // checks if camera disasembled
-			return
-	if(alarm_on) // you don't have to turn om your alarm twice
+	if(assembly && assembly.state == 1) // checks if camera disasembled
+		return
+	if(alarm_on) // you don't have to turn om alarm twice
 		return
 	if(status) // checks whether alarm is still needed
 		return
@@ -315,7 +314,7 @@
 	SSalarm.triggerAlarm("Camera", get_area(src), list(UID()), src)
 
 /obj/machinery/camera/proc/cancelCameraAlarm()
-	if (!alarm_on) // you don't have to turn off your alarm twice
+	if (!alarm_on) // you don't have to turn off alarm twice
 		return
 	alarm_on = FALSE
 	SSalarm.cancelAlarm("Camera", get_area(src), src)
