@@ -61258,7 +61258,6 @@
 	pixel_y = 24
 	},
 /obj/structure/table/reinforced,
-/obj/item/rcd,
 /obj/item/rcd_ammo,
 /obj/item/rcd_ammo,
 /obj/item/rcd_ammo,
@@ -61271,6 +61270,7 @@
 	pixel_y = 4
 	},
 /obj/item/lock_buster,
+/obj/item/rcd/combat,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"

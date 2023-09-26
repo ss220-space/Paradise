@@ -33852,7 +33852,6 @@
 "dog" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/warning_stripes/northeastcorner,
-/obj/item/rcd,
 /obj/item/rcd_ammo,
 /obj/item/rcd_ammo,
 /obj/item/rcd_ammo,
@@ -33864,6 +33863,7 @@
 /obj/item/rcd_ammo,
 /obj/item/rcd_ammo,
 /obj/item/clothing/glasses/meson/sunglasses,
+/obj/item/rcd/combat,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
