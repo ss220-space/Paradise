@@ -150,7 +150,7 @@
 	if(reagents.total_volume && M.reagents)
 		transfered = reagents.trans_to(M, 25)
 	to_chat(user, span_warning("You sneakily stab [M] with the pen."))
-	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered.")
+	add_attack_logs(user, M, "Stabbed with (love) [src]. [transfered]u of reagents transfered.")
 	return TRUE
 
 
