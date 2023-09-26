@@ -133,7 +133,7 @@
 	reagents.add_reagent("ketamine", 100)
 
 
-	/obj/item/pen/sleepy/love
+/obj/item/pen/sleepy/love
 	name = "fancy pen"
 	desc = "A fancy metal pen. An inscription on one side reads, \"L.L. - L.R.\""
 	icon_state = "fancypen"
