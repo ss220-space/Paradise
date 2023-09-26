@@ -20,7 +20,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/uplink_owner = null//text-only
 	var/used_TC = 0
 
-	var/job = null
+	var/race = null
 	var/job = null
 	var/temp_category
 	var/uplink_type = UPLINK_TYPE_TRAITOR
