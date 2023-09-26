@@ -562,6 +562,10 @@
 		switch(rankName)
 			if("Syndicate Officer")
 				return "syndicateofficer"
+			if("Deathsquad Officer")
+				return "deathsquad"
+			if("Death Commando")
+				return "deathsquad"
 		return "Centcom"
 
 	if(rankName in solgov) //Return with the SolGov logo if it is a SolGov job
