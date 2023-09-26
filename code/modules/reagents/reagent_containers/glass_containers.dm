@@ -329,12 +329,13 @@
 /obj/item/reagent_containers/glass/bucket/update_icon()
 	. = ..()
 	overlays.Cut()
-	var/mutable_appearance/bucket_mask = mutable_appearance(icon='icons/obj/janitor.dmi', icon_state = "bucket_mask")
-	overlays += bucket_mask
+	if(color)
+		var/mutable_appearance/bucket_mask = mutable_appearance(icon='icons/obj/janitor.dmi', icon_state = "bucket_mask")
+		overlays += bucket_mask
 
-	var/mutable_appearance/bucket_hand = mutable_appearance(icon='icons/obj/janitor.dmi', icon_state = "bucket_hand")
-	bucket_hand.appearance_flags |= RESET_COLOR
-	overlays += bucket_hand
+		var/mutable_appearance/bucket_hand = mutable_appearance(icon='icons/obj/janitor.dmi', icon_state = "bucket_hand")
+		bucket_hand.appearance_flags |= RESET_COLOR
+		overlays += bucket_hand
 
 /obj/item/reagent_containers/glass/bucket/wooden
 	name = "wooden bucket"

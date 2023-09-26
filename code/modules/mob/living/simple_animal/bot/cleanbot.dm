@@ -20,7 +20,7 @@
 	path_image_color = "#993299"
 
 	///Mask color defines what color cleanbot's chassis will be. Format: "#RRGGBB"
-	var/mask_color = "#2877d2"
+	var/mask_color = null
 	var/blood = 1
 	var/list/target_types = list()
 	var/obj/effect/decal/cleanable/target
@@ -54,10 +54,11 @@
 	state_appearance.appearance_flags |= RESET_COLOR
 	overlays += state_appearance
 
-	var/mutable_appearance/casing_mask = mutable_appearance(icon, "cleanbot_mask")
-	casing_mask.appearance_flags |= RESET_COLOR
-	casing_mask.color = mask_color
-	overlays += casing_mask
+	if(mask_color)
+		var/mutable_appearance/casing_mask = mutable_appearance(icon, "cleanbot_mask")
+		casing_mask.appearance_flags |= RESET_COLOR
+		casing_mask.color = mask_color
+		overlays += casing_mask
 
 /mob/living/simple_animal/bot/cleanbot/bot_reset()
 	..()
