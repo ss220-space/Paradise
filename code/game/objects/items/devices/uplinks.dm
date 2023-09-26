@@ -21,6 +21,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/used_TC = 0
 
 	var/job = null
+	var/job = null
 	var/temp_category
 	var/uplink_type = UPLINK_TYPE_TRAITOR
 	/// If set, the uplink will show the option to become a contractor through this variable.
@@ -64,6 +65,9 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		for(var/datum/uplink_item/I in uplink_items[category])
 			if(I.job && I.job.len)
 				if(!(I.job.Find(job)))
+					continue
+			if(I.race && I.race.len)
+				if(!(I.race.Find(race)))
 					continue
 			cats[cats.len]["items"] += list(list("name" = sanitize(I.name), "desc" = sanitize(I.description()),"cost" = I.cost, "hijack_only" = I.hijack_only, "obj_path" = I.reference, "refundable" = I.refundable))
 			uplink_items[I.reference] = I
