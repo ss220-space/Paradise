@@ -152,9 +152,6 @@
 	to_chat(user, "<span class='warning'>You sneakily stab [M] with the pen.</span>")
 	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered.")
 	return TRUE
-	if(transfered && .)
-		M.apply_status_effect(STATUS_EFFECT_PACIFIED) //pacifies for 40 seconds
-	return TRUE
 
 
 
