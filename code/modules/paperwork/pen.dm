@@ -133,14 +133,14 @@
 	reagents.add_reagent("ketamine", 100)
 
 
-/obj/item/pen/sleepy/love
+/obj/item/pen/love
 	name = "fancy pen"
 	desc = "A fancy metal pen. An inscription on one side reads, \"L.L. - L.R.\""
 	icon_state = "fancypen"
 	container_type = DRAINABLE //cannot be refilled, love can be extracted for use in other items with syringe
 
 
-/obj/item/pen/sleepy/love/attack(mob/living/M, mob/user)
+/obj/item/penlove/attack(mob/living/M, mob/user)
 	if(!istype(M))
 		return
 
@@ -155,7 +155,7 @@
 
 
 
-/obj/item/pen/sleepy/love/Initialize(mapload)
+/obj/item/pen/love/Initialize(mapload)
 	. = ..()
 	create_reagents(100)
 	reagents.add_reagent("love", 100)

@@ -562,7 +562,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Aggression Supression Pen"
 	desc = "A syringe disguised as a functional pen which is filled with a potent aggression supressing chemical. The pen holds four doses of the mixture and it cannot be refilled."
 	reference = "LP"
-	item = /obj/item/pen/sleepy/love
+	item = /obj/item/pen/love
 	cost = 2
 	race = list("Diona")
 
