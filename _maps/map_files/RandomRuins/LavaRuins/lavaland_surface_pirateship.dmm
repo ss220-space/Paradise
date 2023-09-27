@@ -1768,17 +1768,12 @@
 	dir = 8
 	},
 /obj/item/camera_bug{
-	pixel_w = ss;
+	pixel_w = 7;
 	pixel_y = 9
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/engine,
 /area/ruin/powered/pirateship)
-"LF" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "LM" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating,
@@ -3815,7 +3810,7 @@ QL
 XL
 XL
 Zm
-LF
+Zm
 Zm
 VX
 eG
