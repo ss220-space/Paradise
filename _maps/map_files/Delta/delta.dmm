@@ -94089,7 +94089,7 @@
 /area/maintenance/trading)
 "pGu" = (
 /obj/machinery/door/airlock{
-	name = ы
+	name = "ы"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
