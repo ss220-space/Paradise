@@ -19,9 +19,6 @@
 		A.update_icon()
 		update_icon()
 
-/obj/item/gun/projectile/bombarda/process_chamber(eject_casing = TRUE, empty_chamber = TRUE)
-	..()
-
 /obj/item/gun/projectile/bombarda/chamber_round()
 	return
 
@@ -37,23 +34,17 @@
 
 /obj/item/gun/projectile/bombarda/proc/pump(mob/M)
 	playsound(M, 'sound/weapons/gun_interactions/sawclose.ogg', 60, 1)
-	pump_unload(M)
-	pump_reload(M)
-	update_icon()
-	return 1
-
-/obj/item/gun/projectile/bombarda/proc/pump_unload(mob/M)
 	if(chambered)
 		chambered.loc = get_turf(src)
 		chambered.SpinAnimation(5, 1)
 		playsound(src, chambered.drop_sound, 60, 1)
 		chambered = null
-
-/obj/item/gun/projectile/bombarda/proc/pump_reload(mob/M)
 	if(!magazine.ammo_count())
-		return 0
+		return FALSE
 	var/obj/item/ammo_casing/AC = magazine.get_round()
 	chambered = AC
+	update_icon()
+	return TRUE
 
 /obj/item/ammo_box/magazine/internal/bombarda
 	name = "bombarda internal magazine"
@@ -63,7 +54,7 @@
 
 /obj/item/ammo_box/magazine/internal/bombarda/New()
 	..()
-	stored_ammo = list()	//not supposed to have initial ammo.
+	QDEL_LIST(stored_ammo)	//not supposed to have initial ammo.
 
 /obj/item/ammo_box/magazine/internal/bombarda/ammo_count(countempties = 1)
 	if(!countempties)
