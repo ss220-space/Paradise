@@ -126,7 +126,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	switch(action)
 		if("tag")
 			var/newtag = params["newtag"] || ""
-			newtag = uppertext(paranoid_sanitize(copytext(newtag, 1, 5)))
+			newtag = uppertext(paranoid_sanitize(copytext_char(newtag, 1, 5)))		// SS220 EDIT - ORIGINAL: copytext
 			if(!length(newtag) || gpstag == newtag)
 				return
 			gpstag = newtag
@@ -168,7 +168,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps/mod
 	icon_state = "gps-m"
 	gpstag = "MOD0"
-	desc = "A positioning system helpful for rescuing trapped or injured miners, after you have become lost from rolling around at the speed of sound."	
+	desc = "A positioning system helpful for rescuing trapped or injured miners, after you have become lost from rolling around at the speed of sound."
 
 /obj/item/gps/cyborg
 	icon_state = "gps-b"
