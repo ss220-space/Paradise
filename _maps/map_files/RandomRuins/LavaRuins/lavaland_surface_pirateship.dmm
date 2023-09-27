@@ -78,7 +78,7 @@
 /area/ruin/powered/pirateship)
 "cX" = (
 /turf/template_noop,
-/area/lavaland/surface/outdoors)
+/area/template_noop)
 "cZ" = (
 /obj/item/stack/sheet/mineral/plastitanium{
 	amount = 7;
