@@ -3055,7 +3055,7 @@
 "ayc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/grille_often{
-	result = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 4, /tыurf/simulated/floor/plating = 2)
+	result = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 4, /turf/simulated/floor/plating = 2)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
