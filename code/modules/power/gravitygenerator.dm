@@ -117,7 +117,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	var/broken_state = 0
 
 /obj/machinery/gravity_generator/main/Destroy() // If we somehow get deleted, remove all of our other parts.
-	investigate_log("was destroyed!", "gravity")
+	investigate_log("was destroyed!", INVESTIGATE_GRAVITY)
 	on = 0
 	update_list()
 	for(var/obj/machinery/gravity_generator/part/O in parts)
@@ -164,7 +164,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	breaker = 0
 	set_power()
 	set_state(0)
-	investigate_log("has broken down.", "gravity")
+	investigate_log("has broken down.", INVESTIGATE_GRAVITY)
 
 /obj/machinery/gravity_generator/main/set_fix()
 	..()
@@ -182,6 +182,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	switch(broken_state)
 		if(GRAV_NEEDS_SCREWDRIVER)
 			if(istype(I, /obj/item/screwdriver))
+				add_fingerprint(user)
 				to_chat(user, "<span class='notice'>You secure the screws of the framework.</span>")
 				playsound(src.loc, I.usesound, 50, 1)
 				broken_state++
@@ -191,6 +192,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 			if(istype(I, /obj/item/stack/sheet/plasteel))
 				var/obj/item/stack/sheet/plasteel/PS = I
 				if(PS.get_amount() >= 10)
+					add_fingerprint(user)
 					PS.use(10)
 					to_chat(user, "<span class='notice'>You add the plating to the framework.</span>")
 					playsound(src.loc, PS.usesound, 75, 1)
@@ -201,6 +203,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 			return
 		if(GRAV_NEEDS_WRENCH)
 			if(istype(I, /obj/item/wrench))
+				add_fingerprint(user)
 				to_chat(user, "<span class='notice'>You secure the plating to the framework.</span>")
 				playsound(src.loc, I.usesound, 75, 1)
 				set_fix()
@@ -258,7 +261,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 
 	if(href_list["gentoggle"])
 		breaker = !breaker
-		investigate_log("was toggled [breaker ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>"] by [usr.key].", "gravity")
+		investigate_log("was toggled [breaker ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>"] by [key_name_log(usr)].", INVESTIGATE_GRAVITY)
 		set_power()
 		src.updateUsrDialog()
 
@@ -266,7 +269,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 
 /obj/machinery/gravity_generator/main/power_change()
 	..()
-	investigate_log("has [stat & NOPOWER ? "lost" : "regained"] power.", "gravity")
+	investigate_log("has [stat & NOPOWER ? "lost" : "regained"] power.", INVESTIGATE_GRAVITY)
 	set_power()
 
 /obj/machinery/gravity_generator/main/get_status()
@@ -288,7 +291,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 		new_state = 1
 
 	charging_state = new_state ? GRAV_POWER_UP : GRAV_POWER_DOWN // Startup sequence animation.
-	investigate_log("is now [charging_state == GRAV_POWER_UP ? "charging" : "discharging"].", "gravity")
+	investigate_log("is now [charging_state == GRAV_POWER_UP ? "charging" : "discharging"].", INVESTIGATE_GRAVITY)
 	update_icon()
 
 // Set the state of the gravity.
@@ -298,20 +301,19 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	use_power = on ? ACTIVE_POWER_USE : IDLE_POWER_USE
 	// Sound the alert if gravity was just enabled or disabled.
 	var/alert = 0
-	var/area/area = get_area(src)
 	if(new_state) // If we turned on
 		if(gravity_in_level() == 0)
 			alert = 1
-			investigate_log("was brought online and is now producing gravity for this level.", "gravity")
-			message_admins("The gravity generator was brought online. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[area.name]</a>)")
+			investigate_log("was brought online and is now producing gravity for this level.", INVESTIGATE_GRAVITY)
+			message_admins("The gravity generator was brought online. [ADMIN_VERBOSEJMP(src)]")
 			for(var/area/A in world)
 				if(!is_station_level(A.z)) continue
 				A.gravitychange(1,A)
 	else
 		if(gravity_in_level() == 1)
 			alert = 1
-			investigate_log("was brought offline and there is now no gravity for this level.", "gravity")
-			message_admins("The gravity generator was brought offline with no backup generator. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[area.name]</a>)")
+			investigate_log("was brought offline and there is now no gravity for this level.", INVESTIGATE_GRAVITY)
+			message_admins("The gravity generator was brought offline with no backup generator. [ADMIN_VERBOSEJMP(src)]")
 			for(var/area/A in world)
 				if(!is_station_level(A.z)) continue
 				A.gravitychange(0,A)

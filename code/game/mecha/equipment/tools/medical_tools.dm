@@ -7,12 +7,13 @@
 	START_PROCESSING(SSobj, src)
 
 
-/obj/item/mecha_parts/mecha_equipment/medical/can_attach(obj/mecha/medical/M)
-	if(..() && istype(M))
-		return 1
+/obj/item/mecha_parts/mecha_equipment/medical/can_attach(obj/mecha/M)
+	if(..())
+		if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/combat/lockersyndie))
+			return TRUE
+	return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/medical/attach(obj/mecha/M)
-	..()
+/obj/item/mecha_parts/mecha_equipment/medical/attach_act(obj/mecha/M)
 	START_PROCESSING(SSobj, src)
 
 /obj/item/mecha_parts/mecha_equipment/medical/Destroy()
@@ -24,14 +25,13 @@
 		STOP_PROCESSING(SSobj, src)
 		return 1
 
-/obj/item/mecha_parts/mecha_equipment/medical/detach()
+/obj/item/mecha_parts/mecha_equipment/medical/detach_act()
 	STOP_PROCESSING(SSobj, src)
-	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper
 	name = "mounted sleeper"
 	desc = "Equipment for medical exosuits. A mounted sleeper that stabilizes patients and can inject reagents in the exosuit's reserves."
-	icon = 'icons/obj/cryogenic2.dmi'
+	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper"
 	origin_tech = "engineering=3;biotech=3;plasmatech=2"
 	energy_drain = 20
@@ -40,6 +40,12 @@
 	var/mob/living/carbon/patient = null
 	var/inject_amount = 10
 	salvageable = 0
+	/// List of reagents IDs, which will use touch reaction instead of ingest, upon injecting the patient.
+	var/static/list/reagent_ingest_blacklist = list(
+		/datum/reagent/medicine/styptic_powder,
+		/datum/reagent/medicine/silver_sulfadiazine,
+		/datum/reagent/medicine/synthflesh
+	)
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/AllowDrop()
 	return FALSE
@@ -94,21 +100,15 @@
 	patient = null
 	update_equip_info()
 
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper/detach()
+/obj/item/mecha_parts/mecha_equipment/medical/sleeper/can_detach()
 	if(patient)
 		occupant_message("<span class='warning'>Unable to detach [src] - equipment occupied!</span>")
-		return
-	STOP_PROCESSING(SSobj, src)
-	return ..()
+		return FALSE
+	return TRUE
 
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper/get_equip_info()
-	var/output = ..()
-	if(output)
-		var/temp = ""
-		if(patient)
-			temp = "<br />\[Occupant: [patient] ([patient.stat > 1 ? "*DECEASED*" : "Health: [patient.health]%"])\]<br /><a href='?src=[UID()];view_stats=1'>View stats</a>|<a href='?src=[UID()];eject=1'>Eject</a>"
-		return "[output] [temp]"
-	return
+/obj/item/mecha_parts/mecha_equipment/medical/sleeper/get_module_equip_info()
+	if(patient)
+		return " <br />\[Occupant: [patient] ([patient.stat > 1 ? "*DECEASED*" : "Health: [patient.health]%"])\]<br /><a href='?src=[UID()];view_stats=1'>View stats</a>|<a href='?src=[UID()];eject=1'>Eject</a>"
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/Topic(href,href_list)
 	..()
@@ -187,21 +187,33 @@
 	if(SG && SG.reagents && islist(SG.reagents.reagent_list))
 		for(var/datum/reagent/R in SG.reagents.reagent_list)
 			if(R.volume > 0)
-				output += "<a href=\"?src=[UID()];inject=\ref[R];source=\ref[SG]\">Inject [R.name]</a><br />"
+				output += "<a href=\"?src=[UID()];inject=\ref[R];source=\ref[SG]\">Apply [R.name]</a><br />"
 	return output
 
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/inject_reagent(datum/reagent/R,obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/SG)
 	if(!R || !patient || !SG || !(SG in chassis.equipment))
-		return 0
+		return
+
 	var/to_inject = min(R.volume, inject_amount)
-	if(to_inject && patient.reagents.get_reagent_amount(R.id) + to_inject <= inject_amount*2)
-		occupant_message("Injecting [patient] with [to_inject] units of [R.name].")
-		log_message("Injecting [patient] with [to_inject] units of [R.name].")
+	if(to_inject)
+		occupant_message("Applying [to_inject] units of [R.name] to [patient].")
+		log_message("Applied [to_inject] units of [R.name] to [patient].")
 		add_attack_logs(chassis.occupant, patient, "Injected with [name] containing [R], transferred [to_inject] units", R.harmless ? ATKLOG_ALMOSTALL : null)
-		SG.reagents.trans_id_to(patient,R.id,to_inject)
+		var/datum/reagents/chosen_reagent = new(to_inject)
+		chosen_reagent.add_reagent(R.id, to_inject)
+		SG.reagents.remove_reagent(R.id, to_inject, TRUE)
+		var/fraction = min(inject_amount / to_inject, 1)
+		var/method = REAGENT_INGEST
+		for(var/r_type in reagent_ingest_blacklist)
+			if(istype(R, r_type))
+				method = REAGENT_TOUCH
+				break
+
+		chosen_reagent.reaction(patient, method, fraction)
+		chosen_reagent.trans_to(patient, to_inject)
 		update_equip_info()
-	return
+
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/update_equip_info()
 	if(..())
@@ -229,9 +241,8 @@
 		return
 	if(M.health > 0)
 		M.adjustOxyLoss(-1)
-	M.AdjustStunned(-4)
-	M.AdjustWeakened(-4)
-	M.AdjustStunned(-4)
+	M.AdjustStunned(-8 SECONDS)
+	M.AdjustWeakened(-8 SECONDS)
 	if(M.reagents.get_reagent_amount("epinephrine") < 5)
 		M.reagents.add_reagent("epinephrine", 5)
 	chassis.use_power(energy_drain)
@@ -241,7 +252,7 @@
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun
 	name = "exosuit syringe gun"
 	desc = "Equipment for medical exosuits. A chem synthesizer with syringe gun. Reagents inside are held in stasis, so no reactions will occur."
-	icon = 'icons/obj/guns/projectile.dmi'
+	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "syringegun"
 	var/list/syringes
 	var/list/known_reagents
@@ -264,9 +275,12 @@
 	known_reagents = list("epinephrine"="Epinephrine","charcoal"="Charcoal")
 	processed_reagents = new
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/detach()
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/detach_act()
 	STOP_PROCESSING(SSobj, src)
-	return ..()
+	if(istype(src.loc, /obj/mecha/medical/odysseus))
+		var/obj/mecha/medical/odysseus/O = src.loc
+		for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/S in O.equipment)
+			S.detach()
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -277,17 +291,14 @@
 	if(reagents)
 		reagents.set_reacting(TRUE)
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/can_attach(obj/mecha/medical/M)
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/can_attach(obj/mecha/M)
 	if(..())
-		if(istype(M))
+		if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/combat/lockersyndie))
 			return 1
 	return 0
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/get_equip_info()
-	var/output = ..()
-	if(output)
-		return "[output] \[<a href=\"?src=[UID()];toggle_mode=1\">[mode? "Analyze" : "Launch"]</a>\]<br />\[Syringes: [syringes.len]/[max_syringes] | Reagents: [reagents.total_volume]/[reagents.maximum_volume]\]<br /><a href='?src=[UID()];show_reagents=1'>Reagents list</a>"
-	return
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/get_module_equip_info()
+	return " \[<a href=\"?src=[UID()];toggle_mode=1\">[mode? "Analyze" : "Launch"]</a>\]<br />\[Syringes: [syringes.len]/[max_syringes] | Reagents: [reagents.total_volume]/[reagents.maximum_volume]\]<br /><a href='?src=[UID()];show_reagents=1'>Reagents list</a>"
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/action(atom/movable/target)
 	if(!action_checks(target))
@@ -300,6 +311,8 @@
 		return
 	if(mode)
 		return analyze_reagents(target)
+	if(!is_faced_target(target))
+		return FALSE
 	if(!syringes.len)
 		occupant_message("<span class=\"alert\">No syringes loaded.</span>")
 		return
@@ -528,6 +541,35 @@
 		reagents.add_reagent(reagent,amount)
 		chassis.use_power(energy_drain)
 
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade
+	name = "additional system for the reproduction of reagents"
+	desc = "Upgrade for the syringe gun. Increases synthesis speed and maximum capacity of reagents. Requires installation of the syringe gun system."
+	icon = 'icons/obj/mecha/mecha_equipment.dmi'
+	icon_state = "beaker_upgrade"
+	origin_tech = "materials=5;engineering=5;biotech=6"
+	energy_drain = 10
+	selectable = 0
+	var/improv_max_volume = 300
+	var/imrov_synth_speed = 20
+
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/can_attach(obj/mecha/M)
+	if(..())
+		for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/S in M.equipment)
+			return 1
+	return 0
+
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/attach_act(obj/mecha/M)
+	for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/S in chassis.equipment)
+		S.max_volume = improv_max_volume
+		S.synth_speed = imrov_synth_speed
+		S.reagents.maximum_volume = improv_max_volume
+
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/detach_act()
+	for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/S in chassis.equipment)
+		S.max_volume = initial(S.max_volume)
+		S.synth_speed = initial(S.synth_speed)
+		S.reagents.maximum_volume = S.max_volume
+
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw
 	name = "rescue jaw"
 	desc = "Emergency rescue jaws, designed to help first responders reach their patients. Opens doors and removes obstacles."
@@ -570,7 +612,7 @@
 				step(L, SOUTH)
 
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/can_attach(obj/mecha/M)
-	if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/working/ripley/firefighter))	//Odys or firefighters
+	if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/working/ripley/firefighter) || istype(M, /obj/mecha/combat/lockersyndie))	//Odys or firefighters or syndielocker
 		if(M.equipment.len < M.max_equip)
 			return TRUE
 	return FALSE

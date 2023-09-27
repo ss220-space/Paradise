@@ -31,6 +31,7 @@ Difficulty: Medium
 	light_color = "#E4C7C5"
 	flying = FALSE
 	speak_emote = list("roars")
+	tts_seed = "Chen"
 	speed = 3
 	move_to_delay = 3
 	projectiletype = /obj/item/projectile/kinetic/miner
@@ -38,8 +39,8 @@ Difficulty: Medium
 	ranged = TRUE
 	ranged_cooldown_time = 16
 	pixel_x = -7
-	crusher_loot = list(/obj/item/melee/energy/cleaving_saw, /obj/item/gun/energy/kinetic_accelerator, /obj/item/crusher_trophy/miner_eye)
-	loot = list(/obj/item/melee/energy/cleaving_saw, /obj/item/gun/energy/kinetic_accelerator)
+	crusher_loot = list(/obj/item/melee/energy/cleaving_saw, /obj/item/gun/energy/kinetic_accelerator, /obj/item/crusher_trophy/miner_eye, /obj/item/gem/phoron)
+	loot = list(/obj/item/melee/energy/cleaving_saw, /obj/item/gun/energy/kinetic_accelerator, /obj/item/gem/phoron)
 	wander = FALSE
 	del_on_death = TRUE
 	blood_volume = BLOOD_VOLUME_NORMAL
@@ -60,7 +61,7 @@ Difficulty: Medium
 
 /obj/item/gps/internal/miner
 	icon_state = null
-	gpstag = "Resonant Signal"
+	gpstag = "Mysterious Signal"
 	desc = "The sweet blood, oh, it sings to me."
 	invisibility = 100
 
@@ -77,7 +78,7 @@ Difficulty: Medium
 
 /datum/action/innate/megafauna_attack/kinetic_accelerator
 	name = "Fire Kinetic Accelerator"
-	icon_icon = 'icons/obj/guns/energy.dmi'
+	icon_icon = 'icons/obj/weapons/energy.dmi'
 	button_icon_state = "kineticgun"
 	chosen_message = "<span class='colossus'>You are now shooting your kinetic accelerator.</span>"
 	chosen_attack_num = 2
@@ -112,9 +113,11 @@ Difficulty: Medium
 	force_on = 10
 
 /obj/item/melee/energy/cleaving_saw/miner/attack(mob/living/target, mob/living/carbon/human/user)
-	target.add_stun_absorption("miner", 10, INFINITY)
+	target.add_status_effect_absorption("miner_weaken", 10, INFINITY, status_effect = WEAKEN)
+	target.add_status_effect_absorption("miner_stun", 10, INFINITY, status_effect = STUN)
 	..()
-	target.stun_absorption -= "miner"
+	target.status_effect_absorption -= "miner_weaken"
+	target.status_effect_absorption -= "miner_stun"
 
 /obj/item/projectile/kinetic/miner
 	damage = 20
@@ -137,7 +140,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Move(atom/newloc)
 	if(dashing || (newloc && newloc.z == z && (islava(newloc) || ischasm(newloc)))) //we're not stupid!
 		return FALSE
-	return ..()
+	. = ..()
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/ex_act(severity)
 	if(dash())
@@ -184,7 +187,7 @@ Difficulty: Medium
 		wander = TRUE
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/proc/dash_attack()
-	INVOKE_ASYNC(src, .proc/dash, target)
+	INVOKE_ASYNC(src, PROC_REF(dash), target)
 	shoot_ka()
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/proc/shoot_ka()
@@ -268,7 +271,7 @@ Difficulty: Medium
 
 /obj/effect/temp_visual/dir_setting/miner_death/Initialize(mapload, set_dir)
 	. = ..()
-	INVOKE_ASYNC(src, .proc/fade_out)
+	INVOKE_ASYNC(src, PROC_REF(fade_out))
 
 /obj/effect/temp_visual/dir_setting/miner_death/proc/fade_out()
 	var/matrix/M = new
@@ -289,6 +292,6 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/hunter/AttackingTarget()
 	. = ..()
 	if(. && prob(12))
-		INVOKE_ASYNC(src, .proc/dash)
+		INVOKE_ASYNC(src, PROC_REF(dash))
 
 #undef MINER_DASH_RANGE

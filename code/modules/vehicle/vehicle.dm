@@ -2,7 +2,7 @@
 /obj/vehicle
 	name = "vehicle"
 	desc = "A basic vehicle, vroom"
-	icon = 'icons/obj/vehicles.dmi'
+	icon = 'icons/obj/vehicles/vehicles.dmi'
 	icon_state = "scooter"
 	density = 1
 	anchored = 0
@@ -59,8 +59,7 @@
 
 /obj/vehicle/attackby(obj/item/I, mob/user, params)
 	if(key_type && !is_key(inserted_key) && is_key(I))
-		if(user.drop_item())
-			I.forceMove(src)
+		if(user.drop_transfer_item_to_loc(I, src))
 			to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
 			if(inserted_key)	//just in case there's an invalid key
 				inserted_key.forceMove(drop_location())
@@ -79,8 +78,8 @@
 			to_chat(user, "<span class='warning'>You must be riding [src] to remove [src]'s key!</span>")
 			return
 		to_chat(user, "<span class='notice'>You remove [inserted_key] from [src].</span>")
-		inserted_key.forceMove(drop_location())
-		user.put_in_hands(inserted_key)
+		inserted_key.forceMove_turf()
+		user.put_in_hands(inserted_key, ignore_anim = FALSE)
 		inserted_key = null
 
 /obj/vehicle/proc/is_key(obj/item/I)
@@ -121,7 +120,7 @@
 /obj/item/key
 	name = "key"
 	desc = "A small grey key."
-	icon = 'icons/obj/vehicles.dmi'
+	icon = 'icons/obj/vehicles/vehicles.dmi'
 	icon_state = "key"
 	w_class = WEIGHT_CLASS_TINY
 
@@ -169,7 +168,7 @@
 		if(!Process_Spacemove(direction) || !isturf(loc))
 			return
 
-		last_vehicle_move = config.human_delay + vehicle_move_delay
+		last_vehicle_move = CONFIG_GET(number/human_delay) + vehicle_move_delay
 		Move(get_step(src, direction), direction, last_vehicle_move)
 
 		if(direction & (direction - 1))		//moved diagonally
@@ -183,7 +182,7 @@
 					playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
 					for(var/m in buckled_mobs)
 						var/mob/living/buckled_mob = m
-						buckled_mob.Weaken(5)
+						buckled_mob.Weaken(10 SECONDS)
 					unbuckle_all_mobs()
 					step(src, dir)
 

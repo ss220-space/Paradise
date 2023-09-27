@@ -24,6 +24,10 @@
 
 #define SPLINT_LIFE 2000 //number of steps splints stay on
 
+//BONE DEFINE
+
+#define FRAGILITY(A) (ishuman(A) ? A.dna.species.bonefragility : 1)
+
 
 //Pulse levels, very simplified
 #define PULSE_NONE		0	//so !M.pulse checks would be possible
@@ -48,10 +52,10 @@
 #define ALIEN_SELECT_AFK_BUFFER 1 // How many minutes that a person can be AFK before not being allowed to be an alien.
 #define SHOES_SLOWDOWN 0			// How much shoes slow you down by default. Negative values speed you up
 
-#define DISGUST_LEVEL_MAXEDOUT 150
-#define DISGUST_LEVEL_DISGUSTED 75
-#define DISGUST_LEVEL_VERYGROSS 50
-#define DISGUST_LEVEL_GROSS 25
+#define DISGUST_LEVEL_MAXEDOUT 150 STATUS_EFFECT_CONSTANT
+#define DISGUST_LEVEL_DISGUSTED 75 STATUS_EFFECT_CONSTANT
+#define DISGUST_LEVEL_VERYGROSS 50 STATUS_EFFECT_CONSTANT
+#define DISGUST_LEVEL_GROSS 25 STATUS_EFFECT_CONSTANT
 
 //Mob attribute defaults.
 #define DEFAULT_MARKING_STYLES list("head" = "None", "body" = "None", "tail" = "None") //Marking styles. Use instead of initial() for m_styles.
@@ -62,10 +66,6 @@
 ////////REAGENT STUFF////////
 // How many units of reagent are consumed per tick, by default.
 #define  REAGENTS_METABOLISM 0.4
-
-// By defining the effect multiplier this way, it'll exactly adjust
-// all effects according to how they originally were with the 0.4 metabolism
-#define REAGENTS_EFFECT_MULTIPLIER REAGENTS_METABOLISM / 0.8 // Nerf all reagents by half
 
 // Factor of how fast mob nutrition decreases
 #define	HUNGER_FACTOR 0.1
@@ -105,6 +105,15 @@
 
 //Slime evolution threshold. Controls how fast slimes can split/grow
 #define SLIME_EVOLUTION_THRESHOLD 10
+#define SLIME_EVOLUTION_THRESHOLD_OLD 30
+#define SLIME_EVOLUTION_THRESHOLD_EVOLVE 50
+#define SLIME_EVOLUTION_THRESHOLD_EVOLVE_SLIMEMAN 100
+
+#define SLIME_BABY 		"baby"
+#define SLIME_ADULT 	"adult"
+#define SLIME_OLD 		"old"
+#define SLIME_ELDER 	"elder"
+#define SLIME_SLIMEMAN 	"slimeman"
 
 //Slime extract crossing. Controls how many extracts is required to feed to a slime to core-cross.
 #define SLIME_EXTRACT_CROSSING_REQUIRED 10
@@ -139,6 +148,10 @@
 #define AI_CHECK_WIRELESS 1
 #define AI_CHECK_RADIO 2
 
+// Robot notify AI type
+#define ROBOT_NOTIFY_AI_CONNECTED 1 //New Cyborg
+#define ROBOT_NOTIFY_AI_MODULE 2 //New Module
+#define ROBOT_NOTIFY_AI_NAME 3 //New Name
 //determines if a mob can smash through it
 #define ENVIRONMENT_SMASH_NONE 0
 #define ENVIRONMENT_SMASH_STRUCTURES 1 //crates, lockers, ect
@@ -157,6 +170,9 @@
 #define HOSTILE_SPAWN 1
 #define FRIENDLY_SPAWN 2
 
+///Max amount of living Xenobio mobs allowed at any given time (excluding slimes).
+#define MAX_GOLD_CORE_MOBS 45
+
 #define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
 #define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
 #define EYE_SHINE_THRESHOLD 6	//dark_view threshold past which a humanoid's eyes will 'shine' in the dark.
@@ -166,17 +182,13 @@
 
 #define STATUS_UPDATE_HEALTH 1
 #define STATUS_UPDATE_STAT 2
-#define STATUS_UPDATE_CANMOVE 4
 #define STATUS_UPDATE_STAMINA 8
 #define STATUS_UPDATE_BLIND 16
-#define STATUS_UPDATE_BLURRY 32
 #define STATUS_UPDATE_NEARSIGHTED 64
-#define STATUS_UPDATE_DRUGGY 128
 
 #define STATUS_UPDATE_NONE 0
 #define STATUS_UPDATE_ALL (~0)
 #define INVISIBILITY_ABSTRACT 101
-#define UNHEALING_EAR_DAMAGE 100
 
 // Incorporeal movement
 #define INCORPOREAL_NONE 0
@@ -206,11 +218,13 @@
 #define isvoxarmalis(A) (is_species(A, /datum/species/vox/armalis))
 #define iskidan(A) (is_species(A, /datum/species/kidan))
 #define isslimeperson(A) (is_species(A, /datum/species/slime))
+#define isnucleation(A) (is_species(A, /datum/species/nucleation))
 #define isgrey(A) (is_species(A, /datum/species/grey))
 #define isdiona(A) (is_species(A, /datum/species/diona))
 #define ismachineperson(A) (is_species(A, /datum/species/machine))
 #define isdrask(A) (is_species(A, /datum/species/drask))
 #define iswryn(A) (is_species(A, /datum/species/wryn))
+#define ismoth(A) (is_species(A, /datum/species/moth))
 
 #define isanimal(A)		(istype((A), /mob/living/simple_animal))
 #define isdog(A)		(istype((A), /mob/living/simple_animal/pet/dog))
@@ -222,11 +236,20 @@
 #define isnymph(A)      (istype((A), /mob/living/simple_animal/diona))
 #define ishostile(A) 	(istype(A, /mob/living/simple_animal/hostile))
 #define isterrorspider(A) (istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))
+#define isslaughterdemon(A) (istype((A), /mob/living/simple_animal/demon/slaughter))
+#define isdemon(A) 			(istype((A), /mob/living/simple_animal/demon))
+#define ismorph(A)		(istype((A), /mob/living/simple_animal/hostile/morph))
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))
 #define isAI(A)			(istype((A), /mob/living/silicon/ai))
 #define isrobot(A)		(istype((A), /mob/living/silicon/robot))
 #define ispAI(A)		(istype((A), /mob/living/silicon/pai))
+#define isdrone(A)		(istype((A), /mob/living/silicon/robot/drone))
+#define iscogscarab(A)	(istype((A), /mob/living/silicon/robot/cogscarab))
+
+// For tools
+
+#define gettoolspeedmod(A) (ishuman(A) ? A.dna.species.toolspeedmod : 1)
 
 // For the tcomms monitor
 #define ispathhuman(A)		(ispath(A, /mob/living/carbon/human))
@@ -263,3 +286,5 @@
 #define HEARING_PROTECTION_MINOR	1
 #define HEARING_PROTECTION_MAJOR	2
 #define HEARING_PROTECTION_TOTAL	3
+
+#define FIRE_DMI (issmall(src) ? 'icons/mob/clothing/species/monkey/OnFire.dmi' : 'icons/mob/OnFire.dmi')

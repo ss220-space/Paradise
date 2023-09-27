@@ -50,7 +50,7 @@
 		if(trash_bag)
 			to_chat(user, "<span class='warning'>[src] already has a trashbag hooked!</span>")
 			return
-		if(!user.drop_item())
+		if(!user.drop_from_active_hand())
 			return
 		I.forceMove(src)
 		to_chat(user, "<span class='notice'You hook the trashbag onto [src].</span>")
@@ -80,8 +80,8 @@
 	if(..())
 		return TRUE
 	else if(trash_bag)
-		trash_bag.forceMove(get_turf(user))
-		user.put_in_hands(trash_bag)
+		trash_bag.forceMove_turf()
+		user.put_in_hands(trash_bag, ignore_anim = FALSE)
 		trash_bag = null
 		update_icon()
 
@@ -92,6 +92,6 @@
 /obj/item/janiupgrade
 	name = "floor buffer upgrade"
 	desc = "An upgrade for mobile janicarts."
-	icon = 'icons/obj/vehicles.dmi'
+	icon = 'icons/obj/vehicles/vehicles.dmi'
 	icon_state = "upgrade"
 	origin_tech = "materials=3;engineering=4"

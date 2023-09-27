@@ -75,12 +75,24 @@
 	caliber = "n762"
 	max_ammo = 7
 
+/obj/item/ammo_box/magazine/internal/cylinder/rev36
+	name = ".36 revolver cylinder"
+	ammo_type = /obj/item/ammo_casing/c38/c36
+	caliber = ".36"
+	max_ammo = 6
+
 /obj/item/ammo_box/magazine/internal/cylinder/cap
 	name = "cap gun revolver cylinder"
 	desc = "Oh god, this shouldn't be here"
 	ammo_type = /obj/item/ammo_casing/cap
 	caliber = "cap"
 	max_ammo = 7
+
+/obj/item/ammo_box/magazine/internal/cylinder/ga12
+	name = ".12 revolver cylinder"
+	ammo_type = /obj/item/ammo_casing/shotgun
+	caliber = ".12"
+	max_ammo = 3
 
 // Shotgun internal mags
 /obj/item/ammo_box/magazine/internal/shot
@@ -150,6 +162,12 @@
 	name = "speargun internal magazine"
 	ammo_type = /obj/item/ammo_casing/caseless/magspear
 	caliber = "spear"
+	max_ammo = 1
+
+/obj/item/ammo_box/magazine/internal/rocketlauncher
+	name = "rocket launcher internal magazine"
+	ammo_type = /obj/item/ammo_casing/caseless/rocket
+	caliber = "84mm"
 	max_ammo = 1
 
 /obj/item/ammo_box/magazine/internal/rus357
@@ -241,7 +259,7 @@
 
 	var/ammo = ammo_count()
 	if(ammo && is_rubber())
-		overlays += image('icons/obj/ammo.dmi', icon_state = "enforcer-r")
+		overlays += image('icons/obj/weapons/ammo.dmi', icon_state = "enforcer-r")
 
 /obj/item/ammo_box/magazine/enforcer/examine(mob/user)
 	. = ..()
@@ -259,6 +277,17 @@
 /obj/item/ammo_box/magazine/enforcer/lethal
 	name = "handgun magazine (9mm)"
 	ammo_type = /obj/item/ammo_casing/c9mm
+
+/obj/item/ammo_box/magazine/sp8
+	name = "handgun magazine 40N&R"
+	icon_state = "sp8mag"
+	ammo_type = /obj/item/ammo_casing/fortynr
+	max_ammo = 10
+	caliber = "40nr"
+
+/obj/item/ammo_box/magazine/sp8/update_icon()
+	..()
+	icon_state = "sp8mag-[round(ammo_count(),2)]"
 
 /obj/item/ammo_box/magazine/wt550m9
 	name = "wt550 magazine (4.6x30mm)"
@@ -317,6 +346,17 @@
 	..()
 	icon_state = "[initial(icon_state)]-[round(ammo_count()+1,4)]"
 
+/obj/item/ammo_box/magazine/sfg9mm
+	icon_state = "sfg5"
+	name = "SFG Magazine (9mm)"
+	ammo_type = /obj/item/ammo_casing/c9mm
+	caliber = "9mm"
+	max_ammo = 30
+
+/obj/item/ammo_box/magazine/sfg9mm/update_icon()
+	..()
+	icon_state = "[initial(icon_state)]-[round(ammo_count(), 30)]"
+
 /obj/item/ammo_box/magazine/pistolm9mm
 	name = "pistol magazine (9mm)"
 	icon_state = "9x19p-8"
@@ -352,7 +392,7 @@
 	icon_state = "50ae"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/a50
-	caliber = ".50"
+	caliber = ".50ae"
 	max_ammo = 7
 	multiple_sprites = 1
 
@@ -373,59 +413,97 @@
 	max_ammo = 30
 	multiple_sprites = 2
 
-/obj/item/ammo_box/magazine/m12g
-	name = "shotgun magazine (12g slugs)"
-	desc = "A drum magazine."
-	icon_state = "m12gb"
-	ammo_type = /obj/item/ammo_casing/shotgun
-	origin_tech = "combat=3"
-	caliber = ".12"
-	max_ammo = 8
+/obj/item/ammo_box/magazine/ak814
+	name = "AK magazine (5.45x39mm)"
+	icon_state = "ak814"
+	desc= "A universal magazine for an AK style rifle."
+	origin_tech = "combat=5;syndicate=1"
+	ammo_type = /obj/item/ammo_casing/a545
+	caliber = "a545"
+	max_ammo = 30
+	multiple_sprites = 2
+/obj/item/ammo_box/magazine/aksu
+	name = "AK magazine (5.45x39mm)"
+	icon_state = "ak47mag"
+	desc= "An antique fusty magazine for an AK rifle."
+	origin_tech = "combat=4;syndicate=1"
+	ammo_type = /obj/item/ammo_casing/a545/fusty
+	caliber = "f545"
+	max_ammo = 30
 	multiple_sprites = 2
 
-/obj/item/ammo_box/magazine/m12g/buckshot
+/obj/item/ammo_box/magazine/ppsh
+	name = "PPSh drum (7,62x25mm)"
+	icon_state = "ppshDrum"
+	desc= "An antique drum for an PPSh submacnine."
+	origin_tech = "combat=3;syndicate=1"
+	ammo_type = /obj/item/ammo_casing/ftt762
+	caliber = "ftt762"
+	max_ammo = 71
+	multiple_sprites = 2
+
+/obj/item/ammo_box/magazine/m12g
 	name = "shotgun magazine (12g buckshot slugs)"
+	desc = "A drum magazine."
+	icon_state = "m12gbc"
+	ammo_type = /obj/item/ammo_casing/shotgun/buckshot/nuclear
+	origin_tech = "combat=3"
+	caliber = ".12"
+	max_ammo = 12
+	multiple_sprites = 2
+
+/obj/item/ammo_box/magazine/m12g/slug
+	name = "shotgun magazine (12g slugs)"
 	icon_state = "m12gb"
-	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
+	ammo_type = /obj/item/ammo_casing/shotgun
 
 /obj/item/ammo_box/magazine/m12g/stun
 	name = "shotgun magazine (12g taser slugs)"
 	icon_state = "m12gs"
 	ammo_type = /obj/item/ammo_casing/shotgun/stunslug
 
-
 /obj/item/ammo_box/magazine/m12g/dragon
 	name = "shotgun magazine (12g dragon's breath)"
 	icon_state = "m12gf"
-	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
+	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath/nuclear
 
 /obj/item/ammo_box/magazine/m12g/bioterror
 	name = "shotgun magazine (12g bioterror)"
 	icon_state = "m12gt"
-	ammo_type = /obj/item/ammo_casing/shotgun/dart/bioterror
+	ammo_type = /obj/item/ammo_casing/shotgun/bioterror
 
 /obj/item/ammo_box/magazine/m12g/breach
 	name = "shotgun magazine (12g breacher slugs)"
 	icon_state = "m12gmt"
 	ammo_type = /obj/item/ammo_casing/shotgun/breaching
 
-/obj/item/ammo_box/magazine/m12g/XtrLrg
-	name = "\improper XL shotgun magazine (12g slugs)"
-	desc = "An extra large drum magazine."
-	icon_state = "m12gXlSl"
-	w_class = WEIGHT_CLASS_NORMAL
-	ammo_type = /obj/item/ammo_casing/shotgun
-	max_ammo = 16
+/obj/item/ammo_box/magazine/m12g/flechette
+	name = "shotgun magazine (12g flechette)"
+	icon_state = "m12gb"
+	ammo_type = /obj/item/ammo_casing/shotgun/flechette
 
-/obj/item/ammo_box/magazine/m12g/XtrLrg/buckshot
-	name = "\improper XL shotgun magazine (12g buckshot)"
+/obj/item/ammo_box/magazine/m12g/XtrLrg
+	name = "\improper XL shotgun magazine (12g buckshot slugs)"
+	desc = "An extra large drum magazine."
 	icon_state = "m12gXlBs"
-	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
+	w_class = WEIGHT_CLASS_NORMAL
+	ammo_type = /obj/item/ammo_casing/shotgun/buckshot/nuclear
+	max_ammo = 24
+
+/obj/item/ammo_box/magazine/m12g/XtrLrg/flechette
+	name = "\improper XL shotgun magazine (12g flechette)"
+	icon_state = "m12gXlSl"
+	ammo_type = /obj/item/ammo_casing/shotgun/flechette
+
+/obj/item/ammo_box/magazine/m12g/XtrLrg/slug
+	name = "\improper XL shotgun magazine (12g slugs)"
+	icon_state = "m12gXlSl"
+	ammo_type = /obj/item/ammo_casing/shotgun
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg/dragon
 	name = "\improper XL shotgun magazine (12g dragon's breath)"
 	icon_state = "m12gXlDb"
-	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
+	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath/nuclear
 
 /obj/item/ammo_box/magazine/toy
 	name = "foam force META magazine"
@@ -466,9 +544,9 @@
 
 	var/ammo = ammo_count()
 	if(ammo && is_riot())
-		overlays += image('icons/obj/ammo.dmi', icon_state = "enforcer-rd")
+		overlays += image('icons/obj/weapons/ammo.dmi', icon_state = "enforcer-rd")
 	else if(ammo)
-		overlays += image('icons/obj/ammo.dmi', icon_state = "enforcer-bd")
+		overlays += image('icons/obj/weapons/ammo.dmi', icon_state = "enforcer-bd")
 
 /obj/item/ammo_box/magazine/toy/enforcer/proc/is_riot()//if the topmost bullet is a riot dart
 	var/ammo = ammo_count()
@@ -512,6 +590,20 @@
 	..()
 	icon_state = "[initial(icon_state)]-[CEILING(ammo_count(0)/20, 1)*20]"
 
+/obj/item/ammo_box/magazine/lr30mag
+	name = "small encased laser projector magazine"
+	desc = "Fits experimental laser ammo casings."
+	icon_state = "lmag-12"
+	ammo_type = /obj/item/ammo_casing/laser
+	origin_tech = "combat=3"
+	caliber = "laser"
+	max_ammo = 12
+
+/obj/item/ammo_box/magazine/lr30mag/update_icon()
+	..()
+	icon_state = "lmag-[round(ammo_count(),3)]"
+
+
 /obj/item/ammo_box/magazine/toy/smgm45
 	name = "donksoft SMG magazine"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
@@ -523,3 +615,55 @@
 
 /obj/item/ammo_box/magazine/toy/smgm45/riot
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
+
+/obj/item/ammo_box/magazine/m52mag
+	name = "M-52 magazine"
+	icon_state = "m52_ammo"
+	ammo_type = /obj/item/ammo_casing/mm556x45
+	caliber = "mm55645"
+	max_ammo = 24
+	multiple_sprites = 2
+
+/obj/item/ammo_box/magazine/cats12g
+	icon_state = "cats_mag_slug"
+	name = "C.A.T.S. magazine (12g slug)"
+	desc = "Похоже, этот магазин может принять в себя только слаги 12-о калибра."
+	ammo_type = /obj/item/ammo_casing/shotgun
+	caliber = ".12"
+	accept_subtypes = FALSE
+	max_ammo = 8
+
+/obj/item/ammo_box/magazine/cats12g/update_icon()
+	..()
+	icon_state = "[initial(icon_state)][stored_ammo.len ? "" : "-0"]"
+
+/obj/item/ammo_box/magazine/cats12g/universal
+	icon_state = "cats_mag"
+	name = "C.A.T.S. magazine (12g)-U"
+	desc = "Похоже, этот магазин может принять в себя любые патроны 12-о калибра."
+	accept_subtypes = TRUE
+
+/obj/item/ammo_box/magazine/cats12g/universal/large
+	icon_state = "cats_mag_large"
+	name = "C.A.T.S. magazine (12g)-UL"
+	desc = "Похоже, этот расширенный магазин может принять в себя любые патроны 12-о калибра."
+	max_ammo = 14
+
+/obj/item/ammo_box/magazine/cats12g/large
+	icon_state = "cats_mag_large_slug"
+	name = "C.A.T.S. magazine (12g-slug)-L"
+	desc = "Похоже, в этот расширенный магазин лезут только слаги 12-о калибра."
+	max_ammo = 14
+
+/obj/item/ammo_box/magazine/cats12g/beanbang
+	icon_state = "cats_mag_bean"
+	name = "C.A.T.S. magazine (12g-beanbang)"
+	desc = "Похоже, в этот магазин лезут только патроны-погремушки."
+	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
+
+/obj/item/ammo_box/magazine/cats12g/beanbang/large
+	icon_state = "cats_mag_large_bean"
+	name = "C.A.T.S. magazine (12g-beanbang)-L"
+	desc = "Похоже, в этот расширенный магазин лезут только патроны-погремушки."
+	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
+	max_ammo = 14

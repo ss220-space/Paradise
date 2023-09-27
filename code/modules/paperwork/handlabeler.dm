@@ -29,7 +29,6 @@
 
 	user.visible_message("<span class='notice'>[user] labels [A] as [label].</span>", \
 						 "<span class='notice'>You label [A] as [label].</span>")
-	investigate_log("[key_name(user)] labelled [A] as [label].", INVESTIGATE_LABEL) // Investigate goes BEFORE rename so the original name is preserved in the log
 	A.AddComponent(/datum/component/label, label)
 	playsound(A, 'sound/items/handling/component_pickup.ogg', 20, TRUE)
 	labels_left--
@@ -52,7 +51,7 @@
 /obj/item/hand_labeler/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/hand_labeler_refill))
 		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
-		user.drop_item()
+		user.temporarily_remove_item_from_inventory(I)
 		qdel(I)
 		labels_left = initial(labels_left)	//Yes, it's capped at its initial value
 	else

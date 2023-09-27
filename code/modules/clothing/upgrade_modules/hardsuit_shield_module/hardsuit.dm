@@ -17,8 +17,7 @@
 		if(src == user.get_item_by_slot(slot_wear_suit))
 			to_chat(user, "<span class='warning'>You cannot install the upgrade to [src] while wearing it.</span>")
 			return
-		if(user.unEquip(new_shield))
-			new_shield.forceMove(src)
+		if(user.drop_transfer_item_to_loc(new_shield, src))
 			shield = new_shield
 			shield.hardsuit = src
 			to_chat(user, "<span class='notice'>You successfully install the shield upgrade into [src].</span>")
@@ -60,10 +59,12 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/shielded
 	jetpack = /obj/item/tank/jetpack/suit
 	shield = /obj/item/hardsuit_shield/syndi
+	resistance_flags = ACID_PROOF
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 20, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/shielded
 	desc = "An advanced hardsuit helmet with built in energy shielding."
+	resistance_flags = ACID_PROOF
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 20, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
 
 //////Wizard Versions

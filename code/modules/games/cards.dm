@@ -108,7 +108,7 @@
 		to_chat(user,"<span class='notice'>There are no cards in the deck.</span>")
 		return
 
-	var/obj/item/cardhand/H = M.is_in_hands(/obj/item/cardhand)
+	var/obj/item/cardhand/H = M.is_type_in_hands(/obj/item/cardhand)
 	if(H && !(H.parentdeck == src))
 		to_chat(user,"<span class='warning'>You can't mix cards from different decks!</span>")
 		return
@@ -117,8 +117,8 @@
 		return
 
 	if(!H)
-		H = new(get_turf(src))
-		user.put_in_hands(H)
+		H = new(drop_location())
+		user.put_in_hands(H, ignore_anim = FALSE)
 
 	var/datum/playingcard/P = cards[1]
 	H.cards += P
@@ -215,25 +215,22 @@
 		cooldown = world.time
 
 
-/obj/item/deck/MouseDrop(atom/over_object) // Code from Paper bin, so you can still pick up the deck
-	var/mob/M = usr
-	if(M.incapacitated() || !Adjacent(M))
-		return
-	if(!ishuman(M))
-		return
-	if(over_object == M)
-		M.put_in_hands(src)
-	if(istype(over_object, /obj/screen))
-		if(!remove_item_from_storage(get_turf(M)))
-			M.unEquip(src)
-		if(over_object != M)
-			switch(over_object.name)
-				if("r_hand")
-					M.put_in_r_hand(src)
-				if("l_hand")
-					M.put_in_l_hand(src)
-	add_fingerprint(M)
-	usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
+/obj/item/deck/MouseDrop(atom/over)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	var/mob/user = usr
+	if(over != user || user.incapacitated() || !ishuman(user))
+		return FALSE
+
+	if(user.put_in_hands(src, ignore_anim = FALSE))
+		add_fingerprint(user)
+		user.visible_message(span_notice("[user] picks up [src]."))
+		return TRUE
+
+	return FALSE
+
 
 /obj/item/pack
 	name = "Card Pack"
@@ -248,15 +245,15 @@
 
 /obj/item/pack/attack_self(mob/user as mob)
 	user.visible_message("<span class='notice'>[name] rips open the [src]!</span>", "<span class='notice'>You rips open the [src]!</span>")
-	var/obj/item/cardhand/H = new(get_turf(user))
+	var/obj/item/cardhand/H = new(drop_location())
 
 	H.cards += cards
 	cards.Cut()
-	user.unEquip(src, force = 1)
+	user.temporarily_remove_item_from_inventory(src, force = TRUE)
 	qdel(src)
 
 	H.update_icon()
-	user.put_in_hands(H)
+	user.put_in_hands(H, ignore_anim = FALSE)
 
 /obj/item/cardhand
 	name = "hand of cards"
@@ -364,8 +361,11 @@
 
 	var/datum/playingcard/card = pickablecards[pickedcard]
 
-	var/obj/item/cardhand/H = new(get_turf(src))
-	user.put_in_hands(H)
+	if(!card)
+		return
+
+	var/obj/item/cardhand/H = new(drop_location())
+	user.put_in_hands(H, ignore_anim = FALSE)
 	H.cards += card
 	cards -= card
 	H.parentdeck = parentdeck

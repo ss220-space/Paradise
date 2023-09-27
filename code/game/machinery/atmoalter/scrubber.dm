@@ -3,7 +3,7 @@
 
 /obj/machinery/portable_atmospherics/scrubber
 	name = "Portable Air Scrubber"
-	icon = 'icons/obj/atmos.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos.dmi'
 	icon_state = "pscrubber:0"
 	density = TRUE
 	volume = 750
@@ -99,14 +99,17 @@
 /obj/machinery/portable_atmospherics/scrubber/return_air()
 	return air_contents
 
+/obj/machinery/portable_atmospherics/scrubber/return_analyzable_air()
+	return air_contents
+
 /obj/machinery/portable_atmospherics/scrubber/attack_ai(mob/user)
-	add_hiddenprint(user)
 	return attack_hand(user)
 
 /obj/machinery/portable_atmospherics/scrubber/attack_ghost(mob/user)
 	return attack_hand(user)
 
 /obj/machinery/portable_atmospherics/scrubber/attack_hand(mob/user)
+	add_fingerprint(user)
 	ui_interact(user)
 	return
 
@@ -145,8 +148,7 @@
 
 		if("remove_tank")
 			if(holding)
-				holding.forceMove(get_turf(src))
-				holding = null
+				replace_tank(usr, FALSE)
 			update_icon()
 			return TRUE
 
@@ -176,7 +178,7 @@
 	name = "[name] (ID [id])"
 
 /obj/machinery/portable_atmospherics/scrubber/huge/attack_hand(mob/user)
-	to_chat(usr, "<span class='warning'>You can't directly interact with this machine. Use the area atmos computer.</span>")
+	to_chat(usr, span_warning("You can't directly interact with this machine. Use the area atmos computer."))
 
 /obj/machinery/portable_atmospherics/scrubber/huge/update_icon()
 	overlays = 0
@@ -186,24 +188,18 @@
 	else
 		icon_state = "scrubber:0"
 
-/obj/machinery/portable_atmospherics/scrubber/huge/attackby(obj/item/W, mob/user, params)
-	if((istype(W, /obj/item/analyzer)) && get_dist(user, src) <= 1)
-		atmosanalyzer_scan(air_contents, user)
-		return
-	return ..()
-
 /obj/machinery/portable_atmospherics/scrubber/huge/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(stationary)
-		to_chat(user, "<span class='warning'>The bolts are too tight for you to unscrew!</span>")
+		to_chat(user, span_warning("The bolts are too tight for you to unscrew!"))
 		return
 	if(on)
-		to_chat(user, "<span class='warning'>Turn it off first!</span>")
+		to_chat(user, span_warning("Turn it off first!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	anchored = !anchored
-	to_chat(user, "<span class='notice'>You [anchored ? "wrench" : "unwrench"] [src].</span>")
+	to_chat(user, span_notice("You [anchored ? "wrench" : "unwrench"] [src]."))
 
 /obj/machinery/portable_atmospherics/scrubber/huge/stationary
 	name = "Stationary Air Scrubber"

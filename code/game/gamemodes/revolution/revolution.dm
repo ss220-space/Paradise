@@ -19,8 +19,6 @@
 
 	var/check_counter = 0
 	var/max_headrevs = 3
-	var/list/datum/mind/heads_to_kill = list()
-	var/list/possible_revolutionaries = list()
 
 ///////////////////////////
 //Announces the game type//
@@ -36,7 +34,7 @@
 /datum/action/innate/revolution_recruitment
 	name = "Recruitment"
 	button_icon_state = "genetic_mindscan"
-	background_icon_state = "bg_vampire"
+	background_icon_state = "bg_vampire_old"
 
 /datum/action/innate/revolution_recruitment/IsAvailable()
 	return ..()
@@ -86,14 +84,13 @@
 //Gets the round setup, cancelling if there's not enough players at the start//
 ///////////////////////////////////////////////////////////////////////////////
 /datum/game_mode/revolution/pre_setup()
-	possible_revolutionaries = get_players_for_role(ROLE_REV)
+	var/list/possible_revolutionaries = get_players_for_role(ROLE_REV)
 
-	if(config.protect_roles_from_antagonist)
+	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 
-
 	for(var/i=1 to max_headrevs)
-		if(possible_revolutionaries.len==0)
+		if(!possible_revolutionaries.len)
 			break
 		var/datum/mind/lenin = pick(possible_revolutionaries)
 		possible_revolutionaries -= lenin
@@ -114,17 +111,14 @@
 
 	while(weighted_score < head_revolutionaries.len) //das vi danya
 		var/datum/mind/trotsky = pick(head_revolutionaries)
-		possible_revolutionaries += trotsky
 		head_revolutionaries -= trotsky
 		trotsky.special_role = null
 
-	heads_to_kill += heads
-
 	for(var/datum/mind/rev_mind in head_revolutionaries)
-		log_game("[key_name(rev_mind)] has been selected as a head rev")
+		add_game_logs("has been selected as a head rev", rev_mind.current)
 		forge_revolutionary_objectives(rev_mind)
 
-		addtimer(CALLBACK(src, .proc/equip_revolutionary, rev_mind.current), rand(10, 100))
+		addtimer(CALLBACK(src, PROC_REF(equip_revolutionary), rev_mind.current), rand(10, 100))
 
 	for(var/datum/mind/rev_mind in head_revolutionaries)
 		greet_revolutionary(rev_mind)
@@ -135,14 +129,17 @@
 /datum/game_mode/revolution/process()
 	check_counter++
 	if(check_counter >= 5)
-		check_heads()
+		check_latejoin()
 		check_counter = 0
 	return FALSE
 
 
-/datum/game_mode/revolution/proc/forge_revolutionary_objectives(datum/mind/rev_mind)
-	for(var/datum/mind/head_mind in heads_to_kill)
-		rev_objective(rev_mind, head_mind)
+/datum/game_mode/proc/forge_revolutionary_objectives(datum/mind/rev_mind)
+	var/datum/objective/rev_obj = new
+	rev_obj.needs_target = FALSE
+	rev_obj.owner = rev_mind
+	rev_obj.explanation_text = "Вы или ваши сподвижники должны занять командные должности, отправив в отставку занимающий их экипаж"
+	rev_mind.objectives += rev_obj
 
 /datum/game_mode/proc/greet_revolutionary(datum/mind/rev_mind, you_are=1)
 	var/obj_count = 1
@@ -180,7 +177,7 @@
 		"left hand" = slot_l_hand,
 		"right hand" = slot_r_hand,
 	)
-	var/where2 = mob.equip_in_one_of_slots(C, slots)
+	var/where2 = mob.equip_in_one_of_slots(C, slots, qdel_on_fail = TRUE)
 	mob.equip_in_one_of_slots(R,slots)
 
 	mob.update_icons()
@@ -191,31 +188,16 @@
 		to_chat(mob, "The chameleon security HUD in your [where2] will help you keep track of who is mindshield-implanted, and unable to be recruited.")
 		return 1
 
-/////////////////////////////////
-//Gives head revs their targets//
-/////////////////////////////////
-/datum/game_mode/proc/rev_objective(datum/mind/rev_mind, datum/mind/head_mind)
-	var/datum/objective/mutiny/rev_obj = new
-	rev_obj.owner = rev_mind
-	rev_obj.target = head_mind
-	rev_obj.explanation_text = "Exile or assassinate [head_mind.name], the [head_mind.assigned_role]."
-	rev_mind.objectives += rev_obj
-
 ////////////////////////////////////////////
 //Checks if new heads have joined midround//
 ////////////////////////////////////////////
-/datum/game_mode/revolution/proc/check_heads()
-	var/list/heads = get_all_heads()
-	var/list/sec = get_all_sec()
-	if(heads_to_kill.len < heads.len)
-		var/list/new_heads = heads - heads_to_kill
-		for(var/datum/mind/head_mind in new_heads)
-			for(var/datum/mind/rev_mind in head_revolutionaries)
-				rev_objective(rev_mind, head_mind)
-			heads_to_kill += head_mind
+/datum/game_mode/revolution/proc/check_latejoin()
+	if(head_revolutionaries.len < max_headrevs)
+		var/list/heads = get_all_heads()
+		var/list/sec = get_all_sec()
 
-	if(head_revolutionaries.len < max_headrevs && head_revolutionaries.len < round(heads.len - ((8 - sec.len) / 3)))
-		latejoin_headrev()
+		if(head_revolutionaries.len < round(heads.len - ((8 - sec.len) / 3)))
+			latejoin_headrev()
 
 ///////////////////////////////
 //Adds a new headrev midround//
@@ -231,7 +213,7 @@
 			var/datum/mind/stalin = pick(promotable_revs)
 			revolutionaries -= stalin
 			head_revolutionaries += stalin
-			log_game("[key_name(stalin)] has been promoted to a head rev")
+			add_game_logs("has been promoted to a head rev", stalin.current)
 			equip_revolutionary(stalin.current)
 			forge_revolutionary_objectives(stalin)
 			greet_revolutionary(stalin)
@@ -244,8 +226,7 @@
 		return 0
 	revolutionaries += rev_mind
 	to_chat(rev_mind.current, "<span class='danger'><FONT size = 3> You are now a revolutionary! Follow orders given by revolution leaders. Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons.</FONT></span>")
-	rev_mind.current.create_attack_log("<font color='red'>Has been recruited to the revolution!</font>")
-	rev_mind.current.create_log(CONVERSION_LOG, "recruited to the revolution")
+	add_conversion_logs(rev_mind.current, "recruited to the revolution")
 	rev_mind.special_role = SPECIAL_ROLE_REV
 	update_rev_icons_added(rev_mind)
 	if(jobban_isbanned(rev_mind.current, ROLE_REV) || jobban_isbanned(rev_mind.current, ROLE_SYNDICATE))
@@ -265,11 +246,10 @@
 		rev_mind.special_role = null
 		for(var/datum/action/innate/revolution_recruitment/C in rev_mind.current.actions)
 			qdel(C)
-		rev_mind.current.create_attack_log("<font color='red'>Has renounced the revolution!</font>")
-		rev_mind.current.create_log(CONVERSION_LOG, "renounced the revolution")
+		add_conversion_logs(rev_mind.current, "renounced the revolution")
 		if(beingborged)
 			to_chat(rev_mind.current, "<span class='danger'><FONT size = 3>The frame's firmware detects and deletes your neural reprogramming! You remember nothing[remove_head ? "." : " but the name of the one who recruited you."]</FONT></span>")
-			message_admins("[key_name_admin(rev_mind.current)] [ADMIN_QUE(rev_mind.current,"?")] ([ADMIN_FLW(rev_mind.current,"FLW")]) has been borged while being a [remove_head ? "leader" : " member"] of the revolution.")
+			message_admins("[ADMIN_LOOKUPFLW(rev_mind.current)] has been borged while being a [remove_head ? "leader" : " member"] of the revolution.")
 		else
 			to_chat(rev_mind.current, "<span class='danger'><FONT size = 3>You have been brainwashed! You are no longer a revolutionary!</FONT></span>")
 
@@ -291,27 +271,10 @@
 	revhud.leave_hud(rev_mind.current)
 	set_antag_hud(rev_mind.current, null)
 
-//////////////////////////
-//Checks for rev victory//
-//////////////////////////
-/datum/game_mode/revolution/proc/check_rev_victory()
-	for(var/datum/mind/rev_mind in head_revolutionaries)
-		for(var/datum/objective/mutiny/objective in rev_mind.objectives)
-			if(!(objective.check_completion()))
-				return FALSE
-
-	return TRUE
-
 //////////////////////////////////////////////////////////////////////
 //Announces the end of the game with all relavent information stated//
 //////////////////////////////////////////////////////////////////////
 /datum/game_mode/revolution/declare_completion()
-	if(check_rev_victory())
-		SSticker.mode_result = "revolution win - heads killed"
-		to_chat(world, "<span class='redtext'>The heads of staff were killed or exiled! The revolutionaries win!</span>")
-	else
-		SSticker.mode_result = "revolution loss - rev heads killed"
-		to_chat(world, "<span class='redtext'>The heads of staff managed to stop the revolution!</span>")
 	..()
 	return TRUE
 
@@ -352,44 +315,46 @@
 		text += "<br>"
 		to_chat(world, text)
 
-/datum/game_mode/revolution/set_scoreboard_gvars()
+
+/datum/game_mode/revolution/set_scoreboard_vars()
+	var/datum/scoreboard/scoreboard = SSticker.score
 	var/foecount = 0
+
 	for(var/datum/mind/M in SSticker.mode.head_revolutionaries)
 		foecount++
 		if(!M || !M.current)
-			GLOB.score_opkilled++
+			scoreboard.score_ops_killed++
 			continue
 
 		if(M.current.stat == DEAD)
-			GLOB.score_opkilled++
+			scoreboard.score_ops_killed++
 
 		else if(M.current.restrained())
-			GLOB.score_arrested++
+			scoreboard.score_arrested++
 
-	if(foecount == GLOB.score_arrested)
-		GLOB.score_allarrested = 1
+	if(foecount == scoreboard.score_arrested)
+		scoreboard.all_arrested = TRUE
 
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/player = thing
-		if(player.mind)
-			var/role = player.mind.assigned_role
-			if(role in list("Captain", "Head of Security", "Head of Personnel", "Chief Engineer", "Research Director"))
-				if(player.stat == DEAD)
-					GLOB.score_deadcommand++
+		if(player.stat == DEAD && player.mind?.assigned_role)
+			if(player.mind.assigned_role in list("Captain", "Head of Security", "Head of Personnel", "Chief Engineer", "Research Director"))
+				scoreboard.score_dead_command++
 
 
-	var/arrestpoints = GLOB.score_arrested * 1000
-	var/killpoints = GLOB.score_opkilled * 500
-	var/comdeadpts = GLOB.score_deadcommand * 500
-	if(GLOB.score_traitorswon)
-		GLOB.score_crewscore -= 10000
+	var/arrestpoints = scoreboard.score_arrested * 1000
+	var/killpoints = scoreboard.score_ops_killed * 500
+	var/comdeadpts = scoreboard.score_dead_command * 500
+	if(scoreboard.score_greentext)
+		scoreboard.crewscore -= 10000
 
-	GLOB.score_crewscore += arrestpoints
-	GLOB.score_crewscore += killpoints
-	GLOB.score_crewscore -= comdeadpts
+	scoreboard.crewscore += arrestpoints
+	scoreboard.crewscore += killpoints
+	scoreboard.crewscore -= comdeadpts
 
 
 /datum/game_mode/revolution/get_scoreboard_stats()
+	var/datum/scoreboard/scoreboard = SSticker.score
 	var/foecount = 0
 	var/comcount = 0
 	var/revcount = 0
@@ -408,7 +373,8 @@
 				if(player.stat != DEAD)
 					comcount++
 			else
-				if(player.mind in SSticker.mode.revolutionaries) continue
+				if(player.mind in SSticker.mode.revolutionaries)
+					continue
 				loycount++
 
 	for(var/beepboop in GLOB.silicon_mob_list)
@@ -426,12 +392,12 @@
 	dat += "<b>Number of Surviving Loyal Crew:</b> [loycount]<br>"
 
 	dat += "<br>"
-	dat += "<b>Revolution Heads Arrested:</b> [GLOB.score_arrested] ([GLOB.score_arrested * 1000] Points)<br>"
-	dat += "<b>All Revolution Heads Arrested:</b> [GLOB.score_allarrested ? "Yes" : "No"] (Score tripled)<br>"
+	dat += "<b>Revolution Heads Arrested:</b> [scoreboard.score_arrested] ([scoreboard.score_arrested * 1000] Points)<br>"
+	dat += "<b>All Revolution Heads Arrested:</b> [scoreboard.all_arrested ? "Yes" : "No"] (Score tripled)<br>"
 
-	dat += "<b>Revolution Heads Slain:</b> [GLOB.score_opkilled] ([GLOB.score_opkilled * 500] Points)<br>"
-	dat += "<b>Command Staff Slain:</b> [GLOB.score_deadcommand] (-[GLOB.score_deadcommand * 500] Points)<br>"
-	dat += "<b>Revolution Successful:</b> [GLOB.score_traitorswon ? "Yes" : "No"] (-[GLOB.score_traitorswon * 10000] Points)<br>"
+	dat += "<b>Revolution Heads Slain:</b> [scoreboard.score_ops_killed] ([scoreboard.score_ops_killed * 500] Points)<br>"
+	dat += "<b>Command Staff Slain:</b> [scoreboard.score_dead_command] (-[scoreboard.score_dead_command * 500] Points)<br>"
+	dat += "<b>Revolution Successful:</b> [scoreboard.score_greentext ? "Yes" : "No"] (-[scoreboard.score_greentext * 10000] Points)<br>"
 	dat += "<HR>"
 
 	return dat

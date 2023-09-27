@@ -39,7 +39,7 @@
 
 /obj/effect/particle_effect/smoke/proc/kill_smoke()
 	STOP_PROCESSING(SSobj, src)
-	INVOKE_ASYNC(src, .proc/fade_out)
+	INVOKE_ASYNC(src, PROC_REF(fade_out))
 	QDEL_IN(src, 10)
 
 /obj/effect/particle_effect/smoke/process()
@@ -67,7 +67,7 @@
 	if(C.smoke_delay)
 		return FALSE
 	C.smoke_delay++
-	addtimer(CALLBACK(src, .proc/remove_smoke_delay, C), 10)
+	addtimer(CALLBACK(src, PROC_REF(remove_smoke_delay), C), 10)
 	return TRUE
 
 /obj/effect/particle_effect/smoke/proc/remove_smoke_delay(mob/living/carbon/C)
@@ -77,6 +77,7 @@
 /datum/effect_system/smoke_spread
 	effect_type = /obj/effect/particle_effect/smoke
 	var/direction
+	var/color
 
 /datum/effect_system/smoke_spread/set_up(n = 5, c = 0, loca, direct)
 	if(n > 20)
@@ -95,6 +96,8 @@
 		if(holder)
 			location = get_turf(holder)
 		var/obj/effect/particle_effect/smoke/S = new effect_type(location)
+		if(color)
+			S.color = color
 		if(!direction)
 			if(cardinals)
 				S.direction = pick(GLOB.cardinal)
@@ -119,7 +122,7 @@
 
 /obj/effect/particle_effect/smoke/bad/smoke_mob(mob/living/carbon/M)
 	if(..())
-		M.drop_item()
+		M.drop_from_active_hand()
 		M.adjustOxyLoss(1)
 		M.emote("cough")
 		return 1
@@ -201,8 +204,8 @@
 
 /obj/effect/particle_effect/smoke/sleeping/smoke_mob(mob/living/carbon/M)
 	if(..())
-		M.drop_item()
-		M.Sleeping(max(M.sleeping,10))
+		M.drop_from_active_hand()
+		M.Sleeping(20 SECONDS)
 		M.emote("cough")
 		return 1
 

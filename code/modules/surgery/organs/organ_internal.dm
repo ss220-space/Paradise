@@ -6,6 +6,7 @@
 	var/slot
 	// DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
 	var/non_primary = 0
+	var/can_see_food = FALSE
 	var/unremovable = FALSE //Whether it shows up as an option to remove during surgery.
 
 /obj/item/organ/internal/New(mob/living/carbon/holder)
@@ -13,9 +14,17 @@
 	if(istype(holder))
 		insert(holder)
 
+/obj/item/organ/internal/Initialize(mapload)
+	. = ..()
+	if(species_type == /datum/species/diona)
+		AddComponent(/datum/component/diona_internals)
+
+
 /obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, var/dont_remove_slot = 0)
 	if(!iscarbon(M) || owner == M)
 		return
+
+	do_pickup_animation(src, M)
 
 	var/obj/item/organ/internal/replaced = M.get_organ_slot(slot)
 	if(replaced)
@@ -50,11 +59,13 @@
 /obj/item/organ/internal/remove(mob/living/carbon/M, special = 0)
 	if(!owner)
 		log_runtime(EXCEPTION("\'remove\' called on [src] without an owner! Mob: [M], [atom_loc_line(M)]"), src)
-	owner = null
+
 	if(M)
 		M.internal_organs -= src
 		if(M.internal_organs_slot[slot] == src)
 			M.internal_organs_slot.Remove(slot)
+			if(!special)
+				SEND_SIGNAL(src, COMSIG_CARBON_LOSE_ORGAN)
 		if(vital && !special)
 			if(M.stat != DEAD)//safety check!
 				M.death()
@@ -71,6 +82,8 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.Remove(M)
+
+	owner = null
 	START_PROCESSING(SSobj, src)
 	return src
 
@@ -126,18 +139,14 @@
 	name = "appendix"
 	icon_state = "appendix"
 	icon = 'icons/obj/surgery.dmi'
-
-/obj/item/reagent_containers/food/snacks/organ/New()
-	..()
-
-	reagents.add_reagent("nutriment", 5)
+	list_reagents = list("nutriment" = 5)
 
 /obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
 	if(M == user && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/reagent_containers/food/snacks/S = prepare_eat()
 		if(S)
-			H.drop_item()
+			H.drop_from_active_hand()
 			H.put_in_active_hand(S)
 			S.attack(H, H)
 			qdel(src)
@@ -184,7 +193,8 @@
 /obj/item/organ/internal/appendix/insert(mob/living/carbon/M, special = 0)
 	..()
 	if(inflamed)
-		M.AddDisease(new /datum/disease/appendicitis)
+		var/datum/disease/appendicitis/D = new
+		D.Contract(M)
 
 /obj/item/organ/internal/appendix/prepare_eat()
 	var/obj/S = ..()
@@ -267,21 +277,21 @@
 		organhonked = world.time + suffering_delay
 		to_chat(owner, "<font color='red' size='7'>HONK</font>")
 		owner.SetSleeping(0)
-		owner.Stuttering(20)
-		owner.MinimumDeafTicks(30)
-		owner.Weaken(3)
-		owner << 'sound/items/airhorn.ogg'
+		owner.Stuttering(40 SECONDS)
+		owner.Deaf(60 SECONDS)
+		owner.Weaken(6 SECONDS)
+		SEND_SOUND(owner, sound('sound/items/airhorn.ogg'))
 		if(prob(30))
-			owner.Stun(10)
-			owner.Paralyse(4)
+			owner.Stun(20 SECONDS)
+			owner.Paralyse(8 SECONDS)
 		else
-			owner.Jitter(500)
+			owner.Jitter(1000 SECONDS)
 
 		if(ishuman(owner))
 			var/mob/living/carbon/human/H = owner
 			if(isobj(H.shoes))
 				var/thingy = H.shoes
-				if(H.unEquip(H.shoes))
+				if(H.drop_item_ground(H.shoes))
 					walk_away(thingy,H,15,2)
 					spawn(20)
 						if(thingy)
@@ -357,5 +367,20 @@
 /obj/item/organ/internal/handle_germs()
 	..()
 	if(germ_level >= INFECTION_LEVEL_TWO)
-		if(prob(3))	//about once every 30 seconds
-			receive_damage(1, silent = prob(30))
+		if(prob(3 * owner.dna.species.germs_growth_rate))
+			// big message from every 1 damage is not good. If germs growth rate is big, it will spam the chat.
+			receive_damage(1, silent = prob(30/owner.dna.species.germs_growth_rate))
+
+/mob/living/carbon/human/proc/check_infections()
+	var/list/infections = list()
+	for(var/obj/item/organ/internal/organ in internal_organs)
+		if(organ.germ_level > 0)
+			infections.Add(organ)
+	return infections
+
+/mob/living/carbon/human/proc/check_damaged_organs()
+	var/list/damaged = list()
+	for(var/obj/item/organ/internal/organ in internal_organs)
+		if(organ.damage > 0)
+			damaged.Add(organ)
+	return damaged

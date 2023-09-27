@@ -40,7 +40,14 @@
 	name = "medical gripper"
 	desc = "A grasping tool used to hold organs and help patients up once surgery is complete."
 	can_hold = list(/obj/item/organ,
-					/obj/item/reagent_containers/iv_bag)
+					/obj/item/reagent_containers/iv_bag,
+					/obj/item/robot_parts/head,
+					/obj/item/robot_parts/l_arm,
+					/obj/item/robot_parts/r_arm,
+					/obj/item/robot_parts/l_leg,
+					/obj/item/robot_parts/r_leg,
+					/obj/item/robot_parts/chest,
+					/obj/item/stack/sheet/mineral/plasma) //for repair plasmamans
 
 /obj/item/gripper/medical/attack_self(mob/user)
 	return
@@ -50,12 +57,12 @@
 	if(!gripped_item && proximity && target && ishuman(target))
 		H = target
 		if(H.lying)
-			H.AdjustSleeping(-5)
-			if(H.sleeping == 0)
+			H.AdjustSleeping(-10 SECONDS)
+			if(!H.IsSleeping())
 				H.StopResting()
-			H.AdjustParalysis(-3)
-			H.AdjustStunned(-3)
-			H.AdjustWeakened(-3)
+			H.AdjustParalysis(-6 SECONDS)
+			H.AdjustStunned(-6 SECONDS)
+			H.AdjustWeakened(-6 SECONDS)
 			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			user.visible_message( \
 				"<span class='notice'>[user] shakes [H] trying to wake [H.p_them()] up!</span>",\
@@ -64,6 +71,54 @@
 		return
 	..()
 
+/obj/item/gripper/service
+	name = "Card gripper"
+	desc = "A grasping tool used to take IDs for paying taxes and waking up drunken crewmates"
+	can_hold = list(/obj/item/card,
+					/obj/item/camera_film,
+					/obj/item/paper,
+					/obj/item/photo,
+					/obj/item/toy/plushie)
+
+/obj/item/gripper/service/afterattack(atom/target, mob/living/user, proximity, params)
+	if(!gripped_item && proximity && target && ishuman(target))
+		var/mob/living/carbon/human/H = target
+		if(H.lying)
+			H.AdjustSleeping(-10 SECONDS)
+			if(!H.IsSleeping())
+				H.StopResting()
+			H.AdjustParalysis(-6 SECONDS)
+			H.AdjustStunned(-6 SECONDS)
+			H.AdjustWeakened(-6 SECONDS)
+			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+			user.visible_message( \
+				"<span class='notice'>[user] shakes [H] trying to wake [H.p_them()] up!</span>",\
+				"<span class='notice'>You shake [H] trying to wake [H.p_them()] up!</span>",\
+				)
+		return
+	..()
+
+/obj/item/gripper/cogscarab
+	name = "ancient gripper"
+	desc = "A brass grasping tool for supporting workmates."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "clock_gripper"
+
+/obj/item/gripper/cogscarab/New()
+	//Has a list of items that it can hold.
+	can_hold += list(
+		/obj/item/clockwork/integration_cog,
+		/obj/item/clockwork/shard,
+		/obj/item/stack/sheet,
+		/obj/item/mmi/robotic_brain/clockwork
+	)
+	..()
+
+/obj/item/gripper/nuclear
+	name = "Nuclear gripper"
+	desc = "Designed for all your nuclear needs."
+	icon_state = "diskgripper"
+	can_hold = list(/obj/item/disk/nuclear)
 
 /obj/item/gripper/New()
 	..()
@@ -107,9 +162,12 @@
 /obj/item/gripper/attack(mob/living/carbon/M, mob/living/carbon/user)
 	return
 
-/// Grippers are snowflakey so this is needed to to prevent forceMoving grippers after `if(!user.drop_item())` checks done in certain attackby's.
+/// Grippers are snowflakey so this is needed to to prevent forceMoving grippers after `if(!user.drop_from_active_hand())` checks done in certain attackby's.
 /obj/item/gripper/forceMove(atom/destination)
 	return
+
+/obj/item/gripper/proc/isEmpty()
+	return isnull(gripped_item)
 
 /obj/item/gripper/afterattack(atom/target, mob/living/user, proximity, params)
 

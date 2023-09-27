@@ -9,6 +9,7 @@
 /obj/item/reagent_containers/food
 	possible_transfer_amounts = null
 	volume = 50 //Sets the default container amount for all food items.
+	visible_transfer_rate = FALSE
 	var/filling_color = "#FFFFFF" //Used by sandwiches.
 	var/junkiness = 0  //for junk food. used to lower human satiety.
 	var/bitesize = 2
@@ -26,6 +27,7 @@
 	var/last_check_time
 	resistance_flags = FLAMMABLE
 	container_type = INJECTABLE
+	var/log_eating = FALSE // do we log if someone eats us?
 
 /obj/item/reagent_containers/food/Initialize(mapload)
 	. = ..()
@@ -52,6 +54,10 @@
 	set hidden = TRUE
 	..()
 
+/obj/item/reagent_containers/food/empty()
+	set hidden = TRUE
+	..()
+
 /obj/item/reagent_containers/food/proc/check_for_ants()
 	var/turf/T = get_turf(src)
 	if(isturf(loc) && (T.temperature in 280 to 325) && !locate(/obj/structure/table) in T)
@@ -75,17 +81,17 @@
 				var/type_string = matched_food_type(foodtype & H.dna.species.toxic_food)
 				to_chat(H, "<span class='warning'>[format_message(type_string, HATE_MESSAGES, H.dna.species)]</span>")
 
-				H.AdjustDisgust(25 + 30 * fraction)
+				H.AdjustDisgust((25 + 30 * fraction) STATUS_EFFECT_CONSTANT)
 			if(foodtype & H.dna.species.disliked_food)
 				var/type_string = matched_food_type(foodtype & H.dna.species.disliked_food)
 				to_chat(H, "<span class='warning'>[format_message(type_string, DISLIKE_MESSAGES, H.dna.species)]</span>")
 
-				H.AdjustDisgust(15 + 16 * fraction)
+				H.AdjustDisgust((15 + 16 * fraction) STATUS_EFFECT_CONSTANT)
 			if(foodtype & H.dna.species.liked_food)
 				var/type_string = matched_food_type(foodtype & H.dna.species.liked_food)
 				to_chat(H, "<span class='notice'>[format_message(type_string, LOVE_MESSAGES, H.dna.species)]</span>")
 
-				H.AdjustDisgust(-12 + -8 * fraction)
+				H.AdjustDisgust((-12 + -8 * fraction) STATUS_EFFECT_CONSTANT)
 			last_check_time = world.time
 
 /obj/item/reagent_containers/food/proc/format_message(var/type, var/list/messages, var/datum/species/species)
@@ -153,3 +159,8 @@
 		. += "<span class='notice'>This is pure garbage.</span>"
 	if(foodtype & TOXIC)
 		. += "<span class='notice'>This is straight up poisonous.</span>"
+	if(user.can_see_food()) //Show each individual reagent
+		. += "<span class='notice'>It contains:</span>"
+		for(var/I in reagents.reagent_list)
+			var/datum/reagent/R = I
+			. += "<span class='notice'>[R.volume] units of [R.name]</span>"

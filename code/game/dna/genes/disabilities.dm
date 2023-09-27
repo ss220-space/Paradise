@@ -50,7 +50,8 @@
 
 /datum/dna/gene/disability/hallucinate/OnMobLife(mob/living/carbon/human/H)
 	if(prob(1))
-		H.AdjustHallucinate(45)
+		H.AdjustHallucinate(45 SECONDS)
+		H.last_hallucinator_log = "Hallucination Gene"
 
 /datum/dna/gene/disability/epilepsy
 	name = "Epilepsy"
@@ -64,10 +65,10 @@
 	block = GLOB.epilepsyblock
 
 /datum/dna/gene/disability/epilepsy/OnMobLife(mob/living/carbon/human/H)
-	if((prob(1) && H.paralysis < 1))
+	if((prob(1) && H.AmountParalyzed() < 2 SECONDS))
 		H.visible_message("<span class='danger'>[H] starts having a seizure!</span>","<span class='alert'>You have a seizure!</span>")
-		H.Paralyse(10)
-		H.Jitter(1000)
+		H.Paralyse(20 SECONDS)
+		H.Jitter(2000 SECONDS)
 
 /datum/dna/gene/disability/cough
 	name = "Coughing"
@@ -81,8 +82,8 @@
 	block = GLOB.coughblock
 
 /datum/dna/gene/disability/cough/OnMobLife(mob/living/carbon/human/H)
-	if((prob(5) && H.paralysis <= 1))
-		H.drop_item()
+	if((prob(5) && H.AmountParalyzed() <= 2 SECONDS))
+		H.drop_from_active_hand()
 		H.emote("cough")
 
 /datum/dna/gene/disability/clumsy
@@ -108,8 +109,8 @@
 	block = GLOB.twitchblock
 
 /datum/dna/gene/disability/tourettes/OnMobLife(mob/living/carbon/human/H)
-	if((prob(10) && H.paralysis <= 1))
-		H.Stun(10)
+	if((prob(10) && H.AmountParalyzed() <= 2 SECONDS))
+		H.Stun(20 SECONDS)
 		switch(rand(1, 3))
 			if(1)
 				H.emote("twitch")
@@ -134,7 +135,7 @@
 
 /datum/dna/gene/disability/nervousness/OnMobLife(mob/living/carbon/human/H)
 	if(prob(10))
-		H.Stuttering(10)
+		H.Stuttering(20 SECONDS)
 
 /datum/dna/gene/disability/blindness
 	name = "Blindness"
@@ -188,9 +189,13 @@
 	..()
 	block = GLOB.deafblock
 
-/datum/dna/gene/disability/deaf/activate(mob/M, connected, flags)
-	..()
-	M.MinimumDeafTicks(1)
+/datum/dna/gene/disability/deaf/activate(mob/living/carbon/M, connected, flags)
+	. = ..()
+	ADD_TRAIT(M, TRAIT_DEAF, "dna")
+
+/datum/dna/gene/disability/deaf/deactivate(mob/living/M, connected, flags)
+	. = ..()
+	REMOVE_TRAIT(M, TRAIT_DEAF, "dna")
 
 /datum/dna/gene/disability/nearsighted
 	name = "Nearsightedness"
@@ -259,3 +264,47 @@
 			garbled_message += message[i]
 	message = garbled_message
 	return message
+
+/datum/dna/gene/disability/weak
+	name = "Weak"
+	desc = "Делает мышцы цели более слабыми."
+	activation_message = "Вы чуствуете слабость в своих мышцах."
+	deactivation_message = "Похоже, ваши мышцы снова в норме."
+	instability = -GENE_INSTABILITY_MODERATE
+
+/datum/dna/gene/disability/weak/New()
+	..()
+	block = GLOB.weakblock
+
+/datum/dna/gene/disability/weak/can_activate(mob/M, flags)
+	if(STRONG in M.mutations)
+		return FALSE
+	return ..()
+
+/datum/dna/gene/disability/weak/activate(mob/living/M, connected, flags)
+	..()
+	change_strength(M, 1)
+
+/datum/dna/gene/disability/weak/deactivate(mob/living/M, connected, flags)
+	..()
+	change_strength(M, -1)
+
+/datum/dna/gene/disability/weak/proc/change_strength(mob/living/M, modifier)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(isvulpkanin(H) || isdrask(H) || isunathi(H))
+			H.dna.species.punchdamagelow -= (3 * modifier)
+			H.dna.species.punchdamagehigh -= (4 * modifier)
+			H.dna.species.strength_modifier -= (0.25 * modifier)
+			if(isunathi(H))
+				var/datum/species/unathi/U = H.dna.species
+				U.tail_strength -= (0.25 * modifier)
+			return
+		if(ishumanbasic(H))
+			H.dna.species.punchdamagelow -= (1 * modifier)
+			H.dna.species.punchdamagehigh -= (2 * modifier)
+			H.dna.species.strength_modifier -= (0.1 * modifier)
+		else
+			H.dna.species.punchdamagelow -= (2 * modifier)
+			H.dna.species.punchdamagehigh -= (3 * modifier)
+			H.dna.species.strength_modifier -= (0.15 * modifier)

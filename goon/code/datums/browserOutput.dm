@@ -66,7 +66,7 @@ var/chatDebug = file("data/chatDebug.log")
 
 	for(var/attempts in 1 to 5)
 		for(var/asset in global.chatResources)
-			owner << browse_rsc(file(asset))
+			owner << browse_rsc(wrap_file(asset))
 
 		for(var/subattempts in 1 to 3)
 			owner << browse(file2text("goon/browserassets/html/browserOutput.html"), "window=browseroutput")
@@ -169,7 +169,7 @@ var/chatDebug = file("data/chatDebug.log")
 	if(cookie != "none")
 		var/regex/crashy_thingy = new /regex("(\\\[ *){5}")
 		if(crashy_thingy.Find(cookie))
-			message_admins("[key_name(src.owner)] tried to crash the server using malformed JSON")
+			message_admins("[ADMIN_LOOKUPFLW(src.owner)] tried to crash the server using malformed JSON")
 			log_admin("[key_name(owner)] tried to crash the server using malformed JSON")
 			return
 		var/list/connData = json_decode(cookie)
@@ -177,7 +177,7 @@ var/chatDebug = file("data/chatDebug.log")
 			connectionHistory = connData["connData"]
 			var/list/found = new()
 			if(connectionHistory.len > MAX_COOKIE_LENGTH)
-				message_admins("[key_name(src.owner)] was kicked for an invalid ban cookie)")
+				message_admins("[ADMIN_LOOKUPFLW(src.owner)] was kicked for an invalid ban cookie)")
 				qdel(owner)
 				return
 			for(var/i = connectionHistory.len; i >= 1; i--)
@@ -194,7 +194,7 @@ var/chatDebug = file("data/chatDebug.log")
 			//Add autoban using the DB_ban_record function
 			//Uh oh this fucker has a history of playing on a banned account!!
 			if (found.len > 0)
-				message_admins("[key_name(src.owner)] <span class='boldannounce'>has a cookie from a banned account!</span> (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
+				message_admins("[ADMIN_LOOKUPFLW(src.owner)] <span class='boldannounce'>has a cookie from a banned account!</span> (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
 				log_admin("[key_name(src.owner)] has a cookie from a banned account! (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
 
 	cookieSent = 1
@@ -202,11 +202,16 @@ var/chatDebug = file("data/chatDebug.log")
 /datum/chatOutput/proc/ping()
 	return "pong"
 
-/datum/chatOutput/proc/pingstat(lastPingDuration = 0)
-	if(lastPingDuration && owner)
-		owner.last_ping_duration = lastPingDuration
-	else
-		owner.last_ping_duration = 0
+#define PING_BUFFER_TIME 25
+
+/datum/chatOutput/proc/pingstat(ping = 0)
+	ping = text2num(ping)
+	if(!owner || world.time - owner.connection_time < PING_BUFFER_TIME)
+		ping = 0
+	owner.lastping = ping
+	owner.avgping = MC_AVERAGE_SLOW(owner.avgping, ping)
+
+#undef PING_BUFFER_TIME
 
 /datum/chatOutput/proc/debug(error)
 	error = "\[[time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")]\] Client : [owner.key ? owner.key : owner] triggered JS error: [error]"
@@ -312,15 +317,14 @@ var/to_chat_src
 
 		message = replacetext(message, "\n", "<br>")
 
-		message = macro2html(message)
 		if(findtext(message, "\improper"))
 			message = replacetext(message, "\improper", "")
 		if(findtext(message, "\proper"))
 			message = replacetext(message, "\proper", "")
 
-		if(config.twitch_censor)
-			for(var/char in config.twich_censor_list)
-				message = replacetext(message, char, config.twich_censor_list[char])
+		if(CONFIG_GET(flag/twitch_censor))
+			for(var/char in GLOB.twitch_censor_list)
+				message = replacetext(message, char, GLOB.twitch_censor_list[char])
 
 		var/client/C
 		if(istype(target, /client))

@@ -36,6 +36,9 @@
 	var/unres_sides = 0
 	//Multi-tile doors
 	var/width = 1
+	//Whether nonstandard door sounds (cmag laughter) are off cooldown.
+	var/sound_ready = TRUE
+	var/sound_cooldown = 1 SECONDS
 
 /obj/machinery/door/New()
 	..()
@@ -85,15 +88,17 @@
 	QDEL_NULL(spark_system)
 	return ..()
 
-/obj/machinery/door/Bumped(atom/AM)
+/obj/machinery/door/Bumped(atom/movable/moving_atom)
+	..()
+
 	if(operating || emagged)
 		return
-	if(ismob(AM))
-		var/mob/B = AM
+	if(ismob(moving_atom))
+		var/mob/B = moving_atom
 		if((isrobot(B)) && B.stat)
 			return
-		if(isliving(AM))
-			var/mob/living/M = AM
+		if(isliving(moving_atom))
+			var/mob/living/M = moving_atom
 			if(world.time - M.last_bumped <= 10)
 				return	//Can bump-open one airlock per second. This is to prevent shock spam.
 			M.last_bumped = world.time
@@ -103,15 +108,21 @@
 				bumpopen(M)
 			return
 
-	if(ismecha(AM))
-		var/obj/mecha/mecha = AM
+	if(ismecha(moving_atom))
+		var/obj/mecha/mecha = moving_atom
 		if(density)
 			if(mecha.occupant)
 				if(world.time - mecha.occupant.last_bumped <= 10)
 					return
 			if(mecha.occupant && allowed(mecha.occupant) || check_access_list(mecha.operation_req_access))
+				if(HAS_TRAIT(src, TRAIT_CMAGGED))
+					cmag_switch(FALSE, mecha.occupant)
+					return
 				open()
 			else
+				if(HAS_TRAIT(src, TRAIT_CMAGGED))
+					cmag_switch(TRUE, mecha.occupant)
+					return
 				do_animate("deny")
 		return
 
@@ -129,6 +140,10 @@
 			bound_height = width * world.icon_size
 
 /obj/machinery/door/CanPass(atom/movable/mover, turf/target, height=0)
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+		return TRUE
+	if(istype(mover) && mover.checkpass(PASSDOOR) && !locked)
+		return TRUE
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return !opacity
 	return !density
@@ -143,12 +158,52 @@
 
 	if(density && !emagged)
 		if(allowed(user))
+			if(HAS_TRAIT(src, TRAIT_CMAGGED))
+				cmag_switch(FALSE, user)
+				return
 			open()
 			if(isbot(user))
 				var/mob/living/simple_animal/bot/B = user
 				B.door_opened(src)
 		else
+			if(pry_open_check(user))
+				return
+			if(HAS_TRAIT(src, TRAIT_CMAGGED))
+				cmag_switch(TRUE, user)
+				return
 			do_animate("deny")
+
+
+/obj/machinery/door/proc/pry_open_check(mob/user)
+	. = TRUE
+	if(isterrorspider(user))
+		return
+
+	if(!HAS_TRAIT(user, TRAIT_FORCE_DOORS))
+		return FALSE
+
+	var/datum/antagonist/vampire/V = user.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(V && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
+		if(!V.bloodusable)
+			REMOVE_TRAIT(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
+			return FALSE
+
+	if(welded)
+		to_chat(user, span_warning("The door is welded."))
+		return FALSE
+
+	if(locked)
+		to_chat(user, span_warning("The door is bolted."))
+		return FALSE
+
+	if(density)
+		visible_message(span_danger("[user] forces the door open!"))
+		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		open(TRUE)
+
+	if(V && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
+		V.bloodusable = max(V.bloodusable - 5, 0)
+
 
 /obj/machinery/door/attack_ai(mob/user)
 	return attack_hand(user)
@@ -171,9 +226,17 @@
 		return
 	if(requiresID() && (allowed(user) || user.can_advanced_admin_interact()))
 		if(density)
+			if(HAS_TRAIT(src, TRAIT_CMAGGED) && !user.can_advanced_admin_interact())
+				cmag_switch(FALSE, user)
+				return
 			open()
 		else
+			if(HAS_TRAIT(src, TRAIT_CMAGGED) && !user.can_advanced_admin_interact())
+				return
 			close()
+		return
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		cmag_switch(TRUE, user)
 		return
 	if(density)
 		do_animate("deny")
@@ -193,8 +256,29 @@
 /obj/machinery/door/proc/try_to_crowbar(mob/user, obj/item/I)
 	return
 
+/obj/machinery/door/proc/clean_cmag_ooze(obj/item/I, mob/user) //Emags are Engineering's problem, cmags are the janitor's problem
+	var/cleaning = FALSE
+	if(istype(I, /obj/item/reagent_containers/spray/cleaner))
+		var/obj/item/reagent_containers/spray/cleaner/C = I
+		if(C.reagents.total_volume >= C.amount_per_transfer_from_this)
+			cleaning = TRUE
+		else
+			return
+	if(istype(I, /obj/item/soap))
+		cleaning = TRUE
+
+	if(!cleaning)
+		return
+	user.visible_message(span_notice("[user] starts to clean the ooze off the access panel."), span_notice("You start to clean the ooze off the access panel."))
+	if(do_after(user, 50, target = src))
+		user.visible_message(span_notice("[user] cleans the ooze off [src]."), span_notice("You clean the ooze off [src]."))
+		REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+
 /obj/machinery/door/attackby(obj/item/I, mob/user, params)
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		clean_cmag_ooze(I, user)
 	if(user.a_intent != INTENT_HARM && istype(I, /obj/item/twohanded/fireaxe))
+		add_fingerprint(user)
 		try_to_crowbar(user, I)
 		return 1
 	else if(!(I.flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)
@@ -233,11 +317,51 @@
 
 /obj/machinery/door/emag_act(mob/user)
 	if(density)
+		add_attack_logs(user, src, "emagged ([locked ? "bolted" : "not bolted"])")
 		flick("door_spark", src)
 		sleep(6)
 		open()
 		emagged = 1
 		return 1
+
+/obj/machinery/door/cmag_act(mob/user)
+	if(!density)
+		return
+	flick("door_spark", src)
+	sleep(6) //The cmag doesn't automatically open doors. It inverts access, not provides it!
+	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+	return TRUE
+
+//Proc for inverting access on cmagged doors."canopen" should always return the OPPOSITE of the normal result.
+/obj/machinery/door/proc/cmag_switch(canopen, mob/living/user)
+	if(!canopen || locked || !hasPower())
+		if(density) //Windoors can still do their deny animation in unpowered environments, this bugs out if density isn't checked for
+			do_animate("deny")
+		if(hasPower() && sound_ready)
+			playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
+			soundcooldown()
+		return
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(!H.get_assignment(0, 0)) //Humans can't game inverted access by taking their ID off or using spare IDs.
+			if(!density)
+				return
+			do_animate("deny")
+			to_chat(H, span_warning("The airlock speaker chuckles: 'What's wrong, pal? Lost your ID? Nyuk nyuk nyuk!'"))
+			if(sound_ready)
+				playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
+				soundcooldown() //Thanks, mechs
+			return
+	if(density)
+		open()
+	else
+		close()
+
+/obj/machinery/door/proc/soundcooldown()
+	if(!sound_ready)
+		return
+	sound_ready = FALSE
+	addtimer(VARSET_CALLBACK(src, sound_ready, TRUE), sound_cooldown)
 
 /obj/machinery/door/update_icon()
 	if(density)
@@ -321,7 +445,7 @@
 
 /obj/machinery/door/proc/crush()
 	for(var/mob/living/L in get_turf(src))
-		L.visible_message("<span class='warning'>[src] closes on [L], crushing [L.p_them()]!</span>", "<span class='userdanger'>[src] closes on you and crushes you!</span>")
+		L.visible_message(span_warning("[src] closes on [L], crushing [L.p_them()]!"), span_userdanger("[src] closes on you and crushes you!"))
 		if(isalien(L))  //For xenos
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE * 1.5) //Xenos go into crit after aproximately the same amount of crushes as humans.
 			L.emote("roar")
@@ -329,7 +453,7 @@
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
 			if(L.stat == CONSCIOUS)
 				L.emote("scream")
-			L.Weaken(5)
+			L.Weaken(10 SECONDS)
 		else //for simple_animals & borgs
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
 		var/turf/location = get_turf(src)
@@ -348,7 +472,7 @@
 		close()
 
 /obj/machinery/door/proc/autoclose_in(wait)
-	addtimer(CALLBACK(src, .proc/autoclose), wait, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, PROC_REF(autoclose)), wait, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
 
 /obj/machinery/door/proc/update_freelook_sight()
 	if(!glass && GLOB.cameranet)

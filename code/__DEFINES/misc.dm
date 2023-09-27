@@ -76,6 +76,7 @@
 #define EVENT_LEVEL_MUNDANE 1
 #define EVENT_LEVEL_MODERATE 2
 #define EVENT_LEVEL_MAJOR 3
+#define EVENT_LEVEL_NONE 4
 
 #define JANUARY		1
 #define FEBRUARY	2
@@ -117,10 +118,22 @@
 #define in_range(source, user)		(get_dist(source, user) <= 1)
 
 #define RANGE_TURFS(RADIUS, CENTER) \
-  block( \
-	locate(max(CENTER.x-(RADIUS),1),		  max(CENTER.y-(RADIUS),1),		  CENTER.z), \
-	locate(min(CENTER.x+(RADIUS),world.maxx), min(CENTER.y+(RADIUS),world.maxy), CENTER.z) \
-  )
+	RECT_TURFS(RADIUS, RADIUS, CENTER)
+
+#define RECT_TURFS(H_RADIUS, V_RADIUS, CENTER) \
+	block( \
+	locate(max(CENTER.x-(H_RADIUS),1),          max(CENTER.y-(V_RADIUS),1),          CENTER.z), \
+	locate(min(CENTER.x+(H_RADIUS),world.maxx), min(CENTER.y+(V_RADIUS),world.maxy), CENTER.z) \
+	)
+
+/// Returns the turfs on the edge of a square with CENTER in the middle and with the given RADIUS. If used near the edge of the map, will still work fine.
+// order of the additions: top edge + bottom edge + left edge + right edge
+#define RANGE_EDGE_TURFS(RADIUS, CENTER)\
+	(CENTER.y + RADIUS < world.maxy ? block(locate(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS, world.maxy), CENTER.z), locate(min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS, world.maxy), CENTER.z)) : list()) +\
+	(CENTER.y - RADIUS > 1 ? block(locate(max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS, 1), CENTER.z), locate(min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS, 1), CENTER.z)) : list()) +\
+	(CENTER.x - RADIUS > 1 ? block(locate(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z), locate(max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS + 1, 1), CENTER.z)) : list()) +\
+	(CENTER.x + RADIUS < world.maxx ? block(locate(min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z), locate(min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS + 1, 1), CENTER.z)) : list())
+
 
 #define FOR_DVIEW(type, range, center, invis_flags) \
 	GLOB.dview_mob.loc = center; \
@@ -160,40 +173,40 @@
 #define TURF_WET_ICE	3
 #define TURF_WET_PERMAFROST 4
 
-#define APPEARANCE_UI_IGNORE_ALPHA			RESET_COLOR|RESET_TRANSFORM|NO_CLIENT_COLOR|RESET_ALPHA
-
 // Metal foam states
 // teehee no one will find these here
 #define MFOAM_ALUMINUM 	1
 #define MFOAM_IRON 		2
 
 //Human Overlays Indexes/////////
-#define BODY_LAYER				40
-#define MUTANTRACE_LAYER		39
-#define TAIL_UNDERLIMBS_LAYER	38	//Tail split-rendering.
-#define LIMBS_LAYER				37
-#define INTORGAN_LAYER			36
-#define MARKINGS_LAYER			35
-#define UNDERWEAR_LAYER			34
-#define MUTATIONS_LAYER			33
-#define H_DAMAGE_LAYER			32
-#define UNIFORM_LAYER			31
-#define ID_LAYER				30
-#define SHOES_LAYER				29
-#define GLOVES_LAYER			28
-#define EARS_LAYER				27
-#define SUIT_LAYER				26
-#define BELT_LAYER				25	//Possible make this an overlay of somethign required to wear a belt?
-#define NECK_LAYER				24
-#define SUIT_STORE_LAYER		23
-#define BACK_LAYER				22
-#define HEAD_ACCESSORY_LAYER	21
-#define FHAIR_LAYER				20
-#define GLASSES_LAYER			19
-#define HAIR_LAYER				18	//TODO: make part of head layer?
-#define HEAD_ACC_OVER_LAYER		17	//Select-layer rendering.
-#define FHAIR_OVER_LAYER		16	//Select-layer rendering.
-#define GLASSES_OVER_LAYER		15	//Select-layer rendering.
+#define BODY_LAYER				42
+#define MUTANTRACE_LAYER		41
+#define WING_UNDERLIMBS_LAYER	40
+#define TAIL_UNDERLIMBS_LAYER	39	//Tail split-rendering.
+#define LIMBS_LAYER				38
+#define INTORGAN_LAYER			37
+#define MARKINGS_LAYER			36
+#define UNDERWEAR_LAYER			35
+#define MUTATIONS_LAYER			34
+#define H_DAMAGE_LAYER			33
+#define UNIFORM_LAYER			32
+#define ID_LAYER				31
+#define SHOES_LAYER				30
+#define GLOVES_LAYER			29
+#define EARS_LAYER				28
+#define SUIT_LAYER				27
+#define BELT_LAYER				26	//Possible make this an overlay of somethign required to wear a belt?
+#define NECK_LAYER				25
+#define SUIT_STORE_LAYER		24
+#define BACK_LAYER				23
+#define HEAD_ACCESSORY_LAYER	22
+#define FHAIR_LAYER				21
+#define GLASSES_LAYER			20
+#define HAIR_LAYER				19	//TODO: make part of head layer?
+#define HEAD_ACC_OVER_LAYER		18	//Select-layer rendering.
+#define FHAIR_OVER_LAYER		17	//Select-layer rendering.
+#define GLASSES_OVER_LAYER		16	//Select-layer rendering.
+#define WING_LAYER				15
 #define TAIL_LAYER				14	//bs12 specific. this hack is probably gonna come back to haunt me
 #define FACEMASK_LAYER			13
 #define OVER_MASK_LAYER			12	//Select-layer rendering.
@@ -208,7 +221,7 @@
 #define FIRE_LAYER				3	//If you're on fire
 #define MISC_LAYER				2
 #define FROZEN_LAYER			1
-#define TOTAL_LAYERS 			40
+#define TOTAL_LAYERS 			42
 
 ///Access Region Codes///
 #define REGION_ALL			0
@@ -319,10 +332,10 @@
 #define TRIGGER_GUARD_NORMAL 1
 
 // Macro to get the current elapsed round time, rather than total world runtime
-#define ROUND_TIME (SSticker.round_start_time ? (world.time - SSticker.round_start_time) : 0)
+#define ROUND_TIME (SSticker.time_game_started ? (world.time - SSticker.time_game_started) : 0)
 
 // Macro that returns true if it's too early in a round to freely ghost out
-#define TOO_EARLY_TO_GHOST (config && (ROUND_TIME < (config.round_abandon_penalty_period)))
+#define TOO_EARLY_TO_GHOST (config && (ROUND_TIME < (CONFIG_GET(number/round_abandon_penalty_period))))
 
 // Used by radios to indicate that they have sent a message via something other than subspace
 #define RADIO_CONNECTION_FAIL 0
@@ -370,13 +383,8 @@
 //for obj explosion block calculation
 #define EXPLOSION_BLOCK_PROC -1
 
-// Defines for investigate to prevent typos and for styling
-#define INVESTIGATE_LABEL "labels"
-
-#define INVESTIGATE_BOMB "bombs"
-
 // The SQL version required by this version of the code
-#define SQL_VERSION 25
+#define SQL_VERSION 30
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -423,6 +431,8 @@
 #define PLACE_SAME_Z "same"
 #define PLACE_SPACE_RUIN "space"
 #define PLACE_LAVA_RUIN "lavaland"
+
+#define MAX_RUIN_SIZE_VALUE 170 // Which ruin should be considered large and create a separate level of space for it.
 
 //Cleaning tool strength
 // 1 is also a valid cleaning strength but completely unused so left undefined
@@ -501,5 +511,15 @@
 /// Send to the admin Discord webhook
 #define DISCORD_WEBHOOK_ADMIN "ADMIN"
 
+/// Send to the requests Discord webhook
+#define DISCORD_WEBHOOK_REQUESTS "REQUESTS"
+
 /// Send to the mentor Discord webhook
 #define DISCORD_WEBHOOK_MENTOR "MENTOR"
+
+#define TTS_SEED_DEFAULT_FEMALE "tyrande"
+#define TTS_SEED_DEFAULT_MALE "arthas"
+#define TTS_SEED_ANNOUNCER "anubarak"
+
+/// This isnt in client_defines due to scoping issues
+#define DEFAULT_CLIENT_VIEWSIZE "17x15"

@@ -4,6 +4,7 @@
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cleaner"
 	item_state = "cleaner"
+	belt_icon = "cleaner"
 	flags = NOBLUDGEON
 	container_type = OPENCONTAINER
 	slot_flags = SLOT_BELT
@@ -43,7 +44,7 @@
 		return
 
 	var/contents_log = reagents.reagent_list.Join(", ")
-	INVOKE_ASYNC(src, .proc/spray, A)
+	INVOKE_ASYNC(src, PROC_REF(spray), A)
 
 	playsound(loc, 'sound/effects/spray2.ogg', 50, 1, -6)
 	user.changeNext_move(CLICK_CD_RANGE*2)
@@ -71,9 +72,9 @@
 	D.create_reagents(amount_per_transfer_from_this)
 	reagents.trans_to(D, amount_per_transfer_from_this, 1/spray_currentrange)
 	D.icon += mix_color_from_reagents(D.reagents.reagent_list)
-
+	var/turf/target_turf = get_turf(A)
 	for(var/i in 1 to spray_currentrange)
-		step_towards(D, A)
+		step_towards(D, target_turf)
 		D.reagents.reaction(get_turf(D))
 		for(var/atom/T in get_turf(D))
 			D.reagents.reaction(T)
@@ -91,20 +92,6 @@
 	. = ..()
 	if(get_dist(user, src) && user == loc)
 		. += "<span class='notice'>[round(reagents.total_volume)] units left.</span>"
-
-/obj/item/reagent_containers/spray/verb/empty()
-
-	set name = "Empty Spray Bottle"
-	set category = "Object"
-	set src in usr
-	if(usr.stat || !usr.canmove || usr.restrained())
-		return
-	if(alert(usr, "Are you sure you want to empty that?", "Empty Bottle:", "Yes", "No") != "Yes")
-		return
-	if(isturf(usr.loc) && loc == usr)
-		to_chat(usr, "<span class='notice'>You empty [src] onto the floor.</span>")
-		reagents.reaction(usr.loc)
-		reagents.clear_reagents()
 
 //space cleaner
 /obj/item/reagent_containers/spray/cleaner
@@ -145,6 +132,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "pepperspray"
 	item_state = "pepperspray"
+	belt_icon = "pepperspray"
 	volume = 40
 	spray_maxrange = 4
 	amount_per_transfer_from_this = 5
@@ -168,7 +156,7 @@
 /obj/item/reagent_containers/spray/chemsprayer
 	name = "chem sprayer"
 	desc = "A utility used to spray large amounts of reagents in a given area."
-	icon = 'icons/obj/guns/projectile.dmi'
+	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "chemsprayer"
 	item_state = "chemsprayer"
 	throwforce = 0

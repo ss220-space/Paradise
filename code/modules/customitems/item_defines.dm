@@ -66,7 +66,7 @@
 
 	else
 		user.visible_message("<span class='notice'>[user] begins to apply a [tattoo_name] [target] with the [src].</span>", "<span class='notice'>You begin to tattoo [target] with the [src]!</span>")
-		if(!do_after(user, 30 * toolspeed, target = M))
+		if(!do_after(user, 30 * toolspeed * gettoolspeedmod(user), target = M))
 			return
 		user.visible_message("<span class='notice'>[user] finishes the [tattoo_name] on [target].</span>", "<span class='notice'>You finish the [tattoo_name].</span>")
 
@@ -241,7 +241,7 @@
 
 /obj/item/fluff/dogwhistle/attack_self(mob/user)
 	user.visible_message("<span class='notice'>[user] blows on the whistle, but no sound comes out.</span>",  "<span class='notice'>You blow on the whistle, but don't hear anything.</span>")
-	addtimer(CALLBACK(src, .proc/summon_sax, user), 20)
+	addtimer(CALLBACK(src, PROC_REF(summon_sax), user), 20)
 
 /obj/item/fluff/dogwhistle/proc/summon_sax(mob/user)
 	var/mob/living/simple_animal/pet/dog/corgi/C = new /mob/living/simple_animal/pet/dog/corgi(get_turf(user))
@@ -252,7 +252,7 @@
 	C.place_on_head(D)
 	C.visible_message("<span class='notice'>[C] suddenly winks into existence at [user]'s feet!</span>")
 	to_chat(user, "<span class='danger'>[src] crumbles to dust in your hands!</span>")
-	user.drop_item()
+	user.temporarily_remove_item_from_inventory(src)
 	qdel(src)
 
 /obj/item/storage/toolbox/fluff/lunchbox //godoforeos: Jason Conrad
@@ -267,8 +267,7 @@
 	max_combined_w_class = 9
 	storage_slots = 3
 
-/obj/item/storage/toolbox/fluff/lunchbox/New()
-	..()
+/obj/item/storage/toolbox/fluff/lunchbox/populate_contents()
 	new /obj/item/reagent_containers/food/snacks/sandwich(src)
 	new /obj/item/reagent_containers/food/snacks/chips(src)
 	new /obj/item/reagent_containers/food/drinks/cans/cola(src)
@@ -346,12 +345,12 @@
 		M.icon = 'icons/obj/custom_items.dmi'
 		M.icon_state = "gas_tariq"
 		M.sprite_sheets = list(
-			"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
-			"Monkey" = 'icons/mob/species/monkey/mask.dmi',
-			"Farwa" = 'icons/mob/species/monkey/mask.dmi',
-			"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
-			"Neara" = 'icons/mob/species/monkey/mask.dmi',
-			"Stok" = 'icons/mob/species/monkey/mask.dmi'
+			"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+			"Monkey" = 'icons/mob/clothing/species/monkey/mask.dmi',
+			"Farwa" = 'icons/mob/clothing/species/monkey/mask.dmi',
+			"Wolpin" = 'icons/mob/clothing/species/monkey/mask.dmi',
+			"Neara" = 'icons/mob/clothing/species/monkey/mask.dmi',
+			"Stok" = 'icons/mob/clothing/species/monkey/mask.dmi'
 			)
 		user.update_icons()
 		qdel(src)
@@ -662,7 +661,7 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.head == src)
-			H.Slur(3) //always slur
+			H.Slur(6 SECONDS) //always slur
 
 /obj/item/clothing/head/beret/fluff/linda //Epic_Charger: Linda Clark
 	name = "Green beret"
@@ -686,7 +685,7 @@
 	toggle_cooldown = 20
 	toggle_sound = 'sound/items/change_jaws.ogg'
 	flags = BLOCKHAIR
-	flags_inv = HIDEEYES|HIDEMASK|HIDEFACE|HIDEEARS
+	flags_inv = HIDEGLASSES|HIDEMASK|HIDENAME|HIDEHEADSETS
 	var/state = "Soldier Up"
 
 /obj/item/clothing/head/helmet/fluff/merchant_sallet/attack_self(mob/user)
@@ -699,8 +698,8 @@
 			)
 		options["Soldier Down"] = list(
 			"icon_state"	= "merchant_sallet_visor",
-			"visor_flags"	= HIDEEYES,
-			"mask_flags"	= HIDEMASK|HIDEFACE
+			"visor_flags"	= HIDEGLASSES,
+			"mask_flags"	= HIDEMASK|HIDENAME
 			)
 		options["Technician Up"] = list(
 			"icon_state"	= "merchant_sallet_bevor",
@@ -709,8 +708,8 @@
 			)
 		options["Technician Down"] = list(
 			"icon_state"	= "merchant_sallet",
-			"visor_flags"	= HIDEEYES,
-			"mask_flags"	= HIDEMASK|HIDEFACE
+			"visor_flags"	= HIDEGLASSES,
+			"mask_flags"	= HIDEMASK|HIDENAME
 			)
 
 		var/choice = input(user, "How would you like to adjust the helmet?", "Adjust Helmet") as null|anything in options
@@ -947,12 +946,12 @@
 	icon_state = "k3_webbing"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 	ignore_suitadjust = 0
 	actions_types = list(/datum/action/item_action/toggle)
@@ -995,7 +994,7 @@
 	icon_state = "xantholne_winterhood"
 	body_parts_covered = HEAD
 	flags = BLOCKHAIR
-	flags_inv = HIDEEARS
+	flags_inv = HIDEHEADSETS
 
 /obj/item/clothing/suit/hooded/hoodie/fluff/xydonus //Xydonus: Rsik Ugsharki Atan | Based off of the bomber jacket, but with a hood slapped on (for allowed suit storage)
 	name = "custom fit bomber jacket"
@@ -1015,7 +1014,7 @@
 	icon_state = "xydonus_bomberhood"
 	body_parts_covered = HEAD
 	flags = BLOCKHAIR
-	flags_inv = HIDEEARS
+	flags_inv = HIDEHEADSETS
 
 /obj/item/clothing/suit/fluff/pineapple //Pineapple Salad: Dan Jello
 	name = "red trench coat"
@@ -1060,7 +1059,7 @@
 	icon_state = "shesicoat_hood2"
 	body_parts_covered = HEAD
 	flags = BLOCKHAIR
-	flags_inv = HIDEEARS
+	flags_inv = HIDEHEADSETS
 
 /obj/item/clothing/suit/jacket/dtx //AffectedArc07: DTX
 	name = "telecommunications bomber jacket"
@@ -1296,8 +1295,8 @@
 	item_state = "superior_mask"
 	body_parts_covered = HEAD
 	flags = BLOCKHAIR
-	flags_inv = HIDEFACE
-
+	flags_inv = HIDENAME
+	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 
 /obj/item/clothing/shoes/fluff/arachno_boots
 	name = "Arachno-Man boots"
@@ -1414,14 +1413,14 @@
 	icon_state = "greeyfluff"
 	item_state = "greeyfluff"
 
-/obj/item/clothing/head/wizard/fake/fluff/dreamy //phantasmicdream : Dreamy Rockwall
+/obj/item/clothing/head/wizard/fluff/dreamy //phantasmicdream : Dreamy Rockwall
 	name = "strange witch hat"
 	desc = "A shapeshifting witch hat. A strange aura comes from it..."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "classic_witch"
 	item_state = "classic_witch"
 
-/obj/item/clothing/head/wizard/fake/fluff/dreamy/attack_self(mob/user)
+/obj/item/clothing/head/wizard/fluff/dreamy/attack_self(mob/user)
 	var/list/options = list()
 	options["Classic"] = "classic_witch"
 	options["Good"] = "good_witch"
@@ -1523,7 +1522,10 @@
 	pod.icon_state = "pod_dece"
 	pod.name = "sleek spacepod"
 	pod.desc = "A modified varient of a space pod."
+	pod.pod_paint_effect = null
 	pod.can_paint = FALSE
+	pod.has_paint = FALSE
+	pod.update_icons()
 	used = 1
 	qdel(src)
 
@@ -1614,7 +1616,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/uniform.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/uniform.dmi')
 	icon_state = "kiaoutfit"
 	item_state = "kiaoutfit"
 	item_color = "kiaoutfit"
@@ -1637,7 +1639,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/mask.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/mask.dmi')
 	icon_state = "kiamask"
 	item_state = "kiamask"
 	item_color = "kiamask"
@@ -1670,7 +1672,7 @@
 	desc = "A simple black dress with a white undercoat, tied with a blue ribbon."
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/uniform.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/uniform.dmi')
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "kikeridress"
 	item_state = "kikeridress"

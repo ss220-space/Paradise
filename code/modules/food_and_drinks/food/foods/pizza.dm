@@ -118,6 +118,81 @@
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 2, "pasta" = 1)
 	foodtype = GRAIN | DAIRY
 
+/obj/item/reagent_containers/food/snacks/sliceable/pizza/seafood
+	name = "seafood pizza"
+	desc = "Gifts of cosmic lakes, cheese and a little sourness."
+	icon_state = "fishpizza"
+	slice_path = /obj/item/reagent_containers/food/snacks/seapizzaslice
+	list_reagents = list("nutriment" = 30, "vitamin" = 15, "protein" = 15)
+	filling_color = "#ffe45d"
+	tastes = list("crust" = 1, "garlic" = 1, "cheese" = 2, "seafood" = 1, "sourness" = 1)
+	foodtype = MEAT | DAIRY
+
+/obj/item/reagent_containers/food/snacks/seapizzaslice
+	name = "seafood pizza slice"
+	desc = "A delicious slice of pizza topped with seafood & cheese..."
+	icon = 'icons/obj/food/pizza.dmi'
+	icon_state = "fishpizzaslice"
+	filling_color = "#ffe45d"
+	tastes = list("crust" = 1, "garlic" = 1, "cheese" = 2, "seafood" = 1, "sourness" = 1)
+	foodtype = MEAT | DAIRY
+
+/obj/item/reagent_containers/food/snacks/sliceable/pizza/bacon
+	name = "bacon and mushrooms pizza"
+	desc = "A classic pizza, one of the ingredients was replaced with fried bacon"
+	icon_state = "baconpizza"
+	slice_path = /obj/item/reagent_containers/food/snacks/baconpizzaslice
+	list_reagents = list("nutriment" = 40, "vitamin" = 5, "protein" = 15)
+	filling_color = "#ffe45d"
+	tastes = list("crust" = 1, "mushroom" = 1, "cheese" = 2, "bacon" = 1)
+	foodtype = MEAT | DAIRY
+
+/obj/item/reagent_containers/food/snacks/baconpizzaslice
+	name = "bacon and mushrooms pizza slice"
+	desc = "A delicious slice of pizza topped with bacon & mushrooms..."
+	icon = 'icons/obj/food/pizza.dmi'
+	icon_state = "baconpizzaslice"
+	filling_color = "#ffe45d"
+	tastes = list("crust" = 1, "mushroom" = 1, "cheese" = 2, "bacon" = 1)
+	foodtype = MEAT | DAIRY
+
+/obj/item/reagent_containers/food/snacks/sliceable/pizza/tajaroni
+	name = "tajaroni pizza"
+	desc = "Spicy tayaroni sausages covered with cheese, and olives.. Which of these is more terrible has yet to be decided."
+	icon_state = "tajarpizza"
+	slice_path = /obj/item/reagent_containers/food/snacks/tajpizzaslice
+	list_reagents = list("nutriment" = 30, "vitamin" = 15, "protein" = 15)
+	filling_color = "#ffe45d"
+	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 2, "tajaroni" = 1, "olives" = 1)
+	foodtype = MEAT | DAIRY
+
+/obj/item/reagent_containers/food/snacks/tajpizzaslice
+	name = "tajaroni pizza slice"
+	desc = "A delicious slice of pizza topped with tajaroni & olives..."
+	icon = 'icons/obj/food/pizza.dmi'
+	icon_state = "tajarpizzaslice"
+	filling_color = "#ffe45d"
+	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 2, "tajaroni" = 1, "olives" = 1)
+	foodtype = MEAT | DAIRY
+
+/obj/item/reagent_containers/food/snacks/sliceable/pizza/diablo
+	name = "diablo pizza"
+	desc = "Incredibly burning pizza with meat pieces, some say it can send you to the redspace."
+	icon_state = "diablopizza"
+	slice_path = /obj/item/reagent_containers/food/snacks/diablopizzaslice
+	list_reagents = list("nutriment" = 30, "vitamin" = 15, "protein" = 15, "capsaicin" = 15)
+	filling_color = "#ffe45d"
+	tastes = list("crust" = 1, "hotness" = 1, "cheese" = 2, "meat" = 1, "spice" = 1)
+	foodtype = MEAT | DAIRY
+
+/obj/item/reagent_containers/food/snacks/diablopizzaslice
+	name = "diablo pizza slice"
+	desc = "A delicious slice of pizza topped with diablo sauce & meat..."
+	icon = 'icons/obj/food/pizza.dmi'
+	icon_state = "diablopizzaslice"
+	filling_color = "#ffe45d"
+	tastes = list("crust" = 1, "hotness" = 1, "cheese" = 2, "meat" = 1, "spice" = 1)
+	foodtype = MEAT | DAIRY
 
 //////////////////////
 //		Boxes		//
@@ -182,7 +257,8 @@
 
 /obj/item/pizzabox/attack_hand(mob/user)
 	if(open && pizza)
-		user.put_in_hands(pizza)
+		pizza.forceMove_turf()
+		user.put_in_hands(pizza, ignore_anim = FALSE)
 		to_chat(user, "<span class='warning'>You take the [pizza] out of the [src].</span>")
 		pizza = null
 		update_icon()
@@ -194,7 +270,8 @@
 			return
 		var/obj/item/pizzabox/box = boxes[boxes.len]
 		boxes -= box
-		user.put_in_hands(box)
+		box.forceMove_turf()
+		user.put_in_hands(box, ignore_anim = FALSE)
 		to_chat(user, "<span class='warning'>You remove the topmost [src] from your hand.</span>")
 		box.update_icon()
 		update_icon()
@@ -219,8 +296,7 @@
 			for(var/obj/item/pizzabox/i in box.boxes)
 				boxestoadd += i
 			if((boxes.len+1) + boxestoadd.len <= 5)
-				user.drop_item()
-				box.loc = src
+				user.drop_transfer_item_to_loc(box, src)
 				box.boxes = list() // Clear the box boxes so we don't have boxes inside boxes. - Xzibit
 				boxes.Add(boxestoadd)
 				box.update_icon()
@@ -234,8 +310,7 @@
 
 	if(istype(I, /obj/item/reagent_containers/food/snacks/sliceable/pizza/)) // Long ass fucking object name
 		if(open)
-			user.drop_item()
-			I.loc = src
+			user.drop_transfer_item_to_loc(I, src)
 			pizza = I
 
 			update_icon()
@@ -265,7 +340,7 @@
 /obj/item/pizzabox/vegetable/New()
 	..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/vegetablepizza(src)
-	boxtag = "gourmet vegatable"
+	boxtag = "gourmet vegetable"
 
 /obj/item/pizzabox/mushroom/New()
 	..()

@@ -16,7 +16,7 @@
 	var/turf_type = null
 	var/mineralType = null
 
-/obj/item/stack/tile/New(loc, amount)
+/obj/item/stack/tile/New(loc, new_amount, merge = TRUE)
 	..()
 	pixel_x = rand(-3, 3)
 	pixel_y = rand(-3, 3) //randomize a little
@@ -62,6 +62,48 @@
 	origin_tech = "biotech=1"
 	turf_type = /turf/simulated/floor/wood
 	resistance_flags = FLAMMABLE
+
+/obj/item/stack/tile/wood/oak
+	name = "oak wood floor tiles"
+	singular_name = "oak wood floor tile"
+	icon_state = "tile-wood-oak"
+	turf_type = /turf/simulated/floor/wood/oak
+
+/obj/item/stack/tile/wood/birch
+	name = "birch wood floor tiles"
+	singular_name = "birch wood floor tile"
+	icon_state = "tile-wood-birch"
+	turf_type = /turf/simulated/floor/wood/birch
+
+/obj/item/stack/tile/wood/cherry
+	name = "cherry wood floor tiles"
+	singular_name = "cherry wood floor tile"
+	icon_state = "tile-wood-cherry"
+	turf_type = /turf/simulated/floor/wood/cherry
+
+/obj/item/stack/tile/wood/fancy/oak
+	name = "fancy oak wood floor tiles"
+	singular_name = "fancy oak wood floor tile"
+	icon_state = "tile-wood-fancy-oak"
+	turf_type = /turf/simulated/floor/wood/fancy/oak
+
+/obj/item/stack/tile/wood/fancy/birch
+	name = "fancy birch wood floor tiles"
+	singular_name = "fancy birch wood floor tile"
+	icon_state = "tile-wood-fancy-birch"
+	turf_type = /turf/simulated/floor/wood/fancy/birch
+
+/obj/item/stack/tile/wood/fancy/cherry
+	name = "fancy cherry wood floor tiles"
+	singular_name = "fancy cherry wood floor tile"
+	icon_state = "tile-wood-fancy-cherry"
+	turf_type = /turf/simulated/floor/wood/fancy/cherry
+
+/obj/item/stack/tile/wood/fancy/light
+	name = "fancy light oak wood floor tiles"
+	singular_name = "fancy light oak wood floor tile"
+	icon_state = "tile-wood-fancy-light"
+	turf_type = /turf/simulated/floor/wood/fancy/light
 
 /obj/item/stack/tile/wood/cyborg
 	is_cyborg = 1
@@ -147,7 +189,7 @@
 	icon_state = "tile-carpet-royalblack"
 	turf_type = /turf/simulated/floor/carpet/royalblack
 	fancy_table_type = /obj/structure/table/wood/fancy/royalblack
-	
+
 /obj/item/stack/tile/carpet/royalblack/ten
 	amount = 10
 
@@ -258,3 +300,22 @@
 
 /obj/item/stack/tile/arcade_carpet/loaded
 	amount = 20
+
+//Cult tiles
+/obj/item/stack/tile/clockwork
+	name = "clockwork floor tile"
+	singular_name = "clockwork floor tile"
+	desc = "Tightly-pressed brass tiles. They emit minute vibration in your hand."
+	icon_state = "tile_goldfancy"
+	turf_type = /turf/simulated/floor/clockwork
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
+	resistance_flags = FIRE_PROOF
+
+/obj/item/stack/tile/harsie
+	name = "engraved floor tile"
+	singular_name = "engraved floor tile"
+	desc = "dark tiles. You dont feel good about this."
+	icon_state = "tile_basalt"
+	turf_type = /turf/simulated/floor/engine/cult
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
+	resistance_flags = FIRE_PROOF

@@ -1,6 +1,7 @@
 /mob/living/captive_brain
 	name = "host brain"
 	real_name = "host brain"
+	tts_seed = "Gman"
 
 /mob/living/captive_brain/say(message)
 	if(client)
@@ -14,7 +15,7 @@
 		message = trim(sanitize(copytext_char(message, 1, MAX_MESSAGE_LEN)))
 		if(!message)
 			return
-		log_say(message, src)
+		add_say_logs(src, message)
 		if(stat == DEAD)
 			return say_dead(message)
 		var/mob/living/simple_animal/borer/B = loc
@@ -42,7 +43,7 @@
 	to_chat(B.host, "<span class='danger'>You feel the captive mind of [src] begin to resist your control.</span>")
 
 	var/delay = (rand(350,450) + B.host.getBrainLoss())
-	addtimer(CALLBACK(src, .proc/return_control, B), delay)
+	addtimer(CALLBACK(src, PROC_REF(return_control), B), delay)
 
 
 /mob/living/captive_brain/proc/return_control(mob/living/simple_animal/borer/B)
@@ -61,6 +62,7 @@
 	desc = "A small, quivering sluglike creature."
 	speak_emote = list("chirrups")
 	emote_hear = list("chirrups")
+	tts_seed = "Gman_e2"
 	response_help  = "pokes"
 	response_disarm = "prods the"
 	response_harm   = "stomps on the"
@@ -173,6 +175,10 @@
 		to_chat(src, "You cannot do that in your current state.")
 		return
 
+	if(host.stat == DEAD)
+		to_chat(src, "<span class='warning'>Мозг носителя не способен воспринимать вас сейчас!</span>")
+		return
+
 	var/input = stripped_input(src, "Please enter a message to tell your host.", "Borer", "")
 	if(!input)
 		return
@@ -181,7 +187,7 @@
 		var/say_string = (docile) ? "slurs" :"states"
 		if(host)
 			to_chat(host, "<span class='changeling'><i>[truename] [say_string]:</i> [input]</span>")
-			log_say("(BORER to [key_name(host)]) [input]", src)
+			add_say_logs(src, input, host, "BORER")
 			for(var/M in GLOB.dead_mob_list)
 				if(isobserver(M))
 					to_chat(M, "<span class='changeling'><i>Borer Communication from <b>[truename]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
@@ -206,6 +212,8 @@
 	set category = "Borer"
 	set desc = "Communicate mentally with your borer."
 
+	if(src.stat == DEAD) // This shouldn't appear if host is not alive, but double-check
+		return
 
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
 	if(!B)
@@ -216,7 +224,7 @@
 		return
 
 	to_chat(B, "<span class='changeling'><i>[src] says:</i> [input]</span>")
-	log_say("(BORER to [key_name(B)]) [input]", src)
+	add_say_logs(src, input, B, "BORER")
 
 	for(var/M in GLOB.dead_mob_list)
 		if(isobserver(M))
@@ -228,6 +236,9 @@
 	set category = "Borer"
 	set desc = "Communicate mentally with the trapped mind of your host."
 
+	if(src.stat == DEAD)
+		to_chat(src, "<span class='warning'>Мозг жертвы не способен воспринимать вас в этом состоянии!</span>")
+		return
 
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
 	if(!B || !B.host_brain)
@@ -238,7 +249,7 @@
 		return
 
 	to_chat(CB, "<span class='changeling'><i>[B.truename] says:</i> [input]</span>")
-	log_say("(BORER to [key_name(CB)]) [input]", B)
+	add_say_logs(B, input, CB, "BORER")
 
 	for(var/M in GLOB.dead_mob_list)
 		if(isobserver(M))
@@ -443,7 +454,7 @@
 		to_chat(src, "<span class='userdanger'>You squirt a measure of [R.name] from your reservoirs into [host]'s bloodstream.</span>")
 		host.reagents.add_reagent(C.chemname, C.quantity)
 		chemicals -= C.chemuse
-		log_game("[key_name(src)] has injected [R.name] into their host [host]/([host.ckey])")
+		add_attack_logs(src, host, "injected [R.name]")
 
 		// This is used because we use a static set of datums to determine what chems are available,
 		// instead of a table or something. Thus, when we instance it, we can safely delete it
@@ -528,7 +539,7 @@
 
 	to_chat(src, "<span class='warning'>You focus your psychic lance on [M] and freeze [M.p_their()] limbs with a wave of terrible dread.</span>")
 	to_chat(M, "<span class='warning'>You feel a creeping, horrible sense of dread come over you, freezing your limbs and setting your heart racing.</span>")
-	M.Weaken(3)
+	M.Weaken(6 SECONDS)
 
 	used_dominate = world.time
 	attempting_to_dominate = FALSE
@@ -562,7 +573,7 @@
 
 	leaving = TRUE
 
-	addtimer(CALLBACK(src, .proc/let_go), 200)
+	addtimer(CALLBACK(src, PROC_REF(let_go)), 200)
 
 /mob/living/simple_animal/borer/proc/let_go()
 
@@ -637,7 +648,7 @@
 	bonding = TRUE
 
 	var/delay = 300+(host.getBrainLoss()*5)
-	addtimer(CALLBACK(src, .proc/assume_control), delay)
+	addtimer(CALLBACK(src, PROC_REF(assume_control)), delay)
 
 /mob/living/simple_animal/borer/proc/assume_control()
 	if(!host || !src || controlling)
@@ -755,7 +766,7 @@
 		return
 
 	if(B.chemicals >= 100)
-		to_chat(src, "<span class='danger'>Your host twitches and quivers as you rapdly excrete several larvae from your sluglike body.</span>")
+		to_chat(src, "<span class='danger'>Your host twitches and quivers as you rapidly excrete several larvae from your sluglike body.</span>")
 		visible_message("<span class='danger'>[src] heaves violently, expelling a rush of vomit and a wriggling, sluglike creature!</span>")
 		B.chemicals -= 100
 		var/turf/T = get_turf(src)

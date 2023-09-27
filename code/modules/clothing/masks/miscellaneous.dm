@@ -13,12 +13,12 @@
 	var/locked = FALSE //Indicates if a mask is locked, should always start as 0.
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/mask.dmi',
-		"Monkey" = 'icons/mob/species/monkey/mask.dmi',
-		"Farwa" = 'icons/mob/species/monkey/mask.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
-		"Neara" = 'icons/mob/species/monkey/mask.dmi',
-		"Stok" = 'icons/mob/species/monkey/mask.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/mask.dmi'
 	)
 
 // Clumsy folks can't take the mask off themselves.
@@ -96,16 +96,19 @@
 	flags = DROPDEL
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/mask.dmi',
-		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi',
-		"Monkey" = 'icons/mob/species/monkey/mask.dmi',
-		"Farwa" = 'icons/mob/species/monkey/mask.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
-		"Neara" = 'icons/mob/species/monkey/mask.dmi',
-		"Stok" = 'icons/mob/species/monkey/mask.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Draconid" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/mask.dmi'
 		)
 
 /obj/item/clothing/mask/muzzle/tapegag/dropped(mob/user)
@@ -129,17 +132,20 @@
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/mask.dmi',
-		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi',
-		"Drask" = 'icons/mob/species/drask/mask.dmi',
-		"Monkey" = 'icons/mob/species/monkey/mask.dmi',
-		"Farwa" = 'icons/mob/species/monkey/mask.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
-		"Neara" = 'icons/mob/species/monkey/mask.dmi',
-		"Stok" = 'icons/mob/species/monkey/mask.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Draconid" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/mask.dmi'
 		)
 
 /obj/item/clothing/mask/muzzle/safety/shock
@@ -154,11 +160,10 @@
 		if(istype(trigger, /obj/item/assembly/signaler) || istype(trigger, /obj/item/assembly/voice))
 			to_chat(user, "<span class='notice'>Something is already attached to [src].</span>")
 			return FALSE
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(W, src))
 			to_chat(user, "<span class='warning'>You are unable to insert [W] into [src].</span>")
 			return FALSE
 		trigger = W
-		trigger.forceMove(src)
 		trigger.master = src
 		trigger.holder = src
 		AddComponent(/datum/component/proximity_monitor)
@@ -193,15 +198,15 @@
 
 /obj/item/clothing/mask/muzzle/safety/shock/proc/process_activation(var/obj/D, var/normal = 1, var/special = 1)
 	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
-	var/mob/M = can_shock(loc)
-	if(M)
-		to_chat(M, "<span class='danger'>You feel a sharp shock!</span>")
-		do_sparks(3, 1, M)
+	var/mob/living/L = can_shock(loc)
+	if(!L)
+		return
+	to_chat(L, "<span class='danger'>You feel a sharp shock!</span>")
+	do_sparks(3, 1, L)
 
-		M.Weaken(5)
-		M.Stuttering(1)
-		M.Jitter(20)
-	return
+	L.Weaken(10 SECONDS)
+	L.Stuttering(2 SECONDS)
+	L.Jitter(40 SECONDS)
 
 /obj/item/clothing/mask/muzzle/safety/shock/HasProximity(atom/movable/AM)
 	if(trigger)
@@ -231,17 +236,20 @@
 	actions_types = list(/datum/action/item_action/adjust)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/mask.dmi',
-		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi',
-		"Drask" = 'icons/mob/species/drask/mask.dmi',
-		"Monkey" = 'icons/mob/species/monkey/mask.dmi',
-		"Farwa" = 'icons/mob/species/monkey/mask.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
-		"Neara" = 'icons/mob/species/monkey/mask.dmi',
-		"Stok" = 'icons/mob/species/monkey/mask.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Draconid" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/mask.dmi'
 		)
 
 
@@ -252,22 +260,25 @@
 	name = "completely real moustache"
 	desc = "moustache is totally real."
 	icon_state = "fake-moustache"
-	flags_inv = HIDEFACE
+	flags_inv = HIDENAME
 	actions_types = list(/datum/action/item_action/pontificate)
 	dog_fashion = /datum/dog_fashion/head/not_ian
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/mask.dmi',
-		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi',
-		"Drask" = 'icons/mob/species/drask/mask.dmi',
-		"Monkey" = 'icons/mob/species/monkey/mask.dmi',
-		"Farwa" = 'icons/mob/species/monkey/mask.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
-		"Neara" = 'icons/mob/species/monkey/mask.dmi',
-		"Stok" = 'icons/mob/species/monkey/mask.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Draconid" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/mask.dmi'
 		)
 
 /obj/item/clothing/mask/fakemoustache/attack_self(mob/user)
@@ -310,6 +321,9 @@
 	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0.90
 
+/* --------------------------------
+ * Хрен знает зачем у нас тут шарф у которого даже спрайта нет. И который ещё и маска...
+ * Я пожалуй оставлю, но закоменчу этот код.
 /obj/item/clothing/mask/ninjascarf
 	name = "ninja scarf"
 	desc = "A stealthy, dark scarf."
@@ -318,7 +332,7 @@
 	flags_cover = MASKCOVERSMOUTH
 	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0.90
-
+*/
 
 /obj/item/clothing/mask/pig
 	name = "pig mask"
@@ -326,7 +340,8 @@
 	icon_state = "pig"
 	item_state = "pig"
 	flags = BLOCKHAIR
-	flags_inv = HIDEFACE
+	flags_inv = HIDENAME
+	flags_cover = MASKCOVERSMOUTH|MASKCOVERSEYES
 	w_class = WEIGHT_CLASS_SMALL
 
 
@@ -336,30 +351,31 @@
 	icon_state = "horsehead"
 	item_state = "horsehead"
 	flags = BLOCKHAIR
-	flags_inv = HIDEFACE
+	flags_inv = HIDENAME
 	w_class = WEIGHT_CLASS_SMALL
-	var/voicechange = 0
+	var/voicechange = FALSE
 	var/temporaryname = " the Horse"
 	var/originalname = ""
 
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/mask.dmi',
-		"Drask" = 'icons/mob/species/drask/mask.dmi',
-		"Monkey" = 'icons/mob/species/monkey/mask.dmi',
-		"Farwa" = 'icons/mob/species/monkey/mask.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
-		"Neara" = 'icons/mob/species/monkey/mask.dmi',
-		"Stok" = 'icons/mob/species/monkey/mask.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/mask.dmi'
 	)
 
-/obj/item/clothing/mask/horsehead/equipped(mob/user, slot)
+/obj/item/clothing/mask/horsehead/equipped(mob/user, slot, initial)
+	. = ..()
+
 	if(flags & NODROP)	//cursed masks only
 		originalname = user.real_name
 		if(!user.real_name || user.real_name == "Unknown")
 			user.real_name = "A Horse With No Name" //it felt good to be out of the rain
 		else
 			user.real_name = "[user.name][temporaryname]"
-		..()
 
 /obj/item/clothing/mask/horsehead/dropped() //this really shouldn't happen, but call it extreme caution
 	if(flags & NODROP)
@@ -377,8 +393,12 @@
 	if(user.real_name == "[originalname][temporaryname]" || user.real_name == "A Horse With No Name") //if it's somehow changed while the mask is on it doesn't revert
 		user.real_name = originalname
 
+/obj/item/clothing/mask/horsehead/change_speech_verb()
+	if(voicechange)
+		return pick("whinnies", "neighs", "says")
+
 /obj/item/clothing/mask/face
-	flags_inv = HIDEFACE
+	flags_inv = HIDENAME
 	flags_cover = MASKCOVERSMOUTH
 
 /obj/item/clothing/mask/face/rat
@@ -386,62 +406,110 @@
 	desc = "A mask made of soft vinyl and latex, representing the head of a rat."
 	icon_state = "rat"
 	item_state = "rat"
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+	)
 
 /obj/item/clothing/mask/face/fox
 	name = "fox mask"
 	desc = "A mask made of soft vinyl and latex, representing the head of a fox."
 	icon_state = "fox"
 	item_state = "fox"
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+	)
 
 /obj/item/clothing/mask/face/bee
 	name = "bee mask"
 	desc = "A mask made of soft vinyl and latex, representing the head of a bee."
 	icon_state = "bee"
 	item_state = "bee"
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+	)
 
 /obj/item/clothing/mask/face/bear
 	name = "bear mask"
 	desc = "A mask made of soft vinyl and latex, representing the head of a bear."
 	icon_state = "bear"
 	item_state = "bear"
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+	)
 
 /obj/item/clothing/mask/face/bat
 	name = "bat mask"
 	desc = "A mask made of soft vinyl and latex, representing the head of a bat."
 	icon_state = "bat"
 	item_state = "bat"
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+	)
 
 /obj/item/clothing/mask/face/raven
 	name = "raven mask"
 	desc = "A mask made of soft vinyl and latex, representing the head of a raven."
 	icon_state = "raven"
 	item_state = "raven"
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+	)
 
 /obj/item/clothing/mask/face/jackal
 	name = "jackal mask"
 	desc = "A mask made of soft vinyl and latex, representing the head of a jackal."
 	icon_state = "jackal"
 	item_state = "jackal"
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+	)
 
 /obj/item/clothing/mask/face/tribal
 	name = "tribal mask"
 	desc = "A mask carved out of wood, detailed carefully by hand."
 	icon_state = "bumba"
 	item_state = "bumba"
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+	)
 
-/obj/item/clothing/mask/fawkes
+/obj/item/clothing/mask/face/fawkes
 	name = "Guy Fawkes mask"
 	desc = "A mask designed to help you remember a specific date."
 	icon_state = "fawkes"
 	item_state = "fawkes"
-	flags_inv = HIDEFACE
 	w_class = WEIGHT_CLASS_SMALL
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+	)
 
-/obj/item/clothing/mask/gas/clown_hat/pennywise
+/obj/item/clothing/mask/gas/pennywise
 	name = "Pennywise Mask"
 	desc = "It's the eater of worlds, and of children."
 	icon_state = "pennywise_mask"
 	item_state = "pennywise_mask"
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+	)
+
+	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
+
+/obj/item/clothing/mask/gas/rockso
+	name = "Rockso Mask"
+	desc = "THE ROCK AND ROLL CLOWN!"
+	icon_state = "rocksomask"
+	item_state = "rocksomask"
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/mask.dmi',
+		"Wryn" = 'icons/mob/clothing/species/wryn/mask.dmi'
+	)
 
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 
@@ -449,8 +517,7 @@
 /obj/item/clothing/mask/bandana
 	name = "bandana"
 	desc = "A colorful bandana."
-	flags_inv = HIDEFACE
-	flags_cover = MASKCOVERSMOUTH
+	flags_inv = HIDENAME
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_MASK
 	adjusted_flags = SLOT_HEAD
@@ -458,17 +525,20 @@
 	dyeable = TRUE
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/mask.dmi',
-		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi',
-		"Drask" = 'icons/mob/species/drask/mask.dmi',
-		"Monkey" = 'icons/mob/species/monkey/mask.dmi',
-		"Farwa" = 'icons/mob/species/monkey/mask.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
-		"Neara" = 'icons/mob/species/monkey/mask.dmi',
-		"Stok" = 'icons/mob/species/monkey/mask.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Draconid" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/mask.dmi'
 		)
 	actions_types = list(/datum/action/item_action/adjust)
 
@@ -545,8 +615,9 @@
 	flags = NODROP | AIRTIGHT
 	flags_cover = MASKCOVERSMOUTH
 
-/obj/item/clothing/mask/cursedclown/equipped(mob/user, slot)
-	..()
+/obj/item/clothing/mask/cursedclown/equipped(mob/user, slot, initial)
+	. = ..()
+
 	var/mob/living/carbon/human/H = user
 	if(istype(H) && slot == slot_wear_mask)
 		to_chat(H, "<span class='danger'>[src] grips your face!</span>")
@@ -559,3 +630,25 @@
 		if(user)
 			user.gib()
 	return OBLITERATION
+
+//voice modulator
+
+/obj/item/clothing/mask/gas/voice_modulator
+	name = "modified gas mask"
+	desc = "The usual gas mask for firefighters with attached voice change sensor."
+	icon_state = "voice_modulator"
+	item_state = "voice_modulator"
+
+	var/obj/item/voice_changer/voice_modulator/voice_modulator
+
+/obj/item/clothing/mask/gas/voice_modulator/Initialize(mapload)
+	. = ..()
+	voice_modulator = new(src)
+
+/obj/item/clothing/mask/gas/voice_modulator/Destroy()
+	QDEL_NULL(voice_modulator)
+	return ..()
+
+/obj/item/clothing/mask/gas/voice_modulator/change_speech_verb()
+	if(voice_modulator.active)
+		return pick("modulates", "drones", "hums", "buzzes")

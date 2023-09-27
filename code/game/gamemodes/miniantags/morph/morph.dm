@@ -19,6 +19,7 @@
 	pass_flags = PASSTABLE
 	move_resist = MOVE_FORCE_STRONG // Fat being
 	ventcrawler = 2
+	tts_seed = "Treant"
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
@@ -44,6 +45,7 @@
 							You can restore yourself to your original form while morphed by shift-clicking yourself.<br> \
 							Finally, you can attack any item or dead creature to consume it - creatures will restore 1/3 of your max health.</b>"
 
+	/// If the morph can reproduce or not
 	var/can_reproduce = FALSE
 	/// If the morph is disguised or not
 	var/morphed = FALSE
@@ -52,21 +54,23 @@
 	/// How much damage a successful ambush attack does
 	var/ambush_damage = 25
 	/// How much weaken a successful ambush attack applies
-	var/ambush_weaken = 3
+	var/ambush_weaken = 6 SECONDS
 	/// The spell the morph uses to morph
-	var/obj/effect/proc_holder/spell/targeted/click/mimic/morph/mimic_spell
+	var/obj/effect/proc_holder/spell/mimic/morph/mimic_spell
 	/// The ambush action used by the morph
-	var/obj/effect/proc_holder/spell/targeted/morph_spell/ambush/ambush_spell
+	var/obj/effect/proc_holder/spell/morph_spell/ambush/ambush_spell
 	/// The spell the morph uses to pass through airlocks
-	var/obj/effect/proc_holder/spell/targeted/click/morph_spell/pass_airlock/pass_airlock_spell
+	var/obj/effect/proc_holder/spell/morph_spell/pass_airlock/pass_airlock_spell
 
 	/// How much the morph has gathered in terms of food. Used to reproduce and such
 	var/gathered_food = 20 // Start with a bit to use abilities
 
+
 /mob/living/simple_animal/hostile/morph/proc/check_morphs()
 	if((length(GLOB.morphs_alive_list) >= MORPHS_ANNOUNCE_THRESHOLD) && (!GLOB.morphs_announced))
-		GLOB.command_announcement.Announce("Внимание! Зафиксированы множественные биоугрозы 6 уровня на [station_name()]. Необходимо уничтожение для продолжения безопасной работы.", "Central Command Biological Affairs", 'sound/AI/commandreport.ogg')
+		GLOB.command_announcement.Announce("Внимание! Зафиксированы множественные биоугрозы 6 уровня на [station_name()]. Необходима ликвидация угрозы для продолжения безопасной работы.", "Отдел Центрального Командования по биологическим угрозам.", 'sound/AI/commandreport.ogg')
 		GLOB.morphs_announced = TRUE
+		cancel_call_proc(usr)
 	else
 		return
 
@@ -76,12 +80,25 @@
 	AddSpell(mimic_spell)
 	ambush_spell = new
 	AddSpell(ambush_spell)
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/morph_spell/reproduce)
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/click/morph_spell/open_vent)
+	AddSpell(new /obj/effect/proc_holder/spell/morph_spell/open_vent)
 	pass_airlock_spell = new
 	AddSpell(pass_airlock_spell)
 	GLOB.morphs_alive_list += src
 	check_morphs()
+
+/**
+ * This proc enables or disables morph reproducing ability
+ *
+ * Arguments
+ * * boolean - TRUE = enabled, FALSE = disabled
+ */
+/mob/living/simple_animal/hostile/morph/proc/enable_reproduce(boolean)
+	if(boolean)
+		can_reproduce = TRUE
+		AddSpell(new /obj/effect/proc_holder/spell/morph_spell/reproduce)
+	else
+		can_reproduce = FALSE
+		RemoveSpell(/obj/effect/proc_holder/spell/morph_spell/reproduce)
 
 /mob/living/simple_animal/hostile/morph/Stat(Name, Value)
 	..()
@@ -96,8 +113,8 @@
 
 /mob/living/simple_animal/hostile/morph/wizard/New()
 	. = ..()
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/smoke)
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/forcewall)
+	AddSpell(new /obj/effect/proc_holder/spell/smoke)
+	AddSpell(new /obj/effect/proc_holder/spell/forcewall)
 
 
 /mob/living/simple_animal/hostile/morph/proc/try_eat(atom/movable/item)
@@ -185,7 +202,7 @@
 	ambush_prepared = TRUE
 	to_chat(src, "<span class='sinister'>You are ready to ambush any unsuspected target. Your next attack will hurt a lot more and weaken the target! Moving will break your focus. Standing still will perfect your disguise.</span>")
 	apply_status_effect(/datum/status_effect/morph_ambush)
-	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/on_move)
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 
 /mob/living/simple_animal/hostile/morph/proc/failed_ambush()
 	ambush_prepared = FALSE
@@ -257,7 +274,7 @@
 		var/food_value = calc_food_gained(item)
 		if(food_value + gathered_food > 0)
 			to_chat(user, "<span class='warning'>[src] just ate your [item]!</span>")
-			user.unEquip(item)
+			user.drop_item_ground(item)
 			eat(item)
 			return ..()
 
@@ -339,7 +356,7 @@
 
 
 /mob/living/simple_animal/hostile/morph/proc/make_morph_antag(give_default_objectives = TRUE)
-	can_reproduce = TRUE
+	enable_reproduce(TRUE)
 	mind.assigned_role = SPECIAL_ROLE_MORPH
 	mind.special_role = SPECIAL_ROLE_MORPH
 	SSticker.mode.traitors |= mind
@@ -358,11 +375,13 @@
 		eat.owner = mind
 		eat.explanation_text = "Eat as many living beings as possible to still the hunger within you."
 		eat.completed = TRUE
+		eat.needs_target = FALSE
 		mind.objectives += eat
 		var/datum/objective/procreate = new /datum/objective
 		procreate.owner = mind
 		procreate.explanation_text = "Split yourself in as many other [name]'s as possible!"
 		procreate.completed = TRUE
+		procreate.needs_target = FALSE
 		mind.objectives += procreate
 		mind.announce_objectives()
 

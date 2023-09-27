@@ -52,14 +52,16 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps/emp_act(severity)
 	emped = TRUE
 	update_icon()
-	addtimer(CALLBACK(src, .proc/reboot), EMP_DISABLE_TIME)
+	addtimer(CALLBACK(src, PROC_REF(reboot)), EMP_DISABLE_TIME)
 
 /obj/item/gps/AltClick(mob/living/user)
+	if(!Adjacent(user))
+		return
+	if(!iscarbon(usr) && !isrobot(usr))
+		return
 	if(!istype(user) || user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
-	if(ui_status(user, GLOB.inventory_state) != STATUS_INTERACTIVE)
-		return //user not valid to use gps
 	if(emped)
 		to_chat(user, "<span class='warning'>It's busted!</span>")
 		return
@@ -117,6 +119,18 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps/attack_self(mob/user)
 	ui_interact(user)
 
+
+/obj/item/gps/MouseDrop(atom/over)
+	. = ..()
+
+	var/mob/user = usr
+	if(!ishuman(user) || !Adjacent(user) || user.incapacitated())
+		return FALSE
+
+	attack_self(user)
+	return TRUE
+
+
 /obj/item/gps/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
@@ -169,6 +183,9 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	gpstag = "BORG0"
 	desc = "A mining cyborg internal positioning system. Used as a recovery beacon for damaged cyborg assets, or a collaboration tool for mining teams."
 	flags = NODROP
+
+/obj/item/gps/cyborg/upgraded
+	upgraded = 1
 
 /obj/item/gps/syndiecyborg
 	icon_state = "gps-b"

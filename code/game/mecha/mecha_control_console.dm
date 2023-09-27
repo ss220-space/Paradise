@@ -1,6 +1,6 @@
 /obj/machinery/computer/mecha
 	name = "exosuit control console"
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "rd_key"
 	icon_screen = "mecha"
 	light_color = LIGHT_COLOR_FADEDPURPLE
@@ -14,6 +14,7 @@
 	return attack_hand(user)
 
 /obj/machinery/computer/mecha/attack_hand(mob/user)
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/computer/mecha/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -176,12 +177,7 @@
 /obj/item/storage/box/mechabeacons
 	name = "Exosuit Tracking Beacons"
 
-/obj/item/storage/box/mechabeacons/New()
-	..()
-	new /obj/item/mecha_parts/mecha_tracking(src)
-	new /obj/item/mecha_parts/mecha_tracking(src)
-	new /obj/item/mecha_parts/mecha_tracking(src)
-	new /obj/item/mecha_parts/mecha_tracking(src)
-	new /obj/item/mecha_parts/mecha_tracking(src)
-	new /obj/item/mecha_parts/mecha_tracking(src)
-	new /obj/item/mecha_parts/mecha_tracking(src)
+/obj/item/storage/box/mechabeacons/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/mecha_parts/mecha_tracking(src)
+

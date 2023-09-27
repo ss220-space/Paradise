@@ -4,14 +4,13 @@
 /obj/machinery/light_switch
 	name = "light switch"
 	desc = "It turns lights on and off. What are you, simple?"
-	icon = 'icons/obj/power.dmi'
+	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "light1"
 	anchored = 1.0
 	var/on = 1
 	var/area/area = null
 	var/otherarea = null
 	//	luminosity = 1
-	settagwhitelist = list("logic_id_tag")
 	var/light_connect = 1							//Allows the switch to control lights in its associated areas. When set to 0, using the switch won't affect the lights.
 	var/logic_id_tag = "default"					//Defines the ID tag to send logic signals to.
 	var/logic_connect = 0							//Set this to allow the switch to send out logic signals.
@@ -71,13 +70,14 @@
 
 /obj/machinery/light_switch/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>A light switch. It is [on? "on" : "off"].</span>"
+	. += span_notice("A light switch. It is [on? "on" : "off"].")
 
 /obj/machinery/light_switch/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
 
 /obj/machinery/light_switch/attack_hand(mob/user)
+	add_fingerprint(user)
 	on = !on
 	updateicon()
 
@@ -149,35 +149,14 @@
 		return
 	return ..()
 
-/obj/machinery/light_switch/multitool_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	update_multitool_menu(user)
-
 /obj/machinery/light_switch/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	user.visible_message("<span class='notice'>[user] starts unwrenching [src] from the wall...</span>", "<span class='notice'>You are unwrenching [src] from the wall...</span>", "<span class='warning'>You hear ratcheting.</span>")
+	user.visible_message(span_notice("[user] starts unwrenching [src] from the wall..."), span_notice("You are unwrenching [src] from the wall..."), span_warning("You hear ratcheting."))
 	. = TRUE
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
 		return
 	WRENCH_UNANCHOR_WALL_MESSAGE
 	new/obj/item/mounted/frame/light_switch(get_turf(src))
 	qdel(src)
-
-/obj/machinery/light_switch/multitool_menu(var/mob/user, var/obj/item/multitool/P)
-	return {"
-	<ul>
-	<li><b>Light Circuit Connection:</b> <a href='?src=[UID()];toggle_light_connect=1'>[light_connect ? "On" : "Off"]</a></li>
-	<li><b>Logic Connection:</b> <a href='?src=[UID()];toggle_logic=1'>[logic_connect ? "On" : "Off"]</a></li>
-	<li><b>Logic ID Tag:</b> [format_tag("Logic ID Tag", "logic_id_tag")]</li>
-	</ul>"}
-
-/obj/machinery/light_switch/multitool_topic(var/mob/user,var/list/href_list,var/obj/O)
-	..()
-	if("toggle_light_connect" in href_list)
-		light_connect = !light_connect
-	if("toggle_logic" in href_list)
-		logic_connect = !logic_connect

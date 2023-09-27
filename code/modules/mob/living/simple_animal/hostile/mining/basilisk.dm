@@ -33,6 +33,7 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 	loot = list(/obj/item/stack/ore/diamond{layer = ABOVE_MOB_LAYER},
 				/obj/item/stack/ore/diamond{layer = ABOVE_MOB_LAYER})
+	tts_seed = "Antimage"
 
 /obj/item/projectile/temp/basilisk
 	name = "freezing blast"
@@ -150,3 +151,17 @@
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril
 	fromtendril = TRUE
+
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing/death(gibbed)
+	if(prob(10))
+		new /obj/item/gem/fdiamond(loc)
+		deathmessage = "spits out a diamond as it dies!"
+	. = ..()
+	deathmessage = initial(deathmessage)
+
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing/death(gibbed)
+	if(prob(10))
+		new /obj/item/gem/magma(loc)
+		deathmessage = "spits out a golden gem as it dies!"
+	. = ..()
+	deathmessage = initial(deathmessage)

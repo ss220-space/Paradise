@@ -55,7 +55,9 @@
 /obj/machinery/door/window/examine(mob/user)
 	. = ..()
 	if(emagged)
-		. += "<span class='warning'>Its access panel is smoking slightly.</span>"
+		. += span_warning("Its access panel is smoking slightly.")
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		. += span_warning("The access panel is coated in yellow ooze...")
 
 /obj/machinery/door/window/emp_act(severity)
 	. = ..()
@@ -70,20 +72,27 @@
 		sleep(20)
 	close()
 
-/obj/machinery/door/window/Bumped(atom/movable/AM)
+/obj/machinery/door/window/Bumped(atom/movable/moving_atom)
+	SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, moving_atom)
 	if(operating || !density)
 		return
-	if(!ismob(AM))
-		if(ismecha(AM))
-			var/obj/mecha/mecha = AM
+	if(!ismob(moving_atom))
+		if(ismecha(moving_atom))
+			var/obj/mecha/mecha = moving_atom
 			if(mecha.occupant && allowed(mecha.occupant))
+				if(HAS_TRAIT(src, TRAIT_CMAGGED))
+					cmag_switch(FALSE)
+					return
 				open_and_close()
 			else
+				if(HAS_TRAIT(src, TRAIT_CMAGGED))
+					cmag_switch(TRUE)
+					return
 				do_animate("deny")
 		return
 	if(!SSticker)
 		return
-	var/mob/living/M = AM
+	var/mob/living/M = moving_atom
 	if(!M.restrained() && M.mob_size > MOB_SIZE_TINY && (!(isrobot(M) && M.stat)))
 		bumpopen(M)
 
@@ -92,8 +101,14 @@
 		return
 	add_fingerprint(user)
 	if(!requiresID() || allowed(user))
+		if(HAS_TRAIT(src, TRAIT_CMAGGED))
+			cmag_switch(FALSE, user)
+			return
 		open_and_close()
 	else
+		if(HAS_TRAIT(src, TRAIT_CMAGGED))
+			cmag_switch(TRUE, user)
+			return
 		do_animate("deny")
 
 /obj/machinery/door/window/CanPass(atom/movable/mover, turf/target, height=0)
@@ -217,10 +232,16 @@
 		return attack_hand(user)
 
 /obj/machinery/door/window/attack_hand(mob/user)
+	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+		add_fingerprint(user)
+		user.changeNext_move(CLICK_CD_MELEE)
+		attack_generic(user, user.dna.species.obj_damage)
+		return
 	return try_to_activate_door(user)
 
 /obj/machinery/door/window/emag_act(mob/user, obj/weapon)
 	if(!operating && density && !emagged)
+		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
 		operating = TRUE
 		flick("[base_state]spark", src)
@@ -229,6 +250,17 @@
 		operating = FALSE
 		open(2)
 		return 1
+
+/obj/machinery/door/window/cmag_act(mob/user, obj/weapon)
+	if(operating || !density || HAS_TRAIT(src, TRAIT_CMAGGED) || emagged)
+		return
+	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+	operating = TRUE
+	flick("[base_state]spark", src)
+	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	sleep(6)
+	operating = FALSE
+	return TRUE
 
 /obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
 	//If it's in the process of opening/closing, ignore the click
@@ -243,12 +275,12 @@
 		return
 	. = TRUE
 	if(density || operating)
-		to_chat(user, "<span class='warning'>You need to open the door to access the maintenance panel!</span>")
+		to_chat(user, span_warning("You need to open the door to access the maintenance panel!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	panel_open = !panel_open
-	to_chat(user, "<span class='notice'>You [panel_open ? "open":"close"] the maintenance panel of the [src.name].</span>")
+	to_chat(user, span_notice("You [panel_open ? "open":"close"] the maintenance panel of the [src.name]."))
 
 
 /obj/machinery/door/window/crowbar_act(mob/user, obj/item/I)
@@ -260,7 +292,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(panel_open && !density && !operating)
-		user.visible_message("<span class='warning'>[user] removes the electronics from the [name].</span>", \
+		user.visible_message(span_warning("[user] removes the electronics from the [name]."), \
 							 "You start to remove electronics from the [name]...")
 		if(I.use_tool(src, user, 40, volume = I.tool_volume))
 			if(panel_open && !density && !operating && loc)
@@ -284,22 +316,19 @@
 				WA.created_name = name
 
 				if(emagged)
-					to_chat(user, "<span class='warning'>You discard the damaged electronics.</span>")
+					to_chat(user, span_warning("You discard the damaged electronics."))
 					qdel(src)
 					return
 
-				to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
+				to_chat(user, span_notice("You remove the airlock electronics."))
 
 				var/obj/item/airlock_electronics/ae
 				if(!electronics)
 					ae = new/obj/item/airlock_electronics(loc)
 					if(!req_access)
 						check_access()
-					if(req_access.len)
-						ae.selected_accesses = req_access
-					else if(req_one_access.len)
-						ae.selected_accesses = req_one_access
-						ae.one_access = 1
+					ae.selected_accesses = req_access
+					ae.one_access = check_one_access
 				else
 					ae = electronics
 					electronics = null
@@ -316,7 +345,7 @@
 		else
 			close(2)
 	else
-		to_chat(user, "<span class='warning'>The door's motors resist your efforts to force it!</span>")
+		to_chat(user, span_warning("The door's motors resist your efforts to force it!"))
 
 /obj/machinery/door/window/do_animate(animation)
 	switch(animation)
@@ -352,9 +381,23 @@
 	cancolor = FALSE
 	var/made_glow = FALSE
 
+/obj/machinery/door/window/clockwork_fake
+	name = "brass windoor"
+	desc = "A completely not magical thin door with translucent brass paneling."
+	icon_state = "clockwork"
+	base_state = "clockwork"
+	shards = 0
+	rods = 0
+	resistance_flags = ACID_PROOF | FIRE_PROOF
+	cancolor = FALSE
+
 /obj/machinery/door/window/clockwork/New(loc, set_dir)
 	..()
-	debris += new/obj/item/stack/tile/brass(src, 2)
+	debris += new/obj/item/stack/sheet/brass(src, 2)
+
+/obj/machinery/door/window/clockwork_fake/New(loc, set_dir)
+	. = ..()
+	debris += new/obj/item/stack/sheet/brass_fake(src, 2)
 
 /obj/machinery/door/window/clockwork/setDir(direct)
 	if(!made_glow)
@@ -377,7 +420,7 @@
 	take_damage(rand(30, 60), BRUTE)
 	if(src)
 		var/previouscolor = color
-		color = "#960000"
+		color = COLOR_CULT_RED
 		animate(src, color = previouscolor, time = 8)
 
 /obj/machinery/door/window/northleft

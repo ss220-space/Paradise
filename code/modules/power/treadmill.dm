@@ -2,7 +2,7 @@
 #define MAX_SPEED		2
 
 /obj/machinery/power/treadmill
-	icon = 'icons/obj/recycling.dmi'
+	icon = 'icons/obj/machines/recycling.dmi'
 	icon_state = "conveyor0"
 	name = "treadmill"
 	desc = "A power-generating treadmill."
@@ -70,11 +70,11 @@
 				var/mob_speed = M.movement_delay()
 				switch(M.m_intent)
 					if(MOVE_INTENT_RUN)
-						if(M.drowsyness > 0)
+						if(M.get_drowsiness() > 0)
 							mob_speed += 6
-						mob_speed += config.run_speed - 1
+						mob_speed += CONFIG_GET(number/run_speed) - 1
 					if(MOVE_INTENT_WALK)
-						mob_speed += config.walk_speed - 1
+						mob_speed += CONFIG_GET(number/walk_speed) - 1
 				mob_speed = BASE_MOVE_DELAY / max(1, BASE_MOVE_DELAY + mob_speed)
 				speed = min(speed + inertia * mob_speed, mob_speed)
 				continue
@@ -99,6 +99,7 @@
 
 /obj/machinery/power/treadmill/attackby(obj/item/W, mob/user)
 	if(default_unfasten_wrench(user, W, time = 60))
+		add_fingerprint(user)
 		if(anchored)
 			connect_to_network()
 		else

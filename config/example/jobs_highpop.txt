@@ -7,13 +7,16 @@ Chief Medical Officer=1
 
 Station Engineer=5
 Roboticist=1
+Trainee Engineer=5
 
 Medical Doctor=5
 Geneticist=2
 Virologist=1
+Intern=5
 
 Scientist=3
 Chemist=2
+Student Scientist=5
 
 Bartender=1
 Botanist=2

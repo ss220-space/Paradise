@@ -1,7 +1,5 @@
-/obj/var/list/req_access = null
-/obj/var/req_access_txt = "0"
-/obj/var/list/req_one_access = null
-/obj/var/req_one_access_txt = "0"
+/obj/var/list/req_access = list()
+/obj/var/check_one_access = TRUE
 
 //returns 1 if this mob has sufficient access to use this object
 /obj/proc/allowed(mob/M)
@@ -26,26 +24,6 @@
 /obj/item/proc/GetID()
 	return null
 
-/obj/proc/generate_req_lists()
-	//These generations have been moved out of /obj/New() because they were slowing down the creation of objects that never even used the access system.
-	if(!req_access)
-		req_access = list()
-		if(req_access_txt)
-			var/list/req_access_str = splittext(req_access_txt, ";")
-			for(var/x in req_access_str)
-				var/n = text2num(x)
-				if(n)
-					req_access += n
-
-	if(!req_one_access)
-		req_one_access = list()
-		if(req_one_access_txt)
-			var/list/req_one_access_str = splittext(req_one_access_txt,";")
-			for(var/x in req_one_access_str)
-				var/n = text2num(x)
-				if(n)
-					req_one_access += n
-
 /obj/proc/check_access(obj/item/I)
 	var/list/L
 	if(I)
@@ -55,23 +33,23 @@
 	return check_access_list(L)
 
 /obj/proc/check_access_list(var/list/L)
-	generate_req_lists()
-
 	if(!L)
 		return 0
 	if(!istype(L, /list))
 		return 0
-	return has_access(req_access, req_one_access, L)
+	return has_access(req_access, check_one_access, L)
 
-/proc/has_access(var/list/req_access, var/list/req_one_access, var/list/accesses)
-	for(var/req in req_access)
-		if(!(req in accesses)) //doesn't have this access
+/proc/has_access(var/list/req_access, check_one_access, var/list/accesses)
+	if(check_one_access)
+		if(req_access.len)
+			for(var/req in req_access)
+				if(req in accesses) //has an access from the single access list
+					return 1
 			return 0
-	if(req_one_access.len)
-		for(var/req in req_one_access)
-			if(req in accesses) //has an access from the single access list
-				return 1
-		return 0
+	else
+		for(var/req in req_access)
+			if(!(req in accesses)) //doesn't have this access
+				return 0
 	return 1
 
 /proc/get_centcom_access(job)
@@ -98,6 +76,8 @@
 			return get_all_centcom_access() + get_all_accesses()
 		if("NT Undercover Operative")
 			return get_all_centcom_access() + get_all_accesses()
+		if("Special Reaction Team Member")
+			return get_all_centcom_access() + get_all_accesses()
 		if("Special Operations Officer")
 			return get_all_centcom_access() + get_all_accesses()
 		if("Solar Federation General")
@@ -105,6 +85,8 @@
 		if("Nanotrasen Navy Representative")
 			return get_all_centcom_access() + get_all_accesses()
 		if("Nanotrasen Navy Officer")
+			return get_all_centcom_access() + get_all_accesses()
+		if("Nanotrasen Navy Field Officer")
 			return get_all_centcom_access() + get_all_accesses()
 		if("Nanotrasen Navy Captain")
 			return get_all_centcom_access() + get_all_accesses()
@@ -465,10 +447,16 @@
 	return all_jobs
 
 /proc/get_all_centcom_jobs()
-	return list("VIP Guest","Custodian","Thunderdome Overseer","Emergency Response Team Member","Emergency Response Team Leader","Intel Officer","Medical Officer","Death Commando","Research Officer","Deathsquad Officer","Special Operations Officer","Nanotrasen Navy Representative","Nanotrasen Navy Officer","Nanotrasen Diplomat","Nanotrasen Navy Captain","Supreme Commander")
+	return list("VIP Guest","Custodian","Thunderdome Overseer","Emergency Response Team Member","Emergency Response Team Leader","Intel Officer","Medical Officer","Death Commando","Research Officer","Deathsquad Officer","Special Operations Officer","Nanotrasen Navy Representative","Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer","Nanotrasen Diplomat","Nanotrasen Navy Captain","Supreme Commander","Syndicate Officer")
 
 /proc/get_all_solgov_jobs()
 	return list("Solar Federation Specops Lieutenant","Solar Federation Marine","Solar Federation Specops Marine","Solar Federation Representative","Sol Trader","Solar Federation General")
+
+/proc/get_all_soviet_jobs()
+	return list("Soviet Tourist","Soviet Conscript","Soviet Soldier","Soviet Officer","Soviet Marine","Soviet Marine Captain","Soviet Admiral","Soviet General","Soviet Engineer","Soviet Scientist","Soviet Medic")
+
+/proc/get_all_special_jobs()
+	return list("Special Reaction Team Member", "HONKsquad", "Clown Security","Syndicate Scientist","Syndicate Medic","Syndicate Botanist","Syndicate Cargo Technician","Syndicate Chef","Syndicate Atmos Engineer","Syndicate Comms Officer","Syndicate Research Director")
 
 //gets the actual job rank (ignoring alt titles)
 //this is used solely for sechuds
@@ -555,35 +543,44 @@
 	return GLOB.joblist + list("Prisoner")
 
 /obj/item/proc/GetJobName() //Used in secHUD icon generation
-	var/assignmentName = "Unknown"
 	var/rankName = "Unknown"
 	if(istype(src, /obj/item/pda))
 		var/obj/item/pda/P = src
-		assignmentName = P.ownjob
 		rankName = P.ownrank
 	else
 		var/obj/item/card/id/id = GetID()
 		if(istype(id))
-			assignmentName = id.assignment
 			rankName = id.rank
 
 	var/job_icons = get_all_job_icons()
 	var/centcom = get_all_centcom_jobs()
 	var/solgov = get_all_solgov_jobs()
+	var/soviet = get_all_soviet_jobs()
+	var/special = get_all_special_jobs()
 
-	if(assignmentName in centcom) //Return with the NT logo if it is a Centcom job
+	if(rankName in centcom) //Return with the NT logo if it is a Centcom job or if it is Syndi Officer then return Syndicate logo
+		switch(rankName)
+			if("Syndicate Officer")
+				return "syndicateofficer"
 		return "Centcom"
-	if(rankName in centcom)
-		return "Centcom"
 
-	if(assignmentName in solgov) //Return with the SolGov logo if it is a SolGov job
-		return "solgov"
-	if(rankName in solgov)
+	if(rankName in solgov) //Return with the SolGov logo if it is a SolGov job
 		return "solgov"
 
-	if(assignmentName in job_icons) //Check if the job has a hud icon
-		return assignmentName
-	if(rankName in job_icons)
+	if(rankName in soviet) //Return with the U.S.S.P logo if it is a Soviet job
+		return "soviet"
+
+	if(rankName in special)
+		switch(rankName)
+			if("Special Reaction Team Member")
+				return "srt"
+			if("HONKsquad")
+				return "honksquad"
+			if("Clown Security")
+				return "clownsecurity"
+		return rankName
+
+	if(rankName in job_icons) //Check if the job has a hud icon
 		return rankName
 
 	return "Unknown" //Return unknown if none of the above apply

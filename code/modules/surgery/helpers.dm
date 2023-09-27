@@ -8,7 +8,8 @@
 								/obj/item/cautery = 100,			\
 								/obj/item/clothing/mask/cigarette = 90,	\
 								/obj/item/lighter = 60,			\
-								/obj/item/weldingtool = 30
+								/obj/item/weldingtool = 30,     \
+								/obj/item/flashlight/flare/torch = 30
 								)
 
 		if(istype(M, /mob/living/carbon/human))
@@ -92,7 +93,7 @@
 
 					if(cautery_chance)
 						C.begin_step(user, H, selected_zone, cautery_tool, current_surgery)
-						if(do_after(user, C.time * cautery_tool.toolspeed, target = M))
+						if(do_after(user, C.time * cautery_tool.toolspeed * gettoolspeedmod(user), target = M))
 							if(!isrobot(user))
 								cautery_chance *= get_location_modifier(H)
 								cautery_chance *= get_pain_modifier(H)
@@ -119,13 +120,16 @@
 		return 0.99
 	if(M.reagents.has_reagent("morphine"))//Just as effective as Hydrocodone, but has an addiction chance
 		return 0.99
-	if(M.drunk >= 80)//really damn drunk
+	if(M.reagents.has_reagent("syntmorphine"))
+		return 0.99
+	var/drunk = M.get_drunkenness()
+	if(drunk >= 80)//really damn drunk
 		return 0.95
-	if(M.drunk >= 40)//pretty drunk
+	if(drunk >= 40)//pretty drunk
 		return 0.9
 	if(M.reagents.has_reagent("sal_acid")) //it's better than nothing, as far as painkillers go.
 		return 0.85
-	if(M.drunk >= 15)//a little drunk
+	if(drunk >= 15)//a little drunk
 		return 0.85
 	return 0.8 //20% failure chance
 
@@ -144,9 +148,9 @@
 /proc/can_operate(mob/living/carbon/M)
 	if(locate(/obj/machinery/optable, M.loc) && (M.lying || M.resting))
 		return TRUE
-	if(locate(/obj/structure/bed, M.loc) && (M.buckled || M.lying || M.IsWeakened() || M.stunned || M.paralysis || M.sleeping || M.stat))
+	if(locate(/obj/structure/bed, M.loc) && (M.buckled || M.lying || M.IsWeakened() || M.IsStunned() || M.IsParalyzed() || M.IsSleeping() || M.stat))
 		return TRUE
-	if(locate(/obj/structure/table, M.loc) && (M.lying || M.IsWeakened() || M.stunned || M.paralysis || M.sleeping || M.stat))
+	if(locate(/obj/structure/table, M.loc) && (M.lying || M.IsWeakened() || M.IsStunned() || M.IsParalyzed() || M.IsSleeping()  || M.stat))
 		return TRUE
 	return FALSE
 

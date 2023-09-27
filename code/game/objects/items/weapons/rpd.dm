@@ -245,7 +245,7 @@
 		RPD_MENU_WRENCH = image(icon = 'icons/obj/tools.dmi', icon_state = "wrench"),
 		"UI" = image(icon = 'icons/obj/interface.dmi', icon_state = "ui_interact")
 	)
-	var/selected_mode = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, .proc/check_menu, user))
+	var/selected_mode = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
 	if(!check_menu(user))
 		return
 	if(selected_mode == "UI")
@@ -298,7 +298,8 @@
 
 	// If we get here, then we're effectively acting on the turf, probably placing a pipe.
 	if(ranged) //woosh beam if bluespaced at a distance
-		user.Beam(T,icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
+		if(get_dist(src, T) <= (user.client.maxview() + 2))\
+			user.Beam(T,icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
 	T.rpd_act(user, src)
 
 #undef RPD_COOLDOWN_TIME

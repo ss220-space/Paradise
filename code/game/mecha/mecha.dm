@@ -3,7 +3,7 @@
 /obj/mecha
 	name = "Mecha"
 	desc = "Exosuit"
-	icon = 'icons/mecha/mecha.dmi'
+	icon = 'icons/obj/mecha/mecha.dmi'
 	density = 1 //Dense. To raise the heat.
 	opacity = 1 ///opaque. Menacing.
 	anchored = 1 //no pulling around.
@@ -18,6 +18,7 @@
 	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
 	var/can_move = 0 // time of next allowed movement
+	var/mech_enter_time = 40 // Entering mecha time
 	var/mob/living/carbon/occupant = null
 	var/step_in = 10 //make a step in step_in/10 sec.
 	var/dir_in = 2//What direction will the mech face when entered/powered on? Defaults to South.
@@ -40,6 +41,7 @@
 	var/emagged = FALSE
 	var/frozen = FALSE
 	var/repairing = FALSE
+	var/cargo_expanded = FALSE // for wide cargo module
 
 	//inner atmos
 	var/use_internal_tank = 0
@@ -78,7 +80,7 @@
 	var/activated = FALSE
 	var/power_warned = FALSE
 
-	var/destruction_sleep_duration = 1 //Time that mech pilot is put to sleep for if mech is destroyed
+	var/destruction_sleep_duration = 2 SECONDS //Time that mech pilot is put to sleep for if mech is destroyed
 
 	var/melee_cooldown = 10
 	var/melee_can_hit = 1
@@ -100,6 +102,18 @@
 	var/wall_ready = 1
 	var/wall_cooldown = 200
 	var/large_wall = FALSE
+
+	// Strafe variables
+	///Allows strafe mode for mecha
+	var/strafe_allowed = FALSE
+	///Special module that allows strafe mode by modifying "strafe_allowed" variable
+	var/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/actuator = null
+	///Multiplier that modifies mecha speed while strafing (bigger numbers mean slower movement)
+	var/strafe_speed_factor = 1
+	///Allows diagonal strafing while strafe is enabled (very OP, FALSE by default on all mechas)
+	var/strafe_diagonal = FALSE
+	///Is mecha strafing currently
+	var/strafe = FALSE
 
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
@@ -201,6 +215,19 @@
 	if(src == target)
 		return
 
+	if(GLOB.pacifism_after_gt)
+		var/mob/living/L = user
+		if(!target.Adjacent(src))
+			if(selected && selected.is_ranged())
+				if(selected.harmful)
+					to_chat(L, "<span class='warning'>You don't want to harm other living beings!</span>")
+					return
+				selected.action(target, params)
+		else if(selected && selected.is_melee())
+			if(ishuman(target) && selected.harmful)
+				to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
+				return
+
 	var/dir_to_target = get_dir(src, target)
 	if(dir_to_target && !(dir_to_target & dir))//wrong direction
 		return
@@ -209,12 +236,14 @@
 		target = safepick(view(3,target))
 		if(!target)
 			return
-
 	var/mob/living/L = user
 	if(!target.Adjacent(src))
 		if(selected && selected.is_ranged())
 			if(HAS_TRAIT(L, TRAIT_PACIFISM) && selected.harmful)
 				to_chat(L, "<span class='warning'>You don't want to harm other living beings!</span>")
+				return
+			if(user.mind?.martial_art?.no_guns)
+				to_chat(L, "<span class='warning'>[L.mind.martial_art.no_guns_message]</span>")
 				return
 			selected.action(target, params)
 	else if(selected && selected.is_melee())
@@ -243,6 +272,48 @@
 /obj/mecha/proc/range_action(atom/target)
 	return
 
+/**
+ * Proc that converts diagonal direction into cardinal for mecha
+ *
+ * Arguments
+ * * direction - input direction we need to convert
+ */
+/obj/mecha/proc/convert_diagonal_dir(direction)
+	switch(src.dir)
+		if(NORTH, SOUTH)
+			switch(direction)
+				if(NORTHEAST, SOUTHEAST)
+					return EAST
+				if(NORTHWEST, SOUTHWEST)
+					return WEST
+				if(NORTH, SOUTH, EAST, WEST)
+					return direction
+		if(EAST, WEST, NORTHEAST, SOUTHEAST, NORTHWEST, SOUTHWEST)
+			switch(direction)
+				if(NORTHEAST, NORTHWEST)
+					return NORTH
+				if(SOUTHEAST, SOUTHWEST)
+					return SOUTH
+				if(NORTH, SOUTH, EAST, WEST)
+					return direction
+
+/**
+ * Proc that checks if current cardinal direction is opposite for mecha
+ *
+ * Arguments
+ * * direction - input direction we need to check
+ */
+/obj/mecha/proc/is_opposite_dir(direction)
+	. = FALSE
+	switch(src.dir)
+		if(NORTH)
+			return direction == SOUTH
+		if(SOUTH)
+			return direction == NORTH
+		if(EAST)
+			return direction == WEST
+		if(WEST)
+			return direction == EAST
 
 //////////////////////////////////
 ////////  Movement procs  ////////
@@ -250,9 +321,12 @@
 /obj/mecha/Process_Spacemove(var/movement_dir = 0)
 	. = ..()
 	if(.)
-		return 1
+		return TRUE
 	if(thrusters_active && movement_dir && use_power(step_energy_drain))
-		return 1
+		return TRUE
+	//Turns strafe OFF if not enough energy to step (with actuator module only)
+	if(strafe && actuator && !has_charge(actuator.energy_per_step))
+		toggle_strafe(silent = TRUE)
 
 	var/atom/movable/backup = get_spacemove_backup()
 	if(backup)
@@ -260,68 +334,112 @@
 			if(backup.newtonian_move(turn(movement_dir, 180)))
 				if(occupant)
 					to_chat(occupant, "<span class='info'>You push off of [backup] to propel yourself.</span>")
-		return 1
+		return TRUE
 
 /obj/mecha/relaymove(mob/user, direction)
 	if(!direction || frozen)
-		return
+		return FALSE
 	if(user != occupant) //While not "realistic", this piece is player friendly.
 		user.forceMove(get_turf(src))
 		to_chat(user, "<span class='notice'>You climb out from [src].</span>")
-		return 0
+		return FALSE
 	if(connected_port)
 		if(world.time - last_message > 20)
 			occupant_message("<span class='warning'>Unable to move while connected to the air system port!</span>")
 			last_message = world.time
-		return 0
+		return FALSE
 	if(state)
 		occupant_message("<span class='danger'>Maintenance protocols in effect.</span>")
-		return
+		return FALSE
 	return domove(direction)
+
+//Constants for strafe mode
+#define STRAFE_TURN_FACTOR 1.5 //Speed multiplier for strafe while mecha turns around
+#define STRAFE_DIAGONAL_FACTOR 2 //Speed multiplier for strafe while mecha moves diagonally
+#define STRAFE_BACKWARDS_FACTOR 2 //Speed and energy drain multiplier for strafe while mecha moves backwards
 
 /obj/mecha/proc/domove(direction)
 	if(can_move >= world.time)
-		return 0
+		return FALSE
 	if(!Process_Spacemove(direction))
-		return 0
+		return FALSE
 	if(!has_charge(step_energy_drain))
-		return 0
+		return FALSE
 	if(defence_mode)
 		if(world.time - last_message > 20)
 			occupant_message("<span class='danger'>Unable to move while in defence mode.</span>")
 			last_message = world.time
-		return 0
+		return FALSE
 	if(zoom_mode)
 		if(world.time - last_message > 20)
 			occupant_message("<span class='danger'>Unable to move while in zoom mode.</span>")
 			last_message = world.time
-		return 0
+		return FALSE
 
-	var/move_result = 0
-	var/move_type = 0
+	//Turns strafe OFF if not enough energy to step (with actuator module only)
+	if(strafe && actuator && !has_charge(actuator.energy_per_step))
+		toggle_strafe(silent = TRUE)
+
+	var/move_result = FALSE
+	var/move_type = FALSE
+	var/old_direction = dir //Initial direction of the mecha
+	var/step_in_final = strafe ? (step_in * strafe_speed_factor) : step_in //Modifies strafe speed, if "strafe_speed_factor" is anything other than 1
+	var/strafed_backwards = FALSE //Checks if mecha moved backwards, while strafe is active (used later to modify speed and energy drain)
+
+	var/keyheld = FALSE //Checks if player pressed ALT button down while strafe is active
+	if(strafe && occupant.client?.input_data.keys_held["Alt"])
+		keyheld = TRUE
+
 	if(internal_damage & MECHA_INT_CONTROL_LOST)
-		if(direction & (direction - 1))	//moved diagonally
+		if(strafe) //No strafe while controls are malfunctioning
+			toggle_strafe(silent = TRUE)
+		if(direction & (direction - 1))	//Trick to check for diagonal direction
 			glide_for(step_in * 1.41)
 		else
 			glide_for(step_in)
 		move_result = mechsteprand()
 		move_type = MECHAMOVE_RAND
-	else if(dir != direction)
+	else if(dir != direction && !strafe || keyheld) //Player can use ALT button while strafe is active to change direction on fly
+		if(strafe)
+			step_in_final *= STRAFE_TURN_FACTOR
 		move_result = mechturn(direction)
 		move_type = MECHAMOVE_TURN
 	else
-		if(direction & (direction - 1))	//moved diagonally
-			glide_for(step_in * 1.41)
+		if(direction & (direction - 1))	//Trick to check for diagonal direction
+			if(strafe)
+				if(strafe_diagonal) //Diagonal strafe is overpowered, disabled by default on all mechas
+					glide_for(step_in * 1.41)
+					step_in_final *= STRAFE_DIAGONAL_FACTOR //Applies speed multiplier if mecha moved diagonally
+					move_result = mechstep(direction, old_direction, step_in_final)
+					move_type = MECHAMOVE_STEP
+				else
+					glide_for(step_in)
+					strafed_backwards = is_opposite_dir(convert_diagonal_dir(direction))
+					step_in_final *= strafed_backwards ? STRAFE_BACKWARDS_FACTOR : 1 //Applies speed multiplier if mecha moved backwards
+					move_result = mechstep(convert_diagonal_dir(direction), old_direction, step_in_final) //Any diagonal movement will be converted to cardinal via "convert_diagonal_dir" proc
+					move_type = MECHAMOVE_STEP
+			else
+				glide_for(step_in * 1.41)
+				move_result = mechstep(direction)
+				move_type = MECHAMOVE_STEP
 		else
 			glide_for(step_in)
-		move_result = mechstep(direction)
-		move_type = MECHAMOVE_STEP
+			strafed_backwards = is_opposite_dir(direction)
+			step_in_final *= strafed_backwards ? STRAFE_BACKWARDS_FACTOR : 1 //Applies speed multiplier if mecha moved backwards
+			move_result = mechstep(direction, old_direction, step_in_final)
+			move_type = MECHAMOVE_STEP
 
 	if(move_result && move_type)
+		if(strafe && actuator) //Energy drain mechanics for actuator module
+			use_power(strafed_backwards ? (actuator.energy_per_step * STRAFE_BACKWARDS_FACTOR) : actuator.energy_per_step)
 		aftermove(move_type)
-		can_move = world.time + step_in
+		can_move = world.time + step_in_final
 		return TRUE
 	return FALSE
+
+#undef STRAFE_TURN_FACTOR
+#undef STRAFE_DIAGONAL_FACTOR
+#undef STRAFE_BACKWARDS_FACTOR
 
 /obj/mecha/proc/aftermove(move_type)
 	use_power(step_energy_drain)
@@ -334,6 +452,8 @@
 		else
 			occupant.clear_alert("mechaport")
 	if(leg_overload_mode)
+		if(strafe) //No strafe while overload is active
+			toggle_strafe(silent = TRUE)
 		log_message("Leg Overload damage.")
 		take_damage(1, BRUTE, FALSE, FALSE)
 		if(obj_integrity < max_integrity - max_integrity / 3)
@@ -346,15 +466,23 @@
 	dir = direction
 	if(turnsound)
 		playsound(src,turnsound,40,1)
-	return 1
+	return TRUE
 
-/obj/mecha/proc/mechstep(direction)
+/obj/mecha/proc/mechstep(direction, old_direction, step_in_final)
 	. = step(src, direction)
+	if(strafe)
+		setDir(old_direction) //Mecha will always face the same direction while moving and strafe is active
 	if(!.)
+		if(strafe) //Cooldown and sound effect if mecha failed to step
+			can_move = world.time + step_in_final
+			if(turnsound)
+				playsound(src, turnsound, 40, 1)
 		if(phasing && get_charge() >= phasing_energy_drain)
+			if(strafe) //No strafe while phase mode is active
+				toggle_strafe(silent = TRUE)
 			if(can_move < world.time)
 				. = FALSE // We lie to mech code and say we didn't get to move, because we want to handle power usage + cooldown ourself
-				flick("phazon-phase", src)
+				flick("[initial_icon]-phase", src)
 				if(direction & (direction - 1))	//moved diagonally
 					glide_for(step_in * 4.23)
 				else
@@ -404,9 +532,8 @@
 			L.take_overall_damage(5,0)
 			if(L.buckled)
 				L.buckled = 0
-			L.Stun(5)
-			L.Weaken(5)
-			L.apply_effect(STUTTER, 5)
+			L.Weaken(10 SECONDS)
+			L.apply_effect(STUTTER, 10 SECONDS)
 			playsound(src, pick(hit_sound), 50, 0, 0)
 			breakthrough = 1
 
@@ -548,11 +675,11 @@
 	log_message("Attack by hand/paw. Attacker - [user].")
 
 
-/obj/mecha/attack_alien(mob/living/user)
+/obj/mecha/attack_alien(mob/living/carbon/alien/user)
 	log_message("Attack by alien. Attacker - [user].", TRUE)
 	add_attack_logs(user, OCCUPANT_LOGGING, "Alien attacked mech [src]")
 	playsound(src.loc, 'sound/weapons/slash.ogg', 100, TRUE)
-	attack_generic(user, 15, BRUTE, "melee", 0)
+	attack_generic(user, user.attack_damage, BRUTE, "melee", 0, user.armour_penetration)
 
 /obj/mecha/attack_animal(mob/living/simple_animal/user)
 	log_message("Attack by simple animal. Attacker - [user].")
@@ -678,14 +805,13 @@
 
 	if(istype(W, /obj/item/mecha_parts/mecha_equipment))
 		var/obj/item/mecha_parts/mecha_equipment/E = W
-		spawn()
-			if(E.can_attach(src))
-				if(!user.drop_item())
-					return
-				E.attach(src)
-				user.visible_message("[user] attaches [W] to [src].", "<span class='notice'>You attach [W] to [src].</span>")
-			else
-				to_chat(user, "<span class='warning'>You were unable to attach [W] to [src]!</span>")
+		if(E.can_attach(src))
+			if(!user.drop_from_active_hand())
+				return
+			E.attach(src)
+			user.visible_message("[user] attaches [W] to [src].", "<span class='notice'>You attach [W] to [src].</span>")
+		else
+			to_chat(user, "<span class='warning'>You were unable to attach [W] to [src]!</span>")
 		return
 
 	if(W.GetID())
@@ -712,10 +838,9 @@
 	else if(istype(W, /obj/item/stock_parts/cell))
 		if(state==4)
 			if(!cell)
-				if(!user.drop_item())
+				if(!user.drop_transfer_item_to_loc(W, src))
 					return
 				to_chat(user, "<span class='notice'>You install the powercell.</span>")
-				W.forceMove(src)
 				cell = W
 				log_message("Powercell installed")
 			else
@@ -723,10 +848,9 @@
 		return
 
 	else if(istype(W, /obj/item/mecha_parts/mecha_tracking))
-		if(!user.unEquip(W))
+		if(!user.drop_transfer_item_to_loc(W, src))
 			to_chat(user, "<span class='notice'>\the [W] is stuck to your hand, you cannot put it in \the [src]</span>")
 			return
-		W.forceMove(src)
 		trackers += W
 		user.visible_message("[user] attaches [W] to [src].", "<span class='notice'>You attach [W] to [src].</span>")
 		diag_hud_set_mechtracking()
@@ -756,7 +880,7 @@
 		initial_icon = P.new_icon
 		reset_icon()
 
-		user.drop_item()
+		user.temporarily_remove_item_from_inventory(P)
 		qdel(P)
 
 	else if(istype(W, /obj/item/mecha_modkit))
@@ -932,7 +1056,7 @@
 			occupant = null
 			AI.controlled_mech = null
 			AI.remote_control = null
-			icon_state = initial(icon_state)+"-open"
+			icon_state = reset_icon(icon_state)+"-open"
 			to_chat(AI, "You have been downloaded to a mobile storage device. Wireless connection offline.")
 			to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) removed from [name] and stored within local memory.")
 
@@ -966,7 +1090,7 @@
 	AI.aiRestorePowerRoutine = 0
 	AI.forceMove(src)
 	occupant = AI
-	icon_state = initial(icon_state)
+	icon_state = reset_icon(icon_state)
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 	if(!hasInternalDamage())
 		occupant << sound(nominalsound, volume = 50)
@@ -1004,6 +1128,11 @@
 	if(use_internal_tank)
 		return cabin_air
 	return get_turf_air()
+
+/obj/mecha/return_analyzable_air()
+	if(use_internal_tank)
+		return cabin_air
+	return null
 
 /obj/mecha/proc/return_pressure()
 	var/datum/gas_mixture/t_air = return_air()
@@ -1052,18 +1181,15 @@
 	return internal_tank.return_air()
 
 /obj/mecha/proc/toggle_lights()
-	lights = !lights
-	if(lights)
-		set_light(light_range + lights_power)
-	else
-		set_light(light_range - lights_power)
-	occupant_message("Toggled lights [lights ? "on" : "off"].")
-	log_message("Toggled lights [lights ? "on" : "off"].")
+	lights_action.Trigger()
+
+/obj/mecha/extinguish_light(force = FALSE)
+	if(!lights || !lights_power)
+		return
+	toggle_lights()
 
 /obj/mecha/proc/toggle_internal_tank()
-	use_internal_tank = !use_internal_tank
-	occupant_message("Now taking air from [use_internal_tank ? "internal airtank" : "environment"].")
-	log_message("Now taking air from [use_internal_tank ? "internal airtank" : "environment"].")
+	internals_action.Trigger()
 
 /obj/mecha/MouseDrop_T(mob/M, mob/user)
 	if(frozen)
@@ -1099,7 +1225,7 @@
 
 	visible_message("<span class='notice'>[user] starts to climb into [src]")
 
-	if(do_after(user, 40, target = src))
+	if(do_after(user, src.mech_enter_time * gettoolspeedmod(user), target = src))
 		if(obj_integrity <= 0)
 			to_chat(user, "<span class='warning'>You cannot get in the [name], it has been destroyed!</span>")
 		else if(occupant)
@@ -1170,7 +1296,7 @@
 		else if(mmi_as_oc.brainmob.stat)
 			to_chat(user, "Beta-rhythm below acceptable level.")
 			return FALSE
-		if(!user.unEquip(mmi_as_oc))
+		if(!user.drop_item_ground(mmi_as_oc))
 			to_chat(user, "<span class='notice'>\the [mmi_as_oc] is stuck to your hand, you cannot put it in \the [src]</span>")
 			return FALSE
 		var/mob/living/carbon/brain/brainmob = mmi_as_oc.brainmob
@@ -1209,6 +1335,7 @@
 	return
 
 /obj/mecha/Exited(atom/movable/M, atom/newloc)
+	..()
 	if(occupant && occupant == M) // The occupant exited the mech without calling go_out()
 		go_out(1, newloc)
 
@@ -1221,6 +1348,8 @@
 	occupant.clear_alert("mech damage")
 	occupant.clear_alert("mechaport")
 	occupant.clear_alert("mechaport_d")
+	if(occupant && occupant.client)
+		occupant.client.mouse_pointer_icon = initial(occupant.client.mouse_pointer_icon)
 	if(ishuman(occupant))
 		mob_container = occupant
 		RemoveActions(occupant, human_occupant = 1)
@@ -1267,7 +1396,7 @@
 				var/obj/item/mmi/robotic_brain/R = mmi
 				if(R.imprinted_master)
 					to_chat(L, "<span class='notice'>Imprint re-enabled, you are once again bound to [R.imprinted_master]'s commands.</span>")
-		icon_state = initial(icon_state)+"-open"
+		icon_state = reset_icon(icon_state)+"-open"
 		dir = dir_in
 
 	if(L && L.client)
@@ -1470,7 +1599,7 @@
 /obj/mecha/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
 	var/image/I = image('icons/mob/talk.dmi', bubble_loc, bubble_state, FLY_LAYER)
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-	INVOKE_ASYNC(GLOBAL_PROC, /.proc/flick_overlay, I, bubble_recipients, 30)
+	INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, I, bubble_recipients, 30)
 
 /obj/mecha/update_remote_sight(mob/living/user)
 	if(occupant_sight_flags)
@@ -1498,6 +1627,7 @@
 			AI = occupant
 			occupant = null
 		var/obj/structure/mecha_wreckage/WR = new wreckage(loc, AI)
+		WR.icon_state = "[src.reset_icon(loc, AI)]-broken"
 		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
 			if(E.salvageable && prob(30))
 				WR.crowbar_salvage += E
@@ -1531,7 +1661,7 @@
 		choices[MT.name] = MA
 		choices_to_refs[MT.name] = MT
 
-	var/choice = show_radial_menu(L, src, choices, radius = 48, custom_check = CALLBACK(src, .proc/check_menu, L))
+	var/choice = show_radial_menu(L, src, choices, radius = 48, custom_check = CALLBACK(src, PROC_REF(check_menu), L))
 	if(!check_menu(L) || choice == "Cancel / No Change")
 		return
 

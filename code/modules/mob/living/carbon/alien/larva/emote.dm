@@ -11,7 +11,7 @@
 	act = lowertext(act)
 	switch(act)
 		if("me")
-			if(silent)
+			if(HAS_TRAIT(src, TRAIT_MUTE))
 				return
 			if(src.client)
 				if(client.prefs.muted & MUTE_IC)
@@ -106,7 +106,7 @@
 			message = "hisses softly."
 			m_type = 1
 		if("collapse")
-			Paralyse(2)
+			Paralyse(4 SECONDS)
 			message = "collapses!"
 			m_type = 2
 		if("help")
@@ -114,7 +114,7 @@
 		else
 			to_chat(src, text("Invalid Emote: []", act))
 	if((message && src.stat == 0))
-		log_emote(message, src)
+		add_emote_logs(src, message)
 		if(m_type & 1)
 			for(var/mob/O in viewers(src, null))
 				O.show_message(message, m_type)

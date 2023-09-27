@@ -30,6 +30,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/list/data_hud_seen = list()
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
 	var/health_scan = FALSE //does the ghost have health scanner mode on? by default it should be off
+	var/gas_scan = FALSE
 	var/datum/orbit_menu/orbit_menu
 
 /mob/dead/observer/New(mob/body=null, flags=1)
@@ -43,7 +44,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 		/mob/dead/observer/proc/open_spawners_menu)
 
 	// Our new boo spell.
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/click/boo(null))
+	AddSpell(new /obj/effect/proc_holder/spell/boo(null))
 
 	can_reenter_corpse = flags & GHOST_CAN_REENTER
 	started_as_observer = flags & GHOST_IS_OBSERVER
@@ -54,7 +55,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/turf/T
 	if(ismob(body))
 		T = get_turf(body)				//Where is the body located?
-		attack_log_old = body.attack_log_old	//preserve our attack logs by copying them to our ghost
 
 		var/mutable_appearance/MA = copy_appearance(body)
 		if(body.mind && body.mind.name)
@@ -91,6 +91,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	..()
 
 /mob/dead/observer/Destroy()
+	toggle_all_huds_off()
 	if(ghostimage)
 		GLOB.ghost_images -= ghostimage
 		QDEL_NULL(ghostimage)
@@ -156,6 +157,8 @@ Works together with spawning an observer, noted above.
 		if(GLOB.non_respawnable_keys[ckey])
 			flags &= ~GHOST_CAN_REENTER
 		var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
+		if(client)
+			client.mouse_pointer_icon = initial(client.mouse_pointer_icon) //Возвращает курсор в изначальное положение (после меха, нинзи, спелла и т.п)
 		ghost.timeofdeath = src.timeofdeath //BS12 EDIT
 		GLOB.respawnable_list -= src
 		if(ghost.can_reenter_corpse)
@@ -163,6 +166,7 @@ Works together with spawning an observer, noted above.
 		else
 			GLOB.non_respawnable_keys[ckey] = 1
 		ghost.key = key
+		SEND_SIGNAL(src, COMSIG_MOB_GHOSTIZE, ghost)
 		return ghost
 
 /*
@@ -205,7 +209,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(warningmsg)
 		// Not respawnable
 		var/mob/dead/observer/ghost = ghostize(0)	// 0 parameter stops them re-entering their body
-		ghost.timeofdeath = world.time	// Because the living mob won't have a time of death and we want the respawn timer to work properly.
+		ghost?.timeofdeath = world.time	// Because the living mob won't have a time of death and we want the respawn timer to work properly.
 	else
 		// Respawnable
 		ghostize(1)
@@ -338,6 +342,17 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	for(var/datum/atom_hud/antag/H in GLOB.huds)
 		H.add_hud_to(src)
 
+/**
+ * Toggles off all HUDs for the ghost player.
+ */
+/mob/dead/observer/proc/toggle_all_huds_off()
+	remove_the_hud(DATA_HUD_DIAGNOSTIC_ADVANCED)
+	remove_the_hud(DATA_HUD_SECURITY_ADVANCED)
+	remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
+	antagHUD = FALSE
+	for(var/datum/atom_hud/antag/H in GLOB.huds)
+		H.remove_hud_from(src)
+
 /mob/dead/observer/verb/set_dnr()
 	set name = "Set DNR"
 	set category = "Ghost"
@@ -447,7 +462,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(isobserver(usr)) //Make sure they're an observer!
 		var/list/dest = getpois(mobs_only=TRUE) //Fill list, prompt user with list
 		var/datum/async_input/A = input_autocomplete_async(usr, "Enter a mob name: ", dest)
-		A.on_close(CALLBACK(src, .proc/jump_to_mob))
+		A.on_close(CALLBACK(src, PROC_REF(jump_to_mob)))
 
 /mob/dead/observer/proc/jump_to_mob(mob/M)
 	if(!M || !isobserver(usr))
@@ -497,56 +512,17 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(src, "<span class='notice'>Health scan enabled.</span>")
 		health_scan = TRUE
 
-/mob/dead/observer/verb/analyze_air()
-	set name = "Analyze Air"
+/mob/dead/observer/verb/toggle_gas_scan()
+	set name = "Toggle Gas Scan"
+	set desc = "Toggles whether you analyze gas contents on click"
 	set category = "Ghost"
 
-	if(!istype(usr, /mob/dead/observer)) return
-
-	// Shamelessly copied from the Gas Analyzers
-	if(!( istype(usr.loc, /turf) ))
-		return
-
-	var/datum/gas_mixture/environment = usr.loc.return_air()
-
-	var/pressure = environment.return_pressure()
-	var/total_moles = environment.total_moles()
-
-	to_chat(src, "<span class='boldnotice'>Results:</span>")
-	if(abs(pressure - ONE_ATMOSPHERE) < 10)
-		to_chat(src, "<span class='notice'>Pressure: [round(pressure,0.1)] kPa</span>")
+	if(gas_scan)
+		to_chat(src, span_notice("Gas scan disabled."))
+		gas_scan = FALSE
 	else
-		to_chat(src, "<span class='warning'>Pressure: [round(pressure,0.1)] kPa</span>")
-	if(total_moles)
-		var/o2_concentration = environment.oxygen/total_moles
-		var/n2_concentration = environment.nitrogen/total_moles
-		var/co2_concentration = environment.carbon_dioxide/total_moles
-		var/plasma_concentration = environment.toxins/total_moles
-
-		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration)
-		if(abs(n2_concentration - N2STANDARD) < 20)
-			to_chat(src, "<span class='notice'>Nitrogen: [round(n2_concentration*100)]% ([round(environment.nitrogen,0.01)] moles)</span>")
-		else
-			to_chat(src, "<span class='warning'>Nitrogen: [round(n2_concentration*100)]% ([round(environment.nitrogen,0.01)] moles)</span>")
-
-		if(abs(o2_concentration - O2STANDARD) < 2)
-			to_chat(src, "<span class='notice'>Oxygen: [round(o2_concentration*100)]% ([round(environment.oxygen,0.01)] moles)</span>")
-		else
-			to_chat(src, "<span class='warning'>Oxygen: [round(o2_concentration*100)]% ([round(environment.oxygen,0.01)] moles)</span>")
-
-		if(co2_concentration > 0.01)
-			to_chat(src, "<span class='warning'>CO2: [round(co2_concentration*100)]% ([round(environment.carbon_dioxide,0.01)] moles)</span>")
-		else
-			to_chat(src, "<span class='notice'>CO2: [round(co2_concentration*100)]% ([round(environment.carbon_dioxide,0.01)] moles)</span>")
-
-		if(plasma_concentration > 0.01)
-			to_chat(src, "<span class='warning'>Plasma: [round(plasma_concentration*100)]% ([round(environment.toxins,0.01)] moles)</span>")
-
-		if(unknown_concentration > 0.01)
-			to_chat(src, "<span class='warning'>Unknown: [round(unknown_concentration*100)]% ([round(unknown_concentration*total_moles,0.01)] moles)</span>")
-
-		to_chat(src, "<span class='notice'>Temperature: [round(environment.temperature-T0C,0.1)]&deg;C</span>")
-		to_chat(src, "<span class='notice'>Heat Capacity: [round(environment.heat_capacity(),0.1)]</span>")
+		to_chat(src, span_notice("Gas scan enabled."))
+		gas_scan = TRUE
 
 /mob/dead/observer/verb/view_manifest()
 	set name = "View Crew Manifest"
@@ -616,13 +592,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	..()
 //END TELEPORT HREF CODE
 
-/mob/dead/observer/verb/toggle_anonsay()
-	set name = "Toggle Anonymous Dead-chat"
-	set category = "Ghost"
-	set desc = "Toggles showing your key in dead chat."
-	client.prefs.toggles2 ^= PREFTOGGLE_2_ANONDCHAT
-	to_chat(src, "As a ghost, your key will [(client.prefs.toggles2 & PREFTOGGLE_2_ANONDCHAT) ? "no longer" : "now"] be shown when you speak in dead chat.</span>")
-	client.prefs.save_preferences(src)
 
 /mob/dead/observer/verb/toggle_ghostsee()
 	set name = "Toggle Ghost Vision"
@@ -705,15 +674,14 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 //this is a mob verb instead of atom for performance reasons
 //see /mob/verb/examinate() in mob.dm for more info
 //overriden here and in /mob/living for different point span classes and sanity checks
-/mob/dead/observer/pointed(atom/A as mob|obj|turf)
+/mob/dead/observer/run_pointed(atom/A as mob|obj|turf)
 	if(!..())
 		return FALSE
 	var/follow_link
 	if(invisibility) // Only show the button if the ghost is not visible to the living
 		follow_link = " ([ghost_follow_link(A, src)])"
 	usr.visible_message("<span class='deadsay'><b>[src]</b> points to [A][follow_link].</span>")
-	log_ghostsay("point to [key_name(A)] ([A.x],[A.y],[A.z])", src)
-	create_log(DEADCHAT_LOG, "point to [key_name(A)] ([A.x],[A.y],[A.z])")
+	add_deadchat_logs(src, "point to [key_name(A)] [COORD(A)]")
 	return TRUE
 
 /mob/dead/observer/proc/incarnate_ghost()

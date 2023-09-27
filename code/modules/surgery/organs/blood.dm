@@ -9,7 +9,7 @@
 		return
 	else
 		bleedsuppress = TRUE
-		addtimer(CALLBACK(src, .proc/resume_bleeding), amount)
+		addtimer(CALLBACK(src, PROC_REF(resume_bleeding)), amount)
 
 /mob/living/carbon/human/proc/resume_bleeding()
 	bleedsuppress = FALSE
@@ -19,6 +19,9 @@
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/handle_blood()
 	if(NO_BLOOD in dna.species.species_traits)
+		bleed_rate = 0
+		return
+	if(status_flags & GODMODE)
 		bleed_rate = 0
 		return
 
@@ -33,16 +36,16 @@
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 				if(prob(5))
 					to_chat(src, "<span class='warning'>You feel [word].</span>")
-				apply_damage_type(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.01, 1), dna.species.blood_damage_type)
+				apply_damage_type(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.014, 1), dna.species.blood_damage_type)
 			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
-				apply_damage_type(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.02, 1), dna.species.blood_damage_type)
+				apply_damage_type(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.028, 1), dna.species.blood_damage_type)
 				if(prob(5))
-					EyeBlurry(6)
+					EyeBlurry(12 SECONDS)
 					to_chat(src, "<span class='warning'>You feel very [word].</span>")
 			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
 				apply_damage_type(5, dna.species.blood_damage_type)
 				if(prob(15))
-					Paralyse(rand(1,3))
+					Paralyse(rand(2 SECONDS, 6 SECONDS))
 					to_chat(src, "<span class='warning'>You feel extremely [word].</span>")
 			if(-INFINITY to BLOOD_VOLUME_SURVIVE)
 				death()
@@ -74,10 +77,10 @@
 
 		var/additional_bleed = round(clamp((reagents.get_reagent_amount("heparin") / 10), 0, 2), 1) //Heparin worsens existing bleeding
 
-		if(internal_bleeding_rate && !(status_flags & FAKEDEATH))
+		if(internal_bleeding_rate && !HAS_TRAIT(src, TRAIT_FAKEDEATH))
 			bleed_internal(internal_bleeding_rate + additional_bleed)
 
-		if(bleed_rate && !bleedsuppress && !(status_flags & FAKEDEATH))
+		if(bleed_rate && !bleedsuppress && !HAS_TRAIT(src, TRAIT_FAKEDEATH))
 			bleed(bleed_rate + additional_bleed)
 
 //Makes a blood drop, leaking amt units of blood from the mob
@@ -124,6 +127,15 @@
 				else
 					R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER)
 
+/mob/living/carbon/human/proc/check_internal_bleedings()
+	var/list/internals_list = list()
+	if(NO_BLOOD in dna.species.species_traits)
+		return
+	for(var/obj/item/organ/external/limb in bodyparts)
+		if(limb.internal_bleeding)
+			internals_list.Add(limb)
+	return internals_list
+
 /mob/living/proc/restore_blood()
 	blood_volume = initial(blood_volume)
 
@@ -163,7 +175,7 @@
 						if((D.spread_flags & SPECIAL) || (D.spread_flags & NON_CONTAGIOUS))
 							continue
 						C.ForceContractDisease(D)
-				if(!(blood_data["blood_type"] in get_safe_blood(C.dna.blood_type)))
+				if(!(blood_data["blood_type"] in get_safe_blood(C.dna.blood_type)) || !(blood_data["blood_species"] == C.dna.species.blood_species))
 					C.reagents.add_reagent("toxin", amount * 0.5)
 					return 1
 
@@ -201,7 +213,8 @@
 			blood_data["ckey"] = ckey
 		if(!suiciding)
 			blood_data["cloneable"] = 1
-		blood_data["blood_type"] = copytext(src.dna.blood_type,1,0)
+		blood_data["blood_type"] = copytext(src.dna.blood_type, 1, 0)
+		blood_data["blood_species"] = dna.species.blood_species
 		blood_data["gender"] = gender
 		blood_data["real_name"] = real_name
 		blood_data["blood_color"] = dna.species.blood_color
@@ -342,3 +355,21 @@
 	if(shift_x || shift_y)
 		O.off_floor = TRUE
 		O.layer = BELOW_MOB_LAYER
+
+/mob/living/silicon/robot/cogscarab/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
+	if(!T)
+		T = get_turf(src)
+
+	var/obj/effect/decal/cleanable/blood/clock/streak/oil = locate() in T
+	var/list/oils = get_atoms_of_type(T, oil, TRUE, 0, 0)
+	if(shift_x || shift_y)
+		oils = get_atoms_of_type(T, oil, TRUE, shift_x, shift_y)
+		oil = locate() in oils
+	if(!oil)
+		oil = new(T)
+
+	oil.pixel_x = (shift_x)
+	oil.pixel_y = (shift_y)
+	if(shift_x || shift_y)
+		oil.off_floor = TRUE
+		oil.layer = BELOW_MOB_LAYER

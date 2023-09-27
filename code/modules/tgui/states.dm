@@ -1,7 +1,11 @@
 /**
  * tgui states
  *
- * Base state and helpers for states. Just does some sanity checks, implement a state for in-depth checks.
+ * Base state and helpers for states. Just does some sanity checks, implement
+ * a state for in-depth checks.
+ *
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
  */
 
 
@@ -115,4 +119,7 @@
 /mob/living/carbon/human/shared_living_ui_distance(atom/movable/src_object)
 	if((TK in mutations) && (get_dist(src, src_object) <= 2))
 		return STATUS_INTERACTIVE
+	if(ismecha(loc))
+		if(get_dist(loc, src_object) <= 1)
+			return STATUS_INTERACTIVE
 	return ..()

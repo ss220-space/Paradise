@@ -46,9 +46,11 @@
 /datum/station_goal/dna_vault/on_report()
 	var/datum/supply_packs/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/dna_vault]"]
 	P.special_enabled = TRUE
+	supply_list.Add(P)
 
 	P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/dna_probes]"]
 	P.special_enabled = TRUE
+	supply_list.Add(P)
 
 /datum/station_goal/dna_vault/check_completion()
 	if(..())
@@ -74,7 +76,7 @@
 	plants = list()
 	dna = list()
 
-GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/monkey,/mob/living/carbon/alien)))
+GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/lesser/monkey,/mob/living/carbon/alien)))
 
 /obj/item/dna_probe/afterattack(atom/target, mob/user, proximity)
 	..()
@@ -121,7 +123,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 
 
 /obj/item/circuitboard/machine/dna_vault
-	name = "DNA Vault (Machine Board)"
+	board_name = "DNA Vault"
 	build_path = /obj/machinery/dna_vault
 	origin_tech = "engineering=2;combat=2;bluespace=2" //No freebies!
 	req_components = list(
@@ -273,6 +275,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 
 /obj/machinery/dna_vault/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/dna_probe))
+		add_fingerprint(user)
 		var/obj/item/dna_probe/P = I
 		var/uploaded = 0
 		for(var/plant in P.plants)
@@ -319,6 +322,8 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 		if(VAULT_STUNTIME)
 			to_chat(H, "<span class='notice'>Nothing can keep you down for long.</span>")
 			S.stun_mod *= 0.5
+			S.stamina_mod *= 0.5
+			H.stam_regen_start_modifier *= 0.5
 		if(VAULT_ARMOUR)
 			to_chat(H, "<span class='notice'>You feel tough.</span>")
 			S.brute_mod *= 0.7

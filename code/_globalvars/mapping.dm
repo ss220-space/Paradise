@@ -8,9 +8,6 @@ GLOBAL_LIST_INIT(alldirs, list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, S
 GLOBAL_LIST_INIT(alldirs2, list(NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST, NORTH, SOUTH, EAST, WEST))
 GLOBAL_LIST_INIT(diagonals, list(NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST))
 
-// This must exist early on or shit breaks bad
-GLOBAL_DATUM_INIT(using_map, /datum/map, new USING_MAP_DATUM)
-
 GLOBAL_LIST(global_map) // This is the array of zlevels | list(list(1,5),list(4,3)) | becomes a 2D array of zlevels
 	//Resulting sector map looks like
 	//|_1_|_4_|
@@ -43,6 +40,7 @@ GLOBAL_LIST_EMPTY(prisonsecuritywarp)	//prison security goes to these
 GLOBAL_LIST_EMPTY(prisonwarped)	//list of players already warped
 GLOBAL_LIST_EMPTY(blobstart)
 GLOBAL_LIST_EMPTY(ninjastart)
+GLOBAL_LIST_EMPTY(ninja_teleport)
 GLOBAL_LIST_EMPTY(carplist) //list of all carp-spawn landmarks
 GLOBAL_LIST_EMPTY(syndicateofficer)
 

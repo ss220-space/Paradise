@@ -42,11 +42,10 @@
 		if(!T.tank_one || !T.tank_two)
 			to_chat(user, "<span class='warning'>What good would an incomplete bomb do?</span>")
 			return FALSE
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(T, src))
 			to_chat(user, "<span class='warning'>[T] seems to be stuck to your hand!</span>")
 			return FALSE
 		user.visible_message("<span class='warning'>[user] attaches [T] to [src]!</span>")
-		T.forceMove(src)
 		bomb = T
 		update_icon()
 		return TRUE
@@ -78,10 +77,7 @@
 	var/light = power
 	user.visible_message("<span class='danger'>[user] opens [bomb] on [user.p_their()] [name] and fires a blast wave at [target]!</span>","<span class='danger'>You open [bomb] on your [name] and fire a blast wave at [target]!</span>")
 	playsound(user, "explosion", 100, 1)
-	var/turf/starting = get_turf(user)
-	var/turf/targturf = get_turf(target)
-	message_admins("Blast wave fired from [ADMIN_COORDJMP(starting)] ([get_area_name(user, TRUE)]) at [ADMIN_COORDJMP(targturf)] ([target.name]) by [key_name_admin(user)] with power [heavy]/[medium]/[light].")
-	log_game("Blast wave fired from ([starting.x], [starting.y], [starting.z]) ([get_area_name(user, TRUE)]) at ([target.x], [target.y], [target.z]) ([target]) by [key_name(user)] with power [heavy]/[medium]/[light].")
+	add_attack_logs(user, target, "Blast waved with power [heavy]/[medium]/[light].", ATKLOG_MOST)
 	var/obj/item/projectile/blastwave/BW = new(loc, heavy, medium, light)
 	BW.preparePixelProjectile(target, get_turf(target), user, params, 0)
 	BW.fire()
@@ -91,7 +87,7 @@
 	icon_state = "blastwave"
 	damage = 0
 	nodamage = FALSE
-	forcedodge = TRUE
+	forcedodge = -1
 	range = 150
 	var/heavyr = 0
 	var/mediumr = 0

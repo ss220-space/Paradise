@@ -18,6 +18,7 @@ Bonus
 /datum/symptom/dizzy // Not the egg
 
 	name = "Dizziness"
+	id = "dizzy"
 	stealth = 2
 	resistance = -2
 	stage_speed = -3
@@ -34,5 +35,5 @@ Bonus
 				to_chat(M, "<span class='warning'>[pick("You feel dizzy.", "Your head spins.")]</span>")
 			else
 				to_chat(M, "<span class='userdanger'>A wave of dizziness washes over you!</span>")
-				M.Dizzy(5)
+				M.Dizzy(10 SECONDS)
 	return

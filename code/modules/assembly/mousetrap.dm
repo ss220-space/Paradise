@@ -21,7 +21,7 @@
 				var/mob/living/carbon/human/user = usr
 				if((user.getBrainLoss() >= 60 || (CLUMSY in user.mutations)) && prob(50))
 					to_chat(user, "Your hand slips, setting off the trigger.")
-					pulse(0)
+					pulse(0, user)
 		update_icon()
 		if(usr)
 			playsound(usr.loc, 'sound/weapons/handcuffs.ogg', 30, 1, -3)
@@ -47,29 +47,30 @@
 			playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
 			armed = FALSE
 			update_icon()
-			pulse(FALSE)
+			pulse(FALSE, target)
 			return FALSE
 		switch(type)
 			if("feet")
 				if(!H.shoes)
 					affecting = H.get_organ(pick("l_leg", "r_leg"))
-					H.Weaken(3)
+					H.Weaken(6 SECONDS)
 			if("l_hand", "r_hand")
 				if(!H.gloves)
 					affecting = H.get_organ(type)
-					H.Stun(3)
+					H.Stun(6 SECONDS)
 		if(affecting)
 			affecting.receive_damage(1, 0)
 	else if(ismouse(target))
 		var/mob/living/simple_animal/mouse/M = target
 		visible_message("<span class='danger'>SPLAT!</span>")
-		M.death()
-		M.splat()
+		M.apply_damage(5, "brute")
+		if (M.stat == DEAD)
+			M.splat(item = src)
 	playsound(loc, 'sound/effects/snap.ogg', 50, 1)
 	layer = MOB_LAYER - 0.2
 	armed = FALSE
 	update_icon()
-	pulse(0)
+	pulse(0, target)
 
 /obj/item/assembly/mousetrap/attack_self(mob/living/user)
 	if(!armed)

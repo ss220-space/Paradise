@@ -1,6 +1,6 @@
 /obj/machinery/computer
 	name = "computer"
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "computer"
 	density = 1
 	anchored = 1.0
@@ -36,9 +36,11 @@
 		return FALSE
 	return TRUE
 
-/obj/machinery/computer/extinguish_light()
-	set_light(0)
-	visible_message("<span class='danger'>[src] grows dim, its screen barely readable.</span>")
+/obj/machinery/computer/extinguish_light(force = FALSE)
+	if(light_range)
+		set_light(0)
+		underlays.Cut()
+		visible_message(span_danger("[src] grows dim, its screen barely readable."))
 
 /*
  * Reimp, flash the screen on and off repeatedly.
@@ -51,7 +53,7 @@
 		return FALSE
 
 	flickering = TRUE
-	INVOKE_ASYNC(src, /obj/machinery/computer/.proc/flicker_event)
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/computer, flicker_event))
 
 	return TRUE
 
@@ -130,23 +132,23 @@
 		if(circuit) //no circuit, no computer frame
 			var/obj/structure/computerframe/A = new /obj/structure/computerframe(loc)
 			var/obj/item/circuitboard/M = new circuit(A)
+			A.name += " ([M.board_name])"
 			A.setDir(dir)
 			A.circuit = M
 			A.anchored = TRUE
 			if(stat & BROKEN)
 				if(user)
-					to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
+					to_chat(user, span_notice("The broken glass falls out."))
 				else
 					playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, TRUE)
 				new /obj/item/shard(drop_location())
 				new /obj/item/shard(drop_location())
-				A.state = 3
-				A.icon_state = "3"
+				A.state = 4
 			else
 				if(user)
-					to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
-				A.state = 4
-				A.icon_state = "4"
+					to_chat(user, span_notice("You disconnect the monitor."))
+				A.state = 5
+			A.update_icon()
 		for(var/obj/C in src)
 			C.forceMove(loc)
 	qdel(src)

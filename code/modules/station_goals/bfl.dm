@@ -16,12 +16,15 @@
 	//Unlock BFL related things
 	var/datum/supply_packs/misc/station_goal/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bfl]"]
 	P.special_enabled = TRUE
+	supply_list.Add(P)
 
 	P =  SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bfl_lens]"]
 	P.special_enabled = TRUE
+	supply_list.Add(P)
 
 	P =  SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bfl_goal]"]
 	P.special_enabled = TRUE
+	supply_list.Add(P)
 
 /datum/station_goal/bfl/check_completion()
 	if(..())
@@ -35,30 +38,26 @@
 //Building//
 ////////////
 /obj/item/circuitboard/machine/bfl_emitter
-	name = "BFL Emitter (Machine Board)"
+	board_name = "BFL Emitter"
 	desc = "Be cautious, when emitter will be done it move up by one step"
 	build_path = /obj/machinery/power/bfl_emitter
 	origin_tech = "engineering=4;combat=4;bluespace=4"
 	req_components = list(
-					/obj/item/stack/sheet/metal = 5,
-					/obj/item/stack/rods = 20,
+					/obj/item/stack/sheet/plasteel = 10,
 					/obj/item/stack/sheet/plasmaglass = 4,
-					/obj/item/stock_parts/manipulator/femto = 2,
 					/obj/item/stock_parts/capacitor/quadratic = 5,
-					/obj/item/stock_parts/micro_laser/quadultra = 20,
-					/obj/item/gun/energy/lasercannon = 4,
-					/obj/item/stack/cable_coil = 6)
+					/obj/item/stock_parts/micro_laser/quadultra = 10,
+					/obj/item/stack/sheet/mineral/diamond = 2)
 
 /obj/item/circuitboard/machine/bfl_receiver
-	name = "BFL Receiver (Machine Board)"
+	board_name = "BFL Receiver"
 	desc = "Must be built in the middle of the deposit"
 	build_path = /obj/machinery/bfl_receiver
 	origin_tech = "engineering=4;combat=4;bluespace=4"
 	req_components = list(
 					/obj/item/stack/sheet/metal = 20,
 					/obj/item/stack/sheet/plasteel = 10,
-					/obj/item/stack/sheet/plasmaglass = 20,
-					/obj/item/stack/sheet/mineral/diamond = 8)
+					/obj/item/stack/sheet/plasmaglass = 20)
 
 ///////////
 //Emitter//
@@ -79,6 +78,7 @@
 	var/obj/machinery/bfl_receiver/receiver = FALSE
 	var/deactivate_time = 0
 	var/list/obj/structure/fillers = list()
+	var/lavaland_z_lvl		// Определяется кодом по имени лаваленда
 
 /obj/machinery/power/bfl_emitter/attack_hand(mob/user as mob)
 	var/response
@@ -112,11 +112,12 @@
 
 
 
-/obj/machinery/power/bfl_emitter/emag_act()
+/obj/machinery/power/bfl_emitter/emag_act(mob/user)
 	. = ..()
 	if(!emag)
+		add_attack_logs(user, src, "emagged")
 		emag = TRUE
-		to_chat(usr, "Emitter successfully sabotaged")
+		to_chat(user, "Emitter successfully sabotaged")
 
 /obj/machinery/power/bfl_emitter/process()
 	if(!state)
@@ -130,11 +131,11 @@
 		return
 
 	if(!receiver || !receiver.state || emag || !receiver.lens || !receiver.lens.anchored)
-		var/turf/rand_location = locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), 3)
+		var/turf/rand_location = locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), lavaland_z_lvl)
 		laser = new (rand_location)
 		for(var/M in GLOB.player_list)
 			var/turf/mob_turf = get_turf(M)
-			if(mob_turf?.z == 3)
+			if(mob_turf?.z == lavaland_z_lvl)
 				to_chat(M, "<span class='boldwarning'>You see bright red flash in the sky. Then clouds of smoke rises, uncovering giant red ray striking from the sky.</span>")
 		laser.move = rand_location.x
 		if(receiver)
@@ -158,7 +159,7 @@
 	working_sound()
 
 	if(!receiver)
-		for(var/turf/T as anything in block(locate(1, 1, 3), locate(world.maxx, world.maxy, 3)))
+		for(var/turf/T as anything in block(locate(1, 1, lavaland_z_lvl), locate(world.maxx, world.maxy, lavaland_z_lvl)))
 			receiver = locate() in T
 			if(receiver)
 				break
@@ -189,6 +190,7 @@
 //TODO: Replace this,bsa and gravgen with some big machinery datum
 /obj/machinery/power/bfl_emitter/Initialize()
 	.=..()
+	lavaland_z_lvl = level_name_to_num(MINING)
 	pixel_x = -32
 	pixel_y = 0
 	playsound(src, 'sound/BFL/drill_sound.ogg', 100, TRUE)
@@ -430,6 +432,8 @@
 	if(step_count > 5)
 		Destroy()
 	step_count++
+	pixel_x = -32
+	pixel_y = -32 //Explictly stating, that pixel_x and pixel_y will ALWAYS be -32/-32 when moved, because moving objects reset their offset.
 
 
 //everything else
@@ -464,6 +468,7 @@
 	icon_state = "Laser_Red"
 	speed_process = TRUE
 	var/move = 0
+	var/lavaland_z_lvl		// Определяется кодом по имени лаваленда
 
 /obj/singularity/bfl_red/move(force_move)
 	if(!move_self)
@@ -476,7 +481,7 @@
 		step(src, movement_dir)
 	else
 		move++
-		forceMove(locate((move % 255) + 1, (sin(move + 1) + 1)*125 + 3, 3))
+		forceMove(locate((move % 255) + 1, (sin(move + 1) + 1)*125 + 3, lavaland_z_lvl))
 
 /obj/singularity/bfl_red/expand()
 	. = ..()
@@ -491,4 +496,5 @@
 
 /obj/singularity/bfl_red/New(loc, var/starting_energy = 50, var/temp = 0)
 	starting_energy = 250
+	lavaland_z_lvl = level_name_to_num(MINING)
 	. = ..(loc, starting_energy, temp)

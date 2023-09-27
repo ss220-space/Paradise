@@ -6,17 +6,17 @@
 /datum/surgery/infection
 	name = "External Infection Treatment"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/cauterize)
-	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot", "tail")
+	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot", "tail", "wing")
 
 /datum/surgery/bleeding
 	name = "Internal Bleeding"
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders,/datum/surgery_step/generic/retract_skin,/datum/surgery_step/fix_vein,/datum/surgery_step/generic/cauterize)
-	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot", "tail")
+	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot", "tail", "wing")
 
 /datum/surgery/debridement
 	name = "Debridement"
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders,/datum/surgery_step/generic/retract_skin,/datum/surgery_step/fix_dead_tissue,/datum/surgery_step/treat_necrosis,/datum/surgery_step/generic/cauterize)
-	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot", "tail")
+	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot", "tail", "wing")
 
 /datum/surgery/infection/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
@@ -62,7 +62,8 @@
 	name = "mend internal bleeding"
 	allowed_tools = list(
 	/obj/item/FixOVein = 100, \
-	/obj/item/stack/cable_coil = 90
+	/obj/item/stack/cable_coil = 90, \
+	/obj/item/stack/sheet/sinew = 90
 	)
 	can_infect = 1
 	blood_level = 1
@@ -314,11 +315,11 @@
 		user.SetParalysis(0)
 		if(iscarbon(user))
 			var/mob/living/carbon/C = user
-			C.Weaken(6)
+			C.Weaken(12 SECONDS)
 			C.apply_damage(20, BRUTE, "chest")
 		else if(issilicon(user))
 			var/mob/living/silicon/S = user
-			S.Weaken(8)
+			S.Weaken(16 SECONDS)
 			S.apply_damage(20, BRUTE)
 			playsound(S, 'sound/effects/bang.ogg', 50, 1)
 		return 0
@@ -332,5 +333,5 @@
 	target.visible_message("<span class='warning'>A strange black mass falls from [target]'s [E]!</span>")
 	var/obj/item/organ/thing = new /obj/item/organ/internal/shadowtumor(get_turf(target))
 	thing.set_dna(target.dna)
-	user.put_in_hands(thing)
+	user.put_in_hands(thing, ignore_anim = FALSE)
 	return 1

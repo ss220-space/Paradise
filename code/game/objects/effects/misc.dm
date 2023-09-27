@@ -42,7 +42,7 @@
 /obj/effect/laser
 	name = "laser"
 	desc = "IT BURNS!!!"
-	icon = 'icons/obj/projectiles.dmi'
+	icon = 'icons/obj/weapons/projectiles.dmi'
 	var/damage = 0.0
 	var/range = 10.0
 
@@ -87,7 +87,7 @@
 /obj/structure/showcase/horrific_experiment
 	name = "horrific experiment"
 	desc = "Some sort of pod filled with blood and vicerea. You swear you can see it moving..."
-	icon = 'icons/obj/cloning.dmi'
+	icon = 'icons/obj/machines/cloning.dmi'
 	icon_state = "pod_mess"
 
 

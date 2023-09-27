@@ -13,6 +13,7 @@
 	var/teleporting = 0 //if it's in the process of teleporting
 	var/power_efficiency = 1
 	var/obj/machinery/quantumpad/linked_pad = null
+	var/preset_target = null
 
 /obj/machinery/quantumpad/New()
 	..()
@@ -54,6 +55,9 @@
 
 /obj/machinery/quantumpad/multitool_act(mob/user, obj/item/I)
 	. = TRUE
+	if(preset_target)
+		to_chat(user, span_notice("[src]'s target cannot be modified!"))
+		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!I.multitool_check_buffer(user))
@@ -63,7 +67,8 @@
 		M.set_multitool_buffer(user, src)
 	else
 		linked_pad = M.buffer
-		to_chat(user, "<span class='notice'>You link the [src] to the one in the [I.name]'s buffer.</span>")
+		investigate_log("[key_name_log(user)] linked [src] to [M.buffer] at [COORD(linked_pad)].", INVESTIGATE_TELEPORTATION)
+		to_chat(user, span_notice("You link the [src] to the one in the [I.name]'s buffer."))
 
 /obj/machinery/quantumpad/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -73,27 +78,27 @@
 
 /obj/machinery/quantumpad/attack_hand(mob/user)
 	if(panel_open)
-		to_chat(user, "<span class='warning'>The panel must be closed before operating this machine!</span>")
+		to_chat(user, span_warning("The panel must be closed before operating this machine!"))
 		return
 
 	if(!linked_pad || QDELETED(linked_pad))
-		to_chat(user, "<span class='warning'>There is no linked pad!</span>")
+		to_chat(user, span_warning("There is no linked pad!"))
 		return
 
 	if(world.time < last_teleport + teleport_cooldown)
-		to_chat(user, "<span class='warning'>[src] is recharging power. Please wait [round((last_teleport + teleport_cooldown - world.time) / 10)] seconds.</span>")
+		to_chat(user, span_warning("[src] is recharging power. Please wait [round((last_teleport + teleport_cooldown - world.time) / 10)] seconds."))
 		return
 
 	if(teleporting)
-		to_chat(user, "<span class='warning'>[src] is charging up. Please wait.</span>")
+		to_chat(user, span_warning("[src] is charging up. Please wait."))
 		return
 
 	if(linked_pad.teleporting)
-		to_chat(user, "<span class='warning'>Linked pad is busy. Please wait.</span>")
+		to_chat(user, span_warning("Linked pad is busy. Please wait."))
 		return
 
 	if(linked_pad.stat & NOPOWER)
-		to_chat(user, "<span class='warning'>Linked pad is not responding to ping.</span>")
+		to_chat(user, span_warning("Linked pad is not responding to ping."))
 		return
 	add_fingerprint(user)
 	doteleport(user)
@@ -115,11 +120,11 @@
 				teleporting = 0
 				return
 			if(stat & NOPOWER)
-				to_chat(user, "<span class='warning'>[src] is unpowered!</span>")
+				to_chat(user, span_warning("[src] is unpowered!"))
 				teleporting = 0
 				return
 			if(!linked_pad || QDELETED(linked_pad) || linked_pad.stat & NOPOWER)
-				to_chat(user, "<span class='warning'>Linked pad is not responding to ping. Teleport aborted.</span>")
+				to_chat(user, span_warning("Linked pad is not responding to ping. Teleport aborted."))
 				teleporting = 0
 				return
 
@@ -151,4 +156,26 @@
 						continue
 				tele_success = do_teleport(ROI, get_turf(linked_pad))
 			if(!tele_success)
-				to_chat(user, "<span class='warning'>Teleport failed due to bluespace interference.</span>")
+				to_chat(user, span_warning("Teleport failed due to bluespace interference."))
+
+
+/obj/machinery/quantumpad/cere/Initialize(mapload)
+	. = ..()
+	linked_pad = locate(preset_target)
+
+/obj/machinery/quantumpad/cere/cargo_arrivals
+	preset_target = /obj/machinery/quantumpad/cere/arrivals_cargo
+/obj/machinery/quantumpad/cere/cargo_security
+	preset_target = /obj/machinery/quantumpad/cere/security_cargo
+/obj/machinery/quantumpad/cere/security_cargo
+	preset_target = /obj/machinery/quantumpad/cere/cargo_security
+/obj/machinery/quantumpad/cere/security_science
+	preset_target = /obj/machinery/quantumpad/cere/science_security
+/obj/machinery/quantumpad/cere/science_security
+	preset_target = /obj/machinery/quantumpad/cere/security_science
+/obj/machinery/quantumpad/cere/science_arrivals
+	preset_target = /obj/machinery/quantumpad/cere/arrivals_science
+/obj/machinery/quantumpad/cere/arrivals_science
+	preset_target = /obj/machinery/quantumpad/cere/science_arrivals
+/obj/machinery/quantumpad/cere/arrivals_cargo
+	preset_target = /obj/machinery/quantumpad/cere/cargo_arrivals

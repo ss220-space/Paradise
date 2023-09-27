@@ -14,9 +14,9 @@ GLOBAL_LIST_INIT(human_recipes, list( \
 	new/datum/stack_recipe("bloated human costume head", /obj/item/clothing/head/human_head, 5, on_floor = TRUE), \
 	))
 
-/obj/item/stack/sheet/animalhide/human/New(var/loc, var/amount=null)
+/obj/item/stack/sheet/animalhide/human/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
 	recipes = GLOB.human_recipes
-	return ..()
 
 /obj/item/stack/sheet/animalhide/generic
 	name = "generic skin"
@@ -51,8 +51,8 @@ GLOBAL_LIST_INIT(human_recipes, list( \
 GLOBAL_LIST_INIT(lizard_recipes, list(new/datum/stack_recipe("lizard skin handbag", /obj/item/storage/backpack/satchel_lizard, 5, on_floor = TRUE), new/datum/stack_recipe("lizard skin backpack",  /obj/item/storage/backpack/lizard, 5, on_floor = TRUE)))
 
 /obj/item/stack/sheet/animalhide/lizard/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
 	recipes = GLOB.lizard_recipes
-	return ..()
 
 /obj/item/stack/sheet/animalhide/xeno
 	name = "alien hide"
@@ -65,8 +65,8 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 	new/datum/stack_recipe("alien suit", /obj/item/clothing/suit/xenos, 2)))
 
 /obj/item/stack/sheet/animalhide/xeno/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
 	recipes = GLOB.xeno_recipes
-	return ..()
 
 //don't see anywhere else to put these, maybe together they could be used to make the xenos suit?
 /obj/item/stack/sheet/xenochitin
@@ -125,11 +125,12 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 	new/datum/stack_recipe("leather shoes", /obj/item/clothing/shoes/leather, 2),
 	new/datum/stack_recipe("leather overcoat", /obj/item/clothing/suit/jacket/leather/overcoat, 10),
 	new/datum/stack_recipe("FireSuit", /obj/item/clothing/suit/fire/firefighter, 15),
-	new/datum/stack_recipe("hide mantle", /obj/item/clothing/neck/mantle/unathi, 4)))
+	new/datum/stack_recipe("hide mantle", /obj/item/clothing/neck/mantle/unathi, 4),
+	new/datum/stack_recipe("gem satchel", /obj/item/storage/bag/gem, 1)))
 
-/obj/item/stack/sheet/leather/New(loc, new_amount, merge = TRUE)
+/obj/item/stack/sheet/leather/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
 	recipes = GLOB.leather_recipes
-	return ..()
 
 /obj/item/stack/sheet/sinew
 	name = "watcher sinew"
@@ -143,9 +144,9 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	new/datum/stack_recipe("sinew restraints", /obj/item/restraints/handcuffs/sinew, 1, on_floor = 1), \
 	))
 
-/obj/item/stack/sheet/sinew/New(var/loc, var/amount=null)
+/obj/item/stack/sheet/sinew/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
 	recipes = GLOB.sinew_recipes
-	return ..()
 
 /obj/item/stack/sheet/animalhide/goliath_hide
 	name = "goliath hide plates"
@@ -157,20 +158,35 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
 	var/static/list/goliath_platable_armor_typecache = typecacheof(list(
-			/obj/item/clothing/suit/space/hardsuit/mining,
-			/obj/item/clothing/head/helmet/space/hardsuit/mining,
 			/obj/item/clothing/suit/hooded/explorer,
 			/obj/item/clothing/head/hooded/explorer,
+			/obj/item/clothing/suit/hooded/pathfinder,
+			/obj/item/clothing/head/hooded/pathfinder,
 			/obj/item/clothing/head/helmet/space/plasmaman/mining))
-
+	var/static/list/goliath_platable_armor_with_icon_typecache = typecacheof(list(
+			/obj/item/clothing/suit/space/hardsuit/mining,
+			/obj/item/clothing/head/helmet/space/hardsuit/mining,
+	))
 /obj/item/stack/sheet/animalhide/goliath_hide/afterattack(atom/target, mob/user, proximity_flag)
 	if(!proximity_flag)
 		return
-	if(is_type_in_typecache(target, goliath_platable_armor_typecache))
+	if(is_type_in_typecache(target, goliath_platable_armor_typecache) || is_type_in_typecache(target, goliath_platable_armor_with_icon_typecache))
 		var/obj/item/clothing/C = target
 		var/datum/armor/current_armor = C.armor
 		if(current_armor.getRating("melee") < 60)
 			C.armor = current_armor.setRating(melee_value = min(current_armor.getRating("melee") + 10, 60))
+			if(is_type_in_typecache(target, goliath_platable_armor_with_icon_typecache))
+				switch(C.armor.getRating("melee"))
+					if(40, 50)
+						C.icon_state = "[initial(C.icon_state)]_reinf"
+						C.item_color = "mining_reinf"
+					if(60)
+						C.icon_state = "[initial(C.icon_state)]_reinf_full"
+						C.item_color = "mining_reinf_full"
+				if(ishuman(C.loc))
+					var/mob/living/carbon/human/H = C.loc
+					H.update_inv_head()
+					H.update_inv_wear_suit()
 			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
 			use(1)
 		else
@@ -184,13 +200,36 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating("laser") + 5, 50))
 			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
 			D.update_icon()
-			if(D.hides == 3)
-				D.desc = "Autonomous Power Loader Unit. It's wearing a fearsome carapace entirely composed of goliath hide plates - its pilot must be an experienced monster hunter."
-			else
-				D.desc = "Autonomous Power Loader Unit. Its armour is enhanced with some goliath hide plates."
 			use(1)
 		else
 			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
+
+/obj/item/stack/sheet/armour_plate
+	name = "укрепленная броневая плита" // тут по причине того же механа что и шкура голиафа
+	desc = "Сделанный на коленке из плит брони для мехов, этот кусок металла можно налепить на сам мех, усиливая его защитные характеристики. К сожалению, выемки под такую броню есть только у мехов рабочего класса."
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "armour_plate"
+	singular_name = "armour plate"
+	flags = NOBLUDGEON
+	w_class = WEIGHT_CLASS_NORMAL
+	layer = MOB_LAYER
+
+/obj/item/stack/sheet/armour_plate/afterattack(atom/target, mob/user, proximity_flag)
+	if(!proximity_flag)
+		return
+	if(istype(target, /obj/mecha/working/ripley))
+		var/obj/mecha/working/ripley/D = target
+		if(D.plates < 3)
+			D.plates++
+			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating("melee") + 10, 70))
+			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating("bullet") + 5, 50))
+			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating("laser") + 5, 50))
+			to_chat(user, "<span class='info'>Вы нашли куда суется [name] и пихнули её на экзокостюм, усиливая защиту против атак.</span>")
+			D.update_icon()
+			use(1)
+		else
+			to_chat(user, "<span class='warning'>Вы больше не можете найти куда [name] пристраивается!</span>")
+
 
 /obj/item/stack/sheet/animalhide/ashdrake
 	name = "ash drake hide"
@@ -207,7 +246,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 /obj/item/stack/sheet/animalhide/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(W.sharp)
 		user.visible_message("[user] starts cutting hair off \the [src].", "<span class='notice'>You start cutting the hair off \the [src]...</span>", "<span class='italics'>You hear the sound of a knife rubbing against flesh.</span>")
-		if(do_after(user, 50 * W.toolspeed, target = src))
+		if(do_after(user, 50 * W.toolspeed * gettoolspeedmod(user), target = src))
 			to_chat(user, "<span class='notice'>You cut the hair from this [src.singular_name].</span>")
 			//Try locating an exisitng stack on the tile and add to there if possible
 			for(var/obj/item/stack/sheet/hairlesshide/HS in usr.loc)
@@ -216,8 +255,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 					src.use(1)
 					break
 			//If it gets to here it means it did not find a suitable stack on the tile.
-			var/obj/item/stack/sheet/hairlesshide/HS = new(usr.loc)
-			HS.amount = 1
+			new /obj/item/stack/sheet/hairlesshide(usr.loc, 1)
 			src.use(1)
 	else
 		..()
@@ -243,7 +281,6 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 					wetness = initial(wetness)
 					return
 			//If it gets to here it means it did not find a suitable stack on the tile.
-			var/obj/item/stack/sheet/leather/HS = new(src.loc)
-			HS.amount = 1
+			new /obj/item/stack/sheet/leather(src.loc, 1)
 			wetness = initial(wetness)
 			src.use(1)

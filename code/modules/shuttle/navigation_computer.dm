@@ -82,8 +82,19 @@
 		shuttle_port = null
 		return
 
-	eyeobj = new /mob/camera/aiEye/remote/shuttle_docker(null, src)
+	var/turf/shuttle_eye_pos = get_turf(locate("landmark*Observer-Start"))
+
+	if(jumpto_ports.len)
+		for(var/obj/docking_port/stationary/S in SSshuttle.stationary)
+			if(!S)
+				continue
+			if(jumpto_ports[S.id])
+				shuttle_eye_pos = get_turf(S)
+				break
+
+	eyeobj = new /mob/camera/aiEye/remote/shuttle_docker(shuttle_eye_pos, src) // There should always be an observer start landmark
 	var/mob/camera/aiEye/remote/shuttle_docker/the_eye = eyeobj
+	the_eye.eye_initialized = TRUE
 	the_eye.setDir(shuttle_port.dir)
 	var/turf/origin = locate(shuttle_port.x + x_offset, shuttle_port.y + y_offset, shuttle_port.z)
 	for(var/V in shuttle_port.shuttle_areas)
@@ -124,7 +135,7 @@
 			to_remove += SSshuttle.hidden_shuttle_turf_images
 
 		user.client.images -= to_remove
-		user.client.SetView(7)
+		user.client.SetView(user.client.prefs.viewrange)
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/proc/placeLandingSpot()
 	if(designating_target_loc || !current_user)
@@ -135,7 +146,7 @@
 	if(designate_time && (landing_clear != SHUTTLE_DOCKER_BLOCKED))
 		to_chat(current_user, "<span class='warning'>Targeting transit location, please wait [DisplayTimeText(designate_time)]...</span>")
 		designating_target_loc = the_eye.loc
-		var/wait_completed = do_after(current_user, designate_time, FALSE, designating_target_loc, TRUE, CALLBACK(src, /obj/machinery/computer/camera_advanced/shuttle_docker/proc/canDesignateTarget))
+		var/wait_completed = do_after(current_user, designate_time, FALSE, designating_target_loc, TRUE, CALLBACK(src, TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/shuttle_docker, canDesignateTarget)))
 		designating_target_loc = null
 		if(!current_user)
 			return

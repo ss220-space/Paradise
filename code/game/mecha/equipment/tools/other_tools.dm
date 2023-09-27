@@ -9,17 +9,21 @@
 	icon_state = "mecha_teleport"
 	origin_tech = "bluespace=7"
 	equip_cooldown = 150
-	energy_drain = 8000
+	energy_drain = 4000
 	range = MECHA_RANGED
 	var/tele_precision = 4
 
 /obj/item/mecha_parts/mecha_equipment/teleporter/action(atom/target)
 	if(!action_checks(target) || !is_teleport_allowed(loc.z))
 		return
+	if(!is_faced_target(target))
+		return FALSE
 	var/turf/T = get_turf(target)
 	if(T)
 		chassis.use_power(energy_drain)
+		var/turf/user_turf = get_turf(src)
 		do_teleport(chassis, T, tele_precision)
+		chassis.investigate_log("[key_name_log(chassis.occupant)] mecha-teleported from [COORD(user_turf)] to [COORD(chassis)].", INVESTIGATE_TELEPORTATION)
 		return 1
 
 /obj/item/mecha_parts/mecha_equipment/teleporter/precise
@@ -44,6 +48,8 @@
 /obj/item/mecha_parts/mecha_equipment/wormhole_generator/action(atom/target)
 	if(!action_checks(target) || !is_teleport_allowed(loc.z))
 		return
+	if(!is_faced_target(target))
+		return FALSE
 	var/list/theareas = get_areas_in_range(100, chassis)
 	if(!theareas.len)
 		return
@@ -69,8 +75,10 @@
 	P.failchance = 0
 	P.icon_state = "anom"
 	P.name = "wormhole"
-	message_admins("[key_name_admin(chassis.occupant, chassis.occupant.client)]([ADMIN_QUE(chassis.occupant,"?")]) ([ADMIN_FLW(chassis.occupant,"FLW")]) used a Wormhole Generator in ([loc.x],[loc.y],[loc.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>JMP</a>)",0,1)
-	log_game("[key_name(chassis.occupant)] used a Wormhole Generator in ([loc.x],[loc.y],[loc.z])")
+	message_admins("[ADMIN_LOOKUPFLW(chassis.occupant)] used a Wormhole Generator in [ADMIN_COORDJMP(loc)]")
+	add_game_logs("used a Wormhole Generator in [COORD(loc)]", chassis.occupant)
+	chassis.investigate_log("[key_name_log(chassis.occupant)] used a Wormhole Generator at [COORD(loc)].", INVESTIGATE_TELEPORTATION)
+
 	src = null
 	spawn(rand(150,300))
 		qdel(P)
@@ -93,6 +101,8 @@
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/action(atom/movable/target)
 	if(!action_checks(target))
 		return
+	if(!is_faced_target(target))
+		return FALSE
 	if(cooldown_timer > world.time)
 		occupant_message("<span class='warning'>[src] is still recharging.</span>")
 		return
@@ -131,12 +141,12 @@
 						sleep(2)
 			var/turf/T = get_turf(target)
 			cooldown_timer = world.time + 3 SECONDS
-			log_game("[key_name(chassis.occupant)] used a Gravitational Catapult in ([T.x],[T.y],[T.z])")
+			add_game_logs("used a Gravitational Catapult in [COORD(T)]", chassis.occupant)
 			return 1
 
 
-/obj/item/mecha_parts/mecha_equipment/gravcatapult/get_equip_info()
-	return "[..()] [mode==1?"([locked||"Nothing"])":null] \[<a href='?src=[UID()];mode=1'>S</a>|<a href='?src=[UID()];mode=2'>P</a>\]"
+/obj/item/mecha_parts/mecha_equipment/gravcatapult/get_module_equip_info()
+	return " [mode==1?"([locked||"Nothing"])":null] \[<a href='?src=[UID()];mode=1'>S</a>|<a href='?src=[UID()];mode=2'>P</a>\]"
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/Topic(href, href_list)
 	..()
@@ -204,20 +214,16 @@
 		chassis.overlays -= droid_overlay
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/repair_droid/attach(obj/mecha/M)
-	..()
+/obj/item/mecha_parts/mecha_equipment/repair_droid/attach_act(obj/mecha/M)
 	droid_overlay = new(icon, icon_state = "repair_droid")
 	M.overlays += droid_overlay
 
-/obj/item/mecha_parts/mecha_equipment/repair_droid/detach()
+/obj/item/mecha_parts/mecha_equipment/repair_droid/detach_act()
 	chassis.overlays -= droid_overlay
 	STOP_PROCESSING(SSobj, src)
-	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/repair_droid/get_equip_info()
-	if(!chassis) return
-	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp; [name] - <a href='?src=[UID()];toggle_repairs=1'>[equip_ready?"A":"Dea"]ctivate</a>"
-
+/obj/item/mecha_parts/mecha_equipment/repair_droid/get_module_equip_info()
+	return " <a href='?src=[UID()];toggle_repairs=1'>[equip_ready?"A":"Dea"]ctivate</a>"
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/Topic(href, href_list)
 	..()
@@ -283,9 +289,8 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/detach()
+/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/detach_act()
 	STOP_PROCESSING(SSobj, src)
-	..()
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/proc/get_charge()
 	if(equip_ready) //disabled
@@ -317,9 +322,8 @@
 			set_ready_state(1)
 			log_message("Deactivated.")
 
-/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/get_equip_info()
-	if(!chassis) return
-	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp; [name] - <a href='?src=[UID()];toggle_relay=1'>[equip_ready?"A":"Dea"]ctivate</a>"
+/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/get_module_equip_info()
+	return " <a href='?src=[UID()];toggle_relay=1'>[equip_ready?"A":"Dea"]ctivate</a>"
 
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/process()
@@ -368,9 +372,8 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/generator/detach()
+/obj/item/mecha_parts/mecha_equipment/generator/detach_act()
 	STOP_PROCESSING(SSobj, src)
-	..()
 
 /obj/item/mecha_parts/mecha_equipment/generator/Topic(href, href_list)
 	..()
@@ -384,10 +387,8 @@
 			STOP_PROCESSING(SSobj, src)
 			log_message("Deactivated.")
 
-/obj/item/mecha_parts/mecha_equipment/generator/get_equip_info()
-	var/output = ..()
-	if(output)
-		return "[output] \[[fuel_name]: [round(fuel_amount,0.1)] cm<sup>3</sup>\] - <a href='?src=[UID()];toggle=1'>[equip_ready?"A":"Dea"]ctivate</a>"
+/obj/item/mecha_parts/mecha_equipment/generator/get_module_equip_info()
+	return " \[[fuel_name]: [round(fuel_amount,0.1)] cm<sup>3</sup>\] - <a href='?src=[UID()];toggle=1'>[equip_ready?"A":"Dea"]ctivate</a>"
 
 /obj/item/mecha_parts/mecha_equipment/generator/action(target)
 	if(chassis)
@@ -395,16 +396,16 @@
 		if(result)
 			send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
 
-/obj/item/mecha_parts/mecha_equipment/generator/proc/load_fuel(var/obj/item/I)
+/obj/item/mecha_parts/mecha_equipment/generator/proc/load_fuel(obj/item/I)
 	if(istype(I) && (fuel_type in I.materials))
 		if(istype(I, /obj/item/stack/sheet))
 			var/obj/item/stack/sheet/P = I
-			var/to_load = max(max_fuel - P.amount*P.perunit,0)
+			var/to_load = max(max_fuel - fuel_amount, 0)
 			if(to_load)
 				var/units = min(max(round(to_load / P.perunit),1),P.amount)
 				if(units)
 					var/added_fuel = units * P.perunit
-					fuel_amount += added_fuel
+					fuel_amount = min(fuel_amount + added_fuel, max_fuel)
 					P.use(units)
 					occupant_message("[units] unit\s of [fuel_name] successfully loaded.")
 					return added_fuel
@@ -498,3 +499,88 @@
 	if(..())
 		for(var/mob/living/carbon/M in view(chassis))
 			M.apply_effect((rad_per_cycle * 3),IRRADIATE,0)
+
+/////////////////////////////////// SERVO-HYDRAULIC ACTUATOR ////////////////////////////////////////////////
+
+/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator
+	name = "Servo-Hydraulic Actuator"
+	desc = "Boosts exosuit servo-motors, allowing it to activate strafe mode. Requires energy to operate."
+	icon_state = "actuator"
+	origin_tech = "powerstorage=5;programming=5;engineering=5;combat=5"
+	selectable = 0
+	var/energy_per_step = 50 //How much energy this module drains per step in strafe mode
+
+/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/can_attach(obj/mecha/M)
+	if(M.strafe_allowed)
+		return FALSE
+	. = ..()
+
+/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/attach_act(obj/mecha/M)
+	M.strafe_allowed = TRUE
+	M.actuator = src
+	if(M.occupant)
+		M.strafe_action.Grant(M.occupant, M)
+
+/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/detach_act()
+	chassis.strafe_allowed = FALSE
+	chassis.strafe = FALSE
+	chassis.actuator = null
+	if(chassis.occupant)
+		chassis.strafe_action.Remove(chassis.occupant)
+
+/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/Destroy()
+	if(chassis)
+		chassis.strafe_allowed = FALSE
+		chassis.strafe = FALSE
+		chassis.actuator = null
+		if(chassis.occupant)
+			chassis.strafe_action.Remove(chassis.occupant)
+	. = ..()
+
+//LEG UPGRADE
+
+/obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system
+	name = "improved exosuit control system"
+	desc = "Equipment for exosuits. A system that provides more precise control of exosuit movement. In other words - Gotta go fast!"
+	icon = 'icons/obj/mecha/mecha_equipment.dmi'
+	icon_state = "move_plating"
+	origin_tech = "materials=5;engineering=5;magnets=4;powerstorage=4"
+	energy_drain = 20
+	selectable = 0
+	var/ripley_step_in = 2.5
+	var/odyss_step_in = 1.8
+	var/clarke_step_in = 1.5
+	var/durand_step_in = 3.3
+	var/locker_step_in = 2
+
+/obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system/can_attach(obj/mecha/M)
+	if(..())
+		if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/combat/lockersyndie) || istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat/durand))
+			return TRUE
+	return FALSE
+
+/obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system/attach_act()
+	if(istype(src.loc, /obj/mecha/working/ripley)) // for ripley/firefighter
+		var/obj/mecha/working/ripley/R = src.loc
+		R.slow_pressure_step_in = ripley_step_in
+	if(istype(src.loc, /obj/mecha/medical/odysseus)) // odyss
+		var/obj/mecha/medical/odysseus/O = src.loc
+		O.step_in = odyss_step_in
+	if(istype(src.loc, /obj/mecha/working/clarke)) // clerke
+		var/obj/mecha/working/clarke/K = src.loc
+		K.fast_pressure_step_in = clarke_step_in  // that's why
+	if(istype(src.loc, /obj/mecha/combat/durand)) // dura
+		var/obj/mecha/combat/durand/D = src.loc
+		D.step_in = durand_step_in
+	if(istype(src.loc, /obj/mecha/combat/lockersyndie)) // syndilocker
+		var/obj/mecha/combat/lockersyndie/L = src.loc
+		L.step_in = locker_step_in
+
+/obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system/detach_act()
+	if(istype(src.loc, /obj/mecha))
+		var/obj/mecha/O = src.loc
+		O.step_in = initial(O.step_in)
+	if(istype(src.loc, /obj/mecha/working))
+		var/obj/mecha/working/W = src.loc
+		W.slow_pressure_step_in = initial(W.slow_pressure_step_in)
+		W.fast_pressure_step_in = initial(W.fast_pressure_step_in)

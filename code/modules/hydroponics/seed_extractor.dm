@@ -13,7 +13,7 @@
 	if(istype(O, /obj/item/reagent_containers/food/snacks/grown/))
 		var/obj/item/reagent_containers/food/snacks/grown/F = O
 		if(F.seed)
-			if(user && !user.drop_item()) //couldn't drop the item
+			if(user && !user.drop_transfer_item_to_loc(O, extractor)) //couldn't drop the item
 				return
 			while(t_amount < t_max)
 				var/obj/item/seeds/t_prod = F.seed.Copy()
@@ -25,7 +25,7 @@
 	else if(istype(O, /obj/item/grown))
 		var/obj/item/grown/F = O
 		if(F.seed)
-			if(user && !user.drop_item())
+			if(user && !user.drop_transfer_item_to_loc(O, extractor))
 				return
 			while(t_amount < t_max)
 				var/obj/item/seeds/t_prod = F.seed.Copy()
@@ -69,6 +69,7 @@
 /obj/machinery/seed_extractor/attackby(obj/item/O, mob/user, params)
 
 	if(default_deconstruction_screwdriver(user, "sextractor_open", "sextractor", O))
+		add_fingerprint(user)
 		return
 
 	if(exchange_parts(user, O))
@@ -81,12 +82,14 @@
 		return
 
 	if (istype(O,/obj/item/storage/bag/plants))
+		add_fingerprint(user)
 		var/obj/item/storage/P = O
 		var/loaded = 0
 		for(var/obj/item/seeds/G in P.contents)
 			if(contents.len >= max_seeds)
 				break
 			++loaded
+			G.add_fingerprint(user)
 			add_seed(G)
 		if (loaded)
 			to_chat(user, "<span class='notice'>You put the seeds from \the [O.name] into [src].</span>")
@@ -95,20 +98,24 @@
 		return
 
 	else if(seedify(O,-1, src, user))
+		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>You extract some seeds.</span>")
 		return
 	else if (istype(O,/obj/item/seeds))
 		if(add_seed(O))
+			add_fingerprint(user)
 			to_chat(user, "<span class='notice'>You add [O] to [name].</span>")
 			updateUsrDialog()
 		return
 	else if(user.a_intent != INTENT_HARM)
+		add_fingerprint(user)
 		to_chat(user, "<span class='warning'>You can't extract any seeds from \the [O.name]!</span>")
 	else
 		return ..()
 
 /datum/seed_pile
 	var/name = ""
+	var/variant = ""
 	var/lifespan = 0	//Saved stats
 	var/endurance = 0
 	var/maturation = 0
@@ -117,8 +124,10 @@
 	var/potency = 0
 	var/amount = 0
 
-/datum/seed_pile/New(var/name, var/life, var/endur, var/matur, var/prod, var/yie, var/poten, var/am = 1)
+/datum/seed_pile/New(var/name, var/variant, var/life, var/endur, var/matur, var/prod, var/yie, var/poten, var/am = 1)
 	src.name = name
+	if (variant<>"" && !isnull(variant)) src.name += " ("+variant+")"
+	src.variant = variant
 	src.lifespan = life
 	src.endurance = endur
 	src.maturation = matur
@@ -155,7 +164,7 @@
 	href_list["pot"] = text2num(href_list["pot"])
 
 	for (var/datum/seed_pile/N in piles)//Find the pile we need to reduce...
-		if (href_list["name"] == N.name && href_list["li"] == N.lifespan && href_list["en"] == N.endurance && href_list["ma"] == N.maturation && href_list["pr"] == N.production && href_list["yi"] == N.yield && href_list["pot"] == N.potency)
+		if (href_list["name"] == N.name && href_list["variant"] == N.variant && href_list["li"] == N.lifespan && href_list["en"] == N.endurance && href_list["ma"] == N.maturation && href_list["pr"] == N.production && href_list["yi"] == N.yield && href_list["pot"] == N.potency)
 			if(N.amount <= 0)
 				return
 			N.amount = max(N.amount - 1, 0)
@@ -166,7 +175,7 @@
 
 	for (var/obj/T in contents)//Now we find the seed we need to vend
 		var/obj/item/seeds/O = T
-		if (O.plantname == href_list["name"] && O.lifespan == href_list["li"] && O.endurance == href_list["en"] && O.maturation == href_list["ma"] && O.production == href_list["pr"] && O.yield == href_list["yi"] && O.potency == href_list["pot"])
+		if (O.plantname == href_list["name"] && href_list["variant"] == O.variant && O.lifespan == href_list["li"] && O.endurance == href_list["en"] && O.maturation == href_list["ma"] && O.production == href_list["pr"] && O.yield == href_list["yi"] && O.potency == href_list["pot"])
 			O.forceMove(loc)
 			break
 
@@ -179,12 +188,13 @@
 	var/list/seeds = list() //Храним список объектов, чтобы не искать циклом по contents
 
 /datum/seed_pile/extended/New(obj/item/seeds/O)
-	..(O.plantname, O.lifespan, O.endurance, O.maturation, O.production, O.yield, O.potency)
+	..(O.plantname, O.variant, O.lifespan, O.endurance, O.maturation, O.production, O.yield, O.potency)
+
 	src.seeds += O
 
 /obj/machinery/seed_extractor/proc/generate_seedId(obj/item/seeds/O) //Генерация строки-идентификатора для поиска
 	var/id_string = copytext("[O.type]",17)
-
+	if (O.variant<>"") id_string += " ("+O.variant+")"
 	id_string += "[O.lifespan]_[O.endurance]_[O.maturation]_[O.production]_[O.yield]_[O.potency]_[O.weed_rate]_[O.weed_chance]"
 
 	for (var/datum/plant_gene/reagent/G in O.genes)
@@ -221,7 +231,7 @@
 
 	if(istype(O.loc,/mob))
 		var/mob/M = O.loc
-		if(!M.drop_item())
+		if(!M.drop_transfer_item_to_loc(O, src))
 			return FALSE
 	else if(istype(O.loc,/obj/item/storage))
 		var/obj/item/storage/S = O.loc
@@ -262,10 +272,9 @@
 
 		if (length(Sl) == 0)
 			continue //Пустых куч быть не должно, но проверка не помешает
-
 		var/strain_text=generate_strainText(Sl[1])
-		items.Add(list(list("display_name" = html_encode(capitalize(P.name)), "vend" = i, "quantity" = P.amount,"life"=P.lifespan,"endr"=P.endurance,"matr" = P.maturation,"prod" = P.production,"yld" = P.yield,"potn" = P.potency,"strain_text" = strain_text )))
 
+		items.Add(list(list("display_name" = html_encode(capitalize(P.name)), "variant" = html_encode(P.variant), "vend" = i, "quantity" = P.amount,"life"=P.lifespan,"endr"=P.endurance,"matr" = P.maturation,"prod" = P.production,"yld" = P.yield,"potn" = P.potency,"strain_text" = strain_text )))
 	if(length(items))
 		data["contents"] = items
 
@@ -299,9 +308,9 @@
 			if(i == 1 && Adjacent(user) && !issilicon(user))
 				var/obj/item/seeds/O = Sl[1]
 
-				if(!user.put_in_hands(O))
-					O.forceMove(loc)
-					adjust_item_drop_location(O)
+				O.forceMove_turf()
+				adjust_item_drop_location(O)
+				user.put_in_hands(O, ignore_anim = FALSE)
 
 				Sl.Remove(O)
 

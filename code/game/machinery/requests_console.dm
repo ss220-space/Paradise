@@ -40,7 +40,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	name = "Requests Console"
 	desc = "A console intended to send requests to different departments on the station."
 	anchored = TRUE
-	icon = 'icons/obj/terminals.dmi'
+	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "req_comp0"
 	max_integrity = 300
 	armor = list("melee" = 70, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
@@ -91,6 +91,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 	announcement.title = "[department] announcement"
 	announcement.newscast = FALSE
+	announcement.log = TRUE
 
 	name = "[department] Requests Console"
 	GLOB.allRequestConsoles += src
@@ -193,7 +194,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 					reset_message(TRUE)
 
 		if("writeAnnouncement")
-			var/new_message = sanitize(input("Write your message:", "Awaiting Input", ""))
+			var/new_message = sanitize(input("Write your message:", "Awaiting Input", "") as message|null)
 			if(new_message)
 				message = new_message
 			else
@@ -238,7 +239,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 				write_to_message_log("Message sent to [recipient] at [station_time_timestamp()] - [message]")
 				Radio.autosay("Alert; a new requests console message received for [recipient] from [department]", null, "[radiochannel]")
 			else
-				atom_say("No server detected!")
+				atom_say("Сервер не обнаружен!")
 
 		//Handle screen switching
 		if("setScreen")
@@ -264,11 +265,11 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if("printLabel")
 			var/error_message
 			if(!ship_tag_index)
-				error_message = "Please select a destination."
+				error_message = "Пожалуйста, выберите пункт назначения."
 			else if(!msgVerified)
-				error_message = "Please verify shipper ID."
+				error_message = "Пожалуйста, проверьте ID отправителя."
 			else if(world.time < print_cooldown)
-				error_message = "Please allow the printer time to prepare the next shipping label."
+				error_message = "Пожалуйста, предоставьте принтеру время для подготовки следующей транспортной этикетки."
 			if(error_message)
 				atom_say("[error_message]")
 				return
@@ -287,17 +288,20 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			return
 		var/obj/item/card/id/id = I.GetID()
 		if(screen == RCS_MESSAUTH)
+			add_fingerprint(user)
 			msgVerified = "Verified by [id.registered_name] ([id.assignment])"
 			SStgui.update_uis(src)
 		if(screen == RCS_ANNOUNCE)
+			add_fingerprint(user)
 			if(ACCESS_RC_ANNOUNCE in id.GetAccess())
 				announceAuth = 1
 				announcement.announcer = id.assignment ? "[id.assignment] [id.registered_name]" : id.registered_name
 			else
 				reset_message()
-				to_chat(user, "<span class='warning'>You are not authorized to send announcements.</span>")
+				to_chat(user, span_warning("You are not authorized to send announcements."))
 			SStgui.update_uis(src)
 		if(screen == RCS_SHIPPING)
+			add_fingerprint(user)
 			msgVerified = "Sender verified as [id.registered_name] ([id.assignment])"
 			SStgui.update_uis(src)
 		return
@@ -305,6 +309,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if(inoperable(MAINT))
 			return
 		if(screen == RCS_MESSAUTH)
+			add_fingerprint(user)
 			var/obj/item/stamp/T = I
 			msgStamped = "Stamped with the [T.name]"
 			SStgui.update_uis(src)

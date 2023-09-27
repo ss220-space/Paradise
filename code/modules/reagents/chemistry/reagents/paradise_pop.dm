@@ -48,17 +48,17 @@
 		var/heal_type = rand(0, 5)		//still prefer the string version
 		switch(heal_type)
 			if(0)
-				update_flags |= M.adjustBruteLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+				update_flags |= M.adjustBruteLoss(-0.25, FALSE)
 			if(1)
-				update_flags |= M.adjustFireLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+				update_flags |= M.adjustFireLoss(-0.25, FALSE)
 			if(2)
-				update_flags |= M.adjustToxLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+				update_flags |= M.adjustToxLoss(-0.25, FALSE)
 			if(3)
-				update_flags |= M.adjustOxyLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+				update_flags |= M.adjustOxyLoss(-0.25, FALSE)
 			if(4)
-				update_flags |= M.adjustCloneLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+				update_flags |= M.adjustCloneLoss(-0.25, FALSE)
 			if(5)
-				update_flags |= M.adjustBrainLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+				update_flags |= M.adjustBrainLoss(-0.5, FALSE)
 		to_chat(M, "<span class='notice'>Вы чувствуете себя слегка помолодевшим!</span>")
 	return ..() | update_flags
 
@@ -74,7 +74,7 @@
 /datum/reagent/consumable/drink/berry_banned2/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(50))
-		update_flags |= M.adjustToxLoss(2*REAGENTS_EFFECT_MULTIPLIER, FALSE)		//double strength of poison berry juice alone, because it's concentrated (this is equal to the damage of normal toxin, less often)
+		update_flags |= M.adjustToxLoss(1, FALSE)		//double strength of poison berry juice alone, because it's concentrated (this is equal to the damage of normal toxin, less often)
 	if(prob(10))
 		to_chat(M, "<span class='notice'>Вы чувствуете себя слегка помолодевшим!</span>")		//meta this!
 	return ..() | update_flags
@@ -144,3 +144,29 @@
 		var/mineral = pick("copper", "iron", "gold", "carbon", "silver", "aluminum", "silicon", "sodiumchloride", "plasma")
 		M.reagents.add_reagent(mineral, amount)
 	return ..()
+
+/datum/reagent/consumable/ethanol/moonlight_skuma
+	name = "Moon'drin"
+	id = "moonlight_skuma"
+	description = "Double distilled Moon'lin. Soft mint taste which is loved by all tajarans. Used in cocktails."
+	reagent_state = LIQUID
+	color = "#6734df"
+	taste_description = "alcohol, mint and you feel funny"
+	drink_icon = "moonlight_skuma"
+	drink_name = "Moon'drin"
+	drink_desc = "Double distilled Moon'lin. Soft mint taste which is loved by all tajarans. Used in cocktails."
+	addiction_chance = 2
+	alcohol_perc = 0.5
+
+/datum/reagent/consumable/ethanol/moonlight_skuma/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	M.Druggy(60 SECONDS)
+	M.Dizzy(10 SECONDS)
+	if(prob(15))
+		M.emote(pick("twitch","giggle"))
+		M.Dizzy(6 SECONDS)
+	if(prob(5))
+		M.Jitter(10 SECONDS)
+		M.emote("smile")
+		to_chat(M, "<span class='notice'>Вы испытываете приятные, теплые чувства, словно вы дома...</span>")
+	return ..() | update_flags

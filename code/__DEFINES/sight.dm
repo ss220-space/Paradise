@@ -18,20 +18,24 @@
 #define INVISIBILITY_SPIRIT 50
 #define SEE_SPIRITS 50
 
+#define INVISIBILITY_ANOMALY 40	// Can be seen by observers or using a t-ray scanner
+
 #define SEE_INVISIBLE_OBSERVER_NOOBSERVERS 59
 #define INVISIBILITY_OBSERVER 60
 #define SEE_INVISIBLE_OBSERVER 60
 #define INVISIBILITY_AI_EYE 61
 #define SEE_INVISIBLE_OBSERVER_AI_EYE 61
 
+
 #define INVISIBILITY_MAXIMUM 100
 
 //Some mob defines below
 #define AI_CAMERA_LUMINOSITY 6
 
-#define BORGMESON 1
-#define BORGTHERM 2
-#define BORGXRAY  4
+#define SILICONMESON 1
+#define SILICONTHERM 2
+#define SILICONXRAY  4
+#define SILICONNIGHTVISION 8
 
 #define SECHUD 1
 #define MEDHUD 2

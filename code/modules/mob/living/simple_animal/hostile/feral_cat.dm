@@ -8,12 +8,14 @@
 	gender = MALE
 	maxHealth = 20
 	health = 20
+	blood_volume = BLOOD_VOLUME_NORMAL
 	melee_damage_lower = 10
 	melee_damage_upper = 5
 	attacktext = "рвёт"
 	speak = list("Meow!", "Esp!", "Purr!", "HSSSSS")
 	speak_emote = list("purrs", "meows")
 	emote_hear = list("meows", "mews")
+	tts_seed = "Mannoroth"
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6

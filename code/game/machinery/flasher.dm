@@ -12,7 +12,7 @@
 	var/range = 2 //this is roughly the size of brig cell
 	var/disable = 0
 	var/last_flash = 0 //Don't want it getting spammed like regular flashes
-	var/strength = 5 //How weakened targets are when flashed.
+	var/strength = 10 SECONDS //How weakened targets are when flashed.
 	var/base_state = "mflash"
 	anchored = 1
 
@@ -20,7 +20,7 @@
 	name = "portable flasher"
 	desc = "A portable flashing device. Wrench to activate and deactivate. Cannot detect slow movements."
 	icon_state = "pflash1"
-	strength = 4
+	strength = 8 SECONDS
 	anchored = 0
 	base_state = "pflash"
 	density = 1
@@ -56,7 +56,7 @@
 	playsound(loc, 'sound/weapons/flash.ogg', 100, 1)
 	flick("[base_state]_flash", src)
 	set_light(2, 1, COLOR_WHITE)
-	addtimer(CALLBACK(src, /atom./proc/set_light, 0), 2)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 2)
 	last_flash = world.time
 	use_power(1000)
 
@@ -68,7 +68,7 @@
 			L.Weaken(strength)
 			if(L.weakeyes)
 				L.Weaken(strength * 1.5)
-				L.visible_message("<span class='disarm'><b>[L]</b> gasps and shields [L.p_their()] eyes!</span>")
+				L.visible_message(span_disarm("<b>[L]</b> gasps and shields [L.p_their()] eyes!"))
 
 /obj/machinery/flasher/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
@@ -94,9 +94,9 @@
 		return
 	disable = !disable
 	if(disable)
-		user.visible_message("<span class='warning'>[user] has disconnected [src]'s flashbulb!</span>", "<span class='warning'>You disconnect [src]'s flashbulb!</span>")
+		user.visible_message(span_warning("[user] has disconnected [src]'s flashbulb!"), span_warning("You disconnect [src]'s flashbulb!"))
 	if(!disable)
-		user.visible_message("<span class='warning'>[user] has connected [src]'s flashbulb!</span>", "<span class='warning'>You connect [src]'s flashbulb!</span>")
+		user.visible_message(span_warning("[user] has connected [src]'s flashbulb!"), span_warning("You connect [src]'s flashbulb!"))
 
 /obj/machinery/flasher/portable/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -135,6 +135,8 @@
 		return
 	if(active)
 		return
+
+	add_fingerprint(user)
 
 	use_power(5)
 

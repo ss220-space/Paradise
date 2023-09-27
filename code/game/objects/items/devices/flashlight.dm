@@ -84,7 +84,7 @@
 	else
 		return ..()
 
-/obj/item/flashlight/extinguish_light()
+/obj/item/flashlight/extinguish_light(force = FALSE)
 	if(on)
 		on = FALSE
 		update_brightness()
@@ -94,6 +94,7 @@
 	desc = "A pen-sized light, used by medical staff."
 	icon_state = "penlight"
 	item_state = ""
+	belt_icon = "penlight"
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_BELT | SLOT_EARS
 	flags = CONDUCT
@@ -104,6 +105,7 @@
 	desc = "A robust flashlight used by security."
 	icon_state = "seclite"
 	item_state = "seclite"
+	belt_icon = "seclite"
 	force = 9 // Not as good as a stun baton.
 	brightness_on = 5 // A little better than the standard flashlight.
 	hitsound = 'sound/weapons/genhit1.ogg'
@@ -164,6 +166,7 @@
 	icon_state = "flare"
 	item_state = "flare"
 	togglesound = 'sound/goonstation/misc/matchstick_light.ogg'
+	var/can_fire_cigs = TRUE
 	var/fuel = 0
 	var/on_damage = 7
 	var/produce_heat = 1500
@@ -234,6 +237,7 @@
 	icon_state = "glowstick"
 	item_state = "glowstick"
 	togglesound = 'sound/effects/bone_break_1.ogg'
+	can_fire_cigs = FALSE
 	produce_heat = 0
 	fuel_lower = 1600
 	fuel_upp = 2000
@@ -297,8 +301,13 @@
 	new T(loc)
 	qdel(src) // return INITIALIZE_HINT_QDEL <-- Doesn't work
 
-/obj/item/flashlight/flare/extinguish_light()
-	visible_message("<span class='danger'>[src] dims slightly before scattering the shadows around it.</span>")
+
+/obj/item/flashlight/flare/extinguish_light(force = FALSE)
+	if(force)
+		fuel = 0
+		visible_message(span_danger("[src] burns up rapidly!"))
+	else
+		visible_message(span_danger("[src] dims slightly before scattering the shadows around it."))
 
 /obj/item/flashlight/flare/torch
 	name = "torch"
@@ -335,8 +344,12 @@
 /obj/item/flashlight/slime/attack_self(mob/user)
 	return //Bio-luminescence does not toggle.
 
-/obj/item/flashlight/slime/extinguish_light()
-	visible_message("<span class='danger'>[src] dims slightly before scattering the shadows around it.</span>")
+/obj/item/flashlight/slime/extinguish_light(force = FALSE)
+	if(force)
+		visible_message(span_danger("[src] withers away."))
+		qdel(src)
+	else
+		visible_message(span_danger("[src] dims slightly before scattering the shadows around it."))
 
 /obj/item/flashlight/emp
 	origin_tech = "magnets=3;syndicate=1"
@@ -371,8 +384,6 @@
 	if(!proximity) return
 	if(emp_cur_charges > 0)
 		emp_cur_charges -= 1
-		A.visible_message("<span class='danger'>[user] blinks \the [src] at \the [A].", \
-											"<span class='userdanger'>[user] blinks \the [src] at \the [A].")
 		if(ismob(A))
 			var/mob/M = A
 			add_attack_logs(user, M, "Hit with EMP-light")

@@ -13,10 +13,6 @@
 	tastes = list("ice cream" = 1)
 	foodtype = SUGAR | DAIRY
 
-/obj/item/reagent_containers/food/snacks/icecream/New()
-	..()
-	update_icon()
-
 /obj/item/reagent_containers/food/snacks/icecream/update_icon()
 	cut_overlays()
 	var/mutable_appearance/filling = mutable_appearance('icons/obj/kitchen.dmi', "icecream_color")
@@ -89,6 +85,7 @@
 	list_reagents = list("nutriment" = 6, "amanitin" = 6, "psilocybin" = 3)
 	tastes = list("jelly" = 1, "mushroom" = 1)
 	foodtype = VEGETABLES | SUGAR
+	log_eating = TRUE
 
 /obj/item/reagent_containers/food/snacks/candiedapple
 	name = "candied apple"

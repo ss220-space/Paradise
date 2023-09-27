@@ -21,38 +21,6 @@
 		temperature_min = temperature_minimum
 	if(temperature_maximum)
 		temperature_max = temperature_maximum
-	//I dislike having these here but map-objects are initialised before world/New() is called. >_>
-	if(!GLOB.chemical_reagents_list)
-		//Chemical Reagents - Initialises all /datum/reagent into a list indexed by reagent id
-		var/paths = subtypesof(/datum/reagent)
-		GLOB.chemical_reagents_list = list()
-		for(var/path in paths)
-			var/datum/reagent/D = new path()
-			GLOB.chemical_reagents_list[D.id] = D
-	if(!GLOB.chemical_reactions_list)
-		//Chemical Reactions - Initialises all /datum/chemical_reaction into a list
-		// It is filtered into multiple lists within a list.
-		// For example:
-		// chemical_reaction_list["plasma"] is a list of all reactions relating to plasma
-
-		var/paths = subtypesof(/datum/chemical_reaction)
-		GLOB.chemical_reactions_list = list()
-
-		for(var/path in paths)
-
-			var/datum/chemical_reaction/D = new path()
-			var/list/reaction_ids = list()
-
-			if(D && length(D.required_reagents))
-				for(var/reaction in D.required_reagents)
-					reaction_ids += reaction
-
-			// Create filters based on each reagent id in the required reagents list
-			for(var/id in reaction_ids)
-				if(!GLOB.chemical_reactions_list[id])
-					GLOB.chemical_reactions_list[id] = list()
-				GLOB.chemical_reactions_list[id] += D
-				break // Don't bother adding ourselves to other reagent ids, it is redundant.
 
 /datum/reagents/proc/remove_any(amount = 1)
 	var/list/cached_reagents = reagent_list
@@ -238,6 +206,21 @@
 	R.handle_reactions()
 	return amount
 
+/datum/reagents/proc/get_transferred_reagents(obj/target, amount = 1, multiplier = 1, preserve_data = TRUE, safety = FALSE) //позволяет сохранить список перенесённых реагентов с их количеством (боргам нада)
+	if(!target)
+		return
+	if(!target.reagents || total_volume <= 0)
+		return
+	var/datum/reagents/R = target.reagents
+	amount = min(min(amount, total_volume), R.maximum_volume - R.total_volume)
+	var/part = amount / total_volume
+	var/list/transfered = list()
+	for(var/A in reagent_list)
+		var/datum/reagent/current_reagent = A
+		var/current_reagent_transfer = current_reagent.volume * part
+		transfered[current_reagent.type] = current_reagent_transfer
+
+	return transfered
 
 /datum/reagents/proc/metabolize(mob/living/M)
 	if(M)
@@ -337,19 +320,13 @@
 	else if(update_flags & STATUS_UPDATE_STAT)
 		// update_stat is called in updatehealth
 		M.update_stat("reagent metabolism")
-	if(update_flags & STATUS_UPDATE_CANMOVE)
-		M.update_canmove()
 	if(update_flags & STATUS_UPDATE_STAMINA)
 		M.update_stamina()
-		M.update_health_hud()
+		M.update_stamina_hud()
 	if(update_flags & STATUS_UPDATE_BLIND)
 		M.update_blind_effects()
-	if(update_flags & STATUS_UPDATE_BLURRY)
-		M.update_blurry_effects()
 	if(update_flags & STATUS_UPDATE_NEARSIGHTED)
 		M.update_nearsighted_effects()
-	if(update_flags & STATUS_UPDATE_DRUGGY)
-		M.update_druggy_effects()
 	update_total()
 
 /datum/reagents/proc/death_metabolize(mob/living/M)
@@ -387,6 +364,20 @@
 		R.on_update(A)
 	update_total()
 
+/datum/reagents/proc/find_blood_group(var/datum/chemical_reaction/reaction)
+	for(var/K in reaction.required_blood_group)
+		var/datum/reagent/I = has_reagent("blood", reaction.required_reagents["blood"])
+		if(I.data["blood_group"] == K)
+			return TRUE
+	return FALSE
+
+/datum/reagents/proc/find_blood_species(var/datum/chemical_reaction/reaction)
+	for(var/K in reaction.required_blood_species)
+		var/datum/reagent/I = has_reagent("blood", reaction.required_reagents["blood"])
+		if(I.data["blood_species"] == K)
+			return TRUE
+	return FALSE
+
 /datum/reagents/proc/handle_reactions()
 	if(flags & REAGENT_NOREACT)
 		return //Yup, no reactions here. No siree.
@@ -413,6 +404,13 @@
 				for(var/B in C.required_reagents)
 					if(!has_reagent(B, C.required_reagents[B]))
 						break
+					if((B == "blood") && (C.required_blood_group || C.required_blood_species))
+						if(C.required_blood_group)
+							if(!find_blood_group(C))
+								break
+						if(C.required_blood_species)
+							if(!find_blood_species(C))
+								break
 					total_matching_reagents++
 					multipliers += round(get_reagent_amount(B) / C.required_reagents[B])
 				for(var/B in C.required_catalysts)
@@ -558,26 +556,34 @@
 			var/obj/item/organ/external/head/affecting = H.get_organ("head")
 			if(affecting)
 				if(chem_temp > H.dna.species.heat_level_1)
+					var/mult = H.dna.species.heatmod
 					if(H.reagent_safety_check())
-						to_chat(H, "<span class='danger'>You are scalded by the hot chemicals!</span>")
-						affecting.receive_damage(0, round(log(chem_temp / 50) * 10))
-						H.emote("scream")
+						if(mult > 0)
+							to_chat(H, "<span class='danger'>You are scalded by the hot chemicals!</span>")
+							affecting.receive_damage(0, round(log(chem_temp / 50) * 10))
+							H.emote("scream")
 						H.adjust_bodytemperature(min(max((chem_temp - T0C) - 20, 5), 500))
 				else if(chem_temp < H.dna.species.cold_level_1)
+					var/mult = H.dna.species.coldmod
 					if(H.reagent_safety_check(FALSE))
-						to_chat(H, "<span class='danger'>You are frostbitten by the freezing cold chemicals!</span>")
-						affecting.receive_damage(0, round(log(T0C - chem_temp / 50) * 10))
-						H.emote("scream")
+						if(mult > 0)
+							to_chat(H, "<span class='danger'>You are frostbitten by the freezing cold chemicals!</span>")
+							affecting.receive_damage(0, round(log(T0C - chem_temp / 50) * 10))
+							H.emote("scream")
 						H.adjust_bodytemperature(- min(max(T0C - chem_temp - 20, 5), 500))
 
 		if(method == REAGENT_INGEST)
 			if(chem_temp > H.dna.species.heat_level_1)
-				to_chat(H, "<span class='danger'>You scald yourself trying to consume the boiling hot substance!</span>")
-				H.adjustFireLoss(7)
+				var/mult = H.dna.species.heatmod
+				if(mult > 0)
+					to_chat(H, "<span class='danger'>You scald yourself trying to consume the boiling hot substance!</span>")
+					H.adjustFireLoss(7)
 				H.adjust_bodytemperature(min(max((chem_temp - T0C) - 20, 5), 700))
 			else if(chem_temp < H.dna.species.cold_level_1)
-				to_chat(H, "<span class='danger'>You frostburn yourself trying to consume the freezing cold substance!</span>")
-				H.adjustFireLoss(7)
+				var/mult = H.dna.species.coldmod
+				if(mult > 0)
+					to_chat(H, "<span class='danger'>You frostburn yourself trying to consume the freezing cold substance!</span>")
+					H.adjustFireLoss(7)
 				H.adjust_bodytemperature(- min(max((T0C - chem_temp) - 20, 5), 700))
 
 	for(var/AB in reagent_list)

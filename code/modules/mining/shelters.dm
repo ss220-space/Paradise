@@ -7,9 +7,9 @@
 
 /datum/map_template/shelter/New()
 	. = ..()
-	blacklisted_turfs = typecacheof(list(/turf/simulated/wall, /turf/simulated/mineral, /turf/simulated/shuttle/wall))
+	blacklisted_turfs = typecacheof(list(/turf/simulated/wall, /turf/simulated/mineral, /turf/simulated/wall/shuttle, /turf/simulated/wall/indestructible))
 	whitelisted_turfs = list()
-	banned_areas = typecacheof(/area/shuttle)
+	banned_areas = typecacheof(list(/area/shuttle, /area/lavaland/surface/outdoors/necropolis))
 
 /datum/map_template/shelter/proc/check_deploy(turf/deploy_location)
 	var/affected = get_affected_turfs(deploy_location, centered=TRUE)
@@ -52,5 +52,19 @@
 	mappath = "_maps/map_files/templates/shelter_2.dmm"
 
 /datum/map_template/shelter/beta/New()
+	. = ..()
+	whitelisted_turfs = typecacheof(/turf/simulated/mineral)
+
+/datum/map_template/shelter/charlie
+	name = "Shelter Charlie"
+	shelter_id = "shelter_charlie"
+	description = "A luxury elite shelter which holds an entire bar \
+		along with two vending machines, tables, and a restroom that \
+		also has a sink. This isn't a survival capsule and so you can \
+		expect that this won't save you if you're bleeding out to \
+		death."
+	mappath = "_maps/map_files/templates/shelter_3.dmm"
+
+/datum/map_template/shelter/charlie/New()
 	. = ..()
 	whitelisted_turfs = typecacheof(/turf/simulated/mineral)

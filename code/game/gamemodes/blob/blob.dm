@@ -47,7 +47,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 		infected_crew += blob
 		blob.special_role = SPECIAL_ROLE_BLOB
 		blob.restricted_roles = restricted_jobs
-		log_game("[key_name(blob)] has been selected as a Blob")
+		add_game_logs("has been selected as a Blob", blob)
 		possible_blobs -= blob
 
 	if(!infected_crew.len)
@@ -72,7 +72,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	blobmind.special_role = SPECIAL_ROLE_BLOB
 	update_blob_icons_added(blobmind)
 
-	log_game("[key_name(blob)] has been selected as a Blob")
+	add_game_logs("has been selected as a Blob", blob)
 	greet_blob(blobmind)
 	to_chat(blob, "<span class='userdanger'>You feel very tired and bloated!  You don't have long before you burst!</span>")
 	spawn(600)
@@ -196,7 +196,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 			send_intercept(1)
 			declared = 1
 		if(1)
-			GLOB.event_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
+			GLOB.event_announcement.Announce("Подтверждена вспышка биологической угрозы пятого уровня на борту [station_name()]. Весь персонал обязан локализовать угрозу.", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/AI/outbreak5.ogg')
 		if(2)
 			send_intercept(2)
 

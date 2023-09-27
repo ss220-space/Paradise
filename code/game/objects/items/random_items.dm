@@ -32,8 +32,7 @@
 /obj/item/stack/sheet/animalhide/random/New()
 	..()
 	var/htype = pick(/obj/item/stack/sheet/animalhide/cat,/obj/item/stack/sheet/animalhide/corgi,/obj/item/stack/sheet/animalhide/human,/obj/item/stack/sheet/animalhide/lizard,/obj/item/stack/sheet/animalhide/monkey)
-	var/obj/item/stack/S = new htype(loc)
-	S.amount = amount
+	new htype(loc, amount)
 	qdel(src)
 
 // -------------------------------------
@@ -45,8 +44,7 @@
 	name = "unlabelled bottle"
 	//	identify_probability = 0
 
-/obj/item/reagent_containers/glass/bottle/random_reagent/New()
-	..()
+/obj/item/reagent_containers/glass/bottle/random_reagent/Initialize(mapload)
 	var/list/possible_chems = GLOB.chemical_reagents_list.Copy()
 	possible_chems -= GLOB.blocked_chems.Copy()
 	var/datum/reagent/R = pick(possible_chems)
@@ -56,14 +54,14 @@
 		reagents.add_reagent(R, rand(2, 3)*10)
 	pixel_x = rand(-10, 10)
 	pixel_y = rand(-10, 10)
+	. = ..()
 
 //Cuts out the food and drink reagents
 /obj/item/reagent_containers/glass/bottle/random_chem
 	name = "unlabelled chemical bottle"
 	//	identify_probability = 0
 
-/obj/item/reagent_containers/glass/bottle/random_chem/New()
-	..()
+/obj/item/reagent_containers/glass/bottle/random_chem/Initialize(mapload)
 	var/R = get_random_reagent_id()
 	if(GLOB.rare_chemicals.Find(R))
 		reagents.add_reagent(R, 10)
@@ -72,43 +70,46 @@
 	name = "unlabelled bottle"
 	pixel_x = rand(-10, 10)
 	pixel_y = rand(-10, 10)
+	. = ..()
 
 /obj/item/reagent_containers/glass/bottle/random_base_chem
 	name = "unlabelled chemical bottle"
 	//	identify_probability = 0
 
-/obj/item/reagent_containers/glass/bottle/random_base_chem/New()
-	..()
+/obj/item/reagent_containers/glass/bottle/random_base_chem/Initialize(mapload)
 	var/datum/reagent/R = pick(GLOB.base_chemicals)
 	reagents.add_reagent(R, rand(2, 6)*5)
 	name = "unlabelled bottle"
 	pixel_x = rand(-10, 10)
 	pixel_y = rand(-10, 10)
+	. = ..()
 
 /obj/item/reagent_containers/food/drinks/bottle/random_drink
 	name = "unlabelled drink"
 	icon = 'icons/obj/drinks.dmi'
+	var/list/special_drinks = list(/datum/reagent/pancuronium, /datum/reagent/lsd,/datum/reagent/medicine/omnizine, /datum/reagent/blood)
 
-/obj/item/reagent_containers/food/drinks/bottle/random_drink/New()
-	..()
-	var/list/possible_drinks = GLOB.drinks.Copy()
-	if(prob(50))
-		possible_drinks += list("pancuronium","lsd","omnizine","blood")
+/obj/item/reagent_containers/food/drinks/bottle/random_drink/Initialize(mapload)
+	var/datum/reagent/reagent
+	if(prob(50 * length(special_drinks) / (length(special_drinks) + length(GLOB.drinks))))
+		reagent = pick(special_drinks)
+	else
+		reagent = pick(GLOB.drinks)
+		if(initial(reagent.id) in GLOB.blocked_chems)
+			reagent = pick(special_drinks)
 
-	var/datum/reagent/R = pick(possible_drinks)
-	reagents.add_reagent(R, volume)
+	reagents.add_reagent(initial(reagent.id), volume)
 	name = "unlabelled bottle"
 	icon_state = pick("alco-white","alco-green","alco-blue","alco-clear","alco-red")
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
+	. = ..()
 
 /obj/item/reagent_containers/food/drinks/bottle/random_reagent // Same as the chembottle code except the container
 	name = "unlabelled drink?"
 	icon = 'icons/obj/drinks.dmi'
 
-/obj/item/reagent_containers/food/drinks/bottle/random_reagent/New()
-	..()
-
+/obj/item/reagent_containers/food/drinks/bottle/random_reagent/Initialize(mapload)
 	var/R = get_random_reagent_id()
 	if(GLOB.rare_chemicals.Find(R))
 		reagents.add_reagent(R, 10)
@@ -118,6 +119,7 @@
 	icon_state = pick("alco-white","alco-green","alco-blue","alco-clear","alco-red")
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
+	. = ..()
 	qdel(src)
 
 /obj/item/storage/pill_bottle/random_meds
@@ -128,6 +130,10 @@
 
 /obj/item/storage/pill_bottle/random_meds/New()
 	..()
+	pixel_x = rand(-10, 10)
+	pixel_y = rand(-10, 10)
+
+/obj/item/storage/pill_bottle/random_meds/populate_contents()
 	for(var/i in 1 to storage_slots)
 		var/list/possible_medicines = GLOB.standard_medicines.Copy()
 		if(prob(50))
@@ -145,8 +151,6 @@
 		else
 			P.name = "Unlabelled Pill"
 			P.desc = "Something about this pill entices you to try it, against your better judgement."
-	pixel_x = rand(-10, 10)
-	pixel_y = rand(-10, 10)
 
 /obj/item/storage/pill_bottle/random_meds/labelled
 	name = "variety pillbottle"
@@ -160,7 +164,7 @@
 /obj/structure/closet/crate/secure/unknownchemicals
 	name = "grey-market chemicals grab pack"
 	desc = "Crate full of chemicals of unknown type and value from a 'trusted' source."
-	req_one_access = list(ACCESS_CHEMISTRY,ACCESS_RESEARCH,ACCESS_QM) // the qm knows a guy, you see.
+	req_access = list(ACCESS_CHEMISTRY,ACCESS_RESEARCH,ACCESS_QM) // the qm knows a guy, you see.
 
 /obj/structure/closet/crate/secure/unknownchemicals/populate_contents()
 	for(var/i in 1 to 7)
@@ -177,7 +181,7 @@
 /obj/structure/closet/crate/secure/chemicals
 	name = "chemical supply kit"
 	desc = "Full of basic chemistry supplies."
-	req_one_access = list(ACCESS_CHEMISTRY,ACCESS_RESEARCH)
+	req_access = list(ACCESS_CHEMISTRY,ACCESS_RESEARCH)
 
 /obj/structure/closet/crate/secure/chemicals/populate_contents()
 	for(var/chem in GLOB.standard_chemicals)
@@ -232,19 +236,16 @@
 /obj/structure/closet/secure_closet/random_drinks
 	name = "unlabelled booze closet"
 	req_access = list(ACCESS_BAR)
-	icon_state = "cabinetdetective_locked"
-	icon_closed = "cabinetdetective"
-	icon_locked = "cabinetdetective_locked"
-	icon_opened = "cabinetdetective_open"
-	icon_broken = "cabinetdetective_broken"
-	icon_off = "cabinetdetective_broken"
+	icon_state = "cabinetdetective"
+	overlay_locked = "c_locked"
+	overlay_locker = "c_locker"
+	overlay_unlocked = "c_unlocked"
 
 /obj/structure/closet/secure_closet/random_drinks/populate_contents()
 	for(var/i in 1 to 5)
 		new/obj/item/reagent_containers/food/drinks/bottle/random_drink(src)
 	while(prob(25))
 		new/obj/item/reagent_containers/food/drinks/bottle/random_reagent(src)
-
 
 // -------------------------------------
 //          Do not order this.
@@ -263,6 +264,7 @@
 								/mob/living/simple_animal/hostile/creature,/mob/living/simple_animal/hostile/pirate/ranged,
 								/mob/living/simple_animal/hostile/hivebot,/mob/living/simple_animal/hostile/viscerator,/mob/living/simple_animal/hostile/pirate)
 
+		add_fingerprint(user)
 		visible_message("<span class='warning'>Something falls out of the [src]!</span>")
 		var/obj/item/grenade/clusterbuster/C = new(src.loc)
 		C.prime()
@@ -290,6 +292,7 @@
 
 /obj/structure/largecrate/schrodinger/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/crowbar))
+		add_fingerprint(user)
 		sleep(2)
 		var/mob/living/simple_animal/pet/cat/Cat = new(loc)
 		Cat.name = "Schrodinger's Cat"
@@ -314,8 +317,7 @@
 	/obj/item/grenade/chem_grenade/dirt, /obj/item/grenade/chem_grenade/lube, /obj/item/grenade/smokebomb,
 	/obj/item/grenade/chem_grenade/drugs, /obj/item/grenade/chem_grenade/ethanol) // holy list batman
 
-/obj/item/storage/box/grenades/New()
-	..()
+/obj/item/storage/box/grenades/populate_contents()
 	for(var/i in 1 to 6)
 		var/nade = pick(grenadelist)
 		new nade(src)

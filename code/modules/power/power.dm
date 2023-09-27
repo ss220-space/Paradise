@@ -8,7 +8,7 @@
 
 /obj/machinery/power
 	name = null
-	icon = 'icons/obj/power.dmi'
+	icon = 'icons/obj/engines_and_power/power.dmi'
 	anchored = TRUE
 	on_blueprints = TRUE
 	var/datum/powernet/powernet = null
@@ -144,6 +144,7 @@
 			return
 		if(get_dist(src, user) > 1)
 			return
+		add_fingerprint(user)
 		coil.place_turf(T, user)
 	else
 		return ..()

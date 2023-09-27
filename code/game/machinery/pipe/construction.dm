@@ -5,7 +5,7 @@
 	var/pipename
 	var/connect_types[] = list(1) //1=regular, 2=supply, 3=scrubber
 	force = 7
-	icon = 'icons/obj/pipe-item.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/pipe-item.dmi'
 	icon_state = "simple"
 	item_state = "buildpipe"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -213,7 +213,7 @@
 	return
 
 /obj/item/pipe/Move()
-	..()
+	. = ..()
 	if(is_bent_pipe() \
 		&& (src.dir in GLOB.cardinal))
 		src.dir = src.dir|turn(src.dir, 90)
@@ -337,12 +337,12 @@
 
 	for(var/obj/machinery/atmospherics/M in src.loc)
 		if((M.initialize_directions & pipe_dir) && M.check_connect_types_construction(M,src))	// matches at least one direction on either type of pipe
-			to_chat(user, "<span class='warning'>There is already a pipe of the same type at this location.</span>")
+			to_chat(user, span_warning("There is already a pipe of the same type at this location."))
 			return 1
 
 	if(pipe_type in list(PIPE_SUPPLY_STRAIGHT, PIPE_SUPPLY_BENT, PIPE_SCRUBBERS_STRAIGHT, PIPE_SCRUBBERS_BENT, PIPE_HE_STRAIGHT, PIPE_HE_BENT, PIPE_SUPPLY_MANIFOLD, PIPE_SCRUBBERS_MANIFOLD, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W, PIPE_UVENT, PIPE_SUPPLY_CAP, PIPE_SCRUBBERS_CAP, PIPE_PASV_VENT, PIPE_DP_VENT, PIPE_PASSIVE_GATE))
 		if(T.transparent_floor) //stops jank with transparent floors and pipes
-			to_chat(user, "<span class='warning'>You can only fix simple pipes and devices over glass floors!</span>")
+			to_chat(user, span_warning("You can only fix simple pipes and devices over glass floors!"))
 			return 1
 
 
@@ -507,7 +507,7 @@
 
 	user.visible_message( \
 		"[user] fastens the [src].", \
-		"<span class='notice'>You have fastened the [src].</span>", \
+		span_notice("You have fastened the [src]."), \
 		"You hear ratchet.")
 	qdel(src)	// remove the pipe item
 
@@ -516,7 +516,7 @@
 /obj/item/pipe_meter
 	name = "meter"
 	desc = "A meter that can be laid on pipes"
-	icon = 'icons/obj/pipe-item.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/pipe-item.dmi'
 	icon_state = "meter"
 	item_state = "buildpipe"
 	w_class = WEIGHT_CLASS_BULKY
@@ -525,11 +525,12 @@
 	if(!istype(W, /obj/item/wrench))
 		return ..()
 	if(!locate(/obj/machinery/atmospherics/pipe, src.loc))
-		to_chat(user, "<span class='warning'>You need to fasten it to a pipe</span>")
+		to_chat(user, span_warning("You need to fasten it to a pipe"))
 		return 1
-	new /obj/machinery/meter(loc)
+	var/obj/machinery/meter/meter = new(loc)
+	meter.add_fingerprint(user)
 	playsound(src.loc, W.usesound, 50, 1)
-	to_chat(user, "<span class='notice'>You have fastened the meter to the pipe.</span>")
+	to_chat(user, span_notice("You have fastened the meter to the pipe."))
 	qdel(src)
 
 /obj/item/pipe_meter/rpd_act(mob/user, obj/item/rpd/our_rpd)
@@ -549,9 +550,10 @@
 /obj/item/pipe_gsensor/attackby(var/obj/item/W as obj, var/mob/user as mob)
 	if(!istype(W, /obj/item/wrench))
 		return ..()
-	new/obj/machinery/air_sensor( src.loc )
+	var/obj/machinery/air_sensor/sensor = new(loc)
+	sensor.add_fingerprint(user)
 	playsound(get_turf(src), W.usesound, 50, 1)
-	to_chat(user, "<span class='notice'>You have fastened the gas sensor.</span>")
+	to_chat(user, span_notice("You have fastened the gas sensor."))
 	qdel(src)
 
 /obj/item/pipe_gsensor/rpd_act(mob/user, obj/item/rpd/our_rpd)

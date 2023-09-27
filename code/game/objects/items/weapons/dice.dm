@@ -6,25 +6,25 @@
 	can_hold = list(/obj/item/dice)
 	allow_wrap = FALSE
 
-/obj/item/storage/pill_bottle/dice/New()
-	..()
-	var/special_die = pick("1","2","fudge","00","100")
-	if(special_die == "1")
-		new /obj/item/dice/d1(src)
-	if(special_die == "2")
-		new /obj/item/dice/d2(src)
+/obj/item/storage/pill_bottle/dice/populate_contents()
 	new /obj/item/dice/d4(src)
 	new /obj/item/dice/d6(src)
-	if(special_die == "fudge")
-		new /obj/item/dice/fudge(src)
 	new /obj/item/dice/d8(src)
 	new /obj/item/dice/d10(src)
-	if(special_die == "00")
-		new /obj/item/dice/d00(src)
 	new /obj/item/dice/d12(src)
 	new /obj/item/dice/d20(src)
-	if(special_die == "100")
-		new /obj/item/dice/d100(src)
+	var/special_die = pick("1","2","fudge","00","100")
+	switch(special_die)
+		if("1")
+			new /obj/item/dice/d1(src)
+		if("2")
+			new /obj/item/dice/d2(src)
+		if("fudge")
+			new /obj/item/dice/fudge(src)
+		if("00")
+			new /obj/item/dice/d00(src)
+		if("100")
+			new /obj/item/dice/d100(src)
 
 /obj/item/storage/pill_bottle/dice/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] Игра[pluralize_ru(user.gender,"ет","ют")] со смертью! Похоже, он[genderize_ru(user.gender,"","а","о","и")] пыта[pluralize_ru(user.gender,"ется","ются")] покончить жизнь самоубийством!</span>")
@@ -131,7 +131,7 @@
 /obj/item/dice/attack_self(mob/user)
 	diceroll(user)
 
-/obj/item/dice/throw_impact(atom/target)
+/obj/item/dice/throw_impact(atom/target, datum/thrownthing/throwingdatum)
 	diceroll(thrownby)
 	. = ..()
 
@@ -176,7 +176,7 @@
 	else
 		triggered = TRUE
 		visible_message("<span class='notice'>Вы слышите тихий щелчок.</span>")
-		addtimer(CALLBACK(src, .proc/boom, user, result), 4 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(boom), user, result), 4 SECONDS)
 
 /obj/item/dice/d20/e20/proc/boom(mob/user, result)
 	var/capped = FALSE
@@ -188,11 +188,10 @@
 		result = 24
 
 	var/turf/epicenter = get_turf(src)
-	var/area/A = get_area(epicenter)
-	explosion(epicenter, round(result * 0.25), round(result * 0.5), round(result), round(result * 1.5), TRUE, capped)
-	investigate_log("E20 detonated at [A.name] ([epicenter.x],[epicenter.y],[epicenter.z]) with a roll of [actual_result]. Triggered by: [key_name(user)]", INVESTIGATE_BOMB)
-	log_game("E20 detonated at [A.name] ([epicenter.x],[epicenter.y],[epicenter.z]) with a roll of [actual_result]. Triggered by: [key_name(user)]")
+	investigate_log("E20 detonated with a roll of [actual_result]. Triggered by: [key_name_log(user)]", INVESTIGATE_BOMB)
+	add_game_logs("threw E20, detonating at [AREACOORD(epicenter)] with a roll of [actual_result].", user)
 	add_attack_logs(user, src, "detonated with a roll of [actual_result]", ATKLOG_FEW)
+	explosion(epicenter, round(result * 0.25), round(result * 0.5), round(result), round(result * 1.5), TRUE, capped, cause = key_name(user)+" E20")
 
 /obj/item/dice/update_icon()
 	overlays.Cut()
@@ -203,8 +202,7 @@
 	desc = "ЕЩЁ ОДНИ!? ДА БЛЯДЬ!"
 	icon_state = "box"
 
-/obj/item/storage/box/dice/New()
-	..()
+/obj/item/storage/box/dice/populate_contents()
 	new /obj/item/dice/d2(src)
 	new /obj/item/dice/d4(src)
 	new /obj/item/dice/d8(src)

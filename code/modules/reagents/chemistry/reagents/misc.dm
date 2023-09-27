@@ -388,9 +388,9 @@
 			head_organ.f_style = random_facial_hair_style(H.gender, head_organ.dna.species.name)
 		H.update_hair()
 		H.update_fhair()
-		if(!H.wear_mask || H.wear_mask && !istype(H.wear_mask, /obj/item/clothing/mask/fakemoustache))
+		if(!H.wear_mask || H.wear_mask && !istype(H.wear_mask, /obj/item/clothing/mask/fakemoustache) && !(H.wear_mask.resistance_flags & NO_MOUSTACHING))
 			if(H.wear_mask)
-				H.unEquip(H.wear_mask)
+				H.drop_item_ground(H.wear_mask, force = TRUE)
 			var/obj/item/clothing/mask/fakemoustache = new /obj/item/clothing/mask/fakemoustache
 			H.equip_to_slot(fakemoustache, slot_wear_mask)
 			to_chat(H, "<span class='notice'>Hair bursts forth from your every follicle!")
@@ -430,8 +430,7 @@
 				if(C == M)
 					continue
 				if(!C.stat)
-					M.visible_message("<span class='notice'>[M] gives [C] a [pick("hug","warm embrace")].</span>")
-					playsound(get_turf(M), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+					C.attack_hand(M)  //now real hugs, not fake
 					break
 	return ..()
 
@@ -459,10 +458,10 @@
 			to_chat(C, "<span class='notice'>Whatever that was, it feels great!</span>")
 		else if(C.mind.assigned_role == "Mime")
 			to_chat(C, "<span class='warning'>You feel nauseous.</span>")
-			C.AdjustDizzy(volume)
+			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
 		else
 			to_chat(C, "<span class='warning'>Something doesn't feel right...</span>")
-			C.AdjustDizzy(volume)
+			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
 	ADD_TRAIT(C, TRAIT_JESTER, id)
 	C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE, falloff_exponent = 20)
 	C.AddElement(/datum/element/waddling)
@@ -474,12 +473,12 @@
 	if(prob(10))
 		M.emote("giggle")
 	if(M?.mind.assigned_role == "Clown" || M?.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD)
-		update_flags |= M.adjustBruteLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER) //Screw those pesky clown beatings!
+		update_flags |= M.adjustBruteLoss(-0.75) //Screw those pesky clown beatings!
 	else
-		M.AdjustDizzy(10, 0, 500)
-		M.Druggy(15)
+		M.AdjustDizzy(20 SECONDS, 0, 1000 SECONDS)
+		M.Druggy(30 SECONDS)
 		if(prob(10))
-			M.EyeBlurry(5)
+			M.EyeBlurry(10 SECONDS)
 		if(prob(6))
 			var/list/clown_message = list("You feel light-headed.",
 			"You can't see straight.",
@@ -494,7 +493,7 @@
 			"You feel like telling a pun.")
 			to_chat(M, "<span class='warning'>[pick(clown_message)]</span>")
 		if(M?.mind.assigned_role == "Mime")
-			update_flags |= M.adjustToxLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER)
+			update_flags |= M.adjustToxLoss(0.75)
 	return ..() | update_flags
 
 /datum/reagent/jestosterone/on_mob_delete(mob/living/M)
@@ -592,7 +591,7 @@
 /datum/reagent/plantnutriment/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(tox_prob))
-		update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustToxLoss(0.5, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/plantnutriment/eznutriment
@@ -706,3 +705,16 @@
 
 	if(H.dna.species.bodyflags & HAS_SKIN_COLOR) //take current alien color and darken it slightly
 		H.change_skin_color("#9B7653")
+
+/datum/reagent/monkeylanguage
+	name = "Moenky Language"
+	id = "monkeylanguage"
+	description = "Strange reagent"
+	reagent_state = SOLID
+	color = "#f0d18f" // rgb: 128, 128, 128
+	taste_description = "Strange"
+
+/datum/reagent/monkeylanguage/on_mob_life(mob/living/M)
+	if(volume > 4)
+		M.add_language("Chimpanzee")
+	return ..()

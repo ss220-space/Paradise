@@ -7,6 +7,9 @@
 	canSmoothWith = null
 	smooth = SMOOTH_TRUE
 
+/turf/simulated/wall/mineral/shuttleRotate(rotation)
+	return // This override is needed to properly rotate the object when on a shuttle that is rotated.
+
 /turf/simulated/wall/mineral/gold
 	name = "gold wall"
 	desc = "A wall with gold plating. Swag!"
@@ -56,32 +59,15 @@
 	icon = 'icons/turf/walls/uranium_wall.dmi'
 	icon_state = "uranium"
 	sheet_type = /obj/item/stack/sheet/mineral/uranium
-	canSmoothWith = list(/turf/simulated/wall/mineral/uranium, /obj/structure/falsewall/uranium)
+	canSmoothWith = list(/turf/simulated/wall/mineral/uranium, /obj/structure/falsewall/uranium, /turf/simulated/wall/indestructible/uranium)
 
-/turf/simulated/wall/mineral/uranium/proc/radiate()
-	if(!active)
-		if(world.time > last_event+15)
-			active = 1
-			for(var/mob/living/L in range(3,src))
-				L.apply_effect(12,IRRADIATE,0)
-			for(var/turf/simulated/wall/mineral/uranium/T in range(3,src))
-				T.radiate()
-			last_event = world.time
-			active = null
-			return
-	return
-
-/turf/simulated/wall/mineral/uranium/attack_hand(mob/user as mob)
-	radiate()
-	..()
-
-/turf/simulated/wall/mineral/uranium/attackby(obj/item/W as obj, mob/user as mob, params)
-	radiate()
-	..()
-
-/turf/simulated/wall/mineral/uranium/Bumped(AM as mob|obj)
-	radiate()
-	..()
+/turf/simulated/wall/mineral/uranium/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/radioactivity, \
+				rad_per_interaction = 12, \
+				rad_interaction_radius = 3, \
+				rad_interaction_cooldown = 1.5 SECONDS \
+	)
 
 /turf/simulated/wall/mineral/plasma
 	name = "plasma wall"
@@ -94,9 +80,8 @@
 
 /turf/simulated/wall/mineral/plasma/attackby(obj/item/W as obj, mob/user as mob)
 	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
-		message_admins("Plasma wall ignited by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-		log_game("Plasma wall ignited by [key_name(user)] in ([x], [y], [z])")
-		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
+		add_attack_logs(user, src, "Ignited using [W]", ATKLOG_FEW)
+		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
 		ignite(is_hot(W))
 		return
 	..()
@@ -104,12 +89,11 @@
 /turf/simulated/wall/mineral/plasma/welder_act(mob/user, obj/item/I)
 	if(I.tool_enabled)
 		ignite(2500) //The number's big enough
-		user.visible_message("<span class='danger'>[user] sets [src] on fire!</span>",\
-							"<span class='danger'>[src] disintegrates into a cloud of plasma!</span>",\
-							"<span class='warning'>You hear a 'whoompf' and a roar.</span>")
-		message_admins("Plasma wall ignited by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-		log_game("Plasma wall ignited by [key_name(user)] in ([x], [y], [z])")
-		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
+		user.visible_message(span_danger("[user] sets [src] on fire!"),\
+							span_danger("[src] disintegrates into a cloud of plasma!"),\
+							span_italics("You hear a 'whoompf' and a roar."))
+		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
+		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
 
 /turf/simulated/wall/mineral/plasma/proc/PlasmaBurn(temperature)
 	new girder_type(src)
@@ -150,7 +134,7 @@
 	sheet_type = /obj/item/stack/sheet/wood
 	hardness = 70
 	explosion_block = 0
-	canSmoothWith = list(/turf/simulated/wall/mineral/wood, /obj/structure/falsewall/wood, /turf/simulated/wall/mineral/wood/nonmetal)
+	canSmoothWith = list(/turf/simulated/wall/mineral/wood, /obj/structure/falsewall/wood, /turf/simulated/wall/mineral/wood/nonmetal, /turf/simulated/wall/indestructible/wood)
 
 /turf/simulated/wall/mineral/wood/attackby(obj/item/W, mob/user)
 	if(W.sharp && W.force)
@@ -166,7 +150,7 @@
 	desc = "A solidly wooden wall. It's a bit weaker than a wall made with metal."
 	girder_type = /obj/structure/barricade/wooden
 	hardness = 50
-	canSmoothWith = list(/turf/simulated/wall/mineral/wood, /obj/structure/falsewall/wood, /turf/simulated/wall/mineral/wood/nonmetal)
+	canSmoothWith = list(/turf/simulated/wall/mineral/wood, /obj/structure/falsewall/wood, /turf/simulated/wall/mineral/wood/nonmetal, /turf/simulated/wall/indestructible/wood)
 
 /turf/simulated/wall/mineral/iron
 	name = "rough metal wall"
@@ -185,15 +169,15 @@
 	smooth = SMOOTH_TRUE|SMOOTH_DIAGONAL
 	sheet_type = /obj/item/stack/sheet/mineral/abductor
 	explosion_block = 3
-	canSmoothWith = list(/turf/simulated/wall/mineral/abductor, /obj/structure/falsewall/abductor)
+	canSmoothWith = list(/turf/simulated/wall/mineral/abductor, /obj/structure/falsewall/abductor, /turf/simulated/wall/indestructible/abductor)
 
 /////////////////////Titanium walls/////////////////////
 
 /turf/simulated/wall/mineral/titanium //has to use this path due to how building walls works
 	name = "wall"
 	desc = "A light-weight titanium wall used in shuttles."
-	icon = 'icons/turf/walls/shuttle_wall.dmi'
-	icon_state = "map-shuttle"
+	icon = 'icons/turf/walls/shuttle/shuttle_wall.dmi'
+	icon_state = "shuttle"
 	explosion_block = 3
 	flags_2 = CHECK_RICOCHET_2
 	sheet_type = /obj/item/stack/sheet/mineral/titanium
@@ -202,15 +186,15 @@
 
 /turf/simulated/wall/mineral/titanium/nodiagonal
 	smooth = SMOOTH_MORE
-	icon_state = "map-shuttle_nd"
+	icon_state = "shuttle_nd"
 
 /turf/simulated/wall/mineral/titanium/nosmooth
-	icon = 'icons/turf/shuttle.dmi'
+	icon = 'icons/turf/shuttle/shuttle.dmi'
 	icon_state = "wall"
 	smooth = SMOOTH_FALSE
 
 /turf/simulated/wall/mineral/titanium/overspace
-	icon_state = "map-overspace"
+	icon_state = "overspace"
 	fixed_underlay = list("space"=1)
 
 //sub-type to be used for interior shuttle walls
@@ -260,12 +244,11 @@
 
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal
 	smooth = SMOOTH_MORE
-	icon_state = "map-shuttle_nd"
+	icon_state = "shuttle_nd"
 
 /turf/simulated/wall/mineral/titanium/nodecon/nosmooth
 	smooth = SMOOTH_FALSE
-	icon = 'icons/turf/shuttle.dmi'
-	icon_state = "wall"
+	icon_state = "shuttle_ns"
 
 //properties for derelict sub-type to prevent said deconstruction/thermiting
 /turf/simulated/wall/mineral/titanium/nodecon/try_decon(obj/item/I, mob/user, params)
@@ -280,13 +263,16 @@
 /turf/simulated/wall/mineral/titanium/nodecon/welder_act()
 	return
 
+/turf/simulated/wall/mineral/titanium/nodecon/rcd_deconstruct_act()
+	return RCD_NO_ACT
+
 /////////////////////Plastitanium walls/////////////////////
 
 /turf/simulated/wall/mineral/plastitanium
 	name = "wall"
 	desc = "An evil wall of plasma and titanium."
 	icon = 'icons/turf/walls/plastitanium_wall.dmi'
-	icon_state = "map-shuttle"
+	icon_state = "shuttle"
 	explosion_block = 4
 	sheet_type = /obj/item/stack/sheet/mineral/plastitanium
 	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
@@ -294,21 +280,21 @@
 
 /turf/simulated/wall/mineral/plastitanium/nodiagonal
 	smooth = SMOOTH_MORE
-	icon_state = "map-shuttle_nd"
+	icon_state = "shuttle_nd"
 
 /turf/simulated/wall/mineral/plastitanium/nosmooth
-	icon = 'icons/turf/shuttle.dmi'
+	icon = 'icons/turf/shuttle/shuttle.dmi'
 	icon_state = "wall"
 	smooth = SMOOTH_FALSE
 
 /turf/simulated/wall/mineral/plastitanium/overspace
-	icon_state = "map-overspace"
+	icon_state = "overspace"
 	fixed_underlay = list("space"=1)
 
 /turf/simulated/wall/mineral/plastitanium/coated
 	name = "coated wall"
 	max_temperature = INFINITY
-	icon_state = "map-shuttle_nd"
+	icon_state = "shuttle_nd"
 	smooth = SMOOTH_MORE
 
 /turf/simulated/wall/mineral/plastitanium/coated/Initialize(mapload)
@@ -317,7 +303,7 @@
 
 /turf/simulated/wall/mineral/plastitanium/explosive
 	var/explosive_wall_group = EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE
-	icon_state = "map-shuttle_nd"
+	icon_state = "shuttle_nd"
 	smooth = SMOOTH_MORE
 
 /turf/simulated/wall/mineral/plastitanium/explosive/Initialize(mapload)

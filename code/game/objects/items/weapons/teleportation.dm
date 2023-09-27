@@ -26,7 +26,7 @@
 	origin_tech = "magnets=3;bluespace=2"
 
 /obj/item/locator/attack_self(mob/user as mob)
-	add_fingerprint(usr)
+	add_fingerprint(user)
 	var/dat = {"<meta charset="UTF-8">"}
 	if(temp)
 		dat += "[src.temp]<BR><BR><A href='byond://?src=[UID()];temp=1'>Clear</A>"
@@ -137,9 +137,10 @@ Frequency:
 	if(active_portals >= 3)
 		user.show_message("<span class='notice'>\The [src] is recharging!</span>")
 		return
-	var/T = L[t1]
+	var/turf/T = L[t1]
 	user.show_message("<span class='notice'>Locked In.</span>", 2)
 	var/obj/effect/portal/P = new /obj/effect/portal(get_turf(src), T, src)
+	investigate_log("was used by [key_name_log(user)] to create a portal with destination to [COORD(T)].", INVESTIGATE_TELEPORTATION)
 	try_move_adjacent(P)
 	active_portals++
 	add_fingerprint(user)

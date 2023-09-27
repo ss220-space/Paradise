@@ -63,7 +63,7 @@
 
 	mulebot_count++
 	set_suffix(suffix ? suffix : "#[mulebot_count]")
-	RegisterSignal(src, COMSIG_CROSSED_MOVABLE, .proc/human_squish_check)
+	RegisterSignal(src, COMSIG_CROSSED_MOVABLE, PROC_REF(human_squish_check))
 
 /mob/living/simple_animal/bot/mulebot/Destroy()
 	SStgui.close_uis(wires)
@@ -90,10 +90,9 @@
 			on = FALSE
 		update_controls()
 	else if(istype(I,/obj/item/stock_parts/cell) && open && !cell)
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(I, src))
 			return
 		var/obj/item/stock_parts/cell/C = I
-		C.forceMove(src)
 		cell = C
 		visible_message("[user] inserts a cell into [src].",
 						"<span class='notice'>You insert the new cell into [src].</span>")
@@ -192,7 +191,8 @@
 		if("cellremove")
 			if(open && cell && !usr.get_active_hand())
 				cell.update_icon()
-				usr.put_in_active_hand(cell)
+				cell.forceMove_turf()
+				usr.put_in_active_hand(cell, ignore_anim = FALSE)
 				cell.add_fingerprint(usr)
 				cell = null
 
@@ -201,9 +201,8 @@
 			if(open && !cell)
 				var/obj/item/stock_parts/cell/C = usr.get_active_hand()
 				if(istype(C))
-					usr.drop_item()
+					usr.drop_transfer_item_to_loc(C, src)
 					cell = C
-					C.forceMove(src)
 					C.add_fingerprint(usr)
 
 					usr.visible_message("<span class='notice'>[usr] inserts a power cell into [src].</span>", "<span class='notice'>You insert the power cell into [src].</span>")
@@ -673,17 +672,16 @@
 // called when bot bumps into anything
 /mob/living/simple_animal/bot/mulebot/Bump(atom/obs)
 	if(wires.is_cut(WIRE_MOB_AVOIDANCE))	// usually just bumps, but if avoidance disabled knock over mobs
-		var/mob/M = obs
-		if(ismob(M))
-			if(istype(M,/mob/living/silicon/robot))
-				visible_message("<span class='danger'>[src] bumps into [M]!</span>")
+		var/mob/living/L = obs
+		if(ismob(L))
+			if(istype(L,/mob/living/silicon/robot))
+				visible_message("<span class='danger'>[src] bumps into [L]!</span>")
 			else
 				if(!paicard)
-					add_attack_logs(src, M, "Knocked down")
-					visible_message("<span class='danger'>[src] knocks over [M]!</span>")
-					M.stop_pulling()
-					M.Stun(8)
-					M.Weaken(5)
+					add_attack_logs(src, L, "Knocked down")
+					visible_message("<span class='danger'>[src] knocks over [L]!</span>")
+					L.stop_pulling()
+					L.Weaken(16 SECONDS)
 	return ..()
 
 /mob/living/simple_animal/bot/mulebot/proc/RunOver(mob/living/carbon/human/H)
@@ -848,8 +846,8 @@
 	else
 		return null
 
-/mob/living/simple_animal/bot/mulebot/resist()
-	..()
+/mob/living/simple_animal/bot/mulebot/run_resist()
+	. = ..()
 	if(load)
 		unload()
 

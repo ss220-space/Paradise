@@ -4,7 +4,7 @@
 	name = "improvised firebomb"
 	desc = "A weak, improvised incendiary device."
 	w_class = WEIGHT_CLASS_SMALL
-	icon = 'icons/obj/grenade.dmi'
+	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "improvised_grenade"
 	item_state = "flashbang"
 	throw_speed = 3
@@ -45,20 +45,16 @@
 			overlays -= "improvised_grenade_filled"
 			icon_state = initial(icon_state) + "_active"
 			add_fingerprint(user)
-			var/turf/bombturf = get_turf(src)
-			var/area/A = get_area(bombturf)
-
-			log_game("[key_name(user)] has primed a [name] for detonation at [A.name] [COORD(bombturf)].")
-			investigate_log("[key_name(user)] has primed a [name] for detonation at [A.name] [COORD(bombturf)])", INVESTIGATE_BOMB)
+			investigate_log("[key_name_log(user)] has primed a [name] for detonation", INVESTIGATE_BOMB)
 			add_attack_logs(user, src, "has primed for detonation", ATKLOG_FEW)
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.throw_mode_on()
-			addtimer(CALLBACK(src, .proc/prime), det_time)
+			addtimer(CALLBACK(src, PROC_REF(prime)), det_time)
 
 /obj/item/grenade/iedcasing/prime() //Blowing that can up
 	update_mob()
-	explosion(loc, -1, -1, 2, flame_range = 4)	// small explosion, plus a very large fireball.
+	explosion(loc, -1, -1, 2, flame_range = 4, cause = src)	// small explosion, plus a very large fireball.
 	qdel(src)
 
 /obj/item/grenade/iedcasing/examine(mob/user)

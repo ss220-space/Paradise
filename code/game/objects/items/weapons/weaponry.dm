@@ -99,6 +99,27 @@
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku.</span>")
 	return BRUTELOSS
 
+/obj/item/katana/basalt
+	name = "basalt katana"
+	desc = "a katana made out of hardened basalt. Particularly damaging to lavaland fauna."
+	icon_state = "basalt_katana"
+	item_state = "basalt_katana"
+	force = 30
+	block_chance = 30
+
+	var/fauna_damage_bonus = 40
+	var/fauna_damage_type = BRUTE
+
+/obj/item/katana/basalt/afterattack(atom/target, mob/user, proximity)
+	. = ..()
+	if(!proximity)
+		return
+	if(isliving(target))
+		var/mob/living/L = target
+		if(ismegafauna(L) || istype(L, /mob/living/simple_animal/hostile/asteroid))
+			L.apply_damage(fauna_damage_bonus,fauna_damage_type)
+			playsound(L, 'sound/weapons/sear.ogg', 100, 1)
+
 /obj/item/harpoon
 	name = "harpoon"
 	sharp = 1
@@ -127,7 +148,7 @@
 /obj/item/wirerod/attackby(obj/item/I, mob/user, params)
 	..()
 	if(istype(I, /obj/item/shard))
-		var/obj/item/twohanded/spear/S = new /obj/item/twohanded/spear
+		var/obj/item/twohanded/spear/S = new /obj/item/twohanded/spear(drop_location())
 		if(istype(I, /obj/item/shard/plasma))
 			S.force_wielded = 19
 			S.force_unwielded = 11
@@ -135,22 +156,22 @@
 			S.icon_prefix = "spearplasma"
 			S.update_icon()
 		if(!remove_item_from_storage(user))
-			user.unEquip(src)
-		user.unEquip(I)
+			user.temporarily_remove_item_from_inventory(src)
+		user.temporarily_remove_item_from_inventory(I)
 
-		user.put_in_hands(S)
+		user.put_in_hands(S, ignore_anim = FALSE)
 		to_chat(user, "<span class='notice'>You fasten the glass shard to the top of the rod with the cable.</span>")
 		qdel(I)
 		qdel(src)
 
 	else if(istype(I, /obj/item/assembly/igniter) && !(I.flags & NODROP))
-		var/obj/item/melee/baton/cattleprod/P = new /obj/item/melee/baton/cattleprod
+		var/obj/item/melee/baton/cattleprod/P = new /obj/item/melee/baton/cattleprod(drop_location())
 
 		if(!remove_item_from_storage(user))
-			user.unEquip(src)
-		user.unEquip(I)
+			user.temporarily_remove_item_from_inventory(src)
+		user.temporarily_remove_item_from_inventory(I)
 
-		user.put_in_hands(P)
+		user.put_in_hands(P, ignore_anim = FALSE)
 		to_chat(user, "<span class='notice'>You fasten [I] to the top of the rod with the cable.</span>")
 		qdel(I)
 		qdel(src)
@@ -195,6 +216,8 @@
 	var/next_throw_time = 0
 	var/homerun_ready = 0
 	var/homerun_able = 0
+	var/can_deflect = TRUE
+	var/homerun_always_charged = 0
 
 /obj/item/melee/baseball_bat/homerun
 	name = "home run bat"
@@ -236,7 +259,7 @@
 				return TRUE
 
 /obj/item/melee/baseball_bat/attack_self(mob/user)
-	if(!homerun_able)
+	if(!homerun_able && can_deflect)
 		if(!deflectmode && world.time >= lastdeflect)
 			to_chat(user, "<span class='notice'>You prepare to deflect objects thrown at you. You cannot attack during this time.</span>")
 			deflectmode = TRUE
@@ -267,7 +290,8 @@
 		target.throw_at(throw_target, rand(8,10), 14, user)
 		target.ex_act(2)
 		playsound(get_turf(src), 'sound/weapons/homerun.ogg', 100, 1)
-		homerun_ready = 0
+		if(!homerun_always_charged)
+			homerun_ready = 0
 		return
 	if(world.time < next_throw_time)
 		// Limit the rate of throwing, so you can't spam it.
@@ -291,7 +315,8 @@
 		// Covers: revenant, bot/mulebot, hostile/statue, hostile/megafauna, goliath
 		return
 	var/atom/throw_target = get_edge_target_turf(target, user.dir)
-	target.throw_at(throw_target, rand(1, 2), 7, user)
+	if(!homerun_always_charged)
+		target.throw_at(throw_target, rand(1, 2), 7, user)
 	next_throw_time = world.time + 10 SECONDS
 
 /obj/item/melee/baseball_bat/ablative
@@ -310,3 +335,102 @@
 	if(picksound == 2)
 		playsound(turf, 'sound/weapons/effects/batreflect2.ogg', 50, 1)
 	return 1
+
+/obj/item/melee/baseball_bat/homerun/central_command
+	name = "тактическая бита Флота NanoTrasen"
+	description_info = "Выдвижная тактическая бита Центрального Командования Nanotrasen. \
+	В официальных документах эта бита проходит под элегантным названием \"Высокоскоростная система доставки СРП\". \
+	Выдаваясь только самым верным и эффективным офицерам NanoTrasen, это оружие является одновременно символом статуса \
+	и инструментом высшего правосудия."
+	slot_flags = SLOT_BELT
+	w_class = WEIGHT_CLASS_SMALL
+
+	can_deflect = FALSE
+	homerun_always_charged = TRUE
+	var/on = FALSE
+	/// Force when concealed
+	force = 5
+	/// Force when extended
+	var/force_on = 20
+	/// Item state when concealed
+	item_state = "centcom_bat_0"
+	/// Item state when extended
+	var/item_state_on = "centcom_bat_1"
+	/// Icon state when concealed
+	icon_state = "centcom_bat_0"
+	/// Icon state when extended
+	var/icon_state_on = "centcom_bat_1"
+	/// Sound to play when concealing or extending
+	var/extend_sound = 'sound/weapons/batonextend.ogg'
+	/// Attack verbs when concealed (created on Initialize)
+	attack_verb = list("hit", "poked")
+	/// Attack verbs when extended (created on Initialize)
+	var/list/attack_verb_on = list("smacked", "struck", "cracked", "beaten")
+
+/obj/item/melee/baseball_bat/homerun/central_command/srt
+	name = "тактическая бита ГСН"
+	desc = "Выдвижная тактическая бита Центрального Командования Nanotrasen. Скорее всего, к этому моменту командование станции уже осознало, что их коленные чашечки не переживут эту встречу."
+
+	item_state = "srt_bat_0"
+	item_state_on = "srt_bat_1"
+	icon_state = "srt_bat_0"
+	icon_state_on = "srt_bat_1"
+
+/obj/item/melee/baseball_bat/homerun/central_command/Initialize(mapload)
+	. = ..()
+	icon_state = on ? icon_state_on : initial(icon_state)
+	force = on ? force_on : initial(force)
+	attack_verb = on ? attack_verb_on : initial(attack_verb)
+	w_class = on ? WEIGHT_CLASS_HUGE : WEIGHT_CLASS_SMALL
+	homerun_able = on
+
+/obj/item/melee/baseball_bat/homerun/central_command/pickup(mob/living/user)
+	. = ..()
+	if(!(isertmindshielded(user)))
+		user.Weaken(10 SECONDS)
+		user.drop_item_ground(src, force = TRUE)
+		to_chat(user, "<span class='cultlarge'>\"Это - оружие истинного правосудия. Тебе не дано обуздать его мощь.\"</span>")
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
+			H.apply_damage(rand(force/2, force), BRUTE, pick("l_arm", "r_arm"))
+		else
+			user.adjustBruteLoss(rand(force/2, force))
+		return
+
+/obj/item/melee/baseball_bat/homerun/central_command/attack_self(mob/user)
+	on = !on
+	icon_state = on ? icon_state_on : initial(icon_state)
+	if(on)
+		to_chat(user, "<span class='userdanger'>Вы активировали [src.name] - время для правосудия!</span>")
+		item_state = item_state_on
+		w_class = WEIGHT_CLASS_HUGE //doesnt fit in backpack when its on for balance
+		force = force_on
+		attack_verb = attack_verb_on
+		homerun_ready = TRUE
+	else
+		to_chat(user, "<span class='notice'>Вы деактивировали [src.name].</span>")
+		item_state = initial(item_state)
+		slot_flags = SLOT_BELT
+		w_class = WEIGHT_CLASS_SMALL
+		force = initial(force)
+		attack_verb = initial(attack_verb)
+		homerun_ready = FALSE
+	// Update mob hand visuals
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		H.update_inv_l_hand()
+		H.update_inv_r_hand()
+	playsound(loc, extend_sound, 50, TRUE)
+	add_fingerprint(user)
+
+/obj/item/claymore/bone
+	name = "bone sword"
+	desc = "Jagged pieces of bone are tied to what looks like a goliath's femur."
+	icon_state = "bone_sword"
+	item_state = "bone_sword"
+	slot_flags = SLOT_BELT | SLOT_BACK
+	force = 18
+	throwforce = 10
+	armour_penetration = 15
+	w_class = WEIGHT_CLASS_BULKY
+	block_chance = 30

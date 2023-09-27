@@ -6,7 +6,7 @@
 /obj/structure/mecha_wreckage
 	name = "exosuit wreckage"
 	desc = "Remains of some unfortunate mecha. Completely unrepairable, but perhaps something can be salvaged."
-	icon = 'icons/mecha/mecha.dmi'
+	icon = 'icons/obj/mecha/mecha.dmi'
 	density = TRUE
 	anchored = FALSE
 	opacity = 0
@@ -34,7 +34,7 @@
 	AI.apply_damage(150, BURN) //Give the AI a bit of damage from the "shock" of being suddenly shut down
 	AI.death() //The damage is not enough to kill the AI, but to be 'corrupted files' in need of repair.
 	AI.forceMove(src) //Put the dead AI inside the wreckage for recovery
-	add_overlay(mutable_appearance('icons/obj/projectiles.dmi', "green_laser")) //Overlay for the recovery beacon
+	add_overlay(mutable_appearance('icons/obj/weapons/projectiles.dmi', "green_laser")) //Overlay for the recovery beacon
 	AI.controlled_mech = null
 	AI.remote_control = null
 
@@ -229,3 +229,8 @@
 			/obj/item/mecha_parts/part/odysseus_right_arm,
 			/obj/item/mecha_parts/part/odysseus_left_leg,
 			/obj/item/mecha_parts/part/odysseus_right_leg)
+
+/obj/structure/mecha_wreckage/sidewinder
+	name = "\improper Обломки Сайдвиндера"
+	desc = "Корпорация будет ОЧЕНЬ недовольна этим. Вы хоть знаете СКОЛЬКО он стоит?!"
+	icon_state = "sidewinder-broken"

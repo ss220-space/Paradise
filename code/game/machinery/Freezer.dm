@@ -1,6 +1,6 @@
 /obj/machinery/atmospherics/unary/cold_sink/freezer
 	name = "охладитель"
-	icon = 'icons/obj/cryogenic2.dmi'
+	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "freezer"
 	density = 1
 	var/min_temperature = 0
@@ -11,6 +11,7 @@
 	current_heat_capacity = 1000
 	layer = 3
 	plane = GAME_PLANE
+	resistance_flags = null
 	max_integrity = 300
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 30)
 
@@ -76,7 +77,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!panel_open)
-		to_chat(user, "<span class='notice'>Сначала откройте панель техобслуживания.</span>")
+		to_chat(user, span_notice("Сначала откройте панель техобслуживания."))
 		return
 	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
 	var/selected = input(user,"Выберите направление соединения.", "Направление соединения") in choices
@@ -107,9 +108,10 @@
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/attack_hand(mob/user as mob)
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Сначала закройте панель техобслуживания.</span>")
+		to_chat(user, span_notice("Сначала закройте панель техобслуживания."))
 		return
 
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -164,7 +166,7 @@
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/
 	name = "нагреватель"
-	icon = 'icons/obj/cryogenic2.dmi'
+	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "heater"
 	density = 1
 	var/max_temperature = 0
@@ -244,7 +246,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!panel_open)
-		to_chat(user, "<span class='notice'>Сначала откройте панель техобслуживания.</span>")
+		to_chat(user, span_notice("Сначала откройте панель техобслуживания."))
 		return
 	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
 	var/selected = input(user,"Выберите направление соединения.", "Направление соединения") in choices
@@ -275,8 +277,10 @@
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/attack_hand(mob/user as mob)
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Сначала закройте панель техобслуживания.</span>")
+		to_chat(user, span_notice("Сначала закройте панель техобслуживания."))
 		return
+
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)

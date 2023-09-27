@@ -116,7 +116,7 @@
 	qdel(first)
 	return TRUE
 
-/obj/item/assembly/infra/equipped(var/mob/user, var/slot)
+/obj/item/assembly/infra/equipped(mob/user, slot, initial)
 	qdel(first)
 	return ..()
 
@@ -124,15 +124,20 @@
 	qdel(first)
 	return ..()
 
-/obj/item/assembly/infra/proc/trigger_beam()
+/obj/item/assembly/infra/proc/trigger_beam(atom/movable/AM)
+	var/mob/triggered
+	if(AM.throwing?.thrower)
+		triggered = AM.throwing.thrower
+	else if(ismob(AM))
+		triggered = AM
 	if(!secured || !on || cooldown > 0)
 		return FALSE
-	cooldown = 2
-	pulse(FALSE)
 	audible_message("[bicon(src)] *beep* *beep*", hearing_distance = 3)
 	if(first)
 		qdel(first)
-	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
+	cooldown = 2
+	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
+	pulse(FALSE, triggered)
 
 /obj/item/assembly/infra/interact(mob/user)//TODO: change this this to the wire control panel
 	if(!secured)	return
@@ -144,10 +149,9 @@
 				</TT>
 				<BR><BR><A href='?src=[UID()];refresh=1'>Refresh</A>
 				<BR><BR><A href='?src=[UID()];close=1'>Close</A>"}
-	var/datum/browser/popup = new(user, "infra", name, 400, 400)
+	var/datum/browser/popup = new(user, "infra", name, 400, 400, src)
 	popup.set_content(dat)
-	popup.open(0)
-	onclose(user, "infra")
+	popup.open()
 
 /obj/item/assembly/infra/Topic(href, href_list)
 	..()
@@ -204,7 +208,7 @@
 
 /obj/effect/beam/i_beam
 	name = "i beam"
-	icon = 'icons/obj/projectiles.dmi'
+	icon = 'icons/obj/weapons/projectiles.dmi'
 	icon_state = "ibeam"
 	var/obj/effect/beam/i_beam/next = null
 	var/obj/effect/beam/i_beam/previous = null
@@ -218,9 +222,9 @@
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSFENCE
 
 
-/obj/effect/beam/i_beam/proc/hit()
+/obj/effect/beam/i_beam/proc/hit(atom/movable/AM)
 	if(master)
-		master.trigger_beam()
+		master.trigger_beam(AM)
 	qdel(src)
 
 /obj/effect/beam/i_beam/proc/vis_spread(v)
@@ -265,15 +269,15 @@
 /obj/effect/beam/i_beam/Bump()
 	qdel(src)
 
-/obj/effect/beam/i_beam/Bumped()
-	hit()
+/obj/effect/beam/i_beam/Bumped(atom/movable/moving_atom)
+	hit(moving_atom)
 
 /obj/effect/beam/i_beam/Crossed(atom/movable/AM, oldloc)
 	if(!isobj(AM) && !isliving(AM))
 		return
 	if(istype(AM, /obj/effect))
 		return
-	hit()
+	hit(AM)
 
 /obj/effect/beam/i_beam/Destroy()
 	if(master.first == src)

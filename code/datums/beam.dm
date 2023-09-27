@@ -9,11 +9,12 @@
 	var/max_distance = 0
 	var/endtime = 0
 	var/sleep_time = 3
-	var/finished = 0
+	var/finished = FALSE
 	var/target_oldloc = null
 	var/origin_oldloc = null
-	var/static_beam = 0
+	var/static_beam = FALSE
 	var/beam_type = /obj/effect/ebeam //must be subtype
+
 
 /datum/beam/New(beam_origin,beam_target,beam_icon='icons/effects/beam.dmi',beam_icon_state="b_beam",time=50,maxdistance=10,btype = /obj/effect/ebeam,beam_sleep_time=3)
 	endtime = world.time+time
@@ -23,12 +24,13 @@
 	target_oldloc = get_turf(target)
 	sleep_time = beam_sleep_time
 	if(origin_oldloc == origin && target_oldloc == target)
-		static_beam = 1
+		static_beam = TRUE
 	max_distance = maxdistance
 	base_icon = new(beam_icon,beam_icon_state)
 	icon = beam_icon
 	icon_state = beam_icon_state
 	beam_type = btype
+
 
 /datum/beam/proc/Start()
 	Draw()
@@ -44,12 +46,14 @@
 
 	qdel(src)
 
+
 /datum/beam/proc/End()
-	finished = 1
+	finished = TRUE
+
 
 /datum/beam/proc/Reset()
-	for(var/obj/effect/ebeam/B in elements)
-		qdel(B)
+	QDEL_LIST(elements)
+
 
 /datum/beam/Destroy()
 	Reset()
@@ -57,8 +61,9 @@
 	origin = null
 	return ..()
 
+
 /datum/beam/proc/Draw()
-	var/Angle = round(Get_Angle(origin,target))
+	var/Angle = round(get_angle(origin, target))
 
 	var/matrix/rot_matrix = matrix()
 	rot_matrix.Turn(Angle)
@@ -110,26 +115,36 @@
 		X.pixel_x = Pixel_x
 		X.pixel_y = Pixel_y
 
+
 /obj/effect/ebeam
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	anchored = 1
+	anchored = TRUE
 	var/datum/beam/owner
+
+
+/obj/effect/ebeam/ex_act(severity)
+	return
+
 
 /obj/effect/ebeam/Destroy()
 	owner = null
 	return ..()
 
+
 /obj/effect/ebeam/singularity_pull()
 	return
 
+
 /obj/effect/ebeam/singularity_act()
 	return
+
 
 /obj/effect/ebeam/deadly/Crossed(atom/A, oldloc)
 	..()
 	A.ex_act(1)
 
+
 /atom/proc/Beam(atom/BeamTarget,icon_state="b_beam",icon='icons/effects/beam.dmi',time=50, maxdistance=10,beam_type=/obj/effect/ebeam,beam_sleep_time=3)
 	var/datum/beam/newbeam = new(src,BeamTarget,icon,icon_state,time,maxdistance,beam_type,beam_sleep_time)
-	INVOKE_ASYNC(newbeam, /datum/beam.proc/Start)
+	INVOKE_ASYNC(newbeam, TYPE_PROC_REF(/datum/beam, Start))
 	return newbeam

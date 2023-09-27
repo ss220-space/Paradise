@@ -17,7 +17,8 @@ GLOBAL_LIST_INIT(engineering_positions, list(
 	"Chief Engineer",
 	"Station Engineer",
 	"Life Support Specialist",
-	"Mechanic"
+	"Mechanic",
+	"Trainee Engineer"
 ))
 
 
@@ -29,7 +30,8 @@ GLOBAL_LIST_INIT(medical_positions, list(
 	"Chemist",
 	"Virologist",
 	"Paramedic",
-	"Coroner"
+	"Coroner",
+	"Intern"
 ))
 
 GLOBAL_LIST_INIT(additional_medical_positions, list(
@@ -41,6 +43,21 @@ GLOBAL_LIST_INIT(science_positions, list(
 	"Scientist",
 	"Geneticist",	//Part of both medical and science
 	"Roboticist",
+	"Student Scientist"
+))
+
+GLOBAL_LIST_INIT(security_positions, list(
+	"Head of Security",
+	"Warden",
+	"Detective",
+	"Security Officer",
+	"Brig Physician",
+	"Security Pod Pilot",
+	"Magistrate"
+))
+
+GLOBAL_LIST_INIT(technically_security_positions,(
+	security_positions - list("Brig Physician") // Add here jobs, that are security, but **do not shitcurs** (or you dont want them give them exp)
 ))
 
 //BS12 EDIT
@@ -73,21 +90,6 @@ GLOBAL_LIST_INIT(supply_positions, list(
 ))
 
 GLOBAL_LIST_INIT(service_positions, (list("Head of Personnel") + (support_positions - supply_positions)))
-
-
-GLOBAL_LIST_INIT(security_positions, list(
-	"Head of Security",
-	"Warden",
-	"Detective",
-	"Security Officer",
-	"Brig Physician",
-	"Security Pod Pilot",
-	"Magistrate"
-))
-
-GLOBAL_LIST_INIT(technically_security_positions,(
-	security_positions - list("Brig Physician") // Add here jobs, that are security, but **do not shitcurs** (or you dont want them give them exp)
-))
 
 GLOBAL_LIST_INIT(civilian_positions, list(
 	"Civilian"
@@ -150,5 +152,6 @@ GLOBAL_LIST_INIT(exp_jobsmap, list(
 	EXP_TYPE_SECURITY = list(titles = technically_security_positions),
 	EXP_TYPE_SILICON = list(titles = list("AI","Cyborg")),
 	EXP_TYPE_SERVICE = list(titles = service_positions),
-	EXP_TYPE_WHITELIST = list(titles = whitelisted_positions) // karma-locked jobs
+	EXP_TYPE_WHITELIST = list(titles = whitelisted_positions), // karma-locked jobs
+	EXP_TYPE_BASE_TUTORIAL = list(), // is basic tutorial complete
 ))

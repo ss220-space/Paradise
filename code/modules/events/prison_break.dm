@@ -7,7 +7,7 @@
 
 	var/eventDept = "Security"			//Department name in announcement
 	var/list/areaName = list("Brig")	//Names of areas mentioned in AI and Engineering announcements
-	var/list/areaType = list(/area/security/prison, /area/security/brig, /area/security/permabrig)	//Area types to include.
+	var/list/areaType = list(/area/security/prison, /area/security/brig, /area/security/permabrig, /area/security/permahallway)	//Area types to include.
 	var/list/areaNotType = list()		//Area types to specifically exclude.
 
 /datum/event/prison_break/virology
@@ -24,7 +24,7 @@
 /datum/event/prison_break/station
 	eventDept = "Station"
 	areaName = list("Brig","Virology","Xenobiology")
-	areaType = list(/area/security/prison, /area/security/brig, /area/security/permabrig, /area/medical/virology, /area/medical/virology/lab, /area/toxins/xenobiology)
+	areaType = list(/area/security/prison, /area/security/brig, /area/security/permabrig,  /area/security/permahallway, /area/medical/virology, /area/medical/virology/lab, /area/toxins/xenobiology)
 	areaNotType = list(/area/toxins/xenobiology/xenoflora, /area/toxins/xenobiology/xenoflora_storage)
 
 
@@ -37,7 +37,7 @@
 
 /datum/event/prison_break/announce()
 	if(areas && areas.len > 0)
-		GLOB.event_announcement.Announce("[pick("Gr3y.T1d3 virus","Malignant trojan")] detected in [station_name()] [(eventDept == "Security")? "imprisonment":"containment"] subroutines. Secure any compromised areas immediately. Station AI involvement is recommended.", "[eventDept] Alert")
+		GLOB.event_announcement.Announce("[pick("Вирус `Gr3y.T1d3`","Вредоносный троян")] обнаружен в подсистеме [(eventDept == "Security")? "заключения":"безопасности"] на [station_name()]. Немедленно обеспечьте безопасность всех затронутых отсеков. Рекомендуется участие ИИ станции.", "АВАРИЙНОЕ ОПОВЕЩЕНИЕ [eventDept].")
 
 /datum/event/prison_break/start()
 	for(var/area/A in world)

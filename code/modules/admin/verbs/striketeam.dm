@@ -14,7 +14,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 		return
 	alert("This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle when appropriate. Spawned commandos have internals cameras which are viewable through a monitor inside the Spec. Ops. Office. The first one selected/spawned will be the team leader.")
 
-	message_admins("<span class='notice'>[key_name_admin(usr)] has started to spawn a CentComm DeathSquad.</span>", 1)
+	message_admins("<span class='notice'>[key_name_admin(usr)] has started to spawn a CentComm DeathSquad.</span>")
 
 	var/input = null
 	while(!input)
@@ -84,7 +84,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 				R.real_name = R.name
 				R.mind = new
 				R.mind.current = R
-				R.mind.original = R
+				R.mind.set_original_mob(R)
 				R.mind.assigned_role = SPECIAL_ROLE_DEATHSQUAD
 				R.mind.special_role = SPECIAL_ROLE_DEATHSQUAD
 				R.mind.offstation_role = TRUE
@@ -128,7 +128,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 			new /obj/effect/spawner/newbomb/timer/syndicate(L.loc)
 			qdel(L)
 
-	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned a CentComm DeathSquad.</span>", 1)
+	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned a CentComm DeathSquad.</span>")
 	log_admin("[key_name(usr)] used Spawn Death Squad.")
 	return 1
 
@@ -154,56 +154,8 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	new_commando.mind.assigned_role = SPECIAL_ROLE_DEATHSQUAD
 	new_commando.mind.special_role = SPECIAL_ROLE_DEATHSQUAD
 	SSticker.mode.traitors |= new_commando.mind//Adds them to current traitor list. Which is really the extra antagonist list.
-	new_commando.equip_death_commando(is_leader)
+	if(is_leader)
+		new_commando.equipOutfit(/datum/outfit/admin/death_commando/officer)
+	else
+		new_commando.equipOutfit(/datum/outfit/admin/death_commando)
 	return new_commando
-
-/mob/living/carbon/human/proc/equip_death_commando(is_leader = FALSE)
-
-	var/obj/item/radio/R = new /obj/item/radio/headset/alt(src)
-	R.set_frequency(DTH_FREQ)
-	R.requires_tcomms = FALSE
-	R.instant = TRUE
-	R.freqlock = TRUE
-	equip_to_slot_or_del(R, slot_l_ear)
-	if(is_leader)
-		equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_officer(src), slot_w_uniform)
-	else
-		equip_to_slot_or_del(new /obj/item/clothing/under/color/green(src), slot_w_uniform)
-	equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/advance(src), slot_shoes)
-	equip_to_slot_or_del(new /obj/item/clothing/suit/space/hardsuit/deathsquad(src), slot_wear_suit)
-	equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(src), slot_gloves)
-	equip_to_slot_or_del(new /obj/item/clothing/mask/gas/sechailer/swat(src), slot_wear_mask)
-	equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal(src), slot_glasses)
-
-	equip_to_slot_or_del(new /obj/item/storage/backpack/security(src), slot_back)
-	equip_to_slot_or_del(new /obj/item/storage/box(src), slot_in_backpack)
-
-	equip_to_slot_or_del(new /obj/item/ammo_box/a357(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/reagent_containers/hypospray/combat/nanites(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/storage/box/flashbangs(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/flashlight(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/pinpointer(src), slot_in_backpack)
-	if(is_leader)
-		equip_to_slot_or_del(new /obj/item/disk/nuclear/unrestricted(src), slot_in_backpack)
-	else
-		equip_to_slot_or_del(new /obj/item/grenade/plastic/x4(src), slot_in_backpack)
-
-
-	equip_to_slot_or_del(new /obj/item/melee/energy/sword/saber(src), slot_l_store)
-	equip_to_slot_or_del(new /obj/item/shield/energy(src), slot_r_store)
-	equip_to_slot_or_del(new /obj/item/tank/internals/emergency_oxygen/double(src), slot_s_store)
-	equip_to_slot_or_del(new /obj/item/gun/projectile/revolver/mateba(src), slot_belt)
-	equip_to_slot_or_del(new /obj/item/gun/energy/pulse(src), slot_r_hand)
-
-	var/obj/item/implant/mindshield/ert/L = new/obj/item/implant/mindshield/ert(src)
-	L.implant(src)
-
-	var/obj/item/card/id/W = new(src)
-	W.name = "[real_name]'s ID Card"
-	W.icon_state = "deathsquad"
-	W.assignment = "Death Commando"
-	W.access = get_centcom_access(W.assignment)
-	W.registered_name = real_name
-	equip_to_slot_or_del(W, slot_wear_id)
-
-	return 1

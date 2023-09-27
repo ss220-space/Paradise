@@ -4,6 +4,7 @@
 	damage = 50
 	damage_type = BRUTE
 	flag = "bullet"
+	hitsound = "bullet"
 	hitsound_wall = "ricochet"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect
 
@@ -17,18 +18,19 @@
 /obj/item/projectile/bullet/weakbullet/booze/on_hit(atom/target, blocked = 0)
 	if(..(target, blocked))
 		var/mob/living/M = target
-		M.AdjustDizzy(20)
-		M.AdjustSlur(20)
-		M.AdjustConfused(20)
-		M.AdjustEyeBlurry(20)
-		M.AdjustDrowsy(20)
+		M.AdjustDizzy(40 SECONDS)
+		M.AdjustSlur(40 SECONDS)
+		M.AdjustConfused(40 SECONDS)
+		M.AdjustEyeBlurry(40 SECONDS)
+		M.AdjustDrowsy(40 SECONDS)
+		M.AdjustDrunk(50 SECONDS)
 		for(var/datum/reagent/consumable/ethanol/A in M.reagents.reagent_list)
-			M.AdjustParalysis(2)
-			M.AdjustDizzy(10)
-			M.AdjustSlur(10)
-			M.AdjustConfused(10)
-			M.AdjustEyeBlurry(10)
-			M.AdjustDrowsy(10)
+			M.AdjustParalysis(4 SECONDS)
+			M.AdjustDizzy(20 SECONDS)
+			M.AdjustSlur(20 SECONDS)
+			M.AdjustConfused(20 SECONDS)
+			M.AdjustEyeBlurry(20 SECONDS)
+			M.AdjustDrowsy(20 SECONDS)
 			A.volume += 5 //Because we can
 
 /obj/item/projectile/bullet/weakbullet2  //detective revolver
@@ -37,10 +39,19 @@
 	stamina = 35
 	icon_state = "bullet-r"
 
+/obj/item/projectile/bullet/hp38 //Detective hollow-point
+	damage = 33
+	armour_penetration = -50
+
+/obj/item/projectile/bullet/hp38/on_hit(atom/target, blocked, hit_zone)
+	if(..(target, blocked))
+		var/mob/living/M = target
+		M.Slowed(2 SECONDS)
+
 /obj/item/projectile/bullet/weakbullet2/invisible //finger gun bullets
 	name = "invisible bullet"
 	damage = 0
-	weaken = 1
+	weaken = 2 SECONDS
 	stamina = 45
 	icon_state = null
 	hitsound_wall = null
@@ -53,6 +64,23 @@
 
 /obj/item/projectile/bullet/weakbullet3
 	damage = 20
+
+/obj/item/projectile/bullet/weakbullet3/foursix
+	damage = 15
+
+/obj/item/projectile/bullet/weakbullet3/foursix/ap
+	damage = 12
+	armour_penetration = 40
+
+/obj/item/projectile/bullet/weakbullet3/foursix/tox
+	damage = 10
+	damage_type = TOX
+	armour_penetration = 10
+
+/obj/item/projectile/bullet/weakbullet3/fortynr
+	name = "bullet"
+	damage = 25
+	stamina = 20
 
 /obj/item/projectile/bullet/weakbullet4
 	name = "rubber bullet"
@@ -76,6 +104,10 @@
 /obj/item/projectile/bullet/incendiary/firebullet
 	damage = 10
 
+/obj/item/projectile/bullet/incendiary/foursix
+	damage = 10
+	armour_penetration = 10
+
 /obj/item/projectile/bullet/armourpiercing
 	damage = 17
 	armour_penetration = 10
@@ -86,6 +118,27 @@
 	tile_dropoff = 0.75
 	tile_dropoff_s = 1.25
 	armour_penetration = -20
+
+/obj/item/projectile/bullet/pellet/nuclear
+	damage = 15.5
+	tile_dropoff = 0
+
+/obj/item/projectile/bullet/pellet/bioterror
+	damage = 9
+	irradiate = 20
+	tile_dropoff = 0
+
+/obj/item/projectile/bullet/pellet/bioterror/on_hit(atom/target, blocked = 0, hit_zone)
+	. = ..()
+	if((blocked != 100) && iscarbon(target))
+		var/mob/living/carbon/C = target
+		C.adjustToxLoss(9)
+
+/obj/item/projectile/bullet/pellet/flechette
+	name = "flechette"
+	damage = 16.5
+	tile_dropoff = 0
+	armour_penetration = 20
 
 /obj/item/projectile/bullet/pellet/rubber
 	name = "rubber pellet"
@@ -119,24 +172,28 @@
 /obj/item/projectile/bullet/pellet/assassination/on_hit(atom/target, blocked = 0)
 	if(..(target, blocked))
 		var/mob/living/M = target
-		M.AdjustSilence(2)	// HELP MIME KILLING ME IN MAINT
+		M.AdjustSilence(4 SECONDS)	// HELP MIME KILLING ME IN MAINT
 
 /obj/item/projectile/bullet/pellet/overload/on_hit(atom/target, blocked = 0)
  	..()
- 	explosion(target, 0, 0, 2)
+ 	explosion(target, 0, 0, 2, cause = src)
 
 /obj/item/projectile/bullet/pellet/overload/on_range()
- 	explosion(src, 0, 0, 2)
+ 	explosion(src, 0, 0, 2, cause = src)
  	do_sparks(3, 3, src)
  	..()
 
 /obj/item/projectile/bullet/midbullet
 	damage = 20
-	stamina = 33 //two rounds from the c20r knocks people down
+	stamina = 33 //four rounds from the c20r knocks people down
+
+/obj/item/projectile/bullet/midbullet_AC2S
+	damage = 20
+	stamina = 40 //three rounds from the AC 2 Special knocks people down
 
 /obj/item/projectile/bullet/midbullet_r
 	damage = 5
-	stamina = 33 //Still two rounds to knock people down
+	stamina = 33 //Still four rounds to knock people down
 
 /obj/item/projectile/bullet/midbullet2
 	damage = 25
@@ -164,11 +221,10 @@
 /obj/item/projectile/bullet/stunshot//taser slugs for shotguns, nothing special
 	name = "stunshot"
 	damage = 5
-	stun = 1
-	weaken = 1
-	stutter = 1
+	weaken = 2 SECONDS
+	stutter = 2 SECONDS
 	stamina = 25
-	jitter = 20
+	jitter = 40 SECONDS
 	range = 7
 	icon_state = "spark"
 	color = "#FFFF00"
@@ -178,7 +234,7 @@
 	damage = 20
 
 /obj/item/projectile/bullet/incendiary/shell/Move()
-	..()
+	. = ..()
 	var/turf/location = get_turf(src)
 	if(location)
 		new /obj/effect/hotspot(location)
@@ -188,13 +244,19 @@
 	name = "dragonsbreath round"
 	damage = 5
 
+/obj/item/projectile/bullet/incendiary/shell/dragonsbreath/nuclear
+	damage = 13.5
+
+/obj/item/projectile/bullet/incendiary/shell/dragonsbreath/mecha
+	name = "liquidlava round"
+	damage = 20
+
 /obj/item/projectile/bullet/meteorshot
 	name = "meteor"
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "dust"
 	damage = 30
-	weaken = 2
-	stun = 2
+	weaken = 4 SECONDS
 	hitsound = 'sound/effects/meteorimpact.ogg'
 
 /obj/item/projectile/bullet/meteorshot/on_hit(var/atom/target, var/blocked = 0)
@@ -210,22 +272,22 @@
 
 /obj/item/projectile/bullet/meteorshot/weak
 	damage = 50
-	weaken = 3
-	stun = 3
+	weaken = 6 SECONDS
+	stun = 6 SECONDS
 
 /obj/item/projectile/bullet/mime
 	damage = 0
-	stun = 1
-	weaken = 1
+	stun = 2 SECONDS
+	weaken = 2 SECONDS
 	stamina = 45
-	slur = 20
-	stutter = 20
+	slur = 40 SECONDS
+	stutter = 40 SECONDS
 
 /obj/item/projectile/bullet/mime/on_hit(var/atom/target, var/blocked = 0)
 	..(target, blocked)
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
-		M.Silence(10)
+		M.Silence(20 SECONDS)
 	else if(istype(target, /obj/mecha/combat/honker))
 		var/obj/mecha/chassis = target
 		chassis.occupant_message("A mimetech anti-honk bullet has hit \the [chassis]!")
@@ -250,6 +312,7 @@
 		if(blocked != 100)
 			if(M.can_inject(null, FALSE, hit_zone, piercing)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
 				..()
+				reagents.reaction(M, REAGENT_INGEST)
 				reagents.trans_to(M, reagents.total_volume)
 				return 1
 			else
@@ -286,12 +349,14 @@
 	icon_state = "neurotoxin"
 	damage = 33
 	damage_type = TOX
-	weaken = 1
+	weaken = 1 SECONDS
 
 /obj/item/projectile/bullet/neurotoxin/on_hit(var/atom/target, var/blocked = 0)
 	if(isalien(target))
 		weaken = 0
 		nodamage = 1
+	if(ismecha(target) || issilicon(target))
+		damage_type = BURN
 	. = ..() // Execute the rest of the code.
 
 /obj/item/projectile/bullet/cap
@@ -302,3 +367,14 @@
 /obj/item/projectile/bullet/cap/fire()
 	loc = null
 	qdel(src)
+
+/obj/item/projectile/bullet/f545 // Rusted AK
+	name = "Fusty FMJ 5.45 bullet"
+	damage = 18
+	stamina = 6
+
+/obj/item/projectile/bullet/ftt762 // Rusted PPSh
+	name = "Fusty FMJ 7.62 TT bullet"
+	damage = 8
+	stamina = 1
+	armour_penetration = 5

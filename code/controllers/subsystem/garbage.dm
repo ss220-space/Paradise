@@ -8,6 +8,7 @@ SUBSYSTEM_DEF(garbage)
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
 	init_order = INIT_ORDER_GARBAGE // Why does this have an init order if it has SS_NO_INIT?
 	offline_implications = "Garbage statistics collection is no longer functional, not a big deal actually. No futher actions required."
+	cpu_display = SS_CPUDISPLAY_HIGH
 
 	//Stat tracking
 	var/delslasttick = 0			// number of del()'s we've done this tick
@@ -47,13 +48,15 @@ SUBSYSTEM_DEF(garbage)
 		fail_counts[i] = 0
 #endif
 
-/datum/controller/subsystem/garbage/stat_entry(msg)
+
+/datum/controller/subsystem/garbage/get_stat_details()
+	var/list/msg = list()
 	#ifndef PASSIVE_GC
 	var/list/counts = list()
 	for(var/list/L in queues)
 		counts += length(L)
 	msg += "Queue:[counts.Join(",")] | Del's:[delslasttick] | Soft:[gcedlasttick] |"
-	msg += "GR:"
+	msg += "GCR:"
 	if(!(delslasttick + gcedlasttick))
 		msg += "n/a|"
 	else
@@ -63,20 +66,21 @@ SUBSYSTEM_DEF(garbage)
 	if(!(totaldels + totalgcs))
 		msg += "n/a|"
 	else
-		msg += "TGR:[round((totalgcs / (totaldels + totalgcs)) * 100, 0.01)]% |"
+		msg += "TGCR:[round((totalgcs / (totaldels + totalgcs)) * 100, 0.01)]% |"
 	msg += " Pass:[pass_counts.Join(",")]"
 	msg += " | Fail:[fail_counts.Join(",")]"
 	#else
 	msg += "del's:[delslasttick] | Total del's:[totaldels]"
 	#endif
-	..(msg)
+	return msg.Join("")
+
 
 /datum/controller/subsystem/garbage/Shutdown()
 	//Adds the del() log to the qdel log file
 	var/list/dellog = list()
 
 	//sort by how long it's wasted hard deleting
-	sortTim(items, cmp=/proc/cmp_qdel_item_time, associative = TRUE)
+	sortTim(items, cmp = /proc/cmp_qdel_item_time, associative = TRUE)
 	for(var/path in items)
 		var/datum/qdel_item/I = items[path]
 		dellog += "Path: [path]"
@@ -165,11 +169,11 @@ SUBSYSTEM_DEF(garbage)
 			if(GC_QUEUE_CHECK)
 				#ifdef REFERENCE_TRACKING
 				if(reference_find_on_fail[refID] && !ref_search_stop)
-					INVOKE_ASYNC(D, /datum/proc/find_references)
+					INVOKE_ASYNC(D, TYPE_PROC_REF(/datum, find_references))
 					ref_searching = TRUE
 				#ifdef GC_FAILURE_HARD_LOOKUP
 				else if (!ref_search_stop)
-					INVOKE_ASYNC(D, /datum/proc/find_references)
+					INVOKE_ASYNC(D, TYPE_PROC_REF(/datum, find_references))
 					ref_searching = TRUE
 				#endif
 				reference_find_on_fail -= refID
@@ -250,7 +254,7 @@ SUBSYSTEM_DEF(garbage)
 	if(time > highest_del_time)
 		highest_del_time = time
 	if(time > 10)
-		log_game("Error: [type]([refID]) took longer than 1 second to delete (took [time / 10] seconds to delete)")
+		add_game_logs("Error: [type]([refID]) took longer than 1 second to delete (took [time / 10] seconds to delete)")
 		message_admins("Error: [type]([refID]) took longer than 1 second to delete (took [time / 10] seconds to delete).")
 		postpone(time)
 

@@ -1,3 +1,5 @@
+#define ROBOTIC_BRAIN_COOLDOWN 10 MINUTES
+
 /obj/item/mmi/robotic_brain
 	name = "robotic brain"
 	desc = "An advanced circuit, capable of housing a non-sentient synthetic intelligence."
@@ -32,6 +34,15 @@
 	occupied_icon = "sofia" //придерживаюсь странных традиций с именами робомозга ага
 	dead_icon = "sofia_blank"
 	origin_tech = "biotech=3;programming=3;plasmatech=2;syndicate=5"
+
+/obj/item/mmi/robotic_brain/ninja
+	name = "technological robotic brain"
+	ninja = 1
+	icon_state = "wanter_blank"
+	blank_icon = "wanter_blank"
+	searching_icon = "wanter_recharging"
+	occupied_icon = "wanter"
+	dead_icon = "wanter_blank"
 
 /obj/item/mmi/robotic_brain/Destroy()
 	imprinted_master = null
@@ -122,6 +133,7 @@
 
 /obj/item/mmi/robotic_brain/proc/transfer_personality(mob/candidate)
 	searching = FALSE
+	brainmob.revive() /// in case of death
 	brainmob.key = candidate.key
 	name = "[src] ([brainmob.name])"
 
@@ -169,6 +181,20 @@
 		return
 	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O,"nonhumandept"))
 		to_chat(O, "<span class='warning'>You are job banned from this role.</span>")
+		return
+	var/deathtime = world.time - O.timeofdeath
+	if(ROBOTIC_BRAIN_COOLDOWN && deathtime < ROBOTIC_BRAIN_COOLDOWN && O.started_as_observer == 0)
+		var/deathtimeminutes = round(deathtime / (60 SECONDS))
+		var/pluralcheck = "minute"
+		if(deathtimeminutes == 0)
+			pluralcheck = ""
+		else if(deathtimeminutes == 1)
+			pluralcheck = " [deathtimeminutes] minute and"
+		else if(deathtimeminutes > 1)
+			pluralcheck = " [deathtimeminutes] minutes and"
+		var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10,1)
+		to_chat(usr, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
+		to_chat(usr, "<span class='warning'>You must wait [ROBOTIC_BRAIN_COOLDOWN / 600] minutes to respawn as [src]!</span>")
 		return
 	to_chat(O, "<span class='notice'>You've been added to the list of ghosts that may become this [src].  Click again to unvolunteer.</span>")
 	ghost_volunteers.Add(O)

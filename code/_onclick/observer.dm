@@ -50,7 +50,7 @@
 	if(modifiers["alt"])
 		AltClickOn(A)
 		return
-	// You are responsible for checking config.ghost_interaction when you override this function
+	// You are responsible for checking CONFIG_GET(flag/ghost_interaction) when you override this function
 	// Not all of them require checking, see below
 	A.attack_ghost(src)
 
@@ -58,8 +58,13 @@
 /mob/dead/observer/ShiftClickOn(var/atom/A)
 	examinate(A)
 
-/atom/proc/attack_ghost(mob/user)
-	return
+/atom/proc/attack_ghost(mob/dead/observer/user)
+	if(!istype(user))
+		return FALSE
+	if(user.client)
+		if(user.gas_scan && atmos_scan(user=user, target=src, silent=TRUE))
+			return TRUE
+	return FALSE
 
 // health + cyborg analyzer for ghosts
 /mob/living/attack_ghost(mob/dead/observer/user)
@@ -70,6 +75,7 @@
 			robot_healthscan(user, src)
 		else if(ishuman(src))
 			healthscan(user, src, 1, TRUE)
+	. = ..()
 
 // ---------------------------------------
 // And here are some good things for free:

@@ -103,7 +103,7 @@
 	var/current_stage = hole_size
 	user.visible_message("<span class='warning'>[user] starts cutting through [src] with [W].</span>",\
 	"<span class='warning'>You start cutting through [src] with [W].</span>")
-	if(W.use_tool(src, user, CUT_TIME * W.toolspeed, volume = W.tool_volume))
+	if(W.use_tool(src, user, CUT_TIME * W.toolspeed * gettoolspeedmod(user), volume = W.tool_volume))
 		if(current_stage == hole_size)
 			switch(hole_size)
 				if(NO_HOLE)
@@ -123,6 +123,7 @@
 
 /obj/structure/fence/attackby(obj/item/C, mob/user)
 	if(shock(user, 90))
+		add_fingerprint(user)
 		return
 	if(istype(C, /obj/item/stack/rods))
 		if(hole_size == NO_HOLE)
@@ -132,7 +133,8 @@
 			to_chat(user, "<span class='warning'>You need [HOLE_REPAIR] rods to fix this fence!</span>")
 			return
 		to_chat(user, "<span class='notice'>You begin repairing the fence...</span>")
-		if(do_after(user, 3 SECONDS * C.toolspeed, target = src) && hole_size != NO_HOLE && R.use(HOLE_REPAIR))
+		if(do_after(user, 3 SECONDS * C.toolspeed * gettoolspeedmod(user), target = src) && hole_size != NO_HOLE && R.use(HOLE_REPAIR))
+			add_fingerprint(user)
 			playsound(src, C.usesound, 80, 1)
 			hole_size = NO_HOLE
 			obj_integrity = max_integrity
@@ -141,14 +143,16 @@
 		return
 	. = ..()
 
-/obj/structure/fence/Bumped(atom/user)
-	if(!ismob(user))
+/obj/structure/fence/Bumped(atom/movable/moving_atom)
+	..()
+
+	if(!ismob(moving_atom))
 		return
 	if(shock_cooldown)
 		return
-	shock(user, 70)
+	shock(moving_atom, 70)
 	shock_cooldown = TRUE // We do not want bump shock spam!
-	addtimer(CALLBACK(src, .proc/shock_cooldown), 1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, PROC_REF(shock_cooldown)), 1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 /obj/structure/fence/proc/shock_cooldown()
 	shock_cooldown = FALSE
@@ -194,6 +198,7 @@
 	density = TRUE
 
 /obj/structure/fence/door/attack_hand(mob/user, list/modifiers)
+	add_fingerprint(user)
 	shock(user, 70)
 	if(can_open(user))
 		toggle(user)

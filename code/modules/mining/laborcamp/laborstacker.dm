@@ -6,6 +6,7 @@
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
 	density = FALSE
+	anchored = 1
 	var/obj/machinery/mineral/stacking_machine/laborstacker/stacking_machine = null
 	var/machinedir = SOUTH
 	var/obj/item/card/id/prisoner/inserted_id
@@ -25,7 +26,7 @@
 			if(!initial(sheet.point_value) || (initial(sheet.merge_type) && initial(sheet.merge_type) != sheet_type)) //ignore no-value sheets and x/fifty subtypes
 				continue
 			sheet_values += list(list("ore" = initial(sheet.name), "value" = initial(sheet.point_value)))
-		sheet_values = sortTim(sheet_values, /proc/cmp_sheet_list)
+		sheet_values = sortTim(sheet_values, cmp = /proc/cmp_sheet_list)
 
 /obj/machinery/mineral/labor_claim_console/Destroy()
 	. = ..()
@@ -37,9 +38,9 @@
 /obj/machinery/mineral/labor_claim_console/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id/prisoner))
 		if(!inserted_id)
-			if(!user.unEquip(I))
+			if(!user.drop_transfer_item_to_loc(I, src))
 				return
-			I.forceMove(src)
+			add_fingerprint(user)
 			inserted_id = I
 			to_chat(user, "<span class='notice'>You insert [I].</span>")
 			SStgui.update_uis(src)
@@ -50,6 +51,7 @@
 	return ..()
 
 /obj/machinery/mineral/labor_claim_console/attack_hand(mob/user)
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/mineral/labor_claim_console/attack_ghost(mob/user)
@@ -89,15 +91,14 @@
 	switch(action)
 		if("handle_id")
 			if(inserted_id)
-				if(!usr.put_in_hands(inserted_id))
-					inserted_id.forceMove(get_turf(src))
+				inserted_id.forceMove_turf()
+				usr.put_in_hands(inserted_id, ignore_anim = FALSE)
 				inserted_id = null
 			else
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/card/id/prisoner))
-					if(!usr.unEquip(I))
+					if(!usr.drop_transfer_item_to_loc(I, src))
 						return
-					I.forceMove(src)
 					inserted_id = I
 		if("claim_points")
 			if(!inserted_id)
@@ -121,7 +122,7 @@
 							var/message = "[inserted_id.registered_name] has returned to the station. Minerals and Prisoner ID card ready for retrieval."
 							announcer.autosay(message, "Labor Camp Controller", "Security")
 						to_chat(usr, "<span class='notice'>Shuttle received message and will be sent shortly.</span>")
-						usr.create_log(MISC_LOG, "used [src] to call the laborcamp shuttle")
+						add_misc_logs(usr, "used [src] to call the laborcamp shuttle")
 
 	return TRUE
 
@@ -146,7 +147,8 @@
 	..()
 
 /obj/machinery/mineral/stacking_machine/laborstacker/attackby(obj/item/I, mob/living/user)
-	if(istype(I, /obj/item/stack/sheet) && user.canUnEquip(I))
+	if(istype(I, /obj/item/stack/sheet) && user.can_unEquip(I))
+		add_fingerprint(user)
 		var/obj/item/stack/sheet/inp = I
 		points += inp.point_value * inp.amount
 		return
@@ -159,6 +161,7 @@
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
 	density = FALSE
+	anchored = 1
 
 /obj/machinery/mineral/labor_points_checker/attack_hand(mob/user)
 	. = ..()
@@ -169,6 +172,7 @@
 /obj/machinery/mineral/labor_points_checker/attackby(obj/item/I, mob/user, params)
 	if(I.GetID())
 		if(istype(I.GetID(), /obj/item/card/id/prisoner))
+			add_fingerprint(user)
 			var/obj/item/card/id/prisoner/prisoner_id = I.GetID()
 			to_chat(user, "<span class='notice'><B>ID: [prisoner_id.registered_name]</B></span>")
 			to_chat(user, "<span class='notice'>Points Collected:[prisoner_id.mining_points]</span>")

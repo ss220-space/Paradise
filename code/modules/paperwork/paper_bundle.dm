@@ -7,6 +7,7 @@
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_range = 2
+	resistance_flags = FLAMMABLE
 	throw_speed = 1
 	layer = 4
 	pressure_resistance = 2
@@ -21,12 +22,14 @@
 		new /obj/item/paper(src)
 		new /obj/item/paper(src)
 		amount += 1
-		
-/obj/item/paper_bundle/attackby(obj/item/W as obj, mob/user as mob, params)
+
+/obj/item/paper_bundle/attackby(obj/item/W, mob/living/user, params)
 	..()
-	var/obj/item/paper/P
+	if(resistance_flags & ON_FIRE)
+		return
+
 	if(istype(W, /obj/item/paper))
-		P = W
+		var/obj/item/paper/P = W
 		if(istype(P, /obj/item/paper/carbon))
 			var/obj/item/paper/carbon/C = P
 			if(!C.iscopy && !C.copied)
@@ -38,8 +41,7 @@
 		if(screen == 2)
 			screen = 1
 		to_chat(user, "<span class='notice'>You add [(P.name == "paper") ? "the paper" : P.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
-		user.unEquip(P)
-		P.loc = src
+		user.drop_transfer_item_to_loc(P, src)
 		if(istype(user,/mob/living/carbon/human))
 			var/mob/living/carbon/human/H = user
 			H.update_inv_l_hand()
@@ -49,12 +51,29 @@
 		if(screen == 2)
 			screen = 1
 		to_chat(user, "<span class='notice'>You add [(W.name == "photo") ? "the photo" : W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
-		user.unEquip(W)
-		W.loc = src
+		user.drop_transfer_item_to_loc(W, src)
+
 	else if(istype(W, /obj/item/lighter))
 		burnpaper(W, user)
+
+	else if(is_hot(W))
+		if((CLUMSY in user.mutations) && prob(10))
+			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
+								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
+			user.drop_item_ground(W)
+			user.adjust_fire_stacks(1)
+			user.IgniteMob()
+			return
+
+		if(!Adjacent(user)) //to prevent issues as a result of telepathically lighting a paper
+			return
+
+		user.drop_item_ground(src)
+		user.visible_message("<span class='danger'>[user] lights [src] ablaze with [W]!</span>", "<span class='danger'>You light [src] on fire!</span>")
+		fire_act()
+
 	else if(istype(W, /obj/item/paper_bundle))
-		user.unEquip(W)
+		user.drop_item_ground(W)
 		for(var/obj/O in W)
 			O.loc = src
 			O.add_fingerprint(usr)
@@ -66,7 +85,7 @@
 	else
 		if(istype(W, /obj/item/pen) || istype(W, /obj/item/toy/crayon))
 			usr << browse("", "window=PaperBundle[UID()]") //Closes the dialog
-		P = src[page]
+		var/obj/item/paper/P = src[page]
 		P.attackby(W, user, params)
 
 
@@ -76,9 +95,19 @@
 	add_fingerprint(usr)
 	return
 
+/obj/item/paper_bundle/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	..()
+	if(!(resistance_flags & FIRE_PROOF))
+		for(var/I = 1 to amount+1)
+			var/obj/item/paper/P = src[I]
+			P.info = "<i>Heat-curled corners and sooty words offer little insight. Whatever was once written on this page has been rendered illegible through fire.</i>"
+
 
 /obj/item/paper_bundle/proc/burnpaper(obj/item/lighter/P, mob/user)
 	var/class = "<span class='warning'>"
+
+	if(resistance_flags & FIRE_PROOF)
+		return
 
 	if(P.lit && !user.restrained())
 		if(istype(P, /obj/item/lighter/zippo))
@@ -93,7 +122,7 @@
 				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.")
 
 				if(user.is_in_inactive_hand(src))
-					user.unEquip(src)
+					user.temporarily_remove_item_from_inventory(src)
 
 				new /obj/effect/decal/cleanable/ash(get_turf(src))
 				qdel(src)
@@ -104,7 +133,10 @@
 /obj/item/paper_bundle/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		show_content(user)
+		if(user.is_literate())
+			show_content(user)
+		else
+			. += "<span class='notice'>You don't know how to read.</span>"
 	else
 		. += "<span class='notice'>It is too far away.</span>"
 
@@ -139,7 +171,7 @@
 
 /obj/item/paper_bundle/attack_self(mob/user as mob)
 	src.show_content(user)
-	add_fingerprint(usr)
+	add_fingerprint(user)
 	update_icon()
 	return
 
@@ -167,12 +199,14 @@
 			playsound(src.loc, "pageturn", 50, 1)
 		if(href_list["remove"])
 			var/obj/item/W = src[page]
-			usr.put_in_hands(W)
+			W.forceMove_turf()
+			usr.put_in_hands(W, ignore_anim = FALSE)
 			to_chat(usr, "<span class='notice'>You remove the [W.name] from the bundle.</span>")
 			if(amount == 1)
 				var/obj/item/paper/P = src[1]
-				usr.unEquip(src)
-				usr.put_in_hands(P)
+				P.forceMove_turf()
+				usr.temporarily_remove_item_from_inventory(src)
+				usr.put_in_hands(P, ignore_anim = FALSE)
 				qdel(src)
 			else if(page == amount)
 				screen = 2
@@ -212,7 +246,7 @@
 		O.layer = initial(O.layer)
 		O.plane = initial(O.plane)
 		O.add_fingerprint(usr)
-	usr.unEquip(src)
+	usr.temporarily_remove_item_from_inventory(src)
 	qdel(src)
 	return
 

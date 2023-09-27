@@ -52,9 +52,11 @@
 		H.dna.species.after_equip_job(null, H)
 		H.regenerate_icons()
 
-	message_admins("[key_name_admin(usr)] used THERE CAN BE ONLY ONE! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-", 1)
-	log_admin("[key_name(usr)] used there can be only one.")
+	log_and_message_admins("used THERE CAN BE ONLY ONE! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-")
 	GLOB.nologevent = 1
+
+	GLOB.pacifism_after_gt = FALSE
+	SSticker.toggle_pacifism = FALSE
 
 	var/sound/music = sound('sound/music/thunderdome.ogg', channel = CHANNEL_ADMIN)
 	for(var/mob/M in GLOB.player_list)
@@ -89,7 +91,7 @@
 		var/obj/item/slot_item_ID = H.get_item_by_slot(slot_wear_id)
 		qdel(slot_item_ID)
 		var/obj/item/slot_item_hand = H.get_item_by_slot(slot_r_hand)
-		H.unEquip(slot_item_hand)
+		H.drop_item_ground(slot_item_hand)
 
 		var/obj/item/multisword/pure_evil/multi = new(H)
 		H.equip_to_slot_or_del(multi, slot_r_hand)
@@ -105,7 +107,7 @@
 
 		H.update_icons()
 
-	message_admins("[key_name_admin(usr)] used THERE CAN BE ONLY ME! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-", 1)
+	message_admins("[key_name_admin(usr)] used THERE CAN BE ONLY ME! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-")
 	log_admin("[key_name(usr)] used there can be only me.")
 	GLOB.nologevent = 1
 	world << sound('sound/music/thunderdome.ogg')

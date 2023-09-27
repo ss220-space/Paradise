@@ -6,6 +6,7 @@
 	step_in = 3
 	max_temperature = 15000
 	max_integrity = 120
+	max_equip = 4
 	wreckage = /obj/structure/mecha_wreckage/odysseus
 	internal_damage_threshold = 35
 	deflect_chance = 15
@@ -44,3 +45,27 @@
 		builtin_hud_user = 0
 
 	. = ..()
+
+/obj/mecha/medical/odysseus/full_load
+	name = "Тестовый Одиссей"
+	desc = "Специальная версия \"Одиссея\", созданная с одной целью - проверять все модули разом. Конструкция не позволяет меху быть массовым образцом, выпущенная специально для ведущих инженеров-роботехников."
+	max_equip = 4
+	strafe_allowed = TRUE
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0) // для тестов урона
+	max_integrity = 1000
+	deflect_chance = 0 // нахуй рандом
+	mech_enter_time = 1
+
+/obj/mecha/medical/odysseus/full_load/New()
+	. = ..()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/medical/sleeper
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade
+	ME.attach(src)
+
+/obj/mecha/medical/odysseus/full_load/add_cell()
+	cell = new /obj/item/stock_parts/cell/bluespace(src)

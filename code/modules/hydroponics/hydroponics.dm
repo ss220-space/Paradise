@@ -1,3 +1,6 @@
+#define PLANT_LAYER OBJ_LAYER + 0.01
+#define LID_LAYER OBJ_LAYER + 0.02
+
 /obj/machinery/hydroponics
 	name = "hydroponics tray"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
@@ -80,6 +83,7 @@
 
 /obj/machinery/hydroponics/constructable/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "hydrotray3", "hydrotray3", I))
+		add_fingerprint(user)
 		return
 
 	if(exchange_parts(user, I))
@@ -287,9 +291,6 @@
 			overlays += image('icons/obj/hydroponics/equipment.dmi', icon_state = "gaia_blessing")
 		set_light(3)
 
-	if(lid_state)
-		overlays += image('icons/obj/hydroponics/equipment.dmi', icon_state = "hydrocover")
-
 	update_icon_hoses()
 
 	if(myseed)
@@ -302,6 +303,9 @@
 			set_light(G.glow_range(myseed), G.glow_power(myseed), G.glow_color)
 		else
 			set_light(0)
+
+	if(lid_state)
+		overlays += image(icon='icons/obj/hydroponics/equipment.dmi', icon_state = "hydrocover", layer = LID_LAYER)
 
 	return
 
@@ -326,7 +330,7 @@
 	else
 		var/t_growthstate = clamp(round((age / myseed.maturation) * myseed.growthstages), 1, myseed.growthstages)
 		I = image(icon = myseed.growing_icon, icon_state = "[myseed.icon_grow][t_growthstate]")
-	I.layer = OBJ_LAYER + 0.01
+	I.layer = PLANT_LAYER
 	overlays += I
 
 /obj/machinery/hydroponics/proc/update_icon_lights()
@@ -342,11 +346,14 @@
 		overlays += image('icons/obj/hydroponics/equipment.dmi', icon_state = "over_harvest3")
 
 
-/obj/machinery/hydroponics/examine(mob/living/carbon/human/H)
+/obj/machinery/hydroponics/examine(mob/user)
 	. = ..()
 	if(myseed)
-		. += "<span class='notice'>It has <span class='name'>[myseed.plantname]</span> planted.</span>"
-		if (H.glasses && istype(H.glasses, /obj/item/clothing/glasses/hud/hydroponic))
+		if(myseed.variant)
+			. += "<span class='notice'>It has the <span class='name'>[myseed.variant]</span> variant of <span class='name'>[myseed.plantname]</span> planted.</span>"
+		else
+			. += "<span class='notice'>It has <span class='name'>[myseed.plantname]</span> planted.</span>"
+		if (hasHUD(user, DATA_HUD_HYDROPONIC) || isobserver(user))
 			. += myseed.get_analyzer_text()
 			. += "<span class='notice'>Weed: [weedlevel] / 10</span>"
 			. += "<span class='notice'>Pest: [pestlevel] / 10</span>"
@@ -485,7 +492,7 @@
 /obj/machinery/hydroponics/proc/mutatepest(mob/user)
 	if(pestlevel > 5)
 		message_admins("[ADMIN_LOOKUPFLW(user)] caused spiderling pests to spawn in a hydro tray")
-		log_game("[key_name(user)] caused spiderling pests to spawn in a hydro tray")
+		add_game_logs("caused spiderling pests to spawn in a hydro tray", user)
 		visible_message("<span class='warning'>The pests seem to behave oddly...</span>")
 		for(var/i in 1 to 3)
 			var/obj/structure/spider/spiderling/S = new(get_turf(src))
@@ -754,6 +761,8 @@
 			to_chat(user, "<span class='warning'>You need to open [O] first!</span>")
 			return TRUE
 
+		add_fingerprint(user)
+
 		var/list/trays = list(src)//makes the list just this in cases of syringes and compost etc
 		var/target = myseed ? myseed.plantname : src
 		var/visi_msg = ""
@@ -795,6 +804,7 @@
 		//cause I don't want to feel like im juggling 15 tamagotchis and I can get to my real work of ripping flooring apart in hopes of validating my life choices of becoming a space-gardener
 
 			var/datum/reagents/S = new /datum/reagents() //This is a strange way, but I don't know of a better one so I can't fix it at the moment...
+			S.maximum_volume = reagent_source.reagents.maximum_volume
 			S.my_atom = H
 
 			reagent_source.reagents.trans_to(S,split)
@@ -812,9 +822,10 @@
 
 	else if(istype(O, /obj/item/seeds) && !istype(O, /obj/item/seeds/sample))
 		if(!myseed)
+			add_fingerprint(user)
 			if(istype(O, /obj/item/seeds/kudzu))
-				investigate_log("had Kudzu planted in it by [key_name(user)] at ([x],[y],[z])","kudzu")
-			user.unEquip(O)
+				investigate_log("had Kudzu <span class='warning'>planted</span> in it by [key_name_log(user)]", INVESTIGATE_BOTANY)
+			user.drop_transfer_item_to_loc(O, src)
 			to_chat(user, "<span class='notice'>You plant [O].</span>")
 			dead = 0
 			myseed = O
@@ -823,12 +834,12 @@
 			plant_hud_set_health()
 			plant_hud_set_status()
 			lastcycle = world.time
-			O.forceMove(src)
 			update_icon()
 		else
 			to_chat(user, "<span class='warning'>[src] already has seeds in it!</span>")
 
 	else if(istype(O, /obj/item/plant_analyzer))
+		add_fingerprint(user)
 		if(myseed)
 			to_chat(user, "*** <B>[myseed.plantname]</B> ***") //Carn: now reports the plants growing, not the seeds.
 			to_chat(user, "- Plant Age: <span class='notice'>[age]</span>")
@@ -846,6 +857,7 @@
 
 	else if(istype(O, /obj/item/cultivator))
 		if(weedlevel > 0)
+			add_fingerprint(user)
 			user.visible_message("[user] uproots the weeds.", "<span class='notice'>You remove the weeds from [src].</span>")
 			adjustWeeds(-10)
 			update_icon()
@@ -866,8 +878,9 @@
 			return
 		user.visible_message("<span class='notice'>[user] starts digging out [src]'s plants...</span>", "<span class='notice'>You start digging out [src]'s plants...</span>")
 		playsound(src, O.usesound, 50, 1)
-		if(!do_after(user, 25 * O.toolspeed, target = src) || (!myseed && !weedlevel))
+		if(!do_after(user, 25 * O.toolspeed * gettoolspeedmod(user), target = src) || (!myseed && !weedlevel))
 			return
+		add_fingerprint(user)
 		user.visible_message("<span class='notice'>[user] digs out the plants in [src]!</span>", "<span class='notice'>You dig out all of [src]'s plants!</span>")
 		playsound(src, O.usesound, 50, 1)
 		if(myseed) //Could be that they're just using it as a de-weeder
@@ -881,7 +894,9 @@
 			plant_hud_set_status()
 		adjustWeeds(-10) //Has a side effect of cleaning up those nasty weeds
 		update_icon()
-
+	else if(is_pen(O) && myseed)
+		add_fingerprint(user)
+		myseed.variant_prompt(user, src)
 	else
 		return ..()
 
@@ -930,8 +945,10 @@
 		to_chat(user, "<span class='warning'>You can't reach the plant through the cover.</span>")
 		return
 	if(harvest)
+		add_fingerprint(user)
 		myseed.harvest(user)
 	else if(dead)
+		add_fingerprint(user)
 		dead = 0
 		to_chat(user, "<span class='notice'>You remove the dead plant from [src].</span>")
 		QDEL_NULL(myseed)
@@ -1042,3 +1059,6 @@
 		qdel(src)
 	else
 		return ..()
+
+#undef PLANT_LAYER
+#undef LID_LAYER

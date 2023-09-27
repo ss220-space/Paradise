@@ -21,6 +21,7 @@
 
 /obj/screen/Destroy()
 	master = null
+	hud = null
 	return ..()
 
 /obj/screen/proc/component_click(obj/screen/component_button/component, params)
@@ -34,6 +35,7 @@
 	maptext_height = 480
 	maptext_width = 480
 
+
 /obj/screen/close
 	name = "close"
 	layer = ABOVE_HUD_LAYER
@@ -44,14 +46,17 @@
 		if(istype(master, /obj/item/storage))
 			var/obj/item/storage/S = master
 			S.close(usr)
-	return 1
+	return TRUE
+
 
 /obj/screen/drop
-	name = "drop"
+	name = "accurate drop"
 	icon_state = "act_drop"
 
 /obj/screen/drop/Click()
-	usr.drop_item_v()
+	if(usr.stat == CONSCIOUS)
+		usr.drop_item_ground(usr.get_active_hand(), ignore_pixel_shift = TRUE)
+
 
 /obj/screen/grab
 	name = "grab"
@@ -59,13 +64,14 @@
 /obj/screen/grab/Click()
 	var/obj/item/grab/G = master
 	G.s_click(src)
-	return 1
+	return TRUE
 
 /obj/screen/grab/attack_hand()
 	return
 
 /obj/screen/grab/attackby()
 	return
+
 /obj/screen/act_intent
 	name = "intent"
 	icon_state = "help"
@@ -127,6 +133,7 @@
 	else
 		icon_state = "pull0"
 
+
 /obj/screen/resist
 	name = "resist"
 	icon = 'icons/mob/screen_midnight.dmi'
@@ -136,6 +143,7 @@
 	if(isliving(usr))
 		var/mob/living/L = usr
 		L.resist()
+
 
 /obj/screen/throw_catch
 	name = "throw/catch"
@@ -147,24 +155,32 @@
 		var/mob/living/carbon/C = usr
 		C.toggle_throw_mode()
 
+
 /obj/screen/storage
 	name = "storage"
 
 /obj/screen/storage/Click(location, control, params)
 	if(world.time <= usr.next_move)
 		return TRUE
+
 	if(usr.incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE))
 		return TRUE
-	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
+
+	if(ismecha(usr.loc)) // stops inventory actions in a mech
 		return TRUE
+
+	if(is_ventcrawling(usr)) // stops inventory actions in vents
+		return TRUE
+
 	if(master)
 		var/obj/item/I = usr.get_active_hand()
 		if(I)
 			master.attackby(I, usr, params)
 	return TRUE
 
+
 /obj/screen/storage/proc/is_item_accessible(obj/item/I, mob/user)
-	if (!user || !I)
+	if(!user || !I)
 		return FALSE
 
 	var/storage_depth = I.storage_depth(user)
@@ -180,21 +196,25 @@
 			return TRUE
 	return FALSE
 
+
 /obj/screen/storage/MouseDrop_T(obj/item/I, mob/user)
-	if(!user || !istype(I) || user.incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE) || istype(user.loc, /obj/mecha) || !master)
-		return
+	if(!user || !istype(I) || user.incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE) || ismecha(user.loc) || !master)
+		return FALSE
+
+	if(is_ventcrawling(user))
+		return FALSE
 
 	var/obj/item/storage/S = master
 	if(!S)
-		return
+		return FALSE
 
 	if(!is_item_accessible(I, user))
-		log_game("[user.simple_info_line()] tried to abuse storage remote drag&drop with '[I]' at [atom_loc_line(I)] into '[S]' at [atom_loc_line(S)]")
-		return
+		add_game_logs("tried to abuse storage remote drag&drop with '[I]' at [atom_loc_line(I)] into '[S]' at [atom_loc_line(S)]", user)
+		return FALSE
 
 	if(I in S.contents) // If the item is already in the storage, move them to the end of the list
 		if(S.contents[S.contents.len] == I) // No point moving them at the end if they're already there!
-			return
+			return FALSE
 
 		var/list/new_contents = S.contents.Copy()
 		if(S.display_contents_with_number)
@@ -217,6 +237,7 @@
 	else // If it's not in the storage, try putting it inside
 		S.attackby(I, user)
 
+
 /obj/screen/zone_sel
 	name = "damage zone"
 	icon_state = "zone_sel"
@@ -227,14 +248,14 @@
 
 /obj/screen/zone_sel/Click(location, control,params)
 	if(isobserver(usr))
-		return
+		return FALSE
 
 	var/list/PL = params2list(params)
 	var/icon_x = text2num(PL["icon-x"])
 	var/icon_y = text2num(PL["icon-y"])
 	var/choice = get_zone_at(icon_x, icon_y)
 	if(!choice)
-		return 1
+		return TRUE
 
 	return set_selected_zone(choice, usr)
 
@@ -274,7 +295,7 @@
 /obj/screen/zone_sel/MouseExited(location, control, params)
 	if(!isobserver(usr) && hovering)
 		cut_overlay(hover_overlays_cache[hovering])
-	hovering = null
+		hovering = null
 
 /obj/screen/zone_sel/proc/get_zone_at(icon_x, icon_y)
 	switch(icon_y)
@@ -292,7 +313,7 @@
 					return "l_leg"
 				if(24 to 29)
 					return "tail"
-		if(10 to 13) //Hands and groin
+		if(10 to 13) //Hands,groin and wings
 			switch(icon_x)
 				if(8 to 11)
 					return "r_hand"
@@ -300,14 +321,22 @@
 					return "groin"
 				if(21 to 24)
 					return "l_hand"
-		if(14 to 22) //Chest and arms to shoulders
+				if(3 to 7)
+					return "wing"
+				if(25 to 28)
+					return "wing"
+		if(14 to 22) //Chest and arms to shoulders and wings
 			switch(icon_x)
+				if (3 to 7)
+					return "wing"
 				if(8 to 11)
 					return "r_arm"
 				if(12 to 20)
 					return "chest"
 				if(21 to 24)
 					return "l_arm"
+				if(24 to 28)
+					return "wing"
 		if(23 to 30) //Head, but we need to check for eye or mouth
 			if(icon_x in 12 to 20)
 				switch(icon_y)
@@ -324,12 +353,12 @@
 
 /obj/screen/zone_sel/proc/set_selected_zone(choice, mob/user)
 	if(isobserver(user))
-		return
+		return FALSE
 
 	if(choice != selecting)
 		selecting = choice
 		update_icon(user)
-	return 1
+	return TRUE
 
 /obj/screen/zone_sel/update_icon(mob/user)
 	overlays.Cut()
@@ -376,7 +405,7 @@
 
 /obj/screen/inventory
 	var/slot_id	//The indentifier for the slot. It has nothing to do with ID cards.
-	var/list/object_overlays = list()
+	var/image/object_overlay
 
 /obj/screen/inventory/MouseEntered()
 	..()
@@ -384,52 +413,105 @@
 
 /obj/screen/inventory/MouseExited()
 	..()
-	cut_overlay(object_overlays)
-	object_overlays.Cut()
+	cut_overlay(object_overlay)
+	QDEL_NULL(object_overlay)
 
 /obj/screen/inventory/proc/add_overlays()
-	var/mob/user = hud.mymob
+	var/mob/user = hud?.mymob
 
-	if(hud && user && slot_id)
-		var/obj/item/holding = user.get_active_hand()
+	if(!user || !slot_id)
+		return
 
-		if(!holding || user.get_item_by_slot(slot_id))
-			return
+	var/obj/item/holding = user.get_active_hand()
 
-		var/image/item_overlay = image(holding)
-		item_overlay.alpha = 92
+	if(!holding || user.get_item_by_slot(slot_id))
+		return
 
-		if(!user.can_equip(holding, slot_id, disable_warning = TRUE))
-			item_overlay.color = "#ff0000"
-		else
-			item_overlay.color = "#00ff00"
+	var/image/item_overlay = image(holding)
+	item_overlay.alpha = 92
 
-		object_overlays += item_overlay
-		add_overlay(object_overlays)
+	if(!holding.mob_can_equip(user, slot_id, disable_warning = TRUE, bypass_equip_delay_self = TRUE, bypass_obscured = FALSE))
+		item_overlay.color = "#ff0000"
+	else
+		item_overlay.color = "#00ff00"
+
+	cut_overlay(object_overlay)
+	object_overlay = item_overlay
+	add_overlay(object_overlay)
+
 
 /obj/screen/inventory/Click(location, control, params)
 	// At this point in client Click() code we have passed the 1/10 sec check and little else
 	// We don't even know if it's a middle click
 	if(world.time <= usr.next_move)
-		return 1
+		return TRUE
+
 	if(usr.incapacitated())
-		return 1
-	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
-		return 1
+		return TRUE
+
+	if(ismecha(usr.loc)) // stops inventory actions in a mech
+		return TRUE
+
+	if(is_ventcrawling(usr)) // stops inventory actions in vents
+		return TRUE
 
 	if(hud?.mymob && slot_id)
 		var/obj/item/inv_item = hud.mymob.get_item_by_slot(slot_id)
 		if(inv_item)
 			return inv_item.Click(location, control, params)
 
-	if(usr.attack_ui(slot_id))
-		usr.update_inv_l_hand()
-		usr.update_inv_r_hand()
-	return 1
+	if(usr.attack_ui(slot_id, params))
+		usr.update_inv_hands()
+
+	return TRUE
+
+
+/obj/screen/inventory/MouseDrop_T(obj/item/I, mob/user)
+
+	if(!user || !istype(I) || user.incapacitated() || ismecha(user.loc) || is_ventcrawling(user))
+		return FALSE
+
+	if(isalien(user) && !I.allowed_for_alien())	// We need to do this here
+		return FALSE
+
+	if(!in_range(get_turf(I), get_turf(user)))
+		return FALSE
+
+	if(!hud?.mymob || !slot_id)
+		return FALSE
+
+	if(hud.mymob != user)
+		return FALSE
+
+	if(slot_id != slot_l_hand && slot_id != slot_r_hand)
+		return FALSE
+
+	if(I.is_equipped() && !user.is_general_slot(user.get_slot_by_item(I)))
+
+		if(I.equip_delay_self && !user.is_general_slot(user.get_slot_by_item(I)))
+			user.visible_message(span_notice("[user] начинает снимать [I.name]..."), \
+								span_notice("Вы начинаете снимать [I.name]..."))
+			if(!do_after_once(user, I.equip_delay_self, target = user, attempt_cancel_message = "Снятие [I.name] было прервано!"))
+				return FALSE
+
+			if((slot_id == slot_l_hand && user.l_hand) || (slot_id == slot_r_hand && user.r_hand))
+				return FALSE
+
+		if(!user.drop_item_ground(I))
+			return FALSE
+
+	else if(user.is_general_slot(user.get_slot_by_item(I)) && !user.drop_item_ground(I))
+		return FALSE
+
+	if((slot_id == slot_l_hand && !user.put_in_l_hand(I, ignore_anim = FALSE)) || \
+		(slot_id == slot_r_hand && !user.put_in_r_hand(I, ignore_anim = FALSE)))
+		return FALSE
+
 
 /obj/screen/inventory/hand
 	var/image/active_overlay
 	var/image/handcuff_overlay
+
 
 /obj/screen/inventory/hand/update_icon()
 	..()
@@ -439,37 +521,50 @@
 		var/state = (slot_id == slot_r_hand) ? "markus" : "gabrielle"
 		handcuff_overlay = image("icon"='icons/mob/screen_gen.dmi', "icon_state"=state)
 
+	if(!hud?.mymob)
+		return
+
 	overlays.Cut()
+	if(iscarbon(hud.mymob))
+		var/mob/living/carbon/user = hud.mymob
+		if(user.handcuffed)
+			overlays += handcuff_overlay
 
-	if(hud && hud.mymob)
-		if(iscarbon(hud.mymob))
-			var/mob/living/carbon/C = hud.mymob
-			if(C.handcuffed)
-				overlays += handcuff_overlay
+	if(slot_id == slot_l_hand && hud.mymob.hand)
+		overlays += active_overlay
 
-		if(slot_id == slot_l_hand && hud.mymob.hand)
-			overlays += active_overlay
-		else if(slot_id == slot_r_hand && !hud.mymob.hand)
-			overlays += active_overlay
+	else if(slot_id == slot_r_hand && !hud.mymob.hand)
+		overlays += active_overlay
+
 
 /obj/screen/inventory/hand/Click()
 	// At this point in client Click() code we have passed the 1/10 sec check and little else
 	// We don't even know if it's a middle click
-	if(world.time <= usr.next_move)
-		return 1
-	if(usr.incapacitated())
-		return 1
-	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
-		return 1
+	var/mob/user = hud?.mymob
+	if(usr != user)
+		return TRUE
 
-	if(ismob(usr))
-		var/mob/M = usr
+	if(world.time <= user.next_move)
+		return TRUE
+
+	if(user.incapacitated())
+		return TRUE
+
+	if(ismecha(user.loc)) // stops inventory actions in a mech
+		return TRUE
+
+	if(is_ventcrawling(user)) // stops inventory actions in vents
+		return TRUE
+
+	if(ismob(user))
+		var/mob/M = user
 		switch(name)
 			if("right hand", "r_hand")
 				M.activate_hand("r")
 			if("left hand", "l_hand")
 				M.activate_hand("l")
-	return 1
+	return TRUE
+
 
 /obj/screen/swap_hand
 	name = "swap hand"
@@ -478,20 +573,26 @@
 	// At this point in client Click() code we have passed the 1/10 sec check and little else
 	// We don't even know if it's a middle click
 	if(world.time <= usr.next_move)
-		return 1
+		return TRUE
 
 	if(usr.incapacitated())
-		return 1
+		return TRUE
 
 	if(ismob(usr))
-		var/mob/M = usr
-		M.swap_hand()
-	return 1
+		var/mob/user = usr
+		user.swap_hand()
+	return TRUE
+
 
 /obj/screen/healths
 	name = "health"
 	icon_state = "health0"
 	screen_loc = ui_health
+
+/obj/screen/stamina_bar
+	name = "stamina"
+	icon_state = "stamina0"
+	screen_loc = ui_stamina
 
 /obj/screen/healths/alien
 	icon = 'icons/mob/screen_alien.dmi'
@@ -531,6 +632,9 @@
 	if(ishuman(usr) && !usr.is_dead())
 		var/mob/living/carbon/H = usr
 		H.check_self_for_injuries()
+
+/obj/screen/healthdoll/living
+	var/filtered = FALSE //so we don't repeatedly create the mask of the mob every update
 
 /obj/screen/component_button
 	var/obj/screen/parent

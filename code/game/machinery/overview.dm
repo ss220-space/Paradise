@@ -7,7 +7,7 @@
 	usr.set_machine(src)
 	if(!mapping)	return
 
-	log_game("[usr]([usr.key]) used station map L[z] in [src.loc.loc]")
+	add_game_logs("[usr]([usr.key]) used station map L[z] in [src.loc.loc]", usr)
 
 	src.drawmap(usr)
 
@@ -69,12 +69,6 @@
 
 					if("/turf/simulated/wall/r_wall")
 						colour = rgb(128,96,96)
-
-					if("/turf/unsimulated/floor")
-						colour  = rgb(240,240,240)
-
-					if("/turf/unsimulated/wall", "/turf/unsimulated/wall/other")
-						colour  = rgb(140,140,140)
 
 					else
 						colour = rgb(0,40,0)
@@ -225,12 +219,6 @@
 
 					if("/turf/simulated/wall/r_wall")
 						colour = rgb(128,96,96)
-
-					if("/turf/unsimulated/floor")
-						colour  = rgb(240,240,240)
-
-					if("/turf/unsimulated/wall", "/turf/unsimulated/wall/other")
-						colour  = rgb(140,140,140)
 
 					else
 						colour = rgb(0,40,0)

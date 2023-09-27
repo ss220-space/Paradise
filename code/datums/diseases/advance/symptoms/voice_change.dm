@@ -18,6 +18,7 @@ Bonus
 /datum/symptom/voice_change
 
 	name = "Voice Change"
+	id = "voice_change"
 	stealth = -2
 	resistance = -3
 	stage_speed = -3
@@ -37,6 +38,7 @@ Bonus
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
 					H.SetSpecialVoice(H.dna.species.get_random_name(H.gender))
+					H.SetSpecialTTSVoice(SStts.get_random_seed(H))
 
 	return
 
@@ -45,4 +47,5 @@ Bonus
 	if(ishuman(A.affected_mob))
 		var/mob/living/carbon/human/H = A.affected_mob
 		H.UnsetSpecialVoice()
+		H.UnsetSpecialTTSVoice()
 	return

@@ -61,12 +61,11 @@
 
 
 	if(message)
-		log_emote(message, src)
+		add_emote_logs(src, message)
 		if(isliving(src)) //isliving because these are defined on the mob/living level not mob
 			var/mob/living/L = src
 			L.say_log += "EMOTE: [input]" //say log too so it is easier on admins instead of having to merge the two with timestamps etc
 			L.emote_log += input //emote only log if an admin wants to search just for emotes they don't have to sift through the say
-			create_log(EMOTE_LOG, input) // TODO after #13047: Include the channel
 		// Hearing gasp and such every five seconds is not good emotes were not global for a reason.
 		// Maybe some people are okay with that.
 		for(var/mob/M in GLOB.player_list)
@@ -140,7 +139,7 @@
 		return
 
 	if(!src.client.holder)
-		if(!config.dsay_allowed)
+		if(!CONFIG_GET(flag/dsay_allowed))
 			to_chat(src, "<span class='warning'>Deadchat is globally muted</span>")
 			return
 
@@ -174,7 +173,7 @@
 
 	var/message = "<B>[src]</b> [input]"
 
-	log_emote(message, src)
+	add_emote_logs(src, message)
 
 	// Coloring text for runechat
 	var/speaker_name = src.name
@@ -217,7 +216,12 @@
 					continue
 				if(!M.can_hear())
 					continue
-				if(M.stat == UNCONSCIOUS || (M.sleeping > 0 && M.stat != DEAD))
+				if(isliving(M))
+					var/mob/living/L = M
+					if(L.IsSleeping() && L.stat != DEAD)
+						to_chat(L, "<I>... You can almost hear something ...</I>")
+						continue
+				if(M.stat == UNCONSCIOUS)
 					to_chat(M, "<I>... You can almost hear something ...</I>")
 				else
 					to_chat(M, message)

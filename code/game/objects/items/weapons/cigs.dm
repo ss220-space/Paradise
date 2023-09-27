@@ -33,21 +33,24 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/list/list_reagents = list("nicotine" = 40)
 	var/first_puff = TRUE // the first puff is a bit more reagents ingested
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/mask.dmi',
-		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi',
-		"Monkey" = 'icons/mob/species/monkey/mask.dmi',
-		"Farwa" = 'icons/mob/species/monkey/mask.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
-		"Neara" = 'icons/mob/species/monkey/mask.dmi',
-		"Stok" = 'icons/mob/species/monkey/mask.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Draconid" =  'icons/mob/clothing/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/mask.dmi'
 	)
 
 
-/obj/item/clothing/mask/cigarette/New()
-	..()
+/obj/item/clothing/mask/cigarette/Initialize(mapload)
+	. = ..()
 	create_reagents(chem_volume) // making the cigarrete a chemical holder with a maximum volume of 30
 	reagents.set_reacting(FALSE) // so it doesn't react until you light it
 	if(list_reagents)
@@ -67,6 +70,12 @@ LIGHTERS ARE IN LIGHTERS.DM
 	else
 		return ..()
 
+/obj/item/clothing/mask/cigarette/can_enter_storage(obj/item/storage/S, mob/user)
+	if(lit && !istype(S, /obj/item/storage/ashtray))
+		to_chat(user, "<span class='warning'>[S] can't hold [initial(name)] while it's lit!</span>") // initial(name) so it doesn't say "lit" twice in a row
+		return FALSE
+	else
+		return TRUE
 
 /obj/item/clothing/mask/cigarette/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
@@ -116,6 +125,22 @@ LIGHTERS ARE IN LIGHTERS.DM
 				explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
 			F.charges--
 
+	else if(istype(I, /obj/item/flashlight/flare))
+		var/obj/item/flashlight/flare/J = I
+		if(J.on && J.can_fire_cigs)
+			light("<span class='notice'>[user] can't find other flame than [J] just for light [user.p_their()] [name], someone help this dude.</span>")
+
+	else if(istype(I, /obj/item/candle))
+		var/obj/item/candle/K = I
+		if(K.lit)
+			light("<span class='notice'>[user] lights [user.p_their()] [name] with [user.p_their()] [K].</span>")
+
+	else if(istype(I, /obj/item/clothing/mask/cigarette))
+		var/obj/item/clothing/mask/cigarette/N = I
+		if(N.lit)
+			light("<span class='notice'>[user] lights [user.p_their()] [name] with [N]. Someone please give [user.p_their()] zippo..</span>")
+
+
 	//can't think of any other way to update the overlays :<
 	user.update_inv_wear_mask()
 	user.update_inv_l_hand()
@@ -151,7 +176,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			e.start()
 			if(ismob(loc))
 				var/mob/M = loc
-				M.unEquip(src, 1)
+				M.temporarily_remove_item_from_inventory(src, force = TRUE)
 			qdel(src)
 			return
 		if(reagents.get_reagent_amount("fuel")) // the fuel explodes, too, but much less violently
@@ -160,7 +185,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			e.start()
 			if(ismob(loc))
 				var/mob/M = loc
-				M.unEquip(src, 1)
+				M.temporarily_remove_item_from_inventory(src, force = TRUE)
 			qdel(src)
 			return
 		reagents.set_reacting(TRUE)
@@ -170,6 +195,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(flavor_text)
 			var/turf/T = get_turf(src)
 			T.visible_message(flavor_text)
+		if(ishuman(loc))
+			var/mob/living/carbon/human/H = loc
+			if(H.wear_mask == src) // Don't update if it's just in their hand
+				H.wear_mask_update(src)
 		set_light(2, 0.25, "#E38F46")
 		START_PROCESSING(SSobj, src)
 
@@ -184,6 +213,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return
 	smoke()
 
+/obj/item/clothing/mask/cigarette/extinguish_light(force = FALSE)
+	if(!force)
+		return
+	die()
 
 /obj/item/clothing/mask/cigarette/attack_self(mob/user)
 	if(lit)
@@ -221,7 +254,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(ismob(loc))
 		var/mob/living/M = loc
 		to_chat(M, "<span class='notice'>Your [name] goes out.</span>")
-		M.unEquip(src, 1)		//Force the un-equip so the overlays update
+		M.temporarily_remove_item_from_inventory(src, force = TRUE)		//Force the un-equip so the overlays update
 	STOP_PROCESSING(SSobj, src)
 	qdel(src)
 
@@ -257,8 +290,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	throw_speed = 0.5
 	item_state = "spliffoff"
 
-/obj/item/clothing/mask/cigarette/rollie/New()
-	..()
+/obj/item/clothing/mask/cigarette/rollie/Initialize(mapload)
+	. = ..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
@@ -268,8 +301,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	desc = "A manky old roach, or for non-stoners, a used rollup."
 	icon_state = "roach"
 
-/obj/item/cigbutt/roach/New()
-	..()
+/obj/item/cigbutt/roach/Initialize(mapload)
+	. = ..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
@@ -316,8 +349,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 1
 
-/obj/item/cigbutt/New()
-	..()
+/obj/item/cigbutt/Initialize(mapload)
+	. = ..()
 	pixel_x = rand(-10,10)
 	pixel_y = rand(-10,10)
 	transform = turn(transform,rand(0,360))
@@ -365,6 +398,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(flavor_text)
 			var/turf/T = get_turf(src)
 			T.visible_message(flavor_text)
+		if(ishuman(loc))
+			var/mob/living/carbon/human/H = loc
+			if(H.wear_mask == src) // Don't update if it's just in their hand
+				H.wear_mask_update(src)
 		START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/mask/cigarette/pipe/process()
@@ -415,6 +452,14 @@ LIGHTERS ARE IN LIGHTERS.DM
 	smoketime = 800
 	chem_volume = 40
 
+/obj/item/clothing/mask/cigarette/pipe/oldpipe
+	name = "robust smoking pipe"
+	desc = "A worn out smoking pipe. Looks robust"
+	icon_state = "oldpipeoff"
+	item_state = "oldpipeoff"
+	icon_on = "oldpipeon"
+	icon_off = "oldpipeoff"
+
 ///////////
 //ROLLING//
 ///////////
@@ -432,8 +477,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(istype(target, /obj/item/reagent_containers/food/snacks/grown))
 		var/obj/item/reagent_containers/food/snacks/grown/O = target
 		if(O.dry)
-			user.unEquip(target, 1)
-			user.unEquip(src, 1)
+			user.temporarily_remove_item_from_inventory(target, force = TRUE)
+			user.temporarily_remove_item_from_inventory(src, force = TRUE)
 			var/obj/item/clothing/mask/cigarette/rollie/R = new /obj/item/clothing/mask/cigarette/rollie(user.loc)
 			R.chem_volume = target.reagents.total_volume
 			target.reagents.trans_to(R, R.chem_volume)

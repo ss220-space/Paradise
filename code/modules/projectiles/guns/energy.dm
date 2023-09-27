@@ -2,7 +2,7 @@
 	icon_state = "energy"
 	name = "energy gun"
 	desc = "A basic energy-based gun."
-	icon = 'icons/obj/guns/energy.dmi'
+	icon = 'icons/obj/weapons/energy.dmi'
 	fire_sound_text = "laser blast"
 
 	var/obj/item/stock_parts/cell/cell //What type of power cell this uses
@@ -45,19 +45,18 @@
 	set desc = "Кликните для переключения голосовой подсистемы."
 
 	if(sibyl_mod)
-		sibyl_mod.toggle_voice()
+		sibyl_mod.toggle_voice(usr)
 
 /obj/item/gun/energy/screwdriver_act(mob/living/user, obj/item/I)
 	..()
 	if(sibyl_mod && user.a_intent != INTENT_HARM)
-		if(sibyl_mod.integrity == 2)
-			sibyl_mod.install(src, user)
+		if(sibyl_mod.state == SIBSYS_STATE_SCREWDRIVER_ACT)
+			sibyl_mod.state = SIBSYS_STATE_INSTALLED
 			to_chat(user, "<span class='notice'>Вы закрутили шурупы мода Sibyl System в [src].</span>")
 			return
-		if(sibyl_mod.integrity == 3)
-			to_chat(user, "<span class='notice'>Вы начинаете откручивать шурупы мода Sibyl System от [src]...</span>")
+		else
 			if(prob(90))
-				sibyl_mod.uninstall(src, user)
+				sibyl_mod.state = SIBSYS_STATE_SCREWDRIVER_ACT
 				to_chat(user, "<span class='notice'>Вы успешно открутили шурупы мода Sibyl System от [src].</span>")
 			else
 				var/mob/living/carbon/human/H = user
@@ -70,40 +69,36 @@
 /obj/item/gun/energy/welder_act(mob/living/user, obj/item/I)
 	..()
 	if(sibyl_mod && user.a_intent != INTENT_HARM)
-		if(sibyl_mod.integrity == 1)
+		if(sibyl_mod.state == SIBSYS_STATE_WELDER_ACT)
 			to_chat(user, "<span class='notice'>Вы начинаете заваривать болты мода Sibyl System от [src]...</span>")
-			if(!I.use_tool(src, user, 160, volume = I.tool_volume))
-				return
-			if(sibyl_mod.integrity == 1)
-				sibyl_mod.install(src, user)
+			if(I.use_tool(src, user, 16 SECONDS, volume = I.tool_volume))
+				sibyl_mod.state = SIBSYS_STATE_SCREWDRIVER_ACT
 				to_chat(user, "<span class='notice'>Вы заварили болты мода Sibyl System в [src].</span>")
 			return
-		if(sibyl_mod.integrity == 2)
+		if(sibyl_mod.state == SIBSYS_STATE_SCREWDRIVER_ACT)
 			to_chat(user, "<span class='notice'>Вы начинаете разваривать болты мода Sibyl System от [src]...</span>")
-			if(!I.use_tool(src, user, 160, volume = I.tool_volume))
-				return
-			if(prob(70))
-				if(sibyl_mod.integrity == 2)
-					sibyl_mod.uninstall(src, user)
+			if(I.use_tool(src, user, 16 SECONDS, volume = I.tool_volume))
+				if(prob(70))
+					sibyl_mod.state = SIBSYS_STATE_WELDER_ACT
 					to_chat(user, "<span class='notice'>Вы успешно разварили болты мода Sibyl System от [src].</span>")
-			else
-				var/mob/living/carbon/human/H = user
-				var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? "l_hand" : "r_hand")
-				user.apply_damage(10, BURN , affecting)
-				user.emote("scream")
-				to_chat(user, "<span class='warning'>Проклятье! [I] дёрнулась и прожгла [affecting.name]!</span>")
+				else
+					var/mob/living/carbon/human/H = user
+					var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? "l_hand" : "r_hand")
+					user.apply_damage(10, BURN , affecting)
+					user.emote("scream")
+					to_chat(user, "<span class='warning'>Проклятье! [I] дёрнулась и прожгла [affecting.name]!</span>")
 			return
 
 /obj/item/gun/energy/crowbar_act(mob/living/user, obj/item/I)
 	..()
 	if(sibyl_mod && user.a_intent != INTENT_HARM)
-		if(sibyl_mod.integrity == 1)
+		if(sibyl_mod.state == SIBSYS_STATE_WELDER_ACT)
 			to_chat(user, "<span class='notice'>Вы начинаете отковыривать болты мода Sibyl System от [src]...</span>")
-			if(!I.use_tool(src, user, 160, volume = I.tool_volume))
+			if(!I.use_tool(src, user, 16 SECONDS, volume = I.tool_volume))
 				return
 			if(prob(95))
-				if(sibyl_mod.integrity == 1)
-					sibyl_mod.uninstall(src, user)
+				if(sibyl_mod.state == SIBSYS_STATE_WELDER_ACT)
+					sibyl_mod.uninstall(src)
 					to_chat(user, "<span class='notice'>Вы успешно отковыряли болты мода Sibyl System от [src].</span>")
 			else
 				var/mob/living/carbon/human/H = user
@@ -114,7 +109,8 @@
 			return
 
 /obj/item/gun/energy/emag_act(mob/user)
-	if(sibyl_mod && !sibyl_mod.emagged)
+	if(!sibyl_mod?.emagged)
+		add_attack_logs(user, sibyl_mod, "emagged")
 		sibyl_mod.emagged = TRUE
 		sibyl_mod.unlock()
 		if(user)
@@ -188,12 +184,12 @@
 			H.update_inv_l_hand()
 			H.update_inv_r_hand()
 
-/obj/item/gun/energy/can_shoot()
+/obj/item/gun/energy/can_shoot(mob/living/user)
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-	var/can_shoot = cell.charge >= shot.e_cost
-	if(sibyl_mod && !sibyl_mod.can_shoot(can_shoot))
+	var/check_charge = cell.charge >= shot.e_cost
+	if(sibyl_mod && !sibyl_mod.check_auth(check_charge, user))
 		return FALSE
-	return can_shoot
+	return check_charge
 
 /obj/item/gun/energy/newshot()
 	if(!ammo_type || !cell)
@@ -214,16 +210,16 @@
 	newshot()
 
 /obj/item/gun/energy/process_fire(atom/target, mob/living/user, message = 1, params, zone_override, bonus_spread = 0)
-	if(!chambered && can_shoot())
+	if(!chambered && can_shoot(user))
 		process_chamber()
-	if(sibyl_mod)
-		sibyl_mod.process_fire()
 	return ..()
 
 /obj/item/gun/energy/proc/select_fire(mob/living/user)
-	select++
-	if(select > ammo_type.len)
+	if(++select > ammo_type.len)
 		select = 1
+	else
+		if(sibyl_mod && !sibyl_mod.check_select(select))
+			select = 1
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	fire_sound = shot.fire_sound
 	fire_delay = shot.delay
@@ -236,8 +232,6 @@
 		chambered = null
 	newshot()
 	update_icon()
-	if(sibyl_mod)
-		sibyl_mod.check_select()
 	return
 
 /obj/item/gun/energy/update_icon()

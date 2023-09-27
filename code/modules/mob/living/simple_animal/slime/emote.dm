@@ -16,7 +16,7 @@
 
 	switch(act) //Alphabetical please
 		if("me")
-			if(silent)
+			if(HAS_TRAIT(src, TRAIT_MUTE))
 				return
 			if(src.client)
 				if(client.prefs.muted & MUTE_IC)
@@ -95,7 +95,7 @@
 			to_chat(src, "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>")
 	if((message && stat == CONSCIOUS))
 		if(client)
-			log_emote("[name]/[key] : [message]", src)
+			add_emote_logs(src, "[name]/[key] : [message]")
 		if(m_type & 1)
 			visible_message(message)
 		else

@@ -150,10 +150,10 @@
 		emagged = !emagged
 		if(emagged)
 			message_admins("[key_name_admin(usr)] overrode the holodeck's safeties")
-			log_game("[key_name(usr)] overrode the holodeck's safeties")
+			add_game_logs("overrode the holodeck's safeties", usr)
 		else
 			message_admins("[key_name_admin(usr)] restored the holodeck's safeties")
-			log_game("[key_name(usr)] restored the holodeck's safeties")
+			add_game_logs("restored the holodeck's safeties", usr)
 
 	add_fingerprint(usr)
 	updateUsrDialog()
@@ -164,11 +164,11 @@
 
 /obj/machinery/computer/HolodeckControl/emag_act(user as mob)
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		emagged = 1
-		to_chat(user, "<span class='notice'>You vastly increase projector power and override the safety and security protocols.</span>")
+		to_chat(user, span_notice("You vastly increase projector power and override the safety and security protocols."))
 		to_chat(user, "Warning.  Automatic shutoff and derezing protocols have been corrupted.  Please call Nanotrasen maintenance and do not use the simulator.")
-		log_game("[key_name(usr)] emagged the Holodeck Control Computer")
 		src.updateUsrDialog()
 
 /obj/machinery/computer/HolodeckControl/New()
@@ -230,7 +230,7 @@
 	if(isobj(obj))
 		var/mob/M = obj.loc
 		if(ismob(M))
-			M.unEquip(obj, 1) //Holoweapons should always drop.
+			M.temporarily_remove_item_from_inventory(obj, force = TRUE) //Holoweapons should always drop.
 
 	if(!silent)
 		var/obj/oldobj = obj
@@ -288,7 +288,7 @@
 	for(var/obj/effect/decal/cleanable/blood/B in linkedholodeck)
 		qdel(B)
 
-	for(var/mob/living/simple_animal/hostile/carp/C in linkedholodeck)
+	for(var/mob/living/simple_animal/hostile/carp/holocarp/C in linkedholodeck)
 		qdel(C)
 
 	holographic_items = A.copy_contents_to(linkedholodeck , 1)
@@ -362,6 +362,9 @@
 	underlay_appearance.plane = PLANE_SPACE
 	return TRUE
 
+/obj/structure/table/holotable/has_prints()
+	return FALSE
+
 /obj/structure/table/holotable
 	flags = NODECONSTRUCT
 	canSmoothWith = list(/obj/structure/table/holotable)
@@ -373,6 +376,9 @@
 	icon_state = "wood_table"
 	canSmoothWith = list(/obj/structure/table/holotable/wood)
 
+/obj/structure/chair/stool/holostool/has_prints()
+	return FALSE
+
 /obj/structure/chair/stool/holostool
 	flags = NODECONSTRUCT
 	item_chair = null
@@ -382,6 +388,9 @@
 	desc = "Because you really needed another excuse to punch your crewmates."
 	icon_state = "boxing"
 	item_state = "boxing"
+
+/obj/structure/holowindow/has_prints()
+	return FALSE
 
 /obj/structure/holowindow
 	name = "reinforced window"
@@ -393,6 +402,9 @@
 	pressure_resistance = 4*ONE_ATMOSPHERE
 	anchored = 1.0
 	flags = ON_BORDER
+
+/obj/structure/rack/holorack/has_prints()
+	return FALSE
 
 /obj/structure/rack/holorack
 	flags = NODECONSTRUCT
@@ -459,14 +471,14 @@
 		hitsound = "sound/weapons/blade1.ogg"
 		w_class = WEIGHT_CLASS_BULKY
 		playsound(user, 'sound/weapons/saberon.ogg', 20, 1)
-		to_chat(user, "<span class='notice'>[src] is now active.</span>")
+		to_chat(user, span_notice("[src] is now active."))
 	else
 		force = 3
 		icon_state = "sword0"
 		hitsound = "swing_hit"
 		w_class = WEIGHT_CLASS_SMALL
 		playsound(user, 'sound/weapons/saberoff.ogg', 20, 1)
-		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
+		to_chat(user, span_notice("[src] can now be concealed."))
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
@@ -502,17 +514,20 @@
 	if(istype(W, /obj/item/grab) && get_dist(src,user)<2)
 		var/obj/item/grab/G = W
 		if(G.state<2)
-			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+			to_chat(user, span_warning("You need a better grip to do that!"))
 			return
 		G.affecting.loc = src.loc
-		G.affecting.Weaken(5)
-		visible_message("<span class='warning'>[G.assailant] dunks [G.affecting] into the [src]!</span>")
+		G.affecting.Weaken(10 SECONDS)
+		visible_message(span_warning("[G.assailant] dunks [G.affecting] into [src]!"))
 		qdel(W)
 		return
 	else if(istype(W, /obj/item) && get_dist(src,user)<2)
-		user.drop_item(src)
-		visible_message("<span class='notice'>[user] dunks [W] into the [src]!</span>")
+		user.drop_from_active_hand(src)
+		visible_message(span_notice("[user] dunks [W] into the [src]!"))
 		return
+
+/obj/structure/holohoop/has_prints()
+	return FALSE
 
 /obj/structure/holohoop/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover,/obj/item) && mover.throwing)
@@ -521,9 +536,9 @@
 			return
 		if(prob(50))
 			I.loc = src.loc
-			visible_message("<span class='notice'>Swish! \the [I] lands in \the [src].</span>")
+			visible_message(span_notice("Swish! \the [I] lands in \the [src]."))
 		else
-			visible_message("<span class='alert'>\The [I] bounces off of \the [src]'s rim!</span>")
+			visible_message(span_alert("\The [I] bounces off of \the [src]'s rim!"))
 		return 0
 	else
 		return ..(mover, target, height)
@@ -532,10 +547,10 @@
 	if(isitem(AM) && !istype(AM,/obj/item/projectile))
 		if(prob(50))
 			AM.forceMove(get_turf(src))
-			visible_message("<span class='warning'>Swish! [AM] lands in [src].</span>")
+			visible_message(span_warning("Swish! [AM] lands in [src]."))
 			return
 		else
-			visible_message("<span class='danger'>[AM] bounces off of [src]'s rim!</span>")
+			visible_message(span_danger("[AM] bounces off of [src]'s rim!"))
 			return ..()
 	else
 		return ..()
@@ -543,7 +558,7 @@
 /obj/machinery/readybutton
 	name = "Ready Declaration Device"
 	desc = "This device is used to declare ready. If all devices in an area are ready, the event will begin!"
-	icon = 'icons/obj/monitors.dmi'
+	icon = 'icons/obj/machines/monitors.dmi'
 	icon_state = "auth_off"
 	var/ready = 0
 	var/area/currentarea = null
@@ -560,6 +575,7 @@
 	return
 
 /obj/machinery/readybutton/attackby(obj/item/W as obj, mob/user as mob, params)
+	add_fingerprint(user)
 	to_chat(user, "The device is a solid button, there's nothing you can do with it!")
 
 /obj/machinery/readybutton/attack_hand(mob/user as mob)
@@ -575,6 +591,7 @@
 		to_chat(usr, "The event has already begun!")
 		return
 
+	add_fingerprint(user)
 	ready = !ready
 
 	update_icon()

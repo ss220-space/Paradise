@@ -44,24 +44,24 @@
 			//Checks to make sure he's not in space doing it, and that the area got proper power.
 			var/area/a = get_area(src)
 			if(!isarea(a) || !a.power_equip)
-				to_chat(user, "<span class='notice'>[src] blinks red as you try to insert [G].</span>")
+				to_chat(user, span_notice("[src] blinks red as you try to insert [G]."))
 				return TRUE
 
 			if(istype(G, /obj/item/gun/energy))
 				var/obj/item/gun/energy/E = G
 				if(!E.can_charge)
-					to_chat(user, "<span class='notice'>Your gun has no external power connector.</span>")
+					to_chat(user, span_notice("Your gun has no external power connector."))
 					return TRUE
 
-			if(!user.drop_item())
+			if(!user.drop_transfer_item_to_loc(G, src))
 				return TRUE
-			G.forceMove(src)
+			add_fingerprint(user)
 			charging = G
 			use_power = ACTIVE_POWER_USE
 			using_power = check_cell_needs_recharging(get_cell_from(G))
 			update_icon()
 		else
-			to_chat(user, "<span class='notice'>[src] isn't connected to anything!</span>")
+			to_chat(user, span_notice("[src] isn't connected to anything!"))
 		return TRUE
 	return ..()
 
@@ -76,7 +76,7 @@
 /obj/machinery/recharger/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(charging)
-		to_chat(user, "<span class='warning'>Remove the charging item first!</span>")
+		to_chat(user, span_warning("Remove the charging item first!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -93,8 +93,8 @@
 	add_fingerprint(user)
 	if(charging)
 		charging.update_icon()
-		charging.forceMove(loc)
-		user.put_in_hands(charging)
+		charging.forceMove_turf()
+		user.put_in_hands(charging, ignore_anim = FALSE)
 		charging = null
 		use_power = IDLE_POWER_USE
 		update_icon()
@@ -192,19 +192,19 @@
 /obj/machinery/recharger/examine(mob/user)
 	. = ..()
 	if(charging && (!in_range(user, src) && !issilicon(user) && !isobserver(user)))
-		. += "<span class='warning'>You're too far away to examine [src]'s contents and display!</span>"
+		. += span_warning("You're too far away to examine [src]'s contents and display!")
 		return
 
 	if(charging)
-		. += "<span class='notice'>\The [src] contains:</span>"
-		. += "<span class='notice'>- \A [charging].</span>"
+		. += span_notice("\The [src] contains:")
+		. += span_notice("- \A [charging].")
 		if(!(stat & (NOPOWER|BROKEN)))
 			var/obj/item/stock_parts/cell/C = charging.get_cell()
-			. += "<span class='notice'>The status display reads:<span>"
+			. += span_notice("The status display reads:")
 			if(using_power)
-				. += "<span class='notice'>- Recharging <b>[(C.chargerate/C.maxcharge)*100]%</b> cell charge per cycle.<span>"
+				. += span_notice("- Recharging <b>[(C.chargerate/C.maxcharge)*100]%</b> cell charge per cycle.")
 			if(charging)
-				. += "<span class='notice'>- \The [charging]'s cell is at <b>[C.percent()]%</b>.<span>"
+				. += span_notice("- \The [charging]'s cell is at <b>[C.percent()]%</b>.")
 
 // Atlantis: No need for that copy-pasta code, just use var to store icon_states instead.
 /obj/machinery/recharger/wallcharger

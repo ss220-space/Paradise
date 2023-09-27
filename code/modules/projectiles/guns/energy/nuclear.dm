@@ -48,7 +48,7 @@
 	icon_state = "hoslaser"
 	origin_tech = null
 	force = 10
-	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser/hos)
+	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/dominator/slaughter)
 	ammo_x_offset = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
@@ -69,10 +69,24 @@
         return FALSE
     return .
 
-/obj/item/gun/energy/gun/blueshield/pdw9
+/obj/item/gun/energy/gun/pdw9
 	name = "PDW-9 taser pistol"
 	desc = "A military grade sidearm, used by many militia forces throughout the local sector."
 	icon_state = "pdw9pistol"
+	item_state = "gun"
+	force = 7
+	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos)
+	ammo_x_offset = 1
+	shaded_charge = 1
+
+/obj/item/gun/energy/gun/pdw9/ert
+
+/obj/item/gun/energy/gun/pdw9/ert/can_shoot()
+    . = ..()
+    if (. && !isertmindshielded(usr))
+        to_chat(usr, "<span class='warning'>ЕРТ имплант «Защита разума» не обнаружен!</span>")
+        return FALSE
+    return .
 
 /obj/item/gun/energy/gun/turret
 	name = "hybrid turret gun"

@@ -17,7 +17,7 @@
 	smell.<br/><br/>Most humans will never meet a Vox raider, instead learning of this insular species through \
 	dealing with their traders and merchants; those that do rarely enjoy the experience."
 
-	brute_mod = 1.2 //20% more brute damage. Fragile bird bones.
+	bonefragility = 1.2 //20% more chance to break bones. Fragile bird bones.
 
 	breathid = "n2"
 
@@ -25,10 +25,11 @@
 
 	species_traits = list(NO_SCAN, NO_GERMS, NO_DECAY, IS_WHITELISTED, NOTRANSSTING)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS //Species-fitted 'em all.
-	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS
+	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS | HAS_SKIN_COLOR
 
 	silent_steps = TRUE
 
+	blood_species = "Vox"
 	blood_color = "#2299FC"
 	flesh_color = "#808D11"
 	//Default styles for created mobs.
@@ -39,12 +40,12 @@
 
 	reagent_tag = PROCESS_ORG | PROCESS_SYN
 	scream_verb = "скрипит"
-	male_scream_sound = 'sound/voice/shriek1.ogg'
-	female_scream_sound = 'sound/voice/shriek1.ogg'
+	male_scream_sound = list('sound/voice/shriek1.ogg')
+	female_scream_sound = list('sound/voice/shriek1.ogg')
 	male_cough_sounds = list('sound/voice/shriekcough.ogg')
 	female_cough_sounds = list('sound/voice/shriekcough.ogg')
-	male_sneeze_sound = 'sound/voice/shrieksneeze.ogg'
-	female_sneeze_sound = 'sound/voice/shrieksneeze.ogg'
+	male_sneeze_sound = list('sound/voice/shrieksneeze.ogg')
+	female_sneeze_sound = list('sound/voice/shrieksneeze.ogg')
 
 	icon_skin_tones = list(
 		1 = "Default Green",
@@ -60,7 +61,7 @@
 		"lungs" =    /obj/item/organ/internal/lungs/vox,
 		"liver" =    /obj/item/organ/internal/liver/vox,
 		"kidneys" =  /obj/item/organ/internal/kidneys/vox,
-		"cortical stack" =    /obj/item/organ/internal/brain/vox,
+		"brain" =    /obj/item/organ/internal/brain/vox,
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/vox, //Default darksight of 2.
 		)												//for determining the success of the heist game-mode's 'leave nobody behind' objective, while this is just an organ.
@@ -88,8 +89,9 @@
 
 	speciesbox = /obj/item/storage/box/survival_vox
 
-	disliked_food = GROSS | DAIRY | FRIED
-	liked_food = GRAIN | MEAT | FRUIT
+	toxic_food = NONE
+	disliked_food = NONE //According to lore voxes does not care about food. Food is food.
+	liked_food = NONE
 
 /datum/species/vox/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
@@ -108,7 +110,7 @@
 
 /datum/species/vox/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	if(!H.mind || !H.mind.assigned_role || H.mind.assigned_role != "Clown" && H.mind.assigned_role != "Mime")
-		H.unEquip(H.wear_mask)
+		H.drop_item_ground(H.wear_mask)
 
 	H.equip_or_collect(new /obj/item/clothing/mask/breath/vox(H), slot_wear_mask)
 	var/tank_pref = H.client && H.client.prefs ? H.client.prefs.speciesprefs : null
@@ -117,9 +119,9 @@
 		internal_tank = new /obj/item/tank/internals/nitrogen(H)
 	else
 		internal_tank = new /obj/item/tank/internals/emergency_oxygen/double/vox(H)
-	if(!H.equip_to_appropriate_slot(internal_tank))
+	if(!H.equip_to_appropriate_slot(internal_tank, silent = TRUE))
 		if(!H.put_in_any_hand_if_possible(internal_tank))
-			H.unEquip(H.l_hand)
+			H.drop_item_ground(H.l_hand)
 			H.equip_or_collect(internal_tank, slot_l_hand)
 			to_chat(H, "<span class='boldannounce'>Could not find an empty slot for internals! Please report this as a bug</span>")
 	H.internal = internal_tank
@@ -164,7 +166,7 @@
 
 /datum/species/vox/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "oxygen") //Armalis are above such petty things.
-		H.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER) //Same as plasma.
+		H.adjustToxLoss(0.5) //Same as plasma.
 		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
 		return FALSE //Handling reagent removal on our own.
 

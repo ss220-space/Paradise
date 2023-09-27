@@ -27,7 +27,7 @@
 	if(!adminckey)
 		return
 	var/datum/db_query/query_watchadd = SSdbcore.NewQuery({"
-		INSERT INTO [sqlfdbkdbutil].[format_table_name("watch")] (ckey, reason, adminckey, timestamp)
+		INSERT INTO [CONFIG_GET(string/utility_database)].[format_table_name("watch")] (ckey, reason, adminckey, timestamp)
 		VALUES (:targetkey, :reason, :adminkey, NOW())"},
 		list(
 			"targetkey" = target_ckey,
@@ -37,32 +37,30 @@
 	)
 	if(!query_watchadd.Execute())
 		var/err = query_watchadd.ErrorMsg()
-		log_game("SQL ERROR during adding new watch entry. Error : \[[err]\]\n")
+		add_game_logs("SQL ERROR during adding new watch entry. Error : \[[err]\]\n")
 		return
-	log_admin("[key_name(usr)] has added [target_ckey] to the watchlist - Reason: [reason]")
-	message_admins("[key_name_admin(usr)] has added [target_ckey] to the watchlist - Reason: [reason]", 1)
+	log_and_message_admins("has added [target_ckey] to the watchlist - Reason: [reason]")
 	if(browse)
 		watchlist_show(target_ckey)
 
 /client/proc/watchlist_remove(target_ckey, browse = 0)
 	if(!check_rights(R_ADMIN))
 		return
-	var/datum/db_query/query_watchdel = SSdbcore.NewQuery("DELETE FROM [sqlfdbkdbutil].[format_table_name("watch")] WHERE ckey=:target_ckey", list(
+	var/datum/db_query/query_watchdel = SSdbcore.NewQuery("DELETE FROM [CONFIG_GET(string/utility_database)].[format_table_name("watch")] WHERE ckey=:target_ckey", list(
 		"target_ckey" = target_ckey
 	))
 	if(!query_watchdel.warn_execute())
 		qdel(query_watchdel)
 		return
 	qdel(query_watchdel)
-	log_admin("[key_name(usr)] has removed [target_ckey] from the watchlist")
-	message_admins("[key_name_admin(usr)] has removed [target_ckey] from the watchlist", 1)
+	log_and_message_admins("has removed [target_ckey] from the watchlist")
 	if(browse)
 		watchlist_show()
 
 /client/proc/watchlist_edit(target_ckey, browse = 0)
 	if(!check_rights(R_ADMIN))
 		return
-	var/datum/db_query/query_watchreason = SSdbcore.NewQuery("SELECT reason FROM [sqlfdbkdbutil].[format_table_name("watch")] WHERE ckey=:target_ckey", list(
+	var/datum/db_query/query_watchreason = SSdbcore.NewQuery("SELECT reason FROM [CONFIG_GET(string/utility_database)].[format_table_name("watch")] WHERE ckey=:target_ckey", list(
 		"target_ckey" = target_ckey
 	))
 	if(!query_watchreason.warn_execute())
@@ -76,7 +74,7 @@
 		var/sql_ckey = usr.ckey
 		var/edit_text = "Edited by [sql_ckey] on [SQLtime()] from \"[watch_reason]\" to \"[new_reason]\""
 
-		var/datum/db_query/query_watchupdate = SSdbcore.NewQuery("UPDATE [sqlfdbkdbutil].[format_table_name("watch")] SET reason=:new_reason, last_editor=:sql_ckey, edits = CONCAT(IFNULL(edits,''), :edit_text) WHERE ckey=:target_ckey", list(
+		var/datum/db_query/query_watchupdate = SSdbcore.NewQuery("UPDATE [CONFIG_GET(string/utility_database)].[format_table_name("watch")] SET reason=:new_reason, last_editor=:sql_ckey, edits = CONCAT(IFNULL(edits,''), :edit_text) WHERE ckey=:target_ckey", list(
 			"new_reason" = new_reason,
 			"sql_ckey" = sql_ckey,
 			"edit_text" = edit_text,
@@ -108,7 +106,7 @@
 	else
 		search = "^."
 
-	var/datum/db_query/query_watchlist = SSdbcore.NewQuery("SELECT ckey, reason, adminckey, timestamp, last_editor FROM [sqlfdbkdbutil].[format_table_name("watch")] WHERE ckey REGEXP :search ORDER BY ckey", list(
+	var/datum/db_query/query_watchlist = SSdbcore.NewQuery("SELECT ckey, reason, adminckey, timestamp, last_editor FROM [CONFIG_GET(string/utility_database)].[format_table_name("watch")] WHERE ckey REGEXP :search ORDER BY ckey", list(
 		"search" = search
 	))
 	if(!query_watchlist.warn_execute())
@@ -128,7 +126,7 @@
 	qdel(query_watchlist)
 
 /proc/check_watchlist(target_ckey)
-	var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM [sqlfdbkdbutil].[format_table_name("watch")] WHERE ckey=:target_ckey", list(
+	var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM [CONFIG_GET(string/utility_database)].[format_table_name("watch")] WHERE ckey=:target_ckey", list(
 		"target_ckey" = target_ckey
 	))
 	if(!query_watch.warn_execute())

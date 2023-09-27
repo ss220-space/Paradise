@@ -47,7 +47,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		return 0
 
 	var/player_age_check = check_client_age(client, GLOB.responseteam_age)
-	if(player_age_check && config.use_age_restriction_for_antags)
+	if(player_age_check && CONFIG_GET(flag/use_age_restriction_for_antags))
 		to_chat(src, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
 		return 0
 
@@ -88,7 +88,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	var/list/ert_gender_prefs = list()
 	for(var/mob/M in GLOB.response_team_members)
 		ert_gender_prefs.Add(input_async(M, "Please select a gender (10 seconds):", list("Male", "Female")))
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/get_ert_role_prefs, GLOB.response_team_members, ert_gender_prefs), 100)
+	addtimer(CALLBACK(GLOBAL_PROC, /proc/get_ert_role_prefs, GLOB.response_team_members, ert_gender_prefs), 100)
 
 /proc/get_ert_role_prefs(list/response_team_members, list/ert_gender_prefs) // Why the FUCK is this variable the EXACT SAME as the global one
 	var/list/ert_role_prefs = list()
@@ -96,7 +96,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		A.close()
 	for(var/mob/M in response_team_members)
 		ert_role_prefs.Add(input_ranked_async(M, "Please order ERT roles from most to least preferred (20 seconds):", GLOB.active_team.get_slot_list()))
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/dispatch_response_team, response_team_members, ert_gender_prefs, ert_role_prefs), 200)
+	addtimer(CALLBACK(GLOBAL_PROC, /proc/dispatch_response_team, response_team_members, ert_gender_prefs, ert_role_prefs), 200)
 
 /proc/dispatch_response_team(list/response_team_members, list/datum/async_input/ert_gender_prefs, list/datum/async_input/ert_role_prefs)
 	var/spawn_index = 1
@@ -124,6 +124,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 				new_commando.mind.key = M.key
 				new_commando.key = M.key
 				new_commando.update_icons()
+				new_commando.change_voice()
 				break
 	GLOB.send_emergency_team = FALSE
 
@@ -174,7 +175,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	//Creates mind stuff.
 	M.mind = new
 	M.mind.current = M
-	M.mind.original = M
+	M.mind.set_original_mob(M)
 	M.mind.assigned_role = SPECIAL_ROLE_ERT
 	M.mind.special_role = SPECIAL_ROLE_ERT
 	if(!(M.mind in SSticker.minds))
@@ -254,10 +255,10 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 			M.equipOutfit(command_outfit)
 
 /datum/response_team/proc/cannot_send_team()
-	GLOB.event_announcement.Announce("[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time.", "ERT Unavailable")
+	GLOB.event_announcement.Announce("[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования.", "Оповещение: ОБР недоступен.")
 
 /datum/response_team/proc/announce_team()
-	GLOB.event_announcement.Announce("Attention, [station_name()]. We are sending a team of highly trained assistants to aid(?) you. Standby.", "ERT En-Route")
+	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы направляем команду высококвалифицированных ассистентов для оказания помощи(?) вам. Ожидайте.", "Оповещение: ОБР в пути.")
 
 // -- AMBER TEAM --
 
@@ -270,7 +271,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	paranormal_outfit = /datum/outfit/job/centcom/response_team/paranormal/amber
 
 /datum/response_team/amber/announce_team()
-	GLOB.event_announcement.Announce("Attention, [station_name()]. We are sending a code AMBER light Emergency Response Team. Standby.", "ERT En-Route")
+	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода «ЭМБЕР». Ожидайте.", "Оповещение: ОБР в пути.")
 
 // -- RED TEAM --
 
@@ -284,7 +285,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	borg_path = /mob/living/silicon/robot/ert/red
 
 /datum/response_team/red/announce_team()
-	GLOB.event_announcement.Announce("Attention, [station_name()]. We are sending a code RED Emergency Response Team. Standby.", "ERT En-Route")
+	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода «РЭД». Ожидайте.", "Оповещение: ОБР в пути.")
 
 // -- GAMMA TEAM --
 
@@ -298,7 +299,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	borg_path = /mob/living/silicon/robot/ert/gamma
 
 /datum/response_team/gamma/announce_team()
-	GLOB.event_announcement.Announce("Attention, [station_name()]. We are sending a code GAMMA elite Emergency Response Team. Standby.", "ERT En-Route")
+	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода «ГАММА». Ожидайте.", "Оповещение: ОБР в пути.")
 
 /datum/outfit/job/centcom/response_team
 	name = "Response team"

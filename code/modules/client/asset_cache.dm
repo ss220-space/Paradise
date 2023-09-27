@@ -185,44 +185,51 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 /datum/asset/simple/paper
 	assets = list(
-		"large_stamp-clown.png"     = 'icons/paper_icons/large_stamp-clown.png',
-		"large_stamp-deny.png"      = 'icons/paper_icons/large_stamp-deny.png',
-		"large_stamp-ok.png"        = 'icons/paper_icons/large_stamp-ok.png',
-		"large_stamp-hop.png"       = 'icons/paper_icons/large_stamp-hop.png',
-		"large_stamp-cmo.png"       = 'icons/paper_icons/large_stamp-cmo.png',
-		"large_stamp-ce.png"        = 'icons/paper_icons/large_stamp-ce.png',
-		"large_stamp-hos.png"       = 'icons/paper_icons/large_stamp-hos.png',
-		"large_stamp-rd.png"        = 'icons/paper_icons/large_stamp-rd.png',
-		"large_stamp-cap.png"       = 'icons/paper_icons/large_stamp-cap.png',
-		"large_stamp-qm.png"        = 'icons/paper_icons/large_stamp-qm.png',
-		"large_stamp-law.png"       = 'icons/paper_icons/large_stamp-law.png',
-		"large_stamp-cent.png"      = 'icons/paper_icons/large_stamp-cent.png',
-		"large_stamp-syndicate.png" = 'icons/paper_icons/large_stamp-syndicate.png',
-		"large_stamp-taipan.png" 	= 'icons/paper_icons/large_stamp-taipan.png',
-		"large_stamp-rep.png"	    = 'icons/paper_icons/large_stamp-rep.png',
-		"large_stamp-magistrate.png"= 'icons/paper_icons/large_stamp-magistrate.png',
-		"large_stamp-ward.png"      = 'icons/paper_icons/large_stamp-ward.png',
-		"talisman.png"              = 'icons/paper_icons/talisman.png',
-		"ntlogo.png"                = 'icons/paper_icons/ntlogo.png',
-		"syndielogo.png"		='icons/paper_icons/syndielogo.png'
+		"large_stamp-clown.png"     = 'icons/misc/paper_icons/large_stamp-clown.png',
+		"large_stamp-deny.png"      = 'icons/misc/paper_icons/large_stamp-deny.png',
+		"large_stamp-ok.png"        = 'icons/misc/paper_icons/large_stamp-ok.png',
+		"large_stamp-hop.png"       = 'icons/misc/paper_icons/large_stamp-hop.png',
+		"large_stamp-cmo.png"       = 'icons/misc/paper_icons/large_stamp-cmo.png',
+		"large_stamp-ce.png"        = 'icons/misc/paper_icons/large_stamp-ce.png',
+		"large_stamp-hos.png"       = 'icons/misc/paper_icons/large_stamp-hos.png',
+		"large_stamp-rd.png"        = 'icons/misc/paper_icons/large_stamp-rd.png',
+		"large_stamp-cap.png"       = 'icons/misc/paper_icons/large_stamp-cap.png',
+		"large_stamp-qm.png"        = 'icons/misc/paper_icons/large_stamp-qm.png',
+		"large_stamp-law.png"       = 'icons/misc/paper_icons/large_stamp-law.png',
+		"large_stamp-cent.png"      = 'icons/misc/paper_icons/large_stamp-cent.png',
+		"large_stamp-syndicate.png" = 'icons/misc/paper_icons/large_stamp-syndicate.png',
+		"large_stamp-taipan.png" 	= 'icons/misc/paper_icons/large_stamp-taipan.png',
+		"large_stamp-rep.png"	    = 'icons/misc/paper_icons/large_stamp-rep.png',
+		"large_stamp-magistrate.png"= 'icons/misc/paper_icons/large_stamp-magistrate.png',
+		"large_stamp-ward.png"      = 'icons/misc/paper_icons/large_stamp-ward.png',
+		"talisman.png"              = 'icons/misc/paper_icons/talisman.png',
+		"ntlogo.png"                = 'icons/misc/paper_icons/ntlogo.png',
+		"syndielogo.png"		    = 'icons/misc/paper_icons/syndielogo.png',
+		"large_stamp-mime.png"      = 'icons/misc/paper_icons/large_stamp-mime.png',
+		"thieflogo.png"		    	= 'icons/misc/paper_icons/thieflogo.png',
+		"large_stamp-ploho.png"		= 'icons/misc/paper_icons/large_stamp-ploho.png',
+		"large_stamp-BIGdeny.png"	= 'icons/misc/paper_icons/large_stamp-BIGdeny.png',
+		"large_stamp-navcom.png"	= 'icons/misc/paper_icons/large_stamp-navcom.png',
+		"large_stamp-ussp.png"		= 'icons/misc/paper_icons/large_stamp-ussp.png',
+		"ussplogo.png"			= 'icons/misc/paper_icons/ussplogo.png'
 	)
 
 /datum/asset/simple/chess
 	assets = list(
-		"bishop_black.png"			= 'icons/chess_pieces/bishop_black.png',
-		"bishop_white.png"			= 'icons/chess_pieces/bishop_white.png',
-		"king_black.png"			= 'icons/chess_pieces/king_black.png',
-		"king_white.png"			= 'icons/chess_pieces/king_white.png',
-		"knight_black.png"			= 'icons/chess_pieces/knight_black.png',
-		"knight_white.png"			= 'icons/chess_pieces/knight_white.png',
-		"pawn_black.png"			= 'icons/chess_pieces/pawn_black.png',
-		"pawn_white.png"			= 'icons/chess_pieces/pawn_white.png',
-		"queen_black.png"			= 'icons/chess_pieces/queen_black.png',
-		"queen_white.png"			= 'icons/chess_pieces/queen_white.png',
-		"rook_black.png"			= 'icons/chess_pieces/rook_black.png',
-		"rook_white.png"			= 'icons/chess_pieces/rook_white.png',
-		"sprites.png"			    = 'icons/chess_pieces/sprites.png',
-		"blank.gif"                 = 'icons/chess_pieces/blank.gif',
+		"bishop_black.png"			= 'icons/misc/chess_pieces/bishop_black.png',
+		"bishop_white.png"			= 'icons/misc/chess_pieces/bishop_white.png',
+		"king_black.png"			= 'icons/misc/chess_pieces/king_black.png',
+		"king_white.png"			= 'icons/misc/chess_pieces/king_white.png',
+		"knight_black.png"			= 'icons/misc/chess_pieces/knight_black.png',
+		"knight_white.png"			= 'icons/misc/chess_pieces/knight_white.png',
+		"pawn_black.png"			= 'icons/misc/chess_pieces/pawn_black.png',
+		"pawn_white.png"			= 'icons/misc/chess_pieces/pawn_white.png',
+		"queen_black.png"			= 'icons/misc/chess_pieces/queen_black.png',
+		"queen_white.png"			= 'icons/misc/chess_pieces/queen_white.png',
+		"rook_black.png"			= 'icons/misc/chess_pieces/rook_black.png',
+		"rook_white.png"			= 'icons/misc/chess_pieces/rook_white.png',
+		"sprites.png"			    = 'icons/misc/chess_pieces/sprites.png',
+		"blank.gif"                 = 'icons/misc/chess_pieces/blank.gif',
 		"garbochess.js"             = 'html/browser/garbochess.js',
 		"boardui.js"                = 'html/browser/boardui.js'
 	)
@@ -237,8 +244,8 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		assets["pill[i].png"] = icon('icons/obj/chemical.dmi', "pill[i]")
 	for(var/i in list("bottle", "small_bottle", "wide_bottle", "round_bottle", "reagent_bottle"))
 		assets["[i].png"] = icon('icons/obj/chemical.dmi', "[i]")
-	for(var/i in list("bandaid_med", "bandaid_brute", "bandaid_burn", "bandaid", "bandaid_clown"))
-		assets["[i].png"] = icon('icons/obj/chemical.dmi', "[i]")
+	for(var/i = 1 to 20)
+		assets["bandaid[i].png"] = icon('icons/obj/chemical.dmi', "bandaid[i]")
 	for(var/asset_name in assets)
 		register_asset(asset_name, assets[asset_name])
 
@@ -251,9 +258,9 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/verify = FALSE
 
 /datum/asset/cloning/register()
-	assets["pod_idle.gif"] = icon('icons/obj/cloning.dmi', "pod_idle")
-	assets["pod_cloning.gif"] = icon('icons/obj/cloning.dmi', "pod_cloning")
-	assets["pod_mess.gif"] = icon('icons/obj/cloning.dmi', "pod_mess")
+	assets["pod_idle.gif"] = icon('icons/obj/machines/cloning.dmi', "pod_idle")
+	assets["pod_cloning.gif"] = icon('icons/obj/machines/cloning.dmi', "pod_cloning")
+	assets["pod_mess.gif"] = icon('icons/obj/machines/cloning.dmi', "pod_mess")
 	for(var/asset_name in assets)
 		register_asset(asset_name, assets[asset_name])
 
@@ -266,19 +273,19 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/verify = FALSE
 
 /datum/asset/rpd/register()
-	for(var/state in icon_states('icons/obj/pipe-item.dmi'))
+	for(var/state in icon_states('icons/obj/pipes_and_stuff/atmospherics/pipe-item.dmi'))
 		if(!(state in list("cap", "connector", "dtvalve", "dual-port vent", "dvalve", "filter", "he", "heunary", "injector", "junction", "manifold", "mixer", "tvalve", "mvalve", "passive vent", "passivegate", "pump", "scrubber", "simple", "universal", "uvent", "volumepump"))) //Basically all the pipes we want sprites for
 			continue
 		if(state in list("he", "simple"))
 			for(var/D in GLOB.alldirs)
-				assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipe-item.dmi', state, D)
+				assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipes_and_stuff/atmospherics/pipe-item.dmi', state, D)
 		for(var/D in GLOB.cardinal)
-			assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipe-item.dmi', state, D)
-	for(var/state in icon_states('icons/obj/pipes/disposal.dmi'))
+			assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipes_and_stuff/atmospherics/pipe-item.dmi', state, D)
+	for(var/state in icon_states('icons/obj/pipes_and_stuff/not_atmos/disposal.dmi'))
 		if(!(state in list("pipe-c", "pipe-j1", "pipe-s", "pipe-t", "pipe-y", "intake", "outlet", "pipe-j1s"))) //Pipes we want sprites for
 			continue
 		for(var/D in GLOB.cardinal)
-			assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipes/disposal.dmi', state, D)
+			assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipes_and_stuff/not_atmos/disposal.dmi', state, D)
 	for(var/asset_name in assets)
 		register_asset(asset_name, assets[asset_name])
 
@@ -322,12 +329,13 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		"Cyberiad_nanomap_z1.png"		= 'icons/_nanomaps/Cyberiad_nanomap_z1.png',
 		"Delta_nanomap_z1.png"			= 'icons/_nanomaps/Delta_nanomap_z1.png',
 		"MetaStation_nanomap_z1.png"	= 'icons/_nanomaps/MetaStation_nanomap_z1.png',
+		"Cerestation_nanomap_z1.png"		= 'icons/_nanomaps/Cerestation_nanomap_z1.png',
 	)
 
 /datum/asset/simple/safe
 	verify = FALSE
 	assets = list(
-		"safe_dial.png" = 'icons/safe_dial.png'
+		"safe_dial.png" = 'icons/obj/safe_dial.png'
 	)
 
 // Materials (metal, glass...)
@@ -335,7 +343,22 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	verify = FALSE
 
 /datum/asset/simple/materials/register()
-	for(var/n in list("metal", "glass", "silver", "gold", "diamond", "uranium", "plasma", "clown", "mime", "titanium", "plastic"))
+	for(var/n in list("metal", "glass", "silver", "gold", "diamond", "uranium", "plasma", "clown", "mime", "titanium", "plastic",
+		"rglass", "plasteel", "plastitanium", "plasmaglass", "titaniumglass", "plastitaniumglass", "f_rods"))
 		assets["sheet-[n].png"] = icon('icons/obj/items.dmi', "sheet-[n]")
+	for(var/n in list("alienalloy")) //because this file in abductor.dmi, not items.dmi
+		assets["sheet-[n].png"] = icon('icons/obj/abductor.dmi', "sheet-abductor")
 	assets["sheet-bluespace.png"] = icon('icons/obj/telescience.dmi', "polycrystal")
 	..()
+
+/datum/asset/changelog_item
+	var/item_filename
+
+/datum/asset/changelog_item/New(date)
+	item_filename = sanitize_filename("[date].yml")
+	register_asset(item_filename, file("html/changelogs/archive/" + item_filename))
+
+/datum/asset/changelog_item/send(client)
+	if (!item_filename)
+		return
+	. = send_asset(client, item_filename)

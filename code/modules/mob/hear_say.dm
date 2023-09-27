@@ -1,56 +1,86 @@
 // At minimum every mob has a hear_say proc.
 
-/mob/proc/combine_message(list/message_pieces, verb, mob/speaker, always_stars = FALSE)
+/mob/proc/combine_message(list/message_pieces, mob/speaker, always_stars = FALSE)
 	var/iteration_count = 0
-	var/msg = "" // This is to make sure that the pieces have actually added something
+	var/msg = ""
 	for(var/datum/multilingual_say_piece/SP in message_pieces)
 		iteration_count++
 		var/piece = SP.message
 		if(piece == "")
 			continue
 
-		if(SP.speaking && SP.speaking.flags & INNATE) // Fucking snowflake noise lang
+		if(SP.speaking && SP.speaking.flags & INNATE) // If message contains noise lang parts other parts will be skipped
 			return SP.speaking.format_message(piece)
 
 		if(iteration_count == 1)
 			piece = capitalize(piece)
 
-		if(SP.speaking)
-			if(!say_understands(speaker, SP.speaking))
-				if(isanimal(speaker))
-					var/mob/living/simple_animal/S = speaker
-					if(LAZYLEN(S.speak))
-						piece = pick(S.speak)
-					else
-						piece = stars(piece)
+		if(always_stars)
+			piece = stars(piece)
+		else if(!say_understands(speaker, SP.speaking))
+			if(isanimal(speaker))
+				var/mob/living/simple_animal/S = speaker
+				if(LAZYLEN(S.speak))
+					piece = pick(S.speak)
 				else
-					piece = SP.speaking.scramble(piece)
-			if(always_stars)
+					piece = stars(piece)
+			else if(SP.speaking)
+				piece = SP.speaking.scramble(piece)
+			else
 				piece = stars(piece)
+		if(SP.speaking)
 			piece = SP.speaking.format_message(piece)
 		else
-			if(!say_understands(speaker, null))
-				piece = stars(piece)
-				if(isanimal(speaker))
-					var/mob/living/simple_animal/S = speaker
-					if(LAZYLEN(S.speak))
-						piece = pick(S.speak)
-				if(always_stars)
-					piece = stars(piece)
 			piece = "<span class='message'><span class='body'>[piece]</span></span>"
 		msg += (piece + " ")
-	if(msg == "")
-		// There is literally no content left in this message, we need to shut this shit down
-		. = "" // hear_say will suppress it
-	else
-		if(verb)
-			. = "[verb], \"[trim(msg)]\""
-		else
-			. = trim(msg)
+	return trim(msg)
+
+/mob/proc/combine_message_tts(list/message_pieces, mob/speaker, always_stars = FALSE)
+	var/iteration_count = 0
+	var/msg = ""
+	for(var/datum/multilingual_say_piece/SP in message_pieces)
+		iteration_count++
+		var/piece = SP.message
+		if(piece == "")
+			continue
+
+		if(SP.speaking && SP.speaking.flags & INNATE) // TTS should not read emotes like "laughts"
+			return ""
+
+		if(iteration_count == 1)
+			piece = capitalize(piece)
+
+		if(always_stars)
+			continue
+		if(!say_understands(speaker, SP.speaking))
+			if(isanimal(speaker))
+				var/mob/living/simple_animal/S = speaker
+				if(LAZYLEN(S.speak))
+					piece = pick(S.speak)
+				else
+					continue
+			else if(SP.speaking)
+				piece = SP.speaking.scramble(piece)
+			else
+				continue
+		msg += (piece + " ")
+	return trim(msg)
+
+/mob/proc/verb_message(list/message_pieces, message, verb)
+	if(!verb)
+		return message
+	if(message == "")
+		return ""
+	for(var/datum/multilingual_say_piece/SP in message_pieces)
+		if(SP.speaking && SP.speaking.flags & INNATE) // Message contains only emoutes, no need to add verb
+			return message
+	return "[verb], \"[message]\""
 
 /mob/proc/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE)
 	if(!client)
 		return 0
+
+	var/is_whisper = verb == "whispers"
 
 	if(isobserver(src) && client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTEARS)
 		if(speaker && !speaker.client && !(speaker in view(src)))
@@ -79,11 +109,14 @@
 		var/mob/living/carbon/human/H = speaker
 		speaker_name = H.GetVoice()
 
-	var/message = combine_message(message_pieces, null, speaker)
-	if(message == "")
+	var/message_clean = combine_message(message_pieces, speaker)
+	message_clean = replace_characters(message_clean, list("+"))
+	if(message_clean == "")
 		return
 
-	var/message_clean = message
+	var/message_tts = combine_message_tts(message_pieces, speaker)
+	var/message = message_clean
+
 	if(italics)
 		message = "<i>[message]</i>"
 
@@ -97,11 +130,11 @@
 
 	speaker_name = colorize_name(speaker, speaker_name)
 	// Ensure only the speaker is forced to emote, and that the spoken language is inname
-	if(speaker == src)
-		for(var/datum/multilingual_say_piece/SP in message_pieces)
-			if(SP.speaking && SP.speaking.flags & INNATE)
+	for(var/datum/multilingual_say_piece/SP in message_pieces)
+		if(SP.speaking && SP.speaking.flags & INNATE)
+			if(speaker == src)
 				custom_emote(EMOTE_SOUND, message_clean, TRUE)
-				return
+			return
 
 	if(!can_hear())
 		// INNATE is the flag for audible-emote-language, so we don't want to show an "x talks but you cannot hear them" message if it's set
@@ -111,11 +144,19 @@
 		else
 			to_chat(src, "<span class='name'>[speaker.name]</span> talks but you cannot hear [speaker.p_them()].")
 	else
-		to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[speaker.GetAltName()] [track][verb], \"[message]\"</span>")
+		to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[speaker.GetAltName()] [track][verb_message(message_pieces, message, verb)]</span>")
 
 		// Create map text message
 		if (client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) // can_hear is checked up there on L99
-			create_chat_message(speaker.runechat_msg_location, message_clean,FALSE, italics)
+			create_chat_message(speaker, message_clean, FALSE, italics)
+
+		var/effect = SOUND_EFFECT_NONE
+		if(isrobot(speaker))
+			effect = SOUND_EFFECT_ROBOT
+		var/traits = TTS_TRAIT_RATE_FASTER
+		if(is_whisper)
+			traits |= TTS_TRAIT_PITCH_WHISPER
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_tts, speaker.tts_seed, TRUE, effect, traits)
 
 		if(speech_sound && (get_dist(speaker, src) <= world.view && src.z == speaker.z))
 			var/turf/source = speaker? get_turf(speaker) : get_turf(src)
@@ -154,9 +195,14 @@
 		hear_sleep(multilingual_to_message(message_pieces))
 		return
 
-	var/message = combine_message(message_pieces, verb, speaker, always_stars = hard_to_hear)
-	if(message == "")
+	var/message_clean = combine_message(message_pieces, speaker, always_stars = hard_to_hear)
+	message_clean = replace_characters(message_clean, list("+"))
+
+	if(message_clean == "")
 		return
+
+	var/message = verb_message(message_pieces, message_clean, verb)
+	var/message_tts = combine_message_tts(message_pieces, speaker, always_stars = hard_to_hear)
 
 	var/track = null
 	if(!follow_target)
@@ -169,14 +215,15 @@
 	if(!can_hear())
 		if(prob(20))
 			to_chat(src, "<span class='warning'>You feel your headset vibrate but can hear nothing from it!</span>")
-	else if(track)
-		to_chat(src, "[part_a][track][part_b][message]</span></span>")
-		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-			create_chat_message(speaker, message, TRUE, FALSE)
 	else
-		to_chat(src, "[part_a][speaker_name][part_b][message]</span></span>")
+		to_chat(src, "[part_a][track || speaker_name][part_b][message]</span></span>")
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-			create_chat_message(speaker, message, TRUE, FALSE)
+			create_chat_message(speaker, message_clean, TRUE, FALSE)
+		if(src != speaker || isrobot(src) || isAI(src))
+			var/effect = SOUND_EFFECT_RADIO
+			if(isrobot(speaker))
+				effect = SOUND_EFFECT_RADIO_ROBOT
+			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, src, message_tts, speaker.tts_seed, FALSE, effect, null, null, 'sound/effects/radio_chatter.ogg')
 
 /mob/proc/handle_speaker_name(mob/speaker = null, vname, hard_to_hear)
 	var/speaker_name = "unknown"
@@ -223,15 +270,26 @@
 	if(!can_hear())
 		return
 
-	var/message = combine_message(message_pieces, verb, speaker)
-	var/message_unverbed = combine_message(message_pieces, null, speaker)
+	var/message_clean = combine_message(message_pieces, speaker)
+	message_clean = replace_characters(message_clean, list("+"))
+
+	if(message_clean == "")
+		return
+
+	var/message = verb_message(message_pieces, message_clean, verb)
+	var/message_tts = combine_message_tts(message_pieces, speaker)
 
 	var/name = speaker.name
 	if(!say_understands(speaker))
 		name = speaker.voice_name
 
 	if((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && can_hear())
-		create_chat_message(H, message_unverbed, TRUE, FALSE)
+		create_chat_message(H, message_clean, TRUE, FALSE)
+
+	var/effect = SOUND_EFFECT_RADIO
+	if(isrobot(speaker))
+		effect = SOUND_EFFECT_RADIO_ROBOT
+	INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, H, src, message_tts, speaker.tts_seed, TRUE, effect)
 
 	var/rendered = "<span class='game say'><span class='name'>[name]</span> [message]</span>"
 	to_chat(src, rendered)

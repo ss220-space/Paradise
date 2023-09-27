@@ -55,13 +55,12 @@
 		return
 	if(!status)
 		status = TRUE
-		investigate_log("[key_name(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", INVESTIGATE_BOMB)
-		log_game("[key_name(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature - T0C]")
+		investigate_log("[key_name_log(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", INVESTIGATE_BOMB)
 		to_chat(user, "<span class='notice'>A pressure hole has been bored to [bombtank] valve. [bombtank] can now be ignited.</span>")
 		add_attack_logs(user, src, "welded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", ATKLOG_FEW)
 	else
 		status = FALSE
-		investigate_log("[key_name(user)] unwelded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", INVESTIGATE_BOMB)
+		investigate_log("[key_name_log(user)] unwelded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", INVESTIGATE_BOMB)
 		add_attack_logs(user, src, "unwelded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", ATKLOG_ALMOSTALL)
 		to_chat(user, "<span class='notice'>The hole has been closed.</span>")
 
@@ -111,11 +110,11 @@
 	if(isigniter(S.a_left) == isigniter(S.a_right))		//Check if either part of the assembly has an igniter, but if both parts are igniters, then fuck it
 		return
 
-	var/obj/item/onetankbomb/R = new /obj/item/onetankbomb(loc)
+	var/obj/item/onetankbomb/R = new /obj/item/onetankbomb(drop_location())
 
-	M.drop_item()			//Remove the assembly from your hands
-	M.remove_from_mob(src)	//Remove the tank from your character,in case you were holding it
-	M.put_in_hands(R)		//Equips the bomb if possible, or puts it on the floor.
+	M.drop_from_active_hand()			//Remove the assembly from your hands
+	M.drop_item_ground(src)	//Remove the tank from your character,in case you were holding it
+	M.put_in_hands(R, ignore_anim = FALSE)		//Equips the bomb if possible, or puts it on the floor.
 
 	R.bombassembly = S	//Tell the bomb about its assembly part
 	S.master = R		//Tell the assembly about its new owner
@@ -138,11 +137,11 @@
 		strength = (fuel_moles/15)
 
 		if(strength >=1)
-			explosion(ground_zero, round(strength,1), round(strength*2,1), round(strength*3,1), round(strength*4,1))
+			explosion(ground_zero, round(strength,1), round(strength*2,1), round(strength*3,1), round(strength*4,1), cause = src)
 		else if(strength >=0.5)
-			explosion(ground_zero, 0, 1, 2, 4)
+			explosion(ground_zero, 0, 1, 2, 4, cause = src)
 		else if(strength >=0.2)
-			explosion(ground_zero, -1, 0, 1, 2)
+			explosion(ground_zero, -1, 0, 1, 2, cause = src)
 		else
 			ground_zero.assume_air(air_contents)
 			ground_zero.hotspot_expose(1000, 125)
@@ -151,9 +150,9 @@
 		strength = (fuel_moles/20)
 
 		if(strength >=1)
-			explosion(ground_zero, 0, round(strength,1), round(strength*2,1), round(strength*3,1))
+			explosion(ground_zero, 0, round(strength,1), round(strength*2,1), round(strength*3,1), cause = src)
 		else if(strength >=0.5)
-			explosion(ground_zero, -1, 0, 1, 2)
+			explosion(ground_zero, -1, 0, 1, 2, cause = src)
 		else
 			ground_zero.assume_air(air_contents)
 			ground_zero.hotspot_expose(1000, 125)

@@ -11,7 +11,7 @@
 /datum/reagent/consumable/drink/orangejuice/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(30))
-		update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustOxyLoss(-0.5, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/tomatojuice
@@ -68,8 +68,8 @@
 
 /datum/reagent/consumable/drink/carrotjuice/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.AdjustEyeBlurry(-1, FALSE)
-	update_flags |= M.AdjustEyeBlind(-1, FALSE)
+	M.AdjustEyeBlurry(-2 SECONDS)
+	M.AdjustEyeBlind(-2 SECONDS)
 	switch(current_cycle)
 		if(1 to 20)
 			//nothing
@@ -251,13 +251,13 @@
 	id ="chocolate_milk"
 	description = "Chocolate-flavored milk, tastes like being a kid again."
 	color = "#85432C"
+	drink_name = "Glass of chocolate milk"
 	taste_description = "chocolate milk"
 
 /datum/reagent/consumable/drink/hot_coco
 	name = "Hot Chocolate"
 	id = "hot_coco"
 	description = "Made with love! And coco beans."
-	nutriment_factor = 3 * REAGENTS_METABOLISM
 	color = "#403010" // rgb: 64, 48, 16
 	adj_temp_hot = 5
 	drink_icon = "hot_coco"
@@ -271,9 +271,9 @@
 	description = "Coffee is a brewed drink prepared from roasted seeds, commonly called coffee beans, of the coffee plant."
 	color = "#482000" // rgb: 72, 32, 0
 	nutriment_factor = 0
-	adj_dizzy = -5
-	adj_drowsy = -3
-	adj_sleepy = -2
+	adj_dizzy = -10 SECONDS
+	adj_drowsy = -6 SECONDS
+	adj_sleepy = -4 SECONDS
 	adj_temp_hot = 25
 	overdose_threshold = 45
 	addiction_chance = 1 // It's true.
@@ -291,17 +291,14 @@
 
 /datum/reagent/consumable/drink/coffee/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustStaminaLoss(-1, FALSE)
 	if(holder.has_reagent("frostoil"))
 		holder.remove_reagent("frostoil", 5)
-	if(prob(50))
-		update_flags |= M.AdjustParalysis(-1, FALSE)
-		update_flags |= M.AdjustStunned(-1, FALSE)
-		update_flags |= M.AdjustWeakened(-1, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/coffee/overdose_process(mob/living/M, severity)
 	if(volume > 45)
-		M.Jitter(5)
+		M.Jitter(10 SECONDS)
 	return list(0, STATUS_UPDATE_NONE)
 
 /datum/reagent/consumable/drink/coffee/icecoffee
@@ -330,7 +327,7 @@
 
 /datum/reagent/consumable/drink/coffee/soy_latte/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.SetSleeping(0, FALSE)
+	M.SetSleeping(0)
 	if(prob(20))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 	return ..() | update_flags
@@ -349,7 +346,7 @@
 
 /datum/reagent/consumable/drink/coffee/cafe_latte/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.SetSleeping(0, FALSE)
+	M.SetSleeping(0)
 	if(prob(20))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 	return ..() | update_flags
@@ -369,9 +366,9 @@
 	description = "Tasty black tea: It has antioxidants. It's good for you!"
 	color = "#101000" // rgb: 16, 16, 0
 	nutriment_factor = 0
-	adj_dizzy = -2
-	adj_drowsy = -1
-	adj_sleepy = -3
+	adj_dizzy = -4 SECONDS
+	adj_drowsy = -2 SECONDS
+	adj_sleepy = -6 SECONDS
 	adj_temp_hot = 20
 	addiction_chance = 1
 	addiction_chance_additional = 10
@@ -536,3 +533,27 @@
 	drink_name = "Iced Cocoa"
 	drink_desc = "A sweeter drink to perk you up and refresh you!"
 	taste_description = "refreshingly cold cocoa"
+
+/datum/reagent/consumable/drink/non_alcoholic_beer
+	name = "Non-alcoholic beer"
+	id = "alcohol_free_beer"
+	description = "The most meaningless thing."
+	drink_icon = "alcohol_free_beer"
+	drink_name = "Non-alcoholic beer"
+	color = "#572c13"
+	taste_description = "beer"
+
+/datum/reagent/consumable/drink/laughsyrup
+	name = "Laughin' Syrup"
+	description = "The product of juicing Laughin' Peas. Fizzy, and seems to change flavour based on what it's used with!"
+	id = "laughsyrup"
+	color = "#803280"
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	taste_mult = 2
+	taste_description = "fizzy sweetness"
+
+/datum/reagent/consumable/drink/laughsyrup/on_mob_life(mob/living/M)
+	if(prob(5))
+		M.emote(pick("laugh", "giggle", "smile"))
+	else if(prob(2))
+		M.say(pick(list("Ха-ха!", "Хе-хе")))

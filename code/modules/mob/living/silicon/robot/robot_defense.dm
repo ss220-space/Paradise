@@ -8,7 +8,7 @@
 				visible_message("<span class='danger'>[M] disarmed [src]!</span>", "<span class='userdanger'>[M] has disabled [src]'s active module!</span>")
 				add_attack_logs(M, src, "alien disarmed")
 			else
-				Stun(2)
+				Stun(4 SECONDS)
 				step(src, get_dir(M,src))
 				add_attack_logs(M, src, "Alien pushed over")
 				visible_message("<span class='danger'>[M] forces back [src]!</span>", "<span class='userdanger'>[M] forces back [src]!</span>")
@@ -26,8 +26,8 @@
 
 	var/damage = rand(1, 3)
 
-	if(M.is_adult)
-		damage = rand(20, 40)
+	if(M.age_state.age != SLIME_BABY)
+		damage = rand(20 + M.age_state.damage, 40 + M.age_state.damage)
 	else
 		damage = rand(5, 35)
 	damage = round(damage / 2) // borgs recieve half damage
@@ -41,7 +41,8 @@
 		if(cell)
 			cell.update_icon()
 			cell.add_fingerprint(user)
-			user.put_in_active_hand(cell)
+			cell.forceMove_turf()
+			user.put_in_active_hand(cell, ignore_anim = FALSE)
 			to_chat(user, "<span class='notice'>You remove \the [cell].</span>")
 			cell = null
 			var/datum/robot_component/C = components["power cell"]

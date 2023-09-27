@@ -45,11 +45,9 @@
 		if("message")
 			status_signal.data["msg1"] = data1
 			status_signal.data["msg2"] = data2
-			var/mob/user = pda.fingerprintslast
 			if(istype(pda.loc, /mob/living))
-				name = pda.loc
-			log_admin("STATUS: [user] set status screen with [pda]. Message: [data1] [data2]")
-			message_admins("STATUS: [user] set status screen with [pda]. Message: [data1] [data2]")
+				log_admin("STATUS: [key_name_log(pda.loc)] set status screen with [pda]. Message: [data1] [data2]")
+				message_admins("STATUS: [key_name_admin(pda.loc)] set status screen with [pda]. Message: [data1] [data2]")
 
 		if("alert")
 			status_signal.data["picture_state"] = data1
@@ -103,7 +101,7 @@
 	var/datum/ui_module/power_monitor/digital/pm = new
 
 /datum/data/pda/app/power/update_ui(mob/user as mob, list/data)
-	data.Add(pm.ui_data())
+	data.Add(pm.ui_data(user))
 
 // All 4 args are important here because proxying matters
 /datum/data/pda/app/power/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)

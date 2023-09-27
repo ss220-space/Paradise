@@ -3,7 +3,10 @@
 
 	var/msg = "<span class='notice'>"
 	if(module)
-		msg += "It has loaded a [module.name].\n"
+		if(module.name_disguise)
+			msg += "It has loaded a [module.name_disguise].\n"
+		else
+			msg += "It has loaded a [module.name].\n"
 	var/obj/act_module = get_active_hand()
 	if(act_module)
 		msg += "It is holding [bicon(act_module)] \a [act_module].\n"
@@ -45,6 +48,8 @@
 				msg += "<span class='deadsay'>It looks like its system is corrupted and requires a reset.</span>\n"
 			else
 				msg += "<span class='warning'>It looks like its system is corrupted beyond repair. There is no hope of recovery.</span>\n"
+	if(inventory_head)
+		msg += "\nНосит [bicon(inventory_head)] [inventory_head.name].\n"
 	msg += "</span>"
 
 	if(print_flavor_text())

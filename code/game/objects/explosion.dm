@@ -10,7 +10,7 @@
 #define FREQ_UPPER 40 //The upper limit for the randomly selected frequency.
 #define FREQ_LOWER 25 //The lower of the above.
 
-/proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = 1, ignorecap = 0, flame_range = 0, silent = 0, smoke = 1, cause = null, breach = TRUE)
+/proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = 1, ignorecap = 0, flame_range = 0, silent = 0, smoke = 1, var/cause = null, breach = TRUE)
 	epicenter = get_turf(epicenter)
 	if(!epicenter)
 		return
@@ -45,8 +45,22 @@
 		var/list/cached_exp_block = list()
 
 		if(adminlog)
-			message_admins("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in area [epicenter.loc.name] [cause ? "(Cause: [cause])" : ""] [ADMIN_COORDJMP(epicenter)] ")
-			log_game("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in area [epicenter.loc.name] [cause ? "(Cause: [cause])" : ""] [COORD(epicenter)] ")
+			var/cause_str
+			var/atom/cause_atom
+			var/cause_vv = ""
+			if(isatom(cause))
+				cause_atom = cause
+				cause_str = cause_atom.name
+				cause_vv += ADMIN_VV(cause_atom,"VV")
+			else if(istext(cause))
+				cause_str = cause
+			else if(isnull(cause))
+				pass()
+			else
+				log_runtime("Bad type of cause for logging explosion.")
+
+			message_admins("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) [cause ? "(Cause: [cause_str] [cause_vv])" : ""] [ADMIN_VERBOSEJMP(epicenter)] ")
+			add_game_logs("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) [cause ? "(Cause: [cause_str])" : ""] [AREACOORD(epicenter)] ")
 
 		var/x0 = epicenter.x
 		var/y0 = epicenter.y
@@ -112,7 +126,7 @@
 						M.playsound_local(epicenter, null, echo_volume, 1, frequency, S = explosion_echo_sound, distance_multiplier = 0)
 
 					if(creaking_explosion) // 5 seconds after the bang, the station begins to creak
-						addtimer(CALLBACK(M, /mob/proc/playsound_local, epicenter, null, rand(FREQ_LOWER, FREQ_UPPER), 1, frequency, null, null, FALSE, hull_creaking_sound, 0), CREAK_DELAY)
+						addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, playsound_local), epicenter, null, rand(FREQ_LOWER, FREQ_UPPER), 1, frequency, null, null, FALSE, hull_creaking_sound, 0), CREAK_DELAY)
 
 		if(heavy_impact_range > 1)
 			var/datum/effect_system/explosion/E
@@ -125,7 +139,7 @@
 
 		var/list/affected_turfs = spiral_range_turfs(max_range, epicenter)
 
-		if(config.reactionary_explosions)
+		if(CONFIG_GET(flag/reactionary_explosions))
 			for(var/A in affected_turfs) // we cache the explosion block rating of every turf in the explosion area
 				var/turf/T = A
 				cached_exp_block[T] = 0
@@ -143,7 +157,7 @@
 				continue
 			var/dist = HYPOTENUSE(T.x, T.y, x0, y0)
 
-			if(config.reactionary_explosions)
+			if(CONFIG_GET(flag/reactionary_explosions))
 				var/turf/Trajectory = T
 				while(Trajectory != epicenter)
 					Trajectory = get_step_towards(Trajectory, epicenter)

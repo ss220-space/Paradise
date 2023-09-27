@@ -243,16 +243,6 @@
 	set category = "Эмоции"
 	usr.user_triggered_emote("burp")
 /*
-/mob/living/carbon/human/verb/emote_flap()
-	set name = "~ Махать крыльями "
-	set category = "Эмоции"
-	usr.user_triggered_emote("flap")
-
-/mob/living/carbon/human/verb/emote_aflap()
-	set name = "~ Махать крыльями агрессивно "
-	set category = "Эмоции"
-	usr.user_triggered_emote("aflap")
-
 /mob/living/carbon/human/verb/emote_deathgasp()
 	set name = "> Предсмертный вздох "
 	set category = "Эмоции"
@@ -291,7 +281,11 @@
 /mob/living/carbon/human/verb/emote_signal()
 	set name = "~ Показать несколько пальцев "
 	set category = "Эмоции"
-	var/Cnt = input("Руки должны быть свободны", "Показать несколько пальцев", 1) in list(1,2,3,4,5,6,7,8,9,10)
+	var/list/fingers = list()
+	var/fingers_count = src.dna?.species?.fingers_count
+	for(var/i = 1, i <= fingers_count, i++)
+		fingers += i
+	var/Cnt = input("Руки должны быть свободны", "Показать несколько пальцев", 1) in fingers
 	usr.user_triggered_emote("signal-[Cnt]")
 
 /mob/living/carbon/human/verb/emote_shiver()
@@ -380,6 +374,31 @@
 	set category = "Эмоции"
 	usr.user_triggered_emote("hiss")
 
+/mob/living/carbon/human/proc/emote_roar()
+	set name = "< Рычать >"
+	set category = "Эмоции"
+	usr.user_triggered_emote("roar")
+
+/mob/living/carbon/human/proc/emote_threat()
+	set name = "< Угрожать >"
+	set category = "Эмоции"
+	usr.user_triggered_emote("threat")
+
+/mob/living/carbon/human/proc/emote_whip()
+	set name = "< Ударить хвостом >"
+	set category = "Эмоции"
+	usr.user_triggered_emote("whip")
+
+/mob/living/carbon/human/proc/emote_whips()
+	set name = "< Хлестать хвостом >"
+	set category = "Эмоции"
+	usr.user_triggered_emote("whips")
+
+/mob/living/carbon/human/proc/emote_rumble()
+	set name = "< Урчать >"
+	set category = "Эмоции"
+	usr.user_triggered_emote("rumble")
+
 /mob/living/carbon/human/proc/emote_hisses()
 	set name = "< Шипеть >"
 	set category = "Эмоции"
@@ -409,6 +428,16 @@
 	set name = "< Трещать >"
 	set category = "Эмоции"
 	usr.user_triggered_emote("clack")
+
+/mob/living/carbon/human/proc/emote_wiggle()
+	set name = "< Шевелить усиками >"
+	set category = "Эмоции"
+	usr.user_triggered_emote("wiggle")
+
+/mob/living/carbon/human/proc/emote_waves_antennae()
+	set name = "< Взмахнуть усиками >"
+	set category = "Эмоции"
+	usr.user_triggered_emote("waves_antennae")
 
 /mob/living/carbon/human/proc/emote_hum()
 	set name = "< Гудеть >"
@@ -449,3 +478,13 @@
 	set name = "< Отрицательно >"
 	set category = "Эмоции"
 	usr.user_triggered_emote("no")
+
+/mob/living/carbon/human/proc/emote_flap()
+	set name = "~ Махать крыльями "
+	set category = "Эмоции"
+	usr.user_triggered_emote("flap")
+
+/mob/living/carbon/human/proc/emote_aflap()
+	set name = "~ Махать крыльями агрессивно "
+	set category = "Эмоции"
+	usr.user_triggered_emote("aflap")

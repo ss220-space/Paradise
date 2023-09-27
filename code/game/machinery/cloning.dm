@@ -26,7 +26,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	name = "cloning pod"
 	desc = "An electronically-lockable pod for growing organic tissue."
 	density = TRUE
-	icon = 'icons/obj/cloning.dmi'
+	icon = 'icons/obj/machines/cloning.dmi'
 	icon_state = "pod_idle"
 	req_access = list(ACCESS_MEDICAL) //For premature unlocking.
 
@@ -184,18 +184,20 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 /obj/item/disk/data/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The write-protect tab is set to [read_only ? "protected" : "unprotected"].</span>"
+	. += span_notice("The write-protect tab is set to [read_only ? "protected" : "unprotected"].")
 
 //Clonepod
 
 /obj/machinery/clonepod/examine(mob/user)
 	. = ..()
 	if(mess)
-		. += "<span class='warning'>It's filled with blood and viscera. You swear you can see it moving...</span>"
+		. += span_warning("It's filled with blood and viscera. You swear you can see it moving...")
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		. += span_warning("Yellow ooze is dripping out of the synthmeat storage chamber...")
 	if(!occupant || stat & (NOPOWER|BROKEN))
 		return
 	if(occupant && occupant.stat != DEAD)
-		. += "<span class='notice'>Current clone cycle is [round(get_completion())]% complete.</span>"
+		. += span_notice("Current clone cycle is [round(get_completion())]% complete.")
 
 /obj/machinery/clonepod/return_air() //non-reactive air
 	var/datum/gas_mixture/GM = new
@@ -282,6 +284,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(is_taipan(z))
 		H.faction.Add("syndicate")	//Чтобы синдикатовцы после клонирования оставались синдикатовцами
 
+
 	domutcheck(H, null, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
 
 	if(efficiency > 2 && efficiency < 5 && prob(25))
@@ -300,7 +303,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	check_brine()
 	//Get the clone body ready
 	maim_clone(H)
-	H.Paralyse(4)
+	H.Paralyse(8 SECONDS)
 
 	if(grab_ghost_when == CLONER_FRESH_CLONE)
 		clonemind.transfer_to(H)
@@ -309,12 +312,12 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		var/message
 		message += "<b>Consciousness slowly creeps over you as your body regenerates.</b><br>"
 		message += "<i>So this is what cloning feels like?</i>"
-		to_chat(H, "<span class='notice'>[message]</span>")
+		to_chat(H, span_notice("[message]"))
 	else if(grab_ghost_when == CLONER_MATURE_CLONE)
-		to_chat(clonemind.current, "<span class='notice'>Your body is beginning to regenerate in a cloning pod. You will become conscious when it is complete.</span>")
+		to_chat(clonemind.current, span_notice("Your body is beginning to regenerate in a cloning pod. You will become conscious when it is complete."))
 		// Set up a soul link with the dead body to catch a revival
-		RegisterSignal(clonemind.current, COMSIG_LIVING_REVIVE, .proc/occupant_got_revived)
-		RegisterSignal(clonemind, COMSIG_MIND_TRANSER_TO, .proc/occupant_got_revived)
+		RegisterSignal(clonemind.current, COMSIG_LIVING_REVIVE, PROC_REF(occupant_got_revived))
+		RegisterSignal(clonemind, COMSIG_MIND_TRANSER_TO, PROC_REF(occupant_got_revived))
 
 	update_icon()
 
@@ -345,7 +348,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			connected_message("Clone Rejected: Deceased.")
 
 		else if(occupant.cloneloss > (100 - heal_level))
-			occupant.Paralyse(4)
+			occupant.Paralyse(8 SECONDS)
 
 			 //Slowly get that clone healed and finished.
 			occupant.adjustCloneLoss(-((speed_coeff/2)))
@@ -391,21 +394,40 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 	if(I.GetID())
 		if(!check_access(I))
-			to_chat(user, "<span class='danger'>Access Denied.</span>")
+			to_chat(user, span_danger("Access Denied."))
 			return
 		if(!(occupant || mess))
-			to_chat(user, "<span class='danger'>Error: Pod has no occupant.</span>")
+			to_chat(user, span_danger("Error: Pod has no occupant."))
 			return
 		else
+			add_fingerprint(user)
 			connected_message("Authorized Ejection")
 			announce_radio_message("An authorized ejection of [(occupant) ? occupant.real_name : "the malfunctioning pod"] has occured")
-			to_chat(user, "<span class='notice'>You force an emergency ejection.</span>")
+			to_chat(user, span_notice("You force an emergency ejection."))
 			go_out()
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		var/cleaning = FALSE
+		if(istype(I, /obj/item/reagent_containers/spray/cleaner))
+			var/obj/item/reagent_containers/spray/cleaner/C = I
+			if(C.reagents.total_volume >= C.amount_per_transfer_from_this)
+				cleaning = TRUE
+			else
+				return
+		if(istype(I, /obj/item/soap))
+			cleaning = TRUE
+
+		if(!cleaning)
+			return
+		user.visible_message(span_notice("[user] starts to clean the ooze off the [src]."), span_notice("You start to clean the ooze off the [src]."))
+		if(do_after(user, 50, target = src))
+			user.visible_message(span_notice("[user] cleans the ooze off [src]."), span_notice("You clean the ooze off [src]."))
+			REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 
 // A user can feed in biomass sources manually.
 	else if(is_type_in_list(I, GLOB.cloner_biomass_items))
-		if(user.drop_item())
-			to_chat(user, "<span class='notice'>[src] processes [I].</span>")
+		if(user.drop_transfer_item_to_loc(I, src))
+			add_fingerprint(user)
+			to_chat(user, span_notice("[src] processes [I]."))
 			biomass += BIOMASS_BASE_AMOUNT
 			qdel(I)
 	else
@@ -435,7 +457,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(occupant)
-		to_chat(user, "<span class='warning'>Can not do that while [src] is in use.</span>")
+		to_chat(user, span_warning("Can not do that while [src] is in use."))
 		return
 	if(anchored)
 		WRENCH_UNANCHOR_MESSAGE
@@ -451,12 +473,21 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		return
 	go_out()
 
+/obj/machinery/clonepod/cmag_act(mob/user)
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		return
+	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	to_chat(user, span_warning("A droplet of bananium ooze seeps into the synthmeat storage chamber..."))
+	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+
 /obj/machinery/clonepod/proc/update_clone_antag(var/mob/living/carbon/human/H)
 	// Check to see if the clone's mind is an antagonist of any kind and handle them accordingly to make sure they get their spells, HUD/whatever else back.
 	if((H.mind in SSticker.mode:revolutionaries) || (H.mind in SSticker.mode:head_revolutionaries))
 		SSticker.mode.update_rev_icons_added() //So the icon actually appears
 	if(H.mind in SSticker.mode.syndicates)
 		SSticker.mode.update_synd_icons_added()
+	if(H.mind in SSticker.mode.space_ninjas)
+		SSticker.mode.update_ninja_icons_added()
 	if(H.mind in SSticker.mode.cult)
 		SSticker.mode.update_cult_icons_added(H.mind) // Adds the cult antag hud
 		SSticker.mode.add_cult_actions(H.mind) // And all the actions
@@ -464,12 +495,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			SSticker.mode.rise(H)
 			if(SSticker.mode.cult_ascendant)
 				SSticker.mode.ascend(H)
-	if(H.mind.vampire)
-		H.mind.vampire.update_owner(H)
-	if((H.mind in SSticker.mode.vampire_thralls) || (H.mind in SSticker.mode.vampire_enthralled))
-		SSticker.mode.update_vampire_icons_added(H.mind)
-	if(H.mind in SSticker.mode.changelings)
-		SSticker.mode.update_change_icons_added(H.mind)
+	if(H.mind.ninja)
+		H.mind.ninja.update_owner(H)
  	if((H.mind in SSticker.mode.shadowling_thralls) || (H.mind in SSticker.mode.shadows))
  		SSticker.mode.update_shadow_icons_added(H.mind)
 
@@ -507,9 +534,17 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		clonemind.transfer_to(occupant)
 		occupant.grab_ghost()
 		update_clone_antag(occupant)
-		to_chat(occupant, "<span class='userdanger'>You remember nothing from the time that you were dead!</span>")
-		to_chat(occupant, "<span class='notice'><b>There is a bright flash!</b><br>\
-			<i>You feel like a new being.</i></span>")
+		to_chat(occupant, span_userdanger("You remember nothing from the time that you were dead!"))
+		to_chat(occupant, span_notice("<b>There is a bright flash!</b><br>\
+			<i>You feel like a new being.</i>"))
+		if(HAS_TRAIT(src, TRAIT_CMAGGED))
+			playsound(loc, 'sound/items/bikehorn.ogg', 50, 1)
+			occupant.dna.SetSEState(GLOB.clumsyblock, TRUE, FALSE)
+			occupant.dna.SetSEState(GLOB.comicblock, TRUE, FALSE)
+			genemutcheck(occupant, GLOB.clumsyblock, MUTCHK_FORCED)
+			genemutcheck(occupant, GLOB.comicblock, MUTCHK_FORCED)
+			occupant.dna.default_blocks.Add(GLOB.clumsyblock) //Until Genetics fixes you, this is your life now
+			occupant.dna.default_blocks.Add(GLOB.comicblock)
 		occupant.flash_eyes(visual = 1)
 		clonemind = null
 
@@ -541,7 +576,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			var/message
 			message += "<b>Agony blazes across your consciousness as your body is torn apart.</b><br>"
 			message += "<i>Is this what dying is like? Yes it is.</i>"
-			to_chat(occupant, "<span class='warning'>[message]</span>")
+			to_chat(occupant, span_warning("[message]"))
 			SEND_SOUND(occupant, sound('sound/hallucinations/veryfar_noise.ogg', 0, 1, 50))
 		for(var/i in missing_organs)
 			qdel(i)
@@ -612,7 +647,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 		// Let's non-specially remove all non-vital organs
 		// What could possibly go wrong
-		var/obj/item/I = O.remove(H)
+		var/obj/item/I = O.remove(H, TRUE)
 		// Make this support stuff that turns into items when removed
 		I.forceMove(src)
 		missing_organs += I
@@ -642,15 +677,9 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	name = "Diskette Box"
 	icon_state = "disk_kit"
 
-/obj/item/storage/box/disks/New()
-	..()
-	new /obj/item/disk/data(src)
-	new /obj/item/disk/data(src)
-	new /obj/item/disk/data(src)
-	new /obj/item/disk/data(src)
-	new /obj/item/disk/data(src)
-	new /obj/item/disk/data(src)
-	new /obj/item/disk/data(src)
+/obj/item/storage/box/disks/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/disk/data(src)
 
 /*
  *	Manual -- A big ol' manual.

@@ -74,14 +74,14 @@ GLOBAL_LIST_INIT(summoned_special_magic, list(
 	/obj/item/gun/magic/staff/change,
 	/obj/item/gun/magic/staff/animate,
 	/obj/item/storage/belt/wands/full,
-	/obj/item/contract,
+	/obj/item/contract/apprentice,
 	/obj/item/gun/magic/staff/chaos,
 	/obj/item/necromantic_stone,
 	/obj/item/blood_contract))
 
 //everything above except for single use spellbooks, because they are counted separately (and are for basic bitches anyways)
 GLOBAL_LIST_INIT(summoned_magic_objectives, list(
-	/obj/item/contract,
+	/obj/item/contract/apprentice,
 	/obj/item/blood_contract,
 	/obj/item/clothing/suit/space/hardsuit/wizard/shielded,
 	/obj/item/gun/magic,
@@ -108,8 +108,7 @@ GLOBAL_VAR_INIT(summon_magic_triggered, FALSE)
 		SSticker.mode.traitors += H.mind
 
 		H.mind.add_antag_datum(/datum/antagonist/survivalist/guns)
-		H.create_attack_log("<font color='red'>was made into a survivalist, and trusts no one!</font>")
-		H.create_log(CONVERSION_LOG, "was made into a survivalist")
+		add_conversion_logs(H, "was made into a survivalist")
 
 	var/gun_type = pick(GLOB.summoned_guns)
 	var/obj/item/gun/G = new gun_type(get_turf(H))
@@ -130,8 +129,7 @@ GLOBAL_VAR_INIT(summon_magic_triggered, FALSE)
 		SSticker.mode.traitors += H.mind
 
 		H.mind.add_antag_datum(/datum/antagonist/survivalist/magic)
-		H.create_attack_log("<font color='red'>was made into a survivalist, and trusts no one!</font>")
-		H.create_log(CONVERSION_LOG, "was made into a survivalist")
+		add_conversion_logs(H, "was made into a survivalist")
 
 	var/magic_type = pick(GLOB.summoned_magic)
 	var/lucky = FALSE
@@ -152,7 +150,7 @@ GLOBAL_VAR_INIT(summon_magic_triggered, FALSE)
 	if(user) //in this case either someone holding a spellbook or a badmin
 		to_chat(user, "<span class='warning'>You summoned [summon_type]!</span>")
 		message_admins("[ADMIN_LOOKUPFLW(user)] summoned [summon_type]!")
-		log_game("[key_name(user)] summoned [summon_type]!")
+		add_game_logs("summoned [summon_type]!", user)
 
 	if(summon_type == SUMMON_MAGIC)
 		GLOB.summon_magic_triggered = survivor_probability

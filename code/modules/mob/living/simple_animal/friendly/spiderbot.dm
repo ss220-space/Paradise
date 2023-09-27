@@ -23,6 +23,7 @@
 	speed = 0
 	mob_size = MOB_SIZE_SMALL
 	speak_emote = list("beeps","clicks","chirps")
+	tts_seed = "Antimage"
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
@@ -40,7 +41,7 @@
 /mob/living/simple_animal/spiderbot/Destroy()
 	if(emagged)
 		QDEL_NULL(mmi)
-		explosion(get_turf(src), -1, -1, 3, 5)
+		explosion(get_turf(src), -1, -1, 3, 5, cause = src)
 	else
 		eject_brain()
 	return ..()
@@ -79,8 +80,7 @@
 
 		to_chat(user, "<span class='notice'>You install [B] in [src]!</span>")
 
-		user.drop_item()
-		B.forceMove(src)
+		user.drop_transfer_item_to_loc(B, src)
 		mmi = B
 		transfer_personality(B)
 

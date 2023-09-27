@@ -31,7 +31,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	var/datum/powernet/powernet
 	name = "power cable"
 	desc = "A flexible superconducting cable for heavy-duty power transfer"
-	icon = 'icons/obj/power_cond/power_cond_white.dmi'
+	icon = 'icons/obj/engines_and_power/power_cond/power_cond_white.dmi'
 	icon_state = "0-1"
 	var/d1 = 0
 	var/d2 = 1
@@ -84,12 +84,12 @@ By design, d1 is the smallest direction and d2 is the highest
 /obj/structure/cable/deconstruct(disassembled = TRUE)
 	var/turf/T = get_turf(src)
 	if(usr)
-		investigate_log("was deconstructed by [key_name(usr, 1)] in [get_area(usr)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
+		investigate_log("was deconstructed by [key_name_log(usr)] at [COORD(T)]", INVESTIGATE_WIRES)
 	if(!(flags & NODECONSTRUCT))
 		if(d1)	// 0-X cables are 1 unit, X-X cables are 2 units long
-			new/obj/item/stack/cable_coil(T, 2, paramcolor = color)
+			new/obj/item/stack/cable_coil(T, 2, TRUE, color)
 		else
-			new/obj/item/stack/cable_coil(T, 1, paramcolor = color)
+			new/obj/item/stack/cable_coil(T, 1, TRUE, color)
 	qdel(src)
 
 ///////////////////////////////////
@@ -216,7 +216,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(shock(user, 50))
 		return
 	user.visible_message("[user] cuts the cable.", "<span class='notice'>You cut the cable.</span>")
-	investigate_log("was cut by [key_name(usr, 1)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
+	investigate_log("was cut by [key_name_log(usr)] at [COORD(T)]", INVESTIGATE_WIRES)
 	deconstruct()
 
 // shock the user with probability prb
@@ -459,7 +459,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 	// queue it to rebuild
 	SSmachines.deferred_powernet_rebuilds += O
-//	addtimer(CALLBACK(O, .proc/auto_propogate_cut_cable, O), 0) //so we don't rebuild the network X times when singulo/explosion destroys a line of X cables
+//	addtimer(CALLBACK(O, PROC_REF(auto_propogate_cut_cable), O), 0) //so we don't rebuild the network X times when singulo/explosion destroys a line of X cables
 
 	// Disconnect machines connected to nodes
 	if(d1 == 0) // if we cut a node (O-X) cable
@@ -476,14 +476,15 @@ By design, d1 is the smallest direction and d2 is the highest
 // Definitions
 ////////////////////////////////
 
-GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restraints", /obj/item/restraints/handcuffs/cable, 15)))
+GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restraints("cable restraints", /obj/item/restraints/handcuffs/cable, 15)))
 
 /obj/item/stack/cable_coil
 	name = "cable coil"
 	singular_name = "cable"
-	icon = 'icons/obj/power.dmi'
+	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "coil"
 	item_state = "coil_red"
+	belt_icon = "cable_coil"
 	amount = MAXCOIL
 	max_amount = MAXCOIL
 	merge_type = /obj/item/stack/cable_coil // This is here to let its children merge between themselves
@@ -491,6 +492,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	desc = "A coil of power cable."
 	throwforce = 10
 	w_class = WEIGHT_CLASS_SMALL
+	full_w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 2
 	throw_range = 5
 	materials = list(MAT_METAL=10, MAT_GLASS=5)
@@ -508,16 +510,17 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 		user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return OXYLOSS
 
-/obj/item/stack/cable_coil/New(loc, length = MAXCOIL, paramcolor = null)
-	..()
-	amount = length
-	if(paramcolor)
-		color = paramcolor
+
+/obj/item/stack/cable_coil/Initialize(mapload, new_amount, merge = TRUE, cable_color = null)
+	. = ..()
+	if(cable_color)
+		color = cable_color
+	recipes = GLOB.cable_coil_recipes
 	pixel_x = rand(-2,2)
 	pixel_y = rand(-2,2)
 	update_icon()
-	recipes = GLOB.cable_coil_recipes
-	update_wclass()
+	update_weight()
+
 
 ///////////////////////////////////
 // General procedures
@@ -568,13 +571,14 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 				use(1)
 				cable_used += 1
 				E.heal_damage(0, HEALPERCABLE, 0, 1)
+				H.UpdateDamageIcon()
 			user.visible_message("<span class='alert'>\The [user] repairs some burn damage on \the [M]'s [E.name] with \the [src].</span>")
 		return 1
 
 	else
 		return ..()
 
-/obj/item/stack/cable_coil/split()
+/obj/item/stack/cable_coil/split_stack()
 	var/obj/item/stack/cable_coil/C = ..()
 	C.color = color
 	return C
@@ -593,7 +597,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 		name = "cable coil"
 	..()
 
-/obj/item/stack/cable_coil/proc/update_wclass()
+/obj/item/stack/cable_coil/update_weight()
 	if(amount == 1)
 		w_class = WEIGHT_CLASS_TINY
 	else
@@ -613,7 +617,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 //   - Wirecutters : cut them duh !
 //   - Cable coil : merge cables
 /obj/item/stack/cable_coil/attackby(obj/item/W, mob/user)
-	..()
+	. = ..()
 	if(is_cyborg)
 		return
 	if(istype(W, /obj/item/stack/cable_coil))
@@ -626,7 +630,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 			to_chat(user, "You join the cable coils together.")
 			return
 		else
-			to_chat(user, "You transfer [get_amount_transferred()] length\s of cable from one coil to the other.")
+			to_chat(user, "You transfer cables from one coil to the other.")
 			return
 
 	if(istype(W, /obj/item/toy/crayon))
@@ -696,7 +700,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 
 	if(C.shock(user, 50))
 		if(prob(50)) //fail
-			new /obj/item/stack/cable_coil(get_turf(C), 1, paramcolor = C.color)
+			new /obj/item/stack/cable_coil(get_turf(C), 1, TRUE, C.color)
 			C.deconstruct()
 
 	return C
@@ -820,13 +824,8 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 /obj/item/stack/cable_coil/cut
 	item_state = "coil2"
 
-/obj/item/stack/cable_coil/cut/Initialize(mapload)
-	. = ..()
-	src.amount = rand(1,2)
-	pixel_x = rand(-2,2)
-	pixel_y = rand(-2,2)
-	update_icon()
-	update_wclass()
+/obj/item/stack/cable_coil/cut/Initialize(mapload, new_amount, merge = TRUE, cable_color = null)
+	. = ..(mapload, rand(1,2), merge, cable_color)
 
 /obj/item/stack/cable_coil/yellow
 	color = WIRE_COLOR_YELLOW
@@ -849,9 +848,9 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 /obj/item/stack/cable_coil/white
 	color = WIRE_COLOR_WHITE
 
-/obj/item/stack/cable_coil/random/New()
-	color = pick(WIRE_COLOR_RED, WIRE_COLOR_BLUE, WIRE_COLOR_GREEN, WIRE_COLOR_WHITE, WIRE_COLOR_PINK, WIRE_COLOR_YELLOW, WIRE_COLOR_CYAN)
-	..()
+/obj/item/stack/cable_coil/random/Initialize(mapload, new_amount, merge = TRUE, cable_color = null)
+	var/random_color = pick(WIRE_COLOR_RED, WIRE_COLOR_BLUE, WIRE_COLOR_GREEN, WIRE_COLOR_WHITE, WIRE_COLOR_PINK, WIRE_COLOR_YELLOW, WIRE_COLOR_CYAN)
+	. = ..(mapload, new_amount, merge, random_color)
 
 /obj/item/stack/cable_coil/proc/cable_color(colorC)
 	if(!colorC)

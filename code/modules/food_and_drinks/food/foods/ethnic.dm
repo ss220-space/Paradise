@@ -53,6 +53,79 @@
 	list_reagents = list("nutriment" = 3)
 	foodtype = FRIED | GRAIN
 
+/obj/item/reagent_containers/food/snacks/tortilla
+	name = "Tortilla"
+	desc = "Hasta la vista, baby"
+	icon_state = "tortilla"
+	trash = /obj/item/trash/plate
+	filling_color = "#E8C31E"
+	list_reagents = list("nutriment" = 4)
+	tastes = list("corn" = 2)
+	bitesize = 2
+	foodtype = FRIED | GRAIN
+
+/obj/item/reagent_containers/food/snacks/nachos
+	name = "Nachos"
+	desc = "Hola!"
+	icon_state = "nachos"
+	trash = /obj/item/trash/plate
+	filling_color = "#E8C31E"
+	list_reagents = list("nutriment" = 5, "salt" = 1)
+	tastes = list("corn" = 2)
+	bitesize = 3
+	foodtype = FRIED | GRAIN
+
+/obj/item/reagent_containers/food/snacks/cheesenachos
+	name = "Cheese nachos"
+	desc = "Cheese hola!"
+	icon_state = "cheesenachos"
+	trash = /obj/item/trash/plate
+	filling_color = "#f1d65c"
+	list_reagents = list("nutriment" = 7, "salt" = 1)
+	tastes = list("corn" = 1, "cheese" = 2)
+	bitesize = 4
+	foodtype = FRIED | GRAIN | DAIRY
+
+/obj/item/reagent_containers/food/snacks/cubannachos
+	name = "Cuban nachos"
+	desc = "Very hot hola!"
+	icon_state = "cubannachos"
+	trash = /obj/item/trash/plate
+	filling_color = "#ec5c23"
+	list_reagents = list("nutriment" = 7, "salt" = 1, "capsaicin" = 3, "plantmatter" = 1)
+	tastes = list("corn" = 1, "chili" = 2)
+	bitesize = 4
+	foodtype = FRIED | GRAIN
+
+/obj/item/reagent_containers/food/snacks/carneburrito
+	name = "Carne de burrito asado"
+	desc = "Like a classical burrito, but with some meat."
+	icon_state = "carneburrito"
+	filling_color = "#69250b"
+	list_reagents = list("nutriment" = 8, "protein" = 3, "soysauce" = 1)
+	tastes = list("corn" = 1, "meat" = 2, "beans" = 1)
+	bitesize = 4
+	foodtype = GRAIN | MEAT
+
+/obj/item/reagent_containers/food/snacks/cheeseburrito
+	name = "Cheese burrito"
+	desc = "Is it really necessary to say something here?"
+	icon_state = "cheeseburrito"
+	filling_color = "#f1d65c"
+	list_reagents = list("nutriment" = 10, "soysauce" = 2)
+	tastes = list("corn" = 1, "beans" = 1, "cheese" = 2)
+	bitesize = 4
+	foodtype = GRAIN | DAIRY
+
+/obj/item/reagent_containers/food/snacks/plasmaburrito
+	name = "Fuego Plasma Burrito"
+	desc = "Very hot, amigos."
+	icon_state = "plasmaburrito"
+	filling_color = "#f35a46"
+	list_reagents = list("nutriment" = 4, "plantmatter" = 4, "capsaicin" = 4)
+	tastes = list("corn" = 1, "beans" = 1, "chili" = 2)
+	bitesize = 4
+	foodtype = GRAIN | VEGETABLES
 
 //////////////////////
 //		Chinese		//
@@ -165,3 +238,79 @@
 	filling_color = "#FFFEE0"
 	list_reagents = list("nutriment" = 8)
 	foodtype = VEGETABLES | FRIED
+
+//////////////////////////////////
+//	North-Eastern Mediterranean	//
+//////////////////////////////////
+
+/obj/item/reagent_containers/food/snacks/shawarma
+	name = "shawarma"
+	desc = "Awesome mix of grilled meat and fresh vegetables. Don't ask about meat."
+	icon_state = "shawarma"
+	filling_color = "#c0720c"
+	list_reagents = list("protein" = 4, "nutriment" = 4, "vitamin" = 2, "tomatojuice" = 4)
+	tastes = list("meat" = 3, "vegetables" = 2, "tomato" = 1, "pepper" = 1)
+	foodtype = MEAT | VEGETABLES
+
+/obj/item/reagent_containers/food/snacks/doner_cheese
+	name = "cheese doner"
+	desc = "Chef's special - grilled meat and fresh vegetables with warm cheese sause. Yummy!"
+	icon_state = "doner_cheese"
+	filling_color = "#c0720c"
+	list_reagents = list("protein" = 4, "nutriment" = 6, "vitamin" = 2, "tomatojuice" = 4)
+	tastes = list("meat" = 3, "cheese" = 2, "vegetables" = 2, "tomato" = 1, "pepper" = 1)
+	foodtype = MEAT | DAIRY | VEGETABLES
+
+/obj/item/reagent_containers/food/snacks/doner_mushroom
+	name = "mushroom doner"
+	desc = "Grilled meat and fresh vegetables. You can see some mushrooms too."
+	icon_state = "doner_mushroom"
+	filling_color = "#c0720c"
+	list_reagents = list("protein" = 4, "nutriment" = 4, "plantmatter" = 2, "vitamin" = 2, "tomatojuice" = 4)
+	tastes = list("meat" = 3, "mushrooms" = 2, "vegetables" = 2, "tomato" = 1, "pepper" = 1)
+	foodtype = MEAT | VEGETABLES
+
+/obj/item/reagent_containers/food/snacks/doner_vegan
+	name = "vegan doner"
+	desc = "Fresh vegetables wrapped in a long roll. No meat included!"
+	icon_state = "doner_vegan"
+	filling_color = "#c0720c"
+	list_reagents = list("nutriment" = 4, "plantmatter" = 4, "vitamin" = 4, "tomatojuice" = 8)
+	tastes = list("vegetables" = 2, "tomato" = 1, "pepper" = 1)
+	foodtype = VEGETABLES
+
+//////////////////////////////////
+//		North Mediterranean	//
+//////////////////////////////////
+
+/obj/item/reagent_containers/food/snacks/risotto
+	name = "Risotto"
+	desc = "An offer you daga kotowaru."
+	icon_state = "risotto"
+	filling_color = "#cfae89"
+	list_reagents = list("nutriment" = 5, "plantmatter" = 2, "wine" = 5)
+	tastes = list("cheese" = 1, "rice" = 2, "wine" = 1)
+	bitesize = 3
+	foodtype = DAIRY | VEGETABLES
+
+/obj/item/reagent_containers/food/snacks/bruschetta
+	name = "Bruschetta"
+	desc = "..."
+	icon_state = "bruschetta"
+	trash = /obj/item/trash/plate
+	filling_color = "#a30e0e"
+	list_reagents = list("nutriment" = 2, "plantmatter" = 2, "tomatojucie" = 2, "garlicjucie" = 1, "salt" = 1)
+	tastes = list("bread" = 1, "tomato" = 2, "garlic" = 1, "cheese" = 1)
+	bitesize = 4
+	foodtype = DAIRY | VEGETABLES | GRAIN
+
+/obj/item/reagent_containers/food/snacks/quiche
+	name = "Quiche"
+	desc = "Makes you feel more intelligent. Give to lower lifeforms!"
+	icon_state = "quiche"
+	trash = /obj/item/trash/plate
+	filling_color = "#cfae89"
+	list_reagents = list("nutriment" = 7, "plantmatter" = 2, "tomatojucie" = 2, "garlicjucie" = 1)
+	tastes = list("cheese" = 1, "tomato" = 1, "garlic" = 1, "egg" = 1)
+	bitesize = 4
+	foodtype = DAIRY | VEGETABLES

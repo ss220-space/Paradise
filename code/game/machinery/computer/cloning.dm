@@ -3,7 +3,7 @@
 
 /obj/machinery/computer/cloning
 	name = "cloning console"
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "med_key"
 	icon_screen = "dna"
 	circuit = /obj/item/circuitboard/cloning
@@ -29,7 +29,7 @@
 	..()
 	pods = list()
 	records = list()
-	set_scan_temp("Scanner ready.", "good")
+	set_scan_temp(emagged ? "Killer ready." : "Scanner ready.", "good")
 	updatemodules()
 
 /obj/machinery/computer/cloning/Destroy()
@@ -93,8 +93,8 @@
 /obj/machinery/computer/cloning/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/disk/data)) //INSERT SOME DISKETTES
 		if(!src.diskette)
-			user.drop_item()
-			W.loc = src
+			add_fingerprint(user)
+			user.drop_transfer_item_to_loc(W, src)
 			src.diskette = W
 			to_chat(user, "You insert [W].")
 			SStgui.update_uis(src)
@@ -104,10 +104,11 @@
 		if(M.buffer && istype(M.buffer, /obj/machinery/clonepod))
 			var/obj/machinery/clonepod/P = M.buffer
 			if(P && !(P in pods))
+				add_fingerprint(user)
 				pods += P
 				P.connected = src
 				P.name = "[initial(P.name)] #[pods.len]"
-				to_chat(user, "<span class='notice'>You connect [P] to [src].</span>")
+				to_chat(user, span_notice("You connect [P] to [src]."))
 	else
 		return ..()
 
@@ -124,6 +125,29 @@
 
 	updatemodules()
 	ui_interact(user)
+
+/obj/machinery/computer/cloning/deconstruct(disassembled = TRUE, mob/user)
+	if (emagged)
+		circuit = /obj/item/circuitboard/broken
+	..()
+
+
+/obj/machinery/computer/cloning/emag_act(mob/user)
+	if(!emagged)
+		emagged = TRUE
+		add_attack_logs(user, src, "emagged")
+		set_scan_temp(emagged ? "Killer ready." : "Scanner ready.", "good")
+		emp_act(1)
+		SStgui.update_uis(src)
+	else
+		ui_interact(user)
+
+/obj/machinery/computer/cloning/emp_act(severity)
+	for(var/obj/machinery/clonepod/P in pods)
+		if(P.occupant)
+			var/mob/living/carbon/human/H = P.occupant
+			H.adjustCloneLoss(500)
+			P.go_out()
 
 /obj/machinery/computer/cloning/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	if(stat & (NOPOWER|BROKEN))
@@ -217,13 +241,14 @@
 					menu = MENU_RECORDS
 				else
 					set_temp("Access denied.", "danger")
+					playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 			return
 
 	switch(action)
 		if("scan")
 			if(!scanner || !scanner.occupant || loading)
 				return
-			set_scan_temp("Scanner ready.", "good")
+			set_scan_temp(emagged ? "Killer ready." : "Scanner ready.", "good")
 			loading = TRUE
 
 			spawn(20)
@@ -262,7 +287,7 @@
 					ui_modal_message(src, action, "", null, payload)
 			else
 				active_record = null
-				set_temp("Error: Record missing.", "danger")
+				set_temp(emagged ? "Error: Prey missing." : "Error: Record missing.", "danger")
 		if("del_rec")
 			if(!active_record)
 				return
@@ -276,7 +301,7 @@
 						set_temp("Error: The disk's data could not be read.", "danger")
 						return
 					else if(isnull(active_record))
-						set_temp("Error: No active record was found.", "danger")
+						set_temp(emagged ? "Error: No active prey was found." : "Error: No active record was found.", "danger")
 						menu = MENU_MAIN
 						return
 
@@ -326,29 +351,31 @@
 				ui_modal_clear(src)
 				//Can't clone without someone to clone.  Or a pod.  Or if the pod is busy. Or full of gibs.
 				if(!length(pods))
-					set_temp("Error: No cloning pod detected.", "danger")
+					set_temp(emagged ? "Error: No killing pod detected." : "Error: No cloning pod detected.", "danger")
 				else
 					var/obj/machinery/clonepod/pod = selected_pod
 					var/cloneresult
 					if(!selected_pod)
-						set_temp("Error: No cloning pod selected.", "danger")
+						set_temp(emagged ? "Error: No killing pod selected." : "Error: No cloning pod selected.", "danger")
 					else if(pod.occupant)
 						set_temp("Error: The cloning pod is currently occupied.", "danger")
 					else if(pod.biomass < CLONE_BIOMASS)
-						set_temp("Error: Not enough biomass.", "danger")
+						set_temp(emagged ? "Error: Not enough MEAT!" : "Error: Not enough biomass.", "danger")
 					else if(pod.mess)
-						set_temp("Error: The cloning pod is malfunctioning.", "danger")
-					else if(!config.revival_cloning)
-						set_temp("Error: Unable to initiate cloning cycle.", "danger")
+						set_temp(emagged ? "Error: The killing pod is ok." : "Error: The cloning pod is malfunctioning.", emagged? "good" : "danger")
+					else if(!CONFIG_GET(flag/revival_cloning))
+						set_temp(emagged ? "Error: Unable to initiate killing cycle. " : "Error: Unable to initiate cloning cycle.", "danger")
 					else
 						cloneresult = pod.growclone(C)
 						if(cloneresult)
-							set_temp("Initiating cloning cycle...", "success")
+							set_temp(emagged ? "Initiating killing cycle... Subject successfully killed!" : "Initiating cloning cycle...", "success")
 							records.Remove(C)
 							qdel(C)
 							menu = MENU_MAIN
+							if(emagged)
+								emp_act()
 						else
-							set_temp("Error: Initialisation failure.", "danger")
+							set_temp(emagged ? "Success: You are doing great!" : "Error: Initialisation failure.", emagged ? "good" : "danger")
 			else
 				set_temp("Error: Data corruption.", "danger")
 		if("menu")
@@ -397,23 +424,23 @@
 				SStgui.update_uis(src)
 				return
 	if(!subject.get_int_organ(/obj/item/organ/internal/brain))
-		set_scan_temp("No brain detected in subject.", "bad")
+		set_scan_temp("No brain detected in subject.", emagged ? "good" : "bad")
 		SStgui.update_uis(src)
 		return
 	if(subject.suiciding)
-		set_scan_temp("Subject has committed suicide and is not scannable.", "bad")
+		set_scan_temp(emagged ? "Prey come in better world. Leave it be" : "Subject has committed suicide and is not scannable.", emagged ? "good" : "bad")
 		SStgui.update_uis(src)
 		return
 	if((!subject.ckey) || (!subject.client))
-		set_scan_temp("Subject's brain is not responding. Further attempts after a short delay may succeed.", "bad")
+		set_scan_temp(emagged ? "Prey's brain is in pristine condition. Further attempts not needed." : "Subject's brain is not responding. Further attempts after a short delay may succeed.", emagged ? "good" : "bad")
 		SStgui.update_uis(src)
 		return
 	if((NOCLONE in subject.mutations) && src.scanner.scan_level < 2)
-		set_scan_temp("Subject has incompatible genetic mutations.", "bad")
+		set_scan_temp(emagged ? "Prey has a too perfect body. Cry about it" : "Subject has incompatible genetic mutations.", emagged ? "good" : "bad")
 		SStgui.update_uis(src)
 		return
 	if(!isnull(find_record(subject.ckey)))
-		set_scan_temp("Subject already in database.")
+		set_scan_temp(emagged ? "Баян." : "Subject already in database.")
 		SStgui.update_uis(src)
 		return
 
@@ -455,7 +482,7 @@
 		R.mind = "\ref[subject.mind]"
 
 	src.records += R
-	set_scan_temp("Subject successfully scanned. [extra_info]", "good")
+	set_scan_temp(emagged ? "Prey successfully scanned. [extra_info]" : "Subject successfully scanned. [extra_info]", "good")
 	SStgui.update_uis(src)
 
 //Find a specific record by key.

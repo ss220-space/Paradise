@@ -1,6 +1,8 @@
 // Atoms
 #define isatom(A) (isloc(A))
 
+#define isdatum(thing) (istype(thing, /datum))
+
 // Mobs
 #define ismegafauna(A) istype(A, /mob/living/simple_animal/hostile/megafauna)
 
@@ -14,19 +16,33 @@
 
 #define isitem(A) (istype(A, /obj/item))
 
+#define isstack(A) (istype(A, /obj/item/stack))
+
+#define isstorage(A) (istype(A, /obj/item/storage))
+
 #define ispda(A) (istype(A, /obj/item/pda))
 
 #define ismachinery(A) (istype(A, /obj/machinery))
 
 #define ismecha(A) (istype(A, /obj/mecha))
 
+#define isvampirecoffin(A) (istype(A, /obj/structure/closet/coffin/vampire))
+
 #define isspacepod(A) (istype(A, /obj/spacepod))
 
 #define iseffect(A) (istype(A, /obj/effect))
 
+#define isprojectile(A) (istype(A, /obj/item/projectile))
+
 #define is_cleanable(A) (istype(A, /obj/effect/decal/cleanable) || istype(A, /obj/effect/rune)) //if something is cleanable
 
 #define is_pen(W) (istype(W, /obj/item/pen))
+
+#define is_pda(W) (istype(W, /obj/item/pda))
+
+#define isradio(A) istype(A, /obj/item/radio)
+
+#define isclothing(A) (istype(A, /obj/item/clothing))
 
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
@@ -46,6 +62,15 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define is_glass_sheet(O) (is_type_in_typecache(O, GLOB.glass_sheet_types))
 
+//Assembly
+#define isassembly(O) (istype(O, /obj/item/assembly))
+#define isigniter(O) (istype(O, /obj/item/assembly/igniter))
+#define isinfared(O) (istype(O, /obj/item/assembly/infra))
+#define isprox(O) (istype(O, /obj/item/assembly/prox_sensor))
+#define issignaler(O) (istype(O, /obj/item/assembly/signaler))
+#define istimer(O) (istype(O, /obj/item/assembly/timer))
+
+
 //Turfs
 #define issimulatedturf(A) istype(A, /turf/simulated)
 
@@ -53,13 +78,13 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define isfloorturf(A) istype(A, /turf/simulated/floor)
 
-#define isunsimulatedturf(A) istype(A, /turf/unsimulated)
-
 #define iswallturf(A) istype(A, /turf/simulated/wall)
 
 #define isreinforcedwallturf(A) istype(A, /turf/simulated/wall/r_wall)
 
 #define ismineralturf(A) istype(A, /turf/simulated/mineral)
+
+#define isancientturf(A) istype(A, /turf/simulated/mineral/ancient)
 
 #define islava(A) (istype(A, /turf/simulated/floor/plating/lava))
 
@@ -88,11 +113,12 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define isslime(A)		(istype((A), /mob/living/simple_animal/slime))
 
+#define isvampireanimal(A)		(istype((A), /mob/living/simple_animal/hostile/vampire))
+
 //Structures
 #define isstructure(A)	(istype((A), /obj/structure))
 
 // Misc
 #define isclient(A) istype(A, /client)
-#define isradio(A) istype(A, /obj/item/radio)
 #define ispill(A) istype(A, /obj/item/reagent_containers/food/pill)
 

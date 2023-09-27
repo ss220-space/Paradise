@@ -215,8 +215,11 @@
 	var/area/shuttle/areaInstance
 	var/list/shuttle_areas
 
+	var/fly_sound = 'sound/effects/hyperspace_mini.ogg'
+
 	var/timer						//used as a timer (if you want time left to complete move, use timeLeft proc)
 	var/last_timer_length
+	var/rechargeTime = 50
 	var/mode = SHUTTLE_IDLE			//current shuttle mode (see global defines)
 	var/callTime = 50				//time spent in transit (deciseconds)
 	var/ignitionTime = 30			// time spent "starting the engines". Also rate limits how often we try to reserve transit space if its ever full of transiting shuttles.
@@ -493,22 +496,25 @@
 		if(!T1)
 			continue
 
-		T0.copyTurf(T1)
 		areaInstance.contents += T1
 
-		//copy over air
-		if(istype(T1, /turf/simulated))
-			var/turf/simulated/Ts1 = T1
-			Ts1.copy_air_with_tile(T0)
+		var/should_transit = !is_turf_blacklisted_for_transit(T0)
+		if(should_transit) // Only move over stuff if the transfer actually happened
+			T0.copyTurf(T1)
 
-		areaInstance.moving = TRUE
-		//move mobile to new location
-		for(var/atom/movable/AM in T0)
-			AM.onShuttleMove(T0, T1, rotation, last_caller)
+			//copy over air
+			if(issimulatedturf(T1))
+				var/turf/simulated/Ts1 = T1
+				Ts1.copy_air_with_tile(T0)
 
-		if(rotation)
-			T1.shuttleRotate(rotation)
+			//move mobile to new location
+			for(var/atom/movable/AM in T0)
+				AM.onShuttleMove(T0, T1, rotation, last_caller)
 
+			if(rotation)
+				T1.shuttleRotate(rotation)
+
+		// Always do this stuff as it ensures that the destination turfs still behave properly with the rest of the shuttle transit
 		//atmos and lighting stuff
 		SSair.remove_from_active(T1)
 		T1.CalculateAdjacentTurfs()
@@ -516,7 +522,9 @@
 
 		T1.lighting_build_overlay()
 
-		T0.ChangeTurf(turf_type)
+		if(!should_transit)
+			continue // Don't want to actually change the skipped turf
+		T0.ChangeTurf(turf_type, keep_icon = FALSE)
 
 		SSair.remove_from_active(T0)
 		T0.CalculateAdjacentTurfs()
@@ -526,14 +534,25 @@
 	for(var/A1 in L1)
 		var/turf/T1 = A1
 		T1.postDock(S1)
-		for(var/atom/movable/M in T1)
-			M.postDock(S1)
+		for(var/atom/movable/mobile_docking_port in T1)
+			mobile_docking_port.postDock(S1)
 
 	loc = S1.loc
 	dir = S1.dir
 
+	// Update mining and labor shuttle ash storm audio
+	if(id in list("mining", "laborcamp") && !CONFIG_GET(flag/disable_lavaland))
+		var/mining_zlevel = level_name_to_num(MINING)
+		var/datum/weather/ash_storm/W = SSweather.get_weather(mining_zlevel, /area/lavaland/surface/outdoors)
+		if(W)
+			W.update_eligible_areas()
+			W.update_audio()
+
 	unlockPortDoors(S1)
 
+/obj/docking_port/mobile/proc/is_turf_blacklisted_for_transit(turf/T)
+	var/static/list/blacklisted_turf_types = typecacheof(list(/turf/space, /turf/simulated/floor/chasm, /turf/simulated/floor/plating/lava, /turf/simulated/floor/plating/asteroid))
+	return is_type_in_typecache(T, blacklisted_turf_types)
 
 /obj/docking_port/mobile/proc/findTransitDock()
 	var/obj/docking_port/stationary/transit/T = SSshuttle.getDock("[id]_transit")
@@ -600,9 +619,9 @@
 			if(AM.pulledby)
 				AM.pulledby.stop_pulling()
 			if(ismob(AM))
-				var/mob/M = AM
-				if(M.buckled)
-					M.buckled.unbuckle_mob(M, force = TRUE)
+				var/mob/mobile_docking_port = AM
+				if(mobile_docking_port.buckled)
+					mobile_docking_port.buckled.unbuckle_mob(mobile_docking_port, force = TRUE)
 				if(isliving(AM))
 					var/mob/living/L = AM
 					L.stop_pulling()
@@ -615,7 +634,7 @@
 									a hyperspace ripple[L.anchored ? "":" and is thrown clear"]!</span>",
 									"<span class='userdanger'>You feel an immense \
 									crushing pressure as the space around you ripples.</span>")
-							L.Paralyse(10)
+							L.Paralyse(20 SECONDS)
 							L.ex_act(2)
 
 			// Move unanchored atoms
@@ -636,6 +655,10 @@
 			if(SHUTTLE_CALL)
 				if(dock(destination))
 					setTimer(20)	//can't dock for some reason, try again in 2 seconds
+					return
+				if(rechargeTime)
+					mode = SHUTTLE_RECHARGING
+					setTimer(rechargeTime)
 					return
 			if(SHUTTLE_RECALL)
 				if(dock(previous))
@@ -722,6 +745,8 @@
 		else
 			dst = destination
 		. += " towards [dst ? dst.name : "unknown location"] ([timeLeft(600)]mins)"
+	else if(mode == SHUTTLE_RECHARGING)
+		return "[dockedAt.name], recharging [getTimerStr()]"
 
 /obj/machinery/computer/shuttle
 	name = "Shuttle Console"
@@ -729,6 +754,7 @@
 	icon_keyboard = "tech_key"
 	req_access = list()
 	circuit = /obj/item/circuitboard/shuttle
+	var/destination
 	var/shuttleId
 	var/possible_destinations = ""
 	var/admin_controlled
@@ -746,24 +772,24 @@
 	connect()
 
 /obj/machinery/computer/shuttle/proc/connect()
-	var/obj/docking_port/mobile/M
+	var/obj/docking_port/mobile/mobile_docking_port
 	if(!shuttleId)
 		// find close shuttle that is ok to mess with
 		if(!SSshuttle) //intentionally mapping shuttle consoles without actual shuttles IS POSSIBLE OH MY GOD WHO KNEW *glare*
 			return
 		for(var/obj/docking_port/mobile/D in SSshuttle.mobile)
 			if(get_dist(src, D) <= max_connect_range && D.rebuildable)
-				M = D
-				shuttleId = M.id
+				mobile_docking_port = D
+				shuttleId = mobile_docking_port.id
 				break
 	else if(!possible_destinations && SSshuttle) //possible destinations should **not** always exist; so, if it's specifically set to null, don't make it exist
-		M = SSshuttle.getShuttle(shuttleId)
+		mobile_docking_port = SSshuttle.getShuttle(shuttleId)
 
-	if(M && !possible_destinations)
+	if(mobile_docking_port && !possible_destinations)
 		// find perfect fits
 		possible_destinations = ""
 		for(var/obj/docking_port/stationary/S in SSshuttle.stationary)
-			if(!istype(S, /obj/docking_port/stationary/transit) && S.width == M.width && S.height == M.height && S.dwidth == M.dwidth && S.dheight == M.dheight && findtext(S.id, M.id))
+			if(!istype(S, /obj/docking_port/stationary/transit) && S.width == mobile_docking_port.width && S.height == mobile_docking_port.height && S.dwidth == mobile_docking_port.dwidth && S.dheight == mobile_docking_port.dheight && findtext(S.id, mobile_docking_port.id))
 				possible_destinations += "[possible_destinations ? ";" : ""][S.id]"
 
 /obj/machinery/computer/shuttle/attack_hand(mob/user)
@@ -778,24 +804,49 @@
 /obj/machinery/computer/shuttle/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "ShuttleConsole", name, 350, 150, master_ui, state)
+		ui = new(user, src, ui_key, "ShuttleConsole", name, 350, 240, master_ui, state)
 		ui.open()
 
 /obj/machinery/computer/shuttle/ui_data(mob/user)
 	var/list/data = list()
-	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
-	data["status"] = M ? M.getStatusText() : null
-	if(M)
+	var/obj/docking_port/mobile/mobile_docking_port = SSshuttle.getShuttle(shuttleId)
+	data["docked_location"] = mobile_docking_port ? mobile_docking_port.getStatusText() : "Unknown"
+	data["timer_str"] = mobile_docking_port ? mobile_docking_port.getTimerStr() : "00:00"
+	if(!mobile_docking_port)
+		data["status"] = "Missing"
+		return data
+	if(admin_controlled)
+		data["status"] = "Unauthorized Access"
+	else
+		switch(mobile_docking_port.mode)
+			if(SHUTTLE_IGNITING)
+				data["status"] = "Igniting"
+			if(SHUTTLE_IDLE)
+				data["status"] = "Idle"
+			if(SHUTTLE_RECHARGING)
+				data["status"] = "Recharging"
+			else
+				data["status"] = "In Transit"
+	if(mobile_docking_port)
 		data["shuttle"] = TRUE	//this should just be boolean, right?
 		var/list/docking_ports = list()
-		data["docking_ports"] = docking_ports
+		data["locations"] = docking_ports
 		var/list/options = params2list(possible_destinations)
 		for(var/obj/docking_port/stationary/S in SSshuttle.stationary)
 			if(!options.Find(S.id))
 				continue
-			if(!M.check_dock(S))
+			if(!mobile_docking_port.check_dock(S))
 				continue
 			docking_ports[++docking_ports.len] = list("name" = S.name, "id" = S.id)
+		if(length(data["locations"]) > 1)
+			data["destination"] = destination
+		else if(length(data["locations"]) == 1)
+			for(var/location in data["locations"])
+				destination = location["id"]
+				data["destination"] = destination
+		else if(!length(data["locations"]))
+			data["locked"] = TRUE
+			data["status"] = "Locked"
 		data["docking_ports_len"] = docking_ports.len
 		data["admin_controlled"] = admin_controlled
 	return data
@@ -805,19 +856,23 @@
 		return TRUE
 	if(!allowed(usr))
 		to_chat(usr, "<span class='danger'>Access denied.</span>")
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return	TRUE
 	if(!can_call_shuttle(usr, action))
 		return TRUE
 	var/list/options = params2list(possible_destinations)
 	if(action == "move")
-		var/destination = params["move"]
+		var/destination = params["shuttle_id"]
 		if(!options.Find(destination))//figure out if this translation works
 			message_admins("<span class='boldannounce'>EXPLOIT:</span> [ADMIN_LOOKUPFLW(usr)] attempted to move [src] to an invalid location! [ADMIN_COORDJMP(src)]")
 			return
 		switch(SSshuttle.moveShuttle(shuttleId, destination, TRUE, usr))
+			if(SHUTTLE_CONSOLE_RECHARGING)
+				to_chat(usr, span_warning("Shuttle engines are not ready for use."))
+				return
 			if(0)
-				atom_say("Shuttle departing! Please stand away from the doors.")
-				usr.create_log(MISC_LOG, "used [src] to call the [shuttleId] shuttle")
+				atom_say("Шаттл отправляется! Пожалуйста, отойдите от шл+юзов.")
+				add_misc_logs(usr, "used [src] to call the [shuttleId] shuttle")
 				if(!moved)
 					moved = TRUE
 				add_fingerprint(usr)
@@ -826,10 +881,16 @@
 				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
 			else
 				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
+	else if(action == "set_destination")
+		var/target_destination = params["destination"]
+		if(target_destination)
+			destination = target_destination
+			return TRUE
 
 
 /obj/machinery/computer/shuttle/emag_act(mob/user)
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		src.req_access = list()
 		emagged = 1
 		to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
@@ -871,7 +932,7 @@
 	desc = "Used to control the Transport Shuttle."
 	circuit = /obj/item/circuitboard/ruins_transport_shuttle
 	shuttleId = "ruins_transport_shuttle"
-	possible_destinations = "ussp_dock;dj_post;sindiecake_dock"
+	possible_destinations = "ussp_dock;dj_post;sindiecake_dock;ussp_gorky17"
 
 
 /obj/machinery/computer/shuttle/ruins_civil_shuttle // made another shuttle, this one will fly between spacebar and twin nexus hotel. just another way to get to it.
@@ -971,7 +1032,7 @@
 		if(underlays.len)	//we have underlays, which implies some sort of transparency, so we want to a snapshot of the previous turf as an underlay
 			O = new()
 			O.underlays.Add(T)
-		T.ChangeTurf(type)
+		T.ChangeTurf(type, keep_icon = FALSE)
 		if(underlays.len)
 			T.underlays = O.underlays
 	if(T.icon_state != icon_state)

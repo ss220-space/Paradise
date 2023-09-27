@@ -10,6 +10,8 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/head_accessory, GLOB.head_accessory_styles_list)
 	//hair
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/hair, GLOB.hair_styles_public_list, GLOB.hair_styles_male_list, GLOB.hair_styles_female_list, GLOB.hair_styles_full_list)
+	//hair gradients
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/hair_gradient, GLOB.hair_gradients_list)
 	//facial hair
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/facial_hair, GLOB.facial_hair_styles_list, GLOB.facial_hair_styles_male_list, GLOB.facial_hair_styles_female_list)
 	//underwear
@@ -22,11 +24,13 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/alt_heads, GLOB.alt_heads_list)
 
 	init_subtypes(/datum/surgery_step, GLOB.surgery_steps)
-
+	init_subtypes(/obj/item/slimepotion, GLOB.slime_potions)
 	// Different bodies
 	__init_body_accessory(/datum/body_accessory/body)
 	// Different tails
 	__init_body_accessory(/datum/body_accessory/tail)
+	// Different wings
+	__init_body_accessory(/datum/body_accessory/wing)
 
 	// Setup species:accessory relations
 	initialize_body_accessory_by_species()
@@ -130,19 +134,50 @@
 			stack_trace("[wth.type] has the same topic key as [GLOB.world_topic_handlers[wth.topic_key]]! ([wth.topic_key])")
 			continue
 		GLOB.world_topic_handlers[wth.topic_key] = topic_handler_type
+	// Keybindings
+	for(var/path in subtypesof(/datum/keybinding))
+		var/datum/keybinding/D = path
+		if(initial(D.name))
+			GLOB.keybindings += new path()
 
-/* // Uncomment to debug chemical reaction list.
-/client/verb/debug_chemical_list()
+	// Init chemical reagents
+	init_datum_subtypes(/datum/reagent, GLOB.chemical_reagents_list, null, "id")
 
-	for(var/reaction in GLOB.chemical_reactions_list)
-		. += "GLOB.chemical_reactions_list\[\"[reaction]\"\] = \"[GLOB.chemical_reactions_list[reaction]]\"\n"
-		if(islist(GLOB.chemical_reactions_list[reaction]))
-			var/list/L = GLOB.chemical_reactions_list[reaction]
-			for(var/t in L)
-				. += "    has: [t]\n"
-	to_chat(world, .)
-*/
+	// Chemical Reactions - Initialises all /datum/chemical_reaction into an assoc list of: reagent -> list of chemical reactions
+	// For example:
+	// chemical_reaction_list["plasma"] is a list of all reactions relating to plasma
+	for(var/path in subtypesof(/datum/chemical_reaction))
+		var/datum/chemical_reaction/reaction_datum = new path()
+		if(!length(reaction_datum?.required_reagents))
+			continue
 
+		for(var/reagent in reaction_datum.required_reagents)
+			if(!GLOB.chemical_reactions_list[reagent])
+				GLOB.chemical_reactions_list[reagent] = list()
+			GLOB.chemical_reactions_list[reagent] += reaction_datum
+
+	// Init disease archive
+	GLOB.archive_diseases += list(
+		"sneeze" = new /datum/disease/advance/preset/cold(),
+		"cough" = new /datum/disease/advance/preset/flu(),
+		"voice_change" = new /datum/disease/advance/preset/voice_change(),
+		"heal" = new /datum/disease/advance/preset/heal(),
+		"hallucigen" = new /datum/disease/advance/preset/hullucigen(),
+		"sensory_restoration" = new /datum/disease/advance/preset/sensory_restoration(),
+		"mind_restoration" = new /datum/disease/advance/preset/mind_restoration(),
+		"damage_converter:heal:viralevolution" = new /datum/disease/advance/preset/advanced_regeneration(),
+		"dizzy:flesh_eating:viraladaptation:youth" = new /datum/disease/advance/preset/stealth_necrosis(),
+		"beard:itching:voice_change" = new /datum/disease/advance/preset/pre_kingstons(),
+		"love" = new /datum/disease/advance/preset/love(),
+		"aggression" = new /datum/disease/advance/preset/aggression(),
+		"obsession" = new /datum/disease/advance/preset/obsession(),
+		"confusion" = new /datum/disease/advance/preset/confusion(),
+		"bones" = new /datum/disease/advance/preset/bones(),
+		"laugh" = new /datum/disease/advance/preset/laugh(),
+		"moan" = new /datum/disease/advance/preset/moan(),
+		"infection" = new /datum/disease/advance/preset/infection(),
+		"hallucigen:laugh:moan" = new /datum/disease/advance/preset/pre_loyalty()
+	)
 
 //creates every subtype of prototype (excluding prototype) and adds it to list L.
 //if no list/L is provided, one is created.

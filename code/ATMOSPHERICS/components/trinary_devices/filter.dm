@@ -14,7 +14,7 @@
 
 /obj/machinery/atmospherics/trinary/filter
 	name = "gas filter"
-	icon = 'icons/atmos/filter.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/filter.dmi'
 	icon_state = "map"
 	can_unwrench = TRUE
 	/// The amount of pressure the filter wants to operate at.
@@ -33,7 +33,7 @@
 
 /obj/machinery/atmospherics/trinary/filter/CtrlClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	if(!in_range(src, user) && !issilicon(usr))
 		return
@@ -47,7 +47,7 @@
 
 /obj/machinery/atmospherics/trinary/filter/AltClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	if(!in_range(src, user) && !issilicon(usr))
 		return
@@ -196,7 +196,7 @@
 		return
 
 	if(!allowed(user))
-		to_chat(user, "<span class='alert'>Access denied.</span>")
+		to_chat(user, span_alert("Access denied."))
 		return
 
 	add_fingerprint(user)
@@ -228,12 +228,12 @@
 	switch(action)
 		if("power")
 			toggle()
-			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
+			investigate_log("was turned [on ? "on" : "off"] by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 			return TRUE
 
 		if("set_filter")
 			filter_type = text2num(params["filter"])
-			investigate_log("was set to filter [filter_type] by [key_name(usr)]", "atmos")
+			investigate_log("was set to filter [filter_type] by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 			return TRUE
 
 		if("max_pressure")
@@ -248,7 +248,7 @@
 			target_pressure = clamp(text2num(params["pressure"]), 0, MAX_OUTPUT_PRESSURE)
 			. = TRUE
 	if(.)
-		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
+		investigate_log("was set to [target_pressure] kPa by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/trinary/filter/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))

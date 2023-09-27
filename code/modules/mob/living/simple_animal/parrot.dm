@@ -34,6 +34,7 @@
 	icon_dead = "parrot_dead"
 	pass_flags = PASSTABLE
 	can_collar = 1
+	tts_seed = "Sniper"
 
 	var/list/clean_speak = list(
 		"Hi",
@@ -45,6 +46,7 @@
 	emote_see = list("flutters its wings")
 
 	speak_chance = 1//1% (1 in 100) chance every tick; So about once per 150 seconds, assuming an average tick is 1.5s
+	blood_nutrients = 30
 	turns_per_move = 5
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/cracker = 3)
 
@@ -54,6 +56,7 @@
 	stop_automated_movement = 1
 	universal_speak = 1
 	mob_size = MOB_SIZE_SMALL
+	holder_type = /obj/item/holder/parrot
 
 	var/parrot_state = PARROT_WANDER //Hunt for a perch when created
 	var/parrot_sleep_max = 25 //The time the parrot sits while perched before looking around. Mosly a way to avoid the parrot's AI in process_ai() being run every single tick.
@@ -157,6 +160,14 @@
 		if(href_list["remove_inv"])
 			var/remove_from = href_list["remove_inv"]
 			switch(remove_from)
+				if("collar")
+					if(!pcollar)
+						return
+					var/collar = pcollar
+					drop_item_ground(collar)
+					usr.put_in_hands(collar, ignore_anim = FALSE)
+					regenerate_icons()
+
 				if("ears")
 					if(ears)
 						if(available_channels.len)
@@ -176,6 +187,9 @@
 				to_chat(usr, "<span class='warning'>You have nothing in your hand to put on its [add_to].</span>")
 				return
 			switch(add_to)
+				if("collar")
+					add_collar(usr.get_active_hand(), usr)
+
 				if("ears")
 					if(ears)
 						to_chat(usr, "<span class='warning'>It's already wearing something.</span>")
@@ -191,8 +205,7 @@
 
 						var/obj/item/radio/headset/headset_to_add = item_to_add
 
-						usr.drop_item()
-						headset_to_add.forceMove(src)
+						usr.drop_transfer_item_to_loc(headset_to_add, src)
 						ears = headset_to_add
 						to_chat(usr, "You fit the headset onto [src].")
 
@@ -284,6 +297,16 @@
 	//Sprite and AI update for when a parrot gets pulled
 	if(pulledby && stat == CONSCIOUS)
 		icon_state = "parrot_fly"
+
+	if (buckled && icon_state == "parrot_fly")
+		icon_state = "parrot_sit"
+	else if (!buckled && icon_state == "parrot_sit")
+		icon_state = "parrot_fly"
+
+	if (floating && icon_state == "parrot_sit")
+		float(FALSE)
+	else if (!floating && icon_state == "parrot_fly")
+		float(TRUE)
 
 /mob/living/simple_animal/parrot/proc/update_speak()
 	speak.Cut()
@@ -610,9 +633,8 @@
 			stolen_item = C.r_hand
 
 		if(stolen_item)
-			C.unEquip(stolen_item)
+			C.drop_transfer_item_to_loc(stolen_item, src)
 			held_item = stolen_item
-			stolen_item.loc = src
 			visible_message("[src] grabs the [held_item] out of [C]'s hand!", "<span class='notice'>You snag the [held_item] out of [C]'s hand!</span>", "You hear the sounds of wings flapping furiously.")
 			return held_item
 
@@ -682,6 +704,7 @@
 /mob/living/simple_animal/parrot/Poly
 	name = "Поли"
 	desc = "Попугай Поли. Эксперт по квантовой теории крекеров."
+	tts_seed = "Gyro"
 	clean_speak = list(
 		"Поли хочет крекер!",
 		"Проверьте сингу, долбоящеры!",

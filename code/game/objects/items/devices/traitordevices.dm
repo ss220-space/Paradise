@@ -43,19 +43,19 @@ effective or pretty fucking useless.
 
 	for(var/mob/living/carbon/human/M in orange (10, user))
 		if(prob(50))
-			M.Weaken(rand(1,3))
+			M.Weaken(rand(2,6) SECONDS)
 			M.adjustStaminaLoss(rand(35, 60))
 			add_attack_logs(user, M, "Stunned with [src]")
 			to_chat(M, "<span class='danger'>You feel a tremendous, paralyzing wave flood your mind.</span>")
 		else
 			to_chat(M, "<span class='danger'>You feel a sudden, electric jolt travel through your head.</span>")
-			M.Slowed(5)
-			M.Confused(3)
+			M.Slowed(10 SECONDS)
+			M.Confused(6 SECONDS)
 
 	playsound(loc, 'sound/misc/interference.ogg', 50, 1)
 	charges--
 	to_chat(user, "<span class='notice'>You trigger [src]. It has [charges] charges left.</span>")
-	addtimer(CALLBACK(src, .proc/recharge), 3 MINUTES)
+	addtimer(CALLBACK(src, PROC_REF(recharge)), 3 MINUTES)
 
 /obj/item/batterer/proc/recharge()
 	charges++
@@ -103,8 +103,8 @@ effective or pretty fucking useless.
 		spawn((wavelength+(intensity*4))*10)
 			if(M)
 				if(intensity >= 5)
-					M.apply_effect(round(intensity/1.5), PARALYZE)
-				M.apply_effect(intensity*10, IRRADIATE)
+					M.Paralyse(intensity * 40/3 SECONDS)
+					M.apply_effect(intensity * 10, IRRADIATE)
 	else
 		to_chat(user, "<span class='warning'>The radioactive microlaser is still recharging.</span>")
 
@@ -173,7 +173,7 @@ effective or pretty fucking useless.
 
 /obj/item/teleporter
 	name = "Syndicate teleporter"
-	desc = "A strange syndicate version of a cult veil shifter. Warrenty voided if exposed to EMP."
+	desc = "A strange syndicate version of a cult veil shifter. Warranty voided if exposed to EMP."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndi-tele"
 	throwforce = 5
@@ -269,7 +269,7 @@ effective or pretty fucking useless.
 		to_chat(C, "<span class='danger'>The [src] will not work here!</span>")
 
 /obj/item/teleporter/proc/tile_check(turf/T)
-	if(istype(T, /turf/simulated/floor) || istype(T, /turf/space) || istype(T, /turf/simulated/shuttle/floor) || istype(T, /turf/simulated/shuttle/floor4) || istype(T, /turf/simulated/shuttle/plating))
+	if(istype(T, /turf/simulated/floor) || istype(T, /turf/space) || istype(T, /turf/simulated/floor/shuttle) || istype(T, /turf/simulated/floor/shuttle/objective_check) || istype(T, /turf/simulated/floor/shuttle/plating))
 		return TRUE
 
 /obj/item/teleporter/proc/dir_correction(mob/user) //Direction movement, screws with teleport distance and saving throw, and thus must be removed first
@@ -337,7 +337,7 @@ effective or pretty fucking useless.
 	for(var/obj/item/W in user)
 		if(istype(W, /obj/item/organ)|| istype(W, /obj/item/implant))
 			continue
-		if(!user.unEquip(W))
+		if(!user.drop_item_ground(W))
 			qdel(W)
 	to_chat(user, "<span class='biggerdanger'>You teleport into the wall, the teleporter tries to save you, but--</span>")
 	user.gib()
@@ -345,9 +345,8 @@ effective or pretty fucking useless.
 /obj/item/teleporter/proc/telefrag(turf/fragging_location, mob/user)
 	for(var/mob/living/M in fragging_location)//Hit everything in the turf
 		M.apply_damage(20, BRUTE)
-		M.Stun(3)
-		M.Weaken(3)
-		to_chat(M, "<span_class='warning'> [user] teleports into you, knocking you to the floor with the bluespace wave!</span>")
+		M.Weaken(6 SECONDS)
+		to_chat(M, "<span_class='warning'>[user] teleports into you, knocking you to the floor with the bluespace wave!</span>")
 
 /obj/item/paper/teleporter
 	name = "Teleporter Guide"
@@ -365,11 +364,9 @@ effective or pretty fucking useless.
 /obj/item/storage/box/syndie_kit/teleporter
 	name = "syndicate teleporter kit"
 
-/obj/item/storage/box/syndie_kit/teleporter/New()
-	..()
+/obj/item/storage/box/syndie_kit/teleporter/populate_contents()
 	new /obj/item/teleporter(src)
 	new /obj/item/paper/teleporter(src)
-	return
 
 /obj/effect/temp_visual/teleport_abductor/syndi_teleporter
 	duration = 5

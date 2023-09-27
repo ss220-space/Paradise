@@ -99,6 +99,13 @@
 		treasure in this disused warehouse, launch it into space, and then \
 		ignore it. Forever."
 
+/datum/map_template/ruin/space/lonely_pod
+	id = "lonely-pod"
+	suffix = "lonelypod.dmm"
+	name = "Lonely Pod"
+	description = "Just somewhere quiet, where I can focus on my work with \
+		no interruptions."
+
 /datum/map_template/ruin/space/listeningpost
 	id = "listeningpost"
 	suffix = "listeningpost.dmm"
@@ -309,13 +316,63 @@
 	description = "Whoever doesn't wish to have their own paradise corner in space! \
 		Wait, where did I put spray tan?.."
 
-/* Старый код для добавления Тайпана. Оставлено на всякий случай
-/datum/map_template/ruin/space/syndicate_space_base
-	id = "syndicate_space_base"
-	suffix = "syndicatebase.dmm"
-	name = "Syndicate Research and Monitoring Space Station - 'Taipan' "
-	description = "Top secret syndicate space station designated to monitor NT activity, be a trading point for the black market and research illegal bioweapons! It is closely guarded by an elite team of syndicate agents."
-	allow_duplicates = FALSE // One of these is enough
-	always_place = TRUE // This is on the always spawn list
-	cost = 0 // Force spawned so shouldnt have a cost
+/datum/map_template/ruin/space/crashedipcship
+	id = "crashed_ipc_ship"
+	suffix = "crashedipcship.dmm"
+	name = "Crashed IPC Ship"
+	description = "By a strange and unfortunate coincidence, the ship of the Union of Synthetics during a rescue operation came under the influence of a solar flare. \
+		After long wanderings over space, the ghost ship collided with an asteroid..."
+	cost = 3 // 65x50 Space ship with few asteroids, carps and headcrabs in positions
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/space/ussp_laboratory
+	id = "ussp_laboratory"
+	suffix = "ussp_laboratory.dmm"
+	name = "USSP Laboratory"
+	description = "Tovarish! U nas chto-to proisoshlo! Ksenosi!"
+	allow_duplicates = FALSE
+	cost = 2
+
+/datum/map_template/ruin/space/anomalyship
+	id = "anomalyship"
+	suffix = "anomalyship.dmm"
+	name = "Anomaly Ship"
+	description = "The trading and mining shuttle was flying to sell goods, but it fell into the field of the bluespace anomaly"
+	allow_duplicates = FALSE
+	cost = 3 // 76x76 space ship
+
+/datum/map_template/ruin/space/blood_ship
+	id = "blood_ship"
+	suffix = "space_bloodship.dmm"
+	name = "Space bloodship "
+	description = "This shuttle was a regular transport vessel until it was captured by cultists who made their bloody sacrifice."
+
+/*
+/datum/map_template/ruin/space/USSP_gorky17
+	id = "USSP_gorky17"
+	suffix = "USSP_gorky17.dmm"
+	name = "USSP Gorky 17 station"
+	description = "USSP Special Operations Outpost hidden among the asteroids."
+	cost = 6 // 200x200 station in asteroid belt, has self destruct system and may spawn secret documents or 8 lvl tech
+	allow_duplicates = FALSE
 */
+
+/datum/map_template/ruin/space/USSP_gorky17_collapsed
+	id = "USSP_gorky17_collapsed"
+	suffix = "USSP_gorky17_collapsed.dmm"
+	name = "USSP Gorky 17 collapsed station"
+	description = "USSP Special Operations Outpost hidden among the asteroids. An unenviable fate befell this frontier... \
+	After another mission using the gate, a strong bluespace storm began in the outpost sector, which damaged the gate... \
+	Immediately after the described events, the 'fortress' protocol was activated at the facility"
+	cost = 6 // 200x200 station in asteroid belt, has self destruct system and may spawn secret documents or 8 lvl tech
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/space/magestavern
+	id = "magestavern"
+	suffix = "magestavern.dmm"
+	name = "Magestavern"
+	description = "A mage's tavern, created to relax after exams for students. \
+	Complete freedom of action, with one condition - to clean up everything after yourself, keeping everything in its original form.\
+	Well, apparently, something went wrong, since the tavern was closed forever. What will you learn by getting into it?"
+	cost = 3
+	allow_duplicates = FALSE

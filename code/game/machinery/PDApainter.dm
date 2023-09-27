@@ -68,6 +68,7 @@
 
 /obj/machinery/pdapainter/attackby(obj/item/I, mob/user, params)
 	if(default_unfasten_wrench(user, I))
+		add_fingerprint(user)
 		power_change()
 		return
 	if(istype(I, /obj/item/pda))
@@ -77,9 +78,9 @@
 		else
 			var/obj/item/pda/P = user.get_active_hand()
 			if(istype(P))
-				if(user.drop_item())
+				if(user.drop_transfer_item_to_loc(P, src))
+					add_fingerprint(user)
 					storedpda = P
-					P.forceMove(src)
 					P.add_fingerprint(user)
 					update_icon()
 	else
@@ -180,9 +181,8 @@
 			var/obj/item/pda/P = usr.get_active_hand()
 
 			if(istype(P)) // If it is really PDA.
-				if(usr.drop_item())
+				if(usr.drop_transfer_item_to_loc(P, src))
 					storedpda = P
-					P.forceMove(src)
 					P.add_fingerprint(usr)
 					update_icon()
 					SStgui.update_uis(src)
@@ -192,12 +192,12 @@
 	if(storedpda) // PDA is in machine.
 		if(ishuman(usr))
 			if (storedpda.id || storedpda.cartridge)
-				to_chat(usr, "<span class='notice'>Уберите карту и картридж из PDA.</span>")
+				to_chat(usr, span_notice("Уберите карту и картридж из PDA."))
 				statusLabel = "Уберите карту и картридж"
 				statusLabelCooldownTime = world.time + statusLabelCooldownTimeSecondsToAdd
 			else
 				storedpda = new /obj/item/pda(src)
-				to_chat(usr, "<span class='notice'>Данные на PDA полностью стерты.</span>")
+				to_chat(usr, span_notice("Данные на PDA полностью стерты."))
 				statusLabel = "PDA очищен"
 				statusLabelCooldownTime = world.time + statusLabelCooldownTimeSecondsToAdd
 
@@ -206,7 +206,8 @@
 		if(ishuman(usr))
 			storedpda.forceMove(get_turf(src))
 			if(!usr.get_active_hand() && Adjacent(usr))
-				usr.put_in_hands(storedpda)
+				storedpda.forceMove_turf()
+				usr.put_in_hands(storedpda, ignore_anim = FALSE)
 			storedpda = null
 		else
 			storedpda.forceMove(get_turf(src))

@@ -14,7 +14,9 @@
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", ATKLOG_ALL)
 	A.do_attack_animation(D)
 	D.apply_damage(5, BURN)
+	objective_damage(A, D, 5, BURN)
 	D.apply_damage(5, BRUTE)
+	objective_damage(A, D, 5, BRUTE)
 	A.adjust_nutrition(-10)
 	playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
 	D.visible_message("<span class='danger'>[A] electrocuted [D]!</span>", \
@@ -49,7 +51,7 @@
 		var/datum/martial_art/synthojitsu/F = new/datum/martial_art/synthojitsu(null)
 		F.teach(H)
 		H.adjustBrainLoss(50)
-		H.Weaken(5)
+		H.Weaken(10 SECONDS)
 		to_chat(H, "<span class='boldannounce'>Melee algorithms installed. Safety disabled.</span>")
 		is_used = TRUE
 		desc = "Advanced data storage designed to be compatible with positronic systems.This one include melee algorithms along with overwritten microbattery safety protocols.It's hardlocked"

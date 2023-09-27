@@ -88,7 +88,7 @@
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/structure/necropolis_gate/attack_hand(mob/user)
 	if(locked)
-		to_chat(user, "<span class='boldannounce'>It's [open ? "stuck open":"locked"].</span>")
+		to_chat(user, "<span class='boldannounce'>Кажется, эта дверь [open ? "навеки открыта":"намертво запечатана"].</span>")
 		return
 	toggle_the_gate(user)
 	return ..()
@@ -134,6 +134,16 @@
 	changing_openness = FALSE
 	return TRUE
 
+/obj/structure/necropolis_gate/ashwalker
+	desc = "Массивные каменные ворота. Кажется, они намертво запечатаны."
+	locked = TRUE
+
+/obj/structure/necropolis_gate/ashwalker/attack_hand(mob/user)
+	if(locked)
+		if(user.faction == "ashwalker")
+			locked = FALSE
+	return ..()
+
 /obj/structure/necropolis_gate/locked
 	locked = TRUE
 
@@ -177,10 +187,10 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		visible_message("<span class='userdanger'>Something horrible emerges from the Necropolis!</span>")
 		if(legion_damaged)
 			message_admins("Legion took damage while the necropolis gate was closed, and has released itself!")
-			log_game("Legion took damage while the necropolis gate was closed and released itself.")
+			add_game_logs("Legion took damage while the necropolis gate was closed and released itself.")
 		else
 			message_admins("[user ? ADMIN_LOOKUPFLW(user):"Unknown"] has released Legion!")
-			log_game("[user ? key_name(user) : "Unknown"] released Legion.")
+			add_game_logs("[user ? key_name_log(user) : "Unknown"] released Legion.", user)
 
 		var/sound/legion_sound = sound('sound/creatures/legion_spawn.ogg')
 		for(var/mob/M in GLOB.player_list)
@@ -241,7 +251,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 //stone tiles for boss arenas
 /obj/structure/stone_tile
 	name = "stone tile"
-	icon = 'icons/turf/boss_floors.dmi'
+	icon = 'icons/turf/floors/boss_floors.dmi'
 	icon_state = "pristine_tile1"
 	layer = ABOVE_OPEN_TURF_LAYER
 	anchored = TRUE
@@ -299,7 +309,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	if(break_that_sucker)
 		QDEL_IN(src, 10)
 	else
-		addtimer(CALLBACK(src, .proc/rebuild), 55)
+		addtimer(CALLBACK(src, PROC_REF(rebuild)), 55)
 
 /obj/structure/stone_tile/proc/rebuild()
 	pixel_x = initial(pixel_x)
@@ -323,6 +333,13 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	icon_state = "pristine_slab1"
 	tile_key = "pristine_slab"
 	tile_random_sprite_max = 4
+
+/obj/structure/stone_tile/slab/bone
+	name = "stone bone slab"
+	icon_state = "cracked_slab_bone1"
+	tile_key = "cracked_slab_bone"
+	tile_random_sprite_max = 1
+	color = "#fffff0"
 
 /obj/structure/stone_tile/center
 	name = "stone center tile"
@@ -405,6 +422,8 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	name = "burnt stone surrounding tile"
 	icon_state = "burnt_surrounding_tile1"
 	tile_key = "burnt_surrounding_tile"
+
+/obj/structure/stone_tile/bone
 
 #undef STABLE
 #undef COLLAPSE_ON_CROSS

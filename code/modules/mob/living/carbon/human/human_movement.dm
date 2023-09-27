@@ -1,25 +1,30 @@
 /mob/living/carbon/human/movement_delay()
 	. = 0
 	. += ..()
-	. += config.human_delay
+	. += CONFIG_GET(number/human_delay)
 	. += dna.species.movement_delay(src)
 
 /mob/living/carbon/human/Process_Spacemove(movement_dir = 0)
-
 	if(..())
-		return 1
+		return TRUE
 
-	//Do we have a working jetpack?
-	var/obj/item/tank/jetpack/thrust
+	var/jetpacks = list()
+
 	if(istype(back, /obj/item/tank/jetpack))
-		thrust = back
-	else if(istype(wear_suit, /obj/item/clothing/suit/space/hardsuit))
-		var/obj/item/clothing/suit/space/hardsuit/C = wear_suit
-		thrust = C.jetpack
-	if(thrust)
-		if((movement_dir || thrust.stabilizers) && thrust.allow_thrust(0.01, src))
-			return 1
-	return 0
+		jetpacks += back
+
+	var/obj/item/clothing/suit/space/space_suit = wear_suit
+	if(istype(space_suit) && space_suit.jetpack)
+		jetpacks += space_suit.jetpack
+
+	for(var/obj/item/tank/jetpack/jetpack in jetpacks)
+		if((movement_dir || jetpack.stabilizers) && jetpack.allow_thrust(0.01, src, should_leave_trail = movement_dir))
+			return TRUE
+
+	if(dna.species.spec_Process_Spacemove(src))
+		return TRUE
+
+	return FALSE
 
 /mob/living/carbon/human/mob_has_gravity()
 	. = ..()
@@ -36,6 +41,18 @@
 		if(!lying && !buckled && !throwing)
 			for(var/obj/item/organ/external/splinted in splinted_limbs)
 				splinted.update_splints()
+		if(dna.species.fragile_bones_chance > 0 && (m_intent != MOVE_INTENT_WALK || pulling))
+			if(prob(dna.species.fragile_bones_chance))
+				for(var/zone in list("l_leg", "l_foot", "r_leg", "r_foot"))
+					var/obj/item/organ/external/leg = get_organ(zone)
+					if(leg.status & ORGAN_BROKEN)
+						continue
+					else
+						leg.fracture()
+						break
+			else
+				if(dna.species.fragile_bones_chance && prob(30))
+					playsound(src, "bonebreak", 10, 1)
 
 	if(!has_gravity(loc))
 		return

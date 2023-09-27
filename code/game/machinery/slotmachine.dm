@@ -12,6 +12,7 @@
 	var/resultlvl = null
 
 /obj/machinery/slot_machine/attack_hand(mob/user as mob)
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/slot_machine/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -49,33 +50,33 @@
 		working = TRUE
 		icon_state = "slots-on"
 		playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
-		addtimer(CALLBACK(src, .proc/spin_slots, usr.name), 25)
+		addtimer(CALLBACK(src, PROC_REF(spin_slots), usr.name), 25)
 
 /obj/machinery/slot_machine/proc/spin_slots(userName)
 	switch(rand(1,5000))
 		if(1)
-			atom_say("JACKPOT! [userName] has won ten thousand credits!")
-			GLOB.event_announcement.Announce("Congratulations to [userName] on winning the Jackpot of TEN THOUSAND CREDITS!", "Jackpot Winner")
+			atom_say("ДЖЕКПОТ! Игрок [userName] выиграл 10000 кредитов!")
+			GLOB.event_announcement.Announce("Поздравляем [userName] с выигрышем джекпота в 10000 кредитов!", "Обладатель джекпота!")
 			result = "JACKPOT! You win ten thousand credits!"
 			resultlvl = "teal"
 			win_money(10000, 'sound/goonstation/misc/airraid_loop.ogg')
 		if(2 to 20)
-			atom_say("Big Winner! [userName] has won a thousand credits!")
+			atom_say("Большой победитель! Игрок [userName] выиграл 1000 кредитов!")
 			result = "You win a thousand credits!"
 			resultlvl = "green"
 			win_money(1000, 'sound/goonstation/misc/klaxon.ogg')
 		if(21 to 100)
-			atom_say("Winner! [userName] has won five hundred credits!")
+			atom_say("Победитель! Игрок [userName] выиграл 500 кредитов!")
 			result = "You win five hundred credits!"
 			resultlvl = "green"
 			win_money(500, 'sound/goonstation/misc/bell.ogg')
 		if(101 to 500)
-			atom_say("Winner! [userName] has won two hundred credits!")
+			atom_say("Победитель! Игрок [userName] выиграл 200 кредитов!")
 			result = "You win two hundred credits!"
 			resultlvl = "green"
 			win_money(200)
 		if(501 to 1000)
-			atom_say("Winner! [userName] has won fifty credits!")
+			atom_say("Победитель! Игрок [userName] выиграл 50 кредитов!")
 			result = "You win fifty credits!"
 			resultlvl = "green"
 			win_money(50)

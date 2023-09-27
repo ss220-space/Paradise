@@ -1,7 +1,7 @@
 /obj/machinery/keycard_auth
 	name = "Keycard Authentication Device"
 	desc = "This device is used to trigger station functions, which require more than one ID card to authenticate."
-	icon = 'icons/obj/monitors.dmi'
+	icon = 'icons/obj/machines/monitors.dmi'
 	icon_state = "auth_off"
 
 	var/active = FALSE // This gets set to TRUE on all devices except the one where the initial request was made.
@@ -35,6 +35,7 @@
 		return
 	if(W.GetID())
 		if(check_access(W))
+			add_fingerprint(user)
 			if(active)
 				//This is not the device that made the initial request. It is the device confirming the request.
 				if(event_source)
@@ -51,6 +52,7 @@
 				broadcast_request() //This is the device making the initial event request. It needs to broadcast to other devices
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
+			playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 	return ..()
 
@@ -96,6 +98,7 @@
 		return
 	if(!allowed(usr))
 		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 	. = TRUE
 	switch(action)
@@ -134,7 +137,7 @@
 	if(confirmed)
 		confirmed = FALSE
 		trigger_event(event)
-		log_game("[key_name(event_triggered_by)] triggered and [key_name(event_confirmed_by)] confirmed event [event]")
+		add_game_logs("[key_name_log(event_triggered_by)] triggered and [key_name_log(event_confirmed_by)] confirmed event [event]", event_triggered_by)
 		message_admins("[key_name_admin(event_triggered_by)] triggered and [key_name_admin(event_confirmed_by)] confirmed event [event]", 1)
 	reset()
 
@@ -168,9 +171,9 @@
 			revoke_station_all_access()
 		if("Emergency Response Team")
 			if(is_ert_blocked())
-				atom_say("All Emergency Response Teams are dispatched and can not be called at this time.")
+				atom_say("Все Отряды Быстрого Реагирования распределены и не могут быть вызваны в данный момент.")
 				return
-			atom_say("ERT request transmitted!")
+			atom_say("Запрос ОБР отправлен!")
 			GLOB.command_announcer.autosay("ERT request transmitted. Reason: [ert_reason]", name)
 			print_centcom_report(ert_reason, station_time_timestamp() + " ERT Request")
 
@@ -190,7 +193,7 @@
 				var/list/excludemodes = list(/datum/game_mode/nuclear, /datum/game_mode/blob)
 				if(SSticker.mode.type in excludemodes)
 					return
-				var/list/excludeevents = list(/datum/event/blob, /datum/event/disease_outbreak)
+				var/list/excludeevents = list(/datum/event/blob)
 				for(var/datum/event/E in SSevents.active_events|SSevents.finished_events)
 					if(E.type in excludeevents)
 						return
@@ -208,7 +211,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 		for(var/obj/machinery/door/airlock/D in A)
 			D.emergency = 1
 			D.update_icon(0)
-	GLOB.minor_announcement.Announce("Access restrictions on maintenance and external airlocks have been removed.")
+	GLOB.minor_announcement.Announce("Ограничения на доступ к техническим и внешним шл+юзам были сняты.")
 	GLOB.maint_all_access = 1
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "enabled"))
 
@@ -217,7 +220,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 		for(var/obj/machinery/door/airlock/D in A)
 			D.emergency = 0
 			D.update_icon(0)
-	GLOB.minor_announcement.Announce("Access restrictions on maintenance and external airlocks have been re-added.")
+	GLOB.minor_announcement.Announce("Ограничения на доступ к техническим и внешним шл+юзам были возобновлены.")
 	GLOB.maint_all_access = 0
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "disabled"))
 
@@ -226,7 +229,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 		if(is_station_level(D.z))
 			D.emergency = 1
 			D.update_icon(0)
-	GLOB.minor_announcement.Announce("Access restrictions on all station airlocks have been removed due to an ongoing crisis. Trespassing laws still apply unless ordered otherwise by Command staff.")
+	GLOB.minor_announcement.Announce("Ограничения на доступ ко всем шл+юзам станции были сняты в связи с происходящим кризисом. Статьи о незаконном проникновении по-прежнему действуют, если командование не заявит об обратном.")
 	GLOB.station_all_access = 1
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "enabled"))
 
@@ -235,6 +238,6 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 		if(is_station_level(D.z))
 			D.emergency = 0
 			D.update_icon(0)
-	GLOB.minor_announcement.Announce("Access restrictions on all station airlocks have been re-added. Seek station AI or a colleague's assistance if you are stuck.")
+	GLOB.minor_announcement.Announce("Ограничения на доступ ко всем шл+юзам станции были вновь возобновлены. Если вы застряли, обратитесь за помощью к ИИ станции, или к коллегам.")
 	GLOB.station_all_access = 0
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "disabled"))

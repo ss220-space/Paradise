@@ -21,7 +21,7 @@
 	if(..())
 		return 1
 	if(is_away_level(src.z))
-		to_chat(usr, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
+		to_chat(usr, span_danger("Unable to establish a connection") + ": You're too far away from the station!")
 		return
 	usr.set_machine(src)
 
@@ -50,7 +50,7 @@
 					return
 				HONK_announce(input, usr)
 				to_chat(usr, "Message transmitted.")
-				log_game("[key_name(usr)] has made a HONKplanet announcement: [input]")
+				add_game_logs("has made a HONKplanet announcement: [input]", usr)
 				message_cooldown = 1
 				spawn(6000)//10 minute cooldown
 					message_cooldown = 0
@@ -66,7 +66,7 @@
 	if(..())
 		return
 	if(is_away_level(src.z))
-		to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
+		to_chat(user, span_danger("Unable to establish a connection") + ": You're too far away from the station!")
 		return
 
 	user.set_machine(src)
@@ -94,22 +94,23 @@
 	if(istype(I, /obj/item/screwdriver) && circuit)
 		var/obj/item/screwdriver/S = I
 		playsound(src.loc, S.usesound, 50, 1)
-		if(do_after(user, 20 * S.toolspeed, target = src))
+		if(do_after(user, 20 * S.toolspeed * gettoolspeedmod(user), target = src))
 			var/obj/structure/computerframe/HONKputer/A = new /obj/structure/computerframe/HONKputer( src.loc )
 			var/obj/item/circuitboard/M = new circuit( A )
 			A.circuit = M
 			A.anchored = 1
+			A.add_fingerprint(user)
 			for(var/obj/C in src)
 				C.loc = src.loc
 			if(src.stat & BROKEN)
-				to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
+				to_chat(user, span_notice("The broken glass falls out."))
 				new /obj/item/shard( src.loc )
-				A.state = 3
-				A.icon_state = "3"
-			else
-				to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
 				A.state = 4
-				A.icon_state = "4"
+				A.icon_state = "comp_frame_4"
+			else
+				to_chat(user, span_notice("You disconnect the monitor."))
+				A.state = 5
+				A.icon_state = "comp_frame_5"
 			qdel(src)
 	else
 		return ..()

@@ -55,15 +55,19 @@
 	stat = DEAD
 
 	timeofdeath = world.time
-	create_log(ATTACK_LOG, "died[gibbed ? " (Gibbed)": ""]")
+	add_attack_logs(src, src, "died[gibbed ? " (Gibbed)": ""]")
 
 	SetDizzy(0)
 	SetJitter(0)
 	SetLoseBreath(0)
 	SetDisgust(0)
+	SetEyeBlurry(0)
 
 	if(!gibbed && deathgasp_on_death)
 		emote("deathgasp", force = TRUE)
+
+	if(HAS_TRAIT(src, TRAIT_SECDEATH))
+		playsound(loc, pick('sound/misc/die1.ogg', 'sound/misc/die2.ogg', 'sound/misc/die3.ogg', 'sound/misc/die4.ogg'), 80)
 
 	if(mind && suiciding)
 		mind.suicided = TRUE
@@ -74,10 +78,11 @@
 
 	update_damage_hud()
 	update_health_hud()
+	update_stamina_hud()
 	med_hud_set_health()
 	med_hud_set_status()
 	if(!gibbed && !QDELETED(src))
-		addtimer(CALLBACK(src, .proc/med_hud_set_status), DEFIB_TIME_LIMIT + 1)
+		addtimer(CALLBACK(src, PROC_REF(med_hud_set_status)), DEFIB_TIME_LIMIT + 1)
 
 	for(var/s in ownedSoullinks)
 		var/datum/soullink/S = s
@@ -101,18 +106,19 @@
 			for(var/P in GLOB.dead_mob_list)
 				var/mob/M = P
 				if((M.client?.prefs.toggles2 & PREFTOGGLE_2_DEATHMESSAGE) && (isobserver(M) || M.stat == DEAD))
-					to_chat(M, "<span class='deadsay'><b>[mind.name]</b> has died at <b>[area_name]</b>. (<a href='?src=[M.UID()];jump=\ref[src]'>JMP</a>)</span>")
+					to_chat(M, "<span class='deadsay'><b>[mind.name]</b> has died at <b>[area_name]</b>. (<a href='?src=[M.UID()];jump=[gibbed ? "\ref[T]" : "\ref[src]"]'>JMP</a>)</span>")
 
 	if(SSticker && SSticker.mode)
 		SSticker.mode.check_win()
 	if(mind && mind.devilinfo) // Expand this into a general-purpose death-response system when appropriate
 		mind.devilinfo.beginResurrectionCheck(src)
 
+	SEND_SIGNAL(src, COMSIG_LIVING_DEATH, gibbed)
 	// u no we dead
 	return TRUE
 
 /mob/living/proc/delayed_gib()
 	visible_message("<span class='danger'><b>[src]</b> starts convulsing violently!</span>", "You feel as if your body is tearing itself apart!")
-	Weaken(15)
-	do_jitter_animation(1000, -1)
-	addtimer(CALLBACK(src, .proc/gib), rand(20, 100))
+	Weaken(30 SECONDS)
+	do_jitter_animation(1000, -1) // jitter until they are gibbed
+	addtimer(CALLBACK(src, PROC_REF(gib)), rand(2 SECONDS, 10 SECONDS))

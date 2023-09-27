@@ -1,16 +1,30 @@
 //Cloaks. No, not THAT kind of cloak.
 
-/obj/item/clothing/neck/cloak
-	name = "grey cloak"
+/obj/item/clothing/neck/cloak //We need this "White" for better color adjustment.
+	name = "cloak"
 	desc = "It's a cloak that can be worn around your neck in a pretty dull color."
 	icon_state = "cloak"
 	w_class = WEIGHT_CLASS_SMALL
 	body_parts_covered = UPPER_TORSO | ARMS
+	var/colour = null
+
+/obj/item/clothing/neck/cloak/Initialize(mapload)
+	. = ..()
+	add_atom_colour(colour, FIXED_COLOUR_PRIORITY)
+	update_icon()
+
+/obj/item/clothing/neck/cloak/grey
+	colour = "#535353"
 
 /obj/item/clothing/neck/cloak/head_of_security
 	name = "head of security's cloak"
 	desc = "Worn by the leader of Brigston, ruling the station with an iron fist."
 	icon_state = "hoscloak"
+
+/obj/item/clothing/neck/cloak/security
+	name = "security officer's cloak"
+	desc = "Worn by security officers."
+	icon_state = "seccloak"
 
 /obj/item/clothing/neck/cloak/quartermaster
 	name = "quartermaster's cloak"
@@ -78,6 +92,34 @@
 	desc = "A plush white cloak made of synthetic feathers. Soft to the touch, stylish, and a 2 meter wing span that will drive your captives mad."
 	icon_state = "griffin_wings"
 	item_state = "griffin_wings"
+
+/obj/item/clothing/neck/cloak/bishop
+	name = "bishop's cloak"
+	desc = "Become the space pope."
+	icon_state = "bishopcloak"
+	item_state = "bishopcloak"
+
+/obj/item/clothing/neck/cloak/bishopblack
+	name = "black bishop cloak"
+	desc = "Become the space pope."
+	icon_state = "blackbishopcloak"
+	item_state = "blackbishopcloak"
+
+/obj/item/clothing/neck/cloak/syndiecap
+	name = "syndicate captain's cloak"
+	desc = "A cloak that inspires fear among Nanotrasen employees, worn by the greatest Syndicate captains."
+	icon_state = "syndcapt"
+	item_state = "syndcapt"
+
+/obj/item/clothing/neck/cloak/syndiecap/comms
+	name = "syndicate officer's cloak"
+	desc = "A cloak that inspires fear among Nanotrasen employees, worn by the greatest Syndicate officers."
+
+/obj/item/clothing/neck/cloak/syndieadm
+	name = "syndicate admiral's cloak"
+	desc = "A deep red cloak, worn by only the greatest of the Syndicate. If you are looking at this, you probably won't be looking at it for much longer."
+	icon_state = "syndadmiral"
+	item_state = "syndadmiral"
 
 /obj/item/clothing/neck/toggle/attack_self(mob/user)
 	if(icon_state == initial(icon_state))

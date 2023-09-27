@@ -47,7 +47,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 /obj/machinery/gateway/centerstation/Initialize()
 	..()
 	update_icon()
-	wait = world.time + config.gateway_delay
+	wait = world.time + CONFIG_GET(number/gateway_delay)
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/gateway/centerstation/LateInitialize()
@@ -130,6 +130,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 
 
 /obj/machinery/gateway/centerstation/attack_hand(mob/user as mob)
+	add_fingerprint(user)
 	if(!ready)
 		detect()
 		return
@@ -140,7 +141,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 
 
 //okay, here's the good teleporting stuff
-/obj/machinery/gateway/centerstation/Bumped(atom/movable/M as mob|obj)
+/obj/machinery/gateway/centerstation/Bumped(atom/movable/moving_atom)
 	if(!ready)
 		return
 	if(!active)
@@ -149,20 +150,21 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		return
 
 	if(awaygate.calibrated)
-		M.forceMove(get_step(awaygate.loc, SOUTH))
-		M.dir = SOUTH
+		moving_atom.forceMove(get_step(awaygate.loc, SOUTH))
+		moving_atom.dir = SOUTH
 		return
 	else
 		var/obj/effect/landmark/dest = pick(GLOB.awaydestinations)
 		if(dest)
-			M.forceMove(dest.loc)
-			M.dir = SOUTH
+			moving_atom.forceMove(dest.loc)
+			moving_atom.dir = SOUTH
 			use_power(5000)
 		return
 
 
 /obj/machinery/gateway/centerstation/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/multitool))
+		add_fingerprint(user)
 		to_chat(user, "The gate is already calibrated, there is no work for you to do here.")
 		return
 	return ..()
@@ -243,6 +245,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 
 
 /obj/machinery/gateway/centeraway/attack_hand(mob/user as mob)
+	add_fingerprint(user)
 	if(!ready)
 		detect()
 		return
@@ -252,30 +255,30 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	toggleoff()
 
 
-/obj/machinery/gateway/centeraway/Bumped(atom/movable/AM)
+/obj/machinery/gateway/centeraway/Bumped(atom/movable/moving_atom)
 	if(!ready)
 		return
 	if(!active)
 		return
 	if(!stationgate || QDELETED(stationgate))
 		return
-	if(isliving(AM))
-		if(exilecheck(AM))
+	if(isliving(moving_atom))
+		if(exilecheck(moving_atom))
 			return
 	else
-		for(var/mob/living/L in AM.contents)
+		for(var/mob/living/L in moving_atom.contents)
 			if(exilecheck(L))
-				atom_say("Rejecting [AM]: Exile implant detected in contained lifeform.")
+				atom_say("Rejecting [moving_atom]: Exile implant detected in contained lifeform.")
 				return
-	if(AM.has_buckled_mobs())
-		for(var/mob/living/L in AM.buckled_mobs)
+	if(moving_atom.has_buckled_mobs())
+		for(var/mob/living/L in moving_atom.buckled_mobs)
 			if(exilecheck(L))
-				atom_say("Rejecting [AM]: Exile implant detected in close proximity lifeform.")
+				atom_say("Rejecting [moving_atom]: Exile implant detected in close proximity lifeform.")
 				return
-	AM.forceMove(get_step(stationgate.loc, SOUTH))
-	AM.setDir(SOUTH)
-	if(ismob(AM))
-		var/mob/M = AM
+	moving_atom.forceMove(get_step(stationgate.loc, SOUTH))
+	moving_atom.setDir(SOUTH)
+	if(ismob(moving_atom))
+		var/mob/M = moving_atom
 		if(M.client)
 			M.client.move_delay = max(world.time + 5, M.client.move_delay)
 
@@ -292,6 +295,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 			to_chat(user, "<span class='notice'>The gate is already calibrated, there is no work for you to do here.</span>")
 			return
 		else
+			add_fingerprint(user)
 			to_chat(user, "<span class='boldnotice'>Recalibration successful!</span><span class='notice'>: This gate's systems have been fine tuned.  Travel to this gate will now be on target.</span>")
 			calibrated = 1
 		return

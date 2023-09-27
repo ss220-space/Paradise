@@ -47,8 +47,7 @@
 /obj/item/gun/throw/attackby(obj/item/I, mob/user, params)
 	if(istype(I, valid_projectile_type) && !(I.flags & NODROP))
 		if(get_ammocount() < max_capacity)
-			user.drop_item()
-			I.forceMove(src)
+			user.drop_transfer_item_to_loc(I, src)
 			loaded_projectiles += I
 			to_chat(user, "<span class='notice'>You load [I] into [src].</span>")
 			if(!to_launch)
@@ -81,8 +80,7 @@
 	modify_projectile(I)
 	playsound(user, fire_sound, 50, 1)
 	I.throw_at(target, get_throwrange(), get_throwspeed(), user, FALSE)
-	message_admins("[key_name_admin(user)] fired \a [I] from a [src].")
-	log_game("[key_name_admin(user)] used \a [src].")
+	add_attack_logs(user, target, "fired [I] from a [src]")
 	process_chamber()
 
 	semicd = 1

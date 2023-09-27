@@ -111,6 +111,7 @@
 	suffix = "lavaland_surface_sloth.dmm"
 	cost = 0
 
+/*
 /datum/map_template/ruin/lavaland/ratvar
 	name = "Dead God"
 	id = "ratvar"
@@ -118,6 +119,7 @@
 	suffix = "lavaland_surface_dead_ratvar.dmm"
 	cost = 0
 	allow_duplicates = FALSE
+*/
 
 /datum/map_template/ruin/lavaland/hierophant
 	name = "Hierophant's Arena"
@@ -220,9 +222,72 @@
 	cost = 5
 
 /datum/map_template/ruin/lavaland/bfl_crack
-	name = "Rich plasma deposit"
+	name = "Rich Plasma Deposit"
 	id = "bfl"
-	description = "NT found a huge plasma deposit on the surface of lavaland, you should dig it"
-	suffix = "lavaland_BFL_crack.dmm"
+	description = "NT found a huge plasma deposit on the surface of lavaland, you should dig it."
+	suffix = "lavaland_surface_bfl_crack.dmm"
 	always_place = TRUE
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/lavaland/tumor
+	name = "Elite Tumor"
+	id = "tumor"
+	description = "The victor freed, the loser the next fighter. The ghosts, the endless spectators. And thus the cycle loops..."
+	suffix = "lavaland_surface_elite_tumor.dmm"
+	cost = 5
+	always_place = TRUE
+
+/datum/map_template/ruin/lavaland/monster_nest
+	name = "Monster Nest"
+	id = "monsternest"
+	description = "A cave of several tunnels, housing the local fauna deep underground."
+	suffix = "lavaland_surface_monster_nest.dmm"
+	cost = 5
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/lavaland/worldanvil
+	name = "World Anvil"
+	id = "worldanvil"
+	description = "An ancient anvil, standing untainted for millennia. Wonders were once forged here."
+	suffix = "lavaland_surface_worldanvil.dmm"
+	always_place = TRUE
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/lavaland/biodome/green
+	name = "Biodome Summer"
+	id = "biodome-summer"
+	description = "For those getaways where you want to get back to nature, but you don't want to leave the fortified military compound where you spend your days. \
+	Includes the recently introduced I.C.E(tm)."
+	suffix = "lavaland_biodome_green.dmm"
+
+/datum/map_template/ruin/lavaland/drake_nest
+	name = "Ash Drake Nest"
+	id = "drakenest"
+	description = "A huge nest for horrific monster, surrouded by it's victims."
+	suffix = "lavaland_surface_dragon.dmm"
+	cost = 5
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/lavaland/shinobi
+	name = "Shinobi Grave"
+	id = "grave"
+	description = "The last resting place of the great warrior."
+	suffix = "lavaland_surface_grave.dmm"
+	cost = 10
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/lavaland/legion
+	name = "Legion Barracks"
+	id = "barraks"
+	description = "The place where the great ones gathered to fight."
+	suffix = "lavaland_surface_legion.dmm"
+	cost = 5
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/lavaland/weaver_nest
+	name = "Marrow Weaver nest"
+	id = "marrownest"
+	description = "A huge den of terrifyingly dangerous spiders along with their victims."
+	suffix = "lavaland_surface_nest.dmm"
+	cost = 10
 	allow_duplicates = FALSE

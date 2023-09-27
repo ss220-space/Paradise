@@ -10,6 +10,7 @@
 	permeability_mod = 0.75
 	desc = "If left untreated the subject will probably drive others to insanity."
 	severity = MEDIUM
+	possible_mutations = list(/datum/disease/pierrot_throat/advanced, /datum/disease/wizarditis)
 
 /datum/disease/pierrot_throat/stage_act()
 	..()
@@ -39,6 +40,7 @@
 	permeability_mod = 0.75
 	desc = "If left untreated the subject will probably drive others to insanity and go insane themselves."
 	severity = DANGEROUS
+	possible_mutations = null
 
 /datum/disease/pierrot_throat/advanced/stage_act()
 	..()
@@ -60,5 +62,5 @@
 				affected_mob.say( pick( list("HONK!", "Honk!", "Honk.", "Honk?", "Honk!!", "Honk?!", "Honk...") ) )
 
 			if(!istype(affected_mob.wear_mask, /obj/item/clothing/mask/gas/clown_hat/nodrop))
-				affected_mob.unEquip(affected_mob.wear_mask, TRUE)
+				affected_mob.drop_item_ground(affected_mob.wear_mask, force = TRUE)
 				affected_mob.equip_to_slot(new /obj/item/clothing/mask/gas/clown_hat/nodrop(src), slot_wear_mask)

@@ -26,6 +26,9 @@
 
 	return GM
 
+/turf/return_analyzable_air()
+	return return_air()
+
 /turf/remove_air(amount)
 	var/datum/gas_mixture/GM = new
 
@@ -375,7 +378,7 @@
 		// Feature disabled until issue with effect stacking will be resolved
 		// if (iscarbon(src) && pressure_difference > 50)
 		// 	var/mob/living/carbon/carbon = src
-		// 	carbon.AdjustWeakened(3)
+		// 	carbon.AdjustWeakened(6 SECONDS)
 		step(src, direction)
 		last_high_pressure_movement_air_cycle = SSair.times_fired
 
@@ -472,7 +475,7 @@
 			if(conductivity_directions&direction)
 				var/turf/neighbor = get_step(src,direction)
 
-				if(!neighbor.thermal_conductivity)
+				if(!neighbor?.thermal_conductivity)
 					continue
 
 				if(istype(neighbor, /turf/simulated)) //anything under this subtype will share in the exchange

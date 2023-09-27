@@ -84,7 +84,7 @@
 			eyeobj.setLoc(camera_location)
 		else
 			// An abberant case - silent failure is obnoxious
-			to_chat(user, "<span class='warning'>ERROR: No linked and active camera network found.</span>")
+			to_chat(user, span_warning("ERROR: No linked and active camera network found."))
 			user.unset_machine()
 	else
 		give_eye_control(user)
@@ -114,6 +114,12 @@
 	eye_user = null
 	origin = null
 	return ..()
+
+/mob/camera/aiEye/remote/update_remote_sight(mob/living/user)
+	user.see_invisible = SEE_INVISIBLE_LIVING //can't see ghosts through cameras
+	user.sight = SEE_TURFS | SEE_BLACKNESS
+	user.see_in_dark = 2
+	return 1
 
 /mob/camera/aiEye/remote/RemoveImages()
 	..()

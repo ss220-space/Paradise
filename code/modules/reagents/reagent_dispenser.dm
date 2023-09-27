@@ -89,15 +89,13 @@
 
 	if(will_explode) // Log here while you have the information needed
 		add_attack_logs(P.firer, src, "shot with [P.name]", ATKLOG_FEW)
-		log_game("[key_name(P.firer)] triggered a fueltank explosion with [P.name] at [COORD(loc)]")
-		investigate_log("[key_name(P.firer)] triggered a fueltank explosion with [P.name] at [COORD(loc)]", INVESTIGATE_BOMB)
+		investigate_log("[key_name_log(P.firer)] triggered a fueltank explosion with [P.name]", INVESTIGATE_BOMB)
 	..()
 
 /obj/structure/reagent_dispensers/fueltank/boom(rigtrigger = FALSE, log_attack = FALSE) // Prevent case where someone who rigged the tank is blamed for the explosion when the rig isn't what triggered the explosion
 	if(rigtrigger) // If the explosion is triggered by an assembly holder
-		log_game("A fueltank, last rigged by [lastrigger], triggered at [COORD(loc)]")
 		add_attack_logs(lastrigger, src, "rigged fuel tank exploded", ATKLOG_FEW)
-		investigate_log("A fueltank, last rigged by [lastrigger], triggered at [COORD(loc)]", INVESTIGATE_BOMB)
+		investigate_log("A fueltank, last rigged by [lastrigger]", INVESTIGATE_BOMB)
 	if(log_attack)
 		add_attack_logs(usr, src, "blew up", ATKLOG_FEW)
 	if(reagents)
@@ -127,6 +125,7 @@
 	if(rig)
 		usr.visible_message("<span class='notice'>[usr] begins to detach [rig] from [src].</span>", "<span class='notice'>You begin to detach [rig] from [src].</span>")
 		if(do_after(usr, 20, target = src))
+			add_fingerprint(usr)
 			usr.visible_message("<span class='notice'>[usr] detaches [rig] from [src].</span>", "<span class='notice'>You detach [rig] from [src].</span>")
 			rig.forceMove(get_turf(usr))
 			rig = null
@@ -141,18 +140,17 @@
 			return ..()
 		user.visible_message("[user] begins rigging [I] to [src].", "You begin rigging [I] to [src]")
 		if(do_after(user, 20, target = src))
+			add_fingerprint(user)
 			user.visible_message("<span class='notice'>[user] rigs [I] to [src].</span>", "<span class='notice'>You rig [I] to [src].</span>")
 
 			var/obj/item/assembly_holder/H = I
 			if(istype(H.a_left, /obj/item/assembly/igniter) || istype(H.a_right, /obj/item/assembly/igniter))
-				log_game("[key_name(user)] rigged [src.name] with [I.name] for explosion at [COORD(loc)]")
 				add_attack_logs(user, src, "rigged fuel tank with [I.name] for explosion", ATKLOG_FEW)
-				investigate_log("[key_name(user)] rigged [src.name] with [I.name] for explosion at [COORD(loc)]", INVESTIGATE_BOMB)
+				investigate_log("[key_name_log(user)] rigged [src.name] with [I.name] for explosion", INVESTIGATE_BOMB)
 
-				lastrigger = "[key_name(user)]"
+				lastrigger = "[key_name_log(user)]"
 				rig = H
-				user.drop_item()
-				H.forceMove(src)
+				user.drop_transfer_item_to_loc(H, src)
 				if(rig.has_prox_sensors())
 					AddComponent(/datum/component/proximity_monitor)
 				var/icon/test = getFlatIcon(H)
@@ -169,17 +167,15 @@
 		return
 	if(I.tool_enabled && I.use_tool(src, user, volume = I.tool_volume)) //check it's enabled first to prevent duplicate messages when refuelling
 		user.visible_message("<span class='danger'>[user] catastrophically fails at refilling [user.p_their()] [I]!</span>", "<span class='userdanger'>That was stupid of you.</span>")
-		message_admins("[key_name_admin(user)] triggered a fueltank explosion at [COORD(loc)]")
-		log_game("[key_name(user)] triggered a fueltank explosion at [COORD(loc)]")
 		add_attack_logs(user, src, "hit with lit welder")
-		investigate_log("[key_name(user)] triggered a fueltank explosion at [COORD(loc)]", INVESTIGATE_BOMB)
+		investigate_log("[key_name(user)] triggered a fueltank explosion", INVESTIGATE_BOMB)
 		boom()
 	else
 		I.refill(user, src, reagents.get_reagent_amount("fuel")) //Try dump all fuel into the welder
 
 
 /obj/structure/reagent_dispensers/fueltank/Move()
-	..()
+	. = ..()
 	if(rig)
 		rig.process_movement()
 
@@ -216,7 +212,7 @@
 /obj/structure/reagent_dispensers/water_cooler
 	name = "liquid cooler"
 	desc = "A machine that dispenses liquid to drink."
-	icon = 'icons/obj/vending.dmi'
+	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "water_cooler"
 	anchored = 1
 	tank_volume = 500
@@ -232,9 +228,10 @@
 	if(!paper_cups)
 		to_chat(user, "<span class='warning'>There aren't any cups left!</span>")
 		return
+	add_fingerprint(user)
 	user.visible_message("<span class='notice'>[user] takes a cup from [src].</span>", "<span class='notice'>You take a paper cup from [src].</span>")
 	var/obj/item/reagent_containers/food/drinks/sillycup/S = new(get_turf(src))
-	user.put_in_hands(S)
+	user.put_in_hands(S, ignore_anim = FALSE)
 	paper_cups--
 
 /obj/structure/reagent_dispensers/water_cooler/wrench_act(mob/user, obj/item/I)
@@ -251,7 +248,7 @@
 	var/has_lid = TRUE
 
 /obj/structure/reagent_dispensers/beerkeg/blob_act(obj/structure/blob/B)
-	explosion(loc, 0, 3, 5, 7, 10)
+	explosion(loc, 0, 3, 5, 7, 10, cause = "[src.name] got blobbed")
 	if(!QDELETED(src))
 		qdel(src)
 
@@ -264,6 +261,7 @@
 		has_lid = FALSE
 
 /obj/structure/reagent_dispensers/beerkeg/attack_hand(mob/user)
+	add_fingerprint(user)
 	if(has_lid)
 		to_chat(usr, "<span class='notice'>You take the lid off [src].</span>")
 		remove_lid()
@@ -273,7 +271,7 @@
 
 /obj/structure/reagent_dispensers/beerkeg/nuke
 	name = "Nanotrasen-brand nuclear fission explosive"
-	desc = "One of the more successful achievements of the Nanotrasen Corporate Warfare Division, their nuclear fission explosives are renowned for being cheap\
+	desc = "One of the more successful achievements of the Nanotrasen Corporate Warfare Division, their nuclear fission explosives are renowned for being cheap \
 	to produce and devestatingly effective. Signs explain that though this is just a model, every Nanotrasen station is equipped with one, just in case. \
 	All Captains carefully guard the disk needed to detonate them - at least, the sign says they do. There seems to be a tap on the back."
 	icon = 'icons/obj/stationobjs.dmi'

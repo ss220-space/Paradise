@@ -10,16 +10,37 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "ore"
 	max_amount = 50
+	full_w_class = WEIGHT_CLASS_BULKY
 	singular_name = "ore chunk"
 	var/points = 0 //How many points this ore gets you from the ore redemption machine
 	var/refined_type = null //What this ore defaults to being refined into
+	var/list/stack_overlays
 
-/obj/item/stack/ore/New(loc, new_amount, merge = TRUE)
-	..()
+/obj/item/stack/ore/update_icon()
+	var/difference = min(ORESTACK_OVERLAYS_MAX, amount) - (LAZYLEN(stack_overlays)+1)
+	if(difference == 0)
+		return
+	else if(difference < 0 && LAZYLEN(stack_overlays))			//amount < stack_overlays, remove excess.
+		cut_overlays()
+		if (LAZYLEN(stack_overlays)-difference <= 0)
+			stack_overlays = null;
+		else
+			stack_overlays.len += difference
+	else if(difference > 0)			//amount > stack_overlays, add some.
+		cut_overlays()
+		for(var/i in 1 to difference)
+			var/mutable_appearance/newore = mutable_appearance(icon, icon_state)
+			newore.pixel_x = rand(-8,8)
+			newore.pixel_y = rand(-8,8)
+			LAZYADD(stack_overlays, newore)
+	if(stack_overlays)
+		add_overlay(stack_overlays)
+
+/obj/item/stack/ore/Initialize(mapload, new_amount , merge = TRUE)
+	. = ..()
 	pixel_x = rand(0, 16) - 8
 	pixel_y = rand(0, 8) - 8
-	if(is_mining_level(z))
-		GLOB.score_oremined++ //When ore spawns, increment score.  Only include ore spawned on mining level (No Clown Planet)
+
 
 /obj/item/stack/ore/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -99,14 +120,16 @@
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 
 GLOBAL_LIST_INIT(sand_recipes, list(\
-		new /datum/stack_recipe("sandstone", /obj/item/stack/sheet/mineral/sandstone, 1, 1, 50)\
+		new /datum/stack_recipe("sandstone", /obj/item/stack/sheet/mineral/sandstone, 1, 1, 50), \
+		null, \
+		new /datum/stack_recipe("puddle", /obj/structure/sink/puddle, 30, 1, 1, 10 SECONDS, 1, 1)\
 		))
 
 /obj/item/stack/ore/glass/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.sand_recipes
 	. = ..()
+	recipes = GLOB.sand_recipes
 
-/obj/item/stack/ore/glass/throw_impact(atom/hit_atom)
+/obj/item/stack/ore/glass/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(..() || !ishuman(hit_atom))
 		return
 	var/mob/living/carbon/human/C = hit_atom
@@ -119,9 +142,9 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	if(C.glasses && C.glasses.flags_cover & GLASSESCOVERSEYES)
 		visible_message("<span class='danger'>[C]'s glasses block the sand!</span>")
 		return
-	C.EyeBlurry(6)
+	C.EyeBlurry(12 SECONDS)
 	C.adjustStaminaLoss(15)//the pain from your eyes burning does stamina damage
-	C.AdjustConfused(5)
+	C.AdjustConfused(10 SECONDS)
 	to_chat(C, "<span class='userdanger'>[src] gets into your eyes! The pain, it burns!</span>")
 	qdel(src)
 
@@ -135,6 +158,13 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	icon_state = "volcanic_sand"
 	icon_state = "volcanic_sand"
 	singular_name = "volcanic ash pile"
+	desc = "Looks like you could shove some on a girder to make a false rock wall"
+
+/obj/item/stack/ore/glass/basalt/ancient
+	name = "ancient sand"
+	icon_state = "volcanic_sand"
+	item_state = "volcanic_sand"
+	singular_name = "ancient sand pile"
 
 /obj/item/stack/ore/plasma
 	name = "plasma ore"
@@ -212,7 +242,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	item_state = "Gibtonite ore"
 	w_class = WEIGHT_CLASS_BULKY
 	throw_range = 0
-	anchored = 1 //Forces people to carry it by hand, no pulling!
 	var/primed = 0
 	var/det_time = 100
 	var/quality = GIBTONITE_QUALITY_LOW //How pure this gibtonite is, determines the explosion produced by it and is derived from the det_time of the rock wall it was taken from, higher value = better
@@ -224,6 +253,10 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		SStgui.close_uis(wires)
 		QDEL_NULL(wires)
 	return ..()
+
+/obj/item/twohanded/required/gibtonite/can_be_pulled(user)
+	to_chat(user, "<span class='warning'>It's too heavy to be pulled!</span>")
+	return FALSE // must be carried in two hands or be picked up with ripley
 
 /obj/item/twohanded/required/gibtonite/attackby(obj/item/I, mob/user, params)
 	if(!wires && istype(I, /obj/item/assembly/igniter))
@@ -243,7 +276,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		GibtoniteReaction(user)
 		return
 	if(primed)
-		if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner) || istype(I, /obj/item/multitool))
+		if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner) || istype(I, /obj/item/multitool) || istype(I, /obj/item/mecha_parts/mecha_equipment/mining_scanner))
 			primed = 0
 			user.visible_message("The chain reaction was stopped! ...The ore's quality looks diminished.", "<span class='notice'>You stopped the chain reaction. ...The ore's quality looks diminished.</span>")
 			icon_state = "Gibtonite ore"
@@ -286,20 +319,20 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 			else
 				message_admins("[key_name_admin(user)] has triggered a [name] to detonate at [ADMIN_COORDJMP(bombturf)].")
 		if(triggered_by == 1)
-			log_game("An explosion has primed a [name] for detonation at [AREACOORD(bombturf)]")
+			add_game_logs("An explosion has primed a [name] for detonation at [AREACOORD(bombturf)]")
 		else if(triggered_by == 2)
-			log_game("A signal has primed a [name] for detonation at [AREACOORD(bombturf)]). Igniter attacher: [key_name(attacher)].")
+			add_game_logs("A signal has primed a [name] for detonation at [AREACOORD(bombturf)]). Igniter attacher: [key_name(attacher)].")
 		else
 			user.visible_message("<span class='warning'>[user] strikes \the [src], causing a chain reaction!</span>", "<span class='danger'>You strike \the [src], causing a chain reaction.</span>")
-			log_game("[key_name(user)] has primed a [name] for detonation at [AREACOORD(bombturf)])")
+			add_game_logs("has primed a [name] for detonation at [AREACOORD(bombturf)])", user)
 		spawn(det_time)
 		if(primed)
 			if(quality == GIBTONITE_QUALITY_HIGH)
-				explosion(src.loc,2,4,9,adminlog = notify_admins)
+				explosion(src.loc,2,4,9,adminlog = notify_admins, cause = src)
 			if(quality == GIBTONITE_QUALITY_MEDIUM)
-				explosion(src.loc,1,2,5,adminlog = notify_admins)
+				explosion(src.loc,1,2,5,adminlog = notify_admins, cause = src)
 			if(quality == GIBTONITE_QUALITY_LOW)
-				explosion(src.loc,-1,1,3,adminlog = notify_admins)
+				explosion(src.loc,-1,1,3,adminlog = notify_admins, cause = src)
 			qdel(src)
 
 
@@ -400,6 +433,13 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	sideslist = list("heads")
 	credits = 20
 
+/obj/item/coin/twoheaded/thief
+	name = "монета Гильдии Воров"
+	icon_state = "coin_thief_heads"
+	cmineral = "thief"
+	desc = "Монета Гильдии Воров, которую выдают каждому уважающему себя члену гильдии для взаимной идентификации. Странный сплав с изображением бюстов черной и белой кошки, стоящих спиной к спине. Ценится коллекционерами, и как правило у них же и возвращают."
+	credits = 600
+
 /obj/item/coin/antagtoken
 	name = "antag token"
 	icon_state = "coin_valid_valid"
@@ -412,6 +452,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 /obj/item/coin/antagtoken/syndicate
 	name = "syndicate coin"
 	credits = 160
+
 
 /obj/item/coin/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/stack/cable_coil))
@@ -433,8 +474,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 			..()
 			return
 
-		var/obj/item/stack/cable_coil/CC = new/obj/item/stack/cable_coil(user.loc)
-		CC.amount = 1
+		var/obj/item/stack/cable_coil/CC = new/obj/item/stack/cable_coil(user.loc, 1)
 		CC.update_icon()
 		overlays = list()
 		string_attached = null
@@ -468,6 +508,22 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 			user.visible_message("<span class='notice'>[user] has flipped [src]. It lands on [coinflip].</span>", \
 								 "<span class='notice'>You flip [src]. It lands on [coinflip].</span>", \
 								 "<span class='notice'>You hear the clattering of loose change.</span>")
+
+/obj/item/coin/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	if(istype(throwingdatum?.thrower?.mind?.martial_art, /datum/martial_art/mr_chang))
+		throwingdatum.thrower.say(pick("Сдачу, пожалуйста!", "За сущие копейки!", "Сдачу!", "Кэшбек в кредит!"))
+		embed_chance = 30
+		embedded_impact_pain_multiplier = 2
+		embedded_ignore_throwspeed_threshold = TRUE
+		sharp = TRUE
+	. = ..()
+
+/obj/item/stack/spacecash/after_throw(datum/callback/callback)
+	embed_chance = initial(embed_chance)
+	embedded_impact_pain_multiplier = initial(embedded_impact_pain_multiplier)
+	embedded_ignore_throwspeed_threshold = initial(embedded_ignore_throwspeed_threshold)
+	sharp = initial(sharp)
+	. = ..()
 
 #undef GIBTONITE_QUALITY_LOW
 #undef GIBTONITE_QUALITY_MEDIUM

@@ -52,6 +52,8 @@
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!head_accessory_style || !H || H.ha_style == head_accessory_style || !(head_accessory_style in GLOB.head_accessory_styles_list))
 		return
+	if(SEND_SIGNAL(src, COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY, head_accessory_style) & COMSIG_HUMAN_NO_CHANGE_APPEARANCE)
+		return FALSE
 
 	H.ha_style = head_accessory_style
 
@@ -100,22 +102,28 @@
 		update_markings()
 	return 1
 
-/mob/living/carbon/human/proc/change_body_accessory(var/body_accessory_style)
+/mob/living/carbon/human/proc/change_body_accessory(var/body_accessory_style, H)
 	var/found
-	if(!body_accessory_style || !bodypart_tail || (bodypart_tail.body_accessory && bodypart_tail.body_accessory.name == body_accessory_style))
+	if(!body_accessory_style || (!bodypart_tail && !bodypart_wing))
 		return
-
+	if(SEND_SIGNAL(src, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY, body_accessory_style) & COMSIG_HUMAN_NO_CHANGE_APPEARANCE)
+		return FALSE
 	for(var/B in GLOB.body_accessory_by_name)
 		if(B == body_accessory_style)
-			bodypart_tail.body_accessory = GLOB.body_accessory_by_name[body_accessory_style]
-			found = 1
-
+			if(bodypart_wing)
+				bodypart_wing.body_accessory = GLOB.body_accessory_by_name[body_accessory_style]
+				found = 1
+				bodypart_wing.m_styles["wing"] = "None"
+			if(bodypart_tail)
+				bodypart_tail.body_accessory = GLOB.body_accessory_by_name[body_accessory_style]
+				found = 1
+				bodypart_tail.m_styles["tail"] = "None"
 	if(!found)
 		return
 
-	bodypart_tail.m_styles["tail"] = "None"
 	update_tail_layer()
-	return 1
+	update_wing_layer()
+	return TRUE
 
 /mob/living/carbon/human/proc/change_alt_head(var/alternate_head)
 	var/obj/item/organ/external/head/H = get_organ("head")
@@ -154,6 +162,12 @@
 	else
 		//this shouldn't happen
 		H.h_style = "Bald"
+		// Gradient
+	H.h_grad_style = "None"
+	H.h_grad_offset_x = 0
+	H.h_grad_offset_y = 0
+	H.h_grad_colour = "#000000"
+	H.h_grad_alpha = 200
 
 	update_hair()
 
@@ -219,7 +233,13 @@
 	sync_organ_dna(assimilate=0)
 	update_eyes()
 	update_body()
-	return 1
+	return TRUE
+
+/mob/living/carbon/human/proc/get_eye_color()
+	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
+	if(E)
+		return E.eye_colour
+	return FALSE
 
 /mob/living/carbon/human/proc/change_hair_color(var/colour = "#000000", var/secondary)
 	var/obj/item/organ/external/head/H = get_organ("head")
@@ -288,6 +308,8 @@
 /mob/living/carbon/human/proc/change_skin_color(var/colour = "#000000")
 	if(colour == skin_colour || !(dna.species.bodyflags & HAS_SKIN_COLOR))
 		return
+	if(dna.species.bodyflags & HAS_ICON_SKIN_TONE)
+		return
 
 	skin_colour = colour
 
@@ -304,6 +326,25 @@
 	force_update_limbs()
 	update_body()
 	return 1
+
+/mob/living/carbon/human/proc/change_hair_gradient(style, offset_raw, color, alpha)
+	var/obj/item/organ/external/head/H = get_organ("head")
+	if(!H)
+		return
+
+	if(!isnull(style))
+		H.h_grad_style = style
+	if(!isnull(offset_raw))
+		var/list/expl = splittext(offset_raw, ",")
+		if(length(expl) == 2)
+			H.h_grad_offset_x = clamp(text2num(expl[1]) || 0, -16, 16)
+			H.h_grad_offset_y = clamp(text2num(expl[2]) || 0, -16, 16)
+	if(!isnull(color))
+		H.h_grad_colour = color
+	if(!isnull(alpha))
+		H.h_grad_alpha = clamp(alpha, 0, 200)
+
+	update_hair()
 
 /mob/living/carbon/human/proc/update_dna()
 	check_dna()
@@ -325,7 +366,7 @@
 
 		valid_species += current_species_name
 
-	return sortTim(valid_species, /proc/cmp_text_asc)
+	return sortTim(valid_species, cmp = /proc/cmp_text_asc)
 
 /mob/living/carbon/human/proc/generate_valid_hairstyles()
 	var/list/valid_hairstyles = new()
@@ -353,7 +394,7 @@
 			if(H.dna.species.name in S.species_allowed) //If the user's head is of a species the hairstyle allows, add it to the list.
 				valid_hairstyles += hairstyle
 
-	return sortTim(valid_hairstyles, /proc/cmp_text_asc)
+	return sortTim(valid_hairstyles, cmp = /proc/cmp_text_asc)
 
 /mob/living/carbon/human/proc/generate_valid_facial_hairstyles()
 	var/list/valid_facial_hairstyles = new()
@@ -382,7 +423,7 @@
 			if(H.dna.species.name in S.species_allowed) //If the user's head is of a species the facial hair style allows, add it to the list.
 				valid_facial_hairstyles += facialhairstyle
 
-	return sortTim(valid_facial_hairstyles, /proc/cmp_text_asc)
+	return sortTim(valid_facial_hairstyles, cmp = /proc/cmp_text_asc)
 
 /mob/living/carbon/human/proc/generate_valid_head_accessories()
 	var/list/valid_head_accessories = new()
@@ -397,7 +438,7 @@
 			continue
 		valid_head_accessories += head_accessory
 
-	return sortTim(valid_head_accessories, /proc/cmp_text_asc)
+	return sortTim(valid_head_accessories, cmp = /proc/cmp_text_asc)
 
 /mob/living/carbon/human/proc/generate_valid_markings(var/location = "body")
 	var/list/valid_markings = new()
@@ -439,22 +480,20 @@
 					continue
 		valid_markings += marking
 
-	return sortTim(valid_markings, /proc/cmp_text_asc)
+	return sortTim(valid_markings, cmp = /proc/cmp_text_asc)
 
 /mob/living/carbon/human/proc/generate_valid_body_accessories()
-	var/list/valid_body_accessories = new()
+	var/list/valid_body_accessories = list()
 	for(var/B in GLOB.body_accessory_by_name)
 		var/datum/body_accessory/A = GLOB.body_accessory_by_name[B]
-		if(check_rights(R_ADMIN, 0, src))
-			valid_body_accessories = GLOB.body_accessory_by_name.Copy()
-		else
-			if(!istype(A))
-				valid_body_accessories["None"] = "None" //The only null entry should be the "None" option.
-				continue
-			if(bodypart_tail && (bodypart_tail.dna.species.name in A.allowed_species)) //If the user is not of a species the body accessory style allows, skip it. Otherwise, add it to the list.
-				valid_body_accessories += B
+		if(isnull(A))
+			continue
+		else if(dna.species.name in A.allowed_species) //If the user is not of a species the body accessory style allows, skip it. Otherwise, add it to the list.
+			valid_body_accessories += B
+	if(dna.species.optional_body_accessory)
+		valid_body_accessories += "None"
 
-	return sortTim(valid_body_accessories, /proc/cmp_text_asc)
+	return sortTim(valid_body_accessories, cmp = /proc/cmp_text_asc)
 
 /mob/living/carbon/human/proc/generate_valid_alt_heads()
 	var/list/valid_alt_heads = list()
@@ -469,7 +508,7 @@
 
 		valid_alt_heads += alternate_head
 
-	return sortTim(valid_alt_heads, /proc/cmp_text_asc)
+	return sortTim(valid_alt_heads, cmp = /proc/cmp_text_asc)
 
 /mob/living/carbon/human/proc/scramble_appearance()
 	scramble(1, src, 100)

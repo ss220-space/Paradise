@@ -30,6 +30,8 @@
 		jobname = "No ID"
 	else if(isAI(speaker))
 		jobname = "AI"
+	else if(iscogscarab(speaker))
+		jobname = "Unknown"
 	else if(isrobot(speaker))
 		jobname = "Cyborg"
 	else if(ispAI(speaker))
@@ -138,12 +140,12 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 
 	GLOB.announcing_vox = world.time + VOX_DELAY
 
-	log_game("[key_name(src)] made a vocal announcement: [message].")
+	add_game_logs("[key_name_log(src)] made a vocal announcement: [message].", src)
 	message_admins("[key_name_admin(src)] made a vocal announcement: [message].")
 
 	var/i = 0
 	for(var/word in words)
-		addtimer(CALLBACK(GLOBAL_PROC, .proc/play_vox_word, word, src.z, null), i, TIMER_CLIENT_TIME)
+		addtimer(CALLBACK(GLOBAL_PROC, /proc/play_vox_word, word, src.z, null), i, TIMER_CLIENT_TIME)
 		i++
 
 	ai_voice_announcement_to_text(words)
@@ -160,7 +162,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 		if(M.client && !(M.client.prefs.sound & SOUND_AI_VOICE))
 			var/turf/T = get_turf(M)
 			if(T && T.z == z && M.can_hear())
-				SEND_SOUND(M, 'sound/misc/notice2.ogg')
+				SEND_SOUND(M, 'sound/misc/announce_dig.ogg')
 				to_chat(M, formatted_message)
 
 /proc/play_vox_word(word, z_level, mob/only_listener)

@@ -59,7 +59,7 @@
 	S.apply_transition(src)
 
 /turf/space/proc/update_starlight()
-	if(config.starlight)
+	if(CONFIG_GET(flag/starlight))
 		for(var/t in RANGE_TURFS(1,src)) //RANGE_TURFS is in code\__HELPERS\game.dm
 			if(isspaceturf(t))
 				//let's NOT update this that much pls
@@ -75,22 +75,22 @@
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		var/obj/structure/lattice/catwalk/W = locate(/obj/structure/lattice/catwalk, src)
 		if(W)
-			to_chat(user, "<span class='warning'>There is already a catwalk here!</span>")
+			to_chat(user, span_warning("There is already a catwalk here!"))
 			return
 		if(L)
 			if(R.use(1))
-				to_chat(user, "<span class='notice'>You construct a catwalk.</span>")
+				to_chat(user, span_notice("You construct a catwalk."))
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 				new/obj/structure/lattice/catwalk(src)
 			else
-				to_chat(user, "<span class='warning'>You need two rods to build a catwalk!</span>")
+				to_chat(user, span_warning("You need two rods to build a catwalk!"))
 			return
 		if(R.use(1))
-			to_chat(user, "<span class='notice'>Constructing support lattice...</span>")
+			to_chat(user, span_notice("Constructing support lattice..."))
 			playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 			ReplaceWithLattice()
 		else
-			to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
+			to_chat(user, span_warning("You need one rod to build a lattice."))
 		return
 
 	if(istype(C, /obj/item/stack/tile/plasteel))
@@ -100,12 +100,34 @@
 			if(S.use(1))
 				qdel(L)
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-				to_chat(user, "<span class='notice'>You build a floor.</span>")
+				to_chat(user, span_notice("You build a floor."))
 				ChangeTurf(/turf/simulated/floor/plating)
 			else
-				to_chat(user, "<span class='warning'>You need one floor tile to build a floor!</span>")
+				to_chat(user, span_warning("You need one floor tile to build a floor!"))
 		else
-			to_chat(user, "<span class='warning'>The plating is going to need some support! Place metal rods first.</span>")
+			to_chat(user, span_warning("The plating is going to need some support! Place metal rods first."))
+
+	if(istype(C, /obj/item/stack/fireproof_rods))
+		var/obj/item/stack/fireproof_rods/R = C
+		var/obj/structure/lattice/fireproof/L = locate(/obj/structure/lattice/fireproof, src)
+		var/obj/structure/lattice/catwalk/fireproof/W = locate(/obj/structure/lattice/catwalk/fireproof, src)
+		if(W)
+			to_chat(user, span_warning("Здесь уже есть мостик!"))
+			return
+		if(!L)
+			if(R.use(1))
+				to_chat(user, span_notice("Вы установили прочную решётку."))
+				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
+				new /obj/structure/lattice/fireproof(src)
+			else
+				to_chat(user, span_warning("Вам нужен один огнеупорный стержень для постройки решётки."))
+			return
+		if(L)
+			if(R.use(2))
+				qdel(L)
+				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
+				to_chat(user, span_notice("Вы установили мостик."))
+				new /obj/structure/lattice/catwalk/fireproof(src)
 
 /turf/space/Entered(atom/movable/A as mob|obj, atom/OL, ignoreRest = 0)
 	..()
@@ -113,6 +135,7 @@
 		return
 
 	if(destination_z && destination_x && destination_y)
+		destination_z = check_taipan_availability(A, destination_z)
 		A.forceMove(locate(destination_x, destination_y, destination_z))
 
 		if(isliving(A))
@@ -122,8 +145,41 @@
 				L.pulling.forceMove(T)
 
 		//now we're on the new z_level, proceed the space drifting
-		sleep(0)//Let a diagonal move finish, if necessary
-		A.newtonian_move(A.inertia_dir)
+		spawn(0)//Let a diagonal move finish, if necessary
+			A.newtonian_move(A.inertia_dir)
+
+/turf/space/proc/check_taipan_availability(atom/movable/A as mob|obj, destination_z)
+	var/mob/living/check_mob = A
+	// if we are from taipan's crew, then we can easily access it.
+	if(istype(check_mob) && is_taipan(destination_z))
+		if(check_mob.mind in GLOB.taipan_players_active)
+			to_chat(A, span_info("Вы вернулись в ваш родной скрытый от чужих глаз сектор..."))
+			return destination_z
+	// if we are not from taipan's crew, then we cannot get there until there is enought players on Taipan
+	if(is_taipan(destination_z) && length(GLOB.taipan_players_active) < TAIPAN_PLAYER_LIMIT)
+		var/datum/space_level/taipan_zlvl
+		var/datum/space_level/direct
+		for(var/list_parser in GLOB.space_manager.z_list)
+			var/datum/space_level/lvl = GLOB.space_manager.z_list[list_parser]
+			if(TAIPAN in lvl.flags)
+				taipan_zlvl = lvl
+		switch(A.dir)
+			if(NORTH)
+				direct = taipan_zlvl.get_connection(Z_LEVEL_NORTH)
+			if(SOUTH)
+				direct = taipan_zlvl.get_connection(Z_LEVEL_SOUTH)
+			if(EAST)
+				direct = taipan_zlvl.get_connection(Z_LEVEL_EAST)
+			if(WEST)
+				direct = taipan_zlvl.get_connection(Z_LEVEL_WEST)
+		destination_z = direct.zpos
+		// if we are still going to get to taipan after all the checks... Then get random available z_lvl instead
+		if(is_taipan(destination_z))
+			destination_z = pick(get_all_linked_levels_zpos())
+	//notification if we do get to taipan
+	if(istype(check_mob) && is_taipan(destination_z))
+		to_chat(check_mob, span_warning("Вы попадаете в загадочный сектор полный астероидов... Тут стоит быть осторожнее..."))
+	return destination_z
 
 /turf/space/proc/Sandbox_Spacemove(atom/movable/A as mob|obj)
 	var/cur_x
@@ -272,6 +328,20 @@
 
 /turf/space/acid_act(acidpwr, acid_volume)
 	return 0
+
+/turf/space/rcd_construct_act(mob/user, obj/item/rcd/our_rcd, rcd_mode)
+	. = ..()
+	if(rcd_mode != RCD_MODE_TURF)
+		return RCD_NO_ACT
+	if(our_rcd.useResource(1, user))
+		to_chat(user, "Building Floor...")
+		playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
+		add_attack_logs(user, src, "Constructed floor with RCD")
+		ChangeTurf(our_rcd.floor_type)
+		return RCD_ACT_SUCCESSFULL
+	to_chat(user, span_warning("ERROR! Not enough matter in unit to construct this floor!"))
+	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+	return RCD_ACT_FAILED
 
 /turf/space/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/space.dmi'

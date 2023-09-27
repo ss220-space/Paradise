@@ -28,6 +28,13 @@
 	item_color = "qmf"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
+/obj/item/clothing/under/rank/cargo/official
+	name = "quartermaster uniform"
+	desc = "Pretty stylish for common NT supply workers uniform who are ready to check your request."
+	icon_state = "qmu"
+	item_state = "qmu"
+	item_color = "qmu"
+
 /obj/item/clothing/under/rank/cargotech
 	name = "cargo technician's jumpsuit"
 	desc = "Shooooorts! They're comfy and easy to wear!"
@@ -73,7 +80,7 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.mind && H.mind.assigned_role == "Clown")
-			GLOB.score_clownabuse++
+			SSticker.score.score_clown_abuse++
 	return ..()
 
 /obj/item/clothing/under/rank/clown/sexy
@@ -100,6 +107,19 @@
 	item_state = "hopwhimsy"
 	item_color = "hopwhimsy"
 
+/obj/item/clothing/under/rank/head_of_personnel_alt
+	name = "head of personnel's suit"
+	desc = "It's a suit worn by someone who works in the position of \"Head of Personnel\"."
+	icon_state = "hop_alt"
+	item_state = "hop_alt"
+	item_color = "hop_alt"
+
+/obj/item/clothing/under/rank/head_of_personnel_f
+	name = "head of personnel's skirt"
+	desc = "It's a skirt worn by someone who works in the position of \"Head of Personnel\"."
+	icon_state = "hop_skirt"
+	item_state = "hop_skirt"
+	item_color = "hop_skirt"
 
 /obj/item/clothing/under/rank/hydroponics
 	desc = "It's a jumpsuit designed to protect against minor plant-related hazards."
@@ -220,3 +240,10 @@
 	icon_state = "barber"
 	item_state = "barber"
 	item_color = "barber"
+
+/obj/item/clothing/under/artist
+	desc = "Formal uniform with buttons on a side"
+	name = "parade chef's uniform"
+	icon_state = "artist"
+	item_state = "artist"
+	item_color = "artist"

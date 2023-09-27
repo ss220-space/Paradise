@@ -82,12 +82,14 @@
 		var/turf/T = get_turf(src)
 		T.visible_message("<span class='userdanger'>[src] flares briefly.</span>")
 
-		addtimer(CALLBACK(src, .proc/effect, user, .), 1 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(effect), user, .), 1 SECONDS)
 
-/obj/item/dice/d20/fate/equipped(mob/user, slot)
+/obj/item/dice/d20/fate/equipped(mob/user, slot, initial)
+	. = ..()
+
 	if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
 		to_chat(user, "<span class='warning'>You feel the magic of the dice is restricted to ordinary humans! You should leave it alone.</span>")
-		user.unEquip(src)
+		user.drop_item_ground(src)
 
 /obj/item/dice/d20/fate/proc/create_smoke(amount)
 	var/datum/effect_system/smoke_spread/smoke = new
@@ -129,7 +131,7 @@
 		if(7)
 			//Throw
 			T.visible_message("<span class='userdanger'>Unseen forces throw [user]!</span>")
-			user.Stun(6)
+			user.Stun(12 SECONDS)
 			user.adjustBruteLoss(50)
 			var/throw_dir = GLOB.cardinal
 			var/atom/throw_target = get_edge_target_turf(user, throw_dir)
@@ -137,10 +139,10 @@
 		if(8)
 			//Fueltank Explosion
 			T.visible_message("<span class='userdanger'>An explosion bursts into existence around [user]!</span>")
-			explosion(get_turf(user),-1,0,2, flame_range = 2)
+			explosion(get_turf(user),-1,0,2, flame_range = 2, cause = src)
 		if(9)
 			//Cold
-			var/datum/disease/D = new /datum/disease/cold()
+			var/datum/disease/D = new /datum/disease/cold
 			T.visible_message("<span class='userdanger'>[user] looks a little under the weather!</span>")
 			user.ForceContractDisease(D)
 		if(10)
@@ -200,7 +202,7 @@
 				H.key = C.key
 				to_chat(H, "<span class='notice'>You are a servant of [user.real_name]. You must do everything in your power to follow their orders.</span>")
 
-			var/obj/effect/proc_holder/spell/targeted/summonmob/S = new
+			var/obj/effect/proc_holder/spell/summonmob/S = new
 			S.target_mob = H
 			user.mind.AddSpell(S)
 
@@ -235,27 +237,3 @@
 	glasses = /obj/item/clothing/glasses/monocle
 	gloves = /obj/item/clothing/gloves/color/white
 
-/obj/effect/proc_holder/spell/targeted/summonmob
-	name = "Summon Servant"
-	desc = "This spell can be used to call your servant, whenever you need it."
-	charge_max = 100
-	clothes_req = 0
-	invocation = "JE VES"
-	invocation_type = "whisper"
-	range = -1
-	level_max = 0 //cannot be improved
-	cooldown_min = 100
-	include_user = 1
-
-	var/mob/living/target_mob
-
-	action_icon_state = "summons"
-
-/obj/effect/proc_holder/spell/targeted/summonmob/cast(list/targets, mob/user = usr)
-	if(!target_mob)
-		return
-	var/turf/Start = get_turf(user)
-	for(var/direction in GLOB.alldirs)
-		var/turf/T = get_step(Start,direction)
-		if(!T.density)
-			target_mob.Move(T)

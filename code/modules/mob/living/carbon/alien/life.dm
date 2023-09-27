@@ -14,7 +14,7 @@
 	var/Toxins_pp = (breath.toxins / breath.total_moles()) * breath_pressure
 
 	if(Toxins_pp > tox_detect_threshold) // Detect toxins in air
-		adjustPlasma(breath.toxins*250)
+		adjust_alien_plasma(breath.toxins*250)
 		throw_alert("alien_tox", /obj/screen/alert/alien_tox)
 
 		toxins_used = breath.toxins
@@ -40,3 +40,14 @@
 	if(!.) //if the mob isn't on fire anymore
 		return
 	adjust_bodytemperature(BODYTEMP_HEATING_MAX) //If you're on fire, you heat up!
+
+/mob/living/carbon/alien/handle_stomach(times_fired)
+	for(var/thing in stomach_contents)
+		var/mob/living/M = thing
+		if(M.loc != src)
+			LAZYREMOVE(stomach_contents, M)
+			continue
+		if(stat != DEAD)
+			M.Weaken(3 SECONDS)
+			M.EyeBlind(3 SECONDS)
+			M.adjustBruteLoss(1.5)

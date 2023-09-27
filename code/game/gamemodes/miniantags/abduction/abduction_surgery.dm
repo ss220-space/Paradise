@@ -1,6 +1,6 @@
 /datum/surgery/organ_extraction
 	name = "Experimental Dissection"
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw, /datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/extract_organ, /datum/surgery_step/internal/gland_insert, /datum/surgery_step/generic/cauterize)
+	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw, /datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/extract_organ, /datum/surgery_step/internal/gland_insert, /datum/surgery_step/glue_bone, /datum/surgery_step/set_bone, /datum/surgery_step/finish_bone, /datum/surgery_step/generic/cauterize)
 	possible_locs = list("chest")
 
 /datum/surgery/organ_extraction/can_start(mob/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -38,7 +38,8 @@
 	var/mob/living/carbon/human/AB = target
 	if(IC)
 		user.visible_message("[user] pulls [IC] out of [target]'s [target_zone]!", "<span class='notice'>You pull [IC] out of [target]'s [target_zone].</span>")
-		user.put_in_hands(IC)
+		IC.forceMove_turf()
+		user.put_in_hands(IC, ignore_anim = FALSE)
 		IC.remove(target, special = 1)
 		return TRUE
 	if(NO_INTORGANS in AB.dna.species.species_traits)
@@ -63,7 +64,7 @@
 
 /datum/surgery_step/internal/gland_insert/end_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("[user] inserts [tool] into [target].", "<span class ='notice'>You insert [tool] into [target].</span>")
-	user.drop_item()
+	user.drop_from_active_hand()
 	var/obj/item/organ/internal/heart/gland/gland = tool
 	gland.insert(target, 2)
 	return TRUE

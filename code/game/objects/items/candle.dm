@@ -30,6 +30,12 @@
 	else i = 3
 	icon_state = "candle[i][lit ? "_lit" : ""]"
 
+/obj/item/candle/can_enter_storage(obj/item/storage/S, mob/user)
+	if(lit)
+		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
+		return FALSE
+	else
+		return TRUE
 
 /obj/item/candle/attackby(obj/item/W, mob/user, params)
 	if(is_hot(W))
@@ -66,7 +72,7 @@
 		new/obj/item/trash/candle(src.loc)
 		if(istype(src.loc, /mob))
 			var/mob/M = src.loc
-			M.unEquip(src, 1) //src is being deleted anyway
+			M.temporarily_remove_item_from_inventory(src, force = TRUE) //src is being deleted anyway
 		qdel(src)
 	update_icon()
 	if(isturf(loc)) //start a fire if possible
@@ -84,3 +90,10 @@
 /obj/item/candle/eternal
 	desc = "A candle. This one seems to have an odd quality about the wax."
 	infinite = 1
+
+
+/obj/item/candle/extinguish_light(force = FALSE)
+	if(!force)
+		return
+	infinite = FALSE
+	wax = 1 // next process will burn it out

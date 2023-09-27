@@ -16,26 +16,41 @@
 	var/static/list/possible_zone_names = list(
 		EXTRACTION_DIFFICULTY_EASY = list(
 			// Rooms
+			"Arrival Commercial West Hallway",
+			"Arrival Additional West Hallway", //the most unvisited hallways, used only for explorers and if traders arrives
 			"Alternate Construction Area",
 			"Barber Shop",
+			"Trading area",
+			"Abandoned Casino",
+			"Abandoned Banya",
+			"Hangar Expedition",
+			"Abandoned Tradiders Room",
+			"Old Restaurant",
+			"Abandoned Detective's Office",
 			"Escape Shuttle Hallway Podbay",
+			"Theatre",
 			"Garden",
+			"Old Garden",
 			"Incinerator",
 			"Locker Room",
 			"Locker Toilets",
 			"Maintenance Bar",
 			"Medical Secondary Storage",
 			"Mechanic Workshop",
-			"Port Emergency Storage",
+			"West Emergency Storage",
 			"Psych Room",
 			"Toxins Launch Room",
 			"Toxins Mixing Room",
 			"Turbine",
 			"Virology",
 			"Waste Disposal",
+			"Abandoned Escape Shuttle Hallway",
+			"Abandoned Library",
+			"RnD Restroom",
+			"Abandoned Teleporter",
 			// Maintenance
-			"Aft Port Solar Maintenance",
-			"Aft Starboard Solar Maintenance",
+			"South-West Solar Maintenance",
+			"South-East Solar Maintenance",
 			"Arrivals North Maintenance",
 			"Bar Maintenance",
 			"Cargo Maintenance",
@@ -43,17 +58,27 @@
 			"Electrical Maintenance",
 			"EVA Maintenance",
 			"Engineering Maintenance",
-			"Fore Port Solar Maintenance",
-			"Fore Starboard Solar Maintenance",
+			"North-West Maintenance",
+			"North-West Solar Maintenance",
+			"North-East Solar Maintenance",
 			"Genetics Maintenance",
 			"Locker Room Maintenance",
 			"Medbay Maintenance",
 			"Science Maintenance",
+			"North Maintenance",
+			"East Maintenance",
+			"Virology Maintenance",
+			"Virology Maintenance Construction Area",
+			"Research Maintenance",
 		),
 		EXTRACTION_DIFFICULTY_MEDIUM = list(
 			// Rooms
-			"Aft Primary Hallway",
+			"Mr Chang's", //new location on delta makes it unvisited enough
+			"Research Testing Chamber",
+			"Custodial Closet",
+			"South Primary Hallway",
 			"Atmospherics",
+			"Hangаr Bay",
 			"Arcade",
 			"Assembly Line",
 			"Auxiliary Tool Storage",
@@ -99,6 +124,8 @@
 			"AI Satellite Service",
 			"AI Satellite Hallway",
 			"Bar",
+			"Cargo Delivery",
+			"Delivery Office",
 			"Cargo Office",
 			"Central Primary Hallway",
 			"Chemistry",
@@ -123,10 +150,10 @@
 			"Medical Treatment Center",
 			"Medbay Patient Ward",
 			"Messaging Server Room",
-			"Mr Chang's",
+			"Server Room",
 			"Nanotrasen Representative's Office",
 			"Paramedic",
-			"Port Primary Hallway",
+			"West Primary Hallway",
 			"Quartermaster's Office",
 			"Research Director's Office",
 			"Research and Development",
@@ -135,6 +162,11 @@
 			"Surgery 2",
 			"Telecoms Central Compartment",
 			"Secure Storage",
+			"Arrivals Lounge",
+			"Atrium",
+			"Service Yard",
+			"RnD North Hallway",
+			"Engineering Hardsuit Storage",
 		),
 	)
 	// Variables
@@ -228,8 +260,7 @@
   * Returns whether the extraction process can be started.
   *
   * Arguments:
-  * * M - The contractor.
-  * * target - The target.
+  * * caller - The person trying to call the extraction.
   */
-/datum/objective/contract/proc/can_start_extraction_process(mob/living/carbon/human/M, mob/living/carbon/human/target)
-	return get_area(M) == extraction_zone && get_area(target) == extraction_zone
+/datum/objective/contract/proc/can_start_extraction_process(mob/living/carbon/human/caller)
+	return get_area(caller) == extraction_zone && get_area(target.current) == extraction_zone

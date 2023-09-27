@@ -22,7 +22,7 @@
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
-		unEquip(W)
+		drop_item_ground(W)
 	notransform = 1
 	canmove = 0
 	icon = null
@@ -39,7 +39,7 @@
 
 	if(mind)
 		mind.transfer_to(O)
-		O.mind.original = O
+		O.mind.set_original_mob(O)
 	else
 		O.key = key
 
@@ -49,7 +49,9 @@
 
 	O.rename_self("AI",1)
 
-	INVOKE_ASYNC(GLOBAL_PROC, .proc/qdel, src) // To prevent the proc from returning null.
+	O.tts_seed = tts_seed
+
+	INVOKE_ASYNC(GLOBAL_PROC, /proc/qdel, src) // To prevent the proc from returning null.
 	return O
 
 
@@ -66,7 +68,7 @@
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
-		unEquip(W)
+		drop_item_ground(W)
 
 	notransform = 1
 	canmove = 0
@@ -92,7 +94,7 @@
 	if(mind)		//TODO
 		mind.transfer_to(O)
 		if(O.mind.assigned_role == "Cyborg")
-			O.mind.original = O
+			O.mind.set_original_mob(O)
 		else if(mind && mind.special_role)
 			O.mind.store_memory("In case you look at this after being borged, the objectives are only here until I find a way to make them not show up for you, as I can't simply delete them without screwing up round-end reporting. --NeoFite")
 	else
@@ -114,14 +116,16 @@
 
 	O.Namepick()
 
-	INVOKE_ASYNC(GLOBAL_PROC, .proc/qdel, src) // To prevent the proc from returning null.
+	O.tts_seed = tts_seed
+
+	INVOKE_ASYNC(GLOBAL_PROC, /proc/qdel, src) // To prevent the proc from returning null.
 	return O
 
 /mob/living/carbon/human/proc/corgize()
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
-		unEquip(W)
+		drop_item_ground(W)
 	regenerate_icons()
 	notransform = 1
 	canmove = 0
@@ -145,7 +149,7 @@
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
-		unEquip(W)
+		drop_item_ground(W)
 
 	regenerate_icons()
 	notransform = 1
@@ -190,8 +194,6 @@
 			return 0
 	if(ispath(MP, /mob/living/simple_animal/pet/cat))
 		return 1
-	if(ispath(MP, /mob/living/simple_animal/pet/dog/detective))
-		return 1
 	if(ispath(MP, /mob/living/simple_animal/pet/dog/security))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/pet/dog/corgi))
@@ -223,7 +225,23 @@
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/pig))
 		return 1
+	if(ispath(MP, /mob/living/simple_animal/cock))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/goose))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/turkey))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/mouse/hamster))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/mouse/rat))
+		return 1
 	if(ispath(MP, /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/possum))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/pet/slugcat))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/frog))
 		return 1
 
 	if(ispath(MP, /mob/living/simple_animal/borer) && !jobban_isbanned(src, ROLE_BORER) && !jobban_isbanned(src, "Syndicate"))

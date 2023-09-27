@@ -9,7 +9,7 @@ FIRE ALARM
 /obj/machinery/firealarm
 	name = "fire alarm"
 	desc = "<i>\"Pull this in case of emergency\"</i>. Thus, keep pulling it forever."
-	icon = 'icons/obj/monitors.dmi'
+	icon = 'icons/obj/machines/monitors.dmi'
 	icon_state = "fire0"
 	var/detecting = 1.0
 	var/working = 1.0
@@ -81,8 +81,8 @@ FIRE ALARM
 	if(!emagged)
 		emagged = TRUE
 		if(user)
-			user.visible_message("<span class='warning'>Sparks fly out of the [src]!</span>",
-								"<span class='notice'>You emag [src], disabling its thermal sensors.</span>")
+			user.visible_message(span_warning("Sparks fly out of the [src]!"),
+								span_notice("You emag [src], disabling its thermal sensors."))
 		playsound(loc, 'sound/effects/sparks4.ogg', 50, 1)
 
 /obj/machinery/firealarm/temperature_expose(datum/gas_mixture/air, temperature, volume)
@@ -110,16 +110,16 @@ FIRE ALARM
 			if(istype(I, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/coil = I
 				if(!coil.use(5))
-					to_chat(user, "<span class='warning'>You need more cable for this!</span>")
+					to_chat(user, span_warning("You need more cable for this!"))
 					return
 
 				buildstage = FIRE_ALARM_READY
 				playsound(get_turf(src), I.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You wire [src]!</span>")
+				to_chat(user, span_notice("You wire [src]!"))
 				update_icon()
 		if(buildstage == FIRE_ALARM_FRAME)
 			if(istype(I, /obj/item/firealarm_electronics))
-				to_chat(user, "<span class='notice'>You insert the circuit!</span>")
+				to_chat(user, span_notice("You insert the circuit!"))
 				qdel(I)
 				buildstage = FIRE_ALARM_UNWIRED
 				update_icon()
@@ -145,15 +145,15 @@ FIRE ALARM
 		return
 	. = TRUE
 	if(!wiresexposed)
-		to_chat(user, "<span class='warning'>You need to expose the wires first!</span>")
+		to_chat(user, span_warning("You need to expose the wires first!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	detecting = !detecting
 	if(detecting)
-		user.visible_message("<span class='warning'>[user] has reconnected [src]'s detecting unit!</span>", "You have reconnected [src]'s detecting unit.")
+		user.visible_message(span_warning("[user] has reconnected [src]'s detecting unit!"), "You have reconnected [src]'s detecting unit.")
 	else
-		user.visible_message("<span class='warning'>[user] has disconnected [src]'s detecting unit!</span>", "You have disconnected [src]'s detecting unit.")
+		user.visible_message(span_warning("[user] has disconnected [src]'s detecting unit!"), "You have disconnected [src]'s detecting unit.")
 
 /obj/machinery/firealarm/screwdriver_act(mob/user, obj/item/I)
 	if(buildstage != FIRE_ALARM_READY)
@@ -173,13 +173,12 @@ FIRE ALARM
 		return
 	. = TRUE
 	if(!wiresexposed)
-		to_chat(user, "<span class='warning'>You need to expose the wires first!</span>")
+		to_chat(user, span_warning("You need to expose the wires first!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	WIRECUTTER_SNIP_MESSAGE
-	var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil(drop_location())
-	new_coil.amount = 5
+	new /obj/item/stack/cable_coil(drop_location(), 5)
 	buildstage = FIRE_ALARM_UNWIRED
 
 
@@ -241,6 +240,7 @@ FIRE ALARM
 	if(user.incapacitated())
 		return 1
 
+	add_fingerprint(user)
 	toggle_alarm(user)
 
 
@@ -255,7 +255,7 @@ FIRE ALARM
 
 /obj/machinery/firealarm/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Текущий уровень угрозы: <B><U>[capitalize(get_security_level_ru())]</U></B>.</span>"
+	. += span_notice("Текущий уровень угрозы: <B><U>[capitalize(get_security_level_ru())]</U></B>.")
 
 /obj/machinery/firealarm/proc/reset()
 	if(!working || !report_fire_alarms)
@@ -281,9 +281,9 @@ FIRE ALARM
 
 	if(is_station_contact(z) && show_alert_level)
 		if(GLOB.security_level)
-			overlays += image('icons/obj/monitors.dmi', "overlay_[get_security_level()]")
+			overlays += image('icons/obj/machines/monitors.dmi', "overlay_[get_security_level()]")
 		else
-			overlays += image('icons/obj/monitors.dmi', "overlay_green")
+			overlays += image('icons/obj/machines/monitors.dmi', "overlay_green")
 
 	myArea = get_area(src)
 	LAZYADD(myArea.firealarms, src)

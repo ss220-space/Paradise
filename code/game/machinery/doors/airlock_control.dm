@@ -115,10 +115,10 @@
 	. = ..()
 	if(!surpress_send) send_status()
 
-/obj/machinery/door/airlock/Bumped(atom/AM)
-	..(AM)
-	if(istype(AM, /obj/mecha))
-		var/obj/mecha/mecha = AM
+/obj/machinery/door/airlock/Bumped(atom/movable/moving_atom)
+	..(moving_atom)
+	if(istype(moving_atom, /obj/mecha))
+		var/obj/mecha/mecha = moving_atom
 		if(density && radio_connection && mecha.occupant && (allowed(mecha.occupant) || check_access_list(mecha.operation_req_access)))
 			send_status(1)
 	return
@@ -144,7 +144,7 @@
 		set_frequency(frequency)
 
 /obj/machinery/airlock_sensor
-	icon = 'icons/obj/airlock_machines.dmi'
+	icon = 'icons/obj/machines/airlock_machines.dmi'
 	icon_state = "airlock_sensor_off"
 	name = "airlock sensor"
 	anchored = 1
@@ -170,6 +170,7 @@
 		icon_state = "airlock_sensor_off"
 
 /obj/machinery/airlock_sensor/attack_hand(mob/user)
+	add_fingerprint(user)
 	var/datum/signal/signal = new
 	signal.transmission_method = 1 //radio signal
 	signal.data["tag"] = master_tag
@@ -225,7 +226,7 @@
 	command = "cycle_exterior"
 
 /obj/machinery/access_button
-	icon = 'icons/obj/airlock_machines.dmi'
+	icon = 'icons/obj/machines/airlock_machines.dmi'
 	icon_state = "access_button_standby"
 	name = "access button"
 	anchored = 1
@@ -235,12 +236,23 @@
 	frequency = AIRLOCK_FREQ
 	var/command = "cycle"
 	var/on = 1
+	var/wires = 3
+	/*
+	Bitflag,	1=checkID
+				2=Network Access
+	*/
 
 /obj/machinery/access_button/update_icon()
 	if(on)
 		icon_state = "access_button_standby"
 	else
 		icon_state = "access_button_off"
+
+/obj/machinery/access_button/attack_ai(mob/user as mob)
+	if(wires & 2)
+		return ..(user)
+	else
+		to_chat(user, "Error, no route to host.")
 
 /obj/machinery/access_button/attackby(obj/item/I, mob/user, params)
 	//Swiping ID on the access button
@@ -256,8 +268,9 @@
 /obj/machinery/access_button/attack_hand(mob/user)
 	add_fingerprint(usr)
 
-	if(!allowed(user) && !user.can_advanced_admin_interact())
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+	if(!allowed(user) && (wires & 1) && !user.can_advanced_admin_interact())
+		to_chat(user, span_warning("Access denied."))
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 
 	else if(radio_connection)
 		var/datum/signal/signal = new

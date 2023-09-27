@@ -17,6 +17,8 @@
 	outdoors = TRUE
 	ambientsounds = MINING_SOUNDS
 	flags = NONE
+	min_ambience_cooldown = 70 SECONDS
+	max_ambience_cooldown = 220 SECONDS
 
 /area/mine/dangerous/explored/golem
 	name = "Small Asteroid"
@@ -33,6 +35,39 @@
 	outdoors = TRUE
 	ambientsounds = MINING_SOUNDS
 	flags = NONE
+	sound_environment = SOUND_AREA_ASTEROID
+	min_ambience_cooldown = 70 SECONDS
+	max_ambience_cooldown = 220 SECONDS
+
+/area/mine/unexplored/cere
+	sound_environment = SOUND_AREA_ASTEROID
+
+/area/mine/unexplored/cere/ai
+	name = "AI Asteroid"
+
+/area/mine/unexplored/cere/cargo
+	name = "Cargo Asteroid"
+
+/area/mine/unexplored/cere/civilian
+	name = "Civilian Asteroid"
+
+/area/mine/unexplored/cere/command
+	name = "Command Asteroid"
+
+/area/mine/unexplored/cere/docking
+	name = "Docking Asteroid"
+
+/area/mine/unexplored/cere/engineering
+	name = "Engineering Asteroid"
+
+/area/mine/unexplored/cere/medical
+	name = "Medical Asteroid"
+
+/area/mine/unexplored/cere/research
+	name = "Research Asteroid"
+
+/area/mine/unexplored/cere/orbiting
+	name = "Near Station Asteroids"
 
 /area/mine/lobby
 	name = "Mining Station"
@@ -41,14 +76,14 @@
 	name = "Mining Station Storage"
 
 /area/mine/production
-	name = "Mining Station Starboard Wing"
+	name = "Mining Station Production Wing"
 	icon_state = "mining_production"
 
 /area/mine/abandoned
 	name = "Abandoned Mining Station"
 
 /area/mine/living_quarters
-	name = "Mining Station Port Wing"
+	name = "Mining Station Living Wing"
 	icon_state = "mining_living"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
@@ -105,6 +140,8 @@
 	power_light = FALSE
 	requires_power = TRUE
 	ambientsounds = MINING_SOUNDS
+	min_ambience_cooldown = 70 SECONDS
+	max_ambience_cooldown = 220 SECONDS
 
 /area/lavaland/underground
 	name = "Lavaland Caves"
@@ -116,6 +153,8 @@
 	power_equip = FALSE
 	power_light = FALSE
 	ambientsounds = MINING_SOUNDS
+	min_ambience_cooldown = 70 SECONDS
+	max_ambience_cooldown = 220 SECONDS
 
 /area/lavaland/surface/outdoors
 	name = "Lavaland Wastes"
@@ -125,7 +164,12 @@
 	icon_state = "unexplored"
 
 /area/lavaland/surface/outdoors/unexplored/danger //megafauna will also spawn here
-	icon_state = "danger"
+	icon_state = "cave"
 
 /area/lavaland/surface/outdoors/explored
 	name = "Lavaland Labor Camp"
+
+/area/lavaland/surface/outdoors/necropolis
+	name = "Necropolis"
+	icon_state = "unexplored"
+	tele_proof = TRUE

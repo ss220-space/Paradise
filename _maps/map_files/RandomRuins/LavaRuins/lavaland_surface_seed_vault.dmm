@@ -249,8 +249,7 @@
 	master_tag = "seed_vault";
 	name = "interior access button";
 	pixel_x = 25;
-	pixel_y = -25;
-	req_access_txt = null
+	pixel_y = -25
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
@@ -303,9 +302,9 @@
 	master_tag = "seed_vault";
 	name = "exterior access button";
 	pixel_x = -25;
-	pixel_y = -25;
-	req_access_txt = null
+	pixel_y = -25
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "U" = (
@@ -328,6 +327,10 @@
 /obj/machinery/light,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
+"Y" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 
 (1,1,1) = {"
 a
@@ -694,9 +697,9 @@ Q
 A
 z
 Q
-b
-b
-b
+Y
+Y
+Y
 a
 a
 a
@@ -710,15 +713,15 @@ a
 b
 b
 b
-b
-b
-b
-b
+Y
+Y
+Y
+Y
 T
-b
-b
-b
-b
+Y
+Y
+Y
+Y
 a
 a
 a
@@ -733,13 +736,13 @@ a
 b
 b
 a
-b
-b
-b
-b
-b
-b
-b
+Y
+Y
+Y
+Y
+Y
+Y
+Y
 a
 a
 a
@@ -755,13 +758,13 @@ b
 b
 b
 a
-b
-b
-b
-b
-b
-b
-b
+Y
+Y
+Y
+Y
+Y
+Y
+Y
 a
 a
 a

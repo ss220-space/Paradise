@@ -14,7 +14,7 @@
 	if(istype(I, /obj/item/wrench) && deconstructible)
 		user.visible_message("<span class='notice'>[user] starts disassembling [src]...</span>", "<span class='notice'>You start disassembling [src]...</span>")
 		playsound(loc, I.usesound, 50, 1)
-		if(do_after(src, 50 * I.toolspeed, target = src))
+		if(do_after(src, 50 * I.toolspeed * gettoolspeedmod(user), target = src))
 			user.visible_message("<span class='notice'>[user] disassembles [src]!</span>", "<span class='notice'>You break down [src] into scrap metal.</span>")
 			playsound(user, 'sound/items/deconstruct.ogg', 50, 1)
 			new/obj/item/stack/sheet/metal(drop_location())
@@ -32,7 +32,7 @@
 /obj/structure/fluff/empty_sleeper //Empty sleepers are created by a good few ghost roles in lavaland.
 	name = "empty sleeper"
 	desc = "An open sleeper. It looks as though it would be awaiting another patient, were it not broken."
-	icon = 'icons/obj/cryogenic2.dmi'
+	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper-open"
 
 /obj/structure/fluff/empty_sleeper/nanotrasen
@@ -79,3 +79,15 @@
 	name = "conduit"
 	desc = "It allows a deity to extend their reach.  Their powers are just as potent near a conduit as a nexus."
 	icon_state = "conduit"
+
+/obj/structure/fluff/grave
+	name = "grave"
+	desc = "A desolate and shallow grave for those who have fallen."
+	icon = 'icons/obj/lavaland/misc.dmi'
+	icon_state = "grave"
+	deconstructible = FALSE
+
+/obj/structure/fluff/grave/empty
+	name = "empty grave"
+	desc = "A former grave."
+	icon_state = "grave_empty"

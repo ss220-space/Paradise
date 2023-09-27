@@ -12,7 +12,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. Functionality determined by a preprogrammed ROM cartridge."
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "pda"
-	item_state = "electronic"
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_ID | SLOT_BELT | SLOT_PDA
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
@@ -41,7 +40,9 @@ GLOBAL_LIST_EMPTY(PDAs)
 								"honk" = 'sound/items/bikehorn.ogg',
 								"SKREE" = 'sound/voice/shriek1.ogg',
 								"holy" = 'sound/items/PDA/ambicha4-short.ogg',
-								"xeno" = 'sound/voice/hiss1.ogg')
+								"xeno" = 'sound/voice/hiss1.ogg',
+								"stalk" = 'sound/items/PDA/stalk1.ogg',
+								"stalk2" = 'sound/items/PDA/stalk2.ogg')
 
 	var/list/programs = list(
 		new/datum/data/pda/app/main_menu,
@@ -102,10 +103,17 @@ GLOBAL_LIST_EMPTY(PDAs)
 /obj/item/pda/GetID()
 	return id ? id : ..()
 
-/obj/item/pda/MouseDrop(obj/over_object as obj, src_location, over_location)
-	var/mob/M = usr
-	if((!istype(over_object, /obj/screen)) && can_use())
-		return attack_self(M)
+
+/obj/item/pda/MouseDrop(atom/over)
+	. = ..()
+
+	var/mob/user = usr
+	if(!ishuman(user) || !Adjacent(user) || user.incapacitated())
+		return FALSE
+
+	attack_self(user)
+	return TRUE
+
 
 /obj/item/pda/attack_self(mob/user as mob)
 	user.set_machine(src)
@@ -238,14 +246,13 @@ GLOBAL_LIST_EMPTY(PDAs)
 		else
 			var/obj/item/I = user.get_active_hand()
 			if(istype(I, /obj/item/card/id))
-				user.drop_item()
-				I.forceMove(src)
+				user.drop_transfer_item_to_loc(I, src)
 				id = I
 	else
 		var/obj/item/card/I = user.get_active_hand()
 		if(istype(I, /obj/item/card/id) && I:registered_name)
 			var/obj/old_id = id
-			user.drop_item()
+			user.drop_from_active_hand()
 			I.forceMove(src)
 			id = I
 			user.put_in_hands(old_id)
@@ -255,8 +262,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	..()
 	if(istype(C, /obj/item/cartridge) && !cartridge)
 		cartridge = C
-		user.drop_item()
-		cartridge.forceMove(src)
+		user.drop_transfer_item_to_loc(C, src)
 		cartridge.update_programs(src)
 		update_shortcuts()
 		to_chat(user, "<span class='notice'>You insert [cartridge] into [src].</span>")
@@ -286,8 +292,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 					SStgui.update_uis(src)
 
 	else if(istype(C, /obj/item/paicard) && !src.pai)
-		user.drop_item()
-		C.forceMove(src)
+		user.drop_transfer_item_to_loc(C, src)
 		pai = C
 		to_chat(user, "<span class='notice'>You slot \the [C] into [src].</span>")
 		SStgui.update_uis(src)
@@ -296,8 +301,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		if(O)
 			to_chat(user, "<span class='notice'>There is already a pen in \the [src].</span>")
 		else
-			user.drop_item()
-			C.forceMove(src)
+			user.drop_transfer_item_to_loc(C, src)
 			to_chat(user, "<span class='notice'>You slide \the [C] into \the [src].</span>")
 	else if(istype(C, /obj/item/nanomob_card))
 		if(cartridge && istype(cartridge, /obj/item/cartridge/mob_hunt_game))
@@ -308,6 +312,9 @@ GLOBAL_LIST_EMPTY(PDAs)
 		scanmode.scan_mob(C, user)
 
 /obj/item/pda/afterattack(atom/A as mob|obj|turf|area, mob/user as mob, proximity)
+	if(try_item_eat(A, user))
+		return FALSE
+
 	if(proximity && scanmode)
 		scanmode.scan_atom(A, user)
 
@@ -323,7 +330,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(T)
 		T.hotspot_expose(700,125)
 
-		explosion(T, -1, -1, 2, 3)
+		explosion(T, -1, -1, 2, 3, cause = src)
 	qdel(src)
 	return
 
@@ -375,7 +382,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(current_app)
 		current_app.program_process()
 
-/obj/item/pda/extinguish_light()
+/obj/item/pda/extinguish_light(force = FALSE)
 	var/datum/data/pda/utility/flashlight/FL = find_program(/datum/data/pda/utility/flashlight)
 	if(FL && FL.fon)
 		FL.start()

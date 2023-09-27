@@ -6,8 +6,6 @@
 /obj/item/shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == THROWN_PROJECTILE_ATTACK)
 		final_block_chance += 30
-	if(attack_type == LEAP_ATTACK)
-		final_block_chance = 100
 	return ..()
 
 /obj/item/shield/riot
@@ -56,6 +54,15 @@
 	resistance_flags = FLAMMABLE
 	block_chance = 30
 
+/obj/item/shield/riot/goliath
+	name = "goliath shield"
+	desc = "A shield made from interwoven plates of goliath hide."
+	icon_state = "goliath_shield"
+	item_state = "goliath_shield"
+	materials = list()
+	origin_tech = "materials=1;combat=3;biotech=2"
+	block_chance = 30
+
 /obj/item/shield/energy
 	name = "energy combat shield"
 	desc = "A shield that reflects almost all energy projectiles, but is useless against physical attacks. It can be retracted, expanded, and stored anywhere."
@@ -80,12 +87,11 @@
 		to_chat(user, "<span class='warning'>You beat yourself in the head with [src].</span>")
 		user.take_organ_damage(5)
 	active = !active
-	icon_state = "eshield[active]"
-
 	if(active)
 		force = 10
 		throwforce = 8
 		throw_speed = 2
+		update_icon()
 		w_class = WEIGHT_CLASS_BULKY
 		playsound(user, 'sound/weapons/saberon.ogg', 35, 1)
 		to_chat(user, "<span class='notice'>[src] is now active.</span>")
@@ -93,6 +99,7 @@
 		force = 3
 		throwforce = 3
 		throw_speed = 3
+		update_icon()
 		w_class = WEIGHT_CLASS_TINY
 		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
@@ -102,6 +109,16 @@
 		H.update_inv_r_hand()
 	add_fingerprint(user)
 	return
+
+/obj/item/shield/energy/update_icon()
+	icon_state = "eshield[active]"
+
+/obj/item/shield/energy/syndie
+	icon_state = "syndieshield0"
+	desc = "Reverse-engineered shield that reflects almost all energy projectiles, but is useless against physical attacks. It can be retracted, expanded, and stored anywhere. Property of Gorlex marauders."
+
+/obj/item/shield/energy/syndie/update_icon()
+	icon_state = "syndieshield[active]"
 
 /obj/item/shield/riot/tele
 	name = "telescopic shield"

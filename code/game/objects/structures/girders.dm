@@ -40,7 +40,7 @@
 	add_fingerprint(user)
 	if(istype(W, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
-		if(do_after(user, 40 * W.toolspeed, target = src))
+		if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
 			if(!src)
 				return
 			playsound(loc, W.usesound, 100, 1)
@@ -59,12 +59,21 @@
 		refundMetal(metalUsed)
 		qdel(src)
 
+	else if(istype(W, /obj/item/twohanded/required/pyro_claws))
+		playsound(loc, W.usesound, 100, 1)
+		to_chat(user, "<span class='notice'>You melt the girder!</span>")
+		refundMetal(metalUsed)
+		qdel(src)
+
 	else if(istype(W, /obj/item/stack))
 		if(iswallturf(loc))
 			to_chat(user, "<span class='warning'>There is already a wall present!</span>")
 			return
 		if(!isfloorturf(loc))
 			to_chat(user, "<span class='warning'>A floor must be present to build a false wall!</span>")
+			return
+		if(locate(/obj/structure/clockwork) in loc.contents)
+			to_chat(user, "<span class='warning'>There is a structure here!</span>")
 			return
 		if (locate(/obj/structure/falsewall) in loc.contents)
 			to_chat(user, "<span class='warning'>There is already a false wall present!</span>")
@@ -104,6 +113,37 @@
 					qdel(src)
 				return
 
+		if(istype(W, /obj/item/stack/ore/glass/basalt))
+			var/obj/item/stack/ore/glass/basalt/A = W
+			if(state == GIRDER_DISPLACED)
+				if(A.get_amount() < 2)
+					to_chat(user, "<span class='warning'>You need at least two [A] to create a false wall!</span>")
+					return
+				if(do_after(user, 2 SECONDS, target = src))
+					if(!loc || !A || A.get_amount() < 2)
+						return
+					A.use(2)
+					to_chat(user, "<span class='notice'>You create a false wall. Push on it to open or close the passage.</span>")
+					var/obj/structure/falsewall/mineral_ancient/FW = new (loc)
+					transfer_fingerprints_to(FW)
+					qdel(src)
+			else
+				if(A.get_amount() < 2)
+					to_chat(user, "<span class='warning'>You need at least two [A] to add plating!</span>")
+					return
+				to_chat(user, "<span class='notice'>You start adding [A]...</span>")
+				if(do_after(user, 4 SECONDS, target = src))
+					if(!src || !A || A.get_amount() < 2)
+						return
+					A.use(2)
+					to_chat(user, "<span class='notice'>You add [A].</span>")
+					var/turf/parent_turf = get_turf(src)
+					parent_turf.ChangeTurf(/turf/simulated/mineral/ancient)
+					for(var/turf/simulated/mineral/X in parent_turf.loc)
+						X.add_hiddenprint(usr)
+					qdel(src)
+				return
+
 		if(!istype(W,/obj/item/stack/sheet))
 			return
 
@@ -131,7 +171,7 @@
 					to_chat(user, "<span class='warning'>You need two planks of wood to finish a wall!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start adding plating...</span>")
-				if(do_after(user, 40 * W.toolspeed, target = src))
+				if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
 					if(!src || !S || S.get_amount() < 2)
 						return
 					S.use(2)
@@ -163,7 +203,7 @@
 					to_chat(user, "<span class='warning'>You need two sheets of metal to finish a wall!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start adding plating...</span>")
-				if(do_after(user, 40 * W.toolspeed, target = src))
+				if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
 					if(!src || !S || S.get_amount() < 2)
 						return
 					S.use(2)
@@ -259,9 +299,8 @@
 	else if(istype(W, /obj/item/pipe))
 		var/obj/item/pipe/P = W
 		if(P.pipe_type in list(0, 1, 5))	//simple pipes, simple bends, and simple manifolds.
-			if(!user.drop_item())
+			if(!user.drop_transfer_item_to_loc(P, src))
 				return
-			P.loc = src.loc
 			to_chat(user, "<span class='notice'>You fit the pipe into \the [src].</span>")
 	else
 		return ..()
@@ -361,6 +400,8 @@
 		qdel(src)
 
 /obj/structure/girder/CanPass(atom/movable/mover, turf/target, height=0)
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+		return TRUE
 	if(height==0)
 		return 1
 	if(istype(mover) && mover.checkpass(PASSGRILLE))
@@ -388,6 +429,11 @@
 		new /obj/structure/girder/cult(loc)
 		qdel(src)
 
+/obj/structure/girder/ratvar_act()
+	if(prob(25))
+		new /obj/structure/clockwork/wall_gear(loc)
+		qdel(src)
+
 /obj/structure/girder/displaced
 	name = "displaced girder"
 	icon_state = "displaced"
@@ -412,7 +458,19 @@
 	metalUsed = 1
 	metal_type = /obj/item/stack/sheet/runed_metal
 
+/obj/structure/girder/cult_fake
+	name = "runed girder"
+	desc = "Framework made of a strange and shockingly cold metal. It does seem to have bolts, wow."
+	icon = 'icons/obj/cult.dmi'
+	icon_state = "cultgirder"
+	metalUsed = 1
+	metal_type = /obj/item/stack/sheet/runed_metal_fake
+
 /obj/structure/girder/cult/Initialize(mapload)
+	. = ..()
+	icon_state = SSticker.cultdat?.cult_girder_icon_state
+
+/obj/structure/girder/cult_fake/Initialize(mapload)
 	. = ..()
 	icon_state = SSticker.cultdat?.cult_girder_icon_state
 
@@ -424,18 +482,16 @@
 		qdel(src)
 	else if(istype(W, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
-		if(do_after(user, 40* W.toolspeed, target = src))
+		if(do_after(user, 40* W.toolspeed * gettoolspeedmod(user), target = src))
 			playsound(loc, W.usesound, 100, 1)
 			to_chat(user, "<span class='notice'>You slice apart the girder.</span>")
-			var/obj/item/stack/sheet/runed_metal/R = new(get_turf(src))
-			R.amount = 1
+			var/obj/item/stack/sheet/runed_metal/R = new(get_turf(src), 1)
 			transfer_fingerprints_to(R)
 			qdel(src)
 	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
 		var/obj/item/pickaxe/drill/jackhammer/D = W
 		to_chat(user, "<span class='notice'>Your jackhammer smashes through the girder!</span>")
-		var/obj/item/stack/sheet/runed_metal/R = new(get_turf(src))
-		R.amount = 1
+		var/obj/item/stack/sheet/runed_metal/R = new(get_turf(src), 1)
 		transfer_fingerprints_to(R)
 		D.playDigSound()
 		qdel(src)
@@ -453,6 +509,45 @@
 			R.use(1)
 			var/turf/T = get_turf(src)
 			T.ChangeTurf(/turf/simulated/wall/cult)
+			qdel(src)
+	else
+		return ..()
+
+/obj/structure/girder/cult_fake/attackby(obj/item/W, mob/user, params)
+	add_fingerprint(user)
+	if(istype(W, /obj/item/melee/cultblade/dagger) && iscultist(user)) //Cultists can demolish cult girders instantly with their dagger
+		user.visible_message("<span class='warning'>[user] strikes [src] with [W]!</span>", "<span class='notice'>You demolish [src].</span>")
+		refundMetal(metalUsed)
+		qdel(src)
+	else if(istype(W, /obj/item/gun/energy/plasmacutter))
+		to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
+		if(do_after(user, 40* W.toolspeed * gettoolspeedmod(user), target = src))
+			playsound(loc, W.usesound, 100, 1)
+			to_chat(user, "<span class='notice'>You slice apart the girder.</span>")
+			var/obj/item/stack/sheet/runed_metal_fake/R = new(get_turf(src), 1)
+			transfer_fingerprints_to(R)
+			qdel(src)
+	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
+		var/obj/item/pickaxe/drill/jackhammer/D = W
+		to_chat(user, "<span class='notice'>Your jackhammer smashes through the girder!</span>")
+		var/obj/item/stack/sheet/runed_metal_fake/R = new(get_turf(src), 1)
+		transfer_fingerprints_to(R)
+		D.playDigSound()
+		qdel(src)
+
+	else if(istype(W, /obj/item/stack/sheet/runed_metal_fake))
+		var/obj/item/stack/sheet/runed_metal_fake/R = W
+		if(R.get_amount() < 1)
+			to_chat(user, "<span class='warning'>You need at least one sheet of runed metal to construct a runed wall!</span>")
+			return 0
+		user.visible_message("<span class='notice'>[user] begins laying runed metal on [src]...</span>", "<span class='notice'>You begin constructing a runed wall...</span>")
+		if(do_after(user, 10, target = src))
+			if(R.get_amount() < 1 || !R)
+				return
+			user.visible_message("<span class='notice'>[user] plates [src] with runed metal.</span>", "<span class='notice'>You construct a runed wall.</span>")
+			R.use(1)
+			var/turf/T = get_turf(src)
+			T.ChangeTurf(/turf/simulated/wall/cult_fake)
 			qdel(src)
 	else
 		return ..()

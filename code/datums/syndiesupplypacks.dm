@@ -357,7 +357,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 
 /datum/syndie_supply_packs/security/armory/shield_and_sword
 	name = "Syndicate Energy Combo Crate"
-	contains = list(/obj/item/shield/energy,
+	contains = list(/obj/item/shield/energy/syndie,
 					/obj/item/melee/energy/sword/saber,
 					/obj/item/pen/edagger)
 	cost = 20000
@@ -433,12 +433,12 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 
 /datum/syndie_supply_packs/security/armory/m12g_buckshot_slugs
 	name = "Syndicate Bulldog - 12g Buckshot Magazine Crate"
-	contains = list(/obj/item/ammo_box/magazine/m12g/buckshot,
-					/obj/item/ammo_box/magazine/m12g/buckshot,
-					/obj/item/ammo_box/magazine/m12g/buckshot,
-					/obj/item/ammo_box/magazine/m12g/buckshot,
-					/obj/item/ammo_box/magazine/m12g/buckshot,
-					/obj/item/ammo_box/magazine/m12g/buckshot)
+	contains = list(/obj/item/ammo_box/magazine/m12g,
+					/obj/item/ammo_box/magazine/m12g,
+					/obj/item/ammo_box/magazine/m12g,
+					/obj/item/ammo_box/magazine/m12g,
+					/obj/item/ammo_box/magazine/m12g,
+					/obj/item/ammo_box/magazine/m12g)
 	cost = 1000
 	containername = "Bulldog - 12g Buckshot Magazine crate"
 
@@ -870,19 +870,25 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/vending_refill/wallmed)
 	containername = "medical vending crate"
 
-/datum/syndie_supply_packs/medical/bloodpacks
-	name = "Blood Pack Variety Crate"
-	contains = list(/obj/item/reagent_containers/iv_bag,
-					/obj/item/reagent_containers/iv_bag,
-					/obj/item/reagent_containers/iv_bag/blood/APlus,
-					/obj/item/reagent_containers/iv_bag/blood/AMinus,
-					/obj/item/reagent_containers/iv_bag/blood/BPlus,
-					/obj/item/reagent_containers/iv_bag/blood/BMinus,
-					/obj/item/reagent_containers/iv_bag/blood/OPlus,
-					/obj/item/reagent_containers/iv_bag/blood/OMinus)
-	cost = 350
+/datum/syndie_supply_packs/medical/bloodpacks_syn_oxygenis
+	name = "Synthetic Blood Pack Oxygenis"
+	contains = list(/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis)
+	cost = 3000
 	containertype = /obj/structure/closet/crate/freezer
-	containername = "blood pack crate"
+	containername = "synthetic blood pack oxygenis crate"
+
+/datum/syndie_supply_packs/medical/bloodpacks_syn_nitrogenis
+	name = "Synthetic Blood Pack Nitrogenis"
+	contains = list(/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis)
+	cost = 3000
+	containertype = /obj/structure/closet/crate/freezer
+	containername = "synthetic blood pack nitrogenis crate"
 
 /datum/syndie_supply_packs/medical/iv_drip
 	name = "IV Drip Crate"
@@ -1159,6 +1165,42 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	contains = list(/obj/item/clothing/accessory/petcollar)
 	containername = "corgi crate"
 
+
+/datum/syndie_supply_packs/organic/dog_pug
+	name = "Dog Pug Crate"
+	cost = 500
+	containertype = /obj/structure/closet/critter/dog_pug
+	contains = list(/obj/item/clothing/accessory/petcollar)
+	containername = "dog pug crate"
+
+/datum/syndie_supply_packs/organic/dog_bullterrier
+	name = "Dog Bullterrie Crate"
+	cost = 500
+	containertype = /obj/structure/closet/critter/dog_bullterrier
+	contains = list(/obj/item/clothing/accessory/petcollar)
+	containername = "dog bullterrie crate"
+
+/datum/syndie_supply_packs/organic/dog_tamaskan
+	name = "Dog Tamaskan Crate"
+	cost = 500
+	containertype = /obj/structure/closet/critter/dog_tamaskan
+	contains = list(/obj/item/clothing/accessory/petcollar)
+	containername = "dog tamaskan crate"
+
+/datum/syndie_supply_packs/organic/dog_german
+	name = "Dog German Crate"
+	cost = 500
+	containertype = /obj/structure/closet/critter/dog_german
+	contains = list(/obj/item/clothing/accessory/petcollar)
+	containername = "dog german crate"
+
+/datum/syndie_supply_packs/organic/dog_brittany
+	name = "Dog Brittany Crate"
+	cost = 500
+	containertype = /obj/structure/closet/critter/dog_brittany
+	contains = list(/obj/item/clothing/accessory/petcollar)
+	containername = "dog brittany crate"
+
 /datum/syndie_supply_packs/organic/cat
 	name = "Cat Crate"
 	cost = 500 //Cats are worth as much as corgis.
@@ -1167,12 +1209,15 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/toy/cattoy)
 	containername = "cat crate"
 
-/datum/syndie_supply_packs/organic/pug
-	name = "Pug Crate"
-	cost = 500
-	containertype = /obj/structure/closet/critter/pug
-	contains = list(/obj/item/clothing/accessory/petcollar)
-	containername = "pug crate"
+/datum/syndie_supply_packs/organic/cat/white
+	name = "White Cat Crate"
+	containername = "white crate"
+	containertype = /obj/structure/closet/critter/cat_white
+
+/datum/syndie_supply_packs/organic/cat/birman
+	name = "Birman Cat Crate"
+	containername = "birman crate"
+	containertype = /obj/structure/closet/critter/cat_birman
 
 /datum/syndie_supply_packs/organic/fox
 	name = "Fox Crate"
@@ -1180,6 +1225,13 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containertype = /obj/structure/closet/critter/fox
 	contains = list(/obj/item/clothing/accessory/petcollar)
 	containername = "fox crate"
+
+/datum/syndie_supply_packs/organic/fennec
+	name = "Fennec Crate"
+	cost = 800
+	containertype = /obj/structure/closet/critter/fennec
+	contains = list(/obj/item/clothing/accessory/petcollar)
+	containername = "fennec crate"
 
 /datum/syndie_supply_packs/organic/butterfly
 	name = "Butterfly Crate"
@@ -1192,6 +1244,67 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 560 //Deer are best.
 	containertype = /obj/structure/closet/critter/deer
 	containername = "deer crate"
+
+/datum/syndie_supply_packs/organic/sloth
+	name = "Sloth Crate"
+	cost = 600
+	containertype = /obj/structure/closet/critter/sloth
+	contains = list(/obj/item/clothing/accessory/petcollar)
+	containername = "sloth crate"
+
+/datum/syndie_supply_packs/organic/goose
+	name = "Goose Crate"
+	cost = 300
+	containertype = /obj/structure/closet/critter/goose
+	containername = "goose crate"
+
+/datum/syndie_supply_packs/organic/gosling
+	name = "Gosling Crate"
+	cost = 300
+	containertype = /obj/structure/closet/critter/gosling
+	containername = "gosling crate"
+
+/datum/syndie_supply_packs/organic/frog
+	name = "Frog Crate"
+	cost = 600
+	containertype = /obj/structure/closet/critter/frog
+	containername = "frog crate"
+
+/datum/syndie_supply_packs/organic/frog/toxic
+	name = "Toxic Frog Crate"
+	cost = 1200
+	containertype = /obj/structure/closet/critter/frog/toxic
+	containername = "toxic frog crate"
+
+/datum/syndie_supply_packs/organic/snail
+	name = "Snail Crate"
+	cost = 600
+	containertype = /obj/structure/closet/critter/snail
+	containername = "snail crate"
+
+/datum/syndie_supply_packs/organic/turtle
+	name = "Turtle Crate"
+	cost = 700
+	containertype = /obj/structure/closet/critter/turtle
+	containername = "turtle crate"
+
+/datum/syndie_supply_packs/organic/iguana
+	name = "Iguana Crate"
+	cost = 800
+	containertype = /obj/structure/closet/critter/iguana
+	containername = "iguana crate"
+
+/datum/syndie_supply_packs/organic/gator
+	name = "Gator Crate"
+	cost = 1500	//most dangerous
+	containertype = /obj/structure/closet/critter/gator
+	containername = "gator crate"
+
+/datum/syndie_supply_packs/organic/croco
+	name = "Croco Crate"
+	cost = 1000
+	containertype = /obj/structure/closet/critter/croco
+	containername = "croco crate"
 
 ////// hippy gear
 
@@ -2120,8 +2233,8 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/syndicate_special/professional
 	name = "Syndicate 'Professional' Bundle"
 	contains = list(/obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator, // 16TC
-					/obj/item/ammo_box/magazine/sniper_rounds/penetrator, // 5TC
-					/obj/item/ammo_box/magazine/sniper_rounds/soporific, // 3TC
+					/obj/item/ammo_box/magazine/sniper_rounds/compact/penetrator, // 5TC
+					/obj/item/ammo_box/magazine/sniper_rounds/compact/soporific, // 3TC
 					/obj/item/clothing/glasses/chameleon/thermal, // 6TC
 					/obj/item/clothing/gloves/combat, // 0 TC
 					/obj/item/clothing/under/suit_jacket/really_black, // 0 TC

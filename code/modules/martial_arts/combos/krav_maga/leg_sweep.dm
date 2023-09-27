@@ -9,6 +9,8 @@
 					  	"<span class='userdanger'>[user] leg sweeps you!</span>")
 	playsound(get_turf(user), 'sound/effects/hit_kick.ogg', 50, 1, -1)
 	target.apply_damage(5, BRUTE)
-	target.Weaken(2)
+	objective_damage(user, target, 5, BRUTE)
+	target.Weaken(4 SECONDS)
 	add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Leg Sweep", ATKLOG_ALL)
+	user.mind.martial_art.in_stance = FALSE
 	return MARTIAL_COMBO_DONE_CLEAR_COMBOS

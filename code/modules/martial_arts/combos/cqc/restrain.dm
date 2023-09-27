@@ -14,9 +14,9 @@
 		target.visible_message("<span class='warning'>[user] locks [target] into a restraining position!</span>", \
 							"<span class='userdanger'>[user] locks you into a restraining position!</span>")
 		target.adjustStaminaLoss(30)
-		target.Stun(2)
+		target.Stun(4 SECONDS)
 		CQC.restraining = TRUE
-		addtimer(CALLBACK(CQC, /datum/martial_art/cqc/.proc/drop_restraining), 50, TIMER_UNIQUE)
+		addtimer(CALLBACK(CQC, TYPE_PROC_REF(/datum/martial_art/cqc, drop_restraining)), 50, TIMER_UNIQUE)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] : Restrain", ATKLOG_ALL)
 		return MARTIAL_COMBO_DONE
 	return MARTIAL_COMBO_FAIL

@@ -27,7 +27,7 @@
 	for(var/obj/effect/portal/P in loc)
 		if(P != src)
 			QDEL_IN(P, 0)
-			stack_trace("More than one portal has been opened in [atom_loc_line(loc)]")
+			stack_trace("More than one portal has been opened in [atom_loc_line(loc)]") 	// YEAH, FIX IT SOMEONE!
 
 	if(lifespan > 0)
 		spawn(lifespan)
@@ -112,7 +112,8 @@
 		return FALSE
 
 	if(ismegafauna(M))
-		message_admins("[M] has used a portal at [ADMIN_VERBOSEJMP(src)] made by [key_name_admin(usr)].")
+		message_admins("[ADMIN_LOOKUP(M)] has used a portal at [ADMIN_VERBOSEJMP(src)] made by [key_name_admin(usr)].")
+		investigate_log("[M] has used a portal, made by [key_name_log(usr)].", INVESTIGATE_TELEPORTATION)
 
 	if(prob(failchance))
 		icon_state = fail_icon

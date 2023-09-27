@@ -27,6 +27,7 @@
 	var/info_links	//A different version of the paper which includes html links at fields and EOF
 	var/stamps		//The (text for the) stamps on the paper.
 	var/fields		//Amount of user created fields
+	var/language = "Galactic Common" //The language of paper. For now using only in case of Thetta
 	var/list/stamped
 	var/ico[0]      //Icons and
 	var/offset_x[0] //offsets stored for later
@@ -44,6 +45,7 @@
 	var/const/deffont = "Verdana"
 	var/const/signfont = "Times New Roman"
 	var/const/crayonfont = "Comic Sans MS"
+	var/time = "00:00"
 
 //lipstick wiping is in code/game/objects/items/weapons/cosmetics.dm!
 
@@ -78,14 +80,14 @@
 	assets.send(user)
 
 	var/data
-	var/stars = (!user.say_understands(null, GLOB.all_languages["Galactic Common"]) && !forceshow) || forcestars
+	var/stars = (!user?.say_understands(null, GLOB.all_languages[language]) && !forceshow) || forcestars
 	if(stars) //assuming all paper is written in common is better than hardcoded type checks
 		data = "[header][stars(info)][footer][stamps]"
 	else
 		data = "[header]<div id='markdown'>[infolinks ? info_links : info]</div>[footer][stamps]"
-	if(config.twitch_censor)
-		for(var/char in config.twich_censor_list)
-			data = replacetext(data, char, config.twich_censor_list[char])
+	if(CONFIG_GET(flag/twitch_censor))
+		for(var/char in GLOB.twitch_censor_list)
+			data = replacetext(data, char, GLOB.twitch_censor_list[char])
 	if(view)
 		if(!istype(src, /obj/item/paper/form) && length(info) > 1024)
 			paper_width = paper_width_big
@@ -378,36 +380,37 @@
 			B.name = name
 		else if(P.name != "paper" && P.name != "photo")
 			B.name = P.name
-		user.unEquip(P)
+		user.drop_item_ground(P)
 		if(istype(user, /mob/living/carbon/human))
 			var/mob/living/carbon/human/h_user = user
 			if(h_user.r_hand == src)
-				h_user.unEquip(src)
-				h_user.put_in_r_hand(B)
+				h_user.drop_item_ground(src)
+				h_user.put_in_r_hand(B, ignore_anim = FALSE)
 			else if(h_user.l_hand == src)
-				h_user.unEquip(src)
-				h_user.put_in_l_hand(B)
+				h_user.drop_item_ground(src)
+				h_user.put_in_l_hand(B, ignore_anim = FALSE)
 			else if(h_user.l_store == src)
-				h_user.unEquip(src)
+				h_user.drop_item_ground(src)
 				B.loc = h_user
 				B.layer = ABOVE_HUD_LAYER
 				B.plane = ABOVE_HUD_PLANE
 				h_user.l_store = B
 				h_user.update_inv_pockets()
 			else if(h_user.r_store == src)
-				h_user.unEquip(src)
+				h_user.drop_item_ground(src)
 				B.loc = h_user
 				B.layer = ABOVE_HUD_LAYER
 				B.plane = ABOVE_HUD_PLANE
 				h_user.r_store = B
 				h_user.update_inv_pockets()
 			else if(h_user.head == src)
-				h_user.unEquip(src)
-				h_user.put_in_hands(B)
+				h_user.drop_item_ground(src)
+				h_user.put_in_hands(B, ignore_anim = FALSE)
 			else if(!istype(src.loc, /turf))
 				src.loc = get_turf(h_user)
-				if(h_user.client)	h_user.client.screen -= src
-				h_user.put_in_hands(B)
+				if(h_user.client)
+					h_user.client.screen -= src
+				h_user.put_in_hands(B, ignore_anim = FALSE)
 		to_chat(user, "<span class='notice'>You clip the [P.name] to [(src.name == "paper") ? "the paper" : src.name].</span>")
 		src.loc = B
 		P.loc = B
@@ -443,7 +446,7 @@
 		if((CLUMSY in user.mutations) && prob(10))
 			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
 								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
-			user.unEquip(P)
+			user.drop_item_ground(P)
 			user.adjust_fire_stacks(1)
 			user.IgniteMob()
 			return
@@ -451,7 +454,7 @@
 		if(!Adjacent(user)) //to prevent issues as a result of telepathically lighting a paper
 			return
 
-		user.unEquip(src)
+		user.drop_item_ground(src)
 		user.visible_message("<span class='danger'>[user] lights [src] ablaze with [P]!</span>", "<span class='danger'>You light [src] on fire!</span>")
 		fire_act()
 
@@ -623,7 +626,7 @@
 
 /obj/item/paper/holodeck
 	name = "paper- 'Holodeck Disclaimer'"
-	info = "Brusies sustained in the holodeck can be healed simply by sleeping."
+	info = "Bruises sustained in the holodeck can be healed simply by sleeping."
 
 /obj/item/paper/syndimemo
 	name = "paper- 'Memo'"
@@ -659,12 +662,76 @@
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' width='220' height='135' /></p><hr />"
 	info =  ""
 
-/obj/item/paper/central_command
+/obj/item/paper/ussp
 	name = "paper"
-	header ="<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' alt='' width='220' height='135' /></p><hr /><h3 style='text-align: center;font-family: Verdana;'><b> Центральное командование Nanotrasen</h3><p style='text-align: center;font-family:Verdana;'>Официальный Меморандум</p></b><hr />"
-	info = ""
-	footer = "<hr /><p style='font-family:Verdana;'><em>Несоблюдение указаний, содержащихся в данном документе, считается нарушением политики компании; Дисциплинарное взыскание за нарушения может быть применено на месте или в конце смены в Центральном командовании. </em> <br /> <em>*Получатель(и) данного меморандума подтверждает(ют), что он(она/они) несут ответственность за любой ущерб, который может возникнуть в результате игнорирования приведенных здесь директив или рекомендаций. </em> <br /> <em> *Все отчеты должны храниться конфиденциально их предполагаемым получателем и любой соответствующей стороной. Несанкционированное распространение данного меморандума может привести к дисциплинарным взысканиям</em></p>"
+	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ussplogo.png' width='220' height='135' /></p><hr />"
+	info =  ""
+	language = "Neo-Russkiya"
 
+/obj/item/paper/central_command
+	name = "Директива Центрального Командования"
+	info = ""
+
+/obj/item/paper/central_command/Initialize(mapload)
+	time = "Время: [station_time_timestamp()]"
+	if(!(GLOB.genname))
+		GLOB.genname = "[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]"
+	header ="<font face=\"Verdana\" color=black><table></td><tr><td><img src = ntlogo.png><td><table></td><tr><td><font size = \"1\">Форма NT-CC-DRV</font></td><tr><td><font size=\"1\">[command_name()]</font></td><tr><td><font size=\"1\">[time]</font></td><tr><td></td><tr><td></td><tr><td><B>Директива Центрального Командования</B></td></tr></table></td></tr></table><BR><HR><BR></font>"
+	footer = "<br /><br /><font face=\"Verdana\" size = \"1\"><i>Подпись&#58;</font> <font face=\"[signfont]\" size = \"1\">[GLOB.genname]</font></i><font face=\"Verdana\" size = \"1\">, в должности <i>Nanotrasen Navy Officer</i></font><hr /><p style='font-family:Verdana;'><font size = \"1\"><em>*Содержимое данного документа следует считать конфиденциальным. Если не указано иное, распространение содержащейся в данном документе информации среди третьих лиц и сторонних организаций строго запрещено. </em> <br /> <em>*Невыполнение директив, содержащихся в данном документе, считается нарушением политики корпорации и может привести к наложению различных дисциплинарных взысканий. </em> <br /> <em> *Данный документ считается действительным только при наличии подписи и печати офицера Центрального Командования.</em></font></p>"
+	populatefields()
+	return ..()
+
+/obj/item/paper/thief
+	name = "Инструкции"
+	header = "<font face=\"Verdana\" color=black>\
+			<table cellspacing=0 cellpadding=3  align=\"right\">\
+			<tr><td><img src= thieflogo.png></td></tr>\
+			<br><HR></font>"
+	info = "<font face=\"Verdana\"\
+	<BR><center><H2>Инструкции</H2></center> \
+	<BR><center><H3>Здравия, товарищ по ремеслу!</H3></center> \
+	<BR>\n<BR>\nДанная инструкция поможет тебе разобраться и сразу не попасться.<BR> \
+	\nНу... Тут как повезет. Но помни, если тебя поймали - ты никого не знаешь.<BR> \
+	\nМы постараемся вытащить тебя как только так сразу. \
+	\nА до этого момента сиди держи язык за зубами. Гильдия всегда всё знает.<BR> \
+	<BR><HR> \
+	<BR>\n<B>Начнем с основ.</B><BR> \
+	\nВ твоих руках находится коробка с твоими личным инструментарием, который ты взял с собой. \
+	Надеюсь ты тщательно подумал что берешь. В любом случае, думать уже поздно, теперь работай с тем что есть и что под рукой.<BR> \
+	\nНадеюсь ты не взял с собой термальные очки. Ты же уважающий себя член нашей гильдии. Ведь так?<BR> \
+	\nА даже если взял, наверняка мы заменили тебе их на не-хамелеонные и приложили коробку сладостей. Наслаждайся.<BR> \
+	\nЕсли же не взял - мое личное уважение за знание своего ремесла и уверенность.<BR> \
+	\nТакже в твой набор вложен портфель и перчатки. \
+	\nПортфель позволяет тебе спрятать вещи в него, а после запрятать их где-нибудь под-полом. \
+	Конечно ты можешь и без этого спрятать их в бачок унитаза, судить твои методы не буду. Они все хороши.<BR> \
+	\nНаши фирменные перчатки не оставляют следов и позволяют стащить вещь у твоей цели прямо на её глазах в твои руки. \
+	И она даже ничего не заметит. Конечно если ты не снимаешь с неё трусы. Лёгкий ветерок щекочащий булочки вызывает подозрения.<BR> \
+	<BR><HR> \
+	<BR>\n<B>А теперь по пунктам:</B><BR>\
+	\n1. Получи информацию по цели.<BR> \
+	\n2. Найди цель.<BR> \
+	\n3. Продумай план с использованием своего снаряжения и снаряжения станции.<BR> \
+	\n\t	3.1 Заполучи дополнительное снаряжение при необходимости.<BR> \
+	\n\t	3.2 Воспользуйся украденными денежными средствами для получения снаряжения.<BR> \
+	\n4. Действуй. Не сиди и не жди. Чем дольше ты ждешь, тем больше шансов что цель пострадает до её заполучения.<BR> \
+	\n\t	4.1 Если цель - предмет, просто не потеряй его после кражи.<BR> \
+	\n\t	4.2 Если цель - структура, убедись что её не разобрали никакие клоуны.<BR> \
+	\n\t	4.3 Если цель - питомец, убедись в её безопасности, помести её в переноску, рюкзак или шкаф, свяжи по возможности.<BR> \
+	\n5. Контролируй сохранность цели во избежания её повреждения или... смерти. Иначе задача будет провалена.<BR> \
+	\n6. Для успешного выполнения цели необходимо:<BR> \
+	\n\t	6.1 Предметы: Храни их на себе, в себе, в карманах или рюкзаке. <BR> \
+	\n\t	6.2 Структура: Держи её возле себя по прибытию. <BR> \
+	\n\t	6.3 Питомец: Держи его в рюкзаке, в карманах, переноске, шкафу или на голове по прибытию. <BR> \
+	\n7. ...<BR> \
+	\n8. Profit!<BR></font> \
+	<BR>\n<BR>\n<font size = \"1\"><B>Уничтожь улики, коробку и инструкцию во избежании раскрытия работы гильдии.</B></span> \
+	<BR>\n\t\t<font size = \"1\">~~~ <B>Твой Куратор:</B> Персональный Управляемый Помощник Согласования ~~~</span>"
+
+/obj/item/paper/dog_detective_explain
+	name = "Форма NT-PET-05 - Уведомление агента внутренних дел Нанотрейзен о питомце \"Гав Гавыч\""
+	header ="<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' alt='' width='220' height='135' /></p><hr /><h3 style='text-align: center;font-family: Verdana;'><b> Отдел внутренних дел Нанотрейзен по надзору за животными.</h3><p style='text-align: center;font-family:Verdana;'>Официальное Уведомление</p></b><hr />"
+	info = "<font face=\"Verdana\" color=black>ᅠᅠАгенство внутренних дел по надзору за домашними животными находящимися на станции сообщает, приставленный к вам питомец \"Гав Гавыч\" почил. Он верно служил ремеслу дознавателей, сыщиков и детективов. Мы будем помнить о его вкладе и сохраним о нём память в анналах истории о домашних питомцах Нанотрейзен.<BR><HR>"
+	footer = "<center><font size=\"4\"><B>Штампы и данные:</B></font></center><BR>Время принятия отчета: <span class=\"paper_field\"></span><BR><HR><font size = \"1\">*Данный документ подлежит ксерокопированию, для сохранения в архиве уполномоченных лиц, и выдаче агенту.<BR>*Данный документ может содержать личную информацию. </font></font>"
 
 /obj/item/paper/crumpled/update_icon()
 	return
@@ -707,7 +774,7 @@
 	STOP_PROCESSING(SSobj, src)
 	if(mytarget && !used)
 		var/mob/living/carbon/target = mytarget
-		target.ForceContractDisease(new /datum/disease/transformation/corgi(0))
+		target.ForceContractDisease(new /datum/disease/transformation/corgi)
 	return ..()
 
 
@@ -731,10 +798,10 @@
 			var/obj/machinery/photocopier/faxmachine/fax = locateUID(faxmachineid)
 			if(myeffect == "Borgification")
 				to_chat(target,"<span class='userdanger'>You seem to comprehend the AI a little better. Why are your muscles so stiff?</span>")
-				target.ForceContractDisease(new /datum/disease/transformation/robot(0))
+				target.ForceContractDisease(new /datum/disease/transformation/robot)
 			else if(myeffect == "Corgification")
 				to_chat(target,"<span class='userdanger'>You hear distant howling as the world seems to grow bigger around you. Boy, that itch sure is getting worse!</span>")
-				target.ForceContractDisease(new /datum/disease/transformation/corgi(0))
+				target.ForceContractDisease(new /datum/disease/transformation/corgi)
 			else if(myeffect == "Death By Fire")
 				to_chat(target,"<span class='userdanger'>You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?</span>")
 				var/turf/simulated/T = get_turf(target)
@@ -755,14 +822,14 @@
 					to_chat(H, "<span class='userdanger'>You feel surrounded by sadness. Sadness... and HONKS!</span>")
 					H.makeCluwne()
 			else if(myeffect == "Demote")
-				GLOB.event_announcement.Announce("[target.real_name] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
+				GLOB.event_announcement.Announce("[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.","ВНИМАНИЕ: Приказ ЦК о понижении в должности.")
 				for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
 					if(R.fields["name"] == target.real_name)
 						R.fields["criminal"] = SEC_RECORD_STATUS_DEMOTE
 						R.fields["comments"] += "Central Command Demotion Order, given on [GLOB.current_date_string] [station_time_timestamp()]<BR> Process this demotion immediately. Failure to comply with these orders is grounds for termination."
 				update_all_mob_security_hud()
 			else if(myeffect == "Demote with Bot")
-				GLOB.event_announcement.Announce("[target.real_name] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
+				GLOB.event_announcement.Announce("[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.","ВНИМАНИЕ: Приказ ЦК о понижении в должности.")
 				for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
 					if(R.fields["name"] == target.real_name)
 						R.fields["criminal"] = SEC_RECORD_STATUS_ARREST
@@ -828,7 +895,7 @@
 	footer = footer_signstampfax
 
 /obj/item/paper/form/New()
-	from = "Научная станция Nanotrasen &#34;[MAP_NAME]&#34;"
+	from = "Научная станция Nanotrasen &#34;[SSmapping.map_datum.station_name]&#34;"
 	if(is_header_needed)
 		header = "<font face=\"Verdana\" color=black><table></td><tr><td><img src = ntlogo.png><td><table></td><tr><td><font size = \"1\">[name][confidential ? " \[КОНФИДЕНЦИАЛЬНО\]" : ""]</font></td><tr><td></td><tr><td><B><font size=\"4\">[altername]</font></B></td><tr><td><table></td><tr><td>[from]<td>[category]</td></tr></table></td></tr></table></td></tr></table><center><font size = \"1\">[notice]</font></center><BR><HR><BR></font>"
 	populatefields()
@@ -1191,7 +1258,7 @@
 	altername = "Смертный приговор"
 	category = "Юридический отдел"
 	notice = "Любой смертный приговор, выданный человеком, званием младше, чем капитан, является не действительным, и все казни, действующие от этого приговора являются незаконными. Любой, кто незаконно привел в исполнение смертный приговор действую согласно ложному ордену виновен в убийстве первой степени, и должен быть приговорен минимум к пожизненному заключению и максимум к кибернизации. Этот документ или его факс-копия являются Приговором, который может оспорить только Магистрат или Дивизией защиты активов Nanotrasen (далее именуемой «Компанией»)"
-	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Дело <span class=\"paper_field\"></span></B></font></center><BR>Принимая во внимание, что <span class=\"paper_field\"></span> <font size = \"1\">(далее именуемый \"подсудимый\")</font>, <BR>сознательно совершил преступления X-5 статей Космического закона <font size = \"1\">(далее указаны как \"преступления\")</font>, <BR>а именно: <span class=\"paper_field\"></span>, <BR>суд приговаривает подсудимого к смертной казни через <span class=\"paper_field\"></span>.<BR><BR>Приговор должен быть приведен в исполнение в течение 15 минут после получения данного приказа. Вещи подсудимого, включая ID-карту, ПДА, униформу и рюкзак, должны быть сохранены и переданы соответствующем органам (ID-карту передать главе персонала или капитану для уничтожения), возвращены в соответсвующий отдел или сложены в хранилище улик. Любая контрабанда должна немедленно помещена в хранилище улик. Любую контрабанду запрещено использовать защитой активов или другими персонами, представляющих компанию или её активы и цели, кроме сотрудников отдела исследований и развития.<BR><BR>Тело подсудимого должно быть помещено в морг и забальзамировано, только если данное действие не будет нести опасность станции, активам компании или её имуществу. Останки подсудимого должны быть собраны и подготовлены к доставке к близлежащему административному центру компании, всё имущество и активы должны быть переданы семье подсудимого после окончания смены.<BR><BR>Слава Nanotrasen!<BR><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись уполномоченного лица:<td><span class=\"paper_field\"></span><BR></td><tr><td>Должность уполномоченного лица:<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
+	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Дело <span class=\"paper_field\"></span></B></font></center><BR>Принимая во внимание, что <span class=\"paper_field\"></span> <font size = \"1\">(далее именуемый \"подсудимый\")</font>, <BR>сознательно совершил преступления статей Космического закона <font size = \"1\">(далее указаны как \"преступления\")</font>, <BR>а именно: <span class=\"paper_field\"></span>, <BR>суд приговаривает подсудимого к смертной казни через <span class=\"paper_field\"></span>.<BR><BR>Приговор должен быть приведен в исполнение в течение 15 минут после получения данного приказа. Вещи подсудимого, включая ID-карту, ПДА, униформу и рюкзак, должны быть сохранены и переданы соответствующем органам (ID-карту передать главе персонала или капитану для уничтожения), возвращены в соответсвующий отдел или сложены в хранилище улик. Любая контрабанда должна немедленно помещена в хранилище улик. Любую контрабанду запрещено использовать защитой активов или другими персонами, представляющих компанию или её активы и цели, кроме сотрудников отдела исследований и развития.<BR><BR>Тело подсудимого должно быть помещено в морг и забальзамировано, только если данное действие не будет нести опасность станции, активам компании или её имуществу. Останки подсудимого должны быть собраны и подготовлены к доставке к близлежащему административному центру компании, всё имущество и активы должны быть переданы семье подсудимого после окончания смены.<BR><BR>Слава Nanotrasen!<BR><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись уполномоченного лица:<td><span class=\"paper_field\"></span><BR></td><tr><td>Должность уполномоченного лица:<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
 	footer = footer_confidential
 
 /obj/item/paper/form/NT_LD_03
@@ -1232,7 +1299,7 @@
 	id = "NT-COM-01"
 	altername = "Запрос отчёта общего состояния станции"
 	category = "Центральное командование"
-	from = "Административная станция Nanotrasen &#34;Trurl&#34;"
+	from = "Административный корабль Nanotrasen &#34;Trurl&#34;"
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	access = ACCESS_CENT_GENERAL
@@ -1244,7 +1311,7 @@
 	id = "NT-COM-02"
 	altername = "Запрос отчёта состояния трудовых активов станции"
 	category = "Центральное командование"
-	from = "Административная станция Nanotrasen &#34;Trurl&#34;"
+	from = "Административный корабль Nanotrasen &#34;Trurl&#34;"
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	access = ACCESS_CENT_GENERAL
@@ -1256,7 +1323,7 @@
 	id = "NT-COM-03"
 	altername = "Запрос отчёта криминального статуса станции"
 	category = "Центральное командование"
-	from = "Административная станция Nanotrasen &#34;Trurl&#34;"
+	from = "Административный корабль Nanotrasen &#34;Trurl&#34;"
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	access = ACCESS_CENT_GENERAL
@@ -1271,7 +1338,7 @@
 	id = "NT-COM-04"
 	altername = "Запрос отчёта здравоохранения станции"
 	category = "Центральное командование"
-	from = "Административная станция Nanotrasen &#34;Trurl&#34;"
+	from = "Административный корабль Nanotrasen &#34;Trurl&#34;"
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	access = ACCESS_CENT_GENERAL
@@ -1283,7 +1350,7 @@
 	id = "NT-COM-05"
 	altername = "Запрос отчёта научно-технического прогресса станции"
 	category = "Центральное командование"
-	from = "Административная станция Nanotrasen &#34;Trurl&#34;"
+	from = "Административный корабль Nanotrasen &#34;Trurl&#34;"
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	access = ACCESS_CENT_GENERAL
@@ -1295,7 +1362,7 @@
 	id = "NT-COM-06"
 	altername = "Запрос отчёта инженерного обеспечения станции"
 	category = "Центральное командование"
-	from = "Административная станция Nanotrasen &#34;Trurl&#34;"
+	from = "Административный корабль Nanotrasen &#34;Trurl&#34;"
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	access = ACCESS_CENT_GENERAL
@@ -1307,7 +1374,7 @@
 	id = "NT-COM-07"
 	altername = "Запрос отчёта статуса снабжения станции "
 	category = "Центральное командование"
-	from = "Административная станция Nanotrasen &#34;Trurl&#34;"
+	from = "Административный корабль Nanotrasen &#34;Trurl&#34;"
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	access = ACCESS_CENT_GENERAL
@@ -1460,7 +1527,52 @@
 //======
 /obj/item/paper/deltainfo
 	name = "Информационный буклет НСС Керберос"
-	info = "<font face=\"Verdana\" color=black><center><H1>Буклет нового сотрудника на борту НСС &#34;Керберос&#34;</H1></center><BR><HR><B></B><BR><center><H2>Цель</H2></center><BR><font size=\"4\">Данное руководство было создано с целью <B>облегчить процесс</B> внедрения в работу станции <B>нового экипажа</B>, а так-же для <B>информирования сотрудников</B> об оптимальных маршрутах передвижения. В данном буклете находится <B>основная карта</B> &#34;Кербероса&#34;, а так-же несколько занятных фактов об интересных структурных решениях.</font><BR><HR><BR><center><H2>Карта Станции</H2></center><BR><font size=\"4\">С точки зрения конструкции, станция состоит из 12 зон:<BR><ul><li>Прибытие - <B><B>Серый</B></B> - Отсек прибытия экипажа, а так-же ангар космических подов<BR><li>Мостик - <B>Синий</B> - Отсек коммандования и ВИПов<BR><li>Двор - <B>Зелёный</B> - Отсек сферы услуг.<BR><li>Карго - <B>Оранжевый</B> - Отсек снабжения и поставок.<BR><li>Инженерия - <B>Жёлтый</B> - Отсек тех. обслуживания и систем станции.<BR><li>Бриг - <B>Красный</B> - Отсек службы безопастности и юристов.<BR><li>Дормы - <B>Розовый</B> - Отсек для отдыха и развлечений.<BR><li>РнД - <B>Фиолетовый</B> - Отсек научных исследований и разработок.<BR><li>Медбей -<B>Голубой</B> - Отсек мед. услуг и разработок.<BR><li>Спутник ИИ - <B>Тёмно-синий</B> - Отсек интеллектуальных систем станции.<BR><li>Отбытие - <B>Салатовый</B> - Отсек прибытия шаттла, а так-же церковь.<BR><li>Технические туннели - <B>Коричневый</B> - Неэксплуатируемые технические помещения <BR></ul><HR></font> <img src=\"https://media.discordapp.net/attachments/699091773389144125/800399248486957086/Test4.png?width=461&height=338\"><font face=\"Verdana\" color=black><BR></font><font face=\"Verdana\" color=black><BR><HR><BR><center><H2>Технические туннели</H2></center><BR>Во время строительства, станция прошла через череду изменений. В частности изначально она планировалась как туристический объект. Однако после происшествия <B>2549 года</B>, во время которого произошёл <B>террористический акт</B>, концепция объекта сменилась на научно-исследовательскую станцию. Но в туннелях до сих пор можно найти заброшенные комнаты гостей, бары и клубы. В связи с плачевным состоянием несущих конструкций, посещать персоналу их не рекомендуется из-за потенциальной травмоопасности, однако руины могут быть использованы для строительства новых отсеков.<BR><HR><BR><center><H2>Особенности станции</H2></center><BR>В отличии от большинства других научно-исследовательских станций НТ, таких как &#34;Кибериада&#34;, <B>НСС &#34;Керборос&#34;</B> имеет менее жёсткую систему контроля за личными вещами экипажа. В частности, благодаря этому пункту, в отсеках были построены <B>доп. автолаты</B>, в том числе <B>публичные</B> (В карго и РНД). Так-же, благодаря более высокому бюджету станции, были возведены <B>новые отсеки</B>, такие как <B>ангар</B> или <B>склад </B>в отсеке РнД.</font>"
+	info = "<font face=\"Verdana\" color=black><center><H1>Буклет нового сотрудника \
+			на борту НСС &#34;Керберос&#34;</H1></center>\
+			<BR><HR><B></B><BR><center><H2>Цель</H2></center>\
+			<BR><font size=\"4\">Данное руководство было создано с целью \
+			<B>облегчить процесс</B> введения в работу станции <B>нового экипажа</B>, \
+			а также для <B>информирования сотрудников</B> об оптимальных маршрутах \
+			передвижения. В данном буклете находится <B>основная карта</B> &#34;Кербероса&#34; \
+			и несколько интересных фактов о станции.</font>\
+			<BR><HR><BR><center><H2>Карта Станции</H2></center>\
+			<BR><font size=\"4\">С точки зрения конструкции, станция состоит из 12 зон:\
+			<BR><ul><li>Прибытие - <B><B>Серый</B></B> - Отсек прибытия экипажа и ангар космических подов.\
+			<BR><li>Мостик - <B>Синий</B> - Отсек командования и VIP-персон.\
+			<BR><li>Двор - <B>Зелёный</B> - Отсек сферы услуг.\
+			<BR><li>Карго - <B>Оранжевый</B> - Отсек снабжения и поставок.\
+			<BR><li>Инженерия - <B>Жёлтый</B> - Отсек технического обслуживания и систем станции.\
+			<BR><li>Бриг - <B>Красный</B> - Отсек службы безопасности.\
+			<BR><li>Процедурная - <B>Розовый</B> - Юридические зоны и процедурный отсек.\
+			<BR><li>Дормы - <B>Розовый</B> - Отсек для отдыха и развлечений.\
+			<BR><li>РнД - <B>Фиолетовый</B> - Отсек научных исследований и разработок.\
+			<BR><li>Медбей - <B>Голубой</B> - Отсек медицинских услуг и биовирусных разработок.\
+			<BR><li>Спутник ИИ - <B>Тёмно-синий</B> - Отсек систем искусственного интеллекта станции.\
+			<BR><li>Отбытие - <B>Салатовый</B> - Отсек отбытия и эвакуационного шаттла.\
+			<BR><li>Зоны исследователей - <B>Светло-синий</B> - Гейт, ЕВА и экспедиционный склад. \
+			<BR><li>Технические туннели - <B>Коричневый</B> - Неэксплуатируемые технические помещения.\
+			<BR><li>Библиотека - <B>Зона и путь в чёрном пунктире</B> - Архив и место для получения новых знаний и СРП.\
+			<BR><li>Офис Главы Персонала - <B>Зона и путь в белом пунктире</B> - Место для получения работы.\
+			<BR></ul><HR></font> \
+			<img src=\"https://media.discordapp.net/attachments/911024179984347217/1066699505099096144/map2.png?width=600&height=600\">\
+			<font face=\"Verdana\" color=black><BR><BR><HR><BR><center><H2>Технические туннели</H2></center>\
+			<BR> За время строительства проект станции претерпел несколько значительных \
+			изменений. Изначально новая станция должна была стать туристическим объектом, \
+			но после произошедшей в <B>2549 году</B> серии <B>террористических актов</B> \
+			объект вошёл в состав парка научно-исследовательских станций корпорации. В \
+			нынешних технических туннелях до сих пор можно найти заброшенные комнаты для \
+			гостей, бары и клубы. В связи с плачевным состоянием несущих конструкций \
+			посещать эти части станции не рекомендуется, однако неиспользуемые площади \
+			могут быть использованы для строительства новых отсеков.\
+			<BR><HR><BR><center><H2>Особенности станции</H2></center>\
+			<BR>В отличие от большинства других научно-исследовательских станций Nanotrasen, \
+			таких как &#34;Кибериада&#34;, <B>НСС &#34;Керборос&#34;</B> имеет менее \
+			жёсткую систему контроля за личными вещами экипажа. В частности, в отсеках \
+			были построены <B>дополнительные автолаты</B>, в том числе <B>публичные</B> \
+			(в карго и РНД). Также, благодаря более высокому бюджету, были возведены \
+			<B>новые отсеки</B>, такие как <B>ангар</B> или <B>склад</B> в отсеке РнД.\
+			Был расширен отдел <B>вирусологии</B> и возведены <B>новые техничесские туннели</B> для \
+			новых проектов.</font>"
 	icon_state = "pamphlet"
 
 /obj/item/paper/deltainfo/update_icon()

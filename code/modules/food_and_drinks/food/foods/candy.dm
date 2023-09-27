@@ -98,6 +98,13 @@
 // Candy Products (Pre-existing)
 // ***********************************************************
 
+/obj/item/reagent_containers/food/snacks/candy/mre
+	name = "MRE"
+	desc = "Meal ready to eat."
+	trash = /obj/item/trash/candy
+	bitesize = 5
+	list_reagents = list("nutriment" = 30, "sugar" = 3)
+
 /obj/item/reagent_containers/food/snacks/candy/donor
 	name = "donor candy"
 	desc = "A little treat for blood donors."
@@ -212,6 +219,17 @@
 	icon_state = "sucker"
 	filling_color = "#FFFFFF"
 	list_reagents = list("sugar" = 10)
+
+/obj/item/reagent_containers/food/snacks/candy/sucker/lollipop
+	name = "lollipop"
+	desc = "For being such a courage patient!"
+	icon_state = "sucker"
+	filling_color = "#60A584"
+	list_reagents = list("sugar" = 4)
+
+/obj/item/reagent_containers/food/snacks/candy/sucker/lollipop/New()
+	. = ..()
+	icon_state = pick("sucker_blue", "sucker_green", "sucker_orange", "sucker_purple", "sucker_red", "sucker_yellow")
 
 // ***********************************************************
 // Gummy Bear Flavors
@@ -512,6 +530,7 @@
 	trash = /obj/item/c_tube
 	filling_color = "#32127A"
 	list_reagents = list("sulfonal" = 20)
+	log_eating = TRUE
 
 // ***********************************************************
 // Candybar Flavors
@@ -531,6 +550,7 @@
 	name = "Yum-Baton Bar"
 	desc = "Chocolate and toffee in the shape of a baton. Security sure knows how to pound these down!"
 	icon_state = "yumbaton"
+	belt_icon = "yumbaton"
 	filling_color = "#7D5F46"
 
 /obj/item/reagent_containers/food/snacks/candy/confectionery/caramel

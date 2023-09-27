@@ -5,7 +5,7 @@
 	cure_text = "Rest & Spaceacillin"
 	cures = list("spaceacillin")
 	agent = "XY-rhinovirus"
-	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/human/monkey)
+	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/human/lesser/monkey)
 	permeability_mod = 0.5
 	desc = "If left untreated the subject will contract the flu."
 	severity = MINOR
@@ -61,6 +61,6 @@
 				to_chat(affected_mob, "<span class='danger'>Mucous runs down the back of your throat.</span>")
 			if(prob(1) && prob(50))
 				if(!affected_mob.resistances.Find(/datum/disease/flu))
-					var/datum/disease/Flu = new /datum/disease/flu(0)
+					var/datum/disease/Flu = new /datum/disease/flu
 					affected_mob.ContractDisease(Flu)
 					cure()

@@ -10,7 +10,9 @@
 	w_class = WEIGHT_CLASS_NORMAL // so it doesn't fit in pockets
 
 /obj/item/clothing/accessory/holster/Destroy()
-	QDEL_NULL(holstered)
+	if(holstered?.loc == src)
+		QDEL_NULL(holstered)
+	holstered = null
 	return ..()
 
 //subtypes can override this to specify what can be holstered
@@ -24,12 +26,12 @@
 	else
 		return 1
 
-/obj/item/clothing/accessory/holster/attack_self()
-	var/holsteritem = usr.get_active_hand()
+/obj/item/clothing/accessory/holster/attack_self(mob/user = usr)
+	var/holsteritem = user.get_active_hand()
 	if(!holstered)
-		holster(holsteritem, usr)
+		holster(holsteritem, user)
 	else
-		unholster(usr)
+		unholster(user)
 
 /obj/item/clothing/accessory/holster/proc/holster(obj/item/I, mob/user as mob)
 	if(holstered)
@@ -45,18 +47,23 @@
 		to_chat(user, "<span class='warning'>This [W] won't fit in the [src]!</span>")
 		return
 
-	if(!user.canUnEquip(W, 0))
+	if(!user.can_unEquip(W))
 		to_chat(user, "<span class='warning'>You can't let go of the [W]!</span>")
 		return
 
 	holstered = W
-	user.unEquip(holstered)
-	holstered.loc = src
+	user.temporarily_remove_item_from_inventory(holstered)
+	holstered.forceMove(src)
 	holstered.add_fingerprint(user)
 	user.visible_message("<span class='notice'>[user] holsters the [holstered].</span>", "<span class='notice'>You holster the [holstered].</span>")
+	playsound(user.loc, 'sound/weapons/gun_interactions/1holster.ogg', 50, 1)
 
 /obj/item/clothing/accessory/holster/proc/unholster(mob/user as mob)
-	if(!holstered)
+	if(!holstered || user.stat == DEAD)
+		return
+
+	if(user.stat == UNCONSCIOUS)
+		to_chat(user, "<span class='warning'>Вы не можете достать [holstered] сейчас!")
 		return
 
 	if(istype(user.get_active_hand(),/obj) && istype(user.get_inactive_hand(),/obj))
@@ -71,6 +78,7 @@
 		user.put_in_hands(holstered)
 		holstered.add_fingerprint(user)
 		holstered = null
+		playsound(user.loc, 'sound/weapons/gun_interactions/1unholster.ogg', 50, 1)
 
 /obj/item/clothing/accessory/holster/attack_hand(mob/user as mob)
 	if(has_suit)	//if we are part of a suit

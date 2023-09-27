@@ -110,12 +110,12 @@
 		hotkey_help.Grant(user)
 		actions += hotkey_help
 
-	RegisterSignal(user, COMSIG_XENO_SLIME_CLICK_CTRL, .proc/XenoSlimeClickCtrl)
-	RegisterSignal(user, COMSIG_XENO_SLIME_CLICK_ALT, .proc/XenoSlimeClickAlt)
-	RegisterSignal(user, COMSIG_XENO_SLIME_CLICK_SHIFT, .proc/XenoSlimeClickShift)
-	RegisterSignal(user, COMSIG_XENO_TURF_CLICK_SHIFT, .proc/XenoTurfClickShift)
-	RegisterSignal(user, COMSIG_XENO_TURF_CLICK_CTRL, .proc/XenoTurfClickCtrl)
-	RegisterSignal(user, COMSIG_XENO_MONKEY_CLICK_CTRL, .proc/XenoMonkeyClickCtrl)
+	RegisterSignal(user, COMSIG_XENO_SLIME_CLICK_CTRL, PROC_REF(XenoSlimeClickCtrl))
+	RegisterSignal(user, COMSIG_XENO_SLIME_CLICK_ALT, PROC_REF(XenoSlimeClickAlt))
+	RegisterSignal(user, COMSIG_XENO_SLIME_CLICK_SHIFT, PROC_REF(XenoSlimeClickShift))
+	RegisterSignal(user, COMSIG_XENO_TURF_CLICK_SHIFT, PROC_REF(XenoTurfClickShift))
+	RegisterSignal(user, COMSIG_XENO_TURF_CLICK_CTRL, PROC_REF(XenoTurfClickCtrl))
+	RegisterSignal(user, COMSIG_XENO_MONKEY_CLICK_CTRL, PROC_REF(XenoMonkeyClickCtrl))
 
 	if(!connected_recycler)
 		for(var/obj/machinery/monkey_recycler/recycler in GLOB.monkey_recyclers)
@@ -139,21 +139,23 @@
 
 /obj/machinery/computer/camera_advanced/xenobio/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/reagent_containers/food/snacks/monkeycube))
-		if(user.drop_item())
+		if(user.drop_transfer_item_to_loc(O, src))
+			add_fingerprint(user)
 			monkeys++
 			to_chat(user, "<span class='notice'>You feed [O] to [src]. It now has [monkeys] monkey cubes stored.</span>")
 			qdel(O)
 		return
 	else if(istype(O, /obj/item/slimepotion/slime))
 		var/replaced = FALSE
-		if(user.drop_item())
+		if(user.drop_transfer_item_to_loc(O, src))
+			add_fingerprint(user)
 			if(!QDELETED(current_potion))
 				current_potion.forceMove(drop_location())
 				replaced = TRUE
 			current_potion = O
 			to_chat(user, "<span class='notice'>You load [O] in the console's potion slot[replaced ? ", replacing the one that was there before" : ""].</span>")
 		return
-	else if(istype(O, /obj/item/storage/bag))
+	else if(istype(O, /obj/item/storage/bag/bio) || istype(O, /obj/item/storage/box/monkeycubes))
 		var/obj/item/storage/P = O
 		var/loaded = 0
 		for(var/obj/item/reagent_containers/food/snacks/monkeycube/MC in P.contents)
@@ -162,6 +164,7 @@
 			P.remove_from_storage(MC)
 			qdel(MC)
 		if(loaded)
+			add_fingerprint(user)
 			to_chat(user, "<span class='notice'>You fill [src] with the monkey cubes stored in [O]. [src] now has [monkeys] monkey cubes stored.</span>")
 		return
 	return ..()
@@ -233,11 +236,11 @@
 	var/obj/machinery/computer/camera_advanced/xenobio/X = target
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
-		if(LAZYLEN(SSmobs.cubemonkeys) >= config.cubemonkeycap)
-			to_chat(owner, "<span class='warning'>Bluespace harmonics prevent the spawning of more than [config.cubemonkeycap] monkeys on the station at one time!</span>")
+		if(LAZYLEN(SSmobs.cubemonkeys) >= CONFIG_GET(number/cubemonkey_cap))
+			to_chat(owner, "<span class='warning'>Bluespace harmonics prevent the spawning of more than [CONFIG_GET(number/cubemonkey_cap)] monkeys on the station at one time!</span>")
 			return
 		else if(X.monkeys >= 1)
-			var/mob/living/carbon/human/monkey/food = new /mob/living/carbon/human/monkey(remote_eye.loc)
+			var/mob/living/carbon/human/lesser/monkey/food = new /mob/living/carbon/human/lesser/monkey(remote_eye.loc)
 			SSmobs.cubemonkeys += food
 			food.LAssailant = C
 			X.monkeys --
@@ -430,7 +433,7 @@
 
 	if(turfarea.name == E.allowed_area || turfarea.xenobiology_compatible)
 		if(X.monkeys >= 1)
-			var/mob/living/carbon/human/monkey/food = new /mob/living/carbon/human/monkey(T)
+			var/mob/living/carbon/human/lesser/monkey/food = new /mob/living/carbon/human/lesser/monkey(T)
 			food.LAssailant = C
 			X.monkeys --
 			X.monkeys = round(X.monkeys, 0.1)

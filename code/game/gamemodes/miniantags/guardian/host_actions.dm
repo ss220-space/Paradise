@@ -34,8 +34,7 @@
 	// Show the message to our guardian and to host.
 	to_chat(guardian, "<span class='changeling'><i>[owner]:</i> [input]</span>")
 	to_chat(owner, "<span class='changeling'><i>[owner]:</i> [input]</span>")
-	log_say("(HOST to [key_name(guardian)]): [input]", owner)
-	owner.create_log(SAY_LOG, "HOST to GUARDIAN: [input]", guardian)
+	add_say_logs(owner, input, guardian, "Guardian")
 
 	// Show the message to any ghosts/dead players.
 	for(var/mob/M in GLOB.dead_mob_list)
@@ -81,7 +80,7 @@
 		return
 
 	// Do this immediately, so the user can't spam a bunch of polls.
-	cooldown_timer = addtimer(CALLBACK(src, .proc/reset_cooldown), 5 MINUTES)
+	cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 5 MINUTES)
 	UpdateButtonIcon()
 
 	to_chat(owner, "<span class='danger'>Searching for a replacement ghost...</span>")

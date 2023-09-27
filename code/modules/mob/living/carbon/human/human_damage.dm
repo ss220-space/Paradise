@@ -1,9 +1,7 @@
 //Updates the mob's health from organs and mob damage variables
-/mob/living/carbon/human/updatehealth(reason = "none given")
+/mob/living/carbon/human/updatehealth(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
-		health = maxHealth
-		stat = CONSCIOUS
-		return
+		return ..()
 
 	var/total_burn  = 0
 	var/total_brute = 0
@@ -17,10 +15,9 @@
 	//TODO: fix husking
 	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD) && stat == DEAD)
 		ChangeToHusk()
-	update_stat("updatehealth([reason])")
-	med_hud_set_health()
+	update_stat("updatehealth([reason])", should_log)
 
-/mob/living/carbon/human/adjustBrainLoss(amount, updating = TRUE, use_brain_mod = TRUE)
+/mob/living/carbon/human/adjustBrainLoss(amount, updating_health = TRUE, use_brain_mod = TRUE)
 	if(status_flags & GODMODE)
 		return STATUS_UPDATE_NONE	//godmode
 
@@ -29,16 +26,16 @@
 		if(sponge)
 			if(dna.species && amount > 0)
 				if(use_brain_mod)
-					amount = amount * dna.species.brain_mod
+					amount = amount * (dna.species.brain_mod + get_vampire_bonus("brain"))
 			sponge.damage = clamp(sponge.damage + amount, 0, 120)
-			if(sponge.damage >= 120)
+			if(sponge.damage >= 120 && stat != DEAD)
 				visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
 				death()
-	if(updating)
+	if(updating_health)
 		update_stat("adjustBrainLoss")
 	return STATUS_UPDATE_STAT
 
-/mob/living/carbon/human/setBrainLoss(amount, updating = TRUE, use_brain_mod = TRUE)
+/mob/living/carbon/human/setBrainLoss(amount, updating_health = TRUE, use_brain_mod = TRUE)
 	if(status_flags & GODMODE)
 		return STATUS_UPDATE_NONE	//godmode
 
@@ -47,12 +44,12 @@
 		if(sponge)
 			if(dna.species && amount > 0)
 				if(use_brain_mod)
-					amount = amount * dna.species.brain_mod
+					amount = amount * (dna.species.brain_mod + get_vampire_bonus("brain"))
 			sponge.damage = clamp(amount, 0, 120)
-			if(sponge.damage >= 120)
+			if(sponge.damage >= 120 && stat != DEAD)
 				visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
 				death()
-	if(updating)
+	if(updating_health)
 		update_stat("setBrainLoss")
 	return STATUS_UPDATE_STAT
 
@@ -65,18 +62,26 @@
 		if(sponge)
 			return min(sponge.damage,maxHealth*2)
 		else
+			if(ischangeling(src))
+				// if a changeling has no brain, they have no brain damage.
+				return 0
+
 			return 200
 	else
 		return 0
 
 //These procs fetch a cumulative total damage from all organs
 /mob/living/carbon/human/getBruteLoss()
+	if(status_flags & GODMODE)
+		return 0
 	var/amount = 0
 	for(var/obj/item/organ/external/O in bodyparts)
 		amount += O.brute_dam
 	return amount
 
 /mob/living/carbon/human/getFireLoss()
+	if(status_flags & GODMODE)
+		return 0
 	var/amount = 0
 	for(var/obj/item/organ/external/O in bodyparts)
 		amount += O.burn_dam
@@ -85,7 +90,7 @@
 /mob/living/carbon/human/adjustBruteLoss(amount, updating_health = TRUE, damage_source = null, robotic = FALSE)
 	if(amount > 0)
 		if(dna.species)
-			amount = amount * dna.species.brute_mod
+			amount = amount * (dna.species.brute_mod + get_vampire_bonus("brute"))
 		take_overall_damage(amount, 0, updating_health, used_weapon = damage_source)
 	else
 		heal_overall_damage(-amount, 0, updating_health, FALSE, robotic)
@@ -95,7 +100,7 @@
 /mob/living/carbon/human/adjustFireLoss(amount, updating_health = TRUE, damage_source = null, robotic = FALSE)
 	if(amount > 0)
 		if(dna.species)
-			amount = amount * dna.species.burn_mod
+			amount = amount * (dna.species.burn_mod + get_vampire_bonus("burn"))
 		take_overall_damage(0, amount, updating_health, used_weapon = damage_source)
 	else
 		heal_overall_damage(0, -amount, updating_health, FALSE, robotic)
@@ -104,7 +109,7 @@
 
 /mob/living/carbon/human/proc/adjustBruteLossByPart(amount, organ_name, obj/damage_source = null, updating_health = TRUE)
 	if(dna.species && amount > 0)
-		amount = amount * dna.species.brute_mod
+		amount = amount * (dna.species.brute_mod + get_vampire_bonus("brute"))
 	if(organ_name in bodyparts_by_name)
 		var/obj/item/organ/external/O = get_organ(organ_name)
 
@@ -117,7 +122,7 @@
 
 /mob/living/carbon/human/proc/adjustFireLossByPart(amount, organ_name, obj/damage_source = null, updating_health = TRUE)
 	if(dna.species && amount > 0)
-		amount = amount * dna.species.burn_mod
+		amount = amount * (dna.species.burn_mod + get_vampire_bonus("burn"))
 
 	if(organ_name in bodyparts_by_name)
 		var/obj/item/organ/external/O = get_organ(organ_name)
@@ -129,9 +134,9 @@
 			O.heal_damage(0, -amount, internal = 0, robo_repair = O.is_robotic(), updating_health = updating_health)
 	return STATUS_UPDATE_HEALTH
 
-/mob/living/carbon/human/adjustCloneLoss(amount)
+/mob/living/carbon/human/adjustCloneLoss(amount, updating_health)
 	if(dna.species && amount > 0)
-		amount = amount * dna.species.clone_mod
+		amount = amount * (dna.species.clone_mod + get_vampire_bonus("clone"))
 	. = ..()
 
 	var/heal_prob = max(0, 80 - getCloneLoss())
@@ -169,40 +174,45 @@
 
 
 // Defined here solely to take species flags into account without having to recast at mob/living level.
-/mob/living/carbon/human/adjustOxyLoss(amount)
+/mob/living/carbon/human/adjustOxyLoss(amount, updating_health)
 	if(NO_BREATHE in dna.species.species_traits)
 		oxyloss = 0
 		return FALSE
 	if(dna.species && amount > 0)
-		amount = amount * dna.species.oxy_mod
+		amount = amount * (dna.species.oxy_mod + get_vampire_bonus("oxy"))
 	. = ..()
 
-/mob/living/carbon/human/setOxyLoss(amount)
+/mob/living/carbon/human/setOxyLoss(amount, updating_health)
 	if(NO_BREATHE in dna.species.species_traits)
 		oxyloss = 0
 		return FALSE
 	if(dna.species && amount > 0)
-		amount = amount * dna.species.oxy_mod
+		amount = amount * (dna.species.oxy_mod + get_vampire_bonus("oxy"))
 	. = ..()
 
-/mob/living/carbon/human/adjustToxLoss(amount)
+/mob/living/carbon/human/adjustToxLoss(amount, updating_health)
 	if(dna.species && amount > 0)
-		amount = amount * dna.species.tox_mod
+		amount = amount * (dna.species.tox_mod + get_vampire_bonus("tox"))
 	. = ..()
 
-/mob/living/carbon/human/setToxLoss(amount)
+	if(amount > 0 && mind)
+		for(var/datum/objective/pain_hunter/objective in GLOB.all_objectives)
+			if (mind == objective.target)
+				objective.take_damage(amount, TOX)
+
+/mob/living/carbon/human/setToxLoss(amount, updating_health)
 	if(dna.species && amount > 0)
-		amount = amount * dna.species.tox_mod
+		amount = amount * (dna.species.tox_mod + get_vampire_bonus("tox"))
 	. = ..()
 
-/mob/living/carbon/human/adjustStaminaLoss(amount, updating = TRUE)
+/mob/living/carbon/human/adjustStaminaLoss(amount, updating_health)
 	if(dna.species && amount > 0)
-		amount = amount * dna.species.stamina_mod
+		amount = amount * (dna.species.stamina_mod + get_vampire_bonus("stamina"))
 	. = ..()
 
-/mob/living/carbon/human/setStaminaLoss(amount, updating = TRUE)
+/mob/living/carbon/human/setStaminaLoss(amount, updating_health)
 	if(dna.species && amount > 0)
-		amount = amount * dna.species.stamina_mod
+		amount = amount * (dna.species.stamina_mod + get_vampire_bonus("stamina"))
 	. = ..()
 
 ////////////////////////////////////////////
@@ -242,6 +252,8 @@
 //It automatically updates damage overlays if necesary
 //It automatically updates health status
 /mob/living/carbon/human/take_organ_damage(brute, burn, updating_health = TRUE, sharp = 0, edge = 0)
+	if(status_flags & GODMODE)
+		return ..()
 	var/list/obj/item/organ/external/parts = get_damageable_organs()
 	if(!parts.len)
 		return
@@ -276,7 +288,7 @@
 // damage MANY external organs, in random order
 /mob/living/carbon/human/take_overall_damage(brute, burn, updating_health = TRUE, used_weapon = null, sharp = 0, edge = 0)
 	if(status_flags & GODMODE)
-		return	//godmode
+		return ..()	//godmode
 	var/list/obj/item/organ/external/parts = get_damageable_organs()
 
 	var/update = 0
@@ -330,6 +342,7 @@ This function restores all organs.
 	return bodyparts_by_name[zone]
 
 /mob/living/carbon/human/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, sharp = 0, obj/used_weapon = null)
+	SEND_SIGNAL(src, COMSIG_MOB_APPLY_DAMAGE, damage, damagetype, def_zone)
 	//Handle other types of damage
 	if((damagetype != BRUTE) && (damagetype != BURN))
 		..(damage, damagetype, def_zone, blocked)

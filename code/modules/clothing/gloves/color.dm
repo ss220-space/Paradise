@@ -19,7 +19,9 @@
 	var/shock_delay = 40
 	var/unlimited_power = FALSE // Does this really need explanation?
 
-/obj/item/clothing/gloves/color/yellow/power/equipped(mob/user, slot)
+/obj/item/clothing/gloves/color/yellow/power/equipped(mob/user, slot, initial)
+	. = ..()
+
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
@@ -33,6 +35,8 @@
 			to_chat(H, "<span class='biggerdanger'>You feel like you have UNLIMITED POWER!!</span>")
 
 /obj/item/clothing/gloves/color/yellow/power/dropped(mob/user, slot)
+	. = ..()
+
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
@@ -80,7 +84,7 @@
 	name = "black gloves"
 	icon_state = "black"
 	item_state = "bgloves"
-	item_color="brown"
+	item_color="black"
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
@@ -114,6 +118,14 @@
 				qdel(src)
 				return
 	..()
+
+/obj/item/clothing/gloves/color/black/goliath
+	name = "goliath gloves"
+	desc = "Rudimentary gloves that aid in carrying."
+	icon_state = "goligloves"
+	item_state = "goligloves"
+	armor = list("melee" = 10, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 20, "fire" = 50, "acid" = 50)
+	can_be_cut = FALSE
 
 /obj/item/clothing/gloves/color/orange
 	name = "orange gloves"
@@ -195,6 +207,7 @@
 	item_color="brown"
 
 /obj/item/clothing/gloves/color/brown/cargo
+	name = "cargo gloves"
 	item_color = "cargo"				//Exists for washing machines. Is not different from brown gloves in any way.
 
 /obj/item/clothing/gloves/color/latex
@@ -202,6 +215,7 @@
 	desc = "Cheap sterile gloves made from latex."
 	icon_state = "latex"
 	item_state = "lgloves"
+	belt_icon = "latex_gloves"
 	siemens_coefficient = 0.30
 	permeability_coefficient = 0.01
 	item_color="white"

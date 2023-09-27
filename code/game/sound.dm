@@ -60,9 +60,8 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	var/list/listeners = GLOB.player_list
 	if(!ignore_walls) //these sounds don't carry through walls
 		listeners = listeners & hearers(maxdistance, turf_source)
-	for(var/P in listeners)
-		var/mob/M = P
-		if(!M || !M.client)
+	for(var/mob/M in listeners)
+		if(!M.client)
 			continue
 
 		var/turf/T = get_turf(M) // These checks need to be changed if z-levels are ever further refactored
@@ -76,14 +75,14 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		if(distance <= maxdistance)
 			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb)
 
-/mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff_exponent = SOUND_FALLOFF_EXPONENT, channel = 0, pressure_affected = TRUE, sound/S, max_distance, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, distance_multiplier = 1, use_reverb = TRUE)
+/mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff_exponent = SOUND_FALLOFF_EXPONENT, channel = 0, pressure_affected = TRUE, sound/S, max_distance, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, distance_multiplier = 1, use_reverb = TRUE, wait = FALSE)
 	if(!client || !can_hear())
 		return
 
 	if(!S)
 		S = sound(get_sfx(soundin))
 
-	S.wait = 0 //No queue
+	S.wait = wait
 	S.channel = channel || SSsounds.random_available_channel()
 	S.volume = vol * client.prefs.get_channel_volume(CHANNEL_GENERAL)
 	S.environment = -1
@@ -139,7 +138,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		S.falloff = max_distance || 1 //use max_distance, else just use 1 as we are a direct sound so falloff isnt relevant.
 
 		if(S.file == 'sound/goonstation/voice/howl.ogg' && distance > 0 && S.volume > 60 && isvulpkanin(src))
-			addtimer(CALLBACK(src, /mob/.proc/emote, "howl"), rand(10,30)) // Vulps cant resist! >)
+			addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, emote), "howl"), rand(10,30)) // Vulps cant resist! >)
 
 		// Sounds can't have their own environment. A sound's environment will be:
 		// 1. the mob's
@@ -157,6 +156,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 				S.echo[4] = 0 //RoomHF setting, 0 means normal reverb.
 
 	SEND_SOUND(src, S)
+	return S
 
 /proc/sound_to_playing_players(soundin, volume = 100, vary = FALSE, frequency = 0, channel = 0, pressure_affected = FALSE, sound/S)
 	if(!S)
@@ -175,7 +175,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	SEND_SOUND(src, S)
 
 /client/proc/playtitlemusic()
-	if(!SSticker || !SSticker.login_music || config.disable_lobby_music)
+	if(!SSticker || !SSticker.login_music || CONFIG_GET(flag/disable_lobby_music))
 		return
 	if(prefs.sound & SOUND_LOBBY)
 		SEND_SOUND(src, sound(SSticker.login_music, repeat = 0, wait = 0, volume = 85 * prefs.get_channel_volume(CHANNEL_LOBBYMUSIC), channel = CHANNEL_LOBBYMUSIC)) // MAD JAMS
@@ -216,6 +216,8 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 				soundin = pick('sound/goonstation/machines/ambicomp1.ogg', 'sound/goonstation/machines/ambicomp2.ogg', 'sound/goonstation/machines/ambicomp3.ogg')
 			if("ricochet")
 				soundin = pick('sound/weapons/effects/ric1.ogg', 'sound/weapons/effects/ric2.ogg','sound/weapons/effects/ric3.ogg','sound/weapons/effects/ric4.ogg','sound/weapons/effects/ric5.ogg')
+			if("bullet")
+				soundin = pick('sound/weapons/bullet.ogg', 'sound/weapons/bullet2.ogg', 'sound/weapons/bullet3.ogg')
 			if("terminal_type")
 				soundin = pick('sound/machines/terminal_button01.ogg', 'sound/machines/terminal_button02.ogg', 'sound/machines/terminal_button03.ogg',
 							  'sound/machines/terminal_button04.ogg', 'sound/machines/terminal_button05.ogg', 'sound/machines/terminal_button06.ogg',
@@ -227,4 +229,57 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 				soundin = pick('sound/effects/bone_break_1.ogg', 'sound/effects/bone_break_2.ogg', 'sound/effects/bone_break_3.ogg', 'sound/effects/bone_break_4.ogg', 'sound/effects/bone_break_5.ogg', 'sound/effects/bone_break_6.ogg')
 			if("honkbot_e")
 				soundin = pick('sound/items/bikehorn.ogg', 'sound/items/AirHorn2.ogg', 'sound/misc/sadtrombone.ogg', 'sound/items/AirHorn.ogg', 'sound/items/WEEOO1.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bcreep.ogg','sound/magic/Fireball.ogg' ,'sound/effects/pray.ogg', 'sound/voice/hiss1.ogg','sound/machines/buzz-sigh.ogg', 'sound/machines/ping.ogg', 'sound/weapons/flashbang.ogg', 'sound/weapons/bladeslice.ogg')
+			if("u_fscream")
+				soundin = pick('sound/voice/unathi/f_u_scream.ogg', 'sound/voice/unathi/f_u_scream2.ogg')
+			if("u_mscream")
+				soundin = pick('sound/voice/unathi/m_u_scream.ogg', 'sound/voice/unathi/m_u_scream2.ogg')
+			if("clownstep")
+				soundin = pick('sound/effects/clownstep1.ogg','sound/effects/clownstep2.ogg')
+			if("desceration")
+				soundin = pick('sound/misc/desceration-01.ogg','sound/misc/desceration-02.ogg','sound/misc/desceration-03.ogg')
+			else
+				var/check_sound = FALSE
+				for(var/format in SOUND_ALLOWED_FILE_FORMATS)
+					if(dd_hassuffix(soundin, format))
+						check_sound = TRUE
+						break
+					else
+						continue
+				if(!check_sound)
+					CRASH("No sound file were found for \'[soundin]\' input!")
 	return soundin
+
+/proc/apply_sound_effect(effect, filename_input, filename_output)
+	filename_input = filename_sanitize(filename_input)
+	filename_output = filename_sanitize(filename_output)
+
+	if(!effect)
+		CRASH("Invalid sound effect chosen.")
+
+	var/taskset
+	if(GLOB.ffmpeg_cpuaffinity)
+		taskset = "taskset -ac [GLOB.ffmpeg_cpuaffinity]"
+
+	var/list/output
+	switch(effect)
+		if(SOUND_EFFECT_RADIO)
+			output = world.shelleo({"[taskset] ffmpeg -y -hide_banner -loglevel error -i [filename_input] -filter:a "highpass=f=1000, lowpass=f=3000, acrusher=1:1:50:0:log" [filename_output]"})
+		if(SOUND_EFFECT_ROBOT)
+			output = world.shelleo({"[taskset] ffmpeg -y -hide_banner -loglevel error -i [filename_input] -filter:a "afftfilt=real='hypot(re,im)*sin(0)':imag='hypot(re,im)*cos(0)':win_size=1024:overlap=0.5, deesser=i=0.4, volume=volume=1.5" [filename_output]"})
+		if(SOUND_EFFECT_RADIO_ROBOT)
+			output = world.shelleo({"[taskset] ffmpeg -y -hide_banner -loglevel error -i [filename_input] -filter:a "afftfilt=real='hypot(re,im)*sin(0)':imag='hypot(re,im)*cos(0)':win_size=1024:overlap=0.5, deesser=i=0.4, volume=volume=1.5, highpass=f=1000, lowpass=f=3000, acrusher=1:1:50:0:log" [filename_output]"})
+		if(SOUND_EFFECT_MEGAPHONE)
+			output = world.shelleo({"[taskset] ffmpeg -y -hide_banner -loglevel error -i [filename_input] -filter:a "highpass=f=500, lowpass=f=4000, volume=volume=10, acrusher=1:1:45:0:log" [filename_output]"})
+		if(SOUND_EFFECT_MEGAPHONE_ROBOT)
+			output = world.shelleo({"[taskset] ffmpeg -y -hide_banner -loglevel error -i [filename_input] -filter:a "afftfilt=real='hypot(re,im)*sin(0)':imag='hypot(re,im)*cos(0)':win_size=1024:overlap=0.5, deesser=i=0.4, highpass=f=500, lowpass=f=4000, volume=volume=10, acrusher=1:1:45:0:log" [filename_output]"})
+		else
+			CRASH("Invalid sound effect chosen.")
+	var/errorlevel = output[SHELLEO_ERRORLEVEL]
+	var/stdout = output[SHELLEO_STDOUT]
+	var/stderr = output[SHELLEO_STDERR]
+	if(errorlevel)
+		error("Error: apply_sound_effect([effect], [filename_input], [filename_output]) - See debug logs.")
+		log_debug("apply_sound_effect([effect], [filename_input], [filename_output]) STDOUT: [stdout]")
+		log_debug("apply_sound_effect([effect], [filename_input], [filename_output]) STDERR: [stderr]")
+		return FALSE
+	return TRUE

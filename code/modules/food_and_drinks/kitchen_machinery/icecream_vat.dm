@@ -5,7 +5,7 @@
 	name = "\improper Cream-Master Deluxe"
 	density = 1
 	anchored = 1
-	icon = 'icons/obj/cooking_machines.dmi'
+	icon = 'icons/obj/machines/cooking_machines.dmi'
 	icon_state = "icecream_vat"
 	use_power = IDLE_POWER_USE
 	max_integrity = 300
@@ -33,16 +33,17 @@
 		if(beaker)
 			to_chat(user, "<span class='notice'>A container is already inside [src].</span>")
 			return
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(I, src))
 			to_chat(user, "<span class='warning'>\The [I] is stuck to you!</span>")
 			return
+		add_fingerprint(user)
 		beaker = I
-		I.forceMove(src)
 		to_chat(user, "<span class='notice'>You add [I] to [src]</span>")
 		updateUsrDialog()
 		return
 	if(istype(I, /obj/item/reagent_containers/food/snacks/icecream))
 		if(!I.reagents.has_reagent("sprinkles"))
+			add_fingerprint(user)
 			if(I.reagents.total_volume > 29)
 				I.reagents.remove_any(1)
 			I.reagents.add_reagent("sprinkles", 1)

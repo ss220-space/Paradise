@@ -10,6 +10,7 @@
 	icon_keyboard = "security_key"
 	icon_screen = "security"
 	circuit = /obj/item/circuitboard/secure_data
+	req_access = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
 	/// The current page being viewed.
 	var/current_page = SEC_DATA_R_LIST
 	/// The current general record being viewed.
@@ -24,12 +25,13 @@
 	var/static/list/field_edit_choices
 	/// The current temporary notice.
 	var/temp_notice
+	/// For records in pai
+	var/atom/movable/parent
 
 	light_color = LIGHT_COLOR_RED
 
 /obj/machinery/computer/secure_data/Initialize(mapload)
 	. = ..()
-	req_one_access = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
 	if(!field_edit_questions)
 		field_edit_questions = list(
 			// General
@@ -60,6 +62,7 @@
 
 /obj/machinery/computer/secure_data/attackby(obj/item/O, mob/user, params)
 	if(ui_login_attackby(O, user))
+		add_fingerprint(user)
 		return
 	return ..()
 
@@ -67,10 +70,13 @@
 	if(..())
 		return
 	if(is_away_level(z))
-		to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
+		to_chat(user, span_danger("Unable to establish a connection") + ": You're too far away from the station!")
 		return
 	add_fingerprint(user)
 	ui_interact(user)
+
+/obj/machinery/computer/secure_data/ui_host()
+	return parent ? parent : src
 
 /obj/machinery/computer/secure_data/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -227,8 +233,9 @@
 				return
 			if(!record_general)
 				return
-			message_admins("[key_name_admin(usr)] has deleted [record_general.fields["name"]]'s general, security and medical records at [ADMIN_COORDJMP(usr)]")
-			usr.create_log(MISC_LOG, "deleted [record_general.fields["name"]]'s general, security and medical records")
+			message_admins("[ADMIN_LOOKUPFLW(usr)] has deleted [record_general.fields["name"]]'s general, security and medical records at [ADMIN_COORDJMP(usr)]")
+			add_misc_logs(usr, "deleted [record_general.fields["name"]]'s general, security and medical records")
+			usr.investigate_log("deleted [record_general.fields["name"]]'s general, security and medical records", INVESTIGATE_RECORDS)
 			for(var/datum/data/record/M in GLOB.data_core.medical)
 				if(M.fields["name"] == record_general.fields["name"] && M.fields["id"] == record_general.fields["id"])
 					qdel(M)
@@ -242,8 +249,9 @@
 				return
 			if(!record_security)
 				return
-			message_admins("[key_name_admin(usr)] has deleted [record_security.fields["name"]]'s security record at [ADMIN_COORDJMP(usr)]")
-			usr.create_log(MISC_LOG, "deleted [record_security.fields["name"]]'s security record")
+			message_admins("[ADMIN_LOOKUPFLW(usr)] has deleted [record_security.fields["name"]]'s security record at [ADMIN_COORDJMP(usr)]")
+			add_misc_logs(usr, "deleted [record_security.fields["name"]]'s security record")
+			usr.investigate_log("deleted [record_security.fields["name"]]'s security record", INVESTIGATE_RECORDS)
 			QDEL_NULL(record_security)
 			update_all_mob_security_hud()
 			set_temp("Security record deleted.")
@@ -252,8 +260,9 @@
 				return
 			for(var/datum/data/record/S in GLOB.data_core.security)
 				qdel(S)
-			message_admins("[key_name_admin(usr)] has deleted all security records at [ADMIN_COORDJMP(usr)]")
-			usr.create_log(MISC_LOG, "deleted all security records")
+			message_admins("[ADMIN_LOOKUPFLW(usr)] has deleted all security records at [ADMIN_COORDJMP(usr)]")
+			add_misc_logs(usr, "deleted all security records")
+			usr.investigate_log("deleted all security records", INVESTIGATE_RECORDS)
 			update_all_mob_security_hud()
 			set_temp("All security records deleted.")
 		if("delete_cell_logs") // Delete All Cell Logs
@@ -262,8 +271,9 @@
 			if(!length(GLOB.cell_logs))
 				set_temp("There are no cell logs to delete.")
 				return
-			message_admins("[key_name_admin(usr)] has deleted all cell logs at [ADMIN_COORDJMP(usr)]")
-			usr.create_log(MISC_LOG, "deleted all cell logs")
+			message_admins("[ADMIN_LOOKUPFLW(usr)] has deleted all cell logs at [ADMIN_COORDJMP(usr)]")
+			add_misc_logs(usr, "deleted all cell logs")
+			usr.investigate_log("deleted all cell logs", INVESTIGATE_RECORDS)
 			GLOB.cell_logs.Cut()
 			set_temp("All cell logs deleted.")
 		if("comment_delete") // Delete Comment
@@ -285,7 +295,7 @@
 				return
 			is_printing = TRUE
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
-			addtimer(CALLBACK(src, .proc/print_record_finish), 5 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(print_record_finish)), 5 SECONDS)
 		else
 			return FALSE
 
@@ -397,7 +407,7 @@
 						return
 					is_printing = TRUE
 					playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
-					addtimer(CALLBACK(src, .proc/print_cell_log_finish, T.name, T.info), 5 SECONDS)
+					addtimer(CALLBACK(src, PROC_REF(print_cell_log_finish), T.name, T.info), 5 SECONDS)
 				else
 					return FALSE
 		else
@@ -417,6 +427,14 @@
 				<br>\nPhysical Status: [record_general.fields["p_stat"]]
 				<br>\nMental Status: [record_general.fields["m_stat"]]<br>"}
 		P.name = "paper - 'Security Record: [record_general.fields["name"]]'"
+		var/obj/item/photo/photo = new(loc)
+		//photo.img = record_general.fields["photo"]
+		var/icon/new_photo = icon('icons/effects/64x32.dmi', "records")
+		new_photo.Blend(icon(record_general.fields["photo"], dir = SOUTH), ICON_OVERLAY, 0)
+		new_photo.Blend(icon(record_general.fields["photo"], dir = WEST), ICON_OVERLAY, 32)
+		new_photo.Scale(new_photo.Width() * 3, new_photo.Height() * 3)
+		photo.img = new_photo
+		photo.name = "photo - 'Security Record: [record_general.fields["name"]]'"
 	else
 		P.info += "<b>General Record Lost!</b><br>"
 	if(record_security && GLOB.data_core.security.Find(record_security))

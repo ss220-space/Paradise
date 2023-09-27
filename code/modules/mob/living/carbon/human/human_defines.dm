@@ -43,6 +43,7 @@
 	var/datum/personal_crafting/handcrafting
 
 	var/special_voice = "" // For changing our voice. Used by a symptom.
+	var/special_tts_voice = ""
 
 	var/hand_blood_color
 
@@ -62,11 +63,11 @@
 	var/heartbeat = 0
 	var/receiving_cpr = FALSE
 
-	var/fire_dmi = 'icons/mob/OnFire.dmi'
-	var/fire_sprite = "Standing"
-
 	var/datum/body_accessory/body_accessory = null
-	var/tail // Name of tail image in species effects icon file.
+	/// Name of tail image in species effects icon file.
+	var/tail
+	/// Same as tail but wing
+	var/wing
 
 	var/list/splinted_limbs = list() //limbs we know are splinted
 	var/original_eye_color = "#000000"

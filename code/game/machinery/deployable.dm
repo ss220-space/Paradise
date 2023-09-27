@@ -33,7 +33,7 @@
 	if(bar_material != METAL)
 		return
 	if(obj_integrity >= max_integrity)
-		to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
+		to_chat(user, span_notice("[src] does not need repairs."))
 		return
 	if(user.a_intent == INTENT_HARM)
 		return
@@ -47,7 +47,9 @@
 	return TRUE
 
 /obj/structure/barricade/CanPass(atom/movable/mover, turf/target)//So bullets will fly over and stuff.
-	if(locate(/obj/structure/barricade) in get_turf(mover))
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+		return TRUE
+	else if(locate(/obj/structure/barricade) in get_turf(mover))
 		return TRUE
 	else if(istype(mover, /obj/item/projectile))
 		if(!anchored)
@@ -60,6 +62,16 @@
 		return FALSE
 	else
 		return !density
+
+/obj/structure/barricade/attack_hand(mob/user)
+	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+		SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user)
+		add_fingerprint(user)
+		user.changeNext_move(CLICK_CD_MELEE)
+		attack_generic(user, user.dna.species.obj_damage)
+		return
+	else
+		..()
 
 
 
@@ -78,10 +90,10 @@
 	if(istype(I,/obj/item/stack/sheet/wood))
 		var/obj/item/stack/sheet/wood/W = I
 		if(W.get_amount() < 5)
-			to_chat(user, "<span class='warning'>You need at least five wooden planks to make a wall!</span>")
+			to_chat(user, span_warning("You need at least five wooden planks to make a wall!"))
 			return
 		else
-			to_chat(user, "<span class='notice'>You start adding [I] to [src]...</span>")
+			to_chat(user, span_notice("You start adding [I] to [src]..."))
 			if(do_after(user, 50, target = src))
 				if(!W.use(5))
 					return
@@ -134,20 +146,20 @@
 
 /obj/structure/barricade/security/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/deploy), deploy_time)
+	addtimer(CALLBACK(src, PROC_REF(deploy)), deploy_time)
 
 /obj/structure/barricade/security/proc/deploy()
 	icon_state = "barrier1"
 	density = TRUE
 	anchored = TRUE
 	if(deploy_message)
-		visible_message("<span class='warning'>[src] deploys!</span>")
+		visible_message(span_warning("[src] deploys!"))
 
 
 /obj/item/grenade/barrier
 	name = "barrier grenade"
 	desc = "Instant cover."
-	icon = 'icons/obj/grenade.dmi'
+	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "flashbang"
 	item_state = "flashbang"
 	actions_types = list(/datum/action/item_action/toggle_barrier_spread)
@@ -155,7 +167,7 @@
 
 /obj/item/grenade/barrier/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click to toggle modes.</span>"
+	. += span_notice("Alt-click to toggle modes.")
 
 /obj/item/grenade/barrier/AltClick(mob/living/carbon/user)
 	if(!istype(user) || !user.Adjacent(src) || user.incapacitated())

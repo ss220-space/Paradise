@@ -5,6 +5,7 @@
 	amount = 6
 	max_amount = 6
 	w_class = WEIGHT_CLASS_TINY
+	full_w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	throw_range = 7
 	resistance_flags = FLAMMABLE
@@ -30,7 +31,8 @@
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 
-		if(!H.can_inject(user, TRUE))
+		if(isgolem(M))
+			to_chat(user, "<span class='danger'>This can't be used on golems!</span>")
 			return TRUE
 
 		if(!affecting)
@@ -45,6 +47,12 @@
 			user.visible_message("<span class='notice'>[user] starts to apply [src] on [H]...</span>")
 			if(!do_mob(user, H, self_delay))
 				return TRUE
+
+		if(H.head && H.head.flags & THICKMATERIAL)
+			if(H.wear_suit && H.wear_suit.flags & THICKMATERIAL)
+				to_chat(user, "<span class='danger'>There is no thin material to inject into.")
+				return TRUE
+
 		return
 
 	if(isanimal(M))
@@ -164,6 +172,7 @@
 	singular_name = "advanced trauma kit"
 	desc = "An advanced trauma kit for severe injuries."
 	icon_state = "traumakit"
+	belt_icon = "advanced_trauma_kit"
 	heal_brute = 25
 	stop_bleeding = 0
 
@@ -215,6 +224,7 @@
 	singular_name = "advanced burn kit"
 	desc = "An advanced treatment kit for severe burns."
 	icon_state = "burnkit"
+	belt_icon = "advanced_burn_kit"
 	heal_burn = 25
 
 /obj/item/stack/medical/ointment/advanced/cyborg
@@ -224,7 +234,7 @@
 	if(!get_amount())
 		to_chat(user, "<span class='danger'>Not enough medical supplies!</span>")
 		return 1
-	else 
+	else
 		.=..()
 
 //Medical Herbs//
@@ -264,8 +274,8 @@
 	if(!get_amount())
 		to_chat(user, "<span class='danger'>No splints left!</span>")
 		return 1
-	else 
-		.=..()
+	else
+		. = ..()
 /obj/item/stack/medical/splint/attack(mob/living/M, mob/user)
 	if(..())
 		return TRUE
@@ -309,3 +319,10 @@
 	name = "tribal splints"
 	icon_state = "tribal_splint"
 	other_delay = 50
+
+/obj/item/stack/medical/splint/makeshift
+	name = "makeshift splints"
+	desc = "Makeshift splint for fixing bones. Better than nothing and more based than others."
+	icon_state = "makeshift_splint"
+	other_delay = 3 SECONDS
+	self_delay = 15 SECONDS

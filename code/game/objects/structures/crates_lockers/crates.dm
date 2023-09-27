@@ -13,7 +13,7 @@
 	var/list/announce_beacons = list()
 
 /obj/structure/closet/crate/update_icon()
-	..()
+	//..() is not needed here because of different overlay handling logic for crates
 	overlays.Cut()
 	if(manifest)
 		overlays += "manifest"
@@ -104,11 +104,10 @@
 		return TRUE
 	if(istype(W, /obj/item/radio/electropack))
 		if(rigged)
-			if(!user.drop_item())
+			if(!user.drop_transfer_item_to_loc(W, src))
 				to_chat(user, "<span class='warning'>[W] seems to be stuck to your hand!</span>")
 				return TRUE
 			to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
-			W.forceMove(src)
 		return TRUE
 
 /obj/structure/closet/crate/wirecutter_act(mob/living/user, obj/item/I)
@@ -128,11 +127,12 @@
 
 /obj/structure/closet/crate/attack_hand(mob/user)
 	if(manifest)
+		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
 		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, 1)
-		manifest.forceMove(loc)
+		manifest.forceMove_turf()
 		if(ishuman(user))
-			user.put_in_hands(manifest)
+			user.put_in_hands(manifest, ignore_anim = FALSE)
 		manifest = null
 		update_icon()
 		return
@@ -143,8 +143,8 @@
 				if(L.electrocute_act(17, src))
 					do_sparks(5, 1, src)
 					return
-		src.add_fingerprint(user)
-		src.toggle(user, by_hand = TRUE)
+		add_fingerprint(user)
+		toggle(user, by_hand = TRUE)
 
 // Called when a crate is delivered by MULE at a location, for notifying purposes
 /obj/structure/closet/crate/proc/notifyRecipient(var/destination)
@@ -193,11 +193,11 @@
 /obj/structure/closet/crate/secure/proc/boom(mob/user)
 	if(user)
 		to_chat(user, "<span class='danger'>The crate's anti-tamper system activates!</span>")
-		investigate_log("[key_name(user)] has detonated a [src]", INVESTIGATE_BOMB)
+		investigate_log("[key_name_log(user)] has detonated a [src]", INVESTIGATE_BOMB)
 		add_attack_logs(user, src, "has detonated", ATKLOG_MOST)
 	for(var/atom/movable/AM in src)
 		qdel(AM)
-	explosion(get_turf(src), 0, 1, 5, 5)
+	explosion(get_turf(src), 0, 1, 5, 5, cause = src)
 	qdel(src)
 
 /obj/structure/closet/crate/secure/can_open()
@@ -233,24 +233,27 @@
 
 /obj/structure/closet/crate/secure/attack_hand(mob/user)
 	if(manifest)
+		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
 		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, 1)
-		manifest.forceMove(loc)
+		manifest.forceMove_turf()
 		if(ishuman(user))
-			user.put_in_hands(manifest)
+			user.put_in_hands(manifest, ignore_anim = FALSE)
 		manifest = null
 		update_icon()
 		return
+	add_fingerprint(user)
 	if(locked)
-		src.togglelock(user)
+		togglelock(user)
 	else
-		src.toggle(user, by_hand = TRUE)
+		toggle(user, by_hand = TRUE)
 
 /obj/structure/closet/crate/secure/closed_item_click(mob/user)
 	togglelock(user)
 
 /obj/structure/closet/crate/secure/emag_act(mob/user)
 	if(locked)
+		add_attack_logs(user, src, "emagged")
 		overlays += sparks
 		spawn(6) overlays -= sparks //Tried lots of stuff but nothing works right. so i have to use this *sadface*
 		playsound(src.loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -299,6 +302,14 @@
 	icon_state = "trashcart"
 	icon_opened = "trashcartopen"
 	icon_closed = "trashcart"
+	pull_push_speed_modifier = 1
+
+/obj/structure/closet/crate/trashcart/gibs
+	desc = "A heavy, metal trashcart with wheels. You better don't ask."
+	name = "trash cart with gibs"
+	icon_state = "trashcartgib"
+	icon_opened = "trashcartgibopen"
+	icon_closed = "trashcartgib"
 
 /*these aren't needed anymore
 /obj/structure/closet/crate/hat
@@ -556,6 +567,13 @@
 /obj/structure/closet/crate/tape/populate_contents()
 	if(prob(10))
 		new /obj/item/bikehorn/rubberducky(src)
+
+/obj/structure/closet/crate/secure/biohazard
+	name = "secure biohazard crate"
+	desc = "An protected biohazard crate."
+	icon_state = "biohazard"
+	icon_opened = "biohazardopen"
+	icon_closed = "biohazard"
 
 //crates of gear in the free golem ship
 /obj/structure/closet/crate/golemgear/populate_contents()

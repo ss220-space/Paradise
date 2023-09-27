@@ -11,6 +11,9 @@
 #define WEED_EAST_EDGING "east"
 #define WEED_WEST_EDGING "west"
 
+#define ALIEN_RESIN_BURN_MOD 2
+#define ALIEN_RESIN_BRUTE_MOD 0.25
+
 /obj/structure/alien
 	icon = 'icons/mob/alien.dmi'
 	max_integrity = 100
@@ -19,9 +22,9 @@
 	if(damage_flag == "melee")
 		switch(damage_type)
 			if(BRUTE)
-				damage_amount *= 0.25
+				damage_amount *= ALIEN_RESIN_BRUTE_MOD
 			if(BURN)
-				damage_amount *= 2
+				damage_amount *= ALIEN_RESIN_BURN_MOD
 	. = ..()
 
 /obj/structure/alien/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -34,6 +37,9 @@
 		if(BURN)
 			if(damage_amount)
 				playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
+
+/obj/structure/alien/has_prints()
+	return FALSE
 
 /*
  * Resin
@@ -57,12 +63,13 @@
 
 /obj/structure/alien/resin/Destroy()
 	var/turf/T = get_turf(src)
+	playsound(T, 'sound/creatures/alien/xeno_resin_break.ogg', 80, TRUE)
 	. = ..()
 	T.air_update_turf(TRUE)
 
 /obj/structure/alien/resin/Move()
 	var/turf/T = loc
-	..()
+	. = ..()
 	move_update_air(T)
 
 /obj/structure/alien/resin/CanAtmosPass()
@@ -98,6 +105,210 @@
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return !opacity
 	return !density
+
+/obj/structure/alien/resin/attack_alien(mob/living/carbon/alien/humanoid/A)
+	var/damage = 0
+	switch(A.caste)
+		if("d") //drone breaks wall in 2 hits
+			damage = max_integrity/2/ALIEN_RESIN_BRUTE_MOD
+		if("q") //queen breaks wall in 1 hit
+			damage = max_integrity/ALIEN_RESIN_BRUTE_MOD
+		else
+			return ..()
+	if(attack_generic(A, damage, BRUTE, "melee", 0, 100))
+		playsound(loc, 'sound/effects/attackblob.ogg', 50, TRUE)
+
+
+#define RESIN_DOOR_CLOSED 0
+#define RESIN_DOOR_OPENED 1
+
+
+/obj/structure/alien/resin/door
+	name = "resin door"
+	desc = "Thick resin solidified into a weird looking door."
+	icon = 'icons/obj/smooth_structures/alien/resin_door.dmi'
+	icon_state = "resin_door_closed"
+	max_integrity = 160
+	resintype = "door"
+	canSmoothWith = null
+	smooth = SMOOTH_FALSE
+	var/state = RESIN_DOOR_CLOSED
+	var/operating = FALSE
+	var/autoclose = TRUE
+	var/autoclose_delay = 10 SECONDS
+
+
+/obj/structure/alien/resin/door/Initialize()
+	. = ..()
+	update_freelook_sight()
+
+
+/obj/structure/alien/resin/door/Destroy()
+	density = FALSE
+	update_freelook_sight()
+	return ..()
+
+
+/obj/structure/alien/resin/door/update_icon()
+	switch(state)
+		if(RESIN_DOOR_CLOSED)
+			icon_state = "resin_door_closed"
+		if(RESIN_DOOR_OPENED)
+			icon_state = "resin_door_opened"
+
+
+/obj/structure/alien/resin/door/attack_alien(mob/living/carbon/alien/humanoid/user)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	try_switch_state(user)
+
+
+/obj/structure/alien/resin/door/attack_hand(mob/living/user)
+	if(!isalien(user))
+		to_chat(user, span_notice("You can't find a way to manipulate with this door."))
+		return FALSE
+
+	return ..()
+
+
+/obj/structure/alien/resin/door/attack_ghost(mob/user)
+	if(user.can_advanced_admin_interact())
+		switch_state()
+
+
+/obj/structure/alien/resin/door/attack_tk(mob/user)
+	return
+
+
+/obj/structure/alien/resin/door/Bumped(atom/movable/moving_atom)
+	..()
+
+	if(operating)
+		return
+
+	if(isliving(moving_atom))
+		var/mob/living/living = moving_atom
+		if(world.time - living.last_bumped <= 1 SECONDS)
+			return
+		living.last_bumped = world.time
+
+	try_switch_state(moving_atom)
+
+
+/obj/structure/alien/resin/door/CanPass(atom/movable/mover, turf/target, height = 0)
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+		return TRUE
+
+	if(istype(mover) && mover.checkpass(PASSDOOR))
+		return TRUE
+
+	return !density
+
+
+/obj/structure/alien/resin/door/proc/try_switch_state(atom/movable/user)
+	if(operating)
+		return
+
+	add_fingerprint(user)
+
+	if(!isalien(user))
+		return
+
+	var/mob/living/carbon/alien/alien = user
+	if(alien.incapacitated())
+		return
+
+	switch_state()
+
+
+/obj/structure/alien/resin/door/proc/switch_state()
+	switch(state)
+		if(RESIN_DOOR_CLOSED)
+			open()
+		if(RESIN_DOOR_OPENED)
+			close()
+
+
+/obj/structure/alien/resin/door/proc/open()
+
+	if(operating || !density)
+		return
+
+	if(autoclose)
+		autoclose_in(autoclose_delay)
+
+	flick("resin_door_opening", src)
+	playsound(loc, 'sound/creatures/alien/xeno_door_open.ogg', 100, TRUE)
+	operating = TRUE
+
+	sleep(0.1 SECONDS)
+	set_opacity(FALSE)
+	update_freelook_sight()
+
+	sleep(0.4 SECONDS)
+	density = FALSE
+	air_update_turf(TRUE)
+
+	sleep(0.1 SECONDS)
+	operating = FALSE
+	state = RESIN_DOOR_OPENED
+	update_icon()
+
+
+/obj/structure/alien/resin/door/proc/close()
+
+	if(operating || density)
+		return
+
+	var/turf/source_turf = get_turf(src)
+	for(var/atom/movable/moving_atom in source_turf)
+		if(moving_atom.density && moving_atom != src)
+			if(autoclose)
+				autoclose_in(autoclose_delay * 0.5)
+			return
+
+	flick("resin_door_closing", src)
+	playsound(loc, 'sound/creatures/alien/xeno_door_close.ogg', 100, TRUE)
+	operating = TRUE
+
+	sleep(0.1 SECONDS)
+	density = TRUE
+	air_update_turf(TRUE)
+
+	sleep(0.4 SECONDS)
+	set_opacity(TRUE)
+	update_freelook_sight()
+
+	sleep(0.1 SECONDS)
+	operating = FALSE
+	state = RESIN_DOOR_CLOSED
+	update_icon()
+	check_mobs()
+
+
+/obj/structure/alien/resin/door/proc/check_mobs()
+	if(locate(/mob/living) in get_turf(src))
+		sleep(0.1 SECONDS)
+		open()
+
+
+/obj/structure/alien/resin/door/proc/autoclose()
+	if(!QDELETED(src) && !density && !operating && autoclose)
+		close()
+
+
+/obj/structure/alien/resin/door/proc/autoclose_in(wait)
+	addtimer(CALLBACK(src, PROC_REF(autoclose)), wait, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
+
+
+/obj/structure/alien/resin/door/proc/update_freelook_sight()
+	if(GLOB.cameranet)
+		GLOB.cameranet.updateVisibility(src, FALSE)
+
+
+#undef RESIN_DOOR_CLOSED
+#undef RESIN_DOOR_OPENED
 
 
 /*
@@ -202,6 +413,7 @@
 	desc = "Blue bioluminescence shines from beneath the surface."
 	icon_state = "weednode"
 	light_range = 1
+	layer = MID_TURF_LAYER
 	var/node_range = NODERANGE
 
 
@@ -284,6 +496,7 @@
 
 /obj/structure/alien/egg/proc/Burst(kill = TRUE)	//drops and kills the hugger if any is remaining
 	if(status == GROWN || status == GROWING)
+		playsound(get_turf(src), 'sound/creatures/alien/xeno_egg_crack.ogg', 50)
 		icon_state = "egg_hatched"
 		flick("egg_opening", src)
 		status = BURSTING
@@ -328,6 +541,9 @@
 #undef GROWN
 #undef MIN_GROWTH_TIME
 #undef MAX_GROWTH_TIME
+
+#undef ALIEN_RESIN_BURN_MOD
+#undef ALIEN_RESIN_BRUTE_MOD
 
 #undef WEED_NORTH_EDGING
 #undef WEED_SOUTH_EDGING

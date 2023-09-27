@@ -1,4 +1,5 @@
 #define MAX_PILL_SPRITE 20 //max icon state of the pill sprites
+#define MAX_PATCH_SPRITE 20 //max icon state of the patch sprites
 #define MAX_MULTI_AMOUNT 20 // Max number of pills/patches that can be made at once
 #define MAX_UNITS_PER_PILL 100 // Max amount of units in a pill
 #define MAX_UNITS_PER_PATCH 20 // Max amount of units in a patch
@@ -27,7 +28,6 @@
 	var/printing = FALSE
 	var/static/list/pill_bottle_wrappers
 	var/static/list/bottle_styles
-	var/static/list/patch_styles
 
 /obj/machinery/chem_master/New()
 	..()
@@ -98,11 +98,11 @@
 		if(beaker)
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
 			return
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(I, src))
 			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 			return
+		add_fingerprint(user)
 		beaker = I
-		I.forceMove(src)
 		to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
 		SStgui.update_uis(src)
 		update_icon()
@@ -112,12 +112,12 @@
 			to_chat(user, "<span class='warning'>A [loaded_pill_bottle] is already loaded into the machine.</span>")
 			return
 
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(I, src))
 			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 			return
 
+		add_fingerprint(user)
 		loaded_pill_bottle = I
-		I.forceMove(src)
 		to_chat(user, "<span class='notice'>You add [I] into the dispenser slot!</span>")
 		SStgui.update_uis(src)
 	else
@@ -190,7 +190,7 @@
 			P.info += "<b>Chemical name:</b> [R.name]<br>"
 			if(istype(R, /datum/reagent/blood))
 				var/datum/reagent/blood/B = R
-				P.info += "<b>Description:</b> N/A<br><b>Blood Type:</b> [B.data["blood_type"]]<br><b>DNA:</b> [B.data["blood_DNA"]]"
+				P.info += "<b>Description:</b> N/A<br><b>Blood Type:</b> [B.data["blood_type"]] [B.data["blood_species"]] <br><b>DNA:</b> [B.data["blood_DNA"]]"
 			else
 				P.info += "<b>Description:</b> [R.description]"
 			P.info += "<br><br><b>Notes:</b><br>"
@@ -226,7 +226,7 @@
 				return
 			beaker.forceMove(get_turf(src))
 			if(Adjacent(usr) && !issilicon(usr))
-				usr.put_in_hands(beaker)
+				usr.put_in_hands(beaker, ignore_anim = FALSE)
 			beaker = null
 			reagents.clear_reagents()
 			update_icon()
@@ -390,12 +390,10 @@
 						return
 					ui_modal_input(src, id, "Please enter the amount of patches to make (max [MAX_MULTI_AMOUNT] at a time):", null, arguments, pillamount, 5)
 				if("change_patch_style")
-					if(!patch_styles)
-						patch_styles = list("bandaid_med", "bandaid_brute", "bandaid_burn", "bandaid", "bandaid_clown")
-					var/list/patch_styles_png = list()
-					for(var/style in patch_styles)
-						patch_styles_png += "[style].png"
-					ui_modal_bento(src, id, "Please select the new style for patches:", null, arguments, patchsprite, patch_styles_png)
+					var/list/choices = list()
+					for(var/i = 1 to MAX_PATCH_SPRITE)
+						choices += "bandaid[i].png"
+					ui_modal_bento(src, id, "Please select the new style for patches:", null, arguments, patchsprite, choices)
 				if("create_bottle")
 					if(condi || !reagents.total_volume)
 						return
@@ -501,7 +499,7 @@
 						P.pixel_x = rand(-7, 7) // random position
 						P.pixel_y = rand(-7, 7)
 						reagents.trans_to(P, amount_per_patch)
-						P.icon_state = length(patch_styles) && patch_styles[patchsprite] || "bandaid_med"
+						P.icon_state = "bandaid[patchsprite]"
 						if(is_medical_patch)
 							P.instant_application = TRUE
 						// Load the patches in the bottle if there's one loaded
@@ -512,12 +510,10 @@
 						return
 					ui_act("modal_open", list("id" = "create_patch", "arguments" = list("num" = answer)), ui, state)
 				if("change_patch_style")
-					if(!patch_styles)
+					var/new_style = clamp(text2num(answer) || 0, 0, MAX_PATCH_SPRITE)
+					if(!new_style)
 						return
-					var/new_sprite = text2num(answer) || 1
-					if(new_sprite < 1 || new_sprite > length(patch_styles))
-						return
-					patchsprite = new_sprite
+					patchsprite = new_style
 				if("create_bottle")
 					if(condi || !reagents.total_volume)
 						return
@@ -576,6 +572,7 @@
 	RefreshParts()
 
 #undef MAX_PILL_SPRITE
+#undef MAX_PATCH_SPRITE
 #undef MAX_MULTI_AMOUNT
 #undef MAX_UNITS_PER_PILL
 #undef MAX_UNITS_PER_PATCH

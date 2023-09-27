@@ -7,6 +7,7 @@
 /mob/living/carbon/human/var/list/bodyparts = list()
 /mob/living/carbon/human/var/list/bodyparts_by_name = list() // map organ names to organs
 /mob/living/carbon/human/var/obj/item/organ/external/tail/bodypart_tail = null
+/mob/living/carbon/human/var/obj/item/organ/external/wing/bodypart_wing = null
 
 // Takes care of organ related updates, such as broken and missing limbs
 /mob/living/carbon/human/handle_organs()
@@ -66,10 +67,10 @@
 	// standing is poor
 	if(stance_damage >= 8)
 		if(!(lying || resting))
-			if(!(NO_PAIN in dna.species.species_traits))
+			if(has_pain())
 				emote("scream")
 			custom_emote(1, "падает!")
-		Weaken(5) //can't emote while weakened, apparently.
+		Weaken(10 SECONDS) //can't emote while weakened, apparently.
 
 
 /mob/living/carbon/human/proc/handle_grasp()
@@ -85,28 +86,28 @@
 			if((E.body_part == HAND_LEFT) || (E.body_part == ARM_LEFT))
 				if(!l_hand)
 					continue
-				if(!unEquip(l_hand))
+				if(!drop_item_ground(l_hand))
 					continue
 			else
 				if(!r_hand)
 					continue
-				if(!unEquip(r_hand))
+				if(!drop_item_ground(r_hand))
 					continue
 
 			var/emote_scream = pick("крич[pluralize_ru(src.gender,"ит","ат")] от боли и ", "изда[pluralize_ru(src.gender,"ёт","ют")] резкий крик и ", "вскрикива[pluralize_ru(src.gender,"ет","ют")] и ")
-			custom_emote(1, "[(NO_PAIN in dna.species.species_traits) ? "" : emote_scream ]броса[pluralize_ru(src.gender,"ет","ют")] предмет, который держал[genderize_ru(src.gender,"","а","о","и")] в [E.declent_ru(PREPOSITIONAL)]!")
+			custom_emote(1, "[(has_pain()) ? emote_scream :  "" ]броса[pluralize_ru(src.gender,"ет","ют")] предмет, который держал[genderize_ru(src.gender,"","а","о","и")] в [E.declent_ru(PREPOSITIONAL)]!")
 
 		else if(E.is_malfunctioning())
 
 			if((E.body_part == HAND_LEFT) || (E.body_part == ARM_LEFT))
 				if(!l_hand)
 					continue
-				if(!unEquip(l_hand))
+				if(!drop_item_ground(l_hand))
 					continue
 			else
 				if(!r_hand)
 					continue
-				if(!unEquip(r_hand))
+				if(!drop_item_ground(r_hand))
 					continue
 
 			custom_emote(1, "броса[pluralize_ru(src.gender,"ет","ют")] предмет, который держал[genderize_ru(src.gender,"","а","о","и")] держали, [genderize_ru(src.gender,"его","её","его","их")] [E.declent_ru(NOMINATIVE)] выход[pluralize_ru(E.gender,"ит","ят")] из строя!")
@@ -176,3 +177,17 @@ I use this to standardize shadowling dethrall code
 		bodypart_tail = bodyparts_by_name["tail"]
 	else
 		bodypart_tail = null
+/mob/living/carbon/human/proc/update_wing()
+	if(bodyparts_by_name["wing"])
+		bodypart_wing = bodyparts_by_name["wing"]
+	else
+		bodypart_wing = null
+
+/mob/living/carbon/human/proc/count_of_infected_organs()
+	. = 0
+	for(var/obj/item/organ/external/E in bodyparts + bodypart_wing + bodypart_tail)
+		for(var/obj/item/organ/internal/I in E.internal_organs)
+			if(I.germ_level >= INFECTION_LEVEL_ONE)
+				.++
+		if(E.germ_level >= INFECTION_LEVEL_ONE)
+			.++

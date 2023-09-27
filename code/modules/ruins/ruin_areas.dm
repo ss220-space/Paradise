@@ -29,6 +29,12 @@
 /area/ruin/powered/golem_ship
 	name = "Free Golem Ship"
 
+/area/ruin/powered/space_bar
+	name = "Space Bar"
+
+/area/ruin/powered/shuttle
+	name = "Shuttle"
+
 // Ruins of "onehalf" ship
 /area/ruin/onehalf/hallway
 	name = "Hallway"
@@ -43,7 +49,7 @@
 	icon_state = "Sleep"
 
 /area/ruin/onehalf/bridge
-	name = "Bridge"
+	name = "Old Mining Bay Bridge"
 	icon_state = "bridge"
 
 // Old tcommsat

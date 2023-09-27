@@ -270,7 +270,10 @@ em						{font-style: normal;	font-weight: bold;}
 .deptradio				{color: #993399;}
 .comradio				{color: #204090;}
 .syndradio				{color: #6D3F40;}
+.sovradio				{color: #f7941d;}
 .taipan					{color: #998e54;}
+.syndiecom				{color: #8f4242;}
+.spider_clan			{color: #044a1b;}
 .dsquadradio				{color: #686868;}
 .resteamradio				{color: #18BC46;}
 .airadio				{color: #FF00FF;}
@@ -318,6 +321,7 @@ h1.alert, h2.alert			{color: #000000;}
 .noticealien				{color: #00c000;}
 .alertalien				{color: #00c000; font-weight: bold;}
 .terrorspider				{color: #320E32;}
+.dantalion				{color: #1a7d5b;}
 
 
 .sinister				{color: #800080;	font-weight: bold;	font-style: italic;} /* /vg/ */
@@ -345,6 +349,7 @@ h1.alert, h2.alert			{color: #000000;}
 .kidan					{color: #664205;}
 .slime					{color: #0077AA;}
 .drask					{color: #a3d4eb; font-family: "Arial Black";}
+.moth					{color: #869b29; font-family: "Copperplate";}
 .clown					{color: #ff0000;}
 .shadowling				{color: #3b2769;}
 .vulpkanin				{color: #B97A57;}
@@ -358,6 +363,11 @@ h1.alert, h2.alert			{color: #000000;}
 .cultlarge				{color: #960000; font-weight: bold; font-size: 120%;}
 .narsie					{color: #960000; font-weight: bold; font-size: 300%;}
 .narsiesmall			{color: #960000; font-weight: bold; font-size: 200%;}
+.clock					{color: #bd8700; font-weight: bold; font-style: italic;}
+.clockspeech			{color: #996e00; font-style: italic;}
+.clockitalic			{color: #bd8700; font-style: italic;}
+.clocklarge				{color: #bd8700; font-weight: bold; font-size: 120%;}
+.ratvar					{color: #bd8700; font-weight: bold; font-size: 300%;}
 .interface				{color: #330033;}
 .big					{font-size: 150%;}
 .reallybig				{font-size: 175%;}

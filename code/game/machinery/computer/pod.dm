@@ -274,7 +274,8 @@
 
 /obj/machinery/computer/pod/old/syndicate/attack_hand(var/mob/user as mob)
 	if(!allowed(user))
-		to_chat(user, "<span class='warning'>Access Denied</span>")
+		to_chat(user, span_warning("Access Denied"))
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 	else
 		..()
@@ -353,14 +354,14 @@
 	var/id_tag = ""
 
 
-/obj/structure/deathsquad_tele/Bumped(var/atom/movable/AM)
+/obj/structure/deathsquad_tele/Bumped(atom/movable/moving_atom)
 	if(!ztarget)	return ..()
-	var/y = AM.y
+	var/y = moving_atom.y
 	spawn()
-		AM.z = ztarget
-		AM.y = y
-		AM.x = world.maxx - TRANSITIONEDGE - 2
-		AM.dir = 8
-		var/atom/target = get_edge_target_turf(AM, AM.dir)
-		AM.throw_at(target, 50, 1)
+		moving_atom.z = ztarget
+		moving_atom.y = y
+		moving_atom.x = world.maxx - TRANSITIONEDGE - 2
+		moving_atom.dir = 8
+		var/atom/target = get_edge_target_turf(moving_atom, moving_atom.dir)
+		moving_atom.throw_at(target, 50, 1)
 	return

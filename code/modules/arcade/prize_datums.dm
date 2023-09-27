@@ -83,7 +83,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/crayons
 	name = "Box of Crayons"
-	desc = "A six-pack of crayons, just like back in kindergarten."
+	desc = "An eight-pack of crayons, just like back in kindergarten."
 	typepath = /obj/item/storage/fancy/crayons
 	cost = 35
 
@@ -328,6 +328,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	desc = "Gloves that fill you with an irresistable urge to give headpats."
 	typepath = /obj/item/clothing/gloves/fingerless/rapid/headpat
 	cost = 150
+
+/datum/prize_item/rubbertoolbox
+	name = "Rubber Toolbox"
+	desc = "Practice your robust!"
+	typepath = /obj/item/toy/toolbox
+	cost = 200
 
 /datum/prize_item/bike
 	name = "Awesome Bike!"

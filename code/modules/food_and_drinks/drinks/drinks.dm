@@ -9,9 +9,11 @@
 	container_type = OPENCONTAINER
 	consume_sound = 'sound/items/drink.ogg'
 	possible_transfer_amounts = list(5,10,15,20,25,30,50)
+	visible_transfer_rate = TRUE
 	volume = 50
 	resistance_flags = NONE
 	antable = FALSE
+	var/chugging = FALSE
 	foodtype = ALCOHOL
 
 /obj/item/reagent_containers/food/drinks/New()
@@ -36,32 +38,76 @@
 
 	if(istype(M, /mob/living/carbon))
 		var/mob/living/carbon/C = M
+		if(!get_location_accessible(C, "mouth"))
+			if(C == user)
+				to_chat(user, "<span class='warning'>Your face is obscured, so you cant eat.</span>")
+			else
+				to_chat(user, "<span class='warning'>[C]'s face is obscured, so[C.p_they()] cant eat.</span>")
+			return FALSE
+
+		var/list/transfer_data = reagents.get_transferred_reagents(C, amount_per_transfer_from_this)
 		if(C.eat(src, user))
 			if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
-				var/mob/living/silicon/robot/borg = user
-				borg.cell.use(30)
-				var/refill = reagents.get_master_reagent_id()
-				if(refill in GLOB.drinks) // Only synthesize drinks
-					addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent, refill, bitesize), 600)
+				if(length(transfer_data))
+					SynthesizeDrinkFromTransfer(user, transfer_data)
 			return TRUE
 	return FALSE
 
-/obj/item/reagent_containers/food/drinks/MouseDrop(atom/over_object) //CHUG! CHUG! CHUG!
-	var/mob/living/carbon/chugger = over_object
-	if (!(container_type & DRAINABLE))
+/obj/item/reagent_containers/food/drinks/proc/SynthesizeDrinkFromTransfer(mob/user, list/transfer_data)
+
+	var/list/ids_data = list()
+	var/trans = 0
+
+	transfer_data &= GLOB.drinks
+
+	for(var/thing in transfer_data)
+		var/datum/reagent/R = thing
+		ids_data[initial(R.id)] = transfer_data[R]
+		trans += transfer_data[R]
+
+	if(length(ids_data))
+		if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
+			var/mob/living/silicon/robot/bro = user
+			var/chargeAmount = max(30,4*trans)
+			bro.cell.use(chargeAmount)
+			to_chat(user, "<span class='notice'>Now synthesizing [trans] units of cocktail...</span>")
+			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, add_reagent_list), ids_data), 30 SECONDS)
+			addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, user, "<span class='notice'>Cyborg [src] refilled.</span>"), 30 SECONDS)
+		else
+			reagents.add_reagent_list(ids_data)
+	else
+		return
+
+/obj/item/reagent_containers/food/drinks/MouseDrop(atom/over) //CHUG! CHUG! CHUG!
+	if(!iscarbon(over))
+		return ..()
+	var/mob/living/carbon/chugger = over
+	if(!(container_type & DRAINABLE))
 		to_chat(chugger, "<span class='notice'>You need to open [src] first!</span>")
 		return
-	if(istype(chugger) && loc == chugger && src == chugger.get_active_hand() && reagents.total_volume)
-		chugger.visible_message("<span class='notice'>[chugger] raises the [src] to [chugger.p_their()] mouth and starts [pick("chugging","gulping")] it down like [pick("a savage","a mad beast","it's going out of style","there's no tomorrow")]!</span>", "<span class='notice'>You start chugging [src].</span>", "<span class='notice'>You hear what sounds like gulping.</span>")
-		while(do_mob(chugger, chugger, 40)) //Between the default time for do_mob and the time it takes for a vampire to suck blood.
+	if(!get_location_accessible(chugger, "mouth"))
+		to_chat(chugger, "<span class='notice'>Your face is obscured, so you cant [pick("chugging","gulping")].</span>")
+		return
+	if(reagents.total_volume && loc == chugger && src == chugger.get_active_hand())
+		chugger.visible_message("<span class='notice'>[chugger] raises [src] to [chugger.p_their()] mouth and starts [pick("chugging","gulping")] it down like [pick("a savage","a mad beast","it's going out of style","there's no tomorrow")]!</span>",
+			"<span class='notice'>You start chugging [src].</span>",
+			"<span class='notice'>You hear what sounds like gulping.</span>")
+		chugging = TRUE
+		while(do_after_once(chugger, 4 SECONDS, TRUE, chugger, null, "You stop chugging [src]."))
 			chugger.eat(src, chugger, 25) //Half of a glass, quarter of a bottle.
 			if(!reagents.total_volume) //Finish in style.
 				chugger.emote("gasp")
-				chugger.visible_message("<span class='notice'>[chugger] [pick("finishes","downs","polishes off","slams")] the entire [src], what a [pick("savage","monster","champ","beast")]!</span>", "<span class='notice'>You finish off the [src]![prob(50) ? " Maybe that wasn't such a good idea..." : ""]</span>", "<span class='notice'>You hear a gasp and a clink.</span>")
+				chugger.visible_message("<span class='notice'>[chugger] [pick("finishes","downs","polishes off","slams")] the entire [src], what a [pick("savage","monster","champ","beast")]!</span>",
+					"<span class='notice'>You finish off [src]![prob(50) ? " Maybe that wasn't such a good idea..." : ""]</span>",
+					"<span class='notice'>You hear a gasp and a clink.</span>")
 				break
+		chugging = FALSE
 
 /obj/item/reagent_containers/food/drinks/afterattack(obj/target, mob/user, proximity)
 	if(!proximity)
+		return
+
+	if(chugging)
 		return
 
 	if(target.is_refillable() && is_drainable()) //Something like a glass. Player probably wants to transfer TO it.
@@ -73,23 +119,13 @@
 			to_chat(user, "<span class='warning'> [target] is full.</span>")
 			return FALSE
 
-		var/datum/reagent/refill
-		var/datum/reagent/refillName
-		if(isrobot(user))
-			refill = reagents.get_master_reagent_id()
-			refillName = reagents.get_master_reagent_name()
-
+		var/list/transfer_data = reagents.get_transferred_reagents(target, amount_per_transfer_from_this)
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'> You transfer [trans] units of the solution to [target].</span>")
 
-		if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
-			if(refill in GLOB.drinks) // Only synthesize drinks
-				var/mob/living/silicon/robot/bro = user
-				var/chargeAmount = max(30,4*trans)
-				bro.cell.use(chargeAmount)
-				to_chat(user, "<span class='notice'>Now synthesizing [trans] units of [refillName]...</span>")
-				addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent, refill, trans), 300)
-				addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, user, "<span class='notice'>Cyborg [src] refilled.</span>"), 300)
+		if(isrobot(user))
+			SynthesizeDrinkFromTransfer(user, transfer_data)
+
+		to_chat(user, "<span class='notice'> You transfer [trans] units of the solution to [target].</span>")
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 		if(!is_refillable())
@@ -136,7 +172,7 @@
 	throwforce = 1
 	amount_per_transfer_from_this = 5
 	materials = list(MAT_METAL=100)
-	possible_transfer_amounts = list()
+	possible_transfer_amounts = null
 	volume = 5
 	flags = CONDUCT
 	container_type = OPENCONTAINER
@@ -202,10 +238,10 @@
 	item_state = "coffee"
 	list_reagents = list("tea" = 30)
 
-/obj/item/reagent_containers/food/drinks/tea/New()
-	..()
+/obj/item/reagent_containers/food/drinks/tea/Initialize(mapload)
 	if(prob(20))
 		reagents.add_reagent("mugwort", 3)
+	. = ..()
 
 /obj/item/reagent_containers/food/drinks/mugwort
 	name = "mugwort tea"
@@ -244,10 +280,10 @@
 	item_state = "ramen"
 	list_reagents = list("dry_ramen" = 30)
 
-/obj/item/reagent_containers/food/drinks/dry_ramen/New()
-	..()
+/obj/item/reagent_containers/food/drinks/dry_ramen/Initialize(mapload)
 	if(prob(20))
 		reagents.add_reagent("enzyme", 3)
+	. = ..()
 
 /obj/item/reagent_containers/food/drinks/chicken_soup
 	name = "canned chicken soup"
@@ -255,14 +291,14 @@
 	icon_state = "soupcan"
 	item_state = "soupcan"
 	list_reagents = list("chicken_soup" = 30)
-	foodtype = MEAT
+	foodtype = JUNKFOOD
 
 /obj/item/reagent_containers/food/drinks/sillycup
 	name = "paper cup"
 	desc = "A paper water cup."
 	icon_state = "water_cup_e"
 	item_state = "coffee"
-	possible_transfer_amounts = list()
+	possible_transfer_amounts = null
 	volume = 10
 
 /obj/item/reagent_containers/food/drinks/sillycup/on_reagent_change()
@@ -280,8 +316,8 @@
 	name = "shaker"
 	desc = "A metal shaker to mix drinks in."
 	icon_state = "shaker"
-	materials = list(MAT_METAL=1500)
 	amount_per_transfer_from_this = 10
+	materials = list(MAT_METAL=1500)
 	volume = 100
 
 /obj/item/reagent_containers/food/drinks/flask

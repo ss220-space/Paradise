@@ -1,5 +1,5 @@
 /mob/living/silicon/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
-	log_say(multilingual_to_message(message_pieces), src)
+	add_say_logs(src, multilingual_to_message(message_pieces))
 	if(..())
 		return 1
 
@@ -71,17 +71,24 @@
 
 //For holopads only. Usable by AI.
 /mob/living/silicon/ai/proc/holopad_talk(list/message_pieces, verb)
-	log_say("(HPAD) [multilingual_to_message(message_pieces)]", src)
+	add_say_logs(src, multilingual_to_message(message_pieces), language = "HPAD")
 
 	var/obj/machinery/hologram/holopad/T = current
 	if(istype(T) && T.masters[src])
 		var/obj/effect/overlay/holo_pad_hologram/H = T.masters[src]
+		var/message_clean = combine_message(message_pieces, src)
+		message_clean = replace_characters(message_clean, list("+"))
+
+		var/message = verb_message(message_pieces, message_clean, verb)
+		var/message_tts = combine_message_tts(message_pieces, src)
+
 		if ((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && can_hear())
-			var/message = combine_message(message_pieces, null, src)
-			create_chat_message(H, message, TRUE, FALSE)
+			create_chat_message(H, message_clean, TRUE, FALSE)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, H, src, message_tts, tts_seed, FALSE, SOUND_EFFECT_NONE)
+		log_debug("holopad_talk(): [message_clean]")
 		for(var/mob/M in hearers(T.loc))//The location is the object, default distance.
 			M.hear_holopad_talk(message_pieces, verb, src, H)
-		to_chat(src, "<i><span class='game say'>Holopad transmitted, <span class='name'>[real_name]</span> [combine_message(message_pieces, verb, src)]</span></i>")
+		to_chat(src, "<i><span class='game say'>Holopad transmitted, <span class='name'>[real_name]</span> [message]</span></i>")
 	else
 		to_chat(src, "No holopad connected.")
 		return
@@ -101,7 +108,7 @@
 		for(var/mob/M in viewers(T.loc))
 			M.show_message(rendered, 2)
 
-		log_emote("(HPAD) [message]", src)
+		add_emote_logs(src, "(HPAD) [message]")
 	else //This shouldn't occur, but better safe then sorry.
 		to_chat(src, "No holopad connected.")
 		return

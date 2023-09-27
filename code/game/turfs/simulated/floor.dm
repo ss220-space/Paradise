@@ -8,7 +8,14 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 				"asteroid","asteroid_dug",
 				"asteroid0","asteroid1","asteroid2","asteroid3","asteroid4",
 				"asteroid5","asteroid6","asteroid7","asteroid8","asteroid9","asteroid10","asteroid11","asteroid12",
-				"oldburning","light-on-r","light-on-y","light-on-g","light-on-b", "wood", "wood-broken", "carpet",
+				"oldburning","light-on-r","light-on-y","light-on-g","light-on-b", "wood", "wood-broken","wood-broken2", "wood-broken3", "wood-broken4", "wood-broken5", "wood-broken6", "wood-broken7",
+				"wood-oak","wood-oak-broken", "wood-oak-broken2", "wood-oak-broken3", "wood-oak-broken4", "wood-oak-broken5", "wood-oak-broken6", "wood-oak-broken7",
+				"wood-birch","wood-birch-broken", "wood-birch-broken2", "wood-birch-broken3", "wood-birch-broken4", "wood-birch-broken5", "wood-birch-broken6", "wood-birch-broken7",
+				"wood-cherry","wood-cherry-broken", "wood-cherry-broken2", "wood-cherry-broken3", "wood-cherry-broken4", "wood-cherry-broken5", "wood-cherry-broken6", "wood-cherry-broken7",
+				"fancy-wood-oak","fancy-wood-oak-broken", "fancy-wood-oak-broken2", "fancy-wood-oak-broken3", "fancy-wood-oak-broken4", "fancy-wood-oak-broken5", "fancy-wood-oak-broken6", "fancy-wood-oak-broken7",
+				"fancy-wood-birch","fancy-wood-birch-broken", "fancy-wood-birch-broken2", "fancy-wood-birch-broken3", "fancy-wood-birch-broken4", "fancy-wood-birch-broken5", "fancy-wood-birch-broken6", "fancy-wood-birch-broken7",
+				"fancy-wood-cherry","fancy-wood-cherry-broken", "fancy-wood-cherry-broken2", "fancy-wood-cherry-broken3", "fancy-wood-cherry-broken4", "fancy-wood-cherry-broken5", "fancy-wood-cherry-broken6", "fancy-wood-cherry-broken7",
+				"light-fancy-wood","light-fancy-wood-broken", "light-fancy-wood-broken2", "light-fancy-wood-broken3", "light-fancy-wood-broken4", "light-fancy-wood-broken5", "light-fancy-wood-broken6", "light-fancy-wood-broken7",
 				"carpetcorner", "carpetside", "carpet", "ironsand1", "ironsand2", "ironsand3", "ironsand4", "ironsand5",
 				"ironsand6", "ironsand7", "ironsand8", "ironsand9", "ironsand10", "ironsand11",
 				"ironsand12", "ironsand13", "ironsand14", "ironsand15"))
@@ -136,7 +143,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 /turf/simulated/floor/proc/make_plating()
 	return ChangeTurf(/turf/simulated/floor/plating)
 
-/turf/simulated/floor/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
+/turf/simulated/floor/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
 	if(!istype(src, /turf/simulated/floor))
 		return ..() //fucking turfs switch the fucking src of the fucking running procs
 	if(!ispath(T, /turf/simulated/floor))
@@ -178,9 +185,9 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 		if(P.pipe_type != -1) // ANY PIPE
 			user.visible_message( \
 				"[user] starts sliding [P] along \the [src].", \
-				"<span class='notice'>You slide [P] along \the [src].</span>", \
-				"You hear the scrape of metal against something.")
-			user.drop_item()
+				span_notice("You slide [P] along \the [src]."), \
+				span_italics("You hear the scrape of metal against something."))
+			user.drop_from_active_hand()
 
 			if(P.is_bent_pipe())  // bent pipe rotation fix see construction.dm
 				P.dir = 5
@@ -230,12 +237,16 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 		burnt = 0
 		current_overlay = null
 		if(user && !silent)
-			to_chat(user, "<span class='danger'>You remove the broken plating.</span>")
+			to_chat(user, span_danger("You remove the broken plating."))
 	else
 		if(user && !silent)
-			to_chat(user, "<span class='danger'>You remove the floor tile.</span>")
+			to_chat(user, span_danger("You remove the floor tile."))
 		if(floor_tile && make_tile)
-			new floor_tile(src)
+			var/obj/item/stack/stack_dropped = new floor_tile(src)
+			if(user)
+				var/obj/item/stack/stack_offhand = user.get_inactive_hand()
+				if(istype(stack_dropped) && istype(stack_offhand) && stack_offhand.can_merge(stack_dropped, inhand = TRUE))
+					user.put_in_hands(stack_dropped, ignore_anim = FALSE)
 	return make_plating()
 
 /turf/simulated/floor/singularity_pull(S, current_size)
@@ -262,9 +273,8 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	if(prob(20))
 		ChangeTurf(/turf/simulated/floor/engine/cult)
 
-/turf/simulated/floor/ratvar_act(force, ignore_mobs)
-	. = ..()
-	if(.)
+/turf/simulated/floor/ratvar_act()
+	if(prob(20))
 		ChangeTurf(/turf/simulated/floor/clockwork)
 
 /turf/simulated/floor/acid_melt()
@@ -272,3 +282,120 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 
 /turf/simulated/floor/can_have_cabling()
 	return !burnt && !broken
+
+/turf/simulated/floor/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	. = ..()
+	if(our_rcd.checkResource(5, user))
+		to_chat(user, "Deconstructing floor...")
+		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+		if(do_after(user, 50 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+			if(!our_rcd.useResource(5, user))
+				return RCD_ACT_FAILED
+			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
+			add_attack_logs(user, src, "Deconstructed floor with RCD")
+			src.ChangeTurf(baseturf)
+			return RCD_ACT_SUCCESSFULL
+		return RCD_ACT_FAILED
+	to_chat(user, span_warning("ERROR! Not enough matter in unit to deconstruct this floor!"))
+	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+	return RCD_ACT_FAILED
+
+/turf/simulated/floor/rcd_construct_act(mob/user, obj/item/rcd/our_rcd, rcd_mode)
+	. = ..()
+	if(locate(/obj/machinery/field) in src)
+		to_chat(user, span_warning("ERROR! Due to safety protocols building is prohibited in high-energy field areas!"))
+		playsound(loc, 'sound/machines/click.ogg', 50, 1)
+		return RCD_ACT_FAILED
+	switch(rcd_mode)
+		if(RCD_MODE_TURF)
+			if(our_rcd.checkResource(3, user))
+				to_chat(user, "Building Wall...")
+				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+				if(do_after(user, 20 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+					if(!our_rcd.useResource(3, user))
+						return RCD_ACT_FAILED
+					playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
+					add_attack_logs(user, src, "Constructed wall with RCD")
+					ChangeTurf(our_rcd.wall_type)
+					return RCD_ACT_SUCCESSFULL
+				to_chat(user, span_warning("ERROR! Construction interrupted!"))
+				return RCD_ACT_FAILED
+			to_chat(user, span_warning("ERROR! Not enough matter in unit to construct this wall!"))
+			playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+			return RCD_ACT_FAILED
+		if(RCD_MODE_AIRLOCK)
+			if(our_rcd.checkResource(10, user))
+				to_chat(user, "Building Airlock...")
+				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+				if(do_after(user, 50 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+					if(locate(/obj/machinery/door/airlock) in src.contents)
+						return RCD_NO_ACT
+					if(!our_rcd.useResource(10, user))
+						return RCD_ACT_FAILED
+					playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
+					var/obj/machinery/door/airlock/T = new our_rcd.door_type(src)
+					add_attack_logs(user, T, "Constructed airlock with RCD")
+					T.name = our_rcd.door_name
+					T.autoclose = TRUE
+					T.req_access = our_rcd.selected_accesses.Copy()
+					T.check_one_access = our_rcd.one_access
+					return RCD_ACT_SUCCESSFULL
+				to_chat(user, span_warning("ERROR! Construction interrupted!"))
+				return RCD_ACT_FAILED
+			to_chat(user, span_warning("ERROR! Not enough matter in unit to construct this airlock!"))
+			playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+			return RCD_ACT_FAILED
+		if(RCD_MODE_WINDOW)
+			if(locate(/obj/structure/grille) in src)
+				return // We already have window
+			if(!our_rcd.checkResource(2, user))
+				to_chat(user, span_warning("ERROR! Not enough matter in unit to construct this window!"))
+				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+				return RCD_ACT_FAILED
+			to_chat(user, "Constructing window...")
+			playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+			if(!do_after(user, 20 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+				to_chat(user, span_warning("ERROR! Construction interrupted!"))
+				return RCD_ACT_FAILED
+			if(locate(/obj/structure/grille) in src)
+				return RCD_NO_ACT// We already have window
+			if(!our_rcd.useResource(2, user))
+				return RCD_ACT_FAILED
+			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
+			add_attack_logs(user, src, "Constructed window with RCD")
+			new /obj/structure/grille(src)
+			for(var/obj/structure/window/del_window in src)
+				qdel(del_window)
+			if(!our_rcd.fulltile_window)
+				for(var/cdir in GLOB.cardinal)
+					var/turf/T = get_step(src, cdir)
+					if(locate(/obj/structure/grille) in T)
+						for(var/obj/structure/window/del_window in T)
+							if(del_window.dir == turn(cdir, 180))
+								qdel(del_window)
+					else  // Build a window!
+						var/obj/structure/window/new_window = new our_rcd.window_type(src)
+						new_window.dir = cdir
+			else
+				new our_rcd.window_type(src)
+			ChangeTurf(our_rcd.floor_type) // Platings go under windows.
+			return RCD_ACT_SUCCESSFULL
+		if(RCD_MODE_FIRELOCK)
+			if(our_rcd.checkResource(8, user))
+				to_chat(user, "Building Firelock...")
+				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+				if(do_after(user, 50 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+					if(locate(/obj/machinery/door/firedoor) in src)
+						return RCD_NO_ACT
+					if(!our_rcd.useResource(8, user))
+						return RCD_ACT_FAILED
+					playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
+					new our_rcd.firelock_type(src)
+					add_attack_logs(user, src, "Constructed firelock with RCD")
+					return RCD_ACT_SUCCESSFULL
+				to_chat(user, span_warning("ERROR! Construction interrupted!"))
+				return RCD_ACT_FAILED
+			to_chat(user, span_warning("ERROR! Not enough matter in unit to construct this Firelock!"))
+			playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+			return RCD_ACT_FAILED
+	return RCD_NO_ACT

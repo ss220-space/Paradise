@@ -4,6 +4,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "dnainjector"
 	item_state = "dnainjector"
+	belt_icon = "dna_injector"
 	var/block = 0
 	var/datum/dna2/record/buf = null
 	throw_speed = 3
@@ -129,12 +130,12 @@
 		if(block)
 			if(GetState() && block == GLOB.monkeyblock && ishuman(M))
 				attack_log = "injected with the Isolated [name] (MONKEY)"
-				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
+				message_admins("[ADMIN_LOOKUPFLW(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
 
 		else
 			if(GetState(GLOB.monkeyblock) && ishuman(M))
 				attack_log = "injected with the Isolated [name] (MONKEY)"
-				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
+				message_admins("[ADMIN_LOOKUPFLW(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
 
 
 	if(M != user)
@@ -176,7 +177,7 @@
 	..()
 
 /obj/item/dnainjector/xraymut
-	name = "DNA-Injector (Xray)"
+	name = "DNA-Injector (X-ray)"
 	desc = "Finally you can see what the Captain does."
 	datatype = DNA2_BUF_SE
 	value = 0xFFF
@@ -187,7 +188,7 @@
 	..()
 
 /obj/item/dnainjector/antixray
-	name = "DNA-Injector (Anti-Xray)"
+	name = "DNA-Injector (Anti-X-ray)"
 	desc = "It will make you see harder."
 	datatype = DNA2_BUF_SE
 	value = 0x001

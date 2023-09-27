@@ -41,7 +41,7 @@
 	if(cooldown > 0)
 		return FALSE
 	cooldown = 2
-	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
+	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
 
 	signal()
 	return TRUE
@@ -121,6 +121,7 @@
 	signal.source = src
 	signal.encryption = code
 	signal.data["message"] = "ACTIVATE"
+	signal.user = usr
 	radio_connection.post_signal(src, signal)
 
 	var/time = time2text(world.realtime,"hh:mm:ss")
@@ -137,7 +138,7 @@
 
 	if(!(wires & WIRE_RADIO_RECEIVE))
 		return FALSE
-	pulse(1)
+	pulse(1, signal.user)
 
 	for(var/mob/O in hearers(1, loc))
 		O.show_message("[bicon(src)] *beep* *beep*", 3, "*beep* *beep*", 2)

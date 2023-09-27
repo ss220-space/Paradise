@@ -41,31 +41,35 @@
 		switch(choice)
 			if("Authorize")
 				if(!authorized.Find(id.registered_name))
+					add_fingerprint(user)
 					authorized += id.registered_name
 					if(auth_need - authorized.len > 0)
 						message_admins("[key_name_admin(user)] has authorized early shuttle launch.")
-						log_game("[key_name(user)] has authorized early shuttle launch in ([x], [y], [z]).")
-						GLOB.minor_announcement.Announce("Осталась получить [auth_need - authorized.len] авторизацию(-й) для досрочного запуска шаттла.")
+						add_game_logs("has authorized early shuttle launch in [COORD(src)]", user)
+						GLOB.minor_announcement.Announce("Осталось получить [auth_need - authorized.len] авторизацию(-й) для досрочного запуска шаттла.")
 					else
 						message_admins("[key_name_admin(user)] has launched the emergency shuttle [seconds] seconds before launch.")
-						log_game("[key_name(user)] has launched the emergency shuttle in ([x], [y], [z]) [seconds] seconds before launch.")
+						add_game_logs("has launched the emergency shuttle in [COORD(src)] [seconds] seconds before launch.", user)
 						GLOB.minor_announcement.Announce("До запуска эвакуационного шаттла осталось 10 секунд.")
 						SSshuttle.emergency.setTimer(100)
 
 			if("Repeal")
 				if(authorized.Remove(id.registered_name))
+					add_fingerprint(user)
 					GLOB.minor_announcement.Announce("Для досрочного запуска шаттла необходимо получить [auth_need - authorized.len] авторизацию(-й).")
 
 			if("Abort")
 				if(authorized.len)
+					add_fingerprint(user)
 					GLOB.minor_announcement.Announce("Все авторизации на досрочный запуск шаттла были отозваны.")
 					authorized.Cut()
 
 /obj/machinery/computer/emergency_shuttle/emag_act(mob/user)
 	if(!emagged && SSshuttle.emergency.mode == SHUTTLE_DOCKED && user)
 		var/time = SSshuttle.emergency.timeLeft()
+		add_attack_logs(user, src, "emagged")
 		message_admins("[key_name_admin(user)] has emagged the emergency shuttle: [time] seconds before launch.")
-		log_game("[key_name(user)] has emagged the emergency shuttle in ([x], [y], [z]): [time] seconds before launch.")
+		add_game_logs("has emagged the emergency shuttle in [COORD(src)]: [time] seconds before launch.", user)
 		GLOB.minor_announcement.Announce("Запуск эвакуационного шаттла через 10 секунд", "СИСТЕМНАЯ ОШИБКА:")
 		SSshuttle.emergency.setTimer(100)
 		emagged = 1
@@ -248,7 +252,7 @@
 			if(time_left <= 50 && !sound_played) //4 seconds left - should sync up with the launch
 				sound_played = 1
 				for(var/area/shuttle/escape/E in world)
-					E << 'sound/effects/hyperspace_begin.ogg'
+					E << 'sound/effects/hyperspace_begin_new.ogg'
 
 			if(time_left <= 0 && !SSshuttle.emergencyNoEscape)
 				//move each escape pod to its corresponding transit dock
@@ -257,7 +261,6 @@
 						M.enterTransit()
 				//now move the actual emergency shuttle to its transit dock
 				for(var/area/shuttle/escape/E in world)
-					E << 'sound/effects/hyperspace_progress.ogg'
 				enterTransit()
 				mode = SHUTTLE_ESCAPE
 				timer = world.time
@@ -273,7 +276,7 @@
 					M.dock(SSshuttle.getDock("[M.id]_away"))
 
 				for(var/area/shuttle/escape/E in world)
-					E << 'sound/effects/hyperspace_end.ogg'
+					E << 'sound/effects/hyperspace_end_new.ogg'
 
 				// now move the actual emergency shuttle to centcomm
 				// unless the shuttle is "hijacked"
@@ -303,9 +306,9 @@
 	name = "escape pod"
 	id = "pod"
 
-	dwidth = 1
-	width = 3
-	height = 4
+	dwidth = 2
+	width = 5
+	height = 6
 
 /obj/docking_port/mobile/pod/New()
 	..()
@@ -327,7 +330,7 @@
 	admin_controlled = 1
 	shuttleId = "pod"
 	possible_destinations = "pod_asteroid"
-	icon = 'icons/obj/terminals.dmi'
+	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "dorm_available"
 	density = 0
 

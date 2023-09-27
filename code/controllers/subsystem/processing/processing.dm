@@ -11,8 +11,10 @@ SUBSYSTEM_DEF(processing)
 	var/list/currentrun = list()
 	offline_implications = "Objects using the default processor will no longer process. Shuttle call recommended."
 
-/datum/controller/subsystem/processing/stat_entry()
-	..("[stat_tag]:[processing.len]")
+
+/datum/controller/subsystem/processing/get_stat_details()
+	return "[stat_tag]:[length(processing)]"
+
 
 /datum/controller/subsystem/processing/fire(resumed = 0)
 	if(!resumed)
@@ -25,7 +27,7 @@ SUBSYSTEM_DEF(processing)
 		current_run.len--
 		if(QDELETED(thing))
 			processing -= thing
-		else if(thing.process(wait) == PROCESS_KILL)
+		else if(thing.process(wait * 0.1) == PROCESS_KILL)
 			// fully stop so that a future START_PROCESSING will work
 			STOP_PROCESSING(src, thing)
 		if(MC_TICK_CHECK)
@@ -33,6 +35,6 @@ SUBSYSTEM_DEF(processing)
 
 /datum/var/isprocessing = FALSE
 
-/datum/proc/process()
+/datum/proc/process(seconds_per_tick)
 	set waitfor = 0
 	return PROCESS_KILL

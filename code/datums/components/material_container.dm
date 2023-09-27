@@ -37,8 +37,8 @@
 	precondition = _precondition
 	after_insert = _after_insert
 
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/OnAttackBy)
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, .proc/OnExamine)
+	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(OnAttackBy))
+	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(OnExamine))
 
 	var/list/possible_mats = list()
 	for(var/mat_type in subtypesof(/datum/material))
@@ -92,7 +92,7 @@
 			return
 		if(QDELETED(I) || QDELETED(user) || QDELETED(src) || parent != current_parent || user.incapacitated() || !in_range(current_parent, user) || user.l_hand != I && user.r_hand != I)
 			return
-	if(!user.drop_item())
+	if(!user.drop_transfer_item_to_loc(I, parent))
 		to_chat(user, "<span class='warning'>[I] is stuck to you and cannot be placed into [parent].</span>")
 		return
 	var/inserted = insert_item(I, stack_amt = requested_amount)
@@ -155,6 +155,8 @@
 		return FALSE
 	if(istype(I, /obj/item/stack))
 		return insert_stack(I, stack_amt, multiplier)
+	if(I.resistance_flags & INDESTRUCTIBLE)
+		return FALSE
 
 	var/material_amount = get_item_material_amount(I)
 	if(!material_amount || !has_space(material_amount))

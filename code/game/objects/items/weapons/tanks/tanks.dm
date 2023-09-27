@@ -16,6 +16,7 @@
 	var/distribute_pressure = ONE_ATMOSPHERE
 	var/integrity = 3
 	var/volume = 70
+	var/fillable = TRUE
 
 /obj/item/tank/New()
 	..()
@@ -72,8 +73,11 @@
 		C.internal = src
 	C.update_action_buttons_icon()
 
-/obj/item/tank/examine(mob/user)
+/obj/item/tank/examine(mob/user, show_contents_info = TRUE)
 	. = ..()
+
+	if(!show_contents_info)
+		return
 
 	var/obj/icon = src
 	if(istype(loc, /obj/item/assembly))
@@ -129,9 +133,6 @@
 	add_fingerprint(user)
 	if(istype(loc, /obj/item/assembly))
 		icon = loc
-
-	if((istype(W, /obj/item/analyzer)) && get_dist(user, src) <= 1)
-		atmosanalyzer_scan(air_contents, user)
 
 	if(istype(W, /obj/item/assembly_holder))
 		bomb_assemble(W,user)
@@ -196,6 +197,9 @@
 /obj/item/tank/return_air()
 	return air_contents
 
+/obj/item/tank/return_analyzable_air()
+	return air_contents
+
 /obj/item/tank/assume_air(datum/gas_mixture/giver)
 	air_contents.merge(giver)
 
@@ -228,8 +232,8 @@
 	var/pressure = air_contents.return_pressure()
 	if(pressure > TANK_FRAGMENT_PRESSURE)
 		if(!istype(loc,/obj/item/transfer_valve))
-			message_admins("Explosive tank rupture! last key to touch the tank was [fingerprintslast] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-			log_game("Explosive tank rupture! last key to touch the tank was [fingerprintslast] at [x], [y], [z]")
+			message_admins("Explosive tank rupture! last key to touch the tank was [fingerprintslast] at [ADMIN_COORDJMP(src)]")
+			add_game_logs("Explosive tank rupture! last key to touch the tank was [fingerprintslast] at [COORD(src)]")
 //		to_chat(world, "<span class='notice'>[x],[y] tank is exploding: [pressure] kPa</span>")
 		//Give the gas a chance to build up more pressure through reacting
 		air_contents.react()
@@ -241,7 +245,7 @@
 
 //		to_chat(world, "<span class='notice'>Exploding Pressure: [pressure] kPa, intensity: [range]</span>")
 
-		explosion(epicenter, round(range*0.25), round(range*0.5), round(range), round(range*1.5))
+		explosion(epicenter, round(range*0.25), round(range*0.5), round(range), round(range*1.5), cause = src)
 		if(istype(loc,/obj/item/transfer_valve))
 			qdel(loc)
 		else

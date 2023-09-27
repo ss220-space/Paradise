@@ -3,30 +3,32 @@
 	caste = "h"
 	maxHealth = 205
 	health = 205
+	devour_time = 2 SECONDS
 	icon_state = "alienh_s"
 
-/mob/living/carbon/alien/humanoid/hunter/GrantAlienActions()
-	plant_action.Grant(src)
-	whisper_action.Grant(src)
-	transfer_plasma_action.Grant(src)
-	regurgitate_action.Grant(src)
 
 /mob/living/carbon/alien/humanoid/hunter/New()
 	if(name == "alien hunter")
 		name = text("alien hunter ([rand(1, 1000)])")
 	real_name = name
-	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/hunter
 	..()
+
+
+/mob/living/carbon/alien/humanoid/hunter/get_caste_organs()
+	. = ..()
+	. += /obj/item/organ/internal/xenos/plasmavessel/hunter
+
 
 /mob/living/carbon/alien/humanoid/hunter/movement_delay()
 	. = -1		//hunters are sanic
 	. += ..()	//but they still need to slow down on stun
 
+
 /mob/living/carbon/alien/humanoid/hunter/handle_environment()
 	if(m_intent == MOVE_INTENT_RUN || resting)
 		..()
 	else
-		adjustPlasma(-heal_rate)
+		adjust_alien_plasma(-heal_rate)
 
 
 //Hunter verbs
@@ -34,6 +36,7 @@
 /mob/living/carbon/alien/humanoid/hunter/proc/toggle_leap(var/message = 1)
 	leap_on_click = !leap_on_click
 	leap_icon.icon_state = "leap_[leap_on_click ? "on":"off"]"
+	update_icons()
 	if(message)
 		to_chat(src, "<span class='noticealien'>You will now [leap_on_click ? "leap at":"slash at"] enemies!</span>")
 	else
@@ -66,13 +69,13 @@
 	else //Maybe uses plasma in the future, although that wouldn't make any sense...
 		leaping = 1
 		update_icons()
-		throw_at(A, MAX_ALIEN_LEAP_DIST, 1, spin = 0, diagonals_first = 1, callback = CALLBACK(src, .proc/leap_end))
+		throw_at(A, MAX_ALIEN_LEAP_DIST, 1, spin = 0, diagonals_first = 1, callback = CALLBACK(src, PROC_REF(leap_end)))
 
 /mob/living/carbon/alien/humanoid/hunter/proc/leap_end()
 	leaping = 0
 	update_icons()
 
-/mob/living/carbon/alien/humanoid/hunter/throw_impact(atom/A)
+/mob/living/carbon/alien/humanoid/hunter/throw_impact(atom/A, datum/thrownthing/throwingdatum)
 	if(!leaping)
 		return ..()
 
@@ -89,18 +92,18 @@
 				L.visible_message("<span class ='danger'>[src] pounces on [L]!</span>", "<span class ='userdanger'>[src] pounces on you!</span>")
 				if(ishuman(L))
 					var/mob/living/carbon/human/H = L
-					H.apply_effect(5, WEAKEN, H.run_armor_check(null, "melee"))
+					H.apply_effect(10 SECONDS, WEAKEN, H.run_armor_check(null, "melee"))
 				else
-					L.Weaken(5)
+					L.Weaken(10 SECONDS)
 				sleep(2)//Runtime prevention (infinite bump() calls on hulks)
 				step_towards(src,L)
 			else
-				Weaken(2, 1, 1)
+				Weaken(4 SECONDS, TRUE)
 
 			toggle_leap(0)
 		else if(A.density && !A.CanPass(src))
 			visible_message("<span class ='danger'>[src] smashes into [A]!</span>", "<span class ='alertalien'>[src] smashes into [A]!</span>")
-			Weaken(2, 1, 1)
+			Weaken(4 SECONDS, TRUE)
 
 		if(leaping)
 			leaping = 0

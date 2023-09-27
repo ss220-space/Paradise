@@ -32,9 +32,11 @@
 			return
 		cut_overlays()
 		if(t)
+			add_fingerprint(user)
 			add_overlay(image(icon, "bodybag_label"))
 		return
 	if(istype(W, /obj/item/wirecutters))
+		add_fingerprint(user)
 		to_chat(user, "You cut the tag off the bodybag")
 		name = "body bag"
 		cut_overlays()
@@ -66,3 +68,9 @@
 	if(loc && (isturf(loc) || istype(loc, /obj/structure/morgue) || istype(loc, /obj/structure/crematorium)))
 		if(!open())
 			to_chat(user, "<span class='notice'>It won't budge!</span>")
+
+/obj/structure/closet/body_bag/update_icon()
+	if(!opened)
+		icon_state = icon_closed
+	else
+		icon_state = icon_opened

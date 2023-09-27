@@ -1,5 +1,9 @@
 /mob/living/carbon/alien/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	..(AM, hitpush = FALSE)
+	var/skip_catch = FALSE
+	if(isitem(AM))
+		var/obj/item/throw_item = AM
+		skip_catch = !throw_item.allowed_for_alien()
+	..(AM, skipcatch = skip_catch, hitpush = FALSE)
 
 /*Code for aliens attacking aliens. Because aliens act on a hivemind, I don't see them as very aggressive with each other.
 As such, they can either help or harm other aliens. Help works like the human help command while harm is a simple nibble.
@@ -12,11 +16,11 @@ In all, this is a lot like the monkey code. /N
 
 	switch(M.a_intent)
 		if(INTENT_HELP)
-			AdjustSleeping(-5)
+			AdjustSleeping(-10 SECONDS)
 			StopResting()
-			AdjustParalysis(-3)
-			AdjustStunned(-3)
-			AdjustWeakened(-3)
+			AdjustParalysis(-6 SECONDS)
+			AdjustStunned(-6 SECONDS)
+			AdjustWeakened(-6 SECONDS)
 			visible_message("<span class='notice'>[M.name] nuzzles [src] trying to wake it up!</span>")
 
 		if(INTENT_GRAB)
@@ -76,8 +80,8 @@ In all, this is a lot like the monkey code. /N
 /mob/living/carbon/alien/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack
 		var/damage = rand(5, 35)
-		if(M.is_adult)
-			damage = rand(10, 40)
+		if(M.age_state.age != SLIME_BABY)
+			damage = rand(10 + M.age_state.damage, 40 + M.age_state.damage)
 		adjustBruteLoss(damage)
 		add_attack_logs(M, src, "Slime'd for [damage] damage")
 		updatehealth("slime attack")

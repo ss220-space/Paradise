@@ -9,8 +9,10 @@
 
 	//Revised. Brainmob is now contained directly within object of transfer. MMI in this case.
 	var/alien = 0
+	var/clock = 0
 	var/syndiemmi = 0 //Whether or not this is a Syndicate MMI
 	var/syndicate = 0 //Used to replace standart modules with the syndicate modules in module pick proc
+	var/ninja = FALSE //Like the syndicate, it is necessary to select modules.
 	var/mob/living/carbon/brain/brainmob = null//The current occupant.
 	var/obj/item/organ/internal/brain/held_brain = null // This is so MMI's aren't brainscrubber 9000's
 	var/mob/living/silicon/robot/robot = null//Appears unused.
@@ -43,8 +45,7 @@
 			to_chat(user, "<span class='userdanger'>Somehow, this MMI still has a brain in it. Report this to the bug tracker.</span>")
 			log_runtime(EXCEPTION("[user] tried to stick a [O] into [src] in [get_area(src)], but the held brain variable wasn't cleared"), src)
 			return
-		if(user.drop_item())
-			B.forceMove(src)
+		if(user.drop_transfer_item_to_loc(B, src))
 			visible_message("<span class='notice'>[user] sticks \a [O] into \the [src].</span>")
 			brainmob = B.brainmob
 			B.brainmob = null
@@ -55,6 +56,7 @@
 			GLOB.respawnable_list -= brainmob
 			GLOB.dead_mob_list -= brainmob//Update dem lists
 			GLOB.alive_mob_list += brainmob
+			brainmob.update_sight()
 
 			held_brain = B
 			if(istype(O,/obj/item/organ/internal/brain/xeno)) // kept the type check, as it still does other weird stuff
@@ -83,7 +85,7 @@
 			user.visible_message("<span class='notice'>[user] begins to install the [O] into [src]...</span>", \
 				"<span class='notice'>You start to install the [O] into [src]...</span>")
 			if(do_after(user, 20, target=src))
-				if(user.drop_item())
+				if(user.drop_transfer_item_to_loc(O, src))
 					user.visible_message("<span class='notice'>[user] installs [O] in [src].</span>", \
 						"<span class='notice'>You install [O] in [src].</span>")
 					if(brainmob)
@@ -148,6 +150,7 @@
 
 	name = "Man-Machine Interface: [brainmob.real_name]"
 	become_occupied("mmi_full")
+	brainmob.update_sight()
 
 //I made this proc as a way to have a brainmob be transferred to any created brain, and to solve the
 //problem i was having with alien/nonalien brain drops.
@@ -250,6 +253,7 @@
 		radio_action.Grant(A)
 
 /obj/item/mmi/Exited(atom/movable/A)
+	..()
 	if(radio && istype(A, /mob/living/carbon/brain))
 		radio_action.Remove(A)
 
@@ -282,11 +286,6 @@
 // As a synthetic, the only limit on visibility is view range
 /obj/item/mmi/contents_ui_distance(src_object, mob/living/user)
 	. = ..()
-	if((src_object in view(src)) && get_dist(src_object, src) <= user.client.view)
+	if((src_object in view(user.client)) && get_dist(src_object, src) <= user.client.maxview())
 		return STATUS_INTERACTIVE	// interactive (green visibility)
 	return user.shared_living_ui_distance()
-
-
-/obj/item/mmi/forceMove(atom/destination)
-	. = ..()
-	brainmob?.update_runechat_msg_location()

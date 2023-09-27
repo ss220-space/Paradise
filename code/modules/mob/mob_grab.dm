@@ -2,7 +2,6 @@
 #define UPGRADE_KILL_TIMER  100
 
 //times it takes for a mob to eat
-#define EAT_TIME_XENO 30
 #define EAT_TIME_FAT 100
 
 //time it takes for a mob to be eaten (in deciseconds) (overrides mob eat time)
@@ -19,6 +18,7 @@
 	var/allow_upgrade = 1
 	var/last_upgrade = 0
 	var/last_hit_zone = 0
+	var/strength = 1 //how hard is it to get out of this grip
 //	var/force_down //determines if the affecting mob will be pinned to the ground //disabled due to balance, kept for an example for any new things.
 	var/dancing //determines if assailant and affecting keep looking at each other. Basically a wrestling position
 
@@ -39,6 +39,10 @@
 	loc = user
 	assailant = user
 	affecting = victim
+
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		strength = H.dna.species.strength_modifier
 
 	if(affecting.anchored)
 		qdel(src)
@@ -138,7 +142,7 @@
 			hud.icon_state = "!reinforce"
 
 	if(state >= GRAB_AGGRESSIVE)
-		if(!HAS_TRAIT(assailant, TRAIT_PACIFISM))
+		if(!HAS_TRAIT(assailant, TRAIT_PACIFISM) && !GLOB.pacifism_after_gt)
 			affecting.drop_r_hand()
 			affecting.drop_l_hand()
 
@@ -163,7 +167,7 @@
 			if(affecting.loc != assailant.loc)
 				force_down = 0
 			else
-				affecting.Weaken(3) //This is being left in the code as an example of adding a new variable to do something in grab code.
+				affecting.Weaken(6 SECONDS) //This is being left in the code as an example of adding a new variable to do something in grab code.
 
 */
 
@@ -176,10 +180,10 @@
 
 	if(state >= GRAB_KILL)
 		//affecting.apply_effect(STUTTER, 5) //would do this, but affecting isn't declared as mob/living for some stupid reason.
-		affecting.Stuttering(5) //It will hamper your voice, being choked and all.
-		affecting.Weaken(5)	//Should keep you down unless you get help.
+		affecting.Stuttering(10 SECONDS) //It will hamper your voice, being choked and all.
+		affecting.Weaken(10 SECONDS)	//Should keep you down unless you get help.
 		if(!breathing_tube)
-			affecting.AdjustLoseBreath(2, bound_lower = 0, bound_upper = 3)
+			affecting.AdjustLoseBreath(4 SECONDS, bound_lower = 0, bound_upper = 6 SECONDS)
 
 	adjust_position()
 
@@ -236,7 +240,7 @@
 /obj/item/grab/proc/s_click(obj/screen/S)
 	if(!confirm())
 		return
-	if(state >= GRAB_AGGRESSIVE && HAS_TRAIT(assailant, TRAIT_PACIFISM))
+	if(state >= GRAB_AGGRESSIVE && (HAS_TRAIT(assailant, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))
 		to_chat(assailant, "<span class='warning'>You don't want to risk hurting [affecting]!</span>")
 		return
 	if(state == GRAB_UPGRADING)
@@ -259,7 +263,7 @@
 		/* else
 			assailant.visible_message("<span class='warning'>[assailant] pins [affecting] down to the ground (now hands)!</span>")
 			force_down = 1
-			affecting.Weaken(3)
+			affecting.Weaken(6 SECONDS)
 			step_to(assailant, affecting)
 			assailant.setDir(EAST) //face the victim
 			affecting.setDir(SOUTH) //face up  //This is an example of a new feature based on the context of the location of the victim.
@@ -284,7 +288,7 @@
 			affecting.LAssailant = assailant
 		hud.icon_state = "kill"
 		hud.name = "kill"
-		affecting.Stun(10) //10 ticks of ensured grab
+		affecting.Stun(20 SECONDS) //20 seconds of ensured grab
 	else if(state < GRAB_UPGRADING)
 		assailant.visible_message("<span class='danger'>[assailant] начина[pluralize_ru(assailant.gender,"ет","ют")] сдавливать шею [affecting]!</span>") //[assailant.p_their()]
 		hud.icon_state = "kill1"
@@ -295,7 +299,7 @@
 
 		assailant.next_move = world.time + 10
 		if(!affecting.get_organ_slot("breathing_tube"))
-			affecting.AdjustLoseBreath(1)
+			affecting.AdjustLoseBreath(2 SECONDS)
 
 	adjust_position()
 
@@ -376,7 +380,7 @@
 					if(!force_down)
 						assailant.visible_message("<span class='danger'>[user] is forcing [affecting] to the ground!</span>")
 						force_down = 1
-						affecting.Weaken(3)
+						affecting.Weaken(6 SECONDS)
 						affecting.lying = 1
 						step_to(assailant, affecting)
 						assailant.setDir(EAST) //face the victim
@@ -389,43 +393,53 @@
 
 
 	if(M == assailant && state >= GRAB_AGGRESSIVE) //no eatin unless you have an agressive grab
-		if(checkvalid(user, affecting)) //wut
-			var/mob/living/carbon/attacker = user
+		if(affecting.buckled)
+			to_chat(user, "<span class='warning'>[affecting] пристёгнут[genderize_ru(affecting.gender,"","а","о","ы")]!</span>")
+			return
+		devoured(affecting, user)
 
-			if(affecting.buckled)
-				to_chat(user, "<span class='warning'>[affecting] пристёгнут[genderize_ru(affecting.gender,"","а","о","ы")]!</span>")
-				return
+/obj/item/proc/devoured(mob/living/affecting, mob/living/carbon/user)
+	if(checkvalid(user, affecting)) //wut
+		var/mob/living/carbon/attacker = user
 
-			user.visible_message("<span class='danger'>[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся поглотить [affecting]!</span>")
+		user.visible_message("<span class='danger'>[user.name] пыта[pluralize_ru(user.gender,"ет","ют")]ся поглотить [affecting.name]!</span>")
 
-			if(!do_after(user, checktime(user, affecting), target = affecting)) return
+		if(!do_after(user, checktime(user, affecting), target = user))//target = affecting))
+			user.visible_message("<span class='notice'>[user.name] прекраща[pluralize_ru(user.gender,"ет","ют")] поглощать [affecting.name]!</span>")
+			return FALSE
 
-			if(affecting.buckled)
-				to_chat(user, "<span class='warning'>[affecting] пристёгнут[genderize_ru(affecting.gender,"","а","о","ы")]!</span>")
-				return
+		user.visible_message("<span class='danger'>[user.name] поглоща[pluralize_ru(user.gender,"ет","ют")] [affecting.name]!</span>")
+		if(affecting.mind)
+			add_attack_logs(attacker, affecting, "Devoured")
+		if(isvampire(user))
+			user.adjust_nutrition(affecting.blood_nutrients)
+		else
+			user.adjust_nutrition(10 * affecting.health)
 
-			user.visible_message("<span class='danger'>[user] поглоща[pluralize_ru(user.gender,"ет","ют")] [affecting]!</span>")
-			if(affecting.mind)
-				add_attack_logs(attacker, affecting, "Devoured")
+		affecting.forceMove(user)
+		LAZYADD(attacker.stomach_contents, affecting)
+		qdel(src)
+		return TRUE
+	return FALSE
 
-			affecting.forceMove(user)
-			LAZYADD(attacker.stomach_contents, affecting)
-			qdel(src)
-
-/obj/item/grab/proc/checkvalid(var/mob/attacker, var/mob/prey) //does all the checking for the attack proc to see if a mob can eat another with the grab
+/obj/item/proc/checkvalid(var/mob/attacker, var/mob/prey) //does all the checking for the attack proc to see if a mob can eat another with the grab
 	if(isalien(attacker) && iscarbon(prey)) //Xenomorphs eating carbon mobs
 		return 1
 
 	var/mob/living/carbon/human/H = attacker
+	var/datum/antagonist/vampire/vamp = H.mind?.has_antag_datum(/datum/antagonist/vampire)
+	var/datum/antagonist/goon_vampire/g_vamp = H.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
+	if(ishuman(H) && (vamp || g_vamp) && istype(prey, /mob/living/simple_animal/mouse)) //vampires can eat mice despite race
+		return 1
 	if(ishuman(H) && is_type_in_list(prey,  H.dna.species.allowed_consumed_mobs)) //species eating of other mobs
 		return 1
 
 	return 0
 
-/obj/item/grab/proc/checktime(var/mob/attacker, var/mob/prey) //Returns the time the attacker has to wait before they eat the prey
+/obj/item/proc/checktime(var/mob/attacker, var/mob/prey) //Returns the time the attacker has to wait before they eat the prey
 	if(isalien(attacker))
-		return EAT_TIME_XENO //xenos get a speed boost
-
+		var/mob/living/carbon/alien/A = attacker
+		return A.devour_time
 	if(istype(prey,/mob/living/simple_animal)) //simple animals get eaten at xeno-eating-speed regardless
 		return EAT_TIME_ANIMAL
 
@@ -447,7 +461,6 @@
 	return ..()
 
 
-#undef EAT_TIME_XENO
 #undef EAT_TIME_FAT
 
 #undef EAT_TIME_ANIMAL

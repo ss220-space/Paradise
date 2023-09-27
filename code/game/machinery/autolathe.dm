@@ -39,7 +39,7 @@
 	var/list/categories = list("Tools", "Electronics", "Construction", "Communication", "Security", "Machinery", "Medical", "Miscellaneous", "Dinnerware", "Imported")
 
 /obj/machinery/autolathe/New()
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS), _show_on_examine=TRUE, _after_insert=CALLBACK(src, .proc/AfterMaterialInsert))
+	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS), _show_on_examine=TRUE, _after_insert=CALLBACK(src, PROC_REF(AfterMaterialInsert)))
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/autolathe(null)
@@ -162,27 +162,27 @@
 			var/index = text2num(params["remove_from_queue"])
 			if(isnum(index) && ISINRANGE(index, 1, queue.len))
 				remove_from_queue(index)
-				to_chat(usr, "<span class='notice'>Removed item from queue.</span>")
+				to_chat(usr, span_notice("Removed item from queue."))
 		if("make")
 			BuildTurf = loc
 			var/datum/design/design_last_ordered
 			design_last_ordered = locateUID(params["make"])
 			if(!istype(design_last_ordered))
-				to_chat(usr, "<span class='warning'>Invalid design</span>")
+				to_chat(usr, span_warning("Invalid design"))
 				return
 			if(!(design_last_ordered.id in files.known_designs))
-				to_chat(usr, "<span class='warning'>Invalid design (not in autolathe's known designs, report this error.)</span>")
+				to_chat(usr, span_warning("Invalid design (not in autolathe's known designs, report this error.)"))
 				return
 			var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 			var/coeff = get_coeff(design_last_ordered)
 			if(design_last_ordered.materials["$metal"] / coeff > materials.amount(MAT_METAL))
-				to_chat(usr, "<span class='warning'>Invalid design (not enough metal)</span>")
+				to_chat(usr, span_warning("Invalid design (not enough metal)"))
 				return
 			if(design_last_ordered.materials["$glass"] / coeff > materials.amount(MAT_GLASS))
-				to_chat(usr, "<span class='warning'>Invalid design (not enough glass)</span>")
+				to_chat(usr, span_warning("Invalid design (not enough glass)"))
 				return
 			if(!hacked && ("hacked" in design_last_ordered.category))
-				to_chat(usr, "<span class='warning'>Invalid design (lathe requires hacking)</span>")
+				to_chat(usr, span_warning("Invalid design (lathe requires hacking)"))
 				return
 			//multiplier checks : only stacks can have one and its value is 1, 10 ,25 or max_multiplier
 			var/multiplier = text2num(params["multiplier"])
@@ -197,7 +197,7 @@
 			if((queue.len + 1) < queue_max_len)
 				add_to_queue(design_last_ordered, multiplier)
 			else
-				to_chat(usr, "<span class='warning'>The autolathe queue is full!</span>")
+				to_chat(usr, span_warning("The autolathe queue is full!"))
 			if(!busy)
 				busy = TRUE
 				process_queue()
@@ -245,11 +245,13 @@
 
 /obj/machinery/autolathe/attackby(obj/item/O, mob/user, params)
 	if(busy)
-		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
+		add_fingerprint(user)
+		to_chat(user, span_alert("The autolathe is busy. Please wait for completion of previous operation."))
 		return 1
 	if(exchange_parts(user, O))
 		return
 	if(stat)
+		add_fingerprint(user)
 		return 1
 
 	// Disks in general
@@ -260,11 +262,11 @@
 				var/datum/design/design = D.blueprint // READ ONLY!!
 
 				if(design.id in files.known_designs)
-					to_chat(user, "<span class='warning'>This design has already been loaded into the autolathe.</span>")
+					to_chat(user, span_warning("This design has already been loaded into the autolathe."))
 					return 1
 
 				if(!files.CanAddDesign2Known(design))
-					to_chat(user, "<span class='warning'>This design is not compatible with the autolathe.</span>")
+					to_chat(user, span_warning("This design is not compatible with the autolathe."))
 					return 1
 				user.visible_message("[user] begins to load \the [O] in \the [src]...",
 					"You begin to load a design from \the [O]...",
@@ -272,17 +274,18 @@
 				playsound(get_turf(src), 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 				busy = TRUE
 				if(do_after(user, 14.4, target = src))
+					add_fingerprint(user)
 					imported[design.id] = TRUE
 					files.AddDesign2Known(design)
 					recipiecache = list()
 					SStgui.close_uis(src) // forces all connected users to re-open the TGUI. Imported entries won't show otherwise due to static_data
 				busy = FALSE
 			else
-				to_chat(user, "<span class='warning'>That disk does not have a design on it!</span>")
+				to_chat(user, span_warning("That disk does not have a design on it!"))
 			return 1
 		else
 			// So that people who are bad at computers don't shred their disks
-			to_chat(user, "<span class='warning'>This is not the correct type of disk for the autolathe!</span>")
+			to_chat(user, span_warning("This is not the correct type of disk for the autolathe!"))
 			return 1
 
 	return ..()
@@ -292,7 +295,7 @@
 		return
 	. = TRUE
 	if(busy)
-		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
+		to_chat(user, span_alert("The autolathe is busy. Please wait for completion of previous operation."))
 		return
 	if(panel_open)
 		default_deconstruction_crowbar(user, I)
@@ -302,7 +305,7 @@
 		return
 	. = TRUE
 	if(busy)
-		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
+		to_chat(user, span_alert("The autolathe is busy. Please wait for completion of previous operation."))
 		return
 	default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", I)
 
@@ -313,7 +316,7 @@
 		return
 	. = TRUE
 	if(busy)
-		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
+		to_chat(user, span_alert("The autolathe is busy. Please wait for completion of previous operation."))
 		return
 	interact(user)
 
@@ -324,7 +327,7 @@
 		return
 	. = TRUE
 	if(busy)
-		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
+		to_chat(user, span_alert("The autolathe is busy. Please wait for completion of previous operation."))
 		return
 	interact(user)
 
@@ -354,12 +357,12 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.max_amount = tot_rating * 3
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		prod_coeff += M.rating - 1
+		prod_coeff += 1 + (M.rating - 1) / 3
 	recipiecache = list()
 	SStgui.close_uis(src) // forces all connected users to re-open the TGUI. Imported entries won't show otherwise due to static_data
 
 /obj/machinery/autolathe/proc/get_coeff(datum/design/D)
-	var/coeff = (ispath(D.build_path,/obj/item/stack) ? 1 : 2 ** prod_coeff)//stacks are unaffected by production coefficient
+	var/coeff = (ispath(D.build_path,/obj/item/stack) ? 1 : prod_coeff)//stacks are unaffected by production coefficient
 	return coeff
 
 /obj/machinery/autolathe/proc/build_item(datum/design/D, multiplier)
@@ -384,8 +387,7 @@
 		SStgui.update_uis(src)
 		sleep(32/coeff)
 		if(is_stack)
-			var/obj/item/stack/S = new D.build_path(BuildTurf)
-			S.amount = multiplier
+			new D.build_path(BuildTurf, multiplier)
 		else
 			var/obj/item/new_item = new D.build_path(BuildTurf)
 			new_item.update_materials_coeff(coeff)
@@ -494,11 +496,10 @@
 /obj/machinery/autolathe/security
 	name = "Security Autolathe"
 	desc = "Autolathe with preloaded open recipes"
-	icon = 'icons/obj/sec_autolathe.dmi'
+	icon = 'icons/obj/machines/sec_autolathe.dmi'
 
 /obj/machinery/autolathe/security/New()
 	. = ..()
-	for (wires)
-		wires.cut(WIRE_AUTOLATHE_HACK)
+	wires?.cut(WIRE_AUTOLATHE_HACK)
 	adjust_hacked(TRUE)
 

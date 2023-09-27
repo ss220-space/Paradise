@@ -6,10 +6,14 @@
 	dangerous_existence = TRUE //So so much
 	//language = "Clatter"
 
-	species_traits = list(IS_WHITELISTED, RADIMMUNE, NO_BLOOD, NO_HUNGER, NOTRANSSTING)
+	species_traits = list(IS_WHITELISTED, RADIMMUNE, NO_BLOOD, NO_HUNGER, NOTRANSSTING, NO_PAIN, VIRUSIMMUNE, NO_GERMS, NO_DECAY, NOCLONE)
 	forced_heartattack = TRUE // Plasmamen have no blood, but they should still get heart-attacks
 	skinned_type = /obj/item/stack/sheet/mineral/plasma // We're low on plasma, R&D! *eyes plasmaman co-worker intently*
 	reagent_tag = PROCESS_ORG
+
+	cold_level_1 = 240
+	cold_level_2 = 180
+	cold_level_3 = 100
 
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE //skeletons can't taste anything
 
@@ -17,6 +21,7 @@
 
 	breathid = "tox"
 
+	brute_mod = 0.9
 	burn_mod = 1.5
 	heatmod = 1.5
 
@@ -40,8 +45,9 @@
 	speciesbox = /obj/item/storage/box/survival_plasmaman
 	flesh_color = "#8b3fba"
 
-	disliked_food = DAIRY | FRUIT | VEGETABLES
-	liked_food = GRAIN | MEAT
+	toxic_food = NONE
+	disliked_food = NONE
+	liked_food = NONE
 
 //внёс перевод акцента речи, шипящий звук. Но я не смог осилить и он почему-то по прежнему не работает, похоже не тут настраивается -- ПУПС
 /datum/species/plasmaman/say_filter(mob/M, message, datum/language/speaking)
@@ -71,14 +77,20 @@
 		if("Botanist")
 			O = new /datum/outfit/plasmaman/botany
 
-		if("Bartender", "Internal Affairs Agent", "Magistrate", "Nanotrasen Representative", "Nanotrasen Navy Officer")
+		if("Bartender")
 			O = new /datum/outfit/plasmaman/bar
+
+		if("Internal Affairs Agent", "Magistrate", "Nanotrasen Representative", "Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer")
+			O = new /datum/outfit/plasmaman/nt
 
 		if("Chef")
 			O = new /datum/outfit/plasmaman/chef
 
-		if("Security Officer", "Security Pod Pilot", "Special Operations Officer")
+		if("Security Officer", "Security Cadet", "Special Operations Officer")
 			O = new /datum/outfit/plasmaman/security
+
+		if("Security Pod Pilot")
+			O = new /datum/outfit/plasmaman/security/pod
 
 		if("Detective")
 			O = new /datum/outfit/plasmaman/detective
@@ -95,7 +107,7 @@
 		if("Shaft Miner")
 			O = new /datum/outfit/plasmaman/mining
 
-		if("Medical Doctor", "Brig Physician", "Paramedic", "Coroner")
+		if("Medical Doctor", "Brig Physician", "Paramedic", "Coroner", "Intern")
 			O = new /datum/outfit/plasmaman/medical
 
 		if("Chief Medical Officer")
@@ -113,14 +125,20 @@
 		if("Virologist")
 			O = new /datum/outfit/plasmaman/viro
 
-		if("Scientist")
+		if("Scientist", "Student Scientist")
 			O = new /datum/outfit/plasmaman/science
+
+		if("Xenobiologist")
+			O = new /datum/outfit/plasmaman/xeno
 
 		if("Research Director")
 			O = new /datum/outfit/plasmaman/rd
 
-		if("Station Engineer", "Mechanic")
+		if("Station Engineer", "Trainee Engineer",)
 			O = new /datum/outfit/plasmaman/engineering
+
+		if("Mechanic")
+			O = new /datum/outfit/plasmaman/engineering/mecha
 
 		if("Chief Engineer")
 			O = new /datum/outfit/plasmaman/ce
@@ -171,13 +189,17 @@
 				P.Extinguish(H)
 	H.update_fire()
 	..()
+	if(H.stat == DEAD)
+		return
+	if(H.reagents.get_reagent_amount("pure_plasma") < 5) //increasing chock_reduction by 20
+		H.reagents.add_reagent("pure_plasma", 5)
 
 /datum/species/plasmaman/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "plasma" || R.id == "plasma_dust")
-		H.adjustBruteLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
-		H.adjustFireLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
-		H.adjustPlasma(20)
+		H.adjustBruteLoss(-0.25)
+		H.adjustFireLoss(-0.25)
+		H.adjust_alien_plasma(20)
 		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
-		return FALSE //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmamen.
+		return FALSE //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmaman
 
 	return ..()

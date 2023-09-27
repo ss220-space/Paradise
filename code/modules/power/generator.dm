@@ -75,9 +75,9 @@
 		overlays.Cut()
 
 		if(lastgenlev != 0)
-			overlays += image('icons/obj/power.dmi', "teg-op[lastgenlev]")
+			overlays += image('icons/obj/engines_and_power/power.dmi', "teg-op[lastgenlev]")
 
-		overlays += image('icons/obj/power.dmi', "teg-oc[lastcirc]")
+		overlays += image('icons/obj/engines_and_power/power.dmi', "teg-oc[lastcirc]")
 
 /obj/machinery/power/generator/process()
 	if(stat & (NOPOWER|BROKEN))
@@ -227,7 +227,7 @@
 /obj/machinery/power/generator/interact(mob/user)
 	user.set_machine(src)
 
-	var/datum/browser/popup = new(user, "teg", "Thermo-Electric Generator", 460, 300)
+	var/datum/browser/popup = new(user, "teg", "Thermo-Electric Generator", 460, 300, src)
 	popup.set_content(get_menu())
 	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()

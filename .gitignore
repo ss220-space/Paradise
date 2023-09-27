@@ -15,6 +15,7 @@ Thumbs.db
 *.pyc
 data/
 !data/logs/.keep
+!data/mode.txt
 cfg/
 tmp/
 tools/Runtime Condenser/Input.txt
@@ -46,6 +47,8 @@ stddef.dm
 .atom-build.json
 .idea/
 
+/tools/bootstrap/.cache/
+
 # ignore DMI tool build cache
 /tools/dmitool/bin/
 /tools/dmitool/.gradle/
@@ -60,3 +63,7 @@ stddef.dm
 
 # Ignore compiled linux libs in the root folder, e.g. librust_g.so
 /*.so
+
+#Ignore cached sound files.
+/sound/tts_cache/**/*
+/sound/tts_scrambled/**/*

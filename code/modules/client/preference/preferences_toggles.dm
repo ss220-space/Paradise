@@ -187,6 +187,7 @@
 	else
 		to_chat(src, "You will no longer hear ambient sounds.")
 		usr.stop_sound_channel(CHANNEL_AMBIENCE)
+	update_ambience_pref()
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Ambience") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/Toggle_Buzz() //No more headaches because headphones bump up shipambience.ogg to insanity levels.
@@ -284,29 +285,6 @@
 		to_chat(usr, "<span class='notice'>You have disabled text popup limiting.")
 	return
 
-/client/verb/numpad_target()
-	set name = "Toggle Numpad targetting"
-	set category = "Preferences"
-	set desc = "This button will allow you to enable or disable Numpad Targetting"
-	prefs.toggles ^= PREFTOGGLE_NUMPAD_TARGET
-	prefs.save_preferences(src)
-	if (prefs.toggles & PREFTOGGLE_NUMPAD_TARGET)
-		to_chat(usr, "<span class='notice'>You have enabled Numpad Targetting.")
-	else
-		to_chat(usr, "<span class='notice'>You have disabled Numpad Targetting.")
-	return
-
-/client/verb/azerty_toggle()
-	set name = "Toggle QWERTY/AZERTY"
-	set category = "Preferences"
-	set desc = "This button will switch you between QWERTY and AZERTY control sets"
-	prefs.toggles ^= PREFTOGGLE_AZERTY
-	prefs.save_preferences(src)
-	if (prefs.toggles & PREFTOGGLE_AZERTY)
-		to_chat(usr, "<span class='notice'>You are now in AZERTY mode.")
-	else
-		to_chat(usr, "<span class='notice'>You are now in QWERTY mode.")
-	return
 /client/verb/toggle_ghost_pda()
 	set name = "Show/Hide GhostPDA"
 	set category = "Preferences"
@@ -355,3 +333,19 @@
 	prefs.toggles2 ^= PREFTOGGLE_2_REVERB_DISABLE
 	prefs.save_preferences(src)
 	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_REVERB_DISABLE) ? "no longer" : "now"] get reverb on ingame sounds.")
+
+/mob/verb/toggle_anonmode()
+	set name = "Toggle Anonymous Mode"
+	set category = "Preferences"
+	set desc = "Toggles showing your key in various parts of the game (deadchat, end round, etc)."
+	client.prefs.toggles2 ^= PREFTOGGLE_2_ANON
+	to_chat(src, "Your key will [(client.prefs.toggles2 & PREFTOGGLE_2_ANON) ? "no longer" : "now"] be shown in certain events (end round reports, deadchat, etc).</span>")
+	client.prefs.save_preferences(src)
+
+/client/proc/toggle_mctabs()
+	set name = "Show/Hide MC Tabs"
+	set category = "Preferences"
+	set desc = "Shows or hides the MC tabs."
+	prefs.toggles2 ^= PREFTOGGLE_2_MC_TABS
+	prefs.save_preferences(src)
+	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_MC_TABS) ? "now" : "no longer"] see the MC tabs on the top right.")

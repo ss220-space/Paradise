@@ -20,6 +20,9 @@
 	var/obj/screen/blobpwrdisplay
 	var/obj/screen/blobhealthdisplay
 	var/obj/screen/vampire_blood_display
+	var/obj/screen/ninja_energy_display
+	var/obj/screen/ninja_focus_display
+	var/obj/screen/wind_up_timer
 	var/obj/screen/alien_plasma_display
 	var/obj/screen/nightvisionicon
 	var/obj/screen/action_intent
@@ -81,6 +84,7 @@
 	mymob.healths = null
 	mymob.healthdoll = null
 	mymob.pullin = null
+	mymob.stamina_bar = null
 
 	//clear the rest of our reload_fullscreen
 	lingchemdisplay = null
@@ -88,6 +92,9 @@
 	blobpwrdisplay = null
 	alien_plasma_display = null
 	vampire_blood_display = null
+	ninja_energy_display = null
+	ninja_focus_display = null
+	wind_up_timer = null
 	nightvisionicon = null
 	devilsouldisplay = null
 
@@ -110,15 +117,6 @@
 		display_hud_version = hud_version + 1
 	if(display_hud_version > HUD_VERSIONS)	//If the requested version number is greater than the available versions, reset back to the first version
 		display_hud_version = 1
-
-	if(mymob.client.view < world.view)
-		if(mymob.client.view < ARBITRARY_VIEWRANGE_NOHUD)
-			to_chat(mymob, "<span class='notice'>HUD is unavailable with this view range.</span>")
-			display_hud_version = HUD_STYLE_NOHUD
-		else
-			if(display_hud_version == HUD_STYLE_STANDARD)
-				to_chat(mymob, "<span class='notice'>Standard HUD mode is unavailable with a smaller-than-normal view range.</span>")
-				display_hud_version = HUD_STYLE_REDUCED
 
 	switch(display_hud_version)
 		if(HUD_STYLE_STANDARD)	//Default HUD

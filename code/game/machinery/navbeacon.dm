@@ -94,22 +94,24 @@
 		return		// prevent intraction when T-scanner revealed
 
 	if(istype(I, /obj/item/screwdriver))
+		add_fingerprint(user)
 		open = !open
 
-		user.visible_message("[user] [open ? "opens" : "closes"] the beacon's cover.", "<span class='notice'>You [open ? "open" : "close"] the beacon's cover.</span>")
+		user.visible_message("[user] [open ? "opens" : "closes"] the beacon's cover.", span_notice("You [open ? "open" : "close"] the beacon's cover."))
 
 		updateicon()
 
 	else if(I.GetID())
 		if(open)
 			if(allowed(user))
+				add_fingerprint(user)
 				locked = !locked
-				to_chat(user, "<span class='notice'>Controls are now [locked ? "locked" : "unlocked"].</span>")
+				to_chat(user, span_notice("Controls are now [locked ? "locked" : "unlocked"]."))
 			else
-				to_chat(user, "<span class='danger'>Access denied.</span>")
+				to_chat(user, span_danger("Access denied."))
 			updateDialog()
 		else
-			to_chat(user, "<span class='warning'>You must open the cover first!</span>")
+			to_chat(user, span_warning("You must open the cover first!"))
 	else
 		return ..()
 
@@ -117,6 +119,7 @@
 	interact(user, 1)
 
 /obj/machinery/navbeacon/attack_hand(mob/user)
+	add_fingerprint(user)
 	interact(user, 0)
 
 /obj/machinery/navbeacon/interact(mob/user, ai = 0)
@@ -125,7 +128,7 @@
 		return		// prevent intraction when T-scanner revealed
 
 	if(!open && !ai)	// can't alter controls if not open, unless you're an AI
-		to_chat(user, "<span class='warning'>The beacon's control cover is closed!</span>")
+		to_chat(user, span_warning("The beacon's control cover is closed!"))
 		return
 
 

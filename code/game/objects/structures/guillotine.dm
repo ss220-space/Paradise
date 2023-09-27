@@ -52,7 +52,6 @@
 		msg += "Someone appears to be strapped in. You can help them out, or you can harm them by activating the guillotine."
 	. += "<span class='notice'>[msg]</span>"
 /obj/structure/guillotine/attack_hand(mob/user)
-	add_fingerprint(user)
 
 	// Currently being used by something
 	if(current_action)
@@ -62,9 +61,10 @@
 		if(GUILLOTINE_BLADE_MOVING)
 			return
 		if(GUILLOTINE_BLADE_DROPPED)
+			add_fingerprint(user)
 			blade_status = GUILLOTINE_BLADE_MOVING
 			icon_state = "guillotine_raise"
-			addtimer(CALLBACK(src, .proc/raise_blade), GUILLOTINE_ANIMATION_LENGTH)
+			addtimer(CALLBACK(src, PROC_REF(raise_blade)), GUILLOTINE_ANIMATION_LENGTH)
 			return
 		if(GUILLOTINE_BLADE_RAISED)
 			if(has_buckled_mobs())
@@ -74,20 +74,23 @@
 					current_action = GUILLOTINE_ACTION_INUSE
 
 					if(do_after(user, GUILLOTINE_ACTIVATE_DELAY, target = src) && blade_status == GUILLOTINE_BLADE_RAISED)
+						add_fingerprint(user)
 						current_action = 0
 						blade_status = GUILLOTINE_BLADE_MOVING
 						icon_state = "guillotine_drop"
 						playsound(src, 'sound/items/unsheath.ogg', 100, 1)
-						addtimer(CALLBACK(src, .proc/drop_blade, user), GUILLOTINE_ANIMATION_LENGTH - 2) // Minus two so we play the sound and decap faster
+						addtimer(CALLBACK(src, PROC_REF(drop_blade), user), GUILLOTINE_ANIMATION_LENGTH - 2) // Minus two so we play the sound and decap faster
 					else
 						current_action = 0
 				else
+					add_fingerprint(user)
 					unbuckle_all_mobs()
 			else
+				add_fingerprint(user)
 				blade_status = GUILLOTINE_BLADE_MOVING
 				icon_state = "guillotine_drop"
 				playsound(src, 'sound/items/unsheath.ogg', 100, 1)
-				addtimer(CALLBACK(src, .proc/drop_blade), GUILLOTINE_ANIMATION_LENGTH)
+				addtimer(CALLBACK(src, PROC_REF(drop_blade)), GUILLOTINE_ANIMATION_LENGTH)
 
 /obj/structure/guillotine/proc/raise_blade()
 	blade_status = GUILLOTINE_BLADE_RAISED
@@ -133,7 +136,7 @@
 				// The delay is to make large crowds have a longer lasting applause
 				var/delay_offset = 0
 				for(var/mob/living/carbon/human/HM in viewers(src, 7))
-					addtimer(CALLBACK(HM, /mob/.proc/emote, "clap"), delay_offset * 0.3)
+					addtimer(CALLBACK(HM, TYPE_PROC_REF(/mob, emote), "clap"), delay_offset * 0.3)
 					delay_offset++
 		else
 			H.apply_damage(15 * blade_sharpness, BRUTE, head)
@@ -148,13 +151,13 @@
 
 /obj/structure/guillotine/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/whetstone))
-		add_fingerprint(user)
 		if(blade_status == GUILLOTINE_BLADE_SHARPENING)
 			return
 
 		if(blade_status == GUILLOTINE_BLADE_RAISED)
 			if(blade_sharpness < GUILLOTINE_BLADE_MAX_SHARP)
 				blade_status = GUILLOTINE_BLADE_SHARPENING
+				add_fingerprint(user)
 				if(do_after(user, 7, target = src))
 					blade_status = GUILLOTINE_BLADE_RAISED
 					user.visible_message("<span class='notice'>[user] sharpens the large blade of the guillotine.</span>",

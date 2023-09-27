@@ -7,7 +7,7 @@
 	cure_text = "Ethanol"
 	cures = list("ethanol")
 	agent = "Excess Snuggles"
-	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/human/monkey)
+	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/human/lesser/monkey)
 	desc = "If left untreated subject will regurgitate... puppies."
 	severity = MEDIUM
 	var/barklimit = 0
@@ -33,7 +33,7 @@
 			if(prob(5))
 				affected_mob.visible_message("<span class='danger'>[affected_mob] howls!</span>", \
 												"<span class='userdanger'>You howl!</span>")
-				affected_mob.AdjustConfused(rand(6, 8))
+				affected_mob.AdjustConfused(rand(12 SECONDS, 16 SECONDS))
 			if(prob(3) && barklimit <= 10)
 				var/list/puppytype = list(/mob/living/simple_animal/pet/dog/corgi/puppy, /mob/living/simple_animal/pet/dog/pug, /mob/living/simple_animal/pet/dog/fox)
 				var/mob/living/puppypicked = pick(puppytype)

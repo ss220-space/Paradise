@@ -14,6 +14,7 @@
 	throwforce = 10
 	origin_tech = "combat=4;engineering=4;syndicate=2"
 	actions_types = list(/datum/action/item_action/toggle)
+	blurry_chance = 8
 	var/list/servantlinks = list()
 	var/hunger = 0
 	var/hunger_message_level = 0
@@ -21,7 +22,7 @@
 	var/activated = FALSE
 
 /obj/item/storage/toolbox/green/memetic/ui_action_click(mob/user)
-	if(user.HasDisease(new /datum/disease/memetic_madness(0)))
+	if(user.HasDisease(new /datum/disease/memetic_madness))
 		var/obj/item/storage/toolbox/green/memetic/M = user.get_active_hand()
 		if(istype(M))
 			to_chat(user, "<span class='warning'>His Grace [flags & NODROP ? "releases from" : "binds to"] your hand!</span>")
@@ -40,9 +41,9 @@
 	..()
 
 /obj/item/storage/toolbox/green/memetic/proc/link_user(mob/living/carbon/user)
-	if(ishuman(user) && !user.HasDisease(new /datum/disease/memetic_madness(0)))
+	if(ishuman(user) && !user.HasDisease(new /datum/disease/memetic_madness))
 		activated = TRUE
-		user.ForceContractDisease(new /datum/disease/memetic_madness(0))
+		user.ForceContractDisease(new /datum/disease/memetic_madness)
 		for(var/datum/disease/memetic_madness/DD in user.viruses)
 			DD.progenitor = src
 			servantlinks.Add(DD)
@@ -73,7 +74,7 @@
 		if(istype(I, /obj/item/grab))
 			var/obj/item/grab/G = I
 			var/mob/living/victim = G.affecting
-			if(!user.HasDisease(new /datum/disease/memetic_madness(0)))
+			if(!user.HasDisease(new /datum/disease/memetic_madness))
 				to_chat(user, "<span class='warning'>You can't seem to find the latch to open this.</span>")
 				return
 			if(!victim)
@@ -114,8 +115,7 @@
 			var/obj/item/storage/box/B = new(src)
 			B.name = "Box-'[L.real_name]'"
 			for(var/obj/item/SI in equipped_items)
-				L.unEquip(SI, TRUE)
-				SI.forceMove(B)
+				L.drop_transfer_item_to_loc(SI, B, force = TRUE)
 			equipped_items.Cut()
 
 	L.forceMove(src)
@@ -124,7 +124,7 @@
 	L.death()
 	L.ghostize()
 	if(L == original_owner)
-		L.unEquip(src, TRUE)
+		L.temporarily_remove_item_from_inventory(src, force = TRUE)
 		qdel(L)
 		var/obj/item/storage/toolbox/green/fake_toolbox = new(get_turf(src))
 		fake_toolbox.desc = "It looks a lot duller than it used to."
@@ -178,8 +178,8 @@
 		affected_mob.setStaminaLoss(0)
 		var/status = CANSTUN | CANWEAKEN | CANPARALYSE
 		affected_mob.status_flags &= ~status
-		affected_mob.AdjustDizzy(-10)
-		affected_mob.AdjustDrowsy(-10)
+		affected_mob.AdjustDizzy(-20 SECONDS)
+		affected_mob.AdjustDrowsy(-20 SECONDS)
 		affected_mob.SetSleeping(0)
 		affected_mob.SetSlowed(0)
 		affected_mob.SetConfused(0)

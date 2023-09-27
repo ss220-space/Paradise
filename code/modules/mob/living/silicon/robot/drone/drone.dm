@@ -2,6 +2,7 @@
 /mob/living/silicon/robot/drone
 	name = "drone"
 	real_name = "drone"
+	desc = "It's a tiny little repair drone. The casing is stamped with an NT logo and the subscript: 'Nanotrasen Recursive Repair Systems: Fixing Tomorrow's Problem, Today!'"
 	icon = 'icons/mob/robots.dmi'
 	icon_state = "repairbot"
 	maxHealth = 35
@@ -15,13 +16,14 @@
 	lawupdate = 0
 	density = 0
 	has_camera = FALSE
-	req_one_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
+	req_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
 	ventcrawler = VENTCRAWLER_ALWAYS
 	magpulse = 1
 	mob_size = MOB_SIZE_SMALL
 	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
-	ionpulse = 1
 	modules_break = FALSE
+
+	drain_act_protected = TRUE
 
 	// We need to keep track of a few module items so we don't need to do list operations
 	// every time we need them. These get set in New() after the module is chosen.
@@ -73,6 +75,10 @@
 	// NO BRAIN.
 	mmi = null
 
+	// Give us our action button
+	var/datum/action/innate/hide/drone/hide = new()
+	hide.Grant(src)
+
 	//We need to screw with their HP a bit. They have around one fifth as much HP as a full borg.
 	for(var/V in components) if(V != "power cell")
 		var/datum/robot_component/C = components[V]
@@ -80,7 +86,6 @@
 
 	verbs -= /mob/living/silicon/robot/verb/Namepick
 	module = new /obj/item/robot_module/drone(src)
-	module += new /obj/item/borg/upgrade/thrusters(src)
 
 	//Allows Drones to hear the Engineering channel.
 	module.channels = list("Engineering" = 1)
@@ -96,9 +101,16 @@
 	decompiler = locate(/obj/item/matter_decompiler) in src.module
 
 	//Some tidying-up.
-	flavor_text = "It's a tiny little repair drone. The casing is stamped with an NT logo and the subscript: 'Nanotrasen Recursive Repair Systems: Fixing Tomorrow's Problem, Today!'"
 	scanner.Grant(src)
 	update_icons()
+
+
+/mob/living/silicon/robot/drone/Destroy()
+	for(var/datum/action/innate/hide/drone/hide in actions)
+		hide.Remove(src)
+
+	. = ..()
+
 
 /mob/living/silicon/robot/drone/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/drone()
@@ -150,7 +162,7 @@
 
 	else if(W.GetID())
 		if(stat == DEAD)
-			if(!config.allow_drone_spawn || emagged || health < -35) //It's dead, Dave.
+			if(!CONFIG_GET(flag/allow_drone_spawn) || emagged || health < -35) //It's dead, Dave.
 				to_chat(user, "<span class='warning'>The interface is fried, and a distressing burned smell wafts from the robot's interior. You're not rebooting this one.</span>")
 				return
 
@@ -170,7 +182,7 @@
 			for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
 				if(D.key && D.client)
 					drones++
-			if(drones < config.max_maint_drones)
+			if(drones < CONFIG_GET(number/max_maint_drones))
 				request_player()
 			return
 
@@ -212,11 +224,12 @@
 
 	to_chat(src, "<span class='warning'>You feel a sudden burst of malware loaded into your execute-as-root buffer. Your tiny brain methodically parses, loads and executes the script. You sense you have five minutes before the drone server detects this and automatically shuts you down.</span>")
 
-	message_admins("[key_name_admin(user)] emagged drone [key_name_admin(src)].  Laws overridden.")
-	log_game("[key_name(user)] emagged drone [key_name(src)].  Laws overridden.")
+	message_admins("[ADMIN_LOOKUPFLW(H)] emagged drone [key_name_admin(src)].  Laws overridden.")
+	add_attack_logs(user, src, "emagged")
+	add_conversion_logs(src, "Converted as a slave to [key_name_log(H)]")
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	GLOB.lawchanges.Add("[time] <B>:</B> [H.name]([H.key]) emagged [name]([key])")
-	addtimer(CALLBACK(src, .proc/shut_down, TRUE), EMAG_TIMER)
+	addtimer(CALLBACK(src, PROC_REF(shut_down), TRUE), EMAG_TIMER)
 
 	emagged = 1
 	density = 1
@@ -230,22 +243,32 @@
 	clear_inherent_laws()
 	laws = new /datum/ai_laws/syndicate_override
 	set_zeroth_law("Only [H.real_name] and people [H.real_name] designates as being such are Syndicate Agents.")
+	SSticker?.score?.save_silicon_laws(src, user, "EMAG act", log_all_laws = TRUE)
 
 	to_chat(src, "<b>Obey these laws:</b>")
 	laws.show_laws(src)
 	to_chat(src, "<span class='boldwarning'>ALERT: [H.real_name] is your new master. Obey your new laws and [H.real_name]'s commands.</span>")
 	return
 
+/mob/living/silicon/robot/drone/ratvar_act(weak)
+	if(client)
+		var/mob/living/silicon/robot/cogscarab/cog = new (get_turf(src))
+		if(mind)
+			SSticker.mode.add_clocker(mind)
+			mind.transfer_to(cog)
+		else
+			cog.key = client.key
+	spawn_dust()
+	gib()
+
 //DRONE LIFE/DEATH
 
 //For some goddamn reason robots have this hardcoded. Redefining it for our fragile friends here.
-/mob/living/silicon/robot/drone/updatehealth(reason = "none given")
+/mob/living/silicon/robot/drone/updatehealth(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
-		health = 35
-		stat = CONSCIOUS
-		return
-	health = 35 - (getBruteLoss() + getFireLoss())
-	update_stat("updatehealth([reason])")
+		return ..()
+	health = maxHealth - (getBruteLoss() + getFireLoss() + (suiciding ? getOxyLoss() : 0))
+	update_stat("updatehealth([reason])", should_log)
 
 /mob/living/silicon/robot/drone/death(gibbed)
 	. = ..(gibbed)
@@ -306,7 +329,7 @@
 
 	mind = new
 	mind.current = src
-	mind.original = src
+	mind.set_original_mob(src)
 	mind.assigned_role = "Drone"
 	SSticker.minds += mind
 	mind.key = player.key
@@ -339,8 +362,8 @@
 	if(is_type_in_list(AM, allowed_bumpable_objects))
 		return ..()
 
-/mob/living/silicon/robot/drone/Bumped(atom/movable/AM)
-	return
+/mob/living/silicon/robot/drone/Bumped(atom/movable/moving_atom)
+	return ..()
 
 /mob/living/silicon/robot/drone/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 
@@ -374,7 +397,7 @@
 		return ..()
 
 /mob/living/silicon/robot/drone/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(!client && istype(user, /mob/living/silicon/robot/drone))
+	if(!client && isdrone(user))
 		to_chat(user, "<span class='warning'>You begin decompiling the other drone.</span>")
 		if(!do_after(user, 5 SECONDS, target = loc))
 			to_chat(user, "<span class='warning'>You need to remain still while decompiling such a large object.</span>")

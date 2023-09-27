@@ -119,14 +119,6 @@
 	icon_state = "newton"
 	desc = "A device bored paper pushers use to remind themselves that time did not stop yet. Contains gravity."
 
-/obj/item/pai_cable
-	desc = "A flexible coated cable with a universal jack on one end."
-	name = "data cable"
-	icon = 'icons/obj/power.dmi'
-	icon_state = "wire1"
-
-	var/obj/machinery/machine
-
 /obj/item/phone
 	name = "red phone"
 	desc = "Should anything ever go wrong..."

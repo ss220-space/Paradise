@@ -9,12 +9,14 @@
 	health = 35
 	maxHealth = 35
 	melee_damage_type = STAMINA
-	melee_damage_lower = 10
-	melee_damage_upper = 8
+	melee_damage_lower = 8
+	melee_damage_upper = 10
 	attacktext = "кусает"
 	var/obj/item/inventory_head
 	var/obj/item/inventory_mask
 	footstep_type = FOOTSTEP_MOB_CLAW
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/security = 3)
+	tts_seed = "Furion"
 
 /mob/living/simple_animal/pet/dog/security/ranger
 	name = "Ranger"
@@ -24,6 +26,7 @@
 	icon_living = "ranger"
 	icon_resting = "ranger_rest"
 	icon_dead = "ranger_dead"
+	tts_seed = "Pudge"
 
 /mob/living/simple_animal/pet/dog/security/warden
 	name = "Джульбарс"
@@ -33,6 +36,7 @@
 	icon_living = "german_shep2"
 	icon_resting = "german_shep2_rest"
 	icon_dead = "german_shep2_dead"
+	tts_seed = "pantheon"
 
 /mob/living/simple_animal/pet/dog/security/show_inv(mob/user)
 	if(user.incapacitated() || !Adjacent(user))
@@ -107,6 +111,7 @@
 /mob/living/simple_animal/pet/dog/security/death(gibbed)
 	..(gibbed)
 	regenerate_icons()
+
 /mob/living/simple_animal/pet/dog/security/Topic(href, href_list)
 	if(!(iscarbon(usr) || isrobot(usr)) || usr.incapacitated() || !Adjacent(usr))
 		usr << browse(null, "window=mob[UID()]")
@@ -122,7 +127,8 @@
 					if(inventory_head.flags & NODROP)
 						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
 						return
-					usr.put_in_hands(inventory_head)
+					drop_item_ground(inventory_head)
+					usr.put_in_hands(inventory_head, ignore_anim = FALSE)
 					inventory_head = null
 					update_muhtar_fluff()
 					regenerate_icons()
@@ -134,7 +140,8 @@
 					if(inventory_mask.flags & NODROP)
 						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
 						return
-					usr.put_in_hands(inventory_mask)
+					drop_item_ground(inventory_mask)
+					usr.put_in_hands(inventory_mask, ignore_anim = FALSE)
 					inventory_mask = null
 					update_muhtar_fluff()
 					regenerate_icons()
@@ -144,8 +151,8 @@
 			if("collar")
 				if(pcollar)
 					var/the_collar = pcollar
-					unEquip(pcollar)
-					usr.put_in_hands(the_collar)
+					drop_item_ground(pcollar)
+					usr.put_in_hands(the_collar, ignore_anim = FALSE)
 					pcollar = null
 					update_muhtar_fluff()
 					regenerate_icons()
@@ -175,7 +182,7 @@
 						usr.visible_message("<span class='notice'>[usr] pets [src].</span>", "<span class='notice'>You rest your hand on [src]'s face for a moment.</span>")
 						return
 
-					if(!usr.unEquip(item_to_add))
+					if(!usr.drop_item_ground(item_to_add))
 						to_chat(usr, "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s face!</span>")
 						return
 
@@ -223,7 +230,7 @@
 			return
 		return
 
-	if(user && !user.unEquip(item_to_add))
+	if(user && !user.drop_item_ground(item_to_add))
 		to_chat(user, "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s head!</span>")
 		return 0
 
@@ -324,3 +331,15 @@
 			mask_icon.transform = turn(mask_icon.transform, 180)
 
 		add_overlay(mask_icon)
+
+/mob/living/simple_animal/pet/dog/security/detective
+	name = "Гав-Гавыч"
+	desc = "Старый служебный пёс. Он давно потерял нюх, однако детектив по-прежнему содержит и заботится о нём."
+	icon_state = "blackdog"
+	icon_living = "blackdog"
+	icon_dead = "blackdog_dead"
+	icon_resting = "blackdog_rest"
+	tts_seed = "Thrall"
+
+/mob/living/simple_animal/pet/dog/security/detective/show_inv(mob/user)
+	return

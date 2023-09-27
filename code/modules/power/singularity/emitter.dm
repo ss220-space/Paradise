@@ -1,7 +1,7 @@
 /obj/machinery/power/emitter
 	name = "Emitter"
 	desc = "A heavy duty industrial laser"
-	icon = 'icons/obj/singularity.dmi'
+	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "emitter"
 	anchored = 0
 	density = 1
@@ -62,6 +62,7 @@
 	if(src.anchored || usr:stat)
 		to_chat(usr, "It is fastened to the floor!")
 		return 0
+	add_fingerprint(usr)
 	src.dir = turn(src.dir, 90)
 	return 1
 
@@ -74,9 +75,9 @@
 	rotate()
 
 /obj/machinery/power/emitter/Destroy()
-	msg_admin_attack("Emitter deleted at ([x],[y],[z] - [ADMIN_JMP(src)]) [usr ? "Broken by [key_name_admin(usr)]" : ""]", ATKLOG_FEW)
-	log_game("Emitter deleted at ([x],[y],[z])")
-	investigate_log("<font color='red'>deleted</font> at ([x],[y],[z]) [usr ? "Broken by [key_name(usr)]" : ""]","singulo")
+	message_admins("Emitter deleted at [ADMIN_COORDJMP(src)] [usr ? "Broken by [ADMIN_LOOKUPFLW(usr)]" : ""]")
+	add_game_logs("Emitter deleted at [COORD(src)]")
+	investigate_log("<font color='red'>deleted</font> at [COORD(src)] [usr ? "Broken by [key_name_log(usr)]" : ""]", INVESTIGATE_ENGINE)
 	QDEL_NULL(sparks)
 	return ..()
 
@@ -94,20 +95,21 @@
 			to_chat(user, "The emitter isn't connected to a wire.")
 			return 1
 		if(!src.locked)
+			add_fingerprint(usr)
 			if(src.active==1)
 				src.active = 0
 				to_chat(user, "You turn off the [src].")
-				message_admins("Emitter turned off by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-				log_game("Emitter turned off by [key_name(user)] in [x], [y], [z]")
-				investigate_log("turned <font color='red'>off</font> by [key_name(usr)]","singulo")
+				message_admins("Emitter turned off by [key_name_admin(user)] in [ADMIN_COORDJMP(src)]")
+				add_game_logs("turned off emitter in [COORD(src)]", user)
+				investigate_log("turned <font color='red'>off</font> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
 			else
 				src.active = 1
 				to_chat(user, "You turn on the [src].")
 				src.shot_number = 0
 				src.fire_delay = maximum_fire_delay
-				message_admins("Emitter turned on by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-				log_game("Emitter turned on by [key_name(user)] in [x], [y], [z]")
-				investigate_log("turned <font color='green'>on</font> by [key_name(usr)]","singulo")
+				message_admins("Emitter turned on by [key_name_admin(user)] in [ADMIN_COORDJMP(src)]")
+				add_game_logs("turned on emitter in [COORD(src)]", user)
+				investigate_log("turned <font color='green'>on</font> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
 			update_icon()
 		else
 			to_chat(user, "<span class='warning'>The controls are locked!</span>")
@@ -147,12 +149,12 @@
 			if(!powered)
 				powered = 1
 				update_icon()
-				investigate_log("regained power and turned <font color='green'>on</font>","singulo")
+				investigate_log("regained power and turned <font color='green'>on</font>", INVESTIGATE_ENGINE)
 		else
 			if(powered)
 				powered = 0
 				update_icon()
-				investigate_log("lost power and turned <font color='red'>off</font>","singulo")
+				investigate_log("lost power and turned <font color='red'>off</font>", INVESTIGATE_ENGINE)
 			return
 
 		if(!check_delay())
@@ -209,38 +211,13 @@
 	return P
 
 /obj/machinery/power/emitter/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/multitool))
-		update_multitool_menu(user)
-		return 1
-
-	if(istype(W, /obj/item/wrench))
-		if(active)
-			to_chat(user, "Turn off the [src] first.")
-			return
-		switch(state)
-			if(0)
-				state = 1
-				playsound(src.loc, W.usesound, 75, 1)
-				user.visible_message("[user.name] secures [src.name] to the floor.", \
-					"You secure the external reinforcing bolts to the floor.", \
-					"You hear a ratchet")
-				src.anchored = 1
-			if(1)
-				state = 0
-				playsound(src.loc,W.usesound, 75, 1)
-				user.visible_message("[user.name] unsecures [src.name] reinforcing bolts from the floor.", \
-					"You undo the external reinforcing bolts.", \
-					"You hear a ratchet")
-				src.anchored = 0
-			if(2)
-				to_chat(user, "<span class='warning'>The [src.name] needs to be unwelded from the floor.</span>")
-		return
 
 	if(W.GetID() || ispda(W))
 		if(emagged)
 			to_chat(user, "<span class='warning'>The lock seems to be broken</span>")
 			return
 		if(src.allowed(user))
+			add_fingerprint(usr)
 			if(active)
 				src.locked = !src.locked
 				to_chat(user, "The controls are now [src.locked ? "locked." : "unlocked."]")
@@ -252,6 +229,7 @@
 		return
 
 	if(default_deconstruction_screwdriver(user, "emitter_open", "emitter", W))
+		add_fingerprint(user)
 		return
 
 	if(exchange_parts(user, W))
@@ -264,11 +242,34 @@
 
 /obj/machinery/power/emitter/emag_act(var/mob/living/user as mob)
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		locked = 0
 		emagged = 1
 		if(user)
 			user.visible_message("[user.name] emags the [src.name].","<span class='warning'>You short out the lock.</span>")
 
+/obj/machinery/power/emitter/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(active)
+		to_chat(user, "Turn off [src] first.")
+		return
+	switch(state)
+		if(0)
+			state = 1
+			playsound(loc, I.usesound, 75, 1)
+			user.visible_message("[user.name] secures [name] to the floor.", \
+				"You secure the external reinforcing bolts to the floor.", \
+				"You hear a ratchet")
+			src.anchored = 1
+		if(1)
+			state = 0
+			playsound(loc, I.usesound, 75, 1)
+			user.visible_message("[user.name] unsecures [name] reinforcing bolts from the floor.", \
+				"You undo the external reinforcing bolts.", \
+				"You hear a ratchet")
+			src.anchored = 0
+		if(2)
+			to_chat(user, "<span class='warning'>The [name] needs to be unwelded from the floor.</span>")
 
 /obj/machinery/power/emitter/welder_act(mob/user, obj/item/I)
 	if(active)

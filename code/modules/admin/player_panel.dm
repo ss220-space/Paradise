@@ -3,7 +3,7 @@
 	if(!usr.client.holder)
 		return
 	// This stops the panel from being invoked by mentors who press F7.
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN|R_MOD))
 		message_admins("[key_name_admin(usr)] attempted to invoke player panel without admin rights. If this is a mentor, its a chance they accidentally hit F7. If this is NOT a mentor, there is a high chance an exploit is being used")
 		return
 	var/dat = {"<html><meta charset="UTF-8"><head><title>Admin Player Panel</title></head>"}
@@ -227,7 +227,7 @@
 			var/color = "#e6e6e6"
 			if(i%2 == 0)
 				color = "#f2f2f2"
-			var/is_antagonist = is_special_character(M)
+			var/antagonist_string = get_antag_type_truncated_plaintext_string(M)
 
 			var/M_job = ""
 
@@ -254,6 +254,8 @@
 						M_job = "AI"
 					else if(ispAI(M))
 						M_job = "pAI"
+					else if(iscogscarab(M))
+						M_job = "Cogscarab"
 					else if(isrobot(M))
 						M_job = "Cyborg"
 					else
@@ -305,7 +307,7 @@
 					<td align='center' bgcolor='[color]'>
 						<span id='notice_span[i]'></span>
 						<a id='link[i]'
-						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]",[is_antagonist],"[M.UID()]","[client_ckey]","[M_eyeUID]")'
+						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]","[antagonist_string]","[M.UID()]","[client_ckey]","[M_eyeUID]")'
 						>
 						<b id='search[i]'>[M_name] - [M_rname] - [M_key] ([M_job])</b>
 						</a>
@@ -350,7 +352,7 @@
 	if(SSticker && SSticker.current_state >= GAME_STATE_PLAYING)
 		var/dat = {"<html><meta charset="UTF-8"><head><title>Round Status</title></head><body><h1><B>Round Status</B></h1>"}
 		dat += "Current Game Mode: <B>[SSticker.mode.name]</B><BR>"
-		dat += "Round Duration: <B>[round(ROUND_TIME / 36000)]:[add_zero(num2text(ROUND_TIME / 600 % 60), 2)]:[add_zero(num2text(ROUND_TIME / 10 % 60), 2)]</B><BR>"
+		dat += "Round Duration: <B>[ROUND_TIME_TEXT()]</B><BR>"
 		dat += "<B>Emergency shuttle</B><BR>"
 		if(SSshuttle.emergency.mode < SHUTTLE_CALL)
 			dat += "<a href='?src=[UID()];call_shuttle=1'>Call Shuttle</a><br>"
@@ -363,6 +365,8 @@
 				dat += "ETA: <a href='?_src_=holder;edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]</a><BR>"
 
 		dat += "<a href='?src=[UID()];delay_round_end=1'>[SSticker.delay_end ? "End Round Normally" : "Delay Round End"]</a><br>"
+		dat += "<br><b>Antagonist Teams</b><br>"
+		dat += "<a href='?src=[UID()];check_teams=1'>View Teams</a><br>"
 		if(SSticker.mode.syndicates.len)
 			dat += "<br><table cellspacing=5><tr><td><B>Syndicates</B></td><td></td></tr>"
 			for(var/datum/mind/N in SSticker.mode.syndicates)
@@ -438,8 +442,8 @@
 		if(SSticker.mode.raiders.len)
 			dat += check_role_table("Raiders", SSticker.mode.raiders)
 
-		/*if(ticker.mode.ninjas.len)
-			dat += check_role_table("Ninjas", ticker.mode.ninjas)*/
+		if(SSticker.mode.space_ninjas.len)
+			dat += check_role_table("Ninjas", SSticker.mode.space_ninjas)
 
 		if(SSticker.mode.cult.len)
 			var/datum/game_mode/gamemode = SSticker.mode
@@ -470,11 +474,44 @@
 			dat += "<br><a href='?src=[UID()];cult_newsummonlocations=[UID()]'>Reroll summoning locations</a>"
 			dat += "<br><a href='?src=[UID()];cult_unlocknarsie=[UID()]'>Unlock Nar'Sie summoning</a>"
 
+		if(length(SSticker.mode.clockwork_cult))
+			var/datum/game_mode/gamemode = SSticker.mode
+			var/datum/objective/cur_demand_obj = gamemode.clocker_objs.obj_demand
+			dat += check_role_table("Clockers", SSticker.mode.clockwork_cult)
+			if(cur_demand_obj)
+				dat += "<br>Current clock cult objective: <br>[cur_demand_obj.explanation_text]"
+			else if(gamemode.clocker_objs.clock_status == RATVAR_NEEDS_SUMMONING)
+				dat += "<br>Current clock cult objective: Summon Ratvar"
+			else if(gamemode.clocker_objs.clock_status == RATVAR_HAS_RISEN)
+				dat += "<br>Current clock cult objective: Bring to Ratvar"
+			else if(gamemode.clocker_objs.clock_status == RATVAR_HAS_FALLEN)
+				dat += "<br>Current clock cult objective: Kill all non-clockers"
+			else
+				dat += "<br>Current clock cult objective: None! (This is most likely a bug, or var editing gone wrong.)"
+			dat += "<br>Power needed: [GLOB.clockwork_power]/[gamemode.clocker_objs.power_goal]"
+			dat += "<br>Beacons needed: [length(GLOB.clockwork_beacons)]/[gamemode.clocker_objs.beacon_goal]"
+			dat += "<br>Clockers needed: [SSticker.mode.get_clockers()]/[gamemode.clocker_objs.clocker_goal] Reveal:[SSticker.mode.crew_reveal_number]"
+			dat += "<br>Summoning locations: [english_list(gamemode.clocker_objs.obj_summon.ritual_spots)]"
+			dat += "<br><a href='?src=[UID()];clock_mindspeak=[UID()]'>Clock Cult Mindspeak</a>"
+
+			if(gamemode.clocker_objs.clock_status == RATVAR_DEMANDS_POWER)
+				dat += "<br><a href='?src=[UID()];clock_adjustpower=[UID()]'>POWER CHANGE</a>"
+				dat += "<br><a href='?src=[UID()];clock_adjustbeacon=[UID()]'>BEACON CHANGE</a>"
+				dat += "<br><a href='?src=[UID()];clock_adjustclocker=[UID()]'>CLOCKER CHANGE</a>"
+			else
+				dat += "<br>The cult reached power demand! Summon available!</a>"
+
+			dat += "<br><a href='?src=[UID()];clock_newsummonlocations=[UID()]'>Reroll summoning locations</a>"
+			dat += "<br><a href='?src=[UID()];clock_unlockratvar=[UID()]'>Unlock Ratvar summoning</a>"
+
 		if(SSticker.mode.traitors.len)
 			dat += check_role_table("Traitors", SSticker.mode.traitors)
 
 		if(SSticker.mode.implanted.len)
 			dat += check_role_table("Mindslaves", SSticker.mode.implanted)
+
+		if(SSticker.mode.thieves.len)
+			dat += check_role_table("Thieves", SSticker.mode.thieves)
 
 		if(SSticker.mode.shadows.len)
 			dat += check_role_table("Shadowlings", SSticker.mode.shadows)
@@ -487,6 +524,12 @@
 
 		if(SSticker.mode.abductees.len)
 			dat += check_role_table("Abductees", SSticker.mode.abductees)
+
+		if(SSticker.mode.goon_vampires.len)
+			dat += check_role_table("Goon Vampires", SSticker.mode.goon_vampires)
+
+		if(SSticker.mode.goon_vampire_enthralled.len)
+			dat += check_role_table("Goon Vampire Thralls", SSticker.mode.goon_vampire_enthralled)
 
 		if(SSticker.mode.vampires.len)
 			dat += check_role_table("Vampires", SSticker.mode.vampires)

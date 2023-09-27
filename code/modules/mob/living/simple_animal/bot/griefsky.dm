@@ -53,7 +53,7 @@
 	if(ismob(AM) && AM == target)
 		var/mob/living/carbon/C = AM
 		visible_message("[src] flails his swords and pushes [C] out of it's way!" )
-		C.Weaken(2)
+		C.Weaken(4 SECONDS)
 
 /mob/living/simple_animal/bot/secbot/griefsky/New()
 	..()
@@ -83,7 +83,10 @@
 		..()
 
 /mob/living/simple_animal/bot/secbot/griefsky/proc/sword_attack(mob/living/carbon/C)     // esword attack
-	src.do_attack_animation(C)
+	if((HAS_TRAIT(src, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) && dmg)
+		to_chat(usr, "<span class='warning'>You don't want to harm other living beings!</span>")
+		return
+	do_attack_animation(C)
 	playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, -1)
 	spawn(2)
 	icon_state = spin_icon
@@ -91,14 +94,15 @@
 	if(ishuman(C))
 		C.apply_damage(dmg, BRUTE)
 		if(prob(stun_chance))
-			C.Weaken(5)
-	add_attack_logs(src, C, "sliced")
+			C.Weaken(10 SECONDS)
+	if(dmg)
+		add_attack_logs(src, C, "sliced")
 	if(declare_arrests)
 		var/area/location = get_area(src)
 		if(!spam_flag)
 			speak("Back away! I will deal with this level [threat] swine <b>[C]</b> in [location] myself!.", radio_channel)
 			spam_flag = 1
-			addtimer(CALLBACK(src, .proc/spam_flag_false), 100) //to avoid spamming comms of sec for each hit
+			addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), 100) //to avoid spamming comms of sec for each hit
 			visible_message("[src] flails his swords and cuts [C]!")
 
 
@@ -174,7 +178,7 @@
 			icon_state = "[base_icon]-c"
 			visible_message("<b>[src]</b> points at [C.name]!")
 			mode = BOT_HUNT
-			INVOKE_ASYNC(src, .proc/handle_automated_action)
+			INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 			break
 		else
 			continue
@@ -263,7 +267,10 @@
 	var/check_mug = TRUE
 
 /mob/living/simple_animal/bot/secbot/griefsky/syndicate/sword_attack(mob/living/carbon/C)     // esword attack
-	src.do_attack_animation(C)
+	if((HAS_TRAIT(src, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) && dmg)
+		to_chat(usr, "<span class='warning'>You don't want to harm other living beings!</span>")
+		return
+	do_attack_animation(C)
 	playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, -1)
 	icon_state = spin_icon
 	var/threat = C.assess_threat(src)
@@ -272,7 +279,7 @@
 	if(ishuman(C))
 		C.apply_damage(dmg, BRUTE)
 		if(prob(stun_chance))
-			C.Weaken(5)
+			C.Weaken(10 SECONDS)
 	add_attack_logs(src, C, "sliced")
 	if(declare_arrests)
 		var/area/location = get_area(src)
@@ -282,7 +289,7 @@
 			else
 				speak("Back away! I will deal with this level [threat] swine <b>[C]</b> in [location] myself!.", radio_channel)
 			spam_flag = 1
-			addtimer(CALLBACK(src, .proc/spam_flag_false), 100) //to avoid spamming comms of sec for each hit
+			addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), 100) //to avoid spamming comms of sec for each hit
 			visible_message("[src] flails his swords and cuts [C]!")
 
 /mob/living/simple_animal/bot/secbot/griefsky/syndicate/proc/check_for_mug(obj/item/slot_item)
@@ -320,7 +327,7 @@
 			icon_state = "[base_icon]-c"
 			visible_message("<b>[src]</b> points at [C.name]!")
 			mode = BOT_HUNT
-			INVOKE_ASYNC(src, .proc/handle_automated_action)
+			INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 			break
 		else
 			continue

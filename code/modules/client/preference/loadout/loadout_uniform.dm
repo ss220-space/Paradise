@@ -166,7 +166,7 @@
 /datum/gear/uniform/skirt/job/med
 	display_name = "skirt, medical"
 	path = /obj/item/clothing/under/rank/medical/skirt
-	allowed_roles = list("Chief Medical Officer","Medical Doctor","Psychiatrist","Paramedic","Coroner")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Psychiatrist", "Paramedic", "Coroner", "Intern")
 
 /datum/gear/uniform/skirt/job/phys
 	display_name = "skirt, physician"
@@ -176,7 +176,7 @@
 /datum/gear/uniform/skirt/job/sci
 	display_name = "skirt, scientist"
 	path = /obj/item/clothing/under/rank/scientist/skirt
-	allowed_roles = list("Research Director","Scientist")
+	allowed_roles = list("Research Director","Scientist", "Student Scientist")
 
 /datum/gear/uniform/skirt/job/cargo
 	display_name = "skirt, cargo"
@@ -220,12 +220,17 @@
 /datum/gear/uniform/medical/pscrubs
 	display_name = "medical scrubs, purple"
 	path = /obj/item/clothing/under/rank/medical/purple
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Intern")
 
 /datum/gear/uniform/medical/gscrubs
 	display_name = "medical scrubs, green"
+	path = /obj/item/clothing/under/rank/medical/lightgreen
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Intern")
+
+/datum/gear/uniform/medical/dgscrubs
+	display_name = "medical scrubs, dark green"
 	path = /obj/item/clothing/under/rank/medical/green
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Intern")
 
 /datum/gear/uniform/sec
 	subtype_path = /datum/gear/uniform/sec

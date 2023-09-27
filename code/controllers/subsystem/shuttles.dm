@@ -7,6 +7,7 @@ SUBSYSTEM_DEF(shuttle)
 	flags = SS_KEEP_TIMING|SS_NO_TICK_CHECK
 	runlevels = RUNLEVEL_SETUP | RUNLEVEL_GAME
 	offline_implications = "Shuttles will no longer function and cargo will not generate points. Immediate server restart recommended."
+	cpu_display = SS_CPUDISPLAY_LOW
 	var/list/mobile = list()
 	var/list/stationary = list()
 	var/list/transit = list()
@@ -43,7 +44,8 @@ SUBSYSTEM_DEF(shuttle)
 	var/list/hidden_shuttle_turfs = list() //all turfs hidden from navigation computers associated with a list containing the image hiding them and the type of the turf they are pretending to be
 	var/list/hidden_shuttle_turf_images = list() //only the images from the above list
 
-/datum/controller/subsystem/shuttle/Initialize(start_timeofday)
+
+/datum/controller/subsystem/shuttle/Initialize()
 	ordernum = rand(1,9000)
 
 	if(!emergency)
@@ -63,10 +65,10 @@ SUBSYSTEM_DEF(shuttle)
 
 	centcom_message = "<center>---[station_time_timestamp()]---</center><br>Remember to stamp and send back the supply manifests.<hr>"
 
-	return ..()
 
-/datum/controller/subsystem/shuttle/stat_entry(msg)
-	..("M:[mobile.len] S:[stationary.len] T:[transit.len]")
+/datum/controller/subsystem/shuttle/get_stat_details()
+	return "M:[length(mobile)] S:[length(stationary)] T:[length(transit)]"
+
 
 /datum/controller/subsystem/shuttle/proc/initial_load()
 	for(var/obj/docking_port/D in world)
@@ -97,7 +99,7 @@ SUBSYSTEM_DEF(shuttle)
 
 /datum/controller/subsystem/shuttle/proc/secondsToRefuel()
 	var/elapsed = world.time - SSticker.round_start_time
-	var/remaining = round((config.shuttle_refuel_delay - elapsed) / 10)
+	var/remaining = round((CONFIG_GET(number/shuttle_refuel_delay) - elapsed) / 10)
 	return remaining > 0 ? remaining : 0
 
 /datum/controller/subsystem/shuttle/proc/requestEvac(mob/user, call_reason)
@@ -115,7 +117,7 @@ SUBSYSTEM_DEF(shuttle)
 		emergency = backup_shuttle
 
 	if(secondsToRefuel())
-		to_chat(user, "The emergency shuttle is refueling. Please wait another [abs(round(((world.time - SSticker.round_start_time) - config.shuttle_refuel_delay)/600))] minutes before trying again.")
+		to_chat(user, "The emergency shuttle is refueling. Please wait another [abs(round(((world.time - SSticker.round_start_time) - CONFIG_GET(number/shuttle_refuel_delay))/600))] minutes before trying again.")
 		return
 
 	switch(emergency.mode)
@@ -152,7 +154,7 @@ SUBSYSTEM_DEF(shuttle)
 	else
 		emergency.request(null, 1, signal_origin, html_decode(emergency_reason), 0)
 
-	log_game("[key_name(user)] has called the shuttle.")
+	add_game_logs("has called the shuttle.", user)
 	message_admins("[key_name_admin(user)] has called the shuttle.")
 
 	return
@@ -168,7 +170,7 @@ SUBSYSTEM_DEF(shuttle)
 /datum/controller/subsystem/shuttle/proc/cancelEvac(mob/user)
 	if(canRecall())
 		emergency.cancel(get_area(user))
-		log_game("[key_name(user)] has recalled the shuttle.")
+		add_game_logs("has recalled the shuttle.", user)
 		message_admins("[key_name_admin(user)] has recalled the shuttle.")
 		return 1
 
@@ -210,7 +212,7 @@ SUBSYSTEM_DEF(shuttle)
 	if(callShuttle)
 		if(emergency.mode < SHUTTLE_CALL)
 			emergency.request(null, 2.5)
-			log_game("There is no means of calling the shuttle anymore. Shuttle automatically called.")
+			add_game_logs("There is no means of calling the shuttle anymore. Shuttle automatically called.")
 			message_admins("All the communications consoles were destroyed and all AIs are inactive. Shuttle called.")
 
 //try to move/request to dockHome if possible, otherwise dockAway. Mainly used for admin buttons
@@ -234,6 +236,10 @@ SUBSYSTEM_DEF(shuttle)
 /datum/controller/subsystem/shuttle/proc/moveShuttle(shuttleId, dockId, timed, mob/user)
 	var/obj/docking_port/mobile/M = getShuttle(shuttleId)
 	var/obj/docking_port/stationary/D = getDock(dockId)
+
+	if(M.mode == SHUTTLE_RECHARGING)
+		return SHUTTLE_CONSOLE_RECHARGING
+
 	if(!M)
 		return 1
 	M.last_caller = user // Save the caller of the shuttle for later logging
@@ -243,6 +249,7 @@ SUBSYSTEM_DEF(shuttle)
 	else
 		if(M.dock(D))
 			return 2
+	M.areaInstance << M.fly_sound
 	return 0	//dock successful
 
 /datum/controller/subsystem/shuttle/proc/initial_move()

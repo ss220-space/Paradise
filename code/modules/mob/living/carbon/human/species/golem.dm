@@ -230,9 +230,8 @@
 			boom_warning = FALSE
 
 	if(H.bodytemperature > 850 && H.on_fire && prob(25))
-		explosion(get_turf(H), 1, 2, 4, flame_range = 5)
-		msg_admin_attack("Plasma Golem ([H.name]) exploded with radius 1, 2, 4 (flame_range: 5) at ([H.x],[H.y],[H.z]). User Ckey: [key_name_admin(H)]", ATKLOG_FEW)
-		log_game("Plasma Golem ([H.name]) exploded with radius 1, 2, 4 (flame_range: 5) at ([H.x],[H.y],[H.z]). User Ckey: [key_name_admin(H)]", ATKLOG_FEW)
+		explosion(get_turf(H), 1, 2, 4, flame_range = 5, cause = H)
+		add_attack_logs(H, null, "exploded", ATKLOG_FEW)
 		if(H)
 			H.gib()
 	if(H.fire_stacks < 2) //flammable
@@ -332,7 +331,8 @@
 /datum/species/golem/plasteel
 	name = "Пласталиевый Голем"
 	golem_colour = rgb(187, 187, 187)
-	stun_mod = 0.4
+	stun_mod = 0.5
+	stamina_mod = 0.5
 	punchdamagelow = 12
 	punchdamagehigh = 21
 	punchstunthreshold = 18 //still 40% stun chance
@@ -432,6 +432,7 @@
 	..()
 	H.languages.Cut()
 	H.add_language("Golem Mindlink")
+	H.add_language("Psionic Communication") // still grey enouhg to speak in psi link
 
 //Regenerates like dionas, less resistant
 /datum/species/golem/wood
@@ -559,7 +560,7 @@
 /datum/species/golem/sand/handle_death(gibbed, mob/living/carbon/human/H)
 	H.visible_message("<span class='danger'>[H] рассыпал[genderize_ru(H.gender,"ся","ась","ось","ись")] в кучу песка!</span>")
 	for(var/obj/item/W in H)
-		H.unEquip(W)
+		H.drop_item_ground(W)
 	for(var/i=1, i <= rand(3, 5), i++)
 		new /obj/item/stack/ore/glass(get_turf(H))
 	qdel(H)
@@ -604,14 +605,14 @@
 	playsound(H, "shatter", 70, 1)
 	H.visible_message("<span class='danger'>[H] разбил[genderize_ru(H.gender,"ся","ась","ось","ись")] в дребезги!</span>")
 	for(var/obj/item/W in H)
-		H.unEquip(W)
+		H.drop_item_ground(W)
 	for(var/i=1, i <= rand(3, 5), i++)
 		new /obj/item/shard(get_turf(H))
 	qdel(H)
 
 /datum/species/golem/glass/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
 	if(!(P.original == H && P.firer == H)) //self-shots don't reflect
-		if(P.is_reflectable)
+		if(P.is_reflectable(REFLECTABILITY_ENERGY))
 			H.visible_message("<span class='danger'>[P.name] отражается от стеклянной кожи [H]!</span>", \
 			"<span class='userdanger'>[P.name] отражается от стеклянной кожи [H]!</span>")
 
@@ -725,7 +726,7 @@
 	var/mob/living/carbon/human/H = owner
 	H.visible_message("<span class='warning'>[H] начинает вибрировать!</span>", "<span class='danger'>Вы начали заряжать своё блюспейс-ядро…</span>")
 	playsound(get_turf(H), 'sound/weapons/flash.ogg', 25, 1)
-	addtimer(CALLBACK(src, .proc/teleport, H), 15)
+	addtimer(CALLBACK(src, PROC_REF(teleport), H), 15)
 
 /datum/action/innate/unstable_teleport/proc/teleport(mob/living/carbon/human/H)
 	activated = FALSE
@@ -872,9 +873,40 @@
 	H.equip_to_slot_or_del(new 	/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing(H), slot_r_store)
 	H.equip_to_slot_or_del(new 	/obj/item/cane(H), slot_l_hand)
 	if(H.mind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/mime_wall(null))
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/mime/speak(null))
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
 		H.mind.miming = TRUE
 
 /datum/unarmed_attack/golem/tranquillite
 	attack_sound = null
+
+
+//FOR RATVAR!!!!!
+/datum/species/golem/clockwork
+	name = "Латунный Голем"
+	prefix = "Латунн"
+	special_names = null
+	golem_colour = rgb(176, 136, 32)
+	skinned_type = /obj/item/stack/sheet/brass
+	info_text = "Будучи <span class='danger'>латунный големом</span>, вы очень хрупкие, но взамен имеете силу Ратвара."
+	special_names = list(
+        MALE = list("Сплав", "Брусок", "Кусок", "Мужик", "Кирпич", "Минерал", "Буреходец", "Пожарник", "Лавоходец", "Лавоплавунец", "Тяжеступ", "Работяга", "Тяжеловес", "Увалень", "Бугай", "Пупс"),
+        FEMALE = list("Дева"),
+        NEUTER = null
+        )
+	chance_name_male = 70
+	chance_name_female = 60
+	chance_name_neuter = 10
+	special_name_chance = 40
+
+/datum/species/golem/clockwork/on_species_gain(mob/living/carbon/human/H)
+	. = ..()
+	if(!isclocker(H))
+		SSticker.mode.add_clocker(H.mind)
+
+/datum/species/golem/clockwork/handle_death(gibbed, mob/living/carbon/human/H)
+	H.visible_message("<span class='danger'>[H] crumbles into cogs and gears! Then leftovers suddenly dusts!</span>")
+	for(var/obj/item/W in H)
+		H.drop_item_ground(W)
+	new /obj/item/clockwork/clockgolem_remains(get_turf(H))
+	H.dust() // One-try only

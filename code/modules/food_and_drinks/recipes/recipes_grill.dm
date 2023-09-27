@@ -29,6 +29,13 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/friedegg
 
+/datum/recipe/grill/birdsteak
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meat/bird
+	)
+	result = /obj/item/reagent_containers/food/snacks/birdsteak
+
 /datum/recipe/grill/meatsteak
 	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
 	items = list(
@@ -269,3 +276,20 @@
 		/obj/item/reagent_containers/food/snacks/choc_pile
 	)
 	result = /obj/item/reagent_containers/food/snacks/pancake/choc_chip_pancake
+
+/datum/recipe/grill/unathi
+	reagents = list("blackpepper" = 1, "sodiumchloride" = 1, "herbsmix" = 1, "tsauce" = 1)
+	items = list(
+		/obj/item/organ/external/tail/unathi
+	)
+	result = /obj/item/reagent_containers/food/snacks/sliceable/lizard
+
+/datum/recipe/grill/plov
+	items = list(
+		/obj/item/reagent_containers/food/snacks/boiledrice,
+		/obj/item/reagent_containers/food/snacks/onion_slice,
+		/obj/item/reagent_containers/food/snacks/grown/carrot,
+		/obj/item/reagent_containers/food/snacks/rawcutlet,
+		/obj/item/reagent_containers/food/snacks/grown/garlic
+	)
+	result = /obj/item/reagent_containers/food/snacks/plov

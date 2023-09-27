@@ -99,15 +99,18 @@
 	can_hold = list() // any
 	cant_hold = list(/obj/item/disk/nuclear)
 
-/obj/item/storage/bag/plasticbag/mob_can_equip(M as mob, slot)
 
+/obj/item/storage/bag/plasticbag/mob_can_equip(mob/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
 	if(slot==slot_head && contents.len)
-		to_chat(M, "<span class='warning'>You need to empty the bag first!</span>")
-		return 0
+		if(!disable_warning)
+			to_chat(M, "<span class='warning'>You need to empty the bag first!</span>")
+		return FALSE
 	return ..()
 
 
-/obj/item/storage/bag/plasticbag/equipped(var/mob/user, var/slot)
+/obj/item/storage/bag/plasticbag/equipped(mob/user, slot, initial)
+	. = ..()
+
 	if(slot==slot_head)
 		storage_slots = 0
 		START_PROCESSING(SSobj, src)
@@ -120,7 +123,7 @@
 			if(H.get_item_by_slot(slot_head) == src)
 				if(H.internal)
 					return
-				H.AdjustLoseBreath(1)
+				H.AdjustLoseBreath(2 SECONDS)
 	else
 		storage_slots = 7
 		STOP_PROCESSING(SSobj, src)
@@ -140,8 +143,14 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 10
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * ore.w_class
-	max_w_class = WEIGHT_CLASS_NORMAL
+	max_w_class = WEIGHT_CLASS_BULKY
 	can_hold = list(/obj/item/stack/ore)
+
+/obj/item/storage/bag/ore/bigger
+	name = "industrial mining satchel"
+	desc = "This bugger can be used to store and transport ores. This one has additional utility pockets for ore."
+	icon_state = "satchel_better"
+	storage_slots = 16 //little better
 
 /obj/item/storage/bag/ore/cyborg
 	name = "cyborg mining satchel"
@@ -157,6 +166,23 @@
 
 /obj/item/storage/bag/ore/holding/cyborg
 	name = "cyborg mining satchel of holding"
+	flags = NODROP
+
+/obj/item/storage/bag/gem
+	name = "gem satchel"
+	desc = "You thought it would be more like what those cartoon robbers wear."
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "gem_satchel"
+	slot_flags = SLOT_BELT | SLOT_POCKET
+	w_class = WEIGHT_CLASS_NORMAL
+	storage_slots = 48
+	max_combined_w_class = 48
+	max_w_class = WEIGHT_CLASS_NORMAL
+	can_hold = list(/obj/item/gem)
+
+
+/obj/item/storage/bag/gem/cyborg
+	name = "cyborg gem satchel"
 	flags = NODROP
 
 // -----------------------------
@@ -209,11 +235,7 @@
 	var/capacity = 300; //the number of sheets it can carry.
 	w_class = WEIGHT_CLASS_NORMAL
 
-	allow_quick_empty = 1 // this function is superceded
-/obj/item/storage/bag/sheetsnatcher/New()
-	..()
-	//verbs -= /obj/item/storage/verb/quick_empty
-	//verbs += /obj/item/storage/bag/sheetsnatcher/quick_empty
+	allow_quick_empty = TRUE// this function is superceded
 
 /obj/item/storage/bag/sheetsnatcher/can_be_inserted(obj/item/W as obj, stop_messages = 0)
 	if(!istype(W,/obj/item/stack/sheet) || istype(W,/obj/item/stack/sheet/mineral/sandstone) || istype(W,/obj/item/stack/sheet/wood))
@@ -253,15 +275,12 @@
 			break
 
 	if(!inserted || !S.amount)
-		usr.unEquip(S)
+		usr.drop_transfer_item_to_loc(S, src)
 		usr.update_icons()	//update our overlays
 		if(usr.client && usr.s_active != src)
 			usr.client.screen -= S
-		S.dropped(usr)
 		if(!S.amount)
 			qdel(S)
-		else
-			S.loc = src
 
 	if(usr.s_active)
 		usr.s_active.show_to(usr)
@@ -309,7 +328,7 @@
 	update_icon()
 
 // Instead of removing
-/obj/item/storage/bag/sheetsnatcher/remove_from_storage(obj/item/W as obj, atom/new_location)
+/obj/item/storage/bag/sheetsnatcher/remove_from_storage(obj/item/W, atom/new_location)
 	var/obj/item/stack/sheet/S = W
 	if(!istype(S)) return 0
 
@@ -319,8 +338,9 @@
 	// -Sayu
 
 	if(S.amount > S.max_amount)
-		var/obj/item/stack/sheet/temp = new S.type(src)
-		temp.amount = S.amount - S.max_amount
+
+		new S.type(src, S.amount - S.max_amount)
+
 		S.amount = S.max_amount
 
 	return ..(S,new_location)
@@ -405,14 +425,14 @@
 
 	if(ishuman(M))
 		if(prob(10))
-			M.Weaken(2)
+			M.Weaken(4 SECONDS)
 
 /obj/item/storage/bag/tray/proc/rebuild_overlays()
 	overlays.Cut()
 	for(var/obj/item/I in contents)
 		overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
 
-/obj/item/storage/bag/tray/remove_from_storage(obj/item/W as obj, atom/new_location)
+/obj/item/storage/bag/tray/remove_from_storage(obj/item/W, atom/new_location)
 	..()
 	rebuild_overlays()
 
@@ -465,8 +485,7 @@
 /obj/item/storage/bag/tray/cookies_tray
 	var/cookie = /obj/item/reagent_containers/food/snacks/cookie
 
-/obj/item/storage/bag/tray/cookies_tray/New() /// By Azule Utama, thank you a lot!
-	..()
+/obj/item/storage/bag/tray/cookies_tray/populate_contents() /// By Azule Utama, thank you a lot!
 	for(var/i in 1 to 6)
 		var/obj/item/C = new cookie(src)
 		handle_item_insertion(C)    // Done this way so the tray actually has the cookies visible when spawned
@@ -474,6 +493,61 @@
 
 /obj/item/storage/bag/tray/cookies_tray/sugarcookie
 	cookie = /obj/item/reagent_containers/food/snacks/sugarcookie
+
+/*
+ *	Antag Tray
+ */
+/obj/item/storage/bag/dangertray
+	name = "tray"
+	icon = 'icons/obj/food/containers.dmi'
+	icon_state = "dangertray"
+	desc = "A metal tray to lay food on. The edges are razor sharp"
+	force = 25
+	throwforce = 25.0
+	throw_speed = 3
+	throw_range = 7
+	armour_penetration = 15
+	sharp = TRUE
+	w_class = WEIGHT_CLASS_NORMAL
+	flags = CONDUCT
+	materials = list(MAT_METAL=3000)
+
+/obj/item/storage/bag/dangertray/attack(mob/living/M, mob/living/user)
+	..()
+	// Drop all the things. All of them.
+	var/list/obj/item/oldContents = contents.Copy()
+	drop_inventory(user)
+
+	// Make each item scatter a bit
+	for(var/obj/item/I in oldContents)
+		spawn()
+			for(var/i = 1, i <= rand(1,2), i++)
+				if(I)
+					step(I, pick(NORTH,SOUTH,EAST,WEST))
+					sleep(rand(2,4))
+
+	if(prob(50))
+		playsound(M, 'sound/items/trayhit1.ogg', 50, 1)
+	else
+		playsound(M, 'sound/items/trayhit2.ogg', 50, 1)
+
+	if(ishuman(M))
+		if(prob(10))
+			M.Weaken(4 SECONDS)
+
+
+/obj/item/storage/bag/dangertray/proc/rebuild_overlays()
+	overlays.Cut()
+	for(var/obj/item/I in contents)
+		overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
+
+/obj/item/storage/bag/dangertray/remove_from_storage(obj/item/W, atom/new_location)
+	..()
+	rebuild_overlays()
+
+/obj/item/storage/bag/dangertray/handle_item_insertion(obj/item/I, prevent_warning = 0)
+	overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
+	..()
 
 /*
  *	Chemistry bag
@@ -504,3 +578,16 @@
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(/obj/item/slime_extract,/obj/item/reagent_containers/food/snacks/monkeycube,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/glass/bottle,/obj/item/reagent_containers/iv_bag,/obj/item/reagent_containers/hypospray/autoinjector)
 	resistance_flags = FLAMMABLE
+
+/*
+ *  Medicinal Pouch (mostly for ashwalkers)
+ */
+
+/obj/item/storage/bag/medpouch
+	name = "medicinal pouch"
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "pouch_ash"
+	desc = "A small pouch for holding plants, poultices, resin, and pestles."
+	storage_slots = 40
+	max_combined_w_class = 200
+	can_hold = list(/obj/item/reagent_containers/food/snacks/grown, /obj/item/stack/medical)

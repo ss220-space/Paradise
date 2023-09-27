@@ -19,6 +19,12 @@
 	multiple_sprites = 1
 	icon_prefix = "38"
 
+/obj/item/ammo_box/c38/hp
+	name = "speed loader (.38 Hollow-Point)"
+	ammo_type = /obj/item/ammo_casing/c38/hp
+	icon_state = "38hp-6"
+	icon_prefix = "38hp"
+
 /obj/item/ammo_box/c9mm
 	name = "ammo box (9mm)"
 	icon_state = "9mmbox"
@@ -39,6 +45,12 @@
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/c10mm
 	max_ammo = 20
+
+/obj/item/ammo_box/fortynr
+	name = "ammo box 40N&R"
+	icon_state = "40n&rbox"
+	ammo_type = /obj/item/ammo_casing/fortynr
+	max_ammo = 40
 
 /obj/item/ammo_box/c45
 	name = "ammo box (.45)"
@@ -106,6 +118,7 @@
 	ammo_type = /obj/item/ammo_casing/shotgun
 	max_ammo = 7
 	multiple_sprites = 1
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/ammo_box/shotgun/buck
 	name = "Shotgun Speedloader (buckshot)"
@@ -146,7 +159,7 @@
 //FOAM DARTS
 /obj/item/ammo_box/foambox
 	name = "ammo box (Foam Darts)"
-	icon = 'icons/obj/guns/toy.dmi'
+	icon = 'icons/obj/weapons/toy.dmi'
 	icon_state = "foambox"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
 	max_ammo = 40
@@ -157,7 +170,7 @@
 
 /obj/item/ammo_box/foambox/sniper
 	name = "ammo box (Foam Sniper Darts)"
-	icon = 'icons/obj/guns/toy.dmi'
+	icon = 'icons/obj/weapons/toy.dmi'
 	icon_state = "foambox_sniper"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/sniper
 	max_ammo = 40
@@ -172,3 +185,9 @@
 	ammo_type = /obj/item/ammo_casing/cap
 	max_ammo = 7
 	multiple_sprites = 1
+
+/obj/item/ammo_box/laserammobox
+	name = "laser ammo box"
+	icon_state = "laserbox"
+	ammo_type = /obj/item/ammo_casing/laser
+	max_ammo = 40

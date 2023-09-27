@@ -61,8 +61,8 @@
 	pixel_y = 26
 	},
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/tcommsat)
@@ -71,8 +71,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -100,7 +98,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/tcommsat)
 "au" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/tcommsat)
 "av" = (
@@ -112,8 +110,6 @@
 /area/space/nearstation)
 "aw" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
@@ -824,6 +820,11 @@
 	gpstag = "Faint Radio Signal"
 	},
 /turf/simulated/wall/r_wall,
+/area/ruin/tcommsat)
+"dN" = (
+/obj/structure/table,
+/obj/item/melee/bigiron,
+/turf/simulated/floor/plating/airless,
 /area/ruin/tcommsat)
 
 (1,1,1) = {"
@@ -2477,7 +2478,7 @@ ak
 ak
 bN
 ak
-ak
+dN
 ak
 ak
 ai

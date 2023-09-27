@@ -26,9 +26,9 @@
 		if(NO_EXTINGUISHER)
 			return
 		if(MINI_EXTINGUISHER)
-			has_extinguisher = new/obj/item/extinguisher/mini
+			has_extinguisher = new/obj/item/extinguisher/mini(src)
 		else
-			has_extinguisher = new/obj/item/extinguisher
+			has_extinguisher = new/obj/item/extinguisher(src)
 
 /obj/structure/extinguisher_cabinet/examine(mob/user)
 	. = ..()
@@ -65,10 +65,9 @@
 		return
 	if(istype(O, /obj/item/extinguisher))
 		if(!has_extinguisher && opened)
-			if(!user.drop_item())
+			if(!user.drop_transfer_item_to_loc(O, src))
 				return
-			user.drop_item(O)
-			contents += O
+			add_fingerprint(user)
 			has_extinguisher = O
 			update_icon()
 			to_chat(user, "<span class='notice'>You place [O] in [src].</span>")
@@ -78,6 +77,7 @@
 			opened = !opened
 		update_icon()
 	else if(user.a_intent != INTENT_HARM)
+		add_fingerprint(user)
 		playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 		opened = !opened
 		update_icon()
@@ -111,10 +111,12 @@
 		if(temp && !temp.is_usable())
 			to_chat(user, "<span class='notice'>You try to move your [temp.name], but cannot!")
 			return
+	add_fingerprint(user)
 	if(has_extinguisher)
 		if(icon_state == "extinguisher_closed")
 			playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
-		user.put_in_hands(has_extinguisher)
+		has_extinguisher.forceMove_turf()
+		user.put_in_hands(has_extinguisher, ignore_anim = FALSE)
 		to_chat(user, "<span class='notice'>You take [has_extinguisher] from [src].</span>")
 		has_extinguisher = null
 		opened = 1

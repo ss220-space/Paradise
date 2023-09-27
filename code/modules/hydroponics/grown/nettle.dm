@@ -71,7 +71,7 @@
 		force -= rand(1, (force / 3) + 1) // When you whack someone with it, leaves fall off
 	else
 		to_chat(usr, "All the leaves have fallen off the nettle from violent whacking.")
-		usr.unEquip(src)
+		usr.temporarily_remove_item_from_inventory(src)
 		qdel(src)
 
 /obj/item/grown/nettle/basic
@@ -101,7 +101,7 @@
 		if(PIERCEIMMUNE in H.dna.species.species_traits)
 			return
 		if(!H.gloves && prob(50))
-			user.Paralyse(2)
+			user.Paralyse(4 SECONDS)
 			to_chat(user, "<span class='userdanger'>You are stunned by the Deathnettle when you try picking it up!</span>")
 
 /obj/item/grown/nettle/death/attack(mob/living/carbon/M, mob/user)
@@ -110,8 +110,8 @@
 		to_chat(M, "<span class='danger'>You are stunned by the powerful acid of the Deathnettle!</span>")
 		add_attack_logs(user, M, "Hit with [src]")
 
-		M.AdjustEyeBlurry(force/7)
+		M.AdjustEyeBlurry((force / 7) STATUS_EFFECT_CONSTANT)
 		if(prob(20))
-			M.Paralyse(1)
-			M.Weaken(1)
-		M.drop_item()
+			M.Paralyse(2 SECONDS)
+			M.Weaken(2 SECONDS)
+		M.drop_from_active_hand()

@@ -6,9 +6,7 @@
 		return 0
 	else if(stat == UNCONSCIOUS)
 		return 0
-	create_attack_log("<font color='red'>Fallen unconscious at [atom_loc_line(get_turf(src))]</font>")
 	add_attack_logs(src, null, "Fallen unconscious", ATKLOG_ALL)
-	log_game("[key_name(src)] fell unconscious at [atom_loc_line(get_turf(src))]")
 	stat = UNCONSCIOUS
 	if(updating)
 		update_sight()
@@ -23,9 +21,7 @@
 		return 0
 	else if(stat == CONSCIOUS)
 		return 0
-	create_attack_log("<font color='red'>Woken up at [atom_loc_line(get_turf(src))]</font>")
 	add_attack_logs(src, null, "Woken up", ATKLOG_ALL)
-	log_game("[key_name(src)] woke up at [atom_loc_line(get_turf(src))]")
 	stat = CONSCIOUS
 	if(updating)
 		update_sight()
@@ -42,14 +38,12 @@
 // death() is used to make a mob die
 
 // handles revival through other means than cloning or adminbus (defib, IPC repair)
-/mob/living/proc/update_revive(updating = TRUE)
+/mob/living/proc/update_revive(updating = TRUE, force = FALSE)
 	if(stat != DEAD)
-		return 0
-	if(!can_be_revived())
-		return 0
-	create_attack_log("<font color='red'>Came back to life at [atom_loc_line(get_turf(src))]</font>")
+		return FALSE
+	if(!force && !can_be_revived())
+		return FALSE
 	add_attack_logs(src, null, "Came back to life", ATKLOG_ALL)
-	log_game("[key_name(src)] came back to life at [atom_loc_line(get_turf(src))]")
 	stat = CONSCIOUS
 	GLOB.dead_mob_list -= src
 	GLOB.alive_mob_list += src
@@ -59,6 +53,7 @@
 	if(updating)
 		update_canmove()
 		update_blind_effects()
+		update_blurry_effects()
 		update_sight()
 		updatehealth("update revive")
 		hud_used?.reload_fullscreen()
@@ -76,7 +71,7 @@
 			var/obj/effect/proc_holder/spell/spell = S
 			spell.updateButtonIcon()
 
-	return 1
+	return TRUE
 
 /mob/living/proc/check_death_method()
 	return TRUE

@@ -41,12 +41,12 @@ SUBSYSTEM_DEF(tickets)
 
 	var/ticketCounter = 1
 
+
 /datum/controller/subsystem/tickets/Initialize()
-	if(!close_messages)
-		close_messages = list("<font color='red' size='4'><b>- [ticket_name] Отклонено! -</b></font>",
+	close_messages = list("<font color='red' size='4'><b>- [ticket_name] Отклонено! -</b></font>",
 				"<span class='boldmessage'>Пожалуйста, постарайтесь в тикетах вести себя спокойно, излагать проблему ясно и описательно. Не предполагайте что администратор видел какие-либо связанные события, и чётко укажите имена тех, о ком вы сообщаете. Если вы задали вопрос, то убедитесь, что из него понятно, о чём именно вы спрашиваете.</span>",
 				"<span class='[span_class]'>Ваш [ticket_name] теперь закрыт.</span>")
-	return ..()
+
 
 /datum/controller/subsystem/tickets/fire()
 	var/stales = checkStaleness()
@@ -56,8 +56,10 @@ SUBSYSTEM_DEF(tickets)
 			report += "[num], "
 		message_staff("<span class='[span_class]'>Тикет [report] был открыт [TICKET_TIMEOUT / 600] минут. Меняю статус на «Просрочен».</span>")
 
-/datum/controller/subsystem/tickets/stat_entry()
-	..("Tickets: [LAZYLEN(allTickets)]")
+
+/datum/controller/subsystem/tickets/get_stat_details()
+	return "Tickets: [LAZYLEN(allTickets)]"
+
 
 /datum/controller/subsystem/tickets/proc/checkStaleness()
 	var/stales = list()
@@ -141,7 +143,7 @@ SUBSYSTEM_DEF(tickets)
 	T.mobControlled = C.mob
 
 	//Inform the user that they have opened a ticket
-	to_chat(C, "<span class='[span_class]'>Вы открыли [ticket_name] номер #[(getTicketCounter() - 1)]! Пожалуйста будьте спокойны и вам скоро помогут!</span>")
+	to_chat(C, "<span class='[span_class]'>Вы открыли [ticket_name] номер #[(getTicketCounter() - 1)]! Пожалуйста, ожидайте. Вам скоро ответят.</span>")
 	var/ticket_open_sound = sound('sound/effects/adminticketopen.ogg')
 	SEND_SOUND(C, ticket_open_sound)
 
@@ -192,7 +194,7 @@ SUBSYSTEM_DEF(tickets)
 	to_chat_safe(owner, list("<span class='[span_class]'>[key_name_hidden(C)] перевёл ваш тикет в [other_ticket_name] тикет.</span>",\
 									"<span class='[span_class]'>Be sure to use the correct type of help next time!</span>"))
 	message_staff("<span class='[span_class]'>[C] перевёл тикет под номером #[T.ticketNum] в [other_ticket_name] тикет.</span>")
-	log_game("[C] has converted ticket number [T.ticketNum] to a [other_ticket_name] ticket.")
+	add_game_logs("[C] has converted ticket number [T.ticketNum] to a [other_ticket_name] ticket.")
 	create_other_system_ticket(T)
 
 /datum/controller/subsystem/tickets/proc/create_other_system_ticket(datum/ticket/T)
@@ -216,19 +218,19 @@ SUBSYSTEM_DEF(tickets)
 		"Уже решено" = "Эта проблема уже решена.",
 		"MentorHelp" = "Прошу перенаправьте этот вопрос в Mentorhelp, так как они лучше разбираются в подобных вопросах.",
 		"Если ещё раз случится" = "Спасибо, дайте нам знать, если это продолжит происходить.",
-		"Сообщите об ошибке" = "Чтобы сообщить об ошибке, пожалуйста перейдите на <a href='[config.githuburl]/issues/new/choose'>GitHub</a>. Заполните все поля и отправьте. Если раунд всё ещё идёт, либо сохраните в текстовый файл, либо подождите пока раунд не закончится.",
+		"Сообщите об ошибке" = "Чтобы сообщить об ошибке, пожалуйста перейдите в <a href='[CONFIG_GET(string/discordbugreporturl)]'>Discord</a>. Составьте баг-репорт согласно закрепленному сообщению в канале и отправьте. Если раунд всё ещё идёт, либо сохраните в текстовый файл, либо подождите пока раунд не закончится.",
 		"Очистите кэш" = "Чтобы починить чёрный экран, зайдите в категорию 'Special Verbs' и нажмите 'Reload UI Resources'. Если это не помогло, очистите ваш BYOND-кэш (прилагаемая инструкция к 'Reload UI Resources'). Если и это не помогло, пожалуйста задействуйте AdminHelp ещё раз, написав, что вы уже это проходили." ,
 		"IC-проблема" = "Это игровая (In Character, проблема между персонажами, а не между игроками) ситуация. Она не обрабатывается администраторами. Вы можете поговорить со службой безопасности, АВД, главой отдела, представителем Nanotrasen, или обратиться в любой другой соответствующий орган, находящийся в настоящее время на станции.",
 		"Отказано" = "Отказано",
 		"Мужайся" = "Мужайся",
-		"Обжалование в Discord" = "Обжалование бана должно происходить в Discord. AdminHelp или личные сообщения администратору по поводу вашего бана скорее всего не решат эту проблему. Чтобы обжаловать ваш бан, пожалуйста, перейдите по адресу <a href='[config.banappeals]'>[config.banappeals]</a>"
+		"Обжалование в Discord" = "Обжалование бана должно происходить в Discord. AdminHelp или личные сообщения администратору по поводу вашего бана скорее всего не решат эту проблему. Чтобы обжаловать ваш бан, пожалуйста, перейдите по адресу <a href='[CONFIG_GET(string/banappeals)]'>[CONFIG_GET(string/banappeals)]</a>"
 		)
 
 	var/sorted_responses = list()
 	for(var/key in response_phrases)	//build a new list based on the short descriptive keys of the master list so we can send this as the input instead of the full paragraphs to the admin choosing which autoresponse
 		sorted_responses += key
 
-	var/message_key = input("Выберите авто-ответ. Это заменит тикет на решённый.", "Autoresponse") as null|anything in sortTim(sorted_responses, /proc/cmp_text_asc) //use sortTim and cmp_text_asc to sort alphabetically
+	var/message_key = input("Выберите авто-ответ. Это заменит тикет на решённый.", "Autoresponse") as null|anything in sortTim(sorted_responses, cmp = /proc/cmp_text_asc) //use sortTim and cmp_text_asc to sort alphabetically
 	var/client/ticket_owner = get_client_by_ckey(T.client_ckey)
 	switch(message_key)
 		if(null) //they cancelled
@@ -242,7 +244,7 @@ SUBSYSTEM_DEF(tickets)
 			T.lastStaffResponse = "Автоматический ответ: [message_key]"
 			resolveTicket(N)
 			message_staff("[C] отправил автоматический ответ на тикет [ticket_owner] сообщением:<span class='adminticketalt'> [message_key] </span>")
-			log_game("[C] has auto responded to [ticket_owner]\'s adminhelp with: [response_phrases[message_key]]")
+			add_game_logs("[C] has auto responded to [ticket_owner]\'s adminhelp with: [response_phrases[message_key]]")
 		if("Mentorhelp")
 			convert_ticket(T)
 		else
@@ -252,7 +254,7 @@ SUBSYSTEM_DEF(tickets)
 			message_staff("[C] has auto responded to [ticket_owner]\'s adminhelp with:<span class='adminticketalt'> [message_key] </span>") //we want to use the short named keys for this instead of the full sentence which is why we just do message_key
 			T.lastStaffResponse = "Autoresponse: [message_key]"
 			resolveTicket(N)
-			log_game("[C] has auto responded to [ticket_owner]\'s adminhelp with: [response_phrases[message_key]]")
+			add_game_logs("[C] has auto responded to [ticket_owner]\'s adminhelp with: [response_phrases[message_key]]")
 
 //Set ticket state with key N to closed
 /datum/controller/subsystem/tickets/proc/closeTicket(N)
@@ -331,7 +333,7 @@ SUBSYSTEM_DEF(tickets)
 	raw_title = raw_tit
 	content = list()
 	content += cont
-	timeOpened = worldtime2text()
+	timeOpened = ROUND_TIME_TEXT()
 	timeUntilStale = world.time + TICKET_TIMEOUT
 	setCooldownPeriod()
 	ticketNum = num
@@ -344,7 +346,7 @@ SUBSYSTEM_DEF(tickets)
 //Set the last staff who responded as the client passed as an arguement.
 /datum/ticket/proc/setLastStaffResponse(client/C)
 	lastStaffResponse = C
-	lastResponseTime = worldtime2text()
+	lastResponseTime = ROUND_TIME_TEXT()
 
 //Return the ticket state as a colour coded text string.
 /datum/ticket/proc/state2text()

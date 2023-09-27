@@ -7,6 +7,7 @@
 	density = FALSE
 	max_integrity = 15
 	var/mob/living/carbon/human/master_commander = null
+	var/new_mind_memory = "Я свободный паук."
 
 /obj/structure/spider/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	if(damage_type == BURN)//the stickiness of the web mutes all attack sounds except fire damage type
@@ -26,6 +27,9 @@
 	master_commander = null
 	return ..()
 
+/obj/structure/spider/has_prints()
+	return FALSE
+
 /obj/structure/spider/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
@@ -40,6 +44,8 @@
 		icon_state = "stickyweb2"
 
 /obj/structure/spider/stickyweb/CanPass(atom/movable/mover, turf/target, height=0)
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+		return TRUE
 	if(height == 0)
 		return TRUE
 	if(istype(mover, /mob/living/simple_animal/hostile/poison/giant_spider) || isterrorspider(mover))
@@ -67,6 +73,9 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/spider/eggcluster/process()
+	if(SSmobs.xenobiology_mobs > MAX_GOLD_CORE_MOBS - 10) //eggs gonna chill out until there is less spiders
+		return
+
 	amount_grown += rand(0,2)
 	if(amount_grown >= 100)
 		var/num = rand(3, 12)
@@ -74,6 +83,7 @@
 			var/obj/structure/spider/spiderling/S = new /obj/structure/spider/spiderling(loc)
 			S.faction = faction.Copy()
 			S.master_commander = master_commander
+			S.new_mind_memory = master_commander ? "<B>Мой хозяин [master_commander.name], выполню [genderize_ru(master_commander.gender, "его", "её", "этого", "их")] цели любой ценой!</B>" : new_mind_memory
 			if(player_spiders)
 				S.player_spiders = 1
 		qdel(src)
@@ -92,6 +102,8 @@
 	var/player_spiders = 0
 	var/list/faction = list("spiders")
 	var/selecting_player = 0
+	///Is this spiderling created from a xenobiology mob?
+	var/xenobiology_spawned = FALSE
 
 /obj/structure/spider/spiderling/Initialize(mapload)
 	. = ..()
@@ -105,6 +117,18 @@
 	entry_vent = null
 	new /obj/effect/decal/cleanable/spiderling_remains(get_turf(src))
 	return ..()
+
+/obj/structure/spider/spiderling/attack_hand(mob/living/user)
+	. = ..()
+	if(ishuman(user))
+		if (user.a_intent == INTENT_HELP)
+			visible_message("<span class='notice'>Вы пощекотали брюшко [src.name].</span>", "<span class='notice'>[user.name] пощекотал[genderize_ru(user.gender,"","а","о","и")] брюшко [src.name].</span>")
+			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+		else
+			user.changeNext_move(CLICK_CD_MELEE)
+			user.do_attack_animation(src, user.dna.species.unarmed.animation_type)
+			playsound(src.loc, user.dna.species.unarmed.attack_sound, 25, 1, -1)
+			attack_generic(user, max_integrity/3)
 
 /obj/structure/spider/spiderling/Bump(atom/user)
 	if(istype(user, /obj/structure/table))
@@ -168,11 +192,18 @@
 	if(isturf(loc))
 		amount_grown += rand(0,2)
 		if(amount_grown >= 100)
+			if(SSmobs.xenobiology_mobs > MAX_GOLD_CORE_MOBS && xenobiology_spawned)
+				qdel(src)
+				return
 			if(!grow_as)
 				grow_as = pick(typesof(/mob/living/simple_animal/hostile/poison/giant_spider))
 			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(loc)
 			S.faction = faction.Copy()
 			S.master_commander = master_commander
+			S.mind?.store_memory(new_mind_memory)
+			S.xenobiology_spawned = xenobiology_spawned
+			if(xenobiology_spawned)
+				SSmobs.xenobiology_mobs++
 			if(player_spiders && !selecting_player)
 				selecting_player = 1
 				spawn()
@@ -199,7 +230,7 @@
 	return TRUE
 
 /obj/structure/spider/spiderling/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(!istype(user, /mob/living/silicon/robot/drone))
+	if(!isdrone(user))
 		user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
 		"<span class='warning'>It's a bit of a struggle, but you manage to suck [user] into your decompiler. It makes a series of visceral crunching noises.</span>")
 		C.stored_comms["wood"] += 2

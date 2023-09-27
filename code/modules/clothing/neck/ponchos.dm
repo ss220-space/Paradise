@@ -6,12 +6,12 @@
 	icon_state = "classicponcho"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/neck.dmi',
-		"Monkey" = 'icons/mob/species/monkey/neck.dmi',
-		"Farwa" = 'icons/mob/species/monkey/neck.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/neck.dmi',
-		"Neara" = 'icons/mob/species/monkey/neck.dmi',
-		"Stok" = 'icons/mob/species/monkey/neck.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/neck.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/neck.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/neck.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/neck.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/neck.dmi'
 	)
 
 /obj/item/clothing/neck/poncho/green
@@ -29,3 +29,8 @@
 	desc = "Forced to live on your shameful acting as a fake Mexican, you and your poncho have grown inseperable. Literally."
 	icon_state = "ponchoshame"
 	flags = NODROP
+
+/obj/item/clothing/neck/poncho/security
+	name = "corporate poncho"
+	desc = "Пончо в корпоративных цветах, при его виде пропадает желание нелегально пересекать сектор"
+	icon_state = "secponcho"

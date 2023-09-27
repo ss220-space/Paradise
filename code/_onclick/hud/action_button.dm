@@ -40,8 +40,9 @@
 		return TRUE
 	if(usr.next_click > world.time)
 		return
-	usr.next_click = world.time + 1
+	usr.next_click = world.time + 0.1 SECONDS
 	linked_action.Trigger()
+	linked_action.UpdateButtonIcon() //redraw button
 	return TRUE
 
 //Hide/Show Action Buttons ... Button

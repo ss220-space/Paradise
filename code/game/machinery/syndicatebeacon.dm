@@ -18,6 +18,7 @@
 	var/charges = 1
 
 /obj/machinery/syndicate_beacon/attack_hand(var/mob/user as mob)
+	add_fingerprint(user)
 	usr.set_machine(src)
 	var/dat = {"<meta charset="UTF-8"><font color=#005500><i>Scanning [pick("retina pattern", "voice print", "fingerprints", "dna sequence")]...<br>Identity confirmed,<br></i></font>"}
 	if(istype(user, /mob/living/carbon/human) || istype(user, /mob/living/silicon/ai))
@@ -72,6 +73,7 @@
 					objective = "Make certain at least 80% of the station evacuates on the shuttle."
 
 			var/datum/objective/custom_objective = new(objective)
+			custom_objective.needs_target = FALSE
 			custom_objective.owner = N.mind
 			N.mind.objectives += custom_objective
 			var/datum/objective/escape/escape_objective = new
@@ -103,7 +105,7 @@
 /obj/machinery/power/singularity_beacon
 	name = "ominous beacon"
 	desc = "This looks suspicious..."
-	icon = 'icons/obj/singularity.dmi'
+	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "beacon"
 
 	anchored = 0
@@ -118,7 +120,7 @@
 /obj/machinery/power/singularity_beacon/proc/Activate(mob/user = null)
 	if(surplus() < 1500)
 		if(user)
-			to_chat(user, "<span class='notice'>The connected wire doesn't have enough current.</span>")
+			to_chat(user, span_notice("The connected wire doesn't have enough current."))
 		return
 	for(var/thing in GLOB.singularities)
 		var/obj/singularity/singulo = thing
@@ -128,7 +130,7 @@
 	active = 1
 	START_PROCESSING(SSmachines, src)
 	if(user)
-		to_chat(user, "<span class='notice'>You activate the beacon.</span>")
+		to_chat(user, span_notice("You activate the beacon."))
 
 
 /obj/machinery/power/singularity_beacon/proc/Deactivate(mob/user = null)
@@ -139,7 +141,7 @@
 	icon_state = "[icontype]0"
 	active = 0
 	if(user)
-		to_chat(user, "<span class='notice'>You deactivate the beacon.</span>")
+		to_chat(user, span_notice("You deactivate the beacon."))
 
 
 /obj/machinery/power/singularity_beacon/attack_ai(mob/user as mob)
@@ -148,22 +150,23 @@
 
 /obj/machinery/power/singularity_beacon/attack_hand(var/mob/user as mob)
 	if(anchored)
+		add_fingerprint(user)
 		return active ? Deactivate(user) : Activate(user)
 	else
-		to_chat(user, "<span class='warning'>You need to screw the beacon to the floor first!</span>")
+		to_chat(user, span_warning("You need to screw the beacon to the floor first!"))
 		return
 
 
 /obj/machinery/power/singularity_beacon/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(active)
-		to_chat(user, "<span class='warning'>You need to deactivate the beacon first!</span>")
+		to_chat(user, span_warning("You need to deactivate the beacon first!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(anchored)
 		anchored = FALSE
-		to_chat(user, "<span class='notice'>You unscrew the beacon from the floor.</span>")
+		to_chat(user, span_notice("You unscrew the beacon from the floor."))
 		disconnect_from_network()
 		return
 	else
@@ -171,7 +174,7 @@
 			to_chat(user, "This device must be placed over an exposed cable.")
 			return
 		anchored = TRUE
-		to_chat(user, "<span class='notice'>You screw the beacon to the floor and attach the cable.</span>")
+		to_chat(user, span_notice("You screw the beacon to the floor and attach the cable."))
 
 /obj/machinery/power/singularity_beacon/Destroy()
 	if(active)

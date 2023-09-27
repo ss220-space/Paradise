@@ -51,13 +51,13 @@
 	desc = "To be applied to the head repeatedly."
 	icon_state ="bible"
 
-/obj/item/storage/bible/booze/New()
-	..()
+/obj/item/storage/bible/booze/populate_contents()
 	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
 	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
 	new /obj/item/stack/spacecash(src)
 	new /obj/item/stack/spacecash(src)
 	new /obj/item/stack/spacecash(src)
+
 //BS12 EDIT
  // All cult functionality moved to Null Rod
 /obj/item/storage/bible/proc/bless(mob/living/carbon/M)
@@ -92,7 +92,7 @@
 	if((CLUMSY in user.mutations) && prob(50))
 		to_chat(user, "<span class='warning'>The [src] slips out of your hand and hits your head.</span>")
 		user.take_organ_damage(10)
-		user.Paralyse(20)
+		user.Paralyse(40 SECONDS)
 		return
 
 	if(M.stat != DEAD && ishuman(M))
@@ -118,7 +118,7 @@
 			chaplain.electrocute_act(5, "Lightning Bolt", safety = TRUE, override = TRUE)
 			playsound(get_turf(chaplain), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 			chaplain.adjustFireLoss(65)
-			chaplain.Weaken(5)
+			chaplain.Weaken(10 SECONDS)
 			to_chat(chaplain, "<span class='userdanger'>Вы злоупотребили волей бога и за что были наказаны!</span>")
 
 	else
@@ -142,17 +142,20 @@
 			airlock.cult_reveal()
 
 	if(user.mind?.isholy && target.reagents)
-		if(target.reagents.has_reagent("water")) //blesses all the water in the holder
-			to_chat(user, "<span class='notice'>You bless [target].</span>")
-			var/water2holy = target.reagents.get_reagent_amount("water")
-			target.reagents.del_reagent("water")
-			target.reagents.add_reagent("holywater", water2holy)
+		add_holy_water(user, target)
 
-		if(target.reagents.has_reagent("unholywater")) //yeah yeah, copy pasted code - sue me
-			to_chat(user, "<span class='notice'>You purify [target].</span>")
-			var/unholy2clean = target.reagents.get_reagent_amount("unholywater")
-			target.reagents.del_reagent("unholywater")
-			target.reagents.add_reagent("holywater", unholy2clean)
+/obj/item/storage/bible/proc/add_holy_water(mob/user, atom/target)
+	if(target.reagents.has_reagent("water")) //blesses all the water in the holder
+		to_chat(user, "<span class='notice'>You bless [target].</span>")
+		var/water2holy = target.reagents.get_reagent_amount("water")
+		target.reagents.del_reagent("water")
+		target.reagents.add_reagent("holywater", water2holy)
+
+	if(target.reagents.has_reagent("unholywater")) //yeah yeah, copy pasted code - sue me
+		to_chat(user, "<span class='notice'>You purify [target].</span>")
+		var/unholy2clean = target.reagents.get_reagent_amount("unholywater")
+		target.reagents.del_reagent("unholywater")
+		target.reagents.add_reagent("holywater", unholy2clean)
 
 /obj/item/storage/bible/attack_self(mob/user)
 	. = ..()
@@ -165,7 +168,7 @@
 		var/image/bible_image = image('icons/obj/storage.dmi', icon_state = icons["state"])
 		skins[I] = bible_image
 
-	var/choice = show_radial_menu(user, src, skins, null, 40, CALLBACK(src, .proc/radial_check, user), TRUE)
+	var/choice = show_radial_menu(user, src, skins, null, 40, CALLBACK(src, PROC_REF(radial_check), user), TRUE)
 	if(!choice || !radial_check(user))
 		return
 	var/choice_icons = bible_variants[choice]
@@ -200,6 +203,6 @@
 	if(!user?.mind.isholy || !ishuman(user))
 		return FALSE
 	var/mob/living/carbon/human/H = user
-	if(!src || !H.is_in_hands(src) || H.incapacitated())
+	if(!src || !H.is_type_in_hands(src) || H.incapacitated())
 		return FALSE
 	return TRUE

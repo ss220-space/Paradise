@@ -19,12 +19,13 @@
 	var/obj/screen/m_select = null
 	var/obj/screen/healths = null
 	var/obj/screen/throw_icon = null
+	var/obj/screen/stamina_bar = null
 
 	/*A bunch of this stuff really needs to go under their own defines instead of being globally attached to mob.
 	A variable should only be globally attached to turfs/objects/whatever, when it is in fact needed as such.
 	The current method unnecessarily clusters up the variable list, especially for humans (although rearranging won't really clean it up a lot but the difference will be noticable for other mobs).
 	I'll make some notes on where certain variable defines should probably go.
-	Changing this around would probably require a good look-over the pre-existing code.
+	Changing this around would probably require a good look-over the pre-existing code.   :resident_sleeper:
 	*/
 	var/obj/screen/leap_icon = null
 	var/obj/screen/healthdoll/healthdoll = null
@@ -34,18 +35,19 @@
 	var/computer_id = null
 	var/lastattacker = null // real name of the person  doing the attacking
 	var/lastattackerckey = null // their ckey
-	var/list/attack_log_old = list( )
+
 	var/list/debug_log = null
+	var/last_log = 0
+	var/list/attack_log_old = list()
 
 	var/last_known_ckey = null	// Used in logging
 
-	var/last_log = 0
 	var/obj/machinery/machine = null
 	var/currently_grab_pulled = null  /// only set while the move is ongoing, to prevent shuffling between pullees
 	var/memory = ""
 	var/next_move = null
 	var/notransform = null	//Carbon
-	var/hand = null
+	var/hand = null			// 0 - right hand is active, 1 - left hand is active
 	var/real_name = null
 	var/flavor_text = ""
 	var/med_record = ""
@@ -55,9 +57,10 @@
 	var/lying_prev = 0
 	var/lastpuke = 0
 	var/can_strip = 1
-	var/list/languages = list()         // For speaking/listening.
-	var/list/abilities = list()         // For species-derived or admin-given powers.
-	var/list/speak_emote = list("says") // Verbs used when speaking. Defaults to 'say' if speak_emote is null.
+	var/list/languages = list()           // For speaking/listening.
+	var/list/temporary_languages = list() // For reagents that grant language knowlege.
+	var/list/abilities = list()           // For species-derived or admin-given powers.
+	var/list/speak_emote = list("says")   // Verbs used when speaking. Defaults to 'say' if speak_emote is null.
 	var/emote_type = 1		// Define emote default type, 1 for seen emotes, 2 for heard emotes
 	var/name_archive //For admin things like possession
 	var/gunshot_residue
@@ -72,7 +75,6 @@
 
 	var/overeatduration = 0		// How long this guy is overeating //Carbon
 	var/intent = null //Living
-	var/shakecamera = 0
 	var/a_intent = INTENT_HELP //Living
 	var/m_intent = MOVE_INTENT_RUN //Living
 	var/lastKnownIP = null
@@ -94,7 +96,8 @@
 
 	var/research_scanner = 0 //For research scanner equipped mobs. Enable to show research data when examining.
 
-	var/list/grabbed_by = list()
+	var/list/obj/item/grab/grabbed_by = list()
+	var/list/obj/item/twohanded/garrote/garroted_by = list()
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 	var/list/mapobjs = list()
 
@@ -156,7 +159,6 @@
 
 	var/area/lastarea = null
 
-	var/digitalcamo = 0 // Can they be tracked by the AI?
 	var/weakeyes = 0 //Are they vulnerable to flashes?
 
 	var/has_unlimited_silicon_privilege = 0 // Can they interact with station electronics
@@ -208,6 +210,6 @@
 
 	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override
 
-
-	/// The location our runechat message should appear. Should be src by default.
-	var/atom/runechat_msg_location
+	/// The datum receiving keyboard input. parent mob by default.
+	var/datum/input_focus = null
+	var/last_emote = null

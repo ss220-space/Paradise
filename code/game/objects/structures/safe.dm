@@ -7,7 +7,7 @@ SAFE CODES
 */
 
 #define DRILL_SPARK_CHANCE 15
-#define DRILL_TIME 300 SECONDS
+#define DRILL_TIME 150 SECONDS
 #define SOUND_CHANCE 10
 
 GLOBAL_LIST_EMPTY(safes)
@@ -149,7 +149,7 @@ GLOBAL_LIST_EMPTY(safes)
 		switch(alert("What would you like to do?", "Thermal Drill", "Turn [drill_timer ? "Off" : "On"]", "Remove Drill", "Cancel"))
 			if("Turn On")
 				if(do_after(user, 2 SECONDS, target = src))
-					drill_timer = addtimer(CALLBACK(src, .proc/drill_open), time_to_drill, TIMER_STOPPABLE)
+					drill_timer = addtimer(CALLBACK(src, PROC_REF(drill_open)), time_to_drill, TIMER_STOPPABLE)
 					drill_start_time = world.time
 					drill.soundloop.start()
 					update_icon()
@@ -165,7 +165,8 @@ GLOBAL_LIST_EMPTY(safes)
 				if(drill_timer)
 					to_chat(user, "<span class='warning'>You cannot remove the drill while it's running!</span>")
 				else if(do_after(user, 2 SECONDS, target = src))
-					user.put_in_hands(drill)
+					drill.forceMove_turf()
+					user.put_in_hands(drill, ignore_anim = FALSE)
 					drill = null
 					update_icon()
 			if("Cancel")
@@ -176,16 +177,17 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/structure/safe/attackby(obj/item/I, mob/user, params)
 	if(open)
 		if(broken && istype(I, /obj/item/safe_internals) && do_after(user, 2 SECONDS, target = src))
+			add_fingerprint(user)
 			to_chat(user, "<span class='notice'>You replace the broken mechanism.</span>")
 			qdel(I)
 			broken = FALSE
 			update_icon()
 		else if(I.w_class + space <= maxspace)
-			if(!user.drop_item())
+			if(!user.drop_transfer_item_to_loc(I, src))
 				to_chat(user, "<span class='warning'>\The [I] is stuck to your hand, you cannot put it in the safe!</span>")
 				return
+			add_fingerprint(user)
 			space += I.w_class
-			I.forceMove(src)
 			to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
 			SStgui.update_uis(src)
 		else
@@ -198,10 +200,10 @@ GLOBAL_LIST_EMPTY(safes)
 			if(drill)
 				to_chat(user, "<span class='warning'>There is already a drill attached!</span>")
 			else if(do_after(user, 2 SECONDS, target = src))
-				if(!user.drop_item())
+				if(!user.drop_transfer_item_to_loc(I, src))
 					to_chat(user, "<span class='warning'>[I] is stuck to your hand, you cannot put it in the safe!</span>")
 					return
-				I.forceMove(src)
+				add_fingerprint(user)
 				drill = I
 				time_to_drill = DRILL_TIME * drill.time_multiplier
 				update_icon()
@@ -245,7 +247,7 @@ GLOBAL_LIST_EMPTY(safes)
 	var/canhear = FALSE
 	if(ishuman(usr))
 		var/mob/living/carbon/human/H = usr
-		if(H.can_hear() && H.is_in_hands(/obj/item/clothing/accessory/stethoscope))
+		if(H.can_hear() && H.is_type_in_hands(/obj/item/clothing/accessory/stethoscope))
 			canhear = TRUE
 
 	. = TRUE
@@ -305,7 +307,8 @@ GLOBAL_LIST_EMPTY(safes)
 				return
 			var/obj/item/I = contents[index]
 			if(I && in_range(src, usr))
-				usr.put_in_hands(I)
+				I.forceMove_turf()
+				usr.put_in_hands(I, ignore_anim = FALSE)
 				space -= I.w_class
 		else
 			return FALSE
@@ -392,7 +395,7 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/item/paper/safe_code
 	name = "safe codes"
 	var/owner
-	info = "<div style='text-align:center;'><img src='ntlogo.png'><center><h3>Safe Codes</h3></center>"
+	info = "<div style='text-align:center;'><img src = ntlogo.png><center><h3>Safe Codes</h3></center>"
 
 /obj/item/paper/safe_code/Initialize(mapload)
 	..()

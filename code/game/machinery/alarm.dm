@@ -70,14 +70,14 @@
 
 /obj/machinery/alarm
 	name = "alarm"
-	icon = 'icons/obj/monitors.dmi'
+	icon = 'icons/obj/machines/monitors.dmi'
 	icon_state = "alarm0"
 	anchored = 1
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 4
 	active_power_usage = 8
 	power_channel = ENVIRON
-	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE_EQUIP)
+	req_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE_EQUIP)
 	max_integrity = 250
 	integrity_failure = 80
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30)
@@ -125,7 +125,6 @@
 	report_danger_level = FALSE
 	remote_control = FALSE
 	req_access = list(ACCESS_SYNDICATE)
-	req_one_access = list()
 
 /obj/machinery/alarm/monitor/server
 	preset = AALARM_PRESET_SERVER
@@ -239,7 +238,7 @@
 	..()
 	set_frequency(frequency)
 	if(is_taipan(z)) // Синдидоступ при сборке на тайпане
-		req_one_access = list(ACCESS_SYNDICATE)
+		req_access = list(ACCESS_SYNDICATE)
 
 	if(!master_is_operating())
 		elect_master()
@@ -620,24 +619,24 @@
 
 	cur_tlv = TLV["oxygen"]
 	var/oxygen_dangerlevel = cur_tlv.get_danger_level(environment.oxygen*GET_PP)
-	var/oxygen_percent = round(environment.oxygen / total * 100, 2)
+	var/oxygen_percent = environment.oxygen / total * 100
 
 	cur_tlv = TLV["nitrogen"]
 	var/nitrogen_dangerlevel = cur_tlv.get_danger_level(environment.nitrogen*GET_PP)
-	var/nitrogen_percent = round(environment.nitrogen / total * 100, 2)
+	var/nitrogen_percent = environment.nitrogen / total * 100
 
 	cur_tlv = TLV["carbon dioxide"]
 	var/co2_dangerlevel = cur_tlv.get_danger_level(environment.carbon_dioxide*GET_PP)
-	var/co2_percent = round(environment.carbon_dioxide / total * 100, 2)
+	var/co2_percent = environment.carbon_dioxide / total * 100
 
 	cur_tlv = TLV["plasma"]
 	var/plasma_dangerlevel = cur_tlv.get_danger_level(environment.toxins*GET_PP)
-	var/plasma_percent = round(environment.toxins / total * 100, 2)
+	var/plasma_percent = environment.toxins / total * 100
 
 	cur_tlv = TLV["other"]
 	var/other_moles = total - known_total
 	var/other_dangerlevel = cur_tlv.get_danger_level(other_moles*GET_PP)
-	var/other_percent = round(other_moles / total * 100, 2)
+	var/other_percent = other_moles / total * 100
 
 	cur_tlv = TLV["temperature"]
 	var/temperature_dangerlevel = cur_tlv.get_danger_level(environment.temperature)
@@ -796,7 +795,7 @@
 		return TRUE
 	if(user.can_admin_interact())
 		return TRUE
-	else if(isAI(user) || isrobot(user) || emagged)
+	else if(isAI(user) || (isrobot(user) || emagged) && !iscogscarab(user))
 		return TRUE
 	else
 		return !locked
@@ -806,7 +805,7 @@
 		return STATUS_CLOSE
 
 	if(aidisabled && (isAI(user) || isrobot(user)))
-		to_chat(user, "<span class='warning'>AI control for \the [src] interface has been disabled.</span>")
+		to_chat(user, span_warning("AI control for \the [src] interface has been disabled."))
 		return STATUS_CLOSE
 
 	. = shorted ? STATUS_DISABLED : STATUS_INTERACTIVE
@@ -932,7 +931,7 @@
 				return
 			input_temperature = input_temperature + T0C
 			if(input_temperature > max_temperature || input_temperature < min_temperature)
-				to_chat(usr, "<span class='warning'>Temperature must be between [min_temperature_c]C and [max_temperature_c]C</span>")
+				to_chat(usr, span_warning("Temperature must be between [min_temperature_c]C and [max_temperature_c]C"))
 			else
 				target_temperature = input_temperature
 
@@ -943,12 +942,11 @@
 	if(!emagged)
 		emagged = TRUE
 		if(user)
-			user.visible_message("<span class='warning'>Sparks fly out of the [src]!</span>", "<span class='notice'>You emag the [src], disabling its safeties.</span>")
+			user.visible_message(span_warning("Sparks fly out of the [src]!"), span_notice("You emag the [src], disabling its safeties."))
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		return
 
 /obj/machinery/alarm/attackby(obj/item/I, mob/user, params)
-	add_fingerprint(user)
 
 	switch(buildstage)
 		if(2)
@@ -958,11 +956,12 @@
 					return
 				else
 					if(allowed(usr) && !wires.is_cut(WIRE_IDSCAN))
+						add_fingerprint(user)
 						locked = !locked
-						to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the Air Alarm interface.</span>")
+						to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] the Air Alarm interface."))
 						SStgui.update_uis(src)
 					else
-						to_chat(user, "<span class='warning'>Access denied.</span>")
+						to_chat(user, span_warning("Access denied."))
 				return
 
 		if(1)
@@ -972,6 +971,7 @@
 					to_chat(user, "You need more cable for this!")
 					return
 
+				add_fingerprint(user)
 				to_chat(user, "You wire \the [src]!")
 				playsound(get_turf(src), coil.usesound, 50, 1)
 				coil.use(5)
@@ -984,6 +984,7 @@
 				return
 		if(0)
 			if(istype(I, /obj/item/airalarm_electronics))
+				add_fingerprint(user)
 				to_chat(user, "You insert the circuit!")
 				playsound(get_turf(src), I.usesound, 50, 1)
 				qdel(I)
@@ -1037,8 +1038,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(wires.is_all_cut()) // all wires cut
-		var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil(user.drop_location())
-		new_coil.amount = 5
+		new /obj/item/stack/cable_coil(user.drop_location(), 5)
 		buildstage = AIR_ALARM_BUILDING
 		update_icon()
 	if(wiresexposed)
@@ -1078,9 +1078,9 @@
 /obj/machinery/alarm/examine(mob/user)
 	. = ..()
 	if(buildstage < 2)
-		. += "<span class='notice'>It is not wired.</span>"
+		. += span_notice("It is not wired.")
 	if(buildstage < 1)
-		. += "<span class='notice'>The circuit is missing.</span>"
+		. += span_notice("The circuit is missing.")
 
 /obj/machinery/alarm/proc/unshort_callback()
 	if(shorted)
@@ -1096,7 +1096,6 @@
 	desc = "This particular atmos control unit appears to have no access restrictions."
 	locked = FALSE
 	req_access = null
-	req_one_access = null
 
 /*
 AIR ALARM CIRCUIT

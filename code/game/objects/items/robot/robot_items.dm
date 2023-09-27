@@ -21,9 +21,8 @@
 			return
 
 	user.do_attack_animation(M)
-	M.Weaken(1)
-	M.apply_effect(STUTTER, 5)
-	M.Stun(1)
+	M.Weaken(2 SECONDS)
+	M.apply_effect(STUTTER, 10 SECONDS)
 	M.adjustStaminaLoss(20)
 
 	M.visible_message("<span class='danger'>[user] has prodded [M] with [src]!</span>", \
@@ -31,6 +30,13 @@
 
 	playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
 	add_attack_logs(user, M, "Stunned with [src] ([uppertext(user.a_intent)])")
+
+/obj/item/gun/energy/emittercannon
+	name = "Emitter Cannon"
+	desc = "Looks clean and very powerful."
+	ammo_type = list(/obj/item/ammo_casing/energy/emittergunborg)
+	icon_state = "emittercannon"
+	var/charge_cost = 750
 
 /obj/item/borg/overdrive
 	name = "Overdrive"

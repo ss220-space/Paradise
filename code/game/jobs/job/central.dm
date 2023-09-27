@@ -36,6 +36,8 @@
 	backpack = /obj/item/storage/backpack/satchel
 	backpack_contents = list(
 		/obj/item/stamp/centcom = 1,
+		/obj/item/stamp/ploho = 1,
+		/obj/item/stamp/BIGdeny = 1,
 	)
 	box = /obj/item/storage/box/centcomofficer
 	cybernetic_implants = list(
@@ -47,6 +49,18 @@
 	if(visualsOnly)
 		return
 	H.mind.offstation_role = TRUE
+
+// НТ Оффицер для недовольных выходов с ЦК.
+/datum/job/ntnavyofficer/field
+	title = "Nanotrasen Navy Field Officer"
+	outfit = /datum/outfit/job/ntnavyofficer/field
+
+/datum/outfit/job/ntnavyofficer/field
+	name = "Nanotrasen Navy Field Officer"
+	jobtype = /datum/job/ntnavyofficer/field
+
+	suit = /obj/item/clothing/suit/space/deathsquad/officer/field
+	l_pocket = /obj/item/melee/baseball_bat/homerun/central_command
 
 // CC Officials who lead ERTs, Death Squads, etc.
 /datum/job/ntspecops
@@ -82,6 +96,7 @@
 	id = /obj/item/card/id/centcom
 	pda = /obj/item/pda/centcom
 	r_pocket = /obj/item/storage/box/matches
+	l_pocket = /obj/item/melee/baseball_bat/homerun/central_command
 	box = /obj/item/storage/box/centcomofficer
 	backpack = /obj/item/storage/backpack/satchel
 	backpack_contents = list(
@@ -104,6 +119,24 @@
 	if(visualsOnly)
 		return
 	H.mind.offstation_role = TRUE
+
+// Верховное командование для самых больших проблем
+/datum/job/ntspecops/supreme
+	title = "Supreme Commander"
+	outfit = /datum/outfit/job/ntspecops/supreme
+
+/datum/outfit/job/ntspecops/supreme
+	name = "Supreme Commander"
+	jobtype = /datum/job/ntspecops/supreme
+
+	suit = /obj/item/clothing/suit/space/deathsquad/officer/supreme
+	head = /obj/item/clothing/head/helmet/space/deathsquad/beret/supreme
+	shoes =	/obj/item/clothing/shoes/cowboy/white
+	gloves = /obj/item/clothing/gloves/color/white
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/aviators
+	backpack_contents = list(
+		/obj/item/stamp/navcom = 1
+	)
 
 //Tran-Solar Federation General
 /datum/job/ntspecops/solgovspecops

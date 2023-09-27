@@ -6,9 +6,11 @@
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "welder"
 	item_state = "welder"
+	belt_icon = "welding_tool"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	force = 3
+	var/force_enabled = 15
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
@@ -50,6 +52,13 @@
 	user.visible_message("<span class='suicide'>[user] welds [user.p_their()] every orifice closed! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return FIRELOSS
 
+/obj/item/weldingtool/can_enter_storage(obj/item/storage/S, mob/user)
+	if(tool_enabled)
+		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
+		return FALSE
+	else
+		return TRUE
+
 /obj/item/weldingtool/process()
 	if(tool_enabled)
 		var/turf/T = get_turf(src)
@@ -61,6 +70,13 @@
 		if(GET_FUEL < maximum_fuel)
 			reagents.add_reagent("fuel", 1)
 	..()
+
+/obj/item/weldingtool/extinguish_light(force = FALSE)
+	if(!force)
+		return
+	if(!tool_enabled)
+		return
+	remove_fuel(maximum_fuel)
 
 /obj/item/weldingtool/attack_self(mob/user)
 	if(tool_enabled) //Turn off the welder if it's on
@@ -78,7 +94,7 @@
 	if(tool_enabled)
 		START_PROCESSING(SSobj, src)
 		damtype = BURN
-		force = 15
+		force = force_enabled
 		hitsound = 'sound/items/welder.ogg'
 		playsound(loc, activation_sound, 50, 1)
 		set_light(light_intensity)
@@ -86,7 +102,7 @@
 		if(!refills_over_time)
 			STOP_PROCESSING(SSobj, src)
 		damtype = BRUTE
-		force = 3
+		force = initial(force)
 		hitsound = "swing_hit"
 		playsound(loc, deactivation_sound, 50, 1)
 		set_light(0)
@@ -180,6 +196,7 @@
 	name = "industrial welding tool"
 	desc = "A slightly larger welder with a larger tank."
 	icon_state = "indwelder"
+	belt_icon = "industrial_welding_tool"
 	maximum_fuel = 40
 	materials = list(MAT_METAL=70, MAT_GLASS=60)
 	origin_tech = "engineering=2;plasmatech=2"
@@ -204,6 +221,7 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "welder"
 	item_state = "alien_welder"
+	belt_icon = "alien_welding_tool"
 	toolspeed = 0.1
 	light_intensity = 0
 	origin_tech = "plasmatech=5;engineering=5;abductor=3"
@@ -216,6 +234,7 @@
 	desc = "An upgraded welder based off the industrial welder."
 	icon_state = "upindwelder"
 	item_state = "upindwelder"
+	belt_icon = "upgraded_welding_tool"
 	maximum_fuel = 80
 	materials = list(MAT_METAL=70, MAT_GLASS=120)
 	origin_tech = "engineering=3;plasmatech=2"
@@ -225,6 +244,7 @@
 	desc = "An experimental welder capable of self-fuel generation and less harmful to the eyes."
 	icon_state = "exwelder"
 	item_state = "exwelder"
+	belt_icon = "experimental_welding_tool"
 	maximum_fuel = 40
 	materials = list(MAT_METAL=70, MAT_GLASS=120)
 	origin_tech = "materials=4;engineering=4;bluespace=3;plasmatech=4"
@@ -233,9 +253,16 @@
 	refills_over_time = TRUE
 	low_fuel_changes_icon = FALSE
 
+/obj/item/weldingtool/experimental/mecha
+	name = "integrated welding tool"
+	desc = "An advanced welder designed to be used in robotic systems."
+	requires_fuel = FALSE
+	light_intensity = 0
+
 /obj/item/weldingtool/experimental/brass
 	name = "brass welding tool"
 	desc = "A brass welder that seems to constantly refuel itself. It is faintly warm to the touch."
 	icon_state = "brasswelder"
 	item_state = "brasswelder"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	force_enabled = 10

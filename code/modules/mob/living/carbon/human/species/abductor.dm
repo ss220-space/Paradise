@@ -15,6 +15,7 @@
 		"eyes" =     /obj/item/organ/internal/eyes/abductor //3 darksight.
 		)
 
+
 	species_traits = list(NO_BLOOD, NO_BREATHE, VIRUSIMMUNE, NOGUNS, NO_HUNGER, NO_EXAMINE)
 	dies_at_threshold = TRUE
 
@@ -23,9 +24,9 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	reagent_tag = PROCESS_ORG
 	blood_color = "#FF5AFF"
-	female_scream_sound = 'sound/goonstation/voice/male_scream.ogg'
+	female_scream_sound = list('sound/goonstation/voice/male_scream.ogg')
 	female_cough_sounds = list('sound/effects/mob_effects/m_cougha.ogg','sound/effects/mob_effects/m_coughb.ogg', 'sound/effects/mob_effects/m_coughc.ogg')
-	female_sneeze_sound = 'sound/effects/mob_effects/sneeze.ogg' //Abductors always scream like guys
+	female_sneeze_sound = list('sound/effects/mob_effects/sneeze.ogg') //Abductors always scream like guys
 	var/team = 1
 	var/scientist = FALSE // vars to not pollute spieces list with castes
 
@@ -40,6 +41,7 @@
 	H.gender = NEUTER
 	H.languages.Cut() //Under no condition should you be able to speak any language
 	H.add_language("Abductor Mindlink") //other than over the abductor's own mindlink
+	H.add_language("Psionic Communication") // still grey enouhg to speak in psi link
 	var/datum/atom_hud/abductor_hud = GLOB.huds[DATA_HUD_ABDUCTOR]
 	abductor_hud.add_hud_to(H)
 

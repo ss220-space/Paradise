@@ -28,8 +28,9 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	var/max_i = 10//number of tries to spawn meteor.
 	while(!istype(pickedstart, /turf/space))
 		var/startSide = pick(GLOB.cardinal)
-		pickedstart = spaceDebrisStartLoc(startSide, 1)
-		pickedgoal = spaceDebrisFinishLoc(startSide, 1)
+		var/level = level_name_to_num(MAIN_STATION)
+		pickedstart = spaceDebrisStartLoc(startSide, level)
+		pickedgoal = spaceDebrisFinishLoc(startSide, level)
 		max_i--
 		if(max_i<=0)
 			return
@@ -100,6 +101,10 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 
 	var/meteordrop = /obj/item/stack/ore/iron
 	var/dropamt = 2
+
+/obj/effect/meteor/Initialize(mapload)
+	. = ..()
+	z_original = z
 
 /obj/effect/meteor/Move()
 	if(z != z_original || loc == dest)
@@ -206,7 +211,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 
 /obj/effect/meteor/medium/meteor_effect()
 	..(heavy)
-	explosion(src.loc, 0, 1, 2, 3, 0)
+	explosion(src.loc, 0, 1, 2, 3, 0, cause = src)
 
 //Large-sized
 /obj/effect/meteor/big
@@ -218,7 +223,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 
 /obj/effect/meteor/big/meteor_effect()
 	..(heavy)
-	explosion(src.loc, 1, 2, 3, 4, 0)
+	explosion(src.loc, 1, 2, 3, 4, 0, cause = src)
 
 //Flaming meteor
 /obj/effect/meteor/flaming
@@ -231,7 +236,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 
 /obj/effect/meteor/flaming/meteor_effect()
 	..(heavy)
-	explosion(src.loc, 1, 2, 3, 4, 0, 0, flame_range = 5)
+	explosion(src.loc, 1, 2, 3, 4, 0, 0, flame_range = 5, cause = src)
 
 //Radiation meteor
 /obj/effect/meteor/irradiated
@@ -243,7 +248,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 
 /obj/effect/meteor/irradiated/meteor_effect()
 	..(heavy)
-	explosion(src.loc, 0, 0, 4, 3, 0)
+	explosion(src.loc, 0, 0, 4, 3, 0, cause = src)
 	new /obj/effect/decal/cleanable/greenglow(get_turf(src))
 	for(var/mob/living/L in view(5, src))
 		L.apply_effect(40, IRRADIATE)
@@ -261,12 +266,12 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 
 /obj/effect/meteor/tunguska/meteor_effect()
 	..(heavy)
-	explosion(src.loc, 5, 10, 15, 20, 0)
+	explosion(src.loc, 5, 10, 15, 20, 0, cause = src)
 
 /obj/effect/meteor/tunguska/Bump()
 	..()
 	if(prob(20))
-		explosion(src.loc,2,4,6,8)
+		explosion(src.loc,2,4,6,8, cause = src)
 
 
 //Gore

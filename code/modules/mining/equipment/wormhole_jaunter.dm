@@ -61,6 +61,7 @@
 
 /obj/item/wormhole_jaunter/emag_act(mob/user)
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
 		to_chat(user, "<span class='notice'>You emag [src].</span>")
 		var/turf/T = get_turf(src)
@@ -87,7 +88,7 @@
 		playsound(M,'sound/weapons/resonator_blast.ogg', 50, 1)
 		if(iscarbon(M))
 			var/mob/living/carbon/L = M
-			L.Weaken(6)
+			L.Weaken(12 SECONDS)
 			if(ishuman(L))
 				shake_camera(L, 20, 1)
-				addtimer(CALLBACK(L, /mob/living/carbon.proc/vomit), 20)
+				addtimer(CALLBACK(L, TYPE_PROC_REF(/mob/living/carbon, vomit)), 20)

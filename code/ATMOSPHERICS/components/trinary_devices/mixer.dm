@@ -1,5 +1,5 @@
 /obj/machinery/atmospherics/trinary/mixer
-	icon = 'icons/atmos/mixer.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/mixer.dmi'
 	icon_state = "map"
 
 	can_unwrench = 1
@@ -14,7 +14,7 @@
 
 /obj/machinery/atmospherics/trinary/mixer/CtrlClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	if(!in_range(src, user) && !issilicon(usr))
 		return
@@ -28,7 +28,7 @@
 
 /obj/machinery/atmospherics/trinary/mixer/AltClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	if(!in_range(src, user) && !issilicon(usr))
 		return
@@ -174,7 +174,7 @@
 		return
 
 	if(!allowed(user))
-		to_chat(user, "<span class='alert'>Access denied.</span>")
+		to_chat(user, span_alert("Access denied."))
 		return
 
 	add_fingerprint(user)
@@ -205,19 +205,19 @@
 	switch(action)
 		if("power")
 			toggle()
-			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
+			investigate_log("was turned [on ? "on" : "off"] by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 			return TRUE
 
 		if("set_node")
 			if(params["node_name"] == "Node 1")
 				node1_concentration = clamp(round(text2num(params["concentration"]), 0.01), 0, 1)
 				node2_concentration = round(1 - node1_concentration, 0.01)
-				investigate_log("was set to [node1_concentration] % on node 1 by [key_name(usr)]", "atmos")
+				investigate_log("was set to [node1_concentration] % on node 1 by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 				return TRUE
 			else
 				node2_concentration = clamp(round(text2num(params["concentration"]), 0.01), 0, 1)
 				node1_concentration = round(1 - node2_concentration, 0.01)
-				investigate_log("was set to [node2_concentration] % on node 2 by [key_name(usr)]", "atmos")
+				investigate_log("was set to [node2_concentration] % on node 2 by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 				return TRUE
 
 		if("max_pressure")
@@ -232,7 +232,7 @@
 			target_pressure = clamp(text2num(params["pressure"]), 0, MAX_OUTPUT_PRESSURE)
 			. = TRUE
 	if(.)
-		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
+		investigate_log("was set to [target_pressure] kPa by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/trinary/mixer/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))

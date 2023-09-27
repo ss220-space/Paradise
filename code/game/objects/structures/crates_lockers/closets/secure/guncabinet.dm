@@ -3,11 +3,6 @@
 	req_access = list(ACCESS_ARMORY)
 	icon = 'icons/obj/guncabinet.dmi'
 	icon_state = "base"
-	icon_closed = "base"
-	icon_opened = "base"
-	icon_locked = "base"
-	icon_broken = "base"
-	icon_off = "base"
 
 /obj/structure/closet/secure_closet/guncabinet/toggle()
 	..()
@@ -42,8 +37,8 @@
 		overlays += icon(src.icon,"door")
 
 		if(broken)
-			overlays += icon(src.icon,"broken")
+			overlays += icon(src.icon,"door_broken")
 		else if(locked)
-			overlays += icon(src.icon,"locked")
+			overlays += icon(src.icon,"door_locked")
 		else
-			overlays += icon(src.icon,"open")
+			overlays += icon(src.icon,"door")

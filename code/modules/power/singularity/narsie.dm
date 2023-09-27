@@ -44,9 +44,12 @@
 
 	narsie_spawn_animation()
 
-	sleep(7 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(call_shuttle)), 7 SECONDS)
+
+/obj/singularity/narsie/large/proc/call_shuttle()
 	SSshuttle.emergency.request(null, 0.3)
 	SSshuttle.emergency.canRecall = FALSE // Cannot recall
+
 
 /obj/singularity/narsie/large/Destroy()
 	to_chat(world, "<font size='15' color='red'><b> [uppertext(name)] HAS FALLEN</b></font>")
@@ -76,8 +79,8 @@
 	godsmack(A)
 	return
 
-/obj/singularity/narsie/Bumped(atom/A)
-	godsmack(A)
+/obj/singularity/narsie/Bumped(atom/movable/moving_atom)
+	godsmack(moving_atom)
 	return
 
 /obj/singularity/narsie/proc/godsmack(atom/A)
@@ -95,7 +98,7 @@
 		if(M.stat == CONSCIOUS)
 			if(!iscultist(M))
 				to_chat(M, "<span class='warning'>You feel your sanity crumble away in an instant as you gaze upon [src.name]...</span>")
-				M.apply_effect(3, STUN)
+				M.Stun(6 SECONDS)
 
 
 /obj/singularity/narsie/consume(atom/A)

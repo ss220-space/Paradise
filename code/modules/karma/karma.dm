@@ -78,7 +78,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 	if(!client)
 		to_chat(src, "<span class='warning'>You can't award karma without being connected.</span>")
 		return FALSE
-	if(config.disable_karma)
+	if(CONFIG_GET(flag/disable_karma))
 		to_chat(src, "<span class='warning'>Karma is disabled.</span>")
 		return FALSE
 	if(!SSticker || !GLOB.player_list.len || (SSticker.current_state == GAME_STATE_PREGAME))
@@ -104,7 +104,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 		return FALSE
 	if(client.address == M.client.address)
 		message_admins("<span class='warning'>Illegal karma spending attempt detected from [key] to [M.key]. Using the same IP!</span>")
-		log_game("Illegal karma spending attempt detected from [key] to [M.key]. Using the same IP!")
+		add_game_logs("Illegal karma spending attempt detected from [key] to [M.key]. Using the same IP!")
 		to_chat(src, "<span class='warning'>You can't spend karma on someone connected from the same IP.</span>")
 		return FALSE
 	if(M.get_preference(PREFTOGGLE_DISABLE_KARMA))
@@ -150,7 +150,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 	if(!M)
 		to_chat(usr, "Please right click a mob to award karma directly, or use the 'Award Karma' verb to select a player from the player listing.")
 		return
-	if(config.disable_karma) // this is here because someone thought it was a good idea to add an alert box before checking if they can even give a mob karma
+	if(CONFIG_GET(flag/disable_karma)) // this is here because someone thought it was a good idea to add an alert box before checking if they can even give a mob karma
 		to_chat(usr, "<span class='warning'>Karma is disabled.</span>")
 		return
 	if(alert("Give [M.name] good karma?", "Karma", "Yes", "No") != "Yes")
@@ -165,7 +165,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 
 	var/special_role = "None"
 	var/assigned_role = "None"
-	var/karma_diary = file("[GLOB.log_directory]/karma.log")
+	var/karma_diary = wrap_file("[GLOB.log_directory]/karma.log")
 	if(M.mind)
 		if(M.mind.special_role)
 			special_role = M.mind.special_role
@@ -180,7 +180,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 	set desc = "Reports how much karma you have accrued."
 	set category = "Special Verbs"
 
-	if(config.disable_karma)
+	if(CONFIG_GET(flag/disable_karma))
 		to_chat(src, "<span class='warning'>Karma is disabled.</span>")
 		return
 
@@ -216,7 +216,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 	set desc = "Spend your hard-earned karma here"
 	set hidden = TRUE
 
-	if(config.disable_karma)
+	if(CONFIG_GET(flag/disable_karma))
 		to_chat(src, "<span class='warning'>Karma is disabled.</span>")
 		return
 	karmashopmenu()
@@ -315,6 +315,10 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=6'>Unlock Plasmaman -- 45KP</a><br>"
 			else
 				dat += "Plasmaman - <font color='green'>Unlocked</font><br>"
+			if(!("Nian" in specieslist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=6'>Unlock Nian -- 30KP</a><br>"
+			else
+				dat += "Nian - <font color='green'>Unlocked</font><br>"
 
 		if(2) // Karma Refunds
 			var/list/refundable = list()
@@ -404,7 +408,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 			return
 		else
 			to_chat(usr, "You have unlocked [job].")
-			message_admins("[key_name(usr)] has unlocked [job].") // why do we admin log this
+			log_admin("[key_name(usr)] has unlocked [job].") // why do we admin log this
 			karmacharge(cost)
 
 		qdel(insert_query)
@@ -423,7 +427,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 				return
 			else
 				to_chat(usr, "You have unlocked [job].")
-				message_admins("[key_name(usr)] has unlocked [job].")
+				log_admin("[key_name(usr)] has unlocked [job].")
 				karmacharge(cost)
 				qdel(update_query)
 		else
@@ -454,7 +458,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 			return
 		else
 			to_chat(usr, "You have unlocked [species].")
-			message_admins("[key_name(usr)] has unlocked [species].")
+			log_admin("[key_name(usr)] has unlocked [species].")
 			qdel(insert_query)
 			karmacharge(cost)
 
@@ -472,7 +476,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 				return
 			else
 				to_chat(usr, "You have unlocked [species].")
-				message_admins("[key_name(usr)] has unlocked [species].")
+				log_admin("[key_name(usr)] has unlocked [species].")
 				qdel(update_query)
 				karmacharge(cost)
 		else
@@ -503,7 +507,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 			return
 		else
 			to_chat(usr, "You have been [refund ? "refunded" : "charged"] [cost] karma.")
-			message_admins("[key_name(usr)] has been [refund ? "refunded" : "charged"] [cost] karma.")
+			log_admin("[key_name(usr)] has been [refund ? "refunded" : "charged"] [cost] karma.")
 			qdel(select_query)
 			qdel(update_query)
 			return
@@ -561,7 +565,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 				return
 			else
 				to_chat(usr, "You have been refunded [cost] karma for [type] [name].")
-				message_admins("[key_name(usr)] has been refunded [cost] karma for [type] [name].")
+				log_admin("[key_name(usr)] has been refunded [cost] karma for [type] [name].")
 				qdel(update_query)
 				karmacharge(text2num(cost),1)
 		else

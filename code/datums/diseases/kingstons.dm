@@ -10,6 +10,8 @@
 	permeability_mod = 0.75
 	desc = "If left untreated the subject will turn into a feline. In felines it has... OTHER... effects."
 	severity = DANGEROUS
+	mutation_reagents = list("mutagen", "radium")
+	possible_mutations = list(/datum/disease/kingstons_advanced)
 
 /datum/disease/kingstons/stage_act()
 	..()
@@ -38,7 +40,7 @@
 				if(istajaran(affected_mob))
 					affected_mob.visible_message("<span class='danger'>[affected_mob] coughs up a hairball!</span>", \
 													"<span class='userdanger'>You cough up a hairball!</span>")
-					affected_mob.Stun(5)
+					affected_mob.Stun(10 SECONDS)
 				else
 					affected_mob.visible_message("<span class='danger'>[affected_mob]'s form contorts into something more feline!</span>", \
 													"<span class='userdanger'>YOU TURN INTO A TAJARAN!</span>")
@@ -62,6 +64,7 @@
 	var/list/virsuffix = list("pox", "rot", "flu", "cough", "-gitis", "cold", "rash", "itch", "decay")
 	var/datum/species/chosentype
 	var/chosensuff
+	possible_mutations = null
 
 /datum/disease/kingstons_advanced/New()
 	chosentype = pick(virspecies)

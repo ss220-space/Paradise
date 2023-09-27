@@ -21,6 +21,7 @@
 
 	if(!allowed(user))
 		to_chat(user, "<span class='warning'>Access denied.</span>")
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 
 	interact(user)
@@ -55,6 +56,7 @@
 
 	if(!allowed(usr) && !usr.can_admin_interact())
 		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 
 	if((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
@@ -92,8 +94,7 @@
 
 		if(D.stat != 2)
 			to_chat(usr, "<span class='warning'>You issue a kill command for the unfortunate drone.</span>")
-			message_admins("[key_name_admin(usr)] issued kill order for drone [key_name_admin(D)] from control console.")
-			log_game("[key_name(usr)] issued kill order for [key_name(src)] from control console.")
+			add_attack_logs(usr, src, "issued kill order from control console", ATKLOG_FEW)
 			D.shut_down()
 
 	else if(href_list["search_fab"])

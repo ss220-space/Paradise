@@ -12,7 +12,7 @@
 	desc = "This can be used to check medical records."
 	icon_keyboard = "med_key"
 	icon_screen = "medcomp"
-	req_one_access = list(ACCESS_MEDICAL, ACCESS_FORENSICS_LOCKERS)
+	req_access = list(ACCESS_MEDICAL, ACCESS_FORENSICS_LOCKERS)
 	circuit = /obj/item/circuitboard/med_data
 	var/screen = null
 	var/datum/data/record/active1 = null
@@ -63,6 +63,7 @@
 
 /obj/machinery/computer/med_data/attackby(obj/item/O, mob/user, params)
 	if(ui_login_attackby(O, user))
+		add_fingerprint(user)
 		return
 	return ..()
 
@@ -70,7 +71,7 @@
 	if(..())
 		return
 	if(is_away_level(z))
-		to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
+		to_chat(user, span_danger("Unable to establish a connection") + ": You're too far away from the station!")
 		return
 	add_fingerprint(user)
 	ui_interact(user)
@@ -301,7 +302,7 @@
 					printing = TRUE
 					playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 					SStgui.update_uis(src)
-					addtimer(CALLBACK(src, .proc/print_finish), 5 SECONDS)
+					addtimer(CALLBACK(src, PROC_REF(print_finish)), 5 SECONDS)
 			else
 				return FALSE
 

@@ -1,9 +1,10 @@
 SUBSYSTEM_DEF(jobs)
 	name = "Jobs"
-	init_order = INIT_ORDER_JOBS // 12
+	init_order = INIT_ORDER_JOBS // 9
 	wait = 5 MINUTES // Dont ever make this a super low value since EXP updates are calculated from this value
 	runlevels = RUNLEVEL_GAME
 	offline_implications = "Время игры на профессиях больше не будет сохраняться. Немедленных действий не требуется."
+	cpu_display = SS_CPUDISPLAY_LOW
 
 	//List of all jobs
 	var/list/occupations = list()
@@ -17,17 +18,19 @@ SUBSYSTEM_DEF(jobs)
 	//Debug info
 	var/list/job_debug = list()
 
-/datum/controller/subsystem/jobs/Initialize(timeofday)
-	if(!occupations.len)
+
+/datum/controller/subsystem/jobs/Initialize()
+	if(!length(occupations))
 		SetupOccupations()
 	LoadJobs("config/jobs.txt")
-	return ..()
+
 
 // Only fires every 5 minutes
 /datum/controller/subsystem/jobs/fire()
-	if(!SSdbcore.IsConnected() || !config.use_exp_tracking)
+	if(!SSdbcore.IsConnected() || !CONFIG_GET(flag/use_exp_tracking))
 		return
 	batch_update_player_exp(announce = FALSE) // Set this to true if you ever want to inform players about their EXP gains
+
 
 /datum/controller/subsystem/jobs/proc/SetupOccupations(var/list/faction = list("Station"))
 	occupations = list()
@@ -79,6 +82,8 @@ SUBSYSTEM_DEF(jobs)
 			return 0
 		if(job.available_in_playtime(player.client))
 			return 0
+		if(!job.can_novice_play(player.client))
+			return 0
 		if(job.barred_by_disability(player.client))
 			return 0
 		if(!job.character_old_enough(player.client))
@@ -107,8 +112,7 @@ SUBSYSTEM_DEF(jobs)
 
 			unassigned -= player
 			job.current_positions++
-			log_game("Игрок [player.mind.key] вошел в раунд с профессией [rank] ([job.current_positions]/[position_limit])")
-			player.create_log(MISC_LOG, "Вошел в раунд с профессией [rank] ([job.current_positions]/[position_limit])")
+			add_game_logs("Игрок [player.mind.key] вошел в раунд с профессией [rank] ([job.current_positions]/[position_limit])", player)
 			return 1
 
 	Debug("AR has failed, Player: [player], Rank: [rank]")
@@ -134,6 +138,9 @@ SUBSYSTEM_DEF(jobs)
 			continue
 		if(job.available_in_playtime(player.client))
 			Debug("FOC player not enough playtime, Player: [player]")
+			continue
+		if(!job.can_novice_play(player.client))
+			Debug("FOC player has too much playtime, Player: [player]")
 			continue
 		if(job.barred_by_disability(player.client))
 			Debug("FOC player has disability rendering them ineligible for job, Player: [player]")
@@ -180,6 +187,10 @@ SUBSYSTEM_DEF(jobs)
 
 		if(job.available_in_playtime(player.client))
 			Debug("GRJ player not enough playtime, Player: [player]")
+			continue
+
+		if(!job.can_novice_play(player.client))
+			Debug("GRJ player has too much playtime, Player: [player]")
 			continue
 
 		if(job.barred_by_disability(player.client))
@@ -253,7 +264,7 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/FillAIPosition()
-	if(config && !config.allow_ai)
+	if(config && !CONFIG_GET(flag/allow_ai))
 		return 0
 
 	var/ai_selected = 0
@@ -296,10 +307,8 @@ SUBSYSTEM_DEF(jobs)
 
 	//Get the players who are ready
 	for(var/mob/new_player/player in GLOB.player_list)
-		if(player.ready && player.has_valid_preferences() && player.mind && !player.mind.assigned_role)
+		if(player.ready && player.mind && !player.mind.assigned_role)
 			unassigned += player
-			if(player.client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
-				player.client.prefs.load_random_character_slot(player.client)
 
 	Debug("DO, Len: [unassigned.len]")
 	if(unassigned.len == 0)
@@ -365,6 +374,10 @@ SUBSYSTEM_DEF(jobs)
 					Debug("DO player not enough playtime, Player: [player], Job:[job.title]")
 					continue
 
+				if(!job.can_novice_play(player.client))
+					Debug("DO player has too much playtime, Player: [player], Job:[job.title]")
+					continue
+
 				if(job.barred_by_disability(player.client))
 					Debug("DO player has disability rendering them ineligible for job, Player: [player], Job:[job.title]")
 					continue
@@ -418,6 +431,7 @@ SUBSYSTEM_DEF(jobs)
 			Debug("AC2 Assistant located, Player: [player]")
 			AssignRole(player, "Civilian")
 		else if(player.client.prefs.alternate_option == RETURN_TO_LOBBY)
+			to_chat(player, "<span class='danger'>Unfortunately, none of the round start roles you selected had a free slot. Please join the game by using \"Join Game!\" button and selecting a role with a free slot.</span>")
 			player.ready = 0
 			unassigned -= player
 
@@ -460,6 +474,8 @@ SUBSYSTEM_DEF(jobs)
 		to_chat(H, "<b>Будучи работником Службы Безопасности, вам необходимо знание <a href=\"https://ss220.space/wiki/index.php/Space_Law\">Космического Закона</a>, <a href=\"https://ss220.space/wiki/index.php/Legal_Standard_Operating_Procedure\">Правовых СРП</a>, а также <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">СРП своего отдела</a></b>")
 	if(job.req_admin_notify)
 		to_chat(H, "<b>Вы играете на важной для игрового процесса должности. Если вам необходимо покинуть игру, пожалуйста, используйте крио и проинформируйте командование. Если вы не можете это сделать, пожалуйста, проинформируйте админов через админхэлп.</b>")
+	if(job.is_novice)
+		to_chat(H, "<b>Ваша должность ограничена во всех взаимодействиях с рабочим имуществом отдела и экипажем станции, при отсутствии приставленного к нему квалифицированного сотрудника или полученного разрешения от вышестоящего начальства. Не забудьте ознакомиться с СРП вашей должности. По истечению срока прохождения стажировки, данная должность более не будет вам доступна. Используйте её для обучения, не стесняйтесь задавать вопросы вашим старшим коллегам!</b>")
 
 	return H
 /datum/controller/subsystem/jobs/proc/EquipRank(mob/living/carbon/human/H, rank, joined_late = 0) // Equip and put them in an area
@@ -530,7 +546,7 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/LoadJobs(jobsfile) //ran during round setup, reads info from jobs.txt -- Urist
-	if(!config.load_jobs_from_txt)
+	if(!CONFIG_GET(flag/load_jobs_from_txt))
 		return 0
 
 	var/list/jobEntries = file2list(jobsfile)
@@ -612,7 +628,8 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
-	var/datum/money_account/M = create_account(H.real_name, rand(50,500)*10, null)
+	var/money_amount = job ? rand(500, 1500) * get_job_factor(job, job.random_money_factor) : rand(500, 1500)
+	var/datum/money_account/M = create_account(H.real_name, money_amount, null)
 	var/remembered_info = ""
 
 	remembered_info += "<b>Номер вашего аккаунта:</b> #[M.account_number]<br>"
@@ -641,12 +658,18 @@ SUBSYSTEM_DEF(jobs)
 	spawn(0)
 		to_chat(H, "<span class='boldnotice'>Номер вашего аккаунта: [M.account_number], ПИН вашего аккаунта: [M.remote_access_pin]</span>")
 
+/datum/controller/subsystem/jobs/proc/get_job_factor(datum/job/job, randomized)
+	if(randomized)
+		return job.money_factor*rand(0.25, 4) // for now only used for civillians
+	else
+		return job.money_factor
+
 /datum/controller/subsystem/jobs/proc/format_jobs_for_id_computer(obj/item/card/id/tgtcard)
 	var/list/jobs_to_formats = list()
 	if(tgtcard)
 		var/mob/M = tgtcard.getPlayer()
 		for(var/datum/job/job in occupations)
-			if(tgtcard.assignment && tgtcard.assignment == job.title)
+			if(tgtcard.rank && tgtcard.rank == job.title)
 				jobs_to_formats[job.title] = "green" // the job they already have is pre-selected
 			else if(tgtcard.assignment == "Demoted" || tgtcard.assignment == "Terminated")
 				jobs_to_formats[job.title] = "grey"

@@ -21,7 +21,7 @@
 
 /datum/gear/donor/furcape
 	display_name = "Fur Cape"
-	path = /obj/item/clothing/suit/furcape
+	path = /obj/item/clothing/neck/cloak/furcape
 
 /datum/gear/donor/furcoat
 	display_name = "Fur Coat"
@@ -73,7 +73,7 @@
 
 /datum/gear/donor/fawkes
 	display_name = "Guy Fawkes mask"
-	path = /obj/item/clothing/mask/fawkes
+	path = /obj/item/clothing/mask/face/fawkes
 
 /datum/gear/donor/id_decal_silver
 	display_name = "Silver ID Decal"

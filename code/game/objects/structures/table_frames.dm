@@ -77,6 +77,7 @@
 	T.frame = type
 	T.framestack = framestack
 	T.framestackamount = framestackamount
+	T.add_fingerprint(usr)
 	qdel(src)
 
 /obj/structure/table_frame/deconstruct(disassembled = TRUE)
@@ -129,12 +130,12 @@
 	desc = "Four pieces of brass arranged in a square. It's slightly warm to the touch."
 	icon_state = "brass_frame"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	framestack = /obj/item/stack/tile/brass
+	framestack = /obj/item/stack/sheet/brass
 	framestackamount = 1
 
 /obj/structure/table_frame/brass/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/tile/brass))
-		var/obj/item/stack/tile/brass/W = I
+	if(istype(I, /obj/item/stack/sheet/brass))
+		var/obj/item/stack/sheet/brass/W = I
 		if(W.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You need one brass sheet to do this!</span>")
 			return
@@ -148,5 +149,25 @@
 	..()
 	if(src) //do we still exist?
 		var/previouscolor = color
-		color = "#960000"
+		color = COLOR_CULT_RED
 		animate(src, color = previouscolor, time = 8)
+
+/obj/structure/table_frame/brass/fake
+	name = "brass table frame"
+	desc = "Four pieces of brass arranged in a square. It's slightly warm to the touch, and not because of magic!"
+	icon_state = "brass_frame"
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	framestack = /obj/item/stack/sheet/brass_fake
+	framestackamount = 1
+
+/obj/structure/table_frame/brass/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/sheet/brass_fake))
+		var/obj/item/stack/sheet/brass_fake/W = I
+		if(W.get_amount() < 1)
+			to_chat(user, "<span class='warning'>You need one brass sheet to do this!</span>")
+			return
+		to_chat(user, "<span class='notice'>You start adding [W] to [src]...</span>")
+		if(do_after(user, 20, target = src) && W.use(1))
+			make_new_table(/obj/structure/table/reinforced/brass/fake)
+	else
+		return ..()

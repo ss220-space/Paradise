@@ -119,7 +119,7 @@
 			// Log beforehand
 			holder.my_atom.visible_message("<span class='danger'>[holder.my_atom] explodes!</span>")
 			message_admins("Fuel explosion ([holder.my_atom], reagent type: [id]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
-			log_game("Fuel explosion ([holder.my_atom], reagent type: [id]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
+			add_game_logs("Fuel explosion ([holder.my_atom], reagent type: [id]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
 			holder.my_atom.investigate_log("A fuel explosion, last touched by [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"], triggered at [COORD(holder.my_atom.loc)].", INVESTIGATE_BOMB)
 
 		var/turf/T = get_turf(holder.my_atom)
@@ -130,7 +130,7 @@
 		fireflash_sm(T, radius, 2200 + radius * 250, radius * 50)
 		if(will_explode)
 			var/boomrange = min(max(min_explosion_radius, round(volume * volume_explosion_radius_multiplier + volume_explosion_radius_modifier)), max_explosion_radius)
-			explosion(T, -1, -1, boomrange, 1)
+			explosion(T, -1, -1, boomrange, 1, cause = "Fuel Reaction Temp.")
 
 /datum/reagent/fuel/reaction_turf(turf/T, volume) //Don't spill the fuel, or you'll regret it
 	if(isspaceturf(T))
@@ -163,12 +163,12 @@
 
 /datum/reagent/plasma/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustToxLoss(0.5, FALSE)
 	if(holder.has_reagent("epinephrine"))
 		holder.remove_reagent("epinephrine", 2)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
-		C.adjustPlasma(10)
+		C.adjust_alien_plasma(10)
 	return ..() | update_flags
 
 /datum/reagent/plasma/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)//Splashing people with plasma is stronger than fuel!
@@ -211,7 +211,7 @@
 		S.reagents.add_reagent("thermite", volume)
 		S.thermite = TRUE
 		S.overlays.Cut()
-		S.overlays = image('icons/effects/effects.dmi', icon_state = "thermite")
+		S.overlays += image('icons/effects/effects.dmi', icon_state = "thermite")
 		if(S.active_hotspot)
 			S.reagents.temperature_reagents(S.active_hotspot.temperature, 10, 300)
 
@@ -237,7 +237,7 @@
 	description = "An extremely volatile substance, handle with the utmost care."
 	reagent_state = LIQUID
 	color = "#FF0000"
-	metabolization_rate = 4
+	metabolization_rate = 10 * REAGENTS_METABOLISM
 	process_flags = ORGANIC | SYNTHETIC
 	taste_mult = 0
 
@@ -302,7 +302,7 @@
 	description = "Explodes. Violently."
 	reagent_state = LIQUID
 	color = "#000000"
-	metabolization_rate = 0.05
+	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 	penetrates_skin = TRUE
 	taste_description = "explosions"
 
@@ -459,7 +459,7 @@
 	update_flags |= M.adjustToxLoss(3, FALSE)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
-		C.adjustPlasma(20)
+		C.adjust_alien_plasma(20)
 	return ..() | update_flags
 
 /datum/reagent/plasma_dust/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)//Splashing people with plasma dust is stronger than fuel!

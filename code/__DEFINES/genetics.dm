@@ -38,7 +38,7 @@
 #define FAT				"fat"
 #define HUSK			"husk"
 #define NOCLONE			"noclone"
-#define LASER			"eyelaser" 			// harm intent - click anywhere to shoot lasers from eyes
+#define LASEREYES		"eyelaser" 			// harm intent - click anywhere to shoot lasers from eyes
 #define WINGDINGS		"wingdings"			// Ayy lmao
 #define SKELETON 		"skeleton"
 #define BREATHLESS		"breathless"		// no breathing
@@ -53,7 +53,7 @@
 #define NO_SHOCK		"no_shock" 			// insulated hands
 #define DWARF			"dwarf"				// table climbing
 #define OBESITY       	"obesity"			// Decreased metabolism
-#define STRONG        	"strong"			// (Nothing)
+#define STRONG        	"strong"			// No slowdown from pull
 #define SOBER         	"sober"				// Increased alcohol metabolism
 #define PSY_RESIST    	"psy_resist"		// Block remoteview
 #define EMPATH			"empathy"			//Read minds
@@ -84,6 +84,7 @@
 #define COLOURBLIND		"colorblind"
 #define MUTE			"mute"
 #define DEAF			"deaf"
+#define WEAK			"weak"
 
 //Nutrition levels for humans. No idea where else to put it
 #define NUTRITION_LEVEL_FAT 600
@@ -102,9 +103,10 @@
 #define BLOOD_VOLUME_MAXIMUM		2000
 #define BLOOD_VOLUME_NORMAL			560
 #define BLOOD_VOLUME_SAFE			501
-#define BLOOD_VOLUME_OKAY			336
-#define BLOOD_VOLUME_BAD			224
-#define BLOOD_VOLUME_SURVIVE		122
+#define BLOOD_VOLUME_PALE			448
+#define BLOOD_VOLUME_OKAY			346
+#define BLOOD_VOLUME_BAD			234
+#define BLOOD_VOLUME_SURVIVE		168
 
 //Sizes of mobs, used by mob/living/var/mob_size
 #define MOB_SIZE_TINY 0
@@ -156,3 +158,4 @@
 #define NO_HUNGER		"no_hunger"
 #define EXOTIC_COLOR	"exotic_blood_colour"
 #define NO_OBESITY		"no_obesity"
+#define RUNIC_MIND		"runic_mind"

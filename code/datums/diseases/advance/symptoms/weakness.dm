@@ -18,6 +18,7 @@ Bonus
 /datum/symptom/weakness
 
 	name = "Weakness"
+	id = "weakness"
 	stealth = -1
 	resistance = -1
 	stage_speed = -2
@@ -40,5 +41,5 @@ Bonus
 				M.adjustStaminaLoss(30)
 				if(M.getStaminaLoss() > 60 && !M.stat)
 					M.visible_message("<span class='warning'>[M] faints!</span>", "<span class='userdanger'>You swoon and faint...</span>")
-					M.AdjustSleeping(5)
+					M.AdjustSleeping(10 SECONDS)
 	return

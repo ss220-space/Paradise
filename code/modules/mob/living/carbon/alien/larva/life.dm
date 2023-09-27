@@ -8,21 +8,18 @@
 			amount_grown++
 			update_icons()
 
-/mob/living/carbon/alien/larva/update_stat(reason = "None given")
+/mob/living/carbon/alien/larva/update_stat(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
-		return
+		return ..()
 	if(stat != DEAD)
 		if(health <= -maxHealth || !get_int_organ(/obj/item/organ/internal/brain))
 			death()
 			return
 
-		if(paralysis || sleeping || getOxyLoss() > 50 || (health <= HEALTH_THRESHOLD_CRIT && check_death_method()))
+		if(IsParalyzed() || IsSleeping() || getOxyLoss() > 50 || (health <= HEALTH_THRESHOLD_CRIT && check_death_method()))
 			if(stat == CONSCIOUS)
 				KnockOut()
-				create_debug_log("fell unconscious, trigger reason: [reason]")
 		else
 			if(stat == UNCONSCIOUS)
 				WakeUp()
-				create_debug_log("woke up, trigger reason: [reason]")
-	update_damage_hud()
-	update_health_hud()
+	..()

@@ -31,7 +31,7 @@
 	if(!proximity) return
 	if(istype(O,/obj/structure/sink))
 		to_chat(user, "<span class='notice'>You place [src] under a stream of water...</span>")
-		user.drop_item()
+		user.drop_from_active_hand()
 		loc = get_turf(O)
 		return Swell()
 	..()
@@ -46,7 +46,7 @@
 	// Wait for animation to end
 	sleep(6)
 	// Make space carp
-	var/mob/living/simple_animal/hostile/carp/C = new /mob/living/simple_animal/hostile/carp(get_turf(src))
+	var/mob/living/simple_animal/hostile/carp/megacarp/C = new /mob/living/simple_animal/hostile/carp/megacarp(get_turf(src))
 	// Make carp non-hostile to user, yes this means
 	C.faction |= list("syndicate", "\ref[owner]")
 	qdel(src)

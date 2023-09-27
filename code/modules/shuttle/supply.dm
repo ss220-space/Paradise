@@ -77,10 +77,13 @@
 		var/errors = 0
 		if(prob(5))
 			errors |= MANIFEST_ERROR_COUNT
+			investigate_log("Supply order #[SO] generated a manifest with packages incorrectly counted.", INVESTIGATE_CARGO)
 		if(prob(5))
 			errors |= MANIFEST_ERROR_NAME
+			investigate_log("Supply order #[SO] generated a manifest with destination station incorrect.", INVESTIGATE_CARGO)
 		if(prob(5))
 			errors |= MANIFEST_ERROR_ITEM
+			investigate_log("Supply order #[SO] generated a manifest with package incomplete.", INVESTIGATE_CARGO)
 		SO.createObject(T, errors)
 
 	SSshuttle.shoppinglist.Cut()
@@ -208,6 +211,13 @@
 						SSshuttle.discoveredPlants[S.type] = S.potency
 						msg += "<span class='good'>[S.rarity + S.potency]</span>: New species discovered: \"[capitalize(S.species)]\". Excellent work.<br>"
 						SSshuttle.points += S.rarity + S.potency
+				// Sell gems
+				if(istype(thing, /obj/item/gem))
+					var/obj/item/gem/G = thing
+					pointsEarned = G.sell_value
+					msg += "<span class='good'>+[pointsEarned]</span>: Received [G]. Excellent work.<br>"
+					SSshuttle.points += pointsEarned
+
 		qdel(MA)
 		SSshuttle.sold_atoms += "."
 
@@ -394,7 +404,7 @@
 /obj/machinery/computer/supplycomp/public
 	name = "Supply Ordering Console"
 	desc = "Used to order supplies from cargo staff."
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_screen = "request"
 	circuit = /obj/item/circuitboard/ordercomp
 	req_access = list()
@@ -406,14 +416,17 @@
 /obj/machinery/computer/supplycomp/attack_hand(var/mob/user as mob)
 	if(!allowed(user) && !isobserver(user))
 		to_chat(user, "<span class='warning'>Access denied.</span>")
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return 1
 
+	add_fingerprint(user)
 	post_signal("supply")
 	ui_interact(user)
 	return
 
 /obj/machinery/computer/supplycomp/emag_act(user as mob)
 	if(!hacked)
+		add_attack_logs(user, src, "emagged")
 		to_chat(user, "<span class='notice'>Special supplies unlocked.</span>")
 		hacked = TRUE
 		return
@@ -506,7 +519,7 @@
 				to_chat(usr, "<span class='warning'>For safety reasons the automated supply shuttle cannot transport live organisms, classified nuclear weaponry or homing beacons.</span>")
 			else if(SSshuttle.supply.getDockedId() == "supply_home")
 				SSshuttle.toggleShuttle("supply", "supply_home", "supply_away", 1)
-				investigate_log("[key_name(usr)] has sent the supply shuttle away. Remaining points: [SSshuttle.points]. Shuttle contents: [SSshuttle.sold_atoms]", "cargo")
+				investigate_log("[key_name_log(usr)] has sent the supply shuttle away. Remaining points: [SSshuttle.points]. Shuttle contents: [SSshuttle.sold_atoms]", INVESTIGATE_CARGO)
 			else if(!SSshuttle.supply.request(SSshuttle.getDock("supply_home")))
 				post_signal("supply")
 				if(LAZYLEN(SSshuttle.shoppinglist) && prob(10))
@@ -515,11 +528,19 @@
 					O.object = SSshuttle.supply_packs[pick(SSshuttle.supply_packs)]
 					O.orderedby = random_name(pick(MALE,FEMALE), species = "Human")
 					SSshuttle.shoppinglist += O
-					investigate_log("Random [O.object] crate added to supply shuttle")
+					investigate_log("Random [O.object] crate added to supply shuttle", INVESTIGATE_CARGO)
 
 		if("order")
 			if(world.time < reqtime)
 				visible_message("<b>[src]</b>'s monitor flashes, \"[world.time - reqtime] seconds remaining until another requisition form may be printed.\"")
+				return
+
+			var/datum/supply_packs/P = locateUID(params["crate"])
+			if(!istype(P))
+				return
+
+			if(P.times_ordered >= P.order_limit && P.order_limit != -1) //If the crate has reached the limit, do not allow it to be ordered.
+				to_chat(usr, "<span class='warning'>[P.name] is out of stock, and can no longer be ordered.</span>")
 				return
 
 			var/amount = 1
@@ -529,10 +550,6 @@
 					return
 				amount = clamp(round(num_input), 1, 20)
 
-
-			var/datum/supply_packs/P = locateUID(params["crate"])
-			if(!istype(P))
-				return
 
 			var/timeout = world.time + 600 // If you dont type the reason within a minute, theres bigger problems here
 			var/reason = input(usr, "Reason", "Why do you require this item?","") as null|text
@@ -551,6 +568,7 @@
 			else if(issilicon(usr))
 				idname = usr.real_name
 
+			investigate_log("[key_name_log(usr)] made an order for [P.name] with amount [amount]. Points: [SSshuttle.points].", INVESTIGATE_CARGO)
 			//make our supply_order datums
 			for(var/i = 1; i <= amount; i++)
 				var/datum/supply_order/O = SSshuttle.generateSupplyOrder(params["crate"], idname, idrank, reason, amount)
@@ -574,11 +592,14 @@
 				if(SO.ordernum == ordernum)
 					O = SO
 					P = O.object
-					if(SSshuttle.points >= P.cost)
+					if(P.times_ordered >= P.order_limit && P.order_limit != -1) //If this order would put it over the limit, deny it
+						to_chat(usr, "<span class='warning'>[P.name] is out of stock, and can no longer be ordered.</span>")
+					else if(SSshuttle.points >= P.cost)
 						SSshuttle.requestlist.Cut(i,i+1)
 						SSshuttle.points -= P.cost
 						SSshuttle.shoppinglist += O
-						investigate_log("[key_name(usr)] has authorized an order for [P.name]. Remaining points: [SSshuttle.points].", "cargo")
+						P.times_ordered += 1
+						investigate_log("[key_name_log(usr)] has authorized an order for [P.name]. Remaining points: [SSshuttle.points].", INVESTIGATE_CARGO)
 					else
 						to_chat(usr, "<span class='warning'>There are insufficient supply points for this request.</span>")
 					break

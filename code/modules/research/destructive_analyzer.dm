@@ -55,9 +55,11 @@ Note: Must be placed within 3 tiles of the R&D Console
 
 /obj/machinery/r_n_d/destructive_analyzer/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(shocked)
+		add_fingerprint(user)
 		if(shock(user,50))
 			return TRUE
 	if(default_deconstruction_screwdriver(user, icon_open, icon_closed, O))
+		add_fingerprint(user)
 		if(linked_console)
 			linked_console.linked_destroy = null
 			linked_console = null
@@ -89,12 +91,12 @@ Note: Must be placed within 3 tiles of the R&D Console
 		if(temp_tech.len == 0)
 			to_chat(user, "<span class='warning'>Вы не можете разобрать этот предмет!</span>")
 			return
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(O, src))
 			to_chat(user, "<span class='warning'>[O] прилип к вашей руке и вы не можете поместить его в [src.name]!</span>")
 			return
+		add_fingerprint(user)
 		busy = 1
 		loaded_item = O
-		O.loc = src
 		to_chat(user, "<span class='notice'>[O.name] установлен в [src.name]!</span>")
 		flick("[icon_state]_la", src)
 		spawn(10)

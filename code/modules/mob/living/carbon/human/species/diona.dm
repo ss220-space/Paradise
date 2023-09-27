@@ -28,6 +28,7 @@
 	taste_sensitivity = TASTE_SENSITIVITY_DULL
 	skinned_type = /obj/item/stack/sheet/wood
 
+	blood_species = "Diona"
 	blood_color = "#004400"
 	flesh_color = "#907E4A"
 	butt_sprite = "diona"
@@ -35,16 +36,16 @@
 	reagent_tag = PROCESS_ORG
 
 	has_organ = list(
-		"nutrient channel" =   /obj/item/organ/internal/liver/diona,
-		"respiratory vacuoles" =   /obj/item/organ/internal/lungs/diona,
-		"neural strata" =      /obj/item/organ/internal/heart/diona,
-		"receptor node" =      /obj/item/organ/internal/eyes/diona, //Default darksight of 2.
-		"gas bladder" =        /obj/item/organ/internal/brain/diona,
-		"polyp segment" =      /obj/item/organ/internal/kidneys/diona,
-		"anchoring ligament" = /obj/item/organ/internal/appendix/diona
+		"liver" =   /obj/item/organ/internal/liver/diona,
+		"kidneys" =   /obj/item/organ/internal/kidneys/diona,
+		"brain" =   /obj/item/organ/internal/brain/diona,
+		"eyes" =   /obj/item/organ/internal/eyes/diona, //Default darksight of 2.
+		"lungs" =   /obj/item/organ/internal/lungs/diona,
+		"appendix" =   /obj/item/organ/internal/appendix/diona,
+		"heart" = /obj/item/organ/internal/heart/diona
 		)
 
-	vision_organ = /obj/item/organ/internal/eyes/diona
+	mutantears = /obj/item/organ/internal/ears/diona
 	has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/chest/diona),
 		"groin" =  list("path" = /obj/item/organ/external/groin/diona),
@@ -93,7 +94,7 @@
 
 /datum/species/diona/handle_life(mob/living/carbon/human/H)
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
-	var/is_vamp = H.mind?.vampire != null
+	var/is_vamp = isvampire(H)
 	if(isturf(H.loc)) //else, there's considered to be no light
 		var/turf/T = H.loc
 		light_amount = min(1, T.get_lumcount()) - 0.5

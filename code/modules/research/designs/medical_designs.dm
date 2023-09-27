@@ -72,6 +72,16 @@
 	build_path = /obj/item/defibrillator
 	category = list("Medical")
 
+/datum/design/compact_defib
+	name = "Compact defibrillator"
+	desc = "A belt-equipped defibrillator that can be rapidly deployed."
+	id = "compact_defib"
+	req_tech = list("materials" = 7, "biotech" = 7, "powerstorage" = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_SILVER = 2000)
+	build_path = /obj/item/defibrillator/compact
+	category = list("Medical")
+
 /datum/design/defib_mount
 	name = "Defibrillator Wall Mount"
 	desc = "A wall mount for defibrillator units."
@@ -323,7 +333,17 @@
 	build_path = /obj/item/organ/internal/cyberimp/arm/toolset
 	category = list("Medical")
 
-/datum/design/cyberimp_toolset
+/datum/design/mantisblade
+	name = "ShellGuard Mantis Blade"
+	desc = "A blade designed to be hidden just beneath the skin. The brain is directly linked to this bad boy, allowing it to spring into action."
+	id = "ci-mantisblade"
+	req_tech = list("materials" = 7, "combat" = 7, "biotech" = 7, "programming" = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 10000, MAT_TITANIUM = 6000, MAT_DIAMOND = 6000)
+	build_path = /obj/item/storage/lockbox/research/mantis
+	category = list("Medical")
+
+/datum/design/cyberimp_atmostoolset
 	name = "Atmos Arm Implant"
 	desc = "A stripped-down version of engineering cyborg toolset, designed to be installed on subject's arm. Contains all neccessary tools for atmos-techs."
 	id = "ci-atmostoolset"
@@ -479,7 +499,7 @@
 
 /datum/design/cyberimp_nutriment
 	name = "Nutriment pump implant"
-	desc = "This implant with synthesize and pump into your bloodstream a small amount of nutriment when you are starving."
+	desc = "This implant will synthesize a small amount of nutriment and pumps it directly into your bloodstream when you are starving."
 	id = "ci-nutriment"
 	req_tech = list("materials" = 3, "powerstorage" = 4, "biotech" = 3)
 	build_type = PROTOLATHE | MECHFAB
@@ -490,7 +510,7 @@
 
 /datum/design/cyberimp_nutriment_plus
 	name = "Nutriment pump implant PLUS"
-	desc = "This implant with synthesize and pump into your bloodstream a small amount of nutriment when you are hungry."
+	desc = "This implant will synthesize a small amount of nutriment and pumps it directly into your bloodstream when you are hungry."
 	id = "ci-nutrimentplus"
 	req_tech = list("materials" = 5, "powerstorage" = 4, "biotech" = 4)
 	build_type = PROTOLATHE | MECHFAB
@@ -538,10 +558,20 @@
 	name = "Chemical Implant Case"
 	desc = "A glass case containing an implant."
 	id = "implant_chem"
-	req_tech = list("materials" = 3, "biotech" = 5,)
+	req_tech = list("materials" = 3, "biotech" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 700)
 	build_path = /obj/item/implantcase/chem
+	category = list("Medical")
+
+/datum/design/implant_sadtrombone
+	name = "Sad Trombone Implant Case"
+	desc = "Makes death amusing."
+	id = "implant_trombone"
+	req_tech = list("materials" = 3, "biotech" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_GLASS = 500, MAT_BANANIUM = 500)
+	build_path = /obj/item/implantcase/sad_trombone
 	category = list("Medical")
 
 /datum/design/implant_tracking
@@ -652,4 +682,14 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_SILVER = 500)
 	construction_time = 60
 	build_path = /obj/item/organ/internal/lungs/cybernetic/upgraded
+	category = list("Medical")
+
+/datum/design/holostretcher
+	name = "Holo Strecher"
+	desc = "A hardlight projector for transporting patients."
+	id = "holo_stretcher"
+	req_tech = list("magnets" = 6, "powerstorage" = 4)
+	build_path = /obj/item/roller/holo
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 1000, MAT_SILVER = 500, MAT_GLASS = 500, MAT_DIAMOND = 200)
 	category = list("Medical")

@@ -59,8 +59,8 @@
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented arms and hands drop whatever they are holding on EMP.
 		return
 	var/hand = (body_part == ARM_LEFT) ? owner.l_hand : owner.r_hand
-	if(hand && owner.canUnEquip(hand))
-		owner.unEquip(hand)
+	if(hand && owner.can_unEquip(hand))
+		owner.drop_item_ground(hand)
 		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, бросая то что держал!</span>")
 		owner.custom_emote(1, "бросает [owner.p_they()] [owner.p_were()] держали, [owner.p_their()] [name] выходя из строя!")
 
@@ -90,7 +90,7 @@
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
 		return
-	if(owner.weakened)
+	if(owner.IsWeakened())
 		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, не давая вам встать!</span>")
 		owner.custom_emote(1, "не может встать, [owner.p_their()] [name] выходя из строя!")
 	else
@@ -98,9 +98,9 @@
 		owner.custom_emote(1, "упал на пол, [owner.p_their()] [name] выходя из строя!")
 	switch(severity)
 		if(1)
-			owner.AdjustWeakened(4)
+			owner.AdjustWeakened(8 SECONDS)
 		if(2)
-			owner.AdjustWeakened(2)
+			owner.AdjustWeakened(4 SECONDS)
 
 /obj/item/organ/external/leg/right
 	limb_name = "r_leg"
@@ -128,7 +128,7 @@
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
 		return
-	if(owner.weakened)
+	if(owner.IsWeakened())
 		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, не давая вам встать!</span>")
 		owner.custom_emote(1, "не может встать, [owner.p_their()] [name] выходя из строя")
 	else
@@ -136,12 +136,12 @@
 		owner.custom_emote(1, "падая на пол, [owner.p_their()] [name] выходя из строя")
 	switch(severity)
 		if(1)
-			owner.AdjustWeakened(4)
+			owner.AdjustWeakened(8 SECONDS)
 		if(2)
-			owner.AdjustWeakened(2)
+			owner.AdjustWeakened(4 SECONDS)
 
 /obj/item/organ/external/foot/remove()
-	if(owner && owner.shoes) owner.unEquip(owner.shoes)
+	if(owner && owner.shoes) owner.drop_item_ground(owner.shoes)
 	. = ..()
 
 /obj/item/organ/external/foot/right
@@ -170,19 +170,19 @@
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented arms and hands drop whatever they are holding on EMP.
 		return
 	var/hand = (body_part == HAND_LEFT) ? owner.l_hand : owner.r_hand
-	if(hand && owner.canUnEquip(hand))
-		owner.unEquip(hand)
+	if(hand && owner.can_unEquip(hand))
+		owner.drop_item_ground(hand)
 		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, dropping what it was holding!</span>")
 		owner.custom_emote(1, "бросает [owner.p_they()] [owner.p_were()] держали, [owner.p_their()] [name] выходя из строя")
 
 /obj/item/organ/external/hand/remove()
 	if(owner)
 		if(owner.gloves)
-			owner.unEquip(owner.gloves)
+			owner.drop_item_ground(owner.gloves)
 		if(owner.l_hand)
-			owner.unEquip(owner.l_hand, TRUE)
+			owner.drop_item_ground(owner.l_hand, force = TRUE)
 		if(owner.r_hand)
-			owner.unEquip(owner.r_hand, TRUE)
+			owner.drop_item_ground(owner.r_hand, force = TRUE)
 
 	. = ..()
 
@@ -213,6 +213,11 @@
 	var/hair_colour = "#000000"
 	var/sec_hair_colour = "#000000"
 	var/h_style = "Bald"
+	var/h_grad_style = "None"
+	var/h_grad_offset_x = 0
+	var/h_grad_offset_y = 0
+	var/h_grad_colour = "#000000"
+	var/h_grad_alpha = 200
 
 	//Head accessory colour and style
 	var/headacc_colour = "#000000"
@@ -229,15 +234,15 @@
 			dna = owner.dna.Clone()
 		name = "[dna.real_name]'s head"
 		if(owner.glasses)
-			owner.unEquip(owner.glasses)
+			owner.drop_item_ground(owner.glasses)
 		if(owner.head)
-			owner.unEquip(owner.head)
+			owner.drop_item_ground(owner.head)
 		if(owner.l_ear)
-			owner.unEquip(owner.l_ear)
+			owner.drop_item_ground(owner.l_ear)
 		if(owner.r_ear)
-			owner.unEquip(owner.r_ear)
+			owner.drop_item_ground(owner.r_ear)
 		if(owner.wear_mask)
-			owner.unEquip(owner.wear_mask)
+			owner.drop_item_ground(owner.wear_mask)
 		owner.update_hair()
 		owner.update_fhair()
 		owner.update_head_accessory()
@@ -253,6 +258,16 @@
 	if(!disfigured)
 		if(brute_dam + burn_dam > 50)
 			disfigure()
+
+/obj/item/organ/external/head/examine(mob/user)
+	. = ..()
+	if(in_range(user, src) || istype(user, /mob/dead/observer))
+		if(!contents.len)
+			. += "<span class='notice'>Выглядит пустой.</span>"
+		else
+			. += "<span class='notice'>Выглядит относительно целой, внутри что-то есть.</span>"
+	else
+		. += "<span class='notice'>Вы должны подойти ближе, чтобы осмотреть это.</span>"
 
 /obj/item/organ/external/head/proc/handle_alt_icon()
 	if(alt_head && GLOB.alt_heads_list[alt_head])
@@ -276,13 +291,13 @@
 
 /obj/item/organ/external/head/emp_act(severity)
 	..()
-	if(!is_robotic() || emp_proof || !tough) // Augmented head confuses the user on EMP.
+	if(!is_robotic() || emp_proof || !tough || !owner) // Augmented head confuses the user on EMP.
 		return
 	switch(severity)
 		if(1)
-			owner?.AdjustConfused(30)
+			owner.AdjustConfused(60 SECONDS)
 		if(2)
-			owner?.AdjustConfused(20)
+			owner.AdjustConfused(40 SECONDS)
 	to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, перегружая ваше управление!</span>")
 
 /obj/item/organ/external/tail
@@ -348,3 +363,30 @@
 	species_type = /datum/species/monkey/unathi
 	name = "stok tail"
 	icon_name = "stoktail_s"
+
+/obj/item/organ/external/wing
+	limb_name = "wing"
+	name = "wings"
+	icon_name = "wing"
+	max_damage = 30
+	min_broken_damage = 15
+	w_class = WEIGHT_CLASS_SMALL
+	body_part = WING
+	parent_organ = "chest"
+	amputation_point = "spine"
+	var/datum/body_accessory/body_accessory
+	var/list/m_styles = list("wing" = "None")
+	var/list/m_colours = list("wing" = "#000000")
+	s_col = "#000000"
+
+/obj/item/organ/external/wing/New(var/mob/living/carbon/holder)
+	..()
+	var/mob/living/carbon/human/H = holder
+	if(!H)
+		var/icon/tempicon = new/icon("icon" = force_icon, "icon_state" = icon_name)
+		var/icon/tempicon2 = new/icon(tempicon,dir=NORTH)
+		tempicon2.Flip(SOUTH)
+		tempicon.Insert(tempicon2,dir=SOUTH)
+		force_icon = tempicon
+		icon_name = null
+		return

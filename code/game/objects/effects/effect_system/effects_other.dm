@@ -34,10 +34,10 @@
 
 		for(var/mob/M in viewers(5, location))
 			to_chat(M, "<span class='warning'>The solution violently explodes.</span>")
-		for(var/mob/M in viewers(1, location))
+		for(var/mob/living/L in viewers(1, location))
 			if(prob(50 * amount))
-				to_chat(M, "<span class='warning'>The explosion knocks you down.</span>")
-				M.Weaken(rand(1,5))
+				to_chat(L, "<span class='warning'>The explosion pushes you.</span>")
+				goonchem_vortex_weak(location, 0, amount)
 		return
 	else
 		var/devastation = -1
@@ -61,7 +61,7 @@
 		for(var/mob/M in viewers(8, location))
 			to_chat(M, "<span class='warning'>The solution violently explodes.</span>")
 
-		explosion(location, devastation, heavy, light, flash)
+		explosion(location, devastation, heavy, light, flash, cause = "Reagent Explosion")
 
 /datum/effect_system/reagents_explosion/proc/holder_damage(atom/holder)
 	if(holder)

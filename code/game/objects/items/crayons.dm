@@ -89,7 +89,7 @@
 			temp = "graffiti"
 		to_chat(user, "<span class='info'>You start drawing a [temp] on the [target.name].</span>")
 		busy = TRUE
-		if(instant || do_after(user, 50 * toolspeed, target = target))
+		if(instant || do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = target))
 			var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target,colour,drawtype,temp)
 			C.add_hiddenprint(user)
 			to_chat(user, "<span class='info'>You finish drawing [temp].</span>")
@@ -110,12 +110,14 @@
 				return
 		playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
 		to_chat(user, "<span class='notice'>You take a [huffable ? "huff" : "bite"] of the [name]. Delicious!</span>")
-		user.adjust_nutrition(5)
+		if(!isvampire(user))
+			user.adjust_nutrition(5)
 		if(uses)
 			uses -= 5
 			if(uses <= 0)
-				to_chat(user, "<span class='warning'>There is no more of [name] left!</span>")
+				to_chat(user, "<span class='warning'>There is no more of [huffable ? "paint in " : ""][name] left!</span>")
 				qdel(src)
+
 	else
 		..()
 
@@ -252,6 +254,7 @@
 //Spraycan stuff
 
 /obj/item/toy/crayon/spraycan
+	name = "spraycan"
 	icon_state = "spraycan_cap"
 	desc = "A metallic container containing tasty paint."
 	var/capped = 1
@@ -289,15 +292,16 @@
 				var/mob/living/carbon/human/C = target
 				user.visible_message("<span class='danger'> [user] sprays [src] into the face of [target]!</span>")
 				if(C.client)
-					C.EyeBlurry(3)
-					C.EyeBlind(1)
+					C.EyeBlurry(6 SECONDS)
+					C.EyeBlind(2 SECONDS)
 					if(C.check_eye_prot() <= 0) // no eye protection? ARGH IT BURNS.
-						C.Confused(3)
-						C.Weaken(3)
+						C.Confused(6 SECONDS)
+						C.Weaken(6 SECONDS)
 				C.lip_style = "spray_face"
 				C.lip_color = colour
 				C.update_body()
-		playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
+		if(loc == user) //sound play only if it in user hands
+			playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
 		..()
 
 /obj/item/toy/crayon/spraycan/update_icon()

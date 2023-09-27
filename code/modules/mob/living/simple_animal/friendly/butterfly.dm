@@ -12,6 +12,7 @@
 	speak_chance = 0
 	maxHealth = 2
 	health = 2
+	blood_nutrients = 5
 	harm_intent_damage = 1
 	friendly = "nudges"
 	density = 0
@@ -21,6 +22,7 @@
 	mob_size = MOB_SIZE_TINY
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 0)
 	gold_core_spawnable = FRIENDLY_SPAWN
+	tts_seed = "Meepo"
 
 /mob/living/simple_animal/butterfly/New()
 	..()

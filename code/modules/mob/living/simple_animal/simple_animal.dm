@@ -19,6 +19,8 @@
 	var/speak_chance = 0
 	var/list/emote_hear = list()	//Hearable emotes
 	var/list/emote_see = list()		//Unlike speak_emote, the list of things in this variable only show by themselves with no spoken text. IE: Ian barks, Ian yaps
+	tts_seed = "Kleiner"
+	var/list/talk_sound = null //The sound played when talk
 
 	var/turns_per_move = 1
 	var/turns_since_move = 0
@@ -32,6 +34,9 @@
 	var/response_harm   = "hits"
 	var/harm_intent_damage = 3
 	var/force_threshold = 0 //Minimum force required to deal any damage
+
+	/// Was this mob spawned by xenobiology magic? Used for mobcapping.
+	var/xenobiology_spawned = FALSE
 
 	//Temperature effect
 	var/minbodytemp = 250
@@ -65,7 +70,9 @@
 	var/environment_smash = ENVIRONMENT_SMASH_NONE //Set to 1 to allow breaking of crates,lockers,racks,tables; 2 for walls; 3 for Rwalls
 
 	var/speed = 1 //LETS SEE IF I CAN SET SPEEDS FOR SIMPLE MOBS WITHOUT DESTROYING EVERYTHING. Higher speed is slower, negative speed is faster
-	var/can_hide    = 0
+	var/can_hide = FALSE
+	/// Allows a mob to pass unbolted doors while hidden
+	var/pass_door_while_hidden = FALSE
 
 	var/obj/item/clothing/accessory/petcollar/pcollar = null
 	var/collar_type //if the mob has collar sprites, define them.
@@ -90,6 +97,7 @@
 	var/del_on_death = 0 //causes mob to be deleted on death, useful for mobs that spawn lootable corpses
 	var/deathmessage = ""
 	var/death_sound = null //The sound played on death
+	var/list/damaged_sound = null
 
 	var/allow_movement_on_non_turfs = FALSE
 
@@ -117,8 +125,9 @@
 	if(!loc)
 		stack_trace("Simple animal being instantiated in nullspace")
 	verbs -= /mob/verb/observe
-	if(!can_hide)
-		verbs -= /mob/living/simple_animal/verb/hide
+	if(can_hide)
+		var/datum/action/innate/hide/hide = new()
+		hide.Grant(src)
 	if(pcollar)
 		pcollar = new(src)
 		regenerate_icons()
@@ -151,9 +160,12 @@
 	. = ..()
 	if(stat == DEAD)
 		. += "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>"
+		return
+	if(IsSleeping())
+		. += "<span class='notice'>Upon closer examination, [p_they()] appear[p_s()] to be asleep.</span>"
 
-/mob/living/simple_animal/updatehealth(reason = "none given")
-	..(reason)
+/mob/living/simple_animal/updatehealth(reason = "none given", should_log = FALSE)
+	..()
 	health = clamp(health, 0, maxHealth)
 	med_hud_set_health()
 
@@ -173,17 +185,15 @@
 			collar_type = "[initial(collar_type)]"
 			regenerate_icons()
 
-/mob/living/simple_animal/update_stat(reason = "none given")
+/mob/living/simple_animal/update_stat(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
-		return
+		return ..()
 	if(stat != DEAD)
 		if(health <= 0)
 			death()
-			create_debug_log("died of damage, trigger reason: [reason]")
 		else
 			WakeUp()
-			create_debug_log("woke up, trigger reason: [reason]")
-	med_hud_set_status()
+	..()
 
 /mob/living/simple_animal/proc/handle_automated_action()
 	set waitfor = FALSE
@@ -332,7 +342,7 @@
 	. = speed
 	if(forced_look)
 		. += 3
-	. += config.animal_delay
+	. += CONFIG_GET(number/animal_delay)
 
 /mob/living/simple_animal/Stat()
 	..()
@@ -345,9 +355,6 @@
 		for(var/i in loot)
 			new i(loc)
 
-/mob/living/simple_animal/revive()
-	..()
-	density = initial(density)
 
 /mob/living/simple_animal/death(gibbed)
 	// Only execute the below if we successfully died
@@ -366,6 +373,8 @@
 			visible_message("<span class='danger'>\The [src] [deathmessage]</span>")
 		else if(!del_on_death)
 			visible_message("<span class='danger'>\The [src] stops moving...</span>")
+	if(xenobiology_spawned)
+		SSmobs.xenobiology_mobs--
 	if(del_on_death)
 		//Prevent infinite loops if the mob Destroy() is overridden in such
 		//a manner as to cause a call to death() again
@@ -433,6 +442,7 @@
 
 /mob/living/simple_animal/revive()
 	..()
+	density = initial(density)
 	health = maxHealth
 	icon = initial(icon)
 	icon_state = icon_living
@@ -489,7 +499,7 @@
 			return pcollar
 	. = ..()
 
-/mob/living/simple_animal/can_equip(obj/item/I, slot, disable_warning = 0)
+/mob/living/simple_animal/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
 	// . = ..() // Do not call parent. We do not want animals using their hand slots.
 	switch(slot)
 		if(slot_collar)
@@ -501,28 +511,35 @@
 				return FALSE
 			return TRUE
 
-/mob/living/simple_animal/equip_to_slot(obj/item/W, slot)
-	if(!istype(W))
+
+/mob/living/simple_animal/equip_to_slot(obj/item/I, slot, initial)
+	if(!istype(I))
 		return FALSE
 
 	if(!slot)
 		return FALSE
 
-	W.layer = ABOVE_HUD_LAYER
-	W.plane = ABOVE_HUD_PLANE
+	I.pixel_x = initial(I.pixel_x)
+	I.pixel_y = initial(I.pixel_y)
+	I.layer = ABOVE_HUD_LAYER
+	I.plane = ABOVE_HUD_PLANE
+	I.forceMove(src)
 
 	switch(slot)
 		if(slot_collar)
-			add_collar(W)
+			add_collar(I)
 
-/mob/living/simple_animal/unEquip(obj/item/I, force)
+
+/mob/living/simple_animal/do_unEquip(obj/item/I, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
 	. = ..()
 	if(!. || !I)
 		return
 
 	if(I == pcollar)
 		pcollar = null
-		regenerate_icons()
+		if(!QDELETED(src))
+			regenerate_icons()
+
 
 /mob/living/simple_animal/get_access()
 	. = ..()
@@ -530,7 +547,7 @@
 		. |= pcollar.GetAccess()
 
 /mob/living/simple_animal/update_canmove(delay_action_updates = 0)
-	if(paralysis || stunned || IsWeakened() || stat || resting)
+	if(IsParalyzed() || IsStunned() || IsWeakened() || stat || resting)
 		drop_r_hand()
 		drop_l_hand()
 		canmove = 0
@@ -626,9 +643,8 @@
 /mob/living/simple_animal/proc/add_collar(obj/item/clothing/accessory/petcollar/P, mob/user)
 	if(!istype(P) || QDELETED(P) || pcollar)
 		return
-	if(user && !user.unEquip(P))
+	if(user && !user.drop_transfer_item_to_loc(P, src))
 		return
-	P.forceMove(src)
 	P.equipped(src)
 	pcollar = P
 	regenerate_icons()
@@ -648,3 +664,49 @@
 	..()
 	walk(src, 0) // if mob is moving under ai control, then stop AI movement
 
+/mob/living/simple_animal/say(message, verb, sanitize, ignore_speech_problems, ignore_atmospherics)
+	. = ..()
+	if(. && length(src.talk_sound))
+		playsound(src, pick(src.talk_sound), 75, TRUE)
+
+/mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user)
+	. = ..()
+	if(. && length(src.damaged_sound))
+		playsound(src, pick(src.damaged_sound), 40, 1)
+
+/mob/living/simple_animal/attack_hand(mob/living/carbon/human/M)
+	. = ..()
+	if(. && length(src.damaged_sound))
+		playsound(src, pick(src.damaged_sound), 40, 1)
+
+/mob/living/simple_animal/attack_animal(mob/living/simple_animal/M)
+	. = ..()
+	if(. && length(src.damaged_sound))
+		playsound(src, pick(src.damaged_sound), 40, 1)
+
+/mob/living/simple_animal/attack_alien(mob/living/carbon/alien/humanoid/M)
+	. = ..()
+	if(. && length(src.damaged_sound))
+		playsound(src, pick(src.damaged_sound), 40, 1)
+
+/mob/living/simple_animal/attack_larva(mob/living/carbon/alien/larva/L)
+	. = ..()
+	if(. && length(src.damaged_sound))
+		playsound(src, pick(src.damaged_sound), 40, 1)
+
+/mob/living/simple_animal/attack_slime(mob/living/simple_animal/slime/M)
+	. = ..()
+	if(. && length(src.damaged_sound))
+		playsound(src, pick(src.damaged_sound), 40, 1)
+
+/mob/living/simple_animal/attack_robot(mob/living/user)
+	. = ..()
+	if(. && length(src.damaged_sound))
+		playsound(src, pick(src.damaged_sound), 40, 1)
+
+/mob/living/simple_animal/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
+	if(pull_constraint(AM, show_message))
+		return ..()
+
+/mob/living/simple_animal/proc/pull_constraint(atom/movable/AM, show_message = FALSE)
+	return TRUE

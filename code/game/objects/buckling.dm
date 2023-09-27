@@ -10,14 +10,18 @@
 //Interaction
 /atom/movable/attack_hand(mob/living/user)
 	. = ..()
+
 	if(can_buckle && has_buckled_mobs())
 		if(length(buckled_mobs) > 1)
 			var/unbuckled = input(user, "Who do you wish to unbuckle?", "Unbuckle Who?") as null|mob in buckled_mobs
+			if(isnull(unbuckled))
+				return
 			if(user_unbuckle_mob(unbuckled,user))
 				return TRUE
 		else
 			if(user_unbuckle_mob(buckled_mobs[1], user))
 				return TRUE
+
 
 /atom/movable/MouseDrop_T(mob/living/M, mob/living/user)
 	. = ..()
@@ -48,7 +52,10 @@
 	if(!istype(M))
 		return FALSE
 
-	if(check_loc && M.loc != loc)
+	if(check_loc && !in_range(M, src))
+		return FALSE
+
+	if(M.loc != loc && !M.Move(loc))
 		return FALSE
 
 	if((!can_buckle && !force) || M.buckled || (length(buckled_mobs) >= max_buckled_mobs) || (buckle_requires_restraints && !M.restrained()) || M == src)
@@ -65,12 +72,12 @@
 	if(M.pulledby)
 		if(buckle_prevents_pull)
 			M.pulledby.stop_pulling()
+		else
+			M.pulledby.pulling = src
+			M.pulledby = null
 
 	for(var/obj/item/grab/G in M.grabbed_by)
 		qdel(G)
-
-	if(!check_loc && M.loc != loc)
-		M.forceMove(loc)
 
 	M.buckling = null
 	M.buckled = src

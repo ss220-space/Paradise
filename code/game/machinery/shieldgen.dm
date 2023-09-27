@@ -23,9 +23,12 @@
 	air_update_turf(1)
 	return ..()
 
+/obj/machinery/shield/has_prints()
+	return FALSE
+
 /obj/machinery/shield/Move()
 	var/turf/T = loc
-	..()
+	. = ..()
 	move_update_air(T)
 
 /obj/machinery/shield/CanPass(atom/movable/mover, turf/target, height)
@@ -222,14 +225,16 @@
 		return
 
 	if(active)
-		user.visible_message("<span class='notice'>[bicon(src)] [user] deactivated the shield generator.</span>", \
-			"<span class='notice'>[bicon(src)] You deactivate the shield generator.</span>", \
+		add_fingerprint(user)
+		user.visible_message(span_notice("[bicon(src)] [user] deactivated the shield generator."), \
+			span_notice("[bicon(src)] You deactivate the shield generator."), \
 			"You hear heavy droning fade out.")
 		shields_down()
 	else
 		if(anchored)
-			user.visible_message("<span class='notice'>[bicon(src)] [user] activated the shield generator.</span>", \
-				"<span class='notice'>[bicon(src)] You activate the shield generator.</span>", \
+			add_fingerprint(user)
+			user.visible_message(span_notice("[bicon(src)] [user] activated the shield generator."), \
+				span_notice("[bicon(src)] You activate the shield generator."), \
 				"You hear heavy droning.")
 			shields_up()
 		else
@@ -237,28 +242,31 @@
 
 /obj/machinery/shieldgen/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/card/emag))
+		add_fingerprint(user)
 		malfunction = TRUE
 		update_icon()
 
 	else if(istype(I, /obj/item/stack/cable_coil) && malfunction && is_open)
 		var/obj/item/stack/cable_coil/coil = I
-		to_chat(user, "<span class='notice'>You begin to replace the wires.</span>")
-		if(do_after(user, 30 * coil.toolspeed, target = src))
+		to_chat(user, span_notice("You begin to replace the wires."))
+		if(do_after(user, 30 * coil.toolspeed * gettoolspeedmod(user), target = src))
 			if(!src || !coil)
 				return
+			add_fingerprint(user)
 			coil.use(1)
 			health = max_health
 			malfunction = TRUE
 			playsound(loc, coil.usesound, 50, 1)
-			to_chat(user, "<span class='notice'>You repair the [src]!</span>")
+			to_chat(user, span_notice("You repair the [src]!"))
 			update_icon()
 
 	else if(I.GetID())
 		if(allowed(user))
+			add_fingerprint(user)
 			locked = !locked
 			to_chat(user, "The controls are now [locked ? "locked." : "unlocked."]")
 		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
+			to_chat(user, span_warning("Access denied."))
 
 	else
 		return ..()
@@ -283,7 +291,7 @@
 	if(anchored)
 		WRENCH_UNANCHOR_MESSAGE
 		if(active)
-			visible_message("<span class='warning'>[src] shuts off!</span>")
+			visible_message(span_warning("[src] shuts off!"))
 			shields_down()
 		anchored = FALSE
 	else
@@ -355,13 +363,13 @@
 
 /obj/machinery/shieldwallgen/attack_hand(mob/user)
 	if(state != 1)
-		to_chat(user, "<span class='warning'>The shield generator needs to be firmly secured to the floor first.</span>")
+		to_chat(user, span_warning("The shield generator needs to be firmly secured to the floor first."))
 		return 1
 	if(locked && !issilicon(user))
-		to_chat(user, "<span class='warning'>The controls are locked!</span>")
+		to_chat(user, span_warning("The controls are locked!"))
 		return 1
 	if(power != 1)
-		to_chat(user, "<span class='warning'>The shield generator needs to be powered by wire underneath.</span>")
+		to_chat(user, span_warning("The shield generator needs to be powered by wire underneath."))
 		return 1
 
 	if(active >= 1)
@@ -406,7 +414,7 @@
 		active = 2
 	if(active >= 1)
 		if(power == 0)
-			visible_message("<span class='warning'>The [name] shuts down due to lack of power!</span>", \
+			visible_message(span_warning("The [name] shuts down due to lack of power!"), \
 				"You hear heavy droning fade out")
 			icon_state = "Shield_Gen"
 			active = 0
@@ -465,6 +473,7 @@
 			return
 
 		else if(state == 0)
+			add_fingerprint(user)
 			state = 1
 			playsound(loc, I.usesound, 75, 1)
 			to_chat(user, "You secure the external reinforcing bolts to the floor.")
@@ -472,6 +481,7 @@
 			return
 
 		else if(state == 1)
+			add_fingerprint(user)
 			state = 0
 			playsound(loc, I.usesound, 75, 1)
 			to_chat(user, "You undo the external reinforcing bolts.")
@@ -480,13 +490,13 @@
 
 	if(I.GetID() || ispda(I))
 		if(allowed(user))
+			add_fingerprint(user)
 			locked = !locked
 			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")
 		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
+			to_chat(user, span_warning("Access denied."))
 
 	else
-		add_fingerprint(user)
 		..()
 
 /obj/machinery/shieldwallgen/proc/cleanup(NSEW)
@@ -649,7 +659,7 @@
 		spawn(20)
 			alpha = 0
 
-/obj/machinery/shieldwall/syndicate/Bumped(atom/user)
+/obj/machinery/shieldwall/syndicate/Bumped(atom/movable/moving_atom)
 	phaseout()
 	return ..()
 
@@ -673,6 +683,6 @@
 	phaseout()
 	return ..()
 
-/obj/machinery/shieldwall/syndicate/hitby(AM as mob|obj)
+/obj/machinery/shieldwall/syndicate/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	phaseout()
 	return ..()

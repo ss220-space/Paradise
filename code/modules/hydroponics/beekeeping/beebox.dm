@@ -151,10 +151,10 @@
 	if(istype(I, /obj/item/honey_frame))
 		var/obj/item/honey_frame/HF = I
 		if(honey_frames.len < BEEBOX_MAX_FRAMES)
-			if(!user.unEquip(HF))
+			if(!user.drop_transfer_item_to_loc(HF, src))
 				return
+			add_fingerprint(user)
 			visible_message("<span class='notice'>[user] adds a frame to the apiary.</span>")
-			HF.forceMove(src)
 			honey_frames += HF
 		else
 			to_chat(user, "<span class='warning'>There's no room for anymore frames in the apiary!</span>")
@@ -167,7 +167,7 @@
 
 		var/obj/item/queen_bee/qb = I
 		if(!qb.queen.beegent || (qb.queen.beegent && qb.queen.beegent.can_synth))
-			if(!user.unEquip(qb))
+			if(!user.drop_transfer_item_to_loc(qb, src))
 				return
 			qb.queen.forceMove(src)
 			bees += qb.queen
@@ -214,6 +214,7 @@
 /obj/structure/beebox/attack_hand(mob/user)
 	if(ishuman(user))
 		if(!user.bee_friendly())
+			add_fingerprint(user)
 			//Time to get stung!
 			var/bees = FALSE
 			for(var/b in bees) //everyone who's ever lived here now instantly hates you, suck it assistant!
@@ -238,8 +239,10 @@
 
 					var/obj/item/honey_frame/HF = pick_n_take(honey_frames)
 					if(HF)
-						if(!user.put_in_active_hand(HF))
-							HF.forceMove(get_turf(src))
+						add_fingerprint(user)
+						HF.forceMove_turf()
+						user.put_in_active_hand(HF, ignore_anim = FALSE)
+
 						visible_message("<span class='notice'>[user] removes a frame from the apiary.</span>")
 
 						var/amtH = HF.honeycomb_capacity
@@ -247,6 +250,7 @@
 						while(honeycombs.len && amtH) //let's pretend you always grab the frame with the most honeycomb on it
 							var/obj/item/reagent_containers/honeycomb/HC = pick_n_take(honeycombs)
 							if(HC)
+								HC.add_fingerprint(user)
 								HC.forceMove(get_turf(src))
 								amtH--
 								fallen++
@@ -258,13 +262,15 @@
 					if(!queen_bee || queen_bee.loc != src)
 						to_chat(user, "<span class='warning'>There is no queen bee to remove!</span>")
 						return
+					add_fingerprint(user)
 					var/obj/item/queen_bee/QB = new()
+					QB.add_fingerprint(user)
 					queen_bee.forceMove(QB)
 					bees -= queen_bee
 					QB.queen = queen_bee
 					QB.name = queen_bee.name
-					if(!user.put_in_active_hand(QB))
-						QB.forceMove(get_turf(src))
+					QB.forceMove_turf()
+					user.put_in_active_hand(QB)
 					visible_message("<span class='notice'>[user] removes the queen from the apiary.</span>")
 					queen_bee = null
 

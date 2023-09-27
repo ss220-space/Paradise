@@ -42,7 +42,7 @@
 		return
 	to_chat(user, "<span class='danger'>You try to screwdriver open [src], but accidentally release some radiation!</span>")
 	if(prob(50))
-		empulse(src, 4, 10)
+		empulse(src, 4, 10, TRUE, "[user] screwed with [name]")
 	else
 		for(var/mob/living/M in range(10, loc))
 			M.apply_effect(rand(5, 25), IRRADIATE)
@@ -69,7 +69,7 @@
 
 
 /obj/effect/overload
-	icon = 'icons/obj/tesla_engine/energy_ball.dmi'
+	icon = 'icons/obj/engines_and_power/tesla/energy_ball.dmi'
 	icon_state = "energy_ball"
 	pixel_x = -32
 	pixel_y = -32

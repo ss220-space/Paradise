@@ -79,7 +79,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 		greet_vox(raider)
 
 		if(raid_objectives)
-			raider.objectives = raid_objectives
+			raider.objectives = raid_objectives.Copy()
 
 	return ..()
 
@@ -149,21 +149,18 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	return 0
 
 /datum/game_mode/proc/forge_vox_objectives()
-	var/i = 1
-	var/max_objectives = pick(2,2,2,2,3,3,3,4)
+	var/max_objectives = pick(5,6)
 	var/list/objs = list()
-	var/list/goals = list("kidnap","loot","salvage")
-	while(i<= max_objectives)
-		var/goal = pick(goals)
+	for(var/i in 1 to max_objectives)
 		var/datum/objective/heist/O
-
-		if(goal == "kidnap")
-			goals -= "kidnap"
-			O = new /datum/objective/heist/kidnap()
-		else if(goal == "loot")
-			O = new /datum/objective/heist/loot()
-		else
-			O = new /datum/objective/heist/salvage()
+		switch(i)
+			if(1 to 3)
+				O = new /datum/objective/heist/salvage()
+			else
+				if(prob(50))
+					O = new /datum/objective/heist/loot()
+				else
+					O = new /datum/objective/heist/kidnap()
 		O.choose_target()
 		objs += O
 
@@ -172,7 +169,6 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	//-All- vox raids have these two objectives. Failing them loses the game.
 	objs += new /datum/objective/heist/inviolate_crew
 	objs += new /datum/objective/heist/inviolate_death
-
 	return objs
 
 /datum/game_mode/proc/greet_vox(var/datum/mind/raider)
@@ -258,7 +254,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 		var/text = "<FONT size = 2><B>The Vox raiders were:</B></FONT>"
 
 		for(var/datum/mind/vox in raiders)
-			text += "<br>[vox.key] was [vox.name] ("
+			text += "<br>[vox.get_display_key()] was [vox.name] ("
 			if(check_return)
 				var/obj/stack = raiders[vox]
 				if(get_area(stack.loc) != locate(/area/shuttle/vox))
@@ -290,12 +286,13 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 /obj/machinery/vox_win_button
 	name = "shoal contact computer"
 	desc = "Used to contact the Vox Shoal, generally to arrange for pickup."
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "tcstation"
+	anchored = TRUE
 
 /obj/machinery/vox_win_button/New()
 	. = ..()
-	overlays += icon('icons/obj/computer.dmi', "syndie")
+	overlays += icon('icons/obj/machines/computer.dmi', "syndie")
 
 /obj/machinery/vox_win_button/attack_hand(mob/user)
 	if(!GAMEMODE_IS_HEIST || (world.time < 10 MINUTES)) //has to be heist, and at least ten minutes into the round

@@ -4,6 +4,7 @@ SUBSYSTEM_DEF(mob_hunt)
 	priority = FIRE_PRIORITY_NANOMOB // Low priority, no need for MC_TICK_CHECK due to extremely low performance impact.
 	flags = SS_NO_INIT
 	offline_implications = "Nano-Mob Hunter will no longer spawn mobs. No immediate action is needed."
+	cpu_display = SS_CPUDISPLAY_LOW
 	var/max_normal_spawns = 15		//change this to adjust the number of normal spawns that can exist at one time. trapped spawns (from traitors) don't count towards this
 	var/list/normal_spawns = list()
 	var/max_trap_spawns = 15		//change this to adjust the number of trap spawns that can exist at one time. traps spawned beyond this point clear the oldest traps
@@ -41,7 +42,7 @@ SUBSYSTEM_DEF(mob_hunt)
 		recover_time = 3000
 	if(recover_time > 0)	//when provided with a negative or zero valued recover_time argument, the server won't auto-restart but can be manually rebooted still
 		//set a timer to automatically recover after recover_time has passed (can be manually restarted if you get impatient too)
-		addtimer(CALLBACK(src, .proc/auto_recover), recover_time, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(auto_recover)), recover_time, TIMER_UNIQUE)
 
 /datum/controller/subsystem/mob_hunt/proc/client_mob_update()
 	var/list/ex_players = list()
@@ -103,21 +104,21 @@ SUBSYSTEM_DEF(mob_hunt)
 	if(battle_turn)		//somehow we got called mid-battle, so lets just stop now
 		return
 	if(red_terminal && red_terminal.ready && blue_terminal && blue_terminal.ready)
-		battle_turn = pick("Red", "Blue")
-		red_terminal.atom_say("Battle starting!")
-		blue_terminal.atom_say("Battle starting!")
-		if(battle_turn == "Red")
-			red_terminal.atom_say("Red Player's Turn!")
-		else if(battle_turn == "Blue")
-			blue_terminal.atom_say("Blue Player's Turn!")
+		battle_turn = pick("Красный", "Синий")
+		red_terminal.atom_say("Битва начинается!")
+		blue_terminal.atom_say("Битва начинается!")
+		if(battle_turn == "Красный")
+			red_terminal.atom_say("Ход красного игрока!")
+		else if(battle_turn == "Синий")
+			blue_terminal.atom_say("Ход синего игрока!")
 
 /datum/controller/subsystem/mob_hunt/proc/launch_attack(team, raw_damage, datum/mob_type/attack_type)
 	if(!team || !raw_damage)
 		return
 	var/obj/machinery/computer/mob_battle_terminal/target = null
-	if(team == "Red")
+	if(team == "Красный")
 		target = blue_terminal
-	else if(team == "Blue")
+	else if(team == "Синий")
 		target = red_terminal
 	else
 		return
@@ -126,20 +127,20 @@ SUBSYSTEM_DEF(mob_hunt)
 /datum/controller/subsystem/mob_hunt/proc/end_battle(loser, surrender = 0)
 	var/obj/machinery/computer/mob_battle_terminal/winner_terminal = null
 	var/obj/machinery/computer/mob_battle_terminal/loser_terminal = null
-	if(loser == "Red")
+	if(loser == "Красный")
 		loser_terminal = red_terminal
 		winner_terminal = blue_terminal
-	else if (loser == "Blue")
+	else if (loser == "Синий")
 		loser_terminal = blue_terminal
 		winner_terminal = red_terminal
 	battle_turn = null
 	winner_terminal.ready = 0
 	loser_terminal.ready = 0
 	if(surrender)	//surrender doesn't give exp, to avoid people just farming exp without actually doing a battle
-		winner_terminal.atom_say("Your rival surrendered!")
+		winner_terminal.atom_say("Ваш соперник сдался!")
 	else
 		var/progress_message =  winner_terminal.mob_info.gain_exp()
-		winner_terminal.atom_say("[winner_terminal.team] Player wins!")
+		winner_terminal.atom_say("[winner_terminal.team] игрок побеждает!")
 		winner_terminal.atom_say(progress_message)
 
 /datum/controller/subsystem/mob_hunt/proc/end_turn()
@@ -147,9 +148,9 @@ SUBSYSTEM_DEF(mob_hunt)
 	blue_terminal.updateUsrDialog()
 	if(!battle_turn)
 		return
-	if(battle_turn == "Red")
-		battle_turn = "Blue"
-		blue_terminal.atom_say("Blue's turn.")
-	else if(battle_turn == "Blue")
-		battle_turn = "Red"
-		blue_terminal.atom_say("Red's turn.")
+	if(battle_turn == "Красный")
+		battle_turn = "Синий"
+		blue_terminal.atom_say("Ход синего игрока.")
+	else if(battle_turn == "Синий")
+		battle_turn = "Красный"
+		blue_terminal.atom_say("Ход красного игрока.")

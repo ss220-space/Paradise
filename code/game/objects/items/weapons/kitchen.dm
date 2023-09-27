@@ -57,6 +57,12 @@
 	if(length(contents))
 		var/obj/item/reagent_containers/food/snacks/toEat = contents[1]
 		if(istype(toEat))
+			if(!get_location_accessible(C, "mouth"))
+				if(C == user)
+					to_chat(user, "<span class='warning'>Your face is obscured, so you cant eat.</span>")
+				else
+					to_chat(user, "<span class='warning'>[C]'s face is obscured, so[C.p_they()] cant eat.</span>")
+				return
 			if(C.eat(toEat, user))
 				toEat.On_Consume(C, user)
 				overlays.Cut()
@@ -160,6 +166,7 @@
 	name = "combat knife"
 	icon_state = "combatknife"
 	item_state = "knife"
+	belt_icon = "combat_knife"
 	desc = "A military combat utility survival knife."
 	force = 20
 	throwforce = 20
@@ -171,6 +178,7 @@
 /obj/item/kitchen/knife/combat/survival
 	name = "survival knife"
 	icon_state = "survivalknife"
+	belt_icon = "survival_knife"
 	desc = "A hunting grade survival knife."
 	force = 15
 	throwforce = 15
@@ -179,6 +187,7 @@
 	name = "bone dagger"
 	item_state = "bone_dagger"
 	icon_state = "bone_dagger"
+	belt_icon = "bone_dagger"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	desc = "A sharpened bone. The bare minimum in survival."
@@ -191,6 +200,15 @@
 	desc = "A cyborg-mounted plasteel knife. Extremely sharp and durable."
 	origin_tech = null
 
+/obj/item/kitchen/knife/combat/cyborg/mecha
+	force = 25
+	armour_penetration = 20
+	flags = NODROP
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	slot_flags = null
+	w_class = WEIGHT_CLASS_HUGE
+	materials = null
+
 /obj/item/kitchen/knife/carrotshiv
 	name = "carrot shiv"
 	icon_state = "carrotshiv"
@@ -202,6 +220,35 @@
 	origin_tech = "biotech=3;combat=2"
 	attack_verb = list("shanked", "shivved")
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+
+/obj/item/kitchen/knife/glassshiv
+	name = "glass shiv"
+	icon_state = "glass_shiv"
+	item_state = "knife"
+	desc = "A glass shard with some cloth wrapped around it"
+	force = 7
+	throwforce = 8
+	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
+	attack_verb = list("shanked", "shivved")
+	armor = list("melee" = 100, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100)
+	var/size
+
+/obj/item/kitchen/knife/glassshiv/Initialize(mapload, obj/item/shard/sh)
+	. = ..()
+	if(sh)
+		size = sh.icon_state
+	if(istype(sh, /obj/item/shard/plasma))
+		name = "plasma glass shiv"
+		desc = "A plasma glass shard with some cloth wrapped around it"
+		force = 9
+		throwforce = 11
+		materials = list(MAT_PLASMA = MINERAL_MATERIAL_AMOUNT * 0.5, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
+	update_icon()
+
+/obj/item/kitchen/knife/glassshiv/update_icon()
+	if(!size)
+		size = pick("large", "medium", "small")
+	icon_state = "[size]_[initial(icon_state)]"
 
 
 /*

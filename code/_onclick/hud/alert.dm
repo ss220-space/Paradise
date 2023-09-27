@@ -2,20 +2,21 @@
 
 //PUBLIC -  call these wherever you want
 
-
-/mob/proc/throw_alert(category, type, severity, obj/new_master, override = FALSE, timeout_override, no_anim)
-
-/*
- Proc to create or update an alert. Returns the alert if the alert is new or updated, 0 if it was thrown already
- category is a text string. Each mob may only have one alert per category; the previous one will be replaced
- path is a type path of the actual alert type to throw
- severity is an optional number that will be placed at the end of the icon_state for this alert
- For example, high pressure's icon_state is "highpressure" and can be serverity 1 or 2 to get "highpressure1" or "highpressure2"
- new_master is optional and sets the alert's icon state to "template" in the ui_style icons with the master as an overlay.
- Clicks are forwarded to master
- Override makes it so the alert is not replaced until cleared by a clear_alert with clear_override, and it's used for hallucinations.
+/**
+ * Proc to create or update an alert. Returns the alert if the alert is new or updated, 0 if it was thrown already.
+ * Each mob may only have one alert per category.
+ *
+ * Arguments:
+ * * category - a text string corresponding to what type of alert it is
+ * * type - a type path of the actual alert type to throw
+ * * severity - is an optional number that will be placed at the end of the icon_state for this alert
+ *   For example, high pressure's icon_state is "highpressure" and can be serverity 1 or 2 to get "highpressure1" or "highpressure2"
+ * * obj/new_master - optional argument. Sets the alert's icon state to "template" in the ui_style icons with the master as an overlay. Clicks are forwarded to master
+ * * no_anim - whether the alert should play a small sliding animation when created on the player's screen
+ * * icon_override - makes it so the alert is not replaced until cleared by a clear_alert with clear_override, and it's used for hallucinations.
+ * * list/alert_args - a list of arguments to pass to the alert when creating it
  */
-
+/mob/proc/throw_alert(category, type, severity, obj/new_master, override = FALSE, timeout_override, no_anim, icon_override, list/alert_args)
 	if(!category)
 		return
 
@@ -37,10 +38,17 @@
 			else //no need to update
 				return 0
 	else
-		alert = new type()
+		if(alert_args)
+			alert_args.Insert(1, null) // So it's still created in nullspace.
+			alert = new type(arglist(alert_args))
+		else
+			alert = new type()
 		alert.override_alerts = override
 		if(override)
 			alert.timeout = null
+
+	if(icon_override)
+		alert.icon = icon_override
 
 	if(new_master)
 		var/old_layer = new_master.layer
@@ -66,7 +74,7 @@
 
 	var/timeout = timeout_override || alert.timeout
 	if(timeout)
-		addtimer(CALLBACK(alert, /obj/screen/alert/.proc/do_timeout, src, category), timeout)
+		addtimer(CALLBACK(alert, TYPE_PROC_REF(/obj/screen/alert, do_timeout), src, category), timeout)
 		alert.timeout = world.time + timeout - world.tick_lag
 
 	return alert
@@ -167,69 +175,95 @@
 	desc = "ABSOLUTELY DISGUSTIN'"
 	icon_state = "gross3"
 
-/obj/screen/alert/fat
+// Hunger alerts
+
+/obj/screen/alert/hunger
+	icon = 'icons/mob/screen_hunger.dmi'
+
+/obj/screen/alert/hunger/fat
 	name = "Fat"
 	desc = "You ate too much food, lardass. Run around the station and lose some weight."
 	icon_state = "fat"
 
-/obj/screen/alert/full
+/obj/screen/alert/hunger/full
 	name = "Full"
 	desc = "You feel full and satisfied, but you shouldn't eat much more."
 	icon_state = "full"
 
-/obj/screen/alert/well_fed
+/obj/screen/alert/hunger/well_fed
 	name = "Well Fed"
 	desc = "You feel quite satisfied, but you may be able to eat a bit more."
 	icon_state = "well_fed"
 
-/obj/screen/alert/fed
+/obj/screen/alert/hunger/fed
 	name = "Fed"
 	desc = "You feel moderately satisfied, but a bit more food may not hurt."
 	icon_state = "fed"
 
-/obj/screen/alert/hungry
+/obj/screen/alert/hunger/hungry
 	name = "Hungry"
 	desc = "Some food would be good right about now."
 	icon_state = "hungry"
 
-/obj/screen/alert/starving
+/obj/screen/alert/hunger/starving
 	name = "Starving"
 	desc = "You're severely malnourished. The hunger pains make moving around a chore."
 	icon_state = "starving"
 
-///Vampire "hunger"
+/// Machine "hunger"
 
-/obj/screen/alert/fat/vampire
+/obj/screen/alert/hunger/fat/machine
+	name = "Over Charged"
+	desc = "Your cell has excessive charge due to electrical shocks. Run around the station and spend some energy."
+
+/obj/screen/alert/hunger/full/machine
+	name = "Full Charge"
+	desc = "Your cell is at full charge. Might want to give APCs some space."
+
+/obj/screen/alert/hunger/well_fed/machine
+	name = "High Charge"
+	desc = "You're almost all charged, but could top up a bit more."
+
+/obj/screen/alert/hunger/fed/machine
+	name = "Half Charge"
+	desc = "You feel moderately charged, but a bit more juice couldn't hurt."
+
+/obj/screen/alert/hunger/hungry/machine
+	name = "Low Charge"
+	desc = "Could use a little charging right about now."
+
+/obj/screen/alert/hunger/starving/machine
+	name = "Nearly Discharged"
+	desc = "You're almost drained. The low power makes moving around a chore."
+
+
+/// Vampire "hunger"
+
+/obj/screen/alert/hunger/fat/vampire
 	name = "Ожирение"
 	desc = "Вы выпили столько крови, что пузо уже не влезает в штаны. Бегайте теперь по станции кругами, чтобы похудеть."
-	icon_state = "v_fat"
 
-/obj/screen/alert/full/vampire
+/obj/screen/alert/hunger/full/vampire
 	name = "Пресыщение"
 	desc = "Вы чувствуете спокойствие и приятную насыщенность. Но жажда крови обязательно вернётся…"
-	icon_state = "v_full"
 
-/obj/screen/alert/well_fed/vampire
+/obj/screen/alert/hunger/well_fed/vampire
 	name = "Сытость"
 	desc = "Вы вполне сыты, но могли бы выпить ещё немного крови."
-	icon_state = "v_well_fed"
 
-/obj/screen/alert/fed/vampire
+/obj/screen/alert/hunger/fed/vampire
 	name = "Удовлетворённость"
 	desc = "Вы не голодны, но испить ещё немного крови не помешало бы."
-	icon_state = "v_fed"
 
-/obj/screen/alert/hungry/vampire
+/obj/screen/alert/hunger/hungry/vampire
 	name = "Недоедание"
 	desc = "Вы жаждете отведать свежей крови."
-	icon_state = "v_hungry"
 
-/obj/screen/alert/starving/vampire
+/obj/screen/alert/hunger/starving/vampire
 	name = "Жажда"
 	desc = "Вас наполняет жажда. Она приносит физическую боль. Вам тяжело передвигаться."
-	icon_state = "v_starving"
 
-//End of Vampire "hunger"
+/// End of Vampire "hunger"
 
 
 /obj/screen/alert/hot
@@ -521,6 +555,34 @@ so as to remain in compliance with the most up-to-date laws."
 	var/mob/dead/observer/G = usr
 	G.reenter_corpse()
 
+
+/obj/screen/alert/ghost
+	name = "Ghost"
+	desc = "Would you like to ghost? You will be notified when your body is removed from the nest."
+	icon_state = "template"
+	timeout = 5 MINUTES // longer than any infection should be
+
+
+/obj/screen/alert/ghost/Initialize(mapload)
+	. = ..()
+	var/image/I = image('icons/mob/mob.dmi', icon_state = "ghost", layer = FLOAT_LAYER, dir = SOUTH)
+	I.layer = FLOAT_LAYER
+	I.plane = FLOAT_PLANE
+	overlays += I
+
+
+/obj/screen/alert/ghost/Click()
+	var/mob/living/carbon/human/infected_user = usr
+	if(!istype(infected_user) || infected_user.stat == DEAD)
+		infected_user.clear_alert("ghost_nest")
+		return
+	var/obj/item/clothing/mask/facehugger/hugger_mask = infected_user.wear_mask
+	if(!istype(hugger_mask) || !(locate(/obj/item/organ/internal/body_egg/alien_embryo) in infected_user.internal_organs) || hugger_mask.sterile)
+		infected_user.clear_alert("ghost_nest")
+		return
+	infected_user.ghostize(TRUE)
+
+
 /obj/screen/alert/notify_action
 	name = "Body created"
 	desc = "A body was created. You can enter it."
@@ -530,7 +592,9 @@ so as to remain in compliance with the most up-to-date laws."
 	var/action = NOTIFY_JUMP
 	var/show_time_left = FALSE // If true you need to call START_PROCESSING manually
 	var/image/time_left_overlay // The last image showing the time left
+	var/image/signed_up_overlay // image showing that you're signed up
 	var/datum/candidate_poll/poll // If set, on Click() it'll register the player as a candidate
+
 
 /obj/screen/alert/notify_action/process()
 	if(show_time_left)
@@ -557,9 +621,14 @@ so as to remain in compliance with the most up-to-date laws."
 		qdel(O)
 	..()
 
+
 /obj/screen/alert/notify_action/Destroy()
 	target = null
+	if(signed_up_overlay)
+		overlays -= signed_up_overlay
+		qdel(signed_up_overlay)
 	return ..()
+
 
 /obj/screen/alert/notify_action/Click()
 	if(!usr || !usr.client)
@@ -569,9 +638,14 @@ so as to remain in compliance with the most up-to-date laws."
 		return
 
 	if(poll)
-		if(poll.sign_up(G))
+		var/success
+		if(G in poll.signed_up)
+			success = poll.remove_candidate(G)
+		else
+			success = poll.sign_up(G)
+		if(success)
 			// Add a small overlay to indicate we've signed up
-			display_signed_up()
+			update_signed_up_alert()
 	else if(target)
 		switch(action)
 			if(NOTIFY_ATTACK)
@@ -579,19 +653,34 @@ so as to remain in compliance with the most up-to-date laws."
 			if(NOTIFY_JUMP)
 				var/turf/T = get_turf(target)
 				if(T && isturf(T))
-					G.loc = T
+					G.forceMove(T)
 			if(NOTIFY_FOLLOW)
 				G.ManualFollow(target)
 
-/obj/screen/alert/notify_action/Topic(href, href_list)
-	if(href_list["signup"] && poll?.sign_up(usr))
-		display_signed_up()
 
-/obj/screen/alert/notify_action/proc/display_signed_up()
-	var/image/I = image('icons/mob/screen_gen.dmi', icon_state = "selector")
-	I.layer = FLOAT_LAYER
-	I.plane = FLOAT_PLANE + 2
-	overlays += I
+/obj/screen/alert/notify_action/Topic(href, href_list)
+	if(!href_list["signup"])
+		return
+	if(!poll)
+		return
+	var/mob/dead/observer/G = usr
+	if(G in poll.signed_up)
+		poll.remove_candidate(G)
+	else
+		poll.sign_up(G)
+	update_signed_up_alert()
+
+
+/obj/screen/alert/notify_action/proc/update_signed_up_alert()
+	if(!signed_up_overlay)
+		signed_up_overlay = image('icons/mob/screen_gen.dmi', icon_state = "selector")
+		signed_up_overlay.layer = FLOAT_LAYER
+		signed_up_overlay.plane = FLOAT_PLANE + 2
+	if(usr in poll.signed_up)
+		overlays += signed_up_overlay
+	else
+		overlays -= signed_up_overlay
+
 
 /obj/screen/alert/notify_action/proc/display_stacks(stacks = 1)
 	if(stacks <= 1)
@@ -625,12 +714,20 @@ so as to remain in compliance with the most up-to-date laws."
 	if(stone)
 		if(alert(usr, "Do you want to be captured by [stoner]'s soul stone? This will destroy your corpse and make it \
 		impossible for you to get back into the game as your regular character.",, "No", "Yes") ==  "Yes")
-			stone.opt_in = TRUE
+			stone?.opt_in = TRUE
 
 /obj/screen/alert/notify_soulstone/Destroy()
 	stone = null
 	return ..()
 
+
+/obj/screen/alert/notify_mapvote
+	name = "Map Vote"
+	desc = "Vote on which map you would like to play on next!"
+	icon_state = "map_vote"
+
+/obj/screen/alert/notify_mapvote/Click()
+	usr.client.vote()
 
 //OBJECT-BASED
 

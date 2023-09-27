@@ -10,6 +10,7 @@
 	health = 50
 	speak_emote = list("hisses")
 	emote_hear = list("wails","screeches")
+	tts_seed = "Kelthuzad"
 	response_help  = "puts their hand through"
 	response_disarm = "flails at"
 	response_harm   = "punches the"
@@ -51,6 +52,7 @@
 /mob/living/simple_animal/shade/cult/Initialize(mapload)
 	. = ..()
 	icon_state = SSticker.cultdat?.shade_icon_state
+	ADD_TRAIT(src, TRAIT_HEALS_FROM_CULT_PYLONS, INNATE_TRAIT)
 
 /mob/living/simple_animal/shade/holy
 	holy = TRUE
@@ -62,9 +64,3 @@
 /mob/living/simple_animal/shade/sword/Initialize(mapload)
 	.=..()
 	status_flags |= GODMODE
-
-/mob/living/simple_animal/shade/update_runechat_msg_location()
-	if(istype(loc, /obj/item/soulstone))
-		runechat_msg_location = loc
-	else
-		runechat_msg_location = src

@@ -20,6 +20,7 @@
 	var/atom/movable/pulling
 	var/throwforce = 0
 	var/canmove = 1
+	var/pull_push_speed_modifier = 1
 
 	var/inertia_dir = 0
 	var/atom/inertia_last_loc
@@ -56,7 +57,15 @@
 /atom/movable/proc/get_cell()
 	return
 
+//Handles special effects on teleporting. Overload for some items if you want to do so.
+/atom/movable/proc/on_teleported()
+	return
+
 /atom/movable/proc/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
+	var/mob/M = AM
+	if(ismob(M) && M.buckled)
+		AM = M.buckled
+
 	if(QDELETED(AM))
 		return FALSE
 	if(!(AM.can_be_pulled(src, state, force)))
@@ -79,11 +88,12 @@
 		AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
 	pulling = AM
 	AM.pulledby = src
-	if(ismob(AM))
-		var/mob/M = AM
-		add_attack_logs(src, M, "passively grabbed", ATKLOG_ALMOSTALL)
+
+	var/mob/pulled_mob = ismob(AM) ? AM : buckled_mobs[1]
+	if(ismob(pulled_mob))
+		add_attack_logs(src, pulled_mob, "passively grabbed", ATKLOG_ALMOSTALL)
 		if(show_message)
-			visible_message("<span class='warning'>[src] схватил[genderize_ru(src.gender,"","а","о","и")] [M]!</span>")
+			visible_message("<span class='warning'>[src] схватил[genderize_ru(src.gender,"","а","о","и")] [pulled_mob]!</span>")
 	return TRUE
 
 /atom/movable/proc/stop_pulling()
@@ -106,7 +116,7 @@
 			stop_pulling()
 			return
 		if(pullee && !isturf(pullee.loc) && pullee.loc != loc) //to be removed once all code that changes an object's loc uses forceMove().
-			log_game("DEBUG:[src]'s pull on [pullee] wasn't broken despite [pullee] being in [pullee.loc]. Pull stopped manually.")
+			log_debug("[src]'s pull on [pullee] wasn't broken despite [pullee] being in [pullee.loc]. Pull stopped manually.")
 			stop_pulling()
 			return
 		if(pulling.anchored || pulling.move_resist > move_force)
@@ -202,7 +212,7 @@
 		return
 
 	if(.)
-		Moved(oldloc, direct)
+		Moved(oldloc, direct, FALSE)
 
 	last_move = direct
 	src.move_speed = world.time - src.l_move_time
@@ -213,14 +223,14 @@
 
 // Called after a successful Move(). By this point, we've already moved
 /atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE)
-	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
-	for(var/atom/movable/atom in contents)
-		SEND_SIGNAL(atom, COMSIG_MOVABLE_HOLDER_MOVED, OldLoc, Dir, Forced)
+
 	if(!inertia_moving)
 		inertia_next_move = world.time + inertia_move_delay
 		newtonian_move(Dir)
 	if(length(client_mobs_in_contents))
 		update_parallax_contents()
+
+	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
 
 	var/datum/light_source/L
 	var/thing
@@ -280,9 +290,30 @@
 		if(old_z != dest_z)
 			onTransitZ(old_z, dest_z)
 
-	Moved(old_loc, NONE)
+	Moved(old_loc, NONE, TRUE)
 
 	return 1
+
+
+/atom/movable/proc/move_to_null_space()
+
+	var/atom/old_loc = loc
+	var/is_multi_tile = bound_width > world.icon_size || bound_height > world.icon_size
+
+	if(old_loc)
+		loc = null
+		var/area/old_area = get_area(old_loc)
+		if(is_multi_tile && isturf(old_loc))
+			for(var/atom/old_loc_multi as anything in locs)
+				old_loc_multi.Exited(src, NONE)
+		else
+			old_loc.Exited(src, NONE)
+
+		if(old_area)
+			old_area.Exited(src, NONE)
+
+	Moved(old_loc, NONE, TRUE)
+
 
 /atom/movable/proc/onTransitZ(old_z,new_z)
 	for(var/item in src) // Notify contents of Z-transition. This can be overridden if we know the items contents do not care.
@@ -291,19 +322,17 @@
 
 /mob/living/forceMove(atom/destination)
 	if(buckled)
-		addtimer(CALLBACK(src, .proc/check_buckled), 1, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(check_buckled)), 1, TIMER_UNIQUE)
 	if(has_buckled_mobs())
 		for(var/m in buckled_mobs)
 			var/mob/living/buckled_mob = m
-			addtimer(CALLBACK(buckled_mob, .proc/check_buckled), 1, TIMER_UNIQUE)
+			addtimer(CALLBACK(buckled_mob, PROC_REF(check_buckled)), 1, TIMER_UNIQUE)
 	if(pulling)
-		addtimer(CALLBACK(src, .proc/check_pull), 1, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(check_pull)), 1, TIMER_UNIQUE)
 	. = ..()
 	if(client)
 		reset_perspective(destination)
 	update_canmove() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
-	update_runechat_msg_location()
-
 
 //Called whenever an object moves and by mobs when they attempt to move themselves through space
 //And when an object or action applies a force on src, see newtonian_move() below
@@ -338,17 +367,25 @@
 	SSspacedrift.processing[src] = src
 	return 1
 
+
 //called when src is thrown into hit_atom
-/atom/movable/proc/throw_impact(atom/hit_atom, throwingdatum)
+/atom/movable/proc/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	set waitfor = 0
 	SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum)
 	if(!QDELETED(hit_atom))
-		return hit_atom.hitby(src)
+		return hit_atom.hitby(src, throwingdatum = throwingdatum)
+
+
+/// called after an items throw is ended.
+/atom/movable/proc/end_throw()
+	return
+
 
 /atom/movable/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked, datum/thrownthing/throwingdatum)
 	if(!anchored && hitpush && (!throwingdatum || (throwingdatum.force >= (move_resist * MOVE_FORCE_PUSH_RATIO))))
 		step(src, AM.dir)
 	..()
+
 
 /atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY)
 	if(!target || (flags & NODROP) || speed <= 0)
@@ -358,7 +395,7 @@
 		pulledby.stop_pulling()
 
 	// They are moving! Wouldn't it be cool if we calculated their momentum and added it to the throw?
-	if(thrower && thrower.last_move && thrower.client && thrower.client.move_delay >= world.time + world.tick_lag * 2)
+	if(istype(thrower) && thrower.last_move && thrower.client && thrower.client.move_delay >= world.time + world.tick_lag * 2)
 		var/user_momentum = thrower.movement_delay()
 		if(!user_momentum) // no movement_delay, this means they move once per byond tick, let's calculate from that instead
 			user_momentum = world.tick_lag
@@ -420,6 +457,7 @@
 	if(spin && !no_spin && !no_spin_thrown)
 		SpinAnimation(5, 1)
 
+	SEND_SIGNAL(src, COMSIG_MOVABLE_POST_THROW, TT, spin)
 	SSthrowing.processing[src] = TT
 	TT.tick()
 
@@ -476,6 +514,8 @@
 	return FALSE
 
 /atom/movable/CanPass(atom/movable/mover, turf/target, height=1.5)
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+		return TRUE
 	if(mover in buckled_mobs)
 		return 1
 	return ..()
@@ -584,3 +624,6 @@
 
 /atom/movable/proc/decompile_act(obj/item/matter_decompiler/C, mob/user) // For drones to decompile mobs and objs. See drone for an example.
 	return FALSE
+
+/atom/movable/proc/get_pull_push_speed_modifier(var/current_delay)
+	return pull_push_speed_modifier

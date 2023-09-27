@@ -23,23 +23,19 @@
 	var/list/devil_overlays[DEVIL_TOTAL_LAYERS]
 
 /mob/living/carbon/true_devil/New(loc, mob/living/carbon/dna_source)
-	dna = dna_source.dna.Clone()
+	if(dna_source)
+		dna = dna_source.dna.Clone()
+
 	var/obj/item/organ/internal/brain/B = new(src)
 	var/obj/item/organ/internal/ears/E = new(src)
 	B.insert()
 	E.insert()
 	..()
 
-// inventory system could use some love
-/mob/living/carbon/true_devil/put_in_hands(obj/item/W)
-	if(!W)
-		return 0
-	if(put_in_active_hand(W))
-		return TRUE
-	else if(put_in_inactive_hand(W))
-		return TRUE
-	else
-		..()
+// Determines if mob has and can use his hands like a human
+/mob/living/carbon/true_devil/real_human_being()
+	return TRUE
+
 
 /mob/living/carbon/true_devil/proc/convert_to_archdevil()
 	maxHealth = 5000 // not an IMPOSSIBLE amount, but still near impossible.
@@ -178,15 +174,15 @@
 						// Weaken knocks people over
 						// Paralyse knocks people out
 						// It's Paralyse for parity though
-						// Weaken(2)
-						Paralyse(2)
+						// Weaken(4 SECONDS)
+						Paralyse(4 SECONDS)
 						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 						add_attack_logs(M, src, "pushed")
 						visible_message("<span class='danger'>[M] has pushed down [src]!</span>", \
 							"<span class='userdanger'>[M] has pushed down [src]!</span>")
 					else
 						if(prob(25))
-							drop_item()
+							drop_from_active_hand()
 							playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 							visible_message("<span class='danger'>[M] has disarmed [src]!</span>", \
 							"<span class='userdanger'>[M] has disarmed [src]!</span>")

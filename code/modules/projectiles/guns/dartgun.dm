@@ -1,7 +1,7 @@
 /obj/item/dart_cartridge
 	name = "dart cartridge"
 	desc = "A rack of hollow darts."
-	icon = 'icons/obj/ammo.dmi'
+	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "darts-5"
 	item_state = "rcdammo"
 	opacity = 0
@@ -81,9 +81,8 @@
 				to_chat(user, "<span class='warning'>There's already a cartridge in [src].</span>")
 				return 0
 
-		user.drop_item()
+		user.drop_transfer_item_to_loc(D, src)
 		cartridge = D
-		D.forceMove(src)
 		to_chat(user, "<span class='notice'>You slot [D] into [src].</span>")
 		update_icon()
 		return
@@ -95,10 +94,9 @@
 			to_chat(user, "<span class='warning'>[src] already has [max_beakers] beakers in it - another one isn't going to fit!</span>")
 			return
 		var/obj/item/reagent_containers/glass/beaker/B = I
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(B, src))
 			to_chat(user, "<span class='warning'>\The [B] is stuck to you!</span>")
 			return
-		B.forceMove(src)
 		beakers += B
 		to_chat(user, "<span class='notice'>You slot [B] into [src].</span>")
 		src.updateUsrDialog()
@@ -278,6 +276,8 @@
 /obj/item/gun/dartgun/vox
 	name = "alien dart gun"
 	desc = "A small gas-powered dartgun, fitted for nonhuman hands."
+	icon = 'icons/obj/weapons/projectile.dmi'
+	icon_state = "dartgun-e"
 
 /obj/item/gun/dartgun/vox/medical
 	starting_chems = list("silver_sulfadiazine","styptic_powder","charcoal")

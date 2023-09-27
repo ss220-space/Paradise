@@ -53,12 +53,21 @@
 	else
 		. += "<span class='notice'>There is a small <i>paper</i> placard on the assembly[doorname].</span>"
 
+/obj/structure/door_assembly/attack_hand(mob/user)
+	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+		add_fingerprint(user)
+		user.changeNext_move(CLICK_CD_MELEE)
+		attack_generic(user, user.dna.species.obj_damage)
+		return
+	. = ..()
+
 /obj/structure/door_assembly/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
 		// The door assembly gets renamed to "Assembly - Foobar",
 		// but the `t` returned from the proc is just "Foobar" without the prefix.
 		var/t = rename_interactive(user, W)
 		if(!isnull(t))
+			add_fingerprint(user)
 			created_name = t
 		return
 
@@ -68,9 +77,10 @@
 			to_chat(user, "<span class='warning'>You need one length of cable to wire the airlock assembly!</span>")
 			return
 		user.visible_message("[user] wires the airlock assembly.", "You start to wire the airlock assembly...")
-		if(do_after(user, 40 * coil.toolspeed, target = src))
+		if(do_after(user, 40 * coil.toolspeed * gettoolspeedmod(user), target = src))
 			if(coil.get_amount() < 1 || state != AIRLOCK_ASSEMBLY_NEEDS_WIRES)
 				return
+			add_fingerprint(user)
 			coil.use(1)
 			state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
 			to_chat(user, "<span class='notice'>You wire the airlock assembly.</span>")
@@ -79,11 +89,11 @@
 		playsound(loc, W.usesound, 100, 1)
 		user.visible_message("[user] installs the electronics into the airlock assembly.", "You start to install electronics into the airlock assembly...")
 
-		if(do_after(user, 40 * W.toolspeed, target = src))
+		if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
 			if(state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
 				return
-			user.drop_item()
-			W.forceMove(src)
+			add_fingerprint(user)
+			user.drop_transfer_item_to_loc(W, src)
 			to_chat(user, "<span class='notice'>You install the airlock electronics.</span>")
 			state = AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER
 			name = "near finished airlock assembly"
@@ -98,9 +108,10 @@
 						if(istype(S, /obj/item/stack/sheet/rglass) || istype(S, /obj/item/stack/sheet/glass))
 							playsound(loc, S.usesound, 100, 1)
 							user.visible_message("[user] adds [S.name] to the airlock assembly.", "You start to install [S.name] into the airlock assembly...")
-							if(do_after(user, 40 * S.toolspeed, target = src))
+							if(do_after(user, 40 * S.toolspeed * gettoolspeedmod(user), target = src))
 								if(S.get_amount() < 1 || glass)
 									return
+								add_fingerprint(user)
 								if(S.type == /obj/item/stack/sheet/rglass)
 									to_chat(user, "<span class='notice'>You install reinforced glass windows into the airlock assembly.</span>")
 									heat_proof_finished = TRUE //reinforced glass makes the airlock heat-proof
@@ -109,14 +120,15 @@
 								S.use(1)
 								glass = TRUE
 					if(!mineral)
-						if(istype(S, /obj/item/stack/sheet/mineral) && S.sheettype)
+						if(S.sheettype && (istype(S, /obj/item/stack/sheet/mineral) || istype(S, /obj/item/stack/sheet/wood)))
 							var/M = S.sheettype
 							if(S.get_amount() >= 2)
 								playsound(loc, S.usesound, 100, 1)
 								user.visible_message("[user] adds [S.name] to the airlock assembly.", "You start to install [S.name] into the airlock assembly...")
-								if(do_after(user, 40 * S.toolspeed, target = src))
+								if(do_after(user, 40 * S.toolspeed * gettoolspeedmod(user), target = src))
 									if(S.get_amount() < 2 || mineral)
 										return
+									add_fingerprint(user)
 									to_chat(user, "<span class='notice'>You install [M] plating into the airlock assembly.</span>")
 									S.use(2)
 									var/mineralassembly = text2path("/obj/structure/door_assembly/door_assembly_[M]")
@@ -177,11 +189,8 @@
 	door.electronics = electronics
 	door.unres_sides = electronics.unres_access_from
 	door.heat_proof = heat_proof_finished
-	if(electronics.one_access)
-		door.req_access = null
-		door.req_one_access = electronics.selected_accesses
-	else
-		door.req_access = electronics.selected_accesses
+	door.req_access = electronics.selected_accesses
+	door.check_one_access = electronics.one_access
 	if(created_name)
 		door.name = created_name
 	else
@@ -309,6 +318,10 @@
 			else
 				new /obj/item/shard(T)
 		if(mineral)
-			var/obj/item/stack/sheet/mineral/mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
+			var/mineral_path
+			if(mineral == "wood")
+				mineral_path = /obj/item/stack/sheet/wood
+			else
+				mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
 			new mineral_path(T, 2)
 	qdel(src)

@@ -23,7 +23,7 @@
 		/obj/item/clothing/head/cardborg
 	)
 
-	var/hat_icon_file = 'icons/mob/head.dmi'
+	var/hat_icon_file = 'icons/mob/clothing/head.dmi'
 	var/hat_icon_state
 	var/hat_alpha
 	var/hat_color
@@ -36,6 +36,11 @@
 	isCentered = TRUE
 	canBeHatted = TRUE
 	canWearBlacklistedHats = TRUE
+
+/mob/living/silicon/robot/cogscarab
+	hat_offset_y = -15
+	isCentered = TRUE
+	canBeHatted = TRUE
 
 /mob/living/silicon/ai
 	hat_offset_y = 3
@@ -101,7 +106,7 @@
 			isCentered = TRUE
 			canWearBlacklistedHats = TRUE
 			hat_offset_y = -3
-		if("landmate", "syndi-engi") //Высотой: 24 пикселя макушка
+		if("landmate", "chiefmate", "syndi-engi") //Высотой: 24 пикселя макушка
 			canBeHatted = TRUE
 			hat_offset_y = -3
 		if("mopgearrex") //Высотой: 22
@@ -129,6 +134,11 @@
 /mob/living/silicon/Topic(href, href_list)
 	if(..())
 		return 1
+
+	if(!(iscarbon(usr) || usr.incapacitated() || !Adjacent(usr)))
+		usr << browse(null, "window=mob[UID()]")
+		usr.unset_machine()
+		return
 
 	if (!canBeHatted)
 		return 0
@@ -179,6 +189,8 @@
 		return borgI
 
 /mob/living/silicon/show_inv(mob/user)
+	if(user.incapacitated() || !Adjacent(user))
+		return
 	user.set_machine(src)
 
 	var/dat = 	{"<meta charset="UTF-8"><div align='center'><b>Inventory of [name]</b></div><p>"}
@@ -208,7 +220,7 @@
 			to_chat(user, "<span class='warning'>Нельзя надеть больше одного головного убора на голову [src]!</span>")
 		return 0
 
-	if(user && !user.unEquip(item_to_add))
+	if(user && !user.drop_item_ground(item_to_add))
 		to_chat(user, "<span class='warning'>[item_to_add] застрял в ваших руках, вы не можете его надеть на голову [src]!</span>")
 		return 0
 
@@ -228,10 +240,10 @@
 /mob/living/silicon/proc/remove_from_head(mob/user)
 	if(inventory_head)
 		if(inventory_head.flags & NODROP)
-			to_chat(user, "<span class='warning'>[inventory_head] застрял на голове [src]! Его невозможно снять!</span>")
-			return 1
+			to_chat(user, "<span class='warning'>[inventory_head.name] застрял на голове [src]! Его невозможно снять!</span>")
+			return TRUE
 
-		to_chat(user, "<span class='warning'>Вы сняли [inventory_head] с головы [src].</span>")
+		to_chat(user, "<span class='warning'>Вы сняли [inventory_head.name] с головы [src].</span>")
 		user.put_in_hands(inventory_head)
 
 		null_hat()
@@ -239,13 +251,13 @@
 		regenerate_icons()
 	else
 		to_chat(user, "<span class='warning'>На голове [src] нет головного убора!</span>")
-		return 0
+		return FALSE
 
-	return 1
+	return TRUE
 
 /mob/living/silicon/proc/drop_hat()
 	if(inventory_head)
-		unEquip(inventory_head)
+		drop_item_ground(inventory_head)
 		null_hat()
 		regenerate_icons()
 

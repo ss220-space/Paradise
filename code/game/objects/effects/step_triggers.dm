@@ -46,7 +46,6 @@
 	var/tiles = 3	// if 0: forever until atom hits a stopper
 	var/immobilize = 1 // if nonzero: prevents mobs from moving while they're being flung
 	var/speed = 1	// delay of movement
-	var/facedir = 0 // if 1: atom faces the direction of movement
 	var/nostop = 0 // if 1: will only be stopped by teleporters
 	var/list/affecting = list()
 
@@ -88,11 +87,7 @@
 					stopthrow = 1
 
 		if(AM)
-			var/predir = AM.dir
 			step(AM, direction)
-			if(!facedir)
-				AM.setDir(predir)
-
 
 
 	affecting.Remove(AM)
@@ -174,7 +169,7 @@
 /* Simple sound player, Mapper friendly! */
 
 /obj/effect/step_trigger/sound_effect
-	var/sound //eg. path to the sound, inside '' eg: 'growl.ogg'
+	var/list/sound //eg. path to the sound, inside '' eg: 'growl.ogg'
 	var/volume = 100
 	var/freq_vary = 1 //Should the frequency of the sound vary?
 	var/extra_range = 0 // eg World.view = 7, extra_range = 1, 7+1 = 8, 8 turfs radius
@@ -190,9 +185,15 @@
 
 	if(triggerer_only && ismob(A))
 		var/mob/B = A
-		B.playsound_local(T, sound, volume, freq_vary)
+		B.playsound_local(T, pick(sound), volume, freq_vary)
 	else
-		playsound(T, sound, volume, freq_vary, extra_range)
+		playsound(T, pick(sound), volume, freq_vary, extra_range)
 
 	if(happens_once)
 		qdel(src)
+
+/obj/effect/step_trigger/sound_effect/explosion_far
+	sound = list('sound/effects/explosionfar.ogg', 'sound/effects/explosioncreak2.ogg', 'sound/effects/explosioncreak1.ogg', 'sound/effects/explosion_distant.ogg')
+	volume = 200
+	happens_once = 1
+	extra_range = 4

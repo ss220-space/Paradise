@@ -22,7 +22,7 @@
 	reagent_tag = PROCESS_ORG
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
-		"crystallized brain" =    /obj/item/organ/internal/brain/crystal,
+		"brain" =    /obj/item/organ/internal/brain/crystal,
 		"eyes" =     /obj/item/organ/internal/eyes/luminescent_crystal, //Standard darksight of 2.
 		"strange crystal" = /obj/item/organ/internal/nucleation/strange_crystal
 		)
@@ -38,8 +38,19 @@
 	H.light_color = null
 	H.set_light(0)
 
+/datum/species/nucleation/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	if(R.id == "radium")
+		if(R.volume >= 1)
+			H.adjustBruteLoss(-3)
+			H.adjustFireLoss(-3)
+			H.reagents.remove_reagent(R.id, 1)
+			if(H.radiation < 80)
+				H.apply_effect(4, IRRADIATE, negate_armor = 1)
+			return FALSE //Что бы не выводилось больше одного, который уже вывелся за счет прока
+	return ..()
+
 /datum/species/nucleation/handle_death(gibbed, mob/living/carbon/human/H)
 	var/turf/T = get_turf(H)
 	H.visible_message("<span class='warning'>Тело [H] взрывается, оставляя после себя множество микроскопических кристаллов!</span>")
-	explosion(T, 0, 0, 3, 6) // Create a small explosion burst upon death
+	explosion(T, 0, 0, 3, 6, cause = H) // Create a small explosion burst upon death
 	qdel(H)

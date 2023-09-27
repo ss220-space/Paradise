@@ -27,12 +27,10 @@
 /area/centcom)
 "i" = (
 /obj/effect/landmark/start,
-/turf/unsimulated/floor,
+/turf/simulated/floor/indestructible,
 /area/start)
 "j" = (
-/obj/effect/landmark{
-	name = "Observer-Start"
-	},
+/obj/effect/landmark/observer_start,
 /turf/simulated/floor/plating,
 /area/centcom)
 "k" = (

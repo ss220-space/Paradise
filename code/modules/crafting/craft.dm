@@ -20,7 +20,8 @@
 						list(	//Food subcategories
 							CAT_CAKE,
 							CAT_SUSHI,
-							CAT_SANDWICH),
+							CAT_SANDWICH,
+							CAT_MISCFOOD),
 						list(	//Decoration subcategories
 							CAT_DECORATION,
 							CAT_HOLIDAY,
@@ -169,13 +170,19 @@
 	if(!parts)
 		return ", missing component."
 
-	var/atom/movable/I = new R.result (get_turf(user.loc))
-	I.CheckParts(parts, R)
-	if(isitem(I))
-		user.put_in_hands(I)
+	var/result_list = R.result
+	if(!islist(result_list))
+		result_list = list(result_list)
+	for(var/result in result_list)
+		var/atom/movable/I = new result(get_turf(user.loc))
+		I.add_fingerprint(user)
+		user.investigate_log("[key_name_log(user)] crafted [I]", INVESTIGATE_CRAFTING)
+		I.CheckParts(parts, R)
+		if(isitem(I))
+			user.put_in_hands(I)
 
-	if(send_feedback)
-		SSblackbox.record_feedback("tally", "object_crafted", 1, I.type)
+		if(send_feedback)
+			SSblackbox.record_feedback("tally", "object_crafted", 1, I.type)
 	return 0
 
 /datum/personal_crafting/proc/requirements_deletion(datum/crafting_recipe/recipe, mob/user)
@@ -183,6 +190,9 @@
 	var/list/parts_used = list()
 	var/list/reagent_containers_for_deletion = list()
 	var/list/item_stacks_for_deletion = list()
+	for(var/atom/movable/thing in surroundings)
+		if(thing.type in recipe.blacklist)
+			surroundings -= thing
 
 	for(var/thing in recipe.reqs)
 		var/needed_amount = recipe.reqs[thing]

@@ -181,6 +181,7 @@
 	owner.visible_message("<span class='warning'>[owner]'s body flashes a bright blue!</span>", \
 						 "<span class='cultitalic'>You speak the cursed words, channeling an electromagnetic pulse from your body.</span>")
 	owner.emp_act(2)
+	add_attack_logs(owner, owner, "activated EMP spell")
 	empulse(owner, 2, 5, cause = "cult")
 	owner.whisper(invocation)
 	charges--
@@ -286,7 +287,7 @@
 		if(!ishuman(target) || iscultist(target))
 			return
 		var/mob/living/carbon/human/H = target
-		H.hallucination = max(H.hallucination, 120)
+		H.Hallucinate(120 SECONDS)
 		attached_action.charges--
 		attached_action.desc = attached_action.base_desc
 		attached_action.desc += "<br><b><u>Has [attached_action.charges] use\s remaining</u></b>."
@@ -437,8 +438,7 @@
 	else
 		to_chat(user, "<span class='cultitalic'>In a brilliant flash of red, [L] falls to the ground!</span>")
 		// These are in life cycles, so double the time that's stated.
-		L.Weaken(2)
-		L.Stun(2)
+		L.Weaken(4 SECONDS)
 		L.adjustStaminaLoss(30)
 		L.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 		L.flash_eyes(1, TRUE)
@@ -447,10 +447,10 @@
 			S.emp_act(EMP_HEAVY)
 		else if(iscarbon(target))
 			var/mob/living/carbon/C = L
-			C.Silence(5)
-			C.Stuttering(8)
-			C.CultSlur(10)
-			C.Jitter(8)
+			C.Silence(10 SECONDS)
+			C.Stuttering(16 SECONDS)
+			C.CultSlur(20 SECONDS)
+			C.Jitter(16 SECONDS)
 	uses--
 	..()
 
@@ -482,11 +482,9 @@
 
 	if(!length(potential_runes))
 		to_chat(user, "<span class='warning'>There are no valid runes to teleport to!</span>")
-		log_game("Teleport spell failed - no other teleport runes")
 		return
 	if(!is_level_reachable(user.z))
 		to_chat(user, "<span class='cultitalic'>You are not in the right dimension!</span>")
-		log_game("Teleport spell failed - user in away mission")
 		return
 
 	var/mob/living/L = target
@@ -498,7 +496,7 @@
 
 	var/turf/origin = get_turf(user)
 	var/turf/destination = get_turf(actual_selected_rune)
-	INVOKE_ASYNC(actual_selected_rune, /obj/effect/rune/.proc/teleport_effect, user, origin, destination)
+	INVOKE_ASYNC(actual_selected_rune, TYPE_PROC_REF(/obj/effect/rune, teleport_effect), user, origin, destination)
 
 	if(is_mining_level(user.z) && !is_mining_level(destination.z)) //No effect if you stay on lavaland
 		actual_selected_rune.handle_portal("lava")
@@ -526,7 +524,7 @@
 	if(iscarbon(target) && proximity)
 		var/mob/living/carbon/C = target
 		if(C.canBeHandcuffed() || C.get_arm_ignore())
-			if(C.getStaminaLoss() > 90 || C.health <= HEALTH_THRESHOLD_CRIT || C.sleeping)
+			if(C.getStaminaLoss() > 90 || C.health <= HEALTH_THRESHOLD_CRIT || C.IsSleeping())
 				CuffAttack(C, user)
 			else
 				user.visible_message("<span class='cultitalic'>This victim is still resisting!</span>")
@@ -542,9 +540,8 @@
 		"<span class='userdanger'>[user] begins shaping dark magic shackles around your wrists!</span>")
 		if(do_mob(user, C, 10))
 			if(!C.handcuffed)
-				C.handcuffed = new /obj/item/restraints/handcuffs/energy/cult/used(C)
-				C.update_handcuffed()
-				C.Silence(6)
+				C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/cult/used(C))
+				C.Silence(12 SECONDS)
 				to_chat(user, "<span class='notice'>You shackle [C].</span>")
 				add_attack_logs(user, C, "shackled")
 				uses--
@@ -774,7 +771,7 @@
 				if(H.stat == DEAD)
 					to_chat(user, "<span class='warning'>[H.p_their(TRUE)] blood has stopped flowing, you'll have to find another way to extract it.</span>")
 					return
-				if(H.cultslurring)
+				if(H.AmountCultSlurring())
 					to_chat(user, "<span class='danger'>[H.p_their(TRUE)] blood has been tainted by an even stronger form of blood magic, it's no use to us like this!</span>")
 					return
 				if(H.dna && !(NO_BLOOD in H.dna.species.species_traits) && H.dna.species.exotic_blood == null)
@@ -850,6 +847,9 @@
 /obj/item/melee/blood_magic/manipulator/attack_self(mob/living/user)
 	var/list/options = list("Blood Orb (50)", "Blood Recharge (75)", "Blood Spear (150)", "Blood Bolt Barrage (300)")
 	var/choice = input(user, "Choose a greater blood rite...", "Greater Blood Rites") as null|anything in options
+	if(!Adjacent(user))
+		to_chat(user, "<span class='cultitalic'>Вы не можете использовать это заклинание без самого заклинания!</span>")
+		return
 	switch(choice)
 		if("Blood Spear (150)")
 			if(uses < BLOOD_SPEAR_COST)
@@ -876,7 +876,7 @@
 				uses -= BLOOD_BARRAGE_COST
 				qdel(src)
 				user.swap_hand()
-				user.drop_item()
+				user.drop_from_active_hand()
 				if(user.put_in_hands(rite))
 					to_chat(user, "<span class='cult'>Both of your hands glow with power!</span>")
 				else

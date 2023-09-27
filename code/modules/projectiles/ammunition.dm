@@ -1,7 +1,7 @@
 /obj/item/ammo_casing
 	name = "bullet casing"
 	desc = "A bullet casing."
-	icon = 'icons/obj/ammo.dmi'
+	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "s-casing"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
@@ -91,19 +91,20 @@
 		..()
 
 /obj/item/ammo_casing/proc/leave_residue(mob/living/carbon/human/H)
-	for(H)
-		if(H.gloves)
-			var/obj/item/clothing/G = H.gloves
-			G.gunshot_residue = caliber
-		else
-			H.gunshot_residue = caliber
+	if(QDELETED(H))
+		return
+	if(istype(H) && H.gloves)
+		var/obj/item/clothing/G = H.gloves
+		G.gunshot_residue = caliber
+	else
+		H.gunshot_residue = caliber
 
 //Boxes of ammo
 /obj/item/ammo_box
 	name = "ammo box (generic)"
 	desc = "A box of ammo?"
 	icon_state = "357"
-	icon = 'icons/obj/ammo.dmi'
+	icon = 'icons/obj/weapons/ammo.dmi'
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	item_state = "syringe_kit"
@@ -119,6 +120,7 @@
 	var/icon_prefix // boxes with multiple sprites use this as their base
 	var/caliber
 	var/multiload = 1
+	var/accept_subtypes = TRUE //Can you load rounds with the same caliber, but not same type
 	var/list/initial_mats
 
 /obj/item/ammo_box/New()
@@ -150,6 +152,8 @@
 /obj/item/ammo_box/proc/give_round(obj/item/ammo_casing/R, replace_spent = 0)
 	// Boxes don't have a caliber type, magazines do. Not sure if it's intended or not, but if we fail to find a caliber, then we fall back to ammo_type.
 	if(!R || (caliber && R.caliber != caliber) || (!caliber && R.type != ammo_type))
+		return 0
+	if(!accept_subtypes && R != src.ammo_type)
 		return 0
 
 	if(stored_ammo.len < max_ammo)
@@ -193,8 +197,7 @@
 	if(istype(A, /obj/item/ammo_casing))
 		var/obj/item/ammo_casing/AC = A
 		if(give_round(AC, replace_spent))
-			user.drop_item()
-			AC.loc = src
+			user.drop_transfer_item_to_loc(AC, src)
 			num_loaded++
 	if(num_loaded)
 		if(!silent)

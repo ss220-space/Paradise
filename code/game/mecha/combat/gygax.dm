@@ -10,6 +10,7 @@
 	armor = list(melee = 25, bullet = 20, laser = 30, energy = 15, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 100)
 	max_temperature = 25000
 	infra_luminosity = 6
+	maint_access = 1
 	leg_overload_coeff = 2
 	wreckage = /obj/structure/mecha_wreckage/gygax
 	internal_damage_threshold = 35
@@ -44,6 +45,7 @@
 	max_temperature = 35000
 	leg_overload_coeff = 100
 	operation_req_access = list(ACCESS_CENT_SPECOPS)
+	maint_access = 0
 	wreckage = /obj/structure/mecha_wreckage/gygax/ert
 	max_equip = 5
 	maxsize = 2
@@ -71,15 +73,17 @@
 	initial_icon = "darkgygax"
 	max_integrity = 300
 	deflect_chance = 20
-	armor = list(melee = 40, bullet = 40, laser = 50, energy = 35, bomb = 20, bio = 0, rad =20, fire = 100, acid = 100)
+	armor = list(melee = 40, bullet = 40, laser = 50, energy = 35, bomb = 20, bio = 0, rad = 20, fire = 100, acid = 100)
 	max_temperature = 35000
-	leg_overload_coeff = 100
+	leg_overload_coeff = 2
 	operation_req_access = list(ACCESS_SYNDICATE)
+	maint_access = 0
 	wreckage = /obj/structure/mecha_wreckage/gygax/dark
 	max_equip = 4
 	maxsize = 2
 	starting_voice = /obj/item/mecha_modkit/voice/syndicate
-	destruction_sleep_duration = 1
+	destruction_sleep_duration = 2 SECONDS
+	strafe_allowed = TRUE
 
 /obj/mecha/combat/gygax/dark/GrantActions(mob/living/user, human_occupant = 0)
 	. = ..()
@@ -91,13 +95,13 @@
 
 /obj/mecha/combat/gygax/dark/loaded/New()
 	..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
+	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/syndi
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
 	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay
+	ME = new /obj/item/mecha_parts/mecha_equipment/repair_droid
 	ME.attach(src)
 
 /obj/mecha/combat/gygax/dark/add_cell()

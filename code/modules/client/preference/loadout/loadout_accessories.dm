@@ -73,6 +73,11 @@
 	path = /obj/item/clothing/accessory/holobadge/cord
 	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
 
+/datum/gear/accessory/holobadge/detective
+	display_name = "holobadge, detective"
+	path = /obj/item/clothing/accessory/holobadge/detective
+	allowed_roles = list("Head of Security", "Detective")
+
 /datum/gear/accessory/tieblue
 	display_name = "tie, blue"
 	path = /obj/item/clothing/accessory/blue
@@ -92,7 +97,7 @@
 /datum/gear/accessory/stethoscope
 	display_name = "stethoscope"
 	path = /obj/item/clothing/accessory/stethoscope
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Paramedic", "Brig Physician")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Intern", "Paramedic", "Brig Physician")
 
 /datum/gear/accessory/cowboyshirt
 	display_name = "cowboy shirt, black"
@@ -180,7 +185,7 @@
 /datum/gear/accessory/armband_job/medical
 	display_name = "armband, medical"
 	path = /obj/item/clothing/accessory/armband/med
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Coroner", "Paramedic", "Brig Physician")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Intern", "Coroner", "Paramedic", "Brig Physician")
 
 /datum/gear/accessory/armband_job/emt
 	display_name = "armband, EMT"
@@ -190,7 +195,7 @@
 /datum/gear/accessory/armband_job/engineering
 	display_name = "armband, engineering"
 	path = /obj/item/clothing/accessory/armband/engine
-	allowed_roles = list("Chief Engineer","Station Engineer", "Life Support Specialist")
+	allowed_roles = list("Chief Engineer","Station Engineer", "Life Support Specialist", "Trainee Engineer")
 
 /datum/gear/accessory/armband_job/hydro
 	display_name = "armband, hydroponics"
@@ -200,4 +205,4 @@
 /datum/gear/accessory/armband_job/sci
 	display_name = "armband, science"
 	path = /obj/item/clothing/accessory/armband/science
-	allowed_roles = list("Research Director","Scientist", "Roboticist")
+	allowed_roles = list("Research Director", "Scientist", "Student Scientist", "Student Scientist", "Roboticist")

@@ -42,6 +42,7 @@
 	var/selection_title = "Oops"
 	var/selection_prompt = "Choose your weapon, nerdwad"
 	var/creation_delay = 2400
+	var/cult_icon_changing = TRUE
 	var/list/choosable_items = list("A coder forgot to set this" = /obj/item/grown/bananapeel)
 	var/creation_message = "A dank smoke comes out, and you pass out. When you come to, you notice a %ITEM%!"
 
@@ -58,6 +59,7 @@
 
 /obj/structure/cult/functional/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
+		add_fingerprint(user)
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
 		if(!anchored)
@@ -87,10 +89,11 @@
 	var/choice = show_radial_menu(user, src, choosable_items, require_near = TRUE)
 	var/picked_type = choosable_items[choice]
 	if(!QDELETED(src) && picked_type && Adjacent(user) && !user.incapacitated() && cooldowntime <= world.time)
+		add_fingerprint(user)
 		cooldowntime = world.time + creation_delay
-		var/obj/O = new picked_type
-		if(istype(O, /obj/structure) || !user.put_in_hands(O))
-			O.forceMove(get_turf(src))
+		var/obj/O = new picked_type(drop_location())
+		if(!istype(O, /obj/structure))
+			user.put_in_hands(O, ignore_anim = FALSE)
 		to_chat(user, replacetext("[creation_message]", "%ITEM%", "[O.name]"))
 
 /**
@@ -142,7 +145,8 @@
 
 /obj/structure/cult/functional/altar/Initialize(mapload)
 	. = ..()
-	icon_state = SSticker.cultdat?.altar_icon_state
+	if(cult_icon_changing)
+		icon_state = SSticker.cultdat?.altar_icon_state
 
 /obj/structure/cult/functional/forge
 	name = "daemon forge"
@@ -162,7 +166,8 @@
 
 /obj/structure/cult/functional/forge/Initialize(mapload)
 	. = ..()
-	icon_state = SSticker.cultdat?.forge_icon_state
+	if(cult_icon_changing)
+		icon_state = SSticker.cultdat?.forge_icon_state
 
 /obj/structure/cult/functional/forge/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/grab))
@@ -181,6 +186,7 @@
 			to_chat(user, "<span class='warning'>[C] has no head!</span>")
 			return FALSE
 
+		add_fingerprint(user)
 		C.visible_message("<span class='danger'>[user] dunks [C]'s face into [src]'s lava!</span>",
 						"<span class='userdanger'>[user] dunks your face into [src]'s lava!</span>")
 		C.emote("scream")
@@ -199,7 +205,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	/turf/simulated/floor/chasm,
 	/turf/simulated/wall/cult,
 	/turf/simulated/wall/cult/artificer,
-	/turf/unsimulated/wall
+	/turf/simulated/wall/indestructible
 	)))
 
 /obj/structure/cult/functional/pylon
@@ -211,16 +217,44 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	max_integrity = 50 //Very fragile
 	death_message = "<span class='danger'>The pylon's crystal vibrates and glows fiercely before violently shattering!</span>"
 	death_sound = 'sound/effects/pylon_shatter.ogg'
-
-	var/heal_delay = 30
-	var/last_heal = 0
-	var/corrupt_delay = 50
-	var/last_corrupt = 0
+	/// Length of the cooldown in between tile corruptions. Doubled if no turfs are found.
+	var/corruption_cooldown_duration = 5 SECONDS
+	/// The cooldown for corruptions.
+	COOLDOWN_DECLARE(corruption_cooldown)
+	var/holy = FALSE
 
 /obj/structure/cult/functional/pylon/Initialize(mapload)
 	. = ..()
+	if(holy)
+		AddComponent( \
+			/datum/component/aura_healing, \
+			range = 5, \
+			brute_heal = 0.4, \
+			burn_heal = 0.4, \
+			blood_heal = 0.4, \
+			simple_heal = 1.2, \
+			requires_visibility = FALSE, \
+			limit_to_trait = TRAIT_HEALS_FROM_HOLY_PYLONS, \
+			healing_color = COLOR_CULT_RED, \
+			robot_heal = TRUE, \
+		)
+	else
+		AddComponent( \
+			/datum/component/aura_healing, \
+			range = 5, \
+			brute_heal = 0.4, \
+			burn_heal = 0.4, \
+			blood_heal = 0.4, \
+			simple_heal = 1.2, \
+			requires_visibility = FALSE, \
+			limit_to_trait = TRAIT_HEALS_FROM_CULT_PYLONS, \
+			healing_color = COLOR_CULT_RED, \
+			robot_heal = TRUE, \
+		)
+
 	START_PROCESSING(SSobj, src)
-	icon_state = SSticker.cultdat?.pylon_icon_state
+	if(cult_icon_changing)
+		icon_state = SSticker.cultdat?.pylon_icon_state
 
 /obj/structure/cult/functional/pylon/attack_hand(mob/living/user)//override as it should not create anything
 	return
@@ -240,53 +274,44 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 /obj/structure/cult/functional/pylon/process()
 	if(!anchored)
 		return
+	if(is_station_level(z)) //Pylons only convert tiles on offstation bases to help hide onstation cults from meson users
+		return
+	if(!COOLDOWN_FINISHED(src, corruption_cooldown))
+		return
 
-	if(last_heal <= world.time)
-		last_heal = world.time + heal_delay
-		for(var/mob/living/L in range(5, src))
-			if(iscultist(L) || iswizard(L) || isshade(L) || isconstruct(L))
-				if(L.health != L.maxHealth)
-					new /obj/effect/temp_visual/heal(get_turf(src), "#960000")
-
-					if(ishuman(L))
-						L.heal_overall_damage(1, 1, TRUE, FALSE, TRUE)
-
-					else if(isshade(L) || isconstruct(L))
-						var/mob/living/simple_animal/M = L
-						if(M.health < M.maxHealth)
-							M.adjustHealth(-1)
-
-				if(ishuman(L) && L.blood_volume < BLOOD_VOLUME_NORMAL)
-					L.blood_volume += 1
-
-	if(!is_station_level(z) && last_corrupt <= world.time) //Pylons only convert tiles on offstation bases to help hide onstation cults from meson users
-		var/list/validturfs = list()
-		var/list/cultturfs = list()
-		for(var/T in circleviewturfs(src, 5))
-			if(istype(T, /turf/simulated/floor/engine/cult))
-				cultturfs |= T
-				continue
-			if(is_type_in_typecache(T, GLOB.blacklisted_pylon_turfs))
-				continue
-			else
-				validturfs |= T
-
-		last_corrupt = world.time + corrupt_delay
-
-		var/turf/T = safepick(validturfs)
-		if(T)
-			if(istype(T, /turf/simulated/floor))
-				T.ChangeTurf(/turf/simulated/floor/engine/cult)
-			if(istype(T, /turf/simulated/wall))
-				T.ChangeTurf(/turf/simulated/wall/cult/artificer)
+	var/list/validturfs = list()
+	var/list/cultturfs = list()
+	for(var/T in circleviewturfs(src, 5))
+		if(istype(T, /turf/simulated/floor/engine/cult))
+			cultturfs |= T
+			continue
+		if(is_type_in_typecache(T, GLOB.blacklisted_pylon_turfs))
+			continue
 		else
-			var/turf/simulated/floor/engine/cult/F = safepick(cultturfs)
-			if(F)
-				new /obj/effect/temp_visual/cult/turf/open/floor(F)
-			else
-				// Are we in space or something? No cult turfs or
-				// convertable turfs?
-				last_corrupt = world.time + corrupt_delay * 2
+			validturfs |= T
+
+	var/turf/T = safepick(validturfs)
+	if(T)
+		if(istype(T, /turf/simulated/floor))
+			T.ChangeTurf(/turf/simulated/floor/engine/cult)
+		if(istype(T, /turf/simulated/wall))
+			T.ChangeTurf(/turf/simulated/wall/cult/artificer)
+	else
+		var/turf/simulated/floor/engine/cult/F = safepick(cultturfs)
+		if(F)
+			new /obj/effect/temp_visual/cult/turf/open/floor(F)
+		else
+			// Are we in space or something? No cult turfs or convertable turfs?
+			COOLDOWN_START(src, corruption_cooldown, corruption_cooldown_duration * 2)
+			return
+
+	COOLDOWN_START(src, corruption_cooldown, corruption_cooldown_duration)
+
+/obj/structure/cult/functional/pylon/holy
+	cult_icon_changing = FALSE
+	light_color = LIGHT_COLOR_BLUE
+	icon_state = "holy"
+	holy = TRUE
 
 /obj/structure/cult/functional/archives
 	name = "archives"
@@ -306,7 +331,8 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 
 /obj/structure/cult/functional/archives/Initialize(mapload)
 	. = ..()
-	icon_state = SSticker.cultdat?.archives_icon_state
+	if(cult_icon_changing)
+		icon_state = SSticker.cultdat?.archives_icon_state
 
 /obj/effect/gateway
 	name = "gateway"
@@ -322,8 +348,11 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 /obj/effect/gateway/singularity_pull()
 	return
 
-/obj/effect/gateway/Bumped(atom/movable/AM)
+/obj/effect/gateway/Bumped(atom/movable/moving_atom)
 	return
 
 /obj/effect/gateway/Crossed(atom/movable/AM, oldloc)
 	return
+
+/obj/effect/clockwork/overlay/floor/bloodcult
+	icon_state = "cult"

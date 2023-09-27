@@ -2,6 +2,7 @@
 #define VIRUS_SYMPTOM_LIMIT	6
 
 //Visibility Flags
+#define VISIBLE	0
 #define HIDDEN_SCANNER	1
 #define HIDDEN_PANDEMIC	2
 
@@ -34,7 +35,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 
 /datum/disease
 	//Flags
-	var/visibility_flags = 0
+	var/visibility_flags = VISIBLE
 	var/disease_flags = CURABLE|CAN_CARRY|CAN_RESIST
 	var/spread_flags = AIRBORNE
 
@@ -69,6 +70,9 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	var/list/required_organs = list()
 	var/needs_all_cures = TRUE
 	var/list/strain_data = list() //dna_spread special bullshit
+	var/mutation_chance = 1
+	var/list/mutation_reagents = list("mutagen")
+	var/list/possible_mutations
 
 /datum/disease/Destroy()
 	affected_mob = null
@@ -97,6 +101,10 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 		if(cure && prob(cure_chance))
 			cure()
 			return FALSE
+
+	if(possible_mutations && prob(mutation_chance))
+		mutate()
+
 	return TRUE
 
 
@@ -143,8 +151,27 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 						break
 					V = Temp
 
+/datum/disease/proc/Contract(mob/M)
+	var/datum/disease/D = new type()
+	M.viruses += D
+	D.affected_mob = M
+	GLOB.active_diseases += D //Add it to the active diseases list, now that it's actually in a mob and being processed.
 
-/datum/disease/proc/cure()
+	//Copy properties over. This is so edited diseases persist.
+	var/list/skipped = list("affected_mob","holder","carrier","stage","type","parent_type","vars","transformed")
+	for(var/V in D.vars)
+		if(V in skipped)
+			continue
+		if(istype(D.vars[V],/list))
+			var/list/L = vars[V]
+			D.vars[V] = L.Copy()
+		else
+			D.vars[V] = vars[V]
+
+	D.affected_mob.med_hud_set_status()
+	return
+
+/datum/disease/proc/cure(resistance = TRUE)
 	if(affected_mob)
 		if(disease_flags & CAN_RESIST)
 			if(!(type in affected_mob.resistances))
@@ -153,7 +180,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	qdel(src)
 
 /datum/disease/proc/IsSame(datum/disease/D)
-	if(istype(src, D.type))
+	if(src.type == D.type)
 		return 1
 	return 0
 
@@ -172,7 +199,23 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 		return 1
 	return 0
 
-//don't use this proc directly. this should only ever be called by cure()
+//don't use this proc directly. this should only ever be called by cure() //nope
 /datum/disease/proc/remove_virus()
 	affected_mob.viruses -= src		//remove the datum from the list
 	affected_mob.med_hud_set_status()
+
+/datum/disease/proc/mutate()
+	var/datum/reagents/reagents = affected_mob.reagents
+	if(!reagents.reagent_list.len)
+		return
+	for(var/R in mutation_reagents)
+		if(!reagents.has_reagent(R))
+			return
+
+	//Here we have all the necessary reagents in affected_mob
+	var/type = pick(possible_mutations)
+	if(type)
+		remove_virus()
+		affected_mob.ForceContractDisease(new type)
+		qdel(src)
+

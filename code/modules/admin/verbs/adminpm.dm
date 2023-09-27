@@ -104,6 +104,7 @@
 	//clean the message if it's not sent by a high-rank admin
 	if(!check_rights(R_SERVER|R_DEBUG,0))
 		msg = sanitize_simple(copytext(msg,1,MAX_MESSAGE_LEN))
+		msg = sanitize_censored_patterns(msg)
 		if(!msg)
 			return
 	else
@@ -142,7 +143,7 @@
 			C.adminhelped = 0
 
 		//AdminPM popup for ApocStation and anybody else who wants to use it. Set it with POPUP_ADMIN_PM in config.txt ~Carn
-		if(config.popup_admin_pm)
+		if(CONFIG_GET(flag/popup_admin_pm))
 			spawn(0)	//so we don't hold the caller proc up
 				var/sender = src
 				var/sendername = key

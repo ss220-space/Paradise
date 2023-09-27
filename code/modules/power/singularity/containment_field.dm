@@ -1,7 +1,7 @@
 /obj/machinery/field/containment
 	name = "Containment Field"
 	desc = "An energy field."
-	icon = 'icons/obj/singularity.dmi'
+	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "Contain_F"
 	anchored = 1
 	density = 0
@@ -56,6 +56,9 @@
 
 /obj/machinery/field/containment/Crossed(mob/mover, oldloc)
 	if(isliving(mover))
+		var/mob/living/victim = mover
+		if(victim.incorporeal_move)
+			return
 		shock_field(mover)
 
 	if(istype(mover, /obj/machinery) || istype(mover, /obj/structure) || istype(mover, /obj/mecha))
@@ -99,14 +102,13 @@
 		var/shock_damage = min(rand(30,40),rand(30,40))
 
 		if(isliving(user) && !issilicon(user))
-			var/stun = min(shock_damage, 15)
-			user.Stun(stun)
-			user.Weaken(10)
+			var/stun = (min(shock_damage, 15)) STATUS_EFFECT_CONSTANT
+			user.Weaken(stun)
 			user.electrocute_act(shock_damage, src, 1)
 
 		else if(issilicon(user))
 			if(prob(20))
-				user.Stun(2)
+				user.Stun(4 SECONDS)
 			user.take_overall_damage(0, shock_damage)
 			user.visible_message("<span class='danger'>[user.name] was shocked by the [src.name]!</span>", \
 			"<span class='userdanger'>Energy pulse detected, system damaged!</span>", \

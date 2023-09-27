@@ -1,7 +1,7 @@
 // ********************************************************
 // Here's all the seeds (plants) that can be used in hydro
 // ********************************************************
-
+GLOBAL_LIST_EMPTY(plant_seeds)
 /obj/item/seeds
 	icon = 'icons/obj/hydroponics/seeds.dmi'
 	icon_state = "seed"				// Unknown plant seed - these shouldn't exist in-game.
@@ -10,6 +10,7 @@
 	var/plantname = "Plants"		// Name of plant when planted.
 	var/product						// A type path. The thing that is created when the plant is harvested.
 	var/species = ""				// Used to update icons. Should match the name in the sprites unless all icon_* are overriden.
+	var/variant = null				// Optional custom name to track modified plants. Can be set with pen or from gene modder.
 
 	var/growing_icon = 'icons/obj/hydroponics/growing.dmi' //the file that stores the sprites of the growing plant from this seed.
 	var/icon_grow					// Used to override grow icon (default is "[species]-grow"). You can use one grow icon for multiple closely related plants with it.
@@ -34,8 +35,9 @@
 
 	var/weed_rate = 1 //If the chance below passes, then this many weeds sprout during growth
 	var/weed_chance = 5 //Percentage chance per tray update to grow weeds
+	var/nogenes = FALSE
 
-/obj/item/seeds/New(loc, nogenes = 0)
+/obj/item/seeds/New(loc, nogenes = FALSE)
 	..()
 	pixel_x = rand(-8, 8)
 	pixel_y = rand(-8, 8)
@@ -48,7 +50,12 @@
 
 	if(!icon_harvest && !get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism) && yield != -1)
 		icon_harvest = "[species]-harvest"
+	src.nogenes = nogenes
+	GLOB.plant_seeds += src
 
+
+/obj/item/seeds/Initialize(mapload)
+	. = ..()
 	if(!nogenes) // not used on Copy()
 		genes += new /datum/plant_gene/core/lifespan(lifespan)
 		genes += new /datum/plant_gene/core/endurance(endurance)
@@ -70,6 +77,7 @@
 
 /obj/item/seeds/Destroy()
 	QDEL_LIST(genes)
+	GLOB.plant_seeds -= src
 	return ..()
 
 /obj/item/seeds/proc/Copy()
@@ -83,6 +91,8 @@
 	S.potency = potency
 	S.weed_rate = weed_rate
 	S.weed_chance = weed_chance
+	S.variant = variant
+	S.apply_variant_name()
 	S.genes = list()
 	for(var/g in genes)
 		var/datum/plant_gene/G = g
@@ -168,8 +178,8 @@
 		var/amount = 1 + round(potency * reagents_add[rid], 1)
 
 		var/list/data = null
-		if(rid == "blood") // Hack to make blood in plants always O-
-			data = list("blood_type" = "O-")
+		if(rid == "blood") // Hack to make blood in plants always O- but always Human
+			data = list("blood_type" = "O-", "blood_species" = "Human")
 		if(rid == "nutriment" || rid == "vitamin" || rid == "protein" || rid == "plantmatter")
 			// apple tastes of apple.
 			if(istype(T, /obj/item/reagent_containers/food/snacks/grown))
@@ -324,9 +334,36 @@
 			to_chat(user, "<span class='notice'>[text]</span>")
 
 		return
+	if(is_pen(O))
+		variant_prompt(user)
+		return
 	..() // Fallthrough to item/attackby() so that bags can pick seeds up
 
 
+/obj/item/seeds/proc/variant_prompt(mob/user, obj/item/container = null)
+	var/prev = variant
+	var/V = input(user, "Choose variant name:", "Plant Variant Naming", variant) as text|null
+	if(isnull(V)) // Did the user cancel?
+		return
+	if(container && (loc != container)) // Was the seed removed from the container, if there is a container?
+		return
+	if(!(container ? container : src).Adjacent(user)) // Is the user next to the seed/container?
+		return
+	variant = copytext(sanitize(html_encode(trim(V))), 1, 64) // Sanitization must happen after null check because it converts nulls to empty strings
+	if(variant == "")
+		variant = null
+	if(prev != variant)
+		to_chat(user, "<span class='notice'>You [variant ? "change" : "remove"] the [plantname]'s variant designation.</span>")
+	apply_variant_name()
+
+/obj/item/seeds/proc/apply_variant_name()
+	var/V = variant ? " \[[variant]]" : "" // If we have a non-empty variant add it to the name
+	var/N = initial(name)
+	if(copytext(name, 1, 13) == "experimental") // Don't delete 'experimental'
+		N = "experimental " + N
+	name = N + V
+	if(GetComponent(/datum/component/label))
+		GetComponent(/datum/component/label).apply_label() // Don't delete labels
 
 
 
@@ -396,3 +433,12 @@
 			genes += P
 		else
 			qdel(P)
+
+/obj/item/seeds/proc/transform_into_random()
+	name = "pack of strange seeds"
+	desc = "Mysterious seeds as strange as their name implies. Spooky"
+	icon_state = "seed-x"
+	randomize_stats()
+	add_random_reagents(1,2)
+	add_random_traits(1,2)
+	return

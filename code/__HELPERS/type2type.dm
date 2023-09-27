@@ -1,12 +1,20 @@
 /*
  * Holds procs designed to change one type of value, into another.
  * Contains:
+ * 			file2list
  *			hex2num & num2hex
  *			file2list
  *			angle2dir
  *			angle2text
  *			worldtime2text
  */
+
+//Splits the text of a file at seperator and returns them in a list.
+//returns an empty list if the file doesn't exist
+/world/proc/file2list(filename, seperator="\n", trim = TRUE)
+	if (trim)
+		return splittext(trim(file2text(filename)),seperator)
+	return splittext(file2text(filename),seperator)
 
 //Returns an integer given a hex input
 /proc/hex2num(hex)
@@ -123,6 +131,48 @@
 		else
 	return
 
+///returns a string the last bit of a type, without the preceeding '/'
+/proc/type2top(the_type)
+	//handle the builtins manually
+	if(!ispath(the_type))
+		return
+	switch(the_type)
+		if(/datum)
+			return "datum"
+		if(/atom)
+			return "atom"
+		if(/obj)
+			return "obj"
+		if(/mob)
+			return "mob"
+		if(/area)
+			return "area"
+		if(/turf)
+			return "turf"
+		else //regex everything else (works for /proc too)
+			return lowertext(replacetext("[the_type]", "[type2parent(the_type)]/", ""))
+
+/proc/dir2rustext(direction)
+	switch(direction)
+		if(1.0)
+			return "север"
+		if(2.0)
+			return "юг"
+		if(4.0)
+			return "восток"
+		if(8.0)
+			return "запад"
+		if(5.0)
+			return "северо-восток"
+		if(6.0)
+			return "юго-восток"
+		if(9.0)
+			return "северо-запад"
+		if(10.0)
+			return "юго-запад"
+		else
+	return
+
 //Turns text into proper directions
 /proc/text2dir(direction)
 	switch(uppertext(direction))
@@ -146,16 +196,8 @@
 	return
 
 //Converts an angle (degrees) into an ss13 direction
-/proc/angle2dir(var/degree)
-	degree = ((degree+22.5)%365)
-	if(degree < 45)		return NORTH
-	if(degree < 90)		return NORTHEAST
-	if(degree < 135)	return EAST
-	if(degree < 180)	return SOUTHEAST
-	if(degree < 225)	return SOUTH
-	if(degree < 270)	return SOUTHWEST
-	if(degree < 315)	return WEST
-	return NORTH|WEST
+GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,SOUTHWEST,WEST,NORTHWEST))
+#define angle2dir(X) (GLOB.modulo_angle_to_dir[round((((X%360)+382.5)%360)/45)+1])
 
 /proc/angle2dir_cardinal(angle)
 	switch(round(angle, 0.1))
@@ -169,18 +211,26 @@
 			return WEST
 
 //returns the north-zero clockwise angle in degrees, given a direction
-
-/proc/dir2angle(var/D)
+/proc/dir2angle(D)
 	switch(D)
-		if(NORTH)		return 0
-		if(SOUTH)		return 180
-		if(EAST)		return 90
-		if(WEST)		return 270
-		if(NORTHEAST)	return 45
-		if(SOUTHEAST)	return 135
-		if(NORTHWEST)	return 315
-		if(SOUTHWEST)	return 225
-		else			return null
+		if(NORTH)
+			return 0
+		if(SOUTH)
+			return 180
+		if(EAST)
+			return 90
+		if(WEST)
+			return 270
+		if(NORTHEAST)
+			return 45
+		if(SOUTHEAST)
+			return 135
+		if(NORTHWEST)
+			return 315
+		if(SOUTHWEST)
+			return 225
+		else
+			return null
 
 //Returns the angle in english
 /proc/angle2text(var/degree)

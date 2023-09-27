@@ -1,0 +1,264 @@
+'2023-09-01':
+  Den109G:
+  - bugfix: pylons fix roundstart cultists (#3453)
+  LiquidPotroh:
+  - tweak: Sleepy pen ignore pierceimmune (#3451)
+  Zardesse:
+  - tweak: Holy pylons heal (#3436)
+  Zwei:
+  - refactor: Scoreboard Datum (#3452)
+  - bugfix: Thief Mode Completion Text (#3450)
+  - bugfix: Parrot Collar Fix (#3457)
+'2023-09-02':
+  Den109G:
+  - bugfix: Admin-spawn key for steal target (#3458)
+  LiquidPotroh:
+  - add: Blindness in xeno's stomach (#3441)
+  NightDawnFox:
+  - bugfix: another lavaland fix (#3455)
+  Zwei:
+  - refactor: TG Style Cinematics (#3454)
+'2023-09-05':
+  SAAD:
+  - add: '"Mages Tavern" space ruin (#3461)'
+  UEDCommander:
+  - tweak: Alert rewrite (#3462)
+  Сиротка:
+  - bugfix: chamaleon hardsuit (#3470)
+  - balance: space dragon (#3444)
+'2023-09-07':
+  Albonix:
+  - tweak: survivcapsule_box (#3473)
+  Honker9999999:
+  - add: CATS (#3467)
+  - add: magboots cyborg upgrade (#3465)
+  - bugfix: you can't eat abstract items (#3468)
+  NightDawnFox:
+  - tweak: another lava tweaks (#3474)
+  Roman:
+  - add: Pai Update || New Sprites || New Modules || New Emote (#3463)
+  SSefuss:
+  - bugfix: Plastic Dupe through the Curtain Disassembly (#3475)
+  Vladisvell:
+  - bugfix: Not working cameras on Lavaland Outposts (#3481)
+  Zwei:
+  - bugfix: View Range Fixes (#3476)
+  aeternaclose:
+  - add: CereImprovement-pt7 (#3456)
+  mqopi:
+  - add: baggie craft (#3471)
+  Сиротка:
+  - tweak: dragon (#3477)
+  - tweak: Grey heath mods (#3439)
+'2023-09-09':
+  Dimach:
+  - bugfix: remove not used runtime (#3486)
+  Saichi23:
+  - bugfix: F7 for moderators (#3482)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3487)
+  Сиротка:
+  - bugfix: Megafauna blink to other level (#3484)
+  - tweak: Human spit blur (#3478)
+  - tweak: Cheaper BFL (#3485)
+'2023-09-11':
+  Rerik007:
+  - qol: Makes machine frames show their circuit name (#3494)
+  - bugfix: add other immune flags, alien move delay after stunbaton, absorb_status_effect
+      (#3493)
+  - bugfix: replace 'for' with 'if' where for is not needed (#3489)
+  Vladisvell:
+  - bugfix: BFL lens offset issue (#3498)
+  - bugfix: wrong icon state for engineers' closets (#3497)
+  Zwei:
+  - bugfix: Xenos Mousedrop (#3495)
+  aeternaclose:
+  - add: Donut For My Man (#3491)
+'2023-09-12':
+  Albonix:
+  - imageadd: update_sprite_riotshotgun (#3492)
+  NightDawnFox:
+  - bugfix: unathi subtypes tail clipping (#3504)
+  - bugfix: no more supressable m52 (#3505)
+  Rerik007:
+  - tweak: minor pai adds and tweaks (#3490)
+  SAAD:
+  - bugfix: No Restaurant at bridge (#3499)
+  Vladisvell:
+  - bugfix: cardboard boxes rendering (#3503)
+  - bugfix: Plasma glass smelting not giving plasma back (#3500)
+'2023-09-13':
+  NightDawnFox:
+  - add: wintercoats on station (#3507)
+  Vladisvell:
+  - add: standalone tts readme update (#3508)
+  Сиротка:
+  - add: mech Kinetic Accelerator (#3479)
+'2023-09-15':
+  Daeberdir:
+  - bugfix: inwallet genetics ID sprite. (#3518)
+  Den109G:
+  - bugfix: Fakekey display ping (#3509)
+  NightDawnFox:
+  - bugfix: wrong energy claws text (#3523)
+  - bugfix: rocketlauncher logic fix (#3521)
+  - bugfix: double delay on bluespace tomatoes (#3520)
+  - bugfix: minor sprite fixes (#3519)
+  ROdenFL:
+  - bugfix: pig oinks correctly (#3515)
+  - bugfix: delete painted parts after adding kit (#3512)
+  Vladisvell:
+  - bugfix: removed 100 units cap for spilling on hydroponics tray (#3510)
+'2023-09-17':
+  Daeberdir:
+  - bugfix: name correcting for QM wintercoat sprite. (#3525)
+  Den109G:
+  - tweak: server cooling on Delta (#3529)
+  Ksaikok46:
+  - bugfix: deleting "illegal" tech from laser arm implant (#3524)
+  LiquidPotroh:
+  - add: New symptoms (#3400)
+  Roman:
+  - add: two cats and two tail | New Plushie Cats (#3513)
+  SAAD:
+  - tweak: Arrows wrong position (#3539)
+  Vladisvell:
+  - bugfix: no glowing eyes examine for eyeless cultists (#3538)
+  - bugfix: mice no longer eat cables under transparent floor (#3537)
+  Zwei:
+  - bugfix: Runtime Fixes (#3534)
+  - bugfix: Put In Hand Fix (#3530)
+  - bugfix: Mime Mask Fix (#3527)
+  - bugfix: Widescreen Fixes (#3526)
+  aeternaclose:
+  - add: CereImprovement-pt8 (#3488)
+  Сиротка:
+  - tweak: remove sacid beakers from imprinters (#3533)
+  - tweak: Booze shells buff (#3531)
+  - add: +4 Grey Tattoos (#3535)
+  - tweak: ion typhoon (#3427)
+  - tweak: More dangerous syndi mecha weapon (#3532)
+  - add: Serega plushie toy (#3536)
+  - add: armour plate for ripley (#3480)
+  - tweak: Drill buff (#3528)
+'2023-09-18':
+  Albonix:
+  - bugfix: survivcapsule_box (#3542)
+  LiquidPotroh:
+  - bugfix: Loyalty syndrom don't work & tweaks (#3547)
+  Vladisvell:
+  - bugfix: glowing creatures in ventilation aren't glowing properly. (#3543)
+  Zwei:
+  - refactor: Projectiles Subsystem (#3423)
+  - add: Silicon Laws Logging (#3541)
+  - add: New Vampire Subclass - Bestia (#3338)
+  - bugfix: Projectiles Speed Hotfix (#3548)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3545)
+'2023-09-19':
+  Dimach:
+  - bugfix: proc name (#3561)
+  Rerik007:
+  - bugfix: ipc and non-ipc get speeed where they shouldn't (#3558)
+  - bugfix: cryostorage tgui fix (#3557)
+  - bugfix: fix a null.x in update_corners runtime (#3556)
+  - bugfix: pai's emote fix, doorjack on console fix (#3555)
+  Vladisvell:
+  - bugfix: widescreen robot TGUI interaction error (#3550)
+  Zwei:
+  - bugfix: Bestia Hotfix (#3551)
+  - refactor: Ambience Subsystem (#3511)
+  Сиротка:
+  - tweak: Ghost now follow ALL hiveminds (#3553)
+  - add: Mobs now dodging (#3544)
+  - bugfix: Grey skull helmet now looks properly (#3549)
+  - add: Sleeping Сarp Rework (#3466)
+'2023-09-20':
+  Albonix:
+  - bugfix: Two_blue_capsules (#3570)
+  Igz0m:
+  - tweak: Change Sec HUD icons of Syndicate (#3433)
+  Ksaikok46:
+  - tweak: remove shotgun speedloader from autolathe (#3566)
+  - bugfix: nuclear flechette no more replaces buckshot (#3565)
+  NightDawnFox:
+  - bugfix: wrong tech numbers (#3571)
+  ROdenFL:
+  - tweak: cardboard paint change (#3567)
+  Zwei:
+  - bugfix: Forcedodge Hotfix (#3564)
+'2023-09-21':
+  SAAD:
+  - tweak: Delta Satelite position (#3540)
+  spaghetti:
+  - add: stamina bar (#3240)
+  Сиротка:
+  - tweak: Skrell Rework (#3517)
+'2023-09-22':
+  Honker9999999:
+  - add: New gene+new strong effects (#3464)
+  LiquidPotroh:
+  - tweak: new symptoms patch 2 (#3573)
+  NightDawnFox:
+  - bugfix: two tails on drake and bone armor for vulps (#3575)
+  aeternaclose:
+  - bugfix: proper clown and mine ores spawn, fix ores detection (#3580)
+  - bugfix: Sofa Map Fix (#3581)
+  captainnelly:
+  - tweak: aussec armory gunshot sound (#3576)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3572)
+  Сиротка:
+  - refactor: Clothing file (#3552)
+  - bugfix: Drasks now correctly crash any non-admin types of obstacles (#3560)
+'2023-09-24':
+  Albonix:
+  - imageadd: tables icon (#3594)
+  Bizzonium:
+  - unknown: unignore data/mode.txt
+  Daeberdir:
+  - bugfix: '"shard -> glass" now dropping glass on shard loc. (#3588)'
+  LiquidPotroh:
+  - bugfix: Cracking steps after cured virus (#3599)
+  NightDawnFox:
+  - bugfix: missing tajara sprites for pathcloak (#3579)
+  ROdenFL:
+  - bugfix: tajblind hud fix (#3583)
+  - bugfix: give carp a special role (#3582)
+  Vladisvell:
+  - qol: Ambience sound is disabled in start area now. (#3586)
+  - refactor: Game configuration through datums (#3459)
+  - refactor: renamed discord webhooks and vote no dead in example config file (#3605)
+  Zwei:
+  - bugfix: Pixel Shift Fix (#3598)
+  Сиротка:
+  - bugfix: server lag exploit (#3592)
+  - del: Shitcurity Cadet (#3589)
+  - tweak: Bomb implants now can be tapped while inconcious (#3590)
+'2023-09-25':
+  Arceniu:
+  - tweak: Taipan and SO Earbang protection for headsets (#3585)
+  Daeberdir:
+  - bugfix: tables are unpassable from the flipped table tile & afterflip icon fix.
+      (#3602)
+  - bugfix: lockermech paintkit recipe typo. (#3611)
+  Hero998:
+  - tweak: Odysseus 4 slots (#3607)
+  NightDawnFox:
+  - bugfix: normal sec requirements (#3608)
+  captainnelly:
+  - imageadd: Bola's sprites inhands (#3600)
+  Сиротка:
+  - tweak: Carp tweaks (#3601)
+  - bugfix: Undestructuble and Unrepairable vendomates now work properly (#3606)
+  - tweak: Mecha guns now lock-boxed (#3603)
+'2023-09-26':
+  Dimach:
+  - bugfix: bees created in nullspace (#3619)
+  UEDCommander:
+  - add: High-Risk Combat RCD, Syndie RCD update (#3569)
+  Zwei:
+  - add: More Logging (#3609)
+  Сиротка:
+  - bugfix: gray skull helmet (#3618)
+  - qol: Mech Fabricator (#3604)

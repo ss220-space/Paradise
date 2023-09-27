@@ -53,6 +53,7 @@
 /turf/simulated/floor/beach/sand
 	name = "sand"
 	icon_state = "sand"
+	baseturf = /turf/simulated/floor/beach/sand
 
 
 /turf/simulated/floor/beach/coastline
@@ -63,6 +64,7 @@
 	barefootstep = FOOTSTEP_WATER
 	clawfootstep = FOOTSTEP_WATER
 	heavyfootstep = FOOTSTEP_WATER
+	baseturf = /turf/simulated/floor/beach/coastline
 
 /turf/simulated/floor/beach/coastline_t
 	name = "coastline"
@@ -80,12 +82,14 @@
 	barefootstep = FOOTSTEP_WATER
 	clawfootstep = FOOTSTEP_WATER
 	heavyfootstep = FOOTSTEP_WATER
+	baseturf = /turf/simulated/floor/beach/coastline_t
 
 /turf/simulated/floor/beach/water // TODO - Refactor water so they share the same parent type - Or alternatively component something like that
 	name = "water"
 	icon_state = "water"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/obj/machinery/poolcontroller/linkedcontroller = null
+	baseturf = /turf/simulated/floor/beach/water
 	footstep = FOOTSTEP_WATER
 	barefootstep = FOOTSTEP_WATER
 	clawfootstep = FOOTSTEP_WATER
@@ -145,8 +149,8 @@
 /turf/simulated/floor/lubed/pry_tile(obj/item/C, mob/user, silent = FALSE) //I want to get off Mr Honk's Wild Ride
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		to_chat(H, "<span class='warning'>You lose your footing trying to pry off the tile!</span>")
-		H.slip("the floor", 0, 5, tilesSlipped = 4, walkSafely = 0, slipAny = 1)
+		to_chat(H, span_warning("You lose your footing trying to pry off the tile!"))
+		H.slip("the floor", 10 SECONDS, tilesSlipped = 4, walkSafely = 0, slipAny = 1)
 	return
 
 //Clockwork floor: Slowly heals toxin damage on nearby servants.
@@ -158,6 +162,10 @@
 	var/dropped_brass
 	var/uses_overlay = TRUE
 	var/obj/effect/clockwork/overlay/floor/realappearence
+
+/turf/simulated/floor/clockwork/fake
+	desc = "Tightly-pressed brass tiles. They emit minute vibration. Or it just your imagination?"
+	baseturf = /turf/simulated/floor/clockwork/fake
 
 /turf/simulated/floor/clockwork/Initialize(mapload)
 	. = ..()
@@ -181,15 +189,23 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	user.visible_message("<span class='notice'>[user] begins slowly prying up [src]...</span>", "<span class='notice'>You begin painstakingly prying up [src]...</span>")
+	user.visible_message(span_notice("[user] begins slowly prying up [src]..."), span_notice("You begin painstakingly prying up [src]..."))
 	if(!I.use_tool(src, user, 70, volume = I.tool_volume))
 		return
-	user.visible_message("<span class='notice'>[user] pries up [src]!</span>", "<span class='notice'>You pry up [src]!</span>")
+	user.visible_message(span_notice("[user] pries up [src]!"), span_notice("You pry up [src]!"))
 	make_plating()
 
 /turf/simulated/floor/clockwork/make_plating()
 	if(!dropped_brass)
-		new /obj/item/stack/tile/brass(src)
+		new /obj/item/stack/sheet/brass(src)
+		dropped_brass = TRUE
+	if(baseturf == type)
+		return
+	return ..()
+
+/turf/simulated/floor/clockwork/fake/make_plating()
+	if(!dropped_brass)
+		new /obj/item/stack/sheet/brass_fake(src)
 		dropped_brass = TRUE
 	if(baseturf == type)
 		return
@@ -199,13 +215,6 @@
 	..()
 	if(istype(src, /turf/simulated/floor/clockwork)) //if we haven't changed type
 		var/previouscolor = color
-		color = "#960000"
+		color = COLOR_CULT_RED
 		animate(src, color = previouscolor, time = 8)
-		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
-
-/turf/simulated/floor/clockwork/reebe
-	name = "cogplate"
-	desc = "Warm brass plating. You can feel it gently vibrating, as if machinery is on the other side."
-	icon_state = "reebe"
-	baseturf = /turf/simulated/floor/clockwork/reebe
-	uses_overlay = FALSE
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)

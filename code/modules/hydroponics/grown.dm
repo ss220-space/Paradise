@@ -6,7 +6,7 @@
 // Base type. Subtypes are found in /grown dir.
 /obj/item/reagent_containers/food/snacks/grown
 	icon = 'icons/obj/hydroponics/harvest.dmi'
-	var/obj/item/seeds/seed = null // type path, gets converted to item on New(). It's safe to assume it's always a seed item.
+	var/obj/item/seeds/seed = null // type path, gets converted to item on Initialize(). It's safe to assume it's always a seed item.
 	var/plantname = ""
 	var/bitesize_mod = 0 	// If set, bitesize = 1 + round(reagents.total_volume / bitesize_mod)
 	var/splat_type = /obj/effect/decal/cleanable/plant_smudge
@@ -18,8 +18,8 @@
 	resistance_flags = FLAMMABLE
 	origin_tech = "biotech=1"
 
-/obj/item/reagent_containers/food/snacks/grown/New(newloc, var/obj/item/seeds/new_seed = null)
-	..()
+/obj/item/reagent_containers/food/snacks/grown/Initialize(mapload, obj/item/seeds/new_seed = null)
+	. = ..()
 	if(!tastes)
 		tastes = list("[name]" = 1)
 
@@ -30,18 +30,17 @@
 		seed = new seed()
 		seed.adjust_potency(50-seed.potency)
 
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
-
 	if(dried_type == -1)
 		dried_type = type
 
 	if(seed)
 		for(var/datum/plant_gene/trait/T in seed.genes)
-			T.on_new(src, newloc)
+			T.on_new(src)
 		seed.prepare_result(src)
 		transform *= TRANSFORM_USING_VARIABLE(seed.potency, 100) + 0.5 //Makes the resulting produce's sprite larger or smaller based on potency!
 		add_juice()
+		if(seed.variant)
+			name += " \[[seed.variant]]"
 
 /obj/item/reagent_containers/food/snacks/grown/Destroy()
 	QDEL_NULL(seed)
@@ -111,19 +110,21 @@
 // Various gene procs
 /obj/item/reagent_containers/food/snacks/grown/attack_self(mob/user)
 	if(seed && seed.get_gene(/datum/plant_gene/trait/squash))
-		squash(user)
+		if(!do_after(user, 1 SECONDS, target = user))
+			return
+		squash(user, user)
 	..()
 
-/obj/item/reagent_containers/food/snacks/grown/throw_impact(atom/hit_atom)
+/obj/item/reagent_containers/food/snacks/grown/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(!..()) //was it caught by a mob?
 		if(seed)
 			log_action(thrownby, hit_atom, "Thrown [src] at")
 			for(var/datum/plant_gene/trait/T in seed.genes)
 				T.on_throw_impact(src, hit_atom)
 			if(seed.get_gene(/datum/plant_gene/trait/squash))
-				squash(hit_atom)
+				squash(hit_atom, thrownby)
 
-/obj/item/reagent_containers/food/snacks/grown/proc/squash(atom/target)
+/obj/item/reagent_containers/food/snacks/grown/proc/squash(atom/target, mob/thrower)
 	var/turf/T = get_turf(target)
 	if(ispath(splat_type, /obj/effect/decal/cleanable/plant_smudge))
 		if(filling_color)
@@ -139,7 +140,7 @@
 	visible_message("<span class='warning'>[src] has been squashed.</span>","<span class='italics'>You hear a smack.</span>")
 	if(seed)
 		for(var/datum/plant_gene/trait/trait in seed.genes)
-			trait.on_squash(src, target)
+			trait.on_squash(src, target, thrower)
 
 	reagents.reaction(T)
 	for(var/A in T)
@@ -176,7 +177,7 @@
 
 // For item-containing growns such as eggy or gatfruit
 /obj/item/reagent_containers/food/snacks/grown/shell/attack_self(mob/user)
-	user.unEquip(src)
+	user.temporarily_remove_item_from_inventory(src)
 	if(trash)
 		var/obj/item/T = generate_trash()
 		user.put_in_hands(T)
@@ -203,4 +204,12 @@
 		genes_str = english_list(plant_gene_names)
 
 	add_attack_logs(user, target, "[what_done] ([reagent_str] | [genes_str])")
+
+
+/obj/item/reagent_containers/food/snacks/grown/extinguish_light(force = FALSE)
+	if(!force)
+		return
+	if(seed.get_gene(/datum/plant_gene/trait/glow/shadow))
+		return
+	set_light(0)
 

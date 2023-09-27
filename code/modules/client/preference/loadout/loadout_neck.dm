@@ -16,6 +16,10 @@
 	display_name = "regal shawl"
 	path = /obj/item/clothing/neck/mantle/regal
 
+/datum/gear/neck/cowboy_mantle
+	display_name = "old wrappings"
+	path = /obj/item/clothing/neck/mantle/cowboy
+
 /datum/gear/neck/mantle/job
 	subtype_path = /datum/gear/neck/mantle/job
 	subtype_cost_overlap = FALSE
@@ -53,7 +57,7 @@
 //Cloaks
 /datum/gear/neck/cloak
 	display_name = "cloak, grey"
-	path = /obj/item/clothing/neck/cloak
+	path = /obj/item/clothing/neck/cloak/grey
 
 /datum/gear/neck/cloak/job
 	subtype_path = /datum/gear/neck/cloak/job
@@ -62,7 +66,7 @@
 /datum/gear/neck/cloak/job/healer
 	display_name = "cloak, healer"
 	path = /obj/item/clothing/neck/cloak/healer
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Paramedic", "Brig Physician")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Intern", "Paramedic", "Brig Physician")
 
 /datum/gear/neck/cloak/job/captain
 	display_name = "cloak, captain"
@@ -99,6 +103,11 @@
 	path = /obj/item/clothing/neck/cloak/head_of_security
 	allowed_roles = list("Head of Security")
 
+/datum/gear/neck/cloak/security
+	display_name = "cloak, security officer"
+	path = /obj/item/clothing/neck/cloak/security
+	allowed_roles = list("Head of Security", "Security Officer", "Warden", "Security Pod Pilot")
+
 /datum/gear/neck/cloak/job/head_of_personnel
 	display_name = "cloak, head of personnel"
 	path = /obj/item/clothing/neck/cloak/head_of_personnel
@@ -119,10 +128,16 @@
 	display_name = "poncho, classic"
 	path = /obj/item/clothing/neck/poncho
 
-/datum/gear/neck/grponcho
+/datum/gear/neck/poncho/green
 	display_name = "poncho, green"
 	path = /obj/item/clothing/neck/poncho/green
 
-/datum/gear/neck/rdponcho
+/datum/gear/neck/poncho/red
 	display_name = "poncho, red"
 	path = /obj/item/clothing/neck/poncho/red
+
+/datum/gear/neck/poncho/security
+	display_name = "poncho, corporate"
+	path = /obj/item/clothing/neck/poncho/security
+	allowed_roles = list("Head of Security", "Security Officer", "Warden", "Security Pod Pilot")
+

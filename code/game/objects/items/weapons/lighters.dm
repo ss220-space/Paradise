@@ -64,6 +64,11 @@
 	set_light(0)
 	STOP_PROCESSING(SSobj, src)
 
+/obj/item/lighter/extinguish_light(force = FALSE)
+	if(!force)
+		return
+	turn_off_lighter()
+
 /obj/item/lighter/proc/show_off_message(mob/living/user)
 	to_chat(user, "<span class='notice'>You shut off [src].")
 
@@ -103,6 +108,13 @@
 	icon_off = "zippo"
 	var/next_on_message
 	var/next_off_message
+
+/obj/item/lighter/can_enter_storage(obj/item/storage/S, mob/user)
+	if(lit)
+		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
+		return FALSE
+	else
+		return TRUE
 
 /obj/item/lighter/zippo/turn_on_lighter(mob/living/user)
 	. = ..()
@@ -217,6 +229,18 @@
 	icon_on = "zippo_rd_on"
 	icon_off = "zippo_rd"
 
+//Ninja-Zippo//
+/obj/item/lighter/zippo/ninja
+	name = "\"Shinobi on a rice field\" zippo"
+	desc = "A custom made Zippo. It looks almost like a bag of noodles. There is a blood stain on it, and it smells like burnt rice..."
+	icon = 'icons/obj/ninjaobjects.dmi'
+	lefthand_file = 'icons/mob/inhands/antag/ninja_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'
+	icon_state = "zippo_ninja"
+	item_state = "zippo_ninja"
+	icon_on = "zippo_ninja_on"
+	icon_off = "zippo_ninja"
+
 ///////////
 //MATCHES//
 ///////////
@@ -245,13 +269,18 @@
 	..()
 	matchignite()
 
+/obj/item/match/extinguish_light(force = FALSE)
+	if(!force)
+		return
+	matchburnout()
+
 /obj/item/match/proc/matchignite()
 	if(!lit && !burnt)
 		lit = TRUE
 		icon_state = "match_lit"
 		damtype = "fire"
 		force = 3
-		hitsound = 'sound/items/welder.ogg'
+		hitsound = 'sound/weapons/tap.ogg'
 		item_state = "cigon"
 		name = "lit match"
 		desc = "A match. This one is lit."
@@ -282,8 +311,7 @@
 	if(!isliving(M))
 		return ..()
 	if(lit && M.IgniteMob())
-		message_admins("[key_name_admin(user)] set [key_name_admin(M)] on fire")
-		log_game("[key_name(user)] set [key_name(M)] on fire")
+		add_attack_logs(user, M, "set on fire", ATKLOG_FEW)
 	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(M)
 	if(lit && cig && user.a_intent == INTENT_HELP)
 		if(cig.lit)

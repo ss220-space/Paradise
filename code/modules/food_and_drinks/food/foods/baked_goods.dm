@@ -235,6 +235,67 @@
 	tastes = list("cake" = 5, "sweetness" = 1, "apple" = 1)
 	foodtype = SUGAR | GRAIN | FRUIT
 
+/obj/item/reagent_containers/food/snacks/sliceable/slimepie
+	name = "slime pie"
+	desc = "Blurp blob blup blep blop. Slicable."
+	icon_state = "slimepie"
+	slice_path = /obj/item/reagent_containers/food/snacks/slimepieslice
+	slices_num = 5
+	bitesize = 3
+	filling_color = "#00d9ff"
+	list_reagents = list("nutriment" = 20, "vitamin" = 5)
+	tastes = list("slime" = 5, "sweetness" = 1, "jelly" = 1)
+	foodtype = SUGAR | MEAT | FRUIT
+
+/obj/item/reagent_containers/food/snacks/slimepieslice
+	name = "slime pie slice"
+	desc = "Blurp blob blup blep blop."
+	icon_state = "slimepieslice"
+	trash = /obj/item/trash/plate
+	filling_color = "#00d9ff"
+	tastes = list("slime" = 5, "sweetness" = 1, "jelly" = 1)
+	foodtype = SUGAR | MEAT | FRUIT
+
+/obj/item/reagent_containers/food/snacks/sliceable/choccherrycake
+	name = "Chocolate - cherry cake"
+	desc = "Another cake. However."
+	icon_state = "choccherrycake"
+	slice_path = /obj/item/reagent_containers/food/snacks/choccherrycakeslice
+	slices_num = 6
+	bitesize = 3
+	filling_color = "#5e1706"
+	tastes = list("cherry" = 5, "sweetness" = 1, "chocolate" = 1)
+	list_reagents = list("nutriment" = 10, "sugar" = 3, "coco" = 4)
+	foodtype = SUGAR | FRUIT | GRAIN
+
+/obj/item/reagent_containers/food/snacks/choccherrycakeslice
+	name = "Chocolate - cherry cake's slice"
+	desc = "Slice of another cake. Wait, what?"
+	icon_state = "choccherrycake_s"
+	trash = /obj/item/trash/plate
+	filling_color = "#5e1706"
+	foodtype = SUGAR | FRUIT | GRAIN
+
+/obj/item/reagent_containers/food/snacks/sliceable/noel
+	name = "Buche de Noel"
+	desc = "What?"
+	icon_state = "noel"
+	trash = /obj/item/trash/tray
+	slice_path = /obj/item/reagent_containers/food/snacks/noelslice
+	slices_num = 5
+	filling_color = "#5e1706"
+	tastes = list("chocolate" = 3, "sweetness" = 2, "egg" = 1, "berries" = 2)
+	list_reagents = list("nutriment" = 6, "plantmatter" = 2, "coco" = 2, "cream" = 3, "sugar" = 3, "berryjucie" = 3)
+	foodtype = SUGAR | FRUIT | GRAIN | DAIRY
+
+/obj/item/reagent_containers/food/snacks/noelslice
+	name = "Noel's slice"
+	desc = "Slice of what?"
+	icon_state = "noel_s"
+	trash = /obj/item/trash/plate
+	filling_color = "#5e1706"
+	bitesize = 2
+	foodtype = SUGAR | FRUIT | GRAIN | DAIRY
 
 //////////////////////
 //		Cookies		//
@@ -284,7 +345,7 @@
 	tastes = list("pie" = 1)
 	foodtype = SUGAR | GRAIN | FRUIT
 
-/obj/item/reagent_containers/food/snacks/pie/throw_impact(atom/hit_atom)
+/obj/item/reagent_containers/food/snacks/pie/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
 	new/obj/effect/decal/cleanable/pie_smudge(loc)
 	visible_message("<span class='warning'>[src] splats.</span>","<span class='warning'>You hear a splat.</span>")
@@ -321,6 +382,7 @@
 	list_reagents = list("nutriment" = 6, "amanitin" = 3, "psilocybin" = 1, "vitamin" = 4)
 	tastes = list("pie" = 1, "mushroom" = 1)
 	foodtype = GRAIN | VEGETABLES
+	log_eating = TRUE
 
 /obj/item/reagent_containers/food/snacks/plump_pie
 	name = "plump pie"
@@ -332,12 +394,12 @@
 	tastes = list("pie" = 1, "mushroom" = 1)
 	foodtype = GRAIN | VEGETABLES
 
-/obj/item/reagent_containers/food/snacks/plump_pie/New()
-	..()
+/obj/item/reagent_containers/food/snacks/plump_pie/Initialize(mapload)
 	if(prob(10))
 		name = "exceptional plump pie"
 		desc = "Microwave is taken by a fey mood! It has cooked an exceptional plump pie!" // What
 		reagents.add_reagent("omnizine", 5)
+	. = ..()
 
 /obj/item/reagent_containers/food/snacks/xemeatpie
 	name = "xeno-pie"
@@ -409,14 +471,17 @@
 	tastes = list("donut" = 1)
 	foodtype = JUNKFOOD
 
-/obj/item/reagent_containers/food/snacks/donut/New()
-	..()
+/obj/item/reagent_containers/food/snacks/donut/Initialize(mapload)
 	if(randomized_sprinkles && prob(30))
 		icon_state = "donut2"
 		name = "frosted donut"
 		reagents.add_reagent("sprinkles", 2)
 		donut_sprite_type = "frosted"
 		filling_color = "#FF69B4"
+	. = ..()
+
+/obj/item/reagent_containers/food/snacks/donut/update_icon()
+	return
 
 /obj/item/reagent_containers/food/snacks/donut/sprinkles
 	name = "frosted donut"
@@ -431,9 +496,9 @@
 	desc = "Like life, it never quite tastes the same."
 	bitesize = 10
 	tastes = list("donut" = 3, "chaos" = 1)
+	log_eating = TRUE
 
-/obj/item/reagent_containers/food/snacks/donut/chaos/New()
-	..()
+/obj/item/reagent_containers/food/snacks/donut/chaos/Initialize(mapload)
 	extra_reagent = pick("nutriment", "capsaicin", "frostoil", "krokodil", "plasma", "cocoa", "slimejelly", "banana", "berryjuice", "omnizine")
 	reagents.add_reagent("[extra_reagent]", 3)
 	if(prob(30))
@@ -441,6 +506,7 @@
 		name = "frosted chaos donut"
 		reagents.add_reagent("sprinkles", 2)
 		filling_color = "#FF69B4"
+	. = ..()
 
 /obj/item/reagent_containers/food/snacks/donut/jelly
 	name = "jelly donut"
@@ -450,8 +516,7 @@
 	donut_sprite_type = "jelly"
 	tastes = list("jelly" = 1, "donut" = 3)
 
-/obj/item/reagent_containers/food/snacks/donut/jelly/New()
-	..()
+/obj/item/reagent_containers/food/snacks/donut/jelly/Initialize(mapload)
 	if(extra_reagent)
 		reagents.add_reagent("[extra_reagent]", 3)
 	if(prob(30))
@@ -460,6 +525,7 @@
 		donut_sprite_type = "frostedjelly"
 		reagents.add_reagent("sprinkles", 2)
 		filling_color = "#FF69B4"
+	. = ..()
 
 /obj/item/reagent_containers/food/snacks/donut/jelly/slimejelly
 	name = "jelly donut"
@@ -542,12 +608,12 @@
 	tastes = list("mushroom" = 1, "biscuit" = 1)
 	foodtype = GRAIN | SUGAR | VEGETABLES
 
-/obj/item/reagent_containers/food/snacks/plumphelmetbiscuit/New()
-	..()
+/obj/item/reagent_containers/food/snacks/plumphelmetbiscuit/Initialize(mapload)
 	if(prob(10))
 		name = "exceptional plump helmet biscuit"
 		desc = "Microwave is taken by a fey mood! It has cooked an exceptional plump helmet biscuit!" // Is this a reference?
 		reagents.add_reagent("omnizine", 5)
+	. = ..()
 
 /obj/item/reagent_containers/food/snacks/appletart
 	name = "golden apple streusel tart"
@@ -570,3 +636,13 @@
 	list_reagents = list("nutriment" = 1)
 	tastes = list("cracker" = 1)
 	foodtype = GRAIN
+
+/obj/item/reagent_containers/food/snacks/sundae
+	name = "Sundae"
+	desc = "Creamy satisfaction"
+	icon_state = "sundae"
+	filling_color = "#F5DEB8"
+	list_reagents = list("nutriment" = 4, "plantmatter" = 2, "bananajucie" = 4, "cream" = 3)
+	tastes = list("banana" = 1, "cherry" = 1, "cream" = 1)
+	bitesize = 5
+	foodtype = GRAIN | FRUIT

@@ -3,7 +3,7 @@
 	name = "Syndicate Sentry Bot"
 	desc = "A syndicate security bot."
 	model = "Guardian"
-	icon = 'icons/mecha/mecha.dmi'
+	icon = 'icons/obj/mecha/mecha.dmi'
 	icon_state = "darkgygax"
 	radio_channel = "Syndicate"
 	health = 300
@@ -182,7 +182,7 @@
 /mob/living/simple_animal/bot/ed209/syndicate/emp_act(severity)
 	return
 
-/mob/living/simple_animal/bot/ed209/UnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/ed209/syndicate/UnarmedAttack(atom/A)
 	if(!on)
 		return
 	shootAt(A)

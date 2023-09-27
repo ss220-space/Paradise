@@ -1,6 +1,6 @@
 /turf/simulated/floor/mech_bay_recharge_floor
 	name = "Mech Bay Recharge Station"
-	icon = 'icons/mecha/mech_bay.dmi'
+	icon = 'icons/obj/mecha/mech_bay.dmi'
 	icon_state = "recharge_floor"
 
 /turf/simulated/floor/mech_bay_recharge_floor/airless
@@ -14,7 +14,7 @@
 	density = 1
 	anchored = 1
 	dir = EAST
-	icon = 'icons/mecha/mech_bay.dmi'
+	icon = 'icons/obj/mecha/mech_bay.dmi'
 	icon_state = "recharge_port"
 	var/obj/mecha/recharging_mecha
 	var/obj/machinery/computer/mech_bay_power_console/recharge_console
@@ -65,7 +65,7 @@
 	var/MC
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		MC += C.rating
-	max_charge = MC * 25
+	max_charge = MC * 50
 
 /obj/machinery/mech_bay_recharge_port/attackby(obj/item/I, mob/user, params)
 	if(exchange_parts(user, I))
@@ -114,7 +114,7 @@
 	name = "mech bay power control console"
 	density = 1
 	anchored = 1
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "tech_key"
 	icon_screen = "recharge_comp"
 	light_color = LIGHT_COLOR_FADEDPURPLE

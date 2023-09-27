@@ -5,6 +5,7 @@
 	icon_state = "gangtool-purple"
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=200)
+	tts_seed = "Xenia"
 
 /obj/item/ttsdevice/Initialize(mapload)
 	. = ..()
@@ -22,7 +23,7 @@
 		playsound(src, "terminal_type", 50, TRUE)
 		return
 	atom_say(input)
-	log_say("(TTS) [input]", user)
+	add_say_logs(user, input, language = "TTS")
 
 /obj/item/ttsdevice/AltClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
@@ -43,8 +44,10 @@
 			playsound(user, 'sound/machines/ping.ogg', 50, 1, -1)
 
 /obj/item/ttsdevice/CtrlClick(mob/living/user)
-	var/new_name = input(user, "Name your Text-to-Speech device: \nThis matters for displaying it in the chat bar:", "TTS Device")  as text|null
-	if(!src.Adjacent(user) || !new_name)
+	if(!src.Adjacent(user))
 		return
-	new_name = reject_bad_name(new_name)
-	name = "[new_name]'s [initial(name)]"
+	var/new_name = input(user, "Name your Text-to-Speech device: \nThis matters for displaying it in the chat bar:", "TTS Device")  as text|null
+	if(new_name)
+		new_name = reject_bad_name(new_name)
+		name = "[new_name]'s [initial(name)]"
+	change_voice(user)

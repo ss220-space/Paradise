@@ -8,7 +8,7 @@
 	damage_overlays = 'icons/mob/human_races/masks/dam_monkey.dmi'
 	damage_mask = 'icons/mob/human_races/masks/dam_mask_monkey.dmi'
 	blood_mask = 'icons/mob/human_races/masks/blood_monkey.dmi'
-	language = null
+	language = "Galactic Common"
 	default_language = "Chimpanzee"
 	species_traits = list(NO_EXAMINE)
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
@@ -23,11 +23,12 @@
 	death_message = "издает слабое чириканье, дрогнув и перестает двигаться..." //да. Официально шимпанзе именно чирикают.
 
 	scream_verb = "визжит"
-	male_scream_sound = 'sound/goonstation/voice/monkey_scream.ogg'
-	female_scream_sound = 'sound/goonstation/voice/monkey_scream.ogg'
+	male_scream_sound = list('sound/goonstation/voice/monkey_scream.ogg')
+	female_scream_sound = list('sound/goonstation/voice/monkey_scream.ogg')
 	male_dying_gasp_sounds = list('sound/goonstation/voice/male_dying_gasp_1.ogg', 'sound/goonstation/voice/male_dying_gasp_2.ogg', 'sound/goonstation/voice/male_dying_gasp_3.ogg', 'sound/goonstation/voice/male_dying_gasp_4.ogg', 'sound/goonstation/voice/male_dying_gasp_5.ogg')
 	female_dying_gasp_sounds = list('sound/goonstation/voice/female_dying_gasp_1.ogg', 'sound/goonstation/voice/female_dying_gasp_2.ogg', 'sound/goonstation/voice/female_dying_gasp_3.ogg', 'sound/goonstation/voice/female_dying_gasp_4.ogg', 'sound/goonstation/voice/female_dying_gasp_5.ogg')
 
+	blood_species = "Human"
 	tail = "chimptail"
 	bodyflags = HAS_TAIL
 	reagent_tag = PROCESS_ORG
@@ -85,6 +86,7 @@
 
 	greater_form = /datum/species/tajaran
 	default_language = "Farwa"
+	blood_species = "Tajaran"
 	flesh_color = "#AFA59E"
 	base_color = "#000000"
 	tail = "farwatail"
@@ -123,6 +125,7 @@
 
 	greater_form = /datum/species/vulpkanin
 	default_language = "Wolpin"
+	blood_species = "Vulpkanin"
 	flesh_color = "#966464"
 	base_color = "#000000"
 	tail = "wolpintail"
@@ -160,6 +163,7 @@
 
 	greater_form = /datum/species/skrell
 	default_language = "Neara"
+	blood_species = "Skrell"
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
 	reagent_tag = PROCESS_ORG
@@ -192,6 +196,7 @@
 	tail = "stoktail"
 	greater_form = /datum/species/unathi
 	default_language = "Stok"
+	blood_species = "Unathi"
 	flesh_color = "#34AF10"
 	base_color = "#000000"
 	reagent_tag = PROCESS_ORG
