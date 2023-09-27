@@ -310,7 +310,7 @@
 			to_chat(target, "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>")
 			target.AdjustConfused(20 SECONDS)
 			target.Slowed(2 SECONDS)
-			target.Jitter(600 SECONDS)
+			target.Jitter(20 SECONDS)
 
 		if(issilicon(target))
 			to_chat(target, "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>")
