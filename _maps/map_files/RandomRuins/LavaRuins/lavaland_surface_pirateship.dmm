@@ -1768,7 +1768,7 @@
 	dir = 8
 	},
 /obj/item/camera_bug{
-	pixel_w = 7;
+	pixel_x = 7;
 	pixel_y = 9
 	},
 /obj/effect/decal/cleanable/dust,
