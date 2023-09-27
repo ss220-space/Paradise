@@ -24,8 +24,8 @@
 
 /obj/item/gun/projectile/bombarda/can_shoot()
 	if(!chambered)
-		return 0
-	return (chambered.BB ? 1 : 0)
+		return FALSE
+	return (chambered.BB ? TRUE : FALSE)
 
 
 /obj/item/gun/projectile/bombarda/attack_self(mob/living/user)
