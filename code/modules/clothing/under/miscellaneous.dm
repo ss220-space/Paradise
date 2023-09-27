@@ -955,3 +955,9 @@
 	icon_state = "tourist"
 	icon_state = "tourist"
 	item_color = "tourist"
+
+/obj/item/clothing/under/sydneysuit
+	name = "Sydnie suit test"
+	desc = "You feel cooler already."
+	icon_state = "sydneysuit"
+	item_color = "sydneysuit"
