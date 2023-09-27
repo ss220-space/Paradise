@@ -961,3 +961,4 @@
 	desc = "You feel cooler already."
 	icon_state = "sydneysuit"
 	item_color = "sydneysuit"
+	item_state = "sydneysuit"
