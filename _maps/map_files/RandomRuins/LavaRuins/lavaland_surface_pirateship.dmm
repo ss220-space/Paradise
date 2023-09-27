@@ -299,7 +299,7 @@
 	pixel_x = -7;
 	pixel_y = -3;
 	name = "Window Lockdown";
-	id = s
+	id = "pcarrier_windows"
 	},
 /obj/machinery/door_control{
 	pixel_y = -3;
