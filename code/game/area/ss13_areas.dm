@@ -1334,6 +1334,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "library"
 	sound_environment = SOUND_AREA_LARGE_SOFTFLOOR
 
+/area/library/game_zone
+	name = "\improper Library Games Room"
+	icon_state = "library"
+
 /area/chapel
 	icon_state = "chapel"
 	ambientsounds = HOLY_SOUNDS
