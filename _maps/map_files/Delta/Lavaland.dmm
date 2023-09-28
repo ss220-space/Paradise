@@ -3017,10 +3017,6 @@
 	dir = 1;
 	on = 1
 	},
-/obj/machinery/camera{
-	c_tag = "Mining Hall South";
-	network = list("Mining Outpost")
-	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
 	dir = 8
@@ -7348,6 +7344,10 @@
 	on = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/camera{
+	c_tag = "Mining Hall South";
+	network = list("Mining Outpost")
+	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "Uf" = (
