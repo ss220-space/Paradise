@@ -37,9 +37,6 @@
 	give_power(sluglesser)
 	absorbed_dna = list()
 
-/datum/antagonist/changeling/evented/respec(keep_innate_powers = TRUE, reset_genetic_points = TRUE)
-	..()
-	if(reset_genetic_points)	//make 13 gen points after respec
-		genetic_points = EVENT_CLING_GPOINTS
+#undef EVENT_CLING_GPOINTS
 
 
