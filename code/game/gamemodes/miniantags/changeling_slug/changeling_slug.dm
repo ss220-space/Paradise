@@ -4,7 +4,7 @@
 	icon_state = "headslugevent"
 	icon_living = "headslugevent"
 	icon_dead = "headslug_deadevent"
-	evented = 1
+	evented = TRUE
 
 
 /mob/living/simple_animal/hostile/headslug/evented/proc/make_slug_antag(give_default_objectives = TRUE)
