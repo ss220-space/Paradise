@@ -323,7 +323,7 @@
 	if(shocked && !(stat & NOPOWER))
 		if(shock(user, 100))
 			return
-	default_deconstruction_screwdriver(user, "panel", "close", I)
+	default_deconstruction_screwdriver(user, "[icon_state]_panel", "[initial(icon_state)]", I)
 
 /obj/machinery/suit_storage_unit/proc/store_item(obj/item/I, mob/user)
 	. = FALSE
@@ -750,11 +750,11 @@
 /obj/machinery/suit_storage_unit/pirate
 	suit_type    = /obj/item/clothing/suit/space/eva/pirate
 	helmet_type  = /obj/item/clothing/head/helmet/space/eva/pirate
-	mask_type    = /obj/item/clothing/mask/gas/syndicate
+	mask_type    = /obj/item/clothing/mask/gas
 	storage_type = /obj/item/tank/internals/oxygen
 
 /obj/machinery/suit_storage_unit/industrial/pirate_leader
 	suit_type    = /obj/item/clothing/suit/space/eva/pirate/leader
 	helmet_type  = /obj/item/clothing/head/helmet/space/eva/pirate/leader
-	mask_type    = /obj/item/clothing/mask/gas/syndicate
+	mask_type    = /obj/item/clothing/mask/gas
 	storage_type = /obj/item/tank/internals/oxygen
