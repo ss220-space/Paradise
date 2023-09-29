@@ -23922,9 +23922,6 @@
 	},
 /area/gateway)
 "czS" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -25998,6 +25995,19 @@
 	tag = "icon-vault (NORTHEAST)"
 	},
 /area/crew_quarters/serviceyard)
+"cIi" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "hopprivacy";
+	name = "Head of Personal Privacy Shutters"
+	},
+/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/crew_quarters/heads/hop)
 "cIj" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
@@ -37333,16 +37343,15 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "dDa" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	id_tag = "hopprivacy";
 	name = "Head of Personal Privacy Shutters"
 	},
 /obj/structure/cable{
-	icon_state = "1-4"
+	icon_state = "0-4"
 	},
-/obj/structure/cable,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/crew_quarters/heads/hop)
 "dDb" = (
@@ -50498,12 +50507,10 @@
 /turf/simulated/floor/plating,
 /area/turret_protected/ai)
 "fGz" = (
-/obj/structure/chair/sofa/corner{
-	dir = 4
-	},
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/chair/sofa/corner,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitegreen"
@@ -51938,6 +51945,18 @@
 	},
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
+"fXw" = (
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
+/obj/item/radio/intercom{
+	pixel_x = -28;
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/bridge/meeting_room)
 "fXx" = (
 /obj/structure/sign/poster/random{
 	pixel_y = -32
@@ -54553,9 +54572,6 @@
 "gFf" = (
 /obj/structure/cable{
 	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -68734,6 +68750,9 @@
 /area/toxins/test_chamber)
 "jVx" = (
 /obj/machinery/photocopier,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/heads/hop)
 "jVz" = (
@@ -75078,6 +75097,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/landmark/event/lightsout,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -76779,6 +76801,10 @@
 "lXr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
+	},
+/obj/item/radio/intercom{
+	pixel_x = -28;
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -78926,9 +78952,6 @@
 	},
 /area/toxins/test_chamber)
 "mwt" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 4;
 	name = "standard air scrubber";
@@ -93589,6 +93612,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/heads/hop)
 "pIp" = (
@@ -96765,9 +96791,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "qqU" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/computer/account_database,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -102771,7 +102794,7 @@
 /area/teleporter)
 "rIC" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/structure/sign/poster/random{
+/obj/item/radio/intercom{
 	pixel_x = 32
 	},
 /turf/simulated/floor/wood,
@@ -106349,7 +106372,6 @@
 /area/medical/genetics)
 "szI" = (
 /obj/effect/landmark/event/revenantspawn,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -107853,6 +107875,9 @@
 	pixel_x = 8
 	},
 /obj/item/folder/white,
+/obj/item/radio/intercom{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "sSQ" = (
@@ -120282,6 +120307,9 @@
 	dir = 9
 	},
 /obj/effect/landmark/start/hop,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/heads/hop)
 "vJS" = (
@@ -123384,6 +123412,9 @@
 /obj/structure/table/wood,
 /obj/item/dice/d10,
 /obj/item/dice/d20,
+/obj/machinery/camera{
+	c_tag = "Library Games Room"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -124200,6 +124231,9 @@
 /area/maintenance/fpmaint)
 "wFJ" = (
 /obj/machinery/computer/card,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/heads/hop)
 "wFR" = (
@@ -164351,7 +164385,7 @@ bOw
 vse
 dPt
 dPt
-dPt
+fpN
 mDY
 wFd
 quA
@@ -167186,7 +167220,7 @@ pId
 vJN
 jVx
 wFJ
-cPA
+cIi
 sZn
 mfs
 ciD
@@ -167949,7 +167983,7 @@ aaq
 aaq
 aaq
 bHj
-tdn
+fXw
 pYW
 kiG
 tNB
