@@ -71,7 +71,7 @@
 			name = "ichorium necklace"
 			icon_state = "red_necklace"
 			light_range = 4
-			light_power = 3
+			light_power = 2
 			light_color = "#800000"
 		if(istype(I, /obj/item/gem/purple))
 			name = "dilithium necklace"
@@ -83,13 +83,13 @@
 			name = "baroxuldium necklace"
 			icon_state = "phoron_necklace"
 			light_range = 3
-			light_power = 3
+			light_power = 2
 			light_color = "#7d0692"
 		if(istype(I, /obj/item/gem/amber))
 			name = "draconic necklace"
 			icon_state = "amber_necklace"
 			light_range = 3
-			light_power = 3
+			light_power = 2
 			light_color = "#FFBF00"
 			dragon_power = TRUE
 		gem = I
