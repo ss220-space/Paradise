@@ -25,7 +25,7 @@
 		mind.announce_objectives()
 
 /datum/antagonist/changeling/evented // make buffed changeling
-	evented = 1
+	evented = TRUE
 	genetic_points = EVENT_CLING_GPOINTS
 	absorbed_dna = list()
 
