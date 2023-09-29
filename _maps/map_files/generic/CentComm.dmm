@@ -691,14 +691,6 @@
 /turf/simulated/floor/plating,
 /area/centcom/bridge)
 "aoB" = (
-/obj/machinery/door_control{
-	id = "CC_GAMMA";
-	name = "GAMMA SHUTTLE";
-	pixel_x = 24;
-	pixel_y = -24;
-	req_access = list(114);
-	wires = 1
-	},
 /obj/item/flag/nt,
 /turf/simulated/floor/wood,
 /area/centcom/specops)
