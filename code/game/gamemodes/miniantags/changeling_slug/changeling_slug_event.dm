@@ -43,7 +43,7 @@
 
 /datum/event/headslug_infestation/proc/eventcheck()
 	if(((length(GLOB.clients)) <= HI_MINPLAYERS_TRIGGER) ||GAMEMODE_IS_CULTS || GAMEMODE_IS_NUCLEAR || GAMEMODE_IS_SHADOWLING)
-		return 1
+		return TRUE
 
 
 #undef GAMEMODE_IS_CULTS
