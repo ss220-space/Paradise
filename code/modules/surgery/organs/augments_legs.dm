@@ -107,12 +107,16 @@
 	parent_organ = BODY_ZONE_L_LEG
 
 /obj/item/organ/internal/cyberimp/leg/jumpboots/AddEffect()
-	implant_ability = new(src)
-	implant_ability.Grant(owner)
+	var/obj/item/organ/internal/cyberimp/leg/jumpboots/left = owner.get_organ_slot("r_leg_device") //leading leg or somethin
+	if(!left.implant_ability)
+		left.implant_ability = new(src)
+		left.implant_ability.Grant(owner)
 
 /obj/item/organ/internal/cyberimp/leg/jumpboots/RemoveEffect()
-	if(implant_ability)
-		implant_ability.Remove(owner)
+	var/obj/item/organ/internal/cyberimp/leg/jumpboots/left = owner.get_organ_slot("r_leg_device")
+	if(left.implant_ability)
+		left.implant_ability.Remove(owner)
+		left.implant_ability = null
 
 /datum/action/bhop
 	name = "Activate Jump Boots"
@@ -142,7 +146,7 @@
 	var/after_jump_callback = CALLBACK(src, PROC_REF(after_jump), owner, isflying)
 	if(owner.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = after_jump_callback))
 		last_jump = after_jump_callback
-		playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
+		playsound(owner.loc, 'sound/effects/stealthoff.ogg', 50, 1, 1)
 		owner.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
 		recharging_time = world.time + recharging_rate
 	else
