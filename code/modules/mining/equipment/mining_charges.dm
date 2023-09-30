@@ -23,7 +23,7 @@
 			return
 		..()
 	else
-		to_chat(user,span_warning("The charge only works on rocks!"))
+		return
 
 /obj/item/grenade/plastic/miningcharge/prime()
 	var/turf/simulated/mineral/location = get_turf(target)
