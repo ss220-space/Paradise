@@ -144,12 +144,15 @@
 				to_mix += AD
 
 			var/datum/disease/advance/AD = Advance_Mix(to_mix)
-			if(AD)
-				var/list/preserve = list(AD)
-				for(var/D in data["viruses"])
-					if(!istype(D, /datum/disease/advance))
-						preserve += D
-				data["viruses"] = preserve
+			var/list/preserve = list()
+
+			if(istype(AD))
+				preserve += AD
+
+			for(var/datum/disease/D in data["viruses"] + mix_data["viruses"])
+				if(!istype(D, /datum/disease/advance))
+					preserve += D.Copy()
+			data["viruses"] = preserve
 
 		if(mix_data["blood_color"])
 			color = mix_data["blood_color"]
