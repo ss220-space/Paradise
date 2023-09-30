@@ -22,8 +22,6 @@
 			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
 			return
 		..()
-	else
-		return
 
 /obj/item/grenade/plastic/miningcharge/prime()
 	var/turf/simulated/mineral/location = get_turf(target)
