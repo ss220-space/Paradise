@@ -16,6 +16,7 @@
 /area/ruin/powered)
 "e" = (
 /obj/structure/stone_tile/burnt,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "f" = (
@@ -25,6 +26,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "g" = (
@@ -45,6 +47,7 @@
 /area/ruin/powered)
 "k" = (
 /obj/structure/stone_tile,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "l" = (
@@ -54,6 +57,7 @@
 /obj/structure/stone_tile/block{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "m" = (
@@ -70,6 +74,7 @@
 /obj/structure/stone_tile{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "q" = (
@@ -121,6 +126,7 @@
 /obj/structure/stone_tile{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "H" = (
@@ -152,6 +158,10 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/powered)
+"N" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/explored)
 "O" = (
 /obj/structure/stone_tile/block{
 	dir = 4
@@ -159,6 +169,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "Q" = (
@@ -174,6 +185,7 @@
 /obj/structure/stone_tile/block{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "T" = (
@@ -189,6 +201,7 @@
 /area/ruin/powered)
 "W" = (
 /obj/structure/flora/rock/pile,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "X" = (
@@ -216,7 +229,7 @@ t
 t
 t
 k
-a
+N
 t
 t
 t
@@ -228,12 +241,12 @@ t
 t
 t
 t
-a
+N
 t
 t
-a
+N
 B
-a
+N
 t
 t
 t
@@ -245,7 +258,7 @@ t
 t
 t
 b
-a
+N
 b
 b
 b
@@ -271,8 +284,8 @@ c
 c
 c
 c
-a
-a
+N
+N
 t
 "}
 (5,1,1) = {"
@@ -289,7 +302,7 @@ g
 c
 c
 b
-a
+N
 t
 "}
 (6,1,1) = {"
@@ -306,8 +319,8 @@ c
 c
 c
 b
-a
-a
+N
+N
 "}
 (7,1,1) = {"
 t
@@ -323,8 +336,8 @@ c
 g
 c
 W
-a
-a
+N
+N
 "}
 (8,1,1) = {"
 t
@@ -356,9 +369,9 @@ c
 g
 c
 c
-a
-a
-a
+N
+N
+N
 "}
 (10,1,1) = {"
 t
@@ -374,12 +387,12 @@ c
 c
 c
 b
-a
+N
 t
 "}
 (11,1,1) = {"
 t
-a
+N
 W
 c
 g
@@ -423,7 +436,7 @@ S
 b
 b
 b
-a
+N
 b
 a
 t
@@ -435,12 +448,12 @@ t
 t
 t
 t
-a
+N
 e
-a
+N
 t
 t
-a
+N
 t
 a
 t
@@ -452,7 +465,7 @@ t
 t
 t
 t
-a
+N
 o
 t
 t
