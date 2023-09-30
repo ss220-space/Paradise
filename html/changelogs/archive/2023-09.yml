@@ -262,3 +262,30 @@
   Сиротка:
   - bugfix: gray skull helmet (#3618)
   - qol: Mech Fabricator (#3604)
+'2023-09-30':
+  0x0v3rfl0w:
+  - tweak: Adaptive AI hud (#3595)
+  Daeberdir:
+  - bugfix: Gamma Shuttle button. (#3638)
+  LiquidPotroh:
+  - bugfix: viral injector and not advanced viruses (#3613)
+  NightDawnFox:
+  - add: admin uplink now shows job-specific and nuke stuff (#3635)
+  - bugfix: leg implants no more duplicate actions (#3639)
+  ROdenFL:
+  - tweak: new donuts skins (#3614)
+  - tweak: tajblind buffs (#3627)
+  SAAD:
+  - bugfix: Lavalend ruins and lava generation (#3636)
+  - bugfix: Transit shuttles positions with widescreen (#3637)
+  - add: Delta Library remap(#3624)
+  Vladisvell:
+  - bugfix: wrong carpet smoothing (#3630)
+  - bugfix: Now thousand-point transfer card has correct value (#3622)
+  Zwei:
+  - bugfix: Logs Typo (#3631)
+  captainnelly:
+  - bugfix: jittery duration (#3626)
+  - tweak: stechkin buff (#3629)
+  Сиротка:
+  - tweak: replace .357 speedloader into ammo box (#3617)
