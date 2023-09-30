@@ -5,11 +5,14 @@
 GLOBAL_VAR_INIT(log_end, (ascii2text(13))) // CRLF for all logs
 GLOBAL_PROTECT(log_end)
 
+//wrapper macros for easier grepping
 #define DIRECT_OUTPUT(A, B) A << B
+#define DIRECT_INPUT(A, B) A >> B
 #define SEND_IMAGE(target, image) DIRECT_OUTPUT(target, image)
 #define SEND_SOUND(target, sound) DIRECT_OUTPUT(target, sound)
 #define SEND_TEXT(target, text) DIRECT_OUTPUT(target, text)
 #define WRITE_FILE(file, text) DIRECT_OUTPUT(file, text)
+#define READ_FILE(file, text) DIRECT_INPUT(file, text)
 
 /proc/error(msg)
 	log_world("## ERROR: [msg]")
@@ -32,11 +35,11 @@ GLOBAL_PROTECT(log_end)
 
 /proc/log_admin(text)
 	GLOB.admin_log.Add(text)
-	if(config.log_admin)
+	if(CONFIG_GET(flag/log_admin))
 		WRITE_LOG(GLOB.world_game_log, "ADMIN: [text][GLOB.log_end]")
 
 /proc/log_debug(text)
-	if(config.log_debug)
+	if(CONFIG_GET(flag/log_debug))
 		WRITE_LOG(GLOB.world_game_log, "DEBUG: [text][GLOB.log_end]")
 
 	for(var/client/C in GLOB.admins)
@@ -44,15 +47,15 @@ GLOBAL_PROTECT(log_end)
 			to_chat(C, "DEBUG: [text]")
 
 /proc/log_game(text)
-	if(config.log_game)
+	if(CONFIG_GET(flag/log_game))
 		WRITE_LOG(GLOB.world_game_log, "GAME: [text][GLOB.log_end]")
 
 /proc/log_vote(text)
-	if(config.log_vote)
+	if(CONFIG_GET(flag/log_vote))
 		WRITE_LOG(GLOB.world_game_log, "VOTE: [text][GLOB.log_end]")
 
 /proc/log_access_in(client/new_client)
-	if(config.log_access)
+	if(CONFIG_GET(flag/log_access))
 		var/message = "[key_name(new_client)] - IP:[new_client.address] - CID:[new_client.computer_id] - BYOND v[new_client.byond_version].[new_client.byond_build]"
 		WRITE_LOG(GLOB.world_game_log, "ACCESS IN: [message][GLOB.log_end]")
 		if(new_client.ckey in GLOB.admin_datums)
@@ -60,73 +63,77 @@ GLOBAL_PROTECT(log_end)
 			WRITE_LOG(GLOB.world_game_log, "ADMIN: Admin [key_name(new_client)] ([admin.rank]) logged in[GLOB.log_end]")
 
 /proc/log_access_out(mob/last_mob)
-	if(config.log_access)
+	if(CONFIG_GET(flag/log_access))
 		var/message = "[key_name(last_mob)] - IP:[last_mob.lastKnownIP] - CID:[last_mob.computer_id] - BYOND Logged Out"
 		WRITE_LOG(GLOB.world_game_log, "ACCESS OUT: [message][GLOB.log_end]")
 		if(last_mob.ckey in GLOB.admin_datums)
 			WRITE_LOG(GLOB.world_game_log, "ADMIN: Admin [key_name(last_mob)] logged out[GLOB.log_end]")
 
 /proc/log_say(text, mob/speaker)
-	if(config.log_say)
+	if(CONFIG_GET(flag/log_say))
 		WRITE_LOG(GLOB.world_game_log, "SAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_whisper(text, mob/speaker)
-	if(config.log_whisper)
+	if(CONFIG_GET(flag/log_whisper))
 		WRITE_LOG(GLOB.world_game_log, "WHISPER: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_ooc(text, client/user)
-	if(config.log_ooc)
+	if(CONFIG_GET(flag/log_ooc))
 		WRITE_LOG(GLOB.world_game_log, "OOC: [user.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_aooc(text, client/user)
-	if(config.log_ooc)
+	if(CONFIG_GET(flag/log_ooc))
 		WRITE_LOG(GLOB.world_game_log, "AOOC: [user.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_looc(text, client/user)
-	if(config.log_ooc)
+	if(CONFIG_GET(flag/log_ooc))
 		WRITE_LOG(GLOB.world_game_log, "LOOC: [user.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_emote(text, mob/speaker)
-	if(config.log_emote)
+	if(CONFIG_GET(flag/log_emote))
 		WRITE_LOG(GLOB.world_game_log, "EMOTE: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_attack(attacker, defender, message, newhp)
-	if(config.log_attack)
+	if(CONFIG_GET(flag/log_attack))
 		WRITE_LOG(GLOB.world_game_log, "ATTACK: [attacker] against [defender]: [message] [newhp][GLOB.log_end]") //Seperate attack logs? Why?
 
 /proc/log_conversion(text, mob/converting)
-	if(config.log_conversion)
+	if(CONFIG_GET(flag/log_conversion))
 		WRITE_LOG(GLOB.world_game_log, "CONVERSION: [converting.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_adminsay(text, mob/speaker)
-	if(config.log_adminchat)
+	if(CONFIG_GET(flag/log_adminchat))
 		WRITE_LOG(GLOB.world_game_log, "ADMINSAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+
+/proc/log_admin_private(text, mob/speaker)
+	if(CONFIG_GET(flag/log_adminchat))
+		WRITE_LOG(GLOB.world_game_log, "ADMINPRIVATE: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_qdel(text)
 	WRITE_LOG(GLOB.world_qdel_log, "QDEL: [text][GLOB.log_end]")
 
 /proc/log_mentorsay(text, mob/speaker)
-	if(config.log_adminchat)
+	if(CONFIG_GET(flag/log_adminchat))
 		WRITE_LOG(GLOB.world_game_log, "MENTORSAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_ghostsay(text, mob/speaker)
-	if(config.log_say)
+	if(CONFIG_GET(flag/log_say))
 		WRITE_LOG(GLOB.world_game_log, "DEADCHAT: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_ghostemote(text, mob/speaker)
-	if(config.log_emote)
+	if(CONFIG_GET(flag/log_emote))
 		WRITE_LOG(GLOB.world_game_log, "DEADEMOTE: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_adminwarn(text)
-	if(config.log_adminwarn)
+	if(CONFIG_GET(flag/log_adminwarn))
 		WRITE_LOG(GLOB.world_game_log, "ADMINWARN: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_pda(text, mob/speaker)
-	if(config.log_pda)
+	if(CONFIG_GET(flag/log_pda))
 		WRITE_LOG(GLOB.world_game_log, "PDA: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_chat(text, mob/speaker)
-	if(config.log_pda)
+	if(CONFIG_GET(flag/log_pda))
 		WRITE_LOG(GLOB.world_game_log, "CHAT: [speaker.simple_info_line()] [html_decode(text)][GLOB.log_end]")
 
 /proc/log_misc(text)
@@ -143,9 +150,9 @@ GLOBAL_PROTECT(log_end)
 		WRITE_LOG(GLOB.world_game_log, "GAME: End objective log for [html_decode(Mind.key)]/[html_decode(Mind.name)][GLOB.log_end]")
 
 /proc/log_world(text)
-	if(config && !config.disable_root_log)
+	if(config && !CONFIG_GET(flag/disable_root_log))
 		SEND_TEXT(world.log, text)
-	if(config && config.log_world_output)
+	if(config && CONFIG_GET(flag/log_world_output))
 		WRITE_LOG(GLOB.world_game_log, "WORLD: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_runtime_txt(text) // different from /tg/'s log_runtime because our error handler has a log_runtime proc already that does other stuff

@@ -122,12 +122,14 @@
 	ks2type = /obj/item/encryptionkey/syndicate/taipan
 	freerange = TRUE
 	freqlock = FALSE
+	flags = EARBANGPROTECT
 
 /obj/item/radio/headset/syndicate/taipan
 	name = "syndicate taipan headset"
 	icon_state = "taipan_headset"
 	item_state = "taipan_headset"
 	ks1type = /obj/item/encryptionkey/syndicate/taipan
+	flags = EARBANGPROTECT
 
 /obj/item/radio/headset/syndicate/taipan/New()
 	. = ..()

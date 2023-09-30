@@ -57,7 +57,7 @@ SUBSYSTEM_DEF(http)
 					log_data += "\tResponse body: [res.body]"
 					log_data += "\tResponse headers: [json_encode(res.headers)]"
 				log_data += "END ASYNC RESPONSE (ID: [req.id])"
-				WRITE_LOG(GLOB.http_log, replacetext_char(log_data.Join("\n[GLOB.log_end]"), tts_token_silero, "TOKEN"))
+				WRITE_LOG(GLOB.http_log, replacetext_char(log_data.Join("\n[GLOB.log_end]"), CONFIG_GET(string/tts_token_silero), "TOKEN"))
 
 /**
   * Async request creator
@@ -84,7 +84,7 @@ SUBSYSTEM_DEF(http)
 	// 	log_data += "\tRequest body: [req.body]"
 	// 	log_data += "\tRequest headers: [req.headers]"
 	// 	log_data += "END ASYNC REQUEST (ID: [req.id])"
-	// 	log_data = replacetext_char(log_data, tts_token_silero, "TOKEN")
+	// 	log_data = replacetext_char(log_data, CONFIG_GET(string/tts_token_silero), "TOKEN")
 
 	// 	// Write the log data
 	// 	WRITE_LOG(GLOB.http_log, log_data.Join("\n[GLOB.log_end]"))

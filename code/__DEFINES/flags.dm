@@ -120,6 +120,11 @@
 #define PASS_OTHER_THINGS 256
 #define PASS_EVERYTHING PASSTABLE|PASSGLASS|PASSGRILLE|PASSBLOB|PASSMOB|LETPASSTHROW|PASSFENCE|PASSDOOR|PASS_OTHER_THINGS
 
+// for /datum/var/datum_flags
+#define DF_USE_TAG (1<<0)
+#define DF_VAR_EDITED (1<<1)
+#define DF_ISPROCESSING (1<<2)
+
 //turf-only flags
 #define NOJAUNT		1
 #define NO_LAVA_GEN	2 //Blocks lava rivers being generated on the turf
