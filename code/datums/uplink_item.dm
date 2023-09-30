@@ -516,16 +516,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	job = list("Station Engineer", "Trainee Engineer", "Mechanic", "Life Support Specialist", "Chief Engineer")
 	surplus = 0
 
-//Stimulants
-
-/datum/uplink_item/jobspecific/stims
-	name = "Stimulants"
-	desc = "A highly illegal compound contained within a compact auto-injector; when injected it makes the user extremely resistant to incapacitation and greatly enhances the body's ability to repair itself."
-	reference = "ST"
-	item = /obj/item/reagent_containers/hypospray/autoinjector/stimulants
-	cost = 5
-	job = list("Scientist", "Student Scientist", "Research Director", "Geneticist", "Chief Medical Officer", "Medical Doctor", "Intern", "Psychiatrist", "Chemist", "Paramedic", "Coroner", "Virologist")
-
 //Tator Poison Bottles
 
 /datum/uplink_item/jobspecific/poisonbottle
