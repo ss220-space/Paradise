@@ -14,7 +14,6 @@
 	effect_time = _effect_time
 	effect_types = _effect_types
 	sound = _sound
-	extra_checks = _extra_checks
 
 /datum/component/stumbling/RegisterWithParent()
 	RegisterSignal(parent, list(COMSIG_MOVABLE_CROSSED, COMSIG_ATOM_ENTERED), PROC_REF(Stumble))
