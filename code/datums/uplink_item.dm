@@ -74,6 +74,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/list/uplinktypes = list() // Empty list means it is in all the uplink types. Otherwise place the uplink type here.
 	var/list/excludefrom = list() // Empty list does nothing. Place the name of uplink type you don't want this item to be available in here.
 	var/list/job = null
+	var/list/race = null
 	var/surplus = 100 //Chance of being included in the surplus crate (when pick() selects it)
 	var/cant_discount = FALSE
 	var/limited_stock = -1 // Can you only buy so many? -1 allows for infinite purchases
@@ -156,6 +157,22 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/discounts
 	category = "Discounted Gear"
+
+//Racial
+
+/datum/uplink_item/racial
+	category = "Racial"
+	cant_discount = TRUE
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/racial/steroids
+	name = "Steroids"
+	desc = "Test desc"
+	reference = "ster"
+	item = /obj/item/steroids
+	cost = 14
+	race = list("Human")
+	surplus = 0
 
 //Job specific gear
 
