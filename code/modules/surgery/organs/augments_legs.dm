@@ -116,6 +116,7 @@
 	var/obj/item/organ/internal/cyberimp/leg/jumpboots/left = owner.get_organ_slot("r_leg_device")
 	if(left.implant_ability)
 		left.implant_ability.Remove(owner)
+		left.implant_ability = null
 
 /datum/action/bhop
 	name = "Activate Jump Boots"
