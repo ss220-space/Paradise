@@ -1867,6 +1867,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 15
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+//Stimulants
+/datum/uplink_item/device_tools/stims
+	name = "Stimulants"
+	desc = "A highly illegal compound contained within a compact auto-injector; when injected it makes the user extremely resistant to incapacitation and greatly enhances the body's ability to repair itself."
+	reference = "ST"
+	item = /obj/item/reagent_containers/hypospray/autoinjector/stimulants
+	cost = 5
 
 // IMPLANTS
 
