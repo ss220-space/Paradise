@@ -650,7 +650,7 @@
 		to_chat(user, span_notice("Вы начинаете подключать провода панели замка [src] к [I]..."))
 		if(I.use_tool(src, user, 160, volume = I.tool_volume))
 			if(prob(80)) // Good hacker!
-				if(broken != 0)
+				if(broken != 0 && broken != 1)
 					desc += " Замок отключен."
 					broken = 0 // Can be emagged
 					emag_act(user)
