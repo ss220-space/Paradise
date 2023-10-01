@@ -43,8 +43,3 @@
 	name = "Eyebrows"
 	species_allowed = list("Human")
 	icon_state = "eyebrows"
-
-/datum/sprite_accessory/body_markings/mono_eyebrows
-	name = "Mono eyebrows"
-	species_allowed	= list("Human")
-	icon_state = "mono_eyebrows"
