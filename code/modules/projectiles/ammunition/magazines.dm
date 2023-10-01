@@ -216,7 +216,7 @@
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/c10mm
 	caliber = "10mm"
-	max_ammo = 8
+	max_ammo = 15
 	multiple_sprites = 2
 
 /obj/item/ammo_box/magazine/m10mm/fire
