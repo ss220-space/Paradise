@@ -197,9 +197,9 @@
 
 /datum/action/innate/cult/blood_spell/construction
 	name = "Twisted Construction"
-	desc = "Empowers your hand to corrupt certain metalic objects.<br><u>Converts:</u><br>Plasteel into runed metal<br>50 metal into a construct shell<br>Cyborg shells into construct shells<br>Airlocks into brittle runed airlocks after a delay (harm intent)"
+	desc = "Empowers your hand to corrupt certain metalic objects.<br><u>Converts:</u><br>Plasteel into runed metal<br>50 metal into a construct shell<br>Airlocks into brittle runed airlocks after a delay (harm intent)"
 	button_icon_state = "transmute"
-	magic_path = "/obj/item/melee/blood_magic/construction"
+	magic_path = /obj/item/melee/blood_magic/construction
 	health_cost = 12
 
 /datum/action/innate/cult/blood_spell/dagger
@@ -888,18 +888,11 @@
 			if(uses < BLOOD_ORB_COST)
 				to_chat(user, "<span class='warning'>You need [BLOOD_ORB_COST] charges to perform this rite.</span>")
 			else
-				var/ammount = input("How much blood would you like to transfer? You have [uses] blood.", "How much blood?", 50) as null|num
-				if(ammount < 50) // No 1 blood orbs, 50 or more.
-					to_chat(user, "<span class='warning'>You need to give up at least 50 blood.</span>")
-					return
-				if(ammount > uses) // No free blood either
-					to_chat(user, "<span class='warning'>You do not have that much blood to give!</span>")
-					return
-				uses -= ammount
+				uses -= BLOOD_ORB_COST
 				var/turf/T = get_turf(user)
 				qdel(src)
 				var/obj/item/blood_orb/rite = new(T)
-				rite.blood = ammount
+				rite.blood = 50
 				if(user.put_in_hands(rite))
 					to_chat(user, "<span class='cult'>A [rite.name] appears in your hand!</span>")
 				else
