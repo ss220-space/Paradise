@@ -42,9 +42,15 @@
 
 /obj/item/dumbell/equipped(mob/user)
 	. = ..()
-	if(!user?.mind.martial_art && !istype(user.mind.martial_art,/datum/martial_art/steroids))
+	if(!has_steroids(user))
 		to_chat(user, span_warning("It's too HEAVY!"))
 		user.drop_item_ground(src, force = TRUE)
+
+/obj/item/dumbell/component_can_stumble(mob/target)
+	if(iscarbon(target))
+		if(has_steroids(target))
+			return FALSE
+	return TRUE
 
 /obj/item/dumbell/kettlebell/attack_self(mob/user)
 	if(!used_once)
@@ -112,4 +118,10 @@
 		COOLDOWN_START(src, last_return, 8 SECONDS)
 	else
 		to_chat(user, span_caution("The kettlebell already in your hands"))
+
+/atom/proc/has_steroids(mob/living/carbon/user)
+	if(user?.mind.martial_art && istype(user.mind.martial_art,/datum/martial_art/steroids))
+		return TRUE
+	else
+		return FALSE
 

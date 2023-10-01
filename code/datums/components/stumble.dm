@@ -22,8 +22,10 @@
 	UnregisterSignal(parent, list(COMSIG_MOVABLE_CROSSED, COMSIG_ATOM_ENTERED))
 
 /datum/component/stumbling/proc/Stumble(datum/source,  mob/living/carbon/C)
-	if(C?.mind.martial_art && istype(C.mind.martial_art,/datum/martial_art/steroids))
-		return
+	if(isobj(parent))
+		var/obj/I = parent
+		if(!I.component_can_stumble(C))
+			return
 	if(!(C?.pulledby || C.flying || C.buckled || C.m_intent == MOVE_INTENT_WALK))
 		to_chat(C,span_warning(pick(\
 									"Watch your step!", \
@@ -44,3 +46,6 @@
 
 		C.apply_damage(damage, damage_type, pick("l_foot", "r_foot"))
 		return
+
+/atom/proc/component_can_stumble(mob/target)
+	return TRUE
