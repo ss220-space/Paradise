@@ -965,7 +965,7 @@
 		INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
 
 /obj/machinery/power/apc/proc/can_use(var/mob/user, var/loud = 0) //used by attack_hand() and Topic()
-	if(BROKEN == TRUE)
+	if(stat & BROKEN)
 		return FALSE
 	if(user.can_admin_interact())
 		return TRUE
