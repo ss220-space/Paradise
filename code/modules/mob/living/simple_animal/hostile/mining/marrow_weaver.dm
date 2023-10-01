@@ -68,7 +68,7 @@
 				var/mob/living/carbon/human/H = L
 				var/turf/T = get_turf(H)
 				H.add_splatter_floor(T)	//Visual proc from disembowel(), just for exclude organ dropping (brains), but stay cool.
-				playsound(get_turf(T), 'sound/effects/splat.ogg', 25, 1)	//Sound proc for the same reason.
+				playsound(T, 'sound/effects/splat.ogg', 25, 1)	//Sound proc for the same reason.
 				src.visible_message(
 					span_danger("[src] drools some toxic goo into [L]'s innards..."),
 					span_danger("Before sucking out the slurry of bone marrow and flesh, healing itself!"),
