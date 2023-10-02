@@ -4,8 +4,12 @@
 	var/effect_time
 	var/effect_types
 	var/sound
+	var/phrases_to_target = list()
 
-/datum/component/stumbling/Initialize(_damage = 0, _damage_type = BRUTE, _effect_time = 2, _effect_types = list("weak"), _sound = null)
+/datum/component/stumbling/Initialize(_damage = 0, _damage_type = BRUTE, _effect_time = 2, _effect_types = list("weak"), _sound = null, _phrases_to_target = list(\
+																																								"Watch your step!", \
+																																								"Watch your feet!", \
+																																								"Watch where you are going!"))
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -14,6 +18,7 @@
 	effect_time = _effect_time
 	effect_types = _effect_types
 	sound = _sound
+	phrases_to_target = _phrases_to_target
 
 /datum/component/stumbling/RegisterWithParent()
 	RegisterSignal(parent, list(COMSIG_MOVABLE_CROSSED, COMSIG_ATOM_ENTERED), PROC_REF(Stumble))
@@ -21,16 +26,22 @@
 /datum/component/stumbling/UnregisterFromParent()
 	UnregisterSignal(parent, list(COMSIG_MOVABLE_CROSSED, COMSIG_ATOM_ENTERED))
 
-/datum/component/stumbling/proc/Stumble(datum/source,  mob/living/carbon/C)
+/datum/component/stumbling/proc/Stumble(datum/source,  mob/living/carbon/target)
+	var/mob/living/carbon/C = target
 	if(isobj(parent))
 		var/obj/I = parent
 		if(!I.component_can_stumble(C))
 			return
+
+	if(istype(C, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = C
+		if(H.shoes && istype(H.shoes, /obj/item/clothing/shoes/magboots))
+			var/obj/item/clothing/shoes/magboots/S = H.shoes
+			if(S.flags & NOSLIP)
+				return
+
 	if(!(C?.pulledby || C.flying || C.buckled || C.m_intent == MOVE_INTENT_WALK))
-		to_chat(C,span_warning(pick(\
-									"Watch your step!", \
-									"Watch your feet!", \
-									"Watch where you are going!")))
+		to_chat(C,span_warning(pick(phrases_to_target)))
 		for(var/effect in effect_types)
 			switch(effect)
 				if("weak")
