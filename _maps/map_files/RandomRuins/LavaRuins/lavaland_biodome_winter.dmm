@@ -64,7 +64,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/powered/snow_biodome)
 "an" = (
-/obj/structure/chair/sofa/corner,
+/obj/structure/chair/sofa/corner{
+	dir = 4
+	},
 /turf/simulated/floor/carpet,
 /area/ruin/powered/snow_cabin)
 "ao" = (

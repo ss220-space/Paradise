@@ -69,8 +69,8 @@
 	var/traitor_prob = 0
 	var/traitor_scale = 10
 
-	if(config.traitor_scaling)
-		traitor_scale = config.traitor_scaling
+	if(CONFIG_GET(number/traitor_scaling))
+		traitor_scale = CONFIG_GET(number/traitor_scaling)
 
 	max_traitors = round(num_players / traitor_scale) + 1
 	traitor_prob = (num_players - (max_traitors - 1) * 10) * 5

@@ -203,7 +203,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 
 
 /datum/scoreboard/proc/save_silicon_laws(mob/living/silicon/silicon, mob/changer, additional_info = "", log_all_laws = FALSE)
-	if(!config.log_game || !istype(silicon) || !silicon.laws)
+	if(!CONFIG_GET(flag/log_game) || !istype(silicon) || !silicon.laws)
 		return
 
 	if(!laws_change_info)
@@ -212,7 +212,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 	var/timestamp = station_time_timestamp()
 	var/silicon_type = isAI(silicon) ? "AI" : "robot"
 	var/silicon_name = "[html_decode(silicon.name)][silicon.ckey ? " ([silicon.ckey])" : " (nockey)"]"
-	var/laws_changer = changer ? " Changer: [html_decode(changer.real_name)] ([changer.ckey]).]" : ""
+	var/laws_changer = changer ? " Changer: [html_decode(changer.real_name)] ([changer.ckey])." : ""
 
 	laws_change_info += "[timestamp] Laws changed for [silicon_type] [silicon_name].[laws_changer][additional_info ? " Additional info: [additional_info]." : ""]"
 

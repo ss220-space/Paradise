@@ -4738,8 +4738,6 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/obj/effect/landmark/start/security_cadet,
-/obj/effect/landmark/start/security_cadet,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5500,7 +5498,6 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/effect/landmark/start/security_cadet,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -25167,7 +25164,6 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/start/security_cadet,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -40509,7 +40505,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/landmark/start/security_cadet,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -43655,7 +43650,6 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/obj/effect/landmark/start/security_cadet,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -50721,7 +50715,6 @@
 	},
 /area/crew_quarters/sleep)
 "jvI" = (
-/obj/effect/landmark/start/security_cadet,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -63702,7 +63695,6 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/effect/landmark/start/security_cadet,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -67538,7 +67530,6 @@
 /obj/machinery/vending/wallmed{
 	pixel_y = 28
 	},
-/obj/effect/landmark/start/security_cadet,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -72398,7 +72389,6 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/obj/effect/landmark/start/security_cadet,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -77300,7 +77290,6 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "roH" = (
-/obj/effect/landmark/start/security_cadet,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -88167,7 +88156,6 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/effect/landmark/start/security_cadet,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -94130,7 +94118,6 @@
 /area/hallway/primary/port/south)
 "wsa" = (
 /obj/structure/closet/secure_closet/engineering_chief,
-/obj/item/rcd/preloaded,
 /obj/item/clothing/glasses/meson/sunglasses,
 /obj/item/lock_buster,
 /obj/item/cartridge/engineering{
@@ -94149,6 +94136,7 @@
 	pixel_x = 5;
 	pixel_y = -3
 	},
+/obj/item/rcd/combat,
 /turf/simulated/floor/carpet/orange,
 /area/engine/chiefs_office)
 "wsb" = (
@@ -94696,7 +94684,6 @@
 	dir = 1;
 	pixel_y = -24
 	},
-/obj/effect/landmark/start/security_cadet,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},

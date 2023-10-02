@@ -84,6 +84,7 @@
 #define COLOURBLIND		"colorblind"
 #define MUTE			"mute"
 #define DEAF			"deaf"
+#define WEAK			"weak"
 
 //Nutrition levels for humans. No idea where else to put it
 #define NUTRITION_LEVEL_FAT 600

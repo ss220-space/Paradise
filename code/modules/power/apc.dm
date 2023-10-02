@@ -965,8 +965,10 @@
 		INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
 
 /obj/machinery/power/apc/proc/can_use(var/mob/user, var/loud = 0) //used by attack_hand() and Topic()
+	if(stat & BROKEN)
+		return FALSE
 	if(user.can_admin_interact())
-		return 1
+		return TRUE
 
 	autoflag = 5
 	if(istype(user, /mob/living/silicon))
@@ -1002,17 +1004,17 @@
 
 /obj/machinery/power/apc/proc/is_authenticated(mob/user as mob)
 	if(user.can_admin_interact())
-		return 1
+		return TRUE
 	if(isAI(user) || isrobot(user) && !iscogscarab(user))
-		return 1
+		return TRUE
 	else
 		return !locked
 
 /obj/machinery/power/apc/proc/is_locked(mob/user as mob)
 	if(user.can_admin_interact())
-		return 0
+		return FALSE
 	if(isAI(user) || isrobot(user) && !iscogscarab(user))
-		return 0
+		return FALSE
 	else
 		return locked
 

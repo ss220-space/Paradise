@@ -443,6 +443,7 @@
 	desc = "One of the least popular examples of heavy assault rifles. It has impressive firepower."
 	icon_state = "M52"
 	item_state = "arg"
+	fire_sound = 'sound/weapons/gunshots/aussec.ogg'
 	mag_type = /obj/item/ammo_box/magazine/m52mag
 	can_suppress = 0
 

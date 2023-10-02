@@ -6,7 +6,7 @@
 	name = "thief"
 	config_tag = "thief"
 	restricted_jobs = list("AI", "Cyborg")
-	protected_jobs = list("Security Cadet", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer", "Special Operations Officer", "Supreme Commander", "Syndicate Officer")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer", "Special Operations Officer", "Supreme Commander", "Syndicate Officer")
 	prefered_species = list("Vox")
 	prefered_species_mod = 4
 	required_players = 0
@@ -23,14 +23,14 @@
 
 /datum/game_mode/thief/pre_setup()
 
-	if(config.protect_roles_from_antagonist)
+	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 
 	var/list/datum/mind/possible_thieves = get_players_for_role(ROLE_THIEF)
 
 	var/thieves_scale = 15
-	if(config.traitor_scaling)
-		thieves_scale = config.traitor_scaling
+	if(CONFIG_GET(number/traitor_scaling))
+		thieves_scale = CONFIG_GET(number/traitor_scaling)
 	var/thieves_amount = 1 + round(num_players() / thieves_scale)
 	add_game_logs("Number of  thieves chosen: [thieves_amount]")
 

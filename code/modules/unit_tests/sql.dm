@@ -1,8 +1,8 @@
 // Unit test to check SQL version has been updated properly.,
 /datum/unit_test/sql_version/Run()
 	// Check if the SQL version set in the code is equal to the CI DB config
-	if(config.sql_enabled && sql_version != SQL_VERSION)
-		Fail("SQL version error: Game is running V[SQL_VERSION] but config is V[sql_version]. You may need to update tools/ci/dbconfig.txt")
+	if(CONFIG_GET(flag/sql_enabled) && CONFIG_GET(number/db_version) != SQL_VERSION)
+		Fail("SQL version error: Game is running V[SQL_VERSION] but config is V[CONFIG_GET(number/db_version)]. You may need to update tools/ci/dbconfig.txt")
 	// Check if the CI DB config is up to date with the example dbconfig
 	// This proc is a little unclean but it works
 	var/example_db_version

@@ -386,10 +386,6 @@
 	name = "Security Officer"
 	icon_state = "Sec"
 
-/obj/effect/landmark/start/security_cadet
-	name = "Security Cadet"
-	icon_state = "Sec_Cadet"
-
 /obj/effect/landmark/start/brig_physician
 	name = "Brig Physician"
 	icon_state = "Brig_MD"

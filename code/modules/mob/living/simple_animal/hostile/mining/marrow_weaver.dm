@@ -64,21 +64,16 @@
 		if(target.reagents)
 			L.reagents.add_reagent(poison_type, poison_per_bite)
 		if((L.stat == DEAD) && (health < maxHealth) && ishuman(L))
-			var/mob/living/carbon/human/H = L
-			var/foundorgans = 0
-			var/list/organs = H.get_organs_zone("chest")
-			for(var/obj/item/organ/internal/I in organs)
-				foundorgans++
-				qdel(I)
-			if(foundorgans) //very gross
+			if(fiesta(L, FALSE))
+				var/mob/living/carbon/human/H = L
+				var/turf/T = get_turf(H)
+				H.add_splatter_floor(T)	//Visual proc from disembowel(), just for exclude organ dropping (brains), but stay cool.
+				playsound(T, 'sound/effects/splat.ogg', 25, 1)	//Sound proc for the same reason.
 				src.visible_message(
 					span_danger("[src] drools some toxic goo into [L]'s innards..."),
 					span_danger("Before sucking out the slurry of bone marrow and flesh, healing itself!"),
 					"<span class-'userdanger>You liquefy [L]'s innards with your venom and suck out the resulting slurry, revitalizing yourself.</span>")
 				adjustBruteLoss(round(-H.maxHealth/2))
-				var/obj/item/organ/external/B = H.get_organ("chest")
-				if(B)
-					B.droplimb()
 			else
 				to_chat(src, span_warning("There are no organs left in this corpse."))
 
@@ -86,11 +81,20 @@
 	if(..())
 		return TRUE
 	if((health < maxHealth) && ishuman(A) && !faction_check_mob(A))
-		var/mob/living/carbon/human/H = A
-		var/list/organs = H.get_organs_zone("chest")
-		for(var/obj/item/organ/internal/I in organs)
-			if(I)
-				return TRUE
+		if(fiesta(A))
+			return TRUE
+	return FALSE
+
+/mob/living/simple_animal/hostile/asteroid/marrowweaver/proc/fiesta(var/mob/living/carbon/human/snack, preparing = TRUE)
+	var/foundorgans = 0
+	var/list/organs = snack.get_organs_zone("chest")
+	for(var/obj/item/organ/internal/I in organs)
+		if(!istype(I, /obj/item/organ/internal/brain))
+			foundorgans ++
+			if(!preparing)
+				qdel(I)
+	if(foundorgans)
+		return TRUE
 	return FALSE
 
 /obj/item/stack/sheet/animalhide/weaver_chitin

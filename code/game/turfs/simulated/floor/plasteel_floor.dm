@@ -9,6 +9,7 @@
 		return 0
 	if(!broken && !burnt)
 		icon_state = icon_regular_floor
+		dir = floor_regular_dir
 
 /turf/simulated/floor/plasteel/airless
 	name = "airless floor"

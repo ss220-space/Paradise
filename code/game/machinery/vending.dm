@@ -907,7 +907,7 @@
 	req_access = list(ACCESS_SYNDICATE)
 
 /obj/machinery/vending/coffee
-	name = "\improper Hot Drinks machine"
+	name = "\improper Solar's Best Hot Drinks"
 	desc = "A vending machine which dispenses hot drinks."
 	ads_list = list("Выпейте!","Выпьем!","На здоровье!","Не хотите горячего супчику?","Я бы убил за чашечку кофе!","Лучшие зёрна в галактике","Для Вас — только лучшие напитки","М-м-м-м… Ничто не сравнится с кофе","Я люблю кофе, а Вы?","Кофе помогает работать!","Возьмите немного чайку","Надеемся, Вы предпочитаете лучшее!","Отведайте наш новый шоколад!","Admin conspiracies")
 	icon_state = "coffee"
@@ -1081,7 +1081,7 @@
 
 
 /obj/machinery/vending/cigarette
-	name = "cigarette machine"
+	name = "ShadyCigs Deluxe"
 	desc = "If you want to get cancer, might as well do it in style."
 	slogan_list = list("Космосигареты весьма хороши на вкус, какими они и должны быть","I'd rather toolbox than switch.","Затянитесь!","Не верьте исследованиям — курите!")
 	ads_list = list("Наверняка не очень-то и вредно для Вас!","Не верьте учёным!","На здоровье!","Не бросайте курить, купите ещё!","Затянитесь!","Никотиновый рай","Лучшие сигареты с 2150 года","Сигареты с множеством наград")
@@ -1847,10 +1847,6 @@
 
 		/obj/item/clothing/under/rank/security			= 10,
 		/obj/item/clothing/under/rank/security/skirt 	= 10,
-		/obj/item/clothing/under/rank/security/cadet 	= 10,
-		/obj/item/clothing/under/rank/security/cadet/skirt 		= 10,
-		/obj/item/clothing/under/rank/security/cadet/assistant 	= 10,
-		/obj/item/clothing/under/rank/security/cadet/assistant/skirt = 10,
 		/obj/item/clothing/under/rank/security/formal 	= 5,
 		/obj/item/clothing/under/rank/security/corp 	= 5,
 		/obj/item/clothing/under/rank/security2 		= 5,
@@ -2490,9 +2486,9 @@
 	refill_canister = /obj/item/vending_refill/nta
 
 
-/obj/machinery/vending/paivendor
-	name = "\improper PAI Vendor machine"
-	desc = "Wonderful vendor of friends"
+/obj/machinery/vending/pai
+	name = "\improper RoboFriends"
+	desc = "Wonderful vendor of PAI friends"
 	icon_state = "paivend"
 	ads_list = list("А вы любите нас?","Мы твои друзья!","Эта покупка войдет в историю","Я ПАИ простой, купишь меня, а я тебе друга!","Спасибо за покупку.")
 	resistance_flags = FIRE_PROOF
@@ -2520,3 +2516,4 @@
 		/obj/item/pai_cartridge/reset = 500,
 		/obj/item/pai_cartridge/memory = 350
 	)
+	refill_canister = /obj/item/vending_refill/pai

@@ -26,6 +26,7 @@
 #define SPECIAL_ROLE_BLOB "Blob"
 #define SPECIAL_ROLE_BLOB_OVERMIND "Blob Overmind"
 #define SPECIAL_ROLE_BORER "Borer"
+#define SPECIAL_ROLE_CARP "Space Carp"
 #define SPECIAL_ROLE_CHANGELING "Changeling"
 #define SPECIAL_ROLE_CULTIST "Cultist"
 #define SPECIAL_ROLE_CLOCKER "Clockwork cultist"

@@ -6,12 +6,12 @@
 	icon_state = "classicponcho"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/neck.dmi',
-		"Monkey" = 'icons/mob/species/monkey/neck.dmi',
-		"Farwa" = 'icons/mob/species/monkey/neck.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/neck.dmi',
-		"Neara" = 'icons/mob/species/monkey/neck.dmi',
-		"Stok" = 'icons/mob/species/monkey/neck.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/neck.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/neck.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/neck.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/neck.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/neck.dmi'
 	)
 
 /obj/item/clothing/neck/poncho/green

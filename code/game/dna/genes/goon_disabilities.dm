@@ -279,19 +279,6 @@
 // USELESS SHIT //
 //////////////////
 
-// WAS: /datum/bioEffect/strong
-/datum/dna/gene/disability/strong
-	// pretty sure this doesn't do jack shit, putting it here until it does
-	name = "Strong"
-	desc = "Enhances the subject's ability to build and retain heavy muscles."
-	activation_message = "You feel buff!"
-	deactivation_message = "You feel wimpy and weak."
-	mutation = STRONG
-
-/datum/dna/gene/disability/strong/New()
-	..()
-	block = GLOB.strongblock
-
 // WAS: /datum/bioEffect/horns
 /datum/dna/gene/disability/horns
 	name = "Horns"

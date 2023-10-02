@@ -20,6 +20,11 @@
 
 	var/datum/species/primitive_form = null          // Lesser form, if any (ie. monkey for humans)
 	var/datum/species/greater_form = null             // Greater form, if any, ie. human for monkeys.
+
+	var/roundstart = TRUE
+	var/id = null
+
+
 	/// Name of tail image in species effects icon file.
 	var/tail
 	/// like tail but wings
@@ -72,6 +77,7 @@
 	var/punchdamagelow = 0       //lowest possible punch damage
 	var/punchdamagehigh = 9      //highest possible punch damage
 	var/punchstunthreshold = 9	 //damage at which punches from this race will stun //yes it should be to the attacked race but it's not useful that way even if it's logical
+	var/strength_modifier = 1	 //for now only used in resist/grab chances. Maybe sometime it will become more usefull
 	var/obj_damage = 0
 	var/list/default_genes = list()
 
@@ -207,6 +213,10 @@
 	var/toxic_food = TOXIC
 	var/disliked_food = GROSS
 	var/liked_food = FRIED | JUNKFOOD | SUGAR
+
+	var/list/autohiss_basic_map = null
+	var/list/autohiss_extra_map = null
+	var/list/autohiss_exempt = null
 
 /datum/species/New()
 	//If the species has eyes, they are the default vision organ
