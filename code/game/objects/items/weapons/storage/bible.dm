@@ -29,6 +29,7 @@
 		"the bible melts" =	   list("state" = "melted",		  "inhand" = "melted"),
 		"Necronomicon" =	   list("state" = "necronomicon", "inhand" = "necronomicon"),
 		"Greentext" =		   list("state" = "greentext",	  "inhand" = "greentext"),
+		"Beerbly" =            list("state" = "beerbly",	  "inhand" = "syringe_kit"),
 	)
 
 /obj/item/storage/bible/suicide_act(mob/user)
@@ -47,9 +48,9 @@
 	return TRUE // Don't run the fart emote
 
 /obj/item/storage/bible/booze
-	name = "bible"
-	desc = "To be applied to the head repeatedly."
-	icon_state ="bible"
+	name = "Пивная библия"
+	desc = "О, Отец Наш Небесный! Сколь же Мудро Обличие Твое, Спустись с Небес к Нам на Землю и дай Нам Пива Святого, Чтобы Славить мы Его могли до скончания Веков..."
+	icon_state = "beerbly"
 
 /obj/item/storage/bible/booze/populate_contents()
 	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
@@ -57,6 +58,47 @@
 	new /obj/item/stack/spacecash(src)
 	new /obj/item/stack/spacecash(src)
 	new /obj/item/stack/spacecash(src)
+
+/obj/item/storage/bible/booze/afterattack(atom/target, mob/user, proximity, params)
+	if(!proximity)
+		return
+
+	if(isfloorturf(target))
+		if(user.mind?.isholy)
+			to_chat(user, "<span class='notice'>Вы бьете пол библией, надеясь об источнике бесконечного пива.</span>")
+			for(var/obj/O in target)
+				O.cult_reveal()
+		else
+			to_chat(user, "<span class='notice'>You hit the floor with the bible.</span>")
+	if(istype(target, /obj/machinery/door/airlock))
+		if(user.mind?.isholy)
+			to_chat(user, "<span class='notice'>Как завещал ваш Бог, вы бьете по шлюзу в стиле \"Порхай как бабочка, жаль что ты алкаш\".</span>")
+			var/obj/airlock = target
+			airlock.cult_reveal()
+		else
+			to_chat(user, "<span class='notice'>You hit the airlock with the bible.</span>")
+
+	if(user.mind?.isholy && target.reagents)
+		add_holy_beer(user, target)
+
+/obj/item/storage/bible/booze/proc/add_holy_beer(mob/user, atom/target)
+	if(target.reagents.has_reagent("water")) //blesses all the water in the holder
+		to_chat(user, "<span class='notice'>Вы воздаете молитву богу Пива, и силой данной вам Им, вы благословляете [target].</span>")
+		var/water2beer = target.reagents.get_reagent_amount("water")
+		target.reagents.del_reagent("water")
+		target.reagents.add_reagent("beer", water2beer)
+
+	if(target.reagents.has_reagent("holywater")) //blesses all the water in the holder
+		to_chat(user, "<span class='notice'>Вы воздаете молитву богу Пива, и силой данной вам Им, вы благословляете [target].</span>")
+		var/holywater2beer = target.reagents.get_reagent_amount("holywater")
+		target.reagents.del_reagent("holywater")
+		target.reagents.add_reagent("beer", holywater2beer)
+
+	if(target.reagents.has_reagent("unholywater")) //yeah yeah, copy pasted code - sue me
+		to_chat(user, "<span class='notice'>Вы, задерживая дыхание от смрада вонючей дряни перед вами, воздаете молитву богу Пива, и силой данной вам Им, вы очищаете [target].</span>")
+		var/unholy2beer = target.reagents.get_reagent_amount("unholywater")
+		target.reagents.del_reagent("unholywater")
+		target.reagents.add_reagent("holywater", unholy2beer)
 
 //BS12 EDIT
  // All cult functionality moved to Null Rod

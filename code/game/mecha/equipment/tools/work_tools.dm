@@ -381,6 +381,11 @@
 		if(extinguisher?.reagents && user.mind?.isholy)
 			var/obj/item/storage/bible/bible = I
 			bible.add_holy_water(user, extinguisher)
+	if(istype(I, /obj/item/storage/bible/booze))
+		var/obj/item/mecha_parts/mecha_equipment/extinguisher/extinguisher = locate() in src
+		if(extinguisher?.reagents && user.mind?.isholy)
+			var/obj/item/storage/bible/booze/bible = I
+			bible.add_holy_beer(user, extinguisher)
 
 /obj/item/mecha_parts/mecha_equipment/multimodule/atmos_module
 	name = "ATMOS module"

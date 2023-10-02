@@ -1583,7 +1583,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	contains = list(/obj/item/reagent_containers/food/drinks/bottle/holywater,
 					/obj/item/reagent_containers/food/drinks/bottle/holywater,
 					/obj/item/storage/bible/booze,
-					/obj/item/storage/bible/booze,
+					/obj/item/storage/bible,
 					/obj/item/clothing/suit/hooded/chaplain_hoodie,
 					/obj/item/clothing/suit/hooded/chaplain_hoodie,
 					/obj/item/clothing/under/burial,

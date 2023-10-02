@@ -1672,7 +1672,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/reagent_containers/food/drinks/bottle/holywater,
 					/obj/item/reagent_containers/food/drinks/bottle/holywater,
 					/obj/item/storage/bible/booze,
-					/obj/item/storage/bible/booze,
+					/obj/item/storage/bible,
 					/obj/item/clothing/suit/hooded/chaplain_hoodie,
 					/obj/item/clothing/suit/hooded/chaplain_hoodie,
 					/obj/item/clothing/under/burial,
