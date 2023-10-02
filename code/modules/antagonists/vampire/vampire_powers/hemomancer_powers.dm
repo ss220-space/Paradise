@@ -314,7 +314,7 @@
 	name = "Sanguine Pool"
 	desc = "You shift your form into a pool of blood, making you invulnerable and able to move through anything that's not a wall or space. You leave a trail of blood behind you when you do this."
 	gain_desc = "You have gained the ability to shift into a pool of blood, allowing you to evade pursuers with great mobility."
-	jaunt_duration = 3 SECONDS
+	jaunt_duration = 8 SECONDS
 	clothes_req = FALSE
 	panel = "Vampire"
 	school = "vampire"

@@ -438,14 +438,14 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 /obj/effect/hallucination/delusion/New(loc, mob/living/carbon/T, force_kind = null, duration = 30 SECONDS, skip_nearby = TRUE, custom_icon = null, custom_icon_file = null)
 	. = ..()
 	target = T
-	var/image/A = null
-	var/kind = force_kind ? force_kind : pick("clown", "carp", "corgi", "skeleton", "zombie", "demon", "bear", "goat", "alien", "faithless", "pink", "migo", "horror", "blob", "fly", "legion", "morph", "pirate", "wizard", "eskimo", "syndie1", "syndie2", "fleshling")
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/H = thing
 		if(H.stat == DEAD || H == target)
 			continue
 		if(skip_nearby && (H in view(target)))
 			continue
+		var/image/A = null
+		var/kind = force_kind ? force_kind : pick("clown", "carp", "corgi", "skeleton", "zombie", "demon", "bear", "goat", "alien", "faithless", "pink", "migo", "horror", "blob", "fly", "legion", "morph", "pirate", "wizard", "eskimo", "syndie1", "syndie2", "fleshling")
 		switch(kind)
 			if("clown")//Clown
 				A = image('icons/mob/simple_human.dmi',H,"clown")
@@ -499,8 +499,8 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 		if(target.client)
 			delusions |= A
 			target.client.images |= A
-	sleep(duration)
-	qdel(src)
+	QDEL_IN(src, duration)
+
 
 /obj/effect/hallucination/delusion/Destroy()
 	for(var/image/I in delusions)
