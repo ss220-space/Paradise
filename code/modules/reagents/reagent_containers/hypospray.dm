@@ -102,6 +102,7 @@
 		has_paint = FALSE
 		src.remove_filter("hypospray_handle")
 		icon_state = "medivend_hypo"
+	..()
 
 
 /obj/item/reagent_containers/hypospray/safety/ert
