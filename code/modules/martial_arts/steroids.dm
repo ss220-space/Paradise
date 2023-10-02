@@ -39,6 +39,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	var/used_once = FALSE
 	throw_range = 1
+	COOLDOWN_DECLARE(last_spin)
 
 /obj/item/dumbell/equipped(mob/user)
 	. = ..()
@@ -59,20 +60,29 @@
 		ketret.Grant(user)
 		to_chat(user, span_notice("Now thats your kettlebell!"))
 	else
-		on_throw(user)
+		if(COOLDOWN_FINISHED(src, last_spin))
+			on_throw(user)
+		else
+			to_chat(user, span_warning("You are still tired!"))
 	. = ..()
 
 /obj/item/dumbell/kettlebell/proc/on_throw(mob/user)
 	var/mob/living/carbon/H = user
 	H.throw_mode_on()
 	throw_range = 6
-	H.spin(5 SECONDS, pick(0.1 SECONDS, 0.2 SECONDS))
-	addtimer(CALLBACK(src, PROC_REF(off_throw),H), 5 SECONDS)
+	force = 20
+	throwforce = 25
+	H.spin(6 SECONDS, pick(0.1 SECONDS, 0.2 SECONDS))
+	addtimer(CALLBACK(src, PROC_REF(off_throw),H), 6 SECONDS)
+	COOLDOWN_START(src, last_spin, 10 SECONDS)
+	H.loc.visible_message(span_warning("[H] started to spin very fast!"))
 
 /obj/item/dumbell/kettlebell/proc/off_throw(mob/user)
 	var/mob/living/carbon/H = user
 	H.throw_mode_off()
-	throw_range = 1
+	throw_range = initial(throw_range)
+	force = initial(force)
+	throwforce = initial(throwforce)
 
 /datum/action/kettlebellreturn
 	name = "Recall kettlebell"
@@ -109,13 +119,15 @@
 		to_chat(owner ,span_warning("Kettlebell is not ready yet!"))
 
 /datum/action/kettlebellreturn/proc/kettlereturn(var/mob/user,var/obj/I)
-	if(!(I in list(user.get_active_hand(), user.get_inactive_hand())))
-		if(!user.put_in_active_hand(I) && !user.put_in_inactive_hand(I))
-			I.loc = user.loc
+	var/mob/living/carbon/human/H = user
+	if(!(I in list(H.get_active_hand(), H.get_inactive_hand())))
+		if(!H.put_in_active_hand(I) && !H.put_in_inactive_hand(I))
+			I.loc = H.loc
 			I.loc.visible_message(span_caution("The kettlebell suddenly appears!"))
 		else
 			I.loc.visible_message(span_caution("The kettlebell suddenly appears in your hands!"))
-		COOLDOWN_START(src, last_return, 8 SECONDS)
+			H.throw_mode_on()
+		COOLDOWN_START(src, last_return, 5 SECONDS)
 	else
 		to_chat(user, span_caution("The kettlebell already in your hands"))
 

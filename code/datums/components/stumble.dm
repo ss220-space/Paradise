@@ -28,6 +28,10 @@
 
 /datum/component/stumbling/proc/Stumble(datum/source,  mob/living/carbon/target)
 	var/mob/living/carbon/C = target
+
+	if(!iscarbon(C))
+		return
+
 	if(isobj(parent))
 		var/obj/I = parent
 		if(!I.component_can_stumble(C))
