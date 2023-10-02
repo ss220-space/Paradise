@@ -42,8 +42,8 @@
 	health_doll_icon = "spacedragon"
 	obj_damage = 80
 	environment_smash = ENVIRONMENT_SMASH_WALLS
-	melee_damage_upper = 25
-	melee_damage_lower = 40
+	melee_damage_upper = 40
+	melee_damage_lower = 25
 	mob_size = MOB_SIZE_LARGE
 	armour_penetration = 25 // do you really expect some tiny riot armour can hadle dragon size bites? you're right
 	pixel_x = -16
@@ -89,6 +89,7 @@
 	var/dragon_depression = FALSE
 	var/dragon_rage = FALSE
 
+
 /mob/living/simple_animal/hostile/space_dragon/Initialize(mapload)
 	. = ..()
 	small_sprite = new
@@ -98,8 +99,10 @@
 	ADD_TRAIT(src, TRAIT_HEALS_FROM_CARP_RIFTS, INNATE_TRAIT)
 	RegisterSignal(small_sprite, COMSIG_ACTION_TRIGGER, PROC_REF(add_dragon_overlay))
 
+
 /mob/living/simple_animal/hostile/space_dragon/Process_Spacemove(movement_dir)
 	return TRUE
+
 
 /mob/living/simple_animal/hostile/space_dragon/movement_delay()
 	. = ..()
@@ -108,11 +111,13 @@
 	if(dragon_rage)
 		. += DRAGON_RAGE_MODIFIER
 
+
 /mob/living/simple_animal/hostile/space_dragon/Login()
 	. = ..()
 	if(!chosen_color)
 		dragon_name()
 		color_selection()
+
 
 /mob/living/simple_animal/hostile/space_dragon/ex_act(severity, origin)
 	if(severity == 1)
@@ -120,6 +125,7 @@
 		adjustBruteLoss(initial(maxHealth)*damage_coefficient)
 		return
 	..()
+
 
 /mob/living/simple_animal/hostile/space_dragon/Life(seconds_per_tick, times_fired)
 	. = ..()
@@ -132,6 +138,7 @@
 		consumed_mob.forceMove(loc)
 		consumed_mob.Paralyse(6 SECONDS)
 
+
 /mob/living/simple_animal/hostile/space_dragon/death(gibbed)
 	for(var/atom/movable/barfed_out in contents)
 		barfed_out.forceMove(loc)
@@ -140,6 +147,7 @@
 	. = ..()
 	add_dragon_overlay()
 	UnregisterSignal(small_sprite, COMSIG_ACTION_TRIGGER)
+
 
 /mob/living/simple_animal/hostile/space_dragon/AttackingTarget()
 	if(using_special)
@@ -186,6 +194,7 @@
 		var/obj/mecha/M = target
 		M.take_damage(80, BRUTE, "melee", 1)
 
+
 /mob/living/simple_animal/hostile/space_dragon/proc/try_gust()
 	if(using_special)
 		return
@@ -194,15 +203,18 @@
 	add_dragon_overlay()
 	useGust(0)
 
+
 /mob/living/simple_animal/hostile/space_dragon/Move()
 	if(!using_special)
 		. = ..()
+
 
 /mob/living/simple_animal/hostile/space_dragon/OpenFire()
 	if(using_special)
 		return
 	ranged_cooldown = world.time + ranged_cooldown_time
 	fire_stream()
+
 
 /mob/living/simple_animal/hostile/space_dragon/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
 	var/was_dead = stat == DEAD
@@ -211,6 +223,7 @@
 
 	if (was_dead)
 		RegisterSignal(small_sprite, COMSIG_ACTION_TRIGGER, PROC_REF(add_dragon_overlay))
+
 
 /**
  * Allows space dragon to choose its own name.
@@ -226,6 +239,7 @@
 		return
 	to_chat(src, span_notice("Ваше имя теперь - [span_name("[chosen_name]")], устрашающий Космический Дракон."))
 	rename_character(null, chosen_name)
+
 
 /**
  * Allows space dragon to choose a color for itself.
@@ -246,6 +260,7 @@
 		return
 	add_atom_colour(chosen_color, FIXED_COLOUR_PRIORITY)
 	add_dragon_overlay()
+
 
 /**
  * Adds the proper overlay to the space dragon.
@@ -271,6 +286,7 @@
 		overlay.appearance_flags = RESET_COLOR
 		add_overlay(overlay)
 
+
 /**
  * Determines a line of turfs from sources's position to the target with length range.
  *
@@ -292,6 +308,7 @@
 			break
 		T = check
 	return (get_line(src, T) - get_turf(src))
+
 
 /**
  * Spawns fire at each position in a line from the source to the target.
@@ -318,6 +335,7 @@
 				return
 		delayFire += 1.5
 		addtimer(CALLBACK(src, PROC_REF(dragon_fire_line), T), delayFire)
+
 
 /**
  * What occurs on each tile to actually create the fire.
@@ -348,6 +366,7 @@
 		hit_list += M
 		M.take_damage(90, BRUTE, "melee", 1)
 
+
 /**
  * Handles consuming and storing consumed things inside Space Dragon
  *
@@ -364,6 +383,7 @@
 	A.forceMove(src)
 	return TRUE
 
+
 /**
  * Resets Space Dragon's status after using wing gust.
  *
@@ -376,6 +396,7 @@
 		icon_state = "spacedragon"
 	using_special = FALSE
 	add_dragon_overlay()
+
 
 /**
  * Handles wing gust from the windup all the way to the endlag at the end.
@@ -419,9 +440,4 @@
 #undef DRAGON_DEPRESSION_MODIFIER
 #undef DRAGON_RAGE_MODIFIER
 #undef DARKNESS_THRESHOLD
-
-/mob/living/simple_animal/hostile/carp/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_HEALS_FROM_CARP_RIFTS, INNATE_TRAIT)
-
 

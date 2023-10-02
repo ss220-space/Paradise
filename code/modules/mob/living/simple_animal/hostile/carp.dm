@@ -16,14 +16,14 @@
 	response_harm = list("hits", "gnawing", "bites")
 	emote_taunt = list("gnashes")
 	taunt_chance = 30
-	speed = -0.2
-	maxHealth = 65
-	health = 65
+	speed = 0
+	maxHealth = 25
+	health = 25
 
 	harm_intent_damage = 8
 	obj_damage = 50
-	melee_damage_lower = 18
-	melee_damage_upper = 18
+	melee_damage_lower = 15
+	melee_damage_upper = 15
 	attacktext = "кусает"
 	attack_sound = 'sound/weapons/bite.ogg'
 	speak_emote = list("gnashes")
@@ -36,8 +36,9 @@
 	faction = list("carp")
 	flying = TRUE
 	pressure_resistance = 200
-	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	gold_core_spawnable = HOSTILE_SPAWN
+
+	var/carp_stamina_damage = 8
 
 	var/random_color = TRUE //if the carp uses random coloring
 	var/rarechance = 1 //chance for rare color variant
@@ -62,10 +63,13 @@
 	"silver" = "#fdfbf3", \
 	)
 
+
 /mob/living/simple_animal/hostile/carp/Initialize(mapload)
 	. = ..()
 	carp_randomify(rarechance)
 	update_icons()
+	ADD_TRAIT(src, TRAIT_HEALS_FROM_CARP_RIFTS, INNATE_TRAIT)
+
 
 /mob/living/simple_animal/hostile/carp/proc/carp_randomify(rarechance)
 	if(random_color)
@@ -99,7 +103,7 @@
 	. = ..()
 	if(. && ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.adjustStaminaLoss(18)
+		H.adjustStaminaLoss(carp_stamina_damage)
 
 /mob/living/simple_animal/hostile/carp/death(gibbed)
 	. = ..()

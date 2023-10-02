@@ -5,44 +5,6 @@
 /// The carp rift is now fully charged.
 #define CHARGE_COMPLETED 2
 
-/datum/action/innate/summon_rift
-	name = "Summon Rift"
-	desc = "Открывает разлом призыва орды космических карпов."
-	button_icon_state = "carp_rift"
-	background_icon_state = "bg_alien"
-
-/datum/action/innate/summon_rift/Activate()
-	var/datum/antagonist/space_dragon/dragon = owner.mind?.has_antag_datum(/datum/antagonist/space_dragon)
-	if(!dragon)
-		return
-	var/area/rift_location = get_area(owner)
-	if(!rift_location.valid_territory)
-		to_chat(owner, span_warning("Вы не можете открыть разлом здесь! Попробуйте ещё раз где-то в безопасном месте на станции!"))
-		return
-	for(var/obj/structure/carp_rift/rift as anything in dragon.rift_list)
-		var/area/used_location = get_area(rift)
-		if(used_location == rift_location)
-			to_chat(owner, span_warning("Вы уже открыли разлом на этой территории! Разлом должен находиться где-то ещё!"))
-			return
-	var/turf/rift_spawn_turf = get_turf(dragon)
-	if(isspaceturf(rift_spawn_turf))
-		to_chat(owner, span_warning("Вы не можете открыть разлом здесь! Для него нужна поверхность!"))
-		return
-	to_chat(owner, span_notice("Вы начинаете открывать разлом..."))
-	if(!do_after(owner, 10 SECONDS, target = owner))
-		return
-	if(locate(/obj/structure/carp_rift) in owner.loc)
-		return
-	var/obj/structure/carp_rift/new_rift = new(get_turf(owner))
-	playsound(owner.loc, 'sound/vehicles/rocketlaunch.ogg', 100, TRUE)
-	dragon.riftTimer = -1
-	new_rift.dragon = dragon
-	dragon.rift_list += new_rift
-	to_chat(owner, span_boldwarning("Разлом был открыт. Любой ценой не допустите его уничтожения!"))
-	notify_ghosts("Космический дракон открыл разлом!", source = new_rift, action = NOTIFY_FOLLOW, flashwindow = FALSE, title = "Открытие разлома Карпов")
-	ASSERT(dragon.rift_ability == src) // Badmin protection.
-	QDEL_NULL(dragon.rift_ability) // Deletes this action when used successfully, we re-gain a new one on success later.
-
 /**
  * # Carp Rift
  *
@@ -81,6 +43,7 @@
 	/// A list of all the ckeys which have used this carp rift to spawn in as carps.
 	var/list/ckey_list = list()
 
+
 /obj/structure/carp_rift/Initialize(mapload)
 	. = ..()
 
@@ -94,11 +57,15 @@
 
 	START_PROCESSING(SSobj, src)
 
-// Carp rifts always take heavy explosion damage. Discourages the use of maxcaps
-// and favours more weaker explosives to destroy the portal
-// as they have the same effect on the portal.
+
+/**
+ * Carp rifts always take heavy explosion damage. Discourages the use of maxcaps
+ * and favours more weaker explosives to destroy the portal
+ * as they have the same effect on the portal.
+ */
 /obj/structure/carp_rift/ex_act(severity, target)
 	return ..(min(EXPLODE_HEAVY, severity))
+
 
 /obj/structure/carp_rift/examine(mob/user)
 	. = ..()
@@ -110,8 +77,10 @@
 	if(isobserver(user))
 		. += span_notice("В этом разломе находится [carp_stored] карпов для вселения призраков.")
 
+
 /obj/structure/carp_rift/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	playsound(src, 'sound/magic/lightningshock.ogg', 50, TRUE)
+
 
 /obj/structure/carp_rift/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -121,6 +90,7 @@
 			dragon.destroy_rifts()
 	dragon = null
 	return ..()
+
 
 /obj/structure/carp_rift/process(seconds_per_tick)
 	// If we're fully charged, just start mass spawning carp.
@@ -138,11 +108,13 @@
 	last_carp_inc += seconds_per_tick
 	update_check()
 
+
 /obj/structure/carp_rift/attack_ghost(mob/user)
 	. = ..()
 	if(.)
 		return
 	summon_carp(user)
+
 
 /**
  * Does a series of checks based on the portal's status.
@@ -197,6 +169,7 @@
 
 		GLOB.command_announcement.Announce("Разлом создает неествественно большой поток энергии в зоне [initial(A.name)]. Остановите его любой ценой!", "Отдел Изучения Дикой Природы", 'sound/AI/spanomalies.ogg')
 
+
 /**
  * Used to create carp controlled by ghosts when the option is available.
  *
@@ -242,6 +215,8 @@
 		update_light()
 	return TRUE
 
+
 #undef CHARGE_ONGOING
 #undef CHARGE_FINALWARNING
 #undef CHARGE_COMPLETED
+
