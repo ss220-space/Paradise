@@ -167,7 +167,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/racial/steroids
 	name = "Steroids"
-	desc = "Test desc"
+	desc = "The result of the work of the best scientists on the effects of experimental steroids on the human body."
 	reference = "ster"
 	item = /obj/item/steroids
 	cost = 14

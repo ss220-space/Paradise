@@ -13,11 +13,44 @@
 		steroids.teach(user)
 		used = TRUE
 		icon_state = "implanter0"
+		user.dna.SetSEValue(GLOB.strongblock, 0xFFF)
+		domutcheck(user, null, TRUE ? MUTCHK_FORCED : 0)
+		user.update_mutations()
 
 
 /datum/martial_art/steroids
 	name = "Musculine style"
 	has_explaination_verb = TRUE
+	combos = list(/datum/martial_combo/steroids/clearpower)
+
+/datum/martial_combo/steroids/clearpower
+	name = "Clear Piwer"
+	steps = list(MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_HARM)
+	explaination_text = "No tricks, the enemy will fly to hell from your powerful blows."
+	combo_text_override = "Grab, switch hands, Harm, Harm"
+
+/datum/martial_combo/steroids/clearpower/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
+	. = MARTIAL_COMBO_FAIL
+	target.visible_message("<span class='warning'>[user] punches [target] groin!</span>", \
+						"<span class='userdanger'>[user] punches your groin!</span>")
+	playsound(get_turf(user), 'sound/weapons/sonic_jackhammer.ogg', 50, 1, -1)
+	var/atom/throw_target = get_edge_target_turf(target, user.dir)
+	RegisterSignal(target, COMSIG_MOVABLE_IMPACT, PROC_REF(bump_impact))
+	target.throw_at(throw_target, 4, 14, user, callback = CALLBACK(src, PROC_REF(unregister_bump_impact), target))
+	target.apply_damage(10, BRUTE)
+	target.apply_damage(10, BRUTE, "groin")
+	objective_damage(user, target, 10, BRUTE)
+	add_attack_logs(user, target, "Melee attacked with martial-art [src] : Clear Power", ATKLOG_ALL)
+	. = MARTIAL_COMBO_DONE
+
+/datum/martial_combo/steroids/clearpower/proc/bump_impact(mob/living/target, atom/hit_atom, throwingdatum)
+	if(target && !iscarbon(hit_atom) && hit_atom.density)
+		target.Weaken(2 SECONDS)
+		target.take_organ_damage(10)
+
+/datum/martial_combo/steroids/clearpower/proc/unregister_bump_impact(mob/living/target)
+	UnregisterSignal(target, COMSIG_MOVABLE_IMPACT)
+
 
 /obj/item/dumbell
 	name = "dumbell"
@@ -30,7 +63,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/dumbell/ComponentInitialize()
-	AddComponent(/datum/component/stumbling, 10, BRUTE, 4)
+	AddComponent(/datum/component/stumbling, 10, BRUTE, 2)
 
 /obj/item/dumbell/kettlebell
 	name = "kettlebell"
@@ -71,7 +104,7 @@
 	H.throw_mode_on()
 	throw_range = 6
 	force = 20
-	throwforce = 25
+	throwforce = 35
 	H.spin(6 SECONDS, pick(0.1 SECONDS, 0.2 SECONDS))
 	addtimer(CALLBACK(src, PROC_REF(off_throw),H), 6 SECONDS)
 	COOLDOWN_START(src, last_spin, 10 SECONDS)
@@ -132,6 +165,8 @@
 		to_chat(user, span_caution("The kettlebell already in your hands"))
 
 /atom/proc/has_steroids(mob/living/carbon/user)
+	if(!user?.mind)
+		return FALSE
 	if(user?.mind.martial_art && istype(user.mind.martial_art,/datum/martial_art/steroids))
 		return TRUE
 	else

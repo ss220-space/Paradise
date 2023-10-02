@@ -61,6 +61,14 @@
 	description = "Various essential proteins and fats commonly found in animal flesh and blood."
 	diet_flags = DIET_CARN | DIET_OMNI
 
+/datum/reagent/consumable/nutriment/protein/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(istype(M.mind?.martial_art, /datum/martial_art/steroids))
+		update_flags |= M.adjustBruteLoss(-0.75)
+		update_flags |= M.adjustFireLoss(-0.75)
+	return ..() | update_flags
+
+
 /datum/reagent/consumable/nutriment/plantmatter		// Plant-based biomatter, digestable by herbivores and omnivores, worthless to carnivores
 	name = "Plant-matter"
 	id = "plantmatter"
