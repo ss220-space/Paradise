@@ -65,30 +65,6 @@
 			else
 				visible_message("<span class='warning'>[src] identifies and removes a harmful substance.</span>")
 
-/obj/item/reagent_containers/hypospray/attackby(obj/item/I, mob/user, params)
-	if(I.GetID())
-		var/obj/item/card/id/id = I.GetID()
-		if(emagged)
-			to_chat(user, SPAN_NOTICE("[src] "))
-		if(ACCESS_CMO in id.access)
-			safety_hypo = !safety_hypo
-			if(safety_hypo)
-				to_chat(user, SPAN_NOTICE("[src] safe mode engaged"))
-				var/found_forbidden_reagent = FALSE
-				for(var/datum/reagent/R in reagents.reagent_list)
-					if(!GLOB.safe_chem_list.Find(R.id))
-						reagents.del_reagent(R.id)
-						found_forbidden_reagent = TRUE
-				if(found_forbidden_reagent)
-					to_chat(usr, SPAN_WARNING("[src] identifies and removes a harmful substance."))
-			else
-				to_chat(user, SPAN_NOTICE("[src] unsafe mode engaged"))
-
-		else
-			to_chat(user, SPAN_WARNING("[src] rejects your insufficient access rights."))
-		return
-	..()
-
 /obj/item/reagent_containers/hypospray/examine(mob/user)
 	. = ..()
 	if(safety_hypo)
