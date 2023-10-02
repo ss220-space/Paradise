@@ -65,12 +65,6 @@
 			else
 				visible_message("<span class='warning'>[src] identifies and removes a harmful substance.</span>")
 
-/obj/item/reagent_containers/hypospray/examine(mob/user)
-	. = ..()
-	if(safety_hypo)
-		. += SPAN_NOTICE("The hypospray is in safe mode")
-	else
-		. += SPAN_NOTICE("The hypospray is in unsafe mode")
 
 /obj/item/reagent_containers/hypospray/emag_act(mob/user)
 	if(safety_hypo && !emagged)
