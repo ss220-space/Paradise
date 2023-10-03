@@ -262,7 +262,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	if(!wear_mask)
 		for(var/obj/item/grab/grab in grabbed_by)
-			if(grab.assailant.zone_selected == "mouth" && grab.state == GRAB_AGGRESSIVE)
+			if(grab.assailant.zone_selected == BODY_ZONE_PRECISE_MOUTH && grab.state == GRAB_AGGRESSIVE)
 				muffledspeech_all(message_pieces)
 				verb = "mumbles"
 				break
