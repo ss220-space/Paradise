@@ -270,13 +270,13 @@
 			switch(hit_zone)
 				if("mouth")
 					if(!affecting.wear_mask)
-						assailant.visible_message("<span class='warning'>[assailant] закрыл[genderize_ru(assailant.gender,"","а","о","и")] рот [affecting]</span>")
+						assailant.visible_message(span_warning("[assailant] закрыл[genderize_ru(assailant.gender,"","а","о","и")] рот [affecting]"))
 					else
-						assailant.visible_message("<span class='warning'>[assailant] схватил[genderize_ru(assailant.gender,"","а","о","и")] рот [affecting], но на нем маска!</span>")
+						assailant.visible_message(span_warning("[assailant] схватил[genderize_ru(assailant.gender,"","а","о","и")] рот [affecting], но на нем маска!"))
 				if("eyes")
-					assailant.visible_message("<span class='warning'>[assailant] рукой закрыл[genderize_ru(assailant.gender,"","а","о","и")] глаза [affecting]</span>")
+					assailant.visible_message(span_warning("[assailant] рукой закрыл[genderize_ru(assailant.gender,"","а","о","и")] глаза [affecting]"))
 				else
-					assailant.visible_message("<span class='warning'>[assailant] агрессивно схватил[genderize_ru(assailant.gender,"","а","о","и")] [affecting] (за руки)!</span>")
+					assailant.visible_message(span_warning("[assailant] агрессивно схватил[genderize_ru(assailant.gender,"","а","о","и")] [affecting] (за руки)!"))
 		//if(!affecting.lying)
 		/* else
 			assailant.visible_message("<span class='warning'>[assailant] pins [affecting] down to the ground (now hands)!</span>")
