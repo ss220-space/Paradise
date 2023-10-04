@@ -9,7 +9,7 @@
 	slot_flags = SLOT_NECK | SLOT_TIE //trust me, I am 100% triplechecked this
 	allow_duplicates = FALSE
 	var/gem = null
-	icon_override = 'icons/mob/jewelry/neck.dmi'
+	icon_override = 'icons/mob/clothing/jewelry.dmi'
 	var/dragon_power = FALSE //user get additional bonuses for using draconic amber
 	var/necklace_light = FALSE //some lighting stuff
 
@@ -79,6 +79,7 @@
 			light_range = 3
 			light_power = 2
 			light_color = "#b90586"
+			resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 		if(istype(I, /obj/item/gem/phoron))
 			name = "baroxuldium necklace"
 			icon_state = "phoron_necklace"
@@ -131,3 +132,47 @@
 	var/mob/living/M = user
 	if(isliving(user) && dragon_power && M.get_item_by_slot(slot_neck) == src)
 		M.remove_status_effect(STATUS_EFFECT_DRAGON_STRENGTH)
+
+//bracers
+/obj/item/clothing/gloves/jewelry_bracers
+	name = "gem bracers"
+	desc = "A simple golden bracers with a slot for gems."
+	icon = 'icons/obj/clothing/jewelry.dmi'
+	icon_state = "gem_bracers"
+	item_state = "gem_bracers"
+	icon_override = 'icons/mob/clothing/jewelry.dmi'
+	var/gem = null
+	transfer_prints = TRUE
+	cold_protection = HANDS
+
+/obj/item/clothing/gloves/jewelry_bracers/examine(mob/user)
+	. = ..()
+	if(!gem)
+		. += "<span class='notice'>It looks like there is no gem inside!</span>"
+
+/obj/item/clothing/gloves/jewelry_bracers/attackby(obj/item/gem/I, mob/user, params)
+	. = ..()
+	if(istype(I, /obj/item/gem) && !I.simple)
+		to_chat(user, span_notice("You have no idea how to insert [I] into bracers."))
+		return
+	if(istype(I, /obj/item/gem) && I.simple && !gem)
+		user.drop_transfer_item_to_loc(I, src)
+		if(istype(I, /obj/item/gem/ruby))
+			name = "ruby bracers"
+			icon_state = "ruby_bracers"
+			item_state = "ruby_bracers"
+		if(istype(I, /obj/item/gem/sapphire))
+			name = "sapphire bracers"
+			icon_state = "sapphire_bracers"
+			item_state = "sapphire_bracers"
+		if(istype(I, /obj/item/gem/emerald))
+			name = "emerald bracers"
+			icon_state = "emerald_bracers"
+			item_state = "emerald_bracers"
+		if(istype(I, /obj/item/gem/topaz))
+			name = "topaz bracers"
+			icon_state = "topaz_bracers"
+			item_state = "topaz_bracers"
+	gem = I
+	to_chat(user, span_notice("You carefully insert [I] into necklace."))
+	user.update_inv_gloves()

@@ -579,7 +579,7 @@
 		if(prob(2))
 			war_message()
 		return
-	var/heal_multiplier = min(3, ((30 - owner.health) / 50 + 1)) // 1 hp at 30 health, 2 at -20, 3 at -70
+	var/heal_multiplier = min(3, ((40 - owner.health) / 50 + 1)) // 1 hp at 40 health, 2 at -10, 3 at -60
 	owner.adjustBruteLoss(-heal_multiplier * 0.5)
 	owner.adjustFireLoss(-heal_multiplier * 0.5)
 	owner.adjustOxyLoss(-heal_multiplier)
