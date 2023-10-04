@@ -141,6 +141,17 @@
 		else
 			hud.icon_state = "!reinforce"
 
+	if(state == GRAB_AGGRESSIVE)
+		if(!HAS_TRAIT(assailant, TRAIT_PACIFISM) && !GLOB.pacifism_after_gt)
+			affecting.drop_r_hand()
+			affecting.drop_l_hand()
+		if(ishuman(affecting))
+			switch(hit_zone)
+				//if("mouth") - the gag code in say.dm bellow is_muzzle
+				if("eyes")
+					if(!affecting.EyeBlind(2 SECONDS))
+						affecting.SetEyeBlind(2 SECONDS)
+
 	if(state >= GRAB_AGGRESSIVE)
 		if(!HAS_TRAIT(assailant, TRAIT_PACIFISM) && !GLOB.pacifism_after_gt)
 			affecting.drop_r_hand()
@@ -258,8 +269,20 @@
 	if(state < GRAB_AGGRESSIVE)
 		if(!allow_upgrade)
 			return
+		var/hit_zone = assailant.zone_selected
+		last_hit_zone = hit_zone
+		if(ishuman(affecting))
+			switch(hit_zone)
+				if("mouth")
+					if(!affecting.wear_mask)
+						assailant.visible_message(span_warning("[assailant] закрыл[genderize_ru(assailant.gender,"","а","о","и")] рот [affecting]"))
+					else
+						assailant.visible_message(span_warning("[assailant] схватил[genderize_ru(assailant.gender,"","а","о","и")] рот [affecting], но на нем маска!"))
+				if("eyes")
+					assailant.visible_message(span_warning("[assailant] рукой закрыл[genderize_ru(assailant.gender,"","а","о","и")] глаза [affecting]"))
+				else
+					assailant.visible_message(span_warning("[assailant] агрессивно схватил[genderize_ru(assailant.gender,"","а","о","и")] [affecting] (за руки)!"))
 		//if(!affecting.lying)
-		assailant.visible_message("<span class='warning'>[assailant] агрессивно схватил[genderize_ru(assailant.gender,"","а","о","и")] [affecting] (за руки)!</span>")
 		/* else
 			assailant.visible_message("<span class='warning'>[assailant] pins [affecting] down to the ground (now hands)!</span>")
 			force_down = 1
