@@ -65,6 +65,7 @@
 			else
 				visible_message("<span class='warning'>[src] identifies and removes a harmful substance.</span>")
 
+
 /obj/item/reagent_containers/hypospray/emag_act(mob/user)
 	if(safety_hypo && !emagged)
 		add_attack_logs(user, src, "emagged")
@@ -78,6 +79,31 @@
 	icon_state = "medivend_hypo"
 	belt_icon = "medical_hypospray"
 	safety_hypo = TRUE
+	var/has_paint
+	var/colour
+
+/obj/item/reagent_containers/hypospray/safety/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/toy/crayon/spraycan))
+		var/obj/item/toy/crayon/spraycan/spraycan = I
+		if(spraycan.capped)
+			to_chat(user, "<span class='warning'>Take the cap off first!</span>")
+			return
+		if(spraycan.uses < 2)
+			to_chat(user, "<span class ='warning'>There is not enough paint in the can!")
+			return
+		colour = spraycan.colour
+		has_paint = TRUE
+		icon_state = "whitehypo"
+		src.remove_filter("hypospray_handle")
+		var/icon/hypo_mask = icon('icons/obj/hypo.dmi',"colour_hypo" )
+		src.add_filter("hypospray_handle",1,layering_filter(icon = hypo_mask, color = colour))
+	if(istype(I, /obj/item/soap) && has_paint)
+		to_chat(user, span_notice("You wash off the paint layer from hypospray"))
+		has_paint = FALSE
+		src.remove_filter("hypospray_handle")
+		icon_state = "medivend_hypo"
+	..()
+
 
 /obj/item/reagent_containers/hypospray/safety/ert
 	name = "medical hypospray (Omnizine)"
