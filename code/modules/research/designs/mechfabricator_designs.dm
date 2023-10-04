@@ -1408,7 +1408,7 @@
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_storageincreaser
-	name = "Engineer Cyborg Upgrade (Storage Increaser)"
+	name = "Cyborg Common Upgrade (Storage Increaser)"
 	id = "borg_upgrade_storageincreaser"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/storageincreaser
