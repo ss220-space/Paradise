@@ -63,7 +63,7 @@
 	if(cell && on_chamber && istype(I, /obj/item/arrow/rod))
 		var/obj/item/arrow/rod/R = I
 		visible_message(span_danger("[R] is ready!"))
-		R.modify_rod()
+		R.modify_arrow()
 
 /obj/item/gun/throw/crossbow/get_throwspeed()
 	return tension * speed_multiplier
@@ -73,8 +73,6 @@
 
 /obj/item/gun/throw/crossbow/process_chamber()
 	..()
-	if(to_launch)
-		modify_projectile(to_launch, 1)
 	update_icon()
 
 /obj/item/gun/throw/crossbow/attack_self(mob/living/user)
@@ -83,6 +81,7 @@
 			user.visible_message(span_notice("[user] relaxes the tension on [src]'s string and removes [to_launch]."), span_notice("You relax the tension on [src]'s string and remove [to_launch]."))
 			to_launch.forceMove(get_turf(src))
 			var/obj/item/arrow/A = to_launch
+			A.reset_arrow()
 			to_launch = null
 			A.removed()
 			process_chamber()
@@ -104,6 +103,8 @@
 	if(cell && cell.charge > 499) //I really hope there is no way to get 499.5 charge or something
 		if(do_after(user, 5 * drawtension, target = user))
 			tension = drawtension
+			if(to_launch)
+				modify_projectile(to_launch, 1)
 			cell.use(500)
 			user.visible_message("[src] mechanism draws back the string!","[src] clunks as its mechanism draw the string to its maximum tension!!")
 			update_icon()
@@ -178,6 +179,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	sharp = TRUE
 	var/overlay_prefix = "" //used for crossbow bolt overlay render. Don't override it in children if you don't have an overlay icon for your bolt
+	var/superheated = 0
 
 /obj/item/arrow/proc/removed() //Helper for metal rods falling apart.
 	return
@@ -187,25 +189,24 @@
 	desc = "A sharpened metal rod that can be fired out of a crossbow."
 	icon_state = "metal-rod"
 	throwforce = 10
-	var/superheated = 0
 
-/obj/item/arrow/rod/proc/modify_rod()
+/obj/item/arrow/proc/modify_arrow()
 	throwforce = 33
 	superheated = 1 //guess this useless now...
 	armour_penetration = 15
 	embed_chance = 50
 	embedded_ignore_throwspeed_threshold = TRUE
 
-/obj/item/arrow/rod/proc/reset_rod() //Doing this in case rod was not destroyed in process.
+/obj/item/arrow/proc/reset_arrow() //Doing this in case rod was not destroyed in process.
 	throwforce = initial(throwforce)
 	superheated = initial(superheated)
 	armour_penetration = initial(armour_penetration)
 	embed_chance = initial(embed_chance)
 	embedded_ignore_throwspeed_threshold = initial(embedded_ignore_throwspeed_threshold)
 
-/obj/item/arrow/rod/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/arrow/rod/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
-	reset_rod()
+	reset_arrow()
 
 /obj/item/arrow/rod/removed()
 	if(superheated) // The rod has been superheated - we don't want it to be useable when removed from the bow.
@@ -240,7 +241,7 @@
 	subcategory = CAT_AMMO
 
 
-/obj/item/arrow/rod/fire/modify_rod()
+/obj/item/arrow/rod/fire/modify_arrow()
 	throwforce = 25
 	armour_penetration = 15
 	embed_chance = 30

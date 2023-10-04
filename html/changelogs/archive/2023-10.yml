@@ -1,0 +1,12 @@
+'2023-10-01':
+  Daeberdir:
+  - tweak: pAI vendor for syndi base. (#3647)
+'2023-10-02':
+  Daeberdir:
+  - tweak: lavaland weavers cannot gib kidan/diona/APC brains. (#3644)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3643)
+  spaghetti:
+  - tweak: stims for everyone (#3641)
+  Сиротка:
+  - bugfix: AI now can't power on broken APCs (#3648)
