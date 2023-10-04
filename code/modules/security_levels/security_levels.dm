@@ -107,6 +107,7 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 
 		SSnightshift.check_nightshift(TRUE)
 		SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
+		update_ids() // SS220 EDIT - ADDITION
 
 	else
 		return
