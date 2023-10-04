@@ -400,7 +400,7 @@
 	var/points = 500
 
 /obj/item/card/mining_point_card/thousand
-	points = 100
+	points = 1000
 
 /obj/item/card/mining_point_card/fivethousand
 	points = 5000

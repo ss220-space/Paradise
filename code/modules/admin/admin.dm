@@ -87,8 +87,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		else
 			body += "\[[M.client.holder ? M.client.holder.rank : "Player"]\] "
 		body += "\[<A href='?_src_=holder;getplaytimewindow=[M.UID()]'>" + M.client.get_exp_type(EXP_TYPE_CREW) + " as [EXP_TYPE_CREW]</a>\]"
-		body += "<br>BYOND account registration date: [M.client.byondacc_date || "ERROR"] [M.client.byondacc_age <= config.byond_account_age_threshold ? "<b>" : ""]([M.client.byondacc_age] days old)[M.client.byondacc_age <= config.byond_account_age_threshold ? "</b>" : ""]"
-		body += "<br>Global Ban DB Lookup: [config.centcom_ban_db_url ? "<a href='?_src_=holder;open_ccbdb=[M.client.ckey]'>Lookup</a>" : "<i>Disabled</i>"]"
+		body += "<br>BYOND account registration date: [M.client.byondacc_date || "ERROR"] [M.client.byondacc_age <= CONFIG_GET(number/byond_account_age_threshold) ? "<b>" : ""]([M.client.byondacc_age] days old)[M.client.byondacc_age <= CONFIG_GET(number/byond_account_age_threshold) ? "</b>" : ""]"
+		body += "<br>Global Ban DB Lookup: [CONFIG_GET(string/centcom_ban_db_url) ? "<a href='?_src_=holder;open_ccbdb=[M.client.ckey]'>Lookup</a>" : "<i>Disabled</i>"]"
 
 		body += "<br>"
 
@@ -127,7 +127,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		body += "<A href='?_src_=holder;appearanceban=[M.UID()];dbbanaddckey=[M.ckey]'>Appearance Ban</A> | "
 		body += "<A href='?_src_=holder;shownoteckey=[M.ckey]'>Notes</A> | "
 		body += "<A href='?_src_=holder;geoip=[M.UID()]'>GeoIP</A> | "
-		if(config.forum_playerinfo_url)
+		if(CONFIG_GET(string/forum_playerinfo_url))
 			body += "<A href='?_src_=holder;webtools=[M.ckey]'>WebInfo</A> | "
 	if(M.client)
 		if(check_watchlist(M.client.ckey))
@@ -468,8 +468,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_ADMIN))
 		return
 
-	config.looc_allowed = !(config.looc_allowed)
-	if(config.looc_allowed)
+	CONFIG_SET(flag/looc_allowed, !CONFIG_GET(flag/looc_allowed))
+
+	if(CONFIG_GET(flag/looc_allowed))
 		to_chat(world, "<B>The LOOC channel has been globally enabled!</B>")
 	else
 		to_chat(world, "<B>The LOOC channel has been globally disabled!</B>")
@@ -484,8 +485,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_ADMIN))
 		return
 
-	config.dsay_allowed = !(config.dsay_allowed)
-	if(config.dsay_allowed)
+	CONFIG_SET(flag/dsay_allowed, !CONFIG_GET(flag/dsay_allowed))
+
+	if(CONFIG_GET(flag/dsay_allowed))
 		to_chat(world, "<B>Deadchat has been globally enabled!</B>")
 	else
 		to_chat(world, "<B>Deadchat has been globally disabled!</B>")
@@ -500,8 +502,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_ADMIN))
 		return
 
-	config.dooc_allowed = !( config.dooc_allowed )
-	if(config.dooc_allowed)
+	CONFIG_SET(flag/dooc_allowed, !(CONFIG_GET(flag/dooc_allowed)))
+	if(CONFIG_GET(flag/dooc_allowed))
 		to_chat(world, "<B>Dead OOC has been globally enabled!</B>")
 	else
 		to_chat(world, "<B>Dead OOC has been globally disabled!</B>")
@@ -515,8 +517,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 	if(!check_rights(R_ADMIN))
 		return
+	CONFIG_SET(flag/disable_ooc_emoji, !CONFIG_GET(flag/disable_ooc_emoji))
 
-	config.disable_ooc_emoji = !(config.disable_ooc_emoji)
 	log_and_message_admins("toggled OOC Emoji.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle OOC Emoji")
 
@@ -532,7 +534,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		alert("Unable to start the game as it is not set up.")
 		return
 
-	if(config.start_now_confirmation)
+	if(CONFIG_GET(flag/start_now_confirmation))
 		if(alert(usr, "This is a live server. Are you sure you want to start now?", "Start game", "Yes", "No") != "Yes")
 			return
 
@@ -574,8 +576,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_EVENT))
 		return
 
-	config.allow_ai = !( config.allow_ai )
-	if(!( config.allow_ai ))
+	CONFIG_SET(flag/allow_ai, !CONFIG_GET(flag/allow_ai))
+	if(!( CONFIG_GET(flag/allow_ai) ))
 		to_chat(world, "<B>The AI job is no longer chooseable.</B>")
 	else
 		to_chat(world, "<B>The AI job is chooseable now.</B>")

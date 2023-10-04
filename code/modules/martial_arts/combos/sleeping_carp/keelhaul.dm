@@ -1,7 +1,7 @@
 /datum/martial_combo/sleeping_carp/keelhaul
 	name = "Утопление"
 	steps = list(MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_GRAB)
-	explaination_text = "Вбивает оппонента в пол ударом ногой по голове, нанося урон стамине!"
+	explaination_text = "Вбивает оппонента в пол ударом ногой по голове, оглушая на 6 секунд, а если цель уже лежит - наносит 60 урона стамине!"
 
 /datum/martial_combo/sleeping_carp/keelhaul/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	user.do_attack_animation(target, ATTACK_EFFECT_KICK)

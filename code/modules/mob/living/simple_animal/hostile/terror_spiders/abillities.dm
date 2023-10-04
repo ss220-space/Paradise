@@ -310,7 +310,7 @@
 			to_chat(target, "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>")
 			target.AdjustConfused(20 SECONDS)
 			target.Slowed(2 SECONDS)
-			target.Jitter(600 SECONDS)
+			target.Jitter(20 SECONDS)
 
 		if(issilicon(target))
 			to_chat(target, "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>")
@@ -350,7 +350,7 @@
 			to_chat(target, "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>")
 			target.adjustStaminaLoss(30)
 			target.Slowed(10 SECONDS)
-			target.Jitter(300 SECONDS)
+			target.Jitter(20 SECONDS)
 
 		if(issilicon(target))
 			to_chat(target, "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>")
@@ -447,7 +447,7 @@
 				to_chat(target, "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>")
 				target.AdjustWeakened(2 SECONDS)
 				target.adjustStaminaLoss(50)
-				target.Jitter(1000 SECONDS)
+				target.Jitter(40 SECONDS)
 				target.Slowed(14 SECONDS)
 
 			if(issilicon(target))

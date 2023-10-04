@@ -10,7 +10,7 @@
 
 
 /proc/format_table_name(table as text)
-	return sqlfdbktableprefix + table
+	return CONFIG_GET(string/feedback_tableprefix) + table
 
 /*
  * Text sanitization
@@ -39,10 +39,10 @@
 	return t
 
 /proc/sanitize_censored_patterns(var/t)
-	if(!config || !config.twitch_censor || !config.twich_censor_list)
+	if(!global.config || !CONFIG_GET(flag/twitch_censor) || !GLOB.twitch_censor_list)
 		return t
 
-	var/text = sanitize_simple(t, config.twich_censor_list)
+	var/text = sanitize_simple(t, GLOB.twitch_censor_list)
 	if(t != text)
 		message_admins("CENSOR DETECTION: [ADMIN_FULLMONTY(usr)] inputs: \"[html_encode(t)]\"")
 		log_adminwarn("CENSOR DETECTION: [key_name_log(usr)] inputs: \"[t]\"")

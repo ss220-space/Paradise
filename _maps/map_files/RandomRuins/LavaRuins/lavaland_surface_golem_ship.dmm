@@ -755,7 +755,6 @@
 /obj/item/storage/toolbox/electrical,
 /obj/item/clothing/head/welding,
 /obj/item/clothing/head/welding,
-/obj/item/multitool/abductor,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
 "Pn" = (

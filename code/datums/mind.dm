@@ -511,6 +511,16 @@
 
 	. += _memory_edit_role_enabled(ROLE_DEVIL)
 
+
+/datum/mind/proc/memory_edit_space_dragon()
+	. = _memory_edit_header("dragon")
+	var/datum/antagonist/space_dragon/dragon_datum = has_antag_datum(/datum/antagonist/space_dragon)
+	if(dragon_datum)
+		. += "<b><font color='red'>SPACE DRAGON</font></b>|<a href='?src=[UID()];space_dragon=clear'>no</a>"
+	else
+		. += "<a href='?src=[UID()];space_dragon=space_dragon'>space dragon</a>|<b>NO</b>"
+
+
 /datum/mind/proc/memory_edit_eventmisc(mob/living/H)
 	. = _memory_edit_header("event", list())
 	if(src in SSticker.mode.eventmiscs)
@@ -699,6 +709,10 @@
 	sections["traitor"] = memory_edit_traitor()
 	/** THIEF ***/
 	sections["thief"] = memory_edit_thief()
+
+	if(istype(current, /mob/living/simple_animal/hostile/space_dragon))
+		sections["space_dragon"] = memory_edit_space_dragon()
+
 	if(!issilicon(current))
 		/** CULT ***/
 		sections["cult"] = memory_edit_cult(H)
@@ -1853,6 +1867,27 @@
 					message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] the nuclear authorization code")
 				else
 					to_chat(usr, "<span class='warning'>No valid nuke found!</span>")
+
+	else if(href_list["space_dragon"])
+		switch(href_list["space_dragon"])
+			if("clear")
+				var/datum/antagonist/space_dragon/dragon_datum = has_antag_datum(/datum/antagonist/space_dragon)
+				if(!dragon_datum)
+					return
+
+				remove_antag_datum(dragon_datum)
+				log_admin("[key_name(usr)] has removed space dragon role from [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has removed space dragon role from [key_name_admin(current)]")
+
+			if("space_dragon")
+				var/datum/antagonist/space_dragon/dragon_datum = has_antag_datum(/datum/antagonist/space_dragon)
+				if(dragon_datum)
+					return
+
+				add_antag_datum(new /datum/antagonist/space_dragon)
+				playsound(current, 'sound/magic/ethereal_exit.ogg', 50, TRUE, -1)
+				log_admin("[key_name(usr)] has added space dragon role to [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has added space dragon role to [key_name_admin(current)]")
 
 	else if(href_list["eventmisc"])
 		switch(href_list["eventmisc"])

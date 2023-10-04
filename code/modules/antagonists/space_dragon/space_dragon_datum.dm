@@ -1,12 +1,8 @@
-/datum/mind/proc/make_space_dragon()
-	if(!has_antag_datum(/datum/antagonist/space_dragon))
-		add_antag_datum(/datum/antagonist/space_dragon)
-
-
 /datum/antagonist/space_dragon
 	name = "\improper Space Dragon"
 	roundend_category = "space dragons"
 	job_rank = ROLE_SPACE_DRAGON
+	special_role = SPECIAL_ROLE_SPACE_DRAGON
 	/// All space carps created by this antagonist space dragon
 	var/list/datum/mind/carp = list()
 	/// The innate ability to summon rifts
@@ -22,9 +18,9 @@
 	/// Whether or not Space Dragon has completed their objective, and thus triggered the ending sequence.
 	var/objective_complete = FALSE
 	/// What mob to spawn from ghosts using this dragon's rifts
-	var/minion_to_spawn = /mob/living/simple_animal/hostile/carp
+	var/minion_to_spawn = /mob/living/simple_animal/hostile/carp/rift_carp
 	/// What AI mobs to spawn from this dragon's rifts
-	var/ai_to_spawn = /mob/living/simple_animal/hostile/carp
+	var/ai_to_spawn = /mob/living/simple_animal/hostile/carp/rift_carp
 	/// Our dragon
 	var/mob/living/simple_animal/hostile/space_dragon/dragon
 
@@ -233,32 +229,4 @@
 		for(var/datum/mind/M in carp)
 			parts += "[printplayer(M)]"
 	return parts.Join("<br>")
-
-
-/datum/antagonist/space_carp
-	name = "\improper Space Carp"
-	/// The rift to protect
-	var/obj/structure/carp_rift/rift
-
-
-/datum/antagonist/space_carp/New(obj/structure/carp_rift/new_rift)
-	. = ..()
-	rift = new_rift
-
-
-/datum/antagonist/space_carp/give_objectives()
-	var/datum/objective/space_carp/objective = add_objective(/datum/objective/space_carp)
-	objective.rift = rift
-
-
-/datum/objective/space_carp
-	explanation_text = "Защищайте разлом призыва карпов."
-	needs_target = FALSE
-	var/obj/structure/carp_rift/rift
-
-
-/datum/objective/space_carp/check_completion()
-	if(!rift)
-		return FALSE
-	return TRUE
 

@@ -148,7 +148,7 @@
 		if(client.version_blocked)
 			client.show_update_notice()
 			return FALSE
-		if(config.minimum_byondacc_age && client.byondacc_age <= config.minimum_byondacc_age)
+		if(CONFIG_GET(number/minimum_byondacc_age) && client.byondacc_age <= CONFIG_GET(number/minimum_byondacc_age))
 			if(!client.prefs.discord_id || (client.prefs.discord_id && length(client.prefs.discord_id) == 32))
 				client.prefs.load_preferences(client)
 				to_chat(usr, "<span class='danger'>Вам необходимо привязать дискорд-профиль к аккаунту!</span>")
@@ -157,7 +157,7 @@
 		if(!is_used_species_available(client.prefs.species))
 			to_chat(usr, "<span class='warning'>Выбранная раса персонажа недоступна для игры в данный момент! Выберите другого персонажа.</span>")
 			return FALSE
-		if(config.tts_enabled)
+		if(CONFIG_GET(flag/tts_enabled))
 			if(!client.prefs.tts_seed)
 				to_chat(usr, "<span class='danger'>Вам необходимо настроить голос персонажа! Не забудьте сохранить настройки.</span>")
 				client.prefs.ShowChoices(src)
@@ -185,7 +185,7 @@
 		if(client.version_blocked)
 			client.show_update_notice()
 			return FALSE
-		if(config.minimum_byondacc_age && client.byondacc_age <= config.minimum_byondacc_age)
+		if(CONFIG_GET(number/minimum_byondacc_age) && client.byondacc_age <= CONFIG_GET(number/minimum_byondacc_age))
 			if(!client.prefs.discord_id || (client.prefs.discord_id && length(client.prefs.discord_id) == 32))
 				client.prefs.load_preferences(client)
 				to_chat(usr, "<span class='danger'>Вам необходимо привязать дискорд-профиль к аккаунту!</span>")
@@ -195,7 +195,7 @@
 			to_chat(usr, "<span class='warning'>You must wait for the server to finish starting before you can join!</span>")
 			return FALSE
 
-		if(alert(src,"Are you sure you wish to observe?[(config.respawn_observer ? "" : " You cannot normally join the round after doing this!")]","Player Setup","Yes","No") == "Yes")
+		if(alert(src,"Are you sure you wish to observe?[(CONFIG_GET(flag/respawn_observer) ? "" : " You cannot normally join the round after doing this!")]","Player Setup","Yes","No") == "Yes")
 			if(!client)
 				return 1
 			var/mob/dead/observer/observer = new()
@@ -220,7 +220,7 @@
 			observer.name = observer.real_name
 			observer.key = key
 			QDEL_NULL(mind)
-			if (config.respawn_observer) GLOB.respawnable_list += observer			// If enabled in config - observer cant respawn as Player
+			if (CONFIG_GET(flag/respawn_observer)) GLOB.respawnable_list += observer			// If enabled in config - observer cant respawn as Player
 			qdel(src)
 			return 1
 	if(href_list["tos"])
@@ -234,7 +234,7 @@
 		if(client.version_blocked)
 			client.show_update_notice()
 			return FALSE
-		if(config.minimum_byondacc_age && client.byondacc_age <= config.minimum_byondacc_age)
+		if(CONFIG_GET(number/minimum_byondacc_age) && client.byondacc_age <= CONFIG_GET(number/minimum_byondacc_age))
 			if(!client.prefs.discord_id || (client.prefs.discord_id && length(client.prefs.discord_id) == 32))
 				client.prefs.load_preferences(client)
 				to_chat(usr, "<span class='danger'>Вам необходимо привязать дискорд-профиль к аккаунту!</span>")
@@ -247,10 +247,10 @@
 			to_chat(usr, "<span class='warning'>Выбранная раса персонажа недоступна для игры в данный момент! Выберите другого персонажа.</span>")
 			return
 		if(client.prefs.species in GLOB.whitelisted_species)
-			if(!is_alien_whitelisted(src, client.prefs.species) && config.usealienwhitelist)
+			if(!is_alien_whitelisted(src, client.prefs.species) && CONFIG_GET(flag/usealienwhitelist))
 				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
 				return FALSE
-		if(config.tts_enabled)
+		if(CONFIG_GET(flag/tts_enabled))
 			if(!client.prefs.tts_seed)
 				to_chat(usr, "<span class='danger'>Вам необходимо настроить голос персонажа! Не забудьте сохранить настройки.</span>")
 				client.prefs.ShowChoices(src)
@@ -280,7 +280,7 @@
 			return
 
 		if(client.prefs.species in GLOB.whitelisted_species)
-			if(!is_alien_whitelisted(src, client.prefs.species) && config.usealienwhitelist)
+			if(!is_alien_whitelisted(src, client.prefs.species) && CONFIG_GET(flag/usealienwhitelist))
 				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
 				return FALSE
 
@@ -314,15 +314,14 @@
 	if(!job.can_novice_play(client))
 		return 0
 
-	if(config.assistantlimit)
+	if(CONFIG_GET(flag/assistant_limit))
 		if(job.title == "Civilian")
 			var/count = 0
-			var/datum/job/cadet = SSjobs.GetJob("Security Cadet")
 			var/datum/job/officer = SSjobs.GetJob("Security Officer")
 			var/datum/job/warden = SSjobs.GetJob("Warden")
 			var/datum/job/hos = SSjobs.GetJob("Head of Security")
-			count += (officer.current_positions + warden.current_positions + hos.current_positions + cadet.current_positions)
-			if(job.current_positions > (config.assistantratio * count))
+			count += (officer.current_positions + warden.current_positions + hos.current_positions)
+			if(job.current_positions > (CONFIG_GET(number/assistant_ratio) * count))
 				if(count >= 5) // if theres more than 5 security on the station just let assistants join regardless, they should be able to handle the tide
 					return 1
 				return 0
@@ -695,7 +694,7 @@
 
 /mob/new_player/proc/is_species_whitelisted(datum/species/S)
 	if(!S) return 1
-	return is_alien_whitelisted(src, S.name) || !config.usealienwhitelist || !(IS_WHITELISTED in S.species_traits)
+	return is_alien_whitelisted(src, S.name) || !CONFIG_GET(flag/usealienwhitelist) || !(IS_WHITELISTED in S.species_traits)
 
 /mob/new_player/get_gender()
 	if(!client || !client.prefs) ..()

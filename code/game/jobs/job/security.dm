@@ -179,7 +179,7 @@
 	alt_titles = list("Security Trainer")
 	minimal_player_age = 14
 	exp_requirements = 600
-	exp_type = EXP_TYPE_SECURITY
+	exp_type = EXP_TYPE_CREW
 	money_factor = 3
 	outfit = /datum/outfit/job/officer
 
@@ -205,26 +205,8 @@
 	dufflebag = /obj/item/storage/backpack/duffel/security
 	box = /obj/item/storage/box/survival_security
 
-
-/datum/job/officer/cadet
-	title = "Security Cadet"
-	flag = JOB_CADET
-	total_positions = 3
-	spawn_positions = 3
-	department_head = list("Head of Security", "Security Officer")
-	selection_color = "#ffeeee"
-	alt_titles = list("Security Assistant", "Security Graduate")
-	exp_requirements = 600
-	exp_type = EXP_TYPE_CREW
-	exp_max	= 600
-	exp_type_max = EXP_TYPE_SECURITY
-	is_novice = TRUE
-	money_factor = 2
-	outfit = /datum/outfit/job/officer/cadet
-
 /datum/outfit/job/officer/cadet
 	name = "Security Cadet"
-	jobtype = /datum/job/officer/cadet
 	uniform = /obj/item/clothing/under/rank/security/cadet
 	head = /obj/item/clothing/head/soft/sec
 	id = /obj/item/card/id/security/cadet

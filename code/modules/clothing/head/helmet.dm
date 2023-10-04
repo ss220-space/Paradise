@@ -301,12 +301,16 @@
 	strip_delay = 100
 	sprite_sheets = list(
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
-    "Grey" = 'icons/mob/clothing/species/grey/head.dmi'
-    )
+    	"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
+    	)
 
 /obj/item/clothing/head/helmet/skull/Yorick
 	name = "Йорик"
 	desc = "Бедный Йорик..."
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+    	"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
+    	)
 
 /obj/item/clothing/head/helmet/durathread
 	name = "durathread helmet"

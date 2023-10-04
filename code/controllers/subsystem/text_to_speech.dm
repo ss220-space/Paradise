@@ -120,6 +120,7 @@ SUBSYSTEM_DEF(tts)
 		"forensic technician" = "Криминалист",
 		"security officer" = "Офицер службы безопасности",
 		"security cadet" = "Кадет службы безопасности",
+		"duty officer" = "Дежурный офицер",
 		"Security Assistant" = "Ассистент службы безопасности",
 		"Security Graduate" = "Выпускник кадетской академии",
 		"brig physician" = "Врач брига",
@@ -199,7 +200,7 @@ SUBSYSTEM_DEF(tts)
 
 
 /datum/controller/subsystem/tts/Initialize()
-	is_enabled = config.tts_enabled
+	is_enabled = CONFIG_GET(flag/tts_enabled)
 	if(!is_enabled)
 		flags |= SS_NO_FIRE
 
@@ -357,7 +358,7 @@ SUBSYSTEM_DEF(tts)
 
 	rustg_file_write(voice, "[filename].ogg", "true")
 
-	if(!config.tts_cache)
+	if(!CONFIG_GET(flag/tts_cache))
 		addtimer(CALLBACK(src, PROC_REF(cleanup_tts_file), "[filename].ogg"), 30 SECONDS)
 
 	for(var/datum/callback/cb in tts_queue[filename])

@@ -18,7 +18,8 @@
 /obj/item/implant/uplink/admin/New()
 	..()
 	if(hidden_uplink)
-		hidden_uplink.uplink_type = "admin"
+		hidden_uplink.uplink_type = UPLINK_TYPE_ADMIN
+		hidden_uplink.update_uplink_items()
 
 /obj/item/implant/uplink/implant(mob/source)
 	var/obj/item/implant/imp_e = locate(src.type) in source

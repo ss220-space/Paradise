@@ -441,7 +441,7 @@
 			W.dropped(usr)
 
 		if(ismob(new_location) || get(new_location, /mob))
-			if(usr && !is_on_mob && config.item_animations_enabled)
+			if(usr && !is_on_mob && CONFIG_GET(flag/item_animations_enabled))
 				W.loc = get_turf(src)	// This bullshit is required since /image/ registered in turf contents only
 				W.pixel_x = pixel_x
 				W.pixel_y = pixel_y
