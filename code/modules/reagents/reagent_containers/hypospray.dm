@@ -97,8 +97,8 @@
 		src.remove_filter("hypospray_handle")
 		var/icon/hypo_mask = icon('icons/obj/hypo.dmi',"colour_hypo" )
 		src.add_filter("hypospray_handle",1,layering_filter(icon = hypo_mask, color = colour))
-	if(istype(I, /obj/item/screwdriver) && has_paint)
-		to_chat(user, span_notice("You separate the paint layer from hypospray"))
+	if(istype(I, /obj/item/soap) && has_paint)
+		to_chat(user, span_notice("You wash off the paint layer from hypospray"))
 		has_paint = FALSE
 		src.remove_filter("hypospray_handle")
 		icon_state = "medivend_hypo"
