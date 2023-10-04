@@ -44,8 +44,6 @@
 	var/build_start = 0
 	/// The world.time at which the current design build will end.
 	var/build_end = 0
-	/// The tile where builded parts will drop.
-	var/turf/build_turf = null
 	/// The build queue. Lazy list.
 	var/list/datum/design/build_queue = null
 	/// Whether the queue is currently being processed.
@@ -67,12 +65,8 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
-	update_build_turf()
 	if(is_taipan(z))
 		req_access = list(ACCESS_SYNDICATE)
-
-/obj/machinery/mecha_part_fabricator/proc/update_build_turf()
-	build_turf = get_step(loc, dir)
 
 /obj/machinery/mecha_part_fabricator/Initialize(mapload)
 	. = ..()
@@ -219,12 +213,12 @@
   */
 /obj/machinery/mecha_part_fabricator/proc/build_design_timer_finish(datum/design/D, list/final_cost)
 	// Spawn the item (in a lockbox if restricted) OR mob (e.g. IRC body)
-	var/atom/A = new D.build_path(build_turf)
+	var/atom/A = new D.build_path(get_step(src, dir))
 	if(istype(A, /obj/item))
 		var/obj/item/I = A
 		I.materials = final_cost
 		if(D.locked)
-			var/obj/item/storage/lockbox/research/large/L = new(build_turf)
+			var/obj/item/storage/lockbox/research/large/L = new(get_step(src, dir))
 			I.forceMove(L)
 			L.name += " ([I.name])"
 			L.origin_tech = I.origin_tech
@@ -300,7 +294,6 @@
 // Interaction code
 /obj/machinery/mecha_part_fabricator/attackby(obj/item/W, mob/user, params)
 	if(default_change_direction_wrench(user, W))
-		update_build_turf()
 		add_fingerprint(user)
 		return
 	if(default_deconstruction_screwdriver(user, icon_open, icon_closed, W))
