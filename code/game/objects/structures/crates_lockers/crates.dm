@@ -606,38 +606,40 @@
 
 /obj/structure/closet/crate/secure/syndicate/emag_act(mob/user)
 	if(locked && !broken)
-		to_chat(user, "<span class='notice'>Отличная попытка, но нет!</span>")
+		to_chat(user, span_notice("Отличная попытка, но нет!"))
 		playsound(src.loc, "sound/misc/sadtrombone.ogg", 60, 1)
 
 /obj/structure/closet/crate/secure/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(locked && broken == 0 && user.a_intent != INTENT_HARM) // Stage one
-		to_chat(user, "<span class='notice'>Вы начинаете откручивать панель замка [src]...</span>")
+		to_chat(user, span_notice("Вы начинаете откручивать панель замка [src]..."))
 		if(I.use_tool(src, user, 160, volume = I.tool_volume))
 			if(prob(95)) // EZ
-				to_chat(user, "<span class='notice'>Вы успешно открутили и сняли панель с замка [src]!</span>")
-				desc += " Панель управления снята."
-				broken = 3
+				if(broken != 3)
+					to_chat(user, span_notice("Вы успешно открутили и сняли панель с замка [src]!"))
+					desc += " Панель управления снята."
+					broken = 3
 				//icon_state = icon_off // Crates has no icon_off :(
 			else // Bad day)
 				var/mob/living/carbon/human/H = user
 				var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? "l_hand" : "r_hand")
 				user.apply_damage(5, BRUTE , affecting)
 				user.emote("scream")
-				to_chat(user, "<span class='warning'>Проклятье! [I] сорвалась и повредила [affecting.name]!</span>")
+				to_chat(user, span_warning("Проклятье! [I] сорвалась и повредила [affecting.name]!"))
 		return TRUE
 
 /obj/structure/closet/crate/secure/wirecutter_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(locked && broken == 3 && user.a_intent != INTENT_HARM) // Stage two
-		to_chat(user, "<span class='notice'>Вы начинаете подготавливать провода панели [src]...</span>")
+		to_chat(user, span_notice("Вы начинаете подготавливать провода панели [src]..."))
 		if(I.use_tool(src, user, 160, volume = I.tool_volume))
 			if(prob(80)) // Good hacker!
-				to_chat(user, "<span class='notice'>Вы успешно подготовили провода панели замка [src]!</span>")
-				desc += " Провода отключены и торчат наружу."
-				broken = 2
+				if(broken != 2)
+					to_chat(user, span_notice("Вы успешно подготовили провода панели замка [src]!"))
+					desc += " Провода отключены и торчат наружу."
+					broken = 2
 			else // woopsy
-				to_chat(user, "<span class='warning'>Черт! Не тот провод!</span>")
+				to_chat(user, span_warning("Черт! Не тот провод!"))
 				do_sparks(5, 1, src)
 				electrocute_mob(user, get_area(src), src, 0.5, TRUE)
 		return TRUE
@@ -645,14 +647,15 @@
 /obj/structure/closet/crate/secure/multitool_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(locked && broken == 2 && user.a_intent != INTENT_HARM) // Stage three
-		to_chat(user, "<span class='notice'>Вы начинаете подключать провода панели замка [src] к [I]...</span>")
+		to_chat(user, span_notice("Вы начинаете подключать провода панели замка [src] к [I]..."))
 		if(I.use_tool(src, user, 160, volume = I.tool_volume))
 			if(prob(80)) // Good hacker!
-				desc += " Замок отключен."
-				broken = 0 // Can be emagged
-				emag_act(user)
+				if(broken != 0 && broken != 1)
+					desc += " Замок отключен."
+					broken = 0 // Can be emagged
+					emag_act(user)
 			else // woopsy
-				to_chat(user, "<span class='warning'>Черт! Не тот провод!</span>")
+				to_chat(user, span_warning("Черт! Не тот провод!"))
 				do_sparks(5, 1, src)
 				electrocute_mob(user, get_area(src), src, 0.5, TRUE)
 		return TRUE
