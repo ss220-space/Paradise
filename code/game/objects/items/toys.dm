@@ -1949,6 +1949,7 @@
 	desc = "A \"Space Life\" brand... wait, what the hell is this thing?"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "nuketoy"
+	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
 	var/toysay = "What the fuck did you do?"
 
