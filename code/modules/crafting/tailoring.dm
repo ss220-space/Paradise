@@ -355,7 +355,7 @@
 	name = "Gem Necklace"
 	result = list(/obj/item/clothing/accessory/necklace/gem)
 	time = 60
-	reqs = list(/obj/item/stack/sheet/gold = 10,
+	reqs = list(/obj/item/stack/sheet/mineral/gold = 10,
 				/obj/item/stack/sheet/leather = 1)
 	category = CAT_CLOTHING
 
@@ -363,5 +363,5 @@
 	name = "Gem Bracers"
 	result = list(/obj/item/clothing/gloves/jewelry_bracers)
 	time = 70
-	reqs = list(/obj/item/stack/sheet/gold = 20)
+	reqs = list(/obj/item/stack/sheet/mineral/gold = 20)
 	category = CAT_CLOTHING
