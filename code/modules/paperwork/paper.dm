@@ -147,9 +147,15 @@
 
 /obj/item/paper/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(user.zone_selected == "eyes")
-		user.visible_message("<span class='notice'>You show the paper to [M]. </span>", \
-			"<span class='notice'> [user] holds up a paper and shows it to [M]. </span>")
-		M.examinate(src)
+		user.visible_message("<span class='warning'>[user] is trying to show the paper to you. </span>", \
+			"<span class='notice'>You hold up a paper and try to show it to [M]. </span>")
+
+		if(do_mob(user, M, 0.7 SECONDS))
+			user.visible_message("<span class='notice'>[user] shows the paper to you. </span>", \
+				"<span class='notice'>You hold up a paper and show it to [M]. </span>")
+			M.examinate(src)
+		else
+			to_chat(user, span_warning("You fail to show the paper to [M]."))
 
 	else if(user.zone_selected == "mouth")
 		if(!istype(M, /mob))	return
@@ -159,6 +165,7 @@
 			if(H == user)
 				to_chat(user, "<span class='notice'>You wipe off your face with [src].</span>")
 				H.lip_style = null
+				H.lip_color = initial(H.lip_color)
 				H.update_body()
 			else
 				user.visible_message("<span class='warning'>[user] begins to wipe [H]'s face clean with \the [src].</span>", \
@@ -167,6 +174,7 @@
 					user.visible_message("<span class='notice'>[user] wipes [H]'s face clean with \the [src].</span>", \
 										 "<span class='notice'>You wipe off [H]'s face.</span>")
 					H.lip_style = null
+					H.lip_color = initial(H.lip_color)
 					H.update_body()
 	else
 		..()
