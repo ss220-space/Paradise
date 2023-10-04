@@ -1220,7 +1220,7 @@
 	sec_hud_set_ID()
 
 
-/mob/living/carbon/human/proc/set_species(datum/species/new_species, default_colour, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE)
+/mob/living/carbon/human/proc/set_species(datum/species/new_species, default_colour, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE, save_appearance = FALSE)
 	if(!skip_same_check)
 		if(dna.species.name == initial(new_species.name))
 			return
@@ -1243,9 +1243,9 @@
 
 	dna.species = new new_species()
 
-	tail = dna.species.tail
+	tail = save_appearance ? oldspecies.tail : dna.species.tail
 
-	wing = dna.species.wing
+	wing = save_appearance ? oldspecies.wing : dna.species.wing
 
 	maxHealth = dna.species.total_health
 
@@ -1276,6 +1276,10 @@
 			kept_items[I] = thing
 			item_flags[I] = I.flags
 			I.flags = 0 // Temporary set the flags to 0
+
+	var/list/old_bodyparts
+	if(save_appearance)
+		old_bodyparts = bodyparts_by_name.Copy()
 
 	if(retain_damage)
 		//Create a list of body parts which are damaged by burn or brute and save them to apply after new organs are generated. First we just handle external organs.
@@ -1345,41 +1349,58 @@
 		equip_to_slot_if_possible(thing, kept_items[thing])
 		thing.flags = item_flags[thing] // Reset the flags to the origional ones
 
-	//Handle default hair/head accessories for created mobs.
+	//Handle hair/head accessories for created mobs.
 	var/obj/item/organ/external/head/H = get_organ("head")
-	if(dna.species.default_hair)
-		H.h_style = dna.species.default_hair
-	else
-		H.h_style = "Bald"
-	if(dna.species.default_fhair)
-		H.f_style = dna.species.default_fhair
-	else
-		H.f_style = "Shaved"
-	if(dna.species.default_headacc)
-		H.ha_style = dna.species.default_headacc
-	else
-		H.ha_style = "None"
+	if(save_appearance && old_bodyparts)
+		var/obj/item/organ/external/head/old_head = old_bodyparts["head"]
+		if(istype(old_head))
+			if(old_head.h_style)
+				H.h_style = old_head.h_style
+			if(old_head.f_style)
+				H.f_style = old_head.f_style
+			if(old_head.ha_style)
+				H.ha_style = old_head.ha_style
+			if(old_head.hair_colour)
+				H.hair_colour = old_head.hair_colour
+			if(old_head.facial_colour)
+				H.facial_colour = old_head.facial_colour
+			if(old_head.headacc_colour)
+				H.headacc_colour = old_head.headacc_colour
 
-	if(dna.species.default_hair_colour)
-		//Apply colour.
-		H.hair_colour = dna.species.default_hair_colour
 	else
-		H.hair_colour = "#000000"
-	if(dna.species.default_fhair_colour)
-		H.facial_colour = dna.species.default_fhair_colour
-	else
-		H.facial_colour = "#000000"
-	if(dna.species.default_headacc_colour)
-		H.headacc_colour = dna.species.default_headacc_colour
-	else
-		H.headacc_colour = "#000000"
+		if(dna.species.default_hair)
+			H.h_style = dna.species.default_hair
+		else
+			H.h_style = "Bald"
+		if(dna.species.default_fhair)
+			H.f_style = dna.species.default_fhair
+		else
+			H.f_style = "Shaved"
+		if(dna.species.default_headacc)
+			H.ha_style = dna.species.default_headacc
+		else
+			H.ha_style = "None"
 
-	m_styles = DEFAULT_MARKING_STYLES //Wipes out markings, setting them all to "None".
-	m_colours = DEFAULT_MARKING_COLOURS //Defaults colour to #00000 for all markings.
-	if(dna.species.bodyflags & HAS_BODY_ACCESSORY)
-		body_accessory = GLOB.body_accessory_by_name[dna.species.default_bodyacc]
-	else
-		body_accessory = null
+		if(dna.species.default_hair_colour)
+			//Apply colour.
+			H.hair_colour = dna.species.default_hair_colour
+		else
+			H.hair_colour = "#000000"
+		if(dna.species.default_fhair_colour)
+			H.facial_colour = dna.species.default_fhair_colour
+		else
+			H.facial_colour = "#000000"
+		if(dna.species.default_headacc_colour)
+			H.headacc_colour = dna.species.default_headacc_colour
+		else
+			H.headacc_colour = "#000000"
+
+		m_styles = DEFAULT_MARKING_STYLES //Wipes out markings, setting them all to "None".
+		m_colours = DEFAULT_MARKING_COLOURS //Defaults colour to #00000 for all markings.
+		if(dna.species.bodyflags & HAS_BODY_ACCESSORY)
+			body_accessory = GLOB.body_accessory_by_name[dna.species.default_bodyacc]
+		else
+			body_accessory = null
 
 	dna.real_name = real_name
 

@@ -225,16 +225,16 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list())
 	name = "Smooth"
 	icon_state = "smooth"
 	animated_icon_state = "smooth_a"
-	allowed_species = list("Unathi")
+	allowed_species = list("Unathi", "Ash Walker", "Ash Walker Shaman", "Draconid")
 
 /datum/body_accessory/tail/tiger
 	name = "Tiger"
 	icon_state = "dtiger"
 	animated_icon_state = "dtiger_a"
-	allowed_species = list("Unathi")
+	allowed_species = list("Unathi", "Ash Walker", "Ash Walker Shaman", "Draconid")
 
 /datum/body_accessory/tail/spikes
 	name = "Spikes"
 	icon_state = "spikes"
 	animated_icon_state = "spikes_a"
-	allowed_species = list("Unathi")
+	allowed_species = list("Unathi", "Ash Walker", "Ash Walker Shaman", "Draconid")
