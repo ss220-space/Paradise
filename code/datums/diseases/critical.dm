@@ -1,4 +1,5 @@
 /datum/disease/critical
+	spread_flags = NON_CONTAGIOUS
 
 /datum/disease/critical/stage_act() //overriden to ensure unique behavior
 	stage = min(stage, max_stages)
@@ -23,15 +24,13 @@
 	form = "Medical Emergency"
 	spread_text = "The patient is in shock"
 	max_stages = 3
-	spread_flags = SPECIAL
 	cure_text = "Saline-Glucose Solution"
 	cures = list("salglu_solution")
 	cure_chance = 10
-	viable_mobtypes = list(/mob/living/carbon/human)
 	stage_prob = 6
 	severity = DANGEROUS
-	disease_flags = CURABLE
-	bypasses_immunity = TRUE
+	can_immunity = FALSE
+	ignore_immunity = TRUE
 	virus_heal_resistant = TRUE
 
 /datum/disease/critical/shock/stage_act()
@@ -84,17 +83,15 @@
 	form = "Medical Emergency"
 	spread_text = "The patient is having a cardiac emergency"
 	max_stages = 3
-	spread_flags = SPECIAL
 	cure_text = "Atropine, Epinephrine, or Heparin"
 	cures = list("atropine", "epinephrine", "heparin")
 	cure_chance = 10
 	needs_all_cures = FALSE
-	viable_mobtypes = list(/mob/living/carbon/human)
 	stage_prob = 5
 	severity = DANGEROUS
-	disease_flags = CURABLE
+	can_immunity = FALSE
 	required_organs = list(/obj/item/organ/internal/heart)
-	bypasses_immunity = TRUE
+	ignore_immunity = TRUE
 	virus_heal_resistant = TRUE
 
 /datum/disease/critical/heart_failure/has_cure()
@@ -144,14 +141,12 @@
 	name = "Hypoglycemia"
 	form = "Medical Emergency"
 	max_stages = 3
-	spread_flags = SPECIAL
 	spread_text = "The patient has low blood sugar."
 	cure_text = "Eating or administration of vitamins or nutrients"
-	viable_mobtypes = list(/mob/living/carbon/human)
 	stage_prob = 1
 	severity = DANGEROUS
-	disease_flags = CURABLE
-	bypasses_immunity = TRUE
+	can_immunity = FALSE
+	ignore_immunity = TRUE
 	virus_heal_resistant = TRUE
 
 /datum/disease/critical/hypoglycemia/has_cure()

@@ -1,12 +1,12 @@
 /datum/disease/pierrot_throat
 	name = "Pierrot's Throat"
 	max_stages = 4
+	spread_flags = AIRBORNE
 	spread_text = "Airborne"
 	cure_text = "Banana products, especially banana bread."
 	cures = list("banana")
 	cure_chance = 75
 	agent = "H0NI<42 Virus"
-	viable_mobtypes = list(/mob/living/carbon/human)
 	permeability_mod = 0.75
 	desc = "If left untreated the subject will probably drive others to insanity."
 	severity = MEDIUM
@@ -36,7 +36,6 @@
 	cures = list("banana")
 	cure_chance = 75
 	agent = "H0NI<42.B4n4 Virus"
-	viable_mobtypes = list(/mob/living/carbon/human)
 	permeability_mod = 0.75
 	desc = "If left untreated the subject will probably drive others to insanity and go insane themselves."
 	severity = DANGEROUS

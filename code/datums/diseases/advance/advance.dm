@@ -7,6 +7,8 @@
 
 */
 
+#define VIRUS_SYMPTOM_LIMIT	6
+
 // The order goes from easy to cure to hard to cure.
 GLOBAL_LIST_INIT(advance_cures, list(
 									"sodiumchloride", "sugar", "orangejuice",
@@ -31,7 +33,6 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 	agent = "advance microbes"
 	max_stages = 5
 	spread_text = "Unknown"
-	viable_mobtypes = list(/mob/living/carbon/human)
 
 	// NEW VARS
 
@@ -191,16 +192,18 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 
 	if(properties && properties.len)
 		switch(properties["stealth"])
+			if(1)
+				visibility_flags = HIDDEN_HUD
 			if(2)
-				visibility_flags = HIDDEN_SCANNER
+				visibility_flags = HIDDEN_HUD|HIDDEN_SCANNER
 			if(3 to INFINITY)
-				visibility_flags = HIDDEN_SCANNER|HIDDEN_PANDEMIC
+				visibility_flags = HIDDEN_HUD|HIDDEN_SCANNER|HIDDEN_PANDEMIC
 			else
 				visibility_flags = VISIBLE
 
 		// The more symptoms we have, the less transmittable it is but some symptoms can make up for it.
 		SetSpread(clamp(2 ** (properties["transmittable"] - symptoms.len), BLOOD, AIRBORNE))
-		permeability_mod = max(CEILING(0.4 * properties["transmittable"], 1), 1)
+		permeability_mod = max(CEILING(0.4 * properties["transmittable"], 1), 1)  // TODO: нерабочая хуйня, не забудь пофиксить
 		cure_chance = 15 - clamp(properties["resistance"], -5, 5) // can be between 10 and 20
 		stage_prob = max(properties["stage_speed"], 2)
 		SetSeverity(properties["severity"])
@@ -212,16 +215,14 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 // Assign the spread type and give it the correct description.
 /datum/disease/advance/proc/SetSpread(spread_id)
 	switch(spread_id)
-		if(NON_CONTAGIOUS)
+		if(NONE, SPECIAL)
 			spread_text = "None"
-		if(SPECIAL)
-			spread_text = "None"
-		if(CONTACT_GENERAL, CONTACT_HANDS, CONTACT_FEET)
+		if(BLOOD)
+			spread_text = "Blood"
+		if(CONTACT)
 			spread_text = "On contact"
 		if(AIRBORNE)
 			spread_text = "Airborne"
-		if(BLOOD)
-			spread_text = "Blood"
 
 	spread_flags = spread_id
 

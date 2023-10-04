@@ -407,7 +407,7 @@
 		for(var/thing in C.viruses)
 			var/datum/disease/D = thing
 			//the medibot can't detect viruses that are undetectable to Health Analyzers or Pandemic machines.
-			if(D.visibility_flags & HIDDEN_SCANNER || D.visibility_flags & HIDDEN_PANDEMIC)
+			if(D.visibility_flags & HIDDEN_HUD)
 				return 0
 			if(D.severity == NONTHREAT) // medibot doesn't try to heal truly harmless viruses
 				return 0
@@ -464,7 +464,7 @@
 			for(var/thing in C.viruses)
 				var/datum/disease/D = thing
 				//detectable virus
-				if((!(D.visibility_flags & HIDDEN_SCANNER)) || (!(D.visibility_flags & HIDDEN_PANDEMIC)))
+				if(!(D.visibility_flags & HIDDEN_HUD))
 					if(D.severity != NONTHREAT)      //virus is harmful
 						if((D.stage > 1) || (D.spread_flags & AIRBORNE))
 							virus = 1

@@ -2,11 +2,10 @@
 	name = "Brainrot"
 	max_stages = 4
 	spread_text = "On contact"
-	spread_flags = CONTACT_GENERAL
+	spread_flags = CONTACT
 	cure_text = "Mannitol"
 	cures = list("mannitol")
 	agent = "Cryptococcus Cosmosis"
-	viable_mobtypes = list(/mob/living/carbon/human)
 	cure_chance = 15//higher chance to cure, since two reagents are required
 	desc = "This disease destroys the braincells, causing brain fever, brain necrosis and general intoxication."
 	required_organs = list(/obj/item/organ/internal/brain)

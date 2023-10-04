@@ -905,7 +905,7 @@ REAGENT SCANNER
 	var/found_disease = FALSE
 	for(var/thing in target.viruses)
 		var/datum/disease/D = thing
-		if(D.visibility_flags) //If any visibility flags are on.
+		if(D.visibility_flags & HIDDEN_SCANNER)
 			continue
 		found_disease = TRUE
 		break

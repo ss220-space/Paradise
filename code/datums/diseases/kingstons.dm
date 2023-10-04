@@ -1,12 +1,12 @@
 /datum/disease/kingstons
 	name = "Kingstons Syndrome"
 	max_stages = 4
+	spread_flags = AIRBORNE
 	spread_text = "Airborne"
 	cure_text = "Milk"
 	cures = list("milk")
 	cure_chance = 50
 	agent = "Nya Virus"
-	viable_mobtypes = list(/mob/living/carbon/human)
 	permeability_mod = 0.75
 	desc = "If left untreated the subject will turn into a feline. In felines it has... OTHER... effects."
 	severity = DANGEROUS
@@ -51,12 +51,12 @@
 /datum/disease/kingstons_advanced //this used to be directly a subtype of kingstons, which sounds nice, but it ment that it would *turn you into a tarjaran always and have normal kingstons stage act* Don't make virusus subtypes unless the base virus does nothing.
 	name = "Advanced Kingstons Syndrome"
 	max_stages = 4
+	spread_flags = AIRBORNE
 	spread_text = "Airborne"
 	cure_text = "Plasma"
 	cures = list("plasma")
 	cure_chance = 50
 	agent = "AMB45DR Bacteria"
-	viable_mobtypes = list(/mob/living/carbon/human)
 	permeability_mod = 0.75
 	desc = "If left untreated the subject will mutate to a different species."
 	severity = BIOHAZARD

@@ -3,11 +3,10 @@
 	form = "Infection"
 	max_stages = 4
 	spread_text = "On contact"
-	spread_flags = CONTACT_GENERAL
+	spread_flags = CONTACT
 	cure_text = "Ethanol"
 	cures = list("ethanol")
 	agent = "Excess Lepidopticides"
-	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/human/lesser/monkey)
 	desc = "If left untreated subject will regurgitate butterflies."
 	severity = MEDIUM
 	possible_mutations = list(/datum/disease/beesease)

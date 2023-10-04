@@ -224,7 +224,7 @@
 		var/found_disease = FALSE
 		for(var/thing in occupant.viruses)
 			var/datum/disease/D = thing
-			if(D.visibility_flags & HIDDEN_SCANNER || D.visibility_flags & HIDDEN_PANDEMIC)
+			if(D.visibility_flags & HIDDEN_SCANNER)
 				continue
 			if(istype(D, /datum/disease/critical))
 				continue
@@ -390,7 +390,7 @@
 		var/found_disease = FALSE
 		for(var/thing in occupant.viruses)
 			var/datum/disease/D = thing
-			if(D.visibility_flags & HIDDEN_SCANNER || D.visibility_flags & HIDDEN_PANDEMIC)
+			if(D.visibility_flags & HIDDEN_SCANNER)
 				continue
 			found_disease = TRUE
 			break

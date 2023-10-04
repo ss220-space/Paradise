@@ -4,14 +4,13 @@
 	name = "Loyalty Syndrome"
 	max_stages = 5
 	spread_text = "On contact"
-	spread_flags = CONTACT_GENERAL
-	disease_flags = CAN_CARRY|CURABLE
+	spread_flags = CONTACT
+	can_immunity = FALSE
 	cure_text = "Anti-Psychotics"
 	cures = list("haloperidol")
 	cure_chance = 5
 	agent = "Halomonas minomae"
-	viable_mobtypes = list(/mob/living/carbon/human)
-	visibility_flags = HIDDEN_SCANNER
+	visibility_flags = HIDDEN_HUD|HIDDEN_SCANNER
 	severity = DANGEROUS
 	var/is_master = FALSE
 	var/mob/living/carbon/human/master

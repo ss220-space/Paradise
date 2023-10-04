@@ -3,15 +3,13 @@
 	max_stages = 2
 	stage_prob = 5
 	spread_text = "Non-Contagious"
-	spread_flags = SPECIAL
 	cure_text = "Anti-Psychotics"
 	cures = list("haloperidol")
 	agent = "Jagged Crystals"
 	cure_chance = 10
-	viable_mobtypes = list(/mob/living/carbon/human)
 	desc = "Swearing, shouting, attacking nearby crew members uncontrollably."
 	severity = DANGEROUS
-	disease_flags = CURABLE
+	can_immunity = FALSE
 	spread_flags = NON_CONTAGIOUS
 
 /datum/disease/berserker/stage_act()

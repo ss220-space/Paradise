@@ -1,25 +1,15 @@
-
-#define VIRUS_SYMPTOM_LIMIT	6
-
 //Visibility Flags
-#define VISIBLE	0
-#define HIDDEN_SCANNER	1
-#define HIDDEN_PANDEMIC	2
-
-//Disease Flags
-#define CURABLE		1
-#define CAN_CARRY	2
-#define CAN_RESIST	4
+#define VISIBLE 0
+#define HIDDEN_HUD 1
+#define HIDDEN_SCANNER	2
+#define HIDDEN_PANDEMIC	4
 
 //Spread Flags
-#define SPECIAL 1
-#define NON_CONTAGIOUS 2
-#define BLOOD 4
-#define CONTACT_FEET 8
-#define CONTACT_HANDS 16
-#define CONTACT_GENERAL 32
-#define AIRBORNE 64
-
+#define NON_CONTAGIOUS 0	//disease can't spread
+#define SPECIAL 1	 		//disease can spread in specially created procs
+#define BLOOD 2		 		//disease can spread with infected blood
+#define CONTACT 4	 		//disease can spread with any touch
+#define AIRBORNE 8	 		//disease spreads through the air
 
 //Severity Defines
 #define NONTHREAT	"No threat"
@@ -29,15 +19,12 @@
 #define DANGEROUS 	"Dangerous!"
 #define BIOHAZARD	"BIOHAZARD THREAT!"
 
-
 GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
-
 
 /datum/disease
 	//Flags
 	var/visibility_flags = VISIBLE
-	var/disease_flags = CURABLE|CAN_CARRY|CAN_RESIST
-	var/spread_flags = AIRBORNE
+	var/spread_flags = NON_CONTAGIOUS
 
 	//Fluff
 	var/form = "Virus"
@@ -56,23 +43,31 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	/// If TRUE, this virus will show up on medical HUDs. Automatically set when it reaches mid-stage.
 	var/discovered = FALSE
 
-	//Other
-	var/list/viable_mobtypes = list() //typepaths of viable mobs
-	var/mob/living/carbon/affected_mob = null
-	var/list/cures = list() //list of cures if the disease has the CURABLE flag, these are reagent ids
-	var/infectivity = 65
-	var/cure_chance = 8
-	var/carrier = FALSE //If our host is only a carrier
-	var/bypasses_immunity = FALSE //Does it skip species virus immunity check? Some things may diseases and not viruses
-	var/virus_heal_resistant = FALSE // Some things aren't technically viruses/traditional diseases and should be immune to edge case cure methods, like healing viruses.
-	var/permeability_mod = 1
-	var/severity =	NONTHREAT
-	var/list/required_organs = list()
+	//Cure & immunity
+	var/curable = TRUE
+	var/list/cures = list() //list of cures if the disease has curable = TRUE, these are reagent ids
 	var/needs_all_cures = TRUE
-	var/list/strain_data = list() //dna_spread special bullshit
+	var/cure_chance = 8
+	var/can_immunity = TRUE //immunity can be developed from the disease
+	var/ignore_immunity = FALSE //Does it skip species VIRUSIMMUNE check? Some things may diseases and not viruses
+	var/virus_heal_resistant = FALSE // immunity to Anti-Bodies Metabolism symptom
+
+	//Mutations
 	var/mutation_chance = 1
 	var/list/mutation_reagents = list("mutagen")
 	var/list/possible_mutations
+
+	//Infectivity
+	var/infectivity = 65  //affects how often the virus will try to spread
+	var/permeability_mod = 1
+	var/carrier = FALSE //If our host is only a carrier
+
+	//Other
+	var/severity = NONTHREAT
+	var/mob/living/affected_mob //Mob that is suffering from this virus
+	var/list/viable_mobtypes = list(/mob/living/carbon/human) //Types of infectable mobs
+	var/list/required_organs = list()
+	var/list/strain_data = list() //dna_spread special bullshit
 
 /datum/disease/Destroy()
 	affected_mob = null
@@ -97,7 +92,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 		if(prob(cure_chance))
 			stage = max(stage - 1, 1)
 
-	if(disease_flags & CURABLE)
+	if(curable)
 		if(cure && prob(cure_chance))
 			cure()
 			return FALSE
@@ -109,7 +104,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 
 
 /datum/disease/proc/has_cure()
-	if(!(disease_flags & CURABLE))
+	if(!curable)
 		return 0
 
 	. = cures.len
@@ -123,7 +118,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	if(!affected_mob)
 		return
 
-	if((spread_flags & SPECIAL || spread_flags & NON_CONTAGIOUS || spread_flags & BLOOD) && !force_spread)
+	if((spread_flags <= BLOOD) && !force_spread)
 		return
 
 	if(affected_mob.reagents.has_reagent("spaceacillin") || (affected_mob.satiety > 0 && prob(affected_mob.satiety/10)))
@@ -173,7 +168,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 
 /datum/disease/proc/cure(resistance = TRUE)
 	if(affected_mob)
-		if(disease_flags & CAN_RESIST)
+		if(can_immunity)
 			if(!(type in affected_mob.resistances))
 				affected_mob.resistances += type
 		remove_virus()
@@ -193,11 +188,6 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 
 /datum/disease/proc/GetDiseaseID()
 	return type
-
-/datum/disease/proc/IsSpreadByTouch()
-	if(spread_flags & CONTACT_FEET || spread_flags & CONTACT_HANDS || spread_flags & CONTACT_GENERAL)
-		return 1
-	return 0
 
 //don't use this proc directly. this should only ever be called by cure() //nope
 /datum/disease/proc/remove_virus()

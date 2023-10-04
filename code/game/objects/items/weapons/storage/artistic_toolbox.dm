@@ -148,12 +148,11 @@
 	max_stages = 4
 	stage_prob = 8
 	spread_text = "Non-Contagious"
-	spread_flags = SPECIAL
-	cure_text = "Unknown"
-	viable_mobtypes = list(/mob/living/carbon/human)
-	severity = BIOHAZARD
-	disease_flags = CAN_CARRY
 	spread_flags = NON_CONTAGIOUS
+	cure_text = "Unknown"
+	severity = BIOHAZARD
+	curable = FALSE
+	can_immunity = FALSE
 	virus_heal_resistant = TRUE
 	var/obj/item/storage/toolbox/green/memetic/progenitor = null
 

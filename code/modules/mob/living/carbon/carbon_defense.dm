@@ -34,12 +34,12 @@
 
 	for(var/thing in viruses)
 		var/datum/disease/D = thing
-		if(D.IsSpreadByTouch())
+		if(D.spread_flags & CONTACT)
 			user.ContractDisease(D)
 
 	for(var/thing in user.viruses)
 		var/datum/disease/D = thing
-		if(D.IsSpreadByTouch())
+		if(D.spread_flags & CONTACT)
 			ContractDisease(D)
 
 	if(lying && surgeries.len)
