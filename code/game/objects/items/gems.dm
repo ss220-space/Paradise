@@ -24,6 +24,8 @@
 
 	///Can you use this gem to make a necklace?
 	var/insertable = TRUE
+	///Can you make simple jewelry with it?
+	var/simple = FALSE
 
 /obj/item/gem/Initialize()
 	. = ..()
@@ -225,12 +227,19 @@
 	light_range = 4
 	light_power = 2
 	light_color = "#cc47a6"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 	var/obj/item/gps/internal
 
 /obj/item/gem/purple/Initialize()
 	. = ..()
 	internal = new /obj/item/gps/internal/purple(src)
+
+/obj/item/gem/purple/Destroy(force)
+	if(force)
+		. = ..()
+	else
+		return QDEL_HINT_LETMELIVE
 
 /obj/item/gps/internal/purple
 	icon_state = null
@@ -369,21 +378,25 @@
 	icon_state = "ruby"
 	point_value = 100
 	sell_value = 50
+	simple = TRUE
 
 /obj/item/gem/sapphire
 	name = "\improper sapphire"
 	icon_state = "sapphire"
 	point_value = 100
 	sell_value = 50
+	simple = TRUE
 
 /obj/item/gem/emerald
 	name = "\improper emerald"
 	icon_state = "emerald"
 	point_value = 100
 	sell_value = 50
+	simple = TRUE
 
 /obj/item/gem/topaz
 	name = "\improper topaz"
 	icon_state = "topaz"
 	point_value = 100
 	sell_value = 50
+	simple = TRUE
