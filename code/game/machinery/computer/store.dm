@@ -7,7 +7,7 @@
 	light_color = LIGHT_COLOR_GREEN
 
 /obj/item/circuitboard/merch
-	name = "\improper Merchandise Computer Circuitboard"
+	board_name = "Merchandise Computer"
 	build_path = /obj/machinery/computer/merch
 
 /obj/machinery/computer/merch/New()

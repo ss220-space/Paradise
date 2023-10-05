@@ -16,7 +16,7 @@
 
 /obj/item/magmite_parts/Initialize()
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(go_inert)), 10 MINUTES)
+	addtimer(CALLBACK(src, PROC_REF(go_inert)), 50 SECONDS) //you know...
 
 /obj/item/magmite_parts/proc/go_inert()
 	if(inert)
@@ -34,7 +34,7 @@
 	name = initial(name)
 	icon_state = initial(icon_state)
 	desc = initial(desc)
-	addtimer(CALLBACK(src, PROC_REF(go_inert)), 10 MINUTES)
+	addtimer(CALLBACK(src, PROC_REF(go_inert)), 50 SECONDS)
 
 /obj/item/magmite_parts/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag)
@@ -77,6 +77,16 @@
 			qdel(src)
 		if(/obj/item/twohanded/kinetic_crusher) //sure hope there is a better way to do it..
 			var/obj/item/twohanded/kinetic_crusher/gun = target
+			for(var/t in gun.trophies)
+				var/obj/item/crusher_trophy/T = t
+				T.remove_from(gun, user)
+			qdel(gun)
+			var/obj/item/twohanded/kinetic_crusher/almost/newgun = new(get_turf(user))
+			user.put_in_hands(newgun)
+			to_chat(user,span_notice("Harsh tendrils wraps around the kinetic crusher, but there is not enough magmite to fully upgrade it! You need more magmite"))
+			qdel(src)
+		if(/obj/item/twohanded/kinetic_crusher/almost)
+			var/obj/item/twohanded/kinetic_crusher/almost/gun = target
 			for(var/t in gun.trophies)
 				var/obj/item/crusher_trophy/T = t
 				T.remove_from(gun, user)

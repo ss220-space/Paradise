@@ -48,7 +48,7 @@
 
 /datum/design/alienalloy
 	name = "Alien Alloy"
-	desc = "A sheet of reverse-engineered alien alloy."
+	desc = "Plasma + Iron (x4)"
 	id = "alienalloy"
 	req_tech = list("abductor" = 1, "materials" = 7, "plasmatech" = 2)
 	build_type = PROTOLATHE | SMELTER

@@ -573,3 +573,50 @@
 		else if(prob(5) || M.mind?.assigned_role=="Chaplain")
 			to_chat(M, "<span class='warning'>You sense someone intruding upon your thoughts...</span>")
 
+////////////////////////////////////////////////////////////////////////
+
+// WAS: /datum/bioEffect/strong
+/datum/dna/gene/basic/strong
+	name = "Strong"
+	desc = "Enhances the subject's ability to build and retain heavy muscles."
+	activation_messages = list("You feel buff!")
+	deactivation_messages = list("You feel wimpy and weak.")
+	instability = GENE_INSTABILITY_MAJOR
+	mutation = STRONG
+
+/datum/dna/gene/basic/strong/New()
+	..()
+	block = GLOB.strongblock
+
+/datum/dna/gene/basic/strong/can_activate(mob/M, flags)
+	if(WEAK in M.mutations)
+		return FALSE
+	return ..()
+
+/datum/dna/gene/basic/strong/activate(mob/living/M, connected, flags)
+	..()
+	change_strength(M, 1)
+
+/datum/dna/gene/basic/strong/deactivate(mob/living/M, connected, flags)
+	..()
+	change_strength(M, -1)
+
+/datum/dna/gene/basic/strong/proc/change_strength(mob/living/M, modifier)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(isvulpkanin(H) || isdrask(H) || isunathi(H))
+			H.dna.species.punchdamagelow += (1 * modifier)
+			H.dna.species.punchdamagehigh += (2 * modifier)
+			H.dna.species.strength_modifier += (0.1 * modifier)
+			if(isunathi(H))
+				var/datum/species/unathi/U = H.dna.species
+				U.tail_strength += (0.25 * modifier)
+			return
+		if(ishumanbasic(H))
+			H.dna.species.punchdamagelow += (3 * modifier)
+			H.dna.species.punchdamagehigh += (4 * modifier)
+			H.dna.species.strength_modifier += (0.25 * modifier)
+		else
+			H.dna.species.punchdamagelow += (2 * modifier)
+			H.dna.species.punchdamagehigh += (3 * modifier)
+			H.dna.species.strength_modifier += (0.15 * modifier)

@@ -211,7 +211,7 @@
 
 /proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
 	if(automute)
-		if(!config.automute_on)
+		if(!CONFIG_GET(flag/automute_on))
 			return
 	else
 		if(!usr || !usr.client)
@@ -284,13 +284,14 @@
 		return
 
 	var/action=""
-	if(config.antag_hud_allowed)
+	if(CONFIG_GET(flag/allow_antag_hud))
 		for(var/mob/dead/observer/g in get_ghosts())
 			if(g.antagHUD)
 				g.antagHUD = FALSE						// Disable it on those that have it enabled
 				g.has_enabled_antagHUD = FALSE				// We'll allow them to respawn
 				to_chat(g, "<span class='danger'>The Administrator has disabled AntagHUD </span>")
-		config.antag_hud_allowed = 0
+
+		CONFIG_SET(flag/allow_antag_hud, FALSE)
 		to_chat(src, "<span class='danger'>AntagHUD usage has been disabled</span>")
 		action = "disabled"
 	else
@@ -298,7 +299,7 @@
 			if(!g.client.holder)						// Add the verb back for all non-admin ghosts
 				to_chat(g, "<span class='boldnotice'>The Administrator has enabled AntagHUD </span>")// Notify all observers they can now use AntagHUD
 
-		config.antag_hud_allowed = 1
+		CONFIG_SET(flag/allow_antag_hud, TRUE)
 		action = "enabled"
 		to_chat(src, "<span class='boldnotice'>AntagHUD usage has been enabled</span>")
 
@@ -314,11 +315,11 @@
 		return
 
 	var/action=""
-	if(config.antag_hud_restricted)
+	if(CONFIG_GET(flag/antag_hud_restricted))
 		for(var/mob/dead/observer/g in get_ghosts())
 			to_chat(g, "<span class='boldnotice'>The administrator has lifted restrictions on joining the round if you use AntagHUD</span>")
 		action = "lifted restrictions"
-		config.antag_hud_restricted = 0
+		CONFIG_SET(flag/antag_hud_restricted, FALSE)
 		to_chat(src, "<span class='boldnotice'>AntagHUD restrictions have been lifted</span>")
 	else
 		for(var/mob/dead/observer/g in get_ghosts())
@@ -327,7 +328,7 @@
 			g.antagHUD = FALSE
 			g.has_enabled_antagHUD = FALSE
 		action = "placed restrictions"
-		config.antag_hud_restricted = 1
+		CONFIG_SET(flag/antag_hud_restricted, TRUE)
 		to_chat(src, "<span class='danger'>AntagHUD restrictions have been enabled</span>")
 
 	log_and_message_admins("has [action] on joining the round if they use AntagHUD")
@@ -467,12 +468,14 @@ Traitors and the like can also be revived with the previous role mostly intact.
 					new_character = new_character.Robotize()
 					if(new_character.mind.special_role=="traitor")
 						new_character.mind.add_antag_datum(/datum/antagonist/traitor)
+					SSticker?.score?.save_silicon_laws(new_character, src.mob, additional_info = "admin respawn", log_all_laws = TRUE)
 				if("AI")
 					new_character = new_character.AIize()
 					var/mob/living/silicon/ai/ai_character = new_character
 					ai_character.moveToAILandmark()
 					if(new_character.mind.special_role=="traitor")
 						new_character.mind.add_antag_datum(/datum/antagonist/traitor)
+					SSticker?.score?.save_silicon_laws(ai_character, src.mob, additional_info = "admin respawn", log_all_laws = TRUE)
 				//Add aliens.
 				else
 					SSjobs.AssignRank(new_character, new_character.mind.assigned_role, 0)
@@ -799,6 +802,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		to_chat(usr, "[t] [ADMIN_VV(t,"VV")] ")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Contents") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+
 /client/proc/toggle_view_range()
 	set category = "Admin"
 	set name = "Change View Range"
@@ -807,15 +811,40 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
-	if(view == world.view)
-		view = input("Select view range:", "View Range", world.view) in list(1,2,3,4,5,6,7,8,9,10,11,12,13,14,128)
+	var/client_view = prefs.viewrange
+
+	if(view == client_view)
+		var/input = input("Select view range:", "View Range", 7) in list(1,2,3,4,5,6,7,8,9,10,11,12,13,14,"MAX")
+		if(!input)
+			return
+
+		var/list/viewscales = getviewsize(client_view)
+		var/aspect_ratio = viewscales[1] / viewscales[2]
+
+		var/view_x
+		var/view_y
+		if(input == "MAX")
+			if(viewscales[1] == viewscales[2])
+				view_x = 71	// 71 is max for X
+				view_y = 67	// 67 is max for Y
+			else
+				view_x = 71
+				view_y = round(71 / aspect_ratio)
+		else
+			view_y = (input * 2) % 2 ? input * 2 : input * 2 + 1
+			var/rounded_x = round(view_y * aspect_ratio)
+			view_x = rounded_x % 2 ? rounded_x : rounded_x + 1
+
+		view = "[view_x]x[view_y]"
+
 	else
-		view = world.view
+		view = client_view
+
+	fit_viewport()
 
 	log_admin("[key_name(usr)] changed their view range to [view].")
-	//message_admins("<span class='notice'>[key_name_admin(usr)] changed their view range to [view].</span>", 1)	//why? removed by order of XSI
-
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Change View Range") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 
 /client/proc/admin_call_shuttle()
 
@@ -982,12 +1011,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
-	if(!config.allow_random_events)
-		config.allow_random_events = 1
+	if(!CONFIG_GET(flag/allow_random_events))
+		CONFIG_SET(flag/allow_random_events, TRUE)
 		to_chat(usr, "Random events enabled")
 		log_and_message_admins("has enabled random events.")
 	else
-		config.allow_random_events = 0
+		CONFIG_SET(flag/allow_random_events, FALSE)
 		to_chat(usr, "Random events disabled")
 		log_and_message_admins("has disabled random events.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Random Events") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -1072,7 +1101,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(H.client == null || H.stat == DEAD) // No clientless or dead
 			continue
 		mins_afk = round(H.client.inactivity / 600)
-		if(mins_afk < config.list_afk_minimum)
+		if(mins_afk < CONFIG_GET(number/list_afk_minimum))
 			continue
 		if(H.job)
 			job_string = H.job

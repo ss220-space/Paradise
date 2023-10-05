@@ -421,8 +421,10 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	// --- Personal AI (pAI) ---
 	else if(ispAI(M))
-		jobname = "Personal AI"
-		rank = "Personal AI"
+		var/mob/living/silicon/pai/pai = M
+		displayname = pai.radio_name
+		jobname = pai.radio_rank
+		rank = pai.radio_rank
 
 	// --- Cogscarab ---
 	else if(iscogscarab(M))

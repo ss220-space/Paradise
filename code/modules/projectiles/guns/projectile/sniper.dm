@@ -87,10 +87,13 @@
 	icon_state = ".50"
 
 /obj/item/projectile/bullet/sniper
+	//speed = 0.75
+	//range = 100
 	damage = 70
 	weaken = 4 SECONDS
 	dismemberment = 50
 	armour_penetration = 50
+	forced_accuracy = TRUE
 	var/breakthings = TRUE
 
 /obj/item/projectile/bullet/sniper/on_hit(atom/target, blocked = 0, hit_zone)
@@ -205,7 +208,7 @@
 	icon_state = "gauss"
 	name = "penetrator round"
 	damage = 60
-	forcedodge = 1
+	forcedodge = -1
 	dismemberment = 0
 	weaken = 0
 	breakthings = FALSE

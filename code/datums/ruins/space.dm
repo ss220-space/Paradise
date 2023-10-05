@@ -341,16 +341,6 @@
 	allow_duplicates = FALSE
 	cost = 3 // 76x76 space ship
 
-/* Старый код для добавления Тайпана. Оставлено на всякий случай
-/datum/map_template/ruin/space/syndicate_space_base
-	id = "syndicate_space_base"
-	suffix = "syndicatebase.dmm"
-	name = "Syndicate Research and Monitoring Space Station - 'Taipan' "
-	description = "Top secret syndicate space station designated to monitor NT activity, be a trading point for the black market and research illegal bioweapons! It is closely guarded by an elite team of syndicate agents."
-	allow_duplicates = FALSE // One of these is enough
-	always_place = TRUE // This is on the always spawn list
-	cost = 0 // Force spawned so shouldnt have a cost
-*/
 /datum/map_template/ruin/space/blood_ship
 	id = "blood_ship"
 	suffix = "space_bloodship.dmm"
@@ -377,3 +367,12 @@
 	cost = 6 // 200x200 station in asteroid belt, has self destruct system and may spawn secret documents or 8 lvl tech
 	allow_duplicates = FALSE
 
+/datum/map_template/ruin/space/magestavern
+	id = "magestavern"
+	suffix = "magestavern.dmm"
+	name = "Magestavern"
+	description = "A mage's tavern, created to relax after exams for students. \
+	Complete freedom of action, with one condition - to clean up everything after yourself, keeping everything in its original form.\
+	Well, apparently, something went wrong, since the tavern was closed forever. What will you learn by getting into it?"
+	cost = 3
+	allow_duplicates = FALSE

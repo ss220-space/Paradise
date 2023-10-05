@@ -4,8 +4,8 @@ SUBSYSTEM_DEF(holiday)
 	flags = SS_NO_FIRE
 	var/list/holidays
 
-/datum/controller/subsystem/holiday/Initialize(start_timeofday)
-	if(!config.allow_holidays)
+/datum/controller/subsystem/holiday/Initialize()
+	if(!CONFIG_GET(flag/allow_holidays))
 		return //Holiday stuff was not enabled in the config!
 
 	var/YY = text2num(time2text(world.timeofday, "YY")) 	// get the current year

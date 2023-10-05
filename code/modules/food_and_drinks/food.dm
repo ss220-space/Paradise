@@ -159,3 +159,8 @@
 		. += "<span class='notice'>This is pure garbage.</span>"
 	if(foodtype & TOXIC)
 		. += "<span class='notice'>This is straight up poisonous.</span>"
+	if(user.can_see_food()) //Show each individual reagent
+		. += "<span class='notice'>It contains:</span>"
+		for(var/I in reagents.reagent_list)
+			var/datum/reagent/R = I
+			. += "<span class='notice'>[R.volume] units of [R.name]</span>"

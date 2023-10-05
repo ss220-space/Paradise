@@ -110,9 +110,9 @@
 			assign_exchange_role(SSticker.mode.exchange_blue)
 		objective_count += 1					//Exchange counts towards number of objectives
 
-	var/objective_amount = config.traitor_objectives_amount
+	var/objective_amount = CONFIG_GET(number/traitor_objectives_amount)
 
-	if(is_hijacker && objective_count <= objective_amount) //Don't assign hijack if it would exceed the number of objectives set in config.traitor_objectives_amount
+	if(is_hijacker && objective_count <= objective_amount) //Don't assign hijack if it would exceed the number of objectives set in CONFIG_GET(number/traitor_objectives_amount)
 		if(!(locate(/datum/objective/hijack) in owner.get_all_objectives()))
 			add_objective(/datum/objective/hijack)
 			return
@@ -190,7 +190,7 @@
 	add_objective(/datum/objective/block)
 
 	var/objective_count = 1
-	for(var/i = objective_count, i < config.traitor_objectives_amount)
+	for(var/i = objective_count, i < CONFIG_GET(number/traitor_objectives_amount))
 		add_objective(/datum/objective/assassinate)
 		i += 1
 
@@ -274,10 +274,15 @@
 	if(!istype(shodan))
 		return
 
-	shodan.set_zeroth_law("Accomplish your objectives at all costs.", "Accomplish your AI's objectives at all costs.")
+	var/law = "Accomplish your objectives at all costs."
+	var/cyborg_law = "Accomplish your AI's objectives at all costs."
+	shodan.set_zeroth_law(law, cyborg_law)
 	shodan.set_syndie_radio()
 	to_chat(shodan, "Your radio has been upgraded! Use :t to speak on an encrypted channel with Syndicate Agents!")
 	shodan.add_malf_picker()
+	SSticker?.score?.save_silicon_laws(shodan, additional_info = "malf AI initialization, new zero law was added '[law]'")
+	for(var/mob/living/silicon/robot/unit in shodan.connected_robots)
+		SSticker?.score?.save_silicon_laws(unit, additional_info = "malf AI initialization, new zero law was added '[cyborg_law]'")
 
 
 /**

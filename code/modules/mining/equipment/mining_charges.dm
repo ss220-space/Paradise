@@ -6,7 +6,7 @@
 	icon_state = "mining-charge-2"
 	det_time = 5
 	var/smoke_amount = 3
-	var/boom_sizes = list(1,3,5)
+	var/boom_sizes = list(2,3,5)
 
 /obj/item/grenade/plastic/miningcharge/Initialize()
 	. = ..()
@@ -22,8 +22,6 @@
 			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
 			return
 		..()
-	else
-		to_chat(user,span_warning("The charge only works on rocks!"))
 
 /obj/item/grenade/plastic/miningcharge/prime()
 	var/turf/simulated/mineral/location = get_turf(target)
@@ -45,7 +43,10 @@
 			var/distance = get_dist_euclidian(location,C)
 			C.flash_eyes()
 			C.Weaken((boom_sizes[2] - distance) * 1 SECONDS) //1 second for how close you are to center if you're in range
-			C.AdjustDeaf(0, (boom_sizes[3] - distance) * 10 SECONDS) // i dont know what am i doing
+			C.AdjustDeaf((boom_sizes[3] - distance) * 10 SECONDS)
+			var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
+			if(istype(ears))
+				ears.receive_damage((boom_sizes[3] - distance) * 2) //something like that i guess. Mega charge makes 12 damage to ears if nearby
 			to_chat(C, span_warning("<font size='2'><b>You are knocked down by the power of the mining charge!</font></b>"))
 	qdel(src)
 
@@ -65,7 +66,7 @@
 	desc = "A mining charge. This one seems much more powerful than normal!"
 	icon_state = "mining-charge-3"
 	smoke_amount = 5
-	boom_sizes = list(2,5,7) //5 ticks of stun, if in center
+	boom_sizes = list(4,6,8) //did you see the price? It has to be better..
 
 /obj/item/storage/backpack/duffel/miningcharges/populate_contents()
 	for(var/i in 1 to 5)

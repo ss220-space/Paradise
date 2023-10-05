@@ -11,7 +11,7 @@
 	name = "goonvampire"
 	config_tag = "goonvampire"
 	restricted_jobs = list("AI", "Cyborg")
-	protected_jobs = list("Security Officer", "Security Cadet", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer", "Special Operations Officer", "Supreme Commander", "Syndicate Officer")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer", "Special Operations Officer", "Supreme Commander", "Syndicate Officer")
 	protected_species = list("Machine", "Голем")
 	required_players = 15
 	required_enemies = 1
@@ -27,14 +27,14 @@
 
 /datum/game_mode/goon_vampire/pre_setup()
 
-	if(config.protect_roles_from_antagonist)
+	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 
 	var/list/datum/mind/possible_vampires = get_players_for_role(ROLE_VAMPIRE)
 
 	var/vampire_scale = 10
-	if(config.traitor_scaling)
-		vampire_scale = config.traitor_scaling
+	if(CONFIG_GET(number/traitor_scaling))
+		vampire_scale = CONFIG_GET(number/traitor_scaling)
 	var/vampire_amount = 1 + round(num_players() / vampire_scale)
 	add_game_logs("Number of vampires chosen: [vampire_amount]")
 

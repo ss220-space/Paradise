@@ -19,7 +19,7 @@ SUBSYSTEM_DEF(jobs)
 	var/list/job_debug = list()
 
 
-/datum/controller/subsystem/jobs/Initialize(timeofday)
+/datum/controller/subsystem/jobs/Initialize()
 	if(!length(occupations))
 		SetupOccupations()
 	LoadJobs("config/jobs.txt")
@@ -27,7 +27,7 @@ SUBSYSTEM_DEF(jobs)
 
 // Only fires every 5 minutes
 /datum/controller/subsystem/jobs/fire()
-	if(!SSdbcore.IsConnected() || !config.use_exp_tracking)
+	if(!SSdbcore.IsConnected() || !CONFIG_GET(flag/use_exp_tracking))
 		return
 	batch_update_player_exp(announce = FALSE) // Set this to true if you ever want to inform players about their EXP gains
 
@@ -264,7 +264,7 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/FillAIPosition()
-	if(config && !config.allow_ai)
+	if(config && !CONFIG_GET(flag/allow_ai))
 		return 0
 
 	var/ai_selected = 0
@@ -546,7 +546,7 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/LoadJobs(jobsfile) //ran during round setup, reads info from jobs.txt -- Urist
-	if(!config.load_jobs_from_txt)
+	if(!CONFIG_GET(flag/load_jobs_from_txt))
 		return 0
 
 	var/list/jobEntries = file2list(jobsfile)
@@ -628,7 +628,8 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
-	var/datum/money_account/M = create_account(H.real_name, rand(500, 1500)*get_job_factor(job, job.random_money_factor), null)
+	var/money_amount = job ? rand(500, 1500) * get_job_factor(job, job.random_money_factor) : rand(500, 1500)
+	var/datum/money_account/M = create_account(H.real_name, money_amount, null)
 	var/remembered_info = ""
 
 	remembered_info += "<b>Номер вашего аккаунта:</b> #[M.account_number]<br>"

@@ -40,14 +40,14 @@
 
 	icon_state = "drone_fab_active"
 	var/elapsed = world.time - time_last_drone
-	drone_progress = round((elapsed/config.drone_build_time)*100)
+	drone_progress = round((elapsed/CONFIG_GET(number/drone_build_time))*100)
 
 	if(drone_progress >= 100)
 		visible_message("\The [src] voices a strident beep, indicating a drone chassis is prepared.")
 
 /obj/machinery/drone_fabricator/examine(mob/user)
 	. = ..()
-	if(produce_drones && drone_progress >= 100 && istype(user,/mob/dead) && config.allow_drone_spawn && count_drones() < config.max_maint_drones)
+	if(produce_drones && drone_progress >= 100 && istype(user,/mob/dead) && CONFIG_GET(flag/allow_drone_spawn) && count_drones() < CONFIG_GET(number/max_maint_drones))
 		. += "<span class='info'><BR><B>A drone is prepared. Select 'Join As Drone' from the Ghost tab to spawn as a maintenance drone.</B></span>"
 
 /obj/machinery/drone_fabricator/proc/count_drones()
@@ -62,7 +62,7 @@
 	if(stat & NOPOWER)
 		return
 
-	if(!produce_drones || !config.allow_drone_spawn || count_drones() >= config.max_maint_drones)
+	if(!produce_drones || !CONFIG_GET(flag/allow_drone_spawn) || count_drones() >= CONFIG_GET(number/max_maint_drones))
 		return
 
 	if(!player || !istype(player.mob,/mob/dead))
@@ -84,7 +84,7 @@
 	set name = "Join As Drone"
 	set desc = "If there is a powered, enabled fabricator in the game world with a prepared chassis, join as a maintenance drone."
 
-	if(!(config.allow_drone_spawn))
+	if(!(CONFIG_GET(flag/allow_drone_spawn)))
 		to_chat(src, "<span class='warning'>That verb is not currently permitted.</span>")
 		return
 
@@ -104,7 +104,7 @@
 
 	var/drone_age = 14 // 14 days to play as a drone
 	var/player_age_check = check_client_age(usr.client, drone_age)
-	if(player_age_check && config.use_age_restriction_for_antags)
+	if(player_age_check && CONFIG_GET(flag/use_age_restriction_for_antags))
 		to_chat(usr, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
 		return
 
@@ -134,9 +134,9 @@
 		pluralcheck = " [deathtimeminutes] minutes and"
 	var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10,1)
 
-	if(deathtimeminutes < config.respawn_delay_drone && joinedasobserver == 0)
+	if(deathtimeminutes < CONFIG_GET(number/respawn_delay_drone) && joinedasobserver == 0)
 		to_chat(usr, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
-		to_chat(usr, "<span class='warning'>You must wait [config.respawn_delay_drone] minutes to respawn as a drone!</span>")
+		to_chat(usr, "<span class='warning'>You must wait [CONFIG_GET(number/respawn_delay_drone)] minutes to respawn as a drone!</span>")
 		return
 
 	if(alert("Are you sure you want to respawn as a drone?", "Are you sure?", "Yes", "No") != "Yes")
@@ -146,7 +146,7 @@
 		if(DF.stat & NOPOWER || !DF.produce_drones)
 			continue
 
-		if(DF.count_drones() >= config.max_maint_drones)
+		if(DF.count_drones() >= CONFIG_GET(number/max_maint_drones))
 			to_chat(src, "<span class='warning'>There are too many active drones in the world for you to spawn.</span>")
 			return
 

@@ -213,6 +213,10 @@
 	var/pressure_decrease = 0.25
 	var/obj/item/gun/energy/kinetic_accelerator/kinetic_gun
 
+/obj/item/projectile/kinetic/mech
+	range = 5
+	power = 3 // more power for the god of power!
+
 /obj/item/projectile/kinetic/pod
 	range = 4
 
@@ -476,7 +480,7 @@
 /obj/item/borg/upgrade/modkit/hardness
 	name = "hardness increase"
 	desc = "Increases the maximum piercing power of a kinetic accelerator when installed."
-	cost = 10
+	cost = 50 //balance reasons
 
 /obj/item/borg/upgrade/modkit/hardness/modify_projectile(obj/item/projectile/kinetic/K)
 	K.power += modifier

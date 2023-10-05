@@ -1,6 +1,8 @@
 // Atoms
 #define isatom(A) (isloc(A))
 
+#define isdatum(thing) (istype(thing, /datum))
+
 // Mobs
 #define ismegafauna(A) istype(A, /mob/living/simple_animal/hostile/megafauna)
 
@@ -23,6 +25,8 @@
 #define ismachinery(A) (istype(A, /obj/machinery))
 
 #define ismecha(A) (istype(A, /obj/mecha))
+
+#define isvampirecoffin(A) (istype(A, /obj/structure/closet/coffin/vampire))
 
 #define isspacepod(A) (istype(A, /obj/spacepod))
 
@@ -108,6 +112,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define isaliensentinel(A) (istype(A, /mob/living/carbon/alien/humanoid/sentinel))
 
 #define isslime(A)		(istype((A), /mob/living/simple_animal/slime))
+
+#define isvampireanimal(A)		(istype((A), /mob/living/simple_animal/hostile/vampire))
 
 //Structures
 #define isstructure(A)	(istype((A), /obj/structure))

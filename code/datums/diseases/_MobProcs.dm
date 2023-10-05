@@ -29,28 +29,7 @@
 /mob/proc/ContractDisease(datum/disease/D)
 	if(!CanContractDisease(D))
 		return 0
-	AddDisease(D)
-
-
-/mob/proc/AddDisease(datum/disease/D)
-	var/datum/disease/DD = new D.type()
-	viruses += DD
-	DD.affected_mob = src
-	GLOB.active_diseases += DD //Add it to the active diseases list, now that it's actually in a mob and being processed.
-
-	//Copy properties over. This is so edited diseases persist.
-	var/list/skipped = list("affected_mob","holder","carrier","stage","type","parent_type","vars","transformed")
-	for(var/V in DD.vars)
-		if(V in skipped)
-			continue
-		if(istype(DD.vars[V],/list))
-			var/list/L = D.vars[V]
-			DD.vars[V] = L.Copy()
-		else
-			DD.vars[V] = D.vars[V]
-
-	DD.affected_mob.med_hud_set_status()
-
+	D.Contract(src)
 
 /mob/living/carbon/ContractDisease(datum/disease/D)
 	if(!CanContractDisease(D))
@@ -123,7 +102,7 @@
 		passed = (prob((50*D.permeability_mod) - 1))
 
 	if(passed)
-		AddDisease(D)
+		D.Contract(src)
 
 
 /**
@@ -137,7 +116,7 @@
 /mob/proc/ForceContractDisease(datum/disease/D)
 	if(!CanContractDisease(D))
 		return FALSE
-	AddDisease(D)
+	D.Contract(src)
 	return TRUE
 
 

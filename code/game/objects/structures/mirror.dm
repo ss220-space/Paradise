@@ -99,7 +99,7 @@
 	if(abs(incidence_s) > 90 && abs(incidence_s) < 270)
 		return FALSE
 	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + incidence_s)
-	P.setAngle(new_angle_s)
+	P.set_angle(new_angle_s)
 	visible_message("<span class='warning'>[P] reflects off [src]!</span>")
 	return TRUE
 
@@ -145,7 +145,7 @@
 
 		if("Body")
 			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian")
-			if(config.usealienwhitelist)
+			if(CONFIG_GET(flag/usealienwhitelist))
 				for(var/Spec in GLOB.whitelisted_species)
 					if(is_alien_whitelisted(H, Spec))
 						race_list += Spec

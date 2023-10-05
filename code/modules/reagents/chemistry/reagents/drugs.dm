@@ -385,6 +385,8 @@
 
 
 /datum/reagent/methamphetamine/on_mob_add(mob/living/L)
+	if(ismachineperson(L))
+		return
 	ADD_TRAIT(L, TRAIT_GOTTAGOFAST, id)
 
 
@@ -883,7 +885,8 @@
 
 
 /datum/reagent/lube/ultra/on_mob_add(mob/living/L)
-	ADD_TRAIT(L, TRAIT_GOTTAGOFAST, id)
+	if(ismachineperson(L))
+		ADD_TRAIT(L, TRAIT_GOTTAGOFAST, id)
 
 
 /datum/reagent/lube/ultra/on_mob_life(mob/living/M)

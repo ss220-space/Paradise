@@ -2,46 +2,70 @@
 	name = "projectile"
 	icon = 'icons/obj/weapons/projectiles.dmi'
 	icon_state = "bullet"
-	density = 0
+	density = FALSE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	anchored = 1 //There's a reason this is here, Mport. God fucking damn it -Agouri. Find&Fix by Pete. The reason this is here is to stop the curving of emitter shots.
+	anchored = TRUE //There's a reason this is here, Mport. God fucking damn it -Agouri. Find&Fix by Pete. The reason this is here is to stop the curving of emitter shots.
 	flags = ABSTRACT
 	pass_flags = PASSTABLE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	hitsound = 'sound/weapons/pierce.ogg'
 	var/hitsound_wall = ""
-	var/def_zone = ""	//Aiming at
-	var/mob/firer = null//Who shot it
+	/// Body part at which the projectile was aimed.
+	var/def_zone = ""
+	/// Mob who shot projectile.
+	var/mob/firer = null
+	/// The gun or object projectile came from.
+	var/atom/firer_source_atom = null
 	var/obj/item/ammo_casing/ammo_casing = null
-	var/suppressed = 0	//Attack message
+	/// Used to determine sound and attack message.
+	var/suppressed = FALSE
 	var/yo = null
 	var/xo = null
 	var/current = null
-	var/atom/original = null // the original target clicked
-	var/turf/starting = null // the projectile's starting turf
-	var/list/permutated = list() // we've passed through these atoms, don't try to hit them again
-	var/paused = FALSE //for suspending the projectile midair
+	/// Original target clicked.
+	var/atom/original = null
+	/// Projectile's starting turf.
+	var/turf/starting = null
+	/// List of atoms we have passed through, don't try to hit them again.
+	var/list/permutated
+	/// Used for suspending the projectile midair.
+	var/paused = FALSE
+	/// The pixel location X of the tile that the player clicked. Default is the center.
 	var/p_x = 16
-	var/p_y = 16 // the pixel location of the tile that the player clicked. Default is the center
-	var/speed = 0.2			//Amount of deciseconds it takes for projectile to travel
+	/// The pixel location Y of the tile that the player clicked. Default is the center.
+	var/p_y = 16
+	/// Amount of deciseconds it takes for projectile to travel.
+	var/speed = 0.5
 	var/Angle = null
-	var/spread = 0			//amount (in degrees) of projectile spread
-	var/shockbull
+	/// Amount (in degrees) of projectile spread.
+	var/spread = 0
+	/// If set to `TRUE` [/obj/item/hardsuit_taser_proof] upgrage will block this projectile.
+	var/shockbull = FALSE
 	animate_movement = 0
 
 	var/ignore_source_check = FALSE
 
 	var/damage = 10
-	var/tile_dropoff = 0	//how much damage should be decremented as the bullet moves
-	var/tile_dropoff_s = 0	//same as above but for stamina
-	var/damage_type = BRUTE //BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here
-	var/nodamage = FALSE //Determines if the projectile will skip any damage inflictions
-	var/flag = "bullet" //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb	//Cael - bio and rad are also valid
+	/// How much damage should be decremented as the bullet moves.
+	var/tile_dropoff = 0
+	/// How much stamina damage should be decremented as the bullet moves.
+	var/tile_dropoff_s = 0
+	/// BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here.
+	var/damage_type = BRUTE
+	/// Determines if the projectile will skip any damage inflictions.
+	var/nodamage = FALSE
+	/// Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb	//Cael - bio and rad are also valid
+	var/flag = BULLET
 	var/projectile_type = "/obj/item/projectile"
-	var/range = 50 //This will de-increment every step. When 0, it will delete the projectile.
+	/// This will de-increment every step. When 0, it will delete the projectile.
+	var/range = 50
 	/// Determines the reflectability level of a projectile, either REFLECTABILITY_NEVER, REFLECTABILITY_PHYSICAL, REFLECTABILITY_ENERGY in order of ease to reflect.
 	var/reflectability = REFLECTABILITY_PHYSICAL
-	var/fire_log_text //Full log text. gets filled in fire() type, damage, reagents e.t.c.
+	/// Full log text. gets filled in fire() type, damage, reagents e.t.c.
+	var/fire_log_text
+	/// Whether print to admin attack logs or just keep it in the diary. example: laser tag or practice lasers
+	var/log_override = FALSE
+
 	//Effects
 	var/stun = 0
 	var/weaken = 0
@@ -53,9 +77,13 @@
 	var/drowsy = 0
 	var/stamina = 0
 	var/jitter = 0
-	var/forcedodge = 0 //to pass through everything
-	var/dismemberment = 0 //The higher the number, the greater the bonus to dismembering. 0 will not dismember at all.
-	var/impact_effect_type //what type of impact effect to show when hitting something
+
+	/// Number of times an object can pass through an object. -1 is infinite
+	var/forcedodge = 0
+	/// The higher the number, the greater the bonus to dismembering. 0 will not dismember at all.
+	var/dismemberment = 0
+	/// What type of impact effect to show when hitting something
+	var/impact_effect_type
 	var/ricochets = 0
 	var/ricochets_max = 2
 	var/ricochet_chance = 30
@@ -63,14 +91,30 @@
 	/// For when you want your projectile to have a chain coming out of the gun
 	var/chain = null
 
-	var/log_override = FALSE //whether print to admin attack logs or just keep it in the diary. example: laser tag or practice lasers
+	/// Last world.time the projectile proper moved
+	var/last_projectile_move = 0
+	/// Left over ticks in movement calculation
+	var/time_offset = 0
+	/// The projectile's trajectory
+	var/datum/point_precise/vector/trajectory
+	/// Instructs forceMove to NOT reset our trajectory to the new location!
+	var/trajectory_ignore_forcemove = FALSE
 
-	var/dismember_limbs = FALSE //if true, projectile with dismemberment will cut limbs instead of gib them
-	var/dismember_head = FALSE  //if true, projectile with dismemberment will forcefully cut head instead of gibbing them
+	/// Does this projectile do extra damage to / break shields? Not implemented currently.
+	var/shield_buster = FALSE
+	/// Does this projectile ignores def zone calculations. Used for sniper bullets.
+	var/forced_accuracy = FALSE
+
+	/// If `TRUE`, projectile with dismemberment will cut limbs instead of gib them
+	var/dismember_limbs = FALSE
+	/// If `TRUE`, projectile with dismemberment will forcefully cut head instead of gibbing them
+	var/dismember_head = FALSE
+
 
 /obj/item/projectile/New()
 	permutated = list()
 	return ..()
+
 
 /obj/item/projectile/proc/Range()
 	range--
@@ -83,33 +127,43 @@
 	if(!damage && !stamina && (tile_dropoff || tile_dropoff_s))
 		on_range()
 
-/obj/item/projectile/proc/on_range() //if we want there to be effects when they reach the end of their range
+
+/**
+ * If we want there to be effects when they reach the end of their range
+ */
+/obj/item/projectile/proc/on_range()
 	qdel(src)
+
 
 /obj/item/projectile/proc/prehit(atom/target)
 	return TRUE
+
 
 /obj/item/projectile/proc/on_hit(atom/target, blocked = 0, hit_zone)
 	var/turf/target_loca = get_turf(target)
 	var/hitx
 	var/hity
+
 	if(target == original)
 		hitx = target.pixel_x + p_x - 16
 		hity = target.pixel_y + p_y - 16
 	else
 		hitx = target.pixel_x + rand(-8, 8)
 		hity = target.pixel_y + rand(-8, 8)
+
 	if(!nodamage && (damage_type == BRUTE || damage_type == BURN) && iswallturf(target_loca) && prob(75))
 		var/turf/simulated/wall/W = target_loca
 		if(impact_effect_type)
 			new impact_effect_type(target_loca, hitx, hity)
 
 		W.add_dent(WALL_DENT_SHOT, hitx, hity)
-		return 0
+		return FALSE
+
 	if(!isliving(target))
 		if(impact_effect_type)
 			new impact_effect_type(target_loca, hitx, hity)
-		return 0
+		return FALSE
+
 	var/mob/living/L = target
 	var/mob/living/carbon/human/H
 	var/organ_hit_text = ""
@@ -126,6 +180,7 @@
 					H = target
 					blood_color = H.dna.species.blood_color
 				new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir, blood_color)
+
 			if(prob(33))
 				var/list/shift = list("x" = 0, "y" = 0)
 				var/turf/step_over = get_step(target_loca, splatter_dir)
@@ -140,10 +195,12 @@
 						M.bloody_hands(H)
 						/* Uncomment when bloody_body stops randomly not transferring blood colour.
 						M.bloody_body(H) */
+
 		else if(impact_effect_type)
 			new impact_effect_type(target_loca, hitx, hity)
 		if(L.has_limbs)
 			organ_hit_text = " in \the [parse_zone(def_zone)]"
+
 		if(suppressed)
 			playsound(loc, hitsound, 5, 1, -1)
 			to_chat(L, "<span class='userdanger'>You're shot by \a [src][organ_hit_text]!</span>")
@@ -159,12 +216,18 @@
 				if(L.mind == objective.target)
 					objective.take_damage(damage, damage_type)
 
+	var/were_affects_applied = L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
+
 	if(!log_override && firer && original)
 		add_attack_logs(firer, L, "Shot[organ_hit_text][blocked ? " blocking [blocked]%" : null]. [fire_log_text]")
 
-	return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
+	return were_affects_applied
 
-/obj/item/projectile/proc/get_splatter_blockage(var/turf/step_over, var/atom/target, var/splatter_dir, var/target_loca) //Check whether the place we want to splatter blood is blocked (i.e. by windows).
+
+/**
+ * Checks whether the place we want to splatter blood is blocked (i.e. by windows).
+ */
+/obj/item/projectile/proc/get_splatter_blockage(turf/step_over, atom/target, splatter_dir, target_loca)
 	var/turf/step_cardinal = !(splatter_dir in list(NORTH, SOUTH, EAST, WEST)) ? get_step(target_loca, get_cardinal_dir(target_loca, step_over)) : null
 
 	if(step_over.density && !step_over.CanPass(target, step_over, 1)) //Preliminary simple check.
@@ -173,15 +236,17 @@
 		if(border_obstacle.flags&ON_BORDER && get_dir(step_cardinal ? step_cardinal : target_loca, step_over) ==  turn(border_obstacle.dir, 180))
 			return TRUE
 
+
 /obj/item/projectile/proc/vol_by_damage()
 	if(damage)
 		return clamp((damage) * 0.67, 30, 100)// Multiply projectile damage by 0.67, then clamp the value between 30 and 100
 	else
 		return 50 //if the projectile doesn't do damage, play its hitsound at 50% volume
 
+
 /obj/item/projectile/Bump(atom/A, yes)
 	if(!yes) //prevents double bumps.
-		return
+		return FALSE
 
 	if(check_ricochet(A) && check_ricochet_flag(A) && ricochets < ricochets_max && is_reflectable(REFLECTABILITY_PHYSICAL))
 		ricochets++
@@ -193,10 +258,14 @@
 	if(firer && !ignore_source_check)
 		if(A == firer || (A == firer.loc && ismecha(A))) //cannot shoot yourself or your mech
 			loc = A.loc
-			return 0
+			return FALSE
 
 	var/distance = get_dist(get_turf(A), starting) // Get the distance between the turf shot from and the mob we hit and use that for the calculations.
-	def_zone = ran_zone(def_zone, max(100-(7*distance), 5)) //Lower accurancy/longer range tradeoff. 7 is a balanced number to use.
+	if(!forced_accuracy)
+		if(get_dist(A, original) <= 1)
+			def_zone = ran_zone(def_zone, max(100 - (7 * distance), 5)) //Lower accurancy/longer range tradeoff. 7 is a balanced number to use.
+		else
+			def_zone = pick(list("head", "chest", "l_arm", "r_arm", "l_leg", "r_leg")) // If we were aiming at one target but another one got hit, no accuracy is applied
 
 	if(isturf(A) && hitsound_wall)
 		var/volume = clamp(vol_by_damage() + 20, 0, 100)
@@ -207,16 +276,18 @@
 		var/mob/living/carbon/human/H = A
 		var/obj/item/organ/external/organ = H.get_organ(check_zone(def_zone))
 		if(isnull(organ))
-			return
+			return FALSE
 
 	var/turf/target_turf = get_turf(A)
 	prehit(A)
 	var/permutation = A.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
 	if(permutation == -1 || forcedodge)// the bullet passes through a dense object!
+		if(forcedodge > 0)
+			forcedodge -= 1
 		loc = target_turf
 		if(A)
 			permutated.Add(A)
-		return 0
+		return FALSE
 	else
 		if(A && A.density && !ismob(A) && !(A.flags & ON_BORDER)) //if we hit a dense non-border obj or dense turf then we also hit one of the mobs on that tile.
 			var/list/mobs_list = list()
@@ -228,108 +299,140 @@
 				picked_mob.bullet_act(src, def_zone)
 	qdel(src)
 
-/obj/item/projectile/Process_Spacemove(var/movement_dir = 0)
-	return 1 //Bullets don't drift in space
 
-/obj/item/projectile/proc/fire(var/setAngle)
-	set waitfor = FALSE
+/obj/item/projectile/Process_Spacemove(var/movement_dir = 0)
+	return TRUE //Bullets don't drift in space
+
+
+/obj/item/projectile/process()
+	if(!loc || !trajectory)
+		return PROCESS_KILL
+	if(paused || !isturf(loc))
+		last_projectile_move = world.time
+		return
+	var/elapsed_time_deciseconds = (world.time - last_projectile_move) + time_offset
+	time_offset = 0
+	var/required_moves = FLOOR(elapsed_time_deciseconds / speed, 1)
+	if(required_moves > SSprojectiles.global_max_tick_moves)
+		var/overrun = required_moves - SSprojectiles.global_max_tick_moves
+		required_moves = SSprojectiles.global_max_tick_moves
+		time_offset += overrun * speed
+	time_offset += MODULUS(elapsed_time_deciseconds, speed)
+
+	for(var/i in 1 to required_moves)
+		pixel_move(1)
+
+
+/obj/item/projectile/proc/pixel_move(trajectory_multiplier)
+	if(!loc || !trajectory)
+		return
+	last_projectile_move = world.time
+	// Keep on course
+	var/matrix/M = new
+	M.Turn(Angle)
+	transform = M
+	// Iterate
+	var/forcemoved = FALSE
+	for(var/i in 1 to SSprojectiles.global_iterations_per_move)
+		if(QDELETED(src))
+			return
+		trajectory.increment(trajectory_multiplier)
+		var/turf/T = trajectory.return_turf()
+		if(!istype(T))
+			qdel(src)
+			return
+		if(T.z != loc.z)
+			trajectory_ignore_forcemove = TRUE
+			forceMove(T)
+			trajectory_ignore_forcemove = FALSE
+			pixel_x = trajectory.return_px()
+			pixel_y = trajectory.return_py()
+			forcemoved = TRUE
+		else if(T != loc)
+			step_towards(src, T)
+		if(original && (original.layer >= PROJECTILE_HIT_THRESHHOLD_LAYER || ismob(original)))
+			if(loc == get_turf(original) && !(original in permutated))
+				Bump(original, TRUE)
+	if(QDELETED(src)) //deleted on last move
+		return
+	if(!forcemoved)
+		pixel_x = trajectory.return_px() - trajectory.mpx * trajectory_multiplier * SSprojectiles.global_iterations_per_move
+		pixel_y = trajectory.return_py() - trajectory.mpy * trajectory_multiplier * SSprojectiles.global_iterations_per_move
+		animate(src, pixel_x = trajectory.return_px(), pixel_y = trajectory.return_py(), time = 1, flags = ANIMATION_END_NOW)
+	Range()
+
+
+/obj/item/projectile/proc/fire(setAngle)
 	if(setAngle)
 		Angle = setAngle
 
 	if(!log_override && firer && original)
-		fire_log_text += " [type] ([nodamage ? "no damage" : "[damage_type] [damage]"], "
+		fire_log_text += "Projectile: <small>'[type]'</small> | Harm: [nodamage ? "<small>NO DAMAGE</small>" : "<small>[uppertext(damage_type)] = </small>[damage]"]"
 		if(reagents && reagents.reagent_list)
 			var/reagent_note
-			for(var/datum/reagent/R in reagents.reagent_list)
-				reagent_note += "[R.volume] [R], "
-			fire_log_text += "containing \[[reagent_note]\]"
-		fire_log_text += ")"
+			var/list/temp = reagents.reagent_list.Copy()
+			for(var/datum/reagent/R in temp)
+				temp -= R
+				reagent_note += "<small>[R] = </small>[R.volume]u"
+				if(length(temp))
+					reagent_note += ", "
+			fire_log_text += " | Reagents: [reagent_note]"
 
 		add_attack_logs(firer, original, "Fired at. [fire_log_text]")
 
-	while(!QDELETED(src))
-		if(!paused)
-			if((!current || loc == current))
-				current = locate(clamp(x + xo, 1, world.maxx), clamp(y + yo, 1, world.maxy), z)
-			if(isnull(Angle))
-				Angle = round(Get_Angle(src, current))
-			if(spread)
-				Angle += (rand() - 0.5) * spread
-			var/matrix/M = new
-			M.Turn(Angle)
-			transform = M
+	if(!current || loc == current)
+		current = locate(clamp(x + xo, 1, world.maxx), clamp(y + yo, 1, world.maxy), z)
+	if(isnull(Angle))
+		Angle = round(get_angle(src, current))
+	if(spread)
+		Angle += (rand() - 0.5) * spread
+	// Turn right away
+	var/matrix/M = new
+	M.Turn(Angle)
+	transform = M
+	// Start flying
+	trajectory = new(x, y, z, pixel_x, pixel_y, Angle, SSprojectiles.global_pixel_speed)
+	last_projectile_move = world.time
+	START_PROCESSING(SSprojectiles, src)
+	pixel_move(1, FALSE)
 
-			var/Pixel_x = round(sin(Angle) + 16 * sin(Angle) * 2, 1)
-			var/Pixel_y = round(cos(Angle) + 16 * cos(Angle) * 2, 1)
-			var/pixel_x_offset = pixel_x + Pixel_x
-			var/pixel_y_offset = pixel_y + Pixel_y
-			var/new_x = x
-			var/new_y = y
-
-			while(pixel_x_offset > 16)
-				pixel_x_offset -= 32
-				pixel_x -= 32
-				new_x++ // x++
-			while(pixel_x_offset < -16)
-				pixel_x_offset += 32
-				pixel_x += 32
-				new_x--
-
-			while(pixel_y_offset > 16)
-				pixel_y_offset -= 32
-				pixel_y -= 32
-				new_y++
-			while(pixel_y_offset < -16)
-				pixel_y_offset += 32
-				pixel_y += 32
-				new_y--
-
-			//speed = round(speed)
-			step_towards(src, locate(new_x, new_y, z))
-			if(QDELETED(src)) // It hit something during the move
-				return
-			if(speed <= 1)
-				pixel_x = pixel_x_offset
-				pixel_y = pixel_y_offset
-			else
-				animate(src, pixel_x = pixel_x_offset, pixel_y = pixel_y_offset, time = max(1, (speed <= 3 ? speed - 1 : speed)))
-
-			if(original && (original.layer >= 2.75 || ismob(original)))
-				if(loc == get_turf(original))
-					if(!(original in permutated))
-						Bump(original, TRUE)
-			Range()
-		sleep(max(0.5, speed))
 
 /obj/item/projectile/proc/reflect_back(atom/source, list/position_modifiers = list(0, 0, 0, 0, 0, -1, 1, -2, 2))
-	if(starting)
-		var/new_x = starting.x + pick(position_modifiers)
-		var/new_y = starting.y + pick(position_modifiers)
-		var/turf/curloc = get_turf(source)
+	if(!starting)
+		return
+	var/new_x = starting.x + pick(position_modifiers)
+	var/new_y = starting.y + pick(position_modifiers)
+	var/turf/curloc = get_turf(source)
+	if(!curloc)
+		return
 
-		if(ismob(source))
-			firer = source // The reflecting mob will be the new firer
-		else
-			firer = null // Reflected by something other than a mob so firer will be null
+	if(ismob(source))
+		firer = source // The reflecting mob will be the new firer
 
-		// redirect the projectile
-		original = locate(new_x, new_y, z)
-		starting = curloc
-		current = curloc
-		yo = new_y - curloc.y
-		xo = new_x - curloc.x
-		Angle = null // Will be calculated in fire()
+	// redirect the projectile
+	original = locate(new_x, new_y, z)
+	starting = curloc
+	current = curloc
+	yo = new_y - curloc.y
+	xo = new_x - curloc.x
+	set_angle(get_angle(curloc, original))
+
 
 /obj/item/projectile/Crossed(atom/movable/AM, oldloc) //A mob moving on a tile with a projectile is hit by it.
 	..()
 	if(isliving(AM) && AM.density && !checkpass(PASSMOB))
 		Bump(AM, 1)
 
+
 /obj/item/projectile/Destroy()
+	STOP_PROCESSING(SSprojectiles, src)
 	ammo_casing = null
+	firer_source_atom = null
+	firer = null
 	return ..()
 
-/obj/item/projectile/proc/dumbfire(var/dir)
+
+/obj/item/projectile/proc/dumbfire(dir)
 	current = get_ranged_target_turf(src, dir, world.maxx) //world.maxx is the range. Not sure how to handle this better.
 	fire()
 
@@ -337,22 +440,42 @@
 /obj/item/projectile/proc/on_ricochet(atom/A)
 	return
 
+
 /obj/item/projectile/proc/check_ricochet()
 	if(prob(ricochet_chance))
 		return TRUE
 	return FALSE
+
 
 /obj/item/projectile/proc/check_ricochet_flag(atom/A)
 	if(A.flags_2 & CHECK_RICOCHET_2)
 		return TRUE
 	return FALSE
 
-/obj/item/projectile/proc/setAngle(new_angle)	//wrapper for overrides.
+
+/obj/item/projectile/set_angle(new_angle)
+	..()
 	Angle = new_angle
-	return TRUE
+	trajectory.set_angle(new_angle)
+
+
+/obj/item/projectile/proc/set_angle_centered(new_angle)
+	set_angle(new_angle)
+	var/list/coordinates = trajectory.return_coordinates()
+	trajectory.set_location(coordinates[1], coordinates[2], coordinates[3]) // Sets the trajectory to the center of the tile it bounced at
+
 
 /obj/item/projectile/experience_pressure_difference()
 	return
+
+
+/obj/item/projectile/forceMove(atom/target)
+	. = ..()
+	if(QDELETED(src)) // we coulda bumped something
+		return
+	if(trajectory && !trajectory_ignore_forcemove && isturf(target))
+		trajectory.initialize_location(target.x, target.y, target.z, 0, 0)
+
 
 /obj/item/projectile/proc/is_reflectable(desired_reflectability_level)
 	if(reflectability == REFLECTABILITY_NEVER) //You'd trust coders not to try and override never reflectable things, but heaven help us I do not

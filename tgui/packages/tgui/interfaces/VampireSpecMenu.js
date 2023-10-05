@@ -14,6 +14,8 @@ export const VampireSpecMenu = (props, context) => {
           <GarMenu />
           <Divider vertical={1} />
           <DantMenu />
+          <Divider vertical={1} />
+          <BestMenu />
         </Flex>
       </Window.Content>
     </Window>
@@ -216,6 +218,63 @@ const DantMenu = (props, context) => {
           everyone nearby perceive others to looks like random animals.
         </p>
         <Button content="Dantalion" onClick={() => act('dantalion')} />
+      </Section>
+    </Flex.Item>
+  );
+};
+
+const BestMenu = (props, context) => {
+  const { act, data } = useBackend(context);
+  const { subclasses } = data;
+  return (
+    <Flex.Item grow={1} basis="25%">
+      <Section title="Bestia">
+        <h3>Focuses on transformations and trophies harvesting.</h3>
+        <p>
+          <b>Check Trophies</b>: Unlocked at 150 blood, allows you to check
+          current trophies amount and all the passive effects they provide.
+        </p>
+        <p>
+          <b>Dissect</b>: Unlocked at 150 blood, main source of gaining power, besides blood,
+          allows you to harvest human organs, as a trophies, to passively increase your might.
+        </p>
+        <p>
+          <b>Dissect Cap</b>: You can only harvest one organ trophie at a time.
+          This can be increased at 600 blood and at full power to a
+          max of 3 trophies per victim.
+        </p>
+        <p>
+          <b>Infected Trophy</b>: Unlocked at 150 blood, allows you to stun enemies
+          from the safe distance and infect them with the deadly Grave Fever.
+        </p>
+        <p>
+          <b>Lunge</b>: Unlocked at 250 blood, allows you to rapidly close distance
+          to a victim or escape a dangerous situation.
+        </p>
+        <p>
+          <b>Mark the Prey</b>: Unlocked at 250 blood, allows you to mark a victim
+          which drastically reduces their movement speed and forces them
+          to take spontaneous actions.
+        </p>
+        <p>
+          <b>Metamorphosis - Bats</b>: Unlocked at 400 blood, allows you to shapeshift
+          into the deadly and vicious space bats swarm.
+        </p>
+        <p>
+          <b>Anabiosis</b>: Unlocked at 600 blood, ancient technique which
+          allows you to cure almost any wounds while sleeping in a coffin.
+        </p>
+        <p>
+          <b>Summon Bats</b>: Unlocked at 800 blood, allows you to call extraplanar
+          space bats to aid you in combat.
+        </p>
+        <p>
+          <b>Full Power</b>
+          <Divider />
+          <b>Metamorphosis - Hound</b>: Allows you to shapeshift into the ultimate
+          form of bluespace entity which took over your soul.
+        </p>
+        <Button content="Bestia" onClick={() => act('bestia')} />
       </Section>
     </Flex.Item>
   );

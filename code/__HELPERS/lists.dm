@@ -115,6 +115,12 @@
 		return
 	return pick(list)
 
+/// Returns the top (last) element from the list, does not remove it from the list. Stack functionality.
+/proc/peek(list/target_list)
+	var/list_length = length(target_list)
+	if(list_length != 0)
+		return target_list[list_length]
+
 //Checks if the list is empty
 /proc/isemptylist(list/list)
 	if(!list.len)
@@ -911,3 +917,9 @@ proc/dd_sortedObjectList(list/incoming)
 		return
 	while(check in list)
 		list -= check
+
+
+///sort any value in a list
+/proc/sort_list(list/list_to_sort, cmp = /proc/cmp_text_asc)
+	return sortTim(list_to_sort.Copy(), cmp)
+

@@ -317,8 +317,8 @@
 	if(pulling == I)
 		stop_pulling()
 
-	// Qdel on equip happened
-	if(QDELETED(I))
+	// Qdel or loc change on equip happened
+	if(QDELETED(I) || I.loc != src)
 		if(hand_id == "HAND_LEFT")
 			l_hand = null
 			update_inv_l_hand()

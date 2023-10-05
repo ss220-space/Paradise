@@ -75,9 +75,9 @@
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
-	new welded_type(user.loc)
+	new welded_type(drop_location())
 	var/new_amount = 0
-	for(var/obj/item/stack/sheet/G in user.loc)
+	for(var/obj/item/stack/sheet/G in drop_location())
 		if(!istype(G, welded_type))
 			continue
 		if(G.amount >= G.max_amount)

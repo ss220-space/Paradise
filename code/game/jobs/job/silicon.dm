@@ -36,5 +36,8 @@
 
 /datum/job/cyborg/equip(mob/living/carbon/human/H)
 	if(!H)
-		return 0
-	return H.Robotize()
+		return FALSE
+	var/mob/living/silicon/robot/new_robot = H.Robotize()
+	if(new_robot)
+		SSticker?.score?.save_silicon_laws(new_robot, additional_info = "job assignment", log_all_laws = TRUE)
+	return new_robot

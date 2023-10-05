@@ -213,8 +213,9 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "P" = (
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered)
+/area/lavaland/surface/outdoors)
 "Q" = (
 /turf/simulated/mineral/random/high_chance/volcanic,
 /area/lavaland/surface/outdoors)
@@ -852,8 +853,8 @@ a
 s
 s
 f
-f
-f
+P
+P
 "}
 (17,1,1) = {"
 T
@@ -888,9 +889,9 @@ F
 A
 s
 Y
-f
-f
-f
+P
+P
+P
 "}
 (18,1,1) = {"
 T
@@ -925,9 +926,9 @@ m
 F
 F
 P
-f
-f
-f
+P
+P
+P
 "}
 (19,1,1) = {"
 T
@@ -962,8 +963,8 @@ m
 d
 E
 P
-f
-f
+P
+P
 T
 "}
 (20,1,1) = {"
@@ -998,9 +999,9 @@ m
 j
 A
 s
-f
-f
-f
+P
+P
+P
 T
 "}
 (21,1,1) = {"
@@ -1036,7 +1037,7 @@ d
 a
 a
 N
-f
+P
 T
 T
 "}
@@ -1391,11 +1392,11 @@ f
 N
 N
 N
-f
-f
-f
-f
-f
+P
+P
+P
+P
+P
 N
 N
 N
@@ -1429,9 +1430,9 @@ N
 N
 N
 N
-f
-f
-f
+P
+P
+P
 N
 N
 f
@@ -1467,8 +1468,8 @@ N
 N
 T
 f
-f
-f
+P
+P
 N
 N
 N
@@ -1504,7 +1505,7 @@ T
 T
 T
 T
-f
+P
 T
 T
 T
@@ -1541,7 +1542,7 @@ T
 T
 T
 T
-f
+P
 T
 T
 T

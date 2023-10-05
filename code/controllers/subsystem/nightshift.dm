@@ -16,9 +16,9 @@ SUBSYSTEM_DEF(nightshift)
 
 
 /datum/controller/subsystem/nightshift/Initialize()
-	if(!config.enable_night_shifts)
+	if(!CONFIG_GET(flag/enable_night_shifts))
 		flags |= SS_NO_FIRE
-	if(config.randomize_shift_time)
+	if(CONFIG_GET(flag/randomize_shift_time))
 		GLOB.gametime_offset = rand(0, 23) HOURS
 
 
@@ -46,7 +46,7 @@ SUBSYSTEM_DEF(nightshift)
 			if(!emergency)
 				announce("Система ночного освещения снова работает в штатном режиме.")
 			else
-				announce("Система ночного освещения отключена: на станции чрезвычайная ситуация.")
+				announce("Система ночного освещения отключена в связи с наличием существенной угрозы для станции. Пожалуйста, сохраняйте спокойствие.")
 	if(emergency)
 		night_time = FALSE
 	if(nightshift_active != night_time)

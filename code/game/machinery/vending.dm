@@ -101,22 +101,24 @@
 	var/force_no_power_icon_state = FALSE
 
 /obj/machinery/vending/Initialize(mapload)
-	var/build_inv = TRUE
-	if(refill_canister)
-		build_inv = FALSE
-		component_parts = list()
-		var/obj/item/circuitboard/vendor/V = new(null)
-		V.set_type(type)
-		component_parts += V
-		component_parts += new refill_canister(null)
-		RefreshParts()
 	. = ..()
+	var/build_inv = FALSE
+	if(!refill_canister)
+		build_inv = TRUE
+	else
+		component_parts = list()
+		var/obj/item/circuitboard/vendor/V = new
+		V.set_type(replacetext(name, "\improper", ""))
+		component_parts += V
+		component_parts += new refill_canister
+		RefreshParts()
+
 	wires = new(src)
 	if(build_inv) //non-constructable vending machine
 		build_inventory(products, product_records)
 		build_inventory(contraband, hidden_records)
 		build_inventory(premium, coin_records)
-	for (var/datum/data/vending_product/R in (product_records + coin_records + hidden_records))
+	for(var/datum/data/vending_product/R in (product_records + coin_records + hidden_records))
 		var/obj/item/I = R.product_path
 		var/pp = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-")
 		imagelist[pp] = "[icon2base64(icon(initial(I.icon), initial(I.icon_state)))]"
@@ -905,7 +907,7 @@
 	req_access = list(ACCESS_SYNDICATE)
 
 /obj/machinery/vending/coffee
-	name = "\improper Hot Drinks machine"
+	name = "\improper Solar's Best Hot Drinks"
 	desc = "A vending machine which dispenses hot drinks."
 	ads_list = list("Выпейте!","Выпьем!","На здоровье!","Не хотите горячего супчику?","Я бы убил за чашечку кофе!","Лучшие зёрна в галактике","Для Вас — только лучшие напитки","М-м-м-м… Ничто не сравнится с кофе","Я люблю кофе, а Вы?","Кофе помогает работать!","Возьмите немного чайку","Надеемся, Вы предпочитаете лучшее!","Отведайте наш новый шоколад!","Admin conspiracies")
 	icon_state = "coffee"
@@ -1077,8 +1079,9 @@
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
 
+
 /obj/machinery/vending/cigarette
-	name = "cigarette machine"
+	name = "ShadyCigs Deluxe"
 	desc = "If you want to get cancer, might as well do it in style."
 	slogan_list = list("Космосигареты весьма хороши на вкус, какими они и должны быть","I'd rather toolbox than switch.","Затянитесь!","Не верьте исследованиям — курите!")
 	ads_list = list("Наверняка не очень-то и вредно для Вас!","Не верьте учёным!","На здоровье!","Не бросайте курить, купите ещё!","Затянитесь!","Никотиновый рай","Лучшие сигареты с 2150 года","Сигареты с множеством наград")
@@ -1105,6 +1108,7 @@
 
 /obj/machinery/vending/cigarette/syndicate/free
 	prices = list()
+
 
 /obj/machinery/vending/cigarette/beach //Used in the lavaland_biodome_beach.dmm ruin
 	name = "\improper ShadyCigs Ultra"
@@ -1141,7 +1145,7 @@
 					/obj/item/stack/medical/splint = 4, /obj/item/reagent_containers/glass/beaker = 4, /obj/item/reagent_containers/dropper = 4, /obj/item/healthanalyzer = 4,
 					/obj/item/healthupgrade = 4, /obj/item/reagent_containers/hypospray/safety = 2, /obj/item/sensor_device = 2, /obj/item/pinpointer/crew = 2, /obj/item/reagent_containers/iv_bag/slime = 1)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/sulfonal = 1, /obj/item/reagent_containers/glass/bottle/pancuronium = 1)
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/medical
 
@@ -1161,6 +1165,7 @@
 					/obj/item/wirecutters = 1, /obj/item/assembly/timer = 8)
 	contraband = list(/obj/item/flashlight = 5, /obj/item/assembly/voice = 3, /obj/item/assembly/health = 3, /obj/item/assembly/infra = 3)
 
+
 /obj/machinery/vending/wallmed
 	name = "\improper NanoMed"
 	desc = "Wall-mounted Medical Equipment dispenser."
@@ -1170,7 +1175,7 @@
 	density = FALSE //It is wall-mounted, and thus, not dense. --Superxpdude
 	products = list(/obj/item/stack/medical/bruise_pack = 2, /obj/item/stack/medical/ointment = 2, /obj/item/reagent_containers/hypospray/autoinjector = 4, /obj/item/healthanalyzer = 1)
 	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4, /obj/item/reagent_containers/syringe/antiviral = 4, /obj/item/reagent_containers/food/pill/tox = 1)
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/wallmed
 
@@ -1183,6 +1188,7 @@
 	req_access = list(ACCESS_SYNDICATE)
 	products = list(/obj/item/stack/medical/bruise_pack = 2,/obj/item/stack/medical/ointment = 2,/obj/item/reagent_containers/hypospray/autoinjector = 4,/obj/item/healthanalyzer = 1)
 	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4,/obj/item/reagent_containers/syringe/antiviral = 4,/obj/item/reagent_containers/food/pill/tox = 1)
+
 
 /obj/machinery/vending/security
 	name = "\improper SecTech"
@@ -1322,6 +1328,7 @@
 	contraband = list(/obj/item/reagent_containers/glass/bottle/wizarditis = 1)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
+
 
 /obj/machinery/vending/autodrobe
 	name = "\improper AutoDrobe"
@@ -1521,8 +1528,10 @@
 					/obj/item/wrench = 5,/obj/item/analyzer = 5,/obj/item/t_scanner = 5,/obj/item/screwdriver = 5)
 	contraband = list(/obj/item/weldingtool/hugetank = 2,/obj/item/clothing/gloves/color/fyellow = 2)
 	premium = list(/obj/item/clothing/gloves/color/yellow = 1)
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
+	refill_canister = /obj/item/vending_refill/youtool
+	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
 	resistance_flags = FIRE_PROOF
+
 
 /obj/machinery/vending/engivend
 	name = "\improper Engi-Vend"
@@ -1628,6 +1637,7 @@
 	vend_delay = 34
 	icon_state = "cigs"
 	products = list(/obj/item/storage/fancy/cigarettes/syndicate = 10,/obj/item/lighter/random = 5)
+
 
 /obj/machinery/vending/syndisnack
 	name = "\improper Getmore Chocolate Corp"
@@ -1770,6 +1780,7 @@
 	contraband = list(/obj/item/toy/crayon/mime = 1,/obj/item/toy/crayon/rainbow = 1)
 	premium = list(/obj/item/poster/random_contraband = 5)
 
+
 /obj/machinery/vending/crittercare
 	name = "\improper CritterCare"
 	desc = "A vending machine for pet supplies."
@@ -1836,16 +1847,13 @@
 
 		/obj/item/clothing/under/rank/security			= 10,
 		/obj/item/clothing/under/rank/security/skirt 	= 10,
-		/obj/item/clothing/under/rank/security/cadet 	= 10,
-		/obj/item/clothing/under/rank/security/cadet/skirt 		= 10,
-		/obj/item/clothing/under/rank/security/cadet/assistant 	= 10,
-		/obj/item/clothing/under/rank/security/cadet/assistant/skirt = 10,
 		/obj/item/clothing/under/rank/security/formal 	= 5,
 		/obj/item/clothing/under/rank/security/corp 	= 5,
 		/obj/item/clothing/under/rank/security2 		= 5,
 		/obj/item/clothing/under/rank/dispatch 			= 5,
 
 		/obj/item/clothing/suit/tracksuit/red				= 5,
+		/obj/item/clothing/suit/hooded/wintercoat/security	= 5,
 
 		/obj/item/clothing/mask/balaclava 		= 10,
 		/obj/item/clothing/mask/bandana/red 	= 10,
@@ -1920,6 +1928,7 @@
 		/obj/item/clothing/suit/storage/labcoat 	= 10,
 		/obj/item/clothing/suit/apron/surgical 		= 10,
 		/obj/item/clothing/suit/storage/fr_jacket 	= 5,
+		/obj/item/clothing/suit/hooded/wintercoat/medical	= 5,
 
 		/obj/item/clothing/mask/surgical 		= 10,
 
@@ -1995,6 +2004,7 @@
 
 		/obj/item/clothing/suit/storage/hazardvest = 10,
 		/obj/item/clothing/suit/storage/suragi_jacket/eng = 5,
+		/obj/item/clothing/suit/hooded/wintercoat/engineering = 5,
 
 		/obj/item/clothing/mask/gas  = 10,
 		/obj/item/clothing/mask/bandana/red 	= 10,
@@ -2019,6 +2029,7 @@
 		/obj/item/clothing/under/rank/atmospheric_technician = 3,
 		/obj/item/clothing/under/rank/atmospheric_technician/skirt = 3,
 		/obj/item/clothing/head/beret/atmos = 3,
+		/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 5,
 		/obj/item/storage/backpack/duffel/atmos = 3.
 		)
 
@@ -2045,6 +2056,7 @@
 		/obj/item/clothing/suit/storage/labcoat/science = 10,
 		/obj/item/clothing/suit/storage/labcoat 		= 10,
 		/obj/item/clothing/suit/storage/suragi_jacket/sci = 5,
+		/obj/item/clothing/suit/hooded/wintercoat/medical/science = 5,
 
 		/obj/item/clothing/gloves/color/latex 	= 10,
 		/obj/item/clothing/gloves/color/white 	= 10,
@@ -2112,6 +2124,9 @@
 
 		/obj/item/clothing/under/pants/tan 		= 10,
 		/obj/item/clothing/under/pants/track 	= 10,
+
+		/obj/item/clothing/suit/hooded/wintercoat/cargo	= 5,
+		/obj/item/clothing/suit/hooded/wintercoat/miner	= 5,
 		)
 
 
@@ -2220,6 +2235,7 @@
 		/obj/item/clothing/suit/storage/suragi_jacket/botany = 3,
 		/obj/item/clothing/suit/apron = 4,
 		/obj/item/clothing/suit/apron/overalls = 2,
+		/obj/item/clothing/suit/hooded/wintercoat/hydro = 5,
 		/obj/item/clothing/mask/bandana/botany = 4,
 		/obj/item/clothing/accessory/scarf/green = 2,
 		/obj/item/clothing/head/flatcap = 2,
@@ -2468,3 +2484,36 @@
 	)
 	contraband = list(/obj/item/grenade/clusterbuster/cleaner = 1, /obj/item/storage/fancy/donut_box = 2, )
 	refill_canister = /obj/item/vending_refill/nta
+
+
+/obj/machinery/vending/pai
+	name = "\improper RoboFriends"
+	desc = "Wonderful vendor of PAI friends"
+	icon_state = "paivend"
+	ads_list = list("А вы любите нас?","Мы твои друзья!","Эта покупка войдет в историю","Я ПАИ простой, купишь меня, а я тебе друга!","Спасибо за покупку.")
+	resistance_flags = FIRE_PROOF
+	products = list(
+		/obj/item/paicard = 10,
+		/obj/item/pai_cartridge/female = 10,
+		/obj/item/pai_cartridge/doorjack = 5,
+		/obj/item/pai_cartridge/memory = 5,
+		/obj/item/pai_cartridge/reset = 5,
+		/obj/item/robot_parts/l_arm = 1,
+		/obj/item/robot_parts/r_arm = 1
+	)
+	contraband = list(
+		/obj/item/pai_cartridge/syndi_emote = 1,
+		/obj/item/pai_cartridge/snake = 1
+	)
+	prices = list(
+		/obj/item/paicard = 200,
+		/obj/item/robot_parts/l_arm = 550,
+		/obj/item/robot_parts/r_arm = 550,
+		/obj/item/pai_cartridge/female = 150,
+		/obj/item/pai_cartridge/doorjack = 400,
+		/obj/item/pai_cartridge/syndi_emote = 650,
+		/obj/item/pai_cartridge/snake = 600,
+		/obj/item/pai_cartridge/reset = 500,
+		/obj/item/pai_cartridge/memory = 350
+	)
+	refill_canister = /obj/item/vending_refill/pai

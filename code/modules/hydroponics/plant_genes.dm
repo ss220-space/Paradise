@@ -319,9 +319,7 @@
 /datum/plant_gene/trait/teleport/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target, mob/thrower)
 	if(isliving(target))
 		var/mob/living/living_target = target
-		if(thrower == living_target && !do_after(living_target, 1 SECONDS, target = living_target))
-			to_chat(target, "<span class='notice'>You need to hold still to squash [G.name].</span>")
-			return
+		//squash_trait already has "do_after", no need to double it here
 		var/teleport_radius = max(round(G.seed.potency / 10), 1)
 		var/turf/T = get_turf(living_target)
 		new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...

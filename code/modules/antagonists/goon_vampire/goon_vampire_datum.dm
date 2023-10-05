@@ -268,7 +268,7 @@
 		to_chat(owner.current, span_warning("[mask_owner.wear_mask] мешает вам укусить [H]!"))
 		draining = null
 		return
-	add_attack_logs(owner, H, "vampirebit & is draining their blood.", ATKLOG_ALMOSTALL)
+	add_attack_logs(owner.current, H, "vampirebit & is draining their blood.", ATKLOG_ALMOSTALL)
 	owner.current.visible_message(span_danger("[owner.current] грубо хватает шею [H] и вонзает в неё клыки!"), \
 								span_danger("Вы вонзаете клыки в шею [H] и начинаете высасывать [genderize_ru(H.gender, "его", "её", "его", "их")] кровь."), \
 								span_italics("Вы слышите тихий звук прокола и влажные хлюпающие звуки."))

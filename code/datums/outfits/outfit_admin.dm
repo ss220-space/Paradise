@@ -961,7 +961,7 @@
 
 
 /datum/outfit/admin/solgov
-	name = "Solar Federation Marine"
+	name = "Solar Federation Marine (Bulldog)"
 	uniform = /obj/item/clothing/under/solgov
 	suit = /obj/item/clothing/suit/armor/bulletproof
 	back = /obj/item/storage/backpack/ert/solgov
@@ -989,6 +989,12 @@
 		/obj/item/organ/internal/cyberimp/eyes/hud/security
 	)
 	var/is_tsf_lieutenant = FALSE
+
+/datum/outfit/admin/solgov/cats
+	name = "Solar Federation Marine (CATS)"
+	suit_store = /obj/item/gun/projectile/automatic/cats
+	belt = /obj/item/storage/belt/military/assault/marines/cats/full
+	l_pocket = /obj/item/ammo_box/magazine/m45
 
 /datum/outfit/admin/solgov/elite
 	name = "Solar Federation Specops Marine"

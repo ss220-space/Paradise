@@ -45,7 +45,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/list/hidden_shuttle_turf_images = list() //only the images from the above list
 
 
-/datum/controller/subsystem/shuttle/Initialize(start_timeofday)
+/datum/controller/subsystem/shuttle/Initialize()
 	ordernum = rand(1,9000)
 
 	if(!emergency)
@@ -99,7 +99,7 @@ SUBSYSTEM_DEF(shuttle)
 
 /datum/controller/subsystem/shuttle/proc/secondsToRefuel()
 	var/elapsed = world.time - SSticker.round_start_time
-	var/remaining = round((config.shuttle_refuel_delay - elapsed) / 10)
+	var/remaining = round((CONFIG_GET(number/shuttle_refuel_delay) - elapsed) / 10)
 	return remaining > 0 ? remaining : 0
 
 /datum/controller/subsystem/shuttle/proc/requestEvac(mob/user, call_reason)
@@ -117,7 +117,7 @@ SUBSYSTEM_DEF(shuttle)
 		emergency = backup_shuttle
 
 	if(secondsToRefuel())
-		to_chat(user, "The emergency shuttle is refueling. Please wait another [abs(round(((world.time - SSticker.round_start_time) - config.shuttle_refuel_delay)/600))] minutes before trying again.")
+		to_chat(user, "The emergency shuttle is refueling. Please wait another [abs(round(((world.time - SSticker.round_start_time) - CONFIG_GET(number/shuttle_refuel_delay))/600))] minutes before trying again.")
 		return
 
 	switch(emergency.mode)
