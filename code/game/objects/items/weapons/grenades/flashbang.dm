@@ -45,32 +45,32 @@
 		if(M.stat == DEAD)
 			continue
 		M.show_message("<span class='warning'>BANG</span>", 2)
-
-		var/distance = max(1, get_dist(source_turf, get_turf(M)))
-		var/stun_amount = max(8 SECONDS / distance, 6 SECONDS)
-
+		var/mobturf = get_turf(M)
 		// Flash
 		if(flash)
 			if(M.weakeyes)
 				M.visible_message("<span class='disarm'><b>[M]</b> screams and collapses!</span>")
 				to_chat(M, "<span class='userdanger'><font size=3>AAAAGH!</font></span>")
-				M.Weaken(30 SECONDS) //hella stunned
+				M.Weaken(10 SECONDS) //hella stunned
 				if(ishuman(M))
 					M.emote("scream")
 					var/mob/living/carbon/human/H = M
 					var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 					if(E)
 						E.receive_damage(8, TRUE)
-			if(M.flash_eyes(affect_silicon = TRUE))
-				M.Weaken(stun_amount)
+			if(M.flash_eyes())
+				M.AdjustConfused(6 SECONDS)
+			if(issilicon(M))
+				M.Weaken(6 SECONDS)
 
 		// Bang
 		var/ear_safety = M.check_ear_prot()
 		if(bang)
-			if(!distance || A.loc == M || A.loc == M.loc) // Holding on person or being exactly where lies is significantly more dangerous and voids protection
-				M.Weaken(20 SECONDS)
+			if(source_turf == mobturf) // Holding on person or being exactly where lies is significantly more dangerous and voids protection
+				M.Weaken(10 SECONDS)
 			if(!ear_safety)
-				M.Weaken(stun_amount)
+				M.adjustStaminaLoss(15)
+				M.Weaken(1 SECONDS)
 				M.Deaf(30 SECONDS)
 				if(iscarbon(M))
 					var/mob/living/carbon/C = M
