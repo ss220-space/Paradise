@@ -295,8 +295,7 @@ They're basically just lizards with all-around marginally better stats and fire 
 	if(shoes && C.can_unEquip(shoes))
 		C.drop_item_ground(shoes)
 	var/obj/item/organ/external/head/head_organ = C.get_organ("head")
-	C.skin_colour = base_color
-	head_organ.h_style = "Drake"
+	head_organ?.ha_style = "Drake"
 	C.change_eye_color("#A02720")
 	C.update_dna()
 	C.update_inv_head()

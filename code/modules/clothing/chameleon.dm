@@ -310,6 +310,10 @@
 	flash_protect = -1
 	prescription_upgradable = TRUE
 
+/obj/item/clothing/glasses/chameleon/meson
+	vision_flags = SEE_TURFS
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+
 /obj/item/clothing/glasses/hud/security/chameleon
 	flash_protect = 1
 
