@@ -57,6 +57,26 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 					typing = FALSE
 			return state
 
+/mob/proc/set_typing_thought_indicator(state)
+	if(!GLOB.typing_indicator[bubble_thought_icon])
+		GLOB.typing_indicator[bubble_thought_icon] = image('icons/mob/talk.dmi', null, "[bubble_thought_icon]typing", FLY_LAYER)
+		var/image/I = GLOB.typing_indicator[bubble_thought_icon]
+		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+
+	if(client)
+		if(stat != CONSCIOUS || is_muzzled() || (client.prefs.toggles2 & PREFTOGGLE_2_EMOTE_BUBBLE))
+			overlays -= GLOB.typing_indicator[bubble_thought_icon]
+		else
+			if(state)
+				if(!typing)
+					overlays += GLOB.typing_indicator[bubble_thought_icon]
+					typing = TRUE
+			else
+				if(typing)
+					overlays -= GLOB.typing_indicator[bubble_thought_icon]
+					typing = FALSE
+			return state
+
 /mob/verb/say_wrapper()
 	set name = ".Say"
 	set hidden = 1
