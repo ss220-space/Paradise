@@ -35,6 +35,10 @@
 	var/pre_attack_icon = "Goliath_preattack"
 	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide)
 	footstep_type = FOOTSTEP_MOB_HEAVY
+	emote_taunt = list("growls ominously")
+	taunt_chance = 30
+	var/charging = FALSE
+	var/revving_charge = FALSE
 
 /mob/living/simple_animal/hostile/asteroid/goliath/Life()
 	. = ..()
@@ -57,16 +61,84 @@
 	pull_force = PULL_FORCE_DEFAULT
 	..(gibbed)
 
+/mob/living/simple_animal/hostile/asteroid/goliath/AttackingTarget() //override to OpenFire close by
+	. = ..()
+	if(. && isliving(target))
+		var/mob/living/L = target
+		if(L.stat != DEAD)
+			if(!client && ranged && ranged_cooldown <= world.time)
+				OpenFire()
+				ranged_cooldown = world.time + ranged_cooldown_time
+
+
 /mob/living/simple_animal/hostile/asteroid/goliath/OpenFire()
 	var/tturf = get_turf(target)
 	if(!isturf(tturf))
 		return
-	if(get_dist(src, target) <= 7)//Screen range check, so you can't get tentacle'd offscreen
-		visible_message("<span class='warning'>[src] digs its tentacles under [target]!</span>")
-		new /obj/effect/temp_visual/goliath_tentacle/original(tturf, src)
-		ranged_cooldown = world.time + ranged_cooldown_time
-		icon_state = icon_aggro
-		pre_attack = FALSE
+	if(get_dist(src, target) <= 1) //if target close by
+		melee_attack(GLOB.alldirs)
+	if(get_dist(src, target) > 1 && get_dist(src, target) <= 7) //Screen range check, so you can't get tentacle'd offscreen
+		if(prob(50))
+			ranged_attack()
+		else
+			charge()
+
+
+/mob/living/simple_animal/hostile/asteroid/goliath/proc/melee_attack(list/dirs)
+	if(!islist(dirs))
+		dirs = GLOB.alldirs.Copy()
+	visible_message(span_warning("[src] unleashes tentacles from the ground around it!"))
+	for(var/d in dirs)
+		var/turf/E = get_step(src, d)
+		new /obj/effect/temp_visual/goliath_tentacle(E, src)
+	pre_attack = FALSE
+
+
+/mob/living/simple_animal/hostile/asteroid/goliath/proc/ranged_attack()
+	var/tturf = get_turf(target)
+	visible_message("<span class='warning'>[src] digs its tentacles under [target]!</span>")
+	new /obj/effect/temp_visual/goliath_tentacle/original(tturf, src)
+	ranged_cooldown = world.time + ranged_cooldown_time
+	icon_state = icon_aggro
+	pre_attack = FALSE
+
+/mob/living/simple_animal/hostile/asteroid/goliath/proc/charge(atom/chargeat = target, delay = 10, chargepast = 2)
+	if(!chargeat)
+		return
+	var/chargeturf = get_turf(chargeat)
+	if(!chargeturf)
+		return
+	var/dir = get_dir(src, chargeturf)
+	var/turf/T = get_ranged_target_turf(chargeturf, dir, chargepast)
+	if(!T)
+		return
+	charging = TRUE
+	revving_charge = TRUE
+	walk(src, 0)
+	setDir(dir)
+	var/obj/effect/temp_visual/decoy/D = new /obj/effect/temp_visual/decoy(loc,src)
+	animate(D, alpha = 0, color = "#FF0000", transform = matrix()*2, time = 3)
+	SLEEP_CHECK_DEATH(delay)
+	revving_charge = FALSE
+	var/movespeed = 0.7
+	walk_towards(src, T, movespeed)
+	SLEEP_CHECK_DEATH(get_dist(src, T) * movespeed)
+	walk(src, 0) // cancel the movement
+	charging = FALSE
+	pre_attack = FALSE
+
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/Bump(atom/A)
+	if(isturf(A) && charging)
+		wall_slam(A)
+
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/proc/wall_slam(atom/A)
+	charging = FALSE
+	Stun(100, TRUE, TRUE)
+	walk(src, 0)		// Cancel the movement
+	if(ismineralturf(A))
+		var/turf/simulated/mineral/M = A
+		if(M.mineralAmt < 7)
+			M.mineralAmt++
 
 /mob/living/simple_animal/hostile/asteroid/goliath/adjustHealth(amount, updating_health = TRUE)
 	ranged_cooldown -= 10
@@ -76,6 +148,9 @@
 /mob/living/simple_animal/hostile/asteroid/goliath/Aggro()
 	vision_range = aggro_vision_range
 	handle_preattack()
+	if(target && prob(taunt_chance))
+		emote("me", 1, "[pick(emote_taunt)] at [target].")
+		taunt_chance = max(taunt_chance-7,2)
 	if(icon_state != icon_aggro)
 		icon_state = icon_aggro
 
