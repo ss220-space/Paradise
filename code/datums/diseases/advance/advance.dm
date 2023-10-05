@@ -8,6 +8,7 @@
 */
 
 #define VIRUS_SYMPTOM_LIMIT	6
+#define VIRUS_MAX_SYMPTOM_LEVEL	6
 
 // The order goes from easy to cure to hard to cure.
 GLOBAL_LIST_INIT(advance_cures, list(
@@ -42,7 +43,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 
 /datum/disease/advance/New()
 	if(!symptoms || !symptoms.len)
-		symptoms = GenerateSymptoms(0, 2)
+		symptoms = GenerateSymptoms(1, 2)
 
 	AssignProperties(GenerateProperties())
 	id = GetDiseaseID()
@@ -118,7 +119,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 	return 0
 
 // Will generate new unique symptoms, use this if there are none. Returns a list of symptoms that were generated.
-/datum/disease/advance/proc/GenerateSymptoms(level_min, level_max, amount_get = 0)
+/datum/disease/advance/proc/GenerateSymptoms(level_min = 1, level_max = VIRUS_MAX_SYMPTOM_LEVEL, count_of_symptoms = 0)
 
 	var/list/generated = list() // Symptoms we generated.
 
@@ -134,13 +135,14 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 		return generated
 
 	// Random chance to get more than one symptom
-	var/number_of = amount_get
-	if(!amount_get)
-		number_of = 1
-		while(prob(20))
-			number_of += 1
+	var/N = 1
+	if(count_of_symptoms)
+		N = count_of_symptoms
+	else
+		while(prob(20) && N < VIRUS_SYMPTOM_LIMIT)
+			N++
 
-	for(var/i = 1; number_of >= i && possible_symptoms.len; i++)
+	for(var/i = 1; i <= N && possible_symptoms.len; i++)
 		generated += pick_n_take(possible_symptoms)
 
 	return generated

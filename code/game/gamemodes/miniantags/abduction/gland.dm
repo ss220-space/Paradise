@@ -219,33 +219,16 @@
 
 /obj/item/organ/internal/heart/gland/viral/activate()
 	to_chat(owner, "<span class='warning'>You feel sick.</span>")
-	var/datum/disease/advance/rand_virus = random_virus(rand(2, 6), 6)
-	rand_virus.carrier = TRUE
-	var/datum/disease/advance/check = locate() in owner.viruses
-	if(check)
-		check.cure(resistance = FALSE)
-	owner.ForceContractDisease(rand_virus)
+	var/datum/disease/advance/new_virus = new
+	new_virus.name = capitalize(pick(GLOB.adjectives)) + " " + capitalize(pick(GLOB.nouns + GLOB.verbs))
+	new_virus.symptoms = new_virus.GenerateSymptoms(count_of_symptoms = rand(4, 6))
+	new_virus.Refresh()
+	new_virus.carrier = TRUE
 
-/obj/item/organ/internal/heart/gland/viral/proc/random_virus(max_symptoms, max_level)
-	if(max_symptoms > VIRUS_SYMPTOM_LIMIT)
-		max_symptoms = VIRUS_SYMPTOM_LIMIT
-	var/datum/disease/advance/A = new
-	var/list/datum/symptom/possible_symptoms = list()
-	for(var/symptom in subtypesof(/datum/symptom))
-		var/datum/symptom/S = symptom
-		if(initial(S.level) > max_level)
-			continue
-		if(initial(S.level) <= 0) //unobtainable symptoms
-			continue
-		possible_symptoms += S
-	for(var/i in 1 to max_symptoms)
-		var/datum/symptom/chosen_symptom = pick_n_take(possible_symptoms)
-		if(chosen_symptom)
-			var/datum/symptom/S = new chosen_symptom
-			A.symptoms += S
-	A.Refresh() //just in case someone already made and named the same disease
-	return A
-
+	var/datum/disease/advance/old_virus = locate() in owner.viruses
+	if(old_virus)
+		old_virus.cure(resistance = FALSE)
+	owner.ForceContractDisease(new_virus)
 
 /obj/item/organ/internal/heart/gland/emp //TODO : Replace with something more interesting
 	origin_tech = "materials=4;biotech=4;magnets=6;abductor=3"

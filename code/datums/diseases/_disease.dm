@@ -1,8 +1,8 @@
 //Visibility Flags
 #define VISIBLE 0
-#define HIDDEN_HUD 1
-#define HIDDEN_SCANNER	2
-#define HIDDEN_PANDEMIC	4
+#define HIDDEN_HUD 1		//hidden from huds & medbots
+#define HIDDEN_SCANNER	2	//hidden from health analyzers & stationary body analyzers
+#define HIDDEN_PANDEMIC	4	//hidden from pandemic
 
 //Spread Flags
 #define NON_CONTAGIOUS 0	//disease can't spread
@@ -60,7 +60,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	//Infectivity
 	var/infectivity = 65  //affects how often the virus will try to spread
 	var/permeability_mod = 1
-	var/carrier = FALSE //If our host is only a carrier
+	var/carrier = FALSE //If TRUE, host not affected by virus, but can spread it
 
 	//Other
 	var/severity = NONTHREAT
