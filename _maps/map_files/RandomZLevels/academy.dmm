@@ -209,13 +209,6 @@
 "aV" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/awaymission/academy/headmaster)
-"aX" = (
-/obj/item/stack/sheet/animalhide/monkey,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark";
-	tag = "icon-dark"
-	},
-/area/space)
 "aZ" = (
 /obj/structure/computerframe{
 	anchored = 1
@@ -340,13 +333,6 @@
 	tag = "icon-vault"
 	},
 /area/awaymission/academy/classrooms)
-"bA" = (
-/obj/machinery/door/poddoor/shutters{
-	dir = 2;
-	id_tag = "AcademyGate"
-	},
-/turf/space,
-/area/space)
 "bB" = (
 /turf/simulated/floor/plating,
 /area/awaymission/academy/classrooms)
@@ -503,12 +489,6 @@
 	icon_state = "showroomfloor"
 	},
 /area/awaymission/academy/headmaster)
-"cq" = (
-/obj/structure/mirror{
-	pixel_y = 28
-	},
-/turf/simulated/floor/noslip,
-/area/space)
 "ct" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/pill/patch/nicotine,
@@ -580,14 +560,6 @@
 /obj/effect/decal/warning_stripes,
 /turf/simulated/floor/plasteel/goonplaque,
 /area/awaymission/academy/headmaster)
-"cI" = (
-/obj/structure/bed,
-/obj/item/bedsheet/purple,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark";
-	tag = "icon-dark"
-	},
-/area/space)
 "cK" = (
 /obj/structure/sign/vacuum,
 /turf/simulated/wall/r_wall{
@@ -631,19 +603,6 @@
 	simulated = 0
 	},
 /area/awaymission/academy/headmaster)
-"cP" = (
-/obj/effect/bump_teleporter{
-	id_target = "Acad_end2"
-	},
-/turf/space,
-/area/space)
-"cS" = (
-/obj/structure/filingcabinet,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark";
-	tag = "icon-dark"
-	},
-/area/space)
 "cT" = (
 /obj/effect/bump_teleporter{
 	id = "Acad1";
@@ -761,9 +720,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/awaymission/academy/academyaft)
-"dp" = (
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,
-/area/space)
 "dq" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/machinery/portable_atmospherics/scrubber/huge/stationary,
@@ -996,9 +952,6 @@
 	icon_state = "yellow"
 	},
 /area/awaymission/academy/classrooms)
-"ef" = (
-/turf/simulated/floor/carpet,
-/area/space)
 "eh" = (
 /obj/structure/noticeboard{
 	pixel_y = 32
@@ -1092,10 +1045,6 @@
 	icon_state = "yellow"
 	},
 /area/awaymission/academy/classrooms)
-"ew" = (
-/obj/effect/decal/warning_stripes/south,
-/turf/space,
-/area/space)
 "ex" = (
 /obj/machinery/computer/arcade,
 /turf/simulated/floor/plasteel{
@@ -1272,9 +1221,6 @@
 	icon_state = "grimy"
 	},
 /area/awaymission/academy/classrooms)
-"fi" = (
-/turf/simulated/floor/noslip,
-/area/space)
 "fk" = (
 /obj/structure/noticeboard{
 	pixel_y = -32
@@ -1421,9 +1367,6 @@
 	icon_state = "grimy"
 	},
 /area/awaymission/academy/academyaft)
-"fM" = (
-/turf/simulated/floor/sepia,
-/area/space)
 "fN" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel{
@@ -1664,17 +1607,6 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
-"gI" = (
-/obj/item/paper{
-	anchored = 1;
-	color = "orange";
-	icon = 'icons/goonstation/effects/fire.dmi';
-	icon_state = "3";
-	name = "Pyromancy 250";
-	simulated = 0
-	},
-/turf/space,
-/area/space)
 "gJ" = (
 /obj/structure/bookcase,
 /obj/item/book/manual/hydroponics_pod_people,
@@ -1699,17 +1631,6 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
-"gO" = (
-/obj/item/paper{
-	anchored = 1;
-	color = "green";
-	icon = 'icons/goonstation/effects/fire.dmi';
-	icon_state = "1";
-	name = "Pyromancy 250";
-	simulated = 0
-	},
-/turf/space,
-/area/space)
 "gP" = (
 /obj/structure/closet/cardboard,
 /turf/simulated/floor/plasteel{
@@ -2268,13 +2189,6 @@
 /obj/item/flag/wiz,
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
-"iZ" = (
-/obj/effect/decal/remains/human,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark";
-	tag = "icon-dark"
-	},
-/area/space)
 "jb" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/wood{
@@ -2627,12 +2541,6 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/classrooms)
-"kG" = (
-/obj/structure/safe/floor,
-/obj/item/documents/syndicate/red,
-/obj/item/melee/cultblade,
-/turf/simulated/floor/noslip,
-/area/space)
 "kH" = (
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken";
@@ -2753,13 +2661,6 @@
 	icon_state = "grimy"
 	},
 /area/awaymission/academy/classrooms)
-"le" = (
-/obj/effect/bump_teleporter{
-	id = "Acad33";
-	id_target = "Acad3"
-	},
-/turf/space,
-/area/space)
 "lg" = (
 /obj/structure/stone_tile{
 	dir = 8
@@ -2819,9 +2720,6 @@
 /obj/item/clothing/suit/space/hardsuit/wizard/shielded,
 /turf/simulated/floor/engine,
 /area/awaymission/academy/academyaft)
-"lt" = (
-/turf/simulated/floor/lubed,
-/area/space)
 "lv" = (
 /obj/effect/bump_teleporter{
 	id = "sekretka1"
@@ -3450,11 +3348,6 @@
 /obj/structure/mineral_door/iron,
 /turf/simulated/floor/wood,
 /area/awaymission/academy/classrooms)
-"tW" = (
-/obj/structure/cult/archives,
-/obj/item/twohanded/staff,
-/turf/simulated/floor/noslip,
-/area/space)
 "ub" = (
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "Acad_Door_katana"
@@ -3852,9 +3745,6 @@
 	simulated = 0
 	},
 /area/awaymission/academy/academygate)
-"xZ" = (
-/turf/simulated/floor/plating/ironsand,
-/area/space)
 "yb" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -5017,15 +4907,6 @@
 /obj/machinery/door_control,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
-"Nw" = (
-/obj/structure/chair/wood/wings{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark";
-	tag = "icon-dark"
-	},
-/area/space)
 "NI" = (
 /obj/item/lazarus_injector,
 /turf/simulated/floor/plating,
@@ -5056,16 +4937,6 @@
 	tag = "icon-dark"
 	},
 /area/awaymission/academy/classrooms)
-"NP" = (
-/obj/structure/table/wood,
-/obj/item/stack/sheet/mineral/silver{
-	amount = 20
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark";
-	tag = "icon-dark"
-	},
-/area/space)
 "Ob" = (
 /obj/effect/bump_teleporter{
 	id = "Acad_end3"
@@ -7175,8 +7046,8 @@ aa
 aa
 aa
 aa
-cS
-tW
+aa
+aa
 aa
 aa
 aa
@@ -7304,9 +7175,9 @@ jd
 aa
 aa
 aa
-aX
-fi
-Nw
+aa
+aa
+aa
 aa
 aa
 aa
@@ -7434,9 +7305,9 @@ jd
 aa
 aa
 aa
-cq
-iZ
-fi
+aa
+aa
+aa
 aa
 aa
 aa
@@ -7564,9 +7435,9 @@ jd
 aa
 aa
 aa
-cI
-kG
-NP
+aa
+aa
+aa
 aa
 aa
 aa
@@ -7825,7 +7696,7 @@ aa
 aa
 aa
 aa
-le
+aa
 aa
 aa
 aa
@@ -8085,7 +7956,7 @@ aa
 aa
 aa
 aa
-cP
+aa
 aa
 aa
 aa
@@ -8345,7 +8216,7 @@ aa
 aa
 aa
 aa
-dp
+aa
 aa
 aa
 aa
@@ -8475,7 +8346,7 @@ aa
 aa
 aa
 aa
-ef
+aa
 aa
 aa
 aa
@@ -8605,7 +8476,7 @@ aa
 aa
 aa
 aa
-fM
+aa
 aa
 aa
 aa
@@ -8735,7 +8606,7 @@ aa
 aa
 aa
 aa
-gI
+aa
 aa
 aa
 aa
@@ -8865,7 +8736,7 @@ aa
 aa
 gr
 aa
-gO
+aa
 aa
 aa
 aa
@@ -8995,7 +8866,7 @@ aa
 aa
 aa
 aa
-lt
+aa
 aa
 aa
 JE
@@ -9125,7 +8996,7 @@ aa
 aa
 aa
 aa
-xZ
+aa
 aa
 JE
 JE
@@ -9255,7 +9126,7 @@ aa
 aa
 aa
 aa
-bA
+aa
 aa
 aV
 kM
@@ -9385,7 +9256,7 @@ aa
 aa
 aa
 aa
-ew
+aa
 aa
 aV
 ae
