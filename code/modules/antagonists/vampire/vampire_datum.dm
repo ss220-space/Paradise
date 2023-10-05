@@ -16,6 +16,8 @@
 	var/mob/living/carbon/human/draining
 	/// Nullrods and holywater make their abilities cost more.
 	var/nullified = 0
+	/// Time between each suck iteration.
+	var/suck_rate = 5 SECONDS
 	/// List of powers that all vampires unlock and at what blood level they unlock them, the rest of their powers are found in the vampire_subclass datum.
 	var/list/upgrade_tiers = list(/obj/effect/proc_holder/spell/vampire/self/rejuvenate = 0,
 									/obj/effect/proc_holder/spell/vampire/glare = 0,
@@ -25,12 +27,25 @@
 
 	/// List of the peoples UIDs that we have drained, and how much blood from each one.
 	var/list/drained_humans = list()
+	/// List of the peoples UIDs that we have dissected, and how many times for each one.
+	var/list/dissected_humans = list()
+	/// Associated list of all damage modifiers human vampire has.
+	var/list/damage_modifiers = list(
+		"brute" = 0,
+		"burn" = 0,
+		"tox" = 0,
+		"oxy" = 0,
+		"clone" = 0,
+		"brain" = 0,
+		"stamina" = 0
+	)
 
 
 /datum/antagonist/vampire/Destroy(force, ...)
 	owner.current.create_log(CONVERSION_LOG, "De-vampired")
 	draining = null
-	//QDEL_NULL(subclass)
+	QDEL_LIST(powers)
+	QDEL_NULL(subclass)
 	return ..()
 
 
@@ -69,28 +84,47 @@
 	SSticker.mode.vampires -= owner
 
 
-/datum/antagonist/vampire/apply_innate_effects(mob/living/mob_override)
-	mob_override = ..()
+/datum/antagonist/vampire/on_body_transfer(mob/living/old_body, mob/living/new_body)
+	if(isvampireanimal(new_body))
+		remove_innate_effects(old_body, transformation = TRUE)
+		apply_innate_effects(new_body, transformation = TRUE)
+	else
+		remove_innate_effects(old_body)
+		apply_innate_effects(new_body)
+
+
+/datum/antagonist/vampire/apply_innate_effects(mob/living/mob_override, transformation = FALSE)
+	var/mob/living/user = ..()
+
 	if(!owner.som) //thralls and mindslaves
 		owner.som = new()
 		owner.som.masters += owner
 
-	mob_override.dna.species.hunger_type = "vampire"
-	mob_override.dna.species.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
-	check_vampire_upgrade(FALSE)
+	if(!transformation)
+		check_vampire_upgrade(announce = FALSE)
+		user.faction |= "vampire"
+		user.dna?.species?.hunger_type = "vampire"
+		user.dna?.species?.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
 
 
-/datum/antagonist/vampire/remove_innate_effects(mob/living/mob_override)
-	mob_override = ..()
-	remove_all_powers()
-	var/datum/hud/hud = mob_override.hud_used
-	if(hud?.vampire_blood_display)
-		hud.remove_vampire_hud()
+/datum/antagonist/vampire/remove_innate_effects(mob/living/mob_override, transformation = FALSE)
+	var/mob/living/user = ..()
 
-	mob_override.dna.species.hunger_type = initial(mob_override.dna.species.hunger_type)
-	mob_override.dna.species.hunger_icon = initial(mob_override.dna.species.hunger_icon)
-	animate(mob_override, alpha = 255)
-	REMOVE_TRAITS_IN(mob_override, VAMPIRE_TRAIT)
+	if(!mob_override)	// mob override means body transfer
+		remove_all_powers()
+
+	if(!transformation)
+		user.faction -= "vampire"
+
+		var/datum/hud/hud = user.hud_used
+		if(hud?.vampire_blood_display)
+			hud.remove_vampire_hud()
+
+		user.dna?.species?.hunger_type = initial(user.dna.species.hunger_type)
+		user.dna?.species?.hunger_icon = initial(user.dna.species.hunger_icon)
+
+	animate(user, alpha = 255)
+	REMOVE_TRAITS_IN(user, VAMPIRE_TRAIT)
 
 
 /**
@@ -118,6 +152,7 @@
 		// Choosing a subclass in the first place removes this from `upgrade_tiers`, so add it back if needed.
 		upgrade_tiers[/obj/effect/proc_holder/spell/vampire/self/specialize] = 150
 
+	suck_rate = initial(suck_rate)
 	remove_all_powers()
 	QDEL_NULL(subclass)
 	check_vampire_upgrade()
@@ -145,11 +180,17 @@
 
 #define BLOOD_GAINED_MODIFIER 0.5
 
-/datum/antagonist/vampire/proc/handle_bloodsucking(mob/living/carbon/human/target, suck_rate = 5 SECONDS)
+/datum/antagonist/vampire/proc/handle_bloodsucking(mob/living/carbon/human/target, suck_rate_override)
 	draining = target
 	var/unique_suck_id = target.UID()
 	var/blood = 0
 	var/blood_volume_warning = 9999 //Blood volume threshold for warnings
+
+	var/suck_rate_final
+	if(suck_rate_override)
+		suck_rate_final = suck_rate_override
+	else
+		suck_rate_final = suck_rate
 
 	if(owner.current.is_muzzled())
 		to_chat(owner.current, span_warning("[owner.current.wear_mask] prevents you from biting [target]!"))
@@ -166,7 +207,7 @@
 	else
 		target.LAssailant = owner.current
 
-	while(do_mob(owner.current, target, suck_rate))
+	while(do_mob(owner.current, target, suck_rate_final))
 		owner.current.face_atom(target)
 		owner.current.do_attack_animation(target, ATTACK_EFFECT_BITE)
 		if(unique_suck_id in drained_humans)
@@ -215,6 +256,8 @@
 	var/spell = new path(owner)
 	if(istype(spell, /obj/effect/proc_holder/spell))
 		owner.AddSpell(spell)
+		if(istype(spell, /obj/effect/proc_holder/spell/vampire/self/dissect_info) && subclass)
+			subclass.spell_TGUI = spell
 
 	if(istype(spell, /datum/vampire_passive))
 		var/datum/vampire_passive/passive = spell
@@ -223,6 +266,7 @@
 
 	powers += spell
 	owner.current.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp gets new vision based on his powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
+	return spell
 
 
 /datum/antagonist/vampire/proc/get_ability(path)
@@ -241,6 +285,8 @@
 	if(ability && (ability in powers))
 		powers -= ability
 		owner.spell_list.Remove(ability)
+		if(istype(ability, /obj/effect/proc_holder/spell/vampire/self/dissect_info) && subclass)
+			subclass.spell_TGUI = null
 		qdel(ability)
 		owner.current.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp loses his vision based powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
 
@@ -263,9 +309,14 @@
 
 	if(!subclass)
 		return
+
 	subclass.add_subclass_ability(src)
 
+	if(subclass.spell_TGUI)
+		SStgui.update_uis(subclass.spell_TGUI, TRUE)
+
 	check_full_power_upgrade()
+	check_trophies_passives()
 
 	if(announce)
 		announce_new_power(old_powers)
@@ -321,6 +372,20 @@
 
 
 /datum/antagonist/vampire/proc/vamp_burn(burn_chance)
+
+	if(isvampireanimal(owner.current))
+		var/half_health = round(owner.current.maxHealth / 2)
+
+		if(prob(burn_chance) && owner.current.health >= half_health)
+			to_chat(owner.current, span_warning("You feel incredible heat!"))
+			owner.current.adjustFireLoss(3)
+
+		else if(owner.current.health < half_health)
+			to_chat(owner.current, span_warning("You are melting!"))
+			owner.current.adjustFireLoss(8)
+
+		return
+
 	if(prob(burn_chance) && owner.current.health >= 50)
 		switch(owner.current.health)
 			if(75 to 100)
@@ -340,16 +405,7 @@
 
 
 /datum/antagonist/vampire/proc/handle_vampire()
-	if(owner.current.hud_used)
-		var/datum/hud/hud = owner.current.hud_used
-		if(!hud.vampire_blood_display)
-			hud.vampire_blood_display = new /obj/screen()
-			hud.vampire_blood_display.name = "Usable Blood"
-			hud.vampire_blood_display.icon_state = "blood_display"
-			hud.vampire_blood_display.screen_loc = "WEST:6,CENTER-1:15"
-			hud.static_inventory += hud.vampire_blood_display
-			hud.show_hud(hud.hud_version)
-		hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ce0202'>[bloodusable]</font></div>"
+	draw_HUD()
 
 	handle_vampire_cloak()
 	if(isspaceturf(get_turf(owner.current)))
@@ -359,6 +415,21 @@
 		vamp_burn(7)
 
 	nullified = max(0, nullified - 2)
+
+
+/datum/antagonist/vampire/proc/draw_HUD()
+	var/datum/hud/hud = owner?.current?.hud_used
+	if(!hud)
+		return
+
+	if(!hud.vampire_blood_display)
+		hud.vampire_blood_display = new /obj/screen()
+		hud.vampire_blood_display.name = "Usable Blood"
+		hud.vampire_blood_display.icon_state = "blood_display"
+		hud.vampire_blood_display.screen_loc = "WEST:6,CENTER-1:15"
+		hud.static_inventory += hud.vampire_blood_display
+		hud.show_hud(hud.hud_version)
+	hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ce0202'>[bloodusable]</font></div>"
 
 
 /datum/antagonist/vampire/proc/handle_vampire_cloak()
@@ -464,13 +535,15 @@
 
 
 /datum/antagonist/mindslave/thrall/apply_innate_effects(mob/living/mob_override)
-	mob_override = ..()
-	var/datum/mind/M = mob_override.mind
-	M.AddSpell(new /obj/effect/proc_holder/spell/vampire/thrall_commune)
+	var/mob/living/user = ..()
+	user.faction |= "vampire"
+	if(!mob_override)
+		user.mind?.AddSpell(new /obj/effect/proc_holder/spell/vampire/thrall_commune)
 
 
 /datum/antagonist/mindslave/thrall/remove_innate_effects(mob/living/mob_override)
-	mob_override = ..()
-	var/datum/mind/M = mob_override.mind
-	M.RemoveSpell(/obj/effect/proc_holder/spell/vampire/thrall_commune)
+	var/mob/living/user = ..()
+	user.faction -= "vampire"
+	if(!mob_override)
+		user.mind?.RemoveSpell(/obj/effect/proc_holder/spell/vampire/thrall_commune)
 

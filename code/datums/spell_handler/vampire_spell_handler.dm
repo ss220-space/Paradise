@@ -5,9 +5,14 @@
 
 
 /datum/spell_handler/vampire/can_cast(mob/user, charge_check, show_message, obj/effect/proc_holder/spell/spell)
-	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	var/datum/antagonist/vampire/vampire = user?.mind?.has_antag_datum(/datum/antagonist/vampire)
 
 	if(!vampire)
+		return FALSE
+
+	if(isvampirecoffin(user.loc))
+		if(show_message)
+			to_chat(user, span_warning("You can't use this ability inside the coffin!"))
 		return FALSE
 
 	var/fullpower = vampire.get_ability(/datum/vampire_passive/full)
@@ -55,7 +60,9 @@
 		return
 	if(!required_blood)
 		return
-	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	var/datum/antagonist/vampire/vampire = user?.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(!vampire)
+		return
 	to_chat(user, span_boldnotice("You have [vampire.bloodusable] left to use."))
 	SSblackbox.record_feedback("tally", "vampire_powers_used", 1, "[spell]") // Only log abilities which require blood
 

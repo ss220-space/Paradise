@@ -344,8 +344,10 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 /datum/asset/simple/materials/register()
 	for(var/n in list("metal", "glass", "silver", "gold", "diamond", "uranium", "plasma", "clown", "mime", "titanium", "plastic",
-		"rglass", "plasteel", "plastitanium", "plasmaglass", "titaniumglass", "plastitaniumglass"))
+		"rglass", "plasteel", "plastitanium", "plasmaglass", "titaniumglass", "plastitaniumglass", "f_rods"))
 		assets["sheet-[n].png"] = icon('icons/obj/items.dmi', "sheet-[n]")
+	for(var/n in list("alienalloy")) //because this file in abductor.dmi, not items.dmi
+		assets["sheet-[n].png"] = icon('icons/obj/abductor.dmi', "sheet-abductor")
 	assets["sheet-bluespace.png"] = icon('icons/obj/telescience.dmi', "polycrystal")
 	..()
 

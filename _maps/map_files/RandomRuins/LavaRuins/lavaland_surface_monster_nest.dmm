@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/turf/simulated/mineral/random/volcanic,
+/turf/template_noop,
 /area/template_noop)
 "d" = (
 /obj/effect/decal/remains/human,

@@ -38,7 +38,7 @@
 
 	is_custom = _is_custom
 
-	no_dead_vote = config.vote_no_dead
+	no_dead_vote = CONFIG_GET(flag/vote_no_dead)
 
 	// If we have no choices, dynamically generate them
 	if(!length(choices))
@@ -55,7 +55,7 @@
 	else if(usr)
 		log_admin("[capitalize(vote_type_text)] vote started by [key_name(usr)].")
 
-	if(config.ooc_allowed)
+	if(CONFIG_GET(flag/ooc_allowed))
 		ooc_auto_muted = TRUE
 		toggle_ooc()
 
@@ -64,7 +64,7 @@
 	announce(text)
 
 /datum/vote/proc/remaining()
-	return max(((started_time + config.vote_period) - world.time), 0)
+	return max(((started_time + CONFIG_GET(number/vote_period)) - world.time), 0)
 
 
 // Returns the result
@@ -125,7 +125,7 @@
 /datum/vote/proc/announce(start_text)
 	to_chat(world, {"<font color='purple'><b>[start_text]</b>
 		<a href='?src=[SSvote.UID()];vote=open'>Click here or type <code>Vote</code> to place your vote.</a>
-		You have [config.vote_period / 10] seconds to vote.</font>"})
+		You have [CONFIG_GET(number/vote_period) / 10] seconds to vote.</font>"})
 	SEND_SOUND(world, sound('sound/ambience/alarm4.ogg'))
 
 
@@ -139,7 +139,7 @@
 /datum/vote/Destroy(force)
 	if(SSvote.active_vote == src)
 		SSvote.active_vote = null
-		if(ooc_auto_muted && !config.ooc_allowed)
+		if(ooc_auto_muted && !CONFIG_GET(flag/ooc_allowed))
 			toggle_ooc()
 	return ..()
 

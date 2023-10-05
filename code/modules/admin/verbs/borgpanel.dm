@@ -206,5 +206,7 @@
 				log_and_message_admins("freed [key_name(borg)] from being slaved to an AI.")
 			if (borg.lawupdate)
 				borg.lawsync()
+				if(borg.connected_ai?.laws)
+					SSticker?.score?.save_silicon_laws(borg, usr, "laws sync with AI", log_all_laws = TRUE)
 
 	. = TRUE

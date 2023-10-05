@@ -23,11 +23,6 @@
 			prefs.autohiss_mode = AUTOHISS_OFF
 			to_chat(src, "Auto-hiss is now OFF.")
 
-/datum/species
-	var/list/autohiss_basic_map = null
-	var/list/autohiss_extra_map = null
-	var/list/autohiss_exempt = null
-
 /datum/species/unathi
 	autohiss_basic_map = list(
 			"s" = list("ss", "sss", "ssss"),
@@ -85,9 +80,9 @@
 /datum/species/drask
 	autohiss_basic_map = list(
 			"o" = list ("oo", "ooo"),
-			"u" = list ("uu", "uuu"),			
+			"u" = list ("uu", "uuu"),
 			"о" = list ("оо", "ооо"),
-			"у" = list ("уу", "ууу")			
+			"у" = list ("уу", "ууу")
 		)
 	autohiss_extra_map = list(
 			"m" = list ("mm", "mmm"),

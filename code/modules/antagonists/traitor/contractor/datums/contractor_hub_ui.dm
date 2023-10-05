@@ -4,9 +4,14 @@
 		return
 
 	. = TRUE
+
+	var/mob/living/user = usr
+	if(!istype(user))
+		return
+
 	if(!contracts)
 		if(action == "complete_load_animation")
-			first_login(usr)
+			first_login(user)
 	else
 		switch(action)
 			if("page")
@@ -15,24 +20,31 @@
 					return
 				page = newpage
 			if("extract")
-				var/error_message = current_contract?.start_extraction_process(ui_host(), usr)
+				var/error_message = current_contract?.start_extraction_process(ui_host(), user)
 				if(length(error_message))
-					to_chat(usr, "<span class='warning'>[error_message]</span>")
+					to_chat(user, "<span class='warning'>[error_message]</span>")
 			if("claim")
-				claim_tc(usr)
+				claim_tc(user)
 			if("activate")
 				var/datum/syndicate_contract/C = locateUID(params["uid"])
 				var/difficulty = text2num(params["difficulty"])
 				if(!istype(C) || !(C in contracts) || !(difficulty in list(EXTRACTION_DIFFICULTY_EASY, EXTRACTION_DIFFICULTY_MEDIUM, EXTRACTION_DIFFICULTY_HARD)))
 					return
-				C.initiate(usr, difficulty)
+				C.initiate(user, difficulty)
 			if("abort")
 				current_contract?.fail("Aborted by agent.")
 			if("purchase")
 				var/datum/rep_purchase/P = locateUID(params["uid"])
 				if(!istype(P) || !(P in purchases) || rep < P.cost)
 					return
-				P.buy(src, usr)
+				P.buy(src, user)
+			if("refund")
+				var/datum/rep_purchase/P = locateUID(params["uid"])
+				if(!istype(P) || !(P in purchases))
+					return
+				var/obj/item/item = user.get_active_hand()
+				if(item)
+					P.refund(src, item, user)
 			else
 				return FALSE
 
@@ -124,6 +136,7 @@
 					description = P.description,
 					cost = P.cost,
 					stock = P.stock,
+					refundable = P.refundable,
 				))
 			data["buyables"] = buyables
 

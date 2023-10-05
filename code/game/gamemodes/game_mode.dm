@@ -23,6 +23,8 @@
 	var/station_was_nuked = FALSE
 	/// See nuclearbomb.dm and malfunction.dm
 	var/explosion_in_progress = FALSE //sit back and relax
+	var/false_report_weight = 0 //How often will this show up incorrectly in a centcom report? --Not used--
+	var/maximum_players = 0 // --Not used--
 	var/list/datum/mind/modePlayer = new
 	// Jobs it doesn't make sense to be antags. I.E chaplain or AI cultist
 	var/list/restricted_jobs = list()
@@ -62,6 +64,9 @@
 	to_chat(world, "<B>Notice</B>: [src] did not define announce()")
 
 
+/datum/game_mode/proc/generate_report() //Generates a small text blurb for the gamemode in centcom report
+	return "Gamemode report for [name] not set.  Contact a coder."
+
 /**
  * Checks to see if the game can be setup and ran with the current number of players or whatnot.
  */
@@ -71,7 +76,7 @@
 	if(playerC < required_enemies)
 		return FALSE
 
-	if(!config.enable_gamemode_player_limit || (playerC >= config.mode_required_players[src.config_tag]))
+	if(!CONFIG_GET(flag/enable_gamemode_player_limit) || (playerC >= config.mode_required_players[src.config_tag]))
 		return TRUE
 
 	return FALSE
@@ -539,7 +544,6 @@
 	else
 		message_admins("[player] ([player.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take [player.p_their()] place.")
 		to_chat(player, span_dangerbigger("You have been converted into [role_type] with an active jobban. Any further violations of the rules on your part are likely to result in a permanent ban."))
-
 
 /proc/printplayer(datum/mind/player, flee_check)
 	var/jobtext = ""

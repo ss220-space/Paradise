@@ -169,15 +169,15 @@
 	stat(null, "Move Mode: [m_intent]")
 	show_stat_emergency_shuttle_eta()
 
-/mob/living/carbon/alien/SetStunned(amount, updating = 1, force = 0)
+/mob/living/carbon/alien/SetWeakened(amount, ignore_canweaken)
 	..()
-	if(!(status_flags & CANSTUN) && amount)
+	if(!(status_flags & CANWEAKEN) && amount)
 		// add some movement delay
 		move_delay_add = min(move_delay_add + round(amount / 2), 10) // a maximum delay of 10
 
 /mob/living/carbon/alien/movement_delay()
 	. = ..()
-	. += move_delay_add + config.alien_delay //move_delay_add is used to slow aliens with stuns
+	. += move_delay_add + CONFIG_GET(number/alien_delay) //move_delay_add is used to slow aliens with stuns
 
 /mob/living/carbon/alien/getDNA()
 	return null

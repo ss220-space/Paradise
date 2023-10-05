@@ -7,7 +7,6 @@
 	icon_dead = "headcrab_dead"
 	health = 60
 	maxHealth = 60
-	dodging = 1
 	melee_damage_lower = 5
 	melee_damage_upper = 10
 	ranged = 1

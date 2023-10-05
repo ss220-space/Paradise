@@ -36,7 +36,7 @@
 
 	var/hat_offset_y = -8
 	var/hat_offset_y_rest = -19
-	var/hat_icon_file = 'icons/mob/head.dmi'
+	var/hat_icon_file = 'icons/mob/clothing/head.dmi'
 	var/hat_icon_state
 	var/hat_alpha
 	var/hat_color

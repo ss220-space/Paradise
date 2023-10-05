@@ -175,6 +175,12 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	name = "the chief engineer's advanced magnetic boots"
 	typepath = /obj/item/clothing/shoes/magboots/advance
 	protected_jobs = list("Chief Engineer")
+	
+/datum/theft_objective/highrisk/combatrcd
+	id = "chief_crcd"
+	name = "the chief engineer's combat RCD"
+	typepath = /obj/item/rcd/combat
+	protected_jobs = list("Chief Engineer")
 
 /datum/theft_objective/highrisk/blueprints
 	id = "chief_blueprints"
@@ -761,7 +767,6 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 		/obj/item/encryptionkey/headset_iaa,
 		/obj/item/encryptionkey/headset_medsec,
 		/obj/item/encryptionkey/headset_eng,
-		/obj/item/encryptionkey/headset_rob,
 		/obj/item/encryptionkey/headset_med,
 		/obj/item/encryptionkey/headset_sci,
 		/obj/item/encryptionkey/headset_medsci,

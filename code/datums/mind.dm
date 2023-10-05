@@ -424,6 +424,13 @@
 		. += "<br>Subclass: <a href='?src=[UID()];vampire=change_subclass'>[has_subclass ? capitalize(vamp.subclass.name) : "None"]</a>"
 		if(has_subclass)
 			. += " | Force full power: <a href='?src=[UID()];vampire=full_power_override'>[vamp.subclass.full_power_override ? "Yes" : "No"]</a>"
+			if(istype(vamp.subclass, /datum/vampire_subclass/bestia) || istype(vamp.subclass, /datum/vampire_subclass/ancient))
+				. += "<br><b>Trophies:</b><br>Hearts: <a href='?src=[UID()];vampire=edit_hearts'>[vamp.subclass.trophies["hearts"]]</a>"
+				. += " | Lungs: <a href='?src=[UID()];vampire=edit_lungs'>[vamp.subclass.trophies["lungs"]]</a>"
+				. += " | Livers: <a href='?src=[UID()];vampire=edit_livers'>[vamp.subclass.trophies["livers"]]</a>"
+				. += "<br>Kidneys: <a href='?src=[UID()];vampire=edit_kidneys'>[vamp.subclass.trophies["kidneys"]]</a>"
+				. += " | Eyes: <a href='?src=[UID()];vampire=edit_eyes'>[vamp.subclass.trophies["eyes"]]</a>"
+				. += " | Ears: <a href='?src=[UID()];vampire=edit_ears'>[vamp.subclass.trophies["ears"]]</a>"
 		if(!length(vamp.objectives))
 			. += "<br>Objectives are empty! <a href='?src=[UID()];vampire=autoobjectives'>Randomize!</a>"
 	else
@@ -503,6 +510,16 @@
 		. += "<a href='?src=[UID()];devil=devil'>devil</a>|<a href='?src=[UID()];devil=ascendable_devil'>Ascendable Devil</a>|<a href='?src=[UID()];devil=sintouched'>sintouched</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_DEVIL)
+
+
+/datum/mind/proc/memory_edit_space_dragon()
+	. = _memory_edit_header("dragon")
+	var/datum/antagonist/space_dragon/dragon_datum = has_antag_datum(/datum/antagonist/space_dragon)
+	if(dragon_datum)
+		. += "<b><font color='red'>SPACE DRAGON</font></b>|<a href='?src=[UID()];space_dragon=clear'>no</a>"
+	else
+		. += "<a href='?src=[UID()];space_dragon=space_dragon'>space dragon</a>|<b>NO</b>"
+
 
 /datum/mind/proc/memory_edit_eventmisc(mob/living/H)
 	. = _memory_edit_header("event", list())
@@ -692,6 +709,10 @@
 	sections["traitor"] = memory_edit_traitor()
 	/** THIEF ***/
 	sections["thief"] = memory_edit_thief()
+
+	if(istype(current, /mob/living/simple_animal/hostile/space_dragon))
+		sections["space_dragon"] = memory_edit_space_dragon()
+
 	if(!issilicon(current))
 		/** CULT ***/
 		sections["cult"] = memory_edit_cult(H)
@@ -1689,6 +1710,84 @@
 				log_admin("[key_name(usr)] set [key_name(current)]'s vampire 'full_power_overide' to [vamp.subclass.full_power_override].")
 				message_admins("[key_name_admin(usr)] set [key_name_admin(current)]'s vampire 'full_power_overide' to [vamp.subclass.full_power_override].")
 
+			if("edit_hearts")
+				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+				if(!vamp || QDELETED(vamp.subclass))
+					return
+
+				var/new_total = input(usr, "Adjust a new value:", "Modify hearts trophies") as null|num
+				if(isnull(new_total))
+					return
+
+				vamp.adjust_trophies("hearts", new_total)
+				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s hearts trophies by [new_total].")
+				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s hearts trophies by [new_total].")
+
+			if("edit_lungs")
+				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+				if(!vamp || QDELETED(vamp.subclass))
+					return
+
+				var/new_total = input(usr, "Adjust a new value:", "Modify lungs trophies") as null|num
+				if(isnull(new_total))
+					return
+
+				vamp.adjust_trophies("lungs", new_total)
+				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s lungs trophies by [new_total].")
+				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s lungs trophies by [new_total].")
+
+			if("edit_livers")
+				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+				if(!vamp || QDELETED(vamp.subclass))
+					return
+
+				var/new_total = input(usr, "Adjust a new value:", "Modify livers trophies") as null|num
+				if(isnull(new_total))
+					return
+
+				vamp.adjust_trophies("livers", new_total)
+				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s livers trophies by [new_total].")
+				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s livers trophies by [new_total].")
+
+			if("edit_kidneys")
+				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+				if(!vamp || QDELETED(vamp.subclass))
+					return
+
+				var/new_total = input(usr, "Adjust a new value:", "Modify kidneys trophies") as null|num
+				if(isnull(new_total))
+					return
+
+				vamp.adjust_trophies("kidneys", new_total)
+				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s kidneys trophies by [new_total].")
+				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s kidneys trophies by [new_total].")
+
+			if("edit_eyes")
+				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+				if(!vamp || QDELETED(vamp.subclass))
+					return
+
+				var/new_total = input(usr, "Adjust a new value:", "Modify eyes trophies") as null|num
+				if(isnull(new_total))
+					return
+
+				vamp.adjust_trophies("eyes", new_total)
+				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s eyes trophies by [new_total].")
+				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s eyes trophies by [new_total].")
+
+			if("edit_ears")
+				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+				if(!vamp || QDELETED(vamp.subclass))
+					return
+
+				var/new_total = input(usr, "Adjust a new value:", "Modify ears trophies") as null|num
+				if(isnull(new_total))
+					return
+
+				vamp.adjust_trophies("ears", new_total)
+				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s ears trophies by [new_total].")
+				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s ears trophies by [new_total].")
+
 			if("autoobjectives")
 				if(!isvampire(src))
 					return
@@ -1768,6 +1867,27 @@
 					message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] the nuclear authorization code")
 				else
 					to_chat(usr, "<span class='warning'>No valid nuke found!</span>")
+
+	else if(href_list["space_dragon"])
+		switch(href_list["space_dragon"])
+			if("clear")
+				var/datum/antagonist/space_dragon/dragon_datum = has_antag_datum(/datum/antagonist/space_dragon)
+				if(!dragon_datum)
+					return
+
+				remove_antag_datum(dragon_datum)
+				log_admin("[key_name(usr)] has removed space dragon role from [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has removed space dragon role from [key_name_admin(current)]")
+
+			if("space_dragon")
+				var/datum/antagonist/space_dragon/dragon_datum = has_antag_datum(/datum/antagonist/space_dragon)
+				if(dragon_datum)
+					return
+
+				add_antag_datum(new /datum/antagonist/space_dragon)
+				playsound(current, 'sound/magic/ethereal_exit.ogg', 50, TRUE, -1)
+				log_admin("[key_name(usr)] has added space dragon role to [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has added space dragon role to [key_name_admin(current)]")
 
 	else if(href_list["eventmisc"])
 		switch(href_list["eventmisc"])

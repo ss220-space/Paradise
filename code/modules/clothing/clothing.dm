@@ -129,13 +129,13 @@
 	resistance_flags = NONE
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/ears.dmi',
-		"Vox Armalis" = 'icons/mob/species/armalis/ears.dmi',
-		"Monkey" = 'icons/mob/species/monkey/ears.dmi',
-		"Farwa" = 'icons/mob/species/monkey/ears.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/ears.dmi',
-		"Neara" = 'icons/mob/species/monkey/ears.dmi',
-		"Stok" = 'icons/mob/species/monkey/ears.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi',
+		"Vox Armalis" = 'icons/mob/clothing/species/armalis/ears.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/ears.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/ears.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/ears.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/ears.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/ears.dmi'
 		) //We read you loud and skree-er.
 
 
@@ -163,11 +163,11 @@
 	resistance_flags = NONE
 
 	sprite_sheets = list(
-		"Monkey" = 'icons/mob/species/monkey/eyes.dmi',
-		"Farwa" = 'icons/mob/species/monkey/eyes.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/eyes.dmi',
-		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
-		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
+		"Monkey" = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/eyes.dmi'
 		)
 /*
 SEE_SELF  // can see self, no matter what
@@ -220,8 +220,8 @@ BLIND     // can't see anything
 	put_on_delay = 40
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/gloves.dmi',
-		"Drask" = 'icons/mob/species/drask/gloves.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi'
 		)
 
 // Called just before an attack_hand(), in mob/UnarmedAttack()
@@ -333,11 +333,11 @@ BLIND     // can't see anything
 	var/can_toggle = null
 
 	sprite_sheets = list(
-		"Monkey" = 'icons/mob/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/species/monkey/head.dmi'
+		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
 		)
 
 ///obj/item/clothing/head/equipped(var/mob/living/carbon/human/lesser/monkey/user, var/slot) //Смещаем шапки у обезьян
@@ -357,11 +357,11 @@ BLIND     // can't see anything
 	put_on_delay = 40
 
 	sprite_sheets = list(
-		"Monkey" = 'icons/mob/species/monkey/mask.dmi',
-		"Farwa" = 'icons/mob/species/monkey/mask.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
-		"Neara" = 'icons/mob/species/monkey/mask.dmi',
-		"Stok" = 'icons/mob/species/monkey/mask.dmi'
+		"Monkey" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/mask.dmi'
 		)
 
 //Proc that moves gas/breath masks out of the way
@@ -447,17 +447,17 @@ BLIND     // can't see anything
 	slowdown = SHOES_SLOWDOWN
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/shoes.dmi',
-		"Unathi" = 'icons/mob/species/unathi/shoes.dmi',
-		"Ash Walker" = 'icons/mob/species/unathi/shoes.dmi',
-		"Ash Walker Shaman" = 'icons/mob/species/unathi/shoes.dmi',
-		"Draconid" = 'icons/mob/species/unathi/shoes.dmi',
-		"Drask" = 'icons/mob/species/drask/shoes.dmi',
-		"Monkey" = 'icons/mob/species/monkey/shoes.dmi',
-		"Farwa" = 'icons/mob/species/monkey/shoes.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/shoes.dmi',
-		"Neara" = 'icons/mob/species/monkey/shoes.dmi',
-		"Stok" = 'icons/mob/species/monkey/shoes.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/shoes.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		"Draconid" = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/shoes.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/shoes.dmi'
 		)
 
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
@@ -513,11 +513,11 @@ BLIND     // can't see anything
 	integrity_failure = 160
 
 	sprite_sheets = list(
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi'
-		//"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi'
+		//"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 //Proc that opens and closes jackets.
@@ -713,18 +713,18 @@ BLIND     // can't see anything
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi',
-		"Unathi" = 'icons/mob/species/unathi/uniform.dmi',
-		"Ash Walker" = 'icons/mob/species/unathi/uniform.dmi',
-		"Ash Walker Shaman" = 'icons/mob/species/unathi/uniform.dmi',
-		"Draconid" = 'icons/mob/species/unathi/uniform.dmi',
-		"Drask" = 'icons/mob/species/drask/uniform.dmi',
-		"Grey" = 'icons/mob/species/grey/uniform.dmi',
-		"Monkey" = 'icons/mob/species/monkey/uniform.dmi',
-		"Farwa" = 'icons/mob/species/monkey/uniform.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/uniform.dmi',
-		"Neara" = 'icons/mob/species/monkey/uniform.dmi'
-		//"Stok" = 'icons/mob/species/monkey/uniform.dmi' - стоки слишком жирные для маленькой одежды
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		"Draconid" = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		//"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi' - стоки слишком жирные для маленькой одежды
 		)
 
 	var/has_sensor = TRUE//For the crew computer 2 = unable to change mode
@@ -842,7 +842,7 @@ BLIND     // can't see anything
 	if(!usr.incapacitated())
 		if(copytext(item_color,-2) != "_d")
 			basecolor = item_color
-		if((basecolor + "_d_s") in icon_states('icons/mob/uniform.dmi'))
+		if((basecolor + "_d_s") in icon_states('icons/mob/clothing/uniform.dmi'))
 			item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
 			usr.update_inv_w_uniform()
 		else
@@ -913,11 +913,11 @@ BLIND     // can't see anything
 	slot_flags = SLOT_NECK
 
 	sprite_sheets = list(
-		"Monkey" = 'icons/mob/species/monkey/neck.dmi',
-		"Farwa" = 'icons/mob/species/monkey/neck.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/neck.dmi',
-		"Neara" = 'icons/mob/species/monkey/neck.dmi',
-		"Stok" = 'icons/mob/species/monkey/neck.dmi'
+		"Monkey" = 'icons/mob/clothing/species/monkey/neck.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/neck.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/neck.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/neck.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/neck.dmi'
 		)
 
 /obj/item/clothing/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)

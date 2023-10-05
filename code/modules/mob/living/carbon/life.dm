@@ -278,7 +278,7 @@
 			update_stamina()
 		if(staminaloss)
 			setStaminaLoss(0, FALSE)
-			update_health_hud()
+			update_stamina_hud()
 
 	// Keep SSD people asleep
 	if(player_logged)

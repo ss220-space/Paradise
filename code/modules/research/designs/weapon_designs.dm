@@ -562,7 +562,7 @@
 	id = "paicardcartridge"
 	req_tech = list("syndicate" = 3, "programming" = 3)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 4000, MAT_GLASS = 8000, MAT_GOLD = 6000, MAT_DIAMOND = 5000)
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 8000, MAT_GOLD = 6000, MAT_DIAMOND = 5000)
 	build_path = /obj/item/paicard_upgrade/protolate
 	locked = TRUE
 	category = list("ILLEGAL")

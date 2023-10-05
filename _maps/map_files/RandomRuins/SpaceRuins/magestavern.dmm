@@ -1,0 +1,3035 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"am" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/item/ship_in_a_bottle,
+/obj/item/paper{
+	name = "Тишина";
+	info = "Ох, Паульс, идиот, зачем ты пронес паучьи яйца? Чем там второй идиот, Карл, занимается, что за идиотский ящик он притащил? Ни дня покоя. Одна лишь бутыль с кораблем дает мне покой. Спасибо моему отцу.."
+	},
+/turf/simulated/floor/carpet/orange,
+/area/ruin/unpowered)
+"aQ" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"aT" = (
+/obj/structure/mineral_door/wood,
+/obj/structure/barricade/wooden/crude,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"bc" = (
+/turf/simulated/floor/carpet/blue,
+/area/ruin/unpowered)
+"by" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/machinery/light_construct{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/orange,
+/area/ruin/unpowered)
+"ce" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/carpet/orange,
+/area/ruin/unpowered)
+"ct" = (
+/obj/structure/toilet,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/unpowered)
+"cw" = (
+/obj/effect/decal/cleanable/vomit,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/unpowered)
+"cN" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/spider/stickyweb,
+/mob/living/simple_animal/hostile/poison/giant_spider,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"cP" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = 5;
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = -7;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = 8
+	},
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = -4
+	},
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = 4
+	},
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = -8;
+	pixel_y = 12
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/ruin/unpowered)
+"dm" = (
+/obj/effect/decal/cleanable/confetti,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"dq" = (
+/obj/structure/table/wood,
+/obj/structure/table/wood/fancy/purple,
+/obj/machinery/vending/boozeomat/syndicate_access,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/unpowered)
+"dB" = (
+/obj/effect/decal/cleanable/vomit,
+/obj/machinery/light_construct,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"dY" = (
+/turf/simulated/mineral,
+/area/space)
+"eh" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/ruin/unpowered)
+"ei" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/unpowered)
+"ez" = (
+/turf/simulated/floor/carpet/arcade,
+/area/ruin/unpowered)
+"eL" = (
+/obj/structure/bookcase,
+/turf/simulated/floor/carpet/red,
+/area/ruin/unpowered)
+"fq" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"fQ" = (
+/obj/structure/table/wood,
+/obj/item/toy/figure/wizard,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"gy" = (
+/obj/structure/spider/stickyweb,
+/mob/living/simple_animal/hostile/poison/giant_spider,
+/turf/simulated/floor/carpet/green,
+/area/ruin/unpowered)
+"gJ" = (
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"gK" = (
+/obj/structure/table/wood/fancy/purple,
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = -8;
+	pixel_y = 12
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/unpowered)
+"gS" = (
+/obj/structure/bookcase,
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"gU" = (
+/obj/structure/table/wood,
+/obj/item/trash/plate,
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_y = 10
+	},
+/turf/simulated/floor/carpet{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "carpet12-0"
+	},
+/area/ruin/unpowered)
+"hb" = (
+/obj/effect/decal/cleanable/blood/writing,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/ruin/unpowered)
+"hq" = (
+/obj/machinery/kitchen_machine/oven,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/ruin/unpowered)
+"hM" = (
+/obj/effect/decal/cleanable/tomato_smudge,
+/obj/machinery/light_construct{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/blue,
+/area/ruin/unpowered)
+"hN" = (
+/obj/structure/reagent_dispensers/beerkeg,
+/obj/machinery/light_construct,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/ruin/unpowered)
+"hT" = (
+/obj/machinery/light_construct{
+	dir = 1
+	},
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken3"
+	},
+/area/ruin/unpowered)
+"hX" = (
+/obj/machinery/vending/coffee/free,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"ic" = (
+/obj/structure/mineral_door/iron,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/unpowered)
+"iD" = (
+/obj/structure/table/wood,
+/obj/item/deck/cards,
+/obj/item/deck/cards{
+	pixel_x = 5
+	},
+/obj/item/deck/cards{
+	pixel_y = 6
+	},
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken3"
+	},
+/area/ruin/unpowered)
+"iL" = (
+/obj/effect/decal/cleanable/tomato_smudge,
+/turf/simulated/floor/carpet/orange,
+/area/ruin/unpowered)
+"ji" = (
+/mob/living/simple_animal/hostile/statue,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"js" = (
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/wood{
+	broken = 1;
+	icon_state = "wood-broken"
+	},
+/area/ruin/unpowered)
+"jy" = (
+/obj/effect/decal/cleanable/insectguts,
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/carpet/black,
+/area/ruin/unpowered)
+"jR" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/unpowered)
+"kx" = (
+/mob/living/simple_animal/hostile/poison/giant_spider,
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"kB" = (
+/obj/structure/mineral_door/iron,
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "escape"
+	},
+/area/ruin/unpowered)
+"kM" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "escape"
+	},
+/area/ruin/unpowered)
+"kS" = (
+/obj/effect/decal/cleanable/vomit{
+	pixel_x = 6;
+	pixel_y = 7
+	},
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/ruin/unpowered)
+"kW" = (
+/obj/structure/closet/secure_closet/freezer/kitchen,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/ruin/unpowered)
+"ld" = (
+/obj/effect/mob_spawn/human/corpse/assistant{
+	name = "Отис"
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/unpowered)
+"li" = (
+/obj/machinery/vending/cola/free,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"mJ" = (
+/obj/effect/decal/cleanable/vomit,
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/carpet/black,
+/area/ruin/unpowered)
+"mY" = (
+/obj/effect/decal/cleanable/blood/gibs/robot,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"nc" = (
+/obj/structure/table_frame/wood,
+/obj/item/stack/sheet/wood,
+/obj/effect/decal/cleanable/blood/writing,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/unpowered)
+"ni" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken3"
+	},
+/area/ruin/unpowered)
+"nB" = (
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/carpet/arcade,
+/area/ruin/unpowered)
+"nU" = (
+/obj/effect/decal/ants,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/ruin/unpowered)
+"ol" = (
+/obj/machinery/kitchen_machine/candy_maker,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/ruin/unpowered)
+"oq" = (
+/obj/effect/decal/cleanable/tomato_smudge,
+/obj/structure/closet/crate,
+/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/reagent_containers/food/snacks/meat/human,
+/turf/simulated/floor/carpet/red,
+/area/ruin/unpowered)
+"pj" = (
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space)
+"pO" = (
+/obj/machinery/light_construct,
+/turf/simulated/floor/wood{
+	broken = 1;
+	icon_state = "wood-broken"
+	},
+/area/ruin/unpowered)
+"pQ" = (
+/obj/item/trash/can,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"qc" = (
+/obj/structure/table_frame/wood,
+/obj/item/stack/sheet/wood,
+/turf/simulated/floor/carpet{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "carpet12-0"
+	},
+/area/ruin/unpowered)
+"qg" = (
+/obj/structure/table/wood/fancy/red,
+/obj/item/clothing/head/wizard/red,
+/obj/item/clothing/suit/wizrobe/red,
+/obj/item/paper{
+	info = "Ох. Как же это мясо вкусно пахнет! К сожалению, оно не для приготовления. Что ж, чему там меня учил профессор Жан? Надо бы попробовать..";
+	name = "Создание существа"
+	},
+/turf/simulated/floor/carpet/red,
+/area/ruin/unpowered)
+"ri" = (
+/obj/machinery/light_construct,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken3"
+	},
+/area/ruin/unpowered)
+"rq" = (
+/obj/structure/table/wood,
+/obj/item/storage/pill_bottle/dice,
+/turf/simulated/floor/carpet,
+/area/ruin/unpowered)
+"rL" = (
+/obj/structure/table,
+/obj/item/trash/tray{
+	pixel_x = -1;
+	pixel_y = 11
+	},
+/obj/machinery/light_construct,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/ruin/unpowered)
+"rZ" = (
+/obj/structure/chair/comfy/teal{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/cyan,
+/area/ruin/unpowered)
+"sk" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/unpowered)
+"sl" = (
+/obj/item/stack/sheet/wood,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken3"
+	},
+/area/ruin/unpowered)
+"sp" = (
+/obj/structure/kitchenspike,
+/obj/effect/decal/cleanable/blood/old,
+/obj/item/reagent_containers/food/snacks/meat/human,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "escape"
+	},
+/area/ruin/unpowered)
+"sO" = (
+/turf/simulated/floor/carpet/orange,
+/area/ruin/unpowered)
+"sR" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/machinery/light_construct,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"sS" = (
+/obj/structure/mineral_door/wood,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"tm" = (
+/obj/machinery/slot_machine,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"tr" = (
+/obj/effect/decal/cleanable/vomit{
+	pixel_x = 6;
+	pixel_y = 7
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/unpowered)
+"tw" = (
+/obj/effect/decal/cleanable/blood/gibs/robot,
+/obj/machinery/light_construct{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"tz" = (
+/obj/structure/table/wood/fancy/purple,
+/obj/item/reagent_containers/food/drinks/shaker,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/unpowered)
+"tB" = (
+/turf/simulated/floor/wood{
+	broken = 1;
+	icon_state = "wood-broken"
+	},
+/area/ruin/unpowered)
+"tH" = (
+/obj/structure/table/wood/fancy/purple,
+/obj/item/reagent_containers/food/drinks/tea,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/unpowered)
+"tJ" = (
+/obj/item/chair/wood,
+/turf/simulated/floor/carpet,
+/area/ruin/unpowered)
+"ua" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken7"
+	},
+/area/ruin/unpowered)
+"uT" = (
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken7"
+	},
+/area/ruin/unpowered)
+"vd" = (
+/obj/structure/table/wood,
+/obj/item/trash/snack_bowl,
+/turf/simulated/floor/carpet{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "carpet12-0"
+	},
+/area/ruin/unpowered)
+"vM" = (
+/obj/structure/cult/archives,
+/obj/item/book/codex_gigas,
+/obj/item/necromantic_stone,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"wl" = (
+/obj/item/flag/wiz,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"xv" = (
+/obj/structure/toilet,
+/obj/item/reagent_containers/syringe/charcoal,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/unpowered)
+"xO" = (
+/obj/structure/decorative_structures/metal/statue/moon,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"xU" = (
+/obj/structure/decorative_structures/metal/statue/sun,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"yA" = (
+/turf/template_noop,
+/area/template_noop)
+"yH" = (
+/obj/machinery/light_construct{
+	dir = 1
+	},
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken7"
+	},
+/area/ruin/unpowered)
+"yW" = (
+/obj/effect/decal/cleanable/cobweb2,
+/obj/structure/closet/secure_closet/freezer/fridge/open,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "escape"
+	},
+/area/ruin/unpowered)
+"zv" = (
+/obj/item/chair/wood,
+/turf/simulated/floor/carpet{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "carpet8-0"
+	},
+/area/ruin/unpowered)
+"zy" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken"
+	},
+/area/ruin/unpowered)
+"zA" = (
+/obj/item/stack/sheet/wood,
+/obj/item/paper{
+	info = "Я стану лучим магом призыва. И для начала, я покажу свои таланты этим неучам. Как хорошо,что я научился призывать статуй и эм.. Живые ящики! Интересно, с какого измерения эти твари? Выглядят жутко, но они вроде как меня слушаются, а большего и не надо. А теперь, напою своих друзей вкуснейшим дедушкиным отваром.";
+	name = "Призыватель"
+	},
+/turf/simulated/floor/carpet/blue,
+/area/ruin/unpowered)
+"zB" = (
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"zF" = (
+/obj/item/trash/cheesie,
+/turf/simulated/floor/carpet/arcade,
+/area/ruin/unpowered)
+"zY" = (
+/obj/machinery/light_construct{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"Aa" = (
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken";
+	tag = "icon-wood-broken"
+	},
+/area/ruin/unpowered)
+"Al" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/obj/effect/mob_spawn/human/corpse/assistant{
+	name = "Фауст"
+	},
+/obj/item/paper{
+	info = "Какие же они тупые мрази, ничего не понимающие в магии. Они смеются надо мной из-за отсутствия заклинаний, ведь даже книги мне якобы не помогают. Они не знают, что я изучал вовсе другую школу, хе-хе.. Сегодня я убью их всех, а после - создам то, над чем так долго работал!";
+	name = "Победа!"
+	},
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"As" = (
+/obj/machinery/light_construct,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/unpowered)
+"Ay" = (
+/obj/structure/table/wood,
+/obj/item/paper{
+	info = "Я нашел странную скрытую дверь в холодильнике из-за кровавого следа, в которой находится комната. Чтож, там я и обоснуюсь. В холодильнике был чей-то труп, он был здесь до нас.. Странно конечно, но мне больше интересно то, во что все это выльется.";
+	name = "Ублюдки"
+	},
+/turf/simulated/floor/carpet,
+/area/ruin/unpowered)
+"AC" = (
+/obj/item/trash/liquidfood,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"AF" = (
+/obj/machinery/icemachine,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/ruin/unpowered)
+"AJ" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/carpet/black,
+/area/ruin/unpowered)
+"AW" = (
+/obj/item/stack/sheet/wood,
+/turf/simulated/floor/carpet,
+/area/ruin/unpowered)
+"Bq" = (
+/obj/structure/table,
+/obj/machinery/reagentgrinder,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/ruin/unpowered)
+"Ck" = (
+/obj/machinery/vending/cigarette/syndicate/free,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"Cs" = (
+/obj/structure/bookcase,
+/turf/simulated/floor/carpet/orange,
+/area/ruin/unpowered)
+"Dq" = (
+/obj/effect/decal/cleanable/vomit{
+	pixel_x = 6;
+	pixel_y = 7
+	},
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/ruin/unpowered)
+"Dx" = (
+/obj/structure/closet{
+	icon_closed = "cabinet_closed";
+	icon_opened = "cabinet_open";
+	icon_state = "cabinet_closed"
+	},
+/obj/item/clothing/head/wizard,
+/obj/item/clothing/suit/wizrobe,
+/obj/item/clothing/shoes/sandal/magic,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"DE" = (
+/obj/structure/table/wood/fancy/purple,
+/obj/item/reagent_containers/food/drinks/mugwort,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/unpowered)
+"Ej" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken5"
+	},
+/area/ruin/unpowered)
+"EB" = (
+/obj/machinery/computer/arcade,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"EE" = (
+/obj/structure/chair/wood{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"ET" = (
+/obj/structure/table_frame/wood,
+/obj/item/stack/sheet/wood,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"Fo" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"FA" = (
+/obj/effect/decal/cleanable/tomato_smudge,
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"FP" = (
+/obj/structure/bookcase,
+/obj/item/paper{
+	name = "Успех";
+	info = "Наконец-то. Спустя столько времени, я сделал его, и даже воскресил труп, взятый с холодильника! Даже не хочу знать, откуда он или кому принадлежит, но скелет слушает все мои команды. Он очень слаб, видимо из-за того что ослаб я сам. Черт, я так сильно хочу есть. Интересно, они там все попередохли? Уротрус, скорее всего сбежал. Статуи все еще здесь, я знаю это. Ох, что-то мне не хорошо.."
+	},
+/obj/item/spellbook/oneuse/fake_gib,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"FX" = (
+/obj/effect/decal/cleanable/flour,
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/ruin/unpowered)
+"GF" = (
+/obj/structure/bookcase,
+/turf/simulated/floor/carpet/blue,
+/area/ruin/unpowered)
+"GM" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/turf/simulated/floor/carpet{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "carpet4-0"
+	},
+/area/ruin/unpowered)
+"Hb" = (
+/obj/effect/decal/cleanable/confetti,
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"He" = (
+/mob/living/simple_animal/hostile/mimic/crate,
+/obj/effect/decal/cleanable/blood,
+/obj/item/paper{
+	name = "Я выживу!";
+	info = "Гребаный Отис! В начале напоил нас какой-то херней, а затем призвал какие-то статуи и ящик, который успел меня укусить! Черт, надо подождать пока мана восстановится. Я не умру в туалете!"
+	},
+/obj/effect/mob_spawn/human/corpse/assistant{
+	name = "Чарли"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/unpowered)
+"Hy" = (
+/obj/structure/piano/unanchored,
+/turf/simulated/floor/carpet/cyan,
+/area/ruin/unpowered)
+"HI" = (
+/obj/structure/table,
+/obj/machinery/processor,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/ruin/unpowered)
+"Ia" = (
+/obj/structure/table/wood/fancy/purple,
+/obj/machinery/chem_dispenser/beer,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/unpowered)
+"Ij" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken";
+	tag = "icon-wood-broken"
+	},
+/area/ruin/unpowered)
+"It" = (
+/obj/structure/mineral_door/iron,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/unpowered)
+"IH" = (
+/obj/structure/table/wood/fancy/purple,
+/obj/item/reagent_containers/food/snacks/dionaroast,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/unpowered)
+"IT" = (
+/turf/simulated/floor/carpet/purple,
+/area/ruin/unpowered)
+"Je" = (
+/obj/structure/coatrack,
+/obj/item/clothing/head/wizard/fake,
+/obj/item/clothing/suit/wizrobe/fake,
+/obj/item/clothing/shoes/sandal,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"Jf" = (
+/obj/effect/decal/cleanable/vomit,
+/obj/machinery/light_construct,
+/mob/living/simple_animal/hostile/statue,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "escape"
+	},
+/area/ruin/unpowered)
+"Jm" = (
+/obj/structure/table/wood,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"JI" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/carpet/black,
+/area/ruin/unpowered)
+"JL" = (
+/obj/effect/decal/cleanable/tomato_smudge,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"JP" = (
+/obj/item/trash/cheesie,
+/obj/effect/decal/ants,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"Kl" = (
+/obj/item/stack/sheet/wood,
+/turf/simulated/floor/carpet/orange,
+/area/ruin/unpowered)
+"Kn" = (
+/obj/effect/decal/cleanable/vomit,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"Kr" = (
+/obj/machinery/cooker/deepfryer,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/ruin/unpowered)
+"Kt" = (
+/obj/structure/table/wood/fancy/green,
+/obj/structure/spider/stickyweb,
+/obj/item/stack/sheet/wood,
+/turf/simulated/floor/carpet/green,
+/area/ruin/unpowered)
+"Kv" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/carpet,
+/area/ruin/unpowered)
+"Kx" = (
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/light_construct,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/unpowered)
+"LC" = (
+/obj/machinery/light_construct{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/unpowered)
+"MQ" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/structure/spider/stickyweb,
+/obj/effect/mob_spawn/human/corpse/assistant{
+	name = "Йохан"
+	},
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"Ng" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/carpet/blue,
+/area/ruin/unpowered)
+"Nr" = (
+/obj/machinery/gibber,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "escape"
+	},
+/area/ruin/unpowered)
+"NE" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/obj/effect/mob_spawn/human/corpse/assistant{
+	name = "Карл"
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/carpet/red,
+/area/ruin/unpowered)
+"NR" = (
+/obj/machinery/light_construct{
+	dir = 1
+	},
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/carpet/black,
+/area/ruin/unpowered)
+"NV" = (
+/obj/structure/bed,
+/obj/item/bedsheet/wiz,
+/obj/effect/decal/cleanable/cobweb2,
+/obj/structure/spider/stickyweb,
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter{
+	name = "Лучший друг";
+	melee_damage_lower = 20;
+	melee_damage_upper = 30;
+	health = 200
+	},
+/obj/item/paper{
+	info = "Как хорошо иметь друга, который слишком невнимателен к таким как я. Что ж, теперь я хочу чтобы мой лучший друг стал немного побольше. Возьму-ка мясо у Карла. Интересно, зачем ему столько?";
+	name = "Новый друг"
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/unpowered)
+"Oj" = (
+/mob/living/simple_animal/hostile/creature,
+/obj/machinery/light_construct{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/red,
+/area/ruin/unpowered)
+"OD" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/clothing/glasses/meson/fluff/book_berner_1,
+/turf/simulated/floor/carpet/black,
+/area/ruin/unpowered)
+"Pd" = (
+/turf/simulated/floor/carpet,
+/area/ruin/unpowered)
+"Pm" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/spellburger,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/ruin/unpowered)
+"Po" = (
+/obj/effect/decal/cleanable/blood/writing,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/unpowered)
+"Pu" = (
+/obj/structure/bed,
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/carpet/orange,
+/area/ruin/unpowered)
+"PH" = (
+/obj/structure/bed,
+/obj/effect/decal/cleanable/cobweb2,
+/obj/item/bedsheet/red,
+/turf/simulated/floor/carpet/red,
+/area/ruin/unpowered)
+"PR" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/carpet/green,
+/area/ruin/unpowered)
+"Ql" = (
+/obj/machinery/light_construct{
+	dir = 4
+	},
+/turf/simulated/floor/wood{
+	broken = 1;
+	icon_state = "wood-broken"
+	},
+/area/ruin/unpowered)
+"Qu" = (
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/carpet/green,
+/area/ruin/unpowered)
+"QQ" = (
+/obj/structure/spider/stickyweb,
+/mob/living/simple_animal/hostile/poison/giant_spider,
+/obj/machinery/light_construct{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/green,
+/area/ruin/unpowered)
+"Rw" = (
+/obj/effect/decal/cleanable/vomit,
+/turf/simulated/floor/carpet,
+/area/ruin/unpowered)
+"Ry" = (
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"RI" = (
+/obj/structure/table/wood,
+/obj/machinery/light_construct{
+	dir = 1
+	},
+/obj/item/flashlight/lantern,
+/obj/item/paper{
+	name = "Добро пожаловать!";
+	info = "Каждый год я возвращаюсь сюда, в таверну магов, дабы вспомнить те самые деньки, проведенные с друзьями после сдачи экзаменов.. Спустя столько лет, я не могу забыть того, что произошло здесь после того как Отис решил похвастаться своим напитком, а потом магией призыва. Ох, ну что за идиот! Жаль что нет магии, способной докучать духам. Отис, Карл, Паульс, Йохан, Томас и конечно же, главный идиот новой академии - Фауст, мои дрожайшие друзья, простите что не спас вас. Я был напуган. Я ничего не смог сделать. Отдельное извинение для Чарли. Прости что пригласил тебя. Ты погиб из-за меня. Что ж. Историю не перепишешь. Ты, тот кто это читает, будь осторожен. В этом месте еще остались различные твари, ты обязательно их встретишь. Я лишь хочу чтобы кто-то помнил это место, ведь правду знал только я, последний выживший после инцидента. Я оставлю тебе лампу, как прощальный подарок.Надеюсь ты не тронешь Гошу, охранника этого места. -Адепт школы исцеления Новой Академии Магов, УроТат."
+	},
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"RL" = (
+/obj/effect/decal/cleanable/tomato_smudge,
+/turf/simulated/floor/carpet/red,
+/area/ruin/unpowered)
+"Sn" = (
+/obj/structure/mineral_door/iron,
+/obj/effect/decal/cleanable/vomit{
+	pixel_x = 6;
+	pixel_y = 7
+	},
+/obj/effect/decal/cleanable/blood/writing,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/ruin/unpowered)
+"SA" = (
+/obj/structure/falsewall,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"SK" = (
+/obj/structure/table/wood/fancy/purple,
+/obj/machinery/chem_dispenser/soda,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/unpowered)
+"SS" = (
+/obj/item/flag/wiz,
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"TY" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/blue,
+/area/ruin/unpowered)
+"UF" = (
+/obj/effect/decal/cleanable/vomit,
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"UK" = (
+/mob/living/simple_animal/hostile/skeleton,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"UQ" = (
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/ruin/unpowered)
+"VK" = (
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken3"
+	},
+/area/ruin/unpowered)
+"VY" = (
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 9
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/unpowered)
+"Wg" = (
+/turf/simulated/floor/carpet/red,
+/area/ruin/unpowered)
+"Wl" = (
+/obj/structure/bed,
+/obj/effect/decal/cleanable/cobweb2,
+/obj/random/plushie,
+/turf/simulated/floor/carpet/blue,
+/area/ruin/unpowered)
+"Wm" = (
+/obj/structure/bookcase,
+/turf/simulated/floor/carpet/black,
+/area/ruin/unpowered)
+"WJ" = (
+/obj/structure/toilet,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/unpowered)
+"WU" = (
+/obj/structure/table/wood,
+/obj/item/clothing/head/helmet/skull,
+/turf/simulated/floor/carpet,
+/area/ruin/unpowered)
+"WZ" = (
+/obj/effect/decal/cleanable/cobweb2,
+/obj/structure/decorative_structures/metal/statue/golden_disk,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken3"
+	},
+/area/ruin/unpowered)
+"Xb" = (
+/obj/machinery/vending/snack/free,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"Xq" = (
+/obj/effect/decal/cleanable/insectguts,
+/turf/simulated/floor/carpet/green,
+/area/ruin/unpowered)
+"XG" = (
+/obj/effect/decal/cleanable/insectguts,
+/turf/simulated/floor/carpet/black,
+/area/ruin/unpowered)
+"XM" = (
+/obj/effect/decal/cleanable/blood/old,
+/mob/living/simple_animal/hostile/statue,
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "escape"
+	},
+/area/ruin/unpowered)
+"XR" = (
+/obj/structure/spider/stickyweb,
+/mob/living/simple_animal/hostile/poison/giant_spider,
+/turf/simulated/floor/carpet/arcade,
+/area/ruin/unpowered)
+"Zc" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/turf/simulated/floor/carpet{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "carpet8-0"
+	},
+/area/ruin/unpowered)
+"Zi" = (
+/mob/living/simple_animal/hostile/carp/sea{
+	name = "Гоша";
+	health = 100;
+	melee_damage_upper = 20;
+	melee_damage_lower = 20
+	},
+/obj/structure/bed/dogbed,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
+"Zx" = (
+/obj/effect/decal/ants,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mob_spawn/human/corpse/assistant{
+	name = "Паульс"
+	},
+/obj/item/paper{
+	info = "Надеюсь, нет ничего плохого в том, чтобы взять паучьи яйца с класса биологии сюда для изучения. Я не намерен развлекаться даже после сдачи экзаменов. Буду продолжать учиться, пока мои друзья-дурачки буянят и страдают фигней. Так, Паульс, сосредоточься, в этот раз ты точно займешь первое место на экзаменах..";
+	name = "Запись #1. Начало"
+	},
+/turf/simulated/floor/carpet/green,
+/area/ruin/unpowered)
+"ZN" = (
+/turf/simulated/wall,
+/area/ruin/unpowered)
+"ZS" = (
+/obj/structure/table/wood/fancy/purple,
+/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = 5;
+	pixel_y = 7
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+pj
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+"}
+(2,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+pj
+pj
+pj
+pj
+pj
+yA
+yA
+pj
+pj
+pj
+pj
+yA
+dY
+pj
+pj
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+"}
+(3,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+dY
+dY
+pj
+pj
+pj
+dY
+dY
+pj
+pj
+pj
+pj
+pj
+dY
+dY
+dY
+pj
+dY
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+"}
+(4,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+"}
+(5,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+"}
+(6,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+dY
+dY
+dY
+dY
+dY
+jR
+jR
+jR
+jR
+jR
+jR
+jR
+jR
+jR
+jR
+jR
+jR
+jR
+dY
+dY
+dY
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+"}
+(7,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+pj
+dY
+dY
+dY
+dY
+dY
+jR
+eL
+Wg
+NE
+ZN
+Cs
+sO
+Kl
+ZN
+Qu
+Qu
+PR
+jR
+dY
+dY
+dY
+dY
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+"}
+(8,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+pj
+dY
+dY
+dY
+dY
+dY
+jR
+Oj
+RL
+qg
+ZN
+by
+iL
+am
+ZN
+QQ
+gy
+Kt
+jR
+dY
+dY
+dY
+pj
+pj
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+"}
+(9,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+pj
+pj
+dY
+dY
+dY
+dY
+dY
+jR
+PH
+Wg
+oq
+ZN
+Pu
+sO
+ce
+ZN
+Xq
+Qu
+Zx
+jR
+dY
+dY
+dY
+pj
+pj
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+"}
+(10,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+pj
+pj
+pj
+dY
+dY
+dY
+jR
+ZN
+sS
+ZN
+ZN
+ZN
+sS
+ZN
+ZN
+ZN
+Ry
+ZN
+jR
+dY
+dY
+dY
+dY
+pj
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+"}
+(11,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+pj
+dY
+dY
+jR
+jR
+zB
+ez
+Kn
+Ij
+gJ
+ez
+tB
+gJ
+Hb
+nB
+Ry
+jR
+jR
+dY
+dY
+dY
+dY
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+"}
+(12,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+pj
+pj
+dY
+dY
+jR
+wl
+fq
+ez
+ez
+ez
+ez
+ez
+ez
+ez
+nB
+nB
+VK
+wl
+jR
+dY
+dY
+dY
+dY
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+"}
+(13,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+pj
+dY
+dY
+dY
+dY
+jR
+jR
+ua
+ez
+Ql
+dm
+Ij
+ez
+zY
+Fo
+kx
+nB
+fq
+jR
+jR
+dY
+dY
+dY
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+"}
+(14,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+pj
+dY
+dY
+dY
+dY
+dY
+jR
+ZN
+sS
+ZN
+ZN
+ZN
+sS
+ZN
+ZN
+Aa
+nB
+js
+jR
+dY
+dY
+dY
+pj
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+"}
+(15,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+pj
+pj
+dY
+dY
+dY
+dY
+dY
+jR
+GF
+bc
+Ng
+ZN
+Wm
+jy
+XG
+ZN
+FA
+nB
+UF
+jR
+dY
+dY
+pj
+pj
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+"}
+(16,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+pj
+pj
+dY
+dY
+dY
+dY
+dY
+jR
+hM
+bc
+zA
+ZN
+NR
+mJ
+OD
+ZN
+hT
+XR
+Hb
+jR
+dY
+pj
+pj
+pj
+pj
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+"}
+(17,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+pj
+dY
+jR
+jR
+jR
+jR
+jR
+Wl
+bc
+TY
+ZN
+NV
+JI
+AJ
+ZN
+VK
+nB
+uT
+jR
+dY
+pj
+pj
+pj
+pj
+pj
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+"}
+(18,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+dY
+dY
+jR
+FP
+UK
+vM
+ZN
+ZN
+ZN
+ZN
+ZN
+ZN
+ZN
+ZN
+ZN
+ZN
+sS
+ZN
+jR
+dY
+pj
+pj
+pj
+pj
+dY
+dY
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+"}
+(19,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+dY
+dY
+dY
+jR
+Dx
+gJ
+Al
+ZN
+UQ
+Bq
+Pm
+ZN
+Ia
+VY
+nc
+EE
+dm
+ez
+wl
+jR
+jR
+sS
+sS
+jR
+jR
+dY
+dY
+dY
+yA
+yA
+yA
+yA
+yA
+yA
+"}
+(20,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+pj
+dY
+dY
+jR
+ZN
+SA
+ZN
+ZN
+eh
+Dq
+hb
+Sn
+Po
+IT
+tH
+EE
+ua
+ez
+sl
+ZN
+xO
+Pd
+Rw
+xU
+jR
+dY
+dY
+dY
+dY
+yA
+yA
+yA
+yA
+yA
+"}
+(21,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+pj
+pj
+dY
+dY
+jR
+sp
+XM
+kM
+ZN
+AF
+FX
+rL
+ZN
+SK
+tr
+ZS
+EE
+JP
+ez
+pO
+ZN
+Zi
+Ej
+AW
+sR
+jR
+dY
+dY
+dY
+dY
+yA
+yA
+yA
+yA
+yA
+"}
+(22,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+pj
+pj
+dY
+dY
+jR
+Nr
+kM
+kM
+kB
+eh
+FX
+ol
+ZN
+dq
+ld
+DE
+EE
+fq
+ez
+ez
+aT
+Pd
+Pd
+zy
+Je
+jR
+dY
+dY
+dY
+pj
+yA
+yA
+yA
+yA
+yA
+"}
+(23,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+pj
+dY
+dY
+dY
+jR
+yW
+kM
+Jf
+ZN
+Kr
+kS
+kW
+ZN
+LC
+IT
+IH
+EE
+fq
+zF
+Xb
+ZN
+RI
+tB
+gJ
+ET
+jR
+dY
+dY
+pj
+pj
+yA
+yA
+yA
+yA
+yA
+"}
+(24,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+dY
+dY
+dY
+jR
+jR
+jR
+jR
+jR
+HI
+nU
+hN
+ZN
+IT
+tz
+gK
+ji
+tB
+ez
+li
+ZN
+Jm
+ET
+ET
+ET
+jR
+dY
+dY
+pj
+pj
+yA
+yA
+yA
+yA
+yA
+"}
+(25,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+jR
+hq
+eh
+cP
+ZN
+gJ
+gJ
+gJ
+AC
+ez
+ez
+hX
+ZN
+ZN
+ZN
+ZN
+ZN
+jR
+dY
+dY
+dY
+dY
+yA
+yA
+yA
+yA
+yA
+"}
+(26,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+dY
+dY
+dY
+dY
+dY
+dY
+jR
+jR
+jR
+ZN
+ic
+ZN
+ZN
+Hy
+rZ
+ni
+pQ
+ez
+dm
+Ck
+ZN
+gS
+gS
+gS
+gS
+jR
+dY
+dY
+dY
+dY
+dY
+yA
+yA
+yA
+yA
+"}
+(27,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+dY
+dY
+dY
+dY
+dY
+dY
+jR
+WJ
+ic
+sk
+sk
+ZN
+tm
+dm
+gJ
+gJ
+GM
+ez
+gJ
+ZN
+ZN
+gS
+VK
+cN
+gS
+jR
+dY
+dY
+dY
+dY
+dY
+dY
+yA
+yA
+yA
+"}
+(28,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+jR
+ZN
+ZN
+cw
+Kx
+ZN
+tm
+ua
+gJ
+gJ
+vd
+ez
+GM
+ZN
+SS
+Ry
+Ry
+MQ
+Ry
+jR
+dY
+dY
+dY
+dY
+dY
+yA
+yA
+yA
+yA
+"}
+(29,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+jR
+ct
+ic
+sk
+sk
+ZN
+tw
+gJ
+GM
+gJ
+zv
+ez
+qc
+ZN
+yH
+FA
+Kv
+Kv
+ua
+jR
+dY
+dY
+dY
+dY
+dY
+yA
+yA
+yA
+yA
+"}
+(30,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+dY
+dY
+dY
+dY
+dY
+dY
+jR
+ZN
+ZN
+sk
+cw
+It
+gJ
+gJ
+gU
+tB
+gJ
+ez
+Zc
+ZN
+gJ
+gJ
+rq
+iD
+Kn
+jR
+dY
+dY
+dY
+dY
+yA
+yA
+yA
+yA
+yA
+"}
+(31,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+jR
+He
+ic
+sk
+cw
+ZN
+EB
+gJ
+Zc
+JL
+gJ
+ez
+ez
+aT
+Pd
+ni
+WU
+Ay
+gJ
+jR
+dY
+dY
+dY
+dY
+pj
+yA
+yA
+yA
+yA
+"}
+(32,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+pj
+pj
+pj
+dY
+dY
+dY
+dY
+dY
+jR
+ZN
+ZN
+ei
+As
+ZN
+mY
+gJ
+gJ
+aQ
+ua
+Kn
+dB
+ZN
+gJ
+gJ
+AW
+tJ
+ri
+jR
+dY
+dY
+dY
+pj
+pj
+yA
+yA
+yA
+yA
+"}
+(33,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+pj
+pj
+dY
+dY
+dY
+dY
+dY
+dY
+jR
+xv
+ic
+sk
+sk
+ZN
+EB
+ua
+gJ
+dm
+gJ
+gJ
+ni
+ZN
+WZ
+fq
+gJ
+Kn
+gJ
+jR
+dY
+dY
+dY
+pj
+dY
+yA
+yA
+yA
+yA
+"}
+(34,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+pj
+pj
+pj
+dY
+dY
+dY
+dY
+dY
+jR
+jR
+jR
+jR
+jR
+jR
+jR
+jR
+ET
+ET
+fQ
+jR
+jR
+jR
+jR
+jR
+jR
+jR
+jR
+jR
+dY
+dY
+dY
+dY
+yA
+yA
+yA
+yA
+yA
+"}
+(35,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+pj
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+jR
+jR
+jR
+jR
+jR
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+yA
+yA
+yA
+yA
+yA
+"}
+(36,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+yA
+yA
+yA
+yA
+yA
+"}
+(37,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+pj
+pj
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+yA
+yA
+yA
+yA
+yA
+"}
+(38,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+pj
+pj
+dY
+pj
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+dY
+pj
+dY
+pj
+dY
+yA
+yA
+yA
+yA
+yA
+yA
+"}
+(39,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+pj
+pj
+pj
+yA
+dY
+dY
+yA
+dY
+dY
+dY
+pj
+dY
+dY
+dY
+dY
+yA
+yA
+dY
+dY
+yA
+pj
+pj
+pj
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+"}
+(40,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+pj
+pj
+pj
+yA
+yA
+yA
+yA
+yA
+pj
+pj
+pj
+yA
+dY
+dY
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+"}
+(41,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+"}
+(42,1,1) = {"
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+yA
+"}

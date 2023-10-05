@@ -104,8 +104,8 @@
 	desc = "a katana made out of hardened basalt. Particularly damaging to lavaland fauna."
 	icon_state = "basalt_katana"
 	item_state = "basalt_katana"
-	force = 40
-	block_chance = 50
+	force = 30
+	block_chance = 30
 
 	var/fauna_damage_bonus = 40
 	var/fauna_damage_type = BRUTE

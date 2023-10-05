@@ -133,6 +133,10 @@
 	return TRUE
 
 /obj/machinery/door/airlock/PAIAltClick(mob/living/silicon/pai/user) // Eletrifies doors. Forwards to AI code.
+	var/turf/door_turf = get_turf(src)
+	var/turf/pai_turf = get_turf(user)
+	if(!istype(door_turf) || !istype(pai_turf) || door_turf.z != pai_turf.z)
+		return FALSE
 	AIAltClick(user)
 	return TRUE
 

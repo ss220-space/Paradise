@@ -33,7 +33,7 @@
 /obj/structure/closet/secure_closet/engineering_electrical
 	name = "electrical supplies locker"
 	req_access = list(ACCESS_ENGINE_EQUIP)
-	icon_state = "eng"
+	icon_state = "toolcloset"
 	custom_door_overlay = "engelec"
 
 /obj/structure/closet/secure_closet/engineering_electrical/populate_contents()
@@ -54,7 +54,7 @@
 /obj/structure/closet/secure_closet/engineering_welding
 	name = "welding supplies locker"
 	req_access = list(ACCESS_ENGINE_EQUIP)
-	icon_state = "eng"
+	icon_state = "toolcloset"
 	custom_door_overlay = "engweld"
 
 /obj/structure/closet/secure_closet/engineering_welding/populate_contents()
@@ -69,7 +69,7 @@
 /obj/structure/closet/secure_closet/engineering_personal
 	name = "engineer's locker"
 	req_access = list(ACCESS_ENGINE_EQUIP)
-	icon_state = "eng"
+	icon_state = "toolcloset"
 
 /obj/structure/closet/secure_closet/engineering_personal/populate_contents()
 	if(prob(50))

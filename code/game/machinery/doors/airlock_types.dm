@@ -311,6 +311,11 @@
 	normal_integrity = 1000
 	security_level = 6
 
+/obj/machinery/door/airlock/centcom/attack_hand(mob/user)
+	. = ..()
+	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+		return
+
 /obj/machinery/door/airlock/centcom/emag_act(mob/user)
 	to_chat(user, span_notice("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
 	return
@@ -840,6 +845,11 @@
 	opacity = 0
 	glass = TRUE
 	normal_integrity = 300
+
+/obj/machinery/door/airlock/syndicate/extmai/glass/attack_hand(mob/user)
+	. = ..()
+	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+		return
 
 /*
 	Misc Airlocks

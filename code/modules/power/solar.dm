@@ -302,7 +302,7 @@
 	if(autostart)
 		search_for_connected()
 		if(connected_tracker && track == TRACKER_AUTO)
-			connected_tracker.set_angle(SSsun.angle)
+			connected_tracker.modify_angle(SSsun.angle)
 		set_panels(cdir)
 
 /obj/machinery/power/solar_control/Destroy()
@@ -342,7 +342,7 @@
 		return
 
 	if(track == TRACKER_AUTO && connected_tracker) // auto-tracking
-		connected_tracker.set_angle(SSsun.angle)
+		connected_tracker.modify_angle(SSsun.angle)
 		set_panels(cdir)
 	updateDialog()
 
@@ -414,7 +414,7 @@
 			track = text2num(params["track"])
 			if(track == TRACKER_AUTO)
 				if(connected_tracker)
-					connected_tracker.set_angle(SSsun.angle)
+					connected_tracker.modify_angle(SSsun.angle)
 					set_panels(cdir)
 			else if(track == TRACKER_TIMED)
 				targetdir = cdir
@@ -424,7 +424,7 @@
 		if("refresh")
 			search_for_connected()
 			if(connected_tracker && track == TRACKER_AUTO)
-				connected_tracker.set_angle(SSsun.angle)
+				connected_tracker.modify_angle(SSsun.angle)
 			set_panels(cdir)
 
 /obj/machinery/power/solar_control/attackby(obj/item/I, mob/user, params)

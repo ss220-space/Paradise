@@ -23,6 +23,7 @@
 		M.AdjustConfused(40 SECONDS)
 		M.AdjustEyeBlurry(40 SECONDS)
 		M.AdjustDrowsy(40 SECONDS)
+		M.AdjustDrunk(50 SECONDS)
 		for(var/datum/reagent/consumable/ethanol/A in M.reagents.reagent_list)
 			M.AdjustParalysis(4 SECONDS)
 			M.AdjustDizzy(20 SECONDS)
@@ -184,11 +185,15 @@
 
 /obj/item/projectile/bullet/midbullet
 	damage = 20
-	stamina = 33 //two rounds from the c20r knocks people down
+	stamina = 33 //four rounds from the c20r knocks people down
+
+/obj/item/projectile/bullet/midbullet_AC2S
+	damage = 20
+	stamina = 40 //three rounds from the AC 2 Special knocks people down
 
 /obj/item/projectile/bullet/midbullet_r
 	damage = 5
-	stamina = 33 //Still two rounds to knock people down
+	stamina = 33 //Still four rounds to knock people down
 
 /obj/item/projectile/bullet/midbullet2
 	damage = 25

@@ -20,6 +20,11 @@
 
 	var/datum/species/primitive_form = null          // Lesser form, if any (ie. monkey for humans)
 	var/datum/species/greater_form = null             // Greater form, if any, ie. human for monkeys.
+
+	var/roundstart = TRUE
+	var/id = null
+
+
 	/// Name of tail image in species effects icon file.
 	var/tail
 	/// like tail but wings
@@ -43,6 +48,7 @@
 	var/hunger_drain = HUNGER_FACTOR
 	var/digestion_ratio = 1 //How quickly the species digests/absorbs reagents.
 	var/taste_sensitivity = TASTE_SENSITIVITY_NORMAL //the most widely used factor; humans use a different one
+	var/germs_growth_rate = 1 //How quickly germs are growing.
 
 	var/hunger_icon = 'icons/mob/screen_hunger.dmi'
 	var/hunger_type
@@ -65,11 +71,13 @@
 	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
 	var/speed_mod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
 	var/bonefragility = 1 // higher numbers - higher chances to break bones
+	var/fragile_bones_chance = 0	//chance to break bones while walking, pulling and beating
 	var/blood_damage_type = OXY //What type of damage does this species take if it's low on blood?
 	var/total_health = 100
 	var/punchdamagelow = 0       //lowest possible punch damage
 	var/punchdamagehigh = 9      //highest possible punch damage
 	var/punchstunthreshold = 9	 //damage at which punches from this race will stun //yes it should be to the attacked race but it's not useful that way even if it's logical
+	var/strength_modifier = 1	 //for now only used in resist/grab chances. Maybe sometime it will become more usefull
 	var/obj_damage = 0
 	var/list/default_genes = list()
 
@@ -205,6 +213,10 @@
 	var/toxic_food = TOXIC
 	var/disliked_food = GROSS
 	var/liked_food = FRIED | JUNKFOOD | SUGAR
+
+	var/list/autohiss_basic_map = null
+	var/list/autohiss_extra_map = null
+	var/list/autohiss_exempt = null
 
 /datum/species/New()
 	//If the species has eyes, they are the default vision organ
@@ -434,6 +446,11 @@
 	var/message = "<span class='warning'>[target.declent_ru(NOMINATIVE)] блокиру[pluralize_ru(target.gender,"ет","ют")] попытку захвата [user.declent_ru(GENITIVE)]!</span>"
 	if(target.check_martial_art_defense(target, user, null, message))
 		return FALSE
+
+	var/datum/antagonist/vampire/vampire = user.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(vampire?.get_ability(/datum/vampire_passive/upgraded_grab) && vampire.grab_act(user, target))
+		return TRUE
+
 	if(attacker_style && attacker_style.grab_act(user, target) == TRUE)
 		return TRUE
 	else

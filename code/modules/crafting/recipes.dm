@@ -164,6 +164,17 @@
 	time = 40
 	category = CAT_ROBOT
 
+/datum/crafting_recipe/armour_plate
+	name = "Armour Mecha Plate"
+	result = list(/obj/item/stack/sheet/armour_plate,
+				/obj/item/stack/sheet/armour_plate)
+	reqs = list(/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster = 1,
+				/obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster = 1,
+				/obj/item/stack/cable_coil = 5)
+	tools = list(TOOL_WELDER)
+	time = 20
+	category = CAT_ROBOT
+
 /datum/crafting_recipe/flamethrower
 	name = "Flamethrower"
 	result = /obj/item/flamethrower
@@ -734,6 +745,18 @@
 	time = 60
 	reqs = list(/obj/item/stack/cable_coil = 5,
 		        /obj/item/mecha_parts/mecha_equipment/drill = 1,
+		        /obj/item/stock_parts/cell = 1,
+		        /obj/item/stack/rods = 2,
+		        /obj/item/assembly/timer = 1)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
+	category = CAT_MISC
+
+/datum/crafting_recipe/drill_alt
+	name = "Thermal Drill(Alternative)"
+	result = /obj/item/thermal_drill
+	time = 60
+	reqs = list(/obj/item/stack/cable_coil = 5,
+		        /obj/item/surgicaldrill = 1,
 		        /obj/item/stock_parts/cell = 1,
 		        /obj/item/stack/rods = 2,
 		        /obj/item/assembly/timer = 1)
