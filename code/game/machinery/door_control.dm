@@ -54,10 +54,15 @@
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
 
+/obj/machinery/door_control/Initialize(mapload)
+    . = ..()
+    if(!istype(id, /list))
+        id = list(id)
+
 /obj/machinery/door_control/proc/do_main_action(mob/user as mob)
 	if(normaldoorcontrol)
 		for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
-			if(safety_z_check && D.z != z || D.id_tag != id)
+			if(safety_z_check && D.z != z || !(D.id_tag in id))
 				continue
 			if(specialfunctions & OPEN)
 				if(D.density)
@@ -87,7 +92,7 @@
 
 	else
 		for(var/obj/machinery/door/poddoor/M in GLOB.airlocks)
-			if(safety_z_check && M.z != z || M.id_tag != id)
+			if(safety_z_check && M.z != z || !(M.id_tag in id))
 				continue
 			if(M.density)
 				spawn(0)
