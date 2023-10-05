@@ -3985,12 +3985,6 @@
 	},
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/academy/academyaft)
-"Bi" = (
-/turf/simulated/floor/carpet,
-/area/awaymission/academy/academyaft{
-	pixel_x = -75;
-	pixel_y = -90
-	})
 "Bl" = (
 /obj/structure/holohoop{
 	pixel_y = 21
@@ -5703,13 +5697,6 @@
 /obj/effect/decal/ants,
 /turf/simulated/floor/wood,
 /area/awaymission/academy/headmaster)
-"XX" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/awaymission/academy/academyaft{
-	pixel_x = -32
-	})
 "Ya" = (
 /obj/structure/mineral_door/iron,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -9321,7 +9308,7 @@ ap
 fD
 fD
 fD
-Bi
+fD
 fD
 fD
 Qf
@@ -9566,7 +9553,7 @@ Zr
 ei
 hH
 fL
-XX
+fL
 fL
 fL
 Om
