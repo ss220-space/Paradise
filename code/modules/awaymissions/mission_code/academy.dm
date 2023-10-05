@@ -4,6 +4,7 @@
 	name = "\improper Academy Asteroids"
 	icon_state = "away"
 	report_alerts = FALSE
+	no_teleportlocs = TRUE
 
 /area/awaymission/academy/headmaster
 	name = "\improper Academy Fore Block"
