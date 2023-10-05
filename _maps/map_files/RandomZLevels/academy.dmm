@@ -2069,13 +2069,12 @@
 	},
 /area/awaymission/academy/classrooms)
 "iE" = (
-/mob/living/simple_animal/hostile/creature{
-	health = 300;
+/mob/living/simple_animal/hostile/faithless{
+	health = 150;
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi';
-	icon_dead = "bear_dead";
 	icon_living = "legion";
 	icon_state = "legion";
-	maxHealth = 300;
+	maxHealth = 150;
 	name = "Big_Legion";
 	pixel_x = -16
 	},
@@ -2504,15 +2503,6 @@
 /turf/simulated/wall/indestructible/hierophant,
 /area/awaymission/academy/classrooms)
 "ky" = (
-/mob/living/simple_animal/hostile/creature{
-	health = 300;
-	icon = 'icons/mob/lavaland/64x64megafauna.dmi';
-	icon_living = "legion";
-	icon_state = "legion";
-	maxHealth = 300;
-	name = "Big_Legion";
-	pixel_x = -16
-	},
 /turf/simulated/floor/plasteel/dark/telecomms,
 /area/awaymission/academy/classrooms)
 "kA" = (
@@ -3003,13 +2993,12 @@
 	},
 /area/awaymission/academy/academyaft)
 "pN" = (
-/mob/living/simple_animal/hostile/creature{
-	health = 300;
+/mob/living/simple_animal/hostile/faithless{
+	health = 150;
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi';
-	icon_dead = "bear_dead";
 	icon_living = "legion";
 	icon_state = "legion";
-	maxHealth = 300;
+	maxHealth = 150;
 	name = "Big_Legion";
 	pixel_x = -16
 	},
@@ -3715,7 +3704,8 @@
 /area/awaymission/academy/academyaft)
 "xP" = (
 /mob/living/simple_animal/hostile/faithless{
-	icon_state = "drone3"
+	icon_state = "drone3";
+	name = "dronchik"
 	},
 /turf/simulated/floor/engine,
 /area/awaymission/academy/academyaft)
@@ -3788,11 +3778,11 @@
 /area/awaymission/academy/headmaster)
 "yH" = (
 /mob/living/simple_animal/hostile/faithless{
-	health = 500;
+	health = 200;
 	icon = 'icons/mob/lavaland/hierophant_new.dmi';
 	icon_living = "hierophant";
 	icon_state = "hierophant";
-	maxHealth = 500;
+	maxHealth = 200;
 	name = "herophant"
 	},
 /turf/simulated/floor/indestructible/hierophant/two,
@@ -4265,11 +4255,11 @@
 /area/awaymission/academy/classrooms)
 "Fl" = (
 /mob/living/simple_animal/hostile/faithless{
-	health = 500;
+	health = 200;
 	icon = 'icons/mob/lavaland/blood_drunk.dmi';
 	icon_living = "miner";
 	icon_state = "miner";
-	maxHealth = 500;
+	maxHealth = 200;
 	name = "bounty hunter";
 	pixel_x = -7
 	},
@@ -4410,7 +4400,8 @@
 /area/awaymission/academy/classrooms)
 "GZ" = (
 /mob/living/simple_animal/hostile/faithless{
-	icon_state = "drone3"
+	icon_state = "drone3";
+	name = "dronchik"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/academyaft)
@@ -4742,13 +4733,12 @@
 	},
 /area/awaymission/academy/classrooms)
 "Lt" = (
-/mob/living/simple_animal/hostile/creature{
-	health = 300;
+/mob/living/simple_animal/hostile/faithless{
+	health = 150;
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi';
-	icon_dead = "bear_dead";
 	icon_living = "legion";
 	icon_state = "legion";
-	maxHealth = 300;
+	maxHealth = 150;
 	name = "Big_Legion";
 	pixel_x = -16
 	},
@@ -4943,11 +4933,11 @@
 /area/awaymission/academy/academyaft)
 "Om" = (
 /mob/living/simple_animal/hostile/faithless{
-	health = 500;
+	health = 200;
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi';
 	icon_living = "eva";
 	icon_state = "eva";
-	maxHealth = 500;
+	maxHealth = 200;
 	name = "colossok";
 	pixel_x = -32
 	},
@@ -4967,13 +4957,12 @@
 	},
 /area/awaymission/academy/academyaft)
 "Ov" = (
-/mob/living/simple_animal/hostile/creature{
-	health = 300;
+/mob/living/simple_animal/hostile/faithless{
+	health = 150;
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi';
-	icon_dead = "bear_dead";
 	icon_living = "legion";
 	icon_state = "legion";
-	maxHealth = 300;
+	maxHealth = 150;
 	name = "Big_Legion";
 	pixel_x = -16
 	},
@@ -5003,7 +4992,8 @@
 /area/awaymission/academy/classrooms)
 "OE" = (
 /mob/living/simple_animal/hostile/faithless{
-	icon_state = "drone3"
+	icon_state = "drone3";
+	name = "dronchik"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
@@ -5117,13 +5107,12 @@
 /turf/simulated/floor/wood,
 /area/awaymission/academy/classrooms)
 "QA" = (
-/mob/living/simple_animal/hostile/creature{
-	health = 300;
+/mob/living/simple_animal/hostile/faithless{
+	health = 150;
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi';
-	icon_dead = "bear_dead";
 	icon_living = "legion";
 	icon_state = "legion";
-	maxHealth = 300;
+	maxHealth = 150;
 	name = "Big_Legion";
 	pixel_x = -16
 	},
@@ -5334,11 +5323,11 @@
 /area/awaymission/academy/classrooms)
 "SW" = (
 /mob/living/simple_animal/hostile/faithless{
-	health = 500;
+	health = 200;
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi';
 	icon_living = "bubblegum";
 	icon_state = "bubblegum";
-	maxHealth = 500;
+	maxHealth = 200;
 	name = "bulbaguma";
 	pixel_x = -32
 	},
@@ -5704,11 +5693,11 @@
 "Yb" = (
 /obj/structure/stone_tile/slab,
 /mob/living/simple_animal/hostile/faithless{
-	health = 500;
+	health = 200;
 	icon = 'icons/mob/lavaland/legion.dmi';
 	icon_living = "legion";
 	icon_state = "legion";
-	maxHealth = 500;
+	maxHealth = 200;
 	name = "legionka";
 	pixel_x = -75;
 	pixel_y = -95
@@ -5814,11 +5803,11 @@
 /area/awaymission/academy/classrooms)
 "Zx" = (
 /mob/living/simple_animal/hostile/faithless{
-	health = 500;
+	health = 200;
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi';
 	icon_living = "dragon";
 	icon_state = "dragon";
-	maxHealth = 500;
+	maxHealth = 200;
 	name = "ashdraka";
 	pixel_x = -16
 	},
