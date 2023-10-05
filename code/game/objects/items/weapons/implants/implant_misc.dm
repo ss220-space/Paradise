@@ -38,13 +38,14 @@
 	imp_in.SetStunned(0)
 	imp_in.SetWeakened(0)
 	imp_in.SetParalysis(0)
-	imp_in.adjustStaminaLoss(-75)
+	imp_in.adjustStaminaLoss(-100)
 	imp_in.lying = 0
 	imp_in.update_canmove()
 
 	imp_in.reagents.add_reagent("synaptizine", 10)
 	imp_in.reagents.add_reagent("omnizine", 10)
 	imp_in.reagents.add_reagent("stimulative_agent", 10)
+	imp_in.reagents.add_reagent("adrenaline", 2)
 	if(!uses)
 		qdel(src)
 

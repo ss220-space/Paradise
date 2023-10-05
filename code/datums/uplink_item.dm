@@ -1910,6 +1910,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "AI"
 	item = /obj/item/implanter/adrenalin
 	cost = 8
+	cant_discount = TRUE
+	surplus = 0
 
 /datum/uplink_item/implants/microbomb
 	name = "Microbomb Implant"
