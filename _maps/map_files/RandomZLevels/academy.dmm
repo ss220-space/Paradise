@@ -5561,6 +5561,7 @@
 	},
 /area/awaymission/academy/academyaft)
 "WD" = (
+/obj/structure/glowshroom,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"
