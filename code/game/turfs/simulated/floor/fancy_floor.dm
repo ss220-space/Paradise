@@ -125,6 +125,7 @@
 /turf/simulated/floor/carpet/update_icon()
 	if(!..())
 		return
+	dir = 0 //Prevents wrong smoothing
 	if(!broken && !burnt)
 		if(smooth)
 			queue_smooth(src)

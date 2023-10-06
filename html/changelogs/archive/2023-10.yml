@@ -1,0 +1,49 @@
+'2023-10-01':
+  Daeberdir:
+  - tweak: pAI vendor for syndi base. (#3647)
+'2023-10-02':
+  Daeberdir:
+  - tweak: lavaland weavers cannot gib kidan/diona/APC brains. (#3644)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3643)
+  spaghetti:
+  - tweak: stims for everyone (#3641)
+  Сиротка:
+  - bugfix: AI now can't power on broken APCs (#3648)
+'2023-10-04':
+  0x0v3rfl0w:
+  - tweak: Buckle and paper show delay (#3587)
+  Daeberdir:
+  - add: fabricators rotatability. (#3649)
+  - tweak: balaclava icon change (#3666)
+  Dimach:
+  - tweak: nuke missed station only if exploded on space turf (#3669)
+  Etrnlmelancholy:
+  - add: Chameleon meson glasses (#3634)
+  LiquidPotroh:
+  - add: Draconids & Ash Walkers Customization (#3661)
+  LoneAsket:
+  - add: Grab intent gag and blind function (#3568)
+  Mindfri:
+  - tweak: Toy Figures are Small now. (#3656)
+  NightDawnFox:
+  - bugfix: golem targeter fix and no more alien multitool on golem shuttle (#3646)
+  - bugfix: normal tail wagging for new unathi tails (#3664)
+  ROdenFL:
+  - add: Baked vulp (#3655)
+  - tweak: hypospray recolour (#3659)
+  Vladisvell:
+  - tweak: changed cyborg's storage increase upgrade name (#3662)
+  - bugfix: fixed incorrect icon rendering upon reloging into robots and creatures
+      (#3651)
+  - bugfix: removed repeating description for hacked crates. (#3650)
+  - bugfix: fixed crossbow arrows damage scaling (#3663)
+  - add: Colorful buckets and Cleanbots (#3597)
+  - qol: Metal Foam platings can be replaced with normal one by using metal sheet
+      (#3574)
+  Zwei:
+  - refactor: Space Dragon Cleanup (#3657)
+  aeternaclose:
+  - bugfix: Cyberiad Lavaland Outpost  (#3640)
+  captainnelly:
+  - add: mosin nagant for cargonia (#3658)

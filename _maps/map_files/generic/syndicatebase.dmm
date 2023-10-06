@@ -687,7 +687,7 @@
 	dir = 1;
 	on = 1
 	},
-/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/vending/pai,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
