@@ -72,6 +72,14 @@
 	target = null
 	return ..()
 
+/mob/living/simple_animal/hostile/tamed(whomst)
+	if(isliving(whomst))
+		var/mob/living/fren = whomst
+		friends = fren
+		faction = fren.faction.Copy()
+		visible_message(span_notice("[src] gently growls and calms down. It seems that it no longer sees you as a threat!"))
+	return ..()
+
 /mob/living/simple_animal/hostile/Life(seconds, times_fired)
 	. = ..()
 	if(!.)

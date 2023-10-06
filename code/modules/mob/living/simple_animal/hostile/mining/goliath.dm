@@ -39,6 +39,20 @@
 	taunt_chance = 30
 	var/charging = FALSE
 	var/revving_charge = FALSE
+	var/reflect_chance = 30
+	food_type = list(/obj/item/reagent_containers/food/snacks/meat, /obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit, /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf)
+	tame_chance = 0
+	bonus_tame_chance = 10
+
+
+/mob/living/simple_animal/hostile/asteroid/goliath/bullet_act(var/obj/item/projectile/P)
+	if(prob(reflect_chance))
+		visible_message("<span class='danger'>The [P.name] gets reflected by [src]'s rocky hide!</span>", \
+							"<span class='userdanger'>The [P.name] gets reflected by [src]'s rocky hide!</span>")
+		P.reflect_back(src, list(0, 0, -1, 1, -2, 2, -2, 2, -2, 2, -3, 3, -3, 3))
+
+		return -1 // complete projectile permutation
+	return (..(P))
 
 /mob/living/simple_animal/hostile/asteroid/goliath/Life()
 	. = ..()
@@ -51,9 +65,11 @@
 		return
 	icon_state = pre_attack_icon
 
-/mob/living/simple_animal/hostile/asteroid/goliath/revive()
-	..()
-	anchored = TRUE
+/mob/living/simple_animal/hostile/asteroid/goliath/revive()//who the fuck anchors mobs
+	if(..())
+		move_resist = MOVE_FORCE_VERY_STRONG
+		return TRUE
+
 
 /mob/living/simple_animal/hostile/asteroid/goliath/death(gibbed)
 	move_force = MOVE_FORCE_DEFAULT
@@ -173,7 +189,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/random/Initialize(mapload)
 	. = ..()
-	if(prob(1))
+	if(prob(10))
 		new /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient(loc)
 		return INITIALIZE_HINT_QDEL
 
@@ -196,6 +212,8 @@
 	var/list/cached_tentacle_turfs
 	var/turf/last_location
 	var/tentacle_recheck_cooldown = 100
+	reflect_chance = 50
+	bonus_tame_chance = 5
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient/Life()
 	. = ..()
