@@ -58,7 +58,7 @@
 			if(affecting.droplimb())
 				H.UpdateDamageIcon()
 				playsound(src, 'sound/creatures/terrorspiders/rip.ogg', 120, 1)
-				to_chat(user, "<span class='warning'>That was a bad idea.</span>")
+				to_chat(user, span_userdanger("That was a bad idea."))
 				H.emote("scream")
 
 /obj/item/melee/energy_katana/pickup(mob/living/user)
