@@ -78,14 +78,15 @@
 	stat_attack = UNCONSCIOUS
 	flying = TRUE
 	robust_searching = 1
+	projectiletype = /obj/item/projectile/watcher
 	crusher_loot = /obj/item/crusher_trophy/watcher_wing
 	loot = list()
 	butcher_results = list(/obj/item/stack/ore/diamond = 2, /obj/item/stack/sheet/sinew = 2, /obj/item/stack/sheet/bone = 1)
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/random/Initialize(mapload)
 	. = ..()
-	if(prob(1))
-		if(prob(75))
+	if(prob(25))
+		if(prob(50))
 			new /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing(loc)
 		else
 			new /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing(loc)
@@ -119,7 +120,24 @@
 	projectiletype = /obj/item/projectile/temp/basilisk/icewing
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/bone = 1) //No sinew; the wings are too fragile to be usable
 	crusher_loot = /obj/item/crusher_trophy/watcher_wing/ice_wing
-	crusher_drop_mod = 30
+	crusher_drop_mod = 60
+
+/obj/item/projectile/watcher
+	name = "stunning blast"
+	icon_state = "temp_0"
+	damage = 10 //make it hurt, as it no more freezing
+	damage_type = BURN
+	nodamage = FALSE
+
+/obj/item/projectile/watcher/on_hit(atom/target, blocked = FALSE)
+	. = ..()
+	if(.)
+		var/mob/living/L = target
+		if(istype(L))
+			L.AdjustWeakened(1 SECONDS)
+			L.Slowed(3 SECONDS)
+			L.Confused(3 SECONDS)
+
 
 /obj/item/projectile/temp/basilisk/magmawing
 	name = "scorching blast"
@@ -153,14 +171,14 @@
 	fromtendril = TRUE
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing/death(gibbed)
-	if(prob(10))
+	if(prob(30))
 		new /obj/item/gem/fdiamond(loc)
 		deathmessage = "spits out a diamond as it dies!"
 	. = ..()
 	deathmessage = initial(deathmessage)
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing/death(gibbed)
-	if(prob(10))
+	if(prob(30))
 		new /obj/item/gem/magma(loc)
 		deathmessage = "spits out a golden gem as it dies!"
 	. = ..()
