@@ -74,7 +74,7 @@
 		var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
 		if(affecting.receive_damage(20))		//INFERNO
 			H.UpdateDamageIcon()
-			to_chat(user, "<span class='warning'>Oh fuck, it hurts!</span>")
+			to_chat(user, span_userdanger("Oh fuck, it hurts!."))
 			playsound(src, 'sound/weapons/bladeslice.ogg', 100, 1)
 
 
@@ -92,7 +92,7 @@
 		if(affecting.droplimb())
 			H.UpdateDamageIcon()
 			playsound(src, 'sound/creatures/terrorspiders/rip.ogg', 120, 1)
-			to_chat(user, "<span class='warning'>That was a bad idea.</span>")
+			to_chat(user, span_userdanger("That was a bad idea."))
 			H.emote("scream")
 		return
 	..()
