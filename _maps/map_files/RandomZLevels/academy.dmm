@@ -1344,6 +1344,11 @@
 	icon_state = "whitehall"
 	},
 /area/awaymission/academy/classrooms)
+"fJ" = (
+/obj/structure/table/wood,
+/obj/item/dice/d20/fate/one_use,
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/academygate)
 "fK" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/table/wood,
@@ -2069,7 +2074,7 @@
 /mob/living/simple_animal/hostile/faithless{
 	health = 150;
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi';
-	icon_dead = "legion";
+	icon_dead = "";
 	icon_living = "legion";
 	icon_state = "legion";
 	maxHealth = 150;
@@ -2861,11 +2866,11 @@
 	},
 /area/awaymission/academy/classrooms)
 "mU" = (
-/obj/effect/bump_teleporter{
-	id = "labr32"
+/obj/item/borg/upgrade/modkit/damage,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
-/turf/simulated/floor/sepia,
-/area/awaymission/academy/academyaft)
+/area/awaymission/academy/classrooms)
 "mY" = (
 /obj/structure/flora/tree/dead,
 /turf/simulated/floor/grass,
@@ -2962,13 +2967,6 @@
 "og" = (
 /turf/simulated/floor/indestructible/hierophant/two,
 /area/awaymission/academy/classrooms)
-"os" = (
-/obj/structure/table/wood,
-/obj/item/borg/upgrade/modkit/cooldown,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/awaymission/academy/academyaft)
 "oz" = (
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "AcademyGate3"
@@ -3007,7 +3005,7 @@
 /mob/living/simple_animal/hostile/faithless{
 	health = 150;
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi';
-	icon_dead = "legion";
+	icon_dead = "";
 	icon_living = "legion";
 	icon_state = "legion";
 	maxHealth = 150;
@@ -3635,11 +3633,6 @@
 	},
 /turf/simulated/floor/plasteel/stairs/old,
 /area/awaymission/academy/academyaft)
-"wD" = (
-/obj/structure/table/wood,
-/obj/item/dice/d20/fate/one_use,
-/turf/simulated/floor/carpet,
-/area/awaymission/academy/academygate)
 "wE" = (
 /obj/item/trash/gum{
 	pixel_x = 11
@@ -3723,7 +3716,7 @@
 /area/awaymission/academy/academyaft)
 "xP" = (
 /mob/living/simple_animal/hostile/faithless{
-	icon_dead = "drone_dead";
+	icon_dead = "";
 	icon_state = "drone3";
 	name = "dronchik"
 	},
@@ -4103,6 +4096,11 @@
 	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/classrooms)
+"Da" = (
+/obj/structure/table/wood,
+/obj/item/borg/upgrade/modkit/damage,
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/academyaft)
 "Dc" = (
 /obj/effect/bump_teleporter{
 	id_target = "labr29"
@@ -4165,6 +4163,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academygate)
+"DC" = (
+/obj/item/borg/upgrade/modkit/range,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/awaymission/academy/classrooms)
 "DY" = (
 /obj/structure/stone_tile/block{
 	dir = 1
@@ -4215,11 +4217,16 @@
 	},
 /area/awaymission/academy/classrooms)
 "EG" = (
-/obj/item/borg/upgrade/modkit/damage,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/item/stack/sheet/wood{
+	pixel_x = 11;
+	pixel_y = 5
 	},
-/area/awaymission/academy/classrooms)
+/obj/item/stack/sheet/wood{
+	pixel_x = 12;
+	pixel_y = 6
+	},
+/turf/simulated/floor/wood,
+/area/awaymission/academy/headmaster)
 "EK" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/item/stack/sheet/metal,
@@ -4429,7 +4436,7 @@
 /area/awaymission/academy/classrooms)
 "GZ" = (
 /mob/living/simple_animal/hostile/faithless{
-	icon_dead = "drone_dead";
+	icon_dead = "";
 	icon_state = "drone3";
 	name = "dronchik"
 	},
@@ -4487,10 +4494,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academygate)
-"HO" = (
-/obj/item/borg/upgrade/modkit/range,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/awaymission/academy/classrooms)
 "HS" = (
 /obj/effect/decal/cleanable/blood/bubblegum,
 /turf/simulated/floor/plasteel,
@@ -4763,7 +4766,7 @@
 /mob/living/simple_animal/hostile/faithless{
 	health = 150;
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi';
-	icon_dead = "legion";
+	icon_dead = "";
 	icon_living = "legion";
 	icon_state = "legion";
 	maxHealth = 150;
@@ -4816,12 +4819,6 @@
 	},
 /turf/simulated/floor/plasteel/stairs/old,
 /area/awaymission/academy/academyaft)
-"Mb" = (
-/obj/item/paper{
-	info = "Вы сделали это! Вам хватило смелости, разума и выдержки , чтобы пройти до конца все испытания и считаться достойным! Впереди вас ждёт ваша награда, которая может поменять вашу судьбу раз и навсегда!"
-	},
-/turf/simulated/floor/carpet,
-/area/awaymission/academy/academygate)
 "Mh" = (
 /obj/structure/table,
 /obj/machinery/door_control{
@@ -4857,15 +4854,12 @@
 	},
 /area/awaymission/academy/classrooms)
 "Ms" = (
+/obj/item/grown/sunflower,
 /obj/item/stack/sheet/wood{
-	pixel_x = 11;
-	pixel_y = 5
+	pixel_x = -15;
+	pixel_y = -15
 	},
-/obj/item/stack/sheet/wood{
-	pixel_x = 12;
-	pixel_y = 6
-	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/grass,
 /area/awaymission/academy/headmaster)
 "Mu" = (
 /turf/simulated/floor/plasteel{
@@ -4904,14 +4898,6 @@
 	},
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/academy/academyaft)
-"Nb" = (
-/obj/item/grown/sunflower,
-/obj/item/stack/sheet/wood{
-	pixel_x = -15;
-	pixel_y = -15
-	},
-/turf/simulated/floor/grass,
-/area/awaymission/academy/headmaster)
 "Nd" = (
 /obj/item/paper{
 	anchored = 1;
@@ -5001,7 +4987,7 @@
 /mob/living/simple_animal/hostile/faithless{
 	health = 150;
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi';
-	icon_dead = "legion";
+	icon_dead = "";
 	icon_living = "legion";
 	icon_state = "legion";
 	maxHealth = 150;
@@ -5034,7 +5020,7 @@
 /area/awaymission/academy/classrooms)
 "OE" = (
 /mob/living/simple_animal/hostile/faithless{
-	icon_dead = "drone_dead";
+	icon_dead = "";
 	icon_state = "drone3";
 	name = "dronchik"
 	},
@@ -5115,6 +5101,12 @@
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
+"PS" = (
+/obj/item/paper{
+	info = "Вы сделали это! Вам хватило смелости, разума и выдержки , чтобы пройти до конца все испытания и считаться достойным! Впереди вас ждёт ваша награда, которая может поменять вашу судьбу раз и навсегда!"
+	},
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/academygate)
 "PW" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/bottle/whiskey{
@@ -5145,6 +5137,12 @@
 	tag = "icon-wood-broken5"
 	},
 /area/awaymission/academy/headmaster)
+"Qq" = (
+/obj/effect/bump_teleporter{
+	id = "labr32"
+	},
+/turf/simulated/floor/sepia,
+/area/awaymission/academy/academyaft)
 "Qy" = (
 /obj/machinery/photocopier,
 /turf/simulated/floor/wood,
@@ -5153,7 +5151,7 @@
 /mob/living/simple_animal/hostile/faithless{
 	health = 150;
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi';
-	icon_dead = "legion";
+	icon_dead = "";
 	icon_living = "legion";
 	icon_state = "legion";
 	maxHealth = 150;
@@ -5489,6 +5487,13 @@
 	},
 /turf/simulated/floor/plasteel/stairs/old,
 /area/awaymission/academy/academyaft)
+"UV" = (
+/obj/structure/table/wood,
+/obj/item/borg/upgrade/modkit/cooldown,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/academyaft)
 "UW" = (
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3";
@@ -5592,11 +5597,6 @@
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
-"Wt" = (
-/obj/structure/table/wood,
-/obj/item/borg/upgrade/modkit/damage,
-/turf/simulated/floor/carpet,
-/area/awaymission/academy/academyaft)
 "Wv" = (
 /obj/structure/table/wood,
 /obj/item/paper{
@@ -6995,7 +6995,7 @@ fm
 fs
 kE
 gX
-HO
+DC
 gX
 gX
 gX
@@ -7105,7 +7105,7 @@ sf
 Mu
 Mu
 Mu
-EG
+mU
 lT
 Fl
 bJ
@@ -9062,7 +9062,7 @@ wW
 wW
 aF
 FA
-Ms
+EG
 FA
 eI
 Bl
@@ -9192,7 +9192,7 @@ ry
 wW
 tv
 dB
-Nb
+Ms
 FA
 eI
 Zr
@@ -9240,7 +9240,7 @@ gZ
 jS
 jS
 jS
-Mb
+PS
 oz
 ta
 jX
@@ -9367,7 +9367,7 @@ fD
 fD
 fD
 gZ
-wD
+fJ
 jT
 jT
 jT
@@ -9601,7 +9601,7 @@ fL
 Om
 fL
 fL
-os
+UV
 hH
 fD
 fD
@@ -9614,7 +9614,7 @@ ym
 XO
 yL
 PX
-Wt
+Da
 hH
 fD
 fD
@@ -9627,7 +9627,7 @@ fD
 Nd
 YM
 gZ
-wD
+fJ
 jT
 jT
 jT
@@ -9887,7 +9887,7 @@ fD
 fD
 fD
 gZ
-wD
+fJ
 jT
 jT
 jT
@@ -16414,7 +16414,7 @@ Ih
 Ih
 Ih
 Ih
-Ih
+Qq
 gZ
 aS
 aS
@@ -16544,7 +16544,7 @@ gZ
 gZ
 gZ
 Ih
-mU
+Ih
 gZ
 aS
 aS
