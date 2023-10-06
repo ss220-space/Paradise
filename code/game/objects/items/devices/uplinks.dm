@@ -64,7 +64,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		cats[++cats.len] = list("cat" = category, "items" = list())
 		for(var/datum/uplink_item/I in uplink_items[category])
 			if(I.job && I.job.len)
-				if(!(I.job.Find(job)))
+				if(!(I.job.Find(job)) && uplink_type != UPLINK_TYPE_ADMIN)
 					continue
 			if(I.race && I.race.len)
 				if(!(I.race.Find(race)))
@@ -312,6 +312,13 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	if(hidden_uplink)
 		hidden_uplink.uplink_type = UPLINK_TYPE_SST
 		hidden_uplink.update_uplink_items()
+
+/obj/item/radio/uplink/admin/New()
+	..()
+	if(hidden_uplink)
+		hidden_uplink.uplink_type = UPLINK_TYPE_ADMIN
+		hidden_uplink.update_uplink_items()
+		hidden_uplink.uses = 500
 
 /obj/item/multitool/uplink/New()
 	..()

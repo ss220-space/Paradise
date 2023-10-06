@@ -74,15 +74,19 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"O" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors)
 
 (1,1,1) = {"
 a
 a
 a
 a
-a
-a
-a
+O
+O
+O
 a
 a
 a
@@ -91,11 +95,11 @@ a
 a
 a
 a
-a
-a
-a
-a
-a
+O
+O
+O
+O
+O
 a
 a
 "}
@@ -104,10 +108,10 @@ a
 a
 a
 d
-a
-a
-a
-a
+O
+O
+O
+O
 a
 a
 "}
@@ -116,11 +120,11 @@ a
 a
 d
 d
-a
-a
-a
-a
-a
+O
+O
+O
+O
+O
 a
 "}
 (5,1,1) = {"
@@ -130,7 +134,7 @@ d
 c
 e
 k
-a
+O
 p
 d
 a

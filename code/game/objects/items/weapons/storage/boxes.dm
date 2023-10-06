@@ -1068,6 +1068,20 @@
 	new /obj/item/clothing/gloves/combat(src)
 	new /obj/item/storage/backpack/security(src)
 
+/obj/item/storage/box/a357
+	name = "ammo box (.357)"
+	desc = "A box of ammo?"
+	icon_state = "357OLD"
+	icon = 'icons/obj/weapons/ammo.dmi'
+	display_contents_with_number = TRUE
+	can_hold = list(/obj/item/ammo_casing/a357)
+	storage_slots = 20
+	max_combined_w_class = 20
+
+/obj/item/storage/box/a357/populate_contents()
+	for(var/I in 1 to 20)
+		new /obj/item/ammo_casing/a357(src)
+
 #undef NODESIGN
 #undef NANOTRASEN
 #undef SYNDI

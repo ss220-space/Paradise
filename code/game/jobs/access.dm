@@ -447,7 +447,7 @@
 	return all_jobs
 
 /proc/get_all_centcom_jobs()
-	return list("VIP Guest","Custodian","Thunderdome Overseer","Emergency Response Team Member","Emergency Response Team Leader","Intel Officer","Medical Officer","Death Commando","Research Officer","Deathsquad Officer","Special Operations Officer","Nanotrasen Navy Representative","Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer","Nanotrasen Diplomat","Nanotrasen Navy Captain","Supreme Commander","Syndicate Officer")
+	return list("VIP Guest","Custodian","Thunderdome Overseer","Emergency Response Team Member","Emergency Response Team Leader","Intel Officer","Medical Officer","Death Commando","Research Officer","Deathsquad Officer","Special Operations Officer","Nanotrasen Navy Representative","Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer","Nanotrasen Diplomat","Nanotrasen Navy Captain","Supreme Commander")
 
 /proc/get_all_solgov_jobs()
 	return list("Solar Federation Specops Lieutenant","Solar Federation Marine","Solar Federation Specops Marine","Solar Federation Representative","Sol Trader","Solar Federation General")
@@ -456,7 +456,7 @@
 	return list("Soviet Tourist","Soviet Conscript","Soviet Soldier","Soviet Officer","Soviet Marine","Soviet Marine Captain","Soviet Admiral","Soviet General","Soviet Engineer","Soviet Scientist","Soviet Medic")
 
 /proc/get_all_special_jobs()
-	return list("Special Reaction Team Member", "HONKsquad", "Clown Security","Syndicate Scientist","Syndicate Medic","Syndicate Botanist","Syndicate Cargo Technician","Syndicate Chef","Syndicate Atmos Engineer","Syndicate Comms Officer","Syndicate Research Director")
+	return list("Special Reaction Team Member", "HONKsquad", "Clown Security")
 
 //gets the actual job rank (ignoring alt titles)
 //this is used solely for sechuds
@@ -558,10 +558,7 @@
 	var/soviet = get_all_soviet_jobs()
 	var/special = get_all_special_jobs()
 
-	if(rankName in centcom) //Return with the NT logo if it is a Centcom job or if it is Syndi Officer then return Syndicate logo
-		switch(rankName)
-			if("Syndicate Officer")
-				return "syndicateofficer"
+	if(rankName in centcom) //Return with the NT logo if it is a Centcom job
 		return "Centcom"
 
 	if(rankName in solgov) //Return with the SolGov logo if it is a SolGov job

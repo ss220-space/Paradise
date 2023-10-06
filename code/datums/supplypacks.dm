@@ -574,6 +574,20 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 80
 	containername = "auto rifle armor-piercing ammobox crate"
 
+/datum/supply_packs/security/armory/mosin
+	name = "Mosin Nagant crate"
+	contains = list(/obj/item/gun/projectile/shotgun/boltaction,
+					/obj/item/gun/projectile/shotgun/boltaction,
+					/obj/item/ammo_box/a762,
+					/obj/item/ammo_box/a762,
+					/obj/item/ammo_box/a762,
+					/obj/item/ammo_box/a762,
+					/obj/item/ammo_box/a762,
+					/obj/item/ammo_box/a762)
+	cost = 80
+	containername = "Mosin Nagant rifle crate"
+	contraband = 1
+
 /////// Implants & etc
 
 /datum/supply_packs/security/armory/mindshield
