@@ -56,6 +56,7 @@
 	name = "dumbell"
 	desc = "It looks so powerfull!"
 	icon_state = "dumbell"
+	item_state = "dumbell"
 	force = 10
 	throwforce = 15
 	throw_speed = 2
@@ -69,6 +70,7 @@
 	name = "kettlebell"
 	desc = "Kettlebell with laser engraving 'for the best trainer'."
 	icon_state = "kettlebell"
+	item_state = "kettlebell"
 	w_class = WEIGHT_CLASS_NORMAL
 	var/used_once = FALSE
 	throw_range = 1
