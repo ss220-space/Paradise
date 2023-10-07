@@ -65,6 +65,13 @@
 	var/ammo_y_offset = 0
 	var/flight_x_offset = 0
 	var/flight_y_offset = 0
+	//Modifiers. Applied directly to chambered projectile, can be used for balancing guns without need to create new bullets/beams/etc
+	var/damage_modifier = 1 //projectile damage multiplier. example: 0.5 means more damage, 2 means less
+	var/stamina_damage_modifier = 0 //added to projectile stamina damage. can be negative
+	var/range_modifier = 0 //added to projectile range. default value is 50. can be negative
+	var/speed_modifier = 0 //added to projectile speed. default value is 0.5. bigger values means slower. can be negative
+	var/dropoff_modifier = 0 //added to projectile damage decrease per tile.
+	var/dropoff_s_modifier = 0 //added to projectile stamina damage decrease per tile.
 
 	//Zooming
 	var/zoomable = FALSE //whether the gun generates a Zoom action on creation
@@ -224,6 +231,7 @@
 	add_fingerprint(user)
 	if(chambered)
 		chambered.leave_residue(user)
+		apply_gun_modifiers(chambered.BB, target, user)
 
 	if(semicd)
 		return
@@ -487,6 +495,18 @@
 		chambered.BB.damage *= 5
 
 	process_fire(target, user, 1, params)
+
+/////////////
+// MODIFIERS
+/////////////
+
+/obj/item/gun/proc/apply_gun_modifiers(/obj/item/ammo_casing/chambered, atom/target, mob/living/user)
+	chambered.BB.damage *= damage_modifier
+	chambered.BB.stamina += stamina_damage_modifier
+	chambered.BB.range += range_modifier
+	chambered.BB.speed += speed_modifier
+	chambered.BB.tile_dropoff += dropoff_modifier
+	chambered.BB.tile_dropoff_s += dropoff_s_modifier
 
 /////////////
 // ZOOMING //
