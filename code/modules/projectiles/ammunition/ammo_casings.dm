@@ -197,7 +197,7 @@
 	desc = "A 12 gauge lead slug."
 	icon_state = "blshell"
 	materials = list(MAT_METAL = 4000)
-	drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
+	casing_drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
 	caliber = ".12"
 	projectile_type = /obj/item/projectile/bullet
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG

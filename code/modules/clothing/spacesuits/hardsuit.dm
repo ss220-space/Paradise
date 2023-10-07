@@ -64,7 +64,7 @@
 		toggle_light()
 		visible_message(span_danger("[src]'s light fades and turns off."))
 
-/obj/item/clothing/head/helmet/space/hardsuit/dropped(mob/user)
+/obj/item/clothing/head/helmet/space/hardsuit/dropped(mob/user, silent = FALSE)
 	..()
 	if(suit)
 		suit.RemoveHelmet()
@@ -569,7 +569,7 @@
 				return // already have a hud
 			hud_active = TRUE
 
-/obj/item/clothing/head/helmet/space/hardsuit/rd/dropped(mob/living/carbon/human/user)
+/obj/item/clothing/head/helmet/space/hardsuit/rd/dropped(mob/living/carbon/human/user, silent = FALSE)
 	..()
 	if((user.head == src) && hud_active)
 		GLOB.doppler_arrays -= src

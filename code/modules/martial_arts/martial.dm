@@ -229,7 +229,7 @@
 		var/mob/living/carbon/human/H = user
 		style.teach(H,1)
 
-/obj/item/clothing/gloves/boxing/dropped(mob/user)
+/obj/item/clothing/gloves/boxing/dropped(mob/user, silent = FALSE)
 	. = ..()
 
 	if(!ishuman(user))
@@ -259,7 +259,7 @@
 		style.teach(H,1)
 		to_chat(user, "<span class='sciradio'>You have an urge to flex your muscles and get into a fight. You have the knowledge of a thousand wrestlers before you. You can remember more by using the show info verb in the martial arts tab.</span>")
 
-/obj/item/storage/belt/champion/wrestling/dropped(mob/user)
+/obj/item/storage/belt/champion/wrestling/dropped(mob/user, silent = FALSE)
 	. = ..()
 
 	if(!ishuman(user))

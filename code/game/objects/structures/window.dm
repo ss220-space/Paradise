@@ -499,6 +499,33 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	if(exposed_temperature > (T0C + heat_resistance))
 		take_damage(round(exposed_volume / 100), BURN, 0, 0)
 
+
+/obj/structure/window/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	var/shattered = FALSE
+	if(damage * 2 >= obj_integrity && shardtype && !mob_hurt)
+		shattered = TRUE
+		var/obj/item/S = new shardtype(loc)
+		S.embedded_ignore_throwspeed_threshold = TRUE
+		S.throw_impact(C)
+		S.embedded_ignore_throwspeed_threshold = FALSE
+		damage *= (4/3) //Inverts damage loss from being a structure, since glass breaking on you hurts
+		var/turf/T = get_turf(src)
+		for(var/obj/structure/grille/G in T.contents)
+			var/obj/structure/cable/SC = T.get_cable_node()
+			if(SC)
+				playsound(G, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
+				tesla_zap(G, 3, SC.newavail() * 0.01) //Zap for 1/100 of the amount of power. At a million watts in the grid, it will be as powerful as a tesla revolver shot.
+				SC.add_delayedload(SC.newavail() * 0.0375) // you can gain up to 3.5 via the 4x upgrades power is halved by the pole so thats 2x then 1X then .5X for 3.5x the 3 bounces shock.
+			qdel(G) //We don't want the grille to block the way, we want rule of cool of throwing people into space!
+
+	if(!self_hurt)
+		take_damage(damage * 2, BRUTE) //Makes windows more vunerable to being thrown so they'll actually shatter in a reasonable ammount of time.
+		self_hurt = TRUE
+	..()
+	if(shattered)
+		C.throw_at(throwingdatum.target, throwingdatum.maxrange - 1, throwingdatum.speed - 1) //Annnnnnnd yeet them into space, but slower, now that everything is dealt with
+
+
 /obj/structure/window/GetExplosionBlock()
 	return reinf && fulltile ? real_explosion_block : 0
 

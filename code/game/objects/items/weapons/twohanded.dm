@@ -90,6 +90,12 @@
 	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 
 
+/obj/item/twohanded/carbon_skip_catch_check(mob/living/carbon/user)
+	if(user.get_inactive_hand())
+		return TRUE
+	return ..()
+
+
 /*
  * Fireaxe
  */

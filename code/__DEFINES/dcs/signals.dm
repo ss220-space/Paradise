@@ -158,6 +158,8 @@
 #define COMSIG_ATOM_ORBIT_BEGIN "atom_orbit_begin"
 ///called when an atom stops orbiting another atom: (atom)
 #define COMSIG_ATOM_ORBIT_STOP "atom_orbit_stop"
+///from base of atom/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+#define COMSIG_ATOM_HITBY "atom_hitby"
 /////////////////
 ///from base of atom/attack_ghost(): (mob/dead/observer/ghost)
 #define COMSIG_ATOM_ATTACK_GHOST "atom_attack_ghost"
@@ -428,6 +430,8 @@
 #define COMSIG_CARBON_HITBY "carbon_hitby"
 /// From /mob/living/carbon/human/hitby()
 #define COMSIG_CARBON_THROWN_ITEM_CAUGHT "carbon_thrown_item_caught"
+/// From /mob/living/carbon/toggle_throw_mode()
+#define COMSIG_CARBON_TOGGLE_THROW "carbon_toggle_throw"
 
 // /mob/living/simple_animal signals
 ///from /mob/living/attack_animal():	(mob/living/simple_animal/M)
