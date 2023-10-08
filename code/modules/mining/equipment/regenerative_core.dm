@@ -252,6 +252,9 @@
 	L.stored_mob = owner
 	owner.forceMove(L)
 	qdel(src)
+	if(prob(25) && !owner.get_int_organ(/obj/item/organ/internal/legion_tumour)) // Congratulations you have won a very special prize: second cancer in a row!
+		var/obj/item/organ/internal/legion_tumour/cancer = new()
+		cancer.insert(owner, special = TRUE)
 
 /obj/item/organ/internal/legion_tumour/on_find(mob/living/finder)
 	. = ..()
