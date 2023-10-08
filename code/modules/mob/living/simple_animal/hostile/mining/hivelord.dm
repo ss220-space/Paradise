@@ -256,7 +256,7 @@
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/AttackingTarget()
 	. = ..()
 	var/mob/living/carbon/human/victim = target
-	if(victim.can_inject(null, FALSE, "chest", FALSE) && !victim.get_int_organ(/obj/item/organ/internal/legion_tumour) && prob(10))
+	if(victim.can_inject(null, FALSE, "chest", FALSE, TRUE) && !victim.get_int_organ(/obj/item/organ/internal/legion_tumour) && prob(10))
 		new /obj/item/organ/internal/legion_tumour(victim)
 		visible_message(span_userdanger("[src] вгрызается в шею [target], впрыскивая странную черную жидкость!</span>")) //made it on russian to attract more attention from attacklogs
 
