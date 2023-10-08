@@ -209,6 +209,8 @@
 	if(T)
 		if(stored_mob)
 			stored_mob.forceMove(get_turf(src))
+			stored_mob.rejuvenate()
+			stored_mob.death()
 			stored_mob = null
 		else if(fromtendril)
 			new /obj/effect/mob_spawn/human/corpse/charredskeleton(T)
@@ -251,6 +253,13 @@
 				infest(H)
 	..()
 
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/AttackingTarget()
+	. = ..()
+	var/mob/living/carbon/human/victim = target
+	if(victim.can_inject(null, FALSE, "chest", FALSE) && !victim.get_int_organ(/obj/item/organ/internal/legion_tumour) && prob(10))
+		new /obj/item/organ/internal/legion_tumour(victim)
+		visible_message(span_userdanger("[src] вгрызается в шею [target], впрыскивая странную черную жидкость!</span>")) //made it on russian to attract more attention from attacklogs
+
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/proc/infest(mob/living/carbon/human/H)
 	visible_message("<span class='warning'>[name] burrows into the flesh of [H]!</span>")
 	var/mob/living/simple_animal/hostile/asteroid/hivelord/legion/L
@@ -263,7 +272,7 @@
 	H.adjustBruteLoss(1000)
 	L.stored_mob = H
 	H.forceMove(L)
-	if(prob(75)) // Congratulations you have won a special prize: cancer
+	if(prob(75) && !victim.get_int_organ(/obj/item/organ/internal/legion_tumour)) // Congratulations you have won a special prize: cancer!
 		var/obj/item/organ/internal/legion_tumour/cancer = new()
 		cancer.insert(H, special = TRUE)
 
