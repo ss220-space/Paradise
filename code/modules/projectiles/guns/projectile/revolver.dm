@@ -312,6 +312,20 @@
 	origin_tech = null
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/cap
 
+/obj/item/gun/projectile/revolver/improvisedrevolver
+	desc = "Weapon for crazy fun with friends"
+	name = "Improvised revolver"
+	icon_state = "makeshift_revik"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/improvisedrevolver
+	fire_sound = 'sound/weapons/gunshots/improvrev_shot.ogg'
+
+/obj/item/gun/projectile/revolver/improvisedrevolver/afterattack(atom/target, mob/living/user, flag, params)
+	if(prob(10))
+		chamber_round(1)
+		user.visible_message("<span class='danger'>*CRACK*</span>")
+		return
+	..()
+
 /////////////////////////////
 // DOUBLE BARRELED SHOTGUN //
 /////////////////////////////
