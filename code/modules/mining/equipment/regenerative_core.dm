@@ -143,6 +143,7 @@
 	desc = "A mass of pulsing flesh and dark tendrils, containing the power to regenerate flesh at a terrible cost."
 	slot = "parasite_egg"
 	icon_state = "legion_remains"
+	parent_organ = "chest"
 	/// What stage of growth the corruption has reached.
 	var/stage = 0
 	/// We apply this status effect periodically or when used on someone
@@ -246,9 +247,8 @@
 		L = new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf(owner.loc)
 	else
 		L = new(owner.loc)
-	owner.ExtinguishMob()
-	owner.rejuvenate()
 	owner.death()
+	owner.adjustBruteLoss(1000)
 	L.stored_mob = owner
 	owner.forceMove(L)
 	qdel(src)
