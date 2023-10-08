@@ -247,12 +247,20 @@
 				if(victim.wear_mask.flags_cover & MASKCOVERSMOUTH)
 					mouth_covered = 1
 					safe_thing = victim.wear_mask
+				if(victim.wear_mask.flags & BLOCK_REAGENT_TOUCHING)
+					mouth_covered = 1
+					eyes_covered = 1
+					safe_thing = victim.wear_mask
 			if( victim.head )
 				if(victim.head.flags_cover & MASKCOVERSEYES)
 					eyes_covered = 1
 					safe_thing = victim.head
 				if(victim.head.flags_cover & MASKCOVERSMOUTH)
 					mouth_covered = 1
+					safe_thing = victim.head
+				if(victim.head.flags & BLOCK_REAGENT_TOUCHING)
+					mouth_covered = 1
+					eyes_covered = 1
 					safe_thing = victim.head
 			if(victim.glasses)
 				eyes_covered = 1

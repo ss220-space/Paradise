@@ -31,6 +31,7 @@
 
 #define NO_PIXEL_RANDOM_DROP	131072	// If dropped, it wont have a randomized pixel_x/pixel_y
 
+#define BLOCK_REAGENT_TOUCHING	262144 	// Prevents from passing reagents onto human using REAGENT_TOUCH method
 
 /* Secondary atom flags, for the flags_2 var, denoted with a _2 */
 
