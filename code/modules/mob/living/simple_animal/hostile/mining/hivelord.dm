@@ -263,6 +263,10 @@
 	H.adjustBruteLoss(1000)
 	L.stored_mob = H
 	H.forceMove(L)
+	if(prob(75)) // Congratulations you have won a special prize: cancer
+		var/obj/item/organ/internal/legion_tumour/cancer = new()
+		cancer.insert(H, special = TRUE)
+
 	qdel(src)
 
 //Advanced Legion is slightly tougher to kill and can raise corpses (revive other legions)
