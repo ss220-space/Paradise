@@ -538,20 +538,19 @@
 	. = ..()
 	if(!istype(target, /obj/item/radio/headset))
 		return
-	else
-		if(!Adjacent(user))
-			return
-		var/headset_name = input("Please, select a mask!", "Bowman headset", null, null) as null|anything in valid_headset_types
-		if(!headset_name)
-			to_chat(user, span_notice("You decided not to convert your headset yet."))
-			return
-		var/obj/item/radio/headset/headset = target
-		headset.flags |= EARBANGPROTECT
-		to_chat(user, span_notice("You selected [headset_name]. Now it's protected against loud noises."))
-		var/headset_path = valid_headset_types[headset_name]
-		var/obj/item/radio/headset/mask = headset_path
-		headset.name = initial(mask.name)
-		headset.desc = initial(mask.desc)
-		headset.icon = initial(mask.icon)
-		headset.icon_state = initial(mask.icon_state)
-		qdel(src)
+	if(!proximity)
+		return
+	var/headset_name = input("Please, select a mask!", "Bowman headset", null, null) as null|anything in valid_headset_types
+	if(!headset_name)
+		to_chat(user, span_notice("You decided not to convert your headset yet."))
+		return
+	var/obj/item/radio/headset/headset = target
+	headset.flags |= EARBANGPROTECT
+	to_chat(user, span_notice("You selected [headset_name]. Now it's protected against loud noises."))
+	var/headset_path = valid_headset_types[headset_name]
+	var/obj/item/radio/headset/mask = headset_path
+	headset.name = initial(mask.name)
+	headset.desc = initial(mask.desc)
+	headset.icon = initial(mask.icon)
+	headset.icon_state = initial(mask.icon_state)
+	qdel(src)
