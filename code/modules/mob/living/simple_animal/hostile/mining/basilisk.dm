@@ -85,7 +85,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/random/Initialize(mapload)
 	. = ..()
-	if(prob(25))
+	if(prob(40)) //60 for classic, 20/20 for magma and ice
 		if(prob(50))
 			new /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing(loc)
 		else
@@ -152,8 +152,11 @@
 	if(.)
 		var/mob/living/L = target
 		if(istype(L))
-			L.adjust_fire_stacks(0.1)
+			L.adjust_fire_stacks(3)
 			L.IgniteMob()
+			if(L.getFireLoss() > 50)
+				explosion(L.loc, 0, 0, 0, 0, flame_range = 3)
+				L.AdjustWeakened(1 SECONDS)
 
 /obj/item/projectile/temp/basilisk/icewing
 	damage = 5
