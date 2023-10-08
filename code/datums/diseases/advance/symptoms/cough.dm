@@ -32,7 +32,7 @@ BONUS
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2, 3)
-				to_chat(M, "<span notice='warning'>[pick("You swallow excess mucus.", "You lightly cough.")]</span>")
+				to_chat(M, span_notice(pick("You swallow excess mucus.", "You lightly cough.")))
 			else
 				M.emote("cough")
 				var/obj/item/I = M.get_active_hand()

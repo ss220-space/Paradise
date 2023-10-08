@@ -30,10 +30,10 @@ Bonus
 	if(prob(SYMPTOM_ACTIVATION_PROB))
 		switch(A.stage)
 			if(3,4)
-				to_chat(M, "<span class='notice'>You feel hungry</span>")
+				to_chat(M, span_notice("You feel hungry"))
 			if(5)
 				if(prob(10))
-					to_chat(M, "<span class='notice'>You can hear own heartbeat</span>")
+					to_chat(M, span_notice("You can hear own heartbeat"))
 				check = TRUE
 	if(check == TRUE && (M.blood_volume < BLOOD_VOLUME_NORMAL) && !(NO_BLOOD in M.dna.species.species_traits))
 		M.blood_volume += 0.4

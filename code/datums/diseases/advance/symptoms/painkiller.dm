@@ -34,10 +34,10 @@ Bonus
 			if(2, 3)
 				M.Slowed(40 SECONDS)
 				M.Confused(80 SECONDS)
-				to_chat(M, "<span class='danger'>[pick("Something feels very wrong about your body.", "You have hard time controlling own body", "You can't feel your body.")]</span>")
+				to_chat(M, span_danger(pick("Something feels very wrong about your body.", "You have hard time controlling own body", "You can't feel your body.")))
 			if(4, 5)
 				if(prob(10))
-					to_chat(M, "<span class='notice'>[pick("Your body feels numb.", "You realize you feel nothing.", "You can't feel your body.")]</span>")
+					to_chat(M, span_notice(pick("Your body feels numb.", "You realize you feel nothing.", "You can't feel your body.")))
 	if(M.reagents.get_reagent_amount("hydrocodone") < 2 && M.getToxLoss() < 13 && A.stage > 4)
 		M.reagents.add_reagent("hydrocodone", 0.5)
 	return

@@ -33,10 +33,10 @@ Bonus
 	switch(A.stage)
 		if(1, 2, 3, 4)
 			if(prob(SYMPTOM_ACTIVATION_PROB))
-				to_chat(M, "<span class='warning'>[pick("Your head hurts.", "Your mind blanks for a moment.")]</span>")
+				to_chat(M, span_warning(pick("Your head hurts.", "Your mind blanks for a moment.")))
 		else
 			if(prob(SYMPTOM_ACTIVATION_PROB * 3))
-				to_chat(M, "<span class='userdanger'>You can't think straight!</span>")
+				to_chat(M, span_userdanger("You can't think straight!"))
 				M.AdjustConfused(20 SECONDS, bound_lower = 0, bound_upper = 200 SECONDS)
 				M.Disoriented(1)
 

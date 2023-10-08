@@ -67,7 +67,6 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	var/mob/living/affected_mob //Mob that is suffering from this virus
 	var/list/viable_mobtypes = list(/mob/living/carbon/human) //Types of infectable mobs
 	var/list/required_organs = list()
-	var/list/strain_data = list() //dna_spread special bullshit
 
 /datum/disease/Destroy()
 	affected_mob = null
@@ -83,7 +82,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	stage = min(stage, max_stages)
 
 	if(!cure)
-		if(prob(stage_prob))
+		if(prob(affected_mob.reagents.has_reagent("spaceacillin") ? stage_prob/2 : stage_prob))
 			stage = min(stage + 1,max_stages)
 			if(!discovered && stage >= CEILING(max_stages * discovery_threshold, 1)) // Once we reach a late enough stage, medical HUDs can pick us up even if we regress
 				discovered = TRUE
@@ -147,21 +146,10 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 					V = Temp
 
 /datum/disease/proc/Contract(mob/M)
-	var/datum/disease/D = new type()
+	var/datum/disease/D = Copy()
 	M.viruses += D
 	D.affected_mob = M
-	GLOB.active_diseases += D //Add it to the active diseases list, now that it's actually in a mob and being processed.
-
-	//Copy properties over. This is so edited diseases persist.
-	var/list/skipped = list("affected_mob","holder","carrier","stage","type","parent_type","vars","transformed")
-	for(var/V in D.vars)
-		if(V in skipped)
-			continue
-		if(istype(D.vars[V],/list))
-			var/list/L = vars[V]
-			D.vars[V] = L.Copy()
-		else
-			D.vars[V] = vars[V]
+	GLOB.active_diseases += D
 
 	D.affected_mob.med_hud_set_status()
 	return
@@ -182,7 +170,6 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 
 /datum/disease/proc/Copy()
 	var/datum/disease/D = new type()
-	D.strain_data = strain_data.Copy()
 	return D
 
 

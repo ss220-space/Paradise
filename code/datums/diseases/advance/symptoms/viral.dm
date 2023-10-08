@@ -28,9 +28,9 @@ BONUS
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1)
-				to_chat(M, "<span class='notice'>You feel off, but no different from before.</span>")
+				to_chat(M, span_notice("You feel off, but no different from before."))
 			if(5)
-				to_chat(M, "<span class='notice'>You feel better, but nothing interesting happens.</span>")
+				to_chat(M, span_notice("You feel better, but nothing interesting happens."))
 
 /*
 //////////////////////////////////////
@@ -62,6 +62,6 @@ BONUS
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1)
-				to_chat(M, "<span class='notice'>You feel better, but no different from before.</span>")
+				to_chat(M, span_notice("You feel better, but no different from before."))
 			if(5)
-				to_chat(M, "<span class='notice'>You feel off, but nothing interesting happens.</span>")
+				to_chat(M, span_notice("You feel off, but nothing interesting happens."))

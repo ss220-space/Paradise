@@ -38,8 +38,8 @@ Limb Rejection
 	need_active_overlay = TRUE
 	invocation = ""
 
-	selection_activated_message		= "<span class='notice'>Your prepare to throw a limb!! <B>Left-click to cast at a target!</B></span>"
-	selection_deactivated_message	= "<span class='notice'>You decided not to throw a limb...for now.</span>"
+	selection_activated_message		= span_notice("Your prepare to throw a limb!! <B>Left-click to cast at a target!</B>")
+	selection_deactivated_message	= span_notice("You decided not to throw a limb...for now.")
 
 	action_icon_state = "limb_throw"
 	action_background_icon_state = "bg_changeling"
@@ -62,16 +62,16 @@ Limb Rejection
 
 	var/obj/item/organ/external/limb = H.bodyparts_by_name[H.zone_selected]
 	if(!istype(limb))
-		to_chat(H, "<span class = 'alert'>You don't have the selected body part!</span>")
+		to_chat(H, span_alert("You don't have the selected body part!"))
 		return FALSE
 
 	if(limb.vital)
-		to_chat(H, "<span class = 'alert'>You still need [limb]!</span>")
+		to_chat(H, span_alert("You still need [limb]!"))
 		return FALSE
 
 	for(var/obj/item/organ/internal/organ in limb.internal_organs)
 		if(organ.vital)
-			to_chat(H, "<span class = 'alert'>You still need [organ]!</span>")
+			to_chat(H, span_alert("You still need [organ]!"))
 			return FALSE
 
 	var/obj/item/projectile/limb/limb_projectile = new(user.loc, limb)

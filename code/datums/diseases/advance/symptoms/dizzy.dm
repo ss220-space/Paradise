@@ -28,12 +28,12 @@ Bonus
 
 /datum/symptom/dizzy/Activate(datum/disease/advance/A)
 	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
+	if(prob(SYMPTOM_ACTIVATION_PROB*5))
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2, 3, 4)
-				to_chat(M, "<span class='warning'>[pick("You feel dizzy.", "Your head spins.")]</span>")
+				to_chat(M, span_warning(pick("You feel dizzy.", "Your head spins.")))
 			else
-				to_chat(M, "<span class='userdanger'>A wave of dizziness washes over you!</span>")
-				M.Dizzy(10 SECONDS)
+				to_chat(M, span_userdanger("A wave of dizziness washes over you!"))
+				M.Dizzy(15 SECONDS)
 	return

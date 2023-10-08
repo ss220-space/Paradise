@@ -78,7 +78,7 @@ Bonus
 			cured_diseases += D.GetDiseaseID()
 			D.cure()
 	if(cured)
-		to_chat(M, "<span class='notice'>You feel much better.</span>")
+		to_chat(M, span_notice("You feel much better."))
 
 /datum/symptom/heal/metabolism/End(datum/disease/advance/A)
 	// Remove all the diseases we cured.
@@ -88,7 +88,7 @@ Bonus
 			for(var/res in M.resistances)
 				if(res in cured_diseases)
 					M.resistances -= res
-		to_chat(M, "<span class='warning'>You feel weaker.</span>")
+		to_chat(M, span_warning("You feel weaker."))
 
 /*
 //////////////////////////////////////
@@ -125,40 +125,3 @@ Bonus
 
 /datum/symptom/heal/longevity/Start(datum/disease/advance/A)
 	longevity = rand(initial(longevity) - 5, initial(longevity) + 5)
-
-/*
-/*
-//////////////////////////////////////
-
-	DNA Restoration
-
-	Not well hidden.
-	Lowers resistance minorly.
-	Does not affect stage speed.
-	Decreases transmittablity greatly.
-	Very high level.
-
-Bonus
-	Heals brain damage, treats radiation, cleans SE of non-power mutations.
-
-//////////////////////////////////////
-*/
-
-/datum/symptom/heal/dna
-
-	name = "Deoxyribonucleic Acid Restoration"
-	stealth = -1
-	resistance = -1
-	stage_speed = 0
-	transmittable = -3
-	level = 5
-
-/datum/symptom/heal/dna/Heal(mob/living/carbon/M, datum/disease/advance/A)
-	var/amt_healed = (sqrtor0(20+A.totalStageSpeed()*(3+rand())))-(sqrtor0(16+A.totalStealth()*rand()))
-	M.adjustBrainLoss(-amt_healed)
-	//Non-power mutations, excluding race, so the virus does not force monkey -> human transformations.
-	var/list/unclean_mutations = (not_good_mutations|bad_mutations) - mutations_list[RACEMUT]
-	M.dna.remove_mutation_group(unclean_mutations)
-	M.radiation = max(M.radiation - 3, 0)
-	return 1
-*/

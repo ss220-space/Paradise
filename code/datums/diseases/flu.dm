@@ -16,7 +16,7 @@
 	switch(stage)
 		if(2)
 			if(affected_mob.lying && prob(20))
-				to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
+				to_chat(affected_mob, span_notice("You feel better"))
 				stage--
 				return
 			if(prob(1))
@@ -24,7 +24,7 @@
 			if(prob(1))
 				affected_mob.emote("cough")
 			if(prob(1))
-				to_chat(affected_mob, "<span class='danger'>Your muscles ache.</span>")
+				to_chat(affected_mob, span_danger("Your muscles ache"))
 				if(prob(20))
 					affected_mob.take_organ_damage(1)
 			if(prob(1))

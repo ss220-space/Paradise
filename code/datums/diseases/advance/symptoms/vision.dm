@@ -35,13 +35,13 @@ Bonus
 			return
 		switch(A.stage)
 			if(1, 2)
-				to_chat(M, "<span class='warning'>Your eyes itch.</span>")
+				to_chat(M, span_warning("Your eyes itch."))
 			if(3, 4)
-				to_chat(M, "<span class='warning'><b>Your eyes burn!</b></span>")
+				to_chat(M, span_warning("<b>Your eyes burn!</b>"))
 				M.EyeBlurry(40 SECONDS)
 				eyes.receive_damage(1)
 			else
-				to_chat(M, "<span class='userdanger'>Your eyes burn horrificly!</span>")
+				to_chat(M, span_userdanger("Your eyes burn horrificly!"))
 				M.EyeBlurry(60 SECONDS)
 				eyes.receive_damage(5)
 				if(eyes.damage >= 10)
@@ -50,4 +50,4 @@ Bonus
 						if(!(BLINDNESS in M.mutations))
 							M.mutations |= BLINDNESS
 							M.update_blind_effects()
-							to_chat(M, "<span class='userdanger'>You go blind!</span>")
+							to_chat(M, span_userdanger("You go blind!"))

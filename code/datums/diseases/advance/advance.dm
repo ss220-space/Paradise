@@ -93,8 +93,8 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 // Returns the advance disease with a different reference memory.
 /datum/disease/advance/Copy()
 	var/datum/disease/advance/copy = new
-	var/list/skipped = list("symptoms","affected_mob","holder","carrier","stage","type","parent_type","vars","transformed")
-	for(var/V in vars - skipped)
+	var/list/required_vars = list("name","severity","id","visibility_flags","spread_flags","stage_prob","cures","cure_chance","permeability_mod")
+	for(var/V in required_vars)
 		if(istype(vars[V], /list))
 			var/list/L = vars[V]
 			copy.vars[V] = L.Copy()
@@ -204,7 +204,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 				visibility_flags = VISIBLE
 
 		// The more symptoms we have, the less transmittable it is but some symptoms can make up for it.
-		SetSpread(clamp(2 ** (properties["transmittable"] - symptoms.len), BLOOD, AIRBORNE))
+		SetSpread(clamp(2 ** (properties["transmittable"] - symptoms.len), BLOOD, AIRBORNE)) //TODO: подредактировать цифры под новые границы цифры флагов
 		permeability_mod = max(CEILING(0.4 * properties["transmittable"], 1), 1)  // TODO: нерабочая хуйня, не забудь пофиксить
 		cure_chance = 15 - clamp(properties["resistance"], -5, 5) // can be between 10 and 20
 		stage_prob = max(properties["stage_speed"], 2)

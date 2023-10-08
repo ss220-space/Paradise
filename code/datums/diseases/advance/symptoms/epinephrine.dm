@@ -31,7 +31,7 @@ Bonus
 		switch(A.stage)
 			if(5)
 				if(prob(10))
-					to_chat(M, "<span class='notice'>[pick("Your body feels tough.", "You are feeling on edge.")]</span>")
+					to_chat(M, span_notice(pick("Your body feels tough.", "You are feeling on edge.")))
 	if(A.stage > 4 && M.health <= HEALTH_THRESHOLD_CRIT)
 		M.reagents.add_reagent("epinephrine", 0.5)
 	if(M.reagents.get_reagent_amount("epinephrine") > 20)
