@@ -85,7 +85,9 @@
 
 	// Give the kit
 	var/obj/item/storage/box/syndie_kit/contractor/contractor_kit = new(user)
+	var/obj/item/storage/box/syndie_kit/bowman_conversion_kit/bowman_kit = new(user)
 	user.put_in_hands(contractor_kit)
+	user.put_in_hands(bowman_kit)
 	contractor_uplink = locate(/obj/item/contractor_uplink, contractor_kit)
 	contractor_uplink.hub = new(user.mind, contractor_uplink)
 
