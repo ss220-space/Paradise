@@ -252,10 +252,10 @@
 				A.layer = ABOVE_HUD_LAYER
 				A.plane = ABOVE_HUD_PLANE
 
-				x++
-				if(x == 4)
-					x = -4
-					y++
+			x++
+			if(x == 4)
+				x = -4
+				y++
 
 	else
 		//Modules display is hidden
