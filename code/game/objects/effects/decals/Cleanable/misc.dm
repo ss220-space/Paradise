@@ -71,6 +71,11 @@
 	. = ..()
 	QDEL_IN(src, 15 SECONDS)
 
+/obj/effect/decal/cleanable/flour/plasma
+	name = "stabilized plasma"
+	desc = "A puddle of stabilized plasma."
+	color = "#2D2D2D"
+
 /obj/effect/decal/cleanable/greenglow
 	name = "glowing goo"
 	desc = "Jeez. I hope that's not for lunch."

@@ -262,18 +262,18 @@
 	else
 		location = get_turf(src)
 	if(location)
-		var/datum/effect_system/smoke_spread/smoke = new
-		smoke.set_up(8,0, location, aim_dir)
+		var/datum/effect_system/fluid_spread/smoke/smoke = new
+		smoke.set_up(1, location = location)
 		if(target && target.density)
 			var/turf/T = get_step(location, aim_dir)
 			for(var/turf/simulated/wall/W in range(1, location))
 				W.thermitemelt(speed = 30)
 			addtimer(CALLBACK(GLOBAL_PROC, /proc/explosion, T, 0, 0, 2), 3)
-			addtimer(CALLBACK(smoke, TYPE_PROC_REF(/datum/effect_system/smoke_spread, start)), 3)
+			addtimer(CALLBACK(smoke, TYPE_PROC_REF(/datum/effect_system/fluid_spread/smoke, start)), 3)
 		else
 			var/turf/T = get_step(location, aim_dir)
 			addtimer(CALLBACK(GLOBAL_PROC, /proc/explosion, T, 0, 0, 2), 3)
-			addtimer(CALLBACK(smoke, TYPE_PROC_REF(/datum/effect_system/smoke_spread, start)), 3)
+			addtimer(CALLBACK(smoke, TYPE_PROC_REF(/datum/effect_system/fluid_spread/smoke, start)), 3)
 
 
 	if(isliving(target))

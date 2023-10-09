@@ -1162,8 +1162,8 @@
 				cell.corrupt()
 				malfhack = TRUE
 				update_icon()
-				var/datum/effect_system/smoke_spread/smoke = new
-				smoke.set_up(3, 0, loc)
+				var/datum/effect_system/fluid_spread/smoke/smoke = new
+				smoke.set_up(1, location = src.loc)
 				smoke.attach(src)
 				smoke.start()
 				do_sparks(3, 1, src)

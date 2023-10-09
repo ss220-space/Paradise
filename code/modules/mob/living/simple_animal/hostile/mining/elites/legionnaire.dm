@@ -38,7 +38,7 @@
 	death_sound = 'sound/hallucinations/wail.ogg'
 	deathmessage = "'s arms reach out before it falls apart onto the floor, lifeless."
 	sight = SEE_MOBS // So it can see through smoke / charge through walls like the kool aid man.
-	var/datum/effect_system/smoke_spread/bad/smoke
+	var/datum/effect_system/fluid_spread/smoke/bad/smoke
 	loot_drop = /obj/item/crusher_trophy/legionnaire_spine
 	tts_seed = "Volibear"
 
