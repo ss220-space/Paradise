@@ -32,8 +32,6 @@
 	pass_flags = PASSTABLE
 	butcher_results = list(/obj/item/organ/internal/regenerative_core = 1)
 	var/brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood
-	var/protective_time = 0
-	var/protective_cooldown_time = 40
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/OpenFire(the_target)
 	if(world.time >= ranged_cooldown)
