@@ -9,8 +9,6 @@
 	severity = "Dangerous!"
 	curable = FALSE
 	can_immunity = FALSE
-	spread_text = "The patient has acute appendicitis!"
-	spread_flags = NON_CONTAGIOUS
 	visibility_flags = HIDDEN_PANDEMIC
 	required_organs = list(/obj/item/organ/internal/appendix)
 	ignore_immunity = TRUE

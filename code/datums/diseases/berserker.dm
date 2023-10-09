@@ -2,15 +2,13 @@
 	name = "Berserker"
 	max_stages = 2
 	stage_prob = 5
-	spread_text = "Non-Contagious"
 	cure_text = "Anti-Psychotics"
 	cures = list("haloperidol")
 	agent = "Jagged Crystals"
-	cure_chance = 10
+	cure_prob = 10
 	desc = "Swearing, shouting, attacking nearby crew members uncontrollably."
 	severity = DANGEROUS
 	can_immunity = FALSE
-	spread_flags = NON_CONTAGIOUS
 
 /datum/disease/berserker/stage_act()
 	..()

@@ -184,7 +184,7 @@
 	var/inflamed = FALSE
 
 /obj/item/organ/internal/appendix/remove(mob/living/carbon/M, special = 0)
-	for(var/datum/disease/appendicitis/A in M.viruses)
+	for(var/datum/disease/appendicitis/A in M.diseases)
 		A.cure()
 		inflamed = TRUE
 	update_icon()

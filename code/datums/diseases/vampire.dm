@@ -2,12 +2,10 @@
 	name = "Grave Fever"
 	max_stages = 3
 	stage_prob = 5
-	spread_text = "Non-Contagious"
-	spread_flags = NON_CONTAGIOUS
 	cure_text = "Antibiotics"
 	cures = list("spaceacillin")
 	agent = "Grave Dust"
-	cure_chance = 20
+	cure_prob = 20
 	severity = DANGEROUS
 	can_immunity = FALSE
 

@@ -3,12 +3,10 @@
 	name = "Space Kuru"
 	max_stages = 4
 	stage_prob = 5
-	spread_text = "Non-Contagious"
 	cure_text = "Incurable"
 	agent = "Prions"
 	desc = "Uncontrollable laughing."
 	severity = BIOHAZARD
-	spread_flags = NON_CONTAGIOUS
 	curable = FALSE
 	can_immunity = FALSE
 	ignore_immunity = TRUE //Kuru is a prion disorder, not a virus

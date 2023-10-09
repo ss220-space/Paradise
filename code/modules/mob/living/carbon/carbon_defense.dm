@@ -32,15 +32,15 @@
 	if(!iscarbon(user))
 		return
 
-	for(var/thing in viruses)
-		var/datum/disease/D = thing
-		if(D.spread_flags & CONTACT)
-			user.ContractDisease(D)
+	for(var/thing in diseases)
+		var/datum/disease/virus/V = thing
+		if(V.spread_flags & CONTACT)
+			V.Contract(user)
 
-	for(var/thing in user.viruses)
-		var/datum/disease/D = thing
-		if(D.spread_flags & CONTACT)
-			ContractDisease(D)
+	for(var/thing in user.diseases)
+		var/datum/disease/virus/V = thing
+		if(V.spread_flags & CONTACT)
+			V.Contract(src)
 
 	if(lying && surgeries.len)
 		if(user.a_intent == INTENT_HELP)

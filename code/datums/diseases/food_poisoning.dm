@@ -2,17 +2,15 @@
 	name = "Food Poisoning"
 	max_stages = 3
 	stage_prob = 5
-	spread_text = "Non-Contagious"
-	spread_flags = NON_CONTAGIOUS
 	cure_text = "Sleep"
 	agent = "Salmonella"
 	cures = list("chicken_soup")
-	cure_chance = 10
+	cure_prob = 10
 	desc = "Nausea, sickness, and vomitting."
 	severity = MINOR
 	can_immunity = FALSE
 	virus_heal_resistant = TRUE
-	possible_mutations = list(/datum/disease/tuberculosis)
+	possible_mutations = list(/datum/disease/virus/tuberculosis)
 
 /datum/disease/food_poisoning/stage_act()
 	..()

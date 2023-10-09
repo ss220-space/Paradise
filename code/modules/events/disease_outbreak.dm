@@ -1,26 +1,26 @@
 /datum/event/disease_outbreak
 	announceWhen = 15
 	/// The type of disease that patient zero will be infected with.
-	var/datum/disease/D
+	var/datum/disease/virus/D
 	/// The initial target of the disease.
 	var/mob/living/carbon/human/patient_zero
 
 /datum/event/disease_outbreak/setup()
 	announceWhen = rand(15, 30)
 	var/virus_type = pick(
-		5; /datum/disease/advance, \
-		1; /datum/disease/anxiety, \
-		1; /datum/disease/beesease, \
-		1; /datum/disease/brainrot,	\
-		1; /datum/disease/fake_gbs,	\
-		1; /datum/disease/fluspanish, \
-		1; /datum/disease/loyalty, \
-		1; /datum/disease/lycan, \
-		1; /datum/disease/magnitis, \
-		1; /datum/disease/pierrot_throat, \
+		5; /datum/disease/virus/advance, \
+		1; /datum/disease/virus/anxiety, \
+		1; /datum/disease/virus/beesease, \
+		1; /datum/disease/virus/brainrot,	\
+		1; /datum/disease/virus/fake_gbs,	\
+		1; /datum/disease/virus/fluspanish, \
+		1; /datum/disease/virus/loyalty, \
+		1; /datum/disease/virus/lycan, \
+		1; /datum/disease/virus/magnitis, \
+		1; /datum/disease/virus/pierrot_throat, \
 	)
-	if(virus_type == /datum/disease/advance)
-		var/datum/disease/advance/A = new
+	if(virus_type == /datum/disease/virus/advance)
+		var/datum/disease/virus/advance/A = new
 		A.name = capitalize(pick(GLOB.adjectives)) + " " + capitalize(pick(GLOB.nouns + GLOB.verbs)) // random silly name
 		A.symptoms = A.GenerateSymptoms(count_of_symptoms = 6)
 		A.Refresh()
@@ -49,7 +49,7 @@
 		if(!is_station_level(T.z))
 			continue
 
-		if(!H.ForceContractDisease(D))
+		if(!D.ForceContract(H))
 			continue
 		patient_zero = H
 		break

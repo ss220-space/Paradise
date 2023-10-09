@@ -73,7 +73,7 @@
 /// Whether the carbon mob is currently in crit.
 // Even though "crit" does not realistically happen for non-humans..
 /mob/living/carbon/proc/is_in_crit()
-	for(var/thing in viruses)
+	for(var/thing in diseases)
 		var/datum/disease/D = thing
 		if(istype(D, /datum/disease/critical))
 			return TRUE
@@ -88,7 +88,7 @@
 
 /// Whether a virus worthy displaying on the HUD is present.
 /mob/living/carbon/proc/has_virus()
-	for(var/thing in viruses)
+	for(var/thing in diseases)
 		var/datum/disease/D = thing
 		if(!D.discovered) // Early-stage viruses should not show up on med HUD (though health analywers can still pick them up)
 			continue

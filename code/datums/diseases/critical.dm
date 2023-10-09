@@ -1,5 +1,4 @@
 /datum/disease/critical
-	spread_flags = NON_CONTAGIOUS
 
 /datum/disease/critical/stage_act() //overriden to ensure unique behavior
 	stage = min(stage, max_stages)
@@ -15,18 +14,18 @@
 /datum/disease/critical/has_cure()
 	for(var/C_id in cures)
 		if(affected_mob.reagents.has_reagent(C_id))
-			if(prob(cure_chance))
+			if(prob(cure_prob))
 				return TRUE
 	return FALSE
 
 /datum/disease/critical/shock
 	name = "Shock"
 	form = "Medical Emergency"
-	spread_text = "The patient is in shock"
+	//spread_text = "The patient is in shock"
 	max_stages = 3
 	cure_text = "Saline-Glucose Solution"
 	cures = list("salglu_solution")
-	cure_chance = 10
+	cure_prob = 10
 	stage_prob = 6
 	severity = DANGEROUS
 	can_immunity = FALSE
@@ -76,16 +75,16 @@
 					affected_mob.AdjustLoseBreath(2 SECONDS)
 				if(prob(5))
 					var/datum/disease/D = new /datum/disease/critical/heart_failure
-					affected_mob.ForceContractDisease(D)
+					D.ForceContract(affected_mob)
 
 /datum/disease/critical/heart_failure
 	name = "Cardiac Failure"
 	form = "Medical Emergency"
-	spread_text = "The patient is having a cardiac emergency"
+	//spread_text = "The patient is having a cardiac emergency"
 	max_stages = 3
 	cure_text = "Atropine, Epinephrine, or Heparin"
 	cures = list("atropine", "epinephrine", "heparin")
-	cure_chance = 10
+	cure_prob = 10
 	needs_all_cures = FALSE
 	stage_prob = 5
 	severity = DANGEROUS
@@ -141,7 +140,7 @@
 	name = "Hypoglycemia"
 	form = "Medical Emergency"
 	max_stages = 3
-	spread_text = "The patient has low blood sugar."
+	//spread_text = "The patient has low blood sugar."
 	cure_text = "Eating or administration of vitamins or nutrients"
 	stage_prob = 1
 	severity = DANGEROUS
@@ -188,7 +187,7 @@
 			if(3)
 				if(prob(1))
 					var/datum/disease/D = new /datum/disease/critical/shock
-					affected_mob.ForceContractDisease(D)
+					D.ForceContract(affected_mob)
 				if(prob(12))
 					affected_mob.Weaken(12 SECONDS)
 					affected_mob.Stuttering(20 SECONDS)

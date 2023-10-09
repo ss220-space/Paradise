@@ -404,15 +404,14 @@
 		return 1
 
 	if(treat_virus)
-		for(var/thing in C.viruses)
+		for(var/thing in C.diseases)
 			var/datum/disease/D = thing
 			//the medibot can't detect viruses that are undetectable to Health Analyzers or Pandemic machines.
 			if(D.visibility_flags & HIDDEN_HUD)
 				return 0
 			if(D.severity == NONTHREAT) // medibot doesn't try to heal truly harmless viruses
 				return 0
-			if((D.stage > 1) || (D.spread_flags & AIRBORNE)) // medibot can't detect a virus in its initial stage unless it spreads airborne.
-
+			if(D.discovered)
 				if(!C.reagents.has_reagent(treatment_virus))
 					return 1 //STOP DISEASE FOREVER
 
@@ -461,12 +460,12 @@
 	else
 		if(treat_virus)
 			var/virus = 0
-			for(var/thing in C.viruses)
+			for(var/thing in C.diseases)
 				var/datum/disease/D = thing
 				//detectable virus
 				if(!(D.visibility_flags & HIDDEN_HUD))
 					if(D.severity != NONTHREAT)      //virus is harmful
-						if((D.stage > 1) || (D.spread_flags & AIRBORNE))
+						if((D.discovered))
 							virus = 1
 
 			if(!reagent_id && (virus))

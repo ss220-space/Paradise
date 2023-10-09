@@ -161,7 +161,7 @@
 	playsound(user.loc,'sound/items/drink.ogg', rand(10,50), 1)
 	qdel(src)
 
-/datum/disease/transformation/dragon
+/datum/disease/virus/transformation/dragon
 	name = "dragon transformation"
 	cure_text = "nothing"
 	cures = list("adminordrazine")

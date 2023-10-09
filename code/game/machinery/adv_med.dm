@@ -222,7 +222,7 @@
 		occupantData["maxHealth"] = occupant.maxHealth
 
 		var/found_disease = FALSE
-		for(var/thing in occupant.viruses)
+		for(var/thing in occupant.diseases)
 			var/datum/disease/D = thing
 			if(D.visibility_flags & HIDDEN_SCANNER)
 				continue
@@ -388,7 +388,7 @@
 		dat += "[occupant.health > 50 ? "<font color='blue'>" : "<font color='red'>"]\tHealth %: [occupant.health], ([t1])</font><br>"
 
 		var/found_disease = FALSE
-		for(var/thing in occupant.viruses)
+		for(var/thing in occupant.diseases)
 			var/datum/disease/D = thing
 			if(D.visibility_flags & HIDDEN_SCANNER)
 				continue

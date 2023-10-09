@@ -105,15 +105,15 @@
 /datum/reagent/blood/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(data && data["viruses"])
 		for(var/thing in data["viruses"])
-			var/datum/disease/D = thing
+			var/datum/disease/virus/V = thing
 
-			if(D.spread_flags < BLOOD)
+			if(V.spread_flags < BLOOD)
 				continue
 
 			if(method == REAGENT_TOUCH)
-				M.ContractDisease(D)
+				V.Contract(M)
 			else //ingest, patch or inject
-				M.ForceContractDisease(D)
+				V.ForceContract(M)
 
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
@@ -138,16 +138,16 @@
 			// Stop issues with the list changing during mixing.
 			var/list/to_mix = list()
 
-			for(var/datum/disease/advance/AD in mix1)
+			for(var/datum/disease/virus/advance/AD in mix1)
 				to_mix += AD
-			for(var/datum/disease/advance/AD in mix2)
+			for(var/datum/disease/virus/advance/AD in mix2)
 				to_mix += AD
 
-			var/datum/disease/advance/AD = Advance_Mix(to_mix)
+			var/datum/disease/virus/advance/AD = Advance_Mix(to_mix)
 			if(AD)
 				var/list/preserve = list(AD)
 				for(var/D in data["viruses"])
-					if(!istype(D, /datum/disease/advance))
+					if(!istype(D, /datum/disease/virus/advance))
 						preserve += D
 				data["viruses"] = preserve
 
@@ -183,15 +183,15 @@
 /datum/reagent/blood/synthetic/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(data && data["viruses"])
 		for(var/thing in data["viruses"])
-			var/datum/disease/D = thing
+			var/datum/disease/virus/V = thing
 
-			if(D.spread_flags < BLOOD)
+			if(V.spread_flags < BLOOD)
 				continue
 
 			if(method == REAGENT_TOUCH)
-				M.ContractDisease(D)
+				V.Contract(M)
 			else //ingest, patch or inject
-				M.ForceContractDisease(D)
+				V.ForceContract(M)
 
 /datum/reagent/blood/synthetic/vox
 	name = "Synthetic Blood"
@@ -240,7 +240,7 @@
 
 /datum/reagent/vaccine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(islist(data) && (method == REAGENT_INGEST))
-		for(var/thing in M.viruses)
+		for(var/thing in M.diseases)
 			var/datum/disease/D = thing
 			if(D.GetDiseaseID() in data)
 				D.cure()

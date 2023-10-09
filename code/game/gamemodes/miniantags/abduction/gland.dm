@@ -219,16 +219,16 @@
 
 /obj/item/organ/internal/heart/gland/viral/activate()
 	to_chat(owner, "<span class='warning'>You feel sick.</span>")
-	var/datum/disease/advance/new_virus = new
+	var/datum/disease/virus/advance/new_virus = new
 	new_virus.name = capitalize(pick(GLOB.adjectives)) + " " + capitalize(pick(GLOB.nouns + GLOB.verbs))
 	new_virus.symptoms = new_virus.GenerateSymptoms(count_of_symptoms = rand(4, 6))
 	new_virus.Refresh()
 	new_virus.carrier = TRUE
 
-	var/datum/disease/advance/old_virus = locate() in owner.viruses
+	var/datum/disease/virus/advance/old_virus = locate() in owner.diseases
 	if(old_virus)
-		old_virus.cure(resistance = FALSE)
-	owner.ForceContractDisease(new_virus)
+		old_virus.cure(need_immunity = FALSE)
+	new_virus.ForceContract(owner)
 
 /obj/item/organ/internal/heart/gland/emp //TODO : Replace with something more interesting
 	origin_tech = "materials=4;biotech=4;magnets=6;abductor=3"

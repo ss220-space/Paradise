@@ -99,7 +99,8 @@
 
 /datum/reagent/aslimetoxin/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method != REAGENT_TOUCH)
-		M.ForceContractDisease(new /datum/disease/transformation/slime)
+		var/datum/disease/virus/transformation/slime/D = new
+		D.ForceContract(M)
 
 
 /datum/reagent/mercury
@@ -1246,7 +1247,8 @@
 	taste_description = "decay"
 
 /datum/reagent/gluttonytoxin/reaction_mob(mob/living/L, method=REAGENT_TOUCH, reac_volume)
-	L.ForceContractDisease(new /datum/disease/transformation/morph)
+	var/datum/disease/virus/transformation/morph/D = new
+	D.ForceContract(L)
 
 /datum/reagent/bungotoxin
 	name = "Bungotoxin"
