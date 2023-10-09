@@ -5,7 +5,7 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "mining-charge-2"
 	det_time = 5
-	var/smoke_amount = 3
+	var/smoke_amount = 1
 	var/boom_sizes = list(2,3,5)
 
 /obj/item/grenade/plastic/miningcharge/Initialize()
@@ -25,8 +25,8 @@
 
 /obj/item/grenade/plastic/miningcharge/prime()
 	var/turf/simulated/mineral/location = get_turf(target)
-	var/datum/effect_system/smoke_spread/S = new
-	S.set_up(smoke_amount,0,location,null)
+	var/datum/effect_system/fluid_spread/smoke/S = new
+	S.set_up(smoke_amount, location = location)
 	S.start()
 	//location.attempt_drill(null,TRUE,3) //orange says it doesnt include the actual middle
 	for(var/turf/simulated/mineral/rock in circlerangeturfs(location, boom_sizes[3]))

@@ -223,7 +223,6 @@
 	var/list/dancefloor_turfs
 	var/list/dancefloor_turfs_types
 	var/dancefloor_exists = FALSE
-//	var/datum/effect_system/smoke_spread/transparent/dancefloor_devil/smoke
 
 
 /obj/effect/proc_holder/spell/summon_dancefloor/create_new_targeting()
@@ -262,13 +261,3 @@
 			dancefloor_turfs_types[i] = T.type
 			T.ChangeTurf((i % 2 == 0) ? /turf/simulated/floor/light/colour_cycle/dancefloor_a : /turf/simulated/floor/light/colour_cycle/dancefloor_b)
 			i++
-
-
-/*
-/datum/effect_system/smoke_spread/transparent/dancefloor_devil
-	effect_type = /obj/effect/particle_effect/smoke/transparent/dancefloor_devil
-
-
-/obj/effect/particle_effect/smoke/transparent/dancefloor_devil
-	lifetime = 2
-*/

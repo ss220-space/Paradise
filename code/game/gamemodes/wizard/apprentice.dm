@@ -39,7 +39,7 @@
 			var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as the wizard apprentice of [teacher.real_name]?", ROLE_WIZARD, TRUE, source = source)
 			if(length(candidates))
 				var/mob/C = pick(candidates)
-				new /obj/effect/particle_effect/smoke(teacher.loc)
+				new /obj/effect/particle_effect/fluid/smoke(teacher.loc)
 				var/mob/living/carbon/human/apprentice = new/mob/living/carbon/human(teacher.loc)
 				apprentice.key = C.key
 				to_chat(apprentice, "<span class='notice'>You are the [teacher.real_name]'s apprentice! You are bound by magic contract to follow [teacher.p_their()] orders and help [teacher.p_them()] in accomplishing their goals.</span>")

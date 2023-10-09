@@ -748,7 +748,14 @@ proc/dd_sortedObjectList(list/incoming)
 #define LAZYADDOR(L, I) if(!L) { L = list(); } L |= I;
 #define LAZYACCESS(L, I) (L ? (isnum(I) ? (I > 0 && I <= L.len ? L[I] : null) : L[I]) : null)
 #define LAZYLEN(L) length(L) // Despite how pointless this looks, it's still needed in order to convey that the list is specificially a 'Lazy' list.
+///Qdel every item in the list before setting the list to null
+#define QDEL_LAZYLIST(L) for(var/I in L) qdel(I); L = null;
+//These methods don't null the list
+///Use LAZYLISTDUPLICATE instead if you want it to null with no entries
+#define LAZYCOPY(L) (L ? L.Copy() : list() )
+/// Consider LAZYNULL instead
 #define LAZYCLEARLIST(L) if(L) L.Cut()
+///Returns the list if it's actually a valid list, otherwise will initialize it
 
 ///If the lazy list is currently initialized find item I in list L
 #define LAZYIN(L, I) (L && (I in L))

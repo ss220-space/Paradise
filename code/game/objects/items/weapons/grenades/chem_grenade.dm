@@ -568,8 +568,8 @@
 
 /obj/item/grenade/chem_grenade/saringas/New()
 	..()
-	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
-	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
 
 	B1.reagents.add_reagent("sarin", 85)
 	B1.reagents.add_reagent("potassium", 15)
