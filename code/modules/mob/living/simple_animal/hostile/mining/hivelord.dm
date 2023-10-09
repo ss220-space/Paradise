@@ -13,8 +13,8 @@
 	vision_range = 5
 	aggro_vision_range = 9
 	speed = 3
-	maxHealth = 75
-	health = 75
+	maxHealth = 100
+	health = 100
 	harm_intent_damage = 5
 	melee_damage_lower = 0
 	melee_damage_upper = 0
@@ -32,6 +32,8 @@
 	pass_flags = PASSTABLE
 	butcher_results = list(/obj/item/organ/internal/regenerative_core = 1)
 	var/brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood
+	var/protective_time = 0
+	var/protective_cooldown_time = 40
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/OpenFire(the_target)
 	if(world.time >= ranged_cooldown)
@@ -194,8 +196,8 @@
 	icon_living = "dwarf_legion"
 	icon_aggro = "dwarf_legion"
 	icon_dead = "dwarf_legion"
-	maxHealth = 60
-	health = 60
+	maxHealth = 80
+	health = 80
 	speed = 2 //faster!
 	crusher_drop_mod = 20
 	dwarf_mob = TRUE
@@ -206,6 +208,8 @@
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/death(gibbed)
 	visible_message("<span class='warning'>The skulls on [src] wail in anger as they flee from their dying host!</span>")
 	var/turf/T = get_turf(src)
+	for(var/i in 1 to 3)
+		new brood_type(T)
 	if(T)
 		if(stored_mob)
 			stored_mob.forceMove(get_turf(src))
