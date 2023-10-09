@@ -115,3 +115,9 @@
 /// Like SPT_PROB_RATE but easier to use, simply put `if(SPT_PROB(10, 5))`
 #define SPT_PROB(prob_per_second_percent, seconds_per_tick) (prob(100*SPT_PROB_RATE((prob_per_second_percent)/100, (seconds_per_tick))))
 // )
+
+/// Increments a value and wraps it if it exceeds some value. Can be used to circularly iterate through a list through `idx = WRAP_UP(idx, length_of_list)`.
+#define WRAP_UP(val, max) (((val) % (max)) + 1)
+
+/// The number of cells in a taxicab circle (rasterized diamond) of radius X.
+#define DIAMOND_AREA(X) (1 + 2*(X)*((X)+1))

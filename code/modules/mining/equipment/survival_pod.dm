@@ -58,7 +58,7 @@
 			message_admins("[ADMIN_LOOKUPFLW(usr)] activated a bluespace capsule away from the mining level!")
 			add_game_logs("activated a bluespace capsule away from the mining level at [COORD(T)]", usr)
 		template.load(deploy_location, centered = TRUE)
-		new /obj/effect/particle_effect/smoke(get_turf(src))
+		new /obj/effect/particle_effect/fluid/smoke(get_turf(src))
 		qdel(src)
 
 /obj/item/survivalcapsule/luxury

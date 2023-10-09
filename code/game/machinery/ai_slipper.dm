@@ -64,7 +64,9 @@
 	if(cooldown_on || disabled)
 		return
 	else
-		new /obj/effect/particle_effect/foam(loc)
+		var/datum/effect_system/fluid_spread/foam/foam = new
+		foam.set_up(4, holder = src, location = loc)
+		foam.start()
 		uses--
 		cooldown_on = TRUE
 		cooldown_time = world.timeofday + 100

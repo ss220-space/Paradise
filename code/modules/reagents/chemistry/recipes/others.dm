@@ -19,8 +19,8 @@
 	var/location = get_turf(holder.my_atom)
 	holder.my_atom.visible_message("<span class='warning'>The solution spews out foam!</span>")
 
-	var/datum/effect_system/foam_spread/s = new()
-	s.set_up(created_volume, location, holder, 0)
+	var/datum/effect_system/fluid_spread/foam/s = new()
+	s.set_up(5, location = location, carry = holder)
 	s.start()
 	holder.clear_reagents()
 
@@ -32,13 +32,13 @@
 	required_reagents = list("aluminum" = 3, "fluorosurfactant" = 1, "sacid" = 1)
 	result_amount = 5
 
-/datum/chemical_reaction/metalfoam/on_reaction(datum/reagents/holder, created_volume)
+/datum/chemical_reaction/metalfoam/on_reaction(datum/reagents/holder)
 	var/location = get_turf(holder.my_atom)
 
 	holder.my_atom.visible_message("<span class='warning'>The solution spews out a metalic foam!</span>")
 
-	var/datum/effect_system/foam_spread/s = new()
-	s.set_up(created_volume, location, holder, MFOAM_ALUMINUM)
+	var/datum/effect_system/fluid_spread/foam/s = new()
+	s.set_up(5, location = location, carry = holder, result_type = /obj/structure/foamedmetal)
 	s.start()
 
 
@@ -49,13 +49,13 @@
 	required_reagents = list("iron" = 3, "fluorosurfactant" = 1, "sacid" = 1)
 	result_amount = 5
 
-/datum/chemical_reaction/ironfoam/on_reaction(datum/reagents/holder, created_volume)
+/datum/chemical_reaction/ironfoam/on_reaction(datum/reagents/holder)
 	var/location = get_turf(holder.my_atom)
 
 	holder.my_atom.visible_message("<span class='warning'>The solution spews out a metalic foam!</span>")
 
-	var/datum/effect_system/foam_spread/s = new()
-	s.set_up(created_volume, location, holder, MFOAM_IRON)
+	var/datum/effect_system/fluid_spread/foam/s = new()
+	s.set_up(5, location = location, carry = holder, result_type = /obj/structure/foamedmetal/iron)
 	s.start()
 
 
