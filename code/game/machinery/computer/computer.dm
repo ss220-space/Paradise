@@ -80,7 +80,7 @@
 	if((stat & NOPOWER) || force_no_power_icon_state)
 		if(icon_keyboard && abductor)
 			overlays += image(icon,"alien_key_off",overlay_layer)
-		if(icon_keyboard)
+		else if(icon_keyboard)
 			overlays += image(icon,"[icon_keyboard]_off",overlay_layer)
 		return
 
@@ -91,9 +91,8 @@
 
 	if(icon_keyboard && abductor)
 		overlays += image(icon, "alien_key" ,overlay_layer)
-	else
-		if(icon_keyboard)
-			overlays += image(icon, icon_keyboard ,overlay_layer)
+	else if(icon_keyboard)
+		overlays += image(icon, icon_keyboard ,overlay_layer)
 
 
 /obj/machinery/computer/power_change()
