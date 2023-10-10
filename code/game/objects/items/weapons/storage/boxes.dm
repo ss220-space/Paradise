@@ -43,7 +43,7 @@
 /obj/item/storage/box/survival/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/survival/brigphys
@@ -55,7 +55,7 @@
 /obj/item/storage/box/survival_vox/populate_contents()
 	new /obj/item/clothing/mask/breath/vox(src)
 	new /obj/item/tank/internals/emergency_oxygen/nitrogen(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/survival_machine
@@ -72,7 +72,7 @@
 /obj/item/storage/box/survival_plasmaman/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen/plasma(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/engineer
@@ -81,7 +81,7 @@
 /obj/item/storage/box/engineer/populate_contents()
 	new /obj/item/clothing/mask/breath( src )
 	new /obj/item/tank/internals/emergency_oxygen/engi( src )
-	new /obj/item/reagent_containers/hypospray/autoinjector( src )
+	new /obj/item/storage/firstaid/crew( src )
 	new /obj/item/flashlight/flare/glowstick/blue( src )
 	return
 
@@ -92,7 +92,7 @@
 	new /obj/item/clothing/mask/gas/explorer(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/crowbar/red(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/survival_security
@@ -100,7 +100,7 @@
 
 /obj/item/storage/box/survival_security/populate_contents()
 	new /obj/item/tank/internals/emergency_oxygen/engi/sec(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
 	new /obj/item/crowbar/red/sec(src)
 	new /obj/item/clothing/mask/gas/sechailer(src)
@@ -127,7 +127,7 @@
 /obj/item/storage/box/survival_laws/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/pink(src)
 	new /obj/item/book/manual/security_space_law(src)
 	new /obj/item/taperecorder(src)
