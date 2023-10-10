@@ -741,6 +741,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	explosion_block = 1
 	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
 	canSmoothWith = list(/obj/structure/window/full/abductor)
+
 /obj/structure/window/full/abductor/Initialize(mapload, direct)
 	..()
 	AddComponent(/datum/component/obj_regenerate)
