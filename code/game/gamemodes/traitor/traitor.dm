@@ -12,13 +12,17 @@
 /datum/game_mode/traitor
 	name = "traitor"
 	config_tag = "traitor"
-	restricted_jobs = list("Cyborg")//They are part of the AI if he is traitor so are they, they use to get double chances
+	restricted_jobs = list("Cyborg", "AI")
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Internal Affairs Agent", "Brig Physician", "Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer", "Special Operations Officer", "Supreme Commander", "Syndicate Officer")
+	/// Basically all jobs, except AI.
+	var/list/protected_jobs_AI = list("Civilian","Chief Engineer","Station Engineer","Trainee Engineer","Life Support Specialist","Mechanic","Chief Medical Officer","Medical Doctor","Intern","Coroner","Chemist","Geneticist","Virologist","Psychiatrist","Paramedic","Research Director","Scientist","Student Scientist","Roboticist","Head of Personnel","Chaplain","Bartender","Chef","Botanist","Quartermaster","Cargo Technician","Shaft Miner","Clown","Mime","Janitor","Librarian","Barber","Explorer")
 	required_players = 0
 	required_enemies = 1
 	recommended_enemies = 4
 	/// A list containing references to the minds of soon-to-be traitors. This is seperate to avoid duplicate entries in the `traitors` list.
 	var/list/datum/mind/pre_traitors = list()
+	/// Same as above for malf AI.
+	var/datum/mind/pre_malf_AI
 	/// Hard limit on traitors if scaling is turned off.
 	var/traitors_possible = 4
 	// Contractor related
@@ -37,15 +41,23 @@
 
 
 /datum/game_mode/traitor/pre_setup()
+	. = FALSE
 
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 
 	var/list/possible_traitors = get_players_for_role(ROLE_TRAITOR)
+	var/list/possible_malfs = get_players_for_role(ROLE_MALF_AI)
 
-	// stop setup if no possible traitors
+	var/malf_AI_candidate
+	if(length(possible_malfs))
+		malf_AI_candidate = pick(possible_malfs)
+		possible_traitors |= malf_AI_candidate
+
 	if(!length(possible_traitors))
-		return FALSE
+		return
+
+	. = TRUE
 
 	var/num_traitors = 1
 	var/num_players = num_players()
@@ -59,23 +71,27 @@
 
 	var/num_contractors = max(min_contractors, CEILING(num_traitors * contractor_traitor_ratio, 1))
 
-	for(var/j = 0, j < num_traitors, j++)
+	for(var/i in 1 to num_traitors)
 		if(!length(possible_traitors))
 			break
-		var/datum/mind/traitor = pick(possible_traitors)
-		possible_traitors.Remove(traitor)
-		if(traitor.special_role == SPECIAL_ROLE_THIEF) //Disable traitor + thief combination
-			continue
-		pre_traitors += traitor
+		var/datum/mind/traitor = pick_n_take(possible_traitors)
 		traitor.special_role = SPECIAL_ROLE_TRAITOR
-		traitor.restricted_roles = restricted_jobs
-		if(num_contractors-- > 0)
-			selected_contractors += traitor
-
-	if(!length(pre_traitors))
-		return FALSE
-
-	return TRUE
+		if(traitor == malf_AI_candidate)
+			if((ROLE_TRAITOR in traitor.current.client.prefs.be_special) && prob(50))	// If traitor is also enabled its 50/50 chance.
+				pre_traitors += traitor
+				traitor.restricted_roles = restricted_jobs
+				if(num_contractors-- > 0)
+					selected_contractors += traitor
+			else
+				pre_malf_AI = traitor
+				pre_malf_AI.restricted_roles = (restricted_jobs|protected_jobs|protected_jobs_AI)	// All jobs are restricted for malf AI despite the config.
+				pre_malf_AI.restricted_roles -= "AI"
+				SSjobs.new_malf = traitor.current
+		else
+			pre_traitors += traitor
+			traitor.restricted_roles = restricted_jobs
+			if(num_contractors-- > 0)
+				selected_contractors += traitor
 
 
 /datum/game_mode/traitor/post_setup()
@@ -83,6 +99,8 @@
 		var/datum/antagonist/traitor/new_antag = new
 		new_antag.is_contractor = (traitor in selected_contractors)
 		addtimer(CALLBACK(traitor, TYPE_PROC_REF(/datum/mind, add_antag_datum), new_antag), rand(1 SECONDS, 10 SECONDS))
+	if(pre_malf_AI)
+		addtimer(CALLBACK(pre_malf_AI, TYPE_PROC_REF(/datum/mind, add_antag_datum), /datum/antagonist/malf_ai), rand(1 SECONDS, 10 SECONDS))
 	if(!exchange_blue)
 		exchange_blue = -1 //Block latejoiners from getting exchange objectives
 	..()
