@@ -644,12 +644,14 @@
 		return 0
 	return ..(mover, target, height)
 
-/obj/machinery/shieldwall/syndicate/CanAStarPass(ID, to_dir, caller)
+
+/obj/machinery/shieldwall/syndicate/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
 	if(isliving(caller))
 		var/mob/living/M = caller
 		if("syndicate" in M.faction)
-			return 1
+			return TRUE
 	return ..(ID, to_dir, caller)
+
 
 /obj/machinery/shieldwall/syndicate/proc/phaseout()
 	// If you're bumping into an invisible shield, make it fully visible, then fade out over a couple of seconds.

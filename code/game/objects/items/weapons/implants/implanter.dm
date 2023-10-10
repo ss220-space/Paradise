@@ -59,6 +59,14 @@
 	..()
 
 
+/obj/item/implanter/supercharge
+	name = "implanter (supercharge)"
+
+/obj/item/implanter/supercharge/New()
+	imp = new /obj/item/implant/supercharge(src)
+	..()
+
+	
 /obj/item/implanter/emp
 	name = "implanter (EMP)"
 
