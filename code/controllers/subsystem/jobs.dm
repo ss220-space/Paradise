@@ -15,6 +15,8 @@ SUBSYSTEM_DEF(jobs)
 	var/id_change_counter = 1
 	//Players who need jobs
 	var/list/unassigned = list()
+	/// Used to grant AI job if antag was rolled.
+	var/mob/new_player/new_malf
 	//Debug info
 	var/list/job_debug = list()
 
@@ -265,27 +267,30 @@ SUBSYSTEM_DEF(jobs)
 
 /datum/controller/subsystem/jobs/proc/FillAIPosition()
 	if(config && !CONFIG_GET(flag/allow_ai))
-		return 0
+		return FALSE
 
-	var/ai_selected = 0
+	var/ai_selected = FALSE
 	var/datum/job/job = GetJob("AI")
 	if(!job)
-		return 0
+		return FALSE
 
 	for(var/i = job.total_positions, i > 0, i--)
+		if(new_malf && AssignRole(new_malf, "AI"))
+			return TRUE
+
 		for(var/level = 1 to 3)
 			var/list/candidates = list()
 			candidates = FindOccupationCandidates(job, level)
-			if(candidates.len)
+			if(length(candidates))
 				var/mob/new_player/candidate = pick(candidates)
 				if(AssignRole(candidate, "AI"))
-					ai_selected++
+					ai_selected = TRUE
 					break
 
 		if(ai_selected)
-			return 1
+			return TRUE
 
-		return 0
+		return FALSE
 
 
 /** Proc DivideOccupations
@@ -319,6 +324,11 @@ SUBSYSTEM_DEF(jobs)
 
 	HandleFeedbackGathering()
 
+	if(new_malf)	// code dupe to assign malf AI before civs.
+		Debug("DO, Running AI Check")
+		FillAIPosition()
+		Debug("DO, AI Check end")
+
 	//People who wants to be assistants, sure, go on.
 	Debug("DO, Running Civilian Check 1")
 	var/datum/job/civ = new /datum/job/civilian()
@@ -336,9 +346,10 @@ SUBSYSTEM_DEF(jobs)
 	Debug("DO, Head Check end")
 
 	//Check for an AI
-	Debug("DO, Running AI Check")
-	FillAIPosition()
-	Debug("DO, AI Check end")
+	if(!new_malf)
+		Debug("DO, Running AI Check")
+		FillAIPosition()
+		Debug("DO, AI Check end")
 
 	//Other jobs are now checked
 	Debug("DO, Running Standard Check")
