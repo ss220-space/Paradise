@@ -630,6 +630,20 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/structure/window/plasmareinforced/BlockSuperconductivity()
 	return 1 //okay this SHOULD MAKE THE TOXINS CHAMBER WORK
 
+/obj/structure/window/abductor
+	name = "alien window"
+	desc = "A window made out of a alien alloy. Looks like it can regenerate all damage."
+	icon_state = "alwindow"
+	shardtype = /obj/item/shard
+	glass_type = /obj/item/stack/sheet/abductorglass
+	heat_resistance = 1600
+	max_integrity = 150
+	explosion_block = 1
+	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+
+/obj/structure/window/abductor/Initialize(mapload, direct)
+	..()
+	AddComponent(/datum/component/obj_regenerate)
 /obj/structure/window/full
 	glass_amount = 2
 	dir = FULLTILE_WINDOW_DIR
@@ -713,6 +727,23 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	icon_state = "ice_window"
 	max_integrity = 150
 	cancolor = FALSE
+
+/obj/structure/window/full/abductor
+	name = "alien window"
+	desc = "A alien alloy window. Looks like it regenerate all damage."
+	icon = 'icons/obj/smooth_structures/alien_window.dmi'
+	icon_state = "al_window"
+	shardtype = /obj/item/shard
+	glass_type = /obj/item/stack/sheet/abductorglass
+	heat_resistance = 1600
+	max_integrity = 300
+	smooth = SMOOTH_TRUE
+	explosion_block = 1
+	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+	canSmoothWith = list(/obj/structure/window/full/abductor)
+/obj/structure/window/full/abductor/Initialize(mapload, direct)
+	..()
+	AddComponent(/datum/component/obj_regenerate)
 
 /obj/structure/window/full/shuttle
 	name = "shuttle window"
