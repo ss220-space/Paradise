@@ -424,6 +424,7 @@
 /obj/item/storage/box/cups
 	name = "box of paper cups"
 	desc = "It has pictures of paper cups on the front."
+	icon_state = "papercup"
 
 /obj/item/storage/box/cups/populate_contents()
 	for(var/I in 1 to 7)
