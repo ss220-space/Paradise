@@ -136,7 +136,7 @@
 	on_deconstruction()
 	if(!(flags & NODECONSTRUCT))
 		if(circuit) //no circuit, no computer frame
-			var/obj/structure/computerframe/abductor/A
+			var/obj/structure/computerframe/A
 			if(abductor)
 				A = new /obj/structure/computerframe/abductor(loc)
 			else
