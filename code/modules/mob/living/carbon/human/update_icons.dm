@@ -260,13 +260,19 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/datum/sprite_accessory/underwear/U = GLOB.underwear_list[underwear]
 		if(U)
 			var/u_icon = U.sprite_sheets && (dna.species.name in U.sprite_sheets) ? U.sprite_sheets[dna.species.name] : U.icon //Species-fit the undergarment.
-			underwear_standing.Blend(new /icon(u_icon, "uw_[U.icon_state]_s"), ICON_OVERLAY)
+			var/icon/underwear_icon = new (u_icon, "uw_[U.icon_state]_s")
+			if(U.allow_change_color)
+				underwear_icon.Blend(color_underwear, ICON_MULTIPLY)
+			underwear_standing.Blend(underwear_icon, ICON_OVERLAY)
 
 	if(undershirt && dna.species.clothing_flags & HAS_UNDERSHIRT)
 		var/datum/sprite_accessory/undershirt/U2 = GLOB.undershirt_list[undershirt]
 		if(U2)
 			var/u2_icon = U2.sprite_sheets && (dna.species.name in U2.sprite_sheets) ? U2.sprite_sheets[dna.species.name] : U2.icon
-			underwear_standing.Blend(new /icon(u2_icon, "us_[U2.icon_state]_s"), ICON_OVERLAY)
+			var/icon/undershirt_icon = new(u2_icon, "us_[U2.icon_state]_s")
+			if(U2.allow_change_color)
+				undershirt_icon.Blend(color_undershirt, ICON_MULTIPLY)
+			underwear_standing.Blend(undershirt_icon, ICON_OVERLAY)
 
 	if(socks && dna.species.clothing_flags & HAS_SOCKS)
 		var/datum/sprite_accessory/socks/U3 = GLOB.socks_list[socks]
