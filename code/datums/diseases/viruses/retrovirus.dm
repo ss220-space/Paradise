@@ -1,15 +1,14 @@
 /datum/disease/virus/dna_retrovirus
 	name = "Retrovirus"
+	agent = ""
+	desc = "A DNA-altering retrovirus that scrambles the structural and unique enzymes of a host constantly."
+	stage_prob = 2
 	max_stages = 4
-	spread_text = "Contact"
 	spread_flags = CONTACT
 	cure_text = "Rest or an injection of mutadone"
 	cure_prob = 6
-	agent = ""
-	desc = "A DNA-altering retrovirus that scrambles the structural and unique enzymes of a host constantly."
 	severity = DANGEROUS
 	permeability_mod = 0.4
-	stage_prob = 2
 	var/SE
 	var/UI
 	var/restcure = 0

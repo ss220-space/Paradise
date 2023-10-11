@@ -2,14 +2,13 @@
 
 /datum/disease/virus/loyalty
 	name = "Loyalty Syndrome"
+	agent = "Halomonas minomae"
 	max_stages = 5
-	spread_text = "On contact"
 	spread_flags = CONTACT
 	can_immunity = FALSE
 	cure_text = "Anti-Psychotics"
 	cures = list("haloperidol")
 	cure_prob = 5
-	agent = "Halomonas minomae"
 	visibility_flags = HIDDEN_HUD|HIDDEN_SCANNER
 	severity = DANGEROUS
 	var/is_master = FALSE

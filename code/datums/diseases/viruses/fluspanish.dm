@@ -1,14 +1,13 @@
 /datum/disease/virus/fluspanish
 	name = "Spanish inquisition Flu"
+	agent = "1nqu1s1t10n flu virion"
+	desc = "If left untreated the subject will burn to death for being a heretic."
 	max_stages = 3
 	spread_flags = AIRBORNE
-	spread_text = "Airborne"
-	cure_text = "Spaceacillin & Anti-bodies to the common flu"
+	//cure_text = "Spaceacillin & Anti-bodies to the common flu" TODO: Cure
 	cures = list("spaceacillin")
 	cure_prob = 10
-	agent = "1nqu1s1t10n flu virion"
 	permeability_mod = 0.75
-	desc = "If left untreated the subject will burn to death for being a heretic."
 	severity = DANGEROUS
 
 /datum/disease/virus/fluspanish/stage_act()

@@ -3,8 +3,6 @@
 	Advance Disease is a system for Virologist to Engineer their own disease with symptoms that have effects and properties
 	which add onto the overall disease.
 
-	If you need help with creating new symptoms or expanding the advance disease, ask for Giacom on #coderbus.
-
 */
 
 #define VIRUS_SYMPTOM_LIMIT	6
@@ -30,10 +28,9 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 
 	name = "Unknown" // We will always let our Virologist name our disease.
 	desc = "Спроектированная болезнь, может содержать сразу несколько симптомов."
-	form = "Улучшенная болезнь" // Will let med-scanners know that this disease was engineered.
+	form = "Продвинутая болезнь" // Will let med-scanners know that this disease was engineered.
 	agent = "advance microbes"
 	max_stages = 5
-	spread_text = "Unknown"
 
 	// NEW VARS
 
@@ -47,6 +44,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 
 	AssignProperties(GenerateProperties())
 	id = GetDiseaseID()
+	..()
 
 /datum/disease/virus/advance/Destroy()
 	if(processing)
@@ -87,7 +85,9 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 // Returns the advance disease with a different reference memory.
 /datum/disease/virus/advance/Copy()
 	var/datum/disease/virus/advance/copy = new
-	var/list/required_vars = list("name","severity","id","visibility_flags","spread_flags","stage_prob","cures","cure_prob","permeability_mod")
+	var/list/required_vars = list(
+		"name","severity","id","visibility_flags","spread_flags",
+		"stage_prob","cures","cure_prob","cure_text", "permeability_mod",)
 	for(var/V in required_vars)
 		if(istype(vars[V], /list))
 			var/list/L = vars[V]
@@ -109,8 +109,8 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 /datum/disease/virus/advance/proc/HasSymptom(datum/symptom/S)
 	for(var/datum/symptom/symp in symptoms)
 		if(symp.id == S.id)
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 // Will generate new unique symptoms, use this if there are none. Returns a list of symptoms that were generated.
 /datum/disease/virus/advance/proc/GenerateSymptoms(level_min = 1, level_max = VIRUS_MAX_SYMPTOM_LEVEL, count_of_symptoms = 0)
@@ -185,8 +185,8 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 
 // Assign the properties that are in the list.
 /datum/disease/virus/advance/proc/AssignProperties(list/properties = list())
-
 	if(properties && properties.len)
+		// stealth
 		switch(properties["stealth"])
 			if(1)
 				visibility_flags = HIDDEN_HUD
@@ -197,60 +197,49 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 			else
 				visibility_flags = VISIBLE
 
-		// The more symptoms we have, the less transmittable it is but some symptoms can make up for it.
-		SetSpread(clamp(2 ** (properties["transmittable"] - symptoms.len), BLOOD, AIRBORNE)) //TODO: подредактировать цифры под новые границы цифры флагов
-		permeability_mod = max(CEILING(0.4 * properties["transmittable"], 1), 1)  // TODO: нерабочая хуйня, не забудь пофиксить
-		cure_prob = 15 - clamp(properties["resistance"], -5, 5) // can be between 10 and 20
-		stage_prob = max(properties["stage_speed"], 2)
-		SetSeverity(properties["severity"])
-		GenerateCure(properties)
+		// transmittable
+		switch(properties["transmittable"] - symptoms.len)
+			if(-INFINITY to 1)
+				spread_flags = BLOOD
+			if(2 to 3)
+				spread_flags = CONTACT
+			if(4 to INFINITY)
+				spread_flags = AIRBORNE
+		permeability_mod = clamp((0.25 * properties["transmittable"]), 0.1, 2)
+
+		//stage speed
+		stage_prob = clamp(max(1.3 * sqrtor0(properties["stage_speed"] + 11), properties["stage_speed"]), 1, 40)
+
+		//severity
+		switch(properties["severity"])
+			if(-INFINITY to 0)
+				severity = NONTHREAT
+			if(1)
+				severity = MINOR
+			if(2)
+				severity = MEDIUM
+			if(3)
+				severity = HARMFUL
+			if(4)
+				severity = DANGEROUS
+			if(5 to INFINITY)
+				severity = BIOHAZARD
+
+		//resistance
+		cure_prob = clamp(15 - properties["resistance"], 5, 40)
+		GenerateCure(properties["resistance"])
 	else
 		CRASH("Our properties were empty or null!")
 
-
-// Assign the spread type and give it the correct description.
-/datum/disease/virus/advance/proc/SetSpread(spread_id)
-	switch(spread_id)
-		if(NONE, SPECIAL)
-			spread_text = "None"
-		if(BLOOD)
-			spread_text = "Blood"
-		if(CONTACT)
-			spread_text = "On contact"
-		if(AIRBORNE)
-			spread_text = "Airborne"
-
-	spread_flags = spread_id
-
-/datum/disease/virus/advance/proc/SetSeverity(level_sev)
-
-	switch(level_sev)
-
-		if(-INFINITY to 0)
-			severity = NONTHREAT
-		if(1)
-			severity = MINOR
-		if(2)
-			severity = MEDIUM
-		if(3)
-			severity = HARMFUL
-		if(4)
-			severity = DANGEROUS
-		if(5 to INFINITY)
-			severity = BIOHAZARD
-		else
-			severity = "Unknown"
-
-
+//TODO: доделать эту хуйню
 // Will generate a random cure, the less resistance the symptoms have, the harder the cure.
-/datum/disease/virus/advance/proc/GenerateCure(list/properties = list())
-	if(properties && properties.len)
-		var/res = round(clamp(properties["resistance"] - (symptoms.len / 2), 1, GLOB.advance_cures.len))
+/datum/disease/virus/advance/proc/GenerateCure(resistance)
+	var/res = round(clamp(resistance - (symptoms.len / 2), 1, GLOB.advance_cures.len))
 
-		// Get the cure name from the cure_id
-		var/datum/reagent/D = GLOB.chemical_reagents_list[GLOB.advance_cures[res]]
-		cures = list(GLOB.advance_cures[res])
-		cure_text = D.name
+	// Get the cure name from the cure_id
+	var/datum/reagent/D = GLOB.chemical_reagents_list[GLOB.advance_cures[res]]
+	cures = list(GLOB.advance_cures[res])
+	cure_text = D.name
 
 // Randomly generate a symptom, has a chance to lose or gain a symptom.
 /datum/disease/virus/advance/proc/Evolve(min_level, max_level)
@@ -301,6 +290,10 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 	symptoms -= S
 	return
 
+/datum/disease/virus/advance/CanContract(mob/M)
+	. = ..()
+	if(count_by_type(M.diseases, /datum/disease/virus/advance) > 0)
+		. = FALSE
 /*
 
 	Static Procs

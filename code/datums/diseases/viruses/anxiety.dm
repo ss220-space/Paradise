@@ -2,9 +2,7 @@
 	name = "Severe Anxiety"
 	form = "Infection"
 	max_stages = 4
-	spread_text = "On contact"
 	spread_flags = CONTACT
-	cure_text = "Ethanol"
 	cures = list("ethanol")
 	agent = "Excess Lepidopticides"
 	desc = "If left untreated subject will regurgitate butterflies."

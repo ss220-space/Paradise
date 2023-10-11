@@ -482,7 +482,7 @@ REAGENT SCANNER
 		if(!(D.visibility_flags & HIDDEN_SCANNER))
 			. += "<span class='warning'><b>Внимание: обнаружен [D.form]</b>"
 			. += "&emsp;Название: [D.name]"
-			//. += "&emsp;Тип: [D.spread_text]"
+			. += "&emsp;Тип: [D.additional_info]"
 			. += "&emsp;Стадия: [D.stage]/[D.max_stages]"
 			. += "&emsp;Лечение: [D.cure_text]</span>"
 	if(H.undergoing_cardiac_arrest())

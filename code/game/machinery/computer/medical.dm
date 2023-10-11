@@ -218,7 +218,7 @@
 				var/list/payload = list(
 					name = D.name,
 					max_stages = D.max_stages,
-					//spread_text = D.spread_text,
+					spread_text = D.additional_info,
 					cure = D.cure_text || "None",
 					desc = D.desc,
 					severity = D.severity

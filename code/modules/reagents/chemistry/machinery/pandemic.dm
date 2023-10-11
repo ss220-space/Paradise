@@ -206,7 +206,7 @@
 		P.info += "<HR>"
 		P.info += "<U>Название вируса:</U> [D.name] <BR>"
 		P.info += "<U>Симптомы:</U> [symtoms]<BR>"
-		P.info += "<U>Путь передачи:</U> [D.spread_text]<BR>"
+		P.info += "<U>Путь передачи:</U> [D.additional_info]<BR>"
 		P.info += "<U>Лекарство от вируса:</U> [D.cure_text]<BR>"
 		P.info += "<BR>"
 		P.info += "<U>Причина выпуска:</U> [reason]"
@@ -274,7 +274,7 @@
 							dat += "<b>Болезнетворный агент:</b> [D?"[D.agent] — <A href='?src=[UID()];create_virus_culture=[i]'>Создать бутылёк с вирусной культурой</A>":"нет"]<BR>"
 							dat += "<b>Общепринятое название:</b> [(D.name||"нет")]<BR>"
 							dat += "<b>Описание: </b> [(D.desc||"нет")]<BR>"
-							//dat += "<b>Путь передачи:</b> [(D.spread_text||"нет")]<BR>"
+							dat += "<b>Путь передачи:</b> [(D.additional_info||"нет")]<BR>"
 							dat += "<b>Возможное лекарство:</b> [(D.cure_text||"нет")]<BR><BR>"
 
 							if(istype(D, /datum/disease/virus/advance))

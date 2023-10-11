@@ -1,14 +1,12 @@
 /datum/disease/virus/flu
 	name = "The Flu"
+	agent = "H13N1 flu virion"
+	desc = "If left untreated the subject will feel quite unwell."
 	max_stages = 3
 	spread_flags = AIRBORNE
-	spread_text = "Airborne"
-	cure_text = "Spaceacillin"
 	cures = list("spaceacillin")
 	cure_prob = 10
-	agent = "H13N1 flu virion"
 	permeability_mod = 0.75
-	desc = "If left untreated the subject will feel quite unwell."
 	severity = MEDIUM
 
 /datum/disease/virus/flu/stage_act()

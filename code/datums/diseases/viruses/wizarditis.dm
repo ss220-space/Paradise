@@ -1,14 +1,12 @@
 /datum/disease/virus/wizarditis
 	name = "Wizarditis"
+	agent = "Rincewindus Vulgaris"
+	desc = "Some speculate, that this virus is the cause of Wizard Federation existance. Subjects affected show the signs of dementia, yelling obscure sentences or total gibberish. On late stages subjects sometime express the feelings of inner power, and, cite, 'the ability to control the forces of cosmos themselves!' A gulp of strong, manly spirits usually reverts them to normal, humanlike, condition."
 	max_stages = 4
 	spread_flags = AIRBORNE
-	spread_text = "Airborne"
-	cure_text = "The Manly Dorf"
 	cures = list("manlydorf")
 	cure_prob = 100
-	agent = "Rincewindus Vulgaris"
 	permeability_mod = 0.75
-	desc = "Some speculate, that this virus is the cause of Wizard Federation existance. Subjects affected show the signs of dementia, yelling obscure sentences or total gibberish. On late stages subjects sometime express the feelings of inner power, and, cite, 'the ability to control the forces of cosmos themselves!' A gulp of strong, manly spirits usually reverts them to normal, humanlike, condition."
 	severity = HARMFUL
 	required_organs = list(/obj/item/organ/external/head)
 

@@ -1,10 +1,8 @@
 /datum/disease/virus/transformation
 	name = "Transformation"
-	max_stages = 5
-	spread_text = "Acute"
-	spread_flags = NON_CONTAGIOUS
-	cure_text = "A coder's love (theoretical)."
 	agent = "Shenanigans"
+	max_stages = 5
+	spread_flags = NON_CONTAGIOUS
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/alien)
 	severity = HARMFUL
 	stage_prob = 10
@@ -73,18 +71,17 @@
 
 /datum/disease/virus/transformation/jungle_fever
 	name = "Jungle Fever"
-	cure_text = "Bananas"
+	agent = "Kongey Vibrion M-909"
+	desc = "Monkeys with this disease will bite humans, causing humans to mutate into a monkey."
+	curable = FALSE
+	cure_prob = 1
 	cures = list("banana")
-	spread_text = "Monkey Bites"
+	//spread_text = "Monkey Bites"
 	spread_flags = SPECIAL     //TODO: spread with bites
 	viable_mobtypes = list(/mob/living/carbon/human)
-	cure_prob = 1
-	curable = FALSE
-	desc = "Monkeys with this disease will bite humans, causing humans to mutate into a monkey."
 	severity = BIOHAZARD
 	stage_prob = 4
 	visibility_flags = VISIBLE
-	agent = "Kongey Vibrion M-909"
 	new_form = /mob/living/carbon/human/lesser/monkey
 	is_new_mind = TRUE
 
@@ -115,18 +112,15 @@
 
 
 /datum/disease/virus/transformation/robot
-
 	name = "Robotic Transformation"
-	cure_text = "An injection of copper."
-	cures = list("copper")
-	cure_prob = 5
 	agent = "R2D2 Nanomachines"
 	desc = "This disease, actually acute nanomachine infection, converts the victim into a cyborg."
+	cures = list("copper")
+	cure_prob = 5
 	severity = DANGEROUS
 	visibility_flags = VISIBLE
 	new_form = /mob/living/silicon/robot
 	is_new_mind = TRUE
-
 	stage1	= null
 	stage2	= list("Your joints feel stiff.", "<span class='danger'>Beep...boop..</span>")
 	stage3	= list("<span class='danger'>Your joints feel very stiff.</span>", "Your skin feels loose.", "<span class='danger'>You can feel something move...inside.</span>")
@@ -149,13 +143,11 @@
 
 
 /datum/disease/virus/transformation/xeno
-
 	name = "Xenomorph Transformation"
-	cure_text = "Spaceacillin & Glycerol"
-	cures = list("spaceacillin", "glycerol")
-	cure_prob = 5
 	agent = "Rip-LEY Alien Microbes"
 	desc = "This disease changes the victim into a xenomorph."
+	cures = list("spaceacillin", "glycerol")
+	cure_prob = 5
 	severity = BIOHAZARD
 	visibility_flags = VISIBLE
 	stage1	= null
@@ -183,11 +175,10 @@
 
 /datum/disease/virus/transformation/slime
 	name = "Advanced Mutation Transformation"
-	cure_text = "frost oil"
-	cures = list("frostoil")
-	cure_prob = 80
 	agent = "Advanced Mutation Toxin"
 	desc = "This highly concentrated extract converts anything into more of itself."
+	cures = list("frostoil")
+	cure_prob = 80
 	severity = BIOHAZARD
 	visibility_flags = VISIBLE
 	stage1	= list("You don't feel very well.")
@@ -213,10 +204,10 @@
 
 /datum/disease/virus/transformation/corgi
 	name = "The Barkening"
-	cure_text = "Death"
-	cures = list("adminordrazine")
 	agent = "Fell Doge Majicks"
 	desc = "This disease transforms the victim into a corgi."
+	cure_text = "Death"
+	cures = list("adminordrazine")
 	visibility_flags = VISIBLE
 	stage1	= list("BARK.")
 	stage2	= list("You feel the need to wear silly hats.")
@@ -238,10 +229,10 @@
 
 /datum/disease/virus/transformation/morph
 	name = "Gluttony's Blessing"
-	cure_text = "nothing"
-	cures = list("adminordrazine")
 	agent = "Gluttony's Blessing"
 	desc = "A 'gift' from somewhere terrible."
+	cure_text = "Nothing"
+	cures = list("adminordrazine")
 	stage_prob = 20
 	severity = BIOHAZARD
 	visibility_flags = VISIBLE

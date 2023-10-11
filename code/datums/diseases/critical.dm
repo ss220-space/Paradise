@@ -1,4 +1,5 @@
 /datum/disease/critical
+	visibility_flags = HIDDEN_PANDEMIC
 
 /datum/disease/critical/stage_act() //overriden to ensure unique behavior
 	stage = min(stage, max_stages)
@@ -21,9 +22,8 @@
 /datum/disease/critical/shock
 	name = "Shock"
 	form = "Medical Emergency"
-	//spread_text = "The patient is in shock"
+	additional_info = "The patient is in shock"
 	max_stages = 3
-	cure_text = "Saline-Glucose Solution"
 	cures = list("salglu_solution")
 	cure_prob = 10
 	stage_prob = 6
@@ -80,9 +80,8 @@
 /datum/disease/critical/heart_failure
 	name = "Cardiac Failure"
 	form = "Medical Emergency"
-	//spread_text = "The patient is having a cardiac emergency"
+	additional_info = "The patient is having a cardiac emergency"
 	max_stages = 3
-	cure_text = "Atropine, Epinephrine, or Heparin"
 	cures = list("atropine", "epinephrine", "heparin")
 	cure_prob = 10
 	needs_all_cures = FALSE
@@ -139,8 +138,8 @@
 /datum/disease/critical/hypoglycemia
 	name = "Hypoglycemia"
 	form = "Medical Emergency"
+	additional_info = "The patient has low blood sugar."
 	max_stages = 3
-	//spread_text = "The patient has low blood sugar."
 	cure_text = "Eating or administration of vitamins or nutrients"
 	stage_prob = 1
 	severity = DANGEROUS

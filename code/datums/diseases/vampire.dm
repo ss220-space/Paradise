@@ -2,7 +2,6 @@
 	name = "Grave Fever"
 	max_stages = 3
 	stage_prob = 5
-	cure_text = "Antibiotics"
 	cures = list("spaceacillin")
 	agent = "Grave Dust"
 	cure_prob = 20

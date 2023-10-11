@@ -1,14 +1,12 @@
 /datum/disease/virus/kingstons
 	name = "Kingstons Syndrome"
+	agent = "Nya Virus"
+	desc = "If left untreated the subject will turn into a feline. In felines it has... OTHER... effects."
 	max_stages = 4
 	spread_flags = AIRBORNE
-	spread_text = "Airborne"
-	cure_text = "Milk"
 	cures = list("milk")
 	cure_prob = 50
-	agent = "Nya Virus"
 	permeability_mod = 0.75
-	desc = "If left untreated the subject will turn into a feline. In felines it has... OTHER... effects."
 	severity = DANGEROUS
 	mutation_reagents = list("mutagen", "radium")
 	possible_mutations = list(/datum/disease/virus/kingstons_advanced)
@@ -50,15 +48,13 @@
 
 /datum/disease/virus/kingstons_advanced //this used to be directly a subtype of kingstons, which sounds nice, but it ment that it would *turn you into a tarjaran always and have normal kingstons stage act* Don't make virusus subtypes unless the base virus does nothing.
 	name = "Advanced Kingstons Syndrome"
+	agent = "AMB45DR Bacteria"
+	desc = "If left untreated the subject will mutate to a different species."
 	max_stages = 4
 	spread_flags = AIRBORNE
-	spread_text = "Airborne"
-	cure_text = "Plasma"
 	cures = list("plasma")
 	cure_prob = 50
-	agent = "AMB45DR Bacteria"
 	permeability_mod = 0.75
-	desc = "If left untreated the subject will mutate to a different species."
 	severity = BIOHAZARD
 	var/list/virspecies = list(/datum/species/human, /datum/species/tajaran, /datum/species/unathi,/datum/species/skrell, /datum/species/vulpkanin, /datum/species/diona) //no karma races sorrys.
 	var/list/virsuffix = list("pox", "rot", "flu", "cough", "-gitis", "cold", "rash", "itch", "decay")

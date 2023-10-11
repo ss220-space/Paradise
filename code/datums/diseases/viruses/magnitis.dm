@@ -1,13 +1,11 @@
 /datum/disease/virus/magnitis
 	name = "Magnitis"
+	agent = "Fukkos Miracos"
+	desc = "This disease disrupts the magnetic field of your body, making it act as if a powerful magnet. Injections of iron help stabilize the field."
 	max_stages = 4
 	spread_flags = AIRBORNE
-	spread_text = "Airborne"
-	cure_text = "Iron"
 	cures = list("iron")
-	agent = "Fukkos Miracos"
 	permeability_mod = 0.75
-	desc = "This disease disrupts the magnetic field of your body, making it act as if a powerful magnet. Injections of iron help stabilize the field."
 	severity = MEDIUM
 
 /datum/disease/virus/magnitis/stage_act()

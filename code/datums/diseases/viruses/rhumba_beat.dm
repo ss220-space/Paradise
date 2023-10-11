@@ -1,11 +1,10 @@
 /datum/disease/virus/rhumba_beat
 	name = "The Rhumba Beat"
+	agent = "Unknown"
 	max_stages = 5
-	spread_text = "On contact"
 	spread_flags = CONTACT
 	cure_text = "Chick Chicky Boom!"
 	cures = list("plasma")
-	agent = "Unknown"
 	severity = BIOHAZARD
 
 /datum/disease/virus/rhumba_beat/stage_act()

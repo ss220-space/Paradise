@@ -1,4 +1,3 @@
-
 /mob/proc/HasDisease(disease_type_or_instance)
 	var/datum/disease/D1
 	if(ispath(disease_type_or_instance))
@@ -13,27 +12,17 @@
 			return TRUE
 	return FALSE
 
+/**
+ * A special checks for this type of mob
+ *
+ * Returns:
+ * * TRUE - if can contract disease
+ * * FALSE - otherwise
+ */
+/mob/proc/CanContractDisease(datum/disease/D)
+	return TRUE
 
-/mob/proc/CanContractVirus(datum/disease/virus/D)
-	if(stat == DEAD && !D.can_spread_to_dead)
-		return FALSE
-
-	if(D.GetDiseaseID() in resistances)
-		return FALSE
-
-	if(HasDisease(D))
-		return FALSE
-
-	if(istype(D, /datum/disease/virus/advance) && count_by_type(diseases, /datum/disease/virus/advance) > 0)
-		return FALSE
-
-	for(var/mobtype in D.viable_mobtypes)
-		if(istype(src, mobtype))
-			return TRUE
-
-	return FALSE
-
-/mob/living/carbon/human/CanContractVirus(datum/disease/virus/D)
+/mob/living/carbon/human/CanContractDisease(datum/disease/D)
 	if((VIRUSIMMUNE in dna.species.species_traits) && !D.ignore_immunity)
 		return FALSE
 	for(var/thing in D.required_organs)

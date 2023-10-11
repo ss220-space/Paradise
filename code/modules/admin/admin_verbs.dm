@@ -878,8 +878,9 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	set category = "Event"
 	set name = "Give Disease"
 	set desc = "Gives a Disease to a mob."
-	var/datum/disease/D = input("Choose the disease to give to that guy", "ACHOO") as null|anything in GLOB.diseases
-	if(!D) return
+	var/choosen_disease = input("Choose the disease to give to that guy", "ACHOO") as null|anything in GLOB.diseases
+	if(!choosen_disease) return
+	var/datum/disease/D = new choosen_disease()
 	D.ForceContract(T)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Disease") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_and_message_admins("gave [key_name_log(T)] the disease [D].")

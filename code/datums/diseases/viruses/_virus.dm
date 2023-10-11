@@ -6,16 +6,18 @@
 #define AIRBORNE 8	 		//virus spreads through the air
 
 /datum/disease/virus
-	form = "Virus"
+	form = "Вирус"
 
 	var/spread_flags = NON_CONTAGIOUS
-	var/spread_text = ""
 
 	//Infectivity
 	var/infectivity = 65		//affects how often the virus will try to spread
 	var/permeability_mod = 1	//
 	var/carrier = FALSE			//if TRUE, host not affected by virus, but can spread it
-	var/can_spread_to_dead		//if TRUE, virus can contract dead mobs
+
+/datum/disease/virus/New()
+	..()
+	additional_info = spread_text()
 
 /**
  * Main virus process, that executed every tick
@@ -74,9 +76,22 @@
 						break
 					V = Temp
 
+/datum/disease/virus/proc/spread_text()
+	var/list/spread = list()
+	if(!spread_flags)
+		spread += "Не заразный"
+	if(spread_flags & SPECIAL)
+		spread += "Специальный"
+	if(spread_flags & BLOOD)
+		spread += "Распространяемый через кровь"
+	if(spread_flags & CONTACT)
+		spread += "Контактный"
+	if(spread_flags & AIRBORNE)
+		spread += "Воздушно-капельный"
+	return english_list(spread, "Неизвестен", "и")
 
 /datum/disease/virus/TryContract(mob/M)
-	if(!M.CanContractVirus(src))
+	if(!..())
 		return FALSE
 
 	var/obj/item/clothing/Cl = null
@@ -128,3 +143,7 @@
 		passed = (prob((50*permeability_mod) - 1))
 
 	return passed
+
+/datum/disease/virus/ForceContract(mob/M, is_carrier = FALSE)
+	. = ..()
+	carrier = is_carrier

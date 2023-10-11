@@ -1,5 +1,4 @@
 /datum/disease/kuru
-	form = "Disease"
 	name = "Space Kuru"
 	max_stages = 4
 	stage_prob = 5

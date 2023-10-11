@@ -1,13 +1,11 @@
 /datum/disease/virus/lycan
 	name = "Lycancoughy"
 	form = "Infection"
-	max_stages = 4
-	spread_text = "On contact"
-	spread_flags = CONTACT
-	cure_text = "Ethanol"
-	cures = list("ethanol")
 	agent = "Excess Snuggles"
 	desc = "If left untreated subject will regurgitate... puppies."
+	max_stages = 4
+	spread_flags = CONTACT
+	cures = list("ethanol")
 	severity = MEDIUM
 	var/barklimit = 0
 

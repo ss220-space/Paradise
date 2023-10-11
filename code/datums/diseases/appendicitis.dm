@@ -1,12 +1,11 @@
 /datum/disease/appendicitis
 	form = "Condition"
 	name = "Appendicitis"
-	max_stages = 5
-	stage_prob = 2
-	cure_text = "Surgery"
 	agent = "Shitty Appendix"
 	desc = "If left untreated the subject will become very weak, and may vomit often."
-	severity = "Dangerous!"
+	cure_text = "Surgery"
+	stage_prob = 2
+	severity = DANGEROUS
 	curable = FALSE
 	can_immunity = FALSE
 	visibility_flags = HIDDEN_PANDEMIC

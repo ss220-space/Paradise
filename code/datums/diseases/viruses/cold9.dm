@@ -1,12 +1,11 @@
 /datum/disease/virus/cold9
 	name = "The Cold"
-	max_stages = 3
-	spread_text = "On contact"
-	spread_flags = CONTACT
-	cure_text = "Common Cold Anti-bodies & Spaceacillin"
-	cures = list("spaceacillin")
 	agent = "ICE9-rhinovirus"
 	desc = "If left untreated the subject will slow, as if partly frozen."
+	max_stages = 3
+	spread_flags = CONTACT
+	//cure_text = "Common Cold Anti-bodies & Spaceacillin" //TODO: cure
+	cures = list("spaceacillin")
 	severity = MEDIUM
 
 /datum/disease/virus/cold9/stage_act()

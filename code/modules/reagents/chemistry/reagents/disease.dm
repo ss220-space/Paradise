@@ -97,7 +97,7 @@
 
 /datum/reagent/gibbis/on_mob_life(mob/living/carbon/M)
 	if(volume > 2.5)
-		var/datum/disease/virus/gbs/curable/D = new
+		var/datum/disease/virus/gbs/non_con/D = new
 		D.ForceContract(M)
 	return ..()
 

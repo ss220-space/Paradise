@@ -16,11 +16,12 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 
 /datum/disease
 	//Fluff
-	var/form = "Disease"
+	var/form = "Болезнь"
 	var/name = "Unknown"
 	var/desc = ""
 	var/agent = "some microbes"
-	var/cure_text = ""
+	var/cure_text = null
+	var/additional_info = "Болезнь"
 
 	//Stages
 	var/stage = 1		//current stage of disease
@@ -55,7 +56,17 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	var/can_progress_in_dead = FALSE //can progresses in a dead affected_mob
 	var/list/viable_mobtypes = list(/mob/living/carbon/human) //Types of infectable mobs
 	var/list/required_organs = list()
+	var/can_contract_dead = FALSE	//if TRUE, disease can contract dead mobs
 
+
+/datum/disease/New()
+	if(!cure_text)
+		var/reagents = list()
+		for(var/id in cures)
+			var/datum/reagent/R = GLOB.chemical_reagents_list[id]
+			if(istype(R))
+				reagents += R.name
+		cure_text = english_list(reagents, "Неизлечимо", needs_all_cures ? " & " : " or ")
 
 /datum/disease/Destroy()
 	affected_mob = null
@@ -128,23 +139,60 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 /datum/disease/proc/spread()
 	return
 
-
+/**
+ * Checking mob's protection against this disease
+ */
 /datum/disease/proc/TryContract(mob/M)
 	return TRUE
 
-
+/**
+ * Attempt to infect a mob with a check of its protection
+ * Returns:
+ * * TRUE - mob successfully infected
+ * * FALSE - otherwise
+ */
 /datum/disease/proc/Contract(mob/M)
 	if(TryContract(M))
 		. = ForceContract(M)
 
+/**
+ * Basic checks of the possibility of infecting a mob
+ */
+/datum/disease/proc/CanContract(mob/M)
+	if(!M.CanContractDisease(src))
+		return FALSE
 
+	if(M.stat == DEAD && !can_contract_dead)
+		return FALSE
+
+	if(GetDiseaseID() in M.resistances)
+		return FALSE
+
+	if(M.HasDisease(src))
+		return FALSE
+
+	for(var/mobtype in viable_mobtypes)
+		if(istype(M, mobtype))
+			return TRUE
+	return FALSE
+
+/**
+ * Attempt to infect a mob without a check of its protection
+ * Returns:
+ * * TRUE - mob successfully infected
+ * * FALSE - otherwise
+ */
 /datum/disease/proc/ForceContract(mob/M)
+	if(!CanContract(M))
+		return FALSE
+
 	var/datum/disease/D = Copy()
 	M.diseases += D
 	D.affected_mob = M
 	GLOB.active_diseases += D
 	D.affected_mob.med_hud_set_status()
 	return TRUE
+
 
 /datum/disease/proc/IsSame(datum/disease/D)
 	if(src.type == D.type)

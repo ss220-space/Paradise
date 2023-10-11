@@ -1,12 +1,12 @@
 /datum/disease/berserker
 	name = "Berserker"
+	desc = "Swearing, shouting, attacking nearby crew members uncontrollably."
+	agent = "Jagged Crystals"
+	cure_text = "Anti-Psychotics"
 	max_stages = 2
 	stage_prob = 5
-	cure_text = "Anti-Psychotics"
 	cures = list("haloperidol")
-	agent = "Jagged Crystals"
 	cure_prob = 10
-	desc = "Swearing, shouting, attacking nearby crew members uncontrollably."
 	severity = DANGEROUS
 	can_immunity = FALSE
 

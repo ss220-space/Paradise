@@ -1,19 +1,16 @@
 /datum/disease/virus/tuberculosis
 	form = "Disease"
 	name = "Fungal tuberculosis"
-	max_stages = 5
-	spread_flags = AIRBORNE
-	spread_text = "Airborne"
-	cure_text = "Spaceacillin & salbutamol"
-	cures = list("spaceacillin", "salbutamol")
 	agent = "Fungal Tubercle bacillus Cosmosis"
-	cure_prob = 5//like hell are you getting out of hell
 	desc = "A rare highly transmittable virulent virus. Few samples exist, rumoured to be carefully grown and cultured by clandestine bio-weapon specialists. Causes fever, blood vomiting, lung damage, weight loss, and fatigue."
+	spread_flags = AIRBORNE
+	cures = list("spaceacillin", "salbutamol")
+	cure_prob = 5
 	required_organs = list(/obj/item/organ/internal/lungs)
 	severity = DANGEROUS
-	ignore_immunity = TRUE //Fungal and bacterial in nature; also infects the lungs
+	ignore_immunity = TRUE
 
-/datum/disease/virus/tuberculosis/stage_act() //it begins
+/datum/disease/virus/tuberculosis/stage_act()
 	..()
 	var/mob/living/carbon/human/H = affected_mob
 	if(!istype(H))

@@ -2,7 +2,6 @@
 	name = "Beesease"
 	form = "Infection"
 	max_stages = 4
-	spread_text = "On contact"
 	spread_flags = CONTACT
 	cure_text = "Sugar"
 	cures = list("sugar")
