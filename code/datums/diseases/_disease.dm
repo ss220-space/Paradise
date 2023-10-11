@@ -53,10 +53,11 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 
 	//Other
 	var/mob/living/affected_mob //Mob that is suffering from this disease
-	var/can_progress_in_dead = FALSE //can progresses in a dead affected_mob
 	var/list/viable_mobtypes = list(/mob/living/carbon/human) //Types of infectable mobs
 	var/list/required_organs = list()
-	var/can_contract_dead = FALSE	//if TRUE, disease can contract dead mobs
+	var/can_progress_in_dead = FALSE	//if TRUE, disease can progress in dead mobs
+	var/can_contract_dead = FALSE		//if TRUE, disease can contract dead mobs
+	var/carrier = FALSE			//if TRUE, host not affected by virus, but can spread it (mostly for viruses)
 
 
 /datum/disease/New()
@@ -179,10 +180,10 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 /**
  * Attempt to infect a mob without a check of its protection
  * Returns:
- * * TRUE - mob successfully infected
+ * * /datum/disease/D - a new instance of the virus that contract the mob
  * * FALSE - otherwise
  */
-/datum/disease/proc/ForceContract(mob/M)
+/datum/disease/proc/ForceContract(mob/M, is_carrier = FALSE)
 	if(!CanContract(M))
 		return FALSE
 
@@ -190,8 +191,9 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	M.diseases += D
 	D.affected_mob = M
 	GLOB.active_diseases += D
+	D.carrier = is_carrier
 	D.affected_mob.med_hud_set_status()
-	return TRUE
+	return D
 
 
 /datum/disease/proc/IsSame(datum/disease/D)

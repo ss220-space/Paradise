@@ -159,6 +159,7 @@
 	new_form = null
 
 /datum/disease/virus/transformation/xeno/New()
+	..()
 	new_form = pick(/mob/living/carbon/alien/humanoid/hunter, /mob/living/carbon/alien/humanoid/drone/no_queen, /mob/living/carbon/alien/humanoid/sentinel)
 
 /datum/disease/virus/transformation/xeno/stage_act()

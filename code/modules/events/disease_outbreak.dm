@@ -1,14 +1,14 @@
 /datum/event/disease_outbreak
-	announceWhen = 15
-	/// The type of disease that patient zero will be infected with.
+	announceWhen = 150
+	/// The type of virus that patient zero will be infected with.
 	var/datum/disease/virus/D
 	/// The initial target of the disease.
 	var/mob/living/carbon/human/patient_zero
 
 /datum/event/disease_outbreak/setup()
-	announceWhen = rand(15, 30)
+	announceWhen = rand(150, 300)
 	var/virus_type = pick(
-		5; /datum/disease/virus/advance, \
+		999; /datum/disease/virus/advance, \
 		1; /datum/disease/virus/anxiety, \
 		1; /datum/disease/virus/beesease, \
 		1; /datum/disease/virus/brainrot,	\
@@ -20,12 +20,8 @@
 		1; /datum/disease/virus/pierrot_throat, \
 	)
 	if(virus_type == /datum/disease/virus/advance)
-		var/datum/disease/virus/advance/A = new
-		A.name = capitalize(pick(GLOB.adjectives)) + " " + capitalize(pick(GLOB.nouns + GLOB.verbs)) // random silly name
-		A.symptoms = A.GenerateSymptoms(count_of_symptoms = 6)
-		A.Refresh()
-		A.AssignProperties(list("resistance" = rand(0,11), "stealth" = rand(0,2), "stage_rate" = rand(0,5), "transmittable" = rand(0,5), "severity" = rand(0,10)))
-		D = A
+		D = CreateRandomVirus(count_of_symptoms = rand(4, 6), resistance = rand(0,11), stealth = pick(0,0,1,1,2),
+							stage_rate = rand(-11,5), transmittable = rand(4,9), severity = rand(0,5))
 	else
 		D = new virus_type()
 
@@ -47,7 +43,10 @@
 		if(!is_station_level(T.z))
 			continue
 
-		if(!D.ForceContract(H, is_carrier = TRUE))
-			continue
+		var/datum/disease/virus/advance/old_virus = locate() in H.diseases
+		if(old_virus)
+			old_virus.cure(need_immunity = FALSE)
+			if(!D.ForceContract(H, is_carrier = TRUE))
+				continue
 		patient_zero = H
 		break

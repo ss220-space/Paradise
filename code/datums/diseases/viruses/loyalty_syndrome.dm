@@ -22,19 +22,25 @@
 	var/need_master_death_message = FALSE
 
 /datum/disease/virus/loyalty/New(var/mob/living/carbon/human/new_master)
+	..()
 	if(new_master)
 		master = new_master
 	else
 		is_master = TRUE
 
-/datum/disease/virus/loyalty/Contract(mob/M)
+/datum/disease/virus/loyalty/ForceContract(mob/M, is_carrier = FALSE)
+	if(!CanContract(M))
+		return FALSE
+
 	var/mob/living/carbon/human/new_master = is_master ? affected_mob : master
 	var/datum/disease/virus/loyalty/copy = new(new_master)
 
 	M.diseases += copy
 	copy.affected_mob = M
 	GLOB.active_diseases += copy
+	copy.carrier = is_carrier
 	copy.affected_mob.med_hud_set_status()
+	return copy
 
 /datum/disease/virus/loyalty/stage_act()
 	..()

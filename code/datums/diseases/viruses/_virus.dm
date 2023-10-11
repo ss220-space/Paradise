@@ -13,7 +13,6 @@
 	//Infectivity
 	var/infectivity = 65		//affects how often the virus will try to spread
 	var/permeability_mod = 1	//
-	var/carrier = FALSE			//if TRUE, host not affected by virus, but can spread it
 
 /datum/disease/virus/New()
 	..()
@@ -88,7 +87,7 @@
 		spread += "Контактный"
 	if(spread_flags & AIRBORNE)
 		spread += "Воздушно-капельный"
-	return english_list(spread, "Неизвестен", "и")
+	return english_list(spread, "Неизвестен", " и ")
 
 /datum/disease/virus/TryContract(mob/M)
 	if(!..())
@@ -103,8 +102,8 @@
 	if(M.satiety > 0 && prob(M.satiety/10)) // positive satiety makes it harder to contract the disease.
 		return
 
-	if(istype(src, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = src
+	if(istype(M, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = M
 
 		switch(pick(40;"head", 40;"body", 10;"hands",  10;"feet"))
 			if("head")
@@ -143,7 +142,3 @@
 		passed = (prob((50*permeability_mod) - 1))
 
 	return passed
-
-/datum/disease/virus/ForceContract(mob/M, is_carrier = FALSE)
-	. = ..()
-	carrier = is_carrier

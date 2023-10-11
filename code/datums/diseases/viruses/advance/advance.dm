@@ -86,8 +86,8 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 /datum/disease/virus/advance/Copy()
 	var/datum/disease/virus/advance/copy = new
 	var/list/required_vars = list(
-		"name","severity","id","visibility_flags","spread_flags",
-		"stage_prob","cures","cure_prob","cure_text", "permeability_mod",)
+		"name","severity","id","visibility_flags","spread_flags", "additional_info",
+		"stage_prob","cures","cure_prob","cure_text", "permeability_mod")
 	for(var/V in required_vars)
 		if(istype(vars[V], /list))
 			var/list/L = vars[V]
@@ -113,7 +113,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 	return FALSE
 
 // Will generate new unique symptoms, use this if there are none. Returns a list of symptoms that were generated.
-/datum/disease/virus/advance/proc/GenerateSymptoms(level_min = 1, level_max = VIRUS_MAX_SYMPTOM_LEVEL, count_of_symptoms = 0)
+/datum/disease/virus/advance/proc/GenerateSymptoms(level_min = 1, level_max = VIRUS_MAX_SYMPTOM_LEVEL, count_of_symptoms = 0, override_symptoms = FALSE)
 
 	var/list/generated = list() // Symptoms we generated.
 
@@ -122,13 +122,12 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 	for(var/symp in GLOB.list_symptoms)
 		var/datum/symptom/S = new symp
 		if(S.level >= level_min && S.level <= level_max)
-			if(!HasSymptom(S))
+			if(!HasSymptom(S) || override_symptoms)
 				possible_symptoms += S
 
 	if(!possible_symptoms.len)
 		return generated
 
-	// Random chance to get more than one symptom
 	var/N = 1
 	if(count_of_symptoms)
 		N = count_of_symptoms
@@ -141,13 +140,13 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 
 	return generated
 
-/datum/disease/virus/advance/proc/Refresh(var/update_mutations = TRUE, var/reset_name = FALSE)
-	AssignProperties(GenerateProperties())
+/datum/disease/virus/advance/proc/Refresh(reset_name = FALSE, update_properties = TRUE)
+	if(update_properties)
+		AssignProperties(GenerateProperties())
 	id = GetDiseaseID()
 
 	var/datum/disease/virus/advance/A = GLOB.archive_diseases[id]
-	if(update_mutations)
-		UpdateMutationsProps(A)
+	UpdateMutationsProps(A)
 
 	if(A)
 		name = A.name
@@ -159,7 +158,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 /datum/disease/virus/advance/proc/AddToArchive()
 	GLOB.archive_diseases[id] = Copy()
 
-/datum/disease/virus/advance/proc/UpdateMutationsProps(var/datum/disease/virus/advance/A)
+/datum/disease/virus/advance/proc/UpdateMutationsProps(datum/disease/virus/advance/A)
 	var/datum/disease/virus/advance/AA = A ? A : new
 
 	mutation_reagents = AA.mutation_reagents.Copy()
@@ -198,13 +197,14 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 				visibility_flags = VISIBLE
 
 		// transmittable
-		switch(properties["transmittable"] - symptoms.len)
+		switch(properties["transmittable"] - round(symptoms.len/2))
 			if(-INFINITY to 1)
 				spread_flags = BLOOD
 			if(2 to 3)
 				spread_flags = CONTACT
 			if(4 to INFINITY)
 				spread_flags = AIRBORNE
+		additional_info = spread_text()
 		permeability_mod = clamp((0.25 * properties["transmittable"]), 0.1, 2)
 
 		//stage speed
@@ -294,6 +294,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 	. = ..()
 	if(count_by_type(M.diseases, /datum/disease/virus/advance) > 0)
 		. = FALSE
+
 /*
 
 	Static Procs
@@ -393,6 +394,18 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 			name_symptoms += S.name
 		message_admins("[key_name_admin(user)] has triggered a custom virus outbreak of [D.name]! It has these symptoms: [english_list(name_symptoms)]")
 
+/**
+ * Creates and returns a random virus with properties independent of symptoms properties
+ */
+/proc/CreateRandomVirus(level_min = 1, level_max = VIRUS_MAX_SYMPTOM_LEVEL, count_of_symptoms = 6,
+						resistance, stealth, stage_rate, transmittable, severity)
+
+	var/datum/disease/virus/advance/A = new
+	A.name = capitalize(pick(GLOB.adjectives)) + " " + capitalize(pick(GLOB.nouns + GLOB.verbs))
+	A.symptoms = A.GenerateSymptoms(count_of_symptoms = rand(4, 6), override_symptoms = TRUE)
+	A.AssignProperties(list("resistance" = resistance, "stealth" = stealth, "stage_rate" = stage_rate, "transmittable" = transmittable, "severity" = severity))
+	A.Refresh(update_properties = FALSE)
+	return A
 
 
 /datum/disease/virus/advance/proc/totalStageSpeed()
