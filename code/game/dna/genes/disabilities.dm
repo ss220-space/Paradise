@@ -264,3 +264,47 @@
 			garbled_message += message[i]
 	message = garbled_message
 	return message
+
+/datum/dna/gene/disability/weak
+	name = "Weak"
+	desc = "Делает мышцы цели более слабыми."
+	activation_message = "Вы чуствуете слабость в своих мышцах."
+	deactivation_message = "Похоже, ваши мышцы снова в норме."
+	instability = -GENE_INSTABILITY_MODERATE
+
+/datum/dna/gene/disability/weak/New()
+	..()
+	block = GLOB.weakblock
+
+/datum/dna/gene/disability/weak/can_activate(mob/M, flags)
+	if(STRONG in M.mutations)
+		return FALSE
+	return ..()
+
+/datum/dna/gene/disability/weak/activate(mob/living/M, connected, flags)
+	..()
+	change_strength(M, 1)
+
+/datum/dna/gene/disability/weak/deactivate(mob/living/M, connected, flags)
+	..()
+	change_strength(M, -1)
+
+/datum/dna/gene/disability/weak/proc/change_strength(mob/living/M, modifier)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(isvulpkanin(H) || isdrask(H) || isunathi(H))
+			H.dna.species.punchdamagelow -= (3 * modifier)
+			H.dna.species.punchdamagehigh -= (4 * modifier)
+			H.dna.species.strength_modifier -= (0.25 * modifier)
+			if(isunathi(H))
+				var/datum/species/unathi/U = H.dna.species
+				U.tail_strength -= (0.25 * modifier)
+			return
+		if(ishumanbasic(H))
+			H.dna.species.punchdamagelow -= (1 * modifier)
+			H.dna.species.punchdamagehigh -= (2 * modifier)
+			H.dna.species.strength_modifier -= (0.1 * modifier)
+		else
+			H.dna.species.punchdamagelow -= (2 * modifier)
+			H.dna.species.punchdamagehigh -= (3 * modifier)
+			H.dna.species.strength_modifier -= (0.15 * modifier)

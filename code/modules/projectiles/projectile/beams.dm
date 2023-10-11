@@ -47,7 +47,7 @@
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
 	tile_dropoff = 0.75
 	irradiate = 40
-	forcedodge = 1
+	forcedodge = -1
 	range = 15
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	light_color = LIGHT_COLOR_GREEN
@@ -132,11 +132,14 @@
 /obj/item/projectile/beam/sniper
 	name = "sniper beam"
 	icon_state = "sniperlaser"
+	//speed = 0.75
+	//range = 100
 	damage = 60
 	hitsound = 'sound/weapons/resonator_blast.ogg'
 	weaken = 4 SECONDS
 	stutter = 4 SECONDS
 	stamina = 40
+	forced_accuracy = TRUE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 	light_color = LIGHT_COLOR_PINK
 

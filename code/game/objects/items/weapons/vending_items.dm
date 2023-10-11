@@ -141,6 +141,10 @@
 	machine_name = "Robco Tool Maker"
 	icon_state = "refill_engi"
 
+/obj/item/vending_refill/youtool
+	machine_name = "YouTool"
+	icon_state = "refill_engi"
+
 /obj/item/vending_refill/engivend
 	machine_name = "Engi-Vend"
 	icon_state = "refill_engi"
@@ -179,3 +183,6 @@
 /obj/item/vending_refill/nta
 	machine_name = "NT Ammunition"
 	icon_state = "refill_nta"
+
+/obj/item/vending_refill/pai
+	machine_name = "RoboFriends"

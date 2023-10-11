@@ -146,6 +146,7 @@
 	name = "bola"
 	desc = "A restraining device designed to be thrown at the target. Upon connecting with said target, it will wrap around their legs, making it difficult for them to move quickly."
 	icon_state = "bola"
+	item_state = "bola"
 	breakouttime = 60//easy to apply, easy to break out of
 	gender = NEUTER
 	origin_tech = "engineering=3;combat=1"
@@ -185,6 +186,7 @@
 	name = "energy bola"
 	desc = "A specialized hard-light bola designed to ensnare fleeing criminals and aid in arrests."
 	icon_state = "ebola"
+	item_state = "ebola"
 	hitsound = 'sound/weapons/tase.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	breakouttime = 40
@@ -200,6 +202,7 @@
 	name = "skull bola"
 	desc = "A primitive bola made from the remains of your enemies. It doesn't look very reliable."
 	icon_state = "bola_s"
+	item_state = "bola_watcher"
 
 /obj/item/restraints/legcuffs/bola/sinew/dropped(mob/living/user)
 	if(flags & DROPDEL)

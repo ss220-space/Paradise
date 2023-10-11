@@ -50,7 +50,7 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 
 	// Commit info
 	if(GLOB.revision_info.commit_hash && GLOB.revision_info.commit_date)
-		msg += "<b>Server Commit:</b> <a href='[config.githuburl]/commit/[GLOB.revision_info.commit_hash]'>[GLOB.revision_info.commit_hash]</a> (Date: [GLOB.revision_info.commit_date])"
+		msg += "<b>Server Commit:</b> <a href='[CONFIG_GET(string/githuburl)]/commit/[GLOB.revision_info.commit_hash]'>[GLOB.revision_info.commit_hash]</a> (Date: [GLOB.revision_info.commit_date])"
 	else
 		msg += "<b>Server Commit:</b> <i>Unable to determine</i>"
 

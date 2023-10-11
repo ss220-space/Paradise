@@ -396,9 +396,9 @@
 	return 1
 
 /obj/item/reagent_containers/food/snacks/monkeycube/proc/Expand()
-	if(LAZYLEN(SSmobs.cubemonkeys) >= config.cubemonkeycap)
+	if(LAZYLEN(SSmobs.cubemonkeys) >= CONFIG_GET(number/cubemonkey_cap))
 		if(fingerprintslast)
-			to_chat(get_mob_by_ckey(fingerprintslast), "<span class='warning'>Bluespace harmonics prevent the spawning of more than [config.cubemonkeycap] monkeys on the station at one time!</span>")
+			to_chat(get_mob_by_ckey(fingerprintslast), "<span class='warning'>Bluespace harmonics prevent the spawning of more than [CONFIG_GET(number/cubemonkey_cap)] monkeys on the station at one time!</span>")
 		else
 			visible_message("<span class='notice'>[src] fails to expand!</span>")
 		return
@@ -720,4 +720,13 @@
 	desc = "Appetizing-looking meat balls in the dough.. The main thing is not to think about WHO they are made of! Makes your tongue burn."
 	icon_state = "vulpix_chillie"
 	tastes = list("dough" = 2, "dog meat" = 3, "chillie" = 2)
+
+/obj/item/reagent_containers/food/snacks/bakedvulp
+	name = "oven-baked vulp"
+	desc = "Oven-baked vulp meat with a juicy apple in the mouth. She was unintelligent... Wasn't she?"
+	icon_state = "bakedvulp"
+	trash = /obj/item/trash/tray
+	list_reagents = list("protein" = 12, "nutriment" = 10, "vitamin" = 5)
+	tastes = list("dog meat" = 2, "apple" = 1)
+	foodtype = MEAT
 

@@ -30,8 +30,8 @@
 
 /datum/game_mode/wizard/raginmages/check_finished()
 	var/wizards_alive = 0
-	if(config.traitor_scaling)
-		players_per_mage = config.traitor_scaling
+	if(CONFIG_GET(number/traitor_scaling))
+		players_per_mage = CONFIG_GET(number/traitor_scaling)
 	var/wizard_cap = CEILING((num_players_started() / players_per_mage), 1)
 	max_mages = wizard_cap
 	add_game_logs("Number of wizards chosen: [wizard_cap]")

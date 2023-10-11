@@ -272,8 +272,8 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 0)
 	species_exception = list(/datum/species/monkey)
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/gloves.dmi',
-		"Monkey" = 'icons/mob/species/monkey/gloves.dmi',)
+		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/gloves.dmi',)
 
 /obj/item/clothing/gloves/knuckles/Touch(atom/A, proximity)
 	. = FALSE

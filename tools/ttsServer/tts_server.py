@@ -37,6 +37,6 @@ def process_tts():
 
 if __name__ == '__main__':
     #Note: if you don't change host and port, default setting to import to sensitive.dm will be "http://127.0.0.1:5000/tts/"
-    print(f'Server is starting up. Copy and paste this into sensitive.dm var tts_url_silero: "http://{host}:{port}/tts/"')
+    print(f'Server is starting up. TTS URL: "http://{host}:{port}/tts/"')
     api.run(host=host, port=port)
 

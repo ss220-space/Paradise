@@ -1024,7 +1024,8 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 			//Flashes of danger
 			if(!halimage)
 				var/list/possible_points = list()
-				for(var/turf/simulated/floor/F in view(src,world.view))
+				var/list/actual_view = client ? view(client) : view(src)
+				for(var/turf/simulated/floor/F in actual_view)
 					possible_points += F
 				if(possible_points.len)
 					var/turf/simulated/floor/target = pick(possible_points)
@@ -1063,7 +1064,8 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 		if("husks")
 			if(!halbody)
 				var/list/possible_points = list()
-				for(var/turf/simulated/floor/F in view(src,world.view))
+				var/list/actual_view = client ? view(client) : view(src)
+				for(var/turf/simulated/floor/F in actual_view)
 					possible_points += F
 				if(possible_points.len)
 					var/turf/simulated/floor/target = pick(possible_points)

@@ -1,8 +1,11 @@
 /* Closets for specific jobs
  * Contains:
  *		Bartender
+ *		Chef
  *		Janitor
  *		Lawyer
+ *		Paramedic
+ *		Librarian
  */
 
 /*
@@ -155,3 +158,22 @@
 	new	/obj/item/clothing/suit/storage/paramedic_jacket(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
+
+/obj/structure/closet/librarian
+	name = "librarian wardrobe"
+	desc = "It's a storage unit for librarian clothes and gear."
+	icon_state = "closed"
+	custom_door_overlay = "black"
+
+/obj/structure/closet/librarian/populate_contents()
+	new /obj/item/clothing/under/suit_jacket/red(src)
+	new /obj/item/clothing/under/suit_jacket/red(src)
+	new /obj/item/radio/headset/headset_service(src)
+	new /obj/item/radio/headset/headset_service(src)
+	new /obj/item/storage/bag/books(src)
+	new /obj/item/videocam(src)
+	new /obj/item/videocam(src)
+	new /obj/item/camera(src)
+	new /obj/item/camera_film(src)
+	new /obj/item/camera_film(src)
+	new /obj/item/laser_pointer(src)

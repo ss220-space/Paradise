@@ -105,12 +105,12 @@
 			if(src.stat & BROKEN)
 				to_chat(user, span_notice("The broken glass falls out."))
 				new /obj/item/shard( src.loc )
-				A.state = 3
-				A.icon_state = "3"
+				A.state = 4
+				A.icon_state = "comp_frame_4"
 			else
 				to_chat(user, span_notice("You disconnect the monitor."))
-				A.state = 4
-				A.icon_state = "4"
+				A.state = 5
+				A.icon_state = "comp_frame_5"
 			qdel(src)
 	else
 		return ..()

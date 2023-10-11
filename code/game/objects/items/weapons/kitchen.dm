@@ -158,7 +158,7 @@
 /obj/item/kitchen/knife/butcher/meatcleaver
 	name = "meat cleaver"
 	icon_state = "mcleaver"
-	item_state = "butch"
+	item_state = "mcleaver"
 	force = 25
 	throwforce = 15
 

@@ -74,7 +74,7 @@
 /obj/effect/proc_holder/spell/mime/speak/mask
 /obj/effect/proc_holder/spell/mime/speak/mask/on_cooldown_tick()
 	var/mob/living/carbon/human/user = action.owner
-	if(!cooldown_handler.is_on_cooldown() && user && istype(user.wear_mask, /obj/item/clothing/mask/gas/mime))
+	if(user && cooldown_handler.should_end_cooldown() && !istype(user.wear_mask, /obj/item/clothing/mask/gas/mime))
 		if(user.mind?.miming)
 			cast(list(user))
 		user.mind?.RemoveSpell(src)

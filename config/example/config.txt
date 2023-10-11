@@ -199,7 +199,7 @@ VOTE_AUTOTRANSFER_INITIAL 72000
 VOTE_AUTOTRANSFER_INTERVAL 18000
 
 ## prevents dead players from voting or starting votes
-#NO_DEAD_VOTE
+#VOTE_NO_DEAD
 
 ## players' votes default to "No vote" (otherwise,  default to "No change")
 DEFAULT_NO_VOTE
@@ -376,17 +376,24 @@ EXPECTED_ROUND_LENGTH 120
 
 ## The lower delay between events in minutes.
 ## Affect mundane, moderate, and major events respectively
-EVENT_DELAY_LOWER 10;30;50
+EVENT_DELAY_LOWER EV_LEVEL_MUNDANE 10
+EVENT_DELAY_LOWER EV_LEVEL_MODERATE 30
+EVENT_DELAY_LOWER EV_LEVEL_MAJOR 50
 
 ## The upper delay between events in minutes.
 ## Affect mundane, moderate, and major events respectively
-EVENT_DELAY_UPPER 15;45;70
+EVENT_DELAY_UPPER EV_LEVEL_MUNDANE 15
+EVENT_DELAY_UPPER EV_LEVEL_MODERATE 45
+EVENT_DELAY_UPPER EV_LEVEL_MAJOR 70
 
 ## The delay until the first time an event of the given severity runs in minutes.
 ## Unset setting use the EVENT_DELAY_LOWER and EVENT_DELAY_UPPER values instead.
-#EVENT_CUSTOM_START_MINOR 10;15
-#EVENT_CUSTOM_START_MODERATE 30;45
-EVENT_CUSTOM_START_MAJOR 80;100
+#EVENT_CUSTOM_START_MINOR LOWER 10
+#EVENT_CUSTOM_START_MINOR UPPER 15
+#EVENT_CUSTOM_START_MODERATE LOWER 30
+#EVENT_CUSTOM_START_MODERATE UPPER 45
+EVENT_CUSTOM_START_MAJOR LOWER 80
+EVENT_CUSTOM_START_MAJOR UPPER 100
 
 ## Starlight for exterior walls and breaches. Uncomment for starlight!
 ## This is disabled by default to make testing quicker, should be enabled on production servers or testing servers messing with lighting
@@ -505,23 +512,31 @@ BYOND_ACCOUNT_AGE_THRESHOLD 7
 ## If you are going to enable discord webhooks, fill out EVERYTHING in this section
 
 ## Uncomment the line below to enable Discord webhooks
-#ENABLE_DISCORD_WEBHOOKS
+#DISCORD_WEBHOOKS_ENABLED
 
 ## Role ID to be pinged with administrative events. If unset, all pings to this role will be disabled
 ## IF YOU ARE DISABLING THIS COMMENT IT OUT ENTIRELY, DONT LEAVE IT BLANK
 #DISCORD_WEBHOOKS_ADMIN_ROLE_ID
 
-## Webhook URLs for the main discord webhook. Separate multiple URLs with a | (EG: https://url1|https://url2)
-#DISCORD_WEBHOOKS_MAIN_URL
+## Webhook URLs for the main discord webhook. Separate multiple URLs with enter, like:
+## DISCORD_MAIN_WEBHOOK_URLS https://url1
+## DISCORD_MAIN_WEBHOOK_URLS https://url2
+#DISCORD_MAIN_WEBHOOK_URLS
 
-## Webhook URLs for the admin discord webhook. Separate multiple URLs with a | (EG: https://url1|https://url2)
-#DISCORD_WEBHOOKS_ADMIN_URL
+## Webhook URLs for the admin discord webhook. Separate multiple URLs with enter, like:)
+## DISCORD_ADMIN_WEBHOOK_URLS https://url1
+## DISCORD_ADMIN_WEBHOOK_URLS https://url2
+#DISCORD_ADMIN_WEBHOOK_URLS
 
-## Webhook URLs for the requests discord webhook. Separate multiple URLs with a | (EG: https://url1|https://url2)
-#DISCORD_WEBHOOKS_REQUESTS_URL
+## Webhook URLs for the requests discord webhook. Separate multiple URLs with enter, like:
+## DISCORD_REQUESTS_WEBHOOK_URLS https://url1
+## DISCORD_REQUESTS_WEBHOOK_URLS https://url2
+#DISCORD_REQUESTS_WEBHOOK_URLS
 
-## Webhook URLs for the mentor discord webhook. Separate multiple URLs with a | (EG: https://url1|https://url2)
-#DISCORD_WEBHOOKS_MENTOR_URL
+## Webhook URLs for the mentor discord webhook. Separate multiple URLs with enter, like:
+## DISCORD_MENTOR_WEBHOOK_URLS https://url1
+## DISCORD_MENTOR_WEBHOOK_URLS https://url2
+#DISCORD_MENTOR_WEBHOOK_URLS
 
 ## Uncomment to send all ahelps to discord. If the line is commented, only ahelps made when no admins are online will be forwarded
 ## Ahelps forwarded when staff are online will never have the role ping, regardless of the setting above

@@ -175,9 +175,9 @@
 
 /mob/proc/get_visible_mobs()
 	var/list/seen_mobs = list()
-	for(var/mob/M in view(src))
+	var/list/actual_view = client ? view(client) : view(src)
+	for(var/mob/M in actual_view)
 		seen_mobs += M
-
 	return seen_mobs
 
 /**
@@ -494,9 +494,9 @@
 		pluralcheck = " [deathtimeminutes] minutes and"
 	var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10,1)
 
-	if(deathtimeminutes < config.respawn_delay)
+	if(deathtimeminutes < CONFIG_GET(number/respawn_delay))
 		to_chat(usr, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
-		to_chat(usr, "<span class='warning'>You must wait [config.respawn_delay] minutes to respawn!</span>")
+		to_chat(usr, "<span class='warning'>You must wait [CONFIG_GET(number/respawn_delay)] minutes to respawn!</span>")
 		return
 
 	if(alert("Are you sure you want to respawn?", "Are you sure?", "Yes", "No") != "Yes")
@@ -1044,6 +1044,9 @@
 //Can the mob see reagents inside of containers?
 /mob/proc/can_see_reagents()
 	return 0
+
+/mob/proc/can_see_food()
+	return FALSE
 
 //Can this mob leave its location without breaking things terrifically?
 /mob/proc/can_safely_leave_loc()

@@ -86,28 +86,33 @@
 		H.update_hair()
 	. = ..()
 
-/obj/item/organ/internal/brain/insert(var/mob/living/target, special = FALSE)
+
+/obj/item/organ/internal/brain/insert(mob/living/target, special = FALSE)
 
 	name = "[initial(name)]"
-	var/brain_already_exists = 0
-	if(istype(target,/mob/living/carbon/human)) // No more IPC multibrain shenanigans
+	var/brain_already_exists = FALSE
+	if(ishuman(target)) // No more IPC multibrain shenanigans
 		if(target.get_int_organ(/obj/item/organ/internal/brain))
-			brain_already_exists = 1
+			brain_already_exists = TRUE
 
 		var/mob/living/carbon/human/H = target
 		H.update_hair()
 
-	if(ischangeling(target))
+	var/target_changeling = ischangeling(target)
+	if(target_changeling)
 		decoy_brain = TRUE
 
 	if(!brain_already_exists)
-		if(brainmob)
+		if(brainmob && !target_changeling)
 			if(target.key)
 				target.ghostize()
 			if(brainmob.mind)
 				brainmob.mind.transfer_to(target)
 			else
 				target.key = brainmob.key
+		else if(brainmob?.mind && target_changeling)
+			brainmob.mind.current = null
+			brainmob.ghostize()
 	else
 		log_debug("Multibrain shenanigans at ([target.x],[target.y],[target.z]), mob '[target]'")
 
@@ -116,6 +121,7 @@
 		H.special_post_clone_handling()
 
 	..(target, special = special)
+
 
 /obj/item/organ/internal/brain/receive_damage(amount, silent = 0) //brains are special; if they receive damage by other means, we really just want the damage to be passed ot the owner and back onto the brain.
 	if(owner)

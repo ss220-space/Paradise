@@ -4,7 +4,7 @@
 /mob/living/carbon/proc/enter_stamcrit()
 	if(!(status_flags & CANWEAKEN))
 		return
-	if(absorb_stun(0)) //continuous effect, so we don't want it to increment the stuns absorbed.
+	if(absorb_status_effect(0, status_effect = WEAKEN)) //continuous effect, so we don't want it to increment the stuns absorbed.
 		return
 	if(!IsWeakened())
 		to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")

@@ -213,6 +213,10 @@
 	var/pressure_decrease = 0.25
 	var/obj/item/gun/energy/kinetic_accelerator/kinetic_gun
 
+/obj/item/projectile/kinetic/mech
+	range = 5
+	power = 3 // more power for the god of power!
+
 /obj/item/projectile/kinetic/pod
 	range = 4
 

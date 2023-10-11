@@ -15,11 +15,13 @@ SUBSYSTEM_DEF(jobs)
 	var/id_change_counter = 1
 	//Players who need jobs
 	var/list/unassigned = list()
+	/// Used to grant AI job if antag was rolled.
+	var/mob/new_player/new_malf
 	//Debug info
 	var/list/job_debug = list()
 
 
-/datum/controller/subsystem/jobs/Initialize(timeofday)
+/datum/controller/subsystem/jobs/Initialize()
 	if(!length(occupations))
 		SetupOccupations()
 	LoadJobs("config/jobs.txt")
@@ -27,7 +29,7 @@ SUBSYSTEM_DEF(jobs)
 
 // Only fires every 5 minutes
 /datum/controller/subsystem/jobs/fire()
-	if(!SSdbcore.IsConnected() || !config.use_exp_tracking)
+	if(!SSdbcore.IsConnected() || !CONFIG_GET(flag/use_exp_tracking))
 		return
 	batch_update_player_exp(announce = FALSE) // Set this to true if you ever want to inform players about their EXP gains
 
@@ -264,28 +266,31 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/FillAIPosition()
-	if(config && !config.allow_ai)
-		return 0
+	if(config && !CONFIG_GET(flag/allow_ai))
+		return FALSE
 
-	var/ai_selected = 0
+	var/ai_selected = FALSE
 	var/datum/job/job = GetJob("AI")
 	if(!job)
-		return 0
+		return FALSE
 
 	for(var/i = job.total_positions, i > 0, i--)
+		if(new_malf && AssignRole(new_malf, "AI"))
+			return TRUE
+
 		for(var/level = 1 to 3)
 			var/list/candidates = list()
 			candidates = FindOccupationCandidates(job, level)
-			if(candidates.len)
+			if(length(candidates))
 				var/mob/new_player/candidate = pick(candidates)
 				if(AssignRole(candidate, "AI"))
-					ai_selected++
+					ai_selected = TRUE
 					break
 
 		if(ai_selected)
-			return 1
+			return TRUE
 
-		return 0
+		return FALSE
 
 
 /** Proc DivideOccupations
@@ -319,6 +324,11 @@ SUBSYSTEM_DEF(jobs)
 
 	HandleFeedbackGathering()
 
+	if(new_malf)	// code dupe to assign malf AI before civs.
+		Debug("DO, Running AI Check")
+		FillAIPosition()
+		Debug("DO, AI Check end")
+
 	//People who wants to be assistants, sure, go on.
 	Debug("DO, Running Civilian Check 1")
 	var/datum/job/civ = new /datum/job/civilian()
@@ -336,9 +346,10 @@ SUBSYSTEM_DEF(jobs)
 	Debug("DO, Head Check end")
 
 	//Check for an AI
-	Debug("DO, Running AI Check")
-	FillAIPosition()
-	Debug("DO, AI Check end")
+	if(!new_malf)
+		Debug("DO, Running AI Check")
+		FillAIPosition()
+		Debug("DO, AI Check end")
 
 	//Other jobs are now checked
 	Debug("DO, Running Standard Check")
@@ -546,7 +557,7 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/LoadJobs(jobsfile) //ran during round setup, reads info from jobs.txt -- Urist
-	if(!config.load_jobs_from_txt)
+	if(!CONFIG_GET(flag/load_jobs_from_txt))
 		return 0
 
 	var/list/jobEntries = file2list(jobsfile)
@@ -628,7 +639,8 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
-	var/datum/money_account/M = create_account(H.real_name, rand(500, 1500)*get_job_factor(job, job.random_money_factor), null)
+	var/money_amount = job ? rand(500, 1500) * get_job_factor(job, job.random_money_factor) : rand(500, 1500)
+	var/datum/money_account/M = create_account(H.real_name, money_amount, null)
 	var/remembered_info = ""
 
 	remembered_info += "<b>Номер вашего аккаунта:</b> #[M.account_number]<br>"

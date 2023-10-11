@@ -74,18 +74,24 @@
 /datum/action/proc/override_location() // Override to set coordinates manually
 	return
 
-/datum/action/proc/ToggleInvisibility()
-	if(!owner || !owner?.client)
+
+/datum/action/proc/enable_invisibility(enable = TRUE)
+	if(!owner?.client)
 		return
-	if(invisibility)
-		invisibility = FALSE
-		owner.client.screen += button
-		owner.actions += src
-	else
+	if(enable)
+		if(invisibility)
+			return
 		invisibility = TRUE
 		owner.client.screen -= button
 		owner.actions -= src
+	else
+		if(!invisibility)
+			return
+		invisibility = FALSE
+		owner.client.screen += button
+		owner.actions += src
 	owner.update_action_buttons()
+
 
 /datum/action/proc/IsAvailable()// returns 1 if all checks pass
 	if(!owner)
@@ -472,6 +478,12 @@
 
 /datum/action/item_action/hands_free/activate
 	name = "Activate"
+
+/datum/action/item_action/bomb_imp
+	check_flags = null
+
+/datum/action/item_action/bomb_imp/activate
+	name = "Activate Bomb Implant"
 
 /datum/action/item_action/toggle_research_scanner
 	name = "Toggle Research Scanner"

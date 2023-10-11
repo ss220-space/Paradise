@@ -73,7 +73,7 @@
 	initial_icon = "darkgygax"
 	max_integrity = 300
 	deflect_chance = 20
-	armor = list(melee = 40, bullet = 40, laser = 50, energy = 35, bomb = 20, bio = 0, rad =20, fire = 100, acid = 100)
+	armor = list(melee = 40, bullet = 40, laser = 50, energy = 35, bomb = 20, bio = 0, rad = 20, fire = 100, acid = 100)
 	max_temperature = 35000
 	leg_overload_coeff = 2
 	operation_req_access = list(ACCESS_SYNDICATE)
@@ -95,7 +95,7 @@
 
 /obj/mecha/combat/gygax/dark/loaded/New()
 	..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
+	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/syndi
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster
 	ME.attach(src)

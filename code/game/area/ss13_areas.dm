@@ -401,6 +401,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	has_gravity = TRUE
+	ambientsounds = null
 
 // === end remove
 
@@ -545,6 +546,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "cave"
 	requires_power = FALSE
 	outdoors = TRUE
+	min_ambience_cooldown = 70 SECONDS
+	max_ambience_cooldown = 220 SECONDS
 
 /area/asteroid/artifactroom
 	name = "\improper Asteroid - Artifact"
@@ -1331,6 +1334,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "library"
 	sound_environment = SOUND_AREA_LARGE_SOFTFLOOR
 
+/area/library/game_zone
+	name = "\improper Library Games Room"
+	icon_state = "library"
+
 /area/chapel
 	icon_state = "chapel"
 	ambientsounds = HOLY_SOUNDS
@@ -1490,7 +1497,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/engine/engine_smes
 	name = "\improper Engineering SMES"
 	icon_state = "engine_smes"
-	requires_power = FALSE //This area only covers the batteries and they deal with their own power
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/engine/engineering
@@ -1674,6 +1680,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/medical
 	ambientsounds = MEDICAL_SOUNDS
 	sound_environment = SOUND_AREA_STANDARD_STATION
+	min_ambience_cooldown = 90 SECONDS
+	max_ambience_cooldown = 180 SECONDS
 
 /area/medical/medbay
 	name = "\improper Medbay"

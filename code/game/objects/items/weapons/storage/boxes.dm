@@ -43,7 +43,7 @@
 /obj/item/storage/box/survival/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/survival/brigphys
@@ -55,7 +55,7 @@
 /obj/item/storage/box/survival_vox/populate_contents()
 	new /obj/item/clothing/mask/breath/vox(src)
 	new /obj/item/tank/internals/emergency_oxygen/nitrogen(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/survival_machine
@@ -72,7 +72,7 @@
 /obj/item/storage/box/survival_plasmaman/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen/plasma(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/engineer
@@ -81,7 +81,7 @@
 /obj/item/storage/box/engineer/populate_contents()
 	new /obj/item/clothing/mask/breath( src )
 	new /obj/item/tank/internals/emergency_oxygen/engi( src )
-	new /obj/item/reagent_containers/hypospray/autoinjector( src )
+	new /obj/item/storage/firstaid/crew( src )
 	new /obj/item/flashlight/flare/glowstick/blue( src )
 	return
 
@@ -92,16 +92,15 @@
 	new /obj/item/clothing/mask/gas/explorer(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/crowbar/red(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
-	new /obj/item/survivalcapsule(src)
 
 /obj/item/storage/box/survival_security
 	icon_state = "box_sec"
 
 /obj/item/storage/box/survival_security/populate_contents()
 	new /obj/item/tank/internals/emergency_oxygen/engi/sec(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
 	new /obj/item/crowbar/red/sec(src)
 	new /obj/item/clothing/mask/gas/sechailer(src)
@@ -128,7 +127,7 @@
 /obj/item/storage/box/survival_laws/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/pink(src)
 	new /obj/item/book/manual/security_space_law(src)
 	new /obj/item/taperecorder(src)
@@ -425,6 +424,7 @@
 /obj/item/storage/box/cups
 	name = "box of paper cups"
 	desc = "It has pictures of paper cups on the front."
+	icon_state = "papercup"
 
 /obj/item/storage/box/cups/populate_contents()
 	for(var/I in 1 to 7)
@@ -1068,6 +1068,20 @@
 	new /obj/item/clothing/shoes/jackboots(src)
 	new /obj/item/clothing/gloves/combat(src)
 	new /obj/item/storage/backpack/security(src)
+
+/obj/item/storage/box/a357
+	name = "ammo box (.357)"
+	desc = "A box of ammo?"
+	icon_state = "357OLD"
+	icon = 'icons/obj/weapons/ammo.dmi'
+	display_contents_with_number = TRUE
+	can_hold = list(/obj/item/ammo_casing/a357)
+	storage_slots = 20
+	max_combined_w_class = 20
+
+/obj/item/storage/box/a357/populate_contents()
+	for(var/I in 1 to 20)
+		new /obj/item/ammo_casing/a357(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

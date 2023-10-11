@@ -433,3 +433,21 @@
 	..()
 	explosion(target, 1, 3, 5, 7) //devastating
 
+/obj/item/projectile/limb
+	name = "limb"
+	icon = 'icons/mob/human_races/r_human.dmi'
+	icon_state = "l_arm"
+	speed = 2
+	range = 3
+	flag = "melee"
+	damage = 20
+	damage_type = BRUTE
+	stun = 0.5
+	eyeblur = 20
+
+/obj/item/projectile/limb/New(loc, var/obj/item/organ/external/limb)
+	..(loc)
+	if(istype(limb))
+		name = limb.name
+		icon = limb.icobase
+		icon_state = limb.icon_name

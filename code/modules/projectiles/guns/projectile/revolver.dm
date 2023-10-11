@@ -159,8 +159,8 @@
 /obj/item/gun/projectile/revolver/fingergun/attackby(obj/item/A, mob/user, params)
 	return
 
-/obj/item/gun/projectile/revolver/fingergun/attack_self(mob/living/user)
-	to_chat(usr, "<span class='notice'>You holster your fingers. Another time.</span>")
+/obj/item/gun/projectile/revolver/fingergun/attack_self(mob/living/user = usr)
+	to_chat(user, "<span class='notice'>You holster your fingers. Another time.</span>")
 	qdel(src)
 	return
 

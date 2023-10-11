@@ -180,7 +180,9 @@
 					alt_head_name,
 					eye_colour,
 					underwear,
+					underwear_color,
 					undershirt,
+					undershirt_color,
 					backbag,
 					b_type,
 					alternate_option,
@@ -250,31 +252,33 @@
 		alt_head = query.item[20]
 		e_colour = query.item[21]
 		underwear = query.item[22]
-		undershirt = query.item[23]
-		backbag = query.item[24]
-		b_type = query.item[25]
+		underwear_color = query.item[23]
+		undershirt = query.item[24]
+		undershirt_color = query.item[25]
+		backbag = query.item[26]
+		b_type = query.item[27]
 
 
 		//Jobs
-		alternate_option = text2num(query.item[26])
-		job_support_high = text2num(query.item[27])
-		job_support_med = text2num(query.item[28])
-		job_support_low = text2num(query.item[29])
-		job_medsci_high = text2num(query.item[30])
-		job_medsci_med = text2num(query.item[31])
-		job_medsci_low = text2num(query.item[32])
-		job_engsec_high = text2num(query.item[33])
-		job_engsec_med = text2num(query.item[34])
-		job_engsec_low = text2num(query.item[35])
-		job_karma_high = text2num(query.item[36])
-		job_karma_med = text2num(query.item[37])
-		job_karma_low = text2num(query.item[38])
+		alternate_option = text2num(query.item[28])
+		job_support_high = text2num(query.item[29])
+		job_support_med = text2num(query.item[30])
+		job_support_low = text2num(query.item[31])
+		job_medsci_high = text2num(query.item[32])
+		job_medsci_med = text2num(query.item[33])
+		job_medsci_low = text2num(query.item[34])
+		job_engsec_high = text2num(query.item[35])
+		job_engsec_med = text2num(query.item[36])
+		job_engsec_low = text2num(query.item[37])
+		job_karma_high = text2num(query.item[38])
+		job_karma_med = text2num(query.item[39])
+		job_karma_low = text2num(query.item[40])
 
 		//Miscellaneous
-		flavor_text = query.item[39]
-		med_record = query.item[40]
-		sec_record = query.item[41]
-		gen_record = query.item[42]
+		flavor_text = query.item[41]
+		med_record = query.item[42]
+		sec_record = query.item[43]
+		gen_record = query.item[44]
 		// Apparently, the preceding vars weren't always encoded properly...
 		if(findtext(flavor_text, "<")) // ... so let's clumsily check for tags!
 			flavor_text = html_encode(flavor_text)
@@ -284,31 +288,31 @@
 			sec_record = html_encode(sec_record)
 		if(findtext(gen_record, "<"))
 			gen_record = html_encode(gen_record)
-		disabilities = text2num(query.item[43])
-		player_alt_titles = params2list(query.item[44])
-		organ_data = params2list(query.item[45])
-		rlimb_data = params2list(query.item[46])
-		nanotrasen_relation = query.item[47]
-		speciesprefs = text2num(query.item[48])
+		disabilities = text2num(query.item[45])
+		player_alt_titles = params2list(query.item[46])
+		organ_data = params2list(query.item[47])
+		rlimb_data = params2list(query.item[48])
+		nanotrasen_relation = query.item[49]
+		speciesprefs = text2num(query.item[50])
 
 		//socks
-		socks = query.item[49]
-		body_accessory = query.item[50]
-		loadout_gear = params2list(query.item[51])
-		autohiss_mode = text2num(query.item[52])
-		uplink_pref = query.item[53]
+		socks = query.item[51]
+		body_accessory = query.item[52]
+		loadout_gear = params2list(query.item[53])
+		autohiss_mode = text2num(query.item[54])
+		uplink_pref = query.item[55]
 
 		// TTS
-		tts_seed = query.item[54]
+		tts_seed = query.item[56]
 
 		//Emotes
-		custom_emotes_tmp = query.item[55]
+		custom_emotes_tmp = query.item[57]
 
 		// Gradient
-		h_grad_style = query.item[56]
-		h_grad_offset_x = query.item[57] // parsed down below
-		h_grad_colour = query.item[58]
-		h_grad_alpha = query.item[59]
+		h_grad_style = query.item[58]
+		h_grad_offset_x = query.item[59] // parsed down below
+		h_grad_colour = query.item[60]
+		h_grad_alpha = query.item[61]
 
 		saved = TRUE
 
@@ -342,7 +346,9 @@
 	alt_head		= sanitize_inlist(alt_head, GLOB.alt_heads_list, initial(alt_head))
 	e_colour		= sanitize_hexcolor(e_colour)
 	underwear		= sanitize_text(underwear, initial(underwear))
+	underwear_color	= sanitize_hexcolor(underwear_color)
 	undershirt		= sanitize_text(undershirt, initial(undershirt))
+	undershirt_color= sanitize_hexcolor(undershirt_color)
 	backbag			= sanitize_text(backbag, initial(backbag))
 	b_type			= sanitize_text(b_type, initial(b_type))
 	autohiss_mode	= sanitize_integer(autohiss_mode, 0, 2, initial(autohiss_mode))
@@ -437,7 +443,9 @@
 												alt_head_name=:alt_head,
 												eye_colour=:e_colour,
 												underwear=:underwear,
+												underwear_color=:underwear_color,
 												undershirt=:undershirt,
+												undershirt_color=:undershirt_color,
 												backbag=:backbag,
 												b_type=:b_type,
 												alternate_option=:alternate_option,
@@ -499,7 +507,9 @@
 													"alt_head" = alt_head || "",
 													"e_colour" = e_colour,
 													"underwear" = underwear,
+													"underwear_color" = underwear_color,
 													"undershirt" = undershirt,
+													"undershirt_color" = undershirt_color,
 													"backbag" = backbag,
 													"b_type" = b_type,
 													"alternate_option" = alternate_option,
@@ -565,7 +575,7 @@
 											head_accessory_style_name,
 											alt_head_name,
 											eye_colour,
-											underwear, undershirt,
+											underwear, underwear_color, undershirt, undershirt_color,
 											backbag, b_type, alternate_option,
 											job_support_high, job_support_med, job_support_low,
 											job_medsci_high, job_medsci_med, job_medsci_low,
@@ -593,7 +603,7 @@
 											:ha_style,
 											:alt_head,
 											:e_colour,
-											:underwear, :undershirt,
+											:underwear, :underwear_color, :undershirt, :undershirt_color,
 											:backbag, :b_type, :alternate_option,
 											:job_support_high, :job_support_med, :job_support_low,
 											:job_medsci_high, :job_medsci_med, :job_medsci_low,
@@ -633,7 +643,9 @@
 		"alt_head" = alt_head,
 		"e_colour" = e_colour,
 		"underwear" = underwear,
+		"underwear_color" = underwear_color,
 		"undershirt" = undershirt,
+		"undershirt_color" = undershirt_color,
 		"backbag" = backbag,
 		"b_type" = b_type,
 		"alternate_option" = alternate_option,
