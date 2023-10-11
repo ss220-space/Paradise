@@ -8,16 +8,27 @@
 	fire_sound = 'sound/weapons/gunshots/1grenlauncher.ogg'
 	can_holster = FALSE
 	w_class = WEIGHT_CLASS_BULKY
+	weapon_weight = WEAPON_HEAVY
 
 /obj/item/gun/projectile/bombarda/attackby(obj/item/A, mob/user, params)
 	. = ..()
 	if(.)
+		return
+	if(chambered)
 		return
 	var/num_loaded = magazine.attackby(A, user, params, 1)
 	if(num_loaded)
 		to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
 		A.update_icon()
 		update_icon()
+
+/obj/item/gun/projectile/bombarda/process_chamber(eject_casing, empty_chamber)
+	var/obj/item/ammo_casing/AC = chambered
+	..(TRUE, TRUE)
+	if(!chambered)
+		AC.pixel_x = rand(-10.0, 10)
+		AC.pixel_y = rand(-10.0, 10)
+		AC.dir = pick(GLOB.alldirs)
 
 /obj/item/gun/projectile/bombarda/chamber_round()
 	return
@@ -37,6 +48,9 @@
 	if(chambered)
 		chambered.loc = get_turf(src)
 		chambered.SpinAnimation(5, 1)
+		chambered.pixel_x = rand(-10.0, 10)
+		chambered.pixel_y = rand(-10.0, 10)
+		chambered.dir = pick(GLOB.alldirs)
 		playsound(src, chambered.drop_sound, 60, 1)
 		chambered = null
 	if(!magazine.ammo_count())
@@ -66,6 +80,9 @@
 	else
 		return ..()
 
+/obj/item/ammo_box/magazine/internal/bombarda/can_load(mob/user)
+	return 1
+
 /obj/item/ammo_casing/grenade/improvised
 	name = "Improvised shell"
 	desc = "Does something upon impact or after some time. If you see this, contact the coder."
@@ -73,6 +90,7 @@
 	icon_state = "exp_shell"
 	item_state = "exp_shell"
 	caliber = "40mm"
+	drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
 
 /obj/item/ammo_casing/grenade/improvised/exp_shell
 	name = "Improvised explosive shell"
