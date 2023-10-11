@@ -80,9 +80,6 @@
 	else
 		return ..()
 
-/obj/item/ammo_box/magazine/internal/bombarda/can_load(mob/user)
-	return 1
-
 /obj/item/ammo_casing/grenade/improvised
 	name = "Improvised shell"
 	desc = "Does something upon impact or after some time. If you see this, contact the coder."
