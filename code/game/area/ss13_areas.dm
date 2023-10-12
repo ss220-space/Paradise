@@ -2720,8 +2720,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 //area for AWAY "aeterna13"
 /area/ae13
 	icon_state = "ae13"
-	always_unpowered = TRUE
-	requires_power = TRUE
 	poweralm = FALSE
 	power_environ = FALSE
 	power_equip = FALSE
@@ -2752,6 +2750,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/ae13/command
 	name = "command"
 	icon_state = "ae13_ship6"
+	requires_power = FALSE
 
 /area/ae13/asteroid
 	name = "asteroid"

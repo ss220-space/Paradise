@@ -94,6 +94,29 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor,
 /area/ae13/command)
+"dg" = (
+/obj/machinery/door/airlock/external,
+/obj/docking_port/stationary{
+	area_type = null;
+	dir = 8;
+	dwidth = 12;
+	height = 35;
+	id = "anomalyship";
+	name = "Anomaly Ship Crash";
+	pixel_x = 32;
+	width = 22
+	},
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 12;
+	height = 35;
+	id = "anomalyship";
+	name = "Anomaly Ship";
+	width = 22
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor,
+/area/ae13/hall)
 "do" = (
 /turf/simulated/wall/shuttle/nosmooth{
 	dir = 5;
@@ -303,6 +326,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/external,
+/obj/structure/fans/tiny,
 /turf/simulated/floor,
 /area/ae13/hall)
 "ib" = (
@@ -554,6 +578,7 @@
 "nX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/machinery/door/airlock/external,
+/obj/structure/fans/tiny,
 /turf/simulated/floor,
 /area/ae13/hall)
 "ok" = (
@@ -1504,7 +1529,7 @@
 	},
 /area/ae13/epicenter)
 "Fo" = (
-/obj/machinery/computer/camera_advanced,
+/obj/structure/computerframe,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "chapel"
@@ -1542,6 +1567,7 @@
 /area/ae13/medbay)
 "FR" = (
 /obj/machinery/door/airlock/external,
+/obj/structure/fans/tiny,
 /turf/simulated/floor,
 /area/ae13/hall)
 "FZ" = (
@@ -1613,9 +1639,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ae13/asteroid)
 "Ho" = (
-/obj/machinery/computer/emergency_shuttle{
-	dir = 4
-	},
+/obj/machinery/computer/shuttle/anomaly_ship,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "chapel"
@@ -2150,7 +2174,6 @@
 	},
 /area/ae13/miner)
 "RW" = (
-/mob/living/simple_animal/hostile/statue,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "chapel"
@@ -2341,7 +2364,7 @@
 	},
 /area/ae13/energy)
 "TG" = (
-/obj/machinery/computer/station_alert,
+/obj/structure/computerframe,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "chapel"
@@ -3284,7 +3307,7 @@ ew
 ew
 ew
 ew
-ew
+mH
 ew
 ew
 ew
@@ -3674,7 +3697,7 @@ ew
 ew
 ew
 ew
-mH
+ew
 ew
 ew
 ew
@@ -4752,16 +4775,16 @@ ew
 ew
 ew
 ew
-ew
-ew
-ew
-ew
-ew
-ew
-ew
-ew
-ew
 pI
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
 ew
 ew
 ew
@@ -4786,15 +4809,15 @@ ew
 ew
 ew
 ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
 pI
-ew
-ew
-ew
-ew
-ew
-ew
-ew
-ew
 ew
 ew
 ew
@@ -6486,7 +6509,7 @@ Ai
 Ai
 Ky
 QI
-FR
+dg
 FR
 ik
 az

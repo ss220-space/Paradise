@@ -339,7 +339,7 @@
 	name = "Anomaly Ship"
 	description = "The trading and mining shuttle was flying to sell goods, but it fell into the field of the bluespace anomaly"
 	allow_duplicates = FALSE
-	cost = 3 // 76x76 space ship
+	always_place = TRUE //Station Trade Transit Shuttle
 
 /datum/map_template/ruin/space/blood_ship
 	id = "blood_ship"

@@ -955,6 +955,13 @@
 		return INITIALIZE_HINT_LATELOAD
 	return ..()
 
+/obj/machinery/computer/shuttle/anomaly_ship
+	name = "Anomaly Ship Console"
+	desc = "Used to Control the Anomaly Ship"
+	circuit = /obj/item/circuitboard/anomaly_ship
+	shuttleId = "anomalyship"
+	possible_destinations = "anomalyship;anomalyship_home"
+
 // Yes. This is disgusting, but the console needs to be loaded AFTER the docking ports load.
 /obj/machinery/computer/shuttle/white_ship/LateInitialize()
 	Initialize()

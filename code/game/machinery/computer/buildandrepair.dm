@@ -368,6 +368,10 @@
 	board_name = "White Ship"
 	build_path = /obj/machinery/computer/shuttle/white_ship
 
+/obj/item/circuitboard/anomaly_ship
+	board_name = "Anomaly Ship"
+	build_path = /obj/machinery/computer/shuttle/anomaly_ship
+
 /obj/item/circuitboard/shuttle/syndicate
 	board_name = "Syndicate Shuttle"
 	build_path = /obj/machinery/computer/shuttle/syndicate
