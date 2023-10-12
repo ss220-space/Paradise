@@ -80,6 +80,7 @@
 	max_ammo = 1
 	insert_sound = 'sound/weapons/bombarda/load.ogg'
 	remove_sound = 'sound/weapons/bombarda/open.ogg'
+	load_sound = 'sound/weapons/bombarda/load.ogg'
 
 /obj/item/ammo_box/magazine/internal/bombarda/New()
 	..()
