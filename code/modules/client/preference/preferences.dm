@@ -7,6 +7,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	ROLE_POSIBRAIN = 0,
 	ROLE_GUARDIAN = 0,
 	ROLE_TRAITOR = 7,
+	ROLE_MALF_AI = 7,
 	ROLE_THIEF = 7,
 	ROLE_CHANGELING = 14,
 	ROLE_SHADOWLING = 14,
@@ -105,7 +106,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/spawnpoint = "Arrivals Shuttle" //where this character will spawn (0-2).
 	var/b_type = "A+"					//blood type (not-chooseable)
 	var/underwear = "Nude"					//underwear type
+	var/underwear_color = "#ffffff"			//underwear color if underwear allows it
 	var/undershirt = "Nude"					//undershirt type
+	var/undershirt_color = "#ffffff"			//undershirt color if undershirt allows it
 	var/socks = "Nude"					//socks type
 	var/backbag = GBACKPACK				//backpack type
 	var/ha_style = "None"				//Head accessory style
@@ -488,8 +491,14 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<h2>Clothing</h2>"
 			if(S.clothing_flags & HAS_UNDERWEAR)
 				dat += "<b>Underwear:</b> <a href ='?_src_=prefs;preference=underwear;task=input'>[underwear]</a><BR>"
+				var/datum/sprite_accessory/underwear/uwear = GLOB.underwear_list[underwear]
+				if(uwear?.allow_change_color)
+					dat += "<b>Underwear Color:</b> <a href ='?_src_=prefs;preference=underwear_color;task=input'>Color</a> [color_square(underwear_color)]<BR>"
 			if(S.clothing_flags & HAS_UNDERSHIRT)
 				dat += "<b>Undershirt:</b> <a href ='?_src_=prefs;preference=undershirt;task=input'>[undershirt]</a><BR>"
+				var/datum/sprite_accessory/undershirt/ushirt = GLOB.undershirt_list[undershirt]
+				if(ushirt?.allow_change_color)
+					dat += "<b>Undershirt Color:</b> <a href ='?_src_=prefs;preference=undershirt_color;task=input'>Color</a> [color_square(undershirt_color)]<BR>"
 			if(S.clothing_flags & HAS_SOCKS)
 				dat += "<b>Socks:</b> <a href ='?_src_=prefs;preference=socks;task=input'>[socks]</a><BR>"
 			dat += "<b>Backpack Type:</b> <a href ='?_src_=prefs;preference=bag;task=input'>[backbag]</a><br>"
@@ -1906,6 +1915,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					ShowChoices(user)
 					if(new_underwear)
 						underwear = new_underwear
+
+				if("underwear_color")
+					var/new_uwear_color = input(user, "Choose your character's underwear colour:", "Character Preference", underwear_color) as color|null
+					if(new_uwear_color)
+						underwear_color = new_uwear_color
+
 				if("undershirt")
 					var/list/valid_undershirts = list()
 					for(var/undershirt in GLOB.undershirt_list)
@@ -1922,6 +1937,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					ShowChoices(user)
 					if(new_undershirt)
 						undershirt = new_undershirt
+
+				if("undershirt_color")
+					var/new_ushirt_color = input(user, "Choose your character's undershirt colour:", "Character Preference", undershirt_color) as color|null
+					if(new_ushirt_color)
+						undershirt_color = new_ushirt_color
 
 				if("socks")
 					var/list/valid_sockstyles = list()
@@ -2609,7 +2629,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		W.buckle_mob(character, TRUE)
 
 	character.underwear = underwear
+	character.color_underwear = underwear_color
 	character.undershirt = undershirt
+	character.color_undershirt = undershirt_color
 	character.socks = socks
 
 	if(character.dna.species.bodyflags & HAS_HEAD_ACCESSORY)
