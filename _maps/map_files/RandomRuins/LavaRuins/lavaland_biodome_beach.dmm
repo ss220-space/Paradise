@@ -353,6 +353,10 @@
 	dir = 4;
 	pixel_x = 12
 	},
+/obj/structure/mirror{
+	pixel_x = 26;
+	pixel_y = -2
+	},
 /turf/simulated/floor/plating,
 /area/ruin/powered/beach)
 "pI" = (
@@ -361,6 +365,12 @@
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/pod,
+/area/ruin/powered/beach)
+"pM" = (
+/obj/structure/mirror{
+	pixel_y = -30
+	},
+/turf/simulated/floor/plating,
 /area/ruin/powered/beach)
 "qa" = (
 /obj/machinery/light/small{
@@ -1046,7 +1056,7 @@ bW
 (15,1,1) = {"
 bW
 KF
-sq
+pM
 Ml
 TJ
 oN
