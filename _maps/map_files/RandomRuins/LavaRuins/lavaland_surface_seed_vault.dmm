@@ -17,7 +17,7 @@
 /area/lavaland/surface/outdoors)
 "cy" = (
 /obj/machinery/computer{
-	name = "Ship Auto-Pilot Console"s
+	name = "Ship Auto-Pilot Console"
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
