@@ -76,7 +76,7 @@
 /mob/living/simple_animal/hostile/hivebot/tele/New()
 	..()
 	var/datum/effect_system/fluid_spread/smoke/smoke = new
-	smoke.set_up(2, location = src.loc)
+	smoke.set_up(2, holder = usr)
 	smoke.start()
 	visible_message("<span class='danger'>The [src] warps in!</span>")
 	playsound(src.loc, 'sound/effects/empulse.ogg', 25, 1)

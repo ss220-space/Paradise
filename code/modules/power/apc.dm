@@ -1163,7 +1163,7 @@
 				malfhack = TRUE
 				update_icon()
 				var/datum/effect_system/fluid_spread/smoke/smoke = new
-				smoke.set_up(1, location = src.loc)
+				smoke.set_up(1, holder = src)
 				smoke.attach(src)
 				smoke.start()
 				do_sparks(3, 1, src)

@@ -145,7 +145,7 @@
 
 /mob/living/simple_animal/hulk/proc/unmutate()
 	var/datum/effect_system/fluid_spread/smoke/smoke = new
-	smoke.set_up(3, location = src.loc)
+	smoke.set_up(3, location = loc)
 	smoke.start()
 	playsound(src, 'sound/effects/bamf.ogg', CHANNEL_BUZZ)
 

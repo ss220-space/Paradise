@@ -106,7 +106,7 @@
 		if(!stuff.anchored && stuff.loc)
 			do_teleport(stuff, stuff, 10)
 			var/datum/effect_system/fluid_spread/smoke/smoke = new
-			smoke.set_up(2, location = stuff.loc)
+			smoke.set_up(2, holder = target)
 			smoke.start()
 
 /obj/item/projectile/magic/door

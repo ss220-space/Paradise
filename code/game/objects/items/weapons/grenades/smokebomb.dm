@@ -13,7 +13,7 @@
 /obj/item/grenade/smokebomb/prime()
 	playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
 	var/datum/effect_system/fluid_spread/smoke/bad/smoke = new
-	smoke.set_up(5, holder = src, location = src)
+	smoke.set_up(5, holder = src)
 	smoke.start()
 	for(var/obj/structure/blob/B in view(8,src))
 		var/damage = round(30/(get_dist(B,src)+1))

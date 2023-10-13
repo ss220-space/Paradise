@@ -69,7 +69,7 @@
 	setRegents(props, burnt)
 	to_chat(user, "<span class='warning'>You smell burning coming from the [src]!</span>")
 	var/datum/effect_system/fluid_spread/smoke/bad/smoke = new    // burning things makes smoke!
-	smoke.set_up(2, location = src)
+	smoke.set_up(2, location = loc)
 	smoke.start()
 	if(prob(firechance))
 		var/turf/location = get_turf(src)

@@ -273,16 +273,14 @@
 /datum/effect_system/fluid_spread/smoke/bad/blue
 	effect_type = /obj/effect/particle_effect/fluid/smoke/bad/blue
 
-// Purple
+//Purple
 /obj/effect/particle_effect/fluid/smoke/bad/purple
 	name = "purple smoke"
 	color = "#800080"
-	opacity = FALSE
 
 /// A factory which produces purple smoke that makes you cough.
 /datum/effect_system/fluid_spread/smoke/bad/purple
 	effect_type = /obj/effect/particle_effect/fluid/smoke/bad/purple
-
 
 /////////////////////////////////////////////
 // Nanofrost smoke

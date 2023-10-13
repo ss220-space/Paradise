@@ -324,14 +324,14 @@
 		return
 	if(do_after(user, 1.5 SECONDS, target = user))
 		var/datum/effect_system/fluid_spread/smoke/smoke = new
-		smoke.set_up(2, location = user.loc)
+		smoke.set_up(2, holder = src)
 		smoke.start()
 
 		user.forceMove(get_turf(linked))
 		SSblackbox.record_feedback("tally", "warp_cube", 1, type)
 
 		var/datum/effect_system/fluid_spread/smoke/smoke2 = new
-		smoke2.set_up(2, location = user.loc)
+		smoke2.set_up(2, holder = src)
 		smoke2.start()
 	else
 		to_chat(user, "<span class='notice'>You need to hold still to use [src].</span>")

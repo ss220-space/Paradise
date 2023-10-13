@@ -179,7 +179,7 @@
 	if(!owner || !chassis || chassis.occupant != owner)
 		return
 	if(chassis.smoke_ready && chassis.smoke > 0)
-		chassis.smoke_system.set_up(5, location = chassis.loc)
+		chassis.smoke_system.set_up(5, holder = chassis)
 		chassis.smoke_system.start()
 		chassis.smoke--
 		chassis.smoke_ready = 0

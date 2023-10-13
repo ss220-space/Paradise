@@ -319,7 +319,7 @@
 			R.add_reagent(chosenchem, 375)
 			investigate_log("Experimentor has released [chosenchem] smoke.", INVESTIGATE_EXPERIMENTOR)
 			var/datum/effect_system/fluid_spread/smoke/chem/transparent/smoke = new
-			smoke.set_up(location = src.loc, carry = R)
+			smoke.set_up(holder = src, carry = R)
 			playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
 			smoke.start()
 			qdel(R)
@@ -331,7 +331,7 @@
 			R.my_atom = src
 			R.add_reagent(chosenchem , 375)
 			var/datum/effect_system/fluid_spread/smoke/chem/transparent/smoke = new
-			smoke.set_up(location = src.loc, carry = R)
+			smoke.set_up(holder = src, carry = R)
 			playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
 			smoke.start()
 			qdel(R)
@@ -418,7 +418,7 @@
 			R.add_reagent("frostoil" , 375)
 			investigate_log("Experimentor has released frostoil gas.", INVESTIGATE_EXPERIMENTOR)
 			var/datum/effect_system/fluid_spread/smoke/chem/transparent/smoke = new
-			smoke.set_up(location = src.loc, carry = R)
+			smoke.set_up(holder = src, carry = R)
 			playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
 			smoke.start()
 			qdel(R)
@@ -440,7 +440,7 @@
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
 			visible_message("<span class='warning'>[src] malfunctions, releasing a flurry of chilly air as [exp_on] pops out!</span>")
 			var/datum/effect_system/fluid_spread/smoke/smoke = new
-			smoke.set_up(1, location = src.loc)
+			smoke.set_up(1, holder = src)
 			smoke.start()
 			ejectItem()
 	////////////////////////////////////////////////////////////////////////////////////////////////

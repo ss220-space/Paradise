@@ -521,7 +521,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 					smoke = new /datum/effect_system/fluid_spread/smoke/bad()
 				if(SMOKE_SLEEPING)
 					smoke = new /datum/effect_system/fluid_spread/smoke/sleeping()
-			smoke.set_up(smoke_amt, location = user.loc)
+			smoke.set_up(smoke_amt, holder = user)
 			smoke.start()
 
 	custom_handler?.after_cast(targets, user, src)
