@@ -328,6 +328,10 @@
 
 	if(!can_attack())
 		return
+
+	if(!is_location_within_transition_boundaries(T))
+		to_chat(src, "You can't expand here...")
+
 	var/obj/structure/blob/B = locate() in T
 	if(B)
 		to_chat(src, "There is a blob here!")
