@@ -47,10 +47,19 @@
 /obj/item/melee/energy_katana/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
 	if(user && user.a_intent == INTENT_DISARM && !target.density)
-		jaunt.teleport(user, target)
-		if(user.client)
-			user.client.mouse_pointer_icon = file(jaunt.update_cursor())
-		jaunt.update_action_style(color_style)
+		if(isninja(user))
+			jaunt.teleport(user, target)
+			if(user.client)
+				user.client.mouse_pointer_icon = file(jaunt.update_cursor())
+				jaunt.update_action_style(color_style)
+		else
+			var/mob/living/carbon/human/H = user
+			var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
+			if(affecting.droplimb())
+				H.UpdateDamageIcon()
+				playsound(src, 'sound/creatures/terrorspiders/rip.ogg', 120, 1)
+				to_chat(user, span_userdanger("That was a bad idea."))
+				H.emote("scream")
 
 /obj/item/melee/energy_katana/pickup(mob/living/user)
 	. = ..()
@@ -60,6 +69,14 @@
 		jaunt.update_action_style(color_style)
 		user.update_icons()
 		playsound(get_turf(src), 'sound/items/unsheath.ogg', 25, TRUE, 5)
+	if(!isninja(user))
+		var/mob/living/carbon/human/H = user
+		var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
+		if(affecting.receive_damage(20))		//INFERNO
+			H.UpdateDamageIcon()
+			to_chat(user, span_userdanger("Oh fuck, it hurts!."))
+			playsound(src, 'sound/weapons/bladeslice.ogg', 100, 1)
+
 
 /obj/item/melee/energy_katana/dropped(mob/user)
 	. = ..()
@@ -67,6 +84,18 @@
 		jaunt.Remove(user)
 		user.client.mouse_pointer_icon = initial(user.client.mouse_pointer_icon)
 		user.update_icons()
+
+/obj/item/melee/energy_katana/attack(mob/living/target, mob/living/carbon/human/user)
+	if(!isninja(user))
+		var/mob/living/carbon/human/H = user
+		var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
+		if(affecting.droplimb())
+			H.UpdateDamageIcon()
+			playsound(src, 'sound/creatures/terrorspiders/rip.ogg', 120, 1)
+			to_chat(user, span_userdanger("That was a bad idea."))
+			H.emote("scream")
+		return
+	..()
 
 //If we hit the Ninja who owns this Katana, they catch it.
 //Works for if the Ninja throws it or it throws itself(nope) or someone tries
