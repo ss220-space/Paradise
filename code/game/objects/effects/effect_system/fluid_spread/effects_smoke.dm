@@ -16,7 +16,7 @@
 	var/lifetime = 10 SECONDS
 	/// Makes the smoke react to changes on/of its turf.
 	var/static/loc_connections = list(
-		COMSIG_TURF_CALCULATED_ADJACENT_ATMOS = .proc/react_to_atmos_adjacency_changes
+		COMSIG_TURF_CALCULATED_ADJACENT_ATMOS = PROC_REF(react_to_atmos_adjacency_changes)
 	)
 
 /obj/effect/particle_effect/fluid/smoke/Initialize(mapload, datum/fluid_group/group, ...)
