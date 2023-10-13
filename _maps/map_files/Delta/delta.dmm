@@ -79265,6 +79265,16 @@
 	icon_state = "whitegreencorner"
 	},
 /area/medical/virology)
+"mBl" = (
+/obj/structure/chair/stool{
+	desc = "Этот стул - собственность Сидора Сагитова. Не занимать"
+	},
+/obj/effect/landmark/start/trainee_engineer,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/engine/break_room)
 "mBm" = (
 /obj/structure/chair/comfy/teal{
 	dir = 4
@@ -155458,7 +155468,7 @@ byo
 cIA
 sXr
 cRf
-bER
+mBl
 psk
 wiM
 cYf
