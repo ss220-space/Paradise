@@ -866,7 +866,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 /datum/theft_objective/collect/number/automatic
 	id = "collect_num_automatic"
 	typepath = /obj/item/gun/projectile/automatic
-	name = "любое стрелковое оружие магазинного типа"
+	name = "любое стрелковое оружие со сьёмным типом магазина"
 	min=2
 	max=6
 
