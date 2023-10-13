@@ -9124,7 +9124,8 @@
 	id = "ERT_armory_lvl4";
 	name = "ERT Armory Level 4";
 	pixel_x = -8;
-	req_access = list(114)
+	req_access = list(114);
+	wires = 1
 	},
 /obj/machinery/door_control{
 	color = "#99ff99";
@@ -9140,14 +9141,16 @@
 	name = "ERT Armory Level 2";
 	pixel_x = 8;
 	pixel_y = 8;
-	req_access = list(114)
+	req_access = list(114);
+	wires = 1
 	},
 /obj/machinery/door_control{
 	color = "#ff9999";
 	id = "ERT_armory_lvl3";
 	name = "ERT Armory Level 3";
 	pixel_x = 8;
-	req_access = list(114)
+	req_access = list(114);
+	wires = 1
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
