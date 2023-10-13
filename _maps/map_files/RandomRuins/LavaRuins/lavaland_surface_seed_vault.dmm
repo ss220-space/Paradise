@@ -1,6 +1,5 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ae" = (
-/obj/structure/table/glass,
 /obj/machinery/reagentgrinder{
 	pixel_y = 5
 	},
@@ -8,18 +7,57 @@
 /obj/item/reagent_containers/glass/beaker/bluespace,
 /obj/item/reagent_containers/glass/beaker/bluespace,
 /obj/item/reagent_containers/glass/beaker/bluespace,
-/turf/simulated/floor/plasteel/freezer,
+/obj/structure/table/wood,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/oak,
+/area/ruin/powered/seedvault)
+"at" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/stairs{
+	color = "493116"
+	},
+/area/ruin/powered/seedvault)
+"aw" = (
+/obj/machinery/hydroponics/constructable,
+/turf/simulated/floor/wood/oak,
 /area/ruin/powered/seedvault)
 "bD" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"bG" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/turf_decal/siding/wood{
+	dir = 65
+	},
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/seedvault)
 "cy" = (
 /obj/machinery/computer{
 	name = "Ship Auto-Pilot Console"
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/seedvault)
+"cI" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/seedvault)
+"ds" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/seedvault)
 "dK" = (
 /obj/effect/spawner/window/shuttle/gray,
@@ -27,42 +65,72 @@
 /area/ruin/powered/seedvault)
 "ee" = (
 /obj/machinery/biogenerator,
-/obj/item/reagent_containers/glass/bucket,
-/turf/simulated/floor/plasteel/freezer,
+/obj/item/reagent_containers/glass/bucket/wooden,
+/turf/simulated/floor/wood/oak,
 /area/ruin/powered/seedvault)
 "eE" = (
 /turf/simulated/mineral/random/volcanic/hard,
 /area/lavaland/surface/outdoors)
+"eL" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/seedvault)
+"go" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/seedvault)
 "gq" = (
 /obj/machinery/computer{
 	name = "Auto-Pilot Traveling Logs"
 	},
-/turf/simulated/floor/plasteel/freezer,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/seedvault)
+"gC" = (
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/hydroponics/constructable,
+/turf/simulated/floor/wood/oak,
 /area/ruin/powered/seedvault)
 "hT" = (
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/freezer,
+/obj/effect/decal/cleanable/dust,
+/obj/structure/closet/crate/trashcart,
+/turf/simulated/floor/wood/oak,
 /area/ruin/powered/seedvault)
-"jM" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/structure/disposalpipe/segment{
-	invisibility = 101
+"jQ" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
 	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
-"km" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/structure/disposalpipe/trunk{
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/seedvault)
+"kW" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/seed_vault,
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak{
+	icon_state = "fancy-wood-oak-broken7"
+	},
+/area/ruin/powered/seedvault)
 "lb" = (
 /obj/effect/baseturf_helper/lava_land/surface,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/wood/oak,
+/area/ruin/powered/seedvault)
+"lI" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/seedvault)
 "mt" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -81,7 +149,11 @@
 /obj/item/clothing/under/rank/hydroponics,
 /obj/item/clothing/under/rank/hydroponics,
 /obj/item/clothing/under/rank/hydroponics,
-/turf/simulated/floor/plasteel/freezer,
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/seedvault)
 "nG" = (
 /obj/structure/closet/crate/hydroponics,
@@ -97,18 +169,21 @@
 /obj/item/cultivator,
 /obj/item/cultivator,
 /obj/item/cultivator,
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"ob" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
 	},
-/turf/simulated/floor/plasteel/freezer,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/seedvault)
 "oc" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/disks_plantgene,
-/turf/simulated/floor/plasteel/freezer,
+/obj/structure/table/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/seedvault)
 "op" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -120,20 +195,47 @@
 /obj/item/vending_refill/hydronutrients,
 /obj/item/vending_refill/hydroseeds,
 /obj/item/vending_refill/hydronutrients,
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"pX" = (
-/obj/structure/sink{
-	pixel_y = 22
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
 	},
-/turf/simulated/floor/plasteel/freezer,
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak{
+	icon_state = "fancy-wood-oak-broken7"
+	},
+/area/ruin/powered/seedvault)
+"oU" = (
+/obj/structure/closet/crate/hydroponics,
+/obj/structure/beebox,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/melee/flyswatter,
+/obj/item/queen_bee/bought,
+/obj/item/clothing/suit/beekeeper_suit,
+/obj/item/clothing/head/beekeeper_head,
+/obj/effect/turf_decal/siding/wood{
+	dir = 65
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/seedvault)
+"qc" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/seedvault)
 "qg" = (
-/obj/structure/table/glass,
 /obj/item/storage/box/disks_plantgene,
 /obj/item/storage/box/disks_plantgene,
 /obj/item/storage/box/disks_plantgene,
-/turf/simulated/floor/plasteel/freezer,
+/obj/structure/table/wood,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/oak,
 /area/ruin/powered/seedvault)
 "qx" = (
 /obj/machinery/embedded_controller/radio/airlock/access_controller{
@@ -143,25 +245,58 @@
 	tag_exterior_door = "seed_vault_outer";
 	tag_interior_door = "seed_vault_inner"
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/wood/oak,
 /area/ruin/powered/seedvault)
-"ri" = (
-/obj/machinery/hydroponics/constructable,
-/obj/structure/disposalpipe/segment{
-	invisibility = 101
+"qL" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
 	},
-/obj/machinery/light,
-/turf/simulated/floor/plasteel/freezer,
+/obj/effect/turf_decal/siding/wood/corner,
+/turf/simulated/floor/wood/fancy/oak{
+	icon_state = "fancy-wood-oak-broken4"
+	},
 /area/ruin/powered/seedvault)
-"rs" = (
-/obj/structure/disposalpipe/segment{
-	invisibility = 101
+"rH" = (
+/obj/effect/turf_decal/siding/wood/corner,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/seedvault)
+"se" = (
+/obj/effect/mob_spawn/human/seed_vault,
+/obj/effect/decal/cleanable/dust,
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
 	},
-/turf/simulated/wall/r_wall,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/seedvault)
+"tq" = (
+/obj/machinery/cryopod,
+/obj/effect/decal/cleanable/dust,
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/turf/simulated/floor/wood/fancy/oak{
+	icon_state = "fancy-wood-oak-broken3"
+	},
 /area/ruin/powered/seedvault)
 "tD" = (
 /obj/machinery/chem_master/condimaster,
-/turf/simulated/floor/plasteel/freezer,
+/obj/effect/turf_decal/siding/wood{
+	dir = 65
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak{
+	icon_state = "fancy-wood-oak-broken5"
+	},
+/area/ruin/powered/seedvault)
+"tI" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood/corner,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/seedvault)
 "uj" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -175,6 +310,12 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"vf" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak{
+	icon_state = "fancy-wood-oak-broken3"
+	},
+/area/ruin/powered/seedvault)
 "vm" = (
 /obj/structure/closet/crate/hydroponics,
 /obj/item/gun/energy/floragun,
@@ -188,7 +329,11 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/freezer,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/seedvault)
 "vJ" = (
 /obj/machinery/access_button{
@@ -199,7 +344,7 @@
 	pixel_x = 25;
 	pixel_y = -25
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/wood/oak,
 /area/ruin/powered/seedvault)
 "wh" = (
 /obj/machinery/door/airlock/external{
@@ -208,54 +353,114 @@
 	locked = 1
 	},
 /obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/wood/oak,
+/area/ruin/powered/seedvault)
+"xh" = (
+/obj/machinery/cryopod,
+/obj/effect/decal/cleanable/dust,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/wood/fancy/oak{
+	icon_state = "fancy-wood-oak-broken3"
+	},
 /area/ruin/powered/seedvault)
 "xt" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/rollingpapers,
 /obj/item/lighter,
-/turf/simulated/floor/plasteel/freezer,
+/obj/effect/decal/cleanable/dust,
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/wood/fancy/oak{
+	icon_state = "fancy-wood-oak-broken5"
+	},
+/area/ruin/powered/seedvault)
+"xu" = (
+/turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/seedvault)
 "xT" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+/turf/simulated/floor/wood/oak,
+/area/ruin/powered/seedvault)
+"yi" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/seedvault)
+"yn" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/seed_vault,
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
 	},
-/turf/simulated/floor/plasteel/freezer,
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak{
+	icon_state = "fancy-wood-oak-broken7"
+	},
 /area/ruin/powered/seedvault)
 "yp" = (
 /obj/machinery/chem_dispenser/mutagensaltpeter,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/wood/oak,
 /area/ruin/powered/seedvault)
-"zk" = (
-/obj/machinery/hydroponics/constructable,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel/freezer,
+"yV" = (
+/obj/effect/spawner/random_spawners/fungus_probably,
+/turf/simulated/wall/r_wall/rust,
 /area/ruin/powered/seedvault)
 "zG" = (
 /obj/machinery/seed_extractor,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/wood/oak,
 /area/ruin/powered/seedvault)
 "Ah" = (
 /obj/effect/mob_spawn/human/seed_vault,
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"BL" = (
-/obj/structure/sink{
-	dir = 1;
-	layer = 5;
-	pixel_y = -5
+/obj/effect/decal/cleanable/dust,
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/seedvault)
+"Bf" = (
+/obj/effect/mob_spawn/human/seed_vault,
+/obj/effect/decal/cleanable/dust,
+/obj/effect/turf_decal/siding/wood{
+	dir = 65
+	},
+/turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/seedvault)
 "Cv" = (
 /obj/structure/table/wood,
 /obj/machinery/plantgenes/seedvault{
 	pixel_y = 6
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/wood/oak,
+/area/ruin/powered/seedvault)
+"CS" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/seedvault)
+"CZ" = (
+/obj/effect/mob_spawn/human/seed_vault,
+/obj/effect/decal/cleanable/dust,
+/obj/effect/turf_decal/siding/wood{
+	dir = 65
+	},
+/turf/simulated/floor/wood/fancy/oak{
+	icon_state = "fancy-wood-oak-broken7"
+	},
+/area/ruin/powered/seedvault)
+"Dd" = (
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/oak,
 /area/ruin/powered/seedvault)
 "Dq" = (
 /obj/structure/sink{
@@ -268,79 +473,192 @@
 	pixel_x = -28;
 	pixel_y = -2
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/wood/oak,
+/area/ruin/powered/seedvault)
+"Ea" = (
+/obj/machinery/hydroponics/constructable,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/oak,
+/area/ruin/powered/seedvault)
+"Es" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/turf_decal/siding/wood{
+	dir = 65
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/turf/simulated/floor/wood/fancy/oak{
+	icon_state = "fancy-wood-oak-broken4"
+	},
 /area/ruin/powered/seedvault)
 "EG" = (
 /obj/structure/sink{
 	dir = 4;
 	pixel_x = 11
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/wood/oak,
 /area/ruin/powered/seedvault)
 "EQ" = (
-/turf/simulated/floor/plasteel/freezer,
+/obj/effect/decal/cleanable/dust,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/simulated/floor/wood/fancy/oak{
+	icon_state = "fancy-wood-oak-broken4"
+	},
+/area/ruin/powered/seedvault)
+"Gf" = (
+/turf/simulated/wall/r_wall/rust,
 /area/ruin/powered/seedvault)
 "Gr" = (
 /obj/machinery/computer/cryopod{
 	pixel_x = 32
 	},
-/turf/simulated/floor/plasteel/freezer,
+/obj/effect/decal/cleanable/dust,
+/obj/effect/turf_decal/siding/wood{
+	dir = 65
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/seedvault)
+"GQ" = (
+/obj/machinery/cryopod,
+/obj/effect/decal/cleanable/dust,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/wood/fancy/oak{
+	icon_state = "fancy-wood-oak-broken4"
+	},
+/area/ruin/powered/seedvault)
+"HU" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/seedvault)
 "It" = (
 /obj/structure/table/wood,
 /obj/machinery/smartfridge/disks{
 	pixel_y = 2
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/wood/oak,
+/area/ruin/powered/seedvault)
+"JG" = (
+/obj/machinery/hydroponics/constructable,
+/obj/machinery/light,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/oak,
 /area/ruin/powered/seedvault)
 "Kl" = (
-/obj/machinery/door/airlock,
-/turf/simulated/floor/plasteel/freezer,
+/obj/machinery/door/airlock/wood,
+/obj/structure/barricade/wooden/crude,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/seedvault)
 "Kr" = (
 /obj/structure/table/wood,
 /obj/item/hand_labeler,
 /obj/item/hand_labeler,
-/turf/simulated/floor/plasteel/freezer,
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/seedvault)
 "Lu" = (
-/obj/machinery/light,
-/turf/simulated/floor/plasteel/freezer,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/seedvault)
 "LI" = (
 /obj/machinery/vending/hydroseeds,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/wood/oak,
 /area/ruin/powered/seedvault)
 "Mc" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/seed_vault,
-/turf/simulated/floor/plasteel/freezer,
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak{
+	icon_state = "fancy-wood-oak-broken3"
+	},
 /area/ruin/powered/seedvault)
 "MV" = (
 /obj/machinery/smartfridge,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/wood/oak,
+/area/ruin/powered/seedvault)
+"NR" = (
+/obj/effect/spawner/random_spawners/fungus_probably,
+/turf/simulated/wall/r_wall,
+/area/ruin/powered/seedvault)
+"NS" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/seedvault)
+"OH" = (
+/obj/machinery/hydroponics/constructable,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood/oak,
 /area/ruin/powered/seedvault)
 "Qh" = (
-/obj/machinery/hydroponics/constructable,
-/obj/machinery/light,
-/turf/simulated/floor/plasteel/freezer,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/oak,
 /area/ruin/powered/seedvault)
 "Qu" = (
 /obj/structure/table/wood,
 /obj/item/seeds/grass,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel/freezer,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/seedvault)
 "QR" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"Rh" = (
+/obj/effect/spawner/window/shuttle/gray,
+/obj/effect/spawner/window/shuttle/gray,
+/turf/simulated/floor/plating,
+/area/ruin/powered/seedvault)
 "RP" = (
-/obj/machinery/light{
+/obj/effect/decal/cleanable/dust,
+/obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/seedvault)
+"RS" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/seedvault)
 "Ss" = (
 /obj/machinery/door/airlock/external{
@@ -349,46 +667,45 @@
 	locked = 1
 	},
 /obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"St" = (
-/obj/machinery/hydroponics/constructable,
-/obj/structure/disposalpipe/segment{
-	invisibility = 101
-	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/wood/oak,
 /area/ruin/powered/seedvault)
 "Tz" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/sink{
 	dir = 1;
 	layer = 5;
 	pixel_y = -5
 	},
-/turf/simulated/floor/plasteel/freezer,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/oak,
 /area/ruin/powered/seedvault)
 "TB" = (
 /obj/structure/table/wood,
 /obj/item/pickaxe/mini,
-/turf/simulated/floor/plasteel/freezer,
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/seedvault)
 "Uk" = (
 /obj/machinery/vending/hydronutrients,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/wood/oak,
 /area/ruin/powered/seedvault)
 "UD" = (
 /obj/machinery/cryopod,
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"UI" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/structure/disposalpipe/trunk{
-	dir = 2
+/obj/effect/decal/cleanable/dust,
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
 	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/turf/simulated/floor/wood/fancy/oak{
+	icon_state = "fancy-wood-oak-broken3"
+	},
+/area/ruin/powered/seedvault)
+"UR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/seedvault)
 "UY" = (
 /obj/structure/closet/crate/hydroponics,
 /obj/structure/beebox,
@@ -399,14 +716,15 @@
 /obj/item/queen_bee/bought,
 /obj/item/clothing/suit/beekeeper_suit,
 /obj/item/clothing/head/beekeeper_head,
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"Wx" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
 	},
-/turf/simulated/floor/plasteel/freezer,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/seedvault)
+"Ws" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/oak,
 /area/ruin/powered/seedvault)
 "WA" = (
 /obj/structure/closet/crate/hydroponics,
@@ -419,45 +737,38 @@
 /obj/item/queen_bee/bought,
 /obj/item/clothing/suit/beekeeper_suit,
 /obj/item/clothing/head/beekeeper_head,
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"WP" = (
-/obj/structure/disposalpipe/trunk{
-	dir = 8
+/obj/effect/turf_decal/siding/wood{
+	dir = 65
 	},
-/obj/machinery/disposal,
-/turf/simulated/floor/plasteel/freezer,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/seedvault)
 "XU" = (
 /turf/simulated/wall/r_wall,
 /area/ruin/powered/seedvault)
 "XX" = (
 /obj/machinery/hydroponics/constructable,
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"Yz" = (
-/obj/machinery/hydroponics/constructable,
-/obj/structure/disposalpipe/segment{
-	invisibility = 101
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel/freezer,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/oak,
 /area/ruin/powered/seedvault)
 "Ze" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/sink{
 	pixel_y = 22
 	},
-/turf/simulated/floor/plasteel/freezer,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/oak,
 /area/ruin/powered/seedvault)
 "Zj" = (
 /obj/structure/table/wood,
 /obj/item/storage/toolbox/syndicate,
-/turf/simulated/floor/plasteel/freezer,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/fancy/oak{
+	icon_state = "fancy-wood-oak-broken5"
+	},
 /area/ruin/powered/seedvault)
 
 (1,1,1) = {"
@@ -600,16 +911,16 @@ XU
 XU
 op
 op
-XU
+dK
 dK
 cy
 gq
 dK
-XU
+dK
 op
 op
 XU
-XU
+Gf
 op
 op
 eE
@@ -626,17 +937,17 @@ XU
 XU
 XU
 op
-XU
+Rh
 Qu
-EQ
-EQ
+xu
+xu
 Lu
-XU
+dK
 op
-XU
-XU
-XU
-XU
+Gf
+NR
+Gf
+Gf
 op
 eE
 eE
@@ -649,17 +960,17 @@ op
 op
 XU
 UD
-EQ
+qc
 XU
 XU
 XU
 XU
-EQ
-EQ
+UR
+xu
+yV
 XU
-XU
-XU
-XU
+Gf
+Gf
 EQ
 Ah
 XU
@@ -674,20 +985,20 @@ eE
 op
 op
 XU
-UD
-EQ
-EQ
+GQ
+vf
+at
+at
+Ws
+Gf
 Kl
-EQ
+Kl
 XU
-Kl
-Kl
-XU
-EQ
-Kl
-EQ
-EQ
-Ah
+Ws
+at
+at
+yi
+CZ
 XU
 op
 op
@@ -700,20 +1011,20 @@ eE
 eE
 op
 XU
-UD
-Lu
+xh
+bG
 XU
-XU
-EQ
+NR
+Ws
 Dq
-EQ
-EQ
+xT
+xT
 Dq
-EQ
-XU
+Ws
+NR
 XU
 RP
-Ah
+Bf
 XU
 op
 eE
@@ -725,21 +1036,21 @@ QR
 eE
 eE
 op
-XU
-UD
-EQ
+Gf
+tq
+Es
 XU
 XX
-EQ
-EQ
-EQ
-EQ
-EQ
-EQ
+aw
+xT
+xT
+xT
+xT
+gC
 XX
 XU
-EQ
-Ah
+qL
+se
 XU
 op
 op
@@ -751,17 +1062,17 @@ QR
 eE
 eE
 op
-XU
-XU
+Gf
+Gf
 Gr
 XU
-zk
-EQ
-EQ
+Qh
+xT
+xT
 LI
 zG
-EQ
-EQ
+xT
+Ws
 Qh
 XU
 xt
@@ -778,16 +1089,16 @@ eE
 op
 op
 mt
-XU
+Gf
 XU
 XU
 XX
-EQ
-EQ
+gC
+xT
 Uk
 Cv
-EQ
-EQ
+xT
+aw
 XX
 XU
 XU
@@ -804,17 +1115,17 @@ eE
 eE
 op
 op
-XU
+Gf
 mt
-XU
-XX
-EQ
-EQ
+Gf
+Ea
+aw
+xT
 yp
 It
-EQ
-EQ
-XX
+xT
+gC
+JG
 XU
 mt
 XU
@@ -830,20 +1141,20 @@ eE
 eE
 eE
 op
-UI
-jM
-rs
-Yz
-Wx
-EQ
+op
+op
+Gf
+Qh
+Ws
+xT
 MV
 ee
-EQ
 xT
-ri
-rs
-jM
-km
+xT
+Qh
+XU
+op
+op
 op
 op
 op
@@ -856,20 +1167,20 @@ eE
 op
 op
 op
-XU
+Gf
 XU
 XU
 XX
-ob
-EQ
-EQ
-EQ
-EQ
-ob
+gC
+xT
+xT
+xT
+xT
+aw
 XX
 XU
 XU
-XU
+Gf
 op
 op
 eE
@@ -881,22 +1192,22 @@ QR
 eE
 eE
 op
+Gf
 XU
+kW
 XU
-Mc
-XU
-XU
+Gf
 Ze
-EQ
-EQ
-EQ
-EQ
+xT
+xT
+xT
+xT
 Tz
 XU
 XU
 Mc
-XU
-XU
+Gf
+Gf
 op
 op
 eE
@@ -909,20 +1220,20 @@ op
 op
 XU
 ns
-EQ
-EQ
-XU
-WP
-EQ
-EQ
+ds
+jQ
+NR
+Ws
+Ws
+xT
 lb
-EQ
-WP
+Ws
+Ws
 XU
-EQ
-EQ
+RS
+cI
 UY
-XU
+Gf
 op
 op
 op
@@ -935,20 +1246,20 @@ op
 op
 XU
 nG
-EQ
-EQ
-Kl
-EQ
-EQ
+yi
+yi
+at
+Ws
+Ws
 qg
 ae
-EQ
-EQ
-Kl
-EQ
-EQ
-UY
-XU
+Ws
+Ws
+at
+yi
+yi
+oU
+Gf
 op
 op
 eE
@@ -961,18 +1272,18 @@ op
 op
 XU
 vm
-EQ
-EQ
-XU
-EQ
-EQ
-EQ
-EQ
-EQ
-EQ
-XU
-EQ
-EQ
+rH
+CS
+NR
+Ws
+Ws
+xT
+xT
+Ws
+Ws
+NR
+eL
+HU
 WA
 XU
 op
@@ -987,19 +1298,19 @@ op
 op
 XU
 oc
-EQ
+go
 XU
 XU
-pX
-EQ
-EQ
-EQ
-EQ
-BL
+Ze
+Ws
+xT
+xT
+xT
+Tz
 XU
 XU
-EQ
-UY
+lI
+oU
 XU
 op
 op
@@ -1013,18 +1324,18 @@ eE
 op
 XU
 Zj
-EQ
+go
 XU
 XX
-EQ
-EQ
-EQ
-EQ
-EQ
-EQ
+gC
+xT
+xT
+xT
+xT
+gC
 XX
 XU
-EQ
+lI
 tD
 XU
 op
@@ -1039,18 +1350,18 @@ op
 op
 XU
 Kr
-EQ
+NS
 XU
-zk
-EQ
-EQ
+Qh
+xT
+xT
 zG
 LI
-EQ
-EQ
+xT
+xT
 Qh
-XU
-EQ
+Gf
+tI
 TB
 XU
 op
@@ -1063,19 +1374,19 @@ QR
 eE
 op
 op
+Gf
+yV
+yn
 XU
-XU
-Mc
-XU
-XX
-EQ
-EQ
+OH
+aw
+xT
 Cv
 Uk
-EQ
-EQ
-XX
-XU
+xT
+aw
+JG
+Gf
 oI
 XU
 XU
@@ -1090,16 +1401,16 @@ eE
 op
 op
 mt
-XU
+Gf
 XU
 XU
 XX
-EQ
-EQ
+aw
+xT
 It
 MV
-EQ
-EQ
+xT
+gC
 XX
 XU
 XU
@@ -1116,16 +1427,16 @@ eE
 eE
 op
 op
-XU
+Gf
 mt
-XU
-zk
-EQ
-EQ
+Gf
+Qh
+Ws
+xT
 ee
 yp
-EQ
-EQ
+Ws
+Ws
 Qh
 XU
 mt
@@ -1142,20 +1453,20 @@ eE
 eE
 eE
 op
-UI
-jM
-rs
-St
-Wx
-EQ
-EQ
-EQ
-EQ
+op
+op
+Gf
+XX
+gC
+Ws
 xT
-St
-rs
-jM
-km
+xT
+Ws
+gC
+XX
+XU
+op
+op
 op
 op
 eE
@@ -1171,15 +1482,15 @@ op
 op
 op
 XU
-XU
-hT
-EG
-EQ
+NR
+Ws
+Dd
+Ws
 vJ
 EG
 hT
 XU
-XU
+Gf
 op
 op
 op
@@ -1204,7 +1515,7 @@ Ss
 Ss
 XU
 XU
-XU
+Gf
 mt
 op
 op
@@ -1227,10 +1538,10 @@ XU
 mt
 XU
 qx
-EQ
+xT
 XU
 mt
-XU
+Gf
 op
 op
 op
