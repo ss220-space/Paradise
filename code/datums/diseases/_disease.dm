@@ -24,12 +24,17 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	var/additional_info = "Болезнь"
 
 	//Stages
-	var/stage = 1		//current stage of disease
-	var/max_stages = 5	//count of stages of disease
-	var/stage_prob = 4	//probability of moving to the next stage for a tick
+
+	/// Current stage of disease
+	var/stage = 1
+	/// Count of stages of disease
+	var/max_stages = 5
+	/// Probability of moving to the next stage for a tick
+	var/stage_prob = 4
 
 	//Visibility
 	var/visibility_flags = VISIBLE
+	/// If NONTHREAT, not marked on HUD
 	var/severity = NONTHREAT
 
 	/// The fraction of stages the disease must at least be at to show up on medical HUDs. Rounded up.
@@ -38,26 +43,45 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	var/discovered = FALSE
 
 	//Cure & immunity
+
+	/// Сan the disease be cured
 	var/curable = TRUE
-	var/list/cures = list() //list of cures if the disease has curable = TRUE, these are reagent ids
+	/// List of cures if the disease has curable = TRUE, these are reagent ids
+	var/list/cures = list()
+	/// If FASLSE, you need one of any cure from the cures list. Otherwise, you need all the cures from the cure list
 	var/needs_all_cures = TRUE
-	var/cure_prob = 8		//probability of cure for a tick
-	var/can_immunity = TRUE //immunity can be developed from the disease
-	var/ignore_immunity = FALSE //Does it skip VIRUSIMMUNE trait check
-	var/virus_heal_resistant = FALSE // immunity to Anti-Bodies Metabolism symptom
+	/// Probability of cure for a tick
+	var/cure_prob = 8
+	/// Immunity can be developed from the disease
+	var/can_immunity = TRUE
+	/// Does it skip VIRUSIMMUNE trait check
+	var/ignore_immunity = FALSE
+	/// Immunity to Anti-Bodies Metabolism symptom
+	var/virus_heal_resistant = FALSE
 
 	//Mutations
+
+	/// Probability of mutation if the necessary reagents are in the body
 	var/mutation_chance = 1
+	/// Necessary reagents
 	var/list/mutation_reagents = list("mutagen")
+	/// List of diseases in which it can mutate
 	var/list/possible_mutations
 
 	//Other
-	var/mob/living/affected_mob //Mob that is suffering from this disease
-	var/list/viable_mobtypes = list(/mob/living/carbon/human) //Types of infectable mobs
+
+	/// Mob that is suffering from this disease
+	var/mob/living/affected_mob
+	/// Types of infectable mobs
+	var/list/viable_mobtypes = list(/mob/living/carbon/human)
+	/// Required organs
 	var/list/required_organs = list()
-	var/can_progress_in_dead = FALSE	//if TRUE, disease can progress in dead mobs
-	var/can_contract_dead = FALSE		//if TRUE, disease can contract dead mobs
-	var/carrier = FALSE			//if TRUE, host not affected by virus, but can spread it (mostly for viruses)
+	/// If TRUE, disease can progress in dead mobs
+	var/can_progress_in_dead = FALSE
+	/// If TRUE, disease can contract dead mobs
+	var/can_contract_dead = FALSE
+	/// If TRUE, host not affected by virus, but can spread it (mostly for viruses)
+	var/carrier = FALSE
 
 
 /datum/disease/New()

@@ -3,8 +3,10 @@
 /datum/disease/virus/loyalty
 	name = "Loyalty Syndrome"
 	agent = "Halomonas minomae"
+	desc = "A disease that causes acute mass insanity for a certain person, as well as various obsessions"
 	max_stages = 5
 	spread_flags = CONTACT
+	permeability_mod = 0.5
 	can_immunity = FALSE
 	cure_text = "Anti-Psychotics"
 	cures = list("haloperidol")
@@ -34,6 +36,10 @@
 
 	var/mob/living/carbon/human/new_master = is_master ? affected_mob : master
 	var/datum/disease/virus/loyalty/copy = new(new_master)
+
+	//recontract cured master
+	if(new_master == M)
+		copy.is_master = TRUE
 
 	M.diseases += copy
 	copy.affected_mob = M

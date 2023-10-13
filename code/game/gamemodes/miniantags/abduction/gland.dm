@@ -221,7 +221,7 @@
 	to_chat(owner, "<span class='warning'>You feel sick.</span>")
 	var/datum/disease/virus/advance/new_virus
 	new_virus = CreateRandomVirus(count_of_symptoms = rand(4, 6), resistance = rand(0,11), stealth = pick(0,0,1,1,2),
-								stage_rate = rand(-11,5), transmittable = rand(4,9), severity = rand(0,5))
+								stage_rate = rand(-11,5), transmittable = rand(2,9), severity = rand(0,5))
 	var/datum/disease/virus/advance/old_virus = locate() in owner.diseases
 	if(old_virus)
 		old_virus.cure(need_immunity = FALSE)

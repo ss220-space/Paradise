@@ -48,9 +48,8 @@ Bonus
 		var/healed = 0
 		for(var/obj/item/organ/external/E in parts)
 			healed += min(E.brute_dam, get_damage) + min(E.burn_dam, get_damage)
-			E.heal_damage(get_damage, get_damage, 0, 0)
+			E.heal_damage(get_damage, get_damage, updating_health = TRUE)
 		M.adjustToxLoss(healed)
-
 
 	else
 		if(M.getFireLoss() > 0 || M.getBruteLoss() > 0)

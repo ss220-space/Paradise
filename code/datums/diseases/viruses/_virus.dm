@@ -10,9 +10,10 @@
 
 	var/spread_flags = NON_CONTAGIOUS
 
-	//Infectivity
-	var/infectivity = 65		//affects how often the virus will try to spread
-	var/permeability_mod = 1	//
+	///affects how often the virus will try to spread. The more the better. In range [0-100]
+	var/infectivity = 65
+	///affects how well the virus will pass through the protection. The more the better. In range (0-2]
+	var/permeability_mod = 1
 
 /datum/disease/virus/New()
 	..()
