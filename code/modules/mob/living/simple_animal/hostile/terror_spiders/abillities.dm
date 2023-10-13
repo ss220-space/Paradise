@@ -102,7 +102,7 @@
 
 /obj/item/projectile/terrorspider/widow/venom/on_hit(atom/target)
 	. = ..()
-	var/datum/effect_system/fluid_spread/smoke/chem/S = new
+	var/datum/effect_system/fluid_spread/smoke/chem/transparent/S = new
 	create_reagents(1250)
 	reagents.add_reagent("thc", 250)
 	reagents.add_reagent("psilocybin", 250)
@@ -274,7 +274,7 @@
 
 
 /obj/effect/proc_holder/spell/terror_parasmoke/cast(list/targets, mob/user = usr)
-	var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
+	var/datum/effect_system/fluid_spread/smoke/chem/transparent/smoke = new
 	create_reagents(2000)
 	reagents.add_reagent("neurotoxin", 1000)
 	reagents.add_reagent("capulettium_plus", 1000)

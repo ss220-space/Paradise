@@ -318,7 +318,7 @@
 			R.my_atom = src
 			R.add_reagent(chosenchem, 375)
 			investigate_log("Experimentor has released [chosenchem] smoke.", INVESTIGATE_EXPERIMENTOR)
-			var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
+			var/datum/effect_system/fluid_spread/smoke/chem/transparent/smoke = new
 			smoke.set_up(location = src.loc, carry = R)
 			playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
 			smoke.start()
@@ -330,7 +330,7 @@
 			var/datum/reagents/R = new/datum/reagents(400)
 			R.my_atom = src
 			R.add_reagent(chosenchem , 375)
-			var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
+			var/datum/effect_system/fluid_spread/smoke/chem/transparent/smoke = new
 			smoke.set_up(location = src.loc, carry = R)
 			playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
 			smoke.start()
@@ -417,7 +417,7 @@
 			R.my_atom = src
 			R.add_reagent("frostoil" , 375)
 			investigate_log("Experimentor has released frostoil gas.", INVESTIGATE_EXPERIMENTOR)
-			var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
+			var/datum/effect_system/fluid_spread/smoke/chem/transparent/smoke = new
 			smoke.set_up(location = src.loc, carry = R)
 			playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
 			smoke.start()
