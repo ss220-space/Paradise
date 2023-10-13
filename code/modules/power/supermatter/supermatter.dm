@@ -201,6 +201,8 @@
 						mob.apply_effect(rads, IRRADIATE)
 			explode()
 			emergency_lighting(0)
+			//It's kinda pointless to process atmos on destroyed (qdel'ed) crystal
+			return
 
 	if(damage > warning_point && world.timeofday > last_zap)
 		last_zap = world.timeofday + rand(80,200)
@@ -208,9 +210,21 @@
 
 	//Ok, get the air from the turf
 	var/datum/gas_mixture/env = L.return_air()
+	var/datum/gas_mixture/removed
+	//var/list/adjacent_turfs = RANGE_EDGE_TURFS(1, L)
+	//var/list/atmos_passed_turfs = list()
+	//for(var/turf/checked in adjacent_turfs)
+	//	if(L.CanAtmosPass(checked))
+	//		atmos_passed_turfs += checked
+	//
+	//if(length(atmos_passed_turfs))
+	//	var/turf/random_turf = pick(atmos_passed_turfs)
+	//	var/datum/gas_mixture/rand_turf_air = random_turf.return_air()
+	//	removed = rand_turf_air.remove(gasefficency * rand_turf_air.total_moles())
+	//else
+	//	//If no surrounding present, remove from our tile.
 
-	//Remove gas from surrounding area
-	var/datum/gas_mixture/removed = env.remove(gasefficency * env.total_moles())
+	removed = env.remove(gasefficency * env.total_moles())
 
 	//ensure that damage doesn't increase too quickly due to super high temperatures resulting from no coolant, for example. We dont want the SM exploding before anyone can react.
 	//We want the cap to scale linearly with power (and explosion_point). Let's aim for a cap of 5 at power = 300 (based on testing, equals roughly 5% per SM alert announcement).
@@ -221,10 +235,18 @@
 	else
 		damage_archived = damage
 
+	if(!removed)
+		//Placeholder, which representates vacuum
+		removed = new
+
 	damage = max(0, damage + between(-DAMAGE_RATE_LIMIT, (removed.temperature - CRITICAL_TEMPERATURE) / 150, damage_inc_limit))
 
 	//Maxes out at 100% oxygen pressure
-	oxygen = clamp((removed.oxygen - (removed.nitrogen * NITROGEN_RETARDATION_FACTOR)) / removed.total_moles(), 0, 1)
+	if(!removed.total_moles())
+		oxygen = 0
+	else
+		//Result of this formula is undefined if we (total moles of removed) -> 0. So, let's roll with zero if no gas was removed.
+		oxygen = clamp((removed.oxygen - (removed.nitrogen * NITROGEN_RETARDATION_FACTOR)) / removed.total_moles(), 0, 1)
 
 	var/temp_factor
 	var/equilibrium_power
@@ -242,21 +264,29 @@
 
 	var/device_energy = power * REACTION_POWER_MODIFIER
 
-	var/heat_capacity = removed.heat_capacity()
+	var/debug_old_heat_capacity = removed.heat_capacity()
 
 	removed.toxins += max(device_energy / PLASMA_RELEASE_MODIFIER, 0)
 
 	removed.oxygen += max((device_energy + removed.temperature - T0C) / OXYGEN_RELEASE_MODIFIER, 0)
 
+	var/heat_capacity = removed.heat_capacity()
+
 	var/thermal_power = THERMAL_RELEASE_MODIFIER * device_energy
 	if(debug)
 		var/heat_capacity_new = removed.heat_capacity()
 		visible_message("[src]: Releasing [round(thermal_power)] W.")
-		visible_message("[src]: Releasing additional [round((heat_capacity_new - heat_capacity)*removed.temperature)] W with exhaust gasses.")
+		visible_message("[src]: Releasing additional [round((heat_capacity_new - debug_old_heat_capacity)*removed.temperature)] W with exhaust gasses.")
 
-	removed.temperature += (device_energy)
+	//deltaT = deltaQ / heat_capacity (deltaQ equals thermal_power)
+	//We are assuming here, that volume does not change here
+	removed.temperature += (thermal_power / heat_capacity)
 
-	removed.temperature = max(0, min(removed.temperature, 10000))
+
+	//removed.temperature = (removed.temperature * heat_capacity + device_energy) /
+
+	//removed.temperature = max(0, min(removed.temperature, 10000))
+	removed.temperature = max(0, removed.temperature)
 
 	env.merge(removed)
 
