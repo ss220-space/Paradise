@@ -1,79 +1,141 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/turf/simulated/mineral/volcanic/lava_land_surface,
-/area/lavaland/surface/outdoors)
-"b" = (
+"ae" = (
+/obj/structure/table/glass,
+/obj/machinery/reagentgrinder{
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/glass/beaker/bluespace,
+/obj/item/reagent_containers/glass/beaker/bluespace,
+/obj/item/reagent_containers/glass/beaker/bluespace,
+/obj/item/reagent_containers/glass/beaker/bluespace,
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"bD" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
-"c" = (
-/obj/machinery/door/airlock/external{
-	frequency = 1385;
-	id_tag = "seed_vault_inner";
-	locked = 1
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"d" = (
-/obj/structure/table/wood,
-/obj/item/lighter,
-/obj/item/lighter,
-/obj/item/storage/fancy/rollingpapers,
-/obj/item/storage/fancy/rollingpapers,
-/obj/item/storage/fancy/rollingpapers,
-/obj/item/storage/fancy/rollingpapers,
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"e" = (
-/obj/structure/table/wood,
-/obj/item/storage/box/disks_plantgene,
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"f" = (
-/obj/machinery/plantgenes/seedvault{
-	pixel_y = 6
-	},
-/obj/structure/table/wood,
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"g" = (
-/obj/structure/table/wood,
-/obj/machinery/smartfridge/disks{
-	pixel_y = 2
+/area/space)
+"cy" = (
+/obj/machinery/computer{
+	name = "Ship Auto-Pilot Console"s
 	},
 /turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"h" = (
+/area/space)
+"dK" = (
+/obj/effect/spawner/window/shuttle/gray,
+/turf/simulated/floor/plating,
+/area/space)
+"ee" = (
+/obj/machinery/biogenerator,
+/obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"i" = (
-/obj/structure/closet/crate/hydroponics,
-/obj/structure/beebox,
-/obj/item/melee/flyswatter,
-/obj/item/honey_frame,
-/obj/item/honey_frame,
-/obj/item/honey_frame,
-/obj/item/queen_bee/bought,
-/obj/item/clothing/head/beekeeper_head,
-/obj/item/clothing/suit/beekeeper_suit,
+/area/space)
+"eE" = (
+/turf/simulated/mineral/random/volcanic/hard,
+/area/space)
+"gq" = (
+/obj/machinery/computer{
+	name = "Auto-Pilot Traveling Logs"
+	},
 /turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"j" = (
+/area/space)
+"hT" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"jM" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/space)
+"km" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/space)
+"lb" = (
+/obj/effect/baseturf_helper/lava_land/surface,
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"mt" = (
+/obj/effect/mapping_helpers/no_lava,
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
-"k" = (
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/seed_vault,
+/area/space)
+"ns" = (
+/obj/structure/closet/crate/hydroponics,
+/obj/item/storage/bag/plants,
+/obj/item/storage/bag/plants,
+/obj/item/storage/bag/plants,
+/obj/item/storage/bag/plants,
+/obj/item/clothing/under/rank/hydroponics,
+/obj/item/clothing/under/rank/hydroponics,
+/obj/item/clothing/under/rank/hydroponics,
+/obj/item/clothing/under/rank/hydroponics,
 /turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"l" = (
-/obj/machinery/door/airlock,
+/area/space)
+"nG" = (
+/obj/structure/closet/crate/hydroponics,
+/obj/item/shovel/spade,
+/obj/item/shovel/spade,
+/obj/item/shovel/spade,
+/obj/item/shovel/spade,
+/obj/item/hatchet,
+/obj/item/hatchet,
+/obj/item/hatchet,
+/obj/item/hatchet,
+/obj/item/cultivator,
+/obj/item/cultivator,
+/obj/item/cultivator,
+/obj/item/cultivator,
 /turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"m" = (
+/area/space)
+"ob" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"oc" = (
+/obj/structure/table/wood,
+/obj/item/storage/box/disks_plantgene,
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"op" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/space)
+"oI" = (
+/obj/structure/closet/crate/hydroponics,
+/obj/item/vending_refill/hydroseeds,
+/obj/item/vending_refill/hydronutrients,
+/obj/item/vending_refill/hydroseeds,
+/obj/item/vending_refill/hydronutrients,
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"pX" = (
+/obj/structure/sink{
+	pixel_y = 22
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"qg" = (
+/obj/structure/table/glass,
+/obj/item/storage/box/disks_plantgene,
+/obj/item/storage/box/disks_plantgene,
+/obj/item/storage/box/disks_plantgene,
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"qx" = (
 /obj/machinery/embedded_controller/radio/airlock/access_controller{
 	frequency = 1385;
 	id_tag = "seed_vault";
@@ -82,60 +144,120 @@
 	tag_interior_door = "seed_vault_inner"
 	},
 /turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"n" = (
-/obj/machinery/smartfridge,
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"o" = (
-/obj/structure/closet/crate/hydroponics,
-/obj/item/cultivator,
-/obj/item/cultivator,
-/obj/item/cultivator,
-/obj/item/cultivator,
-/obj/item/shovel/spade,
-/obj/item/shovel/spade,
-/obj/item/shovel/spade,
-/obj/item/shovel/spade,
-/obj/item/hatchet,
-/obj/item/hatchet,
-/obj/item/hatchet,
-/obj/item/hatchet,
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"p" = (
+/area/space)
+"ri" = (
 /obj/machinery/hydroponics/constructable,
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
+/obj/machinery/light,
 /turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"q" = (
-/obj/item/hatchet,
-/obj/item/storage/bag/plants,
+/area/space)
+"rs" = (
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
+/turf/simulated/wall/r_wall,
+/area/space)
+"tD" = (
+/obj/machinery/chem_master/condimaster,
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"uj" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1385;
+	master_tag = "seed_vault";
+	name = "exterior access button";
+	pixel_x = -25;
+	pixel_y = -25
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/space)
+"vm" = (
+/obj/structure/closet/crate/hydroponics,
+/obj/item/gun/energy/floragun,
+/obj/item/gun/energy/floragun,
+/obj/item/gun/energy/floragun,
+/obj/item/gun/energy/floragun,
 /obj/item/reagent_containers/glass/bucket,
-/obj/structure/table/wood,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/glass/bucket,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"r" = (
-/obj/structure/table/wood,
-/obj/item/storage/bag/plants,
-/obj/item/storage/bag/plants,
-/obj/item/storage/bag/plants,
-/obj/item/storage/bag/plants,
+/area/space)
+"vJ" = (
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1385;
+	master_tag = "seed_vault";
+	name = "interior access button";
+	pixel_x = 25;
+	pixel_y = -25
+	},
 /turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"s" = (
-/obj/structure/table/wood,
-/obj/item/gun/energy/floragun,
-/obj/item/gun/energy/floragun,
-/obj/item/gun/energy/floragun,
-/obj/item/gun/energy/floragun,
-/obj/item/storage/box/disks_plantgene,
+/area/space)
+"wh" = (
+/obj/machinery/door/airlock/external{
+	frequency = 1385;
+	id_tag = "seed_vault_outer";
+	locked = 1
+	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"t" = (
+/area/space)
+"xt" = (
+/obj/structure/table/wood,
+/obj/item/storage/fancy/rollingpapers,
+/obj/item/lighter,
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"xT" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"yp" = (
+/obj/machinery/chem_dispenser/mutagensaltpeter,
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"zk" = (
+/obj/machinery/hydroponics/constructable,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"zG" = (
+/obj/machinery/seed_extractor,
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"Ah" = (
 /obj/effect/mob_spawn/human/seed_vault,
 /turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"u" = (
+/area/space)
+"BL" = (
+/obj/structure/sink{
+	dir = 1;
+	layer = 5;
+	pixel_y = -5
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"Cv" = (
+/obj/structure/table/wood,
+/obj/machinery/plantgenes/seedvault{
+	pixel_y = 6
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"Dq" = (
 /obj/structure/sink{
 	dir = 8;
 	pixel_x = -12;
@@ -147,628 +269,1082 @@
 	pixel_y = -2
 	},
 /turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"v" = (
-/obj/machinery/vending/hydronutrients,
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"w" = (
-/obj/machinery/vending/hydroseeds,
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"x" = (
-/obj/machinery/reagentgrinder{
-	pixel_y = 5
-	},
-/obj/structure/table/glass,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"y" = (
+/area/space)
+"Ep" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/wall/r_wall,
+/area/space)
+"EG" = (
 /obj/structure/sink{
 	dir = 4;
 	pixel_x = 11
 	},
 /turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"z" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external{
-	frequency = 1385;
-	id_tag = "seed_vault_outer";
-	locked = 1
+/area/space)
+"EQ" = (
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"Gr" = (
+/obj/machinery/computer/cryopod{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"A" = (
-/obj/machinery/door/airlock/external{
-	frequency = 1385;
-	id_tag = "seed_vault_outer";
-	locked = 1
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"B" = (
-/obj/structure/disposalpipe/trunk,
-/obj/machinery/disposal,
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"C" = (
-/obj/machinery/seed_extractor,
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"D" = (
-/obj/machinery/biogenerator,
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"E" = (
-/obj/machinery/chem_dispenser/mutagensaltpeter,
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"F" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"G" = (
-/obj/structure/closet/crate/hydroponics,
-/obj/item/clothing/under/rank/hydroponics,
-/obj/item/clothing/under/rank/hydroponics,
-/obj/item/clothing/under/rank/hydroponics,
-/obj/item/clothing/under/rank/hydroponics,
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"H" = (
-/obj/machinery/chem_master/condimaster,
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"I" = (
+/area/space)
+"It" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/reagent_containers/glass/bucket,
+/obj/machinery/smartfridge/disks{
+	pixel_y = 2
+	},
 /turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"J" = (
-/obj/item/storage/toolbox/syndicate,
+/area/space)
+"Kl" = (
+/obj/machinery/door/airlock,
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"Kr" = (
 /obj/structure/table/wood,
+/obj/item/hand_labeler,
+/obj/item/hand_labeler,
 /turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"K" = (
-/obj/effect/baseturf_helper/lava_land/surface,
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"L" = (
-/obj/machinery/access_button{
-	command = "cycle_interior";
-	frequency = 1385;
-	master_tag = "seed_vault";
-	name = "interior access button";
-	pixel_x = 25;
-	pixel_y = -25
-	},
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"M" = (
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
-"N" = (
-/obj/structure/table/wood,
-/obj/item/storage/box/disks_plantgene,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"O" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"P" = (
-/obj/machinery/hydroponics/constructable,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"Q" = (
-/turf/simulated/wall/r_wall,
-/area/ruin/powered/seedvault)
-"R" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"S" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"T" = (
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1385;
-	master_tag = "seed_vault";
-	name = "exterior access button";
-	pixel_x = -25;
-	pixel_y = -25
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
-"U" = (
+/area/space)
+"Lu" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"V" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/wall/r_wall,
-/area/ruin/powered/seedvault)
-"W" = (
+/area/space)
+"LI" = (
+/obj/machinery/vending/hydroseeds,
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"Mc" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/seed_vault,
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"MV" = (
+/obj/machinery/smartfridge,
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"Qh" = (
+/obj/machinery/hydroponics/constructable,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"Qu" = (
+/obj/structure/table/wood,
+/obj/item/seeds/grass,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"QR" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/space)
+"RP" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"Ss" = (
+/obj/machinery/door/airlock/external{
+	frequency = 1385;
+	id_tag = "seed_vault_inner";
+	locked = 1
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"St" = (
+/obj/machinery/hydroponics/constructable,
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"Tz" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/sink{
+	dir = 1;
+	layer = 5;
+	pixel_y = -5
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"TB" = (
+/obj/structure/table/wood,
+/obj/item/pickaxe/mini,
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"Uk" = (
+/obj/machinery/vending/hydronutrients,
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"UD" = (
+/obj/machinery/cryopod,
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"UI" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/disposalpipe/trunk{
+	dir = 2
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/space)
+"UY" = (
+/obj/structure/closet/crate/hydroponics,
+/obj/structure/beebox,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/melee/flyswatter,
+/obj/item/queen_bee/bought,
+/obj/item/clothing/suit/beekeeper_suit,
+/obj/item/clothing/head/beekeeper_head,
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"Wx" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
-"X" = (
-/obj/machinery/hydroponics/constructable,
-/obj/machinery/light,
 /turf/simulated/floor/plasteel/freezer,
-/area/ruin/powered/seedvault)
-"Y" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/space)
+"WA" = (
+/obj/structure/closet/crate/hydroponics,
+/obj/machinery/light,
+/obj/structure/beebox,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/melee/flyswatter,
+/obj/item/queen_bee/bought,
+/obj/item/clothing/suit/beekeeper_suit,
+/obj/item/clothing/head/beekeeper_head,
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"WP" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/obj/machinery/disposal,
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"XU" = (
+/turf/simulated/wall/r_wall,
+/area/space)
+"XX" = (
+/obj/machinery/hydroponics/constructable,
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"Yz" = (
+/obj/machinery/hydroponics/constructable,
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"Ze" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/sink{
+	pixel_y = 22
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
+"Zj" = (
+/obj/structure/table/wood,
+/obj/item/storage/toolbox/syndicate,
+/turf/simulated/floor/plasteel/freezer,
+/area/space)
 
 (1,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-Q
-Q
-Q
-Q
-Q
-Q
-a
-a
-a
-a
-a
-b
-b
+QR
+QR
+QR
+op
+eE
+eE
+eE
+eE
+eE
+eE
+eE
+eE
+QR
+eE
+QR
+eE
+eE
+eE
+eE
+eE
+eE
+QR
+QR
+QR
 "}
 (2,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-Q
-t
-t
-t
-t
-Q
-a
-a
-a
-a
-a
-b
-b
+QR
+eE
+op
+op
+op
+eE
+eE
+eE
+eE
+eE
+eE
+eE
+eE
+eE
+eE
+eE
+eE
+eE
+QR
+eE
+eE
+eE
+eE
+eE
 "}
 (3,1,1) = {"
-b
-a
-a
-a
-a
-a
-Q
-Q
-O
-h
-h
-U
-Q
-Q
-a
-a
-a
-b
-a
-b
+QR
+eE
+eE
+op
+op
+eE
+op
+op
+op
+eE
+op
+op
+op
+op
+eE
+eE
+eE
+eE
+eE
+eE
+eE
+eE
+eE
+QR
 "}
 (4,1,1) = {"
-b
-a
-a
-Q
-Q
-Q
-Q
-Q
-Q
-l
-l
-Q
-Q
-Q
-Q
-a
-a
-a
-a
-a
+eE
+eE
+eE
+eE
+op
+eE
+op
+op
+op
+op
+op
+op
+op
+op
+op
+op
+op
+op
+op
+eE
+op
+eE
+eE
+eE
 "}
 (5,1,1) = {"
-a
-a
-Q
-Q
-k
-Q
-n
-R
-u
-h
-h
-u
-R
-h
-Q
-a
-a
-a
-a
-a
+eE
+QR
+eE
+op
+op
+op
+op
+op
+op
+op
+dK
+dK
+dK
+dK
+op
+op
+op
+op
+op
+op
+op
+op
+eE
+eE
 "}
 (6,1,1) = {"
-a
-a
-Q
-d
-h
-Q
-o
-h
-h
-h
-h
-h
-h
-G
-Q
-a
-a
-a
-a
-a
+eE
+eE
+eE
+op
+op
+XU
+XU
+op
+op
+XU
+dK
+cy
+gq
+dK
+XU
+op
+op
+XU
+XU
+op
+op
+eE
+eE
+eE
 "}
 (7,1,1) = {"
-a
-a
-Q
-N
-h
-Q
-P
-h
-p
-h
-h
-p
-h
-X
-Q
-a
-a
-a
-a
-a
+eE
+eE
+eE
+op
+XU
+XU
+XU
+XU
+op
+XU
+Qu
+EQ
+EQ
+Lu
+XU
+op
+XU
+XU
+XU
+XU
+op
+eE
+eE
+eE
 "}
 (8,1,1) = {"
-b
-a
-Q
-e
-h
-l
-h
-h
-v
-h
-h
-B
-F
-F
-V
-W
-a
-a
-a
-a
+eE
+eE
+op
+op
+XU
+UD
+EQ
+XU
+XU
+XU
+XU
+EQ
+EQ
+XU
+XU
+XU
+XU
+EQ
+Ah
+XU
+op
+eE
+eE
+eE
 "}
 (9,1,1) = {"
-b
-a
-Q
-f
-h
-Q
-p
-h
-n
-h
-h
-C
-h
-k
-Q
-M
-a
-a
-a
-a
+eE
+eE
+op
+op
+XU
+UD
+EQ
+EQ
+Kl
+EQ
+XU
+Kl
+Kl
+XU
+EQ
+Kl
+EQ
+EQ
+Ah
+XU
+op
+op
+eE
+QR
 "}
 (10,1,1) = {"
-a
-a
-Q
-g
-h
-Q
-p
-h
-w
-h
-K
-D
-h
-p
-Q
-b
-a
-a
-a
-a
+QR
+eE
+eE
+op
+XU
+UD
+Lu
+XU
+XU
+EQ
+Dq
+EQ
+EQ
+Dq
+EQ
+XU
+XU
+RP
+Ah
+XU
+op
+eE
+op
+op
 "}
 (11,1,1) = {"
-a
-a
-Q
-h
-h
-Q
-q
-h
-x
-h
-h
-E
-h
-H
-Q
-a
-a
-a
-a
-a
+QR
+eE
+eE
+op
+XU
+UD
+EQ
+XU
+XX
+EQ
+EQ
+EQ
+EQ
+EQ
+EQ
+XX
+XU
+EQ
+Ah
+XU
+op
+op
+op
+eE
 "}
 (12,1,1) = {"
-b
-a
-Q
-O
-h
-Q
-P
-h
-h
-h
-h
-h
-h
-X
-Q
-a
-a
-a
-a
-a
+QR
+eE
+eE
+op
+XU
+XU
+Gr
+XU
+zk
+EQ
+EQ
+LI
+zG
+EQ
+EQ
+Qh
+XU
+xt
+XU
+Ep
+op
+op
+eE
+eE
 "}
 (13,1,1) = {"
-a
-a
-Q
-i
-h
-Q
-r
-h
-h
-p
-p
-h
-h
-I
-Q
-a
-a
-a
-a
-a
+eE
+eE
+op
+op
+mt
+XU
+XU
+XU
+XX
+EQ
+EQ
+Uk
+Cv
+EQ
+EQ
+XX
+XU
+XU
+XU
+mt
+op
+eE
+eE
+eE
 "}
 (14,1,1) = {"
-a
-a
-Q
-Q
-i
-Q
-s
-S
-y
-h
-L
-y
-S
-J
-Q
-a
-a
-a
-a
-a
+eE
+eE
+eE
+op
+op
+XU
+mt
+XU
+XX
+EQ
+EQ
+yp
+It
+EQ
+EQ
+XX
+XU
+mt
+XU
+op
+op
+eE
+eE
+eE
 "}
 (15,1,1) = {"
-a
-a
-b
-Q
-Q
-Q
-Q
-Q
-Q
-c
-c
-Q
-Q
-Q
-Q
-a
-a
-a
-a
-a
+eE
+eE
+eE
+eE
+op
+UI
+jM
+rs
+Yz
+Wx
+EQ
+MV
+ee
+EQ
+xT
+ri
+rs
+jM
+km
+op
+op
+op
+eE
+eE
 "}
 (16,1,1) = {"
-b
-a
-b
-j
-Q
-j
-Q
-j
-Q
-m
-h
-Q
-j
-Q
-j
-a
-a
-a
-a
-a
+eE
+eE
+op
+op
+op
+XU
+XU
+XU
+XX
+ob
+EQ
+EQ
+EQ
+EQ
+ob
+XX
+XU
+XU
+XU
+op
+op
+eE
+eE
+QR
 "}
 (17,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-Q
-A
-z
-Q
-Y
-Y
-Y
-a
-a
-a
-b
-b
+QR
+eE
+eE
+op
+XU
+XU
+Mc
+XU
+XU
+Ze
+EQ
+EQ
+EQ
+EQ
+Tz
+XU
+XU
+Mc
+XU
+XU
+op
+op
+eE
+eE
 "}
 (18,1,1) = {"
-a
-a
-a
-b
-b
-b
-Y
-Y
-Y
-Y
-T
-Y
-Y
-Y
-Y
-a
-a
-a
-b
-b
+eE
+eE
+op
+op
+XU
+ns
+EQ
+EQ
+XU
+WP
+EQ
+EQ
+lb
+EQ
+WP
+XU
+EQ
+EQ
+UY
+XU
+op
+op
+op
+eE
 "}
 (19,1,1) = {"
-a
-a
-a
-a
-b
-b
-a
-Y
-Y
-Y
-Y
-Y
-Y
-Y
-a
-a
-a
-b
-b
-b
+eE
+eE
+op
+op
+XU
+nG
+EQ
+EQ
+Kl
+EQ
+EQ
+qg
+ae
+EQ
+EQ
+Kl
+EQ
+EQ
+UY
+XU
+op
+op
+eE
+eE
 "}
 (20,1,1) = {"
-a
-a
-a
-b
-b
-b
-a
-Y
-Y
-Y
-Y
-Y
-Y
-Y
-a
-a
-a
-b
-b
-a
+eE
+op
+op
+op
+XU
+vm
+EQ
+EQ
+XU
+EQ
+EQ
+EQ
+EQ
+EQ
+EQ
+XU
+EQ
+EQ
+WA
+XU
+op
+op
+eE
+eE
+"}
+(21,1,1) = {"
+op
+op
+op
+op
+XU
+oc
+EQ
+XU
+XU
+pX
+EQ
+EQ
+EQ
+EQ
+BL
+XU
+XU
+EQ
+UY
+XU
+op
+op
+op
+eE
+"}
+(22,1,1) = {"
+QR
+op
+eE
+op
+XU
+Zj
+EQ
+XU
+XX
+EQ
+EQ
+EQ
+EQ
+EQ
+EQ
+XX
+XU
+EQ
+tD
+XU
+op
+op
+eE
+eE
+"}
+(23,1,1) = {"
+eE
+eE
+op
+op
+XU
+Kr
+EQ
+XU
+zk
+EQ
+EQ
+zG
+LI
+EQ
+EQ
+Qh
+XU
+EQ
+TB
+XU
+op
+op
+op
+eE
+"}
+(24,1,1) = {"
+QR
+eE
+op
+op
+XU
+XU
+Mc
+XU
+XX
+EQ
+EQ
+Cv
+Uk
+EQ
+EQ
+XX
+XU
+oI
+XU
+XU
+op
+op
+eE
+QR
+"}
+(25,1,1) = {"
+eE
+eE
+op
+op
+mt
+XU
+XU
+XU
+XX
+EQ
+EQ
+It
+MV
+EQ
+EQ
+XX
+XU
+XU
+XU
+op
+op
+op
+eE
+eE
+"}
+(26,1,1) = {"
+eE
+eE
+eE
+op
+op
+XU
+mt
+XU
+zk
+EQ
+EQ
+ee
+yp
+EQ
+EQ
+Qh
+XU
+mt
+XU
+op
+op
+op
+op
+eE
+"}
+(27,1,1) = {"
+eE
+eE
+eE
+eE
+op
+UI
+jM
+rs
+St
+Wx
+EQ
+EQ
+EQ
+EQ
+xT
+St
+rs
+jM
+km
+op
+op
+eE
+eE
+eE
+"}
+(28,1,1) = {"
+eE
+QR
+eE
+op
+op
+op
+op
+XU
+XU
+hT
+EG
+EQ
+vJ
+EG
+hT
+XU
+XU
+op
+op
+op
+op
+eE
+eE
+QR
+"}
+(29,1,1) = {"
+eE
+eE
+eE
+eE
+eE
+op
+op
+op
+XU
+XU
+XU
+Ss
+Ss
+XU
+XU
+XU
+mt
+op
+op
+eE
+op
+eE
+eE
+eE
+"}
+(30,1,1) = {"
+QR
+QR
+eE
+eE
+eE
+op
+op
+op
+XU
+mt
+XU
+qx
+EQ
+XU
+mt
+XU
+op
+op
+op
+op
+eE
+eE
+eE
+eE
+"}
+(31,1,1) = {"
+QR
+eE
+eE
+eE
+eE
+op
+eE
+op
+op
+op
+XU
+wh
+wh
+XU
+op
+op
+op
+eE
+eE
+op
+eE
+eE
+QR
+eE
+"}
+(32,1,1) = {"
+eE
+QR
+QR
+eE
+eE
+eE
+op
+op
+op
+op
+bD
+op
+uj
+op
+op
+op
+op
+op
+eE
+eE
+QR
+eE
+eE
+QR
+"}
+(33,1,1) = {"
+QR
+eE
+eE
+eE
+eE
+eE
+eE
+eE
+eE
+op
+op
+op
+op
+op
+op
+op
+eE
+eE
+eE
+eE
+eE
+eE
+eE
+eE
+"}
+(34,1,1) = {"
+QR
+eE
+QR
+eE
+eE
+eE
+op
+op
+op
+op
+op
+op
+op
+op
+op
+op
+op
+eE
+eE
+QR
+eE
+QR
+QR
+QR
 "}
