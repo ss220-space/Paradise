@@ -2577,14 +2577,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"lO" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	dir = 6
-	},
-/obj/machinery/atmospherics/meter,
-/turf/simulated/floor/plasteel,
-/area/mine/laborcamp)
 "lP" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
@@ -5840,13 +5832,6 @@
 	icon_state = "clockwork_floor"
 	},
 /area/mine/necropolis)
-"Kw" = (
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTHWEST)"
-	},
-/area/mine/living_quarters)
 "Ky" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -6195,6 +6180,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/storage)
+"Ny" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 6
+	},
+/obj/machinery/atmospherics/meter,
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
 "ND" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
 	dir = 8
@@ -6422,6 +6415,16 @@
 /obj/structure/stone_tile/slab,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
+"Qj" = (
+/obj/structure/closet/fishingrodcabinet{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (NORTHWEST)"
+	},
+/area/mine/living_quarters)
 "Qn" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
@@ -55345,7 +55348,7 @@ aj
 aj
 aj
 qT
-lO
+Ny
 HA
 av
 rV
@@ -67916,7 +67919,7 @@ ab
 ab
 Rc
 Zf
-Kw
+Qj
 bT
 xg
 JS
