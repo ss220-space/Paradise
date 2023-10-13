@@ -40,7 +40,7 @@
 	SSsmoke.stop_processing(src)
 	if (spread_bucket)
 		SSsmoke.cancel_spread(src)
-	INVOKE_ASYNC(src, .proc/fade_out)
+	INVOKE_ASYNC(src, PROC_REF(fade_out))
 	QDEL_IN(src, 1 SECONDS)
 
 /**
