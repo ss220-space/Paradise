@@ -266,7 +266,7 @@
 	for(var/f_reagent in forbidden_reagents)
 		holder.del_reagent(f_reagent)
 	var/location = get_turf(holder.my_atom)
-	var/datum/effect_system/fluid_spread/smoke/chem/S = new
+	var/datum/effect_system/fluid_spread/smoke/chem/transparent/S = new
 	playsound(location, 'sound/effects/smoke.ogg', 50, 1, -3)
 	if(S)
 		S.set_up(3, location = location, carry = holder)

@@ -63,7 +63,7 @@
 
 	var/time_to_transparency = round(((alpha - 160) / alpha) * frames)
 	if(time_to_transparency >= 1)
-		addtimer(CALLBACK(src, /atom.proc/set_opacity, FALSE), time_to_transparency)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_opacity), time_to_transparency))
 	else
 		set_opacity(FALSE)
 	animate(src, time = frames, alpha = 0)
@@ -197,7 +197,7 @@
 	/*var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,
 	)*/
-	RegisterSignal(src, COMSIG_ATOM_ENTERED, .proc/on_entered)
+	RegisterSignal(src, COMSIG_ATOM_ENTERED, PROC_REF(on_entered))
 	//AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/particle_effect/fluid/smoke/bad/smoke_mob(mob/living/carbon/smoker)
@@ -451,3 +451,10 @@
 
 /datum/effect_system/fluid_spread/smoke/chem/quick
 	effect_type = /obj/effect/particle_effect/fluid/smoke/chem/quick
+
+/obj/effect/particle_effect/fluid/smoke/chem/transparent
+	opacity = FALSE
+	alpha = 100
+
+/datum/effect_system/fluid_spread/smoke/chem/transparent
+	effect_type = /obj/effect/particle_effect/fluid/smoke/chem/transparent
