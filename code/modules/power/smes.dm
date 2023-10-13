@@ -454,7 +454,7 @@
 				emp_act(2)
 		if(prob(5)) //smoke only
 			var/datum/effect_system/fluid_spread/smoke/smoke = new
-			smoke.set_up(2, holdder = src)
+			smoke.set_up(2, holder = src)
 			smoke.attach(src)
 			smoke.start()
 
