@@ -9,7 +9,7 @@
 	icon_prefix = "357" // icon prefix, used in above formula to generate dynamic icons
 
 /obj/item/ammo_box/improvisedrevolver
-	name = "makeshift speeloader"
+	name = "makeshift speedloader"
 	desc = "Speedloader made from shit and sticks"
 	ammo_type = /obj/item/ammo_casing/revolver/improvised
 	icon_state = "makeshift_speedloader-4"
