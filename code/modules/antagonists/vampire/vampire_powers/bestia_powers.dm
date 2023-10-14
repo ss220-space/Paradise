@@ -332,7 +332,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 	var/list/all_organs = list()
 
 	for(var/obj/item/organ/internal/organ in target.internal_organs)
-		if(!is_type_in_list(organ, GLOB.vampire_dissect_organs))
+		if(!is_type_in_list(organ, GLOB.vampire_dissect_organs) || (organ.status & ORGAN_ROBOT))
 			continue
 		if(istype(organ, /obj/item/organ/internal/heart) && \
 			(t_hearts >= vampire.subclass.crit_organ_cap || t_hearts >= MAX_TROPHIES_PER_TYPE_CRITICAL))
