@@ -20404,9 +20404,6 @@
 "cgv" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/surgery,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = 30
-	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -25661,10 +25658,6 @@
 	},
 /area/medical/cmo)
 "cOE" = (
-/obj/machinery/alarm{
-	dir = 4;
-	pixel_x = -24
-	},
 /obj/structure/table,
 /obj/item/reagent_containers/glass/bottle/ether,
 /obj/item/reagent_containers/syringe{
@@ -41393,9 +41386,6 @@
 "gKA" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/surgery,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = -30
-	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -79227,8 +79217,9 @@
 	},
 /obj/structure/table,
 /obj/item/storage/toolbox/surgery,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = 30
+/obj/machinery/alarm{
+	dir = 8;
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -84408,10 +84399,6 @@
 	},
 /area/medical/medbay)
 "ttC" = (
-/obj/machinery/alarm{
-	dir = 8;
-	pixel_x = 24
-	},
 /obj/structure/table,
 /obj/item/reagent_containers/glass/bottle/ether,
 /obj/item/reagent_containers/syringe{
@@ -85810,6 +85797,10 @@
 /obj/item/reagent_containers/syringe{
 	pixel_x = -1;
 	pixel_y = 11
+	},
+/obj/machinery/alarm{
+	dir = 4;
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -95470,9 +95461,6 @@
 	},
 /obj/structure/table,
 /obj/item/storage/toolbox/surgery,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = -30
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
