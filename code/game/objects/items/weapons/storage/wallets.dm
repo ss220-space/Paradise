@@ -27,7 +27,8 @@
 		/obj/item/reagent_containers/dropper,
 		/obj/item/stamp,
 		/obj/item/encryptionkey,
-		/obj/item/clothing/gloves/ring)
+		/obj/item/clothing/gloves/ring,
+		/obj/item/reagent_containers/food/pill/patch)
 	slot_flags = SLOT_ID
 
 	var/obj/item/card/id/front_id = null
