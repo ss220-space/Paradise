@@ -170,9 +170,9 @@
 	brute_mod = 1.15
 	burn_mod = 1.15
 	speed_mod = -0.60 //less fast as ash walkers
-	punchdamagelow = 7
+	punchdamagelow = 4
 	punchdamagehigh = 7
-	punchstunthreshold = 7
+	punchstunthreshold = 7 //still can stun people pretty often
 	toolspeedmod = 0.9 //they're smart and efficient unlike other lizards
 	var/obj/effect/proc_holder/spell/touch/healtouch/goodtouch
 
