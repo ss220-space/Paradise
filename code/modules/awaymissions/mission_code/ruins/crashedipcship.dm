@@ -70,5 +70,7 @@
 /obj/machinery/power/supermatter_shard/anchored/attackby(obj/item/W as obj, mob/living/user as mob, params)
 	if(istype(W,/obj/item/wrench))
 		user.visible_message("<span class='danger'>As [user] tries to loose bolts of \the [src] with \a [W] but the tool disappears</span>")
-	consume_wrench(W)
-	user.apply_effect(150, IRRADIATE)
+		consume_wrench(W)
+		user.apply_effect(150, IRRADIATE)
+		return
+	. = ..()
