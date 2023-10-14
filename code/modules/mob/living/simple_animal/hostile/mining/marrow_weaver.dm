@@ -7,7 +7,7 @@
 	icon_aggro = "weaver"
 	icon_dead = "weaver_dead"
 	throw_message = "bounces harmlessly off the"
-	butcher_results = list(/obj/item/stack/ore/uranium = 2, /obj/item/stack/sheet/bone = 3, /obj/item/stack/sheet/sinew = 2, /obj/item/stack/sheet/animalhide/weaver_chitin = 4, /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg = 2)
+	butcher_results = list(/obj/item/stack/ore/uranium = 2, /obj/item/stack/sheet/bone = 2, /obj/item/stack/sheet/sinew = 1, /obj/item/stack/sheet/animalhide/weaver_chitin = 3, /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg = 2)
 	loot = list()
 	attacktext = "кусает" //can we revert all translation in our code?
 	gold_core_spawnable = HOSTILE_SPAWN
