@@ -640,11 +640,6 @@
 "QR" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"Rh" = (
-/obj/effect/spawner/window/shuttle/gray,
-/obj/effect/spawner/window/shuttle/gray,
-/turf/simulated/floor/plating,
-/area/ruin/powered/seedvault)
 "RP" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/turf_decal/siding/wood{
@@ -936,7 +931,7 @@ XU
 XU
 XU
 op
-Rh
+dK
 Qu
 xu
 xu
@@ -1278,7 +1273,7 @@ Ws
 Ws
 xT
 xT
-Ws
+xT
 Ws
 NR
 eL
@@ -1512,7 +1507,7 @@ XU
 XU
 Ss
 Ss
-XU
+Gf
 XU
 Gf
 mt
@@ -1538,7 +1533,7 @@ mt
 XU
 qx
 xT
-XU
+Gf
 mt
 Gf
 op
