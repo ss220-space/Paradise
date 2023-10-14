@@ -210,21 +210,8 @@
 
 	//Ok, get the air from the turf
 	var/datum/gas_mixture/env = L.return_air()
-	var/datum/gas_mixture/removed
-	//var/list/adjacent_turfs = RANGE_EDGE_TURFS(1, L)
-	//var/list/atmos_passed_turfs = list()
-	//for(var/turf/checked in adjacent_turfs)
-	//	if(L.CanAtmosPass(checked))
-	//		atmos_passed_turfs += checked
-	//
-	//if(length(atmos_passed_turfs))
-	//	var/turf/random_turf = pick(atmos_passed_turfs)
-	//	var/datum/gas_mixture/rand_turf_air = random_turf.return_air()
-	//	removed = rand_turf_air.remove(gasefficency * rand_turf_air.total_moles())
-	//else
-	//	//If no surrounding present, remove from our tile.
-
-	removed = env.remove(gasefficency * env.total_moles())
+	//And, get part of that air
+	var/datum/gas_mixture/removed = env.remove(gasefficency * env.total_moles())
 
 	//ensure that damage doesn't increase too quickly due to super high temperatures resulting from no coolant, for example. We dont want the SM exploding before anyone can react.
 	//We want the cap to scale linearly with power (and explosion_point). Let's aim for a cap of 5 at power = 300 (based on testing, equals roughly 5% per SM alert announcement).
@@ -282,10 +269,6 @@
 	//We are assuming here, that volume does not change here
 	removed.temperature += (thermal_power / heat_capacity)
 
-
-	//removed.temperature = (removed.temperature * heat_capacity + device_energy) /
-
-	//removed.temperature = max(0, min(removed.temperature, 10000))
 	removed.temperature = max(0, removed.temperature)
 
 	env.merge(removed)
