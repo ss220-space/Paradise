@@ -128,7 +128,7 @@
 	else
 		icon_state = initial(icon_state)
 
-/obj/machinery/door_control/secure
+/obj/machinery/door_control/secure //Use icon_state = "altdoorctrl" if you just want cool icon for your button on map. This button is created for Admin-zones.
 	icon_state = "altdoorctrl"
 	wireless = TRUE
 
