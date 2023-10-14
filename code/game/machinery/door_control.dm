@@ -5,10 +5,10 @@
 	icon_state = "doorctrl"
 	power_channel = ENVIRON
 	var/id = null
-	var/safety_z_check = 1
-	var/normaldoorcontrol = 0
-	var/desiredstate = 0 // Zero is closed, 1 is open.
-	var/specialfunctions = 1
+	var/safety_z_check = TRUE
+	var/normaldoorcontrol = FALSE
+	var/desiredstate = FALSE // FALSE is closed, TRUE is open.
+	var/specialfunctions = TRUE
 	/*
 	Bitflag, 	1= open
 				2= idscan,
@@ -18,8 +18,8 @@
 
 	*/
 
-	var/exposedwires = 0
-	var/wires = 3
+	var/exposedwires = FALSE
+	var/wireless = FALSE
 	/*
 	Bitflag,	1=checkID
 				2=Network Access
@@ -30,23 +30,20 @@
 	idle_power_usage = 2
 	active_power_usage = 4
 
-/obj/machinery/door_control/alt
-	icon_state = "altdoorctrl"
-
-/obj/machinery/door_control/attack_ai(mob/user as mob)
-	if(wires & 2)
+/obj/machinery/door_control/attack_ai(mob/user)
+	if(wires)
 		return attack_hand(user)
 	else
 		to_chat(user, "Error, no route to host.")
 
-/obj/machinery/door_control/attackby(obj/item/W, mob/user as mob, params)
+/obj/machinery/door_control/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/detective_scanner))
 		return
 	return ..()
 
 /obj/machinery/door_control/emag_act(user as mob)
 	if(!emagged)
-		emagged = 1
+		emagged = TRUE
 		req_access = list()
 		playsound(src, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
@@ -59,7 +56,7 @@
     if(!istype(id, /list))
         id = list(id)
 
-/obj/machinery/door_control/proc/do_main_action(mob/user as mob)
+/obj/machinery/door_control/proc/do_main_action(mob/user)
 	if(normaldoorcontrol)
 		for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
 			if(safety_z_check && D.z != z || !(D.id_tag in id))
@@ -71,24 +68,24 @@
 				else
 					spawn(0)
 						D.close()
-			if(desiredstate == 1)
+			if(desiredstate)
 				if(specialfunctions & IDSCAN)
-					D.aiDisabledIdScanner = 1
+					D.aiDisabledIdScanner = TRUE
 				if(specialfunctions & BOLTS)
 					D.lock()
 				if(specialfunctions & SHOCK)
 					D.electrify(-1)
 				if(specialfunctions & SAFE)
-					D.safe = 0
+					D.safe = FALSE
 			else
 				if(specialfunctions & IDSCAN)
-					D.aiDisabledIdScanner = 0
+					D.aiDisabledIdScanner = FALSE
 				if(specialfunctions & BOLTS)
 					D.unlock()
 				if(specialfunctions & SHOCK)
 					D.electrify(0)
 				if(specialfunctions & SAFE)
-					D.safe = 1
+					D.safe = TRUE
 
 	else
 		for(var/obj/machinery/door/poddoor/M in GLOB.airlocks)
@@ -103,12 +100,12 @@
 
 	desiredstate = !desiredstate
 
-/obj/machinery/door_control/attack_hand(mob/user as mob)
+/obj/machinery/door_control/attack_hand(mob/user)
 	add_fingerprint(user)
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	if(!allowed(user) && (wires & 1) && !user.can_advanced_admin_interact())
+	if(!allowed(user) && (!wires) && !user.can_advanced_admin_interact())
 		to_chat(user, span_warning("Access Denied."))
 		flick("[initial(icon_state)]-denied",src)
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
@@ -130,3 +127,11 @@
 		icon_state = "[initial(icon_state)]-p"
 	else
 		icon_state = initial(icon_state)
+
+/obj/machinery/door_control/secure
+	icon_state = "altdoorctrl"
+	wireless = TRUE
+
+/obj/machinery/door_control/secure/emag_act(user)
+	to_chat(user, span_notice("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
+	return
