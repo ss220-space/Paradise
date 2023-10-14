@@ -251,7 +251,7 @@
 
 	var/device_energy = power * REACTION_POWER_MODIFIER
 
-	var/debug_old_heat_capacity = removed.heat_capacity()
+	var/old_heat_capacity = removed.heat_capacity()
 
 	removed.toxins += max(device_energy / PLASMA_RELEASE_MODIFIER, 0)
 
@@ -261,9 +261,8 @@
 
 	var/thermal_power = THERMAL_RELEASE_MODIFIER * device_energy
 	if(debug)
-		var/heat_capacity_new = removed.heat_capacity()
 		visible_message("[src]: Releasing [round(thermal_power)] W.")
-		visible_message("[src]: Releasing additional [round((heat_capacity_new - debug_old_heat_capacity)*removed.temperature)] W with exhaust gasses.")
+		visible_message("[src]: Releasing additional [round((heat_capacity - old_heat_capacity)*removed.temperature)] W with exhaust gasses.")
 
 	//deltaT = deltaQ / heat_capacity (deltaQ equals thermal_power)
 	//We are assuming here, that volume does not change here
