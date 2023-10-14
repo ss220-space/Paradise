@@ -128,6 +128,7 @@
 	damage = 10 //make it hurt, as it no more freezing
 	damage_type = BURN
 	nodamage = FALSE
+	speed = 0.8
 
 /obj/item/projectile/watcher/on_hit(atom/target, blocked = FALSE)
 	. = ..()
@@ -145,7 +146,8 @@
 	damage = 5
 	damage_type = BURN
 	nodamage = FALSE
-	temperature = 500 //Heats you up!
+	temperature = 700 //Heats you up!
+	speed = 0.6
 
 /obj/item/projectile/temp/basilisk/magmawing/on_hit(atom/target, blocked = FALSE)
 	. = ..()
@@ -162,6 +164,7 @@
 	damage = 5
 	damage_type = BURN
 	nodamage = FALSE
+	speed = 0.6
 
 /obj/item/projectile/temp/basilisk/icewing/on_hit(atom/target, blocked = FALSE)
 	. = ..()
