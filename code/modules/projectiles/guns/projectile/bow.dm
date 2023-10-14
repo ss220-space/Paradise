@@ -6,6 +6,7 @@
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
 	mag_type = /obj/item/ammo_box/magazine/internal/bow
 	flags = HANDSLOW
+	slot_flags = SLOT_BACK
 	weapon_weight = WEAPON_HEAVY
 	trigger_guard = TRIGGER_GUARD_NONE
 	var/draw_sound = 'sound/weapons/draw_bow.ogg'
@@ -121,7 +122,8 @@
 	desc = "A quiver for holding arrows."
 	icon_state = "quiver"
 	item_state = "quiver"
-	storage_slots = 20
+	storage_slots = 21
+	max_combined_w_class = INFINITY
 	display_contents_with_number = TRUE
 	can_hold = list(
 		/obj/item/ammo_casing/caseless/arrow
@@ -143,7 +145,8 @@
 	desc = "A fireproof quiver made from the chitin of a marrow weaver. Used to hold arrows."
 	icon_state = "quiver_weaver"
 	item_state = "quiver_weaver"
-	storage_slots = 20
+	storage_slots = 21 //every craft makes 3 arrows
+	max_combined_w_class = INFINITY
 	display_contents_with_number = TRUE
 	can_hold = list(
 		/obj/item/ammo_casing/caseless/arrow
