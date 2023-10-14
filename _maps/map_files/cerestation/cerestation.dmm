@@ -43754,6 +43754,11 @@
 	pixel_x = 26;
 	pixel_y = -4
 	},
+/obj/machinery/camera{
+	c_tag = "Medbay Surgery Theatre";
+	dir = 9;
+	network = list("SS13","CMO")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteblue";
