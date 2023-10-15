@@ -100,7 +100,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	if(!allowed(user) && (wireless) && !user.can_advanced_admin_interact())
+	if(!allowed(user) && !user.can_advanced_admin_interact())
 		to_chat(user, span_warning("Access Denied."))
 		flick("[initial(icon_state)]-denied",src)
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
