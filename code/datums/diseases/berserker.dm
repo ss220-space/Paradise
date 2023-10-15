@@ -11,7 +11,9 @@
 	can_immunity = FALSE
 
 /datum/disease/berserker/stage_act()
-	..()
+	if(!..())
+		return FALSE
+
 	if(affected_mob.reagents.has_reagent("thc"))
 		to_chat(affected_mob, "<span class='notice'>You mellow out.</span>")
 		cure()

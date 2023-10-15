@@ -17,7 +17,9 @@
 	var/is_new_mind = FALSE
 
 /datum/disease/virus/transformation/stage_act()
-	..()
+	if(!..())
+		return FALSE
+
 	switch(stage)
 		if(1)
 			if(prob(stage_prob) && stage1)

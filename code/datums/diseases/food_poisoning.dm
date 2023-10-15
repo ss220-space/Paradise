@@ -13,7 +13,9 @@
 	possible_mutations = list(/datum/disease/virus/tuberculosis)
 
 /datum/disease/food_poisoning/stage_act()
-	..()
+	if(!..())
+		return FALSE
+
 	if(affected_mob.IsSleeping() && prob(33))
 		to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
 		cure()

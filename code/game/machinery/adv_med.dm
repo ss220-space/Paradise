@@ -139,6 +139,9 @@
 	ui_interact(user)
 
 /obj/machinery/bodyscanner/attack_hand(user)
+	if(..())
+		return TRUE
+
 	if(stat & (NOPOWER|BROKEN))
 		return
 

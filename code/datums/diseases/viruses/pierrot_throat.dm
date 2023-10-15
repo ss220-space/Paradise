@@ -11,7 +11,9 @@
 	possible_mutations = list(/datum/disease/virus/pierrot_throat/advanced, /datum/disease/virus/wizarditis)
 
 /datum/disease/virus/pierrot_throat/stage_act()
-	..()
+	if(!..())
+		return FALSE
+
 	switch(stage)
 		if(1)
 			if(prob(10))
@@ -35,7 +37,9 @@
 	possible_mutations = null
 
 /datum/disease/virus/pierrot_throat/advanced/stage_act()
-	..()
+	if(!..())
+		return FALSE
+
 	switch(stage)
 		if(1)
 			if(prob(5))

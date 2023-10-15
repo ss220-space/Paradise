@@ -29,6 +29,10 @@
 /obj/machinery/computer/station_alert/attack_hand(mob/user)
 	if(stat & (BROKEN|NOPOWER))
 		return
+
+	if(..())
+		return TRUE
+
 	add_fingerprint(user)
 	ui_interact(user)
 

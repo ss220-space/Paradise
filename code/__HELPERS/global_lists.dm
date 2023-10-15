@@ -158,8 +158,8 @@
 
 	// Init disease archive
 	GLOB.archive_diseases += list(
-		"sneeze" = new /datum/disease/virus/advance/preset/cold(),
-		"cough" = new /datum/disease/virus/advance/preset/flu(),
+		"sneeze" = new /datum/disease/virus/advance/preset/sneezing(),
+		"cough" = new /datum/disease/virus/advance/preset/cough(),
 		"voice_change" = new /datum/disease/virus/advance/preset/voice_change(),
 		"heal" = new /datum/disease/virus/advance/preset/heal(),
 		"hallucigen" = new /datum/disease/virus/advance/preset/hullucigen(),

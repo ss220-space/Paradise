@@ -281,11 +281,29 @@
 	icon_state = "wide_bottle"
 	list_reagents = list("potass_iodide" = 30)
 
-/obj/item/reagent_containers/glass/bottle/flu_virion
+/obj/item/reagent_containers/glass/bottle/cold
+	name = "Rhinovirus culture bottle"
+	desc = "A small bottle. Contains XY-rhinovirus culture in synthblood medium."
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/virus/cold
+
+/obj/item/reagent_containers/glass/bottle/flu
 	name = "Flu virion culture bottle"
 	desc = "A small bottle. Contains H13N1 flu virion culture in synthblood medium."
 	icon_state = "round_bottle"
-	spawned_disease = /datum/disease/virus/advance/preset/flu
+	spawned_disease = /datum/disease/virus/flu
+
+/obj/item/reagent_containers/glass/bottle/sneezing
+	name = "Sneezing symptom bottle"
+	desc = "A small bottle. Contains a simple advanced virus in synthblood medium that makes infected sneeze."
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/virus/advance/preset/sneezing
+
+/obj/item/reagent_containers/glass/bottle/cough
+	name = "Cough symptom bottle"
+	desc = "A small bottle. Contains a simple advanced virus in synthblood medium that makes infected cough."
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/virus/advance/preset/cough
 
 /obj/item/reagent_containers/glass/bottle/epiglottis_virion
 	name = "Epiglottis virion culture bottle"
@@ -310,12 +328,6 @@
 	desc = "A small bottle. Contains H0NI<42 virion culture in synthblood medium."
 	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/pierrot_throat
-
-/obj/item/reagent_containers/glass/bottle/cold
-	name = "Rhinovirus culture bottle"
-	desc = "A small bottle. Contains XY-rhinovirus culture in synthblood medium."
-	icon_state = "round_bottle"
-	spawned_disease = /datum/disease/virus/advance/preset/cold
 
 /obj/item/reagent_containers/glass/bottle/mind_restoration
 	name = "Reality Purifier culture bottle"

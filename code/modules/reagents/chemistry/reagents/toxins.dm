@@ -25,6 +25,20 @@
 	update_flags |= M.adjustToxLoss(1.5, FALSE)
 	return ..() | update_flags
 
+/datum/reagent/bee_venom
+	name = "Bee venom"
+	id = "beetoxin"
+	description = "A toxic venom injected by space bees."
+	reagent_state = LIQUID
+	color = "#ff932f"
+	taste_description = "pain"
+
+//TODO: overdose
+/datum/reagent/bee_venom/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(1.5, FALSE)
+	return ..() | update_flags
+
 /datum/reagent/minttoxin
 	name = "Mint Toxin"
 	id = "minttoxin"

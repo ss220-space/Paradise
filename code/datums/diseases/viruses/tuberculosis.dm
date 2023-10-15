@@ -11,7 +11,9 @@
 	ignore_immunity = TRUE
 
 /datum/disease/virus/tuberculosis/stage_act()
-	..()
+	if(!..())
+		return FALSE
+
 	var/mob/living/carbon/human/H = affected_mob
 	if(!istype(H))
 		return

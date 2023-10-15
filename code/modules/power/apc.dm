@@ -816,6 +816,10 @@
 /obj/machinery/power/apc/attack_hand(mob/user)
 	if(!user)
 		return
+
+	if(..())
+		return TRUE
+
 	add_fingerprint(user)
 
 	if(usr == user && opened && !issilicon(user))

@@ -58,6 +58,8 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	var/ignore_immunity = FALSE
 	/// Immunity to Anti-Bodies Metabolism symptom
 	var/virus_heal_resistant = FALSE
+	/// Message when cured
+	var/cured_message
 
 	//Mutations
 
@@ -108,7 +110,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
  */
 /datum/disease/proc/stage_act()
 	if(affected_mob?.stat == DEAD && !can_progress_in_dead)
-		return TRUE
+		return FALSE
 
 	var/cure = has_cure()
 	stage = min(stage, max_stages)
@@ -158,6 +160,8 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 			affected_mob.resistances += id
 		affected_mob.diseases -= src
 		affected_mob.med_hud_set_status()
+		if(cured_message)
+			to_chat(affected_mob, span_notice(cured_message))
 	qdel(src)
 
 

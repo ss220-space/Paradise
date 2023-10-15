@@ -12,41 +12,46 @@
 	possible_mutations = list(/datum/disease/virus/kingstons_advanced)
 
 /datum/disease/virus/kingstons/stage_act()
-	..()
+	if(!..())
+		return FALSE
+
 	switch(stage)
 		if(1)
 			if(prob(10))
 				if(istajaran(affected_mob))
-					to_chat(affected_mob, "<span class='notice'>You feel good.</span>")
+					to_chat(affected_mob, span_notice("You feel good."))
 				else
-					to_chat(affected_mob, "<span class='notice'>You feel like playing with string.</span>")
+					to_chat(affected_mob, span_notice("You feel like playing with string."))
 		if(2)
 			if(prob(10))
 				if(istajaran(affected_mob))
-					to_chat(affected_mob, "<span class='danger'>Something in your throat itches.</span>")
+					to_chat(affected_mob, span_danger("Something in your throat itches."))
 				else
-					to_chat(affected_mob, "<span class='danger'>You NEED to find a mouse.</span>")
+					to_chat(affected_mob, span_danger("You NEED to find a mouse."))
 		if(3)
 			if(prob(10))
 				if(istajaran(affected_mob))
-					to_chat(affected_mob, "<span class='danger'>You feel something in your throat!</span>")
+					to_chat(affected_mob, span_danger("You feel something in your throat!"))
 					affected_mob.emote("cough")
 				else
-					affected_mob.say(pick(list("Mew", "Meow!", "Nya!~")))
+					if(prob(50))
+						affected_mob.say(pick(list("Mew", "Meow!", "Nya!~")))
+					else
+						affected_mob.emote("purrs")
 		if(4)
 			if(prob(5))
 				if(istajaran(affected_mob))
-					affected_mob.visible_message("<span class='danger'>[affected_mob] coughs up a hairball!</span>", \
-													"<span class='userdanger'>You cough up a hairball!</span>")
+					affected_mob.visible_message(span_danger("[affected_mob] coughs up a hairball!"), \
+													span_userdanger("You cough up a hairball!"))
 					affected_mob.Stun(10 SECONDS)
 				else
-					affected_mob.visible_message("<span class='danger'>[affected_mob]'s form contorts into something more feline!</span>", \
-													"<span class='userdanger'>YOU TURN INTO A TAJARAN!</span>")
+					affected_mob.visible_message(span_danger("[affected_mob]'s form contorts into something more feline!"), \
+													span_userdanger("YOU TURN INTO A TAJARAN!"))
 					var/mob/living/carbon/human/catface = affected_mob
-					catface.set_species(/datum/species/tajaran, retain_damage = TRUE)
+					catface?.set_species(/datum/species/tajaran, retain_damage = TRUE)
 
 
-/datum/disease/virus/kingstons_advanced //this used to be directly a subtype of kingstons, which sounds nice, but it ment that it would *turn you into a tarjaran always and have normal kingstons stage act* Don't make virusus subtypes unless the base virus does nothing.
+/datum/disease/virus/kingstons_advanced
 	name = "Advanced Kingstons Syndrome"
 	agent = "AMB45DR Bacteria"
 	desc = "If left untreated the subject will mutate to a different species."
@@ -56,41 +61,51 @@
 	cure_prob = 50
 	permeability_mod = 0.75
 	severity = BIOHAZARD
-	var/list/virspecies = list(/datum/species/human, /datum/species/tajaran, /datum/species/unathi,/datum/species/skrell, /datum/species/vulpkanin, /datum/species/diona) //no karma races sorrys.
+	var/list/virspecies = list(/datum/species/human, /datum/species/tajaran, /datum/species/unathi,/datum/species/skrell, /datum/species/vulpkanin, /datum/species/diona)
 	var/list/virsuffix = list("pox", "rot", "flu", "cough", "-gitis", "cold", "rash", "itch", "decay")
 	var/datum/species/chosentype
 	var/chosensuff
 	possible_mutations = null
 
 /datum/disease/virus/kingstons_advanced/New()
+	..()
 	chosentype = pick(virspecies)
 	chosensuff = pick(virsuffix)
 
 	name = "[initial(chosentype.name)] [chosensuff]"
 
+/datum/disease/virus/kingstons_advanced/Copy()
+	var/datum/disease/virus/kingstons_advanced/KA = ..()
+	KA.chosentype = chosentype
+	KA.chosensuff = chosensuff
+	KA.name = name
+	return KA
+
 /datum/disease/virus/kingstons_advanced/stage_act()
-	..()
+	if(!..())
+		return FALSE
+
 	if(ishuman(affected_mob))
 		var/mob/living/carbon/human/twisted = affected_mob
 		switch(stage)
 			if(1)
 				if(prob(10))
-					to_chat(twisted, "<span class='notice'>You feel awkward.</span>")
+					to_chat(twisted, span_notice("You feel awkward."))
 			if(2)
 				if(prob(10))
-					to_chat(twisted, "<span class='danger'>You itch.</span>")
+					to_chat(twisted, span_danger("You itch."))
 			if(3)
 				if(prob(10))
-					to_chat(twisted, "<span class='danger'>Your skin starts to flake!</span>")
+					to_chat(twisted, span_danger("Your skin starts to flake!"))
 
 			if(4)
 				if(prob(5))
 					if(!istype(twisted.dna.species, chosentype))
-						twisted.visible_message("<span class='danger'>[twisted]'s skin splits and form contorts!</span>", \
-														"<span class='userdanger'>Your body mutates into a [initial(chosentype.name)]!</span>")
+						twisted.visible_message(span_danger("[twisted]'s skin splits and form contorts!"), \
+														span_userdanger("Your body mutates into a [initial(chosentype.name)]!"))
 						twisted.set_species(chosentype, retain_damage = TRUE)
 					else
-						twisted.visible_message("<span class='danger'>[twisted] scratches at thier skin!</span>", \
-														"<span class='userdanger'>You scratch your skin to try not to itch!</span>")
+						twisted.visible_message(span_danger("[twisted] scratches at thier skin!"), \
+														span_userdanger("You scratch your skin to try not to itch!</span>"))
 						twisted.adjustBruteLoss(-5)
 						twisted.adjustStaminaLoss(5)

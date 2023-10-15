@@ -2,6 +2,9 @@
 	visibility_flags = HIDDEN_PANDEMIC
 
 /datum/disease/critical/stage_act() //overriden to ensure unique behavior
+	if(affected_mob?.stat == DEAD)
+		return FALSE
+
 	stage = min(stage, max_stages)
 
 	if(prob(stage_prob))

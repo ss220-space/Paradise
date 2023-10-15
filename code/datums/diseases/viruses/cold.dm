@@ -1,65 +1,50 @@
 /datum/disease/virus/cold
 	name = "The Cold"
+	agent = "XY-rhinovirus"
+	desc = "If left untreated the subject will contract the flu."
 	max_stages = 3
 	spread_flags = AIRBORNE
+	visibility_flags = HIDDEN_HUD
 	cure_text = "Rest & Spaceacillin"
 	cures = list("spaceacillin")
-	agent = "XY-rhinovirus"
+	cure_prob = 30
+	cured_message = "You feel better"
 	permeability_mod = 0.5
-	desc = "If left untreated the subject will contract the flu."
 	severity = MINOR
 
 /datum/disease/virus/cold/stage_act()
-	..()
+	if(!..())
+		return FALSE
+
 	switch(stage)
-		if(2)
-/*
-			if(affected_mob.sleeping && prob(40))  //removed until sleeping is fixed
-				to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
-				cure()
-				return
-*/
-			if(affected_mob.lying && prob(40))  //changed FROM prob(10) until sleeping is fixed
-				to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
-				cure()
-				return
-			if(prob(1) && prob(5))
-				to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
-				cure()
-				return
-			if(prob(1))
+		if(2, 3)
+			if(prob(stage))
 				affected_mob.emote("sneeze")
-			if(prob(1))
+			if(prob(stage))
 				affected_mob.emote("cough")
-			if(prob(1))
-				to_chat(affected_mob, "<span class='danger'>Your throat feels sore.</span>")
-			if(prob(1))
-				to_chat(affected_mob, "<span class='danger'>Mucous runs down the back of your throat.</span>")
+			if(prob(stage))
+				to_chat(affected_mob, span_danger("Your throat feels sore."))
+			if(prob(stage))
+				to_chat(affected_mob, span_danger("Mucous runs down the back of your throat."))
 		if(3)
-/*
-			if(affected_mob.sleeping && prob(25))  //removed until sleeping is fixed
-				to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
-				cure()
-				return
-*/
-			if(affected_mob.lying && prob(25))  //changed FROM prob(5) until sleeping is fixed
-				to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
-				cure()
-				return
-			if(prob(1) && prob(1))
-				to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
-				cure()
-				return
-			if(prob(1))
-				affected_mob.emote("sneeze")
-			if(prob(1))
-				affected_mob.emote("cough")
-			if(prob(1))
-				to_chat(affected_mob, "<span class='danger'>Your throat feels sore.</span>")
-			if(prob(1))
-				to_chat(affected_mob, "<span class='danger'>Mucous runs down the back of your throat.</span>")
 			if(prob(1) && prob(50))
 				if(!affected_mob.resistances.Find(/datum/disease/virus/flu))
 					var/datum/disease/virus/flu/Flu = new
 					Flu.ForceContract(affected_mob)
 					cure()
+
+/datum/disease/virus/cold/has_cure()
+	//if has spaceacillin
+	if(..())
+		if(affected_mob.IsSleeping())
+			return TRUE
+		if(affected_mob.lying)
+			return prob(33)
+		return prob(1)
+	//if not
+	else
+		if(affected_mob.IsSleeping())
+			return prob(20)
+		if(affected_mob.lying)
+			return prob(7)
+		return FALSE

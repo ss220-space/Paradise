@@ -9,7 +9,9 @@
 	severity = MEDIUM
 
 /datum/disease/virus/magnitis/stage_act()
-	..()
+	if(!..())
+		return FALSE
+
 	switch(stage)
 		if(2)
 			if(prob(2))

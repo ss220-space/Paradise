@@ -10,8 +10,8 @@
 	can_immunity = FALSE
 	cure_text = "Anti-Psychotics"
 	cures = list("haloperidol")
-	cure_prob = 5
-	visibility_flags = HIDDEN_HUD|HIDDEN_SCANNER
+	cure_prob = 8
+	visibility_flags = HIDDEN_HUD
 	severity = DANGEROUS
 	var/is_master = FALSE
 	var/mob/living/carbon/human/master
@@ -49,7 +49,8 @@
 	return copy
 
 /datum/disease/virus/loyalty/stage_act()
-	..()
+	if(!..())
+		return FALSE
 
 	if(affected_mob && !is_master && master && stage >= 4)
 		var/message = ""
@@ -131,11 +132,12 @@
 							span_userdanger("Странный голос [pick("ужасающе вопит", "жалобно стонет", "кричит")] [get_direction("где-то на ", "e")]!!")), rand(2, 20) SECONDS)
 					health_change = round(timer/(4 * STAGE_TIME), 0.25)  //1 - ∞ toxins
 
-		if(timer <= STAGE_TIME)
-			affected_mob.adjustOxyLoss(health_change)
-			affected_mob.adjustBruteLoss(health_change)
-			affected_mob.adjustFireLoss(health_change)
-		affected_mob.adjustToxLoss(health_change)
+		if(affected_mob.z == master.z)
+			if(timer <= STAGE_TIME)
+				affected_mob.adjustOxyLoss(health_change)
+				affected_mob.adjustBruteLoss(health_change)
+				affected_mob.adjustFireLoss(health_change)
+			affected_mob.adjustToxLoss(health_change)
 		if(message != "")
 			affected_mob.say(message)
 			say_timer = 0

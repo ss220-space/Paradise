@@ -15,7 +15,8 @@
 	var/ruptured = FALSE
 
 /datum/disease/appendicitis/stage_act()
-	..()
+	if(!..())
+		return FALSE
 
 	var/mob/living/carbon/human/H = affected_mob
 	if(!istype(H))

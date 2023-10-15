@@ -196,6 +196,9 @@
 	ui_interact(user)
 
 /obj/machinery/atmospherics/unary/cryo_cell/attack_hand(mob/user)
+	if(..())
+		return TRUE
+
 	if(user == occupant)
 		return
 

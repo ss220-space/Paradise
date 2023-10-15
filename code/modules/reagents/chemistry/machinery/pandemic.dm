@@ -105,19 +105,17 @@
 		return
 	else if(href_list["create_virus_culture"])
 		if(!wait)
-			var/type = GetVirusTypeByIndex(text2num(href_list["create_virus_culture"]))//the path is received as string - converting
-			var/datum/disease/D = null
-			if(!ispath(type))
-				D = GetVirusByIndex(text2num(href_list["create_virus_culture"]))
+			var/datum/disease/D = GetVirusByIndex(text2num(href_list["create_virus_culture"]))
+			var/datum/disease/copy = null
+			if(istype(D, /datum/disease/virus/advance))
 				var/datum/disease/virus/advance/A = GLOB.archive_diseases[D.GetDiseaseID()]
 				if(A)
-					D = A.Copy()
-			else if(type)
-				if(type in GLOB.diseases) // Make sure this is a disease
-					D = new type()
-			if(!D)
+					copy = A.Copy()
+			if(!copy)
+				copy = D.Copy()
+			if(!copy)
 				return
-			var/name = stripped_input(usr,"Name:","Name the culture",D.name,MAX_NAME_LEN)
+			var/name = stripped_input(usr,"Name:","Name the culture",copy.name,MAX_NAME_LEN)
 			if(name == null || wait)
 				return
 			var/obj/item/reagent_containers/glass/bottle/B = new/obj/item/reagent_containers/glass/bottle(loc)
@@ -125,9 +123,9 @@
 			B.pixel_x = rand(-3, 3)
 			B.pixel_y = rand(-3, 3)
 			replicator_cooldown(50)
-			var/list/data = list("viruses"=list(D))
+			var/list/data = list("viruses"=list(copy))
 			B.name = "[name] culture bottle"
-			B.desc = "A small bottle. Contains [D.agent] culture in synthblood medium."
+			B.desc = "A small bottle. Contains [copy.agent] culture in synthblood medium."
 			B.reagents.add_reagent("blood",20,data)
 			updateUsrDialog()
 		else

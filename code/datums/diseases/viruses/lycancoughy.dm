@@ -10,7 +10,9 @@
 	var/barklimit = 0
 
 /datum/disease/virus/lycan/stage_act()
-	..()
+	if(!..())
+		return FALSE
+
 	switch(stage)
 		if(2) //also changes say, see say.dm
 			if(prob(5))

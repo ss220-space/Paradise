@@ -9,7 +9,9 @@
 	can_immunity = FALSE
 
 /datum/disease/vampire/stage_act()
-	..()
+	if(!..())
+		return FALSE
+
 	var/toxdamage = stage * 2
 	var/stuntime = stage * 2
 

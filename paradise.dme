@@ -402,7 +402,6 @@
 #include "code\datums\diseases\berserker.dm"
 #include "code\datums\diseases\viruses\brainrot.dm"
 #include "code\datums\diseases\viruses\cold.dm"
-#include "code\datums\diseases\viruses\cold9.dm"
 #include "code\datums\diseases\critical.dm"
 #include "code\datums\diseases\viruses\flu.dm"
 #include "code\datums\diseases\viruses\fluspanish.dm"

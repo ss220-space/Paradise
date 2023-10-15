@@ -454,6 +454,9 @@
 	if(stat & (BROKEN|NOPOWER))
 		return
 
+	if(..())
+		return TRUE
+
 	if(src.seconds_electrified != 0)
 		if(src.shock(user, 100))
 			add_fingerprint(user)

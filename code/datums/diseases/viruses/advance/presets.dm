@@ -1,11 +1,11 @@
 // Cold
-/datum/disease/virus/advance/preset/cold
-	name = "Cold"
+/datum/disease/virus/advance/preset/sneezing
+	name = "Sneezing"
 	symptoms = list(new/datum/symptom/sneeze)
 
 // Flu
-/datum/disease/virus/advance/preset/flu
-	name = "Flu"
+/datum/disease/virus/advance/preset/cough
+	name = "Cough"
 	symptoms = list(new/datum/symptom/cough)
 
 // Voice Changing
@@ -17,7 +17,7 @@
 /datum/disease/virus/advance/preset/heal
 	name = "Liver Enhancer"
 	symptoms = list(new/datum/symptom/heal)
-	possible_mutations = list(/datum/disease/virus/advance/preset/advanced_regeneration, /datum/disease/virus/advance/preset/cold/)
+	possible_mutations = list(/datum/disease/virus/advance/preset/advanced_regeneration, /datum/disease/virus/advance/preset/sneezing)
 
 // Hullucigen
 /datum/disease/virus/advance/preset/hullucigen
