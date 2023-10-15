@@ -8,7 +8,7 @@
 	var/safety_z_check = TRUE
 	var/normaldoorcontrol = FALSE
 	var/desiredstate = FALSE // FALSE is closed, TRUE is open.
-	var/specialfunctions = TRUE
+	var/specialfunctions = 1
 	/*
 	Bitflag, 	1= open
 				2= idscan,
@@ -20,18 +20,13 @@
 
 	var/exposedwires = FALSE
 	var/wireless = FALSE
-	/*
-	Bitflag,	1=checkID
-				2=Network Access
-	*/
-
 	anchored = 1.0
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
 
 /obj/machinery/door_control/attack_ai(mob/user)
-	if(wires)
+	if(!wireless)
 		return attack_hand(user)
 	else
 		to_chat(user, "Error, no route to host.")
@@ -105,7 +100,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	if(!allowed(user) && (!wires) && !user.can_advanced_admin_interact())
+	if(!allowed(user) && (wireless) && !user.can_advanced_admin_interact())
 		to_chat(user, span_warning("Access Denied."))
 		flick("[initial(icon_state)]-denied",src)
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
