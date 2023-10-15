@@ -269,7 +269,7 @@
 	var/datum/effect_system/fluid_spread/smoke/chem/transparent/S = new
 	playsound(location, 'sound/effects/smoke.ogg', 50, 1, -3)
 	if(S)
-		S.set_up(3, location = location, carry = holder)
+		S.set_up(5, location = location, carry = holder)
 		S.start()
 
 /datum/chemical_reaction/smoke/smoke_powder
