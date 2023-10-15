@@ -294,7 +294,7 @@
 		l.apply_effect(rads, IRRADIATE)
 
 	power -= (power/DECAY_FACTOR)**3
-	power = round(power, 0.01) //Maybe you will turn off one day...
+
 	handle_admin_warnings()
 
 	return 1
