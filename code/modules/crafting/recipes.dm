@@ -1366,7 +1366,7 @@
 	name = "Makeshift Speedloader"
 	result = /obj/item/ammo_box/improvisedrevolver
 	time = 5 SECONDS
-	reqs = list(/obj/item/stack/sheet/cardboard = 4,
+	reqs = list(/obj/item/c_tube = 4,
 				/obj/item/stack/packageWrap = 10,
 				/obj/item/stack/tape_roll = 4)
 	category = CAT_WEAPONRY
