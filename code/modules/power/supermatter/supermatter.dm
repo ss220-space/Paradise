@@ -247,15 +247,15 @@
 		icon_state = base_icon_state
 
 	temp_factor = ((equilibrium_power / DECAY_FACTOR) ** 3) / 800
-	power = max((removed.temperature * temp_factor) * oxygen + power, 0)
+	power = round(max((removed.temperature * temp_factor) * oxygen + power, 0), 0.01)
 
-	var/device_energy = power * REACTION_POWER_MODIFIER
+	var/device_energy = round(power * REACTION_POWER_MODIFIER, 0.01)
 
 	var/old_heat_capacity = removed.heat_capacity()
 
-	removed.toxins += max(device_energy / PLASMA_RELEASE_MODIFIER, 0)
-
-	removed.oxygen += max((device_energy + removed.temperature - T0C) / OXYGEN_RELEASE_MODIFIER, 0)
+	if(device_energy)
+		removed.toxins += max(device_energy / PLASMA_RELEASE_MODIFIER, 0)
+		removed.oxygen += max((device_energy + removed.temperature - T0C) / OXYGEN_RELEASE_MODIFIER, 0)
 
 	var/heat_capacity = removed.heat_capacity()
 
@@ -294,6 +294,7 @@
 		l.apply_effect(rads, IRRADIATE)
 
 	power -= (power/DECAY_FACTOR)**3
+	power = round(power, 0.01) //Maybe you will turn off one day...
 	handle_admin_warnings()
 
 	return 1
