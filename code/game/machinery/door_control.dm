@@ -128,5 +128,5 @@
 	wireless = TRUE
 
 /obj/machinery/door_control/secure/emag_act(user)
-	to_chat(user, span_notice("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
+	to_chat(user, span_notice("The electronic systems in this device are far too advanced for your primitive hacking peripherals."))
 	return
