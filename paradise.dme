@@ -1912,6 +1912,7 @@
 #include "code\modules\hydroponics\grown\cereals.dm"
 #include "code\modules\hydroponics\grown\chili.dm"
 #include "code\modules\hydroponics\grown\citrus.dm"
+#include "code\modules\hydroponics\grown\coca.dm"
 #include "code\modules\hydroponics\grown\cocoa_vanilla.dm"
 #include "code\modules\hydroponics\grown\corn.dm"
 #include "code\modules\hydroponics\grown\cotton.dm"

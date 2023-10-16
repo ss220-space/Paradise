@@ -1281,3 +1281,20 @@
 			if(!H.undergoing_cardiac_arrest())
 				H.set_heartattack(TRUE) // rip in pepperoni
 	return ..() | update_flags
+
+/datum/reagent/coca_extract
+	name = "Coca extract"
+	id = "cocaextract"
+	description = "Unprocessed extract of coca. Its bad idea to taste it like that."
+	reagent_state = LIQUID
+	color = "#f4f4f4"
+	metabolization_rate = 1 * REAGENTS_METABOLISM
+	taste_description = "herbal bitterness"
+
+/datum/reagent/coca_extract/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(2, FALSE)
+	if(current_cycle >= 5)
+		if(prob(25))
+			M.fakevomit(1)
+	return ..() | update_flags

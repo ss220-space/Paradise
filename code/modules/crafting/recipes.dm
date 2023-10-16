@@ -1371,3 +1371,11 @@
 				/obj/item/stack/tape_roll = 4)
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
+
+/datum/crafting_recipe/crack_pipe
+	name = "Crack pipe"
+	result = /obj/item/clothing/mask/cigarette/pipe/crack_pipe
+	time = 5 SECONDS
+	reqs = list(/obj/item/stack/sheet/glass = 3)
+	tools = list(TOOL_WELDER, TOOL_SCREWDRIVER)
+	category = CAT_MISC

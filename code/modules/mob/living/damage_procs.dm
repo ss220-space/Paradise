@@ -306,6 +306,18 @@
 	return STATUS_UPDATE_NONE
 
 
+/mob/living/proc/getHeartLoss()
+	return 0
+
+
+/mob/living/proc/adjustHeartLoss(amount, updating_health = TRUE)
+	return STATUS_UPDATE_NONE
+
+
+/mob/living/proc/setHeartLoss(amount, updating_health = TRUE)
+	return STATUS_UPDATE_NONE
+
+
 /mob/living/proc/getStaminaLoss()
 	return staminaloss
 
