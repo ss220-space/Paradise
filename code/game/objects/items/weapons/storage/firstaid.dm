@@ -267,8 +267,10 @@
 
 /obj/item/storage/firstaid/crew
 	name = "crewmember first aid kit"
-	icon_state = "NTfirstaid"
+	icon_state = "crew_medpouch"
+	w_class = WEIGHT_CLASS_SMALL
 	desc = "A standart issued first aid kit for crewmembers. NanoTrasen appreciates you!"
+	can_hold = list(/obj/item/reagent_containers/hypospray/autoinjector, /obj/item/reagent_containers/food/pill, /obj/item/stack/medical/bruise_pack, /obj/item/stack/medical/ointment)
 
 /obj/item/storage/firstaid/crew/populate_contents()
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
