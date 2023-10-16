@@ -213,24 +213,9 @@
 	base_cooldown = 20 SECONDS
 	clothes_req = FALSE
 	human_req = FALSE
-	//holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
-	cooldown_min = 2 SECONDS //25 deciseconds reduction per rank
-	smoke_type = SMOKE_SLEEPING
-	smoke_amt = 10
-
-
-/obj/effect/proc_holder/spell/smoke/disable
-	name = "Paralysing Smoke"
-	desc = "This spell spawns a cloud of paralysing smoke."
-	action_icon_state = "parasmoke"
-	action_background_icon_state = "bg_cult"
-	school = "conjuration"
-	base_cooldown = 20 SECONDS
-	clothes_req = FALSE
-	human_req = FALSE
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	cooldown_min = 2 SECONDS //25 deciseconds reduction per rank
 
 	smoke_type = SMOKE_SLEEPING
-	smoke_amt = 10
+	smoke_amt = 3
 
