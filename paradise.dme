@@ -1654,6 +1654,7 @@
 #include "code\modules\client\preference\loadout\loadout_glasses.dm"
 #include "code\modules\client\preference\loadout\loadout_gloves.dm"
 #include "code\modules\client\preference\loadout\loadout_hat.dm"
+#include "code\modules\client\preference\loadout\loadout_implants.dm"
 #include "code\modules\client\preference\loadout\loadout_neck.dm"
 #include "code\modules\client\preference\loadout\loadout_racial.dm"
 #include "code\modules\client\preference\loadout\loadout_shoes.dm"
