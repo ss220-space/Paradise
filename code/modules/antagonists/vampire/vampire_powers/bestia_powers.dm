@@ -259,7 +259,7 @@
 	action_icon_state = "vampire_claws"
 	create_attack_logs = FALSE
 	base_cooldown = 5 SECONDS
-	required_blood = 20
+	required_blood = 10
 	deduct_blood_on_cast = FALSE
 	var/is_dissecting = FALSE
 
@@ -332,7 +332,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 	var/list/all_organs = list()
 
 	for(var/obj/item/organ/internal/organ in target.internal_organs)
-		if(!is_type_in_list(organ, GLOB.vampire_dissect_organs))
+		if(!is_type_in_list(organ, GLOB.vampire_dissect_organs) || (organ.status & ORGAN_ROBOT))
 			continue
 		if(istype(organ, /obj/item/organ/internal/heart) && \
 			(t_hearts >= vampire.subclass.crit_organ_cap || t_hearts >= MAX_TROPHIES_PER_TYPE_CRITICAL))
@@ -462,6 +462,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 	gain_desc = "You can now use the ability Check Trophies to familiarize yourself with all the passive effects granted."
 	action_icon_state = "blood_rush"
 	human_req = FALSE
+	stat_allowed = UNCONSCIOUS
 	create_attack_logs = FALSE
 	base_cooldown = 1 SECONDS
 
@@ -481,7 +482,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 /obj/effect/proc_holder/spell/vampire/self/dissect_info/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "VampireTrophiesStatus", "Trophies Status", 650, 800, master_ui, state)
+		ui = new(user, src, ui_key, "VampireTrophiesStatus", "Trophies Status", 700, 800, master_ui, state)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -622,7 +623,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "ashen_skull"
 	pass_flags = PASSTABLE | PASSGRILLE | PASSFENCE
-	speed = 0.5
+	speed = 1
 	range = 5
 	damage = 5
 	armour_penetration = 100
@@ -733,10 +734,6 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 	user.visible_message(span_danger("[user] starts moving with unnatural speed!"), \
 						span_notice("You lunge into the air..."))
 
-	var/prev_layer = user.layer
-	var/prev_flying = user.flying
-	var/prev_pixel_x = user.pixel_x
-	var/prev_pixel_y = user.pixel_y
 	var/leap_range = targeting.range
 
 	var/distance = get_dist(user, target)
@@ -744,8 +741,6 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 		leap_range = distance + 1
 
 	user.layer = LOW_LANDMARK_LAYER
-	user.flying = TRUE
-	user.canmove = FALSE
 	user.pass_flags |= (PASSTABLE|PASSGRILLE|PASSFENCE|PASSMOB)
 
 	var/dir_switch = FALSE
@@ -754,6 +749,8 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 		if(QDELETED(user))
 			return
 
+		user.canmove = FALSE
+		user.flying = TRUE
 		var/direction = get_dir(user, target)
 		var/turf/next_step = get_step(user, direction)
 		user.face_atom(target)
@@ -789,11 +786,11 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 	if(QDELETED(user))
 		return
 
-	user.layer = prev_layer
-	user.flying = prev_flying
-	user.pixel_y = prev_pixel_y
-	user.pixel_y = prev_pixel_x
-	user.transform = old_transform
+	user.layer = initial(user.layer)
+	user.flying = initial(user.flying)
+	user.pixel_y = initial(user.pixel_y)
+	user.pixel_y = initial(user.pixel_x)
+	user.transform = initial(user.transform)
 	user.canmove = TRUE
 	user.pass_flags &= ~(PASSTABLE|PASSGRILLE|PASSFENCE|PASSMOB)
 
@@ -1019,6 +1016,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 
 	original_body = user
 	vampire_animal.status_flags |= GODMODE
+	user.notransform = TRUE
 	user.status_flags |= GODMODE
 	vampire_animal.canmove = FALSE
 	user.forceMove(vampire_animal)
@@ -1058,6 +1056,8 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 	original_body.forceMove(get_turf(user))
 	original_body.canmove = FALSE
 	user.mind.transfer_to(original_body)
+	var/datum/antagonist/vampire/vampire = original_body.mind?.has_antag_datum(/datum/antagonist/vampire)
+	vampire?.draw_HUD()
 
 	var/obj/effect/temp_visual/vamp_mist_out/effect = new(get_turf(user))
 	effect.alpha = 0
@@ -1079,6 +1079,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 		stack_trace("Spell or original_body was qdeled during the [src] work.")
 		return
 
+	original_body.notransform = FALSE
 	original_body.status_flags &= ~GODMODE
 	original_body.canmove = TRUE
 	is_transformed = FALSE
@@ -1560,6 +1561,9 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 
 	if(human_vampire.loc != src)
 		return
+
+	if(human_vampire.stat == CONSCIOUS)
+		human_vampire.KnockOut()	// to be sure
 
 	// cleansing reagents
 	for(var/datum/reagent/reagent in human_vampire.reagents.reagent_list)
@@ -2074,7 +2078,10 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 
 	var/t_kidneys = vampire.get_trophies("kidneys")
 	if(t_kidneys)
-		heal_ordered_damage(t_kidneys, list(BRUTE, BURN, TOX, OXY, CLONE))	// 10 life-leech on MAX
+		var/mob/living/who = src
+		if(health >= maxHealth && human_vampire)
+			who = human_vampire
+		who.heal_ordered_damage(t_kidneys, list(BRUTE, BURN, TOX, OXY, CLONE))	// 10 life-leech on MAX
 
 	var/t_livers = vampire.get_trophies("livers")
 	if(t_livers && human_vampire && l_target.mind && l_target.ckey)
@@ -2152,13 +2159,15 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 
 /mob/living/simple_animal/hostile/vampire/hound/AttackingTarget()
 	. = ..()
-	var/mob/living/target = .
-	if(!istype(target) || !vampire)
+
+	if(!. || !isliving(target) || !vampire)
 		return
 
-	if(target.affects_vampire(src) && prob(vampire.get_trophies("eyes") * 3))	// 30% chance MAX
-		target.Stun(1 SECONDS)
-		target.visible_message(span_danger("[src] scares [target]!"))
+	var/mob/living/l_target = target
+
+	if(l_target.affects_vampire(src) && prob(vampire.get_trophies("eyes") * 3))	// 30% chance MAX
+		l_target.Stun(1 SECONDS)
+		l_target.visible_message(span_danger("[src] scares [l_target]!"))
 
 
 /mob/living/simple_animal/hostile/vampire/hound/add_spells()
@@ -2200,7 +2209,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 	melee_damage_lower = 5
 	melee_damage_upper = 10
 	armour_penetration = 50
-	pass_flags = PASSTABLE | PASSFENCE | PASSGRILLE | PASSMOB
+	pass_flags = PASSTABLE | PASSFENCE | PASSMOB
 
 
 /mob/living/simple_animal/hostile/vampire/bats_summoned/Initialize(mapload, datum/antagonist/vampire/vamp, mob/living/carbon/human/h_vampire, obj/effect/proc_holder/spell/vampire/metamorphosis/meta_spell)
@@ -2258,7 +2267,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 /mob/living/simple_animal/hostile/vampire/bats_summoned/Found(atom/A)
 	if(isliving(A))
 		var/mob/living/victim = A
-		if(victim.mind && (!isvampire(victim) && !isvampirethrall(victim)))	// target sentient first
+		if(victim.mind && victim.stat != DEAD && (!isvampire(victim) && !isvampirethrall(victim)))	// target sentient first
 			return TRUE
 	return FALSE
 

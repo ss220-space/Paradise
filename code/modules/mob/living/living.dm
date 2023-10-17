@@ -925,10 +925,23 @@
 		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 25), 25)
 		return TRUE
 
+
 /mob/living/proc/check_eye_prot()
-	return 0
+	var/number = 0
+	var/datum/antagonist/vampire/vampire = mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(vampire?.get_ability(/datum/vampire_passive/eyes_flash_protection))
+		number++
+	if(vampire?.get_ability(/datum/vampire_passive/eyes_welding_protection))
+		number++
+	return number
+
 
 /mob/living/proc/check_ear_prot()
+	var/datum/antagonist/vampire/vampire = mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(vampire?.get_ability(/datum/vampire_passive/ears_bang_protection))
+		return HEARING_PROTECTION_TOTAL
+	return HEARING_PROTECTION_NONE
+
 
 // The src mob is trying to strip an item from someone
 // Override if a certain type of mob should be behave differently when stripping items (can't, for example)
