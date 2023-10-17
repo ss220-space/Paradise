@@ -316,7 +316,7 @@
 			to_chat(src, "<span class='info'>Вы полностью истощены.</span>")
 		else
 			to_chat(src, "<span class='info'>Вы чувствуете усталость.</span>")
-	if((SKELETON in H.mutations) && (!H.w_uniform) && (!H.wear_suit))
+	if((isskeleton(H) || (SKELETON in H.mutations)) && (!H.w_uniform) && (!H.wear_suit))
 		H.play_xylophone()
 
 
