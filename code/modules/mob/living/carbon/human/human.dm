@@ -917,20 +917,13 @@
 		number += MFP.flash_protect
 	for(var/obj/item/organ/internal/cyberimp/eyes/EFP in internal_organs)
 		number += EFP.flash_protect
-
-	var/datum/antagonist/vampire/vampire = mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(vampire?.get_ability(/datum/vampire_passive/eyes_flash_protection))
-		number++
-	if(vampire?.get_ability(/datum/vampire_passive/eyes_welding_protection))
-		number++
-
 	return number
 
 
 /mob/living/carbon/human/check_ear_prot()
-	var/datum/antagonist/vampire/vampire = mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(vampire?.get_ability(/datum/vampire_passive/ears_bang_protection))
-		return HEARING_PROTECTION_TOTAL
+	. = ..()
+	if(.)
+		return
 	if(!can_hear())
 		return HEARING_PROTECTION_TOTAL
 	if(istype(l_ear, /obj/item/clothing/ears/earmuffs))
