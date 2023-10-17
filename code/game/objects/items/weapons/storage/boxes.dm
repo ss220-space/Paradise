@@ -1015,6 +1015,15 @@
 	new /obj/item/clothing/suit/space/hardsuit/wizard/shielded(src)
 	new /obj/item/clothing/shoes/magboots/wizard(src)
 
+/obj/item/storage/box/wizard/recharge
+	name = "Armour Recharge Bundle"
+	desc = "This box contains a bundle of Battlemage Armour Recharges"
+	icon_state = "box_wizard"
+
+/obj/item/storage/box/wizard/recharge/populate_contents()
+	for(var/I in 1 to 3)
+		new /obj/item/wizard_armour_charge(src)
+
 /obj/item/storage/box/candythief
 	name = "набор радужных конфет"
 	desc = "Набор для самых маленьких и не уверенных в себе работников, обожающих простые пути, смешивая всевозможные в один. Поставляется с сосательной конфетой. Удобный набор если нужно где-то засесть и не выходить. Производитель не отвечает за возникающие акне и галлюцинации от вашего времяпровождения."
