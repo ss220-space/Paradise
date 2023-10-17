@@ -1021,9 +1021,8 @@
 	icon_state = "box_wizard"
 
 /obj/item/storage/box/wizard/recharge/populate_contents()
-	new /obj/item/wizard_armour_charge
-	new /obj/item/wizard_armour_charge
-	new /obj/item/wizard_armour_charge
+	for(var/I in 1 to 3)
+		new /obj/item/wizard_armour_charge(src)
 
 /obj/item/storage/box/candythief
 	name = "набор радужных конфет"
