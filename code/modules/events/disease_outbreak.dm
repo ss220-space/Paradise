@@ -12,14 +12,20 @@
 		1; /datum/disease/virus/anxiety,
 		1; /datum/disease/virus/beesease,
 		1; /datum/disease/virus/brainrot,
-		1; /datum/disease/virus/fake_gbs,
+		1; /datum/disease/virus/cold,
+		1; /datum/disease/virus/flu,
 		1; /datum/disease/virus/fluspanish,
+		1; /datum/disease/virus/fake_gbs,
 		1; /datum/disease/virus/loyalty,
 		1; /datum/disease/virus/lycan,
 		1; /datum/disease/virus/magnitis,
 		1; /datum/disease/virus/pierrot_throat,
+		1; /datum/disease/virus/pierrot_throat/advanced,
+		1; /datum/disease/virus/tuberculosis,
+		1; /datum/disease/virus/wizarditis
 	)
 	if(virus_type == /datum/disease/virus/advance)
+		//creates only contagious viruses, that are always visible in Pandemic
 		D = CreateRandomVirus(count_of_symptoms = rand(4, 6), resistance = rand(0,11), stealth = pick(0,0,1,1,2),
 							stage_rate = rand(-11,5), transmittable = rand(5,9), severity = rand(0,5))
 	else
@@ -34,8 +40,6 @@
 /datum/event/disease_outbreak/start()
 	for(var/mob/living/carbon/human/H in shuffle(GLOB.alive_mob_list))
 		if(!H.client)
-			continue
-		if(issmall(H)) //don't infect monkies; that's a waste
 			continue
 		var/turf/T = get_turf(H)
 		if(!T)

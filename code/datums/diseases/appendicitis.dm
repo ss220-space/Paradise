@@ -35,11 +35,7 @@
 		rupture(H, A)
 
 	switch(stage)
-		if(1)
-			if(prob(5))
-				H.emote("cough")
 		if(2)
-
 			if(A.germ_level < INFECTION_LEVEL_ONE)
 				A.germ_level = INFECTION_LEVEL_ONE
 			A.germ_level += rand(1, 4) * H.dna.species.germs_growth_rate
@@ -50,11 +46,7 @@
 			if(prob(5))
 				A.receive_damage(1, silent = prob(65))
 
-			if(prob(5))
-				H.emote("cough")
-
 		if(3)
-
 			if(A.germ_level < INFECTION_LEVEL_ONE)
 				A.germ_level = INFECTION_LEVEL_ONE
 			A.germ_level += rand(2, 6) * H.dna.species.germs_growth_rate
@@ -66,7 +58,7 @@
 				H.vomit()
 
 			if(prob(10))
-				H.emote(pick("cough", "moan"))
+				H.emote("moan")
 
 			if(prob(5))
 				to_chat(H, span_warning("You feel a stabbing pain in your abdomen!"))
@@ -83,11 +75,8 @@
 			if(prob(10))
 				A.receive_damage(2, silent = 0)
 
-			if(prob(5))
-				H.vomit()
-
 			if(prob(15))
-				H.emote(pick("cough", "moan", "cry"))
+				H.emote(pick("moan", "cry"))
 
 			if(prob(7))
 				to_chat(H, span_danger("You feel a stabbing pain in your abdomen!"))

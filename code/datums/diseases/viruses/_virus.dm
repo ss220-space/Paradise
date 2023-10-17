@@ -38,7 +38,7 @@
 	return TRUE
 
 /datum/disease/virus/try_increase_stage()
-	if(prob(affected_mob.reagents.has_reagent("spaceacillin") ? stage_prob/2 : stage_prob))
+	if(prob(affected_mob.reagents?.has_reagent("spaceacillin") ? stage_prob/2 : stage_prob))
 		stage = min(stage + 1,max_stages)
 		if(!discovered && stage >= CEILING(max_stages * discovery_threshold, 1)) // Once we reach a late enough stage, medical HUDs can pick us up even if we regress
 			discovered = TRUE
@@ -51,7 +51,7 @@
 	if((spread_flags <= BLOOD) && !force_spread)
 		return
 
-	if(affected_mob.reagents.has_reagent("spaceacillin") || (affected_mob.satiety > 0 && prob(affected_mob.satiety/10)))
+	if(affected_mob.reagents?.has_reagent("spaceacillin") || (affected_mob.satiety > 0 && prob(affected_mob.satiety/10)))
 		return
 
 	var/spread_range = 1
@@ -64,7 +64,7 @@
 
 	var/turf/T = affected_mob.loc
 	if(istype(T))
-		for(var/mob/living/carbon/C in oview(spread_range, affected_mob))
+		for(var/mob/living/C in oview(spread_range, affected_mob))
 			var/turf/V = get_turf(C)
 			if(V)
 				while(TRUE)

@@ -8,7 +8,6 @@
 	cure_text = "Rest & Spaceacillin"
 	cures = list("spaceacillin")
 	cure_prob = 30
-	cured_message = "You feel better"
 	permeability_mod = 0.5
 	severity = MINOR
 

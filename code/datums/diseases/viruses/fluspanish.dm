@@ -22,7 +22,7 @@
 			if(prob(5))
 				affected_mob.emote("cough")
 			if(prob(1))
-				to_chat(affected_mob, "<span class='danger'>You're burning in your own skin!</span>")
+				to_chat(affected_mob, span_danger("You're burning in your own skin!"))
 				affected_mob.take_organ_damage(0,5)
 
 		if(3)
@@ -32,7 +32,7 @@
 			if(prob(5))
 				affected_mob.emote("cough")
 			if(prob(5))
-				to_chat(affected_mob, "<span class='danger'>You're burning in your own skin!</span>")
+				to_chat(affected_mob, span_danger("You're burning in your own skin!"))
 				affected_mob.take_organ_damage(0,5)
 	return
 

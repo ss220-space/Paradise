@@ -87,7 +87,7 @@
 	return FALSE
 
 /// Whether a virus worthy displaying on the HUD is present.
-/mob/living/carbon/proc/has_virus()
+/mob/living/proc/has_virus()
 	for(var/thing in diseases)
 		var/datum/disease/D = thing
 		if(!D.discovered) // Early-stage viruses should not show up on med HUD (though health analywers can still pick them up)
@@ -173,6 +173,8 @@
 	var/image/holder = hud_list[STATUS_HUD]
 	if(stat == DEAD)
 		holder.icon_state = "huddead"
+	else if(has_virus())
+		holder.icon_state = "hudill"
 	else
 		holder.icon_state = "hudhealthy"
 

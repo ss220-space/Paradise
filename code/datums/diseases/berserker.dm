@@ -9,6 +9,7 @@
 	cure_prob = 10
 	severity = DANGEROUS
 	can_immunity = FALSE
+	visibility_flags = HIDDEN_PANDEMIC
 
 /datum/disease/berserker/stage_act()
 	if(!..())

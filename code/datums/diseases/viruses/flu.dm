@@ -8,7 +8,6 @@
 	cure_text = "Rest & Spaceacillin"
 	cures = list("spaceacillin")
 	cure_prob = 30
-	cured_message = "You feel better"
 	permeability_mod = 0.75
 	severity = MEDIUM
 
@@ -26,7 +25,7 @@
 				to_chat(affected_mob, span_danger("Your muscles ache"))
 				affected_mob.take_organ_damage(1)
 			if(prob(stage))
-				to_chat(affected_mob, "<span class='danger'>Your stomach hurts.</span>")
+				to_chat(affected_mob, span_danger("Your stomach hurts."))
 				affected_mob.adjustToxLoss(1)
 	return
 

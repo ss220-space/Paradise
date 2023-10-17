@@ -25,9 +25,14 @@ Groaning Syndrome
 			if(1, 2, 3)
 				to_chat(M, span_notice("Your muscles spasm, making you want to moan"))
 			else
-				M.emote("moan")
+				if(prob(50))
+					M.emote("moan")
+				else
+					M.say(pick("Ммм...", "Ах...", "Ох..."))
+
 				if(prob(1))
 					M.emote("blush")
+
 				var/obj/item/I = M.get_active_hand()
 				if(I && I.w_class == 1)
 					M.drop_from_active_hand()

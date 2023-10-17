@@ -57,14 +57,15 @@
 		var/health_change = 0
 		var/see_master = FALSE
 
+		if(QDELETED(master))
+			if(need_master_death_message)
+				death_of_master(span_cultlarge("Внезапно всё ваше тело пронзает боль от осознания одной мысли. \n[span_reallybig("[master] больше нет с нами")]"))
+			return FALSE
+
 		if(master.stat == DEAD)
 			if(need_master_death_message)
-				affected_mob.emote("scream")
-				to_chat(affected_mob, span_cultlarge("Внезапно всё ваше тело пронзает боль от осознания одной мысли. \n[span_reallybig("[master] мертв[genderize_ru(master.gender, "", "а", "о", "ы")]!")]"))
-				need_master_death_message = FALSE
-				affected_mob.adjustBrainLoss(50)
-				addtimer(CALLBACK(affected_mob, TYPE_PROC_REF(/mob/living/carbon/human, emote), "cry"), rand(3, 10) SECONDS)
-			return
+				death_of_master(span_cultlarge("Внезапно всё ваше тело пронзает боль от осознания одной мысли. \n[span_reallybig("[master] мертв[genderize_ru(master.gender, "", "а", "о", "ы")]!")]"))
+			return FALSE
 		else
 			need_master_death_message = TRUE
 
@@ -156,4 +157,10 @@
 	var/datum/disease/virus/loyalty/copy = new(new_master)
 	return copy
 
+/datum/disease/virus/loyalty/proc/death_of_master(message)
+	affected_mob.emote("scream")
+	to_chat(affected_mob, message)
+	need_master_death_message = FALSE
+	affected_mob.adjustBrainLoss(50)
+	addtimer(CALLBACK(affected_mob, TYPE_PROC_REF(/mob/living/carbon/human, emote), "cry"), rand(3, 10) SECONDS)
 #undef STAGE_TIME

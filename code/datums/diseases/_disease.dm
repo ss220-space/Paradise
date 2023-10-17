@@ -59,7 +59,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	/// Immunity to Anti-Bodies Metabolism symptom
 	var/virus_heal_resistant = FALSE
 	/// Message when cured
-	var/cured_message
+	var/cured_message = "You feel better."
 
 	//Mutations
 
@@ -148,7 +148,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 /datum/disease/proc/has_cure()
 	. = cures.len
 	for(var/C_id in cures)
-		if(!affected_mob.reagents.has_reagent(C_id))
+		if(!affected_mob.reagents?.has_reagent(C_id))
 			.--
 	if(. <= 0 || (needs_all_cures && . < cures.len))
 		return 0

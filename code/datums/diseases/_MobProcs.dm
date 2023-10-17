@@ -12,6 +12,10 @@
 			return TRUE
 	return FALSE
 
+/mob/proc/CureAllDiseases(need_immunity = TRUE)
+	for(var/datum/disease/D in diseases)
+		D.cure(need_immunity)
+
 /**
  * A special checks for this type of mob
  *
