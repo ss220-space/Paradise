@@ -93,6 +93,8 @@
 		var/dirn = pick(dirs)
 		dirs.Remove(dirn)
 		var/turf/T = get_step(src, dirn)
+		if(!is_location_within_transition_boundaries(T))
+			continue
 		var/obj/structure/blob/B = (locate(/obj/structure/blob) in T)
 		if(!B)
 			expand(T,1,a_color)//No blob here so try and expand
@@ -127,6 +129,8 @@
 			else	T = null
 
 	if(!T)	return 0
+	if(!is_location_within_transition_boundaries(T))
+		return
 	var/obj/structure/blob/normal/B = new /obj/structure/blob/normal(src.loc, min(obj_integrity, 30))
 	B.color = a_color
 	B.density = 1
