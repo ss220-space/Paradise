@@ -67,7 +67,7 @@
 
 /datum/outfit/job/centcom/response_team/commander/red
 	name = "RT Commander (Red)"
-	shoes = /obj/item/clothing/shoes/combat
+	shoes = /obj/item/clothing/shoes/magboots
 	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/commander
 	glasses = /obj/item/clothing/glasses/sunglasses
@@ -80,7 +80,6 @@
 		/obj/item/camera_bug/ert = 1,
 		/obj/item/door_remote/omni = 1,
 		/obj/item/restraints/handcuffs = 1,
-		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/storage/lockbox/mindshield = 1
 	)
 
@@ -154,7 +153,7 @@
 
 /datum/outfit/job/centcom/response_team/security/red
 	name = "RT Security (Red)"
-	shoes = /obj/item/clothing/shoes/combat
+	shoes = /obj/item/clothing/shoes/magboots
 	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/security
 	suit_store = /obj/item/gun/projectile/automatic/lasercarbine
@@ -164,7 +163,6 @@
 	backpack_contents = list(
 		/obj/item/gun/projectile/automatic/pistol/sp8t = 1,
 		/obj/item/ammo_box/magazine/sp8 = 3,
-		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/grenade/flashbang = 2,
 		/obj/item/ammo_box/magazine/laser = 2,
@@ -331,7 +329,7 @@
 	suit_store = /obj/item/gun/energy/gun/pdw9/ert
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	head = /obj/item/clothing/head/helmet/ert/medical
-	mask = /obj/item/clothing/mask/surgical
+	mask = /obj/item/clothing/mask/gas/sechailer
 	belt = /obj/item/storage/belt/medical/surgery/loaded
 	l_pocket = /obj/item/reagent_containers/hypospray/safety/ert
 	r_pocket = /obj/item/melee/classic_baton/telescopic
@@ -351,10 +349,11 @@
 /datum/outfit/job/centcom/response_team/medic/red
 	name = "RT Medic (Red)"
 	rt_mob_job = "ERT Medical"
-	shoes = /obj/item/clothing/shoes/white
+	shoes = /obj/item/clothing/shoes/magboots
 	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/medical
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
+	mask = /obj/item/clothing/mask/gas/sechailer
 	suit_store = /obj/item/gun/energy/gun/sibyl
 	belt = /obj/item/defibrillator/compact/loaded
 	l_pocket = /obj/item/reagent_containers/hypospray/safety/ert
@@ -431,7 +430,6 @@
 	uniform = /obj/item/clothing/under/rank/chaplain
 	back = /obj/item/storage/backpack/ert/security
 	gloves = /obj/item/clothing/gloves/combat
-	shoes = /obj/item/clothing/shoes/combat
 	l_ear = /obj/item/radio/headset/ert/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
@@ -451,6 +449,7 @@
 
 /datum/outfit/job/centcom/response_team/paranormal/amber
 	name = "RT Paranormal (Amber)"
+	shoes = /obj/item/clothing/shoes/combat
 	suit = /obj/item/clothing/suit/armor/vest/ert/security/paranormal
 	head = /obj/item/clothing/head/helmet/ert/security/paranormal
 	suit_store = /obj/item/gun/energy/gun/pdw9/ert
@@ -458,6 +457,7 @@
 
 /datum/outfit/job/centcom/response_team/paranormal/red
 	name = "RT Paranormal (Red)"
+	shoes = /obj/item/clothing/shoes/magboots
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal
 	suit_store = /obj/item/gun/energy/gun/sibyl
 	r_pocket = /obj/item/nullrod/ert
@@ -481,6 +481,7 @@
 
 /datum/outfit/job/centcom/response_team/paranormal/gamma
 	name = "RT Paranormal (Gamma)"
+	shoes = /obj/item/clothing/shoes/magboots/advance
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor
 	suit_store = /obj/item/gun/energy/gun/nuclear/sibyl
 	l_pocket = /obj/item/grenade/clusterbuster/holy
@@ -514,7 +515,6 @@
 	back = /obj/item/storage/backpack/ert/janitor
 	belt = /obj/item/storage/belt/janitor/ert
 	gloves = /obj/item/clothing/gloves/combat
-	shoes = /obj/item/clothing/shoes/galoshes
 	l_ear = /obj/item/radio/headset/ert/alt
 	id = /obj/item/card/id/centcom
 	pda = /obj/item/pda/centcom
@@ -531,18 +531,22 @@
 
 /datum/outfit/job/centcom/response_team/janitorial/amber
 	name = "RT Janitor (Amber)"
+	shoes = /obj/item/clothing/shoes/galoshes
 	suit = /obj/item/clothing/suit/armor/vest/ert/janitor
 	head = /obj/item/clothing/head/helmet/ert/janitor
 	glasses = /obj/item/clothing/glasses/sunglasses
+	mask = /obj/item/clothing/mask/gas/sechailer
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/advmop)
 
 /datum/outfit/job/centcom/response_team/janitorial/red
 	name = "RT Janitor (Red)"
+	shoes = /obj/item/clothing/shoes/magboots
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/janitor
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	r_pocket = /obj/item/scythe/tele
+	mask = /obj/item/clothing/mask/gas/sechailer
 
 	backpack_contents = list(
 		/obj/item/gun/projectile/automatic/pistol/sp8t = 1,
@@ -557,13 +561,14 @@
 
 /datum/outfit/job/centcom/response_team/janitorial/gamma
 	name = "RT Janitor (Gamma)"
+	shoes = /obj/item/clothing/shoes/magboots/advance
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/gamma/janitor
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	gloves = /obj/item/clothing/gloves/combat
+	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	suit_store = /obj/item/gun/energy/gun/pdw9/ert
 	l_pocket = /obj/item/grenade/clusterbuster/cleaner
 	r_pocket = /obj/item/scythe/tele
-	shoes = /obj/item/clothing/shoes/magboots/advance
 
 	backpack_contents = list(
 		/obj/item/gun/projectile/automatic/pistol/sp8t = 1,
