@@ -883,3 +883,15 @@
 /datum/sprite_accessory/hair/short_spiked
 	name = "Short Spiked"
 	icon_state = "short_spiked"
+
+/datum/sprite_accessory/hair/casual_cut
+	name = "Casual Cut"
+	icon_state = "casual_cut"
+
+/datum/sprite_accessory/hair/side_sweep
+	name = "Side Sweep"
+	icon_state = "side_sweep"
+
+/datum/sprite_accessory/hair/kreoline_whomen
+	name = "Kreoline Whomen"
+	icon_state = "kreoline_whomen"
