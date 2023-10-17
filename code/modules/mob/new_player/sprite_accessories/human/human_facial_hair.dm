@@ -164,6 +164,66 @@
 /datum/sprite_accessory/facial_hair/unshaven
 	name = "Unshaven"
 	icon_state = "unshaven"
+
+/datum/sprite_accessory/facial_hair/vandyke_short
+	name = "Vandyke Short"
+	icon_state = "vandyke_short"
+
+/datum/sprite_accessory/facial_hair/brashes_mustache
+	name = "Brashes Mustache"
+	icon_state = "brashes_mustache"
+
+/datum/sprite_accessory/facial_hair/waiter_mustache
+	name = "Waiter Mustache"
+	icon_state = "waiter_mustache"
+
+/datum/sprite_accessory/facial_hair/sideburns
+	name = "Sideburns"
+	icon_state = "sideburns"
+
+/datum/sprite_accessory/facial_hair/side_mustache
+	name = "Side Mustache"
+	icon_state = "side_mustache"
+
+/datum/sprite_accessory/facial_hair/texas_mustache
+	name = "Texas Mustache"
+	icon_state = "texas_mustache"
+
+/datum/sprite_accessory/facial_hair/up_mustache
+	name = "Up Mustache"
+	icon_state = "up_mustache"
+
+/datum/sprite_accessory/facial_hair/worker_long
+	name = "Worker Long"
+	icon_state = "worker_long"
+
+/datum/sprite_accessory/facial_hair/classic_beard
+	name = "Classic Beard"
+	icon_state = "classic_beard"
+
+/datum/sprite_accessory/facial_hair/livrah_beard
+	name = "Unshaved Beard"
+	icon_state = "livrah_beard"
+
+/datum/sprite_accessory/facial_hair/geek_chin_bread
+	name = "Geek Chin Beard"
+	icon_state = "geek_chin_bread"
+
+/datum/sprite_accessory/facial_hair/hollywood_beard
+	name = "Hollywood Beard"
+	icon_state = "hollywood_beard"
+
+/datum/sprite_accessory/facial_hair/figther_beard
+	name = "Figther Beard"
+	icon_state = "figther_beard"
+
+/datum/sprite_accessory/facial_hair/sea_wolf_beard
+	name = "Sea Wolf Beard"
+	icon_state = "sea_wolf_beard"
+
+/datum/sprite_accessory/facial_hair/sideburns_mustache
+	name = "Sideburns Mustache"
+	icon_state = "sideburns_mustache"
 //////////////////////////////
 //////END VG HAIRSTYLES///////
 //////////////////////////////
