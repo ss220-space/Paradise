@@ -73,6 +73,10 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	var/mimicking = ""
 	/// TTS seed used in mimic voice ability.
 	var/tts_mimicking = ""
+	/// Spawned by headslug event
+	var/evented
+	/// Check for event headslugs not to do start things in the time of popping after first pop
+	var/oncepoped = FALSE
 
 
 /datum/antagonist/changeling/New()
