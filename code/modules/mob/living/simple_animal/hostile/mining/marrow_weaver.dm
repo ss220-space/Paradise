@@ -35,7 +35,7 @@
 	var/anger_move_to_delay = 8
 	var/anger_speed = 4
 
-/mob/living/simple_animal/hostile/asteroid/marrowweaver/adjustHealth(amount)
+/mob/living/simple_animal/hostile/asteroid/marrowweaver/adjustHealth(amount, updating_health = TRUE)
 	if(buttmad == 0)
 		if(health < maxHealth/3)
 			buttmad = 1

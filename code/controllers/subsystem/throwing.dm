@@ -89,7 +89,6 @@ SUBSYSTEM_DEF(throwing)
 	var/tilestomove = CEILING(min(((((world.time + world.tick_lag) - start_time + delayed_time) * speed) - (dist_travelled ? dist_travelled : -1)), speed * MAX_TICKS_TO_MAKE_UP) * (world.tick_lag * SSthrowing.wait), 1)
 	while(tilestomove-- > 0)
 		if((dist_travelled >= maxrange || AM.loc == target_turf) && has_gravity(AM, AM.loc))
-			hitcheck() //Just to be sure
 			finalize()
 			return
 
@@ -108,6 +107,10 @@ SUBSYSTEM_DEF(throwing)
 			return
 
 		AM.Move(step, get_dir(AM, step))
+
+		if(!AM.throwing) // we hit something during our move
+			finalize(hit = TRUE)
+			return
 
 		dist_travelled++
 
