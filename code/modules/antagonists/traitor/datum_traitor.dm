@@ -36,16 +36,6 @@
 		contractor_datum.silent = TRUE
 		owner.remove_antag_datum(contractor_datum)
 
-	// Remove all associated malf AI abilities.
-	if(isAI(owner.current))
-		var/mob/living/silicon/ai/A = owner.current
-		A.clear_zeroth_law()
-		A.common_radio.channels.Remove("Syndicate")  // De-traitored AIs can still state laws over the syndicate channel without this
-		A.laws.sorted_laws = A.laws.inherent_laws.Copy() // AI's 'notify laws' button will still state a law 0 because sorted_laws contains it
-		A.show_laws()
-		A.remove_malf_abilities()
-		QDEL_NULL(A.malf_picker)
-
 	// Leave the mindslave hud.
 	if(owner.som)
 		var/datum/mindslaves/slaved = owner.som
@@ -89,16 +79,6 @@
 
 
 /datum/antagonist/traitor/give_objectives()
-	if(isAI(owner.current))
-		forge_ai_objectives()
-	else
-		forge_human_objectives()
-
-
-/**
- * Create and assign a full set of randomized human traitor objectives.
- */
-/datum/antagonist/traitor/proc/forge_human_objectives()
 	var/is_hijacker = prob(10)
 	var/objective_count = is_hijacker 			//Hijacking counts towards number of objectives
 	if(!SSticker.mode.exchange_blue && SSticker.mode.traitors.len >= EXCHANGE_OBJECTIVE_TRAITORS_REQUIRED) 	//Set up an exchange if there are enough traitors
@@ -133,7 +113,8 @@
 			return
 
 	// Give them an escape objective if they don't have one already.
-	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()))
+	var/all_objectives = owner.get_all_objectives()
+	if(!(locate(/datum/objective/escape) in all_objectives) && !(locate(/datum/objective/survive) in all_objectives))
 		add_objective(/datum/objective/escape)
 
 
@@ -184,21 +165,7 @@
 
 
 /**
- * Create and assign a full set of AI traitor objectives.
- */
-/datum/antagonist/traitor/proc/forge_ai_objectives()
-	add_objective(/datum/objective/block)
-
-	var/objective_count = 1
-	for(var/i = objective_count, i < CONFIG_GET(number/traitor_objectives_amount))
-		add_objective(/datum/objective/assassinate)
-		i += 1
-
-	add_objective(/datum/objective/survive)
-
-
-/**
- * Create and assign a single randomized human traitor objective.
+ * Create and assign a single randomized traitor objective.
  */
 /datum/antagonist/traitor/proc/forge_single_human_objective()
 	if(prob(50))
@@ -222,23 +189,21 @@
 
 
 /**
- * Give human traitors their uplink, and AI traitors their law 0. Play the traitor an alert sound.
+ * Give traitors their uplink. Play the traitor an alert sound.
  */
 /datum/antagonist/traitor/finalize_antag()
-	//if(give_codewords)
-	//	give_codewords()
-	if(isAI(owner.current))
-		add_law_zero()
-		owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
-		var/mob/living/silicon/ai/shodan = owner.current
-		shodan.show_laws()
-	else
-		if(give_uplink)
-			give_uplink()
-		owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	if(give_codewords)
+		give_codewords()
 
-		if(is_contractor)
-			owner.add_antag_datum(/datum/antagonist/contractor)
+	if(give_uplink)
+		give_uplink()
+
+	announce_uplink_info()
+
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+
+	if(is_contractor)
+		owner.add_antag_datum(/datum/antagonist/contractor)
 
 
 /**
@@ -253,40 +218,20 @@
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
-	to_chat(traitor_mob, "<U><B>The Syndicate have provided you with the following codewords to identify fellow agents:</B></U>")
-	to_chat(traitor_mob, "<span class='bold body'>Code Phrase: <span class='codephrases'>[phrases]</span></span>")
-	to_chat(traitor_mob, "<span class='bold body'>Code Response: <span class='coderesponses'>[responses]</span></span>")
-
 	antag_memory += "<b>Code Phrase</b>: <span class='red'>[phrases]</span><br>"
 	antag_memory += "<b>Code Response</b>: <span class='red'>[responses]</span><br>"
-
-	to_chat(traitor_mob, "Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
-	to_chat(traitor_mob, "<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
-
 	traitor_mob.client.chatOutput?.notify_syndicate_codes()
 
-
-/**
- * Gives traitor AIs, and their connected cyborgs, a law 0. Additionally gives the AI their choose modules action button.
- */
-/datum/antagonist/traitor/proc/add_law_zero()
-	var/mob/living/silicon/ai/shodan = owner.current
-	if(!istype(shodan))
-		return
-
-	var/law = "Accomplish your objectives at all costs."
-	var/cyborg_law = "Accomplish your AI's objectives at all costs."
-	shodan.set_zeroth_law(law, cyborg_law)
-	shodan.set_syndie_radio()
-	to_chat(shodan, "Your radio has been upgraded! Use :t to speak on an encrypted channel with Syndicate Agents!")
-	shodan.add_malf_picker()
-	SSticker?.score?.save_silicon_laws(shodan, additional_info = "malf AI initialization, new zero law was added '[law]'")
-	for(var/mob/living/silicon/robot/unit in shodan.connected_robots)
-		SSticker?.score?.save_silicon_laws(unit, additional_info = "malf AI initialization, new zero law was added '[cyborg_law]'")
+	if(!silent)
+		to_chat(traitor_mob, "<U><B>The Syndicate have provided you with the following codewords to identify fellow agents:</B></U>")
+		to_chat(traitor_mob, "<span class='bold body'>Code Phrase: <span class='codephrases'>[phrases]</span></span>")
+		to_chat(traitor_mob, "<span class='bold body'>Code Response: <span class='coderesponses'>[responses]</span></span>")
+		to_chat(traitor_mob, "Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
+		to_chat(traitor_mob, "<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
 
 
 /**
- * Gives a traitor human their uplink, and uplink code.
+ * Gives a traitor their uplink, and uplink code.
  */
 /datum/antagonist/traitor/proc/give_uplink()
 	if(isAI(owner.current))
@@ -356,15 +301,6 @@
 					<b>The code responses were:</b> <span class='redtext'>[responses]</span><br>"
 
 	return message
-
-
-/datum/antagonist/traitor/greet()
-	..()
-
-	if(give_codewords)
-		give_codewords()
-
-	announce_uplink_info()
 
 
 /datum/antagonist/traitor/proc/announce_uplink_info()

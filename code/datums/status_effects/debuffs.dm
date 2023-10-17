@@ -613,10 +613,13 @@
 	id = "slowed"
 	var/slowdown_value = 10 // defaults to this value if none is specified
 
-/datum/status_effect/incapacitating/slowed/on_creation(mob/living/new_owner, set_duration, _slowdown_value)
+/datum/status_effect/incapacitating/slowed/on_creation(mob/living/new_owner, set_duration, slowdown_value)
 	. = ..()
-	if(isnum(_slowdown_value))
-		slowdown_value = _slowdown_value
+	set_slowdown_value(slowdown_value)
+
+/datum/status_effect/incapacitating/slowed/proc/set_slowdown_value(slowdown_value)
+	if(isnum(slowdown_value))
+		src.slowdown_value = slowdown_value
 
 /datum/status_effect/transient/silence
 	id = "silenced"

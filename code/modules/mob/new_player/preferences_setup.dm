@@ -403,6 +403,8 @@
 		if(U)
 			var/u_icon = U.sprite_sheets && (current_species.name in U.sprite_sheets) ? U.sprite_sheets[current_species.name] : U.icon //Species-fit the undergarment.
 			underwear_s = new/icon(u_icon, "uw_[U.icon_state]_s", ICON_OVERLAY)
+			if(U.allow_change_color)
+				underwear_s.Blend(underwear_color, ICON_MULTIPLY)
 
 	var/icon/undershirt_s = null
 	if(undershirt && (current_species.clothing_flags & HAS_UNDERSHIRT))
@@ -410,6 +412,8 @@
 		if(U2)
 			var/u2_icon = U2.sprite_sheets && (current_species.name in U2.sprite_sheets) ? U2.sprite_sheets[current_species.name] : U2.icon
 			undershirt_s = new/icon(u2_icon, "us_[U2.icon_state]_s", ICON_OVERLAY)
+			if(U2.allow_change_color)
+				undershirt_s.Blend(undershirt_color, ICON_MULTIPLY)
 
 	var/icon/socks_s = null
 	if(socks && (current_species.clothing_flags & HAS_SOCKS))

@@ -17,7 +17,9 @@
 	var/age = 30		//Player's age (pure fluff)
 
 	var/underwear = "Nude"	//Which underwear the player wants
+	var/color_underwear = "#ffffff"
 	var/undershirt = "Nude"	//Which undershirt the player wants
+	var/color_undershirt = "#ffffff"
 	var/socks = "Nude" //Which socks the player wants
 	var/backbag = 2		//Which backpack type the player has chosen. Nothing, Satchel or Backpack.
 
