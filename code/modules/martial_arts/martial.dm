@@ -138,7 +138,7 @@
 	return TRUE
 
 /datum/martial_art/proc/attack_reaction(var/mob/living/carbon/human/defender, var/mob/living/carbon/human/attacker, var/obj/item/I, var/visible_message, var/self_message)
-	if(can_use(src) && defender.in_throw_mode && !defender.incapacitated(FALSE, TRUE))
+	if(can_use(defender) && defender.in_throw_mode && !defender.incapacitated(FALSE, TRUE))
 		if(prob(block_chance))
 			if(visible_message || self_message)
 				defender.visible_message(visible_message, self_message)
