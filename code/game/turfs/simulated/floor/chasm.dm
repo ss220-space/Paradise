@@ -103,7 +103,11 @@
 		var/obj/item/twohanded/fishingrod/rod = C
 		if(!rod.wielded)
 			to_chat(user, span_warning("You need to wield the rod in both hands before you can fish in the chasm!"))
-		if(do_after_once(user, 6 SECONDS, target = src, attempt_cancel_message = "You stop fishing."))
+			return
+		user.visible_message(span_warning("[user] throws a fishing rod into the chasm and tries to catch something!"),
+							 span_notice("You started to fishing."),
+							 span_notice("You hear the sound of a fishing rod."))
+		if(do_after(user, 6 SECONDS, target = src))
 			if(!rod.wielded)
 				return
 			var/atom/parent = src
@@ -255,8 +259,6 @@
 			fallen_mob.death(TRUE)
 			fallen_mob.notransform = FALSE
 			fallen_mob.apply_damage(1000)
-			if(fallen_mob.mind?.has_antag_datum(/datum/antagonist/changeling))
-				qdel(fallen_mob) //uh oh
 
 	else
 		qdel(AM)
@@ -274,6 +276,43 @@
 	desc = "The bottom of a hole. You shouldn't be able to interact with this."
 	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+/obj/effect/abstract/chasm_storage/Entered(atom/movable/arrived)
+	. = ..()
+	if(isliving(arrived))
+		RegisterSignal(arrived, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
+
+/obj/effect/abstract/chasm_storage/Exited(atom/movable/gone)
+	. = ..()
+	if(isliving(gone))
+		UnregisterSignal(gone, COMSIG_LIVING_REVIVE)
+
+#define CHASM_TRAIT "chasm trait"
+/**
+ * Called if something comes back to life inside the pit. Expected sources are badmins and changelings.
+ * Ethereals should take enough damage to be smashed and not revive.
+ * Arguments
+ * escapee - Lucky guy who just came back to life at the bottom of a hole.
+ */
+
+/obj/effect/abstract/chasm_storage/proc/on_revive(mob/living/escapee)
+	SIGNAL_HANDLER
+	var/turf/ourturf = get_turf(src)
+	if(istype(ourturf, /turf/simulated/floor/chasm/straight_down/lava_land_surface))
+		ourturf.visible_message(span_boldwarning("After a long climb, [escapee] leaps out of [ourturf]!"))
+	else
+		playsound(ourturf, 'sound/effects/bang.ogg', 50, TRUE)
+		ourturf.visible_message(span_boldwarning("[escapee] busts through [ourturf], leaping out of the chasm below!"))
+		ourturf.ChangeTurf(ourturf.baseturf)
+	escapee.flying = TRUE
+	escapee.forceMove(ourturf)
+	escapee.throw_at(get_edge_target_turf(ourturf, pick(GLOB.alldirs)), rand(2, 10), rand(2, 10))
+	escapee.flying = FALSE
+	escapee.Sleeping(20 SECONDS)
+	UnregisterSignal(escapee, COMSIG_LIVING_REVIVE)
+
+#undef CHASM_TRAIT
+
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air
 	oxygen = MOLES_O2STANDARD
 	nitrogen = MOLES_N2STANDARD
