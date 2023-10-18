@@ -107,6 +107,7 @@
 		user.visible_message(span_warning("[user] throws a fishing rod into the chasm and tries to catch something!"),
 							 span_notice("You started to fishing."),
 							 span_notice("You hear the sound of a fishing rod."))
+		playsound(rod, 'sound/effects/fishing_rod_throw.ogg', 30)
 		if(do_after(user, 6 SECONDS, target = src))
 			if(!rod.wielded)
 				return
@@ -122,6 +123,7 @@
 				found = TRUE
 			if(found)
 				to_chat(user, span_warning("You reel in something!"))
+				playsound(rod, 'sound/effects/fishing_rod_catch.ogg', 30)
 			else
 				to_chat(user, span_warning("There's nothing here!"))
 		return
