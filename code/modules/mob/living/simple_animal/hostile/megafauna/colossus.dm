@@ -1,3 +1,6 @@
+#define RANDOM_SHOTS "Wrath"
+#define BLAST "Retribution"
+#define DIR_SHOTS "Lament"
 /*
 
 COLOSSUS
@@ -43,6 +46,8 @@ Difficulty: Very Hard
 	ranged = TRUE
 	pixel_x = -32
 	del_on_death = TRUE
+	universal_speak = TRUE
+	tts_seed = null
 	internal_type = /obj/item/gps/internal/colossus
 	medal_type = BOSS_MEDAL_COLOSSUS
 	score_type = COLOSSUS_SCORE
@@ -54,6 +59,8 @@ Difficulty: Very Hard
 							   /datum/action/innate/megafauna_attack/aoe_attack,
 							   /datum/action/innate/megafauna_attack/shotgun,
 							   /datum/action/innate/megafauna_attack/alternating_cardinals)
+	/// Have we used our final attack yet?
+	var/final_available = TRUE
 
 /datum/action/innate/megafauna_attack/spiral_attack
 	name = "Spiral Shots"
@@ -83,6 +90,9 @@ Difficulty: Very Hard
 	chosen_message = "<span class='colossus'>You are now firing in alternating cardinal directions.</span>"
 	chosen_attack_num = 4
 
+/mob/living/simple_animal/hostile/megafauna/colossus/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, filterproof = null)
+	. = ..(("<span class='colossus'><b>[uppertext(message)]</b></span>"), sanitize = FALSE, ignore_speech_problems = TRUE, ignore_atmospherics = TRUE)
+
 /mob/living/simple_animal/hostile/megafauna/colossus/OpenFire()
 	anger_modifier = clamp(((maxHealth - health)/50),0,20)
 	ranged_cooldown = world.time + 120
@@ -101,7 +111,7 @@ Difficulty: Very Hard
 
 	if(enrage(target))
 		if(move_to_delay == initial(move_to_delay))
-			visible_message("<span class='colossus'>\"<b>You can't dodge.</b>\"</span>")
+			say("You can't dodge")
 		ranged_cooldown = world.time + 30
 		telegraph()
 		dir_shots(GLOB.alldirs)
@@ -110,7 +120,10 @@ Difficulty: Very Hard
 	else
 		move_to_delay = initial(move_to_delay)
 
-	if(prob(20+anger_modifier)) //Major attack
+	if(health <= maxHealth / 10 && final_available) //One time use final attack
+		final_available = FALSE
+		final_attack()
+	else if(prob(20+anger_modifier)) //Major attack
 		select_spiral_attack()
 	else if(prob(20))
 		random_shots()
@@ -128,6 +141,8 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/alternating_dir_shots()
 	ranged_cooldown = world.time + 40
+	telegraph(DIR_SHOTS)
+	SLEEP_CHECK_DEATH(2.5 SECONDS)
 	dir_shots(GLOB.diagonals)
 	SLEEP_CHECK_DEATH(10)
 	dir_shots(GLOB.cardinal)
@@ -140,17 +155,20 @@ Difficulty: Very Hard
 	telegraph()
 	if(health < maxHealth/3)
 		return double_spiral()
-	visible_message("<span class='colossus'>\"<b>Judgement.</b>\"</span>")
+	say("Judgement.")
+	telegraph()
+	SLEEP_CHECK_DEATH(3.5 SECONDS)
 	return spiral_shoot()
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/double_spiral()
-	visible_message("<span class='colossus'>\"<b>Die.</b>\"</span>")
-
-	SLEEP_CHECK_DEATH(10)
+	say("Die.")
+	telegraph()
+	SLEEP_CHECK_DEATH(3.5 SECONDS)
 	INVOKE_ASYNC(src, PROC_REF(spiral_shoot), FALSE)
 	INVOKE_ASYNC(src, PROC_REF(spiral_shoot), TRUE)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/spiral_shoot(negative = pick(TRUE, FALSE), counter_start = 8)
+	icon_state = "eva_attack"
 	var/turf/start_turf = get_step(src, pick(GLOB.alldirs))
 	var/counter = counter_start
 	for(var/i in 1 to 80)
@@ -165,6 +183,7 @@ Difficulty: Very Hard
 		shoot_projectile(start_turf, counter * 22.5)
 		playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
 		SLEEP_CHECK_DEATH(1)
+	icon_state = initial(icon_state)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/shoot_projectile(turf/marker, set_angle)
 	if(!isnum(set_angle) && (!marker || marker == loc))
@@ -177,16 +196,24 @@ Difficulty: Very Hard
 		P.original = target
 	P.fire(set_angle)
 
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/random_shots()
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/random_shots(do_sleep = TRUE)
 	ranged_cooldown = world.time + 30
+	if(do_sleep)
+		telegraph(RANDOM_SHOTS)
+		SLEEP_CHECK_DEATH(2.5 SECONDS)
 	var/turf/U = get_turf(src)
 	playsound(U, 'sound/magic/clockwork/invoke_general.ogg', 300, TRUE, 5)
 	for(var/T in RANGE_TURFS(12, U) - U)
 		if(prob(5))
 			shoot_projectile(T)
 
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/blast(set_angle)
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/blast(set_angle, do_sleep = TRUE)
 	ranged_cooldown = world.time + 20
+	if(do_sleep)
+		telegraph(BLAST)
+		SLEEP_CHECK_DEATH(3.5 SECONDS)
+	else
+		SLEEP_CHECK_DEATH(1 SECONDS)
 	var/turf/target_turf = get_turf(target)
 	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, TRUE, 2)
 	newtonian_move(get_dir(target_turf, src))
@@ -205,13 +232,50 @@ Difficulty: Very Hard
 		var/turf/E = get_step(src, d)
 		shoot_projectile(E)
 
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/telegraph()
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/telegraph(mode)
 	for(var/mob/M in range(10,src))
 		if(M.client)
 			flash_color(M.client, "#C80000", 1)
 			sleep(0.5 SECONDS)
 			shake_camera(M, 4, 3)
 	playsound(src, 'sound/magic/narsie_attack.ogg', 200, TRUE)
+	if(mode)
+		say("[mode]")
+
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/final_attack()
+	icon_state = "eva_attack"
+	say("PERISH MORTAL!")
+	telegraph()
+	ranged_cooldown = world.time + 20 SECONDS // Yeah let us NOT have people get triple attacked
+	SLEEP_CHECK_DEATH(3.5 SECONDS) //run
+
+	var/finale_counter = 10
+	for(var/i in 1 to 20)
+		if(finale_counter > 4)
+			telegraph()
+			blast(do_sleep = FALSE)
+
+	if(finale_counter > 1)
+		finale_counter--
+
+	var/turf/start_turf = get_turf(src)
+	for(var/turf/target_turf in RANGE_TURFS(12, start_turf))
+		if(prob(min(finale_counter, 2)) && target_turf != get_turf(src))
+			shoot_projectile(target_turf)
+	SLEEP_CHECK_DEATH(finale_counter + 0.2 SECONDS) //Doubled from TG, this was insane
+
+	for(var/i in 1 to 3)
+		telegraph()
+		random_shots(do_sleep = FALSE)
+		finale_counter += 6
+		SLEEP_CHECK_DEATH(finale_counter)
+
+	for(var/i in 1 to 3)
+		telegraph()
+		dir_shots()
+		SLEEP_CHECK_DEATH(1 SECONDS)
+	icon_state = initial(icon_state)
+	ranged_cooldown = world.time + 4 SECONDS
 
 
 /mob/living/simple_animal/hostile/megafauna/colossus/devour(mob/living/L)
@@ -256,7 +320,7 @@ Difficulty: Very Hard
 	icon_state= "chronobolt"
 	damage = 25
 	armour_penetration = 100
-	speed = 2
+	speed = 3.5
 	eyeblur = 0
 	damage_type = BRUTE
 	pass_flags = PASSTABLE
@@ -271,3 +335,7 @@ Difficulty: Very Hard
 	gpstag = "Mysterious Signal"
 	desc = "Get in the fucking robot."
 	invisibility = 100
+
+#undef RANDOM_SHOTS
+#undef BLAST
+#undef DIR_SHOTS
