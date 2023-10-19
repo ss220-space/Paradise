@@ -57,10 +57,39 @@
 		"задыхается словно рыба!",
 		"душит себя собственными усиками!")
 
+	speech_sounds = list('sound/voice/skrell/talk1.mp3', 'sound/voice/skrell/talk2.mp3', 'sound/voice/skrell/talk3.mp3' )
+	speech_chance = 20
+	male_scream_sound = list('sound/voice/skrell/scream1.mp3', 'sound/voice/skrell/scream2.mp3', 'sound/voice/skrell/scream3.mp3')
+	female_scream_sound = list('sound/voice/skrell/scream1.mp3', 'sound/voice/skrell/scream2.mp3', 'sound/voice/skrell/scream3.mp3')
+	female_laugh_sound = list('sound/voice/skrell/laugh1.mp3', 'sound/voice/skrell/laugh2.mp3', 'sound/voice/skrell/laugh3.mp3')
+	male_laugh_sound = list('sound/voice/skrell/laugh1.mp3', 'sound/voice/skrell/laugh2.mp3', 'sound/voice/skrell/laugh3.mp3')
+	male_moan_sound = list('sound/voice/skrell/moan1.mp3', 'sound/voice/skrell/moan2.mp3', 'sound/voice/skrell/moan3.mp3')
+	female_moan_sound = list('sound/voice/skrell/moan1.mp3', 'sound/voice/skrell/moan2.mp3', 'sound/voice/skrell/moan3.mp3')
+	male_giggle_sound = list('sound/voice/skrell/giggle1.mp3', 'sound/voice/skrell/giggle2.mp3')
+	female_giggle_sound = list('sound/voice/skrell/giggle1.mp3', 'sound/voice/skrell/giggle2.mp3')
+	female_snore_sound = list('sound/voice/skrell/snore1.mp3', 'sound/voice/skrell/snore2.mp3', 'sound/voice/skrell/snore3.mp3')
+	male_snore_sound = list('sound/voice/skrell/snore1.mp3', 'sound/voice/skrell/snore2.mp3', 'sound/voice/skrell/snore3.mp3')
+	whistle_sound = list('sound/voice/skrell/whistling1.mp3', 'sound/voice/skrell/whistling2.mp3')
+
 /datum/species/skrell/on_species_gain(mob/living/carbon/human/H)
 	..()
 	ADD_TRAIT(H, TRAIT_WATERBREATH, "species")
 	H.verbs |= /mob/living/carbon/human/proc/emote_warble
+	H.verbs |= /mob/living/carbon/human/proc/emote_sad_trill
+	H.verbs |= /mob/living/carbon/human/proc/emote_joyfull_trill
+	H.verbs |= /mob/living/carbon/human/proc/emote_croaking
+	H.verbs |= /mob/living/carbon/human/proc/emote_discontent
+	H.verbs |= /mob/living/carbon/human/proc/emote_relax
+	H.verbs |= /mob/living/carbon/human/proc/emote_excitement
+	H.verbs |= /mob/living/carbon/human/proc/emote_confusion
+	H.verbs |= /mob/living/carbon/human/proc/emote_understand
+	H.verbs -= /mob/living/carbon/human/verb/emote_grin
+	H.verbs -= /mob/living/carbon/human/verb/emote_wink
+	H.verbs -= /mob/living/carbon/human/verb/emote_eyebrow
+	H.verbs -= /mob/living/carbon/human/verb/emote_glare
+	H.verbs -= /mob/living/carbon/human/verb/emote_chuckle
+	H.verbs -= /mob/living/carbon/human/verb/emote_frown
+	H.verbs -= /mob/living/carbon/human/verb/emote_snuffle
 
 /datum/species/skrell/on_species_loss(mob/living/carbon/human/H)
 	..()
