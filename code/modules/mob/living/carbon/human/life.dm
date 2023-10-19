@@ -379,6 +379,9 @@
 		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 			var/mult = dna.species.coldmod
 			if(mult>0)
+				if(bodytemperature < dna.species.cold_level_2 && prob(1))
+					var/datum/disease/virus/cold/D = new
+					D.ForceContract(src)
 				if(bodytemperature >= dna.species.cold_level_2 && bodytemperature <= dna.species.cold_level_1)
 					throw_alert("temp", /obj/screen/alert/cold, 1)
 					take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_1, used_weapon = "Low Body Temperature")

@@ -32,13 +32,11 @@
 	if(!iscarbon(user))
 		return
 
-	for(var/thing in diseases)
-		var/datum/disease/virus/V = thing
+	for(var/datum/disease/virus/V in diseases)
 		if(V.spread_flags & CONTACT)
 			V.Contract(user)
 
-	for(var/thing in user.diseases)
-		var/datum/disease/virus/V = thing
+	for(var/datum/disease/virus/V in user.diseases)
 		if(V.spread_flags & CONTACT)
 			V.Contract(src)
 

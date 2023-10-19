@@ -55,8 +55,8 @@
 	if(..())
 		if(affected_mob.IsSleeping())
 			return prob(80 - 15 * stage)
-		return prob(20)
+		return prob(8)
 	else
 		if(affected_mob.IsSleeping())
 			return prob(30 - 7.5 * stage)
-		return prob(1) && prob(10)
+		return prob(1) && prob(50)

@@ -1,6 +1,6 @@
 //Spread Flags
 #define NON_CONTAGIOUS 0	//virus can't spread
-#define SPECIAL 1	 		//virus can spread in specially created procs
+#define BITES 1	 			//virus can spread with bites
 #define BLOOD 2		 		//virus can spread with infected blood
 #define CONTACT 4	 		//virus can spread with any touch
 #define AIRBORNE 8	 		//virus spreads through the air
@@ -80,8 +80,8 @@
 	var/list/spread = list()
 	if(!spread_flags)
 		spread += "Не заразный"
-	if(spread_flags & SPECIAL)
-		spread += "Специальный"
+	if(spread_flags & BITES)
+		spread += "Распространяемый через укусы"
 	if(spread_flags & BLOOD)
 		spread += "Распространяемый через кровь"
 	if(spread_flags & CONTACT)

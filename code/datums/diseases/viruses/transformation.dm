@@ -1,23 +1,24 @@
 /datum/disease/virus/transformation
 	name = "Transformation"
-	agent = "Shenanigans"
+	stage_prob = 10
 	max_stages = 5
 	spread_flags = NON_CONTAGIOUS
-	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/alien)
-	severity = HARMFUL
-	stage_prob = 10
-	visibility_flags = HIDDEN_HUD|HIDDEN_SCANNER|HIDDEN_PANDEMIC
+	severity = DANGEROUS
 	can_immunity = FALSE
-	var/list/stage1 = list("You feel unremarkable.")
-	var/list/stage2 = list("You feel boring.")
-	var/list/stage3 = list("You feel utterly plain.")
-	var/list/stage4 = list("You feel white bread.")
-	var/list/stage5 = list("Oh the humanity!")
-	var/new_form = /mob/living/carbon/human
+	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/alien)
+	var/list/stage1
+	var/list/stage2
+	var/list/stage3
+	var/list/stage4
+	var/list/stage5
+	var/list/transform_message
+	var/new_form
 	var/is_new_mind = FALSE
+	var/transformed = FALSE
+	var/cure_after_transform = TRUE
 
 /datum/disease/virus/transformation/stage_act()
-	if(!..())
+	if(!..() || !affected_mob)
 		return FALSE
 
 	switch(stage)
@@ -34,30 +35,40 @@
 			if(prob(stage_prob*2) && stage4)
 				to_chat(affected_mob, pick(stage4))
 		if(5)
-			do_disease_transformation(affected_mob)
+			if(prob(stage_prob*2) && stage5)
+				to_chat(affected_mob, pick(stage5))
+			if(!transformed)
+				if(transform_message)
+					to_chat(affected_mob, pick(transform_message))
+				do_disease_transformation()
+				if(cure_after_transform)
+					cure()
 
-/datum/disease/virus/transformation/proc/do_disease_transformation(mob/living/affected_mob)
-	if(istype(affected_mob, /mob/living/carbon) && affected_mob.stat != DEAD)
-		if(stage5)
-			to_chat(affected_mob, pick(stage5))
+/datum/disease/virus/transformation/proc/do_disease_transformation()
+	if(istype(affected_mob) && new_form)
 		if(jobban_isbanned(affected_mob, new_form))
 			affected_mob.death(1)
 			return
+
 		if(affected_mob.notransform)
 			return
+
 		affected_mob.notransform = 1
 		affected_mob.canmove = 0
 		affected_mob.icon = null
 		affected_mob.overlays.Cut()
 		affected_mob.invisibility = 101
+
 		for(var/obj/item/W in affected_mob)
 			if(istype(W, /obj/item/implant))
 				qdel(W)
 				continue
 			affected_mob.drop_item_ground(W) //Если вещь снимается - снимаем
+
 		if(isobj(affected_mob.loc))
 			var/obj/O = affected_mob.loc
 			O.force_eject_occupant(affected_mob)
+
 		var/mob/living/new_mob = new new_form(affected_mob.loc)
 		if(istype(new_mob))
 			new_mob.a_intent = "harm"
@@ -67,51 +78,61 @@
 					new_mob.mind.wipe_memory()
 			else
 				new_mob.key = affected_mob.key
+
 		qdel(affected_mob)
-
-
+		transformed = TRUE
+		return new_mob
 
 /datum/disease/virus/transformation/jungle_fever
 	name = "Jungle Fever"
 	agent = "Kongey Vibrion M-909"
 	desc = "Monkeys with this disease will bite humans, causing humans to mutate into a monkey."
-	curable = FALSE
-	cure_prob = 1
+	stage_prob = 2
+	cure_prob = 5
 	cures = list("banana")
-	//spread_text = "Monkey Bites"
-	spread_flags = SPECIAL     //TODO: spread with bites
+	spread_flags = BITES
 	viable_mobtypes = list(/mob/living/carbon/human)
 	severity = BIOHAZARD
-	stage_prob = 4
-	visibility_flags = VISIBLE
-	new_form = /mob/living/carbon/human/lesser/monkey
-	is_new_mind = TRUE
-
+	cure_after_transform = FALSE
 	stage1	= null
 	stage2	= null
 	stage3	= null
-	stage4	= list("<span class='warning'>Your back hurts.</span>", "<span class='warning'>You breathe through your mouth.</span>",
-					"<span class='warning'>You have a craving for bananas.</span>", "<span class='warning'>Your mind feels clouded.</span>")
-	stage5	= list("<span class='warning'>You feel like monkeying around.</span>")
+	stage4	= list(span_warning("Your back hurts."), span_warning("You breathe through your mouth."),
+					span_warning("You have a craving for bananas."), span_warning("Your mind feels clouded."))
+	stage5	= list(span_warning("You feel like monkeying around."))
+	new_form = /mob/living/carbon/human/lesser/monkey
 
-/datum/disease/virus/transformation/jungle_fever/do_disease_transformation(mob/living/carbon/human/affected_mob)
-	if(!issmall(affected_mob))
-		affected_mob.monkeyize()
+/datum/disease/virus/transformation/jungle_fever/do_disease_transformation()
+	var/mob/living/carbon/human/H = affected_mob
+	if(!istype(H))
+		return
+	if(!issmall(H))
+		if(istype(H.dna.species.primitive_form))
+			H.monkeyize()
+			transformed = TRUE
+		else
+			var/mob/living/new_mob = ..()
+			var/datum/disease/virus/transformation/jungle_fever/D = ForceContract(new_mob)
+			D?.stage = 5
+			D.transformed = TRUE
+	else
+		transformed = TRUE
 
 /datum/disease/virus/transformation/jungle_fever/stage_act()
-	..()
+	if(!..() || !affected_mob)
+		return FALSE
+
 	switch(stage)
 		if(2)
 			if(prob(2))
-				to_chat(affected_mob, "<span class='notice'>Your [pick("back", "arm", "leg", "elbow", "head")] itches.</span>")
+				to_chat(affected_mob, span_notice("Your [pick("back", "arm", "leg", "elbow", "head")] itches."))
 		if(3)
 			if(prob(4))
-				to_chat(affected_mob, "<span class='danger'>You feel a stabbing pain in your head.</span>")
+				to_chat(affected_mob, span_danger("You feel a stabbing pain in your head."))
 				affected_mob.AdjustConfused(20 SECONDS)
-		if(4)
-			if(prob(3))
-				affected_mob.say(pick("Eeek, ook ook!", "Eee-eeek!", "Eeee!", "Ungh, ungh."))
-
+		if(4, 5)
+			if(prob(4))
+				affected_mob.say(pick("Иииик, уку уку!", "Иии-ииик!", "Ииии!", "Ун, ун."))
 
 /datum/disease/virus/transformation/robot
 	name = "Robotic Transformation"
@@ -119,25 +140,24 @@
 	desc = "This disease, actually acute nanomachine infection, converts the victim into a cyborg."
 	cures = list("copper")
 	cure_prob = 5
-	severity = DANGEROUS
-	visibility_flags = VISIBLE
-	new_form = /mob/living/silicon/robot
 	is_new_mind = TRUE
-	stage1	= null
-	stage2	= list("Your joints feel stiff.", "<span class='danger'>Beep...boop..</span>")
-	stage3	= list("<span class='danger'>Your joints feel very stiff.</span>", "Your skin feels loose.", "<span class='danger'>You can feel something move...inside.</span>")
-	stage4	= list("<span class='danger'>Your skin feels very loose.</span>", "<span class='danger'>You can feel... something...inside you.</span>")
-	stage5	= list("<span class='danger'>Your skin feels as if it's about to burst off!</span>")
-
+	stage1 = null
+	stage2 = list(span_notice("Your joints feel stiff."), span_danger("Beep...boop.."))
+	stage3 = list(span_danger("Your joints feel very stiff."), span_notice("Your skin feels loose."), span_danger("You can feel something move...inside."))
+	stage4 = list(span_danger("Your skin feels very loose."), span_danger("You can feel... something...inside you."))
+	transform_message = list(span_danger("Your skin feels as if it's about to burst off!"))
+	new_form = /mob/living/silicon/robot
 
 /datum/disease/virus/transformation/robot/stage_act()
-	..()
+	if(!..() || !affected_mob)
+		return FALSE
+
 	switch(stage)
 		if(3)
 			if(prob(8))
 				affected_mob.say(pick("Beep, boop", "beep, beep!", "Boop...bop"))
 			if(prob(4))
-				to_chat(affected_mob, "<span class='danger'>You feel a stabbing pain in your head.</span>")
+				to_chat(affected_mob, span_danger("You feel a stabbing pain in your head."))
 				affected_mob.Paralyse(4 SECONDS)
 		if(4)
 			if(prob(20))
@@ -150,14 +170,12 @@
 	desc = "This disease changes the victim into a xenomorph."
 	cures = list("spaceacillin", "glycerol")
 	cure_prob = 5
-	severity = BIOHAZARD
-	visibility_flags = VISIBLE
-	stage1	= null
-	stage2	= list("Your throat feels scratchy.", "<span class='danger'>Kill...</span>")
-	stage3	= list("<span class='danger'>Your throat feels very scratchy.</span>", "Your skin feels tight.", "<span class='danger'>You can feel something move...inside.</span>")
-	stage4	= list("<span class='danger'>Your skin feels very tight.</span>", "<span class='danger'>Your blood boils!</span>", "<span class='danger'>You can feel... something...inside you.</span>")
-	stage5	= list("<span class='danger'><FONT size = 5><B>Теперь вы ксеноморф.</B></FONT></span>\n\
-	<B>Вы чувствуете боль от превращения! Вы желаете укусить того, кто с вами это сделал, благо, память вас не покинула и вы всё помните.</B>")
+	stage1 = null
+	stage2 = list("Your throat feels scratchy.", span_danger("Kill..."))
+	stage3 = list(span_danger("Your throat feels very scratchy."), "Your skin feels tight.", span_danger("You can feel something move...inside."))
+	stage4 = list(span_danger("Your skin feels very tight."), span_danger("Your blood boils!"), span_danger("You can feel... something...inside you."))
+	transform_message = list(span_danger("<FONT size = 5><B>Теперь вы ксеноморф.</B></FONT></span>\n\
+	<B>Вы чувствуете боль от превращения! Вы желаете укусить того, кто с вами это сделал, благо, память вас не покинула и вы всё помните.</B>"))
 	new_form = null
 
 /datum/disease/virus/transformation/xeno/New()
@@ -165,11 +183,13 @@
 	new_form = pick(/mob/living/carbon/alien/humanoid/hunter, /mob/living/carbon/alien/humanoid/drone/no_queen, /mob/living/carbon/alien/humanoid/sentinel)
 
 /datum/disease/virus/transformation/xeno/stage_act()
-	..()
+	if(!..() || !affected_mob)
+		return FALSE
+
 	switch(stage)
 		if(3)
 			if(prob(4))
-				to_chat(affected_mob, "<span class='danger'>You feel a stabbing pain in your head.</span>")
+				to_chat(affected_mob, span_danger("You feel a stabbing pain in your head."))
 				affected_mob.Paralyse(4 SECONDS)
 		if(4)
 			if(prob(20))
@@ -182,17 +202,17 @@
 	desc = "This highly concentrated extract converts anything into more of itself."
 	cures = list("frostoil")
 	cure_prob = 80
-	severity = BIOHAZARD
-	visibility_flags = VISIBLE
-	stage1	= list("You don't feel very well.")
-	stage2	= list("Your skin feels a little slimy.")
-	stage3	= list("<span class='danger'>Your appendages are melting away.</span>", "<span class='danger'>Your limbs begin to lose their shape.</span>")
-	stage4	= list("<span class='danger'>You are turning into a slime.</span>")
-	stage5	= list("<span class='danger'>You have become a slime.</span>")
+	stage1 = list(span_notice("You don't feel very well."))
+	stage2 = list(span_notice("Your skin feels a little slimy."))
+	stage3 = list(span_danger("Your appendages are melting away."), span_danger("Your limbs begin to lose their shape."))
+	stage4 = list(span_danger("You are turning into a slime."))
+	transform_message = list(span_danger("You have become a slime."))
 	new_form = /mob/living/simple_animal/slime/random
 
 /datum/disease/virus/transformation/slime/stage_act()
-	..()
+	if(!..() || !affected_mob)
+		return FALSE
+
 	switch(stage)
 		if(1)
 			if(ishuman(affected_mob))
@@ -211,17 +231,18 @@
 	desc = "This disease transforms the victim into a corgi."
 	cure_text = "Death"
 	cures = list("adminordrazine")
-	visibility_flags = VISIBLE
-	stage1	= list("BARK.")
-	stage2	= list("You feel the need to wear silly hats.")
-	stage3	= list("<span class='danger'>Must... eat... chocolate....</span>", "<span class='danger'>YAP</span>")
-	stage4	= list("<span class='danger'>Visions of washing machines assail your mind!</span>")
-	stage5	= list("<span class='danger'>AUUUUUU!!!</span>")
+	stage1	= list(span_notice("BARK."))
+	stage2	= list(span_notice("You feel the need to wear silly hats."))
+	stage3	= list(span_danger("Must... eat... chocolate...."), span_danger("YAP"))
+	stage4	= list(span_danger("Visions of washing machines assail your mind!"))
+	transform_message	= list(span_danger("AUUUUUU!!!"))
 	new_form = /mob/living/simple_animal/pet/dog/corgi
 	is_new_mind = TRUE
 
 /datum/disease/virus/transformation/corgi/stage_act()
-	..()
+	if(!..() || !affected_mob)
+		return FALSE
+
 	switch(stage)
 		if(3)
 			if(prob(8))
@@ -237,13 +258,11 @@
 	cure_text = "Nothing"
 	cures = list("adminordrazine")
 	stage_prob = 20
-	severity = BIOHAZARD
-	visibility_flags = VISIBLE
-	stage1	= list("Your stomach rumbles.")
-	stage2	= list("Your skin feels saggy.")
-	stage3	= list("<span class='danger'>Your appendages are melting away.</span>", "<span class='danger'>Your limbs begin to lose their shape.</span>")
-	stage4	= list("<span class='danger'>You're ravenous.</span>")
-	stage5	= list("<span class='danger'><FONT size = 5><B>ТЕПЕРЬ ВЫ МОРФ!</B></FONT></span> \n \
+	stage1 = list(span_notice("Your stomach rumbles."))
+	stage2 = list(span_notice("Your skin feels saggy."))
+	stage3 = list(span_danger("Your appendages are melting away."), span_danger("Your limbs begin to lose their shape."))
+	stage4 = list(span_danger("You're ravenous."))
+	transform_message = list(span_danger("<FONT size = 5><B>ТЕПЕРЬ ВЫ МОРФ!</B></FONT></span> \n \
 	Хоть Вы и трансформировались в отвратительную зелёную жижу, но это не повлияло на Ваше сознание \
-	и память. Вы не являетесь антагонистом.")
+	и память. Вы не являетесь антагонистом."))
 	new_form = /mob/living/simple_animal/hostile/morph

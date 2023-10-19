@@ -93,7 +93,7 @@
 				A.receive_damage(3, silent = 0)
 
 			H.adjustToxLoss(0.5)
-			H.Slowed(20 SECONDS, 5)
+			H.SetSlowed(20 SECONDS, 5)
 
 			if(prob(7))
 				H.vomit()
@@ -101,14 +101,15 @@
 			if(prob(15))
 				H.emote(pick("moan", "cry"))
 
-			if(prob(10))
+			if(prob(8))
 				to_chat(H, span_danger("You feel a stabbing pain in your abdomen!"))
-				H.Stun(rand(3 SECONDS, 6 SECONDS))
+				H.Stun(rand(2 SECONDS, 4 SECONDS))
 
 
 /datum/disease/appendicitis/proc/rupture(mob/living/carbon/human/H, obj/item/organ/internal/appendix/A)
 	ruptured = TRUE
 	A.necrotize()
+	stage = 5
 
 	var/obj/item/organ/external/parent = H.get_organ(check_zone(A.parent_organ))
 	if(istype(parent))
@@ -131,7 +132,7 @@
 	addtimer(CALLBACK(src, PROC_REF(exhausted), H, A), 10 SECONDS)
 
 /datum/disease/appendicitis/proc/exhausted(mob/living/carbon/human/H, obj/item/organ/internal/appendix/A)
-	to_chat(H, span_danger("You feel weakening...Need to sleep"))
+	to_chat(H, span_danger("You feel weakening... Need to sleep"))
 	H.SetSleeping(40 SECONDS)
 	H.Slowed(200 SECONDS, 10)
 
