@@ -523,6 +523,37 @@
 				playsound(loc, pick('sound/voice/skrell/croaking1.mp3', 'sound/voice/skrell/croaking2.mp3'), 50, 1, frequency = get_age_pitch())
 				m_type = 2
 
+		if("discontent")
+			if(!miming)
+				var/M = handle_emote_param(param)
+				message = "положил[genderize_ru(gender,"","а","о","и")] два пальца на подбородок[M ? ", смотря на [M]" : ""]"
+				m_type = 1
+
+		if("relax")
+			if(!miming)
+				var/M = handle_emote_param(param)
+				message = "раслабил[genderize_ru(gender,"","а","о","и")] хвосты[M ? ", смотря на [M]" : ""]"
+				m_type = 1
+
+		if("excitement")
+			if(!miming)
+				var/M = handle_emote_param(param)
+				message = "приподнял[genderize_ru(gender,"","а","о","и")] кончики боковых хвостов[M ? ", смотря на [M]" : ""]"
+				m_type = 1
+
+		if("confusion")
+			if(!miming)
+				var/M = handle_emote_param(param)
+				message = "почесал[genderize_ru(gender,"","а","о","и")] шею[M ? ", смотря на [M]" : ""]"
+				m_type = 1
+
+		if("understand")
+			if(!miming)
+				var/M = handle_emote_param(param)
+				message = "положил[genderize_ru(gender,"","а","о","и")] руку на шею[M ? ", смотря на [M]" : ""]"
+				m_type = 1
+
+
 		if("yes")
 			if(!miming)
 				var/M = handle_emote_param(param)
@@ -1048,8 +1079,10 @@
 
 		if("smile", "smiles")
 			var/M = handle_emote_param(param, 1)
-
-			message = "улыба[pluralize_ru(src.gender,"ет","ют")]ся[M ? " [M]" : ""]."
+			if(isskrell(src))
+				message = "положил[genderize_ru(gender,"","а","о","и")] руку на щеку[M ? ", смотря на [M]" : ""]"
+			else
+				message = "улыба[pluralize_ru(src.gender,"ет","ют")]ся[M ? " [M]" : ""]."
 			m_type = 1
 
 		if("shiver", "shivers")
