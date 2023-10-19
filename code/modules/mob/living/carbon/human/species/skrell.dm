@@ -95,6 +95,21 @@
 	..()
 	REMOVE_TRAIT(H, TRAIT_WATERBREATH, "species")
 	H.verbs -= /mob/living/carbon/human/proc/emote_warble
+	H.verbs -= /mob/living/carbon/human/proc/emote_sad_trill
+	H.verbs -= /mob/living/carbon/human/proc/emote_joyfull_trill
+	H.verbs -= /mob/living/carbon/human/proc/emote_croaking
+	H.verbs -= /mob/living/carbon/human/proc/emote_discontent
+	H.verbs -= /mob/living/carbon/human/proc/emote_relax
+	H.verbs -= /mob/living/carbon/human/proc/emote_excitement
+	H.verbs -= /mob/living/carbon/human/proc/emote_confusion
+	H.verbs -= /mob/living/carbon/human/proc/emote_understand
+	H.verbs |= /mob/living/carbon/human/verb/emote_grin
+	H.verbs |= /mob/living/carbon/human/verb/emote_wink
+	H.verbs |= /mob/living/carbon/human/verb/emote_eyebrow
+	H.verbs |= /mob/living/carbon/human/verb/emote_glare
+	H.verbs |= /mob/living/carbon/human/verb/emote_chuckle
+	H.verbs |= /mob/living/carbon/human/verb/emote_frown
+	H.verbs |= /mob/living/carbon/human/verb/emote_snuffle
 
 
 /datum/species/skrell/water_act(mob/living/carbon/human/M, volume, temperature, source, method)
