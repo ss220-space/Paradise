@@ -2,7 +2,7 @@
 	name = "DNA-Injector"
 	desc = "This injects the person with DNA."
 	icon = 'icons/obj/hypo.dmi'
-	icon_state = "autoinjector"
+	icon_state = "dnainjector"
 	item_state = "autoinjector"
 	belt_icon = "autoinjector"
 	var/block = 0
