@@ -110,6 +110,11 @@
 "tY" = (
 /turf/template_noop,
 /area/template_noop)
+"ua" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/random/volcanic/hard,
+/area/lavaland/surface/outdoors)
 "vs" = (
 /obj/item/stack/sheet/wood,
 /turf/simulated/floor/engine/cult,
@@ -133,6 +138,10 @@
 	},
 /turf/simulated/floor/engine/cult,
 /area/ruin/unpowered/misc_lavaruin)
+"Ay" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "AE" = (
 /obj/structure/chair/sofa/pew/left{
 	dir = 4
@@ -192,6 +201,10 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/engine/cult,
 /area/ruin/unpowered/misc_lavaruin)
+"Iu" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/random/volcanic/hard/double,
+/area/lavaland/surface/outdoors)
 "Ji" = (
 /obj/structure/fluff/divine/nexus,
 /turf/simulated/floor/engine/cult,
@@ -303,6 +316,10 @@
 	},
 /turf/simulated/floor/engine/cult,
 /area/ruin/unpowered/misc_lavaruin)
+"Wz" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/random/volcanic/hard,
+/area/lavaland/surface/outdoors)
 "Xg" = (
 /obj/structure/closet/coffin,
 /turf/simulated/floor/engine/cult,
@@ -681,7 +698,7 @@ tY
 tY
 "}
 (11,1,1) = {"
-Qk
+Ay
 Ob
 Ob
 Ob
@@ -717,9 +734,9 @@ tY
 tY
 "}
 (12,1,1) = {"
-Qk
-Ob
-Ob
+Ay
+Wz
+Wz
 rx
 AI
 Xg
@@ -753,9 +770,9 @@ tY
 tY
 "}
 (13,1,1) = {"
-Qk
-Ob
-Ob
+Ay
+ua
+Wz
 rx
 AI
 td
@@ -790,9 +807,9 @@ tY
 "}
 (14,1,1) = {"
 tY
-Ob
-Ob
-rx
+Wz
+Wz
+Iu
 AI
 td
 aV
@@ -827,8 +844,8 @@ tY
 (15,1,1) = {"
 tY
 tY
-Ob
-Ob
+Wz
+Wz
 Rm
 td
 VM
@@ -862,9 +879,9 @@ tY
 "}
 (16,1,1) = {"
 tY
-Ob
-Ob
-rx
+Wz
+Wz
+Iu
 AI
 td
 NI
@@ -897,9 +914,9 @@ tY
 tY
 "}
 (17,1,1) = {"
-Qk
-Ob
-Ob
+Ay
+ua
+ua
 rx
 AI
 td
@@ -933,9 +950,9 @@ tY
 tY
 "}
 (18,1,1) = {"
-Qk
-Ob
-Ob
+Ay
+Wz
+Wz
 rx
 AI
 Xg

@@ -94118,7 +94118,6 @@
 /area/hallway/primary/port/south)
 "wsa" = (
 /obj/structure/closet/secure_closet/engineering_chief,
-/obj/item/rcd/preloaded,
 /obj/item/clothing/glasses/meson/sunglasses,
 /obj/item/lock_buster,
 /obj/item/cartridge/engineering{
@@ -94137,6 +94136,7 @@
 	pixel_x = 5;
 	pixel_y = -3
 	},
+/obj/item/rcd/combat,
 /turf/simulated/floor/carpet/orange,
 /area/engine/chiefs_office)
 "wsb" = (

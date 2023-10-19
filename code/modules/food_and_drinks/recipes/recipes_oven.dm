@@ -673,3 +673,12 @@
 		/obj/item/reagent_containers/food/snacks/sliceable/cheesewheel
 	)
 	result = /obj/item/stack/sheet/cheese
+
+/datum/recipe/oven/bakedvulp
+	reagents = list("sodiumchloride" = 2, "blackpepper" = 2)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meat,
+		/obj/item/organ/external/head/vulpkanin,
+		/obj/item/reagent_containers/food/snacks/grown/apple
+	)
+	result = /obj/item/reagent_containers/food/snacks/bakedvulp

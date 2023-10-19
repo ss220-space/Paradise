@@ -511,6 +511,16 @@
 
 	. += _memory_edit_role_enabled(ROLE_DEVIL)
 
+
+/datum/mind/proc/memory_edit_space_dragon()
+	. = _memory_edit_header("dragon")
+	var/datum/antagonist/space_dragon/dragon_datum = has_antag_datum(/datum/antagonist/space_dragon)
+	if(dragon_datum)
+		. += "<b><font color='red'>SPACE DRAGON</font></b>|<a href='?src=[UID()];space_dragon=clear'>no</a>"
+	else
+		. += "<a href='?src=[UID()];space_dragon=space_dragon'>space dragon</a>|<b>NO</b>"
+
+
 /datum/mind/proc/memory_edit_eventmisc(mob/living/H)
 	. = _memory_edit_header("event", list())
 	if(src in SSticker.mode.eventmiscs)
@@ -589,6 +599,19 @@
 		. += "mindslave|<b>NO</b>"
 
 
+/datum/mind/proc/memory_edit_malf_ai()
+	. = _memory_edit_header("traitor", list("traitorchan", "traitorvamp", "traitorthief"))
+	var/datum/antagonist/malf_ai/malf_datum = has_antag_datum(/datum/antagonist/malf_ai)
+	if(malf_datum)
+		. += "<b><font color='red'>MALF AI</font></b>|<a href='?src=[UID()];malf_ai=clear'>no</a>"
+		if(!length(malf_datum.objectives))
+			. += "<br>Objectives are empty! <a href='?src=[UID()];malf_ai=autoobjectives'>Randomize!</a>"
+	else
+		. += "<a href='?src=[UID()];malf_ai=malf_ai'>malf AI</a>|<b>NO</b>"
+
+	. += _memory_edit_role_enabled(ROLE_MALF_AI)
+
+
 /datum/mind/proc/memory_edit_thief()
 	. = _memory_edit_header("thief", list("traitorthief", "traitorthiefvamp", "traitorthiefchan", "thiefchan", "thiefvamp", "changelingthief", "vampirethief"))
 	var/datum/antagonist/thief/thief_datum = has_antag_datum(/datum/antagonist/thief)
@@ -607,7 +630,7 @@
 /datum/mind/proc/memory_edit_silicon()
 	. = "<i><b>Silicon</b></i>: "
 	var/mob/living/silicon/silicon = current
-	. = "<br>Current Laws:<b>[silicon.laws.name]</b> <a href='?src=[UID()];silicon=lawmanager'>Law Manager</a>"
+	. = "<br>Current Laws: <b>[silicon.laws.name]</b> <a href='?src=[UID()];silicon=lawmanager'>Law Manager</a>"
 	var/mob/living/silicon/robot/robot = current
 	if(istype(robot))
 		. += "<br><b>Cyborg Module: [robot.module ? robot.module : "None" ]</b> <a href='?src=[UID()];silicon=borgpanel'>Borg Panel</a>"
@@ -667,6 +690,7 @@
 		"traitor",
 		"ninja",
 		"thief",		//	"traitorthief", "traitorthiefvamp", "traitorthiefchan",
+		"malf_ai",
 	)
 	var/mob/living/carbon/human/H = current
 	if(ishuman(current))
@@ -690,20 +714,30 @@
 		sections["abductor"] = memory_edit_abductor(H)
 		/** Space Ninja **/
 		sections["ninja"] = memory_edit_ninja(H)
+		/** THIEF ***/
+		sections["thief"] = memory_edit_thief()
+		/** TRAITOR ***/
+		sections["traitor"] = memory_edit_traitor()
+
+	if(isAI(current))
+		sections["malf_ai"] = memory_edit_malf_ai()
+
 	/** DEVIL ***/
 	var/static/list/devils_typecache = typecacheof(list(/mob/living/carbon/human, /mob/living/carbon/true_devil, /mob/living/silicon/robot))
 	if(is_type_in_typecache(current, devils_typecache))
 		sections["devil"] = memory_edit_devil(H)
+
+	if(istype(current, /mob/living/simple_animal/hostile/space_dragon))
+		sections["space_dragon"] = memory_edit_space_dragon()
+
 	sections["eventmisc"] = memory_edit_eventmisc(H)
-	/** TRAITOR ***/
-	sections["traitor"] = memory_edit_traitor()
-	/** THIEF ***/
-	sections["thief"] = memory_edit_thief()
+
 	if(!issilicon(current))
 		/** CULT ***/
 		sections["cult"] = memory_edit_cult(H)
 		/** CLOCKWORK **/
 		sections["clockwork"] = memory_edit_clockwork(H)
+
 	/** SILICON ***/
 	if(issilicon(current))
 		sections["silicon"] = memory_edit_silicon()
@@ -1854,6 +1888,27 @@
 				else
 					to_chat(usr, "<span class='warning'>No valid nuke found!</span>")
 
+	else if(href_list["space_dragon"])
+		switch(href_list["space_dragon"])
+			if("clear")
+				var/datum/antagonist/space_dragon/dragon_datum = has_antag_datum(/datum/antagonist/space_dragon)
+				if(!dragon_datum)
+					return
+
+				remove_antag_datum(dragon_datum)
+				log_admin("[key_name(usr)] has removed space dragon role from [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has removed space dragon role from [key_name_admin(current)]")
+
+			if("space_dragon")
+				var/datum/antagonist/space_dragon/dragon_datum = has_antag_datum(/datum/antagonist/space_dragon)
+				if(dragon_datum)
+					return
+
+				add_antag_datum(new /datum/antagonist/space_dragon)
+				playsound(current, 'sound/magic/ethereal_exit.ogg', 50, TRUE, -1)
+				log_admin("[key_name(usr)] has added space dragon role to [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has added space dragon role to [key_name_admin(current)]")
+
 	else if(href_list["eventmisc"])
 		switch(href_list["eventmisc"])
 			if("clear")
@@ -1945,6 +2000,40 @@
 
 				traitor_datum.give_objectives()
 				to_chat(usr, "<span class='notice'>The objectives for traitor [key] have been generated. You can edit them and announce manually.</span>")
+				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
+
+	else if(href_list["malf_ai"])
+		switch(href_list["malf_ai"])
+			if("clear")
+				var/datum/antagonist/malf_ai/malf_datum = has_antag_datum(/datum/antagonist/malf_ai)
+				if(!malf_datum)
+					return
+
+				remove_antag_datum(malf_datum)
+				to_chat(current, "<span class='warning'><FONT size = 3><B>Unknown hackers have brought your systems back to normal, you are no longer malfunctioning!</B></FONT></span>")
+				log_admin("[key_name(usr)] has de-malfAIed [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has de-malfAIed [key_name_admin(current)]")
+				SSticker?.score?.save_silicon_laws(current, usr, additional_info = "admin removed malf AI", log_all_laws = TRUE)
+
+			if("malf_ai")
+				if(has_antag_datum(/datum/antagonist/malf_ai))
+					return
+
+				var/datum/antagonist/malf_ai/malf_datum = new
+				malf_datum.give_objectives = FALSE
+				add_antag_datum(malf_datum)
+				log_admin("[key_name(usr)] has malfAIed [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has malfAIed [key_name_admin(current)]")
+				SSticker?.score?.save_silicon_laws(current, usr, additional_info = "admin made malf AI", log_all_laws = TRUE)
+
+			if("autoobjectives")
+				var/datum/antagonist/malf_ai/malf_datum = has_antag_datum(/datum/antagonist/malf_ai)
+				if(!malf_datum)
+					return
+
+				malf_datum.give_objectives()
+				to_chat(usr, "<span class='notice'>The objectives for malf AI [key] have been generated. You can edit them and announce manually.</span>")
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
 

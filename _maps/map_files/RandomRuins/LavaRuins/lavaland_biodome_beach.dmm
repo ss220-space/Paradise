@@ -353,6 +353,10 @@
 	dir = 4;
 	pixel_x = 12
 	},
+/obj/structure/mirror{
+	pixel_x = 26;
+	pixel_y = -2
+	},
 /turf/simulated/floor/plating,
 /area/ruin/powered/beach)
 "pI" = (

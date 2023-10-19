@@ -12,7 +12,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			var/datum/uplink_item/I = new path
 			if(!I.item)
 				continue
-			if(I.uplinktypes.len && SSticker && !(U.uplink_type in I.uplinktypes))
+			if(I.uplinktypes.len && SSticker && !(U.uplink_type in I.uplinktypes) && U.uplink_type != UPLINK_TYPE_ADMIN)
 				continue
 			if(I.excludefrom.len && SSticker && (U.uplink_type in I.excludefrom))
 				continue
@@ -74,6 +74,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/list/uplinktypes = list() // Empty list means it is in all the uplink types. Otherwise place the uplink type here.
 	var/list/excludefrom = list() // Empty list does nothing. Place the name of uplink type you don't want this item to be available in here.
 	var/list/job = null
+	var/list/race = null
 	var/surplus = 100 //Chance of being included in the surplus crate (when pick() selects it)
 	var/cant_discount = FALSE
 	var/limited_stock = -1 // Can you only buy so many? -1 allows for infinite purchases
@@ -85,7 +86,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/proc/spawn_item(var/turf/loc, var/obj/item/uplink/U)
 
 	if(hijack_only && !(usr.mind.special_role == SPECIAL_ROLE_NUKEOPS))//nukies get items that regular traitors only get with hijack. If a hijack-only item is not for nukies, then exclude it via the gamemode list.
-		if(!(locate(/datum/objective/hijack) in usr.mind.get_all_objectives()))
+		if(!(locate(/datum/objective/hijack) in usr.mind.get_all_objectives()) && U.uplink_type != UPLINK_TYPE_ADMIN)
 			to_chat(usr, "<span class='warning'>The Syndicate will only issue this extremely dangerous item to agents assigned the Hijack objective.</span>")
 			return
 
@@ -512,19 +513,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Special RCD capable to destroy reinforced walls and have 500 matter units instead of 100."
 	reference = "SRCD"
 	item = /obj/item/rcd/combat
-	cost = 8
-	job = list("Chief Engineer")
-	surplus = 0
-
-//Stimulants
-
-/datum/uplink_item/jobspecific/stims
-	name = "Stimulants"
-	desc = "A highly illegal compound contained within a compact auto-injector; when injected it makes the user extremely resistant to incapacitation and greatly enhances the body's ability to repair itself."
-	reference = "ST"
-	item = /obj/item/reagent_containers/hypospray/autoinjector/stimulants
 	cost = 5
-	job = list("Scientist", "Student Scientist", "Research Director", "Geneticist", "Chief Medical Officer", "Medical Doctor", "Intern", "Psychiatrist", "Chemist", "Paramedic", "Coroner", "Virologist")
+	job = list("Station Engineer", "Trainee Engineer", "Mechanic", "Life Support Specialist", "Chief Engineer")
+	surplus = 0
 
 //Tator Poison Bottles
 
@@ -547,6 +538,23 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	job = list("Head of Personnel", "Quartermaster", "Cargo Technician", "Librarian")
 
+
+// Racial
+
+/datum/uplink_item/racial
+	category = "Racial Specific Tools"
+	cant_discount = TRUE
+	surplus = 0
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) 
+
+//IPC
+
+/datum/uplink_item/racial/ipc_combat_upgrade
+	desc = "Advanced data storage designed to be compatible with positronic systems.This one include melee algorithms along with overwritten microbattery safety protocols."
+	reference = "ICU"
+	item = /obj/item/ipc_combat_upgrade
+	cost = 3
+	race = list("Machine")
 
 // DANGEROUS WEAPONS
 
@@ -1867,6 +1875,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 15
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+//Stimulants
+/datum/uplink_item/device_tools/stims
+	name = "Stimulants"
+	desc = "A highly illegal compound contained within a compact auto-injector; when injected it makes the user extremely resistant to incapacitation and greatly enhances the body's ability to repair itself."
+	reference = "ST"
+	item = /obj/item/reagent_containers/hypospray/autoinjector/stimulants
+	cost = 5
 
 // IMPLANTS
 
@@ -1910,6 +1925,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "AI"
 	item = /obj/item/implanter/adrenalin
 	cost = 8
+	cant_discount = TRUE
+	surplus = 0
 
 /datum/uplink_item/implants/microbomb
 	name = "Microbomb Implant"

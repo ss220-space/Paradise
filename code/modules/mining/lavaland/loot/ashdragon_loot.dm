@@ -156,7 +156,7 @@
 
 	var/mob/living/carbon/human/H = user
 	to_chat(user, span_danger("You feel warmth spread through you, paired with an odd desire to burn down a village. You're suddenly a very small, humanoid ash dragon!"))
-	H.set_species(/datum/species/unathi/draconid)
+	H.set_species(/datum/species/unathi/draconid, save_appearance = TRUE)
 
 	playsound(user.loc,'sound/items/drink.ogg', rand(10,50), 1)
 	qdel(src)
