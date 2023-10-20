@@ -2568,9 +2568,6 @@
 	},
 /area/derelict/rnd)
 "gd" = (
-/obj/effect/mob_spawn/human/ussp/scientist{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "purple"
@@ -7652,14 +7649,6 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel,
 /area/derelict/arrival)
-"tz" = (
-/obj/effect/mob_spawn/human/ussp/general{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
-/area/derelict/bridge)
 "tD" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -7706,9 +7695,6 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/crew_quarters)
 "tQ" = (
-/obj/effect/mob_spawn/human/ussp/engineer{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "blue"
@@ -7743,9 +7729,6 @@
 	c_tag = "Дормы лобби";
 	dir = 8;
 	network = list("USSP")
-	},
-/obj/effect/mob_spawn/human/ussp/security{
-	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -9784,9 +9767,6 @@
 /area/derelict/rnd)
 "Qf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mob_spawn/human/ussp/security{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "blue"
@@ -17770,7 +17750,7 @@ bJ
 ba
 am
 cE
-tz
+ba
 am
 ac
 ac
