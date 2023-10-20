@@ -49,6 +49,8 @@
 		return
 	if(user.incapacitated())
 		return
+	if(!(A in view(user)))
+		return
 	var/obj/item/clothing/gloves/color/yellow/power/P = user.gloves
 	if(world.time < P.last_shocked + P.shock_delay)
 		to_chat(user, "<span class='warning'>The gloves are still recharging.</span>")
@@ -72,7 +74,7 @@
 			var/mob/living/L = target_atom
 			if(user.a_intent == INTENT_DISARM)
 				add_attack_logs(user, L, "shocked and weakened with power gloves")
-				L.Weaken(3)
+				L.Weaken(6 SECONDS)
 			else
 				add_attack_logs(user, L, "electrocuted with[P.unlimited_power ? " unlimited" : null] power gloves [!P.unlimited_power ? "dealing [C.powernet?.get_electrocute_damage()] damage." : "dealing 1000 damage!!"]")
 				if(P.unlimited_power)

@@ -19,6 +19,14 @@
 	..()
 	block = GLOB.muteblock
 
+/datum/dna/gene/disability/mute/activate(mob/living/M, connected, flags)
+	. = ..()
+	ADD_TRAIT(M, TRAIT_MUTE, "dna")
+
+/datum/dna/gene/disability/mute/deactivate(mob/living/M, connected, flags)
+	. = ..()
+	REMOVE_TRAIT(M, TRAIT_MUTE, "dna")
+
 /datum/dna/gene/disability/mute/OnSay(mob/M, message)
 	return ""
 
@@ -271,19 +279,6 @@
 // USELESS SHIT //
 //////////////////
 
-// WAS: /datum/bioEffect/strong
-/datum/dna/gene/disability/strong
-	// pretty sure this doesn't do jack shit, putting it here until it does
-	name = "Strong"
-	desc = "Enhances the subject's ability to build and retain heavy muscles."
-	activation_message = "You feel buff!"
-	deactivation_message = "You feel wimpy and weak."
-	mutation = STRONG
-
-/datum/dna/gene/disability/strong/New()
-	..()
-	block = GLOB.strongblock
-
 // WAS: /datum/bioEffect/horns
 /datum/dna/gene/disability/horns
 	name = "Horns"
@@ -308,33 +303,31 @@
 	deactivation_messages = list("You no longer feel uncomfortably hot.")
 	mutation = IMMOLATE
 
-	spelltype = /obj/effect/proc_holder/spell/targeted/immolate
+	spelltype = /obj/effect/proc_holder/spell/immolate
 
 /datum/dna/gene/basic/grant_spell/immolate/New()
 	..()
 	block = GLOB.immolateblock
 
-/obj/effect/proc_holder/spell/targeted/immolate
+/obj/effect/proc_holder/spell/immolate
 	name = "Incendiary Mitochondria"
 	desc = "The subject becomes able to convert excess cellular energy into thermal energy."
 	panel = "Abilities"
-
-	charge_type = "recharge"
-	charge_max = 600
-
-	clothes_req = 0
-	stat_allowed = 0
-	invocation_type = "none"
-	range = -1
-	selection_type = "range"
+	base_cooldown = 60 SECONDS
+	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
 	var/list/compatible_mobs = list(/mob/living/carbon/human)
-	include_user = 1
-
 	action_icon_state = "genetic_incendiary"
 
-/obj/effect/proc_holder/spell/targeted/immolate/cast(list/targets, mob/living/user = usr)
+
+/obj/effect/proc_holder/spell/immolate/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
+/obj/effect/proc_holder/spell/immolate/cast(list/targets, mob/living/user = usr)
 	var/mob/living/carbon/L = user
 	L.adjust_fire_stacks(0.5)
 	L.visible_message("<span class='danger'>[L.name]</b> suddenly bursts into flames!</span>")
 	L.IgniteMob()
 	playsound(L.loc, 'sound/effects/bamf.ogg', 50, 0)
+

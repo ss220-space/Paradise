@@ -108,12 +108,13 @@
 	if(SSticker && SSticker.mode)
 		SSblackbox.ReportDeath(src)
 
-/mob/living/carbon/human/update_revive(updating)
+/mob/living/carbon/human/update_revive(updating, defib_revive)
 	. = ..()
 	if(. && healthdoll)
 		// We're alive again, so re-build the entire healthdoll
 		healthdoll.cached_healthdoll_overlays.Cut()
 		update_health_hud()
+		update_stamina_hud()
 	// Update healthdoll
 	if(dna.species)
 		dna.species.update_sight(src)

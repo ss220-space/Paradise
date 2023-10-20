@@ -23,7 +23,7 @@
 		/obj/item/clothing/head/cardborg
 	)
 
-	var/hat_icon_file = 'icons/mob/head.dmi'
+	var/hat_icon_file = 'icons/mob/clothing/head.dmi'
 	var/hat_icon_state
 	var/hat_alpha
 	var/hat_color
@@ -106,7 +106,7 @@
 			isCentered = TRUE
 			canWearBlacklistedHats = TRUE
 			hat_offset_y = -3
-		if("landmate", "syndi-engi") //Высотой: 24 пикселя макушка
+		if("landmate", "chiefmate", "syndi-engi") //Высотой: 24 пикселя макушка
 			canBeHatted = TRUE
 			hat_offset_y = -3
 		if("mopgearrex") //Высотой: 22

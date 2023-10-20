@@ -84,6 +84,7 @@
 	mymob.healths = null
 	mymob.healthdoll = null
 	mymob.pullin = null
+	mymob.stamina_bar = null
 
 	//clear the rest of our reload_fullscreen
 	lingchemdisplay = null
@@ -117,15 +118,6 @@
 	if(display_hud_version > HUD_VERSIONS)	//If the requested version number is greater than the available versions, reset back to the first version
 		display_hud_version = 1
 
-	if(mymob.client.view < world.view)
-		if(mymob.client.view < ARBITRARY_VIEWRANGE_NOHUD)
-			to_chat(mymob, "<span class='notice'>HUD is unavailable with this view range.</span>")
-			display_hud_version = HUD_STYLE_NOHUD
-		else
-			if(display_hud_version == HUD_STYLE_STANDARD)
-				to_chat(mymob, "<span class='notice'>Standard HUD mode is unavailable with a smaller-than-normal view range.</span>")
-				display_hud_version = HUD_STYLE_REDUCED
-
 	switch(display_hud_version)
 		if(HUD_STYLE_STANDARD)	//Default HUD
 			hud_shown = TRUE	//Governs behavior of other procs
@@ -142,6 +134,7 @@
 
 			if(action_intent)
 				action_intent.screen_loc = initial(action_intent.screen_loc) //Restore intent selection to the original position
+			. = TRUE
 
 		if(HUD_STYLE_REDUCED)	//Reduced HUD
 			hud_shown = FALSE	//Governs behavior of other procs
@@ -162,6 +155,7 @@
 			if(action_intent)
 				mymob.client.screen += action_intent		//we want the intent switcher visible
 				action_intent.screen_loc = ui_acti_alt	//move this to the alternative position, where zone_select usually is.
+			. = FALSE
 
 		if(HUD_STYLE_NOHUD)	//No HUD
 			hud_shown = FALSE	//Governs behavior of other procs
@@ -173,6 +167,7 @@
 				mymob.client.screen -= hotkeybuttons
 			if(infodisplay.len)
 				mymob.client.screen -= infodisplay
+			. = FALSE
 
 	hud_version = display_hud_version
 	persistent_inventory_update()

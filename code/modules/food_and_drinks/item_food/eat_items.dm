@@ -36,7 +36,8 @@
 		bites_damage_string = "Видна внутренняя часть..."
 	else if((current_bites >= bites_split * 3))
 		bites_damage_string = "Осталась одна труха..."
-	material_string += "\n[bites_damage_string]"
+	if(bites_damage_string)
+		material_string += "\n[bites_damage_string]"
 
 	return material_string
 
@@ -78,7 +79,7 @@
 
 	current_bites++
 	playsound(target.loc, 'sound/items/eatfood.ogg', 50, 0)
-	if(!target.mind?.vampire) //Dont give nutrition to vampires
+	if(!isvampire(target)) //Dont give nutrition to vampires
 		target.adjust_nutrition(nutritional_value)
 	obj_integrity = max(obj_integrity - integrity_bite, 0)
 	colour_change()
@@ -86,7 +87,7 @@
 		to_chat(user, "<span class='notice'>[target == user ? "Вы доели" : "[target] доел"] [src.name].</span>")
 		qdel(src)
 
-	GLOB.score_foodeaten++
+	SSticker.score.score_food_eaten++
 	return TRUE
 
 /obj/item/proc/forceFed(mob/living/carbon/target, mob/user, var/instant_application = FALSE)

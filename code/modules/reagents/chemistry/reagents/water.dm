@@ -54,6 +54,7 @@
 	reagent_state = LIQUID
 	color = "#61C2C2"
 	harmless = TRUE
+	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "floor cleaner"
 
 /datum/reagent/space_cleaner/reaction_obj(obj/O, volume)
@@ -64,6 +65,9 @@
 	else
 		if(O.simulated)
 			O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+			var/obj/item/clothing/suit/space/hardsuit/H = O
+			if(istype(H) && H.helmet)
+				H.helmet.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 		O.clean_blood()
 
 /datum/reagent/space_cleaner/reaction_turf(turf/T, volume)
@@ -140,12 +144,15 @@
 				to_mix += AD
 
 			var/datum/disease/advance/AD = Advance_Mix(to_mix)
-			if(AD)
-				var/list/preserve = list(AD)
-				for(var/D in data["viruses"])
-					if(!istype(D, /datum/disease/advance))
-						preserve += D
-				data["viruses"] = preserve
+			var/list/preserve = list()
+
+			if(istype(AD))
+				preserve += AD
+
+			for(var/datum/disease/D in data["viruses"] + mix_data["viruses"])
+				if(!istype(D, /datum/disease/advance))
+					preserve += D.Copy()
+			data["viruses"] = preserve
 
 		if(mix_data["blood_color"])
 			color = mix_data["blood_color"]
@@ -291,12 +298,12 @@
 
 /datum/reagent/holywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.AdjustJitter(-5)
+	M.AdjustJitter(-10 SECONDS)
 	if(current_cycle >= 30)		// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
-		M.AdjustStuttering(4, bound_lower = 0, bound_upper = 20)
-		M.Dizzy(5)
+		M.AdjustStuttering(8 SECONDS, bound_lower = 0, bound_upper = 40 SECONDS)
+		M.Dizzy(10 SECONDS)
 		if(isclocker(M) && prob(5))
-			M.AdjustClockSlur(5)
+			M.AdjustClockSlur(10 SECONDS)
 			M.say(pick("Via Ra'var!", "P'res Ni", "Nu'nce te Ren'", "Et Def'Fre", "RELO'JE AR SAGE", "Ric'gui'nea", "Uy'a Rad kos", "Uo Rom'tis!", "Rup'ru ge"))
 		if(iscultist(M))
 			for(var/datum/action/innate/cult/blood_magic/BM in M.actions)
@@ -304,17 +311,20 @@
 					to_chat(M, "<span class='cultlarge'>Your blood rites falter as holy water scours your body!</span>")
 					qdel(BS)
 			if(prob(5))
-				M.AdjustCultSlur(5)//5 seems like a good number...
+				M.AdjustCultSlur(10 SECONDS)//5 seems like a good number...
 				M.say(pick("Av'te Nar'sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","Egkau'haom'nai en Chaous","Ho Diak'nos tou Ap'iron","R'ge Na'sie","Diabo us Vo'iscum","Si gn'um Co'nu"))
 	if(current_cycle >= 75 && prob(33))	// 30 units, 150 seconds
-		M.AdjustConfused(3)
+		M.AdjustConfused(6 SECONDS)
 		if(isvampirethrall(M))
-			SSticker.mode.remove_vampire_mind(M.mind)
+			M.mind.remove_antag_datum(/datum/antagonist/mindslave/thrall)
+			M.mind.remove_antag_datum(/datum/antagonist/mindslave/goon_thrall)
 			holder.remove_reagent(id, volume)
+			M.visible_message("<span class='biggerdanger'>[M] recoils, their skin flushes with colour, regaining their sense of control!</span>")
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)
 			return
+
 		if(iscultist(M))
 			SSticker.mode.remove_cultist(M.mind)
 			holder.remove_reagent(id, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
@@ -339,17 +349,63 @@
 					if(is_type_in_list(I, CLOCK_CLOTHING))
 						H.drop_item_ground(I)
 
-	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full) && prob(80))
+	var/datum/antagonist/vampire/vamp = M.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(ishuman(M) && vamp && !vamp.get_ability(/datum/vampire_passive/full) && prob(80))
 		var/mob/living/carbon/V = M
-		if(M.mind.vampire.bloodusable)
-			M.Stuttering(1)
-			M.Jitter(30)
+		if(vamp.bloodusable)
+			M.Stuttering(2 SECONDS)
+			M.Jitter(60 SECONDS)
 			update_flags |= M.adjustStaminaLoss(5, FALSE)
 			if(prob(20))
 				M.emote("scream")
-			M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
-			M.mind.vampire.bloodusable = max(M.mind.vampire.bloodusable - 3,0)
-			if(M.mind.vampire.bloodusable)
+			vamp.adjust_nullification(20, 4)
+			vamp.bloodusable = max(vamp.bloodusable - 3,0)
+			if(vamp.bloodusable)
+				V.vomit(0, TRUE, FALSE)
+				V.adjustBruteLoss(3)
+			else
+				holder.remove_reagent(id, volume)
+				V.vomit(0, FALSE, FALSE)
+				return
+		else
+			if(!vamp.bloodtotal)
+				return ..() | update_flags
+			switch(current_cycle)
+				if(1 to 4)
+					to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
+					vamp.adjust_nullification(20, 4)
+				if(5 to 12)
+					to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
+					update_flags |= M.adjustFireLoss(1, FALSE)
+					M.Stuttering(2 SECONDS)
+					M.Jitter(40 SECONDS)
+					if(prob(20))
+						M.emote("scream")
+					vamp.adjust_nullification(20, 4)
+				if(13 to INFINITY)
+					M.visible_message("<span class='danger'>[M] suddenly bursts into flames!</span>",
+									"<span class='danger'>You suddenly ignite in a holy fire!</span>")
+					M.fire_stacks = min(5, M.fire_stacks + 3)
+					M.IgniteMob()
+					update_flags |= M.adjustFireLoss(3, FALSE)
+					M.Stuttering(2 SECONDS)
+					M.Jitter(60 SECONDS)
+					if(prob(40))
+						M.emote("scream")
+					vamp.adjust_nullification(20, 4)
+
+	var/datum/antagonist/goon_vampire/g_vamp = M.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
+	if(ishuman(M) && g_vamp && !g_vamp.get_ability(/datum/goon_vampire_passive/full) && prob(80))
+		var/mob/living/carbon/V = M
+		if(g_vamp.bloodusable)
+			M.Stuttering(2 SECONDS)
+			M.Jitter(60 SECONDS)
+			update_flags |= M.adjustStaminaLoss(5, FALSE)
+			if(prob(20))
+				M.emote("scream")
+			g_vamp.nullified = max(5, g_vamp.nullified + 2)
+			g_vamp.bloodusable = max(g_vamp.bloodusable - 3,0)
+			if(g_vamp.bloodusable)
 				V.vomit(0,1)
 			else
 				holder.remove_reagent(id, volume)
@@ -359,44 +415,73 @@
 			switch(current_cycle)
 				if(1 to 4)
 					to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+					g_vamp.nullified = max(5, g_vamp.nullified + 2)
 				if(5 to 12)
 					to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
 					update_flags |= M.adjustFireLoss(1, FALSE)
-					M.Stuttering(1)
-					M.Jitter(20)
+					M.Stuttering(2 SECONDS)
+					M.Jitter(40 SECONDS)
 					if(prob(20))
 						M.emote("scream")
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+					g_vamp.nullified = max(5, g_vamp.nullified + 2)
 				if(13 to INFINITY)
-					to_chat(M, "<span class = 'danger'>You suddenly ignite in a holy fire!</span>")
-					for(var/mob/O in viewers(M, null))
-						O.show_message(text("<span class = 'danger'>[] suddenly bursts into flames!</span>", M), 1)
+					M.visible_message("<span class='danger'>[M] suddenly bursts into flames!</span>",
+									"<span class='danger'>You suddenly ignite in a holy fire!</span>")
 					M.fire_stacks = min(5,M.fire_stacks + 3)
 					M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
 					update_flags |= M.adjustFireLoss(3, FALSE)		//Hence the other damages... ain't I a bastard?
-					M.Stuttering(1)
-					M.Jitter(30)
+					M.Stuttering(2 SECONDS)
+					M.Jitter(60 SECONDS)
 					if(prob(40))
 						M.emote("scream")
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+					g_vamp.nullified = max(5, g_vamp.nullified + 2)
+
+	if(ishuman(M) && !M.mind?.isholy)
+		switch(current_cycle)
+			if(0 to 24)
+				M.adjustBrainLoss(0.5, FALSE)
+			if(25 to 49)
+				M.adjustBrainLoss(1, FALSE)
+			if(50 to INFINITY)
+				M.adjustBrainLoss(2, FALSE)
+
 	return ..() | update_flags
 
 
 /datum/reagent/holywater/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	// Vampires have their powers weakened by holy water applied to the skin.
-	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full))
-		var/mob/living/carbon/human/H=M
+	if(!ishuman(M) || !M.mind)
+		return
+
+	var/mob/living/carbon/human/target = M
+
+	var/datum/antagonist/vampire/vamp = target.mind.has_antag_datum(/datum/antagonist/vampire)
+	if(vamp && !vamp.get_ability(/datum/vampire_passive/full))
+
 		if(method == REAGENT_TOUCH)
-			if(H.wear_mask)
-				to_chat(H, "<span class='warning'>Your mask protects you from the holy water!</span>")
+			if(target.wear_mask)
+				to_chat(target, "<span class='warning'>Your mask protects you from the holy water!</span>")
 				return
-			else if(H.head)
-				to_chat(H, "<span class='warning'>Your helmet protects you from the holy water!</span>")
+			else if(target.head)
+				to_chat(target, "<span class='warning'>Your helmet protects you from the holy water!</span>")
 				return
 			else
-				to_chat(M, "<span class='warning'>Something holy interferes with your powers!</span>")
-				M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+				to_chat(target, "<span class='warning'>Something holy interferes with your powers!</span>")
+				vamp.adjust_nullification(5, 2)
+
+	var/datum/antagonist/goon_vampire/g_vamp = target.mind.has_antag_datum(/datum/antagonist/goon_vampire)
+	if(g_vamp && !g_vamp.get_ability(/datum/goon_vampire_passive/full))
+
+		if(method == REAGENT_TOUCH)
+			if(target.wear_mask)
+				to_chat(target, "<span class='warning'>Your mask protects you from the holy water!</span>")
+				return
+			else if(target.head)
+				to_chat(target, "<span class='warning'>Your helmet protects you from the holy water!</span>")
+				return
+			else
+				to_chat(target, "<span class='warning'>Something holy interferes with your powers!</span>")
+				g_vamp.nullified = max(5, g_vamp.nullified + 2)
 
 
 /datum/reagent/holywater/reaction_turf(turf/simulated/T, volume)
@@ -418,10 +503,10 @@
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(iscultist(M))
-		M.AdjustDrowsy(-5)
-		update_flags |= M.AdjustParalysis(-1, FALSE)
-		update_flags |= M.AdjustStunned(-2, FALSE)
-		update_flags |= M.AdjustWeakened(-2, FALSE)
+		M.AdjustDrowsy(-10 SECONDS)
+		M.AdjustParalysis(-2 SECONDS)
+		M.AdjustStunned(-4 SECONDS)
+		M.AdjustWeakened(-4 SECONDS)
 		update_flags |= M.adjustToxLoss(-2, FALSE)
 		update_flags |= M.adjustFireLoss(-2, FALSE)
 		update_flags |= M.adjustOxyLoss(-2, FALSE)
@@ -432,7 +517,7 @@
 		update_flags |= M.adjustFireLoss(2, FALSE)
 		update_flags |= M.adjustOxyLoss(2, FALSE)
 		update_flags |= M.adjustBruteLoss(2, FALSE)
-		M.AdjustCultSlur(10)//CUASE WHY THE HELL NOT
+		M.AdjustCultSlur(20 SECONDS) //CUASE WHY THE HELL NOT
 	return ..() | update_flags
 
 /datum/reagent/hellwater

@@ -731,7 +731,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам#.D0.95.D0.B4.D0.B0" frameborder="0" id="main_frame"></iframe>        </body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде frameborder="0" id="main_frame"></iframe>        </body>
 
 		</html>
 
@@ -899,7 +899,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам#.D0.9D.D0.B0.D0.BF.D0.B8.D1.82.D0.BA.D0.B8" frameborder="0" id="main_frame"></iframe>        </body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_напиткам" frameborder="0" id="main_frame"></iframe>        </body>
 
 		</html>
 
@@ -1301,8 +1301,8 @@
 				<br><BR>
 
 				<h1><a name="what"><U><B>What's a Fax?</B></U></a></h1><BR>
-				<li>Faxes are your main method of communicating with the NAS Trurl, better known as Central Command.</li>
-				<li>Faxes allow personnel on the station to maintain open lines of communication with the NAS Trurl, allowing for vital information to flow both ways.</li>
+				<li>Faxes are your main method of communicating with the Trurl, better known as Central Command.</li>
+				<li>Faxes allow personnel on the station to maintain open lines of communication with the Trurl, allowing for vital information to flow both ways.</li>
 				<li>Being written communications, proper grammar, syntax and typography is required, in addition to a signature and, if applicable, a stamp. Failure to sign faxes will lead to an automatic rejection.</li>
 				<li>We at Nanotrasen provide Fax Machines to every Head of Staff, in addition to the Magistrate, Nanotrasen Representative, and Internal Affairs Agents.</li>
 				<li>This means that we trust the recipients of these fax machines to only use them in the proper circumstances (see <B>When to Fax?</B>).</li>

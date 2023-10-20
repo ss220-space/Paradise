@@ -94,8 +94,10 @@
 	if(has_changer)
 		return has_changer
 
-	if(mind?.changeling?.mimicking)
-		return mind.changeling.mimicking
+	if(ischangeling(src))
+		var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
+		if(cling.mimicking)
+			return cling.mimicking
 
 	if(GetSpecialVoice())
 		return GetSpecialVoice()
@@ -108,8 +110,10 @@
 	if(has_changer_tts)
 		return has_changer_tts
 
-	if(mind?.changeling?.mimicking)
-		return mind.changeling.tts_mimicking
+	if(ischangeling(src))
+		var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
+		if(cling.tts_mimicking)
+			return cling.tts_mimicking
 
 	if(GetSpecialTTSVoice())
 		return GetSpecialTTSVoice()
@@ -125,7 +129,7 @@
 	var/obj/item/organ/internal/L = get_organ_slot("lungs")
 	if((breathes && !L) || breathes && L && (L.status & ORGAN_DEAD))
 		return FALSE
-	if(getOxyLoss() > 10 || losebreath >= 4)
+	if(getOxyLoss() > 10 || AmountLoseBreath() >= 8 SECONDS)
 		emote("gasp")
 		return FALSE
 	if(mind)
@@ -177,14 +181,18 @@
 		if(S.speaking && S.speaking.flags & NO_STUTTER)
 			continue
 
-		if(silent || (MUTE in mutations))
+		if(HAS_TRAIT(src, TRAIT_MUTE))
 			S.message = ""
 
 		if(istype(wear_mask, /obj/item/clothing/mask/horsehead))
 			var/obj/item/clothing/mask/horsehead/hoers = wear_mask
 			if(hoers.voicechange)
 				S.message = pick("NEEIIGGGHHHH!", "NEEEIIIIGHH!", "NEIIIGGHH!", "HAAWWWWW!", "HAAAWWW!")
-				verb = pick("whinnies", "neighs", "says")
+
+		if(wear_mask)
+			var/speech_verb_when_masked = wear_mask.change_speech_verb()
+			if(speech_verb_when_masked)
+				verb = speech_verb_when_masked
 
 		if(dna)
 			for(var/datum/dna/gene/gene in GLOB.dna_genes)

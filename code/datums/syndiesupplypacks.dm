@@ -433,12 +433,12 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 
 /datum/syndie_supply_packs/security/armory/m12g_buckshot_slugs
 	name = "Syndicate Bulldog - 12g Buckshot Magazine Crate"
-	contains = list(/obj/item/ammo_box/magazine/m12g/buckshot,
-					/obj/item/ammo_box/magazine/m12g/buckshot,
-					/obj/item/ammo_box/magazine/m12g/buckshot,
-					/obj/item/ammo_box/magazine/m12g/buckshot,
-					/obj/item/ammo_box/magazine/m12g/buckshot,
-					/obj/item/ammo_box/magazine/m12g/buckshot)
+	contains = list(/obj/item/ammo_box/magazine/m12g,
+					/obj/item/ammo_box/magazine/m12g,
+					/obj/item/ammo_box/magazine/m12g,
+					/obj/item/ammo_box/magazine/m12g,
+					/obj/item/ammo_box/magazine/m12g,
+					/obj/item/ammo_box/magazine/m12g)
 	cost = 1000
 	containername = "Bulldog - 12g Buckshot Magazine crate"
 
@@ -2233,8 +2233,8 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/syndicate_special/professional
 	name = "Syndicate 'Professional' Bundle"
 	contains = list(/obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator, // 16TC
-					/obj/item/ammo_box/magazine/sniper_rounds/penetrator, // 5TC
-					/obj/item/ammo_box/magazine/sniper_rounds/soporific, // 3TC
+					/obj/item/ammo_box/magazine/sniper_rounds/compact/penetrator, // 5TC
+					/obj/item/ammo_box/magazine/sniper_rounds/compact/soporific, // 3TC
 					/obj/item/clothing/glasses/chameleon/thermal, // 6TC
 					/obj/item/clothing/gloves/combat, // 0 TC
 					/obj/item/clothing/under/suit_jacket/really_black, // 0 TC

@@ -113,7 +113,7 @@
 	item_color = "centcom"
 
 /obj/item/clothing/under/rank/centcom/officer
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant-Commander\" and bears \"N.A.S. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant-Commander\" and bears \"N.A.V. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
 	name = "\improper Nanotrasen Naval Officer Uniform"
 	icon_state = "navy_gold"
 	item_state = "navy_gold"
@@ -122,7 +122,7 @@
 	displays_id = 0
 
 /obj/item/clothing/under/rank/centcom/captain
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears \"N.A.S. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears \"N.A.V. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
 	name = "\improper Nanotrasen Naval Captain Uniform"
 	icon_state = "navy_gold"
 	item_state = "navy_gold"
@@ -434,6 +434,15 @@
 	item_color = "ash"
 	has_sensor = FALSE
 
+/obj/item/clothing/under/ash_walker_shaman
+	name = "shaman tribal rags"
+	desc = "Rags from Lavaland, drenched with ash, it has fine jewel coated bones sewn around the neck. This one seems to be for the shaman of a tribe."
+	icon_state = "shamanrags"
+	item_state = "shamanrags"
+	item_color = "shamanrags"
+	has_sensor = FALSE
+	species_restricted = list("Unathi", "Ash Walker", "Ash Walker Shaman", "Draconid")
+
 //dress
 
 /obj/item/clothing/under/dress/dress_fire
@@ -722,6 +731,21 @@
 	item_color = "pennywise"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
+/obj/item/clothing/under/rockso
+	name = "Rockso Costume"
+	desc = "I DO COCAINE!"
+	icon_state = "rocksouniform"
+	item_color = "rocksouniform"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/uniform.dmi',
+		"Wryn" = 'icons/mob/clothing/species/wryn/uniform.dmi'
+	)
+
 /obj/item/clothing/under/assistantformal
 	name = "assistant's formal uniform"
 	desc = "An assistant's formal-wear. Why an assistant needs formal-wear is still unknown."
@@ -796,21 +820,28 @@
 
 	if(slot == slot_w_uniform)
 		if(!user.ventcrawler)
-			user.ventcrawler = 2
+			user.ventcrawler = 1
 
 /obj/item/clothing/under/contortionist/dropped(mob/living/carbon/human/user)
 	if(!user.get_int_organ(/obj/item/organ/internal/heart/gland/ventcrawling))
 		user.ventcrawler = 0
 	..()
 
-/obj/item/clothing/under/contortionist/proc/check_clothing(mob/user as mob)
+
+/obj/item/clothing/under/contortionist/proc/check_clothing(mob/user)
 	//Allowed to wear: glasses, shoes, gloves, pockets, mask, and jumpsuit (obviously)
-	var/list/slot_must_be_empty = list(slot_back,slot_handcuffed,slot_legcuffed,slot_l_hand,slot_r_hand,slot_belt,slot_head,slot_wear_suit)
+	var/list/slot_must_be_empty = list(slot_back, slot_handcuffed, slot_legcuffed, slot_l_hand, \
+										slot_r_hand, slot_belt, slot_head, slot_wear_suit)
+
+	var/obj/item/slot_item
 	for(var/slot_id in slot_must_be_empty)
-		if(user.get_item_by_slot(slot_id))
-			to_chat(user,"<span class='warning'>You can't fit inside while wearing that \the [user.get_item_by_slot(slot_id)].</span>")
-			return 0
-	return 1
+		slot_item = user.get_item_by_slot(slot_id)
+		if(slot_item)
+			to_chat(user, span_warning("Вы не можете залезть в вентиляцию с [slot_item.name]."))
+			return FALSE
+
+	return TRUE
+
 
 /obj/item/clothing/under/cursedclown
 	name = "cursed clown suit"

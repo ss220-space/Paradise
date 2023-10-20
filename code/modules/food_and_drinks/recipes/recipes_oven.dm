@@ -19,7 +19,7 @@
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
 	)
-	result = /obj/item/reagent_containers/food/snacks/sliceable/meatbread
+	result = /obj/item/reagent_containers/food/snacks/sliceable/bread/meat
 
 /datum/recipe/oven/syntibread
 	items = list(
@@ -33,7 +33,7 @@
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
 	)
-	result = /obj/item/reagent_containers/food/snacks/sliceable/meatbread
+	result = /obj/item/reagent_containers/food/snacks/sliceable/bread/meat
 
 /datum/recipe/oven/xenomeatbread
 	items = list(
@@ -47,7 +47,7 @@
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
 	)
-	result = /obj/item/reagent_containers/food/snacks/sliceable/xenomeatbread
+	result = /obj/item/reagent_containers/food/snacks/sliceable/bread/xeno
 
 /datum/recipe/oven/bananabread
 	reagents = list("milk" = 5, "sugar" = 15)
@@ -57,7 +57,7 @@
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/grown/banana
 	)
-	result = /obj/item/reagent_containers/food/snacks/sliceable/bananabread
+	result = /obj/item/reagent_containers/food/snacks/sliceable/bread/banana
 
 /datum/recipe/oven/muffin
 	reagents = list("milk" = 5, "sugar" = 5)
@@ -154,7 +154,7 @@
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
 	)
-	result = /obj/item/reagent_containers/food/snacks/sliceable/tofubread
+	result = /obj/item/reagent_containers/food/snacks/sliceable/bread/tofu
 
 /datum/recipe/oven/loadedbakedpotato
 	items = list(
@@ -673,3 +673,12 @@
 		/obj/item/reagent_containers/food/snacks/sliceable/cheesewheel
 	)
 	result = /obj/item/stack/sheet/cheese
+
+/datum/recipe/oven/bakedvulp
+	reagents = list("sodiumchloride" = 2, "blackpepper" = 2)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meat,
+		/obj/item/organ/external/head/vulpkanin,
+		/obj/item/reagent_containers/food/snacks/grown/apple
+	)
+	result = /obj/item/reagent_containers/food/snacks/bakedvulp

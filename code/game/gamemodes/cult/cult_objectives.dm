@@ -120,15 +120,17 @@
 /datum/objective/servecult //Given to cultists on conversion/roundstart
 	explanation_text = "Assist your fellow cultists and Tear the Veil! (Use the Study Veil action to check your progress.)"
 	completed = TRUE
+	needs_target = FALSE
 
 /datum/objective/sacrifice
 	var/sacced = FALSE
+	needs_target = FALSE
 	explanation_text = "Sacrifice a crewmember in order to prepare the summoning."
 
 /datum/objective/sacrifice/check_completion()
 	return sacced || completed
 
-/datum/objective/sacrifice/find_target()
+/datum/objective/sacrifice/find_target(list/target_blacklist)
 	var/list/target_candidates = list()
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		if(is_admin_level(H.z)) //We can't sacrifice people that are on the centcom z-level
@@ -150,6 +152,7 @@
 
 
 /datum/objective/eldergod
+	needs_target = FALSE
 	var/summoned = FALSE
 	var/killed = FALSE
 	var/list/summon_spots = list()

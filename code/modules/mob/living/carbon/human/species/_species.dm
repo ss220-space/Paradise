@@ -12,6 +12,7 @@
 	var/blood_mask = 'icons/mob/human_races/masks/blood_human.dmi'
 
 	var/blood_species // Species blood's name
+	var/can_be_pale = FALSE
 
 	var/eyes = "eyes_s"                                  // Icon for eyes.
 	var/blurb = "A completely nondescript species."      // A brief lore summary for use in the chargen screen.
@@ -19,6 +20,11 @@
 
 	var/datum/species/primitive_form = null          // Lesser form, if any (ie. monkey for humans)
 	var/datum/species/greater_form = null             // Greater form, if any, ie. human for monkeys.
+
+	var/roundstart = TRUE
+	var/id = null
+
+
 	/// Name of tail image in species effects icon file.
 	var/tail
 	/// like tail but wings
@@ -42,6 +48,11 @@
 	var/hunger_drain = HUNGER_FACTOR
 	var/digestion_ratio = 1 //How quickly the species digests/absorbs reagents.
 	var/taste_sensitivity = TASTE_SENSITIVITY_NORMAL //the most widely used factor; humans use a different one
+	var/germs_growth_rate = 1 //How quickly germs are growing.
+
+	var/hunger_icon = 'icons/mob/screen_hunger.dmi'
+	var/hunger_type
+	var/hunger_level
 
 	var/siemens_coeff = 1 //base electrocution coefficient
 
@@ -60,16 +71,19 @@
 	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
 	var/speed_mod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
 	var/bonefragility = 1 // higher numbers - higher chances to break bones
+	var/fragile_bones_chance = 0	//chance to break bones while walking, pulling and beating
 	var/blood_damage_type = OXY //What type of damage does this species take if it's low on blood?
 	var/total_health = 100
 	var/punchdamagelow = 0       //lowest possible punch damage
 	var/punchdamagehigh = 9      //highest possible punch damage
 	var/punchstunthreshold = 9	 //damage at which punches from this race will stun //yes it should be to the attacked race but it's not useful that way even if it's logical
+	var/strength_modifier = 1	 //for now only used in resist/grab chances. Maybe sometime it will become more usefull
 	var/obj_damage = 0
 	var/list/default_genes = list()
 
 	var/ventcrawler = VENTCRAWLER_NONE //Determines if the mob can go through the vents.
 	var/has_fine_manipulation = 1 // Can use small items.
+	var/fingers_count = 10
 
 	///Sounds to override barefeet walking
 	var/list/special_step_sounds
@@ -126,18 +140,29 @@
 	var/scream_verb = "кричит"
 	var/female_giggle_sound = list('sound/voice/giggle_female_1.ogg','sound/voice/giggle_female_2.ogg','sound/voice/giggle_female_3.ogg')
 	var/male_giggle_sound = list('sound/voice/giggle_male_1.ogg','sound/voice/giggle_male_2.ogg')
-	var/male_scream_sound = 'sound/goonstation/voice/male_scream.ogg'
-	var/female_scream_sound = 'sound/goonstation/voice/female_scream.ogg'
+	var/male_scream_sound = list('sound/goonstation/voice/male_scream.ogg')
+	var/female_scream_sound = list('sound/goonstation/voice/female_scream.ogg')
 	var/female_laugh_sound = list('sound/voice/laugh_female_1.ogg','sound/voice/laugh_female_2.ogg','sound/voice/laugh_female_3.ogg')
 	var/male_laugh_sound = list('sound/voice/laugh_male_1.ogg','sound/voice/laugh_male_2.ogg','sound/voice/laugh_male_3.ogg')
 	var/list/death_sounds = list('sound/goonstation/voice/deathgasp_1.ogg', 'sound/goonstation/voice/deathgasp_2.ogg')
 	var/list/male_dying_gasp_sounds = list('sound/goonstation/voice/male_dying_gasp_1.ogg', 'sound/goonstation/voice/male_dying_gasp_2.ogg', 'sound/goonstation/voice/male_dying_gasp_3.ogg', 'sound/goonstation/voice/male_dying_gasp_4.ogg', 'sound/goonstation/voice/male_dying_gasp_5.ogg', 'sound/voice/gasp_male1.ogg','sound/voice/gasp_male2.ogg','sound/voice/gasp_male3.ogg','sound/voice/gasp_male4.ogg','sound/voice/gasp_male5.ogg','sound/voice/gasp_male6.ogg','sound/voice/gasp_male7.ogg')
 	var/list/female_dying_gasp_sounds = list('sound/goonstation/voice/female_dying_gasp_1.ogg', 'sound/goonstation/voice/female_dying_gasp_2.ogg', 'sound/goonstation/voice/female_dying_gasp_3.ogg', 'sound/goonstation/voice/female_dying_gasp_4.ogg', 'sound/goonstation/voice/female_dying_gasp_5.ogg', 'sound/voice/gasp_female1.ogg','sound/voice/gasp_female2.ogg','sound/voice/gasp_female3.ogg','sound/voice/gasp_female4.ogg','sound/voice/gasp_female5.ogg','sound/voice/gasp_female6.ogg','sound/voice/gasp_female7.ogg')
-	var/gasp_sound = 'sound/goonstation/voice/gasp.ogg'
+	var/gasp_sound = list('sound/goonstation/voice/gasp.ogg')
 	var/male_cough_sounds = list('sound/effects/mob_effects/m_cougha.ogg','sound/effects/mob_effects/m_coughb.ogg', 'sound/effects/mob_effects/m_coughc.ogg')
 	var/female_cough_sounds = list('sound/effects/mob_effects/f_cougha.ogg','sound/effects/mob_effects/f_coughb.ogg')
-	var/male_sneeze_sound = 'sound/effects/mob_effects/sneeze.ogg'
-	var/female_sneeze_sound = 'sound/effects/mob_effects/f_sneeze.ogg'
+	var/male_sneeze_sound = list('sound/effects/mob_effects/sneeze.ogg')
+	var/female_sneeze_sound = list('sound/effects/mob_effects/f_sneeze.ogg')
+	var/female_cry_sound = list('sound/voice/cry_female_1.ogg','sound/voice/cry_female_2.ogg','sound/voice/cry_female_3.ogg')
+	var/male_cry_sound = list('sound/voice/cry_male_1.ogg','sound/voice/cry_male_2.ogg')
+	var/female_grumble_sound = list()
+	var/male_grumble_sound = list()
+	var/female_moan_sound = list('sound/voice/moan_female_1.ogg','sound/voice/moan_female_2.ogg','sound/voice/moan_female_3.ogg')
+	var/male_moan_sound = list('sound/voice/moan_male_1.ogg','sound/voice/moan_male_2.ogg','sound/voice/moan_male_3.ogg')
+	var/female_sigh_sound = list('sound/voice/sigh_female.ogg')
+	var/male_sigh_sound = list('sound/voice/sigh_male.ogg')
+	var/female_choke_sound = list('sound/voice/gasp_female1.ogg','sound/voice/gasp_female2.ogg','sound/voice/gasp_female3.ogg','sound/voice/gasp_female4.ogg','sound/voice/gasp_female5.ogg','sound/voice/gasp_female6.ogg','sound/voice/gasp_female7.ogg')
+	var/male_choke_sound = list('sound/voice/gasp_male1.ogg','sound/voice/gasp_male2.ogg','sound/voice/gasp_male3.ogg','sound/voice/gasp_male4.ogg','sound/voice/gasp_male5.ogg','sound/voice/gasp_male6.ogg','sound/voice/gasp_male7.ogg')
+
 
 	//Default hair/headacc style vars.
 	var/default_hair				//Default hair style for newly created humans unless otherwise set.
@@ -188,6 +213,10 @@
 	var/toxic_food = TOXIC
 	var/disliked_food = GROSS
 	var/liked_food = FRIED | JUNKFOOD | SUGAR
+
+	var/list/autohiss_basic_map = null
+	var/list/autohiss_extra_map = null
+	var/list/autohiss_exempt = null
 
 /datum/species/New()
 	//If the species has eyes, they are the default vision organ
@@ -250,9 +279,9 @@
 	. = 0	//We start at 0.
 
 	if(has_gravity(H))
-		if(H.status_flags & GOTTAGOFAST)
+		if(HAS_TRAIT(H, TRAIT_GOTTAGOFAST))
 			. -= 1
-		else if(H.status_flags & GOTTAGONOTSOFAST)
+		else if(HAS_TRAIT(H, TRAIT_GOTTAGONOTSOFAST))
 			. -= 0.5
 
 		var/ignoreslow = FALSE
@@ -377,7 +406,7 @@
 
 	switch(damagetype)
 		if(BRUTE)
-			damage = damage * brute_mod
+			damage = damage * (brute_mod + H.get_vampire_bonus(BRUTE))
 			if(damage)
 				H.damageoverlaytemp = 20
 
@@ -385,7 +414,7 @@
 				H.UpdateDamageIcon()
 
 		if(BURN)
-			damage = damage * burn_mod
+			damage = damage * (burn_mod + H.get_vampire_bonus(BURN))
 			if(damage)
 				H.damageoverlaytemp = 20
 
@@ -396,8 +425,10 @@
 	H.updatehealth("apply damage")
 	return 1
 
-/datum/species/proc/spec_stun(mob/living/carbon/human/H,amount)
-	return
+/datum/species/proc/spec_stun(mob/living/carbon/human/H, amount)
+	. = amount
+	if(!H.frozen) //admin freeze has no breaks
+		. = stun_mod * amount
 
 /datum/species/proc/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
 	return
@@ -405,16 +436,21 @@
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style && attacker_style.help_act(user, target) == TRUE)//adminfu only...
 		return TRUE
-	if(target.health >= HEALTH_THRESHOLD_CRIT && !(target.status_flags & FAKEDEATH))
+	if(target.health >= HEALTH_THRESHOLD_CRIT && !HAS_TRAIT(target, TRAIT_FAKEDEATH))
 		target.help_shake_act(user)
 		return TRUE
 	else
 		user.do_cpr(target)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(target.check_block())
-		target.visible_message("<span class='warning'>[target.declent_ru(NOMINATIVE)] блокиру[pluralize_ru(target.gender,"ет","ют")] попытку захвата [user.declent_ru(GENITIVE)]!</span>")
+	var/message = "<span class='warning'>[target.declent_ru(NOMINATIVE)] блокиру[pluralize_ru(target.gender,"ет","ют")] попытку захвата [user.declent_ru(GENITIVE)]!</span>"
+	if(target.check_martial_art_defense(target, user, null, message))
 		return FALSE
+
+	var/datum/antagonist/vampire/vampire = user.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(vampire?.get_ability(/datum/vampire_passive/upgraded_grab) && vampire.grab_act(user, target))
+		return TRUE
+
 	if(attacker_style && attacker_style.grab_act(user, target) == TRUE)
 		return TRUE
 	else
@@ -425,24 +461,43 @@
 	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
 		to_chat(user, "<span class='warning'>[pluralize_ru(user.gender,"Ты не хочешь","Вы не хотите")] навредить [target.declent_ru(DATIVE)]!</span>")
 		return FALSE
+
 	//Vampire code
-	if(user.mind && user.mind.vampire && (user.mind in SSticker.mode.vampires) && !user.mind.vampire.draining && user.zone_selected == "head" && target != user)
+	var/datum/antagonist/vampire/vamp = user?.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(vamp && !vamp.draining && user.zone_selected == "head" && target != user)
+		if((NO_BLOOD in target.dna.species.species_traits) || target.dna.species.exotic_blood || !target.blood_volume)
+			to_chat(user, "<span class='warning'>They have no blood!</span>")
+			return
+		if(target.mind && (target.mind.has_antag_datum(/datum/antagonist/vampire) || target.mind.has_antag_datum(/datum/antagonist/mindslave/thrall)))
+			to_chat(user, "<span class='warning'>Your fangs fail to pierce [target.name]'s cold flesh</span>")
+			return
+		if(SKELETON in target.mutations)
+			to_chat(user, "<span class='warning'>There is no blood in a skeleton!</span>")
+			return
+		//we're good to suck the blood, blaah
+		vamp.handle_bloodsucking(target)
+		add_attack_logs(user, target, "vampirebit")
+		return
+
+	//Goon Vampire Dupe code
+	var/datum/antagonist/goon_vampire/g_vamp = user?.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
+	if(g_vamp && !g_vamp.draining && user.zone_selected == "head" && target != user)
 		if((NO_BLOOD in target.dna.species.species_traits) || target.dna.species.exotic_blood || !target.blood_volume)
 			to_chat(user, "<span class='warning'>Отсутствует кровь!</span>")
 			return
-		if(target.mind && target.mind.vampire && (target.mind in SSticker.mode.vampires))
+		if(target.mind?.has_antag_datum(/datum/antagonist/goon_vampire))
 			to_chat(user, "<span class='warning'>[pluralize_ru(user.gender,"Твои","Ваши")] клыки не могут пронзить холодную плоть [target.declent_ru(GENITIVE)].</span>")
 			return
 		if(SKELETON in target.mutations)
 			to_chat(user, "<span class='warning'>В скелете нет ни капли крови!</span>")
 			return
-		//we're good to suck the blood, blaah
-		user.mind.vampire.handle_bloodsucking(target)
+		g_vamp.handle_bloodsucking(target)
 		add_attack_logs(user, target, "vampirebit")
 		return
 		//end vampire codes
-	if(target.check_block())
-		target.visible_message("<span class='warning'>[target.declent_ru(NOMINATIVE)] блокиру[pluralize_ru(target.gender,"ет","ют")] атаку [user.declent_ru(GENITIVE)]!</span>")
+
+	var/message = "<span class='warning'>[target.declent_ru(NOMINATIVE)] блокиру[pluralize_ru(target.gender,"ет","ют")] атаку [user.declent_ru(GENITIVE)]!</span>"
+	if(target.check_martial_art_defense(target, user, null, message))
 		return FALSE
 	if(attacker_style && attacker_style.harm_act(user, target) == TRUE)
 		return TRUE
@@ -487,8 +542,9 @@
 
 		target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] [attack_species] [target.declent_ru(ACCUSATIVE)]!</span>")
 
-		if(target.mind && user?.mind?.objectives)
-			for(var/datum/objective/pain_hunter/objective in user.mind.objectives)
+		var/all_objectives = user?.mind?.get_all_objectives()
+		if(target.mind && all_objectives)
+			for(var/datum/objective/pain_hunter/objective in all_objectives)
 				if(target.mind == objective.target)
 					objective.take_damage(damage, damage_type)
 
@@ -496,15 +552,15 @@
 		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
 			target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] ослабля[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>", \
 							"<span class='userdanger'>[user.declent_ru(NOMINATIVE)] ослабля[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>")
-			target.apply_effect(2, WEAKEN, armor_block)
+			target.apply_effect(4 SECONDS, WEAKEN, armor_block)
 			target.forcesay(GLOB.hit_appends)
 		else if(target.lying)
 			target.forcesay(GLOB.hit_appends)
 		SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(target.check_block())
-		target.visible_message("<span class='warning'>[target.declent_ru(NOMINATIVE)] блокиру[pluralize_ru(target.gender,"ет","ют")] попытку обезоруживания [user.declent_ru(GENITIVE)]!</span>")
+	var/message = "<span class='warning'>[target.declent_ru(NOMINATIVE)] блокиру[pluralize_ru(target.gender,"ет","ют")] попытку обезоруживания [user.declent_ru(GENITIVE)]!</span>"
+	if(target.check_martial_art_defense(target, user, null, message))
 		return FALSE
 	if(attacker_style && attacker_style.disarm_act(user, target) == TRUE)
 		return TRUE
@@ -521,7 +577,7 @@
 				var/obj/item/clothing/gloves/gloves = user.gloves
 				extra_knock_chance = gloves.extra_knock_chance
 		if(randn <= 10 + extra_knock_chance)
-			target.apply_effect(2, WEAKEN, target.run_armor_check(affecting, "melee"))
+			target.apply_effect(4 SECONDS, WEAKEN, target.run_armor_check(affecting, "melee"))
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] толка[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>")
 			add_attack_logs(user, target, "Pushed over", ATKLOG_ALL)
@@ -964,12 +1020,28 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		if(A && A.update_remote_sight(H)) //returns 1 if we override all other sight updates.
 			return
 
-	if(H.mind && H.mind.vampire)
-		if(H.mind.vampire.get_ability(/datum/vampire_passive/full))
+	var/datum/antagonist/vampire/vamp = H.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(vamp)
+		if(vamp.get_ability(/datum/vampire_passive/xray))
+			H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
+			H.see_in_dark += 8
+			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+		else if(vamp.get_ability(/datum/vampire_passive/full))
+			H.sight |= SEE_MOBS
+			H.see_in_dark += 8
+			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+		else if(vamp.get_ability(/datum/vampire_passive/vision))
+			H.sight |= SEE_MOBS
+			H.see_in_dark += 1 // base of 2, 2+1 is 3
+			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+
+	var/datum/antagonist/goon_vampire/g_vamp = H.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
+	if(g_vamp)
+		if(g_vamp.get_ability(/datum/goon_vampire_passive/full))
 			H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
 			H.see_in_dark = 8
 			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-		else if(H.mind.vampire.get_ability(/datum/vampire_passive/vision))
+		else if(g_vamp.get_ability(/datum/goon_vampire_passive/vision))
 			H.sight |= SEE_MOBS
 			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
@@ -1049,7 +1121,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/can_hear(mob/living/carbon/human/H)
 	. = FALSE
 	var/obj/item/organ/internal/ears/ears = H.get_int_organ(/obj/item/organ/internal/ears)
-	if(istype(ears) && !ears.deaf)
+	if(istype(ears) && !HAS_TRAIT(H, TRAIT_DEAF))
 		. = TRUE
 
 /datum/species/proc/spec_Process_Spacemove(mob/living/carbon/human/H)

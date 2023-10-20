@@ -70,8 +70,8 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list())
 
 //Tails
 /datum/body_accessory/tail
-	icon = 'icons/mob/body_accessory.dmi'
-	animated_icon = 'icons/mob/body_accessory.dmi'
+	icon = 'icons/mob/clothing/body_accessory.dmi'
+	animated_icon = 'icons/mob/clothing/body_accessory.dmi'
 	blend_mode = ICON_ADD
 	icon_state = "null"
 	animated_icon_state = "null"
@@ -219,3 +219,22 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list())
 /datum/body_accessory/wing/feathery
 	name = "Feathery Wings"
 	icon_state = "feathery"
+
+//Unathi
+/datum/body_accessory/tail/smooth
+	name = "Smooth"
+	icon_state = "smooth"
+	animated_icon_state = "smooth_a"
+	allowed_species = list("Unathi", "Ash Walker", "Ash Walker Shaman", "Draconid")
+
+/datum/body_accessory/tail/tiger
+	name = "Tiger"
+	icon_state = "dtiger"
+	animated_icon_state = "dtiger_a"
+	allowed_species = list("Unathi", "Ash Walker", "Ash Walker Shaman", "Draconid")
+
+/datum/body_accessory/tail/spikes
+	name = "Spikes"
+	icon_state = "spikes"
+	animated_icon_state = "spikes_a"
+	allowed_species = list("Unathi", "Ash Walker", "Ash Walker Shaman", "Draconid")

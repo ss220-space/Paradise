@@ -26,6 +26,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	icon_state = "dont_use_this_floor"
 	plane = FLOOR_PLANE
 	var/icon_regular_floor = "floor" //used to remember what icon the tile should have by default
+	var/floor_regular_dir = SOUTH  //used to remember what dir the tile should have by default
 	var/icon_plating = "plating"
 	thermal_conductivity = 0.040
 	heat_capacity = 10000
@@ -50,6 +51,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 		icon_regular_floor = "floor"
 	else
 		icon_regular_floor = icon_state
+		floor_regular_dir = dir
 
 //turf/simulated/floor/CanPass(atom/movable/mover, turf/target, height=0)
 //	if((istype(mover, /obj/machinery/vehicle) && !(src.burnt)))
@@ -152,6 +154,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	var/old_icon = icon_regular_floor
 	var/old_plating = icon_plating
 	var/old_dir = dir
+	var/old_regular_dir = floor_regular_dir
 
 	var/turf/simulated/floor/W = ..()
 
@@ -161,6 +164,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 		W.icon_regular_floor = old_icon
 		W.icon_plating = old_plating
 	if(W.keep_dir)
+		W.floor_regular_dir = old_regular_dir
 		W.dir = old_dir
 	if(W.transparent_floor)
 		for(R in W)
@@ -185,8 +189,8 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 		if(P.pipe_type != -1) // ANY PIPE
 			user.visible_message( \
 				"[user] starts sliding [P] along \the [src].", \
-				"<span class='notice'>You slide [P] along \the [src].</span>", \
-				"You hear the scrape of metal against something.")
+				span_notice("You slide [P] along \the [src]."), \
+				span_italics("You hear the scrape of metal against something."))
 			user.drop_from_active_hand()
 
 			if(P.is_bent_pipe())  // bent pipe rotation fix see construction.dm
@@ -237,10 +241,10 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 		burnt = 0
 		current_overlay = null
 		if(user && !silent)
-			to_chat(user, "<span class='danger'>You remove the broken plating.</span>")
+			to_chat(user, span_danger("You remove the broken plating."))
 	else
 		if(user && !silent)
-			to_chat(user, "<span class='danger'>You remove the floor tile.</span>")
+			to_chat(user, span_danger("You remove the floor tile."))
 		if(floor_tile && make_tile)
 			var/obj/item/stack/stack_dropped = new floor_tile(src)
 			if(user)

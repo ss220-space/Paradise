@@ -6,7 +6,7 @@
 	name = "Highlander Style"
 	deflection_chance = 100
 	no_guns = TRUE
-	no_guns_message = "You'd never stoop so low as to use the weapon of a COWARD!"
+	no_guns_message = "Вы никогда не опуститесь таааак низко, чтобы пользоваться оружием ПОДЛЕЦОВ!"
 
 
 //Highlander Claymore

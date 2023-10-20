@@ -9,12 +9,28 @@
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/cult
 
+/turf/simulated/wall/cult_fake
+	name = "runed metal wall"
+	desc = "A cold metal wall engraved with indecipherable symbols. Studying them causes your head remember school. Oh no.."
+	icon = 'icons/turf/walls/cult_wall.dmi'
+	icon_state = "cult"
+	canSmoothWith = null
+	smooth = SMOOTH_FALSE
+	sheet_type = /obj/item/stack/sheet/runed_metal_fake
+	sheet_amount = 1
+	girder_type = /obj/structure/girder/cult_fake
+
 /turf/simulated/wall/cult/Initialize(mapload)
 	. = ..()
 	if(SSticker.mode)//game hasn't started offically don't do shit..
 		new /obj/effect/temp_visual/cult/turf(src)
 		if(!icon_state == "holy")
 			icon_state = SSticker.cultdat.cult_wall_icon_state
+
+/turf/simulated/wall/cult_fake/Initialize(mapload)
+	. = ..()
+	if(SSticker.mode)
+		new /obj/effect/temp_visual/cult/turf(src)
 
 /turf/simulated/wall/cult/artificer
 	name = "runed stone wall"
@@ -72,6 +88,14 @@
 	var/heated
 	var/obj/effect/clockwork/overlay/wall/realappearance
 
+/turf/simulated/wall/clockwork/fake
+	name = "clockwork wall"
+	desc = "A huge chunk of warm metal. The clanging of machinery emanates in the corner of your eyes. Maybe just a wind..."
+	sheet_type = /obj/item/stack/sheet/brass_fake
+	sheet_amount = 1
+	girder_type = /obj/structure/clockwork/wall_gear/fake
+	baseturf = /turf/simulated/floor/clockwork/fake
+
 /turf/simulated/wall/clockwork/Initialize()
 	. = ..()
 	new /obj/effect/temp_visual/ratvar/wall(src)
@@ -121,13 +145,13 @@
 /turf/simulated/wall/clockwork/mech_melee_attack(obj/mecha/M)
 	..()
 	if(heated)
-		to_chat(M.occupant, "<span class='userdanger'>The wall's intense heat completely reflects your [M.name]'s attack!</span>")
+		to_chat(M.occupant, span_userdanger("The wall's intense heat completely reflects your [M.name]'s attack!"))
 		M.take_damage(20, BURN)
 
 /turf/simulated/wall/clockwork/proc/turn_up_the_heat()
 	if(!heated)
 		name = "superheated [name]"
-		visible_message("<span class='warning'>[src] sizzles with heat!</span>")
+		visible_message(span_warning("[src] sizzles with heat!"))
 		playsound(src, 'sound/machines/fryer/deep_fryer_emerge.ogg', 50, TRUE)
 		heated = TRUE
 		hardness = -100 //Lower numbers are tougher, so this makes the wall essentially impervious to smashing
@@ -135,7 +159,7 @@
 		animate(realappearance, color = "#FFC3C3", time = 5)
 	else
 		name = initial(name)
-		visible_message("<span class='notice'>[src] cools down.</span>")
+		visible_message(span_notice("[src] cools down."))
 		heated = FALSE
 		hardness = initial(hardness)
 		slicing_duration = initial(slicing_duration)

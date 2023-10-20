@@ -108,7 +108,7 @@
 				pods += P
 				P.connected = src
 				P.name = "[initial(P.name)] #[pods.len]"
-				to_chat(user, "<span class='notice'>You connect [P] to [src].</span>")
+				to_chat(user, span_notice("You connect [P] to [src]."))
 	else
 		return ..()
 
@@ -363,7 +363,7 @@
 						set_temp(emagged ? "Error: Not enough MEAT!" : "Error: Not enough biomass.", "danger")
 					else if(pod.mess)
 						set_temp(emagged ? "Error: The killing pod is ok." : "Error: The cloning pod is malfunctioning.", emagged? "good" : "danger")
-					else if(!config.revival_cloning)
+					else if(!CONFIG_GET(flag/revival_cloning))
 						set_temp(emagged ? "Error: Unable to initiate killing cycle. " : "Error: Unable to initiate cloning cycle.", "danger")
 					else
 						cloneresult = pod.growclone(C)

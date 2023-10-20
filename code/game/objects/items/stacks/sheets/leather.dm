@@ -125,7 +125,8 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 	new/datum/stack_recipe("leather shoes", /obj/item/clothing/shoes/leather, 2),
 	new/datum/stack_recipe("leather overcoat", /obj/item/clothing/suit/jacket/leather/overcoat, 10),
 	new/datum/stack_recipe("FireSuit", /obj/item/clothing/suit/fire/firefighter, 15),
-	new/datum/stack_recipe("hide mantle", /obj/item/clothing/neck/mantle/unathi, 4)))
+	new/datum/stack_recipe("hide mantle", /obj/item/clothing/neck/mantle/unathi, 4),
+	new/datum/stack_recipe("gem satchel", /obj/item/storage/bag/gem, 1)))
 
 /obj/item/stack/sheet/leather/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -159,6 +160,8 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	var/static/list/goliath_platable_armor_typecache = typecacheof(list(
 			/obj/item/clothing/suit/hooded/explorer,
 			/obj/item/clothing/head/hooded/explorer,
+			/obj/item/clothing/suit/hooded/pathfinder,
+			/obj/item/clothing/head/hooded/pathfinder,
 			/obj/item/clothing/head/helmet/space/plasmaman/mining))
 	var/static/list/goliath_platable_armor_with_icon_typecache = typecacheof(list(
 			/obj/item/clothing/suit/space/hardsuit/mining,
@@ -197,13 +200,36 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating("laser") + 5, 50))
 			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
 			D.update_icon()
-			if(D.hides == 3)
-				D.desc = "Autonomous Power Loader Unit. It's wearing a fearsome carapace entirely composed of goliath hide plates - its pilot must be an experienced monster hunter."
-			else
-				D.desc = "Autonomous Power Loader Unit. Its armour is enhanced with some goliath hide plates."
 			use(1)
 		else
 			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
+
+/obj/item/stack/sheet/armour_plate
+	name = "укрепленная броневая плита" // тут по причине того же механа что и шкура голиафа
+	desc = "Сделанный на коленке из плит брони для мехов, этот кусок металла можно налепить на сам мех, усиливая его защитные характеристики. К сожалению, выемки под такую броню есть только у мехов рабочего класса."
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "armour_plate"
+	singular_name = "armour plate"
+	flags = NOBLUDGEON
+	w_class = WEIGHT_CLASS_NORMAL
+	layer = MOB_LAYER
+
+/obj/item/stack/sheet/armour_plate/afterattack(atom/target, mob/user, proximity_flag)
+	if(!proximity_flag)
+		return
+	if(istype(target, /obj/mecha/working/ripley))
+		var/obj/mecha/working/ripley/D = target
+		if(D.plates < 3)
+			D.plates++
+			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating("melee") + 10, 70))
+			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating("bullet") + 5, 50))
+			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating("laser") + 5, 50))
+			to_chat(user, "<span class='info'>Вы нашли куда суется [name] и пихнули её на экзокостюм, усиливая защиту против атак.</span>")
+			D.update_icon()
+			use(1)
+		else
+			to_chat(user, "<span class='warning'>Вы больше не можете найти куда [name] пристраивается!</span>")
+
 
 /obj/item/stack/sheet/animalhide/ashdrake
 	name = "ash drake hide"

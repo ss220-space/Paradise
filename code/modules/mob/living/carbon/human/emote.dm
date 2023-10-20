@@ -1,6 +1,6 @@
 /mob/living/carbon/human/emote(act, m_type = 1, message = null, force)
 
-	if((stat == DEAD) || (status_flags & FAKEDEATH))
+	if((stat == DEAD) || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		return // You can't just scream if you dead
 
 	var/param = null
@@ -336,6 +336,20 @@
 				message = "отчаянно дёргается."
 				m_type = 1
 
+		if("wiggle", "wiggles")
+			var/M = handle_emote_param(param)
+
+			message = "шевелит усиками[M ? " на [M]" : ""]."
+			playsound(loc, pick('sound/voice/kidan/wiggles_antennae1.ogg', 'sound/voice/kidan/wiggles_antennae2.ogg', 'sound/voice/kidan/wiggles_antennae3.ogg'), 50, 1, frequency = 1)
+			m_type = 2
+
+		if("waves_antennae")
+			var/M = handle_emote_param(param)
+
+			message = "резко взмахивает усиками[M ? " на [M]" : ""]."
+			playsound(loc, pick('sound/voice/kidan/waves_antennae_sharply1.ogg', 'sound/voice/kidan/waves_antennae_sharply2.ogg'), 50, 1, frequency = 1)
+			m_type = 2
+
 		if("creaks", "creak")
 			var/M = handle_emote_param(param)
 
@@ -567,9 +581,9 @@
 				if(!muzzled)
 					message = "подавил[genderize_ru(src.gender,"ся","ась","ось","ись")]!"
 					if(gender == FEMALE)
-						playsound(src, pick('sound/voice/gasp_female1.ogg','sound/voice/gasp_female2.ogg','sound/voice/gasp_female3.ogg','sound/voice/gasp_female4.ogg','sound/voice/gasp_female5.ogg','sound/voice/gasp_female6.ogg','sound/voice/gasp_female7.ogg'), 50, 1, frequency = get_age_pitch())
+						playsound(src, pick(dna.species.female_choke_sound), 50, 1, frequency = get_age_pitch())
 					else
-						playsound(src, pick('sound/voice/gasp_male1.ogg','sound/voice/gasp_male2.ogg','sound/voice/gasp_male3.ogg','sound/voice/gasp_male4.ogg','sound/voice/gasp_male5.ogg','sound/voice/gasp_male6.ogg','sound/voice/gasp_male7.ogg'), 50, 1, frequency = get_age_pitch())
+						playsound(src, pick(dna.species.male_choke_sound), 50, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
 					message = "изда[pluralize_ru(src.gender,"ёт","ют")] громкие звуки."
@@ -668,13 +682,13 @@
 								message = "пыта[pluralize_ru(src.gender,"ет","ют")]ся кувыркнуться и с грохотом пада[pluralize_ru(src.gender,"ет","ют")] на пол!"
 								SpinAnimation(5,1)
 								sleep(3)
-								Weaken(2)
+								Weaken(4 SECONDS)
 							else
 								if(prob(5))
 									message = "пыта[pluralize_ru(src.gender,"ет","ют")]ся кувыркнуться и с грохотом пада[pluralize_ru(src.gender,"ет","ют")] на пол!"
 									SpinAnimation(5,1)
 									sleep(3)
-									Weaken(2)
+									Weaken(4 SECONDS)
 								else
 									message = "дела[pluralize_ru(src.gender,"ет","ют")] кувырок!"
 									SpinAnimation(5,1)
@@ -717,9 +731,9 @@
 
 		if("faint", "faints")
 			message = "пада[pluralize_ru(src.gender,"ет","ют")] в обморок!"
-			if(sleeping)
+			if(IsSleeping())
 				return //Can't faint while asleep
-			AdjustSleeping(2)
+			AdjustSleeping(4 SECONDS)
 			m_type = 1
 
 		if("cough", "coughs")
@@ -780,7 +794,7 @@
 							playsound(loc, pick(dna.species.male_dying_gasp_sounds), 100, 1, frequency = get_age_pitch())
 
 					else
-						playsound(loc, dna.species.gasp_sound, 50, 1, frequency = get_age_pitch())
+						playsound(loc, pick(dna.species.gasp_sound), 50, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
 					message = "изда[pluralize_ru(src.gender,"ёт","ют")] слабый шум."
@@ -839,9 +853,9 @@
 				if(!muzzled)
 					message = "плач[pluralize_ru(src.gender,"ет","ут")]."
 					if(gender == FEMALE)
-						playsound(src, pick('sound/voice/cry_female_1.ogg','sound/voice/cry_female_2.ogg','sound/voice/cry_female_3.ogg'), 70, 1, frequency = get_age_pitch())
+						playsound(src, pick(dna.species.female_cry_sound), 70, 1, frequency = get_age_pitch())
 					else
-						playsound(src, pick('sound/voice/cry_male_1.ogg','sound/voice/cry_male_2.ogg'), 70, 1, frequency = get_age_pitch())
+						playsound(src, pick(dna.species.male_cry_sound), 70, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
 					message = "изда[pluralize_ru(src.gender,"ёт","ют")] слабый шум и хмурится."
@@ -855,9 +869,9 @@
 				if(!muzzled)
 					message = "вздыха[pluralize_ru(src.gender,"ет","ют")]."
 					if(gender == FEMALE)
-						playsound(src, 'sound/voice/sigh_female.ogg', 70, 1, frequency = get_age_pitch())
+						playsound(src, dna.species.female_sigh_sound, 70, 1, frequency = get_age_pitch())
 					else
-						playsound(src, 'sound/voice/sigh_male.ogg', 70, 1, frequency = get_age_pitch())
+						playsound(src, dna.species.male_sigh_sound, 70, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
 					message = "изда[pluralize_ru(src.gender,"ет","ют")] слабый шум."
@@ -899,12 +913,17 @@
 			if(miming)
 				message = "бесшумно ворч[pluralize_ru(src.gender,"ит","ят")][M ? " на [M]" : ""]!"
 				m_type = 1
-			if(!muzzled)
-				message = "ворч[pluralize_ru(src.gender,"ит","ят")][M ? " на [M]" : ""]!"
-				m_type = 2
 			else
-				message = "изда[pluralize_ru(src.gender,"ет","ют")] шум."
-				m_type = 2
+				if(!muzzled)
+					message = "ворч[pluralize_ru(src.gender,"ит","ят")][M ? " на [M]" : ""]!"
+					if(gender == FEMALE && length(dna.species.female_grumble_sound))
+						playsound(src, pick(dna.species.female_grumble_sound), 70, 1, frequency = get_age_pitch())
+					else if(gender == MALE && length(dna.species.male_grumble_sound))
+						playsound(src, pick(dna.species.male_grumble_sound), 70, 1, frequency = get_age_pitch())
+					m_type = 2
+				else
+					message = "изда[pluralize_ru(src.gender,"ет","ют")] шум."
+					m_type = 2
 
 		if("groan", "groans")
 			if(miming)
@@ -925,9 +944,9 @@
 			else
 				message = "стон[pluralize_ru(src.gender,"ет","ут")]!"
 				if(gender == FEMALE)
-					playsound(src, pick('sound/voice/moan_female_1.ogg','sound/voice/moan_female_2.ogg','sound/voice/moan_female_3.ogg'), 70, 1, frequency = get_age_pitch())
+					playsound(src, pick(dna.species.female_moan_sound), 70, 1, frequency = get_age_pitch())
 				else
-					playsound(src, pick('sound/voice/moan_male_1.ogg','sound/voice/moan_male_2.ogg','sound/voice/moan_male_3.ogg'), 70, 1, frequency = get_age_pitch())
+					playsound(src, pick(dna.species.male_moan_sound), 70, 1, frequency = get_age_pitch())
 				m_type = 2
 
 		if("johnny")
@@ -948,7 +967,7 @@
 			if(!restrained())
 				var/atom/M = null
 				if(param)
-					for(var/atom/A as mob|obj|turf in view())
+					for(var/atom/A as mob|obj|turf in view(client.maxview(), src))
 						if(lowertext(param) == lowertext(A.name))
 							M = A
 							break
@@ -1024,9 +1043,9 @@
 				if(!muzzled)
 					message = "чиха[pluralize_ru(src.gender,"ет","ют")]."
 					if(gender == FEMALE)
-						playsound(src, dna.species.female_sneeze_sound, 70, 1, frequency = get_age_pitch())
+						playsound(src, pick(dna.species.female_sneeze_sound), 70, 1, frequency = get_age_pitch())
 					else
-						playsound(src, dna.species.male_sneeze_sound, 70, 1, frequency = get_age_pitch())
+						playsound(src, pick(dna.species.male_sneeze_sound), 70, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
 					message = "изда[pluralize_ru(src.gender,"ет","ют")] странный шум."
@@ -1094,7 +1113,7 @@
 					m_type = 2
 
 		if("collapse", "collapses")
-			Paralyse(2)
+			Paralyse(4 SECONDS)
 			message = "пада[pluralize_ru(src.gender,"ет","ют")]!"
 			m_type = 2
 			if(miming)
@@ -1112,14 +1131,13 @@
 
 		if("handshake")
 			m_type = 1
-			if(!restrained() && !r_hand)
+			if(!restrained())
 				var/mob/M = handle_emote_param(param, 1, 1, 1) //Check to see if the param is valid (mob with the param name is in view) but exclude ourselves, only check mobs in our immediate vicinity (1 tile distance) and return the whole mob instead of just its name.
 
-				if(M)
-					if(M.canmove && !M.r_hand && !M.restrained())
-						message = "пожима[pluralize_ru(src.gender,"ет","ют")] руку [M]."
-					else
-						message = "протягива[pluralize_ru(src.gender,"ет","ют")] руку [M]."
+				if(M && M.canmove && !M.restrained())
+					message = "пожима[pluralize_ru(src.gender,"ет","ют")] руку [M]."
+				else
+					message = "пожима[pluralize_ru(src.gender,"ет","ют")] руку самому себе."
 
 		if("dap", "daps")
 			m_type = 1
@@ -1161,9 +1179,9 @@
 					message = "[pluralize_ru(src.gender,"[dna.species.scream_verb]","кричат")][M ? " на [M]" : ""]!"
 					m_type = 2
 					if(gender == FEMALE)
-						playsound(loc, dna.species.female_scream_sound, 80, 1, frequency = get_age_pitch())
+						playsound(loc, pick(dna.species.female_scream_sound), 80, 1, frequency = get_age_pitch())
 					else
-						playsound(loc, dna.species.male_scream_sound, 80, 1, frequency = get_age_pitch()) //default to male screams if no gender is present.
+						playsound(loc, pick(dna.species.male_scream_sound), 80, 1, frequency = get_age_pitch()) //default to male screams if no gender is present.
 
 				else
 					message = "изда[pluralize_ru(src.gender,"ёт","ют")] очень громкий шум[M ? " в сторону [M]" : ""]."

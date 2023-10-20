@@ -6,28 +6,29 @@
 	devour_time = 2 SECONDS
 	icon_state = "alienh_s"
 
-	var/obj/effect/proc_holder/spell/xeno_plant/plant_spell = new
-
-/mob/living/carbon/alien/humanoid/hunter/GrantAlienActions()
-	. = ..()
-	plant_spell.action.Grant(src)
 
 /mob/living/carbon/alien/humanoid/hunter/New()
 	if(name == "alien hunter")
 		name = text("alien hunter ([rand(1, 1000)])")
 	real_name = name
-	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/hunter
 	..()
+
+
+/mob/living/carbon/alien/humanoid/hunter/get_caste_organs()
+	. = ..()
+	. += /obj/item/organ/internal/xenos/plasmavessel/hunter
+
 
 /mob/living/carbon/alien/humanoid/hunter/movement_delay()
 	. = -1		//hunters are sanic
 	. += ..()	//but they still need to slow down on stun
 
+
 /mob/living/carbon/alien/humanoid/hunter/handle_environment()
 	if(m_intent == MOVE_INTENT_RUN || resting)
 		..()
 	else
-		adjustPlasma(-heal_rate)
+		adjust_alien_plasma(-heal_rate)
 
 
 //Hunter verbs
@@ -74,7 +75,7 @@
 	leaping = 0
 	update_icons()
 
-/mob/living/carbon/alien/humanoid/hunter/throw_impact(atom/A)
+/mob/living/carbon/alien/humanoid/hunter/throw_impact(atom/A, datum/thrownthing/throwingdatum)
 	if(!leaping)
 		return ..()
 
@@ -91,18 +92,18 @@
 				L.visible_message("<span class ='danger'>[src] pounces on [L]!</span>", "<span class ='userdanger'>[src] pounces on you!</span>")
 				if(ishuman(L))
 					var/mob/living/carbon/human/H = L
-					H.apply_effect(5, WEAKEN, H.run_armor_check(null, "melee"))
+					H.apply_effect(10 SECONDS, WEAKEN, H.run_armor_check(null, "melee"))
 				else
-					L.Weaken(5)
+					L.Weaken(10 SECONDS)
 				sleep(2)//Runtime prevention (infinite bump() calls on hulks)
 				step_towards(src,L)
 			else
-				Weaken(2, 1, 1)
+				Weaken(4 SECONDS, TRUE)
 
 			toggle_leap(0)
 		else if(A.density && !A.CanPass(src))
 			visible_message("<span class ='danger'>[src] smashes into [A]!</span>", "<span class ='alertalien'>[src] smashes into [A]!</span>")
-			Weaken(2, 1, 1)
+			Weaken(4 SECONDS, TRUE)
 
 		if(leaping)
 			leaping = 0

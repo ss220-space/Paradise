@@ -72,7 +72,7 @@
 /turf/simulated/mineral/drill_act(obj/item/mecha_parts/mecha_equipment/drill/drill)
 	for(var/turf/simulated/mineral/M in range(drill.chassis, 1))
 		if(get_dir(drill.chassis, M) & drill.chassis.dir)
-			M.gets_drilled()
+			M.attempt_drill()
 	drill.log_message("Drilled through [src]")
 	drill.move_ores()
 
@@ -139,7 +139,6 @@
 	name = "exosuit mining scanner"
 	desc = "Equipment for engineering and combat exosuits. It will automatically check surrounding rock for useful minerals."
 	icon_state = "mecha_analyzer"
-	selectable = 0
 	equip_cooldown = 15
 	var/scanning_time = 0
 
@@ -161,6 +160,10 @@
 			return
 		scanning_time = world.time + equip_cooldown
 		mineral_scan_pulse(get_turf(src))
+
+/obj/item/mecha_parts/mecha_equipment/mining_scanner/action(atom/target)
+	melee_attack_chain(chassis.occupant, target)
+	return TRUE
 
 #undef DRILL_BASIC
 #undef DRILL_HARDENED

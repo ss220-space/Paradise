@@ -2,10 +2,10 @@
 	needs_permit = 1
 
 /obj/item/melee/proc/check_martial_counter(mob/living/carbon/human/target, mob/living/carbon/human/user)
-	if(target.check_block())
-		target.visible_message("<span class='danger'>[target.name] blocks [src] and twists [user]'s arm behind [user.p_their()] back!</span>",
-					"<span class='userdanger'>You block the attack!</span>")
-		user.Stun(2)
+	var/message = "<span class='danger'>[target.name] blocks [src] and twists [user]'s arm behind [user.p_their()] back!</span>"
+	var/self_message = "<span class='userdanger'>You block the attack!</span>"
+	if(target.check_martial_art_defense(target, user, src, message, self_message))
+		user.Stun(4 SECONDS)
 		return TRUE
 
 /obj/item/melee/chainofcommand
@@ -74,11 +74,6 @@
 	else
 		transform = matrix(-1, 0, 0, 0, 1, 0)
 
-/obj/item/melee/mantisblade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0 //Don't bring a sword to a gunfight
-	return ..()
-
 /obj/item/melee/mantisblade/attack(mob/living/M, mob/living/user, secondattack = FALSE)
 	. = ..()
 	var/obj/item/melee/mantisblade/secondsword = user.get_inactive_hand()
@@ -98,6 +93,11 @@
 	block_chance = 20
 	icon_state = "mantis"
 	item_state = "mantis"
+
+/obj/item/melee/mantisblade/shellguard/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(attack_type == PROJECTILE_ATTACK)
+		final_block_chance = 0 //Don't bring a sword to a gunfight
+	return ..()
 
 /obj/item/melee/icepick
 	name = "ice pick"
@@ -152,3 +152,24 @@
 				bug.death(1)
 			else
 				qdel(target)
+
+/obj/item/melee/bigiron
+	name = "Big Iron"
+	desc = "It is a very old rusty and racist iron. Used to beat the living shit out of these filthy xenos."
+	w_class = WEIGHT_CLASS_NORMAL
+	force = 8
+	throwforce = 8
+	var/bonus_damage = 10
+	icon_state = "big_iron"
+	item_state = "big_iron"
+	attack_verb = list("burned", "dominated", "robusted")
+
+/obj/item/melee/bigiron/afterattack(atom/target, mob/user, proximity, params)
+	. = ..()
+	if(!proximity)
+		return
+	if(ishuman(target))
+		if(!ishumanbasic(target))
+			var/mob/living/victim = target
+			victim.apply_damage(bonus_damage, BURN)
+

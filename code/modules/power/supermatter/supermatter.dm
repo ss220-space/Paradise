@@ -3,6 +3,7 @@
 #define PLASMA_RELEASE_MODIFIER 1500		//Higher == less phor.. plasma released by reaction
 #define OXYGEN_RELEASE_MODIFIER 15000		//Higher == less oxygen released at high temperature/power
 #define REACTION_POWER_MODIFIER 1.1			//Higher == more overall power
+#define SHARD_CUT_COEF 7
 
 /*
 	How to tweak the SM
@@ -24,7 +25,6 @@
 // Range variants are applied on per-range basis: numbers here are on point blank, it scales with the map size (assumes square shaped Z levels)
 #define DETONATION_RADS 200
 #define DETONATION_HALLUCINATION 600
-
 
 
 #define WARNING_DELAY 20			//seconds between warnings.
@@ -85,6 +85,8 @@
 	var/has_been_powered = 0
 	var/has_reached_emergency = 0
 
+	var/datum/supermatter_explosive_effects/supermatter_explosive_effects
+
 /obj/machinery/power/supermatter_shard/crystal
 	name = "supermatter crystal"
 	desc = "A strangely translucent and iridescent crystal."
@@ -107,6 +109,8 @@
 	radio = new(src)
 	radio.listening = 0
 	investigate_log("has been created.", INVESTIGATE_ENGINE)
+	supermatter_explosive_effects = new()
+	supermatter_explosive_effects.z = src.z
 
 
 /obj/machinery/power/supermatter_shard/proc/handle_admin_warnings()
@@ -144,6 +148,8 @@
 
 /obj/machinery/power/supermatter_shard/proc/explode()
 	investigate_log("has exploded.", INVESTIGATE_ENGINE)
+	supermatter_explosive_effects.z = src.z
+	supermatter_explosive_effects.handle_special_effects()
 	explosion(get_turf(src), explosion_power, explosion_power * 1.2, explosion_power * 1.5, explosion_power * 2, 1, 1, cause = src)
 	qdel(src)
 	return
@@ -189,11 +195,10 @@
 						if(ishuman(mob))
 							//Hilariously enough, running into a closet should make you get hit the hardest.
 							var/mob/living/carbon/human/H = mob
-							H.AdjustHallucinate(max(50, min(300, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1)))))
+							H.AdjustHallucinate(max(100 SECONDS, min(300 SECONDS, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1)))))
 							H.last_hallucinator_log = "Supermatter explosion"
 						var/rads = DETONATION_RADS * sqrt( 1 / (get_dist(mob, src) + 1) )
 						mob.apply_effect(rads, IRRADIATE)
-
 			explode()
 			emergency_lighting(0)
 
@@ -267,7 +272,7 @@
 		var/obj/item/organ/internal/eyes/eyes = l.get_int_organ(/obj/item/organ/internal/eyes)
 		if(!istype(eyes))
 			continue
-		l.Hallucinate(min(200, l.hallucination + power * config_hallucination_power * sqrt( 1 / max(1,get_dist(l, src)))))
+		l.Hallucinate(min(200 SECONDS, l.AmountHallucinate() + power * config_hallucination_power * sqrt( 1 / max(1,get_dist(l, src)))))
 		l.last_hallucinator_log = "seeing SM without mesons"
 
 	for(var/mob/living/l in range(src, round((power / 100) ** 0.25)))
@@ -372,6 +377,41 @@
 			else
 				consume_wrench(W)
 			user.visible_message("<span class='danger'>As [user] loosen bolts of \the [src] with \a [W] the tool disappears</span>")
+	if(istype(W, /obj/item/scalpel/supermatter))
+		if(ishuman(user))
+			var/mob/living/carbon/human/M = user
+			var/obj/item/scalpel/supermatter/scalpel = W
+			to_chat(user, "<span class='notice'>You carefully begin to scrape [src] with [W]...</span>")
+
+			if(W.use_tool(src, M, 10 SECONDS, volume = 100))
+				if(scalpel.uses_left)
+					to_chat(M, "<span class='danger'>You extract a sliver from [src], and it begins to react violently!</span>")
+					power += 200 //well...
+					var/turf/shard_loc = get_turf(src)
+					var/datum/gas_mixture/shard_env = shard_loc.return_air()
+					var/datum/gas_mixture/new_mixture = new
+					new_mixture.toxins = 10000
+					new_mixture.temperature += src.power*SHARD_CUT_COEF
+					shard_env.merge(new_mixture)
+					scalpel.uses_left--
+					if(!scalpel.uses_left)
+						to_chat(user, "<span class='boldwarning'>A tiny piece of [W] falls off, rendering it useless!</span>")
+					var/obj/item/nuke_core/supermatter_sliver/S = new /obj/item/nuke_core/supermatter_sliver(drop_location())
+
+					var/obj/item/retractor/supermatter/tongs = M.get_inactive_hand()
+					if(!istype(tongs))
+						return
+					if(tongs && !tongs.sliver)
+						tongs.sliver = S
+						S.forceMove(tongs)
+						tongs.icon_state = "supermatter_tongs_loaded"
+						tongs.item_state = "supermatter_tongs_loaded"
+						to_chat(M, "<span class='notice'>You pick up [S] with [tongs]!</span>")
+				else
+					to_chat(user, "<span class='warning'>You fail to extract a sliver from [src]! [W] isn't sharp enough anymore.</span>")
+		return
+	if(istype(W, /obj/item/retractor/supermatter))
+		to_chat(user, "<span class='notice'>[W] bounces off [src], you need to cut a sliver off first!</span>")
 	else if(!istype(W) || (W.flags & ABSTRACT) || !istype(user))
 		return
 	else if(user.drop_item_ground(W))
@@ -424,7 +464,7 @@
 		var/rads = 500 * sqrt( 1 / (get_dist(L, src) + 1) )
 		L.apply_effect(rads, IRRADIATE)
 		investigate_log("has irradiated [L] after consuming [AM].", INVESTIGATE_ENGINE)
-		if(L in view())
+		if(src in view(L.client.maxview()))
 			L.show_message("<span class='danger'>As \the [src] slowly stops resonating, you find your skin covered in new radiation burns.</span>", 1,\
 				"<span class='danger'>The unearthly ringing subsides and you notice you have new radiation burns.</span>", 2)
 		else

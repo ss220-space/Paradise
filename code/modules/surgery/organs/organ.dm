@@ -148,9 +148,14 @@
 	if(istype(loc,/obj/item/mmi))
 		germ_level = max(0, germ_level - 1) // So a brain can slowly recover from being left out of an MMI
 		return TRUE
+	if(istype(loc, /mob/living/simple_animal/hostile/headslug) || istype(loc, /obj/item/organ/internal/body_egg/changeling_egg))
+		germ_level = 0 // weird stuff might happen, best to be safe
+		return TRUE
 	if(is_found_within(/obj/structure/closet/crate/freezer))
 		return TRUE
 	if(is_found_within(/obj/machinery/clonepod))
+		return TRUE
+	if (is_found_within(/obj/machinery/smartfridge/secure/medbay/organ))
 		return TRUE
 	if(isturf(loc))
 		if(world.time - last_freezer_update_time > freezer_update_period)
@@ -183,7 +188,7 @@
 	if(germ_level >= INFECTION_LEVEL_ONE / 2)
 		//aiming for germ level to go from ambient to INFECTION_LEVEL_TWO in an average of 15 minutes
 		if(prob(round(germ_level / 6)))
-			germ_level++
+			germ_level += owner?.dna.species.germs_growth_rate
 
 	if(germ_level >= INFECTION_LEVEL_ONE)
 		var/fever_temperature = (owner.dna.species.heat_level_1 - owner.dna.species.body_temperature - 5) * min(germ_level / INFECTION_LEVEL_TWO, 1) + owner.dna.species.body_temperature
@@ -193,7 +198,7 @@
 		var/obj/item/organ/external/parent = owner.get_organ(parent_organ)
 		//spread germs
 		if(parent.germ_level < germ_level && ( parent.germ_level < INFECTION_LEVEL_ONE * 2 || prob(30)))
-			parent.germ_level++
+			parent.germ_level += owner?.dna.species.germs_growth_rate
 
 /obj/item/organ/proc/rejuvenate()
 	damage = 0

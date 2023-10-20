@@ -26,7 +26,7 @@ GLOBAL_VAR_INIT(changelog_hash, "")
 	var/list/data = list( "dates" = list() )
 	var/regex/ymlRegex = regex(@"\.yml", "g")
 
-	for(var/archive_file in sortTim(flist("html/changelogs/archive/"), /proc/cmp_text_asc))
+	for(var/archive_file in sortTim(flist("html/changelogs/archive/"), cmp = /proc/cmp_text_asc))
 		var/archive_date = ymlRegex.Replace(archive_file, "")
 		data["dates"] = list(archive_date) + data["dates"]
 
@@ -42,5 +42,5 @@ GLOBAL_VAR_INIT(changelog_hash, "")
 	GLOB.changelog_tgui.ui_interact(mob)
 	if(GLOB.changelog_hash && prefs.lastchangelog != GLOB.changelog_hash)
 		prefs.lastchangelog = GLOB.changelog_hash
-		prefs.save_preferences()
+		prefs.save_preferences(src)
 		winset(src, "rpane.changelog", "font-style=;")

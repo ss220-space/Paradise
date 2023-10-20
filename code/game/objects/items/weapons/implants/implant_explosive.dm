@@ -3,6 +3,7 @@
 	desc = "And boom goes the weasel."
 	icon_state = "explosive"
 	origin_tech = "materials=2;combat=3;biotech=4;syndicate=4"
+	actions_types = list(/datum/action/item_action/bomb_imp/activate)
 	var/weak = 2
 	var/medium = 0.8
 	var/heavy = 0.4
@@ -27,7 +28,7 @@
 /obj/item/implant/explosive/activate(cause)
 	if(!cause || !imp_in)	return 0
 	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your microbomb implant? This will cause you to explode!", "Microbomb Implant Confirmation", "Yes", "No") != "Yes")
-		return 0
+		return FALSE
 	heavy = round(heavy)
 	medium = round(medium)
 	weak = round(weak)
@@ -49,7 +50,7 @@
 		imp_e.weak += weak
 		imp_e.delay += delay
 		qdel(src)
-		return 1
+		return TRUE
 
 	return ..()
 
@@ -59,7 +60,7 @@
 	sleep(delay/4)
 	if(imp_in && imp_in.stat)
 		imp_in.visible_message("<span class = 'warning'>[imp_in] doubles over in pain!</span>")
-		imp_in.Weaken(7)
+		imp_in.Weaken(14 SECONDS)
 	playsound(loc, 'sound/items/timer.ogg', 30, 0)
 	sleep(delay/4)
 	playsound(loc, 'sound/items/timer.ogg', 30, 0)
@@ -84,14 +85,14 @@
 /obj/item/implant/explosive/macro/activate(cause)
 	if(!cause || !imp_in)	return 0
 	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your macrobomb implant? This will cause you to explode and gib!", "Macrobomb Implant Confirmation", "Yes", "No") != "Yes")
-		return 0
+		return FALSE
 	to_chat(imp_in, "<span class='notice'>You activate your macrobomb implant.</span>")
 	timed_explosion()
 
 /obj/item/implant/explosive/macro/implant(mob/source)
 	var/obj/item/implant/explosive/imp_e = locate(src.type) in source
 	if(imp_e && imp_e != src)
-		return 0
+		return FALSE
 	imp_e = locate(/obj/item/implant/explosive) in source
 	if(imp_e && imp_e != src)
 		heavy += imp_e.heavy
@@ -154,9 +155,9 @@
 
 /obj/item/implant/dust/activate(cause)
 	if(!cause || !imp_in || cause == "emp")
-		return 0
+		return FALSE
 	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your dusting implant? This will turn you to ash!", "Dusting Confirmation", "Yes", "No") != "Yes")
-		return 0
+		return FALSE
 	to_chat(imp_in, "<span class='notice'>Your dusting implant activates!</span>")
 	imp_in.visible_message("<span class = 'warning'>[imp_in] burns up in a flash!</span>")
 	for(var/obj/item/I in imp_in.contents)

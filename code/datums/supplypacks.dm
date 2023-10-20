@@ -55,6 +55,10 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	var/list/announce_beacons = list() // Particular beacons that we'll notify the relevant department when we reach
 	var/special = FALSE //Event/Station Goals/Admin enabled packs
 	var/special_enabled = FALSE
+	/// The number of times one can order a cargo crate, before it becomes restricted. -1 for infinite
+	var/order_limit = -1
+	/// Number of times a crate has been ordered in a shift
+	var/times_ordered = 0
 	/// List of names for being done in TGUI
 	var/list/ui_manifest = list()
 
@@ -207,10 +211,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/emergency/syndicate
 	name = "ERROR_NULL_ENTRY"
 	contains = list(/obj/item/storage/box/syndicate)
-	cost = 560
+	cost = 200
 	containertype = /obj/structure/closet/crate
 	containername = "crate"
 	hidden = 1
+	order_limit = 5
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Security ////////////////////////////////////////
@@ -510,6 +515,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 35
 	containername = "auto rifle crate"
 
+/datum/supply_packs/security/armory/ga12
+	name = "Tkach Ya-Sui GA 12 Crate"
+	contains = list(/obj/item/gun/projectile/revolver/ga12,
+					/obj/item/gun/projectile/revolver/ga12)
+	cost = 50
+	containername = "Tkach supply crate"
+
 /datum/supply_packs/security/armory/lr30
 	name = "LR-30 Crate"
 	contains = list(/obj/item/gun/projectile/automatic/lr30,
@@ -535,6 +547,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 30
 	containername = "auto rifle ammo crate"
 
+/datum/supply_packs/security/armory/wt550apammo
+	name = "WT-550 Rifle Armor-Piercing Ammo Crate"
+	contains = list(/obj/item/ammo_box/magazine/wt550m9/wtap,
+					/obj/item/ammo_box/magazine/wt550m9/wtap,
+					/obj/item/ammo_box/magazine/wt550m9/wtap,
+					/obj/item/ammo_box/magazine/wt550m9/wtap)
+	cost = 40
+	containername = "auto rifle armor-piercing ammo crate"
+
 /datum/supply_packs/security/armory/wt550ammobox
 	name = "WT-550 Rifle Ammobox Crate"
 	contains = list(/obj/item/ammo_box/c46x30mm,
@@ -543,6 +564,29 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/ammo_box/c46x30mm)
 	cost = 60
 	containername = "auto rifle ammobox crate"
+
+/datum/supply_packs/security/armory/wt550apammobox
+	name = "WT-550 Rifle Armor-Piercing Ammobox Crate"
+	contains = list(/obj/item/ammo_box/ap46x30mm,
+					/obj/item/ammo_box/ap46x30mm,
+					/obj/item/ammo_box/ap46x30mm,
+					/obj/item/ammo_box/ap46x30mm)
+	cost = 80
+	containername = "auto rifle armor-piercing ammobox crate"
+
+/datum/supply_packs/security/armory/mosin
+	name = "Mosin Nagant crate"
+	contains = list(/obj/item/gun/projectile/shotgun/boltaction,
+					/obj/item/gun/projectile/shotgun/boltaction,
+					/obj/item/ammo_box/a762,
+					/obj/item/ammo_box/a762,
+					/obj/item/ammo_box/a762,
+					/obj/item/ammo_box/a762,
+					/obj/item/ammo_box/a762,
+					/obj/item/ammo_box/a762)
+	cost = 80
+	containername = "Mosin Nagant rifle crate"
+	contraband = 1
 
 /////// Implants & etc
 
@@ -642,9 +686,10 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "electrical maintenance crate"
 
 /datum/supply_packs/vending/engivend
-	name = "EngiVend Supply Crate"
-	cost = 15
-	contains = list(/obj/item/vending_refill/engivend)
+	name = "Engineering Vendor Supply Crate"
+	cost = 20
+	contains = list(/obj/item/vending_refill/engivend,
+					/obj/item/vending_refill/youtool)
 	containername = "engineering supply crate"
 
 /datum/supply_packs/engineering/powergamermitts
@@ -1410,6 +1455,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/critter/croco
 	containername = "croco crate"
 
+/datum/supply_packs/organic/snake
+	name = "Snake Crate"
+	cost = 40
+	containertype = /obj/structure/closet/critter/snake
+	containername = "snake crate"
+
 ////// hippy gear
 
 /datum/supply_packs/organic/hydroponics // -- Skie
@@ -1650,6 +1701,32 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/storage/backpack/duffel/mining_conscript)
 	containertype = /obj/structure/closet/crate/secure
 	containername = "shaft miner starter kit"
+
+/datum/supply_packs/misc/patriotic
+	name = "Patriotic Crate"
+	cost = 111
+	containertype = /obj/structure/closet/crate/trashcart
+	contains = list(/obj/item/flag/nt,
+					/obj/item/flag/nt,
+					/obj/item/flag/nt,
+					/obj/item/flag/nt,
+					/obj/item/flag/nt,
+					/obj/item/flag/nt,
+					/obj/item/book/manual/security_space_law,
+					/obj/item/book/manual/security_space_law,
+					/obj/item/book/manual/security_space_law,
+					/obj/item/book/manual/security_space_law,
+					/obj/item/book/manual/security_space_law,
+					/obj/item/book/manual/security_space_law,
+					/obj/item/poster/random_official,
+					/obj/item/poster/random_official,
+					/obj/item/poster/random_official,
+					/obj/item/poster/random_official,
+					/obj/item/poster/random_official,
+					/obj/item/poster/random_official
+					)
+
+	containername = "patriotic crate"
 
 
 ///////////// Paper Work
@@ -2077,7 +2154,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/misc/station_goal/bfl
 	name = "BFL assembly crate"
-	cost = 150
+	cost = 50
 	contains = list(
 					/obj/item/circuitboard/machine/bfl_emitter,
 					/obj/item/circuitboard/machine/bfl_receiver
@@ -2086,7 +2163,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/misc/station_goal/bfl_lens
 	name = "BFL High-precision lens"
-	cost = 200
+	cost = 100
 	contains = list(
 					/obj/machinery/bfl_lens
 					)
@@ -2099,6 +2176,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/structure/toilet/golden_toilet/bfl_goal
 					)
 	containername = "Goal crate"
+
+/datum/supply_packs/misc/station_goal/bluespace_rift
+	name = "Bluespace Rift Research"
+	cost = 150
+	contains = list(
+		/obj/item/disk/design_disk/station_goal_machinery/brs_server,
+		/obj/item/disk/design_disk/station_goal_machinery/brs_portable_scanner,
+		/obj/item/disk/design_disk/station_goal_machinery/brs_stationary_scanner,
+	)
+	containername = "bluespace rift research crate"
+	containertype = /obj/structure/closet/crate/sci
 
 ///////////// Bathroom Fixtures
 
@@ -2127,6 +2215,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/machinery/snow_machine
 					)
 	special = TRUE
+
+/datum/supply_packs/misc/jetpack_upgrade
+	name = "Jetpack Upgrade Crate"
+	contains = list(
+					/obj/item/tank/jetpack/suit,
+					/obj/item/tank/jetpack/suit,
+					/obj/item/tank/jetpack/suit
+					)
+	cost = 500
+	containername = "Jetpack upgrade crate"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Vending /////////////////////////////////////////

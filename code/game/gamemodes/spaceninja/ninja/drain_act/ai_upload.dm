@@ -36,11 +36,12 @@
 		for(var/mob/living/silicon/ai/currentAI in GLOB.alive_mob_list)
 			if(currentAI.stat != DEAD && currentAI.see_in_dark != FALSE)
 				currentAI.laws.clear_inherent_laws()
+				SSticker?.score?.save_silicon_laws(currentAI, ninja, "AI upload hacked by ninja, all inherent laws were deleted", log_all_laws = TRUE)
 
 		add_attack_logs(ninja, null, "hacked AI upload, causing Ion storms!", ATKLOG_FEW)
-		new /datum/event/ion_storm(0, 1)
-		new /datum/event/ion_storm(0, -1)
-		new /datum/event/ion_storm(0, -1)
+		new /datum/event/ion_typhoon
+		new /datum/event/ion_typhoon
+		new /datum/event/ion_typhoon
 
 		to_chat(ninja, span_notice("Искусственный интеллект станции успешно взломан!"))
 		objective.completed = TRUE

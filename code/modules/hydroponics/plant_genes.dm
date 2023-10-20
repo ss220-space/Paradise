@@ -211,14 +211,14 @@
 	if(istype(G) && ispath(G.trash, /obj/item/grown))
 		return
 
-	var/stun_len = G.seed.potency * rate * 0.4
+	var/stun_len = G.seed.potency * rate * 0.8 SECONDS
 
 	if(!istype(G, /obj/item/grown/bananapeel) && (!G.reagents || !G.reagents.has_reagent("lube")))
 		stun_len /= 3
 
-	stun_len = min(stun_len, 7) // No fun allowed
+	stun_len = min(stun_len, 14 SECONDS)// No fun allowed
 
-	G.AddComponent(/datum/component/slippery, G, stun_len, stun_len, 100, 0, FALSE)
+	G.AddComponent(/datum/component/slippery, G, stun_len, 100, 0, FALSE)
 
 /datum/plant_gene/trait/cell_charge
 	// Cell recharging trait. Charges all mob's power cells to (potency*rate)% mark when eaten.
@@ -282,6 +282,14 @@
 	..()
 	G.set_light(glow_range(G.seed), glow_power(G.seed), glow_color)
 
+/datum/plant_gene/trait/glow/blue
+	name = "Blue Bioluminescence"
+	glow_color = "#6699FF"
+
+/datum/plant_gene/trait/glow/purple
+	name = "Purple Bioluminescence"
+	glow_color = "#b434df"
+
 /datum/plant_gene/trait/glow/shadow
 	//makes plant emit slightly purple shadows
 	//adds -potency*rate light power to products
@@ -311,9 +319,7 @@
 /datum/plant_gene/trait/teleport/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target, mob/thrower)
 	if(isliving(target))
 		var/mob/living/living_target = target
-		if(thrower == living_target && !do_after(living_target, 1 SECONDS, target = living_target))
-			to_chat(target, "<span class='notice'>You need to hold still to squash [G.name].</span>")
-			return
+		//squash_trait already has "do_after", no need to double it here
 		var/teleport_radius = max(round(G.seed.potency / 10), 1)
 		var/turf/T = get_turf(living_target)
 		new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...
@@ -468,3 +474,22 @@
 
 /datum/plant_gene/trait/plant_type/alien_properties
 	name ="?????"
+
+//laughter gene
+
+/**
+ * Plays a laughter sound when someone slips on it.
+ * Like the sitcom component but for plants.
+ * Just like slippery skin, if we have a trash type this only functions on that. (Banana peels)
+ */
+/datum/plant_gene/trait/plant_laughter
+	name = "Hallucinatory Feedback"
+	//description = "Makes sounds when people slip on it."
+	/// Sounds that play when this trait triggers
+	var/list/sounds = list('sound/items/SitcomLaugh1.ogg', 'sound/items/SitcomLaugh2.ogg', 'sound/items/SitcomLaugh3.ogg')
+
+/datum/plant_gene/trait/plant_laughter/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
+
+	if(C.IsStunned())
+		playsound(G, pick(sounds), 100, 1)
+		C.visible_message("<span class='notice'>[G] lets out burst of laughter.</span>")

@@ -4,27 +4,28 @@ SUBSYSTEM_DEF(lighting)
 	init_order = INIT_ORDER_LIGHTING
 	flags = SS_TICKER
 	offline_implications = "Lighting will no longer update. Shuttle call recommended."
+	cpu_display = SS_CPUDISPLAY_HIGH
 	var/static/list/sources_queue = list() // List of lighting sources queued for update.
 	var/static/list/corners_queue = list() // List of lighting corners queued for update.
 	var/static/list/objects_queue = list() // List of lighting objects queued for update.
 
-/datum/controller/subsystem/lighting/stat_entry()
-	..("L:[length(sources_queue)]|C:[length(corners_queue)]|O:[length(objects_queue)]")
 
-/datum/controller/subsystem/lighting/Initialize(timeofday)
+/datum/controller/subsystem/lighting/get_stat_details()
+	return "L:[length(sources_queue)]|C:[length(corners_queue)]|O:[length(objects_queue)]"
+
+
+/datum/controller/subsystem/lighting/Initialize()
 	if(!initialized)
-		if(config.starlight)
+		if(CONFIG_GET(flag/starlight))
 			for(var/I in GLOB.all_areas)
 				var/area/A = I
 				if(A.dynamic_lighting == DYNAMIC_LIGHTING_IFSTARLIGHT)
 					A.luminosity = 0
 
 		create_all_lighting_objects()
-		initialized = TRUE
 
 	fire(FALSE, TRUE)
 
-	return ..()
 
 /datum/controller/subsystem/lighting/fire(resumed, init_tick_checks)
 	MC_SPLIT_TICK_INIT(3)

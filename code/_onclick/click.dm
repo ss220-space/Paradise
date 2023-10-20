@@ -104,6 +104,11 @@
 	if(incapacitated(ignore_restraints = 1, ignore_grab = 1, ignore_lying = 1))
 		return
 
+	if(is_ventcrawling(usr) && isitem(A)) // stops inventory actions in vents
+		var/obj/item/item = A
+		if(item.in_inventory)
+			return
+
 	face_atom(A)
 
 	if(next_move > world.time) // in the year 2000...
@@ -145,6 +150,7 @@
 	var/sdepth = A.storage_depth(src)
 	if(A == loc || (A in loc) || (sdepth != -1 && sdepth <= 2))
 		// No adjacency needed
+		beforeAdjacentClick(A, params)
 		if(W)
 			W.melee_attack_chain(src, A, params)
 		else
@@ -161,6 +167,7 @@
 	sdepth = A.storage_depth_turf()
 	if(isturf(A) || isturf(A.loc) || (sdepth != -1 && sdepth <= 1))
 		if(A.Adjacent(src)) // see adjacent.dm
+			beforeAdjacentClick(A, params)
 			if(W)
 				W.melee_attack_chain(src, A, params)
 			else
@@ -170,11 +177,18 @@
 
 			return
 		else // non-adjacent click
+			beforeRangedClick(A, params)
 			if(W)
 				W.afterattack(A,src,0,params) // 0: not Adjacent
 			else
 				RangedAttack(A, params)
 
+	return
+
+/mob/proc/beforeAdjacentClick(atom/A, params)
+	return
+
+/mob/proc/beforeRangedClick(atom/A, params)
 	return
 
 //Is the atom obscured by a PREVENT_CLICK_UNDER_1 object above it

@@ -80,7 +80,7 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.mind && H.mind.assigned_role == "Clown")
-			GLOB.score_clownabuse++
+			SSticker.score.score_clown_abuse++
 	return ..()
 
 /obj/item/clothing/under/rank/clown/sexy
@@ -240,3 +240,10 @@
 	icon_state = "barber"
 	item_state = "barber"
 	item_color = "barber"
+
+/obj/item/clothing/under/artist
+	desc = "Formal uniform with buttons on a side"
+	name = "parade chef's uniform"
+	icon_state = "artist"
+	item_state = "artist"
+	item_color = "artist"

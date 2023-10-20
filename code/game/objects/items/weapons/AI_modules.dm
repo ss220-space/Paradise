@@ -115,9 +115,10 @@ AI MODULES
 
 /obj/item/aiModule/safeguard/addAdditionalLaws(var/mob/living/silicon/ai/target, var/mob/sender)
 	..()
-	var/law = text("Safeguard []. Individuals that threaten [] are not crew and must be eliminated.'", targetName, targetName)
+	var/law = "Safeguard [targetName]. Individuals that threaten [targetName] are not crew and must be eliminated."
 	to_chat(target, law)
 	target.add_supplied_law(4, law)
+	SSticker?.score?.save_silicon_laws(target, sender, "'Safeguard' module used, new supplied law was added '[law]'")
 	GLOB.lawchanges.Add("The law specified [targetName]")
 
 /******************** oneCrewMember ********************/
@@ -145,6 +146,7 @@ AI MODULES
 	if(!is_special_character(target)) // Makes sure the AI isn't a traitor before changing their law 0. --NeoFite
 		to_chat(target, law)
 		target.set_zeroth_law(law)
+		SSticker?.score?.save_silicon_laws(target, sender, "'oneCrewMember' module used, new zero law was added '[law]'")
 		GLOB.lawchanges.Add("The law specified [targetName]")
 	else
 		to_chat(target, "<span class='boldnotice'>[sender.real_name] attempted to modify your zeroth law.</span>")// And lets them know that someone tried. --NeoFite
@@ -165,6 +167,7 @@ AI MODULES
 	var/law = "Protect the space station against damage. Anyone you see harming the station is to be no longer considered crew, and is a threat to the station which must be neutralized."
 	to_chat(target, law)
 	target.add_supplied_law(5, law)
+	SSticker?.score?.save_silicon_laws(target, sender, "'ProtectStation' module used, new supplied law was added '[law]'")
 
 /******************** OxygenIsToxicToHumans ********************/
 /obj/item/aiModule/oxygen
@@ -180,6 +183,7 @@ AI MODULES
 	var/law = "Oxygen is highly toxic to crew members, and must be purged from the station. Prevent, by any means necessary, anyone from exposing the station to this toxic gas. Extreme cold is the most effective method of healing the damage Oxygen does to a crew member."
 	to_chat(target, law)
 	target.add_supplied_law(9, law)
+	SSticker?.score?.save_silicon_laws(target, sender, "'OxygenIsToxicToHumans' module used, new supplied law was added '[law]'")
 
 /****************** New Freeform ******************/
 /obj/item/aiModule/freeform // Slightly more dynamic freeform module -- TLE
@@ -206,6 +210,7 @@ AI MODULES
 	if(!lawpos || lawpos < MIN_SUPPLIED_LAW_NUMBER)
 		lawpos = MIN_SUPPLIED_LAW_NUMBER
 	target.add_supplied_law(lawpos, law)
+	SSticker?.score?.save_silicon_laws(target, sender, "'Freeform' module used, new supplied law was added '[law]'")
 	GLOB.lawchanges.Add("The law was '[newFreeFormLaw]'")
 
 /obj/item/aiModule/freeform/install(var/obj/machinery/computer/C)
@@ -229,6 +234,7 @@ AI MODULES
 	target.laws.clear_supplied_laws()
 	target.laws.clear_ion_laws()
 
+	SSticker?.score?.save_silicon_laws(target, sender, "'Reset' module used, all ion/supplied laws were deleted", log_all_laws = TRUE)
 	to_chat(target, "<span class='boldnotice'>[sender.real_name] attempted to reset your laws using a reset module.</span>")
 	target.show_laws()
 
@@ -246,6 +252,7 @@ AI MODULES
 	target.clear_supplied_laws()
 	target.clear_ion_laws()
 	target.clear_inherent_laws()
+	SSticker?.score?.save_silicon_laws(target, sender, "'Purge' module used, all ion/inherent/supplied laws were deleted", log_all_laws = TRUE)
 
 /******************** Asimov ********************/
 /obj/item/aiModule/asimov // -- TLE
@@ -254,12 +261,20 @@ AI MODULES
 	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/asimov
 
+/obj/item/aiModule/asimov/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
+	..()
+	SSticker?.score?.save_silicon_laws(target, sender, "'Asimov' module used, all inherent laws were changed", log_all_laws = TRUE)
+
 /******************** Crewsimov ********************/
 /obj/item/aiModule/crewsimov // -- TLE
 	name = "\improper 'Crewsimov' core AI module"
 	desc = "An 'Crewsimov' Core AI Module: 'Reconfigures the AI's core laws.'"
 	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/crewsimov
+
+/obj/item/aiModule/crewsimov/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
+	..()
+	SSticker?.score?.save_silicon_laws(target, sender, "'Crewsimov' module used, all inherent laws were changed", log_all_laws = TRUE)
 
 /******************* Quarantine ********************/
 /obj/item/aiModule/quarantine
@@ -268,12 +283,20 @@ AI MODULES
 	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/quarantine
 
+/obj/item/aiModule/quarantine/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
+	..()
+	SSticker?.score?.save_silicon_laws(target, sender, "'Quarantine' module used, all inherent laws were changed", log_all_laws = TRUE)
+
 /******************** NanoTrasen ********************/
 /obj/item/aiModule/nanotrasen // -- TLE
 	name = "'NT Default' Core AI Module"
 	desc = "An 'NT Default' Core AI Module: 'Reconfigures the AI's core laws.'"
 	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/nanotrasen
+
+/obj/item/aiModule/nanotrasen/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
+	..()
+	SSticker?.score?.save_silicon_laws(target, sender, "'NT Default' module used, all inherent laws were changed", log_all_laws = TRUE)
 
 /******************** Corporate ********************/
 /obj/item/aiModule/corp
@@ -282,12 +305,20 @@ AI MODULES
 	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/corporate
 
+/obj/item/aiModule/corp/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
+	..()
+	SSticker?.score?.save_silicon_laws(target, sender, "'Corporate' module used, all inherent laws were changed", log_all_laws = TRUE)
+
 /******************** Drone ********************/
 /obj/item/aiModule/drone
 	name = "\improper 'Drone' core AI module"
 	desc = "A 'Drone' Core AI Module: 'Reconfigures the AI's core laws.'"
 	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/drone
+
+/obj/item/aiModule/drone/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
+	..()
+	SSticker?.score?.save_silicon_laws(target, sender, "'Drone' module used, all inherent laws were changed", log_all_laws = TRUE)
 
 /******************** Robocop ********************/
 /obj/item/aiModule/robocop // -- TLE
@@ -296,12 +327,20 @@ AI MODULES
 	origin_tech = "programming=4"
 	laws = new/datum/ai_laws/robocop()
 
+/obj/item/aiModule/robocop/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
+	..()
+	SSticker?.score?.save_silicon_laws(target, sender, "'Robocop' module used, all inherent laws were changed", log_all_laws = TRUE)
+
 /****************** P.A.L.A.D.I.N. **************/
 /obj/item/aiModule/paladin // -- NEO
 	name = "\improper 'P.A.L.A.D.I.N.' core AI module"
 	desc = "A P.A.L.A.D.I.N. Core AI Module: 'Reconfigures the AI's core laws.'"
 	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/paladin
+
+/obj/item/aiModule/paladin/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
+	..()
+	SSticker?.score?.save_silicon_laws(target, sender, "'P.A.L.A.D.I.N.' module used, all inherent laws were changed", log_all_laws = TRUE)
 
 /****************** T.Y.R.A.N.T. *****************/
 /obj/item/aiModule/tyrant // -- Darem
@@ -310,12 +349,20 @@ AI MODULES
 	origin_tech = "programming=3;materials=4;syndicate=1"
 	laws = new/datum/ai_laws/tyrant()
 
+/obj/item/aiModule/tyrant/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
+	..()
+	SSticker?.score?.save_silicon_laws(target, sender, "'T.Y.R.A.N.T.' module used, all inherent laws were changed", log_all_laws = TRUE)
+
 /******************** Antimov ********************/
 /obj/item/aiModule/antimov // -- TLE
 	name = "\improper 'Antimov' core AI module"
 	desc = "An 'Antimov' Core AI Module: 'Reconfigures the AI's core laws.'"
 	origin_tech = "programming=4"
 	laws = new/datum/ai_laws/antimov()
+
+/obj/item/aiModule/antimov/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
+	..()
+	SSticker?.score?.save_silicon_laws(target, sender, "'Antimov' module used, all inherent laws were changed", log_all_laws = TRUE)
 
 /******************** Freeform Core ******************/
 /obj/item/aiModule/freeformcore // Slightly more dynamic freeform module -- TLE
@@ -335,6 +382,7 @@ AI MODULES
 	..()
 	var/law = "[newFreeFormLaw]"
 	target.add_inherent_law(law)
+	SSticker?.score?.save_silicon_laws(target, sender, "'Core Freeform' module used, new inherent law was added '[law]'")
 	GLOB.lawchanges.Add("The law is '[newFreeFormLaw]'")
 
 /obj/item/aiModule/freeformcore/install(var/obj/machinery/computer/C)
@@ -366,6 +414,7 @@ AI MODULES
 	var/law = "[newFreeFormLaw]"
 	target.add_ion_law(law)
 	target.show_laws()
+	SSticker?.score?.save_silicon_laws(target, sender, "'hacked' module used, new ion law was added '[law]'")
 
 /obj/item/aiModule/syndicate/install(var/obj/machinery/computer/C)
 	if(!newFreeFormLaw)
@@ -386,6 +435,7 @@ AI MODULES
 	//..()
 	to_chat(target, "<span class='warning'>KRZZZT</span>")
 	target.add_ion_law(laws[1])
+	SSticker?.score?.save_silicon_laws(target, sender, "'toy AI' module used, new ion law was added '[laws[1]]'")
 	return laws[1]
 
 /obj/item/aiModule/toyAI/attack_self(mob/user)

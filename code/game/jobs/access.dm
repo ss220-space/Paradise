@@ -559,6 +559,11 @@
 	var/special = get_all_special_jobs()
 
 	if(rankName in centcom) //Return with the NT logo if it is a Centcom job
+		switch(rankName)
+			if("Deathsquad Officer")
+				return "deathsquad"
+			if("Death Commando")
+				return "deathsquad"
 		return "Centcom"
 
 	if(rankName in solgov) //Return with the SolGov logo if it is a SolGov job

@@ -14,7 +14,7 @@
 	var/Toxins_pp = (breath.toxins / breath.total_moles()) * breath_pressure
 
 	if(Toxins_pp > tox_detect_threshold) // Detect toxins in air
-		adjustPlasma(breath.toxins*250)
+		adjust_alien_plasma(breath.toxins*250)
 		throw_alert("alien_tox", /obj/screen/alert/alien_tox)
 
 		toxins_used = breath.toxins
@@ -47,7 +47,7 @@
 		if(M.loc != src)
 			LAZYREMOVE(stomach_contents, M)
 			continue
-		if(stat != DEAD && times_fired % 3 == 1)
-			M.Weaken(5)
-			M.adjustBruteLoss(5)
-			adjust_nutrition(10)
+		if(stat != DEAD)
+			M.Weaken(3 SECONDS)
+			M.EyeBlind(3 SECONDS)
+			M.adjustBruteLoss(1.5)

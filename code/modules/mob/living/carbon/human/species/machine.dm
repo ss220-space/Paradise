@@ -35,13 +35,16 @@
 	can_revive_by_healing = 1
 	has_gender = FALSE
 	reagent_tag = PROCESS_SYN
-	male_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
-	female_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
+	male_scream_sound = list('sound/goonstation/voice/robot_scream.ogg')
+	female_scream_sound = list('sound/goonstation/voice/robot_scream.ogg')
 	male_cough_sounds = list('sound/effects/mob_effects/m_machine_cougha.ogg','sound/effects/mob_effects/m_machine_coughb.ogg', 'sound/effects/mob_effects/m_machine_coughc.ogg')
 	female_cough_sounds = list('sound/effects/mob_effects/f_machine_cougha.ogg','sound/effects/mob_effects/f_machine_coughb.ogg')
-	male_sneeze_sound = 'sound/effects/mob_effects/machine_sneeze.ogg'
-	female_sneeze_sound = 'sound/effects/mob_effects/f_machine_sneeze.ogg'
+	male_sneeze_sound = list('sound/effects/mob_effects/machine_sneeze.ogg')
+	female_sneeze_sound = list('sound/effects/mob_effects/f_machine_sneeze.ogg')
 	butt_sprite = "machine"
+
+	hunger_icon = 'icons/mob/screen_hunger_machine.dmi'
+	hunger_type = "machine"
 
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
@@ -103,17 +106,6 @@
 	H.verbs -= /mob/living/carbon/human/proc/emote_buzz2
 	H.verbs -= /mob/living/carbon/human/proc/emote_yes
 	H.verbs -= /mob/living/carbon/human/proc/emote_no
-
-/datum/species/machine/handle_death(gibbed, mob/living/carbon/human/H)
-	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-	if(!head_organ)
-		return
-	head_organ.h_style = "Bald"
-	head_organ.f_style = "Shaved"
-	spawn(100)
-		if(H && head_organ)
-			H.update_hair()
-			H.update_fhair()
 
 // Allows IPC's to change their monitor display
 /datum/action/innate/change_monitor

@@ -70,7 +70,7 @@
 			if(has_pain())
 				emote("scream")
 			custom_emote(1, "падает!")
-		Weaken(5) //can't emote while weakened, apparently.
+		Weaken(10 SECONDS) //can't emote while weakened, apparently.
 
 
 /mob/living/carbon/human/proc/handle_grasp()
@@ -182,3 +182,12 @@ I use this to standardize shadowling dethrall code
 		bodypart_wing = bodyparts_by_name["wing"]
 	else
 		bodypart_wing = null
+
+/mob/living/carbon/human/proc/count_of_infected_organs()
+	. = 0
+	for(var/obj/item/organ/external/E in bodyparts + bodypart_wing + bodypart_tail)
+		for(var/obj/item/organ/internal/I in E.internal_organs)
+			if(I.germ_level >= INFECTION_LEVEL_ONE)
+				.++
+		if(E.germ_level >= INFECTION_LEVEL_ONE)
+			.++

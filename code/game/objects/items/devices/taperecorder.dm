@@ -102,7 +102,7 @@
 		piece.message_verb = "says"
 		piece.tts_seed = M.tts_seed
 
-		if(M.stuttering)
+		if(M.AmountStuttering())
 			piece.message_verb = "stammers"
 		else if(M.getBrainLoss() >= 60)
 			piece.message_verb = "gibbers"
@@ -273,6 +273,8 @@
 
 	to_chat(usr, "<span class='notice'>Transcript printed.</span>")
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+	flick("taperecorder_anim", src)
+	sleep(3 SECONDS) //prevent paper from being printed until the end of the animation
 	var/obj/item/paper/P = new /obj/item/paper(drop_location())
 	var/t1 = "<B>Transcript:</B><BR><BR>"
 	var/datum/tape_piece/piece

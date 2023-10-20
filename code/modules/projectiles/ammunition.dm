@@ -91,12 +91,13 @@
 		..()
 
 /obj/item/ammo_casing/proc/leave_residue(mob/living/carbon/human/H)
-	for(H)
-		if(H.gloves)
-			var/obj/item/clothing/G = H.gloves
-			G.gunshot_residue = caliber
-		else
-			H.gunshot_residue = caliber
+	if(QDELETED(H))
+		return
+	if(istype(H) && H.gloves)
+		var/obj/item/clothing/G = H.gloves
+		G.gunshot_residue = caliber
+	else
+		H.gunshot_residue = caliber
 
 //Boxes of ammo
 /obj/item/ammo_box
@@ -119,7 +120,12 @@
 	var/icon_prefix // boxes with multiple sprites use this as their base
 	var/caliber
 	var/multiload = 1
+	var/accept_subtypes = TRUE //Can you load rounds with the same caliber, but not same type
 	var/list/initial_mats
+	var/replacing_sound = 'sound/weapons/gun_interactions/shotguninsert.ogg'
+	var/remove_sound = 'sound/weapons/gun_interactions/remove_bullet.ogg'
+	var/insert_sound = 'sound/weapons/gun_interactions/bulletinsert.ogg'
+	var/load_sound = 'sound/weapons/gun_interactions/shotguninsert.ogg'
 
 /obj/item/ammo_box/New()
 	..()
@@ -151,11 +157,13 @@
 	// Boxes don't have a caliber type, magazines do. Not sure if it's intended or not, but if we fail to find a caliber, then we fall back to ammo_type.
 	if(!R || (caliber && R.caliber != caliber) || (!caliber && R.type != ammo_type))
 		return 0
+	if(!accept_subtypes && R != src.ammo_type)
+		return 0
 
 	if(stored_ammo.len < max_ammo)
 		stored_ammo += R
 		R.loc = src
-		playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
+		playsound(src, insert_sound, 50, 1)
 		update_mat_value()
 		return 1
 	//for accessibles magazines (e.g internal ones) when full, start replacing spent ammo
@@ -167,7 +175,7 @@
 
 				stored_ammo += R
 				R.loc = src
-				playsound(src, 'sound/weapons/gun_interactions/shotguninsert.ogg', 50, 1)
+				playsound(src, replacing_sound, 50, 1)
 				update_mat_value()
 				return 1
 
@@ -198,7 +206,7 @@
 	if(num_loaded)
 		if(!silent)
 			to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
-		playsound(src, 'sound/weapons/gun_interactions/shotguninsert.ogg', 50, 1)
+		playsound(src, load_sound, 50, 1)
 		A.update_icon()
 		update_icon()
 
@@ -208,7 +216,7 @@
 	var/obj/item/ammo_casing/A = get_round()
 	if(A)
 		user.put_in_hands(A)
-		playsound(src, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, 1)
+		playsound(src, remove_sound, 50, 1)
 		to_chat(user, "<span class='notice'>You remove a round from \the [src]!</span>")
 		update_icon()
 

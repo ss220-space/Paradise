@@ -7,7 +7,7 @@
 	stock = 1
 	cost = 2
 	item_type = /obj/item/antag_spawner/contractor_partner
-
+	refundable = TRUE
 
 
 
@@ -58,7 +58,7 @@
 		qdel(src)
 	else
 		checking = FALSE
-		to_chat(user, "<span class='notice'>No available agents at this time, please try again later or refund device by attaking uplink with device.</span>")
+		to_chat(user, "<span class='notice'>No available agents at this time, please try again later or refund device.</span>")
 
 /obj/item/antag_spawner/contractor_partner/proc/spawn_contractor_partner(mob/living/user, turf/T, key)
 	var/mob/living/carbon/human/partner = new(T)
@@ -80,6 +80,12 @@
 	CT.target = user.mind
 	CT.explanation_text = "[user.real_name] - Ваш начальник. Его задачи являются первоочередными."
 	partner.mind.objectives += CT
+
+/obj/item/antag_spawner/contractor_partner/check_uplink_validity()
+	if(checking)
+		to_chat(src.loc, span_notice("Trying to refund a used device is a rather stupid idea."))
+		return FALSE
+	return TRUE
 
 /datum/mind/proc/make_contractor_support()
 	if(has_antag_datum(/datum/antagonist/contractor_support))

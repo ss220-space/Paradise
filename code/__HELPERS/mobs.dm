@@ -281,7 +281,7 @@
 	update_all_mob_security_hud()
 	return 1
 
-/proc/do_mob(mob/user, mob/target, time = 30, uninterruptible = 0, progress = 1, list/extra_checks = list())
+/proc/do_mob(mob/user, mob/target, time = 30, progress = 1, list/extra_checks = list(), only_use_extra_checks = FALSE)
 	if(!user || !target)
 		return 0
 	var/user_loc = user.loc
@@ -307,7 +307,10 @@
 		if(!user || !target)
 			. = 0
 			break
-		if(uninterruptible)
+		if(only_use_extra_checks)
+			if(check_for_true_callbacks(extra_checks))
+				. = 0
+				break
 			continue
 
 		if(drifting && !user.inertia_dir)
@@ -361,8 +364,8 @@
 	// By default, checks for weakness and stunned get added to the extra_checks list.
 	// Setting `use_default_checks` to FALSE means that you don't want the do_after to check for these statuses, or that you will be supplying your own checks.
 	if(use_default_checks)
-		extra_checks += CALLBACK(user, TYPE_PROC_REF(/mob, IsWeakened))
-		extra_checks += CALLBACK(user, TYPE_PROC_REF(/mob, IsStunned))
+		extra_checks += CALLBACK(user, TYPE_PROC_REF(/mob/living, IsWeakened))
+		extra_checks += CALLBACK(user, TYPE_PROC_REF(/mob/living, IsStunned))
 		if(istype(holding, /obj/item/gripper/))
 			var/obj/item/gripper/gripper = holding
 			if(!(gripper.isEmpty()))
@@ -619,3 +622,37 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 			if(player.stat == CONSCIOUS)
 				active++
 	return list(total, active, dead, antag)
+
+
+/**
+  * Safe ckey getter
+  *
+  * Should be used whenever broadcasting public information about a mob,
+  * as this proc will make a best effort to hide the users ckey if they request it.
+  * It will first check the mob for a client, then use the mobs last ckey as a directory lookup.
+  * If a client cant be found to check preferences on, it will just show as DC'd.
+  * This proc should only be used for public facing stuff, not administration related things.
+  *
+  * Arguments:
+  * * M - Mob to get a safe ckey of
+  */
+/proc/safe_get_ckey(mob/M)
+	var/client/C = null
+	if(M.client)
+		C = M.client
+	else if(M.last_known_ckey in GLOB.directory)
+		C = GLOB.directory[M.last_known_ckey]
+
+	// Now we see if we need to respect their privacy
+	var/out_ckey
+	if(C)
+		if(C.prefs.toggles2 & PREFTOGGLE_2_ANON)
+			out_ckey = "(Anon)"
+		else
+			out_ckey = C.ckey
+	else
+		// No client. Just mark as DC'd.
+		out_ckey = "(Disconnected)"
+
+	return out_ckey
+

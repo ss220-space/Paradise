@@ -234,7 +234,9 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 			blood_heal = 0.4, \
 			simple_heal = 1.2, \
 			requires_visibility = FALSE, \
+			limit_to_trait = TRAIT_HEALS_FROM_HOLY_PYLONS, \
 			healing_color = COLOR_CULT_RED, \
+			robot_heal = TRUE, \
 		)
 	else
 		AddComponent( \
@@ -247,6 +249,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 			requires_visibility = FALSE, \
 			limit_to_trait = TRAIT_HEALS_FROM_CULT_PYLONS, \
 			healing_color = COLOR_CULT_RED, \
+			robot_heal = TRUE, \
 		)
 
 	START_PROCESSING(SSobj, src)

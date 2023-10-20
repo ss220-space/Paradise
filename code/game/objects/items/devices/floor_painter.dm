@@ -51,6 +51,7 @@
 	playsound(loc, usesound, 30, TRUE)
 	F.icon_state = floor_state
 	F.icon_regular_floor = floor_state
+	F.floor_regular_dir = floor_dir
 	F.dir = floor_dir
 
 /obj/item/floor_painter/attack_self(var/mob/user)

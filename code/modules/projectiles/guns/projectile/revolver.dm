@@ -120,16 +120,30 @@
 	fire_sound_text = null
 	lefthand_file = null
 	righthand_file = null
-	clumsy_check = 0 //Stole your uplink! Honk!
-	needs_permit = 0 //go away beepsky
+	can_holster = FALSE // Get your fingers out of there!
+	clumsy_check = FALSE //Stole your uplink! Honk!
+	needs_permit = FALSE //go away beepsky
+	var/obj/effect/proc_holder/spell/mime/fingergun/parent_spell
+
 
 /obj/item/gun/projectile/revolver/fingergun/fake
 	desc = "Pew pew pew!"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible/fake
 
-/obj/item/gun/projectile/revolver/fingergun/New()
+
+/obj/item/gun/projectile/revolver/fingergun/New(loc, new_parent_spell)
 	..()
+	parent_spell = new_parent_spell
 	verbs -= /obj/item/gun/projectile/revolver/verb/spin
+
+
+/obj/item/gun/projectile/revolver/fingergun/Destroy()
+	if(parent_spell)
+		parent_spell.current_gun = null
+		parent_spell.UnregisterSignal(parent_spell.action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
+		parent_spell = null
+	return ..()
+
 
 /obj/item/gun/projectile/revolver/fingergun/shoot_with_empty_chamber(/*mob/living/user as mob|obj*/)
 	to_chat(usr, "<span class='warning'>You are out of ammo! You holster your fingers.</span>")
@@ -145,8 +159,8 @@
 /obj/item/gun/projectile/revolver/fingergun/attackby(obj/item/A, mob/user, params)
 	return
 
-/obj/item/gun/projectile/revolver/fingergun/attack_self(mob/living/user)
-	to_chat(usr, "<span class='notice'>You holster your fingers. Another time.</span>")
+/obj/item/gun/projectile/revolver/fingergun/attack_self(mob/living/user = usr)
+	to_chat(user, "<span class='notice'>You holster your fingers. Another time.</span>")
 	qdel(src)
 	return
 
@@ -154,6 +168,16 @@
 	name = "\improper Unica 6 auto-revolver"
 	desc = "A retro high-powered autorevolver typically used by officers of the New Russia military. Uses .357 ammo."	//>10mm hole >.357
 	icon_state = "mateba"
+
+/obj/item/gun/projectile/revolver/ga12
+	name = "\improper Tkach Ya-Sui GA 12 revolver"
+	desc = "An outdated sidearm rarely seen in use by certain PMCs that operate throughout the frontier systems, featuring a three-shell cylinder. Thats right, shell, this one shoots twelve gauge."
+	icon_state = "12garevolver"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/ga12
+	fire_sound = 'sound/weapons/gunshots/1rev12.ogg'
+	spread = 15
+	recoil = 1
+	fire_delay = 5
 
 /obj/item/gun/projectile/revolver/golden
 	name = "\improper Golden revolver"
@@ -366,34 +390,32 @@
 	sawn_desc = "I'm just here for the gasoline."
 	unique_rename = FALSE
 	unique_reskin = FALSE
-	var/slung = 0
+	var/slung = FALSE
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/stack/cable_coil) && !sawn_state)
 		var/obj/item/stack/cable_coil/C = A
 		if(C.use(10))
 			slot_flags = SLOT_BACK
-			icon_state = "ishotgunsling"
-			to_chat(user, "<span class='notice'>You tie the lengths of cable to the shotgun, making a sling.</span>")
-			slung = 1
+			to_chat(user, span_notice("You tie the lengths of cable to the shotgun, making a sling."))
+			slung = TRUE
 			update_icon()
 		else
-			to_chat(user, "<span class='warning'>You need at least ten lengths of cable if you want to make a sling.</span>")
+			to_chat(user, span_warning("You need at least ten lengths of cable if you want to make a sling."))
 			return
 	else
 		return ..()
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/update_icon()
 	..()
-	if(slung && (slot_flags & SLOT_BELT) )
-		slung = 0
-		icon_state = "ishotgun-sawn"
+	if(slung && (sawn_state == SAWN_INTACT))
+		icon_state = "ishotgunsling"
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/sawoff(mob/user)
 	. = ..()
 	if(. && slung) //sawing off the gun removes the sling
 		new /obj/item/stack/cable_coil(get_turf(src), 10)
-		slung = 0
+		slung = FALSE
 		update_icon()
 
 //caneshotgun

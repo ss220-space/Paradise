@@ -1,6 +1,8 @@
 // Atoms
 #define isatom(A) (isloc(A))
 
+#define isdatum(thing) (istype(thing, /datum))
+
 // Mobs
 #define ismegafauna(A) istype(A, /mob/living/simple_animal/hostile/megafauna)
 
@@ -16,11 +18,15 @@
 
 #define isstack(A) (istype(A, /obj/item/stack))
 
+#define isstorage(A) (istype(A, /obj/item/storage))
+
 #define ispda(A) (istype(A, /obj/item/pda))
 
 #define ismachinery(A) (istype(A, /obj/machinery))
 
 #define ismecha(A) (istype(A, /obj/mecha))
+
+#define isvampirecoffin(A) (istype(A, /obj/structure/closet/coffin/vampire))
 
 #define isspacepod(A) (istype(A, /obj/spacepod))
 
@@ -31,6 +37,10 @@
 #define is_cleanable(A) (istype(A, /obj/effect/decal/cleanable) || istype(A, /obj/effect/rune)) //if something is cleanable
 
 #define is_pen(W) (istype(W, /obj/item/pen))
+
+#define is_pda(W) (istype(W, /obj/item/pda))
+
+#define isradio(A) istype(A, /obj/item/radio)
 
 #define isclothing(A) (istype(A, /obj/item/clothing))
 
@@ -103,11 +113,12 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define isslime(A)		(istype((A), /mob/living/simple_animal/slime))
 
+#define isvampireanimal(A)		(istype((A), /mob/living/simple_animal/hostile/vampire))
+
 //Structures
 #define isstructure(A)	(istype((A), /obj/structure))
 
 // Misc
 #define isclient(A) istype(A, /client)
-#define isradio(A) istype(A, /obj/item/radio)
 #define ispill(A) istype(A, /obj/item/reagent_containers/food/pill)
 

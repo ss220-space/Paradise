@@ -22,8 +22,8 @@
 
 /obj/structure/closet/wardrobe/miner
 	name = "mining wardrobe"
-	icon_state = "mixed"
-	icon_closed = "mixed"
+	icon_state = "closed"
+	custom_door_overlay = "mixed"
 
 /obj/structure/closet/wardrobe/miner/populate_contents()
 	new /obj/item/storage/backpack/duffel(src)
@@ -41,12 +41,7 @@
 
 /obj/structure/closet/secure_closet/miner
 	name = "miner's equipment"
-	icon_state = "miningsec1"
-	icon_closed = "miningsec"
-	icon_locked = "miningsec1"
-	icon_opened = "miningsecopen"
-	icon_broken = "miningsecbroken"
-	icon_off = "miningsecoff"
+	icon_state = "mining"
 	req_access = list(ACCESS_MINING)
 
 /obj/structure/closet/secure_closet/miner/populate_contents()
@@ -57,11 +52,11 @@
 	new /obj/item/radio/headset/headset_cargo/mining(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/storage/bag/plants(src)
+	new /obj/item/storage/bag/gem(src)
 	new /obj/item/storage/bag/ore(src)
-	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
+	new /obj/item/mining_scanner(src)
 	new /obj/item/gun/energy/kinetic_accelerator(src)
 	new /obj/item/clothing/glasses/meson(src)
-	new /obj/item/survivalcapsule(src)
 
 /**********************Shuttle Computer**************************/
 
@@ -78,6 +73,7 @@
 	name = "lantern"
 	icon_state = "lantern"
 	item_state = "lantern"
+	belt_icon = "lantern"
 	desc = "A mining lantern."
 	brightness_on = 6			// luminosity when on
 

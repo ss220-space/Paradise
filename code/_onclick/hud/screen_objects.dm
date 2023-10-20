@@ -21,6 +21,7 @@
 
 /obj/screen/Destroy()
 	master = null
+	hud = null
 	return ..()
 
 /obj/screen/proc/component_click(obj/screen/component_button/component, params)
@@ -49,12 +50,12 @@
 
 
 /obj/screen/drop
-	name = "drop"
+	name = "accurate drop"
 	icon_state = "act_drop"
 
 /obj/screen/drop/Click()
 	if(usr.stat == CONSCIOUS)
-		usr.drop_item_ground(usr.get_active_hand())
+		usr.drop_item_ground(usr.get_active_hand(), ignore_pixel_shift = TRUE)
 
 
 /obj/screen/grab
@@ -168,6 +169,9 @@
 	if(ismecha(usr.loc)) // stops inventory actions in a mech
 		return TRUE
 
+	if(is_ventcrawling(usr)) // stops inventory actions in vents
+		return TRUE
+
 	if(master)
 		var/obj/item/I = usr.get_active_hand()
 		if(I)
@@ -194,7 +198,10 @@
 
 
 /obj/screen/storage/MouseDrop_T(obj/item/I, mob/user)
-	if(!I ||!user || !istype(I) || user.incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE) || ismecha(user.loc) || !master)
+	if(!user || !istype(I) || user.incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE) || ismecha(user.loc) || !master)
+		return FALSE
+
+	if(is_ventcrawling(user))
 		return FALSE
 
 	var/obj/item/storage/S = master
@@ -445,6 +452,9 @@
 	if(ismecha(usr.loc)) // stops inventory actions in a mech
 		return TRUE
 
+	if(is_ventcrawling(usr)) // stops inventory actions in vents
+		return TRUE
+
 	if(hud?.mymob && slot_id)
 		var/obj/item/inv_item = hud.mymob.get_item_by_slot(slot_id)
 		if(inv_item)
@@ -454,6 +464,48 @@
 		usr.update_inv_hands()
 
 	return TRUE
+
+
+/obj/screen/inventory/MouseDrop_T(obj/item/I, mob/user)
+
+	if(!user || !istype(I) || user.incapacitated() || ismecha(user.loc) || is_ventcrawling(user))
+		return FALSE
+
+	if(isalien(user) && !I.allowed_for_alien())	// We need to do this here
+		return FALSE
+
+	if(!in_range(get_turf(I), get_turf(user)))
+		return FALSE
+
+	if(!hud?.mymob || !slot_id)
+		return FALSE
+
+	if(hud.mymob != user)
+		return FALSE
+
+	if(slot_id != slot_l_hand && slot_id != slot_r_hand)
+		return FALSE
+
+	if(I.is_equipped() && !user.is_general_slot(user.get_slot_by_item(I)))
+
+		if(I.equip_delay_self && !user.is_general_slot(user.get_slot_by_item(I)))
+			user.visible_message(span_notice("[user] начинает снимать [I.name]..."), \
+								span_notice("Вы начинаете снимать [I.name]..."))
+			if(!do_after_once(user, I.equip_delay_self, target = user, attempt_cancel_message = "Снятие [I.name] было прервано!"))
+				return FALSE
+
+			if((slot_id == slot_l_hand && user.l_hand) || (slot_id == slot_r_hand && user.r_hand))
+				return FALSE
+
+		if(!user.drop_item_ground(I))
+			return FALSE
+
+	else if(user.is_general_slot(user.get_slot_by_item(I)) && !user.drop_item_ground(I))
+		return FALSE
+
+	if((slot_id == slot_l_hand && !user.put_in_l_hand(I, ignore_anim = FALSE)) || \
+		(slot_id == slot_r_hand && !user.put_in_r_hand(I, ignore_anim = FALSE)))
+		return FALSE
 
 
 /obj/screen/inventory/hand
@@ -501,6 +553,9 @@
 	if(ismecha(user.loc)) // stops inventory actions in a mech
 		return TRUE
 
+	if(is_ventcrawling(user)) // stops inventory actions in vents
+		return TRUE
+
 	if(ismob(user))
 		var/mob/M = user
 		switch(name)
@@ -533,6 +588,11 @@
 	name = "health"
 	icon_state = "health0"
 	screen_loc = ui_health
+
+/obj/screen/stamina_bar
+	name = "stamina"
+	icon_state = "stamina0"
+	screen_loc = ui_stamina
 
 /obj/screen/healths/alien
 	icon = 'icons/mob/screen_alien.dmi'
@@ -572,6 +632,9 @@
 	if(ishuman(usr) && !usr.is_dead())
 		var/mob/living/carbon/H = usr
 		H.check_self_for_injuries()
+
+/obj/screen/healthdoll/living
+	var/filtered = FALSE //so we don't repeatedly create the mask of the mob every update
 
 /obj/screen/component_button
 	var/obj/screen/parent

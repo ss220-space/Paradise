@@ -23,8 +23,8 @@
 	death_message = "издает слабое чириканье, дрогнув и перестает двигаться..." //да. Официально шимпанзе именно чирикают.
 
 	scream_verb = "визжит"
-	male_scream_sound = 'sound/goonstation/voice/monkey_scream.ogg'
-	female_scream_sound = 'sound/goonstation/voice/monkey_scream.ogg'
+	male_scream_sound = list('sound/goonstation/voice/monkey_scream.ogg')
+	female_scream_sound = list('sound/goonstation/voice/monkey_scream.ogg')
 	male_dying_gasp_sounds = list('sound/goonstation/voice/male_dying_gasp_1.ogg', 'sound/goonstation/voice/male_dying_gasp_2.ogg', 'sound/goonstation/voice/male_dying_gasp_3.ogg', 'sound/goonstation/voice/male_dying_gasp_4.ogg', 'sound/goonstation/voice/male_dying_gasp_5.ogg')
 	female_dying_gasp_sounds = list('sound/goonstation/voice/female_dying_gasp_1.ogg', 'sound/goonstation/voice/female_dying_gasp_2.ogg', 'sound/goonstation/voice/female_dying_gasp_3.ogg', 'sound/goonstation/voice/female_dying_gasp_4.ogg', 'sound/goonstation/voice/female_dying_gasp_5.ogg')
 
@@ -143,7 +143,7 @@
 	has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/chest),
 		"groin" =  list("path" = /obj/item/organ/external/groin),
-		"head" =   list("path" = /obj/item/organ/external/head),
+		"head" =   list("path" = /obj/item/organ/external/head/vulpkanin/wolpin),
 		"tail" =   list("path" = /obj/item/organ/external/tail/monkey/vulpkanin),
 		"l_arm" =  list("path" = /obj/item/organ/external/arm),
 		"r_arm" =  list("path" = /obj/item/organ/external/arm/right),

@@ -102,13 +102,23 @@
 		chamber_round()
 		cut_overlays()
 
-
-/obj/item/gun/projectile/revolver/rocketlauncher/afterattack()
-	. = ..()
-	magazine.get_round(FALSE) //Hack to clear the mag after it's fired
-	chambered = null //weird thing
+/obj/item/gun/projectile/revolver/rocketlauncher/process_chamber()
+	var/obj/item/ammo_casing/AC = chambered
+	if(isnull(AC) || !istype(AC))
+		chamber_round()
+		return
+	chambered = null
+	chamber_round()
 	update_icon()
+	return
 
+/obj/item/gun/projectile/revolver/rocketlauncher/chamber_round()
+	if(chambered || !magazine)
+		return
+	else if(magazine.ammo_count())
+		chambered = magazine.get_round()
+		chambered.loc = src
+	return
 
 /obj/item/gun/projectile/revolver/rocketlauncher/attack_self(mob/living/user)
 	var/num_unloaded = 0

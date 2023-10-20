@@ -54,7 +54,7 @@
 	set_weapon() //giving it the right projectile and firing sound.
 	setup_access()
 
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/bot_speed)
+	AddSpell(new /obj/effect/proc_holder/spell/bot_speed)
 
 	if(lasercolor)
 		shot_delay = 6//Longer shot delay because JESUS CHRIST
@@ -576,9 +576,8 @@
 	spawn(2)
 		icon_state = "[lasercolor]ed209[on]"
 	var/threat = C.assess_threat(src)
-	C.SetStuttering(5)
-	C.Stun(2)
-	C.Weaken(2)
+	C.SetStuttering(10 SECONDS)
+	C.Weaken(4 SECONDS)
 	C.adjustStaminaLoss(45)
 	add_attack_logs(src, C, "stunned")
 	if(declare_arrests)

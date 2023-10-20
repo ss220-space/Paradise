@@ -40,12 +40,12 @@
 
 	reagent_tag = PROCESS_ORG | PROCESS_SYN
 	scream_verb = "скрипит"
-	male_scream_sound = 'sound/voice/shriek1.ogg'
-	female_scream_sound = 'sound/voice/shriek1.ogg'
+	male_scream_sound = list('sound/voice/shriek1.ogg')
+	female_scream_sound = list('sound/voice/shriek1.ogg')
 	male_cough_sounds = list('sound/voice/shriekcough.ogg')
 	female_cough_sounds = list('sound/voice/shriekcough.ogg')
-	male_sneeze_sound = 'sound/voice/shrieksneeze.ogg'
-	female_sneeze_sound = 'sound/voice/shrieksneeze.ogg'
+	male_sneeze_sound = list('sound/voice/shrieksneeze.ogg')
+	female_sneeze_sound = list('sound/voice/shrieksneeze.ogg')
 
 	icon_skin_tones = list(
 		1 = "Default Green",
@@ -61,7 +61,7 @@
 		"lungs" =    /obj/item/organ/internal/lungs/vox,
 		"liver" =    /obj/item/organ/internal/liver/vox,
 		"kidneys" =  /obj/item/organ/internal/kidneys/vox,
-		"cortical stack" =    /obj/item/organ/internal/brain/vox,
+		"brain" =    /obj/item/organ/internal/brain/vox,
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/vox, //Default darksight of 2.
 		)												//for determining the success of the heist game-mode's 'leave nobody behind' objective, while this is just an organ.
@@ -119,7 +119,7 @@
 		internal_tank = new /obj/item/tank/internals/nitrogen(H)
 	else
 		internal_tank = new /obj/item/tank/internals/emergency_oxygen/double/vox(H)
-	if(!internal_tank.equip_to_best_slot(H))
+	if(!H.equip_to_appropriate_slot(internal_tank, silent = TRUE))
 		if(!H.put_in_any_hand_if_possible(internal_tank))
 			H.drop_item_ground(H.l_hand)
 			H.equip_or_collect(internal_tank, slot_l_hand)

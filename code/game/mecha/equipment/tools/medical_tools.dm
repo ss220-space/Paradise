@@ -40,6 +40,12 @@
 	var/mob/living/carbon/patient = null
 	var/inject_amount = 10
 	salvageable = 0
+	/// List of reagents IDs, which will use touch reaction instead of ingest, upon injecting the patient.
+	var/static/list/reagent_ingest_blacklist = list(
+		/datum/reagent/medicine/styptic_powder,
+		/datum/reagent/medicine/silver_sulfadiazine,
+		/datum/reagent/medicine/synthflesh
+	)
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/AllowDrop()
 	return FALSE
@@ -181,23 +187,33 @@
 	if(SG && SG.reagents && islist(SG.reagents.reagent_list))
 		for(var/datum/reagent/R in SG.reagents.reagent_list)
 			if(R.volume > 0)
-				output += "<a href=\"?src=[UID()];inject=\ref[R];source=\ref[SG]\">Inject [R.name]</a><br />"
+				output += "<a href=\"?src=[UID()];inject=\ref[R];source=\ref[SG]\">Apply [R.name]</a><br />"
 	return output
 
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/inject_reagent(datum/reagent/R,obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/SG)
 	if(!R || !patient || !SG || !(SG in chassis.equipment))
-		return 0
+		return
+
 	var/to_inject = min(R.volume, inject_amount)
 	if(to_inject)
-		occupant_message("Injecting [patient] with [to_inject] units of [R.name].")
-		log_message("Injecting [patient] with [to_inject] units of [R.name].")
+		occupant_message("Applying [to_inject] units of [R.name] to [patient].")
+		log_message("Applied [to_inject] units of [R.name] to [patient].")
 		add_attack_logs(chassis.occupant, patient, "Injected with [name] containing [R], transferred [to_inject] units", R.harmless ? ATKLOG_ALMOSTALL : null)
-		SG.reagents.trans_id_to(patient,R.id,to_inject)
-		var/fraction = min(inject_amount/R.volume, 1)
-		SG.reagents.reaction(patient, REAGENT_INGEST, fraction)
+		var/datum/reagents/chosen_reagent = new(to_inject)
+		chosen_reagent.add_reagent(R.id, to_inject)
+		SG.reagents.remove_reagent(R.id, to_inject, TRUE)
+		var/fraction = min(inject_amount / to_inject, 1)
+		var/method = REAGENT_INGEST
+		for(var/r_type in reagent_ingest_blacklist)
+			if(istype(R, r_type))
+				method = REAGENT_TOUCH
+				break
+
+		chosen_reagent.reaction(patient, method, fraction)
+		chosen_reagent.trans_to(patient, to_inject)
 		update_equip_info()
-	return
+
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/update_equip_info()
 	if(..())
@@ -225,9 +241,8 @@
 		return
 	if(M.health > 0)
 		M.adjustOxyLoss(-1)
-	M.AdjustStunned(-4)
-	M.AdjustWeakened(-4)
-	M.AdjustStunned(-4)
+	M.AdjustStunned(-8 SECONDS)
+	M.AdjustWeakened(-8 SECONDS)
 	if(M.reagents.get_reagent_amount("epinephrine") < 5)
 		M.reagents.add_reagent("epinephrine", 5)
 	chassis.use_power(energy_drain)
@@ -601,21 +616,3 @@
 		if(M.equipment.len < M.max_equip)
 			return TRUE
 	return FALSE
-
-/obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system
-	name = "improved exosuit control system"
-	desc = "Equipment for medical exosuits. A system that provides more precise control of exosuit movement. In other words - Gotta go fast!"
-	icon = 'icons/obj/mecha/mecha_equipment.dmi'
-	icon_state = "move_plating"
-	origin_tech = "materials=5;engineering=5;magnets=4;powerstorage=4"
-	energy_drain = 20
-	selectable = 0
-	var/improv_step_in = 2
-
-/obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system/attach_act(obj/mecha/M)
-	M.step_in = improv_step_in
-
-/obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system/detach_act()
-	if(istype(src.loc, /obj/mecha/medical/odysseus) || istype(src.loc, /obj/mecha/combat/lockersyndie))
-		var/obj/mecha/O = src.loc
-		O.step_in = initial(O.step_in)

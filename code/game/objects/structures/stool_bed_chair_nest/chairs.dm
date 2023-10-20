@@ -131,7 +131,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(config.ghost_interaction)
+	if(CONFIG_GET(flag/ghost_interaction))
 		add_fingerprint(usr)
 		setDir(turn(dir, 90))
 		handle_rotation()
@@ -263,9 +263,8 @@
 			var/mob/living/buckled_mob = m
 			unbuckle_mob(buckled_mob)
 			buckled_mob.throw_at(A, 3, propelled)
-			buckled_mob.apply_effect(6, STUN, 0)
-			buckled_mob.apply_effect(6, WEAKEN, 0)
-			buckled_mob.apply_effect(6, STUTTER, 0)
+			buckled_mob.Weaken(12 SECONDS)
+			buckled_mob.Stuttering(12 SECONDS)
 			buckled_mob.take_organ_damage(10)
 			playsound(loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
 			buckled_mob.visible_message("<span class='danger'>[buckled_mob] crashed into [A]!</span>")
@@ -285,7 +284,7 @@
 // SOFAS
 /obj/structure/chair/sofa
 	name = "sofa"
-	icon_state = "sofamiddle"
+	icon_state = "leather_sofa_middle"
 	anchored = TRUE
 	item_chair = null
 	buildstackamount = 1
@@ -318,13 +317,13 @@
 		cut_overlay(armrest)
 
 /obj/structure/chair/sofa/left
-	icon_state = "sofaend_left"
+	icon_state = "leather_sofa_left"
 
 /obj/structure/chair/sofa/right
-	icon_state = "sofaend_right"
+	icon_state = "leather_sofa_right"
 
 /obj/structure/chair/sofa/corner
-	icon_state = "sofacorner"
+	icon_state = "leather_sofa_corner"
 
 /obj/structure/chair/sofa/corp
 	name = "sofa"
@@ -457,21 +456,20 @@
 		if(iscarbon(target))
 			var/mob/living/carbon/C = target
 			if(C.health < C.maxHealth*0.5)
-				C.apply_effect(6, STUN, 0)
-				C.apply_effect(6, WEAKEN, 0)
-				C.apply_effect(6, STUTTER, 0)
+				C.Weaken(12 SECONDS)
+				C.Stuttering(12 SECONDS)
 				playsound(src.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
 		smash(user)
 
 /obj/item/chair/stool/attack(mob/M as mob, mob/user as mob)
-	if(prob(5) && istype(M,/mob/living))
+	if(prob(5) && isliving(M))
 		user.visible_message("<span class='danger'>[user] breaks [src] over [M]'s back!.</span>")
 		user.drop_item_ground(src)
 		var/obj/item/stack/sheet/metal/m = new/obj/item/stack/sheet/metal
 		m.loc = get_turf(src)
 		qdel(src)
 		var/mob/living/T = M
-		T.Weaken(3)
+		T.Weaken(6 SECONDS)
 		return
 	..()
 
@@ -540,3 +538,8 @@
 		user.visible_message("<span class='notice'>[user] stops [src]'s uncontrollable spinning.</span>", \
 		"<span class='notice'>You grab [src] and stop its wild spinning.</span>")
 		STOP_PROCESSING(SSfastprocess, src)
+
+/obj/structure/chair/brass/fake
+	name = "brass chair"
+	desc = "A spinny chair made of brass. It looks uncomfortable. Totally not magic!"
+	buildstacktype = /obj/item/stack/sheet/brass_fake

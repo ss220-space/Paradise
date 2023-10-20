@@ -20,11 +20,12 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/uplink_owner = null//text-only
 	var/used_TC = 0
 
+	var/race = null
 	var/job = null
 	var/temp_category
 	var/uplink_type = UPLINK_TYPE_TRAITOR
 	/// If set, the uplink will show the option to become a contractor through this variable.
-	var/datum/antagonist/traitor/contractor/contractor = null
+	var/datum/antagonist/contractor/contractor = null
 	/// Whether the uplink is jammed and cannot be used to order items.
 	var/is_jammed = FALSE
 
@@ -63,7 +64,10 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		cats[++cats.len] = list("cat" = category, "items" = list())
 		for(var/datum/uplink_item/I in uplink_items[category])
 			if(I.job && I.job.len)
-				if(!(I.job.Find(job)))
+				if(!(I.job.Find(job)) && uplink_type != UPLINK_TYPE_ADMIN)
+					continue
+			if(I.race && I.race.len)
+				if(!(I.race.Find(race)))
 					continue
 			cats[cats.len]["items"] += list(list("name" = sanitize(I.name), "desc" = sanitize(I.description()),"cost" = I.cost, "hijack_only" = I.hijack_only, "obj_path" = I.reference, "refundable" = I.refundable))
 			uplink_items[I.reference] = I
@@ -260,7 +264,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		if(UI_MODAL_ANSWER)
 			if(id == "become_contractor")
 				if(text2num(params["answer"]))
-					var/datum/antagonist/traitor/contractor/C = usr.mind.has_antag_datum(/datum/antagonist/traitor/contractor)
+					var/datum/antagonist/contractor/C = usr?.mind?.has_antag_datum(/datum/antagonist/contractor)
 					C?.become_contractor(usr, src)
 				return
 	return FALSE
@@ -308,6 +312,13 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	if(hidden_uplink)
 		hidden_uplink.uplink_type = UPLINK_TYPE_SST
 		hidden_uplink.update_uplink_items()
+
+/obj/item/radio/uplink/admin/New()
+	..()
+	if(hidden_uplink)
+		hidden_uplink.uplink_type = UPLINK_TYPE_ADMIN
+		hidden_uplink.update_uplink_items()
+		hidden_uplink.uses = 500
 
 /obj/item/multitool/uplink/New()
 	..()

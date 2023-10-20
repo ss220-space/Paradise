@@ -32,6 +32,8 @@
 	var/datum/robot_energy_storage/source
 	/// Related to above. How much energy it costs from storage to use stack items
 	var/cost = 1
+	/// Related to above. Determines what stack will actually be put in machine when using cyborg stacks on construction to avoid spawning those on deconstruction.
+	var/cyborg_construction_stack
 
 
 /obj/item/stack/Initialize(mapload, new_amount, merge = TRUE)
@@ -54,8 +56,8 @@
 				if(is_zero_amount(delete_if_zero = FALSE))
 					return INITIALIZE_HINT_QDEL
 
-	update_icon()
 	update_weight()
+	update_icon()
 
 
 /obj/item/stack/Destroy()
@@ -180,6 +182,9 @@
 				to_chat(usr, "<span class='warning'>There is a structure here!</span>")
 				return FALSE
 			if(locate(/obj/structure/clockwork) in usr.drop_location())
+				to_chat(usr, "<span class='warning'>There is a structure here!</span>")
+				return FALSE
+			if(locate(/obj/structure/falsewall) in usr.drop_location())
 				to_chat(usr, "<span class='warning'>There is a structure here!</span>")
 				return FALSE
 		var/area/A = get_area(usr)
@@ -327,6 +332,7 @@
 
 /obj/item/stack/attackby(obj/item/W, mob/user, params)
 	if(can_merge(W, inhand = TRUE))
+		do_pickup_animation(user)
 		var/obj/item/stack/S = W
 		if(merge(S))
 			to_chat(user, SPAN_NOTICE("Your [S.name] stack now contains [S.get_amount()] [S.singular_name]\s."))
@@ -376,6 +382,9 @@
 		amount += newamount
 		update_icon()
 		update_weight()
+		if(isstorage(loc))
+			var/obj/item/storage/container = loc
+			addtimer(CALLBACK(container, TYPE_PROC_REF(/obj/item/storage, drop_overweight)), 0)
 
 
 /obj/item/stack/proc/update_weight()
@@ -387,6 +396,24 @@
 		w_class = full_w_class
 
 
+/obj/item/storage/proc/drop_overweight()
+	if(QDELETED(src))
+		return
+
+	for(var/obj/item/stack/item_stack in contents)
+		if(item_stack.is_cyborg)
+			continue
+
+		if(item_stack.w_class > max_w_class)
+			var/drop_loc = get_turf(src)
+			item_stack.pixel_x = pixel_x
+			item_stack.pixel_y = pixel_y
+			item_stack.forceMove(drop_loc)
+			var/mob/holder = usr
+			if(holder)
+				to_chat(holder, span_warning("[item_stack] exceeds [src] weight limits and drops to [drop_loc]"))
+
+
 /obj/item/stack/use(used, transfer = FALSE, check = TRUE)
 	if(check && is_zero_amount(delete_if_zero = TRUE))
 		return FALSE
@@ -395,10 +422,10 @@
 	if(amount < used)
 		return FALSE
 	amount -= used
-	if(check)
-		is_zero_amount(delete_if_zero = TRUE)
-	update_icon()
+	if(check && is_zero_amount(delete_if_zero = TRUE))
+		return TRUE
 	update_weight()
+	update_icon()
 	return TRUE
 
 
@@ -431,6 +458,8 @@
  * - [inhand][boolean]: Whether or not the stack to check should act like it's in a mob's hand.
  */
 /obj/item/stack/proc/can_merge(obj/item/stack/check, inhand = FALSE)
+	if(QDELETED(src) || QDELETED(check))
+		return FALSE
 	if(!istype(check, merge_type))
 		return FALSE
 	if(is_cyborg) // No merging cyborg stacks into other stacks

@@ -9,6 +9,7 @@
  *		Singularity hammer
  * 		Mjolnnir
  *		Knighthammer
+ *      Pyro Claws
  */
 
 /*##################################################################
@@ -172,11 +173,12 @@
 	. = ..()
 	if(wielded && charge == max_charge)
 		if(isliving(M))
+			var/mob/living/target = M
 			charge = 0
 			playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
 			user.visible_message("<span class='danger'>[user] slams the charged axe into [M.name] with all [user.p_their()] might!</span>")
 			do_sparks(1, 1, src)
-			M.Weaken(3)
+			target.Weaken(6 SECONDS)
 			var/atom/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
 			M.throw_at(throw_target, 5, 1)
 
@@ -369,7 +371,7 @@
 		qdel(src)
 
 
-/obj/item/twohanded/spear/throw_impact(atom/target)
+/obj/item/twohanded/spear/throw_impact(atom/target, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(explosive)
 		explosive.prime()
@@ -386,6 +388,16 @@
 	throwforce = 22
 	armour_penetration = 15				//Enhanced armor piercing
 	icon_prefix = "bone_spear"
+
+/obj/item/twohanded/spear/bonespear/chitinspear //like a mix of a bone spear and bone axe, but more like a bone spear. And better.
+	icon_state = "chitin_spear0"
+	name = "chitin spear"
+	desc = "A well constructed spear with a sharpened edge akin to a naginata, making it equally great for slicing and throwing."
+	force = 14
+	force_unwielded = 14
+	force_wielded = 24 // I have no idea about balance too
+	throwforce = 26
+	icon_prefix = "chitin_spear"
 
 //GREY TIDE
 /obj/item/twohanded/spear/grey_tide
@@ -575,7 +587,7 @@
 		icon_state = "chainsaw0"
 	..()
 
-/obj/item/twohanded/chainsaw/attack(mob/target, mob/living/user)
+/obj/item/twohanded/chainsaw/attack(mob/living/target, mob/living/user)
 	if(wielded)
 		playsound(loc, 'sound/weapons/chainsaw.ogg', 100, 1, -1) //incredibly loud; you ain't goin' for stealth with this thing. Credit to Lonemonk of Freesound for this sound.
 		if(isrobot(target))
@@ -584,7 +596,7 @@
 		if(!isliving(target))
 			return
 		else
-			target.Weaken(1)
+			target.Weaken(2 SECONDS)
 			..()
 		return
 	else
@@ -644,7 +656,7 @@
 				var/obj/item/clothing/shoes/magboots/M = H.shoes
 				if(M.magpulse)
 					continue
-			H.apply_effect(1, WEAKEN, 0)
+			H.Weaken(2 SECONDS)
 			step_towards(H, pull)
 			step_towards(H, pull)
 			step_towards(H, pull)
@@ -685,21 +697,21 @@
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	target.throw_at(throw_target, 200, 4)
 
-/obj/item/twohanded/mjollnir/attack(mob/M, mob/user)
+/obj/item/twohanded/mjollnir/attack(mob/living/M, mob/user)
 	..()
 	if(wielded)
 		//if(charged == 5)
 		//charged = 0
 		playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		if(isliving(M))
-			M.Stun(2)
+			M.Stun(4 SECONDS)
 			shock(M)
 
-/obj/item/twohanded/mjollnir/throw_impact(atom/target)
+/obj/item/twohanded/mjollnir/throw_impact(atom/target, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(isliving(target))
 		var/mob/living/L = target
-		L.Stun(2)
+		L.Stun(4 SECONDS)
 		shock(L)
 
 /obj/item/twohanded/mjollnir/update_icon()  //Currently only here to fuck with the on-mob icons.
@@ -862,3 +874,125 @@
 
 /obj/item/twohanded/bamboospear/update_icon()
 	icon_state = "bamboo_spear[wielded]"
+
+//pyro claws
+/obj/item/twohanded/required/pyro_claws
+	name = "hardplasma energy claws"
+	desc = "The power of the sun, in the claws of your hand."
+	icon_state = "pyro_claws"
+	flags = ABSTRACT | NODROP | DROPDEL
+	force = 25
+	force_wielded = 25
+	damtype = BURN
+	armour_penetration = 40
+	block_chance = 50
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut", "savaged", "clawed")
+	toolspeed = 0.5
+
+/obj/item/twohanded/required/pyro_claws/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
+/obj/item/twohanded/required/pyro_claws/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/item/twohanded/required/pyro_claws/process()
+	if(prob(15))
+		do_sparks(rand(1,6), 1, loc)
+
+/obj/item/twohanded/required/pyro_claws/afterattack(atom/target, mob/user, proximity)
+	if(!proximity)
+		return
+	if(prob(60))
+		do_sparks(rand(1,6), 1, loc)
+	if(istype(target, /obj/machinery/door/airlock))
+		var/obj/machinery/door/airlock/A = target
+
+		if(!A.requiresID() || A.allowed(user))
+			return
+
+		if(A.locked)
+			to_chat(user, "<span class='notice'>The airlock's bolts prevent it from being forced.</span>")
+			return
+
+		if(A.arePowerSystemsOn())
+			user.visible_message("<span class='warning'>[user] jams [user.p_their()] [name] into the airlock and starts prying it open!</span>", "<span class='warning'>You start forcing the airlock open.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
+			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
+			if(!do_after(user, 25, target = A))
+				return
+		user.visible_message("<span class='warning'>[user] forces the airlock open with [user.p_their()] [name]!</span>", "<span class='warning'>You force open the airlock.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
+		A.open(2)
+
+/obj/item/clothing/gloves/color/black/pyro_claws
+	name = "Fusion gauntlets"
+	desc = "Cybersun Industries developed these gloves after a grifter fought one of their soldiers, who attached a pyro core to an energy sword, and found it mostly effective."
+	item_state = "pyro"
+	item_color = "pyro"
+	icon_state = "pyro"
+	can_be_cut = FALSE
+	actions_types = list(/datum/action/item_action/toggle)
+	var/on_cooldown = FALSE
+	var/used = FALSE
+	var/obj/item/assembly/signaler/anomaly/pyro/core
+
+/obj/item/clothing/gloves/color/black/pyro_claws/Destroy()
+	QDEL_NULL(core)
+	return ..()
+
+/obj/item/clothing/gloves/color/black/pyro_claws/examine(mob/user)
+	. = ..()
+	if(core)
+		. += "<span class='notice'>[src] are fully operational!</span>"
+	else
+		. += "<span class='warning'>It is missing a pyroclastic anomaly core.</span>"
+
+/obj/item/clothing/gloves/color/black/pyro_claws/item_action_slot_check(slot)
+	if(slot == slot_gloves)
+		return TRUE
+
+/obj/item/clothing/gloves/color/black/pyro_claws/ui_action_click(mob/user)
+	if(!core)
+		to_chat(user, "<span class='notice'>[src] has no core to power it!</span>")
+		return
+	if(on_cooldown)
+		to_chat(user, "<span class='notice'>[src] is on cooldown!</span>")
+		do_sparks(rand(1,6), 1, loc)
+		return
+	if(used)
+		visible_message("<span class='warning'>Energy claws slides back into the depths of [loc]'s wrists.</span>")
+		user.drop_from_active_hand(force = TRUE)//dropdel stuff. only ui act, without hotkeys
+		do_sparks(rand(1,6), 1, loc)
+		on_cooldown = TRUE
+		addtimer(CALLBACK(src, PROC_REF(reboot)), 1 MINUTES)
+		return
+	if(user.get_active_hand() && !user.drop_from_active_hand())
+		to_chat(user, "<span class='notice'>[src] are unable to deploy the blades with the items in your hands!</span>")
+		return
+	var/obj/item/W = new /obj/item/twohanded/required/pyro_claws
+	user.visible_message("<span class='warning'>[user] deploys [W] from [user.p_their()] wrists in a shower of sparks!</span>", "<span class='notice'>You deploy [W] from your wrists!</span>", "<span class='warning'>You hear the shower of sparks!</span>")
+	user.put_in_hands(W)
+	flags |= NODROP
+	used = TRUE
+	do_sparks(rand(1,6), 1, loc)
+
+/obj/item/clothing/gloves/color/black/pyro_claws/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/assembly/signaler/anomaly/pyro))
+		if(core)
+			to_chat(user, "<span class='notice'>[src] already has a [I]!</span>")
+			return
+		if(!user.drop_from_active_hand())
+			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
+			return
+		to_chat(user, "<span class='notice'>You insert [I] into [src], and [src] starts to warm up.</span>")
+		I.forceMove(src)
+		core = I
+	else
+		return ..()
+
+/obj/item/clothing/gloves/color/black/pyro_claws/proc/reboot()
+	on_cooldown = FALSE
+	used = FALSE
+	flags &= ~NODROP
+	atom_say("Internal plasma canisters recharged. Gloves sufficiently cooled")

@@ -30,6 +30,7 @@
 	/turf/simulated/wall/indestructible/reinforced,
 	/obj/structure/falsewall,
 	/obj/structure/falsewall/brass,
+	/obj/structure/falsewall/brass/fake,
 	/obj/structure/falsewall/clockwork,
 	/obj/structure/falsewall/reinforced,  // WHY DO WE SMOOTH WITH FALSE R-WALLS WHEN WE DON'T SMOOTH WITH REAL R-WALLS. //because we do smooth with real r-walls now
 	/turf/simulated/wall/rust,
@@ -140,7 +141,7 @@
 	else
 		to_chat(user, "<span class='warning'>You can't reach, close it first!</span>")
 
-	if(istype(W, /obj/item/gun/energy/plasmacutter) || istype(W, /obj/item/pickaxe/drill/diamonddrill) || istype(W, /obj/item/pickaxe/drill/jackhammer) || istype(W, /obj/item/melee/energy/blade))
+	if(istype(W, /obj/item/gun/energy/plasmacutter) || istype(W, /obj/item/pickaxe/drill/diamonddrill) || istype(W, /obj/item/pickaxe/drill/jackhammer) || istype(W, /obj/item/melee/energy/blade) || istype(W, /obj/item/twohanded/required/pyro_claws))
 		dismantle(user, TRUE)
 
 /obj/structure/falsewall/welder_act(mob/user, obj/item/I)
@@ -383,6 +384,18 @@
 	walltype = /turf/simulated/wall/clockwork
 	mineral = /obj/item/stack/sheet/brass
 
+/obj/structure/falsewall/brass/fake
+	name = "clockwork wall"
+	desc = "A huge chunk of warm metal. The clanging of machinery emanates from within. You feel a wind."
+	icon = 'icons/turf/walls/clockwork_wall.dmi'
+	icon_state = "clockwork_wall"
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	mineral_amount = 1
+	canSmoothWith = list(/obj/effect/clockwork/overlay/wall, /obj/structure/falsewall/brass/fake)
+	girder_type = /obj/structure/clockwork/wall_gear/fake/displaced
+	walltype = /turf/simulated/wall/clockwork/fake
+	mineral = /obj/item/stack/sheet/brass_fake
+
 /obj/structure/falsewall/brass/Initialize(mapload)
 	. = ..()
 	var/turf/T = get_turf(src)
@@ -395,6 +408,9 @@
 		to_chat(user, "<span class='notice'>You push the wall but nothing happens!</span>")
 		playsound(src, 'sound/weapons/genhit.ogg', 25, 1) //sneaky
 		return FALSE
+	return ..()
+
+/obj/structure/falsewall/clockwork/fake/attack_hand(mob/user)
 	return ..()
 
 /obj/structure/falsewall/clockwork/welder_act(mob/user, obj/item/I)
