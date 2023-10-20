@@ -3967,6 +3967,7 @@
 /area/derelict/annex)
 "jA" = (
 /obj/effect/decal/cleanable/ash,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/derelict/annex)
 "jC" = (
@@ -7579,10 +7580,6 @@
 	},
 /turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/derelict/arrival)
-"sG" = (
-/obj/machinery/iv_drip,
-/turf/space,
-/area/derelict/med)
 "sK" = (
 /obj/item/stack/rods,
 /turf/simulated/floor/plasteel/airless{
@@ -9364,6 +9361,10 @@
 /obj/structure/window/full/shuttle,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/no_grav)
+"LD" = (
+/obj/machinery/power/port_gen/pacman,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered/no_grav)
 "LP" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -10012,6 +10013,12 @@
 "Tf" = (
 /turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/derelict/rnd)
+"Tr" = (
+/obj/machinery/iv_drip,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "white"
+	},
+/area/derelict/med)
 "TC" = (
 /obj/machinery/door/airlock/hatch{
 	locked = 1;
@@ -15585,7 +15592,7 @@ iw
 mH
 mU
 nj
-mS
+Tr
 nF
 nY
 nx
@@ -16318,7 +16325,7 @@ ac
 ac
 tk
 Ke
-sG
+oc
 oc
 oc
 oc
@@ -18052,7 +18059,7 @@ ac
 ac
 ac
 Ue
-lH
+LD
 CA
 zk
 GJ
@@ -18870,7 +18877,7 @@ eg
 eg
 iE
 QD
-ii
+ja
 ii
 ja
 jA
@@ -18991,7 +18998,7 @@ vr
 if
 iE
 ja
-ii
+ja
 ii
 jz
 lD
@@ -19114,7 +19121,7 @@ ig
 iG
 ii
 xZ
-ii
+ja
 ld
 iE
 eg
