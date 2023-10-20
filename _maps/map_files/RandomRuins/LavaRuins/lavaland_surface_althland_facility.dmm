@@ -1715,7 +1715,7 @@
 /area/ruin/unpowered)
 "Xd" = (
 /obj/machinery/computer{
-	name = "Broken Computer"s;
+	name = "Broken Computer";
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages."
 	},
 /obj/effect/decal/cleanable/dirt,
