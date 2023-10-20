@@ -39,7 +39,7 @@
 /area/ruin/unpowered)
 "aD" = (
 /obj/machinery/computer{
-	name = "Broken Computer"s;
+	name = "Broken Computer";
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages."
 	},
 /turf/simulated/floor{
