@@ -7,7 +7,7 @@
 
 /datum/disease/virus
 	form = "Вирус"
-
+	carrier_mobtypes = list(/mob/living/simple_animal/mouse)
 	var/spread_flags = NON_CONTAGIOUS
 
 	///affects how often the virus will try to spread. The more the better. In range [0-100]
@@ -32,7 +32,7 @@
 
 	. = ..()
 
-	if(!. || carrier)
+	if(!. || carrier || (affected_mob.type in carrier_mobtypes))
 		return FALSE
 
 	return TRUE

@@ -5,7 +5,7 @@
 	spread_flags = NON_CONTAGIOUS
 	severity = DANGEROUS
 	can_immunity = FALSE
-	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/alien)
+	infectable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/alien)
 	var/list/stage1
 	var/list/stage2
 	var/list/stage3
@@ -91,7 +91,7 @@
 	cure_prob = 5
 	cures = list("banana")
 	spread_flags = BITES
-	viable_mobtypes = list(/mob/living/carbon/human)
+	infectable_mobtypes = list(/mob/living/carbon/human)
 	severity = BIOHAZARD
 	cure_after_transform = FALSE
 	stage1	= null

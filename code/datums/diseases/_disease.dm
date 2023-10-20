@@ -75,7 +75,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	/// Mob that is suffering from this disease
 	var/mob/living/affected_mob
 	/// Types of infectable mobs
-	var/list/viable_mobtypes = list(/mob/living/carbon/human)
+	var/list/infectable_mobtypes = list(/mob/living/carbon/human)
 	/// Required organs
 	var/list/required_organs = list()
 	/// If TRUE, disease can progress in dead mobs
@@ -84,6 +84,8 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	var/can_contract_dead = FALSE
 	/// If TRUE, host not affected by virus, but can spread it (mostly for viruses)
 	var/carrier = FALSE
+	/// Infectable mob types, that can only be carriers
+	var/list/carrier_mobtypes = list()
 
 
 /datum/disease/New()
@@ -200,7 +202,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	if(M.HasDisease(src))
 		return FALSE
 
-	for(var/mobtype in viable_mobtypes)
+	for(var/mobtype in infectable_mobtypes + carrier_mobtypes)
 		if(istype(M, mobtype))
 			return TRUE
 	return FALSE

@@ -7,7 +7,7 @@
 	spread_flags = AIRBORNE
 	cure_text = "Iron for the living, nanopaste for robots"
 	cures = list("iron")
-	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/silicon/robot, /mob/living/simple_animal/pet/dog/corgi/borgi)
+	infectable_mobtypes = list(/mob/living/carbon/human, /mob/living/silicon/robot, /mob/living/simple_animal/pet/dog/corgi/borgi)
 	ignore_immunity = TRUE
 	permeability_mod = 0.75
 	severity = MEDIUM
