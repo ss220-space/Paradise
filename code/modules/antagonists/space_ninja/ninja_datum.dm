@@ -281,7 +281,7 @@
 
 			qdel(traitor_mode)
 
-		if(NINJA_TYPE_PROTECTOR)
+		if(NINJA_TYPE_HACKER)
 			var/datum/game_mode/vampire/vampire_mode = new
 			for(var/mob/living/player in GLOB.alive_mob_list)
 				if(player.client && player.mind && player.stat != DEAD && ishuman(player) && !player.mind.special_role && \
