@@ -67,3 +67,26 @@
 	name = "cortical stack"
 	desc = "A fist-sized mass of biocircuits and chips."
 	icon_state = "implant_evil"
+
+/obj/item/implant/supercharge
+	name = "supercharge implant"
+	desc = "Removes all stuns and knockdowns."
+	icon_state = "adrenal"
+	origin_tech = "materials=3;combat=5;syndicate=2"
+	uses = 3
+
+/obj/item/implant/supercharge/activate()
+	uses--
+	to_chat(imp_in, "<span class='notice'>You feel an electric sensation as your components enter overdrive!</span>")
+	imp_in.SetStunned(0)
+	imp_in.SetWeakened(0)
+	imp_in.SetParalysis(0)
+	imp_in.adjustStaminaLoss(-100)
+	imp_in.lying = 0
+	imp_in.update_canmove()
+
+	imp_in.reagents.add_reagent("surge_plus", 10)
+	imp_in.reagents.add_reagent("liquid_solder", 10)
+	imp_in.reagents.add_reagent("combatlube", 10)
+	if(!uses)
+		qdel(src)
