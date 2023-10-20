@@ -275,13 +275,13 @@
 // Bulldog shotgun //
 /obj/item/gun/projectile/automatic/shotgun/bulldog
 	name = "\improper 'Bulldog' Shotgun"
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 8-round drum magazines."
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 12/24-round drum magazines."
 	icon_state = "bulldog"
 	item_state = "bulldog"
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=6;materials=4;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/m12g
-	fire_sound = 'sound/weapons/gunshots/1shotgunpipe.ogg'
+	fire_sound = 'sound/weapons/gunshots/bulldog.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = 0
@@ -322,6 +322,56 @@
 	..()
 	empty_alarm()
 
+//AS-12 Minotaur//
+/obj/item/gun/projectile/automatic/shotgun/minotaur
+	name = "\improper AS-12 'Minotaur' Shotgun"
+	desc = "Smooth, powerful, highly illegal. The newest full auto shotgun available at the market, utilizes standard 12g drum mags. Property of Gorlex Marauders."
+	icon_state = "minotaur"
+	item_state = "minotaur"
+	w_class = WEIGHT_CLASS_NORMAL
+	origin_tech = "combat=6;materials=4;syndicate=6"
+	mag_type = /obj/item/ammo_box/magazine/m12g
+	fire_sound = 'sound/weapons/gunshots/minotaur.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/autoshotgun_mag_in.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/autoshotgun_mag_out.ogg'
+	can_suppress = 0
+	burst_size = 3
+	fire_delay = 1.5
+
+/obj/item/gun/projectile/automatic/shotgun/minotaur/New()
+	magazine = new/obj/item/ammo_box/magazine/m12g/XtrLrg
+	..()
+
+/obj/item/gun/projectile/automatic/shotgun/minotaur/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
+	..()
+	empty_alarm()
+
+//Combat Automatic Tactical Shotgun//
+
+/obj/item/gun/projectile/automatic/cats
+	name = "\improper C.A.T. Shotgun"
+	desc = "Terra Light Armories - Combat Automatic Tactical Shotgun - мощный автоматический дробовик, в основном используемый силами Транс-Солнечной Федерации. Производится корпорацией Terra Industries."
+	icon_state = "tla_cats"
+	item_state = "arg"
+	w_class = WEIGHT_CLASS_NORMAL
+	mag_type = /obj/item/ammo_box/magazine/cats12g
+	fire_delay = 0
+	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
+	burst_size = 2
+	can_suppress = 0
+
+/obj/item/gun/projectile/automatic/cats/update_icon()
+	..()
+	icon_state = "tla_cats[magazine ? "" : "-e"]"
+
+/obj/item/gun/projectile/automatic/cats/examine(mob/user)
+	. = ..()
+	if(Adjacent(user))
+		if(user.say_understands(null, GLOB.all_languages["Sol Common"]))
+			. += "Вы видите гравировку на прикладе, написанную на Общесолнечном: 'Свобода через тотальное превосходство'"
+		else
+			. += "Вы видите символы на прикладе, но не понимаете что они значат."
+
 //Laser carbine//
 /obj/item/gun/projectile/automatic/lasercarbine
 	name = "\improper IK-60 Laser Carbine"
@@ -342,7 +392,7 @@
 	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
 
 /obj/item/gun/projectile/automatic/lr30
-	name = "\improper IR-30 Laser Rifle"
+	name = "\improper LR-30 Laser Rifle"
 	desc = "A compact rifle, relying more on battery cartridges rather than a built in power cell. Utilized by the Nanotrasen Navy for combat operations."
 	icon_state = "lr30"
 	item_state = "lr30"
@@ -385,4 +435,15 @@
     if (action_type == /datum/action/item_action/toggle_gunlight)
         toggle_gunlight()
         return TRUE
+
+//Aussec Armory M-52
+
+/obj/item/gun/projectile/automatic/m52
+	name = "aussec armory M-52"
+	desc = "One of the least popular examples of heavy assault rifles. It has impressive firepower."
+	icon_state = "M52"
+	item_state = "arg"
+	fire_sound = 'sound/weapons/gunshots/aussec.ogg'
+	mag_type = /obj/item/ammo_box/magazine/m52mag
+	can_suppress = 0
 
