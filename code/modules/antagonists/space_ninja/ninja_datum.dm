@@ -32,15 +32,34 @@
 
 
 /datum/antagonist/ninja/on_gain()
-	. = ..()
-	if(!.)
-		return
+	if(!owner?.current)
+		return FALSE
 
+	owner.special_role = special_role
 	owner.offstation_role = TRUE
 	owner.set_original_mob(owner.current)
+
+	add_owner_to_gamemode()
+
 	if(generate_antags)
 		ninja_type = pick(NINJA_TYPE_PROTECTOR, NINJA_TYPE_HACKER, NINJA_TYPE_KILLER)
 		pick_antags()
+
+	if(give_objectives)
+		give_objectives()
+
+	apply_innate_effects()
+	finalize_antag()
+
+	if(!silent)
+		greet()
+		announce_objectives()
+
+	if(is_banned(owner.current) && replace_banned)
+		INVOKE_ASYNC(src, PROC_REF(replace_banned_player))
+
+	owner.current.create_log(MISC_LOG, "[owner.current] was made into \an [special_role]")
+	return TRUE
 
 
 /datum/antagonist/ninja/Destroy(force, ...)
