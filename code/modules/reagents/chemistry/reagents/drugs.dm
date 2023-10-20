@@ -1066,4 +1066,3 @@
 	update_flags |= M.adjustFireLoss(5, FALSE)
 	update_flags |= M.adjustBrainLoss(3, FALSE)
 	return list(effect, update_flags)
-	
