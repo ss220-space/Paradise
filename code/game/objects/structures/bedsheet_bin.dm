@@ -10,6 +10,7 @@ LINEN BINS
 	icon = 'icons/obj/items.dmi'
 	icon_state = "sheet"
 	item_state = "sheet"
+	flags = NO_PIXEL_RANDOM_DROP
 	layer = 4.0
 	throwforce = 1
 	throw_speed = 1
@@ -25,11 +26,11 @@ LINEN BINS
 	var/comfort = 0.5
 
 	sprite_sheets = list(
-		"Monkey" = 'icons/mob/species/monkey/neck.dmi',
-		"Farwa" = 'icons/mob/species/monkey/neck.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/neck.dmi',
-		"Neara" = 'icons/mob/species/monkey/neck.dmi',
-		"Stok" = 'icons/mob/species/monkey/neck.dmi'
+		"Monkey" = 'icons/mob/clothing/species/monkey/neck.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/neck.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/neck.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/neck.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/neck.dmi'
 		)
 
 

@@ -12,12 +12,12 @@
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 10, fire = 50, acid = 50)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/suit/storage/paramedic_jacket
@@ -46,12 +46,12 @@
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0, fire = 50, acid = 50)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 //Botanist
@@ -65,12 +65,12 @@
 	allowed = list(/obj/item/reagent_containers/spray/plantbgone,/obj/item/plant_analyzer,/obj/item/seeds,/obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/cultivator,/obj/item/reagent_containers/spray/pestspray,/obj/item/hatchet,/obj/item/storage/bag/plants)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 //Captain
@@ -84,12 +84,12 @@
 	allowed = list(/obj/item/disk, /obj/item/stamp, /obj/item/reagent_containers/food/drinks/flask, /obj/item/melee, /obj/item/storage/lockbox/medal, /obj/item/flash, /obj/item/storage/box/matches, /obj/item/lighter, /obj/item/clothing/mask/cigarette, /obj/item/storage/fancy/cigarettes, /obj/item/tank/internals/emergency_oxygen)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/suit/captunic/coat
@@ -143,12 +143,12 @@
 	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 //Chaplain
@@ -163,12 +163,12 @@
 	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 //Chaplain
@@ -202,12 +202,12 @@
 	allowed = list (/obj/item/kitchen/knife)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 //Chef
@@ -234,13 +234,20 @@
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
+
+/obj/item/clothing/suit/storage/det_suit/black
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
+		)
+	icon_state = "detective_black"
 
 //Forensics
 /obj/item/clothing/suit/storage/det_suit/forensics
@@ -261,6 +268,24 @@
 	desc = "A blue forensics technician jacket."
 	icon_state = "forensics_blue"
 
+/obj/item/clothing/suit/storage/det_suit/forensics/blaser
+	name = "black jacket"
+	desc = "A black forensics technician jacket."
+	icon_state = "dec_blazer_black"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" =  'icons/mob/clothing/species/drask/suit.dmi'
+		)
+
+/obj/item/clothing/suit/storage/det_suit/forensics/blaser/brown
+	name = "brown jacket"
+	desc = "A brown forensics technician jacket."
+	icon_state = "dec_blazer_brown"
+
+/obj/item/clothing/suit/storage/det_suit/forensics/blaser/grey
+	name = "grey jacket"
+	desc = "A grey forensics technician jacket."
+	icon_state = "dec_blazer_grey"
 //Blueshield
 /obj/item/clothing/suit/storage/blueshield
 	name = "blueshield coat"
@@ -275,12 +300,12 @@
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/suit/storage/blueshield/srt
@@ -299,23 +324,23 @@
 	resistance_flags = NONE
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 //Lawyer
 /obj/item/clothing/suit/storage/lawyer
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/suit/storage/lawyer/blackjacket
@@ -357,19 +382,19 @@
 	item_state = "qm_jacket_open"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	flags_inv = HIDEJUMPSUIT
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/storage/fancy/cigarettes, /obj/item/clothing/mask/cigarette, /obj/item/lighter, /obj/item/rcs, /obj/item/stack/packageWrap, /obj/item/stack/wrapping_paper, /obj/item/destTagger)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/storage/fancy/cigarettes, /obj/item/clothing/mask/cigarette, /obj/item/lighter, /obj/item/rcs, /obj/item/stack/packageWrap, /obj/item/stack/wrapping_paper, /obj/item/destTagger, /obj/item/pen, /obj/item/paper, /obj/item/stamp)
 	ignore_suitadjust = 0
 	suit_adjusted = 1
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 //Internal Affairs
@@ -386,12 +411,12 @@
 	adjust_flavour = "unbutton"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/suit/storage/ntrep
@@ -406,12 +431,12 @@
 	adjust_flavour = "unbutton"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 //Medical
@@ -429,12 +454,12 @@
 	adjust_flavour = "unbutton"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 //Mime
@@ -446,12 +471,12 @@
 	blood_overlay_type = "armor" //it's the less thing that I can put here
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/suit/suspenders/nodrop
@@ -480,3 +505,13 @@
 /obj/item/clothing/suit/hop_jacket/female
 	icon_state = "suitjacket_hop_fem_open"
 	item_state = "suitjacket_hop_fem_open"
+
+//Culinary Artist
+/obj/item/clothing/suit/storage/chefbluza
+	name = "deluxe chef suit"
+	desc = "Well made expensive chief suit"
+	icon_state = "bluza"
+	item_state = "bluza"
+	allowed = list(/obj/item/kitchen/utensil,/obj/item/kitchen/knife,/obj/item/kitchen/rollingpin,/obj/item/kitchen/mould,/obj/item/kitchen/sushimat,/obj/item/kitchen/cutter,/obj/item/assembly/mousetrap,/obj/item/reagent_containers/spray/pestspray,/obj/item/reagent_containers/food/drinks/flask,/obj/item/reagent_containers/food/drinks/drinkingglass,/obj/item/reagent_containers/food/drinks/bottle,/obj/item/reagent_containers/food/drinks/cans,/obj/item/reagent_containers/food/drinks/shaker,/obj/item/reagent_containers/food/snacks,/obj/item/reagent_containers/food/condiment,/obj/item/reagent_containers/glass/beaker,/obj/item/radio)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	armor = list(melee = 5, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0, fire = 10, acid = 10)

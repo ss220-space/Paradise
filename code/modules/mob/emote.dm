@@ -139,7 +139,7 @@
 		return
 
 	if(!src.client.holder)
-		if(!config.dsay_allowed)
+		if(!CONFIG_GET(flag/dsay_allowed))
 			to_chat(src, "<span class='warning'>Deadchat is globally muted</span>")
 			return
 
@@ -216,7 +216,12 @@
 					continue
 				if(!M.can_hear())
 					continue
-				if(M.stat == UNCONSCIOUS || (M.sleeping > 0 && M.stat != DEAD))
+				if(isliving(M))
+					var/mob/living/L = M
+					if(L.IsSleeping() && L.stat != DEAD)
+						to_chat(L, "<I>... You can almost hear something ...</I>")
+						continue
+				if(M.stat == UNCONSCIOUS)
 					to_chat(M, "<I>... You can almost hear something ...</I>")
 				else
 					to_chat(M, message)

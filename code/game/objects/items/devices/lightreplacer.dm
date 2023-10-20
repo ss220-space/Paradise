@@ -46,6 +46,7 @@
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "lightreplacer0"
 	item_state = "lightreplacer"
+	belt_icon = "light_replacer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
@@ -80,9 +81,6 @@
 			to_chat(user, "<span class='warning'>[src] is full.</span>")
 			return
 		else if(G.use(decrement))
-			if(!user.drop_item_ground(I))
-				return
-			I.do_pickup_animation(src)
 			AddUses(increment)
 			to_chat(user, "<span class='notice'>You insert a piece of glass into [src]. You have [uses] light\s remaining.</span>")
 			return
@@ -94,9 +92,8 @@
 		if(uses >= max_uses)
 			to_chat(user, "<span class='warning'>[src] is full.</span>")
 			return
-		if(!user.drop_item_ground(I))
+		if(!user.drop_transfer_item_to_loc(I, src))
 			return
-		I.do_pickup_animation(src)
 		AddUses(round(increment * 0.75))
 		to_chat(user, "<span class='notice'>You insert a shard of glass into [src]. You have [uses] light\s remaining.</span>")
 		qdel(I)
@@ -106,15 +103,13 @@
 		var/obj/item/light/L = I
 		if(L.status == 0) // LIGHT OKAY
 			if(uses < max_uses)
-				if(!user.drop_item_ground(L))
+				if(!user.drop_transfer_item_to_loc(L, src))
 					return
-				L.do_pickup_animation(src)
 				AddUses(1)
 				qdel(L)
 		else
-			if(!user.drop_item_ground(L))
+			if(!user.drop_transfer_item_to_loc(L, src))
 				return
-			L.do_pickup_animation(src)
 			to_chat(user, "<span class='notice'>You insert [L] into [src].</span>")
 			AddShards(1, user)
 			qdel(L)
@@ -256,7 +251,7 @@
 		return
 	if(!isturf(T))
 		return
-	if(get_dist(src, T) >= (U.client.view + 2)) // To prevent people from using it over cameras
+	if(get_dist(src, T) >= (U.client.maxview() + 2)) // To prevent people from using it over cameras
 		return
 
 	var/used = FALSE

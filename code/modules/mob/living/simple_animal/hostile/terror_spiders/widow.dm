@@ -27,22 +27,22 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 15
 	web_type = /obj/structure/spider/terrorweb/widow
-	special_abillity = list(/obj/effect/proc_holder/spell/targeted/click/fireball/terror/smoke,
-							/obj/effect/proc_holder/spell/targeted/click/fireball/terror)
+	special_abillity = list(/obj/effect/proc_holder/spell/fireball/smoke_spit,
+							/obj/effect/proc_holder/spell/fireball/venom_spit)
 	stat_attack = UNCONSCIOUS // ensures they will target people in crit, too!
 	spider_tier = TS_TIER_2
 	tts_seed = "Karastamper"
 	spider_intro_text = "Будучи Вдовой Ужаса, ваша цель - внести хаос на поле боя при помощи своих плевков, вы также смертоносны вблизи и с каждым укусом вводите в противников опасный яд. Несмотря на скорость и смертоносность, вы довольно хрупки, поэтому не стоит атаковать тяжело вооружённых противников!"
 
 /mob/living/simple_animal/hostile/poison/terror_spider/widow/spider_specialattack(mob/living/carbon/human/L, poisonable)
-	L.AdjustSilence(5)
+	L.AdjustSilence(10 SECONDS)
 	if(!poisonable)
 		return ..()
 	if(L.reagents.has_reagent("terror_black_toxin", 100))
 		return ..()
 	var/inject_target = pick("chest", "head")
-	if(L.stunned || L.can_inject(null, FALSE, inject_target, FALSE))
-		L.reagents.add_reagent("terror_black_toxin", 33)
+	if(L.IsStunned() || L.can_inject(null, FALSE, inject_target, FALSE))
+		L.reagents.add_reagent("terror_black_toxin", 33) // inject our special poison
 		visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [target]!</span>")
 	else
 		L.reagents.add_reagent("terror_black_toxin", 20)
@@ -60,7 +60,7 @@
 	name = "sinister web"
 	desc = "This web has beads of a dark fluid on its strands."
 
-/obj/structure/spider/terrorweb/black/web_special_ability(mob/living/carbon/C)
+/obj/structure/spider/terrorweb/widow/web_special_ability(mob/living/carbon/C)
 	if(istype(C))
 		if(!C.reagents.has_reagent("terror_black_toxin", 60))
 			var/inject_target = pick("chest","head")

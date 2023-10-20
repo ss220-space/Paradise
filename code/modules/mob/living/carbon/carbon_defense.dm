@@ -11,6 +11,7 @@
 			put_in_active_hand(AM)
 			visible_message("<span class='warning'>[src] catches [AM]!</span>")
 			throw_mode_off()
+			SEND_SIGNAL(src, COMSIG_CARBON_THROWN_ITEM_CAUGHT, AM)
 			return TRUE
 	return ..()
 
@@ -60,10 +61,9 @@
 				visible_message("<span class='danger'>The [M.name] has shocked [src]!</span>", "<span class='userdanger'>The [M.name] has shocked you!</span>")
 
 				do_sparks(5, TRUE, src)
-				var/power = M.powerlevel + rand(0,3)
+				var/power = (M.powerlevel + rand(0,3)) STATUS_EFFECT_CONSTANT
 				Stun(power)
-				if(stuttering < power)
-					stuttering = power
+				Stuttering(power)
 				if (prob(stunprob) && M.powerlevel >= 8)
 					adjustFireLoss(M.powerlevel * rand(6, 6 + M.age_state.damage))
 					updatehealth("slime attack")

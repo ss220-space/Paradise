@@ -175,7 +175,7 @@
 	if(health <= 0) // if damaged, the slime moves twice as slow
 		. *= 2
 
-	. += config.slime_delay
+	. += CONFIG_GET(number/slime_delay)
 
 /mob/living/simple_animal/slime/update_health_hud()
 	if(hud_used)
@@ -496,8 +496,10 @@
 /mob/living/simple_animal/slime/elder/Initialize(mapload, new_colour, age_state_new, new_set_nutrition)
 	. = ..(mapload, pick(slime_colours), age_state_new = new /datum/slime_age/elder, new_set_nutrition = 2000)
 
-/mob/living/simple_animal/slime/handle_ventcrawl(atom/A)
+
+/mob/living/simple_animal/slime/can_ventcrawl(atom/clicked_on, override = FALSE)
 	if(buckled)
 		to_chat(src, "<i>I can't vent crawl while feeding...</i>")
-		return
-	..()
+		return FALSE
+
+	return ..()

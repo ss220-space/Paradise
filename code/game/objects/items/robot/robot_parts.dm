@@ -140,7 +140,7 @@
 				return 1
 	return 0
 
-/obj/item/robot_parts/robot_suit/attackby(obj/item/W, mob/user, params)
+/obj/item/robot_parts/robot_suit/attackby(obj/item/W, mob/living/user, params)
 	..()
 	if(istype(W, /obj/item/stack/sheet/metal) && !l_arm && !r_arm && !l_leg && !r_leg && !chest && !head)
 		var/obj/item/stack/sheet/metal/M = W
@@ -215,8 +215,8 @@
 		if(check_completion())
 			if(M.clock && !isclocker(user))
 				to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you attempt to put the soul vessel into the frame.</span>")
-				user.Confused(10)
-				user.Jitter(6)
+				user.Confused(20 SECONDS)
+				user.Jitter(12 SECONDS)
 				return
 			if(!isturf(loc))
 				to_chat(user, "<span class='warning'>You can't put [M] in, the frame has to be standing on the ground to be perfectly precise.</span>")
@@ -307,6 +307,8 @@
 
 			M.brainmob.mind.transfer_to(O)
 
+			SSticker?.score?.save_silicon_laws(O, user, "robot construction", log_all_laws = TRUE)
+
 			if(O.mind && O.mind.special_role)
 				O.mind.store_memory("As a cyborg, you must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.")
 				to_chat(O, "<span class='userdanger'>You have been robotized!</span>")
@@ -360,10 +362,9 @@
 			popup.open()
 
 /obj/item/robot_parts/robot_suit/Topic(href, href_list)
-	if(usr.lying || usr.stat || usr.stunned || !Adjacent(usr))
-		return
-
 	var/mob/living/living_user = usr
+	if(living_user.lying || living_user.stat || living_user.IsStunned() || !Adjacent(living_user))
+		return
 	var/obj/item/item_in_hand = living_user.get_active_hand()
 	if(!istype(item_in_hand, /obj/item/multitool))
 		to_chat(living_user, "<span class='warning'>You need a multitool!</span>")

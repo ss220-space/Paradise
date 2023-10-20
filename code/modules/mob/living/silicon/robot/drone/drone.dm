@@ -75,6 +75,10 @@
 	// NO BRAIN.
 	mmi = null
 
+	// Give us our action button
+	var/datum/action/innate/hide/drone/hide = new()
+	hide.Grant(src)
+
 	//We need to screw with their HP a bit. They have around one fifth as much HP as a full borg.
 	for(var/V in components) if(V != "power cell")
 		var/datum/robot_component/C = components[V]
@@ -99,6 +103,14 @@
 	//Some tidying-up.
 	scanner.Grant(src)
 	update_icons()
+
+
+/mob/living/silicon/robot/drone/Destroy()
+	for(var/datum/action/innate/hide/drone/hide in actions)
+		hide.Remove(src)
+
+	. = ..()
+
 
 /mob/living/silicon/robot/drone/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/drone()
@@ -150,7 +162,7 @@
 
 	else if(W.GetID())
 		if(stat == DEAD)
-			if(!config.allow_drone_spawn || emagged || health < -35) //It's dead, Dave.
+			if(!CONFIG_GET(flag/allow_drone_spawn) || emagged || health < -35) //It's dead, Dave.
 				to_chat(user, "<span class='warning'>The interface is fried, and a distressing burned smell wafts from the robot's interior. You're not rebooting this one.</span>")
 				return
 
@@ -170,7 +182,7 @@
 			for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
 				if(D.key && D.client)
 					drones++
-			if(drones < config.max_maint_drones)
+			if(drones < CONFIG_GET(number/max_maint_drones))
 				request_player()
 			return
 
@@ -231,6 +243,7 @@
 	clear_inherent_laws()
 	laws = new /datum/ai_laws/syndicate_override
 	set_zeroth_law("Only [H.real_name] and people [H.real_name] designates as being such are Syndicate Agents.")
+	SSticker?.score?.save_silicon_laws(src, user, "EMAG act", log_all_laws = TRUE)
 
 	to_chat(src, "<b>Obey these laws:</b>")
 	laws.show_laws(src)
@@ -316,7 +329,7 @@
 
 	mind = new
 	mind.current = src
-	mind.original = src
+	mind.set_original_mob(src)
 	mind.assigned_role = "Drone"
 	SSticker.minds += mind
 	mind.key = player.key

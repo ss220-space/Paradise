@@ -2,6 +2,7 @@
 #define VIRUS_SYMPTOM_LIMIT	6
 
 //Visibility Flags
+#define VISIBLE	0
 #define HIDDEN_SCANNER	1
 #define HIDDEN_PANDEMIC	2
 
@@ -34,7 +35,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 
 /datum/disease
 	//Flags
-	var/visibility_flags = 0
+	var/visibility_flags = VISIBLE
 	var/disease_flags = CURABLE|CAN_CARRY|CAN_RESIST
 	var/spread_flags = AIRBORNE
 
@@ -150,8 +151,27 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 						break
 					V = Temp
 
+/datum/disease/proc/Contract(mob/M)
+	var/datum/disease/D = new type()
+	M.viruses += D
+	D.affected_mob = M
+	GLOB.active_diseases += D //Add it to the active diseases list, now that it's actually in a mob and being processed.
 
-/datum/disease/proc/cure()
+	//Copy properties over. This is so edited diseases persist.
+	var/list/skipped = list("affected_mob","holder","carrier","stage","type","parent_type","vars","transformed")
+	for(var/V in D.vars)
+		if(V in skipped)
+			continue
+		if(istype(D.vars[V],/list))
+			var/list/L = vars[V]
+			D.vars[V] = L.Copy()
+		else
+			D.vars[V] = vars[V]
+
+	D.affected_mob.med_hud_set_status()
+	return
+
+/datum/disease/proc/cure(resistance = TRUE)
 	if(affected_mob)
 		if(disease_flags & CAN_RESIST)
 			if(!(type in affected_mob.resistances))

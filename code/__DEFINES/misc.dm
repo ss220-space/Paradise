@@ -76,6 +76,7 @@
 #define EVENT_LEVEL_MUNDANE 1
 #define EVENT_LEVEL_MODERATE 2
 #define EVENT_LEVEL_MAJOR 3
+#define EVENT_LEVEL_NONE 4
 
 #define JANUARY		1
 #define FEBRUARY	2
@@ -117,10 +118,13 @@
 #define in_range(source, user)		(get_dist(source, user) <= 1)
 
 #define RANGE_TURFS(RADIUS, CENTER) \
-  block( \
-	locate(max(CENTER.x-(RADIUS),1),		  max(CENTER.y-(RADIUS),1),		  CENTER.z), \
-	locate(min(CENTER.x+(RADIUS),world.maxx), min(CENTER.y+(RADIUS),world.maxy), CENTER.z) \
-  )
+	RECT_TURFS(RADIUS, RADIUS, CENTER)
+
+#define RECT_TURFS(H_RADIUS, V_RADIUS, CENTER) \
+	block( \
+	locate(max(CENTER.x-(H_RADIUS),1),          max(CENTER.y-(V_RADIUS),1),          CENTER.z), \
+	locate(min(CENTER.x+(H_RADIUS),world.maxx), min(CENTER.y+(V_RADIUS),world.maxy), CENTER.z) \
+	)
 
 /// Returns the turfs on the edge of a square with CENTER in the middle and with the given RADIUS. If used near the edge of the map, will still work fine.
 // order of the additions: top edge + bottom edge + left edge + right edge
@@ -168,8 +172,6 @@
 #define TURF_WET_LUBE	2
 #define TURF_WET_ICE	3
 #define TURF_WET_PERMAFROST 4
-
-#define APPEARANCE_UI_IGNORE_ALPHA			RESET_COLOR|RESET_TRANSFORM|NO_CLIENT_COLOR|RESET_ALPHA
 
 // Metal foam states
 // teehee no one will find these here
@@ -330,10 +332,10 @@
 #define TRIGGER_GUARD_NORMAL 1
 
 // Macro to get the current elapsed round time, rather than total world runtime
-#define ROUND_TIME (SSticker.round_start_time ? (world.time - SSticker.round_start_time) : 0)
+#define ROUND_TIME (SSticker.time_game_started ? (world.time - SSticker.time_game_started) : 0)
 
 // Macro that returns true if it's too early in a round to freely ghost out
-#define TOO_EARLY_TO_GHOST (config && (ROUND_TIME < (config.round_abandon_penalty_period)))
+#define TOO_EARLY_TO_GHOST (config && (ROUND_TIME < (CONFIG_GET(number/round_abandon_penalty_period))))
 
 // Used by radios to indicate that they have sent a message via something other than subspace
 #define RADIO_CONNECTION_FAIL 0
@@ -382,7 +384,7 @@
 #define EXPLOSION_BLOCK_PROC -1
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 29
+#define SQL_VERSION 31
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -429,6 +431,8 @@
 #define PLACE_SAME_Z "same"
 #define PLACE_SPACE_RUIN "space"
 #define PLACE_LAVA_RUIN "lavaland"
+
+#define MAX_RUIN_SIZE_VALUE 170 // Which ruin should be considered large and create a separate level of space for it.
 
 //Cleaning tool strength
 // 1 is also a valid cleaning strength but completely unused so left undefined
@@ -516,3 +520,6 @@
 #define TTS_SEED_DEFAULT_FEMALE "tyrande"
 #define TTS_SEED_DEFAULT_MALE "arthas"
 #define TTS_SEED_ANNOUNCER "anubarak"
+
+/// This isnt in client_defines due to scoping issues
+#define DEFAULT_CLIENT_VIEWSIZE "17x15"

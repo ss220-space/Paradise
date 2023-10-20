@@ -64,7 +64,7 @@
 
 
 //called when we get cuffed/uncuffed
-/mob/living/carbon/proc/update_handcuffed()
+/mob/living/carbon/proc/update_handcuffed_status()
 	if(handcuffed)
 		drop_from_active_hand()
 		drop_from_inactive_hand()
@@ -84,18 +84,21 @@
 		hand.update_icon()
 
 
-/mob/living/carbon/update_inv_legcuffed()
+/**
+ * Updates move intent, popup alert and human legcuffed overlay.
+ */
+/mob/living/carbon/proc/update_legcuffed_status()
 	if(legcuffed)
 		throw_alert("legcuffed", /obj/screen/alert/restrained/legcuffed, new_master = legcuffed)
-		toggle_move_intent()
+		if(m_intent == MOVE_INTENT_RUN)
+			toggle_move_intent()
+
 	else
 		clear_alert("legcuffed")
+		if(m_intent == MOVE_INTENT_WALK)
+			toggle_move_intent()
 
-		if(m_intent != MOVE_INTENT_RUN)
-			m_intent = MOVE_INTENT_RUN
-			update_icons()
-			if(hud_used)
-				hud_used.move_intent.icon_state = "running"
+	update_inv_legcuffed()
 
 
 /mob/living/carbon/proc/cuff_resist(obj/item/I, breakouttime = 600, cuff_break = FALSE)
@@ -147,7 +150,7 @@
 		qdel(new_value)
 		return
 
-	if(handcuffed || handcuffed == new_value)
+	if(handcuffed || handcuffed == new_value || !has_organ_for_slot(slot_handcuffed))
 		drop_item_ground(new_value)
 		return
 
@@ -289,12 +292,12 @@
 		if(buckled && buckled.buckle_requires_restraints)
 			buckled.unbuckle_mob(src)
 		if(!QDELETED(src))
-			update_handcuffed()
+			update_handcuffed_status()
 
 	else if(I == legcuffed)
 		legcuffed = null
 		if(!QDELETED(src))
-			update_inv_legcuffed()
+			update_legcuffed_status()
 
 
 /**
@@ -331,14 +334,21 @@
  * * 'force' overrides flag NODROP and clothing obscuration.
  * * 'qdel_on_fail' qdels item if failed to pick in both hands.
  * * 'merge_stacks' set to `TRUE` to allow stack auto-merging even when both hands are full.
- * * 'ignore_anime' set to `TRUE` to prevent pick up animation.
+ * * 'ignore_anim' set to `TRUE` to prevent pick up animation.
  */
 /mob/living/carbon/put_in_hands(obj/item/I, force = FALSE, qdel_on_fail = FALSE, merge_stacks = TRUE, ignore_anim = TRUE)
+
+	// Its always TRUE if there is no item, since we are using this proc in 'if()' statements
+	if(!I)
+		return TRUE
+
 	if(QDELETED(I))
 		return FALSE
 
 	if(!real_human_being())	// Not a real hero :'(
 		I.forceMove(drop_location())
+		I.pixel_x = initial(I.pixel_x)
+		I.pixel_y = initial(I.pixel_y)
 		I.layer = initial(I.layer)
 		I.plane = initial(I.plane)
 		I.dropped(src)
@@ -436,7 +446,7 @@
 	. |= list(get_active_hand(), get_inactive_hand())
 
 
-/mob/living/carbon/get_equipped_items(include_pockets = FALSE)
+/mob/living/carbon/get_equipped_items(include_pockets = FALSE, include_hands = FALSE)
 	var/list/items = ..()
 	if(wear_suit)
 		items += wear_suit

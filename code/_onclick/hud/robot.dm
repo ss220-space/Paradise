@@ -206,6 +206,13 @@
 	if(!R.module)
 		return
 
+	if(R.module_state_1)
+		R.client.screen += R.module_state_1
+	if(R.module_state_2)
+		R.client.screen += R.module_state_2
+	if(R.module_state_3)
+		R.client.screen += R.module_state_3
+
 	if(R.shown_robot_modules && hud_shown)
 		//Modules display is shown
 		R.client.screen += module_store_icon	//"store" icon
@@ -245,10 +252,10 @@
 				A.layer = ABOVE_HUD_LAYER
 				A.plane = ABOVE_HUD_PLANE
 
-				x++
-				if(x == 4)
-					x = -4
-					y++
+			x++
+			if(x == 4)
+				x = -4
+				y++
 
 	else
 		//Modules display is hidden

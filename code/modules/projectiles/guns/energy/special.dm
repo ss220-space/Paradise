@@ -186,10 +186,34 @@
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
 	icon_state = "adv_plasmacutter"
+	item_state = "adv_plasmacutter"
 	modifystate = "adv_plasmacutter"
 	origin_tech = "combat=3;materials=4;magnets=3;plasmatech=4;engineering=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
 	force = 15
+
+/obj/item/gun/energy/plasmacutter/adv/mega
+	name = "magmite plasma cutter"
+	icon_state = "adv_plasmacutter_m"
+	item_state = "plasmacutter_mega"
+	desc = "A mining tool capable of expelling concentrated plasma bursts. You could use it to cut limbs off xenos! Or, you know, mine stuff. This one has been enhanced with plasma magmite."
+	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv/mega)
+
+/obj/item/gun/energy/plasmacutter/shotgun
+	name = "plasma cutter shotgun"
+	desc = "An industrial-grade, heavy-duty mining shotgun."
+	icon_state = "miningshotgun"
+	item_state = "miningshotgun"
+	origin_tech = "combat=5;materials=5;magnets=5;plasmatech=6;engineering=5"
+	ammo_type = list(/obj/item/ammo_casing/energy/plasma/shotgun)
+	force = 10
+
+/obj/item/gun/energy/plasmacutter/shotgun/mega
+	name = "magmite plasma cutter shotgun"
+	icon_state = "miningshotgun_mega"
+	item_state = "miningshotgun_mega"
+	desc = "An industrial-grade, heavy-duty mining shotgun. This one seems upgraded with plasma magmite."
+	ammo_type = list(/obj/item/ammo_casing/energy/plasma/shotgun/mega)
 
 // Wormhole Projectors //
 /obj/item/gun/energy/wormhole_projector
@@ -316,6 +340,107 @@
 	zoomable = TRUE
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	shaded_charge = 1
+
+/obj/item/gun/energy/bsg
+	name = "\improper Б.С.П"
+	desc = "Большая С*** Пушка. Использует ядро аномалии потока и кристалл блюспейса для производства разрушительных взрывов энергии, вдохновленный дивизионом БСА Нанотрейзен."
+	icon_state = "bsg"
+	item_state = "bsg"
+	origin_tech = "combat=6;materials=6;powerstorage=6;bluespace=6;magnets=6" //cutting edge technology, be my guest if you want to deconstruct one instead of use it.
+	ammo_type = list(/obj/item/ammo_casing/energy/bsg)
+	weapon_weight = WEAPON_HEAVY
+	w_class = WEIGHT_CLASS_BULKY
+	can_holster = FALSE
+	slot_flags = SLOT_BACK
+	cell_type = /obj/item/stock_parts/cell/bsg
+	shaded_charge = TRUE
+	var/has_core = FALSE
+	var/has_bluespace_crystal = FALSE
+	var/admin_model = FALSE //For the admin gun, prevents crystal shattering, so anyone can use it, and you dont need to carry backup crystals.
+
+/obj/item/gun/energy/bsg/examine(mob/user)
+	. = ..()
+	if(has_core && has_bluespace_crystal)
+		. += "<span class='notice'>[src] полностью рабочая!</span>"
+	else if(has_core)
+		. += "<span class='warning'>Аномалия потока вставлена, но не хватает БС кристалла.</span>"
+	else if(has_bluespace_crystal)
+		. += "<span class='warning'>Имеет инкрустированный БС кристалл, но нет установленного ядра аномалии потока.</span>"
+	else
+		. += "<span class='warning'>Не хватает ядра аномалии потока и БС кристалла для работы.</span>"
+
+/obj/item/gun/energy/bsg/attackby(obj/item/O, mob/user, params)
+	if(istype(O, /obj/item/stack/ore/bluespace_crystal))
+		if(has_bluespace_crystal)
+			to_chat(user, "<span class='notice'>В [src] уже инкрустирован БС кристалл.</span>")
+			return
+		var/obj/item/stack/S = O
+		if(!loc || !S || S.get_amount() < 1)
+			return
+		to_chat(user, "<span class='notice'>Вы загрузили [O] в [src].</span>")
+		S.use(1)
+		has_bluespace_crystal = TRUE
+		update_icon()
+		return
+
+	if(istype(O, /obj/item/assembly/signaler/anomaly/flux))
+		if(has_core)
+			to_chat(user, "<span class='notice'>[src] уже имеет [O]!</span>")
+			return
+		to_chat(user, "<span class='notice'>Вы вставили [O] в [src], и [src] начинает разогреваться.</span>")
+		has_core = TRUE
+		qdel(O)
+		update_icon()
+	else
+		return ..()
+
+/obj/item/gun/energy/bsg/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
+	if(!has_bluespace_crystal)
+		to_chat(user, "<span class='warning'>[src] не имеет БС кристалла для генерации заряда!</span>")
+		return
+	if(!has_core)
+		to_chat(user, "<span class='warning'>[src] не имеет аномалии потока для генерации заряда!</span>")
+		return
+	return ..()
+
+/obj/item/gun/energy/bsg/update_icon()
+	. = ..()
+	if(has_core)
+		if(has_bluespace_crystal)
+			icon_state = "bsg_finished"
+		else
+			icon_state = "bsg_core"
+	else if(has_bluespace_crystal)
+		icon_state = "bsg_crystal"
+	else
+		icon_state = "bsg"
+
+/obj/item/gun/energy/bsg/emp_act(severity)
+	..()
+	if(prob(75 / severity))
+		if(has_bluespace_crystal)
+			shatter()
+
+/obj/item/gun/energy/bsg/proc/shatter()
+	if(admin_model)
+		return
+	visible_message("<span class='warning'>БС кристалл [src] треснул!</span>")
+	playsound(src, 'sound/effects/pylon_shatter.ogg', 50, TRUE)
+	has_bluespace_crystal = FALSE
+	update_icon()
+
+/obj/item/gun/energy/bsg/prebuilt
+	icon_state = "bsg_finished"
+	has_bluespace_crystal = TRUE
+
+/obj/item/gun/energy/bsg/prebuilt/Initialize(mapload)
+	. = ..()
+	has_core = TRUE
+	update_icon()
+
+/obj/item/gun/energy/bsg/prebuilt/admin
+	desc = "Большая С*** Пушка. Лучшим людям - лучшее творение. У этой версии БС кристалл никогда не треснет, и уже загружено ядро аномалии потока."
+	admin_model = TRUE
 
 // Temperature Gun //
 /obj/item/gun/energy/temperature
@@ -622,3 +747,17 @@
 		icon_state += "_unlock"
 	else
 		icon_state += "_lock"
+
+/obj/item/gun/energy/emittergun
+	name = "Handicraft Emitter Rifle"
+	desc = "A rifle constructed of some trash materials. Looks rough but very powerful."
+	icon_state = "emittercannonvgovne"
+	item_state = null
+	origin_tech = "combat=3;materials=3;powerstorage=2;magnets=2"
+	weapon_weight = WEAPON_HEAVY
+	slot_flags = SLOT_BACK
+	w_class = WEIGHT_CLASS_BULKY
+	can_holster = FALSE
+	cell_type = /obj/item/stock_parts/cell/emittergun
+	ammo_type = list(/obj/item/ammo_casing/energy/emittergun)
+	can_charge = TRUE

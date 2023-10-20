@@ -4,6 +4,7 @@
 	icon_state = "stunbaton"
 	var/base_icon = "stunbaton"
 	item_state = "baton"
+	belt_icon = "stunbaton"
 	slot_flags = SLOT_BELT
 	force = 10
 	throwforce = 7
@@ -11,12 +12,17 @@
 	origin_tech = "combat=2"
 	attack_verb = list("beaten")
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
+	/// Stamina damage
 	var/staminaforce = 20
-	var/stunforce = 2
+	/// How many life ticks does the stun last for
+	var/stunforce = 2 SECONDS
+	/// Is the baton currently turned on
 	var/status = 0
-	var/obj/item/stock_parts/cell/high/cell = null
+	/// How much power does it cost to stun someone
 	var/hitcost = 500
+	/// Chance for the baton to stun when thrown at someone
 	var/throw_hit_chance = 50
+	var/obj/item/stock_parts/cell/high/cell = null
 
 /obj/item/melee/baton/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -34,7 +40,7 @@
 	QDEL_NULL(cell)
 	return ..()
 
-/obj/item/melee/baton/throw_impact(atom/hit_atom)
+/obj/item/melee/baton/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
 	if(status && prob(throw_hit_chance) && !issilicon(hit_atom))
 		baton_stun(hit_atom)
@@ -148,7 +154,7 @@
 	if(status && (CLUMSY in user.mutations) && prob(50))
 		user.visible_message("<span class='danger'>[user] accidentally hits [user.p_them()]self with [src]!</span>", \
 							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
-		user.Weaken(stunforce*3)
+		user.Weaken(stunforce * 3)
 		deductcharge(hitcost)
 		return
 
@@ -194,7 +200,6 @@
 		var/mob/living/carbon/C = L
 		C.shock_internal_organs(33)
 
-	L.Stun(stunforce)
 	L.Weaken(stunforce)
 	L.SetStuttering(stunforce)
 	L.adjustStaminaLoss(staminaforce)
@@ -217,18 +222,17 @@
 		deductcharge(1000 / severity)
 	..()
 
-/obj/item/melee/baton/wash(mob/user, atom/source)
-	if(cell)
-		if(cell.charge > 0 && status == 1)
-			flick("baton_active", source)
-			user.Stun(stunforce)
-			user.Weaken(stunforce)
-			user.stuttering = stunforce
-			deductcharge(hitcost)
-			user.visible_message("<span class='warning'>[user] shocks [user.p_them()]self while attempting to wash the active [src]!</span>", \
-								"<span class='userdanger'>You unwisely attempt to wash [src] while it's still on.</span>")
-			playsound(src, "sparks", 50, 1)
-			return 1
+/obj/item/melee/baton/wash(mob/living/user, atom/source)
+	if(cell?.charge > 0 && status == 1)
+		flick("baton_active", source)
+		user.Stun(stunforce)
+		user.Weaken(stunforce)
+		user.SetStuttering(stunforce)
+		deductcharge(hitcost)
+		user.visible_message("<span class='warning'>[user] shocks [user.p_them()]self while attempting to wash the active [src]!</span>", \
+							"<span class='userdanger'>You unwisely attempt to wash [src] while it's still on.</span>")
+		playsound(src, "sparks", 50, TRUE)
+		return TRUE
 	..()
 
 //Makeshift stun baton. Replacement for stun gloves.
@@ -242,7 +246,7 @@
 	force = 3
 	throwforce = 5
 	staminaforce = 25
-	stunforce = 1
+	stunforce = 0.5 SECONDS
 	hitcost = 500
 	throw_hit_chance = 50
 	slot_flags = SLOT_BACK

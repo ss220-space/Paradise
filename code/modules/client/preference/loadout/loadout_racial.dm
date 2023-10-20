@@ -9,11 +9,17 @@
 	path = /obj/item/clothing/glasses/tajblind
 	slot = slot_glasses
 
+/datum/gear/racial/taj/bot
+	display_name = "blooming veil"
+	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. This one has an in-built botanical HUD."
+	path = /obj/item/clothing/glasses/hud/hydroponic/tajblind
+	slot = slot_glasses
+	allowed_roles = list("Botanist")
 /datum/gear/racial/taj/sec
 	display_name = "sleek veil"
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. This one has an in-built security HUD."
 	path = /obj/item/clothing/glasses/hud/security/tajblind
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Cadet", "Security Pod Pilot", "Internal Affairs Agent", "Magistrate")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot", "Internal Affairs Agent", "Magistrate")
 	cost = 2
 
 /datum/gear/racial/taj/med
@@ -25,20 +31,23 @@
 
 /datum/gear/racial/taj/sci
 	display_name = "hi-tech veil"
-	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races."
+	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. This one has an in-built science goggles"
 	path = /obj/item/clothing/glasses/tajblind/sci
+	allowed_roles = list("Research Director", "Scientist", "Student Scientist", "Roboticist", "Geneticist", "Chemist")
 	cost = 2
 
 /datum/gear/racial/taj/eng
 	display_name = "industrial veil"
-	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races."
+	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. This one has an in-built optical meson scanners and welding shields."
 	path = /obj/item/clothing/glasses/tajblind/eng
+	allowed_roles = list("Chief Engineer", "Station Engineer", "Trainee Engineer", "Mechanic", "Life Support Specialist")
 	cost = 2
 
 /datum/gear/racial/taj/cargo
 	display_name = "khaki veil"
-	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. It is light and comfy!"
+	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. This one has an in-built optical meson scanners."
 	path = /obj/item/clothing/glasses/tajblind/cargo
+	allowed_roles = list("Quartermaster", "Cargo Technician")
 	cost = 2
 
 /datum/gear/racial/footwraps

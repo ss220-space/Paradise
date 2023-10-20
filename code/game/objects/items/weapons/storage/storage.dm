@@ -17,6 +17,8 @@
 	var/list/cant_hold = new/list()
 	///Max size of objects that this object can store (in effect only if can_hold isn't set)
 	var/max_w_class = WEIGHT_CLASS_SMALL
+	///Min size of objects that this object can store (in effect only if can_hold isn't set)
+	var/min_w_class
 	///The sum of the w_classes of all the items in this storage item.
 	var/max_combined_w_class = 14
 	var/storage_slots = 7
@@ -127,28 +129,8 @@
 			update_icon() // For content-sensitive icons
 			return
 
-		if(!(istype(over_object, /obj/screen)))
-			return ..()
-		if(!(loc == usr) || (loc && loc.loc == usr))
-			return
-		playsound(loc, "rustle", 50, TRUE, -5)
-		if(!(M.restrained()) && !(M.stat))
-			switch(over_object.name)
-				if("r_hand")
-					if(!M.drop_item_ground(src))
-						return
-					M.put_in_r_hand(src, ignore_anim = FALSE)
-				if("l_hand")
-					if(!M.drop_item_ground(src))
-						return
-					M.put_in_l_hand(src, ignore_anim = FALSE)
-			add_fingerprint(usr)
-			return
-		if(over_object == usr && in_range(src, usr) || usr.contents.Find(src))
-			if(usr.s_active)
-				usr.s_active.close(usr)
-			open(usr)
-			return
+		return ..()
+
 
 /obj/item/storage/AltClick(mob/user)
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
@@ -352,6 +334,11 @@
 			to_chat(usr, "<span class='notice'>[W] is too big for [src].</span>")
 		return FALSE
 
+	if(W.w_class < min_w_class)
+		if(!stop_messages)
+			to_chat(usr, "<span class='notice'>[W] is too small for [src].</span>")
+		return FALSE
+
 	var/sum_w_class = W.w_class
 	for(var/obj/item/I in contents)
 		sum_w_class += I.w_class //Adds up the combined w_classes which will be in the storage item if the item is added to it.
@@ -370,6 +357,13 @@
 	if(W.flags & NODROP) //SHOULD be handled in unEquip, but better safe than sorry.
 		to_chat(usr, "<span class='notice'>\the [W] is stuck to your hand, you can't put it in \the [src]</span>")
 		return FALSE
+
+	// item unequip delay
+	if(usr && W.equip_delay_self && W.is_equipped() && !usr.is_general_slot(usr.get_slot_by_item(W)))
+		usr.visible_message(span_notice("[usr] начинает снимать [W.name]..."), \
+							span_notice("Вы начинаете снимать [W.name]..."))
+		if(!do_after_once(usr, W.equip_delay_self, target = usr, attempt_cancel_message = "Снятие [W.name] было прервано!"))
+			return FALSE
 
 	return TRUE
 
@@ -419,6 +413,9 @@
 		orient2hud(usr)
 		if(usr.s_active)
 			usr.s_active.show_to(usr)
+
+	W.pixel_y = initial(W.pixel_y)
+	W.pixel_x = initial(W.pixel_x)
 	W.mouse_opacity = MOUSE_OPACITY_OPAQUE //So you can click on the area around the item to equip it, instead of having to pixel hunt
 	W.in_inventory = TRUE
 	update_icon()
@@ -439,26 +436,27 @@
 			M.client.screen -= W
 
 	if(new_location)
-		if(ismob(loc))
+		var/is_on_mob = get(loc, /mob)
+		if(is_on_mob)
 			W.dropped(usr)
-		if(ismob(new_location))
+
+		if(ismob(new_location) || get(new_location, /mob))
+			if(usr && !is_on_mob && CONFIG_GET(flag/item_animations_enabled))
+				W.loc = get_turf(src)	// This bullshit is required since /image/ registered in turf contents only
+				W.pixel_x = pixel_x
+				W.pixel_y = pixel_y
+				W.do_pickup_animation(usr)
 			W.layer = ABOVE_HUD_LAYER
 			W.plane = ABOVE_HUD_PLANE
+			W.pixel_y = initial(W.pixel_y)
+			W.pixel_x = initial(W.pixel_x)
 		else
 			W.layer = initial(W.layer)
 			W.plane = initial(W.plane)
+
 		W.forceMove(new_location)
 
 	if(usr)
-		if(config.item_animations_enabled)
-			// This bullshit is required since /image/ registered only when in turf contents
-			var/obj/item/dummy = new (drop_location())
-			dummy.icon = W.icon
-			dummy.icon_state = W.icon_state
-			dummy.copy_overlays(W)
-			dummy.do_pickup_animation(usr)
-			qdel(dummy)
-
 		orient2hud(usr)
 		if(usr.s_active)
 			usr.s_active.show_to(usr)

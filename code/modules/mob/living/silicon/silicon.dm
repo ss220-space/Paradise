@@ -171,12 +171,12 @@
 /mob/living/silicon/emp_act(severity)
 	..()
 	switch(severity)
-		if(1)
+		if(EMP_HEAVY)
 			take_organ_damage(20)
-			Stun(8)
-		if(2)
+			Stun(16 SECONDS)
+		if(EMP_LIGHT)
 			take_organ_damage(10)
-			Stun(3)
+			Stun(6 SECONDS)
 	flash_eyes(affect_silicon = 1)
 	to_chat(src, "<span class='danger'>*BZZZT*</span>")
 	to_chat(src, "<span class='warning'>Warning: Electromagnetic pulse detected.</span>")
@@ -185,13 +185,22 @@
 /mob/living/silicon/proc/damage_mob(var/brute = 0, var/fire = 0, var/tox = 0)
 	return
 
-/mob/living/silicon/can_inject(mob/user, error_msg, target_zone, penetrate_thick)
+/mob/living/silicon/can_inject(mob/user, error_msg, target_zone, penetrate_thick, ignore_pierceimmune)
 	if(error_msg)
 		to_chat(user, "<span class='alert'>[p_their(TRUE)] outer shell is too tough.</span>")
 	return FALSE
 
 /mob/living/silicon/IsAdvancedToolUser()
 	return TRUE
+
+
+/mob/living/silicon/handle_ventcrawl(atom/clicked_on)
+	. = ..()
+
+	if(. && inventory_head)
+		drop_hat()
+		visible_message("<b>[name] опрокинул шляпу при залезании в вентиляцию!</b>", "Помеха корпуса была утеряна.")
+
 
 /mob/living/silicon/robot/welder_act(mob/user, obj/item/I)
 	if(user.a_intent != INTENT_HELP)
@@ -248,7 +257,7 @@
 	updatehealth()
 	return 1*/
 
-/proc/islinked(var/mob/living/silicon/robot/bot, var/mob/living/silicon/ai/ai)
+/proc/islinked(mob/living/silicon/robot/bot, mob/living/silicon/ai/ai)
 	if(!istype(bot) || !istype(ai))
 		return 0
 	if(bot.connected_ai == ai)

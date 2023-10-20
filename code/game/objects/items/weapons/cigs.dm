@@ -33,16 +33,19 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/list/list_reagents = list("nicotine" = 40)
 	var/first_puff = TRUE // the first puff is a bit more reagents ingested
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/mask.dmi',
-		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi',
-		"Monkey" = 'icons/mob/species/monkey/mask.dmi',
-		"Farwa" = 'icons/mob/species/monkey/mask.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
-		"Neara" = 'icons/mob/species/monkey/mask.dmi',
-		"Stok" = 'icons/mob/species/monkey/mask.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Draconid" =  'icons/mob/clothing/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/mask.dmi'
 	)
 
 
@@ -122,6 +125,22 @@ LIGHTERS ARE IN LIGHTERS.DM
 				explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
 			F.charges--
 
+	else if(istype(I, /obj/item/flashlight/flare))
+		var/obj/item/flashlight/flare/J = I
+		if(J.on && J.can_fire_cigs)
+			light("<span class='notice'>[user] can't find other flame than [J] just for light [user.p_their()] [name], someone help this dude.</span>")
+
+	else if(istype(I, /obj/item/candle))
+		var/obj/item/candle/K = I
+		if(K.lit)
+			light("<span class='notice'>[user] lights [user.p_their()] [name] with [user.p_their()] [K].</span>")
+
+	else if(istype(I, /obj/item/clothing/mask/cigarette))
+		var/obj/item/clothing/mask/cigarette/N = I
+		if(N.lit)
+			light("<span class='notice'>[user] lights [user.p_their()] [name] with [N]. Someone please give [user.p_their()] zippo..</span>")
+
+
 	//can't think of any other way to update the overlays :<
 	user.update_inv_wear_mask()
 	user.update_inv_l_hand()
@@ -194,6 +213,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return
 	smoke()
 
+/obj/item/clothing/mask/cigarette/extinguish_light(force = FALSE)
+	if(!force)
+		return
+	die()
 
 /obj/item/clothing/mask/cigarette/attack_self(mob/user)
 	if(lit)
@@ -375,6 +398,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(flavor_text)
 			var/turf/T = get_turf(src)
 			T.visible_message(flavor_text)
+		if(ishuman(loc))
+			var/mob/living/carbon/human/H = loc
+			if(H.wear_mask == src) // Don't update if it's just in their hand
+				H.wear_mask_update(src)
 		START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/mask/cigarette/pipe/process()

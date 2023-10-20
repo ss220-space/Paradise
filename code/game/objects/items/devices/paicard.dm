@@ -8,7 +8,7 @@
 	origin_tech = "programming=2"
 	var/request_cooldown = 5 // five seconds
 	var/last_request
-	var/obj/item/radio/radio
+	var/obj/item/radio/headset/radio
 	var/looking_for_personality = 0
 	var/mob/living/silicon/pai/pai
 	var/list/faction = list("neutral") // The factions the pAI will inherit from the card
@@ -19,12 +19,14 @@
 	var/is_syndicate_type = FALSE
 	var/extra_memory = 0
 	var/obj/item/paicard_upgrade/upgrade
+	var/list/upgrades = list()
 
 /obj/item/paicard/syndicate // Only seems that it is syndicard
 	name = "syndicate personal AI device"
 	faction = list("syndicate")
 	is_syndicate_type = TRUE
 	extra_memory = 50
+	upgrade = new()
 
 /obj/item/paicard/New()
 	..()
@@ -304,15 +306,20 @@
 /obj/item/paicard/proc/setPersonality(mob/living/silicon/pai/personality)
 	pai = personality
 	overlays += "pai-happy"
+	if(upgrade)
+		extra_memory = upgrade.extra_memory
+	pai.reset_software(extra_memory)
 
 /obj/item/paicard/proc/removePersonality()
 	pai = null
 	overlays.Cut()
 	overlays += "pai-off"
+	QDEL_LIST(upgrades)
+	extra_memory = 0
 
 /obj/item/paicard
 	var/current_emotion = 1
-/obj/item/paicard/proc/setEmotion(var/emotion)
+/obj/item/paicard/proc/setEmotion(emotion)
 	if(pai)
 		overlays.Cut()
 		switch(emotion)
@@ -326,6 +333,8 @@
 			if(8) overlays += "pai-angry"
 			if(9) overlays += "pai-what"
 			if(10) overlays += "pai-spai"
+			if(11) overlays += "pai-spaic"
+			if(12) overlays += "pai-spaiv"
 		current_emotion = emotion
 
 /obj/item/paicard/proc/alertUpdate()
@@ -338,19 +347,63 @@
 		M.emp_act(severity)
 	..()
 
-/obj/item/paicard/extinguish_light()
-	pai.extinguish_light()
-	set_light(0)
+/obj/item/paicard/extinguish_light(force = FALSE)
+	if(pai)
+		pai.extinguish_light()
+		set_light(0)
 
 /obj/item/paicard/attackby(obj/item/I, mob/user, params)
 	. = ..()
+	if(istype(I, /obj/item/pai_cartridge))
+		if(!pai)
+			to_chat(user, "<span class='notice'>PAI must be active to install the cartridge.")
+			return
+		var/obj/item/pai_cartridge/P = I
+		for(var/obj/item/pai_cartridge/cartridge in upgrades)
+			if(istype(P, cartridge))
+				to_chat(user, "<span class='notice'>PAI already has this cartridge")
+				return
+		to_chat(user, "<span class='notice'>You install cartridge")
+		if(istype(P, /obj/item/pai_cartridge/reset))
+			pai.reset_software(extra_memory)
+			qdel(P)
+			return
+		if(istype(P, /obj/item/pai_cartridge/memory))
+			var/obj/item/pai_cartridge/memory/U = P
+			extra_memory = U.extra_memory
+			pai.ram += min(extra_memory, 70)
+			upgrades += P
+			qdel(P)
+			return
+		if(istype(P, /obj/item/pai_cartridge/doorjack))
+			var/obj/item/pai_cartridge/doorjack/U = P
+			pai.doorjack_factor += U.factor
+			upgrades += P
+			qdel(P)
+			return
+		if(istype(P, /obj/item/pai_cartridge/female))
+			pai.female_chassis = TRUE
+			upgrades += P
+			qdel(P)
+			return
+		if(istype(P, /obj/item/pai_cartridge/snake))
+			pai.snake_chassis = TRUE
+			upgrades += P
+			qdel(P)
+			return
+		if(istype(P, /obj/item/pai_cartridge/syndi_emote))
+			pai.syndi_emote = TRUE
+			upgrades += P
+			qdel(P)
+			return
+
 	if(istype(I, /obj/item/paicard_upgrade))
 		var/obj/item/paicard_upgrade/P = I
 		if(pai)
 			if(pai.syndipai)
 				return
-			pai.reset_software()
-			pai.ram += P.extra_memory
+			extra_memory += P.extra_memory
+			pai.reset_software(extra_memory)
 			pai.syndipai = TRUE
 			qdel(P)
 			return
@@ -363,16 +416,45 @@
 		is_syndicate_type = TRUE
 		return
 
+	if(istype(I, /obj/item/encryptionkey))
+		if(!radio)
+			return
+
+		if(radio.keyslot1)
+			to_chat(user, "The headset can't hold another key!")
+			return
+		else
+			user.drop_transfer_item_to_loc(I, radio)
+			radio.keyslot1 = I
+
+		radio.recalculateChannels()
+		return
+
 /obj/item/paicard/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(pai)
+
+	if(!I.use_tool(src, user, 0, volume = 0))
 		return
-	if(!upgrade)
-		return
-	extra_memory -= upgrade.extra_memory
-	is_syndicate_type = FALSE
-	upgrade.forceMove(get_turf(src))
-	upgrade = null
+	var/turf/T = get_turf(user)
+
+	if(upgrade && !pai)
+		extra_memory -= upgrade.extra_memory
+		is_syndicate_type = FALSE
+		if(T)
+			upgrade.forceMove(T)
+			upgrade = null
+		to_chat(user, span_notice("You remove paicard upgrade."))
+
+	if(radio?.keyslot1)
+		for(var/ch_name in radio.channels)
+			SSradio.remove_object(radio, SSradio.radiochannels[ch_name])
+			radio.secure_radio_connections[ch_name] = null
+		if(T)
+			radio.keyslot1.forceMove(T)
+			radio.keyslot1 = null
+		radio.recalculateChannels()
+		to_chat(user, span_notice("You pop out the encryption key in the headset!"))
+		I.play_tool_sound(user, I.tool_volume)
 
 /obj/item/paicard/attack_ghost(mob/dead/observer/user)
 	if(pai)
@@ -387,6 +469,39 @@
 		next_ping_at = world.time + 20 SECONDS
 		playsound(get_turf(src), 'sound/items/posiping.ogg', 80, 0)
 		visible_message("<span class='notice'>[src] pings softly.</span>")
+
+/obj/item/pai_cartridge
+	name = "PAI upgrade"
+	desc = "A data cartridge for portable AI."
+	icon = 'icons/obj/pda.dmi'
+	w_class = WEIGHT_CLASS_TINY
+	origin_tech = "programming=2;data=2"
+
+/obj/item/pai_cartridge/memory
+	name = "PAI memory cartridge"
+	icon_state = "pai-ram"
+	var/extra_memory = 30
+
+/obj/item/pai_cartridge/reset
+	name = "PAI reset cartridge"
+	icon_state = "pai-reset"
+
+/obj/item/pai_cartridge/doorjack
+	name = "PAI doorjack upgrade cartridge"
+	icon_state = "pai-doorjack"
+	var/factor = -0.5
+
+/obj/item/pai_cartridge/syndi_emote
+	name = "PAI special emote cartridge"
+	icon_state = "pai-syndiemote"
+
+/obj/item/pai_cartridge/female
+	name = "PAI female form cartridge"
+	icon_state = "pai-baba"
+
+/obj/item/pai_cartridge/snake
+	name = "PAI snake form cartridge"
+	icon_state = "pai-syndiemote"
 
 /obj/item/paicard_upgrade
 	name = "PAI upgrade"
@@ -403,6 +518,8 @@
 
 /obj/item/paicard_upgrade/unused
 	used = FALSE
+
+/obj/item/paicard_upgrade/protolate
 
 /obj/item/paper/pai_upgrade
 	name = "Инструкция по применению"

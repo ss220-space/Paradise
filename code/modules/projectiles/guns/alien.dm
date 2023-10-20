@@ -31,7 +31,7 @@
 	name = "alloy spike"
 	desc = "It's about a foot of weird silvery metal with a wicked point."
 	damage = 25
-	stun = 1
+	stun = 2 SECONDS
 	armour_penetration = 30
 	icon_state = "magspear"
 
@@ -52,7 +52,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/sonic)
 	cell_type = /obj/item/stock_parts/cell/super
 	restricted_species = list(/datum/species/vox/armalis)
-	sprite_sheets_inhand = list("Vox Armalis" = 'icons/mob/species/armalis/held.dmi') //Big guns big birds.
+	sprite_sheets_inhand = list("Vox Armalis" = 'icons/mob/clothing/species/armalis/held.dmi') //Big guns big birds.
 
 /obj/item/gun/energy/noisecannon/update_icon()
 	return
@@ -72,5 +72,4 @@
 	flag = "bullet"
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 
-	weaken = 5
-	stun = 5
+	weaken = 10 SECONDS

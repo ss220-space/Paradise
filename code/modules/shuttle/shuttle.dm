@@ -541,7 +541,7 @@
 	dir = S1.dir
 
 	// Update mining and labor shuttle ash storm audio
-	if(id in list("mining", "laborcamp"))
+	if(id in list("mining", "laborcamp") && !CONFIG_GET(flag/disable_lavaland))
 		var/mining_zlevel = level_name_to_num(MINING)
 		var/datum/weather/ash_storm/W = SSweather.get_weather(mining_zlevel, /area/lavaland/surface/outdoors)
 		if(W)
@@ -634,7 +634,7 @@
 									a hyperspace ripple[L.anchored ? "":" and is thrown clear"]!</span>",
 									"<span class='userdanger'>You feel an immense \
 									crushing pressure as the space around you ripples.</span>")
-							L.Paralyse(10)
+							L.Paralyse(20 SECONDS)
 							L.ex_act(2)
 
 			// Move unanchored atoms

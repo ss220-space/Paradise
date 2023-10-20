@@ -19,12 +19,13 @@
 	var/obj/screen/m_select = null
 	var/obj/screen/healths = null
 	var/obj/screen/throw_icon = null
+	var/obj/screen/stamina_bar = null
 
 	/*A bunch of this stuff really needs to go under their own defines instead of being globally attached to mob.
 	A variable should only be globally attached to turfs/objects/whatever, when it is in fact needed as such.
 	The current method unnecessarily clusters up the variable list, especially for humans (although rearranging won't really clean it up a lot but the difference will be noticable for other mobs).
 	I'll make some notes on where certain variable defines should probably go.
-	Changing this around would probably require a good look-over the pre-existing code.
+	Changing this around would probably require a good look-over the pre-existing code.   :resident_sleeper:
 	*/
 	var/obj/screen/leap_icon = null
 	var/obj/screen/healthdoll/healthdoll = null
@@ -35,6 +36,10 @@
 	var/lastattacker = null // real name of the person  doing the attacking
 	var/lastattackerckey = null // their ckey
 
+	var/list/debug_log = null
+	var/last_log = 0
+	var/list/attack_log_old = list()
+
 	var/last_known_ckey = null	// Used in logging
 
 	var/obj/machinery/machine = null
@@ -42,7 +47,7 @@
 	var/memory = ""
 	var/next_move = null
 	var/notransform = null	//Carbon
-	var/hand = null
+	var/hand = null			// 0 - right hand is active, 1 - left hand is active
 	var/real_name = null
 	var/flavor_text = ""
 	var/med_record = ""
@@ -154,7 +159,6 @@
 
 	var/area/lastarea = null
 
-	var/digitalcamo = 0 // Can they be tracked by the AI?
 	var/weakeyes = 0 //Are they vulnerable to flashes?
 
 	var/has_unlimited_silicon_privilege = 0 // Can they interact with station electronics
@@ -208,3 +212,4 @@
 
 	/// The datum receiving keyboard input. parent mob by default.
 	var/datum/input_focus = null
+	var/last_emote = null

@@ -295,6 +295,7 @@
 		"Basic" = "Robot-ENG",
 		"Antique" = "Robot-ENG2",
 		"Landmate" = "landmate",
+		"Сhiefmate" = "chiefmate",
 		"Standard" = "Standard-Engi",
 		"Noble-ENG" = "Noble-ENG",
 		"Cricket" = "Cricket-ENGI"
@@ -327,7 +328,7 @@
 	modules += new /obj/item/stack/rods/cyborg(src)
 	modules += new /obj/item/stack/tile/plasteel/cyborg(src)
 	modules += new /obj/item/gps/cyborg(src)
-	emag = new /obj/item/borg/stun(src)
+	emag = new /obj/item/gun/energy/emittercannon(src)
 
 	fix_modules()
 	handle_storages()
@@ -508,6 +509,7 @@
 /obj/item/robot_module/miner/New()
 	..()
 	modules += new /obj/item/storage/bag/ore/cyborg(src)
+	modules += new /obj/item/storage/bag/gem/cyborg(src)
 	modules += new /obj/item/pickaxe/drill/cyborg(src)
 	modules += new /obj/item/shovel(src)
 	modules += new /obj/item/weldingtool/mini(src)
@@ -767,6 +769,7 @@
 	modules += new /obj/item/stack/tile/plasteel/cyborg(src)
 	modules += new /obj/item/stack/sheet/metal/cyborg(src)
 	modules += new /obj/item/stack/sheet/glass/cyborg(src)
+	modules += new /obj/item/floor_painter(src)
 	modules += new /obj/item/stack/cable_coil/cyborg(src)
 	modules += new /obj/item/analyzer(src)
 	modules += new /obj/item/extinguisher(src)
@@ -898,7 +901,7 @@
 	modules += new /obj/item/twohanded/shockpaddles/borg(src)
 	modules += new /obj/item/handheld_defibrillator(src)
 	modules += new /obj/item/roller_holder(src)
-	modules += new /obj/item/reagent_containers/borghypo/upgraded(src)
+	modules += new /obj/item/reagent_containers/borghypo/upgraded/super(src)
 	modules += new /obj/item/stack/medical/bruise_pack/advanced/cyborg(src)
 	modules += new /obj/item/stack/medical/ointment/advanced/cyborg(src)
 

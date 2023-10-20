@@ -57,6 +57,10 @@
 /atom/movable/proc/get_cell()
 	return
 
+//Handles special effects on teleporting. Overload for some items if you want to do so.
+/atom/movable/proc/on_teleported()
+	return
+
 /atom/movable/proc/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	var/mob/M = AM
 	if(ismob(M) && M.buckled)
@@ -363,17 +367,25 @@
 	SSspacedrift.processing[src] = src
 	return 1
 
+
 //called when src is thrown into hit_atom
-/atom/movable/proc/throw_impact(atom/hit_atom, throwingdatum)
+/atom/movable/proc/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	set waitfor = 0
 	SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum)
 	if(!QDELETED(hit_atom))
-		return hit_atom.hitby(src)
+		return hit_atom.hitby(src, throwingdatum = throwingdatum)
+
+
+/// called after an items throw is ended.
+/atom/movable/proc/end_throw()
+	return
+
 
 /atom/movable/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked, datum/thrownthing/throwingdatum)
 	if(!anchored && hitpush && (!throwingdatum || (throwingdatum.force >= (move_resist * MOVE_FORCE_PUSH_RATIO))))
 		step(src, AM.dir)
 	..()
+
 
 /atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY)
 	if(!target || (flags & NODROP) || speed <= 0)
@@ -383,7 +395,7 @@
 		pulledby.stop_pulling()
 
 	// They are moving! Wouldn't it be cool if we calculated their momentum and added it to the throw?
-	if(thrower && thrower.last_move && thrower.client && thrower.client.move_delay >= world.time + world.tick_lag * 2)
+	if(istype(thrower) && thrower.last_move && thrower.client && thrower.client.move_delay >= world.time + world.tick_lag * 2)
 		var/user_momentum = thrower.movement_delay()
 		if(!user_momentum) // no movement_delay, this means they move once per byond tick, let's calculate from that instead
 			user_momentum = world.tick_lag
@@ -445,6 +457,7 @@
 	if(spin && !no_spin && !no_spin_thrown)
 		SpinAnimation(5, 1)
 
+	SEND_SIGNAL(src, COMSIG_MOVABLE_POST_THROW, TT, spin)
 	SSthrowing.processing[src] = TT
 	TT.tick()
 

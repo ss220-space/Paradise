@@ -311,8 +311,13 @@
 	normal_integrity = 1000
 	security_level = 6
 
+/obj/machinery/door/airlock/centcom/attack_hand(mob/user)
+	. = ..()
+	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+		return
+
 /obj/machinery/door/airlock/centcom/emag_act(mob/user)
-	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
+	to_chat(user, span_notice("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
 	return
 
 /////////////////////////////////
@@ -355,7 +360,7 @@
 	security_level = 6
 
 /obj/machinery/door/airlock/hatch/syndicate/command/emag_act(mob/user)
-	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
+	to_chat(user, span_notice("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
 	return
 
 /obj/machinery/door/airlock/hatch/syndicate/vault
@@ -403,9 +408,9 @@
 	if(!I.use_tool(src, user, 0, amount = 0, volume = I.tool_volume))
 		return
 	welded = !welded
-	visible_message("<span class='notice'>[user] [welded ? null : "un"]welds [src]!</span>",\
-					"<span class='notice'>You [welded ? null : "un"]weld [src]!</span>",\
-					"<span class='warning'>You hear welding.</span>")
+	visible_message(span_notice("[user] [welded ? null : "un"]welds [src]!"),\
+					span_notice("You [welded ? null : "un"]weld [src]!"),\
+					span_italics("You hear welding."))
 	update_icon()
 
 /obj/machinery/door/airlock/maintenance_hatch
@@ -458,9 +463,9 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	welded = !welded
-	visible_message("<span class='notice'>[user] [welded ? null : "un"]welds [src]!</span>",\
-					"<span class='notice'>You [welded ? null : "un"]weld [src]!</span>",\
-					"<span class='warning'>You hear welding.</span>")
+	visible_message(span_notice("[user] [welded ? null : "un"]welds [src]!"),\
+					span_notice("You [welded ? null : "un"]weld [src]!"),\
+					span_italics("You hear welding."))
 	update_icon()
 
 
@@ -526,6 +531,18 @@
 	/// Inner airlock material (Glass, plasteel)
 	var/stealth_airlock_material = null
 
+/obj/machinery/door/airlock/cult_fake
+	name = "cult airlock"
+	icon = 'icons/obj/doors/airlocks/cult/runed/cult.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/cult/runed/cult-overlays.dmi'
+	assemblytype = /obj/structure/door_assembly/door_assembly_cult_fake
+
+/obj/machinery/door/airlock/cult_fake/Initialize()
+	. = ..()
+	icon = SSticker.cultdat?.airlock_runed_icon_file
+	overlays_file = SSticker.cultdat?.airlock_runed_overlays_file
+	update_icon()
+
 /obj/machinery/door/airlock/cult/Initialize()
 	. = ..()
 	icon = SSticker.cultdat?.airlock_runed_icon_file
@@ -549,7 +566,7 @@
 			var/atom/throwtarget
 			throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(L, src)))
 			SEND_SOUND(L, pick(sound('sound/hallucinations/turn_around1.ogg', 0, 1, 50), sound('sound/hallucinations/turn_around2.ogg', 0, 1, 50)))
-			L.Weaken(2)
+			L.Weaken(4 SECONDS)
 			L.throw_at(throwtarget, 5, 1,src)
 		return FALSE
 
@@ -581,10 +598,15 @@
 /obj/machinery/door/airlock/cult/ratvar_act()
 	new /obj/machinery/door/airlock/clockwork(get_turf(src))
 	qdel(src)
+
 /obj/machinery/door/airlock/cult/friendly
 	friendly = TRUE
 
 /obj/machinery/door/airlock/cult/glass
+	glass = TRUE
+	opacity = 0
+
+/obj/machinery/door/airlock/cult_fake/glass
 	glass = TRUE
 	opacity = 0
 
@@ -662,7 +684,7 @@
 		var/atom/throwtarget
 		throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(L, src)))
 		SEND_SOUND(L, pick(sound('sound/hallucinations/turn_around1.ogg', 0, 1, 50), sound('sound/hallucinations/turn_around2.ogg', 0, 1, 50)))
-		L.Weaken(2)
+		L.Weaken(4 SECONDS)
 		L.throw_at(throwtarget, 5, 1,src)
 		return FALSE
 
@@ -823,6 +845,11 @@
 	opacity = 0
 	glass = TRUE
 	normal_integrity = 300
+
+/obj/machinery/door/airlock/syndicate/extmai/glass/attack_hand(mob/user)
+	. = ..()
+	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+		return
 
 /*
 	Misc Airlocks

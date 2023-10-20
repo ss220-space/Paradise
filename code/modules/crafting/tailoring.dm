@@ -93,6 +93,26 @@
 	reqs = list(/obj/item/clothing/glasses/hud/health/sunglasses = 1)
 	category = CAT_CLOTHING
 
+/datum/crafting_recipe/hudtajsunmed
+	name = "Medical veil sunglasses"
+	result = /obj/item/clothing/glasses/hud/health/tajblind/sunglasses
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/health/tajblind,
+				  /obj/item/clothing/glasses/sunglasses = 1,
+				  /obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/hudtajsunbot
+	name = "Botanical veil sunglasses"
+	result = /obj/item/clothing/glasses/hud/hydroponic/tajblind/sunglasses
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/hydroponic/tajblind,
+				  /obj/item/clothing/glasses/sunglasses = 1,
+				  /obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
 /datum/crafting_recipe/hudsundiag
 	name = "Diagnostic HUDsunglasses"
 	result = /obj/item/clothing/glasses/hud/diagnostic/sunglasses
@@ -135,6 +155,26 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/meson = 1,
+				  /obj/item/clothing/glasses/sunglasses = 1,
+				  /obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/hudsuntajmeson
+	name = "Khaki veil sunglasses"
+	result = /obj/item/clothing/glasses/tajblind/cargo/sunglasses
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/tajblind/cargo = 1,
+				  /obj/item/clothing/glasses/sunglasses = 1,
+				  /obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/hudsuntajengmeson
+	name = "Industial veil sunglasses"
+	result = /obj/item/clothing/glasses/tajblind/eng/sunglasses
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/tajblind/eng = 1,
 				  /obj/item/clothing/glasses/sunglasses = 1,
 				  /obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
@@ -257,4 +297,56 @@
 	time = 6 SECONDS
 	reqs = list(/obj/item/reagent_containers/glass/bucket = 3)
 	tools = list(TOOL_WIRECUTTER)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/guitarbag
+	name = "Guitar Bag"
+	result = /obj/item/storage/backpack/guitarbag
+	time = 6 SECONDS
+	reqs = list(/obj/item/bodybag = 1,
+				/obj/item/stack/tape_roll = 10,
+				/obj/item/stack/sheet/cardboard = 2)
+	tools = list(TOOL_WIRECUTTER)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/footwrapsgoliath
+	name = "Goliath Hide Footwraps"
+	result = /obj/item/clothing/shoes/footwraps/goliath
+	reqs = list(/obj/item/stack/sheet/animalhide/goliath_hide = 1,
+				/obj/item/stack/sheet/leather = 1)
+	time = 6 SECONDS
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/footwrapsdragon
+	name = "Ash Drake Hide Footwraps"
+	result = /obj/item/clothing/shoes/footwraps/dragon
+	reqs = list(/obj/item/stack/sheet/animalhide/ashdrake = 1,
+				/obj/item/stack/sheet/leather = 1)
+	time = 6 SECONDS
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/goliathgloves
+	name = "Goliath Gloves"
+	result = /obj/item/clothing/gloves/color/black/goliath
+	time = 2 SECONDS
+	reqs = list(/obj/item/stack/sheet/leather = 2,
+				/obj/item/stack/sheet/animalhide/goliath_hide = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/chitingloves
+	name = "Weaver Chitin Gloves"
+	result = /obj/item/clothing/gloves/fingerless/weaver
+	time = 2 SECONDS
+	reqs = list(/obj/item/stack/sheet/leather = 1,
+				/obj/item/stack/sheet/animalhide/weaver_chitin = 3)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/voice_modulator
+	name = "Voice Modulator Mask"
+	result = list(/obj/item/clothing/mask/gas/voice_modulator)
+	time = 45
+	tools = list(TOOL_SCREWDRIVER, TOOL_MULTITOOL)
+	reqs = list(/obj/item/clothing/mask/gas = 1,
+				  /obj/item/assembly/voice = 1,
+				  /obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING

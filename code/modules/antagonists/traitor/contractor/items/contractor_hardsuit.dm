@@ -52,12 +52,29 @@
 	H.update_inv_head()
 	H.update_inv_wear_suit()
 
+//agent version disguised as engi hardsuit
+
+/obj/item/clothing/head/helmet/space/hardsuit/contractor/agent
+	name = "engineering hardsuit helmet"
+	desc = "A special helmet designed for work in a hazardous, low-pressure environment. Has radiation shielding."
+	description_antag = "Шлем хардсьюта-хамелеона, замаскированный изначально под инженерный шлем."
+	icon_state = "hardsuit0-engineering"
+	item_state = "eng_helm"
+	actions_types = list(/datum/action/item_action/toggle_helmet_light)
+
+/obj/item/clothing/suit/space/hardsuit/contractor/agent
+	name = "engineering hardsuit"
+	desc = "A special suit that protects against hazardous, low pressure environments. Has radiation shielding."
+	description_antag = "Хардсьют-хамелеон, замаскированный изначально под инженерный хардсьют. Красный - предатель!"
+	icon_state = "hardsuit-engineering"
+	item_state = "eng_hardsuit"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/contractor/agent
+
 /*
 		Hook
 		Much worse version of lava and ninja hook for balance reasons.
 
 */
-
 /datum/action/item_action/advanced/hook_upgrade
 	name = "Hardsuit SCORPION hook module"
 	desc = "A module installed in the wrist of your hardsuit, this highly illegal module uses a hardlight hook to forcefully pull a target towards you at high speed, knocking them down and partially exhausting them."
@@ -144,10 +161,9 @@
 	damage = 0
 	stamina = 25
 	hitsound = 'sound/weapons/whip.ogg'
-	weaken = 1
+	weaken = 2 SECONDS
 	ricochet_chance = 0
 	range = 7
-	var/chain
 
 /obj/item/projectile/contractor_hook/fire(setAngle)
 	if(firer)
@@ -195,11 +211,11 @@
 		usr.visible_message("<span class='warning'>[usr] changes the look of his hardsuit!</span>", "<span class='notice'>Turning off the disguise..</span>")
 		return
 	var/list/choices = list(
-		"EVA" = image(icon = 'icons/mob/contractor.dmi', icon_state = "EVA"),
-		"Mining Hardsuit" = image(icon = 'icons/mob/contractor.dmi', icon_state = "mining"),
-		"Medical Hardsuit" = image(icon = 'icons/mob/contractor.dmi', icon_state = "medical"),
-		"Security Hardsuit" = image(icon = 'icons/mob/contractor.dmi', icon_state = "security"),
-		"Engineering Hardsuit" = image(icon = 'icons/mob/contractor.dmi', icon_state = "engineering")
+		"EVA" = image(icon = 'icons/mob/clothing/contractor.dmi', icon_state = "EVA"),
+		"Mining Hardsuit" = image(icon = 'icons/mob/clothing/contractor.dmi', icon_state = "mining"),
+		"Medical Hardsuit" = image(icon = 'icons/mob/clothing/contractor.dmi', icon_state = "medical"),
+		"Security Hardsuit" = image(icon = 'icons/mob/clothing/contractor.dmi', icon_state = "security"),
+		"Engineering Hardsuit" = image(icon = 'icons/mob/clothing/contractor.dmi', icon_state = "engineering")
 	)
 	var/selected_chameleon = show_radial_menu(usr, loc, choices, require_near = TRUE)
 	switch(selected_chameleon)
@@ -209,7 +225,7 @@
 			src.desc = "A lightweight space suit with the basic ability to protect the wearer from the vacuum of space during emergencies."
 			helmet.name = "EVA helmet"
 			helmet.desc = "A lightweight space helmet with the basic ability to protect the wearer from the vacuum of space during emergencies."
-			helmet.icon_state = "hardsuit0-medical" //well...
+			helmet.icon_state = "spacenew"
 			helmet.item_color = "medical"
 		if("Mining Hardsuit")
 			src.name = "mining hardsuit"

@@ -8,12 +8,15 @@ SUBSYSTEM_DEF(throwing)
 	flags = SS_NO_INIT|SS_KEEP_TIMING|SS_TICKER
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	offline_implications = "Thrown objects may not react properly. Shuttle call recommended."
+	cpu_display = SS_CPUDISPLAY_LOW
 
 	var/list/currentrun
 	var/list/processing = list()
 
-/datum/controller/subsystem/throwing/stat_entry()
-	..("P:[processing.len]")
+
+/datum/controller/subsystem/throwing/get_stat_details()
+	return "P:[length(processing)]"
+
 
 /datum/controller/subsystem/throwing/fire(resumed = 0)
 	if(!resumed)
@@ -39,6 +42,7 @@ SUBSYSTEM_DEF(throwing)
 
 	currentrun = null
 
+
 /datum/thrownthing
 	var/atom/movable/thrownthing
 	var/atom/target
@@ -61,6 +65,7 @@ SUBSYSTEM_DEF(throwing)
 	var/paused = FALSE
 	var/delayed_time = 0
 	var/last_move = 0
+
 
 /datum/thrownthing/proc/tick()
 	var/atom/movable/AM = thrownthing
@@ -113,6 +118,7 @@ SUBSYSTEM_DEF(throwing)
 			finalize()
 			return
 
+
 /datum/thrownthing/proc/finalize(hit = FALSE, target = null)
 	set waitfor = 0
 	SSthrowing.processing -= thrownthing
@@ -136,9 +142,12 @@ SUBSYSTEM_DEF(throwing)
 
 	if(callback)
 		callback.Invoke()
+	thrownthing.end_throw()
+
 
 /datum/thrownthing/proc/hit_atom(atom/A)
 	finalize(hit = TRUE, target = A)
+
 
 /datum/thrownthing/proc/hitcheck()
 	for(var/thing in get_turf(thrownthing))

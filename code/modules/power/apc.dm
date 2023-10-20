@@ -116,6 +116,11 @@
 	var/nightshift_lights = FALSE
 	var/last_nightshift_switch = 0
 
+	///Used to determine if emergency lights should be on or off
+	var/emergency_power = TRUE
+	var/emergency_power_timer
+	var/emergency_lights = FALSE
+
 /obj/machinery/power/apc/worn_out
 	name = "\improper Worn out APC"
 	keep_preset_name = 1
@@ -124,6 +129,7 @@
 	equipment = 0
 	lighting = 0
 	operating = 0
+	emergency_power = FALSE
 
 /obj/machinery/power/apc/noalarm
 	report_power_alarm = FALSE
@@ -682,6 +688,12 @@
 		else
 			opened = 1
 			update_icon()
+	else if(stat & BROKEN)
+		if(!opened)
+			if(do_after(user, gettoolspeedmod(user)*(3 SECONDS)*I.toolspeed, FALSE, src))
+				to_chat(user, span_notice("You pry out broken frame."))
+				opened = 2
+				update_icon()
 
 /obj/machinery/power/apc/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -842,7 +854,7 @@
 		return FALSE
 
 	// Only if they're a traitor OR they have the malf picker from the combat module
-	if(!malf.mind.has_antag_datum(/datum/antagonist/traitor) && !malf.malf_picker)
+	if(!malf.mind?.has_antag_datum(/datum/antagonist/traitor) && !malf.malf_picker)
 		return FALSE
 
 	if(malfai == (malf.parent || malf))
@@ -876,6 +888,7 @@
 	data["siliconLock"] = locked
 	data["malfStatus"] = get_malf_status(user)
 	data["nightshiftLights"] = nightshift_lights
+	data["emergencyLights"] = !emergency_lights
 
 	var/powerChannels[0]
 	powerChannels[++powerChannels.len] = list(
@@ -927,6 +940,13 @@
 		area.power_light = (lighting > 1)
 		area.power_equip = (equipment > 1)
 		area.power_environ = (environ > 1)
+		if(lighting)
+			emergency_power = TRUE
+			if(emergency_power_timer)
+				deltimer(emergency_power_timer)
+				emergency_power_timer = null
+		else
+			emergency_power_timer = addtimer(CALLBACK(src, PROC_REF(turn_emergency_power_off)), 10 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
 //		if(area.name == "AI Chamber")
 //			spawn(10)
 //				to_chat(world, " [area.name] [area.power_equip]")
@@ -934,13 +954,21 @@
 		area.power_light = 0
 		area.power_equip = 0
 		area.power_environ = 0
+		emergency_power_timer = addtimer(CALLBACK(src, PROC_REF(turn_emergency_power_off)), 10 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
 //		if(area.name == "AI Chamber")
 //			to_chat(world, "[area.power_equip]")
 	area.power_change()
 
+/obj/machinery/power/apc/proc/turn_emergency_power_off()
+	emergency_power = FALSE
+	for(var/obj/machinery/light/L in area)
+		INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
+
 /obj/machinery/power/apc/proc/can_use(var/mob/user, var/loud = 0) //used by attack_hand() and Topic()
+	if(stat & BROKEN)
+		return FALSE
 	if(user.can_admin_interact())
-		return 1
+		return TRUE
 
 	autoflag = 5
 	if(istype(user, /mob/living/silicon))
@@ -976,17 +1004,17 @@
 
 /obj/machinery/power/apc/proc/is_authenticated(mob/user as mob)
 	if(user.can_admin_interact())
-		return 1
+		return TRUE
 	if(isAI(user) || isrobot(user) && !iscogscarab(user))
-		return 1
+		return TRUE
 	else
 		return !locked
 
 /obj/machinery/power/apc/proc/is_locked(mob/user as mob)
 	if(user.can_admin_interact())
-		return 0
+		return FALSE
 	if(isAI(user) || isrobot(user) && !iscogscarab(user))
-		return 0
+		return FALSE
 	else
 		return locked
 
@@ -1043,6 +1071,12 @@
 		if("deoccupy")
 			if(get_malf_status(usr))
 				malfvacate()
+		if("emergency_lighting")
+			emergency_lights = !emergency_lights
+			for(var/obj/machinery/light/L in area)
+				INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
+				CHECK_TICK
+
 
 /obj/machinery/power/apc/proc/toggle_breaker()
 	operating = !operating

@@ -45,7 +45,7 @@
 	// Components
 	component_parts = list()
 	var/obj/item/circuitboard/smartfridge/board = new(null)
-	board.set_type(type)
+	board.set_type(null, type)
 	component_parts += board
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	RefreshParts()
@@ -59,6 +59,7 @@
 		/obj/item/reagent_containers/food/snacks/grown,
 		/obj/item/seeds,
 		/obj/item/grown,
+		/obj/item/slimepotion,
 	))
 
 /obj/machinery/smartfridge/RefreshParts()
@@ -163,9 +164,6 @@
 	else if(!istype(O, /obj/item/card/emag))
 		to_chat(user, "<span class='notice'>\The [src] smartly refuses [O].</span>")
 		return TRUE
-
-/obj/machinery/smartfridge/attack_ai(mob/user)
-	return FALSE
 
 /obj/machinery/smartfridge/attack_ghost(mob/user)
 	return attack_hand(user)
@@ -293,7 +291,15 @@
 			to_chat(user, "<span class='notice'>\The [src] is full.</span>")
 			return FALSE
 		else
-			if(istype(I.loc, /obj/item/storage))
+			if(istype(I, /obj/item/gripper))
+				var/obj/item/gripper/gripper = I
+				var/obj/item/gripped_item = gripper.gripped_item
+				gripper.drop_gripped_item(silent = TRUE)
+				I = gripped_item
+				I.do_pickup_animation(src)
+				I.forceMove(src)
+
+			else if(istype(I.loc, /obj/item/storage))
 				var/obj/item/storage/S = I.loc
 				if(user)
 					S.remove_from_storage(I, user.drop_location())
@@ -301,6 +307,7 @@
 					I.forceMove(src)
 				else
 					S.remove_from_storage(I, src)
+
 			else if(ismob(I.loc))
 				var/mob/M = I.loc
 				if(M.get_active_hand() == I)
@@ -349,8 +356,11 @@
   * Arguments:
   * * O - The item to check.
   */
-/obj/machinery/smartfridge/proc/accept_check(obj/item/O)
-	return is_type_in_typecache(O, accepted_items_typecache)
+/obj/machinery/smartfridge/proc/accept_check(obj/item/I)
+	if(istype(I, /obj/item/gripper))
+		var/obj/item/gripper/gripper = I
+		I = gripper.gripped_item
+	return is_type_in_typecache(I, accepted_items_typecache)
 
 /**
   * # Syndie Fridge
@@ -523,6 +533,36 @@
 
 /obj/machinery/smartfridge/secure/chemistry/preloaded/syndicate/Initialize(mapload)
 	. = ..()
+
+/obj/machinery/smartfridge/secure/medbay/organ
+	req_access = list(ACCESS_SURGERY)
+	name = "\improper Secure Refrigerated Organ Storage"
+	desc = "A refrigerated storage unit for storing organs, limbs and implants."
+	opacity = 1
+
+/obj/machinery/smartfridge/secure/medbay/organ/Initialize(mapload)
+	. = ..()
+	accepted_items_typecache = typecacheof(list(
+		/obj/item/organ
+	))
+
+/// Copy pasting to reuse existing sprites
+/obj/machinery/smartfridge/secure/medbay/organ/update_icon()
+	var/prefix = initial(icon_state)
+	if(stat & (BROKEN|NOPOWER))
+		icon_state = "[prefix]-off"
+	else if(visible_contents)
+		switch(length(contents))
+			if(0)
+				icon_state = "[prefix]"
+			if(1 to 25)
+				icon_state = "[prefix]-organ1"
+			if(26 to 75)
+				icon_state = "[prefix]-organ2"
+			if(76 to INFINITY)
+				icon_state = "[prefix]-organ3"
+	else
+		icon_state = "[prefix]"
 
 /**
   * # Disk Compartmentalizer

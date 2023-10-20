@@ -109,6 +109,8 @@
 	while(L && !isturf(L))
 		if(ismecha(L)) //Mechs are immune
 			return TRUE
+		if(isvampirecoffin(L))
+			return TRUE
 		if(ishuman(L)) //Are you immune?
 			var/mob/living/carbon/human/target = L
 			if(target.get_thermal_protection() >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
@@ -117,6 +119,8 @@
 			var/mob/living/simple_animal/borer/target = L
 			if(target.host?.get_thermal_protection() >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 				return TRUE
+		if (istype(L, /mob/living/silicon))
+			return TRUE /// Borgs are protected and so their brains
 		L = L.loc //Matryoshka check
 	return FALSE //RIP you
 

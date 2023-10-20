@@ -23,7 +23,7 @@
 	sharp = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	sprite_sheets_inhand = list("Skrell" = 'icons/mob/species/skrell/held.dmi') // To stop skrell stabbing themselves in the head
+	sprite_sheets_inhand = list("Skrell" = 'icons/mob/clothing/species/skrell/held.dmi') // To stop skrell stabbing themselves in the head
 
 /obj/item/melee/cultblade/New()
 	if(SSticker.mode)
@@ -33,7 +33,7 @@
 
 /obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
 	if(!iscultist(user))
-		user.Weaken(5)
+		user.Weaken(10 SECONDS)
 		user.drop_item_ground(src, force = TRUE)
 		user.visible_message("<span class='warning'>A powerful force shoves [user] away from [target]!</span>",
 							 "<span class='cultlarge'>\"You shouldn't play with sharp things. You'll poke someone's eye out.\"</span>")
@@ -55,16 +55,17 @@
 	if(!iscultist(user))
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
-		user.Confused(10)
-		user.Jitter(6)
+		user.Confused(20 SECONDS)
+		user.Jitter(12 SECONDS)
 
 /obj/item/restraints/legcuffs/bola/cult
 	name = "runed bola"
 	desc = "A strong bola, bound with dark magic. Throw it to trip and slow your victim. Will not hit fellow cultists."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "bola_cult"
+	item_state = "bola_cult"
 	breakouttime = 45
-	weaken = 1
+	weaken_amt = 2 SECONDS
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(iscultist(hit_atom))
@@ -101,7 +102,10 @@
 	flags_inv = HIDEJUMPSUIT
 	magical = TRUE
 	sprite_sheets = list(
-		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
 
 /obj/item/clothing/suit/hooded/cultrobes/alt
@@ -117,6 +121,9 @@
 	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75)
 	magical = TRUE
 	species_restricted = null
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		)
 
 /obj/item/clothing/suit/space/cult
 	name = "cult armor"
@@ -130,6 +137,9 @@
 	flags_inv = HIDEGLOVES|HIDEJUMPSUIT|HIDETAIL
 	magical = TRUE
 	species_restricted = null
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+	)
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield
 	name = "empowered cultist robes"
@@ -144,6 +154,10 @@
 	var/current_charges = 3
 	var/shield_state = "shield-cult"
 	var/shield_on = "shield-cult"
+	species_restricted = null
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+	)
 
 /obj/item/clothing/head/hooded/cult_hoodie
 	name = "empowered cultist hood"
@@ -163,8 +177,8 @@
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.drop_item_ground(src, force = TRUE)
-		user.Confused(10)
-		user.Weaken(5)
+		user.Confused(20 SECONDS)
+		user.Weaken(10 SECONDS)
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(current_charges)
@@ -192,13 +206,13 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	armor = list("melee" = -50, "bullet" = -50, "laser" = -50,"energy" = -50, "bomb" = -50, "bio" = -50, "rad" = -50, "fire" = 0, "acid" = 0)
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Drask" = 'icons/mob/species/drask/suit.dmi',
-		"Grey" = 'icons/mob/species/grey/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi'
 	)
 	hoodtype = /obj/item/clothing/head/hooded/flagellant_hood
 
@@ -210,15 +224,17 @@
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.drop_item_ground(src, force = TRUE)
-		user.Confused(10)
-		user.Weaken(5)
+		user.Confused(20 SECONDS)
+		user.Weaken(10 SECONDS)
 	else if(slot == slot_wear_suit)
-		user.status_flags |= GOTTAGOFAST
+		ADD_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes[UID()]")
+
 
 /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/dropped(mob/user)
 	. = ..()
 	if(user)
-		user.status_flags &= ~GOTTAGOFAST
+		REMOVE_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes[UID()]")
+
 
 /obj/item/clothing/head/hooded/flagellant_hood
 	name = "flagellant's robes"
@@ -230,14 +246,14 @@
 	flags_cover = HEADCOVERSEYES
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi',
-		"Drask" = 'icons/mob/species/drask/head.dmi',
-		"Grey" = 'icons/mob/species/grey/head.dmi',
-		"Monkey" = 'icons/mob/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/species/monkey/head.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
 /obj/item/whetstone/cult
@@ -276,15 +292,15 @@
 	prescription = TRUE
 	origin_tech = null
 
-/obj/item/clothing/glasses/hud/health/night/cultblind/equipped(mob/user, slot, initial)
+/obj/item/clothing/glasses/hud/health/night/cultblind/equipped(mob/living/user, slot, initial)
 	. = ..()
 
 	if(!iscultist(user))
 		to_chat(user, "<span class='cultlarge'>\"You want to be blind, do you?\"</span>")
 		user.drop_item_ground(src, force = TRUE)
-		user.Confused(30)
-		user.Weaken(5)
-		user.EyeBlind(30)
+		user.Confused(60 SECONDS)
+		user.Weaken(10 SECONDS)
+		user.EyeBlind(60 SECONDS)
 
 /obj/item/shuttle_curse
 	name = "cursed orb"
@@ -293,16 +309,16 @@
 	icon_state ="shuttlecurse"
 	var/global/curselimit = 0
 
-/obj/item/shuttle_curse/attack_self(mob/user)
+/obj/item/shuttle_curse/attack_self(mob/living/user)
 	if(!iscultist(user))
 		user.drop_item_ground(src, force = TRUE)
-		user.Weaken(5)
+		user.Weaken(10 SECONDS)
 		to_chat(user, "<span class='warning'>A powerful force shoves you away from [src]!</span>")
 		return
 	if(curselimit > 1)
 		to_chat(user, "<span class='notice'>We have exhausted our ability to curse the shuttle.</span>")
 		return
-	if(locate(/obj/singularity/narsie) in GLOB.poi_list || locate(/mob/living/simple_animal/slaughter/cult) in GLOB.mob_list)
+	if(locate(/obj/singularity/narsie) in GLOB.poi_list || locate(/mob/living/simple_animal/demon/slaughter/cult) in GLOB.mob_list)
 		to_chat(user, "<span class='danger'>Nar'Sie or her avatars are already on this plane, there is no delaying the end of all things.</span>")
 		return
 
@@ -493,11 +509,11 @@
 				T.visible_message("<span class='warning'>The sheer force from [P] shatters the mirror shield!</span>")
 				new /obj/effect/temp_visual/cult/sparks(T)
 				playsound(T, 'sound/effects/glassbr3.ogg', 100)
-				owner.Weaken(3)
+				owner.Weaken(6 SECONDS)
 				qdel(src)
 				return FALSE
 
-			if(P.is_reflectable)
+			if(P.is_reflectable(REFLECTABILITY_ENERGY))
 				return FALSE //To avoid reflection chance double-dipping with block chance
 
 		// Hit by a melee weapon or blocked a projectile
@@ -590,7 +606,7 @@
 				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
 		else if(!..())
 			if(!L.null_rod_check())
-				L.Weaken(3)
+				L.Weaken(6 SECONDS)
 			break_spear(T)
 	else
 		..()

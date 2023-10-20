@@ -4,6 +4,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "dnainjector"
 	item_state = "dnainjector"
+	belt_icon = "dna_injector"
 	var/block = 0
 	var/datum/dna2/record/buf = null
 	throw_speed = 3
@@ -176,7 +177,7 @@
 	..()
 
 /obj/item/dnainjector/xraymut
-	name = "DNA-Injector (Xray)"
+	name = "DNA-Injector (X-ray)"
 	desc = "Finally you can see what the Captain does."
 	datatype = DNA2_BUF_SE
 	value = 0xFFF
@@ -187,7 +188,7 @@
 	..()
 
 /obj/item/dnainjector/antixray
-	name = "DNA-Injector (Anti-Xray)"
+	name = "DNA-Injector (Anti-X-ray)"
 	desc = "It will make you see harder."
 	datatype = DNA2_BUF_SE
 	value = 0x001

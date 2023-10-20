@@ -119,6 +119,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "beaker"
 	item_state = "beaker"
+	belt_icon = "beaker"
 	materials = list(MAT_GLASS=500)
 	var/obj/item/assembly_holder/assembly = null
 	var/can_assembly = 1
@@ -216,6 +217,7 @@
 	name = "large beaker"
 	desc = "A large beaker. Can hold up to 100 units."
 	icon_state = "beakerlarge"
+	belt_icon = "large_beaker"
 	materials = list(MAT_GLASS=2500)
 	volume = 100
 	amount_per_transfer_from_this = 10
@@ -226,6 +228,7 @@
 	name = "vial"
 	desc = "A small glass vial. Can hold up to 25 units."
 	icon_state = "vial"
+	belt_icon = "vial"
 	materials = list(MAT_GLASS=250)
 	volume = 25
 	amount_per_transfer_from_this = 10
@@ -282,16 +285,17 @@
 /obj/item/reagent_containers/glass/beaker/cryoxadone
 	list_reagents = list("cryoxadone" = 30)
 
-/obj/item/reagent_containers/glass/beaker/sulphuric
+/obj/item/reagent_containers/glass/beaker/sacid
 	list_reagents = list("sacid" = 50)
 
-
-/obj/item/reagent_containers/glass/beaker/slime
+/obj/item/reagent_containers/glass/beaker/slimejelly
 	list_reagents = list("slimejelly" = 50)
 
 /obj/item/reagent_containers/glass/beaker/drugs/meth
 	list_reagents = list("methamphetamine" = 10)
 
+/obj/item/reagent_containers/glass/beaker/laughter
+	list_reagents = list("laughter" = 50)
 
 /obj/item/reagent_containers/glass/bucket
 	desc = "It's a bucket."
@@ -308,6 +312,32 @@
 	slot_flags = SLOT_HEAD
 	resistance_flags = NONE
 	container_type = OPENCONTAINER
+	var/paintable = TRUE
+
+/obj/item/reagent_containers/glass/bucket/Initialize(mapload)
+	. = ..()
+	if(!color)
+		color = "#0085E5"
+	update_icon() //in case bucket's color has been changed in editor or by some deriving buckets
+
+/obj/item/reagent_containers/glass/bucket/attackby(obj/D, mob/user, params)
+	. = ..()
+	if(paintable && istype(D, /obj/item/toy/crayon/spraycan))
+		var/obj/item/toy/crayon/spraycan/can = D
+		if(!can.capped && Adjacent(can, 1))
+			color = can.colour
+			update_icon()
+
+/obj/item/reagent_containers/glass/bucket/update_icon()
+	. = ..()
+	overlays.Cut()
+	if(color)
+		var/mutable_appearance/bucket_mask = mutable_appearance(icon='icons/obj/janitor.dmi', icon_state = "bucket_mask")
+		overlays += bucket_mask
+
+		var/mutable_appearance/bucket_hand = mutable_appearance(icon='icons/obj/janitor.dmi', icon_state = "bucket_hand")
+		bucket_hand.appearance_flags |= RESET_COLOR
+		overlays += bucket_hand
 
 /obj/item/reagent_containers/glass/bucket/wooden
 	name = "wooden bucket"
@@ -316,6 +346,11 @@
 	materials = null
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50)
 	resistance_flags = FLAMMABLE
+	paintable = FALSE
+
+/obj/item/reagent_containers/glass/bucket/wooden/update_icon()
+	. = ..()
+	overlays.Cut()
 
 /obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot, initial)
     . = ..()

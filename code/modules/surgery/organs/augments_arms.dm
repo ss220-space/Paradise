@@ -102,7 +102,7 @@
 		"<span class='notice'>[active_item] snaps back into your [parent_organ == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>",
 		"<span class='italics'>You hear a short mechanical noise.</span>")
 
-	owner.drop_item_ground(active_item, force = TRUE)
+	owner.drop_item_ground(active_item, force = TRUE, silent = TRUE)
 	active_item.forceMove(src)
 	active_item = null
 	playsound(get_turf(owner), src.sound_off, 50, 1)
@@ -200,7 +200,7 @@
 	name = "arm-mounted laser implant"
 	desc = "A variant of the arm cannon implant that fires lethal laser beams. The cannon emerges from the subject's arm and remains inside when not in use."
 	icon_state = "arm_laser"
-	origin_tech = "materials=4;combat=4;biotech=4;powerstorage=4;syndicate=3"
+	origin_tech = "materials=4;combat=4;biotech=4;powerstorage=4"
 	contents = newlist(/obj/item/gun/energy/laser/mounted)
 
 /obj/item/organ/internal/cyberimp/arm/gun/laser/l

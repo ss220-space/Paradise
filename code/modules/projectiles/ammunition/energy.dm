@@ -76,6 +76,7 @@
 /obj/item/ammo_casing/energy/xray
 	projectile_type = /obj/item/projectile/beam/xray
 	muzzle_flash_color = LIGHT_COLOR_GREEN
+	delay = 11
 	e_cost = 100
 	fire_sound = 'sound/weapons/gunshots/1xray.ogg'
 
@@ -126,6 +127,7 @@
 /obj/item/ammo_casing/energy/ion
 	projectile_type = /obj/item/projectile/ion
 	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
+	delay = 20
 	select_name = "ion"
 	fire_sound = 'sound/weapons/ionrifle.ogg'
 
@@ -193,12 +195,27 @@
 	select_name = "plasma burst"
 	fire_sound = 'sound/weapons/pulse.ogg'
 	delay = 15
-	e_cost = 25
+	e_cost = 50 //30 shots
 
 /obj/item/ammo_casing/energy/plasma/adv
 	projectile_type = /obj/item/projectile/plasma/adv
 	delay = 10
-	e_cost = 10
+	e_cost = 25 //60 shots
+
+/obj/item/ammo_casing/energy/plasma/adv/mega
+	e_cost = 20 //75 shots
+	projectile_type = /obj/item/projectile/plasma/adv/mega
+
+/obj/item/ammo_casing/energy/plasma/shotgun
+	projectile_type = /obj/item/projectile/plasma/shotgun
+	delay = 15
+	e_cost = 75 //20 shots
+	pellets = 5
+	variance = 35
+
+/obj/item/ammo_casing/energy/plasma/shotgun/mega
+	e_cost = 50 //30 shots
+	projectile_type = /obj/item/projectile/plasma/adv/mega/shotgun
 
 /obj/item/ammo_casing/energy/wormhole
 	projectile_type = /obj/item/projectile/beam/wormhole
@@ -230,6 +247,61 @@
 /obj/item/ammo_casing/energy/bolt/large
 	projectile_type = /obj/item/projectile/energy/bolt/large
 	select_name = "heavy bolt"
+
+/obj/item/projectile/energy/bsg
+	name = "Сфера чистой БС энергии"
+	icon_state = "bluespace"
+	impact_effect_type = /obj/effect/temp_visual/bsg_kaboom
+	damage = 60
+	damage_type = BURN
+	range = 9
+	weaken  = 8 SECONDS //This is going to knock you off your feet
+	eyeblur = 20 SECONDS
+	speed   = 2
+
+/obj/item/ammo_casing/energy/bsg/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
+	..()
+	var/obj/item/projectile/energy/bsg/P = BB
+	addtimer(CALLBACK(P, TYPE_PROC_REF(/obj/item/projectile/energy/bsg, make_chain), P, user), 1)
+
+/obj/item/projectile/energy/bsg/proc/make_chain(obj/item/projectile/P, mob/user)
+	P.chain = P.Beam(user, icon_state = "sm_arc_supercharged", icon = 'icons/effects/beam.dmi', time = 10 SECONDS, maxdistance = 30)
+
+/obj/item/projectile/energy/bsg/on_hit(atom/target)
+	. = ..()
+	kaboom()
+	qdel(src)
+
+/obj/item/projectile/energy/bsg/on_range()
+	kaboom()
+	new /obj/effect/temp_visual/bsg_kaboom(loc)
+	..()
+
+/obj/item/projectile/energy/bsg/proc/kaboom()
+	playsound(src, 'sound/weapons/bsg_explode.ogg', 75, TRUE)
+	for(var/mob/living/M in hearers(7, src)) //No stuning people with thermals through a wall.
+		var/floored = FALSE
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			var/obj/item/gun/energy/bsg/N = locate() in H
+			if(N)
+				to_chat(H, "<span class='notice'>[N] deploys an energy shield to project you from [src]'s explosion.</span>")
+				continue
+		var/distance = (1 + get_dist(M, src))
+		if(prob(min(400 / distance, 100))) //100% chance to hit with the blast up to 3 tiles, after that chance to hit is 80% at 4 tiles, 66.6% at 5, 57% at 6, and 50% at 7
+			if(prob(min(150 / distance, 100)))//100% chance to upgraded to a stun as well at a direct hit, 75% at 1 tile, 50% at 2, 37.5% at 3, 30% at 4, 25% at 5, 21% at 6, and finaly 19% at 7. This is calculated after the first hit however.
+				floored = TRUE
+			M.apply_damage((rand(15, 30) * (1.1 - distance / 10)), BURN) //reduced by 10% per tile
+			add_attack_logs(src, M, "Hit heavily by [src]")
+			if(floored)
+				to_chat(M, "<span class='userdanger'>You see a flash of briliant blue light as [src] explodes, knocking you to the ground and burning you!</span>")
+				M.Weaken(8 SECONDS)
+			else
+				to_chat(M, "<span class='userdanger'>You see a flash of briliant blue light as [src] explodes, burning you!</span>")
+		else
+			to_chat(M, "<span class='userdanger'>You feel the heat of the explosion of [src], but the blast mostly misses you.</span>")
+			add_attack_logs(src, M, "Hit lightly by [src]")
+			M.apply_damage(rand(1, 5), BURN)
 
 /obj/item/ammo_casing/energy/dart
 	projectile_type = /obj/item/projectile/energy/dart
@@ -270,6 +342,16 @@
 	muzzle_flash_effect = null
 	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	select_name = "clown"
+
+/obj/item/ammo_casing/energy/bsg
+	projectile_type = /obj/item/projectile/energy/bsg
+	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
+	fire_sound = 'sound/weapons/wave.ogg'
+	e_cost = 10000
+	select_name = null //No one is sticking this into another gun / so I don't have to rename 20 icon states
+	delay = 4 SECONDS //Looooooong cooldown // Used to be 10 seconds, has been rebalanced to be normal firing rate now
 
 /obj/item/ammo_casing/energy/sniper
 	projectile_type = /obj/item/projectile/beam/sniper
@@ -342,3 +424,18 @@
 	fire_sound = 'sound/weapons/marauder.ogg'
 	e_cost = 250
 	delay = 30
+
+/obj/item/ammo_casing/energy/emittergun
+	projectile_type = /obj/item/projectile/beam/emitter
+	e_cost = 200
+	fire_sound = 'sound/weapons/emitter.ogg'
+	delay = 25
+	muzzle_flash_color = LIGHT_COLOR_GREEN
+	select_name  = "emitter"
+/obj/item/ammo_casing/energy/emittergunborg
+	projectile_type = /obj/item/projectile/beam/emitter
+	fire_sound = 'sound/weapons/emitter.ogg'
+	delay = 30
+	muzzle_flash_color = LIGHT_COLOR_GREEN
+	select_name  = "emitter"
+	e_cost = 750

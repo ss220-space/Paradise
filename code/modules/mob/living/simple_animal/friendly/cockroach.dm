@@ -24,7 +24,7 @@
 	tts_seed = "Villagerm"
 
 /mob/living/simple_animal/cockroach/can_die()
-	return ..() && !SSticker.cinematic //If the nuke is going off, then cockroaches are invincible. Keeps the nuke from killing them, cause cockroaches are immune to nukes.
+	return ..() && !SSticker?.mode?.explosion_in_progress //If the nuke is going off, then cockroaches are invincible. Keeps the nuke from killing them, cause cockroaches are immune to nukes.
 
 /mob/living/simple_animal/cockroach/Crossed(var/atom/movable/AM, oldloc)
 	if(isliving(AM))

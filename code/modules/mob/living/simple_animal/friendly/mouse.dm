@@ -37,7 +37,8 @@
 	minbodytemp = 223		//Below -50 Degrees Celcius
 	maxbodytemp = 323	//Above 50 Degrees Celcius
 	universal_speak = 0
-	can_hide = 1
+	can_hide = TRUE
+	pass_door_while_hidden = TRUE
 	holder_type = /obj/item/holder/mouse
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
@@ -50,7 +51,7 @@
 /mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability) && isturf(loc))
 		var/turf/simulated/floor/F = get_turf(src)
-		if(istype(F) && !F.intact)
+		if(istype(F) && !F.intact && !F.transparent_floor)
 			var/obj/structure/cable/C = locate() in F
 			if(C && prob(15))
 				if(C.avail())

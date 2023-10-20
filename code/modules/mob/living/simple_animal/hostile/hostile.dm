@@ -8,7 +8,7 @@
 	var/rapid = 0 //How many shots per volley.
 	var/rapid_fire_delay = 2 //Time between rapid fire shots
 
-	var/dodging = FALSE
+	var/dodging = TRUE
 	var/approaching_target = FALSE //We should dodge now
 	var/in_melee = FALSE	//We should sidestep now
 	var/dodge_prob = 30
@@ -485,7 +485,7 @@
 	return iswallturf(T) || (ismineralturf(T) && !istype(T, /turf/simulated/mineral/ancient/outer))
 
 /mob/living/simple_animal/hostile/Move(atom/newloc, dir , step_x , step_y)
-	if(dodging && approaching_target && prob(dodge_prob) && moving_diagonally == 0 && isturf(loc) && isturf(newloc))
+	if(!client && dodging && approaching_target && prob(dodge_prob) && !moving_diagonally && isturf(loc) && isturf(newloc))
 		return dodge(newloc, dir)
 
 	. = ..()
@@ -620,7 +620,7 @@
 		toggle_ai(AI_Z_OFF)
 		return
 
-	var/cheap_search = isturf(T) && !is_station_level(T.z)
+	var/cheap_search = isturf(T) && !(is_station_level(T.z) || is_mining_level(T.z))
 	if(cheap_search)
 		tlist = ListTargetsLazy(T.z)
 	else

@@ -37,9 +37,6 @@
 	else
 		adjustOxyLoss(-1)
 
-	if(stunned)
-		AdjustStunned(-1, updating = 1, force = 1)
-
 	var/area/my_area = get_area(src)
 
 	if(!lacks_power())
@@ -57,6 +54,7 @@
 				to_chat(src, "<span class='danger'>You have lost power!</span>")
 				if(!is_special_character(src))
 					set_zeroth_law("")
+					SSticker?.score?.save_silicon_laws(src, additional_info = "zero law was deleted due to power lost", log_all_laws = TRUE)
 
 				spawn(20)
 					to_chat(src, "Backup battery online. Scanners, camera, and radio interface offline. Beginning fault-detection.")

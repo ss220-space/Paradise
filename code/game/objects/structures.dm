@@ -4,8 +4,10 @@
 	max_integrity = 300
 	pull_push_speed_modifier = 1.2
 	var/climbable
-	var/mob/climber
+	var/mob/living/climber
 	var/broken = FALSE
+	/// Amount of SSobj ticks (Roughly 2 seconds) that a extinguished structure has been lit up
+	var/light_process = 0
 
 /obj/structure/New()
 	..()
@@ -31,6 +33,8 @@
 		var/turf/T = get_turf(src)
 		spawn(0)
 			queue_smooth_neighbors(T)
+	if(isprocessing)
+		STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/structure/has_prints()
@@ -148,7 +152,7 @@
 
 		if(M.lying) return //No spamming this on people.
 
-		M.Weaken(5)
+		M.Weaken(10 SECONDS)
 		to_chat(M, "<span class='warning'>You topple as \the [src] moves under you!</span>")
 
 		if(prob(25))
@@ -186,15 +190,15 @@
 			H.UpdateDamageIcon()
 	return
 
-/obj/structure/proc/can_touch(var/mob/user)
-	if(!user)
+/obj/structure/proc/can_touch(mob/living/user)
+	if(!istype(user))
 		return 0
 	if(!Adjacent(user))
 		return 0
 	if(user.restrained() || user.buckled)
 		to_chat(user, "<span class='notice'>You need your hands and legs free for this.</span>")
 		return 0
-	if(user.stat || user.paralysis || user.sleeping || user.lying || user.IsWeakened())
+	if(user.stat || user.IsParalyzed() || user.IsSleeping() || user.lying || user.IsWeakened())
 		return 0
 	if(issilicon(user))
 		to_chat(user, "<span class='notice'>You need hands for this.</span>")
@@ -225,3 +229,33 @@
 
 /obj/structure/proc/prevents_buckled_mobs_attacking()
 	return FALSE
+
+
+/obj/structure/extinguish_light(force = FALSE)
+	if(light_range)
+		light_power = 0
+		light_range = 0
+		update_light()
+		name = "dimmed [name]"
+		desc = "Something shadowy moves to cover the object. Perhaps shining a light will force it to clear?"
+		START_PROCESSING(SSobj, src)
+
+
+/obj/structure/process()
+	var/turf/source_turf = get_turf(src)
+	if(source_turf.get_lumcount() > 0.2)
+		light_process++
+		if(light_process > 3)
+			reset_light()
+		return
+	light_process = 0
+
+
+/obj/structure/proc/reset_light()
+	light_process = 0
+	light_power = initial(light_power)
+	light_range = initial(light_range)
+	update_light()
+	name = initial(name)
+	desc = initial(desc)
+	STOP_PROCESSING(SSobj, src)

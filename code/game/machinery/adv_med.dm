@@ -47,19 +47,19 @@
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/TYPECAST_YOUR_SHIT = I
 		if(panel_open)
-			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+			to_chat(user, span_notice("Close the maintenance panel first."))
 			return
 		if(!ishuman(TYPECAST_YOUR_SHIT.affecting))
 			return
 		if(occupant)
-			to_chat(user, "<span class='notice'>The scanner is already occupied!</span>")
+			to_chat(user, span_notice("The scanner is already occupied!"))
 			return
 		if(TYPECAST_YOUR_SHIT.affecting.has_buckled_mobs()) //mob attached to us
-			to_chat(user, "<span class='warning'>[TYPECAST_YOUR_SHIT.affecting] will not fit into [src] because [TYPECAST_YOUR_SHIT.affecting.p_they()] [TYPECAST_YOUR_SHIT.affecting.p_have()] a fucking slime latched onto [TYPECAST_YOUR_SHIT.affecting.p_their()] head.</span>")
+			to_chat(user, span_warning("[TYPECAST_YOUR_SHIT.affecting] will not fit into [src] because [TYPECAST_YOUR_SHIT.affecting.p_they()] [TYPECAST_YOUR_SHIT.affecting.p_have()] a fucking slime latched onto [TYPECAST_YOUR_SHIT.affecting.p_their()] head."))
 			return
 		var/mob/living/carbon/human/M = TYPECAST_YOUR_SHIT.affecting
 		if(M.abiotic())
-			to_chat(user, "<span class='notice'>Subject cannot have abiotic items on.</span>")
+			to_chat(user, span_notice("Subject cannot have abiotic items on."))
 			return
 		M.forceMove(src)
 		occupant = M
@@ -84,10 +84,10 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(occupant)
-		to_chat(user, "<span class='notice'>The scanner is occupied.</span>")
+		to_chat(user, span_notice("The scanner is occupied."))
 		return
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+		to_chat(user, span_notice("Close the maintenance panel first."))
 		return
 	if(dir == EAST)
 		setDir(WEST)
@@ -106,18 +106,18 @@
 	if(!ishuman(user) && !isrobot(user))
 		return FALSE //not a borg or human
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+		to_chat(user, span_notice("Close the maintenance panel first."))
 		return FALSE //panel open
 	if(occupant)
-		to_chat(user, "<span class='notice'>[src] is already occupied.</span>")
+		to_chat(user, span_notice("[src] is already occupied."))
 		return FALSE //occupied
 	if(H.buckled)
 		return FALSE
 	if(H.abiotic())
-		to_chat(user, "<span class='notice'>Subject cannot have abiotic items on.</span>")
+		to_chat(user, span_notice("Subject cannot have abiotic items on."))
 		return FALSE
 	if(H.has_buckled_mobs()) //mob attached to us
-		to_chat(user, "<span class='warning'>[H] will not fit into [src] because [H.p_they()] [H.p_have()] a slime latched onto [H.p_their()] head.</span>")
+		to_chat(user, span_warning("[H] will not fit into [src] because [H.p_they()] [H.p_have()] a slime latched onto [H.p_their()] head."))
 		return
 
 	if(H == user)
@@ -146,7 +146,7 @@
 		return // you cant reach that
 
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+		to_chat(user, span_notice("Close the maintenance panel first."))
 		return
 
 	add_fingerprint(user)
@@ -240,8 +240,8 @@
 		occupantData["radLoss"] = occupant.radiation
 		occupantData["cloneLoss"] = occupant.getCloneLoss()
 		occupantData["brainLoss"] = occupant.getBrainLoss()
-		occupantData["paralysis"] = occupant.paralysis
-		occupantData["paralysisSeconds"] = round(occupant.paralysis * 0.25)
+		occupantData["paralysis"] = occupant.AmountParalyzed()
+		occupantData["paralysisSeconds"] = round(occupant.AmountParalyzed() * 0.25)
 		occupantData["bodyTempC"] = occupant.bodytemperature-T0C
 		occupantData["bodyTempF"] = (((occupant.bodytemperature-T0C) * 1.8) + 32)
 
@@ -351,14 +351,14 @@
 				return
 			isPrinting = TRUE
 			if(GLOB.copier_items_printed >= GLOB.copier_max_items)
-				visible_message("<span class='warning'>Nothing happens. Printing device is broken?</span>")
+				visible_message(span_warning("Nothing happens. Printing device is broken?"))
 				if(!GLOB.copier_items_printed_logged)
 					message_admins("Photocopier cap of [GLOB.copier_max_items] papers reached, all photocopiers/printers are now disabled. This may be the cause of any lag.")
 					GLOB.copier_items_printed_logged = TRUE
 				sleep(3 SECONDS)
 				isPrinting = FALSE
 				return
-			visible_message("<span class='notice'>[src] rattles and prints out a sheet of paper.</span>")
+			visible_message(span_notice("[src] rattles and prints out a sheet of paper."))
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 			sleep(3 SECONDS)
 			var/obj/item/paper/P = new /obj/item/paper(loc)
@@ -419,7 +419,7 @@
 		extra_font = (occupant.getBrainLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
 		dat += "[extra_font]\tApprox. Brain Damage %: [occupant.getBrainLoss()]<br>"
 
-		dat += "Paralysis Summary %: [occupant.paralysis] ([round(occupant.paralysis / 4)] seconds left!)<br>"
+		dat += "Paralysis Summary %: [occupant.AmountParalyzed()] ([round(occupant.AmountParalyzed() / 10)] seconds left!)<br>"
 		dat += "Body Temperature: [occupant.bodytemperature-T0C]&deg;C ([occupant.bodytemperature*1.8-459.67]&deg;F)<br>"
 
 		dat += "<hr>"

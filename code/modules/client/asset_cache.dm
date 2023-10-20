@@ -244,8 +244,8 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		assets["pill[i].png"] = icon('icons/obj/chemical.dmi', "pill[i]")
 	for(var/i in list("bottle", "small_bottle", "wide_bottle", "round_bottle", "reagent_bottle"))
 		assets["[i].png"] = icon('icons/obj/chemical.dmi', "[i]")
-	for(var/i in list("bandaid_med", "bandaid_brute", "bandaid_burn", "bandaid", "bandaid_clown"))
-		assets["[i].png"] = icon('icons/obj/chemical.dmi', "[i]")
+	for(var/i = 1 to 20)
+		assets["bandaid[i].png"] = icon('icons/obj/chemical.dmi', "bandaid[i]")
 	for(var/asset_name in assets)
 		register_asset(asset_name, assets[asset_name])
 
@@ -343,8 +343,11 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	verify = FALSE
 
 /datum/asset/simple/materials/register()
-	for(var/n in list("metal", "glass", "silver", "gold", "diamond", "uranium", "plasma", "clown", "mime", "titanium", "plastic"))
+	for(var/n in list("metal", "glass", "silver", "gold", "diamond", "uranium", "plasma", "clown", "mime", "titanium", "plastic",
+		"rglass", "plasteel", "plastitanium", "plasmaglass", "titaniumglass", "plastitaniumglass", "f_rods"))
 		assets["sheet-[n].png"] = icon('icons/obj/items.dmi', "sheet-[n]")
+	for(var/n in list("alienalloy")) //because this file in abductor.dmi, not items.dmi
+		assets["sheet-[n].png"] = icon('icons/obj/abductor.dmi', "sheet-abductor")
 	assets["sheet-bluespace.png"] = icon('icons/obj/telescience.dmi', "polycrystal")
 	..()
 

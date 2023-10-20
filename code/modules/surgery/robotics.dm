@@ -12,7 +12,7 @@
 /datum/surgery/cybernetic_repair/internal
 	name = "Internal Component Manipulation"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/robotics/manipulate_robotic_organs)
-	possible_locs = list("eyes", "mouth", "chest","head","groin","l_arm","r_arm")
+	possible_locs = list("eyes", "mouth", "chest","head","groin","l_arm","r_arm", "l_leg", "r_leg")
 	requires_organic_bodypart = 0
 
 /datum/surgery/cybernetic_amputation
@@ -319,7 +319,7 @@
 			to_chat(user, "<span class='notice'> \The [I] is in no state to be transplanted.</span>")
 			return -1
 
-		if(target.get_int_organ(I))
+		if(target.get_int_organ(I) && !affected)
 			to_chat(user, "<span class='warning'> \The [target] already has [I].</span>")
 			return -1
 

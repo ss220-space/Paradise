@@ -80,12 +80,12 @@
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/helmet.dmi',
-		"Monkey" = 'icons/mob/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/species/monkey/head.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
 
@@ -99,12 +99,12 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/head.dmi',
-		"Monkey" = 'icons/mob/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/species/monkey/head.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/head/snowman
@@ -117,12 +117,13 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/head.dmi',
-		"Monkey" = 'icons/mob/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/species/monkey/head.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/head/that
@@ -287,12 +288,13 @@
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/head.dmi',
-		"Monkey" = 'icons/mob/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/species/monkey/head.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/head/corgi
@@ -341,12 +343,12 @@
 	icon_state = "fedora"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi',
-		"Monkey" = 'icons/mob/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/species/monkey/head.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/head/fedora/whitefedora
@@ -354,12 +356,12 @@
 	icon_state = "wfedora"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi',
-		"Monkey" = 'icons/mob/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/species/monkey/head.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/head/fedora/brownfedora
@@ -367,12 +369,12 @@
 	icon_state = "bfedora"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi',
-		"Monkey" = 'icons/mob/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/species/monkey/head.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/head/stalhelm
@@ -471,6 +473,20 @@
 	desc = "A hat with bells, to add some merryness to the suit."
 	icon_state = "jester_hat"
 
+/obj/item/clothing/head/rockso
+	name = "Rockso Hat"
+	desc = "I'M B-B-B-B-B-B-B-B-BACK, BABY!"
+	icon_state = "rocksohat"
+	item_state = "rocksohat"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
+		"Wryn" = 'icons/mob/clothing/species/wryn/head.dmi'
+	)
+
 /obj/item/clothing/head/rice_hat
 	name = "rice hat"
 	desc = "Welcome to the rice fields, motherfucker."
@@ -486,12 +502,13 @@
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/head.dmi',
-		"Monkey" = 'icons/mob/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/species/monkey/head.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 	actions_types = list(/datum/action/item_action/caw)
 
@@ -525,12 +542,13 @@
 	flags_inv = HIDENAME|HIDEHEADSETS
 
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/head.dmi',
-		"Monkey" = 'icons/mob/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/species/monkey/head.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/head/papersack/smiley
@@ -541,12 +559,13 @@
 	flags_inv = HIDENAME|HIDEHEADSETS
 
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/head.dmi',
-		"Monkey" = 'icons/mob/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/species/monkey/head.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/head/crown
@@ -572,3 +591,17 @@
 	desc = "Now just to find some maracas!"
 	icon_state = "cuban_hat"
 	item_state = "cuban_hat"
+
+/obj/item/clothing/head/shamanash
+	name = "shaman skull"
+	desc = "The skull of a long dead animal bolted to the front of a repurposed pan."
+	icon_state = "shamskull"
+	species_restricted = list("Unathi", "Ash Walker", "Ash Walker Shaman", "Draconid")
+
+/obj/item/clothing/head/mr_chang_band
+	name = "Tight headband"
+	desc = "It is a safety tool, designed to prevent all marketing and selling techniques from escaping the wearers skull. Handle with care."
+	w_class = WEIGHT_CLASS_TINY
+	icon_state = "mr_chang_band"
+	item_state = "mr_chang_band"
+

@@ -5,7 +5,7 @@
 	computer_id	= client.computer_id
 	log_access_in(client)
 	add_game_logs("OWNERSHIP: Client [key_name(src)] has taken ownership of mob [src]([src.type])")
-	if(config.log_access)
+	if(CONFIG_GET(flag/log_access))
 		for(var/mob/M in GLOB.player_list)
 			if(M == src)	continue
 			if( M.key && (M.key != key) )
@@ -15,7 +15,7 @@
 				if( (M.computer_id == client.computer_id) )
 					if(matches)	matches += " and "
 					matches += "ID ([client.computer_id])"
-					if(!config.disable_cid_warn_popup)
+					if(!CONFIG_GET(flag/disable_cid_warn_popup))
 						spawn() alert("You have logged in already with another key this round, please log out of this one NOW or risk being banned!")
 				if(matches)
 					if(M.client)
@@ -82,3 +82,5 @@
 
 	update_client_colour(0)
 	update_morgue()
+
+	SEND_SIGNAL(src, COMSIG_MOB_CLIENT_LOGIN, client)

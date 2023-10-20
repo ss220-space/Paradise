@@ -16,7 +16,7 @@
 	var/environment_type = "asteroid"
 	var/turf/simulated/floor/plating/turf_type = /turf/simulated/floor/plating/asteroid/airless
 	var/mineralType = null
-	var/mineralAmt = 3
+	var/mineralAmt = 1
 	var/spread = 0 //will the seam spread?
 	var/spreadChance = 0 //the percentual chance of an ore spreading to the neighbouring tiles
 	var/last_act = 0
@@ -25,6 +25,7 @@
 	var/mine_time = 4 SECONDS //Changes how fast the turf is mined by pickaxes, multiplied by toolspeed
 	/// Should this be set to the normal rock colour on init?
 	var/should_reset_color = TRUE
+	var/hardness = 1 //how hard the material is, we'll have to have more powerful stuff if we want to blast harder materials.
 
 /turf/simulated/mineral/Initialize(mapload)
 	if(!canSmoothWith)
@@ -59,7 +60,7 @@
 
 /turf/simulated/mineral/attackby(obj/item/I, mob/user, params)
 	if(!user.IsAdvancedToolUser())
-		to_chat(usr, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		to_chat(usr, span_warning("You don't have the dexterity to do this!"))
 		return
 
 	if(istype(I, /obj/item/pickaxe))
@@ -71,20 +72,24 @@
 		if(last_act + (mine_time* P.toolspeed * gettoolspeedmod(user)) > world.time) // Prevents message spam
 			return
 		last_act = world.time
-		to_chat(user, "<span class='notice'>You start picking...</span>")
+		to_chat(user, span_notice("You start picking..."))
 		P.playDigSound()
 
 		if(do_after(user, mine_time* P.toolspeed * gettoolspeedmod(user), target = src))
 			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
-				to_chat(user, "<span class='notice'>You finish cutting into the rock.</span>")
-				gets_drilled(user)
+				to_chat(user, span_notice("You finish cutting into the rock."))
+				attempt_drill(user)
 				SSblackbox.record_feedback("tally", "pick_used_mining", 1, P.name)
 	else
 		return attack_hand(user)
 
-/turf/simulated/mineral/proc/gets_drilled()
+/turf/simulated/mineral/proc/gets_drilled(mob/user, triggered_by_explosion = FALSE, override_bonus = FALSE)
 	if(mineralType && (mineralAmt > 0))
+		if(triggered_by_explosion && !override_bonus)
+			mineralAmt += 2 //bonus if it was exploded, USE EXPLOSIVES WOOO
 		new mineralType(src, mineralAmt)
+		if(is_mining_level(z))
+			SSticker?.score?.score_ore_mined++ // Only include ore spawned on mining level
 		SSblackbox.record_feedback("tally", "ore_mined", mineralAmt, mineralType)
 	for(var/obj/effect/temp_visual/mining_overlay/M in src)
 		qdel(M)
@@ -92,17 +97,35 @@
 	addtimer(CALLBACK(src, PROC_REF(AfterChange)), 1, TIMER_UNIQUE)
 	playsound(src, 'sound/effects/break_stone.ogg', 50, 1) //beautiful destruction
 
+/turf/simulated/mineral/proc/attempt_drill(mob/user,triggered_by_explosion = FALSE, power = 1)
+	hardness -= power
+	if(hardness <= 0)
+		gets_drilled(user,triggered_by_explosion)
+	else
+		update_icon()
+
+/turf/simulated/mineral/proc/update_icon()
+	if(hardness != initial(hardness))
+		var/amount = hardness
+		var/mutable_appearance/cracks = mutable_appearance('icons/turf/mining.dmi',"rock_cracks_[amount]",ON_EDGED_TURF_LAYER)
+		var/matrix/M = new
+		M.Translate(4,4)
+		cracks.transform = M
+		add_overlay(cracks)
+
+
 /turf/simulated/mineral/attack_animal(mob/living/simple_animal/user)
 	if((user.environment_smash & ENVIRONMENT_SMASH_WALLS) || (user.environment_smash & ENVIRONMENT_SMASH_RWALLS))
-		gets_drilled()
+		attempt_drill()
 	..()
 
 /turf/simulated/mineral/attack_alien(mob/living/carbon/alien/M)
-	to_chat(M, "<span class='notice'>You start digging into the rock...</span>")
+	to_chat(M, span_notice("You start digging into the rock..."))
 	playsound(src, 'sound/effects/break_stone.ogg', 50, TRUE)
 	if(do_after(M, 40, target = src))
-		to_chat(M, "<span class='notice'>You tunnel into the rock.</span>")
-		gets_drilled(M)
+		to_chat(M, span_notice("You tunnel into the rock."))
+		attempt_drill(M)
+
 
 /turf/simulated/mineral/Bumped(atom/movable/moving_atom)
 	..()
@@ -133,12 +156,16 @@
 	switch(severity)
 		if(3)
 			if (prob(75))
-				gets_drilled(null, 1)
+				attempt_drill(null,TRUE,2)
+			else if(prob(90))
+				attempt_drill(null,TRUE,1)
 		if(2)
 			if (prob(90))
-				gets_drilled(null, 1)
+				attempt_drill(null,TRUE,2)
+			else
+				attempt_drill(null,TRUE,1)
 		if(1)
-			gets_drilled(null, 1)
+			attempt_drill(null,TRUE,3)
 
 /turf/simulated/mineral/ancient
 	name = "ancient rock"
@@ -155,7 +182,7 @@
 
 /turf/simulated/mineral/ancient/attackby(obj/item/I, mob/user, params)
 	if(!user.IsAdvancedToolUser())
-		to_chat(usr, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		to_chat(usr, span_warning("You don't have the dexterity to do this!"))
 		return
 
 	if(istype(I, /obj/item/pickaxe))
@@ -167,12 +194,12 @@
 		if(last_act + (mine_time * P.toolspeed) > world.time) // Prevents message spam
 			return
 		last_act = world.time
-		to_chat(user, "<span class='notice'>You start picking...</span>")
+		to_chat(user, span_notice("You start picking..."))
 		P.playDigSound()
 
 		if(do_after(user, mine_time * P.toolspeed, target = src))
 			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
-				to_chat(user, "<span class='notice'>You finish cutting into the rock.</span>")
+				to_chat(user, span_notice("You finish cutting into the rock."))
 				gets_drilled(user)
 				SSblackbox.record_feedback("tally", "pick_used_mining", 1, P.name)
 	else
@@ -217,7 +244,7 @@
 
 /turf/simulated/mineral/ancient/outer/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pickaxe) && !(is_type_in_typecache(I, allowed_picks_typecache)))
-		to_chat(user, "<span class='notice'>Only a diamond tools or a sonic jackhammer can break this rock.</span>")
+		to_chat(user, span_notice("Only a diamond tools or a sonic jackhammer can break this rock."))
 		return
 	return ..()
 
@@ -229,7 +256,7 @@
 		/turf/simulated/mineral/silver = 12, /turf/simulated/mineral/plasma = 20, /turf/simulated/mineral/iron = 40, /turf/simulated/mineral/titanium = 11,
 		/turf/simulated/mineral/gibtonite = 4, /turf/simulated/floor/plating/asteroid/airless/cave = 2, /turf/simulated/mineral/bscrystal = 1)
 		//Currently, Adamantine won't spawn as it has no uses. -Durandan
-	var/mineralChance = 13
+	var/mineralChance = 6
 	var/display_icon_state = "rock"
 
 /turf/simulated/mineral/random/Initialize(mapload)
@@ -245,7 +272,7 @@
 
 		if(T && ismineralturf(T))
 			var/turf/simulated/mineral/M = T
-			M.mineralAmt = rand(1, 5)
+			M.mineralAmt = rand(1, 2) + max(0,((hardness - 1) * 1)) //1 bonus ore for every hardness above 1
 			M.environment_type = environment_type
 			M.turf_type = turf_type
 			M.baseturf = baseturf
@@ -254,16 +281,16 @@
 
 /turf/simulated/mineral/random/high_chance
 	icon_state = "rock_highchance"
-	mineralChance = 25
+	mineralChance = 20
 	mineralSpawnChanceList = list(
 		/turf/simulated/mineral/uranium = 35, /turf/simulated/mineral/diamond = 30, /turf/simulated/mineral/gold = 45, /turf/simulated/mineral/titanium = 45,
-		/turf/simulated/mineral/silver = 50, /turf/simulated/mineral/plasma = 50, /turf/simulated/mineral/bscrystal = 20)
+		/turf/simulated/mineral/silver = 50, /turf/simulated/mineral/plasma = 50, /turf/simulated/mineral/bscrystal = 20, /turf/simulated/mineral/gem = 20)
 
 /turf/simulated/mineral/random/high_chance/clown
 	mineralChance = 40
 	mineralSpawnChanceList = list(
 		/turf/simulated/mineral/uranium = 35, /turf/simulated/mineral/diamond = 2, /turf/simulated/mineral/gold = 5, /turf/simulated/mineral/silver = 5,
-		/turf/simulated/mineral/iron = 30, /turf/simulated/mineral/clown = 15, /turf/simulated/mineral/mime = 15, /turf/simulated/mineral/bscrystal = 10)
+		/turf/simulated/mineral/iron = 30, /turf/simulated/mineral/clown = 15, /turf/simulated/mineral/mime = 15, /turf/simulated/mineral/bscrystal = 10, /turf/simulated/mineral/gem = 10)
 
 /turf/simulated/mineral/random/high_chance/volcanic
 	environment_type = "basalt"
@@ -275,15 +302,15 @@
 	defer_change = 1
 	mineralSpawnChanceList = list(
 		/turf/simulated/mineral/uranium/volcanic = 35, /turf/simulated/mineral/diamond/volcanic = 30, /turf/simulated/mineral/gold/volcanic = 45, /turf/simulated/mineral/titanium/volcanic = 45,
-		/turf/simulated/mineral/silver/volcanic = 50, /turf/simulated/mineral/plasma/volcanic = 50, /turf/simulated/mineral/bscrystal/volcanic = 20)
+		/turf/simulated/mineral/silver/volcanic = 50, /turf/simulated/mineral/plasma/volcanic = 50, /turf/simulated/mineral/bscrystal/volcanic = 20, /turf/simulated/mineral/gem/volcanic = 20)
 
 /turf/simulated/mineral/random/low_chance
 	icon_state = "rock_lowchance"
-	mineralChance = 6
+	mineralChance = 4
 	mineralSpawnChanceList = list(
 		/turf/simulated/mineral/uranium = 2, /turf/simulated/mineral/diamond = 1, /turf/simulated/mineral/gold = 4, /turf/simulated/mineral/titanium = 4,
 		/turf/simulated/mineral/silver = 6, /turf/simulated/mineral/plasma = 15, /turf/simulated/mineral/iron = 40,
-		/turf/simulated/mineral/gibtonite = 2, /turf/simulated/mineral/bscrystal = 1)
+		/turf/simulated/mineral/gibtonite = 2, /turf/simulated/mineral/bscrystal = 1, /turf/simulated/mineral/gem = 1)
 
 /turf/simulated/mineral/random/volcanic
 	environment_type = "basalt"
@@ -294,11 +321,11 @@
 	temperature = 300
 	defer_change = 1
 
-	mineralChance = 10
+	mineralChance = 8
 	mineralSpawnChanceList = list(
-		/turf/simulated/mineral/uranium/volcanic = 5, /turf/simulated/mineral/diamond/volcanic = 1, /turf/simulated/mineral/gold/volcanic = 10, /turf/simulated/mineral/titanium/volcanic = 11,
+		/turf/simulated/mineral/uranium/volcanic = 5, /turf/simulated/mineral/diamond/volcanic = 0.5, /turf/simulated/mineral/gold/volcanic = 10, /turf/simulated/mineral/titanium/volcanic = 11,
 		/turf/simulated/mineral/silver/volcanic = 12, /turf/simulated/mineral/plasma/volcanic = 20, /turf/simulated/mineral/iron/volcanic = 40,
-		/turf/simulated/mineral/gibtonite/volcanic = 4, /turf/simulated/floor/plating/asteroid/airless/cave/volcanic = 1, /turf/simulated/mineral/bscrystal/volcanic = 1)
+		/turf/simulated/mineral/gibtonite/volcanic = 4, /turf/simulated/floor/plating/asteroid/airless/cave/volcanic = 1, /turf/simulated/mineral/bscrystal/volcanic = 0.5, /turf/simulated/mineral/gem/volcanic = 1)
 
 /turf/simulated/mineral/random/labormineral
 	mineralSpawnChanceList = list(
@@ -317,15 +344,49 @@
 	defer_change = 1
 	mineralSpawnChanceList = list(
 		/turf/simulated/mineral/uranium/volcanic = 3, /turf/simulated/mineral/diamond/volcanic = 1, /turf/simulated/mineral/gold/volcanic = 8, /turf/simulated/mineral/titanium/volcanic = 8,
-		/turf/simulated/mineral/silver/volcanic = 20, /turf/simulated/mineral/plasma/volcanic = 30, /turf/simulated/mineral/bscrystal/volcanic = 1, /turf/simulated/mineral/gibtonite/volcanic = 2,
+		/turf/simulated/mineral/silver/volcanic = 20, /turf/simulated/mineral/plasma/volcanic = 30, /turf/simulated/mineral/bscrystal/volcanic = 1,  /turf/simulated/mineral/gem/volcanic = 1, /turf/simulated/mineral/gibtonite/volcanic = 2,
 		/turf/simulated/mineral/iron/volcanic = 95)
+
+/turf/simulated/mineral/random/volcanic/hard
+	name = "hardened basalt"
+	icon_state = "rock_hard"
+	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	mineralChance = 10
+	hardness = 2
+	mineralSpawnChanceList = list(
+		/turf/simulated/mineral/uranium/volcanic/hard = 10, /turf/simulated/mineral/diamond/volcanic/hard = 2, /turf/simulated/mineral/gold/volcanic/hard = 10,
+		/turf/simulated/mineral/titanium/volcanic/hard = 21, /turf/simulated/mineral/magmite/volcanic/hard = 0.5, /turf/simulated/mineral/silver/volcanic/hard = 12,
+		/turf/simulated/mineral/plasma/volcanic/hard = 20, /turf/simulated/mineral/bscrystal/volcanic/hard = 2, /turf/simulated/mineral/gibtonite/volcanic/hard = 4,
+		/turf/simulated/mineral/iron/volcanic/hard = 50, /turf/simulated/mineral/gem/volcanic/hard = 2, /turf/simulated/floor/plating/asteroid/airless/cave/volcanic = 1)
+
+/turf/simulated/mineral/random/volcanic/hard/double
+	name = "hardened volcanic basalt"
+	icon_state = "rock_volcanic"
+	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	mineralChance = 30
+	hardness = 3
+	mineralSpawnChanceList = list(
+		/turf/simulated/mineral/uranium/volcanic/hard/double = 15, /turf/simulated/mineral/diamond/volcanic/hard/double = 3, /turf/simulated/mineral/gold/volcanic/hard/double = 15,
+		/turf/simulated/mineral/titanium/volcanic/hard/double = 31, /turf/simulated/mineral/magmite/volcanic/hard/double = 1, /turf/simulated/mineral/silver/volcanic/hard/double = 12,
+		/turf/simulated/mineral/plasma/volcanic/hard/double = 25, /turf/simulated/mineral/bscrystal/volcanic/hard/double = 3, /turf/simulated/mineral/gibtonite/volcanic/hard/double = 4,
+		/turf/simulated/mineral/iron/volcanic/hard/double = 45, /turf/simulated/mineral/gem/volcanic/hard/double = 5, /turf/simulated/mineral/clown/volcanic/hard/double = 2,
+		/turf/simulated/mineral/mime/volcanic/hard/double = 2, /turf/simulated/floor/plating/asteroid/airless/cave/volcanic = 1)
+
+/turf/simulated/mineral/random/volcanic/hard/double/high_chance
+	icon_state = "rock_highchance"
+	mineralChance = 60
+	mineralSpawnChanceList = list(
+		/turf/simulated/mineral/uranium/volcanic/hard/double = 25, /turf/simulated/mineral/diamond/volcanic/hard/double = 7, /turf/simulated/mineral/gold/volcanic/hard/double = 45,
+		/turf/simulated/mineral/titanium/volcanic/hard/double = 45, /turf/simulated/mineral/silver/volcanic/hard/double = 20, /turf/simulated/mineral/plasma/volcanic/hard/double = 50,
+		/turf/simulated/mineral/bscrystal/volcanic/hard/double = 7, /turf/simulated/mineral/magmite/volcanic/hard/double = 3, /turf/simulated/mineral/gem/volcanic/hard/double = 7,
+		/turf/simulated/mineral/clown/volcanic/hard/double = 5, /turf/simulated/mineral/mime/volcanic/hard/double = 5, /turf/simulated/floor/plating/asteroid/airless/cave/volcanic = 1)
 
 // Actual minerals
 /turf/simulated/mineral/iron
 	mineralType = /obj/item/stack/ore/iron
 	spreadChance = 20
 	spread = 1
-	scan_state = "rock_Iron"
+	scan_state = "rock_iron"
 
 /turf/simulated/mineral/iron/volcanic
 	environment_type = "basalt"
@@ -336,11 +397,21 @@
 	temperature = 300
 	defer_change = 1
 
+/turf/simulated/mineral/iron/volcanic/hard
+	name = "hardened basalt"
+	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	hardness = 2
+
+/turf/simulated/mineral/iron/volcanic/hard/double
+	name = "hardened volcanic basalt"
+	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	hardness = 3
+
 /turf/simulated/mineral/uranium
 	mineralType = /obj/item/stack/ore/uranium
 	spreadChance = 5
 	spread = 1
-	scan_state = "rock_Uranium"
+	scan_state = "rock_uranium"
 
 /turf/simulated/mineral/uranium/volcanic
 	environment_type = "basalt"
@@ -351,11 +422,21 @@
 	temperature = 300
 	defer_change = 1
 
+/turf/simulated/mineral/uranium/volcanic/hard
+	name = "hardened basalt"
+	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	hardness = 2
+
+/turf/simulated/mineral/uranium/volcanic/hard/double
+	name = "hardened volcanic basalt"
+	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	hardness = 3
+
 /turf/simulated/mineral/diamond
 	mineralType = /obj/item/stack/ore/diamond
 	spreadChance = 0
 	spread = 1
-	scan_state = "rock_Diamond"
+	scan_state = "rock_diamond"
 
 /turf/simulated/mineral/diamond/volcanic
 	environment_type = "basalt"
@@ -366,11 +447,21 @@
 	temperature = 300
 	defer_change = 1
 
+/turf/simulated/mineral/diamond/volcanic/hard
+	name = "hardened basalt"
+	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	hardness = 2
+
+/turf/simulated/mineral/diamond/volcanic/hard/double
+	name = "hardened volcanic basalt"
+	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	hardness = 3
+
 /turf/simulated/mineral/gold
 	mineralType = /obj/item/stack/ore/gold
 	spreadChance = 5
 	spread = 1
-	scan_state = "rock_Gold"
+	scan_state = "rock_gold"
 
 /turf/simulated/mineral/gold/volcanic
 	environment_type = "basalt"
@@ -381,11 +472,21 @@
 	temperature = 300
 	defer_change = 1
 
+/turf/simulated/mineral/gold/volcanic/hard
+	name = "hardened basalt"
+	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	hardness = 2
+
+/turf/simulated/mineral/gold/volcanic/hard/double
+	name = "hardened volcanic basalt"
+	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	hardness = 3
+
 /turf/simulated/mineral/silver
 	mineralType = /obj/item/stack/ore/silver
 	spreadChance = 5
 	spread = 1
-	scan_state = "rock_Silver"
+	scan_state = "rock_silver"
 
 /turf/simulated/mineral/silver/volcanic
 	environment_type = "basalt"
@@ -396,11 +497,21 @@
 	temperature = 300
 	defer_change = 1
 
+/turf/simulated/mineral/silver/volcanic/hard
+	name = "hardened basalt"
+	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	hardness = 2
+
+/turf/simulated/mineral/silver/volcanic/hard/double
+	name = "hardened volcanic basalt"
+	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	hardness = 3
+
 /turf/simulated/mineral/titanium
 	mineralType = /obj/item/stack/ore/titanium
 	spreadChance = 5
 	spread = 1
-	scan_state = "rock_Titanium"
+	scan_state = "rock_titanium"
 
 /turf/simulated/mineral/titanium/volcanic
 	environment_type = "basalt"
@@ -411,11 +522,21 @@
 	temperature = 300
 	defer_change = 1
 
+/turf/simulated/mineral/titanium/volcanic/hard
+	name = "hardened basalt"
+	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	hardness = 2
+
+/turf/simulated/mineral/titanium/volcanic/hard/double
+	name = "hardened volcanic basalt"
+	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	hardness = 3
+
 /turf/simulated/mineral/plasma
 	mineralType = /obj/item/stack/ore/plasma
 	spreadChance = 8
 	spread = 1
-	scan_state = "rock_Plasma"
+	scan_state = "rock_plasma"
 
 /turf/simulated/mineral/plasma/volcanic
 	environment_type = "basalt"
@@ -426,12 +547,22 @@
 	temperature = 300
 	defer_change = 1
 
+/turf/simulated/mineral/plasma/volcanic/hard
+	name = "hardened basalt"
+	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	hardness = 2
+
+/turf/simulated/mineral/plasma/volcanic/hard/double
+	name = "hardened volcanic basalt"
+	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	hardness = 3
+
 /turf/simulated/mineral/clown
 	mineralType = /obj/item/stack/ore/bananium
 	mineralAmt = 3
 	spreadChance = 0
 	spread = 0
-	scan_state = "rock_Clown"
+	scan_state = "rock_clown"
 
 /turf/simulated/mineral/clown/volcanic
 	environment_type = "basalt"
@@ -442,11 +573,22 @@
 	temperature = 300
 	defer_change = 1
 
+/turf/simulated/mineral/clown/volcanic/hard
+	name = "hardened basalt"
+	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	hardness = 2
+
+/turf/simulated/mineral/clown/volcanic/hard/double
+	name = "hardened volcanic basalt"
+	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	hardness = 3
+
 /turf/simulated/mineral/mime
 	mineralType = /obj/item/stack/ore/tranquillite
 	mineralAmt = 3
 	spreadChance = 0
 	spread = 0
+	scan_state = "rock_mime"
 
 /turf/simulated/mineral/mime/volcanic
 	environment_type = "basalt"
@@ -457,12 +599,22 @@
 	temperature = 300
 	defer_change = 1
 
+/turf/simulated/mineral/mime/volcanic/hard
+	name = "hardened basalt"
+	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	hardness = 2
+
+/turf/simulated/mineral/mime/volcanic/hard/double
+	name = "hardened volcanic basalt"
+	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	hardness = 3
+
 /turf/simulated/mineral/bscrystal
 	mineralType = /obj/item/stack/ore/bluespace_crystal
 	mineralAmt = 1
 	spreadChance = 0
 	spread = 0
-	scan_state = "rock_BScrystal"
+	scan_state = "rock_bscrystal"
 
 /turf/simulated/mineral/bscrystal/volcanic
 	environment_type = "basalt"
@@ -472,6 +624,41 @@
 	nitrogen = 23
 	temperature = 300
 	defer_change = 1
+
+/turf/simulated/mineral/bscrystal/volcanic/hard
+	name = "hardened basalt"
+	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	hardness = 2
+
+/turf/simulated/mineral/bscrystal/volcanic/hard/double
+	name = "hardened volcanic basalt"
+	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	hardness = 3
+
+/turf/simulated/mineral/gem
+	mineralType = /obj/item/gem/random
+	spread = 0
+	mineralAmt = 1
+	scan_state = "rock_Gem"
+
+/turf/simulated/mineral/gem/volcanic
+	environment_type = "basalt"
+	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
+	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
+	oxygen = 14
+	nitrogen = 23
+	temperature = 300
+	defer_change = 1
+
+/turf/simulated/mineral/gem/volcanic/hard
+	name = "hardened basalt"
+	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	hardness = 2
+
+/turf/simulated/mineral/gem/volcanic/hard/double
+	name = "hardened volcanic basalt"
+	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	hardness = 3
 
 /turf/simulated/mineral/volcanic
 	environment_type = "basalt"
@@ -487,6 +674,15 @@
 	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface
 	defer_change = 1
 
+/turf/simulated/mineral/volcanic/lava_land_surface/hard
+	name = "hardened basalt"
+	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+
+/turf/simulated/mineral/volcanic/lava_land_surface/hard/double
+	name = "hardened volcanic basalt"
+	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	hardness = 3
+
 //gibtonite state defines
 #define GIBTONITE_UNSTRUCK 0
 #define GIBTONITE_ACTIVE 1
@@ -498,7 +694,7 @@
 	mineralAmt = 1
 	spreadChance = 0
 	spread = 0
-	scan_state = "rock_Gibtonite"
+	scan_state = "rock_gibtonite"
 	var/det_time = 8 //Countdown till explosion, but also rewards the player for how close you were to detonation when you defuse it
 	var/stage = GIBTONITE_UNSTRUCK //How far into the lifecycle of gibtonite we are
 	var/activated_ckey = null //These are to track who triggered the gibtonite deposit for logging purposes
@@ -510,8 +706,8 @@
 	. = ..()
 
 /turf/simulated/mineral/gibtonite/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner) && stage == 1)
-		user.visible_message("<span class='notice'>[user] holds [I] to [src]...</span>", "<span class='notice'>You use [I] to locate where to cut off the chain reaction and attempt to stop it...</span>")
+	if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/mecha_parts/mecha_equipment/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner) && stage == 1)
+		user.visible_message(span_notice("[user] holds [I] to [src]..."), span_notice("You use [I] to locate where to cut off the chain reaction and attempt to stop it..."))
 		defuse()
 	else
 		return ..()
@@ -523,7 +719,7 @@
 		name = "gibtonite deposit"
 		desc = "An active gibtonite reserve. Run!"
 		stage = GIBTONITE_ACTIVE
-		visible_message("<span class='danger'>There was gibtonite inside! It's going to explode!</span>")
+		visible_message(span_danger("There was gibtonite inside! It's going to explode!"))
 		var/turf/bombturf = get_turf(src)
 
 		var/notify_admins = 0
@@ -562,9 +758,9 @@
 		stage = GIBTONITE_STABLE
 		if(det_time < 0)
 			det_time = 0
-		visible_message("<span class='notice'>The chain reaction was stopped! The gibtonite had [det_time] reactions left till the explosion!</span>")
+		visible_message(span_notice("The chain reaction was stopped! The gibtonite had [det_time] reactions left till the explosion!"))
 
-/turf/simulated/mineral/gibtonite/gets_drilled(var/mob/user, triggered_by_explosion = 0)
+/turf/simulated/mineral/gibtonite/attempt_drill(var/mob/user, triggered_by_explosion = 0)
 	if(stage == GIBTONITE_UNSTRUCK && mineralAmt >= 1) //Gibtonite deposit is activated
 		playsound(src,'sound/effects/hit_on_shattered_glass.ogg', 50, TRUE)
 		explosive_reaction(user, triggered_by_explosion)
@@ -596,7 +792,47 @@
 	temperature = 300
 	defer_change = 1
 
+/turf/simulated/mineral/gibtonite/volcanic/hard
+	name = "hardened basalt"
+	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	hardness = 2
+
+/turf/simulated/mineral/gibtonite/volcanic/hard/double
+	name = "hardened volcanic basalt"
+	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	hardness = 3
+
 #undef GIBTONITE_UNSTRUCK
 #undef GIBTONITE_ACTIVE
 #undef GIBTONITE_STABLE
 #undef GIBTONITE_DETONATE
+
+//magmite
+/turf/simulated/mineral/magmite
+	mineralType = /obj/item/magmite
+	spread = 0
+	scan_state = "rock_Magmite"
+
+/turf/simulated/mineral/magmite/gets_drilled(mob/user, triggered_by_explosion = FALSE)
+	if(!triggered_by_explosion)
+		mineralAmt = 0
+	..(user,triggered_by_explosion,TRUE)
+
+/turf/simulated/mineral/magmite/volcanic
+	environment_type = "basalt"
+	turf_type = /turf/simulated/floor/plating/asteroid/basalt
+	baseturf = /turf/simulated/floor/plating/asteroid/basalt
+	oxygen = 14
+	nitrogen = 23
+	temperature = 300
+	defer_change = 1
+
+/turf/simulated/mineral/magmite/volcanic/hard
+	name = "hardened basalt"
+	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	hardness = 2
+
+/turf/simulated/mineral/magmite/volcanic/hard/double
+	name = "hardened volcanic basalt"
+	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	hardness = 3

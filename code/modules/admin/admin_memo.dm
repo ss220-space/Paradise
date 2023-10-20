@@ -22,7 +22,7 @@
 	switch(task)
 		if("Write")
 			var/datum/db_query/query_memocheck = SSdbcore.NewQuery(
-				"SELECT ckey FROM [sqlfdbkdbutil].[format_table_name("memo")] WHERE ckey=:ckey",
+				"SELECT ckey FROM [CONFIG_GET(string/utility_database)].[format_table_name("memo")] WHERE ckey=:ckey",
 				list("ckey" = ckey)
 			)
 
@@ -41,7 +41,7 @@
 				return
 
 			var/datum/db_query/query_memoadd = SSdbcore.NewQuery(
-				"INSERT INTO [sqlfdbkdbutil].[format_table_name("memo")] (ckey, memotext, timestamp) VALUES (:ckey, :memotext, NOW())",
+				"INSERT INTO [CONFIG_GET(string/utility_database)].[format_table_name("memo")] (ckey, memotext, timestamp) VALUES (:ckey, :memotext, NOW())",
 				list(
 					"ckey" = ckey,
 					"memotext" = memotext
@@ -57,7 +57,7 @@
 			qdel(query_memoadd)
 
 		if("Edit")
-			var/datum/db_query/query_memolist = SSdbcore.NewQuery("SELECT ckey FROM [sqlfdbkdbutil].[format_table_name("memo")]")
+			var/datum/db_query/query_memolist = SSdbcore.NewQuery("SELECT ckey FROM [CONFIG_GET(string/utility_database)].[format_table_name("memo")]")
 
 			if(!query_memolist.warn_execute())
 				qdel(query_memolist)
@@ -78,7 +78,7 @@
 				return
 
 			var/datum/db_query/query_memofind = SSdbcore.NewQuery(
-				"SELECT memotext FROM [sqlfdbkdbutil].[format_table_name("memo")] WHERE ckey=:ckey",
+				"SELECT memotext FROM [CONFIG_GET(string/utility_database)].[format_table_name("memo")] WHERE ckey=:ckey",
 				list("ckey" = target_ckey)
 			)
 
@@ -96,7 +96,7 @@
 				var/edit_text = "Edited by [target_ckey] on [SQLtime()] from<br>[old_memo]<br>to<br>[new_memo]<hr>"
 
 				var/datum/db_query/update_query = SSdbcore.NewQuery(
-					"UPDATE [sqlfdbkdbutil].[format_table_name("memo")] SET memotext=:newmemo, last_editor=:lasteditor, edits=CONCAT(IFNULL(edits,''),:edittext) WHERE ckey=:targetckey",
+					"UPDATE [CONFIG_GET(string/utility_database)].[format_table_name("memo")] SET memotext=:newmemo, last_editor=:lasteditor, edits=CONCAT(IFNULL(edits,''),:edittext) WHERE ckey=:targetckey",
 					list(
 						"newmemo" = new_memo,
 						"lasteditor" = ckey,
@@ -120,7 +120,7 @@
 			qdel(query_memofind)
 
 		if("Show")
-			var/datum/db_query/query_memoshow = SSdbcore.NewQuery("SELECT ckey, memotext, timestamp, last_editor FROM [sqlfdbkdbutil].[format_table_name("memo")]")
+			var/datum/db_query/query_memoshow = SSdbcore.NewQuery("SELECT ckey, memotext, timestamp, last_editor FROM [CONFIG_GET(string/utility_database)].[format_table_name("memo")]")
 			if(!query_memoshow.warn_execute())
 				qdel(query_memoshow)
 				return
@@ -141,7 +141,7 @@
 			qdel(query_memoshow)
 
 		if("Remove")
-			var/datum/db_query/query_memodellist = SSdbcore.NewQuery("SELECT ckey FROM [sqlfdbkdbutil].[format_table_name("memo")]")
+			var/datum/db_query/query_memodellist = SSdbcore.NewQuery("SELECT ckey FROM [CONFIG_GET(string/utility_database)].[format_table_name("memo")]")
 			if(!query_memodellist.warn_execute())
 				qdel(query_memodellist)
 				return
@@ -161,7 +161,7 @@
 				return
 
 			var/datum/db_query/query_memodel = SSdbcore.NewQuery(
-				"DELETE FROM [sqlfdbkdbutil].[format_table_name("memo")] WHERE ckey=:ckey",
+				"DELETE FROM [CONFIG_GET(string/utility_database)].[format_table_name("memo")] WHERE ckey=:ckey",
 				list("ckey" = target_ckey)
 			)
 

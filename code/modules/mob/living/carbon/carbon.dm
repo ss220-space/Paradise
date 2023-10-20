@@ -105,13 +105,13 @@
 			to_chat(src, "<span class='warning'>Намордник препятствует рвоте!</span>")
 		return FALSE
 	if(stun)
-		Stun(4)
+		Stun(8 SECONDS)
 	if(nutrition < 100 && !blood)
 		if(message)
 			visible_message("<span class='warning'>[src.name] сухо кашля[pluralize_ru(src.gender,"ет","ют")]!</span>", \
 							"<span class='userdanger'>Вы пытаетесь проблеваться, но в вашем желудке пусто!</span>")
 		if(stun)
-			Weaken(10)
+			Weaken(20 SECONDS)
 	else
 		if(message)
 			visible_message("<span class='danger'>[src.name] блю[pluralize_ru(src.gender,"ет","ют")]!</span>", \
@@ -174,18 +174,13 @@
 		"<span class='danger'>[src.name] получил[genderize_ru(src.gender,"","а","о","и")] разряд током [source]!</span>",
 		"<span class='userdanger'>Вы чувствуете электрический разряд проходящий через ваше тело!</span>",
 		"<span class='italics'>Вы слышите сильный электрический треск.</span>")
-	AdjustJitter(1000) //High numbers for violent convulsions
-	do_jitter_animation(jitteriness)
-	AdjustStuttering(2)
+	AdjustJitter(2000 SECONDS) //High numbers for violent convulsions
+	AdjustStuttering(4 SECONDS)
 	if((!tesla_shock || (tesla_shock && siemens_coeff > 0.5)) && stun)
-		Stun(2)
-	spawn(20)
-		AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
-		if((!tesla_shock || (tesla_shock && siemens_coeff > 0.5)) && stun)
-			Stun(2)
-			Weaken(2)
+		Stun(4 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(secondary_shock), tesla_shock, siemens_coeff, stun), 2 SECONDS)
 	if(shock_damage > 200)
-		src.visible_message(
+		visible_message(
 			"<span class='danger'>[src.name] был[genderize_ru(src.gender,"","а","о","и")] прожжен[genderize_ru(src.gender,"","а","о","ы")] дугой [source]!</span>",
 			"<span class='userdanger'>Дуга [source] вспыхивает и ударяет вас электрическим током!</span>",
 			"<span class='italics'>Вы слышите треск похожий на молнию!</span>")
@@ -196,6 +191,12 @@
 		return override
 	else
 		return shock_damage
+
+///Called slightly after electrocute act to reduce jittering and apply a secondary stun.
+/mob/living/carbon/proc/secondary_shock(tesla_shock, siemens_coeff, stun)
+	AdjustJitter(-2000 SECONDS, bound_lower = 20 SECONDS) //Still jittery, but vastly less
+	if((!tesla_shock || (tesla_shock && siemens_coeff > 0.5)) && stun)
+		Weaken(4 SECONDS)
 
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
@@ -212,12 +213,12 @@
 					var/mob/living/carbon/human/H = src
 					if(H.w_uniform)
 						H.w_uniform.add_fingerprint(M)
-				AdjustSleeping(-5)
-				if(sleeping == 0)
+				AdjustSleeping(-10 SECONDS)
+				if(!AmountSleeping())
 					StopResting()
-				AdjustParalysis(-3)
-				AdjustStunned(-3)
-				AdjustWeakened(-3)
+				AdjustParalysis(-6 SECONDS)
+				AdjustStunned(-6 SECONDS)
+				AdjustWeakened(-6 SECONDS)
 				adjustStaminaLoss(-10)
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				if(!player_logged)
@@ -315,7 +316,7 @@
 			to_chat(src, "<span class='info'>Вы полностью истощены.</span>")
 		else
 			to_chat(src, "<span class='info'>Вы чувствуете усталость.</span>")
-	if((SKELETON in H.mutations) && (!H.w_uniform) && (!H.wear_suit))
+	if((isskeleton(H) || (SKELETON in H.mutations)) && (!H.w_uniform) && (!H.wear_suit))
 		H.play_xylophone()
 
 
@@ -327,7 +328,7 @@
 		if(visual)
 			return
 		if(weakeyes)
-			Stun(2)
+			Stun(4 SECONDS)
 
 		var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
 		if(!E || (E && E.weld_proof))
@@ -361,8 +362,8 @@
 				E.receive_damage(rand(12, 16) + extra_damage, 1)
 
 		if(E.damage > E.min_bruised_damage)
-			AdjustEyeBlind(damage)
-			AdjustEyeBlurry(damage * rand(3, 6))
+			AdjustEyeBlind(damage STATUS_EFFECT_CONSTANT)
+			AdjustEyeBlurry(damage * rand(6 SECONDS, 12 SECONDS))
 
 			if(E.damage > (E.min_bruised_damage + E.min_broken_damage) / 2)
 				if(!E.is_robotic())
@@ -399,152 +400,56 @@
 	dna = newDNA
 
 
-GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber))
+/mob/living/carbon/can_ventcrawl(atom/clicked_on, override = FALSE)
+	if(!override && ventcrawler == 1)
+		var/list/weared_items = get_all_slots()
+		for(var/obj/item/item in weared_items)
+			if(item)
+				to_chat(src, span_warning("Вы не можете ползать по вентиляции с [item.name]."))
+				return FALSE
 
-/mob/living/handle_ventcrawl(var/atom/clicked_on) // -- TLE -- Merged by Carn
-	if(!Adjacent(clicked_on))
-		return
-
-	var/ventcrawlerlocal = 0
-	if(ventcrawler)
-		ventcrawlerlocal = ventcrawler
-
-	if(!ventcrawlerlocal)
-		return
-
-	if(stat)
-		to_chat(src, "Вы должны быть в сознании чтобы это сделать!")
-		return
-
-	if(lying)
-		to_chat(src, "Пока вы оглушены, вы не можете заползти в вентиляцию!")
-		return
-
-	if(has_buckled_mobs())
-		to_chat(src, "<span class='warning'>Пока на вас другие существа, вы не можете заползти в вентиляцию!</span>")
-		return
-	if(buckled)
-		to_chat(src, "<span class='warning'>Пока вы пристегнуты, вы не можете заползти в вентиляцию!</span>")
-		return
-	if(ishuman(src))
-		var/mob/living/carbon/human/H = src
-		if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under/contortionist))//IMMA SPCHUL SNOWFLAKE
-			var/obj/item/clothing/under/contortionist/C = H.w_uniform
-			if(!C.check_clothing(src))//return values confuse me right now
-				return
-
-	var/obj/machinery/atmospherics/unary/vent_found
-
-	if(clicked_on)
-		vent_found = clicked_on
-		if(!istype(vent_found) || !vent_found.can_crawl_through())
-			vent_found = null
-
-
-	if(!vent_found)
-		for(var/obj/machinery/atmospherics/machine in range(1,src))
-			if(is_type_in_list(machine, GLOB.ventcrawl_machinery) && machine.can_crawl_through())
-				vent_found = machine
-				break
-
-	if(vent_found)
-		if(vent_found.parent && (vent_found.parent.members.len || vent_found.parent.other_atmosmch))
-			visible_message("<span class='notice'>[src.name] начина[pluralize_ru(src.gender,"ет","ют")] лезть в вентиляцию...</span>", \
-							"<span class='notice'>Вы начинаете лезть в вентиляцию...</span>")
-
-			if(!do_after(src, 45, target = src))
-				return
-
-			if(has_buckled_mobs())
-				to_chat(src, "<span class='warning'>Пока на вас другие существа, вы не можете заползти в вентиляцию!</span>")
-				return
-
-			if(buckled)
-				to_chat(src, "<span class='warning'>Пока вы пристегнуты, вы не можете заползти в вентиляцию!</span>")
-				return
-
-			if(!client)
-				return
-
-			if(iscarbon(src) && contents.len && ventcrawlerlocal < 2)//It must have atleast been 1 to get this far
-				for(var/obj/item/I in contents)
-					var/failed = 0
-					if(istype(I, /obj/item/implant))
-						continue
-					if(istype(I, /obj/item/organ))
-						continue
-					if(I.flags & ABSTRACT)
-						continue
-					else
-						failed++
-
-					if(failed)
-						to_chat(src, "<span class='warning'>Вы не можете ползать по вентиляции с предметами</span>")
-						return
-			if(isswarmer(src))
-				var/mob/living/simple_animal/hostile/swarmer/S = src
-				if(S.light_range)
-					S.ToggleLight()
-			if(issilicon(src))
-				var/mob/living/silicon/S = src
-				if (S.inventory_head)
-					S.drop_hat()
-					visible_message("<b>[src.name] опрокинул шляпу при залезании в вентиляцию!</b>", "Помеха корпуса была утеряна.")
-
-			visible_message("<b>[src.name] залез[genderize_ru(src.gender,"","ла","ло","ли")] в вентиляцию!</b>", "Вы залезли в вентиляцию.")
-			src.loc = vent_found
-			add_ventcrawl(vent_found)
-
-	else
-		to_chat(src, "<span class='warning'>Эта вентиляция ни к чему не подключена!</span>")
-
-
-/mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine, obj/machinery/atmospherics/target_move)
-	if(!istype(starting_machine) || !starting_machine.returnPipenet(target_move) || !starting_machine.can_see_pipes())
-		return
-	var/datum/pipeline/pipeline = starting_machine.returnPipenet(target_move)
-	var/list/totalMembers = list()
-	totalMembers |= pipeline.members
-	totalMembers |= pipeline.other_atmosmch
-	for(var/obj/machinery/atmospherics/A in totalMembers)
-		if(!A.pipe_image)
-			A.update_pipe_image()
-		pipes_shown += A.pipe_image
-		client.images += A.pipe_image
-
-
-/mob/living/proc/remove_ventcrawl()
-	if(client)
-		for(var/image/current_image in pipes_shown)
-			client.images -= current_image
-		client.eye = src
-
-	pipes_shown.len = 0
-
-
-//OOP
-/atom/proc/update_pipe_vision()
-	return
-
-
-/mob/living/update_pipe_vision(obj/machinery/atmospherics/target_move)
-	if(!client)
-		pipes_shown.Cut()
-		return
-	if(length(pipes_shown) && !target_move)
-		if(!is_ventcrawling(src))
-			remove_ventcrawl()
-	else
-		if(is_ventcrawling(src))
-			if(target_move)
-				remove_ventcrawl()
-			add_ventcrawl(loc, target_move)
+	return ..()
 
 
 //Throwing stuff
 
-/mob/living/carbon/throw_impact(atom/hit_atom, throwingdatum)
+/mob/living/carbon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
+
+	if(has_status_effect(STATUS_EFFECT_CHARGING))
+		var/hit_something = FALSE
+		if(ismovable(hit_atom))
+			var/atom/movable/AM = hit_atom
+			var/atom/throw_target = get_edge_target_turf(AM, dir)
+			if(!AM.anchored || ismecha(AM))
+				AM.throw_at(throw_target, 5, 12, src)
+				hit_something = TRUE
+
+		if(isobj(hit_atom))
+			var/obj/O = hit_atom
+			O.take_damage(150, BRUTE)
+			hit_something = TRUE
+
+		if(isliving(hit_atom))
+			var/mob/living/L = hit_atom
+			L.adjustBruteLoss(60)
+			L.Weaken(4 SECONDS)
+			L.Confused(10 SECONDS)
+			shake_camera(L, 4, 3)
+			hit_something = TRUE
+
+		if(isturf(hit_atom))
+			var/turf/T = hit_atom
+			if(iswallturf(T))
+				T.dismantle_wall(TRUE)
+				hit_something = TRUE
+
+		if(hit_something)
+			visible_message("<span class='danger'>[src] slams into [hit_atom]!</span>", "<span class='userdanger'>You slam into [hit_atom]!</span>")
+			playsound(get_turf(src), 'sound/effects/meteorimpact.ogg', 100, TRUE)
+
+		return
+
 	var/hurt = TRUE
 	/*if(istype(throwingdatum, /datum/thrownthing))
 		var/datum/thrownthing/D = throwingdatum
@@ -554,7 +459,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				hurt = FALSE*/
 	if(hit_atom.density && isturf(hit_atom))
 		if(hurt)
-			Weaken(1)
+			Weaken(2 SECONDS)
 			take_organ_damage(10)
 	if(iscarbon(hit_atom) && hit_atom != src)
 		var/mob/living/carbon/victim = hit_atom
@@ -563,8 +468,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(hurt)
 			victim.take_organ_damage(10)
 			take_organ_damage(10)
-			victim.Weaken(1)
-			Weaken(1)
+			victim.Weaken(2 SECONDS)
+			Weaken(2 SECONDS)
 			visible_message("<span class='danger'>[src.name] вреза[pluralize_ru(src.gender,"ет","ют")]ся в [victim.name], сбивая друг друга с ног!</span>", "<span class='userdanger'>Вы жестко врезаетесь в [victim.name]!</span>")
 		playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
 
@@ -577,13 +482,14 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 
 /mob/living/carbon/proc/throw_mode_off()
-	src.in_throw_mode = 0
+	src.in_throw_mode = FALSE
 	if(src.throw_icon) //in case we don't have the HUD and we use the hotkey
 		src.throw_icon.icon_state = "act_throw_off"
 
 
 /mob/living/carbon/proc/throw_mode_on()
-	src.in_throw_mode = 1
+	SIGNAL_HANDLER
+	src.in_throw_mode = TRUE
 	if(src.throw_icon)
 		src.throw_icon.icon_state = "act_throw_on"
 
@@ -688,7 +594,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/carbon/resist_fire()
 	fire_stacks -= 5
-	Weaken(3, 1, 1) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
+	Weaken(6 SECONDS, TRUE) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
 	update_canmove()
 	spin(32,2)
 	visible_message("<span class='danger'>[src.name] ката[pluralize_ru(src.gender,"ет","ют")]ся по полу, пытаясь потушиться!</span>", \
@@ -726,7 +632,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			stat(null, "Wax: [glands.wax]")
 
 
-/mob/living/carbon/proc/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, grav_ignore = FALSE, slipVerb = "поскользнулись")
+/mob/living/carbon/proc/slip(description, weaken, tilesSlipped, walkSafely, slipAny, grav_ignore = FALSE, slipVerb = "поскользнулись")
 	if(flying || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
 		return FALSE
 
@@ -760,7 +666,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	playsound(loc, 'sound/misc/slip.ogg', 50, 1, -3)
 	// Something something don't run with scissors
 	moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
-	Stun(stun)
 	Weaken(weaken)
 	return TRUE
 
@@ -788,7 +693,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		var/this_bite = bitesize_override ? bitesize_override : toEat.bitesize
 		add_attack_logs(user, src, "Force Fed [toEat](bite volume: [this_bite*toEat.transfer_efficiency]u) containing [toEat.reagents.log_list()]")
 	consume(toEat, bitesize_override, can_taste_container = toEat.can_taste)
-	GLOB.score_foodeaten++
+	SSticker.score.score_food_eaten++
 	return 1
 
 
@@ -852,7 +757,10 @@ so that different stomachs can handle things in different ways VB*/
 
 
 /mob/living/carbon/proc/can_breathe_gas()
-	if(NO_BREATHE in src.dna.species.species_traits)
+	if(!iscarbon(src))
+		return FALSE
+
+	if(NO_BREATHE in src.dna?.species?.species_traits)
 		return FALSE
 
 	if(!wear_mask)

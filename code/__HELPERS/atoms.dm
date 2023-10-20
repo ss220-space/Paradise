@@ -59,11 +59,24 @@
  * Proc that collects all atoms of passed `path` in our atom contents
  * and returns it in a list()
  */
-/atom/proc/collect_all_atoms_of_type(path)
+/atom/proc/collect_all_atoms_of_type(path, list/blacklist)
 	var/list/atoms = list()
+	if(src in blacklist)
+		return atoms
 	for(var/atom/check in contents)
+		if(check in blacklist)
+			continue
 		if(istype(check, path))
-			atoms += check
+			atoms |= check
 		if(length(check.contents))
-			check.collect_all_atoms_of_type(path)
+			atoms |= check.collect_all_atoms_of_type(path, blacklist)
 	return atoms
+/**
+ * 	Proc that returns if selected loc, or atom is within boundaries of playable area. (non-transitional space)
+ */
+/proc/is_location_within_transition_boundaries(atom/loc)
+	return (loc.x > TRANSITION_BORDER_WEST) \
+	&& (loc.x < TRANSITION_BORDER_EAST) \
+	&& (loc.y > TRANSITION_BORDER_SOUTH) \
+	&& (loc.y < TRANSITION_BORDER_NORTH)
+

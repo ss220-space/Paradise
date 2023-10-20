@@ -2,7 +2,9 @@ SUBSYSTEM_DEF(events)
 	name = "Events"
 	init_order = INIT_ORDER_EVENTS
 	runlevels = RUNLEVEL_GAME
+	flags = SS_KEEP_TIMING
 	offline_implications = "Random events will no longer happen. No immediate action is needed."
+	cpu_display = SS_CPUDISPLAY_LOW
 	// Report events at the end of the rouund
 	var/report_at_round_end = 0
 
@@ -28,9 +30,10 @@ SUBSYSTEM_DEF(events)
 
 	var/datum/event_meta/new_event = new
 
+
 /datum/controller/subsystem/events/Initialize()
 	allEvents = subtypesof(/datum/event)
-	return ..()
+
 
 /datum/controller/subsystem/events/fire()
 	for(var/datum/event/E in active_events)
@@ -47,23 +50,13 @@ SUBSYSTEM_DEF(events)
 
 	finished_events += E
 
-	var/theseverity
-
-	if(!E.severity)
-		theseverity = EVENT_LEVEL_MODERATE
-
-	if(!E.severity == EVENT_LEVEL_MUNDANE && !E.severity == EVENT_LEVEL_MODERATE && !E.severity == EVENT_LEVEL_MAJOR)
-		theseverity = EVENT_LEVEL_MODERATE //just to be careful
-
-	if(E.severity)
-		theseverity = E.severity
+	var/datum/event_meta/EM = E.event_meta
+	log_debug("Event '[EM.name]' has completed at [station_time_timestamp()].")
 
 	// Add the event back to the list of available events
-	var/datum/event_container/EC = event_containers[theseverity]
-	var/datum/event_meta/EM = E.event_meta
-	EC.available_events += EM
-
-	log_debug("Event '[EM.name]' has completed at [station_time_timestamp()].")
+	if(E.severity != EVENT_LEVEL_NONE)
+		var/datum/event_container/EC = event_containers[E.severity]
+		EC.available_events += EM
 
 /datum/controller/subsystem/events/proc/delay_events(severity, delay)
 	var/datum/event_container/EC = event_containers[severity]

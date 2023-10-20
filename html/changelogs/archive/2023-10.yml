@@ -1,0 +1,121 @@
+'2023-10-01':
+  Daeberdir:
+  - tweak: pAI vendor for syndi base. (#3647)
+'2023-10-02':
+  Daeberdir:
+  - tweak: lavaland weavers cannot gib kidan/diona/APC brains. (#3644)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3643)
+  spaghetti:
+  - tweak: stims for everyone (#3641)
+  Сиротка:
+  - bugfix: AI now can't power on broken APCs (#3648)
+'2023-10-04':
+  0x0v3rfl0w:
+  - tweak: Buckle and paper show delay (#3587)
+  Daeberdir:
+  - add: fabricators rotatability. (#3649)
+  - tweak: balaclava icon change (#3666)
+  Dimach:
+  - tweak: nuke missed station only if exploded on space turf (#3669)
+  - del: '"Tweak: Change Sec HUD icons of Syndicate" (#3670)'
+  Etrnlmelancholy:
+  - add: Chameleon meson glasses (#3634)
+  LiquidPotroh:
+  - add: Draconids & Ash Walkers Customization (#3661)
+  LoneAsket:
+  - add: Grab intent gag and blind function (#3568)
+  Mindfri:
+  - tweak: Toy Figures are Small now. (#3656)
+  NightDawnFox:
+  - bugfix: golem targeter fix and no more alien multitool on golem shuttle (#3646)
+  - bugfix: normal tail wagging for new unathi tails (#3664)
+  ROdenFL:
+  - add: Baked vulp (#3655)
+  - tweak: hypospray recolour (#3659)
+  Vladisvell:
+  - tweak: changed cyborg's storage increase upgrade name (#3662)
+  - bugfix: fixed incorrect icon rendering upon reloging into robots and creatures
+      (#3651)
+  - bugfix: removed repeating description for hacked crates. (#3650)
+  - bugfix: fixed crossbow arrows damage scaling (#3663)
+  - add: Colorful buckets and Cleanbots (#3597)
+  - qol: Metal Foam platings can be replaced with normal one by using metal sheet
+      (#3574)
+  Zwei:
+  - refactor: Space Dragon Cleanup (#3657)
+  aeternaclose:
+  - bugfix: Cyberiad Lavaland Outpost  (#3640)
+  captainnelly:
+  - add: mosin nagant for cargonia (#3658)
+'2023-10-09':
+  aeternaclose:
+  - add: MultiId (#3674)
+  - bugfix: NoDuplicatesForXenos (#3688)
+'2023-10-10':
+  Daeberdir:
+  - bugfix: sprite corrections by @piotrthetchaikowsky (#3692)
+  NightDawnFox:
+  - bugfix: bubblegum now charge hallucinations properly (#3675)
+  PlayTheGoat:
+  - tweak: change sec HUD icon for deathsquad (#3671)
+  Rerik007:
+  - add: changeable colors for underclothing (#3256)
+  - bugfix: second slowed cancel first (#3672)
+  SAAD:
+  - bugfix: Delta library and some more (#3668)
+  Vladisvell:
+  - bugfix: fixed buckets color on head (#3689)
+  - bugfix: Preferences (and voice seed) now transfer correctly to AI on roundstart.
+      (#3679)
+  - add: Bombarda, handmade grenade launcher. (#3472)
+  - balance: ninjas are no longer affectable by pepper sprays (#3691)
+  - bugfix: guest_ban entry value (#3697)
+  Zwei:
+  - refactor: Separate Malf AI Datum (#3612)
+  - bugfix: Changeling Rare Bug Fix (#3681)
+  captainnelly:
+  - add: standart first aid kit for crew (#3684)
+  - balance: flashbangs (#3677)
+  - balance: energy katana is now harmfull to non ninja (#3683)
+  - balance: adrenaline implant (#3676)
+'2023-10-16':
+  ROdenFL:
+  - tweak: wallets can hold patches (#3719)
+  WolfLox:
+  - tweak: crewmember-aid-kit (#3726)
+'2023-10-17':
+  Daeberdir:
+  - bugfix: small map fixes. (#3711)
+  - bugfix: wrong check for martial arts usability. (#3694)
+  - bugfix: nucleation organs desc typo. (#3698)
+  - bugfix: separated objectives for different weapons. (#3708)
+  Etrnlmelancholy:
+  - tweak: ERT equip tweaks (#3680)
+  LoneAsket:
+  - bugfix: Allow Skeleton Race plays on his Bones (#3709)
+  Mindfri:
+  - add: IPC Combat Upgrade in uplink (#3704)
+  - tweak: BattlemageRecharges 3 FOR 1 (#3718)
+  NightDawnFox:
+  - bugfix: normal drake hood for vulps (#3721)
+  - add: mirror on beach biodome (#3706)
+  - add: eye implants in loadout (#3368)
+  PlayTheGoat:
+  - qol: fixing inventory cells for silicons (#3700)
+  ROdenFL:
+  - bugfix: pistol magazine return his sprite (#3702)
+  - bugfix: wolpin with vulps head (#3707)
+  - add: headslug event (#3577)
+  SAAD:
+  - bugfix: old Z2 emo shuttles (#3687)
+  Vladisvell:
+  - tweak: Bombarda tweaks (#3699)
+  - add: brand new items for Thunderdome and bundles (#3722)
+  - bugfix: Now blob can't expand into transitional borders of the Z-level (#3714)
+  - bugfix: fixed incorrect improvised shotgun rendering (#3724)
+  Zwei:
+  - tweak: Vampire Tweaks and Fixes (#3660)
+  - bugfix: Spell Cooldown Visual (#3725)
+  p4el007:
+  - add: sexy mustache beards and hairstyles (#3682)

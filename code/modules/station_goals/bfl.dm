@@ -38,30 +38,26 @@
 //Building//
 ////////////
 /obj/item/circuitboard/machine/bfl_emitter
-	name = "BFL Emitter (Machine Board)"
+	board_name = "BFL Emitter"
 	desc = "Be cautious, when emitter will be done it move up by one step"
 	build_path = /obj/machinery/power/bfl_emitter
 	origin_tech = "engineering=4;combat=4;bluespace=4"
 	req_components = list(
-					/obj/item/stack/sheet/metal = 5,
-					/obj/item/stack/rods = 20,
+					/obj/item/stack/sheet/plasteel = 10,
 					/obj/item/stack/sheet/plasmaglass = 4,
-					/obj/item/stock_parts/manipulator/femto = 2,
 					/obj/item/stock_parts/capacitor/quadratic = 5,
-					/obj/item/stock_parts/micro_laser/quadultra = 20,
-					/obj/item/gun/energy/lasercannon = 4,
-					/obj/item/stack/cable_coil = 6)
+					/obj/item/stock_parts/micro_laser/quadultra = 10,
+					/obj/item/stack/sheet/mineral/diamond = 2)
 
 /obj/item/circuitboard/machine/bfl_receiver
-	name = "BFL Receiver (Machine Board)"
+	board_name = "BFL Receiver"
 	desc = "Must be built in the middle of the deposit"
 	build_path = /obj/machinery/bfl_receiver
 	origin_tech = "engineering=4;combat=4;bluespace=4"
 	req_components = list(
 					/obj/item/stack/sheet/metal = 20,
 					/obj/item/stack/sheet/plasteel = 10,
-					/obj/item/stack/sheet/plasmaglass = 20,
-					/obj/item/stack/sheet/mineral/diamond = 8)
+					/obj/item/stack/sheet/plasmaglass = 20)
 
 ///////////
 //Emitter//
@@ -436,6 +432,8 @@
 	if(step_count > 5)
 		Destroy()
 	step_count++
+	pixel_x = -32
+	pixel_y = -32 //Explictly stating, that pixel_x and pixel_y will ALWAYS be -32/-32 when moved, because moving objects reset their offset.
 
 
 //everything else

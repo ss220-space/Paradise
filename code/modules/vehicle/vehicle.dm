@@ -168,7 +168,7 @@
 		if(!Process_Spacemove(direction) || !isturf(loc))
 			return
 
-		last_vehicle_move = config.human_delay + vehicle_move_delay
+		last_vehicle_move = CONFIG_GET(number/human_delay) + vehicle_move_delay
 		Move(get_step(src, direction), direction, last_vehicle_move)
 
 		if(direction & (direction - 1))		//moved diagonally
@@ -182,7 +182,7 @@
 					playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
 					for(var/m in buckled_mobs)
 						var/mob/living/buckled_mob = m
-						buckled_mob.Weaken(5)
+						buckled_mob.Weaken(10 SECONDS)
 					unbuckle_all_mobs()
 					step(src, dir)
 

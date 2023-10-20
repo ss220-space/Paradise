@@ -149,6 +149,9 @@
 		if(is_admin_level(i) || is_away_level(i) || is_taipan(i))
 			continue
 		var/turf/T2 = locate(ladder_x, ladder_y, i)
+		var/area/new_area = get_area(T2)
+		if(new_area.tele_proof)
+			continue
 		last_ladder = new /obj/structure/ladder/unbreakable/jacob(T2, null, last_ladder)
 	qdel(src)
 
@@ -319,17 +322,20 @@
 	if(is_in_teleport_proof_area(user) || is_in_teleport_proof_area(linked))
 		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
 		return
+	if(do_after(user, 1.5 SECONDS, target = user))
+		var/datum/effect_system/smoke_spread/smoke = new
+		smoke.set_up(1, 0, user.loc)
+		smoke.start()
 
-	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(1, 0, user.loc)
-	smoke.start()
+		user.forceMove(get_turf(linked))
+		SSblackbox.record_feedback("tally", "warp_cube", 1, type)
 
-	user.forceMove(get_turf(linked))
-	SSblackbox.record_feedback("tally", "warp_cube", 1, type)
+		var/datum/effect_system/smoke_spread/smoke2 = new
+		smoke2.set_up(1, 0, user.loc)
+		smoke2.start()
+	else
+		to_chat(user, "<span class='notice'>You need to hold still to use [src].</span>")
 
-	var/datum/effect_system/smoke_spread/smoke2 = new
-	smoke2.set_up(1, 0, user.loc)
-	smoke2.start()
 
 /obj/item/warp_cube/red
 	name = "red cube"
@@ -373,8 +379,7 @@
 	armour_penetration = 100
 	damage_type = BRUTE
 	hitsound = 'sound/effects/splat.ogg'
-	weaken = 1
-	var/chain
+	weaken = 2 SECONDS
 
 /obj/item/projectile/hook/fire(setAngle)
 	if(firer)
@@ -397,8 +402,8 @@
 	QDEL_NULL(chain)
 	return ..()
 
-//Immortality Talisman
 
+//Immortality Talisman
 /obj/item/immortality_talisman
 	name = "Immortality Talisman"
 	desc = "A dread talisman that can render you completely invulnerable."
@@ -406,10 +411,12 @@
 	icon_state = "talisman"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	actions_types = list(/datum/action/item_action/immortality)
-	var/cooldown = 0
+	COOLDOWN_DECLARE(last_used_immortality_talisman)
+
 
 /datum/action/item_action/immortality
 	name = "Immortality"
+
 
 /obj/item/immortality_talisman/Destroy(force)
 	if(force)
@@ -417,44 +424,76 @@
 	else
 		return QDEL_HINT_LETMELIVE
 
+
 /obj/item/immortality_talisman/attack_self(mob/user)
-	if(cooldown < world.time)
-		SSblackbox.record_feedback("amount", "immortality_talisman_uses", 1) // usage
-		cooldown = world.time + 600
-		user.visible_message("<span class='danger'>[user] vanishes from reality, leaving a a hole in [user.p_their()] place!</span>")
-		var/obj/effect/immortality_talisman/Z = new(get_turf(src.loc))
-		Z.name = "hole in reality"
-		Z.desc = "It's shaped an awful lot like [user.name]."
-		Z.setDir(user.dir)
-		user.forceMove(Z)
-		user.notransform = 1
-		user.status_flags |= GODMODE
-		spawn(100)
-			user.status_flags &= ~GODMODE
-			user.notransform = 0
-			user.forceMove(get_turf(Z))
-			user.visible_message("<span class='danger'>[user] pops back into reality!</span>")
-			Z.can_destroy = TRUE
-			qdel(Z)
-	else
-		to_chat(user, "<span class'warning'>[src] is still recharging.</span>")
+	if(!COOLDOWN_FINISHED(src, last_used_immortality_talisman))
+		to_chat(user, span_warning("[src] is still recharging."))
+		return
+
+	var/turf/source_turf = get_turf(src)
+	if(!source_turf)
+		return
+
+	COOLDOWN_START(src, last_used_immortality_talisman, 60 SECONDS)
+	SSblackbox.record_feedback("amount", "immortality_talisman_uses", 1)
+	user.visible_message(span_danger("[user] vanishes from reality, leaving a a hole in [user.p_their()] place!"))
+
+	var/obj/effect/immortality_talisman/effect = new(source_turf)
+	effect.name = "hole in reality"
+	effect.desc = "It's shaped an awful lot like [user.name]."
+	effect.setDir(user.dir)
+	user.forceMove(effect)
+	user.notransform = TRUE
+	user.status_flags |= GODMODE
+
+	addtimer(CALLBACK(src, PROC_REF(reappear), user, effect), 10 SECONDS)
+
+
+/obj/item/immortality_talisman/proc/reappear(mob/user, obj/effect/immortality_talisman/effect)
+	if(QDELETED(src) || QDELETED(user) || QDELETED(effect))
+		return
+
+	var/turf/effect_turf = get_turf(effect)
+	if(!effect_turf)
+		stack_trace("[effect] is outside of the turf contents")
+		return
+
+	user.status_flags &= ~GODMODE
+	user.notransform = FALSE
+	user.forceMove(effect_turf)
+	user.visible_message(span_danger("[user] pops back into reality!"))
+	effect.can_destroy = TRUE
+
+	if(length(effect.contents))
+		for(var/obj/atom as anything in effect.contents)	// Since we are using `as anything` this loop will pickup every atom in contents
+			if(QDELETED(atom))
+				continue
+			atom.loc = effect_turf
+
+	qdel(effect)
+
 
 /obj/effect/immortality_talisman
 	icon_state = "blank"
 	icon = 'icons/effects/effects.dmi'
 	var/can_destroy = FALSE
 
+
 /obj/effect/immortality_talisman/attackby()
 	return
+
 
 /obj/effect/immortality_talisman/ex_act()
 	return
 
+
 /obj/effect/immortality_talisman/singularity_act()
 	return
 
+
 /obj/effect/immortality_talisman/singularity_pull()
 	return 0
+
 
 /obj/effect/immortality_talisman/Destroy(force)
 	if(!can_destroy && !force)

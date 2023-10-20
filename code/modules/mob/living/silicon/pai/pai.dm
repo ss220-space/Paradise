@@ -13,7 +13,7 @@
 	var/ram = 100	// Used as currency to purchase different abilities
 	var/userDNA		// The DNA string of our assigned user
 	var/obj/item/paicard/card	// The card we inhabit
-	var/obj/item/radio/radio		// Our primary radio
+	var/obj/item/radio/headset/radio		// Our primary radio, keyslot1 for regular encryptionkey, keyslot2 for additional.
 	var/sight_mode = 0
 
 	var/chassis = "repairbot"   // A record of your chosen chassis.
@@ -33,7 +33,11 @@
 		"Crow" = "crow"
 		)
 
-	var/global/list/special_possible_chassis = list("Snake" = "snake")
+	var/global/list/special_possible_chassis = list(
+		"Snake" = "snake",
+		"Female" = "female",
+		"Red Female" = "redfemale"
+		)
 
 	var/global/list/possible_say_verbs = list(
 		"Robotic" = list("states","declares","queries"),
@@ -88,21 +92,34 @@
 	var/slowdown = 0
 
 	/// max chemicals and cooldown recovery for chemicals module
-	var/chemicals = 20
+	var/chemicals = 30
 	var/last_change_chemicals = 0
 
 	var/syndipai = FALSE
 
-/mob/living/silicon/pai/New(obj/item/paicard/paicard)
-	loc = paicard
-	card = paicard
+	var/doorjack_factor = 1
+	var/syndi_emote = FALSE
+	var/female_chassis = FALSE
+	var/snake_chassis = FALSE
+
+	var/radio_name
+	var/radio_rank = "Personal AI"
+
+/mob/living/silicon/pai/Initialize(mapload)
+	. = ..()
+
+	if(istype(loc, /obj/item/paicard))
+		card = loc
+
 	if(card)
 		faction = card.faction.Copy()
 	sradio = new(src)
 	if(card)
 		if(!card.radio)
-			card.radio = new /obj/item/radio(card)
+			card.radio = new /obj/item/radio/headset(card)
 		radio = card.radio
+
+	radio_name = name
 
 	//Default languages without universal translator software
 	add_language("Galactic Common", 1)
@@ -136,19 +153,20 @@
 	integrated_records.req_access = list()
 
 	reset_software()
-	..()
 
-/mob/living/silicon/pai/proc/reset_software()
+/mob/living/silicon/pai/proc/reset_software(var/extra_memory = 0)
 	QDEL_LIST(installed_software)
 
 	// Software modules. No these var names have nothing to do with photoshop
 	for(var/PS in subtypesof(/datum/pai_software))
 		var/datum/pai_software/PSD = new PS(src)
+		if(PSD.is_active(src))
+			PSD.toggle(src)
 		if(PSD.default)
 			installed_software[PSD.id] = PSD
 
 	active_software = installed_software["mainmenu"] // Default us to the main menu
-	ram = initial(ram)
+	ram = min(initial(ram) + extra_memory, 170)
 
 /mob/living/silicon/pai/can_unbuckle()
 	return FALSE
@@ -160,7 +178,7 @@
 	. = ..()
 	. += slowdown
 	. += 1 //A bit slower than humans, so they're easier to smash
-	. += config.robot_delay
+	. += CONFIG_GET(number/robot_delay)
 
 /mob/living/silicon/pai/update_icons()
 	if(stat == DEAD)
@@ -214,7 +232,7 @@
 			M.show_message("<span class='warning'>A shower of sparks spray from [src]'s inner workings.</span>", 3, "<span class='warning'>You hear and smell the ozone hiss of electrical sparks being expelled violently.</span>", 2)
 		return death(0)
 
-	switch(pick(1,2,3))
+	switch(pick(1, 2 ,3))
 		if(1)
 			master = null
 			master_dna = null
@@ -233,20 +251,18 @@
 /mob/living/silicon/pai/ex_act(severity)
 	..()
 
-	switch(severity)
-		if(1.0)
-			if(stat != 2)
-				adjustBruteLoss(100)
-				adjustFireLoss(100)
-		if(2.0)
-			if(stat != 2)
-				adjustBruteLoss(60)
-				adjustFireLoss(60)
-		if(3.0)
-			if(stat != 2)
-				adjustBruteLoss(30)
+	if(stat == DEAD)
+		return
 
-	return
+	switch(severity)
+		if(EXPLODE_DEVASTATE)
+			adjustBruteLoss(100)
+			adjustFireLoss(100)
+		if(EXPLODE_HEAVY)
+			adjustBruteLoss(60)
+			adjustFireLoss(60)
+		if(EXPLODE_LIGHT)
+			adjustBruteLoss(30)
 
 
 // See software.dm for ui_act()
@@ -266,7 +282,7 @@
 	set category = "pAI Commands"
 	set name = "Unfold Chassis"
 
-	if(stat || sleeping || paralysis || IsWeakened())
+	if(stat || IsSleeping() || IsParalyzed() || IsWeakened())
 		return
 
 	if(loc != card)
@@ -301,7 +317,7 @@
 	set category = "pAI Commands"
 	set name = "Collapse Chassis"
 
-	if(stat || sleeping || paralysis || IsWeakened())
+	if(stat || IsSleeping() || IsParalyzed() || IsWeakened())
 		return
 
 	if(loc == card)
@@ -341,10 +357,13 @@
 				my_choices["Custom"] = "[ckey]-pai"
 
 	my_choices = base_possible_chassis.Copy()
-	if(syndipai)
-		my_choices += special_possible_chassis.Copy()
-	if(custom_sprite)
-		my_choices["Custom"] = "[ckey]-pai"
+	for(var/i = 1, i<=special_possible_chassis.len, i++)
+		if(female_chassis && (special_possible_chassis[i] == "Female" || special_possible_chassis[i] == "Red Female"))
+			my_choices += special_possible_chassis.Copy(i, i+1)
+		if((syndipai || snake_chassis) && special_possible_chassis[i] == "Snake")
+			my_choices += special_possible_chassis.Copy(i, i+1)
+		if(custom_sprite)
+			my_choices["Custom"] = "[ckey]-pai"
 
 	if(loc == card)		//don't let them continue in card form, since they won't be able to actually see their new mobile form sprite.
 		to_chat(src, "<span class='warning'>You must be in your mobile form to reconfigure your chassis.</span>")
@@ -446,7 +465,7 @@
 			to_chat(user, "<span class='notice'>All [name]'s systems are nominal.</span>")
 		return
 
-	else if(istype(W, /obj/item/paicard_upgrade))
+	else if(istype(W, /obj/item/paicard_upgrade) || istype(W, /obj/item/pai_cartridge))
 		to_chat(user, "<span class='warning'>[src] must be in card form.</span>")
 		return
 
@@ -561,21 +580,16 @@
 	if(!istype(H))
 		return
 	if(stat == DEAD)
-		H.icon = 'icons/mob/pai.dmi'
-		H.icon_state = "[chassis]_dead"
 		return
 	if(resting)
 		icon_state = "[chassis]"
 		resting = 0
 	if(custom_sprite)
-		H.icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 		H.icon_override = 'icons/mob/custom_synthetic/custom_head.dmi'
 		H.lefthand_file = 'icons/mob/custom_synthetic/custom_lefthand.dmi'
 		H.righthand_file = 'icons/mob/custom_synthetic/custom_righthand.dmi'
-		H.icon_state = "[icon_state]"
 		H.item_state = "[icon_state]_hand"
 	else
-		H.icon_state = "pai-[icon_state]"
 		H.item_state = "pai-[icon_state]"
 	grabber.put_in_active_hand(H)//for some reason unless i call this it dosen't work
 	grabber.update_inv_l_hand()
@@ -608,7 +622,7 @@
 		CRASH("pAI without card")
 	loc = card
 
-/mob/living/silicon/pai/extinguish_light()
+/mob/living/silicon/pai/extinguish_light(force = FALSE)
 	flashlight_on = FALSE
 	set_light(0)
 	card.set_light(0)

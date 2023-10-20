@@ -48,7 +48,7 @@
 /datum/admins/proc/makeTraitors()
 	var/datum/game_mode/traitor/temp = new
 
-	if(config.protect_roles_from_antagonist)
+	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()
@@ -79,7 +79,8 @@
 /datum/admins/proc/makeChangelings()
 
 	var/datum/game_mode/changeling/temp = new
-	if(config.protect_roles_from_antagonist)
+
+	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()
@@ -100,16 +101,16 @@
 
 		for(var/i = 0, i<numChangelings, i++)
 			H = pick(candidates)
-			H.mind.make_Changeling()
+			H.mind.add_antag_datum(/datum/antagonist/changeling)
 			candidates.Remove(H)
 
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /datum/admins/proc/makeRevs()
 
 	var/datum/game_mode/revolution/temp = new
-	if(config.protect_roles_from_antagonist)
+	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()
@@ -159,7 +160,7 @@
 /datum/admins/proc/makeCult()
 
 	var/datum/game_mode/cult/temp = new
-	if(config.protect_roles_from_antagonist)
+	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()
@@ -189,7 +190,7 @@
 /datum/admins/proc/makeClockwork()
 
 	var/datum/game_mode/clockwork/temp = new
-	if(config.protect_roles_from_antagonist)
+	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()
@@ -408,7 +409,7 @@
 		var/mob/living/carbon/human/new_vox = new /mob/living/carbon/human/vox(GLOB.raider_spawn[index])
 		new_vox.mind = raider
 		raider.current = new_vox
-		raider.original = new_vox
+		raider.set_original_mob(new_vox)
 
 		raider.key = candidate.key
 		new_vox.key = raider.key
@@ -422,7 +423,7 @@
 /datum/admins/proc/makeVampires()
 
 	var/datum/game_mode/vampire/temp = new
-	if(config.protect_roles_from_antagonist)
+	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()
@@ -444,7 +445,7 @@
 
 		for(var/i = 0, i<numVampires, i++)
 			H = pick(candidates)
-			H.mind.make_Vampire()
+			H.mind.make_vampire()
 			candidates.Remove(H)
 
 		return 1
@@ -533,7 +534,7 @@
 
 /datum/admins/proc/makeThieves()
 	var/datum/game_mode/thief/temp = new
-	if(config.protect_roles_from_antagonist)
+	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()

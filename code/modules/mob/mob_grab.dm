@@ -18,6 +18,7 @@
 	var/allow_upgrade = 1
 	var/last_upgrade = 0
 	var/last_hit_zone = 0
+	var/strength = 1 //how hard is it to get out of this grip
 //	var/force_down //determines if the affecting mob will be pinned to the ground //disabled due to balance, kept for an example for any new things.
 	var/dancing //determines if assailant and affecting keep looking at each other. Basically a wrestling position
 
@@ -38,6 +39,10 @@
 	loc = user
 	assailant = user
 	affecting = victim
+
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		strength = H.dna.species.strength_modifier
 
 	if(affecting.anchored)
 		qdel(src)
@@ -136,6 +141,17 @@
 		else
 			hud.icon_state = "!reinforce"
 
+	if(state == GRAB_AGGRESSIVE)
+		if(!HAS_TRAIT(assailant, TRAIT_PACIFISM) && !GLOB.pacifism_after_gt)
+			affecting.drop_r_hand()
+			affecting.drop_l_hand()
+		if(ishuman(affecting))
+			switch(hit_zone)
+				//if("mouth") - the gag code in say.dm bellow is_muzzle
+				if("eyes")
+					if(!affecting.EyeBlind(2 SECONDS))
+						affecting.SetEyeBlind(2 SECONDS)
+
 	if(state >= GRAB_AGGRESSIVE)
 		if(!HAS_TRAIT(assailant, TRAIT_PACIFISM) && !GLOB.pacifism_after_gt)
 			affecting.drop_r_hand()
@@ -162,7 +178,7 @@
 			if(affecting.loc != assailant.loc)
 				force_down = 0
 			else
-				affecting.Weaken(3) //This is being left in the code as an example of adding a new variable to do something in grab code.
+				affecting.Weaken(6 SECONDS) //This is being left in the code as an example of adding a new variable to do something in grab code.
 
 */
 
@@ -175,10 +191,10 @@
 
 	if(state >= GRAB_KILL)
 		//affecting.apply_effect(STUTTER, 5) //would do this, but affecting isn't declared as mob/living for some stupid reason.
-		affecting.Stuttering(5) //It will hamper your voice, being choked and all.
-		affecting.Weaken(5)	//Should keep you down unless you get help.
+		affecting.Stuttering(10 SECONDS) //It will hamper your voice, being choked and all.
+		affecting.Weaken(10 SECONDS)	//Should keep you down unless you get help.
 		if(!breathing_tube)
-			affecting.AdjustLoseBreath(2, bound_lower = 0, bound_upper = 3)
+			affecting.AdjustLoseBreath(4 SECONDS, bound_lower = 0, bound_upper = 6 SECONDS)
 
 	adjust_position()
 
@@ -253,12 +269,24 @@
 	if(state < GRAB_AGGRESSIVE)
 		if(!allow_upgrade)
 			return
+		var/hit_zone = assailant.zone_selected
+		last_hit_zone = hit_zone
+		if(ishuman(affecting))
+			switch(hit_zone)
+				if("mouth")
+					if(!affecting.wear_mask)
+						assailant.visible_message(span_warning("[assailant] закрыл[genderize_ru(assailant.gender,"","а","о","и")] рот [affecting]"))
+					else
+						assailant.visible_message(span_warning("[assailant] схватил[genderize_ru(assailant.gender,"","а","о","и")] рот [affecting], но на нем маска!"))
+				if("eyes")
+					assailant.visible_message(span_warning("[assailant] рукой закрыл[genderize_ru(assailant.gender,"","а","о","и")] глаза [affecting]"))
+				else
+					assailant.visible_message(span_warning("[assailant] агрессивно схватил[genderize_ru(assailant.gender,"","а","о","и")] [affecting] (за руки)!"))
 		//if(!affecting.lying)
-		assailant.visible_message("<span class='warning'>[assailant] агрессивно схватил[genderize_ru(assailant.gender,"","а","о","и")] [affecting] (за руки)!</span>")
 		/* else
 			assailant.visible_message("<span class='warning'>[assailant] pins [affecting] down to the ground (now hands)!</span>")
 			force_down = 1
-			affecting.Weaken(3)
+			affecting.Weaken(6 SECONDS)
 			step_to(assailant, affecting)
 			assailant.setDir(EAST) //face the victim
 			affecting.setDir(SOUTH) //face up  //This is an example of a new feature based on the context of the location of the victim.
@@ -283,7 +311,7 @@
 			affecting.LAssailant = assailant
 		hud.icon_state = "kill"
 		hud.name = "kill"
-		affecting.Stun(10) //10 ticks of ensured grab
+		affecting.Stun(20 SECONDS) //20 seconds of ensured grab
 	else if(state < GRAB_UPGRADING)
 		assailant.visible_message("<span class='danger'>[assailant] начина[pluralize_ru(assailant.gender,"ет","ют")] сдавливать шею [affecting]!</span>") //[assailant.p_their()]
 		hud.icon_state = "kill1"
@@ -294,7 +322,7 @@
 
 		assailant.next_move = world.time + 10
 		if(!affecting.get_organ_slot("breathing_tube"))
-			affecting.AdjustLoseBreath(1)
+			affecting.AdjustLoseBreath(2 SECONDS)
 
 	adjust_position()
 
@@ -375,7 +403,7 @@
 					if(!force_down)
 						assailant.visible_message("<span class='danger'>[user] is forcing [affecting] to the ground!</span>")
 						force_down = 1
-						affecting.Weaken(3)
+						affecting.Weaken(6 SECONDS)
 						affecting.lying = 1
 						step_to(assailant, affecting)
 						assailant.setDir(EAST) //face the victim
@@ -406,7 +434,7 @@
 		user.visible_message("<span class='danger'>[user.name] поглоща[pluralize_ru(user.gender,"ет","ют")] [affecting.name]!</span>")
 		if(affecting.mind)
 			add_attack_logs(attacker, affecting, "Devoured")
-		if(user.mind.vampire)
+		if(isvampire(user))
 			user.adjust_nutrition(affecting.blood_nutrients)
 		else
 			user.adjust_nutrition(10 * affecting.health)
@@ -422,7 +450,9 @@
 		return 1
 
 	var/mob/living/carbon/human/H = attacker
-	if(ishuman(H) && attacker.mind.vampire && istype(prey, /mob/living/simple_animal/mouse)) //vampires can eat mice despite race
+	var/datum/antagonist/vampire/vamp = H.mind?.has_antag_datum(/datum/antagonist/vampire)
+	var/datum/antagonist/goon_vampire/g_vamp = H.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
+	if(ishuman(H) && (vamp || g_vamp) && istype(prey, /mob/living/simple_animal/mouse)) //vampires can eat mice despite race
 		return 1
 	if(ishuman(H) && is_type_in_list(prey,  H.dna.species.allowed_consumed_mobs)) //species eating of other mobs
 		return 1

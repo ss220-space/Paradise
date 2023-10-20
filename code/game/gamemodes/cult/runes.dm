@@ -290,7 +290,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	rune_in_use = TRUE
 	var/mob/living/L = pick(offer_targets)
-	if(!config.can_cult_convert && !is_sacrifice_target(L.mind))
+	if(!CONFIG_GET(number/can_cult_convert) && !is_sacrifice_target(L.mind))
 		fail_invoke()
 		for(var/I in invokers)
 			to_chat(I, "<span class='warning'>You can not convert new cultists!</span>")
@@ -350,7 +350,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 						crit.cure()
 
 			H.uncuff()
-			H.Silence(3) //Prevent "HALP MAINT CULT" before you realise you're converted
+			H.Silence(6 SECONDS) //Prevent "HALP MAINT CULT" before you realise you're converted
 
 			var/obj/item/melee/cultblade/dagger/D = new(get_turf(src))
 			if(H.equip_to_slot_if_possible(D, slot_in_backpack, disable_warning = TRUE))
@@ -930,7 +930,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		if(user.key)
 			user.visible_message("<span class='warning'>[user] slowly relaxes, the glow around [user.p_them()] dimming.</span>",
 								"<span class='danger'>You are re-united with your physical form. [src] releases its hold over you.</span>")
-			user.Weaken(3)
+			user.Weaken(6 SECONDS)
 			break
 		if(user.health <= 10)
 			to_chat(ghost, "<span class='cultitalic'>Your body can no longer sustain the connection!</span>")

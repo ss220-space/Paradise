@@ -11,6 +11,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	var/righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
+	var/belt_icon = null
+
 	//Dimensions of the lefthand_file and righthand_file vars
 	//eg: 32x32 sprite, 64x64 sprite, etc.
 	var/inhand_x_dimension = 32
@@ -55,7 +57,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/siemens_coefficient = 1 // for electrical admittance/conductance (electrocution checks and shit)
 	var/slowdown = 0 // How much clothing is slowing you down. Negative values speeds you up
 	var/is_speedslimepotioned = FALSE
+	var/cant_be_faster = FALSE
 	var/armour_penetration = 0 //percentage of armour effectiveness to remove
+	/// Allows you to override the attack animation with an attack effect
+	var/attack_effect_override
 	var/list/allowed = null //suit storage stuff.
 	var/obj/item/uplink/hidden/hidden_uplink = null // All items can have an uplink hidden inside, just remember to add the triggers.
 
@@ -128,8 +133,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/nutritional_value = 20 	// How much nutrition add
 	var/is_only_grab_intent = FALSE	//Grab if help_intent was used
 
-	///In deciseconds, how long an item takes to equip; counts only for normal clothing slots, not pockets, hands etc.
+	///In deciseconds, how long an item takes to equip/unequip; counts only for normal clothing slots, not pockets, hands etc.
 	var/equip_delay_self = 0 SECONDS
+
+	///Datum used in item pixel shift TGUI
+	var/datum/ui_module/item_pixel_shift/item_pixel_shift
 
 
 /obj/item/New()
@@ -176,6 +184,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		var/mob/M = loc
 		M.drop_item_ground(src, TRUE)
 	QDEL_LIST(actions)
+	QDEL_NULL(item_pixel_shift)
 
 	return ..()
 
@@ -189,20 +198,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/blob_act(obj/structure/blob/B)
 	if(B && B.loc == loc)
 		qdel(src)
-
-/obj/item/verb/move_to_top()
-	set name = "Move To Top"
-	set category = null
-	set src in oview(1)
-
-	if(!istype(src.loc, /turf) || usr.stat || usr.restrained() )
-		return
-
-	var/turf/T = src.loc
-
-	src.loc = null
-
-	src.loc = T
 
 
 /obj/item/examine(mob/user)
@@ -328,19 +323,26 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 				if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
 					H.UpdateDamageIcon()
 
-	if(istype(src.loc, /obj/item/storage))
-		//If the item is in a storage item, take it out
-		var/obj/item/storage/S = src.loc
-		S.remove_from_storage(src, user)
-	if(QDELETED(src)) //moving it out of the storage to the floor destroyed it.
-		return
-
 	if(throwing)
 		throwing.finalize(FALSE)
 
 	if(loc == user)
-		if(!allow_attack_hand_drop(user) || !user.temporarily_remove_item_from_inventory(src))
+		if(!allow_attack_hand_drop(user))
 			return
+
+		// inventory unequip delay
+		if(equip_delay_self && !user.is_general_slot(user.get_slot_by_item(src)))
+			user.visible_message(span_notice("[user] начинает снимать [name]..."), \
+							span_notice("Вы начинаете снимать [name]..."))
+			if(!do_after_once(user, equip_delay_self, target = user, attempt_cancel_message = "Снятие [name] было прервано!"))
+				return
+
+			if(user.get_active_hand())
+				return
+
+		if(!user.temporarily_remove_item_from_inventory(src))
+			return
+
 	else if(isliving(loc))
 		return
 
@@ -348,12 +350,14 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	pickup(user)
 	add_fingerprint(user)
 
-	if(!user.put_in_active_hand(src, force = FALSE, ignore_anim = FALSE))
+	if(!user.put_in_active_hand(src, ignore_anim = FALSE))
 		user.drop_item_ground(src)
 		return FALSE
 
 
-// If we want to stop manual unequipping of item by hands, but only for user himself (almost NODROP)
+/**
+ * If we want to stop manual unequipping of item by hands, but only for user himself (almost NODROP)
+ */
 /obj/item/proc/allow_attack_hand_drop(mob/user)
 	return TRUE
 
@@ -614,12 +618,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
  * Returns `TRUE` if the item is equipped by a mob, `FALSE` otherwise.
  * This might need some error trapping, not sure if get_equipped_items() is safe for non-human mobs.
  */
-/obj/item/proc/is_equipped()
+/obj/item/proc/is_equipped(include_pockets = FALSE, include_hands = FALSE)
 	if(!ismob(loc))
 		return FALSE
 
 	var/mob/M = loc
-	if(src in M.get_equipped_items())
+	if(src in M.get_equipped_items(include_pockets, include_hands))
 		return TRUE
 	else
 		return FALSE
@@ -674,14 +678,14 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			return container.handle_item_insertion(src)
 
 	if(drop_on_fail)
-		if(src in user.get_equipped_items(include_pockets = TRUE))
+		if(src in user.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 			user.drop_item_ground(src)
 		else
 			forceMove(drop_location())
 		return FALSE
 
 	if(qdel_on_fail)
-		if(src in user.get_equipped_items(include_pockets = TRUE))
+		if(src in user.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 			user.temporarily_remove_item_from_inventory(src, force = TRUE)
 		qdel(src)
 
@@ -810,9 +814,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 				if(M.stat != DEAD)
 					to_chat(M, "<span class='danger'>You drop what you're holding and clutch at your eyes!</span>")
 					M.drop_from_active_hand()
-				M.AdjustEyeBlurry(10)
-				M.Paralyse(1)
-				M.Weaken(2)
+				M.AdjustEyeBlurry(20 SECONDS)
+				M.Paralyse(2 SECONDS)
+				M.Weaken(4 SECONDS)
 			if(eyes.damage >= eyes.min_broken_damage)
 				if(M.stat != 2)
 					to_chat(M, "<span class='danger'>You go blind!</span>")
@@ -821,7 +825,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			H.UpdateDamageIcon()
 	else
 		M.take_organ_damage(7)
-	M.AdjustEyeBlurry(rand(3,4))
+	M.AdjustEyeBlurry(rand(6 SECONDS, 8 SECONDS))
 	return
 
 
@@ -833,13 +837,13 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return
 
 
-/obj/item/throw_impact(atom/A)
-	if(A && !QDELETED(A))
-		SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, A)
-		var/itempush = 1
+/obj/item/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	if(hit_atom && !QDELETED(hit_atom))
+		SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum)
+		var/itempush = TRUE
 		if(w_class < WEIGHT_CLASS_BULKY)
-			itempush = 0 // too light to push anything
-		return A.hitby(src, 0, itempush)
+			itempush = FALSE // too light to push anything
+		return hit_atom.hitby(src, FALSE, itempush, throwingdatum = throwingdatum)
 
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
@@ -931,14 +935,15 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	remove_outline()
 
 
-/obj/item/MouseDrop_T(obj/item/I, mob/user)
-	if(!user || user.incapacitated(ignore_lying = TRUE) || src == I)
-		return
+/obj/item/MouseDrop_T(atom/dropping, mob/user)
+	if(!user || user.incapacitated(ignore_lying = TRUE) || src == dropping)
+		return FALSE
 
-	if(loc && I.loc == loc && istype(loc, /obj/item/storage) && loc.Adjacent(user)) // Are we trying to swap two items in the storage?
+	if(loc && dropping.loc == loc && istype(loc, /obj/item/storage) && loc.Adjacent(user)) // Are we trying to swap two items in the storage?
 		var/obj/item/storage/S = loc
-		S.swap_items(src, I, user)
+		S.swap_items(src, dropping, user)
 	remove_outline() //get rid of the hover effect in case the mouse exit isn't called if someone drags and drops an item and somthing goes wrong
+	return TRUE
 
 
 /obj/item/proc/apply_outline(mob/user, outline_color = null)
@@ -1127,7 +1132,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 /obj/item/proc/do_pickup_animation(atom/target)
 
-	if(!config.item_animations_enabled)
+	if(!CONFIG_GET(flag/item_animations_enabled))
 		return
 
 	if(!isturf(loc) || !target)
@@ -1168,7 +1173,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 /obj/item/proc/do_drop_animation(atom/moving_from)
 
-	if(!config.item_animations_enabled)
+	if(!CONFIG_GET(flag/item_animations_enabled))
 		return
 
 	if(!isturf(loc) || !istype(moving_from))

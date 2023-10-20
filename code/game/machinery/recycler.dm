@@ -76,7 +76,7 @@
 			emergency_mode = FALSE
 			update_icon()
 		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		to_chat(user, "<span class='notice'>You use the cryptographic sequencer on the [name].</span>")
+		to_chat(user, span_notice("You use the cryptographic sequencer on the [name]."))
 		add_attack_logs(user, src, "emagged")
 
 /obj/machinery/recycler/update_icon()
@@ -179,12 +179,12 @@
 
 	// Remove and recycle the equipped items
 	if(eat_victim_items)
-		for(var/obj/item/I in L.get_equipped_items(TRUE))
+		for(var/obj/item/I in L.get_equipped_items(TRUE, TRUE))
 			if(L.drop_item_ground(I))
 				eat(I, sound = 0)
 
 	// Instantly lie down, also go unconscious from the pain, before you die.
-	L.Paralyse(5)
+	L.Paralyse(10 SECONDS)
 
 	// For admin fun, var edit emagged to 2.
 	if(gib || emagged == 2)
@@ -206,7 +206,7 @@
 		to_chat(usr, "[src] is fastened to the floor!")
 		return 0
 	eat_dir = turn(eat_dir, 270)
-	to_chat(user, "<span class='notice'>[src] will now accept items from [dir2text(eat_dir)].</span>")
+	to_chat(user, span_notice("[src] will now accept items from [dir2text(eat_dir)]."))
 	return 1
 
 /obj/machinery/recycler/verb/rotateccw()
@@ -222,7 +222,7 @@
 		to_chat(usr, "[src] is fastened to the floor!")
 		return 0
 	eat_dir = turn(eat_dir, 90)
-	to_chat(user, "<span class='notice'>[src] will now accept items from [dir2text(eat_dir)].</span>")
+	to_chat(user, span_notice("[src] will now accept items from [dir2text(eat_dir)]."))
 	return 1
 
 

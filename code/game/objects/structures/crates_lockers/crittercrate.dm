@@ -1,6 +1,6 @@
 /obj/structure/closet/critter
 	name = "critter crate"
-	desc = "A crate designed for safe transport of animals. Only openable from the the outside."
+	desc = "A crate designed for safe transport of animals. Only openable from the outside."
 	icon_state = "critter"
 	icon_opened = "critteropen"
 	icon_closed = "critter"
@@ -178,3 +178,7 @@
 /obj/structure/closet/critter/croco
 	name = "croco crate"
 	content_mob = /mob/living/simple_animal/hostile/lizard/croco
+
+/obj/structure/closet/critter/snake
+	name = "snake crate"
+	content_mob = /mob/living/simple_animal/hostile/retaliate/poison/snake

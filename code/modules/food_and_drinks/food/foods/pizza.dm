@@ -186,7 +186,7 @@
 	foodtype = MEAT | DAIRY
 
 /obj/item/reagent_containers/food/snacks/diablopizzaslice
-	name = "seafood pizza slice"
+	name = "diablo pizza slice"
 	desc = "A delicious slice of pizza topped with diablo sauce & meat..."
 	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "diablopizzaslice"
@@ -340,7 +340,7 @@
 /obj/item/pizzabox/vegetable/New()
 	..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/vegetablepizza(src)
-	boxtag = "gourmet vegatable"
+	boxtag = "gourmet vegetable"
 
 /obj/item/pizzabox/mushroom/New()
 	..()

@@ -4,6 +4,17 @@
 	icon = 'icons/obj/species_organs/skrell.dmi'
 	alcohol_intensity = 4
 
+/obj/item/organ/internal/liver/skrell/on_life()
+	. = ..()
+	var/datum/reagent/alcohol = locate(/datum/reagent/consumable/ethanol) in owner.reagents.reagent_list
+	if(alcohol)
+		if(is_bruised())
+			owner.adjustToxLoss(0.1 * PROCESS_ACCURACY)
+		else if(is_broken())
+			owner.adjustToxLoss(5)
+		receive_damage(1)
+
+
 /obj/item/organ/internal/headpocket
 	species_type = /datum/species/skrell
 	name = "headpocket"
@@ -93,5 +104,7 @@
 
 /obj/item/organ/internal/eyes/skrell
 	species_type = /datum/species/skrell
+	see_in_dark = 5
+	can_see_food = TRUE
 	name = "skrell eyeballs"
 	icon = 'icons/obj/species_organs/skrell.dmi'

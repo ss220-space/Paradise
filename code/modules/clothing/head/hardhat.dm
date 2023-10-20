@@ -13,12 +13,12 @@
 	resistance_flags = FIRE_PROOF
 	dog_fashion = /datum/dog_fashion/head/hardhat
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/head.dmi',
-		"Monkey" = 'icons/mob/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/species/monkey/head.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/head/hardhat/attack_self()
@@ -53,12 +53,12 @@
 	. = ..()
 	extinguish_light()
 
-/obj/item/clothing/head/hardhat/extinguish_light()
+/obj/item/clothing/head/hardhat/extinguish_light(force = FALSE)
 	if(on)
 		on = FALSE
 		turn_off()
 		update_icon()
-		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
+		visible_message(span_danger("[src]'s light fades and turns off."))
 
 /obj/item/clothing/head/hardhat/orange
 	icon_state = "hardhat0_orange"
@@ -110,10 +110,11 @@
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	dog_fashion = null
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/helmet.dmi',
-		"Monkey" = 'icons/mob/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/species/monkey/head.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
