@@ -102,6 +102,23 @@
 	},
 /turf/simulated/floor/shuttle/syndicate,
 /area/shuttle/transport)
+"bQ" = (
+/obj/machinery/satellite/meteor_shield,
+/obj/machinery/satellite/meteor_shield,
+/obj/machinery/satellite/meteor_shield,
+/obj/machinery/satellite/meteor_shield,
+/obj/machinery/satellite/meteor_shield,
+/obj/machinery/door/window/survival_pod{
+	dir = 2
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8;
+	pixel_x = -4;
+	can_be_hit = 0;
+	damage_deflection = 100
+	},
+/turf/simulated/floor/mech_bay_recharge_floor,
+/area/shuttle/transport)
 "bS" = (
 /obj/structure/table/reinforced,
 /obj/item/radio/electropack,
@@ -355,6 +372,22 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/transport)
+"gI" = (
+/obj/machinery/door/window/survival_pod{
+	dir = 2;
+	layer = 3;
+	req_access = list(104,106,63,19)
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8;
+	pixel_x = -4;
+	can_be_hit = 0;
+	damage_deflection = 100
+	},
+/turf/simulated/floor{
+	icon_state = "darkgreycamo"
+	},
+/area/shuttle/transport)
 "gP" = (
 /obj/structure/rack,
 /obj/item/storage/box/syndie_kit/mimery{
@@ -382,6 +415,26 @@
 	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/transport)
+"hr" = (
+/obj/machinery/door/window/survival_pod{
+	dir = 1;
+	layer = 3;
+	req_access = list(104,106,63,19)
+	},
+/mob/living/simple_animal/hostile/hellhound{
+	faction = list("neutral")
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8;
+	pixel_x = -4;
+	can_be_hit = 0;
+	damage_deflection = 100
+	},
+/turf/simulated/floor{
+	dir = 1;
+	icon_state = "darkgreycamo"
+	},
+/area/shuttle/transport)
 "hJ" = (
 /obj/structure/window/plasmareinforced{
 	dir = 8;
@@ -396,25 +449,25 @@
 /obj/item/stack/sheet/mineral/tranquillite,
 /turf/space,
 /area/shuttle/transport)
-"hP" = (
-/turf/simulated/floor/carpet/red,
-/area/shuttle/transport)
-"hQ" = (
+"hM" = (
 /obj/machinery/door/window/survival_pod{
 	dir = 2;
 	layer = 3;
 	req_access = list(104,106,63,19)
 	},
-/obj/structure/window/plasmareinforced{
+/mob/living/simple_animal/hulk/zilla,
+/obj/structure/window/reinforced/survival_pod{
 	dir = 8;
-	layer = 2.9
-	},
-/mob/living/simple_animal/pet/penguin/emperor{
-	faction = list("neutral")
+	pixel_x = -4;
+	can_be_hit = 0;
+	damage_deflection = 100
 	},
 /turf/simulated/floor{
 	icon_state = "darkgreycamo"
 	},
+/area/shuttle/transport)
+"hP" = (
+/turf/simulated/floor/carpet/red,
 /area/shuttle/transport)
 "if" = (
 /obj/effect/decal/warning_stripes/white/hollow,
@@ -489,32 +542,6 @@
 /area/shuttle/transport)
 "ji" = (
 /turf/simulated/floor/engine/cult,
-/area/shuttle/transport)
-"jq" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/grown/pineapple,
-/obj/item/reagent_containers/food/snacks/grown/pineapple,
-/obj/item/reagent_containers/food/snacks/grown/redbeet,
-/obj/item/reagent_containers/food/snacks/grown/redbeet,
-/obj/item/reagent_containers/food/snacks/grown/redbeet,
-/obj/item/reagent_containers/food/snacks/grown/sugarcane,
-/obj/item/reagent_containers/food/snacks/grown/sugarcane,
-/obj/item/reagent_containers/food/snacks/grown/sugarcane,
-/obj/item/reagent_containers/food/snacks/grown/banana,
-/obj/item/reagent_containers/food/snacks/grown/banana,
-/obj/item/reagent_containers/food/snacks/grown/banana,
-/obj/item/reagent_containers/food/snacks/grown/banana,
-/obj/machinery/light/spot,
-/obj/structure/window/reinforced/survival_pod{
-	dir = 8;
-	pixel_x = -4;
-	can_be_hit = 0;
-	damage_deflection = 100
-	},
-/turf/simulated/floor/noslip{
-	icon = 'icons/turf/shuttle/floors.dmi';
-	icon_state = "floor"
-	},
 /area/shuttle/transport)
 "jK" = (
 /obj/docking_port/mobile{
@@ -670,6 +697,16 @@
 	icon_state = "brown"
 	},
 /area/shuttle/transport)
+"nh" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/structure/cable/yellow,
+/turf/simulated/floor/plasteel{
+	dir = 7;
+	icon_state = "yellow"
+	},
+/area/shuttle/transport)
 "nm" = (
 /obj/item/storage/box/donkpockets{
 	pixel_x = 6;
@@ -693,6 +730,32 @@
 	req_access = list(104,106,63,19)
 	},
 /turf/simulated/floor/shuttle/syndicate,
+/area/shuttle/transport)
+"np" = (
+/obj/structure/table/wood,
+/obj/structure/sign/poster/contraband/communist_state{
+	pixel_y = -32
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"nx" = (
+/obj/machinery/door/window/survival_pod{
+	dir = 2;
+	layer = 3;
+	req_access = list(104,106,63,19)
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 8;
+	layer = 2.9
+	},
+/mob/living/simple_animal/pet/penguin/emperor{
+	faction = list("neutral")
+	},
+/turf/simulated/floor{
+	icon_state = "darkgreycamo"
+	},
 /area/shuttle/transport)
 "of" = (
 /obj/machinery/computer/shuttle/ferry/request{
@@ -760,22 +823,11 @@
 	},
 /area/shuttle/transport)
 "pv" = (
-/obj/machinery/door/window/survival_pod{
-	dir = 2;
-	layer = 3;
-	req_access = list(104,106,63,19)
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
-/mob/living/simple_animal/pet/dog/corgi/narsie{
-	faction = list("neutral")
-	},
-/obj/structure/window/reinforced/survival_pod{
-	dir = 8;
-	pixel_x = -4;
-	can_be_hit = 0;
-	damage_deflection = 100
-	},
-/turf/simulated/floor{
-	icon_state = "darkgreycamo"
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
 	},
 /area/shuttle/transport)
 "pw" = (
@@ -904,11 +956,22 @@
 	},
 /area/shuttle/transport)
 "rM" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
+/obj/machinery/door/window/survival_pod{
+	dir = 2;
+	layer = 3;
+	req_access = list(104,106,63,19)
 	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
+/mob/living/simple_animal/pet/penguin/emperor{
+	faction = list("neutral")
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8;
+	pixel_x = -4;
+	can_be_hit = 0;
+	damage_deflection = 100
+	},
+/turf/simulated/floor{
+	icon_state = "darkgreycamo"
 	},
 /area/shuttle/transport)
 "se" = (
@@ -1098,29 +1161,6 @@
 	icon_state = "whitebluecorner"
 	},
 /area/shuttle/transport)
-"vx" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/grenade/clusterbuster/meat,
-/obj/item/reagent_containers/food/snacks/meat,
-/obj/item/reagent_containers/food/snacks/meat,
-/obj/item/reagent_containers/food/snacks/meat,
-/obj/item/reagent_containers/food/snacks/meat,
-/obj/item/reagent_containers/food/snacks/meat,
-/obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
-	},
-/obj/structure/window/reinforced/survival_pod{
-	dir = 8;
-	pixel_x = -4;
-	can_be_hit = 0;
-	damage_deflection = 100
-	},
-/turf/simulated/floor/noslip{
-	icon = 'icons/turf/shuttle/floors.dmi';
-	icon_state = "floor"
-	},
-/area/shuttle/transport)
 "vH" = (
 /obj/item/paper_bin,
 /obj/item/pen,
@@ -1165,24 +1205,42 @@
 	},
 /area/shuttle/transport)
 "vP" = (
-/obj/structure/window/plasmareinforced{
+/obj/machinery/door/window/survival_pod{
+	dir = 1;
+	layer = 3;
+	req_access = list(104,106,63,19)
+	},
+/mob/living/simple_animal/hostile/netherworld/migo{
+	faction = list("neutral")
+	},
+/obj/structure/window/reinforced/survival_pod{
 	dir = 8;
-	layer = 2.9
+	pixel_x = -4;
+	can_be_hit = 0;
+	damage_deflection = 100
 	},
-/obj/machinery/power/grounding_rod,
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
+/turf/simulated/floor{
+	dir = 1;
+	icon_state = "darkgreycamo"
 	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
+/area/shuttle/transport)
+"vT" = (
+/obj/machinery/door/window/survival_pod{
+	dir = 2;
+	layer = 3;
+	req_access = list(104,106,63,19)
 	},
-/turf/simulated/floor/plasteel{
+/mob/living/simple_animal/pet/dog/corgi/narsie{
+	faction = list("neutral")
+	},
+/obj/structure/window/reinforced/survival_pod{
 	dir = 8;
-	icon_state = "yellow"
+	pixel_x = -4;
+	can_be_hit = 0;
+	damage_deflection = 100
+	},
+/turf/simulated/floor{
+	icon_state = "darkgreycamo"
 	},
 /area/shuttle/transport)
 "wh" = (
@@ -1509,6 +1567,29 @@
 	icon_state = "floor"
 	},
 /area/shuttle/transport)
+"BZ" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/grenade/clusterbuster/meat,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/machinery/light/spot{
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8;
+	pixel_x = -4;
+	can_be_hit = 0;
+	damage_deflection = 100
+	},
+/turf/simulated/floor/noslip{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor"
+	},
+/area/shuttle/transport)
 "Cd" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/shuttle{
@@ -1587,7 +1668,7 @@
 	layer = 3;
 	req_access = list(104,106,63,19)
 	},
-/mob/living/simple_animal/hostile/netherworld/migo{
+/mob/living/simple_animal/hostile/creature{
 	faction = list("neutral")
 	},
 /obj/structure/window/reinforced/survival_pod{
@@ -1666,17 +1747,6 @@
 /obj/item/bedsheet/rainbow,
 /turf/simulated/floor/noslip,
 /area/shuttle/transport)
-"Fo" = (
-/obj/machinery/power/rad_collector,
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/obj/structure/cable/yellow,
-/turf/simulated/floor/plasteel{
-	dir = 7;
-	icon_state = "yellow"
-	},
-/area/shuttle/transport)
 "Fz" = (
 /obj/docking_port/mobile{
 	dir = 8;
@@ -1727,11 +1797,29 @@
 /turf/simulated/floor/shuttle/syndicate,
 /area/shuttle/transport)
 "FV" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/food/snacks/grown/pineapple,
+/obj/item/reagent_containers/food/snacks/grown/pineapple,
+/obj/item/reagent_containers/food/snacks/grown/redbeet,
+/obj/item/reagent_containers/food/snacks/grown/redbeet,
+/obj/item/reagent_containers/food/snacks/grown/redbeet,
+/obj/item/reagent_containers/food/snacks/grown/sugarcane,
+/obj/item/reagent_containers/food/snacks/grown/sugarcane,
+/obj/item/reagent_containers/food/snacks/grown/sugarcane,
+/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/machinery/light/spot,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8;
+	pixel_x = -4;
+	can_be_hit = 0;
+	damage_deflection = 100
 	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
+/turf/simulated/floor/noslip{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor"
 	},
 /area/shuttle/transport)
 "FY" = (
@@ -1987,6 +2075,36 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/transport)
+"Kf" = (
+/obj/structure/window/plasmareinforced{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/machinery/power/grounding_rod{
+	pixel_x = -44
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/machinery/power/emitter{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "yellow"
+	},
+/area/shuttle/transport)
 "Kg" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/iv_bag/blood/AMinus,
@@ -2137,21 +2255,17 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/transport)
 "LY" = (
-/obj/machinery/satellite/meteor_shield,
-/obj/machinery/satellite/meteor_shield,
-/obj/machinery/satellite/meteor_shield,
-/obj/machinery/satellite/meteor_shield,
-/obj/machinery/satellite/meteor_shield,
-/obj/machinery/door/window/survival_pod{
-	dir = 2
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
 	},
-/obj/structure/window/reinforced/survival_pod{
-	dir = 8;
-	pixel_x = -4;
-	can_be_hit = 0;
-	damage_deflection = 100
+/obj/structure/cable/yellow{
+	d2 = 2;
+	icon_state = "0-2"
 	},
-/turf/simulated/floor/mech_bay_recharge_floor,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellow"
+	},
 /area/shuttle/transport)
 "Mc" = (
 /obj/machinery/computer/shuttle/ferry/request{
@@ -2234,25 +2348,6 @@
 	icon_state = "whiteyellow"
 	},
 /area/shuttle/transport)
-"Nm" = (
-/obj/machinery/door/window/survival_pod{
-	dir = 2;
-	layer = 3;
-	req_access = list(104,106,63,19)
-	},
-/mob/living/simple_animal/pet/penguin/emperor{
-	faction = list("neutral")
-	},
-/obj/structure/window/reinforced/survival_pod{
-	dir = 8;
-	pixel_x = -4;
-	can_be_hit = 0;
-	damage_deflection = 100
-	},
-/turf/simulated/floor{
-	icon_state = "darkgreycamo"
-	},
-/area/shuttle/transport)
 "Ny" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/shuttle{
@@ -2264,43 +2359,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbrown"
-	},
-/area/shuttle/transport)
-"NJ" = (
-/obj/machinery/door/window/survival_pod{
-	dir = 1;
-	layer = 3;
-	req_access = list(104,106,63,19)
-	},
-/mob/living/simple_animal/hostile/creature{
-	faction = list("neutral")
-	},
-/obj/structure/window/reinforced/survival_pod{
-	dir = 8;
-	pixel_x = -4;
-	can_be_hit = 0;
-	damage_deflection = 100
-	},
-/turf/simulated/floor{
-	dir = 1;
-	icon_state = "darkgreycamo"
-	},
-/area/shuttle/transport)
-"NM" = (
-/obj/machinery/door/window/survival_pod{
-	dir = 2;
-	layer = 3;
-	req_access = list(104,106,63,19)
-	},
-/mob/living/simple_animal/hulk/zilla,
-/obj/structure/window/reinforced/survival_pod{
-	dir = 8;
-	pixel_x = -4;
-	can_be_hit = 0;
-	damage_deflection = 100
-	},
-/turf/simulated/floor{
-	icon_state = "darkgreycamo"
 	},
 /area/shuttle/transport)
 "NU" = (
@@ -2463,15 +2521,6 @@
 	icon_state = "yellow"
 	},
 /area/shuttle/transport)
-"Qc" = (
-/obj/structure/table/wood,
-/obj/structure/sign/poster/contraband/communist_state{
-	pixel_y = -32
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
-	},
-/area/shuttle/transport)
 "Qf" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -2548,26 +2597,6 @@
 "RI" = (
 /obj/structure/cult/forge,
 /turf/simulated/floor/engine/cult,
-/area/shuttle/transport)
-"RL" = (
-/obj/machinery/door/window/survival_pod{
-	dir = 1;
-	layer = 3;
-	req_access = list(104,106,63,19)
-	},
-/mob/living/simple_animal/hostile/hellhound{
-	faction = list("neutral")
-	},
-/obj/structure/window/reinforced/survival_pod{
-	dir = 8;
-	pixel_x = -4;
-	can_be_hit = 0;
-	damage_deflection = 100
-	},
-/turf/simulated/floor{
-	dir = 1;
-	icon_state = "darkgreycamo"
-	},
 /area/shuttle/transport)
 "RM" = (
 /obj/structure/closet/cabinet,
@@ -2689,11 +2718,12 @@
 	},
 /area/shuttle/transport)
 "Uz" = (
-/obj/effect/rune{
-	icon = 'icons/effects/96x96.dmi';
-	icon_state = "rune_large"
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
-/turf/simulated/floor/engine/cult,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
 /area/shuttle/transport)
 "UA" = (
 /obj/effect/decal/cleanable/blood/bubblegum,
@@ -2791,22 +2821,6 @@
 /turf/simulated/floor/noslip{
 	icon = 'icons/turf/shuttle/floors.dmi';
 	icon_state = "floor"
-	},
-/area/shuttle/transport)
-"WK" = (
-/obj/machinery/door/window/survival_pod{
-	dir = 2;
-	layer = 3;
-	req_access = list(104,106,63,19)
-	},
-/obj/structure/window/reinforced/survival_pod{
-	dir = 8;
-	pixel_x = -4;
-	can_be_hit = 0;
-	damage_deflection = 100
-	},
-/turf/simulated/floor{
-	icon_state = "darkgreycamo"
 	},
 /area/shuttle/transport)
 "WW" = (
@@ -2977,6 +2991,13 @@
 	icon_state = "floor"
 	},
 /area/shuttle/transport)
+"Zz" = (
+/obj/effect/rune{
+	icon = 'icons/effects/96x96.dmi';
+	icon_state = "rune_large"
+	},
+/turf/simulated/floor/engine/cult,
+/area/shuttle/transport)
 "ZI" = (
 /obj/machinery/door/airlock/gold/glass,
 /turf/simulated/floor/carpet/royalblack,
@@ -3076,7 +3097,7 @@ GR
 Mh
 fW
 Mh
-hQ
+nx
 PB
 Xt
 Mh
@@ -3122,15 +3143,15 @@ wO
 Mh
 fW
 Mh
-LY
+bQ
 Tq
 XY
 Mh
 fW
 Mh
-Nm
+rM
 PB
-Dd
+vP
 Mh
 fW
 pB
@@ -3174,13 +3195,13 @@ SC
 Mh
 fW
 Mh
-LY
+bQ
 Tq
 XY
 Mh
 fW
 Mh
-pv
+vT
 PB
 LM
 Mh
@@ -3216,7 +3237,7 @@ fW
 aH
 Sx
 DR
-Uz
+Zz
 aH
 fW
 Mh
@@ -3226,15 +3247,15 @@ FH
 Mh
 fW
 Mh
-LY
+bQ
 Tq
 XY
 Mh
 fW
 Mh
-WK
+gI
 PB
-RL
+hr
 Mh
 fW
 pB
@@ -3284,7 +3305,7 @@ XY
 Mh
 fW
 Mh
-WK
+gI
 PB
 LM
 Mh
@@ -3336,7 +3357,7 @@ XY
 Mh
 fW
 Mh
-NM
+hM
 PB
 LM
 Mh
@@ -3388,9 +3409,9 @@ CF
 Ad
 fW
 Mh
-WK
+gI
 PB
-NJ
+Dd
 Mh
 fW
 pB
@@ -3440,9 +3461,9 @@ CF
 Ad
 fW
 Mh
-vx
+BZ
 PB
-jq
+FV
 Mh
 fW
 pB
@@ -3823,7 +3844,7 @@ Mh
 fW
 Mh
 aJ
-vP
+Kf
 PX
 Mh
 fW
@@ -3874,9 +3895,9 @@ zz
 Mh
 fW
 Mh
-fF
+LY
 OU
-Fo
+nh
 Mh
 fW
 "}
@@ -4070,9 +4091,9 @@ rA
 Mh
 fW
 Mh
-FV
+Uz
 yV
-FV
+Uz
 Mh
 fW
 Mh
@@ -4124,7 +4145,7 @@ fW
 Mh
 Li
 yV
-Qc
+np
 Mh
 fW
 Ad
@@ -4174,9 +4195,9 @@ AU
 Mh
 fW
 Mh
-rM
+pv
 yV
-rM
+pv
 Mh
 fW
 Mh
