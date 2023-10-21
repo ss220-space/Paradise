@@ -1346,6 +1346,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 3
 	surplus = 80
 
+/datum/uplink_item/explosives/fraggrenade
+	name = "Frag grenade's"
+	reference = "FRAG"
+	desc = "A belt containing 4 lethally dangerous and destructive grenades."
+	item = /obj/item/storage/belt/grenade/frag
+	cost = 4
+
 /datum/uplink_item/explosives/grenadier
 	name = "Grenadier's belt"
 	desc = "A belt containing 26 lethally dangerous and destructive grenades."
