@@ -233,7 +233,7 @@
 	loot = list(/mob/living/simple_animal/pet/cat/kitten{name = "Laughter"})
 
 
-/mob/living/simple_animal/demon/slaughter/release_consumed(mob/living/M)
+/mob/living/simple_animal/demon/slaughter/laughter/release_consumed(mob/living/M)
 	if(M.revive())
 		M.grab_ghost(force = TRUE)
 		playsound(get_turf(src), feast_sound, 50, 1, -1)
