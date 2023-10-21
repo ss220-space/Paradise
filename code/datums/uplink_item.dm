@@ -545,7 +545,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	category = "Racial Specific Tools"
 	cant_discount = TRUE
 	surplus = 0
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) 
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 //IPC
 
@@ -1882,6 +1882,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "ST"
 	item = /obj/item/reagent_containers/hypospray/autoinjector/stimulants
 	cost = 5
+	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
 // IMPLANTS
 
