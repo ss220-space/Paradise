@@ -66,6 +66,7 @@
 #include "title_screen/_title_screen.dme"
 #include "whitelist/_whitelist.dme"
 #include "outfits/_outfits.dme"
+#include "mecha_skins/mecha_skins.dme"
 
 // --- PRIME --- //
 // #define MODPACK_MAIN_ONLY

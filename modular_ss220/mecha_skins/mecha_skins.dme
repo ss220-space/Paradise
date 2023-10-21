@@ -1,0 +1,18 @@
+#include "mecha_skins.dm"
+
+#include "code/fabricator_design.dm"
+#include "code/paintkit_install.dm"
+#include "code/paintkit_menu.dm"
+// BEGIN_INTERNALS
+// END_INTERNALS
+// BEGIN_FILE_DIR
+#define FILE_DIR .
+// END_FILE_DIR
+// BEGIN_PREFERENCES
+// END_PREFERENCES
+// BEGIN_INCLUDE
+#include "mecha_skins.dm"
+#include "code\fabricator_design.dm"
+#include "code\paintkit_install.dm"
+#include "code\paintkit_menu.dm"
+// END_INCLUDE
