@@ -681,4 +681,3 @@
 /obj/item/clothing/head/helmet/space/plasmaman/chameleon/broken/Initialize(mapload)
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
-	
