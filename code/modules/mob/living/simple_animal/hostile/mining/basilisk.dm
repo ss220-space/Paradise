@@ -176,15 +176,21 @@
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril
 	fromtendril = TRUE
 
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing/tendril
+	fromtendril = TRUE
+
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing/tendril
+	fromtendril = TRUE
+
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing/death(gibbed)
-	if(prob(30))
+	if(prob(30) && !fromtendril)
 		new /obj/item/gem/fdiamond(loc)
 		deathmessage = "spits out a diamond as it dies!"
 	. = ..()
 	deathmessage = initial(deathmessage)
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing/death(gibbed)
-	if(prob(30))
+	if(prob(30) && !fromtendril)
 		new /obj/item/gem/magma(loc)
 		deathmessage = "spits out a golden gem as it dies!"
 	. = ..()
