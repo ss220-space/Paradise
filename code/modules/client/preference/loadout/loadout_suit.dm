@@ -228,6 +228,75 @@
 	path = /obj/item/clothing/suit/storage/suragi_jacket/janitor
 	allowed_roles = list("Janitor")
 
+/datum/gear/suit/suragi_jacket/cor
+	display_name = "Suragi Jacket - Coroner"
+	path = /obj/item/clothing/suit/storage/suragi_jacket/cor
+	allowed_roles = list("Coroner")
+
+/datum/gear/suit/suragi_jacket/mech
+	display_name = "Suragi Jacket - Mechanic"
+	path = /obj/item/clothing/suit/storage/suragi_jacket/mech
+	allowed_roles = list("Mechanic")
+
+/datum/gear/suit/suragi_jacket/paramed
+	display_name = "Suragi Jacket - Paramedic"
+	path = /obj/item/clothing/suit/storage/suragi_jacket/paramed
+	allowed_roles = list("Paramedic")
+
+/datum/gear/suit/suragi_jacket/dec
+	display_name = "Suragi Jacket - Detective"
+	path = /obj/item/clothing/suit/storage/suragi_jacket/dec
+	allowed_roles = list("Detective")
+
+/datum/gear/suit/suragi_jacket/miner
+	display_name = "Suragi Jacket - Miner"
+	path = /obj/item/clothing/suit/storage/suragi_jacket/miner
+	allowed_roles = list("Shaft Miner")
+
+/datum/gear/suit/suragi_jacket/clown
+	display_name = "Suragi Jacket - Funny and Colourful"
+	path = /obj/item/clothing/suit/storage/suragi_jacket/clown
+	allowed_roles = list("Clown")
+
+/datum/gear/suit/suragi_jacket/mime
+	display_name = "Suragi Jacket - Sad and Monochrome"
+	path = /obj/item/clothing/suit/storage/suragi_jacket/mime
+	allowed_roles = list("Mime")
+
+/datum/gear/suit/suragi_jacket/capt
+	display_name = "Suragi Jacket - Captain"
+	path = /obj/item/clothing/suit/storage/suragi_jacket/capt
+	allowed_roles = list("Captain")
+
+/datum/gear/suit/suragi_jacket/hop
+	display_name = "Suragi Jacket - Head of Personnel"
+	path = /obj/item/clothing/suit/storage/suragi_jacket/hop
+	allowed_roles = list("Head of Personnel")
+
+/datum/gear/suit/suragi_jacket/huesos
+	display_name = "Suragi Jacket - Head of Security"
+	path = /obj/item/clothing/suit/storage/suragi_jacket/huesos
+	allowed_roles = list("Head of Security")
+
+/datum/gear/suit/suragi_jacket/qm
+	display_name = "Suragi Jacket - Quartermaster"
+	path = /obj/item/clothing/suit/storage/suragi_jacket/qm
+	allowed_roles = list("Quartermaster")
+
+/datum/gear/suit/suragi_jacket/rd
+	display_name = "Suragi Jacket - Research Director"
+	path = /obj/item/clothing/suit/storage/suragi_jacket/rd
+	allowed_roles = list("Research Director")
+
+/datum/gear/suit/suragi_jacket/ce
+	display_name = "Suragi Jacket - Chief Engineer"
+	path = /obj/item/clothing/suit/storage/suragi_jacket/ce
+	allowed_roles = list("Chief Engineer")
+
+/datum/gear/suit/suragi_jacket/cmo
+	display_name = "Suragi Jacket - Chief Medical Officer"
+	path = /obj/item/clothing/suit/storage/suragi_jacket/cmo
+	allowed_roles = list("Chief Medical Officer")
 
 /datum/gear/suit/ianshirt
 	display_name = "Ian Shirt"

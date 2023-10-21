@@ -1192,6 +1192,14 @@
 	blood_overlay_type = ""
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter,/obj/item/gun/projectile/automatic/pistol,/obj/item/gun/projectile/revolver,/obj/item/gun/projectile/revolver/detective)
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
+		)
 
 // Suragi Children
 /obj/item/clothing/suit/storage/suragi_jacket/civ
@@ -1308,6 +1316,123 @@
 	item_state = "suragi_jacket_jan"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 3, "rad" = 0, "fire" = 0, "acid" = 3)
 	allowed = list(/obj/item/soap, /obj/item/reagent_containers/spray/cleaner, /obj/item/storage/bag/trash, /obj/item/lightreplacer)
+
+/obj/item/clothing/suit/storage/suragi_jacket/cor
+	desc = "Standard issue black jacket manufactured by Suragi Kit. Extremely durable and easy to clean. Endless swarm of souls gaze upon you from the pitch black void of space. The ferryman has arrived."
+	name = "Coroner Suragi Jacket"
+	icon_state = "suragi_jacket_cor"
+	item_state = "suragi_jacket_cor"
+	allowed = list(/obj/item/analyzer, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/healthanalyzer,
+	/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/telescopic, /obj/item/stack/medical, /obj/item/paper, /obj/item/rad_laser)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 5, "rad" = 0, "fire" = 0, "acid" = 5)
+
+/obj/item/clothing/suit/storage/suragi_jacket/mech
+	desc = "Standard issue brown and gold jacket manufactured by Suragi Kit. Extremely durable. Reeks of oil and rust."
+	name = "Mechanic Suragi Jacket"
+	icon_state = "suragi_jacket_mech"
+	item_state = "suragi_jacket_mech"
+	allowed = list (/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/internals/emergency_oxygen, /obj/item/rcd, /obj/item/rpd, /obj/item/holosign_creator/atmos)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 5, "bomb" = 5, "bio" = 0, "rad" = 5, "fire" = 5, "acid" = 0)
+
+/obj/item/clothing/suit/storage/suragi_jacket/paramed
+	desc = "Standard issue dark blue jacket manufactured by Suragi Kit. Extremely durable and easy to clean. The angel has arrived. The thrumpets are singing from the skies. Ah, no. Just an ambulance siren."
+	name = "Paramedic Suragi Jacket"
+	icon_state = "suragi_jacket_paramed"
+	item_state = "suragi_jacket_paramed"
+	allowed = list(/obj/item/analyzer, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/healthanalyzer,
+	/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/telescopic, /obj/item/stack/medical, /obj/item/paper, /obj/item/rad_laser)
+	armor = list("melee" = 5, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 5, "rad" = 0, "fire" = 0, "acid" = 0)
+
+/obj/item/clothing/suit/storage/suragi_jacket/dec
+	desc = "Standard issue brown jacket manufactured by Suragi Kit. Extremely durable. Very slick. Look at the world through noir. Listen to blues. Drink some whiskey. Smoke a cigar. Find the culprit."
+	name = "Detective Suragi Jacket"
+	icon_state = "suragi_jacket_dec"
+	item_state = "suragi_jacket_dec"
+	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/melee/classic_baton/telescopic,/obj/item/kitchen/knife/combat)
+	armor = list("melee" = 0, "bullet" = 5, "laser" = 0,"energy" = 0, "bomb" = 2, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+
+/obj/item/clothing/suit/storage/suragi_jacket/miner
+	desc = "Standard issue dark green jacket manufactured by Suragi Kit. Extremely durable. Perfect for slaying hellish titans, mining gems, looting chests and swimming in lava."
+	name = "Miner Suragi Jacket"
+	icon_state = "suragi_jacket_miner"
+	item_state = "suragi_jacket_miner"
+	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 3, "acid" = 0)
+
+/obj/item/clothing/suit/storage/suragi_jacket/clown
+	desc = "Special issue funky jacket manufactured by Suragi Kit. Extremely funny. Probably belongs to a Captain or Head of Personnel."
+	name = "Colourful and funny Suragi Jacket"
+	icon_state = "suragi_jacket_clown"
+	item_state = "suragi_jacket_clown"
+	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/melee/classic_baton/telescopic,/obj/item/kitchen/knife/combat)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 7, "bio" = 0, "rad" = 0, "fire" = 4, "acid" = 0)
+
+/obj/item/clothing/suit/storage/suragi_jacket/mime
+	desc = "Special issue monochrome manufactured by Suragi Kit. Extremely depressive. Le chef des forces de securite se prend un baton dans le cul."
+	name = "Monochrome and sad Suragi Jacket"
+	icon_state = "suragi_jacket_mime"
+	item_state = "suragi_jacket_mime"
+	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/melee/classic_baton/telescopic,/obj/item/kitchen/knife/combat)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 10, "fire" = 0, "acid" = 0)
+
+/obj/item/clothing/suit/storage/suragi_jacket/capt
+	desc = "Premium issue blue and gold jacket manufactured by Suragi Kit. Maximum style, Unlimited authority."
+	name = "Captain Suragi Jacket"
+	icon_state = "suragi_jacket_capt"
+	item_state = "suragi_jacket_capt"
+	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/melee/classic_baton/telescopic,/obj/item/kitchen/knife/combat)
+	armor = list("melee" = 7, "bullet" = 2, "laser" = 2,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+
+/obj/item/clothing/suit/storage/suragi_jacket/hop
+	desc = "Premium issue blue and red jacket manufactured by Suragi Kit. Incompetence. Mediocrity. Conscripts."
+	name = "Head of Personnel Suragi Jacket"
+	icon_state = "suragi_jacket_hop"
+	item_state = "suragi_jacket_hop"
+	allowed = list(/obj/item/disk, /obj/item/stamp, /obj/item/reagent_containers/food/drinks/flask, /obj/item/melee, /obj/item/storage/lockbox/medal, /obj/item/flash, /obj/item/storage/box/matches, /obj/item/lighter, /obj/item/clothing/mask/cigarette, /obj/item/storage/fancy/cigarettes, /obj/item/tank/internals/emergency_oxygen)
+	armor = list("melee" = 0, "bullet" = 5, "laser" = 0,"energy" = 0, "bomb" = 5, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+
+/obj/item/clothing/suit/storage/suragi_jacket/huesos
+	desc = "Premium issue black jacket manufactured by Suragi Kit. Extremely durable. The ground trembles with my every step. I am the judge, the jury, the executioner."
+	name = "Head of Security Suragi Jacket"
+	icon_state = "suragi_jacket_huesos"
+	item_state = "suragi_jacket_huesos"
+	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic)
+	armor = list("melee" = 25, "bullet" = 15, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+
+/obj/item/clothing/suit/storage/suragi_jacket/qm
+	desc = "Premium issue black jacket manufactured by Suragi Kit. Extremely durable. There is nothing points can't buy. Except this jacket. It is priceless."
+	name = "Quartermeister Suragi Jacket"
+	icon_state = "suragi_jacket_qm"
+	item_state = "suragi_jacket_qm"
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/storage/fancy/cigarettes, /obj/item/clothing/mask/cigarette, /obj/item/lighter, /obj/item/rcs, /obj/item/stack/packageWrap, /obj/item/stack/wrapping_paper, /obj/item/destTagger, /obj/item/pen, /obj/item/paper, /obj/item/stamp)
+	armor = list("melee" = 7, "bullet" = 2, "laser" = 2,"energy" = 0, "bomb" = 2, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+
+/obj/item/clothing/suit/storage/suragi_jacket/rd
+	desc = "Premium issue black and purple jacket manufactured by Suragi Kit. Extremely durable. Massive anomaly detected on long range scanners. Expected location: my crotch."
+	name = "Research Director Suragi Jacket"
+	icon_state = "suragi_jacket_rd"
+	item_state = "suragi_jacket_rd"
+	allowed = list(/obj/item/analyzer, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/applicator, /obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper,
+	/obj/item/stack/medical,/obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/healthanalyzer, /obj/item/reagent_containers/food/pill, /obj/item/rad_laser)
+	armor = list("melee" = 2, "bullet" = 2, "laser" = 2, "energy" = 2, "bomb" = 2, "bio" = 2, "rad" = 2, "fire" = 2, "acid" = 2)
+
+/obj/item/clothing/suit/storage/suragi_jacket/ce
+	desc = "Premium issue white and black jacket manufactured by Suragi Kit. Extremely durable. Instead of regular reflective stripes there is a thin coating of supermatter dust. And some feathers in the sleeves?.."
+	name = "Chief Engineer Suragi Jacket"
+	icon_state = "suragi_jacket_ce"
+	item_state = "suragi_jacket_ce"
+	allowed = list(/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/internals/emergency_oxygen, /obj/item/rcd, /obj/item/rpd, /obj/item/holosign_creator/atmos)
+	armor = list("melee" = 5, "bullet" = 0, "laser" = 0,"energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 5, "fire" = 5, "acid" = 0)
+
+/obj/item/clothing/suit/storage/suragi_jacket/cmo
+	desc = "Premium issue cyan jacket anufactured by Suragi Kit. Extremely durable and easy to clean. Countless lives are crippled. Endless minds are broken. And i am the cure."
+	name = "Chief Medical Officer Suragi Jacket"
+	icon_state = "suragi_jacket_cmo"
+	item_state = "suragi_jacket_cmo"
+	allowed = list(/obj/item/analyzer, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/applicator, /obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper,
+	/obj/item/stack/medical,/obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/healthanalyzer, /obj/item/reagent_containers/food/pill, /obj/item/rad_laser)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 5, "rad" = 0, "fire" = 0, "acid" = 5)
+
 // Suragi end
 
 /obj/item/clothing/suit/mr_chang_coat
