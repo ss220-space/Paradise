@@ -75,6 +75,9 @@
 	spawn_text = "crawls through"
 	mob_types = list(/mob/living/simple_animal/hostile/netherworld/migo, /mob/living/simple_animal/hostile/netherworld, /mob/living/simple_animal/hostile/netherworld/blankbody)
 	faction = list("nether")
+	scanner_taggable = TRUE
+	mob_gps_id = "?!?"
+	spawner_gps_id = "Netheric Distortion"
 
 /obj/structure/spawner/nether/Initialize(mapload)
 	.=..()
