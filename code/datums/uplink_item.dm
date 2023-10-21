@@ -545,7 +545,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	category = "Racial Specific Tools"
 	cant_discount = TRUE
 	surplus = 0
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) 
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 //IPC
 
@@ -1346,6 +1346,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 3
 	surplus = 80
 
+/datum/uplink_item/explosives/fraggrenade
+	name = "Frag grenade's"
+	reference = "FRAG"
+	desc = "A belt containing 4 lethally dangerous and destructive grenades."
+	item = /obj/item/storage/belt/grenade/frag
+	cost = 4
+
 /datum/uplink_item/explosives/grenadier
 	name = "Grenadier's belt"
 	desc = "A belt containing 26 lethally dangerous and destructive grenades."
@@ -1882,6 +1889,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "ST"
 	item = /obj/item/reagent_containers/hypospray/autoinjector/stimulants
 	cost = 5
+	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
 // IMPLANTS
 
