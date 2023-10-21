@@ -75,7 +75,7 @@
 
 /obj/machinery/door_control/ticket_machine_button/do_main_action(mob/user as mob)
 	for(var/obj/machinery/ticket_machine/M in GLOB.machines)
-		if(M.id != id || cooldown)
+		if(!(M.id in id) || cooldown)
 			continue
 		cooldown = TRUE
 		M.increment()
