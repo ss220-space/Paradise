@@ -144,7 +144,7 @@
 			//Cold
 			T.visible_message("<span class='userdanger'>[user] looks a little under the weather!</span>")
 			var/datum/disease/virus/cold/D = new
-			D.ForceContract(user)
+			D.Contract(user)
 		if(10)
 			//Nothing
 			T.visible_message("<span class='userdanger'>Nothing seems to happen.</span>")

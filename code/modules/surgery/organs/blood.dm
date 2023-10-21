@@ -174,7 +174,7 @@
 						var/datum/disease/virus/V = thing
 						if(V.spread_flags < BLOOD)
 							continue
-						V.ForceContract(C)
+						V.Contract(C)
 				if(!(blood_data["blood_type"] in get_safe_blood(C.dna.blood_type)) || !(blood_data["blood_species"] == C.dna.species.blood_species))
 					C.reagents.add_reagent("toxin", amount * 0.5)
 					return 1

@@ -26,7 +26,7 @@
 /datum/reagent/nanomachines/on_mob_life(mob/living/carbon/M)
 	if(volume > 1.5)
 		var/datum/disease/virus/transformation/robot/D = new
-		D.ForceContract(M)
+		D.Contract(M)
 	return ..()
 
 
@@ -41,7 +41,7 @@
 /datum/reagent/xenomicrobes/on_mob_life(mob/living/carbon/M)
 	if(volume > 1.5)
 		var/datum/disease/virus/transformation/xeno/D = new
-		D.ForceContract(M)
+		D.Contract(M)
 	return ..()
 
 /datum/reagent/fungalspores
@@ -55,7 +55,7 @@
 /datum/reagent/fungalspores/on_mob_life(mob/living/carbon/M)
 	if(volume > 2.5)
 		var/datum/disease/virus/tuberculosis/D = new
-		D.ForceContract(M)
+		D.Contract(M)
 	return ..()
 
 /datum/reagent/jagged_crystals
@@ -69,7 +69,7 @@
 
 /datum/reagent/jagged_crystals/on_mob_life(mob/living/carbon/M)
 	var/datum/disease/berserker/D = new
-	D.ForceContract(M)
+	D.Contract(M)
 	return ..()
 
 /datum/reagent/salmonella
@@ -83,7 +83,7 @@
 
 /datum/reagent/salmonella/on_mob_life(mob/living/carbon/M)
 	var/datum/disease/food_poisoning/D = new
-	D.ForceContract(M)
+	D.Contract(M)
 	return ..()
 
 /datum/reagent/gibbis
@@ -98,7 +98,7 @@
 /datum/reagent/gibbis/on_mob_life(mob/living/carbon/M)
 	if(volume > 2.5)
 		var/datum/disease/virus/gbs/non_con/D = new
-		D.ForceContract(M)
+		D.Contract(M)
 	return ..()
 
 /datum/reagent/prions
@@ -113,7 +113,7 @@
 /datum/reagent/prions/on_mob_life(mob/living/carbon/M)
 	if(volume > 4.5)
 		var/datum/disease/kuru/D = new
-		D.ForceContract(M)
+		D.Contract(M)
 	return ..()
 
 /datum/reagent/grave_dust
@@ -128,7 +128,7 @@
 /datum/reagent/grave_dust/on_mob_life(mob/living/carbon/M)
 	if(volume > 4.5)
 		var/datum/disease/vampire/D = new
-		D.ForceContract(M)
+		D.Contract(M)
 	return ..()
 
 /datum/reagent/bacon_grease
@@ -143,7 +143,7 @@
 /datum/reagent/bacon_grease/on_mob_life(mob/living/carbon/M)
 	if(volume > 4.5)
 		var/datum/disease/critical/heart_failure/D = new
-		D.ForceContract(M)
+		D.Contract(M)
 	return ..()
 
 /datum/reagent/heartworms

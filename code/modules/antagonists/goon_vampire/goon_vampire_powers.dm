@@ -221,7 +221,7 @@
 		return
 
 	var/datum/disease/vampire/virus = new
-	virus.ForceContract(target)
+	virus.Contract(target)
 
 
 /obj/effect/proc_holder/spell/goon_vampire/glare

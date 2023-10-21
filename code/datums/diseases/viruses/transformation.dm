@@ -112,7 +112,7 @@
 			transformed = TRUE
 		else
 			var/mob/living/new_mob = ..()
-			var/datum/disease/virus/transformation/jungle_fever/D = ForceContract(new_mob)
+			var/datum/disease/virus/transformation/jungle_fever/D = Contract(new_mob)
 			D?.stage = 5
 			D.transformed = TRUE
 	else

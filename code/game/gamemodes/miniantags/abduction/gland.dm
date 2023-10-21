@@ -225,7 +225,7 @@
 	var/datum/disease/virus/advance/old_virus = locate() in owner.diseases
 	if(old_virus)
 		old_virus.cure(need_immunity = FALSE)
-	new_virus.ForceContract(owner, is_carrier = TRUE)
+	new_virus.Contract(owner, is_carrier = TRUE)
 
 /obj/item/organ/internal/heart/gland/emp //TODO : Replace with something more interesting
 	origin_tech = "materials=4;biotech=4;magnets=6;abductor=3"

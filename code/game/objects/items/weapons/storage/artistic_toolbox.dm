@@ -44,7 +44,7 @@
 	if(ishuman(user) && !user.HasDisease(/datum/disease/memetic_madness))
 		activated = TRUE
 		var/datum/disease/memetic_madness/D = new
-		D.ForceContract(user)
+		D.Contract(user)
 		for(var/datum/disease/memetic_madness/DD in user.diseases)
 			DD.progenitor = src
 			servantlinks.Add(DD)

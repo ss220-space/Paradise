@@ -111,9 +111,9 @@
 				continue
 
 			if(method == REAGENT_TOUCH)
-				V.Contract(M)
-			else //ingest, patch or inject
-				V.ForceContract(M)
+				V.Contract(M, need_protection_check = TRUE, act_type = CONTACT)
+			else
+				V.Contract(M, need_protection_check = FALSE)
 
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
@@ -192,9 +192,9 @@
 				continue
 
 			if(method == REAGENT_TOUCH)
-				V.Contract(M)
-			else //ingest, patch or inject
-				V.ForceContract(M)
+				V.Contract(M, need_protection_check = TRUE, act_type = CONTACT)
+			else
+				V.Contract(M, need_protection_check = FALSE)
 
 /datum/reagent/blood/synthetic/vox
 	name = "Synthetic Blood"

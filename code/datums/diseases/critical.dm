@@ -78,7 +78,7 @@
 					affected_mob.AdjustLoseBreath(2 SECONDS)
 				if(prob(5))
 					var/datum/disease/D = new /datum/disease/critical/heart_failure
-					D.ForceContract(affected_mob)
+					D.Contract(affected_mob)
 
 /datum/disease/critical/heart_failure
 	name = "Cardiac Failure"
@@ -181,7 +181,7 @@
 			if(3)
 				if(prob(1))
 					var/datum/disease/D = new /datum/disease/critical/shock
-					D.ForceContract(affected_mob)
+					D.Contract(affected_mob)
 				if(prob(12))
 					affected_mob.Weaken(12 SECONDS)
 					affected_mob.Stuttering(20 SECONDS)

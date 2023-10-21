@@ -169,7 +169,7 @@
 		M.faction = list(faction)
 	if(disease)
 		var/datum/disease/D = new disease
-		D.ForceContract(M)
+		D.Contract(M)
 	M.adjustOxyLoss(oxy_damage)
 	M.adjustBruteLoss(brute_damage)
 	M.adjustFireLoss(burn_damage)

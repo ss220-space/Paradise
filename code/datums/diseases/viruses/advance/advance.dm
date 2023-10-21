@@ -205,7 +205,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 			if(4 to INFINITY)
 				spread_flags = AIRBORNE
 		additional_info = spread_text()
-		permeability_mod = clamp((0.25 * properties["transmittable"]), 0.1, 2)
+		permeability_mod = clamp((0.25 * properties["transmittable"]), 0.2, 2)
 
 		//stage speed
 		stage_prob = clamp(max(1.3 * sqrtor0(properties["stage_speed"] + 11), properties["stage_speed"]), 1, 40)
@@ -290,7 +290,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 	symptoms -= S
 	return
 
-/datum/disease/virus/advance/CanContract(mob/M)
+/datum/disease/virus/advance/CanContract(mob/living/M, act_type, need_protection_check, zone)
 	. = ..()
 	if(count_by_type(M.diseases, /datum/disease/virus/advance) > 0)
 		. = FALSE
@@ -386,7 +386,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 			if(H.stat == DEAD || !is_station_level(H.z))
 				continue
 			if(!H.HasDisease(D))
-				D.ForceContract(H)
+				D.Contract(H)
 				break
 
 		var/list/name_symptoms = list()

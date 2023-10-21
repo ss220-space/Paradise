@@ -155,7 +155,7 @@
 /datum/reagent/aslimetoxin/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method != REAGENT_TOUCH)
 		var/datum/disease/virus/transformation/slime/D = new
-		D.ForceContract(M)
+		D.Contract(M)
 
 
 /datum/reagent/mercury
@@ -1303,7 +1303,7 @@
 
 /datum/reagent/gluttonytoxin/reaction_mob(mob/living/L, method=REAGENT_TOUCH, reac_volume)
 	var/datum/disease/virus/transformation/morph/D = new
-	D.ForceContract(L)
+	D.Contract(L)
 
 /datum/reagent/bungotoxin
 	name = "Bungotoxin"

@@ -51,7 +51,7 @@
 			var/datum/disease/virus/advance/old_virus = locate() in H.diseases
 			if(old_virus)
 				old_virus.cure(need_immunity = FALSE)
-		if(!D.ForceContract(H, is_carrier = TRUE))
+		if(!D.Contract(H, is_carrier = TRUE))
 			continue
 		patient_zero = H
 		break

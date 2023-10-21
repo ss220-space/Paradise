@@ -257,7 +257,7 @@
 		if(prob(numMid))
 			to_chat(owner, "<span class='warning'>Your [name] lurches awkwardly!</span>")
 			var/datum/disease/critical/heart_failure/D = new
-			D.ForceContract(owner)
+			D.Contract(owner)
 		if(prob(numMid))
 			to_chat(owner, "<span class='danger'>Your [name] stops beating!</span>")
 			Stop()
@@ -274,4 +274,4 @@
 		if(prob(numLow))
 			to_chat(owner, "<span class='warning'>Your [name] lurches awkwardly!</span>")
 			var/datum/disease/critical/heart_failure/D = new
-			D.ForceContract(owner)
+			D.Contract(owner)

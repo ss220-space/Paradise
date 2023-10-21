@@ -30,8 +30,8 @@
 	else
 		is_master = TRUE
 
-/datum/disease/virus/loyalty/ForceContract(mob/M, is_carrier = FALSE)
-	if(!CanContract(M))
+/datum/disease/virus/loyalty/Contract(mob/living/M, act_type, is_carrier = FALSE, need_protection_check = FALSE, zone)
+	if(!CanContract(M, act_type, need_protection_check, zone))
 		return FALSE
 
 	var/mob/living/carbon/human/new_master = is_master ? affected_mob : master

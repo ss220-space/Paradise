@@ -171,25 +171,10 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	return
 
 /**
- * Checking mob's protection against this disease
- */
-/datum/disease/proc/TryContract(mob/M)
-	return TRUE
-
-/**
- * Attempt to infect a mob with a check of its protection
- * Returns:
- * * TRUE - mob successfully infected
- * * FALSE - otherwise
- */
-/datum/disease/proc/Contract(mob/M)
-	if(TryContract(M))
-		. = ForceContract(M)
-
-/**
  * Basic checks of the possibility of infecting a mob
  */
-/datum/disease/proc/CanContract(mob/M)
+/datum/disease/proc/CanContract(mob/living/M, act_type, need_protection_check, zone)
+	. = FALSE
 	if(!M.CanContractDisease(src))
 		return FALSE
 
@@ -204,17 +189,21 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 
 	for(var/mobtype in infectable_mobtypes + carrier_mobtypes)
 		if(istype(M, mobtype))
-			return TRUE
-	return FALSE
+			. = TRUE
+
+	if(. && need_protection_check && M.CheckVirusProtection(src, act_type, zone))
+		. = FALSE
+
+	return
 
 /**
- * Attempt to infect a mob without a check of its protection
+ * Attempt to infect a mob
  * Returns:
  * * /datum/disease/D - a new instance of the virus that contract the mob
  * * FALSE - otherwise
  */
-/datum/disease/proc/ForceContract(mob/M, is_carrier = FALSE)
-	if(!CanContract(M))
+/datum/disease/proc/Contract(mob/living/M, act_type, is_carrier = FALSE, need_protection_check = FALSE, zone)
+	if(!CanContract(M, act_type, need_protection_check, zone))
 		return FALSE
 
 	var/datum/disease/D = Copy()
@@ -261,7 +250,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 		affected_mob.diseases -= src
 		affected_mob.med_hud_set_status()
 		var/datum/disease/new_disease = new type
-		new_disease.ForceContract(affected_mob)
+		new_disease.Contract(affected_mob)
 		qdel(src)
 		return TRUE
 

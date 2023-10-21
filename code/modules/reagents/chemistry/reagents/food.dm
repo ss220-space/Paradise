@@ -886,7 +886,7 @@
 		if(NO_HUNGER in H.dna.species.species_traits) //If you don't eat, then you can't get food poisoning
 			return
 		var/datum/disease/food_poisoning/D = new
-		D.ForceContract(H)
+		D.Contract(H)
 
 /datum/reagent/msg
 	name = "Monosodium glutamate"
@@ -933,7 +933,7 @@
 		to_chat(M, "<span class='warning'>Your chest is burning with pain!</span>")
 		M.Weaken(2 SECONDS)
 		var/datum/disease/critical/heart_failure/D = new
-		D.ForceContract(M)
+		D.Contract(M)
 	return ..() | update_flags
 
 /datum/reagent/fungus
@@ -953,7 +953,7 @@
 		else if(ranchance <= 5)
 			to_chat(M, "<span class='warning'>That tasted absolutely FOUL.</span>")
 			var/datum/disease/food_poisoning/D = new
-			D.ForceContract(M)
+			D.Contract(M)
 		else
 			to_chat(M, "<span class='warning'>Yuck!</span>")
 

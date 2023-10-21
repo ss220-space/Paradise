@@ -685,7 +685,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 		if(prob(10 + vampire.get_trophies("livers") * 3))
 			new /obj/effect/temp_visual/cult/sparks(get_turf(victim))
 			var/datum/disease/vampire/D = new
-			D.ForceContract(victim)	// grave fever
+			D.Contract(victim)	// grave fever
 
 
 /*======================================================================================================================================*\
