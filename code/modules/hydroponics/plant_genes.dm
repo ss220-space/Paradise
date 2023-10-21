@@ -290,6 +290,10 @@
 	name = "Purple Bioluminescence"
 	glow_color = "#b434df"
 
+/datum/plant_gene/trait/glow/yellow
+	name = "Yellow Bioluminescence"
+	glow_color = "#FFFF66"
+
 /datum/plant_gene/trait/glow/shadow
 	//makes plant emit slightly purple shadows
 	//adds -potency*rate light power to products
