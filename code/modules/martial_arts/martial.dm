@@ -192,6 +192,7 @@
 	explaination_header(user)
 	explaination_combos(user)
 	explaination_footer(user)
+	explaination_notice(user)
 
 // Put after the header and before the footer in the explaination text
 /datum/martial_art/proc/explaination_combos(user)
@@ -207,6 +208,9 @@
 // Put below the combos in the explaination text
 /datum/martial_art/proc/explaination_footer(user)
 	return
+
+/datum/martial_art/proc/explaination_notice(user)
+	return to_chat(user, "<b><i>Combo steps can be provided only with empty hand!</b></i>")
 
 /datum/martial_art/proc/try_deflect(mob/user)
 	return prob(deflection_chance)
