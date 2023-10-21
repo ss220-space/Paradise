@@ -1368,7 +1368,7 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 7, "bio" = 0, "rad" = 0, "fire" = 4, "acid" = 0)
 
 /obj/item/clothing/suit/storage/suragi_jacket/mime
-	desc = "Special issue monochrome manufactured by Suragi Kit. Extremely depressive. Le chef des forces de securite se prend un baton dans le cul."
+	desc = "Special issue monochrome jacket manufactured by Suragi Kit. Extremely depressive. Le chef des forces de securite se prend un baton dans le cul."
 	name = "Monochrome and sad Suragi Jacket"
 	icon_state = "suragi_jacket_mime"
 	item_state = "suragi_jacket_mime"
@@ -1376,7 +1376,7 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 10, "fire" = 0, "acid" = 0)
 
 /obj/item/clothing/suit/storage/suragi_jacket/capt
-	desc = "Premium issue blue and gold jacket manufactured by Suragi Kit. Maximum style, Unlimited authority."
+	desc = "Premium issue blue and gold jacket manufactured by Suragi Kit. Extremely durable. Maximum style, Unlimited authority."
 	name = "Captain Suragi Jacket"
 	icon_state = "suragi_jacket_capt"
 	item_state = "suragi_jacket_capt"
@@ -1384,7 +1384,7 @@
 	armor = list("melee" = 7, "bullet" = 2, "laser" = 2,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 
 /obj/item/clothing/suit/storage/suragi_jacket/hop
-	desc = "Premium issue blue and red jacket manufactured by Suragi Kit. Incompetence. Mediocrity. Conscripts."
+	desc = "Premium issue blue and red jacket manufactured by Suragi Kit. Extremely durable. Incompetence. Mediocrity. Conscripts."
 	name = "Head of Personnel Suragi Jacket"
 	icon_state = "suragi_jacket_hop"
 	item_state = "suragi_jacket_hop"
@@ -1400,7 +1400,7 @@
 	armor = list("melee" = 25, "bullet" = 15, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 
 /obj/item/clothing/suit/storage/suragi_jacket/qm
-	desc = "Premium issue black jacket manufactured by Suragi Kit. Extremely durable. There is nothing points can't buy. Except this jacket. It is priceless."
+	desc = "Premium issue yellow and gray jacket manufactured by Suragi Kit. Extremely durable. There is nothing points can't buy. Except this jacket. It is priceless."
 	name = "Quartermeister Suragi Jacket"
 	icon_state = "suragi_jacket_qm"
 	item_state = "suragi_jacket_qm"
@@ -1425,7 +1425,7 @@
 	armor = list("melee" = 5, "bullet" = 0, "laser" = 0,"energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 5, "fire" = 5, "acid" = 0)
 
 /obj/item/clothing/suit/storage/suragi_jacket/cmo
-	desc = "Premium issue cyan jacket anufactured by Suragi Kit. Extremely durable and easy to clean. Countless lives are crippled. Endless minds are broken. And i am the cure."
+	desc = "Premium issue cyan jacket manufactured by Suragi Kit. Extremely durable and easy to clean. Countless lives are crippled. Endless minds are broken. And i am the cure."
 	name = "Chief Medical Officer Suragi Jacket"
 	icon_state = "suragi_jacket_cmo"
 	item_state = "suragi_jacket_cmo"
