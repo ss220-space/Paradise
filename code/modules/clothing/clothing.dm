@@ -917,7 +917,8 @@ BLIND     // can't see anything
 		"Farwa" = 'icons/mob/clothing/species/monkey/neck.dmi',
 		"Wolpin" = 'icons/mob/clothing/species/monkey/neck.dmi',
 		"Neara" = 'icons/mob/clothing/species/monkey/neck.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/neck.dmi'
+		"Stok" = 'icons/mob/clothing/species/monkey/neck.dmi',
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/neck.dmi'
 		)
 
 /obj/item/clothing/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
