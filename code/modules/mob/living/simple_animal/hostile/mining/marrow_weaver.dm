@@ -125,7 +125,7 @@
 		return INITIALIZE_HINT_QDEL
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/frost
-	name = "Frostbite Spider"
+	name = "frostbite weaver"
 	desc = "A big, angry, venomous ice spider. It likes to snack on bone marrow. Its preferred food source is you."
 	icon_state = "weaver_ice"
 	icon_living = "weaver_ice"
@@ -135,3 +135,9 @@
 	melee_damage_upper = 13
 	poison_type = /datum/reagent/consumable/frostoil
 	poison_per_bite = 5
+
+/mob/living/simple_animal/hostile/asteroid/marrowweaver/tendril
+	fromtendril = TRUE
+
+/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost/tendril
+	fromtendril = TRUE
