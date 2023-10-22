@@ -18529,6 +18529,9 @@
 	icon_state = "dark"
 	},
 /area/shuttle/administration)
+"jLF" = (
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/ruin/space/bubblegum_arena)
 "jLG" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/shuttle,
@@ -28481,7 +28484,7 @@
 /area/centcom/evac)
 "oeb" = (
 /turf/simulated/floor/indestructible/necropolis,
-/area/space)
+/area/ruin/space/bubblegum_arena)
 "oeH" = (
 /obj/structure/closet/crate/can,
 /turf/simulated/floor/plasteel{
@@ -30557,7 +30560,7 @@
 "oYK" = (
 /obj/structure/stone_tile/slab/burnt,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/space)
+/area/ruin/space/bubblegum_arena)
 "oZd" = (
 /obj/machinery/vending/wallmed/syndicate{
 	pixel_y = 32
@@ -36387,7 +36390,7 @@
 /obj/structure/stone_tile/surrounding/burnt,
 /obj/effect/landmark/spawner/bubblegum,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/space)
+/area/ruin/space/bubblegum_arena)
 "rNd" = (
 /obj/machinery/door_control{
 	id = "CC_Armory_AEG";
@@ -38316,7 +38319,7 @@
 "sKc" = (
 /obj/structure/stone_tile/slab/cracked,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/space)
+/area/ruin/space/bubblegum_arena)
 "sKd" = (
 /obj/machinery/light{
 	dir = 8
@@ -40227,7 +40230,7 @@
 /area/centcom/specops)
 "tBa" = (
 /turf/simulated/wall/indestructible/necropolis,
-/area/space)
+/area/ruin/space/bubblegum_arena)
 "tBb" = (
 /obj/structure/closet/secure_closet/security,
 /obj/item/clothing/mask/balaclava,
@@ -40605,7 +40608,7 @@
 "tJq" = (
 /obj/effect/landmark/spawner/bubblegum_arena,
 /turf/simulated/floor/indestructible/necropolis,
-/area/space)
+/area/ruin/space/bubblegum_arena)
 "tJC" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -106495,10 +106498,10 @@ mVX
 mVX
 tBa
 oeb
-aoB
-aoB
-aoB
-aoB
+jLF
+jLF
+jLF
+jLF
 oeb
 oeb
 oeb
@@ -106520,10 +106523,10 @@ oeb
 oeb
 oeb
 oeb
-aoB
-aoB
-aoB
-aoB
+jLF
+jLF
+jLF
+jLF
 oeb
 tBa
 mVX
@@ -106752,7 +106755,7 @@ mVX
 mVX
 tBa
 oeb
-aoB
+jLF
 oeb
 oeb
 oeb
@@ -106780,7 +106783,7 @@ oeb
 oeb
 oeb
 oeb
-aoB
+jLF
 oeb
 tBa
 mVX
@@ -107009,7 +107012,7 @@ mVX
 mVX
 tBa
 oeb
-aoB
+jLF
 oeb
 oeb
 oeb
@@ -107037,7 +107040,7 @@ oeb
 oeb
 oeb
 oeb
-aoB
+jLF
 oeb
 tBa
 mVX
@@ -107266,7 +107269,7 @@ mVX
 mVX
 tBa
 oeb
-aoB
+jLF
 oeb
 oeb
 oeb
@@ -107294,7 +107297,7 @@ oeb
 oeb
 oeb
 oeb
-aoB
+jLF
 oeb
 tBa
 mVX
@@ -112920,7 +112923,7 @@ mVX
 mVX
 tBa
 oeb
-aoB
+jLF
 oeb
 oeb
 oeb
@@ -112948,7 +112951,7 @@ oeb
 oeb
 oeb
 oeb
-aoB
+jLF
 oeb
 tBa
 mVX
@@ -113177,7 +113180,7 @@ mVX
 mVX
 tBa
 oeb
-aoB
+jLF
 oeb
 oeb
 oeb
@@ -113205,7 +113208,7 @@ oeb
 oeb
 oeb
 oeb
-aoB
+jLF
 oeb
 tBa
 mVX
@@ -113434,7 +113437,7 @@ mVX
 mVX
 tBa
 oeb
-aoB
+jLF
 oeb
 oeb
 oeb
@@ -113462,7 +113465,7 @@ oeb
 oeb
 oeb
 oeb
-aoB
+jLF
 oeb
 tBa
 mVX
@@ -113691,10 +113694,10 @@ mVX
 mVX
 tBa
 oeb
-aoB
-aoB
-aoB
-aoB
+jLF
+jLF
+jLF
+jLF
 oeb
 oeb
 oeb
@@ -113716,10 +113719,10 @@ oeb
 oeb
 oeb
 oeb
-aoB
-aoB
-aoB
-aoB
+jLF
+jLF
+jLF
+jLF
 oeb
 tBa
 mVX
