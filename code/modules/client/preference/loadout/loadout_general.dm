@@ -85,6 +85,11 @@
 	display_name = "Grey Plushie"
 	path = /obj/item/toy/plushie/greyplushie
 
+/datum/gear/akulaplushie
+	display_name = "Akula Plushie"
+	path = /obj/item/toy/plushie/blahaj/twohanded
+	cost = 2
+
 /datum/gear/sechud
 	display_name = "a classic security HUD"
 	path = /obj/item/clothing/glasses/hud/security
