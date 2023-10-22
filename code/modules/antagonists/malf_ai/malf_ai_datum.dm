@@ -23,13 +23,14 @@
 
 
 /datum/antagonist/malf_ai/Destroy(force, ...)
-	var/mob/living/silicon/ai/malf = owner.current
-	malf.clear_zeroth_law()
-	malf.common_radio.channels.Remove("Syndicate")  // De-traitored AIs can still state laws over the syndicate channel without this
-	malf.laws.sorted_laws = malf.laws.inherent_laws.Copy() // AI's 'notify laws' button will still state a law 0 because sorted_laws contains it
-	malf.show_laws()
-	malf.remove_malf_abilities()
-	QDEL_NULL(malf.malf_picker)
+	var/mob/living/silicon/ai/malf = owner?.current
+	if(istype(malf))
+		malf.clear_zeroth_law()
+		malf.common_radio.channels.Remove("Syndicate")  // De-traitored AIs can still state laws over the syndicate channel without this
+		malf.laws.sorted_laws = malf.laws.inherent_laws.Copy() // AI's 'notify laws' button will still state a law 0 because sorted_laws contains it
+		malf.show_laws()
+		malf.remove_malf_abilities()
+		QDEL_NULL(malf.malf_picker)
 	return ..()
 
 
