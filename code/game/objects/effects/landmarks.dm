@@ -687,7 +687,7 @@
 
 /obj/effect/landmark/spawner/bubblegum_arena
 	name = "bubblegum_arena_human"
-	icon_state = "Explorer"
+	icon_state = "awaystart"
 
 /obj/effect/landmark/spawner/bubblegum
 	name = "bubblegum_arena_bubblegum"
