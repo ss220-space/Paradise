@@ -586,7 +586,7 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/mob_negates_gravity() //No more being thrown around like a spastic child by grav anomalies
 	return TRUE
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/electrocute_act((shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
 	return
 
 /mob/living/simple_animal/hostile/ancient_robot_leg
