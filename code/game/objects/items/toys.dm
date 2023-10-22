@@ -1353,7 +1353,7 @@
 
 /obj/item/toy/plushie/blahaj/twohanded
 	name = "akula plushie"
-	desc = "better, bigger, cuttier version of toy shark. And it can play sounds by pressing button on it's bottom!"
+	desc = "baby shark's older and cuter brother. It can play silly sound by pressing button on its belly. Doo-doo!"
 	gender = FEMALE
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "plushie_akula"
