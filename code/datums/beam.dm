@@ -145,7 +145,7 @@
 
 /obj/effect/ebeam/vetus/Destroy()
 	for(var/mob/living/M in get_turf(src))
-		M.electrocute_act(20, "the giant arc", tesla_shock = TRUE) //fuck your gloves.
+		M.electrocute_act(20, "the giant arc", safety = TRUE)
 	return ..()
 
 /atom/proc/Beam(atom/BeamTarget,icon_state="b_beam",icon='icons/effects/beam.dmi',time=50, maxdistance=10,beam_type=/obj/effect/ebeam,beam_sleep_time=3)
