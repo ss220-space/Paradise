@@ -609,3 +609,15 @@
 							"You can feel fire in your soul.",
 							"Don't forget how you got this amulet, hunter.")
 	to_chat(owner, "<span class='warning'>[pick(war_messages)]</span>")
+
+/obj/screen/alert/status_effect/dash
+	name = "Dash"
+	desc = "You have the ability to dash!"
+	icon = 'icons/mob/actions/actions.dmi'
+	icon_state = "genetic_jump"
+
+/datum/status_effect/dash
+	id = "dash"
+	duration = 5 SECONDS
+	tick_interval = 0
+	alert_type = /obj/screen/alert/status_effect/dash

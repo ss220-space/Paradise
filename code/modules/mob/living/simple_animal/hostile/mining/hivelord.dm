@@ -291,6 +291,9 @@
 	icon_aggro = "dwarf_legion"
 	icon_dead = "dwarf_legion"
 
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion/advanced/tendril
+	fromtendril = TRUE
+
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/advanced
 	stat_attack = DEAD
 	can_infest_dead = TRUE
