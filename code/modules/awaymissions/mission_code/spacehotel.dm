@@ -192,7 +192,7 @@
 	name = "Deep Space Hotel 419"
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x"
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	anchored = 1
 	density = 0
 	opacity = 0
