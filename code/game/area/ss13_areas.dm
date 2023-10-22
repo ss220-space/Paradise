@@ -2924,3 +2924,7 @@ GLOBAL_LIST_INIT(the_station_areas, list(
 	/area/turret_protected/ai_upload_foyer,
 	/area/turret_protected/ai,
 ))
+
+//space area
+/area/ruin/space/bubblegum_arena
+	name = "Bubblegum Arena"
