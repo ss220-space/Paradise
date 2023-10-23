@@ -198,6 +198,11 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 
 /**
  * Attempt to infect a mob
+ * Arguments:
+ * * act_type - type of contract. Can be BITES, CONTACT, AIRBORNE or combination of them, for example CONTACT|AIRBORNE
+ * * is_carrier - make this mob a carrier of the virus
+ * * need_protection_check - check mob's clothing, internals, special masks etc
+ * * zone - zone of contact ("l_leg", "head", etc or /obj/item/organ/external)
  * Returns:
  * * /datum/disease/D - a new instance of the virus that contract the mob
  * * FALSE - otherwise

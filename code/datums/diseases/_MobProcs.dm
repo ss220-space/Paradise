@@ -47,16 +47,17 @@
 	if(satiety > 0 && prob(satiety/10))
 		return TRUE
 
-	if((act_type & BITES) && CheckBitesProtection(V, zone))
-		return TRUE
+	//virus must to pass all the checks stated in act_type
+	if((act_type & BITES) && !CheckBitesProtection(V, zone))
+		return FALSE
 
-	if((act_type & CONTACT) && CheckContactProtection(V, zone))
-		return TRUE
+	if((act_type & CONTACT) && !CheckContactProtection(V, zone))
+		return FALSE
 
-	if((act_type & AIRBORNE) && CheckAirborneProtection(V, zone))
-		return TRUE
+	if((act_type & AIRBORNE) && !CheckAirborneProtection(V, zone))
+		return FALSE
 
-	return FALSE
+	return TRUE
 
 //Returns TRUE, if mob protected
 /mob/proc/CheckBitesProtection(datum/disease/virus/V, zone)
@@ -90,7 +91,7 @@
 			if(ClothingVirusProtection(head) || ClothingVirusProtection(wear_mask))
 				return TRUE
 		if("chest", "groin", "tail", "wing")
-			if(ClothingVirusProtection(wear_suit) || ClothingVirusProtection(slot_w_uniform))
+			if(ClothingVirusProtection(wear_suit) || ClothingVirusProtection(w_uniform))
 				return TRUE
 		if("l_arm", "r_arm", "l_hand", "r_hand")
 			if(istype(wear_suit) && (wear_suit.body_parts_covered & HANDS) && ClothingVirusProtection(wear_suit))
@@ -105,10 +106,25 @@
 
 	return FALSE
 
-/mob/living/CheckAirborneProtection(datum/disease/virus/V, zone)
-	//permeability_mod == 0 => 100% defense; permeability_mod == 2 => 0% defense
-	if(..() || internal || prob(50 * (2 - V.permeability_mod)))
+/mob/living/carbon/human/CheckAirborneProtection(datum/disease/virus/V, zone)
+	if(..())
 		return TRUE
+
+	var/internals_mod = internal ? 1 : 0.2
+	var/permeability_mod = clamp((2 - V.permeability_mod), 0.1, 1)
+	var/mask_protection_mod = 1
+	if(wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH))
+		mask_protection_mod = 0.3
+		if(istype(wear_mask, /obj/item/clothing/mask/breath))
+			mask_protection_mod = 0.4
+		if(istype(wear_mask, /obj/item/clothing/mask/gas))
+			mask_protection_mod = 0.6
+		if(istype(wear_mask, /obj/item/clothing/mask/surgical) || istype(wear_mask, /obj/item/clothing/mask/breath/medical))
+			mask_protection_mod = 0.9
+
+	if(prob(100 * permeability_mod * internals_mod * mask_protection_mod))
+		return TRUE
+
 	return FALSE
 
 /mob/living/carbon/human/proc/ClothingVirusProtection(obj/item/Clothing)
