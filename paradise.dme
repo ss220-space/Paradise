@@ -12,6 +12,7 @@
 // BEGIN_INCLUDE
 #include "_maps\__MAP_DEFINES.dm"
 #include "_maps\common.dm"
+#include "_maps\map_files\RandomRuins\SpaceRuins\graveyard.dmm"
 #include "code\_compile_options.dm"
 #include "code\hub.dm"
 #include "code\world.dm"
@@ -1645,6 +1646,7 @@
 #include "code\modules\awaymissions\mission_code\ruins\crashedipcship.dm"
 #include "code\modules\awaymissions\mission_code\ruins\gasthelizards.dm"
 #include "code\modules\awaymissions\mission_code\ruins\gps.dm"
+#include "code\modules\awaymissions\mission_code\ruins\graveyard.dm"
 #include "code\modules\awaymissions\mission_code\ruins\oldstation.dm"
 #include "code\modules\awaymissions\mission_code\ruins\spacehotelv1.dm"
 #include "code\modules\awaymissions\mission_code\ruins\USSP_gorky17.dm"

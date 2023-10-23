@@ -376,3 +376,11 @@
 	Well, apparently, something went wrong, since the tavern was closed forever. What will you learn by getting into it?"
 	cost = 3
 	allow_duplicates = FALSE
+
+/datum/map_template/ruin/space/graveyard
+	id = "graveyard"
+	suffix = "graveyard.dmm"
+	name = "Space graveyard"
+	description = ""
+	cost = 3
+	allow_duplicates = FALSE
