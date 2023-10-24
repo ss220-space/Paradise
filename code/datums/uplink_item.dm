@@ -1975,11 +1975,19 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/cyber_implants/antistun
 	name = "Hardened CNS Rebooter Implant"
-	desc = "This implant will help you get back up on your feet faster after being stunned. It is invulnerable to EMPs. \
+	desc = "This implant will help you get back up on your feet faster after being stunned. It is invulnerable to EMPs. Incompatible with the Neural Jumpstarter.\
 			Comes with an automated implanting tool."
 	reference = "CIAS"
 	item = /obj/item/storage/box/cyber_implants/anti_stun_hardened
 	cost = 12
+
+/datum/uplink_item/cyber_implants/antisleep
+	name = "Hardened Neural Jumpstarter Implant"
+	desc = "This implant will help you regain your consciousness, but there is short delay for that. It is invulnerable to EMPs. Incompatible with the CNS Rebooter.\
+			Comes with an automated implanting tool."
+	reference = "NJ"
+	item = /obj/item/storage/box/cyber_implants/anti_sleep_hardened
+	cost = 15
 
 /datum/uplink_item/cyber_implants/reviver
 	name = "Hardened Reviver Implant"
