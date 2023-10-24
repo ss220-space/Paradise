@@ -69661,6 +69661,15 @@
 	icon_state = "dark"
 	},
 /area/turret_protected/ai)
+"kih" = (
+/obj/item/radio/intercom{
+	pixel_y = 26
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "red"
+	},
+/area/security/main)
 "kim" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10;
@@ -102918,16 +102927,13 @@
 "rKg" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/structure/sign/poster/official/random{
-	pixel_x = -32
-	},
-/obj/item/radio/intercom{
-	pixel_x = -32
-	},
 /obj/machinery/door_control{
 	id = "Briefing";
 	name = "Briefing room Shutters Control";
 	pixel_y = -24
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -110701,11 +110707,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
-"tBy" = (
-/obj/structure/bookcase,
-/obj/structure/bookcase,
-/turf/simulated/floor/wood,
-/area/library)
 "tBB" = (
 /obj/machinery/status_display{
 	pixel_x = -32
@@ -126575,12 +126576,6 @@
 	tag = "icon-whitebluecorner (WEST)"
 	},
 /area/medical/sleeper)
-"xit" = (
-/obj/structure/sign/poster/official/random{
-	pixel_x = 32
-	},
-/turf/simulated/wall/r_wall,
-/area/security/range)
 "xiu" = (
 /obj/item/paper_bin/nanotrasen,
 /obj/item/pen/multi,
@@ -163897,7 +163892,7 @@ eKm
 gMw
 hTu
 rIC
-tBy
+hTu
 hTu
 hTu
 ctH
@@ -184974,7 +184969,7 @@ exy
 xuA
 tNa
 pJU
-xit
+xqu
 buC
 iYJ
 dLk
@@ -185479,7 +185474,7 @@ ePU
 wCH
 dZt
 lhS
-vcX
+kih
 tNf
 ugH
 oVy

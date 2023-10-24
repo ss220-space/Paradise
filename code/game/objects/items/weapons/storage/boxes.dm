@@ -880,7 +880,7 @@
 	max_combined_w_class = 20
 
 /obj/item/storage/box/centcomofficer/populate_contents()
-	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/clothing/mask/gas/sechailer(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/kitchen/knife/combat(src)
@@ -898,7 +898,7 @@
 	icon_state = "box_ert"
 
 /obj/item/storage/box/responseteam/populate_contents()
-	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/clothing/mask/gas/sechailer(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/crowbar/red(src)
@@ -1014,6 +1014,15 @@
 /obj/item/storage/box/wizard/hardsuit/populate_contents()
 	new /obj/item/clothing/suit/space/hardsuit/wizard/shielded(src)
 	new /obj/item/clothing/shoes/magboots/wizard(src)
+
+/obj/item/storage/box/wizard/recharge
+	name = "Armour Recharge Bundle"
+	desc = "This box contains a bundle of Battlemage Armour Recharges"
+	icon_state = "box_wizard"
+
+/obj/item/storage/box/wizard/recharge/populate_contents()
+	for(var/I in 1 to 3)
+		new /obj/item/wizard_armour_charge(src)
 
 /obj/item/storage/box/candythief
 	name = "набор радужных конфет"

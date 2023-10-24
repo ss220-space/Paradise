@@ -540,6 +540,23 @@
 	else
 		..(speaker,message)
 
+/datum/language/eventling
+	name = "Infiltrated changeling"
+	desc = "Although they are normally wary and suspicious of each other, changelings can commune over a distance."
+	speech_verb = "says"
+	colour = "changeling"
+	key = "gi"
+	flags = RESTRICTED | HIVEMIND | NOBABEL
+	follow = TRUE
+
+
+/datum/language/eventling/broadcast(mob/living/speaker, message, speaker_mask)
+	var/datum/antagonist/changeling/evented/cling = speaker?.mind?.has_antag_datum(/datum/antagonist/changeling/evented)
+	if(cling)
+		..(speaker, message, cling.changelingID)
+	else
+		..(speaker,message)
+
 /datum/language/shadowling
 	name = "Shadowling Hivemind"
 	desc = "Shadowlings and their thralls are capable of communicating over a psychic hivemind."

@@ -42,8 +42,10 @@
 
 
 /obj/effect/proc_holder/spell/shadowling_glare/create_new_targeting()
-	var/datum/spell_targeting/click/T = new()
-	T.click_radius = 0
+	var/datum/spell_targeting/targeted/T = new()
+	T.random_target = TRUE
+	T.target_priority = SPELL_TARGET_CLOSEST
+	T.max_targets = 1
 	T.range = 10
 	return T
 

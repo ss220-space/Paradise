@@ -85,9 +85,10 @@
 	else
 		return 0
 
+
 //this proc handles being hit by a thrown atom
 /mob/living/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
-	if(istype(AM, /obj/item))
+	if(isitem(AM))
 		var/obj/item/I = AM
 		var/zone = ran_zone("chest", 65)//Hits a random part of the body, geared towards the chest
 		var/dtype = BRUTE
@@ -104,21 +105,30 @@
 				playsound(loc, 'sound/weapons/genhit.ogg',volume, TRUE, -1) //...play genhit.ogg.
 
 		else if(!I.throwhitsound && I.throwforce > 0) //Otherwise, if the item doesn't have a throwhitsound and has a throwforce greater than zero...
-			playsound(loc, 'sound/weapons/genhit1.ogg', volume, 1, -1)//...play genhit1.ogg
+			playsound(loc, 'sound/weapons/genhit1.ogg', volume, TRUE, -1)//...play genhit1.ogg
 		if(!I.throwforce)// Otherwise, if the item's throwforce is 0...
-			playsound(loc, 'sound/weapons/throwtap.ogg', 1, volume, -1)//...play throwtap.ogg.
-		if(!blocked)
-			visible_message("<span class='danger'>[src.declent_ru(NOMINATIVE)] получа[pluralize_ru(src.gender,"ет","ют")] удар [I.declent_ru(INSTRUMENTAL)].</span>",
-							"<span class='userdanger'>[src.declent_ru(NOMINATIVE)] получа[pluralize_ru(src.gender,"ет","ют")] удар [I.declent_ru(INSTRUMENTAL)].</span>")
-			var/armor = run_armor_check(zone, "melee", "Броня защитила [parse_zone(zone)].", "[pluralize_ru(src.gender,"Твоя","Ваша")] броня смягчила удар по [parse_zone(zone)].", I.armour_penetration) // TODO: перевод зон
-			apply_damage(I.throwforce, dtype, zone, armor, is_sharp(I), I)
-			if(I.thrownby)
-				add_attack_logs(I.thrownby, src, "Hit with thrown [I]", !I.throwforce ? ATKLOG_ALMOSTALL : null) // Only message if the person gets damages
-		else
-			return 1
-	else
-		playsound(loc, 'sound/weapons/genhit.ogg', 50, TRUE, -1)
-	..()
+			playsound(loc, 'sound/weapons/throwtap.ogg', TRUE, volume, -1)//...play throwtap.ogg.
+
+		if(blocked)
+			return TRUE
+
+		var/mob/thrower = locateUID(I.thrownby)
+		if(thrower)
+			add_attack_logs(thrower, src, "Hit with thrown [I]", !I.throwforce ? ATKLOG_ALMOSTALL : null) // Only message if the person gets damages
+
+		visible_message(span_danger("[src.declent_ru(NOMINATIVE)] получа[pluralize_ru(src.gender,"ет","ют")] удар [I.declent_ru(INSTRUMENTAL)]."),
+						span_userdanger("[src.declent_ru(NOMINATIVE)] получа[pluralize_ru(src.gender,"ет","ют")] удар [I.declent_ru(INSTRUMENTAL)]."))
+		var/armor = run_armor_check(zone, "melee", "Броня защитила [parse_zone(zone)].", "[pluralize_ru(src.gender,"Твоя","Ваша")] броня смягчила удар по [parse_zone(zone)].", I.armour_penetration) // TODO: перевод зон
+
+		apply_damage(I.throwforce, dtype, zone, armor, is_sharp(I), I)
+		if(QDELETED(src)) //Damage can delete the mob.
+			return
+
+		return ..()
+
+	playsound(loc, 'sound/weapons/genhit.ogg', 50, TRUE, -1)
+	return ..()
+
 
 /**
  * Proc that checks if our mob is strong enough to prevent mecha melee attacks from pushing and paralyzing

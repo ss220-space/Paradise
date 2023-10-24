@@ -79,3 +79,61 @@
   - balance: flashbangs (#3677)
   - balance: energy katana is now harmfull to non ninja (#3683)
   - balance: adrenaline implant (#3676)
+'2023-10-16':
+  ROdenFL:
+  - tweak: wallets can hold patches (#3719)
+  WolfLox:
+  - tweak: crewmember-aid-kit (#3726)
+'2023-10-17':
+  Daeberdir:
+  - bugfix: small map fixes. (#3711)
+  - bugfix: wrong check for martial arts usability. (#3694)
+  - bugfix: nucleation organs desc typo. (#3698)
+  - bugfix: separated objectives for different weapons. (#3708)
+  Etrnlmelancholy:
+  - tweak: ERT equip tweaks (#3680)
+  LoneAsket:
+  - bugfix: Allow Skeleton Race plays on his Bones (#3709)
+  Mindfri:
+  - add: IPC Combat Upgrade in uplink (#3704)
+  - tweak: BattlemageRecharges 3 FOR 1 (#3718)
+  NightDawnFox:
+  - bugfix: normal drake hood for vulps (#3721)
+  - add: mirror on beach biodome (#3706)
+  - add: eye implants in loadout (#3368)
+  PlayTheGoat:
+  - qol: fixing inventory cells for silicons (#3700)
+  ROdenFL:
+  - bugfix: pistol magazine return his sprite (#3702)
+  - bugfix: wolpin with vulps head (#3707)
+  - add: headslug event (#3577)
+  SAAD:
+  - bugfix: old Z2 emo shuttles (#3687)
+  Vladisvell:
+  - tweak: Bombarda tweaks (#3699)
+  - add: brand new items for Thunderdome and bundles (#3722)
+  - bugfix: Now blob can't expand into transitional borders of the Z-level (#3714)
+  - bugfix: fixed incorrect improvised shotgun rendering (#3724)
+  Zwei:
+  - tweak: Vampire Tweaks and Fixes (#3660)
+  - bugfix: Spell Cooldown Visual (#3725)
+  p4el007:
+  - add: sexy mustache beards and hairstyles (#3682)
+'2023-10-21':
+  ArtemDerp:
+  - bugfix: lavaland clown dome set lava base turf (#3736)
+  Daeberdir:
+  - tweak: MA combo steps explain_text. (#3734)
+  - bugfix: ticket machine button works (#3735)
+  Honker9999999:
+  - bugfix: no stimulants for nukies (#3744)
+  Vladisvell:
+  - bugfix: now random item picking from uplink is working correctly (#3731)
+  WolfLox:
+  - bugfix: wrong-mantisblades-sprite (#3741)
+  - add: frag grenade for traitors (#3727)
+  Zwei:
+  - bugfix: Get Temperature Fix (#3732)
+  - tweak: Shadowling Glare Autotarget (#3730)
+  captainnelly:
+  - soundadd: revolvers (#3740)

@@ -74,6 +74,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/list/uplinktypes = list() // Empty list means it is in all the uplink types. Otherwise place the uplink type here.
 	var/list/excludefrom = list() // Empty list does nothing. Place the name of uplink type you don't want this item to be available in here.
 	var/list/job = null
+	var/list/race = null
 	var/surplus = 100 //Chance of being included in the surplus crate (when pick() selects it)
 	var/cant_discount = FALSE
 	var/limited_stock = -1 // Can you only buy so many? -1 allows for infinite purchases
@@ -537,6 +538,23 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	job = list("Head of Personnel", "Quartermaster", "Cargo Technician", "Librarian")
 
+
+// Racial
+
+/datum/uplink_item/racial
+	category = "Racial Specific Tools"
+	cant_discount = TRUE
+	surplus = 0
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+//IPC
+
+/datum/uplink_item/racial/ipc_combat_upgrade
+	desc = "Advanced data storage designed to be compatible with positronic systems.This one include melee algorithms along with overwritten microbattery safety protocols."
+	reference = "ICU"
+	item = /obj/item/ipc_combat_upgrade
+	cost = 3
+	race = list("Machine")
 
 // DANGEROUS WEAPONS
 
@@ -1328,6 +1346,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 3
 	surplus = 80
 
+/datum/uplink_item/explosives/fraggrenade
+	name = "Frag grenade's"
+	reference = "FRAG"
+	desc = "A belt containing 4 lethally dangerous and destructive grenades."
+	item = /obj/item/storage/belt/grenade/frag
+	cost = 4
+
 /datum/uplink_item/explosives/grenadier
 	name = "Grenadier's belt"
 	desc = "A belt containing 26 lethally dangerous and destructive grenades."
@@ -1864,6 +1889,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "ST"
 	item = /obj/item/reagent_containers/hypospray/autoinjector/stimulants
 	cost = 5
+	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
 // IMPLANTS
 
