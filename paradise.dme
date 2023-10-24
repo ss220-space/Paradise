@@ -1167,6 +1167,7 @@
 #include "code\game\objects\items\tools\wrench.dm"
 #include "code\game\objects\items\weapons\AI_modules.dm"
 #include "code\game\objects\items\weapons\alien_specific.dm"
+#include "code\game\objects\items\weapons\anomaly_extract.dm"
 #include "code\game\objects\items\weapons\batons.dm"
 #include "code\game\objects\items\weapons\bee_briefcase.dm"
 #include "code\game\objects\items\weapons\cards_ids.dm"

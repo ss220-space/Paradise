@@ -550,11 +550,23 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 //IPC
 
 /datum/uplink_item/racial/ipc_combat_upgrade
+	name = "Ipc combat upgrade"
 	desc = "Advanced data storage designed to be compatible with positronic systems.This one include melee algorithms along with overwritten microbattery safety protocols."
 	reference = "ICU"
 	item = /obj/item/ipc_combat_upgrade
 	cost = 3
 	race = list("Machine")
+
+
+//Slime People
+
+/datum/uplink_item/racial/anomaly_extract
+	name = "Anomaly extract"
+	desc = "The result of the work of scientists on mixing an experimental stable mutagen with the core of a pyroclastic anomaly. Gives the user the opportunity to become a slime and heat himself up."
+	reference = "AEXT"
+	item = /obj/item/anomaly_extract
+	cost = 3
+	race = list("Slime People")
 
 // DANGEROUS WEAPONS
 
