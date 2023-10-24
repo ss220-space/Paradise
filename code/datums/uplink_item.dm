@@ -1400,22 +1400,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/stealthy_tools
 	category = "Stealth and Camouflage Items"
 
-/datum/uplink_item/stealthy_tools/chameleon_stamp
-	name = "Chameleon Stamp"
-	desc = "A stamp that can be activated to imitate an official Nanotrasen Stamp. The disguised stamp will work exactly like the real stamp and will allow you to forge false documents to gain access or equipment; \
-	it can also be used in a washing machine to forge clothing."
+/datum/uplink_item/stealthy_tools/syndie_kit/counterfeiter_bundle
+	name = "Syndicate Counterfeiter Bundle"
+	desc = "A cleverly implemented bundle designed to document counterfeiting. Comes with a chameleon stamp, capable of imitating any NanoTrasen issued stamps and a fakesign pen to alter the world through the sheer force of paperwork. While making the user capable of faking almost any document, this Syndicate technology has been rumored to cause a huge upheaval on NT objects. "
 	reference = "CHST"
-	item = /obj/item/stamp/chameleon
-	cost = 1
-	surplus = 35
-
-/datum/uplink_item/stealthy_tools/chameleonpen
-	name = "Chameleon Pen"
-	desc = "A pen with customized ultra-super high-tech tip, that makes everything you write look like a real signature."
-	reference = "CHPEN"
-	item = /obj/item/pen/fakesign
-	cost = 1
-	surplus = 35
+	cost = 1 
+	surplus = 35 
+	item = /obj/item/storage/box/syndie_kit/counterfeiter_bundle 
 
 /datum/uplink_item/stealthy_tools/chameleonflag
 	name = "Chameleon Flag"
