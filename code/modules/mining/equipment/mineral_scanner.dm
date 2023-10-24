@@ -25,7 +25,7 @@
 		return
 	if(current_cooldown <= world.time)
 		current_cooldown = world.time + cooldown
-		mineral_scan_pulse(get_turf(user))
+		mineral_scan_pulse(get_turf(user), 5)
 		if(speaker)
 			playsound(src, pick(soundone, soundtwo), 35)
 
