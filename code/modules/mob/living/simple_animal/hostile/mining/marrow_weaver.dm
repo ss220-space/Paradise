@@ -133,7 +133,7 @@
 	icon_dead = "weaver_ice_dead"
 	melee_damage_lower = 10 //stronger venom, but weaker attack.
 	melee_damage_upper = 13
-	poison_type = /datum/reagent/consumable/frostoil
+	poison_type = "frostoil"
 	poison_per_bite = 5
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/tendril
