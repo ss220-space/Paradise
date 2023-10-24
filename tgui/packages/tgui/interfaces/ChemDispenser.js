@@ -5,7 +5,7 @@ import { BeakerContents } from "../interfaces/common/BeakerContents";
 import { Window } from "../layouts";
 
 const dispenseAmounts = [1, 5, 10, 20, 30, 50, 100];
-const removeAmounts = [0.1, 1, 5, 10];
+const removeAmounts = [1, 5, 10];
 
 export const ChemDispenser = (props, context) => {
   return (
