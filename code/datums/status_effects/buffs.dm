@@ -224,7 +224,7 @@
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.bodytemperature = H.dna.species.body_temperature
-		if(is_mining_level(H.z))
+		if(is_mining_level(H.z) || istype(get_area(H), /area/ruin/space/bubblegum_arena))
 			for(var/thing in H.bodyparts)
 				var/obj/item/organ/external/E = thing
 				E.internal_bleeding = FALSE
