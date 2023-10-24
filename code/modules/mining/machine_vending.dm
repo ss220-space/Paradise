@@ -34,6 +34,7 @@
 		EQUIPMENT("Automatic Scanner",				/obj/item/t_scanner/adv_mining_scanner/lesser, 						800),
 		EQUIPMENT("Advanced Scanner",				/obj/item/t_scanner/adv_mining_scanner, 							3000),
 		EQUIPMENT("Explorer's Webbing",				/obj/item/storage/belt/mining, 										500),
+		EQUIPMENT("Mining Weather Radio",			/obj/item/radio/weather_monitor,									500),
 		EQUIPMENT("Fulton Beacon",					/obj/item/fulton_core, 												400),
 		EQUIPMENT("Mining Conscription Kit",		/obj/item/storage/backpack/duffel/mining_conscript, 				1500),
 		EQUIPMENT("Jetpack Upgrade",				/obj/item/tank/jetpack/suit, 										2000),

@@ -4,8 +4,8 @@
 
 /***********************Mining radio**********************/
 /obj/item/radio/weather_monitor
-	icon = 'icons/obj/miningradio.dmi'
 	name = "mining weather radio"
+	icon = 'icons/obj/miningradio.dmi'
 	icon_state = "miningradio"
 	desc = "A weather radio designed for use in inhospitable environments. Gives audible warnings when storms approach. Has access to cargo channel."
 	freqlock = TRUE

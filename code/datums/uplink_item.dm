@@ -239,7 +239,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "KPM"
 	item = /obj/item/borg/upgrade/modkit/indoors
 	cost = 4 //you need two for full damage, so total of 8 for maximum damage
-	job = list("Shaft Miner")
+	job = list("Shaft Miner", "Quartermaster")
+
+/datum/uplink_item/jobspecific/mining_charge_hacker
+	name = "Mining Charge Hacker"
+	desc = "Looks and functions like an advanced mining scanner, but allows mining charges to be placed anywhere and destroy more than rocks. \
+	Use it on a mining charge to override its safeties. Reduces explosive power of mining charges due to the modification of their internals."
+	reference = "MCH"
+	item = /obj/item/t_scanner/adv_mining_scanner/syndicate
+	cost = 4
+	job = list("Shaft Miner", "Quartermaster")
 
 //Chef
 /datum/uplink_item/jobspecific/specialsauce
