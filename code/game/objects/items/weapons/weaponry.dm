@@ -106,19 +106,20 @@
 	item_state = "basalt_katana"
 	force = 30
 	block_chance = 30
+	var/faction_bonus_force = 30
+	var/nemesis_factions = list("mining", "boss")
 
-	var/fauna_damage_bonus = 40
-	var/fauna_damage_type = BRUTE
-
-/obj/item/katana/basalt/afterattack(atom/target, mob/user, proximity)
+/obj/item/katana/basalt/attack(mob/living/target, mob/living/carbon/human/user)
+	var/nemesis_faction = FALSE
+	if(LAZYLEN(nemesis_factions))
+		for(var/F in target.faction)
+			if(F in nemesis_factions)
+				nemesis_faction = TRUE
+				force += faction_bonus_force
+				break
 	. = ..()
-	if(!proximity)
-		return
-	if(isliving(target))
-		var/mob/living/L = target
-		if(ismegafauna(L) || istype(L, /mob/living/simple_animal/hostile/asteroid))
-			L.apply_damage(fauna_damage_bonus,fauna_damage_type)
-			playsound(L, 'sound/weapons/sear.ogg', 100, 1)
+	if(nemesis_faction)
+		force -= faction_bonus_force
 
 /obj/item/harpoon
 	name = "harpoon"
