@@ -180,8 +180,8 @@
 	desc = "A box containing all the neccessary equipment to forge stamps and insignias, making the user capable of faking any NanoTrasen documents."
 
 /obj/item/storage/box/syndie_kit/counterfeiter_bundle/populate_contents()
-	new obj/item/stamp/chameleon
-	new obj/item/pen/fakesign
+	new /obj/item/stamp/chameleon(src)
+	new /obj/item/pen/fakesign(src)
 	
 /obj/item/storage/box/syndie_kit/chameleon_hardsuit/populate_contents()
 	new /obj/item/clothing/suit/space/hardsuit/contractor/agent(src)
