@@ -895,6 +895,7 @@
 	var/mob/living/simple_animal/hostile/megafauna/bubblegum/attacker = locateUID(source_UID)
 	if(!attacker || attacker.loc == null)
 		qdel(src)
+		return
 	if(attacker.health <= attacker.maxHealth / 2)
 		owner.clear_fullscreen("Bubblegum")
 		owner.overlay_fullscreen("Bubblegum", /obj/screen/fullscreen/fog, 2)
