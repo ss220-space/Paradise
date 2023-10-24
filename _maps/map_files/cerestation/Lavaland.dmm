@@ -888,6 +888,14 @@
 	icon_state = "purplecorner"
 	},
 /area/mine/living_quarters)
+"do" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 6
+	},
+/obj/machinery/atmospherics/meter,
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
 "dq" = (
 /turf/simulated/mineral/random/high_chance/volcanic,
 /area/lavaland/surface/outdoors/unexplored)
@@ -1596,26 +1604,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
-"gI" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
-/area/mine/production)
 "gJ" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
@@ -4626,6 +4614,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/lobby)
+"AM" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "brown"
+	},
+/area/mine/production)
 "AS" = (
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
 /obj/structure/stone_tile{
@@ -5832,6 +5830,16 @@
 	icon_state = "clockwork_floor"
 	},
 /area/mine/necropolis)
+"Kw" = (
+/obj/structure/closet/fishingrodcabinet{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (NORTHWEST)"
+	},
+/area/mine/living_quarters)
 "Ky" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -6180,14 +6188,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/storage)
-"Ny" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	dir = 6
-	},
-/obj/machinery/atmospherics/meter,
-/turf/simulated/floor/plasteel,
-/area/mine/laborcamp)
 "ND" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
 	dir = 8
@@ -6415,16 +6415,6 @@
 /obj/structure/stone_tile/slab,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
-"Qj" = (
-/obj/structure/closet/fishingrodcabinet{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTHWEST)"
-	},
-/area/mine/living_quarters)
 "Qn" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
@@ -7487,6 +7477,13 @@
 "Zf" = (
 /turf/simulated/wall/r_wall,
 /area/mine/living_quarters)
+"Zg" = (
+/obj/item/gps/ruin{
+	pixel_y = 32;
+	gpstag = "OUTPOST"
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/production)
 "Zh" = (
 /obj/structure/stone_tile{
 	dir = 1
@@ -55348,7 +55345,7 @@ aj
 aj
 aj
 qT
-Ny
+do
 HA
 av
 rV
@@ -64336,7 +64333,7 @@ Gj
 lC
 Oe
 Fx
-gI
+AM
 aR
 eq
 lC
@@ -64591,7 +64588,7 @@ fO
 zo
 Oe
 TH
-Oe
+Zg
 Oe
 bq
 lC
@@ -67919,7 +67916,7 @@ ab
 ab
 Rc
 Zf
-Qj
+Kw
 bT
 xg
 JS
