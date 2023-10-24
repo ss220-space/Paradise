@@ -174,6 +174,14 @@ const ChemDispenserBeaker = (properties, context) => {
                 amount: chemical.volume,
               })}
             />
+            <Button
+              content="Floor"
+              icon="arrow-circle-down"
+              onClick={() => act('remove', {
+                reagent: chemical.id,
+                amount: -2,
+              })}
+            />
           </Fragment>
         )}
       />
