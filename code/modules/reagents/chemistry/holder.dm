@@ -487,6 +487,8 @@
 		if(R.id == reagent)
 			R.volume = FLOOR(R.volume, 1)
 			update_total()
+			return TRUE
+	return FALSE
 
 /datum/reagents/proc/isolate_reagent(reagent)
 	for(var/A in reagent_list)
