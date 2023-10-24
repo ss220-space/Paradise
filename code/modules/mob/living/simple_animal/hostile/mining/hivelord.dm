@@ -257,10 +257,11 @@
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/AttackingTarget()
 	. = ..()
-	var/mob/living/carbon/human/victim = target
-	if(victim && victim.can_inject(null, FALSE, "chest", FALSE, TRUE) && !victim.get_int_organ(/obj/item/organ/internal/legion_tumour) && prob(10))
-		new /obj/item/organ/internal/legion_tumour(victim)
-		visible_message(span_userdanger("[src] вгрызается в шею [target], впрыскивая странную черную жидкость!</span>")) //made it on russian to attract more attention from attacklogs
+	if(!isobj(target))
+		var/mob/living/carbon/human/victim = target
+		if(victim.can_inject(null, FALSE, "chest", FALSE, TRUE) && !victim.get_int_organ(/obj/item/organ/internal/legion_tumour) && prob(10))
+			new /obj/item/organ/internal/legion_tumour(victim)
+			visible_message(span_userdanger("[src] вгрызается в шею [target], впрыскивая странную черную жидкость!</span>")) //made it on russian to attract more attention from attacklogs
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/proc/infest(mob/living/carbon/human/H)
 	visible_message("<span class='warning'>[name] burrows into the flesh of [H]!</span>")
