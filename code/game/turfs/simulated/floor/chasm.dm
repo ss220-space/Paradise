@@ -32,7 +32,6 @@
 	barefootstep = null
 	clawfootstep = null
 	heavyfootstep = null
-	var/obj/effect/abstract/chasm_storage/storage
 
 /turf/simulated/floor/chasm/Entered(atom/movable/AM)
 	..()
@@ -183,8 +182,18 @@
 			L.adjustBruteLoss(30)
 	falling_atoms -= AM
 
+/turf/simulated/floor/chasm/straight_down
+	var/obj/effect/abstract/chasm_storage/storage
+
 /turf/simulated/floor/chasm/straight_down/Initialize()
 	..()
+	var/found_storage = FALSE
+	for(var/obj/effect/abstract/chasm_storage/C in contents)
+		storage = C
+		found_storage = TRUE
+		break
+	if(!found_storage)
+		storage = new /obj/effect/abstract/chasm_storage(src)
 	drop_x = x
 	drop_y = y
 	drop_z = z - 1
@@ -239,6 +248,10 @@
 		return
 
 	falling_atoms -= AM
+
+	if(istype(AM, /obj/item/grenade/jaunter_grenade))
+		AM.forceMove(storage)
+		return
 
 	if(isliving(AM))
 		if(!storage)

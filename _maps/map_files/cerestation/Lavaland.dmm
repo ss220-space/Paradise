@@ -1602,16 +1602,6 @@
 	pixel_x = -2;
 	pixel_y = -1
 	},
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -7303,6 +7293,13 @@
 /obj/machinery/tcomms/relay/mining,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/maintenance)
+"XJ" = (
+/obj/item/gps/ruin{
+	pixel_y = 32;
+	gpstag = "OUTPOST"
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/production)
 "XN" = (
 /obj/structure/stone_tile/slab,
 /obj/item/clockwork/clockgolem_remains,
@@ -64591,7 +64588,7 @@ fO
 zo
 Oe
 TH
-Oe
+XJ
 Oe
 bq
 lC
