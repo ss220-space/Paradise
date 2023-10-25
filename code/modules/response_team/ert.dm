@@ -338,7 +338,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		hours *= rand(0.8, 1.2)
 		if((hours - hours_dif) <= MEDIUM_RANK_HOURS)
 			H.rename_character(null, "[ranks["Min"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
-		else if((hours - hours_dif) > MEDIUM_RANK_HOURS && (hours - hours_dif) < MAX_RANK_HOURS)
+		else if((hours - hours_dif) < MAX_RANK_HOURS)
 			H.rename_character(null, "[ranks["Med"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
 		else
 			H.rename_character(null, "[ranks["Max"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
