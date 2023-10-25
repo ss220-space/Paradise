@@ -181,6 +181,7 @@
 	desc = "A self recharging, ranged mining tool that does increased damage in low pressure. This one has been enhanced with plasma magmite."
 	origin_tech = "combat=5;powerstorage=3;engineering=5"
 	max_mod_capacity = 200
+	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 
 
 //Casing
