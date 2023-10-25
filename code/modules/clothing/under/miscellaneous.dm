@@ -822,7 +822,7 @@
 		if(!user.ventcrawler)
 			user.ventcrawler = 1
 
-/obj/item/clothing/under/contortionist/dropped(mob/living/carbon/human/user)
+/obj/item/clothing/under/contortionist/dropped(mob/living/carbon/human/user, silent = FALSE)
 	if(!user.get_int_organ(/obj/item/organ/internal/heart/gland/ventcrawling))
 		user.ventcrawler = 0
 	..()

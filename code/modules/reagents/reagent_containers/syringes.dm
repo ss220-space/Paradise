@@ -35,7 +35,7 @@
 	. = ..()
 	update_icon()
 
-/obj/item/reagent_containers/syringe/dropped(mob/user)
+/obj/item/reagent_containers/syringe/dropped(mob/user, silent = FALSE)
 	..()
 	update_icon()
 

@@ -70,6 +70,50 @@
 	else
 		return 0
 
+
+/mob/living/carbon/human/adjustHeartLoss(amount, updating_health = TRUE)
+	if(status_flags & GODMODE)
+		return STATUS_UPDATE_NONE	//godmode
+
+	if(dna.species && dna.species.has_organ["heart"])
+		var/obj/item/organ/internal/heart/hearty = get_int_organ(/obj/item/organ/internal/heart)
+		if(hearty)
+			hearty.damage = clamp(hearty.damage + amount, 0, 120)
+			// if(hearty.damage >= 120 && stat != DEAD)
+			// 	visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
+			// 	death()
+	if(updating_health)
+		update_stat("adjustHeartLoss")
+	return STATUS_UPDATE_STAT
+
+/mob/living/carbon/human/setHeartLoss(amount, updating_health = TRUE)
+	if(status_flags & GODMODE)
+		return STATUS_UPDATE_NONE	//godmode
+
+	if(dna.species && dna.species.has_organ["heart"])
+		var/obj/item/organ/internal/heart/hearty = get_int_organ(/obj/item/organ/internal/heart)
+		if(hearty)
+			hearty.damage = clamp(amount, 0, 120)
+			// if(sponge.damage >= 120 && stat != DEAD)
+			// 	visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
+			// 	death()
+	if(updating_health)
+		update_stat("setHeartLoss")
+	return STATUS_UPDATE_STAT
+
+/mob/living/carbon/human/getHeartLoss()
+	if(status_flags & GODMODE)
+		return 0	//godmode
+
+	if(dna.species && dna.species.has_organ["heart"])
+		var/obj/item/organ/internal/heart/hearty = get_int_organ(/obj/item/organ/internal/heart)
+		if(hearty)
+			return min(hearty.damage,maxHealth*2)
+		else
+			return 200
+	else
+		return 0
+
 //These procs fetch a cumulative total damage from all organs
 /mob/living/carbon/human/getBruteLoss()
 	if(status_flags & GODMODE)

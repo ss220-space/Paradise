@@ -230,7 +230,7 @@
 		ADD_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes[UID()]")
 
 
-/obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/dropped(mob/user)
+/obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/dropped(mob/user, silent = FALSE)
 	. = ..()
 	if(user)
 		REMOVE_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes[UID()]")

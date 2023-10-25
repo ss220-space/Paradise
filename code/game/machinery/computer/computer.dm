@@ -17,6 +17,7 @@
 	var/light_range_on = 2
 	var/light_power_on = 1
 	var/overlay_layer
+	var/abductor = FALSE
 	/// Are we in the middle of a flicker event?
 	var/flickering = FALSE
 	/// Are we forcing the icon to be represented in a no-power state?
@@ -77,7 +78,9 @@
 /obj/machinery/computer/update_icon()
 	overlays.Cut()
 	if((stat & NOPOWER) || force_no_power_icon_state)
-		if(icon_keyboard)
+		if(icon_keyboard && abductor)
+			overlays += image(icon,"alien_key_off",overlay_layer)
+		else if(icon_keyboard)
 			overlays += image(icon,"[icon_keyboard]_off",overlay_layer)
 		return
 
@@ -86,7 +89,9 @@
 	else
 		overlays += image(icon,icon_screen,overlay_layer)
 
-	if(icon_keyboard)
+	if(icon_keyboard && abductor)
+		overlays += image(icon, "alien_key" ,overlay_layer)
+	else if(icon_keyboard)
 		overlays += image(icon, icon_keyboard ,overlay_layer)
 
 
@@ -130,7 +135,11 @@
 	on_deconstruction()
 	if(!(flags & NODECONSTRUCT))
 		if(circuit) //no circuit, no computer frame
-			var/obj/structure/computerframe/A = new /obj/structure/computerframe(loc)
+			var/obj/structure/computerframe/A
+			if(abductor)
+				A = new /obj/structure/computerframe/abductor(loc)
+			else
+				A = new /obj/structure/computerframe(loc)
 			var/obj/item/circuitboard/M = new circuit(A)
 			A.name += " ([M.board_name])"
 			A.setDir(dir)
@@ -178,3 +187,12 @@
 	if(circuit && !(flags & NODECONSTRUCT))
 		if(I.use_tool(src, user, 20, volume = I.tool_volume))
 			deconstruct(TRUE, user)
+
+
+/obj/machinery/computer/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	if(!self_hurt && prob(50 * (damage / 15)))
+		obj_break(MELEE)
+		take_damage(damage, BRUTE)
+		self_hurt = TRUE
+	return ..()
+

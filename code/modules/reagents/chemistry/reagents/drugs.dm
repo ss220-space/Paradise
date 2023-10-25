@@ -1066,3 +1066,120 @@
 	update_flags |= M.adjustFireLoss(5, FALSE)
 	update_flags |= M.adjustBrainLoss(3, FALSE)
 	return list(effect, update_flags)
+
+/datum/reagent/crack
+	name = "Crack"
+	id = "crack"
+	description = "A crystallized version of cocaine consumed by smoking."
+	reagent_state = LIQUID
+	color = "#f0f0f0"
+	overdose_threshold = 20
+	addiction_chance = 15
+	addiction_threshold = 5
+	taste_description = "nasty bitterness with a bit of poverty"
+	shock_reduction = 100
+	metabolization_rate = 0.6 * REAGENTS_METABOLISM
+
+/datum/reagent/crack/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustStaminaLoss(-3, FALSE)
+	if(prob(15))
+		M.emote(pick("twitch", "twitch_s", "grumble", "laugh"))
+	if(prob(50))
+		M.SetParalysis(0)
+		M.SetStunned(0)
+		M.SetWeakened(0)
+	if(prob(50))
+		update_flags |= M.adjustHeartLoss(1, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/crack/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustStaminaLoss(-0.4, FALSE)
+	update_flags |= M.adjustHeartLoss(1, FALSE)
+	return list(0, update_flags)
+
+/datum/reagent/crack/reaction_temperature(exposed_temperature, exposed_volume)
+	if((exposed_temperature >= 350) && (volume >= 10))
+		if(holder)
+			for(var/i = 0, i < round(volume/10,1),i++)
+				new /obj/item/crack_crystal(get_turf(holder.my_atom))
+			holder.del_reagent(id)
+
+/datum/reagent/cocaine
+	name = "cocaine"
+	id = "cocaine"
+	description = "World-famous drug with strong effect on organics."
+	reagent_state = LIQUID
+	color = "#f0f0f0"
+	overdose_threshold = 20
+	addiction_chance = 10
+	addiction_threshold = 5
+	taste_description = "light bitterness, going off with numbing feeling"
+	shock_reduction = 140
+	metabolization_rate = 0.4 * REAGENTS_METABOLISM
+
+/datum/reagent/cocaine/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(5))
+		M.emote(pick("twitch_s","blink_r","shiver"))
+	if(current_cycle >= 25)
+		M.AdjustJitter(10 SECONDS)
+	update_flags |= M.adjustStaminaLoss(-5, FALSE)
+	M.SetParalysis(0)
+	M.SetStunned(0)
+	M.SetWeakened(0)
+	if(prob(25))
+		update_flags |= M.adjustHeartLoss(1, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/cocaine/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(50))
+		update_flags |= M.adjustHeartLoss(1, FALSE)
+	update_flags |= M.AdjustConfused(2 SECONDS)
+	if(prob(25))
+		M.emote("sneeze")
+	if(prob(10))
+		M.emote("collapse")
+	M.emote("tremble")
+	return list(0, update_flags)
+
+/datum/reagent/cocaine/reaction_temperature(exposed_temperature, exposed_volume)
+	if((exposed_temperature >= 350) && (volume >= 10))
+		if(holder)
+			for(var/i = 0, i < round(volume/10,1),i++)
+				new /obj/item/coca_packet(get_turf(holder.my_atom))
+			holder.del_reagent(id)
+
+/datum/reagent/matedecoca
+	name = "Mate de Coca"
+	id = "matedecoca"
+	description = "A tea made of cocaine. Especially intresting drink."
+	reagent_state = LIQUID
+	color = "#8acca7"
+	overdose_threshold = 40
+	addiction_chance = 2
+	addiction_threshold = 5
+	taste_description = "pleasant bitterness"
+	shock_reduction = 50
+	metabolization_rate = 0.4 * REAGENTS_METABOLISM
+
+/datum/reagent/matedecoca/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(10))
+		M.AdjustJitter(5 SECONDS)
+	M.AdjustDrowsy(-20 SECONDS)
+	M.AdjustParalysis(-3 SECONDS)
+	M.AdjustStunned(-3 SECONDS)
+	M.AdjustWeakened(-3 SECONDS)
+	M.SetSleeping(0)
+	return ..() | update_flags
+
+/datum/reagent/matedecoca/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(25))
+		M.fakevomit()
+		M.emote("tremble")
+	return list(0, update_flags)
+
