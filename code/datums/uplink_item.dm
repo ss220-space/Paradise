@@ -563,7 +563,18 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/implanter/supercharge
 	cost = 8
 	race = list("Machine")
-	
+
+//Plasmaman
+
+/datum/uplink_item/racial/plasma_chameleon
+	name = "Plasmaman Chameleon Kit"
+	desc = "A set of items that contain chameleon technology allowing you to disguise as pretty much anything on the station, and more! \
+			Due to budget cuts, the shoes don't provide protection against slipping. The set comes with a complementary chameleon stamp. Only for Plasmamen."
+	reference = "PCK"
+	item = /obj/item/storage/box/syndie_kit/plasma_chameleon
+	cost = 4
+	race = list("Plasmaman")
+  
 // DANGEROUS WEAPONS
 
 /datum/uplink_item/dangerous

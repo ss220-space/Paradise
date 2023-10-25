@@ -348,6 +348,23 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/pda/chameleon(src)
 	new /obj/item/pen/fakesign(src)
 
+/obj/item/storage/box/syndie_kit/plasma_chameleon
+	name = "plasmaman chameleon kit"
+
+/obj/item/storage/box/syndie_kit/plasma_chameleon/populate_contents()
+	new /obj/item/clothing/under/plasmaman/chameleon(src)
+	new /obj/item/clothing/suit/chameleon(src)
+	new /obj/item/clothing/gloves/chameleon(src)
+	new /obj/item/clothing/shoes/chameleon(src)
+	new /obj/item/clothing/glasses/chameleon(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/chameleon(src)
+	new /obj/item/clothing/mask/chameleon(src)
+	new /obj/item/storage/backpack/chameleon(src)
+	new /obj/item/radio/headset/chameleon(src)
+	new /obj/item/stamp/chameleon(src)
+	new /obj/item/pda/chameleon(src)
+	new /obj/item/pen/fakesign(src)
+
 /obj/item/storage/box/syndie_kit/dart_gun
 	name = "dart gun kit"
 
