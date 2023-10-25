@@ -4,7 +4,7 @@
 	var/datum/mind/ninja_mind = ninja.mind
 	if(!ninja_mind)
 		return INVALID_DRAIN
-	var/datum/objective/cyborg_hijack/objective = locate() in ninja_mind.objectives
+	var/datum/objective/cyborg_hijack/objective = locate() in ninja_mind.get_all_objectives()
 	if(!objective)
 		return INVALID_DRAIN
 	if(objective.completed)
@@ -81,6 +81,13 @@
 		mind.transfer_to(ninja_borg)
 		add_conversion_logs(ninja_borg, "Converted into ninja borg.")
 		qdel(src)
-		SSticker.mode.update_ninja_icons_added(ninja_borg.mind)
+		update_robot_icons_added(ninja_borg.mind)
 		SSticker.mode.space_ninjas += ninja_borg.mind
 		objective.completed = TRUE
+
+
+/mob/living/silicon/robot/proc/update_robot_icons_added(datum/mind/robot_mind)
+	var/datum/atom_hud/antag/ninja_hud = GLOB.huds[ANTAG_HUD_NINJA]
+	ninja_hud.join_hud(robot_mind.current)
+	set_antag_hud(robot_mind.current, "hudninja")
+

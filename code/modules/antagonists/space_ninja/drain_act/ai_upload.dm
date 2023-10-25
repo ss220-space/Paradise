@@ -12,7 +12,7 @@
 	if(!ninja_mind)
 		return INVALID_DRAIN
 
-	var/datum/objective/ai_corrupt/objective = locate() in ninja_mind.objectives
+	var/datum/objective/ai_corrupt/objective = locate() in ninja_mind.get_all_objectives()
 	if(!objective)
 		return INVALID_DRAIN
 	if(objective.completed)
