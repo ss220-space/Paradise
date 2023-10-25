@@ -128,7 +128,7 @@
 	return FALSE
 
 /mob/living/carbon/human/proc/ClothingVirusProtection(obj/item/Clothing)
-	//permeability_coefficient == 0.01 => 100% defense; permeability_coefficient == 1 => 1% defense
-	if(istype(Clothing) && prob(100 * (1.01 - Clothing.permeability_coefficient)))
+	//permeability_coefficient == 0.01 => 99% defense; permeability_coefficient == 1 => 0% defense
+	if(istype(Clothing) && prob(100 * (1 - Clothing.permeability_coefficient)))
 		return TRUE
 	return FALSE

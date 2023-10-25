@@ -274,6 +274,7 @@
 							dat += "<b>Описание: </b> [(D.desc||"нет")]<BR>"
 							dat += "<b>Путь передачи:</b> [(D.additional_info||"нет")]<BR>"
 							dat += "<b>Возможное лекарство:</b> [(D.cure_text||"нет")]<BR><BR>"
+							dat += "<b>Возможность выработки антител:</b> [(D.can_immunity ? "Присутствует" : "Отсутствует")]<BR><BR>"
 
 							if(istype(D, /datum/disease/virus/advance))
 								var/datum/disease/virus/advance/A = D

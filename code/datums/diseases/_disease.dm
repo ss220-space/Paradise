@@ -111,6 +111,9 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
  * * FALSE - if disease was deleted
  */
 /datum/disease/proc/stage_act()
+	if(!affected_mob)
+		return FALSE
+
 	if(affected_mob?.stat == DEAD && !can_progress_in_dead)
 		return FALSE
 

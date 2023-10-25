@@ -5,6 +5,7 @@
 	max_stages = 4
 	stage_prob = 5
 	severity = BIOHAZARD
+	visibility_flags = HIDDEN_PANDEMIC
 	curable = FALSE
 	can_immunity = FALSE
 	ignore_immunity = TRUE //Kuru is a prion disorder, not a virus

@@ -75,6 +75,9 @@
 			if(prob(10))
 				A.receive_damage(2, silent = 0)
 
+			if(prob(3))
+				H.vomit()
+
 			if(prob(15))
 				H.emote(pick("moan", "cry"))
 
@@ -89,21 +92,27 @@
 				A.germ_level = INFECTION_LEVEL_TWO
 			A.germ_level += rand(6, 12) * H.dna.species.germs_growth_rate
 
+			H.adjustToxLoss(0.5)
+			if(H.IsSlowed())
+				H.AdjustSlowedDuration(30 SECONDS, bound_upper = 40 SECONDS)
+			else
+				H.Slowed(30 SECONDS, 5)
+
+			H.damageoverlaytemp = 30
+
 			if(prob(20))
 				A.receive_damage(3, silent = 0)
 
-			H.adjustToxLoss(0.5)
-			H.SetSlowed(20 SECONDS, 5)
-
-			if(prob(7))
+			if(prob(5))
 				H.vomit()
 
-			if(prob(15))
+			if(prob(10))
 				H.emote(pick("moan", "cry"))
 
 			if(prob(8))
 				to_chat(H, span_danger("You feel a stabbing pain in your abdomen!"))
 				H.Stun(rand(2 SECONDS, 4 SECONDS))
+				H.Jitter(10 SECONDS)
 
 
 /datum/disease/appendicitis/proc/rupture(mob/living/carbon/human/H, obj/item/organ/internal/appendix/A)

@@ -6,7 +6,7 @@
 	desc = "A disease that causes acute mass insanity for a certain person, as well as various obsessions"
 	max_stages = 5
 	spread_flags = CONTACT
-	permeability_mod = 0.5
+	permeability_mod = 0.8
 	can_immunity = FALSE
 	cure_text = "Anti-Psychotics"
 	cures = list("haloperidol")
