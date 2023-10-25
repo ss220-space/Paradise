@@ -62,7 +62,7 @@
 	icon_state = "box_machine"
 
 /obj/item/storage/box/survival_machine/populate_contents()
-	new /obj/item/weldingtool/mini(src)
+	new /obj/item/weldingtool(src)
 	new /obj/item/stack/cable_coil/random(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
