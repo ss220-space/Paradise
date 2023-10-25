@@ -542,14 +542,15 @@ emp_act
 
 	dna.species.spec_attacked_by(I, user, affecting, user.a_intent, src)
 
+
 //this proc handles being hit by a thrown atom
 /mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	var/obj/item/I
 	var/throwpower = 30
-	if(istype(AM, /obj/item))
+	if(isitem(AM))
 		I = AM
 		throwpower = I.throwforce
-		if(I.thrownby == src) //No throwing stuff at yourself to trigger reactions
+		if(locateUID(I.thrownby) == src) //No throwing stuff at yourself to trigger reactions
 			return ..()
 	SEND_SIGNAL(src, COMSIG_CARBON_HITBY)
 	if(check_shields(AM, throwpower, "\the [AM.name]", THROWN_PROJECTILE_ATTACK))
@@ -565,9 +566,10 @@ emp_act
 					skipcatch = TRUE //can't catch the now embedded item
 	if(!blocked)
 		dna.species.spec_hitby(AM, src)
-	return ..()
+	return ..(AM, skipcatch, hitpush, blocked, throwingdatum)
 
-/mob/living/carbon/human/proc/embed_item_inside(var/obj/item/I)
+
+/mob/living/carbon/human/proc/embed_item_inside(obj/item/I)
 	if(ismob(I.loc))
 		var/mob/M = I.loc
 		M.drop_item_ground(I)

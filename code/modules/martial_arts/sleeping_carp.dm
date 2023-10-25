@@ -59,5 +59,8 @@
 /datum/martial_art/the_sleeping_carp/explaination_footer(user)
 	to_chat(user, "<b><i>Кроме того, если при стрельбе в вас включен режим броска, вы переходите в режим активной обороны, в котором блокируете и отклоняете все выпущенные в вас снаряды!</i></b>")
 
+/datum/martial_art/the_sleeping_carp/explaination_notice(user)
+	to_chat(user, "<b><i>Шаги комбо могут быть произведены только пустой активной рукой!</i></b>")
+
 /datum/martial_art/the_sleeping_carp/try_deflect(mob/user)
 	return user.in_throw_mode && ..() // in case an admin wants to var edit carp to have less deflection chance

@@ -233,10 +233,13 @@
 		qdel(src)
 		return
 
+	if(owner.resting)	// abuses are not allowed
+		owner.StopResting()
+
 	if(t_hearts && prob(t_hearts * 10))	// 60% on MAX
 		owner.adjustFireLoss(t_hearts)	// 6 MAX
 
-	if(t_eyes && !owner.incapacitated() && prob(30 + t_eyes * 7))	// 100% on MAX
+	if(!owner.incapacitated() && prob(30 + t_eyes * 7))	// 100% on MAX
 		// lets check our arms first
 		var/obj/item/left_hand = owner.l_hand
 		var/obj/item/right_hand = owner.r_hand
@@ -284,11 +287,11 @@
 			if(force_left > force_right)
 				if(!owner.hand)
 					owner.swap_hand()
-				left_hand.attack(target, owner, "head")	// yes! right in the neck
+				left_hand.attack(target, owner, BODY_ZONE_HEAD)	// yes! right in the neck
 			else if(force_right)
 				if(owner.hand)
 					owner.swap_hand()
-				right_hand.attack(target, owner, "head")
+				right_hand.attack(target, owner, BODY_ZONE_HEAD)
 			return
 
 		// here goes nothing!
@@ -298,8 +301,8 @@
 				owner.a_intent_change(INTENT_HARM)
 			if(owner.hand && owner.l_hand != found_gun)
 				owner.swap_hand()
-			found_gun.process_fire(target, owner, zone_override = "head")	// hell yeah! few headshots for mr. vampire!
-			found_gun.attack(owner, owner, "head")	// attack ourselves also in case gun has no ammo
+			found_gun.process_fire(target, owner, zone_override = BODY_ZONE_HEAD)	// hell yeah! few headshots for mr. vampire!
+			found_gun.attack(owner, owner, BODY_ZONE_HEAD)	// attack ourselves also in case gun has no ammo
 
 
 // start of `living` level status procs.
@@ -613,10 +616,13 @@
 	id = "slowed"
 	var/slowdown_value = 10 // defaults to this value if none is specified
 
-/datum/status_effect/incapacitating/slowed/on_creation(mob/living/new_owner, set_duration, _slowdown_value)
+/datum/status_effect/incapacitating/slowed/on_creation(mob/living/new_owner, set_duration, slowdown_value)
 	. = ..()
-	if(isnum(_slowdown_value))
-		slowdown_value = _slowdown_value
+	set_slowdown_value(slowdown_value)
+
+/datum/status_effect/incapacitating/slowed/proc/set_slowdown_value(slowdown_value)
+	if(isnum(slowdown_value))
+		src.slowdown_value = slowdown_value
 
 /datum/status_effect/transient/silence
 	id = "silenced"

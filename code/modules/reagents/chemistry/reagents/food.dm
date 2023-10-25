@@ -230,39 +230,47 @@
 
 /datum/reagent/consumable/condensedcapsaicin/on_mob_life(mob/living/M)
 	if(prob(5))
-		M.visible_message("<span class='warning'>[M] [pick("dry heaves!","coughs!","splutters!")]</span>")
+		M.visible_message(span_warning("[M] [pick("dry heaves!","coughs!","splutters!")]"))
 	return ..()
 
 /datum/reagent/consumable/condensedcapsaicin/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
 		if(ishuman(M))
 			var/mob/living/carbon/human/victim = M
-			var/mouth_covered = 0
-			var/eyes_covered = 0
+			var/mouth_covered = FALSE
+			var/eyes_covered = FALSE
 			var/obj/item/safe_thing = null
 			if( victim.wear_mask )
 				if(victim.wear_mask.flags_cover & MASKCOVERSEYES)
-					eyes_covered = 1
+					eyes_covered = TRUE
 					safe_thing = victim.wear_mask
 				if(victim.wear_mask.flags_cover & MASKCOVERSMOUTH)
-					mouth_covered = 1
+					mouth_covered = TRUE
 					safe_thing = victim.wear_mask
-			if( victim.head )
+				if(victim.wear_mask.flags & BLOCK_CAPSAICIN)
+					mouth_covered = TRUE
+					eyes_covered = TRUE
+					safe_thing = victim.wear_mask
+			if(victim.head)
 				if(victim.head.flags_cover & MASKCOVERSEYES)
-					eyes_covered = 1
+					eyes_covered = TRUE
 					safe_thing = victim.head
 				if(victim.head.flags_cover & MASKCOVERSMOUTH)
-					mouth_covered = 1
+					mouth_covered = TRUE
+					safe_thing = victim.head
+				if(victim.head.flags & BLOCK_CAPSAICIN)
+					mouth_covered = TRUE
+					eyes_covered = TRUE
 					safe_thing = victim.head
 			if(victim.glasses)
-				eyes_covered = 1
-				if( !safe_thing )
+				eyes_covered = TRUE
+				if(!safe_thing)
 					safe_thing = victim.glasses
 			if( eyes_covered && mouth_covered )
-				to_chat(victim, "<span class='danger'>Your [safe_thing] protects you from the pepperspray!</span>")
+				to_chat(victim, span_danger("Your [safe_thing] protects you from the pepperspray!"))
 				return
 			else if( mouth_covered )	// Reduced effects if partially protected
-				to_chat(victim, "<span class='danger'>Your [safe_thing] protect you from most of the pepperspray!</span>")
+				to_chat(victim, span_danger("Your [safe_thing] protect you from most of the pepperspray!"))
 				if(prob(20))
 					victim.emote("scream")
 				victim.EyeBlurry(6 SECONDS)
@@ -273,7 +281,7 @@
 				victim.drop_from_active_hand()
 				return
 			else if( eyes_covered ) // Eye cover is better than mouth cover but not best
-				to_chat(victim, "<span class='danger'>Your [safe_thing] partially protects your eyes from the pepperspray!</span>")
+				to_chat(victim, span_danger("Your [safe_thing] partially protects your eyes from the pepperspray!"))
 				if(prob(20))
 					victim.emote("scream")
 				victim.EyeBlurry(4 SECONDS)
@@ -286,7 +294,7 @@
 			else // Oh dear :D
 				if(prob(20))
 					victim.emote("scream")
-				to_chat(victim, "<span class='danger'>You're sprayed directly in the eyes with pepperspray!</span>")
+				to_chat(victim, span_danger("You're sprayed directly in the eyes with pepperspray!"))
 				victim.EyeBlurry(10 SECONDS)
 				victim.EyeBlind(4 SECONDS)
 				victim.Confused(12 SECONDS)

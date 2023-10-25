@@ -175,7 +175,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	name = "the chief engineer's advanced magnetic boots"
 	typepath = /obj/item/clothing/shoes/magboots/advance
 	protected_jobs = list("Chief Engineer")
-	
+
 /datum/theft_objective/highrisk/combatrcd
 	id = "chief_crcd"
 	name = "the chief engineer's combat RCD"
@@ -866,7 +866,14 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 /datum/theft_objective/collect/number/automatic
 	id = "collect_num_automatic"
 	typepath = /obj/item/gun/projectile/automatic
-	name = "любое оружие огнестрельного типа"
+	name = "любое стрелковое оружие со сьёмным типом магазина"
+	min=2
+	max=6
+
+/datum/theft_objective/collect/number/revolver
+	id = "collect_num_revolver"
+	typepath = /obj/item/gun/projectile/revolver
+	name = "любые револьверы или неавтоматические дробовики"
 	min=2
 	max=6
 

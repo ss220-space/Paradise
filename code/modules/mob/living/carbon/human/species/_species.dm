@@ -406,7 +406,7 @@
 
 	switch(damagetype)
 		if(BRUTE)
-			damage = damage * brute_mod
+			damage = damage * (brute_mod + H.get_vampire_bonus(BRUTE))
 			if(damage)
 				H.damageoverlaytemp = 20
 
@@ -414,7 +414,7 @@
 				H.UpdateDamageIcon()
 
 		if(BURN)
-			damage = damage * burn_mod
+			damage = damage * (burn_mod + H.get_vampire_bonus(BURN))
 			if(damage)
 				H.damageoverlaytemp = 20
 

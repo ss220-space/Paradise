@@ -206,6 +206,12 @@
 					to_chat(H, "<span class='warning'>Your current job, donator tier or whitelist status does not permit you to spawn with [gear]!</span>")
 					continue
 
+				if(G.implantable) //only works for organ-implants
+					var/obj/item/organ/internal/I = new G.path
+					I.insert(H)
+					to_chat(H, span_notice("Implanting you with [gear]!"))
+					continue
+
 				if(G.slot)
 					if(H.equip_to_slot_or_del(G.spawn_item(H), G.slot))
 						to_chat(H, "<span class='notice'>Equipping you with [gear]!</span>")

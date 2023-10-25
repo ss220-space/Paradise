@@ -1351,6 +1351,30 @@
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
+/obj/item/toy/plushie/blahaj/twohanded
+	name = "akula plushie"
+	desc = "baby shark's older and cuter sister. It can play silly sound by pressing button on its belly. Doo-doo!"
+	gender = FEMALE
+	w_class = WEIGHT_CLASS_NORMAL
+	icon_state = "plushie_akula"
+	item_state = "plushie_akula"
+
+/obj/item/toy/plushie/blahaj/twohanded/Initialize(mapload)
+	. = ..()
+	apply_twohanded_component()
+
+/obj/item/toy/plushie/blahaj/twohanded/proc/apply_twohanded_component()
+	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
+
+/obj/item/toy/plushie/blahaj/twohanded/attack_self(mob/user)
+	if(cooldown)
+		return ..()
+
+	playsound(src, 'sound/items/rawr.ogg', 25, 0)
+	visible_message(span_boldnotice("Rawr!"))
+	cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
+
 /obj/item/toy/plushie/axolotlplushie
 	name = "axolotl plushie"
 	desc = "An adorable stuffed toy that resembles an axolotl. Not to be mistaken for the real thing."
