@@ -616,7 +616,7 @@
 /datum/config_entry/flag/guest_ban/ValidateAndSet(str_val)
 	. = ..()
 	if(.)
-		GLOB.guests_allowed = config_entry_value
+		GLOB.guests_allowed = !config_entry_value
 
 ///CPU Affinity for FFmpeg. Check out taskset man page.
 /datum/config_entry/string/ffmpeg_cpuaffinity

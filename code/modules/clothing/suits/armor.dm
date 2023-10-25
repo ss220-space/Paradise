@@ -576,9 +576,6 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
-	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
-		)
 
 /obj/item/clothing/suit/hooded/goliath
 	name = "goliath cloak"

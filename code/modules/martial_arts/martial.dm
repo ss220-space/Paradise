@@ -138,7 +138,7 @@
 	return TRUE
 
 /datum/martial_art/proc/attack_reaction(var/mob/living/carbon/human/defender, var/mob/living/carbon/human/attacker, var/obj/item/I, var/visible_message, var/self_message)
-	if(can_use(src) && defender.in_throw_mode && !defender.incapacitated(FALSE, TRUE))
+	if(can_use(defender) && defender.in_throw_mode && !defender.incapacitated(FALSE, TRUE))
 		if(prob(block_chance))
 			if(visible_message || self_message)
 				defender.visible_message(visible_message, self_message)
@@ -192,6 +192,7 @@
 	explaination_header(user)
 	explaination_combos(user)
 	explaination_footer(user)
+	explaination_notice(user)
 
 // Put after the header and before the footer in the explaination text
 /datum/martial_art/proc/explaination_combos(user)
@@ -207,6 +208,9 @@
 // Put below the combos in the explaination text
 /datum/martial_art/proc/explaination_footer(user)
 	return
+
+/datum/martial_art/proc/explaination_notice(user)
+	return to_chat(user, "<b><i>Combo steps can be provided only with empty hand!</b></i>")
 
 /datum/martial_art/proc/try_deflect(mob/user)
 	return prob(deflection_chance)

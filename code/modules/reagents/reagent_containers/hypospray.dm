@@ -340,3 +340,19 @@
 /obj/item/reagent_containers/hypospray/autoinjector/selfmade/attack(mob/living/M, mob/user)
 	..()
 	container_type = DRAINABLE
+
+/obj/item/reagent_containers/hypospray/autoinjector/salbutamol
+	name = "Salbutamol autoinjector"
+	desc = "A medipen used for basic oxygen damage treatment"
+	icon_state = "ablueinjector"
+	amount_per_transfer_from_this = 20
+	volume = 20
+	list_reagents = list("salbutamol" = 20)
+
+/obj/item/reagent_containers/hypospray/autoinjector/charcoal
+	name = "Charcoal autoinjector"
+	desc = "A medipen used for basic toxix damage treatment"
+	icon_state = "greeninjector"
+	amount_per_transfer_from_this = 20
+	volume = 20
+	list_reagents = list("charcoal" = 20)

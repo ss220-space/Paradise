@@ -26,6 +26,7 @@
 	can_hide = TRUE
 	pass_door_while_hidden = TRUE
 	a_intent = INTENT_HARM
+	var/evented
 	var/datum/mind/origin
 	var/egg_layed = FALSE
 	sentience_type = SENTIENCE_OTHER
@@ -40,7 +41,7 @@
 
 /mob/living/simple_animal/hostile/headslug/proc/Infect(mob/living/carbon/victim)
 	var/obj/item/organ/internal/body_egg/changeling_egg/egg = new(victim)
-
+	egg.evented = evented
 	egg.insert(victim)
 	if(origin)
 		egg.origin = origin
@@ -89,6 +90,7 @@
 	origin_tech = "biotech=7" // You need to be really lucky to obtain it.
 	var/datum/mind/origin
 	var/time = 0
+	var/evented
 
 
 /obj/item/organ/internal/body_egg/changeling_egg/egg_process()
@@ -119,15 +121,18 @@
 
 	if(origin?.current)
 		origin.transfer_to(monka)
-
+		if(evented && !(monka.mind.has_antag_datum(/datum/antagonist/changeling)))
+			monka.mind.add_antag_datum(/datum/antagonist/changeling/evented)
 		var/datum/antagonist/changeling/cling = monka.mind.has_antag_datum(/datum/antagonist/changeling)
+		if(evented && !(cling.oncepoped))
+			owner.real_name = owner.dna.species.get_random_name(owner.gender) // part of technical task, name must be random
+			cling.absorbed_count = 0 // clear dna from player's carbon
+			cling.oncepoped = TRUE
 		if(cling.can_absorb_dna(owner))
 			cling.absorb_dna(owner)
-
 		cling.give_power(new /datum/action/changeling/humanform)
-
 		monka.key = origin.key
-		monka.revive() // better make sure some weird shit doesn't happen, because it has in the past
+		monka.revive() // better make sure some weird shit doesn't happen, because it has in the past P.S. some weird shit still happen
 	owner.gib()
 
 

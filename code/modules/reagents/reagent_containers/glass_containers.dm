@@ -316,6 +316,8 @@
 
 /obj/item/reagent_containers/glass/bucket/Initialize(mapload)
 	. = ..()
+	if(!color)
+		color = "#0085E5"
 	update_icon() //in case bucket's color has been changed in editor or by some deriving buckets
 
 /obj/item/reagent_containers/glass/bucket/attackby(obj/D, mob/user, params)
