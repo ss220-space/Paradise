@@ -506,21 +506,21 @@
 			if(!miming)
 				var/M = handle_emote_param(param)
 				message = "издает грустную трель[M ? " на [M]" : ""]."
-				playsound(loc, pick('sound/voice/skrell/sad_trill1.mp3', 'sound/voice/skrell/sad_trill2.mp3', 'sound/voice/skrell/sad_trill3.mp3'), 50, 1, frequency = get_age_pitch())
+				playsound(loc, pick('sound/voice/skrell/sad_trill1.ogg', 'sound/voice/skrell/sad_trill2.ogg', 'sound/voice/skrell/sad_trill3.ogg'), 50, 1, frequency = get_age_pitch())
 				m_type = 2
 
 		if("joyfull_trill")
 			if(!miming)
 				var/M = handle_emote_param(param)
 				message = "издает радостную трель[M ? " на [M]" : ""]."
-				playsound(loc, pick('sound/voice/skrell/joyfull_trill1.mp3', 'sound/voice/skrell/joyfull_trill2.mp3', 'sound/voice/skrell/joyfull_trill3.mp3'), 50, 1, frequency = get_age_pitch())
+				playsound(loc, pick('sound/voice/skrell/joyfull_trill1.ogg', 'sound/voice/skrell/joyfull_trill2.ogg', 'sound/voice/skrell/joyfull_trill3.ogg'), 50, 1, frequency = get_age_pitch())
 				m_type = 2
 
 		if("croaking")
 			if(!miming)
 				var/M = handle_emote_param(param)
 				message = "квакает[M ? " на [M]" : ""]."
-				playsound(loc, pick('sound/voice/skrell/croaking1.mp3', 'sound/voice/skrell/croaking2.mp3'), 50, 1, frequency = get_age_pitch())
+				playsound(loc, pick('sound/voice/skrell/croaking1.ogg', 'sound/voice/skrell/croaking2.ogg'), 50, 1, frequency = get_age_pitch())
 				m_type = 2
 
 		if("discontent")
