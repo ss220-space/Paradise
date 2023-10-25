@@ -6,9 +6,8 @@
 
 //Ranks
 
-#define MINIMAL_RANK_HOURS	200 // <=
-#define MEDIUM_RANK_HOURS	200 // >
-#define MAX_RANK_HOURS		500	// >
+#define MEDIUM_RANK_HOURS	200
+#define MAX_RANK_HOURS		500
 
 /datum/game_mode
 	var/list/datum/mind/ert = list()
@@ -337,7 +336,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 			hours -= text2num(all_hours[exp_type])
 			hours += text2num(all_hours[exp_type]) * 2
 		hours *= rand(0.8, 1.2)
-		if((hours - hours_dif) <= MINIMAL_RANK_HOURS)
+		if((hours - hours_dif) <= MEDIUM_RANK_HOURS)
 			H.rename_character(null, "[ranks["Min"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
 		else if((hours - hours_dif) > MEDIUM_RANK_HOURS && (hours - hours_dif) < MAX_RANK_HOURS)
 			H.rename_character(null, "[ranks["Med"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
