@@ -1,6 +1,5 @@
 /obj/item/implanter/stealth
 	name = "implanter (stealth)"
-	actions_types = list(/obj/item/implant/agent_box)
 
 /obj/item/implanter/stealth/New()
     imp = new /obj/item/implant/agent_box(src)
