@@ -252,6 +252,16 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
+/obj/item/ammo_casing/revolver/improvised
+	name = "improvised shell"
+	desc = "Full metal shell leaking oil. This is clearly an unreliable bullet."
+	icon_state = "improvisedrevolverbullet"
+	materials = list(MAT_METAL = 100)
+	caliber = ".257"
+	projectile_type = /obj/item/projectile/bullet/weakbullet3/c257
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+
 /obj/item/ammo_casing/shotgun/improvised/overload
 	name = "overloaded improvised shell"
 	desc = "An extremely weak shotgun shell with multiple small pellets made out of metal shards. This one has been packed with even more \
