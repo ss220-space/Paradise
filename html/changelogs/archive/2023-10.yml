@@ -137,3 +137,48 @@
   - tweak: Shadowling Glare Autotarget (#3730)
   captainnelly:
   - soundadd: revolvers (#3740)
+'2023-10-22':
+  Zwei:
+  - bugfix: Malf AI Destroy Datum Fix (#3752)
+'2023-10-25':
+  Daeberdir:
+  - bugfix: chameleon presets. (#3764)
+  - bugfix: bananapeels makes you laugh normally. (#3754)
+  - bugfix: intllicard GIB AI's very soul. (#3757)
+  - bugfix: T-rays can now see hiden safes. (#3755)
+  - imageadd: literally injector sprite for DNA injector. (#3729)
+  - add: akula plushie (#3756)
+  - bugfix: gem selling for Tulpan (#3768)
+  - bugfix: syndie-med-rig sprite by @Corde50 (#3767)
+  Etrnlmelancholy:
+  - tweak: better welder for IPC (#3759)
+  - tweak: Alternate Job Titles (#3728)
+  Honker9999999:
+  - tweak: neural jumpstarter for nukies (#3769)
+  Mindfri:
+  - add: New drugs and implant for IPC (#3743)
+  - add: Plasmaman Chameleon Kit (#3751)
+  NuSanya:
+  - add: stealthbox (#3673)
+  ROdenFL:
+  - tweak: rcd can`t in plasteel airlock (#3745)
+  - add: abductor decor (#3696)
+  - add: coca bush, cocaine, crack, Mate de Coca (#3723)
+  Roman:
+  - add: Improvised Revolver (#3710)
+  SSefuss:
+  - add: Counterfeiter Bundle, uplink item that allows to forge all types of existing
+      documents.  (#3765)
+  Vladisvell:
+  - qol: Chemicals in dispenser can be floored to lesser integer number (#3766)
+  - add: Added and reworked Plasmaman Envirosuits sprites (#3753)
+  - add: Bombarda craft is now configurable. Craft enabled only on Vega/Cleo (#3763)
+  - add: added Syndicate's Bowman Conversion Kit (#3690)
+  Zwei:
+  - bugfix: Changeling Mutations Fix (#3762)
+  - refactor: Pathfinder Subsystem and Bots Refactor (#3516)
+  - refactor: Datumized Space Ninja (#3738)
+  - refactor: Throwing Refactor And Delayed Bolas (#3685)
+  dependabot[bot]:
+  - unknown: Bump terser from 4.6.11 to 4.8.1 in /tgui (#1106)
+  - unknown: bump pillow from 9.0.1 to 10.0.1 in /tools (#3665)
