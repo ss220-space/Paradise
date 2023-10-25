@@ -235,6 +235,8 @@
 				R.remove_reagent(id, amount)
 			else if(amount == -1) //Isolate instead
 				R.isolate_reagent(id)
+			else if(amount == -2) //Round to lesser number (a.k.a 14.61 -> 14)
+				R.floor_reagent(id)
 		if("ejectBeaker")
 			if(!beaker)
 				return

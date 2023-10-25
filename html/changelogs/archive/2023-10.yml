@@ -119,3 +119,21 @@
   - bugfix: Spell Cooldown Visual (#3725)
   p4el007:
   - add: sexy mustache beards and hairstyles (#3682)
+'2023-10-21':
+  ArtemDerp:
+  - bugfix: lavaland clown dome set lava base turf (#3736)
+  Daeberdir:
+  - tweak: MA combo steps explain_text. (#3734)
+  - bugfix: ticket machine button works (#3735)
+  Honker9999999:
+  - bugfix: no stimulants for nukies (#3744)
+  Vladisvell:
+  - bugfix: now random item picking from uplink is working correctly (#3731)
+  WolfLox:
+  - bugfix: wrong-mantisblades-sprite (#3741)
+  - add: frag grenade for traitors (#3727)
+  Zwei:
+  - bugfix: Get Temperature Fix (#3732)
+  - tweak: Shadowling Glare Autotarget (#3730)
+  captainnelly:
+  - soundadd: revolvers (#3740)

@@ -276,6 +276,10 @@
 	return TRUE
 
 
+/mob/living/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+	return TRUE // Unless you're a mule, something's trying to run you over.
+
+
 //mob verbs are a lot faster than object verbs
 //for more info on why this is not atom/pull, see examinate() in mob.dm
 /mob/living/verb/pulled(atom/movable/AM as mob|obj in oview(1))
@@ -1052,7 +1056,7 @@
 		var/obj/mecha/M = loc
 		loc_temp =  M.return_temperature()
 
-	if(isvampirecoffin(loc))
+	else if(isvampirecoffin(loc))
 		var/obj/structure/closet/coffin/vampire/coffin = loc
 		loc_temp = coffin.return_temperature()
 

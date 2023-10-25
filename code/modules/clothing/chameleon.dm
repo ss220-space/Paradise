@@ -105,7 +105,13 @@
 			if(chameleon_blacklist[V] || (initial(I.flags) & ABSTRACT) || !initial(I.icon_state))
 				continue
 			var/chameleon_item_name = "[initial(I.name)] ([initial(I.icon_state)])"
-			chameleon_list[chameleon_item_name] = I
+			var/copies = FALSE
+			for(var/chameleon_item_index in chameleon_list)
+				if(chameleon_item_index == chameleon_item_name)
+					copies = TRUE
+					break
+			if(!copies)
+				chameleon_list[chameleon_item_name] = I
 
 /datum/action/item_action/chameleon/change/proc/select_look(mob/user)
 	var/obj/item/picked_item
@@ -621,5 +627,63 @@
 	return ..()
 
 /obj/item/stamp/chameleon/broken/Initialize(mapload)
+	. = ..()
+	chameleon_action.emp_randomise(INFINITY)
+
+/obj/item/clothing/under/plasmaman/chameleon
+	name = "plasma envirosuit"
+	desc = "A special containment suit that allows plasma-based lifeforms to exist safely in an oxygenated environment, and automatically extinguishes them in a crisis. Despite being airtight, it's not spaceworthy."
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 95, "acid" = 95)
+	sensor_mode = SENSOR_OFF
+	random_sensor = FALSE
+
+	var/datum/action/item_action/chameleon/change/chameleon_action
+
+/obj/item/clothing/under/plasmaman/chameleon/Initialize(mapload)
+	. = ..()
+	chameleon_action = new(src)
+	chameleon_action.chameleon_type = /obj/item/clothing/under
+	chameleon_action.chameleon_name = "Envirosuit"
+	chameleon_action.chameleon_blacklist = typecacheof(list(/obj/item/clothing/under, /obj/item/clothing/under/color, /obj/item/clothing/under/rank), only_root_path = TRUE)
+	chameleon_action.initialize_disguises()
+
+/obj/item/clothing/under/plasmaman/chameleon/Destroy()
+	QDEL_NULL(chameleon_action)
+	return ..()
+
+/obj/item/clothing/under/plasmaman/chameleon/emp_act(severity)
+	. = ..()
+	chameleon_action.emp_randomise()
+
+/obj/item/clothing/under/plasmaman/chameleon/broken/Initialize(mapload)
+	. = ..()
+	chameleon_action.emp_randomise(INFINITY)
+
+/obj/item/clothing/head/helmet/space/plasmaman/chameleon
+	gas_transfer_coefficient = 0.01
+	permeability_coefficient = 0.01
+	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 20, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 100)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	actions_types = list()
+
+	var/datum/action/item_action/chameleon/change/chameleon_action
+
+/obj/item/clothing/head/helmet/space/plasmaman/chameleon/Initialize(mapload)
+	. = ..()
+	chameleon_action = new(src)
+	chameleon_action.chameleon_type = /obj/item/clothing/head
+	chameleon_action.chameleon_name = "Envirohelm"
+	chameleon_action.chameleon_blacklist = list()
+	chameleon_action.initialize_disguises()
+
+/obj/item/clothing/head/helmet/space/plasmaman/chameleon/Destroy()
+	QDEL_NULL(chameleon_action)
+	return ..()
+
+/obj/item/clothing/head/helmet/space/plasmaman/chameleon/emp_act(severity)
+	. = ..()
+	chameleon_action.emp_randomise()
+
+/obj/item/clothing/head/helmet/space/plasmaman/chameleon/broken/Initialize(mapload)
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)

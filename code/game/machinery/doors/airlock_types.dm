@@ -335,6 +335,12 @@
 	security_level = 6
 	paintable = FALSE
 
+/obj/machinery/door/airlock/vault/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	if(!our_rcd.canRwall)
+		return RCD_NO_ACT
+	. = ..()
+
+
 //////////////////////////////////
 /*
 	Hatch Airlocks
@@ -436,6 +442,11 @@
 	security_level = 1
 	damage_deflection = 30
 	paintable = FALSE
+
+/obj/machinery/door/airlock/highsecurity/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	if(!our_rcd.canRwall)
+		return RCD_NO_ACT
+	. = ..()
 
 /obj/machinery/door/airlock/highsecurity/red
 	name = "secure armory airlock"

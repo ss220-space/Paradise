@@ -10,7 +10,7 @@
 
 	..()
 	set_tag()
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 
 	switch(name)			//some of these are probably obsolete
 		if("start")

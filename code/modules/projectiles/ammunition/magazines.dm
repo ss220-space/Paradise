@@ -81,6 +81,12 @@
 	caliber = ".36"
 	max_ammo = 6
 
+/obj/item/ammo_box/magazine/internal/cylinder/improvisedrevolver
+	name = "Improvised bullet cylinder"
+	ammo_type = /obj/item/ammo_casing/revolver/improvised
+	caliber = ".257"
+	max_ammo = 4
+
 /obj/item/ammo_box/magazine/internal/cylinder/cap
 	name = "cap gun revolver cylinder"
 	desc = "Oh god, this shouldn't be here"

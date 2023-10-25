@@ -169,7 +169,12 @@
 	time = 6 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
+	always_availible = FALSE
 
+/datum/crafting_recipe/bombarda/New()
+	. = ..()
+	if(CONFIG_GET(flag/enable_bombarda_craft))
+		always_availible = TRUE
 
 /datum/crafting_recipe/explosion_shell
 	name = "Improvised explosive shell"
@@ -181,6 +186,12 @@
 	time = 2 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
+	always_availible = FALSE
+
+/datum/crafting_recipe/explosion_shell/New()
+	. = ..()
+	if(CONFIG_GET(flag/enable_bombarda_craft))
+		always_availible = TRUE
 
 /datum/crafting_recipe/flame_shell
 	name = "Improvised flame shell"
@@ -195,6 +206,12 @@
 	time = 2 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
+	always_availible = FALSE
+
+/datum/crafting_recipe/flame_shell/New()
+	. = ..()
+	if(CONFIG_GET(flag/enable_bombarda_craft))
+		always_availible = TRUE
 
 /datum/crafting_recipe/smoke_shell
 	name = "Improvised smoke shell"
@@ -208,3 +225,9 @@
 	time = 2 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
+	always_availible = FALSE
+
+/datum/crafting_recipe/smoke_shell/New()
+	. = ..()
+	if(CONFIG_GET(flag/enable_bombarda_craft))
+		always_availible = TRUE

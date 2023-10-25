@@ -76,7 +76,7 @@
 	return ..()
 
 
-/obj/structure/plasticflaps/CanAStarPass(ID, to_dir, caller)
+/obj/structure/plasticflaps/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
 	if(isliving(caller))
 		if(isbot(caller))
 			return TRUE
@@ -85,9 +85,10 @@
 		if(!M.ventcrawler && M.mob_size != MOB_SIZE_TINY)
 			return FALSE
 	var/atom/movable/M = caller
-	if(M && M.pulling)
-		return CanAStarPass(ID, to_dir, M.pulling)
+	if(M?.pulling)
+		return CanPathfindPass(ID, to_dir, M.pulling)
 	return TRUE //diseases, stings, etc can pass
+
 
 /obj/structure/plasticflaps/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
