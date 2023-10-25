@@ -556,6 +556,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 3
 	race = list("Machine")
 
+/datum/uplink_item/racial/supercharge
+	name = "Supercharge Implant"
+	desc = "An implant injected into the body, and later activated manually to inject a chemical cocktail, which has the effect of removing and reducing the time of all stuns and increasing movement speed. Can be activated up to 3 times."
+	reference = "SSI"
+	item = /obj/item/implanter/supercharge
+	cost = 8
+	race = list("Machine")
+	
 // DANGEROUS WEAPONS
 
 /datum/uplink_item/dangerous
