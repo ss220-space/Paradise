@@ -251,6 +251,7 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "crema_default"
 	density = 1
+	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF
 	var/obj/structure/c_tray/connected = null
 	anchored = 1.0
 	var/cremating = FALSE
@@ -269,29 +270,6 @@
 	else
 		icon_state = "crema_default"
 
-/obj/structure/crematorium/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			for(var/atom/movable/A in src)
-				A.forceMove(loc)
-				ex_act(severity)
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				for(var/atom/movable/A in src)
-					A.forceMove(loc)
-					ex_act(severity)
-				qdel(src)
-				return
-		if(3.0)
-			if(prob(5))
-				for(var/atom/movable/A in src)
-					A.forceMove(loc)
-					ex_act(severity)
-				qdel(src)
-				return
-	return
 
 /obj/structure/crematorium/attack_hand(mob/user as mob)
 	if(cremating)
@@ -426,6 +404,7 @@
 	desc = "Apply body before burning."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "crema_tray"
+	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF
 	density = 1
 	layer = 2.0
 	var/obj/structure/crematorium/connected = null
@@ -470,6 +449,7 @@
 	name = "crematorium igniter"
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "crema_switch"
+	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF
 	anchored = 1.0
 	req_access = list(ACCESS_CREMATORIUM)
 	var/on = 0
