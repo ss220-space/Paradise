@@ -105,7 +105,13 @@
 			if(chameleon_blacklist[V] || (initial(I.flags) & ABSTRACT) || !initial(I.icon_state))
 				continue
 			var/chameleon_item_name = "[initial(I.name)] ([initial(I.icon_state)])"
-			chameleon_list[chameleon_item_name] = I
+			var/copies = FALSE
+			for(var/chameleon_item_index in chameleon_list)
+				if(chameleon_item_index == chameleon_item_name)
+					copies = TRUE
+					break
+			if(!copies)
+				chameleon_list[chameleon_item_name] = I
 
 /datum/action/item_action/chameleon/change/proc/select_look(mob/user)
 	var/obj/item/picked_item
