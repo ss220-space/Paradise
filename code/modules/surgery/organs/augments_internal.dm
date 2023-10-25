@@ -158,7 +158,7 @@
 	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep
-	name = "Nerual Jumpstarter implant"
+	name = "Neural Jumpstarter implant"
 	desc = "This implant will automatically attempt to jolt you awake when it detects you have fallen unconscious. Has a short cooldown, incompatible with the CNS Rebooter."
 	implant_color = "#0356fc"
 	slot = "brain_antistun" //one or the other not both.
@@ -412,6 +412,10 @@
 /obj/item/storage/box/cyber_implants/anti_stun_hardened/populate_contents()
 	..()
 	new /obj/item/organ/internal/cyberimp/brain/anti_stun/hardened(src)
+
+/obj/item/storage/box/cyber_implants/anti_sleep_hardened/populate_contents()
+	..()
+	new /obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened(src)
 
 /obj/item/storage/box/cyber_implants/bundle
 	name = "boxed cybernetic implants"

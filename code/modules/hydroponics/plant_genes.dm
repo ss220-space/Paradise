@@ -490,6 +490,6 @@
 
 /datum/plant_gene/trait/plant_laughter/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 
-	if(C.IsStunned())
-		playsound(G, pick(sounds), 100, 1)
+	if(C.IsWeakened())
+		playsound(C, pick(sounds), 100, 1)
 		C.visible_message("<span class='notice'>[G] lets out burst of laughter.</span>")

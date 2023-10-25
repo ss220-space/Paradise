@@ -184,31 +184,39 @@
 	E.germ_level = max(germ_level, E.germ_level)
 	spread_germs_by_incision(E, tool) //germ spread from environement to patient
 
-/proc/spread_germs_by_incision(obj/item/organ/external/E,obj/item/tool)
-	if(!istype(E, /obj/item/organ/external))
+
+/**
+ * Spread germs directly from a tool.
+ *
+ * * E - An external organ being operated on.
+ * * tool - The tool performing the operation.
+ */
+/proc/spread_germs_by_incision(obj/item/organ/external/E, obj/item/tool)
+	if(!isorgan(E))
 		return
 
 	var/germs = 0
 
 	for(var/mob/living/carbon/human/H in view(2, E.loc))//germs from people
-		if(AStar(E.loc, H.loc, /turf/proc/Distance, 2, simulated_only = 0))
+		if(length(get_path_to(E.loc, H.loc, max_distance = 2, simulated_only = FALSE)))
 			if(!((BREATHLESS in H.mutations) || (NO_BREATHE in H.dna.species.species_traits)) && !H.wear_mask) //wearing a mask helps preventing people from breathing cooties into open incisions
 				germs += H.germ_level * 0.25
 
 	for(var/obj/effect/decal/cleanable/M in view(2, E.loc))//germs from messes
-		if(AStar(E.loc, M.loc, /turf/proc/Distance, 2, simulated_only = 0))
+		if(length(get_path_to(E.loc, M.loc, 2, simulated_only = FALSE)))
 			germs++
 
-	if(tool && tool.blood_DNA && tool.blood_DNA.len) //germs from blood-stained tools
+	if(tool && tool.blood_DNA && length(tool.blood_DNA)) //germs from blood-stained tools
 		germs += 30
 
-	if(E.internal_organs.len)
-		germs = germs / (E.internal_organs.len + 1) // +1 for the external limb this eventually applies to; let's not multiply germs now.
+	if(length(E.internal_organs))
+		germs = germs / (length(E.internal_organs) + 1) // +1 for the external limb this eventually applies to; let's not multiply germs now.
 		for(var/obj/item/organ/internal/O in E.internal_organs)
 			if(!O.is_robotic())
 				O.germ_level += germs
 
 	E.germ_level += germs
+
 
 /proc/sort_surgeries()
 	var/gap = GLOB.surgery_steps.len

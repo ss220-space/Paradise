@@ -5,7 +5,7 @@
 	notransform = 1
 	canmove = 0
 	icon = null
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	if(!ismachineperson(src))
 		animation = new(loc)
 		animation.icon_state = "blank"
@@ -52,7 +52,7 @@
 	notransform = 1
 	canmove = 0
 	icon = null
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	dust_animation()
 	QDEL_IN(src, 0)
 	return TRUE
@@ -77,7 +77,7 @@
 	notransform = 1
 	canmove = 0
 	icon = null
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 
 	animation = new(loc)
 	animation.icon_state = "blank"
