@@ -65,10 +65,17 @@
   * * user - The attacking user
   */
 /obj/item/melee/classic_baton/proc/stun(mob/living/target, mob/living/user)
-	if(issilicon(target))
-		user.visible_message("<span class='danger'>[user] pulses [target]'s sensors with [src]!</span>",\
-							 "<span class='danger'>You pulse [target]'s sensors with [src]!</span>")
+	if(isbot(target))
+		user.visible_message(span_danger("[user] pulses [target]'s sensors with [src]!"),\
+							span_danger("You pulse [target]'s sensors with [src]!"))
+		var/mob/living/simple_animal/bot/bot = target
+		bot.disable(stun_time_silicon)
+
+	else if(issilicon(target))
+		user.visible_message(span_danger("[user] pulses [target]'s sensors with [src]!"),\
+							 span_danger("You pulse [target]'s sensors with [src]!"))
 		on_silicon_stun(target, user)
+
 	else
 		// Check for shield/countering
 		if(ishuman(target))
@@ -77,8 +84,8 @@
 				return FALSE
 			if(check_martial_counter(H, user))
 				return FALSE
-		user.visible_message("<span class='danger'>[user] knocks down [target] with [src]!</span>",\
-							 "<span class='danger'>You knock down [target] with [src]!</span>")
+		user.visible_message(span_danger("[user] knocks down [target] with [src]!"),\
+							 span_danger("You knock down [target] with [src]!"))
 		on_non_silicon_stun(target, user)
 	// Visuals and sound
 	user.do_attack_animation(target)
