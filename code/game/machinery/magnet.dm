@@ -46,7 +46,7 @@
 
 	// update the invisibility and icon
 /obj/machinery/magnetic_module/hide(intact)
-	invisibility = intact ? 101 : 0
+	invisibility = intact ? INVISIBILITY_ABSTRACT : 0
 	updateicon()
 
 	// update the icon_state
