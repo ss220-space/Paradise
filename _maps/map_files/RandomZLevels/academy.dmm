@@ -21,6 +21,11 @@
 	icon_state = "grimy"
 	},
 /area/awaymission/academy/classrooms)
+"ag" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/jellyburger/slime,
+/turf/simulated/floor/grass,
+/area/awaymission/academy/academygate)
 "ah" = (
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
@@ -134,7 +139,7 @@
 	},
 /area/awaymission/academy/academyaft)
 "aF" = (
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/headmaster)
 "aH" = (
 /obj/structure/table/reinforced,
@@ -154,6 +159,9 @@
 	pixel_y = 2
 	},
 /obj/machinery/door_control,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "aK" = (
@@ -172,10 +180,6 @@
 /obj/item/twohanded/staff/broom,
 /turf/simulated/floor/carpet/cyan,
 /area/awaymission/academy/headmaster)
-"aP" = (
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "aR" = (
 /obj/structure/table/wood,
 /obj/machinery/door_control{
@@ -193,9 +197,8 @@
 /area/awaymission/academy)
 "aU" = (
 /obj/item/target,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+/turf/simulated/floor/wood/fancy/oak{
+	icon_state = "fancy-wood-oak-broken4"
 	},
 /area/awaymission/academy/headmaster)
 "aV" = (
@@ -232,6 +235,14 @@
 /obj/machinery/door_control,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
+"be" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
+/area/awaymission/academy/headmaster)
 "bi" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/stack/spacecash,
@@ -261,8 +272,7 @@
 /obj/machinery/gateway{
 	dir = 9
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "bq" = (
 /obj/structure/toilet{
@@ -380,6 +390,9 @@
 	},
 /area/awaymission/academy/classrooms)
 "bQ" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	tag = "icon-vault"
@@ -468,6 +481,12 @@
 	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/headmaster)
+"cn" = (
+/obj/structure/chair/comfy/brown{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/academyaft)
 "co" = (
 /obj/structure/table/wood,
 /obj/item/paper{
@@ -482,8 +501,7 @@
 	},
 /area/awaymission/academy/headmaster)
 "ct" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/pill/patch/nicotine,
+/obj/effect/turf_decal/siding/brown/corner,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "cu" = (
@@ -503,8 +521,7 @@
 /obj/machinery/gateway{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "cy" = (
 /obj/structure/table,
@@ -539,9 +556,8 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "cD" = (
-/obj/structure/chair{
-	dir = 1
-	},
+/obj/effect/turf_decal/siding/brown,
+/obj/item/flag/wiz,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "cE" = (
@@ -551,6 +567,16 @@
 	},
 /obj/effect/decal/warning_stripes,
 /turf/simulated/floor/plasteel/goonplaque,
+/area/awaymission/academy/headmaster)
+"cI" = (
+/obj/item/stack/sheet/wood{
+	pixel_x = 11;
+	pixel_y = 5
+	},
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -32
+	},
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/headmaster)
 "cK" = (
 /obj/structure/sign/vacuum,
@@ -608,7 +634,7 @@
 /obj/item/paper{
 	info = "dfjajwrikdwfa..."
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/headmaster)
 "cW" = (
 /obj/effect/decal/cleanable/dirt,
@@ -629,7 +655,7 @@
 	},
 /area/awaymission/academy/classrooms)
 "dc" = (
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
 "de" = (
 /obj/structure/table/reinforced,
@@ -699,7 +725,7 @@
 "dm" = (
 /obj/structure/cult/archives,
 /obj/item/twohanded/staff,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
 "dn" = (
 /obj/structure/table/wood,
@@ -709,6 +735,9 @@
 "do" = (
 /obj/item/multitool{
 	anchored = 1
+	},
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
 	},
 /turf/simulated/floor/engine,
 /area/awaymission/academy/academyaft)
@@ -865,13 +894,6 @@
 	simulated = 0
 	},
 /area/awaymission/academy/headmaster)
-"dP" = (
-/obj/item/target,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
-	},
-/area/awaymission/academy/headmaster)
 "dQ" = (
 /obj/structure/table/wood,
 /obj/machinery/door_control{
@@ -928,6 +950,9 @@
 /area/awaymission/academy/classrooms)
 "eb" = (
 /obj/structure/window/reinforced,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -946,7 +971,7 @@
 /area/awaymission/academy/classrooms)
 "eh" = (
 /obj/item/borg/upgrade/modkit/aoe,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
 "ei" = (
 /turf/simulated/floor/plasteel{
@@ -967,7 +992,7 @@
 	pixel_x = 9;
 	pixel_y = 6
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
 "em" = (
 /obj/machinery/seed_extractor,
@@ -1131,6 +1156,9 @@
 /area/awaymission/academy/classrooms)
 "eQ" = (
 /obj/machinery/processor,
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "barber"
@@ -1172,6 +1200,12 @@
 	icon_state = "escape"
 	},
 /area/awaymission/academy/classrooms)
+"eY" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -32
+	},
+/turf/simulated/floor/wood/fancy/oak,
+/area/awaymission/academy/headmaster)
 "fa" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel,
@@ -1202,7 +1236,7 @@
 /turf/simulated/wall/r_wall{
 	simulated = 0
 	},
-/area/space/nearstation)
+/area/space)
 "fh" = (
 /obj/machinery/prize_counter,
 /turf/simulated/floor/plasteel{
@@ -1291,6 +1325,9 @@
 	dir = 1
 	},
 /obj/machinery/light_construct,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -1353,7 +1390,7 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/table/wood,
 /obj/item/camera_film,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
 "fL" = (
 /turf/simulated/floor/plasteel{
@@ -1433,7 +1470,7 @@
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
 "gd" = (
 /obj/structure/table/reinforced,
@@ -1455,7 +1492,9 @@
 	},
 /area/awaymission/academy/classrooms)
 "gh" = (
-/turf/simulated/floor/plating,
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/grown/bluecherries,
+/turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "gi" = (
 /obj/structure/table/reinforced,
@@ -1525,7 +1564,7 @@
 "gu" = (
 /obj/structure/bookcase,
 /obj/item/book/manual/medical_cloning,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
 "gw" = (
 /obj/effect/bump_teleporter{
@@ -1603,12 +1642,12 @@
 "gJ" = (
 /obj/structure/bookcase,
 /obj/item/book/manual/hydroponics_pod_people,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
 "gK" = (
 /obj/structure/bookcase,
 /obj/item/book/manual/barman_recipes,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
 "gL" = (
 /obj/structure/chair/stool,
@@ -1790,6 +1829,9 @@
 	pixel_x = -1
 	},
 /obj/machinery/door_control,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "hF" = (
@@ -1825,12 +1867,16 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "hP" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/item/paper/researchnotes,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "hR" = (
-/obj/structure/chair,
+/obj/effect/turf_decal/siding/brown{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/brown{
+	dir = 4
+	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "hS" = (
@@ -1845,7 +1891,7 @@
 	},
 /area/awaymission/academy/academyaft)
 "hU" = (
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/academyaft)
 "hV" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1925,6 +1971,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/hatchet/wooden,
 /obj/item/plant_analyzer,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "green"
@@ -2038,6 +2087,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
+"ix" = (
+/obj/structure/chair/comfy/red{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/black,
+/area/awaymission/academy/headmaster)
 "iz" = (
 /obj/structure/chair{
 	dir = 1
@@ -2051,6 +2106,9 @@
 /area/awaymission/academy/classrooms)
 "iC" = (
 /obj/machinery/power/port_gen/pacman,
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -2109,15 +2167,12 @@
 "iJ" = (
 /turf/simulated/floor/engine,
 /area/awaymission/academy/academyaft)
-"iK" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
-	},
-/area/awaymission/academy/academyaft)
 "iM" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/closet/wardrobe/black,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
 /turf/simulated/floor/engine,
 /area/awaymission/academy/academyaft)
 "iN" = (
@@ -2223,7 +2278,7 @@
 	id = "sekretka4";
 	id_target = null
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
 "ji" = (
 /obj/structure/table,
@@ -2261,14 +2316,6 @@
 /area/awaymission/academy/academyaft)
 "js" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/paper{
-	anchored = 1;
-	color = "orange";
-	icon = 'icons/goonstation/effects/fire.dmi';
-	icon_state = "3";
-	name = "Pyromancy 250";
-	simulated = 0
-	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "red"
@@ -2311,7 +2358,7 @@
 /turf/simulated/wall/r_wall{
 	simulated = 0
 	},
-/area/space/nearstation)
+/area/space)
 "jA" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/carpet,
@@ -2356,6 +2403,9 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/academyaft)
 "jI" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-22"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "yellow"
@@ -2367,6 +2417,9 @@
 	},
 /area/awaymission/academy/academygate)
 "jL" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-22"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "yellow"
@@ -2404,6 +2457,9 @@
 /obj/item/paper{
 	info = "Что же впереди? Ятаган? Меч? А может лук? Неважно, ведь тот кто ищет - тот всегда найдёт!"
 	},
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "jX" = (
@@ -2413,17 +2469,18 @@
 /obj/machinery/gateway/centeraway{
 	calibrated = 0
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "jZ" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/headmaster)
 "kc" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/awaymission/academy/academygate)
+/obj/structure/chair/comfy/blue{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/black,
+/area/awaymission/academy/headmaster)
 "kd" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/flashlight/lamp,
@@ -2431,7 +2488,7 @@
 /area/awaymission/academy/headmaster)
 "kf" = (
 /obj/item/stack/cable_coil/random,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "kh" = (
 /obj/effect/bump_teleporter{
@@ -2460,41 +2517,35 @@
 /obj/machinery/gateway{
 	dir = 5
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "km" = (
 /obj/machinery/gateway{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "ko" = (
 /obj/machinery/gateway{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "kp" = (
 /obj/machinery/gateway{
 	dir = 10
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "kq" = (
 /obj/machinery/gateway,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "kr" = (
 /obj/machinery/gateway{
 	dir = 6
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "kv" = (
 /mob/living/simple_animal/hostile/mimic/crate,
@@ -2512,7 +2563,7 @@
 "kA" = (
 /obj/structure/bookcase,
 /obj/item/spellbook/oneuse/summonitem,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
 "kB" = (
 /obj/machinery/icemachine,
@@ -2538,9 +2589,8 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/classrooms)
 "kH" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+/turf/simulated/floor/wood/fancy/oak{
+	icon_state = "fancy-wood-oak-broken7"
 	},
 /area/awaymission/academy/headmaster)
 "kI" = (
@@ -2683,18 +2733,11 @@
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/academy/academyaft)
 "lo" = (
-/obj/item/paper{
-	anchored = 1;
-	color = "blue";
-	icon = 'icons/goonstation/effects/fire.dmi';
-	icon_state = "3";
-	name = "Pyromancy 250";
-	simulated = 0
+/obj/effect/turf_decal/siding/brown{
+	dir = 1
 	},
-/turf/simulated/wall/r_wall{
-	simulated = 0
-	},
-/area/awaymission/academy/academygate)
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/headmaster)
 "lp" = (
 /obj/item/reagent_containers/food/drinks/bottle/wine,
 /turf/simulated/floor/plasteel{
@@ -2703,18 +2746,14 @@
 	},
 /area/awaymission/academy/classrooms)
 "lr" = (
-/obj/item/paper{
-	anchored = 1;
-	color = "green";
-	icon = 'icons/goonstation/effects/fire.dmi';
-	icon_state = "1";
-	name = "Pyromancy 250";
-	simulated = 0
+/obj/effect/turf_decal/siding/brown/corner{
+	dir = 1
 	},
-/turf/simulated/wall/r_wall{
-	simulated = 0
+/obj/effect/turf_decal/siding/brown{
+	dir = 4
 	},
-/area/awaymission/academy/academygate)
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/headmaster)
 "ls" = (
 /obj/item/clothing/suit/space/hardsuit/wizard/shielded,
 /turf/simulated/floor/engine,
@@ -2722,6 +2761,14 @@
 "lv" = (
 /obj/effect/bump_teleporter{
 	id = "sekretka1"
+	},
+/obj/item/paper{
+	anchored = 1;
+	color = "orange";
+	icon = 'icons/goonstation/effects/fire.dmi';
+	icon_state = "3";
+	name = "Pyromancy 250";
+	simulated = 0
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academyaft)
@@ -2758,7 +2805,7 @@
 /obj/item/paper{
 	info = "В этой комнате, полной разнообразных предметов, ваша задача найти то, что уникально. Многие предметы здесь похожи друг на друга, но только один из них совершенно отличается. Он не похож на никакой другой предмет в этой комнате. Он может быть маленьким или большим, тяжелым или легким, но он всегда будет уникальным по своему типу. Итак, какой предмет вы считаете уникальным среди всех других в этой комнате? Найдите его, и вы сможете продолжить свой путь к успеху в этом испытании!"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/headmaster)
 "lG" = (
 /obj/item/paper{
@@ -2799,6 +2846,13 @@
 	icon_state = "dark"
 	},
 /area/awaymission/academy/classrooms)
+"mb" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/pill/patch/nicotine,
+/turf/simulated/floor/plasteel{
+	icon_state = "chapel"
+	},
+/area/awaymission/academy/headmaster)
 "mj" = (
 /obj/effect/bump_teleporter{
 	id = "labr3"
@@ -2816,7 +2870,7 @@
 /obj/structure/chair/comfy/black{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
 "mv" = (
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,
@@ -2861,6 +2915,9 @@
 /area/awaymission/academy/academyaft)
 "mS" = (
 /obj/item/caution,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -2891,7 +2948,7 @@
 /area/awaymission/academy/academyaft)
 "nd" = (
 /obj/structure/decorative_structures/metal/statue/sun,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/headmaster)
 "ne" = (
 /obj/machinery/vending/artvend,
@@ -2899,6 +2956,14 @@
 	icon_state = "grimy"
 	},
 /area/awaymission/academy/classrooms)
+"nk" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/awaymission/academy/academyaft)
 "nr" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -2922,6 +2987,31 @@
 "nI" = (
 /turf/simulated/mineral,
 /area/awaymission/academy/headmaster)
+"nN" = (
+/obj/structure/chair/comfy/brown{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/academyaft)
+"nP" = (
+/obj/structure/chair,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "chapel"
+	},
+/area/awaymission/academy/headmaster)
+"nS" = (
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
+	},
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/awaymission/academy/academyaft)
 "nW" = (
 /obj/effect/bump_teleporter{
 	id = "labr31"
@@ -2941,21 +3031,11 @@
 	},
 /area/awaymission/academy/classrooms)
 "nZ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/paper{
-	anchored = 1;
-	color = "orange";
-	icon = 'icons/goonstation/effects/fire.dmi';
-	icon_state = "3";
-	name = "Pyromancy 250";
-	simulated = 0
+/obj/effect/turf_decal/siding/brown{
+	dir = 4
 	},
-/turf/simulated/floor/plasteel/airless{
-	dir = 4;
-	icon_state = "white";
-	tag = "icon-white (EAST)"
-	},
-/area/awaymission/academy/academyaft)
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/headmaster)
 "of" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/paper_bin{
@@ -2988,10 +3068,24 @@
 	icon_state = "dark"
 	},
 /area/awaymission/academy/classrooms)
+"oL" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/headmaster)
 "pa" = (
 /obj/structure/flora/bush,
 /turf/simulated/floor/grass,
 /area/awaymission/academy/academyaft)
+"po" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
+/area/awaymission/academy/headmaster)
 "pz" = (
 /obj/structure/closet,
 /obj/item/storage/box/snappops,
@@ -2999,6 +3093,14 @@
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "green"
+	},
+/area/awaymission/academy/academyaft)
+"pE" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
 	},
 /area/awaymission/academy/academyaft)
 "pN" = (
@@ -3054,7 +3156,7 @@
 	id = "AcademyEndGate2";
 	pixel_y = 7
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "qm" = (
 /obj/machinery/door/poddoor/impassable{
@@ -3068,16 +3170,38 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
+"qw" = (
+/obj/effect/decal/warning_stripes,
+/obj/effect/bump_teleporter{
+	id_target = "Acad_end1"
+	},
+/turf/simulated/floor/plasteel/goonplaque,
+/area/awaymission/academy/headmaster)
 "qz" = (
 /obj/effect/bump_teleporter{
 	id = "Acad_end2"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "qF" = (
 /obj/effect/decal/ants,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
+"qG" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/academyaft)
+"qN" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellow"
+	},
+/area/awaymission/academy/classrooms)
 "qO" = (
 /obj/effect/bump_teleporter{
 	id_target = "labr22"
@@ -3137,6 +3261,12 @@
 	icon_state = "darkyellow"
 	},
 /area/awaymission/academy/classrooms)
+"rr" = (
+/obj/structure/chair/comfy/green{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/black,
+/area/awaymission/academy/headmaster)
 "ry" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3160,6 +3290,12 @@
 /obj/effect/decal/warning_stripes,
 /turf/simulated/floor/plasteel/goonplaque,
 /area/awaymission/academy/headmaster)
+"rL" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/academy/classrooms)
 "rS" = (
 /obj/structure/chair/comfy/black{
 	dir = 8
@@ -3167,7 +3303,7 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_y = 32
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
 "rV" = (
 /obj/effect/decal/cleanable/molten_object,
@@ -3315,7 +3451,7 @@
 	pixel_x = -15;
 	pixel_y = -15
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/headmaster)
 "tz" = (
 /obj/effect/decal/cleanable/blood/bubblegum,
@@ -3381,20 +3517,20 @@
 "uj" = (
 /obj/structure/table/wood,
 /obj/random/plushie,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/academyaft)
 "ul" = (
 /obj/structure/falsewall,
 /turf/space,
-/area/space/nearstation)
+/area/space)
 "um" = (
 /obj/structure/bookcase,
 /obj/item/book/manual/experimentor,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
 "un" = (
 /obj/item/stack/sheet/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/headmaster)
 "uv" = (
 /obj/item/shard,
@@ -3464,6 +3600,13 @@
 	},
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/academy/academyaft)
+"va" = (
+/obj/effect/turf_decal/siding/brown{
+	dir = 1
+	},
+/obj/item/flag/wiz,
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/headmaster)
 "vb" = (
 /obj/item/disk/plantgene{
 	pixel_y = 7
@@ -3504,7 +3647,14 @@
 	pixel_x = 12;
 	pixel_y = 6
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
+/area/awaymission/academy/headmaster)
+"vw" = (
+/obj/structure/chair,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "chapel"
+	},
 /area/awaymission/academy/headmaster)
 "vx" = (
 /obj/structure/table/wood,
@@ -3545,6 +3695,14 @@
 "vP" = (
 /obj/effect/bump_teleporter{
 	id = "sekretka2"
+	},
+/obj/item/paper{
+	anchored = 1;
+	color = "orange";
+	icon = 'icons/goonstation/effects/fire.dmi';
+	icon_state = "3";
+	name = "Pyromancy 250";
+	simulated = 0
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academyaft)
@@ -3622,10 +3780,16 @@
 /obj/effect/decal/ants,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
+"wA" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/wood/fancy/oak,
+/area/awaymission/academy/headmaster)
 "wB" = (
 /obj/structure/table/wood,
 /obj/item/gps,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/academyaft)
 "wC" = (
 /obj/effect/bump_teleporter{
@@ -3650,7 +3814,16 @@
 /area/awaymission/academy/classrooms)
 "wP" = (
 /obj/machinery/vending/cigarette/syndicate/free,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
+/area/awaymission/academy/classrooms)
+"wT" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkyellow"
+	},
 /area/awaymission/academy/classrooms)
 "wW" = (
 /turf/simulated/floor/plasteel/airless{
@@ -3663,12 +3836,6 @@
 	},
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/academy/academyaft)
-"xe" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
-	},
-/area/awaymission/academy/classrooms)
 "xj" = (
 /obj/structure/stone_tile/cracked{
 	dir = 8
@@ -3682,13 +3849,28 @@
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/academyaft)
+"xx" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/academyaft)
 "xz" = (
 /obj/effect/bump_teleporter{
 	id = "troll";
 	id_target = null
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/academyaft)
+"xD" = (
+/obj/item/storage/fancy/donut_box,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/awaymission/academy/classrooms)
 "xE" = (
 /obj/effect/bump_teleporter{
 	id_target = "labr24"
@@ -3696,17 +3878,11 @@
 /turf/simulated/floor/plasteel/stairs/old,
 /area/awaymission/academy/academyaft)
 "xF" = (
-/obj/item/paper{
-	anchored = 1;
-	color = "blue";
-	icon = 'icons/goonstation/effects/fire.dmi';
-	icon_state = "3";
-	name = "Pyromancy 250";
-	simulated = 0
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-22";
+	tag = "icon-plant-22"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
 "xM" = (
 /obj/effect/bump_teleporter{
@@ -3723,9 +3899,8 @@
 /turf/simulated/floor/engine,
 /area/awaymission/academy/academyaft)
 "xR" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+/turf/simulated/floor/wood/fancy/oak{
+	icon_state = "fancy-wood-oak-broken4"
 	},
 /area/awaymission/academy/academyaft)
 "xS" = (
@@ -3736,24 +3911,28 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "xV" = (
-/obj/item/paper{
-	anchored = 1;
-	color = "red";
-	icon = 'icons/goonstation/effects/fire.dmi';
-	icon_state = "2";
-	name = "Pyromancy 250";
-	simulated = 0
-	},
-/turf/simulated/wall/r_wall{
-	simulated = 0
-	},
-/area/awaymission/academy/academygate)
+/obj/effect/turf_decal/siding/brown,
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/headmaster)
 "yb" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellow"
 	},
 /area/awaymission/academy/classrooms)
+"ye" = (
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
+	},
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/awaymission/academy/academyaft)
 "ym" = (
 /obj/structure/stone_tile{
 	dir = 4
@@ -3769,7 +3948,10 @@
 /area/awaymission/academy/academyaft)
 "yt" = (
 /obj/structure/chair/wood,
-/turf/simulated/floor/wood,
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
 "yv" = (
 /obj/effect/baseturf_helper{
@@ -3785,9 +3967,23 @@
 /obj/effect/decal/warning_stripes,
 /turf/simulated/floor/plasteel/goonplaque,
 /area/awaymission/academy/headmaster)
+"yz" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/academyaft)
 "yA" = (
 /obj/effect/landmark/awaystart,
 /turf/simulated/floor/carpet/cyan,
+/area/awaymission/academy/headmaster)
+"yG" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
 /area/awaymission/academy/headmaster)
 "yH" = (
 /mob/living/simple_animal/hostile/faithless{
@@ -3811,12 +4007,9 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/academyaft)
 "yM" = (
-/obj/effect/bump_teleporter{
-	id_target = "Acad_end1"
-	},
-/obj/effect/decal/warning_stripes,
-/turf/simulated/floor/plasteel/goonplaque,
-/area/awaymission/academy/headmaster)
+/obj/structure/lattice,
+/turf/space,
+/area/space)
 "yU" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -3851,7 +4044,7 @@
 	id = "AcademyEndGate3";
 	pixel_y = 7
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "zm" = (
 /obj/effect/decal/cleanable/cobweb2,
@@ -3869,12 +4062,25 @@
 	icon_state = "hydrofloor"
 	},
 /area/awaymission/academy/academyaft)
+"zs" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/wood/fancy/oak,
+/area/awaymission/academy/academyaft)
 "zu" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+/turf/simulated/floor/wood/fancy/oak{
+	icon_state = "fancy-wood-oak-broken7"
 	},
 /area/awaymission/academy/classrooms)
+"zF" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/academyaft)
 "zI" = (
 /turf/simulated/floor/carpet{
 	icon_state = "carpetsymbol"
@@ -3972,12 +4178,6 @@
 	},
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/academy/academyaft)
-"AY" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
-	},
-/area/awaymission/academy/classrooms)
 "AZ" = (
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "Acad_Door3"
@@ -3998,6 +4198,12 @@
 	icon_state = "grimy"
 	},
 /area/awaymission/academy/classrooms)
+"Bs" = (
+/obj/effect/turf_decal/siding/brown/corner{
+	dir = 4
+	},
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/headmaster)
 "Bz" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -4008,7 +4214,7 @@
 /obj/item/paper{
 	info = "Это Конец? Нет, для кого - то это только начало. Пред вами два пути. Уйти домой, или пройти на золотую плитку и продолжить путь к главному сокровищу нашей Академии."
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "BN" = (
 /obj/structure/stone_tile/block,
@@ -4096,6 +4302,15 @@
 	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/classrooms)
+"CZ" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "green"
+	},
+/area/awaymission/academy/academyaft)
 "Da" = (
 /obj/structure/table/wood,
 /obj/item/borg/upgrade/modkit/damage,
@@ -4182,11 +4397,17 @@
 	},
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/academy/academyaft)
+"Ec" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
+/turf/simulated/floor/wood/fancy/oak,
+/area/awaymission/academy/academyaft)
 "Ee" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/pen,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
 "Ej" = (
 /obj/effect/bump_teleporter{
@@ -4225,7 +4446,7 @@
 	pixel_x = 12;
 	pixel_y = 6
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/headmaster)
 "EK" = (
 /obj/effect/decal/cleanable/cobweb2,
@@ -4318,14 +4539,22 @@
 "Fx" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/snacks/grown/citrus/orange,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "FA" = (
 /obj/item/stack/sheet/wood{
 	pixel_x = 11;
 	pixel_y = 5
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
+/area/awaymission/academy/headmaster)
+"FE" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/awaymission/academy/headmaster)
 "FG" = (
 /obj/effect/bump_teleporter{
@@ -4422,12 +4651,6 @@
 	},
 /turf/simulated/floor/plasteel/goonplaque,
 /area/awaymission/academy/academyaft)
-"GS" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
-	},
-/area/awaymission/academy/classrooms)
 "GU" = (
 /obj/structure/janitorialcart,
 /turf/simulated/floor/plasteel{
@@ -4447,6 +4670,14 @@
 	id_target = "sekretka3"
 	},
 /obj/effect/decal/warning_stripes,
+/obj/item/paper{
+	anchored = 1;
+	color = "orange";
+	icon = 'icons/goonstation/effects/fire.dmi';
+	icon_state = "3";
+	name = "Pyromancy 250";
+	simulated = 0
+	},
 /turf/simulated/floor/plasteel/goonplaque,
 /area/awaymission/academy/academyaft)
 "He" = (
@@ -4476,11 +4707,19 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/academy/classrooms)
+"Hv" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "escape"
+	},
+/area/awaymission/academy/classrooms)
 "Hz" = (
 /obj/item/target,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+/turf/simulated/floor/wood/fancy/oak{
+	icon_state = "fancy-wood-oak-broken7"
 	},
 /area/awaymission/academy/headmaster)
 "HE" = (
@@ -4526,17 +4765,29 @@
 "Ih" = (
 /turf/simulated/floor/sepia,
 /area/awaymission/academy/academyaft)
+"Ik" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/awaymission/academy/classrooms)
 "In" = (
 /obj/structure/decorative_structures/metal/statue/moon,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/headmaster)
+"Ix" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/academy/academyaft)
 "IC" = (
 /obj/structure/table/wood,
 /obj/item/folder/syndicate/red,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
-	},
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/academyaft)
 "IJ" = (
 /obj/structure/table/wood,
@@ -4547,6 +4798,17 @@
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/classrooms)
+"IU" = (
+/obj/item/paper{
+	anchored = 1;
+	color = "blue";
+	icon = 'icons/goonstation/effects/fire.dmi';
+	icon_state = "3";
+	name = "Pyromancy 250";
+	simulated = 0
+	},
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/headmaster)
 "Jd" = (
 /obj/item/paper{
 	anchored = 1;
@@ -4585,7 +4847,7 @@
 /obj/item/stack/sheet/wood{
 	pixel_x = 11
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
 "Ju" = (
 /turf/simulated/floor/plasteel{
@@ -4618,6 +4880,14 @@
 	simulated = 0
 	},
 /area/awaymission/academy/headmaster)
+"JF" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "hydrofloor"
+	},
+/area/awaymission/academy/academyaft)
 "JL" = (
 /obj/structure/sign/poster/official/ue_no,
 /turf/simulated/wall/indestructible{
@@ -4628,19 +4898,22 @@
 "JW" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/tea,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
 "JY" = (
 /obj/effect/bump_teleporter{
 	id = "Acad_end1"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "Ka" = (
 /obj/structure/coatrack,
 /obj/item/clothing/head/bowlerhat{
 	pixel_x = 5;
 	pixel_y = 10
+	},
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -32
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
@@ -4673,6 +4946,22 @@
 /obj/structure/chair/sofa/right,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
+	},
+/area/awaymission/academy/classrooms)
+"Kq" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/headmaster)
+"Ku" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "vault";
+	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/classrooms)
 "Kv" = (
@@ -4773,7 +5062,7 @@
 	name = "Big_Legion";
 	pixel_x = -16
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
 "Lu" = (
 /obj/structure/flora/corn_stalk/alt_2,
@@ -4809,6 +5098,12 @@
 	icon_state = "green"
 	},
 /area/awaymission/academy/classrooms)
+"LQ" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/academyaft)
 "LR" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -4829,7 +5124,7 @@
 	id = "AcademyEndGate1";
 	pixel_y = 7
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "Mp" = (
 /obj/effect/bump_teleporter{
@@ -4939,6 +5234,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/academy/classrooms)
+"NM" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "hydrofloor"
+	},
+/area/awaymission/academy/academyaft)
 "NO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/skeleton/head,
@@ -4951,7 +5254,7 @@
 /obj/effect/bump_teleporter{
 	id = "Acad_end3"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "Ok" = (
 /obj/structure/mineral_door/iron,
@@ -5016,7 +5319,7 @@
 "OD" = (
 /obj/structure/bookcase,
 /obj/item/book/manual/detective,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
 "OE" = (
 /mob/living/simple_animal/hostile/faithless{
@@ -5073,11 +5376,11 @@
 "Pm" = (
 /obj/structure/table/wood,
 /obj/random/toolbox,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/academyaft)
 "Pu" = (
 /obj/machinery/vending/coffee/free,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
 "Pv" = (
 /obj/effect/decal/cleanable/dirt,
@@ -5124,6 +5427,12 @@
 /obj/structure/stone_tile/block/cracked,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/academyaft)
+"Qe" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/awaymission/academy/classrooms)
 "Qf" = (
 /obj/structure/stone_tile/block/cracked,
 /obj/structure/stone_tile/block/cracked{
@@ -5132,9 +5441,8 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/academyaft)
 "Qp" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+/turf/simulated/floor/wood/fancy/oak{
+	icon_state = "fancy-wood-oak-broken4"
 	},
 /area/awaymission/academy/headmaster)
 "Qq" = (
@@ -5145,7 +5453,7 @@
 /area/awaymission/academy/academyaft)
 "Qy" = (
 /obj/machinery/photocopier,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
 "QA" = (
 /mob/living/simple_animal/hostile/faithless{
@@ -5204,9 +5512,8 @@
 /turf/simulated/floor/plasteel/stairs/old,
 /area/awaymission/academy/academyaft)
 "Rv" = (
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
+/turf/simulated/floor/wood/fancy/oak{
+	icon_state = "fancy-wood-oak-broken4"
 	},
 /area/awaymission/academy/classrooms)
 "Rw" = (
@@ -5247,6 +5554,9 @@
 "RI" = (
 /obj/structure/table,
 /obj/item/trash/can,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "escape"
@@ -5290,6 +5600,9 @@
 "Sd" = (
 /obj/machinery/plantgenes,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "green"
@@ -5298,7 +5611,7 @@
 "Se" = (
 /obj/structure/table/wood,
 /obj/random/figure,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/academyaft)
 "Sf" = (
 /turf/simulated/floor/plating/ironsand,
@@ -5347,6 +5660,14 @@
 	id_target = "sekretka4"
 	},
 /obj/effect/decal/warning_stripes,
+/obj/item/paper{
+	anchored = 1;
+	color = "orange";
+	icon = 'icons/goonstation/effects/fire.dmi';
+	icon_state = "3";
+	name = "Pyromancy 250";
+	simulated = 0
+	},
 /turf/simulated/floor/plasteel/goonplaque,
 /area/awaymission/academy/academyaft)
 "SK" = (
@@ -5379,6 +5700,18 @@
 	icon_state = "chapel"
 	},
 /area/awaymission/academy/classrooms)
+"SX" = (
+/obj/structure/table/wood,
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/academyaft)
+"SY" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/classrooms)
 "Tg" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel{
@@ -5386,6 +5719,15 @@
 	icon_state = "whitehall"
 	},
 /area/awaymission/academy/classrooms)
+"Tu" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-22"
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/academyaft)
 "TI" = (
 /obj/structure/closet,
 /obj/item/storage/belt/soulstone,
@@ -5395,6 +5737,15 @@
 	icon_state = "green"
 	},
 /area/awaymission/academy/academyaft)
+"TN" = (
+/obj/effect/turf_decal/siding/brown/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/brown{
+	dir = 4
+	},
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/headmaster)
 "TR" = (
 /obj/item/paper{
 	anchored = 1;
@@ -5447,7 +5798,7 @@
 	pixel_x = 7;
 	pixel_y = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
 "Uw" = (
 /obj/structure/noticeboard{
@@ -5465,6 +5816,12 @@
 	},
 /turf/simulated/floor/plasteel/stairs/old,
 /area/awaymission/academy/academyaft)
+"UJ" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
+/turf/simulated/floor/wood/fancy/oak,
+/area/awaymission/academy/headmaster)
 "UK" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
@@ -5490,14 +5847,16 @@
 "UV" = (
 /obj/structure/table/wood,
 /obj/item/borg/upgrade/modkit/cooldown,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/awaymission/academy/academyaft)
 "UW" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+/turf/simulated/floor/wood/fancy/oak{
+	icon_state = "fancy-wood-oak-broken7"
 	},
 /area/awaymission/academy/academyaft)
 "Vc" = (
@@ -5602,7 +5961,7 @@
 /obj/item/paper{
 	info = "sfavcxsf..."
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/headmaster)
 "Wy" = (
 /obj/machinery/constructable_frame/machine_frame,
@@ -5612,6 +5971,9 @@
 /area/awaymission/academy/academyaft)
 "WD" = (
 /obj/structure/glowshroom,
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"
@@ -5735,7 +6097,7 @@
 /area/awaymission/academy/academyaft)
 "XR" = (
 /obj/effect/decal/ants,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/headmaster)
 "Ya" = (
 /obj/structure/mineral_door/iron,
@@ -5784,9 +6146,8 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "Yr" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+/turf/simulated/floor/wood/fancy/oak{
+	icon_state = "fancy-wood-oak-broken5"
 	},
 /area/awaymission/academy/classrooms)
 "Yz" = (
@@ -5798,11 +6159,11 @@
 /area/awaymission/academy/classrooms)
 "YB" = (
 /turf/simulated/floor/plating,
-/area/space/nearstation)
+/area/space)
 "YE" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/emp,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/academyaft)
 "YM" = (
 /obj/effect/bump_teleporter{
@@ -5826,7 +6187,15 @@
 	pixel_x = -5;
 	pixel_y = -6
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
+/area/awaymission/academy/headmaster)
+"Ze" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/pill/patch/nicotine,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "chapel"
+	},
 /area/awaymission/academy/headmaster)
 "Zf" = (
 /obj/effect/bump_teleporter{
@@ -5839,7 +6208,7 @@
 	icon_state = "plant-22";
 	tag = "icon-plant-22"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
 "Zr" = (
 /obj/effect/decal/cleanable/blood/bubblegum,
@@ -5871,7 +6240,7 @@
 	pixel_x = -14;
 	pixel_y = -8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/headmaster)
 "ZD" = (
 /obj/item/slimepotion/speed,
@@ -6601,7 +6970,7 @@ bB
 bB
 bB
 bB
-hN
+bB
 bB
 kE
 kE
@@ -6721,7 +7090,7 @@ yb
 yb
 yb
 yb
-yb
+wT
 yb
 nG
 kE
@@ -6732,12 +7101,12 @@ bB
 bB
 bB
 hN
-bB
+rL
 kE
 gX
 gX
 gl
-gX
+Qe
 gX
 gX
 NI
@@ -6746,7 +7115,7 @@ gZ
 hc
 hc
 hp
-hp
+JF
 hc
 hc
 hc
@@ -7133,7 +7502,7 @@ fA
 hN
 hN
 gZ
-hp
+NM
 hp
 hp
 hc
@@ -7494,7 +7863,7 @@ kE
 uw
 Vc
 Vc
-Vc
+qN
 Vc
 si
 Vc
@@ -7523,7 +7892,7 @@ gX
 RO
 gY
 gZ
-sF
+nk
 hp
 hp
 sF
@@ -7920,12 +8289,12 @@ gZ
 aa
 aa
 aa
+ul
 aa
+yM
 aa
-aP
-aa
-aP
-aP
+yM
+yM
 aa
 aa
 aa
@@ -8077,7 +8446,7 @@ aa
 aa
 aa
 aa
-aP
+yM
 aa
 aa
 aa
@@ -8139,7 +8508,7 @@ aa
 aa
 aa
 aa
-aP
+yM
 kE
 eh
 dc
@@ -8183,7 +8552,7 @@ is
 ii
 Oo
 ii
-is
+ye
 Bz
 gZ
 gZ
@@ -8209,9 +8578,9 @@ aa
 aa
 aa
 aa
-aP
+yM
 aa
-aP
+yM
 aa
 aa
 aa
@@ -8268,8 +8637,8 @@ aa
 aa
 aa
 aa
-aP
-aP
+yM
+yM
 kE
 dm
 dc
@@ -8298,7 +8667,7 @@ Uo
 gb
 zu
 Yr
-zu
+Rv
 dc
 dc
 Pu
@@ -8338,7 +8707,7 @@ aa
 aa
 aa
 aa
-aP
+yM
 aa
 aa
 aa
@@ -8397,9 +8766,9 @@ aa
 aa
 aa
 aa
-aP
-aP
-aP
+yM
+yM
+yM
 kE
 dc
 dc
@@ -8428,12 +8797,12 @@ wP
 Lt
 dc
 um
-GS
+Yr
 OD
 dc
 Zi
 hH
-Pz
+CZ
 hl
 hS
 TI
@@ -8465,12 +8834,12 @@ aa
 aa
 jz
 jz
-aP
-aP
+yM
+yM
 YB
-aP
-aP
-aP
+yM
+yM
+yM
 aa
 aa
 jz
@@ -8526,9 +8895,9 @@ aa
 aa
 aa
 aa
-aP
-aP
-aP
+yM
+yM
+yM
 aa
 kE
 RU
@@ -8558,7 +8927,7 @@ mu
 dc
 dc
 kA
-AY
+Yr
 gJ
 dc
 Qy
@@ -8594,14 +8963,14 @@ aa
 aa
 jz
 jz
-aP
-aP
+yM
+yM
 aa
 YB
 YB
 aa
 aa
-aP
+yM
 jz
 jz
 jz
@@ -8655,8 +9024,8 @@ aa
 aa
 aa
 aa
-aP
-aP
+yM
+yM
 JE
 JE
 JE
@@ -8723,7 +9092,7 @@ aa
 aa
 jz
 jz
-aP
+yM
 jz
 YB
 YB
@@ -8733,7 +9102,7 @@ YB
 aa
 YB
 jz
-aP
+yM
 jz
 jz
 aa
@@ -8780,12 +9149,12 @@ aV
 aV
 aV
 JE
-aP
-aP
-aP
-aP
-aP
-aP
+yM
+yM
+yM
+yM
+yM
+yM
 aa
 JE
 fF
@@ -8819,7 +9188,7 @@ dc
 dc
 dc
 dc
-xe
+Yr
 Rv
 Qy
 hH
@@ -8831,7 +9200,7 @@ hH
 zI
 hU
 hU
-hU
+zs
 hU
 YE
 IC
@@ -8844,7 +9213,7 @@ fL
 fL
 fL
 fL
-fL
+pE
 fL
 gZ
 aa
@@ -8852,8 +9221,8 @@ aa
 aa
 jz
 jz
-aP
-aP
+yM
+yM
 jJ
 jJ
 jJ
@@ -8863,8 +9232,8 @@ jJ
 jJ
 jJ
 jJ
-aP
-aP
+yM
+yM
 jz
 jz
 aa
@@ -8942,7 +9311,7 @@ MJ
 eU
 lh
 ei
-ei
+SY
 cZ
 cZ
 lD
@@ -8981,8 +9350,8 @@ jJ
 aa
 jz
 jz
-aP
-aP
+yM
+yM
 jJ
 jJ
 jT
@@ -8993,11 +9362,11 @@ jT
 jT
 jT
 jJ
-lo
-lo
-lo
-lo
-lo
+jJ
+jJ
+jJ
+jJ
+jJ
 aa
 aa
 aa
@@ -9044,7 +9413,7 @@ JE
 eI
 aF
 aF
-aF
+wA
 aF
 aF
 aF
@@ -9054,12 +9423,12 @@ wW
 wW
 br
 ah
-ah
+Kq
 ah
 br
 br
 wW
-wW
+be
 aF
 FA
 EG
@@ -9117,8 +9486,8 @@ jX
 jT
 jT
 ej
-kc
-gh
+jS
+jS
 ej
 jT
 jT
@@ -9126,8 +9495,8 @@ jT
 jJ
 Mh
 JY
-gh
-lo
+jS
+jJ
 aa
 aa
 aa
@@ -9180,12 +9549,12 @@ ah
 aF
 JE
 wW
-hY
-ry
-wW
-hR
-ct
-cD
+nP
+Ze
+yG
+ah
+ah
+ah
 wW
 hY
 ry
@@ -9247,17 +9616,17 @@ jX
 jT
 ej
 kf
-kc
-gh
-kc
+jS
+jS
+jS
 ej
 jT
 jT
 VE
-gh
-gh
-gh
-lo
+jS
+jS
+jS
+jJ
 aa
 aa
 aa
@@ -9309,12 +9678,12 @@ ah
 ah
 ah
 JE
-wW
-by
-bK
+po
+vw
+mb
 br
-hR
-ct
+ah
+ah
 qF
 br
 by
@@ -9359,7 +9728,7 @@ hb
 zI
 fD
 ac
-hl
+cn
 ju
 fD
 fD
@@ -9375,23 +9744,23 @@ jX
 jT
 jX
 ej
-gh
-kc
-gh
-gh
-gh
-gh
+jS
+jS
+jS
+jS
+jS
+jS
 ej
 ej
 jJ
 gh
-gh
-gh
-lo
-lr
-lr
-lr
-lr
+jS
+jS
+jJ
+jJ
+jJ
+jJ
+jJ
 aa
 aa
 aa
@@ -9453,7 +9822,7 @@ br
 In
 aF
 XR
-aF
+eY
 eI
 ei
 ei
@@ -9489,7 +9858,7 @@ hH
 fD
 fD
 hH
-hl
+SX
 ju
 fD
 fD
@@ -9506,22 +9875,22 @@ ta
 jX
 jT
 ej
-kc
-gh
+jS
+jS
 bo
 km
 kp
 hP
 ej
 jJ
-lo
-lo
-lo
-lo
+jJ
+jJ
+jJ
+jJ
 ql
 qz
-gh
-lr
+jS
+jJ
 aa
 aa
 aa
@@ -9583,7 +9952,7 @@ ah
 ah
 ah
 ah
-ah
+eI
 eI
 lh
 lh
@@ -9594,7 +9963,7 @@ lh
 Zr
 ei
 hH
-fL
+xx
 fL
 fL
 fL
@@ -9616,10 +9985,10 @@ yL
 PX
 Da
 hH
-fD
+LQ
 fD
 hH
-hl
+Tu
 ju
 fD
 Ov
@@ -9637,21 +10006,21 @@ jX
 jT
 Ss
 SA
-gh
+jS
 cx
 jY
 kq
 BC
-gh
+jS
 Dr
-gh
-gh
-gh
-gh
-gh
-gh
-gh
-lr
+jS
+jS
+jS
+jS
+jS
+jS
+jS
+jJ
 aa
 aa
 aa
@@ -9712,8 +10081,8 @@ ah
 ah
 ah
 ah
-ah
-ah
+IU
+qw
 eI
 lh
 lh
@@ -9749,7 +10118,7 @@ hH
 fD
 fD
 hH
-hl
+SX
 ju
 fD
 fD
@@ -9766,22 +10135,22 @@ ta
 jX
 jT
 ej
-gh
-gh
+jS
+jS
 kl
 ko
 kr
-kc
+jS
 ej
 jJ
-xV
-xV
-xV
-xV
+jJ
+jJ
+jJ
+jJ
 Fx
-gh
-gh
-lr
+jS
+jS
+jJ
 aa
 aa
 aa
@@ -9843,7 +10212,7 @@ ah
 ah
 ah
 ah
-ah
+eI
 eI
 lh
 ek
@@ -9879,7 +10248,7 @@ hb
 zI
 fD
 ac
-hl
+nN
 ju
 fD
 fD
@@ -9895,23 +10264,23 @@ jX
 jT
 jX
 ej
-kc
-kc
-kc
-gh
-kc
-kc
+jS
+jS
+jS
+jS
+jS
+jS
 ej
 ej
 jJ
-gh
-gh
-gh
-xV
-lr
-lr
-lr
-lr
+ag
+jS
+jS
+jJ
+jJ
+jJ
+jJ
+jJ
 aa
 aa
 aa
@@ -9973,7 +10342,7 @@ br
 nd
 aF
 aF
-FA
+cI
 eI
 Kp
 uQ
@@ -9998,7 +10367,7 @@ fD
 fD
 hU
 hU
-iK
+UW
 if
 if
 Lu
@@ -10026,18 +10395,18 @@ ta
 fG
 jT
 ej
-kc
-kc
-gh
-kc
+jS
+jS
+jS
+jS
 ej
 jT
 jT
 HH
-gh
-gh
-gh
-xV
+jS
+jS
+jS
+jJ
 aa
 aa
 aa
@@ -10090,8 +10459,8 @@ ah
 ah
 JE
 wW
-hY
-ry
+nP
+Ze
 br
 ah
 ah
@@ -10117,7 +10486,7 @@ hH
 fL
 zI
 fL
-fL
+zF
 fL
 fL
 zI
@@ -10157,8 +10526,8 @@ jX
 jT
 jT
 ej
-kc
-gh
+jS
+jS
 ej
 jT
 jT
@@ -10166,8 +10535,8 @@ jT
 jJ
 zl
 Ob
-gh
-xV
+jS
+jJ
 aa
 aa
 aa
@@ -10220,9 +10589,9 @@ ah
 aF
 JE
 wW
-by
-bK
-br
+vw
+mb
+oL
 ah
 ah
 ah
@@ -10281,8 +10650,8 @@ jJ
 aa
 jz
 jz
-aP
-aP
+yM
+yM
 jJ
 jJ
 jT
@@ -10294,10 +10663,10 @@ jT
 jT
 jJ
 jJ
-xV
-xV
-xV
-xV
+jJ
+jJ
+jJ
+jJ
 aa
 aa
 aa
@@ -10344,7 +10713,7 @@ JE
 eI
 aF
 aF
-aF
+UJ
 aF
 aF
 aF
@@ -10360,7 +10729,7 @@ br
 wW
 br
 wW
-aF
+UJ
 Zz
 tv
 un
@@ -10379,7 +10748,7 @@ gg
 gg
 gg
 gg
-gg
+Ku
 gg
 gg
 hH
@@ -10391,7 +10760,7 @@ hH
 zI
 hU
 xz
-hU
+Ec
 hU
 Se
 Pm
@@ -10404,7 +10773,7 @@ zN
 fL
 fL
 fL
-fL
+zF
 fL
 gZ
 aa
@@ -10412,8 +10781,8 @@ aa
 aa
 jz
 jz
-aP
-aP
+yM
+yM
 jJ
 jJ
 jJ
@@ -10423,8 +10792,8 @@ jJ
 jJ
 jJ
 jJ
-aP
-aP
+yM
+yM
 jz
 jz
 aa
@@ -10543,7 +10912,7 @@ aa
 aa
 jz
 jz
-aP
+yM
 jz
 YB
 YB
@@ -10553,7 +10922,7 @@ YB
 YB
 YB
 jz
-aP
+yM
 jz
 jz
 aa
@@ -10600,12 +10969,12 @@ aV
 aV
 aV
 JE
-aP
-aP
-aP
-aP
-aP
-aP
+yM
+yM
+yM
+yM
+yM
+yM
 aa
 JE
 kh
@@ -10660,7 +11029,7 @@ ca
 jC
 jC
 jC
-nZ
+jC
 vP
 gZ
 gZ
@@ -10678,7 +11047,7 @@ aa
 aa
 YB
 aa
-aP
+yM
 aa
 YB
 YB
@@ -10735,8 +11104,8 @@ aa
 aa
 aa
 aa
-aP
-aP
+yM
+yM
 JE
 JE
 JE
@@ -10773,7 +11142,7 @@ gL
 Ui
 gL
 hH
-Pz
+CZ
 hl
 sF
 CN
@@ -10807,8 +11176,8 @@ aa
 aa
 YB
 aa
-aP
-aP
+yM
+yM
 YB
 YB
 YB
@@ -10866,11 +11235,11 @@ aa
 aa
 aa
 aa
-aP
-JE
 yM
-xF
-cl
+yM
+yM
+aa
+JE
 cd
 cl
 JE
@@ -10940,7 +11309,7 @@ aa
 YB
 aa
 YB
-aP
+yM
 aa
 aa
 aa
@@ -10997,14 +11366,14 @@ aa
 aa
 aa
 aa
-JE
-JE
-JE
+yM
+yM
+yM
 JE
 kT
 cd
 cl
-cd
+FE
 cl
 cd
 bZ
@@ -11043,7 +11412,7 @@ jG
 Yh
 jG
 ZT
-jG
+nS
 ii
 gZ
 gZ
@@ -11065,14 +11434,14 @@ aa
 aa
 aa
 aa
-aP
+yM
 aa
 aa
-aP
+yM
 YB
 aa
 aa
-aP
+yM
 aa
 aa
 aa
@@ -11128,8 +11497,8 @@ aa
 aa
 aa
 aa
-aP
-aP
+yM
+yM
 JE
 EW
 cl
@@ -11259,7 +11628,7 @@ aa
 aa
 aa
 aa
-aP
+yM
 JE
 kT
 cL
@@ -11302,10 +11671,10 @@ aa
 aa
 ul
 aa
-aP
+yM
 aa
-aP
-aP
+yM
+yM
 aa
 aa
 aa
@@ -11421,7 +11790,7 @@ dv
 fU
 kE
 kE
-aP
+yM
 gZ
 gZ
 iG
@@ -11537,7 +11906,7 @@ dL
 dL
 LO
 cZ
-eC
+Hv
 eC
 eC
 QA
@@ -11550,7 +11919,7 @@ OQ
 dv
 kE
 kE
-aP
+yM
 aa
 gZ
 sF
@@ -11561,7 +11930,7 @@ Wf
 Cb
 hp
 hp
-hl
+qG
 hl
 gZ
 bt
@@ -11679,11 +12048,11 @@ dv
 fU
 kE
 kE
-aP
+yM
 aa
 aa
 gZ
-hl
+yz
 hp
 ib
 sb
@@ -11808,7 +12177,7 @@ fU
 dv
 kE
 kE
-aP
+yM
 aa
 aa
 aa
@@ -11929,15 +12298,15 @@ cZ
 cZ
 bB
 uv
+xD
 eG
 eG
-eG
-eG
+Ik
 kE
 kE
 kE
 kE
-aP
+yM
 aa
 aa
 aa
@@ -12066,14 +12435,14 @@ eG
 kJ
 kE
 kE
-aP
+yM
 aa
 aa
 aa
 aa
 aa
 gZ
-sF
+nk
 Wy
 hc
 hK
@@ -12195,7 +12564,7 @@ eG
 Sk
 Xb
 kE
-aP
+yM
 aa
 aa
 aa
@@ -12325,13 +12694,13 @@ fr
 uA
 kE
 ff
-aP
-aP
-aP
-aP
-aP
-aP
-aP
+yM
+yM
+yM
+yM
+yM
+yM
+yM
 gZ
 sF
 Wy
@@ -12466,7 +12835,7 @@ gZ
 sF
 sF
 hl
-hc
+Ix
 hc
 hc
 hc
@@ -12578,20 +12947,20 @@ kE
 kE
 kE
 kE
-aP
-aP
-aP
-aP
-aP
-aP
-aP
-aP
-aP
-aP
-aP
-aP
-aP
-aP
+yM
+yM
+yM
+yM
+yM
+yM
+yM
+yM
+yM
+yM
+yM
+yM
+yM
+yM
 gZ
 gZ
 gZ
@@ -17355,11 +17724,11 @@ hr
 ui
 XF
 XF
+xF
 XF
 XF
 XF
-XF
-XF
+xF
 XF
 XF
 ui
@@ -17743,15 +18112,15 @@ hr
 hr
 hr
 ui
+kc
 XF
 XF
 XF
+ix
 XF
 XF
 XF
-XF
-XF
-XF
+rr
 ui
 hr
 hr
@@ -19047,14 +19416,14 @@ rV
 aV
 bi
 XF
+xF
 XF
 XF
-XF
+aF
+Qp
 aF
 aF
-aF
-aF
-dP
+Hz
 ui
 hr
 Fu
@@ -19310,7 +19679,7 @@ XF
 XF
 XF
 XF
-aF
+Qp
 aF
 aF
 Qp
@@ -19435,7 +19804,7 @@ aV
 aV
 aV
 aV
-XF
+iY
 XF
 yv
 XF
@@ -19561,7 +19930,7 @@ Fu
 Fu
 hr
 ui
-bH
+aI
 XF
 XF
 XF
@@ -20083,9 +20452,9 @@ aI
 ah
 jU
 iR
-ah
+lo
 XF
-ah
+xV
 iR
 bk
 ah
@@ -20213,9 +20582,9 @@ bH
 ah
 jU
 iR
-ah
+lo
 XF
-ah
+xV
 iR
 bk
 ah
@@ -20343,9 +20712,9 @@ bH
 ah
 jU
 Mw
-ah
+lo
 VR
-ah
+xV
 Mw
 bk
 ah
@@ -20471,13 +20840,13 @@ hr
 ui
 aI
 ah
-jU
-iR
-ah
-ah
-ah
-iR
-bk
+ct
+hR
+lr
+nZ
+TN
+hR
+Bs
 ah
 bH
 ui
@@ -20601,13 +20970,13 @@ hr
 ao
 bj
 ah
-ah
+cD
 iR
 vQ
 Jw
 Mw
 iR
-ah
+va
 ah
 kk
 iH
