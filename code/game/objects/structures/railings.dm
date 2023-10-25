@@ -62,6 +62,11 @@
 /obj/structure/railing/corner/CanPass()
 	return TRUE
 
+
+/obj/structure/railing/corner/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
+	return TRUE
+
+
 /obj/structure/railing/corner/CheckExit()
 	return TRUE
 
@@ -83,6 +88,16 @@
 	if(mover_dir != dir)
 		return density
 	return FALSE
+
+
+/obj/structure/railing/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
+	if(to_dir == dir)
+		return FALSE
+	if(ordinal_direction_check(to_dir))
+		return FALSE
+
+	return TRUE
+
 
 /obj/structure/railing/CheckExit(atom/movable/O, target)
 	var/mob/living/M = O
@@ -109,17 +124,17 @@
 // Checks if the direction the mob is trying to move towards would be blocked by a corner railing
 /obj/structure/railing/proc/ordinal_direction_check()
 	switch(dir)
-		if(5)
-			if(mover_dir == 1 || mover_dir == 4)
+		if(NORTHEAST)
+			if(mover_dir == NORTH || mover_dir == EAST)
 				return TRUE
-		if(6)
-			if(mover_dir == 2 || mover_dir == 4)
+		if(SOUTHEAST)
+			if(mover_dir == SOUTH || mover_dir == EAST)
 				return TRUE
-		if(9)
-			if(mover_dir == 1 || mover_dir == 8)
+		if(NORTHWEST)
+			if(mover_dir == NORTH || mover_dir == WEST)
 				return TRUE
-		if(10)
-			if(mover_dir == 2 || mover_dir == 8)
+		if(SOUTHWEST)
+			if(mover_dir == SOUTH || mover_dir == WEST)
 				return TRUE
 	return FALSE
 
