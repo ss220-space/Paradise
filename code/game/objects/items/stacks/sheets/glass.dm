@@ -230,3 +230,24 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 /obj/item/stack/sheet/plastitaniumglass/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
 	recipes = GLOB.plastitaniumglass_recipes
+
+GLOBAL_LIST_INIT(alglass_recipes, list ( \
+	new/datum/stack_recipe/window("directional window", /obj/structure/window/abductor, time = 0, on_floor = TRUE, window_checks = TRUE), \
+	new/datum/stack_recipe/window("fulltile window", /obj/structure/window/full/abductor, 2, time = 0, on_floor = TRUE, window_checks = TRUE) \
+))
+
+/obj/item/stack/sheet/abductorglass
+	name = "alien glass"
+	desc = "Alien glass which seems to vibrate every second."
+	singular_name = "alien plasma glass sheet"
+	icon_state = "sheet-alienglass"
+	item_state = "sheet-alienglass"
+	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT/2, MAT_GLASS=MINERAL_MATERIAL_AMOUNT, MAT_PLASMA = MINERAL_MATERIAL_AMOUNT)
+	armor = list("melee" = 20, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 100)
+	resistance_flags = ACID_PROOF
+	created_window = /obj/structure/window/abductor
+	full_window = /obj/structure/window/full/abductor
+
+/obj/item/stack/sheet/abductorglass/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
+	recipes = GLOB.alglass_recipes
