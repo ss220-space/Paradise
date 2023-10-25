@@ -80,14 +80,23 @@
 		if("Bartender")
 			O = new /datum/outfit/plasmaman/bar
 
-		if("Internal Affairs Agent", "Magistrate", "Nanotrasen Representative", "Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer")
+		if("Internal Affairs Agent", "Magistrate")
 			O = new /datum/outfit/plasmaman/nt
+
+		if("Nanotrasen Representative")
+			O = new /datum/outfit/plasmaman/nt_rep
 
 		if("Chef")
 			O = new /datum/outfit/plasmaman/chef
 
-		if("Security Officer", "Security Cadet", "Special Operations Officer")
+		if("Security Officer", "Security Cadet")
 			O = new /datum/outfit/plasmaman/security
+
+		if("Special Operations Officer", "Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer")
+			O = new /datum/outfit/plasmaman/specops_officer
+
+		if("Syndicate Officer")
+			O = new /datum/outfit/plasmaman/syndicate_officer
 
 		if("Security Pod Pilot")
 			O = new /datum/outfit/plasmaman/security/pod
