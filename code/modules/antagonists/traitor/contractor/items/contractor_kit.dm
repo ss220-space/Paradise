@@ -39,6 +39,7 @@
 	new /obj/item/paper/contractor_guide(src)
 	new /obj/item/contractor_uplink(src)
 	new /obj/item/storage/box/syndie_kit/contractor_loadout(src)
+	new /obj/item/storage/box/syndie_kit/bowman_conversion_kit(src)
 	// Add the random items
 	for(var/i in 1 to num_additional_items)
 		var/obj/item/I = pick_n_take(item_list)

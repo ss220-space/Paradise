@@ -493,3 +493,11 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/clothing/suit/mr_chang_coat(src)
 	new /obj/item/clothing/shoes/mr_chang_sandals(src)
 	new /obj/item/clothing/head/mr_chang_band(src)
+
+/obj/item/storage/box/syndie_kit/bowman_conversion_kit
+	name = "Bowman headset conversion kit"
+	desc = "Easy-to-apply device which enchances headset with loud noise protection."
+
+/obj/item/storage/box/syndie_kit/bowman_conversion_kit/populate_contents()
+	new /obj/item/encryptionkey/syndicate(src)
+	new /obj/item/bowman_conversion_tool(src)
