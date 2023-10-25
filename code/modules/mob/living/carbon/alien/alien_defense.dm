@@ -3,7 +3,8 @@
 	if(isitem(AM))
 		var/obj/item/throw_item = AM
 		skip_catch = !throw_item.allowed_for_alien()
-	..(AM, skipcatch = skip_catch, hitpush = FALSE)
+	..(AM, skip_catch, FALSE, blocked, throwingdatum)
+
 
 /*Code for aliens attacking aliens. Because aliens act on a hivemind, I don't see them as very aggressive with each other.
 As such, they can either help or harm other aliens. Help works like the human help command while harm is a simple nibble.

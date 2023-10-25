@@ -91,7 +91,9 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		S.volume *= client.prefs.get_channel_volume(channel)
 
 	if(vary)
-		if(frequency)
+		if(islist(vary))
+			S.frequency = rand(vary[1], vary[2])
+		else if(frequency)
 			S.frequency = frequency
 		else
 			S.frequency = get_rand_frequency()

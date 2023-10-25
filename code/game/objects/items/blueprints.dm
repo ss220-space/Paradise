@@ -192,7 +192,7 @@
 	if(message)
 		to_chat(user, message)
 
-/obj/item/areaeditor/blueprints/dropped(mob/user)
+/obj/item/areaeditor/blueprints/dropped(mob/user, silent = FALSE)
 	..()
 	clear_viewer()
 

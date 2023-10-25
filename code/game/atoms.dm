@@ -485,13 +485,21 @@
 /atom/proc/rcd_construct_act(mob/user, obj/item/rcd/our_rcd, rcd_mode)
 	return RCD_NO_ACT
 
+
 /atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
 		addtimer(CALLBACK(src, PROC_REF(hitby_react), AM), 2)
 
+
+/// This proc applies special effects of a carbon mob hitting something, be it a wall, structure, or window. You can set mob_hurt to false to avoid double dipping through subtypes if returning ..()
+/atom/proc/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt = FALSE, self_hurt = FALSE)
+	return
+
+
 /atom/proc/hitby_react(atom/movable/AM)
 	if(AM && isturf(AM.loc))
 		step(AM, turn(AM.dir, 180))
+
 
 /*
  * Base proc, terribly named but it's all over the code so who cares I guess right?

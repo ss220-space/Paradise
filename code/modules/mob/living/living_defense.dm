@@ -77,6 +77,7 @@
 	for(var/obj/O in contents)
 		O.emp_act(severity)
 
+
 /obj/item/proc/get_volume_by_throwforce_and_or_w_class()
 	if(throwforce && w_class)
 		return clamp((throwforce + w_class) * 5, 30, 100)// Add the item's throwforce to its weight class and multiply by 5, then clamp the value between 30 and 100
@@ -86,47 +87,42 @@
 		return 0
 
 
-//this proc handles being hit by a thrown atom
+/**
+ * This proc handles being hit by a thrown atom.
+ */
 /mob/living/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
-	if(isitem(AM))
-		var/obj/item/I = AM
-		var/zone = ran_zone("chest", 65)//Hits a random part of the body, geared towards the chest
-		var/dtype = BRUTE
-		var/volume = I.get_volume_by_throwforce_and_or_w_class()
-		SEND_SIGNAL(I, COMSIG_MOVABLE_IMPACT_ZONE, src, zone)
-		dtype = I.damtype
-
-		if(I.throwforce > 0) //If the weapon's throwforce is greater than zero...
-			if(I.throwhitsound) //...and throwhitsound is defined...
-				playsound(loc, I.throwhitsound, volume, TRUE, -1) //...play the weapon's throwhitsound.
-			else if(I.hitsound) //Otherwise, if the weapon's hitsound is defined...
-				playsound(loc, I.hitsound, volume, TRUE, -1) //...play the weapon's hitsound.
-			else if(!I.throwhitsound) //Otherwise, if throwhitsound isn't defined...
-				playsound(loc, 'sound/weapons/genhit.ogg',volume, TRUE, -1) //...play genhit.ogg.
-
-		else if(!I.throwhitsound && I.throwforce > 0) //Otherwise, if the item doesn't have a throwhitsound and has a throwforce greater than zero...
-			playsound(loc, 'sound/weapons/genhit1.ogg', volume, TRUE, -1)//...play genhit1.ogg
-		if(!I.throwforce)// Otherwise, if the item's throwforce is 0...
-			playsound(loc, 'sound/weapons/throwtap.ogg', TRUE, volume, -1)//...play throwtap.ogg.
-
-		if(blocked)
-			return TRUE
-
-		var/mob/thrower = locateUID(I.thrownby)
-		if(thrower)
-			add_attack_logs(thrower, src, "Hit with thrown [I]", !I.throwforce ? ATKLOG_ALMOSTALL : null) // Only message if the person gets damages
-
-		visible_message(span_danger("[src.declent_ru(NOMINATIVE)] получа[pluralize_ru(src.gender,"ет","ют")] удар [I.declent_ru(INSTRUMENTAL)]."),
-						span_userdanger("[src.declent_ru(NOMINATIVE)] получа[pluralize_ru(src.gender,"ет","ют")] удар [I.declent_ru(INSTRUMENTAL)]."))
-		var/armor = run_armor_check(zone, "melee", "Броня защитила [parse_zone(zone)].", "[pluralize_ru(src.gender,"Твоя","Ваша")] броня смягчила удар по [parse_zone(zone)].", I.armour_penetration) // TODO: перевод зон
-
-		apply_damage(I.throwforce, dtype, zone, armor, is_sharp(I), I)
-		if(QDELETED(src)) //Damage can delete the mob.
-			return
-
+	if(!isitem(AM))
+		playsound(loc, 'sound/weapons/genhit.ogg', 50, TRUE, -1) //Item sounds are handled in the item itself
 		return ..()
 
-	playsound(loc, 'sound/weapons/genhit.ogg', 50, TRUE, -1)
+	var/obj/item/thrown_item = AM
+	var/zone = ran_zone("chest", 65)//Hits a random part of the body, geared towards the chest
+	var/nosell_hit = SEND_SIGNAL(thrown_item, COMSIG_MOVABLE_IMPACT_ZONE, src, zone, throwingdatum) // TODO: find a better way to handle hitpush and skipcatch for humans
+	if(nosell_hit)
+		skipcatch = TRUE
+		hitpush = FALSE
+
+	if(blocked)
+		return TRUE
+
+	var/mob/thrower = locateUID(thrown_item.thrownby)
+	if(thrower)
+		add_attack_logs(thrower, src, "Hit with thrown [thrown_item]", !thrown_item.throwforce ? ATKLOG_ALMOSTALL : null) // Only message if the person gets damages
+	if(nosell_hit)
+		return ..()
+
+	visible_message(span_danger("[src.declent_ru(NOMINATIVE)] получа[pluralize_ru(src.gender,"ет","ют")] удар [thrown_item.declent_ru(INSTRUMENTAL)]."),
+					span_userdanger("[src.declent_ru(NOMINATIVE)] получа[pluralize_ru(src.gender,"ет","ют")] удар [thrown_item.declent_ru(INSTRUMENTAL)]."))
+
+	if(!thrown_item.throwforce)
+		return
+
+	var/armor = run_armor_check(zone, MELEE, "Броня защитила [parse_zone(zone)].", "[pluralize_ru(src.gender,"Твоя","Ваша")] броня смягчила удар по [parse_zone(zone)].", thrown_item.armour_penetration) // TODO: перевод зон
+	apply_damage(thrown_item.throwforce, thrown_item.damtype, zone, armor, is_sharp(thrown_item), thrown_item)
+
+	if(QDELETED(src)) //Damage can delete the mob.
+		return
+
 	return ..()
 
 
