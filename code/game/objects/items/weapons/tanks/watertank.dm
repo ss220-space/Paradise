@@ -116,7 +116,7 @@
 		loc = tank
 	return
 
-/obj/item/reagent_containers/spray/mister/dropped(mob/user as mob)
+/obj/item/reagent_containers/spray/mister/dropped(mob/user, silent = FALSE)
 	..()
 	to_chat(user, "<span class='notice'>The mister snaps back onto the watertank.</span>")
 	tank.on = 0
@@ -190,7 +190,7 @@
 /obj/item/watertank/atmos/make_noz()
 	return new /obj/item/extinguisher/mini/nozzle(src)
 
-/obj/item/watertank/atmos/dropped(mob/user as mob)
+/obj/item/watertank/atmos/dropped(mob/user, silent = FALSE)
 	..()
 	icon_state = "waterbackpackatmos"
 	if(istype(noz, /obj/item/extinguisher/mini/nozzle))
@@ -249,7 +249,7 @@
 			return
 	return
 
-/obj/item/extinguisher/mini/nozzle/dropped(mob/user as mob)
+/obj/item/extinguisher/mini/nozzle/dropped(mob/user, silent = FALSE)
 	..()
 	to_chat(user, "<span class='notice'>The nozzle snaps back onto the tank!</span>")
 	tank.on = 0

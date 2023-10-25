@@ -190,6 +190,6 @@
 	. = ..()
 	icon_state = "orange"
 
-/obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d/dropped(mob/user)
+/obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d/dropped(mob/user, silent = FALSE)
 	. = ..()
 	icon_state = "orang"

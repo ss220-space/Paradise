@@ -272,7 +272,7 @@
 	if(slot == slot_wear_suit)
 		disguise(user)
 
-/obj/item/clothing/suit/cardborg/dropped(mob/living/user)
+/obj/item/clothing/suit/cardborg/dropped(mob/living/user, silent = FALSE)
 	..()
 	user.remove_alt_appearance("standard_borg_disguise")
 

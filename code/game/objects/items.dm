@@ -23,11 +23,22 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	can_be_hit = FALSE
 	suicidal_hands = TRUE
 
-	var/list/attack_verb //Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
-	var/hitsound = null
-	var/usesound = null
-	var/throwhitsound
-	var/stealthy_audio = FALSE //Whether or not we use stealthy audio levels for this item's attack sounds
+	/// Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]".
+	var/list/attack_verb
+	/// Sound played when you hit something with the item.
+	var/hitsound
+	/// Played when the item is used, for example tools.
+	var/usesound
+	/// Used when yate into a mob.
+	var/mob_throw_hit_sound
+	///Sound used when equipping the item into a valid slot.
+	var/equip_sound
+	///Sound used when picking the item up (into your hands)
+	var/pickup_sound
+	///Sound used when dropping the item.
+	var/drop_sound
+	///Whether or not we use stealthy audio levels for this item's attack sounds
+	var/stealthy_audio = FALSE
 	var/w_class = WEIGHT_CLASS_NORMAL
 	var/slot_flags = 0		//This is used to determine on which slots an item can fit.
 	pass_flags = PASSTABLE
@@ -80,7 +91,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/datum/muhtar_fashion/muhtar_fashion = null
 	var/datum/snake_fashion/snake_fashion = null
 
-	var/mob/thrownby = null
+	/// UID of a /mob that threw the item.
+	var/thrownby
 
 	//So items can have custom embedd values
 	//Because customisation is king
@@ -503,7 +515,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /**
  * When item is officially left user
  */
-/obj/item/proc/dropped(mob/user)
+/obj/item/proc/dropped(mob/user, silent = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
 
 	// Remove any item actions we temporary gave out
@@ -521,6 +533,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	remove_outline()
 
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
+	if(!silent)
+		playsound(src, drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE)
 	return TRUE
 
 
@@ -600,8 +614,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	in_inventory = TRUE
 
 	if(!initial)
-		// Playsound etc. nothing for now
-		equip_delay_self = equip_delay_self
+		if(equip_sound && !user.is_general_slot(slot))
+			playsound(src, equip_sound, EQUIP_SOUND_VOLUME, TRUE, ignore_walls = FALSE)
+		else if(pickup_sound && (slot == slot_l_hand || slot == slot_r_hand))
+			playsound(src, pickup_sound, PICKUP_SOUND_VOLUME, ignore_walls = FALSE)
 
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
 	return TRUE
@@ -838,18 +854,48 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 
 /obj/item/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	if(hit_atom && !QDELETED(hit_atom))
-		SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum)
-		var/itempush = TRUE
-		if(w_class < WEIGHT_CLASS_BULKY)
-			itempush = FALSE // too light to push anything
-		return hit_atom.hitby(src, FALSE, itempush, throwingdatum = throwingdatum)
+	if(QDELETED(hit_atom))
+		return
+
+	SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum)
+
+	var/itempush = TRUE
+	if(w_class < WEIGHT_CLASS_BULKY)
+		itempush = FALSE // too light to push anything
+
+	var/is_hot = is_hot(src)
+	var/volume = get_volume_by_throwforce_and_or_w_class()
+	var/impact_throwforce = throwforce
+
+	. = hit_atom.hitby(src, FALSE, itempush, throwingdatum = throwingdatum)
+
+	if(isliving(hit_atom)) //Living mobs handle hit sounds differently.
+		var/mob/living/living = hit_atom
+		var/item_catched = FALSE
+		if(. && living.is_in_hands(src))
+			item_catched = TRUE
+
+		if(is_hot && !item_catched)
+			living.IgniteMob()
+
+		if(impact_throwforce > 0 && !item_catched)
+			if(mob_throw_hit_sound)
+				playsound(living, mob_throw_hit_sound, volume, TRUE, -1)
+			else if(hitsound)
+				playsound(living, hitsound, volume, TRUE, -1)
+			else
+				playsound(living, 'sound/weapons/genhit.ogg', volume, TRUE, -1)
+		else
+			playsound(living, 'sound/weapons/throwtap.ogg', volume, TRUE, -1)
+
+	else
+		playsound(src, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
 
 
-/obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
-	thrownby = thrower
+/obj/item/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force, dodgeable)
+	thrownby = thrower?.UID()
 	callback = CALLBACK(src, PROC_REF(after_throw), callback) //replace their callback with our own
-	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force)
+	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force, dodgeable)
 
 
 /obj/item/proc/after_throw(datum/callback/callback)
@@ -896,7 +942,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 
 /obj/item/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	return
+	return SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
 
 
 /obj/item/attack_animal(mob/living/simple_animal/M)

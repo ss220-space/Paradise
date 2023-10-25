@@ -274,7 +274,7 @@
 	if(isitem(AM))
 		var/obj/item/I = AM
 		var/mob/thrower = locateUID(I.thrownby)
-		if(I.throwforce < src.health && ishuman(thrower))
+		if(I.throwforce < health && ishuman(thrower))
 			retaliate(thrower)
 	..()
 

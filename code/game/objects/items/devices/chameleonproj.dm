@@ -18,11 +18,11 @@
 	var/saved_overlays = null
 	var/saved_underlays = null
 
-/obj/item/chameleon/dropped()
+/obj/item/chameleon/dropped(mob/user, silent = FALSE)
 	. = ..()
 	disrupt()
 
-/obj/item/chameleon/equipped()
+/obj/item/chameleon/equipped(mob/user, slot, initial)
 	. = ..()
 	disrupt()
 
@@ -200,11 +200,11 @@
 		S.cham_proj = null
 	return ..()
 
-/obj/item/borg_chameleon/dropped(mob/user)
+/obj/item/borg_chameleon/dropped(mob/user, silent = FALSE)
 	. = ..()
 	disrupt(user)
 
-/obj/item/borg_chameleon/equipped(mob/user)
+/obj/item/borg_chameleon/equipped(mob/user, slot, initial)
 	. = ..()
 	disrupt(user)
 

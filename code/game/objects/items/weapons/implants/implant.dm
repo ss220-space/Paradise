@@ -89,6 +89,6 @@
 /obj/item/implant/proc/get_data()
 	return "No information available"
 
-/obj/item/implant/dropped(mob/user)
+/obj/item/implant/dropped(mob/user, silent = FALSE)
 	. = 1
 	..()

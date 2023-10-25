@@ -137,8 +137,7 @@
 		else
 			moving_human.apply_damage(trap_damage, BRUTE, (pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)))
 
-		if(!moving_human.legcuffed && moving_human.get_num_legs() >= 2) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
-			moving_human.equip_to_slot(src, slot_legcuffed)
+		if(moving_human.set_legcuffed(src)) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
 			SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 
 		return
@@ -160,23 +159,113 @@
 	gender = NEUTER
 	origin_tech = "engineering=3;combat=1"
 	hitsound = 'sound/effects/snap.ogg'
-	///the duration of the stun in seconds
+	throw_range = 0 // increased when throw mode is enabled
+	/// Number of spins till the bola gets the maximum throw distance. Each spin takes 1 second.
+	var/max_spins = 3
+	/// Current spin cycle.
+	var/spin_cycle = 0
+	/// Timer used for spinning bola.
+	var/spin_timer_id
+	/// Are we currently spinning the bola?
+	var/spinning = FALSE
+	/// Max range after the bola fully spins up. If your value for this isn't divisable by the value of `max_spins` it will be lower than the max.
+	var/max_range = 6
+	/// Max speed after the bola fully spins up. If your value for this isn't divisable by the value of `max_spins` it will be lower than the max.
+	var/max_speed = 2
+	/// Is the bola reusable?
+	var/reusable = TRUE
+	/// Duration of the weakening in seconds
 	var/weaken_amt = 0
-	throw_speed = 4
+	/// Cyclic bola spin sound.
+	var/spin_sound = 'sound/items/bola_spin.ogg'
 
 
-/obj/item/restraints/legcuffs/bola/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback)
+/obj/item/restraints/legcuffs/bola/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_CARBON_TOGGLE_THROW, PROC_REF(spin_up_wrapper))
+
+
+/obj/item/restraints/legcuffs/bola/proc/spin_up_wrapper(datum/source, throw_mode_state) // so that signal handler works
+	SIGNAL_HANDLER
+	if(throw_mode_state) // if we actually turned throw mode on
+		INVOKE_ASYNC(src, PROC_REF(spin_up))
+
+
+/obj/item/restraints/legcuffs/bola/proc/spin_up()
+	if(spinning)
+		return
+	var/mob/living/owner = loc // can only be called if the mob is holding the bola.
+	spinning = TRUE
+	item_state = "[initial(item_state)]_spin"
+	owner.update_inv_hands()
+	playsound(owner, spin_sound, 30, list(38000, 48000), SHORT_RANGE_SOUND_EXTRARANGE)
+	spin_timer_id = addtimer(CALLBACK(src, PROC_REF(spin_loop), owner), 1 SECONDS, TIMER_UNIQUE|TIMER_LOOP|TIMER_STOPPABLE|TIMER_DELETE_ME)
+	do_spin_cycle(owner)
+
+
+/obj/item/restraints/legcuffs/bola/proc/spin_loop(mob/living/user)
+	if(QDELETED(src) || !spinning || can_spin_check(user))
+		reset_values(user)
+		return
+
+	playsound(user, spin_sound, 30, list(38000, 48000), SHORT_RANGE_SOUND_EXTRARANGE)
+
+	if(spin_cycle < max_spins)
+		do_spin_cycle(user)
+
+
+/obj/item/restraints/legcuffs/bola/proc/do_spin_cycle(mob/living/user)
+	if(do_mob(user, user, 1 SECONDS, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(can_spin_check), user))))
+		throw_range += round(max_range / max_spins)
+		throw_speed += round(max_speed / max_spins)
+		spin_cycle++
+		return
+
+	reset_values(user)
+
+
+/**
+ * If it returns `TRUE`, it breaks the loop, returning `FALSE`, continues the loop.
+ */
+/obj/item/restraints/legcuffs/bola/proc/can_spin_check(mob/living/user)
+	if(QDELETED(user))
+		return TRUE
+	if(user.get_active_hand() != src)
+		return TRUE
+	if(!user.in_throw_mode)
+		return TRUE
+	return FALSE
+
+
+/obj/item/restraints/legcuffs/bola/carbon_skip_catch_check(mob/living/carbon/user)
+	return TRUE	// No one can catch a flying bola
+
+
+/obj/item/restraints/legcuffs/bola/proc/reset_values(mob/living/user)
+	throw_range = initial(throw_range)
+	throw_speed = initial(throw_speed)
+	item_state = initial(item_state)
+	spin_cycle = 0
+	spinning = FALSE
+	user?.update_inv_hands()
+	if(spin_timer_id)
+		deltimer(spin_timer_id)
+
+
+/obj/item/restraints/legcuffs/bola/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback,force, dodgeable)
 	playsound(loc, 'sound/weapons/bolathrow.ogg', 50, TRUE)
 	..()
 
 
 /obj/item/restraints/legcuffs/bola/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	reset_values()
+
 	if(..() || !iscarbon(hit_atom))//if it gets caught or the target can't be cuffed,
-		return//abort
+		return TRUE	//abort
 
 	var/mob/living/carbon/target = hit_atom
-	if(target.legcuffed || target.get_num_legs() < 2)
-		return
+	if(target.legcuffed || !target.has_organ_for_slot(slot_legcuffed))
+		return TRUE
 
 	var/datum/antagonist/vampire/vamp = target.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(vamp && HAS_TRAIT_FROM(target, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
@@ -184,27 +273,29 @@
 			vamp.bloodusable = max(vamp.bloodusable - 10, 0)
 			target.visible_message(span_danger("[target] deflects [src]!"),
 									span_notice("You deflect [src], it costs you 10 usable blood."))
-			return
+			return TRUE
 
 		REMOVE_TRAIT(target, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
 
 	target.visible_message(span_danger("[src] ensnares [target]!"))
 	to_chat(target, span_userdanger("[src] ensnares you!"))
-	target.equip_to_slot(src, slot_legcuffed)
+	target.set_legcuffed(src)
 	if(weaken_amt)
 		target.Weaken(weaken_amt)
 	playsound(loc, hitsound, 50, TRUE)
 	SSblackbox.record_feedback("tally", "handcuffs", 1, type)
-	if(istype(src, /obj/item/restraints/legcuffs/bola/sinew))
-		src.flags = DROPDEL
+	if(!reusable)
+		flags |= DROPDEL
+
 
 
 /obj/item/restraints/legcuffs/bola/tactical //traitor variant
 	name = "reinforced bola"
 	desc = "A strong bola, made with a long steel chain. It looks heavy, enough so that it could trip somebody."
 	icon_state = "bola_r"
-	breakouttime = 100
+	item_state = "bola_r"
 	origin_tech = "engineering=4;combat=3"
+	breakouttime = 10 SECONDS
 	weaken_amt = 2 SECONDS
 
 
@@ -216,19 +307,23 @@
 	hitsound = 'sound/weapons/tase.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	breakouttime = 4 SECONDS
+	reusable = FALSE
 
 
 /obj/item/restraints/legcuffs/bola/sinew
 	name = "skull bola"
 	desc = "A primitive bola made from the remains of your enemies. It doesn't look very reliable."
-	icon_state = "bola_s"
+	icon_state = "bola_watcher"
 	item_state = "bola_watcher"
+	reusable = FALSE
 
 
-/obj/item/restraints/legcuffs/bola/sinew/dropped(mob/living/user)
-	if(flags & DROPDEL)
-		user.apply_damage(10, BRUTE, (pick("l_leg", "r_leg")))
-		new /obj/item/restraints/handcuffs/sinew(user.loc)
-		new /obj/item/stack/sheet/bone(user.loc, 2)
-	. = ..()
+/obj/item/restraints/legcuffs/bola/sinew/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	if(..())
+		return
+
+	var/mob/living/carbon/target = hit_atom	// we already check for carbon in parent
+	target.apply_damage(10, BRUTE, (pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)))
+	new /obj/item/restraints/handcuffs/sinew(target.loc)
+	new /obj/item/stack/sheet/bone(target.loc, 2)
 

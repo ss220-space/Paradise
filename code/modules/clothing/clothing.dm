@@ -679,7 +679,7 @@ BLIND     // can't see anything
 				A.Grant(user)
 
 
-/obj/item/clothing/suit/space/dropped(mob/user)
+/obj/item/clothing/suit/space/dropped(mob/user, silent = FALSE)
 	..()
 	if(jetpack)
 		for(var/X in jetpack.actions)
@@ -750,7 +750,7 @@ BLIND     // can't see anything
 	return ..()
 
 
-/obj/item/clothing/under/dropped(mob/user, silent)
+/obj/item/clothing/under/dropped(mob/user, silent = FALSE)
 	..()
 	if(!ishuman(user))
 		return

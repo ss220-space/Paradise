@@ -111,7 +111,7 @@
 		"Stok" = 'icons/mob/clothing/species/monkey/mask.dmi'
 		)
 
-/obj/item/clothing/mask/muzzle/tapegag/dropped(mob/user)
+/obj/item/clothing/mask/muzzle/tapegag/dropped(mob/user, silent = FALSE)
 	var/obj/item/trash/tapetrash/TT = new
 	transfer_fingerprints_to(TT)
 	user.transfer_fingerprints_to(TT)
@@ -377,7 +377,7 @@
 		else
 			user.real_name = "[user.name][temporaryname]"
 
-/obj/item/clothing/mask/horsehead/dropped() //this really shouldn't happen, but call it extreme caution
+/obj/item/clothing/mask/horsehead/dropped(mob/user, silent = FALSE) //this really shouldn't happen, but call it extreme caution
 	if(flags & NODROP)
 		goodbye_horses(loc)
 	..()
