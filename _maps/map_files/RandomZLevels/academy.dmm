@@ -908,10 +908,6 @@
 	icon_state = "darkblue"
 	},
 /area/awaymission/academy/classrooms)
-"dS" = (
-/obj/structure/mineral_door/iron,
-/turf/simulated/floor/plasteel,
-/area/awaymission/academy/classrooms)
 "dU" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/paper{
@@ -1232,11 +1228,10 @@
 /turf/simulated/floor/carpet/cyan,
 /area/awaymission/academy/headmaster)
 "ff" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall{
-	simulated = 0
-	},
-/area/space)
+/obj/structure/mineral_door/wood,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/classrooms)
 "fh" = (
 /obj/machinery/prize_counter,
 /turf/simulated/floor/plasteel{
@@ -2427,7 +2422,8 @@
 /area/awaymission/academy/academyaft)
 "jO" = (
 /obj/structure/mineral_door/wood,
-/turf/simulated/floor/indestructible/hierophant/two,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
 "jP" = (
 /obj/structure/table,
@@ -4376,7 +4372,7 @@
 	dir = 2;
 	id_tag = "AcademyEndGate2"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "DC" = (
 /obj/item/borg/upgrade/modkit/range,
@@ -4731,7 +4727,7 @@
 	dir = 2;
 	id_tag = "AcademyEndGate3"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "HS" = (
 /obj/effect/decal/cleanable/blood/bubblegum,
@@ -5901,7 +5897,7 @@
 	dir = 2;
 	id_tag = "AcademyEndGate1"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "VO" = (
 /obj/machinery/cooker/deepfryer,
@@ -6101,7 +6097,8 @@
 /area/awaymission/academy/headmaster)
 "Ya" = (
 /obj/structure/mineral_door/iron,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "Yb" = (
 /obj/structure/stone_tile/slab,
@@ -7743,7 +7740,7 @@ yU
 Ju
 Mu
 TS
-dS
+Ya
 Km
 ed
 HS
@@ -7873,7 +7870,7 @@ Vc
 Vc
 Vc
 tt
-dS
+Ya
 Mr
 Mr
 Jz
@@ -8523,7 +8520,7 @@ og
 og
 og
 og
-jO
+ff
 uB
 ek
 lh
@@ -8653,7 +8650,7 @@ og
 og
 og
 og
-jO
+ff
 uB
 ek
 ek
@@ -8783,7 +8780,7 @@ og
 og
 og
 og
-jO
+ff
 uB
 lh
 lh
@@ -12693,7 +12690,7 @@ fl
 fr
 uA
 kE
-ff
+kE
 yM
 yM
 yM
@@ -12822,7 +12819,7 @@ kE
 kE
 kE
 kE
-ff
+kE
 aa
 aa
 aa
