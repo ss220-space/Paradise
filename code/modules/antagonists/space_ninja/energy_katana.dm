@@ -69,7 +69,7 @@
 		jaunt.update_action_style(color_style)
 		user.update_icons()
 		playsound(get_turf(src), 'sound/items/unsheath.ogg', 25, TRUE, 5)
-	if(!isninja(user))
+	if(!isninja(user) && !isrobot(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
 		if(affecting.receive_damage(20))		//INFERNO
@@ -78,7 +78,7 @@
 			playsound(src, 'sound/weapons/bladeslice.ogg', 100, 1)
 
 
-/obj/item/melee/energy_katana/dropped(mob/user)
+/obj/item/melee/energy_katana/dropped(mob/user, silent = FALSE)
 	. = ..()
 	if(user && user.client)
 		jaunt.Remove(user)
@@ -86,7 +86,7 @@
 		user.update_icons()
 
 /obj/item/melee/energy_katana/attack(mob/living/target, mob/living/carbon/human/user)
-	if(!isninja(user))
+	if(!isninja(user) && !isrobot(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
 		if(affecting.droplimb())

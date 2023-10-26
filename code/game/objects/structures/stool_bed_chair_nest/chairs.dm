@@ -543,3 +543,15 @@
 	name = "brass chair"
 	desc = "A spinny chair made of brass. It looks uncomfortable. Totally not magic!"
 	buildstacktype = /obj/item/stack/sheet/brass_fake
+
+/obj/structure/chair/comfy/abductor
+	name = "alien chair"
+	desc = "Alien chair. It look strange but comfortable."
+	icon_state = "alien_chair"
+	anchored = TRUE
+	max_integrity = 375
+	buildstacktype = /obj/item/stack/sheet/mineral/abductor
+	buildstackamount = 2
+
+/obj/structure/chair/comfy/abductor/GetArmrest()
+	return mutable_appearance('icons/obj/chairs.dmi', "alien_chair_armrest")

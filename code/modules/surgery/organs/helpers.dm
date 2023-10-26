@@ -116,18 +116,6 @@
 	return FALSE
 
 
-/mob/proc/get_num_legs()
-	return 2
-
-/mob/living/carbon/human/get_num_legs()
-	. = 0
-	for(var/X in bodyparts)
-		var/obj/item/organ/external/affecting = X
-		if(affecting.body_part == LEG_RIGHT)
-			.++
-		if(affecting.body_part == LEG_LEFT)
-			.++
-
 //sometimes we want to ignore that we don't have the required amount of legs.
 /mob/proc/get_leg_ignore()
 	return FALSE

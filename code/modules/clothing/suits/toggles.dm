@@ -50,7 +50,7 @@
 	else
 		helmet.forceMove(src)
 
-/obj/item/clothing/suit/space/hardsuit/dropped()
+/obj/item/clothing/suit/space/hardsuit/dropped(mob/user, silent = FALSE)
 	..()
 	RemoveHelmet()
 

@@ -147,7 +147,7 @@
 		var/mob/living/carbon/human/H = user
 		style.teach(H,1)
 
-/obj/item/clothing/gloves/color/black/krav_maga/dropped(mob/user)
+/obj/item/clothing/gloves/color/black/krav_maga/dropped(mob/user, silent = FALSE)
 	. = ..()
 
 	if(!ishuman(user))

@@ -56,3 +56,14 @@
 	build_path = /obj/item/stack/sheet/mineral/abductor
 	category = list("Stock Parts")
 	lathe_time_factor = 5
+
+/datum/design/alienglass
+	name = "Alien Glass"
+	desc = "Plasma + Iron + Glass(x4)"
+	id = "alienglass"
+	req_tech = list("abductor" = 1, "materials" = 7, "plasmatech" = 2)
+	build_type = PROTOLATHE | SMELTER
+	materials = list(MAT_METAL = 4000, MAT_PLASMA = 4000, MAT_GLASS = 4000)
+	build_path = /obj/item/stack/sheet/abductorglass
+	category = list("Stock Parts")
+	lathe_time_factor = 5

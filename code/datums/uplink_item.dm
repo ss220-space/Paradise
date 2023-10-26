@@ -563,7 +563,18 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/implanter/supercharge
 	cost = 8
 	race = list("Machine")
-	
+
+//Plasmaman
+
+/datum/uplink_item/racial/plasma_chameleon
+	name = "Plasmaman Chameleon Kit"
+	desc = "A set of items that contain chameleon technology allowing you to disguise as pretty much anything on the station, and more! \
+			Due to budget cuts, the shoes don't provide protection against slipping. The set comes with a complementary chameleon stamp. Only for Plasmamen."
+	reference = "PCK"
+	item = /obj/item/storage/box/syndie_kit/plasma_chameleon
+	cost = 4
+	race = list("Plasmaman")
+  
 // DANGEROUS WEAPONS
 
 /datum/uplink_item/dangerous
@@ -1408,22 +1419,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/stealthy_tools
 	category = "Stealth and Camouflage Items"
 
-/datum/uplink_item/stealthy_tools/chameleon_stamp
-	name = "Chameleon Stamp"
-	desc = "A stamp that can be activated to imitate an official Nanotrasen Stamp. The disguised stamp will work exactly like the real stamp and will allow you to forge false documents to gain access or equipment; \
-	it can also be used in a washing machine to forge clothing."
+/datum/uplink_item/stealthy_tools/syndie_kit/counterfeiter_bundle
+	name = "Syndicate Counterfeiter Bundle"
+	desc = "A cleverly implemented bundle designed to document counterfeiting. Comes with a chameleon stamp, capable of imitating any NanoTrasen issued stamps and a fakesign pen to alter the world through the sheer force of paperwork. While making the user capable of faking almost any document, this Syndicate technology has been rumored to cause a huge upheaval on NT objects. "
 	reference = "CHST"
-	item = /obj/item/stamp/chameleon
-	cost = 1
-	surplus = 35
-
-/datum/uplink_item/stealthy_tools/chameleonpen
-	name = "Chameleon Pen"
-	desc = "A pen with customized ultra-super high-tech tip, that makes everything you write look like a real signature."
-	reference = "CHPEN"
-	item = /obj/item/pen/fakesign
-	cost = 1
-	surplus = 35
+	cost = 1 
+	surplus = 35 
+	item = /obj/item/storage/box/syndie_kit/counterfeiter_bundle 
 
 /datum/uplink_item/stealthy_tools/chameleonflag
 	name = "Chameleon Flag"
@@ -1772,12 +1774,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 5
 	surplus = 75
 
-/datum/uplink_item/device_tools/cipherkey
-	name = "Syndicate Encryption Key"
-	desc = "A key, that when inserted into a radio headset, allows you to listen to all station department channels as well as talk on an encrypted Syndicate channel."
+/datum/uplink_item/device_tools/bowman_kit
+	name = "Bowman Conversion kit + Syndicate Encryption Key"
+	desc = "Easy-to-apply device which enchances headset with loud noise protection and chameleoning headsets. \
+	A key, that when inserted into a radio headset, allows you to listen to all station department channels as well as talk on an encrypted Syndicate channel."
 	reference = "SEK"
-	item = /obj/item/encryptionkey/syndicate
-	cost = 2 //Nowhere near as useful as the Binary Key!
+	item = /obj/item/storage/box/syndie_kit/bowman_conversion_kit
+	cost = 1
 	surplus = 75
 
 /datum/uplink_item/device_tools/hacked_module
@@ -1961,6 +1964,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 12
 	surplus = 90
 
+/datum/uplink_item/implants/stealthbox
+    name = "Stealth Implant"
+    desc = "An implant injected into the body, and later activated manually to deploy a box, fully hiding you in the surroundings. Can be used indefinitely"
+    reference = "SB"
+    item = /obj/item/implanter/stealth
+    cost = 8
+
 // Cybernetics
 /datum/uplink_item/cyber_implants
 	category = "Cybernetic Implants"
@@ -1983,11 +1993,19 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/cyber_implants/antistun
 	name = "Hardened CNS Rebooter Implant"
-	desc = "This implant will help you get back up on your feet faster after being stunned. It is invulnerable to EMPs. \
+	desc = "This implant will help you get back up on your feet faster after being stunned. It is invulnerable to EMPs. Incompatible with the Neural Jumpstarter.\
 			Comes with an automated implanting tool."
 	reference = "CIAS"
 	item = /obj/item/storage/box/cyber_implants/anti_stun_hardened
 	cost = 12
+
+/datum/uplink_item/cyber_implants/antisleep
+	name = "Hardened Neural Jumpstarter Implant"
+	desc = "This implant will help you regain your consciousness, but there is short delay for that. It is invulnerable to EMPs. Incompatible with the CNS Rebooter.\
+			Comes with an automated implanting tool."
+	reference = "NJ"
+	item = /obj/item/storage/box/cyber_implants/anti_sleep_hardened
+	cost = 15
 
 /datum/uplink_item/cyber_implants/reviver
 	name = "Hardened Reviver Implant"
