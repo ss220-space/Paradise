@@ -200,6 +200,8 @@
 /datum/dna/gene/basic/grant_spell/remotetalk/activate(mob/living/M, connected, flags)
 	..()
 	M.AddSpell(new /obj/effect/proc_holder/spell/mindscan(null))
+	M.sight |= SEE_THOUGHTS
+	M.update_sight()
 
 
 /datum/dna/gene/basic/grant_spell/remotetalk/deactivate(mob/user)
@@ -207,6 +209,8 @@
 	for(var/obj/effect/proc_holder/spell/S in user.mob_spell_list)
 		if(istype(S, /obj/effect/proc_holder/spell/mindscan))
 			user.RemoveSpell(S)
+	user.sight &= ~SEE_THOUGHTS
+	user.update_sight()
 
 
 /obj/effect/proc_holder/spell/remotetalk
@@ -229,13 +233,20 @@
 	if(user.mind?.miming) // Dont let mimes telepathically talk
 		to_chat(user,"<span class='warning'>You can't communicate without breaking your vow of silence.</span>")
 		return
-	var/say = input("What do you wish to say") as text|null
-	if(!say || usr.stat)
-		return
-	say = strip_html(say)
-	say = pencode_to_html(say, usr, format = 0, fields = 0)
-
 	for(var/mob/living/target in targets)
+		target.sight = SEE_THOUGHTS
+		target.update_sight()
+		user.set_typing_thought_indicator(TRUE)
+		user.hud_typing = 1
+		var/say = input("What do you wish to say") as text|null
+		user.hud_typing = 0
+		user.set_typing_thought_indicator(FALSE)
+		target.sight &= ~SEE_THOUGHTS
+		target.update_sight()
+		if(!say || usr.stat)
+			return
+		say = strip_html(say)
+		say = pencode_to_html(say, usr, format = 0, fields = 0)
 		log_say("(TPATH to [key_name(target)]) [say]", user)
 		user.create_log(SAY_LOG, "Telepathically said '[say]' using [src]", target)
 		if(target.dna?.GetSEState(GLOB.remotetalkblock))

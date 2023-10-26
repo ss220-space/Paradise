@@ -59,12 +59,10 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 
 /mob/proc/set_typing_thought_indicator(state)
 	if(!GLOB.typing_indicator[bubble_thought_icon])
-		GLOB.typing_indicator[bubble_thought_icon] = image('icons/mob/talk.dmi', null, "[bubble_thought_icon]typing", FLY_LAYER)
-		var/image/I = GLOB.typing_indicator[bubble_thought_icon]
-		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+		GLOB.typing_indicator[bubble_thought_icon] = image('icons/mob/talk.dmi', null, "[bubble_thought_icon]typing", THOUGHTS_LAYER)
 
 	if(client)
-		if(stat != CONSCIOUS || is_muzzled() || (client.prefs.toggles2 & PREFTOGGLE_2_EMOTE_BUBBLE))
+		if(stat != CONSCIOUS || (client.prefs.toggles & PREFTOGGLE_SHOW_TYPING))
 			overlays -= GLOB.typing_indicator[bubble_thought_icon]
 		else
 			if(state)
