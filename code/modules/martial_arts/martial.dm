@@ -393,6 +393,24 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
+/obj/item/throwing_manual
+	name = "Handling knives"
+	desc = "Handling knives"
+	icon = 'icons/obj/library.dmi'
+	icon_state = "throwingknives"
+
+/obj/item/throwing_manual/attack_self(mob/living/carbon/human/user)
+	if(!istype(user) || !user)
+		return
+	to_chat(user, "<span class='boldannounce'>You remember the basics of knife throwing.</span>")
+
+	var/datum/martial_art/throwing/MA = new
+	MA.teach(user)
+	user.temporarily_remove_item_from_inventory(src)
+	visible_message("<span class='warning'>[src] beeps ominously, and a moment later it bursts up in flames.</span>")
+	new /obj/effect/decal/cleanable/ash(get_turf(src))
+	qdel(src)
+
 /obj/item/twohanded/bostaff
 	name = "bo staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts. Can be wielded to both kill and incapacitate."

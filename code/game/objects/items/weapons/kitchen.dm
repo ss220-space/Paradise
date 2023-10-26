@@ -183,13 +183,20 @@
 	force = 15
 	throwforce = 15
 
+/obj/item/kitchen/knife/combat/throwing
+	name = "throwing knife"
+	desc = "s"
+	icon_state = "throwingknife"
+	item_state = "throwingknife"
+	belt_icon = "survival_knife"
+	force = 15
+	throwforce = 15
+
 /obj/item/kitchen/knife/combat/survival/bone
 	name = "bone dagger"
 	item_state = "bone_dagger"
 	icon_state = "bone_dagger"
 	belt_icon = "bone_dagger"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	desc = "A sharpened bone. The bare minimum in survival."
 	materials = list()
 

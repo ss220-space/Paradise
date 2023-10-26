@@ -5,7 +5,7 @@
 	item_color = "holster"
 	slot = ACCESSORY_SLOT_UTILITY
 	var/holster_allow = /obj/item/gun
-	var/obj/item/gun/holstered = null
+	var/obj/item/holstered = null
 	actions_types = list(/datum/action/item_action/accessory/holster)
 	w_class = WEIGHT_CLASS_NORMAL // so it doesn't fit in pockets
 
@@ -151,3 +151,55 @@
 	desc = "A handgun holster. Made of expensive leather."
 	icon_state = "holster"
 	item_color = "holster_low"
+
+/obj/item/clothing/accessory/holster/knife
+	name = "ы"
+	desc = "ы"
+	icon_state = "holsterknife"
+	item_color = "holsterknife"
+	holster_allow = /obj/item/kitchen/knife/combat
+	//actions_types = list(/datum/action/item_action/accessory/holster)
+
+/obj/item/clothing/accessory/holster/knife/holster(obj/item/I, mob/user as mob)
+	if(holstered)
+		to_chat(user, "<span class='warning'>There is already a [holstered] holstered here!</span>")
+		return
+
+	if(!istype(I, /obj/item/kitchen/knife/combat))
+		to_chat(user, "<span class='warning'>Only knifes can be holstered!</span>")
+		return
+
+	var/obj/item/kitchen/knife/combat/W = I
+
+	if(!user.can_unEquip(W))
+		to_chat(user, "<span class='warning'>You can't let go of the [W]!</span>")
+		return
+
+	holstered = W
+	user.temporarily_remove_item_from_inventory(holstered)
+	holstered.forceMove(src)
+	holstered.add_fingerprint(user)
+	user.visible_message("<span class='notice'>[user] holsters the [holstered].</span>", "<span class='notice'>You holster the [holstered].</span>")
+	playsound(user.loc, 'sound/weapons/gun_interactions/1holster.ogg', 50, 1)
+
+/obj/item/clothing/accessory/holster/knife/unholster(mob/user as mob)
+	if(!holstered || user.stat == DEAD)
+		return
+
+	if(user.stat == UNCONSCIOUS)
+		to_chat(user, "<span class='warning'>Вы не можете достать [holstered] сейчас!")
+		return
+
+	if(istype(user.get_active_hand(), /obj) && istype(user.get_inactive_hand(), /obj))
+		to_chat(user, "<span class='warning'>You need an empty hand to draw the [holstered]!</span>")
+	else
+		if(user.a_intent == INTENT_HARM)
+			user.visible_message("<span class='warning'>[user] takes the [holstered] out, ready to throw!</span>",
+				"<span class='warning'>You takes the [holstered] out, ready to throw!</span>")
+		else
+			user.visible_message("<span class='notice'>[user] takes the [holstered] out.</span>",
+				"<span class='notice'>You takes the [holstered] out</span>")
+		user.put_in_hands(holstered)
+		holstered.add_fingerprint(user)
+		holstered = null
+		playsound(user.loc, 'sound/weapons/gun_interactions/1unholster.ogg', 50, 1)

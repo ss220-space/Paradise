@@ -533,3 +533,10 @@
 	desc = "Made of wood. Used to support world's economics stable."
 	icon_state = "mr_chang_sandals"
 	item_state = "mr_chang_sandals"
+
+/obj/item/clothing/shoes/combat/commando //basic syndicate combat boots for nuke ops and mob corpses
+	name = "boots"
+	desc = "Бутсы  со стальной подошвой созданы чтобы крошить чьи то косточки"
+	can_cut_open = FALSE
+	icon_state = "commandos_boots"
+	item_state = "commandos_boots"

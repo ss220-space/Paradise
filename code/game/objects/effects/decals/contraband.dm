@@ -387,6 +387,11 @@
 	desc = "You see a slightly battered poster, which shows a RED toolbox and the inscription \"Danger, very robust!\", some people say that this red paint on the poster is made of real blood."
 	icon_state = "poster36"
 
+/obj/structure/sign/poster/contraband/commando
+	name = "ы"
+	desc = "Вы видите мускулистого человека в боевом омбундировании, один лишь вид этого постера вносит аромат настоящей мужественности."
+	icon_state = "poster37"
+
 //official posters
 /obj/structure/sign/poster/official
 	poster_item_name = "motivational poster"
