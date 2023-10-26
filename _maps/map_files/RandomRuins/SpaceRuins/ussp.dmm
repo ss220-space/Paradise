@@ -7888,7 +7888,7 @@
 /obj/docking_port/stationary{
 	dir = 8;
 	dwidth = 10;
-	height = 20;
+	height = 30;
 	id = "freegolem_ussp";
 	name = "Near USSP Station";
 	width = 20

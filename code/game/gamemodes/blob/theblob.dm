@@ -50,11 +50,13 @@
 /obj/structure/blob/CanAtmosPass(turf/T)
 	return !atmosblock
 
-/obj/structure/blob/CanAStarPass(ID, dir, caller)
-	. = 0
+
+/obj/structure/blob/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
+	. = FALSE
 	if(ismovable(caller))
 		var/atom/movable/mover = caller
 		. = . || mover.checkpass(PASSBLOB)
+
 
 /obj/structure/blob/process()
 	Life()
@@ -93,6 +95,8 @@
 		var/dirn = pick(dirs)
 		dirs.Remove(dirn)
 		var/turf/T = get_step(src, dirn)
+		if(!is_location_within_transition_boundaries(T))
+			continue
 		var/obj/structure/blob/B = (locate(/obj/structure/blob) in T)
 		if(!B)
 			expand(T,1,a_color)//No blob here so try and expand
@@ -127,6 +131,8 @@
 			else	T = null
 
 	if(!T)	return 0
+	if(!is_location_within_transition_boundaries(T))
+		return
 	var/obj/structure/blob/normal/B = new /obj/structure/blob/normal(src.loc, min(obj_integrity, 30))
 	B.color = a_color
 	B.density = 1
@@ -219,6 +225,13 @@
 		if(lowertext(B.blob_reagent_datum.color) == lowertext(src.color)) // Goddamit why we use strings for these
 			return B.blob_reagent_datum.description
 	return "something unknown"
+
+
+/obj/structure/blob/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	damage *= 0.25 // Lets not have sorium be too much of a blender / rapidly kill itself
+	return ..()
+
+
 /obj/structure/blob/normal
 	icon_state = "blob"
 	light_range = 0

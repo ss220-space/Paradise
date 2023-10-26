@@ -31,7 +31,7 @@
 	. = ..()
 	update_icon()
 
-/obj/item/reagent_containers/iv_bag/dropped(mob/user)
+/obj/item/reagent_containers/iv_bag/dropped(mob/user, silent = FALSE)
 	..()
 	update_icon()
 

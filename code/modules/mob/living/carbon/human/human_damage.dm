@@ -26,7 +26,7 @@
 		if(sponge)
 			if(dna.species && amount > 0)
 				if(use_brain_mod)
-					amount = amount * (dna.species.brain_mod + get_vampire_bonus("brain"))
+					amount = amount * (dna.species.brain_mod + get_vampire_bonus(BRAIN))
 			sponge.damage = clamp(sponge.damage + amount, 0, 120)
 			if(sponge.damage >= 120 && stat != DEAD)
 				visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
@@ -44,7 +44,7 @@
 		if(sponge)
 			if(dna.species && amount > 0)
 				if(use_brain_mod)
-					amount = amount * (dna.species.brain_mod + get_vampire_bonus("brain"))
+					amount = amount * (dna.species.brain_mod + get_vampire_bonus(BRAIN))
 			sponge.damage = clamp(amount, 0, 120)
 			if(sponge.damage >= 120 && stat != DEAD)
 				visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
@@ -70,6 +70,50 @@
 	else
 		return 0
 
+
+/mob/living/carbon/human/adjustHeartLoss(amount, updating_health = TRUE)
+	if(status_flags & GODMODE)
+		return STATUS_UPDATE_NONE	//godmode
+
+	if(dna.species && dna.species.has_organ["heart"])
+		var/obj/item/organ/internal/heart/hearty = get_int_organ(/obj/item/organ/internal/heart)
+		if(hearty)
+			hearty.damage = clamp(hearty.damage + amount, 0, 120)
+			// if(hearty.damage >= 120 && stat != DEAD)
+			// 	visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
+			// 	death()
+	if(updating_health)
+		update_stat("adjustHeartLoss")
+	return STATUS_UPDATE_STAT
+
+/mob/living/carbon/human/setHeartLoss(amount, updating_health = TRUE)
+	if(status_flags & GODMODE)
+		return STATUS_UPDATE_NONE	//godmode
+
+	if(dna.species && dna.species.has_organ["heart"])
+		var/obj/item/organ/internal/heart/hearty = get_int_organ(/obj/item/organ/internal/heart)
+		if(hearty)
+			hearty.damage = clamp(amount, 0, 120)
+			// if(sponge.damage >= 120 && stat != DEAD)
+			// 	visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
+			// 	death()
+	if(updating_health)
+		update_stat("setHeartLoss")
+	return STATUS_UPDATE_STAT
+
+/mob/living/carbon/human/getHeartLoss()
+	if(status_flags & GODMODE)
+		return 0	//godmode
+
+	if(dna.species && dna.species.has_organ["heart"])
+		var/obj/item/organ/internal/heart/hearty = get_int_organ(/obj/item/organ/internal/heart)
+		if(hearty)
+			return min(hearty.damage,maxHealth*2)
+		else
+			return 200
+	else
+		return 0
+
 //These procs fetch a cumulative total damage from all organs
 /mob/living/carbon/human/getBruteLoss()
 	if(status_flags & GODMODE)
@@ -90,7 +134,7 @@
 /mob/living/carbon/human/adjustBruteLoss(amount, updating_health = TRUE, damage_source = null, robotic = FALSE)
 	if(amount > 0)
 		if(dna.species)
-			amount = amount * (dna.species.brute_mod + get_vampire_bonus("brute"))
+			amount = amount * (dna.species.brute_mod + get_vampire_bonus(BRUTE))
 		take_overall_damage(amount, 0, updating_health, used_weapon = damage_source)
 	else
 		heal_overall_damage(-amount, 0, updating_health, FALSE, robotic)
@@ -100,7 +144,7 @@
 /mob/living/carbon/human/adjustFireLoss(amount, updating_health = TRUE, damage_source = null, robotic = FALSE)
 	if(amount > 0)
 		if(dna.species)
-			amount = amount * (dna.species.burn_mod + get_vampire_bonus("burn"))
+			amount = amount * (dna.species.burn_mod + get_vampire_bonus(BURN))
 		take_overall_damage(0, amount, updating_health, used_weapon = damage_source)
 	else
 		heal_overall_damage(0, -amount, updating_health, FALSE, robotic)
@@ -109,7 +153,7 @@
 
 /mob/living/carbon/human/proc/adjustBruteLossByPart(amount, organ_name, obj/damage_source = null, updating_health = TRUE)
 	if(dna.species && amount > 0)
-		amount = amount * (dna.species.brute_mod + get_vampire_bonus("brute"))
+		amount = amount * (dna.species.brute_mod + get_vampire_bonus(BRUTE))
 	if(organ_name in bodyparts_by_name)
 		var/obj/item/organ/external/O = get_organ(organ_name)
 
@@ -122,7 +166,7 @@
 
 /mob/living/carbon/human/proc/adjustFireLossByPart(amount, organ_name, obj/damage_source = null, updating_health = TRUE)
 	if(dna.species && amount > 0)
-		amount = amount * (dna.species.burn_mod + get_vampire_bonus("burn"))
+		amount = amount * (dna.species.burn_mod + get_vampire_bonus(BURN))
 
 	if(organ_name in bodyparts_by_name)
 		var/obj/item/organ/external/O = get_organ(organ_name)
@@ -136,7 +180,7 @@
 
 /mob/living/carbon/human/adjustCloneLoss(amount, updating_health)
 	if(dna.species && amount > 0)
-		amount = amount * (dna.species.clone_mod + get_vampire_bonus("clone"))
+		amount = amount * (dna.species.clone_mod + get_vampire_bonus(CLONE))
 	. = ..()
 
 	var/heal_prob = max(0, 80 - getCloneLoss())
@@ -179,7 +223,7 @@
 		oxyloss = 0
 		return FALSE
 	if(dna.species && amount > 0)
-		amount = amount * (dna.species.oxy_mod + get_vampire_bonus("oxy"))
+		amount = amount * (dna.species.oxy_mod + get_vampire_bonus(OXY))
 	. = ..()
 
 /mob/living/carbon/human/setOxyLoss(amount, updating_health)
@@ -187,12 +231,12 @@
 		oxyloss = 0
 		return FALSE
 	if(dna.species && amount > 0)
-		amount = amount * (dna.species.oxy_mod + get_vampire_bonus("oxy"))
+		amount = amount * (dna.species.oxy_mod + get_vampire_bonus(OXY))
 	. = ..()
 
 /mob/living/carbon/human/adjustToxLoss(amount, updating_health)
 	if(dna.species && amount > 0)
-		amount = amount * (dna.species.tox_mod + get_vampire_bonus("tox"))
+		amount = amount * (dna.species.tox_mod + get_vampire_bonus(TOX))
 	. = ..()
 
 	if(amount > 0 && mind)
@@ -202,17 +246,17 @@
 
 /mob/living/carbon/human/setToxLoss(amount, updating_health)
 	if(dna.species && amount > 0)
-		amount = amount * (dna.species.tox_mod + get_vampire_bonus("tox"))
+		amount = amount * (dna.species.tox_mod + get_vampire_bonus(TOX))
 	. = ..()
 
 /mob/living/carbon/human/adjustStaminaLoss(amount, updating_health)
 	if(dna.species && amount > 0)
-		amount = amount * (dna.species.stamina_mod + get_vampire_bonus("stamina"))
+		amount = amount * (dna.species.stamina_mod + get_vampire_bonus(STAMINA))
 	. = ..()
 
 /mob/living/carbon/human/setStaminaLoss(amount, updating_health)
 	if(dna.species && amount > 0)
-		amount = amount * (dna.species.stamina_mod + get_vampire_bonus("stamina"))
+		amount = amount * (dna.species.stamina_mod + get_vampire_bonus(STAMINA))
 	. = ..()
 
 ////////////////////////////////////////////

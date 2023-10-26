@@ -721,3 +721,12 @@
 	icon_state = "vulpix_chillie"
 	tastes = list("dough" = 2, "dog meat" = 3, "chillie" = 2)
 
+/obj/item/reagent_containers/food/snacks/bakedvulp
+	name = "oven-baked vulp"
+	desc = "Oven-baked vulp meat with a juicy apple in the mouth. She was unintelligent... Wasn't she?"
+	icon_state = "bakedvulp"
+	trash = /obj/item/trash/tray
+	list_reagents = list("protein" = 12, "nutriment" = 10, "vitamin" = 5)
+	tastes = list("dog meat" = 2, "apple" = 1)
+	foodtype = MEAT
+

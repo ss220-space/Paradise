@@ -78,6 +78,7 @@
 	effect_type = /obj/effect/particle_effect/smoke
 	var/direction
 	var/color
+	var/custom_lifetime
 
 /datum/effect_system/smoke_spread/set_up(n = 5, c = 0, loca, direct)
 	if(n > 20)
@@ -96,6 +97,8 @@
 		if(holder)
 			location = get_turf(holder)
 		var/obj/effect/particle_effect/smoke/S = new effect_type(location)
+		if(custom_lifetime)
+			S.lifetime = rand(custom_lifetime-3, custom_lifetime)
 		if(color)
 			S.color = color
 		if(!direction)

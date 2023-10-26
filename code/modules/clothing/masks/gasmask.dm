@@ -214,7 +214,7 @@
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak/mask)
 
 
-/obj/item/clothing/mask/gas/mime/dropped(mob/user)
+/obj/item/clothing/mask/gas/mime/dropped(mob/user, silent = FALSE)
 	. = ..()
 
 	if(!user?.mind)
@@ -319,7 +319,7 @@
 	if(slot == slot_wear_mask && !HAS_TRAIT(user, TRAIT_SECDEATH))
 		ADD_TRAIT(user, TRAIT_SECDEATH, src)
 
-/obj/item/clothing/mask/gas/sechailer/dropped(mob/user)
+/obj/item/clothing/mask/gas/sechailer/dropped(mob/user, silent = FALSE)
 	. = ..()
 	REMOVE_TRAIT(user, TRAIT_SECDEATH, src)
 

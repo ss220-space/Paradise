@@ -65,6 +65,8 @@ SUBSYSTEM_DEF(throwing)
 	var/paused = FALSE
 	var/delayed_time = 0
 	var/last_move = 0
+	///When this variable is `FALSE`, non dense mobs will be hit by a thrown item.
+	var/dodgeable = TRUE
 
 
 /datum/thrownthing/proc/tick()
@@ -117,7 +119,7 @@ SUBSYSTEM_DEF(throwing)
 
 
 /datum/thrownthing/proc/finalize(hit = FALSE, target = null)
-	set waitfor = 0
+	set waitfor = FALSE
 	SSthrowing.processing -= thrownthing
 	//done throwing, either because it hit something or it finished moving
 	thrownthing.throwing = null
@@ -135,7 +137,7 @@ SUBSYSTEM_DEF(throwing)
 		thrownthing.newtonian_move(init_dir)
 
 	if(target)
-		thrownthing.throw_impact(target, src)
+		thrownthing.throw_impact(target, src, speed)
 
 	if(callback)
 		callback.Invoke()
@@ -151,6 +153,7 @@ SUBSYSTEM_DEF(throwing)
 		var/atom/movable/AM = thing
 		if(AM == thrownthing || AM == thrower)
 			continue
-		if(AM.density && !(AM.pass_flags & LETPASSTHROW) && !(AM.flags & ON_BORDER))
+		if((AM.density || isliving(AM) && !dodgeable) && !(AM.pass_flags & LETPASSTHROW) && !(AM.flags & ON_BORDER))
 			finalize(hit = TRUE, target = AM)
 			return TRUE
+

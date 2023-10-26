@@ -16,7 +16,7 @@
 /obj/item/chrono_eraser/proc/pass_mind(var/datum/mind/M)
 	erased_minds += M
 
-/obj/item/chrono_eraser/dropped()
+/obj/item/chrono_eraser/dropped(mob/user, silent = FALSE)
 	..()
 	if(PA)
 		qdel(PA)

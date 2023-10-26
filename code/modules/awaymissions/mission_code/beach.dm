@@ -6,7 +6,7 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	density = 0
 	anchored = 1
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 
 	var/water_frequency = 15
 	var/water_timer = 0

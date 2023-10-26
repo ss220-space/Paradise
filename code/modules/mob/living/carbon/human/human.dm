@@ -199,9 +199,10 @@
 			if(isclocker(mind.current))
 				stat("Total Power", "[GLOB.clockwork_power]")
 
-			if(mind.ninja && mind.ninja.my_suit)
-				stat("Заряд костюма","[mind.ninja.return_cell_charge()]")
-				stat("Заряд рывков","[mind.ninja.return_dash_charge()]")
+			var/datum/antagonist/ninja/ninja = mind?.has_antag_datum(/datum/antagonist/ninja)
+			if(ninja?.my_suit)
+				stat("Заряд костюма","[ninja.get_cell_charge()]")
+				stat("Заряд рывков","[ninja.get_dash_charge()]")
 
 	if(istype(loc, /obj/spacepod)) // Spacdpods!
 		var/obj/spacepod/S = loc
@@ -917,20 +918,13 @@
 		number += MFP.flash_protect
 	for(var/obj/item/organ/internal/cyberimp/eyes/EFP in internal_organs)
 		number += EFP.flash_protect
-
-	var/datum/antagonist/vampire/vampire = mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(vampire?.get_ability(/datum/vampire_passive/eyes_flash_protection))
-		number++
-	if(vampire?.get_ability(/datum/vampire_passive/eyes_welding_protection))
-		number++
-
 	return number
 
 
 /mob/living/carbon/human/check_ear_prot()
-	var/datum/antagonist/vampire/vampire = mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(vampire?.get_ability(/datum/vampire_passive/ears_bang_protection))
-		return HEARING_PROTECTION_TOTAL
+	. = ..()
+	if(.)
+		return
 	if(!can_hear())
 		return HEARING_PROTECTION_TOTAL
 	if(istype(l_ear, /obj/item/clothing/ears/earmuffs))
@@ -1220,7 +1214,7 @@
 	sec_hud_set_ID()
 
 
-/mob/living/carbon/human/proc/set_species(datum/species/new_species, default_colour, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE)
+/mob/living/carbon/human/proc/set_species(datum/species/new_species, default_colour, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE, save_appearance = FALSE)
 	if(!skip_same_check)
 		if(dna.species.name == initial(new_species.name))
 			return
@@ -1243,9 +1237,9 @@
 
 	dna.species = new new_species()
 
-	tail = dna.species.tail
+	tail = save_appearance ? oldspecies.tail : dna.species.tail
 
-	wing = dna.species.wing
+	wing = save_appearance ? oldspecies.wing : dna.species.wing
 
 	maxHealth = dna.species.total_health
 
@@ -1276,6 +1270,10 @@
 			kept_items[I] = thing
 			item_flags[I] = I.flags
 			I.flags = 0 // Temporary set the flags to 0
+
+	var/list/old_bodyparts
+	if(save_appearance)
+		old_bodyparts = bodyparts_by_name.Copy()
 
 	if(retain_damage)
 		//Create a list of body parts which are damaged by burn or brute and save them to apply after new organs are generated. First we just handle external organs.
@@ -1345,41 +1343,58 @@
 		equip_to_slot_if_possible(thing, kept_items[thing])
 		thing.flags = item_flags[thing] // Reset the flags to the origional ones
 
-	//Handle default hair/head accessories for created mobs.
+	//Handle hair/head accessories for created mobs.
 	var/obj/item/organ/external/head/H = get_organ("head")
-	if(dna.species.default_hair)
-		H.h_style = dna.species.default_hair
-	else
-		H.h_style = "Bald"
-	if(dna.species.default_fhair)
-		H.f_style = dna.species.default_fhair
-	else
-		H.f_style = "Shaved"
-	if(dna.species.default_headacc)
-		H.ha_style = dna.species.default_headacc
-	else
-		H.ha_style = "None"
+	if(save_appearance && old_bodyparts)
+		var/obj/item/organ/external/head/old_head = old_bodyparts["head"]
+		if(istype(old_head))
+			if(old_head.h_style)
+				H.h_style = old_head.h_style
+			if(old_head.f_style)
+				H.f_style = old_head.f_style
+			if(old_head.ha_style)
+				H.ha_style = old_head.ha_style
+			if(old_head.hair_colour)
+				H.hair_colour = old_head.hair_colour
+			if(old_head.facial_colour)
+				H.facial_colour = old_head.facial_colour
+			if(old_head.headacc_colour)
+				H.headacc_colour = old_head.headacc_colour
 
-	if(dna.species.default_hair_colour)
-		//Apply colour.
-		H.hair_colour = dna.species.default_hair_colour
 	else
-		H.hair_colour = "#000000"
-	if(dna.species.default_fhair_colour)
-		H.facial_colour = dna.species.default_fhair_colour
-	else
-		H.facial_colour = "#000000"
-	if(dna.species.default_headacc_colour)
-		H.headacc_colour = dna.species.default_headacc_colour
-	else
-		H.headacc_colour = "#000000"
+		if(dna.species.default_hair)
+			H.h_style = dna.species.default_hair
+		else
+			H.h_style = "Bald"
+		if(dna.species.default_fhair)
+			H.f_style = dna.species.default_fhair
+		else
+			H.f_style = "Shaved"
+		if(dna.species.default_headacc)
+			H.ha_style = dna.species.default_headacc
+		else
+			H.ha_style = "None"
 
-	m_styles = DEFAULT_MARKING_STYLES //Wipes out markings, setting them all to "None".
-	m_colours = DEFAULT_MARKING_COLOURS //Defaults colour to #00000 for all markings.
-	if(dna.species.bodyflags & HAS_BODY_ACCESSORY)
-		body_accessory = GLOB.body_accessory_by_name[dna.species.default_bodyacc]
-	else
-		body_accessory = null
+		if(dna.species.default_hair_colour)
+			//Apply colour.
+			H.hair_colour = dna.species.default_hair_colour
+		else
+			H.hair_colour = "#000000"
+		if(dna.species.default_fhair_colour)
+			H.facial_colour = dna.species.default_fhair_colour
+		else
+			H.facial_colour = "#000000"
+		if(dna.species.default_headacc_colour)
+			H.headacc_colour = dna.species.default_headacc_colour
+		else
+			H.headacc_colour = "#000000"
+
+		m_styles = DEFAULT_MARKING_STYLES //Wipes out markings, setting them all to "None".
+		m_colours = DEFAULT_MARKING_COLOURS //Defaults colour to #00000 for all markings.
+		if(dna.species.bodyflags & HAS_BODY_ACCESSORY)
+			body_accessory = GLOB.body_accessory_by_name[dna.species.default_bodyacc]
+		else
+			body_accessory = null
 
 	dna.real_name = real_name
 
@@ -1752,22 +1767,25 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/is_mechanical()
 	return ..() || (dna.species.bodyflags & ALL_RPARTS) != 0
 
-/mob/living/carbon/human/can_use_guns(var/obj/item/gun/G)
+
+/mob/living/carbon/human/can_use_guns(obj/item/gun/check_gun)
 	. = ..()
 
-	if(G.trigger_guard == TRIGGER_GUARD_NORMAL)
+	if(check_gun.trigger_guard == TRIGGER_GUARD_NORMAL)
 		if((NOGUNS in dna.species.species_traits) || HAS_TRAIT(src, TRAIT_CHUNKYFINGERS))
-			to_chat(src, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
+			to_chat(src, span_warning("Your fingers don't fit in the trigger guard!"))
 			return FALSE
 
 	if(mind && mind.martial_art && mind.martial_art.no_guns) //great dishonor to famiry
-		to_chat(src, "<span class='warning'>[mind.martial_art.no_guns_message]</span>")
+		to_chat(src, span_warning("[mind.martial_art.no_guns_message]"))
 		return FALSE
 
-	// Ниндзя не пользуется чужими пушками. В этом нет чести, нет уважения, нет САКЭ!
-	if(mind && mind.ninja && !mind.ninja.allow_guns && !G.ninja_weapon)
-		to_chat(src, "<span class='warning'>[mind.ninja.no_guns_message]</span>")
+	// ninjas will not use default ranged weapons
+	var/datum/antagonist/ninja/ninja = mind?.has_antag_datum(/datum/antagonist/ninja)
+	if(ninja && !ninja.allow_guns && !check_gun.ninja_weapon)
+		to_chat(src, span_warning("[ninja.no_guns_message]"))
 		return FALSE
+
 
 /mob/living/carbon/human/proc/change_icobase(var/new_icobase, var/new_deform, var/owner_sensitive)
 	for(var/obj/item/organ/external/O in bodyparts)

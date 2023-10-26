@@ -306,10 +306,12 @@
 	var/image/img                                //and puts a matching
 	for(var/j = 1, j <= temp_overlays.len, j++) //gray overlay onto the copy
 		if(copy.ico.len)
-			if(findtext(copy.ico[j], "cap") || findtext(copy.ico[j], "cent") || findtext(copy.ico[j], "rep"))
+			if(findtext(copy.ico[j], "cap") || findtext(copy.ico[j], "cent") || findtext(copy.ico[j], "rep") || findtext(copy.ico[j], "magistrate") || findtext(copy.ico[j], "navcom"))
 				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-circle")
 			else if(findtext(copy.ico[j], "deny"))
 				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-x")
+			else if(findtext(copy.ico[j], "ok"))
+				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-check")
 			else
 				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-dots")
 			img.pixel_x = copy.offset_x[j]

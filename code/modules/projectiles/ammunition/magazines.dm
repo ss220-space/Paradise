@@ -81,6 +81,12 @@
 	caliber = ".36"
 	max_ammo = 6
 
+/obj/item/ammo_box/magazine/internal/cylinder/improvisedrevolver
+	name = "Improvised bullet cylinder"
+	ammo_type = /obj/item/ammo_casing/revolver/improvised
+	caliber = ".257"
+	max_ammo = 4
+
 /obj/item/ammo_box/magazine/internal/cylinder/cap
 	name = "cap gun revolver cylinder"
 	desc = "Oh god, this shouldn't be here"
@@ -237,6 +243,10 @@
 	desc= "A gun magazine. Loaded with rounds which penetrate armour, but are less effective against normal targets"
 	ammo_type = /obj/item/ammo_casing/c10mm/ap
 
+/obj/item/ammo_box/magazine/m10mm/update_icon()
+	. = ..()
+	icon_state = "[initial(icon_state)]-[ammo_count() ? "15" : "0"]"
+
 /obj/item/ammo_box/magazine/m45
 	name = "handgun magazine (.45)"
 	icon_state = "45"
@@ -359,14 +369,14 @@
 
 /obj/item/ammo_box/magazine/pistolm9mm
 	name = "pistol magazine (9mm)"
-	icon_state = "9x19p-8"
+	icon_state = "9x19p-15"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = "9mm"
 	max_ammo = 15
 
 /obj/item/ammo_box/magazine/pistolm9mm/update_icon()
 	..()
-	icon_state = "9x19p-[ammo_count() ? "8" : "0"]"
+	icon_state = "9x19p-[ammo_count() ? "15" : "0"]"
 
 /obj/item/ammo_box/magazine/smgm45
 	name = "SMG magazine (.45)"
@@ -530,6 +540,10 @@
 
 /obj/item/ammo_box/magazine/toy/pistol/riot
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
+
+/obj/item/ammo_box/magazine/toy/pistol/update_icon()
+	..()
+	icon_state = "9x19p-[ammo_count() ? "15" : "0"]"
 
 /obj/item/ammo_box/magazine/toy/enforcer
 	name = "foam enforcer magazine"

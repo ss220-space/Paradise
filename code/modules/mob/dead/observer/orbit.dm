@@ -115,7 +115,6 @@
 							"Shadowling Thralls — ([SSticker.mode.shadowling_thralls.len])" = (mind in SSticker.mode.shadowling_thralls),
 							"Shadowlings — ([SSticker.mode.shadows.len])" = (mind in SSticker.mode.shadows),
 							"Sintouched — ([SSticker.mode.sintouched.len])" = (mind in SSticker.mode.sintouched),
-							"Spider Clan — ([SSticker.mode.space_ninjas.len])" = (mind in SSticker.mode.space_ninjas),
 							"Wizards — ([SSticker.mode.wizards.len])" = (mind in SSticker.mode.wizards),
 							"Wizard’s Apprentices — ([SSticker.mode.apprentices.len])" = (mind in SSticker.mode.apprentices),
 							"Xenomorphs — ([SSticker.mode.xenos.len])" = (mind in SSticker.mode.xenos),
