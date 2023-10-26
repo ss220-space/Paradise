@@ -47,8 +47,9 @@
 		if(life_tick == 1)
 			regenerate_icons()
 
-	if(mind?.ninja)
-		mind.ninja.handle_ninja()
+	var/datum/antagonist/ninja/ninja = mind?.has_antag_datum(/datum/antagonist/ninja)
+	if(ninja)
+		ninja.handle_ninja()
 		if(life_tick == 1)
 			regenerate_icons() // Make sure the inventory updates
 

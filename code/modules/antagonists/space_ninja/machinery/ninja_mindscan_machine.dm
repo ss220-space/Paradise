@@ -43,7 +43,7 @@
 		to_chat(user, span_boldwarning("ERROR!!! UNAUTORISED USER!!!"))
 		return
 	if(!objective || user != ninja)
-		var/temp_objective = locate(/datum/objective/find_and_scan) in user.mind.objectives
+		var/temp_objective = locate(/datum/objective/find_and_scan) in user.mind.get_all_objectives()
 		if(!temp_objective)
 			to_chat(user, span_boldwarning("Your clan does not need you to scan anyone right now."))
 			return
@@ -60,7 +60,7 @@
 		to_chat(user, span_boldwarning("ERROR!!! UNAUTORISED USER!!!"))
 		return
 	if(!objective || user != ninja)
-		var/temp_objective = locate(/datum/objective/find_and_scan) in user.mind.objectives
+		var/temp_objective = locate(/datum/objective/find_and_scan) in user.mind.get_all_objectives()
 		if(!temp_objective)
 			to_chat(user, span_boldwarning("Your clan does not need you to scan anyone right now."))
 			return

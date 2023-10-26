@@ -143,7 +143,8 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	var/cash_per_intel = 2500		//points gained per intel returned
 	var/cash_per_plasma = 100		//points gained per plasma returned
 	var/cash_per_design = 500		//points gained per research design returned
-	var/cash_multiplier = 100		//points bonus for plants, designs, etc.
+	var/cash_per_gem = 2000			//points gained per gem returned
+	var/cash_multiplier = 100		//points bonus for plants, tech disks, etc.
 	var/blackmarket_message = null	//Remarks from Black Market on how well you checked the last order.
 /***************************
 Возможные статусы для телепадов
@@ -463,8 +464,14 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 							data_storage.discoveredPlants[S.type] = S.potency
 							msg += "[span_good("[(S.rarity + S.potency)*data_storage.cash_multiplier]")]: New species discovered: \"[capitalize(S.species)]\". Excellent work.<br>"
 							data_storage.cash += (S.rarity + S.potency)*data_storage.cash_multiplier// That's right, no bonus for potency.  Send a crappy sample first to "show improvement" later
-					qdel(thing)
+					// Sell gems
+					if(istype(thing, /obj/item/gem))
+						var/obj/item/gem/Gem = thing
+						cashEarned = round(Gem.sell_multiplier * data_storage.cash_per_gem)
+						msg += "[span_good("+[cashEarned]")]: Received [Gem.name]. Great work.<br>"
+						data_storage.cash += cashEarned
 
+					qdel(thing)
 			qdel(MA)
 			data_storage.sold_atoms += "."
 

@@ -543,8 +543,14 @@ emp_act
 	dna.species.spec_attacked_by(I, user, affecting, user.a_intent, src)
 
 
-//this proc handles being hit by a thrown atom
+/**
+ * This proc handles being hit by a thrown atom.
+ */
 /mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
+	var/spec_return = dna.species.spec_hitby(AM, src)
+	if(spec_return)
+		return spec_return
+
 	var/obj/item/I
 	var/throwpower = 30
 	if(isitem(AM))
@@ -552,20 +558,19 @@ emp_act
 		throwpower = I.throwforce
 		if(locateUID(I.thrownby) == src) //No throwing stuff at yourself to trigger reactions
 			return ..()
+
 	SEND_SIGNAL(src, COMSIG_CARBON_HITBY)
+
 	if(check_shields(AM, throwpower, "\the [AM.name]", THROWN_PROJECTILE_ATTACK))
 		hitpush = FALSE
 		skipcatch = TRUE
 		blocked = TRUE
-	else if(I)
-		if(((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || I.embedded_ignore_throwspeed_threshold)
-			if(can_embed(I))
-				if(prob(I.embed_chance) && !(PIERCEIMMUNE in dna.species.species_traits))
-					embed_item_inside(I)
-					hitpush = FALSE
-					skipcatch = TRUE //can't catch the now embedded item
-	if(!blocked)
-		dna.species.spec_hitby(AM, src)
+
+	else if(I && (((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || I.embedded_ignore_throwspeed_threshold) && can_embed(I) && !(PIERCEIMMUNE in dna.species.species_traits) && prob(I.embed_chance))
+		embed_item_inside(I)
+		hitpush = FALSE
+		skipcatch = TRUE //can't catch the now embedded item
+
 	return ..(AM, skipcatch, hitpush, blocked, throwingdatum)
 
 
@@ -579,7 +584,9 @@ emp_act
 	I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
 	I.forceMove(src)
 	L.receive_damage(I.w_class*I.embedded_impact_pain_multiplier)
-	visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
+	visible_message(span_danger("[I] embeds itself in [src]'s [L.name]!"),
+					span_userdanger("[I] embeds itself in your [L.name]!"))
+
 
 /mob/living/carbon/human/proc/bloody_hands(var/mob/living/source, var/amount = 2)
 

@@ -9,7 +9,7 @@
 	name = "level reference"
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x2"
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 
 	var/id = null
 	var/obj/effect/levelref/other = null
@@ -46,7 +46,7 @@
 // Used by /turf/simulated/floor/indestructible/upperlevel and /obj/effect/view_portal/visual
 // to know if the world changed on the remote side
 /obj/effect/portal_sensor
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	var/light_hash = -1
 	var/triggered_this_tick = 0
 	var/datum/owner			// owner that receive signals
@@ -154,7 +154,7 @@
 	name = "portal target"
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x2"
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	anchored = 1
 
 	var/id = null				// id of other portal turf we connect to

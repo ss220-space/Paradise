@@ -41,6 +41,11 @@
 	var/clawfootstep = null
 	var/heavyfootstep = null
 
+	/// How pathing algorithm will check if this turf is passable by itself (not including content checks). By default it's just density check.
+	/// WARNING: Currently to use a density shortcircuiting this does not support dense turfs with special allow through function
+	var/pathing_pass_method = TURF_PATHING_PASS_DENSITY
+
+
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
 	if(initialized)
@@ -523,7 +528,31 @@
  	return FALSE
 
 
-// Makes an image of up to 20 things on a turf + the turf
+/**
+ * Returns adjacent turfs to this turf that are reachable, in all cardinal directions
+ *
+ * Arguments:
+ * * caller: The movable, if one exists, being used for mobility checks to see what tiles it can reach
+ * * ID: An ID card that decides if we can gain access to doors that would otherwise block a turf
+ * * simulated_only: Do we only worry about turfs with simulated atmos, most notably things that aren't space?
+ * * no_id: When true, doors with public access will count as impassible
+*/
+/turf/proc/reachableAdjacentTurfs(caller, ID, simulated_only, no_id = FALSE)
+	var/static/space_type_cache = typecacheof(/turf/space)
+	. = list()
+
+	for(var/iter_dir in GLOB.cardinal)
+		var/turf/turf_to_check = get_step(src, iter_dir)
+		if(!turf_to_check || (simulated_only && space_type_cache[turf_to_check.type]))
+			continue
+		if(turf_to_check.density || LinkBlockedWithAccess(turf_to_check, caller, ID, no_id = no_id))
+			continue
+		. += turf_to_check
+
+
+/**
+ * Makes an image of up to 20 things on a turf + the turf.
+ */
 /turf/proc/photograph(limit = 20)
 	var/image/I = new()
 	I.add_overlay(src)
@@ -537,4 +566,14 @@
 		else
 			return I
 	return I
+
+
+/turf/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	if(mob_hurt || !density)
+		return
+	playsound(src, 'sound/weapons/punch1.ogg', 35, TRUE)
+	C.visible_message(span_danger("[C] slams into [src]!"),
+					span_userdanger("You slam into [src]!"))
+	C.take_organ_damage(damage)
+	C.Weaken(3 SECONDS)
 

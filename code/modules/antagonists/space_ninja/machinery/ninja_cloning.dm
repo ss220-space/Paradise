@@ -67,9 +67,8 @@
 	icon_state = "ninja_cloning_on"
 	ninja_ghost.forceMove(src.loc)
 	ninja = ninja_ghost.incarnate_ghost()
-	SSticker.mode.equip_space_ninja(ninja)
-	SSticker.mode.give_ninja_datum(ninja.mind)
-	ninja.faction = list(ROLE_NINJA)
+	var/datum/antagonist/ninja/ninja_datum = ninja.mind.has_antag_datum(/datum/antagonist/ninja)
+	ninja_datum.equip_ninja()
 	ninja.forceMove(src)
 	ninja.Sleeping(15 SECONDS)
 	playsound(src, 'sound/machines/initialisation.ogg', 50, FALSE)
@@ -105,7 +104,7 @@
 		creeping_widow.my_suit = n_suit
 		creeping_widow.my_energy_katana = n_suit.energyKatana
 	//Проверка и перевыдача бомбы
-	SSticker.mode.basic_ninja_needs_check(ninja.mind)
+	ninja_datum.basic_ninja_needs_check()
 	//Пробуждение из клонёрки
 	addtimer(CALLBACK(src, PROC_REF(force_ninja_out)), 150)
 	suits_data.Remove(ninja_suit_data)

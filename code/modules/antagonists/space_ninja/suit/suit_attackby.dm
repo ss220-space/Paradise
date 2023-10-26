@@ -48,7 +48,8 @@
 				// Сохраняем чтобы потом к ней обращаться
 				cell = new_cell
 				// Обновляем батарейку и на экране статуса
-				ninja.mind.ninja.cell = cell
+				var/datum/antagonist/ninja/ninja_datum = ninja.mind.has_antag_datum(/datum/antagonist/ninja)
+				ninja_datum.cell = cell
 				// Последние шаги со старой батареей
 				old_cell.charge = 0
 				ninja.put_in_hands(old_cell)

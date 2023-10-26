@@ -673,8 +673,8 @@
 	var/obj/item/I
 	if(istype(AM, /obj/item))
 		I = AM
-		if(I.thrownby == H) //No throwing stuff at yourself to trigger the teleport
-			return 0
+		if(locateUID(I.thrownby) == H) //No throwing stuff at yourself to trigger the teleport
+			return FALSE
 		else
 			reactive_teleport(H)
 
@@ -823,8 +823,8 @@
 	var/obj/item/I
 	if(istype(AM, /obj/item))
 		I = AM
-		if(I.thrownby == H) //No throwing stuff at yourself to make bananas
-			return 0
+		if(locateUID(I.thrownby) == H) //No throwing stuff at yourself to make bananas
+			return FALSE
 		else
 			new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
 			last_banana = world.time

@@ -8,6 +8,15 @@
 	multiple_sprites = 1 // see: /obj/item/ammo_box/update_icon()
 	icon_prefix = "357" // icon prefix, used in above formula to generate dynamic icons
 
+/obj/item/ammo_box/improvisedrevolver
+	name = "makeshift speedloader"
+	desc = "Speedloader made from shit and sticks"
+	ammo_type = /obj/item/ammo_casing/revolver/improvised
+	icon_state = "makeshift_speedloader-4"
+	multiple_sprites = 1
+	icon_prefix = "makeshift_speedloader"
+	max_ammo = 4
+	
 /obj/item/ammo_box/c38
 	name = "speed loader (.38)"
 	desc = "Designed to quickly reload revolvers."

@@ -65,7 +65,7 @@
  */
 /obj/item/grenade/plastic/c4/ninja/proc/check_loc(mob/user, armed, atom/movable/plant_location)
 	if(!detonation_objective || !detonation_objective.detonation_location)				//Если у нашей бомбы нету цели/зоны, мы попробуем её взять из наших целей
-		detonation_objective = locate(/datum/objective/plant_explosive) in user.mind.objectives
+		detonation_objective = locate(/datum/objective/plant_explosive) in user.mind.get_all_objectives()
 		to_chat(user, span_warning("ERROR REQUIRED ZONE NOT FOUND... Reloading... Try again later!"))
 		return FALSE
 	if(!armed)

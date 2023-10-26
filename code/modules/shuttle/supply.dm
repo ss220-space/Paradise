@@ -214,7 +214,7 @@
 				// Sell gems
 				if(istype(thing, /obj/item/gem))
 					var/obj/item/gem/G = thing
-					pointsEarned = G.sell_value
+					pointsEarned = round(G.sell_multiplier * SSshuttle.points_per_gem)
 					msg += "<span class='good'>+[pointsEarned]</span>: Received [G]. Excellent work.<br>"
 					SSshuttle.points += pointsEarned
 

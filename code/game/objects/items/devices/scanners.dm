@@ -105,7 +105,7 @@ REAGENT SCANNER
 
 			var/temp_invisibility = in_turf_object.invisibility
 			var/temp_alpha = in_turf_object.alpha
-			if(temp_invisibility == 101 || temp_invisibility == INVISIBILITY_ANOMALY)
+			if(temp_invisibility == INVISIBILITY_ABSTRACT || temp_invisibility == INVISIBILITY_ANOMALY)
 				in_turf_object.invisibility = 0
 				in_turf_object.alpha = 128
 				in_turf_object.drain_act_protected = TRUE
