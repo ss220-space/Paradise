@@ -17,8 +17,8 @@
 	var/analysed_message = null
 	///the thing that spawns in the item.
 	var/sheet_type = null
-	///how many cargo point we will get from sending this to station
-	var/sell_value = 100
+	///how many cargo point or cash we will get from sending this to station
+	var/sell_multiplier = 1
 
 	var/image/shine_overlay //shows this overlay when not scanned
 
@@ -81,9 +81,9 @@
 	materials = list(MAT_URANIUM = 60000)
 	sheet_type = /obj/item/stack/sheet/mineral/uranium{amount = 30}
 	point_value = 500
-	sell_value = 200
 	var/damaged = FALSE
 	var/pulse = "rupee_pulse"
+	sell_multiplier = 2
 
 /obj/item/gem/rupee/Initialize()
 	AddComponent(/datum/component/radioactivity, \
@@ -123,7 +123,7 @@
 	materials = list(MAT_GOLD = 100000)
 	sheet_type = /obj/item/stack/sheet/mineral/gold{amount = 50}
 	point_value = 700 //there is no magmawing tendrills, silly me
-	sell_value = 200
+	sell_multiplier = 2
 	light_range = 4
 	light_power = 2
 	light_color = "#ff7b00"
@@ -167,11 +167,11 @@
 	materials = list(MAT_DIAMOND = 60000)
 	sheet_type = /obj/item/stack/sheet/mineral/diamond{amount = 30}
 	point_value = 700
-	sell_value = 200
 	light_range = 4
 	light_power = 2
 	light_color = "#62cad5"
 	var/cold = TRUE
+	sell_multiplier = 2
 
 /obj/item/gem/fdiamond/examine(mob/user)
 	. = ..()
@@ -212,7 +212,7 @@
 	sheet_type = /obj/item/stack/sheet/mineral/plasma{amount = 40}
 	origin_tech = "materials=6;plasmatech=6"
 	point_value = 1000
-	sell_value = 300
+	sell_multiplier = 3
 	light_range = 4
 	light_power = 4
 	light_color = "#62326a"
@@ -223,7 +223,7 @@
 	desc = "A strange mass of dilithium which pulses to a steady rhythm. Its strange surface exudes a unique radio signal detectable by GPS."
 	icon_state = "purple"
 	point_value = 1200
-	sell_value = 400
+	sell_multiplier = 4
 	light_range = 4
 	light_power = 2
 	light_color = "#cc47a6"
@@ -253,7 +253,7 @@
 	desc = "A brittle, strange mineral that forms when an ash drake's blood hardens after death. Cherished by gemcutters for its faint glow and unique, soft warmth. Poacher tales whisper of the dragon's strength being bestowed to one that wears a necklace of this amber."
 	icon_state = "amber"
 	point_value = 1400
-	sell_value = 500
+	sell_multiplier = 5
 	light_range = 4
 	light_power = 4
 	light_color = "#FFBF00"
@@ -264,7 +264,7 @@
 	desc = "A shard of stellar, crystallized energy. These strange objects occasionally appear spontaneously in areas where the bluespace fabric is largely unstable. Its surface gives a light jolt to those who touch it."
 	icon_state ="void"
 	point_value = 1600
-	sell_value = 600
+	sell_multiplier = 6
 	light_range = 4
 	light_power = 2
 	light_color = "#4785a4"
@@ -303,7 +303,7 @@
 	desc = "A weird, sticky substance, known to coalesce in the presence of otherwordly phenomena. While shunned by most spiritual groups, this gemstone has unique ties to the occult which find it handsomely valued by mysterious patrons."
 	icon_state = "red"
 	point_value = 1800
-	sell_value = 700
+	sell_multiplier = 7
 	light_range = 4
 	light_power = 6
 	light_color = "#ac0606"
@@ -356,8 +356,8 @@
 	light_power = 6
 	light_color = "#4245f3"
 	point_value = 2000
-	sell_value = 1000
 	insertable = FALSE
+	sell_multiplier = 10
 
 //mining gems
 /obj/item/gem/random
@@ -379,6 +379,7 @@
 	point_value = 100
 	sell_value = 50
 	simple = TRUE
+	sell_multiplier = 0.5
 
 /obj/item/gem/sapphire
 	name = "\improper sapphire"
@@ -386,6 +387,7 @@
 	point_value = 100
 	sell_value = 50
 	simple = TRUE
+	sell_multiplier = 0.5
 
 /obj/item/gem/emerald
 	name = "\improper emerald"
@@ -393,6 +395,7 @@
 	point_value = 100
 	sell_value = 50
 	simple = TRUE
+	sell_multiplier = 0.5
 
 /obj/item/gem/topaz
 	name = "\improper topaz"
@@ -400,3 +403,4 @@
 	point_value = 100
 	sell_value = 50
 	simple = TRUE
+	sell_multiplier = 0.5
