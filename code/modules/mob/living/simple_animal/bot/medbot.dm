@@ -400,7 +400,7 @@
 		return
 
 	for(var/datum/disease/D as anything in C.diseases)
-		if(!(D.visibility_flags & HIDDEN_HUD) && D.severity != NONTHREAT)
+		if(!(D.visibility_flags & HIDDEN_HUD) && D.discovered && D.severity != NONTHREAT)
 			return TRUE //Medbots see viruses if they displayed on HUD, ignoring safe viruses
 
 
