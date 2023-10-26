@@ -318,12 +318,13 @@
 	reusable = FALSE
 
 
-/obj/item/restraints/legcuffs/bola/sinew/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	if(..())
+/obj/item/restraints/legcuffs/bola/sinew/dropped(mob/living/carbon/user, silent = FALSE)
+	. = ..()
+
+	if(!istype(user) || user.legcuffed != src)
 		return
 
-	var/mob/living/carbon/target = hit_atom	// we already check for carbon in parent
-	target.apply_damage(10, BRUTE, (pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)))
-	new /obj/item/restraints/handcuffs/sinew(target.loc)
-	new /obj/item/stack/sheet/bone(target.loc, 2)
+	user.apply_damage(10, BRUTE, (pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)))
+	new /obj/item/restraints/handcuffs/sinew(user.loc)
+	new /obj/item/stack/sheet/bone(user.loc, 2)
 
