@@ -502,3 +502,27 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 /obj/item/storage/box/syndie_kit/bowman_conversion_kit/populate_contents()
 	new /obj/item/encryptionkey/syndicate(src)
 	new /obj/item/bowman_conversion_tool(src)
+
+/obj/item/storage/box/syndie_kit/throwing_knives
+	name = "Handling knives"
+	desc = "Пропитанная запахом пороха, напалма и дешёвым виски коробка со всем нужным для выживания в этих джунглях."
+	icon_state = "commandos_kit"
+
+/obj/item/storage/box/syndie_kit/throwing_knives/populate_contents()
+	new /obj/item/throwing_manual(src)
+	new /obj/item/clothing/under/pants/camo/commando(src)
+	new /obj/item/clothing/shoes/combat/commando(src)
+	new /obj/item/clothing/head/commando(src)
+	new /obj/structure/sign/poster/contraband/commando(src)
+	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/clothing/accessory/holster/knife(src)
+	new /obj/item/storage/box/syndie_kit/throwing_knives_set(src)
+
+/obj/item/storage/box/syndie_kit/throwing_knives_set
+	name = "s"
+	desc = "s"
+
+/obj/item/storage/box/syndie_kit/throwing_knives_set/populate_contents()
+	for(var/i in 1 to 7)
+		new /obj/item/kitchen/knife/combat/throwing(src)
