@@ -361,3 +361,46 @@
 		return 1
 /datum/effect_system/smoke_spread/vomiting
 	effect_type = /obj/effect/particle_effect/smoke/vomiting
+
+////// Bouquets
+
+/obj/item/decorations/bouquets
+	icon = 'icons/obj/weapons/bouquet.dmi'
+	name = "Flower bouquet"
+	desc = "A bouquet of beautiful flowers, looks a little withered."
+	icon_state = "mixedbouquet"
+	attack_verb = list("attacked", "slashed", "torn", "ripped", "cut", "smashed")
+	max_integrity = 20
+	force = 2
+	throwforce = 1
+	throw_range = 3
+
+	resistance_flags = FLAMMABLE
+
+/obj/item/decorations/bouquets/Initialize()
+	hitsound = pick('sound/effects/footstep/grass1.ogg', 'sound/effects/footstep/grass2.ogg', 'sound/effects/footstep/grass3.ogg')
+	..()
+
+/obj/item/decorations/bouquets/random
+
+/obj/item/decorations/bouquets/random/Initialize()
+	var/pick_flower = pick("mixedbouquet", "poppybouquet", "rosebouquet", "sunbouquet")
+	icon_state = "[pick_flower]"
+	..()
+
+
+////// Cultist's crystal
+
+/obj/structure/decorative_structures/cult_crystal
+	name = "Bloody crystal"
+	icon_state = "cult_crystal"
+	max_integrity = 200
+	anchored = 1
+
+/obj/structure/decorative_structures/cult_crystal/Destroy()
+	playsound(src, 'sound/effects/glassbr3.ogg', 30, 0)
+	var/turf/T = get_turf(src)
+	new /obj/effect/particle_effect/smoke/vomiting(T)
+	new /obj/effect/decal/cleanable/blood/gibs(T)
+	new /obj/effect/decal/cleanable/blood(T)
+	..()

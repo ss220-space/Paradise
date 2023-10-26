@@ -1,13 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"an" = (
-/obj/structure/railing/corner{
-	dir = 4
-	},
-/obj/effect/turf_decal{
-	icon_state = "grass_edge_medium_corner"
-	},
-/turf/simulated/floor/wood/oak,
-/area/ruin/space/graveyard/graves)
 "aJ" = (
 /obj/structure/chair/stool/bar{
 	icon = 'icons/obj/lighting.dmi';
@@ -34,42 +25,66 @@
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/ruin/space/graveyard/church)
-"cq" = (
-/obj/structure/healingfountain,
-/turf/simulated/floor/plating/asteroid/ancient,
+"bz" = (
+/obj/effect/decal/leaves,
+/obj/structure/spacevine,
+/turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
-"cv" = (
+"cb" = (
 /obj/effect/turf_decal{
-	dir = 1;
-	icon_state = "grass_edge_medium_corner"
+	dir = 4;
+	icon_state = "grass_edge_medium"
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/graves)
 "cJ" = (
-/obj/item/stack/tape_roll,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/obj/structure/decorative_structures/cult_crystal,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
-"cO" = (
+"cK" = (
+/obj/structure/bookcase/ashframe/random,
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/graves)
+"cP" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
-/area/space)
-"dv" = (
-/obj/structure/closet/coffin,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
+/area/ruin/space/graveyard/church)
+"cY" = (
+/obj/structure/morgue{
+	dir = 8
+	},
 /turf/simulated/floor/wood/oak,
-/area/space)
+/area/ruin/space/graveyard/church)
 "dw" = (
 /obj/structure/chair/sofa/pew/right,
 /turf/simulated/floor/carpet,
 /area/ruin/space/graveyard/church)
 "dz" = (
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/graveyard/church)
+"dP" = (
+/obj/effect/decal/cleanable/dust,
+/obj/structure/table/wood,
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
 /area/ruin/space/graveyard/church)
 "dS" = (
 /obj/machinery/door/airlock/wood,
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
+/area/ruin/space/graveyard/church)
+"eo" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/wood/oak,
-/area/space)
+/area/ruin/space/graveyard/church)
 "et" = (
 /obj/structure/chair/stool/bar{
 	icon = 'icons/obj/lighting.dmi';
@@ -78,23 +93,53 @@
 	light_range = 6;
 	name = "lantern"
 	},
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
+"eJ" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/structure/statue/death,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/graveyard/graves)
+"eU" = (
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/graveyard/graves)
 "fe" = (
 /obj/structure/fence/corner{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/graveyard/church)
+"fh" = (
+/obj/structure/statue/silver/janitor{
+	icon_state = "angel";
+	name = "statue of an angel";
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "fm" = (
-/obj/item/spellbook/oneuse/smoke,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/obj/item/restraints/handcuffs/manacles/used,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "ft" = (
+/obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
-/area/space)
+/area/ruin/space/graveyard/church)
 "fv" = (
 /obj/structure/railing/wooden/endl{
 	dir = 8
@@ -103,31 +148,55 @@
 /area/ruin/space/graveyard/church)
 "fx" = (
 /obj/structure/fence/door,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/church)
 "fL" = (
-/obj/item/whetstone/cult,
-/obj/item/flag/cult,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/obj/item/spellbook/oneuse/smoke,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "fM" = (
 /obj/item/stack/sheet/wood{
 	amount = 50
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood/oak,
-/area/space)
-"gC" = (
-/obj/structure/railing{
-	dir = 8
+/obj/structure/closet/crate,
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 20
 	},
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
+"gb" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/turf/simulated/floor/grass,
+/area/ruin/space/graveyard/graves)
+"gk" = (
+/obj/structure/closet/coffin,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/space)
+"gM" = (
 /obj/effect/turf_decal{
-	dir = 4;
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
-/turf/simulated/floor/wood/oak,
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/structure/statue/noble,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/graves)
+"gN" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "chapel"
+	},
+/area/ruin/space/graveyard/church)
 "gU" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -136,6 +205,26 @@
 	icon_state = "lightdark"
 	},
 /area/ruin/space/graveyard/church)
+"ha" = (
+/obj/structure/decorative_structures/metal/statue/metal_angel,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
+"hd" = (
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/ruin/space/graveyard/church)
+"ho" = (
+/obj/structure/spacevine,
+/turf/simulated/floor/grass,
+/area/ruin/space/graveyard/graves)
 "hq" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green,
@@ -144,21 +233,44 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/graveyard/church)
+"hr" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
 "hu" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/graveyard/graves)
+"hQ" = (
+/obj/structure/statue/silver/janitor{
+	icon_state = "angelseen";
+	name = "statue of an angel"
+	},
+/turf/simulated/floor/grass,
+/area/ruin/space/graveyard/graves)
 "ie" = (
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plating,
-/area/space)
+/area/ruin/space/graveyard/church)
 "ij" = (
 /obj/structure/fence/cut/medium,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/church)
 "in" = (
-/turf/simulated/wall/mineral/wood/nonmetal,
-/area/space)
+/obj/structure/closet/coffin,
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
+"jd" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_big_full";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/graveyard/graves)
 "jf" = (
 /obj/item/flashlight/lantern{
 	on = 1
@@ -167,20 +279,51 @@
 /area/ruin/space/graveyard/church)
 "jg" = (
 /obj/effect/decal/cleanable/blood/oil,
-/turf/simulated/floor/plating,
-/area/space)
+/turf/simulated/floor/plating/burnt,
+/area/ruin/space/graveyard/church)
 "jo" = (
 /obj/item/kitchen/knife/combat/survival/bone,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
+"ju" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/graveyard/graves)
+"jB" = (
+/obj/machinery/vending/coffee/free,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "kl" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/space)
+/area/ruin/space/graveyard/church)
+"kK" = (
+/obj/structure/table/tray,
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
+"la" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
+"lc" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating/burnt,
+/area/ruin/space/graveyard/church)
 "lm" = (
 /obj/item/shovel,
+/obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood/oak,
-/area/space)
+/area/ruin/space/graveyard/church)
 "lw" = (
 /obj/effect/decal/leaves,
 /turf/simulated/floor/grass,
@@ -191,45 +334,83 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/graveyard/church)
 "lH" = (
-/obj/effect/turf_decal{
-	icon_state = "grass_edge_medium_corner"
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/power/port_gen/pacman,
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
+"lR" = (
+/obj/structure/table,
+/obj/item/decorations/bouquets/random,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/area/space)
+"mb" = (
+/obj/structure/table/socle,
+/obj/item/storage/funeral_urn/random{
+	pixel_x = 1;
+	pixel_y = 9
+	},
+/turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
 "md" = (
+/turf/simulated/floor/carpet,
+/area/ruin/space/graveyard/church)
+"mp" = (
+/obj/machinery/light,
+/obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet,
 /area/ruin/space/graveyard/church)
 "ms" = (
 /turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
-"nA" = (
-/obj/effect/turf_decal{
-	icon_state = "grass_edge_medium";
-	name = "grass"
+"mG" = (
+/obj/effect/decal/cleanable/cobweb2,
+/obj/structure/statue/silver/janitor{
+	icon_state = "angel";
+	name = "statue of an angel"
 	},
-/obj/structure/railing{
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
+/area/ruin/space/graveyard/church)
+"np" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/obj/structure/statue/unknown,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/graveyard/graves)
+"nA" = (
+/obj/machinery/light/small{
 	dir = 1
 	},
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/coffee{
+	pixel_x = 7;
+	pixel_y = 6
+	},
 /turf/simulated/floor/wood/oak,
-/area/ruin/space/graveyard/graves)
+/area/ruin/space/graveyard/church)
 "nF" = (
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/graves)
 "nV" = (
-/obj/effect/turf_decal{
-	dir = 4;
-	icon_state = "grass_edge_medium_corner"
+/obj/structure/crematorium{
+	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/space/graveyard/graves)
-"nZ" = (
-/obj/machinery/door_control{
-	pixel_x = 32;
-	id = "rightroom";
-	name = "Church right"
-	},
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
+"nZ" = (
+/obj/effect/decal/remains/mouse,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/graveyard/church)
+"oq" = (
+/obj/structure/spacevine,
+/obj/structure/spacevine,
+/turf/simulated/floor/grass,
+/area/ruin/space/graveyard/graves)
 "ox" = (
 /obj/machinery/door/airlock/wood,
 /turf/simulated/floor/wood/oak,
@@ -240,6 +421,17 @@
 	icon_state = "chapel"
 	},
 /area/ruin/space/graveyard/church)
+"oD" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
+"oF" = (
+/obj/effect/turf_decal{
+	dir = 10;
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/graveyard/graves)
 "oP" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -250,8 +442,18 @@
 	name = "Confession Booth (Chaplain)";
 	req_access = list(22)
 	},
+/obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
+	},
+/area/ruin/space/graveyard/church)
+"oR" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "chapel"
 	},
 /area/ruin/space/graveyard/church)
 "oV" = (
@@ -264,7 +466,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/oak,
-/area/space)
+/area/ruin/space/graveyard/church)
 "pC" = (
 /obj/machinery/vending/coffee/free,
 /turf/simulated/floor/carpet/red,
@@ -291,21 +493,53 @@
 	icon_state = "chapel"
 	},
 /area/ruin/space/graveyard/church)
-"pN" = (
-/obj/item/stack/rods{
-	amount = 10
+"pM" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "chapel"
 	},
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/area/ruin/space/graveyard/church)
+"pN" = (
+/obj/structure/bonfire,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "qa" = (
 /turf/simulated/wall/mineral/wood,
 /area/ruin/space/graveyard/church)
+"qw" = (
+/obj/structure/table/wood,
+/obj/item/decorations/bouquets/random,
+/obj/structure/sign/poster/random{
+	pixel_y = -32
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
 "qz" = (
 /obj/structure/fence/post,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/graveyard/church)
+"qA" = (
+/obj/structure/table,
+/obj/item/roller,
+/obj/item/storage/box/gloves,
+/obj/machinery/light/small,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "qB" = (
-/turf/simulated/floor/wood/oak,
+/obj/structure/chair/comfy/shuttle/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/space)
+"qQ" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
 /area/space)
 "qT" = (
 /obj/structure/table/wood,
@@ -318,17 +552,39 @@
 "qV" = (
 /turf/simulated/floor/carpet/red,
 /area/ruin/space/graveyard/church)
+"qW" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external,
+/turf/simulated/floor/plating,
+/area/ruin/space/graveyard/church)
 "rf" = (
 /obj/structure/fence/cut/large,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/church)
+"rm" = (
+/obj/effect/baseturf_helper/asteroid/ancient_sand,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/graveyard/graves)
+"sa" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 9;
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
+	icon_state = "gray_walls_corners_smoothed"
+	},
+/area/space)
+"sh" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/turf/space,
+/area/space)
 "sl" = (
 /obj/structure/chair/sofa/pew,
 /turf/simulated/floor/carpet,
 /area/ruin/space/graveyard/church)
 "sv" = (
-/obj/item/restraints/handcuffs/manacles/used,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/obj/effect/decal/remains/mouse,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "sC" = (
 /obj/effect/turf_decal/siding/wood{
@@ -338,21 +594,26 @@
 	icon_state = "lightdark"
 	},
 /area/ruin/space/graveyard/church)
-"sT" = (
-/obj/structure/bonfire,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
-/area/ruin/space/graveyard/church)
-"sX" = (
-/obj/effect/turf_decal{
-	dir = 8;
-	icon_state = "grass_edge_medium";
-	name = "grass"
-	},
-/obj/structure/railing{
+"sI" = (
+/obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/carpet/red,
+/area/ruin/space/graveyard/church)
+"sK" = (
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/ruin/space/graveyard/church)
+"sT" = (
+/obj/item/melee/cultblade/dagger,
 /turf/simulated/floor/wood/oak,
-/area/ruin/space/graveyard/graves)
+/area/ruin/space/graveyard/church)
 "tA" = (
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/graveyard/church)
@@ -384,14 +645,41 @@
 "uh" = (
 /obj/spacepod/civilian/damaged,
 /turf/simulated/floor/plating,
-/area/space)
+/area/ruin/space/graveyard/church)
+"uI" = (
+/obj/item/decorations/bouquets/random,
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_big_full";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/graveyard/graves)
+"uM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet,
+/obj/item/reagent_containers/food/drinks/bottle/wine,
+/obj/item/reagent_containers/food/drinks/bottle/wine,
+/obj/item/reagent_containers/food/drinks/bottle/wine,
+/obj/item/reagent_containers/food/snacks/sliceable/bread,
+/obj/item/reagent_containers/food/snacks/sliceable/bread,
+/obj/item/reagent_containers/food/snacks/sliceable/bread,
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
 "uU" = (
 /obj/item/wrench,
 /turf/simulated/floor/plating,
-/area/space)
+/area/ruin/space/graveyard/church)
+"vl" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/graves)
 "vp" = (
 /obj/item/stack/cable_coil,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "vv" = (
 /turf/simulated/wall/shuttle{
@@ -400,19 +688,16 @@
 /area/ruin/space/graveyard/graves)
 "vz" = (
 /obj/structure/fence/cut,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/church)
-"vF" = (
-/obj/effect/turf_decal{
-	dir = 4;
-	icon_state = "grass_edge_medium";
-	name = "grass"
+"vC" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1;
+	icon_state = "propulsion_r";
+	tag = "icon-propulsion_r (NORTH)"
 	},
-/obj/structure/railing{
-	dir = 8
-	},
-/turf/simulated/floor/wood/oak,
-/area/ruin/space/graveyard/graves)
+/turf/simulated/floor/shuttle/plating,
+/area/space)
 "vP" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/bottle/holywater,
@@ -432,12 +717,12 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/oak,
-/area/space)
+/area/ruin/space/graveyard/church)
 "wH" = (
-/turf/simulated/wall/shuttle{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
-/area/space)
+/obj/structure/closet/coffin,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
 "wP" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/carpet,
@@ -456,15 +741,19 @@
 /area/ruin/space/graveyard/church)
 "wV" = (
 /obj/structure/sink/puddle,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/church)
 "wX" = (
 /obj/effect/mob_spawn/human/corpse/tacticool,
 /obj/item/bedsheet/cult,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/church)
-"xm" = (
-/obj/structure/fluff/drake_statue,
+"xl" = (
+/obj/effect/turf_decal{
+	dir = 5;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/graves)
 "xI" = (
@@ -484,6 +773,16 @@
 /obj/effect/turf_decal/siding/wood,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/graveyard/church)
+"xJ" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/space)
+"xT" = (
+/obj/item/whetstone/cult,
+/obj/item/flag/cult,
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
 "yk" = (
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
@@ -492,21 +791,43 @@
 /obj/item/camera,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
+"yD" = (
+/obj/structure/chair/sofa/pew/right,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/carpet,
+/area/ruin/space/graveyard/church)
 "zg" = (
 /obj/structure/railing/wooden{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
 /area/ruin/space/graveyard/church)
-"zy" = (
-/obj/machinery/door/airlock/external,
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
-/area/space)
-"zA" = (
-/obj/structure/falsewall/wood,
-/turf/simulated/wall/mineral/wood,
+"zm" = (
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/graveyard/graves)
+"zt" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
+"zy" = (
+/obj/machinery/light/spot{
+	dir = 8;
+	tag = "icon-tube1 (WEST)"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/space)
 "zO" = (
 /obj/structure/railing/wooden{
 	dir = 4
@@ -519,9 +840,39 @@
 	icon_state = "lightdark"
 	},
 /area/ruin/space/graveyard/church)
+"zQ" = (
+/obj/machinery/door/airlock/external,
+/turf/simulated/floor/plating,
+/area/ruin/space/graveyard/church)
+"Aj" = (
+/obj/effect/decal/cleanable/dust,
+/obj/structure/closet,
+/obj/item/roller,
+/obj/item/storage/box/bodybags,
+/obj/item/storage/fancy/candle_box/full,
+/obj/item/storage/funeral_urn,
+/obj/item/storage/funeral_urn,
+/obj/item/storage/funeral_urn,
+/obj/item/storage/funeral_urn,
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
 "An" = (
 /obj/effect/decal/remains/human,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/graveyard/church)
+"Ao" = (
+/obj/effect/turf_decal{
+	dir = 10;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/graves)
+"AD" = (
+/obj/structure/sign/poster/official/religious{
+	pixel_y = 32
+	},
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "AE" = (
 /obj/structure/decorative_structures/metal/statue/metal_angel,
@@ -529,35 +880,89 @@
 	icon_state = "lightdark"
 	},
 /area/ruin/space/graveyard/church)
+"AS" = (
+/obj/structure/fluff/grave,
+/turf/simulated/floor/grass,
+/area/ruin/space/graveyard/graves)
 "AU" = (
 /obj/effect/turf_decal/siding/wood,
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
 /area/ruin/space/graveyard/church)
+"Bm" = (
+/obj/structure/table/wood,
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
+/area/ruin/space/graveyard/church)
+"Bp" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/graveyard/graves)
 "Bq" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/carpet,
 /area/ruin/space/graveyard/church)
+"Bt" = (
+/obj/structure/table/wood,
+/obj/item/storage/fancy/donut_box,
+/obj/structure/sign/poster/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
 "Bv" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/church)
 "BS" = (
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/graves)
 "Cu" = (
-/obj/item/melee/cultblade/dagger,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/obj/item/flashlight/lantern{
+	on = 1
+	},
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
+"CA" = (
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/graves)
 "CC" = (
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plating,
-/area/space)
+/area/ruin/space/graveyard/church)
 "CH" = (
 /obj/structure/spacepoddoor,
 /turf/simulated/floor/plating,
-/area/space)
+/area/ruin/space/graveyard/church)
+"CO" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/graveyard/graves)
+"CQ" = (
+/obj/effect/turf_decal{
+	dir = 5;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/structure/statue/dude,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/graveyard/graves)
 "CZ" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box,
@@ -574,53 +979,73 @@
 	icon_state = "chapel"
 	},
 /area/ruin/space/graveyard/church)
-"DO" = (
-/obj/structure/railing{
-	layer = 4.3
-	},
-/obj/effect/turf_decal{
-	dir = 1;
-	icon_state = "grass_edge_medium"
-	},
-/turf/simulated/floor/wood/oak,
-/area/ruin/space/graveyard/graves)
-"DZ" = (
+"DN" = (
 /obj/effect/turf_decal{
 	dir = 4;
-	icon_state = "grass_edge_medium_corner"
+	icon_state = "grass_edge_medium";
+	name = "grass"
 	},
-/obj/structure/railing/corner{
-	dir = 1
-	},
-/turf/simulated/floor/wood/oak,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/graves)
+"DO" = (
+/obj/structure/railing/wooden{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/carpet,
+/area/ruin/space/graveyard/church)
+"DU" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 10;
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
+	icon_state = "gray_walls_corners"
+	},
+/area/space)
 "Eb" = (
 /obj/structure/fence/corner,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/church)
 "Es" = (
+/obj/effect/turf_decal{
+	dir = 5;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
 /obj/effect/turf_decal{
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
-/obj/structure/railing{
-	dir = 1
-	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/graves)
+"Ey" = (
+/obj/structure/closet/coffin,
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
+"EC" = (
+/obj/structure/statue/silver/janitor{
+	icon_state = "angel";
+	name = "statue of an angel";
+	dir = 4
+	},
+/turf/simulated/floor/grass,
+/area/ruin/space/graveyard/graves)
 "EJ" = (
-/obj/item/spellbook/oneuse/sacredflame,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/obj/structure/sacrificealtar,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
-"EQ" = (
-/obj/effect/turf_decal/siding/wood,
+"ER" = (
+/obj/structure/decorative_structures/metal/statue/metal_angel,
+/obj/effect/decal/cleanable/cobweb,
 /obj/machinery/light/small{
-	dir = 1
+	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "lightdark"
-	},
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
+"EU" = (
+/obj/machinery/door/airlock/multi_tile/glass,
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/graves)
 "Fd" = (
 /obj/structure/railing/wooden/endr{
 	dir = 8
@@ -632,35 +1057,36 @@
 	icon_state = "lightdark"
 	},
 /area/ruin/space/graveyard/church)
+"Fh" = (
+/obj/effect/spawner/graveyard_statues,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/graveyard/graves)
 "Fu" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"
 	},
 /area/ruin/space/graveyard/church)
 "Fv" = (
-/obj/structure/legionnaire_bonfire,
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/graves)
 "FG" = (
 /obj/item/weldingtool,
 /turf/simulated/floor/plating,
-/area/space)
-"FL" = (
-/obj/effect/turf_decal{
-	icon_state = "grass_edge_medium_corner"
-	},
-/obj/structure/railing/corner{
-	dir = 4
-	},
-/turf/simulated/wall/shuttle{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
-/area/ruin/space/graveyard/graves)
+/area/ruin/space/graveyard/church)
 "FN" = (
 /obj/item/flashlight/lantern{
 	on = 1
 	},
 /turf/simulated/floor/grass,
+/area/ruin/space/graveyard/graves)
+"FX" = (
+/obj/item/decorations/bouquets/random,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/graves)
 "Gl" = (
 /obj/effect/turf_decal{
@@ -681,31 +1107,54 @@
 /obj/item/bodybag,
 /obj/item/bodybag,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/storage/fancy/candle_box/full,
+/obj/item/storage/fancy/candle_box/full,
+/obj/item/storage/fancy/candle_box/full,
+/obj/item/hatchet/wooden,
 /turf/simulated/floor/wood/oak,
-/area/space)
+/area/ruin/space/graveyard/church)
 "Gz" = (
 /obj/effect/decal/warning_stripes/northeast,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/burnt,
+/area/ruin/space/graveyard/church)
+"GA" = (
+/obj/machinery/light/spot{
+	dir = 4;
+	tag = "icon-tube1 (EAST)"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
 /area/space)
 "GH" = (
-/obj/structure/railing/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal{
-	dir = 1;
-	icon_state = "grass_edge_medium_corner"
-	},
-/turf/simulated/floor/wood/oak,
-/area/ruin/space/graveyard/graves)
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external,
+/turf/simulated/floor/shuttle/plating,
+/area/space)
 "GN" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
+/obj/item/reagent_containers/food/drinks/coffee{
+	pixel_x = -7;
+	pixel_y = 6
+	},
+/obj/item/flashlight/lamp/green,
 /turf/simulated/floor/carpet/red,
 /area/ruin/space/graveyard/church)
 "GS" = (
 /turf/simulated/wall/mineral/wood/nonmetal,
+/area/ruin/space/graveyard/church)
+"Hj" = (
+/obj/structure/statue/silver/janitor{
+	icon_state = "angel";
+	name = "statue of an angel"
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "Hr" = (
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -718,28 +1167,50 @@
 	},
 /area/ruin/space/graveyard/church)
 "Hs" = (
+/obj/effect/decal/cleanable/blood/oil,
+/obj/machinery/light/small,
 /turf/simulated/floor/plating,
+/area/ruin/space/graveyard/church)
+"HA" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1;
+	tag = "icon-propulsion (NORTH)"
+	},
+/turf/simulated/floor/shuttle/plating,
 /area/space)
 "HR" = (
 /obj/effect/turf_decal{
-	dir = 8;
+	dir = 10;
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
-/obj/structure/railing{
-	dir = 4
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/graves)
 "HW" = (
-/obj/effect/turf_decal{
-	dir = 1;
-	icon_state = "grass_edge_medium";
-	name = "grass"
+/obj/machinery/computer/shuttle/sit,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
 	},
-/obj/structure/railing,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/space/graveyard/graves)
+/area/space)
+"HZ" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/graveyard/church)
+"Ii" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "chapel"
+	},
+/area/ruin/space/graveyard/church)
 "In" = (
 /obj/structure/railing/wooden{
 	dir = 4
@@ -747,15 +1218,20 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/graveyard/church)
 "Is" = (
-/obj/machinery/door/airlock/external,
-/turf/simulated/floor/plating,
-/area/space)
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/carpet,
+/area/ruin/space/graveyard/church)
 "Iv" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	icon_state = "lightdark"
+/turf/simulated/floor/plating/burnt,
+/area/ruin/space/graveyard/church)
+"IT" = (
+/obj/structure/statue/silver/janitor{
+	icon_state = "angel";
+	name = "statue of an angel";
+	dir = 8
 	},
-/area/space)
+/turf/simulated/floor/grass,
+/area/ruin/space/graveyard/graves)
 "IY" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -771,6 +1247,7 @@
 /obj/structure/chair/wood{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/carpet/red,
 /area/ruin/space/graveyard/church)
 "JM" = (
@@ -800,23 +1277,67 @@
 	icon_state = "chapel"
 	},
 /area/ruin/space/graveyard/church)
+"KC" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/structure/table/wood,
+/obj/item/trash/candle{
+	pixel_y = 10;
+	pixel_x = 5
+	},
+/obj/item/candle,
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
+/area/ruin/space/graveyard/church)
 "KN" = (
 /obj/structure/fence{
 	dir = 4;
 	invulnerable = 1
 	},
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/church)
 "Lr" = (
 /obj/item/trash/candle,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
+"LH" = (
+/obj/structure/closet/toolcloset,
+/turf/simulated/floor/plating,
+/area/ruin/space/graveyard/church)
+"LK" = (
+/obj/item/clothing/suit/hooded/fluff/bone,
+/obj/item/flag/cult,
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
+"LR" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/graveyard/graves)
 "Mf" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood/oak,
-/area/space)
+/area/ruin/space/graveyard/church)
+"Mp" = (
+/obj/effect/decal/cleanable/cobweb,
+/obj/structure/statue/silver/janitor{
+	icon_state = "angel";
+	name = "statue of an angel"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
+/area/ruin/space/graveyard/church)
 "Mz" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -825,15 +1346,37 @@
 	icon_state = "chapel"
 	},
 /area/ruin/space/graveyard/church)
+"MH" = (
+/obj/structure/flora/ausbushes/lavendergrass,
+/turf/simulated/floor/grass,
+/area/ruin/space/graveyard/graves)
 "MU" = (
-/obj/structure/railing/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal{
-	dir = 4;
-	icon_state = "grass_edge_medium_corner"
+/obj/structure/table/socle,
+/turf/simulated/floor/grass,
+/area/ruin/space/graveyard/graves)
+"MW" = (
+/obj/structure/sign/poster/contraband/wanted{
+	pixel_y = -32
 	},
 /turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
+"MZ" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
+/area/ruin/space/graveyard/church)
+"Na" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/carpet/red,
+/area/ruin/space/graveyard/church)
+"Nh" = (
+/obj/item/decorations/bouquets/random,
+/turf/simulated/floor/grass,
+/area/ruin/space/graveyard/graves)
+"ND" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
 "Og" = (
 /obj/structure/chair/wood{
@@ -842,9 +1385,8 @@
 /turf/simulated/floor/carpet/red,
 /area/ruin/space/graveyard/church)
 "Oq" = (
-/obj/effect/spawner/window/reinforced,
-/turf/space,
-/area/space)
+/turf/simulated/floor/plating,
+/area/ruin/space/graveyard/church)
 "OB" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -856,6 +1398,43 @@
 	icon_state = "chapel"
 	},
 /area/ruin/space/graveyard/church)
+"OD" = (
+/obj/effect/turf_decal{
+	dir = 9;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/graveyard/graves)
+"OH" = (
+/obj/structure/bush,
+/turf/simulated/floor/grass,
+/area/ruin/space/graveyard/graves)
+"Pf" = (
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
+/area/ruin/space/graveyard/church)
+"Pr" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating,
+/area/ruin/space/graveyard/church)
+"Ps" = (
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/light/small,
+/obj/structure/table/wood,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
 "Pu" = (
 /obj/effect/turf_decal{
 	dir = 9;
@@ -864,13 +1443,22 @@
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/graves)
-"PO" = (
-/obj/machinery/door_control{
-	pixel_x = -32;
-	id = "leftroom";
-	name = "Church left"
+"Pw" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium_corner"
 	},
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/graves)
+"PC" = (
+/obj/structure/noticeboard{
+	pixel_y = 30
+	},
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
+"PO" = (
+/obj/item/spellbook/oneuse/sacredflame,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "Qc" = (
 /obj/effect/turf_decal/siding/wood{
@@ -884,6 +1472,24 @@
 "Qg" = (
 /obj/structure/lattice/catwalk,
 /turf/space,
+/area/ruin/space/graveyard/church)
+"Qk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
+"Qr" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 1;
+	tag = "icon-heater (NORTH)"
+	},
+/obj/structure/window/reinforced{
+	color = "black"
+	},
+/turf/simulated/floor/shuttle/plating,
 /area/space)
 "Qu" = (
 /obj/structure/closet/secure_closet/chaplain,
@@ -891,9 +1497,24 @@
 /obj/item/lighter/zippo/black,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/graveyard/church)
+"Qw" = (
+/obj/structure/chair/sofa/pew/left,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/carpet,
+/area/ruin/space/graveyard/church)
+"QV" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
 "Rb" = (
 /obj/structure/kitchenspike,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
+"Rh" = (
+/obj/item/stack/rods{
+	amount = 10
+	},
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "Rn" = (
 /obj/effect/turf_decal/siding/wood{
@@ -903,6 +1524,14 @@
 	dir = 1;
 	icon_state = "chapel"
 	},
+/area/ruin/space/graveyard/church)
+"Ro" = (
+/obj/structure/closet,
+/obj/item/clothing/suit/chaplain_hoodie/fluff/chronx,
+/obj/item/clothing/suit/hooded/chaplain_hoodie,
+/obj/item/clothing/suit/hooded/chaplain_hoodie,
+/obj/item/clothing/suit/hooded/chaplain_hoodie,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "Rp" = (
 /obj/structure/table/wood,
@@ -923,20 +1552,24 @@
 	icon_state = "lightdark"
 	},
 /area/ruin/space/graveyard/church)
-"Rv" = (
-/obj/structure/falsewall/wood,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
-/area/ruin/space/graveyard/church)
-"RG" = (
+"Ry" = (
 /obj/effect/turf_decal{
 	dir = 8;
 	icon_state = "grass_edge_medium_corner"
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/graves)
+"RG" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/graveyard/church)
 "RY" = (
 /obj/effect/decal/remains/mouse,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/obj/machinery/door_control{
+	pixel_x = 32;
+	id = "rightroom";
+	name = "Church right"
+	},
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "Sc" = (
 /obj/machinery/light/small,
@@ -950,30 +1583,44 @@
 	icon_state = "lightdark"
 	},
 /area/ruin/space/graveyard/church)
+"Sf" = (
+/obj/structure/chair/sofa/pew,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/carpet,
+/area/ruin/space/graveyard/church)
+"Sg" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/graves)
 "Sk" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/oak,
-/area/space)
-"Sp" = (
-/obj/structure/fluff/divine/conduit,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/space/graveyard/graves)
+/area/ruin/space/graveyard/church)
+"SK" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/burnt,
+/area/ruin/space/graveyard/church)
 "SN" = (
 /obj/structure/table/wood,
 /obj/item/storage/bible/booze,
 /turf/simulated/floor/carpet,
 /area/ruin/space/graveyard/church)
+"SP" = (
+/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/sit,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/space)
 "SS" = (
 /obj/structure/chair/sofa/pew/left,
 /turf/simulated/floor/carpet,
 /area/ruin/space/graveyard/church)
 "SW" = (
-/obj/structure/railing/corner,
-/obj/effect/turf_decal{
-	dir = 8;
-	icon_state = "grass_edge_medium_corner"
-	},
-/turf/simulated/floor/wood/oak,
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
 "Tb" = (
 /obj/structure/statue/cheese/cheesus,
@@ -1002,63 +1649,75 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/wood/oak,
-/area/space)
+/area/ruin/space/graveyard/church)
 "Ty" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
 /area/ruin/space/graveyard/church)
 "TN" = (
-/obj/structure/closet/coffin,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood/oak,
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/shuttle/plating,
 /area/space)
+"Uc" = (
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/graveyard/graves)
 "Ui" = (
 /obj/machinery/door/airlock/maintenance/glass,
 /turf/simulated/floor/plating,
-/area/space)
+/area/ruin/space/graveyard/church)
+"Uk" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/graves)
 "Uq" = (
 /obj/structure/spirit_board,
 /turf/simulated/floor/carpet/red,
 /area/ruin/space/graveyard/church)
 "Ut" = (
-/obj/structure/headspear,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/obj/effect/decal/cleanable/blood/old,
+/obj/machinery/door_control{
+	pixel_x = -32;
+	id = "leftroom";
+	name = "Church left"
+	},
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "Uz" = (
 /obj/item/restraints/handcuffs/manacles,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
-/area/ruin/space/graveyard/church)
-"Vh" = (
-/obj/effect/turf_decal{
-	dir = 4;
-	icon_state = "grass_edge_medium";
-	name = "grass"
-	},
-/obj/structure/railing{
-	dir = 8
-	},
 /turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/space/graveyard/graves)
+/area/ruin/space/graveyard/church)
 "VB" = (
 /obj/machinery/light,
 /turf/simulated/floor/carpet,
 /area/ruin/space/graveyard/church)
 "VC" = (
-/obj/item/clothing/suit/hooded/fluff/bone,
-/obj/item/flag/cult,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/obj/structure/headspear,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "VH" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/effect/turf_decal{
-	dir = 8;
-	icon_state = "grass_edge_medium"
-	},
-/turf/simulated/floor/wood/oak,
+/obj/structure/flora/ausbushes/brflowers,
+/turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
+"VJ" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "chapel"
+	},
+/area/ruin/space/graveyard/church)
+"VL" = (
+/turf/simulated/wall/r_wall/rust,
+/area/ruin/space/graveyard/church)
 "VU" = (
 /obj/structure/railing/wooden/endr{
 	dir = 4
@@ -1066,12 +1725,39 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/graveyard/church)
 "VV" = (
-/obj/structure/sacrificealtar,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
+"Wh" = (
+/obj/effect/turf_decal{
+	dir = 9;
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/graveyard/graves)
+"Wm" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 5;
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
+	icon_state = "gray_walls_corners_smoothed"
+	},
+/area/space)
+"WF" = (
+/obj/structure/table/socle,
+/obj/item/storage/funeral_urn/random{
+	pixel_x = 1;
+	pixel_y = 9
+	},
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/graves)
 "WM" = (
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/church)
 "WU" = (
 /obj/structure/table/wood,
@@ -1081,27 +1767,89 @@
 /obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/graveyard/church)
+"Xa" = (
+/obj/structure/decorative_structures/metal/statue/metal_angel,
+/turf/simulated/floor/grass,
+/area/ruin/space/graveyard/graves)
+"Xh" = (
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
 "Xi" = (
 /obj/structure/reagent_dispensers/oil,
 /turf/simulated/floor/plating,
-/area/space)
-"Xk" = (
-/obj/structure/fluff/divine/nexus,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/space/graveyard/graves)
-"XH" = (
-/obj/structure/chair/wood{
-	dir = 8
-	},
-/turf/simulated/floor/carpet/black,
 /area/ruin/space/graveyard/church)
-"XQ" = (
+"Xk" = (
 /obj/effect/turf_decal{
-	dir = 10;
+	dir = 9;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/graveyard/graves)
+"Xs" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/space)
+"XA" = (
+/obj/machinery/door/airlock/public,
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
+"XE" = (
+/obj/effect/decal/cleanable/dust,
+/obj/structure/table,
+/obj/item/roller,
+/obj/item/storage/box/bodybags,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
+"XH" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/graveyard/church)
+"XI" = (
+/obj/effect/turf_decal{
+	dir = 6;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/graves)
+"XQ" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1;
+	icon_state = "propulsion_l";
+	tag = "icon-propulsion_l (NORTH)"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/space)
+"Yo" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 6;
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
+	icon_state = "gray_walls_corners"
+	},
+/area/space)
+"Yz" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/graves)
 "YF" = (
 /obj/machinery/door/airlock/maintenance,
@@ -1109,50 +1857,68 @@
 	icon_state = "lightdark"
 	},
 /area/ruin/space/graveyard/church)
+"YO" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/ruin/space/graveyard/graves)
+"Zf" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/structure/table/wood,
+/obj/item/trash/candle{
+	pixel_x = -5
+	},
+/obj/item/trash/candle{
+	pixel_x = 16;
+	pixel_y = 10
+	},
+/obj/item/trash/candle{
+	pixel_x = 16
+	},
+/obj/item/candle{
+	pixel_x = 2
+	},
+/obj/item/candle{
+	pixel_y = 9;
+	pixel_x = -2
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
+/area/ruin/space/graveyard/church)
 "Zi" = (
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plating,
-/area/space)
-"Zl" = (
-/obj/item/flashlight/lantern{
-	on = 1
-	},
-/turf/simulated/floor/plating/asteroid/basalt/airless,
 /area/ruin/space/graveyard/church)
-"Zw" = (
+"Zl" = (
+/obj/item/stack/tape_roll,
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
+"Zs" = (
+/obj/structure/fluff/grave,
+/obj/structure/spacevine,
+/turf/simulated/floor/grass,
+/area/ruin/space/graveyard/graves)
+"Zy" = (
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/space)
+"ZO" = (
 /obj/effect/turf_decal{
-	dir = 5;
-	icon_state = "grass_edge_medium";
-	name = "grass"
+	dir = 8;
+	icon_state = "grass_edge_medium"
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/graves)
-"ZO" = (
-/obj/effect/turf_decal{
-	dir = 1;
-	icon_state = "grass_edge_medium";
-	name = "grass"
-	},
-/obj/structure/railing,
-/turf/simulated/floor/wood/oak,
-/area/ruin/space/graveyard/graves)
 "ZU" = (
+/obj/structure/rack,
 /obj/item/reagent_containers/food/drinks/oilcan,
 /turf/simulated/floor/plating,
-/area/space)
+/area/ruin/space/graveyard/church)
 
 (1,1,1) = {"
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
 Ju
 Ju
 Ju
@@ -1239,23 +2005,12 @@ Ju
 Ju
 Ju
 Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
+bu
+bu
+bu
+bu
+bu
+bu
 Ju
 Ju
 Ju
@@ -1301,23 +2056,12 @@ Ju
 Ju
 Ju
 Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
+bu
+GS
+GS
+GS
+GS
+bu
 Ju
 Ju
 Ju
@@ -1357,29 +2101,18 @@ Ju
 Ju
 Ju
 Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
+bu
+bu
+bu
+bu
+bu
+bu
+pE
+GS
+Ey
+wH
+GS
+bu
 Ju
 Ju
 Ju
@@ -1419,29 +2152,18 @@ Ju
 Ju
 Ju
 Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
+bu
+GS
+GS
+GS
+GS
+GS
+GS
+GS
+in
+in
+GS
+bu
 Ju
 Ju
 Ju
@@ -1481,29 +2203,18 @@ Ju
 Ju
 Ju
 Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
+bu
+GS
+uM
+Sk
+Qk
+Sk
+wG
+Sk
+lm
+QV
+GS
+bu
 Ju
 Ju
 Ju
@@ -1535,37 +2246,26 @@ Ju
 Ju
 Ju
 Ju
+bu
+Qg
+Qg
+Qg
+bu
 Ju
 Ju
 Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
+bu
+GS
+Gw
+Sk
+Sk
+Sk
+Mf
+Sk
+Sk
+Sk
+GS
+bu
 Ju
 Ju
 Ju
@@ -1596,38 +2296,27 @@ Ju
 Ju
 Ju
 Ju
+bu
+bu
+CH
+CH
+CH
+bu
+bu
 Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
+bu
+pE
+GS
+GS
+dS
+GS
+GS
+Tr
+pk
+fM
+lH
+GS
+bu
 Ju
 Ju
 Ju
@@ -1658,43 +2347,32 @@ Ju
 Ju
 Ju
 Ju
+bu
+Iv
+Xi
+jg
+SK
+FG
+bu
 Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
+bu
+GS
+GS
+tG
+oy
+Ty
+GS
+GS
+GS
+GS
+GS
+GS
+pE
+bu
+bu
+bu
+bu
+bu
 Ju
 Ju
 Ju
@@ -1705,6 +2383,9 @@ Ju
 Ju
 Ju
 Ju
+vv
+vv
+vv
 Ju
 Ju
 Ju
@@ -1717,46 +2398,32 @@ Ju
 Ju
 Ju
 Ju
+bu
+lc
+Zi
+Iv
+CC
+Hs
+bu
 Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-wH
-wH
-wH
-wH
-wH
-wH
-wH
-wH
-wH
-wH
-wH
-wH
-Ju
-Ju
-Ju
-Ju
-Ju
+bu
+Mp
+Tk
+tU
+Fu
+Ty
+Ty
+Tk
+Ty
+Ty
+gN
+qa
+qa
+qa
+RG
+EJ
+LK
+bu
 Ju
 Ju
 Ju
@@ -1766,6 +2433,11 @@ Ju
 Ju
 Ju
 Ju
+vv
+vv
+EC
+vv
+vv
 Ju
 Ju
 Ju
@@ -1777,49 +2449,33 @@ Ju
 Ju
 Ju
 Ju
+bu
+Oq
+uh
+Oq
+Oq
+ZU
+bu
 Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-wH
-in
-in
-in
-in
-in
-in
-in
-in
-in
-in
-wH
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
+bu
+AE
+Ty
+Ty
+Ty
+Ty
+Ty
+MZ
+Ty
+Ty
+tU
+Hr
+Sc
+qa
+RG
+yk
+yk
+bu
+bu
 Ju
 Ju
 "}
@@ -1827,663 +2483,236 @@ Ju
 Ju
 Ju
 Ju
+vv
+vv
+FN
+mb
+FN
+vv
+vv
+hu
+hu
+hu
+vv
+vv
+vv
+vv
+vv
 Ju
 Ju
+bu
+Oq
+Gz
+Iv
+ie
+LH
+bu
 Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-wH
-in
-Sk
-Sk
-Sk
-Sk
-wG
-Sk
-lm
-dv
-in
-wH
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
+bu
+Ty
+Ty
+Bm
+Bm
+Bm
+tG
+oy
+Ty
+Ty
+Ty
+qa
+Ty
+qa
+RG
+yk
+yk
+yk
+bu
 Ju
 Ju
 "}
 (13,1,1) = {"
 Ju
 Ju
+vv
+vv
+Xa
+VH
+uI
+ND
+OH
+AS
+ms
+CO
+FN
+ms
+ho
+Zs
+FN
+vv
+vv
 Ju
+bu
+bu
+Oq
+uU
+Pr
+bu
+bu
 Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-wH
-Qg
-Qg
-Qg
-wH
-Ju
-Ju
-Ju
-wH
-in
-Gw
-Sk
-Sk
-Sk
-Mf
-Sk
-Sk
-TN
-in
-wH
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
+bu
+gU
+MZ
+Bm
+Bm
+dP
+tU
+Fu
+Ty
+MZ
+cP
+Kp
+wQ
+qa
+RG
+yk
+yk
+yk
+bu
 Ju
 Ju
 "}
 (14,1,1) = {"
 Ju
+vv
+vv
+VH
+ms
+ms
+ms
+MU
+OH
+MH
+ms
+CO
+ms
+Zs
+ho
+ho
+ho
+AS
+vv
 Ju
 Ju
+bu
+Ui
+Ui
+Ui
+bu
 Ju
 Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-wH
-wH
-CH
-CH
-CH
-wH
-wH
-Ju
-wH
-wH
-in
-in
-dS
-in
-in
-Tr
-pk
-fM
-dv
-in
-wH
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
+bu
+Ty
+Ty
+Ty
+Ty
+Ty
+Ty
+Ty
+Ty
+Ty
+GS
+qa
+Ty
+qa
+VL
+yk
+yk
+yk
+bu
 Ju
 Ju
 "}
 (15,1,1) = {"
 Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
 vv
-hu
-hu
-hu
-hu
-hu
-vv
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-wH
-Hs
-Xi
-jg
-Hs
-FG
-wH
-Ju
-wH
-GS
-GS
-Ty
-Ty
-Ty
-GS
-GS
-GS
-GS
-GS
-GS
-bu
-bu
-bu
-bu
-bu
-Ju
-Ju
-Ju
-Ju
-"}
-(16,1,1) = {"
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-vv
-vv
-hu
-hu
-vv
-vv
-VH
-an
-BS
+hQ
+mb
+uI
 SW
-VH
-vv
-vv
-hu
-hu
-vv
-vv
-wH
-wH
-Ju
-Ju
-Ju
-wH
-Hs
-Zi
-Hs
-CC
-Hs
-wH
-Ju
-wH
-Tb
-Tk
-Ty
-Ty
-Ty
-Ty
-Tk
-Ty
-Ty
-tG
-qa
-qa
-qa
-bu
-dz
-bu
-bu
-Ju
-Ju
-Ju
-"}
-(17,1,1) = {"
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-vv
-vv
-vv
-ms
-ms
-ms
-ms
-FN
-ms
-nA
-BS
-ZO
-ms
-FN
-ms
-ms
-ms
-ms
-vv
-vv
-vv
-Ju
-Ju
-Ju
-wH
-Hs
-uh
-jg
-Hs
-ZU
-wH
-Ju
-wH
-AE
-Ty
-Ty
-Ty
-Ty
-Ty
-Ty
-Ty
-Ty
-tU
-Hr
-Sc
-qa
-bu
-dz
-dz
-bu
-bu
-Ju
-Ju
-"}
-(18,1,1) = {"
-Ju
-Ju
-Ju
-Ju
-Ju
-vv
-vv
-vv
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-Es
-BS
-HW
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-vv
-Ju
-Ju
-Ju
-wH
-cO
-Gz
-Hs
-ie
-cO
-wH
-Ju
-wH
-Ty
-Ty
-Ty
-Ty
-Ty
-tG
-oy
-Ty
-Ty
-Ty
-qa
-zA
-qa
-bu
-dz
-dz
-dz
-bu
-Ju
-Ju
-"}
-(19,1,1) = {"
-Ju
-Ju
-Ju
-Ju
-vv
-vv
-ms
-FN
-ms
-ms
 ms
 lw
+OH
+AS
 ms
+CO
+ho
+ho
 ms
-ms
-ms
-Es
-nF
-HW
-ms
-ms
-ms
-ms
-lw
-ms
-ms
+AS
+ho
 ms
 vv
 vv
 Ju
-Ju
-wH
-wH
-Hs
-uU
-Hs
-wH
-wH
-Ju
-wH
-Ty
-Ty
-Ty
-Ty
-Ty
-tU
-Fu
-Ty
-Ty
-pF
-Kp
-wQ
-qa
 bu
-dz
-dz
-dz
+MZ
+Ty
+Ty
 bu
 Ju
-Ju
-"}
-(20,1,1) = {"
-Ju
-Ju
-Ju
-Ju
-vv
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-Es
-nF
-HW
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-vv
-Ju
-Ju
-Ju
-wH
-Ui
-Ui
-Ui
-wH
-Ju
-Ju
-wH
-Ty
-Ty
-Ty
-Ty
-Ty
-Ty
-Ty
-Ty
-Ty
-GS
-qa
-zA
-qa
-pE
-dz
-dz
-dz
 bu
-Ju
-Ju
-"}
-(21,1,1) = {"
-Ju
-Ju
-Ju
-vv
-vv
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-Es
-nF
-HW
-ms
-lw
-ms
-ms
-ms
-ms
-ms
-ms
-FN
-vv
-vv
-Ju
-Ju
-wH
-ft
-ft
-ft
-wH
-Ju
-wH
-wH
-gU
+bu
+Ty
 Ty
 KA
 oy
 Ty
 Ty
 Ty
-Ty
-Ty
+MZ
+Tb
 GS
-VC
-WM
-dz
-PO
-dz
+RG
+yk
+RG
+RG
+yk
 et
-dz
+yk
 bu
 Ju
 Ju
 "}
-(22,1,1) = {"
-Ju
-Ju
+(16,1,1) = {"
 Ju
 vv
+vv
+VH
 ms
 ms
+jd
+MU
+OH
+VH
 ms
-ms
-lw
-ms
-ms
-ms
-ms
-ms
-ms
-lw
-Es
-nF
-HW
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
+CO
+bz
+AS
+ho
+ho
+bz
+AS
 ms
 vv
 Ju
+bu
+gU
+Ty
+Pf
+bu
 Ju
-wH
-ft
-ft
-ft
-wH
-Ju
-wH
-ft
+bu
+Ty
 Ty
 IY
 Qc
@@ -2494,58 +2723,47 @@ zg
 zg
 fv
 GS
-RY
-dz
+RG
+yk
 Ut
-dz
+yk
 vp
-pN
-dz
+Rh
+yk
 bu
 Ju
 Ju
 "}
-(23,1,1) = {"
+(17,1,1) = {"
 Ju
 Ju
-Ju
-hu
+vv
+vv
+Xa
 ms
 ms
 ms
+OH
+AS
+Nh
+CO
+ho
+ms
+ho
+Zs
 ms
 ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-Es
-nF
-HW
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-lw
 ms
 vv
 Ju
-Ju
-wH
+bu
 ft
-ft
-Iv
-wH
-Ju
-wH
 Ty
+Ty
+bu
+Ju
+bu
+MZ
 AU
 SS
 SS
@@ -2553,123 +2771,101 @@ SS
 SS
 SS
 md
-md
+Is
 Bq
 GS
-dz
+RG
 sv
-Lr
-dz
-RY
-dz
-WM
+yk
+VC
+sv
+yk
+VV
 bu
 Ju
 Ju
 "}
-(24,1,1) = {"
+(18,1,1) = {"
 Ju
 Ju
 Ju
-hu
+vv
+vv
+gb
 ms
+MU
+OH
+ND
 ms
-lw
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-Es
-nF
-HW
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
+CO
+ho
+AS
+ho
+ho
+ho
+Zs
+ho
 vv
 Ju
+bu
+bu
+MZ
+bu
+bu
 Ju
-wH
-wH
-ft
-wH
-wH
-Ju
-wH
+bu
 Ty
 AU
+Sf
+sl
+Sf
 sl
 sl
-sl
-sl
-sl
-md
+Is
 md
 md
 GS
-dz
-dz
-dz
-dz
-dz
-dz
+RG
+yk
+fm
+Lr
+yk
+yk
 Rb
 bu
 Ju
 Ju
 "}
-(25,1,1) = {"
+(19,1,1) = {"
 Ju
 Ju
 vv
 vv
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
+Yz
 ms
 Es
-nF
-HW
+ms
+OH
+AS
+Nh
+CO
 ms
 ms
+ho
+AS
+ho
 ms
-lw
-ms
-ms
-ms
-ms
-ms
-ms
+FN
 vv
 Ju
 Ju
+bu
+Ty
+bu
 Ju
-wH
-ft
-wH
 Ju
-Ju
-wH
-tG
+bu
+oR
 tW
 sl
 sl
@@ -2680,10 +2876,10 @@ md
 md
 md
 GS
-Zl
+RG
 Cu
 sT
-dz
+pN
 fe
 KN
 KN
@@ -2691,39 +2887,28 @@ bu
 bu
 Ju
 "}
-(26,1,1) = {"
+(20,1,1) = {"
 Ju
 Ju
 vv
-vv
-FN
+Uk
+WF
 ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
+Uc
+MU
+OH
+SW
 aJ
-Gl
-nV
-nF
-cv
-Zw
+zm
+CQ
 aJ
 ms
 ms
-ms
-ms
-ms
-ms
-ms
-ms
+ho
+MH
+SW
 vv
-vv
-vv
+bu
 bu
 bu
 YF
@@ -2740,74 +2925,63 @@ dw
 dw
 md
 wP
-md
+Is
 GS
-dz
-dz
-dz
-dz
+RG
+yk
+yk
+yk
 qz
 Bv
-RY
+nZ
 wV
 bu
 Ju
 "}
-(27,1,1) = {"
+(21,1,1) = {"
 Ju
 Ju
 vv
-DO
+cK
+vl
+DN
+LR
 ms
-ms
-ms
-ms
-lw
-ms
-ms
-ms
-ms
-ms
+OH
+OH
 Gl
-nV
-nF
-nF
-nF
-cv
-Zw
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-FN
+Bp
+ju
+xl
+MH
+SW
+MH
+SW
+XI
 vv
-BS
-yk
+Tk
+Ty
+MZ
+Ty
+Tk
 Ty
 Ty
-Ty
-Ty
-Ty
-Ty
+MZ
 Ty
 AU
 md
+Is
 jf
-md
 md
 md
 Rp
 wP
 md
 GS
-WM
+RG
 VV
 EJ
-dz
+PO
 ij
 An
 Uz
@@ -2815,61 +2989,50 @@ dz
 bu
 Ju
 "}
-(28,1,1) = {"
+(22,1,1) = {"
 Ju
 Ju
-hu
-GH
-vF
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-nV
+vv
+cK
+FX
+rm
+ju
+DN
+DN
+eJ
+Bp
+Fh
 nF
-nF
-Xk
-nF
-nF
-cv
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-vF
-DZ
-BS
-yk
+ju
+cb
+np
+cb
+cb
+Sg
+EU
 Ty
-Ty
+tG
+oy
 Ty
 Ty
 tG
 oy
 Ty
-AU
+Ty
+Zf
 SS
 SS
 SS
 SS
-md
+Is
 SN
 md
 VB
 GS
+RG
 Lr
-dz
-dz
-dz
+yk
+yk
 vz
 WM
 dz
@@ -2877,61 +3040,50 @@ WM
 bu
 Ju
 "}
-(29,1,1) = {"
+(23,1,1) = {"
 Ju
 Ju
-hu
-BS
-BS
-BS
-nF
-nF
-nF
-nF
-nF
-nF
-nF
-nF
-nF
+vv
+cK
+FX
+Ry
 Fv
-nF
-xm
-Sp
-nF
-nF
-nF
+Fv
+Fv
+Fv
+eU
 nF
 nF
-nF
-nF
-nF
-nF
+Ry
+ZO
+ZO
+ZO
+ZO
+CA
 BS
-BS
-BS
-BS
-yk
 Ty
-Ty
+tU
+Fu
 Ty
 Ty
 tU
 Fu
 Ty
-AU
+MZ
+KC
 dw
-dw
+yD
 dw
 dw
 md
 ly
 md
-VB
+mp
 GS
-dz
-pN
-dz
-dz
+RG
+yk
+Rh
+cJ
 fx
 dz
 An
@@ -2939,61 +3091,50 @@ wX
 bu
 Ju
 "}
-(30,1,1) = {"
+(24,1,1) = {"
 Ju
 Ju
-hu
-BS
-BS
-BS
-nF
-nF
-nF
-nF
-nF
-nF
-nF
-nF
-nF
-nF
-nF
-nF
-nF
-nF
-RG
-HR
-HR
-HR
-HR
-HR
-HR
-HR
-HR
-sX
-FL
-BS
-yk
+vv
+cK
+Pw
+Pu
+ms
+ms
+OH
+OH
+oF
+eU
+Ry
+Wh
+MH
+SW
+MH
+SW
+Ao
+vv
+pF
 Ty
 Ty
 Ty
-Ty
+pF
+MZ
 Ty
 Ty
 Ty
 AU
+Is
 md
 jf
-md
 md
 md
 Rp
 wP
 md
 GS
-cJ
-dz
-dz
-dz
+RG
+Zl
+yk
+yk
 rf
 dz
 dz
@@ -3001,61 +3142,50 @@ dz
 bu
 Ju
 "}
-(31,1,1) = {"
+(25,1,1) = {"
 Ju
 Ju
-hu
+vv
+Uk
+WF
+ms
+Es
+MU
+OH
 SW
-sX
-HR
-HR
-HR
-HR
-HR
-HR
-HR
-HR
-HR
-lH
-nF
-nF
-nF
-nF
-nF
+aJ
+gM
+Wh
+aJ
 ms
 ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-vv
+lw
+MH
+SW
 vv
 bu
+XA
 bu
-GS
-GS
-GS
-GS
-GS
+bu
+bu
+bu
+bu
+bu
 tG
-tW
+pM
 SS
 SS
-SS
+Qw
 SS
 SS
 md
 wP
 md
 GS
-dz
-VV
-fm
-dz
+RG
+yk
+EJ
+fL
 qz
 An
 WM
@@ -3063,61 +3193,50 @@ Bv
 bu
 Ju
 "}
-(32,1,1) = {"
+(26,1,1) = {"
 Ju
 Ju
 vv
 vv
+Yz
+ms
+Xk
+ms
+OH
+AS
+ms
+Uc
+ms
+ms
+ho
+AS
+ms
+ms
 FN
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-aJ
-XQ
-lH
-nF
-RG
-Pu
-aJ
-ms
-ms
-ms
-ms
-ms
-lw
-ms
-ms
 vv
-vv
-qB
-qB
+ER
 yk
-GS
+ha
+bu
 JL
 qV
 pC
-GS
-tU
+bu
+Ii
 Tm
 sl
-sl
+Sf
 sl
 sl
 sl
 md
-md
+Is
 md
 GS
-Zl
-dz
-WM
-dz
+RG
+Cu
+yk
+VV
 Eb
 KN
 KN
@@ -3125,46 +3244,35 @@ bu
 bu
 Ju
 "}
-(33,1,1) = {"
+(27,1,1) = {"
 Ju
 Ju
+Ju
 vv
 vv
+gb
+ms
+MU
+OH
+ND
+ms
+Uc
+ho
+AS
+ho
 ms
 ms
-ms
-ms
-ms
-ms
-lw
-ms
-ms
-ms
-ms
-ms
-Es
-cq
-HW
-ms
-ms
-lw
-ms
-ms
-ms
-ms
-ms
-ms
-ms
+Zs
+ho
 vv
-BS
-qB
-qB
-qB
-GS
+yk
+yk
+oD
+bu
 Uq
-qV
+Na
 CZ
-GS
+bu
 Ty
 AU
 sl
@@ -3174,15 +3282,321 @@ sl
 sl
 md
 md
-md
+Is
 GS
-dz
-Ut
-dz
-dz
+RG
+yk
+VC
+yk
 jo
-dz
+yk
 Rb
+bu
+Ju
+Ju
+"}
+(28,1,1) = {"
+Ju
+Ju
+vv
+vv
+Xa
+ms
+jd
+ms
+OH
+AS
+Nh
+Uc
+ho
+ms
+ho
+AS
+ho
+ho
+ms
+vv
+AD
+yk
+MW
+bu
+Og
+qV
+qT
+bu
+MZ
+AU
+dw
+dw
+yD
+dw
+dw
+md
+Is
+Bq
+GS
+RG
+Lr
+yk
+yk
+Lr
+VV
+yk
+bu
+Ju
+Ju
+"}
+(29,1,1) = {"
+Ju
+vv
+vv
+VH
+ms
+SW
+ms
+MU
+OH
+VH
+ms
+Uc
+ho
+AS
+ho
+ms
+ho
+Zs
+ms
+vv
+Xh
+yk
+QV
+bu
+sI
+JM
+GN
+bu
+Ty
+Ty
+sC
+Rn
+pH
+bc
+zO
+In
+DO
+VU
+GS
+RG
+yk
+RY
+fm
+yk
+yk
+yk
+bu
+Ju
+Ju
+"}
+(30,1,1) = {"
+Ju
+vv
+hQ
+mb
+Nh
+HR
+OD
+lw
+OH
+AS
+ms
+Uc
+ho
+ho
+ho
+Zs
+ho
+ms
+vv
+YO
+yk
+yk
+yk
+bu
+yk
+yk
+yk
+bu
+bu
+MZ
+Ty
+Dt
+Fu
+Ty
+Ty
+Ty
+Ty
+Tb
+GS
+RG
+yk
+RG
+RG
+yk
+et
+yk
+bu
+Ju
+Ju
+"}
+(31,1,1) = {"
+Ju
+vv
+vv
+VH
+ms
+ms
+ms
+MU
+OH
+MH
+ms
+Uc
+ms
+Zs
+ms
+oq
+ho
+AS
+vv
+eo
+yk
+oD
+hr
+bu
+PC
+oD
+yk
+oD
+ox
+Ty
+Ty
+Ty
+MZ
+MZ
+Ty
+Ty
+MZ
+Ty
+GS
+qa
+Ty
+qa
+RG
+yk
+yk
+yk
+bu
+Ju
+Ju
+"}
+(32,1,1) = {"
+Ju
+Ju
+vv
+vv
+Xa
+ND
+uI
+SW
+OH
+AS
+Nh
+Uc
+FN
+ho
+ho
+AS
+FN
+vv
+vv
+oD
+oD
+yk
+jB
+bu
+yk
+yk
+oD
+yk
+bu
+gU
+MZ
+Bm
+Bm
+Bm
+tG
+VJ
+Ty
+Ty
+Tk
+oP
+Sc
+qa
+RG
+yk
+yk
+yk
+bu
+Ju
+Ju
+"}
+(33,1,1) = {"
+Ju
+Ju
+Ju
+vv
+vv
+FN
+mb
+FN
+vv
+vv
+hu
+hu
+hu
+vv
+vv
+vv
+vv
+bu
+nA
+yk
+yk
+yk
+Ps
+bu
+vP
+WU
+hq
+yk
+bu
+Ty
+Ty
+dP
+Bm
+Bm
+tU
+Fu
+Ty
+MZ
+MZ
+qa
+Ty
+qa
+RG
+yk
+yk
+yk
 bu
 Ju
 Ju
@@ -3191,60 +3605,49 @@ Ju
 Ju
 Ju
 Ju
-hu
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-Es
-nF
-HW
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
+Ju
 vv
-qB
-qB
-qB
-qB
-GS
-Og
-qV
-qT
-GS
-GS
-EQ
-dw
-dw
-dw
-dw
-dw
-md
-md
-Bq
-GS
-dz
-Lr
-dz
-dz
-Lr
-WM
-dz
+vv
+IT
+vv
+vv
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+bu
+Bt
+yk
+yk
+oD
+qw
+bu
+tA
+XH
+tH
+yk
+bu
+AE
+Ty
+Ty
+Ty
+Ty
+Ty
+MZ
+Ty
+Ty
+tG
+OB
+wQ
+qa
+RG
+yk
+yk
+bu
 bu
 Ju
 Ju
@@ -3253,61 +3656,50 @@ Ju
 Ju
 Ju
 Ju
-hu
-ms
-ms
-lw
-ms
-ms
-ms
-ms
-ms
-ms
-lw
-ms
-ms
-Es
-nF
-HW
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-lw
-ms
+Ju
+Ju
 vv
-qB
-qB
-qB
-qB
-GS
-JM
-JM
-GN
-GN
-GS
-Ty
-sC
-Rn
-pH
-bc
-zO
-In
-In
-VU
-GS
-dz
-dz
-RY
-sv
-dz
-dz
-dz
+vv
+vv
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
 bu
+Hj
+yk
+yk
+yk
+fh
+pE
+HZ
+tA
+oV
+oD
+bu
+mG
+pF
+tG
+oy
+MZ
+Ty
+pF
+Ty
+MZ
+tU
+qa
+qa
+qa
+RG
+EJ
+xT
+bu
+Ju
 Ju
 Ju
 "}
@@ -3315,61 +3707,50 @@ Ju
 Ju
 Ju
 Ju
-vv
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-Es
-nF
-HW
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-vv
-qB
-qB
-qB
-qB
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+bu
+bu
+kl
+zQ
+kl
+hd
+sK
+pE
+Qu
+xI
+yA
+bu
 GS
-yk
-yk
-yk
-yk
 GS
-Ty
-Ty
-Dt
+tU
 Fu
 Ty
-Ty
-Ty
-Ty
-Ty
 GS
-fL
-dz
-dz
-nZ
-dz
-et
-dz
+GS
+GS
+GS
+GS
+qa
 bu
+bu
+bu
+bu
+bu
+bu
+Ju
 Ju
 Ju
 "}
@@ -3377,61 +3758,50 @@ Ju
 Ju
 Ju
 Ju
-vv
-vv
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-Es
-nF
-HW
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-vv
-vv
-qB
-qB
-qB
-qB
-GS
-yk
-yk
-yk
-yk
-ox
-Ty
-Ty
-Ty
-Ty
-Ty
-Ty
-Ty
-Ty
-Ty
-GS
-qa
-Rv
-qa
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+kl
+Oq
+kl
+Ju
+sh
 bu
-dz
-dz
-dz
 bu
+bu
+bu
+bu
+bu
+GS
+GS
+dS
+GS
+GS
+Ro
+Ro
+Aj
+GS
+GS
+GS
+GS
+GS
+GS
+bu
+Ju
+Ju
 Ju
 Ju
 "}
@@ -3440,60 +3810,49 @@ Ju
 Ju
 Ju
 Ju
-vv
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-Es
-nF
-HW
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-FN
-ms
-vv
-qB
-qB
-qB
-qB
-qB
-GS
-yk
-yk
-yk
-yk
-GS
-Ty
-Ty
-Ty
-Ty
-Ty
-tG
-oy
-Ty
-Ty
-Tk
-oP
-Sc
-qa
-dz
-dz
-dz
-dz
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+kl
+qW
+kl
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
 bu
+bu
+GS
+oD
+yk
+la
+oD
+yk
+yk
+ox
+yk
+yk
+yk
+nV
+GS
+bu
+Ju
+Ju
 Ju
 Ju
 "}
@@ -3502,60 +3861,49 @@ Ju
 Ju
 Ju
 Ju
-vv
-vv
-ms
-ms
-ms
-lw
-ms
-ms
-ms
-ms
-lw
-ms
-Es
-nF
-HW
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-vv
-vv
-qB
-qB
-qB
-qB
-qB
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+sa
+Zy
+Zy
+Xs
+Xs
+Zy
+qQ
+GH
+Zy
+DU
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+bu
 GS
-vP
-WU
-hq
+yk
+yk
+yk
+yk
+yk
 yk
 GS
-Ty
-Ty
-Ty
-Ty
-Ty
-tU
-Fu
-Ty
-Ty
-Ty
-qa
-zA
-qa
-dz
-dz
-dz
-dz
+kK
+zt
+yk
+nV
+GS
 bu
+Ju
+Ju
 Ju
 Ju
 "}
@@ -3565,59 +3913,48 @@ Ju
 Ju
 Ju
 Ju
-vv
-ms
-ms
-FN
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-Es
-nF
-HW
-ms
-ms
-ms
-ms
-lw
-ms
-ms
-ms
-vv
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+vC
+Qr
 qB
 qB
 qB
 qB
-qB
-qB
+zy
+xJ
+lR
+Zy
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+bu
 GS
-tA
-XH
-tH
+XE
 yk
-GS
-AE
-Ty
-Ty
-Ty
-Ty
-Ty
-Ty
-Ty
-Ty
-tG
-OB
-wQ
+yk
+yk
+qA
 qa
-dz
-dz
-dz
+GS
+GS
+GS
+GS
+GS
+GS
 bu
-bu
+Ju
+Ju
 Ju
 Ju
 "}
@@ -3627,58 +3964,47 @@ Ju
 Ju
 Ju
 Ju
-vv
-vv
-vv
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-Es
-BS
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+HA
+Qr
+qB
+qB
+qB
+qB
+xJ
+qB
 HW
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-ms
-vv
-qB
-qB
-qB
-qB
-qB
-qB
+TN
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+bu
 GS
-tA
-tA
-oV
-yk
 GS
-Tb
-pF
-Ty
-Ty
-Ty
-Ty
-pF
-Ty
-Ty
-tU
+cY
+cY
+cY
 qa
 qa
-qa
-dz
-dz
 bu
 bu
+bu
+bu
+bu
+bu
+bu
+Ju
 Ju
 Ju
 Ju
@@ -3691,55 +4017,44 @@ Ju
 Ju
 Ju
 Ju
-vv
-vv
-vv
-ms
-ms
-ms
-ms
-FN
-ms
-nA
-BS
-ZO
-ms
-FN
-ms
-ms
-ms
-ms
-vv
-vv
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+HA
+Qr
+gk
+xJ
+xJ
+xJ
+xJ
 qB
-qB
-qB
-qB
-qB
-qB
-qB
+SP
+TN
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+bu
+bu
 GS
 GS
-Qu
-xI
-yA
-GS
-GS
-GS
-GS
-GS
-GS
-GS
-GS
-GS
-GS
-GS
+qa
+qa
 GS
 bu
 bu
-bu
-bu
-bu
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
 Ju
 Ju
 Ju
@@ -3755,49 +4070,38 @@ Ju
 Ju
 Ju
 Ju
-vv
-vv
-hu
-hu
-vv
-vv
-gC
-MU
-BS
-GH
-gC
-vv
-vv
-hu
-hu
-vv
-vv
-wH
+Ju
+Ju
+Ju
+Ju
+HA
+Qr
 qB
 qB
 qB
 qB
+xJ
 qB
-qB
-qB
-wH
-wH
-wH
-wH
-wH
-wH
-wH
-wH
-wH
-wH
-wH
-wH
-wH
-wH
-wH
-wH
-wH
-wH
+SP
+TN
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+Ju
+bu
+bu
+bu
+bu
+bu
+bu
+bu
+Ju
+Ju
+Ju
 Ju
 Ju
 Ju
@@ -3821,28 +4125,17 @@ Ju
 Ju
 Ju
 Ju
+XQ
+Qr
+qB
+qB
+qB
+qB
+GA
+xJ
+lR
+Zy
 Ju
-vv
-hu
-hu
-hu
-hu
-hu
-vv
-Ju
-Ju
-Ju
-Ju
-Ju
-wH
-kl
-kl
-Is
-kl
-Is
-kl
-kl
-wH
 Ju
 Ju
 Ju
@@ -3883,27 +4176,16 @@ Ju
 Ju
 Ju
 Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Oq
-Hs
-Oq
-Hs
-Oq
-Ju
+Wm
+Zy
+Zy
+Xs
+Xs
+Zy
+qQ
+GH
+Zy
+Yo
 Ju
 Ju
 Ju
@@ -3932,575 +4214,6 @@ Ju
 Ju
 "}
 (46,1,1) = {"
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Oq
-zy
-Oq
-zy
-Oq
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-"}
-(47,1,1) = {"
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-qB
-qB
-qB
-qB
-qB
-qB
-qB
-qB
-qB
-qB
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-"}
-(48,1,1) = {"
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-qB
-qB
-qB
-qB
-qB
-qB
-qB
-qB
-qB
-qB
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-"}
-(49,1,1) = {"
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-qB
-qB
-qB
-qB
-qB
-qB
-qB
-qB
-qB
-qB
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-"}
-(50,1,1) = {"
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-qB
-qB
-qB
-qB
-qB
-qB
-qB
-qB
-qB
-qB
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-"}
-(51,1,1) = {"
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-qB
-qB
-qB
-qB
-qB
-qB
-qB
-qB
-qB
-qB
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-"}
-(52,1,1) = {"
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-qB
-qB
-qB
-qB
-qB
-qB
-qB
-qB
-qB
-qB
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-"}
-(53,1,1) = {"
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-"}
-(54,1,1) = {"
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-"}
-(55,1,1) = {"
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
-Ju
 Ju
 Ju
 Ju

@@ -382,5 +382,6 @@
 	suffix = "graveyard.dmm"
 	name = "Space graveyard"
 	description = ""
-	cost = 3
+	cost = 4
 	allow_duplicates = FALSE
+	always_place = TRUE

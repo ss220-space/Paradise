@@ -365,6 +365,38 @@
 	anchored = TRUE
 	oreAmount = 0
 
+/obj/structure/statue/noble
+	name = "Noble person"
+	icon = 'icons/obj/statuelarge.dmi'
+	icon_state = "frank"
+	max_integrity = 2000
+	anchored = 1
+	layer = EDGED_TURF_LAYER
+
+/obj/structure/statue/dude
+	name = "Unknown monk"
+	icon = 'icons/obj/statuelarge.dmi'
+	icon_state = "dude"
+	max_integrity = 2000
+	anchored = 1
+	layer = EDGED_TURF_LAYER
+
+/obj/structure/statue/death
+	name = "Death"
+	icon = 'icons/obj/statuebig.dmi'
+	icon_state = "death"
+	max_integrity = 2000
+	anchored = 1
+	layer = EDGED_TURF_LAYER
+
+/obj/structure/statue/unknown
+	name = "Unknown hero"
+	icon = 'icons/obj/statuebig.dmi'
+	icon_state = "unknown"
+	max_integrity = 2000
+	anchored = 1
+	layer = EDGED_TURF_LAYER
+
 ////////////////////////////////
 
 /obj/structure/snowman
