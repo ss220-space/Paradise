@@ -503,3 +503,41 @@
 		return FALSE
 
 	return ..()
+
+/mob/living/simple_animal/slime/invalid
+	var/dead_for_sure = FALSE
+	var/obj/effect/proc_holder/spell/slime_degradation/parent_spell
+	var/mob/living/carbon/human/sman
+
+/mob/living/simple_animal/slime/invalid/Initialize(mapload, new_colour = "grey", age_state_new = new /datum/slime_age/baby, new_set_nutrition = 700, mob/living/carbon/human/slimeman, obj/effect/proc_holder/spell/slime_degradation/slime_spell)
+	..()
+	for(var/datum/action/innate/slime/A in actions)
+		A.Remove(src)
+	if(slimeman)
+		sman = slimeman
+	if(slime_spell)
+		parent_spell = slime_spell
+
+/mob/living/simple_animal/slime/invalid/Destroy()
+	parent_spell = null
+	return ..()
+
+
+/mob/living/simple_animal/slime/invalid/death(gibbed)
+	if(dead_for_sure)
+		return
+	dead_for_sure = TRUE
+	if(parent_spell)
+		transform_back()
+		return
+	qdel(src)
+
+/mob/living/simple_animal/slime/invalid/proc/transform_back()
+	var/mob/living/carbon/human/our_slime = sman
+	parent_spell.slime_transform_back(src, death_provoked = TRUE)
+	our_slime.emote("moan")
+	our_slime.Stun(5 SECONDS)
+	our_slime.AdjustConfused(5 SECONDS)
+	our_slime.Jitter(6 SECONDS)
+
+
