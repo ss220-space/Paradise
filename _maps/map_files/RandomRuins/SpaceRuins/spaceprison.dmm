@@ -1697,14 +1697,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/spaceprison)
-"qt" = (
-/obj/structure/lattice,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced,
-/turf/template_noop,
-/area/space/nearstation)
 "qN" = (
 /obj/structure/rack{
 	dir = 8;
@@ -4098,7 +4090,7 @@ aa
 ae
 ag
 ag
-aO
+aa
 ab
 ab
 ab
@@ -5617,7 +5609,7 @@ ab
 TH
 YB
 fK
-qt
+tH
 gc
 vN
 sE
