@@ -513,10 +513,10 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/clothing/under/pants/camo/commando(src)
 	new /obj/item/clothing/shoes/combat/commando(src)
 	new /obj/item/clothing/head/commando(src)
-	new /obj/structure/sign/poster/contraband/commando(src)
+	new /obj/item/poster/commando(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/kitchen/knife/combat(src)
-	new /obj/item/clothing/accessory/holster/knife(src)
+	new /obj/item/clothing/accessory/holster/knives(src)
 	new /obj/item/storage/box/syndie_kit/throwing_knives_set(src)
 
 /obj/item/storage/box/syndie_kit/throwing_knives_set
