@@ -251,13 +251,13 @@
                               0.33, 0.33, 0.33,\
                               0.33, 0.33, 0.33)
 
-#define MATRIX_VULP_CBLIND list(0.5,0.4,0.1,\
-                                0.5,0.4,0.1,\
-                                0.0,0.2,0.8)
+#define MATRIX_VULP_CBLIND list(0.51, 0.4, 0.12,\
+                               0.49, 0.41, 0.12,\
+			                   0, 0.2, 0.76)
 
-#define MATRIX_TAJ_CBLIND list(0.4,0.2,0.4,\
-                               0.4,0.6,0.0,\
-                               0.2,0.2,0.6)
+#define MATRIX_TAJ_CBLIND list(0.95, 0.07, 0,\
+                               0, 0.44, 0.52,\
+			                   0.05, 0.49, 0.48)
 
 /*
 	Used for wire name appearances. Replaces the color name on the left with the one on the right.
