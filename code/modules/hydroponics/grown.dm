@@ -118,11 +118,12 @@
 /obj/item/reagent_containers/food/snacks/grown/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(!..()) //was it caught by a mob?
 		if(seed)
-			log_action(thrownby, hit_atom, "Thrown [src] at")
+			var/mob/thrower = locateUID(thrownby)
+			log_action(thrower, hit_atom, "Thrown [src] at")
 			for(var/datum/plant_gene/trait/T in seed.genes)
 				T.on_throw_impact(src, hit_atom)
 			if(seed.get_gene(/datum/plant_gene/trait/squash))
-				squash(hit_atom, thrownby)
+				squash(hit_atom, thrower)
 
 /obj/item/reagent_containers/food/snacks/grown/proc/squash(atom/target, mob/thrower)
 	var/turf/T = get_turf(target)

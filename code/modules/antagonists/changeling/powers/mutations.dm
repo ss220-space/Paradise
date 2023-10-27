@@ -22,8 +22,8 @@
 
 
 /datum/action/changeling/weapon/try_to_sting(mob/user, mob/target)
-	if(istype(user.l_hand, weapon_type) || istype(user.r_hand, weapon_type))
-		retract(user, TRUE)
+	if(istype(user.get_active_hand(), weapon_type) || istype(user.get_inactive_hand(), weapon_type))
+		retract(user, any_hand = TRUE)
 		return
 	..(user, target)
 
@@ -43,35 +43,28 @@
 	return weapon
 
 
-/datum/action/changeling/weapon/proc/retract(atom/target, any_hand = FALSE)
+/datum/action/changeling/weapon/proc/retract(mob/user, any_hand = FALSE)
 	SIGNAL_HANDLER
 
-	if(!ischangeling(owner))
+	if(!ischangeling(user))
 		return
 
-	if(!any_hand && !istype(owner.get_active_hand(), weapon_type))
+	if(!any_hand && !istype(user.get_active_hand(), weapon_type))
 		return
 
 	var/done = FALSE
-	if(istype(owner.l_hand, weapon_type))
-		qdel(owner.l_hand)
-		owner.update_inv_l_hand()
+	if(istype(user.get_active_hand(), weapon_type))
+		qdel(user.get_active_hand())
 		done = TRUE
 
-	if(istype(owner.l_hand, weapon_type))
-		var/obj/item/hand_item = owner.l_hand
-		owner.temporarily_remove_item_from_inventory(hand_item, force = TRUE)
-		qdel(hand_item)
-		done = TRUE
-
-	if(istype(owner.r_hand, weapon_type))
-		var/obj/item/hand_item = owner.r_hand
-		owner.temporarily_remove_item_from_inventory(hand_item, force = TRUE)
-		qdel(hand_item)
+	if(istype(user.get_inactive_hand(), weapon_type))
+		qdel(user.get_inactive_hand())
 		done = TRUE
 
 	if(done && !silent)
-		owner.visible_message(span_warning("With a sickening crunch, [owner] reforms [owner.p_their()] [weapon_name_simple] into an arm!"), span_notice("We assimilate the [weapon_name_simple] back into our body."), span_warning("You hear organic matter ripping and tearing!"))
+		user.visible_message(span_warning("With a sickening crunch, [user] reforms [user.p_their()] [weapon_name_simple] into an arm!"),
+							span_notice("We assimilate the [weapon_name_simple] back into our body."),
+							span_warning("You hear organic matter ripping and tearing!"))
 
 
 //Parent to space suits and armor.
@@ -155,6 +148,7 @@
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
 	flags = ABSTRACT | NODROP | DROPDEL
+	slot_flags = NONE
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = TRUE
 	force = 25
@@ -254,6 +248,7 @@
 	icon_state = "tentacle"
 	item_state = "tentacle"
 	flags = ABSTRACT | NODROP | NOBLUDGEON | DROPDEL
+	slot_flags = NONE
 	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = /obj/item/ammo_casing/magic/tentacle
 	fire_sound = 'sound/effects/splat.ogg'

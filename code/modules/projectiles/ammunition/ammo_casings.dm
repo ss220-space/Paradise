@@ -197,7 +197,7 @@
 	desc = "A 12 gauge lead slug."
 	icon_state = "blshell"
 	materials = list(MAT_METAL = 4000)
-	drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
+	casing_drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
 	caliber = ".12"
 	projectile_type = /obj/item/projectile/bullet
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
@@ -249,6 +249,16 @@
 	projectile_type = /obj/item/projectile/bullet/pellet/weak
 	pellets = 10
 	variance = 20
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+
+/obj/item/ammo_casing/revolver/improvised
+	name = "improvised shell"
+	desc = "Full metal shell leaking oil. This is clearly an unreliable bullet."
+	icon_state = "improvisedrevolverbullet"
+	materials = list(MAT_METAL = 100)
+	caliber = ".257"
+	projectile_type = /obj/item/projectile/bullet/weakbullet3/c257
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 

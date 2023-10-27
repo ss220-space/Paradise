@@ -67,7 +67,7 @@
 		toggle_scan()
 		time = 10
 
-/obj/item/assembly/prox_sensor/dropped(mob/user)
+/obj/item/assembly/prox_sensor/dropped(mob/user, silent = FALSE)
 	..()
 	spawn(0)
 		sense(user)

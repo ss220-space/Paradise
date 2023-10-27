@@ -276,6 +276,10 @@
 	return TRUE
 
 
+/mob/living/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+	return TRUE // Unless you're a mule, something's trying to run you over.
+
+
 //mob verbs are a lot faster than object verbs
 //for more info on why this is not atom/pull, see examinate() in mob.dm
 /mob/living/verb/pulled(atom/movable/AM as mob|obj in oview(1))
@@ -925,10 +929,23 @@
 		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 25), 25)
 		return TRUE
 
+
 /mob/living/proc/check_eye_prot()
-	return 0
+	var/number = 0
+	var/datum/antagonist/vampire/vampire = mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(vampire?.get_ability(/datum/vampire_passive/eyes_flash_protection))
+		number++
+	if(vampire?.get_ability(/datum/vampire_passive/eyes_welding_protection))
+		number++
+	return number
+
 
 /mob/living/proc/check_ear_prot()
+	var/datum/antagonist/vampire/vampire = mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(vampire?.get_ability(/datum/vampire_passive/ears_bang_protection))
+		return HEARING_PROTECTION_TOTAL
+	return HEARING_PROTECTION_NONE
+
 
 // The src mob is trying to strip an item from someone
 // Override if a certain type of mob should be behave differently when stripping items (can't, for example)
@@ -1039,7 +1056,7 @@
 		var/obj/mecha/M = loc
 		loc_temp =  M.return_temperature()
 
-	if(isvampirecoffin(loc))
+	else if(isvampirecoffin(loc))
 		var/obj/structure/closet/coffin/vampire/coffin = loc
 		loc_temp = coffin.return_temperature()
 
@@ -1241,9 +1258,23 @@
 			sync_lighting_plane_alpha()
 
 
-/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force)
+/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
 	stop_pulling()
 	return ..()
+
+
+/mob/living/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	if(C == src || flying || !density)
+		return
+	playsound(src, 'sound/weapons/punch1.ogg', 50, TRUE)
+	if(mob_hurt)
+		return
+	if(!self_hurt)
+		take_organ_damage(damage)
+	C.take_organ_damage(damage)
+	C.Weaken(3 SECONDS)
+	C.visible_message(span_danger("[C.name] вреза[pluralize_ru(src.gender,"ет","ют")]ся в [name], сбивая друг друга с ног!"),
+					span_userdanger("Вы жестко врезаетесь в [name]!"))
 
 
 GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber))

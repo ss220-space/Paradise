@@ -810,7 +810,7 @@
 	if(istype(user))
 		START_PROCESSING(SSobj, src)
 
-/obj/item/clothing/accessory/petcollar/dropped(mob/living/simple_animal/user)
+/obj/item/clothing/accessory/petcollar/dropped(mob/living/simple_animal/user, silent = FALSE)
 	STOP_PROCESSING(SSobj, src)
 	. = ..()
 

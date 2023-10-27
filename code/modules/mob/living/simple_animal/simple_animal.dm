@@ -229,23 +229,23 @@
 					else
 						randomValue -= speak.len
 						if(emote_see && randomValue <= emote_see.len)
-							custom_emote(1, pick(emote_see))
+							custom_emote(EMOTE_VISUAL, pick(emote_see))
 						else
-							custom_emote(2, pick(emote_hear))
+							custom_emote(EMOTE_SOUND, pick(emote_hear))
 				else
 					say(pick(speak))
 			else
 				if(!(emote_hear && emote_hear.len) && (emote_see && emote_see.len))
-					custom_emote(1, pick(emote_see))
+					custom_emote(EMOTE_VISUAL, pick(emote_see))
 				if((emote_hear && emote_hear.len) && !(emote_see && emote_see.len))
-					custom_emote(2, pick(emote_hear))
+					custom_emote(EMOTE_VISUAL, pick(emote_hear))
 				if((emote_hear && emote_hear.len) && (emote_see && emote_see.len))
 					var/length = emote_hear.len + emote_see.len
 					var/pick = rand(1,length)
 					if(pick <= emote_see.len)
-						custom_emote(1, pick(emote_see))
+						custom_emote(EMOTE_VISUAL, pick(emote_see))
 					else
-						custom_emote(2,pick(emote_hear))
+						custom_emote(EMOTE_SOUND, pick(emote_hear))
 
 
 /mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
@@ -628,11 +628,6 @@
 	if(pulledby || shouldwakeup)
 		toggle_ai(AI_ON)
 
-/mob/living/simple_animal/adjustHealth(amount, updating_health = TRUE)
-	. = ..()
-	if(!ckey && !stat)//Not unconscious
-		if(AIStatus == AI_IDLE)
-			toggle_ai(AI_ON)
 
 /mob/living/simple_animal/onTransitZ(old_z, new_z)
 	..()

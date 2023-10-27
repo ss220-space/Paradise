@@ -307,12 +307,12 @@
 
 	if(hand_id == "HAND_LEFT")
 		l_hand = I
-		update_inv_l_hand()
 		I.equipped(src, slot_l_hand)
+		update_inv_l_hand()
 	else if(hand_id == "HAND_RIGHT")
 		r_hand = I
-		update_inv_r_hand()
 		I.equipped(src, slot_r_hand)
+		update_inv_r_hand()
 
 	if(pulling == I)
 		stop_pulling()
@@ -543,7 +543,7 @@
 				I.move_to_null_space()
 			else
 				I.forceMove(newloc)
-		I.dropped(src)
+		I.dropped(src, silent)
 
 	return TRUE
 

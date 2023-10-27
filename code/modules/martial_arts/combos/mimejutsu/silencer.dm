@@ -2,7 +2,6 @@
 	name = "Silencer"
 	steps = list(MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_DISARM)
 	explaination_text = "Weakens the opponent and prevents him from speaking for a while."
-	combo_text_override = "Grab, switch hands, Disarm"
 
 /datum/martial_combo/mimejutsu/silencer/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	var/datum/martial_art/mimejutsu/mimejutsu = MA

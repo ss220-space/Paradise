@@ -143,7 +143,7 @@
 	has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/chest),
 		"groin" =  list("path" = /obj/item/organ/external/groin),
-		"head" =   list("path" = /obj/item/organ/external/head/vulpkanin),
+		"head" =   list("path" = /obj/item/organ/external/head/vulpkanin/wolpin),
 		"tail" =   list("path" = /obj/item/organ/external/tail/monkey/vulpkanin),
 		"l_arm" =  list("path" = /obj/item/organ/external/arm),
 		"r_arm" =  list("path" = /obj/item/organ/external/arm/right),

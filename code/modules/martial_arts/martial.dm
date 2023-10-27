@@ -138,7 +138,7 @@
 	return TRUE
 
 /datum/martial_art/proc/attack_reaction(var/mob/living/carbon/human/defender, var/mob/living/carbon/human/attacker, var/obj/item/I, var/visible_message, var/self_message)
-	if(can_use(src) && defender.in_throw_mode && !defender.incapacitated(FALSE, TRUE))
+	if(can_use(defender) && defender.in_throw_mode && !defender.incapacitated(FALSE, TRUE))
 		if(prob(block_chance))
 			if(visible_message || self_message)
 				defender.visible_message(visible_message, self_message)
@@ -192,6 +192,7 @@
 	explaination_header(user)
 	explaination_combos(user)
 	explaination_footer(user)
+	explaination_notice(user)
 
 // Put after the header and before the footer in the explaination text
 /datum/martial_art/proc/explaination_combos(user)
@@ -207,6 +208,9 @@
 // Put below the combos in the explaination text
 /datum/martial_art/proc/explaination_footer(user)
 	return
+
+/datum/martial_art/proc/explaination_notice(user)
+	return to_chat(user, "<b><i>Combo steps can be provided only with empty hand!</b></i>")
 
 /datum/martial_art/proc/try_deflect(mob/user)
 	return prob(deflection_chance)
@@ -225,7 +229,7 @@
 		var/mob/living/carbon/human/H = user
 		style.teach(H,1)
 
-/obj/item/clothing/gloves/boxing/dropped(mob/user)
+/obj/item/clothing/gloves/boxing/dropped(mob/user, silent = FALSE)
 	. = ..()
 
 	if(!ishuman(user))
@@ -255,7 +259,7 @@
 		style.teach(H,1)
 		to_chat(user, "<span class='sciradio'>You have an urge to flex your muscles and get into a fight. You have the knowledge of a thousand wrestlers before you. You can remember more by using the show info verb in the martial arts tab.</span>")
 
-/obj/item/storage/belt/champion/wrestling/dropped(mob/user)
+/obj/item/storage/belt/champion/wrestling/dropped(mob/user, silent = FALSE)
 	. = ..()
 
 	if(!ishuman(user))

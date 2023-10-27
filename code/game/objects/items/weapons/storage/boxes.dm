@@ -43,7 +43,7 @@
 /obj/item/storage/box/survival/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/survival/brigphys
@@ -55,14 +55,14 @@
 /obj/item/storage/box/survival_vox/populate_contents()
 	new /obj/item/clothing/mask/breath/vox(src)
 	new /obj/item/tank/internals/emergency_oxygen/nitrogen(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/survival_machine
 	icon_state = "box_machine"
 
 /obj/item/storage/box/survival_machine/populate_contents()
-	new /obj/item/weldingtool/mini(src)
+	new /obj/item/weldingtool(src)
 	new /obj/item/stack/cable_coil/random(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
@@ -72,7 +72,7 @@
 /obj/item/storage/box/survival_plasmaman/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen/plasma(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/engineer
@@ -81,7 +81,7 @@
 /obj/item/storage/box/engineer/populate_contents()
 	new /obj/item/clothing/mask/breath( src )
 	new /obj/item/tank/internals/emergency_oxygen/engi( src )
-	new /obj/item/reagent_containers/hypospray/autoinjector( src )
+	new /obj/item/storage/firstaid/crew( src )
 	new /obj/item/flashlight/flare/glowstick/blue( src )
 	return
 
@@ -92,7 +92,7 @@
 	new /obj/item/clothing/mask/gas/explorer(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/crowbar/red(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/survival_security
@@ -100,7 +100,7 @@
 
 /obj/item/storage/box/survival_security/populate_contents()
 	new /obj/item/tank/internals/emergency_oxygen/engi/sec(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
 	new /obj/item/crowbar/red/sec(src)
 	new /obj/item/clothing/mask/gas/sechailer(src)
@@ -127,7 +127,7 @@
 /obj/item/storage/box/survival_laws/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/pink(src)
 	new /obj/item/book/manual/security_space_law(src)
 	new /obj/item/taperecorder(src)
@@ -424,6 +424,7 @@
 /obj/item/storage/box/cups
 	name = "box of paper cups"
 	desc = "It has pictures of paper cups on the front."
+	icon_state = "papercup"
 
 /obj/item/storage/box/cups/populate_contents()
 	for(var/I in 1 to 7)
@@ -879,7 +880,7 @@
 	max_combined_w_class = 20
 
 /obj/item/storage/box/centcomofficer/populate_contents()
-	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/clothing/mask/gas/sechailer(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/kitchen/knife/combat(src)
@@ -897,7 +898,7 @@
 	icon_state = "box_ert"
 
 /obj/item/storage/box/responseteam/populate_contents()
-	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/clothing/mask/gas/sechailer(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/crowbar/red(src)
@@ -1013,6 +1014,15 @@
 /obj/item/storage/box/wizard/hardsuit/populate_contents()
 	new /obj/item/clothing/suit/space/hardsuit/wizard/shielded(src)
 	new /obj/item/clothing/shoes/magboots/wizard(src)
+
+/obj/item/storage/box/wizard/recharge
+	name = "Armour Recharge Bundle"
+	desc = "This box contains a bundle of Battlemage Armour Recharges"
+	icon_state = "box_wizard"
+
+/obj/item/storage/box/wizard/recharge/populate_contents()
+	for(var/I in 1 to 3)
+		new /obj/item/wizard_armour_charge(src)
 
 /obj/item/storage/box/candythief
 	name = "набор радужных конфет"

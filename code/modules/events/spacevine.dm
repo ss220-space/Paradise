@@ -535,7 +535,7 @@
 	eat(user)
 
 /obj/structure/spacevine_controller
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	var/list/obj/structure/spacevine/vines = list()
 	var/list/growth_queue = list()
 	var/spread_multiplier = 5

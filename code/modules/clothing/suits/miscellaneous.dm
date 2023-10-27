@@ -272,7 +272,7 @@
 	if(slot == slot_wear_suit)
 		disguise(user)
 
-/obj/item/clothing/suit/cardborg/dropped(mob/living/user)
+/obj/item/clothing/suit/cardborg/dropped(mob/living/user, silent = FALSE)
 	..()
 	user.remove_alt_appearance("standard_borg_disguise")
 
@@ -1181,6 +1181,28 @@
 	w_class = WEIGHT_CLASS_TINY
 	flags = BLOCKHAIR
 	flags_inv = HIDEGLOVES|HIDEHEADSETS|HIDENAME
+
+/obj/item/clothing/suit/cyberpunk
+	name = "long cyberpunk black coat"
+	desc = "No one knows why it's called cyberpunk, but hey, it looks cool."
+	icon_state = "cyberpunksleek_long_black"
+
+/obj/item/clothing/suit/cyberpunk/white
+	name = "long cyberpunk white coat"
+	icon_state = "cyberpunksleek_long_white"
+
+/obj/item/clothing/suit/cyberpunk/green
+	name = "long cyberpunk green coat"
+	icon_state = "cyberpunksleek_long_green"
+
+/obj/item/clothing/suit/cyberpunk/brown
+	name = "long cyberpunk brown coat"
+	icon_state = "cyberpunksleek_long"
+
+/obj/item/clothing/suit/triad
+	name = "Long Tangzhuang"
+	desc = "A traditional chinese suit worn for fashion."
+	icon_state = "triadkillers"
 
 // Suragi start
 // Suragi parent

@@ -28,6 +28,7 @@
 
 
 #define INVISIBILITY_MAXIMUM 100
+#define INVISIBILITY_ABSTRACT 101
 
 //Some mob defines below
 #define AI_CAMERA_LUMINOSITY 6

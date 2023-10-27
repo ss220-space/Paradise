@@ -26,6 +26,10 @@
 					valid_underwear[underwear] = GLOB.underwear_list[underwear]
 				var/new_underwear = input(user, "Choose your underwear:", "Changing") as null|anything in valid_underwear
 				if(new_underwear)
+					var/datum/sprite_accessory/underwear/uwear = GLOB.underwear_list[new_underwear]
+					if(uwear.allow_change_color)
+						var/new_underwear_color = input(user, "Choose your underwear color, else color will be white:", "Changing", "#ffffff") as color|null
+						H.color_underwear = new_underwear_color || "#ffffff"
 					H.underwear = new_underwear
 
 			if("Undershirt")
@@ -37,6 +41,10 @@
 					valid_undershirts[undershirt] = GLOB.undershirt_list[undershirt]
 				var/new_undershirt = input(user, "Choose your undershirt:", "Changing") as null|anything in valid_undershirts
 				if(new_undershirt)
+					var/datum/sprite_accessory/undershirt/ushirt = GLOB.undershirt_list[new_undershirt]
+					if(ushirt.allow_change_color)
+						var/new_undershirt_color = input(user, "Choose your undershirt color, else color will be white:", "Changing", "#ffffff") as color|null
+						H.color_undershirt = new_undershirt_color || "#ffffff"
 					H.undershirt = new_undershirt
 
 			if("Socks")

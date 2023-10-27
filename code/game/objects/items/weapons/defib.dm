@@ -365,7 +365,7 @@
 	playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 	return OXYLOSS
 
-/obj/item/twohanded/shockpaddles/dropped(mob/user)
+/obj/item/twohanded/shockpaddles/dropped(mob/user, silent = FALSE)
 	update_icon()
 	if(defib)
 		to_chat(user, SPAN_NOTICE("The paddles snap back into the main unit."))
@@ -577,7 +577,7 @@
 /obj/item/twohanded/shockpaddles/borg/check_defib_exists()
 	// No-op.
 
-/obj/item/twohanded/shockpaddles/borg/dropped()
+/obj/item/twohanded/shockpaddles/borg/dropped(mob/user, silent = FALSE)
 	SHOULD_CALL_PARENT(FALSE)
 	// No-op.
 

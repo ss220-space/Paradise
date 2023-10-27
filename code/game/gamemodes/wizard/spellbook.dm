@@ -430,7 +430,7 @@
 /datum/spellbook_entry/item/battlemage_charge
 	name = "Battlemage Armour Charges"
 	desc = "A powerful defensive rune, it will grant eight additional charges to a suit of battlemage armour."
-	item_path = /obj/item/wizard_armour_charge
+	item_path = /obj/item/storage/box/wizard/recharge
 	category = "Weapons and Armors"
 	cost = 1
 

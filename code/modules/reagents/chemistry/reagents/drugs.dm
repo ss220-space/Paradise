@@ -972,3 +972,214 @@
 		update_flags |= M.adjustFireLoss(rand(1,5) / 2, FALSE)
 		update_flags |= M.adjustBruteLoss(rand(1,5) / 2, FALSE)
 	return list(0, update_flags)
+
+//surge+, used in supercharge implants
+/datum/reagent/surge_plus
+	name = "Surge Plus"
+	id = "surge_plus"
+	description = "A superconducting gel that overloads processors, causing an effect reportedly similar to benzodiazepines in synthetic units."
+	reagent_state = LIQUID
+	color = "#28b581"
+
+	process_flags = SYNTHETIC
+	overdose_threshold = 30
+	addiction_chance = 1
+	addiction_chance_additional = 20
+	addiction_threshold = 5
+	taste_description = "silicon"
+
+/datum/reagent/surge_plus/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	M.AdjustParalysis(-8 SECONDS)
+	M.AdjustStunned(-8 SECONDS)
+	M.AdjustWeakened(-8 SECONDS)
+	update_flags |= M.adjustStaminaLoss(-25, FALSE)
+	if(prob(5))
+		var/high_message = pick("You feel calm.", "You feel collected.", "You feel like you need to relax.")
+		if(prob(10))
+			high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
+		to_chat(M, "<span class='notice'>[high_message]</span>")
+
+	return ..() | update_flags
+
+/datum/reagent/surge_plus/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	var/recent_consumption = holder.addiction_threshold_accumulated[type]
+	M.Jitter(40 SECONDS)
+	M.Stuttering(10 SECONDS)
+	if(prob(5))
+		to_chat(M, "<span class='notice'>Your circuits overheat!</span>") // synth fever
+		M.bodytemperature += 30 * recent_consumption
+		M.Confused(2 SECONDS * recent_consumption)
+	if(prob(10))
+		to_chat(M, "<span class='danger'>You experience a violent electrical discharge!</span>")
+		playsound(get_turf(M), 'sound/effects/eleczap.ogg', 75, TRUE)
+		var/icon/I = new('icons/obj/zap.dmi', "lightningend")
+		I.Turn(-135)
+		var/obj/effect/overlay/beam/B = new(get_turf(M))
+		B.pixel_x = rand(-20, 0)
+		B.pixel_y = rand(-20, 0)
+		B.icon = I
+		update_flags |= M.adjustFireLoss(rand(1, 5))
+		update_flags |= M.adjustBruteLoss(rand(1, 5))
+	return list(0, update_flags)
+
+	//Servo Lube, supercharge
+/datum/reagent/lube/combat
+	name = "Combat-Lube"
+	id = "combatlube"
+	description = "Combat-Lube is a refined and enhanced lubricant which induces effect stronger than Methamphetamine in synthetic users by drastically reducing internal friction and increasing cooling capabilities."
+	process_flags = SYNTHETIC
+	overdose_threshold = 30
+	addiction_chance = 1
+	addiction_chance_additional = 20
+
+/datum/reagent/lube/combat/on_mob_add(mob/living/L)
+	ADD_TRAIT(L, TRAIT_GOTTAGOFAST, id)
+
+/datum/reagent/lube/combat/on_mob_life(mob/living/M)
+	M.SetSleeping(0)
+	M.SetDrowsy(0)
+
+	var/high_message = pick("You feel your servos whir!", "You feel like you need to go faster.", "You feel like you were just overclocked!")
+	if(prob(10))
+		high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
+	if(prob(5))
+		to_chat(M, "<span class='notice'>[high_message]</span>")
+	return ..()
+
+/datum/reagent/lube/combat/on_mob_delete(mob/living/M)
+	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, id)
+	..()
+
+/datum/reagent/lube/combat/overdose_process(mob/living/M, severity)
+	var/list/overdose_info = ..()
+	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
+	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
+	if(prob(20))
+		M.emote("ping")
+	if(prob(33))
+		M.visible_message("<span class='danger'>[M]'s hands flip out and flail everywhere!</span>")
+		var/obj/item/I = M.get_active_hand()
+		if(I)
+			M.drop_from_active_hand()
+	update_flags |= M.adjustFireLoss(5, FALSE)
+	update_flags |= M.adjustBrainLoss(3, FALSE)
+	return list(effect, update_flags)
+
+/datum/reagent/crack
+	name = "Crack"
+	id = "crack"
+	description = "A crystallized version of cocaine consumed by smoking."
+	reagent_state = LIQUID
+	color = "#f0f0f0"
+	overdose_threshold = 20
+	addiction_chance = 15
+	addiction_threshold = 5
+	taste_description = "nasty bitterness with a bit of poverty"
+	shock_reduction = 100
+	metabolization_rate = 0.6 * REAGENTS_METABOLISM
+
+/datum/reagent/crack/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustStaminaLoss(-3, FALSE)
+	if(prob(15))
+		M.emote(pick("twitch", "twitch_s", "grumble", "laugh"))
+	if(prob(50))
+		M.SetParalysis(0)
+		M.SetStunned(0)
+		M.SetWeakened(0)
+	if(prob(50))
+		update_flags |= M.adjustHeartLoss(1, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/crack/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustStaminaLoss(-0.4, FALSE)
+	update_flags |= M.adjustHeartLoss(1, FALSE)
+	return list(0, update_flags)
+
+/datum/reagent/crack/reaction_temperature(exposed_temperature, exposed_volume)
+	if((exposed_temperature >= 350) && (volume >= 10))
+		if(holder)
+			for(var/i = 0, i < round(volume/10,1),i++)
+				new /obj/item/crack_crystal(get_turf(holder.my_atom))
+			holder.del_reagent(id)
+
+/datum/reagent/cocaine
+	name = "cocaine"
+	id = "cocaine"
+	description = "World-famous drug with strong effect on organics."
+	reagent_state = LIQUID
+	color = "#f0f0f0"
+	overdose_threshold = 20
+	addiction_chance = 10
+	addiction_threshold = 5
+	taste_description = "light bitterness, going off with numbing feeling"
+	shock_reduction = 140
+	metabolization_rate = 0.4 * REAGENTS_METABOLISM
+
+/datum/reagent/cocaine/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(5))
+		M.emote(pick("twitch_s","blink_r","shiver"))
+	if(current_cycle >= 25)
+		M.AdjustJitter(10 SECONDS)
+	update_flags |= M.adjustStaminaLoss(-5, FALSE)
+	M.SetParalysis(0)
+	M.SetStunned(0)
+	M.SetWeakened(0)
+	if(prob(25))
+		update_flags |= M.adjustHeartLoss(1, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/cocaine/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(50))
+		update_flags |= M.adjustHeartLoss(1, FALSE)
+	update_flags |= M.AdjustConfused(2 SECONDS)
+	if(prob(25))
+		M.emote("sneeze")
+	if(prob(10))
+		M.emote("collapse")
+	M.emote("tremble")
+	return list(0, update_flags)
+
+/datum/reagent/cocaine/reaction_temperature(exposed_temperature, exposed_volume)
+	if((exposed_temperature >= 350) && (volume >= 10))
+		if(holder)
+			for(var/i = 0, i < round(volume/10,1),i++)
+				new /obj/item/coca_packet(get_turf(holder.my_atom))
+			holder.del_reagent(id)
+
+/datum/reagent/matedecoca
+	name = "Mate de Coca"
+	id = "matedecoca"
+	description = "A tea made of cocaine. Especially intresting drink."
+	reagent_state = LIQUID
+	color = "#8acca7"
+	overdose_threshold = 40
+	addiction_chance = 2
+	addiction_threshold = 5
+	taste_description = "pleasant bitterness"
+	shock_reduction = 50
+	metabolization_rate = 0.4 * REAGENTS_METABOLISM
+
+/datum/reagent/matedecoca/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(10))
+		M.AdjustJitter(5 SECONDS)
+	M.AdjustDrowsy(-20 SECONDS)
+	M.AdjustParalysis(-3 SECONDS)
+	M.AdjustStunned(-3 SECONDS)
+	M.AdjustWeakened(-3 SECONDS)
+	M.SetSleeping(0)
+	return ..() | update_flags
+
+/datum/reagent/matedecoca/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(25))
+		M.fakevomit()
+		M.emote("tremble")
+	return list(0, update_flags)
+

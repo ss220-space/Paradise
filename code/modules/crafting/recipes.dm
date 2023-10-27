@@ -244,6 +244,18 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 
+/datum/crafting_recipe/improvisedbullet
+	name = "Improvised Revolver Shell"
+	result = /obj/item/ammo_casing/revolver/improvised
+	reqs = list(/obj/item/stack/sheet/metal = 1,
+				/obj/item/stack/cable_coil = 1,
+				/datum/reagent/fuel = 5)
+	tools = list(TOOL_SCREWDRIVER)
+	time = 2
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+
+
 /datum/crafting_recipe/improvisedslugoverload
 	name = "Overload Improvised Shell"
 	result = /obj/item/ammo_casing/shotgun/improvised/overload
@@ -277,6 +289,19 @@
 	time = 100
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/irevolver
+	name = "Improvised revolver"
+	result = /obj/item/gun/projectile/revolver/improvisedrevolver
+	reqs = list(/obj/item/weaponcrafting/receiver = 1,
+				/obj/item/stack/sheet/wood = 2,
+				/obj/item/stack/sheet/metal = 3,
+				/obj/item/stack/tape_roll = 10)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
+	time = 100
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
 
 /datum/crafting_recipe/chainsaw
 	name = "Chainsaw"
@@ -1337,3 +1362,20 @@
 				/obj/item/stack/sheet/animalhide/weaver_chitin = 2)
 	category = CAT_PRIMAL
 
+/datum/crafting_recipe/makeshift_speedloader
+	name = "Makeshift Speedloader"
+	result = /obj/item/ammo_box/improvisedrevolver
+	time = 5 SECONDS
+	reqs = list(/obj/item/c_tube = 4,
+				/obj/item/stack/packageWrap = 10,
+				/obj/item/stack/tape_roll = 4)
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+
+/datum/crafting_recipe/crack_pipe
+	name = "Crack pipe"
+	result = /obj/item/clothing/mask/cigarette/pipe/crack_pipe
+	time = 5 SECONDS
+	reqs = list(/obj/item/stack/sheet/glass = 3)
+	tools = list(TOOL_WELDER, TOOL_SCREWDRIVER)
+	category = CAT_MISC

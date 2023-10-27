@@ -368,6 +368,10 @@
 		new /obj/item/grenade/chem_grenade/drugs(src) //2
 		new /obj/item/grenade/gas/knockout(src)	//2
 
+/obj/item/storage/belt/grenade/frag/populate_contents()
+	for(var/I in 1 to 4)
+		new /obj/item/grenade/frag(src)
+
 /obj/item/storage/belt/rocketman
 	name = "rocket belt"
 	desc = "A belt for holding rockets."
