@@ -377,7 +377,6 @@
 	name = "\improper ruby"
 	icon_state = "ruby"
 	point_value = 100
-	sell_value = 50
 	simple = TRUE
 	sell_multiplier = 0.5
 
@@ -385,7 +384,6 @@
 	name = "\improper sapphire"
 	icon_state = "sapphire"
 	point_value = 100
-	sell_value = 50
 	simple = TRUE
 	sell_multiplier = 0.5
 
@@ -393,7 +391,6 @@
 	name = "\improper emerald"
 	icon_state = "emerald"
 	point_value = 100
-	sell_value = 50
 	simple = TRUE
 	sell_multiplier = 0.5
 
@@ -401,6 +398,5 @@
 	name = "\improper topaz"
 	icon_state = "topaz"
 	point_value = 100
-	sell_value = 50
 	simple = TRUE
 	sell_multiplier = 0.5
