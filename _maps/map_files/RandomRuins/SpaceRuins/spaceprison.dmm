@@ -1699,7 +1699,6 @@
 /area/ruin/spaceprison)
 "qt" = (
 /obj/structure/lattice,
-/obj/structure/lattice,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
