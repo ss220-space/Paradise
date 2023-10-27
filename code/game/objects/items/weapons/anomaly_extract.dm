@@ -204,7 +204,7 @@
 
 /obj/effect/proc_holder/spell/slime_selfheat/cast(list/targets, mob/living/carbon/human/user = usr)
 	user.bodytemperature = user.bodytemperature + 50
-	var/self_message = istype(user,/mob/living/simple_animal/slime) ? span_notice("You feel nothing can stop you right now."): span_userdanger("You feel HOT inside yourself.")
+	var/self_message = isslime(user) ? span_notice("You feel nothing can stop you right now.") : span_userdanger("You feel HOT inside yourself.")
 	to_chat(user, self_message)
 
 /obj/item/organ/internal/heart/slime/anomaly
