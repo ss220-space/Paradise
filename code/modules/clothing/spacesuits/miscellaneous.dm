@@ -169,6 +169,12 @@
 	icon_state = "jacket_syndie"
 	item_state = "jacket_syndie"
 
+/obj/item/clothing/suit/space/deathsquad/officer/syndie/runner
+	name = "Leather Syndicate Coat"
+	desc = "A long leather coat with real fur for elite syndicate operatives, agents and officers. You feel lonely while wear it..."
+	icon_state = "bladerunner_coat"
+	item_state = "bladerunner_coat"
+
 //Space santa outfit suit
 /obj/item/clothing/head/helmet/space/santahat
 	name = "Santa's hat"
