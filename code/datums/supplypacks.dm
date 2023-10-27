@@ -776,13 +776,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/engineering/engine/sing_gen
 	name = "Singularity Generator Crate"
 	contains = list(/obj/machinery/the_singularitygen)
-	cost = 10
+	cost = 150
 	containername = "singularity generator crate"
 
 /datum/supply_packs/engineering/engine/tesla
 	name = "Energy Ball Generator Crate"
 	contains = list(/obj/machinery/the_singularitygen/tesla)
-	cost = 10
+	cost = 150
 	containername = "energy ball generator crate"
 
 /datum/supply_packs/engineering/engine/coil

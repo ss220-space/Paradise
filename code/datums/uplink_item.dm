@@ -550,6 +550,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 //IPC
 
 /datum/uplink_item/racial/ipc_combat_upgrade
+	name = "Ipc combat upgrade"
 	desc = "Advanced data storage designed to be compatible with positronic systems.This one include melee algorithms along with overwritten microbattery safety protocols."
 	reference = "ICU"
 	item = /obj/item/ipc_combat_upgrade
@@ -564,6 +565,17 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 8
 	race = list("Machine")
 
+
+//Slime People
+
+/datum/uplink_item/racial/anomaly_extract
+	name = "Anomaly extract"
+	desc = "The result of the work of scientists on mixing an experimental stable mutagen with the core of a pyroclastic anomaly. Gives the user the opportunity to become a slime and heat himself up."
+	reference = "AEXT"
+	item = /obj/item/anomaly_extract
+	cost = 3
+	race = list("Slime People")
+
 //Plasmaman
 
 /datum/uplink_item/racial/plasma_chameleon
@@ -574,7 +586,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/plasma_chameleon
 	cost = 4
 	race = list("Plasmaman")
-  
+
 // DANGEROUS WEAPONS
 
 /datum/uplink_item/dangerous
@@ -1423,9 +1435,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Syndicate Counterfeiter Bundle"
 	desc = "A cleverly implemented bundle designed to document counterfeiting. Comes with a chameleon stamp, capable of imitating any NanoTrasen issued stamps and a fakesign pen to alter the world through the sheer force of paperwork. While making the user capable of faking almost any document, this Syndicate technology has been rumored to cause a huge upheaval on NT objects. "
 	reference = "CHST"
-	cost = 1 
-	surplus = 35 
-	item = /obj/item/storage/box/syndie_kit/counterfeiter_bundle 
+	cost = 1
+	surplus = 35
+	item = /obj/item/storage/box/syndie_kit/counterfeiter_bundle
 
 /datum/uplink_item/stealthy_tools/chameleonflag
 	name = "Chameleon Flag"
