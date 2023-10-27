@@ -40,6 +40,7 @@
 	owner.set_original_mob(owner.current)
 
 	add_owner_to_gamemode()
+	apply_innate_effects()
 
 	if(generate_antags)
 		ninja_type = pick(NINJA_TYPE_PROTECTOR, NINJA_TYPE_HACKER, NINJA_TYPE_KILLER)
@@ -48,7 +49,6 @@
 	if(give_objectives)
 		give_objectives()
 
-	apply_innate_effects()
 	finalize_antag()
 
 	if(!silent)
