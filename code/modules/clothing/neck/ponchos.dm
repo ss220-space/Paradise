@@ -34,3 +34,8 @@
 	name = "corporate poncho"
 	desc = "Пончо в корпоративных цветах, при его виде пропадает желание нелегально пересекать сектор"
 	icon_state = "secponcho"
+
+/obj/item/clothing/neck/poncho/tactical
+	name = "tactical poncho"
+	desc = "A short and black poncho for some tactical operations in hot areas of space"
+	icon_state = "tacticalponcho"
