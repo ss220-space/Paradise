@@ -640,14 +640,14 @@
 		return
 	if(user && !user.drop_transfer_item_to_loc(P, src))
 		return
-	P.equipped(src)
 	pcollar = P
 	regenerate_icons()
 	if(user)
-		to_chat(user, "<span class='notice'>You put [P] around [src]'s neck.</span>")
+		to_chat(user, span_notice("You put [P] around [src]'s neck."))
 	if(P.tagname && !unique_pet)
 		name = P.tagname
 		real_name = P.tagname
+	P.equipped(src)
 
 /mob/living/simple_animal/regenerate_icons()
 	cut_overlays()
