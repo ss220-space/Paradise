@@ -182,3 +182,19 @@
   dependabot[bot]:
   - unknown: Bump terser from 4.6.11 to 4.8.1 in /tgui (#1106)
   - unknown: bump pillow from 9.0.1 to 10.0.1 in /tools (#3665)
+'2023-10-27':
+  Etrnlmelancholy:
+  - add: New Haircuts for humans (#3758)
+  - tweak: Syndie Officer update (#3760)
+  - balance: generator crates cost more (#3777)
+  - add: Shitspawn items (#3761)
+  Honker9999999:
+  - add: ERT rank system (#3746)
+  LiquidPotroh:
+  - add: Skrell sound and visual emotes (#3733)
+  ROdenFL:
+  - add: uplink Racial Anomaly extract (#3770)
+  Vladisvell:
+  - bugfix: icon state plasma hat typo (#3773)
+  Zwei:
+  - bugfix: Tribal Bola Fix (#3779)
