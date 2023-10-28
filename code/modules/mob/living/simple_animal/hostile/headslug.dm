@@ -133,8 +133,10 @@
 		cling.give_power(new /datum/action/changeling/humanform)
 		monka.key = origin.key
 		monka.revive() // better make sure some weird shit doesn't happen, because it has in the past P.S. some weird shit still happen
+		if(cling.absorbed_count == 0)
+			var/mob/living/carbon/human/rand_dna = new
+			cling.absorb_dna(rand_dna)
 	owner.gib()
-
 
 #undef EGG_INCUBATION_DEAD_TIME
 #undef EGG_INCUBATION_LIVING_TIME
