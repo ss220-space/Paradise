@@ -830,11 +830,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/spaceprison)
-"cd" = (
-/obj/effect/decal/cleanable/flour,
-/obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/r_wall,
-/area/ruin/spaceprison)
 "ce" = (
 /obj/structure/chair/office/light{
 	dir = 1
@@ -4556,7 +4551,7 @@ zt
 Mv
 MI
 Wf
-cb
+ai
 ab
 aa
 bY
@@ -5013,7 +5008,7 @@ ad
 ag
 ag
 aa
-cd
+cb
 dN
 br
 ai
@@ -5072,7 +5067,7 @@ ag
 ag
 ab
 ai
-cd
+cb
 op
 ai
 QF
@@ -5308,7 +5303,7 @@ aP
 bg
 Es
 cb
-cb
+ai
 ai
 ai
 ab
