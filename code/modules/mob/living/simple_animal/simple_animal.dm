@@ -453,8 +453,17 @@
 		collar_type = "[initial(collar_type)]"
 		regenerate_icons()
 
+/mob/living/simple_animal/proc/check_if_child(mob/possible_child)
+	for(var/childpath in childtype)
+		if (istype(possible_child, childpath))
+			return TRUE
+	return FALSE
+
 /mob/living/simple_animal/proc/make_babies() // <3 <3 <3
 	if(gender != FEMALE || stat || next_scan_time > world.time || !childtype || !animal_species || !SSticker.IsRoundInProgress())
+		return FALSE
+
+	if (check_if_child(src)) // Children aren't fertile enough
 		return FALSE
 	next_scan_time = world.time + 400
 
@@ -465,12 +474,12 @@
 	for(var/mob/M in oview(7, src))
 		if(M.stat != CONSCIOUS) //Check if it's conscious FIRST.
 			continue
-		else if(istype(M, childtype)) //Check for children SECOND.
+		else if(check_if_child(M)) //Check for children SECOND.
 			children++
 		else if(istype(M, animal_species))
 			if(M.ckey)
 				continue
-			else if(!istype(M, childtype) && M.gender == MALE) //Better safe than sorry ;_;
+			else if(!check_if_child(M) && M.gender == MALE) //Better safe than sorry ;_;
 				partner = M
 		else if(isliving(M) && !faction_check_mob(M)) //shyness check. we're not shy in front of things that share a faction with us.
 			return //we never mate when not alone, so just abort early
