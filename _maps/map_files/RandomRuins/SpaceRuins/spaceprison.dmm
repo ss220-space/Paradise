@@ -743,12 +743,6 @@
 	icon_state = "bar"
 	},
 /area/ruin/spaceprison)
-"bQ" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/wall/r_wall,
-/area/space/nearstation)
 "bR" = (
 /obj/structure/lattice,
 /turf/template_noop,
@@ -1188,7 +1182,7 @@
 /obj/machinery/door/poddoor/multi_tile/two_tile_ver{
 	id_tag = "spaceprisonpod"
 	},
-/turf/space,
+/turf/simulated/floor,
 /area/ruin/spaceprison)
 "eG" = (
 /turf/simulated/floor/plasteel{
@@ -3066,7 +3060,7 @@
 /area/ruin/spaceprison)
 "Xy" = (
 /obj/structure/spacepoddoor,
-/turf/space,
+/turf/simulated/floor,
 /area/ruin/spaceprison)
 "XX" = (
 /obj/structure/chair/office/light{
@@ -5658,10 +5652,10 @@ ag
 ag
 aa
 aa
+ab
+ab
+ab
 aa
-ab
-ab
-ab
 aa
 hf
 jf
@@ -5715,12 +5709,12 @@ ad
 bl
 ag
 aa
+ab
+ab
+ab
+ab
+ab
 aa
-ab
-ab
-ab
-ab
-ab
 aa
 ch
 ab
@@ -5776,7 +5770,7 @@ ag
 ag
 ag
 ag
-bQ
+ag
 ag
 ag
 ag
@@ -5834,7 +5828,7 @@ ag
 ag
 ag
 ag
-bQ
+ag
 ag
 ag
 ag
