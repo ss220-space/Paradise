@@ -122,7 +122,7 @@ GLOBAL_LIST_INIT(huds, list( \
 
 		if(istype(check, /obj/item/organ/internal/cyberimp/eyes/hud))
 			var/obj/item/organ/internal/cyberimp/eyes/hud/implant = check
-			if(implant.HUD_type)
+			if(implant.HUD_type && !implant.is_equipped(TRUE, TRUE))
 				var/datum/atom_hud/my_hud = GLOB.huds[implant.HUD_type]
 				my_hud.add_hud_to(src)
 
