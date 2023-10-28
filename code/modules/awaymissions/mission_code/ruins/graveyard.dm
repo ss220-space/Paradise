@@ -4,15 +4,29 @@
 	requires_power = TRUE
 
 /area/ruin/space/graveyard/church
-	name = "Space graveyard church"
+	name = "Space Graveyard Church"
 	icon_state = "away1"
 
 /area/ruin/space/graveyard/graves
-	name = "Space graveyard graves"
+	name = "Space Graveyard Graves"
 	icon_state = "away2"
 
+///// The Undertaker Shuttle
+
+/area/shuttle/funeral
+	icon_state = "shuttle3"
+	name = "Suneral Shuttle"
+	parallax_movedir = SOUTH
+	nad_allowed = TRUE
+
+/obj/machinery/computer/shuttle/funeral
+	name = "Funeral \"The Undertaker\" Shuttle Console"
+	desc = "Used to call and send the funeral \"The Undertaker\" shuttle."
+	shuttleId = "funeral"
+	possible_destinations = "trade_dock;graveyard_dock"
+
+
 ///// Graveyard items
-///// Ashes related
 
 /obj/structure/bookcase/ashframe
 	name = "Shelf for ashes"
@@ -29,7 +43,7 @@
 /obj/structure/bookcase/ashframe/random
 
 /obj/structure/bookcase/ashframe/random/Initialize()
-	var/number = rand(1,6)
+	var/number = rand(1,4)
 	for(var/i = 0, i < number, i++)
 		new /obj/item/storage/funeral_urn/random(src)
 	..()
@@ -54,12 +68,11 @@
 	can_be_hit = FALSE
 	storage_slots = 3
 	max_combined_w_class = 3
-	display_contents_with_number = TRUE
+	display_contents_with_number = FALSE
 	force = 3
 	throwforce = 2
 	throw_speed = 3
 	throw_range = 4
-
 
 /obj/item/storage/funeral_urn/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pen) || istype(I, /obj/item/flashlight/pen))
@@ -69,13 +82,24 @@
 
 /obj/item/storage/funeral_urn/afterattack(atom/A, mob/user as mob, proximity)
 	if(istype(A,/obj/effect/decal/cleanable/ash))
-		var/obj/effect/decal/cleanable/ash = A
-		ash.forceMove(src)
+		if(src.contents.len < storage_slots)
+			var/obj/effect/decal/cleanable/ash/ash = A
+			new /obj/item/ash_holder(src, ash)
+			qdel(ash)
+		else
+			to_chat(user, span_notice("There are no place in [name]"))
 	..()
 
 /obj/item/storage/funeral_urn/Destroy()
+	playsound(src, "shatter", 70, 1)
 	for(var/obj/O in contents)
-		O.forceMove(get_turf(src))
+		if(istype(O,/obj/item/ash_holder))
+			var/obj/item/return_ash = new /obj/effect/decal/cleanable/ash(get_turf(src))
+			return_ash.name = O.name
+			return_ash.desc = O.desc
+			qdel(O)
+		else
+			O.forceMove(get_turf(src))
 	..()
 
 /obj/item/storage/funeral_urn/random
@@ -96,7 +120,7 @@
 	name = "Funeral urn of [nam]"
 	description_info = "Here lies [nam], [born] - [died]."
 
-	new /obj/effect/decal/cleanable/ash(src)
+	new /obj/item/ash_holder(src)
 	if(prob(15))
 		switch(rand(1,2))
 			if(1)
@@ -106,6 +130,26 @@
 				new /obj/item/coin/silver(src)
 				new /obj/item/coin/silver(src)
 	..()
+
+/obj/item/ash_holder
+	name = "ash"
+	desc = "Ashes to ashes, dust to dust, and into space."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "ash"
+	w_class = WEIGHT_CLASS_TINY
+	var/obj/effect/decal/cleanable/ash/return_ash
+
+/obj/item/ash_holder/Initialize(mapload, var/obj/effect/decal/cleanable/ash/parent_ash = new)
+	name = parent_ash.name
+	desc = parent_ash.desc
+	. = ..()
+
+/obj/item/ash_holder/equipped(mob/user, slot, initial)
+	. = ..()
+	var/obj/item/return_ash = new /obj/effect/decal/cleanable/ash(get_turf(src))
+	return_ash.name = name
+	return_ash.desc = desc
+	qdel(src)
 
 /obj/structure/table/socle
 	name = "Socle"
@@ -129,11 +173,25 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x3"
 
-/obj/effect/spawner/graveyard_statues/Initialize()
-	pick(
-		new /obj/structure/statue/noble(src),
-		new /obj/structure/statue/dude(src),
-		new /obj/structure/statue/unknown(src),
-		new /obj/structure/statue/death(src),
-	)
+/obj/effect/spawner/graveyard_statues/New()
+	var/monument
+	var/offset = 0
+	switch(pick("big","small"))
+		if("big")
+			monument = pick(
+				/obj/structure/statue/unknown,
+				/obj/structure/statue/death,
+			)
+
+		if("small")
+			monument = pick(
+				/obj/structure/statue/noble,
+				/obj/structure/statue/dude,
+			)
+			offset = 16
+	var/obj/structure/statue/statue = new monument(get_turf(src))
+	statue.pixel_x = offset
+	qdel(src)
 	..()
+
+
