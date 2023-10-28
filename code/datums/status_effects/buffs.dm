@@ -516,7 +516,7 @@
 	H.dna.species.brute_mod *= 0.3
 	H.dna.species.burn_mod *= 0.6
 	H.dna.species.stamina_mod *= 0.3
-	H.dna.species.stun_mod *= 0.6
+	H.dna.species.stun_mod *= 0.3
 
 	var/datum/antagonist/vampire/V = owner.mind.has_antag_datum(/datum/antagonist/vampire)
 	if(V.get_ability(/datum/vampire_passive/blood_swell_upgrade))
@@ -535,7 +535,7 @@
 	H.dna.species.brute_mod /= 0.3
 	H.dna.species.burn_mod /= 0.6
 	H.dna.species.stamina_mod /= 0.3
-	H.dna.species.stun_mod /= 0.6
+	H.dna.species.stun_mod /= 0.3
 
 	if(bonus_damage_applied)
 		bonus_damage_applied = FALSE
