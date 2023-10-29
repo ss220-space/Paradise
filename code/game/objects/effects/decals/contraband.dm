@@ -392,8 +392,8 @@
 	icon_state = "poster36"
 
 /obj/structure/sign/poster/contraband/commando
-	name = "ы"
-	desc = "Вы видите мускулистого человека в боевом омбундировании, один лишь вид этого постера вносит аромат настоящей мужественности."
+	name = "Commandos"
+	desc = "You see a muscular man in combat gear. Just the sight of this poster brings the scent of true masculinity."
 	icon_state = "poster37"
 
 //official posters
