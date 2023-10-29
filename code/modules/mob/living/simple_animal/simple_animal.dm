@@ -249,7 +249,7 @@
 
 
 /mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
-	var/atmos_suitable = 1
+	var/atmos_suitable = TRUE
 
 	var/areatemp = get_temperature(environment)
 
@@ -264,45 +264,47 @@
 	var/co2 = environment.carbon_dioxide
 
 	if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
-		atmos_suitable = 0
+		atmos_suitable = FALSE
 		throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
 	else if(atmos_requirements["max_oxy"] && oxy > atmos_requirements["max_oxy"])
-		atmos_suitable = 0
+		atmos_suitable = FALSE
 		throw_alert("too_much_oxy", /obj/screen/alert/too_much_oxy)
 	else
 		clear_alert("not_enough_oxy")
 		clear_alert("too_much_oxy")
 
 	if(atmos_requirements["min_tox"] && tox < atmos_requirements["min_tox"])
-		atmos_suitable = 0
+		atmos_suitable = FALSE
 		throw_alert("not_enough_tox", /obj/screen/alert/not_enough_tox)
 	else if(atmos_requirements["max_tox"] && tox > atmos_requirements["max_tox"])
-		atmos_suitable = 0
+		atmos_suitable = FALSE
 		throw_alert("too_much_tox", /obj/screen/alert/too_much_tox)
 	else
 		clear_alert("too_much_tox")
 		clear_alert("not_enough_tox")
 
 	if(atmos_requirements["min_n2"] && n2 < atmos_requirements["min_n2"])
-		atmos_suitable = 0
+		atmos_suitable = FALSE
 	else if(atmos_requirements["max_n2"] && n2 > atmos_requirements["max_n2"])
-		atmos_suitable = 0
+		atmos_suitable = FALSE
 
 	if(atmos_requirements["min_co2"] && co2 < atmos_requirements["min_co2"])
-		atmos_suitable = 0
+		atmos_suitable = FALSE
 	else if(atmos_requirements["max_co2"] && co2 > atmos_requirements["max_co2"])
-		atmos_suitable = 0
+		atmos_suitable = FALSE
 
 	if(!atmos_suitable)
 		adjustHealth(unsuitable_atmos_damage)
 
 	handle_temperature_damage()
 
+
 /mob/living/simple_animal/proc/handle_temperature_damage()
 	if(bodytemperature < minbodytemp)
 		adjustHealth(cold_damage_per_tick)
 	else if(bodytemperature > maxbodytemp)
 		adjustHealth(heat_damage_per_tick)
+
 
 /mob/living/simple_animal/gib()
 	if(icon_gib)
