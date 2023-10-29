@@ -103,10 +103,29 @@ GLOBAL_LIST_INIT(huds, list( \
 		for(var/datum/mindslaves/serv in (SSticker.mode.vampires | SSticker.mode.goon_vampires | SSticker.mode.traitors))
 			serv_huds += serv.thrallhud
 
-
 	for(var/datum/atom_hud/hud in (GLOB.all_huds|serv_huds))//|gang_huds))
 		if(src in hud.hudusers)
 			hud.add_hud_to(src)
+
+	for(var/obj/item/check in contents)
+		if(istype(check, /obj/item/clothing/glasses/hud))
+			var/obj/item/clothing/glasses/hud/glasses = check
+			if(glasses.HUDType && get_slot_by_item(glasses) == slot_glasses)
+				var/datum/atom_hud/my_hud = GLOB.huds[glasses.HUDType]
+				my_hud.add_hud_to(src)
+
+		if(istype(check, /obj/item/clothing/head))
+			var/obj/item/clothing/head/helmet = check
+			if(helmet.HUDType && get_slot_by_item(helmet) == slot_head)
+				var/datum/atom_hud/my_hud = GLOB.huds[helmet.HUDType]
+				my_hud.add_hud_to(src)
+
+		if(istype(check, /obj/item/organ/internal/cyberimp/eyes/hud))
+			var/obj/item/organ/internal/cyberimp/eyes/hud/implant = check
+			if(implant.HUD_type && !implant.is_equipped(TRUE, TRUE))
+				var/datum/atom_hud/my_hud = GLOB.huds[implant.HUD_type]
+				my_hud.add_hud_to(src)
+
 
 /mob/new_player/reload_huds()
 	return
