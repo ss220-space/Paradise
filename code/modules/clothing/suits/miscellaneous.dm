@@ -27,9 +27,6 @@
 		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
-		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
-		"Plasmaman" = 'icons/obj/clothing/species/plasmaman/suit.dmi'
 		)
 
 /obj/item/clothing/suit/redtag
@@ -1226,7 +1223,7 @@
 		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
-		"Plasmaman" = 'icons/obj/clothing/species/plasmaman/suit.dmi'
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi'
 		)
 
 // Suragi Children
