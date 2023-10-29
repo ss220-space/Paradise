@@ -1022,7 +1022,6 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 	user.forceMove(vampire_animal)
 	user.mind.transfer_to(vampire_animal)
 	vampire.draw_HUD()
-	vampire_animal.update_sight()
 
 	var/matrix/animation_matrix = new(vampire_animal.transform)
 	vampire_animal.transform = matrix().Scale(0)
