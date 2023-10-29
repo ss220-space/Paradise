@@ -397,10 +397,21 @@
 	max_integrity = 200
 	anchored = 1
 
+/obj/structure/decorative_structures/cult_crystal/attackby(obj/item/I, mob/user, params)
+	electrocute_mob(user, get_area(src), src, 0.5, TRUE)
+	to_chat(user, span_warning("When you touch it, you feel some dark energy."))
+	..()
+
+/obj/structure/decorative_structures/cult_crystal/attack_hand(mob/living/user)
+	electrocute_mob(user, get_area(src), src, 0.5, TRUE)
+	to_chat(user, span_warning("When you touch it, you feel some dark energy."))
+	..()
+
 /obj/structure/decorative_structures/cult_crystal/Destroy()
 	playsound(src, 'sound/effects/glassbr3.ogg', 30, 0)
 	var/turf/T = get_turf(src)
 	new /obj/effect/particle_effect/smoke/vomiting(T)
 	new /obj/effect/decal/cleanable/blood/gibs(T)
 	new /obj/effect/decal/cleanable/blood(T)
+	new /mob/living/simple_animal/hostile/construct/behemoth/hostile(T)
 	..()

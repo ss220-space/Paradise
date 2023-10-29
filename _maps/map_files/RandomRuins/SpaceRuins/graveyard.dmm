@@ -1,4 +1,13 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ag" = (
+/obj/effect/decal/cleanable/dust,
+/obj/structure/chair/sofa/pew/right{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
+/area/ruin/space/graveyard/church)
 "az" = (
 /obj/effect/turf_decal{
 	dir = 10;
@@ -51,8 +60,9 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/graves)
 "cJ" = (
-/obj/structure/decorative_structures/cult_crystal,
-/turf/simulated/floor/wood/oak,
+/obj/effect/clockwork/overlay/floor/bloodcult,
+/obj/item/flashlight/lantern,
+/turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "cK" = (
 /obj/structure/bookcase/ashframe/random,
@@ -67,6 +77,14 @@
 	icon_state = "lightdark"
 	},
 /area/ruin/space/graveyard/church)
+"cS" = (
+/obj/structure/sign/nosmoking_1{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
+/area/ruin/space/graveyard/church)
 "cY" = (
 /obj/structure/morgue{
 	dir = 8
@@ -77,12 +95,15 @@
 /obj/structure/chair/sofa/pew/right,
 /turf/simulated/floor/carpet,
 /area/ruin/space/graveyard/church)
-"dz" = (
-/turf/simulated/floor/plating/asteroid/ancient,
+"dC" = (
+/obj/effect/clockwork/overlay/floor/bloodcult,
+/obj/item/spellbook/oneuse/fireball,
+/turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "dP" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/drinkingglass,
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
@@ -106,7 +127,8 @@
 	light_range = 6;
 	name = "lantern"
 	},
-/turf/simulated/floor/wood/oak,
+/obj/effect/clockwork/overlay/floor/bloodcult,
+/turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "eU" = (
 /obj/effect/turf_decal{
@@ -124,7 +146,8 @@
 /obj/structure/statue/silver/janitor{
 	icon_state = "angel";
 	name = "statue of an angel";
-	dir = 1
+	dir = 1;
+	anchored = 1
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -136,10 +159,12 @@
 /area/ruin/space/graveyard/church)
 "fm" = (
 /obj/item/restraints/handcuffs/manacles/used,
-/turf/simulated/floor/wood/oak,
+/obj/effect/clockwork/overlay/floor/bloodcult,
+/turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "ft" = (
 /obj/effect/decal/cleanable/cobweb2,
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
@@ -165,7 +190,8 @@
 /area/ruin/space/graveyard/church)
 "fL" = (
 /obj/item/spellbook/oneuse/smoke,
-/turf/simulated/floor/wood/oak,
+/obj/effect/clockwork/overlay/floor/bloodcult,
+/turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "fM" = (
 /obj/item/stack/sheet/wood{
@@ -202,6 +228,7 @@
 /area/ruin/space/graveyard/graves)
 "gN" = (
 /obj/effect/decal/cleanable/dust,
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "chapel"
@@ -216,7 +243,9 @@
 	},
 /area/ruin/space/graveyard/church)
 "ha" = (
-/obj/structure/decorative_structures/metal/statue/metal_angel,
+/obj/structure/decorative_structures/metal/statue/metal_angel{
+	anchored = 1
+	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -257,7 +286,8 @@
 "hQ" = (
 /obj/structure/statue/silver/janitor{
 	icon_state = "angelseen";
-	name = "statue of an angel"
+	name = "statue of an angel";
+	anchored = 1
 	},
 /turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
@@ -289,7 +319,8 @@
 /area/ruin/space/graveyard/church)
 "jo" = (
 /obj/item/kitchen/knife/combat/survival/bone,
-/turf/simulated/floor/wood/oak,
+/obj/effect/clockwork/overlay/floor/bloodcult,
+/turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "ju" = (
 /obj/effect/turf_decal{
@@ -368,8 +399,16 @@
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/statue/silver/janitor{
 	icon_state = "angel";
-	name = "statue of an angel"
+	name = "statue of an angel";
+	anchored = 1
 	},
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
+/area/ruin/space/graveyard/church)
+"nw" = (
+/obj/structure/table/wood,
+/obj/item/trash/plate,
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
@@ -393,6 +432,15 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
+"nZ" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
 /area/ruin/space/graveyard/church)
 "oq" = (
 /obj/structure/spacevine,
@@ -487,10 +535,6 @@
 	icon_state = "chapel"
 	},
 /area/ruin/space/graveyard/church)
-"pN" = (
-/obj/structure/bonfire,
-/turf/simulated/floor/wood/oak,
-/area/ruin/space/graveyard/church)
 "qa" = (
 /turf/simulated/wall/mineral/wood,
 /area/ruin/space/graveyard/church)
@@ -505,14 +549,15 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
-"qz" = (
-/obj/structure/fence/post,
-/turf/simulated/floor/plating/asteroid/ancient,
+"qx" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
 /area/ruin/space/graveyard/church)
 "qA" = (
 /obj/structure/table,
 /obj/item/roller,
-/obj/item/storage/box/gloves,
 /obj/machinery/light/small,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
@@ -536,10 +581,23 @@
 /obj/structure/fence/cut/large,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/church)
+"rg" = (
+/obj/structure/chair/sofa/pew{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
+/area/ruin/space/graveyard/church)
 "rm" = (
 /obj/effect/baseturf_helper/asteroid/ancient_sand,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/graves)
+"rO" = (
+/obj/effect/clockwork/overlay/floor/bloodcult,
+/obj/structure/decorative_structures/cult_crystal,
+/turf/simulated/floor/plating,
+/area/ruin/space/graveyard/church)
 "sh" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 8
@@ -555,7 +613,8 @@
 /area/ruin/space/graveyard/church)
 "sv" = (
 /obj/effect/decal/remains/mouse,
-/turf/simulated/floor/wood/oak,
+/obj/effect/clockwork/overlay/floor/bloodcult,
+/turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "sC" = (
 /obj/effect/turf_decal/siding/wood{
@@ -583,7 +642,15 @@
 /area/ruin/space/graveyard/church)
 "sT" = (
 /obj/item/melee/cultblade/dagger,
-/turf/simulated/floor/wood/oak,
+/obj/effect/clockwork/overlay/floor/bloodcult,
+/turf/simulated/floor/plating,
+/area/ruin/space/graveyard/church)
+"tq" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/drinkingglass,
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
 /area/ruin/space/graveyard/church)
 "tA" = (
 /turf/simulated/floor/carpet/black,
@@ -631,6 +698,14 @@
 /obj/spacepod/civilian/damaged,
 /turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
+"up" = (
+/obj/structure/chair/sofa/pew{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
+/area/ruin/space/graveyard/church)
 "uI" = (
 /obj/item/decorations/bouquets/random,
 /obj/effect/turf_decal{
@@ -665,7 +740,8 @@
 /area/ruin/space/graveyard/graves)
 "vp" = (
 /obj/item/stack/cable_coil,
-/turf/simulated/floor/wood/oak,
+/obj/effect/clockwork/overlay/floor/bloodcult,
+/turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "vv" = (
 /turf/simulated/wall/shuttle{
@@ -689,6 +765,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
+/area/ruin/space/graveyard/church)
+"wB" = (
+/obj/structure/table/wood,
+/obj/item/trash/candle{
+	pixel_x = -5
+	},
+/turf/simulated/floor/carpet,
 /area/ruin/space/graveyard/church)
 "wG" = (
 /obj/structure/cable{
@@ -741,6 +824,15 @@
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/graves)
+"xC" = (
+/obj/effect/decal/cleanable/dust,
+/obj/structure/sign/vacuum{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
+/area/ruin/space/graveyard/church)
 "xI" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/candle_box/full{
@@ -761,7 +853,8 @@
 "xT" = (
 /obj/item/whetstone/cult,
 /obj/item/flag/cult,
-/turf/simulated/floor/wood/oak,
+/obj/effect/clockwork/overlay/floor/bloodcult,
+/turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "yk" = (
 /turf/simulated/floor/wood/oak,
@@ -775,6 +868,17 @@
 /obj/structure/chair/sofa/pew/right,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet,
+/area/ruin/space/graveyard/church)
+"yG" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/chair/sofa/pew/right{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
 /area/ruin/space/graveyard/church)
 "za" = (
 /obj/effect/decal/remains/mouse,
@@ -807,6 +911,15 @@
 "zv" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plating,
+/area/ruin/space/graveyard/church)
+"zB" = (
+/obj/structure/closet,
+/obj/item/clothing/suit/chaplain_hoodie/fluff/chronx,
+/obj/item/clothing/suit/hooded/chaplain_hoodie,
+/obj/item/clothing/suit/hooded/chaplain_hoodie,
+/obj/item/clothing/suit/hooded/chaplain_hoodie,
+/obj/item/storage/box/gloves,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "zO" = (
 /obj/structure/railing/wooden{
@@ -855,7 +968,9 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "AE" = (
-/obj/structure/decorative_structures/metal/statue/metal_angel,
+/obj/structure/decorative_structures/metal/statue/metal_angel{
+	anchored = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
@@ -897,16 +1012,26 @@
 /area/ruin/space/graveyard/church)
 "Bv" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
+/obj/item/restraints/handcuffs/manacles/used,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/church)
 "BS" = (
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/graves)
+"Cj" = (
+/obj/structure/chair/sofa/pew/left{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
+/area/ruin/space/graveyard/church)
 "Cu" = (
 /obj/item/flashlight/lantern{
 	on = 1
 	},
-/turf/simulated/floor/wood/oak,
+/obj/effect/clockwork/overlay/floor/bloodcult,
+/turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "CA" = (
 /obj/effect/turf_decal{
@@ -990,16 +1115,20 @@
 /obj/structure/statue/silver/janitor{
 	icon_state = "angel";
 	name = "statue of an angel";
-	dir = 4
+	dir = 4;
+	anchored = 1
 	},
 /turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
 "EJ" = (
 /obj/structure/sacrificealtar,
-/turf/simulated/floor/wood/oak,
+/obj/effect/clockwork/overlay/floor/bloodcult,
+/turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "ER" = (
-/obj/structure/decorative_structures/metal/statue/metal_angel,
+/obj/structure/decorative_structures/metal/statue/metal_angel{
+	anchored = 1
+	},
 /obj/effect/decal/cleanable/cobweb,
 /obj/machinery/light/small{
 	dir = 8
@@ -1041,6 +1170,14 @@
 "FG" = (
 /obj/item/weldingtool,
 /turf/simulated/floor/plating,
+/area/ruin/space/graveyard/church)
+"FL" = (
+/obj/structure/table/wood,
+/obj/item/trash/candle{
+	pixel_y = 10;
+	pixel_x = 5
+	},
+/turf/simulated/floor/carpet,
 /area/ruin/space/graveyard/church)
 "FN" = (
 /obj/item/flashlight/lantern{
@@ -1111,7 +1248,8 @@
 "Hj" = (
 /obj/structure/statue/silver/janitor{
 	icon_state = "angel";
-	name = "statue of an angel"
+	name = "statue of an angel";
+	anchored = 1
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -1182,7 +1320,8 @@
 /obj/structure/statue/silver/janitor{
 	icon_state = "angel";
 	name = "statue of an angel";
-	dir = 8
+	dir = 8;
+	anchored = 1
 	},
 /turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
@@ -1190,6 +1329,15 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
+/area/ruin/space/graveyard/church)
+"Js" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
@@ -1218,6 +1366,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
+/area/ruin/space/graveyard/church)
+"Kq" = (
+/obj/effect/clockwork/overlay/floor/bloodcult,
+/obj/item/stack/rods{
+	amount = 10
+	},
+/turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "KA" = (
 /obj/item/flashlight/lantern{
@@ -1249,9 +1404,28 @@
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/church)
+"KR" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/chair/sofa/pew/left{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
+/area/ruin/space/graveyard/church)
+"Lk" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/bottle/wine,
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
+/area/ruin/space/graveyard/church)
 "Lr" = (
 /obj/item/trash/candle,
-/turf/simulated/floor/wood/oak,
+/obj/effect/clockwork/overlay/floor/bloodcult,
+/turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "LH" = (
 /obj/structure/closet/toolcloset,
@@ -1260,7 +1434,8 @@
 "LK" = (
 /obj/item/clothing/suit/hooded/fluff/bone,
 /obj/item/flag/cult,
-/turf/simulated/floor/wood/oak,
+/obj/effect/clockwork/overlay/floor/bloodcult,
+/turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "LR" = (
 /obj/effect/turf_decal{
@@ -1285,7 +1460,8 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/statue/silver/janitor{
 	icon_state = "angel";
-	name = "statue of an angel"
+	name = "statue of an angel";
+	anchored = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
@@ -1303,6 +1479,11 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
+"ML" = (
+/obj/effect/clockwork/overlay/floor/bloodcult,
+/obj/item/restraints/handcuffs/manacles,
+/turf/simulated/floor/plating,
+/area/ruin/space/graveyard/church)
 "MU" = (
 /obj/structure/table/socle,
 /turf/simulated/floor/grass,
@@ -1330,14 +1511,23 @@
 "Np" = (
 /obj/machinery/door/airlock/wood{
 	id_tag = "devil_right";
-	security_level = 6
+	security_level = 6;
+	req_access = list(666)
 	},
-/turf/simulated/floor/wood/oak,
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
 /area/ruin/space/graveyard/church)
 "ND" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
+"Oa" = (
+/obj/structure/sign/bobross{
+	pixel_y = 32
+	},
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
 "Og" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -1420,7 +1610,8 @@
 	id = "devilroom";
 	dir = 1
 	},
-/turf/simulated/floor/wood/oak,
+/obj/effect/clockwork/overlay/floor/bloodcult,
+/turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "PC" = (
 /obj/structure/noticeboard{
@@ -1430,7 +1621,8 @@
 /area/ruin/space/graveyard/church)
 "PO" = (
 /obj/item/spellbook/oneuse/sacredflame,
-/turf/simulated/floor/wood/oak,
+/obj/effect/clockwork/overlay/floor/bloodcult,
+/turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "PY" = (
 /obj/effect/turf_decal{
@@ -1485,13 +1677,15 @@
 /area/ruin/space/graveyard/church)
 "Rb" = (
 /obj/structure/kitchenspike,
-/turf/simulated/floor/wood/oak,
+/obj/effect/clockwork/overlay/floor/bloodcult,
+/turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "Rh" = (
 /obj/item/stack/rods{
 	amount = 10
 	},
-/turf/simulated/floor/wood/oak,
+/obj/effect/clockwork/overlay/floor/bloodcult,
+/turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "Rn" = (
 /obj/effect/turf_decal/siding/wood{
@@ -1508,6 +1702,7 @@
 /obj/item/clothing/suit/hooded/chaplain_hoodie,
 /obj/item/clothing/suit/hooded/chaplain_hoodie,
 /obj/item/clothing/suit/hooded/chaplain_hoodie,
+/obj/item/storage/box/masks,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "Rp" = (
@@ -1549,7 +1744,8 @@
 	specialfunctions = 4;
 	pixel_x = 32
 	},
-/turf/simulated/floor/wood/oak,
+/obj/effect/clockwork/overlay/floor/bloodcult,
+/turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "Sc" = (
 /obj/machinery/light/small,
@@ -1597,7 +1793,9 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
 "Tb" = (
-/obj/structure/statue/cheese/cheesus,
+/obj/structure/statue/cheese/cheesus{
+	anchored = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
@@ -1627,6 +1825,13 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "Ty" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
+/area/ruin/space/graveyard/church)
+"TL" = (
+/obj/structure/table/wood,
+/obj/item/lighter/zippo/engraved,
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
@@ -1665,10 +1870,15 @@
 	specialfunctions = 4;
 	pixel_x = -32
 	},
-/turf/simulated/floor/wood/oak,
+/obj/effect/clockwork/overlay/floor/bloodcult,
+/turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "Uz" = (
-/obj/item/restraints/handcuffs/manacles,
+/obj/structure/decorative_structures/corpse{
+	dir = 8;
+	pixel_x = -14
+	},
+/obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/church)
 "VB" = (
@@ -1697,7 +1907,8 @@
 /area/ruin/space/graveyard/church)
 "VV" = (
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/wood/oak,
+/obj/effect/clockwork/overlay/floor/bloodcult,
+/turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "Wh" = (
 /obj/effect/turf_decal{
@@ -1706,6 +1917,17 @@
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/graves)
+"Ww" = (
+/obj/effect/clockwork/overlay/floor/bloodcult,
+/turf/simulated/floor/plating,
+/area/ruin/space/graveyard/church)
+"Wy" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "chapel"
+	},
+/area/ruin/space/graveyard/church)
 "WF" = (
 /obj/structure/table/socle,
 /obj/item/storage/funeral_urn/random{
@@ -1732,7 +1954,9 @@
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/graveyard/church)
 "Xa" = (
-/obj/structure/decorative_structures/metal/statue/metal_angel,
+/obj/structure/decorative_structures/metal/statue/metal_angel{
+	anchored = 1
+	},
 /turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
 "Xh" = (
@@ -1844,7 +2068,8 @@
 /area/ruin/space/graveyard/church)
 "Zl" = (
 /obj/item/stack/tape_roll,
-/turf/simulated/floor/wood/oak,
+/obj/effect/clockwork/overlay/floor/bloodcult,
+/turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "Zs" = (
 /obj/structure/fluff/grave,
@@ -2358,10 +2583,10 @@ Tk
 tU
 Fu
 Ty
-Ty
-Tk
-Ty
-Ty
+qx
+yG
+rg
+Cj
 gN
 qa
 qa
@@ -2457,9 +2682,9 @@ Ju
 bu
 Ty
 Ty
-Bm
-Bm
-Bm
+nw
+Lk
+tq
 tG
 oy
 Ty
@@ -2508,8 +2733,8 @@ Ju
 bu
 gU
 MZ
-Bm
-Bm
+TL
+nw
 dP
 tU
 Fu
@@ -2565,7 +2790,7 @@ Ty
 Ty
 Ty
 Ty
-Ty
+qx
 GS
 qa
 tS
@@ -2601,9 +2826,9 @@ vv
 vv
 Ju
 bu
-MZ
+xC
 Ty
-Ty
+cS
 bu
 Ju
 bu
@@ -2622,7 +2847,7 @@ VL
 Np
 RG
 VL
-yk
+Ww
 et
 VL
 bu
@@ -2670,9 +2895,9 @@ zg
 fv
 GS
 VL
-yk
+Ww
 Ut
-yk
+Ww
 vp
 Rh
 VL
@@ -2705,7 +2930,7 @@ Ju
 bu
 ft
 Ty
-Ty
+qx
 bu
 Ju
 bu
@@ -2722,8 +2947,8 @@ Bq
 GS
 VL
 sv
-yk
-yk
+Ww
+Ww
 sv
 VV
 VL
@@ -2772,10 +2997,10 @@ md
 md
 GS
 VL
-yk
+Ww
 fm
 Lr
-yk
+Ww
 Rb
 RG
 bu
@@ -2825,9 +3050,9 @@ GS
 RG
 Cu
 sT
-pN
-fe
-KN
+Ww
+Ww
+rO
 RG
 pE
 bu
@@ -2870,15 +3095,15 @@ dw
 dw
 dw
 md
-wP
+wB
 Is
 GS
 RG
-yk
-yk
-yk
-qz
-za
+Ww
+Kq
+Ww
+fe
+KN
 VL
 VL
 bu
@@ -2905,7 +3130,7 @@ MH
 SW
 XI
 vv
-Tk
+nZ
 Ty
 MZ
 Ty
@@ -2926,7 +3151,7 @@ md
 GS
 VL
 VV
-yk
+Ww
 PO
 rf
 Uz
@@ -2977,10 +3202,10 @@ VB
 GS
 VL
 Lr
-yk
+Ww
 cJ
 vz
-dz
+za
 WM
 VL
 bu
@@ -3028,8 +3253,8 @@ mp
 GS
 VL
 PA
-Rh
-yk
+rO
+dC
 fx
 An
 wX
@@ -3058,7 +3283,7 @@ MH
 SW
 Ao
 vv
-pF
+Js
 Ty
 Ty
 Ty
@@ -3079,8 +3304,8 @@ md
 GS
 VL
 Zl
-yk
-yk
+ML
+Ww
 rf
 wV
 Bv
@@ -3125,15 +3350,15 @@ Qw
 SS
 SS
 md
-wP
+FL
 md
 GS
 VL
-yk
-yk
+Ww
+Ww
 fL
-qz
-WM
+Eb
+KN
 VL
 RG
 bu
@@ -3181,10 +3406,10 @@ md
 GS
 RG
 Cu
-yk
+Ww
 VV
-Eb
-KN
+Ww
+rO
 RG
 pE
 bu
@@ -3231,9 +3456,9 @@ md
 Is
 GS
 VL
-yk
-yk
-yk
+Ww
+Ww
+Ww
 jo
 Rb
 VL
@@ -3283,8 +3508,8 @@ Bq
 GS
 RG
 Lr
-yk
-yk
+Ww
+Ww
 Lr
 VV
 VL
@@ -3333,11 +3558,11 @@ DO
 VU
 GS
 VL
-yk
+Ww
 RY
-fm
-yk
-yk
+Ww
+Ww
+Ww
 VL
 bu
 Ju
@@ -3387,7 +3612,7 @@ RG
 Np
 RG
 VL
-yk
+Ww
 et
 RG
 bu
@@ -3432,7 +3657,7 @@ MZ
 Ty
 Ty
 MZ
-Ty
+qx
 GS
 qa
 tS
@@ -3470,16 +3695,16 @@ oD
 yk
 jB
 bu
-yk
+Oa
 yk
 oD
 yk
 bu
 gU
 MZ
-Bm
-Bm
-Bm
+Lk
+tq
+nw
 tG
 VJ
 Ty
@@ -3529,7 +3754,7 @@ bu
 Ty
 Ty
 dP
-Bm
+nw
 Bm
 tU
 Fu
@@ -3633,11 +3858,11 @@ pF
 tG
 oy
 MZ
-Ty
-pF
-Ty
-MZ
-tU
+qx
+KR
+up
+ag
+Wy
 qa
 qa
 qa
@@ -3690,11 +3915,11 @@ GS
 GS
 GS
 qa
-VL
-VL
-VL
+GS
+GS
+GS
 pE
-bu
+Ju
 Ju
 Ju
 Ju
@@ -3736,16 +3961,16 @@ GS
 dS
 GS
 GS
-Ro
+zB
 Ro
 Aj
 GS
-GS
-GS
-GS
-GS
+yk
+yk
+nV
 GS
 bu
+Ju
 Ju
 Ju
 Ju
@@ -3793,10 +4018,10 @@ yk
 ox
 yk
 yk
-yk
 nV
 GS
 bu
+Ju
 Ju
 Ju
 Ju
@@ -3844,10 +4069,10 @@ yk
 GS
 kK
 zt
-yk
 nV
 GS
 bu
+Ju
 Ju
 Ju
 Ju
@@ -3897,8 +4122,8 @@ GS
 GS
 GS
 GS
-GS
 bu
+Ju
 Ju
 Ju
 Ju
@@ -3949,7 +4174,7 @@ bu
 bu
 bu
 bu
-bu
+Ju
 Ju
 Ju
 Ju
