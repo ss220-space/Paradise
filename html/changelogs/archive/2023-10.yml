@@ -194,7 +194,23 @@
   - add: Skrell sound and visual emotes (#3733)
   ROdenFL:
   - add: uplink Racial Anomaly extract (#3770)
+  - bugfix: leather sofa armrest (#3780)
   Vladisvell:
   - bugfix: icon state plasma hat typo (#3773)
   Zwei:
   - bugfix: Tribal Bola Fix (#3779)
+  dependabot[bot]:
+  - unknown: bump browserify-sign from 4.0.4 to 4.2.2 in /tgui (#3781)
+  userbaza:
+  - tweak: client.color matrix for vulps and tajaras (#3778)
+'2023-10-29':
+  ROdenFL:
+  - bugfix: empty dna storage of headslugs (#3788)
+  - bugfix: slimes have no wings, heart max dmg is 60 (#3783)
+  Vladisvell:
+  - bugfix: fixed resource exploit for ore redemption (#3796)
+  - bugfix: non-one-shot events now work correctly (#3789)
+  Zwei:
+  - bugfix: Throwing Fix (#3793)
+  - bugfix: HUD Updates In Mind Transfer (#3786)
+  - bugfix: Terror Breathing Fix (#3792)
