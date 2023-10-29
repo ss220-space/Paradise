@@ -2024,6 +2024,7 @@
 #include "code\modules\martial_arts\combos\synthojitsu\lock.dm"
 #include "code\modules\martial_arts\combos\synthojitsu\overload.dm"
 #include "code\modules\martial_arts\combos\synthojitsu\reanimate.dm"
+#include "code\modules\martial_arts\combos\throwing\remove_embended.dm"
 #include "code\modules\mining\abandonedcrates.dm"
 #include "code\modules\mining\fulton.dm"
 #include "code\modules\mining\machine_processing.dm"

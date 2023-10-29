@@ -574,7 +574,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/plasma_chameleon
 	cost = 4
 	race = list("Plasmaman")
-  
+
 // DANGEROUS WEAPONS
 
 /datum/uplink_item/dangerous
@@ -716,6 +716,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/twohanded/chainsaw
 	cost = 12
 
+/datum/uplink_item/dangerous/commando_kit
+	name = "Commandos knife operation kit"
+	desc = "A box that smells like a mix of gunpowder, napalm and cheap whiskey.  Contains everything you need to survive in such places."
+	reference = "CK"
+	item = /obj/item/storage/box/syndie_kit/commando_kit
+	cost = 7
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 // SUPPORT AND MECHAS
 
@@ -1083,7 +1090,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 8
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-
 /datum/uplink_item/ammo/rocketHEDP
 	name = "84mm High Explosive Dual Purpose rocket"
 	desc = "A rocket from a rocketlauncher. This one emits shrapnel and incendiary ammunition. The rocket itself is strong enough to destroy station mechs and robots with one shot."
@@ -1091,6 +1097,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/ammo_casing/caseless/rocket/hedp
 	cost = 6
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/ammo/knives_kit
+	name = "Throwing knives kit"
+	desc = "A box containing 7 throwing knives"
+	reference = "THR"
+	item = /obj/item/storage/box/syndie_kit/knives_kit
+	cost = 1
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 // STEALTHY WEAPONS
 
@@ -1423,9 +1437,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Syndicate Counterfeiter Bundle"
 	desc = "A cleverly implemented bundle designed to document counterfeiting. Comes with a chameleon stamp, capable of imitating any NanoTrasen issued stamps and a fakesign pen to alter the world through the sheer force of paperwork. While making the user capable of faking almost any document, this Syndicate technology has been rumored to cause a huge upheaval on NT objects. "
 	reference = "CHST"
-	cost = 1 
-	surplus = 35 
-	item = /obj/item/storage/box/syndie_kit/counterfeiter_bundle 
+	cost = 1
+	surplus = 35
+	item = /obj/item/storage/box/syndie_kit/counterfeiter_bundle
 
 /datum/uplink_item/stealthy_tools/chameleonflag
 	name = "Chameleon Flag"
@@ -1616,6 +1630,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SHL"
 	item = /obj/item/clothing/accessory/holster
 	cost = 1
+
+/datum/uplink_item/device_tools/holster/knives
+	name = "Knife holster"
+	desc = "A bunch of straps connected into one holster. Has 7 special slots for holding knives."
+	reference = "KH"
+	item = /obj/item/clothing/accessory/holster/knives
+	cost = 2
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/device_tools/webbing
 	name = "Combat Webbing"
