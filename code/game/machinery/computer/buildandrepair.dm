@@ -677,6 +677,45 @@
 	else
 		return ..()
 
+/obj/structure/computerframe/abductor
+	icon_state = "comp_frame_alien1"
+
+/obj/structure/computerframe/abductor/update_icon()
+	. = ..()
+	icon_state = "comp_frame_alien[state]"
+
+/obj/structure/computerframe/abductor/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user))
+		return
+
+	switch(state)
+		if(STATE_CIRCUIT)
+			to_chat(user, span_notice("You screw the circuit board into place."))
+			state = STATE_NOWIRES
+			I.play_tool_sound(src)
+			update_icon()
+		if(STATE_NOWIRES)
+			to_chat(user, span_notice("You unfasten the circuit board."))
+			state = STATE_CIRCUIT
+			I.play_tool_sound(src)
+			update_icon()
+		if(STATE_GLASS)
+			to_chat(user, span_notice("You connect the monitor."))
+			I.play_tool_sound(src)
+			var/obj/machinery/computer/B = new circuit.build_path(loc)
+			B.abductor = TRUE
+			B.max_integrity = 400
+			B.obj_integrity = 400
+			if(B.icon_state == "computer")
+				B.icon_state = "aliencomputer"
+				B.update_icon()
+			if(istype(circuit, /obj/item/circuitboard/supplycomp))
+				var/obj/machinery/computer/supplycomp/SC = B
+				var/obj/item/circuitboard/supplycomp/C = circuit
+				SC.can_order_contraband = C.contraband_enabled
+			qdel(src)
+
 #undef STATE_EMPTY
 #undef STATE_CIRCUIT
 #undef STATE_NOWIRES

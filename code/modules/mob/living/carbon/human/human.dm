@@ -199,9 +199,10 @@
 			if(isclocker(mind.current))
 				stat("Total Power", "[GLOB.clockwork_power]")
 
-			if(mind.ninja && mind.ninja.my_suit)
-				stat("Заряд костюма","[mind.ninja.return_cell_charge()]")
-				stat("Заряд рывков","[mind.ninja.return_dash_charge()]")
+			var/datum/antagonist/ninja/ninja = mind?.has_antag_datum(/datum/antagonist/ninja)
+			if(ninja?.my_suit)
+				stat("Заряд костюма","[ninja.get_cell_charge()]")
+				stat("Заряд рывков","[ninja.get_dash_charge()]")
 
 	if(istype(loc, /obj/spacepod)) // Spacdpods!
 		var/obj/spacepod/S = loc
@@ -1766,22 +1767,25 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/is_mechanical()
 	return ..() || (dna.species.bodyflags & ALL_RPARTS) != 0
 
-/mob/living/carbon/human/can_use_guns(var/obj/item/gun/G)
+
+/mob/living/carbon/human/can_use_guns(obj/item/gun/check_gun)
 	. = ..()
 
-	if(G.trigger_guard == TRIGGER_GUARD_NORMAL)
+	if(check_gun.trigger_guard == TRIGGER_GUARD_NORMAL)
 		if((NOGUNS in dna.species.species_traits) || HAS_TRAIT(src, TRAIT_CHUNKYFINGERS))
-			to_chat(src, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
+			to_chat(src, span_warning("Your fingers don't fit in the trigger guard!"))
 			return FALSE
 
 	if(mind && mind.martial_art && mind.martial_art.no_guns) //great dishonor to famiry
-		to_chat(src, "<span class='warning'>[mind.martial_art.no_guns_message]</span>")
+		to_chat(src, span_warning("[mind.martial_art.no_guns_message]"))
 		return FALSE
 
-	// Ниндзя не пользуется чужими пушками. В этом нет чести, нет уважения, нет САКЭ!
-	if(mind && mind.ninja && !mind.ninja.allow_guns && !G.ninja_weapon)
-		to_chat(src, "<span class='warning'>[mind.ninja.no_guns_message]</span>")
+	// ninjas will not use default ranged weapons
+	var/datum/antagonist/ninja/ninja = mind?.has_antag_datum(/datum/antagonist/ninja)
+	if(ninja && !ninja.allow_guns && !check_gun.ninja_weapon)
+		to_chat(src, span_warning("[ninja.no_guns_message]"))
 		return FALSE
+
 
 /mob/living/carbon/human/proc/change_icobase(var/new_icobase, var/new_deform, var/owner_sensitive)
 	for(var/obj/item/organ/external/O in bodyparts)

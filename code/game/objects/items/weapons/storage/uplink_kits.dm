@@ -174,6 +174,15 @@
 	can_hold = list(/obj/item/clothing/suit/space/hardsuit/contractor/agent, /obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate)
 	max_w_class = WEIGHT_CLASS_NORMAL
 
+
+/obj/item/storage/box/syndie_kit/counterfeiter_bundle
+	name = "Counterfeiter Bundle"
+	desc = "A box containing all the neccessary equipment to forge stamps and insignias, making the user capable of faking any NanoTrasen documents."
+
+/obj/item/storage/box/syndie_kit/counterfeiter_bundle/populate_contents()
+	new /obj/item/stamp/chameleon(src)
+	new /obj/item/pen/fakesign(src)
+	
 /obj/item/storage/box/syndie_kit/chameleon_hardsuit/populate_contents()
 	new /obj/item/clothing/suit/space/hardsuit/contractor/agent(src)
 	new /obj/item/clothing/mask/gas/syndicate(src)
@@ -339,6 +348,23 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/pda/chameleon(src)
 	new /obj/item/pen/fakesign(src)
 
+/obj/item/storage/box/syndie_kit/plasma_chameleon
+	name = "plasmaman chameleon kit"
+
+/obj/item/storage/box/syndie_kit/plasma_chameleon/populate_contents()
+	new /obj/item/clothing/under/plasmaman/chameleon(src)
+	new /obj/item/clothing/suit/chameleon(src)
+	new /obj/item/clothing/gloves/chameleon(src)
+	new /obj/item/clothing/shoes/chameleon(src)
+	new /obj/item/clothing/glasses/chameleon(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/chameleon(src)
+	new /obj/item/clothing/mask/chameleon(src)
+	new /obj/item/storage/backpack/chameleon(src)
+	new /obj/item/radio/headset/chameleon(src)
+	new /obj/item/stamp/chameleon(src)
+	new /obj/item/pda/chameleon(src)
+	new /obj/item/pen/fakesign(src)
+
 /obj/item/storage/box/syndie_kit/dart_gun
 	name = "dart gun kit"
 
@@ -467,3 +493,11 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/clothing/suit/mr_chang_coat(src)
 	new /obj/item/clothing/shoes/mr_chang_sandals(src)
 	new /obj/item/clothing/head/mr_chang_band(src)
+
+/obj/item/storage/box/syndie_kit/bowman_conversion_kit
+	name = "Bowman headset conversion kit"
+	desc = "Easy-to-apply device which enchances headset with loud noise protection."
+
+/obj/item/storage/box/syndie_kit/bowman_conversion_kit/populate_contents()
+	new /obj/item/encryptionkey/syndicate(src)
+	new /obj/item/bowman_conversion_tool(src)

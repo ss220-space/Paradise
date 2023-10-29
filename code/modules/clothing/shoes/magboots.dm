@@ -110,7 +110,7 @@
 	if(slot == slot_shoes && enabled_waddle)
 		user.AddElement(/datum/element/waddling)
 
-/obj/item/clothing/shoes/magboots/clown/dropped(mob/user)
+/obj/item/clothing/shoes/magboots/clown/dropped(mob/user, silent = FALSE)
 	. = ..()
 	user.RemoveElement(/datum/element/waddling)
 
@@ -259,7 +259,7 @@
 	if(slot == slot_shoes && cell && core)
 		style.teach(user, TRUE)
 
-/obj/item/clothing/shoes/magboots/gravity/dropped(mob/user)
+/obj/item/clothing/shoes/magboots/gravity/dropped(mob/user, silent = FALSE)
 	..()
 	if(!ishuman(user))
 		return

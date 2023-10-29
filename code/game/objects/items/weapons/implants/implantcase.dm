@@ -85,6 +85,14 @@
 	imp = new /obj/item/implant/adrenalin(src)
 	..()
 
+/obj/item/implantcase/supercharge
+	name = "implant case - 'Supercharge'"
+	desc = "A glass case containing a supercharge implant."
+
+/obj/item/implantcase/supercharge/New()
+	imp = new /obj/item/implant/supercharge(src)
+	..()
+	
 /obj/item/implantcase/death_alarm
 	name = "Glass Case- 'Death Alarm'"
 	desc = "A case containing a death alarm implant."

@@ -430,7 +430,7 @@
 			crafting.invisibility = initial(crafting.invisibility)
 
 /datum/hud/human/hidden_inventory_update()
-	if(!mymob)
+	if(!mymob?.client)
 		return
 	var/mob/living/carbon/human/H = mymob
 	if(inventory_shown && hud_shown)

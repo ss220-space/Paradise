@@ -1,10 +1,10 @@
 /obj/item/dnainjector
 	name = "DNA-Injector"
 	desc = "This injects the person with DNA."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/hypo.dmi'
 	icon_state = "dnainjector"
-	item_state = "dnainjector"
-	belt_icon = "dna_injector"
+	item_state = "autoinjector"
+	belt_icon = "autoinjector"
 	var/block = 0
 	var/datum/dna2/record/buf = null
 	throw_speed = 3
@@ -151,7 +151,7 @@
 
 	inject(M, user)
 	used = TRUE
-	icon_state = "dnainjector0"
+	icon_state = "[icon_state]0"
 	desc += " This one is used up."
 
 /obj/item/dnainjector/hulkmut

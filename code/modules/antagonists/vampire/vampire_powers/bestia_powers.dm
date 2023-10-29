@@ -988,7 +988,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 	if(user.handcuffed)
 		restraints |= user.handcuffed
 	if(user.legcuffed)
-		restraints |= user.handcuffed
+		restraints |= user.legcuffed
 	if(user.wear_suit?.breakouttime)
 		restraints |= user.wear_suit
 

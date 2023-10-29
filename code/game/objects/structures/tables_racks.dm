@@ -139,11 +139,13 @@
 		return 1
 	return 0
 
-/obj/structure/table/CanAStarPass(ID, dir, caller)
+
+/obj/structure/table/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
 	. = !density
 	if(ismovable(caller))
 		var/atom/movable/mover = caller
 		. = . || mover.checkpass(PASSTABLE)
+
 
 /**
  * Determines whether a projectile crossing our turf should be stopped.
@@ -759,11 +761,13 @@
 	else
 		return 0
 
-/obj/structure/rack/CanAStarPass(ID, dir, caller)
+
+/obj/structure/rack/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
 	. = !density
 	if(ismovable(caller))
 		var/atom/movable/mover = caller
 		. = . || mover.checkpass(PASSTABLE)
+
 
 /obj/structure/rack/MouseDrop_T(obj/item/O, mob/user)
 	if((!(istype(O)) || user.get_active_hand() != O))

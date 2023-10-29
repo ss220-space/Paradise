@@ -23,7 +23,7 @@
 	suit = /obj/item/clothing/suit/space/deathsquad/officer/syndie
 	neck = /obj/item/clothing/neck/cloak/syndieadm
 	back = /obj/item/storage/backpack
-	head = /obj/item/clothing/head/beret
+	head = /obj/item/clothing/head/helmet/space/deathsquad/beret
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/combat
 	mask = /obj/item/clothing/mask/cigarette/cigar/havana

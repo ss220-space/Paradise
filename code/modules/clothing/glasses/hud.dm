@@ -20,7 +20,7 @@
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
 		H.add_hud_to(user)
 
-/obj/item/clothing/glasses/hud/dropped(mob/living/carbon/human/user)
+/obj/item/clothing/glasses/hud/dropped(mob/living/carbon/human/user, silent = FALSE)
 	..()
 	if(HUDType && istype(user) && user.glasses == src)
 		var/datum/atom_hud/H = GLOB.huds[HUDType]

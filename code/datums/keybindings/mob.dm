@@ -30,7 +30,7 @@
 	var/obj/item/I = C.mob.get_active_hand()
 	if(I)
 		I.run_drop_held_item(C.mob)
-		SEND_SIGNAL(C.mob, COMSIG_MOB_KEY_DROP_ITEM_DOWN, keys, C)
+		SEND_SIGNAL(C.mob, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
 	else
 		to_chat(C, SPAN_WARNING("Вы ничего не держите в руке!</span>"))
 

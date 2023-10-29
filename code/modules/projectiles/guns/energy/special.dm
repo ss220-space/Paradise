@@ -733,7 +733,7 @@
 	update_icon()
 
 
-/obj/item/gun/energy/dominator/dropped(mob/user)
+/obj/item/gun/energy/dominator/dropped(mob/user, silent = FALSE)
 	. = ..()
 
 	update_icon()

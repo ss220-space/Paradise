@@ -711,7 +711,7 @@
 	log_message("Hit by [AM].")
 	if(isitem(AM))
 		var/obj/item/I = AM
-		add_attack_logs(I.thrownby, OCCUPANT_LOGGING, "threw [AM] at mech [src]")
+		add_attack_logs(locateUID(I.thrownby), OCCUPANT_LOGGING, "threw [AM] at mech [src]")
 	. = ..()
 
 /obj/mecha/bullet_act(obj/item/projectile/Proj) //wrapper
@@ -1361,8 +1361,9 @@
 		var/mob/living/silicon/ai/AI = occupant
 		if(forced)//This should only happen if there are multiple AIs in a round, and at least one is Malf.
 			RemoveActions(occupant)
-			occupant.gib()  //If one Malf decides to steal a mech from another AI (even other Malfs!), they are destroyed, as they have nowhere to go when replaced.
-			occupant = null
+			if(!istype(newloc, /obj/item/aicard))
+				occupant.gib()  //If one Malf decides to steal a mech from another AI (even other Malfs!), they are destroyed, as they have nowhere to go when replaced.
+				occupant = null
 			return
 		else
 			if(!AI.linked_core || QDELETED(AI.linked_core))
