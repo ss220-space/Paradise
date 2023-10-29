@@ -57,23 +57,6 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 					typing = FALSE
 			return state
 
-/mob/proc/set_typing_thought_indicator(state)
-	if(!GLOB.typing_indicator[bubble_thought_icon])
-		GLOB.typing_indicator[bubble_thought_icon] = image('icons/mob/talk.dmi', null, "[bubble_thought_icon]typing", THOUGHTS_LAYER)
-
-	if(client)
-		if(stat != CONSCIOUS || (client.prefs.toggles & PREFTOGGLE_SHOW_TYPING))
-			overlays -= GLOB.typing_indicator[bubble_thought_icon]
-		else
-			if(state)
-				if(!typing)
-					overlays += GLOB.typing_indicator[bubble_thought_icon]
-					typing = TRUE
-			else
-				if(typing)
-					overlays -= GLOB.typing_indicator[bubble_thought_icon]
-					typing = FALSE
-			return state
 
 /mob/verb/say_wrapper()
 	set name = ".Say"

@@ -24,7 +24,6 @@
 	var/atom_say_verb = "says"
 	var/bubble_icon = "default" ///what icon the mob uses for speechbubbles
 	var/bubble_emote_icon = "emote" ///what icon the mob uses for emotebubbles
-	var/bubble_thought_icon = "alien" //so ... now we think visually
 	var/dont_save = FALSE // For atoms that are temporary by necessity - like lighting overlays
 
 	/// pass_flags that we are. If any of this matches a pass_flag on a moving thing, by default, we let them through.

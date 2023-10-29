@@ -199,19 +199,17 @@
 
 /datum/dna/gene/basic/grant_spell/remotetalk/activate(mob/living/M, connected, flags)
 	..()
+	var/datum/atom_hud/thoughts/A = GLOB.huds[THOUGHT_HUD]
 	M.AddSpell(new /obj/effect/proc_holder/spell/mindscan(null))
-	M.sight |= SEE_THOUGHTS
-	M.update_sight()
+	A.add_hud_to(M)
 
 
-/datum/dna/gene/basic/grant_spell/remotetalk/deactivate(mob/user)
+/datum/dna/gene/basic/grant_spell/remotetalk/deactivate(mob/living/user)
 	..()
 	for(var/obj/effect/proc_holder/spell/S in user.mob_spell_list)
 		if(istype(S, /obj/effect/proc_holder/spell/mindscan))
 			user.RemoveSpell(S)
-	user.sight &= ~SEE_THOUGHTS
-	user.update_sight()
-
+	user.remove_thoughts_hud_from()
 
 /obj/effect/proc_holder/spell/remotetalk
 	name = "Project Mind"
@@ -227,24 +225,24 @@
 	return new /datum/spell_targeting/telepathic
 
 
-/obj/effect/proc_holder/spell/remotetalk/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/remotetalk/cast(list/targets, mob/living/user = usr)
 	if(!ishuman(user))
 		return
 	if(user.mind?.miming) // Dont let mimes telepathically talk
 		to_chat(user,"<span class='warning'>You can't communicate without breaking your vow of silence.</span>")
 		return
 	for(var/mob/living/target in targets)
-		target.sight = SEE_THOUGHTS
-		target.update_sight()
-		user.set_typing_thought_indicator(TRUE)
+		var/datum/atom_hud/thoughts/A = GLOB.huds[THOUGHT_HUD]
+		A.add_hud_to(target)
 		user.hud_typing = 1
+		user.thoughts_hud_set(TRUE)
 		var/say = input("What do you wish to say") as text|null
 		user.hud_typing = 0
-		user.set_typing_thought_indicator(FALSE)
-		target.sight &= ~SEE_THOUGHTS
-		target.update_sight()
+		user.thoughts_hud_set(TRUE, say_test(say))
 		if(!say || usr.stat)
+			target.remove_thoughts_hud_from()
 			return
+		addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, remove_thoughts_hud_from), A), 30)
 		say = strip_html(say)
 		say = pencode_to_html(say, usr, format = 0, fields = 0)
 		log_say("(TPATH to [key_name(target)]) [say]", user)

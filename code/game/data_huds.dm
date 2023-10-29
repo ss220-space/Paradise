@@ -58,6 +58,9 @@
 /datum/atom_hud/data/hydroponic
 	hud_icons = list(PLANT_NUTRIENT_HUD, PLANT_WATER_HUD, PLANT_STATUS_HUD, PLANT_HEALTH_HUD, PLANT_TOXIN_HUD, PLANT_PEST_HUD, PLANT_WEED_HUD)
 
+/datum/atom_hud/thoughts
+	hud_icons = list(THOUGHTS_HUD)
+
 /* MED/SEC/DIAG HUD HOOKS */
 
 /*
@@ -467,6 +470,26 @@
 		holder.icon_state = ""
 		return
 	holder.icon_state = "hudweed[RoundPlantBar(weedlevel/10)]"
+
+/*~~~~~~~~~~~~~~
+	PLANT HUD
+~~~~~~~~~~~~~~~*/
+
+/mob/living/proc/thoughts_hud_set(thoughts, say_test)
+	var/image/holder = hud_list[THOUGHTS_HUD]
+	if(thoughts)
+		if(hud_typing)
+			holder.icon_state = "hudthoughtstyping"
+		else
+			holder.icon_state = "hudthoughts-[say_test]"
+			sleep(30)
+			src.thoughts_hud_set(FALSE)
+	else
+		holder.icon_state = ""
+
+/mob/living/proc/remove_thoughts_hud_from()
+	var/datum/atom_hud/thoughts/A = GLOB.huds[THOUGHT_HUD]
+	A.remove_hud_from(src)
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	I'll just put this somewhere near the end...

@@ -3,8 +3,6 @@
 
 #define CLICKCATCHER_PLANE -99
 
-#define THOUGHTS_LAYER 7
-
 #define PLANE_SPACE -95
 #define PLANE_SPACE_PARALLAX -90
 
