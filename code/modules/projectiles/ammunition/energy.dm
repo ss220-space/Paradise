@@ -19,10 +19,13 @@
 	e_cost = 250
 
 /obj/item/ammo_casing/energy/lasergun
-	projectile_type = /obj/item/projectile/beam/laser
+	projectile_type = /obj/item/projectile/beam/laser/energy_gun // allows balancing the energy / lasergun separately from other energy weapons. 
 	muzzle_flash_color = LIGHT_COLOR_DARKRED
-	e_cost = 65
+	e_cost = 40
 	select_name = "kill"
+
+/obj/item/ammo_casing/energy/armory_laser
+	projectile_type = /obj/item/projectile/beam/laser/armory_laser_gun 
 
 /obj/item/ammo_casing/energy/laser/hos //allows balancing of HoS and blueshit guns seperately from other energy weapons
 	e_cost = 75

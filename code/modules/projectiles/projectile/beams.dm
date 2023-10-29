@@ -17,6 +17,13 @@
 
 /obj/item/projectile/beam/laser
 
+/obj/item/projectile/beam/laser/armory_laser_gun
+	damage = 25 
+
+/obj/item/projectile/beam/laser/energy_gun
+	damage = 23 
+
+
 /obj/item/projectile/beam/laser/heavylaser
 	name = "heavy laser"
 	icon_state = "heavylaser"

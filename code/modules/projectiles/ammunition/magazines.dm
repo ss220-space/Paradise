@@ -602,7 +602,7 @@
 	name = "small encased laser projector magazine"
 	desc = "Fits experimental laser ammo casings."
 	icon_state = "lmag-12"
-	ammo_type = /obj/item/ammo_casing/laser
+	ammo_type = /obj/item/ammo_casing/laser 
 	origin_tech = "combat=3"
 	caliber = "laser"
 	max_ammo = 12
