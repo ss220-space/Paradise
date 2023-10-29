@@ -105,7 +105,9 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 
 	// Select an event and remove it from the pool of available events
 	var/picked_event = pickweight(possible_events)
-	available_events -= picked_event
+	var/datum/event_meta/EM = picked_event
+	if(EM.one_shot)
+		available_events -= picked_event
 	return picked_event
 
 /datum/event_container/proc/set_event_delay()
@@ -159,7 +161,8 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		return
 	if(next_event)
 		available_events += next_event
-	available_events -= EM
+	if(EM.one_shot)
+		available_events -= EM
 	next_event = EM
 	return EM
 
