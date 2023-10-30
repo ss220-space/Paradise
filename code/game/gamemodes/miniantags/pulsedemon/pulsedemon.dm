@@ -569,7 +569,7 @@
 	if(istype(loc, /obj/item/radio))
 		var/obj/item/radio/R = loc
 		name = gen_speech_name()
-		R.talk_into(src, message_pieces, message_mode, verbage = verb)
+		R.talk_into(src, message_pieces, message_mode, verb)
 		name = real_name
 		return TRUE
 	else if(istype(loc, /obj/machinery/hologram/holopad))
