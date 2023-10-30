@@ -767,7 +767,7 @@
 		return ..()
 	visible_message("<span class='warning'>[proj] goes right through [src]!</span>")
 
-/mob/living/simple_animal/demon/pulse_demon/electrocute_act(shock_damage, source, siemens_coeff, flags)
+/mob/living/simple_animal/demon/pulse_demon/electrocute_act(shock_damage, source, siemens_coeff, safety, override, tesla_shock, illusion, stun)
 	return
 
 /mob/living/simple_animal/demon/pulse_demon/blob_act(obj/structure/blob/B)
