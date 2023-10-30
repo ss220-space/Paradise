@@ -4,6 +4,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "slime_extract1"
 	item_state = "syringe_0"
+	w_class = WEIGHT_CLASS_TINY
 	var/used = FALSE
 
 /obj/item/anomaly_extract/attack_self(mob/user)
