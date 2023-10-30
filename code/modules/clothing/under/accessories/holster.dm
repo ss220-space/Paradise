@@ -157,8 +157,8 @@
 	item_color = "holsterknife"
 	holster_allow = /obj/item/kitchen/knife/combat
 	max_content = 7
-	sound_holster = 'sound/weapons/gun_interactions/knife_holster.ogg'
-	sound_unholster = 'sound/weapons/gun_interactions/knife_unholster.ogg'
+	sound_holster = 'sound/weapons/knife_holster/knife_holster.ogg'
+	sound_unholster = 'sound/weapons/knife_holster/knife_unholster.ogg'
 
 /obj/item/clothing/accessory/holster/knives/can_holster(obj/item/I)
 	if(!istype(I, holster_allow))
