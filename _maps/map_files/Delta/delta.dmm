@@ -2703,7 +2703,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "avD" = (
@@ -3779,7 +3779,7 @@
 	pixel_y = 23
 	},
 /obj/effect/decal/warning_stripes/north,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/engine/supermatter)
 "aDe" = (
@@ -4982,7 +4982,7 @@
 	dir = 4;
 	name = "Труба турбины"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "aKq" = (
@@ -6080,7 +6080,7 @@
 	dir = 4;
 	name = "Труба дыхательной смеси"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "aQR" = (
@@ -6561,7 +6561,7 @@
 	dir = 4;
 	name = "Труба обработки"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -10264,7 +10264,7 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/north,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "bqH" = (
@@ -14238,7 +14238,7 @@
 	dir = 4;
 	name = "Труба фильтрации"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -15361,7 +15361,7 @@
 	dir = 1;
 	name = "Труба дыхательной смеси"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -15766,7 +15766,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
@@ -15896,7 +15896,7 @@
 	dir = 1;
 	name = "Труба смешивания"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "bPy" = (
@@ -17207,7 +17207,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
@@ -19309,7 +19309,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "cdT" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -23973,7 +23973,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/wall/r_wall,
 /area/atmos)
 "cAf" = (
@@ -24990,7 +24990,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -25165,7 +25165,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/wall/r_wall/coated,
 /area/engine/supermatter)
 "cEA" = (
@@ -25205,7 +25205,7 @@
 	dir = 6;
 	level = 1
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/wall/r_wall/coated,
 /area/engine/supermatter)
 "cEJ" = (
@@ -28342,7 +28342,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "cRT" = (
@@ -28512,7 +28512,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
@@ -28885,7 +28885,7 @@
 	dir = 4;
 	name = "Труба на фильтрацию"
 	},
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "wloop_atm_meter";
 	name = "Waste Loop"
 	},
@@ -32594,7 +32594,7 @@
 	dir = 4;
 	name = "Труба смешивания"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -42987,7 +42987,7 @@
 	dir = 6;
 	name = "Труба на фильтрацию"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "dYL" = (
@@ -43681,7 +43681,7 @@
 	dir = 4;
 	name = "Труба дыхательной смеси"
 	},
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "mair_out_meter";
 	name = "Mixed Air Tank Out"
 	},
@@ -46398,7 +46398,7 @@
 /area/chapel/main)
 "eJk" = (
 /obj/structure/grille,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
 	dir = 4;
@@ -52047,7 +52047,7 @@
 	desc = "Труба хранит в себе набор газов для смешивания";
 	name = "Труба смешивания"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -57968,7 +57968,7 @@
 	desc = "Труба хранит в себе набор газов для смешивания";
 	name = "Труба смешивания"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -58112,7 +58112,7 @@
 	dir = 8;
 	name = "Труба дыхательной смеси"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"
@@ -58142,7 +58142,7 @@
 "htt" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/atmospherics/pipe/manifold4w/visible/purple,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellow"
@@ -66346,7 +66346,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -66400,7 +66400,7 @@
 	dir = 1;
 	name = "Труба фильтрации"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -66874,7 +66874,7 @@
 	desc = "Труба содержит дыхательную смесь для подачи на станцию";
 	name = "Труба дыхательной смеси"
 	},
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "dloop_atm_meter";
 	name = "Distribution Loop"
 	},
@@ -70027,7 +70027,7 @@
 	desc = "Труба содержит газ для обработки и после возвращает его обратно в трубу смешивания";
 	name = "Труба обработки"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -74294,7 +74294,7 @@
 	dir = 1;
 	name = "Труба на фильтрацию"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "lrd" = (
@@ -74334,7 +74334,7 @@
 	dir = 4;
 	name = "Труба на фильтрацию"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "lrR" = (
@@ -74625,7 +74625,7 @@
 	dir = 1;
 	name = "Труба подачи азота в реактор"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -77414,7 +77414,7 @@
 	dir = 1;
 	name = "Труба смешивания"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "meO" = (
@@ -80289,7 +80289,7 @@
 /area/maintenance/library)
 "mJY" = (
 /obj/structure/grille,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
@@ -81466,7 +81466,7 @@
 /area/crew_quarters/bar)
 "mXP" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
@@ -88401,7 +88401,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "oBd" = (
@@ -91773,7 +91773,7 @@
 "poX" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/atmospherics/pipe/manifold/visible/green,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "ppf" = (
@@ -92974,7 +92974,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing)
 "pCn" = (
@@ -111965,7 +111965,7 @@
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 10
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -130453,7 +130453,7 @@
 	dir = 4;
 	name = "Труба дыхательной смеси"
 	},
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "mair_in_meter";
 	name = "Mixed Air Tank In"
 	},
@@ -131897,7 +131897,7 @@
 /area/lawoffice)
 "yjG" = (
 /obj/effect/decal/warning_stripes/southeast,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
 	dir = 4
 	},

@@ -27,6 +27,9 @@
 
 /obj/screen/movable/action_button/Click(location,control,params)
 	var/list/modifiers = params2list(params)
+	if(usr.next_click > world.time)
+		return FALSE
+	usr.changeNext_click(1)
 	if(modifiers["shift"])
 		if(locked)
 			to_chat(usr, "<span class='warning'>Action button \"[name]\" is locked, unlock it first.</span>")
@@ -38,12 +41,15 @@
 		locked = !locked
 		to_chat(usr, "<span class='notice'>Action button \"[name]\" [locked ? "" : "un"]locked.</span>")
 		return TRUE
-	if(usr.next_click > world.time)
-		return
-	usr.next_click = world.time + 0.1 SECONDS
+	if(modifiers["alt"])
+		AltClick(usr)
+		return TRUE
 	linked_action.Trigger()
 	linked_action.UpdateButtonIcon() //redraw button
 	return TRUE
+
+/obj/screen/movable/action_button/AltClick(mob/user)
+	return linked_action.AltTrigger()
 
 //Hide/Show Action Buttons ... Button
 /obj/screen/movable/action_button/hide_toggle
@@ -61,36 +67,9 @@
 		return ..()
 
 /obj/screen/movable/action_button/hide_toggle/Click(location,control,params)
-	var/list/modifiers = params2list(params)
-	if(modifiers["shift"])
-		if(locked)
-			to_chat(usr, "<span class='warning'>Action button \"[name]\" is locked, unlock it first.</span>")
-			return TRUE
-		moved = FALSE
-		usr.update_action_buttons(TRUE)
-		return TRUE
-	if(modifiers["ctrl"])
-		locked = !locked
-		to_chat(usr, "<span class='notice'>Action button \"[name]\" [locked ? "" : "un"]locked.</span>")
-		return TRUE
-	if(modifiers["alt"])
-		for(var/V in usr.actions)
-			var/datum/action/A = V
-			var/obj/screen/movable/action_button/B = A.button
-			B.moved = FALSE
-		moved = FALSE
-		usr.update_action_buttons(TRUE)
-		to_chat(usr, "<span class='notice'>Action button positions have been reset.</span>")
-		return TRUE
-	usr.hud_used.action_buttons_hidden = !usr.hud_used.action_buttons_hidden
-
-	hidden = usr.hud_used.action_buttons_hidden
-	if(hidden)
-		name = "Show Buttons"
-	else
-		name = "Hide Buttons"
-	UpdateIcon()
-	usr.update_action_buttons()
+	. = ..()
+	if(!.)
+		usr.hud_used.action_buttons_hidden = !usr.hud_used.action_buttons_hidden
 
 /obj/screen/movable/action_button/hide_toggle/AltClick(mob/user)
 	for(var/V in user.actions)

@@ -796,6 +796,8 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/proc/ai_control_check(mob/user)
 	if(!issilicon(user))
 		return TRUE
+	if(ispulsedemon(user))
+		return TRUE
 	if(emagged || HAS_TRAIT(src, TRAIT_CMAGGED))
 		to_chat(user, span_warning("Unable to interface: Internal error."))
 		return FALSE
@@ -813,7 +815,7 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/ui_act(action, params)
 	if(..())
 		return
-	if(!issilicon(usr) && !usr.can_admin_interact())
+	if(!issilicon(usr) && !usr.can_admin_interact() && !usr.has_unlimited_silicon_privilege)
 		to_chat(usr, span_warning("Access denied. Only silicons may use this interface."))
 		return
 	if(!ai_control_check(usr))

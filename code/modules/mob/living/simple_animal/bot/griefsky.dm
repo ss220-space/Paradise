@@ -145,6 +145,9 @@
 	if(!on)
 		return
 
+	if(hijacked)
+		return // is there a good reason this override doesn't call its parent?
+
 	switch(mode)
 		if(BOT_IDLE)		// idle
 			icon_state = "[base_icon][on]"
@@ -261,8 +264,7 @@
 		new weapon(Tsec)
 	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/blood/oil(loc)
-	qdel(src)
-
+	..()
 
 /**
  * This section is blocking attack.

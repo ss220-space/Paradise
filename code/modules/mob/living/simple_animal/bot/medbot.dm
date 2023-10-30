@@ -443,7 +443,7 @@
 		if(H.dna.species && H.dna.species.reagent_tag == PROCESS_SYN)
 			return FALSE
 
-	if(emagged == 2) //Everyone needs our medicine. (Our medicine is toxins)
+	if(emagged == 2 || hijacked) //Everyone needs our medicine. (Our medicine is toxins)
 		return TRUE
 
 	if(syndicate_aligned && !("syndicate" in C.faction))
@@ -498,7 +498,7 @@
 	var/reagent_id
 	var/beaker_injection //If and what kind of beaker reagent needs to be injected
 
-	if(emagged == 2) //Emagged! Time to poison everybody.
+	if(emagged == 2 || hijacked) //Emagged! Time to poison everybody.
 		reagent_id = "pancuronium"
 	else
 		beaker_injection = assess_beaker_injection(C)
@@ -514,7 +514,7 @@
 		bot_reset()
 		return
 	else
-		if(!emagged && check_overdose(patient, reagent_id, injection_amount))
+		if(!emagged && !hijacked && check_overdose(patient, reagent_id, injection_amount))
 			soft_reset()
 			return
 		C.visible_message(span_danger("[src] is trying to inject [patient]!"),

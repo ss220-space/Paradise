@@ -7066,7 +7066,7 @@
 	},
 /area/awaymission/UO71/centralhall)
 "qr" = (
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "UO71_mair_out_meter";
 	layer = 3.3;
 	name = "Mixed Air Tank Out"
@@ -7076,7 +7076,7 @@
 /area/awaymission/UO71/eng)
 "qs" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "UO71_mair_in_meter";
 	layer = 3.3;
 	name = "Mixed Air Tank In"
@@ -8263,7 +8263,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "UO71_dloop_atm_meter";
 	name = "Distribution Loop"
 	},
@@ -8288,7 +8288,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /turf/simulated/wall,
@@ -8670,7 +8670,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "tw" = (
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -8924,7 +8924,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "ud" = (
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "UO71_wloop_atm_meter";
 	name = "Waste Loop"
 	},
@@ -9156,12 +9156,12 @@
 /area/awaymission/UO71/centralhall)
 "uB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/wall,
 /area/awaymission/UO71/eng)
 "uC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/wall,
 /area/awaymission/UO71/eng)
 "uD" = (
@@ -9432,14 +9432,14 @@
 /turf/simulated/wall,
 /area/awaymission/UO71/eng)
 "vg" = (
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/wall,
 /area/awaymission/UO71/eng)
 "vh" = (
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,

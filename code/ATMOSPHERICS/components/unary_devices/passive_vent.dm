@@ -1,7 +1,8 @@
 /obj/machinery/atmospherics/unary/passive_vent
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/vent_pump.dmi'
 	icon_state = "map_vent"
-	layer = GAS_SCRUBBER_LAYER
+	layer = GAS_PIPE_VISIBLE_LAYER + GAS_SCRUBBER_OFFSET
+	layer_offset = GAS_SCRUBBER_OFFSET
 	name = "passive vent"
 	desc = "A large air vent"
 

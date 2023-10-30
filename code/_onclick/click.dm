@@ -262,6 +262,8 @@
 	else
 		..()
 
+/mob/proc/ShiftMiddleClickOn(atom/A)
+	return
 
 /*
 	Middle shift-click
@@ -344,6 +346,13 @@
 		middleClickOverride.onClick(A, src)
 	else
 		..()
+
+/// Use this instead of [/mob/proc/AltClickOn] where you only want turf content listing without additional atom alt-click interaction
+/atom/proc/AltClickNoInteract(mob/user, atom/A)
+	var/turf/T = get_turf(A)
+	if(T && user.TurfAdjacent(T))
+		user.listed_turf = T
+		user.client.statpanel = T.name
 
 /atom/proc/AltClick(var/mob/user)
 	turf_examine(user)

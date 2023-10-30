@@ -1196,7 +1196,7 @@
 /turf/simulated/floor/plating,
 /area/mine/production)
 "dW" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/cable{
@@ -2930,7 +2930,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 6
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "lP" = (

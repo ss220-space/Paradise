@@ -31,6 +31,7 @@
 #define SPECIAL_ROLE_CULTIST "Cultist"
 #define SPECIAL_ROLE_CLOCKER "Clockwork cultist"
 #define SPECIAL_ROLE_DEATHSQUAD "Death Commando"
+#define SPECIAL_ROLE_DEMON "Demon"
 #define SPECIAL_ROLE_ERT "Response Team"
 #define SPECIAL_ROLE_FREE_GOLEM "Free Golem"
 #define SPECIAL_ROLE_GOLEM "Golem"

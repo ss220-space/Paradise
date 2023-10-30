@@ -132,6 +132,8 @@
 
 #define HAS_TRAIT_NOT_FROM(target, trait, source) (target.status_traits ? (target.status_traits[trait] ? (length(target.status_traits[trait] - source) > 0) : FALSE) : FALSE)
 
+/// Gives a unique trait source for any given datum
+#define UNIQUE_TRAIT_SOURCE(target) "unique_source_[UID(target)]"
 
 /*
 Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
@@ -183,6 +185,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 // unique trait sources
 #define CULT_EYES "cult_eyes"
 #define CLOCK_HANDS "clock_hands"
+#define PULSEDEMON_TRAIT "pulse_demon"
 
 // Healing traits
 /// This mob heals from carp rifts.
@@ -196,3 +199,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 //traits that should be properly converted to genetic mutations one day
 #define TRAIT_LASEREYES "laser_eyes"
+
+/// Prevent mobs on the turf from being affected by anything below that turf, such as a pulse demon going under it. Added by a /obj/structure with creates_cover set to TRUE
+#define TRAIT_TURF_COVERED "turf_covered"
+
