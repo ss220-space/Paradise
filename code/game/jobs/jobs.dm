@@ -50,13 +50,9 @@ GLOBAL_LIST_INIT(security_positions, list(
 	"Head of Security",
 	"Warden",
 	"Detective",
-	"Forensic Technician"
 	"Security Officer",
 	"Brig Physician",
 	"Security Pod Pilot",
-	"Security Trainer",
-	"Patrol Officer",
-	"Security Medic",
 	"Magistrate"
 ))
 
