@@ -13,7 +13,7 @@
 		if(!istype(I) || I.loc != H)
 			continue
 
-		var/time_taken = I.embedded_unsafe_removal_time * I.w_class
+		var/time_taken = I.embedded_unsafe_removal_time
 		user.visible_message(span_warning("[user] attempts to remove [I] from [H]'s [limb.name]."),
 							span_notice("You attempt to remove [I] from [H]'s [limb.name]... (It will take [time_taken/10] seconds.)"))
 
