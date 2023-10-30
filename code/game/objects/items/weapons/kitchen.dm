@@ -177,7 +177,7 @@
 
 /obj/item/kitchen/knife/combat/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE)
 	. = ..()
-	playsound(src, 'sound/weapons/knife_holster/knife_throw.ogg', 50, 1)
+	playsound(src, 'sound/weapons/knife_holster/knife_throw.ogg', 30, 1)
 
 /obj/item/kitchen/knife/combat/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	var/datum/martial_art/throwing/MA = throwingdatum?.thrower?.mind?.martial_art

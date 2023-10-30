@@ -1,7 +1,7 @@
 /datum/martial_combo/throwing/remove_embended
-	name = "Remove embended"
+	name = "Вытащить нож"
 	steps = list(MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_GRAB)
-	explaination_text = "Вытаскивает из противника воткнувшийся предмет"
+	explaination_text = "Вытаскивает из противника воткнувшийся предмет. Крайне мучительно для него."
 
 /datum/martial_combo/throwing/remove_embended/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	var/mob/living/carbon/human/H = target

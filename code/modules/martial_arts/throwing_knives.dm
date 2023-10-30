@@ -2,6 +2,7 @@
 	name = "Knife techniques"
 	combos = list(/datum/martial_combo/throwing/remove_embended)
 	block_chance = 50	//if holding knife in hand
+	has_explaination_verb = TRUE
 	var/knife_embed_chance = 100
 	var/knife_bonus_damage = 5
 
@@ -40,3 +41,11 @@
 			var/sound = pick('sound/weapons/knife_holster/throat_slice.ogg','sound/weapons/knife_holster/throat_slice2.ogg')
 			playsound(defender.loc, sound, 25, 1)
 			attacker.visible_message(span_danger("[attacker] перерезает глотку [defender]! Ахуй."), span_danger("Вы перерезаете глотку [defender]! Ахуй."))
+
+/datum/martial_art/throwing/explaination_footer(user)
+	to_chat(user, "[span_notice("Работает с ножами")]: Боевой, шахтёрский, костяной, метательный")
+	to_chat(user, "[span_notice("Урон")]: +5 урона от бросков и ударов ножей")
+	to_chat(user, "[span_notice("Застревание")]: ножи застревают в жертве со 100% вероятностью")
+	to_chat(user, "[span_notice("Блок")]: 50% блока мили атак, пока в руках есть нож")
+	to_chat(user, "[span_notice("Поймать нож")]: Вы ловите все кинутые в вас ножи")
+	to_chat(user, "[span_notice("Перерезать глотку")]: Атака ножом в харме цели, которая находится в красном грабе уменьшит уровень крови жертвы на 70%")
