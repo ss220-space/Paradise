@@ -15,6 +15,8 @@
 	///Damage under this value will be completely ignored
 	var/damage_deflection = 0
 
+	var/resistance_flags = NONE // INDESTRUCTIBLE
+
 	var/acid_level = 0 //how much acid is on that obj
 
 	var/can_be_hit = TRUE //can this be bludgeoned by items?

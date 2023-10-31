@@ -12,7 +12,6 @@
 	var/level = 2
 	var/flags = NONE
 	var/flags_2 = NONE
-	var/resistance_flags = NONE
 	var/list/fingerprints
 	var/list/fingerprintshidden
 	var/fingerprintslast = null

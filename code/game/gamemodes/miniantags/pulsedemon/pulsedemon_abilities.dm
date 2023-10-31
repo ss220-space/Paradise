@@ -189,7 +189,7 @@
 	if(!istype(M))
 		to_chat(user, "<span class='warning'>That is not a machine.</span>")
 		return FALSE
-	if(target.resistance_flags & NO_MALF_EFFECT)
+	if(M.resistance_flags & NO_MALF_EFFECT)
 		to_chat(user, "<span class='warning'>That machine cannot be overloaded.</span>")
 		return FALSE
 	target.audible_message("<span class='italics'>You hear a loud electrical buzzing sound coming from [target]!</span>")
