@@ -98,9 +98,10 @@
 
 	user.visible_message(span_warning("[user] shape becomes fuzzy before it takes the [slimeme] form!"), \
 						span_notice("You start to transform into the [slimeme]."), \
-						span_italics("You hear an eerie rustle of many wings..."))
+						span_notice("You hear something squishing..."))
 
 	original_body = user
+	user.notransform = TRUE
 	slimeme.status_flags |= GODMODE
 	user.status_flags |= GODMODE
 	slimeme.canmove = FALSE
@@ -126,12 +127,13 @@
 
 /obj/effect/proc_holder/spell/slime_degradation/proc/slime_transform_back(mob/living/simple_animal/slime/invalid/user, death_provoked = FALSE)
 	var/self_message = death_provoked ? span_userdanger("You can't take the strain of sustaining [user]'s shape in this condition, it begins to fall apart!") : span_notice("You start to transform back into human.")
-	user.visible_message(span_warning("[user] shape becomes fuzzy before it takes human form!"), self_message, span_italics("You hear an eerie rustle of many wings..."))
+	user.visible_message(span_warning("[user] shape becomes fuzzy before it takes human form!"), self_message, span_notice("You hear something squishing..."))
 	if(death_provoked)
 		cooldown_handler.recharge_duration = 10 MINUTES
 		cooldown_handler.start_recharge()
 		playsound(get_turf(usr), sound, 50, TRUE)
 	user.density = FALSE
+	original_body.notransform = TRUE
 	original_body.dir = SOUTH
 	original_body.forceMove(get_turf(user))
 	original_body.canmove = FALSE
@@ -202,7 +204,8 @@
 
 /obj/effect/proc_holder/spell/slime_selfheat/cast(list/targets, mob/living/carbon/human/user = usr)
 	user.bodytemperature = user.bodytemperature + 50
-
+	var/self_message = isslime(user) ? span_notice("You feel nothing can stop you right now.") : span_userdanger("You feel HOT inside yourself.")
+	to_chat(user, self_message)
 
 /obj/item/organ/internal/heart/slime/anomaly
 	name = "anomaly slime heart"

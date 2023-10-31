@@ -134,9 +134,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/datum/action/innate/terrorspider/web/web_action
 	var/datum/action/innate/terrorspider/wrap/wrap_action
 
-	// Breathing - require some oxygen, and no toxins
-	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-
 	// Temperature
 	heat_damage_per_tick = 6.5 // Takes 250% normal damage from being in a hot environment ("kill it with fire!")
 
