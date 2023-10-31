@@ -472,7 +472,7 @@
 	// with items dropping as mobs are loaded
 
 	for(var/atom/movable/AM in src)
-		if(AM == cell || AM == access_card || AM == Radio || AM == paicard || ispulsedemon(AM))
+		if(AM == cell || AM == access_card || AM == Radio || AM == paicard || AM == bot_core || ispulsedemon(AM))
 			continue
 
 		AM.forceMove(loc)
