@@ -199,17 +199,17 @@
 
 /datum/dna/gene/basic/grant_spell/remotetalk/activate(mob/living/M, connected, flags)
 	..()
-	var/datum/atom_hud/thoughts/A = GLOB.huds[THOUGHT_HUD]
+	var/datum/atom_hud/thoughts/hud = GLOB.huds[THOUGHTS_HUD]
 	M.AddSpell(new /obj/effect/proc_holder/spell/mindscan(null))
-	A.add_hud_to(M)
-
+	hud.manage_hud(M, THOUGHTS_HUD_PRECISE)
 
 /datum/dna/gene/basic/grant_spell/remotetalk/deactivate(mob/living/user)
 	..()
+	var/datum/atom_hud/thoughts/hud = GLOB.huds[THOUGHTS_HUD]
 	for(var/obj/effect/proc_holder/spell/S in user.mob_spell_list)
 		if(istype(S, /obj/effect/proc_holder/spell/mindscan))
 			user.RemoveSpell(S)
-	user.remove_thoughts_hud_from()
+	hud.manage_hud(user, THOUGHTS_HUD_DISPERSE)
 
 /obj/effect/proc_holder/spell/remotetalk
 	name = "Project Mind"
@@ -225,24 +225,25 @@
 	return new /datum/spell_targeting/telepathic
 
 
-/obj/effect/proc_holder/spell/remotetalk/cast(list/targets, mob/living/user = usr)
+/obj/effect/proc_holder/spell/remotetalk/cast(list/targets, mob/living/carbon/human/user = usr)
 	if(!ishuman(user))
 		return
 	if(user.mind?.miming) // Dont let mimes telepathically talk
 		to_chat(user,"<span class='warning'>You can't communicate without breaking your vow of silence.</span>")
 		return
 	for(var/mob/living/target in targets)
-		var/datum/atom_hud/thoughts/A = GLOB.huds[THOUGHT_HUD]
-		A.add_hud_to(target)
+		var/datum/atom_hud/thoughts/hud = GLOB.huds[THOUGHTS_HUD]
+		hud.manage_hud(target, THOUGHTS_HUD_PRECISE)
 		user.hud_typing = 1
 		user.thoughts_hud_set(TRUE)
 		var/say = input("What do you wish to say") as text|null
 		user.hud_typing = 0
-		user.thoughts_hud_set(TRUE, say_test(say))
 		if(!say || usr.stat)
-			target.remove_thoughts_hud_from()
+			hud.manage_hud(target, THOUGHTS_HUD_DISPERSE)
+			user.thoughts_hud_set(FALSE)
 			return
-		addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, remove_thoughts_hud_from), A), 30)
+		user.thoughts_hud_set(TRUE, say_test(say))
+		addtimer(CALLBACK(hud, TYPE_PROC_REF(/datum/atom_hud/thoughts/, manage_hud), target, THOUGHTS_HUD_DISPERSE), 3 SECONDS)
 		say = strip_html(say)
 		say = pencode_to_html(say, usr, format = 0, fields = 0)
 		log_say("(TPATH to [key_name(target)]) [say]", user)
@@ -259,7 +260,7 @@
 /obj/effect/proc_holder/spell/mindscan
 	name = "Scan Mind"
 	desc = "Offer people a chance to share their thoughts!"
-	base_cooldown = 0
+	base_cooldown = 45 SECONDS
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
 	action_icon_state = "genetic_mindscan"
@@ -274,20 +275,23 @@
 	if(!ishuman(user))
 		return
 	for(var/mob/living/target in targets)
+		var/datum/atom_hud/thoughts/hud = GLOB.huds[THOUGHTS_HUD]
 		var/message = "You feel your mind expand briefly... (Click to send a message.)"
 		if(target.dna?.GetSEState(GLOB.remotetalkblock))
 			message = "You feel [user.real_name] request a response from you... (Click here to project mind.)"
 		user.show_message("<span class='abductor'>You offer your mind to [(target in user.get_visible_mobs()) ? target.name : "the unknown entity"].</span>")
 		target.show_message("<span class='abductor'><A href='?src=[UID()];target=[target.UID()];user=[user.UID()]'>[message]</a></span>")
 		available_targets += target
-		addtimer(CALLBACK(src, PROC_REF(removeAvailability), target), 100)
+		hud.manage_hud(target, THOUGHTS_HUD_PRECISE)
+		addtimer(CALLBACK(src, PROC_REF(removeAvailability), target), 45 SECONDS)
 
 
 /obj/effect/proc_holder/spell/mindscan/proc/removeAvailability(mob/living/target)
 	if(target in available_targets)
+		var/datum/atom_hud/thoughts/hud = GLOB.huds[THOUGHTS_HUD]
 		available_targets -= target
-		if(!(target in available_targets))
-			target.show_message("<span class='abductor'>You feel the sensation fade...</span>")
+		hud.manage_hud(target, THOUGHTS_HUD_DISPERSE)
+		target.show_message("<span class='abductor'>You feel the sensation fade...</span>")
 
 
 /obj/effect/proc_holder/spell/mindscan/Topic(href, href_list)
@@ -300,10 +304,14 @@
 		var/mob/living/target = locateUID(href_list["target"])
 		if(!(target in available_targets))
 			return
-		available_targets -= target
+		target.hud_typing = 1
+		target.thoughts_hud_set(TRUE)
 		var/say = input("What do you wish to say") as text|null
+		target.hud_typing = 0
 		if(!say)
+			target.thoughts_hud_set(FALSE)
 			return
+		target.thoughts_hud_set(TRUE, say_test(say))
 		say = strip_html(say)
 		say = pencode_to_html(say, target, format = 0, fields = 0)
 		user.create_log(SAY_LOG, "Telepathically responded '[say]' using [src]", target)
@@ -318,7 +326,8 @@
 
 
 /obj/effect/proc_holder/spell/mindscan/Destroy()
-	available_targets.Cut()
+	for(var/mob/living/target in available_targets)
+		removeAvailability(target)
 	return ..()
 
 
