@@ -14,7 +14,7 @@
 	shockbull = TRUE
 	nodamage = 1
 	weaken = 0.2 SECONDS
-	stamina = 33
+	stamina = 15
 	stutter = 8 SECONDS
 	jitter = 30 SECONDS
 	hitsound = 'sound/weapons/tase.ogg'
