@@ -31,13 +31,11 @@
 	var/failed_steps
 	var/next_dest
 	var/next_dest_loc
-	var/static/list/reserved_cleanables
+
 
 
 /mob/living/simple_animal/bot/cleanbot/New()
 	..()
-	if(!reserved_cleanables)
-		reserved_cleanables = list()
 	get_targets()
 
 	var/datum/job/janitor/J = new/datum/job/janitor
@@ -97,7 +95,7 @@
 /mob/living/simple_animal/bot/cleanbot/process_scan(obj/effect/decal/cleanable/D)
 	for(var/T in target_types)
 		if(istype(D, T))
-			if(D in reserved_cleanables)
+			if(locate(src.type) in D.loc)
 				return FALSE
 			return D
 
@@ -108,10 +106,6 @@
 
 	if(mode == BOT_CLEANING)
 		return
-
-	if(target in reserved_cleanables)
-		path = list()
-		target = null
 
 	if(emagged == 2) //Emag functions
 		if(issimulatedturf(loc))
@@ -129,6 +123,14 @@
 	if(!target) //Search for cleanables it can see.
 		target = scan(/obj/effect/decal/cleanable)
 
+	var/otherbot
+	if(target)
+		otherbot = locate(src.type) in target.loc
+
+	if(otherbot && (src != otherbot))
+		target = null
+		path = list()
+
 	if(!target && auto_patrol) //Search for cleanables it can see.
 		if(mode == BOT_IDLE || mode == BOT_START_PATROL)
 			start_patrol()
@@ -137,7 +139,6 @@
 			bot_patrol()
 
 	if(target && loc == get_turf(target))
-		reserved_cleanables += target
 		start_clean(target)
 		path = list()
 		target = null
@@ -199,8 +200,6 @@
 /mob/living/simple_animal/bot/cleanbot/proc/do_clean(obj/effect/decal/cleanable/target)
 	if(QDELETED(src))
 		return
-	if(target in reserved_cleanables)
-		reserved_cleanables -= target
 	if(mode == BOT_CLEANING)
 		QDEL_NULL(target)
 		anchored = FALSE
