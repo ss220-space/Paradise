@@ -1,0 +1,48 @@
+
+.QuestConsole__SectionGreen {
+
+  .Section__title {
+    border-bottom: 6px solid #109940 !important;
+  }
+
+
+  &:last-child {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.QuestConsole__SectionYellow {
+
+  .Section__title {
+    border-bottom: 6px solid #f3fb0d !important;
+  }
+
+
+  &:last-child {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.QuestConsole__SectionOrange {
+
+  .Section__title {
+    border-bottom: 6px solid #eea113 !important;
+  }
+
+
+  &:last-child {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.QuestConsole__SectionPurple {
+
+  .Section__title {
+    border-bottom: 6px solid #950985 !important;
+  }
+
+
+  &:last-child {
+    margin-bottom: 0.5rem;
+  }
+}

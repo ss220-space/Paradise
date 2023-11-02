@@ -90,11 +90,11 @@
 
 /obj/docking_port/mobile/supply/proc/sell()
 	if(z != level_name_to_num(CENTCOMM))		//we only sell when we are -at- centcomm
-		return 1
+		return TRUE
 
-	var/plasma_count = 0
 	var/intel_count = 0
 	var/crate_count = 0
+	var/quest_reward
 
 	var/msg = "<center>---[station_time_timestamp()]---</center><br>"
 	var/pointsEarned
@@ -106,26 +106,42 @@
 			continue
 		SSshuttle.sold_atoms += " [MA.name]"
 
+		if(istype(MA, /obj/structure/bigDelivery))
+			for(var/datum/cargo_quests_storage/storage in GLOB.quest_storages)
+				if(!storage.active)
+					continue
+				var/reward = storage.check_quest_completion(MA)
+				if(!reward)
+					continue
+				if(!(storage.target_departament in GLOB.corporations))
+					quest_reward += reward
+				else
+					var/datum/money_account/station_money_account = GLOB.station_account
+					station_money_account.credit(round(reward/2), "Completed Order!", "Biesel TCD Terminal #[rand(111,333)]", "Station Account")
+					var/datum/money_account/cargo_money_account = GLOB.department_accounts["Cargo"]
+					cargo_money_account.credit(round(reward/2), "Completed Order!", "Biesel TCD Terminal #[rand(111,333)]", "Cargo Account")
+				break
+
 		// Must be in a crate (or a critter crate)!
 		if(istype(MA,/obj/structure/closet/crate) || istype(MA,/obj/structure/closet/critter))
 			SSshuttle.sold_atoms += ":"
-			if(!MA.contents.len)
+			if(!length(MA.contents))
 				SSshuttle.sold_atoms += " (empty)"
 			++crate_count
 
-			var/find_slip = 1
-			for(var/thing in MA)
+			var/find_slip = TRUE
+			for(var/obj/item/thing in MA)
 				// Sell manifests
-				SSshuttle.sold_atoms += " [thing:name]"
+				SSshuttle.sold_atoms += " [thing.name]"
 				if(find_slip && istype(thing,/obj/item/paper/manifest))
 					var/obj/item/paper/manifest/slip = thing
 					// TODO: Check for a signature, too.
-					if(slip.stamped && slip.stamped.len) //yes, the clown stamp will work. clown is the highest authority on the station, it makes sense
+					if(length(slip.stamped)) //yes, the clown stamp will work. clown is the highest authority on the station, it makes sense
 						// Did they mark it as erroneous?
-						var/denied = 0
-						for(var/i=1,i<=slip.stamped.len,i++)
+						var/denied = FALSE
+						for(var/i in 1 to length(slip.stamped))
 							if(slip.stamped[i] == /obj/item/stamp/denied)
-								denied = 1
+								denied = TRUE
 						if(slip.erroneous && denied) // Caught a mistake by Centcom (IDEA: maybe Centcom rarely gets offended by this)
 							pointsEarned = slip.points - SSshuttle.points_per_crate
 							SSshuttle.points += pointsEarned // For now, give a full refund for paying attention (minus the crate cost)
@@ -154,13 +170,8 @@
 								pointsEarned = round(SSshuttle.points_per_crate - slip.points)
 								SSshuttle.points += pointsEarned
 								msg += "<span class='bad'>[pointsEarned]</span>: Station denied package [slip.ordernumber]. Our records show no fault on our part.<br>"
-						find_slip = 0
+						find_slip = FALSE
 					continue
-
-				// Sell plasma
-				if(istype(thing, /obj/item/stack/sheet/mineral/plasma))
-					var/obj/item/stack/sheet/mineral/plasma/P = thing
-					plasma_count += P.amount
 
 				// Sell syndicate intel
 				if(istype(thing, /obj/item/documents/syndicate))
@@ -175,62 +186,25 @@
 					var/cost = tech.getCost(SSshuttle.techLevels[tech.id])
 					if(cost)
 						SSshuttle.techLevels[tech.id] = tech.level
-						SSshuttle.points += cost
-						for(var/mob/M in GLOB.player_list)
-							if(M.mind)
-								for(var/datum/job_objective/further_research/objective in M.mind.job_objectives)
-									objective.unit_completed(cost)
-						msg += "<span class='good'>+[cost]</span>: [tech.name] - new data.<br>"
-
-				// Sell designs
-				if(istype(thing, /obj/item/disk/design_disk))
-					var/obj/item/disk/design_disk/disk = thing
-					if(!disk.blueprint)
-						continue
-					var/datum/design/design = disk.blueprint
-					if(design.id in SSshuttle.researchDesigns)
-						continue
-					SSshuttle.points += SSshuttle.points_per_design
-					SSshuttle.researchDesigns += design.id
-					msg += "<span class='good'>+[SSshuttle.points_per_design]</span>: [design.name] design.<br>"
-
-				// Sell exotic plants
-				if(istype(thing, /obj/item/seeds))
-					var/obj/item/seeds/S = thing
-					if(S.rarity == 0) // Mundane species
-						msg += "<span class='bad'>+0</span>: We don't need samples of mundane species \"[capitalize(S.species)]\".<br>"
-					else if(SSshuttle.discoveredPlants[S.type]) // This species has already been sent to CentComm
-						var/potDiff = S.potency - SSshuttle.discoveredPlants[S.type] // Compare it to the previous best
-						if(potDiff > 0) // This sample is better
-							SSshuttle.discoveredPlants[S.type] = S.potency
-							msg += "<span class='good'>+[potDiff]</span>: New sample of \"[capitalize(S.species)]\" is superior. Good work.<br>"
-							SSshuttle.points += potDiff
-						else // This sample is worthless
-							msg += "<span class='bad'>+0</span>: New sample of \"[capitalize(S.species)]\" is not more potent than existing sample ([SSshuttle.discoveredPlants[S.type]] potency).<br>"
-					else // This is a new discovery!
-						SSshuttle.discoveredPlants[S.type] = S.potency
-						msg += "<span class='good'>[S.rarity + S.potency]</span>: New species discovered: \"[capitalize(S.species)]\". Excellent work.<br>"
-						SSshuttle.points += S.rarity + S.potency
-				// Sell gems
-				if(istype(thing, /obj/item/gem))
-					var/obj/item/gem/G = thing
-					pointsEarned = round(G.sell_multiplier * SSshuttle.points_per_gem)
-					msg += "<span class='good'>+[pointsEarned]</span>: Received [G]. Excellent work.<br>"
-					SSshuttle.points += pointsEarned
-					qdel(thing, force = TRUE) //ovveride for special gems
+						for(var/mob/mob in GLOB.player_list)
+							if(!mob.mind)
+								continue
+							for(var/datum/job_objective/further_research/objective in mob.mind.job_objectives)
+								objective.unit_completed(cost)
+						msg += "[tech.name] - new data.<br>"
 
 		qdel(MA)
 		SSshuttle.sold_atoms += "."
 
-	if(plasma_count > 0)
-		pointsEarned = round(plasma_count * SSshuttle.points_per_plasma)
-		msg += "<span class='good'>+[pointsEarned]</span>: Received [plasma_count] unit(s) of exotic material.<br>"
-		SSshuttle.points += pointsEarned
 
 	if(intel_count > 0)
 		pointsEarned = round(intel_count * SSshuttle.points_per_intel)
 		msg += "<span class='good'>+[pointsEarned]</span>: Received [intel_count] article(s) of enemy intelligence.<br>"
 		SSshuttle.points += pointsEarned
+
+	if(quest_reward > 0)
+		msg += "<span class='good'>+[quest_reward]</span>: Received reward points for quests.<br>"
+		SSshuttle.points += quest_reward
 
 	if(crate_count > 0)
 		pointsEarned = round(crate_count * SSshuttle.points_per_crate)
@@ -395,8 +369,6 @@
 	circuit = /obj/item/circuitboard/supplycomp
 	/// Is this a public console (Confirm + Shuttle controls are not visible)
 	var/is_public = FALSE
-	/// Time of last request
-	var/reqtime = 0
 	/// Can we order special supplies
 	var/hacked = FALSE
 	/// Can we order contraband
@@ -451,7 +423,10 @@
 		if(SO)
 			if(!SO.comment)
 				SO.comment = "No comment."
-			requests_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "comment" = SO.comment, "command1" = list("confirmorder" = SO.ordernum), "command2" = list("rreq" = SO.ordernum))))
+			var/pack_techs
+			for(var/tech_id in SO.object.required_tech)
+				pack_techs += "[CallTechName(tech_id)]: [SO.object.required_tech[tech_id]]  "
+			requests_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "comment" = SO.comment, "command1" = list("confirmorder" = SO.ordernum), "command2" = list("rreq" = SO.ordernum), "pack_techs" = pack_techs)))
 	data["requests"] = requests_list
 
 	var/list/orders_list = list()
@@ -479,8 +454,9 @@
 
 	for(var/set_name in SSshuttle.supply_packs)
 		var/datum/supply_packs/pack = SSshuttle.supply_packs[set_name]
+		var/has_sale = pack.cost < initial(pack.cost)
 		if((pack.hidden && hacked) || (pack.contraband && can_order_contraband) || (pack.special && pack.special_enabled) || (!pack.contraband && !pack.hidden && !pack.special))
-			packs_list.Add(list(list("name" = pack.name, "cost" = pack.cost, "ref" = "[pack.UID()]", "contents" = pack.ui_manifest, "cat" = pack.group)))
+			packs_list.Add(list(list("name" = pack.name, "cost" = pack.cost, "ref" = "[pack.UID()]", "contents" = pack.ui_manifest, "cat" = pack.group, "has_sale" = has_sale)))
 
 	data["supply_packs"] = packs_list
 
@@ -536,9 +512,6 @@
 					investigate_log("Random [O.object] crate added to supply shuttle", INVESTIGATE_CARGO)
 
 		if("order")
-			if(world.time < reqtime)
-				visible_message("<b>[src]</b>'s monitor flashes, \"[world.time - reqtime] seconds remaining until another requisition form may be printed.\"")
-				return
 
 			var/datum/supply_packs/P = locateUID(params["crate"])
 			if(!istype(P))
@@ -599,14 +572,12 @@
 					P = O.object
 					if(P.times_ordered >= P.order_limit && P.order_limit != -1) //If this order would put it over the limit, deny it
 						to_chat(usr, "<span class='warning'>[P.name] is out of stock, and can no longer be ordered.</span>")
-					else if(SSshuttle.points >= P.cost)
+					else if(P.can_approve(usr))
 						SSshuttle.requestlist.Cut(i,i+1)
 						SSshuttle.points -= P.cost
 						SSshuttle.shoppinglist += O
 						P.times_ordered += 1
 						investigate_log("[key_name_log(usr)] has authorized an order for [P.name]. Remaining points: [SSshuttle.points].", INVESTIGATE_CARGO)
-					else
-						to_chat(usr, "<span class='warning'>There are insufficient supply points for this request.</span>")
 					break
 
 		if("deny")
@@ -634,7 +605,7 @@
 			ccmsg_browser.set_content(SSshuttle.centcom_message)
 			ccmsg_browser.open()
 
-/obj/machinery/computer/supplycomp/proc/post_signal(var/command)
+/obj/machinery/computer/supplycomp/proc/post_signal(command)
 	var/datum/radio_frequency/frequency = SSradio.return_frequency(DISPLAY_FREQ)
 
 	if(!frequency) return
@@ -645,3 +616,219 @@
 	status_signal.data["command"] = command
 
 	frequency.post_signal(src, status_signal)
+
+
+#define NUMBER_OF_CC_QUEST 8
+#define NUMBER_OF_CORP_QUEST 4
+
+/obj/machinery/computer/supplyquest
+	name = "Supply Request Monitor"
+	desc = "Essential for supply requests. Your bread and butter."
+	icon_keyboard = "cargo_quest_key"
+	icon_screen = "cargo_quest"
+	req_access = list(ACCESS_QM)
+	circuit = /obj/item/circuitboard/supplyquest
+
+/obj/machinery/computer/supplyquest/Initialize()
+	. = ..()
+
+	if(!length(GLOB.centcomm_departaments))
+		for(var/typepath in subtypesof(/datum/centcomm_departament))
+			var/datum/centcomm_departament/departament = new typepath()
+			if(!departament.departament_name)
+				continue
+			GLOB.centcomm_departaments["[departament.departament_name]"] = departament
+
+	if(!length(GLOB.corporations))
+		for(var/typepath in subtypesof(/datum/centcomm_departament/corp))
+			var/datum/centcomm_departament/corp/corp = new typepath()
+			if(!corp.departament_name)
+				continue
+			GLOB.corporations["[corp.departament_name]"] = corp
+
+	if(!length(GLOB.plasma_departaments))
+		for(var/typepath in subtypesof(/datum/centcomm_departament/plasma))
+			var/datum/centcomm_departament/plasma/plasma_dep = new typepath()
+			if(!plasma_dep.departament_name)
+				continue
+			GLOB.plasma_departaments["[plasma_dep.departament_name]"] = plasma_dep
+
+	if(!length(GLOB.quest_storages))
+		for(var/I = 1 to NUMBER_OF_CC_QUEST)
+			GLOB.quest_storages += new /datum/cargo_quests_storage(customer = "centcomm")
+		for(var/I = 1 to NUMBER_OF_CORP_QUEST)
+			GLOB.quest_storages += new /datum/cargo_quests_storage(customer = "corporation")
+		GLOB.quest_storages += new /datum/cargo_quests_storage(customer = "plasma")
+
+
+
+
+/obj/machinery/computer/supplyquest/attack_ai(mob/user)
+	return attack_hand(user)
+
+/obj/machinery/computer/supplyquest/attack_hand(mob/user)
+	if(!allowed(user) && !isobserver(user))
+		to_chat(user, span_warning("Access denied"))
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+		return TRUE
+
+	add_fingerprint(user)
+	ui_interact(user)
+	return
+
+/obj/machinery/computer/supplyquest/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "QuestConsole", name, 900, 800, master_ui, state)
+		ui.open()
+
+/obj/machinery/computer/supplyquest/ui_static_data(mob/user)
+	var/list/data = list()
+	var/list/techs = list()
+	for(var/tech_id in SSshuttle.techLevels)
+		techs += list(list(
+			"tech_name" = CallTechName(tech_id),
+			"tech_level" = SSshuttle.techLevels[tech_id]
+		))
+
+	data["techs"] = techs
+
+	return data
+
+/obj/machinery/computer/supplyquest/ui_data(mob/user)
+	var/list/data = list()
+	var/list/quest_storages = list()
+	for(var/datum/cargo_quests_storage/quest_storage in GLOB.quest_storages)
+		var/timeleft_sec = round((quest_storage.time_start + quest_storage.quest_time - world.time) / 10)
+		var/list/quests_items = list()
+		for(var/datum/cargo_quest/cargo_quest as anything in quest_storage.current_quests)
+			var/image_index = rand(1, length(cargo_quest.interface_icons))
+			quests_items.Add(list(list(
+				"quest_type_name" = cargo_quest.quest_type_name,
+				"desc" = cargo_quest.desc,
+				"image" = "[icon2base64(icon(cargo_quest.interface_icons[image_index], cargo_quest.interface_icon_states[image_index], SOUTH, 1))]",
+				)))
+
+		quest_storages.Add(list(list(
+			"active" = quest_storage.active,
+			"reward" = quest_storage.reward * (quest_storage.customer != "corporation" || 10),
+			"ref" = quest_storage.UID(),
+			"fast_bonus" = !quest_storage.fast_failed,
+			"timer" = "[timeleft_sec / 60 % 60]:[add_zero(num2text(timeleft_sec % 60), 2)]",
+			"quests_items" = quests_items,
+			"customer" = quest_storage.customer,
+			"target_departament" = quest_storage.target_departament,
+			"reward_color" = quest_storage.reward_color,
+			)))
+
+	data["quests"] += quest_storages
+
+	data["points"] = round(SSshuttle.points)
+	data["moving"] = SSshuttle.supply.mode != SHUTTLE_IDLE
+	data["at_station"] = SSshuttle.supply.getDockedId() == "supply_home"
+	data["timeleft"] = SSshuttle.supply.timeLeft(600)
+	data["can_launch"] = !SSshuttle.supply.canMove()
+	return data
+
+/obj/machinery/computer/supplyquest/ui_act(action, list/params)
+	if(..())
+		return
+	var/mob/user = usr
+	if(!allowed(user) && !user.can_admin_interact())
+		return
+
+	if(!SSshuttle)
+		stack_trace("The SSshuttle controller datum is missing somehow.")
+		return
+
+	. = TRUE
+	add_fingerprint(usr)
+
+	switch(action)
+		if("activate")
+			var/datum/cargo_quests_storage/quest = locateUID(params["uid"])
+			if(!istype(quest))
+				return
+			quest.active = TRUE
+			quest.after_activated()
+			print_order(quest, usr)
+		if("denied")
+			var/datum/cargo_quests_storage/quest = locateUID(params["uid"])
+			if(!istype(quest))
+				return
+			if(!quest.can_reroll)
+				to_chat(usr, span_warning("This quest can not be reroll."))
+				return
+			quest.quest_expired(reroll = TRUE)
+
+/obj/machinery/computer/supplyquest/proc/print_order(datum/cargo_quests_storage/quest, mob/user)
+
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		quest.idname = H.get_authentification_name()
+		quest.idrank = H.get_assignment()
+	else if(issilicon(user))
+		quest.idname = user.real_name
+
+	var/obj/item/paper/paper = new(get_turf(src))
+	paper.info = "<div id=\"output\"><center> <h3> Supply request form </h3> </center><br><hr><br>"
+	paper.info += "Requestor department: [quest.target_departament]<br>"
+	paper.info += "Supply request accepted by: [quest.idname] - [quest.idrank]<br>"
+	paper.info += "Time of print: [GLOB.current_date_string]  [station_time_timestamp()]<br>"
+	paper.info += "<ul> <h3> Order List</h3>"
+	for(var/datum/cargo_quest/cargo_quest in quest.current_quests)
+		paper.info += "<li>[cargo_quest.desc]</li>"
+
+	paper.info += "</ul><br><span class=\"large-text\"> Initial reward: [quest.reward]</span><br>"
+	paper.info += "<br><hr><br><span class=\"small-text\">This paper has been stamped by the [station_name()] </span><br></div>"
+	paper.update_icon()
+	paper.name = "Supply request form"
+
+
+#undef NUMBER_OF_CC_QUEST
+#undef NUMBER_OF_CORP_QUEST
+
+/obj/machinery/cargo_announcer
+	name = "help me"
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "safe"
+
+
+/obj/machinery/cargo_announcer/Initialize(mapload)
+	. = ..()
+	GLOB.cargo_announcers += src
+
+/obj/machinery/cargo_announcer/Destroy()
+	GLOB.cargo_announcers -= src
+	..()
+
+/obj/machinery/cargo_announcer/proc/print_report(datum/cargo_quests_storage/quest, complete, list/modificators = list(), old_reward)
+
+	var/obj/item/paper/paper = new(get_turf(src))
+
+	paper.info = "<div id=\"output\"><center> <h3> Shipment records </h3> </center><br><hr><br>"
+	paper.info += "Requestor department: [quest.target_departament]<br>"
+	paper.info += "Supply request accepted by: [quest.idname] - [quest.idrank]<br>"
+	paper.info += "Time of print: [GLOB.current_date_string]  [station_time_timestamp()]<br>"
+	paper.info += "<ul> <h3> Order List</h3>"
+	for(var/datum/cargo_quest/cargo_quest in quest.current_quests)
+		paper.info += "<li>[cargo_quest.desc]</li>"
+
+	paper.info += "</ul><br><span class=\"large-text\"> Initial reward: [old_reward]</span><br>"
+	paper.info += "Fines: <br><i>"
+	if(modificators["departure_mismatch"])
+		paper.info += "departure mismatch (-20%)<br>"
+	if(modificators["content_mismatch"])
+		paper.info += "content mismatch (-30%) x[modificators["content_mismatch"]]<br>"
+	if(modificators["content_missing"])
+		paper.info += "content missing (-50%) x[modificators["content_missing"]]<br>"
+	if(!complete)
+		paper.info += "time expired (-100%)<br>"
+	paper.info += "</i><br>Bonus:<br><i>"
+	if(modificators["quick_shipmenth"])
+		paper.info += "quick shipment (+40%)<br>"
+	paper.info += "</i><br><span class=\"large-text\"> Total reward: [complete ? quest.reward : "0"]</span><br>"
+	paper.info += "<br><hr><br><span class=\"small-text\">This paper has been stamped by the [station_name()] </span><br></div>"
+
+	paper.update_icon()
+	paper.name = "Shipment records"

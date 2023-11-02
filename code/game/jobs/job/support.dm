@@ -154,6 +154,7 @@
 	shoes = /obj/item/clothing/shoes/brown
 	l_ear = /obj/item/radio/headset/headset_cargo
 	glasses = /obj/item/clothing/glasses/sunglasses
+	l_pocket = /obj/item/lighter/zippo/qm
 	id = /obj/item/card/id/qm
 	l_hand = /obj/item/clipboard
 	pda = /obj/item/pda/quartermaster

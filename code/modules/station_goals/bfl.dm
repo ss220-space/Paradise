@@ -26,6 +26,14 @@
 	P.special_enabled = TRUE
 	supply_list.Add(P)
 
+	if(length(GLOB.plasma_quest_storages))
+		return
+
+	for(var/I = 1 to 3)
+		var/datum/cargo_quests_storage/plasma_quest = new ("plasma")
+		GLOB.quest_storages += plasma_quest
+		GLOB.plasma_quest_storages += plasma_quest
+
 /datum/station_goal/bfl/check_completion()
 	if(..())
 		return TRUE
@@ -33,6 +41,15 @@
 		if(B && is_station_contact(B.z))
 			return TRUE
 	return FALSE
+
+/datum/station_goal/bfl/Destroy()
+	. = ..()
+	if(locate(/datum/station_goal/bfl) in SSticker.mode.station_goals)
+		return
+	for(var/datum/cargo_quests_storage/plasma_quest in GLOB.plasma_quest_storages)
+		qdel(plasma_quest)
+		GLOB.plasma_quest_storages.Remove(plasma_quest)
+		GLOB.quest_storages.Remove(plasma_quest)
 
 ////////////
 //Building//

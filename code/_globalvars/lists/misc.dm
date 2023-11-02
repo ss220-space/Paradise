@@ -73,3 +73,10 @@ GLOBAL_LIST_EMPTY(looping_sounds)
 /// List of ckeys that have seen a blurb of a given key.
 GLOBAL_LIST_EMPTY(blurb_witnesses)
 
+GLOBAL_LIST_EMPTY(centcomm_departaments)
+GLOBAL_LIST_EMPTY(plasma_departaments)
+GLOBAL_LIST_EMPTY(corporations)
+
+GLOBAL_LIST_EMPTY(quest_storages)
+GLOBAL_LIST_EMPTY(plasma_quest_storages)
+GLOBAL_LIST_EMPTY(cargo_announcers)
