@@ -89195,8 +89195,7 @@
 	dir = 8
 	},
 /obj/machinery/light_switch{
-	pixel_x = -4;
-	pixel_y = -24
+	pixel_x = -26
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing)
