@@ -1,4 +1,5 @@
 //Cleanbot
+GLOBAL_LIST_EMPTY(reserved_cleanables)
 /mob/living/simple_animal/bot/cleanbot
 	name = "\improper Cleanbot"
 	desc = "A little cleaning robot, he looks so excited!"
@@ -94,6 +95,8 @@
 /mob/living/simple_animal/bot/cleanbot/process_scan(obj/effect/decal/cleanable/D)
 	for(var/T in target_types)
 		if(istype(D, T))
+			if(D in GLOB.reserved_cleanables)
+				return FALSE
 			return D
 
 
@@ -103,6 +106,10 @@
 
 	if(mode == BOT_CLEANING)
 		return
+
+	if(target in GLOB.reserved_cleanables)
+		path = list()
+		target = null
 
 	if(emagged == 2) //Emag functions
 		if(issimulatedturf(loc))
@@ -128,6 +135,7 @@
 			bot_patrol()
 
 	if(target && loc == get_turf(target))
+		GLOB.reserved_cleanables += target
 		start_clean(target)
 		path = list()
 		target = null
@@ -189,7 +197,8 @@
 /mob/living/simple_animal/bot/cleanbot/proc/do_clean(obj/effect/decal/cleanable/target)
 	if(QDELETED(src))
 		return
-
+	if(target in GLOB.reserved_cleanables)
+		GLOB.reserved_cleanables -= target
 	if(mode == BOT_CLEANING)
 		QDEL_NULL(target)
 		anchored = FALSE
