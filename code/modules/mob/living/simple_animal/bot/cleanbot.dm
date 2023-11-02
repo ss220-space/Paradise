@@ -123,11 +123,11 @@
 	if(!target) //Search for cleanables it can see.
 		target = scan(/obj/effect/decal/cleanable)
 
-	var/otherbot
+	var/mob/living/simple_animal/bot/cleanbot/otherbot
 	if(target)
 		otherbot = locate(src.type) in target.loc
 
-	if(otherbot && (src != otherbot))
+	if(otherbot && (src != otherbot) && otherbot.mode == BOT_CLEANING)
 		target = null
 		path = list()
 
