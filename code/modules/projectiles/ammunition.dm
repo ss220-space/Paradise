@@ -64,10 +64,10 @@
 					continue
 			if(boolets > 0)
 				box.update_icon()
-				to_chat(user, "<span class='notice'>You collect [boolets] shell\s. [box] now contains [box.stored_ammo.len] shell\s.</span>")
+				to_chat(user, span_notice("You collect [boolets] shell\s. [box] now contains [box.stored_ammo.len] shell\s."))
 				playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
 			else
-				to_chat(user, "<span class='warning'>You fail to collect anything!</span>")
+				to_chat(user, span_warning("You fail to collect anything!"))
 	else
 		if(istype(I, /obj/item/screwdriver))
 			if(BB)
@@ -75,19 +75,19 @@
 					var/tmp_label = ""
 					var/label_text = sanitize(input(user, "Inscribe some text into \the [initial(BB.name)]","Inscription",tmp_label))
 					if(length(label_text) > 20)
-						to_chat(user, "<span class='warning''>The inscription can be at most 20 characters long.</span>")
+						to_chat(user, span_warning("The inscription can be at most 20 characters long."))
 					else
 						if(label_text == "")
-							to_chat(user, "<span class='notice'>You scratch the inscription off of [initial(BB)].</span>")
+							to_chat(user, span_notice("You scratch the inscription off of [initial(BB)]."))
 							BB.name = initial(BB.name)
 						else
-							to_chat(user, "<span class='notice'>You inscribe \"[label_text]\" into \the [initial(BB.name)].</span>")
+							to_chat(user, span_notice("You inscribe \"[label_text]\" into \the [initial(BB.name)]."))
 							BB.name = "[initial(BB.name)] \"[label_text]\""
 				else
-					to_chat(user, "<span class='notice'>You can only inscribe a metal bullet.</span>")//because inscribing beanbags is silly
+					to_chat(user, span_notice("You can only inscribe a metal bullet."))	//because inscribing beanbags is silly
 
 			else
-				to_chat(user, "<span class='notice'>There is no bullet in the casing to inscribe anything into.</span>")
+				to_chat(user, span_notice("There is no bullet in the casing to inscribe anything into."))
 		..()
 
 /obj/item/ammo_casing/proc/leave_residue(mob/living/carbon/human/H)
@@ -156,16 +156,16 @@
 /obj/item/ammo_box/proc/give_round(obj/item/ammo_casing/R, replace_spent = 0)
 	// Boxes don't have a caliber type, magazines do. Not sure if it's intended or not, but if we fail to find a caliber, then we fall back to ammo_type.
 	if(!R || (caliber && R.caliber != caliber) || (!caliber && R.type != ammo_type))
-		return 0
+		return FALSE
 	if(!accept_subtypes && R != src.ammo_type)
-		return 0
+		return FALSE
 
 	if(stored_ammo.len < max_ammo)
 		stored_ammo += R
 		R.loc = src
 		playsound(src, insert_sound, 50, 1)
 		update_mat_value()
-		return 1
+		return TRUE
 	//for accessibles magazines (e.g internal ones) when full, start replacing spent ammo
 	else if(replace_spent)
 		for(var/obj/item/ammo_casing/AC in stored_ammo)
@@ -177,12 +177,12 @@
 				R.loc = src
 				playsound(src, replacing_sound, 50, 1)
 				update_mat_value()
-				return 1
+				return TRUE
 
-	return 0
+	return FALSE
 
 /obj/item/ammo_box/proc/can_load(mob/user)
-	return 1
+	return TRUE
 
 /obj/item/ammo_box/attackby(obj/item/A, mob/user, params, silent = 0, replace_spent = 0)
 	var/num_loaded = 0
@@ -205,7 +205,7 @@
 			num_loaded++
 	if(num_loaded)
 		if(!silent)
-			to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
+			to_chat(user, span_notice("You load [num_loaded] shell\s into \the [src]!"))
 		playsound(src, load_sound, 50, 1)
 		A.update_icon()
 		update_icon()
@@ -217,7 +217,7 @@
 	if(A)
 		user.put_in_hands(A)
 		playsound(src, remove_sound, 50, 1)
-		to_chat(user, "<span class='notice'>You remove a round from \the [src]!</span>")
+		to_chat(user, span_notice("You remove a round from \the [src]!"))
 		update_icon()
 
 /obj/item/ammo_box/update_icon()

@@ -16,7 +16,7 @@
 	multiple_sprites = 1
 	icon_prefix = "makeshift_speedloader"
 	max_ammo = 4
-	
+
 /obj/item/ammo_box/c38
 	name = "speed loader (.38)"
 	desc = "Designed to quickly reload revolvers."
