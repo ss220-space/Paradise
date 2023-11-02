@@ -191,7 +191,11 @@
 		/obj/item/retractor,
 		/obj/item/FixOVein,
 		/obj/item/surgicaldrill,
-		/obj/item/circular_saw)
+		/obj/item/circular_saw,
+		/obj/item/roller/holo,
+		/obj/item/stack/nanopaste,
+		/obj/item/healthanalyzer,
+		/obj/item/robotanalyzer)
 
 /obj/item/storage/toolbox/surgery/populate_contents()
 	new /obj/item/stack/medical/bruise_pack/advanced(src)
