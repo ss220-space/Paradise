@@ -218,17 +218,19 @@
 		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 		qdel(src)
 
+
 /obj/item/nuke_core/supermatter_sliver/pickup(mob/living/user)
-	..()
 	if(!isliving(user) || user.status_flags & GODMODE) //try to keep this in sync with supermatter's consume fail conditions
-		return FALSE
-	user.visible_message("<span class='danger'>[user] reaches out and tries to pick up [src]. [user.p_their()] body starts to glow and bursts into flames before bursting into flames!</span>",
-			"<span class='userdanger'>You reach for [src] with your hands. That was dumb.</span>",
-			"<span class='hear'>Everything suddenly goes silent.</span>")
+		return ..()
+	user.visible_message(span_danger("[user] reaches out and tries to pick up [src]. [user.p_their()] body starts to glow and bursts into flames before bursting into flames!"),
+						span_userdanger("You reach for [src] with your hands. That was dumb."),
+						span_hear("Everything suddenly goes silent."))
 	for(var/mob/living/L in view(5, src))
 		L.apply_effect(80, IRRADIATE)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	user.gib()
+	return FALSE
+
 
 /obj/item/nuke_core_container/supermatter
 	name = "supermatter bin"
