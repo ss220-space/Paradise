@@ -6968,11 +6968,11 @@
 /obj/item/ammo_box/shotgun/beanbag,
 /obj/item/ammo_box/shotgun/beanbag,
 /obj/item/ammo_box/shotgun/beanbag,
-/obj/item//obj/item/ammo_box/shotgun/beanbag,
-/obj/item//obj/item/ammo_box/shotgun/beanbag,
-/obj/item//obj/item/ammo_box/shotgun/beanbag,
-/obj/item//obj/item/ammo_box/shotgun/beanbag,
-/obj/item//obj/item/ammo_box/shotgun/beanbag,
+/obj/item/ammo_box/shotgun/beanbag,
+/obj/item/ammo_box/shotgun/beanbag,
+/obj/item/ammo_box/shotgun/beanbag,
+/obj/item/ammo_box/shotgun/beanbag,
+/obj/item/ammo_box/shotgun/beanbag,
 /turf/simulated/floor/indestructible{
 	dir = 4;
 	icon_state = "darkbluefull"
@@ -11344,13 +11344,13 @@
 /obj/item/ammo_box/shotgun,
 /obj/item/ammo_box/shotgun,
 /obj/item/ammo_box/shotgun,
-/obj/item//obj/item/ammo_box/shotgun,
-/obj/item//obj/item/ammo_box/shotgun,
-/obj/item//obj/item/ammo_box/shotgun,
-/obj/item//obj/item/ammo_box/shotgun,
-/obj/item//obj/item/ammo_box/shotgun,
-/obj/item//obj/item/ammo_box/shotgun,
-/obj/item//obj/item/ammo_box/shotgun,
+/obj/item/ammo_box/shotgun,
+/obj/item/ammo_box/shotgun,
+/obj/item/ammo_box/shotgun,
+/obj/item/ammo_box/shotgun,
+/obj/item/ammo_box/shotgun,
+/obj/item/ammo_box/shotgun,
+/obj/item/ammo_box/shotgun,
 /turf/simulated/floor/indestructible{
 	dir = 9;
 	icon_state = "darkredfull"
@@ -29394,13 +29394,13 @@
 /obj/item/ammo_box/shotgun/rubbershot,
 /obj/item/ammo_box/shotgun/rubbershot,
 /obj/item/ammo_box/shotgun/rubbershot,
-/obj/item//obj/item/ammo_box/shotgun/rubbershot,
-/obj/item//obj/item/ammo_box/shotgun/rubbershot,
-/obj/item//obj/item/ammo_box/shotgun/rubbershot,
-/obj/item//obj/item/ammo_box/shotgun/rubbershot,
-/obj/item//obj/item/ammo_box/shotgun/rubbershot,
-/obj/item//obj/item/ammo_box/shotgun/rubbershot,
-/obj/item//obj/item/ammo_box/shotgun/rubbershot,
+/obj/item/ammo_box/shotgun/rubbershot,
+/obj/item/ammo_box/shotgun/rubbershot,
+/obj/item/ammo_box/shotgun/rubbershot,
+/obj/item/ammo_box/shotgun/rubbershot,
+/obj/item/ammo_box/shotgun/rubbershot,
+/obj/item/ammo_box/shotgun/rubbershot,
+/obj/item/ammo_box/shotgun/rubbershot,
 /turf/simulated/floor/indestructible{
 	dir = 4;
 	icon_state = "darkbluefull"
@@ -33743,13 +33743,13 @@
 /obj/item/ammo_box/shotgun/buck,
 /obj/item/ammo_box/shotgun/buck,
 /obj/item/ammo_box/shotgun/buck,
-/obj/item//obj/item/ammo_box/shotgun/buck,
-/obj/item//obj/item/ammo_box/shotgun/buck,
-/obj/item//obj/item/ammo_box/shotgun/buck,
-/obj/item//obj/item/ammo_box/shotgun/buck,
-/obj/item//obj/item/ammo_box/shotgun/buck,
-/obj/item//obj/item/ammo_box/shotgun/buck,
-/obj/item//obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck,
 /turf/simulated/floor/indestructible{
 	dir = 9;
 	icon_state = "darkredfull"

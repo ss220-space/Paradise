@@ -63,7 +63,7 @@
 
 //////////// Revolvers
 
-/obj/item/gun/projectile/revolver/nagant/rusted
+nagant/rusted
 	desc = "An old model of revolver that originated in Russia. This one is a real relic, rust is pouring."
 	rusted_weapon = TRUE
 	self_shot_divisor = 2

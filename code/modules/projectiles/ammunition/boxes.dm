@@ -42,6 +42,7 @@
 	icon_state = "357OLD"
 	ammo_type = /obj/item/ammo_casing/a357
 	max_ammo = 20
+	multiple_sprites = 1
 
 /obj/item/ammo_box/shotgun
 	name = "Ammunition Box (Slug)"

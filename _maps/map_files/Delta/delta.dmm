@@ -69161,8 +69161,8 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/item//obj/item/ammo_box/shotgun/beanbag,
-/obj/item//obj/item/ammo_box/shotgun/beanbag{
+/obj/item/ammo_box/shotgun/beanbag,
+/obj/item/ammo_box/shotgun/beanbag{
 	pixel_x = -3;
 	pixel_y = 3
 	},
@@ -118472,13 +118472,13 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/item//obj/item/ammo_box/shotgun/buck{
+/obj/item/ammo_box/shotgun/buck{
 	pixel_x = 3
 	},
-/obj/item//obj/item/ammo_box/shotgun/buck{
+/obj/item/ammo_box/shotgun/buck{
 	pixel_y = 3
 	},
-/obj/item//obj/item/ammo_box/shotgun{
+/obj/item/ammo_box/shotgun{
 	pixel_x = -3;
 	pixel_y = 6
 	},

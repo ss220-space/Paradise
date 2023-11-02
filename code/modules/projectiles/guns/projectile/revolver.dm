@@ -359,7 +359,7 @@
 	options["Cancel"] = null
 
 /obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/A, mob/user, params)
-	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
+	if(istype(A, /obj/item/ammo_box/speedloader) || istype(A, /obj/item/ammo_casing))
 		chamber_round()
 	if(istype(A, /obj/item/melee/energy))
 		var/obj/item/melee/energy/W = A
