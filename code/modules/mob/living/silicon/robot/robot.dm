@@ -1001,6 +1001,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			SetLockdown(TRUE) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown
 			if(src.hud_used)
 				src.hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
+			src.playsound_local(null, 'sound/ambience/antag/emaggedborg.ogg', 100, 0) // plays a specific sound that only borg hears when emagged. 
 			disconnect_from_ai()
 			to_chat(user, "You emag [src]'s interface.")
 			add_attack_logs(user, src, "emagged", ATKLOG_FEW)
