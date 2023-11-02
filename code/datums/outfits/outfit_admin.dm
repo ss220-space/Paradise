@@ -126,7 +126,7 @@
 		/obj/item/grenade/plastic/x4 = 2,
 		/obj/item/reagent_containers/hypospray/combat/nanites = 1,
 		/obj/item/gun/projectile/revolver = 1,
-		/obj/item/ammo_box/a357 = 1
+		/obj/item/ammo_box/speedloader/a357 = 1
 	)
 	implants = list(/obj/item/implant/dust)
 	can_be_admin_equipped = FALSE
@@ -165,7 +165,7 @@
 		/obj/item/grenade/plastic/x4 = 2,
 		/obj/item/reagent_containers/hypospray/combat/nanites = 1,
 		/obj/item/gun/projectile/revolver = 1,
-		/obj/item/ammo_box/a357 = 1
+		/obj/item/ammo_box/speedloader/a357 = 1
 	)
 	can_be_admin_equipped = TRUE
 
@@ -397,7 +397,7 @@
 		/obj/item/flashlight/seclite = 1,
 		/obj/item/reagent_containers/hypospray/combat/nanites = 1,
 		/obj/item/grenade/plastic/x4 = 1,
-		/obj/item/ammo_box/a357 = 1
+		/obj/item/ammo_box/speedloader/a357 = 1
 	)
 
 	implants = list(/obj/item/implant/mindshield/ert)
@@ -809,7 +809,7 @@
 		/obj/item/storage/box/soviet = 1,
 		/obj/item/lighter/zippo = 1,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
-		/obj/item/ammo_box/a357 = 2
+		/obj/item/ammo_box/speedloader/a357 = 2
 	)
 
 /datum/outfit/admin/soviet/officer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -876,7 +876,7 @@
 	backpack_contents = list(
 		/obj/item/storage/box/soviet = 1,
 		/obj/item/gun/projectile/revolver/mateba = 1,
-		/obj/item/ammo_box/a357 = 2,
+		/obj/item/ammo_box/speedloader/a357 = 2,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
 		/obj/item/lighter/zippo = 1
 	)
@@ -910,7 +910,7 @@
 	l_pocket = /obj/item/melee/classic_baton/telescopic
 	backpack_contents = list(
 		/obj/item/storage/box/soviet = 1,
-		/obj/item/ammo_box/a357 = 3
+		/obj/item/ammo_box/speedloader/a357 = 3
 	)
 
 /datum/outfit/admin/soviet/admiral/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -1212,7 +1212,7 @@
 	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/det_hat
 	glasses = /obj/item/clothing/glasses/thermal/monocle
-	l_pocket = /obj/item/ammo_box/a357
+	l_pocket = /obj/item/ammo_box/speedloader/a357
 	r_hand = /obj/item/gun/projectile/automatic/proto
 
 /datum/outfit/admin/tournament_chef //Steven Seagal FTW

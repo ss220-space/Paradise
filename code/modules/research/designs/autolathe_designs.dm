@@ -886,7 +886,7 @@
 	id = "a357"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 75000)
-	build_path = /obj/item/storage/box/a357
+	build_path = /obj/item/ammo_box/a357
 	category = list("hacked", "Security")
 
 /datum/design/c10mm
@@ -1052,5 +1052,5 @@
 	id = "cap_ammo"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 100)
-	build_path = /obj/item/ammo_box/caps
+	build_path = /obj/item/ammo_box/speedloader/caps
 	category = list("initial", "Miscellaneous")

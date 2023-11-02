@@ -212,70 +212,6 @@
 	new /obj/item/dnainjector/m2h(src)
 	new /obj/item/dnainjector/m2h(src)
 
-/obj/item/storage/box/slug
-	name = "Ammunition Box (Slug)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "slugbox"
-
-/obj/item/storage/box/slug/populate_contents()
-	for(var/i in 1 to 7)
-		new /obj/item/ammo_casing/shotgun(src)
-
-
-/obj/item/storage/box/buck
-	name = "Ammunition Box (Buckshot)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "buckshotbox"
-
-/obj/item/storage/box/buck/populate_contents()
-	for(var/i in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/buckshot(src)
-
-/obj/item/storage/box/dragonsbreath
-	name = "Ammunition Box (Dragonsbreath)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "dragonsbreathbox"
-
-/obj/item/storage/box/dragonsbreath/populate_contents()
-	for(var/i in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(src)
-
-/obj/item/storage/box/stun
-	name = "Ammunition Box (Stun shells)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "stunbox"
-
-/obj/item/storage/box/stun/populate_contents()
-	for(var/i in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/stunslug(src)
-
-/obj/item/storage/box/beanbag
-	name = "Ammunition Box (Beanbag shells)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "beanbagbox"
-
-/obj/item/storage/box/beanbag/populate_contents()
-	for(var/i in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/beanbag(src)
-
-/obj/item/storage/box/rubbershot
-	name = "Ammunition Box (Rubbershot shells)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "rubbershotbox"
-
-/obj/item/storage/box/rubbershot/populate_contents()
-	for(var/i in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/rubbershot(src)
-
-/obj/item/storage/box/tranquilizer
-	name = "Ammunition Box (Tranquilizer darts)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "tranqbox"
-
-/obj/item/storage/box/tranquilizer/populate_contents()
-	for(var/i in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
-
 /obj/item/storage/box/flashbangs
 	name = "box of flashbangs (WARNING)"
 	desc = "<B>WARNING: These devices are extremely dangerous and can cause blindness or deafness in repeated use.</B>"
@@ -1077,20 +1013,6 @@
 	new /obj/item/clothing/shoes/jackboots(src)
 	new /obj/item/clothing/gloves/combat(src)
 	new /obj/item/storage/backpack/security(src)
-
-/obj/item/storage/box/a357
-	name = "ammo box (.357)"
-	desc = "A box of ammo?"
-	icon_state = "357OLD"
-	icon = 'icons/obj/weapons/ammo.dmi'
-	display_contents_with_number = TRUE
-	can_hold = list(/obj/item/ammo_casing/a357)
-	storage_slots = 20
-	max_combined_w_class = 20
-
-/obj/item/storage/box/a357/populate_contents()
-	for(var/I in 1 to 20)
-		new /obj/item/ammo_casing/a357(src)
 
 #undef NODESIGN
 #undef NANOTRASEN
