@@ -1,5 +1,4 @@
 //Cleanbot
-GLOBAL_LIST_EMPTY(reserved_cleanables)
 /mob/living/simple_animal/bot/cleanbot
 	name = "\improper Cleanbot"
 	desc = "A little cleaning robot, he looks so excited!"
@@ -32,10 +31,13 @@ GLOBAL_LIST_EMPTY(reserved_cleanables)
 	var/failed_steps
 	var/next_dest
 	var/next_dest_loc
+	var/static/list/reserved_cleanables
 
 
 /mob/living/simple_animal/bot/cleanbot/New()
 	..()
+	if(!reserved_cleanables)
+		reserved_cleanables = list()
 	get_targets()
 
 	var/datum/job/janitor/J = new/datum/job/janitor
@@ -95,7 +97,7 @@ GLOBAL_LIST_EMPTY(reserved_cleanables)
 /mob/living/simple_animal/bot/cleanbot/process_scan(obj/effect/decal/cleanable/D)
 	for(var/T in target_types)
 		if(istype(D, T))
-			if(D in GLOB.reserved_cleanables)
+			if(D in reserved_cleanables)
 				return FALSE
 			return D
 
@@ -107,7 +109,7 @@ GLOBAL_LIST_EMPTY(reserved_cleanables)
 	if(mode == BOT_CLEANING)
 		return
 
-	if(target in GLOB.reserved_cleanables)
+	if(target in reserved_cleanables)
 		path = list()
 		target = null
 
@@ -135,7 +137,7 @@ GLOBAL_LIST_EMPTY(reserved_cleanables)
 			bot_patrol()
 
 	if(target && loc == get_turf(target))
-		GLOB.reserved_cleanables += target
+		reserved_cleanables += target
 		start_clean(target)
 		path = list()
 		target = null
@@ -197,8 +199,8 @@ GLOBAL_LIST_EMPTY(reserved_cleanables)
 /mob/living/simple_animal/bot/cleanbot/proc/do_clean(obj/effect/decal/cleanable/target)
 	if(QDELETED(src))
 		return
-	if(target in GLOB.reserved_cleanables)
-		GLOB.reserved_cleanables -= target
+	if(target in reserved_cleanables)
+		reserved_cleanables -= target
 	if(mode == BOT_CLEANING)
 		QDEL_NULL(target)
 		anchored = FALSE
