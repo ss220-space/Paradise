@@ -372,9 +372,6 @@
 	pixel_x = 4;
 	pixel_y = -4
 	},
-/obj/item/circuitboard/tcomms/relay{
-	pixel_x = -1
-	},
 /obj/item/circuitboard/tcomms/core{
 	pixel_x = -5;
 	pixel_y = 3
