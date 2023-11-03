@@ -1,0 +1,20 @@
+'2023-11-02':
+  ArtemDerp:
+  - bugfix: correct position of the light switch in rnd toxins (#3798)
+  Mindfri:
+  - tweak: Lipstick in wallet (#3772)
+  ROdenFL:
+  - bugfix: xylophone is xylophone (#3805)
+  - bugfix: lost coca sprites, grill abdwindow, wclass (#3803)
+  SSefuss:
+  - add: A specific sound that borg hears when e-magged. (#3795)
+  Vladisvell:
+  - bugfix: fixed security & command sub-professions not being visible on crew monitor
+      (#3802)
+  - bugfix: Ellis TTS voice is classified as male now (#3800)
+  - bugfix: Chessboard closes automatically when not nearby (#3801)
+  WolfLox:
+  - balance: taser-stamina-nerf (#3775)
+  Zwei:
+  - tweak: Bloodswell Buff (#3790)
+  - bugfix: Few Inventory Fixes (#3785)

@@ -210,6 +210,7 @@
   Vladisvell:
   - bugfix: fixed resource exploit for ore redemption (#3796)
   - bugfix: non-one-shot events now work correctly (#3789)
+  - tweak: bumped python dependency from 3.7.9 to 3.11.6 (#3797)
   Zwei:
   - bugfix: Throwing Fix (#3793)
   - bugfix: HUD Updates In Mind Transfer (#3786)
