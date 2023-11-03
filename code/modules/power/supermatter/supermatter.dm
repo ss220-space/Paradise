@@ -264,6 +264,9 @@
 	transfer_energy()
 
 	for(var/mob/living/carbon/human/l in view(src, min(7, round(sqrt(power/6)))))
+		// No more hallucinate for ded pipol.
+		if(!l.stat)
+			continue
 		// Where we're going, we don't need eyes.
 		var/obj/item/organ/internal/eyes/eyes = l.get_int_organ(/obj/item/organ/internal/eyes)
 		if(!istype(eyes))

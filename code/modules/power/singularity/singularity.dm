@@ -427,6 +427,8 @@
 	for(var/mob/living/carbon/M in oviewers(8, src))
 		if(istype(M, /mob/living/carbon/brain)) //Ignore brains
 			continue
+		if(!M.stat) // We can't stare on the lord if we are not so alive.
+			continue
 		if((M.sight >= SEE_TURFS) && !(M.sight >= (SEE_TURFS|SEE_OBJS))) // If they can see it without mesons on or can see objects through mesons. Bad on them.
 			to_chat(M, "<span class='notice'>You look directly into the [src.name], good thing you had your protective eyewear on!</span>")
 			continue
