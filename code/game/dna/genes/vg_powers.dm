@@ -308,7 +308,7 @@
 		target.thoughts_hud_set(TRUE)
 		var/say = input("What do you wish to say") as text|null
 		target.hud_typing = 0
-		if(!say)
+		if(!say || target.stat)
 			target.thoughts_hud_set(FALSE)
 			return
 		target.thoughts_hud_set(TRUE, say_test(say))
