@@ -17,7 +17,7 @@
 /obj/item/implant/proc/trigger(emote, mob/source, force)
 	return
 
-/obj/item/implant/proc/activate()
+/obj/item/implant/proc/activate(cause)
 	return
 
 /obj/item/implant/ui_action_click()

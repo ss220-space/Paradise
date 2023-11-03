@@ -34,7 +34,6 @@
 	I.pixel_y = initial(I.pixel_y)
 	I.screen_loc = null
 	I.forceMove(src)
-	I.equipped(src, slot, initial)
 	I.layer = ABOVE_HUD_LAYER
 	I.plane = ABOVE_HUD_PLANE
 
@@ -62,6 +61,8 @@
 		if(slot_legcuffed)
 			legcuffed = I
 			update_legcuffed_status()
+
+	I.equipped(src, slot, initial)
 
 
 /mob/living/carbon/alien/humanoid/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)

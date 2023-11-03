@@ -50,19 +50,19 @@
 		g_vamp.nullified = max(5, g_vamp.nullified + 2)
 
 
-
 /obj/item/nullrod/pickup(mob/living/user)
-	. = ..()
-	if(sanctify_force)
-		if(!user.mind || !user.mind.isholy)
-			user.adjustBruteLoss(force)
-			user.adjustFireLoss(sanctify_force)
-			user.Weaken(10 SECONDS)
-			user.drop_item_ground(src, force = TRUE)
-			user.visible_message("<span class='warning'>[src] slips out of the grip of [user] as they try to pick it up, bouncing upwards and smacking [user.p_them()] in the face!</span>", \
-			"<span class='warning'>[src] slips out of your grip as you pick it up, bouncing upwards and smacking you in the face!</span>")
-			playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
-			throw_at(get_edge_target_turf(user, pick(GLOB.alldirs)), rand(1, 3), 5)
+	if(sanctify_force && !user.mind?.isholy)
+		user.adjustBruteLoss(force)
+		user.adjustFireLoss(sanctify_force)
+		user.Weaken(10 SECONDS)
+		user.drop_item_ground(src, force = TRUE)
+		user.visible_message(span_warning("[src] slips out of the grip of [user] as they try to pick it up, bouncing upwards and smacking [user.p_them()] in the face!"), \
+							span_warning("[src] slips out of your grip as you pick it up, bouncing upwards and smacking you in the face!"))
+		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
+		throw_at(get_edge_target_turf(user, pick(GLOB.alldirs)), rand(1, 3), 5)
+		return FALSE
+
+	return ..()
 
 
 /obj/item/nullrod/attack_self(mob/user)
