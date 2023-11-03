@@ -1,49 +1,23 @@
-/obj/item/ammo_box/speedloader/a357
-	name = "speed loader (.357)"
-	desc = "Designed to quickly reload revolvers."
-	materials = list(MAT_METAL = 2000)
-	ammo_type = /obj/item/ammo_casing/a357
-	max_ammo = 7
-	caliber = ".357"
-	icon_state = "357-7" // DEFAULT icon, composed of prefix + "-" + max_ammo for multiple_sprites == 1 boxes
-	multiple_sprites = 1 // see: /obj/item/ammo_box/update_icon()
-	icon_prefix = "357" // icon prefix, used in above formula to generate dynamic icons
+/**
+ * AMMO BOX
+ */
 
-/obj/item/ammo_box/speedloader/improvisedrevolver
-	name = "makeshift speedloader"
-	desc = "Speedloader made from shit and sticks"
-	ammo_type = /obj/item/ammo_casing/revolver/improvised
-	icon_state = "makeshift_speedloader-4"
-	multiple_sprites = 1
-	icon_prefix = "makeshift_speedloader"
-	max_ammo = 4
-	caliber = ".257"
-
-/obj/item/ammo_box/speedloader/c38
-	name = "speed loader (.38)"
-	desc = "Designed to quickly reload revolvers."
-	icon_state = "38"
-	materials = list(MAT_METAL = 2000)
-	ammo_type = /obj/item/ammo_casing/c38
-	max_ammo = 6
-	caliber = ".38"
-	icon_state = "38-6" // see previous entry for explanation of these vars
-	multiple_sprites = 1
-	icon_prefix = "38"
-
-/obj/item/ammo_box/speedloader/c38/hp
-	name = "speed loader (.38 Hollow-Point)"
-	ammo_type = /obj/item/ammo_casing/c38/hp
-	icon_state = "38hp-6"
-	icon_prefix = "38hp"
-
+// REVOLVER
 /obj/item/ammo_box/a357
 	name = "ammo box (.357)"
-	icon_state = "357OLD"
+	icon_state = "357OLD"  // see previous entry for explanation of these vars
 	ammo_type = /obj/item/ammo_casing/a357
 	max_ammo = 20
 	multiple_sprites = 1
 
+/obj/item/ammo_box/n762
+	name = "ammo box (7.62x38mmR)"
+	icon_state = "riflebox"
+	origin_tech = "combat=2"
+	ammo_type = /obj/item/ammo_casing/n762
+	max_ammo = 14
+
+// SHOTGUN
 /obj/item/ammo_box/shotgun
 	name = "Ammunition Box (Slug)"
 	icon_state = "slugbox"
@@ -80,6 +54,7 @@
 	icon_state = "tranqbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/tranquilizer
 
+// AUTOMATIC
 /obj/item/ammo_box/c9mm
 	name = "ammo box (9mm)"
 	icon_state = "9mmbox"
@@ -144,6 +119,7 @@
 	ammo_type = /obj/item/ammo_casing/c46x30mm/inc
 	max_ammo = 40
 
+// MISC
 /obj/item/ammo_box/a40mm
 	name = "ammo box (40mm grenades)"
 	icon_state = "40mm"
@@ -151,21 +127,79 @@
 	max_ammo = 4
 	multiple_sprites = 1
 
-/obj/item/ammo_box/a762
-	name = "stripper clip (7.62mm)"
-	desc = "A stripper clip."
-	icon_state = "762"
-	ammo_type = /obj/item/ammo_casing/a762
-	max_ammo = 5
+/obj/item/ammo_box/laserammobox
+	name = "laser ammo box"
+	icon_state = "laserbox"
+	ammo_type = /obj/item/ammo_casing/laser
+	max_ammo = 40
+
+/obj/item/ammo_box/foambox
+	name = "ammo box (Foam Darts)"
+	icon = 'icons/obj/weapons/toy.dmi'
+	icon_state = "foambox"
+	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
+	max_ammo = 40
+
+/obj/item/ammo_box/foambox/riot
+	icon_state = "foambox_riot"
+	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
+
+/obj/item/ammo_box/foambox/sniper
+	name = "ammo box (Foam Sniper Darts)"
+	icon = 'icons/obj/weapons/toy.dmi'
+	icon_state = "foambox_sniper"
+	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/sniper
+	max_ammo = 40
+
+/obj/item/ammo_box/foambox/sniper/riot
+	icon_state = "foambox_sniper_riot"
+	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/sniper/riot
+
+/**
+ * SPEEDLOADER
+ */
+
+// REVOLVER
+/obj/item/ammo_box/speedloader/a357
+	name = "speed loader (.357)"
+	desc = "Designed to quickly reload revolvers."
+	materials = list(MAT_METAL = 2000)
+	ammo_type = /obj/item/ammo_casing/a357
+	max_ammo = 7
+	caliber = ".357"
+	icon_state = "357-7" // DEFAULT icon, composed of prefix + "-" + max_ammo for multiple_sprites == 1 boxes
+	multiple_sprites = 1 // see: /obj/item/ammo_box/update_icon()
+	icon_prefix = "357" // icon prefix, used in above formula to generate dynamic icons
+
+/obj/item/ammo_box/speedloader/improvisedrevolver
+	name = "makeshift speedloader"
+	desc = "Speedloader made from shit and sticks"
+	ammo_type = /obj/item/ammo_casing/revolver/improvised
+	icon_state = "makeshift_speedloader-4"
 	multiple_sprites = 1
+	icon_prefix = "makeshift_speedloader"
+	max_ammo = 4
+	caliber = ".257"
 
-/obj/item/ammo_box/n762
-	name = "ammo box (7.62x38mmR)"
-	icon_state = "riflebox"
-	origin_tech = "combat=2"
-	ammo_type = /obj/item/ammo_casing/n762
-	max_ammo = 14
+/obj/item/ammo_box/speedloader/c38
+	name = "speed loader (.38)"
+	desc = "Designed to quickly reload revolvers."
+	icon_state = "38"
+	materials = list(MAT_METAL = 2000)
+	ammo_type = /obj/item/ammo_casing/c38
+	max_ammo = 6
+	caliber = ".38"
+	icon_state = "38-6"
+	multiple_sprites = 1
+	icon_prefix = "38"
 
+/obj/item/ammo_box/speedloader/c38/hp
+	name = "speed loader (.38 Hollow-Point)"
+	ammo_type = /obj/item/ammo_casing/c38/hp
+	icon_state = "38hp-6"
+	icon_prefix = "38hp"
+
+// SHOTGUN
 /obj/item/ammo_box/speedloader/shotgun
 	name = "Shotgun Speedloader (slug)"
 	icon_state = "slugloader"
@@ -211,29 +245,7 @@
 	icon_state = "slugloader"
 	ammo_type = null
 
-//FOAM DARTS
-/obj/item/ammo_box/foambox
-	name = "ammo box (Foam Darts)"
-	icon = 'icons/obj/weapons/toy.dmi'
-	icon_state = "foambox"
-	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
-	max_ammo = 40
-
-/obj/item/ammo_box/foambox/riot
-	icon_state = "foambox_riot"
-	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
-
-/obj/item/ammo_box/foambox/sniper
-	name = "ammo box (Foam Sniper Darts)"
-	icon = 'icons/obj/weapons/toy.dmi'
-	icon_state = "foambox_sniper"
-	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/sniper
-	max_ammo = 40
-
-/obj/item/ammo_box/foambox/sniper/riot
-	icon_state = "foambox_sniper_riot"
-	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/sniper/riot
-
+// MISC
 /obj/item/ammo_box/speedloader/caps
 	name = "speed loader (caps)"
 	icon_state = "357"
@@ -241,8 +253,14 @@
 	max_ammo = 7
 	multiple_sprites = 1
 
-/obj/item/ammo_box/laserammobox
-	name = "laser ammo box"
-	icon_state = "laserbox"
-	ammo_type = /obj/item/ammo_casing/laser
-	max_ammo = 40
+/**
+ * STRIPPER CLIP
+ */
+
+/obj/item/ammo_box/a762
+	name = "stripper clip (7.62mm)"
+	desc = "A stripper clip."
+	icon_state = "762"
+	ammo_type = /obj/item/ammo_casing/a762
+	max_ammo = 5
+	multiple_sprites = 1
