@@ -57,7 +57,6 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 					typing = FALSE
 			return state
 
-
 /mob/verb/say_wrapper()
 	set name = ".Say"
 	set hidden = 1
