@@ -103,7 +103,7 @@
 
 		var/count = 1
 		var/ninjawin = TRUE
-		for(var/datum/objective/objective in ninja.objectives)
+		for(var/datum/objective/objective in ninja.get_all_objectives())
 			if(objective.check_completion())
 				text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='green'><B>Успех!</B></font>"
 				SSblackbox.record_feedback("nested tally", "ninja_objective", 1, list("[objective.type]", "SUCCESS"))
