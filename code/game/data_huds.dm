@@ -481,10 +481,10 @@
 	if(!(client?.prefs.toggles & PREFTOGGLE_SHOW_TYPING))
 		var/image/holder = hud_list[THOUGHT_HUD]
 		if(thoughts)
-			if(!typing && say_test == -1)
+			if(!typing)
 				holder.icon_state = "hudthoughtstyping"
 				typing = TRUE
-			else
+			else if(say_test > -1)
 				holder.icon_state = "hudthoughts-[say_test]"
 				addtimer(CALLBACK(src, PROC_REF(thoughts_hud_set), FALSE), 3 SECONDS)
 		if(!thoughts && typing)
