@@ -68,11 +68,9 @@
 	icon_state = "coca_trail"
 
 /obj/item/coca_trail/pickup(mob/user)
-	. = ..()
+	SHOULD_CALL_PARENT(FALSE)
 	user.reagents.add_reagent("cocaine", 5)
 	to_chat(user, span_notice("You sniff the trail of cocaine and it hits you to the very brain."))
 	qdel(src)
-	. = ..()
-
-
+	return FALSE
 
