@@ -219,6 +219,19 @@
 	icon_state = "dark"
 	},
 /area/centcom/evac)
+"adT" = (
+/obj/mecha/combat/marauder/seraph/loaded{
+	armor = list("melee"=80,"bullet"=80,"laser"=80,"energy"=80,"bomb"=80,"bio"=80,"rad"=80,"fire"=100,"acid"=100);
+	name = "D2";
+	operation_req_access = list(109)
+	},
+/obj/effect/turf_decal/mech,
+/turf/simulated/floor/indestructible{
+	dir = 8;
+	icon_state = "vault";
+	name = "Operative position"
+	},
+/area/centcom/jail)
 "adW" = (
 /obj/structure/energy_caltrops/noselfdestroy,
 /obj/structure/flora/grass/both,
@@ -419,10 +432,12 @@
 	},
 /area/centcom/jail)
 "ajk" = (
-/obj/machinery/light/small{
+/obj/machinery/mech_bay_recharge_port{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/centcom/jail)
 "ajJ" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
@@ -692,6 +707,7 @@
 /obj/item/radio/intercom/specops{
 	pixel_x = -30
 	},
+/obj/item/assault_pod/nt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "navybluealt"
@@ -4230,6 +4246,12 @@
 	name = "floor"
 	},
 /area/vox_station)
+"bZZ" = (
+/obj/structure/chair/comfy/black,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/jail)
 "caw" = (
 /obj/effect/turf_decal/delivery/red,
 /turf/simulated/floor/indestructible/vox{
@@ -5731,6 +5753,22 @@
 	name = "floor"
 	},
 /area/vox_station)
+"cKY" = (
+/obj/machinery/door/airlock/shuttle{
+	aiControlDisabled = 1;
+	req_access = list(109);
+	name = "Emergency Droppod"
+	},
+/obj/docking_port/mobile/assault_pod/nt,
+/obj/docking_port/stationary/transit{
+	pixel_y = -32;
+	dwidth = 3;
+	width = 7;
+	height = 7;
+	id = "shit_rain_transit"
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/nt_droppod)
 "cLt" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo7"
@@ -6323,6 +6361,10 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/control)
 "ddK" = (
+/obj/machinery/computer/shuttle{
+	possible_destinations = "shit_rain_home";
+	shuttleId = "shit_rain"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "navybluealt"
@@ -7657,6 +7699,23 @@
 	icon_state = "dark"
 	},
 /area/centcom/supply)
+"dOp" = (
+/obj/effect/decal/warning_stripes/blue{
+	icon_state = "ladder10";
+	icon = 'icons/obj/structures.dmi';
+	name = "Ladder";
+	desc = "Лестница в кабинет СОО"
+	},
+/obj/effect/step_trigger/teleporter{
+	teleport_x = 202;
+	teleport_y = 41;
+	teleport_z = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkredaltstrip"
+	},
+/area/centcom/jail)
 "dOM" = (
 /turf/simulated/wall/shuttle/nosmooth{
 	dir = 5;
@@ -9035,6 +9094,18 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/ninja/outpost)
+"ezu" = (
+/obj/structure/rack/gunrack,
+/obj/item/gun/projectile/automatic/sniper_rifle,
+/obj/item/gun/projectile/automatic/sniper_rifle,
+/obj/item/gun/projectile/automatic/sniper_rifle,
+/obj/item/gun/projectile/automatic/sniper_rifle,
+/obj/item/gun/projectile/automatic/sniper_rifle,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "vault"
+	},
+/area/centcom/jail)
 "ezA" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -9201,18 +9272,6 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/ninja/outpost)
-"eFx" = (
-/obj/effect/step_trigger/teleporter{
-	teleport_x = 216;
-	teleport_y = 25;
-	teleport_z = 1
-	},
-/turf/simulated/floor/plasteel{
-	color = "gray";
-	dir = 4;
-	icon_state = "rampbottom"
-	},
-/area/centcom/specops)
 "eFN" = (
 /obj/structure/rack/holorack,
 /obj/item/stamp/captain,
@@ -20767,7 +20826,7 @@
 /area/wizard_station)
 "kIw" = (
 /obj/effect/step_trigger/teleporter{
-	teleport_x = 234;
+	teleport_x = 135;
 	teleport_y = 14;
 	teleport_z = 1
 	},
@@ -22504,7 +22563,8 @@
 	},
 /obj/effect/step_trigger/teleporter{
 	teleport_x = 135;
-	teleport_y = 17
+	teleport_y = 17;
+	teleport_z = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -32869,6 +32929,10 @@
 /area/syndicate_mothership/elite_squad)
 "pVX" = (
 /obj/structure/chair/comfy/red,
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -33327,6 +33391,18 @@
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/syndicate_mothership/outside)
+"qgQ" = (
+/obj/structure/rack/gunrack,
+/obj/item/gun/energy/laser/instakill/blue,
+/obj/item/gun/energy/laser/instakill/blue,
+/obj/item/gun/energy/laser/instakill/blue,
+/obj/item/gun/energy/laser/instakill/blue,
+/obj/item/gun/energy/laser/instakill/blue,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/centcom/jail)
 "qhG" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -35603,6 +35679,19 @@
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/zone2)
+"riW" = (
+/obj/structure/rack/gunrack,
+/obj/item/gun/energy/pulse/destroyer/annihilator,
+/obj/item/gun/energy/pulse/destroyer/annihilator,
+/obj/item/gun/energy/pulse/destroyer/annihilator,
+/obj/item/gun/energy/pulse/destroyer/annihilator,
+/obj/item/gun/energy/pulse/destroyer/annihilator,
+/obj/item/gun/energy/pulse/destroyer/annihilator,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "vault"
+	},
+/area/centcom/jail)
 "rjt" = (
 /obj/structure/chair/sofa/left{
 	dir = 4
@@ -37858,7 +37947,7 @@
 	},
 /area/centcom/specops)
 "shz" = (
-/obj/machinery/computer/shuttle/syndicate/drop_pod/nt,
+/obj/machinery/computer/shuttle/nt/drop_pod,
 /turf/simulated/wall/shuttle,
 /area/shuttle/nt_droppod)
 "shB" = (
@@ -41404,6 +41493,13 @@
 /obj/item/storage/toolbox/syndicate,
 /turf/simulated/floor/shuttle/objective_check/vox,
 /area/shuttle/vox)
+"tLl" = (
+/obj/machinery/computer/mech_bay_power_console,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/jail)
 "tLm" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -45483,6 +45579,11 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/specops)
+"vBa" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredaltstrip"
+	},
+/area/centcom/jail)
 "vCn" = (
 /obj/effect/gibspawner/xeno,
 /turf/simulated/floor/plating,
@@ -48621,14 +48722,16 @@
 	},
 /area/shuttle/syndicate)
 "xcV" = (
-/obj/machinery/door/airlock/shuttle{
-	aiControlDisabled = 1;
-	req_access = list(109);
-	name = "Emergency Droppod"
+/obj/docking_port/stationary{
+	pixel_y = -32;
+	dwidth = 3;
+	width = 7;
+	height = 7;
+	id = "shit_rain_home";
+	name = "Emergency Droppod base"
 	},
-/obj/docking_port/mobile/assault_pod/nt,
-/turf/simulated/floor/shuttle,
-/area/shuttle/nt_droppod)
+/turf/space,
+/area/centcom/specops)
 "xdH" = (
 /obj/machinery/vending/syndicigs,
 /obj/machinery/light/small{
@@ -48687,6 +48790,33 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"xfa" = (
+/obj/structure/rack/gunrack,
+/obj/item/gun/projectile/automatic/l6_saw{
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
+	name = "M249 SAW"
+	},
+/obj/item/gun/projectile/automatic/l6_saw{
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
+	name = "M249 SAW"
+	},
+/obj/item/gun/projectile/automatic/l6_saw{
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
+	name = "M249 SAW"
+	},
+/obj/item/gun/projectile/automatic/l6_saw{
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
+	name = "M249 SAW"
+	},
+/obj/item/gun/projectile/automatic/l6_saw{
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
+	name = "M249 SAW"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "vault"
+	},
+/area/centcom/jail)
 "xfs" = (
 /turf/simulated/wall/shuttle/nosmooth/interior{
 	dir = 5;
@@ -75966,21 +76096,21 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+pNM
+pNM
+pNM
+pNM
+pNM
+pNM
+pNM
+pNM
+pNM
+pNM
+pNM
+pNM
+pNM
+pNM
+pNM
 pNM
 qAj
 qAj
@@ -76223,21 +76353,21 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+pNM
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
 pNM
 qAj
 qAj
@@ -76480,21 +76610,21 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+pNM
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
 pNM
 qAj
 qAj
@@ -76737,21 +76867,21 @@ mVX
 mVX
 mVX
 mVX
+pNM
+pwa
+pwa
+pwa
 mVX
+sEU
+dtR
+wwE
+dtR
+sEU
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ubE
+ubE
+ubE
+ubE
 pNM
 qAj
 qAj
@@ -76994,21 +77124,21 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+pNM
+pwa
+pwa
+pwa
+sEU
+sEU
+oOK
+cJL
+oOK
+sEU
+sEU
+ubE
+ubE
+ubE
+ubE
 pNM
 qAj
 qAj
@@ -77251,21 +77381,21 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+pNM
+pwa
+pwa
+pwa
+dtR
+hYY
+cJL
+mSG
+cJL
+iCn
+dtR
+ubE
+ubE
+ubE
+ubE
 pNM
 qAj
 qAj
@@ -77508,21 +77638,21 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+pNM
+pwa
+pwa
+pwa
+wwE
+cJL
+vtw
+shz
+ccL
+cJL
+cKY
+ubE
+ubE
+ubE
+ubE
 pNM
 qAj
 qAj
@@ -77765,21 +77895,21 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+pNM
+pwa
+pwa
+pwa
+dtR
+hYY
+cJL
+iXk
+cJL
+iCn
+dtR
+ubE
+ubE
+ubE
+ubE
 pNM
 qAj
 qAj
@@ -78022,21 +78152,21 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+pNM
+pwa
+pwa
+pwa
+sEU
+sEU
+tte
+cJL
+tte
+sEU
+sEU
+ubE
+ubE
+ubE
+ubE
 pNM
 qAj
 qAj
@@ -78279,21 +78409,21 @@ mVX
 mVX
 mVX
 mVX
+pNM
+pwa
+pwa
+pwa
 mVX
+sEU
+dtR
+wwE
+dtR
+sEU
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ubE
+ubE
+ubE
+ubE
 pNM
 qAj
 qAj
@@ -78536,21 +78666,21 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+pNM
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
 pNM
 qAj
 qAj
@@ -78793,21 +78923,21 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+pNM
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
 pNM
 qAj
 qAj
@@ -79050,21 +79180,21 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+pNM
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
 pNM
 qAj
 qAj
@@ -85335,15 +85465,15 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+pqb
+pqb
+pqb
+pqb
+pqb
+pqb
+pqb
+pqb
+pqb
 mVX
 mVX
 pNM
@@ -85594,13 +85724,13 @@ pqb
 pqb
 pqb
 pqb
+dOp
+kVf
+hsJ
+tLl
 pqb
-pqb
-pqb
-pqb
-pqb
-pqb
-pqb
+uWB
+oeJ
 mVX
 mVX
 pNM
@@ -85849,14 +85979,14 @@ pqb
 oVf
 vDj
 oVf
-fAN
-fAN
-fAN
-fAN
-fAN
-fAN
-fAN
-fAN
+pqb
+bZZ
+mxj
+myp
+vBa
+adT
+pqb
+pqb
 pqb
 mVX
 mVX
@@ -86107,13 +86237,13 @@ etr
 myg
 wcz
 pqb
+myp
+xmb
+hpD
+bje
+ajk
 pqb
 pqb
-pqb
-pqb
-pqb
-pqb
-fAN
 pqb
 mVX
 mVX
@@ -86364,13 +86494,13 @@ kTy
 myg
 uam
 pqb
+riW
+qgQ
+xfa
+ezu
 pqb
 pqb
 pqb
-pqb
-fAN
-fAN
-fAN
 pqb
 mVX
 mVX
@@ -86625,7 +86755,7 @@ pqb
 pqb
 pqb
 pqb
-fAN
+pqb
 pqb
 pqb
 pqb
@@ -93812,13 +93942,13 @@ pUR
 cmf
 ipn
 ipn
+ipn
+xaU
+bXH
 xaU
 fLn
 xaU
 uBr
-ipn
-ajk
-ipn
 pqb
 enO
 mVX
@@ -94073,7 +94203,7 @@ ipn
 xaU
 bXH
 xaU
-roU
+bXH
 pVX
 roU
 pqb
@@ -102499,7 +102629,7 @@ kZA
 kZA
 bUs
 afP
-fon
+afP
 aMV
 fon
 srE
@@ -111039,7 +111169,7 @@ mVX
 mVX
 mVX
 kXF
-eFx
+jdg
 jdg
 yep
 mVX
@@ -112837,13 +112967,13 @@ mVX
 mVX
 mVX
 nAN
-ctk
-sEU
-dtR
-wwE
-dtR
-sEU
-ctk
+uWy
+sMy
+sMy
+sMy
+sMy
+sMy
+uWy
 nAN
 pNM
 mVX
@@ -113094,13 +113224,13 @@ mVX
 mVX
 mVX
 nAN
-sEU
-sEU
-oOK
-cJL
-oOK
-sEU
-sEU
+sMy
+sMy
+sMy
+sMy
+sMy
+sMy
+sMy
 nAN
 pNM
 mVX
@@ -113351,13 +113481,13 @@ mVX
 mVX
 mVX
 nAN
-dtR
-hYY
-cJL
-mSG
-cJL
-iCn
-dtR
+sMy
+sMy
+sMy
+sMy
+sMy
+sMy
+sMy
 nAN
 pNM
 mVX
@@ -113608,12 +113738,12 @@ mVX
 mVX
 mVX
 nAN
-wwE
-cJL
-vtw
-shz
-ccL
-cJL
+sMy
+sMy
+sMy
+sMy
+sMy
+sMy
 xcV
 nAN
 pNM
@@ -113865,13 +113995,13 @@ mVX
 mVX
 mVX
 nAN
-dtR
-hYY
-cJL
-iXk
-cJL
-iCn
-dtR
+sMy
+sMy
+sMy
+sMy
+sMy
+sMy
+sMy
 nAN
 pNM
 mVX
@@ -114122,13 +114252,13 @@ mVX
 mVX
 mVX
 nAN
-sEU
-sEU
-tte
-cJL
-tte
-sEU
-sEU
+sMy
+sMy
+sMy
+sMy
+sMy
+sMy
+sMy
 nAN
 pNM
 mVX
@@ -114379,13 +114509,13 @@ mVX
 mVX
 mVX
 nAN
-ctk
-sEU
-dtR
-wwE
-dtR
-sEU
-ctk
+uWy
+sMy
+sMy
+sMy
+sMy
+sMy
+uWy
 nAN
 pNM
 mVX

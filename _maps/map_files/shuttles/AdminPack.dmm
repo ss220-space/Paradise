@@ -45,6 +45,12 @@
 	icon_state = "navybluealt"
 	},
 /area/shuttle/administration)
+"aG" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "navybluealt"
+	},
+/area/shuttle/administration)
 "aJ" = (
 /obj/structure/filingcabinet/employment,
 /turf/simulated/floor/wood/fancy/cherry,
@@ -150,6 +156,19 @@
 	icon_state = "navybluealt"
 	},
 /area/shuttle/administration)
+"bS" = (
+/obj/structure/railing{
+	dir = 8;
+	pixel_x = 32
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "navybluealt"
+	},
+/area/shuttle/administration)
 "ce" = (
 /obj/structure/alien/resin,
 /turf/simulated/wall/shuttle/onlyselfsmooth,
@@ -193,11 +212,13 @@
 /turf/simulated/floor/carpet/red,
 /area/shuttle/administration)
 "dE" = (
-/obj/structure/closet/crate/can,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "navybluealt"
+/obj/effect/turf_decal/siding{
+	color = "#444444"
 	},
+/obj/structure/sign/poster/official/fruit_bowl{
+	pixel_y = 32
+	},
+/turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/administration)
 "dS" = (
 /obj/machinery/atmospherics/unary/tank/air{
@@ -232,6 +253,60 @@
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
+"eD" = (
+/obj/structure/closet{
+	icon_closed = "syndicate1";
+	icon_opened = "syndicate1open";
+	icon_state = "syndicate1"
+	},
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/energy/gun/blueshield,
+/obj/item/clothing/glasses/hud/security/sunglasses/aviators,
+/obj/item/reagent_containers/food/snacks/candy/mre,
+/obj/item/reagent_containers/hypospray/combat,
+/obj/item/radio/headset/ert/alt{
+	desc = null;
+	name = "SRT bowman headset"
+	},
+/obj/item/clothing/head/beret/centcom/officer/navy{
+	desc = null;
+	name = "SRT beret"
+	},
+/obj/item/clothing/shoes/combat/swat{
+	name = "SRT special shoes"
+	},
+/obj/item/clothing/gloves/combat{
+	name = "Combat gloves"
+	},
+/obj/item/storage/belt/security/webbing/srt/full,
+/obj/item/storage/backpack/satchel_blueshield/srt,
+/obj/item/clothing/suit/storage/blueshield/srt,
+/obj/item/clothing/suit/armor/bulletproof{
+	name = "SRT bulletproof vest"
+	},
+/obj/item/shield/riot/tele,
+/obj/item/suppressor,
+/obj/item/CQC_manual,
+/obj/item/implanter/mindshield/ert,
+/obj/item/card/id/centcom{
+	name = "Special Reaction Team Member card";
+	rank = "Special Reaction Team Member";
+	registered_name = "Special Reaction Team Member"
+	},
+/obj/item/storage/box/responseteam,
+/obj/item/clothing/under/fluff/jay_turtleneck{
+	desc = null;
+	name = "SRT uniform"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkred"
+	},
+/area/shuttle/administration)
 "eH" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/plasteel{
@@ -252,6 +327,15 @@
 	dir = 4
 	},
 /turf/simulated/floor/transparent/glass/reinforced/plasma,
+/area/shuttle/administration)
+"eV" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "navybluealt"
+	},
 /area/shuttle/administration)
 "fa" = (
 /obj/structure/table/wood/fancy/black,
@@ -392,6 +476,7 @@
 	dir = 1;
 	color = "#444444"
 	},
+/obj/machinery/light,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/administration)
 "gU" = (
@@ -423,6 +508,9 @@
 /area/shuttle/administration)
 "hg" = (
 /obj/structure/chair/sofa/corp/left,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "navybluealt"
@@ -508,6 +596,10 @@
 /area/shuttle/administration)
 "in" = (
 /obj/machinery/vending/boozeomat,
+/turf/simulated/floor/wood/fancy/cherry,
+/area/shuttle/administration)
+"iF" = (
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/administration)
 "iI" = (
@@ -702,6 +794,7 @@
 	dir = 4;
 	color = "#444444"
 	},
+/obj/machinery/light,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/administration)
 "mP" = (
@@ -1071,6 +1164,7 @@
 /turf/space,
 /area/shuttle/administration)
 "uf" = (
+/obj/structure/closet/crate/can,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "navybluealt"
@@ -1291,6 +1385,12 @@
 	icon_state = "navybluealtstrip"
 	},
 /area/shuttle/administration)
+"wA" = (
+/obj/structure/chair/stool/bar/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
 "wR" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds,
@@ -1298,6 +1398,15 @@
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "darkgrey"
+	},
+/area/shuttle/administration)
+"wS" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 8
+	},
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "navybluealt"
 	},
 /area/shuttle/administration)
 "xB" = (
@@ -1308,7 +1417,28 @@
 /area/shuttle/administration)
 "xC" = (
 /obj/machinery/disco/immobile,
-/turf/simulated/floor/light/colour_cycle/dancefloor_b,
+/turf/simulated/floor/light/colour_cycle/dancefloor_a,
+/area/shuttle/administration)
+"xH" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 1;
+	icon_state = "open";
+	id_tag = "adminshuttleshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 1;
+	icon_state = "open";
+	id_tag = "adminshuttleshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/turf/simulated/floor/plating,
 /area/shuttle/administration)
 "xR" = (
 /obj/structure/table/reinforced,
@@ -1321,6 +1451,9 @@
 	},
 /area/shuttle/administration)
 "xS" = (
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkredalt"
@@ -1351,9 +1484,10 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/administration)
 "yH" = (
-/obj/structure/chair/sofa/corp{
-	dir = 4
+/obj/machinery/light{
+	dir = 8
 	},
+/obj/machinery/slot_machine,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "navybluealt"
@@ -1422,6 +1556,20 @@
 	dir = 1
 	},
 /turf/simulated/floor/transparent/glass/reinforced/plasma,
+/area/shuttle/administration)
+"zM" = (
+/obj/effect/turf_decal/siding{
+	color = "#444444";
+	dir = 1
+	},
+/obj/machinery/door_control{
+	id = "adminshuttleprivateshutters";
+	name = "Shutter control";
+	pixel_x = 5;
+	pixel_y = -23;
+	req_access = list(101)
+	},
+/turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/administration)
 "zP" = (
 /obj/effect/turf_decal/stripes/black{
@@ -1542,6 +1690,9 @@
 /area/shuttle/administration)
 "Bp" = (
 /obj/machinery/photocopier,
+/obj/structure/sign/poster/official/work_for_a_future{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1617,6 +1768,14 @@
 	icon_state = "navybluealt"
 	},
 /area/shuttle/administration)
+"CS" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
 "Dc" = (
 /obj/structure/alien/weeds,
 /obj/machinery/computer{
@@ -1665,6 +1824,14 @@
 	color = "#444444"
 	},
 /turf/simulated/floor/wood/fancy/cherry,
+/area/shuttle/administration)
+"El" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/shuttle/administration)
 "Em" = (
 /obj/structure/alien/weeds,
@@ -1758,6 +1925,13 @@
 "GE" = (
 /obj/item/flag/nt,
 /turf/simulated/floor/wood/fancy/cherry,
+/area/shuttle/administration)
+"Hf" = (
+/obj/structure/chair/stool/bar/dark,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "navybluecornersalt"
+	},
 /area/shuttle/administration)
 "Hj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -1878,6 +2052,27 @@
 /obj/structure/alien/resin,
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/shuttle/administration)
+"Jh" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 1;
+	icon_state = "open";
+	id_tag = "adminshuttleprivateshutters";
+	name = "Private Shutters";
+	opacity = 0
+	},
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 1;
+	icon_state = "open";
+	id_tag = "adminshuttleshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
 "Jr" = (
 /obj/effect/turf_decal/stripes/black{
 	dir = 8;
@@ -1912,8 +2107,15 @@
 	},
 /area/shuttle/administration)
 "JS" = (
-/obj/machinery/door/airlock/centcom,
-/turf/space,
+/obj/machinery/door/airlock/centcom{
+	id_tag = "adminshuttle";
+	name = "Armory";
+	opacity = 1;
+	req_access = list(101)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/shuttle/administration)
 "JZ" = (
 /obj/effect/turf_decal/stripes/black{
@@ -1925,6 +2127,14 @@
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"Kd" = (
+/obj/machinery/vending/nta/ertarmory/blue{
+	req_access = list(104,109)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
 /area/shuttle/administration)
 "Kt" = (
@@ -2103,6 +2313,21 @@
 	icon_state = "dark"
 	},
 /area/shuttle/administration)
+"NT" = (
+/obj/machinery/computer/communications{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/gold{
+	dir = 6;
+	do_not_delete_me = 1
+	},
+/obj/machinery/light/small,
+/obj/machinery/light_switch{
+	pixel_x = 12;
+	pixel_y = -26
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/administration)
 "Ob" = (
 /obj/structure/chair/comfy/lime{
 	dir = 4
@@ -2269,10 +2494,7 @@
 	},
 /area/shuttle/administration)
 "RL" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkredcornersalt"
-	},
+/turf/simulated/floor/light/colour_cycle/dancefloor_a,
 /area/shuttle/administration)
 "Se" = (
 /obj/effect/turf_decal/stripes/black{
@@ -2314,9 +2536,7 @@
 	},
 /area/shuttle/administration)
 "Ss" = (
-/obj/structure/chair/sofa/corp/right{
-	dir = 4
-	},
+/obj/machinery/slot_machine,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "navybluealt"
@@ -2371,9 +2591,6 @@
 	},
 /area/shuttle/administration)
 "TL" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -2405,8 +2622,57 @@
 	},
 /area/shuttle/administration)
 "TY" = (
+/obj/structure/closet{
+	icon_closed = "syndicate1";
+	icon_opened = "syndicate1open";
+	icon_state = "syndicate1"
+	},
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/energy/gun/blueshield,
+/obj/item/clothing/glasses/hud/security/sunglasses/aviators,
+/obj/item/reagent_containers/food/snacks/candy/mre,
+/obj/item/reagent_containers/hypospray/combat,
+/obj/item/radio/headset/ert/alt{
+	desc = null;
+	name = "SRT bowman headset"
+	},
+/obj/item/clothing/head/beret/centcom/officer/navy{
+	desc = null;
+	name = "SRT beret"
+	},
+/obj/item/clothing/shoes/combat/swat{
+	name = "SRT special shoes"
+	},
+/obj/item/clothing/gloves/combat{
+	name = "Combat gloves"
+	},
+/obj/item/storage/belt/security/webbing/srt/full,
+/obj/item/storage/backpack/satchel_blueshield/srt,
+/obj/item/clothing/suit/storage/blueshield/srt,
+/obj/item/clothing/suit/armor/bulletproof{
+	name = "SRT bulletproof vest"
+	},
+/obj/item/shield/riot/tele,
+/obj/item/suppressor,
+/obj/item/CQC_manual,
+/obj/item/implanter/mindshield/ert,
+/obj/item/card/id/centcom{
+	name = "Special Reaction Team Member card";
+	rank = "Special Reaction Team Member";
+	registered_name = "Special Reaction Team Member"
+	},
+/obj/item/storage/box/responseteam,
+/obj/item/clothing/under/fluff/jay_turtleneck{
+	desc = null;
+	name = "SRT uniform"
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkredalt"
+	dir = 6;
+	icon_state = "darkred"
 	},
 /area/shuttle/administration)
 "TZ" = (
@@ -2416,11 +2682,21 @@
 	},
 /area/shuttle/administration)
 "Ua" = (
-/obj/structure/chair/sofa/corp/corner{
-	dir = 4
-	},
+/obj/machinery/slot_machine,
 /turf/simulated/floor/plasteel{
 	dir = 9;
+	icon_state = "navybluealt"
+	},
+/area/shuttle/administration)
+"Uf" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
 	icon_state = "navybluealt"
 	},
 /area/shuttle/administration)
@@ -2492,6 +2768,13 @@
 "Vn" = (
 /obj/structure/table/wood/fancy/black,
 /turf/simulated/floor/carpet/black,
+/area/shuttle/administration)
+"Vo" = (
+/obj/structure/chair/stool/bar/dark,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "navybluealt"
+	},
 /area/shuttle/administration)
 "Vr" = (
 /obj/machinery/ticket_machine{
@@ -2612,6 +2895,60 @@
 	dir = 1
 	},
 /turf/simulated/floor/carpet/black,
+/area/shuttle/administration)
+"Xm" = (
+/obj/structure/closet{
+	icon_closed = "syndicate1";
+	icon_opened = "syndicate1open";
+	icon_state = "syndicate1"
+	},
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/energy/gun/blueshield,
+/obj/item/clothing/glasses/hud/security/sunglasses/aviators,
+/obj/item/reagent_containers/food/snacks/candy/mre,
+/obj/item/reagent_containers/hypospray/combat,
+/obj/item/radio/headset/ert/alt{
+	desc = null;
+	name = "SRT bowman headset"
+	},
+/obj/item/clothing/head/beret/centcom/officer/navy{
+	desc = null;
+	name = "SRT beret"
+	},
+/obj/item/clothing/shoes/combat/swat{
+	name = "SRT special shoes"
+	},
+/obj/item/clothing/gloves/combat{
+	name = "Combat gloves"
+	},
+/obj/item/storage/belt/security/webbing/srt/full,
+/obj/item/storage/backpack/satchel_blueshield/srt,
+/obj/item/clothing/suit/storage/blueshield/srt,
+/obj/item/clothing/suit/armor/bulletproof{
+	name = "SRT bulletproof vest"
+	},
+/obj/item/shield/riot/tele,
+/obj/item/suppressor,
+/obj/item/CQC_manual,
+/obj/item/implanter/mindshield/ert,
+/obj/item/card/id/centcom{
+	name = "Special Reaction Team Member card";
+	rank = "Special Reaction Team Member";
+	registered_name = "Special Reaction Team Member"
+	},
+/obj/item/storage/box/responseteam,
+/obj/item/clothing/under/fluff/jay_turtleneck{
+	desc = null;
+	name = "SRT uniform"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
 /area/shuttle/administration)
 "XJ" = (
 /obj/structure/alien/weeds,
@@ -2838,18 +3175,18 @@ tC
 tC
 Es
 Es
-ri
-ja
-cM
+eD
+Xm
+TY
 Es
 FC
 hh
 hh
 FC
 Es
-sK
-sK
-sK
+OQ
+OQ
+OQ
 Es
 Es
 tC
@@ -2900,19 +3237,19 @@ tC
 Es
 Es
 ri
-RL
-OQ
-TY
+ja
+ja
+cM
 Es
 Of
 ph
 gD
 Rh
 Es
-sK
-sK
-sK
-sK
+OQ
+OQ
+OQ
+OQ
 Es
 Es
 tC
@@ -2960,7 +3297,7 @@ Es
 tC
 tC
 Es
-OQ
+Kd
 KD
 xS
 jE
@@ -2971,11 +3308,11 @@ Gc
 Vj
 Tz
 UD
-sK
-sK
-sK
-sK
-sK
+OQ
+El
+OQ
+OQ
+OQ
 Es
 tC
 tC
@@ -3085,7 +3422,7 @@ tC
 tC
 FC
 Jz
-DM
+Uf
 DM
 xB
 OI
@@ -3099,7 +3436,7 @@ sK
 sK
 sK
 sK
-sK
+iF
 Es
 tC
 tC
@@ -3223,8 +3560,8 @@ FT
 FT
 Vn
 Xj
-SK
-Es
+zM
+FC
 tC
 tC
 ez
@@ -3286,7 +3623,7 @@ Vn
 Vn
 Xj
 SK
-Es
+xH
 tC
 tC
 FC
@@ -3334,7 +3671,7 @@ tC
 FC
 eH
 Rw
-JJ
+eV
 JJ
 JJ
 JJ
@@ -3348,7 +3685,7 @@ Vn
 fa
 Xj
 SK
-Es
+xH
 tC
 tC
 Es
@@ -3404,13 +3741,13 @@ AB
 OQ
 gJ
 Es
-Eb
+dE
 FT
 Vn
 Vn
 Xj
 SK
-FC
+Jh
 tC
 tC
 FC
@@ -3458,7 +3795,7 @@ tC
 kv
 gU
 OQ
-OQ
+CS
 OQ
 MX
 bD
@@ -3472,7 +3809,7 @@ FT
 Vn
 Xj
 SK
-kv
+FC
 tC
 tC
 kv
@@ -3526,7 +3863,7 @@ uo
 xR
 FY
 OQ
-gJ
+aG
 Es
 It
 qe
@@ -3534,7 +3871,7 @@ qe
 qe
 qe
 gM
-kv
+Es
 tC
 tC
 kv
@@ -3596,7 +3933,7 @@ sK
 Lu
 fC
 rV
-FC
+Es
 tC
 tC
 FC
@@ -4147,11 +4484,11 @@ Es
 Of
 ph
 gD
-Rh
+NT
 Es
-CQ
-he
-gK
+Vo
+wA
+Hf
 uf
 Es
 Es
@@ -4211,7 +4548,7 @@ Gc
 Vj
 nY
 Es
-hg
+AB
 wd
 wd
 gK
@@ -4267,13 +4604,13 @@ Vd
 fX
 Vd
 mP
-WG
+Es
 FC
 Ca
 Ca
 FC
 WG
-dE
+AB
 OQ
 wd
 OQ
@@ -4329,7 +4666,7 @@ Uk
 Uk
 Nt
 JJ
-nm
+bS
 JJ
 Rw
 Rw
@@ -4453,11 +4790,11 @@ wd
 Nt
 qz
 Sz
+RL
 HI
+RL
 HI
-HI
-HI
-HI
+RL
 HI
 wd
 KB
@@ -4516,11 +4853,11 @@ By
 zY
 zI
 HI
+RL
 HI
+RL
 HI
-HI
-HI
-HI
+RL
 hC
 hx
 FY
@@ -4577,17 +4914,17 @@ wd
 By
 BH
 wd
-HI
+RL
 HI
 xC
 HI
-HI
+RL
 HI
 wd
 LK
 FY
 wd
-Ia
+wS
 Es
 tC
 tC
@@ -4640,11 +4977,11 @@ By
 BH
 wd
 HI
+RL
 HI
+RL
 HI
-HI
-HI
-HI
+RL
 wd
 LK
 FY
@@ -4701,11 +5038,11 @@ wd
 By
 BH
 EK
+RL
 HI
+RL
 HI
-HI
-HI
-HI
+RL
 HI
 pe
 LK
@@ -4764,11 +5101,11 @@ gK
 vK
 Sz
 HI
+RL
 HI
+RL
 HI
-HI
-HI
-HI
+RL
 tm
 tw
 qo
@@ -4894,7 +5231,7 @@ VZ
 FC
 WG
 fS
-Es
+WG
 LE
 WS
 oJ
@@ -5075,8 +5412,8 @@ tC
 tC
 Es
 FC
-MR
-Si
+Zw
+IV
 FC
 Es
 tC

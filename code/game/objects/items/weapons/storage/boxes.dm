@@ -911,11 +911,21 @@
 	new /obj/item/reagent_containers/hypospray/safety/ert (src)
 	new /obj/item/melee/classic_baton/telescopic (src)
 	new /obj/item/defibrillator/loaded (src)
-	new /obj/item/storage/backpack/ert/medical/prespawn (src)
+	new /obj/item/storage/backpack/ert/medical/trialmoment/prespawn (src)
 	new /obj/item/storage/firstaid/adv (src)
 	new /obj/item/storage/firstaid/regular (src)
 	new /obj/item/storage/pill_bottle/ert (src)
 	new /obj/item/flashlight/seclite (src)
+
+/obj/item/storage/backpack/ert/engineer/trialmoment/prespawn/populate_contents()
+	new /obj/item/storage/firstaid/adv (src)
+	new /obj/item/storage/firstaid/regular (src)
+	new /obj/item/storage/box/autoinjectors (src)
+	new /obj/item/roller/holo (src)
+	new /obj/item/storage/pill_bottle/ert (src)
+	new /obj/item/flashlight/seclite (src)
+	new /obj/item/healthanalyzer/advanced (src)
+	new /obj/item/handheld_defibrillator (src)
 
 /obj/item/storage/box/responseteam/amber/engineer
 	name = "ERT Amber Engineer kit"

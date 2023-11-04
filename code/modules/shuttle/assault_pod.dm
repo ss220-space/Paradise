@@ -32,6 +32,10 @@
 	var/height = 7
 	var/lz_dir = 1
 
+/obj/item/assault_pod/nt
+	name = "Emergency Droppod Targeting Devise"
+	shuttle_id = "shit_rain"
+
 /obj/item/assault_pod/attack_self(mob/living/user)
 	var/target_area
 	target_area = input("Area to land", "Select a Landing Zone", target_area) in GLOB.teleportlocs
