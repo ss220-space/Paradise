@@ -52,7 +52,8 @@
 /obj/item/ammo_casing/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!BB)
 		qdel(src)
-		return ..()
+		return TRUE
+	return ..()
 
 /obj/item/ammo_casing/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/ammo_box))
