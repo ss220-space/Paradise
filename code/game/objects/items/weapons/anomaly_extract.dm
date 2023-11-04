@@ -111,7 +111,7 @@
 	slimeme.update_sight()
 	user.forceMove(null)
 
-	new /obj/effect/temp_visual/wizard(get_turf(user))
+	new /obj/effect/temp_visual/wizard(get_turf(slimeme))
 
 	var/matrix/animation_matrix = new(slimeme.transform)
 	slimeme.transform = matrix().Scale(0)
