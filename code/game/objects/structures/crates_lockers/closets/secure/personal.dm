@@ -66,3 +66,4 @@
 			desc = "Owned by [I.registered_name]."
 	else
 		to_chat(user, "<span class='warning'>Access Denied</span>")
+

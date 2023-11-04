@@ -1574,6 +1574,24 @@
 					/obj/item/screwdriver = 5,/obj/item/crowbar = 5)
 	refill_canister = /obj/item/vending_refill/robotics
 
+/obj/machinery/vending/robotics/nt
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	refill_canister = /obj/item/vending_refill/nta
+
+/obj/machinery/vending/robotics/nt/durand
+	products = list(/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay = 3,
+		/obj/item/mecha_parts/mecha_equipment/repair_droid = 3,
+		/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster = 3,
+		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot = 3,
+		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg = 3)
+
+/obj/machinery/vending/robotics/nt/gygax
+	products = list(/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay = 3,
+	/obj/item/mecha_parts/mecha_equipment/repair_droid = 3,
+	/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster = 3,
+	/obj/item/mecha_parts/mecha_equipment/weapon/energy/ion = 3,
+	/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy = 3)
+
 /obj/machinery/vending/sustenance
 	name = "\improper Sustenance Vendor"
 	desc = "A vending machine which vends food, as required by section 47-C of the NT's Prisoner Ethical Treatment Agreement."
@@ -2490,7 +2508,6 @@
 	contraband = list(/obj/item/grenade/clusterbuster/cleaner = 1, /obj/item/storage/fancy/donut_box = 2, )
 	refill_canister = /obj/item/vending_refill/nta
 
-
 /obj/machinery/vending/pai
 	name = "\improper RoboFriends"
 	desc = "Wonderful vendor of PAI friends"
@@ -2522,3 +2539,223 @@
 		/obj/item/pai_cartridge/memory = 350
 	)
 	refill_canister = /obj/item/vending_refill/pai
+
+/obj/machinery/vending/nta/ertarmory/consumables
+	name = "NT ERT Consumables Gear"
+	desc = "A consumable equipment for different situations."
+	icon_state = "sec"
+	icon_deny = "sec-deny"
+	density = FALSE
+	products = list(
+		/obj/item/restraints/handcuffs = 10,
+		/obj/item/flashlight/seclite = 10,
+		/obj/item/shield/riot/tele = 10,
+		/obj/item/storage/box/flare = 5,
+		/obj/item/storage/box/bodybags = 5,
+		/obj/item/storage/box/bola = 5,
+		/obj/item/grenade/smokebomb = 10,
+		/obj/item/grenade/barrier = 15,
+		/obj/item/grenade/flashbang = 10,
+		/obj/item/grenade/plastic/c4_shaped/flash = 5,
+		/obj/item/flash = 5,
+		/obj/item/storage/box/evidence = 5,
+		/obj/item/storage/box/swabs = 5,
+		/obj/item/storage/box/fingerprints = 5)
+	refill_canister = /obj/item/vending_refill/nta
+
+/obj/machinery/vending/ntc
+	icon_state = "ntc"
+	req_access = list(ACCESS_CENT_GENERAL)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	refill_canister = /obj/item/vending_refill/nta
+
+/obj/machinery/vending/ntc/medal
+	name = "NT Cargo Encouragement"
+	desc = "A encourage vendor with many of medal types."
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "medalbox"
+	products = list(
+		/obj/item/clothing/accessory/medal = 5,
+		/obj/item/clothing/accessory/medal/engineering = 5,
+		/obj/item/clothing/accessory/medal/security = 5,
+		/obj/item/clothing/accessory/medal/science = 5,
+		/obj/item/clothing/accessory/medal/service = 5,
+		/obj/item/clothing/accessory/medal/medical = 5,
+		/obj/item/clothing/accessory/medal/legal = 5,
+		/obj/item/clothing/accessory/medal/silver = 5,
+		/obj/item/clothing/accessory/medal/silver/leadership = 5,
+		/obj/item/clothing/accessory/medal/silver/valor = 5,
+		/obj/item/clothing/accessory/medal/gold = 5,
+		/obj/item/clothing/accessory/medal/gold/heroism = 5
+	)
+
+/obj/machinery/vending/ntc/medical
+	name = "NT Cargo Medical Gear"
+	desc = "A some medical equipment vendor for cargo."
+	icon_state = "nta_medical"
+	icon_deny = "nta_medical_deny"
+	products = list(
+		/obj/item/storage/box/hardsuit/medical/responseteam = 10,
+		/obj/item/storage/box/hardsuit/medical = 10,
+		/obj/item/clothing/glasses/hud/health/night = 10,
+		/obj/item/bodyanalyzer/advanced = 10,
+		/obj/item/storage/firstaid/tactical = 10,
+		/obj/item/gun/medbeam = 10,
+		/obj/item/defibrillator/compact/loaded = 10,
+		/obj/item/handheld_defibrillator = 10,
+		/obj/item/vending_refill/medical = 10)
+	refill_canister = /obj/item/vending_refill/nta
+
+/obj/machinery/vending/ntc/engineering
+	name = "NT Cargo Engineering Gear"
+	desc = "A some engineering equipment vendor for cargo."
+	icon_state = "nta_engi"
+	icon_deny = "nta_engi_deny"
+	products = list(
+		/obj/item/storage/box/hardsuit/engineering/response_team = 10,
+		/obj/item/storage/box/hardsuit/engineering = 10,
+		/obj/item/clothing/glasses/meson/sunglasses = 10,
+		/obj/item/clothing/gloves/color/yellow = 10,
+		/obj/item/storage/belt/utility/chief/full = 10,
+		/obj/item/rcd/combat = 10,
+		/obj/item/rcd_ammo/large = 20,
+		/obj/item/grenade/chem_grenade/metalfoam = 30
+	)
+
+/obj/machinery/vending/ntc/janitor
+	name = "NT Cargo Janitor Gear"
+	desc = "A some janitor equipment vendor for cargo."
+	icon_state = "nta_janitor"
+	icon_deny = "nta_janitor_deny"
+	products = list(
+		/obj/item/storage/box/hardsuit/janitor/response_team = 10,
+		/obj/item/storage/belt/janitor/ert = 10,
+		/obj/item/clothing/shoes/galoshes = 10,
+		/obj/item/reagent_containers/spray/cleaner = 20,
+		/obj/item/watertank/janitor = 10,
+		/obj/item/soap/ert = 10,
+		/obj/item/storage/bag/trash/bluespace = 10,
+		/obj/item/lightreplacer/bluespace = 10,
+		/obj/item/scythe/tele = 20,
+		/obj/item/grenade/chem_grenade/cleaner = 30,
+		/obj/item/grenade/clusterbuster/cleaner = 30,
+		/obj/item/grenade/chem_grenade/antiweed = 30,
+		/obj/item/grenade/clusterbuster/antiweed = 30
+	)
+
+/obj/machinery/vending/ntc/crates
+	name = "NT Cargo Preset Gear"
+	desc = "A already preset of equipments vendor for cargo."
+	icon_state = "MagiVend"
+	products = list(
+		/obj/structure/closet/crate/trashcart/NTdelivery = 100,
+		/obj/structure/closet/crate/secure/gear = 100,
+		/obj/structure/closet/crate/secure/weapon = 100,
+		/obj/item/storage/backpack/duffel/security/riot = 100,
+		/obj/item/storage/backpack/duffel/security/war = 100,
+		/obj/item/storage/backpack/duffel/hydro/weed = 100,
+		/obj/item/storage/backpack/duffel/security/spiders = 100,
+		/obj/item/storage/backpack/duffel/security/blob = 100,
+		/obj/item/storage/backpack/duffel/engineering/building_event = 100
+	)
+
+/obj/machinery/vending/ntc/ert
+	name = "NT Response Team Base Gear"
+	desc = "A ERT Base equipment vendor"
+	icon_state = "nta"
+	icon_deny = "nta_deny"
+	icon_vend = "nta_vend"
+	products = list(
+		/obj/item/storage/box/responseteam/amber/commander = 100,
+		/obj/item/storage/box/responseteam/amber/security = 100,
+		/obj/item/storage/box/responseteam/amber/engineer = 100,
+		/obj/item/storage/box/responseteam/amber/medic = 100,
+		/obj/item/storage/box/responseteam/amber/janitor = 100,
+		/obj/item/storage/box/responseteam/red/commander = 100,
+		/obj/item/storage/box/responseteam/red/security = 100,
+		/obj/item/storage/box/responseteam/red/engineer = 100,
+		/obj/item/storage/box/responseteam/red/medic = 100,
+		/obj/item/storage/box/responseteam/red/janitor = 100)
+
+/obj/machinery/vending/ntc/resources
+	name = "NT Matter Сompression Vendor"
+	desc = "Its vendor use advanced technology of matter compression and can have a many volume of resources."
+	icon_state = "engi"
+	icon_deny = "engi_deny"
+	products = list(/obj/item/stack/sheet/mineral/diamond{amount = 50} = 50,
+		/obj/item/stack/sheet/mineral/gold{amount = 50} = 50,
+		/obj/item/stack/sheet/glass{amount = 50} = 50,
+		/obj/item/stack/sheet/metal{amount = 50} = 50,
+		/obj/item/stack/sheet/mineral/plasma{amount = 50} = 50,
+		/obj/item/stack/sheet/mineral/silver{amount = 50} = 50,
+		/obj/item/stack/sheet/mineral/titanium{amount = 50} = 50,
+		/obj/item/stack/sheet/mineral/uranium{amount = 50} = 50)
+	contraband = list(/obj/item/stack/sheet/mineral/tranquillite{amount = 50} = 50,
+		/obj/item/stack/sheet/mineral/bananium{amount = 50} = 50,
+		/obj/item/stack/sheet/mineral/sandstone{amount = 50} = 50,
+		/obj/item/stack/sheet/mineral/abductor{amount = 50} = 50)
+
+/obj/machinery/vending/ntc/mech
+	icon = 'icons/obj/machines/vending.dmi'
+
+/obj/machinery/vending/ntc/mech/exousuit
+	name = "NT Exosuit Bluespace Transporter"
+	desc = "Fabricator with advanced technology of bluespace transporting of resources."
+	icon = 'icons/obj/machines/robotics.dmi'
+	icon_state = "fab-idle"
+	icon_vend = "fab-o"
+	icon_deny = "fab-idle"
+	products = list(
+		/obj/mecha/combat/durand = 10,
+		/obj/mecha/combat/gygax = 10,
+		/obj/mecha/combat/phazon = 10,
+		/obj/mecha/medical/odysseus/full_load = 10,
+		/obj/mecha/working/ripley = 10,
+		/obj/mecha/working/ripley/firefighter = 10,
+		/obj/mecha/working/clarke = 10)
+
+/obj/machinery/vending/ntc/mech/equipment
+	name = "NT Exosuit Bluespace Transporter"
+	desc = "Fabricator with advanced technology of bluespace transporting of resources."
+	icon_state = "engivend"
+	icon_deny = "engivend-deny"
+	products = list(
+		/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster = 10,
+		/obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster = 10,
+		/obj/item/mecha_parts/mecha_equipment/repair_droid = 10,
+		/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay = 10,
+		/obj/item/mecha_parts/mecha_equipment/generator/nuclear = 10
+	)
+
+/obj/machinery/vending/ntc/mech/weapon
+	name = "NT Exosuit Bluespace Transporter"
+	desc = "Fabricator with advanced technology of bluespace transporting of resources."
+	icon_state = "liberationstation"
+	products = list(
+		/obj/item/mecha_parts/mecha_equipment/weapon/energy/ion = 10,
+		/obj/item/mecha_parts/mecha_equipment/weapon/energy/pulse = 10,
+		/obj/item/mecha_parts/mecha_equipment/weapon/energy/taser = 10,
+		/obj/item/mecha_parts/mecha_equipment/weapon/energy/xray = 10,
+		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine = 10,
+		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/dual = 10,
+		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot = 10,
+		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola = 10,
+		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium = 10,
+		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy = 10,
+		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/amlg = 10,
+	)
+
+/obj/machinery/vending/ntc/mech/tools
+	name = "NT Exosuit Bluespace Transporter"
+	desc = "Fabricator with advanced technology of bluespace transporting of resources."
+	icon_state = "tool"
+	icon_deny = "tool_deny"
+	products = list(/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp = 10,
+		/obj/item/mecha_parts/mecha_equipment/drill/diamonddrill = 10,
+		/obj/item/mecha_parts/mecha_equipment/mining_scanner = 10,
+		/obj/item/mecha_parts/mecha_equipment/rcd = 10,
+		/obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma = 10,
+		/obj/item/mecha_parts/mecha_equipment/extinguisher = 10,
+		/obj/item/mecha_parts/mecha_equipment/cable_layer = 10,
+		/obj/item/mecha_parts/mecha_equipment/wormhole_generator = 10,
+	)
