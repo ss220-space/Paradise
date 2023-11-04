@@ -21,6 +21,7 @@
 	resistance_flags = NONE
 
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -41,6 +42,7 @@
 	resistance_flags = NONE
 
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -59,6 +61,7 @@
 	item_state = "pirate_old"
 
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -74,6 +77,7 @@
 	item_state = "pirate"
 
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -142,6 +146,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -195,6 +200,7 @@
 	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO|LEGS|FEET
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -305,6 +311,7 @@
 	allowed = list(/obj/item/tank/internals/emergency_oxygen)
 	hoodtype = /obj/item/clothing/head/hooded/carp_hood
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -361,6 +368,7 @@
 	item_state = "lingspacesuit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -389,6 +397,7 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
 
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -408,6 +417,7 @@
 	flags_inv = HIDEHEADSETS
 
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
@@ -587,6 +597,7 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen)
 	hoodtype = /obj/item/clothing/head/hooded/hood
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -605,6 +616,7 @@
 	flags_inv = HIDEHEADSETS
 
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
@@ -664,6 +676,7 @@
 	strip_delay = 60
 	breakouttime = 3000
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -677,6 +690,7 @@
 	item_state = "ianshirt"
 
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -732,6 +746,7 @@
 	item_state = "brtrenchcoat"
 
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -747,6 +762,7 @@
 	item_state = "bltrenchcoat"
 
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -769,6 +785,7 @@
 	adjust_flavour = "unzip"
 
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -836,6 +853,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -913,6 +931,7 @@
 	adjust_flavour = "unzip"
 
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -958,6 +977,7 @@
 	adjust_flavour = "unzip"
 
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
@@ -985,6 +1005,7 @@
 	adjust_flavour = "unbutton"
 
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -1003,6 +1024,7 @@
 	adjust_flavour = "unbutton"
 
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -1341,6 +1363,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 	allowed = list()
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
