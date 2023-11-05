@@ -508,6 +508,7 @@
 	var/dead_for_sure = FALSE
 	var/obj/effect/proc_holder/spell/slime_degradation/parent_spell
 	var/mob/living/carbon/human/sman
+	powerlevel = 10
 
 /mob/living/simple_animal/slime/invalid/Initialize(mapload, new_colour = "grey", age_state_new = new /datum/slime_age/baby, new_set_nutrition = 700, mob/living/carbon/human/slimeman, obj/effect/proc_holder/spell/slime_degradation/slime_spell)
 	..()
