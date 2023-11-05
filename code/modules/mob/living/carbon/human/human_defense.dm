@@ -648,6 +648,14 @@ emp_act
 			apply_damage(damage, BRUTE, affecting, armor_block)
 			add_attack_logs(M, src, "Alien attacked")
 			updatehealth("alien attack")
+			var/all_objectives = M?.mind?.get_all_objectives()
+			if(mind && all_objectives)
+				for(var/datum/objective/pain_hunter/objective in all_objectives)
+					if(mind == objective.target)
+						armor_block = (100 - armor_block) / 100
+						if(armor_block <= 0)
+							armor_block= 0
+						objective.take_damage(damage * armor_block, BRUTE)
 
 		if(M.a_intent == INTENT_DISARM) //Always drop item in hand, if no item, get stun instead.
 			var/obj/item/I = get_active_hand()
@@ -681,6 +689,14 @@ emp_act
 		var/armor = run_armor_check(affecting, "melee", armour_penetration = M.armour_penetration)
 		apply_damage(damage, M.melee_damage_type, affecting, armor)
 		updatehealth("animal attack")
+		var/all_objectives = M?.mind?.get_all_objectives()
+		if(mind && all_objectives)
+			for(var/datum/objective/pain_hunter/objective in all_objectives)
+				if(mind == objective.target)
+					armor = (100 - armor) / 100
+					if(armor <= 0)
+						armor = 0
+					objective.take_damage(damage * armor, BRUTE)
 
 /mob/living/carbon/human/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack
@@ -698,6 +714,14 @@ emp_act
 			affecting = get_organ("chest")
 		var/armor_block = run_armor_check(affecting, "melee")
 		apply_damage(damage, BRUTE, affecting, armor_block)
+		var/all_objectives = M?.mind?.get_all_objectives()
+		if(mind && all_objectives)
+			for(var/datum/objective/pain_hunter/objective in all_objectives)
+				if(mind == objective.target)
+					armor_block = (100 - armor_block) / 100
+					if(armor_block <= 0)
+						armor_block = 0
+					objective.take_damage(damage * armor_block, BRUTE)
 
 /mob/living/carbon/human/mech_melee_attack(obj/mecha/M)
 	if(M.occupant.a_intent == INTENT_HARM)
