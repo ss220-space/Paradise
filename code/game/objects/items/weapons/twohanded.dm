@@ -1025,5 +1025,3 @@
 	else
 		icon_state = "fishing_rod0"
 	..()
-
-/obj/item/twohanded/fishingrod
