@@ -18,3 +18,19 @@
   Zwei:
   - tweak: Bloodswell Buff (#3790)
   - bugfix: Few Inventory Fixes (#3785)
+'2023-11-03':
+  Dimach:
+  - bugfix: bomb implant activation not work (#3813)
+'2023-11-04':
+  Daeberdir:
+  - bugfix: text corrections for spessuit storages and smol combat defib. (#3811)
+  - bugfix: meson's vision now realy saving from that two farwas and even singulo.
+      (#3812)
+  Mindfri:
+  - tweak: Update Surgery Kit (#3807)
+  ROdenFL:
+  - bugfix: anomaly extract bugfix (#3820)
+  Vladisvell:
+  - bugfix: wooden buckets now do not become blue (#3810)
+  Zwei:
+  - bugfix: Ninja Datum Fixes (#3823)
