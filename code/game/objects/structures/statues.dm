@@ -417,18 +417,18 @@
 
 /obj/structure/statue/unknown/attackby(obj/item/W, mob/user, params)
 	if(is_hot(W))
-		light("<span class='notice'>[user] lights [src] with [W].</span>")
+		light(span_notice("[user] lights [src] with [W]."))
 		return
 	return ..()
 
 /obj/structure/statue/unknown/welder_act(mob/user, obj/item/I)
 	. = TRUE
-	if(I.tool_use_check(user, 0)) //Don't need to flash eyes because you are a badass
-		light("<span class='notice'>[user] casually lights the [name] with [I], what a badass.</span>")
+	if(I.tool_use_check(user, 0))
+		light(span_notice("[user] casually lights the [name] with [I], what a badass."))
 
 /obj/structure/statue/unknown/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(!lit)
-		light() //honk
+		light()
 	return ..()
 
 /obj/structure/statue/unknown/proc/light(show_message)
@@ -437,12 +437,11 @@
 		if(show_message)
 			usr.visible_message(show_message)
 		set_light(CANDLE_LUM)
-		START_PROCESSING(SSobj, src)
 		update_icon()
 
 /obj/structure/statue/unknown/attack_hand(mob/user)
 	if(lit)
-		user.visible_message("<span class='notice'>[user] snuffs out [src].</span>")
+		user.visible_message(span_notice("[user] snuffs out [src]."))
 		lit = 0
 		update_icon()
 		set_light(0)

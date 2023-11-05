@@ -394,8 +394,12 @@
 /obj/structure/decorative_structures/cult_crystal
 	name = "Bloody crystal"
 	icon_state = "cult_crystal"
-	max_integrity = 200
+	max_integrity = 120
 	anchored = 1
+
+/obj/structure/decorative_structures/cult_crystal/Initialize()
+	set_light(2, 1, COLOR_RED)
+	..()
 
 /obj/structure/decorative_structures/cult_crystal/attackby(obj/item/I, mob/user, params)
 	electrocute_mob(user, get_area(src), src, 0.5, TRUE)
@@ -410,8 +414,43 @@
 /obj/structure/decorative_structures/cult_crystal/Destroy()
 	playsound(src, 'sound/effects/glassbr3.ogg', 30, 0)
 	var/turf/T = get_turf(src)
+	var/mob/living/simple_animal/crystal_soul = new /mob/living/simple_animal/hostile/construct/armoured/hostile(T)
+	crystal_soul.loot = list(pick(
+		/obj/item/gun/magic/wand/resurrection,
+		/obj/item/gun/magic/wand/fireball,
+		/obj/item/gun/magic/wand/slipping,
+		/obj/item/spellbook/oneuse/sacredflame,
+		/obj/item/spellbook/oneuse/smoke,
+		/obj/item/spellbook/oneuse/forcewall,
+		/obj/item/soulstone/anybody,
+	))
 	new /obj/effect/particle_effect/smoke/vomiting(T)
 	new /obj/effect/decal/cleanable/blood/gibs(T)
 	new /obj/effect/decal/cleanable/blood(T)
-	new /mob/living/simple_animal/hostile/construct/behemoth/hostile(T)
 	..()
+
+/*
+/mob/living/simple_animal/hostile/construct/armoured/hostile/graveyard
+	maxHealth = 300
+	health = 300
+	var/jagger_loot = pick(
+		/obj/item/gun/magic/wand/resurrection,
+		/obj/item/gun/magic/wand/fireball,
+		/obj/item/gun/magic/wand/slipping,
+		/obj/item/spellbook/oneuse/sacredflame,
+		/obj/item/spellbook/oneuse/smoke,
+		/obj/item/spellbook/oneuse/forcewall,
+		/obj/item/soulstone,
+	)
+	loot = list(jagger_loot)
+
+/obj/item/gun/magic/wand/resurrection
+/obj/item/gun/magic/wand/fireball
+/obj/item/gun/magic/wand/slipping
+
+/obj/item/spellbook/oneuse/sacredflame
+/obj/item/spellbook/oneuse/smoke
+/obj/item/spellbook/oneuse/forcewall
+
+/obj/item/soulstone
+*/

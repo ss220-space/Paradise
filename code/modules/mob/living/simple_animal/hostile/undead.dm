@@ -169,3 +169,17 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 30
 	speed = -1
+
+/mob/living/simple_animal/hostile/zombie/graveyard
+	speak = list("RAWR!","Rawr!","GRR!","Growl!")
+	speak_chance = 10
+	speak_emote = list("growls","roars")
+
+	faction = list("zombie")
+	icon_living = "husk_s"
+	icon_state = "husk_s"
+	maxHealth = 125
+	health = 125
+	speed = 0
+	melee_damage_lower = 20
+	melee_damage_upper = 30

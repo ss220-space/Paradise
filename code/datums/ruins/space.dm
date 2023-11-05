@@ -381,7 +381,8 @@
 	id = "graveyard"
 	suffix = "graveyard.dmm"
 	name = "Space graveyard"
-	description = ""
+	description = "An abandoned graveyard with a church drifts across the vastness of space; memorial services and the ringing of bells have long since left this place.\
+	What secrets does the “Church of Salvation” keep and who is buried in its graveyard?"
 	cost = 4
 	allow_duplicates = FALSE
 	always_place = TRUE

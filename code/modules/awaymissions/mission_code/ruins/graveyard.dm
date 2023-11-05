@@ -6,10 +6,12 @@
 /area/ruin/space/graveyard/church
 	name = "Space Graveyard Church"
 	icon_state = "away1"
+	ambientsounds = list('sound/ambience/ambicha4.ogg', 'sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin6.ogg')
 
 /area/ruin/space/graveyard/graves
 	name = "Space Graveyard Graves"
 	icon_state = "away2"
+	ambientsounds = list('sound/ambience/apathy.ogg')
 
 ///// The Undertaker Shuttle
 
@@ -194,4 +196,85 @@
 	qdel(src)
 	..()
 
+/////Заготовка лута для могил
+/*
+mogila/populate_contents()
+	new /obj/structure/closet/coffin/graveyard_loot(src)
+*/
+/obj/structure/closet/coffin/graveyard_loot/Initialize()
+	var/money = pick(/obj/item/stack/spacecash/c5000, /obj/item/stack/spacecash/c1000, /obj/item/stack/spacecash/c500)
+	var/little_money = pick(/obj/item/stack/spacecash/c50, /obj/item/stack/spacecash/c100, /obj/item/stack/spacecash/c200)
+	var/medal = pick(/obj/item/clothing/accessory/medal, /obj/item/clothing/accessory/medal/fluff/elo, /obj/item/clothing/accessory/medal/heart)
+	var/gun = pick(/obj/item/gun/projectile/shotgun/lethal/rusted, /obj/item/gun/projectile/revolver/nagant/rusted, /obj/item/gun/projectile/automatic/pistol)
+	if(prob(90))
+		if(prob(10))
+			new /mob/living/simple_animal/hostile/zombie/graveyard(src)
+			new gun(src)
+			new medal(src)
+			new money(src)
+		else if(prob(10))
+			new /mob/living/simple_animal/hostile/zombie/whiteship(src)
+			new /obj/item/decorations/bouquets/random(src)
+			new little_money(src)
+		else if(prob(5))
+			new /obj/item/clothing/head/helmet/street_judge(src)
+			new /obj/item/clothing/suit/armor/vest/street_judge(src)
+			new /obj/item/gun/projectile/automatic/pistol/enforcer/lethal(src)
+			new /obj/item/clothing/shoes/jackboots(src)
+			new /obj/item/clothing/gloves/combat(src)
+			new /obj/item/clothing/under/rank/security(src)
+			new /obj/item/clothing/mask/gas/sechailer(src)
+			new /obj/item/clothing/accessory/lawyers_badge(src)
+		else
+			new /obj/effect/mob_spawn/human/skeleton(src)
+			new /obj/item/decorations/bouquets/random(src)
+			new little_money(src)
+	..()
+/*
+			var/mob/skeleton = new /obj/effect/mob_spawn/human/skeleton
+			new /obj/item/decorations/bouquets/random(src)
+			new little_money(src)
+			skeleton.forceMove(src)
 
+/obj/item/clothing/accessory/medal
+/obj/item/clothing/accessory/medal/fluff/elo
+/obj/item/clothing/accessory/medal/heart
+
+/obj/item/stack/spacecash/c1000
+
+/obj/item/melee/energy/sword/pirate
+
+/obj/item/clothing/gloves/ring/gold/blessed
+/obj/item/clothing/gloves/ring/fluff/benjaminfallout
+
+/obj/item/clothing/head/helmet/street_judge
+/obj/item/clothing/suit/armor/vest/street_judge
+/obj/item/gun/projectile/automatic/pistol/enforcer/lethal
+/obj/item/clothing/shoes/jackboots
+/obj/item/clothing/gloves/combat
+/obj/item/clothing/under/rank/security
+/obj/item/clothing/mask/gas/sechailer
+/obj/item/clothing/accessory/lawyers_badge
+*/
+
+
+/obj/item/book/philosophy_of_death
+	name = "Философия смерти"
+	desc = "Эта книга переплетена вручную и украшена по краям позолотой. Видно, что ее создатель не сомневался в ее важности."
+	icon_state = "demonomicon"
+	author = "Немрис Мудрый"
+	title = "Философия смерти"
+	unique = 1
+	forbidden = 1
+	has_drm = TRUE
+	dat = {"
+		<br>Для начала поговорим о жизни и смерти — взаимно противоположных, но равно великих феноменах.
+
+		<br>Жрецы утверждают, что смерть превыше жизни, поскольку является справедливым воздаянием богов. Но если это так, то выбор между небесным блаженством и адскими муками всецело зависит от прижизненных поступков человека, следовательно, жизнь для него намного важнее.
+
+		<br>А как быть с теми, кто не придает значения богам, сомневается в загробном существовании и отрицает сверхъестественное? Для таких людей целью жизни является сама жизнь — с этой мудростью согласны даже некоторые жрецы. Но какие же сомнения порой одолевают этих поборников жизни! Какие кошмары глядят на них из глубины теней... Их страх перед смертью бывает столь велик, что полностью затмевает волю к жизни.
+
+		<br>Я же скажу следующее. Забудьте обещания богов и отриньте ужас небытия, ибо только признав равенство жизни и смерти, можно постичь философию того и другого. Смерть может нести как веру, так и ужас — но только если вы сами ей это позволите. Взгляните в ее обсидиановые глаза, осознайте, что всему есть начало и конец, не бойтесь ни того, ни другого — и тогда вы достигнете берегов мудрости.
+
+		<br><br>Так сказал Немрис.
+		"}

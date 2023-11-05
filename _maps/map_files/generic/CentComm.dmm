@@ -20153,7 +20153,8 @@
 /turf/simulated/floor/carpet/black,
 /area/wizard_station)
 "kAR" = (
-/obj/effect/spawner/window/reinforced,
+/obj/structure/window/full/shuttle/gray,
+/obj/structure/grille,
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/funeral)
 "kAW" = (
@@ -33309,10 +33310,6 @@
 	icon_state = "darkjail"
 	},
 /area/syndicate_mothership/jail)
-"qqp" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/shuttle/funeral)
 "qqC" = (
 /obj/structure/closet/crate/can,
 /turf/simulated/floor/plasteel{
@@ -45379,6 +45376,11 @@
 	icon_state = "darkyellowalt"
 	},
 /area/syndicate_mothership/cargo)
+"vQc" = (
+/obj/structure/window/full/shuttle/gray,
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/shuttle/funeral)
 "vQi" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-22";
@@ -54520,9 +54522,9 @@ mVX
 ipY
 bRt
 bRt
-qqp
-qqp
-bRt
+vQc
+vQc
+vQc
 eIX
 iUN
 bRt
@@ -56062,9 +56064,9 @@ mVX
 qbW
 bRt
 bRt
-qqp
-qqp
-bRt
+vQc
+vQc
+vQc
 eIX
 xYk
 bRt
