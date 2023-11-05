@@ -44,7 +44,6 @@
 		EQUIPMENT("Lazarus Capsule belt",			/obj/item/storage/belt/lazarus, 									400),
 		EQUIPMENT("Mining Hardsuit",				/obj/item/clothing/suit/space/hardsuit/mining, 						2500),
 		EQUIPMENT("Tracking Implant Kit",			/obj/item/storage/box/minertracker, 								800),
-		EQUIPMENT("Plasma Cutter",					/obj/item/gun/energy/plasmacutter,									1500),
 		EQUIPMENT("Industrial Mining Satchel",		/obj/item/storage/bag/ore/bigger,									500),
 		EQUIPMENT("Meson Health Scanner HUD",		/obj/item/clothing/glasses/hud/health/meson,						1500),
 	)
@@ -55,12 +54,12 @@
 		EQUIPMENT("Brute First-Aid Kit", 			/obj/item/storage/firstaid/brute,									800),
 		EQUIPMENT("Fire First-Aid Kit",				/obj/item/storage/firstaid/fire,									800),
 		EQUIPMENT("Emergency Charcoal Injector",	/obj/item/reagent_containers/hypospray/autoinjector/charcoal,		400),
-		EQUIPMENT("Mining Charge",					/obj/item/grenade/plastic/miningcharge/lesser,						300),
-		EQUIPMENT("Industrial Mining Charge",		/obj/item/grenade/plastic/miningcharge,								800),
+		EQUIPMENT("Mining Charge",					/obj/item/grenade/plastic/miningcharge/lesser,						150),
+		EQUIPMENT("Industrial Mining Charge",		/obj/item/grenade/plastic/miningcharge,								500),
 		EQUIPMENT("Whetstone",						/obj/item/whetstone,												500),
 		EQUIPMENT("Fulton Pack", 					/obj/item/extraction_pack, 											1500),
 		EQUIPMENT("Jaunter", 						/obj/item/wormhole_jaunter, 										900),
-		EQUIPMENT("Chasm Jaunter Recovery Grenade",	/obj/item/grenade/jaunter_grenade,									5000), //fishing rod supremacy
+		EQUIPMENT("Chasm Jaunter Recovery Grenade",	/obj/item/grenade/jaunter_grenade,									3000), //fishing rod supremacy
 		EQUIPMENT("Lazarus Injector", 				/obj/item/lazarus_injector, 										1000),
 		EQUIPMENT("Point Transfer Card (500)", 		/obj/item/card/mining_point_card, 									500),
 		EQUIPMENT("Point Transfer Card (1000)", 	/obj/item/card/mining_point_card/thousand, 							1000),
@@ -86,9 +85,10 @@
 		EQUIPMENT("Diamond Pickaxe", 				/obj/item/pickaxe/diamond, 											1500),
 		EQUIPMENT("Kinetic Accelerator", 			/obj/item/gun/energy/kinetic_accelerator, 							1000),
 		EQUIPMENT("Kinetic Crusher", 				/obj/item/twohanded/kinetic_crusher, 								1000),
-		EQUIPMENT("Resonator", 						/obj/item/resonator, 												600),
+		EQUIPMENT("Resonator", 						/obj/item/resonator, 												400),
 		EQUIPMENT("Silver Pickaxe", 				/obj/item/pickaxe/silver, 											800),
-		EQUIPMENT("Super Resonator", 				/obj/item/resonator/upgraded, 										1500),
+		EQUIPMENT("Super Resonator", 				/obj/item/resonator/upgraded, 										1200),
+		EQUIPMENT("Plasma Cutter",					/obj/item/gun/energy/plasmacutter,									1500),
 	)
 	prize_list["Minebot"] = list(
 		EQUIPMENT("Nanotrasen Minebot", 			/obj/item/mining_drone_cube, 										800),
