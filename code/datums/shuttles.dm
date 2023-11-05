@@ -206,16 +206,6 @@
 	description = "Шаттл экстренной подпидки станции. \
 	ВНИМАНИЕ! Содержит мобильный двигатель на СУПЕРМАТЕРИИ"
 
-/datum/map_template/shuttle/ferry/test1
-	suffix = "test1"
-	name = "\"Ну давай\" ferry"
-	description = "Пызда"
-
-/datum/map_template/shuttle/ferry/test2
-	suffix = "test2"
-	name = "\"Ну давай-давай\" ferry"
-	description = "Пызда2"
-
 /datum/map_template/shuttle/ferry/theatrehelp
 	suffix = "theatrehelp"
 	name = "\"Theatre\" ferry"
