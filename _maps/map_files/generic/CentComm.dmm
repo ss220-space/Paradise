@@ -2226,9 +2226,9 @@
 	name = "Supreme commander's gold medal"
 	},
 /obj/item/gun/projectile/revolver/mateba,
-/obj/item/ammo_box/a357,
-/obj/item/ammo_box/a357,
-/obj/item/ammo_box/a357,
+/obj/item/ammo_box/speedloader/a357,
+/obj/item/ammo_box/speedloader/a357,
+/obj/item/ammo_box/speedloader/a357,
 /obj/item/clothing/under/color/black{
 	icon_state = "hosdnavyclothes";
 	name = "jumpsuit"
@@ -10157,9 +10157,9 @@
 	name = "Supreme commander's gold medal"
 	},
 /obj/item/gun/projectile/revolver/mateba,
-/obj/item/ammo_box/a357,
-/obj/item/ammo_box/a357,
-/obj/item/ammo_box/a357,
+/obj/item/ammo_box/speedloader/a357,
+/obj/item/ammo_box/speedloader/a357,
+/obj/item/ammo_box/speedloader/a357,
 /obj/item/clothing/under/color/black{
 	icon_state = "hosdnavyclothes";
 	name = "jumpsuit"
@@ -32335,13 +32335,13 @@
 /area/centcom/jail)
 "pUX" = (
 /obj/structure/rack,
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/rubbershot,
+/obj/item/ammo_box/shotgun/rubbershot,
+/obj/item/ammo_box/shotgun/rubbershot,
+/obj/item/ammo_box/shotgun/rubbershot,
+/obj/item/ammo_box/shotgun/rubbershot,
+/obj/item/ammo_box/shotgun/rubbershot,
+/obj/item/ammo_box/shotgun/rubbershot,
+/obj/item/ammo_box/shotgun/rubbershot,
 /obj/item/ammo_box/shotgun/rubbershot,
 /obj/item/ammo_box/shotgun/rubbershot,
 /obj/item/ammo_box/shotgun/rubbershot,
@@ -33882,13 +33882,13 @@
 /area/syndicate_mothership/infteam)
 "qGS" = (
 /obj/structure/rack,
-/obj/item/storage/box/buck,
-/obj/item/storage/box/buck,
-/obj/item/storage/box/buck,
-/obj/item/storage/box/buck,
-/obj/item/storage/box/buck,
-/obj/item/storage/box/buck,
-/obj/item/storage/box/buck,
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck,
 /obj/item/ammo_box/shotgun/buck,
 /obj/item/ammo_box/shotgun/buck,
 /obj/item/ammo_box/shotgun/buck,
@@ -45063,13 +45063,13 @@
 /area/shuttle/escape)
 "vNi" = (
 /obj/structure/rack,
-/obj/item/storage/box/slug,
-/obj/item/storage/box/slug,
-/obj/item/storage/box/slug,
-/obj/item/storage/box/slug,
-/obj/item/storage/box/slug,
-/obj/item/storage/box/slug,
-/obj/item/storage/box/slug,
+/obj/item/ammo_box/shotgun,
+/obj/item/ammo_box/shotgun,
+/obj/item/ammo_box/shotgun,
+/obj/item/ammo_box/shotgun,
+/obj/item/ammo_box/shotgun,
+/obj/item/ammo_box/shotgun,
+/obj/item/ammo_box/shotgun,
 /obj/item/ammo_box/shotgun,
 /obj/item/ammo_box/shotgun,
 /obj/item/ammo_box/shotgun,
