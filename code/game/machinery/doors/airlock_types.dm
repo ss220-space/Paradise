@@ -310,15 +310,12 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_centcom
 	normal_integrity = 1000
 	security_level = 6
+	hackable = FALSE
 
 /obj/machinery/door/airlock/centcom/attack_hand(mob/user)
 	. = ..()
 	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
 		return
-
-/obj/machinery/door/airlock/centcom/emag_act(mob/user)
-	to_chat(user, span_notice("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
-	return
 
 /////////////////////////////////
 /*
@@ -364,10 +361,7 @@
 	explosion_block = 2
 	normal_integrity = 1000
 	security_level = 6
-
-/obj/machinery/door/airlock/hatch/syndicate/command/emag_act(mob/user)
-	to_chat(user, span_notice("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
-	return
+	hackable = FALSE
 
 /obj/machinery/door/airlock/hatch/syndicate/vault
 	name = "syndicate vault hatch"
