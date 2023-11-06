@@ -590,7 +590,7 @@
 			suit_store = /obj/item/gun/projectile/shotgun/riot/buckshot
 			backpack_contents = list(
 				/obj/item/storage/box/survival = 1,
-				/obj/item/storage/box/buck = 1
+				/obj/item/ammo_box/shotgun/buck = 1
 				)
 	return ..()
 
@@ -677,7 +677,7 @@
 		/obj/item/reagent_containers/food/pill/patch/silver_sulf/small = 1,
 		/obj/item/reagent_containers/food/pill/patch/styptic/small = 1,
 		/obj/item/stock_parts/cell/high = 1,
-		/obj/item/storage/box/buck = 1
+		/obj/item/ammo_box/shotgun/buck = 1
 		)
 	return ..()
 

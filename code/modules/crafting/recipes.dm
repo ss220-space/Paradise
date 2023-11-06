@@ -1364,7 +1364,7 @@
 
 /datum/crafting_recipe/makeshift_speedloader
 	name = "Makeshift Speedloader"
-	result = /obj/item/ammo_box/improvisedrevolver
+	result = /obj/item/ammo_box/speedloader/improvisedrevolver
 	time = 5 SECONDS
 	reqs = list(/obj/item/c_tube = 4,
 				/obj/item/stack/packageWrap = 10,

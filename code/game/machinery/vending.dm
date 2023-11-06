@@ -2268,13 +2268,13 @@
 		/obj/item/flashlight/seclite = 4,
 		/obj/item/restraints/legcuffs/bola/energy = 8,
 
-		/obj/item/storage/box/slug = 4,
-		/obj/item/storage/box/buck = 4,
-		/obj/item/storage/box/rubbershot = 4,
+		/obj/item/ammo_box/shotgun = 4,
+		/obj/item/ammo_box/shotgun/buck = 4,
+		/obj/item/ammo_box/shotgun/rubbershot = 4,
 		/obj/item/ammo_casing/shotgun/stunslug = 35,
 		/obj/item/ammo_casing/shotgun/ion = 14,
 		/obj/item/ammo_casing/shotgun/laserslug = 35,
-		/obj/item/ammo_box/shotgun/universal = 8,
+		/obj/item/ammo_box/speedloader/shotgun/universal = 8,
 
 		/obj/item/ammo_box/magazine/lr30mag = 12,
 		/obj/item/ammo_box/magazine/enforcer = 8,
@@ -2312,10 +2312,10 @@
 		/obj/item/gun/projectile/automatic/wt550 = 3,
 		/obj/item/ammo_box/magazine/wt550m9 = 6,
 		/obj/item/gun/projectile/shotgun/riot = 6,
-		/obj/item/storage/box/rubbershot = 6,
-		/obj/item/storage/box/beanbag = 4,
-		/obj/item/storage/box/tranquilizer = 4,
-		/obj/item/ammo_box/shotgun/universal = 4,
+		/obj/item/ammo_box/shotgun/rubbershot = 6,
+		/obj/item/ammo_box/shotgun/beanbag = 4,
+		/obj/item/ammo_box/shotgun/tranquilizer = 4,
+		/obj/item/ammo_box/speedloader/shotgun/universal = 4,
 		/obj/item/gun/projectile/automatic/sfg = 3,
 		/obj/item/ammo_box/magazine/sfg9mm = 6
 	)
@@ -2341,10 +2341,10 @@
 		/obj/item/gun/energy/immolator/multi = 2,
 		/obj/item/gun/energy/gun/nuclear = 3,
 		/obj/item/gun/projectile/shotgun/automatic/combat = 3,
-		/obj/item/storage/box/slug = 4,
-		/obj/item/storage/box/buck = 4,
-		/obj/item/storage/box/dragonsbreath = 2,
-		/obj/item/ammo_box/shotgun/universal = 4,
+		/obj/item/ammo_box/shotgun = 4,
+		/obj/item/ammo_box/shotgun/buck = 4,
+		/obj/item/ammo_box/shotgun/dragonsbreath = 2,
+		/obj/item/ammo_box/speedloader/shotgun/universal = 4,
 		/obj/item/storage/lockbox/t4 = 3,
 		/obj/item/grenade/smokebomb = 3,
 		/obj/item/grenade/frag = 4
@@ -2369,8 +2369,8 @@
 		/obj/item/gun/projectile/automatic/pistol/enforcer = 6,
 		/obj/item/storage/box/barrier = 2,
 		/obj/item/gun/projectile/shotgun/riot = 1,
-		/obj/item/storage/box/rubbershot = 3,
-		/obj/item/ammo_box/shotgun/universal = 4,
+		/obj/item/ammo_box/shotgun/rubbershot = 3,
+		/obj/item/ammo_box/speedloader/shotgun/universal = 4,
 		/obj/item/gun/energy/dominator/sibyl = 2
 	)
 	contraband = list(/obj/item/storage/fancy/donut_box = 2)

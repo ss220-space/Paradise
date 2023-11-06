@@ -69161,12 +69161,12 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/item/storage/box/beanbag,
-/obj/item/storage/box/beanbag{
+/obj/item/ammo_box/shotgun/beanbag,
+/obj/item/ammo_box/shotgun/beanbag{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/tranquilizer{
+/obj/item/ammo_box/shotgun/tranquilizer{
 	pixel_x = -6;
 	pixel_y = 6
 	},
@@ -71123,15 +71123,15 @@
 	c_tag = "HoS Bedroom";
 	network = list("SS13","Security")
 	},
-/obj/item/ammo_box/a357{
+/obj/item/ammo_box/speedloader/a357{
 	pixel_x = -9;
 	pixel_y = 9
 	},
-/obj/item/ammo_box/a357{
+/obj/item/ammo_box/speedloader/a357{
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/ammo_box/a357,
+/obj/item/ammo_box/speedloader/a357,
 /obj/item/clothing/accessory/holster,
 /obj/structure/safe{
 	known_by = list("hos")
@@ -118472,13 +118472,13 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/item/storage/box/buck{
+/obj/item/ammo_box/shotgun/buck{
 	pixel_x = 3
 	},
-/obj/item/storage/box/buck{
+/obj/item/ammo_box/shotgun/buck{
 	pixel_y = 3
 	},
-/obj/item/storage/box/slug{
+/obj/item/ammo_box/shotgun{
 	pixel_x = -3;
 	pixel_y = 6
 	},
