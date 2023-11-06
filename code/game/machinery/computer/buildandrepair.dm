@@ -716,6 +716,17 @@
 				SC.can_order_contraband = C.contraband_enabled
 			qdel(src)
 
+/obj/structure/computerframe/abductor/drop_computer_parts()
+	var/location = drop_location()
+	new /obj/item/stack/sheet/mineral/abductor(location, 4)
+	if(circuit)
+		circuit.forceMove(location)
+		circuit = null
+	if(state >= STATE_WIRES)
+		new /obj/item/stack/cable_coil(location, 5)
+	if(state == STATE_GLASS)
+		new /obj/item/stack/sheet/glass(location, 2)
+
 #undef STATE_EMPTY
 #undef STATE_CIRCUIT
 #undef STATE_NOWIRES
