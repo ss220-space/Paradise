@@ -39,6 +39,8 @@
 	//Whether nonstandard door sounds (cmag laughter) are off cooldown.
 	var/sound_ready = TRUE
 	var/sound_cooldown = 1 SECONDS
+	//Emag vulnerability.
+	var/hackable = TRUE
 
 /obj/machinery/door/New()
 	..()
@@ -316,13 +318,16 @@
 			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/machinery/door/emag_act(mob/user)
+	if(!hackable)
+		to_chat(user, span_notice("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
+		return
 	if(density)
 		add_attack_logs(user, src, "emagged ([locked ? "bolted" : "not bolted"])")
 		flick("door_spark", src)
 		sleep(6)
 		open()
-		emagged = 1
-		return 1
+		emagged = TRUE
+		return TRUE
 
 /obj/machinery/door/cmag_act(mob/user)
 	if(!density)
