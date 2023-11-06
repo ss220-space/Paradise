@@ -26,7 +26,8 @@
 		activate("death")
 
 /obj/item/implant/explosive/activate(cause)
-	if(!cause || !imp_in)	return 0
+	if(!cause || !imp_in)
+		return FALSE
 	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your microbomb implant? This will cause you to explode!", "Microbomb Implant Confirmation", "Yes", "No") != "Yes")
 		return FALSE
 	heavy = round(heavy)

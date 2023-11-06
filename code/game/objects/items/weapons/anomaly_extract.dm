@@ -4,6 +4,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "slime_extract1"
 	item_state = "syringe_0"
+	w_class = WEIGHT_CLASS_TINY
 	var/used = FALSE
 
 /obj/item/anomaly_extract/attack_self(mob/user)
@@ -92,7 +93,8 @@
 
 /obj/effect/proc_holder/spell/slime_degradation/proc/slime_transform(mob/living/carbon/human/user)
 	for(var/obj/item/I in user)
-		user.drop_item_ground(I, force = TRUE)
+		if(!istype(I, /obj/item/implant))
+			user.drop_item_ground(I, force = TRUE)
 
 	var/mob/living/simple_animal/slime/invalid/slimeme = new /mob/living/simple_animal/slime/invalid(user.loc, "red", new /datum/slime_age/adult, 1200,  user, src)
 
@@ -105,11 +107,11 @@
 	slimeme.status_flags |= GODMODE
 	user.status_flags |= GODMODE
 	slimeme.canmove = FALSE
-	user.forceMove(slimeme)
 	user.mind.transfer_to(slimeme)
 	slimeme.update_sight()
+	user.forceMove(null)
 
-	new /obj/effect/temp_visual/wizard(get_turf(user))
+	new /obj/effect/temp_visual/wizard(get_turf(slimeme))
 
 	var/matrix/animation_matrix = new(slimeme.transform)
 	slimeme.transform = matrix().Scale(0)
@@ -155,6 +157,7 @@
 		stack_trace("Spell or original_body was qdeled during the [src] work.")
 		return
 
+	original_body.notransform = FALSE
 	original_body.status_flags &= ~GODMODE
 	original_body.canmove = TRUE
 	is_transformed = FALSE

@@ -260,8 +260,6 @@
 	squeak = M.AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg' = 1), 50, falloff_exponent = 20)
 
 /obj/item/organ/internal/honktumor/remove(mob/living/carbon/M, special = 0)
-	. = ..()
-
 	M.mutations.Remove(CLUMSY)
 	M.mutations.Remove(GLOB.comicblock)
 	M.dna.SetSEState(GLOB.clumsyblock,0)
@@ -270,7 +268,7 @@
 	genemutcheck(M,GLOB.comicblock,null,MUTCHK_FORCED)
 	M.RemoveElement(/datum/element/waddling)
 	QDEL_NULL(squeak)
-	qdel(src)
+	. = ..()
 
 /obj/item/organ/internal/honktumor/on_life()
 	if(organhonked < world.time)

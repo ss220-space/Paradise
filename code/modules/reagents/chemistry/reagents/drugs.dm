@@ -1164,6 +1164,9 @@
 	taste_description = "pleasant bitterness"
 	shock_reduction = 50
 	metabolization_rate = 0.4 * REAGENTS_METABOLISM
+	drink_icon = "matedecoca"
+	drink_name = "Mate De Coca"
+	drink_desc = "A tea made of cocaine. Especially intresting drink."
 
 /datum/reagent/matedecoca/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

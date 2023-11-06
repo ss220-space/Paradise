@@ -374,8 +374,8 @@
 		/obj/item/melee/classic_baton/telescopic = 100,
 		/obj/item/gun/projectile/shotgun/automatic/combat = 150,
 		/obj/item/gun/projectile/shotgun/automatic/dual_tube = 100,
-		/obj/item/storage/box/buck = 150,
-		/obj/item/ammo_box/shotgun/buck = 100,
+		/obj/item/ammo_box/shotgun/buck = 150,
+		/obj/item/ammo_box/speedloader/shotgun/buck = 100,
 		/obj/item/grenade/clusterbuster = 100,
 		/obj/item/grenade/clusterbuster/teargas = 50,
 		/obj/item/grenade/clusterbuster/n2o = 50)

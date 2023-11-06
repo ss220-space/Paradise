@@ -8,6 +8,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
 	can_hold = list(
+		/obj/item/lipstick,
 		/obj/item/stack/spacecash,
 		/obj/item/card,
 		/obj/item/clothing/mask/cigarette,
