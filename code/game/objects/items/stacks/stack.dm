@@ -195,7 +195,7 @@
 			if(istype(A, /area/space))
 				to_chat(usr, "<span class='warning'>The beacon must be inside the station itself to properly work.")
 				return FALSE
-			if(A.valid_territory == FALSE)
+			if(!A.valid_territory)
 				to_chat(usr, "<span class='warning'>This area is too unstable for the beacon!")
 				return FALSE
 			if(A.get_beacon())
