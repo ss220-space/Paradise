@@ -76,7 +76,7 @@
 /// Whether the carbon mob is currently in crit.
 // Even though "crit" does not realistically happen for non-humans..
 /mob/living/carbon/proc/is_in_crit()
-	for(var/thing in viruses)
+	for(var/thing in diseases)
 		var/datum/disease/D = thing
 		if(istype(D, /datum/disease/critical))
 			return TRUE
@@ -90,12 +90,12 @@
 	return FALSE
 
 /// Whether a virus worthy displaying on the HUD is present.
-/mob/living/carbon/proc/has_virus()
-	for(var/thing in viruses)
+/mob/living/proc/has_virus()
+	for(var/thing in diseases)
 		var/datum/disease/D = thing
 		if(!D.discovered) // Early-stage viruses should not show up on med HUD (though health analywers can still pick them up)
 			continue
-		if((!(D.visibility_flags & HIDDEN_SCANNER)) && (D.severity != NONTHREAT))
+		if((!(D.visibility_flags & HIDDEN_HUD)) && (D.severity != NONTHREAT))
 			return TRUE
 	return FALSE
 
@@ -176,6 +176,8 @@
 	var/image/holder = hud_list[STATUS_HUD]
 	if(stat == DEAD)
 		holder.icon_state = "huddead"
+	else if(has_virus())
+		holder.icon_state = "hudill"
 	else
 		holder.icon_state = "hudhealthy"
 

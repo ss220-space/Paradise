@@ -815,6 +815,16 @@
 		if(target)
 			shootAt(target)
 
+/mob/living/simple_animal/pet/dog/corgi/borgi/attackby(obj/item/I, mob/living/user)
+	if(istype(I, /obj/item/stack/nanopaste))
+		var/obj/item/stack/nanopaste/N = I
+		N.use(1)
+		if(diseases?.len)
+			CureAllDiseases()
+			visible_message("<span class='notice'>[name] looks happy! </span>")
+			chasetail()
+	return ..()
+
 /mob/living/simple_animal/pet/dog/corgi/borgi/death(gibbed)
 	// Only execute the below if we successfully died
 	. = ..(gibbed)

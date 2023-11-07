@@ -164,6 +164,9 @@
 	..(O)
 
 /obj/machinery/r_n_d/experimentor/attack_hand(mob/user)
+	if(..())
+		return TRUE
+
 	add_fingerprint(user)
 	user.set_machine(src)
 	var/dat = {"<meta charset="UTF-8"><center>"}

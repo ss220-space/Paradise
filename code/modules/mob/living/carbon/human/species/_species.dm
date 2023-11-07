@@ -540,6 +540,25 @@
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
 		var/armor_block = target.run_armor_check(affecting, "melee")
 
+		// Contract diseases
+
+		//user beats target, check target's defense in selected zone
+		for(var/datum/disease/virus/V in user.diseases)
+			var/is_infected = FALSE
+			if(attack.is_bite && (V.spread_flags & BITES))
+				is_infected = V.Contract(target, act_type = BITES|CONTACT, need_protection_check = TRUE, zone = affecting)
+			if(!is_infected && (V.spread_flags & CONTACT))
+				V.Contract(target, act_type = CONTACT, need_protection_check = TRUE, zone = affecting)
+
+		//check user's defense in attacking zone (hands or mouth)
+		for(var/datum/disease/virus/V in target.diseases)
+			var/is_infected = FALSE
+			if(attack.is_bite  && (V.spread_flags > NON_CONTAGIOUS))
+				//infected blood contacts with mouth, ignore protection & spread_flags
+				is_infected = V.Contract(user, need_protection_check = FALSE)
+			if(!is_infected && (V.spread_flags & CONTACT))
+				V.Contract(user, act_type = CONTACT, need_protection_check = TRUE, zone = user.hand ? "l_hand" : "r_hand")
+
 		playsound(target.loc, attack.attack_sound, 25, 1, -1)
 
 		target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] [attack_species] [target.declent_ru(ACCUSATIVE)]!</span>")
@@ -684,6 +703,7 @@
 	var/sharp = FALSE
 	var/animation_type = ATTACK_EFFECT_PUNCH
 	var/harmless = FALSE //if set to true, attacks won't be admin logged and punches will "hit" for no damage
+	var/is_bite = FALSE
 
 /datum/unarmed_attack/diona
 	attack_verb = list("охлестал", "тяжело стукнул", "лозой хлестанул", "ветвью щелкнул")
@@ -701,6 +721,7 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 	sharp = TRUE
 	animation_type = ATTACK_EFFECT_BITE
+	is_bite = TRUE
 
 /datum/unarmed_attack/claws/armalis
 	attack_verb = list("хлестает", "хлестанул", "искромсал", "разорвал") //армалисами почти никто не пользуется. Зачем вносить пол вырезаной расе которой никогда не будет в игре?

@@ -25,6 +25,61 @@
 	update_flags |= M.adjustToxLoss(1.5, FALSE)
 	return ..() | update_flags
 
+/datum/reagent/bee_venom
+	name = "Bee venom"
+	id = "beetoxin"
+	description = "A toxic venom injected by space bees."
+	reagent_state = LIQUID
+	color = "#ff932f"
+	taste_description = "pain"
+
+/datum/reagent/bee_venom/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(1.5, FALSE)
+	return ..() | update_flags
+
+//bee venom specially for Beesease bees
+/datum/reagent/bee_venom_beesease
+	name = "Bee venom"
+	id = "beetoxinbeesease"
+	description = "A toxic venom injected by space bees."
+	reagent_state = LIQUID
+	color = "#ff932f"
+	taste_description = "pain"
+	overdose_threshold = 30
+
+/datum/reagent/bee_venom_beesease/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(0.1, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/bee_venom_beesease/overdose_process(mob/living/M, severity)
+	var/list/overdose_info = ..()
+	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
+	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
+	switch(severity)
+		//30-60 units
+		if(1)
+			M.Slowed(3 SECONDS, 3)
+			M.damageoverlaytemp = 50
+			update_flags |= M.adjustToxLoss(0.75, FALSE)
+			if(effect <= 5)
+				M.Jitter(8 SECONDS)
+			else if(effect <= 7)
+				M.Stuttering(8 SECONDS)
+		//60 - Infinity units
+		if(2)
+			M.Slowed(3 SECONDS, 6)
+			M.damageoverlaytemp = 90
+			update_flags |= M.adjustToxLoss(1.5, FALSE)
+			if(effect <= 3)
+				M.Weaken(4 SECONDS)
+				M.Jitter(8 SECONDS)
+				M.Stuttering(8 SECONDS)
+			else if(effect <= 7)
+				M.Stuttering(8 SECONDS)
+	return list(effect, update_flags)
+
 /datum/reagent/minttoxin
 	name = "Mint Toxin"
 	id = "minttoxin"
@@ -99,7 +154,8 @@
 
 /datum/reagent/aslimetoxin/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method != REAGENT_TOUCH)
-		M.ForceContractDisease(new /datum/disease/transformation/slime)
+		var/datum/disease/virus/transformation/slime/D = new
+		D.Contract(M)
 
 
 /datum/reagent/mercury
@@ -1246,7 +1302,8 @@
 	taste_description = "decay"
 
 /datum/reagent/gluttonytoxin/reaction_mob(mob/living/L, method=REAGENT_TOUCH, reac_volume)
-	L.ForceContractDisease(new /datum/disease/transformation/morph)
+	var/datum/disease/virus/transformation/morph/D = new
+	D.Contract(L)
 
 /datum/reagent/bungotoxin
 	name = "Bungotoxin"
