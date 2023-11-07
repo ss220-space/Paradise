@@ -27,6 +27,7 @@
 #define DIAG_TRACK_HUD		"22"// Mech tracking beacon
 #define DIAG_PATH_HUD 		"23"//Bot path indicators
 #define GLAND_HUD 			"24"//Gland indicators for abductors
+#define THOUGHT_HUD			"25"//Telepathy bubbles
 
 //by default everything in the hud_list of an atom is an image
 //a value in hud_list with one of these will change that behavior
@@ -59,6 +60,7 @@
 #define ANTAG_HUD_BLOB 22
 #define TAIPAN_HUD 23
 #define ANTAG_HUD_THIEF 24
+#define THOUGHTS_HUD 25
 
 // Notification action types
 #define NOTIFY_JUMP "jump"
@@ -80,3 +82,6 @@
 /// Used for HUD objects
 #define APPEARANCE_UI (RESET_COLOR|RESET_TRANSFORM|NO_CLIENT_COLOR|PIXEL_SCALE)
 
+//Just for comfortable thoughts_hud management.
+#define THOUGHTS_HUD_PRECISE 1
+#define THOUGHTS_HUD_DISPERSE -1
