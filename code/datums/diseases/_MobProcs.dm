@@ -1,14 +1,14 @@
 /mob/proc/HasDisease(disease_type_or_instance)
-	var/datum/disease/D1
 	if(ispath(disease_type_or_instance))
-		D1 = new disease_type_or_instance()
-	else
-		D1 = disease_type_or_instance
-		if(!istype(D1))
-			return FALSE
+		for(var/datum/disease/D2 in diseases)
+			if(D2.type == disease_type_or_instance)
+				return TRUE
+		return FALSE
+	else if(!istype(disease_type_or_instance, /datum/disease))
+		return FALSE
 
 	for(var/datum/disease/D2 in diseases)
-		if(D2.IsSame(D1))
+		if(D2.IsSame(disease_type_or_instance))
 			return TRUE
 	return FALSE
 
