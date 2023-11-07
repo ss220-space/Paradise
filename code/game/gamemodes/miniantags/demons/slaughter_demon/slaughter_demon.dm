@@ -1,48 +1,3 @@
-//////////////////The Monster
-/mob/living/simple_animal/demon
-	name = "a generic demon"
-	desc = "you shouldnt be reading this, file a github report"
-	speak_emote = list("gurgles")
-	emote_hear = list("wails","screeches")
-	tts_seed = "Mannoroth"
-	response_help  = "thinks better of touching"
-	response_disarm = "flails at"
-	response_harm   = "punches"
-	speed = 1
-	a_intent = INTENT_HARM
-	stop_automated_movement = TRUE
-	status_flags = CANPUSH
-	attack_sound = 'sound/misc/demon_attack1.ogg'
-	death_sound = 'sound/misc/demon_dies.ogg'
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
-	maxbodytemp = INFINITY
-	faction = list("demon")
-	attacktext = "неистово терзает"
-	maxHealth = 200
-	health = 200
-	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
-	obj_damage = 50
-	melee_damage_lower = 30
-	melee_damage_upper = 30
-	see_in_dark = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	del_on_death = TRUE
-	var/datum/action/innate/demon/whisper/whisper_action
-
-
-/mob/living/simple_animal/demon/Initialize(mapload)
-	. = ..()
-	whisper_action = new()
-	whisper_action.Grant(src)
-
-
-/mob/living/simple_animal/demon/Destroy()
-	if(whisper_action)
-		whisper_action = null
-	return ..()
-
-
 /mob/living/simple_animal/demon/slaughter
 	name = "slaughter demon"
 	real_name = "slaughter demon"
@@ -52,7 +7,7 @@
 	icon_state = "daemon"
 	icon_living = "daemon"
 	deathmessage = "screams in anger as it collapses into a puddle of viscera!"
-	loot = list(/obj/effect/decal/cleanable/blood/innards, /obj/effect/decal/cleanable/blood, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic, /obj/item/organ/internal/heart/demon)
+	loot = list(/obj/effect/decal/cleanable/blood/innards, /obj/effect/decal/cleanable/blood, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic, /obj/item/organ/internal/heart/demon/slaughter)
 	var/feast_sound = 'sound/misc/demon_consume.ogg'
 	var/boost = 0
 	var/devoured = 0
@@ -62,9 +17,8 @@
 
 	var/cooldown = 0
 	var/gorecooldown = 0
-	var/vialspawned = FALSE
 
-	var/playstyle_string = "<B>You are the Slaughter Demon, a terrible creature from another existence. You have a single desire: to kill.  \
+	playstyle_string = "<B>You are the Slaughter Demon, a terrible creature from another existence. You have a single desire: to kill.  \
 						You may use the blood crawl icon when on blood pools to travel through them, appearing and dissapearing from the station at will. \
 						Pulling a dead or critical mob while you enter a pool will pull them in with you, allowing you to feast. \
 						You move quickly upon leaving a pool of blood, but the material world will soon sap your strength and leave you sluggish. </B>"
@@ -73,12 +27,11 @@
 /mob/living/simple_animal/demon/slaughter/Initialize(mapload)
 	. = ..()
 	remove_from_all_data_huds()
-	ADD_TRAIT(src, TRAIT_BLOODCRAWL_EAT, "bloodcrawl_eat")
+	ADD_TRAIT(src, TRAIT_BLOODCRAWL_EAT, TRAIT_BLOODCRAWL_EAT)
 	var/obj/effect/proc_holder/spell/bloodcrawl/bloodspell = new
 	AddSpell(bloodspell)
 	if(istype(loc, /obj/effect/dummy/slaughter))
 		bloodspell.phased = TRUE
-	addtimer(CALLBACK(src, PROC_REF(attempt_objectives)), 5 SECONDS)
 
 
 /mob/living/simple_animal/demon/slaughter/Destroy()
@@ -96,22 +49,25 @@
 		speed = 0
 
 
-/mob/living/simple_animal/demon/slaughter/proc/attempt_objectives()
-	if(mind)
-		to_chat(src, src.playstyle_string)
-		to_chat(src, "<B><span class ='notice'>You are not currently in the same plane of existence as the station. Use the blood crawl action at a blood pool to manifest.</span></B>")
-		src << 'sound/misc/demon_dies.ogg'
-		if(!(vialspawned))
-			var/datum/objective/slaughter/objective = new
-			var/datum/objective/demonFluff/fluffObjective = new
-			SSticker.mode.traitors |= mind
-			objective.owner = mind
-			fluffObjective.owner = mind
-			//Paradise Port:I added the objective for one spawned like this
-			mind.objectives += objective
-			mind.objectives += fluffObjective
-			to_chat(src, "<B>Objective #[1]</B>: [objective.explanation_text]")
-			to_chat(src, "<B>Objective #[2]</B>: [fluffObjective.explanation_text]")
+/mob/living/simple_animal/demon/slaughter/attempt_objectives()
+	if(!..())
+		return
+
+	to_chat(src, playstyle_string)
+	to_chat(src, span_notice("<B>You are not currently in the same plane of existence as the station. Use the blood crawl action at a blood pool to manifest.</B>"))
+	src << 'sound/misc/demon_dies.ogg'
+	if(vialspawned)
+		return
+
+	var/datum/objective/slaughter/objective = new
+	var/datum/objective/demonFluff/fluffObjective = new
+	SSticker.mode.traitors |= mind
+	objective.owner = mind
+	fluffObjective.owner = mind
+	//Paradise Port:I added the objective for one spawned like this
+	mind.objectives += objective
+	mind.objectives += fluffObjective
+	mind.announce_objectives()
 
 
 /obj/effect/decal/cleanable/blood/innards
@@ -121,14 +77,9 @@
 	desc = "A repulsive pile of guts and gore."
 
 
-
 /mob/living/simple_animal/demon/slaughter/proc/release_consumed(mob/living/M)
 	M.forceMove(get_turf(src))
 
-/mob/living/simple_animal/demon/slaughter/phasein()
-	. = ..()
-	speed = 0
-	boost = world.time + 60
 
 // Cult slaughter demon
 /mob/living/simple_animal/demon/slaughter/cult //Summoned as part of the cult objective "Bring the Slaughter"
@@ -145,6 +96,11 @@
 	who do not worship your master. You may use the ability 'Blood Crawl' near a pool of blood to enter it and become incorporeal. Using the ability again near a blood pool will allow you \
 	to emerge from it. You are fast, powerful, and almost invincible. By dragging a dead or unconscious body into a blood pool with you, you will consume it after a time and fully regain \
 	your health. You may use the ability 'Sense Victims' in your Cultist tab to locate a random, living heretic.</span></b>"
+
+
+/mob/living/simple_animal/demon/slaughter/cult/attempt_objectives()
+	return
+
 
 /obj/effect/proc_holder/spell/sense_victims
 	name = "Sense Victims"
@@ -169,13 +125,13 @@
 
 /obj/effect/proc_holder/spell/sense_victims/cast(list/targets, mob/user)
 	var/mob/living/victim = targets[1]
-	to_chat(victim, "<span class='userdanger'>You feel an awful sense of being watched...</span>")
+	to_chat(victim, span_userdanger("You feel an awful sense of being watched..."))
 	victim.Stun(6 SECONDS) //HUE
 	var/area/A = get_area(victim)
 	if(!A)
-		to_chat(user, "<span class='warning'>You could not locate any sapient heretics for the Slaughter.</span>")
+		to_chat(user, span_warning("You could not locate any sapient heretics for the Slaughter."))
 		return
-	to_chat(user, "<span class='danger'>You sense a terrified soul at [A]. <b>Show [A.p_them()] the error of [A.p_their()] ways.</b></span>")
+	to_chat(user, span_danger("You sense a terrified soul at [A]. <b>Show [A.p_them()] the error of [A.p_their()] ways.</b>"))
 
 
 /mob/living/simple_animal/demon/slaughter/cult/Initialize(mapload)
@@ -183,13 +139,13 @@
 	spawn(0.5 SECONDS)
 		var/list/demon_candidates = SSghost_spawns.poll_candidates("Do you want to play as a slaughter demon?", ROLE_DEMON, TRUE, 10 SECONDS, source = /mob/living/simple_animal/demon/slaughter/cult)
 		if(!demon_candidates.len)
-			visible_message("<span class='warning'>[src] disappears in a flash of red light!</span>")
+			visible_message(span_warning("[src] disappears in a flash of red light!"))
 			qdel(src)
 			return
 		var/mob/M = pick(demon_candidates)
 		var/mob/living/simple_animal/demon/slaughter/cult/S = src
 		if(!M || !M.client)
-			visible_message("<span class='warning'>[src] disappears in a flash of red light!</span>")
+			visible_message(span_warning("[src] disappears in a flash of red light!"))
 			qdel(src)
 			return
 		var/client/C = M.client
@@ -207,75 +163,17 @@
 		S.mind.objectives += new_objective
 		to_chat(S, "<B>Objective #[1]</B>: [new_objective.explanation_text]")
 
-////////////////////The Powers
 
-//Paradise Port: I added this because..SPOOPY DEMON IN YOUR BRAIN
-
-
-/datum/action/innate/demon/whisper
-	name = "Demonic Whisper"
-	button_icon_state = "cult_comms"
-	background_icon_state = "bg_demon"
-
-/datum/action/innate/demon/whisper/IsAvailable()
-	return ..()
-
-/datum/action/innate/demon/whisper/proc/choose_targets(mob/user = usr)//yes i am copying from telepathy..hush...
-	var/list/validtargets = list()
-	for(var/mob/living/M in view(user.client.maxview(), get_turf(user)))
-		if(M && M.mind && M.stat != DEAD)
-			if(M == user)
-				continue
-
-			validtargets += M
-
-	if(!validtargets.len)
-		to_chat(usr, "<span class='warning'>There are no valid targets!</span>")
-		return
-
-	var/mob/living/target = input("Choose the target to talk to.", "Targeting") as null|mob in validtargets
-	return target
-
-/datum/action/innate/demon/whisper/Activate()
-	var/mob/living/choice = choose_targets()
-	if(!choice)
-		return
-
-	var/msg = stripped_input(usr, "What do you wish to tell [choice]?", null, "")
-	if(!(msg))
-		return
-	add_say_logs(usr, msg, choice, "SLAUGHTER")
-	to_chat(usr, "<span class='info'><b>You whisper to [choice]: </b>[msg]</span>")
-	to_chat(choice, "<span class='deadsay'><b>Suddenly a strange, demonic voice resonates in your head... </b></span><i><span class='danger'> [msg]</span></I>")
-	for(var/mob/dead/observer/G in GLOB.player_list)
-		G.show_message("<i>Demonic message from <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) to <b>[choice]</b> ([ghost_follow_link(choice, ghost=G)]): [msg]</i>")
-
-
-//////////The Loot
-
-//The loot from killing a slaughter demon - can be consumed to allow the user to blood crawl
-/obj/item/organ/internal/heart/demon
-	name = "demon heart"
-	desc = "Still it beats furiously, emanating an aura of utter hate."
-	icon = 'icons/obj/surgery.dmi'
-	icon_state = "demon_heart"
-	origin_tech = "combat=5;biotech=7"
-
-/obj/item/organ/internal/heart/demon/update_icon()
-	return //always beating visually
-
-/obj/item/organ/internal/heart/demon/prepare_eat()
-	return // Just so people don't accidentally waste it
-
-/obj/item/organ/internal/heart/demon/attack_self(mob/living/user)
-	user.visible_message("<span class='warning'>[user] raises [src] to [user.p_their()] mouth and tears into it with [user.p_their()] teeth!</span>", \
-						 "<span class='danger'>An unnatural hunger consumes you. You raise [src] to your mouth and devour it!</span>")
-	playsound(user, 'sound/misc/demon_consume.ogg', 50, 1)
+/**
+ * The loot from killing a slaughter demon - can be consumed to allow the user to blood crawl.
+ */
+/obj/item/organ/internal/heart/demon/slaughter/attack_self(mob/living/user)
+	..()
 
 	// Eating the heart for the first time. Gives basic bloodcrawling. This is the only time we need to insert the heart.
 	if(!HAS_TRAIT(user, TRAIT_BLOODCRAWL))
-		user.visible_message("<span class='warning'>[user]'s eyes flare a deep crimson!</span>", \
-						 "<span class='userdanger'>You feel a strange power seep into your body... you have absorbed the demon's blood-travelling powers!</span>")
+		user.visible_message(span_warning("[user]'s eyes flare a deep crimson!"), \
+						 span_userdanger("You feel a strange power seep into your body... you have absorbed the demon's blood-travelling powers!"))
 		ADD_TRAIT(user, TRAIT_BLOODCRAWL, "bloodcrawl")
 		user.drop_from_active_hand()
 		insert(user) //Consuming the heart literally replaces your heart with a demon heart. H A R D C O R E.
@@ -283,31 +181,33 @@
 
 	// Eating a 2nd heart. Gives the ability to drag people into blood and eat them.
 	if(HAS_TRAIT(user, TRAIT_BLOODCRAWL))
-		to_chat(user, "You feel differ-<span class = 'danger'> CONSUME THEM! </span>")
-		ADD_TRAIT(user, TRAIT_BLOODCRAWL_EAT, "bloodcrawl_eat")
+		to_chat(user, "You feel differ-[span_warning(" CONSUME THEM! ")]")
+		ADD_TRAIT(user, TRAIT_BLOODCRAWL_EAT, TRAIT_BLOODCRAWL_EAT)
 		qdel(src) // Replacing their demon heart with another demon heart is pointless, just delete this one and return.
 		return TRUE
 
 	// Eating any more than 2 demon hearts does nothing.
-	to_chat(user, "<span class='warning'>...and you don't feel any different.</span>")
+	to_chat(user, span_warning("...and you don't feel any different."))
 	qdel(src)
 
-/obj/item/organ/internal/heart/demon/insert(mob/living/carbon/M, special = 0)
+
+/obj/item/organ/internal/heart/demon/slaughter/insert(mob/living/carbon/M, special = 0)
 	. = ..()
 	if(M.mind)
 		M.mind.AddSpell(new /obj/effect/proc_holder/spell/bloodcrawl(null))
 
-/obj/item/organ/internal/heart/demon/remove(mob/living/carbon/M, special = 0)
+
+/obj/item/organ/internal/heart/demon/slaughter/remove(mob/living/carbon/M, special = 0)
 	..()
 	if(M.mind)
-		REMOVE_TRAIT(M, TRAIT_BLOODCRAWL, "bloodcrawl")
-		REMOVE_TRAIT(M, TRAIT_BLOODCRAWL_EAT, "bloodcrawl_eat")
+		REMOVE_TRAIT(M, TRAIT_BLOODCRAWL, TRAIT_BLOODCRAWL)
+		REMOVE_TRAIT(M, TRAIT_BLOODCRAWL_EAT, TRAIT_BLOODCRAWL_EAT)
 		M.mind.RemoveSpell(/obj/effect/proc_holder/spell/bloodcrawl)
 
-/obj/item/organ/internal/heart/demon/Stop()
-	return 0 // Always beating.
 
-
+/**
+ * LAUGHTER DEMON
+ */
 /mob/living/simple_animal/demon/slaughter/laughter
 	// The laughter demon! It's everyone's best friend! It just wants to hug
 	// them so much, it wants to hug everyone at once!
@@ -333,11 +233,11 @@
 	loot = list(/mob/living/simple_animal/pet/cat/kitten{name = "Laughter"})
 
 
-/mob/living/simple_animal/demon/slaughter/release_consumed(mob/living/M)
+/mob/living/simple_animal/demon/slaughter/laughter/release_consumed(mob/living/M)
 	if(M.revive())
 		M.grab_ghost(force = TRUE)
 		playsound(get_turf(src), feast_sound, 50, 1, -1)
-		to_chat(M, "<span class='clown'>You leave [src]'s warm embrace, and feel ready to take on the world.</span>")
+		to_chat(M, span_clown("You leave [src]'s warm embrace, and feel ready to take on the world."))
 	..(M)
 
 
