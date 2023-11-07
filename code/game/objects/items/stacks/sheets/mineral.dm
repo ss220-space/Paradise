@@ -105,7 +105,7 @@ GLOBAL_LIST_INIT(abductor_recipes, list ( \
 	null, \
 	new/datum/stack_recipe("alien floor tile", /obj/item/stack/tile/mineral/abductor, 1, 4, 20), \
 	new/datum/stack_recipe("alien chair", /obj/structure/chair/comfy/abductor,  2, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe("alien computer frame", /obj/structure/computerframe/abductor,  4, one_per_turf = 1, on_floor = 1)
+	new/datum/stack_recipe("alien computer frame", /obj/structure/computerframe/abductor,  4, time = 25, one_per_turf = 1, on_floor = 1)
 	))
 
 GLOBAL_LIST_INIT(adamantine_recipes, list(
@@ -424,6 +424,7 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	throw_speed = 1
 	origin_tech = "materials=6;abductor=1"
 	sheettype = "abductor"
+	materials = list(MAT_METAL = 4000, MAT_PLASMA = 4000)
 
 /obj/item/stack/sheet/mineral/abductor/fifty
 	amount = 50
