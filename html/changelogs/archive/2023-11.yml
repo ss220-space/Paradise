@@ -63,3 +63,19 @@
   - qol: Spent ammo casings can now be utilized using matter decompiler. (#3819)
   mrWhiteFox365:
   - add: Space Prison Ruin (#3782)
+'2023-11-07':
+  Daeberdir:
+  - tweak: mining GPS turned off. (#3836)
+  - add: chatbubble for telepathy users. (#3815)
+  LiquidPotroh:
+  - balance: Virology (#3703)
+  ROdenFL:
+  - bugfix: alien alloy bugs (#3834)
+  - tweak: sugar amount change (#3833)
+  - bugfix: anomaly extract cost, some slime fixes (#3827)
+  SuhEugene:
+  - bugfix: simple animals babymaking (#3791)
+  Zwei:
+  - add: Shadow Demon (#3616)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3835)
