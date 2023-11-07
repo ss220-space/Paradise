@@ -975,8 +975,10 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/medical/virus
 	name = "Virus Crate"
-	contains = list(/obj/item/reagent_containers/glass/bottle/flu_virion,
+	contains = list(/obj/item/reagent_containers/glass/bottle/flu,
 					/obj/item/reagent_containers/glass/bottle/cold,
+					/obj/item/reagent_containers/glass/bottle/sneezing,
+					/obj/item/reagent_containers/glass/bottle/cough,
 					/obj/item/reagent_containers/glass/bottle/epiglottis_virion,
 					/obj/item/reagent_containers/glass/bottle/liver_enhance_virion,
 					/obj/item/reagent_containers/glass/bottle/fake_gbs,

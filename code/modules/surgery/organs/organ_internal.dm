@@ -181,12 +181,12 @@
 	organ_tag = "appendix"
 	parent_organ = "groin"
 	slot = "appendix"
-	var/inflamed = 0
+	var/inflamed = FALSE
 
 /obj/item/organ/internal/appendix/remove(mob/living/carbon/M, special = 0)
-	for(var/datum/disease/appendicitis/A in M.viruses)
+	for(var/datum/disease/appendicitis/A in M.diseases)
 		A.cure()
-		inflamed = 1
+		inflamed = TRUE
 	update_icon()
 	. = ..()
 
@@ -367,7 +367,7 @@
 	if(germ_level >= INFECTION_LEVEL_TWO)
 		if(prob(3 * owner.dna.species.germs_growth_rate))
 			// big message from every 1 damage is not good. If germs growth rate is big, it will spam the chat.
-			receive_damage(1, silent = prob(30/owner.dna.species.germs_growth_rate))
+			receive_damage(1, silent = prob(30*owner.dna.species.germs_growth_rate))
 
 /mob/living/carbon/human/proc/check_infections()
 	var/list/infections = list()

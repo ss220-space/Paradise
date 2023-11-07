@@ -168,7 +168,8 @@
 	if(faction)
 		M.faction = list(faction)
 	if(disease)
-		M.ForceContractDisease(new disease)
+		var/datum/disease/D = new disease
+		D.Contract(M)
 	M.adjustOxyLoss(oxy_damage)
 	M.adjustBruteLoss(brute_damage)
 	M.adjustFireLoss(burn_damage)
@@ -450,13 +451,13 @@
 	outfit = /datum/outfit/job/assistant
 
 /obj/effect/mob_spawn/human/corpse/assistant/beesease_infection
-	disease = /datum/disease/beesease
+	disease = /datum/disease/virus/beesease
 
 /obj/effect/mob_spawn/human/corpse/assistant/brainrot_infection
-	disease = /datum/disease/brainrot
+	disease = /datum/disease/virus/brainrot
 
 /obj/effect/mob_spawn/human/corpse/assistant/spanishflu_infection
-	disease = /datum/disease/fluspanish
+	disease = /datum/disease/virus/fluspanish
 
 /obj/effect/mob_spawn/human/cook
 	name = "Cook"

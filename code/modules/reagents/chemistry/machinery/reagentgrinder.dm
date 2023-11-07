@@ -238,11 +238,13 @@
 
 
 /obj/machinery/reagentgrinder/attack_ai(mob/user)
-		return FALSE
+	return FALSE
 
 /obj/machinery/reagentgrinder/attack_hand(mob/user)
-		user.set_machine(src)
-		interact(user)
+	if(..())
+		return TRUE
+	user.set_machine(src)
+	interact(user)
 
 /obj/machinery/reagentgrinder/interact(mob/user) // The microwave Menu
 		var/is_chamber_empty = 0

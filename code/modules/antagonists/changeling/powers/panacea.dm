@@ -34,7 +34,7 @@
 	user.reagents.add_reagent("mutadone", 2)
 	user.apply_status_effect(STATUS_EFFECT_PANACEA)
 
-	for(var/datum/disease/virus in user.viruses)
+	for(var/datum/disease/virus in user.diseases)
 		if(virus.severity == NONTHREAT)
 			continue
 		virus.cure()
