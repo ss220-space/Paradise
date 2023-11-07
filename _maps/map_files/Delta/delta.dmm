@@ -15063,7 +15063,11 @@
 	pixel_x = -1;
 	pixel_y = 7
 	},
-/obj/item/gps/mining,
+/obj/item/gps{
+	icon_state = "gps-m";
+	desc = "A positioning system designed to keep an eye on your fellow workers.";
+	gpstag = "CARG0"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
