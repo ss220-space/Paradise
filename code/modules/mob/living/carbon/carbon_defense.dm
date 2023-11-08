@@ -28,6 +28,8 @@
 		return
 	if(user.get_active_hand())
 		return
+	if(GetComponent(/datum/component/two_handed) && user.get_inactive_hand())
+		return
 	. = FALSE
 
 
