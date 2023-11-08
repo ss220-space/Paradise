@@ -531,7 +531,7 @@
 	item_path = /obj/item/antag_spawner/pulse_demon
 	category = "Summons"
 	limit = 3
-	cost = 1 // Needs station power to live. Also can kill the wizard trivially in maints (get shock protection).
+	cost = 1 //Needs station power to live. Also can kill the wizard trivially in maints (get shock protection).
 
 /datum/spellbook_entry/item/mayhembottle
 	name = "Mayhem in a Bottle"
