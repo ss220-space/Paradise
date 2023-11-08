@@ -744,7 +744,7 @@
 
 	backpack_contents = list(
 		/obj/item/storage/box/soviet = 1,
-		/obj/item/ammo_box/a762 = 4
+		/obj/item/ammo_box/speedloader/shotgun/a762 = 4
 	)
 
 /datum/outfit/admin/soviet/conscript/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
