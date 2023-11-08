@@ -1,25 +1,8 @@
-
-#define VIRUS_SYMPTOM_LIMIT	6
-
 //Visibility Flags
-#define VISIBLE	0
-#define HIDDEN_SCANNER	1
-#define HIDDEN_PANDEMIC	2
-
-//Disease Flags
-#define CURABLE		1
-#define CAN_CARRY	2
-#define CAN_RESIST	4
-
-//Spread Flags
-#define SPECIAL 1
-#define NON_CONTAGIOUS 2
-#define BLOOD 4
-#define CONTACT_FEET 8
-#define CONTACT_HANDS 16
-#define CONTACT_GENERAL 32
-#define AIRBORNE 64
-
+#define VISIBLE 0
+#define HIDDEN_HUD 1		//hidden from huds & medbots
+#define HIDDEN_SCANNER	2	//hidden from health analyzers & stationary body analyzers
+#define HIDDEN_PANDEMIC	4	//hidden from pandemic
 
 //Severity Defines
 #define NONTHREAT	"No threat"
@@ -29,193 +12,253 @@
 #define DANGEROUS 	"Dangerous!"
 #define BIOHAZARD	"BIOHAZARD THREAT!"
 
-
 GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 
-
 /datum/disease
-	//Flags
-	var/visibility_flags = VISIBLE
-	var/disease_flags = CURABLE|CAN_CARRY|CAN_RESIST
-	var/spread_flags = AIRBORNE
-
 	//Fluff
-	var/form = "Virus"
-	var/name = "No disease"
+	var/form = "Болезнь"
+	var/name = "Unknown"
 	var/desc = ""
 	var/agent = "some microbes"
-	var/spread_text = ""
-	var/cure_text = ""
+	var/cure_text = null
+	var/additional_info = "Болезнь"
 
 	//Stages
+
+	/// Current stage of disease
 	var/stage = 1
-	var/max_stages = 0
+	/// Count of stages of disease
+	var/max_stages = 5
+	/// Probability of moving to the next stage for a tick
 	var/stage_prob = 4
-	/// The fraction of stages the virus must at least be at to show up on medical HUDs. Rounded up.
+
+	//Visibility
+	var/visibility_flags = VISIBLE
+	/// If NONTHREAT, not marked on HUD
+	var/severity = NONTHREAT
+
+	/// The fraction of stages the disease must at least be at to show up on medical HUDs. Rounded up.
 	var/discovery_threshold = 0.5
-	/// If TRUE, this virus will show up on medical HUDs. Automatically set when it reaches mid-stage.
+	/// If TRUE, this disease will show up on medical HUDs. Automatically set when it reaches mid-stage.
 	var/discovered = FALSE
 
-	//Other
-	var/list/viable_mobtypes = list() //typepaths of viable mobs
-	var/mob/living/carbon/affected_mob = null
-	var/list/cures = list() //list of cures if the disease has the CURABLE flag, these are reagent ids
-	var/infectivity = 65
-	var/cure_chance = 8
-	var/carrier = FALSE //If our host is only a carrier
-	var/bypasses_immunity = FALSE //Does it skip species virus immunity check? Some things may diseases and not viruses
-	var/virus_heal_resistant = FALSE // Some things aren't technically viruses/traditional diseases and should be immune to edge case cure methods, like healing viruses.
-	var/permeability_mod = 1
-	var/severity =	NONTHREAT
-	var/list/required_organs = list()
+	//Cure & immunity
+
+	/// Сan the disease be cured
+	var/curable = TRUE
+	/// List of cures if the disease has curable = TRUE, these are reagent ids
+	var/list/cures = list()
+	/// If FASLSE, you need one of any cure from the cures list. Otherwise, you need all the cures from the cure list
 	var/needs_all_cures = TRUE
-	var/list/strain_data = list() //dna_spread special bullshit
+	/// Probability of cure for a tick
+	var/cure_prob = 8
+	/// Immunity can be developed from the disease
+	var/can_immunity = TRUE
+	/// Does it skip VIRUSIMMUNE trait check
+	var/ignore_immunity = FALSE
+	/// Immunity to Anti-Bodies Metabolism symptom
+	var/virus_heal_resistant = FALSE
+	/// Message when cured
+	var/cured_message = "You feel better."
+
+	//Mutations
+
+	/// Probability of mutation if the necessary reagents are in the body
 	var/mutation_chance = 1
+	/// Necessary reagents
 	var/list/mutation_reagents = list("mutagen")
+	/// List of diseases in which it can mutate
 	var/list/possible_mutations
+
+	//Other
+
+	/// Mob that is suffering from this disease
+	var/mob/living/affected_mob
+	/// Types of infectable mobs
+	var/list/infectable_mobtypes = list(/mob/living/carbon/human)
+	/// Required organs
+	var/list/required_organs = list()
+	/// If TRUE, disease can progress in dead mobs
+	var/can_progress_in_dead = FALSE
+	/// If TRUE, disease can contract dead mobs
+	var/can_contract_dead = FALSE
+	/// If TRUE, host not affected by virus, but can spread it (mostly for viruses)
+	var/carrier = FALSE
+	/// Infectable mob types, that can only be carriers
+	var/list/carrier_mobtypes = list()
+
+
+/datum/disease/New()
+	if(!cure_text)
+		var/reagents = list()
+		for(var/id in cures)
+			var/datum/reagent/R = GLOB.chemical_reagents_list[id]
+			if(istype(R))
+				reagents += R.name
+		cure_text = english_list(reagents, "Неизлечимо", needs_all_cures ? " & " : " or ")
 
 /datum/disease/Destroy()
 	affected_mob = null
 	GLOB.active_diseases.Remove(src)
 	return ..()
 
+
+/**
+ * Main disease process, that executed every tick
+ *
+ * Returns:
+ * * TRUE - if process finished the work properlly
+ * * FALSE - if disease was deleted
+ */
 /datum/disease/proc/stage_act()
+	if(!affected_mob)
+		return FALSE
+
+	if(affected_mob?.stat == DEAD && !can_progress_in_dead)
+		return FALSE
+
 	var/cure = has_cure()
-
-	if(carrier && !cure)
-		return TRUE
-
 	stage = min(stage, max_stages)
 
-	if(!cure)
-		if(prob(stage_prob))
-			stage = min(stage + 1,max_stages)
-			if(!discovered && stage >= CEILING(max_stages * discovery_threshold, 1)) // Once we reach a late enough stage, medical HUDs can pick us up even if we regress
-				discovered = TRUE
-				affected_mob.med_hud_set_status()
+	if(cure)
+		try_reduce_stage()
 	else
-		if(prob(cure_chance))
-			stage = max(stage - 1, 1)
+		try_increase_stage()
 
-	if(disease_flags & CURABLE)
-		if(cure && prob(cure_chance))
-			cure()
-			return FALSE
+	if(curable && cure && prob(cure_prob))
+		cure()
+		return FALSE
 
 	if(possible_mutations && prob(mutation_chance))
-		mutate()
-
+		if(mutate())
+			return FALSE
 	return TRUE
 
 
-/datum/disease/proc/has_cure()
-	if(!(disease_flags & CURABLE))
-		return 0
+/datum/disease/proc/try_increase_stage()
+	if(prob(stage_prob))
+		stage = min(stage + 1, max_stages)
+		// Once we reach a late enough stage, medical HUDs can pick us up even if we regress
+		if(!discovered && stage >= CEILING(max_stages * discovery_threshold, 1))
+			discovered = TRUE
+			affected_mob.med_hud_set_status()
 
+/datum/disease/proc/try_reduce_stage()
+	if(prob(cure_prob))
+		stage = max(stage - 1, 1)
+
+/**
+ * Returns the number of reagents from the cures list that are in the body
+ */
+/datum/disease/proc/has_cure()
 	. = cures.len
 	for(var/C_id in cures)
-		if(!affected_mob.reagents.has_reagent(C_id))
+		if(!affected_mob.reagents?.has_reagent(C_id))
 			.--
-	if(!. || (needs_all_cures && . < cures.len))
+	if(. <= 0 || (needs_all_cures && . < cures.len))
 		return 0
 
-/datum/disease/proc/spread(force_spread = 0)
-	if(!affected_mob)
-		return
 
-	if((spread_flags & SPECIAL || spread_flags & NON_CONTAGIOUS || spread_flags & BLOOD) && !force_spread)
-		return
+/datum/disease/proc/cure(id = type, need_immunity = TRUE)
+	if(affected_mob)
+		if(can_immunity && need_immunity && !(id in affected_mob.resistances))
+			affected_mob.resistances += id
+		affected_mob.diseases -= src
+		affected_mob.med_hud_set_status()
+		if(cured_message)
+			to_chat(affected_mob, span_notice(cured_message))
+	qdel(src)
 
-	if(affected_mob.reagents.has_reagent("spaceacillin") || (affected_mob.satiety > 0 && prob(affected_mob.satiety/10)))
-		return
 
-	var/spread_range = 1
-
-	if(force_spread)
-		spread_range = force_spread
-
-	if(spread_flags & AIRBORNE)
-		spread_range++
-
-	var/turf/T = affected_mob.loc
-	if(istype(T))
-		for(var/mob/living/carbon/C in oview(spread_range, affected_mob))
-			var/turf/V = get_turf(C)
-			if(V)
-				while(TRUE)
-					if(V == T)
-						C.ContractDisease(src)
-						break
-					var/turf/Temp = get_step_towards(V, T)
-					if(!V.CanAtmosPass(Temp))
-						break
-					V = Temp
-
-/datum/disease/proc/Contract(mob/M)
-	var/datum/disease/D = new type()
-	M.viruses += D
-	D.affected_mob = M
-	GLOB.active_diseases += D //Add it to the active diseases list, now that it's actually in a mob and being processed.
-
-	//Copy properties over. This is so edited diseases persist.
-	var/list/skipped = list("affected_mob","holder","carrier","stage","type","parent_type","vars","transformed")
-	for(var/V in D.vars)
-		if(V in skipped)
-			continue
-		if(istype(D.vars[V],/list))
-			var/list/L = vars[V]
-			D.vars[V] = L.Copy()
-		else
-			D.vars[V] = vars[V]
-
-	D.affected_mob.med_hud_set_status()
+/datum/disease/proc/spread()
 	return
 
-/datum/disease/proc/cure(resistance = TRUE)
-	if(affected_mob)
-		if(disease_flags & CAN_RESIST)
-			if(!(type in affected_mob.resistances))
-				affected_mob.resistances += type
-		remove_virus()
-	qdel(src)
+/**
+ * Basic checks of the possibility of infecting a mob
+ */
+/datum/disease/proc/CanContract(mob/living/M, act_type, need_protection_check, zone)
+	. = FALSE
+	if(!M.CanContractDisease(src))
+		return FALSE
+
+	if(M.stat == DEAD && !can_contract_dead)
+		return FALSE
+
+	if(GetDiseaseID() in M.resistances)
+		return FALSE
+
+	if(M.HasDisease(src))
+		return FALSE
+
+	for(var/mobtype in infectable_mobtypes + carrier_mobtypes)
+		if(istype(M, mobtype))
+			. = TRUE
+
+	if(. && need_protection_check && M.CheckVirusProtection(src, act_type, zone))
+		. = FALSE
+
+	return
+
+/**
+ * Attempt to infect a mob
+ * Arguments:
+ * * act_type - type of contract. Can be BITES, CONTACT, AIRBORNE or combination of them, for example CONTACT|AIRBORNE
+ * * is_carrier - make this mob a carrier of the virus
+ * * need_protection_check - check mob's clothing, internals, special masks etc
+ * * zone - zone of contact ("l_leg", "head", etc or /obj/item/organ/external)
+ * Returns:
+ * * /datum/disease/D - a new instance of the virus that contract the mob
+ * * FALSE - otherwise
+ */
+/datum/disease/proc/Contract(mob/living/M, act_type, is_carrier = FALSE, need_protection_check = FALSE, zone)
+	if(!CanContract(M, act_type, need_protection_check, zone))
+		return FALSE
+
+	var/datum/disease/D = Copy()
+	M.diseases += D
+	D.affected_mob = M
+	GLOB.active_diseases += D
+	D.carrier = is_carrier
+	D.affected_mob.med_hud_set_status()
+	return D
+
 
 /datum/disease/proc/IsSame(datum/disease/D)
 	if(src.type == D.type)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 /datum/disease/proc/Copy()
 	var/datum/disease/D = new type()
-	D.strain_data = strain_data.Copy()
 	return D
 
 
 /datum/disease/proc/GetDiseaseID()
 	return type
 
-/datum/disease/proc/IsSpreadByTouch()
-	if(spread_flags & CONTACT_FEET || spread_flags & CONTACT_HANDS || spread_flags & CONTACT_GENERAL)
-		return 1
-	return 0
-
-//don't use this proc directly. this should only ever be called by cure() //nope
-/datum/disease/proc/remove_virus()
-	affected_mob.viruses -= src		//remove the datum from the list
-	affected_mob.med_hud_set_status()
-
+/**
+ * Transform a disease into another, if the requirements are met
+ *
+ * Returns:
+ * * TRUE - if mutation was succesful
+ * * FALSE - otherwise
+ */
 /datum/disease/proc/mutate()
 	var/datum/reagents/reagents = affected_mob.reagents
 	if(!reagents.reagent_list.len)
-		return
+		return FALSE
 	for(var/R in mutation_reagents)
 		if(!reagents.has_reagent(R))
-			return
+			return FALSE
 
 	//Here we have all the necessary reagents in affected_mob
 	var/type = pick(possible_mutations)
 	if(type)
-		remove_virus()
-		affected_mob.ForceContractDisease(new type)
+		affected_mob.diseases -= src
+		affected_mob.med_hud_set_status()
+		var/datum/disease/new_disease = new type
+		new_disease.Contract(affected_mob)
 		qdel(src)
+		return TRUE
 

@@ -69,6 +69,9 @@
 	return 0
 
 /obj/machinery/juicer/attack_hand(mob/user)
+	if(..())
+		return TRUE
+
 	add_fingerprint(user)
 	user.set_machine(src)
 	interact(user)

@@ -37,6 +37,9 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 
 
 /obj/machinery/power/rad_collector/attack_hand(mob/user as mob)
+	if(..())
+		return TRUE
+
 	if(anchored)
 		if(!src.locked)
 			add_fingerprint(user)

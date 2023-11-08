@@ -550,7 +550,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	missing_organs.Cut()
 	occupant.SetLoseBreath(0) // Stop friggin' dying, gosh damn
 	occupant.setOxyLoss(0)
-	for(var/datum/disease/critical/crit in occupant.viruses)
+	for(var/datum/disease/critical/crit in occupant.diseases)
 		crit.cure()
 	occupant.forceMove(T)
 	occupant.update_body()
