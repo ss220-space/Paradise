@@ -204,6 +204,9 @@
 	interact(user)
 
 /obj/machinery/syndicatebomb/attack_hand(mob/user)
+	if(..())
+		return TRUE
+
 	add_fingerprint(user)
 	interact(user)
 

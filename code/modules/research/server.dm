@@ -169,6 +169,9 @@
 		return ..()
 
 /obj/machinery/r_n_d/server/attack_hand(mob/user as mob)
+	if(..())
+		return TRUE
+
 	if(disabled)
 		return
 
@@ -342,6 +345,8 @@
 /obj/machinery/computer/rdservercontrol/attack_hand(mob/user as mob)
 	if(stat & (BROKEN|NOPOWER))
 		return
+	if(..())
+		return TRUE
 	add_fingerprint(user)
 	user.set_machine(src)
 	var/dat = ""

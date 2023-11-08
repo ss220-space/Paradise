@@ -54,8 +54,8 @@
 
 	var/static/list/payday = list( // 35TC + four 0TC
 		/obj/item/gun/projectile/revolver, // 13TC
-		/obj/item/ammo_box/a357, // 3TC
-		/obj/item/ammo_box/a357, // 3TC
+		/obj/item/ammo_box/speedloader/a357, // 3TC
+		/obj/item/ammo_box/speedloader/a357, // 3TC
 		/obj/item/card/emag, // 6TC
 		/obj/item/jammer, // 5TC
 		/obj/item/card/id/syndicate, // 2TC
@@ -182,7 +182,7 @@
 /obj/item/storage/box/syndie_kit/counterfeiter_bundle/populate_contents()
 	new /obj/item/stamp/chameleon(src)
 	new /obj/item/pen/fakesign(src)
-	
+
 /obj/item/storage/box/syndie_kit/chameleon_hardsuit/populate_contents()
 	new /obj/item/clothing/suit/space/hardsuit/contractor/agent(src)
 	new /obj/item/clothing/mask/gas/syndicate(src)
@@ -193,7 +193,7 @@
 
 /obj/item/storage/box/syndie_kit/conversion/populate_contents()
 	new /obj/item/conversion_kit(src)
-	new /obj/item/ammo_box/a357(src)
+	new /obj/item/ammo_box/speedloader/a357(src)
 
 /obj/item/storage/box/syndie_kit/emp
 	name = "boxed EMP kit"
@@ -469,8 +469,8 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	name = "additional .357 ammunition kit"
 
 /obj/item/storage/box/syndie_kit/revolver_ammo/populate_contents()
-	new /obj/item/ammo_box/a357(src)
-	new /obj/item/ammo_box/a357(src)
+	new /obj/item/ammo_box/speedloader/a357(src)
+	new /obj/item/ammo_box/speedloader/a357(src)
 
 /obj/item/storage/box/syndie_kit/dangertray
 	name = "Danger Tray pack"

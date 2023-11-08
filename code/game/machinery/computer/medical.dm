@@ -146,7 +146,7 @@
 				data["virus"] = list()
 				for(var/D in typesof(/datum/disease))
 					var/datum/disease/DS = new D(0)
-					if(istype(DS, /datum/disease/advance))
+					if(istype(DS, /datum/disease/virus/advance))
 						continue
 					if(!DS.desc)
 						continue
@@ -218,7 +218,7 @@
 				var/list/payload = list(
 					name = D.name,
 					max_stages = D.max_stages,
-					spread_text = D.spread_text,
+					spread_text = D.additional_info,
 					cure = D.cure_text || "None",
 					desc = D.desc,
 					severity = D.severity

@@ -58,6 +58,9 @@
 /datum/atom_hud/data/hydroponic
 	hud_icons = list(PLANT_NUTRIENT_HUD, PLANT_WATER_HUD, PLANT_STATUS_HUD, PLANT_HEALTH_HUD, PLANT_TOXIN_HUD, PLANT_PEST_HUD, PLANT_WEED_HUD)
 
+/datum/atom_hud/thoughts
+	hud_icons = list(THOUGHT_HUD)
+
 /* MED/SEC/DIAG HUD HOOKS */
 
 /*
@@ -73,7 +76,7 @@
 /// Whether the carbon mob is currently in crit.
 // Even though "crit" does not realistically happen for non-humans..
 /mob/living/carbon/proc/is_in_crit()
-	for(var/thing in viruses)
+	for(var/thing in diseases)
 		var/datum/disease/D = thing
 		if(istype(D, /datum/disease/critical))
 			return TRUE
@@ -87,12 +90,12 @@
 	return FALSE
 
 /// Whether a virus worthy displaying on the HUD is present.
-/mob/living/carbon/proc/has_virus()
-	for(var/thing in viruses)
+/mob/living/proc/has_virus()
+	for(var/thing in diseases)
 		var/datum/disease/D = thing
 		if(!D.discovered) // Early-stage viruses should not show up on med HUD (though health analywers can still pick them up)
 			continue
-		if((!(D.visibility_flags & HIDDEN_SCANNER)) && (D.severity != NONTHREAT))
+		if((!(D.visibility_flags & HIDDEN_HUD)) && (D.severity != NONTHREAT))
 			return TRUE
 	return FALSE
 
@@ -173,6 +176,8 @@
 	var/image/holder = hud_list[STATUS_HUD]
 	if(stat == DEAD)
 		holder.icon_state = "huddead"
+	else if(has_virus())
+		holder.icon_state = "hudill"
 	else
 		holder.icon_state = "hudhealthy"
 
@@ -467,6 +472,37 @@
 		holder.icon_state = ""
 		return
 	holder.icon_state = "hudweed[RoundPlantBar(weedlevel/10)]"
+
+/*~~~~~~~~~~~~~~~~~~
+	TELEPATHY HUD
+~~~~~~~~~~~~~~~~~~*/
+
+/mob/living/proc/thoughts_hud_set(thoughts, say_test = -1)
+	if(!src)
+		return
+	if(!(client?.prefs.toggles & PREFTOGGLE_SHOW_TYPING))
+		var/image/holder = hud_list[THOUGHT_HUD]
+		if(thoughts)
+			if(!typing)
+				holder.icon_state = "hudthoughtstyping"
+				typing = TRUE
+			else if(say_test > -1)
+				holder.icon_state = "hudthoughts-[say_test]"
+				addtimer(CALLBACK(src, PROC_REF(thoughts_hud_set), FALSE), 3 SECONDS)
+		if(!thoughts && typing)
+			holder.icon_state = ""
+			typing = FALSE
+
+/datum/atom_hud/thoughts/proc/manage_hud(mob/user, perception)
+	if(!user)
+		return
+	user.thoughtsHUD += perception
+	if(user.thoughtsHUD && !(user in hudusers))
+		add_hud_to(user)
+		add_to_hud(user)
+	else if(!user.thoughtsHUD && (user in hudusers))
+		remove_hud_from(user)
+		remove_from_hud(user)
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	I'll just put this somewhere near the end...

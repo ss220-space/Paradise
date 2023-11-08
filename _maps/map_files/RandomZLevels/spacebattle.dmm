@@ -7582,7 +7582,7 @@
 /obj/structure/closet/crate/secure/weapon{
 	opened = 1
 	},
-/obj/item/storage/box/buck{
+/obj/item/ammo_box/shotgun/buck{
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel,
@@ -8525,7 +8525,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/spacebattle)
 "xL" = (
-/obj/item/storage/box/slug{
+/obj/item/ammo_box/shotgun{
 	layer = 2.7
 	},
 /obj/item/twohanded/required/kirbyplants,
@@ -13526,7 +13526,7 @@
 	},
 /area/awaymission/spacebattle/syndicate3)
 "Lz" = (
-/obj/item/storage/box/slug,
+/obj/item/ammo_box/shotgun,
 /obj/structure/rack,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -15059,7 +15059,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/item/storage/box/slug,
+/obj/item/ammo_box/shotgun,
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/turret9)
 "PG" = (
@@ -18315,7 +18315,7 @@
 /area/awaymission/spacebattle/sec_storage)
 "YE" = (
 /obj/structure/closet/walllocker/emerglocker/north,
-/obj/item/storage/box/buck{
+/obj/item/ammo_box/shotgun/buck{
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{

@@ -1349,7 +1349,7 @@
 						I.heal_internal_damage(4)
 					if(H.blood_volume < BLOOD_VOLUME_NORMAL * 0.9)// If below 90% blood, regenerate 225 units total
 						H.blood_volume += 15
-					for(var/datum/disease/critical/heart_failure/HF in H.viruses)
+					for(var/datum/disease/critical/heart_failure/HF in H.diseases)
 						HF.cure() //Won't fix a stopped heart, but it will sure fix a critical one. Shock is not fixed as healing will fix it
 				if(M.health < 40)
 					update_flags |= M.adjustOxyLoss(-3, FALSE)
