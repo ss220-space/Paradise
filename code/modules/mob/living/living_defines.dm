@@ -66,7 +66,7 @@
 	var/last_hallucinator_log // Used to log, what was last infliction to hallucination
 
 	var/blood_volume = 0 //how much blood the mob has
-	hud_possible = list(HEALTH_HUD,STATUS_HUD,SPECIALROLE_HUD)
+	hud_possible = list(HEALTH_HUD,STATUS_HUD,SPECIALROLE_HUD,THOUGHT_HUD)
 
 	var/list/status_effects //a list of all status effects the mob has
 

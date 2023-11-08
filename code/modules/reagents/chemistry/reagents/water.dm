@@ -105,15 +105,15 @@
 /datum/reagent/blood/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(data && data["viruses"])
 		for(var/thing in data["viruses"])
-			var/datum/disease/D = thing
+			var/datum/disease/virus/V = thing
 
-			if(D.spread_flags & SPECIAL || D.spread_flags & NON_CONTAGIOUS)
+			if(V.spread_flags < BLOOD)
 				continue
 
 			if(method == REAGENT_TOUCH)
-				M.ContractDisease(D)
-			else //ingest, patch or inject
-				M.ForceContractDisease(D)
+				V.Contract(M, need_protection_check = TRUE, act_type = CONTACT)
+			else
+				V.Contract(M, need_protection_check = FALSE)
 
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
@@ -138,19 +138,19 @@
 			// Stop issues with the list changing during mixing.
 			var/list/to_mix = list()
 
-			for(var/datum/disease/advance/AD in mix1)
+			for(var/datum/disease/virus/advance/AD in mix1)
 				to_mix += AD
-			for(var/datum/disease/advance/AD in mix2)
+			for(var/datum/disease/virus/advance/AD in mix2)
 				to_mix += AD
 
-			var/datum/disease/advance/AD = Advance_Mix(to_mix)
+			var/datum/disease/virus/advance/AD = Advance_Mix(to_mix)
 			var/list/preserve = list()
 
 			if(istype(AD))
 				preserve += AD
 
 			for(var/datum/disease/D in data["viruses"] + mix_data["viruses"])
-				if(!istype(D, /datum/disease/advance))
+				if(!istype(D, /datum/disease/virus/advance))
 					preserve += D.Copy()
 			data["viruses"] = preserve
 
@@ -186,15 +186,15 @@
 /datum/reagent/blood/synthetic/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(data && data["viruses"])
 		for(var/thing in data["viruses"])
-			var/datum/disease/D = thing
+			var/datum/disease/virus/V = thing
 
-			if(D.spread_flags & SPECIAL || D.spread_flags & NON_CONTAGIOUS)
+			if(V.spread_flags < BLOOD)
 				continue
 
 			if(method == REAGENT_TOUCH)
-				M.ContractDisease(D)
-			else //ingest, patch or inject
-				M.ForceContractDisease(D)
+				V.Contract(M, need_protection_check = TRUE, act_type = CONTACT)
+			else
+				V.Contract(M, need_protection_check = FALSE)
 
 /datum/reagent/blood/synthetic/vox
 	name = "Synthetic Blood"
@@ -243,7 +243,7 @@
 
 /datum/reagent/vaccine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(islist(data) && (method == REAGENT_INGEST))
-		for(var/thing in M.viruses)
+		for(var/thing in M.diseases)
 			var/datum/disease/D = thing
 			if(D.GetDiseaseID() in data)
 				D.cure()

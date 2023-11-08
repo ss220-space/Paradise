@@ -913,8 +913,8 @@
 /obj/item/id_decal/centcom,
 /obj/item/clothing/head/helmet,
 /obj/item/clothing/suit/armor/vest,
-/obj/item/storage/box/slug,
-/obj/item/storage/box/slug,
+/obj/item/ammo_box/shotgun,
+/obj/item/ammo_box/shotgun,
 /obj/item/clothing/accessory/storage/black_vest,
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin{
@@ -4034,8 +4034,8 @@
 /obj/item/id_decal/gold,
 /obj/item/clothing/head/helmet,
 /obj/item/clothing/suit/armor/vest,
-/obj/item/storage/box/slug,
-/obj/item/storage/box/slug,
+/obj/item/ammo_box/shotgun,
+/obj/item/ammo_box/shotgun,
 /obj/item/clothing/accessory/storage/black_vest,
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin{

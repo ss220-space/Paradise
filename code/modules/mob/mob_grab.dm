@@ -432,12 +432,22 @@
 			return FALSE
 
 		user.visible_message("<span class='danger'>[user.name] поглоща[pluralize_ru(user.gender,"ет","ют")] [affecting.name]!</span>")
+
 		if(affecting.mind)
 			add_attack_logs(attacker, affecting, "Devoured")
+
 		if(isvampire(user))
 			user.adjust_nutrition(affecting.blood_nutrients)
 		else
 			user.adjust_nutrition(10 * affecting.health)
+
+		for(var/datum/disease/virus/V in affecting.diseases)
+			if(V.spread_flags > NON_CONTAGIOUS)
+				V.Contract(user)
+
+		for(var/datum/disease/virus/V in user.diseases)
+			if(V.spread_flags > NON_CONTAGIOUS)
+				V.Contract(affecting)
 
 		affecting.forceMove(user)
 		LAZYADD(attacker.stomach_contents, affecting)

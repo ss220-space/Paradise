@@ -33,6 +33,7 @@
 	var/next_dest_loc
 
 
+
 /mob/living/simple_animal/bot/cleanbot/New()
 	..()
 	get_targets()
@@ -94,6 +95,8 @@
 /mob/living/simple_animal/bot/cleanbot/process_scan(obj/effect/decal/cleanable/D)
 	for(var/T in target_types)
 		if(istype(D, T))
+			if(locate(src.type) in D.loc)
+				return FALSE
 			return D
 
 
@@ -119,6 +122,14 @@
 
 	if(!target) //Search for cleanables it can see.
 		target = scan(/obj/effect/decal/cleanable)
+
+	var/mob/living/simple_animal/bot/cleanbot/otherbot
+	if(target)
+		otherbot = locate(src.type) in target.loc
+
+	if(otherbot && (src != otherbot) && otherbot.mode == BOT_CLEANING)
+		target = null
+		path = list()
 
 	if(!target && auto_patrol) //Search for cleanables it can see.
 		if(mode == BOT_IDLE || mode == BOT_START_PATROL)
@@ -189,7 +200,6 @@
 /mob/living/simple_animal/bot/cleanbot/proc/do_clean(obj/effect/decal/cleanable/target)
 	if(QDELETED(src))
 		return
-
 	if(mode == BOT_CLEANING)
 		QDEL_NULL(target)
 		anchored = FALSE

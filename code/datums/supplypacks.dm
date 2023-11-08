@@ -457,23 +457,23 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/security/armory/buckshotammo
 	name = "Buckshot Ammo Crate"
-	contains = list(/obj/item/ammo_box/shotgun/buck,
-					/obj/item/storage/box/buck,
-					/obj/item/storage/box/buck,
-					/obj/item/storage/box/buck,
-					/obj/item/storage/box/buck,
-					/obj/item/storage/box/buck)
+	contains = list(/obj/item/ammo_box/speedloader/shotgun/buck,
+					/obj/item/ammo_box/shotgun/buck,
+					/obj/item/ammo_box/shotgun/buck,
+					/obj/item/ammo_box/shotgun/buck,
+					/obj/item/ammo_box/shotgun/buck,
+					/obj/item/ammo_box/shotgun/buck)
 	cost = 45
 	containername = "buckshot ammo crate"
 
 /datum/supply_packs/security/armory/slugammo
 	name = "Slug Ammo Crate"
-	contains = list(/obj/item/ammo_box/shotgun,
-					/obj/item/storage/box/slug,
-					/obj/item/storage/box/slug,
-					/obj/item/storage/box/slug,
-					/obj/item/storage/box/slug,
-					/obj/item/storage/box/slug)
+	contains = list(/obj/item/ammo_box/speedloader/shotgun,
+					/obj/item/ammo_box/shotgun,
+					/obj/item/ammo_box/shotgun,
+					/obj/item/ammo_box/shotgun,
+					/obj/item/ammo_box/shotgun,
+					/obj/item/ammo_box/shotgun)
 	cost = 45
 	containername = "slug ammo crate"
 
@@ -975,8 +975,10 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/medical/virus
 	name = "Virus Crate"
-	contains = list(/obj/item/reagent_containers/glass/bottle/flu_virion,
+	contains = list(/obj/item/reagent_containers/glass/bottle/flu,
 					/obj/item/reagent_containers/glass/bottle/cold,
+					/obj/item/reagent_containers/glass/bottle/sneezing,
+					/obj/item/reagent_containers/glass/bottle/cough,
 					/obj/item/reagent_containers/glass/bottle/epiglottis_virion,
 					/obj/item/reagent_containers/glass/bottle/liver_enhance_virion,
 					/obj/item/reagent_containers/glass/bottle/fake_gbs,

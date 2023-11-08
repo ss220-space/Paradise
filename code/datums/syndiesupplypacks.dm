@@ -386,12 +386,12 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 
 /datum/syndie_supply_packs/security/armory/a357
 	name = "Syndicate .357 Revolver - Speedloader's"
-	contains = list(/obj/item/ammo_box/a357,
-					/obj/item/ammo_box/a357,
-					/obj/item/ammo_box/a357,
-					/obj/item/ammo_box/a357,
-					/obj/item/ammo_box/a357,
-					/obj/item/ammo_box/a357)
+	contains = list(/obj/item/ammo_box/speedloader/a357,
+					/obj/item/ammo_box/speedloader/a357,
+					/obj/item/ammo_box/speedloader/a357,
+					/obj/item/ammo_box/speedloader/a357,
+					/obj/item/ammo_box/speedloader/a357,
+					/obj/item/ammo_box/speedloader/a357)
 	cost = 1750
 	containername = ".357 Revolver - Speedloader's crate"
 
@@ -844,8 +844,10 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 
 /datum/syndie_supply_packs/medical/virus
 	name = "Virus Crate"
-	contains = list(/obj/item/reagent_containers/glass/bottle/flu_virion,
+	contains = list(/obj/item/reagent_containers/glass/bottle/flu,
 					/obj/item/reagent_containers/glass/bottle/cold,
+					/obj/item/reagent_containers/glass/bottle/sneezing,
+					/obj/item/reagent_containers/glass/bottle/cough,
 					/obj/item/reagent_containers/glass/bottle/epiglottis_virion,
 					/obj/item/reagent_containers/glass/bottle/liver_enhance_virion,
 					/obj/item/reagent_containers/glass/bottle/fake_gbs,
@@ -2167,8 +2169,8 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/syndicate_special/payday
 	name = "Syndicate 'PayDay' Bundle"
 	contains = list(/obj/item/gun/projectile/revolver, // 13TC
-					/obj/item/ammo_box/a357, // 3TC
-					/obj/item/ammo_box/a357, // 3TC
+					/obj/item/ammo_box/speedloader/a357, // 3TC
+					/obj/item/ammo_box/speedloader/a357, // 3TC
 					/obj/item/card/emag, // 6TC
 					/obj/item/jammer, // 5TC
 					/obj/item/card/id/syndicate, // 2TC

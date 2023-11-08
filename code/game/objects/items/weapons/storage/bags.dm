@@ -10,6 +10,7 @@
  *		Plant Bag
  *		Sheet Snatcher
  *		Book Bag
+ *      Construction bag
  *		Tray
  *
  *	-Sayu
@@ -385,6 +386,26 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	w_class = WEIGHT_CLASS_BULKY //Bigger than a book because physics
 	can_hold = list(/obj/item/book, /obj/item/storage/bible, /obj/item/tome, /obj/item/spellbook)
+	resistance_flags = FLAMMABLE
+
+// ------------------------------------------
+//           Construction bag
+// ------------------------------------------
+
+/obj/item/storage/bag/construction
+	name = "construction bag"
+	desc = "A bag for construction stuff."
+	icon = 'icons/obj/tools.dmi'
+	icon_state = "construction_bag"
+	storage_slots = 50
+	max_combined_w_class = 100
+	max_w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_TINY
+	can_hold = list(
+	 /obj/item/assembly, /obj/item/circuitboard,
+	 /obj/item/airlock_electronics, /obj/item/firelock_electronics,
+	 /obj/item/firealarm_electronics, /obj/item/airalarm_electronics, /obj/item/apc_electronics,
+	 /obj/item/stock_parts/cell, /obj/item/stock_parts, /obj/item/camera_assembly)
 	resistance_flags = FLAMMABLE
 
 /*

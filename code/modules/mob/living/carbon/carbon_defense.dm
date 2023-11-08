@@ -48,15 +48,13 @@
 	if(!iscarbon(user))
 		return
 
-	for(var/thing in viruses)
-		var/datum/disease/D = thing
-		if(D.IsSpreadByTouch())
-			user.ContractDisease(D)
+	for(var/datum/disease/virus/V in diseases)
+		if(V.spread_flags & CONTACT)
+			V.Contract(user, act_type = CONTACT, need_protection_check = TRUE, zone = user.hand ? "l_hand" : "r_hand")
 
-	for(var/thing in user.viruses)
-		var/datum/disease/D = thing
-		if(D.IsSpreadByTouch())
-			ContractDisease(D)
+	for(var/datum/disease/virus/V in user.diseases)
+		if(V.spread_flags & CONTACT)
+			V.Contract(src, act_type = CONTACT, need_protection_check = TRUE, zone = user.zone_selected)
 
 	if(lying && surgeries.len)
 		if(user.a_intent == INTENT_HELP)

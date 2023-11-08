@@ -684,7 +684,8 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 
 		if(prob(10 + vampire.get_trophies("livers") * 3))
 			new /obj/effect/temp_visual/cult/sparks(get_turf(victim))
-			victim.ForceContractDisease(new /datum/disease/vampire)	// grave fever
+			var/datum/disease/vampire/D = new
+			D.Contract(victim)	// grave fever
 
 
 /*======================================================================================================================================*\
@@ -1575,7 +1576,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 
 	// cures heart attack, heart failure and shock
 	human_vampire.set_heartattack(FALSE)
-	for(var/datum/disease/critical/crit_virus in human_vampire.viruses)
+	for(var/datum/disease/critical/crit_virus in human_vampire.diseases)
 		crit_virus.cure()
 
 	// a little bit of nutrition for mr. vampire
@@ -1687,10 +1688,10 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 				else
 					organ.status = NONE
 
-		for(var/datum/disease/virus in human_vampire.viruses)
+		for(var/datum/disease/virus in human_vampire.diseases)
 			if(virus.severity == NONTHREAT)
 				continue
-			virus.cure(resistance = FALSE)
+			virus.cure(need_immunity = FALSE)
 
 		var/mob/living/simple_animal/borer/borer = human_vampire.has_brain_worms()
 		if(borer)
