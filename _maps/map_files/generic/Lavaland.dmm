@@ -1669,10 +1669,6 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
-"dV" = (
-/obj/effect/spawner/window,
-/turf/simulated/floor/plating,
-/area/mine/production)
 "dW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
@@ -24787,7 +24783,7 @@ bq
 cX
 dn
 bq
-dV
+bN
 en
 bN
 bN

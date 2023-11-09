@@ -79,3 +79,23 @@
   - add: Shadow Demon (#3616)
   github-actions[bot]:
   - server: Automatic NanoMap Update (#3835)
+'2023-11-08':
+  Bizzonium:
+  - unknown: add environment property to deploy action
+'2023-11-09':
+  Bizzonium:
+  - unknown: refactor deploy action
+  - unknown: fix environment url deploy action
+  - unknown: fix deploy action's job execution
+  - unknown: fix deploy action's job execution 2
+  - unknown: dynamically generate deploy action's matrix
+  Daeberdir:
+  - bugfix: 'hotfix #3816 (#3838)'
+  LiquidPotroh:
+  - bugfix: Virology (#3844)
+  ROdenFL:
+  - refactor: dir_slash is every mob/living parametr (#3841)
+  ShagoVrases:
+  - bugfix: replacing the glass on the lavaland cyberiad (#3839)
+  Vladisvell:
+  - bugfix: SSD acknowledgement now do not send tons of messages. (#3846)
