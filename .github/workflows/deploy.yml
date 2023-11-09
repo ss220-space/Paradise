@@ -55,6 +55,7 @@ jobs:
   update-isp-lists:
     name: Update ISP Lists
     runs-on: ubuntu-latest
+    environment: production
 
     steps:
       - name: Update ISP Lists
@@ -69,6 +70,7 @@ jobs:
   deploy-main:
     name: Deploy Paradise Main/Secondary
     runs-on: ubuntu-latest
+    environment: production
     needs: [update-isp-lists, CI]
     if: always() && !cancelled() && !failure() && inputs.perform_deploy_main
 
@@ -89,6 +91,7 @@ jobs:
   deploy-vega:
     name: Deploy Paradise Vega
     runs-on: ubuntu-latest
+    environment: production
     needs: [update-isp-lists, CI]
     if: always() && !cancelled() && !failure() && inputs.perform_deploy_vega
 
@@ -109,6 +112,7 @@ jobs:
   deploy-cleo:
     name: Deploy Paradise Cleo
     runs-on: ubuntu-latest
+    environment: production
     needs: [update-isp-lists, CI]
     if: always() && !cancelled() && !failure() && inputs.perform_deploy_cleo
 
@@ -129,6 +133,7 @@ jobs:
   deploy-prime:
     name: Deploy Paradise Prime
     runs-on: ubuntu-latest
+    environment: production
     needs: [update-isp-lists, CI]
     if: always() && !cancelled() && !failure() && inputs.perform_deploy_prime
 
@@ -149,6 +154,7 @@ jobs:
   deploy-wl:
     name: Deploy Paradise WL
     runs-on: ubuntu-latest
+    environment: production
     needs: [update-isp-lists, CI]
     if: always() && !cancelled() && !failure() && inputs.perform_deploy_wl
 
@@ -169,6 +175,7 @@ jobs:
   deploy-tutorial:
     name: Deploy Paradise Tutorial
     runs-on: ubuntu-latest
+    environment: production
     needs: [update-isp-lists, CI]
     if: always() && !cancelled() && !failure() && inputs.perform_deploy_tutorial
 
@@ -189,6 +196,7 @@ jobs:
   # deploy-test:
   #   name: Deploy Paradise Test
   #   runs-on: ubuntu-latest
+  #   environment: production
   #   needs: [update-isp-lists, CI]
   #   if: always() && !cancelled() && !failure() && inputs.perform_deploy_test
 
