@@ -1,10 +1,3 @@
-//Spread Flags
-#define NON_CONTAGIOUS 0	//virus can't spread
-#define BITES 1	 			//virus can spread with bites
-#define BLOOD 2		 		//virus can spread with infected blood
-#define CONTACT 4	 		//virus can spread with any touch
-#define AIRBORNE 8	 		//virus spreads through the air
-
 /datum/disease/virus
 	form = "Вирус"
 	carrier_mobtypes = list(/mob/living/simple_animal/mouse)

@@ -1,16 +1,3 @@
-//Visibility Flags
-#define VISIBLE 0
-#define HIDDEN_HUD 1		//hidden from huds & medbots
-#define HIDDEN_SCANNER	2	//hidden from health analyzers & stationary body analyzers
-#define HIDDEN_PANDEMIC	4	//hidden from pandemic
-
-//Severity Defines
-#define NONTHREAT	"No threat"
-#define MINOR		"Minor"
-#define MEDIUM		"Medium"
-#define HARMFUL		"Harmful"
-#define DANGEROUS 	"Dangerous!"
-#define BIOHAZARD	"BIOHAZARD THREAT!"
 
 GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 
