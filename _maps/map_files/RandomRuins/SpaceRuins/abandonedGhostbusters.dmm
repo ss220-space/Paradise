@@ -3,7 +3,7 @@
 /obj/structure/chair/stool/bar/dark{
 	pixel_y = 13
 	},
-/turf/simulated/floor/carpet/red,
+/turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "du" = (
 /obj/structure/holosign/barrier/atmos,
@@ -30,7 +30,7 @@
 	color = "green";
 	pixel_y = -10
 	},
-/turf/simulated/floor/carpet/red,
+/turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "gE" = (
 /obj/structure/falsewall/wood,
@@ -109,12 +109,6 @@
 /obj/structure/table/wood/fancy/black,
 /obj/item/reagent_containers/food/drinks/coffee,
 /turf/simulated/floor/carpet/red,
-/area/abandonedGhostbusters)
-"oj" = (
-/obj/structure/sign/poster/official/tsf_emblem{
-	pixel_x = -31
-	},
-/turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "oQ" = (
 /obj/structure/table/wood/fancy/black,
@@ -262,6 +256,9 @@
 	},
 /turf/simulated/floor/wood/cherry,
 /area/abandonedGhostbusters)
+"Fo" = (
+/turf/simulated/wall/indestructible/wood,
+/area/abandonedGhostbusters)
 "FG" = (
 /obj/item/broken_bottle,
 /turf/simulated/floor/wood/cherry,
@@ -314,7 +311,10 @@
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "Mc" = (
-/turf/simulated/wall/indestructible/wood,
+/obj/structure/sign/poster/official/tsf_emblem{
+	pixel_x = -31
+	},
+/turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "Mp" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -425,9 +425,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/toy/therapy/red,
 /obj/effect/decal/cleanable/ash,
-/obj/effect/decal/cleanable/blood/slime{
-	color = "white"
-	},
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 
@@ -491,7 +488,7 @@ Lj
 ky
 sB
 TT
-oj
+Mc
 Vl
 KV
 KV
@@ -507,12 +504,12 @@ oQ
 gU
 tW
 CH
-Mc
-Mc
+Fo
+Fo
 YN
-Mc
-Mc
-Mc
+Fo
+Fo
+Fo
 KV
 Hq
 "}
@@ -524,7 +521,7 @@ zw
 vj
 Mp
 lM
-Mc
+Fo
 CU
 ny
 DC
@@ -541,7 +538,7 @@ qy
 Cn
 gU
 qS
-Mc
+Fo
 OG
 tz
 jX
@@ -558,12 +555,12 @@ vY
 fj
 tW
 wz
-Mc
+Fo
 HU
 PR
 Ag
 vT
-Mc
+KV
 Hq
 Hq
 "}
@@ -575,12 +572,12 @@ Wr
 Cn
 gU
 jv
-Mc
+Fo
 Hn
 NW
 FG
 Kg
-Mc
+KV
 Hq
 Hq
 "}
@@ -592,12 +589,12 @@ Bt
 tW
 YC
 ih
-Mc
-Mc
-Mc
-Mc
-Mc
-Mc
+Fo
+Fo
+Fo
+Fo
+Fo
+KV
 Hq
 Hq
 "}
