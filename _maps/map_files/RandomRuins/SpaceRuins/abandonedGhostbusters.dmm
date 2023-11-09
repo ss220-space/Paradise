@@ -13,6 +13,8 @@
 /area/abandonedGhostbusters)
 "fM" = (
 /obj/item/reagent_containers/food/snacks/donut/sprinkles,
+/obj/effect/decal/cleanable/blood/slime,
+/obj/item/reagent_containers/food/snacks/ectoplasm,
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "gB" = (
@@ -37,11 +39,11 @@
 /mob/living/simple_animal/hostile/ghost{
 	mob_size = 3;
 	health = 40;
-	name = "Каспер";
+	name = "Лизун";
 	heat_damage_per_tick = 4;
 	attacktext = "проникает сквозь тело";
 	aggro_vision_range = 3;
-	desc = "Выглядит  дружелюбно и пугающе знакомо...";
+	desc = "Неприятный зеленый призрак, полностью состоящий из эктоплазмы. Известен своей прожорливостью и слизью, которую оставляет за собой";
 	color = "green";
 	harm_intent_damage = 2;
 	melee_damage_upper = 2
@@ -146,6 +148,7 @@
 	desc = "Зиппо настоящего охотника за приведениями!."
 	},
 /obj/effect/decal/cleanable/confetti,
+/obj/effect/decal/cleanable/blood/slime,
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "vj" = (
@@ -377,14 +380,16 @@
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "YX" = (
-/obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/cobweb2,
+/obj/item/reagent_containers/food/snacks/ectoplasm,
+/obj/item/reagent_containers/food/snacks/ectoplasm,
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "Zi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/toy/therapy/red,
 /obj/effect/decal/cleanable/ash,
+/obj/effect/decal/cleanable/blood/slime,
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 
