@@ -6,7 +6,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=2000)
 	origin_tech = "combat=4;magnets=2"
-	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
+	ammo_type = list(/obj/item/projectile/beam/laser/armory_laser_gun)
 	ammo_x_offset = 1
 	shaded_charge = 1
 
