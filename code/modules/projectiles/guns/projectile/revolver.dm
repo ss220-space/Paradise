@@ -29,7 +29,7 @@
 	. = ..()
 	if(.)
 		return
-	if(istype(A, /obj/item/ammo_box/speedloader))
+	if(istype(A, /obj/item/ammo_box/speedloader) || istype(A, /obj/item/ammo_casing))
 		var/num_loaded = magazine.attackby(A, user, params, TRUE)
 		if(num_loaded)
 			to_chat(user, span_notice("You load [num_loaded] shell\s into \the [src]."))
