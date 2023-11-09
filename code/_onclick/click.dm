@@ -262,9 +262,6 @@
 	else
 		..()
 
-/mob/proc/ShiftMiddleClickOn(atom/A)
-	return
-
 /*
 	Middle shift-click
 	Makes the mob face the direction of the clicked thing

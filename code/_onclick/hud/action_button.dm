@@ -67,9 +67,36 @@
 		return ..()
 
 /obj/screen/movable/action_button/hide_toggle/Click(location,control,params)
-	. = ..()
-	if(!.)
-		usr.hud_used.action_buttons_hidden = !usr.hud_used.action_buttons_hidden
+	var/list/modifiers = params2list(params)
+	if(modifiers["shift"])
+		if(locked)
+			to_chat(usr, "<span class='warning'>Action button \"[name]\" is locked, unlock it first.</span>")
+			return TRUE
+		moved = FALSE
+		usr.update_action_buttons(TRUE)
+		return TRUE
+	if(modifiers["ctrl"])
+		locked = !locked
+		to_chat(usr, "<span class='notice'>Action button \"[name]\" [locked ? "" : "un"]locked.</span>")
+		return TRUE
+	if(modifiers["alt"])
+		for(var/V in usr.actions)
+			var/datum/action/A = V
+			var/obj/screen/movable/action_button/B = A.button
+			B.moved = FALSE
+		moved = FALSE
+		usr.update_action_buttons(TRUE)
+		to_chat(usr, "<span class='notice'>Action button positions have been reset.</span>")
+		return TRUE
+	usr.hud_used.action_buttons_hidden = !usr.hud_used.action_buttons_hidden
+
+	hidden = usr.hud_used.action_buttons_hidden
+	if(hidden)
+		name = "Show Buttons"
+	else
+		name = "Hide Buttons"
+	UpdateIcon()
+	usr.update_action_buttons()
 
 /obj/screen/movable/action_button/hide_toggle/AltClick(mob/user)
 	for(var/V in user.actions)
