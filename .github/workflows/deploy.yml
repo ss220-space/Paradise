@@ -69,20 +69,27 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        environment: [Main, Secondary, Vega, Cleo, Prime, WL, Tutorial]
+        environment: [Main, Vega, Cleo, Prime, WL, Tutorial]
     environment: ${{ matrix.environment }}
     needs: [update-isp-lists, CI]
     if: always() && !cancelled() && !failure()
 
     steps:
-      - uses: chrnorm/deployment-action@v2
+      - name: Early exit
         if: |
-          (matrix.environment == 'Main' && inputs.perform_deploy_main) ||
-          (matrix.environment == 'Vega' && inputs.perform_deploy_vega) ||
-          (matrix.environment == 'Cleo' && inputs.perform_deploy_cleo) ||
-          (matrix.environment == 'Prime' && inputs.perform_deploy_prime) ||
-          (matrix.environment == 'WL' && inputs.perform_deploy_wl) ||
-          (matrix.environment == 'Tutorial' && inputs.perform_deploy_tutorial)
+          (matrix.environment == 'Main' && !inputs.perform_deploy_main) ||
+          (matrix.environment == 'Vega' && !inputs.perform_deploy_vega) ||
+          (matrix.environment == 'Cleo' && !inputs.perform_deploy_cleo) ||
+          (matrix.environment == 'Prime' && !inputs.perform_deploy_prime) ||
+          (matrix.environment == 'WL' && !inputs.perform_deploy_wl) ||
+          (matrix.environment == 'Tutorial' && !inputs.perform_deploy_tutorial)
+        run: |
+          gh run cancel ${{ github.run_id }}
+          gh run watch ${{ github.run_id }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: chrnorm/deployment-action@v2
         name: Create GitHub deployment
         id: deployment
         with:
@@ -177,13 +184,7 @@ jobs:
 
       - name: Update deployment status (success)
         if: |
-          success() && (
-          (matrix.environment == 'Main' && inputs.perform_deploy_main) ||
-          (matrix.environment == 'Vega' && inputs.perform_deploy_vega) ||
-          (matrix.environment == 'Cleo' && inputs.perform_deploy_cleo) ||
-          (matrix.environment == 'Prime' && inputs.perform_deploy_prime) ||
-          (matrix.environment == 'WL' && inputs.perform_deploy_wl) ||
-          (matrix.environment == 'Tutorial' && inputs.perform_deploy_tutorial))
+          success()
         uses: chrnorm/deployment-status@v2
         with:
           token: "${{ github.token }}"
@@ -192,13 +193,7 @@ jobs:
 
       - name: Update deployment status (failure)
         if: |
-          failure() && (
-          (matrix.environment == 'Main' && inputs.perform_deploy_main) ||
-          (matrix.environment == 'Vega' && inputs.perform_deploy_vega) ||
-          (matrix.environment == 'Cleo' && inputs.perform_deploy_cleo) ||
-          (matrix.environment == 'Prime' && inputs.perform_deploy_prime) ||
-          (matrix.environment == 'WL' && inputs.perform_deploy_wl) ||
-          (matrix.environment == 'Tutorial' && inputs.perform_deploy_tutorial))
+          failure()
         uses: chrnorm/deployment-status@v2
         with:
           token: "${{ github.token }}"
