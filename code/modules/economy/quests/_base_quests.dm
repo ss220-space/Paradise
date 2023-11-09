@@ -78,8 +78,6 @@
 	var/idrank = "*None Provided*"
 	///	If TRUE we can reroll this quest.
 	var/can_reroll = TRUE
-	///	Color, using in interface.
-	var/reward_color = "Green"
 
 /datum/cargo_quests_storage/New(customer, quest_type, difficulty)
 	src.customer = customer
@@ -96,8 +94,6 @@
 		var/datum/cargo_quest/cargo_quest = generate_quest(quest_type)
 		if(cargo_quest)
 			current_quests += cargo_quest
-
-	generate_reward_color()
 
 /datum/cargo_quests_storage/proc/generate_difficulty()
 	var/difficulty = rand(1, 100)
@@ -180,18 +176,6 @@
 		deltimer(fast_check_timer)
 		fast_check_timer = addtimer(VARSET_CALLBACK(src, fast_failed, TRUE), 120 SECONDS, TIMER_STOPPABLE)
 
-/datum/cargo_quests_storage/proc/generate_reward_color()
-	if(!reward)
-		return
-	switch(reward)
-		if(1 to 250)
-			reward_color = "Green"
-		if(251 to 500)
-			reward_color = "Yellow"
-		if(501 to 1100)
-			reward_color = "Orange"
-		else
-			reward_color = "Purple"
 /datum/cargo_quests_storage/proc/check_quest_completion(obj/structure/bigDelivery/closet)
 	if(!istype(closet) || !istype(closet.wrapped, /obj/structure/closet/crate))
 		return FALSE

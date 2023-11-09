@@ -679,7 +679,7 @@
 /obj/machinery/computer/supplyquest/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "QuestConsole", name, 900, 800, master_ui, state)
+		ui = new(user, src, ui_key, "QuestConsole", name, 1000, 820, master_ui, state)
 		ui.open()
 
 /obj/machinery/computer/supplyquest/ui_static_data(mob/user)
@@ -717,8 +717,7 @@
 			"timer" = "[timeleft_sec / 60 % 60]:[add_zero(num2text(timeleft_sec % 60), 2)]",
 			"quests_items" = quests_items,
 			"customer" = quest_storage.customer,
-			"target_departament" = quest_storage.target_departament,
-			"reward_color" = quest_storage.reward_color,
+			"target_departament" = quest_storage.target_departament
 			)))
 
 	data["quests"] += quest_storages
@@ -757,7 +756,7 @@
 			if(!istype(quest))
 				return
 			if(!quest.can_reroll)
-				to_chat(usr, span_warning("This quest can not be reroll."))
+				to_chat(usr, span_warning("This quest can not be rerolled."))
 				return
 			quest.quest_expired(reroll = TRUE)
 

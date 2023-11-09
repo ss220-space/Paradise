@@ -1,48 +1,35 @@
+@use 'sass:color';
+@use '../colors.scss';
+@use '../components/Section.scss';
 
-.QuestConsole__SectionGreen {
 
-  .Section__title {
-    border-bottom: 6px solid #109940 !important;
+.QuestConsoleSection {
+  .Section__title { border-bottom-width: 3px; }
+
+  border-radius: 4px;
+  border: 1px solid transparent;
+  &--green {
+    &.QuestConsoleSection--active { border-color: colors.bg(colors.$green); }
+    .Section__title { border-bottom-color: colors.bg(colors.$green); }
   }
-
-
-  &:last-child {
-    margin-bottom: 0.5rem;
+  &--yellow {
+    &.QuestConsoleSection--active { border-color: colors.bg(colors.$yellow); }
+    .Section__title { border-bottom-color: colors.bg(colors.$yellow); }
   }
-}
-
-.QuestConsole__SectionYellow {
-
-  .Section__title {
-    border-bottom: 6px solid #f3fb0d !important;
+  &--orange {
+    &.QuestConsoleSection--active { border-color: colors.bg(colors.$orange); }
+    .Section__title { border-bottom-color: colors.bg(colors.$orange); }
   }
-
-
-  &:last-child {
-    margin-bottom: 0.5rem;
+  &--purple {
+    &.QuestConsoleSection--active { border-color: colors.bg(colors.$purple); }
+    .Section__title { border-bottom-color: colors.bg(colors.$purple); }
   }
-}
+  &:not(&--dimmed):hover {
+    background-color: color.adjust(
+      Section.$color-background,
+      $lightness: 30%
+    );
 
-.QuestConsole__SectionOrange {
-
-  .Section__title {
-    border-bottom: 6px solid #eea113 !important;
-  }
-
-
-  &:last-child {
-    margin-bottom: 0.5rem;
-  }
-}
-
-.QuestConsole__SectionPurple {
-
-  .Section__title {
-    border-bottom: 6px solid #950985 !important;
-  }
-
-
-  &:last-child {
-    margin-bottom: 0.5rem;
+    cursor: pointer;
   }
 }
