@@ -61,38 +61,48 @@ jobs:
           passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
           script: /var/lib/byond/update_isp_lists.sh
 
+  set-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - id: set-matrix
+        run: |
+          MATRIX_JSON="{\"include\": ["
+          if ${{ github.event.inputs.perform_deploy_main }}; then
+            MATRIX_JSON="${MATRIX_JSON}{\"environment\": \"Main\"},"
+          fi
+          if ${{ github.event.inputs.perform_deploy_vega }}; then
+            MATRIX_JSON="${MATRIX_JSON}{\"environment\": \"Vega\"},"
+          fi
+          if ${{ github.event.inputs.perform_deploy_cleo }}; then
+            MATRIX_JSON="${MATRIX_JSON}{\"environment\": \"Cleo\"},"
+          fi
+          if ${{ github.event.inputs.perform_deploy_prime }}; then
+            MATRIX_JSON="${MATRIX_JSON}{\"environment\": \"Prime\"},"
+          fi
+          if ${{ github.event.inputs.perform_deploy_wl }}; then
+            MATRIX_JSON="${MATRIX_JSON}{\"environment\": \"WL\"},"
+          fi
+          if ${{ github.event.inputs.perform_deploy_tutorial }}; then
+            MATRIX_JSON="${MATRIX_JSON}{\"environment\": \"Tutorial\"},"
+          fi
+          MATRIX_JSON="${MATRIX_JSON%?}]}" # Remove the trailing comma
+          echo "matrix=${MATRIX_JSON}" >> $GITHUB_OUTPUT
+
   deploy:
     name: Deploy Paradise
     runs-on: ubuntu-latest
     permissions:
       deployments: write
-      actions: write
     strategy:
       fail-fast: false
-      matrix:
-        environment: [Main, Vega, Cleo, Prime, WL, Tutorial]
+      matrix: ${{fromJson(needs.set-matrix.outputs.matrix)}}
     environment: ${{ matrix.environment }}
-    needs: [update-isp-lists, CI]
+    needs: [update-isp-lists, CI, set-matrix]
     if: always() && !cancelled() && !failure()
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Early exit
-        if: |
-          (matrix.environment == 'Main' && !inputs.perform_deploy_main) ||
-          (matrix.environment == 'Vega' && !inputs.perform_deploy_vega) ||
-          (matrix.environment == 'Cleo' && !inputs.perform_deploy_cleo) ||
-          (matrix.environment == 'Prime' && !inputs.perform_deploy_prime) ||
-          (matrix.environment == 'WL' && !inputs.perform_deploy_wl) ||
-          (matrix.environment == 'Tutorial' && !inputs.perform_deploy_tutorial)
-        run: |
-          gh run cancel ${{ github.run_id }}
-          gh run watch ${{ github.run_id }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - uses: chrnorm/deployment-action@v2
         name: Create GitHub deployment
         id: deployment
