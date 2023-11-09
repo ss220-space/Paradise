@@ -66,6 +66,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       deployments: write
+      actions: write
     strategy:
       fail-fast: false
       matrix:
@@ -75,6 +76,9 @@ jobs:
     if: always() && !cancelled() && !failure()
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Early exit
         if: |
           (matrix.environment == 'Main' && !inputs.perform_deploy_main) ||
