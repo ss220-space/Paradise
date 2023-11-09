@@ -88,7 +88,7 @@ jobs:
         with:
           token: "${{ github.token }}"
           environment: ${{ matrix.environment }}
-          environment-url: ${{ vars.ENVIRONMENT_URL }}
+          description: ${{ vars.ENVIRONMENT_URL }}
           ref: ${{ vars.BRANCH }}
 
       - name: Update and Build Paradise Main/Secondary
@@ -187,7 +187,6 @@ jobs:
         uses: chrnorm/deployment-status@v2
         with:
           token: "${{ github.token }}"
-          environment-url: ${{ steps.deployment.outputs.environment_url }}
           deployment-id: ${{ steps.deployment.outputs.deployment_id }}
           state: "success"
 
@@ -203,6 +202,5 @@ jobs:
         uses: chrnorm/deployment-status@v2
         with:
           token: "${{ github.token }}"
-          environment-url: ${{ steps.deployment.outputs.environment_url }}
           deployment-id: ${{ steps.deployment.outputs.deployment_id }}
           state: "failure"
