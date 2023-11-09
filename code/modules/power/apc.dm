@@ -1029,7 +1029,7 @@
 /obj/machinery/power/apc/proc/is_locked(mob/user as mob)
 	if(user.can_admin_interact())
 		return FALSE
-	if(isAI(user) || isrobot(user) || user.has_unlimited_silicon_privilege && !iscogscarab(user))
+	if(isAI(user) || (isrobot(user) || user.has_unlimited_silicon_privilege) && !iscogscarab(user))
 		return FALSE
 	else
 		return locked
