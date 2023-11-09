@@ -2861,6 +2861,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/awaycontent/a30
 	icon_state = "awaycontent30"
 
+//area for spaceRuine "abandonedGhostbusters
+/area/abandonedGhostbusters
+	name = "ghostbustersRuine"
+	icon_state = "ghostbusters"
+	ambientsounds = "music/ghostbusters.ogg"
+	has_gravity = TRUE
+
 /////////////////////////////////////////////////////////////////////
 /*
  Lists of areas to be used with is_type_in_list.
@@ -2878,6 +2885,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	/area/shuttle/administration/centcom,
 	/area/shuttle/specops/centcom,
 ))
+
 
 //SPACE STATION 13
 GLOBAL_LIST_INIT(the_station_areas, list(

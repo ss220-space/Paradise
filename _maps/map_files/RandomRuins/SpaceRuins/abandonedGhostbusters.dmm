@@ -1,0 +1,645 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aO" = (
+/obj/structure/chair/stool/bar/dark,
+/turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
+"du" = (
+/obj/structure/holosign/barrier/atmos,
+/turf/simulated/floor/wood/cherry,
+/area/space/nearstation)
+"fj" = (
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
+"fM" = (
+/obj/item/reagent_containers/food/snacks/donut/sprinkles,
+/turf/simulated/floor/carpet/red,
+/area/abandonedGhostbusters)
+"gB" = (
+/obj/item/reagent_containers/food/snacks/ectoplasm,
+/turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
+"gE" = (
+/obj/structure/falsewall/wood,
+/obj/structure/sign/poster/official/do_not_question,
+/turf/simulated/floor/carpet/red,
+/area/abandonedGhostbusters)
+"gU" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
+"ih" = (
+/obj/structure/chair/sofa/pew,
+/turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
+"iA" = (
+/obj/effect/decal/cleanable/cobweb,
+/mob/living/simple_animal/hostile/ghost{
+	mob_size = 3;
+	health = 40;
+	name = "Каспер";
+	heat_damage_per_tick = 4;
+	attacktext = "проникает сквозь тело";
+	aggro_vision_range = 3;
+	desc = "Выглядит  дружелюбно и пугающе знакомо...";
+	color = "green";
+	harm_intent_damage = 2;
+	melee_damage_upper = 2
+	},
+/turf/simulated/floor/carpet/red,
+/area/abandonedGhostbusters)
+"jb" = (
+/obj/structure/chair/stool/bar/dark,
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
+"jv" = (
+/obj/structure/chair/sofa/pew,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
+"jO" = (
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
+"jX" = (
+/obj/effect/decal/cleanable/tomato_smudge,
+/turf/simulated/floor/wood/cherry,
+/area/abandonedGhostbusters)
+"ky" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/item/clothing/suit/ghost_sheet,
+/turf/simulated/floor/carpet/red,
+/area/abandonedGhostbusters)
+"lM" = (
+/obj/structure/chair/sofa/pew,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
+"mW" = (
+/obj/effect/spawner/window,
+/turf/simulated/floor/carpet/red,
+/area/abandonedGhostbusters)
+"ny" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/reagent_containers/food/drinks/coffee,
+/turf/simulated/floor/carpet/red,
+/area/abandonedGhostbusters)
+"oj" = (
+/obj/structure/sign/poster/official/tsf_emblem,
+/turf/simulated/wall/indestructible/boss/see_through{
+	opacity = 1
+	},
+/area/abandonedGhostbusters)
+"oQ" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/camera/spooky{
+	pixel_y = 2
+	},
+/turf/simulated/floor/light{
+	color = "red"
+	},
+/area/abandonedGhostbusters)
+"oR" = (
+/obj/structure/holosign/barrier/atmos,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken3"
+	},
+/area/space/nearstation)
+"qy" = (
+/obj/item/nullrod/salt{
+	pixel_x = 1;
+	pixel_y = 6
+	},
+/obj/structure/table/wood/fancy/black,
+/turf/simulated/floor/light{
+	color = "red"
+	},
+/area/abandonedGhostbusters)
+"qE" = (
+/turf/space,
+/area/space/nearstation)
+"qS" = (
+/obj/structure/chair/sofa/pew,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
+"rl" = (
+/turf/simulated/floor/plating,
+/area/abandonedGhostbusters)
+"sB" = (
+/obj/structure/fence,
+/turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
+"tz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/wood/cherry,
+/area/abandonedGhostbusters)
+"tW" = (
+/turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
+"ur" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/lighter/zippo/fluff/purple{
+	desc = "Зиппо настоящего охотника за приведениями!."
+	},
+/obj/effect/decal/cleanable/confetti,
+/turf/simulated/floor/carpet/red,
+/area/abandonedGhostbusters)
+"vj" = (
+/obj/structure/grille/broken,
+/turf/simulated/floor/plating,
+/area/abandonedGhostbusters)
+"vT" = (
+/obj/item/trash/tastybread{
+	pixel_x = -6;
+	pixel_y = 7
+	},
+/turf/simulated/floor/wood/cherry,
+/area/abandonedGhostbusters)
+"vY" = (
+/obj/structure/table/wood/fancy,
+/obj/item/paper{
+	desc = "Мятый лист бумаги";
+	info = "<h1> Инструкция для начинающих охотников за призраками </h1><b>Шаг 1: Подготовьтесь</b><br>Перед тем, как отправиться на охоту за призраками, убедитесь, что вы готовы к этому приключению. Учтите следующие важные моменты:Изучите место, где вы собираетесь охотиться. Информация о его истории и предполагаемых призрачных явлениях будет весьма полезной.Наденьте удобную одежду и обувь, которые позволят вам комфортно передвигаться и проводить длительное время на месте. Возьмите с собой несколько источников света, фонарь. Вы не захотите оказаться в полной темноте.<b><br>Шаг 2: Используйте святую соль</b><br>Святая соль считается мощным средством для отпугивания злых духов. Важно знать, как ею пользоваться:Разбросайте святую соль вокруг себя или в местах, где предполагается наличие призрачных активностей.Создайте защитный круг из соли вокруг себя, чтобы предотвратить приближение нежелательных сущностей.Периодически обновляйте слой соли, особенно если чувствуете, что уровень активности призраков увеличивается.<b><br>Шаг 3: Используйте святой фотоаппарат</b><br>Для фотографирования призраков, которых нельзя видеть невооруженным глазом, пригодится специальный святой фотоаппарат:Перед фотосъемкой, окружите место солью и призовите призраков, призывая их позировать.Сделайте несколько снимков и оцените результаты после возвращения домой. Призраки могут появляться на фотографиях в виде неясных образов или светящихся фигур.<b><br>Шаг 4: Оставайтесь спокойными и внимательными</b><br>Охота за призраками может быть увлекательным, но также и пугающим. Важно помнить следующие советы:Оставайтесь спокойными и уважительными во время охоты. Не провоцируйте духов или не призывайте их слишком настойчиво.Будьте внимательными к своим ощущениям и интуиции. Иногда призраки могут подавать знаки своего присутствия через зудение кожи, холод или странные шумы.<br>Уважайте местные законы и правила. Не вторгайтесь на частную собственность или в ограниченные зоны.<br><b>Удачи в вашей охоте за призраками!<br> Помните, что уважение и осторожность - ключи к успешному и безопасному исследованию мистического мира.</b>";
+	name = "Памятка Охотникам За Призраками";
+	pixel_y = 5
+	},
+/turf/simulated/floor/light{
+	color = "red"
+	},
+/area/abandonedGhostbusters)
+"wz" = (
+/obj/structure/chair/sofa/pew,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
+"zw" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/reagent_containers/food/snacks/grown/ghost_chili{
+	pixel_x = 3;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/food/snacks/grown/ghost_chili{
+	pixel_x = -7;
+	pixel_y = 6
+	},
+/turf/simulated/floor/light{
+	color = "red"
+	},
+/area/abandonedGhostbusters)
+"Ag" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/ants,
+/turf/simulated/floor/wood/cherry,
+/area/abandonedGhostbusters)
+"Bt" = (
+/obj/item/reagent_containers/food/drinks/bottle/holywater{
+	pixel_y = 4
+	},
+/obj/structure/table/wood/fancy/black,
+/turf/simulated/floor/light{
+	color = "red"
+	},
+/area/abandonedGhostbusters)
+"Cn" = (
+/obj/item/candle/eternal,
+/turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
+"CH" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/wall/indestructible/boss/see_through{
+	opacity = 1
+	},
+/area/abandonedGhostbusters)
+"CU" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/flashlight/lamp/green,
+/turf/simulated/floor/carpet/red,
+/area/abandonedGhostbusters)
+"DC" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/machinery/light_construct{
+	dir = 8
+	},
+/turf/simulated/floor/wood/cherry,
+/area/abandonedGhostbusters)
+"Fo" = (
+/obj/structure/sign/poster/official/religious,
+/turf/simulated/wall/indestructible/boss/see_through{
+	opacity = 1
+	},
+/area/abandonedGhostbusters)
+"FG" = (
+/obj/item/broken_bottle,
+/turf/simulated/floor/wood/cherry,
+/area/abandonedGhostbusters)
+"Hn" = (
+/obj/structure/table_frame/wood,
+/obj/item/stack/sheet/wood,
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/wood/cherry,
+/area/abandonedGhostbusters)
+"Hq" = (
+/turf/space,
+/area/space)
+"HL" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/flashlight{
+	pixel_x = -1;
+	pixel_y = 8
+	},
+/turf/simulated/floor/light{
+	color = "red"
+	},
+/area/abandonedGhostbusters)
+"HU" = (
+/obj/structure/table_frame/wood,
+/obj/item/wrench,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken"
+	},
+/area/abandonedGhostbusters)
+"Kg" = (
+/obj/item/trash/syndi_cakes{
+	pixel_y = 7
+	},
+/obj/item/trash/semki,
+/obj/effect/decal/ants,
+/turf/simulated/floor/wood/cherry,
+/area/abandonedGhostbusters)
+"KV" = (
+/turf/simulated/wall/indestructible/boss/see_through{
+	opacity = 1
+	},
+/area/abandonedGhostbusters)
+"Lj" = (
+/obj/effect/dummy/lighting_obj,
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/carpet/red,
+/area/abandonedGhostbusters)
+"Mc" = (
+/obj/structure/sign/holy,
+/turf/simulated/wall/indestructible/boss/see_through{
+	opacity = 1
+	},
+/area/abandonedGhostbusters)
+"Mp" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
+"Nx" = (
+/obj/structure/falsewall/wood,
+/obj/structure/sign/poster/official/walk,
+/turf/space,
+/area/abandonedGhostbusters)
+"NJ" = (
+/obj/structure/sign/poster/official/the_owl,
+/turf/simulated/wall/indestructible/boss/see_through{
+	opacity = 1
+	},
+/area/abandonedGhostbusters)
+"NW" = (
+/obj/item/chair/wood,
+/turf/simulated/floor/wood/cherry,
+/area/abandonedGhostbusters)
+"OG" = (
+/obj/structure/closet/cabinet,
+/obj/effect/decal/cleanable/egg_smudge,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken"
+	},
+/area/abandonedGhostbusters)
+"PR" = (
+/obj/item/trash/tray{
+	pixel_y = 3
+	},
+/turf/simulated/floor/wood/cherry,
+/area/abandonedGhostbusters)
+"Qf" = (
+/obj/structure/table/holotable/wood,
+/obj/item/reagent_containers/food/drinks/coffee{
+	glide_size = 5
+	},
+/obj/item/reagent_containers/food/drinks/coffee{
+	pixel_y = 14
+	},
+/turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
+"Sq" = (
+/obj/item/seeds/chili/ghost,
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/carpet/red,
+/area/abandonedGhostbusters)
+"TT" = (
+/obj/item/wirecutters,
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
+"Ua" = (
+/obj/structure/falsewall/wood,
+/obj/structure/sign/poster/ripped,
+/turf/space,
+/area/space/nearstation)
+"Vl" = (
+/obj/item/decorations/sticky_decorations/flammable/ghost,
+/turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
+"VP" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken3"
+	},
+/area/abandonedGhostbusters)
+"Wr" = (
+/obj/item/reagent_containers/food/snacks/ghostburger{
+	pixel_y = 5
+	},
+/obj/structure/table/wood/fancy/black,
+/turf/simulated/floor/light{
+	color = "red"
+	},
+/area/abandonedGhostbusters)
+"YC" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/abandonedGhostbusters)
+"YN" = (
+/obj/structure/falsewall/wood{
+	name = "Подозрительная деревянная стена";
+	desc = "Она кажется подвижной"
+	},
+/obj/structure/sign/poster/ripped,
+/turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
+"YX" = (
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/carpet/red,
+/area/abandonedGhostbusters)
+"Zi" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/toy/therapy/red,
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/carpet/red,
+/area/abandonedGhostbusters)
+
+(1,1,1) = {"
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+"}
+(2,1,1) = {"
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+"}
+(3,1,1) = {"
+Hq
+Hq
+jO
+KV
+KV
+KV
+Fo
+Mc
+oj
+NJ
+KV
+KV
+jO
+Hq
+Hq
+"}
+(4,1,1) = {"
+Hq
+Hq
+KV
+KV
+Lj
+ky
+sB
+TT
+tW
+Vl
+KV
+KV
+KV
+Hq
+Hq
+"}
+(5,1,1) = {"
+Hq
+Hq
+KV
+oQ
+gU
+tW
+CH
+KV
+KV
+YN
+KV
+KV
+KV
+KV
+Hq
+"}
+(6,1,1) = {"
+Hq
+Hq
+KV
+zw
+vj
+Mp
+lM
+KV
+CU
+ny
+DC
+rl
+du
+Ua
+qE
+"}
+(7,1,1) = {"
+Hq
+Hq
+KV
+qy
+Cn
+gU
+qS
+KV
+OG
+tz
+jX
+VP
+oR
+KV
+Hq
+"}
+(8,1,1) = {"
+Hq
+Hq
+KV
+vY
+fj
+tW
+wz
+KV
+HU
+PR
+Ag
+vT
+KV
+Hq
+Hq
+"}
+(9,1,1) = {"
+Hq
+Hq
+KV
+Wr
+Cn
+gU
+jv
+KV
+Hn
+NW
+FG
+Kg
+KV
+Hq
+Hq
+"}
+(10,1,1) = {"
+Hq
+Hq
+KV
+Bt
+tW
+YC
+ih
+KV
+KV
+KV
+KV
+KV
+KV
+Hq
+Hq
+"}
+(11,1,1) = {"
+Hq
+Hq
+KV
+HL
+gU
+tW
+gB
+Nx
+Zi
+fM
+mW
+iA
+KV
+Hq
+Hq
+"}
+(12,1,1) = {"
+Hq
+Hq
+KV
+KV
+jb
+Qf
+aO
+gE
+Sq
+ur
+mW
+YX
+KV
+Hq
+Hq
+"}
+(13,1,1) = {"
+Hq
+Hq
+jO
+KV
+KV
+KV
+KV
+KV
+KV
+KV
+KV
+KV
+jO
+Hq
+Hq
+"}
+(14,1,1) = {"
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+"}
+(15,1,1) = {"
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+"}
