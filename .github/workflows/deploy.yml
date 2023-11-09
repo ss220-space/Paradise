@@ -245,6 +245,7 @@ jobs:
               repo: context.repo.repo,
               sha: GITHUB_SHA_HEAD
             });
+            console.log(deployments.data)
             await Promise.all(
               deployments.data.filter((d) => !d.performed_via_github_app).map(async (deployment) => {
                 await github.rest.repos.createDeploymentStatus({
