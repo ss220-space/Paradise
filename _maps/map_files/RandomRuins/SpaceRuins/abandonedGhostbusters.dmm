@@ -1,6 +1,9 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aO" = (
 /obj/structure/chair/stool/bar/dark,
+/obj/item/reagent_containers/food/snacks/ectoplasm{
+	color = "green"
+	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "du" = (
@@ -13,12 +16,15 @@
 /area/abandonedGhostbusters)
 "fM" = (
 /obj/item/reagent_containers/food/snacks/donut/sprinkles,
-/obj/effect/decal/cleanable/blood/slime,
-/obj/item/reagent_containers/food/snacks/ectoplasm,
+/obj/item/reagent_containers/food/snacks/ectoplasm{
+	color = "green"
+	},
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "gB" = (
-/obj/item/reagent_containers/food/snacks/ectoplasm,
+/obj/item/reagent_containers/food/snacks/ectoplasm{
+	color = "green"
+	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "gE" = (
@@ -47,6 +53,9 @@
 	color = "green";
 	harm_intent_damage = 2;
 	melee_damage_upper = 2
+	},
+/obj/item/reagent_containers/food/snacks/ectoplasm{
+	color = "green"
 	},
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
@@ -148,7 +157,9 @@
 	desc = "Зиппо настоящего охотника за приведениями!."
 	},
 /obj/effect/decal/cleanable/confetti,
-/obj/effect/decal/cleanable/blood/slime,
+/obj/effect/decal/cleanable/blood/slime{
+	color = "red"
+	},
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "vj" = (
@@ -382,14 +393,18 @@
 "YX" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/item/reagent_containers/food/snacks/ectoplasm,
-/obj/item/reagent_containers/food/snacks/ectoplasm,
+/obj/item/reagent_containers/food/snacks/ectoplasm{
+	color = "green"
+	},
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "Zi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/toy/therapy/red,
 /obj/effect/decal/cleanable/ash,
-/obj/effect/decal/cleanable/blood/slime,
+/obj/effect/decal/cleanable/blood/slime{
+	color = "white"
+	},
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 
