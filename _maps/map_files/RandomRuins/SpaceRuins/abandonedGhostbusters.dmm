@@ -1,10 +1,9 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aO" = (
-/obj/structure/chair/stool/bar/dark,
-/obj/item/reagent_containers/food/snacks/ectoplasm{
-	color = "green"
+/obj/structure/chair/stool/bar/dark{
+	pixel_y = 13
 	},
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "du" = (
 /obj/structure/holosign/barrier/atmos,
@@ -15,17 +14,23 @@
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "fM" = (
-/obj/item/reagent_containers/food/snacks/donut/sprinkles,
 /obj/item/reagent_containers/food/snacks/ectoplasm{
-	color = "green"
+	color = "green";
+	pixel_y = -10
 	},
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "gB" = (
 /obj/item/reagent_containers/food/snacks/ectoplasm{
-	color = "green"
+	color = "green";
+	pixel_x = -1;
+	pixel_y = 4
 	},
-/turf/simulated/floor/carpet/black,
+/obj/item/reagent_containers/food/snacks/ectoplasm{
+	color = "green";
+	pixel_y = -10
+	},
+/turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "gE" = (
 /obj/structure/falsewall/wood,
@@ -37,7 +42,9 @@
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "ih" = (
-/obj/structure/chair/sofa/pew,
+/obj/structure/chair/sofa/pew{
+	dir = 1
+	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "iA" = (
@@ -65,14 +72,18 @@
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "jv" = (
-/obj/structure/chair/sofa/pew,
 /obj/effect/decal/cleanable/blood/old,
+/obj/structure/chair/sofa/pew{
+	dir = 1
+	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "jO" = (
 /obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
+/turf/simulated/wall/indestructible/boss/see_through{
+	opacity = 1
+	},
+/area/abandonedGhostbusters)
 "jX" = (
 /obj/effect/decal/cleanable/tomato_smudge,
 /turf/simulated/floor/wood/cherry,
@@ -83,14 +94,16 @@
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "lM" = (
-/obj/structure/chair/sofa/pew,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
+/obj/structure/chair/sofa/pew{
+	dir = 1
+	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "mW" = (
 /obj/effect/spawner/window,
-/turf/simulated/floor/carpet/red,
+/turf/simulated/floor/carpet/blue,
 /area/abandonedGhostbusters)
 "ny" = (
 /obj/structure/table/wood/fancy/black,
@@ -98,10 +111,10 @@
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "oj" = (
-/obj/structure/sign/poster/official/tsf_emblem,
-/turf/simulated/wall/indestructible/boss/see_through{
-	opacity = 1
+/obj/structure/sign/poster/official/tsf_emblem{
+	pixel_x = -31
 	},
+/turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "oQ" = (
 /obj/structure/table/wood/fancy/black,
@@ -132,8 +145,10 @@
 /turf/space,
 /area/space/nearstation)
 "qS" = (
-/obj/structure/chair/sofa/pew,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/sofa/pew{
+	dir = 1
+	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "rl" = (
@@ -141,6 +156,9 @@
 /area/abandonedGhostbusters)
 "sB" = (
 /obj/structure/fence,
+/obj/structure/sign/poster/official/religious{
+	pixel_x = -31
+	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "tz" = (
@@ -188,8 +206,10 @@
 "wz" = (
 /obj/structure/chair/sofa/pew,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/sofa/pew{
+	dir = 1
+	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "zw" = (
@@ -242,12 +262,6 @@
 	},
 /turf/simulated/floor/wood/cherry,
 /area/abandonedGhostbusters)
-"Fo" = (
-/obj/structure/sign/poster/official/religious,
-/turf/simulated/wall/indestructible/boss/see_through{
-	opacity = 1
-	},
-/area/abandonedGhostbusters)
 "FG" = (
 /obj/item/broken_bottle,
 /turf/simulated/floor/wood/cherry,
@@ -282,7 +296,10 @@
 /obj/item/trash/syndi_cakes{
 	pixel_y = 7
 	},
-/obj/item/trash/semki,
+/obj/item/trash/semki{
+	pixel_y = 2;
+	pixel_x = -22
+	},
 /obj/effect/decal/ants,
 /turf/simulated/floor/wood/cherry,
 /area/abandonedGhostbusters)
@@ -297,10 +314,7 @@
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "Mc" = (
-/obj/structure/sign/holy,
-/turf/simulated/wall/indestructible/boss/see_through{
-	opacity = 1
-	},
+/turf/simulated/wall/indestructible/wood,
 /area/abandonedGhostbusters)
 "Mp" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -310,12 +324,6 @@
 /obj/structure/falsewall/wood,
 /obj/structure/sign/poster/official/walk,
 /turf/space,
-/area/abandonedGhostbusters)
-"NJ" = (
-/obj/structure/sign/poster/official/the_owl,
-/turf/simulated/wall/indestructible/boss/see_through{
-	opacity = 1
-	},
 /area/abandonedGhostbusters)
 "NW" = (
 /obj/item/chair/wood,
@@ -337,10 +345,16 @@
 "Qf" = (
 /obj/structure/table/holotable/wood,
 /obj/item/reagent_containers/food/drinks/coffee{
-	glide_size = 5
+	glide_size = 5;
+	pixel_y = 1;
+	pixel_x = -5
 	},
 /obj/item/reagent_containers/food/drinks/coffee{
-	pixel_y = 14
+	pixel_y = 14;
+	pixel_x = 7
+	},
+/obj/item/reagent_containers/food/snacks/donut/sprinkles{
+	pixel_x = 7
 	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
@@ -353,15 +367,24 @@
 /obj/item/wirecutters,
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/cobweb2,
+/obj/structure/sign/holy{
+	pixel_x = -31
+	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "Ua" = (
-/obj/structure/falsewall/wood,
+/obj/structure/falsewall/wood{
+	name = "Подозрительная деревянная стена";
+	desc = "Она кажется подвижной"
+	},
 /obj/structure/sign/poster/ripped,
 /turf/space,
 /area/space/nearstation)
 "Vl" = (
 /obj/item/decorations/sticky_decorations/flammable/ghost,
+/obj/structure/sign/poster/official/the_owl{
+	pixel_x = -31
+	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "VP" = (
@@ -449,10 +472,10 @@ jO
 KV
 KV
 KV
-Fo
-Mc
-oj
-NJ
+KV
+KV
+KV
+KV
 KV
 KV
 jO
@@ -468,7 +491,7 @@ Lj
 ky
 sB
 TT
-tW
+oj
 Vl
 KV
 KV
@@ -484,12 +507,12 @@ oQ
 gU
 tW
 CH
-KV
-KV
+Mc
+Mc
 YN
-KV
-KV
-KV
+Mc
+Mc
+Mc
 KV
 Hq
 "}
@@ -501,7 +524,7 @@ zw
 vj
 Mp
 lM
-KV
+Mc
 CU
 ny
 DC
@@ -518,7 +541,7 @@ qy
 Cn
 gU
 qS
-KV
+Mc
 OG
 tz
 jX
@@ -535,12 +558,12 @@ vY
 fj
 tW
 wz
-KV
+Mc
 HU
 PR
 Ag
 vT
-KV
+Mc
 Hq
 Hq
 "}
@@ -552,12 +575,12 @@ Wr
 Cn
 gU
 jv
-KV
+Mc
 Hn
 NW
 FG
 Kg
-KV
+Mc
 Hq
 Hq
 "}
@@ -569,12 +592,12 @@ Bt
 tW
 YC
 ih
-KV
-KV
-KV
-KV
-KV
-KV
+Mc
+Mc
+Mc
+Mc
+Mc
+Mc
 Hq
 Hq
 "}
