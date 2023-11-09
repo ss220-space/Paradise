@@ -443,7 +443,7 @@ EXTRA_SPACE_RUIN_LEVELS_MAX 8
 #DISABLE_CID_WARN_POPUP
 
 ## How many loadout points players may spend in character setup
-#MAX_LOADOUT_POINTS 5
+#MAX_LOADOUT_POINTS 10
 
 # How many minutes players must wait, from round start, before they can ghost out
 # and still qualify for re-entering the round. Defaults to 30.

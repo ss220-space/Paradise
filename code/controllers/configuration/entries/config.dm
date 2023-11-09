@@ -489,7 +489,7 @@
 /datum/config_entry/flag/disable_cid_warn_popup
 
 /datum/config_entry/number/max_loadout_points
-	default = 5
+	default = 10
 
 /datum/config_entry/flag/disable_ooc_emoji
 
