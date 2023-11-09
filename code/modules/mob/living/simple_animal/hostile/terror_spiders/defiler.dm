@@ -43,11 +43,16 @@
 	return ..(gibbed)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/defiler/spider_specialattack(mob/living/carbon/human/L, poisonable)
+	. = ..()
+
+	if(!.)
+		return FALSE
+
 	L.AdjustSilence(20 SECONDS)
 	L.adjustStaminaLoss(39)
 	L.attack_animal(src)
 	if(!poisonable)
-		return ..()
+		return TRUE
 	var/inject_target = pick("chest", "head")
 	if(L.IsParalyzed() || L.can_inject(null, FALSE, inject_target, FALSE) && prob(50))
 		new /obj/item/organ/internal/body_egg/terror_eggs(L)
@@ -65,8 +70,8 @@
 
 /proc/IsTSInfected(mob/living/carbon/C) // Terror AI requires this
 	if(C.get_int_organ(/obj/item/organ/internal/body_egg))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/structure/spider/terrorweb/white
 	name = "infested web"

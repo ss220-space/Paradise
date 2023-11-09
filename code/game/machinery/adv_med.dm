@@ -139,6 +139,9 @@
 	ui_interact(user)
 
 /obj/machinery/bodyscanner/attack_hand(user)
+	if(..())
+		return TRUE
+
 	if(stat & (NOPOWER|BROKEN))
 		return
 
@@ -222,9 +225,9 @@
 		occupantData["maxHealth"] = occupant.maxHealth
 
 		var/found_disease = FALSE
-		for(var/thing in occupant.viruses)
+		for(var/thing in occupant.diseases)
 			var/datum/disease/D = thing
-			if(D.visibility_flags & HIDDEN_SCANNER || D.visibility_flags & HIDDEN_PANDEMIC)
+			if(D.visibility_flags & HIDDEN_SCANNER)
 				continue
 			if(istype(D, /datum/disease/critical))
 				continue
@@ -388,9 +391,9 @@
 		dat += "[occupant.health > 50 ? "<font color='blue'>" : "<font color='red'>"]\tHealth %: [occupant.health], ([t1])</font><br>"
 
 		var/found_disease = FALSE
-		for(var/thing in occupant.viruses)
+		for(var/thing in occupant.diseases)
 			var/datum/disease/D = thing
-			if(D.visibility_flags & HIDDEN_SCANNER || D.visibility_flags & HIDDEN_PANDEMIC)
+			if(D.visibility_flags & HIDDEN_SCANNER)
 				continue
 			found_disease = TRUE
 			break

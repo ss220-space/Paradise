@@ -358,13 +358,13 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	else if(isliving(loc))
 		return
 
-	. = TRUE
-	pickup(user)
-	add_fingerprint(user)
+	. = pickup(user)
 
-	if(!user.put_in_active_hand(src, ignore_anim = FALSE))
+	if(. && !user.put_in_active_hand(src, ignore_anim = FALSE))
 		user.drop_item_ground(src)
 		return FALSE
+
+	add_fingerprint(user)
 
 
 /**

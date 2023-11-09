@@ -1,0 +1,81 @@
+'2023-11-02':
+  ArtemDerp:
+  - bugfix: correct position of the light switch in rnd toxins (#3798)
+  Mindfri:
+  - tweak: Lipstick in wallet (#3772)
+  ROdenFL:
+  - bugfix: xylophone is xylophone (#3805)
+  - bugfix: lost coca sprites, grill abdwindow, wclass (#3803)
+  SSefuss:
+  - add: A specific sound that borg hears when e-magged. (#3795)
+  Vladisvell:
+  - bugfix: fixed security & command sub-professions not being visible on crew monitor
+      (#3802)
+  - bugfix: Ellis TTS voice is classified as male now (#3800)
+  - bugfix: Chessboard closes automatically when not nearby (#3801)
+  WolfLox:
+  - balance: taser-stamina-nerf (#3775)
+  Zwei:
+  - tweak: Bloodswell Buff (#3790)
+  - bugfix: Few Inventory Fixes (#3785)
+'2023-11-03':
+  Dimach:
+  - bugfix: bomb implant activation not work (#3813)
+'2023-11-04':
+  Daeberdir:
+  - bugfix: text corrections for spessuit storages and smol combat defib. (#3811)
+  - bugfix: meson's vision now realy saving from that two farwas and even singulo.
+      (#3812)
+  Mindfri:
+  - tweak: Update Surgery Kit (#3807)
+  ROdenFL:
+  - bugfix: anomaly extract bugfix (#3820)
+  Vladisvell:
+  - bugfix: wooden buckets now do not become blue (#3810)
+  Zwei:
+  - bugfix: Ninja Datum Fixes (#3823)
+'2023-11-06':
+  ArtemDerp:
+  - bugfix: ussp station fixes (#3739)
+  BeebBeebBoob:
+  - bugfix: Summon spots no longer in new areas. (Beacons too) (#3825)
+  Daeberdir:
+  - tweak: normal player accessability in Admin zones. (#3715)
+  - balance: speedloaders can be loaded from ammoboxes. (#3816)
+  Honker9999999:
+  - add: Bullet resist for shadowling instead of laser resist (#3818)
+  ROdenFL:
+  - imageadd: one soldier fix (#3831)
+  - qol: custom colors for window painter (#3774)
+  SSefuss:
+  - add: a special hypospray to the e-magged medical borg. (#3824)
+  Shaman:
+  - add: construction bag (#3787)
+  VasilevAY:
+  - add: Surgery theatre (#3717)
+  Vladisvell:
+  - bugfix: fixed infinite recursion with cluwne curse. (#3832)
+  - bugfix: bread monster's max hp now rises on teleportation (#3809)
+  - qol: Cleanbots now can spread between cleanable decals (#3806)
+  - bugfix: Terror Spiders no longer always penetrate hardsuit shields and blocks
+      (#3808)
+  - balance: bomb guardian no longer dismember legs and bomb damage nerfs (#3817)
+  - qol: Spent ammo casings can now be utilized using matter decompiler. (#3819)
+  mrWhiteFox365:
+  - add: Space Prison Ruin (#3782)
+'2023-11-07':
+  Daeberdir:
+  - tweak: mining GPS turned off. (#3836)
+  - add: chatbubble for telepathy users. (#3815)
+  LiquidPotroh:
+  - balance: Virology (#3703)
+  ROdenFL:
+  - bugfix: alien alloy bugs (#3834)
+  - tweak: sugar amount change (#3833)
+  - bugfix: anomaly extract cost, some slime fixes (#3827)
+  SuhEugene:
+  - bugfix: simple animals babymaking (#3791)
+  Zwei:
+  - add: Shadow Demon (#3616)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3835)

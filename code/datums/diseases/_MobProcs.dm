@@ -1,135 +1,134 @@
-
-/mob/proc/HasDisease(datum/disease/D)
-	for(var/thing in viruses)
-		var/datum/disease/DD = thing
-		if(D.IsSame(DD))
-			return 1
-	return 0
-
-
-/mob/proc/CanContractDisease(datum/disease/D)
-	if(stat == DEAD)
+/mob/proc/HasDisease(disease_type_or_instance)
+	if(ispath(disease_type_or_instance))
+		for(var/datum/disease/D2 in diseases)
+			if(D2.type == disease_type_or_instance)
+				return TRUE
+		return FALSE
+	else if(!istype(disease_type_or_instance, /datum/disease))
 		return FALSE
 
-	if(D.GetDiseaseID() in resistances)
-		return FALSE
+	for(var/datum/disease/D2 in diseases)
+		if(D2.IsSame(disease_type_or_instance))
+			return TRUE
+	return FALSE
 
-	if(HasDisease(D))
-		return FALSE
-
-	if(istype(D, /datum/disease/advance) && count_by_type(viruses, /datum/disease/advance) > 0)
-		return FALSE
-
-	if(!(type in D.viable_mobtypes))
-		return -1 //for stupid fucking monkies
-
-	return TRUE
-
-
-/mob/proc/ContractDisease(datum/disease/D)
-	if(!CanContractDisease(D))
-		return 0
-	D.Contract(src)
-
-/mob/living/carbon/ContractDisease(datum/disease/D)
-	if(!CanContractDisease(D))
-		return 0
-
-	var/obj/item/clothing/Cl = null
-	var/passed = 1
-
-	var/head_ch = 100
-	var/body_ch = 100
-	var/hands_ch = 25
-	var/feet_ch = 25
-
-	if(D.spread_flags & CONTACT_HANDS)
-		head_ch = 0
-		body_ch = 0
-		hands_ch = 100
-		feet_ch = 0
-	if(D.spread_flags & CONTACT_FEET)
-		head_ch = 0
-		body_ch = 0
-		hands_ch = 0
-		feet_ch = 100
-
-	if(prob(15/D.permeability_mod))
-		return
-
-	if(satiety > 0 && prob(satiety/10)) // positive satiety makes it harder to contract the disease.
-		return
-
-	var/target_zone = pick(head_ch;1,body_ch;2,hands_ch;3,feet_ch;4)
-
-	if(istype(src, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = src
-
-		switch(target_zone)
-			if(1)
-				if(isobj(H.head) && !istype(H.head, /obj/item/paper))
-					Cl = H.head
-					passed = prob((Cl.permeability_coefficient*100) - 1)
-				if(passed && isobj(H.wear_mask))
-					Cl = H.wear_mask
-					passed = prob((Cl.permeability_coefficient*100) - 1)
-			if(2)
-				if(isobj(H.wear_suit))
-					Cl = H.wear_suit
-					passed = prob((Cl.permeability_coefficient*100) - 1)
-				if(passed && isobj(slot_w_uniform))
-					Cl = slot_w_uniform
-					passed = prob((Cl.permeability_coefficient*100) - 1)
-			if(3)
-				if(isobj(H.wear_suit) && H.wear_suit.body_parts_covered&HANDS)
-					Cl = H.wear_suit
-					passed = prob((Cl.permeability_coefficient*100) - 1)
-
-				if(passed && isobj(H.gloves))
-					Cl = H.gloves
-					passed = prob((Cl.permeability_coefficient*100) - 1)
-			if(4)
-				if(isobj(H.wear_suit) && H.wear_suit.body_parts_covered&FEET)
-					Cl = H.wear_suit
-					passed = prob((Cl.permeability_coefficient*100) - 1)
-
-				if(passed && isobj(H.shoes))
-					Cl = H.shoes
-					passed = prob((Cl.permeability_coefficient*100) - 1)
-
-
-	if(!passed && (D.spread_flags & AIRBORNE) && !internal)
-		passed = (prob((50*D.permeability_mod) - 1))
-
-	if(passed)
-		D.Contract(src)
-
+/mob/proc/CureAllDiseases(need_immunity = TRUE)
+	for(var/datum/disease/D in diseases)
+		D.cure(need_immunity = need_immunity)
 
 /**
- * Forces the mob to contract a virus. If the mob can have viruses. Ignores clothing and other protection
- * Returns TRUE if it succeeds. False if it doesn't
+ * A special checks for this type of mob
  *
- * Arguments:
- * * D - the disease the mob will try to contract
+ * Returns:
+ * * TRUE - if can contract disease
+ * * FALSE - otherwise
  */
-//Same as ContractDisease, except never overidden clothes checks
-/mob/proc/ForceContractDisease(datum/disease/D)
-	if(!CanContractDisease(D))
-		return FALSE
-	D.Contract(src)
+/mob/proc/CanContractDisease(datum/disease/D)
 	return TRUE
 
-
 /mob/living/carbon/human/CanContractDisease(datum/disease/D)
-	if((VIRUSIMMUNE in dna.species.species_traits) && !D.bypasses_immunity)
-		return 0
+	if((VIRUSIMMUNE in dna.species.species_traits) && !D.ignore_immunity)
+		return FALSE
 	for(var/thing in D.required_organs)
 		if(!((locate(thing) in bodyparts) || (locate(thing) in internal_organs)))
-			return 0
+			return FALSE
 	return ..()
 
-/mob/living/carbon/human/lesser/monkey/CanContractDisease(datum/disease/D)
-	. = ..()
-	if(. == -1)
-		if(D.viable_mobtypes.Find(/mob/living/carbon/human))
-			return 1 //this is stupid as fuck but because monkeys are only half the time actually subtypes of humans they need this
+/**
+ * Checking mob's protection against disease D by the chosen method in chosen zone
+ * Returns:
+ * * TRUE - mob has protected from the virus
+ * * FALSE - otherwise
+ */
+/mob/proc/CheckVirusProtection(datum/disease/virus/V, act_type = BITES|CONTACT|AIRBORNE, zone)
+	if(prob(15/V.permeability_mod))
+		return TRUE
+
+	if(satiety > 0 && prob(satiety/10))
+		return TRUE
+
+	//virus must to pass all the checks stated in act_type
+	if((act_type & BITES) && !CheckBitesProtection(V, zone))
+		return FALSE
+
+	if((act_type & CONTACT) && !CheckContactProtection(V, zone))
+		return FALSE
+
+	if((act_type & AIRBORNE) && !CheckAirborneProtection(V, zone))
+		return FALSE
+
+	return TRUE
+
+//Returns TRUE, if mob protected
+/mob/proc/CheckBitesProtection(datum/disease/virus/V, zone)
+	return FALSE
+
+/mob/proc/CheckContactProtection(datum/disease/virus/V, zone)
+	return FALSE
+
+/mob/proc/CheckAirborneProtection(datum/disease/virus/V, zone)
+	return FALSE
+
+/mob/living/CheckBitesProtection(datum/disease/virus/V, zone = BODY_ZONE_CHEST)
+	return ..() || prob(run_armor_check(zone, "melee") / V.permeability_mod)
+
+/mob/living/carbon/human/CheckContactProtection(datum/disease/virus/V, zone)
+	if(..())
+		return TRUE
+
+	var/zone_text
+	if(!zone)
+		zone_text = pick(40; "head", 40; "chest", 10; "l_arm", 10; "l_leg")
+	else
+		if(istype(zone, /obj/item/organ/external))
+			var/obj/item/organ/external/E = zone
+			zone_text = E.limb_name
+		else
+			zone_text = zone
+
+	switch(zone_text)
+		if("head", "eyes", "mouth")
+			if(ClothingVirusProtection(head) || ClothingVirusProtection(wear_mask))
+				return TRUE
+		if("chest", "groin", "tail", "wing")
+			if(ClothingVirusProtection(wear_suit) || ClothingVirusProtection(w_uniform))
+				return TRUE
+		if("l_arm", "r_arm", "l_hand", "r_hand")
+			if(istype(wear_suit) && (wear_suit.body_parts_covered & HANDS) && ClothingVirusProtection(wear_suit))
+				return TRUE
+			if(ClothingVirusProtection(gloves))
+				return TRUE
+		if("l_leg", "r_leg", "l_foot", "r_foot")
+			if(istype(wear_suit) && (wear_suit.body_parts_covered & FEET) && ClothingVirusProtection(wear_suit))
+				return TRUE
+			if(ClothingVirusProtection(shoes))
+				return TRUE
+
+	return FALSE
+
+/mob/living/carbon/human/CheckAirborneProtection(datum/disease/virus/V, zone)
+	if(..())
+		return TRUE
+
+	var/internals_mod = internal ? 1 : 0.2
+	var/permeability_mod = clamp((2 - V.permeability_mod), 0.1, 1)
+	var/mask_protection_mod = 1
+	if(wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH))
+		mask_protection_mod = 0.3
+		if(istype(wear_mask, /obj/item/clothing/mask/breath))
+			mask_protection_mod = 0.4
+		if(istype(wear_mask, /obj/item/clothing/mask/gas))
+			mask_protection_mod = 0.6
+		if(istype(wear_mask, /obj/item/clothing/mask/surgical) || istype(wear_mask, /obj/item/clothing/mask/breath/medical))
+			mask_protection_mod = 0.9
+
+	if(prob(100 * permeability_mod * internals_mod * mask_protection_mod))
+		return TRUE
+
+	return FALSE
+
+/mob/living/carbon/human/proc/ClothingVirusProtection(obj/item/Clothing)
+	//permeability_coefficient == 0.01 => 99% defense; permeability_coefficient == 1 => 0% defense
+	if(istype(Clothing) && prob(100 * (1 - Clothing.permeability_coefficient)))
+		return TRUE
+	return FALSE

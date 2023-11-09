@@ -107,6 +107,9 @@
 	attack_hand(user)
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/attack_hand(mob/user as mob)
+	if(..())
+		return TRUE
+
 	if(panel_open)
 		to_chat(user, span_notice("Сначала закройте панель техобслуживания."))
 		return

@@ -265,7 +265,7 @@
 	bitesize = 3
 	filling_color = "#5e1706"
 	tastes = list("cherry" = 5, "sweetness" = 1, "chocolate" = 1)
-	list_reagents = list("nutriment" = 10, "sugar" = 3, "coco" = 4)
+	list_reagents = list("nutriment" = 10, "sugar" = 35, "coco" = 4)
 	foodtype = SUGAR | FRUIT | GRAIN
 
 /obj/item/reagent_containers/food/snacks/choccherrycakeslice
@@ -285,7 +285,7 @@
 	slices_num = 5
 	filling_color = "#5e1706"
 	tastes = list("chocolate" = 3, "sweetness" = 2, "egg" = 1, "berries" = 2)
-	list_reagents = list("nutriment" = 6, "plantmatter" = 2, "coco" = 2, "cream" = 3, "sugar" = 3, "berryjucie" = 3)
+	list_reagents = list("nutriment" = 6, "plantmatter" = 2, "coco" = 2, "cream" = 3, "sugar" = 15, "berryjucie" = 3)
 	foodtype = SUGAR | FRUIT | GRAIN | DAIRY
 
 /obj/item/reagent_containers/food/snacks/noelslice
@@ -307,7 +307,7 @@
 	icon_state = "COOKIE!!!"
 	bitesize = 1
 	filling_color = "#DBC94F"
-	list_reagents = list("nutriment" = 1, "sugar" = 3, "hot_coco" = 5 )
+	list_reagents = list("nutriment" = 1, "sugar" = 1, "hot_coco" = 5 )
 	tastes = list("cookie" = 1, "crunchy chocolate" = 1)
 	foodtype = SUGAR | GRAIN
 
@@ -463,7 +463,7 @@
 	desc = "Goes great with Robust Coffee."
 	icon_state = "donut1"
 	bitesize = 5
-	list_reagents = list("nutriment" = 3, "sugar" = 2)
+	list_reagents = list("nutriment" = 3, "sugar" = 10)
 	var/extra_reagent = null
 	filling_color = "#D2691E"
 	var/randomized_sprinkles = 1
@@ -506,7 +506,7 @@
 /obj/item/reagent_containers/food/snacks/donut/sprinkles
 	name = "frosted donut"
 	icon_state = "donut2"
-	list_reagents = list("nutriment" = 3, "sugar" = 2)
+	list_reagents = list("nutriment" = 3, "sugar" = 10)
 	filling_color = "#FF69B4"
 	donut_sprite_type = "frosted"
 	randomized_sprinkles = 0
@@ -581,7 +581,7 @@
 	extra_reagent = "berryjuice"
 	donut_sprite_type = "jelly"
 	randomized_sprinkles = 0
-	tastes = list("jelly" = 1, "donut" = 3)
+	tastes = list("jelly" = 1, "donut" = 10)
 
 /obj/item/reagent_containers/food/snacks/donut/jelly/Initialize(mapload)
 	if(extra_reagent)
@@ -637,21 +637,21 @@
 	icon_state = "pancake"
 	filling_color = "#E7D8AB"
 	bitesize = 2
-	list_reagents = list("nutriment" = 3, "sugar" = 3)
+	list_reagents = list("nutriment" = 3, "sugar" = 10)
 	foodtype = GRAIN | SUGAR
 
 /obj/item/reagent_containers/food/snacks/pancake/berry_pancake
 	name = "berry pancake"
 	desc = "A pancake loaded with berries."
 	icon_state = "berry_pancake"
-	list_reagents = list("nutriment" = 3, "sugar" = 3, "berryjuice" = 3)
+	list_reagents = list("nutriment" = 3, "sugar" = 10, "berryjuice" = 3)
 	foodtype = GRAIN | SUGAR | FRUIT
 
 /obj/item/reagent_containers/food/snacks/pancake/choc_chip_pancake
 	name = "choc-chip pancake"
 	desc = "A pancake loaded with chocolate chips."
 	icon_state = "choc_chip_pancake"
-	list_reagents = list("nutriment" = 3, "sugar" = 3, "cocoa" = 3)
+	list_reagents = list("nutriment" = 3, "sugar" = 10, "cocoa" = 3)
 
 //////////////////////
 //		Misc		//

@@ -573,7 +573,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "The result of the work of scientists on mixing an experimental stable mutagen with the core of a pyroclastic anomaly. Gives the user the opportunity to become a slime and heat himself up."
 	reference = "AEXT"
 	item = /obj/item/anomaly_extract
-	cost = 3
+	cost = 10
 	race = list("Slime People")
 
 //Plasmaman

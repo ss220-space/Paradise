@@ -29,12 +29,13 @@
 	. = ..()
 	if(.)
 		return
-	var/num_loaded = magazine.attackby(A, user, params, 1)
-	if(num_loaded)
-		to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src].</span>")
-		A.update_icon()
-		update_icon()
-		chamber_round(0)
+	if(istype(A, /obj/item/ammo_box/speedloader))
+		var/num_loaded = magazine.attackby(A, user, params, TRUE)
+		if(num_loaded)
+			to_chat(user, span_notice("You load [num_loaded] shell\s into \the [src]."))
+			A.update_icon()
+			update_icon()
+			chamber_round(0)
 
 /obj/item/gun/projectile/revolver/attack_self(mob/living/user)
 	var/num_unloaded = 0
@@ -49,9 +50,9 @@
 			playsound(get_turf(CB), "casingdrop", 60, 1)
 			num_unloaded++
 	if(num_unloaded)
-		to_chat(user, "<span class='notice'>You unload [num_unloaded] shell\s from [src].</span>")
+		to_chat(user, span_notice("You unload [num_unloaded] shell\s from [src]."))
 	else
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		to_chat(user, span_notice("[src] is empty!"))
 
 /obj/item/gun/projectile/revolver/verb/spin()
 	set name = "Spin Chamber"
@@ -68,7 +69,7 @@
 		C.spin()
 		chamber_round(0)
 		playsound(loc, 'sound/weapons/revolver_spin.ogg', 50, 1)
-		usr.visible_message("[usr] spins [src]'s chamber.", "<span class='notice'>You spin [src]'s chamber.</span>")
+		usr.visible_message("[usr] spins [src]'s chamber.",  span_notice("You spin [src]'s chamber."))
 	else
 		verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
@@ -85,7 +86,7 @@
 
 /obj/item/gun/projectile/revolver/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[get_ammo(0,0)] of those are live rounds.</span>"
+	. += span_notice("[get_ammo(0,0)] of those are live rounds")
 
 /obj/item/gun/projectile/revolver/detective
 	desc = "A cheap Martian knock-off of a classic law enforcement firearm. Uses .38-special rounds."
@@ -146,13 +147,13 @@
 
 
 /obj/item/gun/projectile/revolver/fingergun/shoot_with_empty_chamber(/*mob/living/user as mob|obj*/)
-	to_chat(usr, "<span class='warning'>You are out of ammo! You holster your fingers.</span>")
+	to_chat(usr, span_notice("You are out of ammo! You holster your fingers."))
 	qdel(src)
 	return
 
 /obj/item/gun/projectile/revolver/fingergun/afterattack(atom/target, mob/living/user, flag, params)
 	if(!user.mind.miming)
-		to_chat(usr, "<span class='warning'>You must dedicate yourself to silence first. Use your fingers if you wish to holster them.</span>")
+		to_chat(usr, span_notice("You must dedicate yourself to silence first. Use your fingers if you wish to holster them."))
 		return
 	..()
 
@@ -160,7 +161,7 @@
 	return
 
 /obj/item/gun/projectile/revolver/fingergun/attack_self(mob/living/user = usr)
-	to_chat(user, "<span class='notice'>You holster your fingers. Another time.</span>")
+	to_chat(user, span_notice("You holster your fingers. Another time."))
 	qdel(src)
 	return
 
@@ -191,7 +192,7 @@
 	desc = "An old model of revolver that originated in Russia. Able to be suppressed. Uses 7.62x38mmR ammo."
 	icon_state = "nagant"
 	origin_tech = "combat=3"
-	can_suppress = 1
+	can_suppress = TRUE
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev762
 
 /obj/item/gun/projectile/revolver/c36
@@ -209,7 +210,7 @@
 	desc = "A Russian-made revolver for drinking games. Uses .357 ammo, and has a mechanism that spins the chamber before each trigger pull."
 	origin_tech = "combat=2;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/rus357
-	var/spun = 0
+	var/spun = FALSE
 
 
 /obj/item/gun/projectile/revolver/russian/New()
@@ -222,14 +223,14 @@
 	var/random = rand(1, magazine.max_ammo)
 	if(random <= get_ammo(0,0))
 		chamber_round()
-	spun = 1
+	spun = TRUE
 
 /obj/item/gun/projectile/revolver/russian/attackby(obj/item/A, mob/user, params)
 	var/num_loaded = ..()
 	if(num_loaded)
-		user.visible_message("[user] loads a single bullet into the revolver and spins the chamber.", "<span class='notice'>You load a single bullet into the chamber and spin it.</span>")
+		user.visible_message("[user] loads a single bullet into the revolver and spins the chamber.", span_notice("You load a single bullet into the chamber and spin it."))
 	else
-		user.visible_message("[user] spins the chamber of the revolver.", "<span class='notice'>You spin the revolver's chamber.</span>")
+		user.visible_message("[user] spins the chamber of the revolver.", span_notice("You spin the revolver's chamber."))
 	if(get_ammo() > 0)
 		Spin()
 	update_icon()
@@ -238,7 +239,7 @@
 
 /obj/item/gun/projectile/revolver/russian/attack_self(mob/user)
 	if(!spun && can_shoot())
-		user.visible_message("[user] spins the chamber of the revolver.", "<span class='notice'>You spin the revolver's chamber.</span>")
+		user.visible_message("[user] spins the chamber of the revolver.", span_notice("You spin the revolver's chamber."))
 		Spin()
 	else
 		var/num_unloaded = 0
@@ -251,9 +252,9 @@
 			playsound(get_turf(CB), "casingdrop", 60, 1)
 			num_unloaded++
 		if(num_unloaded)
-			to_chat(user, "<span class='notice'>You unload [num_unloaded] shell\s from [src].</span>")
+			to_chat(user, span_notice("You unload [num_unloaded] shell\s from [src]."))
 		else
-			to_chat(user, "<span class='notice'>[src] is empty.</span>")
+			to_chat(user, span_notice("[src] is empty."))
 
 /obj/item/gun/projectile/revolver/russian/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params)
 	if(flag)
@@ -266,15 +267,15 @@
 			return
 	if(target != user)
 		if(ismob(target))
-			to_chat(user, "<span class='warning'>A mechanism prevents you from shooting anyone but yourself!</span>")
+			to_chat(user, span_notice("A mechanism prevents you from shooting anyone but yourself!"))
 		return
 
 	if(ishuman(user))
 		if(!spun)
-			to_chat(user, "<span class='warning'>You need to spin the revolver's chamber first!</span>")
+			to_chat(user, span_notice("You need to spin the revolver's chamber first!"))
 			return
 
-		spun = 0
+		spun = FALSE
 
 		if(chambered)
 			var/obj/item/ammo_casing/AC = chambered
@@ -284,15 +285,15 @@
 				if(zone == "head" || zone == "eyes" || zone == "mouth")
 					shoot_self(user, zone)
 				else
-					user.visible_message("<span class='danger'>[user.name] cowardly fires [src] at [user.p_their()] [zone]!</span>", "<span class='userdanger'>You cowardly fire [src] at your [zone]!</span>", "<span class='italics'>You hear a gunshot!</span>")
+					user.visible_message(span_danger("[user.name] cowardly fires [src] at [user.p_their()] [zone]!"), span_userdanger("You cowardly fire [src] at your [zone]!"), span_italics("You hear a gunshot!"))
 				return
 
-		user.visible_message("<span class='danger'>*click*</span>")
+		user.visible_message(span_danger("*click*"))
 		playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 
 /obj/item/gun/projectile/revolver/russian/proc/shoot_self(mob/living/carbon/human/user, affecting = "head")
 	user.apply_damage(300, BRUTE, affecting)
-	user.visible_message("<span class='danger'>[user.name] fires [src] at [user.p_their()] head!</span>", "<span class='userdanger'>You fire [src] at your head!</span>", "<span class='italics'>You hear a gunshot!</span>")
+	user.visible_message(span_danger("[user.name] fires [src] at [user.p_their()] head!"), span_userdanger("You fire [src] at your head!"), span_italics("You hear a gunshot!"))
 
 /obj/item/gun/projectile/revolver/russian/soul
 	name = "cursed Russian revolver"
@@ -304,7 +305,7 @@
 	if(!SS.transfer_soul("FORCE", user)) //Something went wrong
 		qdel(SS)
 		return
-	user.visible_message("<span class='danger'>[user.name]'s soul is captured by \the [src]!</span>", "<span class='userdanger'>You've lost the gamble! Your soul is forfeit!</span>")
+	user.visible_message(span_danger("[user.name]'s soul is captured by \the [src]!"), span_userdanger("You've lost the gamble! Your soul is forfeit!"))
 
 /obj/item/gun/projectile/revolver/capgun
 	name = "cap gun"
@@ -322,7 +323,7 @@
 /obj/item/gun/projectile/revolver/improvisedrevolver/afterattack(atom/target, mob/living/user, flag, params)
 	if(prob(10))
 		chamber_round(1)
-		user.visible_message("<span class='danger'>*CRACK*</span>")
+		user.visible_message(span_danger("*CRACK*"))
 		return
 	..()
 
@@ -358,7 +359,7 @@
 	options["Cancel"] = null
 
 /obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/A, mob/user, params)
-	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
+	if(istype(A, /obj/item/ammo_box/speedloader) || istype(A, /obj/item/ammo_casing))
 		chamber_round()
 	if(istype(A, /obj/item/melee/energy))
 		var/obj/item/melee/energy/W = A
@@ -385,9 +386,9 @@
 		playsound(get_turf(CB), 'sound/weapons/gun_interactions/shotgun_fall.ogg', 70, 1)
 		num_unloaded++
 	if(num_unloaded)
-		to_chat(user, "<span class = 'notice'>You break open \the [src] and unload [num_unloaded] shell\s.</span>")
+		to_chat(user, span_notice("You break open \the [src] and unload [num_unloaded] shell\s."))
 	else
-		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+		to_chat(user, span_notice("[src] is empty."))
 
 // IMPROVISED SHOTGUN //
 
@@ -445,18 +446,18 @@
 	sawn_state = SAWN_OFF
 	w_class = WEIGHT_CLASS_SMALL
 	force = 10
-	can_unsuppress = 0
+	can_unsuppress = FALSE
 	slot_flags = null
 	origin_tech = "" // NO GIVAWAYS
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised/cane
 	sawn_desc = "I'm sorry, but why did you saw your cane in the first place?"
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed")
 	fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
-	suppressed = 1
-	needs_permit = 0 //its just a cane beepsky.....
+	suppressed = TRUE
+	needs_permit = FALSE //its just a cane beepsky.....
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/is_crutch()
-	return 1
+	return TRUE
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/update_icon()
 	return
@@ -474,7 +475,7 @@
 			f_name = "some "
 		else
 			f_name = "a "
-		f_name += "<span class='danger'>blood-stained</span> [name]!"
+		f_name += span_danger("blood-stained [name]!")
 
 	. = list("[bicon(src)] That's [f_name]")
 

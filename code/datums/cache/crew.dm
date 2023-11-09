@@ -48,8 +48,8 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 		crewmemberData["name"] = H.get_authentification_name(if_no_id="Unknown")
 		crewmemberData["rank"] = H.get_authentification_rank(if_no_id="Unknown", if_no_job="No Job")
 		crewmemberData["assignment"] = H.get_assignment(if_no_id="Unknown", if_no_job="No Job")
-		crewmemberData["is_command"] = (crewmemberData["assignment"] in bold_jobs)
-		crewmemberData["is_security"] = (crewmemberData["assignment"] in security_jobs_list)
+		crewmemberData["is_command"] = (crewmemberData["rank"] in bold_jobs)
+		crewmemberData["is_security"] = (crewmemberData["rank"] in security_jobs_list)
 
 		if(C.sensor_mode >= SUIT_SENSOR_BINARY)
 			crewmemberData["dead"] = H.stat == DEAD

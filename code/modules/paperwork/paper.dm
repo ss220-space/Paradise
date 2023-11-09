@@ -20,6 +20,7 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
 	attack_verb = list("bapped")
+	permeability_coefficient = 0.01
 	dog_fashion = /datum/dog_fashion/head
 	var/header //Above the main body, displayed at the top
 	var/info		//What's actually written on the paper.
@@ -782,7 +783,8 @@
 	STOP_PROCESSING(SSobj, src)
 	if(mytarget && !used)
 		var/mob/living/carbon/target = mytarget
-		target.ForceContractDisease(new /datum/disease/transformation/corgi)
+		var/datum/disease/virus/transformation/corgi/D = new
+		D.Contract(target)
 	return ..()
 
 
@@ -806,10 +808,12 @@
 			var/obj/machinery/photocopier/faxmachine/fax = locateUID(faxmachineid)
 			if(myeffect == "Borgification")
 				to_chat(target,"<span class='userdanger'>You seem to comprehend the AI a little better. Why are your muscles so stiff?</span>")
-				target.ForceContractDisease(new /datum/disease/transformation/robot)
+				var/datum/disease/virus/transformation/robot/D = new
+				D.Contract(target)
 			else if(myeffect == "Corgification")
 				to_chat(target,"<span class='userdanger'>You hear distant howling as the world seems to grow bigger around you. Boy, that itch sure is getting worse!</span>")
-				target.ForceContractDisease(new /datum/disease/transformation/corgi)
+				var/datum/disease/virus/transformation/corgi/D = new
+				D.Contract(target)
 			else if(myeffect == "Death By Fire")
 				to_chat(target,"<span class='userdanger'>You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?</span>")
 				var/turf/simulated/T = get_turf(target)

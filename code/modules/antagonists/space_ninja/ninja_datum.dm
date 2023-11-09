@@ -390,10 +390,10 @@
 		var/martyr = FALSE
 		if(martyr_compatibility && !(locate(/datum/objective/die) in all_objectives) && prob(20))
 			martyr = TRUE
-			add_objective(/datum/objective/die)
+			traitor_datum.add_objective(/datum/objective/die)
 
 		if(!martyr && !(locate(/datum/objective/escape) in all_objectives) && !(locate(/datum/objective/survive) in all_objectives))
-			add_objective(/datum/objective/escape)
+			traitor_datum.add_objective(/datum/objective/escape)
 
 		traitor_datum.announce_objectives()
 
@@ -514,7 +514,7 @@
 	for(var/i in 1 to 2)
 		var/datum/objective/steal/steal_objective = add_objective(/datum/objective/steal)
 		if(!steal_objective.steal_target)
-			qdel(set_up_objective)
+			qdel(steal_objective)
 
 	var/datum/objective/pain_hunter/pain_hunter_objective = add_objective(/datum/objective/pain_hunter)
 	if(!pain_hunter_objective.target)
