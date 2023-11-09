@@ -104,34 +104,6 @@ jobs:
     if: always() && !cancelled() && !failure()
 
     steps:
-      - name: Delete Previous deployments
-        uses: actions/github-script@v6
-        env:
-          GITHUB_SHA_HEAD: ${{ github.sha }}
-        with:
-          script: |
-            const { GITHUB_SHA_HEAD } = process.env
-            const deployments = await github.rest.repos.listDeployments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              sha: GITHUB_SHA_HEAD
-            });
-            await Promise.all(
-              deployments.data.filter((d) => d.performed_via_github_app === null).map(async (deployment) => {
-                await github.rest.repos.createDeploymentStatus({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  deployment_id: deployment.id,
-                  state: 'inactive'
-                });
-                return github.rest.repos.deleteDeployment({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  deployment_id: deployment.id
-                });
-              })
-            );
-
       - uses: chrnorm/deployment-action@v2
         name: Create GitHub deployment
         id: deployment
@@ -142,6 +114,7 @@ jobs:
           log-url: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           ref: ${{ vars.BRANCH }}
           production-environment: true
+          initial-status: "in_progress"
 
       - name: Update and Build Paradise Main
         if: matrix.environment == 'Main' && inputs.perform_deploy_main
@@ -245,6 +218,7 @@ jobs:
         with:
           token: "${{ github.token }}"
           environment-url: ${{ steps.deployment.outputs.environment_url }}
+          log-url: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           deployment-id: ${{ steps.deployment.outputs.deployment_id }}
           state: "success"
 
@@ -255,5 +229,34 @@ jobs:
         with:
           token: "${{ github.token }}"
           environment-url: ${{ steps.deployment.outputs.environment_url }}
+          log-url: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           deployment-id: ${{ steps.deployment.outputs.deployment_id }}
           state: "failure"
+
+      - name: Delete previous automatic deployments
+        uses: actions/github-script@v6
+        env:
+          GITHUB_SHA_HEAD: ${{ github.sha }}
+        with:
+          script: |
+            const { GITHUB_SHA_HEAD } = process.env
+            const deployments = await github.rest.repos.listDeployments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: GITHUB_SHA_HEAD
+            });
+            await Promise.all(
+              deployments.data.filter((d) => !d.performed_via_github_app).map(async (deployment) => {
+                await github.rest.repos.createDeploymentStatus({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  deployment_id: deployment.id,
+                  state: 'inactive'
+                });
+                return github.rest.repos.deleteDeployment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  deployment_id: deployment.id
+                });
+              })
+            );
