@@ -191,7 +191,8 @@
 
 	if(href_list["ssdwarning"])
 		ssd_warning_acknowledged = TRUE
-		to_chat(src, "<span class='notice'>SSD warning acknowledged.</span>")
+		to_chat(src, span_notice("SSD warning acknowledged."))
+		return	//Otherwise, we will get 30+ messages of acknowledgement.
 	if(href_list["link_forum_account"])
 		link_forum_account()
 		return // prevents a recursive loop where the ..() 5 lines after this makes the proc endlessly re-call itself
