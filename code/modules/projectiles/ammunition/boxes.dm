@@ -8,10 +8,13 @@
 	icon_state = "357OLD"  // see previous entry for explanation of these vars
 	ammo_type = /obj/item/ammo_casing/a357
 	max_ammo = 20
-	multiple_sprites = 1
+
+/obj/item/ammo_box/a357/update_icon()
+	icon_state = "[initial(icon_state)]-[round(stored_ammo.len / 3)]"
+	desc = "[initial(desc)] There are [stored_ammo.len] shell\s left!"
 
 /obj/item/ammo_box/n762
-	name = "ammo box (7.62x38mmR)"
+	name = "ammo box (7.62x38mm)"
 	icon_state = "riflebox"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/n762
@@ -23,6 +26,7 @@
 	icon_state = "slugbox"
 	ammo_type = /obj/item/ammo_casing/shotgun
 	max_ammo = 7
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/ammo_box/shotgun/buck
 	name = "Ammunition Box (Buckshot)"
@@ -257,10 +261,12 @@
  * STRIPPER CLIP
  */
 
-/obj/item/ammo_box/a762
+/obj/item/ammo_box/speedloader/shotgun/a762
 	name = "stripper clip (7.62mm)"
 	desc = "A stripper clip."
 	icon_state = "762"
+	caliber = "7.62x54mm"
 	ammo_type = /obj/item/ammo_casing/a762
 	max_ammo = 5
 	multiple_sprites = 1
+	w_class = WEIGHT_CLASS_TINY
