@@ -71,6 +71,7 @@ jobs:
           MATRIX_JSON="{\"include\": ["
           if ${{ github.event.inputs.perform_deploy_main }}; then
             MATRIX_JSON="${MATRIX_JSON}{\"environment\": \"Main\"},"
+            MATRIX_JSON="${MATRIX_JSON}{\"environment\": \"Secondary\"},"
           fi
           if ${{ github.event.inputs.perform_deploy_vega }}; then
             MATRIX_JSON="${MATRIX_JSON}{\"environment\": \"Vega\"},"
@@ -103,16 +104,46 @@ jobs:
     if: always() && !cancelled() && !failure()
 
     steps:
+      - name: Delete Previous deployments
+        uses: actions/github-script@v6
+        env:
+          GITHUB_BRANCH: ${{ vars.BRANCH }}
+        with:
+          script: |
+            const { GITHUB_BRANCH } = process.env
+            const deployments = await github.rest.repos.listDeployments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: GITHUB_BRANCH
+            });
+            await Promise.all(
+              deployments.data.map(async (deployment) => {
+                await github.rest.repos.createDeploymentStatus({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  deployment_id: deployment.id,
+                  state: 'inactive'
+                });
+                return github.rest.repos.deleteDeployment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  deployment_id: deployment.id
+                });
+              })
+            );
+
       - uses: chrnorm/deployment-action@v2
         name: Create GitHub deployment
         id: deployment
         with:
           token: "${{ github.token }}"
           environment: ${{ matrix.environment }}
-          description: ${{ vars.ENVIRONMENT_URL }}
+          environment-url: ${{ vars.ENVIRONMENT_URL }}
+          log-url: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           ref: ${{ vars.BRANCH }}
+          production-environment: true
 
-      - name: Update and Build Paradise Main/Secondary
+      - name: Update and Build Paradise Main
         if: matrix.environment == 'Main' && inputs.perform_deploy_main
         uses: appleboy/ssh-action@master
         with:
@@ -124,6 +155,17 @@ jobs:
             TIME=$(date +'%Y-%m-%d%T')
             sudo systemctl --wait start deploy-main
             journalctl --since $TIME -u deploy-main --no-pager --all
+            systemctl is-failed deploy-main | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
+
+      - name: Update and Build Paradise Secondary
+        if: matrix.environment == 'Secondary' && inputs.perform_deploy_main
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.PRODUCTION_HOST }}
+          username: ${{ secrets.PRODUCTION_USERNAME }}
+          key: ${{ secrets.PRODUCTION_SSH_KEY }}
+          passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
+          script: |
             systemctl is-failed deploy-main | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
 
       - name: Update and Build Paradise Vega
