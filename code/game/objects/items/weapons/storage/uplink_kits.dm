@@ -233,8 +233,9 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/box/syndie_kit/throwing_weapons/populate_contents()
-	for(var/I in 1 to 5)
+	for(var/I in 1 to 4)
 		new /obj/item/throwing_star(src)
+	new /obj/item/restraints/legcuffs/bola/tactical(src)
 	new /obj/item/restraints/legcuffs/bola/tactical(src)
 	new /obj/item/restraints/legcuffs/bola/tactical(src)
 
