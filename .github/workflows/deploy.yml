@@ -107,17 +107,17 @@ jobs:
       - name: Delete Previous deployments
         uses: actions/github-script@v6
         env:
-          GITHUB_BRANCH: ${{ vars.BRANCH }}
+          GITHUB_SHA_HEAD: ${{ github.sha }}
         with:
           script: |
-            const { GITHUB_BRANCH } = process.env
+            const { GITHUB_SHA_HEAD } = process.env
             const deployments = await github.rest.repos.listDeployments({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: GITHUB_BRANCH
+              sha: GITHUB_SHA_HEAD
             });
             await Promise.all(
-              deployments.data.map(async (deployment) => {
+              deployments.data.filter((d) => d.performed_via_github_app === null).map(async (deployment) => {
                 await github.rest.repos.createDeploymentStatus({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
@@ -244,6 +244,7 @@ jobs:
         uses: chrnorm/deployment-status@v2
         with:
           token: "${{ github.token }}"
+          environment-url: ${{ steps.deployment.outputs.environment_url }}
           deployment-id: ${{ steps.deployment.outputs.deployment_id }}
           state: "success"
 
@@ -253,5 +254,6 @@ jobs:
         uses: chrnorm/deployment-status@v2
         with:
           token: "${{ github.token }}"
+          environment-url: ${{ steps.deployment.outputs.environment_url }}
           deployment-id: ${{ steps.deployment.outputs.deployment_id }}
           state: "failure"
