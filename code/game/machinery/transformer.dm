@@ -117,6 +117,7 @@
 			return
 		var/mob/dead/observer/O = pick(candidates)
 		R.key= O.key
+		log_game("[R.key] has become malfunctioning cyborg.")
 	SSticker?.score?.save_silicon_laws(R, additional_info = "malf AI factory transformation", log_all_laws = TRUE)
 
 

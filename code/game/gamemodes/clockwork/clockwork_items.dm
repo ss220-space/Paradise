@@ -1389,6 +1389,7 @@
 		golem.key = C.key
 		golem.revive()
 		golem.set_species(/datum/species/golem/clockwork)
+		log_game("[golem.key] has become Brass Golem.")
 		SEND_SOUND(golem, 'sound/ambience/antag/clockcult.ogg')
 	else
 		golem.visible_message("<span class='warning'>[golem] twitches as their body twists and rapidly changes the form!</span>")
