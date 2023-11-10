@@ -5,6 +5,14 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
+"bm" = (
+/obj/item/reagent_containers/food/snacks/ectoplasm{
+	color = "green";
+	pixel_x = -1;
+	pixel_y = 4
+	},
+/turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
 "du" = (
 /obj/structure/holosign/barrier/atmos,
 /turf/simulated/floor/wood/cherry,
@@ -14,6 +22,12 @@
 	pixel_y = 5;
 	desc = "Останки покрытые непонятное зеленой слизью"
 	},
+/obj/effect/step_trigger/sound_effect/explosion_far{
+	sound = list('sound/effects/ghostReading.ogg');
+	name = "ghostReading";
+	color = "green";
+	pixel_y = 2
+	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "fM" = (
@@ -21,18 +35,19 @@
 	color = "green";
 	pixel_y = -10
 	},
-/obj/item/reagent_containers/food/snacks/donut/jelly{
-	pixel_x = -5;
-	pixel_y = 7
+/obj/effect/step_trigger/sound_effect/explosion_far{
+	sound = list('sound/effects/ghostWake.ogg');
+	name = "ghost";
+	color = "green"
+	},
+/obj/item/paper{
+	name = "Помятая бумага";
+	color = "gray";
+	info = "<h2>Привет Игон!</h2>У меня потрясающие новости!<br> Я поймал нашего надоедливого зеленого призрака, который всё время воровал нашу еду. Запер его прямо здесь. Ни в коем случае не выпускай его, вероятно...Он будет злым.<br><br><b>Питер<b>"
 	},
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "gB" = (
-/obj/item/reagent_containers/food/snacks/ectoplasm{
-	color = "green";
-	pixel_x = -1;
-	pixel_y = 4
-	},
 /obj/item/reagent_containers/food/snacks/ectoplasm{
 	color = "green";
 	pixel_y = -10
@@ -40,8 +55,8 @@
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "gE" = (
-/obj/structure/falsewall/wood,
 /obj/structure/sign/poster/official/do_not_question,
+/obj/structure/falsewall/mineral_ancient,
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "gU" = (
@@ -49,7 +64,7 @@
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "ih" = (
-/obj/structure/chair/sofa/pew{
+/obj/structure/chair/sofa/corp/left{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/black,
@@ -66,12 +81,12 @@
 	desc = "Неприятный зеленый призрак, полностью состоящий из эктоплазмы. Известен своей прожорливостью и слизью, которую оставляет за собой";
 	color = "green";
 	harm_intent_damage = 2;
-	melee_damage_upper = 2;
-	melee_damage_type = "burn"
+	melee_damage_upper = 2
 	},
 /obj/item/reagent_containers/food/snacks/ectoplasm{
 	color = "green"
 	},
+/obj/effect/decal/ants,
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "jb" = (
@@ -81,7 +96,7 @@
 /area/abandonedGhostbusters)
 "jv" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/structure/chair/sofa/pew{
+/obj/structure/chair/sofa/corp{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/black,
@@ -97,20 +112,22 @@
 /turf/simulated/floor/wood/cherry,
 /area/abandonedGhostbusters)
 "ky" = (
-/obj/item/clothing/suit/ghost_sheet,
-/obj/effect/particle_effect/smoke/bad,
+/obj/item/clothing/suit/ghost_sheet{
+	color = "green"
+	},
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "lM" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/tiles/damageturf,
-/obj/structure/chair/sofa/pew{
+/obj/structure/chair/sofa/corp/right{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "mW" = (
-/obj/effect/spawner/window,
+/obj/effect/spawner/window{
+	color = "gray"
+	},
 /turf/simulated/floor/carpet/blue,
 /area/abandonedGhostbusters)
 "ny" = (
@@ -124,7 +141,8 @@
 	pixel_y = 2
 	},
 /turf/simulated/floor/light{
-	color = "red"
+	color = "red";
+	light_color = "red"
 	},
 /area/abandonedGhostbusters)
 "oR" = (
@@ -140,7 +158,8 @@
 	},
 /obj/structure/table/wood/fancy/black,
 /turf/simulated/floor/light{
-	color = "red"
+	color = "red";
+	light_color = "red"
 	},
 /area/abandonedGhostbusters)
 "qE" = (
@@ -148,7 +167,7 @@
 /area/space/nearstation)
 "qS" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/sofa/pew{
+/obj/structure/chair/sofa/corp{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/black,
@@ -180,6 +199,14 @@
 /obj/effect/decal/cleanable/blood/slime{
 	color = "red"
 	},
+/obj/structure/table/reinforced,
+/obj/item/seeds/chili/ghost{
+	pixel_x = -6;
+	pixel_y = 4
+	},
+/obj/item/toy/therapy/red{
+	pixel_x = 7
+	},
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "vj" = (
@@ -188,8 +215,8 @@
 /area/abandonedGhostbusters)
 "vT" = (
 /obj/item/trash/tastybread{
-	pixel_x = -6;
-	pixel_y = 7
+	pixel_x = -7;
+	pixel_y = 18
 	},
 /turf/simulated/floor/wood/cherry,
 /area/abandonedGhostbusters)
@@ -202,14 +229,14 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/light{
-	color = "red"
+	color = "red";
+	light_color = "red"
 	},
 /area/abandonedGhostbusters)
 "wz" = (
-/obj/structure/chair/sofa/pew,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/sofa/pew{
+/obj/structure/chair/sofa/corp{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/black,
@@ -225,7 +252,8 @@
 	pixel_y = 6
 	},
 /turf/simulated/floor/light{
-	color = "red"
+	color = "red";
+	light_color = "red"
 	},
 /area/abandonedGhostbusters)
 "Ag" = (
@@ -239,7 +267,8 @@
 	},
 /obj/structure/table/wood/fancy/black,
 /turf/simulated/floor/light{
-	color = "red"
+	color = "red";
+	light_color = "red"
 	},
 /area/abandonedGhostbusters)
 "Cn" = (
@@ -287,7 +316,8 @@
 	pixel_y = 8
 	},
 /turf/simulated/floor/light{
-	color = "red"
+	color = "red";
+	light_color = "red"
 	},
 /area/abandonedGhostbusters)
 "HU" = (
@@ -296,16 +326,34 @@
 	icon_state = "wood-broken"
 	},
 /area/abandonedGhostbusters)
+"Ju" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	pixel_x = -1;
+	pixel_y = -16;
+	color = "green"
+	},
+/turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
 "Kg" = (
 /obj/item/trash/syndi_cakes{
 	pixel_y = 7
 	},
+/obj/effect/decal/ants,
 /obj/item/trash/semki{
 	pixel_y = 2;
 	pixel_x = -22
 	},
-/obj/effect/decal/ants,
 /turf/simulated/floor/wood/cherry,
+/area/abandonedGhostbusters)
+"KJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 8;
+	pixel_x = -6;
+	pixel_y = 10;
+	color = "green"
+	},
+/turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "KV" = (
 /turf/simulated/wall/indestructible/boss/see_through{
@@ -322,8 +370,9 @@
 	pixel_x = -31
 	},
 /obj/effect/step_trigger/sound_effect/explosion_far{
-	sound = list('sound/effects/explosionfar.ogg','sound/effects/explosioncreak2.ogg','sound/effects/explosioncreak1.ogg','sound/effects/prizraki.ogg');
-	name = "ghost"
+	sound = list('sound/effects/ghostEnter.ogg');
+	name = "ghostEnter";
+	color = "green"
 	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
@@ -332,9 +381,9 @@
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "Nx" = (
-/obj/structure/falsewall/wood,
 /obj/structure/sign/poster/official/walk,
-/turf/space,
+/obj/structure/falsewall/mineral_ancient,
+/turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "NW" = (
 /obj/item/chair/wood,
@@ -371,8 +420,25 @@
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "Sq" = (
-/obj/item/seeds/chili/ghost,
 /obj/effect/decal/cleanable/cobweb2,
+/obj/structure/closet/wardrobe{
+	name = "Ящик охотника за приведениями";
+	color = "gray"
+	},
+/obj/item/clothing/under/color/black/ghost{
+	name = "Комбинезон охотника";
+	desc = "Невероятно удобный комбинезон для охоты на приведений"
+	},
+/obj/item/mop/advanced{
+	color = "grey";
+	name = "Очиститель эктоплазмы - 3000";
+	desc = "Самое совершенное оружие в арсенале охотника за приведениями. Очищает любую слизь и эктоплазму в мгновение!"
+	},
+/obj/item/clothing/shoes/galoshes/dry{
+	name = "Галоши охотника";
+	desc = "Пара очень удобных галош для охоты на призраков";
+	color = "grey"
+	},
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "TT" = (
@@ -397,8 +463,6 @@
 /obj/structure/sign/poster/official/the_owl{
 	pixel_x = -31
 	},
-/obj/effect/particle_effect/smoke/bad,
-/obj/effect/particle_effect/sparks,
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "VP" = (
@@ -412,11 +476,17 @@
 	},
 /obj/structure/table/wood/fancy/black,
 /turf/simulated/floor/light{
-	color = "red"
+	color = "red";
+	light_color = "red"
 	},
 /area/abandonedGhostbusters)
 "YC" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/food/snacks/ectoplasm{
+	color = "green";
+	pixel_x = -1;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plating,
 /area/abandonedGhostbusters)
 "YN" = (
@@ -425,7 +495,10 @@
 	desc = "Она кажется подвижной"
 	},
 /obj/structure/sign/poster/ripped,
-/obj/effect/step_trigger/message,
+/obj/effect/step_trigger/message{
+	color = "green";
+	message = "Вы чувствуете волну холода по вашему тело"
+	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "YX" = (
@@ -434,12 +507,20 @@
 /obj/item/reagent_containers/food/snacks/ectoplasm{
 	color = "green"
 	},
-/obj/effect/particle_effect/chem_smoke/small,
+/obj/item/reagent_containers/food/snacks/baconpizzaslice{
+	color = "green";
+	pixel_y = 7;
+	pixel_x = -2;
+	desc = "Кусочек пиццы в непонятной зеленой слизи..."
+	},
+/obj/item/trash/semki{
+	pixel_y = -2;
+	pixel_x = 6
+	},
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "Zi" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/toy/therapy/red,
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
@@ -569,7 +650,7 @@ Hq
 KV
 vY
 fj
-tW
+bm
 wz
 Fo
 HU
@@ -586,7 +667,7 @@ Hq
 KV
 Wr
 Cn
-gU
+KJ
 jv
 Fo
 Hn
@@ -620,7 +701,7 @@ Hq
 KV
 HL
 gU
-tW
+Ju
 gB
 Nx
 Zi
