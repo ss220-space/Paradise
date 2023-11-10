@@ -300,6 +300,8 @@
 	storage_slots = 50
 	max_combined_w_class = 50
 	display_contents_with_number = TRUE
+	pickup_sound = 'sound/items/handling/pillbottle_pickup.ogg'
+	drop_sound = 'sound/items/handling/pillbottle_drop.ogg'
 	var/base_name = ""
 	var/label_text = ""
 	var/applying_meds = FALSE //To Prevent spam clicking and generating runtimes from apply a deleting pill multiple times.

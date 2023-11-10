@@ -491,6 +491,7 @@
 #include "code\datums\keybindings\movement.dm"
 #include "code\datums\keybindings\robot.dm"
 #include "code\datums\keybindings\silicon.dm"
+#include "code\datums\looping_sounds\item_sounds.dm"
 #include "code\datums\looping_sounds\looping_sound.dm"
 #include "code\datums\looping_sounds\machinery_sounds.dm"
 #include "code\datums\looping_sounds\office_toy.dm"
