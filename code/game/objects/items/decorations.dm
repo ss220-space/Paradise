@@ -362,12 +362,26 @@
 /datum/effect_system/smoke_spread/vomiting
 	effect_type = /obj/effect/particle_effect/smoke/vomiting
 
+/////// Skeleton
+
+/obj/item/decorations/skeleton
+	name = "Skeleton"
+	desc = ("<span class='purple'> An old skeleton. It is limp and unresponsive; there are no signs of life and its soul has departed...</span>")
+	icon_state = "skeleton"
+	w_class = WEIGHT_CLASS_GIGANTIC
+	can_be_hit = TRUE
+	max_integrity = 20
+
+/obj/item/decorations/skeleton/Destroy()
+	new /obj/effect/decal/cleanable/ash(src)
+	..()
+
 ////// Bouquets
 
 /obj/item/decorations/bouquets
-	icon = 'icons/obj/weapons/bouquet.dmi'
 	name = "Flower bouquet"
 	desc = "A bouquet of beautiful flowers, looks a little withered."
+	icon = 'icons/obj/weapons/bouquet.dmi'
 	icon_state = "mixedbouquet"
 	attack_verb = list("attacked", "slashed", "torn", "ripped", "cut", "smashed")
 	max_integrity = 20
@@ -428,29 +442,3 @@
 	new /obj/effect/decal/cleanable/blood/gibs(T)
 	new /obj/effect/decal/cleanable/blood(T)
 	..()
-
-/*
-/mob/living/simple_animal/hostile/construct/armoured/hostile/graveyard
-	maxHealth = 300
-	health = 300
-	var/jagger_loot = pick(
-		/obj/item/gun/magic/wand/resurrection,
-		/obj/item/gun/magic/wand/fireball,
-		/obj/item/gun/magic/wand/slipping,
-		/obj/item/spellbook/oneuse/sacredflame,
-		/obj/item/spellbook/oneuse/smoke,
-		/obj/item/spellbook/oneuse/forcewall,
-		/obj/item/soulstone,
-	)
-	loot = list(jagger_loot)
-
-/obj/item/gun/magic/wand/resurrection
-/obj/item/gun/magic/wand/fireball
-/obj/item/gun/magic/wand/slipping
-
-/obj/item/spellbook/oneuse/sacredflame
-/obj/item/spellbook/oneuse/smoke
-/obj/item/spellbook/oneuse/forcewall
-
-/obj/item/soulstone
-*/

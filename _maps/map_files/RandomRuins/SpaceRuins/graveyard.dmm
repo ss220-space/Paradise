@@ -326,6 +326,7 @@
 	icon_state = "blood_boil";
 	color = "red"
 	},
+/obj/item/clothing/suit/hooded/chaplain_hoodie/no_name,
 /turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "ju" = (
@@ -661,6 +662,7 @@
 	access = list(666);
 	layer = 2.7
 	},
+/obj/item/clothing/suit/hooded/chaplain_hoodie/no_name,
 /turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "sh" = (
@@ -741,7 +743,8 @@
 	dir = 2;
 	id_tag = "devilroom";
 	name = "Graveyard shutters";
-	layer = 2.9
+	layer = 2.9;
+	color = "#442d15"
 	},
 /obj/structure/curtain{
 	color = "#442d15"
@@ -777,12 +780,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
-/area/ruin/space/graveyard/church)
-"uE" = (
-/obj/structure/curtain{
-	color = "#442d15"
-	},
-/turf/simulated/wall/mineral/wood,
 /area/ruin/space/graveyard/church)
 "uI" = (
 /obj/effect/turf_decal{
@@ -928,6 +925,17 @@
 "wX" = (
 /obj/effect/mob_spawn/human/corpse/tacticool,
 /obj/item/bedsheet/cult,
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_y = 16;
+	pixel_x = 4
+	},
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_y = 20
+	},
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_x = -8;
+	pixel_y = -3
+	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/church)
 "xl" = (
@@ -1000,6 +1008,9 @@
 "za" = (
 /obj/effect/decal/remains/mouse,
 /obj/effect/decal/cleanable/blood/gibs/old,
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_y = 20
+	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/church)
 "zg" = (
@@ -1194,6 +1205,22 @@
 	dir = 4;
 	icon_state = "chapel"
 	},
+/area/ruin/space/graveyard/church)
+"DH" = (
+/obj/effect/clockwork/overlay/floor/bloodcult,
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_x = -4;
+	pixel_y = -4
+	},
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_y = 20
+	},
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_y = 24;
+	pixel_x = 8
+	},
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "DN" = (
 /obj/effect/turf_decal{
@@ -1882,11 +1909,16 @@
 "Rb" = (
 /obj/structure/kitchenspike,
 /obj/effect/clockwork/overlay/floor/bloodcult,
+/obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "Rh" = (
 /obj/effect/clockwork/overlay/floor/bloodcult,
 /obj/item/restraints/handcuffs/manacles/used,
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_x = -4;
+	pixel_y = 2
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "Rn" = (
@@ -2153,6 +2185,23 @@
 	icon_state = "chapel"
 	},
 /area/ruin/space/graveyard/church)
+"WD" = (
+/obj/effect/decal/remains/mouse,
+/obj/effect/clockwork/overlay/floor/bloodcult,
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_x = -4;
+	pixel_y = -4
+	},
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_y = 24;
+	pixel_x = 8
+	},
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_y = 16;
+	pixel_x = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/graveyard/church)
 "WF" = (
 /obj/structure/table/socle,
 /obj/item/storage/funeral_urn/random{
@@ -2263,12 +2312,6 @@
 	icon_state = "lightdark"
 	},
 /area/ruin/space/graveyard/church)
-"YO" = (
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/wall/shuttle{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
-/area/ruin/space/graveyard/graves)
 "YQ" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/cable{
@@ -3191,7 +3234,7 @@ VL
 sv
 Ww
 Ww
-sv
+WD
 VV
 VL
 bu
@@ -3650,7 +3693,7 @@ RG
 cJ
 Ww
 VV
-Ww
+DH
 Ww
 RG
 pE
@@ -3830,7 +3873,7 @@ Zs
 ho
 ms
 vv
-YO
+vv
 yk
 yk
 yk
@@ -4106,7 +4149,7 @@ up
 ag
 Wy
 qa
-uE
+qa
 qa
 VL
 bu

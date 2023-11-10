@@ -25,7 +25,7 @@
 	name = "Funeral \"The Undertaker\" Shuttle Console"
 	desc = "Used to call and send the funeral \"The Undertaker\" shuttle."
 	shuttleId = "funeral"
-	possible_destinations = "trade_dock;graveyard_dock"
+	possible_destinations = "graveyard_church;graveyard_dock"
 
 
 ///// Graveyard items
@@ -201,6 +201,17 @@
 mogila/populate_contents()
 	new /obj/structure/closet/coffin/graveyard_loot(src)
 */
+
+/obj/structure/pit/closed/graveyard
+	icon_state = "pit0"
+
+/obj/structure/pit/closed/graveyard/Initialize()
+	new /obj/structure/closet/coffin/graveyard_loot(src.loc)
+	..()
+
+////// когда роллится гроб с зомби - зомби и лут оказываются над могилой; как вариант спавнить зомби при открытии могилы
+/obj/structure/closet/coffin/graveyard_loot
+
 /obj/structure/closet/coffin/graveyard_loot/Initialize()
 	var/money = pick(/obj/item/stack/spacecash/c5000, /obj/item/stack/spacecash/c1000, /obj/item/stack/spacecash/c500)
 	var/little_money = pick(/obj/item/stack/spacecash/c50, /obj/item/stack/spacecash/c100, /obj/item/stack/spacecash/c200)
@@ -226,15 +237,11 @@ mogila/populate_contents()
 			new /obj/item/clothing/mask/gas/sechailer(src)
 			new /obj/item/clothing/accessory/lawyers_badge(src)
 		else
-			new /obj/effect/mob_spawn/human/skeleton(src)
+			new /obj/item/decorations/skeleton(src)
 			new /obj/item/decorations/bouquets/random(src)
 			new little_money(src)
 	..()
 /*
-			var/mob/skeleton = new /obj/effect/mob_spawn/human/skeleton
-			new /obj/item/decorations/bouquets/random(src)
-			new little_money(src)
-			skeleton.forceMove(src)
 
 /obj/item/clothing/accessory/medal
 /obj/item/clothing/accessory/medal/fluff/elo
