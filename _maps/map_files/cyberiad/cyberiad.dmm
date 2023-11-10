@@ -50193,11 +50193,22 @@
 	pixel_x = 1;
 	pixel_y = 5
 	},
-/obj/item/flash,
-/obj/item/flash,
 /obj/machinery/ai_status_display{
 	pixel_x = -32
 	},
+/obj/item/circuitboard/chem_dispenser{
+	pixel_x = 4;
+	pixel_y = 8
+	},
+/obj/item/circuitboard/chem_master{
+	pixel_x = -4;
+	pixel_y = 10
+	},
+/obj/item/circuitboard/chem_heater{
+	pixel_y = 6
+	},
+/obj/item/flash,
+/obj/item/flash,
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "cvx" = (
