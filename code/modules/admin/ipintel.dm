@@ -182,8 +182,6 @@
 	return TRUE
 
 /proc/vpn_whitelist_check(target_ckey)
-	if(!CONFIG_GET(flag/ipintel_whitelist))
-		return FALSE
 	var/datum/db_query/query_whitelist_check = SSdbcore.NewQuery("SELECT * FROM [CONFIG_GET(string/utility_database)].[format_table_name("vpn_whitelist")] WHERE ckey=:ckey", list(
 		"ckey" = target_ckey
 	))
