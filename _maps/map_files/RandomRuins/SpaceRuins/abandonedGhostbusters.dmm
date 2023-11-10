@@ -10,13 +10,20 @@
 /turf/simulated/floor/wood/cherry,
 /area/space/nearstation)
 "fj" = (
-/obj/effect/decal/remains/human,
+/obj/effect/decal/remains/human{
+	pixel_y = 5;
+	desc = "Останки покрытые непонятное зеленой слизью"
+	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "fM" = (
 /obj/item/reagent_containers/food/snacks/ectoplasm{
 	color = "green";
 	pixel_y = -10
+	},
+/obj/item/reagent_containers/food/snacks/donut/jelly{
+	pixel_x = -5;
+	pixel_y = 7
 	},
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
@@ -59,7 +66,8 @@
 	desc = "Неприятный зеленый призрак, полностью состоящий из эктоплазмы. Известен своей прожорливостью и слизью, которую оставляет за собой";
 	color = "green";
 	harm_intent_damage = 2;
-	melee_damage_upper = 2
+	melee_damage_upper = 2;
+	melee_damage_type = "burn"
 	},
 /obj/item/reagent_containers/food/snacks/ectoplasm{
 	color = "green"
@@ -89,8 +97,8 @@
 /turf/simulated/floor/wood/cherry,
 /area/abandonedGhostbusters)
 "ky" = (
-/obj/effect/landmark/tiles/damageturf,
 /obj/item/clothing/suit/ghost_sheet,
+/obj/effect/particle_effect/smoke/bad,
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "lM" = (
@@ -284,7 +292,6 @@
 /area/abandonedGhostbusters)
 "HU" = (
 /obj/structure/table_frame/wood,
-/obj/item/wrench,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken"
 	},
@@ -314,6 +321,10 @@
 /obj/structure/sign/poster/official/tsf_emblem{
 	pixel_x = -31
 	},
+/obj/effect/step_trigger/sound_effect/explosion_far{
+	sound = list('sound/effects/explosionfar.ogg','sound/effects/explosioncreak2.ogg','sound/effects/explosioncreak1.ogg','sound/effects/prizraki.ogg');
+	name = "ghost"
+	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "Mp" = (
@@ -332,6 +343,7 @@
 "OG" = (
 /obj/structure/closet/cabinet,
 /obj/effect/decal/cleanable/egg_smudge,
+/obj/item/wrench,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken"
 	},
@@ -385,6 +397,8 @@
 /obj/structure/sign/poster/official/the_owl{
 	pixel_x = -31
 	},
+/obj/effect/particle_effect/smoke/bad,
+/obj/effect/particle_effect/sparks,
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "VP" = (
@@ -411,6 +425,7 @@
 	desc = "Она кажется подвижной"
 	},
 /obj/structure/sign/poster/ripped,
+/obj/effect/step_trigger/message,
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "YX" = (
@@ -419,6 +434,7 @@
 /obj/item/reagent_containers/food/snacks/ectoplasm{
 	color = "green"
 	},
+/obj/effect/particle_effect/chem_smoke/small,
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "Zi" = (
