@@ -155,7 +155,7 @@
 	slot_flags = NONE
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = TRUE
-	force = 25
+	force = 45
 	armour_penetration = -30
 	block_chance = 75
 	hitsound = 'sound/weapons/bladeslice.ogg'
