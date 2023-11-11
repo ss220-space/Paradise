@@ -2138,8 +2138,10 @@
 
 		/obj/item/clothing/under/rank/cargotech 		= 10,
 		/obj/item/clothing/under/rank/cargotech/skirt 	= 10,
+		/obj/item/clothing/under/rank/cargotech/alt		= 5,
 		/obj/item/clothing/under/rank/miner/lavaland 	= 10,
 		/obj/item/clothing/under/overalls 				= 10,
+		/obj/item/clothing/under/rank/miner/alt			= 5,
 
 
 		/obj/item/clothing/mask/bandana/black 	= 10,
@@ -2156,6 +2158,7 @@
 		/obj/item/clothing/shoes/jackboots/jacksandals 	= 10,
 
 		/obj/item/radio/headset/headset_cargo = 10,
+		/obj/item/radio/headset/headset_cargo/alt = 10,
 
 		/obj/item/clothing/accessory/armband/cargo = 10,
 
@@ -2166,6 +2169,8 @@
 
 		/obj/item/clothing/under/pants/tan 		= 10,
 		/obj/item/clothing/under/pants/track 	= 10,
+
+		/obj/item/clothing/suit/storage/cargotech = 5,
 
 		/obj/item/clothing/suit/hooded/wintercoat/cargo	= 5,
 		/obj/item/clothing/suit/hooded/wintercoat/miner	= 5,

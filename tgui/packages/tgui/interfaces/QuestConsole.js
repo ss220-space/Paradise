@@ -244,7 +244,7 @@ const QuestItemTask =properties => {
           />
         </Box>
       </Flex.Item>
-      <Flex.Item style={{ 'max-width': '160px' }}>{decodeHtmlEntities(task.desc)}</Flex.Item>
+      <Flex.Item style={{ 'max-width': '180px', 'white-space': 'pre' }}>{decodeHtmlEntities(task.desc)}</Flex.Item>
     </Flex>
   );
 };

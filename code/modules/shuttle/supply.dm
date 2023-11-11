@@ -622,12 +622,19 @@
 #define NUMBER_OF_CORP_QUEST 4
 
 /obj/machinery/computer/supplyquest
-	name = "Supply Request Monitor"
+	name = "Supply Request Console"
 	desc = "Essential for supply requests. Your bread and butter."
 	icon_keyboard = "cargo_quest_key"
 	icon_screen = "cargo_quest"
 	req_access = list(ACCESS_QM)
 	circuit = /obj/item/circuitboard/supplyquest
+	/// If TRUE you can see only active quests
+	var/for_active_quests = FALSE
+	/// Parent object this console is assigned to. Used for QM tablet
+	var/atom/movable/parent
+
+/obj/machinery/computer/supplyquest/ui_host()
+	return parent ? parent : src
 
 /obj/machinery/computer/supplyquest/Initialize()
 	. = ..()
@@ -699,6 +706,8 @@
 	var/list/data = list()
 	var/list/quest_storages = list()
 	for(var/datum/cargo_quests_storage/quest_storage in GLOB.quest_storages)
+		if(for_active_quests && !quest_storage.active)
+			continue
 		var/timeleft_sec = round((quest_storage.time_start + quest_storage.quest_time - world.time) / 10)
 		var/list/quests_items = list()
 		for(var/datum/cargo_quest/cargo_quest as anything in quest_storage.current_quests)
@@ -734,6 +743,7 @@
 		return
 	var/mob/user = usr
 	if(!allowed(user) && !user.can_admin_interact())
+		to_chat(user, span_warning("Access denied."))
 		return
 
 	if(!SSshuttle)
@@ -741,7 +751,7 @@
 		return
 
 	. = TRUE
-	add_fingerprint(usr)
+	add_fingerprint(user)
 
 	switch(action)
 		if("activate")
@@ -750,25 +760,26 @@
 				return
 			quest.active = TRUE
 			quest.after_activated()
-			print_order(quest, usr)
+			if(ishuman(user))
+				var/mob/living/carbon/human/H = user
+				quest.idname = H.get_authentification_name()
+				quest.idrank = H.get_assignment()
+			else if(issilicon(user))
+				quest.idname = user.real_name
+			print_order(quest)
+
 		if("denied")
 			var/datum/cargo_quests_storage/quest = locateUID(params["uid"])
 			if(!istype(quest))
 				return
 			if(!quest.can_reroll)
-				to_chat(usr, span_warning("This quest can not be rerolled."))
+				to_chat(user, span_warning("This quest can not be rerolled."))
 				return
 			quest.quest_expired(reroll = TRUE)
 
-/obj/machinery/computer/supplyquest/proc/print_order(datum/cargo_quests_storage/quest, mob/user)
+/obj/machinery/computer/supplyquest/proc/print_order(datum/cargo_quests_storage/quest)
 
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		quest.idname = H.get_authentification_name()
-		quest.idrank = H.get_assignment()
-	else if(issilicon(user))
-		quest.idname = user.real_name
-
+	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	var/obj/item/paper/paper = new(get_turf(src))
 	paper.info = "<div id=\"output\"><center> <h3> Supply request form </h3> </center><br><hr><br>"
 	paper.info += "Requestor department: [quest.target_departament]<br>"
@@ -787,21 +798,25 @@
 #undef NUMBER_OF_CC_QUEST
 #undef NUMBER_OF_CORP_QUEST
 
-/obj/machinery/cargo_announcer
-	name = "help me"
-	icon = 'icons/obj/storage.dmi'
-	icon_state = "safe"
+/obj/machinery/computer/supplyquest/workers
+	name = "Supply Request Monitor"
+	desc = "From this monitor, you can view active requests, and you can take a printed version of the request to make it easier to collect supplies. Oh, and so you don't forget."
+	icon_state = "quest_console"
+	icon_screen = "quest"
+	icon_keyboard = null
+	for_active_quests = TRUE
+	req_access = list(ACCESS_CARGO)
 
 
-/obj/machinery/cargo_announcer/Initialize(mapload)
+/obj/machinery/computer/supplyquest/workers/Initialize(mapload)
 	. = ..()
 	GLOB.cargo_announcers += src
 
-/obj/machinery/cargo_announcer/Destroy()
+/obj/machinery/computer/supplyquest/workers/Destroy()
 	GLOB.cargo_announcers -= src
 	..()
 
-/obj/machinery/cargo_announcer/proc/print_report(datum/cargo_quests_storage/quest, complete, list/modificators = list(), old_reward)
+/obj/machinery/computer/supplyquest/workers/proc/print_report(datum/cargo_quests_storage/quest, complete, list/modificators = list(), old_reward)
 
 	var/obj/item/paper/paper = new(get_turf(src))
 
@@ -823,11 +838,49 @@
 		paper.info += "content missing (-50%) x[modificators["content_missing"]]<br>"
 	if(!complete)
 		paper.info += "time expired (-100%)<br>"
+	else if(!length(modificators - modificators["quick_shipmenth"]))
+		paper.info += "- none <br>"
 	paper.info += "</i><br>Bonus:<br><i>"
 	if(modificators["quick_shipmenth"])
 		paper.info += "quick shipment (+40%)<br>"
+	else
+		paper.info += "- none <br>"
 	paper.info += "</i><br><span class=\"large-text\"> Total reward: [complete ? quest.reward : "0"]</span><br>"
 	paper.info += "<br><hr><br><span class=\"small-text\">This paper has been stamped by the [station_name()] </span><br></div>"
 
 	paper.update_icon()
 	paper.name = "Shipment records"
+	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+	add_overlay(image(icon, icon_state = "print_quest_overlay", layer = overlay_layer))
+	addtimer(CALLBACK(src, PROC_REF(update_icon)), 3 SECONDS)
+
+/obj/item/qm_quest_tablet
+	name = "Quartermaster Tablet"
+	desc = "A sleek device that helps to manage all the requests. Makes up the symbol of Brave New Cargonia."
+	icon = 'icons/obj/device.dmi'
+	icon_state	= "qm_tablet"
+	w_class		= WEIGHT_CLASS_SMALL
+	item_state	= "qm_tablet"
+	origin_tech = "programming=5;engineering=3"
+	/// Integrated console to serve UI data
+	var/obj/machinery/computer/supplyquest/iternal/integrated_console
+
+/obj/machinery/computer/supplyquest/iternal
+	name = "invasive quest utility"
+	desc = "How did this get here?! Please report this as a bug to github"
+	use_power = NO_POWER_USE
+
+/obj/item/qm_quest_tablet/Initialize(mapload)
+	. = ..()
+	integrated_console = new(src)
+	integrated_console.parent = src
+
+/obj/item/qm_quest_tablet/Destroy()
+	QDEL_NULL(integrated_console)
+	return ..()
+
+/obj/item/qm_quest_tablet/attack_self(mob/user as mob)
+	ui_interact(user)
+
+/obj/item/qm_quest_tablet/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
+	integrated_console.ui_interact(user, ui_key, ui, force_open, master_ui, state)

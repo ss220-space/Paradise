@@ -30,7 +30,7 @@
 
 	req_items += generated_item
 
-	desc += "[capitalize(initial(generated_item.name))] <br>"
+	desc += "[capitalize(format_text(initial(generated_item.name)))] <br>"
 
 
 /datum/cargo_quest/thing/update_interface_icon()
@@ -246,7 +246,7 @@
 			if(generated_mineral in unique_minerals)
 				hard_items.Remove(generated_mineral)
 
-	desc += "[capitalize(initial(generated_mineral.name))], amount: [required_amount]<br>"
+	desc += "[capitalize(format_text(initial(generated_mineral.name)))], amount: [required_amount]<br>"
 
 /datum/cargo_quest/thing/minerals/check_required_item(atom/movable/check_item)
 	if(!length(required_minerals))
@@ -400,7 +400,7 @@
 
 	required_genes += generated_gene
 
-	desc += "[capitalize(initial(generated_gene.name))] <br>"
+	desc += "[capitalize(format_text(initial(generated_gene.name)))] <br>"
 
 /datum/cargo_quest/thing/botanygenes/update_interface_icon()
 	return
@@ -572,7 +572,7 @@
 	required_symptoms += generated_symptom
 	required_symptoms[generated_symptom] = REQUIRED_BLOOD_AMOUNT
 
-	desc += "[capitalize(initial(generated_symptom.name))] <br>"
+	desc += "[capitalize(format_text(initial(generated_symptom.name)))] <br>"
 
 /datum/cargo_quest/thing/virus/check_required_item(atom/movable/check_item)
 
@@ -587,7 +587,7 @@
 	for(var/datum/reagent/blood/blood in vial.reagents.reagent_list)
 		if(length(blood.data["viruses"] != 1)) // Only 1 virus
 			continue
-		var/datum/disease/advance/virus = locate() in blood.data["viruses"]
+		var/datum/disease/virus/advance/virus = locate() in blood.data["viruses"]
 		if(!virus || length(virus.symptoms) != 1) // And only 1 symptom
 			continue
 		var/datum/symptom/symptom = locate() in virus.symptoms

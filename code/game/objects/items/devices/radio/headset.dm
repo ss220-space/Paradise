@@ -291,6 +291,14 @@
 	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/headset_cargo
 
+/obj/item/radio/headset/headset_cargo/alt
+	desc = "An cheap model of working modular intercom headset for a cargo, that fits over the head. Takes encryption keys. Don`t Protects ears from flashbangs and loud noises."
+	icon_state = "cargo_headset_alt"
+	item_state = "cargo_headset_alt"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi',
+	)
+
 /obj/item/radio/headset/headset_cargo/mining
 	name = "mining radio headset"
 	desc = "Headset used by shaft miners."

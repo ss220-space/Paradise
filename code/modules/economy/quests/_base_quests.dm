@@ -137,7 +137,7 @@
 /datum/cargo_quests_storage/proc/quest_expired(reroll, complete, list/modificators, old_reward = reward)
 	GLOB.quest_storages.Remove(src)
 	if(active && !reroll)
-		for(var/obj/machinery/cargo_announcer/cargo_announcer in GLOB.cargo_announcers)
+		for(var/obj/machinery/computer/supplyquest/workers/cargo_announcer in GLOB.cargo_announcers)
 			cargo_announcer.print_report(src, complete, modificators, old_reward)
 	var/datum/cargo_quests_storage/quest = new /datum/cargo_quests_storage(customer = src.customer)
 	if(reroll)
@@ -165,6 +165,7 @@
 		if(quest.type == quest_type)
 			quest.generate_goal(difficultly = quest_difficulty)
 			quest.update_interface_icon()
+			quest.desc = replacetext(quest.desc, "\improper", "")
 			return
 
 	return new quest_type(src)

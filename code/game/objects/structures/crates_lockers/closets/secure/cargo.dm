@@ -11,6 +11,7 @@
 	new /obj/item/clothing/gloves/fingerless(src)
 	new /obj/item/clothing/head/soft(src)
 	new /obj/item/storage/backpack/cargo(src)
+	new /obj/item/clothing/suit/storage/cargotech(src)
 
 
 /obj/structure/closet/secure_closet/quartermaster
@@ -30,3 +31,4 @@
 	new /obj/item/stamp/granted(src)	//added here deleted on maps
 	new /obj/item/stamp/denied(src)
 	new /obj/item/storage/garmentbag/quartermaster(src)
+	new /obj/item/clothing/under/rank/cargo/alt(src)
