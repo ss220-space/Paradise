@@ -61,6 +61,37 @@ jobs:
           passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
           script: /var/lib/byond/update_isp_lists.sh
 
+  set-matrix:
+    name: Set Deployment Matrix
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - id: set-matrix
+        run: |
+          MATRIX_JSON="{\"include\": ["
+          if ${{ github.event.inputs.perform_deploy_main }}; then
+            MATRIX_JSON="${MATRIX_JSON}{\"environment\": \"Main\"},"
+            MATRIX_JSON="${MATRIX_JSON}{\"environment\": \"Secondary\"},"
+          fi
+          if ${{ github.event.inputs.perform_deploy_vega }}; then
+            MATRIX_JSON="${MATRIX_JSON}{\"environment\": \"Vega\"},"
+          fi
+          if ${{ github.event.inputs.perform_deploy_cleo }}; then
+            MATRIX_JSON="${MATRIX_JSON}{\"environment\": \"Cleo\"},"
+          fi
+          if ${{ github.event.inputs.perform_deploy_prime }}; then
+            MATRIX_JSON="${MATRIX_JSON}{\"environment\": \"Prime\"},"
+          fi
+          if ${{ github.event.inputs.perform_deploy_wl }}; then
+            MATRIX_JSON="${MATRIX_JSON}{\"environment\": \"WL\"},"
+          fi
+          if ${{ github.event.inputs.perform_deploy_tutorial }}; then
+            MATRIX_JSON="${MATRIX_JSON}{\"environment\": \"Tutorial\"},"
+          fi
+          MATRIX_JSON="${MATRIX_JSON%?}]}" # Remove the trailing comma
+          echo "matrix=${MATRIX_JSON}" >> $GITHUB_OUTPUT
+
   deploy:
     name: Deploy Paradise
     runs-on: ubuntu-latest
@@ -68,30 +99,25 @@ jobs:
       deployments: write
     strategy:
       fail-fast: false
-      matrix:
-        environment: [Main, Secondary, Vega, Cleo, Prime, WL, Tutorial]
+      matrix: ${{fromJson(needs.set-matrix.outputs.matrix)}}
     environment: ${{ matrix.environment }}
-    needs: [update-isp-lists, CI]
+    needs: [update-isp-lists, CI, set-matrix]
     if: always() && !cancelled() && !failure()
 
     steps:
       - uses: chrnorm/deployment-action@v2
-        if: |
-          (matrix.environment == 'Main' && inputs.perform_deploy_main) ||
-          (matrix.environment == 'Vega' && inputs.perform_deploy_vega) ||
-          (matrix.environment == 'Cleo' && inputs.perform_deploy_cleo) ||
-          (matrix.environment == 'Prime' && inputs.perform_deploy_prime) ||
-          (matrix.environment == 'WL' && inputs.perform_deploy_wl) ||
-          (matrix.environment == 'Tutorial' && inputs.perform_deploy_tutorial)
         name: Create GitHub deployment
         id: deployment
         with:
           token: "${{ github.token }}"
           environment: ${{ matrix.environment }}
-          description: ${{ vars.ENVIRONMENT_URL }}
+          environment-url: ${{ vars.ENVIRONMENT_URL }}
+          log-url: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           ref: ${{ vars.BRANCH }}
+          production-environment: true
+          initial-status: "in_progress"
 
-      - name: Update and Build Paradise Main/Secondary
+      - name: Update and Build Paradise Main
         if: matrix.environment == 'Main' && inputs.perform_deploy_main
         uses: appleboy/ssh-action@master
         with:
@@ -103,6 +129,17 @@ jobs:
             TIME=$(date +'%Y-%m-%d%T')
             sudo systemctl --wait start deploy-main
             journalctl --since $TIME -u deploy-main --no-pager --all
+            systemctl is-failed deploy-main | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
+
+      - name: Update and Build Paradise Secondary
+        if: matrix.environment == 'Secondary' && inputs.perform_deploy_main
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.PRODUCTION_HOST }}
+          username: ${{ secrets.PRODUCTION_USERNAME }}
+          key: ${{ secrets.PRODUCTION_SSH_KEY }}
+          passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
+          script: |
             systemctl is-failed deploy-main | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
 
       - name: Update and Build Paradise Vega
@@ -177,30 +214,57 @@ jobs:
 
       - name: Update deployment status (success)
         if: |
-          success() && (
-          (matrix.environment == 'Main' && inputs.perform_deploy_main) ||
-          (matrix.environment == 'Vega' && inputs.perform_deploy_vega) ||
-          (matrix.environment == 'Cleo' && inputs.perform_deploy_cleo) ||
-          (matrix.environment == 'Prime' && inputs.perform_deploy_prime) ||
-          (matrix.environment == 'WL' && inputs.perform_deploy_wl) ||
-          (matrix.environment == 'Tutorial' && inputs.perform_deploy_tutorial))
+          success()
         uses: chrnorm/deployment-status@v2
         with:
           token: "${{ github.token }}"
+          environment-url: ${{ steps.deployment.outputs.environment_url }}
+          log-url: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           deployment-id: ${{ steps.deployment.outputs.deployment_id }}
           state: "success"
 
       - name: Update deployment status (failure)
         if: |
-          failure() && (
-          (matrix.environment == 'Main' && inputs.perform_deploy_main) ||
-          (matrix.environment == 'Vega' && inputs.perform_deploy_vega) ||
-          (matrix.environment == 'Cleo' && inputs.perform_deploy_cleo) ||
-          (matrix.environment == 'Prime' && inputs.perform_deploy_prime) ||
-          (matrix.environment == 'WL' && inputs.perform_deploy_wl) ||
-          (matrix.environment == 'Tutorial' && inputs.perform_deploy_tutorial))
+          failure()
         uses: chrnorm/deployment-status@v2
         with:
           token: "${{ github.token }}"
+          environment-url: ${{ steps.deployment.outputs.environment_url }}
+          log-url: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           deployment-id: ${{ steps.deployment.outputs.deployment_id }}
           state: "failure"
+
+  delete-automatic-deployments:
+    name: Delete Automatic Deployments
+    runs-on: ubuntu-latest
+    needs: [deploy]
+    if: always()
+
+    steps:
+      - name: Delete previous automatic deployments
+        uses: actions/github-script@v6
+        env:
+          GITHUB_SHA_HEAD: ${{ github.sha }}
+        with:
+          script: |
+            const { GITHUB_SHA_HEAD } = process.env
+            const deployments = await github.rest.repos.listDeployments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: GITHUB_SHA_HEAD
+            });
+            await Promise.all(
+              deployments.data.filter((d) => d.performed_via_github_app).map(async (deployment) => {
+                await github.rest.repos.createDeploymentStatus({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  deployment_id: deployment.id,
+                  state: 'inactive'
+                });
+                return github.rest.repos.deleteDeployment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  deployment_id: deployment.id
+                });
+              })
+            );
