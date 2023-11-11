@@ -170,6 +170,28 @@
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
 
+	//JaniBackPack Reskin
+/obj/item/watertank/janitor/ghostwaterbackpack
+	name = "proton backpack"
+	desc = "A backpack weapon for greatest ghost hunters."
+	icon_state = "ghostwaterbackpack"
+	item_state = "ghostwaterbackpack"
+
+/obj/item/watertank/janitor/ghostwaterbackpack/New()
+    ..()
+    reagents.add_reagent("cleaner", 1000) //Makes 1500u of cleaner inside. 1000 here and 500 from /obj/item/watertank/janitor()
+
+
+/obj/item/reagent_containers/spray/mister/janitor/ghostmister
+    name = "ghost hunter ray nozzle"
+    desc = "A ghost hunter nozzle attached to a backpack, designed to deal with a modern horrors."
+    icon_state = "ghostmister"
+    item_state = "ghostmister"
+    amount_per_transfer_from_this = 10
+
+/obj/item/watertank/janitor/ghostwaterbackpack/make_noz()
+    return new /obj/item/reagent_containers/spray/mister/janitor/ghostmister(src)
+
 //ATMOS FIRE FIGHTING BACKPACK
 
 #define EXTINGUISHER 0

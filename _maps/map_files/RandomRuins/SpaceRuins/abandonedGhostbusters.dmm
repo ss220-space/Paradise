@@ -3,6 +3,12 @@
 /obj/structure/chair/stool/bar/dark{
 	pixel_y = 13
 	},
+/obj/item/flashlight/lamp/green{
+	glide_size = 5;
+	step_size = 15;
+	pixel_y = 41;
+	pixel_x = -3
+	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "bm" = (
@@ -26,9 +32,13 @@
 	sound = list('sound/effects/ghostReading.ogg');
 	name = "ghostReading";
 	color = "green";
-	pixel_y = 2
+	pixel_y = 2;
+	icon_state = "heart"
 	},
 /turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
+"fs" = (
+/turf/simulated/floor/wood/cherry,
 /area/abandonedGhostbusters)
 "fM" = (
 /obj/item/reagent_containers/food/snacks/ectoplasm{
@@ -38,12 +48,14 @@
 /obj/effect/step_trigger/sound_effect/explosion_far{
 	sound = list('sound/effects/ghostWake.ogg');
 	name = "ghost";
-	color = "green"
+	color = "green";
+	icon_state = "heart"
 	},
 /obj/item/paper{
 	name = "Помятая бумага";
 	color = "gray";
-	info = "<h2>Привет Игон!</h2>У меня потрясающие новости!<br> Я поймал нашего надоедливого зеленого призрака, который всё время воровал нашу еду. Запер его прямо здесь. Ни в коем случае не выпускай его, вероятно...Он будет злым.<br><br><b>Питер<b>"
+	info = "<h2>Привет Игон!</h2>У меня потрясающие новости!<br> Я поймал нашего надоедливого зеленого призрака, который всё время воровал нашу еду. Запер его прямо здесь. Ни в коем случае не выпускай его, вероятно...Он будет злым. Да и касательного твоего рюкзака и ловушки...Я спрятал их у него. <br><br><b>Питер<b>";
+	desc = "Помятая бумага"
 	},
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
@@ -56,7 +68,10 @@
 /area/abandonedGhostbusters)
 "gE" = (
 /obj/structure/sign/poster/official/do_not_question,
-/obj/structure/falsewall/mineral_ancient,
+/obj/structure/falsewall/mineral_ancient{
+	desc = "Эта стена из крепкого камня выглядит так, как будто ее можно сдвинуть";
+	name = "Подозрительная стена из камня"
+	},
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "gU" = (
@@ -71,6 +86,10 @@
 /area/abandonedGhostbusters)
 "iA" = (
 /obj/effect/decal/cleanable/cobweb,
+/obj/item/reagent_containers/food/snacks/ectoplasm{
+	color = "green"
+	},
+/obj/effect/decal/ants,
 /mob/living/simple_animal/hostile/ghost{
 	mob_size = 3;
 	health = 40;
@@ -79,18 +98,20 @@
 	attacktext = "проникает сквозь тело";
 	aggro_vision_range = 3;
 	desc = "Неприятный зеленый призрак, полностью состоящий из эктоплазмы. Известен своей прожорливостью и слизью, которую оставляет за собой";
-	color = "green";
 	harm_intent_damage = 2;
-	melee_damage_upper = 2
+	melee_damage_upper = 2;
+	icon_living = "kasper";
+	icon_state = "kasper";
+	icon_dead = "kasper";
+	icon_resting = "kasper"
 	},
-/obj/item/reagent_containers/food/snacks/ectoplasm{
-	color = "green"
-	},
-/obj/effect/decal/ants,
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "jb" = (
-/obj/structure/chair/stool/bar/dark,
+/obj/structure/chair/stool/bar/dark{
+	pixel_x = 1;
+	pixel_y = 10
+	},
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
@@ -192,20 +213,23 @@
 /area/abandonedGhostbusters)
 "ur" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/lighter/zippo/fluff/purple{
-	desc = "Зиппо настоящего охотника за приведениями!."
-	},
 /obj/effect/decal/cleanable/confetti,
 /obj/effect/decal/cleanable/blood/slime{
 	color = "red"
 	},
 /obj/structure/table/reinforced,
 /obj/item/seeds/chili/ghost{
-	pixel_x = -6;
+	pixel_x = -7;
 	pixel_y = 4
 	},
-/obj/item/toy/therapy/red{
-	pixel_x = 7
+/obj/item/lighter/zippo/fluff/purple{
+	desc = "A limited-edition zippo of a real ghostbuster.";
+	icon_on = "zippo_ghostbusters_on";
+	icon_off = "zippo_ghostbusters";
+	icon_state = "zippo_ghostbusters";
+	pixel_x = 7;
+	name = "ghostbusters zippo";
+	pixel_y = 5
 	},
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
@@ -224,7 +248,7 @@
 /obj/structure/table/wood/fancy,
 /obj/item/paper{
 	desc = "Мятый лист бумаги";
-	info = "<h1> Инструкция для начинающих охотников за призраками </h1><b>Шаг 1: Подготовьтесь</b><br>Перед тем, как отправиться на охоту за призраками, убедитесь, что вы готовы к этому приключению. Учтите следующие важные моменты:Изучите место, где вы собираетесь охотиться. Информация о его истории и предполагаемых призрачных явлениях будет весьма полезной.Наденьте удобную одежду и обувь, которые позволят вам комфортно передвигаться и проводить длительное время на месте. Возьмите с собой несколько источников света, фонарь. Вы не захотите оказаться в полной темноте.<b><br>Шаг 2: Используйте святую соль</b><br>Святая соль считается мощным средством для отпугивания злых духов. Важно знать, как ею пользоваться:Разбросайте святую соль вокруг себя или в местах, где предполагается наличие призрачных активностей.Создайте защитный круг из соли вокруг себя, чтобы предотвратить приближение нежелательных сущностей.Периодически обновляйте слой соли, особенно если чувствуете, что уровень активности призраков увеличивается.<b><br>Шаг 3: Используйте святой фотоаппарат</b><br>Для фотографирования призраков, которых нельзя видеть невооруженным глазом, пригодится специальный святой фотоаппарат:Перед фотосъемкой, окружите место солью и призовите призраков, призывая их позировать.Сделайте несколько снимков и оцените результаты после возвращения домой. Призраки могут появляться на фотографиях в виде неясных образов или светящихся фигур.<b><br>Шаг 4: Оставайтесь спокойными и внимательными</b><br>Охота за призраками может быть увлекательным, но также и пугающим. Важно помнить следующие советы:Оставайтесь спокойными и уважительными во время охоты. Не провоцируйте духов или не призывайте их слишком настойчиво.Будьте внимательными к своим ощущениям и интуиции. Иногда призраки могут подавать знаки своего присутствия через зудение кожи, холод или странные шумы.<br>Уважайте местные законы и правила. Не вторгайтесь на частную собственность или в ограниченные зоны.<br><b>Удачи в вашей охоте за призраками!<br> Помните, что уважение и осторожность - ключи к успешному и безопасному исследованию мистического мира.</b>";
+	info = "<h1> Инструкция для начинающих охотников за призраками </h1><b>Шаг 1: Подготовьтесь</b><br>Перед тем, как отправиться на охоту за призраками, убедитесь, что вы готовы к этому приключению. Учтите следующие важные моменты:Изучите место, где вы собираетесь охотиться. Информация о его истории и предполагаемых призрачных явлениях будет весьма полезной.Наденьте удобную одежду и обувь, которые позволят вам комфортно передвигаться и проводить длительное время на месте. Возьмите с собой несколько источников света, фонарь. Вы не захотите оказаться в полной темноте.<b><br>Шаг 2: Используйте соль</b><br>Святая соль считается мощным средством для отпугивания злых духов. Важно знать, как ею пользоваться:Разбросайте святую соль вокруг себя или в местах, где предполагается наличие призрачных активностей.Создайте защитный круг из соли вокруг себя, чтобы предотвратить приближение нежелательных сущностей.Периодически обновляйте слой соли, особенно если чувствуете, что уровень активности призраков увеличивается.<b><br>Шаг 3: Используйте  фотоаппарат</b><br>Для фотографирования призраков, которых нельзя видеть невооруженным глазом, пригодится специальный фотоаппарат. Перед фотосъемкой, окружите место солью и призовите призраков, призывая их позировать. Сделайте несколько снимков и оцените результаты после возвращения домой. Призраки могут появляться на фотографиях в виде неясных образов или светящихся фигур.<b><br>Шаг 4: Используйте ловушку для призраков!</b><br>Экспериментальное устройство разработано специально для дружелюбных призраков и других существ. Приманите дружелюбного призрака или другое не опасное существо. Поставьте ловушку в удобном месте. Как только призрак окажется над ловушкой - мягкое свечение внутри затянет его внутрь, обеспечивая безопасное и комфортное заключение. Так как образец экспериментальный, возможно потребуется затолкнуть туда существо силой...<br><b>Шаг 5: Используйте протонный ранец</b><br>Экспериментальное оружие против призрачной энергии, мгновенно очищает пол и стены от их едкой слизи!<br><b>Шаг 6: Оставайтесь спокойными и внимательными</b><br>Охота за призраками может быть увлекательным, но также и пугающим. Важно помнить следующие советы:<br>Оставайтесь спокойными и уважительными во время охоты. Не провоцируйте духов или не призывайте их слишком настойчиво. Будьте внимательными к своим ощущениям и интуиции. Иногда призраки могут подавать знаки своего присутствия через зудение кожи, холод или странные шумы.<br><br><b>Удачи в вашей охоте за призраками!<br> Помните, что уважение и осторожность - ключи к успешному и безопасному исследованию мистического мира.<br> Эй, никто не видел мой протонный рюкзак и ловушку? Пите...</b";
 	name = "Памятка Охотникам За Призраками";
 	pixel_y = 5
 	},
@@ -240,6 +264,16 @@
 	dir = 1
 	},
 /turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
+"wN" = (
+/obj/structure/bed/dogbed/pet,
+/mob/living/simple_animal/mouse/rat/white{
+	name = "Зефирка";
+	real_name = "Зефирка";
+	dir = 8;
+	desc = "Выглядит очень упитанной, пахнет зефиром."
+	},
+/turf/simulated/floor/wood/cherry,
 /area/abandonedGhostbusters)
 "zw" = (
 /obj/structure/table/wood/fancy/black,
@@ -262,10 +296,11 @@
 /turf/simulated/floor/wood/cherry,
 /area/abandonedGhostbusters)
 "Bt" = (
-/obj/item/reagent_containers/food/drinks/bottle/holywater{
-	pixel_y = 4
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
 	},
-/obj/structure/table/wood/fancy/black,
+/obj/item/watertank/janitor/ghostwaterbackpack,
 /turf/simulated/floor/light{
 	color = "red";
 	light_color = "red"
@@ -277,9 +312,8 @@
 /area/abandonedGhostbusters)
 "CH" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/indestructible/boss/see_through{
-	opacity = 1
-	},
+/obj/structure/sign/poster/random,
+/turf/simulated/wall/indestructible/wood,
 /area/abandonedGhostbusters)
 "CU" = (
 /obj/structure/table/wood/fancy/black,
@@ -310,11 +344,11 @@
 /turf/space,
 /area/space)
 "HL" = (
-/obj/structure/table/wood/fancy/black,
 /obj/item/flashlight{
 	pixel_x = -1;
 	pixel_y = 8
 	},
+/obj/structure/table/wood/fancy/blue,
 /turf/simulated/floor/light{
 	color = "red";
 	light_color = "red"
@@ -372,9 +406,28 @@
 /obj/effect/step_trigger/sound_effect/explosion_far{
 	sound = list('sound/effects/ghostEnter.ogg');
 	name = "ghostEnter";
-	color = "green"
+	color = "green";
+	icon_state = "heart"
 	},
 /turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
+"Mo" = (
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/item/mobcapsule{
+	pixel_x = 1;
+	lefthand_file = 'icons/Trap_ghost.dmi';
+	righthand_file = 'icons/Trap_ghost.dmi';
+	icon_state = "ghostTrap";
+	name = "ghost trap";
+	desc = "Совершенное устройство, способное легко вместить в себя дружелюбного призрака или животное сверхъестественного происхождения. Её элегантный корпус из прозрачного материала обеспечивает максимальную видимость, позволяя наблюдать за пойманным существом, а после выпустить его в удобном для вас месте"
+	},
+/turf/simulated/floor/light{
+	color = "red";
+	light_color = "red"
+	},
 /area/abandonedGhostbusters)
 "Mp" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -382,7 +435,10 @@
 /area/abandonedGhostbusters)
 "Nx" = (
 /obj/structure/sign/poster/official/walk,
-/obj/structure/falsewall/mineral_ancient,
+/obj/structure/falsewall/mineral_ancient{
+	name = "Подозрительная стена из камня";
+	desc = "Эта стена из крепкого камня выглядит так, как будто ее можно сдвинуть"
+	},
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "NW" = (
@@ -417,25 +473,21 @@
 /obj/item/reagent_containers/food/snacks/donut/sprinkles{
 	pixel_x = 7
 	},
+/obj/structure/table/holotable/wood,
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "Sq" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/closet/wardrobe{
-	name = "Ящик охотника за приведениями";
+	name = "Одежда";
 	color = "gray"
 	},
 /obj/item/clothing/under/color/black/ghost{
-	name = "Комбинезон охотника";
+	name = "Комбинезон охотника за приведениями";
 	desc = "Невероятно удобный комбинезон для охоты на приведений"
 	},
-/obj/item/mop/advanced{
-	color = "grey";
-	name = "Очиститель эктоплазмы - 3000";
-	desc = "Самое совершенное оружие в арсенале охотника за приведениями. Очищает любую слизь и эктоплазму в мгновение!"
-	},
 /obj/item/clothing/shoes/galoshes/dry{
-	name = "Галоши охотника";
+	name = "Галоши охотника за приведениями";
 	desc = "Пара очень удобных галош для охоты на призраков";
 	color = "grey"
 	},
@@ -456,6 +508,12 @@
 	desc = "Она кажется подвижной"
 	},
 /obj/structure/sign/poster/ripped,
+/obj/effect/step_trigger/sound_effect/explosion_far{
+	sound = list('sound/effects/ghostOpen.ogg');
+	name = "ghostOpen";
+	color = "green";
+	icon_state = "heart"
+	},
 /turf/space,
 /area/space/nearstation)
 "Vl" = (
@@ -471,10 +529,7 @@
 	},
 /area/abandonedGhostbusters)
 "Wr" = (
-/obj/item/reagent_containers/food/snacks/ghostburger{
-	pixel_y = 5
-	},
-/obj/structure/table/wood/fancy/black,
+/obj/structure/table/wood/fancy/blue,
 /turf/simulated/floor/light{
 	color = "red";
 	light_color = "red"
@@ -495,10 +550,6 @@
 	desc = "Она кажется подвижной"
 	},
 /obj/structure/sign/poster/ripped,
-/obj/effect/step_trigger/message{
-	color = "green";
-	message = "Вы чувствуете волну холода по вашему тело"
-	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "YX" = (
@@ -514,8 +565,12 @@
 	desc = "Кусочек пиццы в непонятной зеленой слизи..."
 	},
 /obj/item/trash/semki{
-	pixel_y = -2;
-	pixel_x = 6
+	pixel_y = -7;
+	pixel_x = 9
+	},
+/obj/item/trash/tray{
+	pixel_x = -10;
+	pixel_y = -9
 	},
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
@@ -573,7 +628,7 @@ KV
 KV
 KV
 jO
-Hq
+KV
 Hq
 "}
 (4,1,1) = {"
@@ -590,7 +645,7 @@ Vl
 KV
 KV
 KV
-Hq
+KV
 Hq
 "}
 (5,1,1) = {"
@@ -657,8 +712,8 @@ HU
 PR
 Ag
 vT
+fs
 KV
-Hq
 Hq
 "}
 (9,1,1) = {"
@@ -674,15 +729,15 @@ Hn
 NW
 FG
 Kg
+wN
 KV
-Hq
 Hq
 "}
 (10,1,1) = {"
 Hq
 Hq
 KV
-Bt
+Wr
 tW
 YC
 ih
@@ -691,8 +746,8 @@ Fo
 Fo
 Fo
 Fo
+Fo
 KV
-Hq
 Hq
 "}
 (11,1,1) = {"
@@ -708,8 +763,8 @@ Zi
 fM
 mW
 iA
+Bt
 KV
-Hq
 Hq
 "}
 (12,1,1) = {"
@@ -725,8 +780,8 @@ Sq
 ur
 mW
 YX
+Mo
 KV
-Hq
 Hq
 "}
 (13,1,1) = {"
@@ -743,7 +798,7 @@ KV
 KV
 KV
 jO
-Hq
+KV
 Hq
 "}
 (14,1,1) = {"
