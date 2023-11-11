@@ -121,3 +121,60 @@
 		colorindex = 0
 	icon_state = "mobcap[colorindex]"
 	update_icon()
+
+	//Ghost_trap
+/obj/item/ghost_trap
+	name = "ghost_trap"
+	desc = "A real ghost hunter's high-tech trap to catch ghosts and other creatures."
+	icon = 'icons/obj/mobcap.dmi'
+	icon_state = "ghostTrap"
+	w_class = WEIGHT_CLASS_TINY
+	throw_range = 12
+	var/mob/living/simple_animal/captured = null
+	var/colorindex = 0
+	var/capture_type = SENTIENCE_ORGANIC //So you can't capture boss monsters or robots with it
+
+/obj/item/ghost_trap/Destroy()
+	if(captured)
+		captured.ghostize()
+		QDEL_NULL(captured)
+	return ..()
+
+/obj/item/ghost_trap/attack(mob/living/simple_animal/S, mob/user, prox_flag)
+	if(istype(S) && S.sentience_type == capture_type)
+		capture(S, user)
+		return TRUE
+	return ..()
+
+/obj/item/ghost_trap/proc/capture(mob/living/simple_animal/S, mob/living/M)
+	if(captured)
+		to_chat(M, "<span class='notice'>Capture failed!</span>: The capsule already has a ghost registered to it!")
+	else
+		if("neutral" in S.faction)
+			S.forceMove(src)
+			S.name = "[M.name]'s [initial(S.name)]"
+			S.cancel_camera()
+			name = "ghost trap: [initial(S.name)]"
+			to_chat(M, "<span class='notice'>You placed a [S.name] inside the ghost trap!</span>")
+			captured = S
+		else
+			to_chat(M, "You can't capture that ghost!")
+
+/obj/item/ghost_trap/throw_impact(atom/A, datum/thrownthing/throwingdatum)
+	..()
+	if(captured)
+		dump_contents()
+
+
+/obj/item/ghost_trap/proc/dump_contents()
+	if(captured)
+		captured.forceMove(get_turf(src))
+		captured = null
+
+/obj/item/ghost_trap/attack_self(mob/user)
+	colorindex += 1
+	if(colorindex >= 6)
+		colorindex = 0
+	icon_state = "mobcap[colorindex]"
+	update_icon()
+

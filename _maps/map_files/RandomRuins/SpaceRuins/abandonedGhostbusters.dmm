@@ -416,14 +416,7 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/mobcapsule{
-	pixel_x = 1;
-	lefthand_file = 'icons/Trap_ghost.dmi';
-	righthand_file = 'icons/Trap_ghost.dmi';
-	icon_state = "ghostTrap";
-	name = "ghost trap";
-	desc = "Совершенное устройство, способное легко вместить в себя дружелюбного призрака или животное сверхъестественного происхождения. Её элегантный корпус из прозрачного материала обеспечивает максимальную видимость, позволяя наблюдать за пойманным существом, а после выпустить его в удобном для вас месте"
-	},
+/obj/item/ghost_trap,
 /turf/simulated/floor/light{
 	color = "red";
 	light_color = "red"
