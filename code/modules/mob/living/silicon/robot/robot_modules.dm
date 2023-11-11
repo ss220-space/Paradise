@@ -231,7 +231,7 @@
 		"Standard" = "Standard-Medi",
 		"Basic" = "Robot-MED",
 		"Surgeon" = "surgeon",
-		"Chiefbot" = "chiefbot"
+		"Chiefbot" = "chiefbot",
 		"Advanced Droid" = "droid-medical",
 		"Needles" = "Robot-SRG",
 		"Noble-MED" = "Noble-MED",
