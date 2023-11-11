@@ -157,7 +157,7 @@
 	sharp = TRUE
 	force = 45
 	armour_penetration = -30
-	block_chance = 75
+	block_chance = 50
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
