@@ -66,7 +66,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/name = "item name"
 	var/category = "item category"
 	var/desc = "Item Description"
-	var/reference = "Item Reference"
+	var/reference = "Item Reference" // Important to use unique "reference" for datums with different "item".
 	var/item = null
 	var/cost = 0
 	var/last = 0 // Appear last
