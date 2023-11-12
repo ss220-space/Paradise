@@ -955,3 +955,31 @@
 	icon_state = "tourist"
 	icon_state = "tourist"
 	item_color = "tourist"
+
+/obj/item/clothing/under/red_chaps
+	name = "red chaps"
+	desc = "A light blue shirt with brown shorts. Feels oddly spooky."
+	icon_state = "red_chaps"
+	icon_state = "red_chaps"
+	item_color = "red_chaps"
+
+/obj/item/clothing/under/white_chaps
+	name = "white chaps"
+	desc = "A light blue shirt with brown shorts. Feels oddly spooky."
+	icon_state = "white_chaps"
+	icon_state = "white_chaps"
+	item_color = "white_chaps"
+
+/obj/item/clothing/under/tan_chaps
+	name = "tan chaps"
+	desc = "A light blue shirt with brown shorts. Feels oddly spooky."
+	icon_state = "tan_chaps"
+	icon_state = "tan_chaps"
+	item_color = "tan_chaps"
+
+/obj/item/clothing/under/brown_chaps
+	name = "brown chaps"
+	desc = "A light blue shirt with brown shorts. Feels oddly spooky."
+	icon_state = "brown_chaps"
+	icon_state = "brown_chaps"
+	item_color = "brown_chaps"
