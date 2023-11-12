@@ -315,7 +315,6 @@
 /area/ruin/space/graveyard/church)
 "jl" = (
 /obj/structure/lattice,
-/obj/structure/lattice,
 /turf/space,
 /area/space)
 "jo" = (
