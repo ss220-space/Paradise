@@ -5,6 +5,7 @@
 	desc = "It can protect you from the scorching sun and save your strength in the desert. You can buy one of these for a fistful of credits."
 	icon_state = "classicponcho"
 	var/flipped = FALSE
+	dyeable = TRUE
 	item_color = "classic"
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/neck.dmi',
