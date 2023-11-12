@@ -78,7 +78,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
-"hT" = (
+"hG" = (
 /obj/structure/table/wood/fancy/blue,
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
@@ -107,7 +107,8 @@
 	icon_living = "kasper";
 	icon_state = "kasper";
 	icon_dead = "kasper";
-	icon_resting = "kasper"
+	icon_resting = "kasper";
+	loot = list(/obj/item/lighter/zippo/zippo_ghostbusters)
 	},
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
@@ -223,17 +224,8 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/seeds/chili/ghost{
-	pixel_x = -7;
-	pixel_y = 4
-	},
-/obj/item/lighter/zippo/fluff/purple{
-	desc = "A limited-edition zippo of a real ghostbuster.";
-	icon_on = "zippo_ghostbusters_on";
-	icon_off = "zippo_ghostbusters";
-	icon_state = "zippo_ghostbusters";
-	pixel_x = 7;
-	name = "ghostbusters zippo";
-	pixel_y = 5
+	pixel_x = -4;
+	pixel_y = 3
 	},
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
@@ -735,7 +727,7 @@ Hq
 Hq
 Hq
 KV
-hT
+hG
 tW
 YC
 ih

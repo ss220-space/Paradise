@@ -241,6 +241,16 @@
 	icon_on = "zippo_ninja_on"
 	icon_off = "zippo_ninja"
 
+//Ghostbuster_Zippo//
+/obj/item/lighter/zippo/zippo_ghostbusters
+	name = "ghostbusters zippo"
+	desc = "A limited-edition zippo of a real ghostbuster."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "zippo_ghostbusters"
+	icon_on = "zippo_ghostbusters_on"
+	icon_off = "zippo_ghostbusters"
+
+
 ///////////
 //MATCHES//
 ///////////
