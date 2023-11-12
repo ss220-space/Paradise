@@ -78,6 +78,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
+"hT" = (
+/obj/structure/table/wood/fancy/blue,
+/turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
 "ih" = (
 /obj/structure/chair/sofa/corp/left{
 	dir = 1
@@ -285,10 +289,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
-"zx" = (
-/obj/structure/table/wood/fancy/blue,
-/turf/simulated/floor/carpet/black,
-/area/abandonedGhostbusters)
 "Ag" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/ants,
@@ -436,7 +436,7 @@
 /obj/effect/decal/cleanable/egg_smudge,
 /obj/item/wrench,
 /obj/effect/step_trigger/sound_effect/explosion_far{
-	sound = list('sound/effects/ghostEnter.ogg');
+	sound = list('sound/effects/ghostWrench.ogg');
 	name = "ghostWrench";
 	color = "green";
 	icon_state = "heart"
@@ -735,7 +735,7 @@ Hq
 Hq
 Hq
 KV
-zx
+hT
 tW
 YC
 ih
