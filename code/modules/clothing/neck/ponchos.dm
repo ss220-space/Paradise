@@ -103,7 +103,7 @@
 	icon_state = "greenponcho"
 	item_color = "green"
 
-/obj/item/clothing/neck/poncho/Blue
+/obj/item/clothing/neck/poncho/blue
 	name = "blue poncho"
 	desc = "Every bounty hunter's modern day outfit. Well conceals holster, ammunition loadout, body armor, scabbard, a pair of handguns, sawed-off shotgun and grenades."
 	icon_state = "blueponcho"
