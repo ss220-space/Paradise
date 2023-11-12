@@ -20,7 +20,10 @@
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "du" = (
-/obj/structure/holosign/barrier/atmos,
+/obj/structure/holosign/barrier/atmos{
+	icon_state = "phaseout"
+	},
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/wood/cherry,
 /area/space/nearstation)
 "fj" = (
@@ -86,6 +89,10 @@
 /obj/structure/chair/sofa/corp/left{
 	dir = 1
 	},
+/turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
+"iy" = (
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "iA" = (
@@ -172,7 +179,9 @@
 	},
 /area/abandonedGhostbusters)
 "oR" = (
-/obj/structure/holosign/barrier/atmos,
+/obj/structure/holosign/barrier/atmos{
+	icon_state = "phaseout"
+	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3"
 	},
@@ -226,10 +235,6 @@
 /obj/item/seeds/chili/ghost{
 	pixel_x = -6;
 	pixel_y = -1
-	},
-/obj/effect/spawner/lootdrop/maintenance{
-	pixel_y = 3;
-	pixel_x = 7
 	},
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
@@ -316,7 +321,6 @@
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "DC" = (
-/obj/effect/landmark/tiles/damageturf,
 /obj/machinery/light_construct{
 	dir = 8
 	},
@@ -573,6 +577,25 @@
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
+"Zv" = (
+/obj/effect/spawner/lootdrop/maintenance{
+	pixel_y = 3;
+	pixel_x = 7
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/step_trigger/sound_effect/explosion_far{
+	sound = list('sound/effects/ghostWrench.ogg');
+	name = "ghostWrench";
+	color = "green";
+	icon_state = "heart"
+	},
+/obj/effect/decal/cleanable/confetti,
+/turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
+"ZZ" = (
+/obj/structure/falsewall/wood,
+/turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
 
 (1,1,1) = {"
 Hq
@@ -634,11 +657,11 @@ Lj
 ky
 sB
 TT
-tW
+gU
 Vl
-KV
-KV
-KV
+iy
+ZZ
+Zv
 KV
 Hq
 "}
