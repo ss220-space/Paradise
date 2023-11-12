@@ -217,6 +217,7 @@
 	desc = "A relic of a failed rebellion."
 	icon_state = "poster2"
 
+
 /obj/structure/sign/poster/contraband/fun_police
 	name = "Fun Police"
 	desc = "A poster condemning the station's security forces."
@@ -386,6 +387,12 @@
 	name = "Very Robust"
 	desc = "You see a slightly battered poster, which shows a RED toolbox and the inscription \"Danger, very robust!\", some people say that this red paint on the poster is made of real blood."
 	icon_state = "poster36"
+
+ //Ghostbusters_poster//
+/obj/structure/sign/poster/contraband/ghostbusters_poster
+	name = "Ghostbusters"
+	desc = "You see a legendary ghostbusters poster! A truly rare item."
+	icon_state = "ghostbusters_poster"
 
 //official posters
 /obj/structure/sign/poster/official
@@ -673,5 +680,8 @@
 	name = "Соблазнительная Красноволосая Красотка"
 	desc = "На плакате изображена крайне сексуальная девушка.\nВнизу подпись: Фотография сделана Аскетом."
 	icon_state = "poster1_secret"
+
+
+
 
 #undef PLACE_SPEED

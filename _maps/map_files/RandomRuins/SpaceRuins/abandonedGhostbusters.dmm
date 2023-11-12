@@ -67,11 +67,11 @@
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "gE" = (
-/obj/structure/sign/poster/official/do_not_question,
 /obj/structure/falsewall/mineral_ancient{
 	desc = "Эта стена из крепкого камня выглядит так, как будто ее можно сдвинуть";
 	name = "Подозрительная стена из камня"
 	},
+/obj/structure/sign/poster/contraband/ghostbusters_poster,
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "gU" = (
@@ -224,8 +224,12 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/seeds/chili/ghost{
-	pixel_x = -4;
-	pixel_y = 3
+	pixel_x = -6;
+	pixel_y = -1
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	pixel_y = 3;
+	pixel_x = 7
 	},
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
@@ -391,10 +395,10 @@
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "Mc" = (
-/obj/structure/sign/poster/official/tsf_emblem{
-	pixel_x = -31
+/obj/structure/sign/poster/contraband/ghostbusters_poster,
+/turf/simulated/wall/indestructible/boss/see_through{
+	opacity = 1
 	},
-/turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "Mo" = (
 /obj/structure/rack{
@@ -613,7 +617,7 @@ KV
 KV
 KV
 KV
-KV
+Mc
 KV
 KV
 KV
@@ -630,7 +634,7 @@ Lj
 ky
 sB
 TT
-Mc
+tW
 Vl
 KV
 KV
