@@ -12,9 +12,9 @@
 	var/icon_floor_type = null
 
 /obj/structure/pit/attackby(obj/item/W, mob/user)
-	if( istype(W,/obj/item/shovel) )
+	if(istype(W,/obj/item/shovel))
 		visible_message("<span class='notice'>\The [user] starts [open ? "filling" : "digging open"] \the [src]</span>")
-		if( do_after(user, 50) )
+		if(do_after(user, 5 SECONDS * W.toolspeed * gettoolspeedmod(user), target = src))
 			visible_message("<span class='notice'>\The [user] [open ? "fills" : "digs open"] \the [src]!</span>")
 			if(open)
 				close(user)
@@ -28,7 +28,7 @@
 			to_chat(user, "<span class='notice'>There's already a grave marker here.</span>")
 		else
 			visible_message("<span class='notice'>\The [user] starts making a grave marker on top of \the [src]</span>")
-			if( do_after(user, 50) )
+			if(do_after(user, 5 SECONDS * W.toolspeed * gettoolspeedmod(user), target = src))
 				visible_message("<span class='notice'>\The [user] finishes the grave marker</span>")
 				var/obj/item/stack/sheet/wood/plank = W
 				plank.use(2)
@@ -73,9 +73,8 @@
 			A.forceMove(src)
 	update_icon()
 	var/turf/simulated/turf = get_turf(src)
-	var/datum/gas_mixture/gm = turf.air
-	for(var/i, i<=7, i++) //sharing gas from enviroment into pit,had to make that in cycle so we dont share around nothing and dont die from zero pressure
-		igm.share(gm)
+	var/datum/gas_mixture/gm = turf.return_air()
+	igm = gm
 
 /obj/structure/pit/return_air()
 	if(open && loc)	//opened

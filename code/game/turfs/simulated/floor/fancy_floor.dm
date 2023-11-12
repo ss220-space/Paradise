@@ -99,10 +99,22 @@
 	if(..())
 		return
 	if(istype(C, /obj/item/shovel))
-		new /obj/item/stack/ore/glass(src, 2) //Make some sand if you shovel grass
-		to_chat(user, span_notice("You shovel the grass."))
-		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
-		make_plating()
+		if((locate(/obj/structure/pit) in src))
+			to_chat(user, span_notice("Looks like someone dug here a pit!"))
+			return FALSE
+
+		if(user.a_intent == INTENT_DISARM)
+			if(do_after(user, 40 * C.toolspeed * gettoolspeedmod(user), target = src))
+				playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
+				var/obj/structure/pit/pit = /obj/structure/pit
+				new pit(src)
+				return TRUE
+			return FALSE
+		else
+			new /obj/item/stack/ore/glass(src, 2) //Make some sand if you shovel grass
+			to_chat(user, span_notice("You shovel the grass."))
+			playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
+			make_plating()
 
 // CARPETS
 /turf/simulated/floor/carpet
