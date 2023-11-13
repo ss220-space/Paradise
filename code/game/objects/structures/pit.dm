@@ -76,6 +76,9 @@ var/processing = FALSE
 	for(var/atom/movable/A in src.loc)
 		if(!A.anchored && A != user)
 			A.forceMove(src)
+			if(ismob(A) && !processing)
+				processing = TRUE
+				START_PROCESSING(SSobj, src)
 	update_icon()
 	var/turf/simulated/turf = get_turf(src)
 	var/datum/gas_mixture/gm = turf.return_air()
