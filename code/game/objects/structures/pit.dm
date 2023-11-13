@@ -65,7 +65,7 @@ var/processing = FALSE
 		if(ismob(A) && !(/mob in src))
 			processing = FALSE
 			STOP_PROCESSING(SSobj, src)
-		
+
 	update_icon()
 	igm = src.return_air()
 
@@ -198,7 +198,7 @@ var/processing = FALSE
 /obj/structure/gravemarker/attackby(obj/item/W, mob/user)
 	if(istype(W,/obj/item/hatchet)) //просто томагавк
 		visible_message("<span class = 'warning'>\The [user] starts hacking away at \the [src] with \the [W].</span>")
-		if(!do_after(user, 30))
+		if(do_after(user, 30))
 			visible_message("<span class = 'warning'>\The [user] hacks \the [src] apart.</span>")
 			new /obj/item/stack/sheet/wood(src)
 			new /obj/item/stack/sheet/wood(src)

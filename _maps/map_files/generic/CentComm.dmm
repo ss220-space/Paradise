@@ -38292,6 +38292,8 @@
 /obj/mecha/combat/durand/rover/loaded,
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
+"sHn" = (
+)
 "sHv" = (
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 4
@@ -106036,7 +106038,7 @@ mCQ
 ruu
 gjP
 asI
-dVt
+sHn
 vxR
 wrh
 fAg

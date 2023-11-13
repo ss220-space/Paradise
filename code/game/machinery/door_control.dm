@@ -130,3 +130,26 @@
 /obj/machinery/door_control/secure/emag_act(user)
 	if(user)
 		to_chat(user, span_notice("The electronic systems in this device are far too advanced for your primitive hacking peripherals."))
+
+// hidden mimic button
+
+/obj/machinery/door_control/mimic
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "lantern"
+
+/obj/machinery/door_control/mimic/attack_hand(mob/user as mob)
+	add_fingerprint(user)
+	if(stat & (NOPOWER|BROKEN))
+		return
+
+	if(!allowed(user) && !user.can_advanced_admin_interact())
+		to_chat(user, span_warning("Access Denied."))
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+		return
+
+	use_power(5)
+	to_chat(user, span_warning("Something clicked."))
+	do_main_action(user)
+
+/obj/machinery/door_control/mimic/update_icon()
+	return
