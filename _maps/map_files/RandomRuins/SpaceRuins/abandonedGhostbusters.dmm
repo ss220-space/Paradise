@@ -19,6 +19,11 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
+"bJ" = (
+/obj/structure/lattice,
+/obj/item/pipe,
+/turf/space,
+/area/space)
 "du" = (
 /obj/structure/holosign/barrier/atmos{
 	icon_state = "phaseout"
@@ -26,6 +31,17 @@
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/wood/cherry,
 /area/space/nearstation)
+"dw" = (
+/obj/structure/lattice,
+/turf/space,
+/area/space)
+"dB" = (
+/obj/random/tool,
+/turf/space,
+/area/space/nearstation)
+"dI" = (
+/turf/simulated/mineral/random/high_chance,
+/area/space)
 "fj" = (
 /obj/effect/decal/remains/human{
 	pixel_y = 5;
@@ -43,6 +59,13 @@
 "fs" = (
 /turf/simulated/floor/wood/cherry,
 /area/abandonedGhostbusters)
+"fz" = (
+/obj/structure/lattice,
+/obj/structure/disposalpipe/segment{
+	dir = 2
+	},
+/turf/space,
+/area/space)
 "fM" = (
 /obj/item/paper{
 	name = "Помятая бумага";
@@ -81,6 +104,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
+"hq" = (
+/obj/structure/falsewall/wood,
+/turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
 "hG" = (
 /obj/structure/table/wood/fancy/blue,
 /turf/simulated/floor/carpet/black,
@@ -89,10 +116,6 @@
 /obj/structure/chair/sofa/corp/left{
 	dir = 1
 	},
-/turf/simulated/floor/carpet/black,
-/area/abandonedGhostbusters)
-"iy" = (
-/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "iA" = (
@@ -119,6 +142,11 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
+"iX" = (
+/obj/structure/lattice,
+/obj/structure/disposalpipe/segment,
+/turf/space,
+/area/space/nearstation)
 "jb" = (
 /obj/structure/chair/stool/bar/dark{
 	pixel_x = 1;
@@ -127,6 +155,23 @@
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
+"jh" = (
+/obj/effect/decal/remains/robot,
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
+"jo" = (
+/obj/structure/lattice,
+/obj/structure/cable,
+/turf/space,
+/area/space/nearstation)
+"jq" = (
+/obj/structure/lattice,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 8
+	},
+/turf/space,
+/area/abandonedGhostbusters)
 "jv" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/chair/sofa/corp{
@@ -134,6 +179,12 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
+"jK" = (
+/obj/structure/cable,
+/obj/structure/lattice,
+/obj/machinery/computer/rdconsole/mechanics,
+/turf/space,
+/area/space)
 "jO" = (
 /obj/structure/lattice,
 /turf/simulated/wall/indestructible/boss/see_through{
@@ -150,6 +201,20 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
+"ll" = (
+/obj/structure/lattice,
+/obj/item/pipe{
+	dir = 9
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/space,
+/area/space)
+"lu" = (
+/obj/item/shard,
+/turf/simulated/floor/mineral,
+/area/space/nearstation)
 "lM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/sofa/corp/right{
@@ -157,6 +222,17 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
+"mz" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 9
+	},
+/turf/simulated/mineral,
+/area/space/nearstation)
+"mK" = (
+/obj/structure/lattice,
+/obj/item/storage/toolbox,
+/turf/space,
+/area/space/nearstation)
 "mW" = (
 /obj/effect/spawner/window{
 	color = "gray"
@@ -168,6 +244,15 @@
 /obj/item/reagent_containers/food/drinks/coffee,
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
+"nO" = (
+/obj/structure/lattice,
+/obj/item/shard,
+/turf/space,
+/area/space)
+"nT" = (
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "oQ" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/camera/spooky{
@@ -186,6 +271,11 @@
 	icon_state = "wood-broken3"
 	},
 /area/space/nearstation)
+"oU" = (
+/obj/structure/lattice,
+/obj/structure/lattice,
+/turf/simulated/mineral,
+/area/space/nearstation)
 "qy" = (
 /obj/item/nullrod/salt{
 	pixel_x = 1;
@@ -198,13 +288,14 @@
 	},
 /area/abandonedGhostbusters)
 "qE" = (
-/turf/space,
+/turf/simulated/mineral/random/volcanic/hard/double/high_chance,
 /area/space/nearstation)
 "qS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/sofa/corp{
 	dir = 1
 	},
+/obj/structure/lattice,
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "rl" = (
@@ -222,6 +313,10 @@
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/wood/cherry,
 /area/abandonedGhostbusters)
+"tF" = (
+/obj/structure/lattice,
+/turf/simulated/mineral,
+/area/space/nearstation)
 "tW" = (
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
@@ -238,10 +333,22 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
+"uK" = (
+/obj/effect/spawner/random_barrier,
+/turf/space,
+/area/space/nearstation)
 "vj" = (
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/abandonedGhostbusters)
+"vl" = (
+/obj/item/reagent_containers/food/snacks/ectoplasm{
+	color = "green";
+	pixel_x = -1;
+	pixel_y = 4
+	},
+/turf/space,
+/area/space/nearstation)
 "vT" = (
 /obj/item/trash/tastybread{
 	pixel_x = -7;
@@ -278,6 +385,21 @@
 	},
 /turf/simulated/floor/wood/cherry,
 /area/abandonedGhostbusters)
+"xK" = (
+/turf/simulated/mineral,
+/area/space)
+"yv" = (
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space)
+"yA" = (
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space/nearstation)
+"zg" = (
+/obj/structure/lattice,
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/structure/cable/blue,
+/turf/space,
+/area/space/nearstation)
 "zw" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/reagent_containers/food/snacks/grown/ghost_chili{
@@ -290,11 +412,24 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
+"zZ" = (
+/obj/structure/spacepod_frame,
+/obj/structure/cable,
+/obj/structure/lattice,
+/turf/space,
+/area/space)
 "Ag" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/ants,
 /turf/simulated/floor/wood/cherry,
 /area/abandonedGhostbusters)
+"Al" = (
+/obj/structure/lattice,
+/turf/simulated/mineral,
+/area/abandonedGhostbusters)
+"AG" = (
+/turf/simulated/wall/mineral/sandstone,
+/area/space)
 "Bt" = (
 /obj/structure/rack{
 	dir = 8;
@@ -310,6 +445,15 @@
 /obj/item/candle/eternal,
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
+"Cs" = (
+/obj/effect/spawner/random_barrier/obstruction,
+/turf/space,
+/area/space)
+"CA" = (
+/obj/structure/lattice,
+/obj/machinery/atmospherics/pipe/simple/hidden/universal,
+/turf/space,
+/area/space/nearstation)
 "CH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/random,
@@ -326,6 +470,31 @@
 	},
 /turf/simulated/floor/wood/cherry,
 /area/abandonedGhostbusters)
+"DS" = (
+/turf/simulated/mineral,
+/area/space/nearstation)
+"EC" = (
+/obj/effect/decal/remains/mouse,
+/turf/space,
+/area/space)
+"ED" = (
+/obj/effect/spawner/lootdrop/maintenance{
+	pixel_y = 3;
+	pixel_x = 7
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/step_trigger/sound_effect/explosion_far{
+	sound = list('sound/effects/ghostWrench.ogg');
+	name = "ghostWrench";
+	color = "green";
+	icon_state = "heart"
+	},
+/obj/effect/decal/cleanable/confetti,
+/turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
+"Fj" = (
+/turf/simulated/mineral/random/volcanic/hard/double/high_chance,
+/area/space)
 "Fo" = (
 /turf/simulated/wall/indestructible/wood,
 /area/abandonedGhostbusters)
@@ -333,6 +502,14 @@
 /obj/item/broken_bottle,
 /turf/simulated/floor/wood/cherry,
 /area/abandonedGhostbusters)
+"FO" = (
+/obj/item/trash/semki,
+/turf/space,
+/area/space)
+"GS" = (
+/obj/structure/cable,
+/turf/simulated/floor/mineral,
+/area/space)
 "Hn" = (
 /obj/structure/table_frame/wood,
 /obj/item/stack/sheet/wood,
@@ -359,6 +536,33 @@
 	icon_state = "wood-broken"
 	},
 /area/abandonedGhostbusters)
+"Ia" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
+"It" = (
+/obj/item/shard,
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
+"IX" = (
+/obj/structure/lattice,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
+	},
+/obj/structure/cable/blue,
+/turf/space,
+/area/abandonedGhostbusters)
+"Jk" = (
+/obj/structure/lattice,
+/obj/structure/cable,
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "north bump";
+	pixel_y = 26
+	},
+/turf/space,
+/area/space/nearstation)
 "Ju" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	pixel_x = -1;
@@ -378,6 +582,11 @@
 	},
 /turf/simulated/floor/wood/cherry,
 /area/abandonedGhostbusters)
+"Ky" = (
+/obj/structure/lattice,
+/obj/item/trash/waffles,
+/turf/space,
+/area/space/nearstation)
 "KJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/tracks{
@@ -398,12 +607,15 @@
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
+"LP" = (
+/obj/structure/disposalpipe/trunk,
+/turf/space,
+/area/space)
 "Mc" = (
-/obj/structure/sign/poster/contraband/ghostbusters_poster,
-/turf/simulated/wall/indestructible/boss/see_through{
-	opacity = 1
-	},
-/area/abandonedGhostbusters)
+/obj/structure/lattice,
+/obj/item/stack/cable_coil,
+/turf/space,
+/area/space/nearstation)
 "Mo" = (
 /obj/structure/rack{
 	dir = 8;
@@ -431,6 +643,13 @@
 /obj/item/chair/wood,
 /turf/simulated/floor/wood/cherry,
 /area/abandonedGhostbusters)
+"Ou" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/contraband/ghostbusters_poster{
+	pixel_x = -32
+	},
+/turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
 "OG" = (
 /obj/structure/closet/cabinet,
 /obj/effect/decal/cleanable/egg_smudge,
@@ -445,6 +664,9 @@
 	icon_state = "wood-broken"
 	},
 /area/abandonedGhostbusters)
+"Pt" = (
+/turf/simulated/floor/mineral,
+/area/space/nearstation)
 "PR" = (
 /obj/item/trash/tray{
 	pixel_y = 3
@@ -468,6 +690,19 @@
 /obj/structure/table/holotable/wood,
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
+"Qx" = (
+/obj/structure/lattice/catwalk,
+/obj/item/pipe,
+/turf/space,
+/area/space)
+"QF" = (
+/obj/structure/lattice,
+/obj/item/pickaxe,
+/turf/space,
+/area/space)
+"RI" = (
+/turf/simulated/mineral/random/high_chance,
+/area/space/nearstation)
 "Sq" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/closet/wardrobe{
@@ -514,6 +749,11 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"Um" = (
+/obj/item/pipe,
+/obj/structure/lattice,
+/turf/space,
+/area/space)
 "Vl" = (
 /obj/item/decorations/sticky_decorations/flammable/ghost,
 /obj/structure/sign/poster/official/the_owl{
@@ -550,6 +790,11 @@
 /obj/structure/sign/poster/ripped,
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
+"YR" = (
+/obj/structure/lattice,
+/obj/effect/spawner/random_barrier/obstruction,
+/turf/space,
+/area/space)
 "YX" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/item/reagent_containers/food/snacks/ectoplasm,
@@ -577,97 +822,82 @@
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
-"Zv" = (
-/obj/effect/spawner/lootdrop/maintenance{
-	pixel_y = 3;
-	pixel_x = 7
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/step_trigger/sound_effect/explosion_far{
-	sound = list('sound/effects/ghostWrench.ogg');
-	name = "ghostWrench";
-	color = "green";
-	icon_state = "heart"
-	},
-/obj/effect/decal/cleanable/confetti,
-/turf/simulated/floor/carpet/black,
-/area/abandonedGhostbusters)
-"ZZ" = (
-/obj/structure/falsewall/wood,
-/turf/simulated/floor/carpet/black,
-/area/abandonedGhostbusters)
+"ZT" = (
+/obj/item/shard,
+/turf/space,
+/area/space/nearstation)
 
 (1,1,1) = {"
 Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
+nO
+xK
+yv
+yv
+dw
+Cs
+AG
+dw
+xK
+dI
+GS
+zZ
+jK
+mK
 "}
 (2,1,1) = {"
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
+Fj
+nT
+yA
+RI
+RI
+RI
+Ky
+oU
+tF
+nT
+RI
+It
+Pt
+lu
+nT
 "}
 (3,1,1) = {"
-Hq
-Hq
+xK
+zg
+IX
+KV
+KV
+KV
+KV
+KV
+KV
+KV
+KV
+KV
 jO
-KV
-KV
-KV
-KV
-KV
-Mc
-KV
-KV
-KV
-jO
-KV
-Hq
+Al
+nT
 "}
 (4,1,1) = {"
-Hq
-Hq
+xK
+qE
 KV
 KV
 Lj
 ky
 sB
 TT
-gU
+Ou
 Vl
-iy
-ZZ
-Zv
+Ia
+hq
+ED
 KV
-Hq
+yv
 "}
 (5,1,1) = {"
-Hq
-Hq
+dI
+RI
 KV
 oQ
 gU
@@ -680,11 +910,11 @@ Fo
 Fo
 Fo
 KV
-Hq
+dI
 "}
 (6,1,1) = {"
-Hq
-Hq
+yv
+DS
 KV
 zw
 vj
@@ -700,8 +930,8 @@ Ua
 qE
 "}
 (7,1,1) = {"
-Hq
-Hq
+dw
+ZT
 KV
 qy
 Cn
@@ -714,11 +944,11 @@ jX
 VP
 oR
 KV
-Hq
+DS
 "}
 (8,1,1) = {"
-Hq
-Hq
+fz
+iX
 KV
 vY
 fj
@@ -731,11 +961,11 @@ Ag
 vT
 fs
 KV
-Hq
+DS
 "}
 (9,1,1) = {"
-Hq
-Hq
+QF
+DS
 KV
 Wr
 Cn
@@ -748,11 +978,11 @@ FG
 Kg
 wN
 KV
-Hq
+yA
 "}
 (10,1,1) = {"
-Hq
-Hq
+xK
+DS
 KV
 hG
 tW
@@ -765,11 +995,11 @@ Fo
 Fo
 Fo
 KV
-Hq
+nT
 "}
 (11,1,1) = {"
-Hq
-Hq
+yv
+RI
 KV
 HL
 gU
@@ -782,11 +1012,11 @@ mW
 iA
 Bt
 KV
-Hq
+RI
 "}
 (12,1,1) = {"
-Hq
-Hq
+yv
+DS
 KV
 KV
 jb
@@ -799,12 +1029,12 @@ mW
 YX
 Mo
 KV
-Hq
+yA
 "}
 (13,1,1) = {"
-Hq
-Hq
-jO
+yv
+Mc
+jq
 KV
 KV
 KV
@@ -815,40 +1045,40 @@ KV
 KV
 KV
 jO
-KV
-Hq
+nT
+nT
 "}
 (14,1,1) = {"
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
+YR
+CA
+mz
+RI
+jo
+Jk
+DS
+jh
+yA
+RI
+RI
+RI
+vl
+uK
+dB
 "}
 (15,1,1) = {"
 Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
-Hq
+LP
+dI
+xK
+EC
+bJ
+xK
+Um
+yv
+Qx
+bJ
+ll
+dI
+FO
+yv
 "}
