@@ -10,6 +10,7 @@
 	var/datum/gas_mixture/igm = new //inside gas mixture
 	var/open = 1
 	var/icon_floor_type = null
+var/processing = FALSE
 
 /obj/structure/pit/attackby(obj/item/W, mob/user)
 	if(istype(W,/obj/item/shovel))
