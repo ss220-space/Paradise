@@ -10,7 +10,7 @@
 	var/datum/gas_mixture/igm = new //inside gas mixture
 	var/open = 1
 	var/icon_floor_type = null
-var/processing = FALSE
+	var/pit_processing = FALSE
 
 /obj/structure/pit/attackby(obj/item/W, mob/user)
 	if(istype(W,/obj/item/shovel))
@@ -63,7 +63,7 @@ var/processing = FALSE
 	for(var/atom/movable/A in src)
 		A.forceMove(src.loc)
 		if(ismob(A) && !(/mob in src))
-			processing = FALSE
+			pit_processing = FALSE
 			STOP_PROCESSING(SSobj, src)
 
 	update_icon()
@@ -76,8 +76,8 @@ var/processing = FALSE
 	for(var/atom/movable/A in src.loc)
 		if(!A.anchored && A != user)
 			A.forceMove(src)
-			if(ismob(A) && !processing)
-				processing = TRUE
+			if(ismob(A) && !pit_processing)
+				pit_processing = TRUE
 				START_PROCESSING(SSobj, src)
 	update_icon()
 	var/turf/simulated/turf = get_turf(src)
