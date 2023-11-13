@@ -86,7 +86,7 @@ var/processing = FALSE
 
 /obj/structure/pit/process()
 	for(var/mob/living/M in src)
-		M.SetEyeBlind(2 SECONDS)
+		M.SetEyeBlind(4 SECONDS)
 		M.adjustOxyLoss(rand(4,8))
 
 /obj/structure/pit/return_air()
