@@ -56,8 +56,8 @@
 /obj/machinery/door/airlock/wood{
 	id_tag = "devil_left";
 	security_level = 6;
-	boltDown = '';
-	boltUp = ''
+	boltDown = null;
+	boltUp = null
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
@@ -529,8 +529,8 @@
 /obj/machinery/door/airlock/wood{
 	id_tag = "devil_right";
 	security_level = 6;
-	boltDown = '';
-	boltUp = ''
+	boltDown = null;
+	boltUp = null
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
@@ -1442,8 +1442,8 @@
 /obj/machinery/door/airlock/wood{
 	id_tag = "devil_right";
 	security_level = 6;
-	boltDown = '';
-	boltUp = ''
+	boltDown = null;
+	boltUp = null
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1797,8 +1797,8 @@
 /obj/machinery/door/airlock/wood{
 	id_tag = "devil_left";
 	security_level = 6;
-	boltDown = '';
-	boltUp = ''
+	boltDown = null;
+	boltUp = null
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"
@@ -1873,9 +1873,9 @@
 /obj/machinery/door/airlock/wood{
 	security_level = 6;
 	req_access = list(666);
-	doorClose = '';
-	doorDeni = '';
-	doorOpen = ''
+	doorClose = null;
+	doorDeni = null;
+	doorOpen = null
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
