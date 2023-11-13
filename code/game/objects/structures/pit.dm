@@ -84,6 +84,11 @@ var/processing = FALSE
 	var/datum/gas_mixture/gm = turf.return_air()
 	igm = gm
 
+/obj/structure/pit/process()
+	for(var/mob/living/M in src)
+		M.SetEyeBlind(2 SECONDS)
+		M.adjustOxyLoss(rand(4,8))
+
 /obj/structure/pit/return_air()
 	if(open && loc)	//opened
 		return loc.return_air()
