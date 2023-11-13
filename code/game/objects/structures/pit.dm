@@ -62,6 +62,10 @@ var/processing = FALSE
 	open = 1
 	for(var/atom/movable/A in src)
 		A.forceMove(src.loc)
+		if(ismob(A) && !(/mob in src))
+			processing = FALSE
+			STOP_PROCESSING(SSobj, src)
+		
 	update_icon()
 	igm = src.return_air()
 
