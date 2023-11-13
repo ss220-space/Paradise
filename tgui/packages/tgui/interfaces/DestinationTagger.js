@@ -10,6 +10,8 @@ export const DestinationTagger = (_props, context) => {
         return <DestinationTaggerStation />;
       case 1:
         return <DestinationTaggerCC />;
+      case 2:
+        return <DestinationTaggerCC iscorp={true}/>;
     }
   };
   return (
@@ -28,6 +30,12 @@ export const DestinationTagger = (_props, context) => {
               selected={1 === tabIndex}
               onClick={() => setTabIndex(1)}>
               CC Taggers
+            </Tabs.Tab>
+            <Tabs.Tab
+              key="Corp Taggers"
+              selected={2 === tabIndex}
+              onClick={() => setTabIndex(2)}>
+              Corp Taggers
             </Tabs.Tab>
           </Tabs>
           {decideTab(tabIndex)}

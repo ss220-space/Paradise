@@ -425,7 +425,7 @@
 				SO.comment = "No comment."
 			var/pack_techs
 			for(var/tech_id in SO.object.required_tech)
-				pack_techs += "[CallTechName(tech_id)]: [SO.object.required_tech[tech_id]]  "
+				pack_techs += "[CallTechName(tech_id)]: [SO.object.required_tech[tech_id]];  "
 			requests_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "comment" = SO.comment, "command1" = list("confirmorder" = SO.ordernum), "command2" = list("rreq" = SO.ordernum), "pack_techs" = pack_techs)))
 	data["requests"] = requests_list
 
@@ -620,6 +620,8 @@
 
 #define NUMBER_OF_CC_QUEST 8
 #define NUMBER_OF_CORP_QUEST 4
+#define PRINT_COOLDOWN 10 SECONDS
+
 
 /obj/machinery/computer/supplyquest
 	name = "Supply Request Console"
@@ -632,6 +634,8 @@
 	var/for_active_quests = FALSE
 	/// Parent object this console is assigned to. Used for QM tablet
 	var/atom/movable/parent
+	/// Prevent print spam
+	var/print_delayed
 
 /obj/machinery/computer/supplyquest/ui_host()
 	return parent ? parent : src
@@ -675,7 +679,7 @@
 
 /obj/machinery/computer/supplyquest/attack_hand(mob/user)
 	if(!allowed(user) && !isobserver(user))
-		to_chat(user, span_warning("Access denied"))
+		to_chat(user, span_warning("Access denied."))
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return TRUE
 
@@ -766,6 +770,8 @@
 				quest.idrank = H.get_assignment()
 			else if(issilicon(user))
 				quest.idname = user.real_name
+			quest.order_date = GLOB.current_date_string
+			quest.order_time = station_time_timestamp()
 			print_order(quest)
 
 		if("denied")
@@ -777,6 +783,17 @@
 				return
 			quest.quest_expired(reroll = TRUE)
 
+		if("print_order")
+			if(print_delayed)
+				return FALSE
+			var/datum/cargo_quests_storage/quest = locateUID(params["uid"])
+			if(!istype(quest))
+				return FALSE
+			print_delayed = TRUE
+			print_order(quest)
+			addtimer(VARSET_CALLBACK(src, print_delayed, FALSE), PRINT_COOLDOWN)
+
+
 /obj/machinery/computer/supplyquest/proc/print_order(datum/cargo_quests_storage/quest)
 
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
@@ -784,19 +801,22 @@
 	paper.info = "<div id=\"output\"><center> <h3> Supply request form </h3> </center><br><hr><br>"
 	paper.info += "Requestor department: [quest.target_departament]<br>"
 	paper.info += "Supply request accepted by: [quest.idname] - [quest.idrank]<br>"
-	paper.info += "Time of print: [GLOB.current_date_string]  [station_time_timestamp()]<br>"
+	paper.info += "Order acceptance time: [quest.order_date]  [quest.order_time]<br>"
 	paper.info += "<ul> <h3> Order List</h3>"
 	for(var/datum/cargo_quest/cargo_quest in quest.current_quests)
 		paper.info += "<li>[cargo_quest.desc]</li>"
 
 	paper.info += "</ul><br><span class=\"large-text\"> Initial reward: [quest.reward]</span><br>"
 	paper.info += "<br><hr><br><span class=\"small-text\">This paper has been stamped by the [station_name()] </span><br></div>"
+	var/obj/item/stamp/navcom/stamp = new()
+	paper.stamp(stamp)
 	paper.update_icon()
 	paper.name = "Supply request form"
 
 
 #undef NUMBER_OF_CC_QUEST
 #undef NUMBER_OF_CORP_QUEST
+#undef PRINT_COOLDOWN
 
 /obj/machinery/computer/supplyquest/workers
 	name = "Supply Request Monitor"
@@ -805,6 +825,7 @@
 	icon_screen = "quest"
 	icon_keyboard = null
 	for_active_quests = TRUE
+	circuit = /obj/item/circuitboard/questcons
 	req_access = list(ACCESS_CARGO)
 
 
@@ -816,8 +837,13 @@
 	GLOB.cargo_announcers -= src
 	..()
 
-/obj/machinery/computer/supplyquest/workers/proc/print_report(datum/cargo_quests_storage/quest, complete, list/modificators = list(), old_reward)
+/obj/machinery/computer/supplyquest/workers/print_order(datum/cargo_quests_storage/quest)
+	. = ..()
+	print_animation()
 
+/obj/machinery/computer/supplyquest/workers/proc/print_report(datum/cargo_quests_storage/quest, complete, list/modificators = list(), old_reward)
+	if(stat & (NOPOWER|BROKEN))
+		return
 	var/obj/item/paper/paper = new(get_turf(src))
 
 	paper.info = "<div id=\"output\"><center> <h3> Shipment records </h3> </center><br><hr><br>"
@@ -828,7 +854,7 @@
 	for(var/datum/cargo_quest/cargo_quest in quest.current_quests)
 		paper.info += "<li>[cargo_quest.desc]</li>"
 
-	paper.info += "</ul><br><span class=\"large-text\"> Initial reward: [old_reward]</span><br>"
+	paper.info += "</ul><br><span class=\"large-text\"> Initial reward: [quest.customer == "corporation" ? old_reward * 10 + " credits" : old_reward]</span><br>"
 	paper.info += "Fines: <br><i>"
 	if(modificators["departure_mismatch"])
 		paper.info += "departure mismatch (-20%)<br>"
@@ -847,10 +873,14 @@
 		paper.info += "- none <br>"
 	paper.info += "</i><br><span class=\"large-text\"> Total reward: [complete ? quest.reward : "0"]</span><br>"
 	paper.info += "<br><hr><br><span class=\"small-text\">This paper has been stamped by the [station_name()] </span><br></div>"
-
+	var/obj/item/stamp/navcom/stamp = new()
+	paper.stamp(stamp)
 	paper.update_icon()
 	paper.name = "Shipment records"
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+	print_animation()
+
+/obj/machinery/computer/supplyquest/workers/proc/print_animation()
 	add_overlay(image(icon, icon_state = "print_quest_overlay", layer = overlay_layer))
 	addtimer(CALLBACK(src, PROC_REF(update_icon)), 3 SECONDS)
 

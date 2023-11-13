@@ -44,7 +44,7 @@
 
 /datum/cargo_quest/reagents/proc/update_desc(reagent_id, volume)
 	var/datum/reagent/reagent = GLOB.chemical_reagents_list[reagent_id]
-	desc += "[capitalize(format_text(initial(reagent.name)))], volume: [volume] <br>"
+	desc += "[capitalize(format_text(initial(reagent.name)))],<br> volume: [volume] <br>"
 
 /datum/cargo_quest/reagents/check_required_item(atom/movable/check_item)
 	if(!length(required_reagents))

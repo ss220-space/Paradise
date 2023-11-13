@@ -1,48 +1,65 @@
+
+#define MAX_ICON_STATES_FOR_NOTICES 12
+
 /obj/structure/noticeboard
 	name = "notice board"
 	desc = "A board for pinning important notices upon."
 	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "nboard00"
+	icon_state = "nboard"
 	density = 0
 	anchored = 1
 	max_integrity = 150
 	var/notices = 0
 
 /obj/structure/noticeboard/Initialize()
+	. = ..()
+	for(var/obj/item/paper/paper in loc)
+		paper.loc = src
+		notices++
+	update_icon()
+
+/obj/structure/noticeboard/update_icon()
 	..()
-	for(var/obj/item/I in loc)
-		if(notices > 4) break
-		if(istype(I, /obj/item/paper))
-			I.loc = src
-			notices++
-	icon_state = "nboard0[notices]"
+	cut_overlays()
+	for(var/I in 1 to notices)
+		if(I > MAX_ICON_STATES_FOR_NOTICES)
+			break
+		add_overlay(image(src.icon, icon_state = "[src.icon_state][I]"))
 
 //attaching papers!!
-/obj/structure/noticeboard/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(istype(O, /obj/item/paper))
-		if(notices < 5)
-			O.add_fingerprint(user)
-			add_fingerprint(user)
-			user.drop_transfer_item_to_loc(O, src)
-			notices++
-			icon_state = "nboard0[notices]"	//update sprite
-			to_chat(user, "<span class='notice'>You pin the paper to the noticeboard.</span>")
-		else
-			to_chat(user, "<span class='notice'>You reach to pin your paper to the board but hesitate. You are certain your paper will not be seen among the many others already attached.</span>")
+/obj/structure/noticeboard/attackby(obj/item/item, mob/user, params)
+	if(istype(item, /obj/item/paper))
+		item.add_fingerprint(user)
+		add_fingerprint(user)
+		user.drop_transfer_item_to_loc(item, src)
+		notices++
+		update_icon()
+		to_chat(user, span_notice("You pin the paper to the noticeboard."))
 		return
 	return ..()
 
-/obj/structure/noticeboard/attack_hand(user as mob)
+/obj/structure/noticeboard/attack_hand(mob/user)
 	add_fingerprint(user)
 	var/dat = {"<meta charset="UTF-8"><B>Noticeboard</B><BR>"}
+	var/uid = UID()
 	for(var/obj/item/paper/P in src)
-		dat += "<A href='?src=[UID()];read=\ref[P]'>[P.name]</A> <A href='?src=[UID()];write=\ref[P]'>Write</A> <A href='?src=[UID()];remove=\ref[P]'>Remove</A><BR>"
+		dat += "<A href='?src=[uid];read=\ref[P]'>[P.name]</A> <A href='?src=[uid];write=\ref[P]'>Write</A> <A href='?src=[uid];remove=\ref[P]'>Remove</A><BR>"
 	user << browse({"<meta charset="UTF-8"><HEAD><TITLE>Notices</TITLE></HEAD>[dat]"},"window=noticeboard")
 	onclose(user, "noticeboard")
 
+/obj/structure/noticeboard/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	to_chat(user, "You unfasten [src.name] with [I].")
+	new /obj/item/noticeboard(src.loc)
+	for(var/obj/item/paper/paper in src)
+		paper.loc = get_turf(src)
+	qdel(src)
+
 /obj/structure/noticeboard/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
-		new /obj/item/stack/sheet/metal (loc, 1)
+		new /obj/item/stack/sheet/wood(loc, 5)
 	qdel(src)
 
 /obj/structure/noticeboard/Topic(href, href_list)
@@ -57,7 +74,7 @@
 			P.add_fingerprint(usr)
 			add_fingerprint(usr)
 			notices--
-			icon_state = "nboard0[notices]"
+			update_icon()
 
 	if(href_list["write"])
 		if((usr.stat || usr.restrained())) //For when a player is handcuffed while they have the notice window open
@@ -80,3 +97,34 @@
 		if((P && P.loc == src))
 			P.show_content(usr)
 	return
+
+/obj/item/noticeboard
+	name = "notice board"
+	desc = "A board for pinning important notices upon."
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "nboard"
+	resistance_flags = FLAMMABLE
+
+/obj/item/noticeboard/screwdriver_act(mob/living/user, obj/item/I)
+	if(!isturf(user.loc))
+		return
+	var/direction = input("In which direction?", "Select direction.") in list("North", "East", "South", "West", "Cancel")
+	if(direction == "Cancel")
+		return
+	if(QDELETED(src))
+		return
+	if(!isturf(user.loc))
+		return
+	var/obj/structure/noticeboard/noticeboard = new(user.loc)
+	switch(direction)
+		if("North")
+			noticeboard.pixel_y = 32
+		if("East")
+			noticeboard.pixel_x = 32
+		if("South")
+			noticeboard.pixel_y = -32
+		if("West")
+			noticeboard.pixel_x = -32
+	src.transfer_fingerprints_to(noticeboard)
+	to_chat(user, span_notice("You fasten \the [noticeboard] with your [I]."))
+	qdel(src)

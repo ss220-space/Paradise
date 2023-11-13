@@ -322,8 +322,12 @@
 			"id"   = destination_index,
 		)
 		static_data["destinations"] += list(destination_data)
-	for(var/departament_name in GLOB.centcomm_departaments)
+	for(var/departament_name in (GLOB.centcomm_departaments - GLOB.corporations))
 		static_data["centcom_destinations"] += list(list(
+			"name" = departament_name,
+		))
+	for(var/departament_name in GLOB.corporations)
+		static_data["corporations"] += list(list(
 			"name" = departament_name,
 		))
 	return static_data

@@ -211,9 +211,16 @@ const QuestItem = (properties, context) => {
               ) : (
                 <Box
                   position="absolute" top="50%" left="50%"
-                  bold fontSize={1.3} textAlign="center"
+                  textAlign="center"
                   style={{ 'z-index': '2', 'transform': 'translate(-50%, -50%)' }}>
-                  The order is already being processed
+                  <Box bold fontSize={1.3}>The order is already being processed</Box>
+                  <Button
+                    mt={2}
+                    icon="print" color="blue"
+                    fontSize={1.2} py={1} px={2}
+                    onClick={() => act('print_order', { uid: quest.ref })}>
+                    Print
+                </Button>
                 </Box>
               )
           }

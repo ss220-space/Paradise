@@ -6,6 +6,7 @@
 	var/list/normal_items
 	var/list/hard_items
 	var/list/very_hard_items
+	var/unique_things = FALSE
 
 /datum/cargo_quest/thing/generate_goal(difficultly, request_obj, target_reward)
 	if(request_obj)
@@ -13,21 +14,24 @@
 		q_storage.reward += target_reward
 		return
 
-	var/obj/generated_item
+	var/list/difficult_list
 	switch(difficultly)
 		if(QUEST_DIFFICULTY_EASY)
-			generated_item = pick(easy_items)
-			q_storage.reward += easy_items[generated_item]
-		if(QUEST_DIFFICULTY_NORMAL)
-			generated_item = pick(normal_items)
-			q_storage.reward += normal_items[generated_item]
-		if(QUEST_DIFFICULTY_HARD)
-			generated_item = pick(hard_items)
-			q_storage.reward += hard_items[generated_item]
-		if(QUEST_DIFFICULTY_VERY_HARD)
-			generated_item = pick(very_hard_items)
-			q_storage.reward += very_hard_items[generated_item]
+			difficult_list = easy_items
 
+		if(QUEST_DIFFICULTY_NORMAL)
+			difficult_list = normal_items
+
+		if(QUEST_DIFFICULTY_HARD)
+			difficult_list = hard_items
+
+		if(QUEST_DIFFICULTY_VERY_HARD)
+			difficult_list = very_hard_items
+
+	var/obj/generated_item = pick(difficult_list)
+	q_storage.reward += difficult_list[generated_item]
+	if(unique_things)
+		difficult_list.Remove(generated_item)
 	req_items += generated_item
 
 	desc += "[capitalize(format_text(initial(generated_item.name)))] <br>"
@@ -39,8 +43,12 @@
 
 	for(var/our_item in req_items)
 		var/obj/obj = our_item
-		new_interface_icons += initial(obj.icon)
-		new_interface_icon_states += initial(obj.icon_state)
+		if(initial(obj.icon) && initial(obj.icon_state))
+			new_interface_icons += initial(obj.icon)
+			new_interface_icon_states += initial(obj.icon_state)
+		else
+			new_interface_icons += 'icons/obj/storage.dmi'
+			new_interface_icon_states += "box"
 
 	interface_icons = new_interface_icons
 	interface_icon_states = new_interface_icon_states
@@ -153,6 +161,7 @@
 
 /datum/cargo_quest/thing/miner
 	quest_type_name = "Shaft Miner Loot"
+	unique_things = TRUE
 	easy_items = list(
 		/obj/item/crusher_trophy/legion_skull = 50,
 		/obj/item/crusher_trophy/watcher_wing = 50,
@@ -216,50 +225,45 @@
 
 
 /datum/cargo_quest/thing/minerals/generate_goal(difficultly, request_obj, target_reward)
-	var/obj/item/generated_mineral
-	var/required_amount
+	var/list/difficult_list
 	switch(difficultly)
 		if(QUEST_DIFFICULTY_EASY)
-			generated_mineral = pick(easy_items)
-			q_storage.reward += easy_items[generated_mineral]["reward"]
-			required_amount = easy_items[generated_mineral]["amount"]
-			required_minerals += generated_mineral
-			required_minerals[generated_mineral] = required_amount
-			if(generated_mineral in unique_minerals)
-				easy_items.Remove(generated_mineral)
+			difficult_list = easy_items
 
 		if(QUEST_DIFFICULTY_NORMAL)
-			generated_mineral = pick(normal_items)
-			q_storage.reward += normal_items[generated_mineral]["reward"]
-			required_amount = normal_items[generated_mineral]["amount"]
-			required_minerals += generated_mineral
-			required_minerals[generated_mineral] = required_amount
-			if(generated_mineral in unique_minerals)
-				normal_items.Remove(generated_mineral)
+			difficult_list = normal_items
 
 		if(QUEST_DIFFICULTY_HARD)
-			generated_mineral = pick(hard_items)
-			q_storage.reward += hard_items[generated_mineral]["reward"]
-			required_amount = hard_items[generated_mineral]["amount"]
-			required_minerals += generated_mineral
-			required_minerals[generated_mineral] = required_amount
-			if(generated_mineral in unique_minerals)
-				hard_items.Remove(generated_mineral)
+			difficult_list = hard_items
 
-	desc += "[capitalize(format_text(initial(generated_mineral.name)))], amount: [required_amount]<br>"
+	var/obj/item/generated_mineral = pick(difficult_list)
+	q_storage.reward += difficult_list[generated_mineral]["reward"]
+	if(!required_minerals[generated_mineral])
+		required_minerals += generated_mineral
+	required_minerals[generated_mineral] += difficult_list[generated_mineral]["amount"]
+	desc += "[capitalize(format_text(initial(generated_mineral.name)))],<br>  amount: [difficult_list[generated_mineral]["amount"]]<br>"
+	if(generated_mineral in unique_minerals)
+		difficult_list.Remove(generated_mineral)
 
 /datum/cargo_quest/thing/minerals/check_required_item(atom/movable/check_item)
 	if(!length(required_minerals))
 		return FALSE
 
 	var/obj/item/stack/sheet/sheet = check_item
-
+	var/used_mineral
 	for(var/mineral in required_minerals)
 		if(istype(sheet, mineral))
-			required_minerals[mineral] -= sheet.get_amount()
-			if(required_minerals[mineral] <= 0)
+			var/used = min(sheet.get_amount(), required_minerals[mineral])
+			sheet.use(used)
+			used_mineral = TRUE
+			required_minerals[mineral] -= used
+			if(required_minerals[mineral] == 0)
 				required_minerals.Remove(mineral)
-			return TRUE
+			if(QDELETED(sheet))
+				return TRUE
+
+	if(used_mineral)
+		return TRUE
 
 /datum/cargo_quest/thing/minerals/update_interface_icon()
 	var/list/new_interface_icons = list()
@@ -274,12 +278,14 @@
 	interface_icon_states = new_interface_icon_states
 
 /datum/cargo_quest/thing/minerals/length_quest()
+	for(var/mineral in required_minerals)
+
 	return length(required_minerals)
 
 /datum/cargo_quest/thing/minerals/plasma
 	req_items = list(/obj/item/stack/sheet/mineral/plasma)
 	normal_items = list(
-		/obj/item/stack/sheet/mineral/plasma = list("reward" = 180, "amount" = 40),
+		/obj/item/stack/sheet/mineral/plasma = list("reward" = 130, "amount" = 50),
 	)
 
 /datum/cargo_quest/thing/seeds

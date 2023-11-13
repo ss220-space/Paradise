@@ -78,6 +78,10 @@
 	var/idrank = "*None Provided*"
 	///	If TRUE we can reroll this quest.
 	var/can_reroll = TRUE
+	/// Date when the order was accepted
+	var/order_date
+	/// Time when the order was accepted
+	var/order_time
 
 /datum/cargo_quests_storage/New(customer, quest_type, difficulty)
 	src.customer = customer
@@ -99,11 +103,11 @@
 	var/difficulty = rand(1, 100)
 
 	switch(difficulty)
-		if(1 to 40)
+		if(1 to 45)
 			quest_difficulty = QUEST_DIFFICULTY_EASY
-		if(36 to 66)
+		if(46 to 75)
 			quest_difficulty = QUEST_DIFFICULTY_NORMAL
-		if(67 to 92)
+		if(76 to 94)
 			quest_difficulty = QUEST_DIFFICULTY_HARD
 		else
 			quest_difficulty = QUEST_DIFFICULTY_VERY_HARD
@@ -173,7 +177,7 @@
 /datum/cargo_quests_storage/proc/after_activated()
 	if(!fast_check_timer)
 		return
-	if(world.time - time_start - 0.4 * quest_time < 120 SECONDS)
+	if(world.time - time_start - 0.4 * quest_time + 120 SECONDS >= 0)
 		deltimer(fast_check_timer)
 		fast_check_timer = addtimer(VARSET_CALLBACK(src, fast_failed, TRUE), 120 SECONDS, TIMER_STOPPABLE)
 
