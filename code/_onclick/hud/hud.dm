@@ -29,6 +29,7 @@
 	var/obj/screen/zone_select
 	var/obj/screen/move_intent
 	var/obj/screen/module_store_icon
+	var/obj/screen/combo/combo_display
 
 	var/obj/screen/devil/soul_counter/devilsouldisplay
 

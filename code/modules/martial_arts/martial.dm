@@ -4,8 +4,9 @@
 /datum/martial_art
 	var/name = "Martial Art"
 	var/streak = ""
-	var/max_streak_length = 6
+	// var/max_streak_length = 6
 	var/temporary = FALSE
+	var/owner_UID
 	/// The permanent style.
 	var/datum/martial_art/base = null
 	/// Chance to deflect projectiles while on throw mode.
@@ -30,7 +31,9 @@
 	/// What combos are currently (possibly) being performed.
 	var/list/datum/martial_art/current_combos = list()
 	/// When the last hit happened.
-	var/last_hit = 0
+	// var/last_hit = 0
+	/// Stores the timer_id for the combo timeout timer
+	var/combo_timer
 	/// If the user is preparing a martial arts stance.
 	var/in_stance = FALSE
 
@@ -56,16 +59,26 @@
 /datum/martial_art/proc/act(step, mob/living/carbon/human/user, mob/living/carbon/human/target)
 	if(!can_use(user))
 		return MARTIAL_ARTS_CANNOT_USE
+	if(combo_timer)
+		deltimer(combo_timer)
+/*
 	if(last_hit + COMBO_ALIVE_TIME < world.time)
 		reset_combos()
 	last_hit = world.time
-
+*/
+	combo_timer = addtimer(CALLBACK(src, PROC_REF(reset_combos)), COMBO_ALIVE_TIME, TIMER_UNIQUE | TIMER_STOPPABLE)
+	streak += intent_to_streak(step)
+	var/mob/living/carbon/human/owner = locateUID(owner_UID)
+	owner?.hud_used.combo_display.update_icon(ALL, streak)
 	if(HAS_COMBOS)
 		return check_combos(step, user, target)
 	return FALSE
 
 /datum/martial_art/proc/reset_combos()
 	current_combos.Cut()
+	streak = ""
+	var/mob/living/carbon/human/owner = locateUID(owner_UID)
+	owner?.hud_used.combo_display.update_icon(ALL, streak)
 	for(var/combo_type in combos)
 		current_combos.Add(new combo_type())
 
@@ -165,6 +178,7 @@
 			base = H.mind.martial_art.base
 	else
 		base = src
+	owner_UID = H.UID()
 	H.mind.martial_art = src
 
 /datum/martial_art/proc/remove(var/mob/living/carbon/human/H)
@@ -214,6 +228,17 @@
 
 /datum/martial_art/proc/try_deflect(mob/user)
 	return prob(deflection_chance)
+
+/datum/martial_art/proc/intent_to_streak(intent)
+	switch(intent)
+		if(MARTIAL_COMBO_STEP_HARM)
+			return "E" // these hands are rated E for everyone
+		if(MARTIAL_COMBO_STEP_DISARM)
+			return "D"
+		if(MARTIAL_COMBO_STEP_GRAB)
+			return "G"
+		if(MARTIAL_COMBO_STEP_HELP)
+			return "H"
 
 //ITEMS
 
@@ -469,6 +494,32 @@
 	if(wielded)
 		return ..()
 	return 0
+
+/obj/screen/combo
+	icon_state = ""
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	screen_loc = ui_combo
+	layer = ABOVE_HUD_LAYER
+	var/streak
+
+/obj/screen/combo/proc/clear_streak()
+	cut_overlays()
+	streak = ""
+	icon_state = ""
+
+/obj/screen/combo/update_icon(updates, _streak)
+	streak = _streak
+	icon_state = ""
+	if(!streak)
+		clear_streak()
+		return
+	icon_state = "combo"
+	for(var/i in 1 to length(streak))
+		var/intent_text = copytext(streak, i, i + 1)
+		var/image/intent_icon = image(icon, src, "combo_[intent_text]")
+		intent_icon.pixel_x = 16 * (i - 1) - 8 * length(streak)
+		overlays += intent_icon
+	return ..()
 
 #undef HAS_COMBOS
 #undef COMBO_ALIVE_TIME
