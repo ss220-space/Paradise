@@ -124,6 +124,7 @@
 		if(B.mind && !B.mind.special_role)
 			B.mind.make_Overmind()
 		B.is_offspring = is_offspring
+		log_game("[B.key] has become Blob [is_offspring ? "offspring" : ""]")
 
 /obj/structure/blob/core/proc/lateblobtimer()
 	addtimer(CALLBACK(src, PROC_REF(lateblobcheck)), 50)

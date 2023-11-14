@@ -690,7 +690,7 @@
 	suit = /obj/item/clothing/suit/storage/labcoat/science
 
 /obj/item/clothing/suit/space/hardsuit/syndi/damaged
-	name = "damged blood-red hardsuit"
+	name = "damaged blood-red hardsuit"
 	desc = "Damaged advanced hardsuit designed for work in special operations. There are a many patches visible on the suit. Its mode switcher system looks damaged and forced in travel mode. Property of Gorlex Marauders."
 	armor = list("melee" = 30, "bullet" = 40, "laser" = 20, "energy" = 20, "bomb" = 30, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 90)
 	w_class = WEIGHT_CLASS_NORMAL

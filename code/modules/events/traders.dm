@@ -53,7 +53,8 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 				M.mind.objectives += trader_objectives
 				M.mind.offstation_role = TRUE
 				greet_trader(M)
-				success_spawn = 1
+				log_game("[M.ckey] has become TSF trader.")
+				success_spawn = TRUE
 		if(success_spawn)
 			var/map_trader_port = 5
 			if(station_name() == "NSS Cyberiad")

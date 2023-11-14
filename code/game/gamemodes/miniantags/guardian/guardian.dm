@@ -282,9 +282,11 @@
 
 	if(candidates.len)
 		theghost = pick(candidates)
+		log_game("[user](ckey: [user.key]) has successfully spawned [guardian_type] type guardian(ckey: [theghost.key])")
 		spawn_guardian(user, theghost.key, guardian_type)
 	else
 		to_chat(user, "[failure_message]")
+		log_game("[user](ckey: [user.key]) has failed to spawn Guardian.")
 		used = FALSE
 
 /obj/item/guardiancreator/examine(mob/user, distance)
