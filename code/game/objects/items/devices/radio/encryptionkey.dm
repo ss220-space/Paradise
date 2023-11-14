@@ -211,3 +211,4 @@
 	desc = "An encryption key for a radio headset. To access special radio channel, use :y."
 	icon_state = "sov_cypherkey"
 	channels = list("Gamma wave" = 1)
+
