@@ -440,12 +440,12 @@
 		if(has_subclass)
 			. += " | Force full power: <a href='?src=[UID()];vampire=full_power_override'>[vamp.subclass.full_power_override ? "Yes" : "No"]</a>"
 			if(istype(vamp.subclass, /datum/vampire_subclass/bestia) || istype(vamp.subclass, /datum/vampire_subclass/ancient))
-				. += "<br><b>Trophies:</b><br>Hearts: <a href='?src=[UID()];vampire=edit_hearts'>[vamp.subclass.trophies["hearts"]]</a>"
-				. += " | Lungs: <a href='?src=[UID()];vampire=edit_lungs'>[vamp.subclass.trophies["lungs"]]</a>"
-				. += " | Livers: <a href='?src=[UID()];vampire=edit_livers'>[vamp.subclass.trophies["livers"]]</a>"
-				. += "<br>Kidneys: <a href='?src=[UID()];vampire=edit_kidneys'>[vamp.subclass.trophies["kidneys"]]</a>"
-				. += " | Eyes: <a href='?src=[UID()];vampire=edit_eyes'>[vamp.subclass.trophies["eyes"]]</a>"
-				. += " | Ears: <a href='?src=[UID()];vampire=edit_ears'>[vamp.subclass.trophies["ears"]]</a>"
+				. += "<br><b>Trophies:</b><br>Hearts: <a href='?src=[UID()];vampire=edit_hearts'>[vamp.subclass.trophies[INTERNAL_ORGAN_HEART]]</a>"
+				. += " | Lungs: <a href='?src=[UID()];vampire=edit_lungs'>[vamp.subclass.trophies[INTERNAL_ORGAN_LUNGS]]</a>"
+				. += " | Livers: <a href='?src=[UID()];vampire=edit_livers'>[vamp.subclass.trophies[INTERNAL_ORGAN_LIVER]]</a>"
+				. += "<br>Kidneys: <a href='?src=[UID()];vampire=edit_kidneys'>[vamp.subclass.trophies[INTERNAL_ORGAN_KIDNEYS]]</a>"
+				. += " | Eyes: <a href='?src=[UID()];vampire=edit_eyes'>[vamp.subclass.trophies[INTERNAL_ORGAN_EYES]]</a>"
+				. += " | Ears: <a href='?src=[UID()];vampire=edit_ears'>[vamp.subclass.trophies[INTERNAL_ORGAN_EARS]]</a>"
 		if(!length(vamp.objectives))
 			. += "<br>Objectives are empty! <a href='?src=[UID()];vampire=autoobjectives'>Randomize!</a>"
 	else
@@ -1756,7 +1756,7 @@
 				if(isnull(new_total))
 					return
 
-				vamp.adjust_trophies("hearts", new_total)
+				vamp.adjust_trophies(INTERNAL_ORGAN_HEART, new_total)
 				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s hearts trophies by [new_total].")
 				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s hearts trophies by [new_total].")
 
@@ -1769,7 +1769,7 @@
 				if(isnull(new_total))
 					return
 
-				vamp.adjust_trophies("lungs", new_total)
+				vamp.adjust_trophies(INTERNAL_ORGAN_LUNGS, new_total)
 				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s lungs trophies by [new_total].")
 				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s lungs trophies by [new_total].")
 
@@ -1782,7 +1782,7 @@
 				if(isnull(new_total))
 					return
 
-				vamp.adjust_trophies("livers", new_total)
+				vamp.adjust_trophies(INTERNAL_ORGAN_LIVER, new_total)
 				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s livers trophies by [new_total].")
 				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s livers trophies by [new_total].")
 
@@ -1795,7 +1795,7 @@
 				if(isnull(new_total))
 					return
 
-				vamp.adjust_trophies("kidneys", new_total)
+				vamp.adjust_trophies(INTERNAL_ORGAN_KIDNEYS, new_total)
 				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s kidneys trophies by [new_total].")
 				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s kidneys trophies by [new_total].")
 
@@ -1808,7 +1808,7 @@
 				if(isnull(new_total))
 					return
 
-				vamp.adjust_trophies("eyes", new_total)
+				vamp.adjust_trophies(INTERNAL_ORGAN_EYES, new_total)
 				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s eyes trophies by [new_total].")
 				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s eyes trophies by [new_total].")
 
@@ -1821,7 +1821,7 @@
 				if(isnull(new_total))
 					return
 
-				vamp.adjust_trophies("ears", new_total)
+				vamp.adjust_trophies(INTERNAL_ORGAN_EARS, new_total)
 				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s ears trophies by [new_total].")
 				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s ears trophies by [new_total].")
 

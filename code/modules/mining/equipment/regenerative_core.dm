@@ -24,7 +24,8 @@
 	desc = "All that remains of a hivelord. It can be used to help keep your body going, but it will rapidly decay into uselessness."
 	icon_state = "roro core 2"
 	flags = NOBLUDGEON
-	slot = "hivecore"
+	slot = INTERNAL_ORGAN_HIVECORE
+	parent_organ_zone = BODY_ZONE_CHEST
 	force = 0
 	actions_types = list(/datum/action/item_action/organ_action/use)
 	var/inert = 0
@@ -95,13 +96,13 @@
 /obj/item/organ/internal/regenerative_core/attack_self(mob/user)
 	applyto(user, user)
 
-/obj/item/organ/internal/regenerative_core/insert(mob/living/carbon/M, special = 0)
-	..()
+/obj/item/organ/internal/regenerative_core/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
 	if(!preserved && !inert)
 		preserved(TRUE)
 		owner.visible_message("<span class='notice'>[src] stabilizes as it's inserted.</span>")
 
-/obj/item/organ/internal/regenerative_core/remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/regenerative_core/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!inert && !special)
 		owner.visible_message("<span class='notice'>[src] rapidly decays as it's removed.</span>")
 		go_inert()
@@ -141,9 +142,9 @@
 /obj/item/organ/internal/legion_tumour
 	name = "legion tumour"
 	desc = "A mass of pulsing flesh and dark tendrils, containing the power to regenerate flesh at a terrible cost."
-	slot = "parasite_egg"
 	icon_state = "legion_remains"
-	parent_organ = "chest"
+	slot = INTERNAL_ORGAN_PARASITE_EGG
+	parent_organ_zone = BODY_ZONE_CHEST
 	/// What stage of growth the corruption has reached.
 	var/stage = 0
 	/// We apply this status effect periodically or when used on someone
@@ -163,9 +164,9 @@
 	)
 
 /obj/item/organ/internal/legion_tumour/remove(mob/living/carbon/egg_owner, special)
-	. = ..()
 	stage = 0
 	elapsed_time = 0
+	. = ..()
 
 /obj/item/organ/internal/legion_tumour/attack(mob/living/target, mob/living/user, params)
 	if(try_apply(target, user))

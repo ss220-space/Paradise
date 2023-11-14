@@ -7,64 +7,54 @@
 /mob/proc/get_organ_slot(slot) //is it a brain, is it a brain_tumor?
 	return
 
-/mob/proc/get_int_organ_tag(tag) //is it a brain, is it a brain_tumor?
-	return
-
-/mob/living/proc/get_organ(zone)
+/**
+ * Returns specified external organ by zone index.
+ *
+ * Arguments:
+ * * zone - bodypart index (see [combat.dm] for defines)
+ */
+/mob/proc/get_organ(zone)
 	return
 
 /mob/living/carbon/get_int_organ(typepath)
 	return (locate(typepath) in internal_organs)
 
 
-/mob/living/carbon/get_organs_zone(zone, var/subzones = 0)
+/mob/living/carbon/get_organs_zone(zone, subzones = FALSE)
 	var/list/returnorg = list()
 	if(subzones)
 		// Include subzones - groin for chest, eyes and mouth for head
 		//Fethas note:We have check_zone, i may need to remove the below
-		if(zone == "head")
-			returnorg = get_organs_zone("eyes") + get_organs_zone("mouth")
-		if(zone == "chest")
-			returnorg = get_organs_zone("groin")
+		if(zone == BODY_ZONE_HEAD)
+			returnorg = get_organs_zone(BODY_ZONE_PRECISE_EYES) + get_organs_zone(BODY_ZONE_PRECISE_MOUTH)
+		if(zone == BODY_ZONE_CHEST)
+			returnorg = get_organs_zone(BODY_ZONE_PRECISE_GROIN)
 
-	for(var/obj/item/organ/internal/O in internal_organs)
-		if(zone == O.parent_organ)
-			returnorg += O
+	for(var/obj/item/organ/internal/organ as anything in internal_organs)
+		if(zone == organ.parent_organ_zone)
+			returnorg += organ
 	return returnorg
+
 
 /mob/living/carbon/get_organ_slot(slot)
 	return internal_organs_slot[slot]
 
-/mob/living/carbon/get_int_organ_tag(tag)
-	for(var/obj/item/organ/internal/O in internal_organs)
-		if(tag == O.organ_tag)
-			return O
 
 /proc/is_int_organ(atom/A)
 	return istype(A, /obj/item/organ/internal)
-
-/mob/living/carbon/human/proc/get_limb_by_name(limb_name) //Look for a limb with the given limb name in the source mob, and return it if found.
-	for(var/obj/item/organ/external/O in bodyparts)
-		if(limb_name == O.limb_name)
-			return O
 
 
 /mob/proc/has_left_hand()
 	return TRUE
 
 /mob/living/carbon/human/has_left_hand()
-	if(has_organ("l_hand"))
-		return TRUE
-	return FALSE
-
+	return get_organ(BODY_ZONE_PRECISE_L_HAND)
 
 /mob/proc/has_right_hand()
 	return TRUE
 
 /mob/living/carbon/human/has_right_hand()
-	if(has_organ("r_hand"))
-		return TRUE
-	return FALSE
+	return get_organ(BODY_ZONE_PRECISE_R_HAND)
 
 /mob/proc/has_both_hands()
 	return TRUE
@@ -78,11 +68,11 @@
 	return FALSE
 
 /mob/living/carbon/human/l_arm_broken()
-	var/obj/item/organ/external/hand/l_hand = get_organ("l_hand")
-	var/obj/item/organ/external/arm/l_arm = get_organ("l_arm")
+	var/obj/item/organ/external/hand/l_hand = get_organ(BODY_ZONE_PRECISE_L_HAND)
+	var/obj/item/organ/external/arm/l_arm = get_organ(BODY_ZONE_L_ARM)
 	if(!l_hand || !l_arm)
-		return FALSE //Ну, не сломано ведь
-	if(l_hand.is_broken() || l_arm.is_broken())
+		return FALSE
+	if(l_hand.is_traumatized() || l_arm.is_traumatized())
 		return TRUE
 	return FALSE
 
@@ -90,11 +80,11 @@
 	return TRUE
 
 /mob/living/carbon/human/r_arm_broken()
-	var/obj/item/organ/external/hand/right/r_hand = get_organ("r_hand")
-	var/obj/item/organ/external/arm/right/r_arm = get_organ("r_arm")
+	var/obj/item/organ/external/hand/right/r_hand = get_organ(BODY_ZONE_PRECISE_R_HAND)
+	var/obj/item/organ/external/arm/right/r_arm = get_organ(BODY_ZONE_R_ARM)
 	if(!r_hand || !r_arm)
 		return FALSE
-	if(r_hand.is_broken() || r_arm.is_broken())
+	if(r_hand.is_traumatized() || r_arm.is_traumatized())
 		return TRUE
 	return FALSE
 
@@ -105,11 +95,8 @@
 
 /mob/living/carbon/human/get_num_arms()
 	. = 0
-	for(var/X in bodyparts)
-		var/obj/item/organ/external/affecting = X
-		if(affecting.body_part == ARM_RIGHT)
-			.++
-		if(affecting.body_part == ARM_LEFT)
+	for(var/obj/item/organ/external/affecting as anything in bodyparts)
+		if(affecting.limb_zone == BODY_ZONE_L_ARM || affecting.limb_zone == BODY_ZONE_R_ARM)
 			.++
 
 
@@ -119,42 +106,7 @@
 
 /mob/living/carbon/human/get_num_legs()
 	. = 0
-	for(var/X in bodyparts)
-		var/obj/item/organ/external/affecting = X
-		if(affecting.body_part == LEG_RIGHT)
-			.++
-		if(affecting.body_part == LEG_LEFT)
+	for(var/obj/item/organ/external/affecting as anything in bodyparts)
+		if(affecting.limb_zone == BODY_ZONE_L_LEG || affecting.limb_zone == BODY_ZONE_R_LEG)
 			.++
 
-
-//sometimes we want to ignore that we don't have the required amount of arms.
-/mob/proc/get_arm_ignore()
-	return FALSE
-
-
-//sometimes we want to ignore that we don't have the required amount of legs.
-/mob/proc/get_leg_ignore()
-	return FALSE
-
-
-/mob/living/carbon/human/get_leg_ignore()
-
-	if(flying || floating)
-		return TRUE
-
-	var/obj/item/tank/jetpack/J
-	if(istype(back,/obj/item/tank/jetpack))
-		J = back
-		if(J.on == 1)
-			return TRUE
-	return FALSE
-
-/mob/living/proc/get_missing_limbs()
-	return list()
-
-/mob/living/carbon/human/get_missing_limbs()
-	var/list/full = list("head", "chest", "r_arm", "l_arm", "r_leg", "l_leg")
-	for(var/zone in full)
-		if(has_organ(zone))
-			full -= zone
-	return full

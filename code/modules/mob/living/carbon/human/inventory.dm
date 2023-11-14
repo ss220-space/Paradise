@@ -13,60 +13,24 @@
 	return FALSE
 
 
-/mob/living/carbon/human/has_organ(name)
-	var/obj/item/organ/external/O = bodyparts_by_name[name]
-	return O
-
-
 /mob/living/carbon/human/has_organ_for_slot(slot)
 	switch(slot)
-		if(slot_back)
-			return has_organ("chest")
-		if(slot_wear_mask)
-			return has_organ("head")
-		if(slot_neck)
-			return has_organ("chest")
-		if(slot_handcuffed)
-			return has_organ("l_hand") && has_organ("r_hand")
+		if(slot_in_backpack, slot_wear_pda, slot_wear_id, slot_tie)
+			return TRUE
+		if(slot_back, slot_belt, slot_wear_suit, slot_w_uniform, slot_l_store, slot_r_store, slot_s_store, slot_neck)
+			return get_organ(BODY_ZONE_CHEST)
+		if(slot_head, slot_wear_mask, slot_l_ear, slot_r_ear, slot_glasses)
+			return get_organ(BODY_ZONE_HEAD)
+		if(slot_handcuffed, slot_gloves)
+			return get_organ(BODY_ZONE_PRECISE_L_HAND) && get_organ(BODY_ZONE_PRECISE_R_HAND)
 		if(slot_legcuffed)
-			return has_organ("l_leg") && has_organ("r_leg")
+			return get_organ(BODY_ZONE_L_LEG) && get_organ(BODY_ZONE_R_LEG)
 		if(slot_l_hand)
-			return has_organ("l_hand")
+			return get_organ(BODY_ZONE_PRECISE_L_HAND)
 		if(slot_r_hand)
-			return has_organ("r_hand")
-		if(slot_belt)
-			return has_organ("chest")
-		if(slot_wear_id)
-			// the only relevant check for this is the uniform check
-			return TRUE
-		if(slot_wear_pda)
-			return TRUE
-		if(slot_l_ear)
-			return has_organ("head")
-		if(slot_r_ear)
-			return has_organ("head")
-		if(slot_glasses)
-			return has_organ("head")
-		if(slot_gloves)
-			return has_organ("l_hand") && has_organ("r_hand")
-		if(slot_head)
-			return has_organ("head")
+			return get_organ(BODY_ZONE_PRECISE_R_HAND)
 		if(slot_shoes)
-			return has_organ("r_foot") && has_organ("l_foot")
-		if(slot_wear_suit)
-			return has_organ("chest")
-		if(slot_w_uniform)
-			return has_organ("chest")
-		if(slot_l_store)
-			return has_organ("chest")
-		if(slot_r_store)
-			return has_organ("chest")
-		if(slot_s_store)
-			return has_organ("chest")
-		if(slot_in_backpack)
-			return TRUE
-		if(slot_tie)
-			return TRUE
+			return get_organ(BODY_ZONE_PRECISE_L_FOOT) && get_organ(BODY_ZONE_PRECISE_R_FOOT)
 
 
 /**
@@ -96,7 +60,7 @@
 		update_fhair()
 		update_head_accessory()
 
-	if(toggle_off && internal && !get_organ_slot("breathing_tube"))
+	if(toggle_off && internal && !get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
 		internal = null
 		update_action_buttons_icon()
 

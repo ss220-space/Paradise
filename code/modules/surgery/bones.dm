@@ -6,22 +6,48 @@
 /datum/surgery/bone_repair
 	name = "Bone Repair"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/glue_bone, /datum/surgery_step/set_bone, /datum/surgery_step/finish_bone, /datum/surgery_step/generic/cauterize)
-	possible_locs = list("chest", "l_arm", "l_hand", "r_arm", "r_hand","r_leg", "r_foot", "l_leg", "l_foot", "groin", "tail", "wing")
+	possible_locs = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_PRECISE_L_HAND,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_PRECISE_R_HAND,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_PRECISE_R_FOOT,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_PRECISE_L_FOOT,
+		BODY_ZONE_PRECISE_GROIN,
+		BODY_ZONE_TAIL,
+		BODY_ZONE_WING,
+	)
 
 /datum/surgery/bone_repair/plasmaman
 	name = "Plasmaman Bone Repair"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/glue_bone/plasma, /datum/surgery_step/generic/cauterize)
-	possible_locs = list("chest", "l_arm", "l_hand", "r_arm", "r_hand","r_leg", "r_foot", "l_leg", "l_foot", "groin", "tail", "wing")
+	possible_locs = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_PRECISE_L_HAND,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_PRECISE_R_HAND,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_PRECISE_R_FOOT,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_PRECISE_L_FOOT,
+		BODY_ZONE_PRECISE_GROIN,
+		BODY_ZONE_TAIL,
+		BODY_ZONE_WING,
+	)
 
 /datum/surgery/bone_repair/skull
 	name = "Skull Repair"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/glue_bone, /datum/surgery_step/mend_skull, /datum/surgery_step/finish_bone, /datum/surgery_step/generic/cauterize)
-	possible_locs = list("head")
+	possible_locs = list(BODY_ZONE_HEAD)
 
 /datum/surgery/bone_repair/plasmaman/skull
 	name = "Plasmaman Skull Repair"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/glue_bone/plasma, /datum/surgery_step/generic/cauterize)
-	possible_locs = list("head")
+	possible_locs = list(BODY_ZONE_HEAD)
 
 /datum/surgery/bone_repair/can_start(mob/user, mob/living/carbon/target)
 	if(istype(target,/mob/living/carbon/human))
@@ -35,7 +61,7 @@
 			return 0
 		if(affected.cannot_break)
 			return 0
-		if(affected.status & ORGAN_BROKEN)
+		if(affected.has_fracture())
 			return 1
 		return 1
 
@@ -51,7 +77,7 @@
 			return 0
 		if(affected.cannot_break)
 			return 0
-		if(affected.status & ORGAN_BROKEN)
+		if(affected.has_fracture())
 			return 1
 		if(isplasmaman(H))
 			return 1
@@ -136,7 +162,7 @@
 
 /datum/surgery_step/set_bone/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if(affected.status & ORGAN_BROKEN)
+	if(affected.has_fracture())
 		user.visible_message("<span class='notice'> [user] sets the bone in [target]'s [affected.name] in place with \the [tool].</span>", \
 			"<span class='notice'> You set the bone in [target]'s [affected.name] in place with \the [tool].</span>")
 		return 1
@@ -164,7 +190,7 @@
 
 /datum/surgery_step/mend_skull/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	return affected && !affected.is_robotic() && affected.limb_name == "head"
+	return affected && !affected.is_robotic() && affected.limb_zone == BODY_ZONE_HEAD
 
 /datum/surgery_step/mend_skull/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	user.visible_message("[user] is beginning piece together [target]'s skull with \the [tool]."  , \

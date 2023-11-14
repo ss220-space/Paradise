@@ -26,7 +26,7 @@
 /obj/item/reagent_containers/food/pill/attack(mob/living/carbon/M, mob/user, def_zone)
 	if(!istype(M))
 		return FALSE
-	if(!get_location_accessible(M, "mouth"))
+	if(!get_location_accessible(M, BODY_ZONE_PRECISE_MOUTH))
 		if(M == user)
 			to_chat(user, "<span class='warning'>Your face is obscured, so you cant eat.</span>")
 		else

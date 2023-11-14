@@ -38,10 +38,10 @@ Toxification syndrome
 				)))
 				if(prob(10))
 					M.emote("groan", "pale")
-	if(prob((A.stage - 2) - M.count_of_infected_organs()/4))
-		var/obj/item/organ/O = pick(M.internal_organs + M.bodyparts)
-		if(O.germ_level < INFECTION_LEVEL_ONE)
-			O.germ_level = INFECTION_LEVEL_ONE
+	if(prob((A.stage - 2) - M.count_infected_organs() / 4))
+		var/obj/item/organ/organ = safepick(M.internal_organs + M.bodyparts)
+		if(organ && organ.germ_level < INFECTION_LEVEL_ONE)
+			organ.germ_level = INFECTION_LEVEL_ONE
 	return
 
 /datum/symptom/infection/End(datum/disease/virus/advance/A)

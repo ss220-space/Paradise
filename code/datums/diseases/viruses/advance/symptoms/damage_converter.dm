@@ -46,7 +46,7 @@ Bonus
 		if(!parts.len)
 			return
 		var/healed = 0
-		for(var/obj/item/organ/external/E in parts)
+		for(var/obj/item/organ/external/E as anything in parts)
 			healed += min(E.brute_dam, get_damage) + min(E.burn_dam, get_damage)
 			E.heal_damage(get_damage, get_damage, updating_health = TRUE)
 		M.adjustToxLoss(healed)

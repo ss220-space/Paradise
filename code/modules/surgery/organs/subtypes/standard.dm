@@ -4,16 +4,16 @@
 
 /obj/item/organ/external/chest
 	name = "upper body"
-	limb_name = "chest"
+	limb_zone = BODY_ZONE_CHEST
 	icon_name = "torso"
 	max_damage = 100
 	min_broken_damage = 35
 	w_class = WEIGHT_CLASS_HUGE
-	body_part = UPPER_TORSO
+	limb_body_flag = UPPER_TORSO
 	vital = TRUE
 	amputation_point = "spine"
-	gendered_icon = 1
-	parent_organ = null
+	gendered_icon = TRUE
+	parent_organ_zone = null
 	encased = "ribcage"
 	convertable_children = list(/obj/item/organ/external/groin)
 
@@ -30,60 +30,59 @@
 
 /obj/item/organ/external/groin
 	name = "lower body"
-	limb_name = "groin"
+	limb_zone = BODY_ZONE_PRECISE_GROIN
 	icon_name = "groin"
 	max_damage = 100
 	min_broken_damage = 35
 	w_class = WEIGHT_CLASS_BULKY // if you know what I mean ;)
-	body_part = LOWER_TORSO
+	limb_body_flag = LOWER_TORSO
 	vital = TRUE
-	parent_organ = "chest"
+	parent_organ_zone = BODY_ZONE_CHEST
 	amputation_point = "lumbar"
-	gendered_icon = 1
+	gendered_icon = TRUE
 
 /obj/item/organ/external/arm
-	limb_name = "l_arm"
+	limb_zone = BODY_ZONE_L_ARM
 	name = "left arm"
 	icon_name = "l_arm"
 	max_damage = 50
 	min_broken_damage = 30
 	w_class = WEIGHT_CLASS_NORMAL
-	body_part = ARM_LEFT
-	parent_organ = "chest"
+	limb_body_flag = ARM_LEFT
+	parent_organ_zone = BODY_ZONE_CHEST
 	amputation_point = "left shoulder"
-	can_grasp = 1
+	can_grasp = TRUE
 	convertable_children = list(/obj/item/organ/external/hand)
 
 /obj/item/organ/external/arm/emp_act(severity)
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented arms and hands drop whatever they are holding on EMP.
 		return
-	var/hand = (body_part == ARM_LEFT) ? owner.l_hand : owner.r_hand
+	var/hand = (limb_zone == BODY_ZONE_L_ARM) ? owner.l_hand : owner.r_hand
 	if(hand && owner.can_unEquip(hand))
 		owner.drop_item_ground(hand)
 		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, бросая то что держал!</span>")
 		owner.custom_emote(EMOTE_VISIBLE, "роня%(ет,ют)% предмет, %(его,её,его,их)% рука выходит из строя!")
 
 /obj/item/organ/external/arm/right
-	limb_name = "r_arm"
+	limb_zone = BODY_ZONE_R_ARM
 	name = "right arm"
 	icon_name = "r_arm"
-	body_part = ARM_RIGHT
+	limb_body_flag = ARM_RIGHT
 	amputation_point = "right shoulder"
 	convertable_children = list(/obj/item/organ/external/hand/right)
 
 /obj/item/organ/external/leg
-	limb_name = "l_leg"
+	limb_zone = BODY_ZONE_L_LEG
 	name = "left leg"
 	icon_name = "l_leg"
 	max_damage = 50
 	min_broken_damage = 30
 	w_class = WEIGHT_CLASS_NORMAL
-	body_part = LEG_LEFT
+	limb_body_flag = LEG_LEFT
 	icon_position = LEFT
-	parent_organ = "groin"
+	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
 	amputation_point = "left hip"
-	can_stand = 1
 	convertable_children = list(/obj/item/organ/external/foot)
 
 /obj/item/organ/external/leg/emp_act(severity)
@@ -103,26 +102,26 @@
 			owner.AdjustWeakened(4 SECONDS)
 
 /obj/item/organ/external/leg/right
-	limb_name = "r_leg"
+	limb_zone = BODY_ZONE_R_LEG
 	name = "right leg"
 	icon_name = "r_leg"
-	body_part = LEG_RIGHT
+	limb_body_flag = LEG_RIGHT
 	icon_position = RIGHT
 	amputation_point = "right hip"
 	convertable_children = list(/obj/item/organ/external/foot/right)
 
 /obj/item/organ/external/foot
-	limb_name = "l_foot"
+	limb_zone = BODY_ZONE_PRECISE_L_FOOT
 	name = "left foot"
 	icon_name = "l_foot"
 	max_damage = 30
 	min_broken_damage = 15
 	w_class = WEIGHT_CLASS_SMALL
-	body_part = FOOT_LEFT
+	limb_body_flag = FOOT_LEFT
 	icon_position = LEFT
-	parent_organ = "l_leg"
+	parent_organ_zone = BODY_ZONE_L_LEG
 	amputation_point = "left ankle"
-	can_stand = 1
+
 
 /obj/item/organ/external/foot/emp_act(severity)
 	..()
@@ -140,42 +139,43 @@
 		if(2)
 			owner.AdjustWeakened(4 SECONDS)
 
-/obj/item/organ/external/foot/remove()
-	if(owner && owner.shoes) owner.drop_item_ground(owner.shoes)
+/obj/item/organ/external/foot/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
+	if(owner?.shoes)
+		owner.drop_item_ground(owner.shoes)
 	. = ..()
 
 /obj/item/organ/external/foot/right
-	limb_name = "r_foot"
+	limb_zone = BODY_ZONE_PRECISE_R_FOOT
 	name = "right foot"
 	icon_name = "r_foot"
-	body_part = FOOT_RIGHT
+	limb_body_flag = FOOT_RIGHT
 	icon_position = RIGHT
-	parent_organ = "r_leg"
+	parent_organ_zone = BODY_ZONE_R_LEG
 	amputation_point = "right ankle"
 
 /obj/item/organ/external/hand
-	limb_name = "l_hand"
+	limb_zone = BODY_ZONE_PRECISE_L_HAND
 	name = "left hand"
 	icon_name = "l_hand"
 	max_damage = 30
 	min_broken_damage = 15
 	w_class = WEIGHT_CLASS_SMALL
-	body_part = HAND_LEFT
-	parent_organ = "l_arm"
+	limb_body_flag = HAND_LEFT
+	parent_organ_zone = BODY_ZONE_L_ARM
 	amputation_point = "left wrist"
-	can_grasp = 1
+	can_grasp = TRUE
 
 /obj/item/organ/external/hand/emp_act(severity)
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented arms and hands drop whatever they are holding on EMP.
 		return
-	var/hand = (body_part == HAND_LEFT) ? owner.l_hand : owner.r_hand
+	var/hand = (limb_zone == BODY_ZONE_L_ARM) ? owner.l_hand : owner.r_hand
 	if(hand && owner.can_unEquip(hand))
 		owner.drop_item_ground(hand)
 		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, dropping what it was holding!</span>")
 		owner.custom_emote(EMOTE_VISIBLE, "роня%(ет,ют)% предмет, %(его,её,его,их)% кисть выходит из строя!")
 
-/obj/item/organ/external/hand/remove()
+/obj/item/organ/external/hand/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
 	if(owner)
 		if(owner.gloves)
 			owner.drop_item_ground(owner.gloves)
@@ -187,24 +187,24 @@
 	. = ..()
 
 /obj/item/organ/external/hand/right
-	limb_name = "r_hand"
+	limb_zone = BODY_ZONE_PRECISE_R_HAND
 	name = "right hand"
 	icon_name = "r_hand"
-	body_part = HAND_RIGHT
-	parent_organ = "r_arm"
+	limb_body_flag = HAND_RIGHT
+	parent_organ_zone = BODY_ZONE_R_ARM
 	amputation_point = "right wrist"
 
 /obj/item/organ/external/head
-	limb_name = "head"
+	limb_zone = BODY_ZONE_HEAD
 	icon_name = "head"
 	name = "head"
 	max_damage = 75
 	min_broken_damage = 35
 	w_class = WEIGHT_CLASS_NORMAL
-	body_part = HEAD
-	parent_organ = "chest"
+	limb_body_flag = HEAD
+	parent_organ_zone = BODY_ZONE_CHEST
 	amputation_point = "neck"
-	gendered_icon = 1
+	gendered_icon = TRUE
 	encased = "skull"
 	var/can_intake_reagents = 1
 	var/alt_head = "None"
@@ -228,7 +228,7 @@
 	var/sec_facial_colour = "#000000"
 	var/f_style = "Shaved"
 
-/obj/item/organ/external/head/remove()
+/obj/item/organ/external/head/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
 	if(owner)
 		if(!istype(dna))
 			dna = owner.dna.Clone()
@@ -250,14 +250,15 @@
 	. = ..()
 
 /obj/item/organ/external/head/replaced()
-	name = limb_name
+	name = limb_zone
 	..()
 
-/obj/item/organ/external/head/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE)
+
+/obj/item/organ/external/head/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE, silent = FALSE)
 	..()
-	if(!disfigured)
-		if(brute_dam + burn_dam > 50)
-			disfigure()
+	if(brute_dam + burn_dam > 50)
+		disfigure(silent)
+
 
 /obj/item/organ/external/head/examine(mob/user)
 	. = ..()
@@ -280,14 +281,14 @@
 		alt_head = initial(alt_head)
 		icon_name = initial(icon_name)
 
-/obj/item/organ/external/head/robotize(company, make_tough = 0, convert_all = 1) //Undoes alt_head business to avoid getting in the way of robotization. Make sure we pass all args down the line...
+/obj/item/organ/external/head/robotize(make_tough = FALSE, company, convert_all = TRUE) //Undoes alt_head business to avoid getting in the way of robotization. Make sure we pass all args down the line...
 	alt_head = initial(alt_head)
 	icon_name = initial(icon_name)
 	..()
 
-/obj/item/organ/external/head/set_dna(datum/dna/new_dna)
+/obj/item/organ/external/head/update_DNA(datum/dna/new_dna, update_blood = TRUE, use_species_type = TRUE, randomize = FALSE)
 	..()
-	new_dna.write_head_attributes(src)
+	new_dna?.write_head_attributes(src)
 
 /obj/item/organ/external/head/emp_act(severity)
 	..()
@@ -301,25 +302,24 @@
 	to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, перегружая ваше управление!</span>")
 
 /obj/item/organ/external/tail
-	limb_name = "tail"
+	limb_zone = BODY_ZONE_TAIL
 	name = "tail"
 	force_icon = "icons/effects/species.dmi"
 	icon_name = "tail"
 	max_damage = 30
 	min_broken_damage = 15
 	w_class = WEIGHT_CLASS_SMALL
-	body_part = TAIL
-	parent_organ = "groin"
+	limb_body_flag = TAIL
+	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
 	amputation_point = "lower spine"
 	var/datum/body_accessory/body_accessory
 	var/list/m_styles = list("tail" = "None")
 	var/list/m_colours = list("tail" = "#000000")
 	s_col = "#000000"
 
-/obj/item/organ/external/tail/New(var/mob/living/carbon/holder)
+/obj/item/organ/external/tail/New(mob/living/carbon/holder)
 	..()
-	var/mob/living/carbon/human/H = holder
-	if(!H)
+	if(!holder)
 		var/icon/tempicon = new/icon("icon" = force_icon, "icon_state" = icon_name)
 		var/icon/tempicon2 = new/icon(tempicon,dir=NORTH)
 		tempicon2.Flip(SOUTH)
@@ -365,24 +365,23 @@
 	icon_name = "stoktail_s"
 
 /obj/item/organ/external/wing
-	limb_name = "wing"
+	limb_zone = BODY_ZONE_WING
 	name = "wings"
 	icon_name = "wing"
 	max_damage = 30
 	min_broken_damage = 15
 	w_class = WEIGHT_CLASS_SMALL
-	body_part = WING
-	parent_organ = "chest"
+	limb_body_flag = WING
+	parent_organ_zone = BODY_ZONE_CHEST
 	amputation_point = "spine"
 	var/datum/body_accessory/body_accessory
 	var/list/m_styles = list("wing" = "None")
 	var/list/m_colours = list("wing" = "#000000")
 	s_col = "#000000"
 
-/obj/item/organ/external/wing/New(var/mob/living/carbon/holder)
+/obj/item/organ/external/wing/New(mob/living/carbon/holder)
 	..()
-	var/mob/living/carbon/human/H = holder
-	if(!H)
+	if(!holder)
 		var/icon/tempicon = new/icon("icon" = force_icon, "icon_state" = icon_name)
 		var/icon/tempicon2 = new/icon(tempicon,dir=NORTH)
 		tempicon2.Flip(SOUTH)

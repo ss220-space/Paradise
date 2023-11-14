@@ -36,6 +36,7 @@
 	if(current)
 		qdel(current)
 		to_chat(user, span_notice("You dispel your claws!"))
+		return COMPONENT_CANCEL_DROP
 
 
 /obj/effect/proc_holder/spell/vampire/self/vamp_claws/can_cast(mob/user, charge_check, show_message)

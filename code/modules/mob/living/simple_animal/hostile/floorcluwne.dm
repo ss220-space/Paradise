@@ -380,13 +380,8 @@
 
 		H.adjustBruteLoss(30)
 		H.adjustBrainLoss(100)
-		for(var/I in H.bodyparts)
-			var/obj/item/organ/external/O = I
-			if(O.name == "head")//irksome runtimes
-				O.droplimb()
-				continue
-			O.drop_organs()
-			O.droplimb()
+		var/obj/item/organ/external/chest = H.get_organ(BODY_ZONE_CHEST)
+		chest?.drop_organs()
 
 	Reset_View(FALSE, old_color, H)
 	H.CureBlind()

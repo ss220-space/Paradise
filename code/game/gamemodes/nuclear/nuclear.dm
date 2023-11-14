@@ -169,7 +169,7 @@
 	M.overeatduration = 0
 	M.flavor_text = null
 
-	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
+	var/obj/item/organ/external/head/head_organ = M.get_organ(BODY_ZONE_HEAD)
 	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
 	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue
 	var/skin_tone = pick(-50, -30, -10, 0, 0, 0, 10) // Caucasian/black

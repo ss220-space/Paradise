@@ -185,7 +185,7 @@
 	var/armorval = inventory_head?.armor.getRating(type)
 	if(!def_zone)
 		armorval *= 0.5
-	else if(def_zone != "head")
+	else if(def_zone != BODY_ZONE_HEAD)
 		armorval = 0
 	return armorval
 

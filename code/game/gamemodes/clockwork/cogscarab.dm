@@ -204,7 +204,7 @@
 	if(is_type_in_list(AM, allowed_bumpable_objects))
 		return ..()
 
-/mob/living/silicon/robot/cogscarab/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
+/mob/living/silicon/robot/cogscarab/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
 
 	if(is_type_in_list(AM, pullable_items))
 		..(AM, force = INFINITY) // Drone power! Makes them able to drag pipes and such
@@ -213,13 +213,13 @@
 		var/obj/item/O = AM
 		if(O.w_class > WEIGHT_CLASS_SMALL)
 			if(show_message)
-				to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
+				to_chat(src, span_warning("You are too small to pull that."))
 			return
 		else
 			..()
 	else
 		if(show_message)
-			to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
+			to_chat(src, span_warning("You are too small to pull that."))
 
 /mob/living/silicon/robot/cogscarab/add_robot_verbs()
 	src.verbs |= silicon_subsystems

@@ -9,8 +9,7 @@
 	if(!istype(mimejutsu))
 		return MARTIAL_COMBO_FAIL
 	if(!target.stat)
-		if(!(affected.status & ORGAN_BROKEN) && !(affected.is_robotic()) && !(affected.cannot_break))
-			affected.fracture()
+		if(affected.fracture())
 			user.do_attack_animation(target, ATTACK_EFFECT_KICK)
 		else
 			target.apply_damage(40, BRUTE, user.zone_selected)

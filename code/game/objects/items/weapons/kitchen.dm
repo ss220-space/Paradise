@@ -47,7 +47,7 @@
 		return ..()
 
 	if(user.a_intent != INTENT_HELP)
-		if(user.zone_selected == "head" || user.zone_selected == "eyes")
+		if(user.zone_selected == BODY_ZONE_HEAD || user.zone_selected == BODY_ZONE_PRECISE_EYES)
 			if((CLUMSY in user.mutations) && prob(50))
 				C = user
 			return eyestab(C, user)
@@ -57,7 +57,7 @@
 	if(length(contents))
 		var/obj/item/reagent_containers/food/snacks/toEat = contents[1]
 		if(istype(toEat))
-			if(!get_location_accessible(C, "mouth"))
+			if(!get_location_accessible(C, BODY_ZONE_PRECISE_MOUTH))
 				if(C == user)
 					to_chat(user, "<span class='warning'>Your face is obscured, so you cant eat.</span>")
 				else

@@ -1,7 +1,7 @@
 /datum/surgery/plastic_surgery
 	name = "Plastic Surgery"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/reshape_face, /datum/surgery_step/generic/cauterize)
-	possible_locs = list("head")
+	possible_locs = list(BODY_ZONE_HEAD)
 
 /datum/surgery/plastic_surgery/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
@@ -25,8 +25,7 @@
 /datum/surgery_step/reshape_face/end_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/head/head = target.get_organ(target_zone)
 	var/species_names = target.dna.species.name
-	if(head.disfigured)
-		head.disfigured = FALSE
+	if(head.undisfigure())
 		user.visible_message("[user] successfully restores [target]'s appearance!", "<span class='notice'>You successfully restore [target]'s appearance.</span>")
 	else
 		var/list/names = list()

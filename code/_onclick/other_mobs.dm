@@ -20,16 +20,16 @@
 
 	A.attack_hand(src)
 
+
 /mob/living/carbon/human/beforeAdjacentClick(atom/A, params)
 	if(prob(dna.species.fragile_bones_chance * 3))
 		var/zone = "[hand ? "l" : "r"]_[pick("hand", "arm")]"
 		var/obj/item/organ/external/active_hand = get_organ(zone)
-		if(!(active_hand.status & ORGAN_BROKEN))
+		if(!active_hand.has_fracture())
 			var/used_item_name = get_active_hand()
-			var/message = "[used_item_name? "You try to use [used_item_name], but y": "Y"]our [active_hand] don't withstand the load!"
-			to_chat(src, "<span class='danger'>[message]</span>")
+			to_chat(src, span_danger("[used_item_name? "You try to use [used_item_name], but y": "Y"]our [active_hand] don't withstand the load!"))
 			active_hand.fracture()
-			return
+
 
 /atom/proc/attack_hand(mob/user)
 	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user)

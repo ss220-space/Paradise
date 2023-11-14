@@ -57,8 +57,8 @@
 					qdel(src)
 
 /obj/item/caution/proximity_sign/proc/dead_legs(mob/living/carbon/human/H as mob)
-	var/obj/item/organ/external/l = H.get_organ("l_leg")
-	var/obj/item/organ/external/r = H.get_organ("r_leg")
+	var/obj/item/organ/external/l = H.get_organ(BODY_ZONE_L_LEG)
+	var/obj/item/organ/external/r = H.get_organ(BODY_ZONE_L_LEG)
 	if(l)
 		l.droplimb(0, DROPLIMB_SHARP)
 	if(r)

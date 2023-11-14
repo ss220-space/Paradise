@@ -312,7 +312,7 @@
 	H.underwear = "Nude"
 	H.undershirt = "Nude"
 	H.socks = "Nude"
-	var/obj/item/organ/external/head/D = H.get_organ("head")
+	var/obj/item/organ/external/head/D = H.get_organ(BODY_ZONE_HEAD)
 	if(!use_prefs)
 		if(!random)
 			if(_mob_name)
