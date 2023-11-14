@@ -53,3 +53,6 @@
 /obj/item/gun/energy/disabler/cyborg/newshot()
 	..()
 	robocharge()
+
+/obj/item/gun/energy/disabler/cyborg/emp_act(severity)
+	return
