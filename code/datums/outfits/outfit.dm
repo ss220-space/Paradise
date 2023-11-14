@@ -108,8 +108,9 @@
 		if(box)
 			if(!backpack_contents)
 				backpack_contents = list()
-			backpack_contents.Insert(1, box)
-			backpack_contents[box] = 1
+			if(box != backpack_contents[1])
+				backpack_contents.Insert(1, box)
+				backpack_contents[box] = 1
 
 		for(var/path in backpack_contents)
 			var/number = backpack_contents[path]
@@ -137,8 +138,8 @@
 			var/obj/item/implant/I = new implant_type(H)
 			I.implant(H, null)
 
-	H.update_body()
-	return 1
+	H.regenerate_icons()
+	return TRUE
 
 /datum/outfit/proc/apply_fingerprints(mob/living/carbon/human/H)
 	if(!istype(H))
@@ -239,9 +240,9 @@
 		if(cybtype)
 			cybernetic_implants += cybtype
 
-	var/list/accessories = outfit_data["accessories"]
+	var/list/attachments = outfit_data["accessories"]
 	accessories = list()
-	for(var/A in accessories)
+	for(var/A in attachments)
 		var/accessorytype = text2path(A)
 		if(accessorytype)
 			accessories += accessorytype
