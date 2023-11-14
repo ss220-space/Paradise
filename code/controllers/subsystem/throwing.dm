@@ -88,10 +88,12 @@ SUBSYSTEM_DEF(throwing)
 	last_move = world.time
 
 	//calculate how many tiles to move, making up for any missed ticks.
-	var/tilestomove = CEILING(min(((((world.time + world.tick_lag) - start_time + delayed_time) * speed) - (dist_travelled ? dist_travelled : -1)), speed * MAX_TICKS_TO_MAKE_UP) * (world.tick_lag * SSthrowing.wait), 1)
+	var/tilestomove = CEILING(min(((((world.time + world.tick_lag) - start_time + delayed_time) * speed) - (dist_travelled ? dist_travelled : 1)), speed * MAX_TICKS_TO_MAKE_UP) * (world.tick_lag * SSthrowing.wait), 1)
 	while(tilestomove-- > 0)
+		if(!AM.throwing)	// datum was nullified on finalize, our job is done
+			return
+
 		if((dist_travelled >= maxrange || AM.loc == target_turf) && has_gravity(AM, AM.loc))
-			hitcheck() //Just to be sure
 			finalize()
 			return
 
@@ -111,10 +113,6 @@ SUBSYSTEM_DEF(throwing)
 
 		AM.Move(step, get_dir(AM, step))
 
-		if(!AM.throwing) // we hit something during our move
-			finalize(hit = TRUE)
-			return
-
 		dist_travelled++
 
 		if(dist_travelled > MAX_THROWING_DIST)
@@ -122,34 +120,22 @@ SUBSYSTEM_DEF(throwing)
 			return
 
 
-/datum/thrownthing/proc/finalize(hit = FALSE, target = null)
+/datum/thrownthing/proc/finalize(atom/hit_target)
 	set waitfor = FALSE
-	SSthrowing.processing -= thrownthing
-	//done throwing, either because it hit something or it finished moving
-	thrownthing.throwing = null
-	if(!hit)
-		for(var/thing in get_turf(thrownthing)) //looking for our target on the turf we land on.
-			var/atom/A = thing
-			if(A == target)
-				hit = 1
-				thrownthing.throw_impact(A, src)
-				break
-		if(!hit)
-			thrownthing.throw_impact(get_turf(thrownthing), src)  // we haven't hit something yet and we still must, let's hit the ground.
-			thrownthing.newtonian_move(init_dir)
-	else
-		thrownthing.newtonian_move(init_dir)
 
-	if(target)
-		thrownthing.throw_impact(target, src, speed)
+	SSthrowing.processing -= thrownthing
+	thrownthing.throwing = null	//done throwing, either because it hit something or it finished moving
+
+	if(hit_target)
+		thrownthing.throw_impact(hit_target, src, speed)
+	else
+		thrownthing.throw_impact(get_turf(thrownthing), src)  // we haven't hit something yet and we still must, let's hit the ground.
+		thrownthing.newtonian_move(init_dir)
 
 	if(callback)
 		callback.Invoke()
+
 	thrownthing.end_throw()
-
-
-/datum/thrownthing/proc/hit_atom(atom/A)
-	finalize(hit = TRUE, target = A)
 
 
 /datum/thrownthing/proc/hitcheck()
@@ -157,7 +143,7 @@ SUBSYSTEM_DEF(throwing)
 		var/atom/movable/AM = thing
 		if(AM == thrownthing || AM == thrower)
 			continue
-		if((AM.density || isliving(AM) && !dodgeable) && !(AM.pass_flags & LETPASSTHROW) && !(AM.flags & ON_BORDER))
-			finalize(hit = TRUE, target = AM)
+		if((AM.density || (isliving(AM) && !dodgeable)) && !(AM.pass_flags & LETPASSTHROW) && !(AM.flags & ON_BORDER))
+			finalize(AM)
 			return TRUE
 

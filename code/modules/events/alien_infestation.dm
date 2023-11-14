@@ -43,6 +43,7 @@
 
 			spawncount--
 			successSpawn = TRUE
+			log_game("[new_xeno.key] has become [new_xeno].")
 
 
 /datum/event/alien_infestation/proc/spawn_vectors(list/vents, playercount)
@@ -60,6 +61,7 @@
 
 			spawncount--
 			successSpawn = TRUE
+			log_game("[new_xeno.key] has become [new_xeno].")
 
 
 #undef ALIEN_HIGHPOP_TRIGGER
