@@ -9,7 +9,8 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	% ? ^ '
 
 	Busy letters by radio(eng):
-	c e h i l m n p r s t u w x z q w y
+	c e h i l m n p q r s t u w x z y
+	vi
 
 	Busy letters by radio(rus):
 	б г д е ё з к р с т у ц ч ш ы ь я Э й ц н
@@ -38,7 +39,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":z" = "Service",			"#z" = "Service",		"№z" = "Service",		".z" = "Service",
 	  ":p" = "AI Private",		"#p" = "AI Private",	"№p" = "AI Private",	".p" = "AI Private",
 	  ":q" = "Alpha wave",		"#q" = "Alpha wave",	"№q" = "Alpha wave",	".q" = "Alpha wave",
-	  ":w" = "Beta wave",		"#w" = "Beta wave",		"№w" = "Beta wave",		".w" = "Beta wave",
+	  ":vi" = "Beta wave",		"#vi" = "Beta wave",	"№vi" = "Beta wave",	".vi" = "Beta wave",
 	  ":y" = "Gamma wave",		"#y" = "Gamma wave",	"№y" = "Gamma wave",	".y" = "Gamma wave",
 
 	// English text uppercase
@@ -59,7 +60,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":Z" = "Service",			"#Z" = "Service",		"№Z" = "Service",		".Z" = "Service",
 	  ":P" = "AI Private",		"#P" = "AI Private",	"№P" = "AI Private",	".P" = "AI Private",
 	  ":Q" = "Alpha wave",		"#Q" = "Alpha wave",	"№Q" = "Alpha wave",	".Q" = "Alpha wave",
-	  ":W" = "Beta wave",		"#W" = "Beta wave",		"№W" = "Beta wave",		".W" = "Beta wave",
+	  ":VI" = "Beta wave",		"#VI" = "Beta wave",	"№VI" = "Beta wave",	".VI" = "Beta wave",
 	  ":Y" = "Gamma wave",		"#Y" = "Gamma wave",	"№Y" = "Gamma wave",	".Y" = "Gamma wave",
 
 	// Russian text lowercase
@@ -82,7 +83,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":з" = "AI Private",		"#з" = "AI Private",	"№з" = "AI Private",	".з" = "AI Private",
 	  ":ё" = "cords",			"#ё" = "cords",			"№ё" = "cords",			".ё" = "cords",
 	  ":й" = "Alpha wave",		"#й" = "Alpha wave",	"№й" = "Alpha wave",	".й" = "Alpha wave",
-	  ":ц" = "Beta wave",		"#ц" = "Beta wave",		"№ц" = "Beta wave",		".ц" = "Beta wave",
+	  ":мш" = "Beta wave",		"#мш" = "Beta wave",	"№мш" = "Beta wave",	".мш" = "Beta wave",
 	  ":н" = "Gamma wave",		"#н" = "Gamma wave",	"№y" = "Gamma wave",	".н" = "Gamma wave",
 
 	// Russian text uppercase
@@ -104,7 +105,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":З" = "AI Private",		"#З" = "AI Private",	"№З" = "AI Private",	".З" = "AI Private",
 	  ":Ё" = "cords",			"#Ё" = "cords",			"№Ё" = "cords",			".Ё" = "cords",
 	  ":Й" = "Alpha wave",		"#Й" = "Alpha wave",	"№Й" = "Alpha wave",	".Й" = "Alpha wave",
-	  ":Ц" = "Beta wave",		"#Ц" = "Beta wave",		"№Ц" = "Beta wave",		".Ц" = "Beta wave",
+	  ":МШ" = "Beta wave",		"#МШ" = "Beta wave",	"№МШ" = "Beta wave",	".МШ" = "Beta wave",
 	  ":Н" = "Gamma wave",		"#Н" = "Gamma wave",	"№Н" = "Gamma wave",	".Н" = "Gamma wave",
 
 	// English symbols no case
