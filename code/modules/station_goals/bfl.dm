@@ -236,6 +236,7 @@
 	icon = 'icons/obj/machines/BFL_mission/Hole.dmi'
 	icon_state = "Receiver_Off"
 	anchored = TRUE
+	interact_offline = TRUE
 
 	var/state = FALSE
 	var/mining = FALSE
