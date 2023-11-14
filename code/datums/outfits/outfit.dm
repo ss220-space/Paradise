@@ -108,9 +108,9 @@
 		if(box)
 			if(!backpack_contents)
 				backpack_contents = list()
-			if(box != backpack_contents[1])
-				backpack_contents.Insert(1, box)
-				backpack_contents[box] = 1
+			backpack_contents.Insert(1, box)
+			backpack_contents[box] = 1
+			box = null // if it's added to backpack_contents ... we don't need it anymore.
 
 		for(var/path in backpack_contents)
 			var/number = backpack_contents[path]
@@ -118,8 +118,7 @@
 				H.equip_or_collect(new path(H), slot_in_backpack)
 
 		for(var/path in cybernetic_implants)
-			var/obj/item/organ/internal/O = new path(H)
-			O.insert(H)
+			new path(H) // Just creating internal organ inside a human forcing it to call insert() proc.
 
 	if(!H.head && toggle_helmet && istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit))
 		var/obj/item/clothing/suit/space/hardsuit/HS = H.wear_suit
