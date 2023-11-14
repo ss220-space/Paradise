@@ -29,7 +29,7 @@
 	if(world.time > (last_pump + pump_delay))
 		var/mob/living/carbon/human/H = owner
 		H.setOxyLoss(H.oxyloss + oxy_loss)
-		H.custom_emote(1, "задыхается!")
+		H.custom_emote(EMOTE_VISIBLE, "задыха%(ет,ют)%ся!")
 		to_chat(H, "<span class='userdanger'>Я должен дышать, иначе просто задохнусь!</span>")
 		last_pump = world.time
 		warned = 0
@@ -53,4 +53,4 @@
 
 		hrp_tumor.last_pump = world.time
 		to_chat(owner, "<span class = 'notice'>Вы дышите.</span>")
-		owner.custom_emote(1, "дышит")
+		owner.custom_emote(EMOTE_VISIBLE, "дыш%(ит,ат)%.")
