@@ -169,6 +169,7 @@
 		if(update_id_name)
 			card.registered_name = H.real_name
 			card.update_label()
+		H.sec_hud_set_ID()
 
 /datum/outfit/varedit/get_json_data()
 	. = .. ()
