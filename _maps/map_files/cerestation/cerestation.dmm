@@ -85296,6 +85296,18 @@
 	dir = 1;
 	network = list("SS13","CE")
 	},
+/obj/structure/rack,
+/obj/item/circuitboard/chem_dispenser{
+	pixel_x = 2
+	},
+/obj/item/circuitboard/chem_master{
+	pixel_x = -4;
+	pixel_y = 2
+	},
+/obj/item/circuitboard/chem_heater{
+	pixel_x = 6;
+	pixel_y = -4
+	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "tHF" = (
