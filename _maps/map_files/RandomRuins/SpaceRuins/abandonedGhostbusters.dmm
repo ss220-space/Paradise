@@ -1,4 +1,9 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aN" = (
+/obj/structure/lattice,
+/obj/effect/decal/cleanable/dirt,
+/turf/space,
+/area/space/nearstation)
 "aO" = (
 /obj/structure/chair/stool/bar/dark{
 	pixel_y = 13
@@ -10,6 +15,10 @@
 	pixel_x = -3
 	},
 /turf/simulated/floor/carpet/black,
+/area/abandonedGhostbusters)
+"bj" = (
+/obj/structure/lattice,
+/turf/space,
 /area/abandonedGhostbusters)
 "bm" = (
 /obj/item/reagent_containers/food/snacks/ectoplasm{
@@ -24,6 +33,13 @@
 /obj/item/pipe,
 /turf/space,
 /area/space)
+"cK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/space/nearstation)
 "du" = (
 /obj/structure/holosign/barrier/atmos{
 	icon_state = "phaseout"
@@ -40,8 +56,37 @@
 /turf/space,
 /area/space/nearstation)
 "dI" = (
-/turf/simulated/mineral/random/high_chance,
-/area/space)
+/obj/structure/lattice,
+/obj/machinery/atmospherics/trinary/tvalve/digital/bypass,
+/turf/space,
+/area/space/nearstation)
+"eE" = (
+/obj/structure/lattice,
+/obj/item/kitchen/rollingpin,
+/turf/space,
+/area/space/nearstation)
+"eW" = (
+/obj/item/paper{
+	name = "Помятая бумага";
+	color = "gray";
+	info = "<h2>Привет Игон!</h2>У меня потрясающие новости!<br> Я поймал нашего надоедливого зеленого призрака, который всё время воровал нашу еду. Запер его прямо здесь. Ни в коем случае не выпускай его, вероятно...Он будет злым. Да и касательного твоего рюкзака и ловушки...Я спрятал их у него. <br><br><b>Питер<b>";
+	desc = "Помятая бумага"
+	},
+/obj/item/reagent_containers/food/snacks/ectoplasm{
+	color = "green";
+	pixel_y = -10
+	},
+/obj/effect/step_trigger/sound_effect/explosion_far{
+	sound = list('sound/effects/ghostWake.ogg');
+	name = "ghostWake";
+	color = "green";
+	icon_state = "heart"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "arrival"
+	},
+/area/abandonedGhostbusters)
 "fj" = (
 /obj/effect/decal/remains/human{
 	pixel_y = 5;
@@ -61,30 +106,39 @@
 /area/abandonedGhostbusters)
 "fz" = (
 /obj/structure/lattice,
-/obj/structure/disposalpipe/segment{
-	dir = 2
+/obj/item/pipe{
+	dir = 9
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
+"fG" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 8;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/space/nearstation)
 "fM" = (
-/obj/item/paper{
-	name = "Помятая бумага";
-	color = "gray";
-	info = "<h2>Привет Игон!</h2>У меня потрясающие новости!<br> Я поймал нашего надоедливого зеленого призрака, который всё время воровал нашу еду. Запер его прямо здесь. Ни в коем случае не выпускай его, вероятно...Он будет злым. Да и касательного твоего рюкзака и ловушки...Я спрятал их у него. <br><br><b>Питер<b>";
-	desc = "Помятая бумага"
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
 	},
-/obj/item/reagent_containers/food/snacks/ectoplasm{
-	color = "green";
-	pixel_y = -10
+/area/space/nearstation)
+"fS" = (
+/obj/machinery/washing_machine,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "arrival"
 	},
-/obj/effect/step_trigger/sound_effect/explosion_far{
-	sound = list('sound/effects/ghostWake.ogg');
-	name = "ghostWake";
-	color = "green";
-	icon_state = "heart"
-	},
-/turf/simulated/floor/carpet/red,
-/area/abandonedGhostbusters)
+/area/space/nearstation)
 "gB" = (
 /obj/item/reagent_containers/food/snacks/ectoplasm{
 	color = "green";
@@ -118,6 +172,10 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
+"iv" = (
+/obj/structure/cable,
+/turf/simulated/floor/mineral,
+/area/space/nearstation)
 "iA" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/item/reagent_containers/food/snacks/ectoplasm{
@@ -161,8 +219,13 @@
 /turf/space,
 /area/space/nearstation)
 "jo" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /obj/structure/lattice,
-/obj/structure/cable,
 /turf/space,
 /area/space/nearstation)
 "jq" = (
@@ -180,11 +243,15 @@
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "jK" = (
-/obj/structure/cable,
-/obj/structure/lattice,
-/obj/machinery/computer/rdconsole/mechanics,
-/turf/space,
-/area/space)
+/obj/machinery/door/airlock/public{
+	name = "Kitchen";
+	req_access = list(28)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull";
+	tag = "icon-redfull (NORTHWEST)"
+	},
+/area/space/nearstation)
 "jO" = (
 /obj/structure/lattice,
 /turf/simulated/wall/indestructible/boss/see_through{
@@ -195,6 +262,22 @@
 /obj/effect/decal/cleanable/tomato_smudge,
 /turf/simulated/floor/wood/cherry,
 /area/abandonedGhostbusters)
+"kd" = (
+/obj/structure/toilet{
+	dir = 1
+	},
+/obj/machinery/door_control{
+	desiredstate = 1;
+	id = "toilet2";
+	name = "Toilet Bolt Control";
+	normaldoorcontrol = 1;
+	pixel_y = -25;
+	specialfunctions = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/space/nearstation)
 "ky" = (
 /obj/item/clothing/suit/ghost_sheet{
 	color = "green"
@@ -202,15 +285,9 @@
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "ll" = (
-/obj/structure/lattice,
-/obj/item/pipe{
-	dir = 9
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/turf/space,
-/area/space)
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral,
+/area/space/nearstation)
 "lu" = (
 /obj/item/shard,
 /turf/simulated/floor/mineral,
@@ -223,11 +300,11 @@
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "mz" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 9
+/obj/structure/table/reinforced,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
 	},
-/turf/simulated/mineral,
-/area/space/nearstation)
+/area/space)
 "mK" = (
 /obj/structure/lattice,
 /obj/item/storage/toolbox,
@@ -239,18 +316,28 @@
 	},
 /turf/simulated/floor/carpet/blue,
 /area/abandonedGhostbusters)
+"nq" = (
+/obj/structure/lattice,
+/obj/item/paper_bin,
+/turf/space,
+/area/space/nearstation)
 "ny" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/reagent_containers/food/drinks/coffee,
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
 "nO" = (
-/obj/structure/lattice,
-/obj/item/shard,
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "nT" = (
 /obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
+"oE" = (
+/obj/structure/lattice,
+/obj/structure/disposalpipe/segment{
+	dir = 2
+	},
 /turf/space,
 /area/space/nearstation)
 "oQ" = (
@@ -276,6 +363,10 @@
 /obj/structure/lattice,
 /turf/simulated/mineral,
 /area/space/nearstation)
+"qt" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/wall,
+/area/space)
 "qy" = (
 /obj/item/nullrod/salt{
 	pixel_x = 1;
@@ -301,6 +392,16 @@
 "rl" = (
 /turf/simulated/floor/plating,
 /area/abandonedGhostbusters)
+"rC" = (
+/obj/structure/lattice,
+/obj/item/shard,
+/turf/space,
+/area/space/nearstation)
+"sx" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken3"
+	},
+/area/space/nearstation)
 "sB" = (
 /obj/structure/fence,
 /obj/structure/sign/poster/official/religious{
@@ -308,6 +409,11 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
+"sF" = (
+/obj/machinery/door/poddoor/preopen,
+/obj/item/shard,
+/turf/space,
+/area/space/nearstation)
 "tz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
@@ -320,6 +426,16 @@
 "tW" = (
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
+"ui" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/space,
+/area/space/nearstation)
 "ur" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/confetti,
@@ -337,6 +453,14 @@
 /obj/effect/spawner/random_barrier,
 /turf/space,
 /area/space/nearstation)
+"uO" = (
+/obj/structure/lattice,
+/obj/item/pipe,
+/turf/space,
+/area/space/nearstation)
+"va" = (
+/turf/simulated/wall,
+/area/space/nearstation)
 "vj" = (
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
@@ -348,6 +472,18 @@
 	pixel_y = 4
 	},
 /turf/space,
+/area/space/nearstation)
+"vz" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
 /area/space/nearstation)
 "vT" = (
 /obj/item/trash/tastybread{
@@ -367,6 +503,11 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
+"ww" = (
+/obj/structure/lattice,
+/obj/item/pickaxe,
+/turf/space,
+/area/space/nearstation)
 "wz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -385,9 +526,26 @@
 	},
 /turf/simulated/floor/wood/cherry,
 /area/abandonedGhostbusters)
+"xa" = (
+/obj/structure/lattice,
+/obj/effect/spawner/random_barrier/obstruction,
+/turf/space,
+/area/space/nearstation)
+"xg" = (
+/obj/structure/sign/fire{
+	pixel_y = 32
+	},
+/turf/template_noop,
+/area/template_noop)
 "xK" = (
 /turf/simulated/mineral,
 /area/space)
+"yi" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 9
+	},
+/turf/simulated/mineral,
+/area/abandonedGhostbusters)
 "yv" = (
 /turf/simulated/floor/plating/asteroid/airless,
 /area/space)
@@ -413,11 +571,9 @@
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "zZ" = (
-/obj/structure/spacepod_frame,
-/obj/structure/cable,
-/obj/structure/lattice,
-/turf/space,
-/area/space)
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/wall,
+/area/space/nearstation)
 "Ag" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/ants,
@@ -428,8 +584,9 @@
 /turf/simulated/mineral,
 /area/abandonedGhostbusters)
 "AG" = (
-/turf/simulated/wall/mineral/sandstone,
-/area/space)
+/obj/structure/lattice,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space/nearstation)
 "Bt" = (
 /obj/structure/rack{
 	dir = 8;
@@ -446,9 +603,10 @@
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "Cs" = (
-/obj/effect/spawner/random_barrier/obstruction,
+/obj/item/pipe,
+/obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "CA" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
@@ -473,10 +631,20 @@
 "DS" = (
 /turf/simulated/mineral,
 /area/space/nearstation)
+"Ei" = (
+/obj/item/trash/semki,
+/turf/simulated/mineral/random/volcanic/hard/double/high_chance,
+/area/space/nearstation)
+"Et" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/ants,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/space/nearstation)
 "EC" = (
-/obj/effect/decal/remains/mouse,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ED" = (
 /obj/effect/spawner/lootdrop/maintenance{
 	pixel_y = 3;
@@ -503,12 +671,12 @@
 /turf/simulated/floor/wood/cherry,
 /area/abandonedGhostbusters)
 "FO" = (
-/obj/item/trash/semki,
+/obj/machinery/door/poddoor/multi_tile,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "GS" = (
-/obj/structure/cable,
-/turf/simulated/floor/mineral,
+/obj/machinery/atmospherics/unary/passive_vent,
+/turf/space,
 /area/space)
 "Hn" = (
 /obj/structure/table_frame/wood,
@@ -545,6 +713,10 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
+"IU" = (
+/obj/item/shard,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space/nearstation)
 "IX" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -554,13 +726,7 @@
 /turf/space,
 /area/abandonedGhostbusters)
 "Jk" = (
-/obj/structure/lattice,
-/obj/structure/cable,
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 26
-	},
+/obj/effect/spawner/random_barrier/obstruction,
 /turf/space,
 /area/space/nearstation)
 "Ju" = (
@@ -571,6 +737,11 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
+"JD" = (
+/obj/structure/lattice/catwalk,
+/obj/item/pipe,
+/turf/space,
+/area/space/nearstation)
 "Kg" = (
 /obj/item/trash/syndi_cakes{
 	pixel_y = 7
@@ -631,6 +802,23 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
+"Mu" = (
+/obj/structure/table/reinforced,
+/obj/machinery/kitchen_machine/microwave{
+	pixel_x = -1;
+	pixel_y = 7
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/space/nearstation)
+"MH" = (
+/obj/machinery/door/airlock{
+	id_tag = "toilet2";
+	name = "Toilet"
+	},
+/turf/simulated/floor/plasteel,
+/area/space/nearstation)
 "Nx" = (
 /obj/structure/sign/poster/official/walk,
 /obj/structure/falsewall/mineral_ancient{
@@ -664,6 +852,12 @@
 	icon_state = "wood-broken"
 	},
 /area/abandonedGhostbusters)
+"OH" = (
+/obj/structure/spacepod_frame,
+/obj/structure/cable,
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "Pt" = (
 /turf/simulated/floor/mineral,
 /area/space/nearstation)
@@ -691,15 +885,25 @@
 /turf/simulated/floor/carpet/black,
 /area/abandonedGhostbusters)
 "Qx" = (
-/obj/structure/lattice/catwalk,
-/obj/item/pipe,
-/turf/space,
-/area/space)
-"QF" = (
 /obj/structure/lattice,
-/obj/item/pickaxe,
+/obj/machinery/computer/rdconsole/mechanics,
 /turf/space,
-/area/space)
+/area/space/nearstation)
+"QC" = (
+/obj/structure/lattice,
+/obj/structure/cable,
+/turf/space,
+/area/abandonedGhostbusters)
+"QF" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "arrival"
+	},
+/area/space/nearstation)
 "RI" = (
 /turf/simulated/mineral/random/high_chance,
 /area/space/nearstation)
@@ -750,10 +954,20 @@
 /turf/space,
 /area/space/nearstation)
 "Um" = (
-/obj/item/pipe,
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull";
+	tag = "icon-redfull (NORTHWEST)"
+	},
+/area/space/nearstation)
+"UJ" = (
 /obj/structure/lattice,
+/obj/machinery/shower{
+	dir = 8;
+	tag = "icon-shower (WEST)"
+	},
+/obj/structure/curtain/open/shower,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "Vl" = (
 /obj/item/decorations/sticky_decorations/flammable/ghost,
 /obj/structure/sign/poster/official/the_owl{
@@ -773,6 +987,30 @@
 	light_color = "red"
 	},
 /area/abandonedGhostbusters)
+"WH" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space/nearstation)
+"Xt" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/space/nearstation)
+"XH" = (
+/obj/structure/cable,
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
+"Ya" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/wall,
+/area/space)
 "YC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/reagent_containers/food/snacks/ectoplasm{
@@ -781,6 +1019,9 @@
 	pixel_y = 4
 	},
 /turf/simulated/floor/plating,
+/area/abandonedGhostbusters)
+"YE" = (
+/turf/simulated/mineral/random/high_chance,
 /area/abandonedGhostbusters)
 "YN" = (
 /obj/structure/falsewall/wood{
@@ -792,9 +1033,14 @@
 /area/abandonedGhostbusters)
 "YR" = (
 /obj/structure/lattice,
-/obj/effect/spawner/random_barrier/obstruction,
+/obj/structure/cable,
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "north bump";
+	pixel_y = 26
+	},
 /turf/space,
-/area/space)
+/area/abandonedGhostbusters)
 "YX" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/item/reagent_containers/food/snacks/ectoplasm,
@@ -822,30 +1068,194 @@
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/carpet/red,
 /area/abandonedGhostbusters)
+"Zm" = (
+/obj/structure/lattice,
+/obj/item/reagent_containers/food/snacks/meat,
+/turf/space,
+/area/space/nearstation)
+"Zu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/wall,
+/area/space/nearstation)
+"ZO" = (
+/obj/effect/decal/remains/mouse,
+/turf/space,
+/area/space/nearstation)
 "ZT" = (
 /obj/item/shard,
 /turf/space,
 /area/space/nearstation)
 
 (1,1,1) = {"
-Hq
 nO
-xK
-yv
-yv
-dw
-Cs
-AG
-dw
-xK
-dI
-GS
-zZ
-jK
-mK
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
 "}
 (2,1,1) = {"
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+"}
+(3,1,1) = {"
+nO
+nO
+nO
+Hq
+Hq
+Hq
 Fj
+Hq
+Hq
+DS
+jK
+dw
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+nO
+nO
+"}
+(4,1,1) = {"
+nO
+nO
+nO
+Hq
+Hq
+Hq
+DS
+AG
+DS
+DS
+Zm
+Jk
+xK
+RI
+qE
+qE
+qE
+RI
+dw
+Hq
+Hq
+Hq
+Hq
+nO
+nO
+"}
+(5,1,1) = {"
+nO
+nO
+nO
+Hq
+Hq
+qE
+EC
+DS
+mz
+nT
+dI
+ZT
+Pt
+Um
+RI
+EC
+FO
+sF
+Pt
+nT
+Hq
+Hq
+Hq
+nO
+nO
+"}
+(6,1,1) = {"
+nO
+nO
+nO
+Hq
+Fj
+EC
+rC
+DS
+Mu
+eE
+nT
+Um
+nT
+nT
+DS
+RI
+iv
+OH
+XH
+mK
+EC
+Hq
+Hq
+nO
+nO
+"}
+(7,1,1) = {"
+nO
+nO
+nO
+Hq
+Fj
+qE
 nT
 yA
 RI
@@ -859,10 +1269,20 @@ RI
 It
 Pt
 lu
-nT
+Qx
+yA
+yA
+Hq
+nO
+nO
 "}
-(3,1,1) = {"
-xK
+(8,1,1) = {"
+nO
+nO
+nO
+Hq
+Fj
+DS
 zg
 IX
 KV
@@ -877,9 +1297,19 @@ KV
 jO
 Al
 nT
+yv
+EC
+Hq
+nO
+nO
 "}
-(4,1,1) = {"
-xK
+(9,1,1) = {"
+nO
+nO
+nO
+Hq
+Hq
+DS
 qE
 KV
 KV
@@ -893,10 +1323,20 @@ Ia
 hq
 ED
 KV
-yv
+yA
+cK
+zZ
+Ya
+nO
+nO
 "}
-(5,1,1) = {"
-dI
+(10,1,1) = {"
+nO
+nO
+nO
+xK
+Hq
+RI
 RI
 KV
 oQ
@@ -910,10 +1350,20 @@ Fo
 Fo
 Fo
 KV
-dI
+RI
+MH
+kd
+qt
+nO
+nO
 "}
-(6,1,1) = {"
-yv
+(11,1,1) = {"
+nO
+nO
+nO
+xK
+dw
+AG
 DS
 KV
 zw
@@ -928,9 +1378,19 @@ rl
 du
 Ua
 qE
+fG
+Zu
+va
+xg
+nO
 "}
-(7,1,1) = {"
-dw
+(12,1,1) = {"
+nO
+nO
+nO
+Hq
+xK
+dI
 ZT
 KV
 qy
@@ -945,9 +1405,19 @@ VP
 oR
 KV
 DS
+qE
+qE
+DS
+nO
+nO
 "}
-(8,1,1) = {"
-fz
+(13,1,1) = {"
+nO
+nO
+nO
+Hq
+Hq
+oE
 iX
 KV
 vY
@@ -962,9 +1432,19 @@ vT
 fs
 KV
 DS
+qE
+DS
+qE
+nO
+nO
 "}
-(9,1,1) = {"
-QF
+(14,1,1) = {"
+nO
+nO
+nO
+Hq
+Hq
+ww
 DS
 KV
 Wr
@@ -979,9 +1459,19 @@ Kg
 wN
 KV
 yA
+Fj
+nT
+aN
+nO
+nO
 "}
-(10,1,1) = {"
-xK
+(15,1,1) = {"
+nO
+nO
+nO
+Hq
+Hq
+DS
 DS
 KV
 hG
@@ -996,9 +1486,19 @@ Fo
 Fo
 KV
 nT
+Pt
+ll
+qE
+nO
+nO
 "}
-(11,1,1) = {"
+(16,1,1) = {"
+nO
+nO
+nO
+Hq
 yv
+yA
 RI
 KV
 HL
@@ -1007,15 +1507,25 @@ Ju
 gB
 Nx
 Zi
-fM
+eW
 mW
 iA
 Bt
 KV
-RI
+ui
+Et
+Xt
+sx
+nO
+nO
 "}
-(12,1,1) = {"
-yv
+(17,1,1) = {"
+nO
+nO
+nO
+Hq
+Hq
+yA
 DS
 KV
 KV
@@ -1029,10 +1539,20 @@ mW
 YX
 Mo
 KV
-yA
+fM
+vz
+UJ
+qE
+nO
+nO
 "}
-(13,1,1) = {"
-yv
+(18,1,1) = {"
+nO
+nO
+nO
+dw
+Hq
+yA
 Mc
 jq
 KV
@@ -1045,16 +1565,26 @@ KV
 KV
 KV
 jO
+bj
 nT
-nT
-"}
-(14,1,1) = {"
-YR
-CA
-mz
-RI
 jo
-Jk
+va
+qE
+nO
+nO
+"}
+(19,1,1) = {"
+nO
+nO
+nO
+Hq
+bJ
+xa
+CA
+yi
+YE
+QC
+YR
 DS
 jh
 yA
@@ -1064,21 +1594,171 @@ RI
 vl
 uK
 dB
+fS
+nT
+nq
+nO
+nO
 "}
-(15,1,1) = {"
+(20,1,1) = {"
+nO
+nO
+nO
 Hq
-LP
-dI
-xK
+dw
 EC
-bJ
-xK
-Um
-yv
-Qx
-bJ
-ll
-dI
-FO
-yv
+LP
+RI
+DS
+ZO
+uO
+DS
+Cs
+yA
+JD
+uO
+fz
+RI
+Ei
+EC
+WH
+IU
+QF
+nO
+nO
+"}
+(21,1,1) = {"
+nO
+nO
+nO
+Hq
+Hq
+Hq
+Hq
+Hq
+qE
+DS
+DS
+DS
+DS
+Fj
+Hq
+Hq
+dw
+dw
+qE
+qE
+Hq
+Hq
+Hq
+nO
+nO
+"}
+(22,1,1) = {"
+nO
+nO
+nO
+Hq
+Hq
+Hq
+Hq
+Hq
+qE
+qE
+qE
+qE
+Hq
+Hq
+Hq
+GS
+Hq
+Hq
+Hq
+qE
+Hq
+Hq
+Hq
+nO
+nO
+"}
+(23,1,1) = {"
+nO
+nO
+nO
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+nO
+nO
+"}
+(24,1,1) = {"
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+"}
+(25,1,1) = {"
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
+nO
 "}
