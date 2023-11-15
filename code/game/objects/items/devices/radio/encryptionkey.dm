@@ -202,7 +202,7 @@
 
 /obj/item/encryptionkey/event_2
 	name = "Encryption key"
-	desc = "An encryption key for a radio headset. To access special radio channel, use :w."
+	desc = "An encryption key for a radio headset. To access special radio channel, use :vi."
 	icon_state = "sov_cypherkey"
 	channels = list("Beta wave" = 1)
 
