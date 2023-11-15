@@ -124,6 +124,8 @@
 			var/obj/item/implant/I = new path(H)
 			I.implant(H, null)
 
+	post_equip(H, visualsOnly)
+
 	if(!H.head && toggle_helmet)
 		if(istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit))
 			var/obj/item/clothing/suit/space/hardsuit/hardsuit = H.wear_suit
@@ -131,8 +133,6 @@
 		else if(istype(H.wear_suit, /obj/item/clothing/suit/hooded))
 			var/obj/item/clothing/suit/hooded/S = H.wear_suit
 			S.ToggleHood()
-
-	post_equip(H, visualsOnly)
 
 	if(!visualsOnly)
 		apply_fingerprints(H)
