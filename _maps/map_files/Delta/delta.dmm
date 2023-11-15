@@ -11785,10 +11785,7 @@
 /area/civilian/vacantoffice)
 "bxn" = (
 /obj/structure/table/reinforced,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the RD's goons from the safety of his office.";
-	name = "Research Monitor";
-	network = list("Research","Research Outpost","RD");
+/obj/machinery/computer/security/telescreen/research{
 	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
@@ -13014,6 +13011,17 @@
 	pixel_y = -3
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/circuitboard/chem_dispenser{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/circuitboard/chem_heater{
+	pixel_y = 5
+	},
+/obj/item/circuitboard/chem_master{
+	pixel_x = -4;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -27983,10 +27991,8 @@
 /area/maintenance/fpmaint)
 "cQv" = (
 /obj/structure/table/reinforced,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the horrors within the test chamber.";
-	name = "Research Monitor";
-	network = list("TestChamber")
+/obj/machinery/computer/security/telescreen/test_chamber{
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -40722,12 +40728,8 @@
 	},
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/warning_stripes/west,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the singularity chamber.";
+/obj/machinery/computer/security/telescreen/singularity{
 	dir = 8;
-	layer = 4;
-	name = "Singularity Engine Telescreen";
-	network = list("Singularity");
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel,
@@ -86126,16 +86128,12 @@
 	},
 /area/security/warden)
 "oar" = (
-/obj/machinery/computer/security/telescreen{
-	desc = "Used to monitor interrogations.";
-	dir = 4;
-	layer = 4;
-	name = "Interrogation Monitor";
-	network = list("Interrogation");
-	req_access = list(63)
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
+/obj/machinery/computer/security/telescreen/prison{
+	pixel_y = 2;
+	network = list("Interrogation")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -104260,10 +104258,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/table/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the RD's goons from the safety of his office.";
-	name = "Research Monitor";
-	network = list("Research","Research Outpost","RD");
+/obj/machinery/computer/security/telescreen/research{
 	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
@@ -118807,12 +118802,8 @@
 "vsE" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/table/reinforced,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the test chamber.";
-	dir = 4;
-	layer = 4;
-	name = "Test Chamber Telescreen";
-	network = list("Toxins")
+/obj/machinery/computer/security/telescreen/toxin_chamber{
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/launch)

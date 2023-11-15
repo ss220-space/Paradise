@@ -573,6 +573,10 @@
 						W.reagents.reaction(W_turf)
 						for(var/atom/atm in W_turf)
 							W.reagents.reaction(atm)
+							if(isliving(atm)) //For extinguishing mobs on fire
+								var/mob/living/M = atm
+								M.ExtinguishMob()
+
 						if(W.loc == my_target)
 							break
 						sleep(2)

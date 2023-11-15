@@ -139,6 +139,7 @@
 			var/mob/living/carbon/human/new_character= makeBody(harry)
 			new_character.mind.make_Wizard() // This puts them at the wizard spawn, worry not
 			mages_made++
+			log_game("Spawned [new_character] (ckey: [new_character.key]) as Wizard as Raging Mage.")
 			return TRUE
 		else
 			log_runtime(EXCEPTION("The candidates list for ragin' mages contained non-observer entries!"), src)

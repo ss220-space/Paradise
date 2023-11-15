@@ -15,9 +15,16 @@
 		GLOB.event_announcement.Announce(alert)
 
 /datum/event/communications_blackout/start()
+	var/time = rand(1800, 3000)
 	// This only affects the cores, relays should be unaffected imo
 	for(var/obj/machinery/tcomms/core/T in GLOB.tcomms_machines)
 		T.start_ion()
 		// Bring it back sometime between 3-5 minutes. This uses deciseconds, so 1800 and 3000 respecticely.
 		// The AI cannot disable this, it must be waited for
-		addtimer(CALLBACK(T, TYPE_PROC_REF(/obj/machinery/tcomms, end_ion)), rand(1800, 3000))
+		addtimer(CALLBACK(T, TYPE_PROC_REF(/obj/machinery/tcomms, end_ion)), time)
+	addtimer(CALLBACK(src, PROC_REF(toggle_monitors)), time)
+	GLOB.communications_blackout = TRUE
+
+/datum/event/communications_blackout/proc/toggle_monitors()
+	GLOB.communications_blackout = FALSE
+	return

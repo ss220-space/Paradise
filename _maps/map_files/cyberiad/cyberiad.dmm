@@ -6696,11 +6696,8 @@
 /obj/machinery/computer/security{
 	network = list("SS13","Research Outpost","Mining Outpost")
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching Prison Wing holding areas.";
-	name = "Prison Monitor";
-	network = list("Prison");
-	pixel_y = 30
+/obj/machinery/computer/security/telescreen/prison{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
@@ -18997,7 +18994,6 @@
 	dir = 5
 	},
 /obj/machinery/atm{
-	name = "Nanotrasen automatic teller machine";
 	pixel_y = 32
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -30682,7 +30678,6 @@
 /area/maintenance/port)
 "bAn" = (
 /obj/machinery/atm{
-	name = "Nanotrasen automatic teller machine";
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
@@ -38267,8 +38262,7 @@
 	name = "Medbay Doors Control";
 	normaldoorcontrol = 1;
 	pixel_x = -26;
-	pixel_y = 25;
-	req_access = list()
+	pixel_y = 25
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -39292,12 +39286,6 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bVo" = (
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the RD's goons from the safety of his office.";
-	name = "Research Monitor";
-	network = list("Research","Research Outpost","RD");
-	pixel_y = 2
-	},
 /obj/structure/table/glass,
 /obj/machinery/ai_status_display{
 	pixel_y = 32
@@ -39305,6 +39293,7 @@
 /obj/effect/turf_decal/stripes{
 	dir = 8
 	},
+/obj/machinery/computer/security/telescreen/research,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/crew_quarters/hor)
 "bVp" = (
@@ -46046,15 +46035,15 @@
 /turf/simulated/floor/bluegrid/telecomms/server,
 /area/toxins/server)
 "cjI" = (
-/obj/machinery/camera{
-	c_tag = "Research E.X.P.E.R.I-MENTOR Chamber";
-	network = list("Telepad","Research","SS13")
-	},
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/structure/sign/nosmoking_2{
 	pixel_y = 32
+	},
+/obj/machinery/camera{
+	c_tag = "Research E.X.P.E.R.I-MENTOR Chamber";
+	network = list("Research","SS13")
 	},
 /turf/simulated/floor/engine,
 /area/toxins/explab_chamber)
@@ -46973,19 +46962,14 @@
 /turf/simulated/floor/wood,
 /area/ntrep)
 "cmj" = (
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the singularity chamber.";
-	dir = 8;
-	layer = 4;
-	name = "Singularity Engine Telescreen";
-	network = list("Singularity");
-	pixel_y = 30
-	},
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/machinery/computer/security/telescreen/singularity{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
@@ -50193,11 +50177,22 @@
 	pixel_x = 1;
 	pixel_y = 5
 	},
-/obj/item/flash,
-/obj/item/flash,
 /obj/machinery/ai_status_display{
 	pixel_x = -32
 	},
+/obj/item/circuitboard/chem_dispenser{
+	pixel_x = 4;
+	pixel_y = 8
+	},
+/obj/item/circuitboard/chem_master{
+	pixel_x = -4;
+	pixel_y = 10
+	},
+/obj/item/circuitboard/chem_heater{
+	pixel_y = 6
+	},
+/obj/item/flash,
+/obj/item/flash,
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "cvx" = (
@@ -55837,10 +55832,7 @@
 /area/toxins/xenobiology)
 "cID" = (
 /obj/machinery/light,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the horrors within the test chamber.";
-	name = "Research Monitor";
-	network = list("TestChamber");
+/obj/machinery/computer/security/telescreen/test_chamber{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -63763,13 +63755,8 @@
 /obj/machinery/camera{
 	c_tag = "Engineering East"
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the singularity chamber.";
-	dir = 8;
-	layer = 4;
-	name = "Singularity Engine Telescreen";
-	network = list("Singularity");
-	pixel_y = 30
+/obj/machinery/computer/security/telescreen/singularity{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -66565,7 +66552,6 @@
 /area/crew_quarters/toilet)
 "dhO" = (
 /obj/machinery/atm{
-	name = "Nanotrasen automatic teller machine";
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel,
@@ -69146,7 +69132,6 @@
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
 	id_tag = "atmospherics_south";
 	pixel_y = -25;
-	req_access = list();
 	tag_airpump = "atmospherics_south_pump";
 	tag_chamber_sensor = "atmospherics_south_sensor";
 	tag_exterior_door = "atmospherics_south_outer";
@@ -71001,8 +70986,7 @@
 /area/space)
 "eqx" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden{
-	dir = 1;
-	icon_state = "map"
+	dir = 1
 	},
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
@@ -71959,13 +71943,6 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the test chamber.";
-	layer = 4;
-	name = "Test Chamber Telescreen";
-	network = list("Toxins");
-	pixel_x = 32
-	},
 /obj/machinery/driver_button{
 	id_tag = "toxinsdriver";
 	pixel_y = 24;
@@ -71973,6 +71950,9 @@
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
+	},
+/obj/machinery/computer/security/telescreen/toxin_chamber{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/launch)
@@ -72678,13 +72658,6 @@
 	},
 /area/security/prisonershuttle)
 "ghF" = (
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the E.X.P.E.R.I-MENTOR chamber.";
-	layer = 4;
-	name = "E.X.P.E.R.I-MENTOR Camera Screen";
-	network = list("Telepad");
-	pixel_y = 32
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -73800,6 +73773,16 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/tcommsat/chamber)
+"hyU" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Research E.X.P.E.R.I-MENTOR Chamber";
+	network = list("Telepad","Research","SS13")
+	},
+/turf/simulated/floor/engine,
+/area/toxins/explab_chamber)
 "hzr" = (
 /obj/effect/decal/warning_stripes/northeast,
 /obj/effect/decal/cleanable/dirt,
@@ -75110,8 +75093,7 @@
 /area/maintenance/asmaint)
 "jcp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 10;
-	icon_state = "intact"
+	dir = 10
 	},
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
@@ -79710,8 +79692,7 @@
 "oBP" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 6;
-	icon_state = "intact"
+	dir = 6
 	},
 /obj/machinery/meter,
 /obj/effect/decal/warning_stripes/north,
@@ -81727,8 +81708,7 @@
 /area/maintenance/asmaint2)
 "qKZ" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 9;
-	icon_state = "intact"
+	dir = 9
 	},
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
@@ -82930,16 +82910,12 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the test chamber.";
-	layer = 4;
-	name = "Test Chamber Telescreen";
-	network = list("Toxins");
-	pixel_x = 32
-	},
 /obj/effect/decal/warning_stripes/southwestcorner,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
+	},
+/obj/machinery/computer/security/telescreen/toxin_chamber{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/launch)
@@ -84640,8 +84616,7 @@
 /area/maintenance/fsmaint2)
 "ukt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 5;
-	icon_state = "intact"
+	dir = 5
 	},
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
@@ -131416,7 +131391,7 @@ cgd
 cbf
 cjG
 clo
-cow
+hyU
 coi
 cpV
 cSe
