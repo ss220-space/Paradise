@@ -229,7 +229,7 @@
 
 /datum/outfit/job/mining/equipped
 	name = "Shaft Miner"
-
+	toggle_helmet = TRUE
 	suit = /obj/item/clothing/suit/hooded/explorer
 	mask = /obj/item/clothing/mask/gas/explorer
 	glasses = /obj/item/clothing/glasses/meson
@@ -248,9 +248,6 @@
 	..()
 	if(visualsOnly)
 		return
-	if(istype(H.wear_suit, /obj/item/clothing/suit/hooded))
-		var/obj/item/clothing/suit/hooded/S = H.wear_suit
-		S.ToggleHood()
 
 /datum/outfit/job/miner/equipped/hardsuit
 	name = "Shaft Miner (Equipment + Hardsuit)"

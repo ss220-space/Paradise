@@ -512,7 +512,7 @@
 
 /datum/outfit/job/engineer/suit
 	name = "Station Engineer"
-
+	toggle_helmet = TRUE
 	uniform = /obj/item/clothing/under/rank/engineer
 	belt = /obj/item/storage/belt/utility/full
 	suit = /obj/item/clothing/suit/space/hardsuit/engine
@@ -615,6 +615,7 @@
 
 /datum/outfit/job/mining/suit
 	name = "Shaft Miner"
+	toggle_helmet = TRUE
 	suit = /obj/item/clothing/suit/space/hardsuit/mining
 	uniform = /obj/item/clothing/under/rank/miner
 	gloves = /obj/item/clothing/gloves/fingerless
