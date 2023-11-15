@@ -89,7 +89,7 @@
 		if(throwing) // you keep some momentum when getting out of a thrown closet
 			step(AM, dir)
 	if(throwing)
-		throwing.finalize(FALSE)
+		throwing.finalize()
 
 /obj/structure/closet/proc/open()
 	if(opened || !can_open())

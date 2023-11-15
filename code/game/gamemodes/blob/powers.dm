@@ -248,6 +248,7 @@
 			var/mob/living/simple_animal/hostile/blob/blobbernaut/blobber = new (get_turf(b_fac))
 			qdel(b_fac)
 			blobber.key = C.key
+			log_game("[blobber.key] has spawned as Blobbernaut")
 			to_chat(blobber, "<span class='biggerdanger'>You are a blobbernaut! You must assist all blob lifeforms in their mission to consume everything!</span>")
 			to_chat(blobber, "<span class='danger'>You heal while standing on blob structures, however you will decay slowly if you are damaged outside of the blob.</span>")
 

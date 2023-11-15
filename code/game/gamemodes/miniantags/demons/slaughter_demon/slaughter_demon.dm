@@ -139,12 +139,14 @@
 	spawn(0.5 SECONDS)
 		var/list/demon_candidates = SSghost_spawns.poll_candidates("Do you want to play as a slaughter demon?", ROLE_DEMON, TRUE, 10 SECONDS, source = /mob/living/simple_animal/demon/slaughter/cult)
 		if(!demon_candidates.len)
+			log_game("[src] has failed to spawn, because no one enrolled.")
 			visible_message(span_warning("[src] disappears in a flash of red light!"))
 			qdel(src)
 			return
 		var/mob/M = pick(demon_candidates)
 		var/mob/living/simple_animal/demon/slaughter/cult/S = src
 		if(!M || !M.client)
+			log_game("[src] has failed to spawn, because enrolled player is missing.")
 			visible_message(span_warning("[src] disappears in a flash of red light!"))
 			qdel(src)
 			return
@@ -162,6 +164,7 @@
 		new_objective.explanation_text = "Bring forth the Slaughter to the nonbelievers."
 		S.mind.objectives += new_objective
 		to_chat(S, "<B>Objective #[1]</B>: [new_objective.explanation_text]")
+		log_game("[S.key] has become Slaughter demon.")
 
 
 /**

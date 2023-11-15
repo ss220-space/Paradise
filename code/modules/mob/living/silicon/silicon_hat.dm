@@ -79,7 +79,7 @@
 			canBeHatted = TRUE
 			hat_alpha = 0
 			hat_offset_y = 2
-		if("syndi-medi", "surgeon", "toiletbot") //Высотой: 30
+		if("syndi-medi", "surgeon", "chiefbot", "toiletbot") //Высотой: 30
 			canBeHatted = TRUE
 			isCentered = TRUE
 			hat_offset_y = 1

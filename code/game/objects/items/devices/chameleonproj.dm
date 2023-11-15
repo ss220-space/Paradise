@@ -188,7 +188,7 @@
 	var/mob/living/silicon/robot/syndicate/saboteur/S
 	var/list/possible_disguises = list("Last One",
 										"Standard" = list("Robot-STD", "droid", "Standard", "Noble-STD"),
-										"Medical" = list("Standard-Medi", "Robot-MED", "surgeon", "droid-medical", "Robot-SRG", "Noble-MED", "Cricket-MEDI"),
+										"Medical" = list("Standard-Medi", "Robot-MED", "surgeon", "chiefbot", "droid-medical", "Robot-SRG", "Noble-MED", "Cricket-MEDI"),
 										"Engineering" = list("Robot-ENG", "Robot-ENG2", "landmate", "chiefmate", "Standard-Engi", "Noble-ENG", "Cricket-ENGI"),
 										"Security" = list("Robot-SEC", "Security", "securityrobot", "bloodhound", "Standard-Secy", "Noble-SEC", "Cricket-SEC"),
 										"Service" = list("Robot-LDY", "toiletbot", "Robot-RLX", "maximillion", "Robot-MAN", "Standard-Serv", "Noble-SRV", "Cricket-SERV"),
