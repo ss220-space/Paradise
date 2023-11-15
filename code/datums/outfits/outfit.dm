@@ -21,7 +21,7 @@
 	var/l_hand = null
 	var/r_hand = null
 	/// Should the toggle helmet proc be called on the helmet during equip
-	var/toggle_helmet = TRUE
+	var/toggle_helmet = FALSE
 	var/pda = null
 	var/internals_slot = null //ID of slot containing a gas tank
 	var/list/backpack_contents = list() // In the list(path=count,otherpath=count) format
@@ -110,7 +110,7 @@
 				backpack_contents = list()
 			backpack_contents.Insert(1, box)
 			backpack_contents[box] = 1
-			box = null // if it's added to backpack_contents ... we don't need it anymore.
+			box = null	// if it's added to backpack_contents ... we don't need it anymore.
 
 		for(var/path in backpack_contents)
 			var/number = backpack_contents[path]
@@ -118,11 +118,19 @@
 				H.equip_or_collect(new path(H), slot_in_backpack)
 
 		for(var/path in cybernetic_implants)
-			new path(H) // Just creating internal organ inside a human forcing it to call insert() proc.
+			new path(H)	// Just creating internal organ inside a human forcing it to call insert() proc.
 
-	if(!H.head && toggle_helmet && istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit))
-		var/obj/item/clothing/suit/space/hardsuit/HS = H.wear_suit
-		HS.ToggleHelmet()
+		for(var/path in implants)	// Implantation is required here, bcs below we have a ToggleHelmet() hardsuit proc that is based on the isertmindshielded() proc.
+			var/obj/item/implant/I = new path(H)
+			I.implant(H, null)
+
+	if(!H.head && toggle_helmet)
+		if(istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit))
+			var/obj/item/clothing/suit/space/hardsuit/hardsuit = H.wear_suit
+			hardsuit.ToggleHelmet()
+		else if(istype(H.wear_suit, /obj/item/clothing/suit/hooded))
+			var/obj/item/clothing/suit/hooded/S = H.wear_suit
+			S.ToggleHood()
 
 	post_equip(H, visualsOnly)
 
@@ -131,11 +139,6 @@
 		if(internals_slot)
 			H.internal = H.get_item_by_slot(internals_slot)
 			H.update_action_buttons_icon()
-
-	if(implants)
-		for(var/implant_type in implants)
-			var/obj/item/implant/I = new implant_type(H)
-			I.implant(H, null)
 
 	H.regenerate_icons()
 	return TRUE
