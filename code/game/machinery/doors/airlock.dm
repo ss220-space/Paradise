@@ -85,6 +85,8 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	var/normal_integrity = AIRLOCK_INTEGRITY_N
 	var/prying_so_hard = FALSE
 	var/paintable = TRUE // If the airlock type can be painted with an airlock painter
+	var/welding = FALSE // Displays the state of the door when exposed to welding
+	var/reinforcing = FALSE // Displays the state of the door when exposed to reinforcement
 
 	var/image/old_frame_overlay //keep those in order to prevent unnecessary updating
 	var/image/old_filling_overlay
@@ -908,7 +910,11 @@ About the new airlock wires panel:
 					if(S.get_amount() < 2)
 						to_chat(user, "<span class='warning'>You need at least 2 metal sheets to reinforce [src].</span>")
 						return
+					if(reinforcing)
+						to_chat(user, "<span class='notice'>You are already reinforcing [src].</span>")
+						return
 					to_chat(user, "<span class='notice'>You start reinforcing [src]...</span>")
+					reinforcing = TRUE
 					if(do_after(user, 20, 1, target = src))
 						if(!panel_open || !S.use(2))
 							return
@@ -916,13 +922,18 @@ About the new airlock wires panel:
 											"<span class='notice'>You reinforce \the [src] with metal.</span>")
 						security_level = AIRLOCK_SECURITY_METAL
 						update_icon()
+						reinforcing = FALSE
 					return
 				else if(istype(C, /obj/item/stack/sheet/plasteel))
 					var/obj/item/stack/sheet/plasteel/S = C
 					if(S.get_amount() < 2)
 						to_chat(user, "<span class='warning'>You need at least 2 plasteel sheets to reinforce [src].</span>")
 						return
+					if(reinforcing)
+						to_chat(user, "<span class='notice'>You are already reinforcing [src].</span>")
+						return
 					to_chat(user, "<span class='notice'>You start reinforcing [src]...</span>")
+					reinforcing = TRUE
 					if(do_after(user, 20, 1, target = src))
 						if(!panel_open || !S.use(2))
 							return
@@ -932,6 +943,7 @@ About the new airlock wires panel:
 						modify_max_integrity(normal_integrity * AIRLOCK_INTEGRITY_MULTIPLIER)
 						damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_R
 						update_icon()
+						reinforcing = FALSE
 					return
 
 	if(istype(C, /obj/item/assembly/signaler))
@@ -1044,7 +1056,11 @@ About the new airlock wires panel:
 	if(panel_open) // panel should be open before we try to slice out any shielding.
 		switch(security_level)
 			if(AIRLOCK_SECURITY_METAL)
+				if(welding)
+					to_chat(user, "<span class='notice'>You are already cutting the panel's shielding</span>")
+					return
 				to_chat(user, "<span class='notice'>You begin cutting the panel's shielding...</span>")
+				welding = TRUE
 				if(!I.use_tool(src, user, 40, volume = I.tool_volume))
 					return
 				visible_message("<span class='notice'>[user] cuts through \the [src]'s shielding.</span>",
@@ -1052,6 +1068,7 @@ About the new airlock wires panel:
 					"<span class='italics'>You hear welding.</span>")
 				security_level = AIRLOCK_SECURITY_NONE
 				spawn_atom_to_turf(/obj/item/stack/sheet/metal, user.loc, 2)
+				welding = FALSE
 			if(AIRLOCK_SECURITY_PLASTEEL_O)
 				to_chat(user, "<span class='notice'>You begin cutting the outer layer of shielding...</span>")
 				if(!I.use_tool(src, user, 40, volume = I.tool_volume))
