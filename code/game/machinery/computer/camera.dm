@@ -229,7 +229,34 @@
 	light_range_on = 0
 	network = list("news")
 	luminosity = 0
+	layer = 4 //becouse of plasma glass with layer = 3
 	circuit = /obj/item/circuitboard/camera/telescreen/entertainment
+
+/obj/machinery/computer/security/telescreen/singularity
+	name = "Singularity Engine Telescreen"
+	desc = "Used for watching the singularity chamber."
+	network = list("Singularity")
+	circuit = /obj/item/circuitboard/camera/telescreen/singularity
+
+/obj/machinery/computer/security/telescreen/toxin_chamber
+	name = "Toxins Telescreen"
+	desc = "Used for watching the test chamber."
+	network = list("Toxins")
+
+/obj/machinery/computer/security/telescreen/test_chamber
+	name = "Test Chamber Telescreen"
+	desc = "Used for watching the test chamber."
+	network = list("TestChamber")
+
+/obj/machinery/computer/security/telescreen/research
+	name = "Research Monitor"
+	desc = "Used for watching the RD's goons from the safety of his office."
+	network = list("Research","Research Outpost","RD")
+
+/obj/machinery/computer/security/telescreen/prison
+	name = "Prison Monitor"
+	desc = "Used for watching Prison Wing holding areas."
+	network = list("Prison")
 
 /obj/machinery/computer/security/wooden_tv
 	name = "security camera monitor"

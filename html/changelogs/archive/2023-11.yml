@@ -89,6 +89,13 @@
   - unknown: fix deploy action's job execution
   - unknown: fix deploy action's job execution 2
   - unknown: dynamically generate deploy action's matrix
+  - unknown: delete auto deployments and set urls for manual ones
+  - unknown: fix deployment clearing and url setting
+  - unknown: fix deployment clearing and url setting
+  - unknown: debug deployments
+  - unknown: correct automatic deployments deletion
+  - unknown: refactor  automatic deployments deletion
+  - unknown: fix job names in deploy action
   Daeberdir:
   - bugfix: 'hotfix #3816 (#3838)'
   LiquidPotroh:
@@ -99,3 +106,38 @@
   - bugfix: replacing the glass on the lavaland cyberiad (#3839)
   Vladisvell:
   - bugfix: SSD acknowledgement now do not send tons of messages. (#3846)
+'2023-11-14':
+  ArtemDerp:
+  - qol: add one reishi seed to ash walkers warehouse (#3866)
+  Daeberdir:
+  - bugfix: MA now again claiming damage for PainHunter objective. (#3872)
+  - bugfix: unique "reference" for new uplink item. (#3871)
+  - bugfix: tajaran veil sunglasses craft corrections. (#3874)
+  - bugfix: hulks can't be captured in lazarus capsule. (#3873)
+  Etrnlmelancholy:
+  - tweak: jet for paramed (#3850)
+  Lentye:
+  - add: chemicals circuits for tech storage (#3855)
+  NightDawnFox:
+  - balance: all ert hardsuits, contractor hard and all syndie hards in EVA mode are
+      now fully immune to radiation (#3840)
+  - add: new medical borg skin - CMO-borg (#3860)
+  ROdenFL:
+  - tweak: crew monitor don`t work while commbrake (#3852)
+  SAAD:
+  - bugfix: Telescreen abuse (#3829)
+  Vladisvell:
+  - bugfix: VPN whitelist check now works even if ipintel_whitelist is disabled in
+      config (#3853)
+  - add: Added more logging to ghost spawns candidate pollings. (#3857)
+  - bugfix: BFL receiver now does not need power to interact with (#3858)
+  - bugfix: contractor no longer gets two syndicate encryption keys (#3862)
+  - bugfix: borg items no longer can be dropped (#3863)
+  - qol: Robots can now take tanks from tank dispenser (#3868)
+  - bugfix: Mecha equipment no longer can be dropped by mecha actions except detach.
+      (#3865)
+  - bugfix: mecha extinguishers do extinguish burning mobs now (#3869)
+  - bugfix: EMP no longer discharge borgs weaponry (#3864)
+  - qol: Added TTS aliases for consistent speech (#3875)
+  Zwei:
+  - bugfix: Throwing Fixes Again (#3842)

@@ -12,6 +12,7 @@
 	A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 	playsound(get_turf(D), 'sound/effects/hit_kick.ogg', 50, 1, -1)
 	D.apply_damage(bonus_damage, BRUTE)
+	objective_damage(A, D, bonus_damage, BRUTE)
 	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
 					"<span class='userdanger'>[A] [picked_hit_type] you!</span>")
 	return TRUE

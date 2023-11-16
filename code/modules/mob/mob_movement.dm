@@ -169,7 +169,7 @@
 	moving = 0
 	if(mob && .)
 		if(mob.throwing)
-			mob.throwing.finalize(FALSE)
+			mob.throwing.finalize()
 
 	for(var/obj/O in mob)
 		O.on_mob_move(direct, mob)

@@ -272,9 +272,9 @@
 	if(A && yes)
 		SEND_SIGNAL(src, COMSIG_MOVABLE_BUMP, A)
 		if(throwing)
-			throwing.hit_atom(A)
-			. = 1
-			if(!A || QDELETED(A))
+			throwing.finalize(A)
+			. = TRUE
+			if(QDELETED(A))
 				return
 		A.Bumped(src)
 
