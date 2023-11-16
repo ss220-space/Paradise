@@ -180,17 +180,17 @@
 				addtimer(CALLBACK(src, PROC_REF(recharge)), 300)
 			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] fails to return to its normal rhythm!</span>"), 30)
 
-	if(!(status & ORGAN_DEAD) && !attempted_restart && owner.HasDisease(new /datum/disease/critical/heart_failure))
+	if(!(status & ORGAN_DEAD) && !attempted_restart && owner.HasDisease(/datum/disease/critical/heart_failure))
 		to_chat(owner, "<span class='warning'>Your [name] detects a cardiac event and attempts to return to its normal rhythm!</span>")
 		if(prob(40) && emagged)
 			attempted_restart = TRUE
-			for(var/datum/disease/critical/heart_failure/HF in owner.viruses)
+			for(var/datum/disease/critical/heart_failure/HF in owner.diseases)
 				HF.cure()
 			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
 			addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
 		else if(prob(25))
 			attempted_restart = TRUE
-			for(var/datum/disease/critical/heart_failure/HF in owner.viruses)
+			for(var/datum/disease/critical/heart_failure/HF in owner.diseases)
 				HF.cure()
 			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
 			addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
@@ -256,7 +256,8 @@
 			owner.adjustFireLoss(numHigh)
 		if(prob(numMid))
 			to_chat(owner, "<span class='warning'>Your [name] lurches awkwardly!</span>")
-			owner.ForceContractDisease(new /datum/disease/critical/heart_failure)
+			var/datum/disease/critical/heart_failure/D = new
+			D.Contract(owner)
 		if(prob(numMid))
 			to_chat(owner, "<span class='danger'>Your [name] stops beating!</span>")
 			Stop()
@@ -272,4 +273,5 @@
 			owner.adjustFireLoss(numMid)
 		if(prob(numLow))
 			to_chat(owner, "<span class='warning'>Your [name] lurches awkwardly!</span>")
-			owner.ForceContractDisease(new /datum/disease/critical/heart_failure)
+			var/datum/disease/critical/heart_failure/D = new
+			D.Contract(owner)

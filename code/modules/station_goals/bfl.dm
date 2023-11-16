@@ -81,6 +81,8 @@
 	var/lavaland_z_lvl		// Определяется кодом по имени лаваленда
 
 /obj/machinery/power/bfl_emitter/attack_hand(mob/user as mob)
+	if(..())
+		return TRUE
 	var/response
 	src.add_fingerprint(user)
 	if(state)
@@ -234,6 +236,7 @@
 	icon = 'icons/obj/machines/BFL_mission/Hole.dmi'
 	icon_state = "Receiver_Off"
 	anchored = TRUE
+	interact_offline = TRUE
 
 	var/state = FALSE
 	var/mining = FALSE
@@ -247,6 +250,8 @@
 	var/last_icon_change = 0
 
 /obj/machinery/bfl_receiver/attack_hand(mob/user as mob)
+	if(..())
+		return TRUE
 	var/response
 	src.add_fingerprint(user)
 	if(state)

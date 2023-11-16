@@ -282,11 +282,9 @@ Class Procs:
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.getBrainLoss() >= 60)
+		if(!H.check_brain_for_complex_interactions())
 			visible_message(span_warning("[H] stares cluelessly at [src] and drools."))
-			return TRUE
-		else if(prob(H.getBrainLoss()))
-			to_chat(user, span_warning("You momentarily forget how to use [src]."))
+			to_chat(H, span_warning("You momentarily forget how to use [src]."))
 			return TRUE
 
 	if(panel_open)

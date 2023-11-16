@@ -36,7 +36,7 @@
 #define ROLE_TERROR_SPIDER		"Terror Spider"
 // Role tags for EVERYONE!
 #define ROLE_BORER				"cortical borer"
-#define ROLE_DEMON				"slaughter demon"
+#define ROLE_DEMON				"demon"
 #define ROLE_SENTIENT			"sentient animal"
 #define ROLE_POSIBRAIN			"positronic brain"
 #define ROLE_GUARDIAN			"guardian"

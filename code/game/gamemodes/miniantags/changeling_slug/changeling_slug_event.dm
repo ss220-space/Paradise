@@ -40,6 +40,7 @@
 			new_slug.make_slug_antag() //give objective and plays coolsound
 			spawncount--
 			successSpawn = TRUE
+			log_game("[new_slug.key] has become Changeling Headslug.")
 
 /datum/event/headslug_infestation/proc/eventcheck()
 	if(((length(GLOB.clients)) <= HI_MINPLAYERS_TRIGGER) ||GAMEMODE_IS_CULTS || GAMEMODE_IS_NUCLEAR || GAMEMODE_IS_SHADOWLING)

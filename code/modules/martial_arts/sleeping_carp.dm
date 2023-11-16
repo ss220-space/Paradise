@@ -25,6 +25,7 @@
 	MARTIAL_ARTS_ACT_CHECK
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	var/atk_verb = pick("кусает", "пинает", "ломает", "бьет", "крушит")
+	var/bonus_damage = rand(10, 15)
 	D.visible_message("<span class='danger'>[A] [atk_verb] [D]!</span>",
 					  "<span class='userdanger'>[A] [atk_verb] тебя!</span>")
 	if(atk_verb == "кусает")
@@ -35,7 +36,8 @@
 		playsound(get_turf(D), 'sound/weapons/genhit3.ogg', 50, 1, -1)
 	if(atk_verb == "ломает" || atk_verb == "бьет")
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 25, TRUE, -1)
-	D.apply_damage(rand(10, 15), BRUTE, A.zone_selected)
+	D.apply_damage(bonus_damage, BRUTE, A.zone_selected)
+	objective_damage(A, D, bonus_damage, BRUTE)
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Punched", ATKLOG_ALL)
 	return TRUE
 

@@ -241,7 +241,9 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Визит абдукторов",/datum/event/abductor, 		    20, 					list(ASSIGNMENT_SECURITY =  3), TRUE),	// 5.8% on high pop, 4.5% on low pop
 		new /datum/event_meta/alien(EVENT_LEVEL_MAJOR, "Заражение ксеноморфами",	/datum/event/alien_infestation, 		20,		list(ASSIGNMENT_SECURITY = 4), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Пауки Ужаса",		/datum/event/spider_terror, 	20,						list(ASSIGNMENT_SECURITY = 4), TRUE),	// 7.1% on high pop, 5.3% on low pop
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Демон Резни",		/datum/event/spawn_slaughter,	10,  is_one_shot = TRUE),	// 3% on high pop, 2.1% on low pop
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Демон Резни",		/datum/event/spawn_slaughter,	20,  is_one_shot = TRUE),	// 3% on high pop, 2.1% on low pop
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Демон Смеха",		/datum/event/spawn_slaughter/laughter,	20,  is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Теневой Демон", /datum/event/spawn_slaughter/shadow,	20, 	is_one_shot = TRUE),
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Floor Cluwne",	/datum/event/spawn_floor_cluwne,	15, is_one_shot = TRUE)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Космический Дракон", /datum/event/space_dragon, 20, 						list(ASSIGNMENT_SECURITY = 4), TRUE),
 	)
