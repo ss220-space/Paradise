@@ -129,7 +129,7 @@
 					var/datum/disease/D = dis
 					var/virusData = D.name
 					var/english_symptoms = list()
-					var/datum/disease/advance/A = D
+					var/datum/disease/virus/advance/A = D
 					if(istype(A))
 						for(var/datum/symptom/S in A.symptoms)
 							english_symptoms += S.name

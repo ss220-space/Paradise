@@ -274,7 +274,7 @@
 
 
 /mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
-	var/atmos_suitable = 1
+	var/atmos_suitable = TRUE
 
 	var/areatemp = get_temperature(environment)
 
@@ -289,45 +289,47 @@
 	var/co2 = environment.carbon_dioxide
 
 	if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
-		atmos_suitable = 0
+		atmos_suitable = FALSE
 		throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
 	else if(atmos_requirements["max_oxy"] && oxy > atmos_requirements["max_oxy"])
-		atmos_suitable = 0
+		atmos_suitable = FALSE
 		throw_alert("too_much_oxy", /obj/screen/alert/too_much_oxy)
 	else
 		clear_alert("not_enough_oxy")
 		clear_alert("too_much_oxy")
 
 	if(atmos_requirements["min_tox"] && tox < atmos_requirements["min_tox"])
-		atmos_suitable = 0
+		atmos_suitable = FALSE
 		throw_alert("not_enough_tox", /obj/screen/alert/not_enough_tox)
 	else if(atmos_requirements["max_tox"] && tox > atmos_requirements["max_tox"])
-		atmos_suitable = 0
+		atmos_suitable = FALSE
 		throw_alert("too_much_tox", /obj/screen/alert/too_much_tox)
 	else
 		clear_alert("too_much_tox")
 		clear_alert("not_enough_tox")
 
 	if(atmos_requirements["min_n2"] && n2 < atmos_requirements["min_n2"])
-		atmos_suitable = 0
+		atmos_suitable = FALSE
 	else if(atmos_requirements["max_n2"] && n2 > atmos_requirements["max_n2"])
-		atmos_suitable = 0
+		atmos_suitable = FALSE
 
 	if(atmos_requirements["min_co2"] && co2 < atmos_requirements["min_co2"])
-		atmos_suitable = 0
+		atmos_suitable = FALSE
 	else if(atmos_requirements["max_co2"] && co2 > atmos_requirements["max_co2"])
-		atmos_suitable = 0
+		atmos_suitable = FALSE
 
 	if(!atmos_suitable)
 		adjustHealth(unsuitable_atmos_damage)
 
 	handle_temperature_damage()
 
+
 /mob/living/simple_animal/proc/handle_temperature_damage()
 	if(bodytemperature < minbodytemp)
 		adjustHealth(cold_damage_per_tick)
 	else if(bodytemperature > maxbodytemp)
 		adjustHealth(heat_damage_per_tick)
+
 
 /mob/living/simple_animal/gib()
 	if(icon_gib)
@@ -478,8 +480,17 @@
 		collar_type = "[initial(collar_type)]"
 		regenerate_icons()
 
+/mob/living/simple_animal/proc/check_if_child(mob/possible_child)
+	for(var/childpath in childtype)
+		if (istype(possible_child, childpath))
+			return TRUE
+	return FALSE
+
 /mob/living/simple_animal/proc/make_babies() // <3 <3 <3
 	if(gender != FEMALE || stat || next_scan_time > world.time || !childtype || !animal_species || !SSticker.IsRoundInProgress())
+		return FALSE
+
+	if (check_if_child(src)) // Children aren't fertile enough
 		return FALSE
 	next_scan_time = world.time + 400
 
@@ -490,12 +501,12 @@
 	for(var/mob/M in oview(7, src))
 		if(M.stat != CONSCIOUS) //Check if it's conscious FIRST.
 			continue
-		else if(istype(M, childtype)) //Check for children SECOND.
+		else if(check_if_child(M)) //Check for children SECOND.
 			children++
 		else if(istype(M, animal_species))
 			if(M.ckey)
 				continue
-			else if(!istype(M, childtype) && M.gender == MALE) //Better safe than sorry ;_;
+			else if(!check_if_child(M) && M.gender == MALE) //Better safe than sorry ;_;
 				partner = M
 		else if(isliving(M) && !faction_check_mob(M)) //shyness check. we're not shy in front of things that share a faction with us.
 			return //we never mate when not alone, so just abort early
@@ -665,14 +676,14 @@
 		return
 	if(user && !user.drop_transfer_item_to_loc(P, src))
 		return
-	P.equipped(src)
 	pcollar = P
 	regenerate_icons()
 	if(user)
-		to_chat(user, "<span class='notice'>You put [P] around [src]'s neck.</span>")
+		to_chat(user, span_notice("You put [P] around [src]'s neck."))
 	if(P.tagname && !unique_pet)
 		name = P.tagname
 		real_name = P.tagname
+	P.equipped(src)
 
 /mob/living/simple_animal/regenerate_icons()
 	cut_overlays()

@@ -98,7 +98,7 @@
 	result = /obj/item/clothing/glasses/hud/health/tajblind/sunglasses
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
-	reqs = list(/obj/item/clothing/glasses/hud/health/tajblind,
+	reqs = list(/obj/item/clothing/glasses/hud/health/tajblind = 1,
 				  /obj/item/clothing/glasses/sunglasses = 1,
 				  /obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
@@ -108,7 +108,7 @@
 	result = /obj/item/clothing/glasses/hud/hydroponic/tajblind/sunglasses
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
-	reqs = list(/obj/item/clothing/glasses/hud/hydroponic/tajblind,
+	reqs = list(/obj/item/clothing/glasses/hud/hydroponic/tajblind = 1,
 				  /obj/item/clothing/glasses/sunglasses = 1,
 				  /obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING

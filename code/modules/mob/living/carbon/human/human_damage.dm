@@ -78,10 +78,7 @@
 	if(dna.species && dna.species.has_organ["heart"])
 		var/obj/item/organ/internal/heart/hearty = get_int_organ(/obj/item/organ/internal/heart)
 		if(hearty)
-			hearty.damage = clamp(hearty.damage + amount, 0, 120)
-			// if(hearty.damage >= 120 && stat != DEAD)
-			// 	visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
-			// 	death()
+			hearty.damage = clamp(hearty.damage + amount, 0, 60)
 	if(updating_health)
 		update_stat("adjustHeartLoss")
 	return STATUS_UPDATE_STAT
@@ -93,10 +90,7 @@
 	if(dna.species && dna.species.has_organ["heart"])
 		var/obj/item/organ/internal/heart/hearty = get_int_organ(/obj/item/organ/internal/heart)
 		if(hearty)
-			hearty.damage = clamp(amount, 0, 120)
-			// if(sponge.damage >= 120 && stat != DEAD)
-			// 	visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
-			// 	death()
+			hearty.damage = clamp(amount, 0, 60)
 	if(updating_health)
 		update_stat("setHeartLoss")
 	return STATUS_UPDATE_STAT
@@ -113,6 +107,16 @@
 			return 200
 	else
 		return 0
+
+/mob/living/carbon/human/proc/check_brain_for_complex_interactions()
+	if(getBrainLoss() >= 60 || prob(getBrainLoss()))
+		return FALSE
+	var/datum/disease/virus/advance/A = locate(/datum/disease/virus/advance) in diseases
+	if(istype(A))
+		var/datum/symptom/headache/S = locate(/datum/symptom/headache) in A.symptoms
+		if(istype(S))
+			return FALSE
+	return TRUE
 
 //These procs fetch a cumulative total damage from all organs
 /mob/living/carbon/human/getBruteLoss()

@@ -885,7 +885,8 @@
 			to_chat(H, "<span class='danger'>Ugh! Eating that was a terrible idea!</span>")
 		if(NO_HUNGER in H.dna.species.species_traits) //If you don't eat, then you can't get food poisoning
 			return
-		H.ForceContractDisease(new /datum/disease/food_poisoning)
+		var/datum/disease/food_poisoning/D = new
+		D.Contract(H)
 
 /datum/reagent/msg
 	name = "Monosodium glutamate"
@@ -931,7 +932,8 @@
 	else if(volume >= 150 && prob(volume*0.01))
 		to_chat(M, "<span class='warning'>Your chest is burning with pain!</span>")
 		M.Weaken(2 SECONDS)
-		M.ForceContractDisease(new /datum/disease/critical/heart_failure)
+		var/datum/disease/critical/heart_failure/D = new
+		D.Contract(M)
 	return ..() | update_flags
 
 /datum/reagent/fungus
@@ -950,7 +952,8 @@
 			M.reagents.add_reagent("toxin", rand(1,5))
 		else if(ranchance <= 5)
 			to_chat(M, "<span class='warning'>That tasted absolutely FOUL.</span>")
-			M.ForceContractDisease(new /datum/disease/food_poisoning)
+			var/datum/disease/food_poisoning/D = new
+			D.Contract(M)
 		else
 			to_chat(M, "<span class='warning'>Yuck!</span>")
 

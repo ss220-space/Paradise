@@ -59,6 +59,8 @@
 		. = "ERROR"
 
 /obj/machinery/shuttle_manipulator/attack_hand(mob/user)
+	if(..())
+		return TRUE
 	add_fingerprint(user)
 	ui_interact(user)
 

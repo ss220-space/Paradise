@@ -506,6 +506,9 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 
 
 /obj/machinery/computer/syndie_supplycomp/attack_hand(var/mob/user as mob)
+	if(..())
+		return TRUE
+
 	if(!allowed(user) && !isobserver(user))
 		to_chat(user, span_warning("Access denied."))
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)

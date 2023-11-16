@@ -1801,6 +1801,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Surgery 2"
 	icon_state = "surgery2"
 
+/area/medical/surgery/theatre
+	name = "\improper Surgery Theatre"
+	icon_state = "surgery_theatre"
+
 /area/medical/surgeryobs
 	name = "\improper Surgery Observation"
 	icon_state = "surgery"

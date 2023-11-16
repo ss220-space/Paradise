@@ -310,7 +310,6 @@
 	I.pixel_y = initial(I.pixel_y)
 	I.screen_loc = null
 	I.forceMove(src)
-	I.equipped(src, slot, initial)
 	I.layer = ABOVE_HUD_LAYER
 	I.plane = ABOVE_HUD_PLANE
 
@@ -420,11 +419,13 @@
 				I.forceMove(drop_location())
 
 		if(slot_tie)
-			var/obj/item/clothing/under/uniform = src.w_uniform
+			var/obj/item/clothing/under/uniform = w_uniform
 			uniform.attackby(I, src)
 
 		else
-			to_chat(src, "<span class='warning'>You are trying to equip this item to an unsupported inventory slot. Report this to a coder!</span>")
+			to_chat(src, span_warning("You are trying to equip this item to an unsupported inventory slot. Report this to a coder!"))
+
+	I.equipped(src, slot, initial)
 
 
 /**

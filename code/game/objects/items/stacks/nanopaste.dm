@@ -26,8 +26,9 @@
 		return 0
 	if(istype(M,/mob/living/silicon/robot))	//Repairing cyborgs
 		var/mob/living/silicon/robot/R = M
-		if(R.getBruteLoss() || R.getFireLoss() )
+		if(R.getBruteLoss() || R.getFireLoss() || R.diseases?.len)
 			R.heal_overall_damage(15, 15)
+			R.CureAllDiseases(FALSE)
 			use(1)
 			user.visible_message("<span class='notice'>\The [user] applied some [src] at [R]'s damaged areas.</span>",\
 				"<span class='notice'>You apply some [src] at [R]'s damaged areas.</span>")
@@ -39,6 +40,11 @@
 		var/obj/item/organ/external/S = H.get_organ(user.zone_selected)
 
 		if(S && S.is_robotic())
+			if(ismachineperson(M) && M.diseases?.len)
+				use(1)
+				M.CureAllDiseases()
+				user.visible_message("<span class='notice'>\The [user] applies some nanite paste at \the [M] to fix problems.</span>")
+				return
 			if(S.get_damage())
 				use(1)
 				var/remheal = 15

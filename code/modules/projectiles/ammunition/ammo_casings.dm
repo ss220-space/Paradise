@@ -20,10 +20,10 @@
 	projectile_type = /obj/item/projectile/bullet/weakbullet3/fortynr
 
 /obj/item/ammo_casing/a762
-	desc = "A 7.62mm bullet casing."
+	desc = "A 7.62x54mm bullet casing."
 	icon_state = "762-casing"
 	materials = list(MAT_METAL = 4000)
-	caliber = "a762"
+	caliber = "7.62x54mm"
 	projectile_type = /obj/item/projectile/bullet
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
@@ -33,10 +33,10 @@
 	projectile_type = /obj/item/projectile/bullet/weakbullet3
 
 /obj/item/ammo_casing/ftt762
-	desc = "A fusty 7.62mm TT bullet casing."
+	desc = "A fusty 7.62x25mm TT bullet casing."
 	icon_state = "r-casing"
 	materials = list(MAT_METAL = 1000)
-	caliber = "ftt762"
+	caliber = "7.62x25mm"
 	projectile_type = /obj/item/projectile/bullet/ftt762
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
@@ -161,9 +161,9 @@
 	projectile_type = /obj/item/projectile/bullet/midbullet3
 
 /obj/item/ammo_casing/n762
-	desc = "A 7.62x38mmR bullet casing."
+	desc = "A 7.62x38mm bullet casing."
 	materials = list(MAT_METAL = 4000)
-	caliber = "n762"
+	caliber = "7.62x38mm"
 	projectile_type = /obj/item/projectile/bullet
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
@@ -405,21 +405,20 @@
 /obj/item/ammo_casing/a556
 	desc = "A 5.56mm bullet casing."
 	materials = list(MAT_METAL = 3250)
-	caliber = "a556"
+	caliber = "5.56mm"
 	projectile_type = /obj/item/projectile/bullet/heavybullet
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/a545
 	desc = "A 5.45x39mm bullet casing."
-	caliber = "a545"
+	caliber = "5.45x39mm"
 	projectile_type = /obj/item/projectile/bullet/midbullet3
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/a545/fusty
 	desc = "A fusty 5.45x39mm bullet casing."
-	caliber = "f545"
 	materials = list(MAT_METAL = 1000)
 	projectile_type = /obj/item/projectile/bullet/f545
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
@@ -441,13 +440,13 @@
 /obj/item/ammo_casing/caseless/fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, params, distro, quiet, zone_override = "", spread)
 	if(..())
 		loc = null
-		return 1
+		return TRUE
 	else
-		return 0
+		return FALSE
 
 /obj/item/ammo_casing/caseless/a75
 	desc = "A .75 bullet casing."
-	caliber = "75"
+	caliber = ".75"
 	materials = list(MAT_METAL = 8000)
 	projectile_type = /obj/item/projectile/bullet/gyro
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
@@ -472,7 +471,7 @@
 	caliber = "foam_force"
 	projectile_type = /obj/item/projectile/bullet/reusable/foam_dart
 	muzzle_flash_effect = null
-	var/modified = 0
+	var/modified = FALSE
 	harmful = FALSE
 
 /obj/item/ammo_casing/caseless/foam_dart/update_icon()
@@ -491,7 +490,7 @@
 	..()
 	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB
 	if(istype(A, /obj/item/screwdriver) && !modified)
-		modified = 1
+		modified = TRUE
 		FD.damage_type = BRUTE
 		update_icon()
 	else if((istype(A, /obj/item/pen)) && modified && !FD.pen)
@@ -501,8 +500,8 @@
 		FD.log_override = FALSE
 		FD.pen = A
 		FD.damage = 5
-		FD.nodamage = 0
-		to_chat(user, "<span class='notice'>You insert [A] into [src].</span>")
+		FD.nodamage = FALSE
+		to_chat(user, span_notice("You insert [A] into [src]."))
 	return
 
 /obj/item/ammo_casing/caseless/foam_dart/attack_self(mob/living/user)
@@ -511,7 +510,7 @@
 		FD.damage = initial(FD.damage)
 		FD.nodamage = initial(FD.nodamage)
 		user.put_in_hands(FD.pen)
-		to_chat(user, "<span class='notice'>You remove [FD.pen] from [src].</span>")
+		to_chat(user, span_notice("You remove [FD.pen] from [src]."))
 		FD.pen = null
 
 /obj/item/ammo_casing/caseless/foam_dart/riot

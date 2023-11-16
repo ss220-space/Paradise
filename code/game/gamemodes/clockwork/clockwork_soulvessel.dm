@@ -36,6 +36,7 @@
 		visible_message("<span class='notice'>[src] buzzes quietly as the cog stops moving. Perhaps you could use it to capture another soul?</span>")
 		return FALSE
 	M.ckey = chosen_ghost.ckey
+	log_game("[M.ckey] has possesed clockwork robotic brain.")
 	transfer_personality(M)
 	return TRUE
 

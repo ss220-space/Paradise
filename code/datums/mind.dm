@@ -182,6 +182,13 @@
 	if(active)
 		new_character.key = key		//now transfer the key to link the client to our new body
 
+	// essential mob updates
+	new_character.update_blind_effects()
+	new_character.update_blurry_effects()
+	new_character.update_sight()
+	new_character.hud_used?.reload_fullscreen()
+	new_character.reload_huds()
+
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSER_TO, new_character)
 
 

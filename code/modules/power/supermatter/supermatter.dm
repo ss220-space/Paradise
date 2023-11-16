@@ -264,13 +264,15 @@
 	transfer_energy()
 
 	for(var/mob/living/carbon/human/l in view(src, min(7, round(sqrt(power/6)))))
-		// If they can see it without mesons on.  Bad on them.
-		if(l.glasses && istype(l.glasses, /obj/item/clothing/glasses/meson))
+		// No more hallucinate for ded pipol.
+		if(!l.stat)
 			continue
 		// Where we're going, we don't need eyes.
-		// Prosthetic eyes will also protect against this business.
 		var/obj/item/organ/internal/eyes/eyes = l.get_int_organ(/obj/item/organ/internal/eyes)
 		if(!istype(eyes))
+			continue
+		// If they can see it without mesons on or can see objects through mesons. Bad on them.
+		if((l.sight >= SEE_TURFS) && !(l.sight >= (SEE_TURFS|SEE_OBJS)))
 			continue
 		l.Hallucinate(min(200 SECONDS, l.AmountHallucinate() + power * config_hallucination_power * sqrt( 1 / max(1,get_dist(l, src)))))
 		l.last_hallucinator_log = "seeing SM without mesons"
