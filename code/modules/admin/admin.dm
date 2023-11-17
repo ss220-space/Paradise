@@ -106,8 +106,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		body += "<a href='?src=[usr.UID()];priv_msg=[M.client.ckey]'>PM</a> - "
 		body += "[ADMIN_SM(M,"SM")] - "
 	if(ishuman(M) && M.mind)
-		body += "<a href='?_src_=holder;HeadsetMessage=[M.UID()]'>HM</a> -"
-	body += "[admin_jump_link(M)]\] </b><br>"
+		body += "<a href='?_src_=holder;HeadsetMessage=[M.UID()]'>HM</a> - "
+	body += "[admin_jump_link(M)] - "
+	body += "<a href='?_src_=holder;adminalert=[M.UID()]'>SEND ALERT</a>\]</b><br>"
 	body += "<b>Mob type:</b> [M.type]<br>"
 	if(M.client)
 		if(M.client.prefs.discord_id)
