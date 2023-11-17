@@ -351,6 +351,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		"}
 	if(GLOB.master_mode == "secret")
 		dat += "<A href='?src=[UID()];f_secret=1'>(Force Secret Mode)</A><br>"
+	if(GLOB.master_mode == "antag-paradise" || GLOB.secret_force_mode == "antag-paradise")
+		dat += "<A href='?src=[UID()];change_weights=1'>Change Antag Weights</A><br>"
 
 	dat += {"
 		<BR>
