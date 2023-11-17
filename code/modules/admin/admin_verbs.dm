@@ -1348,7 +1348,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 	switch(alert_type)
 		if("Yes")
-			var/message = "Администратор пытается связаться с тобой! <br>Открой диалоговое окно с администратором, нажав на его сикей в чате, в случае игнорирования, вы можете получить бан!"
+			var/message = "Администратор пытается связаться с тобой! \nОткрой диалоговое окно с администратором, нажав на его сикей в чате, в случае игнорирования, вы можете получить бан!"
 			show_blurb(about_to_be_banned, 15, message, null, "center", "center", COLOR_RED, null, null, 1)
 			log_admin("[key_name(src)] sent a default admin alert to [key_name(about_to_be_banned)].")
 			message_admins("[key_name(src)] sent a default admin alert to [key_name(about_to_be_banned)].")
