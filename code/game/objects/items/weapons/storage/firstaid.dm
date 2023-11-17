@@ -384,6 +384,13 @@
 	rapid_post_instake_message = "stamps the entire contents of the patch pack all over their entire body!"
 	wrapper_state = "patch_pack_wrap"
 
+/obj/item/storage/pill_bottle/patch_pack/filled/populate_contents()
+	for(var/I in 1 to 10)
+		new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
+
+	for(var/I in 1 to 10)
+		new /obj/item/reagent_containers/food/pill/patch/styptic(src)
+
 /obj/item/storage/pill_bottle/charcoal
 	name = "Pill bottle (Charcoal)"
 	desc = "Contains pills used to counter toxins."
