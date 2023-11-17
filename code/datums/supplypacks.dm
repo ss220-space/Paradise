@@ -325,6 +325,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 20
 	containername = "forensics crate"
 
+/datum/supply_packs/security/telescopic
+	name = "Telescopic Baton Crate"
+	contains = list(/obj/item/melee/classic_baton/telescopic,
+					/obj/item/melee/classic_baton/telescopic)
+	cost = 20
+	containername = "telescopic baton crate"
+
 ///// Armory stuff
 
 /datum/supply_packs/security/armory
