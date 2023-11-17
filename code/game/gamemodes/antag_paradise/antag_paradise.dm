@@ -116,47 +116,37 @@
 
 	if(antag_amount[ROLE_VAMPIRE])
 		var/list/datum/mind/possible_vampires = get_players_for_role(ROLE_VAMPIRE)
-		if(length(possible_vampires))
-			for(var/datum/mind/vampire in shuffle(possible_vampires))
-				if(length(pre_vampires) >= antag_amount[ROLE_VAMPIRE])
-					break
-				if(vampire.current.client.prefs.species in secondary_protected_species)
-					continue
-				if(vampire == special_antag)
-					continue
-				pre_vampires += vampire
-				vampire.special_role = SPECIAL_ROLE_VAMPIRE
-				vampire.restricted_roles = (restricted_jobs|vampire_restricted_jobs)
+		while(length(possible_vampires) && length(pre_vampires) <= antag_amount[ROLE_VAMPIRE])
+			var/datum/mind/vampire = pick_n_take(possible_vampires)
+			if(vampire.current.client.prefs.species in secondary_protected_species)
+				continue
+			if(vampire == special_antag)
+				continue
+			pre_vampires += vampire
+			vampire.special_role = SPECIAL_ROLE_VAMPIRE
+			vampire.restricted_roles = (restricted_jobs|vampire_restricted_jobs)
 
 	if(antag_amount[ROLE_CHANGELING])
 		var/list/datum/mind/possible_changelings = get_players_for_role(ROLE_CHANGELING)
-		if(length(possible_changelings))
-			for(var/datum/mind/changeling in shuffle(possible_changelings))
-				if(length(pre_changelings) >= antag_amount[ROLE_CHANGELING])
-					break
-				if(changeling.current.client.prefs.species in secondary_protected_species)
-					continue
-				if(changeling.special_role == SPECIAL_ROLE_VAMPIRE)
-					continue
-				if(changeling == special_antag)
-					continue
-				pre_changelings += changeling
-				changeling.special_role = SPECIAL_ROLE_CHANGELING
-				changeling.restricted_roles = restricted_jobs
+		while(length(possible_changelings) && length(pre_changelings) <= antag_amount[ROLE_CHANGELING])
+			var/datum/mind/changeling = pick_n_take(possible_changelings)
+			if(changeling.current.client.prefs.species in secondary_protected_species)
+				continue
+			if(changeling.special_role || changeling == special_antag)
+				continue
+			pre_changelings += changeling
+			changeling.special_role = SPECIAL_ROLE_CHANGELING
+			changeling.restricted_roles = restricted_jobs
 
 	if(antag_amount[ROLE_TRAITOR])
 		var/list/datum/mind/possible_traitors = get_players_for_role(ROLE_TRAITOR)
-		if(length(possible_traitors))
-			for(var/datum/mind/traitor in shuffle(possible_traitors))
-				if(length(pre_traitors) >= antag_amount[ROLE_TRAITOR])
-					break
-				if(traitor.special_role == SPECIAL_ROLE_VAMPIRE || traitor.special_role == SPECIAL_ROLE_CHANGELING)
-					continue
-				if(traitor == special_antag)
-					continue
-				pre_traitors += traitor
-				traitor.special_role = SPECIAL_ROLE_TRAITOR
-				traitor.restricted_roles = restricted_jobs
+		while(length(possible_traitors) && length(pre_traitors) <= antag_amount[ROLE_TRAITOR])
+			var/datum/mind/traitor = pick_n_take(possible_traitors)
+			if(traitor.special_role || traitor == special_antag)
+				continue
+			pre_traitors += traitor
+			traitor.special_role = SPECIAL_ROLE_TRAITOR
+			traitor.restricted_roles = restricted_jobs
 
 	if(antag_amount[ROLE_THIEF])
 		var/list/datum/mind/possible_thieves = get_players_for_role(ROLE_THIEF)
@@ -168,12 +158,10 @@
 					for(var/i in 1 to thief_prefered_species_mod)
 						thief_list += thief
 
-			for(var/datum/mind/thief in shuffle(thief_list))
-				if(length(pre_thieves) >= antag_amount[ROLE_THIEF])
-					break
-				if(thief.special_role == SPECIAL_ROLE_VAMPIRE || thief.special_role == SPECIAL_ROLE_CHANGELING || thief.special_role == SPECIAL_ROLE_TRAITOR || thief.special_role == SPECIAL_ROLE_THIEF)
-					continue
-				if(thief == special_antag)
+			while(length(thief_list) && length(pre_thieves) <= antag_amount[ROLE_THIEF])
+				var/datum/mind/thief = pick_n_take(thief_list)
+				listclearduplicates(thief, thief_list)
+				if(thief.special_role || thief == special_antag)
 					continue
 				pre_thieves += thief
 				thief.special_role = SPECIAL_ROLE_THIEF
@@ -187,11 +175,13 @@
 	if(!chance_double_antag || !length(pre_traitors))
 		return
 
-	for(var/datum/mind/traitor in shuffle(pre_traitors))
+	var/list/pre_traitors_copy = pre_traitors.Copy()
+	while(length(pre_traitors_copy))
 		if(!prob(chance_double_antag))
 			continue
 
-		var/list/available_roles = list(ROLE_VAMPIRE, ROLE_CHANGELING, ROLE_THIEF)
+		var/datum/mind/traitor = pick_n_take(pre_traitors_copy)
+		var/list/available_roles = list(ROLE_VAMPIRE, ROLE_CHANGELING)
 		while(length(available_roles))
 			var/second_role = pick_n_take(available_roles)
 
@@ -214,14 +204,6 @@
 				traitor_changelings += traitor
 				break
 
-			if(second_role == ROLE_THIEF && \
-				!jobban_isbanned(traitor.current, get_roletext(second_role)) && \
-				player_old_enough_antag(traitor.current.client, second_role) && \
-				(second_role in traitor.current.client.prefs.be_special))
-
-				traitor_thieves += traitor
-				break
-
 
 /datum/game_mode/antag_paradise/proc/calculate_antags()
 	var/players = num_players()
@@ -237,7 +219,7 @@
 		available_special_antags += antag
 
 	special_antag_type = pick_weight_classic(GLOB.antag_paradise_special_weights)
-	if((special_antag_type in available_special_antags) && prob(GLOB.antag_paradise_special_weights[special_antag_type]))
+	if(special_antag_type in available_special_antags)
 		antags_amount--
 	else
 		special_antag_type = null
@@ -278,6 +260,7 @@
 
 	for(var/i in 1 to antags_amount)
 		antag_amount[pick_weight_classic(antag_weights)]++
+
 
 /datum/game_mode/antag_paradise/post_setup()
 	switch(special_antag_type)

@@ -34,5 +34,6 @@ GLOBAL_LIST_INIT(antag_paradise_special_weights, list(
 	ROLE_TRAITOR = 0,	// hijacker actually
 	ROLE_MALF_AI = 0,
 	ROLE_NINJA = 0,
+	ROLE_NONE = 0,	// to skip all roles entirely
 ))
 

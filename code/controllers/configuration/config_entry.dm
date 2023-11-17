@@ -28,6 +28,7 @@
 	name = lowertext(type2top(type))
 	default_protection = protection
 	set_default()
+	mofify_globals()
 
 /datum/config_entry/Destroy()
 	config.RemoveEntry(src)
@@ -48,6 +49,8 @@
 	protection = default_protection
 	resident_file = null
 	modified = FALSE
+
+/datum/config_entry/proc/mofify_globals()
 
 /datum/config_entry/can_vv_get(var_name)
 	. = ..()
