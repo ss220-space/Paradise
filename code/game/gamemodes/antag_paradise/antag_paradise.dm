@@ -19,7 +19,6 @@
 	var/list/datum/mind/pre_vampires = list()
 	var/list/datum/mind/traitor_vampires = list()
 	var/list/datum/mind/traitor_changelings = list()
-	var/list/datum/mind/traitor_thieves = list()
 	var/list/antag_required_players = list(
 		ROLE_TRAITOR = 10,
 		ROLE_THIEF = 10,
@@ -299,6 +298,4 @@
 		vampire.add_antag_datum(/datum/antagonist/vampire)
 	for(var/datum/mind/changeling in traitor_changelings)
 		changeling.add_antag_datum(/datum/antagonist/changeling)
-	for(var/datum/mind/thief in traitor_thieves)
-		thief.add_antag_datum(/datum/antagonist/thief)
 
