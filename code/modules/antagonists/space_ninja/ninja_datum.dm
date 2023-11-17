@@ -22,6 +22,8 @@
 	var/ninja_type = NINJA_TYPE_GENERIC
 	/// Minds thats will be minor antags soon.
 	var/list/pre_antags = list()
+	/// Special rules for antag if it was was created during antag paradise gamemode.
+	var/antag_paradise_mode_chosen = FALSE
 
 	/// Quick access links.
 	var/mob/living/carbon/human/human_ninja
@@ -42,11 +44,12 @@
 	add_owner_to_gamemode()
 	apply_innate_effects()
 
-	if(generate_antags)
+	if(generate_antags || antag_paradise_mode_chosen)
 		ninja_type = pick(NINJA_TYPE_PROTECTOR, NINJA_TYPE_HACKER, NINJA_TYPE_KILLER)
-		pick_antags()
+		if(generate_antags)
+			pick_antags()
 
-	if(give_objectives)
+	if(give_objectives && !antag_paradise_mode_chosen)
 		give_objectives()
 
 	finalize_antag()
@@ -128,8 +131,19 @@
 	if(give_equip)
 		equip_ninja()
 
-	if(generate_antags)
+	if(generate_antags && !antag_paradise_mode_chosen)
 		generate_antags()
+
+	if(antag_paradise_mode_chosen)
+		// to ensure all antags were properly generated
+		addtimer(CALLBACK(src, PROC_REF(finalize_antag_paradise_mode)), 15 SECONDS)
+
+
+/datum/antagonist/ninja/proc/finalize_antag_paradise_mode()
+	give_objectives()
+	announce_objectives()
+	SEND_SOUND(owner.current, 'sound/ambience/alarm4.ogg')
+	basic_ninja_needs_check()
 
 
 /datum/antagonist/ninja/proc/name_ninja()
@@ -380,7 +394,7 @@
 		for(var/i in 1 to objective_amount)
 			traitor_datum.forge_single_human_objective()
 
-		var/all_objectives = traitor.get_all_objectives()
+		var/list/all_objectives = traitor.get_all_objectives()
 		var/martyr_compatibility = TRUE
 		for(var/datum/objective/objective in all_objectives)
 			if(!objective.martyr_compatible)
@@ -493,15 +507,7 @@
 
 /datum/antagonist/ninja/proc/forge_protector_ninja_objectives()
 
-	// ninja protect. if traitors have been generated they will all hunt for our target.
-	var/datum/objective/protect/ninja/protect_objective = new
-	protect_objective.killers = pre_antags	// chosen antags will be blacklisted
-	protect_objective.owner = owner
-	protect_objective.find_target(protect_objective.existing_targets_blacklist())
-	objectives += protect_objective
-
-	if(!protect_objective.target)
-		qdel(protect_objective)
+	try_protect_objective()
 
 	if(prob(50))
 		//Cyborg Hijack: Flag set to complete in the DrainAct in ninjaDrainAct.dm
@@ -525,12 +531,59 @@
 		add_objective(/datum/objective/survive)
 
 
+/**
+ * Ninja protect. If traitors have been generated they will all hunt for our target.
+ */
+/datum/antagonist/ninja/proc/try_protect_objective()
+
+	if(!antag_paradise_mode_chosen)
+		var/datum/objective/protect/ninja/protect_objective = new
+		protect_objective.killers = pre_antags	// chosen antags will be blacklisted
+		protect_objective.owner = owner
+		protect_objective.find_target(protect_objective.existing_targets_blacklist())
+		objectives += protect_objective
+
+		if(!protect_objective.target)
+			qdel(protect_objective)
+
+		return
+
+	// this part will only proceed in antag paradise gamemode, long after antags have been generated
+	var/list/all_traitors = (SSticker.mode.traitors|SSticker.mode.vampires|SSticker.mode.changelings)
+	if(!length(all_traitors))
+		return
+
+	var/list/maroon_objectives = list()
+	var/list/killers = list()
+	for(var/datum/mind/traitor in all_traitors)
+		var/datum/objective/maroon/maroon_objective = locate() in traitor.get_all_objectives()
+		if(maroon_objective)	// only one maroon objective will be modified
+			maroon_objectives |= maroon_objective
+			killers |= traitor
+
+	if(!length(maroon_objectives))
+		return
+
+	var/datum/objective/protect/ninja/protect_objective = new
+	protect_objective.killers = killers	// antags with maroon objectives will be blacklisted
+	protect_objective.owner = owner
+	protect_objective.find_target(protect_objective.existing_targets_blacklist())
+	objectives += protect_objective
+
+	if(!protect_objective.target)
+		qdel(protect_objective)
+		return
+
+	for(var/datum/objective/maroon/maroon_objective in maroon_objectives)
+		maroon_objective.target = protect_objective.target	// swapping target
+		maroon_objective.update_explanation()
+		maroon_objective.alarm_changes()
+		maroon_objective.owner.announce_objectives()
+
+
 /datum/antagonist/ninja/proc/forge_hacker_ninja_objectives()
 
-	// vampire blood collecting
-	var/datum/objective/collect_blood/blood_objective = add_objective(/datum/objective/collect_blood)
-	if(length(pre_antags) < blood_objective.samples_to_win)	// no objective if there are fewer antagonists than needed
-		qdel(blood_objective)
+	try_blood_collect_objective()
 
 	if(prob(75))
 		//Cyborg Hijack: Flag set to complete in the DrainAct in ninjaDrainAct.dm
@@ -564,12 +617,22 @@
 		add_objective(/datum/objective/survive)
 
 
+/**
+ * Vampire blood collecting objective.
+ */
+/datum/antagonist/ninja/proc/try_blood_collect_objective()
+
+	// if its antag paradise gamemode vampires will generate later
+	var/vampires_amount = antag_paradise_mode_chosen ? length(SSticker.mode.vampires) : length(pre_antags)
+
+	var/datum/objective/collect_blood/blood_objective = add_objective(/datum/objective/collect_blood)
+	if(length(vampires_amount) < blood_objective.samples_to_win)	// no objective if there are fewer antagonists than needed
+		qdel(blood_objective)
+
+
 /datum/antagonist/ninja/proc/forge_killer_ninja_objectives()
 
-	// changelings massacre if they were generated
-	if(length(pre_antags))
-		var/datum/objective/vermit_hunt/hunt_changelings = add_objective(/datum/objective/vermit_hunt)
-		hunt_changelings.update_objective(round(length(pre_antags) / 2))
+	try_vermit_hunt_objective()
 
 	if(prob(50))
 		//Cyborg Hijack: Flag set to complete in the DrainAct in ninjaDrainAct.dm
@@ -589,6 +652,19 @@
 	var/list/all_objectives = owner.get_all_objectives()
 	if(!(locate(/datum/objective/escape) in all_objectives) && !(locate(/datum/objective/survive) in all_objectives))
 		add_objective(/datum/objective/survive)
+
+
+/**
+ * Changelings massacre objective.
+ */
+/datum/antagonist/ninja/proc/try_vermit_hunt_objective()
+
+	// if its antag paradise gamemode changelingss will generate later
+	var/changelings_amount = antag_paradise_mode_chosen ? length(SSticker.mode.changelings) : length(pre_antags)
+
+	if(changelings_amount > 1)	// we will not hunt if only one ling is available
+		var/datum/objective/vermit_hunt/hunt_changelings = add_objective(/datum/objective/vermit_hunt)
+		hunt_changelings.update_objective(round(changelings_amount / 2))
 
 
 /**

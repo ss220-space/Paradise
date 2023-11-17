@@ -412,6 +412,70 @@
 /datum/config_entry/number/expected_round_length
 	default = 2 HOURS
 
+
+/datum/config_entry/number/antag_paradise_double_antag_chance
+
+
+/datum/config_entry/number/antag_paradise_double_antag_chance/ValidateAndSet(str_val)
+	. = ..()
+	if(.)
+		GLOB.antag_paradise_double_antag_chance = config_entry_value
+
+
+/datum/config_entry/keyed_list/antag_paradise_weights
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+
+
+/datum/config_entry/keyed_list/antag_paradise_weights/ValidateAndSet(str_val)
+	. = ..()
+	if(.)
+		for(var/role in config_entry_value)
+			GLOB.antag_paradise_weights[role] = config_entry_value[role]
+
+
+/datum/config_entry/keyed_list/antag_paradise_special_weights
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+	default = list(
+		"hijacker" = 10,
+		"malfai" = 10,
+		"ninja" = 10,
+		"nothing" = 30,
+	)
+
+
+/datum/config_entry/keyed_list/antag_paradise_special_weights/ValidateAndSet(str_val)
+	. = ..()
+	if(.)
+		GLOB.antag_paradise_special_weights[ROLE_TRAITOR] = config_entry_value["hijacker"]
+		GLOB.antag_paradise_special_weights[ROLE_MALF_AI] = config_entry_value["malfai"]
+		GLOB.antag_paradise_special_weights[ROLE_NINJA] = config_entry_value["ninja"]
+		GLOB.antag_paradise_special_weights[ROLE_NONE] = config_entry_value["nothing"]
+
+
+/datum/config_entry/keyed_list/antag_paradise_mode_subtypes
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+	default = list(
+		ANTAG_SINGLE = 10,
+		ANTAG_DOUBLE = 10,
+		ANTAG_TRIPPLE = 10,
+		ANTAG_RANDOM = 10,
+	)
+
+
+/datum/config_entry/keyed_list/antag_paradise_subtype_weights
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+	default = list(
+		ANTAG_SINGLE = 6,
+		ANTAG_DOUBLE = 4,
+		ANTAG_TRIPPLE = 2,
+		ANTAG_RANDOM = 10,
+	)
+
+
 //Made that way because compatibility reasons.
 /datum/config_entry/keyed_list/event_delay_lower
 	default = list("ev_level_mundane" = 10, "ev_level_moderate" = 30, "ev_level_major" = 50) //minutes

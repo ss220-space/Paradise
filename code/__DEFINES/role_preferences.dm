@@ -52,6 +52,8 @@
 #define ROLE_SPACE_DRAGON 		"space dragon"
 #define ROLE_MALF_AI			"Malfunctioning AI"
 
+#define ROLE_NONE				"nothing"	// special define used as a marker
+
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough
 //(in game days played) to play that role
