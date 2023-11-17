@@ -1278,7 +1278,7 @@
 		var/command = href_list["change_weights2"]
 		if(command == "reset")
 			var/list/config_weights = CONFIG_GET(keyed_list/antag_paradise_weights)
-			if(islist(config_weights))
+			if(islist(config_weights) && length(config_weights))
 				for(var/antag in GLOB.antag_paradise_weights)
 					GLOB.antag_paradise_weights[antag] = isnull(config_weights[antag]) ? 0 : config_weights[antag]
 			else

@@ -416,15 +416,10 @@
 /datum/config_entry/number/antag_paradise_double_antag_chance
 
 
-/datum/config_entry/number/antag_paradise_double_antag_chance/mofify_globals()
-	if(config_entry_value)
-		GLOB.antag_paradise_double_antag_chance = config_entry_value
-
-
 /datum/config_entry/number/antag_paradise_double_antag_chance/ValidateAndSet(str_val)
 	. = ..()
 	if(.)
-		mofify_globals()
+		GLOB.antag_paradise_double_antag_chance = config_entry_value
 
 
 /datum/config_entry/keyed_list/antag_paradise_weights
@@ -432,16 +427,11 @@
 	value_mode = VALUE_MODE_NUM
 
 
-/datum/config_entry/keyed_list/antag_paradise_weights/mofify_globals()
-	if(length(config_entry_value))
-		for(var/role in config_entry_value)
-			GLOB.antag_paradise_weights[role] = config_entry_value[role]
-
-
 /datum/config_entry/keyed_list/antag_paradise_weights/ValidateAndSet(str_val)
 	. = ..()
 	if(.)
-		mofify_globals()
+		for(var/role in config_entry_value)
+			GLOB.antag_paradise_weights[role] = config_entry_value[role]
 
 
 /datum/config_entry/keyed_list/antag_paradise_special_weights
@@ -455,18 +445,13 @@
 	)
 
 
-/datum/config_entry/keyed_list/antag_paradise_special_weights/mofify_globals()
-	if(length(config_entry_value))
+/datum/config_entry/keyed_list/antag_paradise_special_weights/ValidateAndSet(str_val)
+	. = ..()
+	if(.)
 		GLOB.antag_paradise_special_weights[ROLE_TRAITOR] = config_entry_value["hijacker"]
 		GLOB.antag_paradise_special_weights[ROLE_MALF_AI] = config_entry_value["malfai"]
 		GLOB.antag_paradise_special_weights[ROLE_NINJA] = config_entry_value["ninja"]
 		GLOB.antag_paradise_special_weights[ROLE_NONE] = config_entry_value["nothing"]
-
-
-/datum/config_entry/keyed_list/antag_paradise_special_weights/ValidateAndSet(str_val)
-	. = ..()
-	if(.)
-		mofify_globals()
 
 
 /datum/config_entry/keyed_list/antag_paradise_mode_subtypes
