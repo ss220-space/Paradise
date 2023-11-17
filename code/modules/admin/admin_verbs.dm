@@ -1363,6 +1363,20 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			if(!message_color)
 				return
 
-			show_blurb(about_to_be_banned, 15, message, null, "center", "center", message_color, null, null, 1)
-			log_admin("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
-			message_admins("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
+			var/alert_type2 = alert(src, "Do you wish to change speed of an admin alert to? (No - default speed)",,"Yes", "No")
+			switch(alert_type2)
+				if("Yes")
+					var/speedmsg = input(src, "Input speed (0.5 - 2x faster. 2 - 2x slower):", "speedmsg") as text|null
+					if(!speedmsg)
+						return
+					speedmsg = text2num(speedmsg)
+					show_blurb(about_to_be_banned, 15, message, null, "center", "center", message_color, null, null, speedmsg)
+					log_admin("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
+					message_admins("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
+				if("No")
+					show_blurb(about_to_be_banned, 15, message, null, "center", "center", message_color, null, null, 1)
+					log_admin("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
+					message_admins("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
+
+				else
+					return

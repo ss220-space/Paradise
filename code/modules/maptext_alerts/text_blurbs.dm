@@ -69,7 +69,7 @@
 		if(i in html_tags)
 			continue
 		T.maptext = "<span style=\"[style]\">[copytext(message,1,i)]</span>"
-		sleep(speed)
+		sleep(speed/2)
 
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(fade_blurb), targets, T), duration)
 
