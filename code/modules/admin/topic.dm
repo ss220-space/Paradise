@@ -3522,7 +3522,7 @@
 		else if(answer == "no")
 			log_sql("[usr.key] | Reported no server hang. Please investigate")
 	
-		else if(href_list["adminalert"])
+	else if(href_list["adminalert"])
 		if(!check_rights(R_ADMIN))
 			return
 

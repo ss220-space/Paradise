@@ -379,12 +379,14 @@
 		show_ui(usr)
 		return
 
-		if(href_list["adminalert"])
+	if(href_list["adminalert"])
 		if(!check_rights(R_ADMIN))
 			return
 
 		var/mob/about_to_be_banned = locateUID(href_list["adminalert"])
 		usr.client.cmd_admin_alert_message(about_to_be_banned)
+		if(!check_rights(R_ADMIN))
+			return
 
 	if(href_list["ping"])
 		var/client/C = pms[href_list["ping"]].client
