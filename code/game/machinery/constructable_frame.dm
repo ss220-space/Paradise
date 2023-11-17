@@ -798,7 +798,7 @@ to destroy them and players will be able to make replacements.
 
 
 /obj/item/circuitboard/clonepod
-	board_name = "Clone Pod"
+	board_name = "Experimental Biomass Pod"
 	build_path = /obj/machinery/clonepod
 	board_type = "machine"
 	origin_tech = "programming=2;biotech=2"
@@ -810,7 +810,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/capacitor/quadratic = 5)
 
 /obj/item/circuitboard/clonescanner
-	board_name = "Cloning Scanner"
+	board_name = "\improper DNA Scanner"
 	build_path = /obj/machinery/dna_scannernew
 	board_type = "machine"
 	origin_tech = "programming=2;biotech=2"

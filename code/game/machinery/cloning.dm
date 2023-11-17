@@ -23,7 +23,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 /obj/machinery/clonepod
 	anchored = TRUE
-	name = "cloning pod"
+	name = "experimental biomass pod"
 	desc = "An electronically-lockable pod for growing organic tissue."
 	density = TRUE
 	icon = 'icons/obj/machines/cloning.dmi'
