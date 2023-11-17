@@ -3521,6 +3521,14 @@
 					log_sql("[usr.key] | [response]")
 		else if(answer == "no")
 			log_sql("[usr.key] | Reported no server hang. Please investigate")
+	
+	else if(href_list["adminalert"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/mob/about_to_be_banned = locateUID(href_list["adminalert"])
+		usr.client.cmd_admin_alert_message(about_to_be_banned)
+
 
 
 /client/proc/create_eventmob_for(var/mob/living/carbon/human/H, var/killthem = 0)

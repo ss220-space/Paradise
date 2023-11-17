@@ -749,7 +749,6 @@ proc/dd_sortedObjectList(list/incoming)
 #define LAZYACCESS(L, I) (L ? (isnum(I) ? (I > 0 && I <= L.len ? L[I] : null) : L[I]) : null)
 #define LAZYLEN(L) length(L) // Despite how pointless this looks, it's still needed in order to convey that the list is specificially a 'Lazy' list.
 #define LAZYCLEARLIST(L) if(L) L.Cut()
-
 ///If the lazy list is currently initialized find item I in list L
 #define LAZYIN(L, I) (L && (I in L))
 
