@@ -236,7 +236,7 @@
 			continue
 		available_special_antags += antag
 
-	special_antag_type = pick_weight(GLOB.antag_paradise_special_weights)
+	special_antag_type = pick_weight_classic(GLOB.antag_paradise_special_weights)
 	if((special_antag_type in available_special_antags) && prob(GLOB.antag_paradise_special_weights[special_antag_type]))
 		antags_amount--
 	else
@@ -257,7 +257,7 @@
 			modifed_weights = TRUE
 
 	if(!modifed_weights)
-		var/mode_type = pick_weight(CONFIG_GET(keyed_list/antag_paradise_mode_subtypes))
+		var/mode_type = pick_weight_classic(CONFIG_GET(keyed_list/antag_paradise_mode_subtypes))
 		var/list/subtype_weights = CONFIG_GET(keyed_list/antag_paradise_subtype_weights)
 		if(mode_type == ANTAG_RANDOM)
 			for(var/antag in antag_weights)
@@ -277,27 +277,7 @@
 				break
 
 	for(var/i in 1 to antags_amount)
-		antag_amount[pick_weight(antag_weights)]++
-
-
-/datum/game_mode/antag_paradise/proc/pick_weight(list/passed)
-	var/total = 0
-	var/list/passed_copy = passed.Copy()
-	for(var/item in passed_copy)
-		if(!passed_copy[item])
-			passed_copy -= item
-			continue
-		total += passed_copy[item]
-
-	if(!total)
-		stack_trace("Wrong config weights for Antag Paradise gamemode.")
-
-	total = rand(1, total)
-	for(var/item in passed_copy)
-		total -= passed_copy[item]
-		if(total <= 0)
-			return item
-
+		antag_amount[pick_weight_classic(antag_weights)]++
 
 /datum/game_mode/antag_paradise/post_setup()
 	switch(special_antag_type)

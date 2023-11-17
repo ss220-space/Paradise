@@ -100,7 +100,7 @@
 					if(our_ears.damage < 25 && prob(30))
 						mob_human.SetDeaf(0)
 				//ALL viruses
-				for(var/thing in mob_human.viruses)
+				for(var/thing in mob_human.diseases)
 					var/datum/disease/our_disease = thing
 					our_disease.cure(0)
 				//Genes(resets them like mutadone)

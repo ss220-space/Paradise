@@ -24,10 +24,7 @@
 	name = "reinforced blast door"
 	desc = "A heavy duty blast door that opens mechanically. Looks even tougher than usual."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-
-/obj/machinery/door/poddoor/impassable/emag_act(mob/user)
-	to_chat(user, span_notice("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
-	return
+	hackable = FALSE
 
 /obj/machinery/door/poddoor/Bumped(atom/movable/moving_atom)
 	SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, moving_atom)

@@ -8,12 +8,14 @@
 	playsound(get_turf(target), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
 	if(!target.IsWeakened() && !target.resting && !target.stat)
 		target.apply_damage(10, BRUTE, BODY_ZONE_HEAD)
+		objective_damage(user, target, 10, BRUTE)
 		target.adjustBrainLoss(5)
 		target.Weaken(6 SECONDS)
 		target.visible_message("<span class='warning'>[user] бьет [target] ногой по голове, впечатывая лицо в пол!</span>",
 						"<span class='userdanger'>Вы получили удар ногой по голове от [user], вы теперь целуете пол!</span>")
 	else
 		target.apply_damage(5, BRUTE, BODY_ZONE_HEAD)
+		objective_damage(user, target, 5, BRUTE)
 		target.adjustBrainLoss(5)
 		target.emote("scream")
 		target.visible_message("<span class='warning'>[user] пинает [target] по голове, оставляя корчиться в боли!</span>",

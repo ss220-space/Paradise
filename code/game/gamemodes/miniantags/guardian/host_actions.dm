@@ -88,14 +88,17 @@
 
 	if(!length(candidates))
 		to_chat(owner, "<span class='danger'>There were no ghosts willing to take control of your guardian. You can try again in 5 minutes.</span>")
+		log_game("[owner](ckey: [owner.ckey]) has tried to replace their guardian, but there were no candidates willing to enroll.")
 		return
 
 	var/mob/dead/observer/new_stand = pick(candidates)
 	to_chat(guardian, "<span class='danger'>Your user reset you, and your body was taken over by a ghost. Looks like they weren't happy with your performance.</span>")
 	to_chat(owner, "<span class='danger'>Your guardian has been successfully reset.</span>")
 	message_admins("[key_name_admin(new_stand)] has taken control of ([key_name_admin(guardian)])")
+
 	guardian.ghostize()
 	guardian.key = new_stand.key
+	log_game("[guardian.key] has taken control of [guardian], owner: [guardian]")
 	qdel(src)
 
 /**

@@ -231,6 +231,7 @@
 		"Standard" = "Standard-Medi",
 		"Basic" = "Robot-MED",
 		"Surgeon" = "surgeon",
+		"Chiefbot" = "chiefbot",
 		"Advanced Droid" = "droid-medical",
 		"Needles" = "Robot-SRG",
 		"Noble-MED" = "Noble-MED",
@@ -268,10 +269,9 @@
 	modules += new /obj/item/gps/cyborg(src)
 	modules += new /obj/item/rlf(src)
 
-	emag = new /obj/item/reagent_containers/spray(src)
+	emag = new /obj/item/reagent_containers/borghypo/basic/emagged_borg_hypo(src) // emagged med. cyborg gets a special hypospray.
+// can pierce through thick skin and hardsuits.
 
-	emag.reagents.add_reagent("sacid", 250)
-	emag.name = "Sulfuric acid spray"
 
 	fix_modules()
 	handle_storages()

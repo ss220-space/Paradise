@@ -281,6 +281,9 @@ update_flag
 	return ui_interact(user)
 
 /obj/machinery/portable_atmospherics/canister/attack_hand(var/mob/user)
+	if(..())
+		return TRUE
+
 	add_fingerprint(user)
 	return ui_interact(user)
 

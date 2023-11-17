@@ -137,6 +137,8 @@
 	src.amount = am
 
 /obj/machinery/seed_extractor/attack_hand(mob/user)
+	if(..())
+		return TRUE
 	interact(user)
 
 /obj/machinery/seed_extractor/attack_ghost(mob/user)

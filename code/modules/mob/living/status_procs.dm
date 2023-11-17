@@ -486,10 +486,10 @@
 	return S
 
 
-/mob/living/proc/AdjustSlowedDuration(amount)
+/mob/living/proc/AdjustSlowedDuration(amount, bound_lower = 0, bound_upper = INFINITY)
 	var/datum/status_effect/incapacitating/slowed/S = IsSlowed()
 	if(S)
-		S.duration += amount
+		S.duration = directional_bounded_sum(S.duration, amount, bound_lower, bound_upper)
 
 /mob/living/proc/AdjustSlowedIntensity(intensity)
 	var/datum/status_effect/incapacitating/slowed/S = IsSlowed()

@@ -99,6 +99,8 @@
 	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/chem_heater/attack_hand(mob/user)
+	if(..())
+		return TRUE
 	ui_interact(user)
 
 /obj/machinery/chem_heater/attack_ghost(mob/user)

@@ -220,8 +220,8 @@
 		to_chat(user, span_warning("Вам кажется, что заражающее касание не подействовало на [target]."))
 		return
 
-	var/datum/disease/virus = new /datum/disease/vampire
-	target.ForceContractDisease(virus)
+	var/datum/disease/vampire/virus = new
+	virus.Contract(target)
 
 
 /obj/effect/proc_holder/spell/goon_vampire/glare

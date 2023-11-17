@@ -336,7 +336,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 					H.UpdateDamageIcon()
 
 	if(throwing)
-		throwing.finalize(FALSE)
+		throwing.finalize()
 
 	if(loc == user)
 		if(!allow_attack_hand_drop(user))

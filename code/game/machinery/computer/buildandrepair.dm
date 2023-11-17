@@ -55,6 +55,26 @@
 	board_name = "Telescreen"
 	build_path = /obj/machinery/computer/security/telescreen
 
+/obj/item/circuitboard/camera/telescreen/singularity
+	board_name = "Telescreen_Singularity"
+	build_path = /obj/machinery/computer/security/telescreen/singularity
+
+/obj/item/circuitboard/camera/telescreen/toxin_chamber
+	board_name = "Toxins Telescreen"
+	build_path = /obj/machinery/computer/security/telescreen/toxin_chamber
+
+/obj/item/circuitboard/camera/telescreen/test_chamber
+	board_name = "Test Chamber Telescreen"
+	build_path = /obj/machinery/computer/security/telescreen/test_chamber
+
+/obj/item/circuitboard/camera/telescreen/research
+	board_name = "Research Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/research
+
+/obj/item/circuitboard/camera/telescreen/prison
+	board_name = "Prison Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/prison
+
 /obj/item/circuitboard/camera/telescreen/entertainment
 	board_name = "Entertainment Monitor"
 	build_path = /obj/machinery/computer/security/telescreen/entertainment
@@ -715,6 +735,17 @@
 				var/obj/item/circuitboard/supplycomp/C = circuit
 				SC.can_order_contraband = C.contraband_enabled
 			qdel(src)
+
+/obj/structure/computerframe/abductor/drop_computer_parts()
+	var/location = drop_location()
+	new /obj/item/stack/sheet/mineral/abductor(location, 4)
+	if(circuit)
+		circuit.forceMove(location)
+		circuit = null
+	if(state >= STATE_WIRES)
+		new /obj/item/stack/cable_coil(location, 5)
+	if(state == STATE_GLASS)
+		new /obj/item/stack/sheet/glass(location, 2)
 
 #undef STATE_EMPTY
 #undef STATE_CIRCUIT

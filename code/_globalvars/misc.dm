@@ -60,3 +60,5 @@ GLOBAL_LIST_INIT(pipe_colors, list("grey" = PIPE_COLOR_GREY, "red" = PIPE_COLOR_
 GLOBAL_VAR(genname) //Nanotrasen officer name for fax send via fax panel, randoms every round
 
 GLOBAL_VAR_INIT(pacifism_after_gt, FALSE)
+
+GLOBAL_VAR_INIT(communications_blackout, FALSE)

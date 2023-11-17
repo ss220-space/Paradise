@@ -66,7 +66,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/name = "item name"
 	var/category = "item category"
 	var/desc = "Item Description"
-	var/reference = "Item Reference"
+	var/reference = "Item Reference" // Important to use unique "reference" for datums with different "item".
 	var/item = null
 	var/cost = 0
 	var/last = 0 // Appear last
@@ -573,7 +573,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "The result of the work of scientists on mixing an experimental stable mutagen with the core of a pyroclastic anomaly. Gives the user the opportunity to become a slime and heat himself up."
 	reference = "AEXT"
 	item = /obj/item/anomaly_extract
-	cost = 3
+	cost = 10
 	race = list("Slime People")
 
 //Plasmaman
@@ -1979,7 +1979,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/implants/stealthbox
     name = "Stealth Implant"
     desc = "An implant injected into the body, and later activated manually to deploy a box, fully hiding you in the surroundings. Can be used indefinitely"
-    reference = "SB"
+    reference = "BI"
     item = /obj/item/implanter/stealth
     cost = 8
 
