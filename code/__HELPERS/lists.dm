@@ -232,18 +232,61 @@
 		result = first ^ second
 	return result
 
-//Pretends to pick an element based on its weight but really just seems to pick a random element.
-/proc/pickweight(list/L)
+/**
+ * Picks a random element from a list based on a weighting system.
+ * All keys with zero or non integer weight will be considered as one
+ * For example, given the following list:
+ * A = 5, B = 3, C = 1, D = 0
+ * A would have a 50% chance of being picked,
+ * B would have a 30% chance of being picked,
+ * C would have a 10% chance of being picked,
+ * and D would have a 10% chance of being picked.
+ * This proc not modify input list
+ */
+/proc/pickweight(list/list_to_pick)
 	var/total = 0
-	var/item
-	for(item in L)
-		if(!L[item])
-			L[item] = 1
-		total += L[item]
+	for(var/item in list_to_pick)
+		var/weight = list_to_pick[item]
+		if(!weight)
+			weight = 1
+		total += weight
 
 	total = rand(1, total)
-	for(item in L)
-		total -=L [item]
+	for(var/item in list_to_pick)
+		var/weight = list_to_pick[item]
+		if(!weight)
+			weight = 1
+		total -= weight
+		if(total <= 0)
+			return item
+
+	return null
+
+/**
+ * Picks a random element from a list based on a weighting system.
+ * All keys with zero or non integer weight will be considered as zero
+ * For example, given the following list:
+ * A = 6, B = 3, C = 1, D = 0
+ * A would have a 60% chance of being picked,
+ * B would have a 30% chance of being picked,
+ * C would have a 10% chance of being picked,
+ * and D would have a 0% chance of being picked.
+ * This proc not modify input list
+ */
+/proc/pick_weight_classic(list/list_to_pick)
+	var/total = 0
+	for(var/item in list_to_pick)
+		var/weight = list_to_pick[item]
+		if(!weight)
+			continue
+		total += weight
+
+	total = rand(1, total)
+	for(var/item in list_to_pick)
+		var/weight = list_to_pick[item]
+		if(!weight)
+			continue
+		total -= weight
 		if(total <= 0)
 			return item
 
@@ -749,7 +792,6 @@ proc/dd_sortedObjectList(list/incoming)
 #define LAZYACCESS(L, I) (L ? (isnum(I) ? (I > 0 && I <= L.len ? L[I] : null) : L[I]) : null)
 #define LAZYLEN(L) length(L) // Despite how pointless this looks, it's still needed in order to convey that the list is specificially a 'Lazy' list.
 #define LAZYCLEARLIST(L) if(L) L.Cut()
-
 ///If the lazy list is currently initialized find item I in list L
 #define LAZYIN(L, I) (L && (I in L))
 

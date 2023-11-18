@@ -141,3 +141,23 @@
   - qol: Added TTS aliases for consistent speech (#3875)
   Zwei:
   - bugfix: Throwing Fixes Again (#3842)
+'2023-11-17':
+  ArtemDerp:
+  - add: add areas and headsets to simplify event creation (#3880)
+  Etrnlmelancholy:
+  - tweak: ert tweaks again (#3882)
+  - tweak: loadout changes (#3851)
+  - tweak: increase bola amount inside syndie throwing kit and decrease n… (#3849)
+  LiquidPotroh:
+  - bugfix: Can't remove cell from damaged APC (#3885)
+  MataVsn:
+  - add: Ports on-screen admin alerts from paradise officials. (#3893)
+  ROdenFL:
+  - bugfix: voices for DS and contractor partner (#3879)
+  - bugfix: slimes, aliens and animal can do pain killer task (#3830)
+  Viddvik:
+  - add: New telescopic baton crate (#3878)
+  Vladisvell:
+  - bugfix: Fixed 3.11.6 Python errors with installing dependencies (#3884)
+  WolferOkt:
+  - bugfix: Megafauna now cant be closed in /obj/structure/closet (#3888)

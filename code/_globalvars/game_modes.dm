@@ -17,3 +17,23 @@ GLOBAL_VAR(custom_event_admin_msg)
 GLOBAL_VAR_INIT(morphs_announced, FALSE)
 
 GLOBAL_VAR_INIT(disable_robotics_consoles, FALSE)
+
+/// Chance to roll double antag for traitors in ANTAG-PARADISE gamemode.
+GLOBAL_VAR(antag_paradise_double_antag_chance)
+
+/// Weights for all minor antags in ANTAG-PARADISE gamemode. Highter the weight higher the chance for antag to roll.
+GLOBAL_LIST_INIT(antag_paradise_weights, list(
+	ROLE_TRAITOR = 0,
+	ROLE_THIEF = 0,
+	ROLE_VAMPIRE = 0,
+	ROLE_CHANGELING = 0,
+))
+
+/// Weights for all special antags in ANTAG-PARADISE gamemode.
+GLOBAL_LIST_INIT(antag_paradise_special_weights, list(
+	ROLE_TRAITOR = 0,	// hijacker actually
+	ROLE_MALF_AI = 0,
+	ROLE_NINJA = 0,
+	ROLE_NONE = 0,	// to skip all roles entirely
+))
+
