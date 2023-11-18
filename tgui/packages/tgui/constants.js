@@ -165,7 +165,7 @@ export const RADIO_CHANNELS = [
   {
     name: 'Alpha wave',
     freq: 1522,
-    color: '#e9f71d',
+    color: '#88910f',
   },
   {
     name: 'Beta wave',
