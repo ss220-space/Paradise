@@ -218,6 +218,13 @@
 	for(var/i in 1 to (storage_slots - 2))
 		new /obj/item/stack/spacecash/c1000(src)
 
+/obj/item/storage/secure/briefcase/beepkie
+	name = "Suspicious briefcase"
+	desc = "Looks like normal briefcase, but it have inscription on side ''beepkie''"
+
+/obj/item/storage/secure/briefcase/beepkie/populate_contents()
+	new /obj/item/storage/secure/briefcase/beepkie (src)
+
 // -----------------------------
 //        Secure Safe
 // -----------------------------

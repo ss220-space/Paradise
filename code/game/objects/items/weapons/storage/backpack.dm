@@ -642,7 +642,7 @@
 
 /obj/item/storage/backpack/duffel/security/spiders/populate_contents()
 	new /obj/item/gun/projectile/shotgun/automatic/combat (src)
-	new /obj/item/storage/box/dragonsbreath (src)
+	new /obj/item/ammo_box/shotgun/dragonsbreath (src)
 	new /obj/item/clothing/mask/gas/sechailer/swat (src)
 	new /obj/item/clothing/suit/armor/heavy (src)
 	new /obj/item/clothing/gloves/combat (src)

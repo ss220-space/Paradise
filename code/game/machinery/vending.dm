@@ -2682,18 +2682,18 @@
 	desc = "Its vendor use advanced technology of matter compression and can have a many volume of resources."
 	icon_state = "engi"
 	icon_deny = "engi_deny"
-	products = list(/obj/item/stack/sheet/mineral/diamond{amount = 50} = 50,
-		/obj/item/stack/sheet/mineral/gold{amount = 50} = 50,
-		/obj/item/stack/sheet/glass{amount = 50} = 50,
-		/obj/item/stack/sheet/metal{amount = 50} = 50,
-		/obj/item/stack/sheet/mineral/plasma{amount = 50} = 50,
-		/obj/item/stack/sheet/mineral/silver{amount = 50} = 50,
-		/obj/item/stack/sheet/mineral/titanium{amount = 50} = 50,
-		/obj/item/stack/sheet/mineral/uranium{amount = 50} = 50)
-	contraband = list(/obj/item/stack/sheet/mineral/tranquillite{amount = 50} = 50,
-		/obj/item/stack/sheet/mineral/bananium{amount = 50} = 50,
-		/obj/item/stack/sheet/mineral/sandstone{amount = 50} = 50,
-		/obj/item/stack/sheet/mineral/abductor{amount = 50} = 50)
+	products = list(/obj/item/stack/sheet/mineral/diamond/fifty = 50,
+		/obj/item/stack/sheet/mineral/gold/fifty = 50,
+		/obj/item/stack/sheet/glass/fifty = 50,
+		/obj/item/stack/sheet/metal/fifty = 50,
+		/obj/item/stack/sheet/mineral/plasma/fifty = 50,
+		/obj/item/stack/sheet/mineral/silver/fifty = 50,
+		/obj/item/stack/sheet/mineral/titanium/fifty = 50,
+		/obj/item/stack/sheet/mineral/uranium/fifty = 50)
+	contraband = list(/obj/item/stack/sheet/mineral/tranquillite/fifty = 50,
+		/obj/item/stack/sheet/mineral/bananium/fifty = 50,
+		/obj/item/stack/sheet/mineral/sandstone/fifty = 50,
+		/obj/item/stack/sheet/mineral/abductor/fifty = 50)
 
 /obj/machinery/vending/ntc/mech
 	icon = 'icons/obj/machines/vending.dmi'

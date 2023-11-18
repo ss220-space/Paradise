@@ -161,8 +161,8 @@
 	suffix = "doomsday"
 	name = "\"DeathSquad\" ferry"
 	description = "Особенный груз для зачистки.\
-	 После подготовки, НЕМЕДЛЕННО ОТПРАВИТЬ во избежания несчастных случаев. \
-	 Пассажиры крайне агрессивны"
+	После подготовки, НЕМЕДЛЕННО ОТПРАВИТЬ во избежания несчастных случаев. \
+	Пассажиры крайне агрессивны"
 
 /datum/map_template/shuttle/ferry/meat
 	suffix = "meat"
@@ -180,7 +180,7 @@
 	suffix = "medical"
 	name = "Medical ferry"
 	description = "Небольшой шаттл медицинской помощи, оснащенный базовым \
-	 комплектом и операционной"
+	комплектом и операционной"
 
 /datum/map_template/shuttle/ferry/meteorshelp
 	suffix = "meteorshelp"
@@ -240,3 +240,18 @@
 	suffix = "armory"
 	name = "NRV Sparta"
 	description = "Armory Shuttle, with plenty of guns to hand out and some general supplies."
+
+/datum/map_template/shuttle/admin/club
+	suffix = "club"
+	name = "NKV Parnassus"
+	description = ""
+
+/datum/map_template/shuttle/admin/interview
+	suffix = "interview"
+	name = "NAV Aphens"
+	description = ""
+
+/datum/map_template/shuttle/admin/alien
+	suffix = "alien"
+	name = "NTV Troy"
+	description = ""
