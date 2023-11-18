@@ -212,6 +212,8 @@
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/captain
 	uniform = /obj/item/clothing/under/plasmaman/captain
+	r_hand = null
+	belt = /obj/item/tank/internals/plasmaman/belt/full
 
 /datum/outfit/plasmaman/blueshield
 	name = "Blueshield Plasmaman"

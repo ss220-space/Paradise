@@ -172,6 +172,7 @@
 
 	H.equipOutfit(O, visualsOnly)
 	H.internal = H.r_hand
+	H.internal = H.belt
 	H.update_action_buttons_icon()
 	return FALSE
 
