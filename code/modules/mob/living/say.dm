@@ -13,7 +13,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 
 	Busy letters by radio(rus):
-	б г д е ё з й к н р с т у ц ч ш ы ь я Э
+	б г д е ё з к р с т у ц ч ш ы ь я Э
 
 
 	Busy symbols by radio:
