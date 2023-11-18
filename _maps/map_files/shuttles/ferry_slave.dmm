@@ -6,11 +6,6 @@
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/transport)
-"b" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
-/area/shuttle/transport)
 "e" = (
 /obj/item/storage/box/donkpockets{
 	pixel_x = 6;
@@ -31,28 +26,26 @@
 /obj/item/melee/classic_baton/telescopic,
 /obj/machinery/door/window/brigdoor{
 	color = "#FF0000";
-	req_access_txt = "104;106;63;19"
+	req_access = list(104,106,63,19)
 	},
 /turf/simulated/floor/shuttle/syndicate,
 /area/shuttle/transport)
 "j" = (
 /turf/simulated/wall/shuttle{
-	icon_state = "shuttle";
 	tag = "icon-swall2"
 	},
 /area/shuttle/transport)
 "l" = (
-/obj/structure/window/full/shuttle{
-	dir = 4;
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "shuttle";
-	layer = 6;
-	tag = "icon-window5_end (EAST)"
-	},
 /obj/machinery/door/window/survival_pod{
 	dir = 1;
 	layer = 3;
-	req_access_txt = "104;106;63;19"
+	req_access = list(104,106,63,19)
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8;
+	pixel_x = -4;
+	can_be_hit = 0;
+	damage_deflection = 100
 	},
 /turf/simulated/floor{
 	dir = 1;
@@ -70,15 +63,10 @@
 "q" = (
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock";
-	req_access_txt = "104;106;63;19"
+	req_access = list(104,106,63,19)
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle,
-/area/shuttle/transport)
-"v" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
 /area/shuttle/transport)
 "w" = (
 /obj/structure/closet/crate,
@@ -98,8 +86,18 @@
 /turf/simulated/floor/shuttle,
 /area/shuttle/transport)
 "A" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
+/obj/machinery/door/window/survival_pod{
+	dir = 1;
+	layer = 3;
+	req_access = list(104,106,63,19)
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 8;
+	layer = 2.9
+	},
+/turf/simulated/floor{
+	dir = 1;
+	icon_state = "darkgreycamo"
 	},
 /area/shuttle/transport)
 "G" = (
@@ -127,14 +125,13 @@
 /area/shuttle/transport)
 "K" = (
 /turf/simulated/wall/shuttle{
-	dir = 3;
-	icon_state = "shuttle"
+	dir = 3
 	},
 /area/shuttle/transport)
 "L" = (
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock";
-	req_access_txt = "104;106;63;19"
+	req_access = list(104,106,63,19)
 	},
 /turf/simulated/floor/shuttle/syndicate,
 /area/shuttle/transport)
@@ -177,14 +174,7 @@
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/transport)
 "U" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
-/area/shuttle/transport)
-"Y" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
+/turf/simulated/wall/shuttle,
 /area/shuttle/transport)
 "Z" = (
 /obj/structure/chair/comfy/shuttle{
@@ -201,53 +191,53 @@ O
 a
 "}
 (2,1,1) = {"
-b
+U
 w
 R
-l
-b
+A
+U
 "}
 (3,1,1) = {"
-b
+U
 e
 R
 l
-b
+U
 "}
 (4,1,1) = {"
-b
+U
 n
 R
 l
-b
+U
 "}
 (5,1,1) = {"
-b
+U
 J
 R
 l
-b
+U
 "}
 (6,1,1) = {"
-b
+U
 Z
 R
 l
-b
+U
 "}
 (7,1,1) = {"
-b
+U
 N
 R
 l
-b
+U
 "}
 (8,1,1) = {"
-v
+U
 K
 L
 j
-Y
+U
 "}
 (9,1,1) = {"
 T
@@ -257,23 +247,23 @@ R
 T
 "}
 (10,1,1) = {"
-b
+U
 G
 g
 L
-b
+U
 "}
 (11,1,1) = {"
-b
+U
 x
 x
 x
-b
+U
 "}
 (12,1,1) = {"
 U
 T
 S
 T
-A
+U
 "}

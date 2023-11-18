@@ -7,17 +7,10 @@
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/transport)
 "b" = (
-/obj/structure/window/full/shuttle{
-	dir = 4;
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "shuttle_window_gray";
-	layer = 3.1;
-	tag = "icon-window5_end (EAST)"
-	},
 /obj/machinery/door/window/survival_pod{
 	dir = 1;
 	layer = 3;
-	req_access_txt = "104;106;63;19"
+	req_access = list(104,106,63,19)
 	},
 /obj/structure/window/plasmareinforced{
 	dir = 8;
@@ -28,20 +21,9 @@
 	icon_state = "darkgreycamo"
 	},
 /area/shuttle/transport)
-"d" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle{
-	dir = 8;
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "shuttle_window_gray";
-	tag = "icon-window5_end (WEST)"
-	},
-/turf/simulated/floor/shuttle/plating,
-/area/shuttle/transport)
 "j" = (
 /turf/simulated/wall/shuttle{
-	dir = 4;
-	icon_state = "diagonalWall3"
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/shuttle/transport)
 "k" = (
@@ -78,11 +60,6 @@
 	name = "shuttle airlock"
 	},
 /turf/simulated/floor/shuttle/syndicate,
-/area/shuttle/transport)
-"n" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
 /area/shuttle/transport)
 "p" = (
 /turf/simulated/floor/shuttle/syndicate,
@@ -151,12 +128,7 @@
 /area/shuttle/transport)
 "B" = (
 /obj/structure/grille,
-/obj/structure/window/full/shuttle{
-	dir = 4;
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "shuttle_window_gray";
-	tag = "icon-window5_end (EAST)"
-	},
+/obj/structure/window/full/shuttle/gray,
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/transport)
 "C" = (
@@ -195,6 +167,9 @@
 	code = 2;
 	frequency = 1449;
 	pixel_x = 8
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8
 	},
 /turf/simulated/floor/shuttle/syndicate,
 /area/shuttle/transport)
@@ -251,12 +226,6 @@
 /obj/effect/spawner/random_spawners/blood_maybe,
 /turf/simulated/floor/shuttle/syndicate,
 /area/shuttle/transport)
-"Q" = (
-/turf/simulated/wall/shuttle{
-	dir = 1;
-	icon_state = "diagonalWall3"
-	},
-/area/shuttle/transport)
 "S" = (
 /obj/machinery/computer/shuttle/ferry/request{
 	dir = 4
@@ -289,79 +258,79 @@ w
 a
 "}
 (2,1,1) = {"
-n
+j
 S
 p
 b
-n
+j
 "}
 (3,1,1) = {"
-n
+j
 N
 F
 G
-n
+j
 "}
 (4,1,1) = {"
-n
+j
 k
 P
 Z
-n
+j
 "}
 (5,1,1) = {"
-n
+j
 O
 p
 C
-n
+j
 "}
 (6,1,1) = {"
-n
+j
 D
 p
 u
-n
+j
 "}
 (7,1,1) = {"
-n
+j
 O
 J
 L
-n
+j
 "}
 (8,1,1) = {"
-n
+j
 I
 u
 P
-n
+j
 "}
 (9,1,1) = {"
-n
+j
 U
 p
 l
-n
+j
 "}
 (10,1,1) = {"
-n
+j
 H
 p
 Z
-n
+j
 "}
 (11,1,1) = {"
-n
+j
 s
 A
 u
-n
+j
 "}
 (12,1,1) = {"
-Q
+j
 B
 m
-d
+B
 j
 "}

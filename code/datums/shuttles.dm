@@ -244,14 +244,14 @@
 /datum/map_template/shuttle/admin/club
 	suffix = "club"
 	name = "NKV Parnassus"
-	description = ""
+	description = "Коммерческий шаттл нанотрейзен, направленный на получение прибыли при помощи сферы развлечений"
 
 /datum/map_template/shuttle/admin/interview
 	suffix = "interview"
 	name = "NAV Aphens"
-	description = ""
+	description = "Административный шаттл нанотрейзен. Используется для проведения опросов и бесед."
 
 /datum/map_template/shuttle/admin/alien
 	suffix = "alien"
 	name = "NTV Troy"
-	description = ""
+	description = "Некогда транспортный шаттл нанотрейзен, ныне охваченный выделениями чужих"

@@ -6,6 +6,42 @@
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/transport)
+"b" = (
+/obj/machinery/door/window/survival_pod{
+	dir = 2;
+	layer = 3;
+	req_access = list(104,106,63,19)
+	},
+/mob/living/simple_animal/pet/dog/corgi/narsie{
+	faction = list("neutral")
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8;
+	pixel_x = -4;
+	can_be_hit = 0;
+	damage_deflection = 100
+	},
+/turf/simulated/floor{
+	icon_state = "darkgreycamo"
+	},
+/area/shuttle/transport)
+"i" = (
+/obj/machinery/door/window/survival_pod{
+	dir = 2;
+	layer = 3;
+	req_access = list(104,106,63,19)
+	},
+/mob/living/simple_animal/hulk/zilla,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8;
+	pixel_x = -4;
+	can_be_hit = 0;
+	damage_deflection = 100
+	},
+/turf/simulated/floor{
+	icon_state = "darkgreycamo"
+	},
+/area/shuttle/transport)
 "l" = (
 /turf/simulated/floor/noslip{
 	icon = 'icons/turf/shuttle/floors.dmi';
@@ -21,23 +57,60 @@
 	icon_state = "floor"
 	},
 /area/shuttle/transport)
+"o" = (
+/obj/machinery/door/window/survival_pod{
+	dir = 1;
+	layer = 3;
+	req_access = list(104,106,63,19)
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 8;
+	layer = 2.9
+	},
+/turf/simulated/floor{
+	dir = 1;
+	icon_state = "darkgreycamo"
+	},
+/area/shuttle/transport)
 "u" = (
 /obj/structure/window/full/shuttle,
 /obj/structure/grille,
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/transport)
-"D" = (
-/obj/structure/window/full/shuttle{
-	dir = 4;
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "window5_end";
-	layer = 6;
-	tag = "icon-window5_end (EAST)"
-	},
+"w" = (
 /obj/machinery/door/window/survival_pod{
 	dir = 1;
 	layer = 3;
-	req_access_txt = "104;106;63;19"
+	req_access = list(104,106,63,19)
+	},
+/mob/living/simple_animal/hostile/creature{
+	faction = list("neutral")
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8;
+	pixel_x = -4;
+	can_be_hit = 0;
+	damage_deflection = 100
+	},
+/turf/simulated/floor{
+	dir = 1;
+	icon_state = "darkgreycamo"
+	},
+/area/shuttle/transport)
+"D" = (
+/obj/machinery/door/window/survival_pod{
+	dir = 1;
+	layer = 3;
+	req_access = list(104,106,63,19)
+	},
+/mob/living/simple_animal/hostile/netherworld/migo{
+	faction = list("neutral")
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8;
+	pixel_x = -4;
+	can_be_hit = 0;
+	damage_deflection = 100
 	},
 /turf/simulated/floor{
 	dir = 1;
@@ -47,7 +120,7 @@
 "F" = (
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock";
-	req_access_txt = "31;105;63"
+	req_access = list(31,105,63)
 	},
 /obj/docking_port/mobile{
 	dir = 8;
@@ -66,9 +139,7 @@
 	},
 /area/shuttle/transport)
 "G" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
+/turf/simulated/wall/shuttle,
 /area/shuttle/transport)
 "H" = (
 /obj/structure/chair/comfy/shuttle,
@@ -89,7 +160,7 @@
 "L" = (
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock";
-	req_access_txt = "31;105;63"
+	req_access = list(31,105,63)
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/noslip{
@@ -103,6 +174,26 @@
 	tag = "icon-propulsion (EAST)"
 	},
 /turf/space,
+/area/shuttle/transport)
+"N" = (
+/obj/machinery/door/window/survival_pod{
+	dir = 1;
+	layer = 3;
+	req_access = list(104,106,63,19)
+	},
+/mob/living/simple_animal/hostile/hellhound{
+	faction = list("neutral")
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8;
+	pixel_x = -4;
+	can_be_hit = 0;
+	damage_deflection = 100
+	},
+/turf/simulated/floor{
+	dir = 1;
+	icon_state = "darkgreycamo"
+	},
 /area/shuttle/transport)
 "O" = (
 /obj/structure/table/reinforced,
@@ -122,12 +213,34 @@
 /obj/item/reagent_containers/food/snacks/meat,
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8;
+	pixel_x = -4;
+	can_be_hit = 0;
+	damage_deflection = 100
 	},
 /turf/simulated/floor/noslip{
 	icon = 'icons/turf/shuttle/floors.dmi';
 	icon_state = "floor"
+	},
+/area/shuttle/transport)
+"Q" = (
+/obj/machinery/door/window/survival_pod{
+	dir = 2;
+	layer = 3;
+	req_access = list(104,106,63,19)
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 8;
+	layer = 2.9
+	},
+/mob/living/simple_animal/pet/penguin/emperor{
+	faction = list("neutral")
+	},
+/turf/simulated/floor{
+	icon_state = "darkgreycamo"
 	},
 /area/shuttle/transport)
 "R" = (
@@ -145,33 +258,64 @@
 /obj/item/reagent_containers/food/snacks/grown/banana,
 /obj/item/reagent_containers/food/snacks/grown/banana,
 /obj/machinery/light/spot,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8;
+	pixel_x = -4;
+	can_be_hit = 0;
+	damage_deflection = 100
+	},
 /turf/simulated/floor/noslip{
 	icon = 'icons/turf/shuttle/floors.dmi';
 	icon_state = "floor"
 	},
 /area/shuttle/transport)
 "T" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
+/obj/machinery/door/window/survival_pod{
+	dir = 2;
+	layer = 3;
+	req_access = list(104,106,63,19)
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8;
+	pixel_x = -4;
+	can_be_hit = 0;
+	damage_deflection = 100
+	},
+/turf/simulated/floor{
+	icon_state = "darkgreycamo"
 	},
 /area/shuttle/transport)
 "W" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
+/obj/machinery/door/window/survival_pod{
+	dir = 1;
+	layer = 3;
+	req_access = list(104,106,63,19)
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8;
+	pixel_x = -4;
+	can_be_hit = 0;
+	damage_deflection = 100
+	},
+/turf/simulated/floor{
+	dir = 1;
+	icon_state = "darkgreycamo"
 	},
 /area/shuttle/transport)
 "Z" = (
 /obj/machinery/door/window/survival_pod{
 	dir = 2;
 	layer = 3;
-	req_access_txt = "104;106;63;19"
+	req_access = list(104,106,63,19)
 	},
-/obj/structure/window/full/shuttle{
+/mob/living/simple_animal/pet/penguin/emperor{
+	faction = list("neutral")
+	},
+/obj/structure/window/reinforced/survival_pod{
 	dir = 8;
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "window5_end";
-	layer = 6;
-	tag = "icon-window5_end (WEST)"
+	pixel_x = -4;
+	can_be_hit = 0;
+	damage_deflection = 100
 	},
 /turf/simulated/floor{
 	icon_state = "darkgreycamo"
@@ -186,79 +330,79 @@ M
 a
 "}
 (2,1,1) = {"
-T
-Z
+G
+Q
 l
-D
-T
+o
+G
 "}
 (3,1,1) = {"
-T
+G
 Z
 l
 D
-T
+G
 "}
 (4,1,1) = {"
-T
-Z
+G
+b
 l
-D
-T
+W
+G
 "}
 (5,1,1) = {"
+G
 T
-Z
 l
-D
-T
+N
+G
 "}
 (6,1,1) = {"
+G
 T
-Z
 l
-D
-T
+W
+G
 "}
 (7,1,1) = {"
-T
-Z
+G
+i
 l
-D
-T
+W
+G
 "}
 (8,1,1) = {"
+G
 T
-Z
 l
-D
-T
+w
+G
 "}
 (9,1,1) = {"
-T
+G
 P
 l
 R
-T
+G
 "}
 (10,1,1) = {"
-T
+G
 H
 l
 m
-T
+G
 "}
 (11,1,1) = {"
-T
+G
 O
 l
 J
-T
+G
 "}
 (12,1,1) = {"
 G
 u
 F
 u
-W
+G
 "}

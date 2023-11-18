@@ -6,11 +6,6 @@
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/transport)
-"b" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
-/area/shuttle/transport)
 "c" = (
 /obj/docking_port/mobile{
 	dir = 8;
@@ -31,9 +26,7 @@
 	},
 /area/shuttle/transport)
 "e" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
+/turf/simulated/wall/shuttle,
 /area/shuttle/transport)
 "j" = (
 /obj/structure/sign/poster/contraband/communist_state{
@@ -59,8 +52,11 @@
 	},
 /area/shuttle/transport)
 "u" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
 	},
 /area/shuttle/transport)
 "w" = (
@@ -129,18 +125,15 @@
 	},
 /area/shuttle/transport)
 "T" = (
-/obj/structure/chair/comfy/shuttle,
-/obj/structure/sign/poster/contraband/communist_state{
-	pixel_y = 32
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
 /area/shuttle/transport)
 "U" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
+/obj/structure/table/wood,
 /obj/structure/sign/poster/contraband/communist_state{
 	pixel_y = -32
 	},
@@ -180,32 +173,32 @@ K
 a
 "}
 (2,1,1) = {"
-u
+e
 w
 P
 J
-u
+e
 "}
 (3,1,1) = {"
-u
+e
 z
 P
 P
-u
+e
 "}
 (4,1,1) = {"
-u
+e
 n
 W
 j
-u
+e
 "}
 (5,1,1) = {"
-u
+e
 s
 s
 P
-u
+e
 "}
 (6,1,1) = {"
 V
@@ -222,35 +215,35 @@ C
 V
 "}
 (8,1,1) = {"
-u
-R
-P
-C
-u
-"}
-(9,1,1) = {"
-u
+e
 T
 P
+T
+e
+"}
+(9,1,1) = {"
+e
+n
+P
 U
-u
+e
 "}
 (10,1,1) = {"
+e
 u
-R
 P
-C
 u
+e
 "}
 (11,1,1) = {"
-u
+e
 R
 P
 C
-u
+e
 "}
 (12,1,1) = {"
-b
+e
 V
 c
 V
