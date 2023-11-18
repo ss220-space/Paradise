@@ -11,8 +11,6 @@
 	var/list/protected_jobs_AI = list("Civilian","Chief Engineer","Station Engineer","Trainee Engineer","Life Support Specialist","Mechanic","Chief Medical Officer","Medical Doctor","Intern","Coroner","Chemist","Geneticist","Virologist","Psychiatrist","Paramedic","Research Director","Scientist","Student Scientist","Roboticist","Head of Personnel","Chaplain","Bartender","Chef","Botanist","Quartermaster","Cargo Technician","Shaft Miner","Clown","Mime","Janitor","Librarian","Barber","Explorer")	// Basically all jobs, except AI.
 	var/secondary_protected_species = list("Machine")
 	var/vampire_restricted_jobs = list("Chaplain")
-	var/thief_prefered_species = list("Vox")
-	var/thief_prefered_species_mod = 4
 	var/list/datum/mind/pre_traitors = list()
 	var/list/datum/mind/pre_thieves = list()
 	var/list/datum/mind/pre_changelings = list()
@@ -26,9 +24,10 @@
 		ROLE_CHANGELING = 15,
 	)
 	var/list/special_antag_required_players = list(
-		ROLE_TRAITOR = 30,	// hijacker
+		ROLE_HIJACKER = 30,
 		ROLE_MALF_AI = 30,
 		ROLE_NINJA = 30,
+		ROLE_NONE = 0,
 	)
 	var/list/antag_amount = list(
 		ROLE_TRAITOR = 0,
@@ -36,17 +35,6 @@
 		ROLE_VAMPIRE = 0,
 		ROLE_CHANGELING = 0,
 	)
-
-	/// Weight ratio for antags. Higher the weight higher the chance to roll this antag. This values will be modified by config or by admins.
-	var/list/antag_weights = list(
-		ROLE_TRAITOR = 0,
-		ROLE_THIEF = 0,
-		ROLE_VAMPIRE = 0,
-		ROLE_CHANGELING = 0,
-	)
-
-	/// Default chance for traitor to get another antag role, available in prefs.
-	var/chance_double_antag = 10
 
 	/// Chosen antag type.
 	var/special_antag_type
@@ -94,18 +82,20 @@
 		restricted_jobs += protected_jobs
 
 	switch(special_antag_type)
-		if(ROLE_TRAITOR)	// hijacker
+		if(ROLE_HIJACKER)
 			special_antag = safepick(get_players_for_role(ROLE_TRAITOR))
 			if(special_antag)
 				special_antag.restricted_roles = restricted_jobs
+				special_antag.special_role = SPECIAL_ROLE_TRAITOR
 			else
 				special_antag_type = null
 
 		if(ROLE_MALF_AI)
 			special_antag = safepick(get_players_for_role(ROLE_MALF_AI))
 			if(special_antag)
-				special_antag.restricted_roles = (restricted_jobs|protected_jobs_AI)
+				special_antag.restricted_roles = (restricted_jobs|protected_jobs|protected_jobs_AI)
 				special_antag.restricted_roles -= "AI"
+				special_antag.special_role = SPECIAL_ROLE_TRAITOR
 				SSjobs.new_malf = special_antag.current
 			else
 				special_antag_type = null
@@ -119,7 +109,7 @@
 			var/datum/mind/vampire = pick_n_take(possible_vampires)
 			if(vampire.current.client.prefs.species in secondary_protected_species)
 				continue
-			if(vampire == special_antag)
+			if(vampire.special_role)
 				continue
 			pre_vampires += vampire
 			vampire.special_role = SPECIAL_ROLE_VAMPIRE
@@ -131,7 +121,7 @@
 			var/datum/mind/changeling = pick_n_take(possible_changelings)
 			if(changeling.current.client.prefs.species in secondary_protected_species)
 				continue
-			if(changeling.special_role || changeling == special_antag)
+			if(changeling.special_role)
 				continue
 			pre_changelings += changeling
 			changeling.special_role = SPECIAL_ROLE_CHANGELING
@@ -141,45 +131,37 @@
 		var/list/datum/mind/possible_traitors = get_players_for_role(ROLE_TRAITOR)
 		while(length(possible_traitors) && length(pre_traitors) <= antag_amount[ROLE_TRAITOR])
 			var/datum/mind/traitor = pick_n_take(possible_traitors)
-			if(traitor.special_role || traitor == special_antag)
+			if(traitor.special_role)
 				continue
 			pre_traitors += traitor
 			traitor.special_role = SPECIAL_ROLE_TRAITOR
 			traitor.restricted_roles = restricted_jobs
 
 	if(antag_amount[ROLE_THIEF])
-		var/list/datum/mind/possible_thieves = get_players_for_role(ROLE_THIEF)
-		if(length(possible_thieves))
-			var/list/thief_list = list()
-			for(var/datum/mind/thief in possible_thieves)
-				thief_list += thief
-				if(thief.current.client.prefs.species in thief_prefered_species)
-					for(var/i in 1 to thief_prefered_species_mod)
-						thief_list += thief
-
-			while(length(thief_list) && length(pre_thieves) <= antag_amount[ROLE_THIEF])
-				var/datum/mind/thief = pick_n_take(thief_list)
-				listclearduplicates(thief, thief_list)
-				if(thief.special_role || thief == special_antag)
-					continue
-				pre_thieves += thief
-				thief.special_role = SPECIAL_ROLE_THIEF
-				thief.restricted_roles = restricted_jobs
+		var/list/datum/mind/possible_thieves = get_players_for_role(ROLE_THIEF, list("Vox" = 4))
+		while(length(possible_thieves) && length(pre_thieves) <= antag_amount[ROLE_THIEF])
+			var/datum/mind/thief = pick_n_take(possible_thieves)
+			listclearduplicates(thief, possible_thieves)
+			if(thief.special_role)
+				continue
+			pre_thieves += thief
+			thief.special_role = SPECIAL_ROLE_THIEF
+			thief.restricted_roles = restricted_jobs
 
 	if(!(length(pre_vampires) + length(pre_changelings) + length(pre_traitors) + length(pre_thieves)) && !special_antag)
 		return
 
 	. = TRUE
 
+	var/chance_double_antag = isnull(GLOB.antag_paradise_double_antag_chance) ? CONFIG_GET(number/antag_paradise_double_antag_chance) : GLOB.antag_paradise_double_antag_chance
 	if(!chance_double_antag || !length(pre_traitors))
 		return
 
-	var/list/pre_traitors_copy = pre_traitors.Copy()
-	while(length(pre_traitors_copy))
+	for(var/T in pre_traitors)
 		if(!prob(chance_double_antag))
 			continue
 
-		var/datum/mind/traitor = pick_n_take(pre_traitors_copy)
+		var/datum/mind/traitor = T
 		var/list/available_roles = list(ROLE_VAMPIRE, ROLE_CHANGELING)
 		while(length(available_roles))
 			var/second_role = pick_n_take(available_roles)
@@ -209,61 +191,51 @@
 	var/scale = CONFIG_GET(number/traitor_scaling) ? CONFIG_GET(number/traitor_scaling) : 10
 	var/antags_amount = 1 + round(players / scale)
 
-	chance_double_antag = isnull(GLOB.antag_paradise_double_antag_chance) ? chance_double_antag : GLOB.antag_paradise_double_antag_chance
-
-	var/list/available_special_antags = list()
+	var/list/special_antags_list = GLOB.antag_paradise_special_weights ? GLOB.antag_paradise_special_weights.Copy() : config_to_roles(CONFIG_GET(keyed_list/antag_paradise_special_weights))
 	for(var/antag in special_antag_required_players)
 		if(players < special_antag_required_players[antag])
-			continue
-		available_special_antags += antag
+			special_antags_list -= antag
 
-	special_antag_type = pick_weight_classic(GLOB.antag_paradise_special_weights)
-	if(special_antag_type in available_special_antags)
-		antags_amount--
-	else
-		special_antag_type = null
+	if(length(special_antags_list))
+		special_antag_type = pick_weight_classic(special_antags_list)
+		if(special_antag_type && special_antag_type != ROLE_NONE)
+			antags_amount--
 
-	var/list/available_antags = list()
+	var/list/antags_list = GLOB.antag_paradise_weights ? GLOB.antag_paradise_weights.Copy() : config_to_roles(CONFIG_GET(keyed_list/antag_paradise_weights))
 	for(var/antag in antag_required_players)
 		if(players < antag_required_players[antag])
-			continue
-		available_antags += antag
+			antags_list -= antag
 
-	var/modifed_weights = FALSE
-	for(var/antag in antag_weights)
-		if(!(antag in available_antags))
-			continue
-		antag_weights[antag] = GLOB.antag_paradise_weights[antag]
-		if(GLOB.antag_paradise_weights[antag] > 0)
-			modifed_weights = TRUE
+	var/modified_weights = FALSE
+	for(var/antag in antags_list)
+		if(antags_list[antag])
+			modified_weights = TRUE
 
-	if(!modifed_weights)
+	if(!modified_weights)
 		var/mode_type = pick_weight_classic(CONFIG_GET(keyed_list/antag_paradise_mode_subtypes))
-		var/list/subtype_weights = CONFIG_GET(keyed_list/antag_paradise_subtype_weights)
 		if(mode_type == ANTAG_RANDOM)
-			for(var/antag in antag_weights)
-				if(!(antag in available_antags))
-					continue
-				var/random = rand(-subtype_weights[ANTAG_RANDOM], subtype_weights[ANTAG_RANDOM])
-				antag_weights[antag] = random < 0 ? 0 : random
+			for(var/antag in antags_list)
+				antags_list[antag] = rand(1, 100)
 		else
+			var/list/available_antags = antags_list.Copy()
+			var/list/subtype_weights = CONFIG_GET(keyed_list/antag_paradise_subtype_weights)
 			while(length(available_antags))
-				antag_weights[pick_n_take(available_antags)] = subtype_weights[ANTAG_SINGLE]
+				antags_list[pick_n_take(available_antags)] = subtype_weights[ANTAG_SINGLE]
 				if(!length(available_antags) || mode_type == ANTAG_SINGLE)
 					break
-				antag_weights[pick_n_take(available_antags)] = subtype_weights[ANTAG_DOUBLE]
+				antags_list[pick_n_take(available_antags)] = subtype_weights[ANTAG_DOUBLE]
 				if(!length(available_antags) || mode_type == ANTAG_DOUBLE)
 					break
-				antag_weights[pick_n_take(available_antags)] = subtype_weights[ANTAG_TRIPPLE]
+				antags_list[pick_n_take(available_antags)] = subtype_weights[ANTAG_TRIPPLE]
 				break
 
 	for(var/i in 1 to antags_amount)
-		antag_amount[pick_weight_classic(antag_weights)]++
+		antag_amount[pick_weight_classic(antags_list)]++
 
 
 /datum/game_mode/antag_paradise/post_setup()
 	switch(special_antag_type)
-		if(ROLE_TRAITOR)	// hijacker
+		if(ROLE_HIJACKER)
 			var/datum/antagonist/traitor/hijacker_datum = new
 			hijacker_datum.is_hijacker = TRUE
 			addtimer(CALLBACK(special_antag, TYPE_PROC_REF(/datum/mind, add_antag_datum), hijacker_datum), rand(1 SECONDS, 10 SECONDS))
@@ -298,4 +270,26 @@
 		vampire.add_antag_datum(/datum/antagonist/vampire)
 	for(var/datum/mind/changeling in traitor_changelings)
 		changeling.add_antag_datum(/datum/antagonist/changeling)
+
+
+/proc/config_to_roles(list/check_list)
+	var/list/new_list = list()
+	for(var/index in check_list)
+		switch(index)
+			if("hijacker")
+				new_list += ROLE_HIJACKER
+				new_list[ROLE_HIJACKER] = check_list[index]
+			if("malfai")
+				new_list += ROLE_MALF_AI
+				new_list[ROLE_MALF_AI] = check_list[index]
+			if("ninja")
+				new_list += ROLE_NINJA
+				new_list[ROLE_NINJA] = check_list[index]
+			if("nothing")
+				new_list += ROLE_NONE
+				new_list[ROLE_NONE] = check_list[index]
+			else
+				new_list += index
+				new_list[index] = check_list[index]
+	return new_list
 

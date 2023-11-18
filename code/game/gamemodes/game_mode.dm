@@ -32,10 +32,6 @@
 	var/list/protected_jobs = list()
 	/// Species that can't be antags.
 	var/list/protected_species = list()
-	/// Species duplicate for antags. Remember to clear the list you get with [get_players_for_role()] from duplicate minds. See thief game mode setup.
-	var/list/prefered_species = list()
-	/// If prefered_species list is not empty antagonist mind with that specie will be duplicated passed number of times in get_players_for_role().
-	var/prefered_species_mod = 0
 	/// How many players should press ready for mode to activate.
 	var/required_players = 0
 	/// How many antagonists are required for mode start.
@@ -293,7 +289,7 @@
  * Returns a list of player minds who had the antagonist role set to yes, regardless of recomended_enemies.
  * Jobbans and restricted jobs are checked. Species lock and prefered species are checked. List is already shuffled.
  */
-/datum/game_mode/proc/get_players_for_role(role)
+/datum/game_mode/proc/get_players_for_role(role, list/prefered_species)
 	var/list/players = list()
 	var/list/candidates = list()
 
@@ -320,7 +316,7 @@
 			player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
 			candidates += player.mind
 			if(length(prefered_species) && (player.client.prefs.species in prefered_species))
-				for (var/i in 1 to prefered_species_mod)	//prefered mod
+				for (var/i in 1 to prefered_species[player.client.prefs.species])	//prefered mod
 					candidates += player.mind
 			players -= player
 
