@@ -19,7 +19,7 @@
 "e" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor{
-	req_access_txt = "33;103"
+	req_access = list(33,103)
 	},
 /obj/structure/window/reinforced{
 	pixel_y = -4
@@ -47,7 +47,7 @@
 /area/shuttle/transport)
 "p" = (
 /obj/machinery/smartfridge/medbay{
-	req_access_txt = "33;103"
+	req_access = list(33,103)
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/shuttle,
@@ -171,7 +171,7 @@
 "L" = (
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock";
-	req_access_txt = "33;103"
+	req_access = list(33,103)
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/transport)

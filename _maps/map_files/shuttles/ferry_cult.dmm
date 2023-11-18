@@ -15,7 +15,7 @@
 /area/shuttle/transport)
 "d" = (
 /obj/effect/rune/narsie{
-	req_access_txt = "666"
+	req_access = list(666)
 	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/transport)

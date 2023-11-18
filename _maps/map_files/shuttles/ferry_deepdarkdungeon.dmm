@@ -28,7 +28,7 @@
 /area/shuttle/transport)
 "k" = (
 /obj/item/restraints/handcuffs/pinkcuffs{
-	pixel_w = 10;
+	pixel_y = 10;
 	pixel_x = 5
 	},
 /obj/structure/mirror{

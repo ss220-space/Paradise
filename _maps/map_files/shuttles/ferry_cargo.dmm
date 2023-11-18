@@ -88,7 +88,7 @@
 "p" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor{
-	req_access_txt = "31;105;63"
+	req_access = list(31,105,63)
 	},
 /obj/structure/window/reinforced{
 	pixel_y = -4
@@ -119,7 +119,7 @@
 /obj/machinery/door/window/brigdoor,
 /obj/machinery/door/window/brigdoor{
 	dir = 8;
-	req_access_txt = "31;105;63"
+	req_access = list(31,105,63)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -230,7 +230,7 @@
 "Q" = (
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock";
-	req_access_txt = "31;105;63"
+	req_access = list(31,105,63)
 	},
 /turf/simulated/floor{
 	icon_state = "dark"
@@ -244,7 +244,7 @@
 "T" = (
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock";
-	req_access_txt = "31;105;63"
+	req_access = list(31,105,63)
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor{

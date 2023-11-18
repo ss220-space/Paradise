@@ -105,7 +105,7 @@
 	},
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/bananium/glass{
-	req_access_txt = "46"
+	req_access = list(46)
 	},
 /turf/simulated/wall/mineral/bananium,
 /area/shuttle/transport)

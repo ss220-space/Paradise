@@ -555,16 +555,6 @@
 	roundstart_move = "admin_away";
 	width = 18
 	},
-/obj/docking_port/stationary/transit{
-	dir = 8;
-	dwidth = 8;
-	height = 18;
-	id = "admin_transit";
-	name = "admin in transit";
-	pixel_x = 32;
-	turf_type = /turf/space/transit/west;
-	width = 18
-	},
 /obj/machinery/door/airlock/external{
 	frequency = 1331;
 	id_tag = "admin_s_outer";
@@ -915,7 +905,7 @@
 	pixel_x = 5;
 	pixel_y = -23;
 	req_access = list(101);
-	wires = 1
+	wireless = 1
 	},
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/alien/weeds,

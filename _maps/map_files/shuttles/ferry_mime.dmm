@@ -55,7 +55,7 @@
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/tranquillite{
 	glass = 1;
-	req_access_txt = "46"
+	req_access = list(46)
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/transport)

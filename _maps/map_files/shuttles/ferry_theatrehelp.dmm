@@ -67,7 +67,7 @@
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock";
-	req_access_txt = "31;105;101;102;63"
+	req_access = list(31,105,101,102,63)
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/transport)
@@ -216,7 +216,7 @@
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock";
-	req_access_txt = "31;105;101;102;63"
+	req_access = list(31,105,101,102,63)
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/transport)

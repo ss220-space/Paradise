@@ -28,19 +28,12 @@
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock";
-	req_access_txt = "32;101;19"
+	req_access = list(32,101,19)
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/transport)
-"e" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
-/area/shuttle/transport)
 "l" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
+/turf/simulated/wall/shuttle,
 /area/shuttle/transport)
 "n" = (
 /obj/structure/closet/crate/engineering,
@@ -96,7 +89,6 @@
 	},
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/plasteel{
@@ -152,11 +144,11 @@
 /obj/machinery/door/window/survival_pod{
 	dir = 2
 	},
-/obj/structure/window/full/shuttle{
+/obj/structure/window/reinforced/survival_pod{
 	dir = 8;
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "window5_end";
-	tag = "icon-window5_end (WEST)"
+	pixel_x = -4;
+	can_be_hit = 0;
+	damage_deflection = 100
 	},
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/shuttle/transport)
@@ -164,7 +156,7 @@
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock";
-	req_access_txt = "32;101;19"
+	req_access = list(32,101,19)
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/transport)
@@ -178,8 +170,13 @@
 /obj/machinery/autolathe/upgraded,
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8;
+	pixel_x = -4;
+	can_be_hit = 0;
+	damage_deflection = 100
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -225,11 +222,6 @@
 	icon_state = "brown"
 	},
 /area/shuttle/transport)
-"S" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
-/area/shuttle/transport)
 "V" = (
 /obj/machinery/suit_storage_unit/engine,
 /turf/simulated/floor/plasteel{
@@ -253,46 +245,46 @@ x
 a
 "}
 (2,1,1) = {"
-S
+l
 o
 Z
 N
-S
+l
 "}
 (3,1,1) = {"
-S
+l
 G
 Z
 V
-S
+l
 "}
 (4,1,1) = {"
-S
+l
 G
 Z
 V
-S
+l
 "}
 (5,1,1) = {"
-S
+l
 G
 Z
 V
-S
+l
 "}
 (6,1,1) = {"
-S
+l
 J
 Z
 V
-S
+l
 "}
 (7,1,1) = {"
-S
+l
 B
 Z
 V
-S
+l
 "}
 (8,1,1) = {"
 W
@@ -316,16 +308,16 @@ c
 W
 "}
 (11,1,1) = {"
-S
+l
 n
 Z
 M
-S
+l
 "}
 (12,1,1) = {"
 l
 W
 d
 W
-e
+l
 "}

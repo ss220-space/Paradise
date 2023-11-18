@@ -86,7 +86,7 @@
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock";
-	req_access_txt = "5;103"
+	req_access = list(5,103)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -247,7 +247,7 @@
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock";
-	req_access_txt = "5;103"
+	req_access = list(5,103)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"

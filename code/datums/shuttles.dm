@@ -188,6 +188,11 @@
 	description = "Корабль, расчитанный на инженерную команду \
 	Рассчитан на 5 гуманоидов и 2 киборга максимум"
 
+/datum/map_template/shuttle/ferry/mime
+	suffix = "mime"
+	name = "Mime ferry"
+	description = "..."
+
 /datum/map_template/shuttle/ferry/prisoner
 	suffix = "prisoner"
 	name = "For prisoner ferry"
@@ -213,7 +218,7 @@
 
 /datum/map_template/shuttle/ferry/ussp
 	suffix = "ussp"
-	name = "\ Челнок СССП"
+	name = "Челнок СССП"
 	description = "Делегационный челнок СССП, для дип. и не очень миссий"
 
 /datum/map_template/shuttle/ferry/vip

@@ -178,7 +178,7 @@
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock";
-	req_access_txt = "104;106;63;19"
+	req_access = list(104,106,63,19)
 	},
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/decal/warning_stripes/north,
