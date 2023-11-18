@@ -580,7 +580,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 
 	CONFIG_SET(flag/allow_ai, !CONFIG_GET(flag/allow_ai))
-	if(!( CONFIG_GET(flag/allow_ai) ))
+	if(!CONFIG_GET(flag/allow_ai))
 		to_chat(world, "<B>The AI job is no longer chooseable.</B>")
 	else
 		to_chat(world, "<B>The AI job is chooseable now.</B>")

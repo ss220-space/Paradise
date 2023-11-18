@@ -2,7 +2,7 @@
 	title = "AI"
 	flag = JOB_AI
 	department_flag = JOBCAT_ENGSEC
-	total_positions = 0 // Not used for AI, see is_position_available below and modules/mob/living/silicon/ai/latejoin.dm
+	total_positions = -1 // Not used for AI, see is_position_available below and modules/mob/living/silicon/ai/latejoin.dm
 	spawn_positions = 1
 	selection_color = "#ccffcc"
 	supervisors = "your laws"
@@ -17,7 +17,7 @@
 		return 0
 
 /datum/job/ai/is_position_available()
-	return (GLOB.empty_playable_ai_cores.len != 0)
+	return GLOB.empty_playable_ai_cores.len && CONFIG_GET(flag/allow_ai)
 
 
 /datum/job/cyborg
