@@ -18,6 +18,10 @@
 	//How many players can spawn in as this job
 	var/spawn_positions = 0
 
+	//Position count override from config/jobs.txt and jobs_highpop.txt
+	var/positions_lowpop = null
+	var/positions_highpop = null
+
 	//How many players have this job
 	var/current_positions = 0
 
