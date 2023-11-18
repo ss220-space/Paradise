@@ -53,6 +53,7 @@
 #define ROLE_MALF_AI			"Malfunctioning AI"
 
 #define ROLE_NONE				"nothing"	// special define used as a marker
+#define ROLE_HIJACKER			"hijacker"	// another marker
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough
