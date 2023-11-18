@@ -162,6 +162,21 @@ export const RADIO_CHANNELS = [
     freq: 1459,
     color: '#1ecc43',
   },
+  {
+    name: 'Alpha wave',
+    freq: 1522,
+    color: '#88910f',
+  },
+  {
+    name: 'Beta wave',
+    freq: 1532,
+    color: '#1d83f7',
+  },
+  {
+    name: 'Gamma wave',
+    freq: 1542,
+    color: '#d46549',
+  },
 ];
 
 const GASES = [
