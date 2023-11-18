@@ -160,7 +160,7 @@
 				I = H.get_item_by_slot(text2num(slot))
 		for(var/vname in edits)
 			I.vv_edit_var(vname,edits[vname])
-	//Dat thing will make your capes colored by using `"24":{"atom_colours":{"3":"#ffffff"}}` in "vv_values".
+	//Dat thing will make your capes colored by using `"24":{"atom_colours":{"#ffffff":"3"}}` in "vv_values".
 	var/obj/item/neck_slot = H.get_item_by_slot(slot_neck)
 	if(neck_slot)
 		neck_slot.update_atom_colour()
