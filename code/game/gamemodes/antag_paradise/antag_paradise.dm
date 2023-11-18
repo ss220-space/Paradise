@@ -11,8 +11,6 @@
 	var/list/protected_jobs_AI = list("Civilian","Chief Engineer","Station Engineer","Trainee Engineer","Life Support Specialist","Mechanic","Chief Medical Officer","Medical Doctor","Intern","Coroner","Chemist","Geneticist","Virologist","Psychiatrist","Paramedic","Research Director","Scientist","Student Scientist","Roboticist","Head of Personnel","Chaplain","Bartender","Chef","Botanist","Quartermaster","Cargo Technician","Shaft Miner","Clown","Mime","Janitor","Librarian","Barber","Explorer")	// Basically all jobs, except AI.
 	var/secondary_protected_species = list("Machine")
 	var/vampire_restricted_jobs = list("Chaplain")
-	var/thief_prefered_species = list("Vox")
-	var/thief_prefered_species_mod = 4
 	var/list/datum/mind/pre_traitors = list()
 	var/list/datum/mind/pre_thieves = list()
 	var/list/datum/mind/pre_changelings = list()
@@ -140,11 +138,7 @@
 			traitor.restricted_roles = restricted_jobs
 
 	if(antag_amount[ROLE_THIEF])
-		prefered_species = thief_prefered_species
-		prefered_species_mod = thief_prefered_species_mod
-		var/list/datum/mind/possible_thieves = get_players_for_role(ROLE_THIEF)
-		prefered_species = initial(prefered_species)
-		prefered_species_mod = initial(prefered_species_mod)
+		var/list/datum/mind/possible_thieves = get_players_for_role(ROLE_THIEF, list("Vox" = 4))
 		while(length(possible_thieves) && length(pre_thieves) <= antag_amount[ROLE_THIEF])
 			var/datum/mind/thief = pick_n_take(possible_thieves)
 			listclearduplicates(thief, possible_thieves)
