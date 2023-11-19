@@ -1305,6 +1305,9 @@ About the new airlock wires panel:
 
 
 /obj/machinery/door/airlock/emag_act(mob/user)
+	if(!hackable)
+		to_chat(user, span_notice("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
+		return
 	if(!operating && density && arePowerSystemsOn() && !emagged)
 		add_attack_logs(user, src, "emagged ([locked ? "bolted" : "not bolted"])")
 		operating = TRUE

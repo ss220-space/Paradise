@@ -64,6 +64,7 @@
 		S.give_intro_text()
 		spawncount--
 		successSpawn = TRUE
+		log_game("[S.key] has become [S].")
 
 #undef TS_MINPLAYERS_TRIGGER
 #undef TS_HIGHPOP_TRIGGER

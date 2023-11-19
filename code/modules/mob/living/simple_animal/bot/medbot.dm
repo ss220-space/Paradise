@@ -399,9 +399,9 @@
 	if(!treat_virus)
 		return
 
-	for(var/datum/disease/D as anything in C.viruses)
-		if(!(D.visibility_flags & HIDDEN_SCANNER && D.visibility_flags & HIDDEN_PANDEMIC) && D.severity != NONTHREAT && (D.stage > 1 || D.spread_flags & AIRBORNE))
-			return TRUE //Medbots see viruses that aren't fully hidden and have developed enough/are airborne, ignoring safe viruses
+	for(var/datum/disease/D as anything in C.diseases)
+		if(!(D.visibility_flags & HIDDEN_HUD) && D.discovered && D.severity != NONTHREAT)
+			return TRUE //Medbots see viruses if they displayed on HUD, ignoring safe viruses
 
 
 /mob/living/simple_animal/bot/medbot/proc/select_medication(mob/living/carbon/C, beaker_injection)

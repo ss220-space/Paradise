@@ -36,7 +36,7 @@
 #define ROLE_TERROR_SPIDER		"Terror Spider"
 // Role tags for EVERYONE!
 #define ROLE_BORER				"cortical borer"
-#define ROLE_DEMON				"slaughter demon"
+#define ROLE_DEMON				"demon"
 #define ROLE_SENTIENT			"sentient animal"
 #define ROLE_POSIBRAIN			"positronic brain"
 #define ROLE_GUARDIAN			"guardian"
@@ -51,6 +51,9 @@
 #define ROLE_ELITE				"lavaland elite"
 #define ROLE_SPACE_DRAGON 		"space dragon"
 #define ROLE_MALF_AI			"Malfunctioning AI"
+
+#define ROLE_NONE				"nothing"	// special define used as a marker
+#define ROLE_HIJACKER			"hijacker"	// another marker
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough

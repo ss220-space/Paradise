@@ -283,6 +283,8 @@ GLOBAL_VAR(bomb_set)
 	attack_hand(user)
 
 /obj/machinery/nuclearbomb/attack_hand(mob/user as mob)
+	if(..())
+		return TRUE
 	add_fingerprint(user)
 	if(!panel_open)
 		return ui_interact(user)

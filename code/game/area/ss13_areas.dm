@@ -1801,6 +1801,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Surgery 2"
 	icon_state = "surgery2"
 
+/area/medical/surgery/theatre
+	name = "\improper Surgery Theatre"
+	icon_state = "surgery_theatre"
+
 /area/medical/surgeryobs
 	name = "\improper Surgery Observation"
 	icon_state = "surgery"
@@ -2924,3 +2928,33 @@ GLOBAL_LIST_INIT(the_station_areas, list(
 	/area/turret_protected/ai_upload_foyer,
 	/area/turret_protected/ai,
 ))
+
+
+//// Special event areas
+
+/area/special_event
+	name = "Special event area"
+	icon_state = "unknown"
+	requires_power = TRUE
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
+	report_alerts = FALSE
+
+/area/special_event/alpha
+	name = "Special event area Alpha"
+	icon_state = "away1"
+
+/area/special_event/beta
+	name = "Special event area Beta"
+	icon_state = "away2"
+
+/area/special_event/gamma
+	name = "Special event area Gamma"
+	icon_state = "away3"
+
+/area/special_event/delta
+	name = "Special event area Delta"
+	icon_state = "away4"
+
+/area/special_event/epsilon
+	name = "Special event area Epsilon"
+	icon_state = "away5"

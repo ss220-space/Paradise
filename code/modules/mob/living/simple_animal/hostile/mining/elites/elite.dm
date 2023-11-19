@@ -269,6 +269,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 					Хоть и оппонент снаряжен шахтерской экипировкой и различными артефактами, у вас есть мощные способности, которые обычно были ограничены ИИ.\n\
 					Если вы захотите победить, вам придется использовать свои способности с умом. Вам лучше ознакомиться с ними всеми так быстро, насколько возможно.\n\
 					Good luck!</b>")
+
 				addtimer(CALLBACK(src, PROC_REF(spawn_elite), elitemind), 10 SECONDS)
 			else
 				visible_message("<span class='warning'>The stirring stops, and nothing emerges.  Perhaps try again later.</span>")
@@ -286,6 +287,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		mychild.key = elitemind.key
 		mychild.sentience_act()
 		notify_ghosts("\A [mychild] has been awakened in \the [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
+		log_game("[mychild.key] has become [mychild] from lavaland elite tumor.")
 	icon_state = "tumor_popped"
 	INVOKE_ASYNC(src, PROC_REF(arena_checks))
 

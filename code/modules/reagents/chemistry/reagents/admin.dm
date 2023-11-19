@@ -49,11 +49,11 @@
 	M.SetConfused(0)
 	M.SetSleeping(0, FALSE)
 	M.SetJitter(0)
-	for(var/thing in M.viruses)
+	for(var/thing in M.diseases)
 		var/datum/disease/D = thing
 		if(D.severity == NONTHREAT)
 			continue
-		D.cure(0)
+		D.cure(need_immunity = FALSE)
 	..()
 	return STATUS_UPDATE_ALL
 

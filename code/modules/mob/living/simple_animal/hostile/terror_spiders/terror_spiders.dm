@@ -201,7 +201,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		target.attack_animal(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/spider_specialattack(mob/living/carbon/human/L, poisonable)
-	L.attack_animal(src)
+	return L.attack_animal(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/consume_jelly(obj/structure/spider/royaljelly/J)
 	if(health == maxHealth)

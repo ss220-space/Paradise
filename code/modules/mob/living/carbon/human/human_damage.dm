@@ -108,6 +108,16 @@
 	else
 		return 0
 
+/mob/living/carbon/human/proc/check_brain_for_complex_interactions()
+	if(getBrainLoss() >= 60 || prob(getBrainLoss()))
+		return FALSE
+	var/datum/disease/virus/advance/A = locate(/datum/disease/virus/advance) in diseases
+	if(istype(A))
+		var/datum/symptom/headache/S = locate(/datum/symptom/headache) in A.symptoms
+		if(istype(S))
+			return FALSE
+	return TRUE
+
 //These procs fetch a cumulative total damage from all organs
 /mob/living/carbon/human/getBruteLoss()
 	if(status_flags & GODMODE)

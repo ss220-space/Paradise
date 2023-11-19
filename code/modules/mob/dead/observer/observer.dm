@@ -87,6 +87,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	real_name = name
 
 	//starts ghosts off with all HUDs.
+	show_me_the_hud(THOUGHTS_HUD)
 	toggle_all_huds_on(body)
 	..()
 

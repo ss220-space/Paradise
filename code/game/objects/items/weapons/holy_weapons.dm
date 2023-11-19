@@ -295,7 +295,9 @@
 			name = input
 			S.real_name = input
 			S.name = input
+		log_game("[S.ckey] has become spirit of [user.real_name]'s nullrod blade.")
 	else
+		log_game("No one has decided to possess [user.real_name]'s nullrod blade.")
 		to_chat(user, "The blade is dormant. Maybe you can try again later.")
 		possessed = FALSE
 

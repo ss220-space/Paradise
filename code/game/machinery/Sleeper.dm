@@ -133,6 +133,9 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
+	if(..())
+		return TRUE
+
 	if(panel_open)
 		to_chat(user, span_notice("Close the maintenance panel first."))
 		return

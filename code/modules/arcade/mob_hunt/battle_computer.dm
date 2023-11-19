@@ -107,6 +107,9 @@
 	avatar.update_self()
 
 /obj/machinery/computer/mob_battle_terminal/attack_hand(mob/user)
+	if(..())
+		return TRUE
+
 	add_fingerprint(user)
 	interact(user)
 

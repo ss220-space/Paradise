@@ -39,9 +39,9 @@
 	for(var/i in 1 to rand(0, max_ammo*2))
 		rotate()
 
-/obj/item/ammo_box/magazine/internal/cylinder/give_round(obj/item/ammo_casing/R, replace_spent = 0)
+/obj/item/ammo_box/magazine/internal/cylinder/give_round(obj/item/ammo_casing/R, replace_spent = FALSE)
 	if(!R || (caliber && R.caliber != caliber) || (!caliber && R.type != ammo_type))
-		return 0
+		return FALSE
 
 	for(var/i in 1 to stored_ammo.len)
 		var/obj/item/ammo_casing/bullet = stored_ammo[i]
@@ -51,9 +51,9 @@
 
 			if(bullet)
 				bullet.loc = get_turf(loc)
-			return 1
+			return TRUE
 
-	return 0
+	return FALSE
 
 /obj/item/ammo_box/magazine/internal/cylinder/rev38
 	name = "detective revolver cylinder"
@@ -72,7 +72,7 @@
 /obj/item/ammo_box/magazine/internal/cylinder/rev762
 	name = "nagant revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/n762
-	caliber = "n762"
+	caliber = "7.62x38mm"
 	max_ammo = 7
 
 /obj/item/ammo_box/magazine/internal/cylinder/rev36
@@ -192,7 +192,7 @@
 	name = "bolt action rifle internal magazine"
 	desc = "Oh god, this shouldn't be here"
 	ammo_type = /obj/item/ammo_casing/a762
-	caliber = "a762"
+	caliber = "7.62x54mm"
 	max_ammo = 5
 	multiload = 1
 
@@ -279,10 +279,10 @@
 /obj/item/ammo_box/magazine/enforcer/proc/is_rubber()//if the topmost bullet is a rubber one
 	var/ammo = ammo_count()
 	if(!ammo)
-		return 0
+		return FALSE
 	if(istype(contents[contents.len], /obj/item/ammo_casing/rubber9mm))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/item/ammo_box/magazine/enforcer/lethal
 	name = "handgun magazine (9mm)"
@@ -410,7 +410,7 @@
 	name = "specialized magazine (.75)"
 	icon_state = "75"
 	ammo_type = /obj/item/ammo_casing/caseless/a75
-	caliber = "75"
+	caliber = ".75"
 	multiple_sprites = 2
 	max_ammo = 8
 
@@ -419,7 +419,7 @@
 	icon_state = "5.56m"
 	origin_tech = "combat=5"
 	ammo_type = /obj/item/ammo_casing/a556
-	caliber = "a556"
+	caliber = "5.56mm"
 	max_ammo = 30
 	multiple_sprites = 2
 
@@ -429,26 +429,27 @@
 	desc= "A universal magazine for an AK style rifle."
 	origin_tech = "combat=5;syndicate=1"
 	ammo_type = /obj/item/ammo_casing/a545
-	caliber = "a545"
+	caliber = "5.45x39mm"
 	max_ammo = 30
 	multiple_sprites = 2
+
 /obj/item/ammo_box/magazine/aksu
 	name = "AK magazine (5.45x39mm)"
 	icon_state = "ak47mag"
 	desc= "An antique fusty magazine for an AK rifle."
 	origin_tech = "combat=4;syndicate=1"
 	ammo_type = /obj/item/ammo_casing/a545/fusty
-	caliber = "f545"
+	caliber = "5.45x39mm"
 	max_ammo = 30
 	multiple_sprites = 2
 
 /obj/item/ammo_box/magazine/ppsh
-	name = "PPSh drum (7,62x25mm)"
+	name = "PPSh drum (7.62x25mm)"
 	icon_state = "ppshDrum"
 	desc= "An antique drum for an PPSh submacnine."
 	origin_tech = "combat=3;syndicate=1"
 	ammo_type = /obj/item/ammo_casing/ftt762
-	caliber = "ftt762"
+	caliber = "7.62x25mm"
 	max_ammo = 71
 	multiple_sprites = 2
 
@@ -565,10 +566,10 @@
 /obj/item/ammo_box/magazine/toy/enforcer/proc/is_riot()//if the topmost bullet is a riot dart
 	var/ammo = ammo_count()
 	if(!ammo)
-		return 0
+		return FALSE
 	if(istype(contents[contents.len], /obj/item/ammo_casing/caseless/foam_dart/riot))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/item/ammo_box/magazine/toy/smgm45
 	name = "donksoft SMG magazine"
