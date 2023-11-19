@@ -306,7 +306,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "HGAT"
 	item = /obj/item/storage/toolbox/green/memetic
 	cost = 20
-	job = list("Chaplain")
+	job = list("Chaplain", "Civilian")
 	surplus = 0 //No lucky chances from the crate; if you get this, this is ALL you're getting
 	hijack_only = TRUE //This is a murderbone weapon, as such, it should only be available in those scenarios.
 
