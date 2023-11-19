@@ -49,11 +49,11 @@
 	else if(istype(target,/mob/living))
 		var/mob/living/M = target
 		if(M.stat == DEAD && !issilicon(M))
-			return
+			return FALSE
 		if(M.stat == DEAD && issilicon(M) || chassis.cargo_expanded == TRUE)
 			if(ismegafauna(M))
 				occupant_message(SPAN_WARNING("БЕГИ, ИДИОТ, НЕ ВРЕМЯ ДЛЯ ОБНИМАШЕК!!!"))
-				return
+				return FALSE
 			if(!M.anchored)
 				if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
 					chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
@@ -73,7 +73,7 @@
 		if(chassis.occupant.a_intent == INTENT_HARM)
 			M.take_overall_damage(dam_force)
 			if(!M)
-				return
+				return FALSE
 			M.adjustOxyLoss(round(dam_force/2))
 			target.visible_message(span_danger("[chassis] squeezes [target]."), \
 								span_userdanger("[chassis] squeezes [target]."),\
@@ -86,7 +86,7 @@
 			step_away(M,chassis)
 			occupant_message(span_notice("You push [target] out of the way."))
 			chassis.visible_message(span_notice("[chassis] pushes [target] out of the way."))
-		return 1
+		return TRUE
 
 
 
@@ -97,30 +97,39 @@
 	energy_drain = 0
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill/action(atom/target)
-	if(!action_checks(target)) return
-	if(!cargo_holder) return
+	if(!action_checks(target))
+		return FALSE
+	if(!cargo_holder)
+		return FALSE
 	if(istype(target,/obj))
 		var/obj/O = target
 		if(!O.anchored)
 			if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
 				chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
-				O.anchored = 1
+				O.anchored = TRUE
+				set_ready_state(FALSE)
 				if(do_after_cooldown(target))
 					cargo_holder.cargo += O
 					O.loc = chassis
-					O.anchored = 0
+					O.anchored = FALSE
 					occupant_message(span_notice("[target] successfully loaded."))
 					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
+					start_cooldown()
 				else
 					O.anchored = initial(O.anchored)
+					set_ready_state(TRUE)
+					return FALSE
 			else
 				occupant_message(span_warning("Not enough room in cargo compartment!"))
+				return FALSE
 		else
 			occupant_message(span_warning("[target] is firmly secured!"))
+			return FALSE
 
 	else if(istype(target,/mob/living))
 		var/mob/living/M = target
-		if(M.stat == DEAD) return
+		if(M.stat == DEAD)
+			return FALSE
 		if(chassis.occupant.a_intent == INTENT_HARM)
 			target.visible_message(span_danger("[chassis] destroys [target] in an unholy fury."),
 								span_userdanger("[chassis] destroys [target] in an unholy fury."))
@@ -131,7 +140,7 @@
 		else
 			step_away(M,chassis)
 			target.visible_message("[chassis] tosses [target] like a piece of paper.")
-			return 1
+		start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/cargo_upgrade
 	name = "Cargo expansion upgrade"
@@ -189,16 +198,17 @@
 
 /obj/item/mecha_parts/mecha_equipment/rcd/action(atom/target)
 	if(!action_checks(target) || get_dist(chassis, target)>3)
-		return
+		return FALSE
 	var/area/check_area = get_area(target)
 	if(check_area?.type in rcd_holder.areas_blacklist)
 		to_chat(chassis.occupant, span_warning("Something prevents you from using [rcd_holder] in here..."))
-		return
+		return FALSE
 	playsound(chassis, 'sound/machines/click.ogg', 50, 1)
 	chassis.can_move = world.time + 2 SECONDS 	// We don't move while we build
 	var/rcd_act_result = target.rcd_act(chassis.occupant, rcd_holder, rcd_holder.mode)
 	if(rcd_act_result == RCD_NO_ACT) //if our rcd_act was not implemented/impossible to do - we can move again
 		chassis.can_move = 0
+	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/rcd/proc/check_menu(mob/living/carbon/user)
 	return (user && chassis.occupant == user && user.stat != DEAD)
@@ -269,8 +279,8 @@
 /obj/item/mecha_parts/mecha_equipment/mimercd/can_attach(obj/mecha/combat/M)
 	if(..())
 		if(istype(M, /obj/mecha/combat/reticence) || istype(M, /obj/mecha/combat/lockersyndie))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/mimercd/action(atom/target)
 	if(istype(target, /turf/space/transit))//>implying these are ever made -Sieve
@@ -468,13 +478,12 @@
 		set_ready_state(1)
 		occupant_message("Cable depleted, [src] deactivated.")
 		log_message("Cable depleted, [src] deactivated.")
-		return
+		return FALSE
 	if(cable.amount < amount)
 		occupant_message("No enough cable to finish the task.")
-		return
+		return FALSE
 	cable.use(amount)
 	update_equip_info()
-	return 1
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/proc/reset()
 	last_piece = null
@@ -537,7 +546,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/action(atom/target) //copypasted from extinguisher. TODO: Rewrite from scratch.
 	if(!action_checks(target) || get_dist(chassis, target)>3)
-		return
+		return FALSE
 
 	if(istype(target, /obj/structure/reagent_dispensers/watertank) && get_dist(chassis,target) <= 1)
 		var/obj/structure/reagent_dispensers/watertank/WT = target
@@ -553,6 +562,7 @@
 			var/turf/T2 = get_step(T,turn(direction, -90))
 
 			var/list/the_targets = list(T,T1,T2)
+			start_cooldown()
 			spawn(0)
 				for(var/a = 0 to 5)
 					var/obj/effect/particle_effect/water/W = new (get_turf(chassis))
@@ -580,7 +590,6 @@
 						if(W.loc == my_target)
 							break
 						sleep(2)
-		return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/get_module_equip_info()
 	return " \[[src.reagents.total_volume]\]"
@@ -608,7 +617,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/holowall/action(atom/target) //copypasted from extinguisher. TODO: Rewrite from scratch.
 	if(!action_checks(target) || get_dist(chassis, target) > 5)
-		return
+		return FALSE
 
 	if(!is_faced_target(target))
 		return FALSE
@@ -622,8 +631,11 @@
 		if(!is_blocked_turf(T, TRUE)) //can't put holograms on a tile that has dense stuff
 			if(holocreator_busy)
 				occupant_message("<span class='notice'>[src] is busy creating a hologram.</span>")
-				return
-			if(length(barriers) < max_barriers)
+				return FALSE
+			if(length(barriers) >= max_barriers)
+				occupant_message("<span class='notice'>[src] is projecting at max capacity!</span>")
+				return FALSE
+			else
 				playsound(src.loc, 'sound/machines/click.ogg', 20, 1)
 				if(creation_time)
 					holocreator_busy = TRUE
@@ -638,8 +650,7 @@
 				H = new /obj/structure/holosign/barrier/atmos(T, src)
 				chassis.use_power(energy_drain)
 				occupant_message("<span class='notice'>You create [H] with [src].</span>")
-			else
-				occupant_message("<span class='notice'>[src] is projecting at max capacity!</span>")
+				start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/holowall/get_module_equip_info()
 	return " \[Holobarriers left: [max_barriers - length(barriers)]|<a href='?src=[UID()];remove_all=1'>Return all barriers</a>\]"
@@ -710,12 +721,12 @@
 
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/action(atom/target)
 	if(!action_checks(target))
-		return
+		return FALSE
 	selected_item.melee_attack_chain(chassis.occupant, target)
 	if(isliving(target))
 		chassis.do_attack_animation(target)
 	chassis.use_power(energy_drain)
-	return TRUE
+	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/self_occupant_attack()
 	radial_menu(chassis.occupant)

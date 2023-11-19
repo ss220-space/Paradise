@@ -26,11 +26,11 @@
 		if(target_obj.resistance_flags & UNACIDABLE)
 			return
 	if(isancientturf(target))
-		visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+		visible_message(span_notice("This rock appears to be resistant to all mining tools except pickaxes!"))
 		return
-	target.visible_message("<span class='warning'>[chassis] starts to drill [target].</span>",
-					"<span class='userdanger'>[chassis] starts to drill [target]...</span>",
-					 "<span class='italics'>You hear drilling.</span>")
+	target.visible_message(span_warning("[chassis] starts to drill [target]."),
+						span_userdanger("[chassis] starts to drill [target]..."),
+						span_italics("You hear drilling."))
 
 	if(do_after_cooldown(target))
 		set_ready_state(FALSE)
@@ -38,7 +38,7 @@
 		if(isturf(target))
 			var/turf/T = target
 			T.drill_act(src)
-			set_ready_state(TRUE)
+			start_cooldown()
 			return
 		while(do_after_mecha(target, drill_delay))
 			if(isliving(target))
@@ -49,9 +49,9 @@
 				O.take_damage(15, BRUTE, 0, FALSE, get_dir(chassis, target))
 				playsound(src, 'sound/weapons/drill.ogg', 40, TRUE)
 			else
-				set_ready_state(TRUE)
+				start_cooldown()
 				return
-		set_ready_state(TRUE)
+		start_cooldown()
 
 /turf/proc/drill_act(obj/item/mecha_parts/mecha_equipment/drill/drill)
 	return
@@ -91,8 +91,8 @@
 /obj/item/mecha_parts/mecha_equipment/drill/can_attach(obj/mecha/M)
 	if(..())
 		if(istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/drill/proc/drill_mob(mob/living/target, mob/user)
 	target.visible_message("<span class='danger'>[chassis] is drilling [target] with [src]!</span>",
@@ -154,12 +154,14 @@
 	if(!loc)
 		STOP_PROCESSING(SSfastprocess, src)
 		qdel(src)
-	if(istype(loc, /obj/mecha/working) && scanning_time <= world.time)
+	if(!action_checks(src))
+		return FALSE
+	if(istype(loc, /obj/mecha/working))
 		var/obj/mecha/working/mecha = loc
 		if(!mecha.occupant)
 			return
-		scanning_time = world.time + equip_cooldown
 		mineral_scan_pulse(get_turf(src))
+		start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/action(atom/target)
 	melee_attack_chain(chassis.occupant, target)

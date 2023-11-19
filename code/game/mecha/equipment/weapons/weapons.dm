@@ -7,7 +7,7 @@
 	var/size = 0
 	var/projectiles_per_shot = 1
 	var/variance = 0
-	var/randomspread = 0 //use random spread for machineguns, instead of shotgun scatter
+	var/randomspread = FALSE //use random spread for machineguns, instead of shotgun scatter
 	var/projectile_delay = 0
 	var/projectiles
 	var/projectile_energy_cost
