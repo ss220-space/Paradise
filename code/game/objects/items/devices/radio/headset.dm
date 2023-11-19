@@ -392,6 +392,9 @@
 		return FALSE
 	return ..()
 
+/obj/item/radio/headset/all_channels // Its only feature is all channels.
+	ks1type = /obj/item/encryptionkey/admin
+
 /obj/item/radio/headset/event_1
 	name = "Radio headset"
 	desc = "A headset linked to special long range alpha frequency in this sector."
