@@ -138,6 +138,8 @@
 			continue
 		if(istype(M, /mob/living/simple_animal/bot/mulebot))
 			continue
+		if(istype(M, /mob/living/simple_animal/hostile/megafauna))
+			continue
 		if(M.buckled || M.anchored || M.has_buckled_mobs())
 			continue
 		if(isAI(M))

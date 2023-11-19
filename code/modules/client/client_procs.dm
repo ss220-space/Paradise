@@ -511,7 +511,7 @@
 
 /client/proc/donor_loadout_points()
 	if(donator_level > 0 && prefs)
-		prefs.max_gear_slots = CONFIG_GET(number/max_loadout_points) + 5
+		prefs.max_gear_slots = CONFIG_GET(number/max_loadout_points) + 15
 
 /client/proc/send_to_server_by_url(url)
 	if (!url)
