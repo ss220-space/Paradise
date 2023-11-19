@@ -98,7 +98,7 @@
 		layer = ABOVE_OBJ_LAYER
 
 		add_game_logs("planted [src] on [T.name] at [T.loc]", user)
-
+		icon_state = initial(icon_state) + "_burned"
 		to_chat(user, span_notice("You plant the [src]."))
 
 /obj/item/grenade/iedsatchel/attack_hand(var/mob/user)
