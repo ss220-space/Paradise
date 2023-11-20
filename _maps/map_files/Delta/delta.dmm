@@ -82419,7 +82419,7 @@
 /obj/item/paper/safe_code{
 	owner = "hos"
 	},
-/obj/structure/sign/poster/secret/yug0{
+/obj/structure/sign/poster/secret/lady{
 	pixel_x = 32
 	},
 /obj/item/lighter/zippo/hos,
