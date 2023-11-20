@@ -1,3 +1,7 @@
+/datum/game_mode
+	/// A list of all demon minds spawned via event or wizard artefact.
+	var/list/datum/mind/demons = list()
+
 /mob/living/simple_animal/demon
 	name = "a generic demon"
 	desc = "you shouldnt be reading this, file a github report"
@@ -41,7 +45,7 @@
 
 /mob/living/simple_animal/demon/Destroy()
 	if(mind)
-		SSticker.mode.traitors -= mind
+		SSticker.mode.demons -= mind
 	if(whisper_action)
 		whisper_action = null
 	return ..()
@@ -110,5 +114,5 @@
 
 
 /mob/living/simple_animal/demon/proc/attempt_objectives()
-	return mind
+	return !isnull(mind)
 

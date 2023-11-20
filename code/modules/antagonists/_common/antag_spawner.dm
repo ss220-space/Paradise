@@ -204,7 +204,7 @@
 	demon.key = C.key
 	demon.mind.assigned_role = ROLE_DEMON
 	demon.mind.special_role = SPECIAL_ROLE_DEMON
-	SSticker.mode.traitors |= demon.mind
+	SSticker.mode.demons |= demon.mind
 	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
 	KillDaWiz.owner = demon.mind
 	KillDaWiz.target = user.mind

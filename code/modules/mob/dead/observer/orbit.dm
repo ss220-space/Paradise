@@ -99,19 +99,13 @@
 						antag_serialized["antag"] = A.name
 						antagonists += list(antag_serialized)
 
-					var/list/demons = list()
-					for(var/D in SSticker.mode.traitors)
-						var/datum/mind/check = D
-						if(check.assigned_role == ROLE_DEMON)
-							demons += check
-
 					// Not-very-datumized antags follow
 					// Associative list of antag name => whether this mind is this antag
 					if(SSticker && SSticker.mode)
 						other_antags += list(
 							"Abductees — ([length(SSticker.mode.abductees)])" = (mind in SSticker.mode.abductees),
 							"Abductors — ([length(SSticker.mode.abductors)])" = (mind in SSticker.mode.abductors),
-							"Demons — ([length(demons)])" = (mind in demons),
+							"Demons — ([length(SSticker.mode.demons)])" = (mind in SSticker.mode.demons),
 							"Devils — ([length(SSticker.mode.devils)])" = (mind in SSticker.mode.devils),
 							"Event Roles — ([length(SSticker.mode.eventmiscs)])" = (mind in SSticker.mode.eventmiscs),
 							"Nar’Sie Cultists — ([length(SSticker.mode.cult)])" = (mind in SSticker.mode.cult),
