@@ -54,7 +54,7 @@
 					affected_mob.visible_message(span_danger("[affected_mob]'s form contorts into something more feline!"), \
 													span_userdanger("YOU TURN INTO A TAJARAN!"))
 					var/mob/living/carbon/human/catface = affected_mob
-					catface?.set_species(/datum/species/tajaran, retain_damage = TRUE)
+					catface?.set_species(/datum/species/tajaran, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
 
 
 /datum/disease/virus/kingstons_advanced
@@ -113,7 +113,7 @@
 					if(prob(5))
 						H.visible_message(span_danger("[H]'s skin splits and form contorts!"), \
 														span_userdanger("Your body mutates into a [initial(chosentype.name)]!"))
-						H.set_species(chosentype, retain_damage = TRUE)
+						H.set_species(chosentype, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
 				else
 					if(prob(5))
 						H.visible_message(span_danger("[H] scratches at thier skin!"), \

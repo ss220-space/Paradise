@@ -27,7 +27,7 @@
 	H.invisibility = INVISIBILITY_ABSTRACT
 	var/has_primitive_form = H.dna.species.primitive_form // cache this
 	if(has_primitive_form)
-		H.set_species(has_primitive_form)
+		H.set_species(has_primitive_form, keep_missing_bodyparts = TRUE)
 
 	new /obj/effect/temp_visual/monkeyify(H.loc)
 	sleep(22)
@@ -63,7 +63,7 @@
 	H.invisibility = INVISIBILITY_ABSTRACT
 	var/has_greater_form = H.dna.species.greater_form //cache this
 	if(has_greater_form)
-		H.set_species(has_greater_form)
+		H.set_species(has_greater_form, keep_missing_bodyparts = TRUE)
 
 	new /obj/effect/temp_visual/monkeyify/humanify(H.loc)
 	sleep(22)
