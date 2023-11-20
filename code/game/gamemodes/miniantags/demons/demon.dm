@@ -1,3 +1,7 @@
+/datum/game_mode
+	/// A list of all demon minds spawned via event or wizard artefact.
+	var/list/datum/mind/demons = list()
+
 /mob/living/simple_animal/demon
 	name = "a generic demon"
 	desc = "you shouldnt be reading this, file a github report"
@@ -16,7 +20,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
-	faction = list("demon")
+	faction = list(ROLE_DEMON)
 	attacktext = "неистово терзает"
 	maxHealth = 200
 	health = 200
@@ -40,6 +44,8 @@
 
 
 /mob/living/simple_animal/demon/Destroy()
+	if(mind)
+		SSticker.mode.demons -= mind
 	if(whisper_action)
 		whisper_action = null
 	return ..()
@@ -108,5 +114,5 @@
 
 
 /mob/living/simple_animal/demon/proc/attempt_objectives()
-	return mind
+	return !isnull(mind)
 
