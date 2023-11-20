@@ -4011,9 +4011,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/camera/autoname{
-	dir = 8
-	},
 /obj/machinery/door_control{
 	id = "g17extlock";
 	name = "Gorky17 exterior lockdown";
@@ -4041,6 +4038,11 @@
 	dir = 8;
 	name = "Gorky17 rank console bridge";
 	req_access = list(125)
+	},
+/obj/machinery/camera/autoname{
+	dir = 8;
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
@@ -4159,10 +4161,13 @@
 	icon_state = "2-8"
 	},
 /obj/effect/decal/warning_stripes/northeast,
-/obj/machinery/camera/autoname,
 /obj/machinery/suit_storage_unit/engine{
 	name = "Soviet engineering suit storage unit";
 	req_access = list(122)
+	},
+/obj/machinery/camera/autoname{
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/solmaintnorth)
@@ -14380,7 +14385,10 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/camera/autoname,
+/obj/machinery/camera/autoname{
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/engineering)
 "Yb" = (
