@@ -25,6 +25,17 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/IEDsatchel
+	name = "IED Satchel"
+	result = /obj/item/grenade/iedsatchel
+	reqs = list(/obj/item/grenade/iedcasing = 3,
+				/obj/item/storage/box/large = 1, 
+				/obj/item/stack/tape_roll = 20,
+				/obj/item/stack/cable_coil  = 10)
+	time = 60
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
 /datum/crafting_recipe/molotov
 	name = "Molotov"
 	result = /obj/item/reagent_containers/food/drinks/bottle/molotov
