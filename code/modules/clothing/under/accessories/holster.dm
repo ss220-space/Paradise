@@ -20,8 +20,10 @@
 	return ..()
 
 /obj/item/clothing/accessory/holster/proc/can_holster(obj/item/I)
+	if(!istype(I, holster_allow))
+		return FALSE
 	var/obj/item/gun/G = I
-	if(!istype(G) || !istype(G, holster_allow) || !G.can_holster || G.w_class > WEIGHT_CLASS_NORMAL)
+	if(istype(G) && (!G.can_holster || G.w_class > WEIGHT_CLASS_NORMAL))
 		return FALSE
 	return TRUE
 
@@ -160,10 +162,6 @@
 	sound_holster = 'sound/weapons/knife_holster/knife_holster.ogg'
 	sound_unholster = 'sound/weapons/knife_holster/knife_unholster.ogg'
 
-/obj/item/clothing/accessory/holster/knives/can_holster(obj/item/I)
-	if(!istype(I, holster_allow))
-		return FALSE
-	return TRUE
 
 /obj/item/clothing/accessory/holster/knives/unholster_message(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
