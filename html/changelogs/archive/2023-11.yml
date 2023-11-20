@@ -171,3 +171,25 @@
       (#3903)
   Zwei:
   - tweak: Antag Paradise Tweak (#3898)
+'2023-11-20':
+  ArtemDerp:
+  - bugfix: add missed restricted network for gorky 17 cameras (#3908)
+  Daeberdir:
+  - bugfix: retrieve a collar from det dog ability. (#3901)
+  - bugfix: correct visual for telepathy and minus 1 runtime in it. (#3892)
+  Dimach:
+  - server: set config to actual datum values (#3912)
+  LiquidPotroh:
+  - tweak: Nucleates don't feel pain (#3896)
+  Mindfri:
+  - tweak: Assistant can buy His Grace. (#3905)
+  - add: Shard Plushie and plasmaman in loadout. (#3883)
+  ROdenFL:
+  - balance: martial arts give dirslash (#3906)
+  Roman:
+  - add: IED Satchel (#3895)
+  WolferOkt:
+  - bugfix: can't put revenant in a petcarriers (#3907)
+  Zwei:
+  - bugfix: Antag Paradise Ninja Spawn Fix (#3910)
+  - bugfix: Demon Whisper (#3911)
