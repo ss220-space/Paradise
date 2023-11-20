@@ -37,12 +37,26 @@
 	disliked_food = SUGAR | FRIED
 	liked_food = VEGETABLES | GRAIN | MEAT
 
-/datum/species/grey/handle_dna(mob/living/carbon/human/H, remove)
+
+/datum/species/grey/on_species_gain(mob/living/carbon/human/H)
 	..()
-	H.gene_stability += GENE_INSTABILITY_MODERATE // better genetic code
-	H.dna.SetSEState(GLOB.remotetalkblock, !remove, 1)
+	H.gene_stability += GENE_INSTABILITY_MODERATE
+
+
+/datum/species/grey/on_species_loss(mob/living/carbon/human/H)
+	..()
+	H.gene_stability -= GENE_INSTABILITY_MODERATE
+
+
+/datum/species/grey/handle_dna(mob/living/carbon/human/H, remove = FALSE)
+	..()
+	H.dna.SetSEState(GLOB.remotetalkblock, !remove)
 	genemutcheck(H, GLOB.remotetalkblock, null, MUTCHK_FORCED)
-	H.dna.default_blocks.Add(GLOB.remotetalkblock)
+	if(remove)
+		H.dna.default_blocks -= GLOB.remotetalkblock
+	else
+		H.dna.default_blocks |= GLOB.remotetalkblock
+
 
 /datum/species/grey/water_act(mob/living/carbon/human/H, volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
