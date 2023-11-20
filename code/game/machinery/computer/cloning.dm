@@ -2,7 +2,7 @@
 #define MENU_RECORDS 2
 
 /obj/machinery/computer/cloning
-	name = "cloning console"
+	name = "biomass pod console"
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "med_key"
 	icon_screen = "dna"

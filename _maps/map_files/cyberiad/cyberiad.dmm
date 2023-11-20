@@ -39953,13 +39953,13 @@
 	},
 /area/medical/cloning)
 "bWC" = (
-/obj/machinery/computer/cloning,
+/obj/structure/computerframe,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
 /area/medical/cloning)
 "bWD" = (
-/obj/machinery/dna_scannernew,
+/obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -39985,8 +39985,8 @@
 	},
 /area/medical/cloning)
 "bWF" = (
-/obj/machinery/clonepod/biomass,
 /obj/machinery/light,
+/obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
