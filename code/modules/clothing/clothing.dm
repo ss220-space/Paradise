@@ -516,7 +516,8 @@ BLIND     // can't see anything
 		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi'
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi'
 		//"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
@@ -800,7 +801,7 @@ BLIND     // can't see anything
 
 /obj/item/clothing/under/proc/attach_accessory(obj/item/clothing/accessory/A, mob/user, unequip = FALSE)
 	if(can_attach_accessory(A))
-		if(unequip && !user.drop_item_ground(A)) // Make absolutely sure this accessory is removed from hands
+		if(unequip && !user.drop_item_ground(A, ignore_pixel_shift = TRUE)) // Make absolutely sure this accessory is removed from hands
 			return FALSE
 
 		accessories += A

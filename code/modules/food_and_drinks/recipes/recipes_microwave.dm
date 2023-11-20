@@ -322,6 +322,12 @@
 	items = list(/obj/item/reagent_containers/food/snacks/meat, /obj/item/reagent_containers/food/snacks/grown/icepepper, /obj/item/reagent_containers/food/snacks/grown/tomato)
 	result = /obj/item/reagent_containers/food/snacks/soup/coldchili
 
+/datum/recipe/microwave/shavelsoup
+	reagents = list("water" = 10)
+	items = list(/obj/item/reagent_containers/food/snacks/cutlet, /obj/item/reagent_containers/food/snacks/grown/potato, /obj/item/reagent_containers/food/snacks/egg,
+	/obj/item/reagent_containers/food/snacks/grown/shavel)
+	result = /obj/item/reagent_containers/food/snacks/soup/shavelsoup
+
 //Burger
 /datum/recipe/microwave/spellburger
 	items = list(

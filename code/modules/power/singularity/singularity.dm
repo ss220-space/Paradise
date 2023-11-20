@@ -427,16 +427,11 @@
 	for(var/mob/living/carbon/M in oviewers(8, src))
 		if(istype(M, /mob/living/carbon/brain)) //Ignore brains
 			continue
-
-		if(M.stat == CONSCIOUS)
-			if(ishuman(M))
-				var/mob/living/carbon/human/H = M
-				if(istype(H.glasses, /obj/item/clothing/glasses/meson))
-					var/obj/item/clothing/glasses/meson/MS = H.glasses
-					if(MS.vision_flags == SEE_TURFS)
-						to_chat(H, "<span class='notice'>You look directly into the [src.name], good thing you had your protective eyewear on!</span>")
-						return
-
+		if(!M.stat) // We can't stare on the lord if we are not so alive.
+			continue
+		if((M.sight >= SEE_TURFS) && !(M.sight >= (SEE_TURFS|SEE_OBJS))) // If they can see it without mesons on or can see objects through mesons. Bad on them.
+			to_chat(M, "<span class='notice'>You look directly into the [src.name], good thing you had your protective eyewear on!</span>")
+			continue
 		M.Stun(6 SECONDS)
 		M.visible_message("<span class='danger'>[M] stares blankly at [src]!</span>", \
 						"<span class='userdanger'>You look directly into [src] and feel weak.</span>")

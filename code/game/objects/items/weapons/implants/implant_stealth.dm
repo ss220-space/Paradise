@@ -42,9 +42,6 @@
     imp_in.forceMove(box)
     imp_in.playsound_local(box, 'sound/misc/box_deploy.ogg', 50, TRUE)
 
-/obj/item/implant/ui_action_click()
-	activate()
-
 // the box.
 /obj/structure/closet/cardboard/agent
 	name = "inconspicious box"

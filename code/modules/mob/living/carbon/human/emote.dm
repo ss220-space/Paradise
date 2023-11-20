@@ -173,6 +173,24 @@
 			else								//Everyone else fails, skip the emote attempt
 				return
 
+		if("sad_trill")
+			if(isskrell(src))
+				on_CD = handle_emote_CD()
+			else
+				return
+
+		if("joyfull_trill")
+			if(isskrell(src))
+				on_CD = handle_emote_CD()
+			else
+				return
+
+		if("croaking")
+			if(isskrell(src))
+				on_CD = handle_emote_CD()
+			else
+				return
+
 		if("choke", "chokes","giggle", "giggles","cry", "cries","sigh", "sighs","laugh", "laughs","moan", "moans","snore", "snores","wink", "winks","whistle", "whistles", "yawn", "yawns", "dance")
 			on_CD = handle_emote_CD(50) //longer cooldown
 		if("scream", "screams")
@@ -481,8 +499,60 @@
 				var/M = handle_emote_param(param)
 
 				message = "издает трель[M ? " на [M]" : ""]."
-				playsound(loc, 'sound/effects/warble.ogg', 50, 1, frequency = get_age_pitch()) // Copyright CC BY 3.0 alienistcog (freesound.org) for the sound.
+				playsound(loc, 'sound/effects/warble.ogg', 50, 1, frequency = get_age_pitch())
 				m_type = 2
+
+		if("sad_trill")
+			if(!miming)
+				var/M = handle_emote_param(param)
+				message = "издает грустную трель[M ? " на [M]" : ""]."
+				playsound(loc, pick('sound/voice/skrell/sad_trill1.ogg', 'sound/voice/skrell/sad_trill2.ogg', 'sound/voice/skrell/sad_trill3.ogg'), 50, 1, frequency = get_age_pitch())
+				m_type = 2
+
+		if("joyfull_trill")
+			if(!miming)
+				var/M = handle_emote_param(param)
+				message = "издает радостную трель[M ? " на [M]" : ""]."
+				playsound(loc, pick('sound/voice/skrell/joyfull_trill1.ogg', 'sound/voice/skrell/joyfull_trill2.ogg', 'sound/voice/skrell/joyfull_trill3.ogg'), 50, 1, frequency = get_age_pitch())
+				m_type = 2
+
+		if("croaking")
+			if(!miming)
+				var/M = handle_emote_param(param)
+				message = "квакает[M ? " на [M]" : ""]."
+				playsound(loc, pick('sound/voice/skrell/croaking1.ogg', 'sound/voice/skrell/croaking2.ogg'), 50, 1, frequency = get_age_pitch())
+				m_type = 2
+
+		if("discontent")
+			if(!miming)
+				var/M = handle_emote_param(param)
+				message = "положил[genderize_ru(gender,"","а","о","и")] два пальца на подбородок[M ? ", смотря на [M]" : ""]"
+				m_type = 1
+
+		if("relax")
+			if(!miming)
+				var/M = handle_emote_param(param)
+				message = "раслабил[genderize_ru(gender,"","а","о","и")] хвосты[M ? ", смотря на [M]" : ""]"
+				m_type = 1
+
+		if("excitement")
+			if(!miming)
+				var/M = handle_emote_param(param)
+				message = "приподнял[genderize_ru(gender,"","а","о","и")] кончики боковых хвостов[M ? ", смотря на [M]" : ""]"
+				m_type = 1
+
+		if("confusion")
+			if(!miming)
+				var/M = handle_emote_param(param)
+				message = "почесал[genderize_ru(gender,"","а","о","и")] шею[M ? ", смотря на [M]" : ""]"
+				m_type = 1
+
+		if("understand")
+			if(!miming)
+				var/M = handle_emote_param(param)
+				message = "положил[genderize_ru(gender,"","а","о","и")] руку на шею[M ? ", смотря на [M]" : ""]"
+				m_type = 1
+
 
 		if("yes")
 			if(!miming)
@@ -1009,8 +1079,10 @@
 
 		if("smile", "smiles")
 			var/M = handle_emote_param(param, 1)
-
-			message = "улыба[pluralize_ru(src.gender,"ет","ют")]ся[M ? " [M]" : ""]."
+			if(isskrell(src))
+				message = "положил[genderize_ru(gender,"","а","о","и")] руку на щеку[M ? ", смотря на [M]" : ""]"
+			else
+				message = "улыба[pluralize_ru(src.gender,"ет","ют")]ся[M ? " [M]" : ""]."
 			m_type = 1
 
 		if("shiver", "shivers")
@@ -1073,7 +1145,10 @@
 			else
 				if(!muzzled)
 					message = "храп[pluralize_ru(src.gender,"ит","ят")]."
-					playsound(src, pick('sound/voice/snore_1.ogg', 'sound/voice/snore_2.ogg','sound/voice/snore_3.ogg', 'sound/voice/snore_4.ogg','sound/voice/snore_5.ogg', 'sound/voice/snore_6.ogg','sound/voice/snore_7.ogg'), 70, 1, frequency = get_age_pitch())
+					if(gender == FEMALE)
+						playsound(src, pick(dna.species.female_snore_sound), 70, 1, frequency = get_age_pitch())
+					else
+						playsound(src, pick(dna.species.male_snore_sound), 70, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
 					message = "изда[pluralize_ru(src.gender,"ет","ют")] шум."
@@ -1194,7 +1269,7 @@
 			else
 				if(!muzzled)
 					message = "свист[pluralize_ru(src.gender,"ит","ят")]."
-					playsound(src, 'sound/voice/whistle.ogg', 70)
+					playsound(src, pick(dna.species.whistle_sound), 70)
 					m_type = 2
 				else
 					message = "изда[pluralize_ru(src.gender,"ёт","ют")] шум."

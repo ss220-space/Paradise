@@ -1,35 +1,150 @@
 /datum/disease/appendicitis
 	form = "Condition"
 	name = "Appendicitis"
-	max_stages = 3
-	cure_text = "Surgery"
 	agent = "Shitty Appendix"
-	viable_mobtypes = list(/mob/living/carbon/human)
-	permeability_mod = 1
 	desc = "If left untreated the subject will become very weak, and may vomit often."
-	severity = "Dangerous!"
-	disease_flags = CAN_CARRY|CAN_RESIST
-	spread_flags = NON_CONTAGIOUS
+	cure_text = "Surgery"
+	stage_prob = 2
+	severity = DANGEROUS
+	curable = FALSE
+	can_immunity = FALSE
 	visibility_flags = HIDDEN_PANDEMIC
 	required_organs = list(/obj/item/organ/internal/appendix)
-	bypasses_immunity = TRUE
+	ignore_immunity = TRUE
 	virus_heal_resistant = TRUE
+	var/ruptured = FALSE
 
 /datum/disease/appendicitis/stage_act()
-	..()
+	if(!..())
+		return FALSE
+
+	var/mob/living/carbon/human/H = affected_mob
+	if(!istype(H))
+		return
+
+	var/obj/item/organ/internal/appendix/A = H.get_int_organ(/obj/item/organ/internal/appendix)
+	if(!istype(A))
+		cure()
+		return
+
+	if(!A.inflamed)
+		A.inflamed = TRUE
+		A.update_icon()
+
+	if(!ruptured && (A.germ_level >= INFECTION_LEVEL_THREE || A.status & ORGAN_DEAD))
+		rupture(H, A)
+
 	switch(stage)
-		if(1)
-			if(prob(5))
-				affected_mob.emote("cough")
 		if(2)
-			var/obj/item/organ/internal/appendix/A = affected_mob.get_int_organ(/obj/item/organ/internal/appendix)
-			if(A)
-				A.inflamed = 1
-				A.update_icon()
-			if(prob(3))
-				to_chat(affected_mob, "<span class='warning'>You feel a stabbing pain in your abdomen!</span>")
-				affected_mob.Stun(rand(4 SECONDS, 6 SECONDS))
-				affected_mob.adjustToxLoss(1)
+			if(A.germ_level < INFECTION_LEVEL_ONE)
+				A.germ_level = INFECTION_LEVEL_ONE
+			A.germ_level += rand(1, 4) * H.dna.species.germs_growth_rate
+
+			if(prob(2))
+				H.vomit()
+
+			if(prob(5))
+				A.receive_damage(1, silent = prob(65))
+
 		if(3)
-			if(prob(1))
-				affected_mob.vomit(95)
+			if(A.germ_level < INFECTION_LEVEL_ONE)
+				A.germ_level = INFECTION_LEVEL_ONE
+			A.germ_level += rand(2, 6) * H.dna.species.germs_growth_rate
+
+			if(prob(10))
+				A.receive_damage(1, silent = prob(45))
+
+			if(prob(3))
+				H.vomit()
+
+			if(prob(10))
+				H.emote("moan")
+
+			if(prob(5))
+				to_chat(H, span_warning("You feel a stabbing pain in your abdomen!"))
+				H.Stun(rand(2 SECONDS, 4 SECONDS))
+				H.Slowed(10 SECONDS, 5)
+				H.adjustToxLoss(1)
+
+		if(4)
+
+			if(A.germ_level < INFECTION_LEVEL_TWO)
+				A.germ_level = INFECTION_LEVEL_TWO
+			A.germ_level += rand(4, 10) * H.dna.species.germs_growth_rate
+
+			if(prob(10))
+				A.receive_damage(2, silent = 0)
+
+			if(prob(3))
+				H.vomit()
+
+			if(prob(15))
+				H.emote(pick("moan", "cry"))
+
+			if(prob(7))
+				to_chat(H, span_danger("You feel a stabbing pain in your abdomen!"))
+				H.Stun(rand(2 SECONDS, 4 SECONDS))
+				H.Slowed(15 SECONDS, 5)
+				H.adjustToxLoss(3)
+
+		if(5)
+			if(A.germ_level < INFECTION_LEVEL_TWO)
+				A.germ_level = INFECTION_LEVEL_TWO
+			A.germ_level += rand(6, 12) * H.dna.species.germs_growth_rate
+
+			H.adjustToxLoss(0.5)
+			if(H.IsSlowed())
+				H.AdjustSlowedDuration(30 SECONDS, bound_upper = 40 SECONDS)
+			else
+				H.Slowed(30 SECONDS, 5)
+
+			H.damageoverlaytemp = 30
+
+			if(prob(20))
+				A.receive_damage(3, silent = 0)
+
+			if(prob(5))
+				H.vomit()
+
+			if(prob(10))
+				H.emote(pick("moan", "cry"))
+
+			if(prob(8))
+				to_chat(H, span_danger("You feel a stabbing pain in your abdomen!"))
+				H.Stun(rand(2 SECONDS, 4 SECONDS))
+				H.Jitter(10 SECONDS)
+
+
+/datum/disease/appendicitis/proc/rupture(mob/living/carbon/human/H, obj/item/organ/internal/appendix/A)
+	ruptured = TRUE
+	A.necrotize()
+	stage = 5
+
+	var/obj/item/organ/external/parent = H.get_organ(check_zone(A.parent_organ))
+	if(istype(parent))
+		parent.receive_damage(25, used_weapon = "appendix rupture")
+		if(parent.germ_level < INFECTION_LEVEL_TWO)
+			parent.germ_level = INFECTION_LEVEL_TWO
+		for(var/obj/item/organ/internal/O in parent.internal_organs)
+			if(O.germ_level < INFECTION_LEVEL_TWO)
+				O.germ_level = INFECTION_LEVEL_TWO
+			O.receive_damage(10)
+
+	to_chat(H, span_userdanger("You feel a hellish pain in your abdomen, as if something is torn!"))
+	H.Stun(20 SECONDS)
+	H.emote("scream")
+	addtimer(CALLBACK(src, PROC_REF(fall), H, A), 10 SECONDS)
+
+/datum/disease/appendicitis/proc/fall(mob/living/carbon/human/H, obj/item/organ/internal/appendix/A)
+	to_chat(H, span_danger("You feel weakening..."))
+	H.Weaken(10 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(exhausted), H, A), 10 SECONDS)
+
+/datum/disease/appendicitis/proc/exhausted(mob/living/carbon/human/H, obj/item/organ/internal/appendix/A)
+	to_chat(H, span_danger("You feel weakening... Need to sleep"))
+	H.SetSleeping(40 SECONDS)
+	H.Slowed(200 SECONDS, 10)
+
+
+
+

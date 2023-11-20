@@ -9788,37 +9788,34 @@
 /area/awaymission/UO71/bridge)
 "vW" = (
 /obj/structure/table,
-/obj/machinery/door_control{
+/obj/machinery/door_control/secure{
 	desc = "A remote control-switch for heavy lockdown doors.";
 	id = "UO71_Containment";
 	name = "Science Containment Doors";
 	pixel_y = -2;
-	req_access = list(271);
-	wires = 1
+	req_access = list(271)
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/bridge)
 "vX" = (
 /obj/structure/table,
-/obj/machinery/door_control{
+/obj/machinery/door_control/secure{
 	desc = "A remote control-switch for heavy lockdown doors.";
 	id = "UO71_Queen";
 	name = "Terror Queen Containment Doors";
 	pixel_y = -2;
-	req_access = list(271);
-	wires = 1
+	req_access = list(271)
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/bridge)
 "vY" = (
 /obj/structure/table,
-/obj/machinery/door_control{
+/obj/machinery/door_control/secure{
 	desc = "A remote control-switch for heavy lockdown doors.";
 	id = "UO71_Armory";
 	name = "Armory Doors";
 	pixel_y = -2;
-	req_access = list(271);
-	wires = 1
+	req_access = list(271)
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/bridge)

@@ -816,6 +816,7 @@
 /obj/machinery/power/apc/attack_hand(mob/user)
 	if(!user)
 		return
+
 	add_fingerprint(user)
 
 	if(usr == user && opened && !issilicon(user))
@@ -831,6 +832,9 @@
 		return
 	if(stat & (BROKEN|MAINT))
 		return
+
+	if(..())
+		return TRUE
 
 	interact(user)
 

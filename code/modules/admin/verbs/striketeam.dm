@@ -102,6 +102,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 				new_commando.key = ghost_mob.key
 				new_commando.internal = new_commando.s_store
 				new_commando.update_action_buttons_icon()
+				new_commando.change_voice()
 				if(nuke_code)
 					new_commando.mind.store_memory("<B>Nuke Code:</B> <span class='warning'>[nuke_code].</span>")
 				new_commando.mind.store_memory("<B>Mission:</B> <span class='warning'>[input].</span>")

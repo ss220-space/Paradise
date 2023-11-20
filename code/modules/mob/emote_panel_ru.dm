@@ -419,6 +419,46 @@
 	set category = "Эмоции"
 	usr.user_triggered_emote("warble")
 
+/mob/living/carbon/human/proc/emote_sad_trill()
+	set name = "< Грустная трель >"
+	set category = "Эмоции"
+	usr.user_triggered_emote("sad_trill")
+
+/mob/living/carbon/human/proc/emote_joyfull_trill()
+	set name = "< Радостная трель >"
+	set category = "Эмоции"
+	usr.user_triggered_emote("joyfull_trill")
+
+/mob/living/carbon/human/proc/emote_croaking()
+	set name = "< Квакать >"
+	set category = "Эмоции"
+	usr.user_triggered_emote("croaking")
+
+/mob/living/carbon/human/proc/emote_discontent()
+	set name = "~ Недовольство"
+	set category = "Эмоции"
+	usr.user_triggered_emote("discontent")
+
+/mob/living/carbon/human/proc/emote_relax()
+	set name = "~ Раслабленность"
+	set category = "Эмоции"
+	usr.user_triggered_emote("relax")
+
+/mob/living/carbon/human/proc/emote_excitement()
+	set name = "~ Взволновоность"
+	set category = "Эмоции"
+	usr.user_triggered_emote("excitement")
+
+/mob/living/carbon/human/proc/emote_confusion()
+	set name = "~ Недопонимание"
+	set category = "Эмоции"
+	usr.user_triggered_emote("confusion")
+
+/mob/living/carbon/human/proc/emote_understand()
+	set name = "~ Понимание"
+	set category = "Эмоции"
+	usr.user_triggered_emote("understand")
+
 /mob/living/carbon/human/proc/emote_click()
 	set name = "< Щелкать >"
 	set category = "Эмоции"

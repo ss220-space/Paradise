@@ -1176,6 +1176,28 @@
 	else
 		return ..()
 
+/obj/item/toy/plushie/shardplushie
+	name = "Shard plushie"
+	desc = "A plushie shard of supermatter crystal. Safety 100%."
+	icon_state = "plushie_shard"
+	item_state = "plushie_shard"
+	attack_verb = list("annihilates", "scratched")
+	var/shardbite = 'sound/effects/supermatter.ogg'
+	var/cooldown = FALSE
+
+/obj/item/toy/plushie/shardplushie/attack_self(mob/user)
+	if(cooldown)
+		return ..()
+
+	playsound(loc, pick('sound/effects/supermatter.ogg', 'sound/effects/glass_step_sm.ogg'), 10, 1)
+	visible_message("<span class='danger'> DESTABILIZATION!</span>")
+	cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
+
+/obj/item/toy/plushie/shardplushie/attack(mob/M as mob, mob/user as mob)
+    playsound(loc, pick('sound/effects/supermatter.ogg', 'sound/effects/glass_step_sm.ogg',), 10, 1)
+    return ..()
+
 //New generation TG plushies
 
 /obj/item/toy/plushie/lizardplushie

@@ -454,6 +454,9 @@
 	if(stat & (BROKEN|NOPOWER))
 		return
 
+	if(..())
+		return TRUE
+
 	if(src.seconds_electrified != 0)
 		if(src.shock(user, 100))
 			add_fingerprint(user)
@@ -1277,7 +1280,8 @@
 					/obj/item/seeds/watermelon = 3,
 					/obj/item/seeds/wheat = 3,
 					/obj/item/seeds/soya/olive = 3,
-					/obj/item/seeds/whitebeet = 3)
+					/obj/item/seeds/whitebeet = 3,
+					/obj/item/seeds/shavel = 3)
 	contraband = list(/obj/item/seeds/cannabis = 3,
 					  /obj/item/seeds/amanita = 2,
 					  /obj/item/seeds/fungus = 3,
@@ -1411,9 +1415,7 @@
 					/obj/item/clothing/suit/apron/overalls = 1,
 					/obj/item/clothing/head/rabbitears =1,
 					/obj/item/clothing/head/sombrero = 1,
-					/obj/item/clothing/neck/poncho = 1,
-					/obj/item/clothing/neck/poncho/green = 1,
-					/obj/item/clothing/neck/poncho/red = 1,
+					/obj/item/clothing/neck/poncho = 3,
 					/obj/item/clothing/accessory/blue = 1,
 					/obj/item/clothing/accessory/red = 1,
 					/obj/item/clothing/accessory/black = 1,
@@ -1439,6 +1441,10 @@
 					/obj/item/clothing/suit/snowman = 1,
 					/obj/item/clothing/head/snowman = 1,
 					/obj/item/clothing/head/cueball = 1,
+					/obj/item/clothing/under/red_chaps = 1,
+					/obj/item/clothing/under/white_chaps = 1,
+					/obj/item/clothing/under/tan_chaps = 1,
+					/obj/item/clothing/under/brown_chaps = 1,
 					/obj/item/clothing/under/scratch = 1,
 					/obj/item/clothing/under/victdress = 1,
 					/obj/item/clothing/under/victdress/red = 1,
@@ -1855,6 +1861,7 @@
 
 		/obj/item/clothing/suit/tracksuit/red				= 5,
 		/obj/item/clothing/suit/hooded/wintercoat/security	= 5,
+		/obj/item/clothing/suit/jacket/pilot	= 5,
 
 		/obj/item/clothing/mask/balaclava 		= 10,
 		/obj/item/clothing/mask/bandana/red 	= 10,
@@ -2268,13 +2275,13 @@
 		/obj/item/flashlight/seclite = 4,
 		/obj/item/restraints/legcuffs/bola/energy = 8,
 
-		/obj/item/storage/box/slug = 4,
-		/obj/item/storage/box/buck = 4,
-		/obj/item/storage/box/rubbershot = 4,
+		/obj/item/ammo_box/shotgun = 4,
+		/obj/item/ammo_box/shotgun/buck = 4,
+		/obj/item/ammo_box/shotgun/rubbershot = 4,
 		/obj/item/ammo_casing/shotgun/stunslug = 35,
 		/obj/item/ammo_casing/shotgun/ion = 14,
 		/obj/item/ammo_casing/shotgun/laserslug = 35,
-		/obj/item/ammo_box/shotgun/universal = 8,
+		/obj/item/ammo_box/speedloader/shotgun/universal = 8,
 
 		/obj/item/ammo_box/magazine/lr30mag = 12,
 		/obj/item/ammo_box/magazine/enforcer = 8,
@@ -2312,10 +2319,10 @@
 		/obj/item/gun/projectile/automatic/wt550 = 3,
 		/obj/item/ammo_box/magazine/wt550m9 = 6,
 		/obj/item/gun/projectile/shotgun/riot = 6,
-		/obj/item/storage/box/rubbershot = 6,
-		/obj/item/storage/box/beanbag = 4,
-		/obj/item/storage/box/tranquilizer = 4,
-		/obj/item/ammo_box/shotgun/universal = 4,
+		/obj/item/ammo_box/shotgun/rubbershot = 6,
+		/obj/item/ammo_box/shotgun/beanbag = 4,
+		/obj/item/ammo_box/shotgun/tranquilizer = 4,
+		/obj/item/ammo_box/speedloader/shotgun/universal = 4,
 		/obj/item/gun/projectile/automatic/sfg = 3,
 		/obj/item/ammo_box/magazine/sfg9mm = 6
 	)
@@ -2341,10 +2348,10 @@
 		/obj/item/gun/energy/immolator/multi = 2,
 		/obj/item/gun/energy/gun/nuclear = 3,
 		/obj/item/gun/projectile/shotgun/automatic/combat = 3,
-		/obj/item/storage/box/slug = 4,
-		/obj/item/storage/box/buck = 4,
-		/obj/item/storage/box/dragonsbreath = 2,
-		/obj/item/ammo_box/shotgun/universal = 4,
+		/obj/item/ammo_box/shotgun = 4,
+		/obj/item/ammo_box/shotgun/buck = 4,
+		/obj/item/ammo_box/shotgun/dragonsbreath = 2,
+		/obj/item/ammo_box/speedloader/shotgun/universal = 4,
 		/obj/item/storage/lockbox/t4 = 3,
 		/obj/item/grenade/smokebomb = 3,
 		/obj/item/grenade/frag = 4
@@ -2369,8 +2376,8 @@
 		/obj/item/gun/projectile/automatic/pistol/enforcer = 6,
 		/obj/item/storage/box/barrier = 2,
 		/obj/item/gun/projectile/shotgun/riot = 1,
-		/obj/item/storage/box/rubbershot = 3,
-		/obj/item/ammo_box/shotgun/universal = 4,
+		/obj/item/ammo_box/shotgun/rubbershot = 3,
+		/obj/item/ammo_box/speedloader/shotgun/universal = 4,
 		/obj/item/gun/energy/dominator/sibyl = 2
 	)
 	contraband = list(/obj/item/storage/fancy/donut_box = 2)

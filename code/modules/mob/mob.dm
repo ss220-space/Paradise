@@ -7,7 +7,7 @@
 	if(mind && mind.current == src)
 		spellremove(src)
 	mobspellremove(src)
-	QDEL_LIST(viruses)
+	QDEL_LIST(diseases)
 	for(var/alert in alerts)
 		clear_alert(alert)
 	ghostize()

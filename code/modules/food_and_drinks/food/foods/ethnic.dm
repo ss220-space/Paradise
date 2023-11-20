@@ -137,7 +137,7 @@
 	icon_state = "chinese1"
 	junkiness = 25
 	antable = FALSE
-	list_reagents = list("nutriment" = 1, "beans" = 3, "msg" = 4, "sugar" = 2)
+	list_reagents = list("nutriment" = 1, "beans" = 3, "msg" = 4, "sugar" = 1)
 	tastes = list("noodle" = 1, "vegetables" = 1)
 	foodtype = FRIED | VEGETABLES
 
@@ -147,7 +147,7 @@
 	icon_state = "chickenball"
 	item_state = "chinese3"
 	junkiness = 25
-	list_reagents = list("nutriment" = 2, "msg" = 4, "sugar" = 2)
+	list_reagents = list("nutriment" = 2, "msg" = 4, "sugar" = 5)
 	tastes = list("chicken" = 1, "sweetness" = 1)
 	foodtype = FRIED | MEAT
 
@@ -157,7 +157,7 @@
 	icon_state = "chinese2"
 	junkiness = 25
 	antable = FALSE
-	list_reagents = list("nutriment" = 1, "protein" = 1, "msg" = 4, "sugar" = 4)
+	list_reagents = list("nutriment" = 1, "protein" = 1, "msg" = 4, "sugar" = 5)
 	tastes = list("chicken" = 1)
 	foodtype = FRIED | MEAT
 
@@ -178,7 +178,7 @@
 	item_state = "chinese2"
 	junkiness = 20
 	antable = FALSE
-	list_reagents = list("nutriment" = 1, "rice" = 3, "msg" = 4, "sugar" = 2)
+	list_reagents = list("nutriment" = 1, "rice" = 3, "msg" = 4, "sugar" = 1)
 	tastes = list("rice" = 1)
 	foodtype = FRIED | GRAIN | VEGETABLES
 

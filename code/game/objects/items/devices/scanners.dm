@@ -477,12 +477,12 @@ REAGENT SCANNER
 					. += "<span class='danger'>&emsp;[R.name] Стадия: [R.addiction_stage]/5</span>"
 			else
 				. += "Зависимости от реагентов не обнаружены."
-	for(var/thing in H.viruses)
+	for(var/thing in H.diseases)
 		var/datum/disease/D = thing
 		if(!(D.visibility_flags & HIDDEN_SCANNER))
 			. += "<span class='warning'><b>Внимание: обнаружен [D.form]</b>"
 			. += "&emsp;Название: [D.name]"
-			. += "&emsp;Тип: [D.spread_text]"
+			. += "&emsp;Тип: [D.additional_info]"
 			. += "&emsp;Стадия: [D.stage]/[D.max_stages]"
 			. += "&emsp;Лечение: [D.cure_text]</span>"
 	if(H.undergoing_cardiac_arrest())
@@ -903,9 +903,9 @@ REAGENT SCANNER
 	dat += "[target.health > 50 ? "<font color='blue'>" : "<font color='red'>"]\tHealth %: [target.health], ([t1])</font><br>"
 
 	var/found_disease = FALSE
-	for(var/thing in target.viruses)
+	for(var/thing in target.diseases)
 		var/datum/disease/D = thing
-		if(D.visibility_flags) //If any visibility flags are on.
+		if(D.visibility_flags & HIDDEN_SCANNER)
 			continue
 		found_disease = TRUE
 		break

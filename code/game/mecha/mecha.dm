@@ -539,7 +539,7 @@
 
 		else
 			if(throwing)
-				throwing.finalize(FALSE)
+				throwing.finalize()
 			crashing = null
 
 		..()

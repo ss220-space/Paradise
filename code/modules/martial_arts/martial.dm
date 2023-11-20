@@ -25,6 +25,9 @@
 	/// If the martial art has it's own explaination verb.
 	var/has_explaination_verb = FALSE
 
+	/// If the martial art gives dirslash
+	var/has_dirslash = TRUE
+
 	/// What combos can the user do? List of combo types.
 	var/list/combos = list()
 	/// What combos are currently (possibly) being performed.
@@ -160,6 +163,8 @@
 		H.verbs |= /mob/living/carbon/human/proc/martial_arts_help
 	if(make_temporary)
 		temporary = TRUE
+	if(has_dirslash)
+		H.dirslash_enabled = TRUE
 	if(temporary)
 		if(H.mind.martial_art)
 			base = H.mind.martial_art.base
@@ -174,6 +179,7 @@
 		return
 	H.mind.martial_art = null // Remove reference
 	H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
+	H.dirslash_enabled = initial(H.dirslash_enabled)
 	if(base)
 		base.teach(H)
 		base = null

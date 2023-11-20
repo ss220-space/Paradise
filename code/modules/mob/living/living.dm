@@ -543,6 +543,7 @@
 	SetDeaf(0)
 	heal_overall_damage(1000, 1000)
 	ExtinguishMob()
+	CureAllDiseases(FALSE)
 	fire_stacks = 0
 	on_fire = 0
 	suiciding = 0
@@ -553,9 +554,9 @@
 		var/mob/living/carbon/C = src
 		C.uncuff()
 
-		for(var/thing in C.viruses)
+		for(var/thing in C.diseases)
 			var/datum/disease/D = thing
-			D.cure(0)
+			D.cure(need_immunity = FALSE)
 
 		// restore all of the human's blood and reset their shock stage
 		if(ishuman(src))

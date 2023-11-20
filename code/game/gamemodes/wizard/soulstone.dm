@@ -439,7 +439,7 @@
 	S.cancel_camera()
 	name = "soulstone: [S.name]"
 	icon_state = icon_state_full
-
+	log_game("[S.key] has become [S.name] with [purified ? "holy" : "corrupted"] essence.")
 	if(user)
 		S.faction |= "\ref[user]" //Add the master as a faction, allowing inter-mob cooperation
 		if(iswizard(user))

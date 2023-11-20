@@ -48,15 +48,21 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/spider_specialattack(mob/living/carbon/human/L)
-	L.adjustStaminaLoss(35) //3 hits for stam crit
 	if(prob(delimb_chance))
 		if(L.stat != DEAD) //no dismemberment for dead carbons, less griefy
 			do_attack_animation(L)
+			if(L.check_shields(src, 25, "[name]", MELEE_ATTACK, armour_penetration))
+				return FALSE
 			L.adjustBruteLoss(25)
 			L.Weaken(2 SECONDS)
 			playsound(src, 'sound/creatures/terrorspiders/rip.ogg', 100, 1)
 			var/obj/item/organ/external/NB = pick(L.bodyparts)
-			visible_message("<span class='warning'>[src] Tears appart the [NB.name] of [L] with his razor sharp jaws!</span>")
+			visible_message(span_warning("[src] Tears appart the [NB.name] of [L] with his razor sharp jaws!"))
 			NB.droplimb()  //dismemberment
+			L.adjustStaminaLoss(35)
 	else
-		..()
+		. = ..()
+		if(.)
+			L.adjustStaminaLoss(35) //3 hits for stam crit
+
+

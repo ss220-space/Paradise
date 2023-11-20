@@ -66,7 +66,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/name = "item name"
 	var/category = "item category"
 	var/desc = "Item Description"
-	var/reference = "Item Reference"
+	var/reference = "Item Reference" // Important to use unique "reference" for datums with different "item".
 	var/item = null
 	var/cost = 0
 	var/last = 0 // Appear last
@@ -306,7 +306,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "HGAT"
 	item = /obj/item/storage/toolbox/green/memetic
 	cost = 20
-	job = list("Chaplain")
+	job = list("Chaplain", "Civilian")
 	surplus = 0 //No lucky chances from the crate; if you get this, this is ALL you're getting
 	hijack_only = TRUE //This is a murderbone weapon, as such, it should only be available in those scenarios.
 
@@ -550,6 +550,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 //IPC
 
 /datum/uplink_item/racial/ipc_combat_upgrade
+	name = "Ipc combat upgrade"
 	desc = "Advanced data storage designed to be compatible with positronic systems.This one include melee algorithms along with overwritten microbattery safety protocols."
 	reference = "ICU"
 	item = /obj/item/ipc_combat_upgrade
@@ -564,6 +565,17 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 8
 	race = list("Machine")
 
+
+//Slime People
+
+/datum/uplink_item/racial/anomaly_extract
+	name = "Anomaly extract"
+	desc = "The result of the work of scientists on mixing an experimental stable mutagen with the core of a pyroclastic anomaly. Gives the user the opportunity to become a slime and heat himself up."
+	reference = "AEXT"
+	item = /obj/item/anomaly_extract
+	cost = 10
+	race = list("Slime People")
+
 //Plasmaman
 
 /datum/uplink_item/racial/plasma_chameleon
@@ -574,7 +586,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/plasma_chameleon
 	cost = 4
 	race = list("Plasmaman")
-  
+
 // DANGEROUS WEAPONS
 
 /datum/uplink_item/dangerous
@@ -1149,7 +1161,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			 throwing weapons. The bolas can knock a target down and the shurikens will embed into limbs."
 	reference = "STK"
 	item = /obj/item/storage/box/syndie_kit/throwing_weapons
-	cost = 3
+	cost = 1
 
 /datum/uplink_item/stealthy_weapons/edagger
 	name = "Energy Dagger"
@@ -1423,9 +1435,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Syndicate Counterfeiter Bundle"
 	desc = "A cleverly implemented bundle designed to document counterfeiting. Comes with a chameleon stamp, capable of imitating any NanoTrasen issued stamps and a fakesign pen to alter the world through the sheer force of paperwork. While making the user capable of faking almost any document, this Syndicate technology has been rumored to cause a huge upheaval on NT objects. "
 	reference = "CHST"
-	cost = 1 
-	surplus = 35 
-	item = /obj/item/storage/box/syndie_kit/counterfeiter_bundle 
+	cost = 1
+	surplus = 35
+	item = /obj/item/storage/box/syndie_kit/counterfeiter_bundle
 
 /datum/uplink_item/stealthy_tools/chameleonflag
 	name = "Chameleon Flag"
@@ -1967,7 +1979,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/implants/stealthbox
     name = "Stealth Implant"
     desc = "An implant injected into the body, and later activated manually to deploy a box, fully hiding you in the surroundings. Can be used indefinitely"
-    reference = "SB"
+    reference = "BI"
     item = /obj/item/implanter/stealth
     cost = 8
 
