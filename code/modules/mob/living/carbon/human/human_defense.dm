@@ -256,7 +256,7 @@ emp_act
 			return 1
 	return 0
 
-/mob/living/carbon/human/proc/check_martial_art_defense(var/mob/living/carbon/human/defender, var/mob/living/carbon/human/attacker, var/obj/item/I, var/visible_message, var/self_message)
+/mob/living/carbon/human/proc/check_martial_art_defense(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, obj/item/I, visible_message, self_message)
 	if(mind && mind.martial_art)
 		return mind.martial_art.attack_reaction(defender, attacker, I, visible_message, self_message)
 
@@ -550,6 +550,10 @@ emp_act
 	var/spec_return = dna.species.spec_hitby(AM, src)
 	if(spec_return)
 		return spec_return
+
+	var/MA_return = mind?.martial_art?.user_hit_by(AM, src)
+	if(MA_return)
+		return MA_return
 
 	var/obj/item/I
 	var/throwpower = 30

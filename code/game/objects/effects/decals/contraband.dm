@@ -45,6 +45,10 @@
 	poster_type = /obj/structure/sign/poster/contraband/syndicate_recruitment
 	icon_state = "rolled_poster"
 
+/obj/item/poster/commando
+	poster_type = /obj/structure/sign/poster/contraband/commando
+	icon_state = "rolled_poster"
+
 //############################## THE ACTUAL DECALS ###########################
 
 /obj/structure/sign/poster
@@ -386,6 +390,11 @@
 	name = "Very Robust"
 	desc = "You see a slightly battered poster, which shows a RED toolbox and the inscription \"Danger, very robust!\", some people say that this red paint on the poster is made of real blood."
 	icon_state = "poster36"
+
+/obj/structure/sign/poster/contraband/commando
+	name = "Commandos"
+	desc = "You see a muscular man in combat gear. Just the sight of this poster brings the scent of true masculinity."
+	icon_state = "poster37"
 
 //official posters
 /obj/structure/sign/poster/official
