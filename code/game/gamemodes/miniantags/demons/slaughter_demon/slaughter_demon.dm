@@ -61,7 +61,6 @@
 
 	var/datum/objective/slaughter/objective = new
 	var/datum/objective/demonFluff/fluffObjective = new
-	SSticker.mode.traitors |= mind
 	objective.owner = mind
 	fluffObjective.owner = mind
 	//Paradise Port:I added the objective for one spawned like this
