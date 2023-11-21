@@ -141,3 +141,68 @@
   - qol: Added TTS aliases for consistent speech (#3875)
   Zwei:
   - bugfix: Throwing Fixes Again (#3842)
+'2023-11-17':
+  ArtemDerp:
+  - add: add areas and headsets to simplify event creation (#3880)
+  Etrnlmelancholy:
+  - tweak: ert tweaks again (#3882)
+  - tweak: loadout changes (#3851)
+  - tweak: increase bola amount inside syndie throwing kit and decrease n… (#3849)
+  LiquidPotroh:
+  - bugfix: Can't remove cell from damaged APC (#3885)
+  MataVsn:
+  - add: Ports on-screen admin alerts from paradise officials. (#3893)
+  ROdenFL:
+  - bugfix: voices for DS and contractor partner (#3879)
+  - bugfix: slimes, aliens and animal can do pain killer task (#3830)
+  Viddvik:
+  - add: New telescopic baton crate (#3878)
+  Vladisvell:
+  - bugfix: Fixed 3.11.6 Python errors with installing dependencies (#3884)
+  WolferOkt:
+  - bugfix: Megafauna now cant be closed in /obj/structure/closet (#3888)
+  Zwei:
+  - add: Antag Paradise Gamemode (#3578)
+'2023-11-18':
+  Den109G:
+  - bugfix: Fix event channels prefixes and colors (#3902)
+  Dimach:
+  - refactor: jobs correctly apply jobs config, and can be changed before round start
+      (#3903)
+  Zwei:
+  - tweak: Antag Paradise Tweak (#3898)
+'2023-11-20':
+  ArtemDerp:
+  - bugfix: add missed restricted network for gorky 17 cameras (#3908)
+  Daeberdir:
+  - bugfix: retrieve a collar from det dog ability. (#3901)
+  - bugfix: correct visual for telepathy and minus 1 runtime in it. (#3892)
+  - add: 8 new ponchos + 4 new uniforms + poncho resprite. (#3867)
+  - tweak: The cloning machine can only be obtained from cargo. (#3897)
+  Dimach:
+  - server: set config to actual datum values (#3912)
+  LiquidPotroh:
+  - tweak: Nucleates don't feel pain (#3896)
+  - add: Throwing knives martial art (#3799)
+  Mindfri:
+  - tweak: Assistant can buy His Grace. (#3905)
+  - add: Shard Plushie and plasmaman in loadout. (#3883)
+  ROdenFL:
+  - balance: martial arts give dirslash (#3906)
+  ReloadKey:
+  - add: Shavel and Shavel Soup (#3886)
+  Roman:
+  - add: IED Satchel (#3895)
+  Vladisvell:
+  - imageadd: Added suit sprites for Plasmaman species (#3822)
+  WolfLox:
+  - tweak: e20 only hijack (#3913)
+  WolferOkt:
+  - bugfix: can't put revenant in a petcarriers (#3907)
+  Zwei:
+  - bugfix: Antag Paradise Ninja Spawn Fix (#3910)
+  - bugfix: Demon Whisper (#3911)
+  - tweak: Demons Fixes (#3891)
+  - tweak: DNA and Species Change not regenerate missing limbs and organs (#3848)
+  captainnelly:
+  - tweak: posters update  (#3784)

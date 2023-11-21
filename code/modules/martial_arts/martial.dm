@@ -25,6 +25,9 @@
 	/// If the martial art has it's own explaination verb.
 	var/has_explaination_verb = FALSE
 
+	/// If the martial art gives dirslash
+	var/has_dirslash = TRUE
+
 	/// What combos can the user do? List of combo types.
 	var/list/combos = list()
 	/// What combos are currently (possibly) being performed.
@@ -137,7 +140,7 @@
 		D.forcesay(GLOB.hit_appends)
 	return TRUE
 
-/datum/martial_art/proc/attack_reaction(var/mob/living/carbon/human/defender, var/mob/living/carbon/human/attacker, var/obj/item/I, var/visible_message, var/self_message)
+/datum/martial_art/proc/attack_reaction(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, obj/item/I, visible_message, self_message)
 	if(can_use(defender) && defender.in_throw_mode && !defender.incapacitated(FALSE, TRUE))
 		if(prob(block_chance))
 			if(visible_message || self_message)
@@ -145,6 +148,9 @@
 			else
 				defender.visible_message("<span class='warning'>[defender] blocks [I]!</span>")
 			return TRUE
+
+/datum/martial_art/proc/user_hit_by(atom/movable/AM, mob/living/carbon/human/H)
+	return FALSE
 
 /datum/martial_art/proc/objective_damage(mob/living/user, mob/living/target, damage, damage_type)
 	var/all_objectives = user?.mind?.get_all_objectives()
@@ -160,6 +166,8 @@
 		H.verbs |= /mob/living/carbon/human/proc/martial_arts_help
 	if(make_temporary)
 		temporary = TRUE
+	if(has_dirslash)
+		H.dirslash_enabled = TRUE
 	if(temporary)
 		if(H.mind.martial_art)
 			base = H.mind.martial_art.base
@@ -174,6 +182,7 @@
 		return
 	H.mind.martial_art = null // Remove reference
 	H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
+	H.dirslash_enabled = initial(H.dirslash_enabled)
 	if(base)
 		base.teach(H)
 		base = null
@@ -388,6 +397,24 @@
 
 	var/datum/martial_art/mr_chang/mr_chang = new(null)
 	mr_chang.teach(user)
+	user.temporarily_remove_item_from_inventory(src)
+	visible_message("<span class='warning'>[src] beeps ominously, and a moment later it bursts up in flames.</span>")
+	new /obj/effect/decal/cleanable/ash(get_turf(src))
+	qdel(src)
+
+/obj/item/throwing_manual
+	name = "Commandos knife techniques manual"
+	desc = "This is a thin black book. On the front there is a picture of a man with knives. \nContains a guide for learning the commandos knife technique with a visual representation of the application of the techniques."
+	icon = 'icons/obj/library.dmi'
+	icon_state = "throwingknives"
+
+/obj/item/throwing_manual/attack_self(mob/living/carbon/human/user)
+	if(!istype(user) || !user)
+		return
+	to_chat(user, "<span class='boldannounce'>You remember the basics of knife throwing.</span>")
+
+	var/datum/martial_art/throwing/MA = new
+	MA.teach(user)
 	user.temporarily_remove_item_from_inventory(src)
 	visible_message("<span class='warning'>[src] beeps ominously, and a moment later it bursts up in flames.</span>")
 	new /obj/effect/decal/cleanable/ash(get_turf(src))

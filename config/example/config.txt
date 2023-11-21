@@ -108,6 +108,7 @@ AUTO_DESPAWN_AFK 0
 ##
 ## default probablity is 1, increase to make that mode more likely to be picked
 ## set to 0 to disable that mode
+PROBABILITY ANTAG-PARADISE 3
 PROBABILITY EXTEND-A-TRAITORMONGOUS 3
 PROBABILITY TRAITOR 3
 PROBABILITY TRAITORCHAN 3
@@ -137,6 +138,7 @@ PROBABILITY ABDUCTION 0
 PROBABILITY DEVIL 0
 PROBABILITY DEVILAGENTS 0
 
+MINPLAYERS ANTAG-PARADISE 10
 MINPLAYERS EXTEND-A-TRAITORMONGOUS 0
 MINPLAYERS TRAITOR 0
 MINPLAYERS TRAITORCHAN 10
@@ -165,6 +167,32 @@ MINPLAYERS NUCLEAR 30
 MINPLAYERS ABDUCTION 15
 MINPLAYERS DEVIL 2
 MINPLAYERS DEVILAGENTS 25
+
+## Weights for all minor antags in ANTAG-PARADISE gamemode. Highter the weight higher the chance for antag to roll. Leave it commented if you prefer mode subtypes below.
+#ANTAG_PARADISE_WEIGHT TRAITOR 10
+#ANTAG_PARADISE_WEIGHT THIEF 10
+#ANTAG_PARADISE_WEIGHT VAMPIRE 10
+#ANTAG_PARADISE_WEIGHT CHANGELING 10
+
+## Chances for ANTAG-PARADISE gamemode subtypes. This will NOT work if you are modifying antag weights directly in config above.
+#ANTAG_PARADISE_MODE_SUBTYPES ANTAG_SINGLE 10
+#ANTAG_PARADISE_MODE_SUBTYPES ANTAG_DOUBLE 10
+#ANTAG_PARADISE_MODE_SUBTYPES ANTAG_TRIPPLE 10
+#ANTAG_PARADISE_MODE_SUBTYPES ANTAG_RANDOM 10
+
+## Relative weights for each antag in gamemode subtypes for ANTAG-PARADISE gamemode. Works in pair with ANTAG_PARADISE_MODE_SUBTYPES.
+#ANTAG_PARADISE_SUBTYPE_WEIGHTS ANTAG_SINGLE 6
+#ANTAG_PARADISE_SUBTYPE_WEIGHTS ANTAG_DOUBLE 4
+#ANTAG_PARADISE_SUBTYPE_WEIGHTS ANTAG_TRIPPLE 2
+
+## Weights for all special antags in ANTAG-PARADISE gamemode. Traitor Hijacker, Malfunctioning AI and Space Ninja currently. If Nothing is chosen special antag will not spawn.
+#ANTAG_PARADISE_SPECIAL_WEIGHTS HIJACKER 10
+#ANTAG_PARADISE_SPECIAL_WEIGHTS MALFAI 10
+#ANTAG_PARADISE_SPECIAL_WEIGHTS NINJA 10
+#ANTAG_PARADISE_SPECIAL_WEIGHTS NOTHING 30
+
+## Chance for traitors to roll additional antag role in ANTAG-PARADISE gamemode. Leave it commented for default 10% chance.
+#ANTAG_PARADISE_DOUBLE_ANTAG_CHANCE 10
 
 ## Maximum cycles shadowlings can remain unhatched before they take damage. 1800 = 60 minutes, 900 = 30 minutes, 0 = feature disabled.
 SHADOWLING_MAX_AGE 0

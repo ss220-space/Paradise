@@ -24,7 +24,7 @@
 	genemutcheck(user, GLOB.monkeyblock, null, MUTCHK_FORCED)
 
 	if(istype(user))
-		user.set_species(chosen_dna.species.type)
+		user.set_species(chosen_dna.species.type, keep_missing_bodyparts = TRUE)
 
 	user.dna = chosen_dna.Clone()
 	user.real_name = chosen_dna.real_name

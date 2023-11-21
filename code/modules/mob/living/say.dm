@@ -9,13 +9,15 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	% ? ^ '
 
 	Busy letters by radio(eng):
-	c e h i l m n p r s t u w x z
+	c e h i l m n p r s t u w x
+
 
 	Busy letters by radio(rus):
 	б г д е ё з к р с т у ц ч ш ы ь я Э
 
+
 	Busy symbols by radio:
-	~ , $ _ - + *
+	~ , $ _ - + * 1 2 3
 
 	CAUTION! The key must not repeat the key of the languages (language.dm)
 	and must not contain prohibited characters
@@ -75,6 +77,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":я" = "Service",			"#я" = "Service",		"№я" = "Service",		".я" = "Service",
 	  ":з" = "AI Private",		"#з" = "AI Private",	"№з" = "AI Private",	".з" = "AI Private",
 	  ":ё" = "cords",			"#ё" = "cords",			"№ё" = "cords",			".ё" = "cords",
+
 	// Russian text uppercase
 	  ":К" = "right ear",		"#К" = "right ear",		"№К" = "right ear",		".К" = "right ear",
 	  ":Д" = "left ear",		"#Д" = "left ear",		"№Д" = "left ear",		".Д" = "left ear",
@@ -97,6 +100,9 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	// English symbols no case
 	  ":~" = "cords",			"#~" = "cords",			"№~" = "cords",			".~" = "cords",
 	  ":," = "SyndTaipan",		"#," = "SyndTaipan",	"№," = "SyndTaipan",	".," = "SyndTaipan",
+	  ":1" = "Alpha wave",		"#1" = "Alpha wave",	"№1" = "Alpha wave",	".1" = "Alpha wave",
+	  ":2" = "Beta wave",		"#2" = "Beta wave",		"№2" = "Beta wave",		".2" = "Beta wave",
+	  ":3" = "Gamma wave",		"#3" = "Gamma wave",	"№3" = "Gamma wave",	".3" = "Gamma wave",
 	// Russian symbols no case
 		// None yet.
 

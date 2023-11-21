@@ -29,6 +29,10 @@
 #define PROC_FREQ 1339 //Procedure
 #define BOT_FREQ 1447 //mulebot, secbot, ed209
 
+// Event channels
+#define EVENT_ALPHA_FREQ 1522
+#define EVENT_BETA_FREQ 1532
+#define EVENT_GAMMA_FREQ 1542
 
 // Department channels
 #define PUB_FREQ 1459 //standard radio chat

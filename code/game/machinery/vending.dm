@@ -1280,7 +1280,8 @@
 					/obj/item/seeds/watermelon = 3,
 					/obj/item/seeds/wheat = 3,
 					/obj/item/seeds/soya/olive = 3,
-					/obj/item/seeds/whitebeet = 3)
+					/obj/item/seeds/whitebeet = 3,
+					/obj/item/seeds/shavel = 3)
 	contraband = list(/obj/item/seeds/cannabis = 3,
 					  /obj/item/seeds/amanita = 2,
 					  /obj/item/seeds/fungus = 3,
@@ -1414,9 +1415,7 @@
 					/obj/item/clothing/suit/apron/overalls = 1,
 					/obj/item/clothing/head/rabbitears =1,
 					/obj/item/clothing/head/sombrero = 1,
-					/obj/item/clothing/neck/poncho = 1,
-					/obj/item/clothing/neck/poncho/green = 1,
-					/obj/item/clothing/neck/poncho/red = 1,
+					/obj/item/clothing/neck/poncho = 3,
 					/obj/item/clothing/accessory/blue = 1,
 					/obj/item/clothing/accessory/red = 1,
 					/obj/item/clothing/accessory/black = 1,
@@ -1442,6 +1441,10 @@
 					/obj/item/clothing/suit/snowman = 1,
 					/obj/item/clothing/head/snowman = 1,
 					/obj/item/clothing/head/cueball = 1,
+					/obj/item/clothing/under/red_chaps = 1,
+					/obj/item/clothing/under/white_chaps = 1,
+					/obj/item/clothing/under/tan_chaps = 1,
+					/obj/item/clothing/under/brown_chaps = 1,
 					/obj/item/clothing/under/scratch = 1,
 					/obj/item/clothing/under/victdress = 1,
 					/obj/item/clothing/under/victdress/red = 1,
@@ -1858,6 +1861,7 @@
 
 		/obj/item/clothing/suit/tracksuit/red				= 5,
 		/obj/item/clothing/suit/hooded/wintercoat/security	= 5,
+		/obj/item/clothing/suit/jacket/pilot	= 5,
 
 		/obj/item/clothing/mask/balaclava 		= 10,
 		/obj/item/clothing/mask/bandana/red 	= 10,
