@@ -100,7 +100,6 @@
 	H.verbs -= /mob/living/carbon/human/verb/emote_pale
 	H.verbs -= /mob/living/carbon/human/verb/emote_blink
 	H.verbs -= /mob/living/carbon/human/verb/emote_blink_r
-	H.verbs -= /mob/living/carbon/human/verb/emote_blush
 	H.verbs -= /mob/living/carbon/human/verb/emote_wink
 	H.verbs -= /mob/living/carbon/human/verb/emote_smile
 	H.verbs -= /mob/living/carbon/human/verb/emote_snuffle
@@ -119,7 +118,6 @@
 	H.verbs |= /mob/living/carbon/human/verb/emote_pale
 	H.verbs |= /mob/living/carbon/human/verb/emote_blink
 	H.verbs |= /mob/living/carbon/human/verb/emote_blink_r
-	H.verbs |= /mob/living/carbon/human/verb/emote_blush
 	H.verbs |= /mob/living/carbon/human/verb/emote_wink
 	H.verbs |= /mob/living/carbon/human/verb/emote_smile
 	H.verbs |= /mob/living/carbon/human/verb/emote_snuffle

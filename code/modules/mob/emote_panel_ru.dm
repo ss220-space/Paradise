@@ -18,11 +18,6 @@
 	set category = "Эмоции"
 	usr.user_triggered_emote("scratch")
 
-/mob/living/carbon/human/verb/emote_blush()
-	set name = "~ Краснеть "
-	set category = "Эмоции"
-	usr.user_triggered_emote("blush")
-
 /mob/living/carbon/human/verb/emote_blink()
 	set name = "~ Моргать "
 	set category = "Эмоции"
@@ -528,3 +523,8 @@
 	set name = "~ Махать крыльями агрессивно "
 	set category = "Эмоции"
 	usr.user_triggered_emote("aflap")
+
+/mob/living/carbon/human/proc/emote_blush()
+	set name = "~ Краснеть "
+	set category = "Эмоции"
+	usr.user_triggered_emote("blush")

@@ -19,3 +19,11 @@
 
 	reagent_tag = PROCESS_ORG
 	//Has standard darksight of 2.
+
+/datum/species/human/on_species_gain(mob/living/carbon/human/H)
+	..()
+	H.verbs |= /mob/living/carbon/human/proc/emote_blush
+
+/datum/species/human/on_species_loss(mob/living/carbon/human/H)
+	..()
+	H.verbs -= /mob/living/carbon/human/proc/emote_blush
