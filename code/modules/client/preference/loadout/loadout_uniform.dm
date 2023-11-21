@@ -333,3 +333,23 @@
 	display_name = "tacticool turtleneck"
 	description = "A sleek black turtleneck paired with some khakis (WARNING DOES NOT HAVE SUIT SENSORS)"
 	path = /obj/item/clothing/under/syndicate/tacticool
+
+/datum/gear/uniform/hawaii
+	display_name = "hawaiian shirt (red)"
+	description = "Sometimes you just want to shoot the guy who brought the chainsaw to the drug deal"
+	path = /obj/item/clothing/under/redhawaiianshirt
+
+/datum/gear/uniform/hawaii/pink
+	display_name = "hawaiian shirt (pink)"
+	description = "Sometimes you just want some pink in your life. For what? Who knows"
+	path = /obj/item/clothing/under/pinkhawaiianshirt
+
+/datum/gear/uniform/hawaii/blue
+	display_name = "hawaiian shirt (blue)"
+	description = "Be careful around water! Some guys in blue shirt like you can't swim"
+	path = /obj/item/clothing/under/bluehawaiianshirt
+
+/datum/gear/uniform/hawaii/orange
+	display_name = "hawaiian shirt (orange)"
+	description = "Come one step closer and I will knock his teeth out!"
+	path = /obj/item/clothing/under/orangehawaiianshirt
