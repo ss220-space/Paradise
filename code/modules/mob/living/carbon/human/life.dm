@@ -792,6 +792,9 @@
 		return
 	else
 		var/shock_reduction = shock_reduction()
+		if(NO_PAIN_FEEL in dna.species.species_traits)
+			shock_reduction = INFINITY
+
 		if(healths)
 			var/health_amount = get_perceived_trauma(shock_reduction)
 			if(..(health_amount)) //not dead

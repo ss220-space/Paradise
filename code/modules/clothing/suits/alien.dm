@@ -1,6 +1,7 @@
 //Unathi clothing.
 /obj/item/clothing/suit/unathi
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',

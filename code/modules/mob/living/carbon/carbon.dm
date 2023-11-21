@@ -392,6 +392,11 @@
 	return 0
 
 
+/mob/living/carbon/proc/create_dna()
+	if(!dna)
+		dna = new()
+
+
 /mob/living/carbon/proc/getDNA()
 	return dna
 

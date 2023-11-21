@@ -325,6 +325,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 20
 	containername = "forensics crate"
 
+/datum/supply_packs/security/telescopic
+	name = "Telescopic Baton Crate"
+	contains = list(/obj/item/melee/classic_baton/telescopic,
+					/obj/item/melee/classic_baton/telescopic)
+	cost = 20
+	containername = "telescopic baton crate"
+
 ///// Armory stuff
 
 /datum/supply_packs/security/armory
@@ -996,6 +1003,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "virus crate"
 	access = ACCESS_CMO
 	announce_beacons = list("Medbay" = list("Virology", "Chief Medical Officer's Desk"))
+
+/datum/supply_packs/medical/cloning
+	name = "NanoTrasen Special Delivery Crate"
+	contains = list(/obj/item/circuitboard/clonepod,
+					/obj/item/circuitboard/cloning)
+	cost = 900
+	containertype = /obj/structure/closet/crate/secure
+	containername = "NanoTrasen special delivery crate"
+	access = ACCESS_CMO
+	announce_beacons = list("Medbay" = list("Chief Medical Officer's Desk"))
 
 /datum/supply_packs/medical/vending
 	name = "Medical Vending Crate"
