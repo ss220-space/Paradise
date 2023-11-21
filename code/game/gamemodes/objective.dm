@@ -443,7 +443,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 			alarm_changes()
 			owner.announce_objectives()
 	else
-		if((world.time - start_of_completing) >= 1	 MINUTES)
+		if((world.time - start_of_completing) >= 10	MINUTES)
 			if(target && ishuman(target.current) && target.current.stat != DEAD)
 				completed = TRUE
 				obj_process_color = "green"
