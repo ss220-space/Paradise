@@ -244,11 +244,6 @@
 		/obj/item/stack/marker_beacon/ten = 1
 	)
 
-/datum/outfit/job/miner/equipped/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-
 /datum/outfit/job/miner/equipped/hardsuit
 	name = "Shaft Miner (Equipment + Hardsuit)"
 	suit = /obj/item/clothing/suit/space/hardsuit/mining

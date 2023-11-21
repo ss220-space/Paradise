@@ -726,7 +726,7 @@
 
 /datum/outfit/admin/soviet/tourist
 	name = "Soviet Tourist"
-
+	gloves = null
 	box = /obj/item/storage/box/survival
 
 /datum/outfit/admin/soviet/conscript
