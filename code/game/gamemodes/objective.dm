@@ -366,7 +366,12 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	var/saved_target_name = "Безымянный"
 	var/saved_target_role = "без роли"
 	var/saved_own_text = "лично"
-
+	/// Time when 10 minutes timet started. To moment of its end, target have to exist and live.
+	var/start_of_completing = 0
+	/// Loop timer for checking targer and objective completetion.
+	var/checking_timer = null
+	/// Color of numbers, red - fail, green - success, white - in process
+	var/obj_process_color = ""
 
 /datum/objective/pain_hunter/proc/take_damage(take_damage, take_damage_type)
 	if(damage_type != take_damage_type)
@@ -380,49 +385,76 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/pain_hunter/New(text)
 	. = ..()
 	update_explain_text()
+	checking_timer = addtimer(CALLBACK(src, PROC_REF(target_check)), 30 SECONDS, TIMER_UNIQUE | TIMER_LOOP | TIMER_STOPPABLE | TIMER_DELETE_ME)
 
 
 /datum/objective/pain_hunter/Destroy()
-	var/check_other_hunter = FALSE
-	for(var/datum/objective/pain_hunter/objective in GLOB.all_objectives)
-		if (target == objective.target)
-			check_other_hunter = TRUE
-			break
-	if(!check_other_hunter)
-		SSticker.mode.victims.Remove(target)
+	deltimer(checking_timer)
+	checking_timer = null
 	. = ..()
 
 
 /datum/objective/pain_hunter/find_target(list/target_blacklist)
 	..()
-	if(target && target.current)
+	if(target && ishuman(target.current))
 		update_find_objective()
-		if (!(target in SSticker.mode.victims))
-			SSticker.mode.victims.Add(target)
 	else
 		explanation_text = "Free Objective"
+		completed = TRUE
+		deltimer(checking_timer)
+		checking_timer = null
 	return target
 
 
 /datum/objective/pain_hunter/proc/update_find_objective()
 	saved_target_name = target.current.real_name
 	saved_target_role = target.assigned_role
+	damage_target = 0
 	random_type()
 	update_explain_text()
 
 
 /datum/objective/pain_hunter/proc/update_explain_text()
-	explanation_text = "Преподать урок и [saved_own_text] нанести [saved_target_name], [saved_target_role], не менее [damage_need] единиц [damage_explain()]. Цель должна выжить. \nПрогресс: [damage_target]/[damage_need]"
+	explanation_text = "Преподать урок и [saved_own_text] нанести [saved_target_name], [saved_target_role], не менее [damage_need] единиц [damage_explain()]. Цель должна выжить. \nПрогресс: <span class = '[obj_process_color]'>[damage_target]/[damage_need]</span>"
+
+/datum/objective/pain_hunter/on_target_cryo()
+	if(completed)
+		return
+	if(start_of_completing && !isnull(checking_timer))
+		completed = TRUE
+		target = null
+		deltimer(checking_timer)
+		obj_process_color = "green"
+		checking_timer = null
+		update_explain_text()
+		owner.announce_objectives()
+	else
+		..()
 
 
-/datum/objective/pain_hunter/check_completion()
-	if(target && target.current)
-		if(target.current.stat == DEAD)
-			return FALSE
+/datum/objective/pain_hunter/proc/target_check()
+	if(!start_of_completing)
+		if(damage_target >= damage_need)
+			start_of_completing = world.time
+			return
 		if(!ishuman(target.current))
-			return FALSE
-		return damage_target >= damage_need
-	return FALSE
+			target = null
+			find_target(existing_targets_blacklist())
+			alarm_changes()
+			owner.announce_objectives()
+	else
+		if((world.time - start_of_completing) >= 1	 MINUTES)
+			if(target && ishuman(target.current) && target.current.stat != DEAD)
+				completed = TRUE
+				obj_process_color = "green"
+				update_explain_text()
+				owner.announce_objectives()
+			else
+				obj_process_color = "red"
+				update_explain_text()
+				owner.announce_objectives()
+			deltimer(checking_timer)
+			checking_timer = null
 
 
 /datum/objective/pain_hunter/proc/random_type()
