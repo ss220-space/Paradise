@@ -120,11 +120,18 @@
 		for(var/path in cybernetic_implants)
 			new path(H)	// Just creating internal organ inside a human forcing it to call insert() proc.
 
+	post_equip(H, visualsOnly)
+
+	if(!visualsOnly)
+		apply_fingerprints(H)
+		if(internals_slot)
+			H.internal = H.get_item_by_slot(internals_slot)
+			H.update_action_buttons_icon()
+
+	if(implants)
 		for(var/path in implants)	// Implantation is required here, bcs below we have a ToggleHelmet() hardsuit proc that is based on the isertmindshielded() proc.
 			var/obj/item/implant/I = new path(H)
 			I.implant(H, null)
-
-	post_equip(H, visualsOnly)
 
 	if(!H.head && toggle_helmet)
 		if(istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit))
@@ -133,12 +140,6 @@
 		else if(istype(H.wear_suit, /obj/item/clothing/suit/hooded))
 			var/obj/item/clothing/suit/hooded/S = H.wear_suit
 			S.ToggleHood()
-
-	if(!visualsOnly)
-		apply_fingerprints(H)
-		if(internals_slot)
-			H.internal = H.get_item_by_slot(internals_slot)
-			H.update_action_buttons_icon()
 
 	H.regenerate_icons()
 	return TRUE
