@@ -3651,7 +3651,7 @@
 /obj/structure/toilet/golden_toilet{
 	dir = 1
 	},
-/obj/structure/sign/poster/secret/yug0{
+/obj/structure/sign/poster/secret/lady{
 	pixel_x = 32
 	},
 /obj/item/stack/spacecash/c500{
@@ -4429,7 +4429,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Bath)
 "so" = (
-/obj/structure/sign/poster/secret/yug0{
+/obj/structure/sign/poster/secret/lady{
 	pixel_y = 32;
 	layer = 2.9
 	},

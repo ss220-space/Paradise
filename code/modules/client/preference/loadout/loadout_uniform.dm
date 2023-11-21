@@ -105,6 +105,25 @@
 	display_name = "executive suit"
 	path = /obj/item/clothing/under/suit_jacket/really_black
 
+/datum/gear/uniform/chaps
+	subtype_path = /datum/gear/uniform/chaps
+
+/datum/gear/uniform/chaps/red
+	display_name = "chaps, red"
+	path = /obj/item/clothing/under/red_chaps
+
+/datum/gear/uniform/chaps/white
+	display_name = "chaps, white"
+	path = /obj/item/clothing/under/white_chaps
+
+/datum/gear/uniform/chaps/tan
+	display_name = "chaps, tan"
+	path = /obj/item/clothing/under/tan_chaps
+
+/datum/gear/uniform/chaps/brown
+	display_name = "chaps, brown"
+	path = /obj/item/clothing/under/brown_chaps
+
 /datum/gear/uniform/skirt
 	subtype_path = /datum/gear/uniform/skirt
 

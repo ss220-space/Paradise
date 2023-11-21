@@ -23,7 +23,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 /obj/machinery/clonepod
 	anchored = TRUE
-	name = "cloning pod"
+	name = "experimental biomass pod"
 	desc = "An electronically-lockable pod for growing organic tissue."
 	density = TRUE
 	icon = 'icons/obj/machines/cloning.dmi'
@@ -85,6 +85,11 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
 	RefreshParts()
 	update_icon()
 
@@ -99,6 +104,11 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
 	biomass = CLONE_BIOMASS
 	RefreshParts()
 

@@ -262,7 +262,6 @@
 
 	var/datum/objective/wrap/wrap_objective = new
 	var/datum/objective/survive/survive_objective = new
-	SSticker.mode.traitors |= mind
 	wrap_objective.owner = mind
 	survive_objective.owner = mind
 	mind.objectives += wrap_objective

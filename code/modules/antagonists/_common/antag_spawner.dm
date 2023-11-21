@@ -202,9 +202,9 @@
 	demon.vialspawned = TRUE
 	demon.holder = holder
 	demon.key = C.key
-	demon.mind.assigned_role = demon.name
-	demon.mind.special_role = demon.name
-	SSticker.mode.traitors += demon.mind
+	demon.mind.assigned_role = ROLE_DEMON
+	demon.mind.special_role = SPECIAL_ROLE_DEMON
+	SSticker.mode.demons |= demon.mind
 	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
 	KillDaWiz.owner = demon.mind
 	KillDaWiz.target = user.mind
@@ -215,8 +215,7 @@
 	KillDaCrew.explanation_text = "[objective_verb] everyone else while you're at it."
 	KillDaCrew.completed = TRUE
 	demon.mind.objectives += KillDaCrew
-	to_chat(demon, "<B>Objective #[1]</B>: [KillDaWiz.explanation_text]")
-	to_chat(demon, "<B>Objective #[2]</B>: [KillDaCrew.explanation_text]")
+	demon.mind.announce_objectives()
 
 
 /obj/item/antag_spawner/slaughter_demon/laughter

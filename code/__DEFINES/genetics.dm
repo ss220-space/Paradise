@@ -141,6 +141,7 @@
 #define NO_DNA			"no_dna"
 #define NO_SCAN 		"no_scan"
 #define NO_PAIN 		"no_pain"
+#define NO_PAIN_FEEL	"no_pain_feel"
 #define IS_PLANT 		"is_plant"
 #define NO_INTORGANS	"no_internal_organs"
 #define RADIMMUNE		"rad_immunity"

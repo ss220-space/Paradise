@@ -30744,9 +30744,6 @@
 /turf/simulated/floor/plating,
 /area/atmos/distribution)
 "dAn" = (
-/obj/structure/cable/orange{
-	icon_state = "1-4"
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
@@ -39583,7 +39580,7 @@
 /area/civilian/vacantoffice)
 "gjD" = (
 /obj/machinery/light,
-/obj/machinery/dna_scannernew,
+/obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -49508,7 +49505,7 @@
 /area/maintenance/starboard)
 "jdT" = (
 /obj/structure/cable/orange{
-	icon_state = "2-8"
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -53928,13 +53925,16 @@
 /obj/item/book/manual/medical_cloning{
 	pixel_y = 6
 	},
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
-	},
 /obj/structure/table/glass,
 /obj/item/storage/box/masks{
 	pixel_y = 5
+	},
+/obj/machinery/power/apc{
+	dir = 4;
+	pixel_x = 24
+	},
+/obj/structure/cable/orange{
+	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -94733,9 +94733,7 @@
 	},
 /area/maintenance/engineering)
 "wxv" = (
-/obj/machinery/computer/cloning{
-	dir = 1
-	},
+/obj/structure/computerframe,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"
@@ -97018,14 +97016,11 @@
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
 "xhW" = (
-/obj/structure/cable/orange{
-	icon_state = "0-8"
-	},
-/obj/machinery/power/apc{
+/obj/machinery/constructable_frame/machine_frame,
+/obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = 24
 	},
-/obj/machinery/clonepod,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
