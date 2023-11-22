@@ -80,7 +80,6 @@
 	occupant_message("<span class='notice'>[target] successfully loaded into [src]. Life support functions engaged.</span>")
 	chassis.visible_message("<span class='warning'>[chassis] loads [target] into [src].</span>")
 	log_message("[target] loaded. Life support functions engaged.")
-	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/patient_insertion_check(mob/living/carbon/target)
 	if(target.buckled)
@@ -102,6 +101,7 @@
 	log_message("[patient] ejected. Life support functions disabled.")
 	STOP_PROCESSING(SSobj, src)
 	patient = null
+	start_cooldown()
 	update_equip_info()
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/can_detach()
@@ -119,12 +119,14 @@
 	var/datum/topic_input/afilter = new /datum/topic_input(href,href_list)
 	if(afilter.get("eject"))
 		go_out()
-	if(afilter.get("view_stats"))
+	else if(afilter.get("view_stats"))
 		chassis.occupant << browse(get_patient_stats(),"window=msleeper")
 		onclose(chassis.occupant, "msleeper")
 		return
-	if(afilter.get("inject"))
-		inject_reagent(afilter.getType("inject",/datum/reagent),afilter.getObj("source"))
+	else if(afilter.get("inject"))
+		if(equip_ready)
+			inject_reagent(afilter.getType("inject",/datum/reagent),afilter.getObj("source"))
+			start_cooldown()
 	return
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/get_patient_stats()
@@ -308,18 +310,16 @@
 	if(!action_checks(target))
 		return FALSE
 	if(istype(target, /obj/item/reagent_containers/syringe) || istype(target, /obj/item/storage))
-		if(get_dist(src, target) >= 2)
-			occupant_message("The syringe loader cannot reach the target.")
-			return FALSE
-		for(var/obj/structure/D in target.loc)//Basic level check for structures in the way (Like grilles and windows)
-			if(!(D.CanPass(target, src.loc)))
-				occupant_message("Unable to load syringe.")
-				return FALSE
-		for(var/obj/machinery/door/D in target.loc)//Checks for doors
-			if(!(D.CanPass(target, src.loc)))
-				occupant_message("Unable to load syringe.")
-				return FALSE
-		return start_syringe_loading(target)
+		if(get_dist(src, target) < 2)
+			for(var/obj/structure/D in target.loc)//Basic level check for structures in the way (Like grilles and windows)
+				if(!(D.CanPass(target, src.loc)))
+					occupant_message("Unable to load syringe.")
+					return FALSE
+			for(var/obj/machinery/door/D in target.loc)//Checks for doors
+				if(!(D.CanPass(target, src.loc)))
+					occupant_message("Unable to load syringe.")
+					return FALSE
+			return start_syringe_loading(target)
 	if(analyze_mode)
 		return analyze_reagents(target)
 	if(!is_faced_target(target))
@@ -488,23 +488,27 @@
 	syringe.reagents.trans_to(src, syringe.reagents.total_volume)
 	syringe.forceMove(src)
 	syringes += syringe
-	occupant_message("Syringe loaded.")
-	update_equip_info()
+	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/start_syringe_loading(obj/item/ammunition)
-	var/lock_n_load = FALSE
+	var/lock_n_load = 0
 	if(istype(ammunition, /obj/item/reagent_containers/syringe))
-		return load_syringe(ammunition)
+		if(!load_syringe(ammunition))
+			return FALSE
 	else
 		var/obj/item/storage/storage = ammunition
 		for(var/obj/item/reagent_containers/syringe/syringe in storage.contents)
 			if(!load_syringe(syringe))
 				break
-			lock_n_load = TRUE
-	return lock_n_load
+			lock_n_load ++
+		if(!lock_n_load)
+			return FALSE
+	occupant_message("Syringe[lock_n_load ? "s(x[lock_n_load])" : ""] loaded.")
+	start_cooldown()
+	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/analyze_reagents(atom/A)
-	if(get_dist(src,A) >= 4)
+	if(get_dist(src, A) >= 4)
 		occupant_message("The object is too far away.")
 		return FALSE
 	if(!A.reagents || istype(A,/mob))
@@ -595,9 +599,10 @@
 	if(istype(target, /obj))
 		if(!istype(target, /obj/machinery/door))//early return if we're not trying to open a door
 			return FALSE
+		set_ready_state(FALSE)
 		var/obj/machinery/door/D = target	//the door we want to open
 		D.try_to_crowbar(chassis.occupant, src)//use the door's crowbar function
-	if(isliving(target))	//interact with living beings
+	else if(isliving(target))	//interact with living beings
 		var/mob/living/M = target
 		if(chassis.occupant.a_intent == INTENT_HARM)//the patented, medical rescue claw is incapable of doing harm. Worry not.
 			target.visible_message("<span class='notice'>[chassis] gently boops [target] on the nose, its hydraulics hissing as safety overrides slow a brutal punch down at the last second.</span>", \

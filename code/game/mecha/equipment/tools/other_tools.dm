@@ -80,10 +80,9 @@
 	add_game_logs("used a Wormhole Generator in [COORD(loc)]", chassis.occupant)
 	chassis.investigate_log("[key_name_log(chassis.occupant)] used a Wormhole Generator at [COORD(loc)].", INVESTIGATE_TELEPORTATION)
 
-	src = null
+	start_cooldown()
 	spawn(rand(150,300))
 		qdel(P)
-	start_cooldown()
 
 /////////////////////////////////////// GRAVITATIONAL CATAPULT ///////////////////////////////////////////
 
@@ -119,8 +118,8 @@
 					send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
 					start_cooldown()
 				else
-					locked = null
 					occupant_message("Lock on [locked] disengaged.")
+					locked = null
 					send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
 		if(2)
 			var/list/atoms = list()
@@ -220,7 +219,7 @@
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/get_module_equip_info()
-	return " <a href='?src=[UID()];toggle_repairs=1'>[equip_ready?"A":"Dea"]ctivate</a>"
+	return " <a href='?src=[UID()];toggle_repairs=1'>[!active_mode?"A":"Dea"]ctivate</a>"
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/Topic(href, href_list)
 	..()
@@ -244,7 +243,7 @@
 /obj/item/mecha_parts/mecha_equipment/repair_droid/process()
 	if(!chassis)
 		STOP_PROCESSING(SSobj, src)
-		set_ready_state(TRUE)
+		active_mode = FALSE
 		return
 	var/h_boost = health_boost
 	var/repaired = FALSE
@@ -262,10 +261,10 @@
 	if(repaired)
 		if(!chassis.use_power(energy_drain))
 			STOP_PROCESSING(SSobj, src)
-			set_ready_state(TRUE)
+			active_mode = FALSE
 	else //no repair needed, we turn off
 		STOP_PROCESSING(SSobj, src)
-		set_ready_state(TRUE)
+		active_mode = FALSE
 		chassis.overlays -= droid_overlay
 		droid_overlay = new(icon, icon_state = "repair_droid")
 		chassis.overlays += droid_overlay

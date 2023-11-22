@@ -295,6 +295,7 @@
 		if(do_after_cooldown(target))
 			new /obj/structure/barricade/mime/mrcd(target)
 			chassis.spark_system.start()
+			start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/multimodule
 	name = "multi module"
@@ -535,7 +536,7 @@
 	name = "extinguisher"
 	desc = "Equipment for engineering exosuits. A rapid-firing high capacity fire extinguisher."
 	icon_state = "mecha_exting"
-	equip_cooldown = 5
+	equip_cooldown = 15
 	energy_drain = 0
 	range = MECHA_MELEE | MECHA_RANGED
 

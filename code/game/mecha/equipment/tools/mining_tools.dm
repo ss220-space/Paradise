@@ -49,7 +49,7 @@
 				O.take_damage(15, BRUTE, 0, FALSE, get_dir(chassis, target))
 				playsound(src, 'sound/weapons/drill.ogg', 40, TRUE)
 			else
-				start_cooldown()
+				set_ready_state(TRUE)
 				return
 		start_cooldown()
 
@@ -140,7 +140,6 @@
 	desc = "Equipment for engineering and combat exosuits. It will automatically check surrounding rock for useful minerals."
 	icon_state = "mecha_analyzer"
 	equip_cooldown = 15
-	var/scanning_time = 0
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/Initialize(mapload)
 	. = ..()
@@ -150,10 +149,16 @@
 	STOP_PROCESSING(SSfastprocess, src)
 	return ..()
 
+/obj/item/mecha_parts/mecha_equipment/mining_scanner/attach_act(obj/mecha/M)
+	START_PROCESSING(SSfastprocess, src)
+
+/obj/item/mecha_parts/mecha_equipment/mining_scanner/detach_act()
+	STOP_PROCESSING(SSfastprocess, src)
+
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/process()
-	if(!loc)
+	if(!chassis)
 		STOP_PROCESSING(SSfastprocess, src)
-		qdel(src)
+		return TRUE
 	if(!action_checks(src))
 		return FALSE
 	if(istype(loc, /obj/mecha/working))
@@ -162,6 +167,7 @@
 			return
 		mineral_scan_pulse(get_turf(src))
 		start_cooldown()
+		return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/action(atom/target)
 	melee_attack_chain(chassis.occupant, target)
