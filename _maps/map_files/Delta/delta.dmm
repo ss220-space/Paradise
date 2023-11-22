@@ -8496,10 +8496,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "bgt" = (
@@ -19155,10 +19152,7 @@
 /area/hallway/secondary/entry)
 "cdl" = (
 /obj/effect/spawner/random_spawners/oil_maybe,
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "cdm" = (
@@ -19501,10 +19495,7 @@
 /obj/effect/decal/cleanable/dirt{
 	layer = 2.1
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "ceT" = (
@@ -20345,10 +20336,7 @@
 /obj/effect/decal/cleanable/dirt{
 	layer = 2.1
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "cjp" = (
@@ -20574,10 +20562,7 @@
 /turf/simulated/wall/r_wall,
 /area/ntrep)
 "cku" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "ckx" = (
@@ -21126,14 +21111,11 @@
 "cnb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "cnf" = (
@@ -36527,13 +36509,10 @@
 /area/medical/research/shallway)
 "dzL" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "dzQ" = (
@@ -47255,13 +47234,10 @@
 /area/atmos)
 "eSP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
 /obj/item/shard{
 	icon_state = "medium"
 	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
 "eSU" = (
@@ -49479,13 +49455,6 @@
 	tag = "icon-redfull (NORTHWEST)"
 	},
 /area/security/lobby)
-"ftu" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/engineering)
 "ftG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/girder,
@@ -54987,10 +54956,7 @@
 /area/quartermaster/sorting)
 "gJr" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "gJw" = (
@@ -56784,14 +56750,6 @@
 	dir = 1
 	},
 /area/security/main)
-"hbX" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/brig)
 "hcg" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -58459,10 +58417,7 @@
 /area/maintenance/asmaint3)
 "hwE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "hwO" = (
@@ -59555,10 +59510,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "hLe" = (
@@ -65621,10 +65573,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "jiX" = (
@@ -71768,11 +71717,8 @@
 	},
 /area/hallway/secondary/exit)
 "kJu" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
 "kJB" = (
@@ -82318,15 +82264,12 @@
 "nie" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "nig" = (
@@ -88189,13 +88132,10 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
 "ozi" = (
@@ -96713,13 +96653,10 @@
 	},
 /area/library/game_zone)
 "qpF" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
 "qpH" = (
@@ -111724,10 +111661,7 @@
 	},
 /area/crew_quarters/chief)
 "tLI" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "tLK" = (
@@ -121910,13 +121844,10 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
 /obj/item/shard{
 	icon_state = "medium"
 	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
 "wcN" = (
@@ -124234,10 +124165,7 @@
 /obj/effect/decal/cleanable/dirt{
 	layer = 2.1
 	},
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "wFJ" = (
@@ -131548,10 +131476,7 @@
 	},
 /area/engine/hardsuitstorage)
 "yga" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/space,
 /area/space)
 "ygb" = (
@@ -162110,7 +162035,7 @@ dBH
 gMw
 hHE
 cAT
-ftu
+qac
 ddi
 lGO
 tHr
@@ -182147,7 +182072,7 @@ nsR
 lbj
 sTO
 dLH
-hbX
+kJu
 gnf
 ifw
 vmq
