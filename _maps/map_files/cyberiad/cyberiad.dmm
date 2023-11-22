@@ -17150,9 +17150,7 @@
 	},
 /area/crew_quarters/dorms)
 "aTE" = (
-/obj/structure/chair/sofa/corner{
-	dir = 4
-	},
+/obj/structure/chair/sofa/corner,
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2.9
@@ -70887,8 +70885,7 @@
 /area/security/permabrig)
 "eje" = (
 /obj/structure/chair/sofa/corner{
-	color = "#85130b";
-	dir = 1
+	color = "#85130b"
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
