@@ -198,7 +198,6 @@
 /area/ruin/unpowered/safe_cave)
 "fC" = (
 /obj/effect/spawner/window/shuttle/gray,
-/obj/structure/grille,
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "pcarrier_windows";
 	dir = 1
@@ -463,12 +462,6 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/atmospherics/pipe/cap/visible/scrubbers{
-	pixel_x = -2
-	},
-/obj/machinery/atmospherics/pipe/cap/visible/supply{
-	pixel_x = -2
-	},
 /obj/effect/decal/warning_stripes/southeastcorner,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/pod/dark{
@@ -671,7 +664,6 @@
 /area/ruin/powered/pirateship)
 "lU" = (
 /obj/effect/spawner/window/shuttle/gray,
-/obj/structure/grille,
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
 	id_tag = "pcarrier_windows"
@@ -2475,7 +2467,6 @@
 /area/ruin/unpowered/safe_cave)
 "Pf" = (
 /obj/effect/spawner/window/shuttle/gray,
-/obj/structure/grille,
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
 	id_tag = "pcarrier_windows"
@@ -2718,7 +2709,6 @@
 /area/ruin/powered/pirateship)
 "RJ" = (
 /obj/effect/spawner/window/shuttle/gray,
-/obj/structure/grille,
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "pcarrier_windows"
 	},
@@ -3041,7 +3031,6 @@
 	},
 /area/ruin/powered/pirateship)
 "WZ" = (
-/obj/structure/grille,
 /obj/effect/spawner/window/shuttle/gray,
 /obj/machinery/door/poddoor/shutters,
 /turf/simulated/floor/plating,
@@ -3143,7 +3132,6 @@
 /area/lavaland/surface/outdoors)
 "Yt" = (
 /obj/effect/spawner/window/shuttle/gray,
-/obj/structure/grille,
 /obj/machinery/door/poddoor/shutters{
 	dir = 8
 	},
@@ -3168,9 +3156,6 @@
 	},
 /area/ruin/powered/pirateship)
 "YH" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/universal{
-	pixel_x = -2
-	},
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
@@ -3225,7 +3210,6 @@
 	},
 /area/ruin/powered/pirateship)
 "ZT" = (
-/obj/structure/grille,
 /obj/effect/spawner/window/shuttle/gray,
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
