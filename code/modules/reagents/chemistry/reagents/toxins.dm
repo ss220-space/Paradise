@@ -136,8 +136,8 @@
 					preserve += D.Copy()
 			data["diseases"] = preserve
 
-		if(mix_data["color"])
-			color = mix_data["color"]
+		if(mix_data["colour"])
+			color = mix_data["colour"]
 	return 1
 
 /datum/reagent/slimejelly/reaction_turf(turf/T, volume, color)
