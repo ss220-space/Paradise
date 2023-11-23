@@ -11,6 +11,7 @@
 	var/see_in_dark = 0
 	var/see_invisible = 0
 	var/lighting_alpha
+	var/scan_reagents = 0
 
 	var/eye_colour = "#000000" // Should never be null
 	var/old_eye_colour = "#000000"
@@ -78,6 +79,15 @@
 	origin_tech = "materials=5;programming=4;biotech=4;magnets=4"
 	aug_message = "You see prey everywhere you look..."
 
+/obj/item/organ/internal/cyberimp/eyes/science
+	name = "Science implant"
+	desc = "These cybernetic eye implants will scan items and reagents."
+	eye_colour = "#8a2be2"
+	implant_color = "#8a2be2"
+	origin_tech = "materials=4;programming=4;biotech=4"
+	aug_message = "You see the information of the items around you..."
+	scan_reagents = 1
+
 // HUD implants
 /obj/item/organ/internal/cyberimp/eyes/hud
 	name = "HUD implant"
@@ -129,6 +139,16 @@
 	aug_message = "Job indicator icons pop up in your vision. That is not a certified surgeon..."
 	HUD_type = DATA_HUD_SECURITY_ADVANCED
 	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)
+
+/obj/item/organ/internal/cyberimp/eyes/hud/skills
+	name = "Skills HUD implant"
+	desc = "These cybernetic eye implants will display a skills HUD over everything you see."
+	eye_colour = "#c9d4fd"
+	implant_color = "#4572e3"
+	origin_tech = "materials=4;programming=4;biotech=4"
+	aug_message = "Job indicator icons pop up in your vision. That is not a certified surgeon..."
+	HUD_type = DATA_HUD_SECURITY_BASIC
+	examine_extensions = list(EXAMINE_HUD_SKILLS)
 
 // Welding shield implant
 /obj/item/organ/internal/cyberimp/eyes/shield

@@ -420,6 +420,17 @@
 	build_path = /obj/item/organ/internal/cyberimp/eyes/hud/security
 	category = list("Medical")
 
+/datum/design/cyberimp_skills
+	name = "Skills HUD implant"
+	desc = "These cybernetic eyes will display a skills HUD over everything you see. Wiggle eyes to control."
+	id = "ci-skillhud"
+	req_tech = list("materials" = 5, "programming" = 4, "biotech" = 4)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 50
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 500, MAT_GOLD = 500)
+	build_path = /obj/item/organ/internal/cyberimp/eyes/hud/skills
+	category = list("Medical")
+
 /datum/design/cyberimp_meson
 	name = "Meson scanner implant"
 	desc = "These cybernetic eyes will allow you to see the structural layout of the station, and, well, everything else."
@@ -451,6 +462,17 @@
 	construction_time = 60
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 600, MAT_GOLD = 600, MAT_PLASMA = 1000, MAT_DIAMOND = 2000)
 	build_path = /obj/item/organ/internal/cyberimp/eyes/thermals
+	category = list("Medical")
+
+/datum/design/cyberimp_science
+	name = "Science implant"
+	desc = "These cybernetic eye implants will scan items and reagents."
+	id = "ci-science"
+	req_tech = list("materials" = 5, "programming" = 4, "biotech" = 4)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 50
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 500, MAT_GOLD = 500)
+	build_path = /obj/item/organ/internal/cyberimp/eyes/science
 	category = list("Medical")
 
 /datum/design/cyberimp_antidrop
