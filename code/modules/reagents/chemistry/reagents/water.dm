@@ -90,7 +90,7 @@
 	M.clean_blood()
 
 /datum/reagent/blood
-	data = list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"blood_species"=null,"blood_colour"="#A10808","resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null, "dna" = null)
+	data = list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=null,"blood_species"=null,"blood_colour"="#A10808","resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null, "dna" = null)
 	name = "Blood"
 	id = "blood"
 	reagent_state = LIQUID
@@ -103,9 +103,8 @@
 	taste_mult = 1.3
 
 /datum/reagent/blood/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(data && data["viruses"])
-		for(var/thing in data["viruses"])
-			var/datum/disease/virus/V = thing
+	if(data && data["diseases"])
+		for(var/datum/disease/virus/V in data["diseases"])
 
 			if(V.spread_flags < BLOOD)
 				continue
@@ -130,10 +129,10 @@
 /datum/reagent/blood/on_merge(list/mix_data)
 	if(data && mix_data)
 		data["cloneable"] = 0 //On mix, consider the genetic sampling unviable for pod cloning, or else we won't know who's even getting cloned, etc
-		if(data["viruses"] || mix_data["viruses"])
+		if(data["diseases"] || mix_data["diseases"])
 
-			var/list/mix1 = data["viruses"]
-			var/list/mix2 = mix_data["viruses"]
+			var/list/mix1 = data["diseases"]
+			var/list/mix2 = mix_data["diseases"]
 
 			// Stop issues with the list changing during mixing.
 			var/list/to_mix = list()
@@ -149,10 +148,10 @@
 			if(istype(AD))
 				preserve += AD
 
-			for(var/datum/disease/D in data["viruses"] + mix_data["viruses"])
+			for(var/datum/disease/D in data["diseases"] + mix_data["diseases"])
 				if(!istype(D, /datum/disease/virus/advance))
 					preserve += D.Copy()
-			data["viruses"] = preserve
+			data["diseases"] = preserve
 
 		if(mix_data["blood_color"])
 			color = mix_data["blood_color"]
@@ -184,9 +183,8 @@
 	id = "sblood"
 
 /datum/reagent/blood/synthetic/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(data && data["viruses"])
-		for(var/thing in data["viruses"])
-			var/datum/disease/virus/V = thing
+	if(data && data["diseases"])
+		for(var/datum/disease/virus/V in data["diseases"])
 
 			if(V.spread_flags < BLOOD)
 				continue
@@ -199,7 +197,7 @@
 /datum/reagent/blood/synthetic/vox
 	name = "Synthetic Blood"
 	id = "sbloodvox"
-	data = list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"blood_species"=null,"blood_colour"="#6093dc","resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null, "dna" = null)
+	data = list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=null,"blood_species"=null,"blood_colour"="#6093dc","resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null, "dna" = null)
 	color = "#6093dc"
 
 /datum/reagent/blood/synthetic/vox/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
@@ -218,7 +216,7 @@
 /datum/reagent/blood/synthetic/oxy
 	name = "Synthetic Blood"
 	id = "sbloodoxy"
-	data = list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"blood_species"=null,"blood_colour"="#e8479d","resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null, "dna" = null)
+	data = list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=null,"blood_species"=null,"blood_colour"="#e8479d","resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null, "dna" = null)
 	color = "#e8479d"
 
 /datum/reagent/blood/synthetic/oxy/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)

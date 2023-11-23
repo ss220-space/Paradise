@@ -807,11 +807,11 @@
 	// Technically we should probably copy all data lists, but
 	// that could possibly eat up a lot of memory needlessly
 	// if most data lists are read-only.
-	if(trans_data["viruses"])
+	if(trans_data["diseases"])
 		var/list/temp = list()
-		for(var/datum/disease/v in trans_data["viruses"])
-			temp.Add(v.Copy())
-		trans_data["viruses"] = temp
+		for(var/datum/disease/D in trans_data["diseases"])
+			temp += D.Copy()
+		trans_data["diseases"] = temp
 	return trans_data
 
 /datum/reagents/proc/generate_taste_message(minimum_percent = TASTE_SENSITIVITY_NORMAL)

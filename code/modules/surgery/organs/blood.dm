@@ -169,8 +169,8 @@
 		var/mob/living/carbon/C = AM
 		if(blood_id == C.get_blood_id())//both mobs have the same blood substance
 			if(blood_id == "blood") //normal blood
-				if(blood_data["viruses"])
-					for(var/thing in blood_data["viruses"])
+				if(blood_data["diseases"])
+					for(var/thing in blood_data["diseases"])
 						var/datum/disease/virus/V = thing
 						if(V.spread_flags < BLOOD)
 							continue
@@ -194,11 +194,10 @@
 		var/blood_data = list()
 		//set the blood data
 		blood_data["donor"] = src
-		blood_data["viruses"] = list()
+		blood_data["diseases"] = list()
 
-		for(var/thing in diseases)
-			var/datum/disease/D = thing
-			blood_data["viruses"] += D.Copy()
+		for(var/datum/disease/D in diseases)
+			blood_data["diseases"] += D.Copy()
 
 		blood_data["blood_DNA"] = copytext(dna.unique_enzymes,1,0)
 		if(resistances && resistances.len)
@@ -224,6 +223,18 @@
 	if(blood_id == "slimejelly")
 		var/blood_data = list()
 		blood_data["colour"] = dna.species.blood_color
+
+		blood_data["diseases"] = list()
+		for(var/datum/disease/D in diseases)
+			blood_data["diseases"] += D.Copy()
+
+		return blood_data
+	if(blood_id == "cryoxadone")
+		var/blood_data = list()
+		blood_data["diseases"] = list()
+		for(var/datum/disease/D in diseases)
+			blood_data["diseases"] += D.Copy()
+
 		return blood_data
 
 //get the id of the substance this mob use as blood.

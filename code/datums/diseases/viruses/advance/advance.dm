@@ -335,12 +335,12 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 /proc/SetViruses(datum/reagent/R, list/data)
 	if(data)
 		var/list/preserve = list()
-		if(istype(data) && data["viruses"])
-			for(var/datum/disease/virus/A in data["viruses"])
-				preserve += A.Copy()
+		if(istype(data) && data["diseases"])
+			for(var/datum/disease/D in data["diseases"])
+				preserve += D.Copy()
 			R.data = data.Copy()
 		if(preserve.len)
-			R.data["viruses"] = preserve
+			R.data["diseases"] = preserve
 
 /proc/AdminCreateVirus(client/user)
 
