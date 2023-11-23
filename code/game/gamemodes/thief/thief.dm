@@ -7,8 +7,6 @@
 	config_tag = "thief"
 	restricted_jobs = list("AI", "Cyborg")
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer", "Special Operations Officer", "Supreme Commander", "Syndicate Officer")
-	prefered_species = list("Vox")
-	prefered_species_mod = 4
 	required_players = 0
 	required_enemies = 1
 	recommended_enemies = 3
@@ -26,7 +24,7 @@
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 
-	var/list/datum/mind/possible_thieves = get_players_for_role(ROLE_THIEF)
+	var/list/datum/mind/possible_thieves = get_players_for_role(ROLE_THIEF, list("Vox" = 4))
 
 	var/thieves_scale = 15
 	if(CONFIG_GET(number/traitor_scaling))

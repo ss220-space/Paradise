@@ -21790,7 +21790,7 @@
 	pixel_y = 4
 	},
 /obj/structure/table/wood/fancy/black,
-/obj/structure/sign/poster/secret/yug0{
+/obj/structure/sign/poster/secret/lady{
 	pixel_x = -32
 	},
 /obj/effect/turf_decal/siding/wood{
@@ -24486,7 +24486,7 @@
 /obj/structure/chair/sofa{
 	dir = 8
 	},
-/obj/structure/sign/poster/secret/yug0{
+/obj/structure/sign/poster/secret/lady{
 	pixel_x = 32
 	},
 /turf/simulated/floor/carpet/black,
@@ -48521,7 +48521,7 @@
 /area/shuttle/syndicate)
 "xws" = (
 /obj/structure/filingcabinet/employment,
-/obj/structure/sign/poster/secret/yug0{
+/obj/structure/sign/poster/secret/lady{
 	pixel_x = 32
 	},
 /turf/simulated/floor/carpet/black,

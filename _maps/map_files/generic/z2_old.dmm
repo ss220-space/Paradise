@@ -8259,7 +8259,7 @@
 /area/ussp_ship)
 "gly" = (
 /obj/structure/decorative_structures/metal/statue/golden_disk,
-/obj/structure/sign/poster/secret/yug0{
+/obj/structure/sign/poster/secret/lady{
 	pixel_x = 32
 	},
 /turf/simulated/floor/indestructible{

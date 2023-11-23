@@ -412,6 +412,56 @@
 /datum/config_entry/number/expected_round_length
 	default = 2 HOURS
 
+
+/datum/config_entry/number/antag_paradise_double_antag_chance
+	default = 10
+	max_val = 100
+	min_val = 0
+
+
+/datum/config_entry/keyed_list/antag_paradise_weights
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+	default = list(
+		ROLE_TRAITOR = 0,
+		ROLE_THIEF = 0,
+		ROLE_VAMPIRE = 0,
+		ROLE_CHANGELING = 0,
+	)
+
+
+/datum/config_entry/keyed_list/antag_paradise_special_weights
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+	default = list(
+		"hijacker" = 10,
+		"malfai" = 10,
+		"ninja" = 10,
+		"nothing" = 30,
+	)
+
+
+/datum/config_entry/keyed_list/antag_paradise_mode_subtypes
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+	default = list(
+		ANTAG_SINGLE = 10,
+		ANTAG_DOUBLE = 10,
+		ANTAG_TRIPPLE = 10,
+		ANTAG_RANDOM = 10,
+	)
+
+
+/datum/config_entry/keyed_list/antag_paradise_subtype_weights
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+	default = list(
+		ANTAG_SINGLE = 6,
+		ANTAG_DOUBLE = 4,
+		ANTAG_TRIPPLE = 2,
+	)
+
+
 //Made that way because compatibility reasons.
 /datum/config_entry/keyed_list/event_delay_lower
 	default = list("ev_level_mundane" = 10, "ev_level_moderate" = 30, "ev_level_major" = 50) //minutes

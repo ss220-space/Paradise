@@ -17150,9 +17150,7 @@
 	},
 /area/crew_quarters/dorms)
 "aTE" = (
-/obj/structure/chair/sofa/corner{
-	dir = 4
-	},
+/obj/structure/chair/sofa/corner,
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2.9
@@ -39953,13 +39951,13 @@
 	},
 /area/medical/cloning)
 "bWC" = (
-/obj/machinery/computer/cloning,
+/obj/structure/computerframe,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
 /area/medical/cloning)
 "bWD" = (
-/obj/machinery/dna_scannernew,
+/obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -39985,8 +39983,8 @@
 	},
 /area/medical/cloning)
 "bWF" = (
-/obj/machinery/clonepod/biomass,
 /obj/machinery/light,
+/obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -66579,7 +66577,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start/civilian,
-/obj/structure/sign/poster/secret/yug0{
+/obj/structure/sign/poster/secret/lady{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -70887,8 +70885,7 @@
 /area/security/permabrig)
 "eje" = (
 /obj/structure/chair/sofa/corner{
-	color = "#85130b";
-	dir = 1
+	color = "#85130b"
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,

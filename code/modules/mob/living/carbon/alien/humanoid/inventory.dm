@@ -62,7 +62,7 @@
 			legcuffed = I
 			update_legcuffed_status()
 
-	I.equipped(src, slot, initial)
+	return I.equipped(src, slot, initial)
 
 
 /mob/living/carbon/alien/humanoid/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)

@@ -392,6 +392,36 @@
 		return FALSE
 	return ..()
 
+/obj/item/radio/headset/event_1
+	name = "Radio headset"
+	desc = "A headset linked to special long range alpha frequency in this sector."
+	icon_state = "headset"
+	item_state = "headset"
+	ks1type = /obj/item/encryptionkey/event_1
+	requires_tcomms = FALSE
+	instant = TRUE
+	freqlock = TRUE
+
+/obj/item/radio/headset/event_2
+	name = "Radio headset"
+	desc = "A headset linked to special long range beta frequency in this sector."
+	icon_state = "headset"
+	item_state = "headset"
+	ks1type = /obj/item/encryptionkey/event_2
+	requires_tcomms = FALSE
+	instant = TRUE
+	freqlock = TRUE
+
+/obj/item/radio/headset/event_3
+	name = "Radio headset"
+	desc = "A headset linked to special long range gamma frequency in this sector."
+	icon_state = "headset"
+	item_state = "headset"
+	ks1type = /obj/item/encryptionkey/event_3
+	requires_tcomms = FALSE
+	instant = TRUE
+	freqlock = TRUE
+
 /obj/item/radio/headset/attackby(obj/item/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/encryptionkey/))
 		user.set_machine(src)

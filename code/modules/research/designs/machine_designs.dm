@@ -122,7 +122,7 @@
 	build_path = /obj/item/circuitboard/bodyscanner
 	category = list("Medical Machinery")
 
-/datum/design/clonepod
+/*	/datum/design/clonepod
 	name = "Machine Board (Cloning Pod)"
 	desc = "Allows for the construction of circuit boards used to build a Cloning Pod."
 	id = "clonepod"
@@ -131,7 +131,7 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/clonepod
 	category = list("Medical Machinery")
-
+*/
 /datum/design/clonescanner
 	name = "Machine Board (Cloning Scanner)"
 	desc = "Allows for the construction of circuit boards used to build a Cloning Scanner."
