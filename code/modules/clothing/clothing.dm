@@ -516,7 +516,8 @@ BLIND     // can't see anything
 		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi'
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi'
 		//"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 

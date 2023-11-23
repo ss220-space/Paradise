@@ -1004,6 +1004,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	access = ACCESS_CMO
 	announce_beacons = list("Medbay" = list("Virology", "Chief Medical Officer's Desk"))
 
+/datum/supply_packs/medical/cloning
+	name = "NanoTrasen Special Delivery Crate"
+	contains = list(/obj/item/circuitboard/clonepod,
+					/obj/item/circuitboard/cloning)
+	cost = 900
+	containertype = /obj/structure/closet/crate/secure
+	containername = "NanoTrasen special delivery crate"
+	access = ACCESS_CMO
+	announce_beacons = list("Medbay" = list("Chief Medical Officer's Desk"))
+
 /datum/supply_packs/medical/vending
 	name = "Medical Vending Crate"
 	cost = 20

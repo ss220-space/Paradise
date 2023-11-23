@@ -12,6 +12,7 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 50, "rad" = 0, "fire" = 50, "acid" = 50)
 	species_exception = list(/datum/species/golem)
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
 		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',

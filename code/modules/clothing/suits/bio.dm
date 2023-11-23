@@ -11,6 +11,7 @@
 	resistance_flags = ACID_PROOF
 
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/head.dmi',
 		"Ash Walker" = 'icons/mob/clothing/species/unathi/head.dmi',
@@ -44,6 +45,7 @@
 	put_on_delay = 70
 	resistance_flags = ACID_PROOF
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -119,6 +121,7 @@
 	put_on_delay = 20
 
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
