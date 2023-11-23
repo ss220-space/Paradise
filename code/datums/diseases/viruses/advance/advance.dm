@@ -83,10 +83,10 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 	..(GetDiseaseID(), need_immunity)
 
 /datum/disease/virus/advance/Contract(mob/living/M, act_type, is_carrier = FALSE, need_protection_check = FALSE, zone)
-	. = ..()
-	if(!.)
+	var/datum/disease/virus/advance/A = ..()
+	if(!istype(A))
 		return FALSE
-	Refresh(update_properties = FALSE)
+	A.Refresh(update_properties = FALSE)
 
 // Returns the advance disease with a different reference memory.
 /datum/disease/virus/advance/Copy()
