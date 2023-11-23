@@ -487,7 +487,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Dice of fate"
 	desc = "Everything or nothing; that is my motto."
 	reference = "DOF"
-	item = obj/item/dice/d20/fate/one_use
+	item = /obj/item/dice/d20/fate/one_use
 	cost = 20
 	job = list("Librarian")
 	surplus = 0
