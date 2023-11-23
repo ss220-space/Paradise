@@ -227,10 +227,12 @@
 		dat += "<A href='?src=[user.UID()];mach_close=pandemic'>Закрыть</A>"
 	else
 		var/datum/reagents/R = beaker.reagents
-		var/datum/reagent/blood/Blood = null
-		for(var/datum/reagent/blood/B in R.reagent_list)
-			if(B)
+		var/datum/reagent/Blood = null
+		for(var/datum/reagent/B in R.reagent_list)
+			if(istype(B, /datum/reagent/blood) || istype(B, /datum/reagent/slimejelly) || istype(B, /datum/reagent/medicine/cryoxadone))
 				Blood = B
+				if(!Blood.data)
+					continue
 				break
 		if(!R.total_volume||!R.reagent_list.len)
 			dat += "Мензурка пуста<BR>"

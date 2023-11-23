@@ -82,6 +82,12 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 /datum/disease/virus/advance/cure(id, need_immunity)
 	..(GetDiseaseID(), need_immunity)
 
+/datum/disease/virus/advance/Contract(mob/living/M, act_type, is_carrier = FALSE, need_protection_check = FALSE, zone)
+	. = ..()
+	if(!.)
+		return FALSE
+	Refresh(update_properties = FALSE)
+
 // Returns the advance disease with a different reference memory.
 /datum/disease/virus/advance/Copy()
 	var/datum/disease/virus/advance/copy = new
