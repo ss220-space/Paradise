@@ -134,6 +134,7 @@
 	icon_state = "shameponcho"
 	item_color = "shame"
 	flags = NODROP
+	dyeable = FALSE
 
 /obj/item/clothing/neck/poncho/security
 	name = "corporate poncho"
@@ -159,3 +160,4 @@
 	icon_state = "tacticalponcho"
 	item_color = "tactical"
 	sprite_sheets = list()
+	dyeable = FALSE
