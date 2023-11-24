@@ -167,6 +167,7 @@
 	if(make_temporary)
 		temporary = TRUE
 	if(has_dirslash)
+		H.verbs |= /mob/living/carbon/human/proc/dirslash_enabling
 		H.dirslash_enabled = TRUE
 	if(temporary)
 		if(H.mind.martial_art)
@@ -182,6 +183,7 @@
 		return
 	H.mind.martial_art = null // Remove reference
 	H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
+	H.verbs -= /mob/living/carbon/human/proc/dirslash_enabling
 	H.dirslash_enabled = initial(H.dirslash_enabled)
 	if(base)
 		base.teach(H)
@@ -196,6 +198,14 @@
 		to_chat(usr, "<span class='warning'>You shouldn't have access to this verb. Report this as a bug to the github please.</span>")
 		return
 	H.mind.martial_art.give_explaination(H)
+
+/mob/living/carbon/human/proc/dirslash_enabling()
+	set name = "Enable/Disable direction slash"
+	set desc = "If direction slash is enabled, you can attack mobs, by clicking behind their backs"
+	set category = "Martial Arts"
+	dirslash_enabled = !dirslash_enabled
+	to_chat(src, span_notice("Directrion slash is [dirslash_enabled? "enabled" : "disabled"] now."))
+
 
 /datum/martial_art/proc/give_explaination(user = usr)
 	explaination_header(user)
