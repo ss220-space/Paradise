@@ -100,7 +100,7 @@
 	if(!can_shoot())
 		attempt_reload()
 
-/obj/item/gun/energy/kinetic_accelerator/dropped()
+/obj/item/gun/energy/kinetic_accelerator/dropped(mob/user, silent = FALSE)
 	. = ..()
 	if(!QDELING(src) && !holds_charge)
 		// Put it on a delay because moving item from slot to hand

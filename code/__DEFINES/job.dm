@@ -20,7 +20,6 @@
 #define JOB_CENTCOM			(1<<10)
 #define JOB_SYNDICATE			(1<<11)
 #define JOB_ENGINEER_TRAINEE	(1<<12)
-#define JOB_CADET		(1<<13)
 
 #define JOBCAT_MEDSCI			(1<<1)
 

@@ -525,7 +525,7 @@
 	id = "c38"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 5900)
-	build_path = /obj/item/ammo_box/c38
+	build_path = /obj/item/ammo_box/speedloader/c38
 	category = list("initial", "Security")
 
 /datum/design/c38hp
@@ -533,7 +533,7 @@
 	id = "c38hp"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 30000)
-	build_path = /obj/item/ammo_box/c38/hp
+	build_path = /obj/item/ammo_box/speedloader/c38/hp
 	category = list("hacked", "Security")
 
 /datum/design/recorder
@@ -882,10 +882,10 @@
 	category = list("hacked", "Security")
 
 /datum/design/a357
-	name = "Speed Loader (.357)"
+	name = "Ammo Box (.357)"
 	id = "a357"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30000)
+	materials = list(MAT_METAL = 75000)
 	build_path = /obj/item/ammo_box/a357
 	category = list("hacked", "Security")
 
@@ -1052,5 +1052,5 @@
 	id = "cap_ammo"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 100)
-	build_path = /obj/item/ammo_box/caps
+	build_path = /obj/item/ammo_box/speedloader/caps
 	category = list("initial", "Miscellaneous")

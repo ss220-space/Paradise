@@ -43,7 +43,7 @@
 /obj/item/storage/box/survival/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/survival/brigphys
@@ -55,14 +55,14 @@
 /obj/item/storage/box/survival_vox/populate_contents()
 	new /obj/item/clothing/mask/breath/vox(src)
 	new /obj/item/tank/internals/emergency_oxygen/nitrogen(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/survival_machine
 	icon_state = "box_machine"
 
 /obj/item/storage/box/survival_machine/populate_contents()
-	new /obj/item/weldingtool/mini(src)
+	new /obj/item/weldingtool(src)
 	new /obj/item/stack/cable_coil/random(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
@@ -72,7 +72,7 @@
 /obj/item/storage/box/survival_plasmaman/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen/plasma(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/engineer
@@ -81,7 +81,7 @@
 /obj/item/storage/box/engineer/populate_contents()
 	new /obj/item/clothing/mask/breath( src )
 	new /obj/item/tank/internals/emergency_oxygen/engi( src )
-	new /obj/item/reagent_containers/hypospray/autoinjector( src )
+	new /obj/item/storage/firstaid/crew( src )
 	new /obj/item/flashlight/flare/glowstick/blue( src )
 	return
 
@@ -92,7 +92,7 @@
 	new /obj/item/clothing/mask/gas/explorer(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/crowbar/red(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/survival_security
@@ -100,7 +100,7 @@
 
 /obj/item/storage/box/survival_security/populate_contents()
 	new /obj/item/tank/internals/emergency_oxygen/engi/sec(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
 	new /obj/item/crowbar/red/sec(src)
 	new /obj/item/clothing/mask/gas/sechailer(src)
@@ -127,7 +127,7 @@
 /obj/item/storage/box/survival_laws/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/pink(src)
 	new /obj/item/book/manual/security_space_law(src)
 	new /obj/item/taperecorder(src)
@@ -211,70 +211,6 @@
 	new /obj/item/dnainjector/m2h(src)
 	new /obj/item/dnainjector/m2h(src)
 	new /obj/item/dnainjector/m2h(src)
-
-/obj/item/storage/box/slug
-	name = "Ammunition Box (Slug)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "slugbox"
-
-/obj/item/storage/box/slug/populate_contents()
-	for(var/i in 1 to 7)
-		new /obj/item/ammo_casing/shotgun(src)
-
-
-/obj/item/storage/box/buck
-	name = "Ammunition Box (Buckshot)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "buckshotbox"
-
-/obj/item/storage/box/buck/populate_contents()
-	for(var/i in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/buckshot(src)
-
-/obj/item/storage/box/dragonsbreath
-	name = "Ammunition Box (Dragonsbreath)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "dragonsbreathbox"
-
-/obj/item/storage/box/dragonsbreath/populate_contents()
-	for(var/i in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(src)
-
-/obj/item/storage/box/stun
-	name = "Ammunition Box (Stun shells)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "stunbox"
-
-/obj/item/storage/box/stun/populate_contents()
-	for(var/i in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/stunslug(src)
-
-/obj/item/storage/box/beanbag
-	name = "Ammunition Box (Beanbag shells)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "beanbagbox"
-
-/obj/item/storage/box/beanbag/populate_contents()
-	for(var/i in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/beanbag(src)
-
-/obj/item/storage/box/rubbershot
-	name = "Ammunition Box (Rubbershot shells)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "rubbershotbox"
-
-/obj/item/storage/box/rubbershot/populate_contents()
-	for(var/i in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/rubbershot(src)
-
-/obj/item/storage/box/tranquilizer
-	name = "Ammunition Box (Tranquilizer darts)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "tranqbox"
-
-/obj/item/storage/box/tranquilizer/populate_contents()
-	for(var/i in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
 
 /obj/item/storage/box/flashbangs
 	name = "box of flashbangs (WARNING)"
@@ -424,6 +360,7 @@
 /obj/item/storage/box/cups
 	name = "box of paper cups"
 	desc = "It has pictures of paper cups on the front."
+	icon_state = "papercup"
 
 /obj/item/storage/box/cups/populate_contents()
 	for(var/I in 1 to 7)
@@ -879,7 +816,7 @@
 	max_combined_w_class = 20
 
 /obj/item/storage/box/centcomofficer/populate_contents()
-	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/clothing/mask/gas/sechailer(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/kitchen/knife/combat(src)
@@ -897,7 +834,7 @@
 	icon_state = "box_ert"
 
 /obj/item/storage/box/responseteam/populate_contents()
-	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/clothing/mask/gas/sechailer(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/crowbar/red(src)
@@ -1013,6 +950,15 @@
 /obj/item/storage/box/wizard/hardsuit/populate_contents()
 	new /obj/item/clothing/suit/space/hardsuit/wizard/shielded(src)
 	new /obj/item/clothing/shoes/magboots/wizard(src)
+
+/obj/item/storage/box/wizard/recharge
+	name = "Armour Recharge Bundle"
+	desc = "This box contains a bundle of Battlemage Armour Recharges"
+	icon_state = "box_wizard"
+
+/obj/item/storage/box/wizard/recharge/populate_contents()
+	for(var/I in 1 to 3)
+		new /obj/item/wizard_armour_charge(src)
 
 /obj/item/storage/box/candythief
 	name = "набор радужных конфет"

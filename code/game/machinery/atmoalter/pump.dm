@@ -115,6 +115,9 @@
 	return attack_hand(user)
 
 /obj/machinery/portable_atmospherics/pump/attack_hand(mob/user)
+	if(..())
+		return TRUE
+
 	add_fingerprint(user)
 	ui_interact(user)
 

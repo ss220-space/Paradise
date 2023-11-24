@@ -42,7 +42,7 @@
 		//Random events (vomiting etc)
 		handle_random_events()
 
-	if(LAZYLEN(viruses))
+	if(LAZYLEN(diseases))
 		handle_diseases()
 
 	if(QDELETED(src)) // diseases can qdel the mob via transformations
@@ -111,7 +111,9 @@
 	return
 
 /mob/living/proc/handle_diseases()
-	return
+	for(var/thing in diseases)
+		var/datum/disease/D = thing
+		D.stage_act()
 
 /mob/living/proc/handle_random_events()
 	return

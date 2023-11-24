@@ -193,5 +193,6 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 	var/n_is = damage_state_text()
 	if(n_is != damage_state)
 		damage_state = n_is
+		owner?.UpdateDamageIcon()
 		return 1
 	return 0

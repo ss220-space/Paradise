@@ -64,7 +64,6 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 		/obj/item/twohanded/mjollnir = 1,
 		/obj/item/twohanded/chainsaw = 1,
 		/obj/item/twohanded/dualsaber = 1,
-		/obj/item/twohanded/singularityhammer = 1,
 		/obj/item/twohanded/fireaxe = 1,
 		/obj/item/melee/icepick = 1,
 		/obj/item/melee/candy_sword = 1,
@@ -75,9 +74,14 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 		/obj/item/storage/box/syndie_kit/mantisblade = 1,
 		/obj/item/CQC_manual = 1,
 		/obj/item/sleeping_carp_scroll = 1,
-		/obj/item/clothing/gloves/color/black/krav_maga/sec = 1,
 		/obj/item/clothing/gloves/fingerless/rapid = 1,
-		/obj/item/storage/box/syndie_kit/mr_chang_technique = 1
+		/obj/item/storage/box/thunderdome/mr_chang_technique = 1,
+		/obj/item/storage/box/thunderdome/mr_chang_technique/spicy = 1,
+		/obj/item/storage/box/thunderdome/spears = 1,
+		/obj/item/storage/box/thunderdome/maga = 1,
+		/obj/item/storage/box/thunderdome/gbs = 1,
+		/obj/item/storage/box/thunderdome/singulatiry = 1,
+		/obj/item/implanter/adrenalin = 1
 	)
 
 	var/list/ranged_pool = list(
@@ -101,7 +105,12 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 		/obj/item/gun/projectile/automatic/pistol/m1911 = 1,
 		/obj/item/gun/projectile/revolver/golden = 1,
 		/obj/item/gun/projectile/revolver/nagant = 1,
-		/obj/item/gun/energy/gun/nuclear = 2
+		/obj/item/gun/energy/gun/nuclear = 2,
+		/obj/item/storage/box/thunderdome/bombarda = 1,
+		/obj/item/storage/box/thunderdome/crossbow = 1,
+		/obj/item/storage/box/thunderdome/crossbow/energy = 1,
+		/obj/item/storage/box/thunderdome/laser_eyes = 1,
+		/obj/item/implanter/adrenalin = 1
 	)
 
 /**
@@ -349,7 +358,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 	if(jobban_isbanned(user, banType))
 		to_chat(user, span_warning("You are jobanned!"))
 		return
-	if(config.use_exp_restrictions && min_hours)
+	if(CONFIG_GET(flag/use_exp_restrictions) && min_hours)
 		if(user.client.get_exp_type_num(exp_type) < min_hours * 60 && !check_rights(R_ADMIN|R_MOD, 0, usr))
 			to_chat(user, span_warning("У вас недостаточно часов для игры на этой роли. Требуется набрать [min_hours] часов типа [exp_type] для доступа к ней."))
 			return

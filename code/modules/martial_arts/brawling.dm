@@ -1,5 +1,6 @@
 /datum/martial_art/boxing
 	name = "Boxing"
+	has_dirslash = FALSE
 
 /datum/martial_art/boxing/disarm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	to_chat(A, "<span class='warning'>Can't disarm while boxing!</span>")

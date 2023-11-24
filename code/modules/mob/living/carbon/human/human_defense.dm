@@ -256,7 +256,7 @@ emp_act
 			return 1
 	return 0
 
-/mob/living/carbon/human/proc/check_martial_art_defense(var/mob/living/carbon/human/defender, var/mob/living/carbon/human/attacker, var/obj/item/I, var/visible_message, var/self_message)
+/mob/living/carbon/human/proc/check_martial_art_defense(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, obj/item/I, visible_message, self_message)
 	if(mind && mind.martial_art)
 		return mind.martial_art.attack_reaction(defender, attacker, I, visible_message, self_message)
 
@@ -542,32 +542,43 @@ emp_act
 
 	dna.species.spec_attacked_by(I, user, affecting, user.a_intent, src)
 
-//this proc handles being hit by a thrown atom
+
+/**
+ * This proc handles being hit by a thrown atom.
+ */
 /mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
+	var/spec_return = dna.species.spec_hitby(AM, src)
+	if(spec_return)
+		return spec_return
+
+	var/MA_return = mind?.martial_art?.user_hit_by(AM, src)
+	if(MA_return)
+		return MA_return
+
 	var/obj/item/I
 	var/throwpower = 30
-	if(istype(AM, /obj/item))
+	if(isitem(AM))
 		I = AM
 		throwpower = I.throwforce
-		if(I.thrownby == src) //No throwing stuff at yourself to trigger reactions
+		if(locateUID(I.thrownby) == src) //No throwing stuff at yourself to trigger reactions
 			return ..()
+
 	SEND_SIGNAL(src, COMSIG_CARBON_HITBY)
+
 	if(check_shields(AM, throwpower, "\the [AM.name]", THROWN_PROJECTILE_ATTACK))
 		hitpush = FALSE
 		skipcatch = TRUE
 		blocked = TRUE
-	else if(I)
-		if(((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || I.embedded_ignore_throwspeed_threshold)
-			if(can_embed(I))
-				if(prob(I.embed_chance) && !(PIERCEIMMUNE in dna.species.species_traits))
-					embed_item_inside(I)
-					hitpush = FALSE
-					skipcatch = TRUE //can't catch the now embedded item
-	if(!blocked)
-		dna.species.spec_hitby(AM, src)
-	return ..()
 
-/mob/living/carbon/human/proc/embed_item_inside(var/obj/item/I)
+	else if(I && (((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || I.embedded_ignore_throwspeed_threshold) && can_embed(I) && !(PIERCEIMMUNE in dna.species.species_traits) && prob(I.embed_chance))
+		embed_item_inside(I)
+		hitpush = FALSE
+		skipcatch = TRUE //can't catch the now embedded item
+
+	return ..(AM, skipcatch, hitpush, blocked, throwingdatum)
+
+
+/mob/living/carbon/human/proc/embed_item_inside(obj/item/I)
 	if(ismob(I.loc))
 		var/mob/M = I.loc
 		M.drop_item_ground(I)
@@ -577,7 +588,9 @@ emp_act
 	I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
 	I.forceMove(src)
 	L.receive_damage(I.w_class*I.embedded_impact_pain_multiplier)
-	visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
+	visible_message(span_danger("[I] embeds itself in [src]'s [L.name]!"),
+					span_userdanger("[I] embeds itself in your [L.name]!"))
+
 
 /mob/living/carbon/human/proc/bloody_hands(var/mob/living/source, var/amount = 2)
 
@@ -639,6 +652,14 @@ emp_act
 			apply_damage(damage, BRUTE, affecting, armor_block)
 			add_attack_logs(M, src, "Alien attacked")
 			updatehealth("alien attack")
+			var/all_objectives = M?.mind?.get_all_objectives()
+			if(mind && all_objectives)
+				for(var/datum/objective/pain_hunter/objective in all_objectives)
+					if(mind == objective.target)
+						armor_block = (100 - armor_block) / 100
+						if(armor_block <= 0)
+							armor_block= 0
+						objective.take_damage(damage * armor_block, BRUTE)
 
 		if(M.a_intent == INTENT_DISARM) //Always drop item in hand, if no item, get stun instead.
 			var/obj/item/I = get_active_hand()
@@ -672,6 +693,14 @@ emp_act
 		var/armor = run_armor_check(affecting, "melee", armour_penetration = M.armour_penetration)
 		apply_damage(damage, M.melee_damage_type, affecting, armor)
 		updatehealth("animal attack")
+		var/all_objectives = M?.mind?.get_all_objectives()
+		if(mind && all_objectives)
+			for(var/datum/objective/pain_hunter/objective in all_objectives)
+				if(mind == objective.target)
+					armor = (100 - armor) / 100
+					if(armor <= 0)
+						armor = 0
+					objective.take_damage(damage * armor, BRUTE)
 
 /mob/living/carbon/human/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack
@@ -689,6 +718,14 @@ emp_act
 			affecting = get_organ("chest")
 		var/armor_block = run_armor_check(affecting, "melee")
 		apply_damage(damage, BRUTE, affecting, armor_block)
+		var/all_objectives = M?.mind?.get_all_objectives()
+		if(mind && all_objectives)
+			for(var/datum/objective/pain_hunter/objective in all_objectives)
+				if(mind == objective.target)
+					armor_block = (100 - armor_block) / 100
+					if(armor_block <= 0)
+						armor_block = 0
+					objective.take_damage(damage * armor_block, BRUTE)
 
 /mob/living/carbon/human/mech_melee_attack(obj/mecha/M)
 	if(M.occupant.a_intent == INTENT_HARM)

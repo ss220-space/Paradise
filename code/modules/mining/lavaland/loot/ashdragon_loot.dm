@@ -156,20 +156,20 @@
 
 	var/mob/living/carbon/human/H = user
 	to_chat(user, span_danger("You feel warmth spread through you, paired with an odd desire to burn down a village. You're suddenly a very small, humanoid ash dragon!"))
-	H.set_species(/datum/species/unathi/draconid)
+	H.set_species(/datum/species/unathi/draconid, save_appearance = TRUE)
 
 	playsound(user.loc,'sound/items/drink.ogg', rand(10,50), 1)
 	qdel(src)
 
-/datum/disease/transformation/dragon
+/datum/disease/virus/transformation/dragon
 	name = "dragon transformation"
-	cure_text = "nothing"
+	cure_text = "Nothing"
 	cures = list("adminordrazine")
 	agent = "dragon's blood"
 	desc = "What do dragons have to do with Space Station 13?"
 	stage_prob = 20
 	severity = BIOHAZARD
-	visibility_flags = 0
+	visibility_flags = VISIBLE
 	stage1	= list("Your bones ache.")
 	stage2	= list("Your skin feels scaley.")
 	stage3	= list("<span class='danger'>You have an overwhelming urge to terrorize some peasants.</span>", "<span class='danger'>Your teeth feel sharper.</span>")

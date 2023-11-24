@@ -1298,11 +1298,16 @@ About the new airlock wires panel:
 	update_icon()
 	return TRUE
 
-/obj/machinery/door/airlock/CanAStarPass(obj/item/card/id/ID)
-//Airlock is passable if it is open (!density), bot has access, and is not bolted or welded shut)
-	return !density || (check_access(ID) && !locked && !welded && arePowerSystemsOn())
+
+/obj/machinery/door/airlock/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+	//Airlock is passable if it is open (!density), bot has access, and is not bolted or welded shut)
+	return !density || (check_access(ID) && !locked && !welded && arePowerSystemsOn() && !no_id)
+
 
 /obj/machinery/door/airlock/emag_act(mob/user)
+	if(!hackable)
+		to_chat(user, span_notice("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
+		return
 	if(!operating && density && arePowerSystemsOn() && !emagged)
 		add_attack_logs(user, src, "emagged ([locked ? "bolted" : "not bolted"])")
 		operating = TRUE

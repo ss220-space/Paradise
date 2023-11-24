@@ -170,7 +170,7 @@
 					beegent.reaction_mob(L, REAGENT_INGEST)
 					L.reagents.add_reagent(beegent.id, rand(1, 5))
 				else
-					L.reagents.add_reagent("spidertoxin", 5)
+					L.reagents.add_reagent("beetoxin", 5)
 
 /mob/living/simple_animal/hostile/poison/bees/proc/assign_reagent(datum/reagent/R)
 	if(istype(R))

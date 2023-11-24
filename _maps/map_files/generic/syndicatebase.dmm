@@ -687,7 +687,7 @@
 	dir = 1;
 	on = 1
 	},
-/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/vending/pai,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -3064,7 +3064,7 @@
 "cLV" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/doublebarrel,
-/obj/item/storage/box/buck,
+/obj/item/ammo_box/shotgun/buck,
 /turf/simulated/floor/wood,
 /area/syndicate/unpowered/syndicate_space_base/bar/storage)
 "cLW" = (
@@ -4824,8 +4824,8 @@
 /obj/structure/closet/secure_closet/bar{
 	req_access = list(158)
 	},
-/obj/item/storage/box/buck,
-/obj/item/storage/box/buck,
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck,
 /obj/machinery/light,
 /obj/item/card/emag,
 /turf/simulated/floor/wood,
@@ -20120,9 +20120,9 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/ammo_box/a357,
-/obj/item/ammo_box/a357,
-/obj/item/ammo_box/a357,
+/obj/item/ammo_box/speedloader/a357,
+/obj/item/ammo_box/speedloader/a357,
+/obj/item/ammo_box/speedloader/a357,
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "rjB" = (
@@ -22820,9 +22820,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/structure/chair/sofa/corner{
-	dir = 4
-	},
+/obj/structure/chair/sofa/corner,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -26258,9 +26256,6 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "vDO" = (
-/obj/structure/chair/sofa{
-	dir = 10
-	},
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 30
 	},
@@ -26269,6 +26264,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/brown{
+	dir = 4
+	},
+/obj/structure/chair/sofa/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{

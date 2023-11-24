@@ -31,20 +31,19 @@
 	var/list/dissected_humans = list()
 	/// Associated list of all damage modifiers human vampire has.
 	var/list/damage_modifiers = list(
-		"brute" = 0,
-		"burn" = 0,
-		"tox" = 0,
-		"oxy" = 0,
-		"clone" = 0,
-		"brain" = 0,
-		"stamina" = 0
+		BRUTE = 0,
+		BURN = 0,
+		TOX = 0,
+		OXY = 0,
+		CLONE = 0,
+		BRAIN = 0,
+		STAMINA = 0
 	)
 
 
 /datum/antagonist/vampire/Destroy(force, ...)
 	owner.current.create_log(CONVERSION_LOG, "De-vampired")
 	draining = null
-	QDEL_LIST(powers)
 	QDEL_NULL(subclass)
 	return ..()
 
@@ -256,6 +255,9 @@
 	var/spell = new path(owner)
 	if(istype(spell, /obj/effect/proc_holder/spell))
 		owner.AddSpell(spell)
+		if(istype(spell, /obj/effect/proc_holder/spell/vampire) && subclass)
+			var/obj/effect/proc_holder/spell/vampire/v_spell = spell
+			v_spell.on_trophie_update(src, force = TRUE)
 		if(istype(spell, /obj/effect/proc_holder/spell/vampire/self/dissect_info) && subclass)
 			subclass.spell_TGUI = spell
 

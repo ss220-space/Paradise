@@ -235,7 +235,7 @@
 				visible_message("<span class='boldwarning'>[owner] Deflects [I] directly back at the thrower! It's a home run!</span>", "<span class='boldwarning'>You deflect the [I] directly back at the thrower! It's a home run!</span>")
 				playsound(get_turf(owner), 'sound/weapons/homerun.ogg', 100, 1)
 				do_attack_animation(I, ATTACK_EFFECT_DISARM)
-				I.throw_at(I.thrownby, 20, 20, owner)
+				I.throw_at(locateUID(I.thrownby), 20, 20, owner)
 				deflectmode = FALSE
 				if(!istype(I, /obj/item/beach_ball))
 					lastdeflect = world.time + 600
@@ -385,7 +385,6 @@
 	homerun_able = on
 
 /obj/item/melee/baseball_bat/homerun/central_command/pickup(mob/living/user)
-	. = ..()
 	if(!(isertmindshielded(user)))
 		user.Weaken(10 SECONDS)
 		user.drop_item_ground(src, force = TRUE)
@@ -395,7 +394,8 @@
 			H.apply_damage(rand(force/2, force), BRUTE, pick("l_arm", "r_arm"))
 		else
 			user.adjustBruteLoss(rand(force/2, force))
-		return
+		return FALSE
+	return ..()
 
 /obj/item/melee/baseball_bat/homerun/central_command/attack_self(mob/user)
 	on = !on

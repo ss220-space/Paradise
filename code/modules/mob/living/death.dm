@@ -7,7 +7,7 @@
 	notransform = 1
 	canmove = 0
 	icon = null
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 
 	playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
 	gibs(loc, dna)
@@ -25,7 +25,7 @@
 	notransform = 1
 	canmove = 0
 	icon = null
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	QDEL_IN(src, 0)
 	return TRUE
 
@@ -36,7 +36,7 @@
 	notransform = 1
 	canmove = 0
 	icon = null
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	QDEL_IN(src, 0)
 	return TRUE
 

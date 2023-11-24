@@ -1,0 +1,208 @@
+'2023-11-02':
+  ArtemDerp:
+  - bugfix: correct position of the light switch in rnd toxins (#3798)
+  Mindfri:
+  - tweak: Lipstick in wallet (#3772)
+  ROdenFL:
+  - bugfix: xylophone is xylophone (#3805)
+  - bugfix: lost coca sprites, grill abdwindow, wclass (#3803)
+  SSefuss:
+  - add: A specific sound that borg hears when e-magged. (#3795)
+  Vladisvell:
+  - bugfix: fixed security & command sub-professions not being visible on crew monitor
+      (#3802)
+  - bugfix: Ellis TTS voice is classified as male now (#3800)
+  - bugfix: Chessboard closes automatically when not nearby (#3801)
+  WolfLox:
+  - balance: taser-stamina-nerf (#3775)
+  Zwei:
+  - tweak: Bloodswell Buff (#3790)
+  - bugfix: Few Inventory Fixes (#3785)
+'2023-11-03':
+  Dimach:
+  - bugfix: bomb implant activation not work (#3813)
+'2023-11-04':
+  Daeberdir:
+  - bugfix: text corrections for spessuit storages and smol combat defib. (#3811)
+  - bugfix: meson's vision now realy saving from that two farwas and even singulo.
+      (#3812)
+  Mindfri:
+  - tweak: Update Surgery Kit (#3807)
+  ROdenFL:
+  - bugfix: anomaly extract bugfix (#3820)
+  Vladisvell:
+  - bugfix: wooden buckets now do not become blue (#3810)
+  Zwei:
+  - bugfix: Ninja Datum Fixes (#3823)
+'2023-11-06':
+  ArtemDerp:
+  - bugfix: ussp station fixes (#3739)
+  BeebBeebBoob:
+  - bugfix: Summon spots no longer in new areas. (Beacons too) (#3825)
+  Daeberdir:
+  - tweak: normal player accessability in Admin zones. (#3715)
+  - balance: speedloaders can be loaded from ammoboxes. (#3816)
+  Honker9999999:
+  - add: Bullet resist for shadowling instead of laser resist (#3818)
+  ROdenFL:
+  - imageadd: one soldier fix (#3831)
+  - qol: custom colors for window painter (#3774)
+  SSefuss:
+  - add: a special hypospray to the e-magged medical borg. (#3824)
+  Shaman:
+  - add: construction bag (#3787)
+  VasilevAY:
+  - add: Surgery theatre (#3717)
+  Vladisvell:
+  - bugfix: fixed infinite recursion with cluwne curse. (#3832)
+  - bugfix: bread monster's max hp now rises on teleportation (#3809)
+  - qol: Cleanbots now can spread between cleanable decals (#3806)
+  - bugfix: Terror Spiders no longer always penetrate hardsuit shields and blocks
+      (#3808)
+  - balance: bomb guardian no longer dismember legs and bomb damage nerfs (#3817)
+  - qol: Spent ammo casings can now be utilized using matter decompiler. (#3819)
+  mrWhiteFox365:
+  - add: Space Prison Ruin (#3782)
+'2023-11-07':
+  Daeberdir:
+  - tweak: mining GPS turned off. (#3836)
+  - add: chatbubble for telepathy users. (#3815)
+  LiquidPotroh:
+  - balance: Virology (#3703)
+  ROdenFL:
+  - bugfix: alien alloy bugs (#3834)
+  - tweak: sugar amount change (#3833)
+  - bugfix: anomaly extract cost, some slime fixes (#3827)
+  SuhEugene:
+  - bugfix: simple animals babymaking (#3791)
+  Zwei:
+  - add: Shadow Demon (#3616)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3835)
+'2023-11-08':
+  Bizzonium:
+  - unknown: add environment property to deploy action
+'2023-11-09':
+  Bizzonium:
+  - unknown: refactor deploy action
+  - unknown: fix environment url deploy action
+  - unknown: fix deploy action's job execution
+  - unknown: fix deploy action's job execution 2
+  - unknown: dynamically generate deploy action's matrix
+  - unknown: delete auto deployments and set urls for manual ones
+  - unknown: fix deployment clearing and url setting
+  - unknown: fix deployment clearing and url setting
+  - unknown: debug deployments
+  - unknown: correct automatic deployments deletion
+  - unknown: refactor  automatic deployments deletion
+  - unknown: fix job names in deploy action
+  Daeberdir:
+  - bugfix: 'hotfix #3816 (#3838)'
+  LiquidPotroh:
+  - bugfix: Virology (#3844)
+  ROdenFL:
+  - refactor: dir_slash is every mob/living parametr (#3841)
+  ShagoVrases:
+  - bugfix: replacing the glass on the lavaland cyberiad (#3839)
+  Vladisvell:
+  - bugfix: SSD acknowledgement now do not send tons of messages. (#3846)
+'2023-11-14':
+  ArtemDerp:
+  - qol: add one reishi seed to ash walkers warehouse (#3866)
+  Daeberdir:
+  - bugfix: MA now again claiming damage for PainHunter objective. (#3872)
+  - bugfix: unique "reference" for new uplink item. (#3871)
+  - bugfix: tajaran veil sunglasses craft corrections. (#3874)
+  - bugfix: hulks can't be captured in lazarus capsule. (#3873)
+  Etrnlmelancholy:
+  - tweak: jet for paramed (#3850)
+  Lentye:
+  - add: chemicals circuits for tech storage (#3855)
+  NightDawnFox:
+  - balance: all ert hardsuits, contractor hard and all syndie hards in EVA mode are
+      now fully immune to radiation (#3840)
+  - add: new medical borg skin - CMO-borg (#3860)
+  ROdenFL:
+  - tweak: crew monitor don`t work while commbrake (#3852)
+  SAAD:
+  - bugfix: Telescreen abuse (#3829)
+  Vladisvell:
+  - bugfix: VPN whitelist check now works even if ipintel_whitelist is disabled in
+      config (#3853)
+  - add: Added more logging to ghost spawns candidate pollings. (#3857)
+  - bugfix: BFL receiver now does not need power to interact with (#3858)
+  - bugfix: contractor no longer gets two syndicate encryption keys (#3862)
+  - bugfix: borg items no longer can be dropped (#3863)
+  - qol: Robots can now take tanks from tank dispenser (#3868)
+  - bugfix: Mecha equipment no longer can be dropped by mecha actions except detach.
+      (#3865)
+  - bugfix: mecha extinguishers do extinguish burning mobs now (#3869)
+  - bugfix: EMP no longer discharge borgs weaponry (#3864)
+  - qol: Added TTS aliases for consistent speech (#3875)
+  Zwei:
+  - bugfix: Throwing Fixes Again (#3842)
+'2023-11-17':
+  ArtemDerp:
+  - add: add areas and headsets to simplify event creation (#3880)
+  Etrnlmelancholy:
+  - tweak: ert tweaks again (#3882)
+  - tweak: loadout changes (#3851)
+  - tweak: increase bola amount inside syndie throwing kit and decrease n… (#3849)
+  LiquidPotroh:
+  - bugfix: Can't remove cell from damaged APC (#3885)
+  MataVsn:
+  - add: Ports on-screen admin alerts from paradise officials. (#3893)
+  ROdenFL:
+  - bugfix: voices for DS and contractor partner (#3879)
+  - bugfix: slimes, aliens and animal can do pain killer task (#3830)
+  Viddvik:
+  - add: New telescopic baton crate (#3878)
+  Vladisvell:
+  - bugfix: Fixed 3.11.6 Python errors with installing dependencies (#3884)
+  WolferOkt:
+  - bugfix: Megafauna now cant be closed in /obj/structure/closet (#3888)
+  Zwei:
+  - add: Antag Paradise Gamemode (#3578)
+'2023-11-18':
+  Den109G:
+  - bugfix: Fix event channels prefixes and colors (#3902)
+  Dimach:
+  - refactor: jobs correctly apply jobs config, and can be changed before round start
+      (#3903)
+  Zwei:
+  - tweak: Antag Paradise Tweak (#3898)
+'2023-11-20':
+  ArtemDerp:
+  - bugfix: add missed restricted network for gorky 17 cameras (#3908)
+  Daeberdir:
+  - bugfix: retrieve a collar from det dog ability. (#3901)
+  - bugfix: correct visual for telepathy and minus 1 runtime in it. (#3892)
+  - add: 8 new ponchos + 4 new uniforms + poncho resprite. (#3867)
+  - tweak: The cloning machine can only be obtained from cargo. (#3897)
+  Dimach:
+  - server: set config to actual datum values (#3912)
+  LiquidPotroh:
+  - tweak: Nucleates don't feel pain (#3896)
+  - add: Throwing knives martial art (#3799)
+  Mindfri:
+  - tweak: Assistant can buy His Grace. (#3905)
+  - add: Shard Plushie and plasmaman in loadout. (#3883)
+  ROdenFL:
+  - balance: martial arts give dirslash (#3906)
+  ReloadKey:
+  - add: Shavel and Shavel Soup (#3886)
+  Roman:
+  - add: IED Satchel (#3895)
+  Vladisvell:
+  - imageadd: Added suit sprites for Plasmaman species (#3822)
+  WolfLox:
+  - tweak: e20 only hijack (#3913)
+  WolferOkt:
+  - bugfix: can't put revenant in a petcarriers (#3907)
+  Zwei:
+  - bugfix: Antag Paradise Ninja Spawn Fix (#3910)
+  - bugfix: Demon Whisper (#3911)
+  - tweak: Demons Fixes (#3891)
+  - tweak: DNA and Species Change not regenerate missing limbs and organs (#3848)
+  captainnelly:
+  - tweak: posters update  (#3784)

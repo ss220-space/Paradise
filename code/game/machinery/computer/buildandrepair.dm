@@ -55,6 +55,26 @@
 	board_name = "Telescreen"
 	build_path = /obj/machinery/computer/security/telescreen
 
+/obj/item/circuitboard/camera/telescreen/singularity
+	board_name = "Telescreen_Singularity"
+	build_path = /obj/machinery/computer/security/telescreen/singularity
+
+/obj/item/circuitboard/camera/telescreen/toxin_chamber
+	board_name = "Toxins Telescreen"
+	build_path = /obj/machinery/computer/security/telescreen/toxin_chamber
+
+/obj/item/circuitboard/camera/telescreen/test_chamber
+	board_name = "Test Chamber Telescreen"
+	build_path = /obj/machinery/computer/security/telescreen/test_chamber
+
+/obj/item/circuitboard/camera/telescreen/research
+	board_name = "Research Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/research
+
+/obj/item/circuitboard/camera/telescreen/prison
+	board_name = "Prison Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/prison
+
 /obj/item/circuitboard/camera/telescreen/entertainment
 	board_name = "Entertainment Monitor"
 	build_path = /obj/machinery/computer/security/telescreen/entertainment
@@ -198,7 +218,7 @@
 	origin_tech = "programming=3"
 
 /obj/item/circuitboard/cloning
-	board_name = "Cloning Machine Console"
+	board_name = "Biomass Pod Console"
 	build_path = /obj/machinery/computer/cloning
 	origin_tech = "programming=2;biotech=2"
 
@@ -676,6 +696,56 @@
 			return ..()
 	else
 		return ..()
+
+/obj/structure/computerframe/abductor
+	icon_state = "comp_frame_alien1"
+
+/obj/structure/computerframe/abductor/update_icon()
+	. = ..()
+	icon_state = "comp_frame_alien[state]"
+
+/obj/structure/computerframe/abductor/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user))
+		return
+
+	switch(state)
+		if(STATE_CIRCUIT)
+			to_chat(user, span_notice("You screw the circuit board into place."))
+			state = STATE_NOWIRES
+			I.play_tool_sound(src)
+			update_icon()
+		if(STATE_NOWIRES)
+			to_chat(user, span_notice("You unfasten the circuit board."))
+			state = STATE_CIRCUIT
+			I.play_tool_sound(src)
+			update_icon()
+		if(STATE_GLASS)
+			to_chat(user, span_notice("You connect the monitor."))
+			I.play_tool_sound(src)
+			var/obj/machinery/computer/B = new circuit.build_path(loc)
+			B.abductor = TRUE
+			B.max_integrity = 400
+			B.obj_integrity = 400
+			if(B.icon_state == "computer")
+				B.icon_state = "aliencomputer"
+				B.update_icon()
+			if(istype(circuit, /obj/item/circuitboard/supplycomp))
+				var/obj/machinery/computer/supplycomp/SC = B
+				var/obj/item/circuitboard/supplycomp/C = circuit
+				SC.can_order_contraband = C.contraband_enabled
+			qdel(src)
+
+/obj/structure/computerframe/abductor/drop_computer_parts()
+	var/location = drop_location()
+	new /obj/item/stack/sheet/mineral/abductor(location, 4)
+	if(circuit)
+		circuit.forceMove(location)
+		circuit = null
+	if(state >= STATE_WIRES)
+		new /obj/item/stack/cable_coil(location, 5)
+	if(state == STATE_GLASS)
+		new /obj/item/stack/sheet/glass(location, 2)
 
 #undef STATE_EMPTY
 #undef STATE_CIRCUIT

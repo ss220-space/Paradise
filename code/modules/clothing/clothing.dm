@@ -516,7 +516,8 @@ BLIND     // can't see anything
 		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi'
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi'
 		//"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
@@ -679,7 +680,7 @@ BLIND     // can't see anything
 				A.Grant(user)
 
 
-/obj/item/clothing/suit/space/dropped(mob/user)
+/obj/item/clothing/suit/space/dropped(mob/user, silent = FALSE)
 	..()
 	if(jetpack)
 		for(var/X in jetpack.actions)
@@ -750,7 +751,7 @@ BLIND     // can't see anything
 	return ..()
 
 
-/obj/item/clothing/under/dropped(mob/user, silent)
+/obj/item/clothing/under/dropped(mob/user, silent = FALSE)
 	..()
 	if(!ishuman(user))
 		return
@@ -800,7 +801,7 @@ BLIND     // can't see anything
 
 /obj/item/clothing/under/proc/attach_accessory(obj/item/clothing/accessory/A, mob/user, unequip = FALSE)
 	if(can_attach_accessory(A))
-		if(unequip && !user.drop_item_ground(A)) // Make absolutely sure this accessory is removed from hands
+		if(unequip && !user.drop_item_ground(A, ignore_pixel_shift = TRUE)) // Make absolutely sure this accessory is removed from hands
 			return FALSE
 
 		accessories += A
@@ -917,7 +918,8 @@ BLIND     // can't see anything
 		"Farwa" = 'icons/mob/clothing/species/monkey/neck.dmi',
 		"Wolpin" = 'icons/mob/clothing/species/monkey/neck.dmi',
 		"Neara" = 'icons/mob/clothing/species/monkey/neck.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/neck.dmi'
+		"Stok" = 'icons/mob/clothing/species/monkey/neck.dmi',
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/neck.dmi'
 		)
 
 /obj/item/clothing/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)

@@ -33,7 +33,7 @@
 	var/large = FALSE
 	var/heat_protection = 0.5
 	var/leaping = FALSE
-	var/dirslash_enabled = TRUE
+	dirslash_enabled = TRUE
 	ventcrawler = 1
 	var/death_message = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	var/death_sound = 'sound/voice/hiss6.ogg'
@@ -177,7 +177,7 @@
 
 /mob/living/carbon/alien/movement_delay()
 	. = ..()
-	. += move_delay_add + config.alien_delay //move_delay_add is used to slow aliens with stuns
+	. += move_delay_add + CONFIG_GET(number/alien_delay) //move_delay_add is used to slow aliens with stuns
 
 /mob/living/carbon/alien/getDNA()
 	return null

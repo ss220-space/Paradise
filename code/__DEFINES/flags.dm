@@ -31,6 +31,7 @@
 
 #define NO_PIXEL_RANDOM_DROP	131072	// If dropped, it wont have a randomized pixel_x/pixel_y
 
+#define BLOCK_CAPSAICIN			262144 	// Prevents from passing capsaicin onto human
 
 /* Secondary atom flags, for the flags_2 var, denoted with a _2 */
 
@@ -119,6 +120,11 @@
 #define PASSDOOR		128
 #define PASS_OTHER_THINGS 256
 #define PASS_EVERYTHING PASSTABLE|PASSGLASS|PASSGRILLE|PASSBLOB|PASSMOB|LETPASSTHROW|PASSFENCE|PASSDOOR|PASS_OTHER_THINGS
+
+// for /datum/var/datum_flags
+#define DF_USE_TAG (1<<0)
+#define DF_VAR_EDITED (1<<1)
+#define DF_ISPROCESSING (1<<2)
 
 //turf-only flags
 #define NOJAUNT		1

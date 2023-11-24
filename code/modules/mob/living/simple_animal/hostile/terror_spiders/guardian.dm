@@ -46,15 +46,16 @@
 	var/max_queen_range = 15
 
 /mob/living/simple_animal/hostile/poison/terror_spider/guardian/spider_specialattack(mob/living/carbon/human/L)
+	. = ..()
+
+	if(!.)
+		return FALSE
+
 	L.adjustStaminaLoss(15)
 	if(prob(20))
-		playsound(src, 'sound/creatures/terrorspiders/bite2.ogg', 120, 1)
-		do_attack_animation(L)
 		visible_message("<span class='danger'>[src] rams into [L], knocking [L.p_them()] to the floor!</span>")
 		L.adjustBruteLoss(20)
 		L.Weaken(4 SECONDS)
-	else
-		..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/guardian/death(gibbed)
 	if(can_die() && spider_myqueen)

@@ -161,13 +161,14 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return 0
 	return 1
 
-/obj/structure/window/CanAStarPass(ID, to_dir)
-	if(!density)
-		return 1
-	if((dir == FULLTILE_WINDOW_DIR) || (dir == to_dir))
-		return 0
 
-	return 1
+/obj/structure/window/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+	if(!density)
+		return TRUE
+	if((dir == FULLTILE_WINDOW_DIR) || (dir == to_dir) || fulltile)
+		return FALSE
+	return TRUE
+
 
 /obj/structure/window/attack_tk(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -498,6 +499,33 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	if(exposed_temperature > (T0C + heat_resistance))
 		take_damage(round(exposed_volume / 100), BURN, 0, 0)
 
+
+/obj/structure/window/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	var/shattered = FALSE
+	if(damage * 2 >= obj_integrity && shardtype && !mob_hurt)
+		shattered = TRUE
+		var/obj/item/S = new shardtype(loc)
+		S.embedded_ignore_throwspeed_threshold = TRUE
+		S.throw_impact(C)
+		S.embedded_ignore_throwspeed_threshold = FALSE
+		damage *= (4/3) //Inverts damage loss from being a structure, since glass breaking on you hurts
+		var/turf/T = get_turf(src)
+		for(var/obj/structure/grille/G in T.contents)
+			var/obj/structure/cable/SC = T.get_cable_node()
+			if(SC)
+				playsound(G, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
+				tesla_zap(G, 3, SC.newavail() * 0.01) //Zap for 1/100 of the amount of power. At a million watts in the grid, it will be as powerful as a tesla revolver shot.
+				SC.add_delayedload(SC.newavail() * 0.0375) // you can gain up to 3.5 via the 4x upgrades power is halved by the pole so thats 2x then 1X then .5X for 3.5x the 3 bounces shock.
+			qdel(G) //We don't want the grille to block the way, we want rule of cool of throwing people into space!
+
+	if(!self_hurt)
+		take_damage(damage * 2, BRUTE) //Makes windows more vunerable to being thrown so they'll actually shatter in a reasonable ammount of time.
+		self_hurt = TRUE
+	..()
+	if(shattered)
+		C.throw_at(throwingdatum.target, throwingdatum.maxrange - 1, throwingdatum.speed - 1) //Annnnnnnd yeet them into space, but slower, now that everything is dealt with
+
+
 /obj/structure/window/GetExplosionBlock()
 	return reinf && fulltile ? real_explosion_block : 0
 
@@ -630,6 +658,20 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/structure/window/plasmareinforced/BlockSuperconductivity()
 	return 1 //okay this SHOULD MAKE THE TOXINS CHAMBER WORK
 
+/obj/structure/window/abductor
+	name = "alien window"
+	desc = "A window made out of a alien alloy. Looks like it can regenerate all damage."
+	icon_state = "alwindow"
+	shardtype = /obj/item/shard
+	glass_type = /obj/item/stack/sheet/abductorglass
+	heat_resistance = 1600
+	max_integrity = 150
+	explosion_block = 1
+	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+
+/obj/structure/window/abductor/Initialize(mapload, direct)
+	..()
+	AddComponent(/datum/component/obj_regenerate)
 /obj/structure/window/full
 	glass_amount = 2
 	dir = FULLTILE_WINDOW_DIR
@@ -713,6 +755,24 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	icon_state = "ice_window"
 	max_integrity = 150
 	cancolor = FALSE
+
+/obj/structure/window/full/abductor
+	name = "alien window"
+	desc = "A alien alloy window. Looks like it regenerate all damage."
+	icon = 'icons/obj/smooth_structures/alien_window.dmi'
+	icon_state = "al_window"
+	shardtype = /obj/item/shard
+	glass_type = /obj/item/stack/sheet/abductorglass
+	heat_resistance = 1600
+	max_integrity = 300
+	smooth = SMOOTH_TRUE
+	explosion_block = 1
+	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+	canSmoothWith = list(/obj/structure/window/full/abductor)
+
+/obj/structure/window/full/abductor/Initialize(mapload, direct)
+	..()
+	AddComponent(/datum/component/obj_regenerate)
 
 /obj/structure/window/full/shuttle
 	name = "shuttle window"

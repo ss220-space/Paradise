@@ -951,10 +951,9 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	ADD_TRAIT(M, TRAIT_GOTTAGOFAST, id)
 	if(M.health < 50 && M.health > 0)
-		update_flags |= M.adjustOxyLoss(-0.5, FALSE)
-		update_flags |= M.adjustToxLoss(-0.5, FALSE)
-		update_flags |= M.adjustBruteLoss(-0.5, FALSE)
-		update_flags |= M.adjustFireLoss(-0.5, FALSE)
+		update_flags |= M.adjustOxyLoss(-2, FALSE)
+		update_flags |= M.adjustBruteLoss(-2, FALSE)
+		update_flags |= M.adjustFireLoss(-2, FALSE)
 	M.AdjustParalysis(-6 SECONDS)
 	M.AdjustStunned(-6 SECONDS)
 	M.AdjustWeakened(-6 SECONDS)
@@ -1350,7 +1349,7 @@
 						I.heal_internal_damage(4)
 					if(H.blood_volume < BLOOD_VOLUME_NORMAL * 0.9)// If below 90% blood, regenerate 225 units total
 						H.blood_volume += 15
-					for(var/datum/disease/critical/heart_failure/HF in H.viruses)
+					for(var/datum/disease/critical/heart_failure/HF in H.diseases)
 						HF.cure() //Won't fix a stopped heart, but it will sure fix a critical one. Shock is not fixed as healing will fix it
 				if(M.health < 40)
 					update_flags |= M.adjustOxyLoss(-3, FALSE)
@@ -1447,3 +1446,31 @@
 	..()
 	return TRUE
 
+/datum/reagent/medicine/adrenaline
+	name = "adrenaline"
+	id = "adrenaline"
+	description = "A powerfull stimulant that makes you immune to stuns for duration"
+	color = "#C8A5DC"
+	metabolization_rate = 0.8 * REAGENTS_METABOLISM
+	overdose_threshold = 2.1
+	shock_reduction = 80
+	harmless = TRUE
+	can_synth = FALSE
+
+/datum/reagent/medicine/adrenaline/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.setStaminaLoss(0, FALSE)
+	var/status = CANSTUN | CANWEAKEN | CANPARALYSE
+	M.status_flags &= ~status
+
+	return ..() | update_flags
+
+/datum/reagent/medicine/adrenaline/on_mob_delete(mob/living/M)
+	M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
+	..()
+
+/datum/reagent/medicine/adrenaline/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(10, FALSE)
+
+	return list(0, update_flags)

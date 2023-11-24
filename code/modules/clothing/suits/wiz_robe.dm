@@ -38,6 +38,7 @@
 	item_state = "wizhatmime"
 	dog_fashion = null
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
@@ -59,6 +60,7 @@
 	resistance_flags = FLAMMABLE
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
 	)
 
@@ -122,6 +124,7 @@
 	icon_state = "wizzmime"
 	item_state = "wizzmime"
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
@@ -144,6 +147,7 @@
 	icon_state = "magusblue"
 	item_state = "magusblue"
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -156,6 +160,7 @@
 	icon_state = "magusred"
 	item_state = "magusred"
 	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi',

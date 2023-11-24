@@ -47,7 +47,7 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/clothing/suit/hooded/dropped()
+/obj/item/clothing/suit/hooded/dropped(mob/user, silent = FALSE)
 	..()
 	RemoveHood()
 
@@ -78,7 +78,7 @@
 	suit = null
 	return ..()
 
-/obj/item/clothing/head/hooded/dropped()
+/obj/item/clothing/head/hooded/dropped(mob/user, silent = FALSE)
 	..()
 	if(suit)
 		suit.RemoveHood()

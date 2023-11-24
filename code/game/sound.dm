@@ -91,7 +91,9 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		S.volume *= client.prefs.get_channel_volume(channel)
 
 	if(vary)
-		if(frequency)
+		if(islist(vary))
+			S.frequency = rand(vary[1], vary[2])
+		else if(frequency)
 			S.frequency = frequency
 		else
 			S.frequency = get_rand_frequency()
@@ -175,7 +177,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	SEND_SOUND(src, S)
 
 /client/proc/playtitlemusic()
-	if(!SSticker || !SSticker.login_music || config.disable_lobby_music)
+	if(!SSticker || !SSticker.login_music || CONFIG_GET(flag/disable_lobby_music))
 		return
 	if(prefs.sound & SOUND_LOBBY)
 		SEND_SOUND(src, sound(SSticker.login_music, repeat = 0, wait = 0, volume = 85 * prefs.get_channel_volume(CHANNEL_LOBBYMUSIC), channel = CHANNEL_LOBBYMUSIC)) // MAD JAMS

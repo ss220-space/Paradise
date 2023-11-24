@@ -181,13 +181,13 @@
 	name = "Abandoned Teleporter"
 	description = "An old teleporter, seemingly part of what used to be a larger satellite."
 
-/datum/map_template/ruin/space/blowntcommsat
-	id = "blowntcommsat"
-	suffix = "blowntcommsat.dmm"
-	name = "Blown-out Telecommunications Satellite"
-	description = "The remains of an old telecommunications satellite once utilised by NanoTrasen. It lays derelict, with quite a few pieces missing."
-	cost = 5 // This is a chonky boy
-	allow_duplicates = FALSE // Absolutely huge, also has its own APC and the area isnt set to allow many
+/datum/map_template/ruin/space/spaceprison
+	id = "spaceprison"
+	suffix = "spaceprison.dmm"
+	name = "Space Prison"
+	description = "This is an abandoned space prison. It looks like it was stormed and many things were stolen."
+	cost = 3
+	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/clownmime
 	id = "clownmime"

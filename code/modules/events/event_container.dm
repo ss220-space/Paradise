@@ -14,6 +14,26 @@ GLOBAL_LIST_INIT(severity_to_string, list(
 	EVENT_LEVEL_MAJOR = "Major",
 	EVENT_LEVEL_NONE = "None",
 ))
+
+GLOBAL_LIST_INIT(string_to_severity, list(	//Config compatibility thing
+	"ev_level_mundane" = EVENT_LEVEL_MUNDANE,
+	"ev_level_moderate" = EVENT_LEVEL_MODERATE,
+	"ev_level_major" = EVENT_LEVEL_MAJOR,
+	"ev_level_none" = EVENT_LEVEL_NONE
+))
+
+GLOBAL_LIST_INIT(event_delay_lower, list(  //redacted by /datum/config_entry/keyed_list/event_delay_lower
+	EVENT_LEVEL_MUNDANE = 10 MINUTES,
+	EVENT_LEVEL_MODERATE = 30 MINUTES,
+	EVENT_LEVEL_MAJOR = 50 MINUTES
+))
+
+GLOBAL_LIST_INIT(event_delay_upper, list( //redacted by /datum/config_entry/keyed_list/event_delay_upper
+	EVENT_LEVEL_MUNDANE = 10 MINUTES,
+	EVENT_LEVEL_MODERATE = 45 MINUTES,
+	EVENT_LEVEL_MAJOR = 70 MINUTES
+))
+
 GLOBAL_LIST_EMPTY(event_last_fired)
 
 /datum/event_container
@@ -34,7 +54,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	if(delayed)
 		next_event_time += (world.time - last_world_time)
 	else if(world.time > next_event_time)
-		if(config.allow_random_events)
+		if(CONFIG_GET(flag/allow_random_events))
 			start_event()
 
 	last_world_time = world.time
@@ -72,7 +92,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 
 	for(var/event_meta in last_event_time) if(possible_events[event_meta])
 		var/time_passed = world.time - GLOB.event_last_fired[event_meta]
-		var/weight_modifier = max(0, (config.expected_round_length - time_passed) / 300)
+		var/weight_modifier = max(0, (CONFIG_GET(number/expected_round_length) - time_passed) / 300)
 		var/new_weight = max(possible_events[event_meta] - weight_modifier, 0)
 
 		if(new_weight)
@@ -85,14 +105,28 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 
 	// Select an event and remove it from the pool of available events
 	var/picked_event = pickweight(possible_events)
-	available_events -= picked_event
+	var/datum/event_meta/EM = picked_event
+	if(EM.one_shot)
+		available_events -= picked_event
 	return picked_event
 
 /datum/event_container/proc/set_event_delay()
+
+	var/list/bounds = null
+	switch(severity)
+		if(EVENT_LEVEL_MUNDANE)
+			bounds = CONFIG_GET(keyed_list/event_custom_start_minor)
+		if(EVENT_LEVEL_MODERATE)
+			bounds = CONFIG_GET(keyed_list/event_custom_start_moderate)
+		if(EVENT_LEVEL_MAJOR)
+			bounds = CONFIG_GET(keyed_list/event_custom_start_major)
+		else
+			bounds = null //не должно происходить
+
 	// If the next event time has not yet been set and we have a custom first time start
-	if(next_event_time == 0 && config.event_first_run[severity])
-		var/lower = config.event_first_run[severity]["lower"]
-		var/upper = config.event_first_run[severity]["upper"]
+	if(next_event_time == 0 && bounds)
+		var/lower = bounds["lower"] MINUTES
+		var/upper = bounds["upper"] MINUTES
 		var/event_delay = rand(lower, upper)
 		next_event_time = world.time + event_delay
 	// Otherwise, follow the standard setup process
@@ -116,7 +150,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 
 		playercount_modifier = playercount_modifier * delay_modifier
 
-		var/event_delay = rand(config.event_delay_lower[severity], config.event_delay_upper[severity]) * playercount_modifier
+		var/event_delay = rand(GLOB.event_delay_lower[severity], GLOB.event_delay_upper[severity]) * playercount_modifier
 		next_event_time = world.time + event_delay
 
 	log_debug("Next event of severity [GLOB.severity_to_string[severity]] in [(next_event_time - world.time)/600] minutes.")
@@ -127,7 +161,8 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		return
 	if(next_event)
 		available_events += next_event
-	available_events -= EM
+	if(EM.one_shot)
+		available_events -= EM
 	next_event = EM
 	return EM
 
@@ -169,6 +204,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Нашествие пауков",			/datum/event/spider_infestation, 		100,	list(ASSIGNMENT_SECURITY = 30), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Ионный тайфун",			/datum/event/ion_typhoon, 				100,		list(ASSIGNMENT_AI = 50, ASSIGNMENT_CYBORG = 50, ASSIGNMENT_ENGINEER = 15, ASSIGNMENT_SCIENTIST = 5)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Нашествие бореров",		/datum/event/borer_infestation, 		40,		list(ASSIGNMENT_SECURITY = 30), TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Нашествие хедслагов",		/datum/event/headslug_infestation, 		40,		list(ASSIGNMENT_SECURITY = 30), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Несдвигаемый стержень",	/datum/event/immovable_rod,				0,		list(ASSIGNMENT_ENGINEER = 30), TRUE),
 		// NON-BAY EVENTS
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Массовые галлюцинации",	/datum/event/mass_hallucination,		300),
@@ -205,7 +241,9 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Визит абдукторов",/datum/event/abductor, 		    20, 					list(ASSIGNMENT_SECURITY =  3), TRUE),	// 5.8% on high pop, 4.5% on low pop
 		new /datum/event_meta/alien(EVENT_LEVEL_MAJOR, "Заражение ксеноморфами",	/datum/event/alien_infestation, 		20,		list(ASSIGNMENT_SECURITY = 4), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Пауки Ужаса",		/datum/event/spider_terror, 	20,						list(ASSIGNMENT_SECURITY = 4), TRUE),	// 7.1% on high pop, 5.3% on low pop
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Демон Резни",		/datum/event/spawn_slaughter,	10,  is_one_shot = TRUE),	// 3% on high pop, 2.1% on low pop
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Демон Резни",		/datum/event/spawn_slaughter,	20,  is_one_shot = TRUE),	// 3% on high pop, 2.1% on low pop
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Демон Смеха",		/datum/event/spawn_slaughter/laughter,	20,  is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Теневой Демон", /datum/event/spawn_slaughter/shadow,	20, 	is_one_shot = TRUE),
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Floor Cluwne",	/datum/event/spawn_floor_cluwne,	15, is_one_shot = TRUE)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Космический Дракон", /datum/event/space_dragon, 20, 						list(ASSIGNMENT_SECURITY = 4), TRUE),
 	)

@@ -4793,9 +4793,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/camera/autoname{
-	dir = 8
-	},
 /obj/machinery/door_control{
 	id = "g17extlock";
 	name = "Gorky17 exterior lockdown";
@@ -4813,6 +4810,11 @@
 /obj/structure/table,
 /obj/machinery/photocopier/faxmachine/longrange/ussp{
 	department = "Gorky 17"
+	},
+/obj/machinery/camera/autoname{
+	dir = 8;
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
@@ -4933,11 +4935,14 @@
 	icon_state = "2-8"
 	},
 /obj/effect/decal/warning_stripes/northeast,
-/obj/machinery/camera/autoname,
 /obj/machinery/suit_storage_unit{
 	name = "Soviet hardsuit storage unit";
 	req_access = list(122);
 	state_open = 1
+	},
+/obj/machinery/camera/autoname{
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
@@ -17012,7 +17017,6 @@
 	dir = 1;
 	flickering = 1
 	},
-/obj/machinery/camera/autoname,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "Yb" = (
