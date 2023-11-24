@@ -206,3 +206,26 @@
   - tweak: DNA and Species Change not regenerate missing limbs and organs (#3848)
   captainnelly:
   - tweak: posters update  (#3784)
+'2023-11-22':
+  Daeberdir:
+  - bugfix: sofas `dir` corrections. (#3917)
+  Den109G:
+  - bugfix: Standartizes grilles. (#3915)
+  Zwei:
+  - bugfix: New Organs Pop Fix (#3924)
+'2023-11-24':
+  Daeberdir:
+  - bugfix: correct checks and correct desc changing for poncho repainting (#3929)
+  - bugfix: pet collar announces mob death to "station owner" channel. (#3904)
+  Etrnlmelancholy:
+  - tweak: hawaii update (#3916)
+  Ksaikok46:
+  - add: dice of fate in uplink for librarian (#3927)
+  - add: babel book in uplink for chaplain and librarian (#3928)
+  LiquidPotroh:
+  - tweak: unathi are no more immune to embed (#3914)
+  ROdenFL:
+  - qol: you can on and off your dirslash from MA (#3921)
+  - add: combo counter (#3881)
+  Vladisvell:
+  - bugfix: Power loss is now calculated correctly on scoreboard (#3922)
