@@ -25,19 +25,17 @@
 
 /obj/machinery/computer/pandemic/proc/GetDiseaseByIndex(index)
 	if(beaker?.reagents?.reagent_list.len)
-		var/datum/reagent/blood/BL = locate() in beaker.reagents.reagent_list
-		if(BL?.data && BL.data["diseases"])
-			var/list/diseases = BL.data["diseases"]
-			return diseases[index]
+		for(var/datum/reagent/BL in beaker.reagents.reagent_list)
+			if(BL?.data && BL.data["diseases"])
+				var/list/diseases = BL.data["diseases"]
+				return diseases[index]
 
 /obj/machinery/computer/pandemic/proc/GetResistancesByIndex(index)
-	if(beaker && beaker.reagents)
-		if(beaker.reagents.reagent_list.len)
-			var/datum/reagent/blood/BL = locate() in beaker.reagents.reagent_list
-			if(BL)
-				if(BL.data && BL.data["resistances"])
-					var/list/resistances = BL.data["resistances"]
-					return resistances[index]
+	if(beaker?.reagents?.reagent_list.len)
+		for(var/datum/reagent/BL in beaker.reagents.reagent_list)
+			if(BL?.data && BL.data["resistances"])
+				var/list/resistances = BL.data["resistances"]
+				return resistances[index]
 
 /obj/machinery/computer/pandemic/proc/GetDiseaseTypeByIndex(index)
 	var/datum/disease/D = GetDiseaseByIndex(index)
