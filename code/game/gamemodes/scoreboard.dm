@@ -268,7 +268,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 		if(!is_station_level(apc.z))
 			continue
 		var/obj/item/stock_parts/cell/cell = apc.cell
-		if(!cell?.charge < 2300)
+		if(!cell || cell.charge < 2300)
 			score_power_loss++ //200 charge leeway
 
 
