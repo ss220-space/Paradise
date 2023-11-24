@@ -483,6 +483,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 0
 	hijack_only = TRUE
 
+/datum/uplink_item/jobspecific/dice_of_fate
+	name = "Dice of fate"
+	desc = "Everything or nothing; that is my motto."
+	reference = "DOF"
+	item = /obj/item/dice/d20/fate/one_use
+	cost = 20
+	job = list("Librarian")
+	surplus = 0
+	cant_discount = TRUE
+
 //Botanist
 /datum/uplink_item/jobspecific/ambrosiacruciatus
 	name = "Ambrosia Cruciatus Seeds"
