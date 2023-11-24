@@ -68,10 +68,8 @@
 	occupant_message("<span class='notice'>You start putting [target] into [src]...</span>")
 	chassis.visible_message("<span class='warning'>[chassis] starts putting [target] into \the [src].</span>")
 	if(!do_after_cooldown(target))
-		start_cooldown()
 		return FALSE
 	if(!patient_insertion_check(target))
-		start_cooldown()
 		return FALSE
 	target.forceMove(src)
 	patient = target
@@ -80,6 +78,7 @@
 	occupant_message("<span class='notice'>[target] successfully loaded into [src]. Life support functions engaged.</span>")
 	chassis.visible_message("<span class='warning'>[chassis] loads [target] into [src].</span>")
 	log_message("[target] loaded. Life support functions engaged.")
+	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/patient_insertion_check(mob/living/carbon/target)
 	if(target.buckled)
@@ -94,6 +93,8 @@
 	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/go_out()
+	if(!action_checks(src))
+		return FALSE
 	if(!patient)
 		return
 	patient.forceMove(get_turf(src))
@@ -124,9 +125,7 @@
 		onclose(chassis.occupant, "msleeper")
 		return
 	else if(afilter.get("inject"))
-		if(equip_ready)
-			inject_reagent(afilter.getType("inject",/datum/reagent),afilter.getObj("source"))
-			start_cooldown()
+		inject_reagent(afilter.getType("inject",/datum/reagent),afilter.getObj("source"))
 	return
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/get_patient_stats()
@@ -198,6 +197,9 @@
 
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/inject_reagent(datum/reagent/R,obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/SG)
+	if(!action_checks(src))
+		return FALSE
+
 	if(!R || !patient || !SG || !(SG in chassis.equipment))
 		return
 
@@ -219,7 +221,7 @@
 		chosen_reagent.reaction(patient, method, fraction)
 		chosen_reagent.trans_to(patient, to_inject)
 		update_equip_info()
-
+		start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/update_equip_info()
 	if(..())

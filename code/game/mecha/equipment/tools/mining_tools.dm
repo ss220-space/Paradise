@@ -33,13 +33,12 @@
 						span_italics("You hear drilling."))
 
 	if(do_after_cooldown(target))
-		set_ready_state(FALSE)
 		log_message("Started drilling [target]")
 		if(isturf(target))
 			var/turf/T = target
 			T.drill_act(src)
-			start_cooldown()
 			return
+		set_ready_state(FALSE)
 		while(do_after_mecha(target, drill_delay))
 			if(isliving(target))
 				drill_mob(target, chassis.occupant)
@@ -51,7 +50,7 @@
 			else
 				set_ready_state(TRUE)
 				return
-		start_cooldown()
+		set_ready_state(TRUE)
 
 /turf/proc/drill_act(obj/item/mecha_parts/mecha_equipment/drill/drill)
 	return
