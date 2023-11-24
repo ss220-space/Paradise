@@ -5,7 +5,7 @@
 	icobase = 'icons/mob/human_races/r_golem.dmi'
 	deform = 'icons/mob/human_races/r_golem.dmi'
 
-	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, NOGUNS, PIERCEIMMUNE)
+	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, NOGUNS, PIERCEIMMUNE, EMBEDIMMUNE)
 	dies_at_threshold = TRUE
 	speed_mod = 2
 	brute_mod = 0.45 //55% damage reduction
@@ -439,7 +439,7 @@
 	name = "Деревянный Голем"
 	golem_colour = rgb(158, 112, 75)
 	skinned_type = /obj/item/stack/sheet/wood
-	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, NOGUNS, PIERCEIMMUNE, IS_PLANT)
+	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, NOGUNS, PIERCEIMMUNE, EMBEDIMMUNE, IS_PLANT)
 	//Can burn and take damage from heat
 	brute_mod = 0.7 //30% damage reduction down from 55%
 	burn_mod = 0.875
