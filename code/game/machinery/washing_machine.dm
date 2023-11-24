@@ -76,7 +76,7 @@
 			var/new_softcap_icon_state = ""
 			var/new_softcap_name = ""
 			var/new_poncho_icon_state = ""
-			var/new_poncho_item_state = ""
+			var/new_poncho_desc = ""
 			var/new_poncho_name = ""
 			var/new_desc = "The colors are a bit dodgy."
 			for(var/T in typesof(/obj/item/clothing/under))
@@ -134,7 +134,7 @@
 				var/obj/item/clothing/neck/poncho/P = new T
 				if(wash_color == P.item_color)
 					new_poncho_icon_state = P.icon_state
-					new_poncho_item_state = P.item_state
+					new_poncho_desc = P.desc
 					new_poncho_name = P.name
 					qdel(P)
 					break
@@ -193,14 +193,14 @@
 					H.item_color = wash_color
 					H.name = new_softcap_name
 					H.desc = new_desc
-			if(new_poncho_icon_state && new_poncho_item_state && new_poncho_name)
+			if(new_poncho_icon_state && new_poncho_name)
 				for(var/obj/item/clothing/neck/poncho/P in contents)
 					if(!P.dyeable)
 						continue
-					P.item_state = new_poncho_item_state
 					P.icon_state = new_poncho_icon_state
 					P.item_color = wash_color
 					P.name = new_poncho_name
+					P.desc = "[new_poncho_desc] [new_desc]"
 		QDEL_NULL(crayon)
 
 
