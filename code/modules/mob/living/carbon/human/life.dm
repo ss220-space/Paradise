@@ -660,9 +660,7 @@
 		if(nutrition >= 0 && stat != DEAD)
 			handle_nutrition_alerts()
 			// THEY HUNGER
-			var/vamp = mind?.has_antag_datum(/datum/antagonist/vampire)
-			var/g_vamp = mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-			var/hunger_rate = (vamp || g_vamp) ? initial(hunger_drain) : hunger_drain
+			var/hunger_rate = isvampire(src) ? initial(hunger_drain) : hunger_drain
 			if(satiety > 0)
 				satiety--
 			if(satiety < 0)
