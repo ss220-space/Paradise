@@ -167,14 +167,13 @@
 
 	if(iscarbon(AM))
 		var/mob/living/carbon/C = AM
+		if(blood_data["diseases"])
+			for(var/datum/disease/virus/V in blood_data["diseases"])
+				if(V.spread_flags < BLOOD)
+					continue
+				V.Contract(C)
 		if(blood_id == C.get_blood_id())//both mobs have the same blood substance
 			if(blood_id == "blood") //normal blood
-				if(blood_data["diseases"])
-					for(var/thing in blood_data["diseases"])
-						var/datum/disease/virus/V = thing
-						if(V.spread_flags < BLOOD)
-							continue
-						V.Contract(C)
 				if(!(blood_data["blood_type"] in get_safe_blood(C.dna.blood_type)) || !(blood_data["blood_species"] == C.dna.species.blood_species))
 					C.reagents.add_reagent("toxin", amount * 0.5)
 					return 1

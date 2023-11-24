@@ -127,32 +127,9 @@
 		SetViruses(src, data)
 
 /datum/reagent/blood/on_merge(list/mix_data)
+	merge_diseases_data(mix_data)
 	if(data && mix_data)
 		data["cloneable"] = 0 //On mix, consider the genetic sampling unviable for pod cloning, or else we won't know who's even getting cloned, etc
-		if(data["diseases"] || mix_data["diseases"])
-
-			var/list/mix1 = data["diseases"]
-			var/list/mix2 = mix_data["diseases"]
-
-			// Stop issues with the list changing during mixing.
-			var/list/to_mix = list()
-
-			for(var/datum/disease/virus/advance/AD in mix1)
-				to_mix += AD
-			for(var/datum/disease/virus/advance/AD in mix2)
-				to_mix += AD
-
-			var/datum/disease/virus/advance/AD = Advance_Mix(to_mix)
-			var/list/preserve = list()
-
-			if(istype(AD))
-				preserve += AD
-
-			for(var/datum/disease/D in data["diseases"] + mix_data["diseases"])
-				if(!istype(D, /datum/disease/virus/advance))
-					preserve += D.Copy()
-			data["diseases"] = preserve
-
 		if(mix_data["blood_color"])
 			color = mix_data["blood_color"]
 	return 1

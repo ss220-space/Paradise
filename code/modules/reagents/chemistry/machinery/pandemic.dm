@@ -228,8 +228,13 @@
 	else
 		var/datum/reagents/R = beaker.reagents
 		var/datum/reagent/Blood = null
+		var/static/list/virus_carrier_reagents = list(
+			/datum/reagent/blood,
+			/datum/reagent/slimejelly,
+			/datum/reagent/medicine/cryoxadone,
+		)
 		for(var/datum/reagent/B in R.reagent_list)
-			if(istype(B, /datum/reagent/blood) || istype(B, /datum/reagent/slimejelly) || istype(B, /datum/reagent/medicine/cryoxadone))
+			if(is_type_in_list(B, virus_carrier_reagents))
 				Blood = B
 				if(!Blood.data)
 					continue
