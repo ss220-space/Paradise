@@ -7,6 +7,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	ROLE_POSIBRAIN = 0,
 	ROLE_GUARDIAN = 0,
 	ROLE_TRAITOR = 7,
+	ROLE_MALF_AI = 7,
 	ROLE_THIEF = 7,
 	ROLE_CHANGELING = 14,
 	ROLE_SHADOWLING = 14,
@@ -43,7 +44,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		return 0
 	if(!role)
 		return 0
-	if(!config.use_age_restriction_for_antags)
+	if(!CONFIG_GET(flag/use_age_restriction_for_antags))
 		return 0
 	if(!isnum(C.player_age))
 		return 0 //This is only a number if the db connection is established, otherwise it is text: "Requires database", meaning these restrictions cannot be enforced
@@ -105,7 +106,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/spawnpoint = "Arrivals Shuttle" //where this character will spawn (0-2).
 	var/b_type = "A+"					//blood type (not-chooseable)
 	var/underwear = "Nude"					//underwear type
+	var/underwear_color = "#ffffff"			//underwear color if underwear allows it
 	var/undershirt = "Nude"					//undershirt type
+	var/undershirt_color = "#ffffff"			//undershirt color if undershirt allows it
 	var/socks = "Nude"					//socks type
 	var/backbag = GBACKPACK				//backpack type
 	var/ha_style = "None"				//Head accessory style
@@ -245,7 +248,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	parent = C
 	b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
 	parent?.set_macros()
-	max_gear_slots = config.max_loadout_points
+	max_gear_slots = CONFIG_GET(number/max_loadout_points)
 	var/loaded_preferences_successfully = FALSE
 	if(istype(C))
 		if(!IsGuestKey(C.key))
@@ -413,7 +416,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<h2>Special Role</h2>"
 			dat += "<b>Uplink Location:</b> <a href='?_src_=prefs;preference=uplink_pref;task=input'>[uplink_pref]</a><br>"
 
-			if(config.tts_enabled)
+			if(CONFIG_GET(flag/tts_enabled))
 				dat += "<h2>Text-to-Speech</h2>"
 				dat += "<b>Выбор голоса:</b> <a href='?_src_=prefs;preference=tts_seed;task=input'>Эксплорер TTS голосов</a><br>"
 
@@ -488,8 +491,14 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<h2>Clothing</h2>"
 			if(S.clothing_flags & HAS_UNDERWEAR)
 				dat += "<b>Underwear:</b> <a href ='?_src_=prefs;preference=underwear;task=input'>[underwear]</a><BR>"
+				var/datum/sprite_accessory/underwear/uwear = GLOB.underwear_list[underwear]
+				if(uwear?.allow_change_color)
+					dat += "<b>Underwear Color:</b> <a href ='?_src_=prefs;preference=underwear_color;task=input'>Color</a> [color_square(underwear_color)]<BR>"
 			if(S.clothing_flags & HAS_UNDERSHIRT)
 				dat += "<b>Undershirt:</b> <a href ='?_src_=prefs;preference=undershirt;task=input'>[undershirt]</a><BR>"
+				var/datum/sprite_accessory/undershirt/ushirt = GLOB.undershirt_list[undershirt]
+				if(ushirt?.allow_change_color)
+					dat += "<b>Undershirt Color:</b> <a href ='?_src_=prefs;preference=undershirt_color;task=input'>Color</a> [color_square(undershirt_color)]<BR>"
 			if(S.clothing_flags & HAS_SOCKS)
 				dat += "<b>Socks:</b> <a href ='?_src_=prefs;preference=socks;task=input'>[socks]</a><BR>"
 			dat += "<b>Backpack Type:</b> <a href ='?_src_=prefs;preference=bag;task=input'>[backbag]</a><br>"
@@ -524,7 +533,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Item Outlines:</b> <a href='?_src_=prefs;preference=item_outlines'><b>[(toggles2 & PREFTOGGLE_2_SEE_ITEM_OUTLINES) ? "Yes" : "No"]</b></a><br>"
 			if(check_rights(R_ADMIN,0))
 				dat += "<b>OOC Color:</b> <span style='border: 1px solid #161616; background-color: [ooccolor ? ooccolor : GLOB.normal_ooc_colour];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=ooccolor;task=input'><b>Change</b></a><br>"
-			if(config.allow_Metadata)
+			if(CONFIG_GET(flag/allow_metadata))
 				dat += "<b>OOC Notes:</b> <a href='?_src_=prefs;preference=metadata;task=input'><b>Edit</b></a><br>"
 			dat += "<b>Parallax (Fancy Space):</b> <a href='?_src_=prefs;preference=parallax'>"
 			switch (parallax)
@@ -1267,9 +1276,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				ResetJobs()
 				SetChoices(user)
 			if("learnaboutselection")
-				if(config.wikiurl)
+				if(CONFIG_GET(string/wikiurl))
 					if(alert("Would you like to open the Job selection info in your browser?", "Open Job Selection", "Yes", "No") == "Yes")
-						user << link("[config.wikiurl]/index.php/Job_Selection_and_Assignment")
+						user << link("[CONFIG_GET(string/wikiurl)]/index.php/Job_Selection_and_Assignment")
 				else
 					to_chat(user, "<span class='danger'>The Wiki URL is not set in the server configuration.</span>")
 			if("random")
@@ -1488,7 +1497,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/prev_species = species
 //						var/whitelisted = 0
 
-					if(config.usealienwhitelist) //If we're using the whitelist, make sure to check it!
+					if(CONFIG_GET(flag/usealienwhitelist)) //If we're using the whitelist, make sure to check it!
 						for(var/Spec in GLOB.whitelisted_species)
 							if(is_alien_whitelisted(user,Spec))
 								new_species += Spec
@@ -1581,7 +1590,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 //						var/languages_available
 					var/list/new_languages = list("None")
 /*
-					if(config.usealienwhitelist)
+					if(CONFIG_GET(flag/usealienwhitelist))
 						for(var/L in GLOB.all_languages)
 							var/datum/language/lang = GLOB.all_languages[L]
 							if((!(lang.flags & RESTRICTED)) && (is_alien_whitelisted(user, L)||(!( lang.flags & WHITELISTED ))))
@@ -1906,6 +1915,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					ShowChoices(user)
 					if(new_underwear)
 						underwear = new_underwear
+
+				if("underwear_color")
+					var/new_uwear_color = input(user, "Choose your character's underwear colour:", "Character Preference", underwear_color) as color|null
+					if(new_uwear_color)
+						underwear_color = new_uwear_color
+
 				if("undershirt")
 					var/list/valid_undershirts = list()
 					for(var/undershirt in GLOB.undershirt_list)
@@ -1922,6 +1937,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					ShowChoices(user)
 					if(new_undershirt)
 						undershirt = new_undershirt
+
+				if("undershirt_color")
+					var/new_ushirt_color = input(user, "Choose your character's undershirt colour:", "Character Preference", undershirt_color) as color|null
+					if(new_ushirt_color)
+						undershirt_color = new_ushirt_color
 
 				if("socks")
 					var/list/valid_sockstyles = list()
@@ -2167,14 +2187,14 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						version_message = "\nYou need to be using byond version 511 or later to take advantage of this feature, your version of [user.client.byond_version] is too low"
 					if(world.byond_version < 511)
 						version_message += "\nThis server does not currently support client side fps. You can set now for when it does."
-					var/desiredfps = input(user, "Выберите желаемый FPS.[version_message]\n  0 = значение по умолчанию ([config.clientfps]) < РЕКОМЕНДОВАНО\n -1 = синхронизировано с сервером ([world.fps])\n30 = Может помочь при проблемах с плавностью.", "Настройка персонажа", clientfps)  as null|num
+					var/desiredfps = input(user, "Выберите желаемый FPS.[version_message]\n  0 = значение по умолчанию ([CONFIG_GET(number/clientfps)]) < РЕКОМЕНДОВАНО\n -1 = синхронизировано с сервером ([world.fps])\n30 = Может помочь при проблемах с плавностью.", "Настройка персонажа", clientfps)  as null|num
 					if(!isnull(desiredfps))
 						clientfps = desiredfps
 						if(world.byond_version >= 511 && user.client && user.client.byond_version >= 511)
 							if(clientfps)
 								parent.fps = clientfps
 							else
-								parent.fps = config.clientfps
+								parent.fps = CONFIG_GET(number/clientfps)
 
 
 		else
@@ -2258,8 +2278,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("afk_watch")
 					if(!(toggles2 & PREFTOGGLE_2_AFKWATCH))
-						to_chat(user, "<span class='info'>You will now get put into cryo dorms after [config.auto_cryo_afk] minutes. \
-								Then after [config.auto_despawn_afk] minutes you will be fully despawned. You will receive a visual and auditory warning before you will be put into cryodorms.</span>")
+						to_chat(user, "<span class='info'>You will now get put into cryo dorms after [CONFIG_GET(number/auto_cryo_afk)] minutes. \
+								Then after [CONFIG_GET(number/auto_despawn_afk)] minutes you will be fully despawned. You will receive a visual and auditory warning before you will be put into cryodorms.</span>")
 					else
 						to_chat(user, "<span class='info'>Automatic cryoing turned off.</span>")
 					toggles2 ^= PREFTOGGLE_2_AFKWATCH
@@ -2526,7 +2546,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	if(be_random_name)
 		real_name = random_name(gender,species)
 
-	if(config.humans_need_surnames)
+	if(CONFIG_GET(flag/humans_need_surnames))
 		var/firstspace = findtext(real_name, " ")
 		var/name_length = length(real_name)
 		if(!firstspace)	//we need a surname
@@ -2609,7 +2629,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		W.buckle_mob(character, TRUE)
 
 	character.underwear = underwear
+	character.color_underwear = underwear_color
 	character.undershirt = undershirt
+	character.color_undershirt = undershirt_color
 	character.socks = socks
 
 	if(character.dna.species.bodyflags & HAS_HEAD_ACCESSORY)

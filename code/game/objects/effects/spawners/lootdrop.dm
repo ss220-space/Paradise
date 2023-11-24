@@ -160,6 +160,7 @@
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 2,
 				/obj/item/storage/pill_bottle/fakedeath = 2,
 				/obj/item/storage/box/syndie_kit/mr_chang_technique = 1,
+				/obj/item/clothing/glasses/chameleon/meson = 7,
 				"" = 68
 				)
 
@@ -373,8 +374,8 @@
 		/obj/item/melee/classic_baton/telescopic = 100,
 		/obj/item/gun/projectile/shotgun/automatic/combat = 150,
 		/obj/item/gun/projectile/shotgun/automatic/dual_tube = 100,
-		/obj/item/storage/box/buck = 150,
-		/obj/item/ammo_box/shotgun/buck = 100,
+		/obj/item/ammo_box/shotgun/buck = 150,
+		/obj/item/ammo_box/speedloader/shotgun/buck = 100,
 		/obj/item/grenade/clusterbuster = 100,
 		/obj/item/grenade/clusterbuster/teargas = 50,
 		/obj/item/grenade/clusterbuster/n2o = 50)

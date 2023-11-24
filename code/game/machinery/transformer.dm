@@ -112,11 +112,12 @@
 	R.emagged = TRUE
 	if(R.mind && !R.client && !R.grab_ghost()) // Make sure this is an actual player first and not just a humanized monkey or something.
 		message_admins("[key_name_admin(R)] was just transformed by a borg factory, but they were SSD. Polling ghosts for a replacement.")
-		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a malfunctioning cyborg?", ROLE_TRAITOR, poll_time = 15 SECONDS)
+		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a malfunctioning cyborg?", ROLE_MALF_AI, poll_time = 15 SECONDS)
 		if(!length(candidates))
 			return
 		var/mob/dead/observer/O = pick(candidates)
 		R.key= O.key
+		log_game("[R.key] has become malfunctioning cyborg.")
 	SSticker?.score?.save_silicon_laws(R, additional_info = "malf AI factory transformation", log_all_laws = TRUE)
 
 

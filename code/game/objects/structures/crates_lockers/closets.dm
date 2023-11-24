@@ -89,7 +89,7 @@
 		if(throwing) // you keep some momentum when getting out of a thrown closet
 			step(AM, dir)
 	if(throwing)
-		throwing.finalize(FALSE)
+		throwing.finalize()
 
 /obj/structure/closet/proc/open()
 	if(opened || !can_open())
@@ -104,7 +104,12 @@
 	else
 		playsound(loc, 'sound/machines/click.ogg', 15, 1, -3)
 	density = 0
+	after_open()
 	return TRUE
+
+///Proc to override for effects after opening a door
+/obj/structure/closet/proc/after_open(mob/living/user, force = FALSE)
+	return
 
 /obj/structure/closet/proc/close()
 	if(!opened || !can_close())
@@ -132,6 +137,8 @@
 		if(istype(M, /mob/dead/observer))
 			continue
 		if(istype(M, /mob/living/simple_animal/bot/mulebot))
+			continue
+		if(istype(M, /mob/living/simple_animal/hostile/megafauna))
 			continue
 		if(M.buckled || M.anchored || M.has_buckled_mobs())
 			continue

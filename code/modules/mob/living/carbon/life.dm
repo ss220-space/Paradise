@@ -207,15 +207,6 @@
 		var/obj/item/organ/internal/O = thing
 		O.on_life()
 
-/mob/living/carbon/handle_diseases()
-	for(var/thing in viruses)
-		var/datum/disease/D = thing
-		if(prob(D.infectivity))
-			D.spread()
-
-		if(stat != DEAD)
-			D.stage_act()
-
 //remember to remove the "proc" of the child procs of these.
 /mob/living/carbon/proc/handle_blood()
 	return
@@ -314,6 +305,9 @@
 	if(!client)
 		return
 	var/shock_reduction = shock_reduction()
+	if(NO_PAIN_FEEL in dna.species.species_traits)
+		shock_reduction = INFINITY
+
 	if(stat == UNCONSCIOUS && health <= HEALTH_THRESHOLD_CRIT)
 		if(check_death_method())
 			var/severity = 0

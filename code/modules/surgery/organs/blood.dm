@@ -171,10 +171,10 @@
 			if(blood_id == "blood") //normal blood
 				if(blood_data["viruses"])
 					for(var/thing in blood_data["viruses"])
-						var/datum/disease/D = thing
-						if((D.spread_flags & SPECIAL) || (D.spread_flags & NON_CONTAGIOUS))
+						var/datum/disease/virus/V = thing
+						if(V.spread_flags < BLOOD)
 							continue
-						C.ForceContractDisease(D)
+						V.Contract(C)
 				if(!(blood_data["blood_type"] in get_safe_blood(C.dna.blood_type)) || !(blood_data["blood_species"] == C.dna.species.blood_species))
 					C.reagents.add_reagent("toxin", amount * 0.5)
 					return 1
@@ -196,7 +196,7 @@
 		blood_data["donor"] = src
 		blood_data["viruses"] = list()
 
-		for(var/thing in viruses)
+		for(var/thing in diseases)
 			var/datum/disease/D = thing
 			blood_data["viruses"] += D.Copy()
 

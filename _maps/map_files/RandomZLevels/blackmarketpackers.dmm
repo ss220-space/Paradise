@@ -913,8 +913,8 @@
 /obj/item/id_decal/centcom,
 /obj/item/clothing/head/helmet,
 /obj/item/clothing/suit/armor/vest,
-/obj/item/storage/box/slug,
-/obj/item/storage/box/slug,
+/obj/item/ammo_box/shotgun,
+/obj/item/ammo_box/shotgun,
 /obj/item/clothing/accessory/storage/black_vest,
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin{
@@ -3651,7 +3651,7 @@
 /obj/structure/toilet/golden_toilet{
 	dir = 1
 	},
-/obj/structure/sign/poster/secret/yug0{
+/obj/structure/sign/poster/secret/lady{
 	pixel_x = 32
 	},
 /obj/item/stack/spacecash/c500{
@@ -4034,8 +4034,8 @@
 /obj/item/id_decal/gold,
 /obj/item/clothing/head/helmet,
 /obj/item/clothing/suit/armor/vest,
-/obj/item/storage/box/slug,
-/obj/item/storage/box/slug,
+/obj/item/ammo_box/shotgun,
+/obj/item/ammo_box/shotgun,
 /obj/item/clothing/accessory/storage/black_vest,
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin{
@@ -4429,7 +4429,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Bath)
 "so" = (
-/obj/structure/sign/poster/secret/yug0{
+/obj/structure/sign/poster/secret/lady{
 	pixel_y = 32;
 	layer = 2.9
 	},

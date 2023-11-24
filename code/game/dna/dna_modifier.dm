@@ -805,6 +805,7 @@
 	I.name += " ([buf.name])"
 	if(copy_buffer)
 		I.buf = buf.copy()
+		I.icon_state = "[I.icon_state]-big"
 	if(connected)
 		I.damage_coeff = connected.damage_coeff
 	return I

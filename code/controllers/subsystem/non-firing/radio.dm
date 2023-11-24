@@ -22,12 +22,15 @@ SUBSYSTEM_DEF(radio)
 	"Medical(I)"	= MED_I_FREQ,
 	"Security(I)"	= SEC_I_FREQ,
 	"Spy Spider"	= SPY_SPIDER_FREQ,
-	"Spider Clan"	= NINJA_FREQ
+	"Spider Clan"	= NINJA_FREQ,
+	"Alpha wave"	= EVENT_ALPHA_FREQ,
+	"Beta wave"		= EVENT_BETA_FREQ,
+	"Gamma wave"	= EVENT_GAMMA_FREQ
 	)
 	var/list/CENT_FREQS = list(ERT_FREQ, DTH_FREQ)
 	var/list/ANTAG_FREQS = list(SYND_FREQ, SYNDTEAM_FREQ, SYND_TAIPAN_FREQ)
 	var/list/DEPT_FREQS = list(AI_FREQ, COMM_FREQ, ENG_FREQ, MED_FREQ, SEC_FREQ, SCI_FREQ, SRV_FREQ, SUP_FREQ, PROC_FREQ)
-	var/list/syndicate_blacklist = list(SPY_SPIDER_FREQ)	//list of frequencies syndicate headset can't hear
+	var/list/syndicate_blacklist = list(SPY_SPIDER_FREQ, EVENT_ALPHA_FREQ, EVENT_BETA_FREQ, EVENT_GAMMA_FREQ)	//list of frequencies syndicate headset can't hear
 	var/list/datum/radio_frequency/frequencies = list()
 
 
@@ -73,6 +76,12 @@ SUBSYSTEM_DEF(radio)
 			return "spyradio"
 		if(NINJA_FREQ)
 			return "spider_clan"
+		if(EVENT_ALPHA_FREQ)
+			return "event_alpha"
+		if(EVENT_BETA_FREQ)
+			return "event_beta"
+		if(EVENT_GAMMA_FREQ)
+			return "event_gamma"
 
 	// If the above switch somehow failed. And it needs the SSradio. part otherwise it fails to compile
 	if(frequency in DEPT_FREQS)

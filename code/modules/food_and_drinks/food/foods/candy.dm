@@ -47,14 +47,14 @@
 	desc = "A soft, chewy candy commonly found in candybars."
 	icon_state = "nougat"
 	filling_color = "#7D5F46"
-	list_reagents = list("nutriment" = 3, "sugar" = 3)
+	list_reagents = list("nutriment" = 3, "sugar" = 5)
 
 /obj/item/reagent_containers/food/snacks/candy/taffy
 	name = "saltwater taffy"
 	desc = "Old fashioned saltwater taffy. Chewy!"
 	icon_state = "candy1"
 	filling_color = "#7D5F46"
-	list_reagents = list("nutriment" = 3, "sugar" = 3)
+	list_reagents = list("nutriment" = 3, "sugar" = 5)
 
 /obj/item/reagent_containers/food/snacks/candy/taffy/New()
 	..()
@@ -103,7 +103,7 @@
 	desc = "Meal ready to eat."
 	trash = /obj/item/trash/candy
 	bitesize = 5
-	list_reagents = list("nutriment" = 30, "sugar" = 3)
+	list_reagents = list("nutriment" = 30, "sugar" = 10)
 
 /obj/item/reagent_containers/food/snacks/candy/donor
 	name = "donor candy"
@@ -117,7 +117,7 @@
 	desc = "It's a handful of candy corn. Cannot be stored in a detective's hat, alas."
 	icon_state = "candycorn"
 	filling_color = "#FFFCB0"
-	list_reagents = list("nutriment" = 4, "sugar" = 2)
+	list_reagents = list("nutriment" = 4, "sugar" = 1)
 	tastes = list("candy corn" = 1)
 
 // ***********************************************************
@@ -131,7 +131,7 @@
 	trash = /obj/item/c_tube
 	filling_color = "#FFFFFF"
 	bitesize = 4
-	list_reagents = list("sugar" = 15)
+	list_reagents = list("sugar" = 10)
 
 /obj/item/reagent_containers/food/snacks/candy/candybar
 	name = "candy"
@@ -159,7 +159,7 @@
 	icon_state = "gbear"
 	filling_color = "#FFFFFF"
 	bitesize = 3
-	list_reagents = list("sugar" = 10)
+	list_reagents = list("sugar" = 5)
 
 /obj/item/reagent_containers/food/snacks/candy/gummyworm
 	name = "gummy worm"
@@ -167,7 +167,7 @@
 	icon_state = "gworm"
 	filling_color = "#FFFFFF"
 	bitesize = 3
-	list_reagents = list("sugar" = 10)
+	list_reagents = list("sugar" = 5)
 
 /obj/item/reagent_containers/food/snacks/candy/jellybean
 	name = "jelly bean"
@@ -175,7 +175,7 @@
 	icon_state = "jbean"
 	filling_color = "#FFFFFF"
 	bitesize = 3
-	list_reagents = list("sugar" = 10)
+	list_reagents = list("sugar" = 3)
 
 /obj/item/reagent_containers/food/snacks/candy/jawbreaker
 	name = "jawbreaker"
@@ -183,7 +183,7 @@
 	icon_state = "jawbreaker"
 	filling_color = "#ED0758"
 	bitesize = 0.1	//this is gonna take a while, you'll be working at this all shift.
-	list_reagents = list("sugar" = 10)
+	list_reagents = list("sugar" = 5)
 
 /obj/item/reagent_containers/food/snacks/candy/cash
 	name = "candy cash"
@@ -211,21 +211,21 @@
 	trash = /obj/item/trash/gum
 	filling_color = "#FF7495"
 	bitesize = 0.2
-	list_reagents = list("sugar" = 5)
+	list_reagents = list("sugar" = 3)
 
 /obj/item/reagent_containers/food/snacks/candy/sucker
 	name = "sucker"
 	desc = "For being such a good sport!"
 	icon_state = "sucker"
 	filling_color = "#FFFFFF"
-	list_reagents = list("sugar" = 10)
+	list_reagents = list("sugar" = 3)
 
 /obj/item/reagent_containers/food/snacks/candy/sucker/lollipop
 	name = "lollipop"
 	desc = "For being such a courage patient!"
 	icon_state = "sucker"
 	filling_color = "#60A584"
-	list_reagents = list("sugar" = 4)
+	list_reagents = list("sugar" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/sucker/lollipop/New()
 	. = ..()
@@ -240,14 +240,14 @@
 	desc = "A small edible bear. It's red!"
 	icon_state = "gbear_red"
 	filling_color = "#801E28"
-	list_reagents = list("sugar" = 10, "cherryjelly" = 2)
+	list_reagents = list("sugar" = 5, "cherryjelly" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/gummybear/blue
 	name = "gummy bear"
 	desc = "A small edible bear. It's blue!"
 	icon_state = "gbear_blue"
 	filling_color = "#863333"
-	list_reagents = list("sugar" = 10, "berryjuice" = 2)
+	list_reagents = list("sugar" = 5, "berryjuice" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/gummybear/poison
 	name = "gummy bear"
@@ -261,35 +261,35 @@
 	desc = "A small edible bear. It's green!"
 	icon_state = "gbear_green"
 	filling_color = "#365E30"
-	list_reagents = list("sugar" = 10, "limejuice" = 2)
+	list_reagents = list("sugar" = 5, "limejuice" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/gummybear/yellow
 	name = "gummy bear"
 	desc = "A small edible bear. It's yellow!"
 	icon_state = "gbear_yellow"
 	filling_color = "#863333"
-	list_reagents = list("sugar" = 10, "lemonjuice" = 2)
+	list_reagents = list("sugar" = 5, "lemonjuice" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/gummybear/orange
 	name = "gummy bear"
 	desc = "A small edible bear. It's orange!"
 	icon_state = "gbear_orange"
 	filling_color = "#E78108"
-	list_reagents = list("sugar" = 10, "orangejuice" = 2)
+	list_reagents = list("sugar" = 5, "orangejuice" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/gummybear/purple
 	name = "gummy bear"
 	desc = "A small edible bear. It's purple!"
 	icon_state = "gbear_purple"
 	filling_color = "#993399"
-	list_reagents = list("sugar" = 10, "grapejuice" = 2)
+	list_reagents = list("sugar" = 5, "grapejuice" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/gummybear/wtf
 	name = "gummy bear"
 	desc = "A small bear. Wait... what?"
 	icon_state = "gbear_rainbow"
 	filling_color = "#60A584"
-	list_reagents = list("sugar" = 10, "space_drugs" = 2)
+	list_reagents = list("sugar" = 5, "space_drugs" = 2)
 
 // ***********************************************************
 // Gummy Worm Flavors
@@ -300,14 +300,14 @@
 	desc = "An edible worm, made from gelatin. It's red!"
 	icon_state = "gworm_red"
 	filling_color = "#801E28"
-	list_reagents = list("sugar" = 10, "cherryjelly" = 2)
+	list_reagents = list("sugar" = 5, "cherryjelly" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/gummyworm/blue
 	name = "gummy worm"
 	desc = "An edible worm, made from gelatin. It's blue!"
 	icon_state = "gworm_blue"
 	filling_color = "#863333"
-	list_reagents = list("sugar" = 10, "berryjuice" = 2)
+	list_reagents = list("sugar" = 5, "berryjuice" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/gummyworm/poison
 	name = "gummy worm"
@@ -322,35 +322,35 @@
 	desc = "An edible worm, made from gelatin. It's green!"
 	icon_state = "gworm_green"
 	filling_color = "#365E30"
-	list_reagents = list("sugar" = 10, "limejuice" = 2)
+	list_reagents = list("sugar" = 5, "limejuice" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/gummyworm/yellow
 	name = "gummy worm"
 	desc = "An edible worm, made from gelatin. It's yellow!"
 	icon_state = "gworm_yellow"
 	filling_color = "#863333"
-	list_reagents = list("sugar" = 10, "lemonjuice" = 2)
+	list_reagents = list("sugar" = 5, "lemonjuice" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/gummyworm/orange
 	name = "gummy worm"
 	desc = "An edible worm, made from gelatin. It's orange!"
 	icon_state = "gworm_orange"
 	filling_color = "#E78108"
-	list_reagents = list("sugar" = 10, "orangejuice" = 2)
+	list_reagents = list("sugar" = 5, "orangejuice" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/gummyworm/purple
 	name = "gummy worm"
 	desc = "An edible worm, made from gelatin. It's purple!"
 	icon_state = "gworm_purple"
 	filling_color = "#993399"
-	list_reagents = list("sugar" = 10, "grapejuice" = 2)
+	list_reagents = list("sugar" = 5, "grapejuice" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/gummyworm/wtf
 	name = "gummy worm"
 	desc = "An edible worm. Did it just move?"
 	icon_state = "gworm_rainbow"
 	filling_color = "#60A584"
-	list_reagents = list("sugar" = 10, "space_drugs" = 2)
+	list_reagents = list("sugar" = 5, "space_drugs" = 2)
 
 // ***********************************************************
 // Jelly Bean Flavors
@@ -361,14 +361,14 @@
 	desc = "A candy bean, guarenteed to not give you gas. It's red!"
 	icon_state = "jbean_red"
 	filling_color = "#801E28"
-	list_reagents = list("sugar" = 10, "cherryjelly" = 2)
+	list_reagents = list("sugar" = 3, "cherryjelly" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/jellybean/blue
 	name = "jelly bean"
 	desc = "A candy bean, guarenteed to not give you gas. It's blue!"
 	icon_state = "jbean_blue"
 	filling_color = "#863333"
-	list_reagents = list("sugar" = 10, "berryjuice" = 2)
+	list_reagents = list("sugar" = 3, "berryjuice" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/jellybean/poison
 	name = "jelly bean"
@@ -382,70 +382,70 @@
 	desc = "A candy bean, guarenteed to not give you gas. It's green!"
 	icon_state = "jbean_green"
 	filling_color = "#365E30"
-	list_reagents = list("sugar" = 10, "limejuice" = 2)
+	list_reagents = list("sugar" = 3, "limejuice" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/jellybean/yellow
 	name = "jelly bean"
 	desc = "A candy bean, guarenteed to not give you gas. It's yellow!"
 	icon_state = "jbean_yellow"
 	filling_color = "#863333"
-	list_reagents = list("sugar" = 10, "lemonjuice" = 2)
+	list_reagents = list("sugar" = 3, "lemonjuice" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/jellybean/orange
 	name = "jelly bean"
 	desc = "A candy bean, guarenteed to not give you gas. It's orange!"
 	icon_state = "jbean_orange"
 	filling_color = "#E78108"
-	list_reagents = list("sugar" = 10, "orangejuice" = 2)
+	list_reagents = list("sugar" = 3, "orangejuice" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/jellybean/purple
 	name = "jelly bean"
 	desc = "A candy bean, guarenteed to not give you gas. It's purple!"
 	icon_state = "jbean_purple"
 	filling_color = "#993399"
-	list_reagents = list("sugar" = 10, "grapejuice" = 2)
+	list_reagents = list("sugar" = 3, "grapejuice" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/jellybean/chocolate
 	name = "jelly bean"
 	desc = "A candy bean, guarenteed to not give you gas. It's chocolate!"
 	icon_state = "jbean_choc"
 	filling_color = "#302000"
-	list_reagents = list("sugar" = 10, "chocolate" = 2)
+	list_reagents = list("sugar" = 3, "chocolate" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/jellybean/popcorn
 	name = "jelly bean"
 	desc = "A candy bean, guarenteed to not give you gas. It's popcorn flavored!"
 	icon_state = "jbean_popcorn"
 	filling_color = "#664330"
-	list_reagents = list("sugar" = 10, "nutriment" = 2)
+	list_reagents = list("sugar" = 3, "nutriment" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/jellybean/cola
 	name = "jelly bean"
 	desc = "A candy bean, guarenteed to not give you gas. It's Cola flavored!"
 	icon_state = "jbean_cola"
 	filling_color = "#102000"
-	list_reagents = list("sugar" = 10, "cola" = 2)
+	list_reagents = list("sugar" = 3, "cola" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/jellybean/drgibb
 	name = "jelly bean"
 	desc = "A candy bean, guarenteed to not give you gas. It's Dr. Gibb flavored!"
 	icon_state = "jbean_cola"
 	filling_color = "#102000"
-	list_reagents = list("sugar" = 10, "dr_gibb" = 2)
+	list_reagents = list("sugar" = 3, "dr_gibb" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/jellybean/coffee
 	name = "jelly bean"
 	desc = "A candy bean, guarenteed to not give you gas. It's Coffee flavored!"
 	icon_state = "jbean_choc"
 	filling_color = "#482000"
-	list_reagents = list("sugar" = 10, "coffee" = 2)
+	list_reagents = list("sugar" = 3, "coffee" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/jellybean/wtf
 	name = "jelly bean"
 	desc = "A candy bean, guarenteed to not give you gas. You aren't sure what color it is."
 	icon_state = "jbean_rainbow"
 	filling_color = "#60A584"
-	list_reagents = list("sugar" = 10, "space_drugs" = 2)
+	list_reagents = list("sugar" = 3, "space_drugs" = 2)
 
 // ***********************************************************
 // Cotton Candy Flavors

@@ -67,6 +67,7 @@
 	selection_color = "#ffeeee"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
+	alt_titles = list("Brig Sergeant")
 	minimal_player_age = 21
 	min_age_allowed = 30
 	exp_requirements = 2100
@@ -176,10 +177,10 @@
 	selection_color = "#ffeeee"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
-	alt_titles = list("Security Trainer")
+	alt_titles = list("Security Trainer","Patrol Officer")
 	minimal_player_age = 14
 	exp_requirements = 600
-	exp_type = EXP_TYPE_SECURITY
+	exp_type = EXP_TYPE_CREW
 	money_factor = 3
 	outfit = /datum/outfit/job/officer
 
@@ -205,26 +206,8 @@
 	dufflebag = /obj/item/storage/backpack/duffel/security
 	box = /obj/item/storage/box/survival_security
 
-
-/datum/job/officer/cadet
-	title = "Security Cadet"
-	flag = JOB_CADET
-	total_positions = 3
-	spawn_positions = 3
-	department_head = list("Head of Security", "Security Officer")
-	selection_color = "#ffeeee"
-	alt_titles = list("Security Assistant", "Security Graduate")
-	exp_requirements = 600
-	exp_type = EXP_TYPE_CREW
-	exp_max	= 600
-	exp_type_max = EXP_TYPE_SECURITY
-	is_novice = TRUE
-	money_factor = 2
-	outfit = /datum/outfit/job/officer/cadet
-
 /datum/outfit/job/officer/cadet
 	name = "Security Cadet"
-	jobtype = /datum/job/officer/cadet
 	uniform = /obj/item/clothing/under/rank/security/cadet
 	head = /obj/item/clothing/head/soft/sec
 	id = /obj/item/card/id/security/cadet
@@ -258,6 +241,7 @@
 	selection_color = "#ffeeee"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS)
+	alt_titles = list("Security Medic")
 	exp_requirements = 1800
 	exp_type = EXP_TYPE_MEDICAL
 	money_factor = 4

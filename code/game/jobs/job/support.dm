@@ -11,6 +11,7 @@
 	selection_color = "#dddddd"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_BAR, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
+	alt_titles = list("Barman","Barkeeper","Drink Artist")
 	money_factor = 2
 	outfit = /datum/outfit/job/bartender
 
@@ -270,6 +271,7 @@
 	selection_color = "#dddddd"
 	access = list(ACCESS_CLOWN, ACCESS_THEATRE)
 	minimal_access = list(ACCESS_CLOWN, ACCESS_THEATRE)
+	alt_titles = list("Performance Artist","Comedian","Jester")
 	money_factor = 2
 	outfit = /datum/outfit/job/clown
 
@@ -360,6 +362,7 @@
 	selection_color = "#dddddd"
 	access = list(ACCESS_MIME, ACCESS_THEATRE)
 	minimal_access = list(ACCESS_MIME, ACCESS_THEATRE)
+	alt_titles = list("Panthomimist")
 	money_factor = 2
 	outfit = /datum/outfit/job/mime
 
@@ -414,7 +417,7 @@
 	selection_color = "#dddddd"
 	access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Custodial Technician")
+	alt_titles = list("Custodial Technician","Sanitation Technician")
 	money_factor = 2
 	outfit = /datum/outfit/job/janitor
 

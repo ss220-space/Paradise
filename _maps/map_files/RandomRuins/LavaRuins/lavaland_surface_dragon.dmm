@@ -75,6 +75,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "lW" = (
@@ -90,6 +91,7 @@
 /obj/structure/stone_tile{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "pH" = (
@@ -101,6 +103,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "qj" = (
@@ -124,6 +127,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "uO" = (
@@ -140,6 +144,10 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"xB" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "xU" = (
 /obj/structure/stone_tile/cracked{
@@ -264,6 +272,7 @@
 /area/ruin/unpowered/drake)
 "Ud" = (
 /obj/structure/stone_tile/cracked,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Vs" = (
@@ -308,12 +317,12 @@ bB
 bB
 uO
 uO
-uO
-uO
+xB
+xB
 pW
-uO
-uO
-uO
+xB
+xB
+xB
 uO
 uO
 bB
@@ -336,8 +345,8 @@ bB
 bB
 bB
 bB
-uO
-uO
+xB
+xB
 kN
 Ud
 bB
@@ -897,7 +906,7 @@ uO
 uO
 bB
 bB
-qj
+bB
 bB
 bB
 bB
@@ -924,7 +933,7 @@ uO
 uO
 uO
 uO
-qj
+bB
 bB
 bB
 bB
@@ -957,11 +966,11 @@ uO
 bB
 bB
 bB
-uO
+xB
 kN
 Ud
-uO
-uO
+xB
+xB
 bB
 uO
 bB

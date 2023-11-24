@@ -34,7 +34,7 @@
 		else
 			to_chat(H, "<span class='biggerdanger'>You feel like you have UNLIMITED POWER!!</span>")
 
-/obj/item/clothing/gloves/color/yellow/power/dropped(mob/user, slot)
+/obj/item/clothing/gloves/color/yellow/power/dropped(mob/user, silent = FALSE)
 	. = ..()
 
 	if(!ishuman(user))

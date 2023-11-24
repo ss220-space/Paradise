@@ -1,6 +1,6 @@
 /mob/living/carbon/human
 
-	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPMINDSHIELD_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,GLAND_HUD)
+	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPMINDSHIELD_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,GLAND_HUD,THOUGHT_HUD)
 	pressure_resistance = 25
 	//Marking colour and style
 	var/list/m_colours = DEFAULT_MARKING_COLOURS //All colours set to #000000.
@@ -17,7 +17,9 @@
 	var/age = 30		//Player's age (pure fluff)
 
 	var/underwear = "Nude"	//Which underwear the player wants
+	var/color_underwear = "#ffffff"
 	var/undershirt = "Nude"	//Which undershirt the player wants
+	var/color_undershirt = "#ffffff"
 	var/socks = "Nude" //Which socks the player wants
 	var/backbag = 2		//Which backpack type the player has chosen. Nothing, Satchel or Backpack.
 

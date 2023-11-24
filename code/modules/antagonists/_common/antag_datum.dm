@@ -103,6 +103,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	message_admins("[key_name_admin(chosen)] has taken control of ([key_name_admin(owner.current)]) to replace a jobbaned player.")
 	owner.current.ghostize(FALSE)
 	owner.current.key = chosen.key
+	log_game("[owner.current.key] has taken control of ([owner.current]) to replace a jobbaned player.")
 	return TRUE
 
 
@@ -323,7 +324,9 @@ GLOBAL_LIST_EMPTY(antagonists)
  * * mob/target_override - a target for the objective
  */
 /datum/antagonist/proc/add_objective(objective_type, explanation_text = "", mob/target_override = null)
-	var/datum/objective/new_objective = new objective_type(explanation_text)
+	var/datum/objective/new_objective = objective_type
+	if(ispath(objective_type))
+		new_objective = new objective_type(explanation_text)
 	new_objective.owner = owner
 
 	if(!new_objective.needs_target)

@@ -13,11 +13,14 @@
 
 
 /mob/living/carbon/human/proc/makeCluwne()
-	to_chat(src, "<span class='danger'>You feel funny.</span>")
 	if(!get_int_organ(/obj/item/organ/internal/brain/cluwne))
 		var/obj/item/organ/internal/brain/cluwne/idiot_brain = new
+		internal_organs |= idiot_brain	//Well, everything's for recursion prevention.
 		idiot_brain.insert(src, make_cluwne = 0)
 		idiot_brain.dna = dna.Clone()
+	else
+		return
+	to_chat(src, span_danger("You feel funny."))
 	setBrainLoss(80, use_brain_mod = FALSE)
 	set_nutrition(9000)
 	overeatduration = 9000

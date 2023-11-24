@@ -50,34 +50,6 @@
 	new /obj/item/clothing/head/officer(src)
 	new /obj/item/clothing/head/officer(src)
 
-/obj/structure/closet/wardrobe/cadet
-	name = "cadets wardrobe"
-	custom_door_overlay = "red"
-
-/obj/structure/closet/wardrobe/cadet/populate_contents()
-	new /obj/item/clothing/under/rank/security/cadet(src)
-	new /obj/item/clothing/under/rank/security/cadet(src)
-	new /obj/item/clothing/under/rank/security/cadet(src)
-	new /obj/item/clothing/under/rank/security/cadet(src)
-	new /obj/item/clothing/under/rank/security/cadet/skirt(src)
-	new /obj/item/clothing/under/rank/security/cadet/skirt(src)
-	new /obj/item/clothing/under/rank/security/cadet/assistant(src)
-	new /obj/item/clothing/under/rank/security/cadet/assistant(src)
-	new /obj/item/clothing/under/rank/security/cadet/assistant/skirt(src)
-	new /obj/item/clothing/under/rank/security/cadet/assistant/skirt(src)
-	new /obj/item/clothing/shoes/jackboots(src)
-	new /obj/item/clothing/shoes/jackboots(src)
-	new /obj/item/clothing/shoes/jackboots(src)
-	new /obj/item/clothing/shoes/jackboots(src)
-	new /obj/item/clothing/head/soft/sec(src)
-	new /obj/item/clothing/head/soft/sec(src)
-	new /obj/item/clothing/head/soft/sec(src)
-	new /obj/item/clothing/head/soft/sec(src)
-	new /obj/item/storage/backpack/satchel_sec(src)
-	new /obj/item/storage/backpack/satchel_sec(src)
-	new /obj/item/storage/backpack/satchel_sec(src)
-	new /obj/item/storage/backpack/satchel_sec(src)
-
 /obj/structure/closet/redcorp
 	name = "corporate security wardrobe"
 	custom_door_overlay = "red"

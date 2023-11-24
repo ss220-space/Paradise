@@ -183,3 +183,6 @@
 /obj/item/vending_refill/nta
 	machine_name = "NT Ammunition"
 	icon_state = "refill_nta"
+
+/obj/item/vending_refill/pai
+	machine_name = "RoboFriends"

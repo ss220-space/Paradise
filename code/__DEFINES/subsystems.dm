@@ -79,6 +79,7 @@
 #define INIT_ORDER_SHUTTLE -21
 #define INIT_ORDER_NIGHTSHIFT -22
 #define INIT_ORDER_NANOMOB -23
+#define INIT_ORDER_PATH -50
 #define INIT_ORDER_PERSISTENCE -95
 
 // Subsystem fire priority, from lowest to highest priority

@@ -303,7 +303,7 @@
 		STOP_PROCESSING(SSobj, src)
 		return TRUE
 
-/obj/item/match/dropped(mob/user)
+/obj/item/match/dropped(mob/user, silent = FALSE)
 	matchburnout()
 	. = ..()
 

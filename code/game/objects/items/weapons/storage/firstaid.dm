@@ -265,6 +265,22 @@
 	new /obj/item/surgicaldrill(src)
 	new /obj/item/circular_saw(src)
 
+/obj/item/storage/firstaid/crew
+	name = "crewmember first aid kit"
+	icon_state = "crew_medpouch"
+	w_class = WEIGHT_CLASS_SMALL
+	desc = "A standart issued first aid kit for crewmembers. NanoTrasen appreciates you!"
+	can_hold = list(/obj/item/reagent_containers/hypospray/autoinjector, /obj/item/reagent_containers/food/pill, /obj/item/stack/medical/bruise_pack, /obj/item/stack/medical/ointment)
+
+/obj/item/storage/firstaid/crew/populate_contents()
+	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/salbutamol(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/charcoal(src)
+	new /obj/item/reagent_containers/food/pill/patch/styptic(src)
+	new	/obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
+	new /obj/item/stack/medical/bruise_pack(src)
+	new /obj/item/stack/medical/ointment(src)
+
 /*
  * Pill Bottles
  */
@@ -367,6 +383,13 @@
 	rapid_intake_message = "flips the lid of the patch pack open and begins rapidly stamping patches on themselves!"
 	rapid_post_instake_message = "stamps the entire contents of the patch pack all over their entire body!"
 	wrapper_state = "patch_pack_wrap"
+
+/obj/item/storage/pill_bottle/patch_pack/filled/populate_contents()
+	for(var/I in 1 to 10)
+		new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
+
+	for(var/I in 1 to 10)
+		new /obj/item/reagent_containers/food/pill/patch/styptic(src)
 
 /obj/item/storage/pill_bottle/charcoal
 	name = "Pill bottle (Charcoal)"

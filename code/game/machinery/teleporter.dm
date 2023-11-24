@@ -71,6 +71,8 @@
 	attack_hand(user)
 
 /obj/machinery/computer/teleporter/attack_hand(mob/user)
+	if(..())
+		return TRUE
 	add_fingerprint(user)
 	ui_interact(user)
 

@@ -47,8 +47,9 @@
 		if(life_tick == 1)
 			regenerate_icons()
 
-	if(mind?.ninja)
-		mind.ninja.handle_ninja()
+	var/datum/antagonist/ninja/ninja = mind?.has_antag_datum(/datum/antagonist/ninja)
+	if(ninja)
+		ninja.handle_ninja()
 		if(life_tick == 1)
 			regenerate_icons() // Make sure the inventory updates
 
@@ -72,7 +73,7 @@
 	player_logged++
 	if(istype(loc, /obj/machinery/cryopod))
 		return
-	if(config.auto_cryo_ssd_mins && (player_logged >= (config.auto_cryo_ssd_mins * 30)) && player_logged % 30 == 0)
+	if(CONFIG_GET(number/auto_cryo_ssd_mins) && (player_logged >= (CONFIG_GET(number/auto_cryo_ssd_mins) * 30)) && player_logged % 30 == 0)
 		var/turf/T = get_turf(src)
 		if(!is_station_level(T.z))
 			return
@@ -379,6 +380,9 @@
 		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 			var/mult = dna.species.coldmod
 			if(mult>0)
+				if(bodytemperature < dna.species.cold_level_2 && prob(1))
+					var/datum/disease/virus/cold/D = new
+					D.Contract(src)
 				if(bodytemperature >= dna.species.cold_level_2 && bodytemperature <= dna.species.cold_level_1)
 					throw_alert("temp", /obj/screen/alert/cold, 1)
 					take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_1, used_weapon = "Low Body Temperature")
@@ -678,8 +682,8 @@
 					overeatduration -= 2
 
 		if(!ismachineperson(src) && !isLivingSSD(src) && nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA) //Gosh damn snowflakey IPCs
-			var/datum/disease/D = new /datum/disease/critical/hypoglycemia
-			ForceContractDisease(D)
+			var/datum/disease/critical/hypoglycemia/D = new
+			D.Contract(src)
 
 		//metabolism change
 		if(nutrition > NUTRITION_LEVEL_FAT)
@@ -747,24 +751,24 @@
 							var/mob/living/carbon/human/H = src
 							H.set_heartattack(TRUE)
 					if(prob(health * -0.2))
-						var/datum/disease/D = new /datum/disease/critical/heart_failure
-						ForceContractDisease(D)
+						var/datum/disease/critical/heart_failure/D = new
+						D.Contract(src)
 					Paralyse(10 SECONDS)
 				if(-99 to -80)
 					adjustOxyLoss(1)
 					if(prob(4))
 						to_chat(src, "<span class='userdanger'>Your chest hurts...</span>")
 						Paralyse(4 SECONDS)
-						var/datum/disease/D = new /datum/disease/critical/heart_failure
-						ForceContractDisease(D)
+						var/datum/disease/critical/heart_failure/D = new
+						D.Contract(src)
 				if(-79 to -50)
 					adjustOxyLoss(1)
 					if(prob(10))
-						var/datum/disease/D = new /datum/disease/critical/shock
-						ForceContractDisease(D)
+						var/datum/disease/critical/shock/D = new
+						D.Contract(src)
 					if(prob(health * -0.08))
-						var/datum/disease/D = new /datum/disease/critical/heart_failure
-						ForceContractDisease(D)
+						var/datum/disease/critical/heart_failure/D = new
+						D.Contract(src)
 					if(prob(6))
 						to_chat(src, "<span class='userdanger'>You feel [pick("horrible pain", "awful", "like shit", "absolutely awful", "like death", "like you are dying", "nothing", "warm", "sweaty", "tingly", "really, really bad", "horrible")]!</span>")
 						Weaken(6 SECONDS)
@@ -773,8 +777,8 @@
 				if(-49 to 0)
 					adjustOxyLoss(1)
 					if(prob(3))
-						var/datum/disease/D = new /datum/disease/critical/shock
-						ForceContractDisease(D)
+						var/datum/disease/critical/shock/D = new
+						D.Contract(src)
 					if(prob(5))
 						to_chat(src, "<span class='userdanger'>You feel [pick("terrible", "awful", "like shit", "sick", "numb", "cold", "sweaty", "tingly", "horrible")]!</span>")
 						Weaken(6 SECONDS)
@@ -788,6 +792,9 @@
 		return
 	else
 		var/shock_reduction = shock_reduction()
+		if(NO_PAIN_FEEL in dna.species.species_traits)
+			shock_reduction = INFINITY
+
 		if(healths)
 			var/health_amount = get_perceived_trauma(shock_reduction)
 			if(..(health_amount)) //not dead

@@ -10,7 +10,7 @@
 
 	..()
 	set_tag()
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 
 	switch(name)			//some of these are probably obsolete
 		if("start")
@@ -385,10 +385,6 @@
 /obj/effect/landmark/start/security_officer
 	name = "Security Officer"
 	icon_state = "Sec"
-
-/obj/effect/landmark/start/security_cadet
-	name = "Security Cadet"
-	icon_state = "Sec_Cadet"
 
 /obj/effect/landmark/start/brig_physician
 	name = "Brig Physician"

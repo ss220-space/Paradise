@@ -58,7 +58,7 @@
 
 	tts_seed = "Vort_e2"
 
-	var/dirslash_enabled = TRUE
+	dirslash_enabled = TRUE
 
 /mob/living/simple_animal/hostile/Initialize(mapload)
 	. = ..()
@@ -557,13 +557,6 @@
 		target = A
 		OpenFire(A)
 		return
-	else if(dirslash_enabled && a_intent != INTENT_HELP)
-		var/turf/turf_attacking = get_step(src, get_compass_dir(src, A))
-		if(turf_attacking)
-			var/mob/living/target = locate() in turf_attacking
-			if(target && Adjacent(target))
-				changeNext_move(CLICK_CD_MELEE)
-				return UnarmedAttack(target, TRUE)
 	return ..()
 
 

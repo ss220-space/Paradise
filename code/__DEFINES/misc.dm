@@ -251,13 +251,13 @@
                               0.33, 0.33, 0.33,\
                               0.33, 0.33, 0.33)
 
-#define MATRIX_VULP_CBLIND list(0.5,0.4,0.1,\
-                                0.5,0.4,0.1,\
-                                0.0,0.2,0.8)
+#define MATRIX_VULP_CBLIND list(0.51, 0.4, 0.12,\
+                               0.49, 0.41, 0.12,\
+			                   0, 0.2, 0.76)
 
-#define MATRIX_TAJ_CBLIND list(0.4,0.2,0.4,\
-                               0.4,0.6,0.0,\
-                               0.2,0.2,0.6)
+#define MATRIX_TAJ_CBLIND list(0.95, 0.07, 0,\
+                               0, 0.44, 0.52,\
+			                   0.05, 0.49, 0.48)
 
 /*
 	Used for wire name appearances. Replaces the color name on the left with the one on the right.
@@ -335,7 +335,7 @@
 #define ROUND_TIME (SSticker.time_game_started ? (world.time - SSticker.time_game_started) : 0)
 
 // Macro that returns true if it's too early in a round to freely ghost out
-#define TOO_EARLY_TO_GHOST (config && (ROUND_TIME < (config.round_abandon_penalty_period)))
+#define TOO_EARLY_TO_GHOST (config && (ROUND_TIME < (CONFIG_GET(number/round_abandon_penalty_period))))
 
 // Used by radios to indicate that they have sent a message via something other than subspace
 #define RADIO_CONNECTION_FAIL 0
@@ -384,7 +384,7 @@
 #define EXPLOSION_BLOCK_PROC -1
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 30
+#define SQL_VERSION 31
 
 // Vending machine stuff
 #define CAT_NORMAL 1

@@ -30,8 +30,8 @@
 
 /datum/game_mode/wizard/raginmages/check_finished()
 	var/wizards_alive = 0
-	if(config.traitor_scaling)
-		players_per_mage = config.traitor_scaling
+	if(CONFIG_GET(number/traitor_scaling))
+		players_per_mage = CONFIG_GET(number/traitor_scaling)
 	var/wizard_cap = CEILING((num_players_started() / players_per_mage), 1)
 	max_mages = wizard_cap
 	add_game_logs("Number of wizards chosen: [wizard_cap]")
@@ -139,6 +139,7 @@
 			var/mob/living/carbon/human/new_character= makeBody(harry)
 			new_character.mind.make_Wizard() // This puts them at the wizard spawn, worry not
 			mages_made++
+			log_game("Spawned [new_character] (ckey: [new_character.key]) as Wizard as Raging Mage.")
 			return TRUE
 		else
 			log_runtime(EXCEPTION("The candidates list for ragin' mages contained non-observer entries!"), src)

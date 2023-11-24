@@ -291,7 +291,8 @@ to destroy them and players will be able to make replacements.
 		"Departament Cargo ClothesMate" =		/obj/machinery/vending/clothing/departament/cargo,
 		"Departament Law ClothesMate" =			/obj/machinery/vending/clothing/departament/law,
 		"Service Departament ClothesMate Botanical" = /obj/machinery/vending/clothing/departament/service/botanical,
-		"Service Departament ClothesMate Chaplain" 	= /obj/machinery/vending/clothing/departament/service/chaplain,)
+		"Service Departament ClothesMate Chaplain" 	= /obj/machinery/vending/clothing/departament/service/chaplain,
+		"RoboFriends" =                         /obj/machinery/vending/pai,)
 
 /obj/item/circuitboard/vendor/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -797,7 +798,7 @@ to destroy them and players will be able to make replacements.
 
 
 /obj/item/circuitboard/clonepod
-	board_name = "Clone Pod"
+	board_name = "Experimental Biomass Pod"
 	build_path = /obj/machinery/clonepod
 	board_type = "machine"
 	origin_tech = "programming=2;biotech=2"
@@ -805,10 +806,11 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/cable_coil = 2,
 							/obj/item/stock_parts/scanning_module = 2,
 							/obj/item/stock_parts/manipulator = 2,
-							/obj/item/stack/sheet/glass = 1)
+							/obj/item/stack/sheet/glass = 1,
+							/obj/item/stock_parts/capacitor/quadratic = 5)
 
 /obj/item/circuitboard/clonescanner
-	board_name = "Cloning Scanner"
+	board_name = "\improper DNA Scanner"
 	build_path = /obj/machinery/dna_scannernew
 	board_type = "machine"
 	origin_tech = "programming=2;biotech=2"

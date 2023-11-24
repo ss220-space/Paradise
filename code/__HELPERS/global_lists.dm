@@ -158,25 +158,25 @@
 
 	// Init disease archive
 	GLOB.archive_diseases += list(
-		"sneeze" = new /datum/disease/advance/preset/cold(),
-		"cough" = new /datum/disease/advance/preset/flu(),
-		"voice_change" = new /datum/disease/advance/preset/voice_change(),
-		"heal" = new /datum/disease/advance/preset/heal(),
-		"hallucigen" = new /datum/disease/advance/preset/hullucigen(),
-		"sensory_restoration" = new /datum/disease/advance/preset/sensory_restoration(),
-		"mind_restoration" = new /datum/disease/advance/preset/mind_restoration(),
-		"damage_converter:heal:viralevolution" = new /datum/disease/advance/preset/advanced_regeneration(),
-		"dizzy:flesh_eating:viraladaptation:youth" = new /datum/disease/advance/preset/stealth_necrosis(),
-		"beard:itching:voice_change" = new /datum/disease/advance/preset/pre_kingstons(),
-		"love" = new /datum/disease/advance/preset/love(),
-		"aggression" = new /datum/disease/advance/preset/aggression(),
-		"obsession" = new /datum/disease/advance/preset/obsession(),
-		"confusion" = new /datum/disease/advance/preset/confusion(),
-		"bones" = new /datum/disease/advance/preset/bones(),
-		"laugh" = new /datum/disease/advance/preset/laugh(),
-		"moan" = new /datum/disease/advance/preset/moan(),
-		"infection" = new /datum/disease/advance/preset/infection(),
-		"hallucigen:laugh:moan" = new /datum/disease/advance/preset/pre_loyalty()
+		"sneeze" = new /datum/disease/virus/advance/preset/sneezing(),
+		"cough" = new /datum/disease/virus/advance/preset/cough(),
+		"voice_change" = new /datum/disease/virus/advance/preset/voice_change(),
+		"heal" = new /datum/disease/virus/advance/preset/heal(),
+		"hallucigen" = new /datum/disease/virus/advance/preset/hullucigen(),
+		"sensory_restoration" = new /datum/disease/virus/advance/preset/sensory_restoration(),
+		"mind_restoration" = new /datum/disease/virus/advance/preset/mind_restoration(),
+		"damage_converter:heal:viralevolution" = new /datum/disease/virus/advance/preset/advanced_regeneration(),
+		"dizzy:flesh_eating:viraladaptation:youth" = new /datum/disease/virus/advance/preset/stealth_necrosis(),
+		"beard:itching:voice_change" = new /datum/disease/virus/advance/preset/pre_kingstons(),
+		"love" = new /datum/disease/virus/advance/preset/love(),
+		"aggression" = new /datum/disease/virus/advance/preset/aggression(),
+		"obsession" = new /datum/disease/virus/advance/preset/obsession(),
+		"confusion" = new /datum/disease/virus/advance/preset/confusion(),
+		"bones" = new /datum/disease/virus/advance/preset/bones(),
+		"laugh" = new /datum/disease/virus/advance/preset/laugh(),
+		"moan" = new /datum/disease/virus/advance/preset/moan(),
+		"infection" = new /datum/disease/virus/advance/preset/infection(),
+		"hallucigen:laugh:moan" = new /datum/disease/virus/advance/preset/pre_loyalty()
 	)
 
 //creates every subtype of prototype (excluding prototype) and adds it to list L.

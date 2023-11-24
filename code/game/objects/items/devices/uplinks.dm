@@ -20,6 +20,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/uplink_owner = null//text-only
 	var/used_TC = 0
 
+	var/race = null
 	var/job = null
 	var/temp_category
 	var/uplink_type = UPLINK_TYPE_TRAITOR
@@ -56,6 +57,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/uplink/proc/generate_item_lists(mob/user)
 	if(!job)
 		job = user.mind.assigned_role
+	if(!race)
+		race = user.dna.species.name
 
 	var/list/cats = list()
 
@@ -63,7 +66,10 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		cats[++cats.len] = list("cat" = category, "items" = list())
 		for(var/datum/uplink_item/I in uplink_items[category])
 			if(I.job && I.job.len)
-				if(!(I.job.Find(job)))
+				if(!(I.job.Find(job)) && uplink_type != UPLINK_TYPE_ADMIN)
+					continue
+			if(I.race && I.race.len)
+				if(!(I.race.Find(race)))
 					continue
 			cats[cats.len]["items"] += list(list("name" = sanitize(I.name), "desc" = sanitize(I.description()),"cost" = I.cost, "hijack_only" = I.hijack_only, "obj_path" = I.reference, "refundable" = I.refundable))
 			uplink_items[I.reference] = I
@@ -78,9 +84,11 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/list/random_items = list()
 
 	for(var/IR in uplink_items)
-		var/datum/uplink_item/UI = uplink_items[IR]
-		if(UI.cost <= uses && UI.limited_stock != 0)
-			random_items += UI
+		var/list/cat_items = uplink_items[IR]
+		for(var/uplink_item in cat_items)
+			var/datum/uplink_item/UI = uplink_item
+			if(UI.cost <= uses && UI.limited_stock != 0)
+				random_items += UI
 
 	return pick(random_items)
 
@@ -308,6 +316,13 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	if(hidden_uplink)
 		hidden_uplink.uplink_type = UPLINK_TYPE_SST
 		hidden_uplink.update_uplink_items()
+
+/obj/item/radio/uplink/admin/New()
+	..()
+	if(hidden_uplink)
+		hidden_uplink.uplink_type = UPLINK_TYPE_ADMIN
+		hidden_uplink.update_uplink_items()
+		hidden_uplink.uses = 500
 
 /obj/item/multitool/uplink/New()
 	..()

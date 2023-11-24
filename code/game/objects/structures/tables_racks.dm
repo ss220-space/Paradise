@@ -129,20 +129,23 @@
 		return 1
 	if(mover.throwing)
 		return 1
-	if(locate(/obj/structure/table) in get_turf(mover))
-		return 1
 	if(flipped)
 		if(get_dir(loc, target) == dir)
 			return !density
 		else
 			return 1
+	var/obj/structure/table/S = locate(/obj/structure/table) in get_turf(mover)
+	if(S?.flipped == 0)
+		return 1
 	return 0
 
-/obj/structure/table/CanAStarPass(ID, dir, caller)
+
+/obj/structure/table/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
 	. = !density
 	if(ismovable(caller))
 		var/atom/movable/mover = caller
 		. = . || mover.checkpass(PASSTABLE)
+
 
 /**
  * Determines whether a projectile crossing our turf should be stopped.
@@ -389,6 +392,7 @@
 		if(locate(/obj/structure/table,get_step(src,D)))
 			var/obj/structure/table/T = locate(/obj/structure/table,get_step(src,D))
 			T.unflip()
+	dir = initial(dir)
 	update_icon()
 
 	return 1
@@ -757,11 +761,13 @@
 	else
 		return 0
 
-/obj/structure/rack/CanAStarPass(ID, dir, caller)
+
+/obj/structure/rack/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
 	. = !density
 	if(ismovable(caller))
 		var/atom/movable/mover = caller
 		. = . || mover.checkpass(PASSTABLE)
+
 
 /obj/structure/rack/MouseDrop_T(obj/item/O, mob/user)
 	if((!(istype(O)) || user.get_active_hand() != O))

@@ -78,7 +78,7 @@
 
 	// Pause OOC
 	var/ooc_toggled = FALSE
-	if(is_global && stop_ooc && config.ooc_allowed)
+	if(is_global && stop_ooc && CONFIG_GET(flag/ooc_allowed))
 		ooc_toggled = TRUE
 		toggle_ooc(FALSE)
 

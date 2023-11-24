@@ -25,6 +25,7 @@
 		"hydrocodone" = list('icons/mob/actions/actions.dmi', "magicm"))
 
 
+
 /obj/item/reagent_containers/borghypo/syndicate
 	name = "syndicate cyborg hypospray"
 	desc = "An experimental piece of Syndicate technology used to produce powerful restorative nanites used to very quickly restore injuries of all types. Also metabolizes potassium iodide, for radiation poisoning, and hydrocodone, for field surgery and pain relief."
@@ -194,6 +195,22 @@
 		"charcoal" = list('icons/mob/screen_corgi.dmi', "tox1"), \
 		"sal_acid" = list('icons/mob/actions/actions.dmi', "fleshmend"), \
 		"salbutamol" = list('icons/obj/surgery.dmi', "lungs"))
+
+/obj/item/reagent_containers/borghypo/basic/emagged_borg_hypo
+	name = "ERR3NU1l_INJ3C70R"
+	desc = "This injector will deliver deadly chemicals into anyone not fortunate enough to end up as an enemy to Syndicate. Who could've thought NanoTrasen borgs can synthesize that?"
+	icon = 'icons/obj/hypo.dmi'
+	item_state = "borghypo_emag"
+	icon_state = "borghypo_emag"
+	amount_per_transfer_from_this = 10
+	// volume = 30
+	var/emagged = TRUE
+	var/safety_hypo = FALSE
+	reagent_ids = list( \
+		"heparin" = list('icons/effects/bleed.dmi', "bleed10"), \
+		"cyanide" = list('icons/mob/screen_corgi.dmi', "tox1"), \
+		"sodium_thiopental" = list('icons/obj/surgery.dmi', "lungs"))
+
 
 
 #undef BORGHYPO_REFILL_VALUE

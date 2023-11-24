@@ -235,6 +235,8 @@
 				R.remove_reagent(id, amount)
 			else if(amount == -1) //Isolate instead
 				R.isolate_reagent(id)
+			else if(amount == -2) //Round to lesser number (a.k.a 14.61 -> 14)
+				R.floor_reagent(id)
 		if("ejectBeaker")
 			if(!beaker)
 				return
@@ -334,6 +336,10 @@
 /obj/machinery/chem_dispenser/attack_hand(mob/user)
 	if(stat & BROKEN)
 		return
+
+	if(..())
+		return TRUE
+
 	add_fingerprint(user)
 	ui_interact(user)
 

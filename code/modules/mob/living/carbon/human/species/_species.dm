@@ -20,6 +20,11 @@
 
 	var/datum/species/primitive_form = null          // Lesser form, if any (ie. monkey for humans)
 	var/datum/species/greater_form = null             // Greater form, if any, ie. human for monkeys.
+
+	var/roundstart = TRUE
+	var/id = null
+
+
 	/// Name of tail image in species effects icon file.
 	var/tail
 	/// like tail but wings
@@ -157,7 +162,9 @@
 	var/male_sigh_sound = list('sound/voice/sigh_male.ogg')
 	var/female_choke_sound = list('sound/voice/gasp_female1.ogg','sound/voice/gasp_female2.ogg','sound/voice/gasp_female3.ogg','sound/voice/gasp_female4.ogg','sound/voice/gasp_female5.ogg','sound/voice/gasp_female6.ogg','sound/voice/gasp_female7.ogg')
 	var/male_choke_sound = list('sound/voice/gasp_male1.ogg','sound/voice/gasp_male2.ogg','sound/voice/gasp_male3.ogg','sound/voice/gasp_male4.ogg','sound/voice/gasp_male5.ogg','sound/voice/gasp_male6.ogg','sound/voice/gasp_male7.ogg')
-
+	var/female_snore_sound = list('sound/voice/snore_1.ogg', 'sound/voice/snore_2.ogg','sound/voice/snore_3.ogg', 'sound/voice/snore_4.ogg','sound/voice/snore_5.ogg', 'sound/voice/snore_6.ogg','sound/voice/snore_7.ogg')
+	var/male_snore_sound = list('sound/voice/snore_1.ogg', 'sound/voice/snore_2.ogg','sound/voice/snore_3.ogg', 'sound/voice/snore_4.ogg','sound/voice/snore_5.ogg', 'sound/voice/snore_6.ogg','sound/voice/snore_7.ogg')
+	var/whistle_sound = list('sound/voice/whistle.ogg')
 
 	//Default hair/headacc style vars.
 	var/default_hair				//Default hair style for newly created humans unless otherwise set.
@@ -209,6 +216,10 @@
 	var/disliked_food = GROSS
 	var/liked_food = FRIED | JUNKFOOD | SUGAR
 
+	var/list/autohiss_basic_map = null
+	var/list/autohiss_extra_map = null
+	var/list/autohiss_exempt = null
+
 /datum/species/New()
 	//If the species has eyes, they are the default vision organ
 	if(!vision_organ && has_organ["eyes"])
@@ -220,7 +231,16 @@
 	var/datum/language/species_language = GLOB.all_languages[language]
 	return species_language.get_random_name(gender)
 
-/datum/species/proc/create_organs(mob/living/carbon/human/H) //Handles creation of mob organs.
+
+/**
+ * Handles creation of mob organs.
+ *
+ * Arguments:
+ * * H - The human to create organs inside of
+ * * bodyparts_to_omit - Any bodyparts in this list (and organs within them) should not be added.
+ * * additional_organs - List of paths to generate additional internal organs.
+ */
+/datum/species/proc/create_organs(mob/living/carbon/human/H, list/bodyparts_to_omit, list/additional_organs)
 	QDEL_LIST(H.internal_organs)
 	QDEL_LIST(H.bodyparts)
 
@@ -228,26 +248,54 @@
 	LAZYREINITLIST(H.bodyparts_by_name)
 	LAZYREINITLIST(H.internal_organs)
 
-	for(var/limb_type in has_limbs)
-		var/list/organ_data = has_limbs[limb_type]
+	for(var/limb_name in has_limbs)
+		if(limb_name in bodyparts_to_omit)
+			H.bodyparts_by_name[limb_name] = null  // Null it out, but leave the name here so it's still "there"
+			continue
+
+		var/list/organ_data = has_limbs[limb_name]
 		var/limb_path = organ_data["path"]
 		var/obj/item/organ/O = new limb_path(H)
 		organ_data["descriptor"] = O.name
 
 	for(var/index in has_organ)
-		var/organ = has_organ[index]
-		// organ new code calls `insert` on its own
-		new organ(H)
+		var/obj/item/organ/internal/organ_path = has_organ[index]
+		if((initial(organ_path.parent_organ) in bodyparts_to_omit) || (index in bodyparts_to_omit))
+			continue
+
+		// heads up for any brave future coders:
+		// it's essential that a species' internal organs are intialized with the mob, instead of just creating them and calling insert() separately.
+		// not doing so (as of now) causes weird issues for some organs like posibrains, which need a mob on init or they'll qdel themselves.
+		// for the record: this caused every single IPC's brain to be deleted randomly throughout a round, killing them instantly.
+
+		new organ_path(H)
+
+	for(var/organ_path in additional_organs)
+		var/obj/item/organ/internal/check_organ = organ_path
+		if((initial(check_organ.parent_organ) in bodyparts_to_omit))
+			continue
+		var/organ_found
+		for(var/O in H.internal_organs)
+			var/obj/item/organ/internal/organ = O
+			organ_found = (initial(check_organ.slot) == organ.slot)
+			if(organ_found)
+				break
+		if(!organ_found)
+			new organ_path(H)
 
 	create_mutant_organs(H)
 
 	for(var/name in H.bodyparts_by_name)
-		H.bodyparts |= H.bodyparts_by_name[name]
+		var/part_type = H.bodyparts_by_name[name]
+		if(!isnull(part_type))
+			H.bodyparts |= part_type  // we do not want nulls here, even though it's alright to have them in bodyparts_by_name
+
+	for(var/obj/item/organ/external/O in H.bodyparts)
+		O.owner = H
 
 	H.update_tail()
 	H.update_wing()
-	for(var/obj/item/organ/external/O in H.bodyparts)
-		O.owner = H
+
 
 /datum/species/proc/create_mutant_organs(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/ears/ears = H.get_int_organ(/obj/item/organ/internal/ears)
@@ -397,7 +445,7 @@
 
 	switch(damagetype)
 		if(BRUTE)
-			damage = damage * brute_mod
+			damage = damage * (brute_mod + H.get_vampire_bonus(BRUTE))
 			if(damage)
 				H.damageoverlaytemp = 20
 
@@ -405,7 +453,7 @@
 				H.UpdateDamageIcon()
 
 		if(BURN)
-			damage = damage * burn_mod
+			damage = damage * (burn_mod + H.get_vampire_bonus(BURN))
 			if(damage)
 				H.damageoverlaytemp = 20
 
@@ -528,6 +576,25 @@
 
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
 		var/armor_block = target.run_armor_check(affecting, "melee")
+
+		// Contract diseases
+
+		//user beats target, check target's defense in selected zone
+		for(var/datum/disease/virus/V in user.diseases)
+			var/is_infected = FALSE
+			if(attack.is_bite && (V.spread_flags & BITES))
+				is_infected = V.Contract(target, act_type = BITES|CONTACT, need_protection_check = TRUE, zone = affecting)
+			if(!is_infected && (V.spread_flags & CONTACT))
+				V.Contract(target, act_type = CONTACT, need_protection_check = TRUE, zone = affecting)
+
+		//check user's defense in attacking zone (hands or mouth)
+		for(var/datum/disease/virus/V in target.diseases)
+			var/is_infected = FALSE
+			if(attack.is_bite  && (V.spread_flags > NON_CONTAGIOUS))
+				//infected blood contacts with mouth, ignore protection & spread_flags
+				is_infected = V.Contract(user, need_protection_check = FALSE)
+			if(!is_infected && (V.spread_flags & CONTACT))
+				V.Contract(user, act_type = CONTACT, need_protection_check = TRUE, zone = user.hand ? "l_hand" : "r_hand")
 
 		playsound(target.loc, attack.attack_sound, 25, 1, -1)
 
@@ -673,6 +740,7 @@
 	var/sharp = FALSE
 	var/animation_type = ATTACK_EFFECT_PUNCH
 	var/harmless = FALSE //if set to true, attacks won't be admin logged and punches will "hit" for no damage
+	var/is_bite = FALSE
 
 /datum/unarmed_attack/diona
 	attack_verb = list("охлестал", "тяжело стукнул", "лозой хлестанул", "ветвью щелкнул")
@@ -690,6 +758,7 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 	sharp = TRUE
 	animation_type = ATTACK_EFFECT_BITE
+	is_bite = TRUE
 
 /datum/unarmed_attack/claws/armalis
 	attack_verb = list("хлестает", "хлестанул", "искромсал", "разорвал") //армалисами почти никто не пользуется. Зачем вносить пол вырезаной расе которой никогда не будет в игре?

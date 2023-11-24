@@ -1,7 +1,8 @@
 // SUIT STORAGE UNIT /////////////////
 /obj/machinery/suit_storage_unit
 	name = "suit storage unit"
-	desc = "An industrial U-Stor-It Storage unit designed to accomodate all kinds of space suits. Its on-board equipment also allows the user to decontaminate the contents through a UV-ray purging cycle. There's a warning label dangling from the control pad, reading \"STRICTLY NO BIOLOGICALS IN THE CONFINES OF THE UNIT\"."
+	desc = "An industrial \"U-Stor-It Storage\" unit designed to accommodate all types of spacesuits.	\
+			Its onboard equipment also allows the user to decontaminate the contents through a UV-ray purging cycle."
 	icon = 'icons/obj/machines/suit_storage.dmi'
 	icon_state = "close"
 	anchored = TRUE
@@ -51,9 +52,12 @@
 	helmet_type  = /obj/item/clothing/head/helmet/space/ert_eva_amber
 	mask_type    = /obj/item/clothing/mask/gas/sechailer
 	storage_type = /obj/item/tank/internals/oxygen/red
+
 /obj/machinery/suit_storage_unit/captain
 	name = "captain's suit storage unit"
-	desc = "An industrial U-Stor-It Storage unit designed to accomodate all kinds of space suits. Its on-board equipment also allows the user to decontaminate the contents through a UV-ray purging cycle. There's a warning label dangling from the control pad, reading \"STRICTLY NO BIOLOGICALS IN THE CONFINES OF THE UNIT\". This one looks kind of fancy."
+	desc = "An industrial \"U-Stor-It Storage\" unit designed to accommodate all types of spacesuits.	\
+			Its onboard equipment also allows the user to decontaminate the contents through a UV-ray purging cycle.	\
+			This one looks kind of fancy."
 	suit_type    = /obj/item/clothing/suit/space/captain
 	helmet_type  = /obj/item/clothing/head/helmet/space/capspace
 	mask_type    = /obj/item/clothing/mask/gas
@@ -148,6 +152,7 @@
 	magboots_type = /obj/item/clothing/shoes/magboots/security
 	storage_type = /obj/item/tank/internals/oxygen
 	req_access = list(ACCESS_BLUESHIELD)
+
 /obj/machinery/suit_storage_unit/rd
 	name = "research director's suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/hardsuit/rd
@@ -262,6 +267,10 @@
 	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	return ..()
+
+/obj/machinery/suit_storage_unit/examine(mob/user)
+	. = ..()
+	. += " There's a warning label dangling from the control pad that reads:<br>[span_danger("\"BIOLOGICAL SUBJECTS ARE STRICTLY PROHIBITED IN THE CONFINES OF THE UNIT.\"")]"
 
 /obj/machinery/suit_storage_unit/update_icon()
 	cut_overlays()
@@ -520,9 +529,6 @@
 	SStgui.update_uis(src)
 	update_icon()
 
-
-////////
-
 /obj/machinery/suit_storage_unit/attack_hand(mob/user)
 	if(..() || (stat & NOPOWER))
 		return
@@ -631,7 +637,7 @@
 			usr.put_in_active_hand(storage, ignore_anim = FALSE)
 		storage = null
 
-/obj/machinery/suit_storage_unit/proc/toggle_open(mob/user as mob)
+/obj/machinery/suit_storage_unit/proc/toggle_open(mob/user)
 	if(locked || uv)
 		to_chat(user, span_danger("Unable to open unit."))
 		return
@@ -640,7 +646,7 @@
 		return
 	state_open = !state_open
 
-/obj/machinery/suit_storage_unit/proc/toggle_lock(mob/user as mob)
+/obj/machinery/suit_storage_unit/proc/toggle_lock(mob/user)
 	if(!allowed(user))
 		to_chat(user, span_warning("Access denied."))
 		return
@@ -654,7 +660,7 @@
 		return
 	locked = !locked
 
-/obj/machinery/suit_storage_unit/proc/eject_occupant(mob/user as mob)
+/obj/machinery/suit_storage_unit/proc/eject_occupant(mob/user)
 	if(locked)
 		return
 
@@ -669,7 +675,7 @@
 	occupant.forceMove(loc)
 	occupant = null
 	if(!state_open)
-		state_open = 1
+		state_open = TRUE
 	update_icon()
 	return
 
@@ -681,7 +687,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat != 0)
+	if(usr.stat)
 		return
 	eject_occupant(usr)
 	add_fingerprint(usr)
@@ -694,7 +700,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat != 0)
+	if(usr.stat)
 		return
 	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
 		return
@@ -721,7 +727,7 @@
 	else
 		occupant = null
 
-/obj/machinery/suit_storage_unit/attack_ai(mob/user as mob)
+/obj/machinery/suit_storage_unit/attack_ai(mob/user)
 	return attack_hand(user)
 
 /obj/machinery/suit_storage_unit/proc/check_electrified_callback()

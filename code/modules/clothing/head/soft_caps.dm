@@ -17,7 +17,7 @@
 		)
 	dyeable = TRUE
 
-/obj/item/clothing/head/soft/dropped()
+/obj/item/clothing/head/soft/dropped(mob/user, silent = FALSE)
 	icon_state = "[item_color]soft"
 	flipped = 0
 	..()

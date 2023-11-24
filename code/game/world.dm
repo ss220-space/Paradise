@@ -20,7 +20,6 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 
 	//temporary file used to record errors with loading config and the database, moved to log directory once logging is set up
 	GLOB.config_error_log = GLOB.world_game_log = GLOB.world_runtime_log = GLOB.sql_log = "data/logs/config_error.log"
-	load_configuration()
 
 	// Proc to enable the extools debugger, which allows breakpoints, live var checking, and many other useful tools
 	// The DLL is injected into the env by visual studio code. If not running VSCode, the proc will not call the initialization
@@ -29,6 +28,7 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 		CALL_EXT(debug_server, "auxtools_init")()
 		enable_debugging()
 
+	load_configuration()
 	// Right off the bat, load up the DB
 	SSdbcore.CheckSchemaVersion() // This doesnt just check the schema version, it also connects to the db! This needs to happen super early! I cannot stress this enough!
 	SSdbcore.SetRoundID() // Set the round ID here
@@ -53,9 +53,9 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	if(byond_version < MIN_COMPILER_VERSION || byond_build < MIN_COMPILER_BUILD)
 		log_world("Your server's byond version does not meet the recommended requirements for this code. Please update BYOND")
 
-	if(config && config.server_name != null && config.server_suffix && world.port > 0)
+	if(config && CONFIG_GET(string/servername) != null && CONFIG_GET(number/server_suffix) && world.port > 0)
 		// dumb and hardcoded but I don't care~
-		config.server_name += " #[(world.port % 1000) / 100]"
+		CONFIG_SET(string/servername, CONFIG_GET(string/servername) + " #[(world.port % 1000) / 100]")
 
 	GLOB.timezoneOffset = text2num(time2text(0, "hh")) * 36000
 
@@ -93,10 +93,10 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 
 /world/Topic(T, addr, master, key)
 	TGS_TOPIC
-	log_misc("WORLD/TOPIC: \"[T]\", from:[addr], master:[master], key:[key == config?.comms_password ? "*secret*" : key]")
+	log_misc("WORLD/TOPIC: \"[T]\", from:[addr], master:[master], key:[key == CONFIG_GET(string/comms_password) ? "*secret*" : key]")
 
 	// Handle spam prevention
-	if(!(addr in config?.topic_filtering_whitelist))
+	if(!(addr in CONFIG_GET(str_list/topic_filtering_whitelist)))
 		if(!GLOB.world_topic_spam_prevention_handlers[addr])
 			GLOB.world_topic_spam_prevention_handlers[addr] = new /datum/world_topic_spam_prevention_handler(addr)
 
@@ -133,7 +133,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 			to_chat(world, "<span class='boldannounce'>Rebooting world immediately due to host request</span>")
 		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 		// Now handle a reboot
-		if(config && config.shutdown_on_reboot)
+		if(config && CONFIG_GET(flag/shutdown_on_reboot))
 			sleep(0)
 			if(GLOB.shutdown_shell_command)
 				shell(GLOB.shutdown_shell_command)
@@ -162,12 +162,12 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	// Send the reboot banner to all players
 	for(var/client/C in GLOB.clients)
 		C << output(list2params(list(secs_before_auto_reconnect)), "browseroutput:reboot")
-		if(config.server) // If you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
-			C << link("byond://[config.server]")
+		if(CONFIG_GET(string/server)) // If you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
+			C << link("byond://[CONFIG_GET(string/server)]")
 
 	// And begin the real shutdown
 	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
-	if(config && config.shutdown_on_reboot)
+	if(config && CONFIG_GET(flag/shutdown_on_reboot))
 		sleep(0)
 		if(GLOB.shutdown_shell_command)
 			shell(GLOB.shutdown_shell_command)
@@ -192,7 +192,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	F << the_mode
 
 /world/proc/check_for_lowpop()
-	if(!config.auto_extended_players_num)
+	if(!CONFIG_GET(number/auto_extended_players_num))
 		return
 
 	var/totalPlayersReady = 0
@@ -200,7 +200,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		if(player.ready)
 			totalPlayersReady++
 
-	if(totalPlayersReady <= config.auto_extended_players_num)
+	if(totalPlayersReady <= CONFIG_GET(number/auto_extended_players_num))
 		GLOB.master_mode = "extended"
 		to_chat(world, "<span class='boldnotice'>Due to the lowpop the mode has been changed.</span>")
 	to_chat(world, "<span class='boldnotice'>The mode is now: [GLOB.master_mode]</span>")
@@ -210,12 +210,8 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	GLOB.join_tos = file2text("config/tos.txt")
 
 /proc/load_configuration()
-	config = new /datum/configuration()
-	config.load("config/config.txt")
-	config.load("config/game_options.txt","game_options")
-	config.loadsql("config/dbconfig.txt")
-	config.loadoverflowwhitelist("config/ofwhitelist.txt")
-	config.load("config/twitch_censor.txt", "twitch_censor")
+	config = new /datum/controller/configuration()
+	config.Load()
 	// apply some settings from config..
 
 /world/proc/update_status()
@@ -227,14 +223,14 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 /world/proc/get_status_text()
 	var/s = ""
 
-	if(config && config.server_name)
-		s += "<b>[config.server_name]</b> &#8212; "
+	if(config && CONFIG_GET(string/servername))
+		s += "<b>[CONFIG_GET(string/servername)]</b> &#8212; "
 	s += "<b>[station_name()]</b> "
-	if(config && config.githuburl)
+	if(config && CONFIG_GET(string/githuburl))
 		s+= "([GLOB.game_version])"
 
-	if(config && config.server_tag_line)
-		s += "<br>[config.server_tag_line]"
+	if(config && CONFIG_GET(string/server_tag_line))
+		s += "<br>[CONFIG_GET(string/server_tag_line)]"
 
 	if(SSticker && ROUND_TIME > 0)
 		s += "<br>[ROUND_TIME_TEXT()], " + capitalize(get_security_level())
@@ -247,14 +243,14 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	if(!GLOB.enter_allowed)
 		features += "closed"
 
-	if(config && config.server_extra_features)
-		features += config.server_extra_features
+	if(config && CONFIG_GET(string/server_extra_features))
+		features += CONFIG_GET(string/server_extra_features)
 
-	if(config && config.allow_vote_mode)
+	if(config && CONFIG_GET(flag/allow_vote_mode))
 		features += "vote"
 
-	if(config && config.wikiurl)
-		features += "<a href=\"[config.wikiurl]\">Wiki</a>"
+	if(config && CONFIG_GET(string/wikiurl))
+		features += "<a href=\"[CONFIG_GET(string/wikiurl)]\">Wiki</a>"
 
 	if(GLOB.abandon_allowed)
 		features += "respawn"
@@ -265,7 +261,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	return s
 
 /world/proc/SetupLogs()
-	if(GLOB.round_id && !config.full_day_logs)
+	if(GLOB.round_id && !CONFIG_GET(flag/full_day_logs))
 		GLOB.log_directory = "data/logs/[time2text(world.realtime, "YYYY/MM-Month/DD-Day")]/round-[GLOB.round_id]"
 	else
 		GLOB.log_directory = "data/logs/[time2text(world.realtime, "YYYY/MM-Month/DD-Day")]" // Dont stick a round ID if we dont have one
