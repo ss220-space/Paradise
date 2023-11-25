@@ -660,7 +660,7 @@
 		if(nutrition >= 0 && stat != DEAD)
 			handle_nutrition_alerts()
 			// THEY HUNGER
-			var/hunger_rate = isvampire(src) ? initial(hunger_drain) : hunger_drain
+			var/hunger_rate = isvampire(src) ? HUNGER_FACTOR_VAMPIRE : hunger_drain
 			if(satiety > 0)
 				satiety--
 			if(satiety < 0)

@@ -70,6 +70,9 @@
 // Factor of how fast mob nutrition decreases
 #define	HUNGER_FACTOR 0.1
 
+// Factor of how fast vampire nutrition decreases
+#define	HUNGER_FACTOR_VAMPIRE 0.1
+
 // Taste sensitivity - lower is more sensitive
 // Represents the minimum portion of total taste the mob can sense
 #define TASTE_SENSITIVITY_NORMAL 15
