@@ -165,6 +165,7 @@
 						break
 			if(movement_target)
 				stop_automated_movement = 1
+				glide_for(3)
 				walk_to(src,movement_target,0,3)
 
 /mob/living/simple_animal/pet/cat/emote(act, m_type = 1, message = null, force)

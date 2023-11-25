@@ -456,6 +456,7 @@
 			parrot_state = PARROT_SWOOP|PARROT_RETURN
 			return
 
+		glide_for(parrot_speed)
 		walk_to(src, path_to_take[2], 0, parrot_speed)
 		return
 
@@ -481,6 +482,7 @@
 			parrot_state = PARROT_WANDER
 			return
 
+		glide_for(parrot_speed)
 		walk_to(src, path_to_take[2], 0, parrot_speed)
 		return
 
@@ -539,6 +541,7 @@
 		//Otherwise, fly towards the mob!
 		else
 			// No pathfinding here because the parrot is pissed and isn't thinking rationally.
+			glide_for(parrot_speed)
 			walk_to(src, parrot_interest, 1, parrot_speed)
 		return
 //-----STATE MISHAP

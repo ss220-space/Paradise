@@ -337,6 +337,7 @@
 			return 1
 		if(retreat_distance != null) //If we have a retreat distance, check if we need to run from our target
 			if(target_distance <= retreat_distance) //If target's closer than our retreat distance, run
+				glide_for(move_to_delay)
 				walk_away(src,target,retreat_distance,move_to_delay)
 			else
 				Goto(target,move_to_delay,minimum_distance) //Otherwise, get to our minimum distance so we chase them
@@ -370,6 +371,7 @@
 		approaching_target = TRUE
 	else
 		approaching_target = FALSE
+	glide_for(delay)
 	walk_to(src, target, minimum_distance, delay)
 
 /mob/living/simple_animal/hostile/adjustHealth(damage, updating_health = TRUE)
@@ -484,21 +486,23 @@
 /mob/living/simple_animal/hostile/proc/CanSmashTurfs(turf/T)
 	return iswallturf(T) || (ismineralturf(T) && !istype(T, /turf/simulated/mineral/ancient/outer))
 
-/mob/living/simple_animal/hostile/Move(atom/newloc, dir , step_x , step_y)
+
+/mob/living/simple_animal/hostile/Move(atom/newloc, direct, movetime)
 	if(!client && dodging && approaching_target && prob(dodge_prob) && !moving_diagonally && isturf(loc) && isturf(newloc))
-		return dodge(newloc, dir)
+		return dodge(newloc, direct, movetime)
+	return ..()
 
-	. = ..()
 
-/mob/living/simple_animal/hostile/proc/dodge(moving_to,move_direction)
+/mob/living/simple_animal/hostile/proc/dodge(moving_to, move_direction, movetime)
 	//Assuming we move towards the target we want to swerve toward them to get closer
-	var/cdir = turn(move_direction, 45)
-	var/ccdir = turn(move_direction, -45)
 	dodging = FALSE
-	. = Move(get_step(loc,pick(cdir,ccdir)))
-	if(!.)//Can't dodge there so we just carry on
-		. =  Move(moving_to,move_direction)
+	var/turf/new_loc = get_step(loc, pick(turn(move_direction, 45), turn(move_direction, -45)))
+	. = Move(new_loc, move_direction, movetime)
+	if(!.)	// Can't dodge there so we just carry on
+		. = Move(moving_to, move_direction, movetime)
 	dodging = TRUE
+	return FALSE
+
 
 /mob/living/simple_animal/hostile/proc/DestroyObjectsInDirection(direction)
 	var/turf/T = get_step(targets_from, direction)
