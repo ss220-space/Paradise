@@ -229,3 +229,9 @@
   - add: combo counter (#3881)
   Vladisvell:
   - bugfix: Power loss is now calculated correctly on scoreboard (#3922)
+'2023-11-25':
+  Daeberdir:
+  - tweak: deleting cloning circuits from tech storage. (#3934)
+  - bugfix: '"MA without combo" don`t count combo-steps with regular combo-acts. (#3935)'
+  Vladisvell:
+  - bugfix: bumped merge driver deps (#3933)
