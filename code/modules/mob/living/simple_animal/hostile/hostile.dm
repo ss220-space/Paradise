@@ -488,20 +488,27 @@
 
 
 /mob/living/simple_animal/hostile/Move(atom/newloc, direct, movetime)
-	if(!client && dodging && approaching_target && prob(dodge_prob) && !moving_diagonally && isturf(loc) && isturf(newloc))
-		return dodge(newloc, direct, movetime)
-	return ..()
+	. = dodge(direct, movetime)
+	if(!.)
+		. = ..()
 
 
-/mob/living/simple_animal/hostile/proc/dodge(moving_to, move_direction, movetime)
-	//Assuming we move towards the target we want to swerve toward them to get closer
+/mob/living/simple_animal/hostile/proc/dodge(direct, movetime)
+	. = FALSE
+	if(client)
+		return .
+	if(!dodging || !approaching_target || moving_diagonally)
+		return .
+	if(!isturf(loc))
+		return .
+	if(!prob(dodge_prob))
+		return .
+	var/turf/dodge_loc = get_step(loc, pick(turn(direct, 45), turn(direct, -45)))
+	if(!length(get_path_to(src, dodge_loc, max_distance = 1, simulated_only = FALSE, skip_first = FALSE)))
+		return .
 	dodging = FALSE
-	var/turf/new_loc = get_step(loc, pick(turn(move_direction, 45), turn(move_direction, -45)))
-	. = Move(new_loc, move_direction, movetime)
-	if(!.)	// Can't dodge there so we just carry on
-		. = Move(moving_to, move_direction, movetime)
+	. = Move(dodge_loc, direct, movetime)
 	dodging = TRUE
-	return FALSE
 
 
 /mob/living/simple_animal/hostile/proc/DestroyObjectsInDirection(direction)
