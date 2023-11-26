@@ -263,7 +263,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/clothing/head/helmet,
 					/obj/item/clothing/head/helmet,
 					/obj/item/clothing/head/helmet)
-	cost = 10
+	cost = 20
 	containername = "armor crate"
 
 ////// Weapons: Basic
