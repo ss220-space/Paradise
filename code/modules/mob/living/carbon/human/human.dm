@@ -1330,7 +1330,7 @@
 			var/obj/item/organ/internal/organ_check = O
 			var/organ_found
 			for(var/index in racial_organs)
-				var/obj/item/organ/internal/organ = dna.species.has_organ[index]
+				var/obj/item/organ/internal/organ = racial_organs[index]
 				organ_found = (initial(organ.slot) == organ_check.slot)
 				if(organ_found)
 					break

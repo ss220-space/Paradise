@@ -310,6 +310,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 0 //No lucky chances from the crate; if you get this, this is ALL you're getting
 	hijack_only = TRUE //This is a murderbone weapon, as such, it should only be available in those scenarios.
 
+/datum/uplink_item/jobspecific/book_of_babel
+	name = "Book of Babel"
+	desc = "An ancient tome written in countless tongues. Despite this fact, you can read this book effortlessly, to learn all the existing languages. Don't ask questions."
+	reference = "BOB"
+	item = /obj/item/book_of_babel
+	cost = 1
+	job = list("Chaplain", "Librarian")
+	surplus = 0
+	cant_discount = TRUE
+
 //Janitor
 /datum/uplink_item/jobspecific/cautionsign
 	name = "Proximity Mine"
@@ -482,6 +492,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	job = list("Librarian")
 	surplus = 0
 	hijack_only = TRUE
+
+/datum/uplink_item/jobspecific/dice_of_fate
+	name = "Dice of fate"
+	desc = "Everything or nothing; that is my motto."
+	reference = "DOF"
+	item = /obj/item/dice/d20/fate/one_use
+	cost = 20
+	job = list("Librarian")
+	surplus = 0
+	cant_discount = TRUE
 
 //Botanist
 /datum/uplink_item/jobspecific/ambrosiacruciatus

@@ -74220,13 +74220,11 @@
 /area/maintenance/atmospherics)
 "qkQ" = (
 /obj/structure/rack,
-/obj/item/circuitboard/cloning,
 /obj/item/circuitboard/med_data{
 	pixel_x = 3;
 	pixel_y = -3
 	},
 /obj/item/circuitboard/clonescanner,
-/obj/item/circuitboard/clonepod,
 /obj/item/circuitboard/scan_consolenew,
 /obj/item/circuitboard/cryo_tube{
 	pixel_x = 3
