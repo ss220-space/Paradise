@@ -58,6 +58,8 @@
 	new /obj/item/door_remote/research_director(src)
 	new /obj/item/reagent_containers/food/drinks/mug/rd(src)
 	new /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic(src)
+	new /obj/item/organ/internal/cyberimp/eyes/hud/skills(src)
+	new /obj/item/organ/internal/cyberimp/eyes/science(src)
 	new /obj/item/clothing/accessory/medal/science(src)
 	new /obj/item/megaphone(src)	//added here deleted on maps
 	new /obj/item/storage/garmentbag/RD(src)

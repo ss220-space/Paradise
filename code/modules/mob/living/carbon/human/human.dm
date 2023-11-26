@@ -1777,7 +1777,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(C.scan_reagents)
 			return TRUE
 	for(var/obj/item/organ/internal/cyberimp/eyes/science in internal_organs)
-		if(hud)
+		if(science)
 			return TRUE
 
 /mob/living/carbon/human/can_see_food()

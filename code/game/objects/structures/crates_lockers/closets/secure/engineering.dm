@@ -30,6 +30,7 @@
 	new /obj/item/megaphone(src)	//added here deleted on maps
 	new /obj/item/storage/garmentbag/engineering_chief(src)
 	new /obj/item/storage/bag/construction(src)
+	new /obj/item/organ/internal/cyberimp/eyes/hud/skills(src)
 
 /obj/structure/closet/secure_closet/engineering_electrical
 	name = "electrical supplies locker"

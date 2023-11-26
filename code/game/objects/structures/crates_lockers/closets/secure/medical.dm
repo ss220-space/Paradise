@@ -146,6 +146,8 @@
 	new /obj/item/flash(src)
 	new /obj/item/reagent_containers/hypospray/CMO(src)
 	new /obj/item/organ/internal/cyberimp/eyes/hud/medical(src)
+	new /obj/item/organ/internal/cyberimp/eyes/science(src)
+	new /obj/item/organ/internal/cyberimp/eyes/hud/skills(src)
 	new /obj/item/door_remote/chief_medical_officer(src)
 	new /obj/item/reagent_containers/food/drinks/mug/cmo(src)
 	new /obj/item/clothing/accessory/medal/medical(src)

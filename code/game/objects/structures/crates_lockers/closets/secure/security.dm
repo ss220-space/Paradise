@@ -19,6 +19,7 @@
 	new /obj/item/reagent_containers/food/drinks/mug/cap(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
 	new /obj/item/storage/garmentbag/captains(src)
+	new /obj/item/organ/internal/cyberimp/eyes/hud/skills(src)
 /obj/structure/closet/secure_closet/hop
 	name = "head of personnel's locker"
 	req_access = list(ACCESS_HOP)
@@ -37,6 +38,7 @@
 	new /obj/item/reagent_containers/food/drinks/mug/hop(src)
 	new /obj/item/clothing/accessory/medal/service(src)
 	new /obj/item/storage/garmentbag/hop(src)
+	new /obj/item/organ/internal/cyberimp/eyes/hud/skills(src)
 
 /*/obj/structure/closet/secure_closet/hop2 //dont realy need this because of garment bag
 	name = "head of personnel's attire"
@@ -206,6 +208,7 @@
 	new /obj/item/storage/box/tapes(src)
 	new /obj/item/taperecorder(src)
 	new /obj/item/storage/garmentbag/ntrep(src)
+	new /obj/item/organ/internal/cyberimp/eyes/hud/skills(src)
 
 
 /obj/structure/closet/secure_closet/security/cargo
@@ -339,3 +342,4 @@
 	new /obj/item/megaphone(src)
 	new /obj/item/storage/garmentbag/magistrate(src)
 	new /obj/item/storage/box/tapes(src)
+	new /obj/item/organ/internal/cyberimp/eyes/hud/skills(src)
