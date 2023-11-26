@@ -1,3 +1,9 @@
+//antag paradise gamemode type defines
+#define ANTAG_SINGLE	"antag_single"
+#define ANTAG_DOUBLE	"antag_double"
+#define ANTAG_TRIPPLE	"antag_tripple"
+#define ANTAG_RANDOM	"antag_random"
+
 //objective defines
 #define TARGET_INVALID_IS_OWNER		1
 #define TARGET_INVALID_NOT_HUMAN	2

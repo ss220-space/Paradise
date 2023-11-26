@@ -16,6 +16,8 @@
 	var/give_uplink = TRUE
 	/// Whether the traitor can specialize into a contractor.
 	var/is_contractor = FALSE
+	/// Whether the traitor will receive only hijack objective.
+	var/is_hijacker = FALSE
 	/// The associated traitor's uplink. Only present if `give_uplink` is set to `TRUE`.
 	var/obj/item/uplink/hidden/hidden_uplink = null
 
@@ -79,7 +81,6 @@
 
 
 /datum/antagonist/traitor/give_objectives()
-	var/is_hijacker = prob(10)
 	var/objective_count = is_hijacker 			//Hijacking counts towards number of objectives
 	if(!SSticker.mode.exchange_blue && SSticker.mode.traitors.len >= EXCHANGE_OBJECTIVE_TRAITORS_REQUIRED) 	//Set up an exchange if there are enough traitors
 		if(!SSticker.mode.exchange_red)

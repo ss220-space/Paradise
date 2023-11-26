@@ -55,6 +55,26 @@
 	board_name = "Telescreen"
 	build_path = /obj/machinery/computer/security/telescreen
 
+/obj/item/circuitboard/camera/telescreen/singularity
+	board_name = "Telescreen_Singularity"
+	build_path = /obj/machinery/computer/security/telescreen/singularity
+
+/obj/item/circuitboard/camera/telescreen/toxin_chamber
+	board_name = "Toxins Telescreen"
+	build_path = /obj/machinery/computer/security/telescreen/toxin_chamber
+
+/obj/item/circuitboard/camera/telescreen/test_chamber
+	board_name = "Test Chamber Telescreen"
+	build_path = /obj/machinery/computer/security/telescreen/test_chamber
+
+/obj/item/circuitboard/camera/telescreen/research
+	board_name = "Research Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/research
+
+/obj/item/circuitboard/camera/telescreen/prison
+	board_name = "Prison Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/prison
+
 /obj/item/circuitboard/camera/telescreen/entertainment
 	board_name = "Entertainment Monitor"
 	build_path = /obj/machinery/computer/security/telescreen/entertainment
@@ -198,7 +218,7 @@
 	origin_tech = "programming=3"
 
 /obj/item/circuitboard/cloning
-	board_name = "Cloning Machine Console"
+	board_name = "Biomass Pod Console"
 	build_path = /obj/machinery/computer/cloning
 	origin_tech = "programming=2;biotech=2"
 

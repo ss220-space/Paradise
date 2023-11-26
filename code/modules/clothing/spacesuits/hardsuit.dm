@@ -239,6 +239,7 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
 	visor_flags_inv = HIDEMASK|HIDEGLASSES|HIDENAME|HIDETAIL
 	visor_flags = STOPSPRESSUREDMAGE
+	var/combat_rad = 50
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/update_icon()
 	icon_state = "hardsuit[on]-[item_color]"
@@ -262,6 +263,7 @@
 		flags_cover |= HEADCOVERSEYES | HEADCOVERSMOUTH
 		flags_inv |= visor_flags_inv
 		cold_protection |= HEAD
+		armor.rad = 100
 	else
 		to_chat(user, "<span class='notice'>You switch your hardsuit to combat mode and can now run at full speed.</span>")
 		name += " (combat)"
@@ -271,6 +273,7 @@
 		flags_cover &= ~(HEADCOVERSEYES | HEADCOVERSMOUTH)
 		flags_inv &= ~visor_flags_inv
 		cold_protection &= ~HEAD
+		armor.rad = combat_rad
 	update_icon()
 	playsound(src.loc, 'sound/items/rig_deploy.ogg', 110, 1)
 	toggle_hardsuit_mode(user)
@@ -291,6 +294,7 @@
 			linkedsuit.flags |= STOPSPRESSUREDMAGE
 			linkedsuit.cold_protection |= UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | TAIL
 			linkedsuit.on = TRUE
+			linkedsuit.armor.rad = 100
 		else
 			linkedsuit.name += " (combat)"
 			linkedsuit.desc = linkedsuit.alt_desc
@@ -298,6 +302,7 @@
 			linkedsuit.flags &= ~STOPSPRESSUREDMAGE
 			linkedsuit.cold_protection &= ~(UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | TAIL)
 			linkedsuit.on = FALSE
+			linkedsuit.armor.rad = combat_rad
 
 		linkedsuit.update_icon()
 		user.update_inv_wear_suit()
@@ -332,6 +337,7 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	combat_rad = 70
 
 /obj/item/clothing/suit/space/hardsuit/syndi/elite
 	name = "elite syndicate hardsuit"
@@ -376,6 +382,7 @@
 	icon_state = "hardsuit0-sst"
 	armor = list(melee = 70, bullet = 70, laser = 50, energy = 40, bomb = 80, bio = 100, rad = 100, fire = 100, acid = 100) //Almost as good as DS gear, but unlike DS can switch to combat for mobility
 	item_color = "sst"
+	combat_rad = 100
 
 /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst
 	icon_state = "hardsuit0-sst"

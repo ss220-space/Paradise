@@ -530,6 +530,8 @@
 	if(!slot)
 		return FALSE
 
+	. = TRUE
+
 	I.pixel_x = initial(I.pixel_x)
 	I.pixel_y = initial(I.pixel_y)
 	I.layer = ABOVE_HUD_LAYER

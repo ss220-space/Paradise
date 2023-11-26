@@ -62,7 +62,7 @@
 	build_path = /obj/item/circuitboard/camera
 	category = list("Computer Boards")
 
-/datum/design/clonecontrol
+/*	/datum/design/clonecontrol
 	name = "Console Board (Cloning Machine Console)"
 	desc = "Allows for the construction of circuit boards used to build a new Cloning Machine console."
 	id = "clonecontrol"
@@ -71,7 +71,7 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/cloning
 	category = list("Computer Boards")
-
+*/
 /datum/design/comconsole
 	name = "Console Board (Communications Console)"
 	desc = "Allows for the construction of circuit boards used to build a communications console."

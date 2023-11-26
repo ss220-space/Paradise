@@ -146,6 +146,7 @@
 		M.selected = src
 	update_chassis_page()
 	attach_act(M)
+	flags |= NODROP
 	if(M.occupant)
 		give_targeted_action()
 
@@ -173,6 +174,7 @@
 		update_chassis_page()
 		chassis.log_message("[src] removed from equipment.")
 		chassis = null
+		flags &= ~NODROP
 		set_ready_state(1)
 
 /obj/item/mecha_parts/mecha_equipment/proc/detach_act()

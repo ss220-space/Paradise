@@ -171,6 +171,14 @@
 	build_path = /obj/item/clothing/accessory/holster
 	category = list("initial","Leather and Cloth")
 
+/datum/design/k_holster
+	name = "Knife holster"
+	id = "k_holster"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 400)
+	build_path = /obj/item/clothing/accessory/holster/knives
+	category = list("initial","Leather and Cloth")
+
 /datum/design/webbing
 	name = "Webbing"
 	id = "webbing"

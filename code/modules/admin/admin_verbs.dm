@@ -1333,3 +1333,50 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 	log_admin("[key_name(usr)] has [advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
 	message_admins("[key_name_admin(usr)] has [advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
+
+/client/proc/cmd_admin_alert_message(mob/about_to_be_banned)
+	set name = "Send Alert Message"
+	set category = "Admin"
+
+	if(!ismob(about_to_be_banned))
+		return
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	var/alert_type = alert(src, "Do you wish to send an admin alert to [key_name(about_to_be_banned, FALSE)]?",,"Yes", "No", "Custom Message")
+
+	switch(alert_type)
+		if("Yes")
+			var/message = "Администратор пытается связаться с тобой! \nОткрой диалоговое окно с администратором, нажав на его сикей в чате, в случае игнорирования, вы можете получить бан!"
+			show_blurb(about_to_be_banned, 15, message, null, "center", "center", COLOR_RED, null, null, 1)
+			log_admin("[key_name(src)] sent a default admin alert to [key_name(about_to_be_banned)].")
+			message_admins("[key_name(src)] sent a default admin alert to [key_name(about_to_be_banned)].")
+
+		if("Custom Message")
+			var/message = input(src, "Input your custom admin alert text:", "Message") as text|null
+			if(!message)
+				return
+			message = strip_html(message, 500)
+
+			var/message_color = input(src, "Input your message color:", "Color Selector") as color|null
+			if(!message_color)
+				return
+
+			var/alert_type2 = alert(src, "Do you wish to change speed of an admin alert to? (No - default speed)",,"Yes", "No")
+			switch(alert_type2)
+				if("Yes")
+					var/speedmsg = input(src, "Input speed (0.5 - 2x faster. 2 - 2x slower):", "speedmsg") as text|null
+					if(!speedmsg)
+						return
+					speedmsg = text2num(speedmsg)
+					show_blurb(about_to_be_banned, 15, message, null, "center", "center", message_color, null, null, speedmsg)
+					log_admin("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
+					message_admins("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
+				if("No")
+					show_blurb(about_to_be_banned, 15, message, null, "center", "center", message_color, null, null, 1)
+					log_admin("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
+					message_admins("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
+
+				else
+					return

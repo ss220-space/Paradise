@@ -817,9 +817,6 @@
 	if(!user)
 		return
 
-	if(..())
-		return TRUE
-
 	add_fingerprint(user)
 
 	if(usr == user && opened && !issilicon(user))
@@ -835,6 +832,9 @@
 		return
 	if(stat & (BROKEN|MAINT))
 		return
+
+	if(..())
+		return TRUE
 
 	interact(user)
 

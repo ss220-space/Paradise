@@ -124,10 +124,12 @@
 		theghost = pick(candidates)
 		to_chat(M, "Your mob has been taken over by a ghost!")
 		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)])")
+		log_game("[theghost.key] has taken control of [M] (ckey: [M.key])")
 		M.ghostize()
 		M.key = theghost.key
 	else
 		to_chat(M, "There were no ghosts willing to take control.")
+		log_game("No one decided to take control of [M] (ckey: [M.key])")
 		message_admins("No ghosts were willing to take control of [key_name_admin(M)])")
 
 /proc/check_zone(zone)
