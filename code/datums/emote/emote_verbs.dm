@@ -408,17 +408,17 @@
  * Moth
  */
 /mob/living/carbon/human/proc/emote_flap()
-	set name = "◦ Махать крыльями "
+	set name = "< Махать крыльями >"
 	set category = "Эмоции"
 	emote("flap", intentional = TRUE)
 
 /mob/living/carbon/human/proc/emote_aflap()
-	set name = "◦ Махать крыльями агрессивно "
+	set name = "< Махать крыльями агрессивно >"
 	set category = "Эмоции"
 	emote("aflap", intentional = TRUE)
 
 /mob/living/carbon/human/proc/emote_flutter()
-	set name = "◦ Расправить крылья "
+	set name = "< Расправить крылья >"
 	set category = "Эмоции"
 	emote("flutter", intentional = TRUE)
 
