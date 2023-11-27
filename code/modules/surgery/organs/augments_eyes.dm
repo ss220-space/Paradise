@@ -11,7 +11,7 @@
 	var/see_in_dark = 0
 	var/see_invisible = 0
 	var/lighting_alpha
-	var/science = 0
+	var/scan_items = 0
 
 	var/eye_colour = "#000000" // Should never be null
 	var/old_eye_colour = "#000000"
@@ -86,7 +86,7 @@
 	implant_color = "#8a2be2"
 	origin_tech = "materials=4;programming=4;biotech=4"
 	aug_message = "You see the information of the items around you..."
-	science = 1
+	scan_items = 1
 
 // HUD implants
 /obj/item/organ/internal/cyberimp/eyes/hud
