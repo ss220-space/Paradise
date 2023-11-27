@@ -173,6 +173,10 @@
 	slot_flags = SLOT_BELT
 	hitsound = 'sound/hallucinations/growl1.ogg'
 
+/obj/item/shield/riot/templar
+	name = "templar shield"
+	icon_state = "templar_shield"
+
 /obj/item/nullrod/claymore/chainsaw_sword
 	name = "sacred chainsaw sword"
 	icon_state = "chainswordon"
