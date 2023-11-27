@@ -322,11 +322,15 @@
 		return
 	if(owner.stat == DEAD)
 		return
+	if(ismachineperson(owner))
+		return
+	if(isvampire(owner))
+		return
 	if(owner.nutrition <= hunger_threshold)
 		synthesizing = TRUE
 		to_chat(owner, "<span class='notice'>You feel less hungry...</span>")
 		owner.adjust_nutrition(50)
-		addtimer(CALLBACK(src, .proc/synth_cool), 50)
+		addtimer(CALLBACK(src, PROC_REF(synth_cool)), 50)
 
 /obj/item/organ/internal/cyberimp/chest/old/nutriment/proc/synth_cool()
 	synthesizing = FALSE
