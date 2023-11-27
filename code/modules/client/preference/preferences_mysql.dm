@@ -538,7 +538,7 @@
 													"socks" = socks,
 													"body_accessory" = (body_accessory ? body_accessory : ""),
 													"gearlist" = (gearlist ? gearlist : ""),
-													"autohiss_mode" = autohiss_mode,
+													"autohiss_mode" = autohiss_mode ? autohiss_mode : initial(autohiss_mode),
 													"h_grad_style" = h_grad_style,
 													"h_grad_offset" = "[h_grad_offset_x],[h_grad_offset_y]",
 													"h_grad_colour" = h_grad_colour,
