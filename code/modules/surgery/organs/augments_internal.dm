@@ -276,31 +276,18 @@
 	desc = "This implant will synthesize a small amount of nutriment and pumps it directly into your bloodstream when you are starving."
 	icon_state = "chest_implant"
 	implant_color = "#00AA00"
-	var/hunger_threshold = NUTRITION_LEVEL_STARVING
-	var/synthesizing = 0
+	var/hunger_modificator = 0.7
 	var/poison_amount = 5
 	slot = "stomach"
 	origin_tech = "materials=2;powerstorage=2;biotech=2"
 
-/obj/item/organ/internal/cyberimp/chest/nutriment/on_life()
-	if(!owner)
-		return
-	if(synthesizing)
-		return
-	if(owner.stat == DEAD)
-		return
-	if(ismachineperson(owner))
-		return
-	if(isvampire(owner))
-		return
-	if(owner.nutrition <= hunger_threshold)
-		synthesizing = TRUE
-		to_chat(owner, "<span class='notice'>You feel less hungry...</span>")
-		owner.adjust_nutrition(50)
-		addtimer(CALLBACK(src, PROC_REF(synth_cool)), 50)
+/obj/item/organ/internal/cyberimp/chest/nutriment/insert(mob/living/carbon/M, special, dont_remove_slot)
+	M.hunger_drain *= hunger_modificator
+	. = ..()
 
-/obj/item/organ/internal/cyberimp/chest/nutriment/proc/synth_cool()
-	synthesizing = FALSE
+/obj/item/organ/internal/cyberimp/chest/nutriment/remove(mob/living/carbon/M, special)
+	M.hunger_drain /= hunger_modificator
+	. = ..()
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/emp_act(severity)
 	if(!owner || emp_proof)
@@ -311,6 +298,48 @@
 /obj/item/organ/internal/cyberimp/chest/nutriment/plus
 	name = "Nutriment pump implant PLUS"
 	desc = "This implant will synthesize a small amount of nutriment and pumps it directly into your bloodstream when you are hungry."
+	icon_state = "chest_implant"
+	implant_color = "#006607"
+	hunger_modificator = 0.5
+	poison_amount = 10
+	origin_tech = "materials=4;powerstorage=3;biotech=3"
+
+/obj/item/organ/internal/cyberimp/chest/old/nutriment
+	name = "Nutriment pump implant"
+	desc = "This implant with synthesize and pump into your bloodstream a small amount of nutriment when you are starving."
+	icon_state = "chest_implant"
+	implant_color = "#00AA00"
+	var/hunger_threshold = NUTRITION_LEVEL_STARVING
+	var/synthesizing = 0
+	var/poison_amount = 5
+	slot = "stomach"
+	origin_tech = "materials=2;powerstorage=2;biotech=2"
+
+/obj/item/organ/internal/cyberimp/chest/old/nutriment/on_life()
+	if(!owner)
+		return
+	if(synthesizing)
+		return
+	if(owner.stat == DEAD)
+		return
+	if(owner.nutrition <= hunger_threshold)
+		synthesizing = TRUE
+		to_chat(owner, "<span class='notice'>You feel less hungry...</span>")
+		owner.adjust_nutrition(50)
+		addtimer(CALLBACK(src, .proc/synth_cool), 50)
+
+/obj/item/organ/internal/cyberimp/chest/old/nutriment/proc/synth_cool()
+	synthesizing = FALSE
+
+/obj/item/organ/internal/cyberimp/chest/old/nutriment/emp_act(severity)
+	if(!owner || emp_proof)
+		return
+	owner.reagents.add_reagent("????",poison_amount / severity) //food poisoning
+	to_chat(owner, "<span class='warning'>You feel like your insides are burning.</span>")
+
+/obj/item/organ/internal/cyberimp/chest/old/nutriment/plus
+	name = "Nutriment pump implant PLUS"
+	desc = "This implant will synthesize and pump into your bloodstream a small amount of nutriment when you are hungry."
 	icon_state = "chest_implant"
 	implant_color = "#006607"
 	hunger_threshold = NUTRITION_LEVEL_HUNGRY
