@@ -14,7 +14,7 @@
 	brute_mod = 0.9
 	heatmod = 0.8
 	coldmod = 1.2
-	hunger_drain = 0.13
+	hunger_drain = 0.16
 	var/tail_strength = 1
 
 	blurb = "A heavily reptillian species, Unathi (or 'Sinta as they call themselves) hail from the \
