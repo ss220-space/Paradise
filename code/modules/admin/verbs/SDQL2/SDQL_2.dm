@@ -328,7 +328,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 					ENABLE_BITFIELD(options,SDQL2_OPTION_SEQUENTIAL)
 
 /datum/SDQL2_query/proc/ARun()
-	ImmediateInvokeAsync(src, .proc/Run)
+	INVOKE_ASYNC(src, PROC_REF(Run))
 
 /datum/SDQL2_query/proc/Run()
 	if(SDQL2_IS_RUNNING)
