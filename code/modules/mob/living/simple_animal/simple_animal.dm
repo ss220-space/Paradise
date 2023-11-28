@@ -361,7 +361,7 @@
 		if(death_sound)
 			playsound(get_turf(src),death_sound, 200, 1)
 		if(deathmessage)
-			visible_message(span_danger("\The [src] [genderize_decode(deathmessage)]"))
+			visible_message(span_danger("\The [src] [genderize_decode(src, deathmessage)]"))
 		else if(!del_on_death)
 			visible_message(span_danger("\The [src] stops moving..."))
 	if(xenobiology_spawned)
