@@ -176,7 +176,7 @@
 /obj/item/reagent_containers/iv_bag/blood/Initialize(mapload)
 	if(blood_type != null && blood_species != null)
 		name = "[initial(name)] - [blood_type] - [blood_species]"
-		reagents.add_reagent("blood", 200, list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))
+		reagents.add_reagent("blood", 200, list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))
 	. = ..()
 
 
@@ -249,7 +249,7 @@
 
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis/Initialize(mapload)
 	if(blood_type != null && blood_species != null)
-		reagents.add_reagent("sbloodoxy", 200, list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))
+		reagents.add_reagent("sbloodoxy", 200, list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))
 	. = ..()
 
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis
@@ -258,7 +258,7 @@
 
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis/Initialize(mapload)
 	if(blood_type != null && blood_species != null)
-		reagents.add_reagent("sbloodvox", 200, list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))
+		reagents.add_reagent("sbloodvox", 200, list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))
 	. = ..()
 
 /obj/item/reagent_containers/iv_bag/slime
