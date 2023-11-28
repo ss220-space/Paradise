@@ -226,13 +226,9 @@
 	else
 		var/datum/reagents/R = beaker.reagents
 		var/datum/reagent/Blood = null
-		var/static/list/virus_carrier_reagents = list(
-			/datum/reagent/blood,
-			/datum/reagent/slimejelly,
-			/datum/reagent/medicine/cryoxadone,
-		)
+
 		for(var/datum/reagent/B in R.reagent_list)
-			if(is_type_in_list(B, virus_carrier_reagents))
+			if(B.id in GLOB.diseases_carrier_reagents)
 				Blood = B
 				if(!Blood.data)
 					continue
@@ -249,12 +245,15 @@
 			dat += "<b>Тип крови:</b> [(Blood.data["blood_type"]||"нет")]<BR>"
 			dat += "<b>Тип расовой крови:</b> [(Blood.data["blood_species"]||"нет")]<BR>"
 
-
+			dat += "<h3>Данные о заболеваниях:</h3>"
 			if(Blood.data["diseases"])
 				var/i = 0
 				for(var/datum/disease/D in Blood.data["diseases"])
 					i++
 					if(!(D.visibility_flags & HIDDEN_PANDEMIC))
+
+						dat += "<b>Общепринятое название: </b>"
+
 						if(istype(D, /datum/disease/virus/advance))
 							var/datum/disease/virus/advance/A = D
 							D = GLOB.archive_diseases[A.GetDiseaseID()]
@@ -262,36 +261,36 @@
 								if(D.name == "Unknown")
 									dat += "<b><a href='?src=[UID()];name_disease=[i]'>Назвать вирус</a></b><BR>"
 								else
-									dat += "<b><a href='?src=[UID()];print_form=[i]'>Напечатать форму выпуска</a></b><BR>"
+									dat += "[D.name] <b><a href='?src=[UID()];print_form=[i]'>Напечатать форму выпуска</a></b><BR>"
+						else
+							dat += "[D.name]<BR>"
 
 						if(!D)
 							CRASH("We weren't able to get the advance disease from the archive.")
 
-						dat += "<b>Болезнетворный агент:</b> [D?"[D.agent] — <A href='?src=[UID()];create_disease_culture=[i]'>Создать бутылёк с вирусной культурой</A>":"нет"]<BR>"
-						dat += "<b>Общепринятое название:</b> [(D.name||"нет")]<BR>"
+						dat += "<b>Болезнетворный агент:</b> [D?"[D.agent] — <A href='?src=[UID()];create_disease_culture=[i]'>Создать образец</A>":"нет"]<BR>"
 						dat += "<b>Описание: </b> [(D.desc||"нет")]<BR>"
 						dat += "<b>Путь передачи:</b> [(D.additional_info||"нет")]<BR>"
 						dat += "<b>Возможное лекарство:</b> [(D.cure_text||"нет")]<BR>"
-						dat += "<b>Возможность выработки антител:</b> [(D.can_immunity ? "Присутствует" : "Отсутствует")]<BR><BR>"
+						dat += "<b>Возможность выработки антител:</b> [(D.can_immunity ? "Присутствует" : "Отсутствует")]<BR>"
 
 						if(istype(D, /datum/disease/virus/advance))
 							var/datum/disease/virus/advance/A = D
-							dat += "<b>Симптомы:</b> "
+							dat += "<BR><b>Симптомы:</b> "
 							var/english_symptoms = list()
 							for(var/datum/symptom/S in A.symptoms)
 								english_symptoms += S.name
 							dat += english_list(english_symptoms)
-
+						dat += "<BR>"
 				if(i == 0)
 					dat += "В образце не обнаружен вирус."
 			else
 				dat += "В образце не обнаружен вирус."
 
-			dat += "<BR><b>Содержит антитела к:</b> "
 			if(Blood.data["resistances"])
 				var/list/res = Blood.data["resistances"]
 				if(res.len)
-					dat += "<ul>"
+					dat += "<BR><b>Содержит антитела к:</b><ul>"
 					var/i = 0
 					for(var/type in Blood.data["resistances"])
 						i++
@@ -308,13 +307,13 @@
 						dat += "<li>[disease_name] - <A href='?src=[UID()];create_vaccine=[i]'>Создать бутылёк с вакциной</A></li>"
 					dat += "</ul><BR>"
 				else
-					dat += "ничему<BR>"
+					dat += "<BR><b>Не содержит антител</b><BR>"
 			else
-				dat += "nothing<BR>"
+				dat += "<BR><b>Не содержит антител</b><BR>"
 		dat += "<BR><A href='?src=[UID()];eject=1'>Извлечь мензурку</A>[((R.total_volume&&R.reagent_list.len) ? "-- <A href='?src=[UID()];empty_beaker=1'>Очистить и извлечь мензурку</A>":"")]<BR>"
 		dat += "<A href='?src=[user.UID()];mach_close=pandemic'>Закрыть</A>"
 
-	var/datum/browser/popup = new(user, "pandemic", name, 575, 420)
+	var/datum/browser/popup = new(user, "pandemic", name, 575, 480)
 	popup.set_content(dat)
 	popup.open(0)
 	onclose(user, "pandemic")

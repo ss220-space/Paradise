@@ -5,7 +5,11 @@
 //
 */
 
-
+GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
+			"blood",
+			"slimejelly",
+			"cryoxadone",
+		))
 
 /datum/reagent/water
 	name = "Water"

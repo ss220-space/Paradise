@@ -394,7 +394,7 @@
 				var/datum/chemical_reaction/C = reaction
 				var/total_required_reagents = length(C.required_reagents)
 				var/total_matching_reagents = 0
-				var/total_required_catalysts = length(C.required_catalysts)
+				var/total_required_catalysts = C.count_of_catalysts == -1 ? length(C.required_catalysts) : C.count_of_catalysts
 				var/total_matching_catalysts = 0
 				var/matching_container = FALSE
 				var/matching_other = FALSE
@@ -414,9 +414,8 @@
 					total_matching_reagents++
 					multipliers += round(get_reagent_amount(B) / C.required_reagents[B])
 				for(var/B in C.required_catalysts)
-					if(!has_reagent(B, C.required_catalysts[B]))
-						break
-					total_matching_catalysts++
+					if(has_reagent(B, C.required_catalysts[B]))
+						total_matching_catalysts++
 
 				if(!C.required_container)
 					matching_container = TRUE
@@ -437,7 +436,7 @@
 				if(min_temp == 0)
 					min_temp = chem_temp
 
-				if(total_matching_reagents == total_required_reagents && total_matching_catalysts == total_required_catalysts && matching_container && matching_other && chem_temp <= max_temp && chem_temp >= min_temp)
+				if(total_matching_reagents == total_required_reagents && total_matching_catalysts >= total_required_catalysts && matching_container && matching_other && chem_temp <= max_temp && chem_temp >= min_temp)
 					var/multiplier = min(multipliers)
 					var/preserved_data = null
 					for(var/B in C.required_reagents)

@@ -5,6 +5,8 @@
 	var/result = null
 	var/list/required_reagents = list()
 	var/list/required_catalysts = list()
+	/// Count of required catalysts. -1 if required all catalysts
+	var/count_of_catalysts = -1
 	var/list/required_blood_group  = null //requested blood groups, for example, "A+"
 	var/list/required_blood_species = null //requested blood's species name, for example, "Vox"
 

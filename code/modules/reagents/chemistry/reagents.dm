@@ -136,6 +136,9 @@
 
 // Called in on_merge() proc if reagent can carry diseases
 /datum/reagent/proc/merge_diseases_data(list/mix_data)
+	if(!(id in GLOB.diseases_carrier_reagents))
+		return
+
 	if(data && mix_data)
 		if(data["diseases"] || mix_data["diseases"])
 

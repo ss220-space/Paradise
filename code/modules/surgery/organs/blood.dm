@@ -189,52 +189,40 @@
 	return
 
 /mob/living/carbon/human/get_blood_data(blood_id)
-	if(blood_id == "blood") //actual blood reagent
-		var/blood_data = list()
-		//set the blood data
-		blood_data["donor"] = src
+	var/blood_data = list()
+	if(blood_id in GLOB.diseases_carrier_reagents)
 		blood_data["diseases"] = list()
-
 		for(var/datum/disease/D in diseases)
 			blood_data["diseases"] += D.Copy()
-
-		blood_data["blood_DNA"] = copytext(dna.unique_enzymes,1,0)
-		if(resistances && resistances.len)
+		if(resistances?.len)
 			blood_data["resistances"] = resistances.Copy()
-		var/list/temp_chem = list()
-		for(var/datum/reagent/R in reagents.reagent_list)
-			temp_chem[R.id] = R.volume
-		blood_data["trace_chem"] = list2params(temp_chem)
-		if(mind)
-			blood_data["mind"] = mind
-		if(ckey)
-			blood_data["ckey"] = ckey
-		if(!suiciding)
-			blood_data["cloneable"] = 1
-		blood_data["blood_type"] = copytext(src.dna.blood_type, 1, 0)
-		blood_data["blood_species"] = dna.species.blood_species
-		blood_data["gender"] = gender
-		blood_data["real_name"] = real_name
-		blood_data["blood_color"] = dna.species.blood_color
-		blood_data["factions"] = faction
-		blood_data["dna"] = dna.Clone()
-		return blood_data
-	if(blood_id == "slimejelly")
-		var/blood_data = list()
-		blood_data["colour"] = dna.species.blood_color
 
-		blood_data["diseases"] = list()
-		for(var/datum/disease/D in diseases)
-			blood_data["diseases"] += D.Copy()
+	switch(blood_id)
+		if("blood")
+			blood_data["donor"] = src
+			blood_data["blood_DNA"] = copytext(dna.unique_enzymes,1,0)
+			var/list/temp_chem = list()
+			for(var/datum/reagent/R in reagents.reagent_list)
+				temp_chem[R.id] = R.volume
+			blood_data["trace_chem"] = list2params(temp_chem)
+			if(mind)
+				blood_data["mind"] = mind
+			if(ckey)
+				blood_data["ckey"] = ckey
+			if(!suiciding)
+				blood_data["cloneable"] = 1
+			blood_data["blood_type"] = copytext(src.dna.blood_type, 1, 0)
+			blood_data["blood_species"] = dna.species.blood_species
+			blood_data["gender"] = gender
+			blood_data["real_name"] = real_name
+			blood_data["blood_color"] = dna.species.blood_color
+			blood_data["factions"] = faction
+			blood_data["dna"] = dna.Clone()
 
-		return blood_data
-	if(blood_id == "cryoxadone")
-		var/blood_data = list()
-		blood_data["diseases"] = list()
-		for(var/datum/disease/D in diseases)
-			blood_data["diseases"] += D.Copy()
+		if("slimejelly")
+			blood_data["colour"] = dna.species.blood_color
 
-		return blood_data
+	return blood_data
 
 //get the id of the substance this mob use as blood.
 /mob/proc/get_blood_id()

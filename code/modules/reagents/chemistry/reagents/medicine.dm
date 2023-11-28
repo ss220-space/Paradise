@@ -118,6 +118,7 @@
 			Org.rejuvenate()
 
 /datum/reagent/medicine/cryoxadone
+	data = list("diseases" = null)
 	name = "Cryoxadone"
 	id = "cryoxadone"
 	description = "A plasma mixture with almost magical healing powers. Its main limitation is that the targets body temperature must be under 265K for it to metabolise correctly."
