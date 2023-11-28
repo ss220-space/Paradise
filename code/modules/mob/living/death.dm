@@ -64,7 +64,7 @@
 	SetEyeBlurry(0)
 
 	if(!gibbed && deathgasp_on_death)
-		emote("deathgasp", force = TRUE)
+		emote("deathgasp")
 
 	if(HAS_TRAIT(src, TRAIT_SECDEATH))
 		playsound(loc, pick('sound/misc/die1.ogg', 'sound/misc/die2.ogg', 'sound/misc/die3.ogg', 'sound/misc/die4.ogg'), 80)

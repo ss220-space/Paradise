@@ -35,7 +35,8 @@
 	var/leaping = FALSE
 	dirslash_enabled = TRUE
 	ventcrawler = 1
-	var/death_message = "lets out a waning guttural screech, green blood bubbling from its maw..."
+	/// See [/proc/genderize_decode] for more info.
+	var/death_message = "изда%(ет,ют)% тихий гортанный звук, зелёная кровь пузырится из %(его,её,его,их)% пасти..."
 	var/death_sound = 'sound/voice/hiss6.ogg'
 
 	var/datum/action/innate/alien_nightvision_toggle/night_vision_action

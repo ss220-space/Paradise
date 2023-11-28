@@ -62,7 +62,7 @@
 	if(hand && owner.can_unEquip(hand))
 		owner.drop_item_ground(hand)
 		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, бросая то что держал!</span>")
-		owner.custom_emote(1, "бросает [owner.p_they()] [owner.p_were()] держали, [owner.p_their()] [name] выходя из строя!")
+		owner.custom_emote(EMOTE_VISIBLE, "роня%(ет,ют)% предмет, %(его,её,его,их)% рука выходит из строя!")
 
 /obj/item/organ/external/arm/right
 	limb_name = "r_arm"
@@ -92,10 +92,10 @@
 		return
 	if(owner.IsWeakened())
 		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, не давая вам встать!</span>")
-		owner.custom_emote(1, "не может встать, [owner.p_their()] [name] выходя из строя!")
+		owner.custom_emote(EMOTE_VISIBLE, "не мо%(жет,гут)% встать, %(его,её,его,их)% нога выходит из строя!")
 	else
 		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, заставив вас упасть на пол!</span>")
-		owner.custom_emote(1, "упал на пол, [owner.p_their()] [name] выходя из строя!")
+		owner.custom_emote(EMOTE_VISIBLE, "пада%(ет,ют)% на пол, %(его,её,его,их)% нога выходит из строя!")
 	switch(severity)
 		if(1)
 			owner.AdjustWeakened(8 SECONDS)
@@ -130,10 +130,10 @@
 		return
 	if(owner.IsWeakened())
 		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, не давая вам встать!</span>")
-		owner.custom_emote(1, "не может встать, [owner.p_their()] [name] выходя из строя")
+		owner.custom_emote(EMOTE_VISIBLE, "не мо%(жет,гут)% встать, %(его,её,его,их)% ступня выходит из строя!")
 	else
 		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, падая на пол!</span>")
-		owner.custom_emote(1, "падая на пол, [owner.p_their()] [name] выходя из строя")
+		owner.custom_emote(EMOTE_VISIBLE, "пада%(ет,ют)% на пол, %(его,её,его,их)% ступня выходит из строя!")
 	switch(severity)
 		if(1)
 			owner.AdjustWeakened(8 SECONDS)
@@ -173,7 +173,7 @@
 	if(hand && owner.can_unEquip(hand))
 		owner.drop_item_ground(hand)
 		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, dropping what it was holding!</span>")
-		owner.custom_emote(1, "бросает [owner.p_they()] [owner.p_were()] держали, [owner.p_their()] [name] выходя из строя")
+		owner.custom_emote(EMOTE_VISIBLE, "роня%(ет,ют)% предмет, %(его,её,его,их)% кисть выходит из строя!")
 
 /obj/item/organ/external/hand/remove()
 	if(owner)

@@ -177,7 +177,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			return
 		if(invocation)
 			if(!L.IsVocal())
-				L.emote("gestures ominously.")
+				L.custom_emote(EMOTE_VISIBLE, message = pick("рису%(ет,ют)% в воздухе тайные символы.","зловеще жестикулиру%(ет,ют)%.","молча произнос%(ит,ят)% слова призыва.","клад%(ёт,ут)% руки на руну, активируя ее."))
 			else
 				L.say(invocation)
 			L.changeNext_move(CLICK_CD_MELEE)//THIS IS WHY WE CAN'T HAVE NICE THINGS
