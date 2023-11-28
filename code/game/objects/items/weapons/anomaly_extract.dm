@@ -32,7 +32,7 @@
 	desc = "Transform into anomaly slime and back!"
 	action_icon_state = "slime_degradation"
 	action_background_icon_state = "bg_default"
-	sound = 'sound/effects/slime_squish.ogg'
+	sound = 'sound/effects/mob_effects/slime_squish.ogg'
 	human_req = FALSE
 	clothes_req = FALSE
 	base_cooldown = 1 MINUTES

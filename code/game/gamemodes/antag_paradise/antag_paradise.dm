@@ -47,36 +47,10 @@
 	to_chat(world, "<b>Traitors, thieves, vampires and changelings, oh my! Stay safe as these forces work to bring down the station.</b>")
 
 
-/datum/game_mode/antag_paradise/can_start()
-	if(!..())
-		return FALSE
-
-	// we need to setup ninja before all the jobs assignment
-	// but we can start even if ninja wasn't rolled
-	. = TRUE
-
-	calculate_antags()
-
-	if(special_antag_type != ROLE_NINJA)
-		return
-
-	if(!length(GLOB.ninjastart))
-		log_and_message_admins("No positions are found to spawn space ninja antag. Report this to coders.")
-		special_antag_type = null	// its a shame :(
-		return
-
-	special_antag = safepick(get_players_for_role(ROLE_NINJA))
-	if(!special_antag)
-		return
-
-	special_antag.assigned_role = ROLE_NINJA // so they aren't chosen for other jobs.
-	special_antag.special_role = SPECIAL_ROLE_SPACE_NINJA
-	special_antag.offstation_role = TRUE // ninja can't be targeted as a victim for some pity traitors
-	special_antag.set_original_mob(special_antag.current)
-
-
 /datum/game_mode/antag_paradise/pre_setup()
 	. = FALSE
+
+	calculate_antags()
 
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
@@ -101,7 +75,18 @@
 				special_antag_type = null
 
 		if(ROLE_NINJA)
-			special_antag.current.loc = pick(GLOB.ninjastart)
+			if(length(GLOB.ninjastart))
+				special_antag = safepick(get_players_for_role(ROLE_NINJA))
+				if(special_antag)
+					special_antag.current.loc = pick(GLOB.ninjastart)
+					special_antag.assigned_role = SPECIAL_ROLE_SPACE_NINJA // assigned role and special role must be the same so they aren't chosen for other jobs.
+					special_antag.special_role = SPECIAL_ROLE_SPACE_NINJA
+					special_antag.offstation_role = TRUE // ninja can't be targeted as a victim for some pity traitors
+				else
+					special_antag_type = null
+			else
+				log_and_message_admins("No positions are found to spawn space ninja antag. Report this to coders.")
+				special_antag_type = null
 
 	if(antag_amount[ROLE_VAMPIRE])
 		var/list/datum/mind/possible_vampires = get_players_for_role(ROLE_VAMPIRE)

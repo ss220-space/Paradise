@@ -40,7 +40,7 @@
 /obj/item/grenade/iedcasing/attack_self(mob/user) //
 	if(!active)
 		if(clown_check(user))
-			to_chat(user, "<span class='warning'>You light the [name]!</span>")
+			to_chat(user, span_warning("You light the [name]!"))
 			active = TRUE
 			overlays -= "improvised_grenade_filled"
 			icon_state = initial(icon_state) + "_active"
@@ -59,4 +59,141 @@
 
 /obj/item/grenade/iedcasing/examine(mob/user)
 	. = ..()
-	. += "<span class='warning'>You can't tell when it will explode!</span>"
+	. += span_warning("You can't tell when it will explode!")
+
+/obj/item/grenade/iedsatchel
+	name = "plastic explosive"
+	desc = "Used to put holes in specific areas without too much extra hole."
+	icon_state = "improvised_satchel"
+	item_state = "plastic-explosive"
+	toolspeed = 1
+	det_time = 80
+	var/atom/target = null
+	var/image_overlay = null
+	var/planted = FALSE
+	var/burned_out = FALSE
+
+/obj/item/grenade/iedsatchel/examine(mob/user)
+	. = ..()
+	if(anchored)
+		. += span_notice("It's secured in place")
+	if(burned_out)
+		. += span_notice("Looks like wick has burned out")
+
+/obj/item/grenade/iedsatchel/afterattack(atom/T, mob/user, proximity)
+	if(!proximity)
+		return
+	if(!istype(T, /turf/simulated/wall) && !istype(T, /obj/machinery/door/airlock))
+		return
+	to_chat(user, span_notice("You start planting the [src]."))
+
+	if(do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = T))
+		if(!user.drop_transfer_item_to_loc(src, user.loc))
+			return
+		anchored = TRUE
+		target = T
+
+		pixel_w = (T.x - x)*32
+		pixel_z = (T.y - y)*32
+		layer = ABOVE_OBJ_LAYER
+
+		add_game_logs("planted [src] on [T.name] at [T.loc]", user)
+		icon_state = initial(icon_state) + "_burned"
+		to_chat(user, span_notice("You plant the [src]."))
+
+/obj/item/grenade/iedsatchel/attack_hand(var/mob/user)
+	if(anchored)
+		icon_state = initial(icon_state) + "_burned"
+		return
+	..()
+
+/obj/item/grenade/iedsatchel/attack_self(mob/user)
+	if(burned_out)
+		to_chat(user, span_notice("Without a fuse, it is impossible to trigger [src]. It looks like the wick can be made out a few wires."))
+		return
+	to_chat(user, span_notice("You tickled a makeshift wick made of wires, it looks like it needs to be set on fire."))
+
+/obj/item/grenade/iedsatchel/attackby(obj/item/W, user)
+	if(active == 1)
+		return
+	if(istype(W, /obj/item/lighter))
+		var/obj/item/lighter/I = W
+		if(!I.lit)
+			return
+		trigger(user)
+		return
+	if(istype(W, /obj/item/match))
+		var/obj/item/match/I = W
+		if(!I.lit)
+			return
+		trigger()
+		return
+	if(istype(W, /obj/item/weldingtool))
+		var/obj/item/weldingtool/I = W
+		if(!I.tool_enabled)
+			return
+		trigger(user)
+		return
+	if(istype(W, /obj/item/stack/cable_coil))
+		if(!burned_out)
+			to_chat(user, span_notice("[src] already has a wick"))
+			return
+		var/obj/item/stack/cable_coil/I = W
+		if(I.use(5))
+			to_chat(user, span_notice("You made a new wick from the cable"))
+			burned_out = FALSE
+			return
+		to_chat(user, span_notice("There is not enough cables to make a wick."))
+	if(istype(W, /obj/item/wirecutters))
+		if(!anchored)
+			return
+		pixel_w = 0
+		pixel_z = 0
+		to_chat(user, span_notice("You unattached [src]."))
+		icon_state = "improvised_satchel"
+		layer = TURF_LAYER
+		anchored = FALSE
+		target = null
+
+/obj/item/grenade/iedsatchel/proc/trigger(mob/user)
+	if(burned_out)
+		to_chat(user, span_notice("There is no wick to ignite [src]."))
+		return
+	var/N = roll(11) - 1
+	active = 1
+	to_chat(user, span_danger("You ignite wires on [src]!"))
+	icon_state = initial(icon_state) + "_active"
+	add_game_logs("Triggered [name] at [COORD(target)]", user)
+	if(N <= 3)
+		active = 1
+		addtimer(CALLBACK(src, PROC_REF(prime_fake)), det_time, TRUE)
+		return
+	if(N <= 8)
+		active = 1
+		addtimer(CALLBACK(src, PROC_REF(prime)), det_time)
+		return
+	prime()
+
+/obj/item/grenade/iedsatchel/proc/prime_fake()
+	src.visible_message(span_notice("The wires on [src] burned out, but nothing happened."))
+	active = 0
+	burned_out = TRUE
+	icon_state = initial(icon_state) + "_burned"
+
+/obj/item/grenade/iedsatchel/prime()
+	update_mob()
+	explosion(loc, -1, -1, 2, flame_range = 4, cause = src)
+	if(target)
+		if(istype(target, /obj/machinery/door/airlock))
+			var/obj/machinery/door/airlock/T = target
+			if((T.obj_integrity - 300) <= 0)
+				qdel(T)
+			else
+				T.take_damage(300)
+		if(istype(target, /turf/simulated/wall))
+			var/turf/simulated/wall/T = target
+			if((T.damage + 300) >= T.damage_cap)
+				T.dismantle_wall(1, 1)
+			else
+				T.take_damage(300)
+	qdel(src)

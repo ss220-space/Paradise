@@ -865,6 +865,15 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containername = "virus crate"
 	access = ACCESS_CMO
 
+/datum/syndie_supply_packs/medical/cloning
+	name = "Cloning Kit Crate"
+	contains = list(/obj/item/circuitboard/clonepod,
+					/obj/item/circuitboard/cloning)
+	cost = 9000
+	containertype = /obj/structure/closet/crate/secure
+	containername = "cloning kit crate"
+	access = ACCESS_CMO
+
 /datum/syndie_supply_packs/medical/vending
 	name = "Medical Vending Crate"
 	cost = 200

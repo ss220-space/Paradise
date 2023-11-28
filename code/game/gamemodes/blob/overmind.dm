@@ -63,21 +63,23 @@
 		if(hud_used)
 			hud_used.blobpwrdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#82ed00'>[round(src.blob_points)]</font></div>"
 
-/mob/camera/blob/say(var/message)
+
+/mob/camera/blob/say(message)
 	if(!message)
 		return
 
-	if(src.client)
+	if(client)
 		if(client.prefs.muted & MUTE_IC)
 			to_chat(src, "You cannot send IC messages (muted).")
 			return
-		if(src.client.handle_spam_prevention(message,MUTE_IC))
+		if(client.handle_spam_prevention(message, MUTE_IC))
 			return
 
 	if(stat)
 		return
 
 	blob_talk(message)
+
 
 /mob/camera/blob/proc/blob_talk(message)
 	add_say_logs(src, message, language = "BLOB")
@@ -94,8 +96,6 @@
 		if(isovermind(M) || isobserver(M) || istype((M), /mob/living/simple_animal/hostile/blob/blobbernaut))
 			M.show_message(rendered, 2)
 
-/mob/camera/blob/emote(act, m_type = 1, message = null, force)
-	return
 
 /mob/camera/blob/blob_act(obj/structure/blob/B)
 	return

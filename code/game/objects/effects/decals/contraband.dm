@@ -45,6 +45,10 @@
 	poster_type = /obj/structure/sign/poster/contraband/syndicate_recruitment
 	icon_state = "rolled_poster"
 
+/obj/item/poster/commando
+	poster_type = /obj/structure/sign/poster/contraband/commando
+	icon_state = "rolled_poster"
+
 //############################## THE ACTUAL DECALS ###########################
 
 /obj/structure/sign/poster
@@ -387,6 +391,11 @@
 	desc = "You see a slightly battered poster, which shows a RED toolbox and the inscription \"Danger, very robust!\", some people say that this red paint on the poster is made of real blood."
 	icon_state = "poster36"
 
+/obj/structure/sign/poster/contraband/commando
+	name = "Commandos"
+	desc = "You see a muscular man in combat gear. Just the sight of this poster brings the scent of true masculinity."
+	icon_state = "poster37"
+
 //official posters
 /obj/structure/sign/poster/official
 	poster_item_name = "motivational poster"
@@ -669,9 +678,9 @@
 	poster_item_desc = "Крайне Секретный постер."
 	poster_item_icon_state = "rolled_poster"
 
-/obj/structure/sign/poster/secret/yug0
-	name = "Соблазнительная Красноволосая Красотка"
-	desc = "На плакате изображена крайне сексуальная девушка.\nВнизу подпись: Фотография сделана Аскетом."
+/obj/structure/sign/poster/secret/lady
+	name = "Scientist lady"
+	desc = "A gorgeous looking lady wearing a labcoat. Whoah, hot!"
 	icon_state = "poster1_secret"
 
 #undef PLACE_SPEED

@@ -256,7 +256,7 @@ emp_act
 			return 1
 	return 0
 
-/mob/living/carbon/human/proc/check_martial_art_defense(var/mob/living/carbon/human/defender, var/mob/living/carbon/human/attacker, var/obj/item/I, var/visible_message, var/self_message)
+/mob/living/carbon/human/proc/check_martial_art_defense(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, obj/item/I, visible_message, self_message)
 	if(mind && mind.martial_art)
 		return mind.martial_art.attack_reaction(defender, attacker, I, visible_message, self_message)
 
@@ -551,6 +551,10 @@ emp_act
 	if(spec_return)
 		return spec_return
 
+	var/MA_return = mind?.martial_art?.user_hit_by(AM, src)
+	if(MA_return)
+		return MA_return
+
 	var/obj/item/I
 	var/throwpower = 30
 	if(isitem(AM))
@@ -566,7 +570,7 @@ emp_act
 		skipcatch = TRUE
 		blocked = TRUE
 
-	else if(I && (((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || I.embedded_ignore_throwspeed_threshold) && can_embed(I) && !(PIERCEIMMUNE in dna.species.species_traits) && prob(I.embed_chance))
+	else if(I && (((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || I.embedded_ignore_throwspeed_threshold) && can_embed(I) && !(EMBEDIMMUNE in dna.species.species_traits) && prob(I.embed_chance))
 		embed_item_inside(I)
 		hitpush = FALSE
 		skipcatch = TRUE //can't catch the now embedded item

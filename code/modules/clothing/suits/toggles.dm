@@ -63,13 +63,19 @@
 		playsound(src.loc, 'sound/items/rig_deploy.ogg', 110, 1)
 
 /obj/item/clothing/suit/space/hardsuit/proc/ToggleHelmet()
-	var/mob/living/carbon/human/H = src.loc
-	if(!helmettype)
-		return
-	if(!helmet)
-		return
-	if(!suittoggled)
-		if(ishuman(src.loc))
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		if(taser_proof && taser_proof.ert_mindshield_locked)
+			if(isertmindshielded(H))
+				to_chat(H, "<span class='notice'>Access granted, identity verified...</span>")
+			else
+				to_chat(H, "<span class='warning'>Access denied. The user is not identified!</span>")
+				return
+		if(!helmettype)
+			return
+		if(!helmet)
+			return
+		if(!suittoggled)
 			if(H.wear_suit != src)
 				to_chat(H, "<span class='warning'>You must be wearing [src] to engage the helmet!</span>")
 				return
@@ -78,5 +84,5 @@
 				return
 			else
 				EngageHelmet()
-	else
-		RemoveHelmet()
+		else
+			RemoveHelmet()

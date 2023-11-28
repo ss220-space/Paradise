@@ -175,6 +175,34 @@
 	bayonet = TRUE
 	embed_chance = 90
 
+/obj/item/kitchen/knife/combat/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE)
+	. = ..()
+	playsound(src, 'sound/weapons/knife_holster/knife_throw.ogg', 30, 1)
+
+/obj/item/kitchen/knife/combat/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	var/datum/martial_art/throwing/MA = throwingdatum?.thrower?.mind?.martial_art
+	if(istype(MA))
+		embed_chance = MA.knife_embed_chance
+		throwforce = initial(throwforce) + MA.knife_bonus_damage
+	. = ..()
+
+/obj/item/kitchen/knife/combat/after_throw(datum/callback/callback)
+	embed_chance = initial(embed_chance)
+	throwforce = initial(throwforce)
+	. = ..()
+
+/obj/item/kitchen/knife/combat/attack(mob/living/target, mob/living/user, def_zone)
+	var/datum/martial_art/throwing/MA = user?.mind?.martial_art
+	if(istype(MA))
+		force = initial(force) + MA.knife_bonus_damage
+		if(user.zone_selected == BODY_ZONE_HEAD && user.a_intent == INTENT_HARM)
+			MA.neck_cut(target, user)
+	. = ..()
+
+/obj/item/kitchen/knife/combat/afterattack(atom/target, mob/user, proximity, params)
+	force = initial(force)
+	. = ..()
+
 /obj/item/kitchen/knife/combat/survival
 	name = "survival knife"
 	icon_state = "survivalknife"
@@ -183,13 +211,20 @@
 	force = 15
 	throwforce = 15
 
+/obj/item/kitchen/knife/combat/throwing
+	name = "Throwing knife"
+	desc = "A well-sharpened black knife. Designed to be thrown. It is made from a single piece of metal. The markings are scratched.\nAn excellent solution for live problems and cake cutting."
+	icon_state = "throwingknife"
+	item_state = "throwingknife"
+	belt_icon = "survival_knife"
+	force = 15
+	throwforce = 15
+
 /obj/item/kitchen/knife/combat/survival/bone
 	name = "bone dagger"
 	item_state = "bone_dagger"
 	icon_state = "bone_dagger"
 	belt_icon = "bone_dagger"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	desc = "A sharpened bone. The bare minimum in survival."
 	materials = list()
 

@@ -123,8 +123,8 @@
 	var/blacklisted = FALSE
 	var/dangerous_existence = FALSE
 
-	//Death vars.
-	var/death_message = "цепенеет и расслабляется, взгляд становится пустым и безжизненным..."
+	/// Death vars. See [/proc/genderize_decode] for more info.
+	var/death_message = "цепене%(ет,ют)% и расслабля%(ет,ют)%ся, %(его,её,его,их)% взгляд становится пустым и безжизненным..."
 	var/list/suicide_messages = list(
 		"пытается откусить себе язык!",
 		"выдавливает свои глазницы большими пальцами!",
@@ -137,7 +137,7 @@
 	var/secondary_langs = list()             // The names of secondary languages that are available to this species.
 	var/list/speech_sounds                   // A list of sounds to potentially play when speaking.
 	var/list/speech_chance                   // The likelihood of a speech sound playing.
-	var/scream_verb = "кричит"
+	var/scream_verb = "крич%(ит,ат)%"	// Special symbols used to apply correct gender. See [/proc/genderize_decode] for more info.
 	var/female_giggle_sound = list('sound/voice/giggle_female_1.ogg','sound/voice/giggle_female_2.ogg','sound/voice/giggle_female_3.ogg')
 	var/male_giggle_sound = list('sound/voice/giggle_male_1.ogg','sound/voice/giggle_male_2.ogg')
 	var/male_scream_sound = list('sound/goonstation/voice/male_scream.ogg')
@@ -231,7 +231,16 @@
 	var/datum/language/species_language = GLOB.all_languages[language]
 	return species_language.get_random_name(gender)
 
-/datum/species/proc/create_organs(mob/living/carbon/human/H) //Handles creation of mob organs.
+
+/**
+ * Handles creation of mob organs.
+ *
+ * Arguments:
+ * * H - The human to create organs inside of
+ * * bodyparts_to_omit - Any bodyparts in this list (and organs within them) should not be added.
+ * * additional_organs - List of paths to generate additional internal organs.
+ */
+/datum/species/proc/create_organs(mob/living/carbon/human/H, list/bodyparts_to_omit, list/additional_organs)
 	QDEL_LIST(H.internal_organs)
 	QDEL_LIST(H.bodyparts)
 
@@ -239,26 +248,54 @@
 	LAZYREINITLIST(H.bodyparts_by_name)
 	LAZYREINITLIST(H.internal_organs)
 
-	for(var/limb_type in has_limbs)
-		var/list/organ_data = has_limbs[limb_type]
+	for(var/limb_name in has_limbs)
+		if(limb_name in bodyparts_to_omit)
+			H.bodyparts_by_name[limb_name] = null  // Null it out, but leave the name here so it's still "there"
+			continue
+
+		var/list/organ_data = has_limbs[limb_name]
 		var/limb_path = organ_data["path"]
 		var/obj/item/organ/O = new limb_path(H)
 		organ_data["descriptor"] = O.name
 
 	for(var/index in has_organ)
-		var/organ = has_organ[index]
-		// organ new code calls `insert` on its own
-		new organ(H)
+		var/obj/item/organ/internal/organ_path = has_organ[index]
+		if((initial(organ_path.parent_organ) in bodyparts_to_omit) || (index in bodyparts_to_omit))
+			continue
+
+		// heads up for any brave future coders:
+		// it's essential that a species' internal organs are intialized with the mob, instead of just creating them and calling insert() separately.
+		// not doing so (as of now) causes weird issues for some organs like posibrains, which need a mob on init or they'll qdel themselves.
+		// for the record: this caused every single IPC's brain to be deleted randomly throughout a round, killing them instantly.
+
+		new organ_path(H)
+
+	for(var/organ_path in additional_organs)
+		var/obj/item/organ/internal/check_organ = organ_path
+		if((initial(check_organ.parent_organ) in bodyparts_to_omit))
+			continue
+		var/organ_found
+		for(var/O in H.internal_organs)
+			var/obj/item/organ/internal/organ = O
+			organ_found = (initial(check_organ.slot) == organ.slot)
+			if(organ_found)
+				break
+		if(!organ_found)
+			new organ_path(H)
 
 	create_mutant_organs(H)
 
 	for(var/name in H.bodyparts_by_name)
-		H.bodyparts |= H.bodyparts_by_name[name]
+		var/part_type = H.bodyparts_by_name[name]
+		if(!isnull(part_type))
+			H.bodyparts |= part_type  // we do not want nulls here, even though it's alright to have them in bodyparts_by_name
+
+	for(var/obj/item/organ/external/O in H.bodyparts)
+		O.owner = H
 
 	H.update_tail()
 	H.update_wing()
-	for(var/obj/item/organ/external/O in H.bodyparts)
-		O.owner = H
+
 
 /datum/species/proc/create_mutant_organs(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/ears/ears = H.get_int_organ(/obj/item/organ/internal/ears)

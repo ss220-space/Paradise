@@ -3974,7 +3974,7 @@
 /area/awaymission/spacehotel/reception)
 "kq" = (
 /obj/structure/chair/sofa/corner{
-	dir = 4
+	dir = 1
 	},
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/spacehotel)

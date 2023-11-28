@@ -112,31 +112,6 @@
 
 /mob/living/simple_animal/frog/handle_automated_movement()
 	. = ..()
-	if(!resting && !buckled)
-		if(prob(1))
-			custom_emote(1,"издаёт боевой клич!")
-			playsound(src, pick(src.scream_sound), 50, TRUE)
+	if(!resting && !buckled && prob(1))
+		emote("warcry")
 
-/mob/living/simple_animal/frog/emote(act, m_type = 1, message = null, force)
-	if(incapacitated())
-		return
-
-	var/on_CD = 0
-	act = lowertext(act)
-	switch(act)
-		if("warcry")
-			on_CD = handle_emote_CD()
-		else
-			on_CD = 0
-
-	if(!force && on_CD == 1)
-		return
-
-	switch(act)
-		if("warcry")
-			message = "издаёт боевой клич!"
-			m_type = 2 //audible
-			playsound(src, pick(src.scream_sound), 50, TRUE)
-		if("help")
-			to_chat(src, "warcry")
-	..()

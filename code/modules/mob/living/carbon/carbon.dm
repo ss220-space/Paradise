@@ -42,7 +42,7 @@
 /mob/living/carbon/Move(NewLoc, direct)
 	. = ..()
 	if(.)
-		if(nutrition && stat != DEAD)
+		if(nutrition && stat != DEAD && !isvampire(src))
 			adjust_nutrition(-(hunger_drain * 0.1))
 			if(m_intent == MOVE_INTENT_RUN)
 				adjust_nutrition(-(hunger_drain * 0.1))
@@ -390,6 +390,11 @@
 
 /mob/living/carbon/proc/tintcheck()
 	return 0
+
+
+/mob/living/carbon/proc/create_dna()
+	if(!dna)
+		dna = new()
 
 
 /mob/living/carbon/proc/getDNA()

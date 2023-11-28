@@ -184,7 +184,7 @@
 		old_control_uses = gland.mind_control_uses
 	var/list/random_species = list(/datum/species/human, /datum/species/unathi, /datum/species/skrell, /datum/species/diona, /datum/species/tajaran, /datum/species/vulpkanin, /datum/species/kidan, /datum/species/grey)
 	random_species -= h_owner.dna.species.type
-	h_owner.set_species(pick(random_species))
+	h_owner.set_species(pick(random_species), keep_missing_bodyparts = TRUE)
 	addtimer(CALLBACK(h_owner, TYPE_PROC_REF(/mob/living/carbon/human, insert_new_gland), old_control_uses), 0)
 
 

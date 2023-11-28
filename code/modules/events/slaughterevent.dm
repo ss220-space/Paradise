@@ -25,6 +25,7 @@
 	player_mind.transfer_to(new_demon)
 	player_mind.assigned_role = ROLE_DEMON
 	player_mind.special_role = SPECIAL_ROLE_DEMON
+	SSticker.mode.demons |= player_mind
 	message_admins("[key_name_admin(new_demon)] has been made into a [new_demon.name] by an event.")
 	log_game("[key_name_admin(new_demon)] was spawned as a [new_demon.name] by an event.")
 

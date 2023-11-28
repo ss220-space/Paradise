@@ -5,7 +5,7 @@
 	icobase = 'icons/mob/human_races/r_golem.dmi'
 	deform = 'icons/mob/human_races/r_golem.dmi'
 
-	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, NOGUNS, PIERCEIMMUNE)
+	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, NOGUNS, PIERCEIMMUNE, EMBEDIMMUNE)
 	dies_at_threshold = TRUE
 	speed_mod = 2
 	brute_mod = 0.45 //55% damage reduction
@@ -439,7 +439,7 @@
 	name = "Деревянный Голем"
 	golem_colour = rgb(158, 112, 75)
 	skinned_type = /obj/item/stack/sheet/wood
-	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, NOGUNS, PIERCEIMMUNE, IS_PLANT)
+	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, NOGUNS, PIERCEIMMUNE, EMBEDIMMUNE, IS_PLANT)
 	//Can burn and take damage from heat
 	brute_mod = 0.7 //30% damage reduction down from 55%
 	burn_mod = 0.875
@@ -469,6 +469,7 @@
 	if(H.stat == DEAD)
 		return
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
+	var/is_vamp = isvampire(H)
 	if(isturf(H.loc)) //else, there's considered to be no light
 		var/turf/T = H.loc
 		light_amount = min(1, T.get_lumcount()) - 0.5
@@ -476,16 +477,17 @@
 			H.clear_alert("nolight")
 		else
 			H.throw_alert("nolight", /obj/screen/alert/nolight)
-		H.adjust_nutrition(light_amount * 10)
-		if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
-			H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
+		if(!is_vamp)
+			H.adjust_nutrition(light_amount * 10)
+			if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
+				H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
 		if(light_amount > 0.2 && !H.suiciding) //if there's enough light, heal
 			H.adjustBruteLoss(-1)
 			H.adjustFireLoss(-1)
 			H.adjustToxLoss(-1)
 			H.adjustOxyLoss(-1)
 
-	if(H.nutrition < NUTRITION_LEVEL_STARVING + 50)
+	if(!is_vamp && H.nutrition < NUTRITION_LEVEL_STARVING + 50)
 		H.adjustBruteLoss(2)
 	..()
 

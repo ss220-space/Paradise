@@ -32,6 +32,7 @@
 
 /datum/outfit/syndicatecommandocorpse
 	name = "Syndicate Commando Corpse"
+	toggle_helmet = TRUE
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi
 	shoes = /obj/item/clothing/shoes/combat

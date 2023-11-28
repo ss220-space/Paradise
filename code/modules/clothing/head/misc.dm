@@ -605,3 +605,9 @@
 	icon_state = "mr_chang_band"
 	item_state = "mr_chang_band"
 
+/obj/item/clothing/head/commando
+	name = "Red headband"
+	desc = "Simple red headband. Is that blood stains on it?"
+	w_class = WEIGHT_CLASS_TINY
+	icon_state = "commandos_band"
+	item_state = "commandos_band"

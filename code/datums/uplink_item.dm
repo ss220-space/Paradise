@@ -306,9 +306,19 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "HGAT"
 	item = /obj/item/storage/toolbox/green/memetic
 	cost = 20
-	job = list("Chaplain")
+	job = list("Chaplain", "Civilian")
 	surplus = 0 //No lucky chances from the crate; if you get this, this is ALL you're getting
 	hijack_only = TRUE //This is a murderbone weapon, as such, it should only be available in those scenarios.
+
+/datum/uplink_item/jobspecific/book_of_babel
+	name = "Book of Babel"
+	desc = "An ancient tome written in countless tongues. Despite this fact, you can read this book effortlessly, to learn all the existing languages. Don't ask questions."
+	reference = "BOB"
+	item = /obj/item/book_of_babel
+	cost = 1
+	job = list("Chaplain", "Librarian")
+	surplus = 0
+	cant_discount = TRUE
 
 //Janitor
 /datum/uplink_item/jobspecific/cautionsign
@@ -480,6 +490,18 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/dice/d20/e20
 	cost = 3
 	job = list("Librarian")
+	surplus = 0
+	hijack_only = TRUE
+
+/datum/uplink_item/jobspecific/dice_of_fate
+	name = "Dice of fate"
+	desc = "Everything or nothing; that is my motto."
+	reference = "DOF"
+	item = /obj/item/dice/d20/fate/one_use
+	cost = 20
+	job = list("Librarian")
+	surplus = 0
+	cant_discount = TRUE
 
 //Botanist
 /datum/uplink_item/jobspecific/ambrosiacruciatus
@@ -728,6 +750,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/twohanded/chainsaw
 	cost = 12
 
+/datum/uplink_item/dangerous/commando_kit
+	name = "Commandos knife operation kit"
+	desc = "A box that smells like a mix of gunpowder, napalm and cheap whiskey.  Contains everything you need to survive in such places."
+	reference = "CK"
+	item = /obj/item/storage/box/syndie_kit/commando_kit
+	cost = 7
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 // SUPPORT AND MECHAS
 
@@ -1095,7 +1124,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 8
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-
 /datum/uplink_item/ammo/rocketHEDP
 	name = "84mm High Explosive Dual Purpose rocket"
 	desc = "A rocket from a rocketlauncher. This one emits shrapnel and incendiary ammunition. The rocket itself is strong enough to destroy station mechs and robots with one shot."
@@ -1103,6 +1131,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/ammo_casing/caseless/rocket/hedp
 	cost = 6
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/ammo/knives_kit
+	name = "Throwing knives kit"
+	desc = "A box containing 7 throwing knives"
+	reference = "THR"
+	item = /obj/item/storage/box/syndie_kit/knives_kit
+	cost = 1
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 // STEALTHY WEAPONS
 
@@ -1628,6 +1664,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SHL"
 	item = /obj/item/clothing/accessory/holster
 	cost = 1
+
+/datum/uplink_item/device_tools/holster/knives
+	name = "Knife holster"
+	desc = "A bunch of straps connected into one holster. Has 7 special slots for holding knives."
+	reference = "KH"
+	item = /obj/item/clothing/accessory/holster/knives
+	cost = 2
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/device_tools/webbing
 	name = "Combat Webbing"

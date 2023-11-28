@@ -218,7 +218,7 @@
 	origin_tech = "programming=3"
 
 /obj/item/circuitboard/cloning
-	board_name = "Cloning Machine Console"
+	board_name = "Biomass Pod Console"
 	build_path = /obj/machinery/computer/cloning
 	origin_tech = "programming=2;biotech=2"
 
