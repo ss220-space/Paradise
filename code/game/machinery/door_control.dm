@@ -20,7 +20,7 @@
 
 	var/exposedwires = FALSE
 	var/ai_control = TRUE
-	anchored = 1.0
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
