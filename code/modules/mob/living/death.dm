@@ -51,8 +51,8 @@
 		// Whew! Good thing I'm indestructible! (or already dead)
 		return FALSE
 
-	..()
 	stat = DEAD
+	..()
 
 	timeofdeath = world.time
 	add_attack_logs(src, src, "died[gibbed ? " (Gibbed)": ""]")
