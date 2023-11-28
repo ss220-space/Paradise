@@ -3603,8 +3603,9 @@
 	pixel_x = 1;
 	pixel_y = 3
 	},
-/obj/machinery/light_switch{
-	pixel_x = -24
+/obj/structure/reagent_dispensers/peppertank{
+	pixel_y = null;
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -6299,19 +6300,19 @@
 /area/medical/sleeper)
 "aSF" = (
 /obj/structure/table,
-/obj/item/flashlight/seclite,
-/obj/item/restraints/handcuffs{
-	pixel_y = -3
-	},
-/obj/item/restraints/handcuffs{
-	pixel_y = 3
-	},
 /obj/machinery/door_control{
 	id = "Evidence Storage";
 	name = "Evidence Storage Privacy Shutters Control";
 	pixel_x = -24;
 	req_access = list(63)
 	},
+/obj/item/restraints/handcuffs{
+	pixel_y = -3
+	},
+/obj/item/restraints/handcuffs{
+	pixel_y = 3
+	},
+/obj/item/flashlight/seclite,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -47256,8 +47257,8 @@
 /area/crew_quarters/serviceyard)
 "eTe" = (
 /obj/effect/landmark/start/security_officer,
-/obj/machinery/newscaster/security_unit{
-	pixel_y = -30
+/obj/structure/reagent_dispensers/peppertank{
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -62649,10 +62650,6 @@
 	},
 /area/crew_quarters/captain)
 "ixk" = (
-/obj/machinery/alarm{
-	dir = 8;
-	pixel_x = 24
-	},
 /obj/item/radio/intercom{
 	pixel_x = 30;
 	pixel_y = 30
@@ -68871,6 +68868,10 @@
 "jXk" = (
 /obj/structure/chair{
 	dir = 4
+	},
+/obj/machinery/light_switch{
+	pixel_x = null;
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -84105,9 +84106,6 @@
 /obj/structure/closet/secure_closet/brig{
 	id = "Cell 5";
 	name = "Cell 5 Locker"
-	},
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -99974,6 +99972,11 @@
 "rbR" = (
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/alarm{
+	pixel_x = null;
+	pixel_y = -24;
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -110090,8 +110093,12 @@
 /turf/space,
 /area/space)
 "tuS" = (
-/obj/machinery/vending/security,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_switch{
+	pixel_x = null;
+	pixel_y = 24
+	},
+/obj/machinery/vending/security,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"
