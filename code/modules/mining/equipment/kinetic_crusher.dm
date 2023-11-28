@@ -102,6 +102,7 @@
 			T.on_projectile_fire(D, user)
 		D.preparePixelProjectile(target, get_turf(target), user, clickparams)
 		D.firer = user
+		D.firer_source_atom = src
 		D.hammer_synced = src
 		playsound(user, 'sound/weapons/crusher_shot.ogg', 160, 1)
 		D.fire()

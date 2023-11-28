@@ -338,6 +338,7 @@ Difficulty: Very Hard
 					return
 				var/obj/item/projectile/energy/shock_revolver/ancient/O = new /obj/item/projectile/energy/shock_revolver/ancient(S)
 				O.current = S
+				O.firer = src
 				O.yo = T.y - S.y
 				O.xo = T.x - S.x
 				O.fire()
@@ -382,6 +383,7 @@ Difficulty: Very Hard
 		return
 	var/obj/item/projectile/bullet/rock/O = new /obj/item/projectile/bullet/rock(spot)
 	O.current = spot
+	O.firer = src
 	O.yo = T.y - spot.y
 	O.xo = T.x - spot.x
 	O.fire()

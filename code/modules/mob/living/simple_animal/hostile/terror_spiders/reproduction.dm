@@ -151,6 +151,7 @@
 							new_area.Entered(src)
 		else
 			frustration++
+			glide_for(3)
 			walk_to(src, entry_vent, 1)
 			if(frustration > 2)
 				entry_vent = null
@@ -166,6 +167,7 @@
 		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
 			if(!v.welded)
 				entry_vent = v
+				glide_for(3)
 				walk_to(src, entry_vent, 1)
 				break
 
