@@ -133,14 +133,12 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 	var/obj/item/implant/sad_trombone/S = new/obj/item/implant/sad_trombone(src)
 	S.implant(src)
 
-
 	var/obj/item/card/id/I = new(src)
-	apply_to_card(I, src, list(ACCESS_CLOWN), "[rankName] ХОНК-отряда", "HONKsquad", "clownsquad")
-	I.rank = "HONKsquad"
-	I.icon_state = "clownsquad"
+	apply_to_card(I, src, list(ACCESS_CLOWN), "HONKsquad", "clownsquad")
+	I.assignment = "[rankName] ХОНК-отряда"
 	equip_to_slot_or_del(I, slot_wear_id)
 
-	return 1
+	return TRUE
 
 /client/proc/create_honksquad_security(obj/spawn_location, honk_leader_selected = 0)
 	var/mob/living/carbon/human/new_honksquad = new(spawn_location.loc)
