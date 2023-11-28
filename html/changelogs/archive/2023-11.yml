@@ -235,3 +235,29 @@
   - bugfix: '"MA without combo" don`t count combo-steps with regular combo-acts. (#3935)'
   Vladisvell:
   - bugfix: bumped merge driver deps (#3933)
+'2023-11-26':
+  Dimach:
+  - bugfix: character save runtime (#3936)
+'2023-11-27':
+  ReloadKey:
+  - add: New tajaran random name generator (#3938)
+'2023-11-28':
+  Daeberdir:
+  - bugfix: Correct Outfit Equiping. (#3876)
+  Etrnlmelancholy:
+  - tweak: cargo tweaks (#3939)
+  - tweak: pepper spray refillers in brig (#3894)
+  LiquidPotroh:
+  - tweak: Virology patch (#3925)
+  ROdenFL:
+  - tweak: unathi hunger (#3942)
+  Vladisvell:
+  - add: Added and resprited chaplains items. (#3941)
+  Zwei:
+  - refactor: Emotes Refactor (#3877)
+  - bugfix: Vampire Hunger (#3931)
+  - bugfix: Tentacle Fixes (#3930)
+  - tweak: Gliding And Projectiles Tweaks (#3932)
+  yosoyrebelde:
+  - refactor: rename button 'wireless' var (#3945)
+  - bugfix: lighter hitting obj sound (#3944)
