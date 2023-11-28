@@ -106,18 +106,6 @@
 	visible_message("[src] [pick("dances around", "chases [p_their()] tail")].", "[pick("You dance around", "You chase your tail")].")
 	spin(20, 1)
 
-/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/emote(act, m_type = 1, message = null, force)
-	if(incapacitated())
-		return
-
-	act = lowertext(act)
-	if(!force && act == "hiss" && handle_emote_CD())
-		return
-
-	switch(act)
-		if("hiss")
-			message = "<B>[src]</B> [pick(src.speak_emote)]!"
-	..()
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/attack_hand(mob/living/carbon/human/M)
 	. = ..()
@@ -154,9 +142,9 @@
 		return
 	if(change > 0)
 		new /obj/effect/temp_visual/heart(loc)
-		custom_emote(1, "hisses happily!")
+		custom_emote(EMOTE_AUDIBLE, "шип%(ит,ят)% счастливо!")
 	else
-		custom_emote(1, "hisses angrily!")
+		custom_emote(EMOTE_AUDIBLE, "шип%(ит,ят)% гневно!")
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/Initialize(mapload)
 	. = ..()

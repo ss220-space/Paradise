@@ -72,24 +72,26 @@
 
 	usr.show_message(t, 1)
 
-/mob/proc/show_message(msg, type, alt, alt_type)//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
 
-	if(!client)	return
+/mob/proc/show_message(msg, type, alt, alt_type)
+
+	if(!client)
+		return
 
 	if(type)
-		if(type & 1 && !has_vision(information_only=TRUE))//Vision related
-			if(!( alt ))
+		if((type & EMOTE_VISIBLE) && !has_vision(information_only = TRUE))	// Vision related
+			if(!(alt))
 				return
 			else
 				msg = alt
 				type = alt_type
-		if(type & 2 && !can_hear())//Hearing related
-			if(!( alt ))
+		if((type & EMOTE_AUDIBLE) && !can_hear())	// Hearing related
+			if(!(alt))
 				return
 			else
 				msg = alt
 				type = alt_type
-				if(type & 1 && !has_vision(information_only=TRUE))
+				if((type & EMOTE_VISIBLE) && !has_vision(information_only=TRUE))
 					return
 	// Added voice muffling for Issue 41.
 	if(stat == UNCONSCIOUS)
@@ -98,30 +100,46 @@
 		to_chat(src, msg)
 	return
 
+
 // Show a message to all mobs in sight of this one
 // This would be for visible actions by the src mob
 // message is the message output to anyone who can see e.g. "[src] does something!"
 // self_message (optional) is what the src mob sees  e.g. "You do something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
+/mob/visible_message(message, self_message, blind_message)
+	if(!isturf(loc)) // mobs inside objects (such as lockers) shouldn't have their actions visible to those outside the object
+		for(var/mob/M in get_mobs_in_view(3, src))
+			if(M.see_invisible < invisibility)
+				continue //can't view the invisible
+			var/msg = message
+			if(self_message && M == src)
+				msg = self_message
+			if(M.loc != loc)
+				if(!blind_message) // for some reason VISIBLE action has blind_message param so if we are not in the same object but next to it, lets show it
+					continue
+				msg = blind_message
+			M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
+		return
 
-/mob/visible_message(var/message, var/self_message, var/blind_message)
 	for(var/mob/M in get_mobs_in_view(7, src))
 		if(M.see_invisible < invisibility)
 			continue //can't view the invisible
 		var/msg = message
 		if(self_message && M == src)
 			msg = self_message
-		M.show_message(msg, 1, blind_message, 2)
+		M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
+
 
 // Show a message to all mobs in sight of this atom
 // Use for objects performing visible actions
 // message is output to anyone who can see, e.g. "The [src] does something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
-/atom/proc/visible_message(var/message, var/blind_message)
+/atom/proc/visible_message(message, self_message, blind_message)
 	for(var/mob/M in get_mobs_in_view(7, src))
 		if(!M.client)
 			continue
-		M.show_message(message, 1, blind_message, 2)
+		M.show_message(message, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
+
 
 // Show a message to all mobs in earshot of this one
 // This would be for audible actions by the src mob
@@ -135,21 +153,22 @@
 		range = hearing_distance
 	var/msg = message
 	for(var/mob/M in get_mobs_in_view(range, src))
-		M.show_message(msg, 2, deaf_message, 1)
+		M.show_message(msg, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
 
 	// based on say code
 	var/omsg = replacetext(message, "<B>[src]</B> ", "")
 	var/list/listening_obj = new
 	for(var/atom/movable/A in view(range, src))
-		if(istype(A, /mob))
+		if(ismob(A))
 			var/mob/M = A
 			for(var/obj/O in M.contents)
 				listening_obj |= O
-		else if(istype(A, /obj))
+		else if(isobj(A))
 			var/obj/O = A
 			listening_obj |= O
 	for(var/obj/O in listening_obj)
 		O.hear_message(src, omsg)
+
 
 // Show a message to all mobs in earshot of this atom
 // Use for objects performing audible actions
@@ -161,7 +180,8 @@
 	if(hearing_distance)
 		range = hearing_distance
 	for(var/mob/M in get_mobs_in_view(range, src))
-		M.show_message(message, 2, deaf_message, 1)
+		M.show_message(message, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
+
 
 /mob/proc/findname(msg)
 	for(var/mob/M in GLOB.mob_list)

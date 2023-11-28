@@ -19,7 +19,7 @@
 	burn_mod = 1  // So they take 50% extra damage from brute/burn overall // nope
 	tox_mod = 0
 	clone_mod = 0
-	death_message = "издаёт резкие пронзительные звуки и, конвульсивно подёргивая шасси,  окончательно отключается."
+	death_message = "изда%(ёт,ют)% резкие пронзительные звуки и, конвульсивно подёргивая шасси, окончательно отключа%(ет,ют)%ся."
 	death_sounds = list('sound/voice/borg_deathsound.ogg') //I've made this a list in the event we add more sounds for dead robots.
 
 	species_traits = list(IS_WHITELISTED, NO_BREATHE, NO_BLOOD, NO_SCAN, NO_INTORGANS, NO_PAIN, NO_DNA, RADIMMUNE, VIRUSIMMUNE, NO_GERMS, NO_DECAY, NOTRANSSTING) //Computers that don't decay? What a lie!

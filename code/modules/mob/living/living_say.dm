@@ -114,9 +114,11 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":+" = "special",			"#+" = "special",		"№+" = "special",		".+" = "special" //activate radio-specific special functions
 ))
 
+
 GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
-/proc/get_radio_key_from_channel(var/channel)
+
+/proc/get_radio_key_from_channel(channel)
 	var/key = GLOB.channel_to_radio_key[channel]
 	if(!key)
 		for(var/radio_key in GLOB.department_radio_keys)
@@ -129,16 +131,20 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	return key
 
+
 /mob/living/proc/binarycheck()
 	return FALSE
+
 
 /mob/proc/get_default_language()
 	return null
 
+
 /mob/living/get_default_language()
 	return default_language
 
-/mob/living/proc/handle_speech_problems(list/message_pieces, var/verb)
+
+/mob/living/proc/handle_speech_problems(list/message_pieces, verb)
 	var/robot = ismachineperson(src)
 	for(var/datum/multilingual_say_piece/S in message_pieces)
 		if(S.speaking && S.speaking.flags & NO_STUTTER)
@@ -172,14 +178,17 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 		if(!IsVocal())
 			S.message = ""
+
 	return list("verb" = verb)
+
 
 /mob/living/proc/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	switch(message_mode)
 		if("whisper") //all mobs can whisper by default
 			whisper_say(message_pieces)
-			return 1
-	return 0
+			return TRUE
+	return FALSE
+
 
 /mob/living/proc/handle_speech_sound()
 	var/list/returns[3]
@@ -188,24 +197,13 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	returns[3] = null
 	return returns
 
-/mob/living/custom_emote(var/m_type=EMOTE_VISUAL,var/message = null)
-	if(client)
-		if(last_emote == "me")
-			if(handle_emote_CD(10) == 1)
-				return
-		last_emote = "me"
-		client.check_say_flood(5)
-		if(client?.prefs.muted & MUTE_IC)
-			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
-			return
-	. = ..()
 
-/mob/living/say(var/message, var/verb = "says", var/sanitize = TRUE, var/ignore_speech_problems = FALSE, var/ignore_atmospherics = FALSE)
+/mob/living/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	if(client)
 		client.check_say_flood(5)
 		if(client?.prefs.muted & MUTE_IC)
-			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
-			return
+			to_chat(src, span_danger("You cannot speak in IC (Muted)."))
+			return FALSE
 
 	if(sanitize)
 		message = trim_strip_html_properly(message, 512)
@@ -213,12 +211,12 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	if(stat)
 		if(stat == DEAD)
 			return say_dead(message)
-		return
+		return FALSE
 
 	var/message_mode = parse_message_mode(message, "headset")
 
 	if(copytext(message, 1, 2) == "*")
-		return emote(copytext(message, 2))
+		return emote(copytext(message, 2), intentional = TRUE)
 
 	//parse the radio code and consume it
 	if(message_mode)
@@ -234,16 +232,20 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		message += "."
 
 	//parse the language code and consume it
-	var/list/message_pieces = parse_languages(message)
+	var/list/message_pieces = list()
+	if(ignore_languages)
+		message_pieces = message_to_multilingual(message)
+	else
+		message_pieces = parse_languages(message)
+
 	if(istype(message_pieces, /datum/multilingual_say_piece)) // Little quirk to just easily deal with HIVEMIND languages
 		var/datum/multilingual_say_piece/S = message_pieces // Yay BYOND's hilarious typecasting
 		S.speaking.broadcast(src, S.message)
-		return 1
-
+		return TRUE
 
 	if(!LAZYLEN(message_pieces))
-		log_runtime(EXCEPTION("Message failed to generate pieces. [message] - [json_encode(message_pieces)]"))
-		return 0
+		. = FALSE
+		CRASH("Message failed to generate pieces. [message] - [json_encode(message_pieces)]")
 
 	if(message_mode == "cords")
 		if(iscarbon(src))
@@ -252,7 +254,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			if(V && V.can_speak_with())
 				C.say(V.handle_speech(message), sanitize = FALSE, ignore_speech_problems = TRUE, ignore_atmospherics = TRUE)
 				V.speak_with(message) //words come before actions
-		return 1
+		return TRUE
 
 	var/datum/multilingual_say_piece/first_piece = message_pieces[1]
 	verb = say_quote(message, first_piece.speaking)
@@ -260,11 +262,15 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	if(is_muzzled())
 		var/obj/item/clothing/mask/muzzle/G = wear_mask
 		if(G.mute == MUZZLE_MUTE_ALL) //if the mask is supposed to mute you completely or just muffle you
-			to_chat(src, "<span class='danger'>You're muzzled and cannot speak!</span>")
-			return
+			to_chat(src, span_danger("You're muzzled and cannot speak!"))
+			return FALSE
 		else if(G.mute == MUZZLE_MUTE_MUFFLE)
 			muffledspeech_all(message_pieces)
 			verb = "mumbles"
+
+	if(is_facehugged())
+		muffledspeech_all(message_pieces)
+		verb = "gurgles"
 
 	if(!wear_mask)
 		for(var/obj/item/grab/grab in grabbed_by)
@@ -277,10 +283,9 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		var/list/hsp = handle_speech_problems(message_pieces, verb)
 		verb = hsp["verb"]
 
-
 	var/list/used_radios = list()
 	if(handle_message_mode(message_mode, message_pieces, verb, used_radios))
-		return 1
+		return TRUE
 
 	// Log of what we've said, plain message, no spans or junk
 	// handle_message_mode should have logged this already if it handled it
@@ -295,15 +300,20 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	var/message_range = world.view
 
 	//speaking into radios
-	if(used_radios.len)
-		italics = 1
+	if(length(used_radios))
+		italics = TRUE
 		message_range = 1
 		if(first_piece.speaking)
 			message_range = first_piece.speaking.get_talkinto_msg_range(message)
 
 		var/msg
-		if(!first_piece.speaking || !(first_piece.speaking.flags & NO_TALK_MSG))
-			msg = "<span class='notice'>[src] talks into [used_radios[1]]</span>"
+		if((!first_piece.speaking || !(first_piece.speaking.flags & NO_TALK_MSG)) && client)
+			msg = span_notice("[src] talks into [used_radios[1]]")
+			var/static/list/special_radio_channels = list("Syndicate", "SyndTeam", "Security", "Procedure", "Command", "Response Team", "Special Ops", "Spider Clan", "SyndTaipan", "Soviet")
+			if(message_mode in special_radio_channels)
+				SEND_SOUND(src, sound('sound/items/radio_security.ogg', volume = rand(4, 16) * 5 * client.prefs.get_channel_volume(CHANNEL_RADIO_NOISE), channel = CHANNEL_RADIO_NOISE))
+			else
+				SEND_SOUND(src, sound('sound/items/radio_common.ogg', volume = rand(4, 16) * 5 * client.prefs.get_channel_volume(CHANNEL_RADIO_NOISE), channel = CHANNEL_RADIO_NOISE))
 
 		if(msg)
 			for(var/mob/living/M in hearers(5, src) - src)
@@ -311,7 +321,6 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 		if(speech_sound)
 			sound_vol *= 0.5
-
 
 	var/turf/T = get_turf(src)
 	var/list/listening = list()
@@ -379,7 +388,8 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	hear_message_obj(listening_obj, src, message_pieces, verb)
 
-	return 1
+	return TRUE
+
 
 /proc/hear_message_obj(list/listening_obj, mob/M, list/message_pieces, verbage)
 	var/list/transmited_channels = list()
@@ -394,35 +404,18 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 				else
 					O.hear_talk(M, message_pieces, verbage)
 
+
 /obj/effect/speech_bubble
 	var/mob/parent
+
 
 /mob/living/proc/GetVoice()
 	return name
 
+
 /mob/living/proc/GetTTSVoice()
 	return tts_seed
 
-/mob/living/emote(act, type, message, force) //emote code is terrible, this is so that anything that isn't already snowflaked to shit can call the parent and handle emoting sanely
-	if(client)
-		client.check_say_flood(5)
-		if(client?.prefs?.muted & MUTE_IC)
-			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
-			return
-
-	if(stat)
-		return 0
-
-	if(..())
-		return 1
-
-	if(act && type && message) //parent call
-		show_emote(type, message)
-
-	else //everything else failed, emote is probably invalid
-		if(act == "help")
-			return //except help, because help is handled individually
-		to_chat(src, "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>")
 
 /mob/living/whisper(message as text)
 	message = trim_strip_html_properly(message, 512)
@@ -439,29 +432,34 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	if(istype(message_pieces, /datum/multilingual_say_piece)) // Little quirk to just easily deal with HIVEMIND languages
 		var/datum/multilingual_say_piece/S = message_pieces // Yay BYOND's hilarious typecasting
 		S.speaking.broadcast(src, S.message)
-		return 1
+		return TRUE
 	// Log it here since it skips the default way say handles it
 	create_log(SAY_LOG, "(whisper) '[message]'")
 	SSspeech_controller.queue_say_for_mob(src, message_pieces, SPEECH_CONTROLLER_QUEUE_WHISPER_VERB)
+
 
 // for weird circumstances where you're inside an atom that is also you, like pai's
 /mob/living/proc/get_whisper_loc()
 	return src
 
+
 /mob/living/whisper_say(list/message_pieces, verb = "whispers")
-	if(client)
-		if(client.prefs.muted & MUTE_IC)
-			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
-			return
+	if(client?.prefs.muted & MUTE_IC)
+		to_chat(src, span_danger("You cannot speak in IC (Muted)."))
+		return
 
 	if(stat)
 		return
 
 	if(is_muzzled())
 		if(istype(wear_mask, /obj/item/clothing/mask/muzzle/tapegag)) //just for tape
-			to_chat(src, "<span class='danger'>Your mouth is taped and you cannot speak!</span>")
+			to_chat(src, span_danger("Your mouth is taped and you cannot speak!"))
 		else
-			to_chat(src, "<span class='danger'>You're muzzled and cannot speak!</span>")
+			to_chat(src, span_danger("You're muzzled and cannot speak!"))
+		return
+
+	if(is_facehugged())
+		to_chat(src, span_danger("You can't get a word out with this horrible creature on your face!"))
 		return
 
 	var/message = multilingual_to_message(message_pieces)
@@ -563,14 +561,16 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	speech_bubble("[bubble_icon][speech_bubble_test]", src, speech_bubble_recipients)
 
-	if(watching.len)
+	if(length(watching))
 		var/rendered = "<span class='game say'><span class='name'>[name]</span> [not_heard].</span>"
 		for(var/mob/M in watching)
 			M.show_message(rendered, 2)
 
-	return 1
+	return TRUE
+
 
 /mob/living/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
 	var/image/I = image('icons/mob/talk.dmi', bubble_loc, bubble_state, FLY_LAYER)
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 	INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, I, bubble_recipients, 30)
+

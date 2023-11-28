@@ -158,6 +158,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_GOTTAGONOTSOFAST	"gottagonotsofast"
 #define TRAIT_CHUNKYFINGERS		"chunkyfingers" //means that you can't use weapons with normal trigger guards.
 #define TRAIT_FORCE_DOORS 		"force_doors"
+#define TRAIT_EMOTE_MUTE		"emote_mute"
 
 //item traits
 #define TRAIT_CMAGGED "cmagged"
