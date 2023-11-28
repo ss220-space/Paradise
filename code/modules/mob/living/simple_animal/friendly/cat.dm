@@ -178,6 +178,7 @@
 						break
 			if(movement_target)
 				stop_automated_movement = 1
+				glide_for(3)
 				walk_to(src,movement_target,0,3)
 
 
