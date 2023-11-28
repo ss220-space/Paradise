@@ -69,7 +69,7 @@
 		if(!(lying || resting))
 			if(has_pain())
 				emote("scream")
-			custom_emote(1, "падает!")
+			emote("collapses")
 		Weaken(10 SECONDS) //can't emote while weakened, apparently.
 
 
@@ -95,7 +95,7 @@
 					continue
 
 			var/emote_scream = pick("крич[pluralize_ru(src.gender,"ит","ат")] от боли и ", "изда[pluralize_ru(src.gender,"ёт","ют")] резкий крик и ", "вскрикива[pluralize_ru(src.gender,"ет","ют")] и ")
-			custom_emote(1, "[(has_pain()) ? emote_scream :  "" ]броса[pluralize_ru(src.gender,"ет","ют")] предмет, который держал[genderize_ru(src.gender,"","а","о","и")] в [E.declent_ru(PREPOSITIONAL)]!")
+			custom_emote(EMOTE_VISIBLE, "[(has_pain()) ? emote_scream :  "" ]броса[pluralize_ru(src.gender,"ет","ют")] предмет, который держал[genderize_ru(src.gender,"","а","о","и")] в [E.declent_ru(PREPOSITIONAL)]!")
 
 		else if(E.is_malfunctioning())
 
@@ -110,7 +110,7 @@
 				if(!drop_item_ground(r_hand))
 					continue
 
-			custom_emote(1, "броса[pluralize_ru(src.gender,"ет","ют")] предмет, который держал[genderize_ru(src.gender,"","а","о","и")] держали, [genderize_ru(src.gender,"его","её","его","их")] [E.declent_ru(NOMINATIVE)] выход[pluralize_ru(E.gender,"ит","ят")] из строя!")
+			custom_emote(EMOTE_VISIBLE, "броса[pluralize_ru(src.gender,"ет","ют")] предмет, который держал[genderize_ru(src.gender,"","а","о","и")] держали, [genderize_ru(src.gender,"его","её","его","их")] [E.declent_ru(NOMINATIVE)] выход[pluralize_ru(E.gender,"ит","ят")] из строя!")
 
 			do_sparks(5, 0, src)
 

@@ -2063,6 +2063,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return "TTS Local"
 		if(CHANNEL_TTS_RADIO)
 			return "TTS Radio"
+		if(CHANNEL_RADIO_NOISE)
+			return "Radio Noise"
 
 /proc/get_compass_dir(atom/start, atom/end) //get_dir() only considers an object to be north/south/east/west if there is zero deviation. This uses rounding instead. // Ported from CM-SS13
 	if(!start || !end)

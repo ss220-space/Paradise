@@ -177,9 +177,6 @@
 #define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
 #define EYE_SHINE_THRESHOLD 6	//dark_view threshold past which a humanoid's eyes will 'shine' in the dark.
 
-#define EMOTE_VISUAL 1  //A mob emote is visual
-#define EMOTE_SOUND 2  //A mob emote is sound
-
 #define STATUS_UPDATE_HEALTH 1
 #define STATUS_UPDATE_STAT 2
 #define STATUS_UPDATE_STAMINA 8
@@ -226,6 +223,7 @@
 #define ismoth(A) (is_species(A, /datum/species/moth))
 
 #define isanimal(A)		(istype((A), /mob/living/simple_animal))
+#define iscat(A)		(istype((A), /mob/living/simple_animal/pet/cat))
 #define isdog(A)		(istype((A), /mob/living/simple_animal/pet/dog))
 #define iscorgi(A)		(istype((A), /mob/living/simple_animal/pet/dog/corgi))
 #define ismouse(A)		(istype((A), /mob/living/simple_animal/mouse))

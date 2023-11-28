@@ -222,11 +222,11 @@
 	..()
 	H.verbs |= /mob/living/carbon/human/proc/emote_wag
 	H.verbs |= /mob/living/carbon/human/proc/emote_swag
-	H.verbs |= /mob/living/carbon/human/proc/emote_hiss
+	H.verbs |= /mob/living/carbon/human/proc/emote_hiss_unathi
 	H.verbs |= /mob/living/carbon/human/proc/emote_roar
 	H.verbs |= /mob/living/carbon/human/proc/emote_threat
 	H.verbs |= /mob/living/carbon/human/proc/emote_whip
-	H.verbs |= /mob/living/carbon/human/proc/emote_whips
+	H.verbs |= /mob/living/carbon/human/proc/emote_whip_l
 	H.verbs |= /mob/living/carbon/human/proc/emote_rumble
 	var/datum/action/innate/tail_lash/lash = locate() in H.actions
 	if(!lash)
@@ -237,11 +237,11 @@
 	..()
 	H.verbs -= /mob/living/carbon/human/proc/emote_wag
 	H.verbs -= /mob/living/carbon/human/proc/emote_swag
-	H.verbs -= /mob/living/carbon/human/proc/emote_hiss
+	H.verbs -= /mob/living/carbon/human/proc/emote_hiss_unathi
 	H.verbs -= /mob/living/carbon/human/proc/emote_roar
 	H.verbs -= /mob/living/carbon/human/proc/emote_threat
 	H.verbs -= /mob/living/carbon/human/proc/emote_whip
-	H.verbs -= /mob/living/carbon/human/proc/emote_whips
+	H.verbs -= /mob/living/carbon/human/proc/emote_whip_l
 	H.verbs -= /mob/living/carbon/human/proc/emote_rumble
 
 	var/datum/action/innate/tail_lash/lash = locate() in H.actions

@@ -32,7 +32,7 @@
 /mob/living/carbon/can_use_hands()
 	if(handcuffed)
 		return FALSE
-	if(buckled && ! istype(buckled, /obj/structure/chair)) // buckling does not restrict hands
+	if(buckled && !istype(buckled, /obj/structure/chair)) // buckling does not restrict hands
 		return FALSE
 	return TRUE
 
@@ -196,7 +196,11 @@
 
 
 /mob/living/carbon/is_muzzled()
-	return(istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
+	return istype(wear_mask, /obj/item/clothing/mask/muzzle)
+
+
+/mob/living/carbon/is_facehugged()
+	return istype(wear_mask, /obj/item/clothing/mask/facehugger)
 
 
 /mob/living/carbon/resist_muzzle()

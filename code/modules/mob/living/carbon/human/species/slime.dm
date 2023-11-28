@@ -25,8 +25,8 @@
 
 	brain_mod = 1.5
 
-	male_cough_sounds = list('sound/effects/slime_squish.ogg')
-	female_cough_sounds = list('sound/effects/slime_squish.ogg')
+	male_cough_sounds = list('sound/effects/mob_effects/slime_squish.ogg')
+	female_cough_sounds = list('sound/effects/mob_effects/slime_squish.ogg')
 
 	species_traits = list(LIPS, IS_WHITELISTED, NO_SCAN, EXOTIC_COLOR)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
@@ -93,6 +93,8 @@
 	RegisterSignal(H, COMSIG_HUMAN_UPDATE_DNA, PROC_REF(blend))
 	blend(H)
 	H.verbs |= /mob/living/carbon/human/proc/emote_squish
+	H.verbs |= /mob/living/carbon/human/proc/emote_bubble
+	H.verbs |= /mob/living/carbon/human/proc/emote_pop
 
 
 /datum/species/slime/on_species_loss(mob/living/carbon/human/H)
@@ -112,6 +114,9 @@
 	REMOVE_TRAIT(H, TRAIT_WATERBREATH, "species")
 	UnregisterSignal(H, COMSIG_HUMAN_UPDATE_DNA)
 	H.verbs -= /mob/living/carbon/human/proc/emote_squish
+	H.verbs -= /mob/living/carbon/human/proc/emote_bubble
+	H.verbs -= /mob/living/carbon/human/proc/emote_pop
+
 
 /datum/species/slime/proc/blend(mob/living/carbon/human/H)
 	var/new_color = BlendRGB(H.skin_colour, "#acacac", 0.5) // Blends this to make it work better
@@ -137,9 +142,10 @@
 	..()
 
 
-
-/datum/species/slime/can_hear() // fucking snowflakes
-	. = TRUE
+/datum/species/slime/can_hear(mob/living/carbon/human/H) // fucking snowflakes
+	. = FALSE
+	if(!HAS_TRAIT(H, TRAIT_DEAF))
+		. = TRUE
 
 /datum/action/innate/slimecolor
 	name = "Toggle Recolor"

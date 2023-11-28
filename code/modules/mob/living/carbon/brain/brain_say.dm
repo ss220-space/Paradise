@@ -8,16 +8,18 @@
 	if(prob(emp_damage * 4))
 		if(prob(10)) //10% chance to drop the message entirely
 			return
-		else
-			message = Gibberish(message, (emp_damage*6))//scrambles the message, gets worse when emp_damage is higher
+
+		message = Gibberish(message, (emp_damage*6))//scrambles the message, gets worse when emp_damage is higher
 
 	..(message)
+
 
 /mob/living/carbon/brain/whisper(message as text)
 	if(!can_speak(warning = TRUE))
 		return
 
 	..()
+
 
 /mob/living/carbon/brain/can_speak(warning = FALSE)
 	. = ..()
@@ -28,10 +30,11 @@
 		var/obj/item/mmi/robotic_brain/R = container
 		if(R && R.silenced)
 			if(warning)
-				to_chat(src, span_warning("You cannot speak, as your internal speaker is turned off."))
+				to_chat(usr, span_warning("You cannot speak, as your internal speaker is turned off."))
 			. = FALSE
 
-/mob/living/carbon/brain/handle_message_mode(var/message_mode, list/message_pieces, var/verb, var/used_radios)
+
+/mob/living/carbon/brain/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	switch(message_mode)
 		if("headset")
 			var/radio_worked = 0 // If any of the radios our brainmob could use functioned, this is set true so that we don't use any others
@@ -48,5 +51,15 @@
 			return radio_worked
 		if("whisper")
 			whisper_say(message_pieces)
-			return 1
-		else return 0
+			return TRUE
+		else
+			return FALSE
+
+
+/mob/living/carbon/brain/say_understands(mob/other, datum/language/speaking = null)	//Goddamn is this hackish, but this say code is so odd
+	if(isAI(other) || istype(other, /mob/living/silicon/decoy) || ispAI(other) || isrobot(other))
+		return istype(container, /obj/item/mmi)
+	if(ishuman(other) || isslime(other))
+		return TRUE
+	return ..()
+

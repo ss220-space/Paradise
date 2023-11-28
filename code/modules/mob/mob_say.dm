@@ -2,7 +2,7 @@
 #define ILLEGAL_CHARACTERS_LIST list("<" = "", ">" = "", \
 	"\[" = "", "]" = "", "{" = "", "}" = "")
 
-/mob/proc/say()
+/mob/proc/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	return
 
 /mob/verb/whisper(message as text)
@@ -50,64 +50,73 @@
 		return
 
 	if(use_me)
-		custom_emote(usr.emote_type, message)
+		custom_emote(usr.emote_type, message, intentional = TRUE)
 	else
 		SSspeech_controller.queue_say_for_mob(usr, message, SPEECH_CONTROLLER_QUEUE_EMOTE_VERB)
 
 
 /mob/proc/say_dead(message)
 	if(client)
-		if(!client.holder)
-			if(!CONFIG_GET(flag/dsay_allowed))
-				to_chat(src, "<span class='danger'>Deadchat is globally muted.</span>")
-				return
+		if(!check_rights(R_ADMIN, FALSE) && !CONFIG_GET(flag/dsay_allowed))
+			to_chat(src, span_danger("Deadchat is globally muted."))
+			return
 
 		if(client.prefs.muted & MUTE_DEADCHAT)
-			to_chat(src, "<span class='warning'>You cannot talk in deadchat (muted).</span>")
+			to_chat(src, span_warning("You cannot talk in deadchat (muted)."))
 			return
 
 		if(!(client.prefs.toggles & PREFTOGGLE_CHAT_DEAD))
-			to_chat(src, "<span class='danger'>You have deadchat muted.</span>")
+			to_chat(src, span_danger("You have deadchat muted."))
 			return
 
 		if(client.handle_spam_prevention(message, MUTE_DEADCHAT))
 			return
 
+	if(SEND_SIGNAL(src, COMSIG_MOB_DEADSAY, message) & MOB_DEADSAY_SIGNAL_INTERCEPT)
+		return
+
+	if(message in USABLE_DEAD_EMOTES)
+		emote(copytext(message, 2), intentional = TRUE)
+		log_emote(message, src)
+		create_log(DEADCHAT_LOG, message)
+		return
+
 	say_dead_direct("[pick("complains", "moans", "whines", "laments", "blubbers", "salts")], <span class='message'>\"[message]\"</span>", src)
 	add_deadchat_logs(src, message)
 
-/mob/proc/say_understands(var/mob/other, var/datum/language/speaking = null)
+
+/mob/proc/say_understands(mob/other, datum/language/speaking = null)
 	if(stat == DEAD)
-		return 1
+		return TRUE
 
 	//Universal speak makes everything understandable, for obvious reasons.
 	if(universal_speak || universal_understand)
-		return 1
+		return TRUE
 
 	//Languages are handled after.
 	if(!speaking)
 		if(!other)
-			return 1
+			return TRUE
 		if(other.universal_speak)
-			return 1
+			return TRUE
 		if(isAI(src) && ispAI(other))
-			return 1
+			return TRUE
 		if(istype(other, src.type) || istype(src, other.type))
-			return 1
-		return 0
+			return TRUE
+		return FALSE
 
 	if(speaking.flags & INNATE)
-		return 1
+		return TRUE
 
 	//Language check.
 	for(var/datum/language/L in languages)
 		if(speaking.name == L.name)
-			return 1
+			return TRUE
 
-	return 0
+	return FALSE
 
 
-/mob/proc/say_quote(var/message, var/datum/language/speaking = null)
+/mob/proc/say_quote(message, datum/language/speaking = null)
 	var/verb = "says"
 	var/ending = copytext(message, length(message))
 
@@ -121,11 +130,6 @@
 	return verb
 
 
-/mob/proc/emote(act, type, message, force)
-	if(act == "me")
-		return custom_emote(type, message)
-
-
 /mob/proc/get_ear()
 	// returns an atom representing a location on the map from which this
 	// mob can hear things
@@ -134,6 +138,7 @@
 
 	return get_turf(src)
 
+
 /proc/say_test(text)
 	var/ending = copytext(text, length(text))
 	if(ending == "?")
@@ -141,6 +146,7 @@
 	else if(ending == "!")
 		return "2"
 	return "0"
+
 
 //parses the message mode code (e.g. :h, :w) from text, such as that supplied to say.
 //returns the message mode string or null for no message mode.
@@ -155,15 +161,18 @@
 
 	return null
 
+
 /datum/multilingual_say_piece
 	var/datum/language/speaking = null
 	var/message = ""
+
 
 /datum/multilingual_say_piece/New(datum/language/new_speaking, new_message)
 	. = ..()
 	speaking = new_speaking
 	if(new_message)
 		message = new_message
+
 
 /mob/proc/find_valid_prefixes(message)
 	var/list/prefixes = list() // [["Common", start, end], ["Gutter", start, end]]
@@ -177,6 +186,7 @@
 		else
 	return prefixes
 
+
 /proc/strip_prefixes(message)
 	. = ""
 	var/last_index = 1
@@ -188,6 +198,7 @@
 			last_index = i + 3
 		if(i + 1 > length_char(message))
 			. += copytext_char(message, last_index)
+
 
 // this returns a structured message with language sections
 // list(/datum/multilingual_say_piece(common, "hi"), /datum/multilingual_say_piece(farwa, "squik"), /datum/multilingual_say_piece(common, "meow!"))
@@ -220,9 +231,11 @@
 			var/spoke_message = handle_autohiss(trim(copytext_char(message, current[3], next[2])), L)
 			. += new /datum/multilingual_say_piece(current[1], spoke_message)
 
+
 /* These are here purely because it would be hell to try to convert everything over to using the multi-lingual system at once */
 /proc/message_to_multilingual(message, datum/language/speaking = null)
 	. = list(new /datum/multilingual_say_piece(speaking, message))
+
 
 /proc/multilingual_to_message(list/message_pieces)
 	. = ""
@@ -230,4 +243,6 @@
 		. += S.message + " "
 	. = trim_right(.)
 
+
 #undef ILLEGAL_CHARACTERS_LIST
+
