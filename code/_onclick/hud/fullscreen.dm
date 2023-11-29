@@ -152,6 +152,11 @@
 	blend_mode = BLEND_ADD
 	show_when_dead = TRUE
 
+/obj/screen/fullscreen/fog
+	icon = 'icons/mob/screen_fog.dmi'
+	icon_state = "fog"
+	color = "#FF0000"
+
 #undef FULLSCREEN_LAYER
 #undef BLIND_LAYER
 #undef CRIT_LAYER

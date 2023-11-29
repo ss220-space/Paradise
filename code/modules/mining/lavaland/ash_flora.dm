@@ -145,6 +145,25 @@
 	// min dmg 3, max dmg 6, prob(70)
 	AddComponent(/datum/component/caltrop, 3, 6, 70)
 
+/obj/structure/flora/ash/fireblossom
+	icon_state = "fireblossom"
+	name = "fire blossom"
+	desc = "An odd flower that grows commonly near bodies of lava."
+	harvested_name = "fire blossom stems"
+	harvested_desc = "A few fire blossom stems, missing their flowers."
+	harvest = /obj/item/reagent_containers/food/snacks/grown/ash_flora/fireblossom
+	needs_sharp_harvest = FALSE
+	light_range = 1.5
+	light_power = 2.1
+	light_color = "#FFFF66"
+	harvest_amount_high = 3
+	harvest_time = 10
+	harvest_message_low = "You pluck a single, suitable flower."
+	harvest_message_med = "You pluck a number of flowers, leaving a few unsuitable ones."
+	harvest_message_high = "You pluck quite a lot of suitable flowers."
+	regrowth_time_low = 2500
+	regrowth_time_high = 4000
+
 /obj/item/reagent_containers/food/snacks/grown/ash_flora
 	name = "mushroom shavings"
 	desc = "Some shavings from a tall mushroom. With enough, might serve as a bowl."
@@ -190,6 +209,14 @@
 	icon_state = "cactus_fruit"
 	seed = /obj/item/seeds/lavaland/cactus
 	wine_power = 0.5
+
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/fireblossom
+	name = "fire blossom"
+	desc = "A flower from a fire blossom."
+	icon_state = "fireblossom"
+	slot_flags = SLOT_HEAD
+	seed = /obj/item/seeds/lavaland/fireblossom
+	wine_power = 0.4
 
 //SEEDS
 
@@ -263,6 +290,16 @@
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism, /datum/plant_gene/trait/glow, /datum/plant_gene/trait/fire_resistance)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
 	reagents_add = list("tinlux" = 0.04, "vitamin" = 0.02, "space_drugs" = 0.02)
+
+/obj/item/seeds/lavaland/fireblossom
+	name = "pack of fire blossom seeds"
+	desc = "These seeds grow into fire blossoms."
+	icon_state = "seed-fireblossom"
+	species = "fireblossom"
+	plantname = "Fire Blossom"
+	product = /obj/item/reagent_containers/food/snacks/grown/ash_flora/fireblossom
+	genes = list(/datum/plant_gene/trait/fire_resistance, /datum/plant_gene/trait/glow/yellow)
+	reagents_add = list("tinlux" = 0.04, "nutriment" = 0.03, "carbon" = 0.05)
 
 //CRAFTING
 

@@ -198,6 +198,7 @@
 	item_state = "plasmacutter_mega"
 	desc = "A mining tool capable of expelling concentrated plasma bursts. You could use it to cut limbs off xenos! Or, you know, mine stuff. This one has been enhanced with plasma magmite."
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv/mega)
+	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 
 /obj/item/gun/energy/plasmacutter/shotgun
 	name = "plasma cutter shotgun"
@@ -214,6 +215,7 @@
 	item_state = "miningshotgun_mega"
 	desc = "An industrial-grade, heavy-duty mining shotgun. This one seems upgraded with plasma magmite."
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/shotgun/mega)
+	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 
 // Wormhole Projectors //
 /obj/item/gun/energy/wormhole_projector

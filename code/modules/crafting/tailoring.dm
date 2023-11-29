@@ -350,3 +350,18 @@
 				  /obj/item/assembly/voice = 1,
 				  /obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
+
+/datum/crafting_recipe/gem_necklace
+	name = "Gem Necklace"
+	result = list(/obj/item/clothing/accessory/necklace/gem)
+	time = 60
+	reqs = list(/obj/item/stack/sheet/mineral/gold = 10,
+				/obj/item/stack/sheet/leather = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/gem_bracers
+	name = "Gem Bracers"
+	result = list(/obj/item/clothing/gloves/jewelry_bracers)
+	time = 70
+	reqs = list(/obj/item/stack/sheet/mineral/gold = 20)
+	category = CAT_CLOTHING
