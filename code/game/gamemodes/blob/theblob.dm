@@ -15,6 +15,7 @@
 	var/fire_resist = 1 //multiplies burn damage by this
 	var/atmosblock = FALSE //if the blob blocks atmos and heat spread
 	var/mob/camera/blob/overmind
+	creates_cover = TRUE
 
 /obj/structure/blob/New(loc)
 	..()

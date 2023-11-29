@@ -8,6 +8,9 @@
 	var/slowdown = 0 //negative for faster, positive for slower
 	var/transparent_floor = FALSE //used to check if pipes should be visible under the turf or not
 
+	var/real_layer = TURF_LAYER
+	layer = MAP_EDITOR_TURF_LAYER
+
 	///Properties for open tiles (/floor)
 	/// All the gas vars, on the turf, are meant to be utilized for initializing a gas datum and setting its first gas values; the turf vars are never further modified at runtime; it is never directly used for calculations by the atmospherics system.
 	var/oxygen = 0
@@ -51,6 +54,10 @@
 	if(initialized)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
+
+	if(layer == MAP_EDITOR_TURF_LAYER)
+		layer = real_layer
+
 
 	// by default, vis_contents is inherited from the turf that was here before
 	vis_contents.Cut()

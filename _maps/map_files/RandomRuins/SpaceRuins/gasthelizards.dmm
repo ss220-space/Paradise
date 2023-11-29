@@ -326,7 +326,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1011,7 +1011,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/structure/cable{
 	icon_state = "1-4";
 	tag = "90Curve"
@@ -1238,7 +1238,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -1371,7 +1371,7 @@
 /area/ruin/space/gasthelizards/jail)
 "Wo" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/gasthelizards/engineering)
 "Wy" = (

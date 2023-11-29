@@ -11172,7 +11172,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -12158,7 +12158,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "bwu" = (
@@ -12576,14 +12576,14 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/wall/r_wall/coated,
 /area/engine/supermatter)
 "byD" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/wall/r_wall/coated,
 /area/engine/supermatter)
 "byE" = (
@@ -35297,7 +35297,7 @@
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing)
 "eUu" = (
@@ -44147,7 +44147,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/visible/cyan,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "hAl" = (
@@ -57960,7 +57960,7 @@
 	dir = 8;
 	on = 1
 	},
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	pixel_x = 26
 	},
 /turf/simulated/floor/engine,
@@ -67600,7 +67600,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "orl" = (
@@ -71044,7 +71044,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "pry" = (
@@ -87811,7 +87811,7 @@
 	dir = 4;
 	on = 1
 	},
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	pixel_x = 26
 	},
 /turf/simulated/floor/engine,
@@ -94803,7 +94803,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;

@@ -121,6 +121,9 @@
 	var/emergency_power_timer
 	var/emergency_lights = FALSE
 
+	/// Being hijacked by a pulse demon?
+	var/being_hijacked = FALSE
+
 /obj/machinery/power/apc/worn_out
 	name = "\improper Worn out APC"
 	keep_preset_name = 1
@@ -394,7 +397,7 @@
 			update_state |= UPSTATE_OPENED1
 		if(opened==2)
 			update_state |= UPSTATE_OPENED2
-	else if(emagged || malfai)
+	else if(emagged || malfai || being_hijacked)
 		update_state |= UPSTATE_BLUESCREEN
 	else if(panel_open)
 		update_state |= UPSTATE_WIREEXP
@@ -491,6 +494,15 @@
 				return
 			add_fingerprint(user)
 			cell = W
+
+			for(var/mob/living/simple_animal/demon/pulse_demon/demon in cell)
+				demon.forceMove(src)
+				demon.current_power = src
+				if(!being_hijacked) // first come first serve
+					demon.try_hijack_apc(src)
+			if(being_hijacked)
+				cell.rigged = FALSE // don't blow the demon up
+
 			user.visible_message(\
 				"[user.name] has inserted the power cell to [name]!",\
 				"<span class='notice'>You insert the power cell.</span>")
@@ -1009,7 +1021,7 @@
 /obj/machinery/power/apc/proc/is_authenticated(mob/user as mob)
 	if(user.can_admin_interact())
 		return TRUE
-	if(isAI(user) || isrobot(user) && !iscogscarab(user))
+	if(isAI(user) || (isrobot(user) || user.has_unlimited_silicon_privilege) && !iscogscarab(user))
 		return TRUE
 	else
 		return !locked
@@ -1017,13 +1029,13 @@
 /obj/machinery/power/apc/proc/is_locked(mob/user as mob)
 	if(user.can_admin_interact())
 		return FALSE
-	if(isAI(user) || isrobot(user) && !iscogscarab(user))
+	if(isAI(user) || (isrobot(user) || user.has_unlimited_silicon_privilege) && !iscogscarab(user))
 		return FALSE
 	else
 		return locked
 
 /obj/machinery/power/apc/ui_act(action, params)
-	if(..() || !can_use(usr, TRUE) || (locked && !usr.has_unlimited_silicon_privilege && (action != "toggle_nightshift") && !usr.can_admin_interact()))
+	if(..() || !can_use(usr, TRUE) || (is_locked(usr) && (action != "toggle_nightshift")))
 		return
 	. = TRUE
 	switch(action)

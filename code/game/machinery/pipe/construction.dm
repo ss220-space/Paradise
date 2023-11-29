@@ -527,7 +527,7 @@
 	if(!locate(/obj/machinery/atmospherics/pipe, src.loc))
 		to_chat(user, span_warning("You need to fasten it to a pipe"))
 		return 1
-	var/obj/machinery/meter/meter = new(loc)
+	var/obj/machinery/atmospherics/meter/meter = new(loc)
 	meter.add_fingerprint(user)
 	playsound(src.loc, W.usesound, 50, 1)
 	to_chat(user, span_notice("You have fastened the meter to the pipe."))

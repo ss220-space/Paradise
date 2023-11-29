@@ -4,7 +4,8 @@
 	use_power = IDLE_POWER_USE
 
 	var/on = 0
-	layer = GAS_FILTER_LAYER
+	layer = GAS_PIPE_VISIBLE_LAYER + GAS_FILTER_OFFSET
+	layer_offset = GAS_FILTER_OFFSET
 
 	var/datum/gas_mixture/air1
 	var/datum/gas_mixture/air2
