@@ -26,6 +26,8 @@
 	message_postfix = ", смотря на %t!"
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE
+	cooldown = 5 SECONDS
+	unintentional_audio_cooldown = 3.5 SECONDS
 	vary = TRUE
 	sound = 'sound/goonstation/voice/robot_scream.ogg'
 	volume = 80

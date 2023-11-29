@@ -33,7 +33,10 @@
 #define EMOTE_PARAM_SEPARATOR "-"
 
 /// Default cooldown for normal (non-audio) emotes.
-#define DEFAULT_EMOTE_COOLDOWN (1.5 SECONDS)
+#define EMOTE_COOLDOWN (1.5 SECONDS)
+
+/// Default cooldown for normal (non-audio) emotes, used unintentionally.
+#define UNINTENTIONAL_EMOTE_COOLDOWN (0.5 SECONDS)
 
 // Each mob can only play an emote with audio every AUDIO_EMOTE_COOLDOWN seconds, unless a given emote overrides its own audio cooldown.
 
