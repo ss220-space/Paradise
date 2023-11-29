@@ -84,11 +84,9 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 
 	S.wait = wait
 	S.channel = channel || SSsounds.random_available_channel()
-	S.volume = vol * client.prefs.get_channel_volume(CHANNEL_GENERAL)
+	S.volume = vol
 	S.environment = -1
 
-	if(channel)
-		S.volume *= client.prefs.get_channel_volume(channel)
 
 	if(vary)
 		if(islist(vary))
@@ -139,9 +137,6 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		S.y = 1
 		S.falloff = max_distance || 1 //use max_distance, else just use 1 as we are a direct sound so falloff isnt relevant.
 
-		if(S.file == 'sound/goonstation/voice/howl.ogg' && distance > 0 && S.volume > 60 && isvulpkanin(src))
-			addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, emote), "howl"), rand(10,30)) // Vulps cant resist! >)
-
 		// Sounds can't have their own environment. A sound's environment will be:
 		// 1. the mob's
 		// 2. the area's (defaults to SOUND_ENVRIONMENT_NONE)
@@ -156,6 +151,10 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 			if(!(client?.prefs?.toggles2 & PREFTOGGLE_2_REVERB_DISABLE))
 				S.echo[3] = 0 //Room setting, 0 means normal reverb
 				S.echo[4] = 0 //RoomHF setting, 0 means normal reverb.
+	
+	S.volume *= client.prefs.get_channel_volume(CHANNEL_GENERAL)
+	if(channel)
+		S.volume *= client.prefs.get_channel_volume(channel)
 
 	SEND_SOUND(src, S)
 	return S
