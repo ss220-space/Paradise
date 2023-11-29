@@ -98,7 +98,9 @@
 	/// Whether or not the emote can even be called at all if it's not intentional
 	var/only_unintentional = FALSE
 	/// The cooldown between the uses of the emote.
-	var/cooldown = DEFAULT_EMOTE_COOLDOWN
+	var/cooldown = EMOTE_COOLDOWN
+	/// The cooldown between the uses of the emote.
+	var/unintentional_cooldown = UNINTENTIONAL_EMOTE_COOLDOWN
 	/// How long is the cooldown on the audio of the emote, if it has one?
 	var/audio_cooldown = AUDIO_EMOTE_COOLDOWN
 	/// If the emote is triggered unintentionally, how long would that cooldown be?
@@ -315,18 +317,18 @@
  * Returns FALSE if the cooldown is not over, TRUE if the cooldown is over.
  */
 /datum/emote/proc/check_cooldown(mob/user, intentional)
-	if(!intentional)
+	if(!intentional && bypass_unintentional_cooldown)
 		return TRUE
 	// if our emote would play sound but another audio emote is on cooldown, prevent this emote from being used.
 	// Note that this only applies to intentional emotes
 	if(get_sound(user) && should_play_sound(user, intentional) && !user.can_use_audio_emote(intentional))
 		return FALSE
-	var/cooldown_in_use
-	if(!isnull(user.emote_cooldown_override))
-		// if the user has a a cooldown override in place, apply that instead.
+	var/cooldown_in_use = 0
+	// if the user has a a cooldown override in place, apply that instead.
+	if(isnum(user.emote_cooldown_override))
 		cooldown_in_use = user.emote_cooldown_override
 	else
-		cooldown_in_use = cooldown
+		cooldown_in_use = intentional ? cooldown : unintentional_cooldown
 	// Check cooldown on a per-emote basis.
 	if(user.emotes_used && user.emotes_used[src] + cooldown_in_use > world.time)
 		return FALSE
