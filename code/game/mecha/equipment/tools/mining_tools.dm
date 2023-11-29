@@ -18,27 +18,27 @@
 
 /obj/item/mecha_parts/mecha_equipment/drill/action(atom/target)
 	if(!action_checks(target))
-		return
+		return FALSE
 	if(isspaceturf(target))
-		return
+		return FALSE
 	if(isobj(target))
 		var/obj/target_obj = target
 		if(target_obj.resistance_flags & UNACIDABLE)
-			return
+			return FALSE
 	if(isancientturf(target))
 		visible_message(span_notice("This rock appears to be resistant to all mining tools except pickaxes!"))
-		return
+		return FALSE
 	target.visible_message(span_warning("[chassis] starts to drill [target]."),
 						span_userdanger("[chassis] starts to drill [target]..."),
 						span_italics("You hear drilling."))
-
 	if(do_after_cooldown(target))
 		log_message("Started drilling [target]")
+		set_ready_state(FALSE)
 		if(isturf(target))
 			var/turf/T = target
 			T.drill_act(src)
-			return
-		set_ready_state(FALSE)
+			set_ready_state(TRUE)
+			return TRUE
 		while(do_after_mecha(target, drill_delay))
 			if(isliving(target))
 				drill_mob(target, chassis.occupant)
@@ -49,7 +49,7 @@
 				playsound(src, 'sound/weapons/drill.ogg', 40, TRUE)
 			else
 				set_ready_state(TRUE)
-				return
+				return TRUE
 		set_ready_state(TRUE)
 
 /turf/proc/drill_act(obj/item/mecha_parts/mecha_equipment/drill/drill)
@@ -163,7 +163,7 @@
 	if(istype(loc, /obj/mecha/working))
 		var/obj/mecha/working/mecha = loc
 		if(!mecha.occupant)
-			return
+			return FALSE
 		mineral_scan_pulse(get_turf(src))
 		start_cooldown()
 		return TRUE

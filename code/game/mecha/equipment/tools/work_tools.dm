@@ -24,9 +24,9 @@
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/action(atom/target)
 	if(!action_checks(target))
-		return
+		return FALSE
 	if(!cargo_holder)
-		return
+		return FALSE
 	if(istype(target,/obj))
 		var/obj/O = target
 		if(!O.anchored)
@@ -39,18 +39,27 @@
 					O.anchored = FALSE
 					occupant_message(span_notice("[target] successfully loaded."))
 					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
+					return TRUE
 				else
 					O.anchored = initial(O.anchored)
 			else
 				occupant_message(span_warning("Not enough room in cargo compartment!"))
 		else
 			occupant_message(span_warning("[target] is firmly secured!"))
-
+		return FALSE
 	else if(istype(target,/mob/living))
 		var/mob/living/M = target
-		if(M.stat == DEAD && !issilicon(M))
-			return FALSE
-		if(M.stat == DEAD && issilicon(M) || chassis.cargo_expanded == TRUE)
+		if(chassis.occupant.a_intent == INTENT_HARM)
+			M.take_overall_damage(dam_force)
+			if(!M)
+				return FALSE
+			M.adjustOxyLoss(round(dam_force/2))
+			target.visible_message(span_danger("[chassis] squeezes [target]."), \
+								span_userdanger("[chassis] squeezes [target]."),\
+								span_italics("You hear something crack."))
+			add_attack_logs(chassis.occupant, M, "Squeezed with [src] ([uppertext(chassis.occupant.a_intent)]) ([uppertext(damtype)])")
+			start_cooldown()
+		else if(M.stat == DEAD && issilicon(M) || chassis.cargo_expanded)
 			if(ismegafauna(M))
 				occupant_message(SPAN_WARNING("БЕГИ, ИДИОТ, НЕ ВРЕМЯ ДЛЯ ОБНИМАШЕК!!!"))
 				return FALSE
@@ -64,28 +73,19 @@
 						M.anchored = FALSE
 						occupant_message(span_notice("[target] successfully loaded."))
 						log_message("Loaded [M]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
+						return TRUE
 					else
 						M.anchored = initial(M.anchored)
 				else
 					occupant_message(span_warning("Not enough room in cargo compartment!"))
 			else
 				occupant_message(span_warning("[target] is buckled to something!"))
-		if(chassis.occupant.a_intent == INTENT_HARM)
-			M.take_overall_damage(dam_force)
-			if(!M)
-				return FALSE
-			M.adjustOxyLoss(round(dam_force/2))
-			target.visible_message(span_danger("[chassis] squeezes [target]."), \
-								span_userdanger("[chassis] squeezes [target]."),\
-								span_italics("You hear something crack."))
-			add_attack_logs(chassis.occupant, M, "Squeezed with [src] ([uppertext(chassis.occupant.a_intent)]) ([uppertext(damtype)])")
-			start_cooldown()
+			return FALSE
 		else
-			if(M.stat == DEAD && issilicon(M) || chassis.cargo_expanded == TRUE)
-				return
 			step_away(M,chassis)
 			occupant_message(span_notice("You push [target] out of the way."))
 			chassis.visible_message(span_notice("[chassis] pushes [target] out of the way."))
+			start_cooldown()
 		return TRUE
 
 
@@ -107,17 +107,15 @@
 			if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
 				chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
 				O.anchored = TRUE
-				set_ready_state(FALSE)
 				if(do_after_cooldown(target))
 					cargo_holder.cargo += O
 					O.loc = chassis
 					O.anchored = FALSE
 					occupant_message(span_notice("[target] successfully loaded."))
 					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
-					start_cooldown()
+					return TRUE
 				else
 					O.anchored = initial(O.anchored)
-					set_ready_state(TRUE)
 					return FALSE
 			else
 				occupant_message(span_warning("Not enough room in cargo compartment!"))
@@ -141,6 +139,7 @@
 			step_away(M,chassis)
 			target.visible_message("[chassis] tosses [target] like a piece of paper.")
 		start_cooldown()
+		return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/cargo_upgrade
 	name = "Cargo expansion upgrade"
@@ -172,7 +171,7 @@
 	desc = "An exosuit-mounted Rapid Construction Device. (Can be attached to: Any exosuit)"
 	icon_state = "mecha_rcd"
 	origin_tech = "materials=4;bluespace=3;magnets=4;powerstorage=4;engineering=4"
-	equip_cooldown = 10
+	equip_cooldown = 20
 	energy_drain = 500
 	range = MECHA_MELEE | MECHA_RANGED
 	flags_2 = NO_MAT_REDEMPTION_2
@@ -208,7 +207,6 @@
 	var/rcd_act_result = target.rcd_act(chassis.occupant, rcd_holder, rcd_holder.mode)
 	if(rcd_act_result == RCD_NO_ACT) //if our rcd_act was not implemented/impossible to do - we can move again
 		chassis.can_move = 0
-	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/rcd/proc/check_menu(mob/living/carbon/user)
 	return (user && chassis.occupant == user && user.stat != DEAD)
@@ -295,7 +293,6 @@
 		if(do_after_cooldown(target))
 			new /obj/structure/barricade/mime/mrcd(target)
 			chassis.spark_system.start()
-			start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/multimodule
 	name = "multi module"
@@ -429,7 +426,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/action(atom/target)
 	if(!action_checks(target))
-		return
+		return FALSE
 	if(istype(target, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/target_coil = target
 		var/cur_amount = cable? cable.amount : 0
@@ -441,15 +438,16 @@
 			cable.amount += to_load
 			target_coil.use(to_load)
 			occupant_message(span_notice("[to_load] meters of cable successfully loaded."))
-			send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",src.get_equip_info())
-			return
+			send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
+			return TRUE
 		else
 			occupant_message(span_warning("Reel is full."))
 	if(isturf(target))
 		target.attackby(cable, chassis)
-		return
+		return TRUE
 	else
 		occupant_message(span_warning("Unable to load from [target] - no cable found."))
+	return FALSE
 
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/Topic(href,href_list)
@@ -476,7 +474,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/proc/use_cable(amount)
 	if(!cable || cable.amount<1)
-		set_ready_state(1)
+		set_ready_state(TRUE)
 		occupant_message("Cable depleted, [src] deactivated.")
 		log_message("Cable depleted, [src] deactivated.")
 		return FALSE
@@ -726,8 +724,8 @@
 	selected_item.melee_attack_chain(chassis.occupant, target)
 	if(isliving(target))
 		chassis.do_attack_animation(target)
+		start_cooldown()
 	chassis.use_power(energy_drain)
-	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/self_occupant_attack()
 	radial_menu(chassis.occupant)

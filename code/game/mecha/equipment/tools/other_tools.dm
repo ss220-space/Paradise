@@ -102,12 +102,13 @@
 		return FALSE
 	if(!is_faced_target(target))
 		return FALSE
+	equip_cooldown *= (initial(equip_cooldown) * mode)
 	switch(mode)
 		if(1)
 			if(!locked)
 				if(!istype(target) || target.anchored)
 					occupant_message("Unable to lock on [target]")
-					return
+					return FALSE
 				locked = target
 				occupant_message("Locked on [target]")
 				send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
@@ -262,9 +263,11 @@
 		if(!chassis.use_power(energy_drain))
 			STOP_PROCESSING(SSobj, src)
 			active_mode = FALSE
+			send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
 	else //no repair needed, we turn off
 		STOP_PROCESSING(SSobj, src)
 		active_mode = FALSE
+		send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
 		chassis.overlays -= droid_overlay
 		droid_overlay = new(icon, icon_state = "repair_droid")
 		chassis.overlays += droid_overlay

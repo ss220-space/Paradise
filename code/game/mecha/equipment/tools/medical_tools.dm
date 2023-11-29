@@ -92,11 +92,11 @@
 		return FALSE
 	return TRUE
 
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/go_out()
-	if(!action_checks(src))
+/obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/go_out(force)
+	if(!action_checks(src) && !force)	// Patiens always can leave this cage.
 		return FALSE
 	if(!patient)
-		return
+		return FALSE
 	patient.forceMove(get_turf(src))
 	occupant_message("[patient] ejected. Life support functions disabled.")
 	log_message("[patient] ejected. Life support functions disabled.")
@@ -119,7 +119,7 @@
 	..()
 	var/datum/topic_input/afilter = new /datum/topic_input(href,href_list)
 	if(afilter.get("eject"))
-		go_out()
+		go_out(FALSE)
 	else if(afilter.get("view_stats"))
 		chassis.occupant << browse(get_patient_stats(),"window=msleeper")
 		onclose(chassis.occupant, "msleeper")
@@ -233,7 +233,7 @@
 	return
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/container_resist()
-	go_out()
+	go_out(TRUE)
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/process()
 	if(..())
@@ -505,7 +505,7 @@
 			lock_n_load ++
 		if(!lock_n_load)
 			return FALSE
-	occupant_message("Syringe[lock_n_load ? "s(x[lock_n_load])" : ""] loaded.")
+	occupant_message("Syringe[lock_n_load ? "s (x[lock_n_load])" : ""] loaded.")
 	start_cooldown()
 	return TRUE
 
@@ -604,6 +604,7 @@
 		set_ready_state(FALSE)
 		var/obj/machinery/door/D = target	//the door we want to open
 		D.try_to_crowbar(chassis.occupant, src)//use the door's crowbar function
+		set_ready_state(TRUE)
 	else if(isliving(target))	//interact with living beings
 		var/mob/living/M = target
 		if(chassis.occupant.a_intent == INTENT_HARM)//the patented, medical rescue claw is incapable of doing harm. Worry not.
@@ -613,7 +614,7 @@
 			push_aside(chassis, M)//out of the way, I have people to save!
 			occupant_message("<span class='notice'>You gently push [target] out of the way.</span>")
 			chassis.visible_message("<span class='notice'>[chassis] gently pushes [target] out of the way.</span>")
-	start_cooldown()
+		start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/proc/push_aside(obj/mecha/M, mob/living/L)
 	switch(get_dir(M, L))
