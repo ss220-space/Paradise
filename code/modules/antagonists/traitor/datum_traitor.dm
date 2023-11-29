@@ -81,7 +81,15 @@
 
 
 /datum/antagonist/traitor/give_objectives()
-	var/objective_count = is_hijacker 			//Hijacking counts towards number of objectives
+
+	// delete these start
+
+	var/hijacker_antag = (GLOB.master_mode == "antag-paradise" || GLOB.secret_force_mode == "antag-paradise") ? is_hijacker : prob(10)
+
+	// delete these end
+
+
+	var/objective_count = hijacker_antag 			//Hijacking counts towards number of objectives
 	if(!SSticker.mode.exchange_blue && SSticker.mode.traitors.len >= EXCHANGE_OBJECTIVE_TRAITORS_REQUIRED) 	//Set up an exchange if there are enough traitors
 		if(!SSticker.mode.exchange_red)
 			SSticker.mode.exchange_red = owner
@@ -93,7 +101,7 @@
 
 	var/objective_amount = CONFIG_GET(number/traitor_objectives_amount)
 
-	if(is_hijacker && objective_count <= objective_amount) //Don't assign hijack if it would exceed the number of objectives set in CONFIG_GET(number/traitor_objectives_amount)
+	if(hijacker_antag && objective_count <= objective_amount) //Don't assign hijack if it would exceed the number of objectives set in CONFIG_GET(number/traitor_objectives_amount)
 		if(!(locate(/datum/objective/hijack) in owner.get_all_objectives()))
 			add_objective(/datum/objective/hijack)
 			return
