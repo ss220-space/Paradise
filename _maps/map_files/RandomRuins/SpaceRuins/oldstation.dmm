@@ -3571,7 +3571,7 @@
 /area/ruin/space/ancientstation/thetacorridor)
 "Do" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -6053,7 +6053,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation)
 "Wc" = (

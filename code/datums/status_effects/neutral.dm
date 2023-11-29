@@ -160,3 +160,34 @@
 /datum/status_effect/charging
 	id = "charging"
 	alert_type = null
+
+/datum/status_effect/delayed
+	id = "delayed_status_effect"
+	status_type = STATUS_EFFECT_MULTIPLE
+	alert_type = null
+	var/prevent_signal = null
+	var/datum/callback/expire_proc = null
+
+/datum/status_effect/delayed/on_creation(mob/living/new_owner, new_duration, datum/callback/new_expire_proc, new_prevent_signal = null)
+	if(!new_duration || !istype(new_expire_proc))
+		qdel(src)
+		return
+	duration = new_duration
+	expire_proc = new_expire_proc
+	. = ..()
+	if(new_prevent_signal)
+		RegisterSignal(owner, new_prevent_signal, PROC_REF(prevent_action))
+		prevent_signal = new_prevent_signal
+
+/datum/status_effect/proc/prevent_action()
+	SIGNAL_HANDLER
+	qdel(src)
+
+/datum/status_effect/delayed/on_remove()
+	if(prevent_signal)
+		UnregisterSignal(owner, prevent_signal)
+	. = ..()
+
+/datum/status_effect/delayed/on_timeout()
+	. = ..()
+	expire_proc.Invoke()

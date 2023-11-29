@@ -23,6 +23,8 @@
 	#define COMPONENT_GLOB_BLOCK_CINEMATIC (1<<0)
 /// ingame button pressed (/obj/machinery/button/button)
 #define COMSIG_GLOB_BUTTON_PRESSED "!button_pressed"
+/// cable was placed or joined somewhere : (turf)
+#define COMSIG_GLOB_CABLE_UPDATED "!cable_updated"
 
 /// signals from globally accessible objects
 
@@ -275,7 +277,8 @@
 
 ///from base of /datum/mind/proc/transfer_to(mob/living/new_character)
 #define COMSIG_MIND_TRANSER_TO "mind_transfer_to"
-
+///called on the mob instead of the mind
+#define COMSIG_BODY_TRANSFER_TO "body_transfer_to"
 // /mob signals
 
 ///from base of /mob/Login(): ()

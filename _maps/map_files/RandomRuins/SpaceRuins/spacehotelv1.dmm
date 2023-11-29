@@ -2255,7 +2255,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "qI" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -3744,7 +3744,7 @@
 	dir = 6;
 	name = "Труба на фильтрацию"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/aftmaints)
 "AQ" = (
@@ -4192,7 +4192,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/restoraunt1)
 "Eq" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 9
 	},

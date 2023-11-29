@@ -396,7 +396,7 @@
 	if(istype(AM,/obj/structure/closet/crate))
 		CRATE = AM
 	else
-		if(!wires.is_cut(WIRE_LOADCHECK))
+		if(!wires.is_cut(WIRE_LOADCHECK) && !hijacked)
 			buzz(SIGH)
 			return	// if not hacked, only allow crates to be loaded
 
@@ -472,7 +472,7 @@
 	// with items dropping as mobs are loaded
 
 	for(var/atom/movable/AM in src)
-		if(AM == cell || AM == access_card || AM == Radio || AM == bot_core || AM == paicard)
+		if(AM == cell || AM == access_card || AM == Radio || AM == paicard || AM == bot_core || ispulsedemon(AM))
 			continue
 
 		AM.forceMove(loc)
@@ -846,6 +846,8 @@
  * Player on mulebot attempted to move.
  */
 /mob/living/simple_animal/bot/mulebot/relaymove(mob/user)
+	if(ispulsedemon(user))
+		return ..()
 	if(user.incapacitated())
 		return
 	if(load == user)

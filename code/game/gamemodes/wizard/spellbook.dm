@@ -525,6 +525,14 @@
 	limit = 3
 	cost = 1 //Unless you blackout the station this ain't going to do much, wizard doesn't get NV, still dies easily to a group of 2 and it doesn't eat bodies.
 
+/datum/spellbook_entry/item/pulsedemonbottle
+	name = "Living Lightbulb"
+	desc = "A magically sealed lightbulb confining some manner of electricity based creature. Beware, these creatures are indiscriminate in their shocking antics, and you yourself may become a victim."
+	item_path = /obj/item/antag_spawner/pulse_demon
+	category = "Summons"
+	limit = 3
+	cost = 1 //Needs station power to live. Also can kill the wizard trivially in maints (get shock protection).
+
 /datum/spellbook_entry/item/mayhembottle
 	name = "Mayhem in a Bottle"
 	desc = "A magically infused bottle of blood, the scent of which will drive anyone nearby into a murderous frenzy."

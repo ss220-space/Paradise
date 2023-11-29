@@ -3,7 +3,8 @@
 	initialize_directions = SOUTH|NORTH
 	use_power = IDLE_POWER_USE
 
-	layer = GAS_PUMP_LAYER
+	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PUMP_OFFSET
+	layer_offset = GAS_PUMP_OFFSET
 
 	var/datum/gas_mixture/air1
 	var/datum/gas_mixture/air2
