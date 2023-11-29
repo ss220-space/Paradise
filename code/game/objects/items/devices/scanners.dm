@@ -109,7 +109,10 @@ REAGENT SCANNER
 				in_turf_object.invisibility = 0
 				in_turf_object.alpha = 128
 				in_turf_object.drain_act_protected = TRUE
+				if(in_turf_object.layer < TURF_LAYER)
+					in_turf_object.layer += TRAY_SCAN_LAYER_OFFSET
 				spawn(pulse_duration)
+					in_turf_object.plane = GAME_PLANE
 					if(in_turf_object)
 						var/turf/objects_turf = in_turf_object.loc
 						if(objects_turf && objects_turf.intact)

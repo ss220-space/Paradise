@@ -32,25 +32,25 @@
 		L = list()
 	return check_access_list(L)
 
-/obj/proc/check_access_list(var/list/L)
+/obj/proc/check_access_list(list/L)
 	if(!L)
-		return 0
+		return FALSE
 	if(!istype(L, /list))
-		return 0
+		return FALSE
 	return has_access(req_access, check_one_access, L)
 
-/proc/has_access(var/list/req_access, check_one_access, var/list/accesses)
+/proc/has_access(list/req_access, check_one_access, list/accesses)
 	if(check_one_access)
 		if(req_access.len)
 			for(var/req in req_access)
 				if(req in accesses) //has an access from the single access list
-					return 1
-			return 0
+					return TRUE
+			return FALSE
 	else
 		for(var/req in req_access)
 			if(!(req in accesses)) //doesn't have this access
-				return 0
-	return 1
+				return FALSE
+	return TRUE
 
 /proc/get_centcom_access(job)
 	switch(job)

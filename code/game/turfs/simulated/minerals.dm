@@ -174,7 +174,8 @@
 	canSmoothWith = list(/turf/simulated/mineral, /obj/structure/falsewall/mineral_ancient)
 	mine_time = 6 SECONDS
 	color = COLOR_ANCIENT_ROCK
-	layer = TURF_LAYER
+	layer = MAP_EDITOR_TURF_LAYER
+	real_layer = TURF_LAYER
 	should_reset_color = FALSE
 	mineralAmt = 2
 	mineralType = /obj/item/stack/ore/glass/basalt/ancient

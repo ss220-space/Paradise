@@ -41,10 +41,8 @@
 		dream()
 	else if(client && !nightmare && prob(2))
 		nightmare()
-		if(ishuman(src))
-			if(prob(10))
-				custom_emote(1,"writhes in [p_their()] sleep.")
-				dir = pick(GLOB.cardinal)
+		if(ishuman(src) && prob(10))
+			emote("nightmare")
 
 /mob/living/carbon/proc/experience_dream(dream_image, isNightmare)
 	if(dreaming > 0 && !isNightmare)

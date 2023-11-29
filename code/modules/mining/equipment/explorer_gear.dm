@@ -178,7 +178,7 @@
 /obj/item/clothing/suit/hooded/pathfinder
 	name = "pathfinder cloak"
 	desc = "A thick cloak woven from sinew and hides, designed to protect its wearer from hazardous weather."
-	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/pickaxe, /obj/item/twohanded/spear, /obj/item/organ/internal/regenerative_core/legion, /obj/item/kitchen/knife/combat/survival, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
 	icon_state = "pathcloak"
 	item_state = "pathcloak"
 	armor = list("melee" = 35, "bullet" = 35, "laser" = 35, "energy" = 35, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 50)

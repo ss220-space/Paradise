@@ -230,3 +230,51 @@
 		else
 			QDEL_NULL(fireaxe)
 	return ..()
+
+//mining "fireaxe"
+/obj/structure/closet/fishingrodcabinet
+	name = "fishing cabinet"
+	desc = "There is a small label that reads \"Fo* Em**gen*y u*e *nly\". All the other text is scratched out and replaced with various fish weights."
+	icon = 'icons/obj/closet.dmi'
+	icon_state = "fishingrod"
+	var/obj/item/twohanded/fishingrod/olreliable //what the fuck?
+
+/obj/structure/closet/fishingrodcabinet/Initialize()
+	. = ..()
+	if(!olreliable)
+		olreliable = new(src)
+		update_icon()
+
+/obj/structure/closet/fishingrodcabinet/update_icon()
+	. = ..()
+	cut_overlays()
+	if(olreliable)
+		add_overlay("rod")
+
+/obj/structure/closet/fishingrodcabinet/attackby(var/obj/item/O as obj, var/mob/living/user as mob)
+	if(istype(O, /obj/item/twohanded/fishingrod))
+		var/obj/item/twohanded/fishingrod/R = O
+		if(R.wielded)
+			to_chat(user, "<span class='warning'>Unwield \the [R] first.</span>")
+			return
+		if(!user.drop_item_ground(R))
+			to_chat(user, "<span class='warning'>\The [R] stays stuck to your hands!</span>")
+			return
+		add_fingerprint(user)
+		olreliable = R
+		contents += R
+		to_chat(user, "<span class='notice'>You place \the [R] back in the [name].</span>")
+		update_icon()
+
+
+
+/obj/structure/closet/fishingrodcabinet/attack_hand(mob/user as mob)
+	if(olreliable)
+		add_fingerprint(user)
+		olreliable.forceMove_turf()
+		user.put_in_hands(olreliable, ignore_anim = FALSE)
+		to_chat(user, "<span class='notice'>You take \the [olreliable] from the [src].</span>")
+		olreliable = null
+
+		add_fingerprint(user)
+		update_icon()

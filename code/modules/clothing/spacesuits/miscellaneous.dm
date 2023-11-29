@@ -411,3 +411,54 @@
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 	sprite_sheets_obj = null
+
+//pirate-themed stuff
+/obj/item/clothing/suit/space/eva/pirate
+	name = "pirate EVA suit"
+	icon_state = "pirate_armor"
+	item_state = "s_suit"
+	desc = "A lightweight pirate-themed EVA suit designed to protect from vacuum and those nasty lasers flying from the victims of pirate raid."
+	armor = list(melee = 10, bullet = 5, laser = 30, energy = 25, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
+		"Skrell" = 'icons/mob/clothing/species/skrell/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
+		)
+
+/obj/item/clothing/head/helmet/space/eva/pirate
+	name = "pirate EVA helmet"
+	icon_state = "pirate_armor"
+	item_state = "s_helmet"
+	desc = "A lightweight pirate-themed space helmet with white skull on it designed to protect from vacuum and those nasty lasers flying from the victims of pirate raid."
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
+	armor = list(melee = 10, bullet = 5, laser = 30, energy = 25, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
+	flash_protect = 2
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
+		"Skrell" = 'icons/mob/clothing/species/skrell/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
+		)
+
+/obj/item/clothing/suit/space/eva/pirate/leader
+	name = "pirate leader EVA suit"
+	icon_state = "leader_armor"
+	desc = "A lightweight pirate-themed EVA suit designed to protect from vacuum and those nasty lasers flying from the victims of pirate raid. This one has a red markings."
+	armor = list(melee = 15, bullet = 10, laser = 35, energy = 30, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
+
+/obj/item/clothing/head/helmet/space/eva/pirate/leader
+	name = "pirate leader EVA helmet"
+	icon_state = "leader_armor"
+	desc = "A lightweight pirate-themed space helmet with red skull on it designed to protect from vacuum and those nasty lasers flying from the victims of pirate raid."
+	armor = list(melee = 15, bullet = 10, laser = 35, energy = 30, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)

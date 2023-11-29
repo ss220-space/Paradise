@@ -93,6 +93,18 @@
 	icon_state = "pill8"
 	list_reagents = list("methamphetamine" = 5)
 
+/obj/item/reagent_containers/food/pill/lsd
+	name = "LSD pill"
+	desc = "Commonly used to get high."
+	icon_state = "pill4"
+	list_reagents = list("lsd" = 5)
+
+/obj/item/reagent_containers/food/pill/rum
+	name = "rum pill"
+	desc = "Commonly used to... Wait a second, what the f.."
+	icon_state = "pill8"
+	list_reagents = list("rum" = 25)
+
 /obj/item/reagent_containers/food/pill/stimulative_agent
 	name = "combat stimulant pill"
 	desc = "Used by elite soldiers to increase speed and battle performance."

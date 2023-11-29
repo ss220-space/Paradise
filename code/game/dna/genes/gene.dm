@@ -105,6 +105,9 @@
 	// Possible deactivation messages
 	var/list/deactivation_messages = list()
 
+	//which traits gene gives
+	var/list/traits_to_add = list()
+
 /datum/dna/gene/basic/can_activate(mob/M, flags)
 	if(flags & MUTCHK_FORCED)
 		return TRUE
@@ -114,6 +117,8 @@
 /datum/dna/gene/basic/activate(mob/M, connected, flags)
 	..()
 	M.mutations.Add(mutation)
+	for(var/trait in traits_to_add)
+		ADD_TRAIT(M, trait, "mutation")
 	if(activation_messages.len)
 		var/msg = pick(activation_messages)
 		to_chat(M, "<span class='notice'>[msg]</span>")
@@ -121,6 +126,8 @@
 /datum/dna/gene/basic/deactivate(mob/living/M, connected, flags)
 	..()
 	M.mutations.Remove(mutation)
+	for(var/trait in traits_to_add)
+		REMOVE_TRAIT(M, trait, "mutation")
 	if(deactivation_messages.len)
 		var/msg = pick(deactivation_messages)
 		to_chat(M, "<span class='warning'>[msg]</span>")

@@ -4,7 +4,7 @@
 	desc = "An industrial \"U-Stor-It Storage\" unit designed to accommodate all types of spacesuits.	\
 			Its onboard equipment also allows the user to decontaminate the contents through a UV-ray purging cycle."
 	icon = 'icons/obj/machines/suit_storage.dmi'
-	icon_state = "close"
+	icon_state = "classic"
 	anchored = TRUE
 	density = TRUE
 	max_integrity = 250
@@ -126,6 +126,7 @@
 	name = "mining suit storage unit"
 	suit_type = /obj/item/clothing/suit/hooded/explorer
 	mask_type = /obj/item/clothing/mask/gas/explorer
+	storage_type = /obj/item/gps/mining
 	req_access = list(ACCESS_MINING_STATION)
 
 /obj/machinery/suit_storage_unit/cmo
@@ -277,26 +278,26 @@
 
 	if(uv)
 		if(uv_super)
-			add_overlay("super")
+			add_overlay("[icon_state]_super")
 		else if(occupant)
-			add_overlay("uvhuman")
+			add_overlay("[icon_state]_uvhuman")
 		else
-			add_overlay("uv")
+			add_overlay("[icon_state]_uv")
 	else if(state_open)
 		if(stat & BROKEN)
-			add_overlay("broken")
+			add_overlay("[icon_state]_broken")
 		else
-			add_overlay("open")
+			add_overlay("[icon_state]_open")
 			if(suit)
-				add_overlay("suit")
+				add_overlay("[icon_state]_suit")
 			if(helmet)
-				add_overlay("helm")
+				add_overlay("[icon_state]_helm")
 			if(storage)
-				add_overlay("storage")
+				add_overlay("[icon_state]_storage")
 	else if(occupant)
-		add_overlay("human")
+		add_overlay("[icon_state]_human")
 	if(!locked)
-		add_overlay("unlocked")
+		add_overlay("[icon_state]_unlocked")
 
 /obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
 	if(shocked)
@@ -332,7 +333,7 @@
 	if(shocked && !(stat & NOPOWER))
 		if(shock(user, 100))
 			return
-	default_deconstruction_screwdriver(user, "panel", "close", I)
+	default_deconstruction_screwdriver(user, "[icon_state]_panel", "[initial(icon_state)]", I)
 
 /obj/machinery/suit_storage_unit/proc/store_item(obj/item/I, mob/user)
 	. = FALSE
@@ -746,3 +747,21 @@
 	to_chat(user, span_warning("You burn the locking mechanism, unlocking it forever."))
 	do_sparks(5, 0, loc)
 	playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+
+//pirate ssu
+/obj/machinery/suit_storage_unit/industrial
+	name = "industrial suit storage unit"
+	desc = "An industrial unit made to hold and decontaminate irradiated equipment. It comes with a built-in UV cauterization mechanism. A small warning label advises that organic matter should not be placed into the unit."
+	icon_state = "industrial"
+
+/obj/machinery/suit_storage_unit/pirate
+	suit_type    = /obj/item/clothing/suit/space/eva/pirate
+	helmet_type  = /obj/item/clothing/head/helmet/space/eva/pirate
+	mask_type    = /obj/item/clothing/mask/gas
+	storage_type = /obj/item/tank/internals/oxygen
+
+/obj/machinery/suit_storage_unit/industrial/pirate_leader
+	suit_type    = /obj/item/clothing/suit/space/eva/pirate/leader
+	helmet_type  = /obj/item/clothing/head/helmet/space/eva/pirate/leader
+	mask_type    = /obj/item/clothing/mask/gas
+	storage_type = /obj/item/tank/internals/oxygen

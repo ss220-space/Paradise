@@ -135,12 +135,13 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	else
 		..(FULLTILE_WINDOW_DIR)
 
+
 /obj/structure/window/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
-	if(dir == FULLTILE_WINDOW_DIR)
-		return 0	//full tile window, you can't move into it!
-	if(get_dir(loc, target) == dir)
+		return TRUE
+	if(dir == FULLTILE_WINDOW_DIR)	// full tile window, you can't move into it!
+		return FALSE
+	if(dir == get_dir(loc, target))
 		return !density
 	if(istype(mover, /obj/structure/window))
 		var/obj/structure/window/W = mover
@@ -152,14 +153,15 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 			return FALSE
 	else if(istype(mover, /obj/machinery/door/window) && !valid_window_location(loc, mover.dir))
 		return FALSE
-	return 1
+	return TRUE
 
-/obj/structure/window/CheckExit(atom/movable/O, target)
-	if(istype(O) && O.checkpass(PASSGLASS))
-		return 1
-	if(get_dir(O.loc, target) == dir)
-		return 0
-	return 1
+
+/obj/structure/window/CheckExit(atom/movable/mover, turf/target)
+	if(istype(mover) && mover.checkpass(PASSGLASS))
+		return TRUE
+	if(dir == get_dir(loc, target))
+		return FALSE
+	return TRUE
 
 
 /obj/structure/window/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)

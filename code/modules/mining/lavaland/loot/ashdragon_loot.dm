@@ -3,7 +3,7 @@
 
 /obj/structure/closet/crate/necropolis/dragon/populate_contents()
 	new /obj/item/gem/amber(src)
-	var/loot = rand(1,4)
+	var/loot = rand(1,5)
 	switch(loot)
 		if(1)
 			new /obj/item/melee/ghost_sword(src)
@@ -13,10 +13,9 @@
 			new /obj/item/spellbook/oneuse/sacredflame(src)
 			new /obj/item/gun/magic/wand/fireball(src)
 		if(4)
-			if(prob(25)) //Still same chance but now you know if you're turning into a lizard (ew)
-				new /obj/item/dragons_blood/refined(src)
-			else
-				new /obj/item/dragons_blood(src)
+			new /obj/item/dragons_blood(src)
+		if(5)
+			new /obj/item/dragons_blood/refined(src) //turning into lizard stuff
 
 
 /obj/structure/closet/crate/necropolis/dragon/crusher
@@ -182,11 +181,10 @@
 /obj/item/lava_staff
 	name = "staff of lava"
 	desc = "The power of fire and rocks in your hands!"
-	icon_state = "staffofstorms"
-	item_state = "staffofstorms"
+	icon_state = "lavastaff"
+	item_state = "lavastaff"
 	icon = 'icons/obj/weapons/magic.dmi'
 	slot_flags = SLOT_BACK
-	item_state = "staffofstorms"
 	w_class = WEIGHT_CLASS_BULKY
 	force = 25
 	damtype = BURN

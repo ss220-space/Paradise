@@ -26,6 +26,7 @@
 	mob_size = MOB_SIZE_SMALL
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/bark_sound = list('sound/creatures/dog_bark1.ogg','sound/creatures/dog_bark2.ogg') //Used in emote.
+	var/bark_emote = list("ла%(ет,ют)%.", "гавка%(ет,ют)%.")	// used in emote.
 	var/growl_sound = list('sound/creatures/dog_grawl1.ogg','sound/creatures/dog_grawl2.ogg') //Used in emote.
 	var/yelp_sound = 'sound/creatures/dog_yelp.ogg' //Used on death.
 	var/last_eaten = 0
@@ -49,40 +50,6 @@
 		return
 	playsound(src, yelp_sound, 75, TRUE)
 
-/mob/living/simple_animal/pet/dog/emote(act, m_type = 1, message = null, force)
-	if(incapacitated())
-		return
-
-	var/on_CD = 0
-	act = lowertext(act)
-	switch(act)
-		if("bark")
-			on_CD = handle_emote_CD()
-		if("yelp")
-			on_CD = handle_emote_CD()
-		else
-			on_CD = 0
-
-	if(!force && on_CD == 1)
-		return
-
-	switch(act)
-		if("bark")
-			message = "[pick(src.speak_emote)]!"
-			m_type = 2 //audible
-			playsound(src, pick(src.bark_sound), 50, TRUE)
-		if("yelp")
-			message = "yelps!"
-			m_type = 2 //audible
-			playsound(src, yelp_sound, 75, TRUE)
-		if("growl")
-			message = "growls!"
-			m_type = 2 //audible
-			playsound(src, pick(src.growl_sound), 75, TRUE)
-		if("help")
-			to_chat(src, "scream, bark, growl")
-
-	..()
 
 /mob/living/simple_animal/pet/dog/attack_hand(mob/living/carbon/human/M)
 	. = ..()
@@ -97,10 +64,10 @@
 		if(change > 0)
 			if(M && stat != DEAD) // Added check to see if this mob (the corgi) is dead to fix issue 2454
 				new /obj/effect/temp_visual/heart(loc)
-				custom_emote(1, "yaps happily!")
+				custom_emote(EMOTE_VISIBLE, "радостно тявка%(ет,ют)%!")
 		else
 			if(M && stat != DEAD) // Same check here, even though emote checks it as well (poor form to check it only in the help case)
-				custom_emote(1, "growls!")
+				custom_emote(EMOTE_VISIBLE, "рыч%(ит,ат)%!")
 
 //Corgis and pugs are now under one dog subtype
 /mob/living/simple_animal/pet/dog/corgi
@@ -562,10 +529,10 @@
 							movement_target.attack_animal(src)
 						else if(ishuman(movement_target.loc) )
 							if(prob(20))
-								custom_emote(1, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face")
+								custom_emote(EMOTE_VISIBLE, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face")
 
 		if(prob(1))
-			custom_emote(1, pick("dances around.","chases its tail!"))
+			custom_emote(EMOTE_VISIBLE, pick("танцу%(ет,ют)% на месте.", "гоня%(ет,ют)%ся за своим хвостом."))
 			spin(20, 1)
 
 /obj/item/reagent_containers/food/snacks/meat/corgi
@@ -591,6 +558,7 @@
 	icon_living = "narsian"
 	icon_dead = "narsian_dead"
 	faction = list("neutral", "cult")
+	bark_emote = list("рыч%(ит,ат)%.", "зловеще ла%(ет,ют)%.")
 	gold_core_spawnable = NO_SPAWN
 	nofur = TRUE
 	unique_pet = TRUE
@@ -741,7 +709,7 @@
 	. = ..()
 	if(!resting && !buckled)
 		if(prob(1))
-			custom_emote(1, pick("dances around.","chases her tail."))
+			custom_emote(EMOTE_VISIBLE, pick("танцу%(ет,ют)% на месте.", "гоня%(ет,ют)%ся за своим хвостом."))
 			spin(20, 1)
 
 /mob/living/simple_animal/pet/dog/corgi/exoticcorgi
@@ -799,6 +767,7 @@
 	A.icon_state = "eyelasers"
 	playsound(src.loc, 'sound/weapons/taser2.ogg', 75, 1)
 	A.current = T
+	A.firer = src
 	A.yo = U.y - T.y
 	A.xo = U.x - T.x
 	A.fire()
@@ -853,7 +822,7 @@
 	. = ..()
 	if(!resting && !buckled)
 		if(prob(1))
-			custom_emote(1, pick("chases its tail."))
+			custom_emote(EMOTE_VISIBLE, pick("гоня%(ет,ют)%ся за своим хвостом."))
 			spawn(0)
 				for(var/i in list(1, 2, 4, 8, 4, 2, 1, 2, 4, 8, 4, 2, 1, 2, 4, 8, 4, 2))
 					dir = i
