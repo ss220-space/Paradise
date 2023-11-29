@@ -257,7 +257,7 @@
 
 			Paralyse(ex_armor_reduction(20 SECONDS, armor))
 
-	limbs_affected = clamp(limbs_affected - limb_loss_reduction, 0, INFINITY)
+	limbs_affected = max(limbs_affected - limb_loss_reduction, 0)
 
 	if(limbs_affected > 0)
 		process_dismember(limbs_affected)
@@ -268,16 +268,13 @@
 	..()
 
 /mob/living/carbon/human/proc/process_dismember(limbs_affected)
-	var/obj/item/organ/external/processing_dismember
 	var/list/valid_limbs = bodyparts.Copy()
 
-	while(limbs_affected != 0 && valid_limbs.len > 0)
-		processing_dismember = pick(valid_limbs)
+	while(limbs_affected && valid_limbs.len)
+		var/obj/item/organ/external/processing_dismember = pick_n_take(valid_limbs)
 		if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
 			processing_dismember.droplimb(1,DROPLIMB_SHARP,0,1)
-			valid_limbs -= processing_dismember
-			limbs_affected -= 1
-		else valid_limbs -= processing_dismember
+			limbs_affected--
 
 #undef ex_armor_reduction
 
