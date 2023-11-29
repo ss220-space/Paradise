@@ -1226,7 +1226,7 @@
 			var/distance = 4
 			var/pressure = min(hearer_env.return_pressure(), source_env.return_pressure())
 			if(pressure < ONE_ATMOSPHERE)
-				distance = FLOOR(distance * max((pressure - SOUND_MINIMUM_PRESSURE)/(ONE_ATMOSPHERE - SOUND_MINIMUM_PRESSURE), 0))
+				distance = FLOOR(distance * max((pressure - SOUND_MINIMUM_PRESSURE)/(ONE_ATMOSPHERE - SOUND_MINIMUM_PRESSURE), 0), 1)
 				if(get_dist(turf_user, get_turf(H)) > distance)
 					continue
 			addtimer(CALLBACK(H, TYPE_PROC_REF(/mob, emote), "howl"), rand(10,30))
