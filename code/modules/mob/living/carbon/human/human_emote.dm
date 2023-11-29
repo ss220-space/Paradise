@@ -1216,7 +1216,7 @@
 		var/turf/turf_user = get_turf(user)
 		var/datum/gas_mixture/source_env = turf_user.return_air()
 		if(!source_env)
-			return TRUE
+			return
 		for(var/mob/living/carbon/human/H in range(4, user))
 			if(!isvulpkanin(H) || !H.can_hear() || H.stat != CONSCIOUS)
 				continue
