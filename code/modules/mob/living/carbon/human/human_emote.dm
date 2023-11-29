@@ -1210,6 +1210,26 @@
 	cooldown = 10 SECONDS
 	sound = 'sound/goonstation/voice/howl.ogg'
 
+/datum/emote/living/carbon/human/vulpkanin/howl/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(.)
+		var/turf_user = get_turf(user)
+		var/datum/gas_mixture/source_env = turf_user.return_air()
+        if(!source_env)
+            return TRUE
+		for(var/mob/living/carbon/human/H in orange(4, user))
+			if(!isvulpkanin(H) || !can_hear(H) || H.stat != CONSCIOUS)
+				continue
+			var/datum/gas_mixture/hearer_env = get_turf(H).return_air()
+            if(!hearer_env)
+                continue
+			var/distance = 4
+			var/pressure = min(hearer_env.return_pressure(), source_env.return_pressure())
+			if(pressure < ONE_ATMOSPHERE)
+                distance = floor(distance * max((pressure - SOUND_MINIMUM_PRESSURE)/(ONE_ATMOSPHERE - SOUND_MINIMUM_PRESSURE), 0))
+				if(get_dist(turf_user, get_turf(H)) > distance)
+					continue
+			addtimer(CALLBACK(H, TYPE_PROC_REF(/mob, emote), "howl"), rand(10,30))
 
 /datum/emote/living/carbon/human/vulpkanin/growl
 	key = "growl"
