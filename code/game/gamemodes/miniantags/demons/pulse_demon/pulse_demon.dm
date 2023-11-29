@@ -592,10 +592,7 @@
 		var/msg = message
 		if(self_message && M == src)
 			msg = self_message
-		M.show_message(msg, EMOTE_VISUAL, blind_message, EMOTE_SOUND)
-
-/mob/living/simple_animal/demon/pulse_demon/has_internal_radio_channel_access(mob/user, list/req_one_accesses)
-	return has_access(list(), req_one_accesses, get_all_accesses())
+		M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
 
 /mob/living/simple_animal/demon/pulse_demon/proc/try_hijack_apc(obj/machinery/power/apc/A, remote = FALSE)
 	// one APC per pulse demon, one pulse demon per APC, no duplicate APCs
