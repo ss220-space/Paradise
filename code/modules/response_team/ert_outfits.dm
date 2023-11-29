@@ -94,7 +94,7 @@
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
-		/obj/item/organ/internal/cyberimp/chest/old/nutriment
+		/obj/item/organ/internal/cyberimp/chest/nutriment_old
 	)
 
 	implants = list(
@@ -124,7 +124,7 @@
 		)
 
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/chest/old/nutriment/plus,
+		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 		/obj/item/organ/internal/cyberimp/arm/flash
@@ -190,7 +190,7 @@
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/flash,
-		/obj/item/organ/internal/cyberimp/chest/old/nutriment,
+		/obj/item/organ/internal/cyberimp/chest/nutriment_old,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security
 	)
 
@@ -227,7 +227,7 @@
 	)
 
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/chest/old/nutriment/plus,
+		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 		/obj/item/organ/internal/cyberimp/arm/telebaton,
@@ -304,7 +304,7 @@
 
 	cybernetic_implants = list(
 	/obj/item/organ/internal/cyberimp/eyes/shield,
-	/obj/item/organ/internal/cyberimp/chest/old/nutriment
+	/obj/item/organ/internal/cyberimp/chest/nutriment_old
 	)
 
 	implants = list(
@@ -338,7 +338,7 @@
 	)
 
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/chest/old/nutriment/plus,
+		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 		/obj/item/organ/internal/cyberimp/eyes/shield,
@@ -426,7 +426,7 @@
 
 	cybernetic_implants = list(
 	/obj/item/organ/internal/cyberimp/arm/surgery,
-	/obj/item/organ/internal/cyberimp/chest/old/nutriment
+	/obj/item/organ/internal/cyberimp/chest/nutriment_old
 	)
 
 	implants = list(
@@ -465,7 +465,7 @@
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/surgery/l,
 		/obj/item/organ/internal/cyberimp/arm/medibeam,
-		/obj/item/organ/internal/cyberimp/chest/old/nutriment/plus,
+		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
 		/obj/item/organ/internal/cyberimp/eyes/hud/medical,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
 	)
@@ -536,7 +536,7 @@
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
-		/obj/item/organ/internal/cyberimp/chest/old/nutriment
+		/obj/item/organ/internal/cyberimp/chest/nutriment_old
 	)
 
 	implants = list(
@@ -564,7 +564,7 @@
 	)
 
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/chest/old/nutriment/plus,
+		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
 	)
@@ -629,7 +629,7 @@
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/janitorial,
-		/obj/item/organ/internal/cyberimp/chest/old/nutriment
+		/obj/item/organ/internal/cyberimp/chest/nutriment_old
 	)
 
 /datum/outfit/job/centcom/response_team/janitorial/gamma
@@ -655,7 +655,7 @@
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/advmop,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
-		/obj/item/organ/internal/cyberimp/chest/old/nutriment/plus
+		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus
 	)
 
 	implants = list(

@@ -304,7 +304,7 @@
 	poison_amount = 10
 	origin_tech = "materials=4;powerstorage=3;biotech=3"
 
-/obj/item/organ/internal/cyberimp/chest/old/nutriment
+/obj/item/organ/internal/cyberimp/chest/nutriment_old
 	name = "Nutriment pump implant"
 	desc = "This implant with synthesize and pump into your bloodstream a small amount of nutriment when you are starving."
 	icon_state = "chest_implant"
@@ -315,7 +315,7 @@
 	slot = "stomach"
 	origin_tech = "materials=2;powerstorage=2;biotech=2"
 
-/obj/item/organ/internal/cyberimp/chest/old/nutriment/on_life()
+/obj/item/organ/internal/cyberimp/chest/nutriment_old/on_life()
 	if(!owner)
 		return
 	if(synthesizing)
@@ -332,16 +332,16 @@
 		owner.adjust_nutrition(50)
 		addtimer(CALLBACK(src, PROC_REF(synth_cool)), 50)
 
-/obj/item/organ/internal/cyberimp/chest/old/nutriment/proc/synth_cool()
+/obj/item/organ/internal/cyberimp/chest/nutriment_old/proc/synth_cool()
 	synthesizing = FALSE
 
-/obj/item/organ/internal/cyberimp/chest/old/nutriment/emp_act(severity)
+/obj/item/organ/internal/cyberimp/chest/nutriment_old/emp_act(severity)
 	if(!owner || emp_proof)
 		return
 	owner.reagents.add_reagent("????",poison_amount / severity) //food poisoning
 	to_chat(owner, "<span class='warning'>You feel like your insides are burning.</span>")
 
-/obj/item/organ/internal/cyberimp/chest/old/nutriment/plus
+/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus
 	name = "Nutriment pump implant PLUS"
 	desc = "This implant will synthesize and pump into your bloodstream a small amount of nutriment when you are hungry."
 	icon_state = "chest_implant"
