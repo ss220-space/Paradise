@@ -129,10 +129,6 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		if(S.volume <= 0)
 			return //No sound
 
-		S.volume *= client.prefs.get_channel_volume(CHANNEL_GENERAL)
-		if(channel)
-			S.volume *= client.prefs.get_channel_volume(channel)
-
 		var/dx = turf_source.x - T.x // Hearing from the right/left
 		S.x = dx * distance_multiplier
 		var/dz = turf_source.y - T.y // Hearing from infront/behind
@@ -155,6 +151,10 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 			if(!(client?.prefs?.toggles2 & PREFTOGGLE_2_REVERB_DISABLE))
 				S.echo[3] = 0 //Room setting, 0 means normal reverb
 				S.echo[4] = 0 //RoomHF setting, 0 means normal reverb.
+	
+	S.volume *= client.prefs.get_channel_volume(CHANNEL_GENERAL)
+	if(channel)
+		S.volume *= client.prefs.get_channel_volume(channel)
 
 	SEND_SOUND(src, S)
 	return S
