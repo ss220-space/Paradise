@@ -90,7 +90,7 @@
 
 	if(antag_amount[ROLE_VAMPIRE])
 		var/list/datum/mind/possible_vampires = get_players_for_role(ROLE_VAMPIRE)
-		while(length(possible_vampires) && length(pre_vampires) <= antag_amount[ROLE_VAMPIRE])
+		while(length(possible_vampires) && length(pre_vampires) < antag_amount[ROLE_VAMPIRE])
 			var/datum/mind/vampire = pick_n_take(possible_vampires)
 			if(vampire.current.client.prefs.species in secondary_protected_species)
 				continue
@@ -102,7 +102,7 @@
 
 	if(antag_amount[ROLE_CHANGELING])
 		var/list/datum/mind/possible_changelings = get_players_for_role(ROLE_CHANGELING)
-		while(length(possible_changelings) && length(pre_changelings) <= antag_amount[ROLE_CHANGELING])
+		while(length(possible_changelings) && length(pre_changelings) < antag_amount[ROLE_CHANGELING])
 			var/datum/mind/changeling = pick_n_take(possible_changelings)
 			if(changeling.current.client.prefs.species in secondary_protected_species)
 				continue
@@ -114,7 +114,7 @@
 
 	if(antag_amount[ROLE_TRAITOR])
 		var/list/datum/mind/possible_traitors = get_players_for_role(ROLE_TRAITOR)
-		while(length(possible_traitors) && length(pre_traitors) <= antag_amount[ROLE_TRAITOR])
+		while(length(possible_traitors) && length(pre_traitors) < antag_amount[ROLE_TRAITOR])
 			var/datum/mind/traitor = pick_n_take(possible_traitors)
 			if(traitor.special_role)
 				continue
@@ -124,7 +124,7 @@
 
 	if(antag_amount[ROLE_THIEF])
 		var/list/datum/mind/possible_thieves = get_players_for_role(ROLE_THIEF, list("Vox" = 4))
-		while(length(possible_thieves) && length(pre_thieves) <= antag_amount[ROLE_THIEF])
+		while(length(possible_thieves) && length(pre_thieves) < antag_amount[ROLE_THIEF])
 			var/datum/mind/thief = pick_n_take(possible_thieves)
 			listclearduplicates(thief, possible_thieves)
 			if(thief.special_role)
