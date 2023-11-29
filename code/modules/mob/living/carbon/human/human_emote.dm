@@ -1220,7 +1220,8 @@
 		for(var/mob/living/carbon/human/H in range(4, user))
 			if(!isvulpkanin(H) || !H.can_hear() || H.stat != CONSCIOUS)
 				continue
-			var/datum/gas_mixture/hearer_env = get_turf(H).return_air()
+			var/turf/T = get_turf(H)
+			var/datum/gas_mixture/hearer_env = T.return_air()
 			if(!hearer_env)
 				continue
 			var/distance = 4
