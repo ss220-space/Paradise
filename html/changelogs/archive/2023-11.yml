@@ -264,14 +264,19 @@
 '2023-11-29':
   ArtemDerp:
   - add: add organ smartfridge for brig med (#3940)
+  BeebBeebBoob:
+  - bugfix: Emote howl chain reaction and volume mixer (#3953)
   Dimach:
   - refactor: get_players_for_role improve (#3951)
   - bugfix: pulse demon fixes (#3952)
   LiquidPotroh:
   - bugfix: Temperature gun's projectile blocking & reflecting (#3948)
+  NightDawnFox:
+  - add: lavaland rework 1.5 (#3776)
   ROdenFL:
   - add: pulse demon,floor rework,tray adaptation(port) (#3804)
   - balance: cling add fleshy maul, armblade tweaks (#3861)
+  - balance: nutrition pump implant nerf (#3943)
   Vladisvell:
   - balance: Rebalanced bomb protection, now it really protects against explosions.
       (#3821)
