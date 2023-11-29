@@ -62680,12 +62680,10 @@
 	},
 /area/medical/reception)
 "ixu" = (
-/obj/machinery/bodyscanner{
-	dir = 4
-	},
 /obj/structure/sign/poster/official/cleanliness{
 	pixel_x = -32
 	},
+/obj/machinery/smartfridge/secure/medbay/organ,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitered"
@@ -66123,17 +66121,12 @@
 	},
 /area/hallway/primary/fore)
 "jpT" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/tank/internals/emergency_oxygen/engi/empty,
-/obj/item/tank/internals/emergency_oxygen/engi/empty,
-/obj/machinery/iv_drip,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/machinery/sleeper{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitered"
@@ -73801,6 +73794,14 @@
 	pixel_y = -24
 	},
 /obj/machinery/light,
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/tank/internals/emergency_oxygen/engi/empty,
+/obj/item/tank/internals/emergency_oxygen/engi/empty,
+/obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "whitered"
@@ -109988,7 +109989,7 @@
 	},
 /area/medical/biostorage)
 "ttc" = (
-/obj/machinery/sleeper{
+/obj/machinery/bodyscanner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
