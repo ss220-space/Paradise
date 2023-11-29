@@ -42,5 +42,5 @@
 	UnregisterSignal(owner, COMSIG_LIVING_RESIST)
 
 /datum/status_effect/freon/watcher
-	duration = 8
+	duration = 15
 	can_melt = FALSE

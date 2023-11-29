@@ -41,6 +41,8 @@
 
 #define STATUS_EFFECT_HOPE /datum/status_effect/hope // Healing that scales when injured (but not in deep crit), and nice messages to keep the hope
 
+#define STATUS_EFFECT_DRAGON_STRENGTH /datum/status_effect/dragon_strength //similar to hope, but less powerfull.
+
 /// Rapid burn/brute/oxy/blood healing from the changeling ability
 #define STATUS_EFFECT_FLESHMEND /datum/status_effect/fleshmend
 
@@ -91,6 +93,10 @@
 #define STATUS_EFFECT_SHADOW_BOXING /datum/status_effect/shadow_boxing
 
 #define STATUS_EFFECT_MARK_PREY /datum/status_effect/mark_prey
+
+#define STATUS_EFFECT_BUBBLEGUM_CURSE /datum/status_effect/bubblegum_curse //Bleeding. Damage over time. Fog. And, of course, a suprise for people that try to run away.
+
+#define STATUS_EFFECT_DASH /datum/status_effect/dash // Grants the ability to dash, expiring after a few seconds
 
 //#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
 //#define CURSE_BLINDING	1 //makes the edges of the target's screen obscured

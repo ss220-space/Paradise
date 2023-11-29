@@ -124,7 +124,7 @@
 	desc = "Rudimentary gloves that aid in carrying."
 	icon_state = "goligloves"
 	item_state = "goligloves"
-	armor = list("melee" = 10, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 20, "fire" = 50, "acid" = 50)
+	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 20, "fire" = 50, "acid" = 50)
 	can_be_cut = FALSE
 
 /obj/item/clothing/gloves/color/orange
