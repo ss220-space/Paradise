@@ -152,7 +152,7 @@
 			var/second_role = pick_n_take(available_roles)
 
 			if(second_role == ROLE_VAMPIRE && \
-				!jobban_isbanned(traitor.current, get_roletext(second_role)) && \
+				!jobban_isbanned(traitor.current, second_role) && \
 				player_old_enough_antag(traitor.current.client, second_role) && \
 				(second_role in traitor.current.client.prefs.be_special) && \
 				!(traitor.current.client.prefs.species in secondary_protected_species))
@@ -162,7 +162,7 @@
 				break
 
 			if(second_role == ROLE_CHANGELING && \
-				!jobban_isbanned(traitor.current, get_roletext(second_role)) && \
+				!jobban_isbanned(traitor.current, second_role) && \
 				player_old_enough_antag(traitor.current.client, second_role) && \
 				(second_role in traitor.current.client.prefs.be_special) && \
 				!(traitor.current.client.prefs.species in secondary_protected_species))
