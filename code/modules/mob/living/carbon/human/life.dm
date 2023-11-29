@@ -380,7 +380,7 @@
 		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 			var/mult = dna.species.coldmod
 			if(mult>0)
-				if(bodytemperature < dna.species.cold_level_2 && prob(1))
+				if(bodytemperature < dna.species.cold_level_2 && prob(0.3))
 					var/datum/disease/virus/cold/D = new
 					D.Contract(src)
 				if(bodytemperature >= dna.species.cold_level_2 && bodytemperature <= dna.species.cold_level_1)
