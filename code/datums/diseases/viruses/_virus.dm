@@ -60,6 +60,9 @@
 				while(TRUE)
 					if(V == T)
 						var/a_type = (spread_range == 1) ? CONTACT : CONTACT|AIRBORNE
+						//if we wear bio suit, for example, we won't be able to contract anyone
+						if(affected_mob.CheckVirusProtection(src, a_type))
+							return
 						Contract(C, act_type = a_type, need_protection_check = TRUE)
 						break
 					var/turf/Temp = get_step_towards(V, T)

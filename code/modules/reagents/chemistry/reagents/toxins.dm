@@ -94,6 +94,7 @@
 	return ..()
 
 /datum/reagent/slimejelly
+	data = list("diseases" = null)
 	name = "Slime Jelly"
 	id = "slimejelly"
 	description = "A gooey semi-liquid produced from one of the deadliest lifeforms in existence. SO REAL."
@@ -112,9 +113,9 @@
 	return ..() | update_flags
 
 /datum/reagent/slimejelly/on_merge(list/mix_data)
-	if(data && mix_data)
-		if(mix_data["colour"])
-			color = mix_data["colour"]
+	merge_diseases_data(mix_data)
+	if(data && mix_data && mix_data["colour"])
+		color = mix_data["colour"]
 
 /datum/reagent/slimejelly/reaction_turf(turf/T, volume, color)
 	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/slime) in T)

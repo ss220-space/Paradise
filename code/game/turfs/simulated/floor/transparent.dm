@@ -8,7 +8,6 @@
 	canSmoothWith = list(/turf/simulated/floor/transparent/glass, /turf/simulated/floor/transparent/glass/reinforced, /turf/simulated/floor/transparent/glass/plasma, /turf/simulated/floor/transparent/glass/reinforced/plasma)
 	light_power = 0.25
 	light_range = 2
-	layer = TRANSPARENT_TURF_LAYER
 	keep_dir = FALSE
 	intact = FALSE
 	transparent_floor = TRUE

@@ -213,8 +213,8 @@
 
 	if(istype(I, /obj/item/pickaxe/drill/jackhammer))
 		to_chat(user, span_notice("You begin to disintegrate the wall..."))
-
-		if(do_after(user, 1000 * I.toolspeed * gettoolspeedmod(user), target = src)) // Jackhammer has 0.1 toolspeed, so 100
+		var/obj/item/pickaxe/drill/jackhammer/jh = I
+		if(do_after(user, 1000 * jh.wall_toolspeed * gettoolspeedmod(user), target = src)) // Jackhammer has 0.1 toolspeed, so 100
 			to_chat(user, span_notice("Your sonic jackhammer disintegrates the reinforced plating."))
 			dismantle_wall()
 		return TRUE

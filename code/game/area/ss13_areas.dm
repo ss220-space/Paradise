@@ -2958,3 +2958,8 @@ GLOBAL_LIST_INIT(the_station_areas, list(
 /area/special_event/epsilon
 	name = "Special event area Epsilon"
 	icon_state = "away5"
+
+//space area
+/area/ruin/space/bubblegum_arena
+	name = "Bubblegum Arena"
+

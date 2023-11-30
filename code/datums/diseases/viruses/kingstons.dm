@@ -121,24 +121,20 @@
 						H.adjustBruteLoss(5)
 						affected_mob.Stun(rand(2 SECONDS, 4 SECONDS))
 
-// Костыли, систему эмоутов переписывать лень. Она ужасна. У расовых эмоутов проверка на расу, поэтому так просто их не заюзать
+
 /datum/disease/virus/kingstons_advanced/proc/make_sound(mob/living/carbon/human/H)
 	if(!istype(H))
 		return
 
 	switch(chosentype)
 		if(/datum/species/tajaran)
-			H.custom_emote(m_type = EMOTE_SOUND, message = "мурчит")
-			playsound(H.loc, 'sound/voice/cat_purr.ogg', 80, 1, frequency = H.get_age_pitch())
+			H.emote("purr")
 		if(/datum/species/unathi)
-			H.custom_emote(m_type = EMOTE_SOUND, message = "шипит")
-			playsound(H.loc, 'sound/effects/unathihiss.ogg', 50, 1, frequency = H.get_age_pitch())
+			H.emote("hiss")
 		if(/datum/species/skrell)
-			H.custom_emote(m_type =  EMOTE_SOUND, message = "издает трель")
-			playsound(H.loc, 'sound/effects/warble.ogg', 50, 1, frequency = H.get_age_pitch())
+			H.emote("warble")
 		if(/datum/species/vulpkanin)
-			H.custom_emote(m_type = EMOTE_SOUND, message = "воет")
-			playsound(H.loc, 'sound/goonstation/voice/howl.ogg', 100, 1, frequency = H.get_age_pitch())
+			H.emote("howl")
 		if(/datum/species/diona)
-			H.custom_emote(m_type = EMOTE_SOUND, message = "скрипит")
-			playsound(H.loc, 'sound/voice/dionatalk1.ogg', 50, 1, frequency = H.get_age_pitch())
+			H.emote("creak")
+

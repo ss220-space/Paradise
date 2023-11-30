@@ -703,6 +703,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 			new /obj/item/stack/cable_coil(get_turf(C), 1, TRUE, C.color)
 			C.deconstruct()
 
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CABLE_UPDATED, T)
 	return C
 
 // called when cable_coil is click on an installed obj/cable
@@ -727,46 +728,46 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 		return
 
 	var/dirn = get_dir(C, user)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CABLE_UPDATED, T)
 
 	// one end of the clicked cable is pointing towards us
 	if(C.d1 == dirn || C.d2 == dirn)
 		if(U.intact || U.transparent_floor)						// can't place a cable if the floor is complete
 			to_chat(user, "<span class='warning'>You can't lay cable there unless the floor tiles are removed!</span>")
 			return
-		else
-			// cable is pointing at us, we're standing on an open tile
-			// so create a stub pointing at the clicked cable on our tile
+		// cable is pointing at us, we're standing on an open tile
+		// so create a stub pointing at the clicked cable on our tile
 
-			var/fdirn = turn(dirn, 180)		// the opposite direction
+		var/fdirn = turn(dirn, 180)		// the opposite direction
 
-			for(var/obj/structure/cable/LC in U)		// check to make sure there's not a cable there already
-				if(LC.d1 == fdirn || LC.d2 == fdirn)
-					to_chat(user, "<span class='warning'>There's already a cable at that position!</span>")
-					return
+		for(var/obj/structure/cable/LC in U)		// check to make sure there's not a cable there already
+			if(LC.d1 == fdirn || LC.d2 == fdirn)
+				to_chat(user, "<span class='warning'>There's already a cable at that position!</span>")
+				return
 
-			var/obj/structure/cable/NC = get_new_cable (U)
+		var/obj/structure/cable/NC = get_new_cable (U)
 
-			NC.d1 = 0
-			NC.d2 = fdirn
-			NC.add_fingerprint(user)
-			NC.update_icon()
+		NC.d1 = 0
+		NC.d2 = fdirn
+		NC.add_fingerprint(user)
+		NC.update_icon()
 
-			//create a new powernet with the cable, if needed it will be merged later
-			var/datum/powernet/newPN = new()
-			newPN.add_cable(NC)
+		//create a new powernet with the cable, if needed it will be merged later
+		var/datum/powernet/newPN = new()
+		newPN.add_cable(NC)
 
-			NC.mergeConnectedNetworks(NC.d2) //merge the powernet with adjacents powernets
-			NC.mergeConnectedNetworksOnTurf() //merge the powernet with on turf powernets
+		NC.mergeConnectedNetworks(NC.d2) //merge the powernet with adjacents powernets
+		NC.mergeConnectedNetworksOnTurf() //merge the powernet with on turf powernets
 
-			if(NC.d2 & (NC.d2 - 1))// if the cable is layed diagonally, check the others 2 possible directions
-				NC.mergeDiagonalsNetworks(NC.d2)
+		if(NC.d2 & (NC.d2 - 1))// if the cable is layed diagonally, check the others 2 possible directions
+			NC.mergeDiagonalsNetworks(NC.d2)
 
-			use(1)
+		use(1)
 
-			if(NC.shock(user, 50))
-				if(prob(50)) //fail
-					NC.deconstruct()
-			return
+		if(NC.shock(user, 50))
+			if(prob(50)) //fail
+				NC.deconstruct()
+				return
 
 	// exisiting cable doesn't point at our position, so see if it's a stub
 	else if(C.d1 == 0)
@@ -815,7 +816,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 				return
 
 		C.denode()// this call may have disconnected some cables that terminated on the centre of the turf, if so split the powernets.
-		return
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CABLE_UPDATED, T)
 
 //////////////////////////////
 // Misc.

@@ -41,6 +41,8 @@
 
 #define STATUS_EFFECT_HOPE /datum/status_effect/hope // Healing that scales when injured (but not in deep crit), and nice messages to keep the hope
 
+#define STATUS_EFFECT_DRAGON_STRENGTH /datum/status_effect/dragon_strength //similar to hope, but less powerfull.
+
 /// Rapid burn/brute/oxy/blood healing from the changeling ability
 #define STATUS_EFFECT_FLESHMEND /datum/status_effect/fleshmend
 
@@ -74,6 +76,8 @@
 
 #define STATUS_EFFECT_SUMMONEDGHOST /datum/status_effect/cultghost //is a cult ghost: can see dead people, can't manifest more ghosts
 
+#define STATUS_EFFECT_DELAYED /datum/status_effect/delayed //delayed status effect: gets /datum/callback to call on expire, signal if we want to prevent and duration
+
 #define STATUS_EFFECT_CRUSHERMARK /datum/status_effect/crusher_mark //if struck with a proto-kinetic crusher, takes a ton of damage
 
 #define STATUS_EFFECT_SAWBLEED /datum/status_effect/saw_bleed //if the bleed builds up enough, takes a ton of damage
@@ -89,6 +93,10 @@
 #define STATUS_EFFECT_SHADOW_BOXING /datum/status_effect/shadow_boxing
 
 #define STATUS_EFFECT_MARK_PREY /datum/status_effect/mark_prey
+
+#define STATUS_EFFECT_BUBBLEGUM_CURSE /datum/status_effect/bubblegum_curse //Bleeding. Damage over time. Fog. And, of course, a suprise for people that try to run away.
+
+#define STATUS_EFFECT_DASH /datum/status_effect/dash // Grants the ability to dash, expiring after a few seconds
 
 //#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
 //#define CURSE_BLINDING	1 //makes the edges of the target's screen obscured
@@ -122,6 +130,7 @@
 #define STATUS_EFFECT_DROWSINESS /datum/status_effect/transient/drowsiness
 #define STATUS_EFFECT_DRUNKENNESS /datum/status_effect/transient/drunkenness
 #define STATUS_EFFECT_SILENCED /datum/status_effect/transient/silence
+#define STATUS_EFFECT_ABSSILENCED /datum/status_effect/transient/silence/absolute
 #define STATUS_EFFECT_JITTER /datum/status_effect/transient/jittery
 #define STATUS_EFFECT_CULT_SLUR /datum/status_effect/transient/cult_slurring
 #define STATUS_EFFECT_CLOCK_CULT_SLUR /datum/status_effect/transient/clock_cult_slurring
@@ -140,6 +149,8 @@
 /////////////
 
 #define STATUS_EFFECT_HIGHFIVE /datum/status_effect/high_five
+#define STATUS_EFFECT_DAP /datum/status_effect/high_five/dap
+#define STATUS_EFFECT_HANDSHAKE /datum/status_effect/high_five/handshake
 
 #define STATUS_EFFECT_CHARGING /datum/status_effect/charging
 

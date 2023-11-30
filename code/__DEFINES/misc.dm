@@ -523,3 +523,6 @@
 
 /// This isnt in client_defines due to scoping issues
 #define DEFAULT_CLIENT_VIEWSIZE "17x15"
+
+///Sleep check QDEL. Like sleep check death, but checks deleting. Good for non mobs.
+#define SLEEP_CHECK_QDEL(X) sleep(X); if(QDELETED(src)) return;

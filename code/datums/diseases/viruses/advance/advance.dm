@@ -82,6 +82,12 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 /datum/disease/virus/advance/cure(id, need_immunity)
 	..(GetDiseaseID(), need_immunity)
 
+/datum/disease/virus/advance/Contract(mob/living/M, act_type, is_carrier = FALSE, need_protection_check = FALSE, zone)
+	var/datum/disease/virus/advance/A = ..()
+	if(!istype(A))
+		return FALSE
+	A.Refresh(update_properties = FALSE)
+
 // Returns the advance disease with a different reference memory.
 /datum/disease/virus/advance/Copy()
 	var/datum/disease/virus/advance/copy = new
@@ -335,12 +341,12 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 /proc/SetViruses(datum/reagent/R, list/data)
 	if(data)
 		var/list/preserve = list()
-		if(istype(data) && data["viruses"])
-			for(var/datum/disease/virus/A in data["viruses"])
-				preserve += A.Copy()
+		if(istype(data) && data["diseases"])
+			for(var/datum/disease/D in data["diseases"])
+				preserve += D.Copy()
 			R.data = data.Copy()
 		if(preserve.len)
-			R.data["viruses"] = preserve
+			R.data["diseases"] = preserve
 
 /proc/AdminCreateVirus(client/user)
 

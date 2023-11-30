@@ -50,6 +50,8 @@
 	var/hacked = FALSE
 	/// Custom text returned to a silicon upon hacking a bot.
 	var/text_hack = ""
+	/// Being hijacked by a pulse demon?
+	var/hijacked = FALSE
 	/// Text shown when resetting a bots hacked status to normal.
 	var/text_dehack = ""
 	/// Shown when a silicon tries to reset a bot emagged with the emag item, which cannot be reset.
@@ -159,6 +161,8 @@
 			return "<b>Autonomous</b>"
 	else if(!on)
 		return span_bad("Inactive")
+	else if(hijacked)
+		return "<span class='bad'>ERROR</span>"
 	else if(!mode)
 		return span_good("Idle")
 	else
@@ -236,6 +240,7 @@
 	. = ..()
 	if(!on)
 		. = FALSE
+
 	canmove = .
 
 
@@ -331,6 +336,9 @@
 
 	if(!on)
 		return
+	if(hijacked)
+		return
+
 
 	switch(mode) //High-priority overrides are processed first. Bots can do nothing else while under direct command.
 		if(BOT_RESPONDING)	//Called by the AI.
@@ -404,7 +412,7 @@
 			to_chat(user, span_warning("A [paicard] is already inserted!"))
 
 		else if((allow_pai || card.pai?.syndipai) && !key)
-			if(!locked && !open)
+			if(!locked && !open && !hijacked)
 				if(card.pai && card.pai.mind)
 					if(!card.pai.ckey || jobban_isbanned(card.pai, ROLE_SENTIENT))
 						to_chat(user, span_warning("[W] is unable to establish a connection to [src]."))
@@ -861,7 +869,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	if(signal.data["active"] != src)
 		return
 
-	if(emagged == 2 || remote_disabled) //Emagged bots do not respect anyone's authority! Bots with their remote controls off cannot get commands.
+	if(emagged == 2 || remote_disabled || hijacked) //Emagged bots do not respect anyone's authority! Bots with their remote controls off cannot get commands. //Emagged bots do not respect anyone's authority! Bots with their remote controls off cannot get commands.
 		return
 
 	if(client)
@@ -1110,9 +1118,11 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	if(emagged == 2) //An emagged bot cannot be controlled by humans, silicons can if one hacked it.
 		if(!hacked) //Manually emagged by a human - access denied to all.
 			return TRUE
-		else if(!issilicon(user)) //Bot is hacked, so only silicons are allowed access.
+		else if(!(issilicon(user) || ispulsedemon(user))) //Bot is hacked, so only silicons are allowed access.
 			return TRUE
-	if(locked && !issilicon(user))
+	if(hijacked && !ispulsedemon(user))
+		return FALSE
+	if(locked && !(issilicon(user) || ispulsedemon(user)))
 		return TRUE
 	return FALSE
 
@@ -1230,6 +1240,9 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 
 /mob/living/simple_animal/bot/get_access()
+	if(hijacked)
+		return get_all_accesses()
+
 	. = ..()
 	if(access_card)
 		. |= access_card.GetAccess()

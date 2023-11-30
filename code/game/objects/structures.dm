@@ -4,6 +4,8 @@
 	max_integrity = 300
 	pull_push_speed_modifier = 1.2
 	var/climbable
+	/// Determines if a structure adds the TRAIT_TURF_COVERED to its turf.
+	var/creates_cover = FALSE
 	var/mob/living/climber
 	var/broken = FALSE
 	/// Amount of SSobj ticks (Roughly 2 seconds) that a extinguished structure has been lit up
@@ -24,6 +26,8 @@
 /obj/structure/Initialize(mapload)
 	if(!armor)
 		armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	if(creates_cover && isturf(loc))
+		ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
 
 /obj/structure/Destroy()
@@ -33,9 +37,24 @@
 		var/turf/T = get_turf(src)
 		spawn(0)
 			queue_smooth_neighbors(T)
+	if(creates_cover && isturf(loc))
+		REMOVE_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 	if(isprocessing)
 		STOP_PROCESSING(SSobj, src)
 	return ..()
+
+/obj/structure/Move()
+	var/atom/old = loc
+	if(!..())
+		return FALSE
+
+	if(creates_cover)
+		if(isturf(old))
+			REMOVE_TRAIT(old, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
+		if(isturf(loc))
+			ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
+	return TRUE
+
 
 /obj/structure/has_prints()
 	return TRUE

@@ -13,8 +13,8 @@
 	vision_range = 5
 	aggro_vision_range = 9
 	speed = 3
-	maxHealth = 75
-	health = 75
+	maxHealth = 100
+	health = 100
 	harm_intent_damage = 5
 	melee_damage_lower = 0
 	melee_damage_upper = 0
@@ -194,8 +194,8 @@
 	icon_living = "dwarf_legion"
 	icon_aggro = "dwarf_legion"
 	icon_dead = "dwarf_legion"
-	maxHealth = 60
-	health = 60
+	maxHealth = 80
+	health = 80
 	speed = 2 //faster!
 	crusher_drop_mod = 20
 	dwarf_mob = TRUE
@@ -206,9 +206,13 @@
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/death(gibbed)
 	visible_message("<span class='warning'>The skulls on [src] wail in anger as they flee from their dying host!</span>")
 	var/turf/T = get_turf(src)
+	for(var/i in 1 to 3)
+		new brood_type(T)
 	if(T)
 		if(stored_mob)
 			stored_mob.forceMove(get_turf(src))
+			stored_mob.rejuvenate()
+			stored_mob.death()
 			stored_mob = null
 		else if(fromtendril)
 			new /obj/effect/mob_spawn/human/corpse/charredskeleton(T)
@@ -251,6 +255,14 @@
 				infest(H)
 	..()
 
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/AttackingTarget()
+	. = ..()
+	if(!isobj(target))
+		var/mob/living/carbon/human/victim = target
+		if(victim.can_inject(null, FALSE, "chest", FALSE, TRUE) && !victim.get_int_organ(/obj/item/organ/internal/legion_tumour) && prob(1))
+			new /obj/item/organ/internal/legion_tumour(victim)
+			visible_message(span_userdanger("[src] вгрызается в шею [target], впрыскивая странную черную жидкость!</span>")) //made it on russian to attract more attention from attacklogs
+
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/proc/infest(mob/living/carbon/human/H)
 	visible_message("<span class='warning'>[name] burrows into the flesh of [H]!</span>")
 	var/mob/living/simple_animal/hostile/asteroid/hivelord/legion/L
@@ -263,6 +275,10 @@
 	H.adjustBruteLoss(1000)
 	L.stored_mob = H
 	H.forceMove(L)
+	if(prob(75) && !H.get_int_organ(/obj/item/organ/internal/legion_tumour)) // Congratulations you have won a special prize: cancer!
+		var/obj/item/organ/internal/legion_tumour/cancer = new()
+		cancer.insert(H, special = TRUE)
+
 	qdel(src)
 
 //Advanced Legion is slightly tougher to kill and can raise corpses (revive other legions)
@@ -275,6 +291,9 @@
 	icon_living = "dwarf_legion"
 	icon_aggro = "dwarf_legion"
 	icon_dead = "dwarf_legion"
+
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion/advanced/tendril
+	fromtendril = TRUE
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/advanced
 	stat_attack = DEAD

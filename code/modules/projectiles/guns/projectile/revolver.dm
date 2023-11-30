@@ -279,7 +279,7 @@
 
 		if(chambered)
 			var/obj/item/ammo_casing/AC = chambered
-			if(AC.fire(user, user))
+			if(AC.fire(user, user, firer_source_atom = src))
 				playsound(user, fire_sound, 50, 1)
 				var/zone = check_zone(user.zone_selected)
 				if(zone == "head" || zone == "eyes" || zone == "mouth")

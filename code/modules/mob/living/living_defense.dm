@@ -59,7 +59,7 @@
 	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage)
 	if(status_flags & GODMODE)	//godmode
 		return FALSE
-	if(NO_SHOCK in mutations) //shockproof
+	if(HAS_TRAIT(src, TRAIT_SHOCKIMMUNE)) //shockproof
 		return FALSE
 	if(tesla_shock && tesla_ignore)
 		return FALSE
@@ -334,9 +334,7 @@
 	if((M.a_intent == INTENT_HELP && M.ckey) || M.melee_damage_upper == 0)
 		if(!M.friendly)
 			return FALSE
-		if(handle_emote_CD())
-			return
-		M.custom_emote(1, "[M.friendly] [src.declent_ru(ACCUSATIVE)].")
+		M.custom_emote(EMOTE_VISIBLE, "[M.friendly] [src.declent_ru(ACCUSATIVE)].")
 		return FALSE
 	if(HAS_TRAIT(M, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
 		to_chat(M, "<span class='warning'>[pluralize_ru(M.gender,"Ты не хочешь","Вы не хотите")] никому навредить!</span>")

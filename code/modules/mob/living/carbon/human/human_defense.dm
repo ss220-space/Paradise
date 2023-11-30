@@ -570,7 +570,7 @@ emp_act
 		skipcatch = TRUE
 		blocked = TRUE
 
-	else if(I && (((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || I.embedded_ignore_throwspeed_threshold) && can_embed(I) && !(PIERCEIMMUNE in dna.species.species_traits) && prob(I.embed_chance))
+	else if(I && (((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || I.embedded_ignore_throwspeed_threshold) && can_embed(I) && !(EMBEDIMMUNE in dna.species.species_traits) && prob(I.embed_chance))
 		embed_item_inside(I)
 		hitpush = FALSE
 		skipcatch = TRUE //can't catch the now embedded item
