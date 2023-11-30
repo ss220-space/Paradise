@@ -80,6 +80,11 @@
 		H.dna.SetSEState(GLOB.monkeyblock, TRUE)
 		genemutcheck(H, GLOB.monkeyblock, null, MUTCHK_FORCED)
 
+
+/datum/species/monkey/can_understand(mob/other)
+	return istype(other, /mob/living/simple_animal/hostile/gorilla)
+
+
 /datum/species/monkey/tajaran
 	name = "Farwa"
 	name_plural = "Farwa"
@@ -125,6 +130,10 @@
 	)
 
 
+/datum/species/monkey/tajaran/can_understand(mob/other)
+	return
+
+
 /datum/species/monkey/vulpkanin
 	name = "Wolpin"
 	name_plural = "Wolpin"
@@ -168,6 +177,11 @@
 		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right),
 		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/monkey/vulpkanin),
 	)
+
+
+/datum/species/monkey/vulpkanin/can_understand(mob/other)
+	return
+
 
 /datum/species/monkey/skrell
 	name = "Neara"
@@ -221,6 +235,9 @@
 	..()
 	REMOVE_TRAIT(H, TRAIT_WATERBREATH, "species")
 
+/datum/species/monkey/skrell/can_understand(mob/other)
+	return
+
 /datum/species/monkey/unathi
 	name = "Stok"
 	name_plural = "Stok"
@@ -266,3 +283,8 @@
 		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right),
 		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/monkey/unathi),
 	)
+
+
+/datum/species/monkey/unathi/can_understand(mob/other)
+	return
+

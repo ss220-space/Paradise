@@ -94,6 +94,10 @@
 	if(universal_speak || universal_understand)
 		return TRUE
 
+	var/mob/living/simple_animal/hostile/gorilla/gorilla = other
+	if(istype(gorilla) && gorilla.check_enlighten())	// BANANA POWER
+		return TRUE
+
 	//Languages are handled after.
 	if(!speaking)
 		if(!other)
