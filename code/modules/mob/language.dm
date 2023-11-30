@@ -194,8 +194,8 @@
 	"hal","ket","jurl","mah","tul","cresh","azu","ragh")
 
 /datum/language/tajaran/get_random_name(gender) //code by @valtor0
-
-	var/list/ru_name_syllables = list("кан","тай","кир","раи","кии","мир","кра","тэк","нал","вар","хар","марр","ран","дарр", \
+	var/static/list/tajaran_female_endings_list = list("и","а","о","е","й","ь") // Customise this with ru_name_syllables changes.
+	var/static/list/ru_name_syllables = list("кан","тай","кир","раи","кии","мир","кра","тэк","нал","вар","хар","марр","ран","дарр", \
 	"мирк","ири","дин","манг","рик","зар","раз","кель","шера","тар","кей","ар","но","маи","зир","кер","нир","ра",\
 	"ми","рир","сей","эка","гир","ари","нэй","нре","ак","таир","эрай","жин","мра","зур","рин","сар","кин","рид","эра","ри","эна")
 	var/apostrophe = "’"
@@ -210,7 +210,6 @@
 	full_name = "[capitalize(lowertext(new_name))]"
 	if(gender == FEMALE)
 		var/ending = copytext(full_name, -2)
-		var/list/tajaran_female_endings_list = list("и","а","о","е","й","ь") // Customise this with ru_name_syllables changes.
 		if(!(ending in tajaran_female_endings_list))
 			full_name += "а"
 	//20% for "Sendai" clan; 18,75% (75%) for other regular clan; 5% for names without clan.
