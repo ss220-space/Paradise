@@ -26,7 +26,7 @@
 	desc = "Communicate telepathically with your guardian."
 	button_icon_state = "communicate"
 
-/datum/action/guardian/communicate/Trigger()
+/datum/action/guardian/communicate/Trigger(left_click = TRUE)
 	var/input = stripped_input(owner, "Enter a message to tell your guardian:", "Message", "")
 	if(!input)
 		return
@@ -51,7 +51,7 @@
 	desc = "Forcibly recall your guardian."
 	button_icon_state = "recall"
 
-/datum/action/guardian/recall/Trigger()
+/datum/action/guardian/recall/Trigger(left_click = TRUE)
 	guardian.Recall()
 
 /**
@@ -70,7 +70,7 @@
 		return FALSE
 	return TRUE
 
-/datum/action/guardian/reset_guardian/Trigger()
+/datum/action/guardian/reset_guardian/Trigger(left_click = TRUE)
 	if(cooldown_timer)
 		to_chat(owner, "<span class='warning'>This ability is still recharging.</span>")
 		return

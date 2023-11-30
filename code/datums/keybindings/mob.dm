@@ -28,12 +28,16 @@
 /datum/keybinding/mob/drop_held_object/down(client/C)
 	. = ..()
 	var/obj/item/I = C.mob.get_active_hand()
+	if(!I && C.mob.special_hands_drop_action())
+		SEND_SIGNAL(C.mob, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
+		return
+
 	if(I)
 		if(SEND_SIGNAL(C.mob, COMSIG_MOB_KEY_DROP_ITEM_DOWN) & COMPONENT_CANCEL_DROP)
 			return
 		I.run_drop_held_item(C.mob)
 	else
-		to_chat(C, span_warning("Вы ничего не держите в руке!"))
+		to_chat(C, span_warning("Вы ничего не держите в руке!</span>"))
 
 /datum/keybinding/mob/swap_hands
 	name = "Поменять руки"

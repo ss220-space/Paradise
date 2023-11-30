@@ -502,7 +502,7 @@
 	button_icon_state = "sniper_zoom"
 	var/obj/item/gun/gun = null
 
-/datum/action/toggle_scope_zoom/Trigger()
+/datum/action/toggle_scope_zoom/Trigger(left_click = TRUE)
 	gun.zoom(owner)
 
 /datum/action/toggle_scope_zoom/IsAvailable()
