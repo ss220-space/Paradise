@@ -283,3 +283,18 @@
   Zwei:
   - bugfix: Few Fixes (#3947)
   - bugfix: Correct Antags Number (#3950)
+'2023-11-30':
+  Dimach:
+  - server: update tgui depts (#3955)
+  Etrnlmelancholy:
+  - bugfix: no more /list when you attack carp (#3961)
+  NightDawnFox:
+  - bugfix: chameleon hardsuit now toggles light properly (#3957)
+  ROdenFL:
+  - bugfix: undroppable heart (#3959)
+  SAAD:
+  - bugfix: A little centcom mistakes (#3956)
+  Zwei:
+  - tweak: Muzzle Emotes Runechatted (#3958)
+  dependabot[bot]:
+  - unknown: bump @babel/traverse from 7.9.5 to 7.23.5 in /tgui (#3954)
