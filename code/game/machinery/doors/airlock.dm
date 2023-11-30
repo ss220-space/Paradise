@@ -42,7 +42,7 @@
 #define UI_ORANGE 1
 #define UI_RED 0
 
-
+GLOBAL_LIST_EMPTY(restricted_door_tags)
 GLOBAL_LIST_EMPTY(airlock_overlays)
 
 /obj/machinery/door/airlock
@@ -132,8 +132,11 @@ About the new airlock wires panel:
 		return TRUE
 	return FALSE
 
-/obj/machinery/door/airlock/Initialize()
+/obj/machinery/door/airlock/Initialize(mapload)
 	. = ..()
+	if(mapload && id_tag && !(id_tag in GLOB.restricted_door_tags))
+		// Players won't be allowed to create new buttons that open roundstart doors
+		GLOB.restricted_door_tags += id_tag
 	if(closeOtherId != null)
 		addtimer(CALLBACK(src, PROC_REF(update_other_id)), 5)
 	if(glass)

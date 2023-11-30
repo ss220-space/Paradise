@@ -27,6 +27,8 @@ export const Multitool = (props, context) => {
         return <AccessDeniedMtoolMenu />;
       case "tag_only":
         return <TagMtoolMenu />;
+      case "multiple_tags":
+        return <MultipleTagsMtoolMenu />;
       case "frequency_and_tag":
         return (
           <>
@@ -415,6 +417,71 @@ const FrequencyMtoolMenu = (props, context) => {
         </Fragment>
       }
     />
+  );
+};
+
+const MultipleTagsMtoolMenu = (props, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    attachedTags,
+  } = data;
+  return (
+    <Section
+      mt={1.7}
+      ml={0.5}
+      mr={1}
+      px={0.5}
+      title="Linked tags"
+      buttons={
+        <Button
+          mr={1}
+          pl={2.1}
+          content="Add tag"
+          icon="plus"
+          iconRight
+          onClick={() => act('add_tag')}
+        />
+      }>
+      {attachedTags.map((tag, index) => (
+        <LabeledListOneItem
+          mr={0}
+          key={index}
+          label={
+            <Icon name="wave-square" />
+          }
+          compactLabel
+          wrapContent={
+            <Flex
+              align="center"
+              spacing={1}>
+              <Flex.Item
+                grow={1} 
+                shrink={1}
+                basis={0}
+                color="silver"
+                wordWrap="break-word">
+                {tag}
+              </Flex.Item>
+            </Flex>
+          }
+          noWrapContent={
+            <Flex>
+              <Flex.Item
+                grow={0}
+                shrink={0}>
+                <Button
+                  icon="minus"
+                  color="red"
+                  onClick={() => act('remove_tag', {
+                    tag_index: index,
+                  })}
+                />
+              </Flex.Item>
+            </Flex>
+          }
+        />
+      ))}
+    </Section>
   );
 };
 

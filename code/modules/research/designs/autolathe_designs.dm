@@ -187,6 +187,14 @@
 	build_path = /obj/item/intercom_electronics
 	category = list("initial", "Electronics")
 
+/datum/design/airlock_controller
+	name = "Airlock Remote Controller"
+	id = "airlock_controller"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL=100, MAT_GLASS=50)
+	build_path = /obj/item/assembly/control/airlock
+	category = list("initial", "Electronics")
+
 /datum/design/earmuffs
 	name = "Earmuffs"
 	id = "earmuffs"
