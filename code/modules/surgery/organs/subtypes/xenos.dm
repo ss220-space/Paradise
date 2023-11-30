@@ -111,7 +111,9 @@
 
 
 /obj/item/organ/internal/xenos/plasmavessel/on_life()
-	if(!owner || owner.on_fire)
+	if(!owner)
+		return
+	if(owner.on_fire)
 		return
 
 	update_hud()
