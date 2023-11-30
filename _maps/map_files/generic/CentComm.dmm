@@ -6102,10 +6102,13 @@
 	},
 /area/centcom/zone1)
 "daj" = (
-/obj/structure/chair/sofa{
-	dir = 4
+/obj/structure/closet/fireaxecabinet{
+	pixel_y = 32
 	},
-/turf/simulated/floor/carpet/red,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
 /area/centcom/zone1)
 "daD" = (
 /obj/item/twohanded/required/kirbyplants{
@@ -6173,6 +6176,12 @@
 /obj/item/kitchen/knife,
 /turf/simulated/floor/carpet/black,
 /area/trader_station/sol)
+"ddZ" = (
+/obj/structure/chair/sofa/left{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/red,
+/area/centcom/zone1)
 "def" = (
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -6701,6 +6710,15 @@
 	},
 /turf/simulated/floor/indestructible/beach/water/deep/dense,
 /area/ninja/outside)
+"dvw" = (
+/obj/structure/closet/medical_wall{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
+/area/centcom/zone1)
 "dvz" = (
 /obj/structure/bookcase/manuals,
 /obj/item/book/manual/security_space_law{
@@ -8322,8 +8340,8 @@
 	},
 /area/syndicate_mothership/control)
 "elD" = (
-/obj/structure/chair/sofa{
-	dir = 5
+/obj/structure/chair/sofa/right{
+	dir = 1
 	},
 /turf/simulated/floor/carpet/red,
 /area/centcom/zone1)
@@ -30851,7 +30869,7 @@
 /obj/structure/sign/poster/official/religious{
 	pixel_y = -32
 	},
-/obj/structure/chair/sofa{
+/obj/structure/chair/sofa/left{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/red,
@@ -33946,7 +33964,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/chair/sofa,
+/obj/structure/chair/sofa/right,
 /turf/simulated/floor/carpet/red,
 /area/centcom/zone1)
 "qIk" = (
@@ -34308,9 +34326,6 @@
 /area/syndicate_mothership/elite_squad)
 "qQT" = (
 /obj/machinery/vending/snack,
-/obj/structure/closet/hydrant{
-	pixel_y = 32
-	},
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
 "qRs" = (
@@ -39558,9 +39573,6 @@
 /area/shuttle/ninja)
 "tmi" = (
 /obj/machinery/vending/cigarette,
-/obj/structure/closet/fireaxecabinet{
-	pixel_y = 32
-	},
 /obj/machinery/light{
 	dir = 1
 	},
@@ -43204,9 +43216,6 @@
 	},
 /area/centcom/zone2)
 "uRM" = (
-/obj/structure/closet/secure_closet/bar{
-	req_access = null
-	},
 /obj/item/storage/box/beakers/bluespace,
 /obj/item/storage/box/drinkingglasses,
 /obj/item/storage/box/drinkingglasses,
@@ -43219,6 +43228,7 @@
 /obj/item/storage/box/drinkingglasses,
 /obj/item/storage/box/drinkingglasses,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/structure/closet/secure_closet/bar,
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
 "uSa" = (
@@ -45554,11 +45564,13 @@
 	},
 /area/syndicate_mothership/cargo)
 "vYj" = (
-/obj/machinery/vending/cola/free,
-/obj/structure/closet/medical_wall{
+/obj/structure/closet/hydrant{
 	pixel_y = 32
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
 /area/centcom/zone1)
 "vYs" = (
 /obj/effect/turf_decal/stripes/line,
@@ -99117,7 +99129,7 @@ dsj
 ueb
 ihM
 onc
-vYj
+frx
 bBI
 eNm
 ePS
@@ -100403,7 +100415,7 @@ tak
 onc
 onc
 onc
-kAE
+dvw
 tak
 nxD
 nxD
@@ -101431,7 +101443,7 @@ onc
 onc
 onc
 onc
-kAE
+daj
 tak
 xSv
 wUF
@@ -103230,7 +103242,7 @@ onc
 onc
 onc
 onc
-kAE
+vYj
 ekH
 onc
 onc
@@ -104251,7 +104263,7 @@ cKy
 kcU
 siO
 kcU
-daj
+kcU
 elD
 onc
 kAE
@@ -105535,7 +105547,7 @@ onc
 eXF
 awg
 awg
-awg
+ddZ
 kcU
 onc
 onc
