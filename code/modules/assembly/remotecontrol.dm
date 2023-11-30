@@ -1,8 +1,20 @@
 /obj/item/assembly/control
+	name = "abstract"
+	desc = "This shouldn't exist"
+	icon_state = "control"
+	materials = list(MAT_METAL=100, MAT_GLASS=50)
+	origin_tech = "programming=1"
+	multitool_menu_type = /datum/multitool_menu/idtag/multiple_tags/door_control
 	/// The control controls things that have matching id tag
 	var/list/ids = null
 	/// Should it only work on the same z-level
 	var/safety_z_check = TRUE
+	/// Can it be configured by players
+	var/configurable = TRUE
+
+/obj/item/assembly/control/Initialize()
+	. = ..()
+	ids = list()
 
 /obj/item/assembly/control/activate()
 	// Do nothing if no ids to control
@@ -11,7 +23,17 @@
 	// Cooldown check
 	return ..()
 
+/obj/item/assembly/control/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(configurable)
+		multitool_menu_interact(user, I)
+	else
+		to_chat(user, span_warning("Это устройство надёжно защищено, изменить настройки нельзя."))
+
 /obj/item/assembly/control/poddoor
+	name = "blast door controller"
+	desc = "A small electronic device able to control a blast door remotely."
+	configurable = FALSE
 
 /obj/item/assembly/control/poddoor/activate()
 	if(!..())
@@ -25,6 +47,8 @@
 			INVOKE_ASYNC(poddoor, TYPE_PROC_REF(/obj/machinery/door, close))
 
 /obj/item/assembly/control/airlock
+	name = "airlock controller"
+	desc = "A small electronic device able to control an airlock remotely."
 	/// Bitflag
 	var/specialfunctions = OPEN
 	/// FALSE is closed, TRUE is open.
@@ -63,6 +87,9 @@
 	desiredstate = !desiredstate
 
 /obj/item/assembly/control/ticket_machine
+	name = "ticket machine controller"
+	desc = "A remote controller for the HoP's ticket machine."
+	configurable = FALSE
 
 /obj/item/assembly/control/ticket_machine/activate()
 	if(!..())

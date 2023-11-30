@@ -239,6 +239,75 @@
 	my_holder.id_tag = new_tag
 
 ////////////////////////////////
+//	Multitool menu "multiple_tags"
+//  ABSTRACT
+////////////////////////////////
+/datum/multitool_menu/idtag/multiple_tags
+	menu_id = "multiple_tags"
+
+/datum/multitool_menu/idtag/multiple_tags/_ui_data()
+	var/list/data = list()
+	. = ..()
+	if(.)
+		data.Add(.)
+	data["attachedTags"] = get_tags()
+	return data
+
+/datum/multitool_menu/idtag/multiple_tags/_ui_act(mob/user, action, list/params)
+	. = TRUE
+	switch(action)
+		if("add_tag")
+			var/new_tag = enter_new_tag(user)
+			if(!new_tag || notify_if_cannot_apply(user))
+				return FALSE
+			add_tag(new_tag)
+		if("remove_tag")
+			var/tag_index = text2num(params["tag_index"])
+			var/dm_tag_index = tag_index + 1
+			remove_tag(dm_tag_index)
+		else
+			return ..()
+
+/datum/multitool_menu/idtag/multiple_tags/proc/get_tags()
+	return
+
+/datum/multitool_menu/idtag/multiple_tags/proc/add_tag(new_tag)
+	return
+
+/datum/multitool_menu/idtag/multiple_tags/proc/remove_tag(tag_index)
+	return
+
+////////////////////////////////
+//	Door control
+////////////////////////////////
+/datum/multitool_menu/idtag/multiple_tags/door_control
+	holder_type = /obj/item/assembly/control
+
+/datum/multitool_menu/idtag/multiple_tags/door_control/get_tags()
+	var/obj/item/assembly/control/my_holder = holder
+	return my_holder.ids
+
+/datum/multitool_menu/idtag/multiple_tags/door_control/add_tag(new_tag)
+	if(notify_if_restricted_tag(new_tag))
+		return
+	var/obj/item/assembly/control/my_holder = holder
+	if(new_tag in my_holder.ids)
+		return
+	my_holder.ids.Add(new_tag)
+
+/datum/multitool_menu/idtag/multiple_tags/door_control/remove_tag(tag_index)
+	var/obj/item/assembly/control/my_holder = holder
+	if(notify_if_restricted_tag(my_holder.ids[tag_index]))
+		return
+	my_holder.ids.Cut(tag_index, tag_index + 1)
+
+/datum/multitool_menu/idtag/multiple_tags/door_control/proc/notify_if_restricted_tag(new_tag)
+	if(new_tag in GLOB.restricted_door_tags)
+		service_message("Настройка тега \"[new_tag]\" ограничена протоколами безопасности. Попробуйте ввести другой тег.")
+		return TRUE
+	return FALSE
+
+////////////////////////////////
 //	Multitool menu "frequency_and_tag"
 //  ABSTRACT
 ////////////////////////////////
