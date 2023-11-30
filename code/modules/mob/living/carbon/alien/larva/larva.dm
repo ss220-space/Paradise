@@ -11,9 +11,7 @@
 
 	tts_seed = "Templar"
 
-	var/amount_grown = 0
-	var/max_grown = 200
-	var/time_of_birth
+	can_evolve = TRUE
 	death_message = "с тошнотворным шипением выдыха%(ет,ют)% воздух и пада%(ет,ют)% на пол..."
 	death_sound = null
 
@@ -47,16 +45,6 @@
 	. = ..()
 	. += /obj/item/organ/internal/xenos/plasmavessel/larva
 
-
-//This needs to be fixed
-/mob/living/carbon/alien/larva/Stat()
-	..()
-	stat(null, "Progress: [amount_grown]/[max_grown]")
-
-/mob/living/carbon/alien/larva/adjust_alien_plasma(amount)
-	if(stat != DEAD && amount > 0)
-		amount_grown = min(amount_grown + 1, max_grown)
-	..(amount)
 
 /mob/living/carbon/alien/larva/ex_act(severity)
 	..()

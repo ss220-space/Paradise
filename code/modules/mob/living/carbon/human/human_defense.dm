@@ -622,7 +622,7 @@ emp_act
 	if(..()) //successful larva bite.
 		var/damage = rand(1, 3)
 		if(stat != DEAD)
-			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
+			L.evolution_points = min(L.evolution_points + damage, L.max_evolution_points)
 			var/obj/item/organ/external/affecting = get_organ(ran_zone(L.zone_selected))
 			var/armor_block = run_armor_check(affecting, "melee")
 			apply_damage(damage, BRUTE, affecting, armor_block)

@@ -56,7 +56,7 @@
 			var/damage = rand(5, 10)
 			. = attack_threshold_check(damage)
 			if(.)
-				L.amount_grown = min(L.amount_grown + damage, L.max_grown)
+				L.evolution_points = min(L.evolution_points + damage, L.max_evolution_points)
 
 /mob/living/simple_animal/attack_animal(mob/living/simple_animal/M)
 	. = ..()

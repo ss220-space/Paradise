@@ -305,7 +305,7 @@
 	if(!client)
 		return
 	var/shock_reduction = shock_reduction()
-	if(NO_PAIN_FEEL in dna.species.species_traits)
+	if(NO_PAIN_FEEL in dna?.species?.species_traits)
 		shock_reduction = INFINITY
 
 	if(stat == UNCONSCIOUS && health <= HEALTH_THRESHOLD_CRIT)

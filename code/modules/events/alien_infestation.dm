@@ -1,6 +1,9 @@
 #define ALIEN_HIGHPOP_TRIGGER 80
 #define ALIEN_MIDPOP_TRIGGER 40
 
+GLOBAL_VAR_INIT(alien_queens_count, 0)
+GLOBAL_VAR_INIT(alien_queens_maximum, 0)
+
 /datum/event/alien_infestation
 	announceWhen	= 400
 	var/spawncount = 2
@@ -22,6 +25,7 @@
 	// It is necessary to wrap this to avoid the event triggering repeatedly.
 
 /datum/event/alien_infestation/proc/wrappedstart()
+	GLOB.alien_queens_maximum++
 	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
 	playercount = length(GLOB.clients)//grab playercount when event starts not when game starts
 	if(playercount <= ALIEN_MIDPOP_TRIGGER)
@@ -36,7 +40,7 @@
 		if(C)
 			GLOB.respawnable_list -= C.client
 			var/mob/living/carbon/alien/larva/new_xeno = new(vent.loc)
-			new_xeno.amount_grown += (0.75 * new_xeno.max_grown)	//event spawned larva start off almost ready to evolve.
+			new_xeno.evolution_points += (0.75 * new_xeno.max_evolution_points)	//event spawned larva start off almost ready to evolve.
 			new_xeno.key = C.key
 			if(SSticker && SSticker.mode)
 				SSticker.mode.xenos += new_xeno.mind
