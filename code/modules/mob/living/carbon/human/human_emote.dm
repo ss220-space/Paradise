@@ -360,7 +360,7 @@
 	key = "johnny"
 	message = "затягива%(ет,ют)%ся сигаретой и выдыха%(ет,ют)% дым в форме %(своего,их)% имени."
 	message_param = "dummy"  // Gets handled in select_param
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 	target_behavior = EMOTE_TARGET_BHVR_DEFAULT_TO_BASE
 	emote_target_type = EMOTE_TARGET_MOB
 	cooldown = 8 SECONDS
@@ -1249,7 +1249,7 @@
 /**
  * Tajaran
  */
-/datum/emote/living/carbon/human/tajaran/hiss
+/datum/emote/living/carbon/human/tajaran
 	species_type_whitelist_typecache = list(/datum/species/tajaran)
 
 
