@@ -4,6 +4,7 @@
 	var/radio_desc = ""
 	icon_state = "headset"
 	item_state = "headset"
+	equip_sound = 'sound/items/handling/generic_equip4.ogg'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi',
 		"Vox Armalis" = 'icons/mob/clothing/species/armalis/ears.dmi',

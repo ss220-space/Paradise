@@ -146,6 +146,8 @@
 	icon_base = "heart-c"
 	dead_icon = "heart-c-off"
 	status = ORGAN_ROBOT
+	pickup_sound = 'sound/items/handling/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/component_drop.ogg'
 
 /obj/item/organ/internal/heart/cybernetic/upgraded
 	name = "upgraded cybernetic heart"

@@ -15,6 +15,8 @@
 	origin_tech = "combat=1"
 	needs_permit = 1
 	attack_verb = list("struck", "hit", "bashed")
+	pickup_sound = 'sound/items/handling/gun_pickup.ogg'
+	drop_sound = 'sound/items/handling/gun_drop.ogg'
 
 	var/fire_sound = "gunshot"
 	var/magin_sound = 'sound/weapons/gun_interactions/smg_magin.ogg'

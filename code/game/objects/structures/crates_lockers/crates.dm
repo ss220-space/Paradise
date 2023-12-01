@@ -6,7 +6,10 @@
 	icon_opened = "crateopen"
 	icon_closed = "crate"
 	climbable = TRUE
-//	mouse_drag_pointer = MOUSE_ACTIVE_POINTER	//???
+	open_sound = 'sound/machines/crate_open.ogg'
+	close_sound = 'sound/machines/crate_close.ogg'
+	open_sound_volume = 35
+	close_sound_volume = 50
 	var/rigged = FALSE
 	var/obj/item/paper/manifest/manifest
 	// A list of beacon names that the crate will announce the arrival of, when delivered.
@@ -25,15 +28,15 @@
 	return TRUE
 
 /obj/structure/closet/crate/open(by_hand = FALSE)
-	if(src.opened)
+	if(opened)
 		return FALSE
-	if(!src.can_open())
+	if(!can_open())
 		return FALSE
 
 	if(by_hand)
 		for(var/obj/O in src)
 			if(O.density)
-				var/response = alert(usr, "This crate has been packed with bluespace compression, an item inside won't fit back inside. Are you sure you want to open it?","Bluespace Compression Warning", "No", "Yes")
+				var/response = alert(usr, "This crate has been packed with bluespace compression, an item inside won't fit back inside. Are you sure you want to open it?","Bluespace Compression Warning", "Yes", "No")
 				if(response == "No" || !Adjacent(usr))
 					return FALSE
 				break
@@ -45,27 +48,27 @@
 				do_sparks(5, 1, src)
 				return 2
 
-	playsound(src.loc, 'sound/machines/click.ogg', 15, 1, -3)
+	playsound(loc, open_sound, open_sound_volume, TRUE, -3)
 	for(var/obj/O in src) //Objects
-		O.layer = src.layer + 0.1
 		O.forceMove(loc)
 	for(var/mob/M in src) //Mobs
 		M.forceMove(loc)
 	icon_state = icon_opened
-	src.opened = TRUE
+	opened = TRUE
 
 	if(climbable)
 		structure_shaken()
 
 	return TRUE
 
+
 /obj/structure/closet/crate/close()
-	if(!src.opened || !src.can_close())
+	if(!opened || !can_close())
 		return FALSE
 
-	playsound(src.loc, 'sound/machines/click.ogg', 15, 1, -3)
+	playsound(loc, close_sound, close_sound_volume, TRUE, -3)
 	var/itemcount = 0
-	for(var/obj/O in get_turf(src))
+	for(var/atom/movable/O in get_turf(src))
 		if(itemcount >= storage_capacity)
 			break
 		if(O.density || O.anchored || istype(O,/obj/structure/closet))
@@ -78,8 +81,9 @@
 		itemcount++
 
 	icon_state = icon_closed
-	src.opened = FALSE
+	opened = FALSE
 	return TRUE
+
 
 /obj/structure/closet/crate/attackby(obj/item/W, mob/user, params)
 	if(!opened && try_rig(W, user))
@@ -204,14 +208,15 @@
 	return !locked
 
 /obj/structure/closet/crate/secure/proc/togglelock(mob/user)
-	if(src.opened)
+	if(opened)
 		to_chat(user, "<span class='notice'>Close the crate first.</span>")
 		return
-	if(src.broken)
+	if(broken)
 		to_chat(user, "<span class='warning'>The crate appears to be broken.</span>")
 		return
-	if(src.allowed(user))
-		src.locked = !src.locked
+	if(allowed(user))
+		locked = !locked
+		playsound(loc, pick(togglelock_sound), 15, TRUE, -3)
 		visible_message("<span class='notice'>The crate has been [locked ? null : "un"]locked by [user].</span>")
 		update_icon()
 	else

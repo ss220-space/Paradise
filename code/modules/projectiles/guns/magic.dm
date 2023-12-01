@@ -8,6 +8,8 @@
 	fire_sound_text = "energy blast"
 	flags =  CONDUCT
 	w_class = WEIGHT_CLASS_HUGE
+	pickup_sound = 'sound/items/handling/generic_pickup1.ogg'
+	drop_sound = 'sound/items/handling/generic_drop3.ogg'
 	var/max_charges = 6
 	var/charges = 0
 	var/recharge_rate = 4

@@ -39,6 +39,8 @@
 	desc = "a basic cybernetic designed to mimic the operation of ears."
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
+	pickup_sound = 'sound/items/handling/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/component_drop.ogg'
 
 /obj/item/organ/internal/ears/cybernetic/emp_act(severity)
 	if(emp_proof)
