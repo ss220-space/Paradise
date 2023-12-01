@@ -8,7 +8,7 @@
 /datum/event/disease_outbreak/setup()
 	announceWhen = rand(150, 300)
 	var/virus_type = pick(
-		9999; /datum/disease/virus/advance,
+		5; /datum/disease/virus/advance,
 		1; /datum/disease/virus/anxiety,
 		1; /datum/disease/virus/beesease,
 		1; /datum/disease/virus/brainrot,
