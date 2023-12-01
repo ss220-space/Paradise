@@ -102,7 +102,7 @@
 		return FALSE
 	if(!is_faced_target(target))
 		return FALSE
-	equip_cooldown *= (initial(equip_cooldown) * mode)
+	equip_cooldown = (initial(equip_cooldown) * mode)
 	switch(mode)
 		if(1)
 			if(!locked)

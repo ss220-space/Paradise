@@ -8,6 +8,7 @@
 	force = 5
 	origin_tech = "materials=2;engineering=2"
 	max_integrity = 300
+	/// Only used in start_cooldown() and do_after_cooldown(), so be sure to add one of these procs to your successful action().
 	var/equip_cooldown = 0
 	var/equip_ready = TRUE
 	var/energy_drain = 0
