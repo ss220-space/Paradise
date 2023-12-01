@@ -115,11 +115,12 @@
 	if(.)
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
+	user.visible_message(span_warning("[user] hits [src]."))
 	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
 		user.changeNext_move(CLICK_CD_MELEE)
 		attack_generic(user, user.dna.species.obj_damage)
+		return
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
-	user.visible_message("<span class='warning'>[user] hits [src].</span>")
 	if(!shock(user, 70))
 		take_damage(rand(5,10), BRUTE, "melee", 1)
 
