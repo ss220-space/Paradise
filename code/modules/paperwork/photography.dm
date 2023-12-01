@@ -123,6 +123,8 @@
 	item_state = "briefcase"
 	can_hold = list(/obj/item/photo)
 	resistance_flags = FLAMMABLE
+	drop_sound = 'sound/items/handling/book_drop.ogg'
+	pickup_sound =  'sound/items/handling/book_pickup.ogg'
 
 
 /obj/item/storage/photo_album/MouseDrop(atom/over)

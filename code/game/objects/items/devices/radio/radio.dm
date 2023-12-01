@@ -817,6 +817,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	listening = 1
 	name = "phone"
 	dog_fashion = null
+	drop_sound = 'sound/items/handling/phone_drop.ogg'
+	pickup_sound = 'sound/items/handling/phone_pickup.ogg'
 
 /obj/item/radio/phone/medbay
 	frequency = MED_I_FREQ

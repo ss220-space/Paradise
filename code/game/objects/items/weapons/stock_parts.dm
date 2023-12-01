@@ -95,6 +95,8 @@
 	var/rating = 1
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
+	pickup_sound = 'sound/items/handling/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/component_drop.ogg'
 
 /obj/item/stock_parts/New()
 	..()

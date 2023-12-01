@@ -7,6 +7,8 @@
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
+	pickup_sound = 'sound/items/handling/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/component_drop.ogg'
 
 /obj/item/organ/external/head/ipc/New(mob/living/carbon/holder, datum/species/species_override = null)
 	..(holder, /datum/species/machine) // IPC heads need to be explicitly set to this since you can print them
@@ -17,6 +19,8 @@
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
+	pickup_sound = 'sound/items/handling/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/component_drop.ogg'
 
 /obj/item/organ/external/chest/ipc/New()
 	..()
@@ -27,6 +31,8 @@
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
+	pickup_sound = 'sound/items/handling/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/component_drop.ogg'
 
 /obj/item/organ/external/groin/ipc/New()
 	..()
@@ -37,6 +43,8 @@
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
+	pickup_sound = 'sound/items/handling/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/component_drop.ogg'
 
 /obj/item/organ/external/arm/ipc/New()
 	..()
@@ -57,6 +65,8 @@
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
+	pickup_sound = 'sound/items/handling/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/component_drop.ogg'
 
 /obj/item/organ/external/leg/ipc/New()
 	..()
@@ -77,6 +87,8 @@
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
+	pickup_sound = 'sound/items/handling/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/component_drop.ogg'
 
 /obj/item/organ/external/foot/ipc/New()
 	..()
@@ -97,6 +109,8 @@
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
+	pickup_sound = 'sound/items/handling/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/component_drop.ogg'
 
 /obj/item/organ/external/hand/ipc/New()
 	..()
@@ -123,6 +137,8 @@
 	slot = "heart"
 	vital = TRUE
 	status = ORGAN_ROBOT
+	pickup_sound = 'sound/items/handling/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/component_drop.ogg'
 
 /obj/item/organ/internal/eyes/optical_sensor
 	species_type = /datum/species/machine
@@ -132,6 +148,8 @@
 	status = ORGAN_ROBOT
 //	dead_icon = "camera_broken"
 	weld_proof = 1
+	pickup_sound = 'sound/items/handling/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/component_drop.ogg'
 
 /obj/item/organ/internal/eyes/optical_sensor/remove(var/mob/living/user,special = 0)
 	if(!special)
@@ -142,6 +160,8 @@
 /obj/item/organ/internal/brain/mmi_holder/posibrain
 	species_type = /datum/species/machine
 	name = "positronic brain"
+	pickup_sound = 'sound/items/handling/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/component_drop.ogg'
 
 /obj/item/organ/internal/brain/mmi_holder/posibrain/New()
 	..()
@@ -167,6 +187,8 @@
 	icon_state = "taperecorder_idle"
 	status = ORGAN_ROBOT
 	dead_icon = "taperecorder_empty"
+	pickup_sound = 'sound/items/handling/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/component_drop.ogg'
 
 /obj/item/organ/internal/ears/microphone/remove(mob/living/user, special = FALSE)
 	if(!special)

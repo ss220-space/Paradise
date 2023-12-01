@@ -2069,6 +2069,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return "TTS Radio"
 		if(CHANNEL_RADIO_NOISE)
 			return "Radio Noise"
+		if(CHANNEL_INTERACTION_SOUNDS)
+			return "Item Interaction Sounds"
 		if(CHANNEL_BOSS_MUSIC)
 			return "Boss Music"
 
