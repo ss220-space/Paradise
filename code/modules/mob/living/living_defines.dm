@@ -80,5 +80,5 @@
 
 	///if this exists AND the normal sprite is bigger than 32x32, this is the replacement icon state (because health doll size limitations). the icon will always be screen_gen.dmi
 	var/health_doll_icon
-
+	///If mob can attack by choosing direction
 	var/dirslash_enabled = FALSE

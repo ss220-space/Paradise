@@ -171,10 +171,10 @@
 			L |= recursive_mob_check(A, L, recursion_limit - 1, client_check, sight_check, include_radio)
 	return L
 
+
 // The old system would loop through lists for a total of 5000 per function call, in an empty server.
 // This new system will loop at around 1000 in an empty server.
-
-/proc/get_mobs_in_view(var/R, var/atom/source, var/include_clientless = FALSE)
+/proc/get_mobs_in_view(R, atom/source, include_clientless = FALSE)
 	// Returns a list of mobs in range of R from source. Used in radio and say code.
 
 	var/turf/T = get_turf(source)
@@ -191,7 +191,7 @@
 			if(M.client || include_clientless)
 				hear += M
 			//log_world("Start = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])")
-		else if(istype(A, /obj/item/radio))
+		else if(isradio(A))
 			hear += A
 
 		if(isobj(A) || ismob(A))
@@ -300,7 +300,6 @@
 	return null
 
 /proc/get_candidates(be_special_type, afk_bracket=3000, override_age=0, override_jobban=0)
-	var/roletext = get_roletext(be_special_type)
 	var/list/candidates = list()
 	// Keep looping until we find a non-afk candidate within the time bracket (we limit the bracket to 10 minutes (6000))
 	while(!candidates.len && afk_bracket < 6000)
@@ -308,7 +307,7 @@
 			if(G.client != null)
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 					if(!G.client.is_afk(afk_bracket) && (be_special_type in G.client.prefs.be_special))
-						if(!override_jobban || (!jobban_isbanned(G, roletext) && !jobban_isbanned(G,"Syndicate")))
+						if(!override_jobban || (!jobban_isbanned(G, be_special_type) && !jobban_isbanned(G,"Syndicate")))
 							if(override_age || player_old_enough_antag(G.client,be_special_type))
 								candidates += G.client
 		afk_bracket += 600 // Add a minute to the bracket, for every attempt
@@ -316,7 +315,6 @@
 	return candidates
 
 /proc/get_candidate_ghosts(be_special_type, afk_bracket=3000, override_age=0, override_jobban=0)
-	var/roletext = get_roletext(be_special_type)
 	var/list/candidates = list()
 	// Keep looping until we find a non-afk candidate within the time bracket (we limit the bracket to 10 minutes (6000))
 	while(!candidates.len && afk_bracket < 6000)
@@ -324,7 +322,7 @@
 			if(G.client != null)
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 					if(!G.client.is_afk(afk_bracket) && (be_special_type in G.client.prefs.be_special))
-						if(!override_jobban || (!jobban_isbanned(G, roletext) && !jobban_isbanned(G,"Syndicate")))
+						if(!override_jobban || (!jobban_isbanned(G, be_special_type) && !jobban_isbanned(G,"Syndicate")))
 							if(override_age || player_old_enough_antag(G.client,be_special_type))
 								candidates += G
 		afk_bracket += 600 // Add a minute to the bracket, for every attempt

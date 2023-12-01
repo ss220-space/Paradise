@@ -44,12 +44,29 @@
 	var/full_name = ""
 	var/new_name = ""
 
-	for(var/i = 0;i<name_count;i++)
-		new_name = ""
-		for(var/x = rand(FLOOR(syllable_count/2, 1),syllable_count);x>0;x--)
-			new_name += pick(syllables)
-		full_name += " [capitalize(lowertext(new_name))]"
+	if(name == "Siik'tajr") //original code by @valtor0
+		var/list/syllablesRus = list("кан","тай","кир","раи","кии","мир","кра","тэк","нал","вар","хар","марр","ран","дарр", \
+		"мирк","ири","дин","манг","рик","зар","раз","кель","шера","тар","кей","ар","но","маи","зир","кер","нир","ра",\
+		"ми","рир","сей","эка","гир","ари","нэй","нре","ак","таир","эрай","жин","мра","зур","рин","сар","кин","рид","эра","ри","эна")
+		var/buffer_syllab = ""
+		var/apostrophe = "’"
 
+		for(var/i = 0; i<2; i++)
+			for(var/x = rand(FLOOR(syllable_count/4, 1), syllable_count/2);x>0;x--)
+				buffer_syllab = pick(syllablesRus)
+				syllablesRus -= buffer_syllab
+				new_name += buffer_syllab
+			new_name += apostrophe
+			apostrophe = ""
+		full_name += " [capitalize(lowertext(new_name))]"
+		return "[trim(full_name)]"
+
+	else
+		for(var/i = 0;i<name_count;i++)
+			new_name = ""
+			for(var/x = rand(FLOOR(syllable_count/2, 1),syllable_count);x>0;x--)
+				new_name += pick(syllables)
+			full_name += " [capitalize(lowertext(new_name))]"
 	return "[trim(full_name)]"
 
 /datum/language/proc/scramble(input)
@@ -197,10 +214,11 @@
 /datum/language/tajaran/get_random_name(gender)
 	var/new_name = ..(gender,1)
 	if(prob(80))
-		new_name += " [pick(list("Hadii","Kaytam","Zhan-Khazan","Hharar","Njarir'Akhan"))]"
+		new_name += " [pick(list("Хадии","Кайтам","Жан-Хазан","Нъярир’Ахан"))]"
 	else
-		new_name += " [..(gender,1)]"
+		new_name += " [pick(list("Энай-Сэндай","Наварр-Сэндай","Року-Сэндай","Шенуар-Сэндай"))]"
 	return new_name
+
 
 /datum/language/vulpkanin
 	name = "Canilunzt"

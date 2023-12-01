@@ -148,7 +148,7 @@
 	replaced by using a screwdriver, and then adding a new cell.  A tank of gas can also be attached to the scrubber. "
 
 //Meters
-/obj/machinery/meter
+/obj/machinery/atmospherics/meter
 	description_info = "Measures the volume and temperature of the pipe under the meter."
 
 //Pipe dispensers

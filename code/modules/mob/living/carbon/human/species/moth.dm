@@ -20,7 +20,7 @@
 	blood_species = "Nian"
 	blood_color = "#b9ae9c"
 	unarmed_type = /datum/unarmed_attack/claws
-	scream_verb = "жужжит"
+	scream_verb = "жужж%(ит,ат)%"
 	female_giggle_sound = list('sound/voice/mothchitter.ogg')
 	male_giggle_sound = list('sound/voice/mothchitter.ogg')
 	male_scream_sound = list('sound/voice/scream_moth.ogg')
@@ -79,6 +79,8 @@
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)
 	..()
 	H.verbs |= /mob/living/carbon/human/proc/emote_flap
+	H.verbs |= /mob/living/carbon/human/proc/emote_aflap
+	H.verbs |= /mob/living/carbon/human/proc/emote_flutter
 	var/datum/action/innate/cocoon/cocoon = locate() in H.actions
 	if(!cocoon)
 		cocoon = new
@@ -91,6 +93,8 @@
 /datum/species/moth/on_species_loss(mob/living/carbon/human/H)
 	..()
 	H.verbs -= /mob/living/carbon/human/proc/emote_flap
+	H.verbs -= /mob/living/carbon/human/proc/emote_aflap
+	H.verbs -= /mob/living/carbon/human/proc/emote_flutter
 	var/datum/action/innate/cocoon/cocoon = locate() in H.actions
 	if(cocoon)
 		cocoon.Remove(H)

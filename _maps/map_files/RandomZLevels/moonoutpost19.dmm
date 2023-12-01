@@ -7144,7 +7144,7 @@
 	dir = 6;
 	level = 1
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19arrivals)
 "oP" = (

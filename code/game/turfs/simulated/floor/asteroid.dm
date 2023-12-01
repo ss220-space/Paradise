@@ -184,11 +184,18 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	has_data = TRUE
 
 /turf/simulated/floor/plating/asteroid/airless/cave/volcanic
-	mob_spawn_list = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast/random = 50, /obj/structure/spawner/lavaland/goliath = 3,
-		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/random = 40, /obj/structure/spawner/lavaland = 2,
-		/mob/living/simple_animal/hostile/asteroid/hivelord/legion/random = 30, /obj/structure/spawner/lavaland/legion = 3,
-		SPAWN_MEGAFAUNA = 6, /mob/living/simple_animal/hostile/asteroid/goldgrub = 10,
-		/mob/living/simple_animal/hostile/asteroid/marrowweaver/dangerous = 35)
+	mob_spawn_list = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast/random = 50,
+	/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/random = 40,
+	/mob/living/simple_animal/hostile/asteroid/hivelord/legion/random = 30,
+	SPAWN_MEGAFAUNA = 6,
+	/mob/living/simple_animal/hostile/asteroid/goldgrub = 15,
+	/mob/living/simple_animal/hostile/asteroid/marrowweaver/dangerous/random = 30,
+	/obj/structure/spawner/lavaland = 2,
+	/obj/structure/spawner/lavaland/legion = 2,
+	/obj/structure/spawner/lavaland/goliath = 2,
+	/obj/structure/spawner/lavaland/random_threat = 3,
+	/obj/structure/spawner/lavaland/random_threat/dangerous = 1
+	)
 
 	data_having_type = /turf/simulated/floor/plating/asteroid/airless/cave/volcanic/has_data
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
@@ -205,7 +212,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	if (!megafauna_spawn_list)
 		megafauna_spawn_list = GLOB.megafauna_spawn_list
 	if (!flora_spawn_list)
-		flora_spawn_list = list(/obj/structure/flora/ash/leaf_shroom = 2 , /obj/structure/flora/ash/cap_shroom = 2 , /obj/structure/flora/ash/stem_shroom = 2 , /obj/structure/flora/ash/cacti = 1, /obj/structure/flora/ash/tall_shroom = 2)
+		flora_spawn_list = list(/obj/structure/flora/ash/leaf_shroom = 2 , /obj/structure/flora/ash/cap_shroom = 2 , /obj/structure/flora/ash/stem_shroom = 2 , /obj/structure/flora/ash/cacti = 1, /obj/structure/flora/ash/tall_shroom = 2, /obj/structure/flora/ash/fireblossom = 2)
 	. = ..()
 	if(!has_data)
 		produce_tunnel_from_data()

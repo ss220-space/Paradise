@@ -68,8 +68,18 @@
 	wanted_objects = typecacheof(wanted_objects)
 
 /mob/living/simple_animal/hostile/Destroy()
+	if(lose_patience_timer_id)
+		deltimer(lose_patience_timer_id)
 	targets_from = null
 	target = null
+	return ..()
+
+/mob/living/simple_animal/hostile/tamed(whomst)
+	if(isliving(whomst))
+		var/mob/living/fren = whomst
+		friends = fren
+		faction = fren.faction.Copy()
+		visible_message(span_notice("[src] gently growls and calms down. It seems that it no longer sees you as a threat!"))
 	return ..()
 
 /mob/living/simple_animal/hostile/Life(seconds, times_fired)
@@ -113,13 +123,14 @@
 	var/static/list/cardinal_sidestep_directions = list(-90, -45, 0, 45, 90)
 	var/static/list/diagonal_sidestep_directions = list(-45, 0, 45)
 	var/chosen_dir = 0
-	if (target_dir & (target_dir - 1))
+	if(target_dir & (target_dir - 1))
 		chosen_dir = pick(diagonal_sidestep_directions)
 	else
 		chosen_dir = pick(cardinal_sidestep_directions)
 	if(chosen_dir)
 		chosen_dir = turn(target_dir, chosen_dir)
-		Move(get_step(src, chosen_dir))
+		var/step_loc = get_step(src, chosen_dir)
+		Move(step_loc, chosen_dir, 3)
 		face_atom(target) //Looks better if they keep looking at you when dodging
 
 /mob/living/simple_animal/hostile/attacked_by(obj/item/I, mob/living/user)
@@ -295,6 +306,7 @@
 	return FALSE
 
 /mob/living/simple_animal/hostile/proc/GiveTarget(new_target)//Step 4, give us our selected target
+	SEND_SIGNAL(src, COMSIG_HOSTILE_FOUND_TARGET, new_target)
 	target = new_target
 	LosePatience()
 	if(target != null)
@@ -337,6 +349,7 @@
 			return 1
 		if(retreat_distance != null) //If we have a retreat distance, check if we need to run from our target
 			if(target_distance <= retreat_distance) //If target's closer than our retreat distance, run
+				glide_for(move_to_delay)
 				walk_away(src,target,retreat_distance,move_to_delay)
 			else
 				Goto(target,move_to_delay,minimum_distance) //Otherwise, get to our minimum distance so we chase them
@@ -370,6 +383,7 @@
 		approaching_target = TRUE
 	else
 		approaching_target = FALSE
+	glide_for(delay)
 	walk_to(src, target, minimum_distance, delay)
 
 /mob/living/simple_animal/hostile/adjustHealth(damage, updating_health = TRUE)
@@ -484,21 +498,30 @@
 /mob/living/simple_animal/hostile/proc/CanSmashTurfs(turf/T)
 	return iswallturf(T) || (ismineralturf(T) && !istype(T, /turf/simulated/mineral/ancient/outer))
 
-/mob/living/simple_animal/hostile/Move(atom/newloc, dir , step_x , step_y)
-	if(!client && dodging && approaching_target && prob(dodge_prob) && !moving_diagonally && isturf(loc) && isturf(newloc))
-		return dodge(newloc, dir)
 
-	. = ..()
+/mob/living/simple_animal/hostile/Move(atom/newloc, direct, movetime)
+	. = dodge(direct, movetime)
+	if(!.)
+		. = ..()
 
-/mob/living/simple_animal/hostile/proc/dodge(moving_to,move_direction)
-	//Assuming we move towards the target we want to swerve toward them to get closer
-	var/cdir = turn(move_direction, 45)
-	var/ccdir = turn(move_direction, -45)
+
+/mob/living/simple_animal/hostile/proc/dodge(direct, movetime)
+	. = FALSE
+	if(client)
+		return .
+	if(!dodging || !approaching_target || moving_diagonally)
+		return .
+	if(!isturf(loc))
+		return .
+	if(!prob(dodge_prob))
+		return .
+	var/turf/dodge_loc = get_step(loc, pick(turn(direct, 45), turn(direct, -45)))
+	if(!length(get_path_to(src, dodge_loc, max_distance = 1, simulated_only = FALSE, skip_first = FALSE)))
+		return .
 	dodging = FALSE
-	. = Move(get_step(loc,pick(cdir,ccdir)))
-	if(!.)//Can't dodge there so we just carry on
-		. =  Move(moving_to,move_direction)
+	. = Move(dodge_loc, direct, movetime)
 	dodging = TRUE
+
 
 /mob/living/simple_animal/hostile/proc/DestroyObjectsInDirection(direction)
 	var/turf/T = get_step(targets_from, direction)
@@ -580,6 +603,8 @@
 //These two procs handle losing our target if we've failed to attack them for
 //more than lose_patience_timeout deciseconds, which probably means we're stuck
 /mob/living/simple_animal/hostile/proc/GainPatience()
+	if(QDELING(src))
+		return
 	if(lose_patience_timeout)
 		LosePatience()
 		lose_patience_timer_id = addtimer(CALLBACK(src, PROC_REF(LoseTarget)), lose_patience_timeout, TIMER_STOPPABLE)

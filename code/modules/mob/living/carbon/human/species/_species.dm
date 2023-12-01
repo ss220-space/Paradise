@@ -123,8 +123,8 @@
 	var/blacklisted = FALSE
 	var/dangerous_existence = FALSE
 
-	//Death vars.
-	var/death_message = "цепенеет и расслабляется, взгляд становится пустым и безжизненным..."
+	/// Death vars. See [/proc/genderize_decode] for more info.
+	var/death_message = "цепене%(ет,ют)% и расслабля%(ет,ют)%ся, %(его,её,его,их)% взгляд становится пустым и безжизненным..."
 	var/list/suicide_messages = list(
 		"пытается откусить себе язык!",
 		"выдавливает свои глазницы большими пальцами!",
@@ -137,7 +137,7 @@
 	var/secondary_langs = list()             // The names of secondary languages that are available to this species.
 	var/list/speech_sounds                   // A list of sounds to potentially play when speaking.
 	var/list/speech_chance                   // The likelihood of a speech sound playing.
-	var/scream_verb = "кричит"
+	var/scream_verb = "крич%(ит,ат)%"	// Special symbols used to apply correct gender. See [/proc/genderize_decode] for more info.
 	var/female_giggle_sound = list('sound/voice/giggle_female_1.ogg','sound/voice/giggle_female_2.ogg','sound/voice/giggle_female_3.ogg')
 	var/male_giggle_sound = list('sound/voice/giggle_male_1.ogg','sound/voice/giggle_male_2.ogg')
 	var/male_scream_sound = list('sound/goonstation/voice/male_scream.ogg')
