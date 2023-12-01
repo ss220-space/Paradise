@@ -114,6 +114,8 @@
 	. = ..()
 	if(.)
 		return
+	if(shock(user, 70))
+		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.visible_message(span_warning("[user] hits [src]."))
 	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
@@ -121,8 +123,7 @@
 		attack_generic(user, user.dna.species.obj_damage)
 		return
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
-	if(!shock(user, 70))
-		take_damage(rand(5,10), BRUTE, "melee", 1)
+	take_damage(rand(5,10), BRUTE, "melee", 1)
 
 /obj/structure/grille/attack_alien(mob/living/carbon/alien/user)
 	user.do_attack_animation(src)
