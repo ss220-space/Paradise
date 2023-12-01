@@ -171,7 +171,6 @@
 	desc = "An exosuit-mounted Rapid Construction Device. (Can be attached to: Any exosuit)"
 	icon_state = "mecha_rcd"
 	origin_tech = "materials=4;bluespace=3;magnets=4;powerstorage=4;engineering=4"
-	equip_cooldown = 20
 	energy_drain = 500
 	range = MECHA_MELEE | MECHA_RANGED
 	flags_2 = NO_MAT_REDEMPTION_2
@@ -483,11 +482,12 @@
 		return FALSE
 	cable.use(amount)
 	update_equip_info()
+	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/proc/reset()
 	last_piece = null
 
-/obj/item/mecha_parts/mecha_equipment/cable_layer/proc/dismantleFloor(var/turf/new_turf)
+/obj/item/mecha_parts/mecha_equipment/cable_layer/proc/dismantleFloor(turf/new_turf)
 	if(istype(new_turf, /turf/simulated/floor))
 		var/turf/simulated/floor/T = new_turf
 		if(!istype(T, /turf/simulated/floor/plating))
@@ -550,7 +550,7 @@
 	if(istype(target, /obj/structure/reagent_dispensers/watertank) && get_dist(chassis,target) <= 1)
 		var/obj/structure/reagent_dispensers/watertank/WT = target
 		WT.reagents.trans_to(src, 1000)
-		occupant_message("<span class='notice'>Extinguisher refilled.</span>")
+		occupant_message(span_notice("Extinguisher refilled."))
 		playsound(chassis, 'sound/effects/refill.ogg', 50, 1, -6)
 	else
 		if(reagents.total_volume > 0)
@@ -624,15 +624,15 @@
 	var/turf/T = get_turf(target)
 	var/obj/structure/holosign/barrier/atmos/H = locate() in T
 	if(H)
-		occupant_message("<span class='notice'>You use [src] to deactivate [H].</span>")
+		occupant_message(span_notice("You use [src] to deactivate [H]."))
 		qdel(H)
 	else
 		if(!is_blocked_turf(T, TRUE)) //can't put holograms on a tile that has dense stuff
 			if(holocreator_busy)
-				occupant_message("<span class='notice'>[src] is busy creating a hologram.</span>")
+				occupant_message(span_notice("[src] is busy creating a hologram."))
 				return FALSE
 			if(length(barriers) >= max_barriers)
-				occupant_message("<span class='notice'>[src] is projecting at max capacity!</span>")
+				occupant_message(span_notice("[src] is projecting at max capacity!"))
 				return FALSE
 			else
 				playsound(src.loc, 'sound/machines/click.ogg', 20, 1)
@@ -648,7 +648,7 @@
 						return
 				H = new /obj/structure/holosign/barrier/atmos(T, src)
 				chassis.use_power(energy_drain)
-				occupant_message("<span class='notice'>You create [H] with [src].</span>")
+				occupant_message(span_notice("You create [H] with [src]."))
 				start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/holowall/get_module_equip_info()
@@ -660,7 +660,7 @@
 		if(length(barriers))
 			for(var/H in barriers)
 				qdel(H)
-			occupant_message("<span class='notice'>You clear all active holobarriers.</span>")
+			occupant_message(span_notice("You clear all active holobarriers."))
 
 /obj/item/mecha_parts/mecha_equipment/holowall/can_attach(obj/mecha/M)
 	if(..())
@@ -758,6 +758,6 @@
 	if(!emagged)
 		items_list.Add(new emag_item)
 		emagged = TRUE
-		user.visible_message("<span class='warning'>Sparks fly out of [src.name]!</span>", "<span class='notice'>You short out the safeties on [src.name].</span>")
+		user.visible_message(span_warning("Sparks fly out of [src.name]"), span_notice("You short out the safeties on [src.name]."))
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		update_equip_info()

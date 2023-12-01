@@ -165,7 +165,7 @@
 	var/damage_coeff = 0.8
 	selectable = FALSE
 
-/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster/proc/attack_react(mob/user as mob)
+/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster/proc/attack_react(mob/user)
 	if(action_checks(user))
 		start_cooldown()
 	return TRUE
@@ -301,7 +301,7 @@
 		return 1000 //making magic
 
 
-/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/proc/get_power_channel(var/area/A)
+/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/proc/get_power_channel(area/A)
 	var/pow_chan
 	if(A)
 		for(var/c in use_channels)
@@ -429,7 +429,7 @@
 		return fuel_added
 
 	else
-		occupant_message("<span class='warning'>[fuel_name] traces in target minimal! [I] cannot be used as fuel.</span>")
+		occupant_message(span_warning("[fuel_name] traces in target minimal! [I] cannot be used as fuel."))
 		return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/generator/attackby(weapon,mob/user, params)
