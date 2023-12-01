@@ -2322,7 +2322,7 @@
 		/obj/item/gun/projectile/shotgun/automatic/combat = 3,
 		/obj/item/ammo_box/shotgun = 4,
 		/obj/item/ammo_box/shotgun/buck = 4,
-		/obj/item/ammo_box/shotgun/dragonsbreath = 2,
+		/obj/item/ammo_box/shotgun/dragonsbreath = 2
 	)
 	contraband = list(/obj/item/storage/fancy/donut_box = 2)
 	refill_canister = /obj/item/vending_refill/nta
