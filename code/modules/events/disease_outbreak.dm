@@ -8,7 +8,7 @@
 /datum/event/disease_outbreak/setup()
 	announceWhen = rand(150, 300)
 	var/virus_type = pick(
-		5; /datum/disease/virus/advance,
+		9999; /datum/disease/virus/advance,
 		1; /datum/disease/virus/anxiety,
 		1; /datum/disease/virus/beesease,
 		1; /datum/disease/virus/brainrot,
@@ -33,9 +33,6 @@
 
 /datum/event/disease_outbreak/announce()
 	GLOB.event_announcement.Announce("Вспышка вирусной угрозы 7-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать ее распространение.", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", new_sound = 'sound/AI/outbreak7.ogg')
-	for(var/p in GLOB.dead_mob_list)
-		var/mob/M = p
-		to_chat(M, "<span class='deadsay'><b>[patient_zero]</b> был(а) заражён(а) <b>[D.name]</b> ([ghost_follow_link(patient_zero, M)])</span>")
 
 /datum/event/disease_outbreak/start()
 	for(var/mob/living/carbon/human/H in shuffle(GLOB.alive_mob_list))
@@ -54,4 +51,8 @@
 		if(!D.Contract(H, is_carrier = TRUE))
 			continue
 		patient_zero = H
+
+		for(var/mob/M in GLOB.dead_mob_list)
+			to_chat(M, "<span class='deadsay'><b>[patient_zero]</b> был(а) заражён(а) <b>[D.name]</b> ([ghost_follow_link(patient_zero, M)])</span>")
+
 		break
