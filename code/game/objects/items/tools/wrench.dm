@@ -10,6 +10,8 @@
 	force = 5
 	throwforce = 7
 	usesound = 'sound/items/ratchet.ogg'
+	drop_sound = 'sound/items/handling/wrench_drop.ogg'
+	pickup_sound =  'sound/items/handling/wrench_pickup.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=150)
 	origin_tech = "materials=1;engineering=1"

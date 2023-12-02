@@ -1,6 +1,7 @@
 /datum/martial_art/wrestling
 	name = "Wrestling"
 	has_explaination_verb = TRUE
+	has_dirslash = FALSE
 
 //	combo refence since wrestling uses a different format to sleeping carp and plasma fist.
 //	Clinch "G"

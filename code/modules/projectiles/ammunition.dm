@@ -119,6 +119,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 4
 	throw_range = 10
+	pickup_sound = 'sound/items/handling/ammobox_pickup.ogg'
+	drop_sound = 'sound/items/handling/ammobox_drop.ogg'
 	var/list/stored_ammo = list()
 	var/ammo_type = /obj/item/ammo_casing
 	var/max_ammo = 7

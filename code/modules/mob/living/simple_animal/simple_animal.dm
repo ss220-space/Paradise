@@ -95,6 +95,7 @@
 
 	var/list/loot = list() //list of things spawned at mob's loc when it dies
 	var/del_on_death = 0 //causes mob to be deleted on death, useful for mobs that spawn lootable corpses
+	/// See [/proc/genderize_decode] for more info.
 	var/deathmessage = ""
 	var/death_sound = null //The sound played on death
 	var/list/damaged_sound = null
@@ -108,8 +109,14 @@
 
 	var/shouldwakeup = FALSE //convenience var for forcibly waking up an idling AI on next check.
 
-	//domestication
-	var/tame = 0
+	///Domestication.
+	var/tame = FALSE
+	///What the mob eats, typically used for taming or animal husbandry.
+	var/list/food_type
+	///Starting success chance for taming.
+	var/tame_chance
+	///Added success chance after every failed tame attempt.
+	var/bonus_tame_chance
 
 	var/my_z // I don't want to confuse this with client registered_z
 	///What kind of footstep this mob should have. Null if it shouldn't have any.
@@ -150,6 +157,25 @@
 		SSidlenpcpool.idle_mobs_by_zlevel[T.z] -= src
 
 	return ..()
+
+/mob/living/simple_animal/attackby(obj/item/O, mob/user, params)
+	if(!is_type_in_list(O, food_type))
+		..()
+		return
+	else
+		user.visible_message("<span class='notice'>[user] hand-feeds [O] to [src].</span>", "<span class='notice'>You hand-feed [O] to [src].</span>")
+		qdel(O)
+		if(tame)
+			return
+		if(prob(tame_chance)) //note: lack of feedback message is deliberate, keep them guessing!
+			tame = TRUE
+			tamed(user)
+		else
+			tame_chance += bonus_tame_chance
+
+///Extra effects to add when the mob is tamed, such as adding a riding or whatever.
+/mob/living/simple_animal/proc/tamed(whomst)
+	return
 
 /mob/living/simple_animal/handle_atom_del(atom/A)
 	if(A == pcollar)
@@ -229,23 +255,23 @@
 					else
 						randomValue -= speak.len
 						if(emote_see && randomValue <= emote_see.len)
-							custom_emote(EMOTE_VISUAL, pick(emote_see))
+							custom_emote(EMOTE_VISIBLE, pick(emote_see))
 						else
-							custom_emote(EMOTE_SOUND, pick(emote_hear))
+							custom_emote(EMOTE_AUDIBLE, pick(emote_hear))
 				else
 					say(pick(speak))
 			else
 				if(!(emote_hear && emote_hear.len) && (emote_see && emote_see.len))
-					custom_emote(EMOTE_VISUAL, pick(emote_see))
+					custom_emote(EMOTE_VISIBLE, pick(emote_see))
 				if((emote_hear && emote_hear.len) && !(emote_see && emote_see.len))
-					custom_emote(EMOTE_VISUAL, pick(emote_hear))
+					custom_emote(EMOTE_AUDIBLE, pick(emote_hear))
 				if((emote_hear && emote_hear.len) && (emote_see && emote_see.len))
 					var/length = emote_hear.len + emote_see.len
 					var/pick = rand(1,length)
 					if(pick <= emote_see.len)
-						custom_emote(EMOTE_VISUAL, pick(emote_see))
+						custom_emote(EMOTE_VISIBLE, pick(emote_see))
 					else
-						custom_emote(EMOTE_SOUND, pick(emote_hear))
+						custom_emote(EMOTE_AUDIBLE, pick(emote_hear))
 
 
 /mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
@@ -319,18 +345,6 @@
 		pcollar = null
 	..()
 
-/mob/living/simple_animal/emote(act, m_type = 1, message = null, force)
-	if(stat)
-		return
-	act = lowertext(act)
-	switch(act) //IMPORTANT: Emotes MUST NOT CONFLICT anywhere along the chain.
-		if("scream")
-			message = "whimpers."
-			m_type = 2
-		if("help")
-			to_chat(src, "scream")
-
-	..()
 
 /mob/living/simple_animal/say_quote(message)
 	var/verb = "says"
@@ -372,9 +386,9 @@
 		if(death_sound)
 			playsound(get_turf(src),death_sound, 200, 1)
 		if(deathmessage)
-			visible_message("<span class='danger'>\The [src] [deathmessage]</span>")
+			visible_message(span_danger("\The [src] [genderize_decode(src, deathmessage)]"))
 		else if(!del_on_death)
-			visible_message("<span class='danger'>\The [src] stops moving...</span>")
+			visible_message(span_danger("\The [src] stops moving..."))
 	if(xenobiology_spawned)
 		SSmobs.xenobiology_mobs--
 	if(del_on_death)
@@ -530,6 +544,8 @@
 	if(!slot)
 		return FALSE
 
+	. = TRUE
+
 	I.pixel_x = initial(I.pixel_x)
 	I.pixel_y = initial(I.pixel_y)
 	I.layer = ABOVE_HUD_LAYER
@@ -670,10 +686,12 @@
 	..()
 	walk(src, 0) // if mob is moving under ai control, then stop AI movement
 
-/mob/living/simple_animal/say(message, verb, sanitize, ignore_speech_problems, ignore_atmospherics)
+
+/mob/living/simple_animal/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	. = ..()
-	if(. && length(src.talk_sound))
-		playsound(src, pick(src.talk_sound), 75, TRUE)
+	if(. && length(talk_sound))
+		playsound(src, pick(talk_sound), 75, TRUE)
+
 
 /mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user)
 	. = ..()

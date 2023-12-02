@@ -6,6 +6,8 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FIRE_PROOF
+	drop_sound = 'sound/items/handling/book_drop.ogg'
+	pickup_sound =  'sound/items/handling/book_pickup.ogg'
 	var/mob/affecting = null
 	var/deity_name = "Christ"
 	/// Is the sprite of this bible customisable
@@ -36,15 +38,17 @@
 	user.dust()
 	return OBLITERATION
 
-/obj/item/storage/bible/fart_act(mob/living/M)
-	if(QDELETED(M) || M.stat == DEAD)
-		return
-	M.visible_message("<span class='danger'>[M] farts on \the [name]!</span>")
-	M.visible_message("<span class='userdanger'>A mysterious force smites [M]!</span>")
-	M.suiciding = TRUE
-	do_sparks(3, 1, M)
-	M.gib()
+
+/obj/item/storage/bible/fart_act(mob/living/user)
+	if(QDELETED(user) || user.stat == DEAD)
+		return FALSE
+	user.visible_message(span_danger("[user] farts on \the [name]!"))
+	user.visible_message(span_userdanger("A mysterious force smites [user]!"))
+	user.suiciding = TRUE
+	do_sparks(3, 1, user)
+	user.gib()
 	return TRUE // Don't run the fart emote
+
 
 /obj/item/storage/bible/booze
 	name = "bible"

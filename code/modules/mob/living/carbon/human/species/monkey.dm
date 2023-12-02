@@ -20,9 +20,9 @@
 	ventcrawler = VENTCRAWLER_NUDE
 	show_ssd = 0
 	eyes = "blank_eyes"
-	death_message = "издает слабое чириканье, дрогнув и перестает двигаться..." //да. Официально шимпанзе именно чирикают.
+	death_message = "изда%(ёт,ют)% тихий визг, пада%(ет,ют)% и переста%(ёт,ют)% двигаться..."
 
-	scream_verb = "визжит"
+	scream_verb = "визж%(ит,ат)%"
 	male_scream_sound = list('sound/goonstation/voice/monkey_scream.ogg')
 	female_scream_sound = list('sound/goonstation/voice/monkey_scream.ogg')
 	male_dying_gasp_sounds = list('sound/goonstation/voice/male_dying_gasp_1.ogg', 'sound/goonstation/voice/male_dying_gasp_2.ogg', 'sound/goonstation/voice/male_dying_gasp_3.ogg', 'sound/goonstation/voice/male_dying_gasp_4.ogg', 'sound/goonstation/voice/male_dying_gasp_5.ogg')

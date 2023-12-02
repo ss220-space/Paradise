@@ -1,3 +1,7 @@
+/datum/game_mode
+	/// A list of all demon minds spawned via event or wizard artefact.
+	var/list/datum/mind/demons = list()
+
 /mob/living/simple_animal/demon
 	name = "a generic demon"
 	desc = "you shouldnt be reading this, file a github report"
@@ -16,7 +20,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
-	faction = list("demon")
+	faction = list(ROLE_DEMON)
 	attacktext = "неистово терзает"
 	maxHealth = 200
 	health = 200
@@ -27,6 +31,7 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	del_on_death = TRUE
+	dirslash_enabled = TRUE
 	var/vialspawned = FALSE
 	var/playstyle_string
 	var/datum/action/innate/demon/whisper/whisper_action
@@ -40,6 +45,8 @@
 
 
 /mob/living/simple_animal/demon/Destroy()
+	if(mind)
+		SSticker.mode.demons -= mind
 	if(whisper_action)
 		whisper_action = null
 	return ..()
@@ -53,7 +60,7 @@
 
 /datum/action/innate/demon/whisper/proc/choose_targets(mob/user = usr)//yes i am copying from telepathy..hush...
 	var/list/validtargets = list()
-	for(var/mob/living/target in (view(user.client.view) - user))
+	for(var/mob/living/target in (view(user.client.view, get_turf(user)) - user))
 		if(target && target.mind && target.stat != DEAD)
 			validtargets += target
 
@@ -108,5 +115,5 @@
 
 
 /mob/living/simple_animal/demon/proc/attempt_objectives()
-	return mind
+	return !isnull(mind)
 

@@ -12,6 +12,8 @@
 	consume_sound = null
 	can_taste = FALSE
 	antable = FALSE
+	pickup_sound = 'sound/items/handling/generic_small_pickup.ogg'
+	drop_sound = 'sound/items/handling/generic_small_drop.ogg'
 
 /obj/item/reagent_containers/food/pill/Initialize(mapload)
 	if(!icon_state)
@@ -92,6 +94,18 @@
 	desc = "Helps improve the ability to concentrate."
 	icon_state = "pill8"
 	list_reagents = list("methamphetamine" = 5)
+
+/obj/item/reagent_containers/food/pill/lsd
+	name = "LSD pill"
+	desc = "Commonly used to get high."
+	icon_state = "pill4"
+	list_reagents = list("lsd" = 5)
+
+/obj/item/reagent_containers/food/pill/rum
+	name = "rum pill"
+	desc = "Commonly used to... Wait a second, what the f.."
+	icon_state = "pill8"
+	list_reagents = list("rum" = 25)
 
 /obj/item/reagent_containers/food/pill/stimulative_agent
 	name = "combat stimulant pill"

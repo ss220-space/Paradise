@@ -8259,7 +8259,7 @@
 /area/ussp_ship)
 "gly" = (
 /obj/structure/decorative_structures/metal/statue/golden_disk,
-/obj/structure/sign/poster/secret/yug0{
+/obj/structure/sign/poster/secret/lady{
 	pixel_x = 32
 	},
 /turf/simulated/floor/indestructible{
@@ -22065,8 +22065,8 @@
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened,
 /obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 /obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
-/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
-/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
+/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
+/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
 /obj/item/organ/internal/cyberimp/chest/reviver/hardened,
 /obj/item/organ/internal/cyberimp/chest/reviver/hardened,
 /obj/item/organ/internal/cyberimp/eyes/hud/medical,

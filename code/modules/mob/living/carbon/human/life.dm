@@ -648,7 +648,9 @@
 	if(status_flags & GODMODE)
 		return 0	//godmode
 
-	if(!(NO_HUNGER in dna.species.species_traits))
+	var/is_vamp = isvampire(src)
+
+	if(!(NO_HUNGER in dna.species.species_traits) || is_vamp)
 		if(FAT in mutations)
 			if(overeatduration < 100)
 				becomeSlim()
@@ -660,7 +662,7 @@
 		if(nutrition >= 0 && stat != DEAD)
 			handle_nutrition_alerts()
 			// THEY HUNGER
-			var/hunger_rate = hunger_drain
+			var/hunger_rate = is_vamp ? HUNGER_FACTOR_VAMPIRE : hunger_drain
 			if(satiety > 0)
 				satiety--
 			if(satiety < 0)
@@ -792,6 +794,9 @@
 		return
 	else
 		var/shock_reduction = shock_reduction()
+		if(NO_PAIN_FEEL in dna.species.species_traits)
+			shock_reduction = INFINITY
+
 		if(healths)
 			var/health_amount = get_perceived_trauma(shock_reduction)
 			if(..(health_amount)) //not dead

@@ -6,21 +6,21 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/spider/terrorweb/queen/builder,
 /obj/item/reagent_containers/food/snacks/monstermeat/spidereggs,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "c" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/spider/terrorweb/queen/builder,
 /obj/effect/mob_spawn/human/miner/explorer,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "d" = (
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "e" = (
 /obj/structure/spider/terrorweb/queen/builder,
 /obj/item/reagent_containers/food/snacks/monstermeat/spidereggs,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "f" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -30,33 +30,28 @@
 /obj/structure/spider/terrorweb/queen/builder,
 /obj/item/pickaxe/drill/diamonddrill,
 /obj/effect/mob_spawn/human/corpse/damaged,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "h" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/sand/plating,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "i" = (
 /obj/effect/mob_spawn/human/miner/explorer,
 /obj/item/twohanded/fireaxe/boneaxe,
 /obj/item/clothing/suit/armor/bone,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
-/area/ruin/unpowered)
-"j" = (
-/obj/effect/spawner/lootdrop/marrow_weaver,
-/obj/structure/spider/terrorweb/queen/builder,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "k" = (
 /obj/item/kitchen/knife/combat/survival/bone,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "l" = (
 /obj/structure/spider/terrorweb/queen/builder,
 /obj/structure/spider/cocoon,
 /obj/effect/spawner/lootdrop/marrow_weaver,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "m" = (
 /turf/simulated/mineral/random/volcanic/hard,
@@ -64,146 +59,138 @@
 "n" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/spawner/lootdrop/marrow_weaver,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "o" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/spider/terrorweb/queen/builder,
 /obj/effect/mob_spawn/human/mime/corpse,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "p" = (
 /obj/structure/spider/terrorweb/queen/builder,
 /obj/item/storage/firstaid/regular,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "q" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/table,
 /obj/item/twohanded/spear/bonespear,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "r" = (
 /obj/item/storage/firstaid/toxin,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "s" = (
 /turf/simulated/wall/mineral/sandstone,
 /area/ruin/unpowered)
 "t" = (
 /obj/effect/spawner/lootdrop/marrow_weaver,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "u" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/spider/terrorweb/queen/builder,
 /obj/effect/mob_spawn/human/doctor,
 /obj/item/gun/projectile/shotgun/boltaction,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "v" = (
 /obj/structure/spider/terrorweb/queen/builder,
 /obj/effect/mob_spawn/human/miner/explorer,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "w" = (
 /obj/structure/spider/terrorweb/queen/builder,
 /obj/item/gun/energy/kinetic_accelerator,
 /obj/item/borg/upgrade/modkit/trigger_guard,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "x" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/spider/terrorweb/queen/builder,
 /obj/effect/mob_spawn/human/doctor,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "y" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/spider/terrorweb/queen/builder,
 /obj/item/kitchen/knife/combat,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "z" = (
 /obj/effect/spawner/lootdrop/marrow_weaver,
 /obj/effect/mob_spawn/human/miner/explorer,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
-/area/ruin/unpowered)
-"A" = (
-/obj/structure/spider/terrorweb/queen/builder,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "B" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/spider/terrorweb/queen/builder,
 /obj/structure/spider/cocoon,
 /obj/effect/mob_spawn/human/corpse/spacebattle/security,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "C" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/spider/terrorweb/queen/builder,
 /obj/structure/spider/cocoon,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "D" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/bed,
 /obj/effect/mob_spawn/human/miner/explorer,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
-/area/ruin/unpowered)
-"E" = (
-/obj/effect/turf_decal/sand/plating,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "F" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/spider/terrorweb/queen/builder,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "G" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/mob_spawn/human/corpse/spacebattle/security,
 /obj/item/gun/projectile/revolver/doublebarrel,
 /obj/item/melee/classic_baton,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "H" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/spider/terrorweb/queen/builder,
 /obj/item/tank/internals/emergency_oxygen/double,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "I" = (
 /obj/structure/spider/terrorweb/queen/builder,
 /obj/structure/spider/cocoon,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "J" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/spawner/lootdrop/marrow_weaver,
 /obj/structure/spider/terrorweb/queen/builder,
 /obj/effect/mob_spawn/human/mime/corpse,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "K" = (
 /obj/structure/spider/terrorweb/queen/builder,
 /obj/structure/spider/terrorweb/queen/builder,
 /obj/structure/spider/terrorweb/queen/builder,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "L" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/spider/terrorweb/queen/builder,
 /obj/structure/spider/cocoon,
 /obj/effect/mob_spawn/human/corpse/damaged,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "M" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/table,
 /obj/item/stack/sheet/animalhide/weaver_chitin,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "N" = (
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
@@ -222,12 +209,12 @@
 "R" = (
 /obj/structure/spider/terrorweb/queen/builder,
 /obj/item/storage/firstaid/toxin,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "S" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/item/flashlight/flare/torch,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "T" = (
 /turf/template_noop,
@@ -240,18 +227,18 @@
 "V" = (
 /obj/structure/spider/terrorweb/queen/builder,
 /obj/effect/spawner/lootdrop/marrow_weaver,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "W" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/spawner/lootdrop/marrow_weaver,
 /obj/structure/spider/terrorweb/queen/builder,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "X" = (
 /obj/structure/spider/terrorweb/queen/builder,
 /obj/structure/spider/terrorweb/queen/builder,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "Y" = (
 /obj/effect/turf_decal/sand/plating,
@@ -261,7 +248,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/spider/terrorweb/queen/builder,
 /obj/effect/spawner/lootdrop/marrow_weaver,
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 
 (1,1,1) = {"
@@ -469,8 +456,8 @@ a
 a
 a
 a
-A
-A
+O
+O
 a
 a
 a
@@ -507,9 +494,9 @@ a
 a
 W
 d
-A
+O
 W
-E
+Y
 a
 a
 a
@@ -539,15 +526,15 @@ x
 s
 m
 m
-j
+U
 a
-A
-A
+O
+O
 i
 m
 m
 d
-A
+O
 a
 a
 a
@@ -584,7 +571,7 @@ m
 m
 m
 m
-A
+O
 a
 s
 q
@@ -606,9 +593,9 @@ a
 a
 s
 n
-E
-E
-E
+Y
+Y
+Y
 C
 s
 m
@@ -620,12 +607,12 @@ m
 m
 m
 d
-A
+O
 F
 a
 s
-E
-E
+Y
+Y
 s
 a
 a
@@ -642,9 +629,9 @@ N
 a
 a
 s
-E
+Y
 n
-E
+Y
 n
 F
 s
@@ -662,7 +649,7 @@ W
 a
 s
 D
-E
+Y
 s
 a
 f
@@ -679,27 +666,27 @@ N
 N
 a
 s
-E
+Y
 S
-E
+Y
 C
 Z
 F
 s
-A
+O
 d
 d
 F
 F
 d
-A
+O
 m
 m
 d
 a
 a
 s
-E
+Y
 s
 a
 f
@@ -718,7 +705,7 @@ a
 s
 a
 n
-E
+Y
 a
 g
 s
@@ -726,17 +713,17 @@ m
 m
 m
 d
-E
+Y
 H
 F
-A
+O
 s
 d
 d
-A
+O
 a
-j
-E
+U
+Y
 a
 a
 a
@@ -755,25 +742,25 @@ a
 a
 s
 a
-A
+d
 s
 s
 m
 m
 m
-A
-j
-s
+O
+U
+d
 m
-A
+O
 d
 d
-A
+O
 m
 W
 F
-A
-A
+O
+O
 I
 s
 a
@@ -792,7 +779,7 @@ a
 a
 a
 a
-E
+Y
 t
 m
 m
@@ -805,11 +792,11 @@ m
 m
 d
 z
-E
+Y
 m
 m
 e
-A
+O
 d
 a
 a
@@ -830,18 +817,18 @@ a
 a
 I
 d
-E
+Y
 m
 s
-A
-A
-E
-A
-A
+O
+O
+Y
+O
+O
 m
 m
 m
-A
+O
 m
 m
 m
@@ -870,23 +857,23 @@ d
 C
 m
 m
-A
-j
+O
+U
 m
 m
 d
-A
+O
 W
 F
-A
+O
 s
 m
 m
 m
 F
-A
+O
 F
-A
+O
 s
 Y
 P
@@ -903,7 +890,7 @@ N
 a
 a
 a
-A
+O
 m
 m
 n
@@ -911,13 +898,13 @@ d
 m
 m
 m
-A
+O
 I
 m
 d
-A
-A
-A
+O
+O
+O
 F
 m
 d
@@ -947,21 +934,21 @@ F
 r
 s
 c
-j
-A
+U
+O
 m
 m
 e
 v
 m
-A
+O
 t
 d
 d
 m
 m
 d
-E
+Y
 P
 P
 P
@@ -975,13 +962,13 @@ f
 N
 a
 a
-A
+O
 V
-E
+Y
 m
-A
+O
 X
-A
+O
 F
 d
 d
@@ -992,12 +979,12 @@ t
 m
 m
 m
-E
-A
+Y
+O
 I
 m
-j
-A
+U
+O
 s
 P
 P
@@ -1022,7 +1009,7 @@ t
 m
 m
 d
-A
+O
 m
 m
 d
@@ -1031,8 +1018,8 @@ m
 m
 m
 m
-A
-A
+O
+O
 d
 a
 a
@@ -1049,9 +1036,9 @@ N
 N
 a
 a
-A
+O
 a
-A
+O
 m
 m
 m
@@ -1059,11 +1046,11 @@ d
 d
 m
 m
-A
+O
 C
 s
 d
-A
+O
 m
 s
 m
@@ -1088,10 +1075,10 @@ N
 a
 l
 a
-E
-E
-E
-A
+Y
+Y
+Y
+O
 F
 d
 d
@@ -1101,7 +1088,7 @@ m
 d
 d
 K
-A
+O
 W
 m
 m
@@ -1132,15 +1119,15 @@ V
 s
 d
 p
-A
+O
 m
 m
 m
 m
-A
+O
 d
 d
-A
+O
 d
 d
 a
@@ -1163,20 +1150,20 @@ a
 t
 d
 F
-A
-A
+O
+O
 d
 d
 m
 I
 m
 m
-A
+O
 t
 d
-E
+Y
 d
-s
+d
 m
 d
 F
@@ -1199,10 +1186,10 @@ a
 w
 d
 k
-E
+Y
 F
 s
-a
+d
 d
 m
 m
@@ -1212,13 +1199,13 @@ X
 m
 s
 m
-A
+O
 m
 m
-A
+O
 s
-j
-A
+U
+O
 a
 a
 N
@@ -1234,7 +1221,7 @@ N
 a
 V
 h
-E
+Y
 t
 k
 d
@@ -1242,17 +1229,17 @@ d
 W
 d
 m
-A
-A
+O
+O
 d
 d
 m
 n
 m
-A
-E
+O
+Y
 I
-j
+U
 a
 G
 s
@@ -1276,17 +1263,17 @@ d
 d
 d
 d
-a
-E
-j
-A
+d
+Y
+U
+O
 a
 s
-A
+O
 d
-A
-A
-A
+O
+O
+O
 d
 a
 a
@@ -1320,9 +1307,9 @@ a
 a
 a
 F
-A
+O
 m
-A
+O
 s
 a
 a
@@ -1359,7 +1346,7 @@ P
 P
 s
 m
-A
+O
 N
 a
 a

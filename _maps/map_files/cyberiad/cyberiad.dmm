@@ -13802,7 +13802,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aJU" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -15525,7 +15525,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/purple{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aPb" = (
@@ -17150,9 +17150,7 @@
 	},
 /area/crew_quarters/dorms)
 "aTE" = (
-/obj/structure/chair/sofa/corner{
-	dir = 4
-	},
+/obj/structure/chair/sofa/corner,
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2.9
@@ -28917,7 +28915,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "bwy" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -28978,7 +28976,7 @@
 	},
 /area/medical/medbay2)
 "bwK" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
 	},
@@ -30670,7 +30668,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -39953,13 +39951,13 @@
 	},
 /area/medical/cloning)
 "bWC" = (
-/obj/machinery/computer/cloning,
+/obj/structure/computerframe,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
 /area/medical/cloning)
 "bWD" = (
-/obj/machinery/dna_scannernew,
+/obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -39985,8 +39983,8 @@
 	},
 /area/medical/cloning)
 "bWF" = (
-/obj/machinery/clonepod/biomass,
 /obj/machinery/light,
+/obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -52548,7 +52546,7 @@
 	pixel_x = -24;
 	pixel_y = -6
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
@@ -52607,13 +52605,11 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/circuitboard/cloning,
 /obj/item/circuitboard/med_data{
 	pixel_x = 3;
 	pixel_y = -3
 	},
 /obj/item/circuitboard/clonescanner,
-/obj/item/circuitboard/clonepod,
 /obj/item/circuitboard/scan_consolenew,
 /obj/item/circuitboard/cryo_tube{
 	pixel_x = 3
@@ -53749,7 +53745,7 @@
 	pixel_y = -24;
 	req_access = list(12)
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
@@ -58914,7 +58910,7 @@
 	desc = "Труба хранит в себе набор газов для смешивания";
 	name = "Труба смешивания"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -59138,7 +59134,7 @@
 /area/atmos)
 "cQf" = (
 /obj/machinery/atmospherics/pipe/manifold4w/visible/purple,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "wloop_atm_meter";
 	name = "Waste Loop"
 	},
@@ -59164,7 +59160,7 @@
 /obj/machinery/alarm{
 	pixel_y = 24
 	},
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "dloop_atm_meter";
 	name = "Distribution Loop"
 	},
@@ -59176,7 +59172,7 @@
 	dir = 1;
 	name = "Труба дыхательной смеси"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos/distribution)
 "cQj" = (
@@ -59669,7 +59665,7 @@
 	dir = 4;
 	name = "Труба дыхательной смеси"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cRo" = (
@@ -60158,7 +60154,7 @@
 	dir = 4
 	},
 /obj/structure/grille,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/wall/r_wall,
 /area/atmos)
 "cSq" = (
@@ -60671,7 +60667,7 @@
 	dir = 4;
 	name = "Труба дыхательной смеси"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos/distribution)
 "cTs" = (
@@ -61932,7 +61928,7 @@
 	dir = 4;
 	name = "Труба на фильтрацию"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/atmos/distribution)
@@ -63006,7 +63002,7 @@
 	dir = 1;
 	name = "Труба смешивания"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cYb" = (
@@ -63220,7 +63216,7 @@
 /area/space)
 "cYy" = (
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
@@ -63882,7 +63878,7 @@
 	dir = 4;
 	name = "Труба обработки"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "dah" = (
@@ -64351,7 +64347,7 @@
 /area/maintenance/asmaint)
 "dbN" = (
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "dbO" = (
@@ -64579,7 +64575,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "dcF" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible/green{
 	dir = 8
 	},
@@ -64792,7 +64788,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/turbine)
 "ddl" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -65825,7 +65821,7 @@
 	dir = 4;
 	name = "Труба смешивания"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "dfK" = (
@@ -66143,7 +66139,7 @@
 	dir = 8;
 	name = "Труба дыхательной смеси"
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "dgQ" = (
@@ -66579,7 +66575,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start/civilian,
-/obj/structure/sign/poster/secret/yug0{
+/obj/structure/sign/poster/secret/lady{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -67157,7 +67153,7 @@
 "djB" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/grille,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/wall/r_wall,
 /area/atmos)
 "djC" = (
@@ -67301,7 +67297,7 @@
 "djS" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/grille,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "mair_in_meter";
 	name = "Mixed Air Tank In"
 	},
@@ -67316,7 +67312,7 @@
 "djU" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/grille,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "mair_out_meter";
 	name = "Mixed Air Tank Out"
 	},
@@ -67692,7 +67688,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "dkR" = (
@@ -69303,7 +69299,7 @@
 /turf/simulated/wall/r_wall,
 /area/aisat/atmospherics)
 "dpe" = (
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow,
 /turf/simulated/wall/r_wall,
 /area/aisat/atmospherics)
@@ -70887,8 +70883,7 @@
 /area/security/permabrig)
 "eje" = (
 /obj/structure/chair/sofa/corner{
-	color = "#85130b";
-	dir = 1
+	color = "#85130b"
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
@@ -76032,7 +76027,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/maintenance/genetics)
 "kiy" = (
@@ -76702,7 +76697,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -79694,7 +79689,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -81345,7 +81340,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/visible,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "qrd" = (
@@ -82039,7 +82034,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 2;
 	pixel_x = 6
 	},
@@ -84404,7 +84399,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"

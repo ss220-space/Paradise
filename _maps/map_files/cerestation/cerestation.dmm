@@ -11172,7 +11172,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -12158,7 +12158,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "bwu" = (
@@ -12576,14 +12576,14 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/wall/r_wall/coated,
 /area/engine/supermatter)
 "byD" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/wall/r_wall/coated,
 /area/engine/supermatter)
 "byE" = (
@@ -30744,9 +30744,6 @@
 /turf/simulated/floor/plating,
 /area/atmos/distribution)
 "dAn" = (
-/obj/structure/cable/orange{
-	icon_state = "1-4"
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
@@ -35300,7 +35297,7 @@
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing)
 "eUu" = (
@@ -39583,7 +39580,7 @@
 /area/civilian/vacantoffice)
 "gjD" = (
 /obj/machinery/light,
-/obj/machinery/dna_scannernew,
+/obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -44150,7 +44147,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/visible/cyan,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "hAl" = (
@@ -49508,7 +49505,7 @@
 /area/maintenance/starboard)
 "jdT" = (
 /obj/structure/cable/orange{
-	icon_state = "2-8"
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -53928,13 +53925,16 @@
 /obj/item/book/manual/medical_cloning{
 	pixel_y = 6
 	},
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
-	},
 /obj/structure/table/glass,
 /obj/item/storage/box/masks{
 	pixel_y = 5
+	},
+/obj/machinery/power/apc{
+	dir = 4;
+	pixel_x = 24
+	},
+/obj/structure/cable/orange{
+	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -57960,7 +57960,7 @@
 	dir = 8;
 	on = 1
 	},
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	pixel_x = 26
 	},
 /turf/simulated/floor/engine,
@@ -67600,7 +67600,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "orl" = (
@@ -71044,7 +71044,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "pry" = (
@@ -74220,13 +74220,11 @@
 /area/maintenance/atmospherics)
 "qkQ" = (
 /obj/structure/rack,
-/obj/item/circuitboard/cloning,
 /obj/item/circuitboard/med_data{
 	pixel_x = 3;
 	pixel_y = -3
 	},
 /obj/item/circuitboard/clonescanner,
-/obj/item/circuitboard/clonepod,
 /obj/item/circuitboard/scan_consolenew,
 /obj/item/circuitboard/cryo_tube{
 	pixel_x = 3
@@ -87813,7 +87811,7 @@
 	dir = 4;
 	on = 1
 	},
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	pixel_x = 26
 	},
 /turf/simulated/floor/engine,
@@ -94733,9 +94731,7 @@
 	},
 /area/maintenance/engineering)
 "wxv" = (
-/obj/machinery/computer/cloning{
-	dir = 1
-	},
+/obj/structure/computerframe,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"
@@ -94807,7 +94803,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -97018,14 +97014,11 @@
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
 "xhW" = (
-/obj/structure/cable/orange{
-	icon_state = "0-8"
-	},
-/obj/machinery/power/apc{
+/obj/machinery/constructable_frame/machine_frame,
+/obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = 24
 	},
-/obj/machinery/clonepod,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"

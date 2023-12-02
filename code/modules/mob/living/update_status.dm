@@ -43,7 +43,7 @@
 
 // Whether the mob can hear things
 /mob/living/can_hear()
-	. = !(DEAF in mutations)
+	. = !(DEAF in mutations) && !HAS_TRAIT(src, TRAIT_DEAF)
 
 // Whether the mob is able to see
 // `information_only` is for stuff that's purely informational - like blindness overlays

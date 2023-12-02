@@ -32,10 +32,6 @@
 	var/list/protected_jobs = list()
 	/// Species that can't be antags.
 	var/list/protected_species = list()
-	/// Species duplicate for antags. Remember to clear the list you get with [get_players_for_role()] from duplicate minds. See thief game mode setup.
-	var/list/prefered_species = list()
-	/// If prefered_species list is not empty antagonist mind with that specie will be duplicated passed number of times in get_players_for_role().
-	var/prefered_species_mod = 0
 	/// How many players should press ready for mode to activate.
 	var/required_players = 0
 	/// How many antagonists are required for mode start.
@@ -293,17 +289,16 @@
  * Returns a list of player minds who had the antagonist role set to yes, regardless of recomended_enemies.
  * Jobbans and restricted jobs are checked. Species lock and prefered species are checked. List is already shuffled.
  */
-/datum/game_mode/proc/get_players_for_role(role)
+/datum/game_mode/proc/get_players_for_role(role, list/prefered_species)
 	var/list/players = list()
 	var/list/candidates = list()
 
-	var/roletext = get_roletext(role)
-
-	// Assemble a list of active players without jobbans.
+	// Assemble a list of active players without jobbans and role enabled
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(!player.client || !player.ready || !player.has_valid_preferences() \
-			|| jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, roletext) \
-			|| !player_old_enough_antag(player.client, role))
+			|| jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, role) \
+			|| !player_old_enough_antag(player.client, role) || player.client.skip_antag \
+			|| !(role in player.client.prefs.be_special))
 			continue
 
 		players += player
@@ -313,23 +308,17 @@
 
 	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
 	for(var/mob/new_player/player in players)
-		if(player.client.skip_antag)
+		if(length(protected_species) && (player.client.prefs.species in protected_species))
 			continue
-
-		if((role in player.client.prefs.be_special) && !(player.client.prefs.species in protected_species))
-			player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
-			candidates += player.mind
-			if(length(prefered_species) && (player.client.prefs.species in prefered_species))
+		if(length(restricted_jobs) && (player.mind.assigned_role in restricted_jobs))
+			continue
+		player_draft_log += "[player.key] had [role] enabled, so we are drafting them."
+		candidates += player.mind
+		if(length(prefered_species))
+			var/prefered_species_mod = prefered_species[player.client.prefs.species]
+			if(isnum(prefered_species_mod))
 				for (var/i in 1 to prefered_species_mod)	//prefered mod
 					candidates += player.mind
-			players -= player
-
-	// Remove candidates who want to be antagonist but have a job that precludes it
-	if(restricted_jobs)
-		for(var/datum/mind/player in candidates)
-			for(var/job in restricted_jobs)
-				if(player.assigned_role == job)
-					candidates -= player
 
 	return candidates
 
@@ -508,10 +497,6 @@
 	for(var/datum/objective/objective in player.get_all_objectives())
 		to_chat(player.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
-
-
-/proc/get_roletext(role)
-	return role
 
 
 /proc/get_nuke_code()

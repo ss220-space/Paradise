@@ -58,7 +58,7 @@
 		return
 	if(allowed(user))
 		locked = !locked
-		playsound(loc, 'sound/machines/click.ogg', 15, 1, -3)
+		playsound(loc, pick(togglelock_sound), 15, TRUE, -3)
 		visible_message("<span class='notice'>The locker has been [locked ? null : "un"]locked by [user].</span>")
 		update_icon()
 	else

@@ -1247,23 +1247,22 @@
 		if(GLOB.master_mode != "antag-paradise" && GLOB.secret_force_mode != "antag-paradise")
 			return alert(usr, "The game mode has to be Antag Paradise!", null, null, null, null)
 
-		var/dat = {"<meta charset="UTF-8"><b>What antag weights you want to change. Higher the weight higher the chance for antag to roll. Leave everything at zero if you want total randomness.</b><hr>"}
+		var/dat = {"<meta charset="UTF-8"><b>Edit the antag weights for minor antagonists. Higher the weight higher the chance for antag to roll. Leave everything at zero (reset) if you want default behavior.</b><hr>"}
 		dat += {"<table><tr><td><b>Antag</b></td><td><b>Weight</b></td></tr>"}
-		for(var/antag in GLOB.antag_paradise_weights)
-			dat += {"<tr><td>[capitalize(antag)]</td><td><A href='?src=[UID()];change_weights2=weights_normal_[antag]'>\[[GLOB.antag_paradise_weights[antag]]\]</A></td></tr>"}
+		var/list/antags_list = GLOB.antag_paradise_weights ? GLOB.antag_paradise_weights : config_to_roles(CONFIG_GET(keyed_list/antag_paradise_weights))
+		for(var/antag in antags_list)
+			dat += {"<tr><td>[capitalize(antag)]</td><td><A href='?src=[UID()];change_weights2=weights_normal_[antag]'>\[[antags_list[antag]]\]</A></td></tr>"}
 
-		dat += {"</table><br><b>Edit the chances to spawn special antags. Only one antag from below will be chosen. Rolling NOTHING means no special antag at all.</b><hr>"}
+		dat += {"</table><br><b>Edit the antag weights for special antag. Only one antag from below will be chosen for the mode. Rolling NOTHING means no special antag at all.</b><hr>"}
 		dat += {"<table><tr><td><b>Antag</b></td><td><b>Weight</b></td></tr>"}
-		for(var/antag in GLOB.antag_paradise_special_weights)
-			var/flavour = antag
-			if(antag == ROLE_TRAITOR)
-				flavour = "hijacker"
-			dat += {"<tr><td>[capitalize(flavour)]</td><td><A href='?src=[UID()];change_weights2=weights_special_[antag]'>\[[GLOB.antag_paradise_special_weights[antag]]\]</A></td></tr>"}
+		var/list/special_antags_list = GLOB.antag_paradise_special_weights ? GLOB.antag_paradise_special_weights : config_to_roles(CONFIG_GET(keyed_list/antag_paradise_special_weights))
+		for(var/antag in special_antags_list)
+			dat += {"<tr><td>[capitalize(antag)]</td><td><A href='?src=[UID()];change_weights2=weights_special_[antag]'>\[[special_antags_list[antag]]\]</A></td></tr>"}
 
-		dat += {"</table><br><b>Edit the chance to roll double antag for Traitor role. Leave it as it is if you want default 10% chance.</b><hr>"}
-		dat += {"<table><tr><td>Chance = </td><td><A href='?src=[UID()];change_weights2=chance'>[isnull(GLOB.antag_paradise_double_antag_chance) ? "DEFAULT (10%)" : "[GLOB.antag_paradise_double_antag_chance]%"]</A></td></tr></table>"}
+		dat += {"</table><br><b>Edit the chance to roll double antag ([capitalize(ROLE_VAMPIRE)]/[capitalize(ROLE_CHANGELING)]) for [capitalize(ROLE_TRAITOR)].</b><hr>"}
+		dat += {"<table><tr><td>Chance = </td><td><A href='?src=[UID()];change_weights2=chance'>[isnull(GLOB.antag_paradise_double_antag_chance) ? "[CONFIG_GET(number/antag_paradise_double_antag_chance)]" : "[GLOB.antag_paradise_double_antag_chance]%"]</A></td></tr></table>"}
 
-		dat += {"<hr><br><A href='?src=[UID()];change_weights2=reset'>Reset everything to default.</A><br>"}
+		dat += {"<br><A href='?src=[UID()];change_weights2=reset'>Reset everything to default.</A><br>"}
 
 		usr << browse(dat, "window=change_weights")
 
@@ -1277,22 +1276,9 @@
 
 		var/command = href_list["change_weights2"]
 		if(command == "reset")
-			var/list/config_weights = CONFIG_GET(keyed_list/antag_paradise_weights)
-			if(islist(config_weights) && length(config_weights))
-				for(var/antag in GLOB.antag_paradise_weights)
-					GLOB.antag_paradise_weights[antag] = isnull(config_weights[antag]) ? 0 : config_weights[antag]
-			else
-				for(var/antag in GLOB.antag_paradise_weights)
-					GLOB.antag_paradise_weights[antag] = 0
-
-			var/list/config_weights_special = CONFIG_GET(keyed_list/antag_paradise_special_weights)
-			GLOB.antag_paradise_special_weights[ROLE_TRAITOR] = config_weights_special["hijacker"]
-			GLOB.antag_paradise_special_weights[ROLE_MALF_AI] = config_weights_special["malfai"]
-			GLOB.antag_paradise_special_weights[ROLE_NINJA] = config_weights_special["ninja"]
-			GLOB.antag_paradise_special_weights[ROLE_NONE] = config_weights_special["nothing"]
-
-			var/double_antag_chance = CONFIG_GET(number/antag_paradise_double_antag_chance)
-			GLOB.antag_paradise_double_antag_chance = double_antag_chance ? double_antag_chance : null
+			GLOB.antag_paradise_weights = null
+			GLOB.antag_paradise_special_weights = null
+			GLOB.antag_paradise_double_antag_chance = null
 			log_and_message_admins(span_notice("resets everything to default in Antag Paradise gamemode."))
 
 		else if(command == "chance")
@@ -1304,6 +1290,8 @@
 			log_and_message_admins(span_notice("set the [choice]% chance to roll double antag for [capitalize(ROLE_TRAITOR)] antagonist in Antag Paradise gamemode."))
 
 		else if(findtext(command, "weights_normal_"))
+			if(!GLOB.antag_paradise_weights)
+				GLOB.antag_paradise_weights = config_to_roles(CONFIG_GET(keyed_list/antag_paradise_weights))
 			var/antag = replacetext(command, "weights_normal_", "")
 			var/choice = input(usr, "Adjust the weight for [capitalize(antag)]", "Antag Weight Adjustment", 0) as null|num
 			if(isnull(choice))
@@ -1313,16 +1301,15 @@
 			log_and_message_admins(span_notice("set the weight for [capitalize(antag)] as antagonist to [choice] in Antag Paradise gamemode."))
 
 		else if(findtext(command, "weights_special_"))
+			if(!GLOB.antag_paradise_special_weights)
+				GLOB.antag_paradise_special_weights = config_to_roles(CONFIG_GET(keyed_list/antag_paradise_special_weights))
 			var/antag = replacetext(command, "weights_special_", "")
-			var/flavour = antag
-			if(antag == ROLE_TRAITOR)
-				flavour = "hijacker"
-			var/choice = input(usr, "Adjust the weight for [capitalize(flavour)]", "Antag Weight Adjustment", 0) as null|num
+			var/choice = input(usr, "Adjust the weight for [capitalize(antag)]", "Antag Weight Adjustment", 0) as null|num
 			if(isnull(choice))
 				return
 			choice = round(clamp(choice, 0, 100))
 			GLOB.antag_paradise_special_weights[antag] = choice
-			log_and_message_admins(span_notice("set the weight for [capitalize(flavour)] as special antagonist to [choice] in Antag Paradise gamemode."))
+			log_and_message_admins(span_notice("set the weight for [capitalize(antag)] as special antagonist to [choice] in Antag Paradise gamemode."))
 		.(href, list("change_weights"=1))
 
 	else if(href_list["monkeyone"])
@@ -3607,7 +3594,7 @@
 					log_sql("[usr.key] | [response]")
 		else if(answer == "no")
 			log_sql("[usr.key] | Reported no server hang. Please investigate")
-	
+
 	else if(href_list["adminalert"])
 		if(!check_rights(R_ADMIN))
 			return

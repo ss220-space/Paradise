@@ -54,6 +54,8 @@
 	throwforce = 10
 	sharp = 1
 	embed_chance = 20
+	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
+	drop_sound = 'sound/items/handling/knife_drop.ogg'
 	embedded_ignore_throwspeed_threshold = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
@@ -84,6 +86,8 @@
 	embed_chance = 20
 	embedded_ignore_throwspeed_threshold = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
+	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
+	drop_sound = 'sound/items/handling/knife_drop.ogg'
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 50
@@ -106,19 +110,20 @@
 	item_state = "basalt_katana"
 	force = 30
 	block_chance = 30
+	var/faction_bonus_force = 30
+	var/nemesis_factions = list("mining", "boss")
 
-	var/fauna_damage_bonus = 40
-	var/fauna_damage_type = BRUTE
-
-/obj/item/katana/basalt/afterattack(atom/target, mob/user, proximity)
+/obj/item/katana/basalt/attack(mob/living/target, mob/living/carbon/human/user)
+	var/nemesis_faction = FALSE
+	if(LAZYLEN(nemesis_factions))
+		for(var/F in target.faction)
+			if(F in nemesis_factions)
+				nemesis_faction = TRUE
+				force += faction_bonus_force
+				break
 	. = ..()
-	if(!proximity)
-		return
-	if(isliving(target))
-		var/mob/living/L = target
-		if(ismegafauna(L) || istype(L, /mob/living/simple_animal/hostile/asteroid))
-			L.apply_damage(fauna_damage_bonus,fauna_damage_type)
-			playsound(L, 'sound/weapons/sear.ogg', 100, 1)
+	if(nemesis_faction)
+		force -= faction_bonus_force
 
 /obj/item/harpoon
 	name = "harpoon"
@@ -213,6 +218,8 @@
 	throwforce = 12
 	attack_verb = list("beat", "smacked")
 	w_class = WEIGHT_CLASS_HUGE
+	pickup_sound = 'sound/items/handling/wooden_pickup.ogg'
+	drop_sound = 'sound/items/handling/wooden_drop.ogg'
 	var/next_throw_time = 0
 	var/homerun_ready = 0
 	var/homerun_able = 0

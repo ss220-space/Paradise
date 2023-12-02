@@ -140,6 +140,13 @@
 	tastes = list("potato" = 1, "pickles" = 1, "rice" = 1, "Russia" = 1)
 	foodtype = VEGETABLES
 
+/obj/item/reagent_containers/food/snacks/soup/shavelsoup
+	name = "shavel soup"
+	desc = "Light soup with fresh shavel and vegetables."
+	icon_state = "shavelsoup"
+	filling_color = "#135f13"
+	list_reagents = list("nutriment" = 4, "water" = 5, "vitamin" = 5)
+	tastes = list("sour weed" = 1, "potato" = 1)
 //////////////////////
 //		Stews		//
 //////////////////////

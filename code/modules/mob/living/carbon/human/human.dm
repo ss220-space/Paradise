@@ -6,43 +6,30 @@
 	icon_state = "body_m_s"
 	deathgasp_on_death = TRUE
 
+
 /mob/living/carbon/human/New(loc)
 	icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.
 	. = ..()
 
+
 /mob/living/carbon/human/Initialize(mapload, datum/species/new_species = /datum/species/human)
-	if(!dna)
-		dna = new /datum/dna(null)
-		// Species name is handled by set_species()
+	create_dna()
 
 	. = ..()
 
-	set_species(new_species, 1, delay_icon_update = 1, skip_same_check = TRUE)
+	if(!tts_seed)
+		tts_seed = SStts.get_random_seed(src)
 
-	if(dna.species)
-		real_name = dna.species.get_random_name(gender)
-		name = real_name
-		if(mind)
-			mind.name = real_name
-
-		if (!tts_seed)
-			tts_seed = SStts.get_random_seed(src)
+	setup_dna(new_species)
 
 	create_reagents(330)
 
 	handcrafting = new()
 
-	// Set up DNA.
-	if(dna)
-		dna.ready_dna(src)
-		dna.real_name = real_name
-		dna.tts_seed_dna = tts_seed
-		sync_organ_dna(1)
-
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
-
 	UpdateAppearance()
 	GLOB.human_list += src
+
 
 /mob/living/carbon/human/OpenCraftingMenu()
 	handcrafting.ui_interact(src)
@@ -209,98 +196,74 @@
 		stat("Spacepod Charge", "[istype(S.battery) ? "[(S.battery.charge / S.battery.maxcharge) * 100]" : "No cell detected"]")
 		stat("Spacepod Integrity", "[!S.health ? "0" : "[(S.health / initial(S.health)) * 100]"]%")
 
+///Define used for calculating explosve damage and effects upon humanoids. Result is >= 0
+#define ex_armor_reduction(value, armor) (clamp(value * (1 - (armor / 100)), 0, INFINITY))
+
 /mob/living/carbon/human/ex_act(severity)
-	var/shielded = 0
-	var/b_loss = null
-	var/f_loss = null
+	var/bruteloss = 0
+	var/burnloss = 0
 
 	if(status_flags & GODMODE)
 		return 0
 
+	var/armor = getarmor(null, "bomb")	//Average bomb protection
+	var/limb_loss_reduction = FLOOR(armor / 25, 1) //It's guaranteed that every 25th armor point will protect from one delimb
+	var/limbs_affected = 0
+
 	switch(severity)
 		if(1)
-			b_loss += 500
-			if(!prob(getarmor(null, "bomb")))
+			if(prob(ex_armor_reduction(100, armor)) && armor < 100)
 				gib()
 				return 0
 			else
+				bruteloss += 500
+				limbs_affected = pick(2,3,4)
+				var/throw_distance = ex_armor_reduction(200, armor)
+				var/throw_speed = ex_armor_reduction(4, armor)
 				var/atom/target = get_edge_target_turf(src, get_dir(src, get_step_away(src, src)))
-				throw_at(target, 200, 4)
-
-				var/limbs_affected = pick(2,3,4)
-				var/obj/item/organ/external/processing_dismember
-				var/list/valid_limbs = bodyparts.Copy()
-
-				while(limbs_affected != 0 && valid_limbs.len > 0)
-					processing_dismember = pick(valid_limbs)
-					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-						processing_dismember.droplimb(1,DROPLIMB_SHARP,0,1)
-						valid_limbs -= processing_dismember
-						limbs_affected -= 1
-					else valid_limbs -= processing_dismember
-
+				throw_at(target, throw_distance, throw_speed)
 		if(2)
-			if(!shielded) //literally nothing could change shielded before this so wth
-				b_loss += 60
-
-			f_loss += 60
-
-			var/limbs_affected = 0
-			var/obj/item/organ/external/processing_dismember
-			var/list/valid_limbs = bodyparts.Copy()
-
-			if(prob(getarmor(null, "bomb")))
-				b_loss = b_loss/1.5
-				f_loss = f_loss/1.5
-
-				limbs_affected = pick(1, 1, 2)
-			else
-				limbs_affected = pick(1, 2, 3)
-
-			while(limbs_affected != 0 && valid_limbs.len > 0)
-				processing_dismember = pick(valid_limbs)
-				if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-					processing_dismember.droplimb(1,DROPLIMB_SHARP,0,1)
-					valid_limbs -= processing_dismember
-					limbs_affected -= 1
-				else valid_limbs -= processing_dismember
+			bruteloss += 60
+			burnloss += 60
+			limbs_affected = pick(1, 2, 3)
 
 			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
-				AdjustDeaf(120 SECONDS)
+				AdjustDeaf(ex_armor_reduction(120 SECONDS, armor))
 				var/obj/item/organ/internal/ears/ears = get_int_organ(/obj/item/organ/internal/ears)
 				if(istype(ears))
-					ears.receive_damage(30)
+					ears.receive_damage(ex_armor_reduction(30, armor))
 
-			if(prob(70) && !shielded)
-				Paralyse(20 SECONDS)
+			Paralyse(ex_armor_reduction(20 SECONDS, armor))
 
 		if(3)
-			b_loss += 30
-			if(prob(getarmor(null, "bomb")))
-				b_loss = b_loss/2
-
-			else
-
-				var/limbs_affected = pick(0, 1)
-				var/obj/item/organ/external/processing_dismember
-				var/list/valid_limbs = bodyparts.Copy()
-
-				while(limbs_affected != 0 && valid_limbs.len > 0)
-					processing_dismember = pick(valid_limbs)
-					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-						processing_dismember.droplimb(1,DROPLIMB_SHARP,0,1)
-						valid_limbs -= processing_dismember
-						limbs_affected -= 1
-					else valid_limbs -= processing_dismember
+			bruteloss += 30
+			limbs_affected = pick(0, 1)
 
 			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
-				AdjustDeaf(60 SECONDS)
-			if(prob(50) && !shielded)
-				Paralyse(20 SECONDS)
+				AdjustDeaf(ex_armor_reduction(60 SECONDS, armor))
 
-	take_overall_damage(b_loss,f_loss, TRUE, used_weapon = "Explosive Blast")
+			Paralyse(ex_armor_reduction(20 SECONDS, armor))
+
+	limbs_affected = max(limbs_affected - limb_loss_reduction, 0)
+
+	if(limbs_affected > 0)
+		process_dismember(limbs_affected)
+	bruteloss = ex_armor_reduction(bruteloss, armor)
+	burnloss = ex_armor_reduction(burnloss, armor)
+	take_overall_damage(bruteloss,burnloss, TRUE, used_weapon = "Explosive Blast")
 
 	..()
+
+/mob/living/carbon/human/proc/process_dismember(limbs_affected)
+	var/list/valid_limbs = bodyparts.Copy()
+
+	while(limbs_affected && valid_limbs.len)
+		var/obj/item/organ/external/processing_dismember = pick_n_take(valid_limbs)
+		if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
+			processing_dismember.droplimb(1,DROPLIMB_SHARP,0,1)
+			limbs_affected--
+
+#undef ex_armor_reduction
 
 /mob/living/carbon/human/blob_act(obj/structure/blob/B)
 	if(stat == DEAD)
@@ -1199,25 +1162,63 @@
 		to_chat(usr, "<span class='notice'>[self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)].</span>")
 
 
+/**
+  * Set up DNA and species.
+  *
+  * Arguments:
+  * * new_species - The new species to assign.
+  */
+/mob/living/carbon/human/proc/setup_dna(datum/species/new_species)
+	set_species(new_species, use_default_color = TRUE, delay_icon_update = TRUE, skip_same_check = TRUE)
+	// Name
+	real_name = dna.species.get_random_name(gender)
+	name = real_name
+	if(mind)
+		mind.name = real_name
+
+	// DNA ready
+	dna.ready_dna(src)
+	dna.species.handle_dna(src)
+	dna.real_name = real_name
+	dna.tts_seed_dna = tts_seed
+	sync_organ_dna()
+
+
 /mob/living/carbon/human/proc/change_dna(datum/dna/new_dna, include_species_change = FALSE, keep_flavor_text = FALSE)
 	if(include_species_change)
-		set_species(new_dna.species.type, retain_damage = TRUE)
+		set_species(new_dna.species.type, retain_damage = TRUE, transformation = TRUE, keep_missing_bodyparts = TRUE)
 	dna = new_dna.Clone()
+	if(include_species_change) //We have to call this after new_dna.Clone() so that species actions don't get overwritten
+		dna.species.on_species_gain(src)
 	real_name = new_dna.real_name
 	domutcheck(src, null, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
 	if(!keep_flavor_text)
 		flavor_text = ""
 	dna.UpdateSE()
 	dna.UpdateUI()
-	sync_organ_dna(TRUE)
+	sync_organ_dna()
 	UpdateAppearance()
 	sec_hud_set_ID()
 
 
-/mob/living/carbon/human/proc/set_species(datum/species/new_species, default_colour, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE, save_appearance = FALSE)
-	if(!skip_same_check)
-		if(dna.species.name == initial(new_species.name))
-			return
+/**
+ * Change a mob's species.
+ *
+ * Arguments:
+ * * new_species - The user's new species.
+ * * use_default_color - If `TRUE`, use the species' default color for the new mob.
+ * * delay_icon_update - If `TRUE`, UpdateAppearance() won't be called in this proc.
+ * * skip_same_check - If `TRUE`, don't bail out early if we would be changing to our current species and run through everything anyway.
+ * * retain_damage - If `TRUE`, damage on the mob will be re-applied post-transform. Otherwise, the mob will have its organs healed.
+ * * transformation - If `TRUE`, don't apply new species traits to the mob. A false value should be used when creating a new mob instead of transforming into a new species.
+ * * keep_missing_bodyparts - If `TRUE`, any bodyparts (legs, head, etc.) and racial internal organs (heart, liver, etc.) that were missing on the mob before species change will be missing post-change as well. Note that racial internal organs of new species (kidan lantern, wryn antennae, etc.) will be always created.
+ * * transfer_special_internals - If `TRUE`, all special internal organs (implants, spider eggs, xeno embryos, etc.), will be present on the mob post-change. Does not affect racial internal organs (heart, liver, etc.).
+ * * save_appearance - If `TRUE`, all bodyparts appearances (head hair style, body tattoos, tail type, etc.) will be transfered to new species.
+ */
+/mob/living/carbon/human/proc/set_species(datum/species/new_species, use_default_color, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE, transformation = FALSE, keep_missing_bodyparts = FALSE, transfer_special_internals = TRUE, save_appearance = FALSE)
+	if(!skip_same_check && dna.species.name == initial(new_species.name))
+		return
+
 	var/datum/species/oldspecies = dna.species
 
 	if(oldspecies)
@@ -1230,16 +1231,15 @@
 		if(gender == PLURAL && oldspecies.has_gender)
 			change_gender(pick(MALE, FEMALE))
 
-		if(oldspecies.default_genes.len)
-			oldspecies.handle_dna(src, TRUE) // Remove any genes that belong to the old species
+		oldspecies.handle_dna(src, remove = TRUE) // Remove any genes that belong to the old species
 
 		oldspecies.on_species_loss(src)
 
 	dna.species = new new_species()
 
-	tail = save_appearance ? oldspecies.tail : dna.species.tail
+	tail = (save_appearance && oldspecies) ? oldspecies.tail : dna.species.tail
 
-	wing = save_appearance ? oldspecies.wing : dna.species.wing
+	wing = (save_appearance && oldspecies) ? oldspecies.wing : dna.species.wing
 
 	maxHealth = dna.species.total_health
 
@@ -1252,7 +1252,7 @@
 	hunger_drain = dna.species.hunger_drain
 	digestion_ratio = dna.species.digestion_ratio
 
-	if(dna.species.base_color && default_colour)
+	if(dna.species.base_color && use_default_color)
 		//Apply colour.
 		skin_colour = dna.species.base_color
 	else
@@ -1262,14 +1262,56 @@
 		s_tone = 0
 
 	var/list/thing_to_check = list(slot_wear_mask, slot_head, slot_shoes, slot_gloves, slot_l_ear, slot_r_ear, slot_glasses, slot_l_hand, slot_r_hand, slot_neck)
-	var/list/kept_items[0]
-	var/list/item_flags[0]
+	var/list/kept_items = list()
+	var/list/item_flags = list()
 	for(var/thing in thing_to_check)
 		var/obj/item/I = get_item_by_slot(thing)
 		if(I)
 			kept_items[I] = thing
 			item_flags[I] = I.flags
-			I.flags = 0 // Temporary set the flags to 0
+			I.flags = NONE // Temporary set the flags to NONE
+
+	if(!transformation) //Distinguish between creating a mob and switching species
+		dna.species.on_species_gain(src)
+
+	var/list/missing_bodyparts = list()  // should line up here to pop out only what's missing
+	if(keep_missing_bodyparts)
+		if(!oldspecies)
+			stack_trace("Keep missing bodypart argument set to true, [src] has no original species to compare.")
+
+		for(var/organ_name in bodyparts_by_name)
+			if(isnull(bodyparts_by_name[organ_name]))
+				missing_bodyparts |= organ_name
+
+		for(var/index in dna.species.has_organ)
+			if(!(index in oldspecies.has_organ))	// new species organs are fine to create
+				continue
+			var/obj/item/organ/internal/organ_check = dna.species.has_organ[index]
+			var/organ_found
+			for(var/O in internal_organs)
+				var/obj/item/organ/internal/organ = O
+				organ_found = (organ.slot == initial(organ_check.slot))
+				if(organ_found)
+					break
+			if(!organ_found)
+				missing_bodyparts |= index
+
+	var/list/additional_organs = list()
+	if(transfer_special_internals)
+		if(!oldspecies)
+			stack_trace("Transfer special internals argument set to true, [src] has no original species to compare.")
+
+		var/list/racial_organs = (oldspecies.has_organ|dna.species.has_organ)	// all internal organs, except racial, will be recreated
+		for(var/O in internal_organs)
+			var/obj/item/organ/internal/organ_check = O
+			var/organ_found
+			for(var/index in racial_organs)
+				var/obj/item/organ/internal/organ = racial_organs[index]
+				organ_found = (initial(organ.slot) == organ_check.slot)
+				if(organ_found)
+					break
+			if(!organ_found)
+				additional_organs |= organ_check.type
 
 	var/list/old_bodyparts
 	if(save_appearance)
@@ -1301,7 +1343,7 @@
 			internal_damages += list(stats)
 
 		//Create the new organs for the species change
-		dna.species.create_organs(src)
+		dna.species.create_organs(src, missing_bodyparts, additional_organs)
 
 		//Apply relevant damages and variables to the new organs.
 		for(var/B in bodyparts)
@@ -1331,21 +1373,23 @@
 				if(istype(I, organ_type))
 					var/damage = part[2]
 					var/broken = part[3]
-					I.receive_damage(damage, 1)
+					I.receive_damage(damage, TRUE)
 					if(broken && !(I.status & ORGAN_BROKEN))
 						I.status |= ORGAN_BROKEN
 					qdel(part)
 
 	else
-		dna.species.create_organs(src)
+		dna.species.create_organs(src, missing_bodyparts, additional_organs)
 
 	for(var/obj/item/thing in kept_items)
-		equip_to_slot_if_possible(thing, kept_items[thing])
-		thing.flags = item_flags[thing] // Reset the flags to the origional ones
+		var/equipped = equip_to_slot(thing, kept_items[thing], initial = TRUE)	// we can skip [mob_can_equip()] checks here
+		thing.flags = item_flags[thing] // Reset the flags to the original ones
+		if(!equipped)
+			thing.dropped() // Ensures items know they are dropped. Using their original flags
 
 	//Handle hair/head accessories for created mobs.
 	var/obj/item/organ/external/head/H = get_organ("head")
-	if(save_appearance && old_bodyparts)
+	if(istype(H) && save_appearance && old_bodyparts)
 		var/obj/item/organ/external/head/old_head = old_bodyparts["head"]
 		if(istype(old_head))
 			if(old_head.h_style)
@@ -1361,7 +1405,7 @@
 			if(old_head.headacc_colour)
 				H.headacc_colour = old_head.headacc_colour
 
-	else
+	else if(istype(H))
 		if(dna.species.default_hair)
 			H.h_style = dna.species.default_hair
 		else
@@ -1398,8 +1442,6 @@
 
 	dna.real_name = real_name
 
-	dna.species.on_species_gain(src)
-
 	update_sight()
 
 	dna.species.handle_dna(src) //Give them whatever special dna business they got.
@@ -1417,6 +1459,7 @@
 		return TRUE
 	else
 		return FALSE
+
 
 /mob/living/carbon/human/get_default_language()
 	if(default_language)

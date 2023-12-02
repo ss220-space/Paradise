@@ -85,6 +85,14 @@
 	display_name = "Grey Plushie"
 	path = /obj/item/toy/plushie/greyplushie
 
+/datum/gear/plasmamanplushie
+	display_name = "Plasmaman Plushie"
+	path = /obj/item/toy/plushie/plasmamanplushie
+
+/datum/gear/shardplushie
+	display_name = "Shard Plushie"
+	path = /obj/item/toy/plushie/shardplushie
+
 /datum/gear/akulaplushie
 	display_name = "Akula Plushie"
 	path = /obj/item/toy/plushie/blahaj/twohanded

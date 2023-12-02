@@ -71,6 +71,8 @@
 	if(target.mob_size > mob_size)
 		to_chat(user, "<span class='warning'>Ваша переноска слишком мала!</span>")
 		return FALSE
+	if(istype(target, /mob/living/simple_animal/revenant))
+		return FALSE
 	//if(target.mob_size < mob_size)
 	//	to_chat(user, "<span class='warning'>Ваша переноска слишком большая!</span>")
 	//	return FALSE

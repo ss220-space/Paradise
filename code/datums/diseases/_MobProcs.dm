@@ -114,13 +114,13 @@
 	var/permeability_mod = clamp((2 - V.permeability_mod), 0.1, 1)
 	var/mask_protection_mod = 1
 	if(wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH))
-		mask_protection_mod = 0.3
+		mask_protection_mod = 0.5
 		if(istype(wear_mask, /obj/item/clothing/mask/breath))
-			mask_protection_mod = 0.4
+			mask_protection_mod = 0.7
 		if(istype(wear_mask, /obj/item/clothing/mask/gas))
-			mask_protection_mod = 0.6
-		if(istype(wear_mask, /obj/item/clothing/mask/surgical) || istype(wear_mask, /obj/item/clothing/mask/breath/medical))
 			mask_protection_mod = 0.9
+		if(istype(wear_mask, /obj/item/clothing/mask/surgical) || istype(wear_mask, /obj/item/clothing/mask/breath/medical))
+			mask_protection_mod = 0.99
 
 	if(prob(100 * permeability_mod * internals_mod * mask_protection_mod))
 		return TRUE

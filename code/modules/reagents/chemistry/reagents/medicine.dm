@@ -118,6 +118,7 @@
 			Org.rejuvenate()
 
 /datum/reagent/medicine/cryoxadone
+	data = list("diseases" = null)
 	name = "Cryoxadone"
 	id = "cryoxadone"
 	description = "A plasma mixture with almost magical healing powers. Its main limitation is that the targets body temperature must be under 265K for it to metabolise correctly."
@@ -140,6 +141,9 @@
 			if(head)
 				head.disfigured = FALSE
 	return ..() | update_flags
+
+/datum/reagent/medicine/cryoxadone/on_merge(list/mix_data)
+	merge_diseases_data(mix_data)
 
 /datum/reagent/medicine/rezadone
 	name = "Rezadone"
@@ -802,7 +806,7 @@
 				if(!M.ghost_can_reenter())
 					M.visible_message("<span class='warning'>[M] twitches slightly, but is otherwise unresponsive!</span>")
 					return
-				if(!M.suiciding && !(NOCLONE in M.mutations) && (!M.mind || M.mind && M.mind.is_revivable()))
+				if(!M.suiciding && !(NOCLONE in M.mutations) && (!M.mind || M.mind?.is_revivable()))
 					var/time_dead = world.time - M.timeofdeath
 					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
 					M.adjustCloneLoss(50)
@@ -824,8 +828,8 @@
 									O.germ_level = INFECTION_LEVEL_THREE
 						H.update_body()
 
+					M.update_revive(TRUE, TRUE)
 					M.grab_ghost()
-					M.update_revive()
 					add_attack_logs(M, M, "Revived with strange reagent") //Yes, the logs say you revived yourself.
 	..()
 

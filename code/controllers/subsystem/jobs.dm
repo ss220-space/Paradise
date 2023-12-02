@@ -22,9 +22,7 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/Initialize()
-	if(!length(occupations))
-		SetupOccupations()
-	LoadJobs("config/jobs.txt")
+	SetupOccupations()
 
 
 // Only fires every 5 minutes
@@ -34,12 +32,12 @@ SUBSYSTEM_DEF(jobs)
 	batch_update_player_exp(announce = FALSE) // Set this to true if you ever want to inform players about their EXP gains
 
 
-/datum/controller/subsystem/jobs/proc/SetupOccupations(var/list/faction = list("Station"))
+/datum/controller/subsystem/jobs/proc/SetupOccupations()
 	occupations = list()
 	var/list/all_jobs = subtypesof(/datum/job)
 	if(!all_jobs.len)
 		to_chat(world, "<span class='warning'>Ошибка выдачи профессий, датумы профессий не найдены</span>")
-		return 0
+		return
 
 	for(var/J in all_jobs)
 		var/datum/job/job = new J()
@@ -49,30 +47,34 @@ SUBSYSTEM_DEF(jobs)
 		name_occupations[job.title] = job
 		type_occupations[J] = job
 
-	return 1
+	LoadJobsFile("config/jobs.txt", FALSE)
+	LoadJobsFile("config/jobs_highpop.txt", TRUE)
 
 
-/datum/controller/subsystem/jobs/proc/Debug(var/text)
-	if(!GLOB.debug2)
-		return 0
-	job_debug.Add(text)
-	return 1
+/datum/controller/subsystem/jobs/proc/ApplyHighpopConfig()
+	for(var/datum/job/J in occupations)
+		if(J.positions_highpop)
+			var/positions_lowpop = J.positions_lowpop
+			if(!positions_lowpop)
+				positions_lowpop = initial(J.total_positions)
+			J.total_positions += (J.positions_highpop - positions_lowpop)
+
+
+/datum/controller/subsystem/jobs/proc/Debug(text)
+	if(GLOB.debug2)
+		job_debug.Add(text)
 
 
 /datum/controller/subsystem/jobs/proc/GetJob(rank)
-	if(!occupations.len)
-		SetupOccupations()
 	return name_occupations[rank]
 
 /datum/controller/subsystem/jobs/proc/GetJobType(jobtype)
-	if(!occupations.len)
-		SetupOccupations()
 	return type_occupations[jobtype]
 
 /datum/controller/subsystem/jobs/proc/GetPlayerAltTitle(mob/new_player/player, rank)
 	return player.client.prefs.GetPlayerAltTitle(GetJob(rank))
 
-/datum/controller/subsystem/jobs/proc/AssignRole(var/mob/new_player/player, var/rank, var/latejoin = 0)
+/datum/controller/subsystem/jobs/proc/AssignRole(mob/new_player/player, rank, latejoin = FALSE)
 	Debug("Running AR, Player: [player], Rank: [rank], LJ: [latejoin]")
 	if(player && player.mind && rank)
 		var/datum/job/job = GetJob(rank)
@@ -120,12 +122,12 @@ SUBSYSTEM_DEF(jobs)
 	Debug("AR has failed, Player: [player], Rank: [rank]")
 	return 0
 
-/datum/controller/subsystem/jobs/proc/FreeRole(var/rank)	//making additional slot on the fly
+/datum/controller/subsystem/jobs/proc/FreeRole(rank)	//making additional slot on the fly
 	var/datum/job/job = GetJob(rank)
 	if(job && job.current_positions >= job.total_positions && job.total_positions != -1)
 		job.total_positions++
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /datum/controller/subsystem/jobs/proc/FindOccupationCandidates(datum/job/job, level, flag)
 	Debug("Running FOC, Job: [job], Level: [level], Flag: [flag]")
@@ -161,7 +163,7 @@ SUBSYSTEM_DEF(jobs)
 			candidates += player
 	return candidates
 
-/datum/controller/subsystem/jobs/proc/GiveRandomJob(var/mob/new_player/player)
+/datum/controller/subsystem/jobs/proc/GiveRandomJob(mob/new_player/player)
 	Debug("GRJ Giving random job, Player: [player]")
 	for(var/datum/job/job in shuffle(occupations))
 		if(!job)
@@ -215,7 +217,7 @@ SUBSYSTEM_DEF(jobs)
 
 /datum/controller/subsystem/jobs/proc/ResetOccupations()
 	for(var/mob/new_player/player in GLOB.player_list)
-		if((player) && (player.mind))
+		if(player?.mind)
 			player.mind.assigned_role = null
 			player.mind.special_role = null
 	SetupOccupations()
@@ -253,7 +255,7 @@ SUBSYSTEM_DEF(jobs)
 
 
 ///This proc is called at the start of the level loop of DivideOccupations() and will cause head jobs to be checked before any other jobs of the same level
-/datum/controller/subsystem/jobs/proc/CheckHeadPositions(var/level)
+/datum/controller/subsystem/jobs/proc/CheckHeadPositions(level)
 	for(var/command_position in GLOB.command_positions)
 		var/datum/job/job = GetJob(command_position)
 		if(!job)
@@ -265,33 +267,16 @@ SUBSYSTEM_DEF(jobs)
 		AssignRole(candidate, command_position)
 
 
-/datum/controller/subsystem/jobs/proc/FillAIPosition()
-	if(config && !CONFIG_GET(flag/allow_ai))
+/datum/controller/subsystem/jobs/proc/FillMalfAIPosition()
+	if(!CONFIG_GET(flag/allow_ai))
 		return FALSE
 
-	var/ai_selected = FALSE
 	var/datum/job/job = GetJob("AI")
 	if(!job)
 		return FALSE
 
-	for(var/i = job.total_positions, i > 0, i--)
-		if(new_malf && AssignRole(new_malf, "AI"))
-			return TRUE
-
-		for(var/level = 1 to 3)
-			var/list/candidates = list()
-			candidates = FindOccupationCandidates(job, level)
-			if(length(candidates))
-				var/mob/new_player/candidate = pick(candidates)
-				if(AssignRole(candidate, "AI"))
-					ai_selected = TRUE
-					break
-
-		if(ai_selected)
-			return TRUE
-
-		return FALSE
-
+	if(new_malf && AssignRole(new_malf, "AI"))
+		return TRUE
 
 /** Proc DivideOccupations
 *  fills var "assigned_role" for all ready players.
@@ -302,13 +287,13 @@ SUBSYSTEM_DEF(jobs)
 	var/watch = start_watch()
 	//Setup new player list and get the jobs list
 	Debug("Running DO")
-	SetupOccupations()
 
-	//Holder for Triumvirate is stored in the ticker, this just processes it
-	if(SSticker)
+	if(!CONFIG_GET(flag/allow_ai))
 		for(var/datum/job/ai/A in occupations)
-			if(SSticker.triai)
-				A.spawn_positions = 3
+			A.spawn_positions = 0
+	else if(SSticker && SSticker.triai) //Holder for Triumvirate is stored in the ticker, this just processes it
+		for(var/datum/job/ai/A in occupations)
+			A.spawn_positions = 3
 
 	//Get the players who are ready
 	for(var/mob/new_player/player in GLOB.player_list)
@@ -324,10 +309,11 @@ SUBSYSTEM_DEF(jobs)
 
 	HandleFeedbackGathering()
 
-	if(new_malf)	// code dupe to assign malf AI before civs.
+	if(new_malf)	// code to assign malf AI before civs.
 		Debug("DO, Running AI Check")
-		FillAIPosition()
+		FillMalfAIPosition()
 		Debug("DO, AI Check end")
+		new_malf = null
 
 	//People who wants to be assistants, sure, go on.
 	Debug("DO, Running Civilian Check 1")
@@ -344,12 +330,6 @@ SUBSYSTEM_DEF(jobs)
 	Debug("DO, Running Head Check")
 	FillHeadPosition()
 	Debug("DO, Head Check end")
-
-	//Check for an AI
-	if(!new_malf)
-		Debug("DO, Running AI Check")
-		FillAIPosition()
-		Debug("DO, AI Check end")
 
 	//Other jobs are now checked
 	Debug("DO, Running Standard Check")
@@ -449,7 +429,7 @@ SUBSYSTEM_DEF(jobs)
 	log_debug("Dividing Occupations took [stop_watch(watch)]s")
 	return 1
 
-/datum/controller/subsystem/jobs/proc/AssignRank(var/mob/living/carbon/human/H, var/rank, var/joined_late = 0)
+/datum/controller/subsystem/jobs/proc/AssignRank(mob/living/carbon/human/H, rank, joined_late = FALSE)
 	if(!H)
 		return null
 	var/datum/job/job = GetJob(rank)
@@ -489,7 +469,8 @@ SUBSYSTEM_DEF(jobs)
 		to_chat(H, "<b>Ваша должность ограничена во всех взаимодействиях с рабочим имуществом отдела и экипажем станции, при отсутствии приставленного к нему квалифицированного сотрудника или полученного разрешения от вышестоящего начальства. Не забудьте ознакомиться с СРП вашей должности. По истечению срока прохождения стажировки, данная должность более не будет вам доступна. Используйте её для обучения, не стесняйтесь задавать вопросы вашим старшим коллегам!</b>")
 
 	return H
-/datum/controller/subsystem/jobs/proc/EquipRank(mob/living/carbon/human/H, rank, joined_late = 0) // Equip and put them in an area
+
+/datum/controller/subsystem/jobs/proc/EquipRank(mob/living/carbon/human/H, rank, joined_late = FALSE) // Equip and put them in an area
 	if(!H)
 		return null
 
@@ -556,9 +537,9 @@ SUBSYSTEM_DEF(jobs)
 
 
 
-/datum/controller/subsystem/jobs/proc/LoadJobs(jobsfile) //ran during round setup, reads info from jobs.txt -- Urist
+/datum/controller/subsystem/jobs/proc/LoadJobsFile(jobsfile, highpop) //ran during round setup, reads info from jobs.txt -- Urist
 	if(!CONFIG_GET(flag/load_jobs_from_txt))
-		return 0
+		return
 
 	var/list/jobEntries = file2list(jobsfile)
 
@@ -571,25 +552,24 @@ SUBSYSTEM_DEF(jobs)
 			continue
 
 		var/pos = findtext(job, "=")
-		var/name = null
-		var/value = null
 
-		if(pos)
-			name = copytext(job, 1, pos)
-			value = copytext(job, pos + 1)
-		else
+		if(!pos)
 			continue
+		var/name = copytext(job, 1, pos)
+		var/value = copytext(job, pos + 1)
 
 		if(name && value)
+			if(name == "AI")  //AI use diferent config
+				continue
 			var/datum/job/J = GetJob(name)
-			if(!J)	continue
-			J.total_positions = text2num(value)
-			J.spawn_positions = text2num(value)
-			if(name == "AI" || name == "Cyborg")//I dont like this here but it will do for now
-				J.total_positions = 0
-
-	return 1
-
+			if(!J)
+				continue
+			if(highpop)
+				J.positions_highpop = text2num(value)
+			else
+				J.positions_lowpop = text2num(value)
+				J.spawn_positions = J.positions_lowpop
+				J.total_positions = J.positions_lowpop
 
 /datum/controller/subsystem/jobs/proc/HandleFeedbackGathering()
 	for(var/datum/job/job in occupations)

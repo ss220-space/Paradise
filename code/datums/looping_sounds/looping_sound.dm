@@ -31,6 +31,11 @@
 	var/falloff_exponent
 	var/muted = TRUE
 	var/falloff_distance
+	/// Channel of the audio, random otherwise
+	var/channel
+	/// If this sound is based off of an area
+	var/area_sound = FALSE
+
 
 /datum/looping_sound/New(list/_output_atoms = list(), start_immediately = FALSE, _direct = FALSE)
 	if(!mid_sounds)
@@ -43,25 +48,34 @@
 	if(start_immediately)
 		start()
 
+
 /datum/looping_sound/Destroy()
+	GLOB.looping_sounds -= src
 	stop()
 	output_atoms = null
 	return ..()
 
+
 /datum/looping_sound/proc/start(atom/add_thing)
+	GLOB.looping_sounds += src
 	if(add_thing)
-		output_atoms |= add_thing
+		LAZYADDOR(output_atoms, add_thing)
 	if(!muted)
 		return
 	muted = FALSE
 	on_start()
 
-/datum/looping_sound/proc/stop(atom/remove_thing)
+
+/datum/looping_sound/proc/stop(atom/remove_thing, do_not_mute)
+	GLOB.looping_sounds -= src
 	if(remove_thing)
-		output_atoms -= remove_thing
+		LAZYREMOVE(output_atoms, remove_thing)
+		if(do_not_mute && length(output_atoms)) //if there are no output_atoms then we mute regardless of your preferance
+			return
 	if(muted)
 		return
 	muted = TRUE
+
 
 /datum/looping_sound/proc/sound_loop(looped = 0)
 	if(muted || (max_loops && looped > max_loops))
@@ -71,18 +85,27 @@
 		play(get_sound(looped))
 	addtimer(CALLBACK(src, PROC_REF(sound_loop), ++looped), mid_length)
 
+
 /datum/looping_sound/proc/play(soundfile)
 	var/list/atoms_cache = output_atoms
 	var/sound/S = sound(soundfile)
+	if(area_sound)
+		for(var/area/sound_outputs in atoms_cache)
+			for(var/mob/listener in mobs_in_area(sound_outputs, TRUE))
+				S.volume = volume * (USER_VOLUME(listener, channel))
+				SEND_SOUND(listener, S)
+		return
 	if(direct)
-		S.channel = SSsounds.random_available_channel()
-		S.volume = volume
-	for(var/i in 1 to atoms_cache.len)
-		var/atom/thing = atoms_cache[i]
+		S.channel = channel || SSsounds.random_available_channel()
+	for(var/atom/thing in atoms_cache)
 		if(direct)
+			if(ismob(thing))
+				var/mob/M = thing
+				S.volume = volume * (USER_VOLUME(M, channel) || 1)
 			SEND_SOUND(thing, S)
 		else
-			playsound(thing, S, volume, vary, extra_range, falloff_exponent = falloff_exponent, falloff_distance = falloff_distance)
+			playsound(thing, S, volume, vary, extra_range, falloff_exponent = falloff_exponent, falloff_distance = falloff_distance, channel = channel)
+
 
 /datum/looping_sound/proc/get_sound(looped, _mid_sounds)
 	if(!_mid_sounds)
@@ -92,6 +115,7 @@
 	while(!isfile(.) && !isnull(.))
 		. = pickweight(.)
 
+
 /datum/looping_sound/proc/on_start()
 	var/start_wait = 0
 	if(start_sound)
@@ -99,6 +123,22 @@
 		start_wait = start_length
 	addtimer(CALLBACK(src, PROC_REF(sound_loop)), start_wait)
 
+
 /datum/looping_sound/proc/on_stop(looped)
 	if(end_sound)
 		play(end_sound)
+
+
+/// Looping sounds that decrease volume by a specified % each loop until it reaches a specified total % volume.
+/datum/looping_sound/decreasing
+	/// What volume level, as a % of original, to eventually decrease to
+	var/decrease_to_amount = 50
+	/// How much, as a % of original, to decrease the volume by each loop
+	var/decrease_by_amount = 1
+
+
+/datum/looping_sound/decreasing/sound_loop(looped = 0)
+	. = ..()
+	if(decrease_by_amount && decrease_to_amount && decrease_to_amount < volume)
+		volume = max(volume - decrease_by_amount, decrease_to_amount)
+

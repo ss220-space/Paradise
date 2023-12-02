@@ -168,7 +168,7 @@ MINPLAYERS ABDUCTION 15
 MINPLAYERS DEVIL 2
 MINPLAYERS DEVILAGENTS 25
 
-## Weights for all minor antags in ANTAG-PARADISE gamemode. Highter the weight higher the chance for antag to roll. Leave it commented if you prefer total randomness or if you are using mode subtypes below.
+## Weights for all minor antags in ANTAG-PARADISE gamemode. Highter the weight higher the chance for antag to roll. Leave it commented if you prefer mode subtypes below.
 #ANTAG_PARADISE_WEIGHT TRAITOR 10
 #ANTAG_PARADISE_WEIGHT THIEF 10
 #ANTAG_PARADISE_WEIGHT VAMPIRE 10
@@ -184,9 +184,8 @@ MINPLAYERS DEVILAGENTS 25
 #ANTAG_PARADISE_SUBTYPE_WEIGHTS ANTAG_SINGLE 6
 #ANTAG_PARADISE_SUBTYPE_WEIGHTS ANTAG_DOUBLE 4
 #ANTAG_PARADISE_SUBTYPE_WEIGHTS ANTAG_TRIPPLE 2
-#ANTAG_PARADISE_SUBTYPE_WEIGHTS ANTAG_RANDOM 10
 
-## Weights for all special antags in ANTAG-PARADISE gamemode. Hijacker, Malf AI and Ninja currently.
+## Weights for all special antags in ANTAG-PARADISE gamemode. Traitor Hijacker, Malfunctioning AI and Space Ninja currently. If Nothing is chosen special antag will not spawn.
 #ANTAG_PARADISE_SPECIAL_WEIGHTS HIJACKER 10
 #ANTAG_PARADISE_SPECIAL_WEIGHTS MALFAI 10
 #ANTAG_PARADISE_SPECIAL_WEIGHTS NINJA 10
