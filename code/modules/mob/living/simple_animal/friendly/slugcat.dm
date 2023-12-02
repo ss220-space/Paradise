@@ -227,9 +227,9 @@
 
 /mob/living/simple_animal/pet/slugcat/proc/place_on_head(obj/item/item_to_add, mob/user)
 	if(!item_to_add)
-		user.visible_message(span_notice("[user] похлопывает по голове [src.name]."), span_notice("Вы положили руку на голову [src.name]."))
-		if(flags_2 & HOLOGRAM_2)
+		if(flags_2 & HOLOGRAM_2) //Can't touch ephemeral dudes(
 			return FALSE
+		user.visible_message(span_notice("[user] похлопывает по голове [src.name]."), span_notice("Вы положили руку на голову [src.name]."))
 		return FALSE
 
 	if(!istype(item_to_add, /obj/item/clothing/head))
@@ -286,9 +286,9 @@
 
 /mob/living/simple_animal/pet/slugcat/proc/place_to_hand(obj/item/item_to_add, mob/user)
 	if(!item_to_add)
-		user.visible_message(span_notice("[user] пощупал лапки [src]."), span_notice("Вы пощупали лапки [src]."))
-		if(flags_2 & HOLOGRAM_2)
+		if(flags_2 & HOLOGRAM_2) //Can't touch ephemeral dudes(
 			return FALSE
+		user.visible_message(span_notice("[user] пощупал лапки [src]."), span_notice("Вы пощупали лапки [src]."))
 		return FALSE
 
 	if(resting)
