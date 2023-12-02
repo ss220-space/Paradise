@@ -197,6 +197,7 @@
 		force = initial(force) + MA.knife_bonus_damage
 		if(user.zone_selected == BODY_ZONE_HEAD && user.a_intent == INTENT_HARM)
 			MA.neck_cut(target, user)
+			return
 	. = ..()
 
 /obj/item/kitchen/knife/combat/afterattack(atom/target, mob/user, proximity, params)
