@@ -20,13 +20,20 @@
  * * FALSE - if don't need to call a child proc
  */
 /datum/disease/virus/stage_act()
+	if(!affected_mob)
+		return FALSE
+
 	if(prob(infectivity))
 		spread()
 
 	. = ..()
 
-	if(!. || carrier || (affected_mob.type in carrier_mobtypes))
+	if(!. || carrier)
 		return FALSE
+
+	for(var/mobtype in carrier_mobtypes)
+		if(istype(affected_mob, mobtype))
+			return FALSE
 
 	return TRUE
 

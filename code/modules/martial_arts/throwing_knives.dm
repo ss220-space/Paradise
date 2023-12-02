@@ -30,7 +30,7 @@
 		attacker.visible_message(span_danger("[attacker] прикладывает нож к горлу [defender]!"), span_danger("Вы прикладываете нож к горлу [defender]!."))
 		if(do_after(attacker, 20, target = defender))
 			if(defender.blood_volume > BLOOD_VOLUME_SURVIVE)
-				defender.blood_volume -= BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE
+				defender.blood_volume = max(0, defender.blood_volume - (BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE)) //-70% of max blood volume
 				for(var/i in 1 to 2)
 					var/obj/effect/decal/cleanable/blood/B = new(defender.loc)
 					step(B, pick(GLOB.alldirs))
@@ -40,7 +40,7 @@
 				attacker.drop_r_hand()
 			var/sound = pick('sound/weapons/knife_holster/throat_slice.ogg','sound/weapons/knife_holster/throat_slice2.ogg')
 			playsound(defender.loc, sound, 25, 1)
-			attacker.visible_message(span_danger("[attacker] перерезает глотку [defender]! Ахуй."), span_danger("Вы перерезаете глотку [defender]! Ахуй."))
+			attacker.visible_message(span_danger("[attacker] перерезает глотку [defender]!"), span_danger("Вы перерезаете глотку [defender]!"))
 
 /datum/martial_art/throwing/explaination_footer(user)
 	to_chat(user, "[span_notice("Работает с ножами")]: Боевой, шахтёрский, костяной, метательный")

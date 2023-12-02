@@ -345,6 +345,8 @@
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
 	var/species_state = "human"
+	pickup_sound = 'sound/items/handling/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/component_drop.ogg'
 
 /obj/item/organ/internal/lungs/cybernetic/examine(mob/user)
 	. = ..()

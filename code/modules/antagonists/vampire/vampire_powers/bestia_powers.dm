@@ -1444,7 +1444,8 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 	resistance_flags = NONE
 	flags = NODECONSTRUCT
 	material_drop = null
-	sound = 'sound/objects/coffin_toggle.ogg'
+	open_sound = 'sound/objects/coffin_toggle.ogg'
+	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	var/datum/gas_mixture/interior_air
 	var/obj/machinery/portable_atmospherics/canister/air/interior_tank
 	var/no_manipulation = FALSE

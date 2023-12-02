@@ -189,6 +189,7 @@ const OreHeader = (properties, context) => {
         </Flex.Item>
         {properties.columns?.map(col => (
           <Flex.Item
+            key={col[1]}
             basis={col[1]}
             textAlign="center"
             color="label"

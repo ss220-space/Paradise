@@ -352,6 +352,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	force = 1
 	throwforce = 2
 	w_class = WEIGHT_CLASS_TINY
+	pickup_sound = 'sound/items/handling/ring_pickup.ogg'
+	drop_sound = 'sound/items/handling/ring_drop.ogg'
 	var/string_attached
 	var/list/sideslist = list("heads","tails")
 	var/cmineral = null

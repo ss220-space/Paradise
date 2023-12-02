@@ -1,6 +1,8 @@
 /obj/item/organ
 	name = "organ"
 	icon = 'icons/obj/surgery.dmi'
+	pickup_sound = 'sound/items/handling/flesh_pickup.ogg'
+	drop_sound = 'sound/items/handling/flesh_drop.ogg'
 	var/dead_icon
 	var/mob/living/carbon/human/owner = null
 	var/status = 0

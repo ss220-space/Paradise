@@ -243,9 +243,10 @@
 	overlay_unlocked = "c_unlocked"
 	overlay_locked = "c_locked"
 	overlay_locker = "c_locker"
-
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
+	open_sound = 'sound/machines/wooden_closet_open.ogg'
+	close_sound = 'sound/machines/wooden_closet_close.ogg'
 
 /obj/structure/closet/secure_closet/detective/populate_contents()
 	new /obj/item/storage/backpack/satchel_detective(src)
