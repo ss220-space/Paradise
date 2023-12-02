@@ -905,7 +905,7 @@
 	pixel_x = 5;
 	pixel_y = -23;
 	req_access = list(101);
-	wireless = 1
+	ai_control = 1
 	},
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/alien/weeds,
