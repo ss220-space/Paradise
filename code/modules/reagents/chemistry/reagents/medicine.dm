@@ -470,8 +470,8 @@
 			var/mob/living/carbon/human/human = M
 			human.take_overall_damage(0.5, 0.5, FALSE, affect_robotic = FALSE)
 		else
-			M.adjustBruteLoss(0.5)
-			M.adjustFireLoss(0.5)
+			update_flags |= M.adjustBruteLoss(0.5, FALSE)
+			update_flags |= M.adjustFireLoss(0.5, FALSE)
 
 	return ..() | update_flags
 
