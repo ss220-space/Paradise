@@ -8,9 +8,6 @@
 #define SDQL2_STATE_SWITCHING 5
 #define SDQL2_STATE_HALTING 6
 
-#define SDQL2_VALID_OPTION_TYPES list("proccall", "select", "priority", "autogc" , "sequential")
-#define SDQL2_VALID_OPTION_VALUES list("async", "blocking", "force_nulls", "skip_nulls", "high", "normal", "keep_alive" , "true")
-
 #define SDQL2_OPTION_SELECT_OUTPUT_SKIP_NULLS			(1<<0)
 #define SDQL2_OPTION_BLOCKING_CALLS						(1<<1)
 #define SDQL2_OPTION_HIGH_PRIORITY						(1<<2)		//High priority SDQL query, allow using almost all of the tick.
@@ -517,14 +514,14 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 				if(!is_proper_datum(i))
 					continue
 				world.SDQL_var(i, query_tree["call"][1], null, i, superuser, src)
-				obj_count_finished += 1 
+				obj_count_finished += 1
 				SDQL2_TICK_CHECK
 				SDQL2_HALT_CHECK
 
 		if("delete")
 			for(var/datum/d in found)
 				SDQL_qdel_datum(d)
-				obj_count_finished += 1 
+				obj_count_finished += 1
 				SDQL2_TICK_CHECK
 				SDQL2_HALT_CHECK
 
@@ -550,7 +547,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 					if(!is_proper_datum(d))
 						continue
 					SDQL_internal_vv(d, set_list)
-					obj_count_finished += 1 
+					obj_count_finished += 1
 					SDQL2_TICK_CHECK
 					SDQL2_HALT_CHECK
 	if(islist(obj_count_finished))
@@ -774,7 +771,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 	return list("val" = val, "i" = i)
 
 /proc/SDQL_parse(list/query_list)
-	var/datum/SDQL_parser/parser = new()
+	var/datum/sdql_parser/parser = new()
 	var/list/querys = list()
 	var/list/query_tree = list()
 	var/pos = 1
