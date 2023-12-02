@@ -41,7 +41,7 @@
 
 /proc/has_access(list/req_access, check_one_access, list/accesses)
 	if(check_one_access)
-		if(req_access.len)
+		if(length(req_access))
 			for(var/req in req_access)
 				if(req in accesses) //has an access from the single access list
 					return TRUE
