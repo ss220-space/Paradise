@@ -698,11 +698,10 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 			var/print_nulls = !(options & SDQL2_OPTION_SELECT_OUTPUT_SKIP_NULLS)
 			obj_count_finished = select_refs
 			for(var/i in found)
-				if(!isdatum(i))
-					continue
 				var/datum/I = i
 				SDQL_print(i, text_list, print_nulls)
-				select_refs[I.UID()] = TRUE
+				if(isdatum(i))
+					select_refs[I.UID()] = TRUE
 				SDQL2_TICK_CHECK
 				SDQL2_HALT_CHECK
 			select_text = text_list
