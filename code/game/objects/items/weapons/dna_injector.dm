@@ -681,7 +681,7 @@
 	..()
 
 /obj/item/dnainjector/anticomic
-	name = "DNA-Injector (Ant-Comic)"
+	name = "DNA-Injector (Anti-Comic)"
 	desc = "Honk...?"
 	datatype = DNA2_BUF_SE
 	value = 0x001
