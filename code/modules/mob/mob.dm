@@ -728,7 +728,7 @@
 			if(statpanel("SDQL2"))
 				stat("Access Global SDQL2 List", GLOB.sdql2_vv_statobj)
 				for(var/i in GLOB.sdql2_queries)
-					var/datum/SDQL2_query/Q = i
+					var/datum/sdql2_query/Q = i
 					Q.generate_stat()
 		// Below are checks to see which MC panel you are looking at
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_MC_TABS)
