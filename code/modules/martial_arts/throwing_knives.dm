@@ -30,7 +30,7 @@
 		attacker.visible_message(span_danger("[attacker] прикладывает нож к горлу [defender]!"), span_danger("Вы прикладываете нож к горлу [defender]!."))
 		if(do_after(attacker, 20, target = defender))
 			if(defender.blood_volume > BLOOD_VOLUME_SURVIVE)
-				defender.blood_volume -= BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE
+				defender.blood_volume = max(0, defender.blood_volume - (BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE)) //-70% of max blood volume
 				for(var/i in 1 to 2)
 					var/obj/effect/decal/cleanable/blood/B = new(defender.loc)
 					step(B, pick(GLOB.alldirs))
