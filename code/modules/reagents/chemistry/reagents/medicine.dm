@@ -457,7 +457,7 @@
 	harmless = FALSE
 	taste_description = "a purge"
 
-/datum/reagent/medicine/pen_acid/on_mob_life(mob/living/carbon/human/M)
+/datum/reagent/medicine/pen_acid/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
@@ -466,7 +466,13 @@
 	if(prob(75))
 		update_flags |= M.adjustToxLoss(-2, FALSE)
 	if(prob(33))
-		M.take_overall_damage(0.5, 0.5, FALSE, affect_robotic = FALSE)
+		if(ishuman(M))
+			var/mob/living/carbon/human/human = M
+			human.take_overall_damage(0.5, 0.5, FALSE, affect_robotic = FALSE)
+		else
+			M.adjustBruteLoss(0.5)
+			M.adjustFireLoss(0.5)
+
 	return ..() | update_flags
 
 /datum/reagent/medicine/sal_acid
