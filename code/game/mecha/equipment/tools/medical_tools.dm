@@ -36,7 +36,7 @@
 	origin_tech = "engineering=3;biotech=3;plasmatech=2"
 	energy_drain = 20
 	range = MECHA_MELEE
-	equip_cooldown = 20
+	equip_cooldown = 2 SECONDS
 	var/mob/living/carbon/patient = null
 	var/inject_amount = 10
 	salvageable = FALSE
@@ -78,7 +78,6 @@
 	occupant_message(span_notice("[target] successfully loaded into [src]. Life support functions engaged."))
 	chassis.visible_message(span_warning("[chassis] loads [target] into [src]."))
 	log_message("[target] loaded. Life support functions engaged.")
-	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/patient_insertion_check(mob/living/carbon/target)
 	if(target.buckled)
@@ -102,7 +101,6 @@
 	log_message("[patient] ejected. Life support functions disabled.")
 	STOP_PROCESSING(SSobj, src)
 	patient = null
-	start_cooldown()
 	update_equip_info()
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/can_detach()
@@ -272,7 +270,7 @@
 	var/analyze_mode = FALSE //Toggler for alternative "analyze reagents" mode.
 	var/emagged = FALSE
 	range = MECHA_MELEE | MECHA_RANGED
-	equip_cooldown = 10
+	equip_cooldown = 1 SECONDS
 	origin_tech = "materials=3;biotech=4;magnets=4"
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/New()
@@ -505,7 +503,7 @@
 			lock_n_load ++
 		if(!lock_n_load)
 			return FALSE
-	occupant_message("Syringe[lock_n_load ? "s (x[lock_n_load])" : ""] loaded.")
+	occupant_message("Syringe[lock_n_load > 1 ? "s (x[lock_n_load])" : ""] loaded.")
 	start_cooldown()
 	return TRUE
 
@@ -590,7 +588,7 @@
 	desc = "Emergency rescue jaws, designed to help first responders reach their patients. Opens doors and removes obstacles."
 	icon_state = "mecha_clamp"	//can work, might use a blue resprite later but I think it works for now
 	origin_tech = "materials=2;engineering=2"	//kind of sad, but identical to jaws of life
-	equip_cooldown = 15
+	equip_cooldown = 1.5 SECONDS
 	energy_drain = 10
 	var/dam_force = 20
 

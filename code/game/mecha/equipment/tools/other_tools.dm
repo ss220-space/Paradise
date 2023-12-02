@@ -8,7 +8,7 @@
 	desc = "An exosuit module that allows exosuits to teleport to any position in view."
 	icon_state = "mecha_teleport"
 	origin_tech = "bluespace=7"
-	equip_cooldown = 150
+	equip_cooldown = 15 SECONDS
 	energy_drain = 4000
 	range = MECHA_RANGED
 	var/tele_precision = 4
@@ -42,7 +42,7 @@
 	desc = "An exosuit module that allows generating of small quasi-stable wormholes."
 	icon_state = "mecha_wholegen"
 	origin_tech = "bluespace=4;magnets=4;plasmatech=2"
-	equip_cooldown = 50
+	equip_cooldown = 5 SECONDS
 	energy_drain = 300
 	range = MECHA_RANGED
 
@@ -91,7 +91,7 @@
 	desc = "An exosuit mounted Gravitational Catapult."
 	icon_state = "mecha_teleport"
 	origin_tech = "bluespace=3;magnets=3;engineering=4"
-	equip_cooldown = 30
+	equip_cooldown = 3 SECONDS
 	energy_drain = 100
 	range = MECHA_MELEE | MECHA_RANGED
 	var/atom/movable/locked
@@ -158,7 +158,7 @@
 	desc = "Boosts exosuit armor against armed melee attacks. Requires energy to operate."
 	icon_state = "mecha_abooster_ccw"
 	origin_tech = "materials=4;combat=4"
-	equip_cooldown = 10
+	equip_cooldown = 1 SECONDS
 	energy_drain = 50
 	range = 0
 	var/deflect_coeff = 1.15
@@ -176,7 +176,7 @@
 	desc = "Boosts exosuit armor against ranged attacks. Completely blocks taser shots. Requires energy to operate."
 	icon_state = "mecha_abooster_proj"
 	origin_tech = "materials=4;combat=3;engineering=3"
-	equip_cooldown = 10
+	equip_cooldown = 1 SECONDS
 	energy_drain = 50
 	range = 0
 	var/deflect_coeff = 1.15
@@ -196,7 +196,7 @@
 	desc = "Automated repair droid. Scans exosuit for damage and repairs it. Can fix almost all types of external or internal damage."
 	icon_state = "repair_droid"
 	origin_tech ="magnets=3;programming=3;engineering=4"
-	equip_cooldown = 20
+	equip_cooldown = 2 SECONDS
 	energy_drain = 50
 	range = 0
 	var/active_mode = FALSE

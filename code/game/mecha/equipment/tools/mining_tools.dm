@@ -8,7 +8,7 @@
 	name = "exosuit drill"
 	desc = "Equipment for engineering and combat exosuits. This is the drill that'll pierce the heavens!"
 	icon_state = "mecha_drill"
-	equip_cooldown = 15
+	equip_cooldown = 1.5 SECONDS
 	energy_drain = 10
 	force = 15
 	harmful = TRUE
@@ -128,7 +128,7 @@
 	desc = "Equipment for engineering and combat exosuits. This is an upgraded version of the drill that'll pierce the heavens!"
 	icon_state = "mecha_diamond_drill"
 	origin_tech = "materials=4;engineering=4"
-	equip_cooldown = 10
+	equip_cooldown = 1 SECONDS
 	drill_delay = 4
 	drill_level = DRILL_HARDENED
 	force = 15
@@ -138,7 +138,7 @@
 	name = "exosuit mining scanner"
 	desc = "Equipment for engineering and combat exosuits. It will automatically check surrounding rock for useful minerals."
 	icon_state = "mecha_analyzer"
-	equip_cooldown = 15
+	equip_cooldown = 1.5 SECONDS
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/Initialize(mapload)
 	. = ..()

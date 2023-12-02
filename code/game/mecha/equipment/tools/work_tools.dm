@@ -4,7 +4,7 @@
 	name = "hydraulic clamp"
 	desc = "Equipment for engineering exosuits. Lifts objects and loads them into cargo."
 	icon_state = "mecha_clamp"
-	equip_cooldown = 15
+	equip_cooldown = 1.5 SECONDS
 	energy_drain = 10
 	var/dam_force = 20
 	var/obj/mecha/working/cargo_holder
@@ -269,7 +269,7 @@
 	desc = "An exosuit-mounted Mime Rapid Construction Device. (Can be attached to: Reticence)"
 	icon_state = "mecha_rcd"
 	origin_tech = "materials=4;bluespace=3;magnets=4;powerstorage=4;engineering=4"
-	equip_cooldown = 10
+	equip_cooldown = 1 SECONDS
 	energy_drain = 250
 	range = MECHA_MELEE | MECHA_RANGED
 
@@ -534,7 +534,7 @@
 	name = "extinguisher"
 	desc = "Equipment for engineering exosuits. A rapid-firing high capacity fire extinguisher."
 	icon_state = "mecha_exting"
-	equip_cooldown = 15
+	equip_cooldown = 1.5 SECONDS
 	energy_drain = 0
 	range = MECHA_MELEE | MECHA_RANGED
 
@@ -607,7 +607,7 @@
 	desc = "Equipment for engineering exosuits. With it, you can build atmos holographic barriers."
 	icon_state = "mecha_wholegen"
 	energy_drain = 100
-	equip_cooldown = 5
+	equip_cooldown = 0.5 SECONDS
 	range = MECHA_MELEE | MECHA_RANGED
 	var/max_barriers = 5
 	var/list/barriers = list()
@@ -676,7 +676,7 @@
 	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
 	force = 10
-	equip_cooldown = 15
+	equip_cooldown = 1.5 SECONDS
 	energy_drain = 100
 	harmful = TRUE
 	var/list/items_list = newlist(/obj/item/screwdriver/cyborg, /obj/item/wrench/cyborg, /obj/item/weldingtool/experimental/mecha,
