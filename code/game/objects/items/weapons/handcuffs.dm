@@ -21,13 +21,13 @@
 
 
 /obj/item/restraints/handcuffs/attack(mob/living/carbon/C, mob/living/user)
+	if(!istype(C)) // Shouldn't be able to cuff anything but carbons.
+		return
+
 	if(C.handcuffed)
 		return
 
 	if(!user.IsAdvancedToolUser())
-		return
-
-	if(!istype(C)) // Shouldn't be able to cuff anything but carbons.
 		return
 
 	if((flags & NODROP) && !isrobot(user))
