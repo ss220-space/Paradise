@@ -1599,17 +1599,21 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 		y = t_center.y + c_dist - 1
 		x = t_center.x + c_dist
+		var/list/temp_list_one = list()
 		for(y in t_center.y-c_dist to y)
 			T = locate(x,y,t_center.z)
 			if(T)
-				L += T
+				temp_list_one += T
+		L += reverselist(temp_list_one)
 
 		y = t_center.y - c_dist
 		x = t_center.x + c_dist - 1
+		var/list/temp_list_two = list()
 		for(x in t_center.x-c_dist to x)
 			T = locate(x,y,t_center.z)
 			if(T)
-				L += T
+				temp_list_two += T
+		L += reverselist(temp_list_two)
 
 		y = t_center.y - c_dist + 1
 		x = t_center.x - c_dist
@@ -2063,6 +2067,12 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return "TTS Local"
 		if(CHANNEL_TTS_RADIO)
 			return "TTS Radio"
+		if(CHANNEL_RADIO_NOISE)
+			return "Radio Noise"
+		if(CHANNEL_INTERACTION_SOUNDS)
+			return "Item Interaction Sounds"
+		if(CHANNEL_BOSS_MUSIC)
+			return "Boss Music"
 
 /proc/get_compass_dir(atom/start, atom/end) //get_dir() only considers an object to be north/south/east/west if there is zero deviation. This uses rounding instead. // Ported from CM-SS13
 	if(!start || !end)

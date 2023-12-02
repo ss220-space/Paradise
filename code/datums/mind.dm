@@ -190,6 +190,7 @@
 	new_character.reload_huds()
 
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSER_TO, new_character)
+	SEND_SIGNAL(new_character, COMSIG_BODY_TRANSFER_TO)
 
 
 /datum/mind/proc/store_memory(new_text)

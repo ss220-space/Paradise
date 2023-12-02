@@ -298,6 +298,8 @@
 	active_item.set_light(7)
 
 /obj/item/organ/internal/cyberimp/arm/flash/Retract()
+	if(!active_item || (active_item in src))
+		return FALSE
 	active_item.set_light(0)
 	return ..()
 

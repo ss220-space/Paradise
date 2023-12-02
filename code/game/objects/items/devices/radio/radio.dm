@@ -238,15 +238,17 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	return user.has_internal_radio_channel_access(user, internal_channels[freq])
 
-/mob/proc/has_internal_radio_channel_access(var/mob/user, var/list/req_accesses)
+/mob/proc/has_internal_radio_channel_access(mob/user, list/req_accesses)
 	var/obj/item/card/id/I = user.get_id_card()
 	return has_access(req_accesses, TRUE, I ? I.GetAccess() : list())
 
-/mob/living/silicon/has_internal_radio_channel_access(var/mob/user, var/list/req_accesses)
-	var/list/access = get_all_accesses()
-	return has_access(req_accesses, TRUE, access)
+/mob/living/silicon/has_internal_radio_channel_access(mob/user, list/req_accesses)
+	return has_access(req_accesses, TRUE, get_all_accesses())
 
-/mob/dead/observer/has_internal_radio_channel_access(var/mob/user, var/list/req_accesses)
+/mob/living/simple_animal/demon/pulse_demon/has_internal_radio_channel_access(mob/user, list/req_accesses)
+	return has_access(req_accesses, TRUE, get_all_accesses())
+
+/mob/dead/observer/has_internal_radio_channel_access(mob/user, list/req_accesses)
 	return can_admin_interact()
 
 /obj/item/radio/proc/ToggleBroadcast()
@@ -815,6 +817,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	listening = 1
 	name = "phone"
 	dog_fashion = null
+	drop_sound = 'sound/items/handling/phone_drop.ogg'
+	pickup_sound = 'sound/items/handling/phone_pickup.ogg'
 
 /obj/item/radio/phone/medbay
 	frequency = MED_I_FREQ

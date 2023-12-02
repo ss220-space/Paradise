@@ -239,7 +239,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "KPM"
 	item = /obj/item/borg/upgrade/modkit/indoors
 	cost = 4 //you need two for full damage, so total of 8 for maximum damage
-	job = list("Shaft Miner")
+	job = list("Shaft Miner", "Quartermaster")
+
+/datum/uplink_item/jobspecific/mining_charge_hacker
+	name = "Mining Charge Hacker"
+	desc = "Looks and functions like an advanced mining scanner, but allows mining charges to be placed anywhere and destroy more than rocks. \
+	Use it on a mining charge to override its safeties. Reduces explosive power of mining charges due to the modification of their internals."
+	reference = "MCH"
+	item = /obj/item/t_scanner/adv_mining_scanner/syndicate
+	cost = 4
+	job = list("Shaft Miner", "Quartermaster")
 
 //Chef
 /datum/uplink_item/jobspecific/specialsauce
@@ -309,6 +318,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	job = list("Chaplain", "Civilian")
 	surplus = 0 //No lucky chances from the crate; if you get this, this is ALL you're getting
 	hijack_only = TRUE //This is a murderbone weapon, as such, it should only be available in those scenarios.
+
+/datum/uplink_item/jobspecific/book_of_babel
+	name = "Book of Babel"
+	desc = "An ancient tome written in countless tongues. Despite this fact, you can read this book effortlessly, to learn all the existing languages. Don't ask questions."
+	reference = "BOB"
+	item = /obj/item/book_of_babel
+	cost = 1
+	job = list("Chaplain", "Librarian")
+	surplus = 0
+	cant_discount = TRUE
 
 //Janitor
 /datum/uplink_item/jobspecific/cautionsign
@@ -482,6 +501,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	job = list("Librarian")
 	surplus = 0
 	hijack_only = TRUE
+
+/datum/uplink_item/jobspecific/dice_of_fate
+	name = "Dice of fate"
+	desc = "Everything or nothing; that is my motto."
+	reference = "DOF"
+	item = /obj/item/dice/d20/fate/one_use
+	cost = 20
+	job = list("Librarian")
+	surplus = 0
+	cant_discount = TRUE
 
 //Botanist
 /datum/uplink_item/jobspecific/ambrosiacruciatus

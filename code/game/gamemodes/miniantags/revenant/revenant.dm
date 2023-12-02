@@ -101,17 +101,21 @@
 	if(essence == 0)
 		to_chat(src, "<span class='revendanger'>You feel your essence fraying!</span>")
 
+
 /mob/living/simple_animal/revenant/say(message)
 	if(!message)
 		return
+
 	add_say_logs(src, message)
-	var/rendered = "<span class='revennotice'><b>[src]</b> says, \"[message]\"</span>"
+
+	if(copytext(message, 1, 2) == "*")
+		return emote(copytext(message, 2), intentional = TRUE)
+
 	for(var/mob/M in GLOB.mob_list)
-		if(istype(M, /mob/living/simple_animal/revenant))
+		var/rendered = "<span class='revennotice'><b>[src]</b> [(isobserver(M) ? ("([ghost_follow_link(src, ghost=M)])") : "")] says, \"[message]\"</span>"
+		if(istype(M, /mob/living/simple_animal/revenant) || isobserver(M))
 			to_chat(M, rendered)
-		if(isobserver(M))
-			to_chat(M, "<a href='?src=[M.UID()];follow=[UID()]'>(F)</a> [rendered]")
-	return
+
 
 /mob/living/simple_animal/revenant/Stat()
 	..()

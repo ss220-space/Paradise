@@ -685,3 +685,14 @@
 /obj/effect/landmark/battle_mob_point
 	name = "Nanomob Battle Avatar Spawn Point"
 
+/obj/effect/landmark/spawner/bubblegum_arena
+	name = "bubblegum_arena_human"
+	icon_state = "awaystart"
+
+/obj/effect/landmark/spawner/bubblegum
+	name = "bubblegum_arena_bubblegum"
+	icon_state = "bubblegumjumpscare"
+
+/obj/effect/landmark/spawner/bubblegum_exit
+	name = "bubblegum_arena_exit"
+	icon_state = "bubblegumjumpscare"

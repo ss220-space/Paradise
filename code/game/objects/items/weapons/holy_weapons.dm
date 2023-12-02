@@ -20,6 +20,11 @@
 	var/list/fluff_transformations = list()
 	/// Extra 'Holy' burn damage for ERT null rods
 	var/sanctify_force = 0
+	/// List which defines if a container with nullrod should be spawned instead of new nullrod itself
+	var/static/list/container_paths = list(
+		/obj/item/nullrod/claymore = /obj/item/storage/belt/claymore,
+		/obj/item/nullrod/claymore/darkblade = /obj/item/storage/belt/claymore/dark
+	)
 
 /obj/item/nullrod/Initialize(mapload)
 	. = ..()
@@ -87,6 +92,20 @@
 		return
 
 	var/picked_type = variant_names[choice]
+	if(picked_type in container_paths)
+		var/storage_path = container_paths[picked_type]
+		var/obj/item/storage/storage = new storage_path(get_turf(user))
+		SSblackbox.record_feedback("text", "chaplain_weapon", 1, "[picked_type]", 1)
+		var/obj/item/nullrod/new_rod = locate(picked_type) in storage
+		if(new_rod)
+			new_rod.reskinned = TRUE
+			qdel(src)
+			user.put_in_active_hand(storage)
+			if(sanctify_force)
+				new_rod.sanctify_force = sanctify_force
+				new_rod.name = "sanctified " + new_rod.name
+			return
+
 	var/obj/item/nullrod/new_rod = new picked_type(get_turf(user))
 
 	SSblackbox.record_feedback("text", "chaplain_weapon", 1, "[picked_type]", 1)
@@ -172,6 +191,10 @@
 	desc = "Spread the glory of the dark gods!"
 	slot_flags = SLOT_BELT
 	hitsound = 'sound/hallucinations/growl1.ogg'
+
+/obj/item/shield/riot/templar
+	name = "templar shield"
+	icon_state = "templar_shield"
 
 /obj/item/nullrod/claymore/chainsaw_sword
 	name = "sacred chainsaw sword"
@@ -428,6 +451,8 @@
 	slot_flags = null
 	flags = HANDSLOW
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
+	drop_sound = 'sound/items/handling/knife_drop.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
 /obj/item/nullrod/tribal_knife/New()

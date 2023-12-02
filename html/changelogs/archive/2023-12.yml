@@ -1,0 +1,7 @@
+'2023-12-01':
+  BeebBeebBoob:
+  - bugfix: Cooldown on chain-emote howl (#3965)
+  ReloadKey:
+  - refactor: New tajaran random name generator (#3964)
+  Zwei:
+  - add: New Interaction Sounds (#3856)

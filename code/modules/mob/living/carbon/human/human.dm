@@ -196,98 +196,74 @@
 		stat("Spacepod Charge", "[istype(S.battery) ? "[(S.battery.charge / S.battery.maxcharge) * 100]" : "No cell detected"]")
 		stat("Spacepod Integrity", "[!S.health ? "0" : "[(S.health / initial(S.health)) * 100]"]%")
 
+///Define used for calculating explosve damage and effects upon humanoids. Result is >= 0
+#define ex_armor_reduction(value, armor) (clamp(value * (1 - (armor / 100)), 0, INFINITY))
+
 /mob/living/carbon/human/ex_act(severity)
-	var/shielded = 0
-	var/b_loss = null
-	var/f_loss = null
+	var/bruteloss = 0
+	var/burnloss = 0
 
 	if(status_flags & GODMODE)
 		return 0
 
+	var/armor = getarmor(null, "bomb")	//Average bomb protection
+	var/limb_loss_reduction = FLOOR(armor / 25, 1) //It's guaranteed that every 25th armor point will protect from one delimb
+	var/limbs_affected = 0
+
 	switch(severity)
 		if(1)
-			b_loss += 500
-			if(!prob(getarmor(null, "bomb")))
+			if(prob(ex_armor_reduction(100, armor)) && armor < 100)
 				gib()
 				return 0
 			else
+				bruteloss += 500
+				limbs_affected = pick(2,3,4)
+				var/throw_distance = ex_armor_reduction(200, armor)
+				var/throw_speed = ex_armor_reduction(4, armor)
 				var/atom/target = get_edge_target_turf(src, get_dir(src, get_step_away(src, src)))
-				throw_at(target, 200, 4)
-
-				var/limbs_affected = pick(2,3,4)
-				var/obj/item/organ/external/processing_dismember
-				var/list/valid_limbs = bodyparts.Copy()
-
-				while(limbs_affected != 0 && valid_limbs.len > 0)
-					processing_dismember = pick(valid_limbs)
-					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-						processing_dismember.droplimb(1,DROPLIMB_SHARP,0,1)
-						valid_limbs -= processing_dismember
-						limbs_affected -= 1
-					else valid_limbs -= processing_dismember
-
+				throw_at(target, throw_distance, throw_speed)
 		if(2)
-			if(!shielded) //literally nothing could change shielded before this so wth
-				b_loss += 60
-
-			f_loss += 60
-
-			var/limbs_affected = 0
-			var/obj/item/organ/external/processing_dismember
-			var/list/valid_limbs = bodyparts.Copy()
-
-			if(prob(getarmor(null, "bomb")))
-				b_loss = b_loss/1.5
-				f_loss = f_loss/1.5
-
-				limbs_affected = pick(1, 1, 2)
-			else
-				limbs_affected = pick(1, 2, 3)
-
-			while(limbs_affected != 0 && valid_limbs.len > 0)
-				processing_dismember = pick(valid_limbs)
-				if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-					processing_dismember.droplimb(1,DROPLIMB_SHARP,0,1)
-					valid_limbs -= processing_dismember
-					limbs_affected -= 1
-				else valid_limbs -= processing_dismember
+			bruteloss += 60
+			burnloss += 60
+			limbs_affected = pick(1, 2, 3)
 
 			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
-				AdjustDeaf(120 SECONDS)
+				AdjustDeaf(ex_armor_reduction(120 SECONDS, armor))
 				var/obj/item/organ/internal/ears/ears = get_int_organ(/obj/item/organ/internal/ears)
 				if(istype(ears))
-					ears.receive_damage(30)
+					ears.receive_damage(ex_armor_reduction(30, armor))
 
-			if(prob(70) && !shielded)
-				Paralyse(20 SECONDS)
+			Paralyse(ex_armor_reduction(20 SECONDS, armor))
 
 		if(3)
-			b_loss += 30
-			if(prob(getarmor(null, "bomb")))
-				b_loss = b_loss/2
-
-			else
-
-				var/limbs_affected = pick(0, 1)
-				var/obj/item/organ/external/processing_dismember
-				var/list/valid_limbs = bodyparts.Copy()
-
-				while(limbs_affected != 0 && valid_limbs.len > 0)
-					processing_dismember = pick(valid_limbs)
-					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-						processing_dismember.droplimb(1,DROPLIMB_SHARP,0,1)
-						valid_limbs -= processing_dismember
-						limbs_affected -= 1
-					else valid_limbs -= processing_dismember
+			bruteloss += 30
+			limbs_affected = pick(0, 1)
 
 			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
-				AdjustDeaf(60 SECONDS)
-			if(prob(50) && !shielded)
-				Paralyse(20 SECONDS)
+				AdjustDeaf(ex_armor_reduction(60 SECONDS, armor))
 
-	take_overall_damage(b_loss,f_loss, TRUE, used_weapon = "Explosive Blast")
+			Paralyse(ex_armor_reduction(20 SECONDS, armor))
+
+	limbs_affected = max(limbs_affected - limb_loss_reduction, 0)
+
+	if(limbs_affected > 0)
+		process_dismember(limbs_affected)
+	bruteloss = ex_armor_reduction(bruteloss, armor)
+	burnloss = ex_armor_reduction(burnloss, armor)
+	take_overall_damage(bruteloss,burnloss, TRUE, used_weapon = "Explosive Blast")
 
 	..()
+
+/mob/living/carbon/human/proc/process_dismember(limbs_affected)
+	var/list/valid_limbs = bodyparts.Copy()
+
+	while(limbs_affected && valid_limbs.len)
+		var/obj/item/organ/external/processing_dismember = pick_n_take(valid_limbs)
+		if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
+			processing_dismember.droplimb(1,DROPLIMB_SHARP,0,1)
+			limbs_affected--
+
+#undef ex_armor_reduction
 
 /mob/living/carbon/human/blob_act(obj/structure/blob/B)
 	if(stat == DEAD)

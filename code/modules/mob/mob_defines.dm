@@ -61,7 +61,8 @@
 	var/list/temporary_languages = list() // For reagents that grant language knowlege.
 	var/list/abilities = list()           // For species-derived or admin-given powers.
 	var/list/speak_emote = list("says")   // Verbs used when speaking. Defaults to 'say' if speak_emote is null.
-	var/emote_type = 1		// Define emote default type, 1 for seen emotes, 2 for heard emotes
+	/// Define emote default type, EMOTE_VISIBLE for seen emotes, EMOTE_AUDIBLE for heard emotes.
+	var/emote_type = EMOTE_VISIBLE
 	var/name_archive //For admin things like possession
 	var/gunshot_residue
 
@@ -101,9 +102,21 @@
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 	var/list/mapobjs = list()
 
-	var/in_throw_mode = 0
+	var/in_throw_mode = FALSE
 
-	var/emote_cd = 0		// Used to supress emote spamming. 1 if on CD, 2 if disabled by admin (manually set), else 0
+	// See /datum/emote
+
+	/// Cooldown on audio effects from emotes.
+	var/audio_emote_cd_status = EMOTE_READY
+
+	/// Cooldown on audio effects from unintentional emotes.
+	var/audio_emote_unintentional_cd_status = EMOTE_READY
+
+	/// Override for cooldowns on non-audio emotes. Should be a number in deciseconds.
+	var/emote_cooldown_override = null
+
+	/// Tracks last uses of emotes for cooldown purposes
+	var/list/emotes_used
 
 	var/job = null //Living
 

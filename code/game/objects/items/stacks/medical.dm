@@ -247,6 +247,9 @@
 	color = "#378C61"
 	stop_bleeding = 0
 	heal_brute = 12
+	drop_sound = 'sound/misc/moist_impact.ogg'
+	mob_throw_hit_sound = 'sound/misc/moist_impact.ogg'
+	hitsound = 'sound/misc/moist_impact.ogg'
 
 
 /obj/item/stack/medical/ointment/aloe

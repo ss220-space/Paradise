@@ -13,7 +13,10 @@
 	materials = list(MAT_METAL = 500)
 	origin_tech = "combat=1;engineering=1"
 	attack_verb = list("robusted")
+	use_sound = 'sound/effects/toolbox.ogg'
 	hitsound = 'sound/weapons/smash.ogg'
+	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
+	pickup_sound = 'sound/items/handling/toolbox_pickup.ogg'
 	var/blurry_chance = 5
 
 /obj/item/storage/toolbox/attack(mob/living/carbon/human/H, mob/living/carbon/user)

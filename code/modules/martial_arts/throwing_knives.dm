@@ -40,7 +40,7 @@
 				attacker.drop_r_hand()
 			var/sound = pick('sound/weapons/knife_holster/throat_slice.ogg','sound/weapons/knife_holster/throat_slice2.ogg')
 			playsound(defender.loc, sound, 25, 1)
-			attacker.visible_message(span_danger("[attacker] перерезает глотку [defender]! Ахуй."), span_danger("Вы перерезаете глотку [defender]! Ахуй."))
+			attacker.visible_message(span_danger("[attacker] перерезает глотку [defender]!"), span_danger("Вы перерезаете глотку [defender]!"))
 
 /datum/martial_art/throwing/explaination_footer(user)
 	to_chat(user, "[span_notice("Работает с ножами")]: Боевой, шахтёрский, костяной, метательный")

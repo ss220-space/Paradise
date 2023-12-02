@@ -14,6 +14,10 @@
 	var/lit = FALSE
 	var/icon_on = "lighter-g-on"
 	var/icon_off = "lighter-g"
+	/// Cooldown until the next turned on message/sound can be activated
+	var/next_on_message
+	/// Cooldown until the next turned off message/sound can be activated
+	var/next_off_message
 
 /obj/item/lighter/random/New()
 	..()
@@ -51,11 +55,15 @@
 		if(affecting.receive_damage( 0, 5 ))		//INFERNO
 			H.UpdateDamageIcon()
 		to_chat(user,"<span class='notice'>You light [src], but you burn your hand in the process.</span>")
+	if(world.time > next_on_message)
+		playsound(src, 'sound/items/lighter/plastic_strike.ogg', 25, TRUE)
+		next_on_message = world.time + 5 SECONDS
 
 /obj/item/lighter/proc/turn_off_lighter(mob/living/user)
 	lit = FALSE
 	w_class = WEIGHT_CLASS_TINY
 	icon_state = icon_off
+	damtype = BRUTE
 	hitsound = "swing_hit"
 	force = 0
 	attack_verb = null //human_defense.dm takes care of it
@@ -71,6 +79,9 @@
 
 /obj/item/lighter/proc/show_off_message(mob/living/user)
 	to_chat(user, "<span class='notice'>You shut off [src].")
+	if(world.time > next_off_message)
+		playsound(src, 'sound/items/lighter/plastic_close.ogg', 25, TRUE)
+		next_off_message = world.time + 5 SECONDS
 
 /obj/item/lighter/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(!isliving(M))
@@ -88,6 +99,7 @@
 				cig.light("<span class='rose'>[user] whips the [name] out and holds it for [M]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] light[user.p_s()] \the [cig] with.</span>")
 			else
 				cig.light("<span class='notice'>[user] holds the [name] out for [M], and lights the [cig.name].</span>")
+			playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 			M.update_inv_wear_mask()
 	else
 		..()
@@ -106,8 +118,7 @@
 	item_state = "zippo"
 	icon_on = "zippoon"
 	icon_off = "zippo"
-	var/next_on_message
-	var/next_off_message
+
 
 /obj/item/lighter/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
@@ -127,6 +138,9 @@
 
 /obj/item/lighter/zippo/turn_off_lighter(mob/living/user)
 	. = ..()
+	if(!user)
+		return
+
 	if(world.time > next_off_message)
 		user.visible_message("<span class='rose'>You hear a quiet click, as [user] shuts off [src] without even looking at what [user.p_theyre()] doing. Wow.")
 		playsound(src.loc, 'sound/items/zippoclose.ogg', 25, 1)
@@ -255,6 +269,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=1"
 	attack_verb = null
+	pickup_sound = 'sound/items/handling/generic_small_pickup.ogg'
+	drop_sound = 'sound/items/handling/generic_small_drop.ogg'
 
 /obj/item/match/process()
 	var/turf/location = get_turf(src)
@@ -319,7 +335,19 @@
 		if(M == user)
 			cig.attackby(src, user)
 		else
-			cig.light("<span class='notice'>[user] holds [src] out for [M], and lights [cig].</span>")
+			if(istype(src, /obj/item/match/unathi))
+				if(prob(50))
+					cig.light("<span class='rose'>[user] spits fire at [M], lighting [cig] and nearly burning [user.p_their()] face!</span>")
+					matchburnout()
+				else
+					cig.light("<span class='rose'>[user] spits fire at [M], burning [user.p_their()] face and lighting [cig] in the process.</span>")
+					var/obj/item/organ/external/head/affecting = M.get_organ("head")
+					affecting.receive_damage(0, 5)
+					M.UpdateDamageIcon()
+				playsound(user.loc, 'sound/effects/unathiignite.ogg', 40, FALSE)
+			else
+				cig.light("<span class='notice'>[user] holds [src] out for [M], and lights [cig].</span>")
+				playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 	else
 		..()
 
@@ -343,3 +371,28 @@
 /obj/item/match/firebrand/New()
 	..()
 	matchignite()
+
+/obj/item/match/unathi
+	name = "small blaze"
+	desc = "A little flame of your own, currently located dangerously in your mouth."
+	icon_state = "match_unathi"
+	attack_verb = null
+	force = 0
+	flags = DROPDEL | ABSTRACT
+	origin_tech = null
+	lit = TRUE
+	w_class = WEIGHT_CLASS_BULKY //to prevent it going to pockets
+
+/obj/item/match/unathi/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
+/obj/item/match/unathi/matchburnout()
+	if(!lit)
+		return
+	lit = FALSE //to avoid a qdel loop
+	qdel(src)
+
+/obj/item/match/unathi/Destroy()
+	. = ..()
+	STOP_PROCESSING(SSobj, src)

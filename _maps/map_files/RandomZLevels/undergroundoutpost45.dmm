@@ -7566,7 +7566,7 @@
 "qe" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "UO45_mair_out_meter";
 	layer = 3.3;
 	name = "Mixed Air Tank Out"
@@ -7578,7 +7578,7 @@
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "UO45_mair_in_meter";
 	layer = 3.3;
 	name = "Mixed Air Tank In"
@@ -8821,7 +8821,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "UO45_dloop_atm_meter";
 	name = "Distribution Loop"
 	},
@@ -8865,7 +8865,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /turf/simulated/floor/plating,
@@ -9239,7 +9239,7 @@
 "td" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -9541,7 +9541,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "tH" = (
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "UO45_wloop_atm_meter";
 	name = "Waste Loop"
 	},
@@ -9761,12 +9761,12 @@
 /area/awaymission/UO45/caves)
 "ud" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/wall/r_wall,
 /area/awaymission/UO45/engineering)
 "ue" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/wall/r_wall,
 /area/awaymission/UO45/engineering)
 "uf" = (
@@ -10046,7 +10046,7 @@
 "uJ" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
@@ -10055,7 +10055,7 @@
 "uK" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,

@@ -108,7 +108,7 @@
 	if(blood_volume)
 		blood_volume = max(blood_volume - amt, 0)
 		if(prob(10 * amt)) // +5% chance per internal bleeding site that we'll cough up blood on a given tick.
-			custom_emote(1, "кашляет кровью!")
+			custom_emote(EMOTE_AUDIBLE, "кашля%(ет,ют)% кровью!")
 			add_splatter_floor(loc, 1)
 			return 1
 		else if(amt >= 1 && prob(5 * amt)) // +2.5% chance per internal bleeding site that we'll cough up blood on a given tick. Must be bleeding internally in more than one place to have a chance at this.
@@ -167,14 +167,13 @@
 
 	if(iscarbon(AM))
 		var/mob/living/carbon/C = AM
+		if(blood_data["diseases"])
+			for(var/datum/disease/virus/V in blood_data["diseases"])
+				if(V.spread_flags < BLOOD)
+					continue
+				V.Contract(C)
 		if(blood_id == C.get_blood_id())//both mobs have the same blood substance
 			if(blood_id == "blood") //normal blood
-				if(blood_data["viruses"])
-					for(var/thing in blood_data["viruses"])
-						var/datum/disease/virus/V = thing
-						if(V.spread_flags < BLOOD)
-							continue
-						V.Contract(C)
 				if(!(blood_data["blood_type"] in get_safe_blood(C.dna.blood_type)) || !(blood_data["blood_species"] == C.dna.species.blood_species))
 					C.reagents.add_reagent("toxin", amount * 0.5)
 					return 1
@@ -190,41 +189,40 @@
 	return
 
 /mob/living/carbon/human/get_blood_data(blood_id)
-	if(blood_id == "blood") //actual blood reagent
-		var/blood_data = list()
-		//set the blood data
-		blood_data["donor"] = src
-		blood_data["viruses"] = list()
-
-		for(var/thing in diseases)
-			var/datum/disease/D = thing
-			blood_data["viruses"] += D.Copy()
-
-		blood_data["blood_DNA"] = copytext(dna.unique_enzymes,1,0)
-		if(resistances && resistances.len)
+	var/blood_data = list()
+	if(blood_id in GLOB.diseases_carrier_reagents)
+		blood_data["diseases"] = list()
+		for(var/datum/disease/D in diseases)
+			blood_data["diseases"] += D.Copy()
+		if(resistances?.len)
 			blood_data["resistances"] = resistances.Copy()
-		var/list/temp_chem = list()
-		for(var/datum/reagent/R in reagents.reagent_list)
-			temp_chem[R.id] = R.volume
-		blood_data["trace_chem"] = list2params(temp_chem)
-		if(mind)
-			blood_data["mind"] = mind
-		if(ckey)
-			blood_data["ckey"] = ckey
-		if(!suiciding)
-			blood_data["cloneable"] = 1
-		blood_data["blood_type"] = copytext(src.dna.blood_type, 1, 0)
-		blood_data["blood_species"] = dna.species.blood_species
-		blood_data["gender"] = gender
-		blood_data["real_name"] = real_name
-		blood_data["blood_color"] = dna.species.blood_color
-		blood_data["factions"] = faction
-		blood_data["dna"] = dna.Clone()
-		return blood_data
-	if(blood_id == "slimejelly")
-		var/blood_data = list()
-		blood_data["colour"] = dna.species.blood_color
-		return blood_data
+
+	switch(blood_id)
+		if("blood")
+			blood_data["donor"] = src
+			blood_data["blood_DNA"] = copytext(dna.unique_enzymes,1,0)
+			var/list/temp_chem = list()
+			for(var/datum/reagent/R in reagents.reagent_list)
+				temp_chem[R.id] = R.volume
+			blood_data["trace_chem"] = list2params(temp_chem)
+			if(mind)
+				blood_data["mind"] = mind
+			if(ckey)
+				blood_data["ckey"] = ckey
+			if(!suiciding)
+				blood_data["cloneable"] = 1
+			blood_data["blood_type"] = copytext(src.dna.blood_type, 1, 0)
+			blood_data["blood_species"] = dna.species.blood_species
+			blood_data["gender"] = gender
+			blood_data["real_name"] = real_name
+			blood_data["blood_color"] = dna.species.blood_color
+			blood_data["factions"] = faction
+			blood_data["dna"] = dna.Clone()
+
+		if("slimejelly")
+			blood_data["colour"] = dna.species.blood_color
+
+	return blood_data
 
 //get the id of the substance this mob use as blood.
 /mob/proc/get_blood_id()

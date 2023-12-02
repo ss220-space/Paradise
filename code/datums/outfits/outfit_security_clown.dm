@@ -123,16 +123,15 @@
 		var/new_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 		if(is_physician)
 			new_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS)
-		if (is_warden)
+		if(is_warden)
 			new_access = list(ACCESS_EVA, ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
 			            ACCESS_FORENSICS_LOCKERS, ACCESS_PILOT, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
 			            ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
 			            ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS)
-		apply_to_card(I, H, new_access, name, "Clown Security")
+		apply_to_card(I, H, new_access, "Clown Security", "clownsecurity")
 		I.access.Add(ACCESS_CLOWN, ACCESS_MIME, ACCESS_THEATRE)
-		I.rank = "Clown Security"
-		I.icon_state = "clownsecurity"
-		H.sec_hud_set_ID()
+		I.assignment = name
+	H.sec_hud_set_ID()
 
 
 //=========== security clown equipment ===========

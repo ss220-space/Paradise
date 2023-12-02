@@ -16,6 +16,38 @@
 /proc/pluralize_ru(gender, single_word, plural_word)
 	return gender == PLURAL ? plural_word : single_word
 
+
+/**
+ * Replaces the `%(SINGLE,PLURAL)%` or `%(MALE,FEMALE,NEUTER,PLURAL)%` message piece accordingly to user gender.
+ * Use `*` to deliberatly skip one genderize word.
+ *
+ * Arguments:
+ * * user - Person which pronouns will be used.
+ * * msg - The string to modify.
+ *
+ * Returns the modified msg string.
+ */
+/proc/genderize_decode(mob/user, msg)
+	if(!ismob(user) || !istext(msg))
+		stack_trace("Invalid arguments in genderize_decode proc.")
+	while(TRUE)
+		var/prefix = findtext_char(msg, "%(")
+		if(!prefix)
+			break
+		var/postfix = findtext_char(msg, ")%")
+		if(!postfix)
+			stack_trace("Genderize string is missing proper ending, expected )%.")
+		var/list/pieces = splittext(copytext_char(msg, prefix + 2, postfix), ",")
+		switch(length(pieces))
+			if(2)	// pluralize if only two parts present
+				msg = replacetext(splicetext_char(msg, prefix, postfix + 2, pluralize_ru(user.gender, pieces[1], pieces[2])), "*", "")
+			if(4)	// use full genderize if all four parts exist
+				msg = replacetext(splicetext_char(msg, prefix, postfix + 2, genderize_ru(user.gender, pieces[1], pieces[2], pieces[3], pieces[4])), "*", "")
+			else
+				stack_trace("Invalid data sent to genderize_decode proc.")
+	return msg
+
+
 /datum/proc/p_they(capitalized, temp_gender)
 	. = "it"
 	if(capitalized)
@@ -48,6 +80,9 @@
 
 /datum/proc/p_theyre(capitalized, temp_gender)
 	. = p_they(capitalized, temp_gender) + "'" + copytext(p_are(temp_gender), 2)
+
+/datum/proc/p_themselves(capitalized, temp_gender)
+	. = "itself"
 
 // For help conjugating verbs, eg they look, but she looks
 /datum/proc/p_s(temp_gender)
@@ -92,6 +127,18 @@
 			. = "her"
 		if(MALE)
 			. = "him"
+	if(capitalized)
+		. = capitalize(.)
+
+/client/p_themselves(capitalized, temp_gender)
+	if(!temp_gender)
+		temp_gender = gender
+	. = p_them(capitalized, temp_gender)
+	switch(temp_gender)
+		if(MALE, FEMALE)
+			. += "self"
+		if(NEUTER, PLURAL)
+			. += "selves"
 	if(capitalized)
 		. = capitalize(.)
 
@@ -172,6 +219,18 @@
 	if(capitalized)
 		. = capitalize(.)
 
+/mob/p_themselves(capitalized, temp_gender)
+	if(!temp_gender)
+		temp_gender = gender
+	. = p_them(capitalized, temp_gender)
+	switch(temp_gender)
+		if(MALE, FEMALE, NEUTER)
+			. += "self"
+		if(PLURAL)
+			. += "selves"
+	if(capitalized)
+		. = capitalize(.)
+
 /mob/p_have(temp_gender)
 	if(!temp_gender)
 		temp_gender = gender
@@ -216,6 +275,10 @@
 	return ..()
 
 /mob/living/carbon/human/p_them(capitalized, temp_gender)
+	temp_gender = get_visible_gender()
+	return ..()
+
+/mob/living/carbon/human/p_themselves(capitalized, temp_gender)
 	temp_gender = get_visible_gender()
 	return ..()
 

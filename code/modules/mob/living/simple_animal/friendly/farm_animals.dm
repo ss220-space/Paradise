@@ -247,7 +247,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	turns_per_move = 3
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/bird = 2)
 	var/egg_type = /obj/item/reagent_containers/food/snacks/egg
-	var/food_type = /obj/item/reagent_containers/food/snacks/grown/wheat
+	food_type = /obj/item/reagent_containers/food/snacks/grown/wheat
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
