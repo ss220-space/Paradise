@@ -8,6 +8,7 @@ SUBSYSTEM_DEF(tts)
 	wait = 1 SECONDS
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 	cpu_display = SS_CPUDISPLAY_HIGH
+	ss_id = "text_to_speech"
 
 	var/tts_wanted = 0
 	var/tts_request_failed = 0

@@ -5,6 +5,7 @@ SUBSYSTEM_DEF(jobs)
 	runlevels = RUNLEVEL_GAME
 	offline_implications = "Время игры на профессиях больше не будет сохраняться. Немедленных действий не требуется."
 	cpu_display = SS_CPUDISPLAY_LOW
+	ss_id = "jobs"
 
 	//List of all jobs
 	var/list/occupations = list()
