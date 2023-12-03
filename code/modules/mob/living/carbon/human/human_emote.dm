@@ -1208,6 +1208,7 @@
 	age_based = TRUE
 	volume = 100
 	cooldown = 10 SECONDS
+	unintentional_cooldown = 10 SECONDS
 	sound = 'sound/goonstation/voice/howl.ogg'
 
 /datum/emote/living/carbon/human/vulpkanin/howl/run_emote(mob/user, params, type_override, intentional)

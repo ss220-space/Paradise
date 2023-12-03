@@ -16,6 +16,8 @@
 	desc = "A card."
 	icon = 'icons/obj/card.dmi'
 	w_class = WEIGHT_CLASS_TINY
+	pickup_sound = 'sound/items/handling/card_pickup.ogg'
+	drop_sound = 'sound/items/handling/card_drop.ogg'
 	var/associated_account_number = 0
 
 	var/list/files = list(  )
