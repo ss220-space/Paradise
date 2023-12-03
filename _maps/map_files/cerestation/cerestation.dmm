@@ -34678,23 +34678,9 @@
 	},
 /area/hallway/primary/aft/east)
 "eLp" = (
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	name = "Tasers";
-	req_access = list(1)
-	},
-/obj/item/gun/energy/gun/advtaser{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/energy/gun/advtaser{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/gun/energy/gun/advtaser,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
+/obj/structure/table/reinforced,
+/obj/item/storage/fancy/donut_box,
+/turf/simulated/floor/plasteel,
 /area/security/seceqstorage)
 "eLq" = (
 /obj/item/chair/stool,
@@ -40581,6 +40567,9 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -42005,26 +41994,14 @@
 	},
 /area/maintenance/apmaint2)
 "gUM" = (
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	name = "Rubber Bullets";
-	req_access = list(1)
-	},
-/obj/item/ammo_box/magazine/enforcer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/ammo_box/magazine/enforcer,
-/obj/item/ammo_box/magazine/enforcer{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/ammo_box/magazine/enforcer{
-	pixel_x = -6;
-	pixel_y = 6
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/table/reinforced,
+/obj/item/hand_labeler,
+/obj/item/stack/tape_roll{
+	pixel_y = 6
+	},
+/obj/item/stack/tape_roll,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -49216,23 +49193,6 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/hallway/primary/fore/west)
-"iZl" = (
-/obj/machinery/recharger/wallcharger{
-	pixel_y = -25
-	},
-/obj/machinery/recharger/wallcharger{
-	pixel_y = -36
-	},
-/obj/structure/table/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/item/storage/fancy/donut_box,
-/obj/item/hand_labeler,
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
-/area/security/seceqstorage)
 "iZr" = (
 /obj/machinery/light/small,
 /obj/item/reagent_containers/glass/bucket,
@@ -52913,6 +52873,9 @@
 /obj/structure/chair/comfy/brown{
 	dir = 4;
 	layer = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
@@ -60137,11 +60100,17 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/port)
 "meE" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel,
 /area/security/main)
 "meI" = (
 /obj/machinery/button/windowtint{
@@ -61235,6 +61204,9 @@
 /obj/effect/landmark/event/lightsout,
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -61555,6 +61527,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -69041,19 +69016,6 @@
 /obj/effect/spawner/airlock/s_to_n,
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarport)
-"oON" = (
-/obj/structure/table/reinforced,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/item/stack/tape_roll,
-/obj/item/stack/tape_roll{
-	pixel_y = 6
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
-/area/security/seceqstorage)
 "oOP" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -73465,10 +73427,7 @@
 	},
 /area/maintenance/fore)
 "qbQ" = (
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
-/obj/machinery/disposal,
+/obj/machinery/vending/security,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "red"
@@ -79084,47 +79043,11 @@
 	},
 /area/security/armory)
 "rPy" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/clothing/accessory/holster{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/clothing/accessory/holster{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/clothing/accessory/holster{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/clothing/accessory/holster{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/clothing/accessory/holster,
-/obj/item/clothing/accessory/holster,
-/obj/item/clothing/accessory/holster{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/clothing/accessory/holster{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/clothing/accessory/holster{
-	pixel_x = 6;
-	pixel_y = -6
-	},
-/obj/item/clothing/accessory/holster{
-	pixel_x = 6;
-	pixel_y = -6
-	},
 /obj/structure/sign/poster/official/random{
 	pixel_y = 31
 	},
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -80063,6 +79986,20 @@
 /turf/simulated/mineral/ancient,
 /area/maintenance/gambling_den2)
 "sbw" = (
+/obj/structure/closet/secure_closet/guncabinet{
+	anchored = 1;
+	name = "Tasers";
+	req_access = list(1)
+	},
+/obj/item/gun/energy/gun/advtaser{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/gun/energy/gun/advtaser{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/gun/energy/gun/advtaser,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "red"
@@ -81031,7 +80968,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port2)
 "sss" = (
-/obj/machinery/vending/security,
+/obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -82165,23 +82102,8 @@
 	},
 /area/civilian/barber)
 "sIT" = (
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	name = "Security Ballistic Weapons";
-	req_access = list(1)
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer/security{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer/security,
-/obj/item/gun/projectile/automatic/pistol/enforcer/security{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer/security{
-	pixel_x = 6;
-	pixel_y = -6
+/obj/structure/window/reinforced{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -93506,6 +93428,9 @@
 /obj/structure/chair/comfy/brown{
 	dir = 8
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -95076,8 +95001,7 @@
 /area/hallway/primary/port/south)
 "wDo" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/security/main)
@@ -98260,6 +98184,9 @@
 	},
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/mug/sec,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -100217,17 +100144,9 @@
 /turf/space,
 /area/space/nearstation)
 "ylh" = (
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	name = "Tasers and Dominators";
-	req_access = list(1)
+/obj/structure/window/reinforced{
+	dir = 8
 	},
-/obj/item/gun/energy/dominator/sibyl,
-/obj/item/gun/energy/dominator/sibyl,
-/obj/item/gun/energy/dominator/sibyl,
-/obj/item/gun/energy/dominator/sibyl,
-/obj/item/gun/energy/dominator/sibyl,
-/obj/item/gun/energy/dominator/sibyl,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "red"
@@ -118918,7 +118837,7 @@ tNT
 tNT
 tNT
 ykJ
-ykJ
+tNT
 rJj
 oZD
 hAI
@@ -119169,7 +119088,7 @@ uqz
 dFW
 cqQ
 wDo
-meE
+cqQ
 qbQ
 tNT
 bAh
@@ -119425,7 +119344,7 @@ gIC
 uqz
 jTP
 xkf
-xkf
+wDo
 xkf
 cnH
 bsL
@@ -119682,14 +119601,14 @@ gsw
 uqz
 nsf
 oVU
-xkf
+wDo
 xkf
 mxr
 tNT
 bAj
 bKd
 ljV
-iZl
+bTT
 rJj
 cgz
 psM
@@ -120974,7 +120893,7 @@ bsL
 bAj
 bKt
 era
-oON
+qCe
 rJj
 jwM
 uaP
@@ -121481,7 +121400,7 @@ cfr
 uqz
 rPy
 gzZ
-mCo
+meE
 yiQ
 cra
 tNT

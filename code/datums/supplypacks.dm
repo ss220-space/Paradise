@@ -604,6 +604,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "Mosin Nagant rifle crate"
 	contraband = 1
 
+/datum/supply_packs/security/armory/security_voucher
+	name = "Security Voucher crate"
+	contains = list(/obj/item/security_voucher,
+					/obj/item/security_voucher,
+					/obj/item/security_voucher,
+					/obj/item/security_voucher,
+					/obj/item/security_voucher,)
+	cost = 100
+	name = "Security Voucher crate"
+
 /////// Implants & etc
 
 /datum/supply_packs/security/armory/mindshield
