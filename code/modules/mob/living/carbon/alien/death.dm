@@ -6,7 +6,7 @@
 	notransform = 1
 	canmove = 0
 	icon = null
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 
 	animation = new(loc)
 	animation.icon_state = "blank"
@@ -29,7 +29,7 @@
 	notransform = 1
 	canmove = 0
 	icon = null
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	dust_animation()
 	new /obj/effect/decal/remains/xeno(loc)
 	GLOB.dead_mob_list -= src
@@ -66,5 +66,5 @@
 	if(!gibbed)
 		if(death_sound)
 			playsound(loc, death_sound, 80, 1, 1)
-		visible_message("<B>[src]</B> [death_message]")
+		visible_message("<B>[src]</B> [genderize_decode(src, death_message)]")
 		update_icons()

@@ -214,7 +214,10 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 /client/proc/get_callproc_args()
 	var/argnum = input("Number of arguments","Number:",0) as num|null
-	if(!argnum && (argnum!=0))	return
+	if(argnum <= 0)
+		return list() // to allow for calling with 0 args
+
+	argnum = clamp(argnum, 1, 50)
 
 	var/list/lst = list()
 	//TODO: make a list to store whether each argument was initialised as null.
@@ -588,8 +591,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		qdel(I)
 	if(dresscode != "Naked")
 		H.equipOutfit(dresscode)
-
-	H.regenerate_icons()
+	else	// We have regenerate_icons() proc in the end of equipOutfit(), so don't need to call it two times.
+		H.regenerate_icons()
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Select Equipment") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_and_message_admins("<span class='notice'>changed the equipment of [key_name_admin(M)] to [dresscode].</span>")

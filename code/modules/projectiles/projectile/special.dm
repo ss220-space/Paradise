@@ -50,6 +50,7 @@
 	damage = 0
 	damage_type = BURN
 	nodamage = 1
+	reflectability = REFLECTABILITY_ENERGY
 	flag = "energy"
 	var/temperature = 300
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
@@ -93,7 +94,9 @@
 
 
 /obj/item/projectile/temp/on_hit(var/atom/target, var/blocked = 0)//These two could likely check temp protection on the mob
-	..()
+	if(!..())
+		return FALSE
+
 	if(isliving(target))
 		var/mob/living/M = target
 		M.bodytemperature = temperature

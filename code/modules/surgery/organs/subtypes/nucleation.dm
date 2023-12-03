@@ -3,7 +3,7 @@
 	species_type = /datum/species/nucleation
 	name = "nucleation organ"
 	icon = 'icons/obj/surgery.dmi'
-	desc = "A crystalized human organ. /red It has a strangely iridescent glow."
+	desc = "A crystalized human organ. <span class='danger'>It has a strangely iridescent glow.</span>"
 
 /obj/item/organ/internal/nucleation/resonant_crystal
 	species_type = /datum/species/nucleation

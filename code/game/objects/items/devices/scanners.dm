@@ -105,11 +105,14 @@ REAGENT SCANNER
 
 			var/temp_invisibility = in_turf_object.invisibility
 			var/temp_alpha = in_turf_object.alpha
-			if(temp_invisibility == 101 || temp_invisibility == INVISIBILITY_ANOMALY)
+			if(temp_invisibility == INVISIBILITY_ABSTRACT || temp_invisibility == INVISIBILITY_ANOMALY)
 				in_turf_object.invisibility = 0
 				in_turf_object.alpha = 128
 				in_turf_object.drain_act_protected = TRUE
+				if(in_turf_object.layer < TURF_LAYER)
+					in_turf_object.layer += TRAY_SCAN_LAYER_OFFSET
 				spawn(pulse_duration)
+					in_turf_object.plane = GAME_PLANE
 					if(in_turf_object)
 						var/turf/objects_turf = in_turf_object.loc
 						if(objects_turf && objects_turf.intact)
@@ -477,12 +480,12 @@ REAGENT SCANNER
 					. += "<span class='danger'>&emsp;[R.name] Стадия: [R.addiction_stage]/5</span>"
 			else
 				. += "Зависимости от реагентов не обнаружены."
-	for(var/thing in H.viruses)
+	for(var/thing in H.diseases)
 		var/datum/disease/D = thing
 		if(!(D.visibility_flags & HIDDEN_SCANNER))
 			. += "<span class='warning'><b>Внимание: обнаружен [D.form]</b>"
 			. += "&emsp;Название: [D.name]"
-			. += "&emsp;Тип: [D.spread_text]"
+			. += "&emsp;Тип: [D.additional_info]"
 			. += "&emsp;Стадия: [D.stage]/[D.max_stages]"
 			. += "&emsp;Лечение: [D.cure_text]</span>"
 	if(H.undergoing_cardiac_arrest())
@@ -903,9 +906,9 @@ REAGENT SCANNER
 	dat += "[target.health > 50 ? "<font color='blue'>" : "<font color='red'>"]\tHealth %: [target.health], ([t1])</font><br>"
 
 	var/found_disease = FALSE
-	for(var/thing in target.viruses)
+	for(var/thing in target.diseases)
 		var/datum/disease/D = thing
-		if(D.visibility_flags) //If any visibility flags are on.
+		if(D.visibility_flags & HIDDEN_SCANNER)
 			continue
 		found_disease = TRUE
 		break

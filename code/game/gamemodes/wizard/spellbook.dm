@@ -430,7 +430,7 @@
 /datum/spellbook_entry/item/battlemage_charge
 	name = "Battlemage Armour Charges"
 	desc = "A powerful defensive rune, it will grant eight additional charges to a suit of battlemage armour."
-	item_path = /obj/item/wizard_armour_charge
+	item_path = /obj/item/storage/box/wizard/recharge
 	category = "Weapons and Armors"
 	cost = 1
 
@@ -516,6 +516,22 @@
 	item_path = /obj/item/antag_spawner/slaughter_demon
 	category = "Summons"
 	limit = 3
+
+/datum/spellbook_entry/item/shadowbottle
+	name = "Bottle of Shadows"
+	desc = "A bottle of pure darkness, the smell of which will attract extradimensional beings when broken. Be careful though, the kinds of creatures summoned from the shadows are indiscriminate in their killing, and you yourself may become a victim."
+	item_path = /obj/item/antag_spawner/slaughter_demon/shadow
+	category = "Summons"
+	limit = 3
+	cost = 1 //Unless you blackout the station this ain't going to do much, wizard doesn't get NV, still dies easily to a group of 2 and it doesn't eat bodies.
+
+/datum/spellbook_entry/item/pulsedemonbottle
+	name = "Living Lightbulb"
+	desc = "A magically sealed lightbulb confining some manner of electricity based creature. Beware, these creatures are indiscriminate in their shocking antics, and you yourself may become a victim."
+	item_path = /obj/item/antag_spawner/pulse_demon
+	category = "Summons"
+	limit = 3
+	cost = 1 //Needs station power to live. Also can kill the wizard trivially in maints (get shock protection).
 
 /datum/spellbook_entry/item/mayhembottle
 	name = "Mayhem in a Bottle"
@@ -650,6 +666,11 @@
 			for(var/datum/spellbook_entry/item/hugbottle/HB in entries)
 				if(!isnull(HB.limit))
 					HB.limit++
+		else if(istype(O, /obj/item/antag_spawner/slaughter_demon/shadow))
+			uses += 1
+			for(var/datum/spellbook_entry/item/shadowbottle/SB in entries)
+				if(!isnull(SB.limit))
+					SB.limit++
 		else
 			uses += 2
 			for(var/datum/spellbook_entry/item/bloodbottle/BB in entries)

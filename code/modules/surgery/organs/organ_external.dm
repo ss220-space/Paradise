@@ -425,13 +425,15 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 //Updates brute_damn and burn_damn from wound damages. Updates BLEEDING status.
 /obj/item/organ/external/proc/check_fracture(damage)
-	if(config.bones_can_break && brute_dam + burn_dam + damage > min_broken_damage && !is_robotic())
+	if(CONFIG_GET(flag/bones_can_break) && brute_dam + burn_dam + damage > min_broken_damage && !is_robotic())
 		if(prob(damage * FRAGILITY(owner)))
 			fracture()
 			add_attack_logs(owner, null, "Suffered fracture to [src](Damage: [damage], Organ HP: [max_damage - (brute_dam + burn_dam) ])")
 
 /obj/item/organ/external/proc/check_for_internal_bleeding(damage)
-	if(owner && (NO_BLOOD in owner.dna.species.species_traits))
+	if(!owner)
+		return
+	if(NO_BLOOD in owner.dna.species.species_traits)
 		return
 	if(owner.status_flags & GODMODE)
 		return

@@ -367,7 +367,7 @@ effective or pretty fucking useless.
 /obj/item/storage/box/syndie_kit/teleporter/populate_contents()
 	new /obj/item/teleporter(src)
 	new /obj/item/paper/teleporter(src)
-
+	new /obj/item/clothing/glasses/chameleon/meson(src)
 /obj/effect/temp_visual/teleport_abductor/syndi_teleporter
 	duration = 5
 

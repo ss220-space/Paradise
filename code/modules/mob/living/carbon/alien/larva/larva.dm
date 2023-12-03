@@ -14,7 +14,7 @@
 	var/amount_grown = 0
 	var/max_grown = 200
 	var/time_of_birth
-	death_message = "lets out a waning high-pitched cry."
+	death_message = "с тошнотворным шипением выдыха%(ет,ют)% воздух и пада%(ет,ют)% на пол..."
 	death_sound = null
 
 	var/datum/action/innate/hide/alien_larva/hide_action

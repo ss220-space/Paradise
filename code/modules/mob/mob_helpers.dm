@@ -81,7 +81,7 @@
 
 /proc/cannotPossess(A)
 	var/mob/dead/observer/G = A
-	if(G.has_enabled_antagHUD && config.antag_hud_restricted)
+	if(G.has_enabled_antagHUD && CONFIG_GET(flag/antag_hud_restricted))
 		return 1
 	return 0
 
@@ -124,10 +124,12 @@
 		theghost = pick(candidates)
 		to_chat(M, "Your mob has been taken over by a ghost!")
 		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)])")
+		log_game("[theghost.key] has taken control of [M] (ckey: [M.key])")
 		M.ghostize()
 		M.key = theghost.key
 	else
 		to_chat(M, "There were no ghosts willing to take control.")
+		log_game("No one decided to take control of [M] (ckey: [M.key])")
 		message_admins("No ghosts were willing to take control of [key_name_admin(M)])")
 
 /proc/check_zone(zone)
@@ -751,6 +753,69 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		return FALSE
 	// Cast to 1/0
 	return !!(client.prefs.toggles & toggleflag)
+
+
+/**
+ * Helper proc to determine if a mob can use emotes that make sound or not.
+ */
+/mob/proc/can_use_audio_emote(intentional)
+	var/emote_status = intentional ? audio_emote_cd_status : audio_emote_unintentional_cd_status
+	switch(emote_status)
+		if(EMOTE_INFINITE)  // Spam those emotes
+			return TRUE
+		if(EMOTE_ADMIN_BLOCKED)  // Cooldown emotes were disabled by an admin, prevent use
+			return FALSE
+		if(EMOTE_ON_COOLDOWN)	// Already on CD, prevent use
+			return FALSE
+		if(EMOTE_READY)
+			return TRUE
+
+	CRASH("Invalid emote type")
+
+
+/**
+ * Start the cooldown for an emote that plays audio.
+ *
+ * Arguments:
+ * * intentional - Whether or not the user deliberately triggered this emote.
+ * * cooldown - The amount of time that should be waited before any other audio emote can fire.
+ */
+/mob/proc/start_audio_emote_cooldown(intentional, cooldown = AUDIO_EMOTE_COOLDOWN)
+	if(!can_use_audio_emote(intentional))
+		return FALSE
+
+	var/cooldown_source = intentional ? audio_emote_cd_status : audio_emote_unintentional_cd_status
+
+	if(cooldown_source == EMOTE_READY)
+		// we do have to juggle between cooldowns a little bit, but this lets us keep them on separate cooldowns so
+		// a user screaming every five seconds doesn't prevent them from sneezing.
+		if(intentional)
+			audio_emote_cd_status = EMOTE_ON_COOLDOWN	// Starting cooldown
+		else
+			audio_emote_unintentional_cd_status = EMOTE_ON_COOLDOWN
+		addtimer(CALLBACK(src, PROC_REF(on_audio_emote_cooldown_end), intentional), cooldown)
+	return TRUE  // proceed with emote
+
+
+/mob/proc/on_audio_emote_cooldown_end(intentional)
+	if(intentional)
+		if(audio_emote_cd_status == EMOTE_ON_COOLDOWN)
+			// only reset to ready if we're in a cooldown state
+			audio_emote_cd_status = EMOTE_READY
+	else
+		if(audio_emote_unintentional_cd_status == EMOTE_ON_COOLDOWN)
+			audio_emote_unintentional_cd_status = EMOTE_READY
+
+
+/proc/stat_to_text(stat)
+	switch(stat)
+		if(CONSCIOUS)
+			return "conscious"
+		if(UNCONSCIOUS)
+			return "unconscious"
+		if(DEAD)
+			return "dead"
+
 
 // Used to make sure that a player has a valid job preference setup, used to knock players out of eligibility for anything if their prefs don't make sense.
 // A "valid job preference setup" in this situation means at least having one job set to low, or not having "return to lobby" enabled

@@ -26,7 +26,7 @@
 /obj/item/gun/medbeam/handle_suicide()
 	return
 
-/obj/item/gun/medbeam/dropped(mob/user)
+/obj/item/gun/medbeam/dropped(mob/user, silent = FALSE)
 	..()
 	LoseTarget()
 

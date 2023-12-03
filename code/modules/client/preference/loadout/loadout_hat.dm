@@ -57,12 +57,12 @@
 /datum/gear/hat/capcsec
 	display_name = "security corporate cap"
 	path = /obj/item/clothing/head/soft/sec/corp
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Cadet", "Security Pod Pilot")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
 
 /datum/gear/hat/capsec
 	display_name = "security cap"
 	path = /obj/item/clothing/head/soft/sec
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Cadet", "Security Pod Pilot")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
 
 /datum/gear/hat/capred
 	display_name = "cap, red"
@@ -143,12 +143,12 @@
 /datum/gear/hat/beret_job/sec
 	display_name = "security beret"
 	path = /obj/item/clothing/head/beret/sec
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Cadet", "Security Pod Pilot")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
 
 /datum/gear/hat/beret_job/sec_black
 	display_name = "black security beret"
 	path = /obj/item/clothing/head/beret/sec/black
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Cadet", "Security Pod Pilot")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
 
 /datum/gear/hat/beret_job/marine
 	display_name = "royal marines commando beret"

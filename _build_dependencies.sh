@@ -2,7 +2,7 @@
 # For dreamchecker
 export SPACEMANDMM_TAG=suite-1.7.1
 # For TGUI
-export NODE_VERSION=16
+export NODE_VERSION=18
 # Stable Byond Major
 export STABLE_BYOND_MAJOR=514
 # Stable Byond Minor
@@ -17,4 +17,4 @@ export RUSTG_VERSION=3.0.0-ss220
 export DMJIT_VERSION=v0.1.0
 
 # Python version for mapmerge and other tools
-export PYTHON_VERSION=3.7.9
+export PYTHON_VERSION=3.11.6

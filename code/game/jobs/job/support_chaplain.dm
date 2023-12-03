@@ -11,6 +11,7 @@
 	selection_color = "#dddddd"
 	access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)
+	alt_titles = list("Priest","Monk","Preacher","Reverend","Oracle","Nun","Imam","Exorcist")
 	money_factor = 2
 	outfit = /datum/outfit/job/chaplain
 

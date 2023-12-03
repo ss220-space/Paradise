@@ -4,6 +4,7 @@
 	var/radio_desc = ""
 	icon_state = "headset"
 	item_state = "headset"
+	equip_sound = 'sound/items/handling/generic_equip4.ogg'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi',
 		"Vox Armalis" = 'icons/mob/clothing/species/armalis/ears.dmi',
@@ -392,6 +393,39 @@
 		return FALSE
 	return ..()
 
+/obj/item/radio/headset/all_channels // Its only feature is all channels.
+	ks1type = /obj/item/encryptionkey/admin
+
+/obj/item/radio/headset/event_1
+	name = "Radio headset"
+	desc = "A headset linked to special long range alpha frequency in this sector."
+	icon_state = "headset"
+	item_state = "headset"
+	ks1type = /obj/item/encryptionkey/event_1
+	requires_tcomms = FALSE
+	instant = TRUE
+	freqlock = TRUE
+
+/obj/item/radio/headset/event_2
+	name = "Radio headset"
+	desc = "A headset linked to special long range beta frequency in this sector."
+	icon_state = "headset"
+	item_state = "headset"
+	ks1type = /obj/item/encryptionkey/event_2
+	requires_tcomms = FALSE
+	instant = TRUE
+	freqlock = TRUE
+
+/obj/item/radio/headset/event_3
+	name = "Radio headset"
+	desc = "A headset linked to special long range gamma frequency in this sector."
+	icon_state = "headset"
+	item_state = "headset"
+	ks1type = /obj/item/encryptionkey/event_3
+	requires_tcomms = FALSE
+	instant = TRUE
+	freqlock = TRUE
+
 /obj/item/radio/headset/attackby(obj/item/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/encryptionkey/))
 		user.set_machine(src)
@@ -504,3 +538,53 @@
 	keyslot1 = new /obj/item/encryptionkey/syndicate
 	syndiekey = keyslot1
 	recalculateChannels()
+
+/obj/item/bowman_conversion_tool
+	name = "Bowman headset conversion tool"
+	desc = "Easy-to-apply device which enchances headset with loud noise protection."
+	icon = 'icons/obj/radio.dmi'
+	icon_state = "bowman_conversion_tool"
+	var/static/list/valid_headset_types
+	var/static/list/forbidden_headset_types = list(
+		/obj/item/radio/headset/syndicate,
+		/obj/item/radio/headset/ninja,
+		/obj/item/radio/headset/abductor
+	)
+	var/static/list/forbidden_headset_typecache
+
+/obj/item/bowman_conversion_tool/Initialize(mapload)
+	. = ..()
+	if(!forbidden_headset_typecache)
+		forbidden_headset_typecache = list()
+		for(var/path in forbidden_headset_types)
+			forbidden_headset_typecache += typecacheof(path)
+
+	if(!valid_headset_types)
+		valid_headset_types = list()
+		for(var/headset in subtypesof(/obj/item/radio/headset))
+			var/obj/item/radio/headset/temp = headset
+			if(initial(temp.flags) & EARBANGPROTECT)
+				if(headset in forbidden_headset_typecache)
+					continue
+				valid_headset_types[initial(temp.name)] = temp
+
+/obj/item/bowman_conversion_tool/afterattack(atom/target, mob/user, proximity, params)
+	. = ..()
+	if(!istype(target, /obj/item/radio/headset))
+		return
+	if(!proximity)
+		return
+	var/headset_name = input("Please, select a mask!", "Bowman headset", null, null) as null|anything in valid_headset_types
+	if(!headset_name)
+		to_chat(user, span_notice("You decided not to convert your headset yet."))
+		return
+	var/obj/item/radio/headset/headset = target
+	headset.flags |= EARBANGPROTECT
+	to_chat(user, span_notice("You selected [headset_name]. Now it's protected against loud noises."))
+	var/headset_path = valid_headset_types[headset_name]
+	var/obj/item/radio/headset/mask = headset_path
+	headset.name = initial(mask.name)
+	headset.desc = initial(mask.desc)
+	headset.icon = initial(mask.icon)
+	headset.icon_state = initial(mask.icon_state)
+	qdel(src)

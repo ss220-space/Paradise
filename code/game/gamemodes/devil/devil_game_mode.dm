@@ -1,7 +1,7 @@
 /datum/game_mode/devil
 	name = "devil"
 	config_tag = "devil"
-	protected_jobs = list("Security Officer", "Security Cadet", "Warden", "Detective", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate",
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate",
 						 "Internal Affairs Agent", "Librarian", "Chaplain", "Head of Security", "Captain",  "Brig Physician",
 						 "Nanotrasen Navy Officer", "Special Operations Officer", "AI", "Cyborg", "Nanotrasen Navy Field Officer", "Supreme Commander")
 	required_players = 2
@@ -21,15 +21,15 @@
 
 /datum/game_mode/devil/pre_setup()
 
-	if(config.protect_roles_from_antagonist)
+	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 
 	var/list/possible_devils = get_players_for_role(ROLE_DEVIL)
 	var/num_devils = 0
 	if(!possible_devils.len)
 		return 0
-	if(config.traitor_scaling)
-		num_devils = max(1, round((num_players())/(config.traitor_scaling))+1)
+	if(CONFIG_GET(number/traitor_scaling))
+		num_devils = max(1, round((num_players())/(CONFIG_GET(number/traitor_scaling)))+1)
 	else
 		num_devils = max(1, min(num_players(), traitors_possible))
 	add_game_logs("Number of devils chosen: [num_devils]")

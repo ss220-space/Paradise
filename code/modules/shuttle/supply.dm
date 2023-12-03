@@ -214,7 +214,7 @@
 				// Sell gems
 				if(istype(thing, /obj/item/gem))
 					var/obj/item/gem/G = thing
-					pointsEarned = G.sell_value
+					pointsEarned = round(G.sell_multiplier * SSshuttle.points_per_gem)
 					msg += "<span class='good'>+[pointsEarned]</span>: Received [G]. Excellent work.<br>"
 					SSshuttle.points += pointsEarned
 
@@ -418,6 +418,9 @@
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return 1
+
+	if(..())
+		return TRUE
 
 	add_fingerprint(user)
 	post_signal("supply")

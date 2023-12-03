@@ -9,7 +9,7 @@
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "icecream_cone"
 	bitesize = 3
-	list_reagents = list("nutriment" = 1, "sugar" = 1)
+	list_reagents = list("nutriment" = 1, "sugar" = 3)
 	tastes = list("ice cream" = 1)
 	foodtype = SUGAR | DAIRY
 
@@ -51,7 +51,7 @@
 	name = "fried banana"
 	desc = "Goreng Pisang, also known as fried bananas."
 	icon_state = "friedbanana"
-	list_reagents = list("sugar" = 5, "nutriment" = 8, "cornoil" = 4)
+	list_reagents = list("sugar" = 10, "nutriment" = 8, "cornoil" = 4)
 	foodtype = FRIED | FRUIT | SUGAR
 
 /obj/item/reagent_containers/food/snacks/ricepudding
@@ -93,7 +93,7 @@
 	icon_state = "candiedapple"
 	filling_color = "#F21873"
 	bitesize = 3
-	list_reagents = list("nutriment" = 3, "sugar" = 2)
+	list_reagents = list("nutriment" = 3, "sugar" = 5)
 	tastes = list("apple" = 2, "sweetness" = 2)
 	foodtype = FRUIT | SUGAR
 

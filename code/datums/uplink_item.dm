@@ -12,7 +12,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			var/datum/uplink_item/I = new path
 			if(!I.item)
 				continue
-			if(I.uplinktypes.len && SSticker && !(U.uplink_type in I.uplinktypes))
+			if(I.uplinktypes.len && SSticker && !(U.uplink_type in I.uplinktypes) && U.uplink_type != UPLINK_TYPE_ADMIN)
 				continue
 			if(I.excludefrom.len && SSticker && (U.uplink_type in I.excludefrom))
 				continue
@@ -66,7 +66,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/name = "item name"
 	var/category = "item category"
 	var/desc = "Item Description"
-	var/reference = "Item Reference"
+	var/reference = "Item Reference" // Important to use unique "reference" for datums with different "item".
 	var/item = null
 	var/cost = 0
 	var/last = 0 // Appear last
@@ -74,6 +74,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/list/uplinktypes = list() // Empty list means it is in all the uplink types. Otherwise place the uplink type here.
 	var/list/excludefrom = list() // Empty list does nothing. Place the name of uplink type you don't want this item to be available in here.
 	var/list/job = null
+	var/list/race = null
 	var/surplus = 100 //Chance of being included in the surplus crate (when pick() selects it)
 	var/cant_discount = FALSE
 	var/limited_stock = -1 // Can you only buy so many? -1 allows for infinite purchases
@@ -85,7 +86,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/proc/spawn_item(var/turf/loc, var/obj/item/uplink/U)
 
 	if(hijack_only && !(usr.mind.special_role == SPECIAL_ROLE_NUKEOPS))//nukies get items that regular traitors only get with hijack. If a hijack-only item is not for nukies, then exclude it via the gamemode list.
-		if(!(locate(/datum/objective/hijack) in usr.mind.get_all_objectives()))
+		if(!(locate(/datum/objective/hijack) in usr.mind.get_all_objectives()) && U.uplink_type != UPLINK_TYPE_ADMIN)
 			to_chat(usr, "<span class='warning'>The Syndicate will only issue this extremely dangerous item to agents assigned the Hijack objective.</span>")
 			return
 
@@ -238,7 +239,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "KPM"
 	item = /obj/item/borg/upgrade/modkit/indoors
 	cost = 4 //you need two for full damage, so total of 8 for maximum damage
-	job = list("Shaft Miner")
+	job = list("Shaft Miner", "Quartermaster")
+
+/datum/uplink_item/jobspecific/mining_charge_hacker
+	name = "Mining Charge Hacker"
+	desc = "Looks and functions like an advanced mining scanner, but allows mining charges to be placed anywhere and destroy more than rocks. \
+	Use it on a mining charge to override its safeties. Reduces explosive power of mining charges due to the modification of their internals."
+	reference = "MCH"
+	item = /obj/item/t_scanner/adv_mining_scanner/syndicate
+	cost = 4
+	job = list("Shaft Miner", "Quartermaster")
 
 //Chef
 /datum/uplink_item/jobspecific/specialsauce
@@ -305,9 +315,19 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "HGAT"
 	item = /obj/item/storage/toolbox/green/memetic
 	cost = 20
-	job = list("Chaplain")
+	job = list("Chaplain", "Civilian")
 	surplus = 0 //No lucky chances from the crate; if you get this, this is ALL you're getting
 	hijack_only = TRUE //This is a murderbone weapon, as such, it should only be available in those scenarios.
+
+/datum/uplink_item/jobspecific/book_of_babel
+	name = "Book of Babel"
+	desc = "An ancient tome written in countless tongues. Despite this fact, you can read this book effortlessly, to learn all the existing languages. Don't ask questions."
+	reference = "BOB"
+	item = /obj/item/book_of_babel
+	cost = 1
+	job = list("Chaplain", "Librarian")
+	surplus = 0
+	cant_discount = TRUE
 
 //Janitor
 /datum/uplink_item/jobspecific/cautionsign
@@ -479,6 +499,18 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/dice/d20/e20
 	cost = 3
 	job = list("Librarian")
+	surplus = 0
+	hijack_only = TRUE
+
+/datum/uplink_item/jobspecific/dice_of_fate
+	name = "Dice of fate"
+	desc = "Everything or nothing; that is my motto."
+	reference = "DOF"
+	item = /obj/item/dice/d20/fate/one_use
+	cost = 20
+	job = list("Librarian")
+	surplus = 0
+	cant_discount = TRUE
 
 //Botanist
 /datum/uplink_item/jobspecific/ambrosiacruciatus
@@ -512,19 +544,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Special RCD capable to destroy reinforced walls and have 500 matter units instead of 100."
 	reference = "SRCD"
 	item = /obj/item/rcd/combat
-	cost = 8
-	job = list("Chief Engineer")
-	surplus = 0
-
-//Stimulants
-
-/datum/uplink_item/jobspecific/stims
-	name = "Stimulants"
-	desc = "A highly illegal compound contained within a compact auto-injector; when injected it makes the user extremely resistant to incapacitation and greatly enhances the body's ability to repair itself."
-	reference = "ST"
-	item = /obj/item/reagent_containers/hypospray/autoinjector/stimulants
 	cost = 5
-	job = list("Scientist", "Student Scientist", "Research Director", "Geneticist", "Chief Medical Officer", "Medical Doctor", "Intern", "Psychiatrist", "Chemist", "Paramedic", "Coroner", "Virologist")
+	job = list("Station Engineer", "Trainee Engineer", "Mechanic", "Life Support Specialist", "Chief Engineer")
+	surplus = 0
 
 //Tator Poison Bottles
 
@@ -547,6 +569,54 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	job = list("Head of Personnel", "Quartermaster", "Cargo Technician", "Librarian")
 
+
+// Racial
+
+/datum/uplink_item/racial
+	category = "Racial Specific Tools"
+	cant_discount = TRUE
+	surplus = 0
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+//IPC
+
+/datum/uplink_item/racial/ipc_combat_upgrade
+	name = "Ipc combat upgrade"
+	desc = "Advanced data storage designed to be compatible with positronic systems.This one include melee algorithms along with overwritten microbattery safety protocols."
+	reference = "ICU"
+	item = /obj/item/ipc_combat_upgrade
+	cost = 3
+	race = list("Machine")
+
+/datum/uplink_item/racial/supercharge
+	name = "Supercharge Implant"
+	desc = "An implant injected into the body, and later activated manually to inject a chemical cocktail, which has the effect of removing and reducing the time of all stuns and increasing movement speed. Can be activated up to 3 times."
+	reference = "SSI"
+	item = /obj/item/implanter/supercharge
+	cost = 8
+	race = list("Machine")
+
+
+//Slime People
+
+/datum/uplink_item/racial/anomaly_extract
+	name = "Anomaly extract"
+	desc = "The result of the work of scientists on mixing an experimental stable mutagen with the core of a pyroclastic anomaly. Gives the user the opportunity to become a slime and heat himself up."
+	reference = "AEXT"
+	item = /obj/item/anomaly_extract
+	cost = 10
+	race = list("Slime People")
+
+//Plasmaman
+
+/datum/uplink_item/racial/plasma_chameleon
+	name = "Plasmaman Chameleon Kit"
+	desc = "A set of items that contain chameleon technology allowing you to disguise as pretty much anything on the station, and more! \
+			Due to budget cuts, the shoes don't provide protection against slipping. The set comes with a complementary chameleon stamp. Only for Plasmamen."
+	reference = "PCK"
+	item = /obj/item/storage/box/syndie_kit/plasma_chameleon
+	cost = 4
+	race = list("Plasmaman")
 
 // DANGEROUS WEAPONS
 
@@ -689,6 +759,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/twohanded/chainsaw
 	cost = 12
 
+/datum/uplink_item/dangerous/commando_kit
+	name = "Commandos knife operation kit"
+	desc = "A box that smells like a mix of gunpowder, napalm and cheap whiskey.  Contains everything you need to survive in such places."
+	reference = "CK"
+	item = /obj/item/storage/box/syndie_kit/commando_kit
+	cost = 7
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 // SUPPORT AND MECHAS
 
@@ -1056,7 +1133,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 8
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-
 /datum/uplink_item/ammo/rocketHEDP
 	name = "84mm High Explosive Dual Purpose rocket"
 	desc = "A rocket from a rocketlauncher. This one emits shrapnel and incendiary ammunition. The rocket itself is strong enough to destroy station mechs and robots with one shot."
@@ -1064,6 +1140,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/ammo_casing/caseless/rocket/hedp
 	cost = 6
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/ammo/knives_kit
+	name = "Throwing knives kit"
+	desc = "A box containing 7 throwing knives"
+	reference = "THR"
+	item = /obj/item/storage/box/syndie_kit/knives_kit
+	cost = 1
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 // STEALTHY WEAPONS
 
@@ -1122,7 +1206,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			 throwing weapons. The bolas can knock a target down and the shurikens will embed into limbs."
 	reference = "STK"
 	item = /obj/item/storage/box/syndie_kit/throwing_weapons
-	cost = 3
+	cost = 1
 
 /datum/uplink_item/stealthy_weapons/edagger
 	name = "Energy Dagger"
@@ -1338,6 +1422,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 3
 	surplus = 80
 
+/datum/uplink_item/explosives/fraggrenade
+	name = "Frag grenade's"
+	reference = "FRAG"
+	desc = "A belt containing 4 lethally dangerous and destructive grenades."
+	item = /obj/item/storage/belt/grenade/frag
+	cost = 4
+
 /datum/uplink_item/explosives/grenadier
 	name = "Grenadier's belt"
 	desc = "A belt containing 26 lethally dangerous and destructive grenades."
@@ -1385,22 +1476,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/stealthy_tools
 	category = "Stealth and Camouflage Items"
 
-/datum/uplink_item/stealthy_tools/chameleon_stamp
-	name = "Chameleon Stamp"
-	desc = "A stamp that can be activated to imitate an official Nanotrasen Stamp. The disguised stamp will work exactly like the real stamp and will allow you to forge false documents to gain access or equipment; \
-	it can also be used in a washing machine to forge clothing."
+/datum/uplink_item/stealthy_tools/syndie_kit/counterfeiter_bundle
+	name = "Syndicate Counterfeiter Bundle"
+	desc = "A cleverly implemented bundle designed to document counterfeiting. Comes with a chameleon stamp, capable of imitating any NanoTrasen issued stamps and a fakesign pen to alter the world through the sheer force of paperwork. While making the user capable of faking almost any document, this Syndicate technology has been rumored to cause a huge upheaval on NT objects. "
 	reference = "CHST"
-	item = /obj/item/stamp/chameleon
 	cost = 1
 	surplus = 35
-
-/datum/uplink_item/stealthy_tools/chameleonpen
-	name = "Chameleon Pen"
-	desc = "A pen with customized ultra-super high-tech tip, that makes everything you write look like a real signature."
-	reference = "CHPEN"
-	item = /obj/item/pen/fakesign
-	cost = 1
-	surplus = 35
+	item = /obj/item/storage/box/syndie_kit/counterfeiter_bundle
 
 /datum/uplink_item/stealthy_tools/chameleonflag
 	name = "Chameleon Flag"
@@ -1592,6 +1674,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/accessory/holster
 	cost = 1
 
+/datum/uplink_item/device_tools/holster/knives
+	name = "Knife holster"
+	desc = "A bunch of straps connected into one holster. Has 7 special slots for holding knives."
+	reference = "KH"
+	item = /obj/item/clothing/accessory/holster/knives
+	cost = 2
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 /datum/uplink_item/device_tools/webbing
 	name = "Combat Webbing"
 	desc = "Sturdy mess of synthcotton belts and buckles, ready to share your burden."
@@ -1749,12 +1839,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 5
 	surplus = 75
 
-/datum/uplink_item/device_tools/cipherkey
-	name = "Syndicate Encryption Key"
-	desc = "A key, that when inserted into a radio headset, allows you to listen to all station department channels as well as talk on an encrypted Syndicate channel."
+/datum/uplink_item/device_tools/bowman_kit
+	name = "Bowman Conversion kit + Syndicate Encryption Key"
+	desc = "Easy-to-apply device which enchances headset with loud noise protection and chameleoning headsets. \
+	A key, that when inserted into a radio headset, allows you to listen to all station department channels as well as talk on an encrypted Syndicate channel."
 	reference = "SEK"
-	item = /obj/item/encryptionkey/syndicate
-	cost = 2 //Nowhere near as useful as the Binary Key!
+	item = /obj/item/storage/box/syndie_kit/bowman_conversion_kit
+	cost = 1
 	surplus = 75
 
 /datum/uplink_item/device_tools/hacked_module
@@ -1867,6 +1958,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 15
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+//Stimulants
+/datum/uplink_item/device_tools/stims
+	name = "Stimulants"
+	desc = "A highly illegal compound contained within a compact auto-injector; when injected it makes the user extremely resistant to incapacitation and greatly enhances the body's ability to repair itself."
+	reference = "ST"
+	item = /obj/item/reagent_containers/hypospray/autoinjector/stimulants
+	cost = 5
+	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
 // IMPLANTS
 
@@ -1910,6 +2009,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "AI"
 	item = /obj/item/implanter/adrenalin
 	cost = 8
+	cant_discount = TRUE
+	surplus = 0
 
 /datum/uplink_item/implants/microbomb
 	name = "Microbomb Implant"
@@ -1927,6 +2028,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/mantisblade
 	cost = 12
 	surplus = 90
+
+/datum/uplink_item/implants/stealthbox
+    name = "Stealth Implant"
+    desc = "An implant injected into the body, and later activated manually to deploy a box, fully hiding you in the surroundings. Can be used indefinitely"
+    reference = "BI"
+    item = /obj/item/implanter/stealth
+    cost = 8
 
 // Cybernetics
 /datum/uplink_item/cyber_implants
@@ -1950,11 +2058,19 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/cyber_implants/antistun
 	name = "Hardened CNS Rebooter Implant"
-	desc = "This implant will help you get back up on your feet faster after being stunned. It is invulnerable to EMPs. \
+	desc = "This implant will help you get back up on your feet faster after being stunned. It is invulnerable to EMPs. Incompatible with the Neural Jumpstarter.\
 			Comes with an automated implanting tool."
 	reference = "CIAS"
 	item = /obj/item/storage/box/cyber_implants/anti_stun_hardened
 	cost = 12
+
+/datum/uplink_item/cyber_implants/antisleep
+	name = "Hardened Neural Jumpstarter Implant"
+	desc = "This implant will help you regain your consciousness, but there is short delay for that. It is invulnerable to EMPs. Incompatible with the CNS Rebooter.\
+			Comes with an automated implanting tool."
+	reference = "NJ"
+	item = /obj/item/storage/box/cyber_implants/anti_sleep_hardened
+	cost = 15
 
 /datum/uplink_item/cyber_implants/reviver
 	name = "Hardened Reviver Implant"

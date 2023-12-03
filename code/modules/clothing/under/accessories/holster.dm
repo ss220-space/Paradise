@@ -4,83 +4,90 @@
 	icon_state = "holster"
 	item_color = "holster"
 	slot = ACCESSORY_SLOT_UTILITY
-	var/holster_allow = /obj/item/gun
-	var/obj/item/gun/holstered = null
+	pickup_sound = 'sound/items/handling/backpack_pickup.ogg'
+	equip_sound = 'sound/items/handling/backpack_equip.ogg'
+	drop_sound = 'sound/items/handling/backpack_drop.ogg'
+	w_class = WEIGHT_CLASS_NORMAL
 	actions_types = list(/datum/action/item_action/accessory/holster)
-	w_class = WEIGHT_CLASS_NORMAL // so it doesn't fit in pockets
+	var/holster_allow = /obj/item/gun
+	var/list/holstered = list()
+	var/max_content = 1
+	var/sound_holster = 'sound/weapons/gun_interactions/1holster.ogg'
+	var/sound_unholster = 'sound/weapons/gun_interactions/1unholster.ogg'
 
 /obj/item/clothing/accessory/holster/Destroy()
-	if(holstered?.loc == src)
-		QDEL_NULL(holstered)
-	holstered = null
+	for(var/obj/item/I in holstered)
+		if(I.loc == src)
+			holstered -= I
+			QDEL_NULL(I)
 	return ..()
 
-//subtypes can override this to specify what can be holstered
-/obj/item/clothing/accessory/holster/proc/can_holster(obj/item/gun/W)
-	if(!W.can_holster)
-		return 0
-	else if(!istype(W,holster_allow))
-		return 0
-	else if(W.w_class > WEIGHT_CLASS_NORMAL)
-		return 0
-	else
-		return 1
+/obj/item/clothing/accessory/holster/proc/can_holster(obj/item/I)
+	if(!istype(I, holster_allow))
+		return FALSE
+	var/obj/item/gun/G = I
+	if(istype(G) && (!G.can_holster || G.w_class > WEIGHT_CLASS_NORMAL))
+		return FALSE
+	return TRUE
 
 /obj/item/clothing/accessory/holster/attack_self(mob/user = usr)
 	var/holsteritem = user.get_active_hand()
-	if(!holstered)
+	if(holsteritem)
 		holster(holsteritem, user)
 	else
 		unholster(user)
 
-/obj/item/clothing/accessory/holster/proc/holster(obj/item/I, mob/user as mob)
-	if(holstered)
-		to_chat(user, "<span class='warning'>There is already a [holstered] holstered here!</span>")
+/obj/item/clothing/accessory/holster/proc/holster(obj/item/I, mob/user)
+	if(holstered.len >= max_content)
+		to_chat(user, span_warning("Holster is full!"))
 		return
 
-	if(!istype(I, /obj/item/gun))
-		to_chat(user, "<span class='warning'>Only guns can be holstered!</span>")
+	if(!can_holster(I))
+		to_chat(user, span_warning("This [I] won't fit in the [src]!"))
 		return
 
-	var/obj/item/gun/W = I
-	if(!can_holster(W))
-		to_chat(user, "<span class='warning'>This [W] won't fit in the [src]!</span>")
+	if(!user.can_unEquip(I))
+		to_chat(user, span_warning("You can't let go of the [I]!"))
 		return
 
-	if(!user.can_unEquip(W))
-		to_chat(user, "<span class='warning'>You can't let go of the [W]!</span>")
+	holstered += I
+	user.temporarily_remove_item_from_inventory(I)
+	I.forceMove(src)
+	I.add_fingerprint(user)
+	user.visible_message(span_notice("[user] holsters the [I]."), span_notice("You holster the [I]."))
+	playsound(user.loc, sound_holster, 50, 1)
+
+/obj/item/clothing/accessory/holster/proc/unholster(mob/user)
+	if(!holstered.len)
+		to_chat(user, span_warning("Holster is empty!"))
 		return
 
-	holstered = W
-	user.temporarily_remove_item_from_inventory(holstered)
-	holstered.forceMove(src)
-	holstered.add_fingerprint(user)
-	user.visible_message("<span class='notice'>[user] holsters the [holstered].</span>", "<span class='notice'>You holster the [holstered].</span>")
-	playsound(user.loc, 'sound/weapons/gun_interactions/1holster.ogg', 50, 1)
+	var/obj/item/next_item = holstered[holstered.len]
 
-/obj/item/clothing/accessory/holster/proc/unholster(mob/user as mob)
-	if(!holstered || user.stat == DEAD)
-		return
+	if(isliving(user))
+		var/mob/living/L = user
+		if(L.IsStunned() || L.IsWeakened() || user.stat)
+			to_chat(user, span_warning("You can't get [next_item] now!"))
+			return
 
-	if(user.stat == UNCONSCIOUS)
-		to_chat(user, "<span class='warning'>Вы не можете достать [holstered] сейчас!")
-		return
-
-	if(istype(user.get_active_hand(),/obj) && istype(user.get_inactive_hand(),/obj))
-		to_chat(user, "<span class='warning'>You need an empty hand to draw the [holstered]!</span>")
+	if(istype(user.get_active_hand(), /obj) && istype(user.get_inactive_hand(), /obj))
+		to_chat(user, span_warning("You need an empty hand to draw the [next_item]!"))
 	else
-		if(user.a_intent == INTENT_HARM)
-			usr.visible_message("<span class='warning'>[user] draws the [holstered], ready to shoot!</span></span>", \
-			"<span class='warning'>You draw the [holstered], ready to shoot!</span>")
-		else
-			user.visible_message("<span class='notice'>[user] draws the [holstered], pointing it at the ground.</span>", \
-			"<span class='notice'>You draw the [holstered], pointing it at the ground.</span>")
-		user.put_in_hands(holstered)
-		holstered.add_fingerprint(user)
-		holstered = null
-		playsound(user.loc, 'sound/weapons/gun_interactions/1unholster.ogg', 50, 1)
+		user.put_in_hands(next_item)
+		next_item.add_fingerprint(user)
+		holstered -= next_item
+		unholster_message(user, next_item)
+		playsound(user.loc, sound_unholster, 50, 1)
 
-/obj/item/clothing/accessory/holster/attack_hand(mob/user as mob)
+/obj/item/clothing/accessory/holster/proc/unholster_message(mob/user, obj/item/I)
+	if(user.a_intent == INTENT_HARM)
+		usr.visible_message(span_warning("[user] draws the [I], ready to shoot!"),
+							span_warning("You draw the [I], ready to shoot!"))
+	else
+		user.visible_message(span_notice("[user] draws the [I], pointing it at the ground."),
+							span_notice("You draw the [I], pointing it at the ground."))
+
+/obj/item/clothing/accessory/holster/attack_hand(mob/user)
 	if(has_suit)	//if we are part of a suit
 		if(holstered)
 			unholster(user)
@@ -88,26 +95,29 @@
 
 	..(user)
 
-/obj/item/clothing/accessory/holster/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/clothing/accessory/holster/attackby(obj/item/W, mob/user, params)
+	if(istype(W, src.type))
+		return
 	holster(W, user)
 
 /obj/item/clothing/accessory/holster/emp_act(severity)
-	if(holstered)
-		holstered.emp_act(severity)
+	for(var/obj/item/I in holstered)
+		I.emp_act(severity)
 	..()
 
 /obj/item/clothing/accessory/holster/examine(mob/user)
-	. = ..()
-	if(holstered)
-		. += "<span class='notice'>A [holstered] is holstered here.</span>"
+	. = ..(user)
+	if(holstered.len)
+		for(var/obj/item/I in holstered)
+			. += span_notice("A [I] is holstered here.")
 	else
-		. += "<span class='notice'>It is empty.</span>"
+		. += span_notice("It is empty.")
 
-/obj/item/clothing/accessory/holster/on_attached(obj/item/clothing/under/S, mob/user as mob)
+/obj/item/clothing/accessory/holster/on_attached(obj/item/clothing/under/S, mob/user)
 	..()
 	has_suit.verbs += /obj/item/clothing/accessory/holster/verb/holster_verb
 
-/obj/item/clothing/accessory/holster/on_removed(mob/user as mob)
+/obj/item/clothing/accessory/holster/on_removed(mob/user)
 	has_suit.verbs -= /obj/item/clothing/accessory/holster/verb/holster_verb
 	..()
 
@@ -128,16 +138,9 @@
 			H = locate() in S.accessories
 
 	if(!H)
-		to_chat(usr, "<span class='warning'>Something is very wrong.</span>")
+		return
 
-	if(!H.holstered)
-		if(!istype(usr.get_active_hand(), /obj/item/gun))
-			to_chat(usr, "<span class='warning'>You need your gun equiped to holster it.</span>")
-			return
-		var/obj/item/gun/W = usr.get_active_hand()
-		H.holster(W, usr)
-	else
-		H.unholster(usr)
+	H.attack_self(usr)
 
 /obj/item/clothing/accessory/holster/armpit
 	name = "shoulder holster"
@@ -151,3 +154,22 @@
 	desc = "A handgun holster. Made of expensive leather."
 	icon_state = "holster"
 	item_color = "holster_low"
+
+/obj/item/clothing/accessory/holster/knives
+	name = "Knife holster"
+	desc = "A bunch of straps connected into one holster. Has 7 special slots for holding knives."
+	icon_state = "holsterknife"
+	item_color = "holsterknife"
+	holster_allow = /obj/item/kitchen/knife/combat
+	max_content = 7
+	sound_holster = 'sound/weapons/knife_holster/knife_holster.ogg'
+	sound_unholster = 'sound/weapons/knife_holster/knife_unholster.ogg'
+
+
+/obj/item/clothing/accessory/holster/knives/unholster_message(mob/user, obj/item/I)
+	if(user.a_intent == INTENT_HARM)
+		user.visible_message(span_warning("[user] takes the [I] out, ready to throw!"),
+			span_warning("You takes the [I] out, [holstered.len] knives left!"))
+	else
+		user.visible_message(span_notice("[user] takes the [I] out."),
+			span_notice("You takes the [I] out, [holstered.len] knives left"))

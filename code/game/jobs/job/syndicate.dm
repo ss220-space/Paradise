@@ -23,7 +23,7 @@
 	suit = /obj/item/clothing/suit/space/deathsquad/officer/syndie
 	neck = /obj/item/clothing/neck/cloak/syndieadm
 	back = /obj/item/storage/backpack
-	head = /obj/item/clothing/head/beret
+	head = /obj/item/clothing/head/helmet/space/deathsquad/beret
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/combat
 	mask = /obj/item/clothing/mask/cigarette/cigar/havana
@@ -55,6 +55,6 @@
 	H.faction += "syndicate"
 	var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
 	opshud.join_hud(H.mind.current)
-	H.mind.offstation_role = TRUE
+	H.mind?.offstation_role = TRUE
 	set_antag_hud(H.mind.current, "hudoperative")
 	H.regenerate_icons()

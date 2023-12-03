@@ -2086,7 +2086,7 @@
 "CX" = (
 /obj/structure/bed,
 /obj/item/bedsheet/red,
-/obj/structure/sign/poster/secret/yug0{
+/obj/structure/sign/poster/secret/lady{
 	pixel_x = 32
 	},
 /obj/machinery/vending/wallmed{
@@ -3432,7 +3432,7 @@
 /area/ruin/ussp_xeno/dorms_ussp)
 "Ua" = (
 /obj/structure/closet/cardboard,
-/obj/item/storage/box/buck{
+/obj/item/ammo_box/shotgun/buck{
 	pixel_x = -3;
 	pixel_y = 2
 	},

@@ -1176,6 +1176,28 @@
 	else
 		return ..()
 
+/obj/item/toy/plushie/shardplushie
+	name = "Shard plushie"
+	desc = "A plushie shard of supermatter crystal. Safety 100%."
+	icon_state = "plushie_shard"
+	item_state = "plushie_shard"
+	attack_verb = list("annihilates", "scratched")
+	var/shardbite = 'sound/effects/supermatter.ogg'
+	var/cooldown = FALSE
+
+/obj/item/toy/plushie/shardplushie/attack_self(mob/user)
+	if(cooldown)
+		return ..()
+
+	playsound(loc, pick('sound/effects/supermatter.ogg', 'sound/effects/glass_step_sm.ogg'), 10, 1)
+	visible_message("<span class='danger'> DESTABILIZATION!</span>")
+	cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
+
+/obj/item/toy/plushie/shardplushie/attack(mob/M as mob, mob/user as mob)
+    playsound(loc, pick('sound/effects/supermatter.ogg', 'sound/effects/glass_step_sm.ogg',), 10, 1)
+    return ..()
+
 //New generation TG plushies
 
 /obj/item/toy/plushie/lizardplushie
@@ -1348,6 +1370,30 @@
 
 	playsound(src, 'sound/weapons/bite.ogg', 10, 0)
 	visible_message("<span class='danger'>...!</span>")
+	cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
+
+/obj/item/toy/plushie/blahaj/twohanded
+	name = "akula plushie"
+	desc = "baby shark's older and cuter sister. It can play silly sound by pressing button on its belly. Doo-doo!"
+	gender = FEMALE
+	w_class = WEIGHT_CLASS_NORMAL
+	icon_state = "plushie_akula"
+	item_state = "plushie_akula"
+
+/obj/item/toy/plushie/blahaj/twohanded/Initialize(mapload)
+	. = ..()
+	apply_twohanded_component()
+
+/obj/item/toy/plushie/blahaj/twohanded/proc/apply_twohanded_component()
+	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
+
+/obj/item/toy/plushie/blahaj/twohanded/attack_self(mob/user)
+	if(cooldown)
+		return ..()
+
+	playsound(src, 'sound/items/rawr.ogg', 25, 0)
+	visible_message(span_boldnotice("Rawr!"))
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1949,6 +1995,7 @@
 	desc = "A \"Space Life\" brand... wait, what the hell is this thing?"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "nuketoy"
+	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
 	var/toysay = "What the fuck did you do?"
 

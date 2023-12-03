@@ -177,7 +177,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			return
 		if(invocation)
 			if(!L.IsVocal())
-				L.emote("gestures ominously.")
+				L.custom_emote(EMOTE_VISIBLE, message = pick("рису%(ет,ют)% в воздухе тайные символы.","зловеще жестикулиру%(ет,ют)%.","молча произнос%(ит,ят)% слова призыва.","клад%(ёт,ут)% руки на руну, активируя ее."))
 			else
 				L.say(invocation)
 			L.changeNext_move(CLICK_CD_MELEE)//THIS IS WHY WE CAN'T HAVE NICE THINGS
@@ -290,7 +290,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	rune_in_use = TRUE
 	var/mob/living/L = pick(offer_targets)
-	if(!config.can_cult_convert && !is_sacrifice_target(L.mind))
+	if(!CONFIG_GET(number/can_cult_convert) && !is_sacrifice_target(L.mind))
 		fail_invoke()
 		for(var/I in invokers)
 			to_chat(I, "<span class='warning'>You can not convert new cultists!</span>")
@@ -346,7 +346,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 					for(var/obj/item/organ/external/E in H.bodyparts)
 						E.mend_fracture()
 						E.internal_bleeding = FALSE
-					for(var/datum/disease/critical/crit in H.viruses) // cure all crit conditions
+					for(var/datum/disease/critical/crit in H.diseases) // cure all crit conditions
 						crit.cure()
 
 			H.uncuff()

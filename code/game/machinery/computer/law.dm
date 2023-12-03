@@ -54,6 +54,9 @@
 		to_chat(usr, "The upload computer is broken!")
 		return
 
+	if(..())
+		return TRUE
+
 	src.current = select_active_ai(user)
 
 	if(!src.current)

@@ -22,6 +22,9 @@
 		"Vox Armalis" = 'icons/mob/clothing/species/armalis/back.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/back.dmi'
 		) //For Armalis anything but this and the nitrogen tank will use the default backpack icon.
+	equip_sound = 'sound/items/handling/backpack_equip.ogg'
+	pickup_sound = 'sound/items/handling/backpack_pickup.ogg'
+	drop_sound = 'sound/items/handling/backpack_drop.ogg'
 
 /obj/item/storage/backpack/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(in_range(user, src))
@@ -412,7 +415,7 @@
 
 /obj/item/storage/backpack/satchel_flat/hide(var/intact)
 	if(intact)
-		invisibility = 101
+		invisibility = INVISIBILITY_ABSTRACT
 		anchored = 1 //otherwise you can start pulling, cover it, and drag around an invisible backpack.
 		icon_state = "[initial(icon_state)]2"
 	else

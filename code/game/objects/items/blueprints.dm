@@ -192,7 +192,7 @@
 	if(message)
 		to_chat(user, message)
 
-/obj/item/areaeditor/blueprints/dropped(mob/user)
+/obj/item/areaeditor/blueprints/dropped(mob/user, silent = FALSE)
 	..()
 	clear_viewer()
 
@@ -243,6 +243,7 @@
 		A.power_light = FALSE
 		A.power_environ = FALSE
 		A.always_unpowered = FALSE
+		A.valid_territory = FALSE
 		A.set_dynamic_lighting()
 
 		for(var/i in 1 to turfs.len)
@@ -257,6 +258,7 @@
 		A.power_light = FALSE
 		A.power_environ = FALSE
 		A.always_unpowered = FALSE
+		A.valid_territory = FALSE
 		A.set_dynamic_lighting()
 
 		for(var/i in 1 to turfs.len)

@@ -32,25 +32,25 @@
 		L = list()
 	return check_access_list(L)
 
-/obj/proc/check_access_list(var/list/L)
+/obj/proc/check_access_list(list/L)
 	if(!L)
-		return 0
+		return FALSE
 	if(!istype(L, /list))
-		return 0
+		return FALSE
 	return has_access(req_access, check_one_access, L)
 
-/proc/has_access(var/list/req_access, check_one_access, var/list/accesses)
+/proc/has_access(list/req_access, check_one_access, list/accesses)
 	if(check_one_access)
-		if(req_access.len)
+		if(length(req_access))
 			for(var/req in req_access)
 				if(req in accesses) //has an access from the single access list
-					return 1
-			return 0
+					return TRUE
+			return FALSE
 	else
 		for(var/req in req_access)
 			if(!(req in accesses)) //doesn't have this access
-				return 0
-	return 1
+				return FALSE
+	return TRUE
 
 /proc/get_centcom_access(job)
 	switch(job)
@@ -447,7 +447,7 @@
 	return all_jobs
 
 /proc/get_all_centcom_jobs()
-	return list("VIP Guest","Custodian","Thunderdome Overseer","Emergency Response Team Member","Emergency Response Team Leader","Intel Officer","Medical Officer","Death Commando","Research Officer","Deathsquad Officer","Special Operations Officer","Nanotrasen Navy Representative","Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer","Nanotrasen Diplomat","Nanotrasen Navy Captain","Supreme Commander","Syndicate Officer")
+	return list("VIP Guest","Custodian","Thunderdome Overseer","Emergency Response Team Member","Emergency Response Team Leader","Intel Officer","Medical Officer","Death Commando","Research Officer","Deathsquad Officer","Special Operations Officer","Nanotrasen Navy Representative","Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer","Nanotrasen Diplomat","Nanotrasen Navy Captain","Supreme Commander")
 
 /proc/get_all_solgov_jobs()
 	return list("Solar Federation Specops Lieutenant","Solar Federation Marine","Solar Federation Specops Marine","Solar Federation Representative","Sol Trader","Solar Federation General")
@@ -456,7 +456,7 @@
 	return list("Soviet Tourist","Soviet Conscript","Soviet Soldier","Soviet Officer","Soviet Marine","Soviet Marine Captain","Soviet Admiral","Soviet General","Soviet Engineer","Soviet Scientist","Soviet Medic")
 
 /proc/get_all_special_jobs()
-	return list("Special Reaction Team Member", "HONKsquad", "Clown Security","Syndicate Scientist","Syndicate Medic","Syndicate Botanist","Syndicate Cargo Technician","Syndicate Chef","Syndicate Atmos Engineer","Syndicate Comms Officer","Syndicate Research Director")
+	return list("Special Reaction Team Member", "HONKsquad", "Clown Security")
 
 //gets the actual job rank (ignoring alt titles)
 //this is used solely for sechuds
@@ -558,10 +558,12 @@
 	var/soviet = get_all_soviet_jobs()
 	var/special = get_all_special_jobs()
 
-	if(rankName in centcom) //Return with the NT logo if it is a Centcom job or if it is Syndi Officer then return Syndicate logo
+	if(rankName in centcom) //Return with the NT logo if it is a Centcom job
 		switch(rankName)
-			if("Syndicate Officer")
-				return "syndicateofficer"
+			if("Deathsquad Officer")
+				return "deathsquad"
+			if("Death Commando")
+				return "deathsquad"
 		return "Centcom"
 
 	if(rankName in solgov) //Return with the SolGov logo if it is a SolGov job

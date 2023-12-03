@@ -73,8 +73,10 @@
 				apprentice.mind.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
 				SSticker.mode.update_wiz_icons_added(apprentice.mind)
 				apprentice.faction = list("wizard")
+				log_game("[apprentice.key] has become [teacher]'s (ckey: [teacher.key]) apprentice.")
 			else
 				used = 0
+				log_game("[teacher] (ckey: [teacher.key]) has failed to spawn aprrentice.")
 				to_chat(teacher, "<span class='warning'>Unable to reach your apprentice! You can either attack the spellbook with the contract to refund your points, or wait and try again later.</span>")
 	return
 

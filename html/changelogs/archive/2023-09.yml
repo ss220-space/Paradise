@@ -211,3 +211,81 @@
   Сиротка:
   - refactor: Clothing file (#3552)
   - bugfix: Drasks now correctly crash any non-admin types of obstacles (#3560)
+'2023-09-24':
+  Albonix:
+  - imageadd: tables icon (#3594)
+  Bizzonium:
+  - unknown: unignore data/mode.txt
+  Daeberdir:
+  - bugfix: '"shard -> glass" now dropping glass on shard loc. (#3588)'
+  LiquidPotroh:
+  - bugfix: Cracking steps after cured virus (#3599)
+  NightDawnFox:
+  - bugfix: missing tajara sprites for pathcloak (#3579)
+  ROdenFL:
+  - bugfix: tajblind hud fix (#3583)
+  - bugfix: give carp a special role (#3582)
+  Vladisvell:
+  - qol: Ambience sound is disabled in start area now. (#3586)
+  - refactor: Game configuration through datums (#3459)
+  - refactor: renamed discord webhooks and vote no dead in example config file (#3605)
+  Zwei:
+  - bugfix: Pixel Shift Fix (#3598)
+  Сиротка:
+  - bugfix: server lag exploit (#3592)
+  - del: Shitcurity Cadet (#3589)
+  - tweak: Bomb implants now can be tapped while inconcious (#3590)
+'2023-09-25':
+  Arceniu:
+  - tweak: Taipan and SO Earbang protection for headsets (#3585)
+  Daeberdir:
+  - bugfix: tables are unpassable from the flipped table tile & afterflip icon fix.
+      (#3602)
+  - bugfix: lockermech paintkit recipe typo. (#3611)
+  Hero998:
+  - tweak: Odysseus 4 slots (#3607)
+  NightDawnFox:
+  - bugfix: normal sec requirements (#3608)
+  captainnelly:
+  - imageadd: Bola's sprites inhands (#3600)
+  Сиротка:
+  - tweak: Carp tweaks (#3601)
+  - bugfix: Undestructuble and Unrepairable vendomates now work properly (#3606)
+  - tweak: Mecha guns now lock-boxed (#3603)
+'2023-09-26':
+  Dimach:
+  - bugfix: bees created in nullspace (#3619)
+  UEDCommander:
+  - add: High-Risk Combat RCD, Syndie RCD update (#3569)
+  Zwei:
+  - add: More Logging (#3609)
+  Сиротка:
+  - bugfix: gray skull helmet (#3618)
+  - qol: Mech Fabricator (#3604)
+'2023-09-30':
+  0x0v3rfl0w:
+  - tweak: Adaptive AI hud (#3595)
+  Daeberdir:
+  - bugfix: Gamma Shuttle button. (#3638)
+  LiquidPotroh:
+  - bugfix: viral injector and not advanced viruses (#3613)
+  NightDawnFox:
+  - add: admin uplink now shows job-specific and nuke stuff (#3635)
+  - bugfix: leg implants no more duplicate actions (#3639)
+  ROdenFL:
+  - tweak: new donuts skins (#3614)
+  - tweak: tajblind buffs (#3627)
+  SAAD:
+  - bugfix: Lavalend ruins and lava generation (#3636)
+  - bugfix: Transit shuttles positions with widescreen (#3637)
+  - add: Delta Library remap(#3624)
+  Vladisvell:
+  - bugfix: wrong carpet smoothing (#3630)
+  - bugfix: Now thousand-point transfer card has correct value (#3622)
+  Zwei:
+  - bugfix: Logs Typo (#3631)
+  captainnelly:
+  - bugfix: jittery duration (#3626)
+  - tweak: stechkin buff (#3629)
+  Сиротка:
+  - tweak: replace .357 speedloader into ammo box (#3617)

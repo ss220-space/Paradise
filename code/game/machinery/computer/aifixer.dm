@@ -26,6 +26,8 @@
 	ui_interact(user)
 
 /obj/machinery/computer/aifixer/attack_hand(var/mob/user as mob)
+	if(..())
+		return TRUE
 	ui_interact(user)
 
 /obj/machinery/computer/aifixer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)

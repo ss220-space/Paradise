@@ -1009,6 +1009,9 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(istype(depotarea))
 		depotarea.turret_died()
 
+/obj/machinery/porta_turret/syndicate/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+	return ((stat & BROKEN) || !isliving(caller))
+
 /obj/machinery/porta_turret/syndicate/shootAt(mob/living/target)
 	if(istype(depotarea))
 		depotarea.list_add(target, depotarea.hostile_list)

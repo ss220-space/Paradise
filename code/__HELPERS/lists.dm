@@ -115,6 +115,12 @@
 		return
 	return pick(list)
 
+/// Returns the top (last) element from the list, does not remove it from the list. Stack functionality.
+/proc/peek(list/target_list)
+	var/list_length = length(target_list)
+	if(list_length != 0)
+		return target_list[list_length]
+
 //Checks if the list is empty
 /proc/isemptylist(list/list)
 	if(!list.len)
@@ -226,18 +232,61 @@
 		result = first ^ second
 	return result
 
-//Pretends to pick an element based on its weight but really just seems to pick a random element.
-/proc/pickweight(list/L)
+/**
+ * Picks a random element from a list based on a weighting system.
+ * All keys with zero or non integer weight will be considered as one
+ * For example, given the following list:
+ * A = 5, B = 3, C = 1, D = 0
+ * A would have a 50% chance of being picked,
+ * B would have a 30% chance of being picked,
+ * C would have a 10% chance of being picked,
+ * and D would have a 10% chance of being picked.
+ * This proc not modify input list
+ */
+/proc/pickweight(list/list_to_pick)
 	var/total = 0
-	var/item
-	for(item in L)
-		if(!L[item])
-			L[item] = 1
-		total += L[item]
+	for(var/item in list_to_pick)
+		var/weight = list_to_pick[item]
+		if(!weight)
+			weight = 1
+		total += weight
 
 	total = rand(1, total)
-	for(item in L)
-		total -=L [item]
+	for(var/item in list_to_pick)
+		var/weight = list_to_pick[item]
+		if(!weight)
+			weight = 1
+		total -= weight
+		if(total <= 0)
+			return item
+
+	return null
+
+/**
+ * Picks a random element from a list based on a weighting system.
+ * All keys with zero or non integer weight will be considered as zero
+ * For example, given the following list:
+ * A = 6, B = 3, C = 1, D = 0
+ * A would have a 60% chance of being picked,
+ * B would have a 30% chance of being picked,
+ * C would have a 10% chance of being picked,
+ * and D would have a 0% chance of being picked.
+ * This proc not modify input list
+ */
+/proc/pick_weight_classic(list/list_to_pick)
+	var/total = 0
+	for(var/item in list_to_pick)
+		var/weight = list_to_pick[item]
+		if(!weight)
+			continue
+		total += weight
+
+	total = rand(1, total)
+	for(var/item in list_to_pick)
+		var/weight = list_to_pick[item]
+		if(!weight)
+			continue
+		total -= weight
 		if(total <= 0)
 			return item
 
@@ -398,23 +447,23 @@
 	return (result + R.Copy(Ri, 0))
 
 
-
-
 //Mergesort: any value in a list
-/proc/sortList(var/list/L)
+/proc/sortList(list/L)
 	if(L.len < 2)
 		return L
 	var/middle = L.len / 2 + 1 // Copy is first,second-1
 	return mergeLists(sortList(L.Copy(0,middle)), sortList(L.Copy(middle))) //second parameter null = to end of list
 
+
 //Mergsorge: uses sortAssoc() but uses the var's name specifically. This should probably be using mergeAtom() instead
-/proc/sortNames(var/list/L)
+/proc/sortNames(list/L)
 	var/list/Q = new()
 	for(var/atom/x in L)
 		Q[x.name] = x
 	return sortAssoc(Q)
 
-/proc/mergeLists(var/list/L, var/list/R)
+
+/proc/mergeLists(list/L, list/R)
 	var/Li=1
 	var/Ri=1
 	var/list/result = new()
@@ -739,11 +788,11 @@ proc/dd_sortedObjectList(list/incoming)
 #define UNSETEMPTY(L) if (L && !L.len) L = null
 #define LAZYREMOVE(L, I) if(L) { L -= I; if(!L.len) { L = null; } }
 #define LAZYADD(L, I) if(!L) { L = list(); } L += I;
+/// Adds I to L, initializing L if necessary, if I is not already in L
 #define LAZYADDOR(L, I) if(!L) { L = list(); } L |= I;
 #define LAZYACCESS(L, I) (L ? (isnum(I) ? (I > 0 && I <= L.len ? L[I] : null) : L[I]) : null)
 #define LAZYLEN(L) length(L) // Despite how pointless this looks, it's still needed in order to convey that the list is specificially a 'Lazy' list.
 #define LAZYCLEARLIST(L) if(L) L.Cut()
-
 ///If the lazy list is currently initialized find item I in list L
 #define LAZYIN(L, I) (L && (I in L))
 

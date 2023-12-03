@@ -10,11 +10,11 @@
 	if(throttle_check())
 		return FALSE
 
-	var/api_url = tts_url_silero
+	var/api_url = CONFIG_GET(string/tts_url_silero)
 	var/ssml_text = {"<speak>[text]</speak>"}
 
 	var/list/req_body = list()
-	req_body["api_token"] = tts_token_silero
+	req_body["api_token"] = CONFIG_GET(string/tts_token_silero)
 	req_body["text"] = ssml_text
 	req_body["sample_rate"] = 24000
 	req_body["ssml"] = TRUE

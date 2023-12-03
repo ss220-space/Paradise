@@ -1,0 +1,26 @@
+'2023-12-01':
+  BeebBeebBoob:
+  - bugfix: Cooldown on chain-emote howl (#3965)
+  Dimach:
+  - bugfix: remove bad words (#3968)
+  ReloadKey:
+  - refactor: New tajaran random name generator (#3964)
+  Zwei:
+  - add: New Interaction Sounds (#3856)
+'2023-12-02':
+  Daeberdir:
+  - bugfix: Slugcat collar unequiping. (#3982)
+  - bugfix: DNA injectors don't loose their sprite. (#3981)
+  - bugfix: strange reagent reviving. (#3977)
+  Dimach:
+  - bugfix: fix runtimes in handcufs and holodec area copy (#3980)
+  LiquidPotroh:
+  - bugfix: infected mice & runtimes (#3971)
+  - bugfix: throwing knives neck cut don't make two strikes (#3976)
+  MataVsn:
+  - refactor: Porting TG SDQL2. (#3946)
+  ROdenFL:
+  - tweak: spraycans in artvend (#3972)
+  Vladisvell:
+  - bugfix: fixed drasks breaking grille runtime (#3974)
+  - bugfix: Runtime fixes of bleeding, ears, external organs and accesses. (#3973)

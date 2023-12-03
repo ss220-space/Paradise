@@ -26,7 +26,15 @@
 	var/can_be_emaged = FALSE
 	var/wall_mounted = 0 //never solid (You can always pass over it)
 	var/lastbang
-	var/sound = 'sound/machines/click.ogg'
+	var/open_sound = 'sound/machines/closet_open.ogg'
+	var/close_sound = 'sound/machines/closet_close.ogg'
+	var/list/togglelock_sound = list(
+		'sound/machines/lock_1.ogg',
+		'sound/machines/lock_2.ogg',
+		'sound/machines/lock_3.ogg',
+	)
+	var/open_sound_volume = 35
+	var/close_sound_volume = 50
 	var/storage_capacity = 30 //This is so that someone can't pack hundreds of items in a locker/crate then open it in a populated area to crash clients.
 	var/material_drop = /obj/item/stack/sheet/metal
 	var/material_drop_amount = 2
@@ -89,7 +97,7 @@
 		if(throwing) // you keep some momentum when getting out of a thrown closet
 			step(AM, dir)
 	if(throwing)
-		throwing.finalize(FALSE)
+		throwing.finalize()
 
 /obj/structure/closet/proc/open()
 	if(opened || !can_open())
@@ -99,12 +107,17 @@
 
 	opened = TRUE
 	update_icon()
-	if(sound)
-		playsound(loc, sound, 15, 1, -3)
+	if(open_sound)
+		playsound(loc, open_sound, open_sound_volume, TRUE, -3)
 	else
-		playsound(loc, 'sound/machines/click.ogg', 15, 1, -3)
-	density = 0
+		playsound(loc, 'sound/machines/click.ogg', open_sound_volume, TRUE, -3)
+	density = FALSE
+	after_open()
 	return TRUE
+
+///Proc to override for effects after opening a door
+/obj/structure/closet/proc/after_open(mob/living/user, force = FALSE)
+	return
 
 /obj/structure/closet/proc/close()
 	if(!opened || !can_close())
@@ -133,6 +146,8 @@
 			continue
 		if(istype(M, /mob/living/simple_animal/bot/mulebot))
 			continue
+		if(istype(M, /mob/living/simple_animal/hostile/megafauna))
+			continue
 		if(M.buckled || M.anchored || M.has_buckled_mobs())
 			continue
 		if(isAI(M))
@@ -143,11 +158,11 @@
 
 	opened = FALSE
 	update_icon()
-	if(sound)
-		playsound(loc, sound, 15, 1, -3)
+	if(close_sound)
+		playsound(loc, close_sound, close_sound_volume, TRUE, -3)
 	else
-		playsound(loc, 'sound/machines/click.ogg', 15, 1, -3)
-	density = 1
+		playsound(loc, 'sound/machines/click.ogg', close_sound_volume, TRUE, -3)
+	density = TRUE
 	return TRUE
 
 /obj/structure/closet/proc/toggle(mob/user)

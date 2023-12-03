@@ -187,6 +187,7 @@
 		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
 			if(!v.welded)
 				entry_vent = v
+				glide_for(3)
 				walk_to(src, entry_vent, 1)
 				break
 	if(isturf(loc))
@@ -215,6 +216,7 @@
 							S.key = C.key
 							if(S.master_commander)
 								to_chat(S, "<span class='biggerdanger'>You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost.</span>")
+							add_game_logs("was made giant spider, master: [S.master_commander ? S.master_commander : "None"]")
 			qdel(src)
 
 /obj/structure/spider/spiderling/proc/random_skitter()
@@ -226,6 +228,7 @@
 		available_turfs += S
 	if(!length(available_turfs))
 		return FALSE
+	glide_for(3)
 	walk_to(src, pick(available_turfs))
 	return TRUE
 

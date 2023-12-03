@@ -49,6 +49,17 @@
 	disliked_food = NONE
 	liked_food = NONE
 
+
+/datum/species/plasmaman/on_species_gain(mob/living/carbon/human/H)
+	..()
+	H.verbs |= /mob/living/carbon/human/proc/emote_rattle
+
+
+/datum/species/plasmaman/on_species_loss(mob/living/carbon/human/H)
+	..()
+	H.verbs -= /mob/living/carbon/human/proc/emote_rattle
+
+
 //внёс перевод акцента речи, шипящий звук. Но я не смог осилить и он почему-то по прежнему не работает, похоже не тут настраивается -- ПУПС
 /datum/species/plasmaman/say_filter(mob/M, message, datum/language/speaking)
 	if(copytext(message, 1, 2) != "*")
@@ -80,14 +91,23 @@
 		if("Bartender")
 			O = new /datum/outfit/plasmaman/bar
 
-		if("Internal Affairs Agent", "Magistrate", "Nanotrasen Representative", "Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer")
+		if("Internal Affairs Agent", "Magistrate")
 			O = new /datum/outfit/plasmaman/nt
+
+		if("Nanotrasen Representative")
+			O = new /datum/outfit/plasmaman/nt_rep
 
 		if("Chef")
 			O = new /datum/outfit/plasmaman/chef
 
-		if("Security Officer", "Security Cadet", "Special Operations Officer")
+		if("Security Officer", "Security Cadet")
 			O = new /datum/outfit/plasmaman/security
+
+		if("Special Operations Officer", "Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer")
+			O = new /datum/outfit/plasmaman/specops_officer
+
+		if("Syndicate Officer")
+			O = new /datum/outfit/plasmaman/syndicate_officer
 
 		if("Security Pod Pilot")
 			O = new /datum/outfit/plasmaman/security/pod

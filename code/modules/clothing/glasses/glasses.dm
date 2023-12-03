@@ -612,20 +612,60 @@
 		"Stok" = 'icons/mob/clothing/species/monkey/eyes.dmi'
 		)
 
+
 /obj/item/clothing/glasses/tajblind/eng
 	name = "industrial veil"
+	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This ones are with meson scanners and welding shield."
 	icon_state = "tajblind_engi"
 	item_state = "tajblind_engi"
+	vision_flags = SEE_TURFS
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	flash_protect = 0
+
+/obj/item/clothing/glasses/tajblind/eng/sunglasses
+	flash_protect = 1
+	tint = 1
+
+/obj/item/clothing/glasses/tajblind/eng/toggle_veil(mob/user)
+	if(user.canmove && !user.incapacitated())
+		if(up)
+			up = !up
+			tint = initial(tint)
+			flash_protect = initial(flash_protect)
+			to_chat(user, "You activate [src], allowing you to see.")
+		else
+			up = !up
+			tint = 3
+			flash_protect = 2
+			to_chat(user, "You deactivate [src], obscuring your vision.")
+		var/mob/living/carbon/user1 = user
+		user1.update_tint()
+		user1.update_inv_glasses()
 
 /obj/item/clothing/glasses/tajblind/sci
 	name = "hi-tech veil"
+	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This ones are with reagent and research scanners."
 	icon_state = "tajblind_sci"
 	item_state = "tajblind_sci"
+	scan_reagents = 1
+	actions_types = list(/datum/action/item_action/toggle_research_scanner,/datum/action/item_action/toggle)
+
+/obj/item/clothing/glasses/tajblind/sci/sunglasses
+	flash_protect = 1
+	tint = 1
 
 /obj/item/clothing/glasses/tajblind/cargo
 	name = "khaki veil"
+	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This ones are with meson scanners."
 	icon_state = "tajblind_cargo"
 	item_state = "tajblind_cargo"
+	vision_flags = SEE_TURFS
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	prescription_upgradable = 1
+
+/obj/item/clothing/glasses/tajblind/cargo/sunglasses
+	flash_protect = 1
+	tint = 1
 
 /obj/item/clothing/glasses/tajblind/attack_self(mob/user = usr)
 	toggle_veil(user)

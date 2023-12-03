@@ -19,6 +19,8 @@ LINEN BINS
 	item_color = "white"
 	resistance_flags = FLAMMABLE
 	slot_flags = SLOT_NECK
+	drop_sound = 'sound/items/handling/cloth_drop.ogg'
+	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 
 	dog_fashion = /datum/dog_fashion/head/ghost
 	var/list/dream_messages = list("white")

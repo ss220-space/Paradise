@@ -68,6 +68,9 @@
 		return FALSE
 	return TRUE
 
+/datum/action/proc/AltTrigger()
+	Trigger()
+
 /datum/action/proc/Process()
 	return
 
@@ -479,6 +482,12 @@
 /datum/action/item_action/hands_free/activate
 	name = "Activate"
 
+/datum/action/item_action/bomb_imp
+	check_flags = null
+
+/datum/action/item_action/bomb_imp/activate
+	name = "Activate Bomb Implant"
+
 /datum/action/item_action/toggle_research_scanner
 	name = "Toggle Research Scanner"
 	button_icon_state = "scan_mode"
@@ -636,6 +645,12 @@
 	if(target)
 		var/obj/effect/proc_holder/spell = target
 		spell.Click()
+		return TRUE
+
+/datum/action/spell_action/AltTrigger()
+	if(target)
+		var/obj/effect/proc_holder/spell/spell = target
+		spell.AltClick(usr)
 		return TRUE
 
 /datum/action/spell_action/IsAvailable(message = FALSE)

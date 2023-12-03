@@ -18,7 +18,10 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 
 	//to_chat(user, span_notice("We feel our consciousness become capable of communion with the hivemind."))
 	//to_chat(user, span_changeling("Use say \":g message\" to communicate with the other changelings. You can use linglink to interrogate properly grabbed victims."))
-	to_chat(user, span_changeling("Use say \":g message\" to communicate with the other changelings."))
+	if(cling.evented)
+		to_chat(user, span_changeling("Use say \":gi message\" to communicate with the other changelings."))
+	else
+		to_chat(user, span_changeling("Use say \":g message\" to communicate with the other changelings."))
 
 	return TRUE
 
@@ -32,8 +35,11 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 		linglink.cling = cling
 		linglink.Grant(user)*/
 
-	if(!(GLOB.all_languages["Changeling"] in user.languages))
-		user.add_language("Changeling")
+	if(!((GLOB.all_languages["Changeling"] in user.languages)||(GLOB.all_languages["Infiltrated changeling"] in user.languages)))
+		if(!cling.evented)
+			user.add_language("Changeling")
+		else
+			user.add_language("Infiltrated changeling")
 
 
 /datum/action/changeling/hivemind_pick/Remove(mob/user)
@@ -48,6 +54,8 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 
 	if(GLOB.all_languages["Changeling"] in user.languages)
 		user.remove_language("Changeling")
+	if(GLOB.all_languages["Infiltrated changeling"] in user.languages)
+		user.remove_language("Infiltrated changeling")
 
 	..()
 
@@ -61,6 +69,8 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 
 	if(owner && (GLOB.all_languages["Changeling"] in owner.languages))
 		owner.remove_language("Changeling")
+	if(owner && (GLOB.all_languages["Infiltrated changeling"] in owner.languages))
+		owner.remove_language("Infiltrated changeling")
 
 	return ..()
 

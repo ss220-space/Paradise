@@ -46,8 +46,6 @@
 	..()
 
 /obj/item/melee/cultblade/pickup(mob/living/user)
-	. = ..()
-
 	if(HULK in user.mutations)
 		to_chat(user, "<span class='danger'>You can't seem to hold the blade properly!</span>")
 		return FALSE
@@ -58,13 +56,16 @@
 		user.Confused(20 SECONDS)
 		user.Jitter(12 SECONDS)
 
+	return ..()
+
 /obj/item/restraints/legcuffs/bola/cult
 	name = "runed bola"
 	desc = "A strong bola, bound with dark magic. Throw it to trip and slow your victim. Will not hit fellow cultists."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "bola_cult"
+	item_state = "bola_cult"
 	breakouttime = 45
-	weaken = 2 SECONDS
+	weaken_amt = 2 SECONDS
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(iscultist(hit_atom))
@@ -229,7 +230,7 @@
 		ADD_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes[UID()]")
 
 
-/obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/dropped(mob/user)
+/obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/dropped(mob/user, silent = FALSE)
 	. = ..()
 	if(user)
 		REMOVE_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes[UID()]")

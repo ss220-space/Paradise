@@ -100,7 +100,7 @@
 	if(!can_shoot())
 		attempt_reload()
 
-/obj/item/gun/energy/kinetic_accelerator/dropped()
+/obj/item/gun/energy/kinetic_accelerator/dropped(mob/user, silent = FALSE)
 	. = ..()
 	if(!QDELING(src) && !holds_charge)
 		// Put it on a delay because moving item from slot to hand
@@ -181,6 +181,7 @@
 	desc = "A self recharging, ranged mining tool that does increased damage in low pressure. This one has been enhanced with plasma magmite."
 	origin_tech = "combat=5;powerstorage=3;engineering=5"
 	max_mod_capacity = 200
+	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 
 
 //Casing
@@ -480,7 +481,8 @@
 /obj/item/borg/upgrade/modkit/hardness
 	name = "hardness increase"
 	desc = "Increases the maximum piercing power of a kinetic accelerator when installed."
-	cost = 50 //balance reasons
+	denied_type = /obj/item/borg/upgrade/modkit/hardness
+	cost = 30
 
 /obj/item/borg/upgrade/modkit/hardness/modify_projectile(obj/item/projectile/kinetic/K)
 	K.power += modifier

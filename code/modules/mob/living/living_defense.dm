@@ -59,7 +59,7 @@
 	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage)
 	if(status_flags & GODMODE)	//godmode
 		return FALSE
-	if(NO_SHOCK in mutations) //shockproof
+	if(HAS_TRAIT(src, TRAIT_SHOCKIMMUNE)) //shockproof
 		return FALSE
 	if(tesla_shock && tesla_ignore)
 		return FALSE
@@ -77,6 +77,7 @@
 	for(var/obj/O in contents)
 		O.emp_act(severity)
 
+
 /obj/item/proc/get_volume_by_throwforce_and_or_w_class()
 	if(throwforce && w_class)
 		return clamp((throwforce + w_class) * 5, 30, 100)// Add the item's throwforce to its weight class and multiply by 5, then clamp the value between 30 and 100
@@ -85,40 +86,45 @@
 	else
 		return 0
 
-//this proc handles being hit by a thrown atom
+
+/**
+ * This proc handles being hit by a thrown atom.
+ */
 /mob/living/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
-	if(istype(AM, /obj/item))
-		var/obj/item/I = AM
-		var/zone = ran_zone("chest", 65)//Hits a random part of the body, geared towards the chest
-		var/dtype = BRUTE
-		var/volume = I.get_volume_by_throwforce_and_or_w_class()
-		SEND_SIGNAL(I, COMSIG_MOVABLE_IMPACT_ZONE, src, zone)
-		dtype = I.damtype
+	if(!isitem(AM))
+		playsound(loc, 'sound/weapons/genhit.ogg', 50, TRUE, -1) //Item sounds are handled in the item itself
+		return ..()
 
-		if(I.throwforce > 0) //If the weapon's throwforce is greater than zero...
-			if(I.throwhitsound) //...and throwhitsound is defined...
-				playsound(loc, I.throwhitsound, volume, TRUE, -1) //...play the weapon's throwhitsound.
-			else if(I.hitsound) //Otherwise, if the weapon's hitsound is defined...
-				playsound(loc, I.hitsound, volume, TRUE, -1) //...play the weapon's hitsound.
-			else if(!I.throwhitsound) //Otherwise, if throwhitsound isn't defined...
-				playsound(loc, 'sound/weapons/genhit.ogg',volume, TRUE, -1) //...play genhit.ogg.
+	var/obj/item/thrown_item = AM
+	var/zone = ran_zone("chest", 65)//Hits a random part of the body, geared towards the chest
+	var/nosell_hit = SEND_SIGNAL(thrown_item, COMSIG_MOVABLE_IMPACT_ZONE, src, zone, throwingdatum) // TODO: find a better way to handle hitpush and skipcatch for humans
+	if(nosell_hit)
+		skipcatch = TRUE
+		hitpush = FALSE
 
-		else if(!I.throwhitsound && I.throwforce > 0) //Otherwise, if the item doesn't have a throwhitsound and has a throwforce greater than zero...
-			playsound(loc, 'sound/weapons/genhit1.ogg', volume, 1, -1)//...play genhit1.ogg
-		if(!I.throwforce)// Otherwise, if the item's throwforce is 0...
-			playsound(loc, 'sound/weapons/throwtap.ogg', 1, volume, -1)//...play throwtap.ogg.
-		if(!blocked)
-			visible_message("<span class='danger'>[src.declent_ru(NOMINATIVE)] получа[pluralize_ru(src.gender,"ет","ют")] удар [I.declent_ru(INSTRUMENTAL)].</span>",
-							"<span class='userdanger'>[src.declent_ru(NOMINATIVE)] получа[pluralize_ru(src.gender,"ет","ют")] удар [I.declent_ru(INSTRUMENTAL)].</span>")
-			var/armor = run_armor_check(zone, "melee", "Броня защитила [parse_zone(zone)].", "[pluralize_ru(src.gender,"Твоя","Ваша")] броня смягчила удар по [parse_zone(zone)].", I.armour_penetration) // TODO: перевод зон
-			apply_damage(I.throwforce, dtype, zone, armor, is_sharp(I), I)
-			if(I.thrownby)
-				add_attack_logs(I.thrownby, src, "Hit with thrown [I]", !I.throwforce ? ATKLOG_ALMOSTALL : null) // Only message if the person gets damages
-		else
-			return 1
-	else
-		playsound(loc, 'sound/weapons/genhit.ogg', 50, TRUE, -1)
-	..()
+	if(blocked)
+		return TRUE
+
+	var/mob/thrower = locateUID(thrown_item.thrownby)
+	if(thrower)
+		add_attack_logs(thrower, src, "Hit with thrown [thrown_item]", !thrown_item.throwforce ? ATKLOG_ALMOSTALL : null) // Only message if the person gets damages
+	if(nosell_hit)
+		return ..()
+
+	visible_message(span_danger("[src.declent_ru(NOMINATIVE)] получа[pluralize_ru(src.gender,"ет","ют")] удар [thrown_item.declent_ru(INSTRUMENTAL)]."),
+					span_userdanger("[src.declent_ru(NOMINATIVE)] получа[pluralize_ru(src.gender,"ет","ют")] удар [thrown_item.declent_ru(INSTRUMENTAL)]."))
+
+	if(!thrown_item.throwforce)
+		return
+
+	var/armor = run_armor_check(zone, MELEE, "Броня защитила [parse_zone(zone)].", "[pluralize_ru(src.gender,"Твоя","Ваша")] броня смягчила удар по [parse_zone(zone)].", thrown_item.armour_penetration) // TODO: перевод зон
+	apply_damage(thrown_item.throwforce, thrown_item.damtype, zone, armor, is_sharp(thrown_item), thrown_item)
+
+	if(QDELETED(src)) //Damage can delete the mob.
+		return
+
+	return ..()
+
 
 /**
  * Proc that checks if our mob is strong enough to prevent mecha melee attacks from pushing and paralyzing
@@ -328,9 +334,7 @@
 	if((M.a_intent == INTENT_HELP && M.ckey) || M.melee_damage_upper == 0)
 		if(!M.friendly)
 			return FALSE
-		if(handle_emote_CD())
-			return
-		M.custom_emote(1, "[M.friendly] [src.declent_ru(ACCUSATIVE)].")
+		M.custom_emote(EMOTE_VISIBLE, "[M.friendly] [src.declent_ru(ACCUSATIVE)].")
 		return FALSE
 	if(HAS_TRAIT(M, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
 		to_chat(M, "<span class='warning'>[pluralize_ru(M.gender,"Ты не хочешь","Вы не хотите")] никому навредить!</span>")
@@ -388,3 +392,15 @@
 
 /mob/living/proc/cult_self_harm(damage)
 	return FALSE
+
+/mob/living/RangedAttack(atom/A, params) //Player firing
+	if(GLOB.pacifism_after_gt)
+		return
+	else if(dirslash_enabled && a_intent != INTENT_HELP)
+		var/turf/turf_attacking = get_step(src, get_compass_dir(src, A))
+		if(turf_attacking)
+			var/mob/living/target = locate() in turf_attacking
+			if(target && Adjacent(target))
+				changeNext_move(CLICK_CD_MELEE)
+				return UnarmedAttack(target, TRUE)
+	return ..()

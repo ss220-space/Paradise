@@ -31,15 +31,15 @@
 		return list("reason"="guest", "desc"="\nReason: Guests not allowed. Please sign in with a BYOND account.")
 
 	//check if the IP address is a known proxy/vpn, and the user is not whitelisted
-	if(check_ipintel && config.ipintel_email && config.ipintel_whitelist && ipintel_is_banned(key, address))
+	if(check_ipintel && CONFIG_GET(string/ipintel_email) && CONFIG_GET(flag/ipintel_whitelist) && ipintel_is_banned(key, address))
 		log_adminwarn("Failed Login: [key] [computer_id] [address] - Proxy/VPN")
 		var/mistakemessage = ""
-		if(config.banappeals)
-			mistakemessage = "\nIf you have to use one, request whitelisting at:  [config.banappeals]"
+		if(CONFIG_GET(string/banappeals))
+			mistakemessage = "\nIf you have to use one, request whitelisting at:  [CONFIG_GET(string/banappeals)]"
 		return list("reason"="using proxy or vpn", "desc"="\nReason: Proxies/VPNs are not allowed here. [mistakemessage]")
 
 
-	if(config.ban_legacy_system)
+	if(CONFIG_GET(flag/ban_legacy_system))
 		//Ban Checking
 		. = CheckBan(ckey(key), computer_id, address)
 		if(.)
@@ -74,7 +74,7 @@
 			sql_query_params["cid"] = computer_id
 
 			var/datum/db_query/ban_wl_query = SSdbcore.NewQuery({"
-			SELECT computerid FROM [sqlfdbkdbutil].[format_table_name("ban_whitelist")]
+			SELECT computerid FROM [CONFIG_GET(string/utility_database)].[format_table_name("ban_whitelist")]
 			WHERE ckey=:ckeytext [cidquery]"}, sql_query_params)
 
 			if(!ban_wl_query.warn_execute())
@@ -87,7 +87,7 @@
 			qdel(ban_wl_query)
 
 		var/datum/db_query/query = SSdbcore.NewQuery({"
-		SELECT ckey, ip, computerid, a_ckey, reason, expiration_time, duration, bantime, bantype FROM [sqlfdbkdbutil].[format_table_name("ban")]
+		SELECT ckey, ip, computerid, a_ckey, reason, expiration_time, duration, bantime, bantype FROM [CONFIG_GET(string/utility_database)].[format_table_name("ban")]
 		WHERE (ckey=:ckeytext [ipquery] [cidquery]) AND (bantype = 'PERMABAN' OR bantype = 'ADMIN_PERMABAN'
 		OR ((bantype = 'TEMPBAN' OR bantype = 'ADMIN_TEMPBAN') AND expiration_time > Now())) AND isnull(unbanned)"}, sql_query_params)
 
@@ -125,8 +125,8 @@
 					continue
 			var/expires = ""
 			var/appealmessage = ""
-			if(config.banappeals)
-				appealmessage = " You may appeal it at <a href='[config.banappeals]'>[config.banappeals]</a>."
+			if(CONFIG_GET(string/banappeals))
+				appealmessage = " You may appeal it at <a href='[CONFIG_GET(string/banappeals)]'>[CONFIG_GET(string/banappeals)]</a>."
 			if(text2num(duration) > 0)
 				expires = " The ban is for [duration] minutes and expires on [expiration] (server time).[appealmessage]"
 			else

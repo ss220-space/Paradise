@@ -10,7 +10,6 @@ Pipelines + Other Objects -> Pipe network
 */
 /obj/machinery/atmospherics
 	anchored = 1
-	layer = GAS_PIPE_HIDDEN_LAYER  //under wires
 	resistance_flags = FIRE_PROOF
 	max_integrity = 200
 	plane = GAME_PLANE
@@ -19,6 +18,8 @@ Pipelines + Other Objects -> Pipe network
 	power_channel = ENVIRON
 	on_blueprints = TRUE
 	var/can_unwrench = 0
+	/// Can this be put under a tile?
+	var/can_be_undertile = FALSE
 
 	var/connect_types[] = list(1) //1=regular, 2=supply, 3=scrubber
 	var/connected_to = 1 //same as above, currently not used for anything
@@ -29,6 +30,8 @@ Pipelines + Other Objects -> Pipe network
 	var/pipe_color
 	var/obj/item/pipe/stored
 	var/image/pipe_image
+	layer = GAS_PIPE_HIDDEN_LAYER  //under wires
+	var/layer_offset = 0.0 // generic over VISIBLE and HIDDEN, should be less than 0.01, or you'll reorder non-pipe things
 
 /obj/machinery/atmospherics/New()
 	if (!armor)
@@ -70,14 +73,13 @@ Pipelines + Other Objects -> Pipe network
 
 // Icons/overlays/underlays
 /obj/machinery/atmospherics/update_icon()
-	var/turf/T = get_turf(loc)
-	if(T?.transparent_floor)
-		plane = FLOOR_PLANE
-	else
-		if(!T || level == 2 || !T.intact)
-			plane = GAME_PLANE
-		else
+	switch(level)
+		if(1)
 			plane = FLOOR_PLANE
+			layer = GAS_PIPE_HIDDEN_LAYER + layer_offset
+		if(2)
+			plane = GAME_PLANE
+			layer = GAS_PIPE_VISIBLE_LAYER + layer_offset
 
 /obj/machinery/atmospherics/proc/update_pipe_image()
 	pipe_image = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir) //the 20 puts it above Byond's darkness (not its opacity view)
@@ -181,7 +183,7 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/attackby(obj/item/W, mob/user)
 	var/turf/T = get_turf(src)
 	if(can_unwrench && istype(W, /obj/item/wrench))
-		if(T.transparent_floor && istype(src, /obj/machinery/atmospherics/pipe) && layer != GAS_PIPE_VISIBLE_LAYER) //pipes on GAS_PIPE_VISIBLE_LAYER are above the transparent floor and should be interactable
+		if(level == 1 && T.transparent_floor && istype(src, /obj/machinery/atmospherics/pipe))
 			to_chat(user, span_danger("You can't interact with something that's under the floor!"))
 			return
 		if(level == 1 && isturf(T) && T.intact)
@@ -262,11 +264,10 @@ Pipelines + Other Objects -> Pipe network
 	initialize_directions = P
 	var/turf/T = loc
 	if(!T.transparent_floor)
-		level = T.intact ? 2 : 1
+		level = (T.intact || !can_be_undertile) ? 2 : 1
 	else
 		level = 2
-		plane = GAME_PLANE
-		layer = GAS_PIPE_VISIBLE_LAYER
+	update_icon()
 	add_fingerprint(usr)
 	if(!SSair.initialized) //If there's no atmos subsystem, we can't really initialize pipenets
 		SSair.machinery_to_construct.Add(src)

@@ -307,12 +307,12 @@
 
 	if(hand_id == "HAND_LEFT")
 		l_hand = I
-		update_inv_l_hand()
 		I.equipped(src, slot_l_hand)
+		update_inv_l_hand()
 	else if(hand_id == "HAND_RIGHT")
 		r_hand = I
-		update_inv_r_hand()
 		I.equipped(src, slot_r_hand)
+		update_inv_r_hand()
 
 	if(pulling == I)
 		stop_pulling()
@@ -487,7 +487,7 @@
  * * 'invdrop' prevents stuff in belt/id/pockets/PDA slots from dropping if item was in jumpsuit slot. Only set to `FALSE` if it's going to be immediately replaced.
  * * 'silent' set to `TRUE` if you want to disable warning messages.
  */
-/mob/proc/transfer_item_to_loc(obj/item/I, atom/newloc, force = FALSE, invdrop = TRUE, silent = TRUE)
+/mob/proc/transfer_item_to_loc(obj/item/I, atom/newloc, force = FALSE, invdrop = TRUE, silent = FALSE)
 	. = do_unEquip(I, force, newloc, FALSE, invdrop, silent)
 	I.do_drop_animation(src)
 
@@ -543,7 +543,7 @@
 				I.move_to_null_space()
 			else
 				I.forceMove(newloc)
-		I.dropped(src)
+		I.dropped(src, silent)
 
 	return TRUE
 

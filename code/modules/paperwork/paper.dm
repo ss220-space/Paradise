@@ -20,7 +20,10 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
 	attack_verb = list("bapped")
+	permeability_coefficient = 0.01
 	dog_fashion = /datum/dog_fashion/head
+	drop_sound = 'sound/items/handling/paper_drop.ogg'
+	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
 	var/header //Above the main body, displayed at the top
 	var/info		//What's actually written on the paper.
 	var/footer 	//The bottom stuff before the stamp but after the body
@@ -85,9 +88,9 @@
 		data = "[header][stars(info)][footer][stamps]"
 	else
 		data = "[header]<div id='markdown'>[infolinks ? info_links : info]</div>[footer][stamps]"
-	if(config.twitch_censor)
-		for(var/char in config.twich_censor_list)
-			data = replacetext(data, char, config.twich_censor_list[char])
+	if(CONFIG_GET(flag/twitch_censor))
+		for(var/char in GLOB.twitch_censor_list)
+			data = replacetext(data, char, GLOB.twitch_censor_list[char])
 	if(view)
 		if(!istype(src, /obj/item/paper/form) && length(info) > 1024)
 			paper_width = paper_width_big
@@ -147,9 +150,15 @@
 
 /obj/item/paper/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(user.zone_selected == "eyes")
-		user.visible_message("<span class='notice'>You show the paper to [M]. </span>", \
-			"<span class='notice'> [user] holds up a paper and shows it to [M]. </span>")
-		M.examinate(src)
+		user.visible_message("<span class='warning'>[user] is trying to show the paper to you. </span>", \
+			"<span class='notice'>You hold up a paper and try to show it to [M]. </span>")
+
+		if(do_mob(user, M, 0.7 SECONDS))
+			user.visible_message("<span class='notice'>[user] shows the paper to you. </span>", \
+				"<span class='notice'>You hold up a paper and show it to [M]. </span>")
+			M.examinate(src)
+		else
+			to_chat(user, span_warning("You fail to show the paper to [M]."))
 
 	else if(user.zone_selected == "mouth")
 		if(!istype(M, /mob))	return
@@ -159,6 +168,7 @@
 			if(H == user)
 				to_chat(user, "<span class='notice'>You wipe off your face with [src].</span>")
 				H.lip_style = null
+				H.lip_color = initial(H.lip_color)
 				H.update_body()
 			else
 				user.visible_message("<span class='warning'>[user] begins to wipe [H]'s face clean with \the [src].</span>", \
@@ -167,6 +177,7 @@
 					user.visible_message("<span class='notice'>[user] wipes [H]'s face clean with \the [src].</span>", \
 										 "<span class='notice'>You wipe off [H]'s face.</span>")
 					H.lip_style = null
+					H.lip_color = initial(H.lip_color)
 					H.update_body()
 	else
 		..()
@@ -774,7 +785,8 @@
 	STOP_PROCESSING(SSobj, src)
 	if(mytarget && !used)
 		var/mob/living/carbon/target = mytarget
-		target.ForceContractDisease(new /datum/disease/transformation/corgi)
+		var/datum/disease/virus/transformation/corgi/D = new
+		D.Contract(target)
 	return ..()
 
 
@@ -798,10 +810,12 @@
 			var/obj/machinery/photocopier/faxmachine/fax = locateUID(faxmachineid)
 			if(myeffect == "Borgification")
 				to_chat(target,"<span class='userdanger'>You seem to comprehend the AI a little better. Why are your muscles so stiff?</span>")
-				target.ForceContractDisease(new /datum/disease/transformation/robot)
+				var/datum/disease/virus/transformation/robot/D = new
+				D.Contract(target)
 			else if(myeffect == "Corgification")
 				to_chat(target,"<span class='userdanger'>You hear distant howling as the world seems to grow bigger around you. Boy, that itch sure is getting worse!</span>")
-				target.ForceContractDisease(new /datum/disease/transformation/corgi)
+				var/datum/disease/virus/transformation/corgi/D = new
+				D.Contract(target)
 			else if(myeffect == "Death By Fire")
 				to_chat(target,"<span class='userdanger'>You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?</span>")
 				var/turf/simulated/T = get_turf(target)

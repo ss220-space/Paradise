@@ -52,7 +52,7 @@
 	name = "Old Mining Bay Bridge"
 	icon_state = "bridge"
 
-// Old tcommsat
-/area/ruin/tcommsat
-	name = "Telecommunications Satellite"
-	icon_state = "tcomsatcham"
+// Space Prison
+/area/ruin/spaceprison
+	name = "Space Prison"
+	icon_state = "spaceprison"

@@ -401,6 +401,10 @@
 
 	inventory_shown = FALSE
 
+	combo_display = new()
+	infodisplay += combo_display
+
+
 	for(var/obj/screen/inventory/inv in (static_inventory + toggleable_inventory))
 		if(inv.slot_id)
 			inv.hud = src
@@ -430,7 +434,7 @@
 			crafting.invisibility = initial(crafting.invisibility)
 
 /datum/hud/human/hidden_inventory_update()
-	if(!mymob)
+	if(!mymob?.client)
 		return
 	var/mob/living/carbon/human/H = mymob
 	if(inventory_shown && hud_shown)

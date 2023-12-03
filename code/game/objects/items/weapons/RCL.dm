@@ -104,7 +104,7 @@
 		return 1
 	return 0
 
-/obj/item/twohanded/rcl/dropped(mob/wearer)
+/obj/item/twohanded/rcl/dropped(mob/user, silent = FALSE)
 	..()
 	active = 0
 	last = null

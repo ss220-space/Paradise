@@ -10,7 +10,7 @@
 
 	..()
 	set_tag()
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 
 	switch(name)			//some of these are probably obsolete
 		if("start")
@@ -386,10 +386,6 @@
 	name = "Security Officer"
 	icon_state = "Sec"
 
-/obj/effect/landmark/start/security_cadet
-	name = "Security Cadet"
-	icon_state = "Sec_Cadet"
-
 /obj/effect/landmark/start/brig_physician
 	name = "Brig Physician"
 	icon_state = "Brig_MD"
@@ -689,3 +685,14 @@
 /obj/effect/landmark/battle_mob_point
 	name = "Nanomob Battle Avatar Spawn Point"
 
+/obj/effect/landmark/spawner/bubblegum_arena
+	name = "bubblegum_arena_human"
+	icon_state = "awaystart"
+
+/obj/effect/landmark/spawner/bubblegum
+	name = "bubblegum_arena_bubblegum"
+	icon_state = "bubblegumjumpscare"
+
+/obj/effect/landmark/spawner/bubblegum_exit
+	name = "bubblegum_arena_exit"
+	icon_state = "bubblegumjumpscare"

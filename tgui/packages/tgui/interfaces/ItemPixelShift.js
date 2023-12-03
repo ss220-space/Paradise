@@ -21,7 +21,7 @@ export const ItemPixelShift = (props, context) => {
               <Button
                 icon="arrow-left"
                 title="Shifts item leftwards."
-                disabled={pixel_x === max_shift_x}
+                disabled={pixel_x === -max_shift_x}
                 onClick={() => act('shift_left')} />
               <NumberInput
                 animated
@@ -39,7 +39,7 @@ export const ItemPixelShift = (props, context) => {
               <Button
                 icon="arrow-right"
                 title="Shifts item rightwards."
-                disabled={pixel_x === -max_shift_x}
+                disabled={pixel_x === max_shift_x}
                 onClick={() => act('shift_right')} />
             </LabeledList.Item>
             <LabeledList.Item label="Y-coordinates">

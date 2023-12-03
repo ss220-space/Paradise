@@ -159,6 +159,7 @@
 	Quality memes."
 	suffix = "lavaland_surface_xeno_nest.dmm"
 	cost = 20
+	allow_duplicates = FALSE
 
 /datum/map_template/ruin/lavaland/fountain
 	name = "Fountain Hall"
@@ -285,9 +286,27 @@
 	allow_duplicates = FALSE
 
 /datum/map_template/ruin/lavaland/weaver_nest
-	name = "Marrow Weaver nest"
+	name = "Marrow Weaver Nest"
 	id = "marrownest"
 	description = "A huge den of terrifyingly dangerous spiders along with their victims."
 	suffix = "lavaland_surface_nest.dmm"
 	cost = 10
 	allow_duplicates = FALSE
+
+/datum/map_template/ruin/lavaland/pirateship
+	name = "Wrecked Starwalker"
+	id = "pirateship"
+	description = "An old derelict pirate cruiser, now only a shadow of its former self."
+	suffix = "lavaland_surface_pirateship.dmm"
+	cost = 20 //huge
+	allow_duplicates = FALSE
+
+/*
+/datum/map_template/ruin/lavaland/althland_facility
+	name = "Althland Facility"
+	id = "althlandfacility"
+	description = "Nanotrasen wasn't the only one company interested in plasma. Lavaland Filled with old derelict mining operations."
+	suffix = "lavaland_surface_althland_facility.dmm"
+	cost = 10
+	allow_duplicates = FALSE
+*/

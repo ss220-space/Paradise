@@ -10,7 +10,7 @@
 
 
 /proc/format_table_name(table as text)
-	return sqlfdbktableprefix + table
+	return CONFIG_GET(string/feedback_tableprefix) + table
 
 /*
  * Text sanitization
@@ -39,10 +39,10 @@
 	return t
 
 /proc/sanitize_censored_patterns(var/t)
-	if(!config || !config.twitch_censor || !config.twich_censor_list)
+	if(!global.config || !CONFIG_GET(flag/twitch_censor) || !GLOB.twitch_censor_list)
 		return t
 
-	var/text = sanitize_simple(t, config.twich_censor_list)
+	var/text = sanitize_simple(t, GLOB.twitch_censor_list)
 	if(t != text)
 		message_admins("CENSOR DETECTION: [ADMIN_FULLMONTY(usr)] inputs: \"[html_encode(t)]\"")
 		log_adminwarn("CENSOR DETECTION: [key_name_log(usr)] inputs: \"[t]\"")
@@ -764,3 +764,25 @@
 /proc/sanitize_filename(text)
 	var/static/regex/regex = regex(@{""|[\\\n\t/?%*:|<>]|\.\."}, "g")
 	return regex.Replace(text, "")
+
+/**
+  * Formats num with an SI prefix.
+  *
+  * Returns a string formatted with a multiple of num and an SI prefix corresponding to an exponent of 10.
+  * Only considers exponents that are multiples of 3 (deca, deci, hecto, and centi are not included).
+  * A unit is not included in the string, the prefix is placed after the number with no spacing added anywhere.
+  * Listing of prefixes: https://en.wikipedia.org/wiki/Metric_prefix#List_of_SI_prefixes
+  */
+/proc/format_si_suffix(num)
+	if(num == 0)
+		return "[num]"
+
+	var/exponent = round_down(log(10, abs(num)))
+	var/ofthree = exponent / 3
+	if(exponent < 0)
+		ofthree = round(ofthree)
+	else
+		ofthree = round_down(ofthree)
+	if(ofthree == 0)
+		return "[num]"
+	return "[num / (10 ** (ofthree * 3))][GLOB.si_suffixes[round(length(GLOB.si_suffixes) / 2) + ofthree + 1]]"

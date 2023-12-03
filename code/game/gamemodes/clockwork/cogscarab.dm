@@ -119,7 +119,7 @@
 		adjustBruteLoss(2)
 	else
 		wind_up_timer -= seconds
-	hud_used.wind_up_timer?.icon_state = "windup_display-[6-(round(wind_up_timer, wind_up_icon_segment) / wind_up_icon_segment)]"
+	hud_used?.wind_up_timer?.icon_state = "windup_display-[6-(round(wind_up_timer, wind_up_icon_segment) / wind_up_icon_segment)]"
 	//rounds to 30 and divides by 30. if timer full, 6 - 5, state 1. from 1 to 6.
 
 

@@ -1,7 +1,7 @@
 /mob/living/carbon/human/movement_delay()
 	. = 0
 	. += ..()
-	. += config.human_delay
+	. += CONFIG_GET(number/human_delay)
 	. += dna.species.movement_delay(src)
 
 /mob/living/carbon/human/Process_Spacemove(movement_dir = 0)
@@ -41,7 +41,7 @@
 		if(!lying && !buckled && !throwing)
 			for(var/obj/item/organ/external/splinted in splinted_limbs)
 				splinted.update_splints()
-		if(m_intent != MOVE_INTENT_WALK || pulling)
+		if(dna.species.fragile_bones_chance > 0 && (m_intent != MOVE_INTENT_WALK || pulling))
 			if(prob(dna.species.fragile_bones_chance))
 				for(var/zone in list("l_leg", "l_foot", "r_leg", "r_foot"))
 					var/obj/item/organ/external/leg = get_organ(zone)

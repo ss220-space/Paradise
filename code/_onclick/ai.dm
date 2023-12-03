@@ -139,7 +139,8 @@
 	A.AIAltClick(src)
 /mob/living/silicon/ai/MiddleClickOn(atom/A)
     A.AIMiddleClick(src)
-
+/mob/living/silicon/ai/MiddleShiftClickOn(atom/A)
+	A.AIMiddleShiftClick(src)
 
 // DEFAULT PROCS TO OVERRIDE
 
@@ -163,6 +164,9 @@
 	AltClick(A)
 
 /atom/proc/AIMiddleClick(mob/living/user)
+	return
+
+/atom/proc/AIMiddleShiftClick()
 	return
 
 /mob/living/silicon/ai/TurfAdjacent(turf/T)

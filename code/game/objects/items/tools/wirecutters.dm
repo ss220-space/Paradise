@@ -15,6 +15,8 @@
 	attack_verb = list("pinched", "nipped")
 	hitsound = 'sound/items/wirecutter.ogg'
 	usesound = 'sound/items/wirecutter.ogg'
+	drop_sound = 'sound/items/handling/wirecutter_drop.ogg'
+	pickup_sound =  'sound/items/handling/wirecutter_pickup.ogg'
 	sharp = 1
 	embed_chance = 5
 	embedded_ignore_throwspeed_threshold = TRUE

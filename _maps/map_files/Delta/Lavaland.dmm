@@ -900,6 +900,9 @@
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/structure/closet/fishingrodcabinet{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1193,16 +1196,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
-/area/mine/production)
-"dW" = (
-/obj/machinery/meter,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/production)
 "dY" = (
@@ -2354,6 +2347,16 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
+"jd" = (
+/obj/machinery/atmospherics/meter,
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/mine/production)
 "jf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/arrows,
@@ -2925,14 +2928,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"lO" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	dir = 6
-	},
-/obj/machinery/meter,
-/turf/simulated/floor/plasteel,
-/area/mine/laborcamp)
 "lP" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
@@ -3456,31 +3451,6 @@
 	icon_state = "barber"
 	},
 /area/mine/laborcamp)
-"nV" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "Mining EVA APC";
-	pixel_x = 1;
-	pixel_y = 24
-	},
-/turf/simulated/floor/plasteel,
-/area/mine/eva)
 "nX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -4880,6 +4850,23 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"zy" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "Mining EVA APC";
+	pixel_x = 1;
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/eva)
 "zB" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
@@ -6822,6 +6809,20 @@
 	icon_state = "browncorner"
 	},
 /area/mine/living_quarters)
+"PN" = (
+/obj/structure/ore_box,
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 1
+	},
+/obj/item/gps/ruin{
+	pixel_y = 32;
+	gpstag = "OUTPOST"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "brown"
+	},
+/area/mine/eva)
 "PQ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -7731,16 +7732,6 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
-"WZ" = (
-/obj/structure/ore_box,
-/obj/effect/decal/warning_stripes/yellow/partial{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "brown"
-	},
-/area/mine/eva)
 "Xd" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -7768,6 +7759,14 @@
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril,
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"Xm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 6
+	},
+/obj/machinery/atmospherics/meter,
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
 "Xn" = (
 /obj/structure/stone_tile/block{
 	dir = 4
@@ -14954,7 +14953,7 @@ an
 an
 an
 qT
-lO
+Xm
 HA
 av
 Ov
@@ -25000,7 +24999,7 @@ Ky
 dM
 sW
 Wo
-dW
+jd
 AB
 TH
 dt
@@ -25013,7 +25012,7 @@ QT
 Zp
 kG
 kG
-nV
+zy
 fx
 ve
 ZH
@@ -26812,7 +26811,7 @@ ab
 ab
 ab
 ZH
-WZ
+PN
 Mw
 nr
 ZH

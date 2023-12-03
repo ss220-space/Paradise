@@ -18,11 +18,12 @@
 	. = ..()
 	if(.)
 		return
-	var/num_loaded = magazine.attackby(A, user, params, 1)
-	if(num_loaded)
-		to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
-		A.update_icon()
-		update_icon()
+	if(istype(A, /obj/item/ammo_box/speedloader/shotgun) || istype(A, /obj/item/ammo_casing))
+		var/num_loaded = magazine.attackby(A, user, params, 1)
+		if(num_loaded)
+			to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
+			A.update_icon()
+			update_icon()
 
 
 /obj/item/gun/projectile/shotgun/process_chamber()
@@ -57,7 +58,7 @@
 	if(chambered)//We have a shell in the chamber
 		chambered.loc = get_turf(src)//Eject casing
 		chambered.SpinAnimation(5, 1)
-		playsound(src, chambered.drop_sound, 60, 1)
+		playsound(src, chambered.casing_drop_sound, 60, 1)
 		chambered = null
 
 /obj/item/gun/projectile/shotgun/proc/pump_reload(mob/M)
@@ -256,7 +257,7 @@
 	bolt_open = 1
 	pump()
 
-/obj/item/gun/projectile/shotgun/boltaction/enchanted/dropped()
+/obj/item/gun/projectile/shotgun/boltaction/enchanted/dropped(mob/user, silent = FALSE)
 	..()
 	guns_left = 0
 

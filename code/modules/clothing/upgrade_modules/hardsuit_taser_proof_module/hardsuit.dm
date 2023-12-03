@@ -30,17 +30,6 @@
 			return TRUE
 	. = ..()
 
-/obj/item/clothing/suit/space/hardsuit/ToggleHelmet()
-	if(ishuman(loc))
-		var/mob/living/carbon/human/H = loc
-		if(taser_proof && taser_proof.ert_mindshield_locked)
-			if(isertmindshielded(H))
-				to_chat(H, "<span class='notice'>Access granted, identity verified...</span>")
-			else
-				to_chat(H, "<span class='warning'>Access denied. The user is not identified!</span>")
-				return
-	. = ..()
-
 //////Taser-proof Hardsuits
 
 /obj/item/clothing/suit/space/hardsuit/deathsquad

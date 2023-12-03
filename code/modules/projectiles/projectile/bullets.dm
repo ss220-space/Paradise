@@ -378,3 +378,6 @@
 	damage = 8
 	stamina = 1
 	armour_penetration = 5
+
+/obj/item/projectile/bullet/weakbullet3/c257
+	damage = 20

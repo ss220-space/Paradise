@@ -14,6 +14,8 @@
 	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/helmet
+	pickup_sound = 'sound/items/handling/helmet_pickup.ogg'
+	drop_sound = 'sound/items/handling/helmet_drop.ogg'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/helmet.dmi',
@@ -301,12 +303,16 @@
 	strip_delay = 100
 	sprite_sheets = list(
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
-    "Grey" = 'icons/mob/clothing/species/grey/head.dmi'
-    )
+    	"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
+    	)
 
 /obj/item/clothing/head/helmet/skull/Yorick
 	name = "Йорик"
 	desc = "Бедный Йорик..."
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+    	"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
+    	)
 
 /obj/item/clothing/head/helmet/durathread
 	name = "durathread helmet"

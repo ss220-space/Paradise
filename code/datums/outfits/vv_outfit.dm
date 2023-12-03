@@ -160,6 +160,10 @@
 				I = H.get_item_by_slot(text2num(slot))
 		for(var/vname in edits)
 			I.vv_edit_var(vname,edits[vname])
+	//Dat thing will make your capes colored by using `"24":{"atom_colours":{"#ffffff":"3"}}` in "vv_values".
+	var/obj/item/neck_slot = H.get_item_by_slot(slot_neck)
+	if(neck_slot)
+		neck_slot.update_atom_colour()
 	//Apply access
 	var/obj/item/id_slot = H.get_item_by_slot(slot_wear_id)
 	if(id_slot)
@@ -169,6 +173,7 @@
 		if(update_id_name)
 			card.registered_name = H.real_name
 			card.update_label()
+		H.sec_hud_set_ID()
 
 /datum/outfit/varedit/get_json_data()
 	. = .. ()

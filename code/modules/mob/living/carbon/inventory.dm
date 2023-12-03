@@ -32,7 +32,7 @@
 /mob/living/carbon/can_use_hands()
 	if(handcuffed)
 		return FALSE
-	if(buckled && ! istype(buckled, /obj/structure/chair)) // buckling does not restrict hands
+	if(buckled && !istype(buckled, /obj/structure/chair)) // buckling does not restrict hands
 		return FALSE
 	return TRUE
 
@@ -145,6 +145,8 @@
  * Pass any type of handcuffs as 'new type()'
  */
 /mob/living/carbon/proc/set_handcuffed(new_value)
+	. = FALSE
+
 	if(!istype(new_value, /obj/item/restraints/handcuffs))
 		stack_trace("[new_value] is not a valid handcuffs!")
 		qdel(new_value)
@@ -155,6 +157,34 @@
 		return
 
 	equip_to_slot(new_value, slot_handcuffed)
+	. = TRUE
+
+
+/mob/living/carbon/proc/set_legcuffed(new_value, qdel_if_cuffed = TRUE)
+	. = FALSE
+
+	if(!new_value)
+		stack_trace("No legcuffs passed!")
+		return
+
+	var/obj/item/restraints/legcuffs/legcuffs = new_value
+	if(ispath(new_value))
+		legcuffs = new new_value
+
+	if(!istype(legcuffs, /obj/item/restraints/legcuffs))
+		stack_trace("[new_value] is not a valid legcuffs!")
+		qdel(legcuffs)
+		return
+
+	if(legcuffed || legcuffed == legcuffs || !has_organ_for_slot(slot_legcuffed))
+		if(qdel_if_cuffed)
+			qdel(legcuffs)
+		else
+			drop_item_ground(legcuffs)
+		return
+
+	equip_to_slot(legcuffs, slot_legcuffed)
+	. = TRUE
 
 
 /mob/living/carbon/proc/uncuff()
@@ -166,7 +196,11 @@
 
 
 /mob/living/carbon/is_muzzled()
-	return(istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
+	return istype(wear_mask, /obj/item/clothing/mask/muzzle)
+
+
+/mob/living/carbon/is_facehugged()
+	return istype(wear_mask, /obj/item/clothing/mask/facehugger)
 
 
 /mob/living/carbon/resist_muzzle()

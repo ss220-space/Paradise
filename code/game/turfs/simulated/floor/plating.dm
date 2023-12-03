@@ -13,6 +13,7 @@
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	real_layer = PLATING_LAYER
 
 /turf/simulated/floor/plating/Initialize(mapload)
 	. = ..()
@@ -368,6 +369,21 @@
 /turf/simulated/floor/plating/metalfoam/attackby(var/obj/item/C, mob/user, params)
 	if(..())
 		return TRUE
+
+	if(istype(C, /obj/item/stack/sheet/metal))
+		var/obj/item/stack/sheet/metal/metal = C
+		if(metal.get_amount() < 2)
+			to_chat(user, span_warning("You need at least 2 [metal] to make a plating!"))
+			return TRUE
+		else
+			to_chat(user, span_notice("You begin swapping the plating for [metal]..."))
+			if(do_after(user, 3 SECONDS * metal.toolspeed * gettoolspeedmod(user), target = src))
+				if(metal.get_amount() >= 2)
+					ChangeTurf(/turf/simulated/floor/plating, FALSE, FALSE)
+					playsound(src, metal.usesound, 80, TRUE)
+					metal.use(2)
+					to_chat(user, span_notice("You swap the plating for [metal]."))
+				return TRUE
 
 	if(istype(C) && C.force)
 		user.changeNext_move(CLICK_CD_MELEE)

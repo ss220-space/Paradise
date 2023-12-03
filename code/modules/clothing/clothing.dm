@@ -147,6 +147,7 @@
 	flags_cover = GLASSESCOVERSEYES
 	slot_flags = SLOT_EYES
 	materials = list(MAT_GLASS = 250)
+	equip_sound = 'sound/items/handling/generic_equip4.ogg'
 	var/vision_flags = 0
 	var/see_in_dark = 0 //Base human is 2
 	var/invis_view = SEE_INVISIBLE_LIVING
@@ -438,6 +439,8 @@ BLIND     // can't see anything
 	var/cut_open = 0
 	body_parts_covered = FEET
 	slot_flags = SLOT_FEET
+	pickup_sound = 'sound/items/handling/shoes_pickup.ogg'
+	drop_sound = 'sound/items/handling/shoes_drop.ogg'
 
 	var/silence_steps = 0
 	var/blood_state = BLOOD_STATE_NOT_BLOODY
@@ -502,6 +505,8 @@ BLIND     // can't see anything
 	var/fire_resist = T0C+100
 	allowed = list(/obj/item/tank/internals/emergency_oxygen)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	drop_sound = 'sound/items/handling/cloth_drop.ogg'
+	pickup_sound = 'sound/items/handling/cloth_pickup.ogg'
 	slot_flags = SLOT_OCLOTHING
 	var/blood_overlay_type = "suit"
 	var/suittoggled = FALSE
@@ -516,7 +521,8 @@ BLIND     // can't see anything
 		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi'
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi'
 		//"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
@@ -679,7 +685,7 @@ BLIND     // can't see anything
 				A.Grant(user)
 
 
-/obj/item/clothing/suit/space/dropped(mob/user)
+/obj/item/clothing/suit/space/dropped(mob/user, silent = FALSE)
 	..()
 	if(jetpack)
 		for(var/X in jetpack.actions)
@@ -711,6 +717,9 @@ BLIND     // can't see anything
 	permeability_coefficient = 0.90
 	slot_flags = SLOT_ICLOTHING
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	equip_sound = 'sound/items/equip/jumpsuit_equip.ogg'
+	drop_sound = 'sound/items/handling/cloth_drop.ogg'
+	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
@@ -750,7 +759,7 @@ BLIND     // can't see anything
 	return ..()
 
 
-/obj/item/clothing/under/dropped(mob/user, silent)
+/obj/item/clothing/under/dropped(mob/user, silent = FALSE)
 	..()
 	if(!ishuman(user))
 		return
@@ -800,7 +809,7 @@ BLIND     // can't see anything
 
 /obj/item/clothing/under/proc/attach_accessory(obj/item/clothing/accessory/A, mob/user, unequip = FALSE)
 	if(can_attach_accessory(A))
-		if(unequip && !user.drop_item_ground(A)) // Make absolutely sure this accessory is removed from hands
+		if(unequip && !user.drop_item_ground(A, ignore_pixel_shift = TRUE)) // Make absolutely sure this accessory is removed from hands
 			return FALSE
 
 		accessories += A
@@ -917,7 +926,8 @@ BLIND     // can't see anything
 		"Farwa" = 'icons/mob/clothing/species/monkey/neck.dmi',
 		"Wolpin" = 'icons/mob/clothing/species/monkey/neck.dmi',
 		"Neara" = 'icons/mob/clothing/species/monkey/neck.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/neck.dmi'
+		"Stok" = 'icons/mob/clothing/species/monkey/neck.dmi',
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/neck.dmi'
 		)
 
 /obj/item/clothing/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)

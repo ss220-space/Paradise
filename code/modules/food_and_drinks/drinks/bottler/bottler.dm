@@ -306,6 +306,10 @@
 /obj/machinery/bottler/attack_hand(mob/user)
 	if(stat & BROKEN)
 		return
+
+	if(..())
+		return TRUE
+
 	add_fingerprint(user)
 	interact(user)
 

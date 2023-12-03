@@ -20,6 +20,11 @@
 	var/list/fluff_transformations = list()
 	/// Extra 'Holy' burn damage for ERT null rods
 	var/sanctify_force = 0
+	/// List which defines if a container with nullrod should be spawned instead of new nullrod itself
+	var/static/list/container_paths = list(
+		/obj/item/nullrod/claymore = /obj/item/storage/belt/claymore,
+		/obj/item/nullrod/claymore/darkblade = /obj/item/storage/belt/claymore/dark
+	)
 
 /obj/item/nullrod/Initialize(mapload)
 	. = ..()
@@ -50,19 +55,19 @@
 		g_vamp.nullified = max(5, g_vamp.nullified + 2)
 
 
-
 /obj/item/nullrod/pickup(mob/living/user)
-	. = ..()
-	if(sanctify_force)
-		if(!user.mind || !user.mind.isholy)
-			user.adjustBruteLoss(force)
-			user.adjustFireLoss(sanctify_force)
-			user.Weaken(10 SECONDS)
-			user.drop_item_ground(src, force = TRUE)
-			user.visible_message("<span class='warning'>[src] slips out of the grip of [user] as they try to pick it up, bouncing upwards and smacking [user.p_them()] in the face!</span>", \
-			"<span class='warning'>[src] slips out of your grip as you pick it up, bouncing upwards and smacking you in the face!</span>")
-			playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
-			throw_at(get_edge_target_turf(user, pick(GLOB.alldirs)), rand(1, 3), 5)
+	if(sanctify_force && !user.mind?.isholy)
+		user.adjustBruteLoss(force)
+		user.adjustFireLoss(sanctify_force)
+		user.Weaken(10 SECONDS)
+		user.drop_item_ground(src, force = TRUE)
+		user.visible_message(span_warning("[src] slips out of the grip of [user] as they try to pick it up, bouncing upwards and smacking [user.p_them()] in the face!"), \
+							span_warning("[src] slips out of your grip as you pick it up, bouncing upwards and smacking you in the face!"))
+		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
+		throw_at(get_edge_target_turf(user, pick(GLOB.alldirs)), rand(1, 3), 5)
+		return FALSE
+
+	return ..()
 
 
 /obj/item/nullrod/attack_self(mob/user)
@@ -87,6 +92,20 @@
 		return
 
 	var/picked_type = variant_names[choice]
+	if(picked_type in container_paths)
+		var/storage_path = container_paths[picked_type]
+		var/obj/item/storage/storage = new storage_path(get_turf(user))
+		SSblackbox.record_feedback("text", "chaplain_weapon", 1, "[picked_type]", 1)
+		var/obj/item/nullrod/new_rod = locate(picked_type) in storage
+		if(new_rod)
+			new_rod.reskinned = TRUE
+			qdel(src)
+			user.put_in_active_hand(storage)
+			if(sanctify_force)
+				new_rod.sanctify_force = sanctify_force
+				new_rod.name = "sanctified " + new_rod.name
+			return
+
 	var/obj/item/nullrod/new_rod = new picked_type(get_turf(user))
 
 	SSblackbox.record_feedback("text", "chaplain_weapon", 1, "[picked_type]", 1)
@@ -172,6 +191,10 @@
 	desc = "Spread the glory of the dark gods!"
 	slot_flags = SLOT_BELT
 	hitsound = 'sound/hallucinations/growl1.ogg'
+
+/obj/item/shield/riot/templar
+	name = "templar shield"
+	icon_state = "templar_shield"
 
 /obj/item/nullrod/claymore/chainsaw_sword
 	name = "sacred chainsaw sword"
@@ -295,7 +318,9 @@
 			name = input
 			S.real_name = input
 			S.name = input
+		log_game("[S.ckey] has become spirit of [user.real_name]'s nullrod blade.")
 	else
+		log_game("No one has decided to possess [user.real_name]'s nullrod blade.")
 		to_chat(user, "The blade is dormant. Maybe you can try again later.")
 		possessed = FALSE
 
@@ -426,6 +451,8 @@
 	slot_flags = null
 	flags = HANDSLOW
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
+	drop_sound = 'sound/items/handling/knife_drop.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
 /obj/item/nullrod/tribal_knife/New()

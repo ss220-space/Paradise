@@ -61,7 +61,8 @@
 	var/list/temporary_languages = list() // For reagents that grant language knowlege.
 	var/list/abilities = list()           // For species-derived or admin-given powers.
 	var/list/speak_emote = list("says")   // Verbs used when speaking. Defaults to 'say' if speak_emote is null.
-	var/emote_type = 1		// Define emote default type, 1 for seen emotes, 2 for heard emotes
+	/// Define emote default type, EMOTE_VISIBLE for seen emotes, EMOTE_AUDIBLE for heard emotes.
+	var/emote_type = EMOTE_VISIBLE
 	var/name_archive //For admin things like possession
 	var/gunshot_residue
 
@@ -101,9 +102,21 @@
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 	var/list/mapobjs = list()
 
-	var/in_throw_mode = 0
+	var/in_throw_mode = FALSE
 
-	var/emote_cd = 0		// Used to supress emote spamming. 1 if on CD, 2 if disabled by admin (manually set), else 0
+	// See /datum/emote
+
+	/// Cooldown on audio effects from emotes.
+	var/audio_emote_cd_status = EMOTE_READY
+
+	/// Cooldown on audio effects from unintentional emotes.
+	var/audio_emote_unintentional_cd_status = EMOTE_READY
+
+	/// Override for cooldowns on non-audio emotes. Should be a number in deciseconds.
+	var/emote_cooldown_override = null
+
+	/// Tracks last uses of emotes for cooldown purposes
+	var/list/emotes_used
 
 	var/job = null //Living
 
@@ -123,6 +136,7 @@
 	/// Whether antagHUD has been enabled previously.
 	var/has_enabled_antagHUD = FALSE
 	var/antagHUD = FALSE  // Whether AntagHUD is active right now
+	var/thoughtsHUD = 0 //Just a handler for permanent/temporary THOUGHTS_HUD changing.
 	var/can_change_intents = 1 //all mobs can change intents by default.
 	///Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
 	var/sound_environment_override = SOUND_ENVIRONMENT_NONE
@@ -150,7 +164,7 @@
 
 //List of active diseases
 
-	var/list/viruses = list() // list of all diseases in a mob
+	var/list/diseases = list() // list of all diseases in a mob
 	var/list/resistances = list()
 
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER

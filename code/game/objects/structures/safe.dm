@@ -364,7 +364,8 @@ GLOBAL_LIST_EMPTY(safes)
 	icon_state = "floorsafe"
 	density = FALSE
 	level = 1 //Under the floor
-	layer = LOW_OBJ_LAYER
+	plane = FLOOR_PLANE
+	layer = ABOVE_PLATING_LAYER
 	drill_x_offset = -1
 	drill_y_offset = 20
 
@@ -375,7 +376,7 @@ GLOBAL_LIST_EMPTY(safes)
 		hide(T.intact)
 
 /obj/structure/safe/floor/hide(intact)
-	invisibility = intact ? INVISIBILITY_MAXIMUM : 0
+	invisibility = intact ? INVISIBILITY_ABSTRACT : 0
 
 /**
   * # Safe Internals

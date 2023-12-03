@@ -8,6 +8,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
 	can_hold = list(
+		/obj/item/lipstick,
 		/obj/item/stack/spacecash,
 		/obj/item/card,
 		/obj/item/clothing/mask/cigarette,
@@ -27,7 +28,8 @@
 		/obj/item/reagent_containers/dropper,
 		/obj/item/stamp,
 		/obj/item/encryptionkey,
-		/obj/item/clothing/gloves/ring)
+		/obj/item/clothing/gloves/ring,
+		/obj/item/reagent_containers/food/pill/patch)
 	slot_flags = SLOT_ID
 
 	var/obj/item/card/id/front_id = null

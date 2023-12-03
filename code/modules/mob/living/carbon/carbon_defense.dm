@@ -1,19 +1,37 @@
 /mob/living/carbon/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
-	if(!skipcatch)
-		if(in_throw_mode && canmove && !restrained())  //Makes sure player is in throw mode
-			if(!istype(AM,/obj/item) || !isturf(AM.loc))
-				return FALSE
-			if(get_active_hand())
-				return FALSE
-			if(istype(AM, /obj/item/twohanded))
-				if(get_inactive_hand())
-					return FALSE
-			put_in_active_hand(AM)
-			visible_message("<span class='warning'>[src] catches [AM]!</span>")
-			throw_mode_off()
-			SEND_SIGNAL(src, COMSIG_CARBON_THROWN_ITEM_CAUGHT, AM)
-			return TRUE
-	return ..()
+	if(skipcatch || !isitem(AM))
+		return ..()
+
+	var/obj/item/check = AM
+	if(check.carbon_skip_catch_check(src))
+		return ..()
+
+	put_in_active_hand(AM)
+	visible_message(span_warning("[src] catches [AM]!"))
+	throw_mode_off()
+	SEND_SIGNAL(src, COMSIG_CARBON_THROWN_ITEM_CAUGHT, AM)
+	return TRUE
+
+
+/**
+ * Individual check for items to skip catching.
+ */
+/obj/item/proc/carbon_skip_catch_check(mob/living/carbon/user)
+	. = TRUE
+	if(!isturf(loc))
+		return
+	if(!user.in_throw_mode)
+		return
+	if(!user.canmove)
+		return
+	if(user.restrained())
+		return
+	if(user.get_active_hand())
+		return
+	if(GetComponent(/datum/component/two_handed) && user.get_inactive_hand())
+		return
+	. = FALSE
+
 
 /mob/living/carbon/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
@@ -32,15 +50,13 @@
 	if(!iscarbon(user))
 		return
 
-	for(var/thing in viruses)
-		var/datum/disease/D = thing
-		if(D.IsSpreadByTouch())
-			user.ContractDisease(D)
+	for(var/datum/disease/virus/V in diseases)
+		if(V.spread_flags & CONTACT)
+			V.Contract(user, act_type = CONTACT, need_protection_check = TRUE, zone = user.hand ? "l_hand" : "r_hand")
 
-	for(var/thing in user.viruses)
-		var/datum/disease/D = thing
-		if(D.IsSpreadByTouch())
-			ContractDisease(D)
+	for(var/datum/disease/virus/V in user.diseases)
+		if(V.spread_flags & CONTACT)
+			V.Contract(src, act_type = CONTACT, need_protection_check = TRUE, zone = user.zone_selected)
 
 	if(lying && surgeries.len)
 		if(user.a_intent == INTENT_HELP)

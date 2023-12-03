@@ -36,9 +36,11 @@
 		var/obj/item/projectile/projtwo = new projectile_type(secondloc)
 		projone.starting = get_turf(my_atom)
 		projone.firer = usr
+		projone.firer_source_atom = src
 		projone.def_zone = "chest"
 		projtwo.starting = get_turf(my_atom)
 		projtwo.firer = usr
+		projtwo.firer_source_atom = src
 		projtwo.def_zone = "chest"
 		spawn()
 			playsound(src, fire_sound, 50, 1)

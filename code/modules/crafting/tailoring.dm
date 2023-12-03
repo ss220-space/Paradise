@@ -93,6 +93,26 @@
 	reqs = list(/obj/item/clothing/glasses/hud/health/sunglasses = 1)
 	category = CAT_CLOTHING
 
+/datum/crafting_recipe/hudtajsunmed
+	name = "Medical veil sunglasses"
+	result = /obj/item/clothing/glasses/hud/health/tajblind/sunglasses
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/health/tajblind = 1,
+				  /obj/item/clothing/glasses/sunglasses = 1,
+				  /obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/hudtajsunbot
+	name = "Botanical veil sunglasses"
+	result = /obj/item/clothing/glasses/hud/hydroponic/tajblind/sunglasses
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/hydroponic/tajblind = 1,
+				  /obj/item/clothing/glasses/sunglasses = 1,
+				  /obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
 /datum/crafting_recipe/hudsundiag
 	name = "Diagnostic HUDsunglasses"
 	result = /obj/item/clothing/glasses/hud/diagnostic/sunglasses
@@ -135,6 +155,26 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/meson = 1,
+				  /obj/item/clothing/glasses/sunglasses = 1,
+				  /obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/hudsuntajmeson
+	name = "Khaki veil sunglasses"
+	result = /obj/item/clothing/glasses/tajblind/cargo/sunglasses
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/tajblind/cargo = 1,
+				  /obj/item/clothing/glasses/sunglasses = 1,
+				  /obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/hudsuntajengmeson
+	name = "Industial veil sunglasses"
+	result = /obj/item/clothing/glasses/tajblind/eng/sunglasses
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/tajblind/eng = 1,
 				  /obj/item/clothing/glasses/sunglasses = 1,
 				  /obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
@@ -309,4 +349,19 @@
 	reqs = list(/obj/item/clothing/mask/gas = 1,
 				  /obj/item/assembly/voice = 1,
 				  /obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/gem_necklace
+	name = "Gem Necklace"
+	result = list(/obj/item/clothing/accessory/necklace/gem)
+	time = 60
+	reqs = list(/obj/item/stack/sheet/mineral/gold = 10,
+				/obj/item/stack/sheet/leather = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/gem_bracers
+	name = "Gem Bracers"
+	result = list(/obj/item/clothing/gloves/jewelry_bracers)
+	time = 70
+	reqs = list(/obj/item/stack/sheet/mineral/gold = 20)
 	category = CAT_CLOTHING

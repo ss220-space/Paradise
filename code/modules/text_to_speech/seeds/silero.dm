@@ -4095,7 +4095,7 @@
 	name = "Ellis"
 	value = "ellis"
 	category = TTS_CATEGORY_LEFT4DEAD
-	gender = TTS_GENDER_FEMALE
+	gender = TTS_GENDER_MALE
 	donator_level = 1
 
 /datum/tts_seed/silero/udalryk

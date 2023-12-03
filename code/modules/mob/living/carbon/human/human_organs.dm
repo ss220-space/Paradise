@@ -69,7 +69,7 @@
 		if(!(lying || resting))
 			if(has_pain())
 				emote("scream")
-			custom_emote(1, "падает!")
+			emote("collapses")
 		Weaken(10 SECONDS) //can't emote while weakened, apparently.
 
 
@@ -95,7 +95,7 @@
 					continue
 
 			var/emote_scream = pick("крич[pluralize_ru(src.gender,"ит","ат")] от боли и ", "изда[pluralize_ru(src.gender,"ёт","ют")] резкий крик и ", "вскрикива[pluralize_ru(src.gender,"ет","ют")] и ")
-			custom_emote(1, "[(has_pain()) ? emote_scream :  "" ]броса[pluralize_ru(src.gender,"ет","ют")] предмет, который держал[genderize_ru(src.gender,"","а","о","и")] в [E.declent_ru(PREPOSITIONAL)]!")
+			custom_emote(EMOTE_VISIBLE, "[(has_pain()) ? emote_scream :  "" ]броса[pluralize_ru(src.gender,"ет","ют")] предмет, который держал[genderize_ru(src.gender,"","а","о","и")] в [E.declent_ru(PREPOSITIONAL)]!")
 
 		else if(E.is_malfunctioning())
 
@@ -110,7 +110,7 @@
 				if(!drop_item_ground(r_hand))
 					continue
 
-			custom_emote(1, "броса[pluralize_ru(src.gender,"ет","ют")] предмет, который держал[genderize_ru(src.gender,"","а","о","и")] держали, [genderize_ru(src.gender,"его","её","его","их")] [E.declent_ru(NOMINATIVE)] выход[pluralize_ru(E.gender,"ит","ят")] из строя!")
+			custom_emote(EMOTE_VISIBLE, "броса[pluralize_ru(src.gender,"ет","ют")] предмет, который держал[genderize_ru(src.gender,"","а","о","и")] держали, [genderize_ru(src.gender,"его","её","его","их")] [E.declent_ru(NOMINATIVE)] выход[pluralize_ru(E.gender,"ит","ят")] из строя!")
 
 			do_sparks(5, 0, src)
 
@@ -134,18 +134,21 @@
 		var/obj/item/organ/internal/O = pick(bodyparts)
 		O.trace_chemicals[A.name] = 100
 
-/*
-When assimilate is 1, organs that have a different UE will still have their DNA overriden by that of the host
-Otherwise, this restricts itself to organs that share the UE of the host.
 
-old_ue: Set this to a UE string, and this proc will overwrite the dna of organs that have that UE, instead of the host's present UE
-*/
-/mob/living/carbon/human/proc/sync_organ_dna(var/assimilate = 1, var/old_ue = null)
+/**
+ * Sync internal and exteranl organs with DNA unique enzymes.
+ *
+ * Arguments:
+ * * assimilate - If `TRUE`, organs that have a different UE will still have their DNA overriden by that of the host. Otherwise, this restricts itself to organs that share the UE of the host.
+ * * old_ue - Set this to a UE string, and this proc will overwrite the dna of organs that have that UE, instead of the host's present UE.
+ */
+/mob/living/carbon/human/proc/sync_organ_dna(assimilate = TRUE, old_ue = null)
 	var/ue_to_compare = (old_ue) ? old_ue : dna.unique_enzymes
 	var/list/all_bits = internal_organs|bodyparts
 	for(var/obj/item/organ/O in all_bits)
 		if(assimilate || O.dna.unique_enzymes == ue_to_compare)
 			O.set_dna(dna)
+
 
 /*
 Given the name of an organ, returns the external organ it's contained in

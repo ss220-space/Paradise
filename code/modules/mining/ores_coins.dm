@@ -352,6 +352,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	force = 1
 	throwforce = 2
 	w_class = WEIGHT_CLASS_TINY
+	pickup_sound = 'sound/items/handling/ring_pickup.ogg'
+	drop_sound = 'sound/items/handling/ring_drop.ogg'
 	var/string_attached
 	var/list/sideslist = list("heads","tails")
 	var/cmineral = null
@@ -518,7 +520,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		sharp = TRUE
 	. = ..()
 
-/obj/item/stack/spacecash/after_throw(datum/callback/callback)
+/obj/item/coin/after_throw(datum/callback/callback)
 	embed_chance = initial(embed_chance)
 	embedded_impact_pain_multiplier = initial(embedded_impact_pain_multiplier)
 	embedded_ignore_throwspeed_threshold = initial(embedded_ignore_throwspeed_threshold)

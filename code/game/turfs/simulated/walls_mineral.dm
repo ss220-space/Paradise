@@ -171,6 +171,10 @@
 	explosion_block = 3
 	canSmoothWith = list(/turf/simulated/wall/mineral/abductor, /obj/structure/falsewall/abductor, /turf/simulated/wall/indestructible/abductor)
 
+/turf/simulated/wall/mineral/abductor/Initialize(mapload)
+	..()
+	AddComponent(/datum/component/wall_regenerate)
+
 /////////////////////Titanium walls/////////////////////
 
 /turf/simulated/wall/mineral/titanium //has to use this path due to how building walls works

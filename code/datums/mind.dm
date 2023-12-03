@@ -58,8 +58,6 @@
 	var/miming = 0 // Mime's vow of silence
 	var/list/antag_datums
 
-	var/datum/ninja/ninja				//ninja holder
-
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
 	var/datum/mindslaves/som //stands for slave or master...hush..
@@ -184,7 +182,15 @@
 	if(active)
 		new_character.key = key		//now transfer the key to link the client to our new body
 
+	// essential mob updates
+	new_character.update_blind_effects()
+	new_character.update_blurry_effects()
+	new_character.update_sight()
+	new_character.hud_used?.reload_fullscreen()
+	new_character.reload_huds()
+
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSER_TO, new_character)
+	SEND_SIGNAL(new_character, COMSIG_BODY_TRANSFER_TO)
 
 
 /datum/mind/proc/store_memory(new_text)
@@ -278,11 +284,20 @@
 /**
  * Completely remove the given objective from the src mind and it's antag datums.
  */
-/datum/mind/proc/remove_objective(datum/objective/objective)
+/datum/mind/proc/remove_objective(datum/objective/objective, qdel_on_remove = FALSE)
 	for(var/datum/antagonist/antag in antag_datums)
 		antag.objectives -= objective
 	objectives -= objective
-	qdel(objective)
+	if(qdel_on_remove)
+		qdel(objective)
+
+
+/**
+ * Completely remove ALL objectives from the src mind and it's antag datums.
+ */
+/datum/mind/proc/remove_all_objectives(qdel_on_remove = FALSE)
+	for(var/datum/objective/objective in get_all_objectives())
+		remove_objective(objective, qdel_on_remove)
 
 
 /datum/mind/proc/_memory_edit_header(gamemode, list/alt)
@@ -483,17 +498,20 @@
 
 	. += _memory_edit_role_enabled(ROLE_ABDUCTOR)
 
-/datum/mind/proc/memory_edit_ninja(mob/living/carbon/human/H)
+
+/datum/mind/proc/memory_edit_ninja()
 	. = _memory_edit_header("ninja")
-	if(src in SSticker.mode.space_ninjas)
+	var/datum/antagonist/ninja/ninja_datum = has_antag_datum(/datum/antagonist/ninja)
+	if(ninja_datum)
 		. += "<b><font color='red'>Ninja</font></b>|<a href='?src=[UID()];ninja=clear'>no</a>"
 		. += "<br><a href='?src=[UID()];ninja=dojo'>To dojo</a>, <a href='?src=[UID()];common=undress'>undress</a>, <a href='?src=[UID()];ninja=dressup'>dress up</a>, <a href='?src=[UID()];ninja=name'>let choose name</a>."
-		if(objectives.len==0)
+		if(!length(ninja_datum.objectives))
 			. += "<br>Objectives are empty! <a href='?src=[UID()];ninja=autoobjectives'>Randomize!</a>"
 	else
 		. += "<a href='?src=[UID()];ninja=ninja'>ninja</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_NINJA)
+
 
 /datum/mind/proc/memory_edit_devil(mob/living/H)
 	. = _memory_edit_header("devil", list("devilagents"))
@@ -510,6 +528,16 @@
 		. += "<a href='?src=[UID()];devil=devil'>devil</a>|<a href='?src=[UID()];devil=ascendable_devil'>Ascendable Devil</a>|<a href='?src=[UID()];devil=sintouched'>sintouched</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_DEVIL)
+
+
+/datum/mind/proc/memory_edit_space_dragon()
+	. = _memory_edit_header("dragon")
+	var/datum/antagonist/space_dragon/dragon_datum = has_antag_datum(/datum/antagonist/space_dragon)
+	if(dragon_datum)
+		. += "<b><font color='red'>SPACE DRAGON</font></b>|<a href='?src=[UID()];space_dragon=clear'>no</a>"
+	else
+		. += "<a href='?src=[UID()];space_dragon=space_dragon'>space dragon</a>|<b>NO</b>"
+
 
 /datum/mind/proc/memory_edit_eventmisc(mob/living/H)
 	. = _memory_edit_header("event", list())
@@ -589,6 +617,19 @@
 		. += "mindslave|<b>NO</b>"
 
 
+/datum/mind/proc/memory_edit_malf_ai()
+	. = _memory_edit_header("traitor", list("traitorchan", "traitorvamp", "traitorthief"))
+	var/datum/antagonist/malf_ai/malf_datum = has_antag_datum(/datum/antagonist/malf_ai)
+	if(malf_datum)
+		. += "<b><font color='red'>MALF AI</font></b>|<a href='?src=[UID()];malf_ai=clear'>no</a>"
+		if(!length(malf_datum.objectives))
+			. += "<br>Objectives are empty! <a href='?src=[UID()];malf_ai=autoobjectives'>Randomize!</a>"
+	else
+		. += "<a href='?src=[UID()];malf_ai=malf_ai'>malf AI</a>|<b>NO</b>"
+
+	. += _memory_edit_role_enabled(ROLE_MALF_AI)
+
+
 /datum/mind/proc/memory_edit_thief()
 	. = _memory_edit_header("thief", list("traitorthief", "traitorthiefvamp", "traitorthiefchan", "thiefchan", "thiefvamp", "changelingthief", "vampirethief"))
 	var/datum/antagonist/thief/thief_datum = has_antag_datum(/datum/antagonist/thief)
@@ -607,7 +648,7 @@
 /datum/mind/proc/memory_edit_silicon()
 	. = "<i><b>Silicon</b></i>: "
 	var/mob/living/silicon/silicon = current
-	. = "<br>Current Laws:<b>[silicon.laws.name]</b> <a href='?src=[UID()];silicon=lawmanager'>Law Manager</a>"
+	. = "<br>Current Laws: <b>[silicon.laws.name]</b> <a href='?src=[UID()];silicon=lawmanager'>Law Manager</a>"
 	var/mob/living/silicon/robot/robot = current
 	if(istype(robot))
 		. += "<br><b>Cyborg Module: [robot.module ? robot.module : "None" ]</b> <a href='?src=[UID()];silicon=borgpanel'>Borg Panel</a>"
@@ -667,6 +708,7 @@
 		"traitor",
 		"ninja",
 		"thief",		//	"traitorthief", "traitorthiefvamp", "traitorthiefchan",
+		"malf_ai",
 	)
 	var/mob/living/carbon/human/H = current
 	if(ishuman(current))
@@ -689,21 +731,31 @@
 		/** Abductors **/
 		sections["abductor"] = memory_edit_abductor(H)
 		/** Space Ninja **/
-		sections["ninja"] = memory_edit_ninja(H)
+		sections["ninja"] = memory_edit_ninja()
+		/** THIEF ***/
+		sections["thief"] = memory_edit_thief()
+		/** TRAITOR ***/
+		sections["traitor"] = memory_edit_traitor()
+
+	if(isAI(current))
+		sections["malf_ai"] = memory_edit_malf_ai()
+
 	/** DEVIL ***/
 	var/static/list/devils_typecache = typecacheof(list(/mob/living/carbon/human, /mob/living/carbon/true_devil, /mob/living/silicon/robot))
 	if(is_type_in_typecache(current, devils_typecache))
 		sections["devil"] = memory_edit_devil(H)
+
+	if(istype(current, /mob/living/simple_animal/hostile/space_dragon))
+		sections["space_dragon"] = memory_edit_space_dragon()
+
 	sections["eventmisc"] = memory_edit_eventmisc(H)
-	/** TRAITOR ***/
-	sections["traitor"] = memory_edit_traitor()
-	/** THIEF ***/
-	sections["thief"] = memory_edit_thief()
+
 	if(!issilicon(current))
 		/** CULT ***/
 		sections["cult"] = memory_edit_cult(H)
 		/** CLOCKWORK **/
 		sections["clockwork"] = memory_edit_clockwork(H)
+
 	/** SILICON ***/
 	if(issilicon(current))
 		sections["silicon"] = memory_edit_silicon()
@@ -1003,9 +1055,9 @@
 				if(alert(usr, "Предупреждение! Эту цель способен выполнить только ниндзя!", "Продолжить?", "Да", "Нет") == "Да")
 					new_objective = new /datum/objective/find_and_scan
 					var/datum/objective/find_and_scan/scan_objective = new_objective
-					var/list/roles = list("Clown", "Mime", "Cargo Technician", "Shaft Miner", "Scientist", "Roboticist", "Medical Doctor", "Geneticist", "Security Officer", "Chemist", "Station Engineer", "Civilian")
+					var/list/roles = scan_objective.available_roles.Copy()
 					if(alert(usr, "Do you want to pick roles yourself? No will randomise it", "Pick roles", "Yes", "No") == "Yes")
-						for(var/i = 0, i < 3 , i++)
+						for(var/i in 1 to 3)
 							var/role = input("Select role:", "Objective role") as null|anything in roles
 							if(role)
 								roles -= role
@@ -1071,7 +1123,7 @@
 
 				var/new_target = null
 				var/target_pick = null
-				if(length(possible_targets) > 0)
+				if(length(possible_targets))
 					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "No")
 						target_pick = pick(possible_targets)
 					else
@@ -1080,7 +1132,7 @@
 					new_objective.explanation_text = "Любым способом подставьте [new_objective.target.current.real_name], [new_objective.target.assigned_role], чтобы его лишили свободы. Но не убили!"
 
 				else
-					to_chat(usr, "<span class='warning'>No possible target found. Defaulting to a Free objective.</span>")
+					to_chat(usr, span_warning("No possible target found. Defaulting to a Free objective."))
 					new_target = "Free objective"
 
 			if("steal")
@@ -1148,7 +1200,6 @@
 				if(!steal.select_target())
 					to_chat(usr, "<span class='warning'>Цель не обнаружена. Выберите другую или создайте её.</span>")
 					return
-
 
 			if("get money")
 				new_objective = new /datum/objective/get_money
@@ -1854,6 +1905,27 @@
 				else
 					to_chat(usr, "<span class='warning'>No valid nuke found!</span>")
 
+	else if(href_list["space_dragon"])
+		switch(href_list["space_dragon"])
+			if("clear")
+				var/datum/antagonist/space_dragon/dragon_datum = has_antag_datum(/datum/antagonist/space_dragon)
+				if(!dragon_datum)
+					return
+
+				remove_antag_datum(dragon_datum)
+				log_admin("[key_name(usr)] has removed space dragon role from [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has removed space dragon role from [key_name_admin(current)]")
+
+			if("space_dragon")
+				var/datum/antagonist/space_dragon/dragon_datum = has_antag_datum(/datum/antagonist/space_dragon)
+				if(dragon_datum)
+					return
+
+				add_antag_datum(new /datum/antagonist/space_dragon)
+				playsound(current, 'sound/magic/ethereal_exit.ogg', 50, TRUE, -1)
+				log_admin("[key_name(usr)] has added space dragon role to [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has added space dragon role to [key_name_admin(current)]")
+
 	else if(href_list["eventmisc"])
 		switch(href_list["eventmisc"])
 			if("clear")
@@ -1945,6 +2017,40 @@
 
 				traitor_datum.give_objectives()
 				to_chat(usr, "<span class='notice'>The objectives for traitor [key] have been generated. You can edit them and announce manually.</span>")
+				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
+
+	else if(href_list["malf_ai"])
+		switch(href_list["malf_ai"])
+			if("clear")
+				var/datum/antagonist/malf_ai/malf_datum = has_antag_datum(/datum/antagonist/malf_ai)
+				if(!malf_datum)
+					return
+
+				remove_antag_datum(malf_datum)
+				to_chat(current, "<span class='warning'><FONT size = 3><B>Unknown hackers have brought your systems back to normal, you are no longer malfunctioning!</B></FONT></span>")
+				log_admin("[key_name(usr)] has de-malfAIed [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has de-malfAIed [key_name_admin(current)]")
+				SSticker?.score?.save_silicon_laws(current, usr, additional_info = "admin removed malf AI", log_all_laws = TRUE)
+
+			if("malf_ai")
+				if(has_antag_datum(/datum/antagonist/malf_ai))
+					return
+
+				var/datum/antagonist/malf_ai/malf_datum = new
+				malf_datum.give_objectives = FALSE
+				add_antag_datum(malf_datum)
+				log_admin("[key_name(usr)] has malfAIed [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has malfAIed [key_name_admin(current)]")
+				SSticker?.score?.save_silicon_laws(current, usr, additional_info = "admin made malf AI", log_all_laws = TRUE)
+
+			if("autoobjectives")
+				var/datum/antagonist/malf_ai/malf_datum = has_antag_datum(/datum/antagonist/malf_ai)
+				if(!malf_datum)
+					return
+
+				malf_datum.give_objectives()
+				to_chat(usr, "<span class='notice'>The objectives for malf AI [key] have been generated. You can edit them and announce manually.</span>")
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
 
@@ -2272,47 +2378,67 @@
 				remove_ninja_role()
 				log_and_message_admins("has removed special role \"Ninja\" from [key_name_admin(current)]")
 				add_conversion_logs(current, "De-ninjad")
+
 			if("ninja")
-				if(!(src in SSticker.mode.space_ninjas))
-					SSticker.mode.space_ninjas += src
-					special_role = SPECIAL_ROLE_SPACE_NINJA
-					assigned_role = SPECIAL_ROLE_SPACE_NINJA
-					var/mob/living/carbon/human/ninja_mob = current
-					if(istype(ninja_mob.wear_suit, /obj/item/clothing/suit/space/space_ninja) && !ninja)
-						SSticker.mode.give_ninja_datum(src)
-					SSticker.mode.update_ninja_icons_added(src)
-					SSticker.mode.greet_ninja(src)
-					log_admin("[key_name(usr)] has made [key_name(current)] into a \"Ninja\"")
-					message_admins("[key_name_admin(usr)] has made [key_name_admin(current)] into a \"Ninja\"")
+				if(isninja(src))
+					return
+				var/datum/antagonist/ninja/ninja_datum = new
+				ninja_datum.allow_rename = FALSE
+				ninja_datum.give_equip = FALSE
+				ninja_datum.give_objectives = FALSE
+				ninja_datum.generate_antags = FALSE
+				add_antag_datum(ninja_datum)
+				log_admin("[key_name(usr)] has made [key_name(current)] into a \"Ninja\"")
+				message_admins("[key_name_admin(usr)] has made [key_name_admin(current)] into a \"Ninja\"")
+
 			if("dojo")
 				current.forceMove(pick(GLOB.ninjastart))
 				log_admin("[key_name(usr)] has moved [key_name(current)] tp dojo")
 				message_admins("[key_name_admin(usr)] has moved [key_name_admin(current)] to dojo")
+
 			if("dressup")
-				SSticker.mode.equip_space_ninja(src.current)
-				SSticker.mode.give_ninja_datum(src)			//Учитывая то, что этот датум хранит в себе референс к частям костюма, его надо генерить туть
-				SSticker.mode.basic_ninja_needs_check(src)
+				var/datum/antagonist/ninja/ninja_datum = has_antag_datum(/datum/antagonist/ninja)
+				if(!ninja_datum)
+					return
+
+				ninja_datum.equip_ninja()
+				ninja_datum.basic_ninja_needs_check()
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a ninja")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a ninja")
+
 			if("name")
-				INVOKE_ASYNC(SSticker.mode, TYPE_PROC_REF(/datum/game_mode/space_ninja, name_ninja), current)
+				var/datum/antagonist/ninja/ninja_datum = has_antag_datum(/datum/antagonist/ninja)
+				if(!ninja_datum)
+					return
+
+				ninja_datum.allow_rename = TRUE
+				INVOKE_ASYNC(ninja_datum, TYPE_PROC_REF(/datum/antagonist/ninja, name_ninja))
 				log_admin("[key_name(usr)] has allowed ninja [key_name(current)] to name themselves")
 				message_admins("[key_name_admin(usr)] has allowed ninja [key_name_admin(current)] to name themselves")
+
 			if("autoobjectives")
-				if(!ninja)
-					to_chat(usr, "<span class='notice'>Ниндзя - зависим от костюма. Рандомная выдача целей, до выдачи костюма ведёт к ошибкам!</span>")
+				var/datum/antagonist/ninja/ninja_datum = has_antag_datum(/datum/antagonist/ninja)
+				if(!ninja_datum?.my_suit)
+					to_chat(usr,span_warning("Ниндзя - зависим от костюма. Рандомная выдача целей, до выдачи костюма ведёт к ошибкам!"))
 					return
-				var/list/objective_types = list("generic", "protector", "hacker", "killer")
+				var/list/objective_types = list(NINJA_TYPE_GENERIC, NINJA_TYPE_PROTECTOR, NINJA_TYPE_HACKER, NINJA_TYPE_KILLER)
 				var/objective_type = input("Select type of objectives to generate", "Objective type selection") as null|anything in objective_types
-				if(objective_type != "generic")
+				if(objective_type != NINJA_TYPE_GENERIC)
 					if(alert(usr, "Данный вид целей генерирует дополнительных антагонистов в раунд. Продолжить?","ВАЖНО!","Да","Нет") == "Нет")
+						return
+					if(ninja_datum.antags_done)
+						to_chat(usr, span_warning("Антагонисты уже были сгенерированы!"))
 						return
 				if(!objective_type)
 					if(alert(usr, "Рандомный выбор типа целей имеет ВЫСОКИЙ шанс сгенерировать дополнительных антагонистов в раунд. Начать генерацию?","ВАЖНО!","Да","Нет") == "Нет")
 						return
-				SSticker.mode.forge_ninja_objectives(src, objective_type)
-				SSticker.mode.basic_ninja_needs_check(src)
-				to_chat(usr, "<span class='notice'>Цели для ниндзя: [key] были сгенерированы. Вы можете их отредактировать и оповестить игрока о целях вручную.</span>")
+					if(ninja_datum.antags_done)
+						to_chat(usr, span_warning("Антагонисты уже были сгенерированы, случайная генерация более невозможна!"))
+						return
+
+				ninja_datum.make_objectives_generate_antags(objective_type)
+				ninja_datum.basic_ninja_needs_check()
+				to_chat(usr, span_notice("Цели для ниндзя: [key] были сгенерированы. Вы можете их отредактировать и оповестить игрока о целях вручную."))
 				log_admin("[key_name(usr)] has automatically forged ninja objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged ninja objectives for [key_name_admin(current)]")
 
@@ -2636,9 +2762,14 @@
 	else if(src in SSticker.mode.shadowling_thralls)
 		SSticker.mode.remove_thrall(src,0)
 
+
 /datum/mind/proc/remove_ninja_role()
-	if(src in SSticker.mode.space_ninjas)
-		SSticker.mode.remove_ninja(src, usr, TRUE)
+	var/datum/antagonist/ninja/ninja_datum = has_antag_datum(/datum/antagonist/ninja)
+	if(!ninja_datum)
+		return
+
+	remove_antag_datum(ninja_datum)
+
 
 /datum/mind/proc/remove_all_antag_roles(adminlog = TRUE) // Except abductor, because it isnt implemented in admin panel
 	remove_revolutionary_role()
@@ -2780,25 +2911,26 @@
 		SSticker.mode.greet_wizard(src)
 		SSticker.mode.update_wiz_icons_added(src)
 
-/datum/mind/proc/make_Space_Ninja(datum/objective/custom_objective = null)
-	if(!(src in SSticker.mode.space_ninjas))
-		SSticker.mode.space_ninjas += src
-		special_role = SPECIAL_ROLE_SPACE_NINJA
-		assigned_role = SPECIAL_ROLE_SPACE_NINJA
-		var/mob/living/carbon/human/ninja_mob = current
-		if(!GLOB.ninjastart.len)
-			ninja_mob.loc = pick(GLOB.latejoin)
-			to_chat(ninja_mob, "HOT INSERTION, GO GO GO")
-		else
-			ninja_mob.loc = pick(GLOB.ninjastart)
-		INVOKE_ASYNC(SSticker.mode, TYPE_PROC_REF(/datum/game_mode/space_ninja, name_ninja), ninja_mob)
-		SSticker.mode.update_ninja_icons_added(src)
-		SSticker.mode.greet_ninja(src)
-		SSticker.mode.equip_space_ninja(ninja_mob)
-		SSticker.mode.give_ninja_datum(src)
-		//"generic" only, we don't want to spawn other antag's
-		SSticker.mode.forge_ninja_objectives(src, "generic", custom_objective)
-		SSticker.mode.basic_ninja_needs_check(src)
+
+/datum/mind/proc/make_Space_Ninja(datum/objective/custom_objective)
+	if(isninja(src))
+		return
+
+	var/datum/antagonist/ninja/ninja_datum = new
+	ninja_datum.give_objectives = FALSE
+	ninja_datum.generate_antags = FALSE
+	add_antag_datum(ninja_datum)
+
+	if(!length(GLOB.ninjastart))
+		current.loc = pick(GLOB.latejoin)
+		to_chat(current, "HOT INSERTION, GO GO GO")
+	else
+		current.loc = pick(GLOB.ninjastart)
+
+	//"generic" only, we don't want to spawn other antag's
+	ninja_datum.make_objectives_generate_antags(NINJA_TYPE_GENERIC, custom_objective)
+	ninja_datum.basic_ninja_needs_check()
+
 
 /datum/mind/proc/make_Rev()
 	SSticker.mode.head_revolutionaries += src

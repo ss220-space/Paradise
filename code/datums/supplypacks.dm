@@ -246,14 +246,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 ////// Armor: Basic
 
-/datum/supply_packs/security/helmets
-	name = "Helmets Crate"
-	contains = list(/obj/item/clothing/head/helmet,
-					/obj/item/clothing/head/helmet,
-					/obj/item/clothing/head/helmet)
-	cost = 10
-	containername = "helmet crate"
-
 /datum/supply_packs/security/justiceinbound
 	name = "Standard Justice Enforcer Crate"
 	contains = list(/obj/item/clothing/head/helmet/justice,
@@ -264,11 +256,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "justice enforcer crate"
 
 /datum/supply_packs/security/armor
-	name = "Armor Crate"
+	name = "Standard Armor Crate"
 	contains = list(/obj/item/clothing/suit/armor/vest,
 					/obj/item/clothing/suit/armor/vest,
-					/obj/item/clothing/suit/armor/vest)
-	cost = 10
+					/obj/item/clothing/suit/armor/vest,
+					/obj/item/clothing/head/helmet,
+					/obj/item/clothing/head/helmet,
+					/obj/item/clothing/head/helmet)
+	cost = 20
 	containername = "armor crate"
 
 ////// Weapons: Basic
@@ -324,6 +319,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/storage/briefcase/crimekit)
 	cost = 20
 	containername = "forensics crate"
+
+/datum/supply_packs/security/telescopic
+	name = "Telescopic Baton Crate"
+	contains = list(/obj/item/melee/classic_baton/telescopic,
+					/obj/item/melee/classic_baton/telescopic)
+	cost = 20
+	containername = "telescopic baton crate"
 
 ///// Armory stuff
 
@@ -457,29 +459,30 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/security/armory/buckshotammo
 	name = "Buckshot Ammo Crate"
-	contains = list(/obj/item/ammo_box/shotgun/buck,
-					/obj/item/storage/box/buck,
-					/obj/item/storage/box/buck,
-					/obj/item/storage/box/buck,
-					/obj/item/storage/box/buck,
-					/obj/item/storage/box/buck)
+	contains = list(/obj/item/ammo_box/speedloader/shotgun/buck,
+					/obj/item/ammo_box/shotgun/buck,
+					/obj/item/ammo_box/shotgun/buck,
+					/obj/item/ammo_box/shotgun/buck,
+					/obj/item/ammo_box/shotgun/buck,
+					/obj/item/ammo_box/shotgun/buck)
 	cost = 45
 	containername = "buckshot ammo crate"
 
 /datum/supply_packs/security/armory/slugammo
 	name = "Slug Ammo Crate"
-	contains = list(/obj/item/ammo_box/shotgun,
-					/obj/item/storage/box/slug,
-					/obj/item/storage/box/slug,
-					/obj/item/storage/box/slug,
-					/obj/item/storage/box/slug,
-					/obj/item/storage/box/slug)
+	contains = list(/obj/item/ammo_box/speedloader/shotgun,
+					/obj/item/ammo_box/shotgun,
+					/obj/item/ammo_box/shotgun,
+					/obj/item/ammo_box/shotgun,
+					/obj/item/ammo_box/shotgun,
+					/obj/item/ammo_box/shotgun)
 	cost = 45
 	containername = "slug ammo crate"
 
 /datum/supply_packs/security/armory/expenergy
 	name = "Energy Guns Crate"
 	contains = list(/obj/item/gun/energy/gun,
+					/obj/item/gun/energy/gun,
 					/obj/item/gun/energy/gun)
 	cost = 25
 	containertype = /obj/structure/closet/crate/secure/plasma
@@ -525,8 +528,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/security/armory/lr30
 	name = "LR-30 Crate"
 	contains = list(/obj/item/gun/projectile/automatic/lr30,
+					/obj/item/gun/projectile/automatic/lr30,
 					/obj/item/gun/projectile/automatic/lr30)
-	cost = 15
+	cost = 25
 	containername = "laser rifle crate"
 
 /datum/supply_packs/security/armory/lr30ammo
@@ -534,13 +538,21 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/ammo_box/magazine/lr30mag,
 					/obj/item/ammo_box/magazine/lr30mag,
 					/obj/item/ammo_box/magazine/lr30mag,
+					/obj/item/ammo_box/magazine/lr30mag,
+					/obj/item/ammo_box/magazine/lr30mag,
+					/obj/item/ammo_box/magazine/lr30mag,
+					/obj/item/ammo_box/magazine/lr30mag,
 					/obj/item/ammo_box/magazine/lr30mag)
-	cost = 20
+	cost = 30
 	containername = "laser rifle ammo crate"
 
 /datum/supply_packs/security/armory/wt550ammo
 	name = "WT-550 Rifle Ammo Crate"
 	contains = list(/obj/item/ammo_box/magazine/wt550m9,
+					/obj/item/ammo_box/magazine/wt550m9,
+					/obj/item/ammo_box/magazine/wt550m9,
+					/obj/item/ammo_box/magazine/wt550m9,
+					/obj/item/ammo_box/magazine/wt550m9,
 					/obj/item/ammo_box/magazine/wt550m9,
 					/obj/item/ammo_box/magazine/wt550m9,
 					/obj/item/ammo_box/magazine/wt550m9)
@@ -550,6 +562,10 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/security/armory/wt550apammo
 	name = "WT-550 Rifle Armor-Piercing Ammo Crate"
 	contains = list(/obj/item/ammo_box/magazine/wt550m9/wtap,
+					/obj/item/ammo_box/magazine/wt550m9/wtap,
+					/obj/item/ammo_box/magazine/wt550m9/wtap,
+					/obj/item/ammo_box/magazine/wt550m9/wtap,
+					/obj/item/ammo_box/magazine/wt550m9/wtap,
 					/obj/item/ammo_box/magazine/wt550m9/wtap,
 					/obj/item/ammo_box/magazine/wt550m9/wtap,
 					/obj/item/ammo_box/magazine/wt550m9/wtap)
@@ -573,6 +589,20 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/ammo_box/ap46x30mm)
 	cost = 80
 	containername = "auto rifle armor-piercing ammobox crate"
+
+/datum/supply_packs/security/armory/mosin
+	name = "Mosin Nagant crate"
+	contains = list(/obj/item/gun/projectile/shotgun/boltaction,
+					/obj/item/gun/projectile/shotgun/boltaction,
+					/obj/item/ammo_box/speedloader/shotgun/a762,
+					/obj/item/ammo_box/speedloader/shotgun/a762,
+					/obj/item/ammo_box/speedloader/shotgun/a762,
+					/obj/item/ammo_box/speedloader/shotgun/a762,
+					/obj/item/ammo_box/speedloader/shotgun/a762,
+					/obj/item/ammo_box/speedloader/shotgun/a762)
+	cost = 80
+	containername = "Mosin Nagant rifle crate"
+	contraband = 1
 
 /////// Implants & etc
 
@@ -762,13 +792,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/engineering/engine/sing_gen
 	name = "Singularity Generator Crate"
 	contains = list(/obj/machinery/the_singularitygen)
-	cost = 10
+	cost = 150
 	containername = "singularity generator crate"
 
 /datum/supply_packs/engineering/engine/tesla
 	name = "Energy Ball Generator Crate"
 	contains = list(/obj/machinery/the_singularitygen/tesla)
-	cost = 10
+	cost = 150
 	containername = "energy ball generator crate"
 
 /datum/supply_packs/engineering/engine/coil
@@ -961,8 +991,10 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/medical/virus
 	name = "Virus Crate"
-	contains = list(/obj/item/reagent_containers/glass/bottle/flu_virion,
+	contains = list(/obj/item/reagent_containers/glass/bottle/flu,
 					/obj/item/reagent_containers/glass/bottle/cold,
+					/obj/item/reagent_containers/glass/bottle/sneezing,
+					/obj/item/reagent_containers/glass/bottle/cough,
 					/obj/item/reagent_containers/glass/bottle/epiglottis_virion,
 					/obj/item/reagent_containers/glass/bottle/liver_enhance_virion,
 					/obj/item/reagent_containers/glass/bottle/fake_gbs,
@@ -980,6 +1012,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "virus crate"
 	access = ACCESS_CMO
 	announce_beacons = list("Medbay" = list("Virology", "Chief Medical Officer's Desk"))
+
+/datum/supply_packs/medical/cloning
+	name = "NanoTrasen Special Delivery Crate"
+	contains = list(/obj/item/circuitboard/clonepod,
+					/obj/item/circuitboard/cloning)
+	cost = 900
+	containertype = /obj/structure/closet/crate/secure
+	containername = "NanoTrasen special delivery crate"
+	access = ACCESS_CMO
+	announce_beacons = list("Medbay" = list("Chief Medical Officer's Desk"))
 
 /datum/supply_packs/medical/vending
 	name = "Medical Vending Crate"

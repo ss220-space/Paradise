@@ -467,13 +467,13 @@
 		overlays += I
 		i++
 
-/obj/item/cardhand/dropped(mob/user as mob)
+/obj/item/cardhand/dropped(mob/user, silent = FALSE)
 	..()
 	if(locate(/obj/structure/table, loc))
 		update_icon(user.dir)
 	else
 		update_icon()
 
-/obj/item/cardhand/pickup(mob/user as mob)
+/obj/item/cardhand/pickup(mob/user)
 	. = ..()
 	update_icon()
