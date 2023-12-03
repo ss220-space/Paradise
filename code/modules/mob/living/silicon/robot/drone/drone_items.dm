@@ -14,6 +14,7 @@
 		/obj/item/firelock_electronics,
 		/obj/item/intercom_electronics,
 		/obj/item/apc_electronics,
+		/obj/item/access_control,
 		/obj/item/tracker_electronics,
 		/obj/item/stock_parts,
 		/obj/item/vending_refill,

@@ -139,6 +139,14 @@
 	build_path = /obj/item/apc_electronics
 	category = list("initial", "Electronics")
 
+/datum/design/access_board
+	name = "Access Control Electronics"
+	id = "access_board"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
+	build_path = /obj/item/access_control
+	category = list("initial", "Electronics")
+
 /datum/design/airlock_board
 	name = "Airlock Electronics"
 	id = "airlock_board"
