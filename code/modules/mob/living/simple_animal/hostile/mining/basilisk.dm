@@ -90,7 +90,7 @@
 		jewelry_loot = null
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/death(gibbed)
-	if(!fromtendril && && jewelry_loot)
+	if(!fromtendril && jewelry_loot)
 		var/obj/gem = new jewelry_loot(loc)
 		deathmessage = "spits out a [gem.name] as it dies!"
 		jewelry_loot = null
