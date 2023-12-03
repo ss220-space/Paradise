@@ -171,12 +171,9 @@
 /obj/structure/gravemarker/cross
 	icon_state = "cross"
 
-/obj/structure/gravemarker/examine(mob/user)
-	. = ..()
-	to_chat(user, "It says: '[message]'")
-
 /obj/structure/gravemarker/random/Initialize()
 	generate()
+	desc = "[message]"
 	. = ..()
 
 /obj/structure/gravemarker/random/proc/generate()
@@ -193,7 +190,7 @@
 	var/born = cur_year - rand(5,150)
 	var/died = max(cur_year - rand(0,70),born)
 
-	message = "Here lies [nam], [born] - [died]."
+	message = "Здесь упокоен [nam], [born] - [died]."
 
 /obj/structure/gravemarker/attackby(obj/item/W, mob/user)
 	if(istype(W,/obj/item/hatchet)) //просто томагавк

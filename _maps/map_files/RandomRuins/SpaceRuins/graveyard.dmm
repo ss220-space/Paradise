@@ -827,6 +827,11 @@
 	icon_state = "lightdark"
 	},
 /area/ruin/space/graveyard/church)
+"ua" = (
+/obj/structure/pit/closed/graveyard,
+/obj/structure/gravemarker/random,
+/turf/simulated/floor/grass,
+/area/ruin/space/graveyard/graves)
 "uo" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -3010,7 +3015,7 @@ nc
 YZ
 Ij
 YU
-jr
+ua
 Gh
 aj
 NB
@@ -3112,7 +3117,7 @@ ew
 Kk
 Vk
 YU
-jr
+ua
 Kk
 aj
 Fd
@@ -3214,7 +3219,7 @@ Kk
 Kk
 Kk
 YU
-jr
+ua
 Gh
 aj
 Fd
@@ -3316,7 +3321,7 @@ Kk
 om
 Kk
 YU
-jr
+ua
 Gh
 aj
 Kk
@@ -3673,7 +3678,7 @@ Kk
 RX
 Kk
 YU
-jr
+ua
 Kk
 KY
 Kk
@@ -3775,7 +3780,7 @@ Kk
 cD
 Kk
 YU
-jr
+ua
 Gh
 KY
 Fd
@@ -3877,7 +3882,7 @@ DB
 CL
 Vk
 YU
-jr
+ua
 Gh
 KY
 Fd
@@ -3979,7 +3984,7 @@ Ij
 mj
 ew
 YU
-jr
+ua
 Gh
 KY
 NB
