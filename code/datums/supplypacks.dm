@@ -470,7 +470,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/security/armory/slugammo
 	name = "Slug Ammo Crate"
-	contains = list(/obj/item/ammo_box/speedloader/shotgun,
+	contains = list(/obj/item/ammo_box/speedloader/shotgun/slug,
 					/obj/item/ammo_box/shotgun,
 					/obj/item/ammo_box/shotgun,
 					/obj/item/ammo_box/shotgun,

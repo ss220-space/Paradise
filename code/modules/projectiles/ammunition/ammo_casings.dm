@@ -160,6 +160,16 @@
 	materials = list(MAT_METAL = 1500)
 	projectile_type = /obj/item/projectile/bullet/midbullet3
 
+/obj/item/ammo_casing/revolver/improvised
+	name = "improvised shell"
+	desc = "Full metal shell leaking oil. This is clearly an unreliable bullet."
+	icon_state = "improvisedrevolverbullet"
+	materials = list(MAT_METAL = 100)
+	caliber = ".257"
+	projectile_type = /obj/item/projectile/bullet/weakbullet3/c257
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+
 /obj/item/ammo_casing/n762
 	desc = "A 7.62x38mm bullet casing."
 	materials = list(MAT_METAL = 4000)
@@ -259,14 +269,9 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
-/obj/item/ammo_casing/shotgun/fakebeanbag
-	name = "beanbag shell"
-	desc = "A weak beanbag slug for riot control."
+/obj/item/ammo_casing/shotgun/beanbag/fake
 	description_antag = "Специальный патрон для усыпления жертв. Крайне эффективен против целей с алкоголем внутри. Любой стан по противнику после выстрела дополнительно приводит ко сну, не позволяя ему кричать о помощи."
-	icon_state = "beanbagshell"
 	projectile_type = /obj/item/projectile/bullet/weakbullet/booze
-	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
-	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/shotgun/stunslug
 	name = "taser slug"
@@ -383,26 +388,13 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
-/obj/item/ammo_casing/revolver/improvised
-	name = "improvised shell"
-	desc = "Full metal shell leaking oil. This is clearly an unreliable bullet."
-	icon_state = "improvisedrevolverbullet"
-	materials = list(MAT_METAL = 100)
-	caliber = ".257"
-	projectile_type = /obj/item/projectile/bullet/weakbullet3/c257
-	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
-	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
-
 /obj/item/ammo_casing/shotgun/improvised/overload
 	name = "overloaded improvised shell"
 	desc = "An extremely weak shotgun shell with multiple small pellets made out of metal shards. This one has been packed with even more \
 	propellant. It's like playing russian roulette, with a shotgun."
-	icon_state = "improvisedshell"
-	materials = list(MAT_METAL = 250)
 	projectile_type = /obj/item/projectile/bullet/pellet/overload
 	pellets = 4
 	variance = 40
-	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
 /obj/item/ammo_casing/shotgun/techshell
