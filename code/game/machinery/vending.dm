@@ -1250,6 +1250,7 @@
 	name = "security voucher"
 	desc = "A token to redeem a weapon kit. Use it on a SecTech."
 	icon_state = "security_voucher"
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/machinery/vending/hydronutrients
 	name = "\improper NutriMax"
