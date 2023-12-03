@@ -40,7 +40,7 @@
 
 /obj/item/ammo_box/shotgun/stun
 	name = "Ammunition Box (Stun shells)"
-	icon_state = "stunbox"
+	icon_state = "stunslugbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/stunslug
 
 /obj/item/ammo_box/shotgun/beanbag
@@ -55,7 +55,7 @@
 
 /obj/item/ammo_box/shotgun/tranquilizer
 	name = "Ammunition Box (Tranquilizer darts)"
-	icon_state = "tranqbox"
+	icon_state = "tranquilizerbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/tranquilizer
 
 // AUTOMATIC
@@ -214,6 +214,20 @@
 	multiple_sprites = 1
 	w_class = WEIGHT_CLASS_NORMAL
 
+obj/item/ammo_box/speedloader/shotgun/New()
+	. = ..()
+	icon_state = "universal_s_loader"
+
+/obj/item/ammo_box/speedloader/shotgun/update_icon()
+	overlays.Cut()
+
+	for(var/i = 1 to length(stored_ammo))
+		var/obj/item/ammo_casing/shotgun/ammo = stored_ammo[i]
+		var/icon/new_ammo_icon = icon('icons/obj/weapons/ammo.dmi', "[initial(ammo.icon_state)]_loader")
+		new_ammo_icon.Shift(WEST, (i % 2) == 0 ? 6 : 0)
+		new_ammo_icon.Turn(FLOOR((i - 1) * 45, 90))
+		overlays += new_ammo_icon
+
 /obj/item/ammo_box/speedloader/shotgun/buck
 	name = "Shotgun Speedloader (buckshot)"
 	icon_state = "buckloader"
@@ -226,7 +240,7 @@
 
 /obj/item/ammo_box/speedloader/shotgun/stun
 	name = "Shotgun Speedloader (stun)"
-	icon_state = "stunloader"
+	icon_state = "stunslugloader"
 	ammo_type = /obj/item/ammo_casing/shotgun/stunslug
 
 /obj/item/ammo_box/speedloader/shotgun/beanbag
@@ -241,12 +255,12 @@
 
 /obj/item/ammo_box/speedloader/shotgun/tranquilizer
 	name = "Shotgun Speedloader (tranquilizer)"
-	icon_state = "tranqloader"
+	icon_state = "tranquilizerloader"
 	ammo_type = /obj/item/ammo_casing/shotgun/tranquilizer
 
 /obj/item/ammo_box/speedloader/shotgun/universal
 	name = "Shotgun Speedloader"
-	icon_state = "slugloader"
+	icon_state = "universal_s_loader"
 	ammo_type = null
 
 // MISC
