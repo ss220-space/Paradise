@@ -61,7 +61,7 @@
 		/obj/item/stack/sheet/mineral/bananium/fifty = 100,
 		/obj/item/stack/sheet/mineral/tranquillite/fifty = 100,
 		/obj/item/stack/sheet/mineral/abductor/fifty = 60,
-		/obj/item/stack/telecrystal = 150,
+		/obj/item/stack/telecrystal/five = 30,
 
 		// Items
 		/obj/item/storage/box/beakers/bluespace = 40,
