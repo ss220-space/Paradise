@@ -1288,7 +1288,11 @@
 	icon_deny = "syndimed-deny"
 	ads_list = list("Иди и оборви несколько жизней!","Лучшее снаряжение для вашего корабля","Только лучшие инструменты","Натуральные химикаты!","Эта штука спасает жизни","Может сами примете?","Пинг!")
 	req_access = list(ACCESS_SYNDICATE)
+<<<<<<< Updated upstream
 	products = list(/obj/item/stack/medical/bruise_pack = 2, /obj/item/stack/medical/ointment = 2, /obj/item/reagent_containers/hypospray/autoinjector = 2, /obj/item/reagent_containers/hypospray/autoinjector/charcoal = 2, /obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 1, /obj/item/healthanalyzer = 1)
+=======
+	products = list(/obj/item/stack/medical/bruise_pack = 2, /obj/item/stack/medical/ointment = 2, /obj/item/reagent_containers/hypospray/autoinjector = 2, /obj/item/reagent_containers/hypospray/autoinjector/charcoal = 2, /obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 1, /obj/item/healthanalyzer = 1
+>>>>>>> Stashed changes
 	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4,/obj/item/reagent_containers/syringe/antiviral = 4,/obj/item/reagent_containers/food/pill/tox = 1)
 
 /obj/machinery/vending/security
