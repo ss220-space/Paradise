@@ -19,7 +19,7 @@
 	dir = NORTH
 	max_integrity = 300
 	var/ini_dir
-	var/obj/item/airlock_electronics/electronics
+	var/obj/item/access_control/electronics
 	var/created_name
 
 	//Vars to help with the icon's name
@@ -134,7 +134,9 @@
 
 		if("02")
 			//Adding airlock electronics for access. Step 6 complete.
-			if(istype(W, /obj/item/airlock_electronics))
+			if(istype(W, /obj/item/access_control))
+				if(W.icon_state == "access-control-smoked")
+					return
 				if(electronics)
 					to_chat(user, "<span class='notice'>There's already [electronics] inside!")
 					return
@@ -202,13 +204,14 @@
 				windoor.base_state = "right"
 		windoor.setDir(dir)
 		windoor.density = FALSE
-		windoor.unres_sides = electronics.unres_access_from
 
+		windoor.unres_sides = electronics.unres_access_from
 		windoor.req_access = electronics.selected_accesses
 		windoor.check_one_access = electronics.one_access
-		windoor.electronics = src.electronics
+		windoor.electronics = electronics
 		electronics.forceMove(windoor)
 		electronics = null
+
 		if(created_name)
 			windoor.name = created_name
 		qdel(src)
