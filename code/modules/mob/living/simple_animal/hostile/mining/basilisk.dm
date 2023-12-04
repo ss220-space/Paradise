@@ -84,15 +84,11 @@
 	butcher_results = list(/obj/item/stack/ore/diamond = 2, /obj/item/stack/sheet/sinew = 2, /obj/item/stack/sheet/bone = 1)
 	var/jewelry_loot = null
 
-/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/Initialize(mapload)
-	. = ..()
-	if(prob(70) && jewelry_loot)
-		jewelry_loot = null
-
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/death(gibbed)
 	if(!fromtendril && jewelry_loot)
-		var/obj/gem = new jewelry_loot(loc)
-		deathmessage = "spits out a [gem.name] as it dies!"
+		if(prob(30))
+			var/obj/gem = new jewelry_loot(loc)
+			deathmessage = "spits out a [gem.name] as it dies!"
 		jewelry_loot = null
 	. = ..()
 	deathmessage = initial(deathmessage)
@@ -137,6 +133,15 @@
 		else
 			new /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing(loc)
 		return INITIALIZE_HINT_QDEL
+
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril
+	fromtendril = TRUE
+
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing/tendril
+	fromtendril = TRUE
+
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing/tendril
+	fromtendril = TRUE
 
 /obj/item/projectile/watcher
 	name = "stunning blast"
@@ -188,12 +193,3 @@
 		var/mob/living/L = target
 		if(istype(L))
 			L.apply_status_effect(/datum/status_effect/freon/watcher)
-
-/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril
-	fromtendril = TRUE
-
-/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing/tendril
-	fromtendril = TRUE
-
-/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing/tendril
-	fromtendril = TRUE
