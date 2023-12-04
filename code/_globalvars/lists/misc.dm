@@ -66,5 +66,10 @@ GLOBAL_LIST_EMPTY(geoip_ckey_updated)
 
 GLOBAL_LIST_INIT(all_taipan_jobs, list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,TAIPAN_CARGO,TAIPAN_CHEF,TAIPAN_ENGINEER,TAIPAN_COMMS,TAIPAN_RD,CYBORG))
 
+/// List of looping sounds
+GLOBAL_LIST_EMPTY(looping_sounds)
+
+
 /// List of ckeys that have seen a blurb of a given key.
 GLOBAL_LIST_EMPTY(blurb_witnesses)
+

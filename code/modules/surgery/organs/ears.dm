@@ -11,6 +11,9 @@
 		return
 	var/mob/living/carbon/C = owner
 
+	if(!istype(C))
+		return
+
 	// if we have non-damage related deafness like mutations, quirks or clothing (earmuffs), don't bother processing here. Ear healing from earmuffs or chems happen elsewhere
 	if(HAS_TRAIT_NOT_FROM(C, TRAIT_DEAF, EAR_DAMAGE))
 		return
@@ -39,6 +42,8 @@
 	desc = "a basic cybernetic designed to mimic the operation of ears."
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
+	pickup_sound = 'sound/items/handling/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/component_drop.ogg'
 
 /obj/item/organ/internal/ears/cybernetic/emp_act(severity)
 	if(emp_proof)

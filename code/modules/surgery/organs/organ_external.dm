@@ -431,7 +431,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 			add_attack_logs(owner, null, "Suffered fracture to [src](Damage: [damage], Organ HP: [max_damage - (brute_dam + burn_dam) ])")
 
 /obj/item/organ/external/proc/check_for_internal_bleeding(damage)
-	if(owner && (NO_BLOOD in owner.dna.species.species_traits))
+	if(!owner)
+		return
+	if(NO_BLOOD in owner.dna.species.species_traits)
 		return
 	if(owner.status_flags & GODMODE)
 		return

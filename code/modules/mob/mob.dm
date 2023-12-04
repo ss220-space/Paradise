@@ -742,60 +742,67 @@
 			add_spell_to_statpanel(S)
 
 	// Allow admins + PR reviewers to VIEW the panel. Doesnt mean they can click things.
-	if((is_admin(src) || check_rights(R_VIEWRUNTIMES, FALSE)) && (client?.prefs.toggles2 & PREFTOGGLE_2_MC_TABS))
+	if((is_admin(src) || check_rights(R_VIEWRUNTIMES, FALSE)))
+		// Shows SDQL2 list
+		if(length(GLOB.sdql2_queries))
+			if(statpanel("SDQL2"))
+				stat("Access Global SDQL2 List", GLOB.sdql2_vv_statobj)
+				for(var/i in GLOB.sdql2_queries)
+					var/datum/sdql2_query/Q = i
+					Q.generate_stat()
 		// Below are checks to see which MC panel you are looking at
+		if(client?.prefs.toggles2 & PREFTOGGLE_2_MC_TABS)
+			// Shows MC Metadata
+			if(statpanel("MC|M"))
+				stat("Info", "Showing MC metadata")
+				var/turf/T = get_turf(client.eye)
+				stat("Location:", COORD(T))
+				stat("CPU:", "[Master.formatcpu(world.cpu)]")
+				stat("Map CPU:", "[Master.formatcpu(world.map_cpu)]")
+				//stat("Map CPU:", "[Master.formatcpu(world.map_cpu)]")
+				stat("Instances:", "[num2text(world.contents.len, 10)]")
+				GLOB.stat_entry()
+				stat("Server Time:", time_stamp())
+				if(Master)
+					Master.stat_entry()
+				else
+					stat("Master Controller:", "ERROR")
+				if(Failsafe)
+					Failsafe.stat_entry()
+				else
+					stat("Failsafe Controller:", "ERROR")
 
-		// Shows MC Metadata
-		if(statpanel("MC|M"))
-			stat("Info", "Showing MC metadata")
-			var/turf/T = get_turf(client.eye)
-			stat("Location:", COORD(T))
-			stat("CPU:", "[Master.formatcpu(world.cpu)]")
-			stat("Map CPU:", "[Master.formatcpu(world.map_cpu)]")
-			//stat("Map CPU:", "[Master.formatcpu(world.map_cpu)]")
-			stat("Instances:", "[num2text(world.contents.len, 10)]")
-			GLOB.stat_entry()
-			stat("Server Time:", time_stamp())
-			if(Master)
-				Master.stat_entry()
-			else
-				stat("Master Controller:", "ERROR")
-			if(Failsafe)
-				Failsafe.stat_entry()
-			else
-				stat("Failsafe Controller:", "ERROR")
+			// Shows subsystems with SS_NO_FIRE
+			if(statpanel("MC|N"))
+				stat("Info", "Showing subsystems that do not fire")
+				if(Master)
+					for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
+						if(SS.flags & SS_NO_FIRE)
+							SS.stat_entry()
 
-		// Shows subsystems with SS_NO_FIRE
-		if(statpanel("MC|N"))
-			stat("Info", "Showing subsystems that do not fire")
-			if(Master)
-				for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
-					if(SS.flags & SS_NO_FIRE)
-						SS.stat_entry()
+			// Shows subsystems with the SS_CPUDISPLAY_LOW flag
+			if(statpanel("MC|L"))
+				stat("Info", "Showing subsystems marked as low intensity")
+				if(Master)
+					for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
+						if((SS.cpu_display == SS_CPUDISPLAY_LOW) && !(SS.flags & SS_NO_FIRE))
+							SS.stat_entry()
 
-		// Shows subsystems with the SS_CPUDISPLAY_LOW flag
-		if(statpanel("MC|L"))
-			stat("Info", "Showing subsystems marked as low intensity")
-			if(Master)
-				for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
-					if((SS.cpu_display == SS_CPUDISPLAY_LOW) && !(SS.flags & SS_NO_FIRE))
-						SS.stat_entry()
+			// Shows subsystems with the SS_CPUDISPLAY_DEFAULT flag
+			if(statpanel("MC|D"))
+				stat("Info", "Showing subsystems marked as default intensity")
+				if(Master)
+					for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
+						if((SS.cpu_display == SS_CPUDISPLAY_DEFAULT) && !(SS.flags & SS_NO_FIRE))
+							SS.stat_entry()
 
-		// Shows subsystems with the SS_CPUDISPLAY_DEFAULT flag
-		if(statpanel("MC|D"))
-			stat("Info", "Showing subsystems marked as default intensity")
-			if(Master)
-				for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
-					if((SS.cpu_display == SS_CPUDISPLAY_DEFAULT) && !(SS.flags & SS_NO_FIRE))
-						SS.stat_entry()
-
-		// Shows subsystems with the SS_CPUDISPLAY_HIGH flag
-		if(statpanel("MC|H"))
-			stat("Info", "Showing subsystems marked as high intensity")
-			if(Master)
-				for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
-					if((SS.cpu_display == SS_CPUDISPLAY_HIGH) && !(SS.flags & SS_NO_FIRE))
-						SS.stat_entry()
+			// Shows subsystems with the SS_CPUDISPLAY_HIGH flag
+			if(statpanel("MC|H"))
+				stat("Info", "Showing subsystems marked as high intensity")
+				if(Master)
+					for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
+						if((SS.cpu_display == SS_CPUDISPLAY_HIGH) && !(SS.flags & SS_NO_FIRE))
+							SS.stat_entry()
 
 	statpanel("Status") // Switch to the Status panel again, for the sake of the lazy Stat procs
 

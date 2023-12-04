@@ -14,6 +14,8 @@
 	strip_delay = 70
 	put_on_delay = 70
 	resistance_flags = FIRE_PROOF
+	pickup_sound = 'sound/items/handling/boots_pickup.ogg'
+	drop_sound = 'sound/items/handling/boots_drop.ogg'
 
 /obj/item/clothing/shoes/magboots/atmos
 	desc = "Magnetic boots, made to withstand gusts of space wind over 500kmph."
@@ -99,6 +101,8 @@
 	magpulse_name = "honk-powered traction system"
 	item_color = "clown"
 	origin_tech = "magnets=4;syndicate=2"
+	pickup_sound = 'sound/items/handling/shoes_pickup.ogg'
+	drop_sound = 'sound/items/handling/shoes_drop.ogg'
 	var/enabled_waddle = TRUE
 
 /obj/item/clothing/shoes/magboots/clown/Initialize(mapload)

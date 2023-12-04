@@ -32,11 +32,27 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// Used when yate into a mob.
 	var/mob_throw_hit_sound
 	///Sound used when equipping the item into a valid slot.
-	var/equip_sound
+	var/equip_sound = list(
+		'sound/items/handling/generic_equip1.ogg',
+		'sound/items/handling/generic_equip2.ogg',
+		'sound/items/handling/generic_equip3.ogg',
+		'sound/items/handling/generic_equip4.ogg',
+		'sound/items/handling/generic_equip5.ogg',
+	)
 	///Sound used when picking the item up (into your hands)
-	var/pickup_sound
+	var/pickup_sound = list(
+		'sound/items/handling/generic_pickup1.ogg',
+		'sound/items/handling/generic_pickup2.ogg',
+		'sound/items/handling/generic_pickup3.ogg',
+	)
 	///Sound used when dropping the item.
-	var/drop_sound
+	var/drop_sound = list(
+		'sound/items/handling/generic_drop1.ogg',
+		'sound/items/handling/generic_drop2.ogg',
+		'sound/items/handling/generic_drop3.ogg',
+		'sound/items/handling/generic_drop4.ogg',
+		'sound/items/handling/generic_drop5.ogg',
+	)
 	///Whether or not we use stealthy audio levels for this item's attack sounds
 	var/stealthy_audio = FALSE
 	var/w_class = WEIGHT_CLASS_NORMAL
@@ -533,8 +549,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	remove_outline()
 
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
-	if(!silent)
-		playsound(src, drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE)
+	if(!silent && !(flags & ABSTRACT) && drop_sound)
+		var/chosen_sound = drop_sound
+		if(islist(drop_sound) && length(drop_sound))
+			chosen_sound = pick(drop_sound)
+		playsound(src, chosen_sound, DROP_SOUND_VOLUME * USER_VOLUME(user, CHANNEL_INTERACTION_SOUNDS), channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
 	return TRUE
 
 
@@ -613,11 +632,19 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	in_inventory = TRUE
 
-	if(!initial)
+	if(!initial && !(flags & ABSTRACT))
 		if(equip_sound && !user.is_general_slot(slot))
-			playsound(src, equip_sound, EQUIP_SOUND_VOLUME, TRUE, ignore_walls = FALSE)
+			var/chosen_sound = equip_sound
+			if(islist(equip_sound) && length(equip_sound))
+				chosen_sound = pick(equip_sound)
+			playsound(src, chosen_sound, EQUIP_SOUND_VOLUME * USER_VOLUME(user, CHANNEL_INTERACTION_SOUNDS), channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
+		else if(slot == slot_l_store || slot == slot_l_store)
+			playsound(src, 'sound/items/handling/generic_equip3.ogg', EQUIP_SOUND_VOLUME * USER_VOLUME(user, CHANNEL_INTERACTION_SOUNDS), channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
 		else if(pickup_sound && (slot == slot_l_hand || slot == slot_r_hand))
-			playsound(src, pickup_sound, PICKUP_SOUND_VOLUME, ignore_walls = FALSE)
+			var/chosen_sound = pickup_sound
+			if(islist(pickup_sound) && length(pickup_sound))
+				chosen_sound = pick(pickup_sound)
+			playsound(src, chosen_sound, PICKUP_SOUND_VOLUME * USER_VOLUME(user, CHANNEL_INTERACTION_SOUNDS), channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
 
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
 	return TRUE

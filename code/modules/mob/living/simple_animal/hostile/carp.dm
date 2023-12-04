@@ -13,7 +13,6 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/carpmeat = 2)
 	response_help = "pets"
 	response_disarm = "gently pushes aside"
-	response_harm = list("hits", "gnawing", "bites")
 	emote_taunt = list("gnashes")
 	taunt_chance = 30
 	speed = 0
