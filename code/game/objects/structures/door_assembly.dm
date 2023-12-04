@@ -10,6 +10,7 @@
 	var/mineral
 	var/base_name = "airlock"
 	var/obj/item/airlock_electronics/electronics
+	var/obj/item/access_control/access_electronics
 	var/airlock_type = /obj/machinery/door/airlock //the type path of the airlock once completed
 	var/glass_type = /obj/machinery/door/airlock/glass
 	var/glass = 0 // 0 = glass can be installed. 1 = glass is already installed.
@@ -26,6 +27,7 @@
 
 /obj/structure/door_assembly/Destroy()
 	QDEL_NULL(electronics)
+	QDEL_NULL(access_electronics)
 	return ..()
 
 /obj/structure/door_assembly/examine(mob/user)
@@ -43,6 +45,10 @@
 			. += "<span class='notice'>The maintenance panel is <b>wired</b>, but the circuit slot is <i>empty</i>.</span>"
 		if(AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 			. += "<span class='notice'>The circuit is <b>connected loosely</b> to its slot, but the maintenance panel is <i>unscrewed and open</i>.</span>"
+			if(access_electronics)
+				. += "<span class='notice'>The access control circuit is connected to its slot.</span>"
+			else
+				. += "<span class='notice'>The access control slot is empty.</span>"
 	if(!mineral && !glass && !noglass)
 		. += "<span class='notice'>There is a small <i>paper</i> placard on the assembly[doorname]. There are <i>empty</i> slots for glass windows and mineral covers.</span>"
 	else if(!mineral && glass && !noglass)
@@ -97,6 +103,23 @@
 			state = AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER
 			name = "near finished airlock assembly"
 			electronics = W
+
+	else if(istype(W, /obj/item/access_control) && state == AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
+		if(W.icon_state == "access-control-smoked")
+			return
+		if(access_electronics)
+			return
+		playsound(loc, W.usesound, 100, 1)
+		user.visible_message("[user] installs the access control electronics into the airlock assembly.", "You start to install access control electronics into the airlock assembly...")
+		if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
+			if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
+				return
+			if(access_electronics)
+				return
+			add_fingerprint(user)
+			user.drop_transfer_item_to_loc(W, src)
+			to_chat(user, "<span class='notice'>You install the access control electronics.</span>")
+			access_electronics = W
 
 	else if(istype(W, /obj/item/stack/sheet) && (!glass || !mineral))
 		var/obj/item/stack/sheet/S = W
@@ -155,13 +178,17 @@
 	to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 	state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
 	name = "wired airlock assembly"
-	var/obj/item/airlock_electronics/ae
+
 	if(!electronics)
-		ae = new/obj/item/airlock_electronics(loc)
+		electronics = new /obj/item/airlock_electronics(loc)
 	else
-		ae = electronics
+		electronics.forceMove(loc)
 		electronics = null
-		ae.forceMove(loc)
+
+	if(access_electronics)
+		access_electronics.forceMove(loc)
+		access_electronics = null
+
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
 /obj/structure/door_assembly/screwdriver_act(mob/user, obj/item/I)
@@ -183,18 +210,26 @@
 		door = new airlock_type(loc)
 	door.remove_shielding()
 	door.setDir(dir)
-	door.electronics = electronics
-	door.unres_sides = electronics.unres_access_from
 	door.heat_proof = heat_proof_finished
-	door.req_access = electronics.selected_accesses
-	door.check_one_access = electronics.one_access
 	if(created_name)
 		door.name = created_name
 	else
 		door.name = base_name
 	door.previous_airlock = previous_assembly
+
+	door.electronics = electronics
 	electronics.forceMove(door)
 	electronics = null
+
+	if(access_electronics)
+		door.has_access_electronics = TRUE
+		door.access_electronics = access_electronics
+		door.unres_sides = access_electronics.unres_access_from
+		door.req_access = access_electronics.selected_accesses
+		door.check_one_access = access_electronics.one_access
+		access_electronics.forceMove(door)
+		access_electronics = null
+
 	qdel(src)
 	update_icon(UPDATE_OVERLAYS)
 
@@ -300,6 +335,9 @@
 	if(electronics)
 		target.electronics = source.electronics
 		source.electronics.forceMove(target)
+	if(access_electronics)
+		target.access_electronics = source.access_electronics
+		source.access_electronics.forceMove(target)
 	target.update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 	qdel(source)
 

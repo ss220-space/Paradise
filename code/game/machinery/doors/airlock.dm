@@ -77,6 +77,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	var/lockdownbyai = FALSE
 	var/justzap = FALSE
 	var/obj/item/airlock_electronics/electronics
+	var/obj/item/access_control/access_electronics
+	var/has_access_electronics = TRUE
 	var/shockCooldown = FALSE //Prevents multiple shocks from happening
 	var/obj/item/note //Any papers pinned to the airlock
 	var/previous_airlock = /obj/structure/door_assembly //what airlock assembly mineral plating was applied to
@@ -163,6 +165,7 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/Destroy()
 	SStgui.close_uis(wires)
 	QDEL_NULL(electronics)
+	QDEL_NULL(access_electronics)
 	QDEL_NULL(wires)
 	QDEL_NULL(note)
 	if(main_power_timer)
@@ -1525,22 +1528,30 @@ About the new airlock wires panel:
 				DA.obj_integrity = DA.max_integrity * 0.5
 		if(user)
 			to_chat(user, span_notice("You remove the airlock electronics."))
-		var/obj/item/airlock_electronics/ae
+
 		if(!electronics)
-			if(istype(src, /obj/machinery/door/airlock/syndicate))
-				ae = new/obj/item/airlock_electronics/syndicate(loc)
-			else
-				ae = new/obj/item/airlock_electronics(loc)
-			check_access()
-			ae.selected_accesses = length(req_access) ? req_access  : list()
-			ae.one_access = check_one_access
+			electronics = new /obj/item/airlock_electronics(loc)
 		else
-			ae = electronics
-			electronics = null
-			ae.forceMove(loc)
+			electronics.forceMove(loc)
 		if(emagged)
-			ae.icon_state = "door_electronics_smoked"
-			operating = 0
+			electronics.icon_state = "door_electronics_smoked"
+		electronics = null
+
+		if(has_access_electronics)
+			if(!access_electronics)
+				if(istype(src, /obj/machinery/door/airlock/syndicate))
+					access_electronics = new /obj/item/access_control/syndicate(loc)
+				else
+					access_electronics = new /obj/item/access_control(loc)
+				check_access()
+				access_electronics.selected_accesses = length(req_access) ? req_access : list()
+				access_electronics.one_access = check_one_access
+			else
+				access_electronics.forceMove(loc)
+			if(emagged)
+				access_electronics.icon_state = "access-control-smoked"
+			access_electronics = null
+
 	qdel(src)
 
 /obj/machinery/door/airlock/proc/note_type() //Returns a string representing the type of note pinned to this airlock

@@ -155,12 +155,12 @@
 	build_path = /obj/item/airlock_electronics
 	category = list("initial", "Electronics")
 
-/datum/design/syndie_airlock_board
-	name = "Suspicious Airlock Electronics"
-	id = "syndie_airlock_board"
+/datum/design/syndie_access_control
+	name = "Suspicious Access Control Electronics"
+	id = "syndie_access_board"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
-	build_path = /obj/item/airlock_electronics/syndicate
+	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
+	build_path = /obj/item/access_control/syndicate
 	category = list("hacked", "Electronics")
 
 /datum/design/firelock_board
