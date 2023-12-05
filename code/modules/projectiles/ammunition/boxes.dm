@@ -275,6 +275,7 @@
 // SHOTGUN
 /obj/item/ammo_box/speedloader/shotgun
 	name = "Shotgun Speedloader"
+	desc = "Designed to quickly reload shotguns."
 	icon_state = "shotgunloader"
 	origin_tech = "combat=2"
 	caliber = ".12"
@@ -393,4 +394,3 @@
 	ammo_type = /obj/item/ammo_casing/a762
 	max_ammo = 5
 	multiple_sprites = 1
-	w_class = WEIGHT_CLASS_TINY
