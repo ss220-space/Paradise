@@ -129,8 +129,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	// first check whether something actually changed about damage appearance
 	var/damage_appearance = ""
 
-	for(var/obj/item/organ/external/O in bodyparts)
-		damage_appearance += O.damage_state
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		damage_appearance += bodypart.damage_state
 
 	if(damage_appearance == previous_damage_appearance)
 		// nothing to do here
@@ -143,18 +143,17 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	overlays_standing[H_DAMAGE_LAYER] = damage_overlay
 
 	// blend the individual damage states with our icons
-	for(var/D in bodyparts)
-		var/obj/item/organ/external/E = D
-		E.update_icon()
-		if(E.damage_state == "00")
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		bodypart.update_icon()
+		if(bodypart.damage_state == "00")
 			continue
 
 		var/icon/DI
-		var/cache_index = "[E.damage_state]/[E.icon_name]/[dna.species.blood_color]/[dna.species.name]"
+		var/cache_index = "[bodypart.damage_state]/[bodypart.icon_name]/[dna.species.blood_color]/[dna.species.name]"
 
 		if(GLOB.damage_icon_parts[cache_index] == null)
-			DI = new /icon(dna.species.damage_overlays, E.damage_state)			// the damage icon for whole human
-			DI.Blend(new /icon(dna.species.damage_mask, E.icon_name), ICON_MULTIPLY)	// mask with this organ's pixels
+			DI = new /icon(dna.species.damage_overlays, bodypart.damage_state)			// the damage icon for whole human
+			DI.Blend(new /icon(dna.species.damage_mask, bodypart.icon_name), ICON_MULTIPLY)	// mask with this organ's pixels
 			DI.Blend(dna.species.blood_color, ICON_MULTIPLY)
 			GLOB.damage_icon_parts[cache_index] = DI
 		else
@@ -198,13 +197,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	else
 		var/icon/base_icon
 		//BEGIN CACHED ICON GENERATION.
-		var/obj/item/organ/external/chest = get_organ("chest")
+		var/obj/item/organ/external/chest = get_organ(BODY_ZONE_CHEST)
 		base_icon = chest.get_icon(skeleton)
 
-		for(var/obj/item/organ/external/part in bodyparts)
-			if(istype(part,/obj/item/organ/external/tail))
-				continue
-			if(istype(part,/obj/item/organ/external/wing))
+		for(var/obj/item/organ/external/part as anything in bodyparts)
+			if(part.limb_zone == BODY_ZONE_TAIL || part.limb_zone == BODY_ZONE_WING)
 				continue
 			var/icon/temp = part.get_icon(skeleton)
 			//That part makes left and right legs drawn topmost and lowermost when human looks WEST or EAST
@@ -286,10 +283,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	overlays_standing[BODY_LAYER] = standing
 	apply_overlay(BODY_LAYER)
-	//tail
-	update_tail()
-	update_wing()
+	//wings
 	update_wing_layer()
+	//tail
 	update_tail_layer()
 	update_int_organs()
 	//head accessory
@@ -310,7 +306,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/icon/markings_standing = icon("icon" = 'icons/mob/clothing/body_accessory.dmi', "icon_state" = "accessory_none_s")
 
 	//Body markings.
-	var/obj/item/organ/external/chest/chest_organ = get_organ("chest")
+	var/obj/item/organ/external/chest/chest_organ = get_organ(BODY_ZONE_CHEST)
 	if(chest_organ && m_styles["body"])
 		var/body_marking = m_styles["body"]
 		var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_list[body_marking]
@@ -320,7 +316,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				b_marking_s.Blend(m_colours["body"], ICON_ADD)
 			markings_standing.Blend(b_marking_s, ICON_OVERLAY)
 	//Head markings.
-	var/obj/item/organ/external/head/head_organ = get_organ("head")
+	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
 	if(head_organ && m_styles["head"]) //If the head is destroyed, forget the head markings. This prevents floating optical markings on decapitated IPCs, for example.
 		var/head_marking = m_styles["head"]
 		var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_list[head_marking]
@@ -339,7 +335,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(HEAD_ACCESSORY_LAYER)
 	remove_overlay(HEAD_ACC_OVER_LAYER)
 
-	var/obj/item/organ/external/head/head_organ = get_organ("head")
+	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
 	if(!head_organ)
 		return
 
@@ -375,7 +371,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	//Reset our hair
 	remove_overlay(HAIR_LAYER)
 
-	var/obj/item/organ/external/head/head_organ = get_organ("head")
+	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
 	if(!head_organ)
 		return
 
@@ -430,7 +426,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(FHAIR_LAYER)
 	remove_overlay(FHAIR_OVER_LAYER)
 
-	var/obj/item/organ/external/head/head_organ = get_organ("head")
+	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
 	if(!head_organ)
 		return
 
@@ -703,7 +699,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	if(glasses)
 		var/mutable_appearance/new_glasses
-		var/obj/item/organ/external/head/head_organ = get_organ("head")
+		var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)			//if the inventory is open ...
 				glasses.screen_loc = ui_glasses		//...draw the item in the inventory screen
@@ -973,7 +969,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			inv.update_icon()
 	if(wear_mask && (istype(wear_mask, /obj/item/clothing/mask) || istype(wear_mask, /obj/item/clothing/accessory)))
 		if(!(slot_wear_mask in check_obscured_slots()))
-			var/obj/item/organ/external/head/head_organ = get_organ("head")
+			var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
 			if(!head_organ)
 				return // Nothing to update here
 			var/datum/sprite_accessory/alt_heads/alternate_head
@@ -1130,6 +1126,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(WING_UNDERLIMBS_LAYER)
 	remove_overlay(WING_LAYER)
 
+	var/obj/item/organ/external/wing/bodypart_wing = get_organ(BODY_ZONE_WING)
 	if(!bodypart_wing)
 		return
 	if(!istype(bodypart_wing.body_accessory, /datum/body_accessory/wing))
@@ -1166,6 +1163,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 							can still appear on the outside of uniforms and such.
 							Otherwise, since the user's tail isn't overlapped by limbs, it will be a full icon with all directions. */
 
+	var/obj/item/organ/external/tail/bodypart_tail = get_organ(BODY_ZONE_TAIL)
 	if(!bodypart_tail) // No tail - no overlay!
 		return
 
@@ -1273,6 +1271,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 							can still appear on the outside of uniforms and such.
 							Otherwise, since the user's tail isn't overlapped by limbs, it will be a full icon with all directions. */
 
+	var/obj/item/organ/external/tail/bodypart_tail = get_organ(BODY_ZONE_TAIL)
 	if(!bodypart_tail) // No tail - no overlay!
 		return
 
@@ -1365,9 +1364,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(INTORGAN_LAYER)
 
 	var/list/standing = list()
-	for(var/organ in internal_organs)
-		var/obj/item/organ/internal/I = organ
-		var/render = I.render()
+	for(var/obj/item/organ/internal/organ as anything in internal_organs)
+		var/render = organ.render()
 		if(render)
 			standing += render
 
@@ -1442,8 +1440,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		remove_overlay(FROZEN_LAYER)
 
 /mob/living/carbon/human/proc/force_update_limbs()
-	for(var/obj/item/organ/external/O in bodyparts)
-		O.sync_colour_to_human(src)
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		bodypart.sync_colour_to_human(src)
 	update_body()
 
 /mob/living/carbon/human/proc/get_overlays_copy(list/unwantedLayers)
@@ -1476,13 +1474,13 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	else
 		. += "#000000"
 
-	for(var/organ_tag in dna.species.has_limbs)
-		var/obj/item/organ/external/part = bodyparts_by_name[organ_tag]
+	for(var/limb_zone in dna.species.has_limbs)
+		var/obj/item/organ/external/part = bodyparts_by_name[limb_zone]
 		if(isnull(part))
 			. += "0"
 		else if(part.is_robotic())
 			. += "2[part.model ? "-[part.model]" : ""]"
-		else if(part.status & ORGAN_DEAD)
+		else if(part.is_dead())
 			. += "3"
 		else
 			. += "1"

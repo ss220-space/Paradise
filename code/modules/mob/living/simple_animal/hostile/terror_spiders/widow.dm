@@ -43,7 +43,7 @@
 		return TRUE
 	if(L.reagents.has_reagent("terror_black_toxin", 100))
 		return TRUE
-	var/inject_target = pick("chest", "head")
+	var/inject_target = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 	if(L.IsStunned() || L.can_inject(null, FALSE, inject_target, FALSE))
 		L.reagents.add_reagent("terror_black_toxin", 33) // inject our special poison
 		visible_message(span_danger("[src] buries its long fangs deep into the [inject_target] of [target]!"))
@@ -65,7 +65,7 @@
 /obj/structure/spider/terrorweb/widow/web_special_ability(mob/living/carbon/C)
 	if(istype(C))
 		if(!C.reagents.has_reagent("terror_black_toxin", 60))
-			var/inject_target = pick("chest","head")
+			var/inject_target = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 			if(C.can_inject(null, FALSE, inject_target, FALSE))
 				to_chat(C, "<span class='danger'>[src] slices into you!</span>")
 				C.reagents.add_reagent("terror_black_toxin", 45)

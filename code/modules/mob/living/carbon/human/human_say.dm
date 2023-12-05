@@ -92,8 +92,8 @@
 		return FALSE
 	// how do species that don't breathe talk? magic, that's what.
 	var/breathes = (!(NO_BREATHE in dna?.species?.species_traits))
-	var/obj/item/organ/internal/lungs = get_organ_slot("lungs")
-	if((breathes && !lungs) || (breathes && lungs && (lungs.status & ORGAN_DEAD)))
+	var/obj/item/organ/internal/lungs = get_organ_slot(INTERNAL_ORGAN_LUNGS)
+	if((breathes && !lungs) || (breathes && lungs && lungs.is_dead()))
 		return FALSE
 	if(getOxyLoss() > 10 || AmountLoseBreath() >= 8 SECONDS)
 		emote("gasp")

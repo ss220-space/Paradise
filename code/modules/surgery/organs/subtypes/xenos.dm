@@ -10,14 +10,14 @@
 /**
  * This adds and removes alien spells upon addition, if a noncarbon tries to do this well... I blame adminbus
  */
-/obj/item/organ/internal/xenos/insert(mob/living/carbon/user, special = FALSE)
+/obj/item/organ/internal/xenos/insert(mob/living/carbon/user, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
 	if(length(alien_powers))
 		for(var/power_to_add in alien_powers)
 			user.AddSpell(new power_to_add)
 
 
-/obj/item/organ/internal/xenos/remove(mob/living/carbon/user, special = FALSE)
+/obj/item/organ/internal/xenos/remove(mob/living/carbon/user, special = ORGAN_MANIPULATION_DEFAULT)
 	if(length(alien_powers))
 		for(var/power_to_remove in alien_powers)
 			var/actual_spell = locate(power_to_remove) in user.mob_spell_list
@@ -38,8 +38,8 @@
 	icon_state = "plasma"
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "biotech=5;plasmatech=4"
-	parent_organ = "chest"
-	slot = "plasmavessel"
+	parent_organ_zone = BODY_ZONE_CHEST
+	slot = INTERNAL_ORGAN_PLASMAVESSEL
 	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/plant_weeds, /obj/effect/proc_holder/spell/touch/alien_spell/transfer_plasma)
 	/// Used as a marker for hud updates on Life(). Ridiculous initial value required to update hud on organ insertion.
 	var/old_plasma_amount = 9999
@@ -128,8 +128,8 @@
 /obj/item/organ/internal/xenos/acidgland
 	name = "xeno acid gland"
 	icon_state = "acid"
-	parent_organ = "head"
-	slot = "acid"
+	parent_organ_zone = BODY_ZONE_HEAD
+	slot = INTERNAL_ORGAN_ACIDGLAND
 	origin_tech = "biotech=5;materials=2;combat=2"
 	alien_powers = list(/obj/effect/proc_holder/spell/touch/alien_spell/corrosive_acid)
 
@@ -152,21 +152,21 @@
 /obj/item/organ/internal/xenos/hivenode
 	name = "xeno hive node"
 	icon_state = "hivenode"
-	parent_organ = "head"
-	slot = "hivenode"
+	parent_organ_zone = BODY_ZONE_HEAD
+	slot = INTERNAL_ORGAN_HIVENODE
 	origin_tech = "biotech=5;magnets=4;bluespace=3"
 	w_class = WEIGHT_CLASS_TINY
 	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/whisper)
 
 
-/obj/item/organ/internal/xenos/hivenode/insert(mob/living/carbon/M, special = 0)
-	..()
+/obj/item/organ/internal/xenos/hivenode/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
 	M.faction |= "alien"
 	M.add_language("Hivemind")
 	M.add_language("Xenomorph")
 
 
-/obj/item/organ/internal/xenos/hivenode/remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/xenos/hivenode/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	M.faction -= "alien"
 	M.remove_language("Hivemind")
 	M.remove_language("Xenomorph")
@@ -176,17 +176,17 @@
 /obj/item/organ/internal/xenos/neurotoxin
 	name = "xeno neurotoxin gland"
 	icon_state = "neurotox"
-	parent_organ = "head"
-	slot = "neurotox"
+	parent_organ_zone = BODY_ZONE_HEAD
+	slot = INTERNAL_ORGAN_NEUROTOXIN_GLAND
 	origin_tech = "biotech=5;combat=5"
 	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/neurotoxin)
 
 
 /obj/item/organ/internal/xenos/resinspinner
 	name = "xeno resin organ"//...there tiger....
-	parent_organ = "mouth"
 	icon_state = "liver-x"
-	slot = "spinner"
+	parent_organ_zone = BODY_ZONE_PRECISE_MOUTH
+	slot = INTERNAL_ORGAN_RESIN_SPINNER
 	origin_tech = "biotech=5;materials=4"
 	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/build_resin)
 
@@ -194,8 +194,8 @@
 /obj/item/organ/internal/xenos/eggsac
 	name = "xeno egg sac"
 	icon_state = "eggsac"
-	parent_organ = "groin"
-	slot = "eggsac"
+	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
+	slot = INTERNAL_ORGAN_EGGSAC
 	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "biotech=6"
 	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/plant_weeds/eggs)

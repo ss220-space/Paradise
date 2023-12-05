@@ -160,14 +160,14 @@
 
 	if(improvised)
 		strangling.Stuttering(6 SECONDS)
-		strangling.apply_damage(2, OXY, "head")
+		strangling.apply_damage(2, OXY, BODY_ZONE_HEAD)
 		return
 
 
 	if(!(src in strangling.garroted_by))
 		strangling.garroted_by+=src
 	strangling.Silence(6 SECONDS) // Non-improvised effects
-	strangling.apply_damage(20, OXY, "head")
+	strangling.apply_damage(20, OXY, BODY_ZONE_HEAD)
 
 
 /obj/item/twohanded/garrote/suicide_act(mob/user)

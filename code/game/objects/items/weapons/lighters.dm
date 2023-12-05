@@ -51,7 +51,7 @@
 		to_chat(user, "<span class='notice'>You light [src].</span>")
 	else
 		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
+		var/obj/item/organ/external/affecting = H.get_organ(user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 		if(affecting.receive_damage( 0, 5 ))		//INFERNO
 			H.UpdateDamageIcon()
 		to_chat(user,"<span class='notice'>You light [src], but you burn your hand in the process.</span>")

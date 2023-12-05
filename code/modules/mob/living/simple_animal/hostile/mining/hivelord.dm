@@ -259,7 +259,7 @@
 	. = ..()
 	if(!isobj(target))
 		var/mob/living/carbon/human/victim = target
-		if(victim.can_inject(null, FALSE, "chest", FALSE, TRUE) && !victim.get_int_organ(/obj/item/organ/internal/legion_tumour) && prob(1))
+		if(victim.can_inject(null, FALSE, BODY_ZONE_CHEST, FALSE, TRUE) && !victim.get_int_organ(/obj/item/organ/internal/legion_tumour) && prob(1))
 			new /obj/item/organ/internal/legion_tumour(victim)
 			visible_message(span_userdanger("[src] вгрызается в шею [target], впрыскивая странную черную жидкость!</span>")) //made it on russian to attract more attention from attacklogs
 

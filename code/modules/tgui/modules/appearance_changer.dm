@@ -20,7 +20,7 @@
 /datum/ui_module/appearance_changer/New(datum/host, mob/living/carbon/human/H, check_species_whitelist = TRUE, list/species_whitelist = list(), list/species_blacklist = list())
 	..()
 	owner = H
-	head_organ = owner.get_organ("head")
+	head_organ = owner.get_organ(BODY_ZONE_HEAD)
 	check_whitelist = check_species_whitelist
 	whitelist = species_whitelist
 	blacklist = species_blacklist
@@ -38,7 +38,7 @@
 				if(owner.set_species(S.type))
 					cut_and_generate_data()
 					// Species change creates new organs - runtimes ahoy if we forget this
-					head_organ = owner.get_organ("head")
+					head_organ = owner.get_organ(BODY_ZONE_HEAD)
 
 		if("gender")
 			if(can_change(APPEARANCE_GENDER))
@@ -195,7 +195,7 @@
 			if(can_change_alt_head() && (params["alt_head"] in valid_alt_head_styles))
 				if(owner.change_alt_head(params["alt_head"]))
 					update_dna()
-					head_organ = owner.get_organ("head") //Update the head with the new information.
+					head_organ = owner.get_organ(BODY_ZONE_HEAD) //Update the head with the new information.
 					cut_and_generate_data()
 
 
@@ -267,7 +267,8 @@
 
 	data["change_tail_markings"] = can_change_markings("tail")
 	if(data["change_tail_markings"])
-		var/m_style = owner.bodypart_tail.m_styles["tail"]
+		var/obj/item/organ/external/tail/bodypart_tail = owner.get_organ(BODY_ZONE_TAIL)
+		var/m_style = bodypart_tail.m_styles["tail"]
 		var/list/tail_marking_styles = list()
 		for(var/tail_marking_style in valid_tail_marking_styles)
 			tail_marking_styles += list(list("tailmarkingstyle" = tail_marking_style))
@@ -276,14 +277,16 @@
 
 	data["change_body_accessory"] = can_change_body_accessory()
 	if(data["change_body_accessory"])
+		var/obj/item/organ/external/tail/bodypart_tail = owner.get_organ(BODY_ZONE_TAIL)
+		var/obj/item/organ/external/wing/bodypart_wing = owner.get_organ(BODY_ZONE_WING)
 		var/list/body_accessory_styles = list()
 		for(var/body_accessory_style in valid_body_accessories)
 			body_accessory_styles += list(list("bodyaccessorystyle" = body_accessory_style))
 		data["body_accessory_styles"] = body_accessory_styles
-		if(owner.bodypart_tail)
-			data["body_accessory_style"] = (owner.bodypart_tail.body_accessory ? owner.bodypart_tail.body_accessory.name : "None")
-		if(owner.bodypart_wing)
-			data["body_accessory_style"] = (owner.bodypart_wing.body_accessory ? owner.bodypart_wing.body_accessory.name : "None")
+		if(bodypart_tail)
+			data["body_accessory_style"] = (bodypart_tail.body_accessory ? bodypart_tail.body_accessory.name : "None")
+		if(bodypart_wing)
+			data["body_accessory_style"] = (bodypart_wing.body_accessory ? bodypart_wing.body_accessory.name : "None")
 
 	data["change_alt_head"] = can_change_alt_head()
 	if(data["change_alt_head"])
@@ -345,16 +348,20 @@
 	if(location == "body")
 		marking_flag = HAS_BODY_MARKINGS
 	if(location == "tail")
-		tailcheck = owner.bodypart_tail && (owner.bodypart_tail.dna.species.bodyflags & HAS_TAIL_MARKINGS & HAS_BODY_ACCESSORY)
+		var/obj/item/organ/external/tail/bodypart_tail = owner.get_organ(BODY_ZONE_TAIL)
+		tailcheck = bodypart_tail && (bodypart_tail.dna?.species?.bodyflags & HAS_TAIL_MARKINGS & HAS_BODY_ACCESSORY)
 	if(location == "wing")
-		wingcheck = owner.bodypart_wing && (owner.bodypart_wing.dna.species.bodyflags & HAS_BODY_ACCESSORY)
+		var/obj/item/organ/external/wing/bodypart_wing = owner.get_organ(BODY_ZONE_WING)
+		wingcheck = bodypart_wing && (bodypart_wing.dna?.species?.bodyflags & HAS_BODY_ACCESSORY)
 	return owner && (flags & APPEARANCE_MARKINGS) && (body_flags & marking_flag) && tailcheck && wingcheck
 
 /datum/ui_module/appearance_changer/proc/can_change_body_accessory()
-	if(owner.bodypart_tail)
-		return owner && (flags & APPEARANCE_BODY_ACCESSORY) && owner.bodypart_tail && HAS_BODY_ACCESSORY && check_rights(R_ADMIN, 0, owner)
-	if(owner.bodypart_wing)
-		return owner && (flags & APPEARANCE_BODY_ACCESSORY) && owner.bodypart_wing && HAS_BODY_ACCESSORY && check_rights(R_ADMIN, 0, owner)
+	var/obj/item/organ/external/tail/bodypart_tail = owner.get_organ(BODY_ZONE_TAIL)
+	var/obj/item/organ/external/wing/bodypart_wing = owner.get_organ(BODY_ZONE_WING)
+	if(bodypart_tail)
+		return owner && (flags & APPEARANCE_BODY_ACCESSORY) && bodypart_tail && HAS_BODY_ACCESSORY && check_rights(R_ADMIN, 0, owner)
+	if(bodypart_wing)
+		return owner && (flags & APPEARANCE_BODY_ACCESSORY) && bodypart_wing && HAS_BODY_ACCESSORY && check_rights(R_ADMIN, 0, owner)
 	else
 		return owner && (flags & APPEARANCE_BODY_ACCESSORY) && HAS_BODY_ACCESSORY && check_rights(R_ADMIN, 0, owner)
 

@@ -1147,33 +1147,16 @@
 		return 0
 	return 1
 
-/mob/living/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
-	if(!AM || !src)
-		return FALSE
-	if(!(AM.can_be_pulled(src, state, force, show_message)))
-		return FALSE
+
+/mob/living/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
 	if(incapacitated())
-		return
-	// If we're pulling something then drop what we're currently pulling and pull this instead.
-	AM.add_fingerprint(src)
-	if(pulling)
-		if(AM == pulling)// Are we trying to pull something we are already pulling? Then just stop here, no need to continue.
-			return
-		stop_pulling()
-		if(AM.pulledby)
-			visible_message("<span class='danger'>[src] has pulled [AM] from [AM.pulledby]'s grip.</span>")
-			AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
-	pulling = AM
-	AM.pulledby = src
+		return FALSE
+
+	. = ..()
+
 	if(pullin)
 		pullin.update_icon(src)
-	if(ismob(AM))
-		var/mob/M = AM
-		add_attack_logs(src, M, "pulls", ATKLOG_ALMOSTALL)
-		if(!iscarbon(src))
-			M.LAssailant = null
-		else
-			M.LAssailant = usr
+
 
 /mob/living/proc/check_pull()
 	if(pulling && !(pulling in orange(1)))

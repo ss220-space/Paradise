@@ -11,7 +11,22 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	var/selectable = 1									 // If set, is it available for selection on attack_self with a robo limb?
 	var/is_monitor										 // If set, limb is a monitor and should be getting monitor styles.
 	var/has_subtypes = 2								 // If null, object is a model. If 1, object is a brand (that serves as the default model) with child models. If 2, object is a brand that has no child models and thus also serves as the model..
-	var/parts = list("chest", "groin", "head", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "l_arm", "l_hand", "tail", "wing")	// Defines what parts said brand can replace on a body.
+	/// Defines what parts said brand can replace on a body.
+	var/parts = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_HEAD,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_PRECISE_L_HAND,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_PRECISE_R_HAND,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_PRECISE_R_FOOT,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_PRECISE_L_FOOT,
+		BODY_ZONE_PRECISE_GROIN,
+		BODY_ZONE_TAIL,
+		BODY_ZONE_WING,
+	)
 
 /datum/robolimb/bishop
 	company = "Bishop Cybernetics"
@@ -22,14 +37,14 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 /datum/robolimb/bishop/alt1
 	company = "Bishop Cybernetics alt."
 	icon = 'icons/mob/human_races/cyberlimbs/bishop/bishop_alt1.dmi'
-	parts = list("head")
+	parts = list(BODY_ZONE_HEAD)
 	selectable = 0
 	has_subtypes = null
 
 /datum/robolimb/bishop/monitor
 	company = "Bishop Cybernetics mtr."
 	icon = 'icons/mob/human_races/cyberlimbs/bishop/bishop_monitor.dmi'
-	parts = list("head")
+	parts = list(BODY_ZONE_HEAD)
 	is_monitor = 1
 	selectable = 0
 	has_subtypes = null
@@ -43,7 +58,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 /datum/robolimb/hesphiastos/alt1
 	company = "Hesphiastos Industries alt."
 	icon = 'icons/mob/human_races/cyberlimbs/hesphiastos/hesphiastos_alt1.dmi'
-	parts = list("head")
+	parts = list(BODY_ZONE_HEAD)
 	is_monitor = 1
 	selectable = 0
 	has_subtypes = null
@@ -51,7 +66,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 /datum/robolimb/hesphiastos/monitor
 	company = "Hesphiastos Industries mtr."
 	icon = 'icons/mob/human_races/cyberlimbs/hesphiastos/hesphiastos_monitor.dmi'
-	parts = list("head")
+	parts = list(BODY_ZONE_HEAD)
 	is_monitor = 1
 	selectable = 0
 	has_subtypes = null
@@ -67,7 +82,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 /datum/robolimb/morpheus/alt1
 	company = "Morpheus Cyberkinetics alt."
 	icon = 'icons/mob/human_races/cyberlimbs/morpheus/morpheus_alt1.dmi'
-	parts = list("head")
+	parts = list(BODY_ZONE_HEAD)
 	unavailable_at_chargen = null
 	is_monitor = null
 	selectable = 0
@@ -83,14 +98,14 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 /datum/robolimb/wardtakahashi/alt1
 	company = "Ward-Takahashi alt."
 	icon = 'icons/mob/human_races/cyberlimbs/wardtakahashi/wardtakahashi_alt1.dmi'
-	parts = list("head")
+	parts = list(BODY_ZONE_HEAD)
 	selectable = 0
 	has_subtypes = null
 
 /datum/robolimb/wardtakahashi/monitor
 	company = "Ward-Takahashi mtr."
 	icon = 'icons/mob/human_races/cyberlimbs/wardtakahashi/wardtakahashi_monitor.dmi'
-	parts = list("head")
+	parts = list(BODY_ZONE_HEAD)
 	is_monitor = 1
 	selectable = 0
 	has_subtypes = null
@@ -104,14 +119,14 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 /datum/robolimb/xion/alt1
 	company = "Xion Manufacturing Group alt."
 	icon = 'icons/mob/human_races/cyberlimbs/xion/xion_alt1.dmi'
-	parts = list("head")
+	parts = list(BODY_ZONE_HEAD)
 	selectable = 0
 	has_subtypes = null
 
 /datum/robolimb/xion/monitor
 	company = "Xion Manufacturing Group mtr."
 	icon = 'icons/mob/human_races/cyberlimbs/xion/xion_monitor.dmi'
-	parts = list("head")
+	parts = list(BODY_ZONE_HEAD)
 	is_monitor = 1
 	selectable = 0
 	has_subtypes = null
@@ -131,14 +146,14 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 /datum/robolimb/shellguard/alt1
 	company = "Shellguard Munitions Elite Series"
 	icon = 'icons/mob/human_races/cyberlimbs/shellguard/shellguard_alt1.dmi'
-	parts = list("head")
+	parts = list(BODY_ZONE_HEAD)
 	selectable = 0
 	has_subtypes = null
 
 /datum/robolimb/shellguard/monitor
 	company = "Shellguard Munitions Monitor Series"
 	icon = 'icons/mob/human_races/cyberlimbs/shellguard/shellguard_monitor.dmi'
-	parts = list("head")
+	parts = list(BODY_ZONE_HEAD)
 	is_monitor = 1
 	selectable = 0
 	has_subtypes = null

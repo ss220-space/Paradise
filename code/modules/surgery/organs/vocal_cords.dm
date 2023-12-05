@@ -38,8 +38,8 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 /obj/item/organ/internal/vocal_cords //organs that are activated through speech with the :x channel
 	name = "vocal cords"
 	icon_state = "appendix"
-	slot = "vocal_cords"
-	parent_organ = "mouth"
+	slot = INTERNAL_ORGAN_VOCALCORDS
+	parent_organ_zone = BODY_ZONE_PRECISE_MOUTH
 	var/spans = null
 
 /obj/item/organ/internal/vocal_cords/proc/can_speak_with() //if there is any limitation to speaking with these cords
@@ -54,8 +54,8 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 /obj/item/organ/internal/adamantine_resonator
 	name = "adamantine resonator"
 	desc = "Fragments of adamantine exist in all golems, stemming from their origins as purely magical constructs. These are used to \"hear\" messages from their leaders."
-	parent_organ = "head"
-	slot = "adamantine_resonator"
+	parent_organ_zone = BODY_ZONE_HEAD
+	slot = INTERNAL_ORGAN_RESONATOR
 	icon_state = "adamantine_resonator"
 
 /obj/item/organ/internal/vocal_cords/adamantine
@@ -77,7 +77,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	for(var/m in GLOB.player_list)
 		if(iscarbon(m))
 			var/mob/living/carbon/C = m
-			if(C.get_organ_slot("adamantine_resonator"))
+			if(C.get_organ_slot(INTERNAL_ORGAN_RESONATOR))
 				to_chat(C, msg)
 
 //Colossus drop, forces the listeners to obey certain commands
@@ -269,7 +269,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	else if((findtext(message, GLOB.hurt_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			L.apply_damage(15 * power_multiplier, def_zone = "chest")
+			L.apply_damage(15 * power_multiplier, def_zone = BODY_ZONE_CHEST)
 		next_command = world.time + cooldown_damage
 
 	//BLEED

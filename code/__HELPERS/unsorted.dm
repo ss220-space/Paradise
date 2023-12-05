@@ -959,19 +959,40 @@ Returns 1 if the chain up to the area contains the given typepath
 
 
 /proc/parse_zone(zone)
-	if(zone == "r_hand") return "right hand"
-	else if(zone == "l_hand") return "left hand"
-	else if(zone == "l_arm") return "left arm"
-	else if(zone == "r_arm") return "right arm"
-	else if(zone == "l_leg") return "left leg"
-	else if(zone == "r_leg") return "right leg"
-	else if(zone == "l_foot") return "left foot"
-	else if(zone == "r_foot") return "right foot"
-	else if(zone == "l_hand") return "left hand"
-	else if(zone == "r_hand") return "right hand"
-	else if(zone == "l_foot") return "left foot"
-	else if(zone == "r_foot") return "right foot"
-	else return zone
+	switch(zone)
+		if(BODY_ZONE_HEAD)
+			return "head"
+		if(BODY_ZONE_CHEST)
+			return "chest"
+		if(BODY_ZONE_L_ARM)
+			return "left arm"
+		if(BODY_ZONE_R_ARM)
+			return "right arm"
+		if(BODY_ZONE_L_LEG)
+			return "left leg"
+		if(BODY_ZONE_R_LEG)
+			return "right leg"
+		if(BODY_ZONE_TAIL)
+			return "tail"
+		if(BODY_ZONE_WING)
+			return "wings"
+		if(BODY_ZONE_PRECISE_EYES)
+			return "eyes"
+		if(BODY_ZONE_PRECISE_MOUTH)
+			return "mouth"
+		if(BODY_ZONE_PRECISE_GROIN)
+			return "groin"
+		if(BODY_ZONE_PRECISE_L_HAND)
+			return "left hand"
+		if(BODY_ZONE_PRECISE_R_HAND)
+			return "right hand"
+		if(BODY_ZONE_PRECISE_L_FOOT)
+			return "left foot"
+		if(BODY_ZONE_PRECISE_R_FOOT)
+			return "right foot"
+		else
+			stack_trace("Wrong zone input.")
+
 
 /*
 
@@ -1216,47 +1237,47 @@ Standard way to write links -Sayu
 	// HIDEGLASSES(formerly known as HIDEEYES) flag was made, ironically, to check if it hides our GLASSES
 	// not to check if it makes using the fucking mouth/eyes impossible!!!
 	switch(location)
-		if("head")
+		if(BODY_ZONE_HEAD)
 			if(covered_locations & HEAD)
-				return 0
-		if("eyes")
+				return FALSE
+		if(BODY_ZONE_PRECISE_EYES)
 			if(eyesmouth_covered & MASKCOVERSEYES || eyesmouth_covered & GLASSESCOVERSEYES || eyesmouth_covered & HEADCOVERSEYES)
-				return 0
-		if("mouth")
+				return FALSE
+		if(BODY_ZONE_PRECISE_MOUTH)
 			if(eyesmouth_covered & HEADCOVERSMOUTH || eyesmouth_covered & MASKCOVERSMOUTH)
-				return 0
-		if("chest")
+				return FALSE
+		if(BODY_ZONE_CHEST)
 			if(covered_locations & UPPER_TORSO)
-				return 0
-		if("groin")
+				return FALSE
+		if(BODY_ZONE_PRECISE_GROIN)
 			if(covered_locations & LOWER_TORSO)
-				return 0
-		if("l_arm")
+				return FALSE
+		if(BODY_ZONE_L_ARM)
 			if(covered_locations & ARM_LEFT)
-				return 0
-		if("r_arm")
+				return FALSE
+		if(BODY_ZONE_R_ARM)
 			if(covered_locations & ARM_RIGHT)
-				return 0
-		if("l_leg")
+				return FALSE
+		if(BODY_ZONE_L_LEG)
 			if(covered_locations & LEG_LEFT)
-				return 0
-		if("r_leg")
+				return FALSE
+		if(BODY_ZONE_R_LEG)
 			if(covered_locations & LEG_RIGHT)
-				return 0
-		if("l_hand")
+				return FALSE
+		if(BODY_ZONE_PRECISE_L_HAND)
 			if(covered_locations & HAND_LEFT)
-				return 0
-		if("r_hand")
+				return FALSE
+		if(BODY_ZONE_PRECISE_R_HAND)
 			if(covered_locations & HAND_RIGHT)
-				return 0
-		if("l_foot")
+				return FALSE
+		if(BODY_ZONE_PRECISE_L_FOOT)
 			if(covered_locations & FOOT_LEFT)
-				return 0
-		if("r_foot")
+				return FALSE
+		if(BODY_ZONE_PRECISE_R_FOOT)
 			if(covered_locations & FOOT_RIGHT)
-				return 0
+				return FALSE
 
-	return 1
+	return TRUE
 
 /proc/check_target_facings(mob/living/initator, mob/living/target)
 	/*This can be used to add additional effects on interactions between mobs depending on how the mobs are facing each other, such as adding a crit damage to blows to the back of a guy's head.

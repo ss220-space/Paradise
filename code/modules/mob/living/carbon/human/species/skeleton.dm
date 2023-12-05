@@ -36,9 +36,11 @@
 		"сваливается в кучу!",
 		"разваливается!",
 		"откручивает себе череп!")
+
 	has_organ = list(
-		"brain" = /obj/item/organ/internal/brain/golem,
-	) //Has default darksight of 2.
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/golem,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+	)
 
 	toxic_food = NONE
 	disliked_food = NONE
@@ -62,8 +64,8 @@
 		if(prob(5)) // 5% chance per proc to find a random limb, and mend it
 			var/list/our_organs = H.bodyparts.Copy()
 			shuffle(our_organs)
-			for(var/obj/item/organ/external/L in our_organs)
-				if(L.mend_fracture())
+			for(var/obj/item/organ/external/bodypart as anything in our_organs)
+				if(bodypart.mend_fracture())
 					break // We're only checking one limb here, bucko
 		if(prob(25)) //25% шанс на случайную шутливую фразу
 			H.say(pick("Спасибо Мистеру Скелтал!", "От такого молока челюсть отвисает!", "Я вижу четКость своих решений!", "Надо не забыть пересчитать косточки...", "Маленькие скелеты паКостят!", "Хорошо что у меня язык без костей!", "Теперь я не буду ЧЕРЕПашкой!", "Теперь мне не нужны костыли!", "Костян плохого не посоветует!", "Ощущаешь мою ловКость?", "Я чувствую такую лёгКость!", "Большая редКость найти любимую жидКость!", "Моя любимая жидКость!", "Аж закостенел!", "Теперь я вешу скелетонну!", "Спасибо за крепкие кости!", "Ду-ду!", "Вы замечали что мы все в одной плосКости?"))

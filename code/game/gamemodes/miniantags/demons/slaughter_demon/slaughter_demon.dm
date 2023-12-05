@@ -193,18 +193,17 @@
 	qdel(src)
 
 
-/obj/item/organ/internal/heart/demon/slaughter/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/demon/slaughter/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
-	if(M.mind)
-		M.mind.AddSpell(new /obj/effect/proc_holder/spell/bloodcrawl(null))
+	M?.mind?.AddSpell(new /obj/effect/proc_holder/spell/bloodcrawl(null))
 
 
-/obj/item/organ/internal/heart/demon/slaughter/remove(mob/living/carbon/M, special = 0)
-	..()
+/obj/item/organ/internal/heart/demon/slaughter/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	if(M.mind)
 		REMOVE_TRAIT(M, TRAIT_BLOODCRAWL, TRAIT_BLOODCRAWL)
 		REMOVE_TRAIT(M, TRAIT_BLOODCRAWL_EAT, TRAIT_BLOODCRAWL_EAT)
 		M.mind.RemoveSpell(/obj/effect/proc_holder/spell/bloodcrawl)
+	. = ..()
 
 
 /**

@@ -42,8 +42,8 @@
 	icon_state = "ling_eyeshield"
 	eye_colour = "#000000"
 	implant_overlay = null
-	slot = "eye_ling"
-	status = 0
+	slot = INTERNAL_ORGAN_EYE_LING
+	status = NONE
 	aug_message = "We adjust our eyes to protect them from bright lights."
 
 
@@ -81,8 +81,8 @@
 	icon_state = "ling_thermal"
 	eye_colour = "#000000"
 	implant_overlay = null
-	slot = "eye_ling"
-	status = 0
+	slot = INTERNAL_ORGAN_EYE_LING
+	status = NONE
 	aug_message = "We adjust our eyes to sense prey through walls."
 
 
@@ -90,8 +90,8 @@
 	return
 
 
-/obj/item/organ/internal/cyberimp/eyes/thermals/ling/insert(mob/living/carbon/M, special = FALSE)
-	..()
+/obj/item/organ/internal/cyberimp/eyes/thermals/ling/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/h_owner = owner
 		h_owner.weakeyes = TRUE
@@ -99,9 +99,9 @@
 			h_owner.set_sight(/datum/vision_override/nightvision)
 
 
-/obj/item/organ/internal/cyberimp/eyes/thermals/ling/remove(mob/living/carbon/M, special = FALSE)
+/obj/item/organ/internal/cyberimp/eyes/thermals/ling/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	if(ishuman(owner))
 		var/mob/living/carbon/human/h_owner = owner
 		h_owner.weakeyes = FALSE
 		h_owner.set_sight(null)
-	..()
+	. = ..()
