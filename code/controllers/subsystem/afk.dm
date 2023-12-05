@@ -8,6 +8,7 @@ SUBSYSTEM_DEF(afk)
 	flags = SS_BACKGROUND
 	cpu_display = SS_CPUDISPLAY_LOW
 	offline_implications = "Players will no longer be marked as AFK. No immediate action is needed."
+	ss_id = "afk_watcher"
 	var/list/afk_players = list() // Associative list. ckey as key and AFK state as value
 	var/list/non_cryo_antags
 

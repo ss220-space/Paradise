@@ -74,22 +74,9 @@
 						break
 
 					if(ishuman(M)) //Edge case housekeeping
-						var/mob/living/carbon/human/C = M
-						/*if(C.internal_bodyparts_by_name  && item_to_retrieve in C.internal_bodyparts_by_name ) //This won't work, as we use organ datums instead of objects. --DZD
-							C.internal_bodyparts_by_name  -= item_to_retrieve
-							if(istype(marked_item, /obj/item/brain)) //If this code ever runs I will be happy
-								var/obj/item/brain/B = new /obj/item/brain(target.loc)
-								B.transfer_identity(C)
-								C.death()
-								add_attack_logs(target, C, "Magically debrained INTENT: [uppertext(target.a_intent)]")*/
-						for(var/X in C.bodyparts)
-							var/obj/item/organ/external/part = X
-							if(item_to_retrieve in part.embedded_objects)
-								part.embedded_objects -= item_to_retrieve
-								to_chat(C, span_warning("The [item_to_retrieve] that was embedded in your [part] has mysteriously vanished. How fortunate!"))
-								if(!C.has_embedded_objects())
-									C.clear_alert("embeddedobject")
-								break
+						var/mob/living/carbon/human/human = M
+						if(human.remove_embedded_object(item_to_retrieve))
+							to_chat(human, span_warning("The [item_to_retrieve] that was embedded into you has mysteriously vanished. How fortunate!"))
 
 				else
 					if(istype(item_to_retrieve.loc,/obj/machinery/portable_atmospherics/)) //Edge cases for moved machinery

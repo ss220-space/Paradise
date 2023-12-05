@@ -4,13 +4,14 @@
 /**
  * Send an emote.
  *
- * * emote_key: Key of the emote being triggered
- * * m_type: Type of the emote, like EMOTE_AUDIBLE. If this is not null, the default type of the emote will be overridden.
- * * message: Custom parameter for the emote. This should be used if you want to pass something like a target programmatically.
- * * intentional: Whether or not the emote was deliberately triggered by the mob. If true, it's forced, which skips some checks when calling the emote.
- * * force_silence: If true, unusable/nonexistent emotes will not notify the user.
+ * * emote_key - Key of the emote being triggered
+ * * m_type - Type of the emote, like EMOTE_AUDIBLE. If this is not null, the default type of the emote will be overridden.
+ * * message - Custom parameter for the emote. This should be used if you want to pass something like a target programmatically.
+ * * intentional - Whether or not the emote was deliberately triggered by the mob. If `TRUE`, it's forced, which skips some checks when calling the emote.
+ * * force_silence - If `TRUE`, unusable/nonexistent emotes will not notify the user.
+ * * ignore_cooldowns - If `TRUE` all cooldowns will be skipped.
  */
-/mob/proc/emote(emote_key, type_override = null, message = null, intentional = FALSE, force_silence = FALSE)
+/mob/proc/emote(emote_key, type_override = null, message = null, intentional = FALSE, force_silence = FALSE, ignore_cooldowns = FALSE)
 	emote_key = lowertext(emote_key)
 	var/param = message
 	var/custom_param_offset = findtext(emote_key, EMOTE_PARAM_SEPARATOR, 1, null)
@@ -32,7 +33,7 @@
 		// can this mob run the emote at all?
 		if(!P.can_run_emote(src, intentional = intentional))
 			continue
-		if(!P.check_cooldown(src, intentional))
+		if(!P.check_cooldown(src, intentional, ignore_cooldowns))
 			// if an emote's on cooldown, don't spam them with messages of not being able to use it
 			silenced = TRUE
 			continue

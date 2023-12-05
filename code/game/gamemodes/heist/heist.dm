@@ -94,7 +94,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 		newname += pick(list("ti","hi","ki","ya","ta","ha","ka","ya","chi","cha","kah"))
 
 	var/mob/living/carbon/human/vox = newraider.current
-	var/obj/item/organ/external/head/head_organ = vox.get_organ("head")
+	var/obj/item/organ/external/head/head_organ = vox.get_organ(BODY_ZONE_HEAD)
 
 	vox.real_name = capitalize(newname)
 	vox.dna.real_name = vox.real_name
@@ -121,7 +121,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	vox.update_dna()
 	vox.update_eyes()
 
-	for(var/obj/item/organ/external/limb in vox.bodyparts)
+	for(var/obj/item/organ/external/limb as anything in vox.bodyparts)
 		limb.status &= ~ORGAN_ROBOT
 
 	//Now apply cortical stack.

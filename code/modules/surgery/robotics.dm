@@ -6,20 +6,58 @@
 /datum/surgery/cybernetic_repair
 	name = "Cybernetic Repair"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/robotics/external/repair)
-	possible_locs = list("chest","head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin","tail", "wing")
 	requires_organic_bodypart = 0
+	possible_locs = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_HEAD,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_PRECISE_L_HAND,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_PRECISE_R_HAND,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_PRECISE_R_FOOT,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_PRECISE_L_FOOT,
+		BODY_ZONE_PRECISE_GROIN,
+		BODY_ZONE_TAIL,
+		BODY_ZONE_WING,
+	)
 
 /datum/surgery/cybernetic_repair/internal
 	name = "Internal Component Manipulation"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/robotics/manipulate_robotic_organs)
-	possible_locs = list("eyes", "mouth", "chest","head","groin","l_arm","r_arm", "l_leg", "r_leg")
 	requires_organic_bodypart = 0
+	possible_locs = list(
+		BODY_ZONE_PRECISE_EYES,
+		BODY_ZONE_PRECISE_MOUTH,
+		BODY_ZONE_CHEST,
+		BODY_ZONE_HEAD,
+		BODY_ZONE_PRECISE_GROIN,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_R_LEG,
+	)
 
 /datum/surgery/cybernetic_amputation
 	name = "Robotic Limb Amputation"
 	steps = list(/datum/surgery_step/robotics/external/amputate)
-	possible_locs = list("chest","head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin","tail", "wing")
 	requires_organic_bodypart = 0
+	possible_locs = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_HEAD,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_PRECISE_L_HAND,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_PRECISE_R_HAND,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_PRECISE_R_FOOT,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_PRECISE_L_FOOT,
+		BODY_ZONE_PRECISE_GROIN,
+		BODY_ZONE_TAIL,
+		BODY_ZONE_WING,
+	)
 
 /datum/surgery/cybernetic_repair/can_start(mob/user, mob/living/carbon/target)
 
@@ -222,7 +260,7 @@
 
 	else if(implement_type in implements_heal_brute)
 		current_type = "brute"
-		if(!(affected.brute_dam > 0 || affected.disfigured))
+		if(!(affected.brute_dam > 0 || affected.is_disfigured()))
 			to_chat(user, "<span class='warning'>The [affected] does not require welding repair!</span>")
 			return -1
 		if(tool.tool_behaviour == TOOL_WELDER)
@@ -246,12 +284,12 @@
 		if("brute")
 			user.visible_message("<span class='notice'> [user] finishes patching damage to [target]'s [affected.name] with \the [tool].</span>", \
 			"<span class='notice'> You finish patching damage to [target]'s [affected.name] with \the [tool].</span>")
-			affected.heal_damage(rand(30,50),0,1,1)
-			affected.disfigured = FALSE
+			affected.heal_damage(rand(30,50), 0, TRUE, TRUE)
+			affected.undisfigure()
 		if("burn")
 			user.visible_message("<span class='notice'> [user] finishes splicing cable into [target]'s [affected.name].</span>", \
 			"<span class='notice'> You finishes splicing new cable into [target]'s [affected.name].</span>")
-			affected.heal_damage(0,rand(30,50),1,1)
+			affected.heal_damage(0, rand(30,50), TRUE, TRUE)
 		if("finish")
 			user.visible_message("<span class='notice'> [user] closes and secures the hatch on [target]'s [affected.name] with \the [tool].</span>", \
 			"<span class='notice'> You close and secure the hatch on [target]'s [affected.name] with \the [tool].</span>")
@@ -307,7 +345,7 @@
 		if(!I.is_robotic())
 			to_chat(user, "<span class='notice'>You can only implant cybernetic organs.</span>")
 
-		if(target_zone != I.parent_organ || target.get_organ_slot(I.slot))
+		if(target_zone != I.parent_organ_zone || target.get_organ_slot(I.slot))
 			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>")
 			return -1
 
@@ -329,7 +367,7 @@
 	else if(istype(tool,/obj/item/mmi))
 		current_type = "install"
 
-		if(target_zone != "chest")
+		if(target_zone != BODY_ZONE_CHEST)
 			to_chat(user, "<span class='notice'> You must target the chest cavity.</span>")
 
 			return -1
@@ -354,7 +392,7 @@
 			to_chat(user, "<span class='danger'>You have no idea what species this person is. Report this on the bug tracker.</span>")
 			return -1
 
-		if(!target.dna.species.has_organ["brain"])
+		if(!target.dna.species.has_organ[INTERNAL_ORGAN_BRAIN])
 			to_chat(user, "<span class='danger'>You're pretty sure [target.dna.species.name_plural] don't normally have a brain.</span>")
 			return -1
 
@@ -374,7 +412,7 @@
 			to_chat(user, "<span class='notice'>There is no removeable organs in [target]'s [parse_zone(target_zone)]!</span>")
 			return -1
 		else
-			for(var/obj/item/organ/internal/O in organs)
+			for(var/obj/item/organ/internal/O as anything in organs)
 				O.on_find(user)
 				organs -= O
 				organs[O.name] = O
@@ -397,10 +435,10 @@
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 		var/found_damaged_organ = FALSE
-		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I && I.damage && I.is_robotic())
-				user.visible_message("[user] starts mending the damage to [target]'s [I.name]'s mechanisms.", \
-				"You start mending the damage to [target]'s [I.name]'s mechanisms.")
+		for(var/obj/item/organ/internal/organ as anything in affected.internal_organs)
+			if(organ.damage && organ.is_robotic())
+				user.visible_message("[user] starts mending the damage to [target]'s [organ.name]'s mechanisms.", \
+				"You start mending the damage to [target]'s [organ.name]'s mechanisms.")
 				found_damaged_organ = TRUE
 
 		if(!found_damaged_organ)
@@ -422,13 +460,12 @@
 
 		if(!hasorgans(target))
 			return
-		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I && I.damage)
-				if(I.is_robotic())
-					user.visible_message("<span class='notice'> [user] repairs [target]'s [I.name] with [tool].</span>", \
+		for(var/obj/item/organ/internal/organ as anything in affected.internal_organs)
+			if(organ.damage && organ.is_robotic())
+				user.visible_message("<span class='notice'> [user] repairs [target]'s [I.name] with [tool].</span>", \
 					"<span class='notice'> You repair [target]'s [I.name] with [tool].</span>" )
-					I.damage = 0
-					I.surgeryize()
+				organ.damage = 0
+				organ.surgeryize()
 	else if(current_type == "insert")
 		var/obj/item/organ/internal/I = tool
 
@@ -488,9 +525,8 @@
 		target.adjustToxLoss(5)
 		affected.receive_damage(5)
 
-		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I)
-				I.receive_damage(rand(3,5),0)
+		for(var/obj/item/organ/internal/organ as anything in affected.internal_organs)
+			organ.receive_damage(rand(3,5),0)
 
 	else if(current_type == "insert")
 		user.visible_message("<span class='warning'> [user]'s hand slips, disconnecting \the [tool].</span>", \
@@ -550,7 +586,21 @@
 /datum/surgery/cybernetic_customization
 	name = "Cybernetic Appearance Customization"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch, /datum/surgery_step/robotics/external/customize_appearance)
-	possible_locs = list("head", "chest", "l_arm", "l_hand", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "groin", "tail", "wing")
+	possible_locs = list(
+		BODY_ZONE_HEAD,
+		BODY_ZONE_CHEST,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_PRECISE_L_HAND,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_PRECISE_R_HAND,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_PRECISE_R_FOOT,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_PRECISE_L_FOOT,
+		BODY_ZONE_PRECISE_GROIN,
+		BODY_ZONE_TAIL,
+		BODY_ZONE_WING,
+	)
 	requires_organic_bodypart = FALSE
 
 /datum/surgery/cybernetic_customization/can_start(mob/user, mob/living/carbon/human/target)
@@ -558,7 +608,7 @@
 		var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 		if(!affected)
 			return FALSE
-		if(!(affected.status & ORGAN_ROBOT))
+		if(!affected.is_robotic())
 			return FALSE
 		return TRUE
 
@@ -585,7 +635,7 @@
 	if(!chosen_appearance)
 		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	affected.robotize(chosen_appearance, convert_all = FALSE)
+	affected.robotize(company = chosen_appearance, convert_all = FALSE)
 	if(istype(affected, /obj/item/organ/external/head))
 		var/obj/item/organ/external/head/head = affected
 		head.h_style = "Bald" // nearly all the appearance changes for heads are non-monitors; we want to get rid of a floating screen

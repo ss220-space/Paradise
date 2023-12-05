@@ -57,18 +57,18 @@
 		return
 
 	switch(trophie_type)
-		if("hearts")
-			return bestia.trophies["hearts"]
-		if("lungs")
-			return bestia.trophies["lungs"]
-		if("livers")
-			return bestia.trophies["livers"]
-		if("kidneys")
-			return bestia.trophies["kidneys"]
-		if("eyes")
-			return bestia.trophies["eyes"]
-		if("ears")
-			return bestia.trophies["ears"]
+		if(INTERNAL_ORGAN_HEART)
+			return bestia.trophies[INTERNAL_ORGAN_HEART]
+		if(INTERNAL_ORGAN_LUNGS)
+			return bestia.trophies[INTERNAL_ORGAN_LUNGS]
+		if(INTERNAL_ORGAN_LIVER)
+			return bestia.trophies[INTERNAL_ORGAN_LIVER]
+		if(INTERNAL_ORGAN_KIDNEYS)
+			return bestia.trophies[INTERNAL_ORGAN_KIDNEYS]
+		if(INTERNAL_ORGAN_EYES)
+			return bestia.trophies[INTERNAL_ORGAN_KIDNEYS]
+		if(INTERNAL_ORGAN_EARS)
+			return bestia.trophies[INTERNAL_ORGAN_EARS]
 		else
 			stack_trace("Invalid trophie type!")
 
@@ -86,67 +86,67 @@
 	var/new_trophies
 	var/new_amount
 	switch(trophie_type)
-		if("hearts")
-			prev_trophies = bestia.trophies["hearts"]
+		if(INTERNAL_ORGAN_HEART)
+			prev_trophies = bestia.trophies[INTERNAL_ORGAN_HEART]
 			new_amount = prev_trophies + amount
 			new_trophies = clamp(new_amount, 0, MAX_TROPHIES_PER_TYPE_CRITICAL)
-			bestia.trophies["hearts"] = new_trophies
+			bestia.trophies[INTERNAL_ORGAN_HEART] = new_trophies
 
-			damage_modifiers["brute"] = CEILING((new_trophies * (TROPHIES_CAP_PROT_BRUTE / MAX_TROPHIES_PER_TYPE_CRITICAL)), 1) / 100
-			damage_modifiers["burn"] = CEILING((new_trophies * (TROPHIES_CAP_PROT_BURN / MAX_TROPHIES_PER_TYPE_CRITICAL)), 1) / 100
+			damage_modifiers[BRUTE] = CEILING((new_trophies * (TROPHIES_CAP_PROT_BRUTE / MAX_TROPHIES_PER_TYPE_CRITICAL)), 1) / 100
+			damage_modifiers[BURN] = CEILING((new_trophies * (TROPHIES_CAP_PROT_BURN / MAX_TROPHIES_PER_TYPE_CRITICAL)), 1) / 100
 
 			if((prev_trophies == 0 && new_amount < 0) || (prev_trophies == MAX_TROPHIES_PER_TYPE_CRITICAL && new_amount > MAX_TROPHIES_PER_TYPE_CRITICAL))
 				update_spells = FALSE
 
-		if("lungs")
-			prev_trophies = bestia.trophies["lungs"]
+		if(INTERNAL_ORGAN_LUNGS)
+			prev_trophies = bestia.trophies[INTERNAL_ORGAN_LUNGS]
 			new_amount = prev_trophies + amount
 			new_trophies = clamp(new_amount, 0, MAX_TROPHIES_PER_TYPE_CRITICAL)
-			bestia.trophies["lungs"] = new_trophies
+			bestia.trophies[INTERNAL_ORGAN_LUNGS] = new_trophies
 
-			damage_modifiers["oxy"] = CEILING((new_trophies * (TROPHIES_CAP_PROT_OXY / MAX_TROPHIES_PER_TYPE_CRITICAL)), 1) / 100
-			damage_modifiers["stamina"] = CEILING((new_trophies * (TROPHIES_CAP_PROT_STAMINA / MAX_TROPHIES_PER_TYPE_CRITICAL)), 1) / 100
+			damage_modifiers[OXY] = CEILING((new_trophies * (TROPHIES_CAP_PROT_OXY / MAX_TROPHIES_PER_TYPE_CRITICAL)), 1) / 100
+			damage_modifiers[STAMINA] = CEILING((new_trophies * (TROPHIES_CAP_PROT_STAMINA / MAX_TROPHIES_PER_TYPE_CRITICAL)), 1) / 100
 
 			if((prev_trophies == 0 && new_amount < 0) || (prev_trophies == MAX_TROPHIES_PER_TYPE_CRITICAL && new_amount > MAX_TROPHIES_PER_TYPE_CRITICAL))
 				update_spells = FALSE
 
-		if("livers")
-			prev_trophies = bestia.trophies["livers"]
+		if(INTERNAL_ORGAN_LIVER)
+			prev_trophies = bestia.trophies[INTERNAL_ORGAN_LIVER]
 			new_amount = prev_trophies + amount
 			new_trophies = clamp(new_amount, 0, MAX_TROPHIES_PER_TYPE_GENERAL)
-			bestia.trophies["livers"] = new_trophies
+			bestia.trophies[INTERNAL_ORGAN_LIVER] = new_trophies
 
-			damage_modifiers["tox"] = (new_trophies * (TROPHIES_CAP_PROT_TOX / MAX_TROPHIES_PER_TYPE_GENERAL)) / 100
+			damage_modifiers[TOX] = (new_trophies * (TROPHIES_CAP_PROT_TOX / MAX_TROPHIES_PER_TYPE_GENERAL)) / 100
 
 			if((prev_trophies == 0 && new_amount < 0) || (prev_trophies == MAX_TROPHIES_PER_TYPE_GENERAL && new_amount > MAX_TROPHIES_PER_TYPE_GENERAL))
 				update_spells = FALSE
 
-		if("kidneys")
-			prev_trophies = bestia.trophies["kidneys"]
+		if(INTERNAL_ORGAN_KIDNEYS)
+			prev_trophies = bestia.trophies[INTERNAL_ORGAN_KIDNEYS]
 			new_amount = prev_trophies + amount
 			new_trophies = clamp(new_amount, 0, MAX_TROPHIES_PER_TYPE_GENERAL)
-			bestia.trophies["kidneys"] = new_trophies
+			bestia.trophies[INTERNAL_ORGAN_KIDNEYS] = new_trophies
 
-			damage_modifiers["clone"] = (new_trophies * (TROPHIES_CAP_PROT_CLONE / MAX_TROPHIES_PER_TYPE_GENERAL)) / 100
-			damage_modifiers["brain"] = (new_trophies * (TROPHIES_CAP_PROT_BRAIN / MAX_TROPHIES_PER_TYPE_GENERAL)) / 100
+			damage_modifiers[CLONE] = (new_trophies * (TROPHIES_CAP_PROT_CLONE / MAX_TROPHIES_PER_TYPE_GENERAL)) / 100
+			damage_modifiers[BRAIN] = (new_trophies * (TROPHIES_CAP_PROT_BRAIN / MAX_TROPHIES_PER_TYPE_GENERAL)) / 100
 
 			suck_rate = clamp(BESTIA_SUCK_RATE - (new_trophies * TROPHIES_SUCK_BONUS), 0.1 SECONDS, BESTIA_SUCK_RATE)
 
 			if((prev_trophies == 0 && new_amount < 0) || (prev_trophies == MAX_TROPHIES_PER_TYPE_GENERAL && new_amount > MAX_TROPHIES_PER_TYPE_GENERAL))
 				update_spells = FALSE
 
-		if("eyes")
-			prev_trophies = bestia.trophies["eyes"]
+		if(INTERNAL_ORGAN_EYES)
+			prev_trophies = bestia.trophies[INTERNAL_ORGAN_EYES]
 			new_amount = prev_trophies + amount
-			bestia.trophies["eyes"] = clamp(new_amount, 0, MAX_TROPHIES_PER_TYPE_GENERAL)
+			bestia.trophies[INTERNAL_ORGAN_EYES] = clamp(new_amount, 0, MAX_TROPHIES_PER_TYPE_GENERAL)
 
 			if((prev_trophies == 0 && new_amount < 0) || (prev_trophies == MAX_TROPHIES_PER_TYPE_GENERAL && new_amount > MAX_TROPHIES_PER_TYPE_GENERAL))
 				update_spells = FALSE
 
-		if("ears")
-			prev_trophies = bestia.trophies["ears"]
+		if(INTERNAL_ORGAN_EARS)
+			prev_trophies = bestia.trophies[INTERNAL_ORGAN_EARS]
 			new_amount = prev_trophies + amount
-			bestia.trophies["ears"] = clamp(new_amount, 0, MAX_TROPHIES_PER_TYPE_GENERAL)
+			bestia.trophies[INTERNAL_ORGAN_EARS] = clamp(new_amount, 0, MAX_TROPHIES_PER_TYPE_GENERAL)
 
 			if((prev_trophies == 0 && new_amount < 0) || (prev_trophies == MAX_TROPHIES_PER_TYPE_GENERAL && new_amount > MAX_TROPHIES_PER_TYPE_GENERAL))
 				update_spells = FALSE
@@ -165,7 +165,7 @@
 
 
 /obj/effect/proc_holder/spell/vampire/proc/do_blood_discount(datum/antagonist/vampire/vampire)
-	var/livers_amount = vampire.get_trophies("livers")
+	var/livers_amount = vampire.get_trophies(INTERNAL_ORGAN_LIVER)
 	var/blood_cost_init = initial(required_blood)
 	var/blood_adjust = livers_amount * (TROPHIES_CAP_BLOOD_REDUCE / MAX_TROPHIES_PER_TYPE_GENERAL)
 	required_blood = blood_cost_init - blood_adjust
@@ -198,8 +198,8 @@
  * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\/////////////////////////////////////////////////////////////////////// *
 \*======================================================================================================================================*/
 /datum/antagonist/vampire/proc/check_trophies_passives()
-	var/t_ears = get_trophies("ears")
-	var/t_eyes = get_trophies("eyes")
+	var/t_ears = get_trophies(INTERNAL_ORGAN_EARS)
+	var/t_eyes = get_trophies(INTERNAL_ORGAN_EYES)
 
 	if(t_ears >= TROPHIES_EARS_BANG_PROT)
 		add_ability(/datum/vampire_passive/ears_bang_protection)
@@ -262,6 +262,14 @@
 	required_blood = 10
 	deduct_blood_on_cast = FALSE
 	var/is_dissecting = FALSE
+	var/static/list/vampire_dissect_organs = list(
+		INTERNAL_ORGAN_HEART,
+		INTERNAL_ORGAN_LUNGS,
+		INTERNAL_ORGAN_LIVER,
+		INTERNAL_ORGAN_KIDNEYS,
+		INTERNAL_ORGAN_EYES,
+		INTERNAL_ORGAN_EARS,
+	)
 
 
 /obj/effect/proc_holder/spell/vampire/self/dissect/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
@@ -309,30 +317,20 @@
 	return TRUE
 
 
-GLOBAL_LIST_INIT(vampire_dissect_organs, list(
-	/obj/item/organ/internal/heart,
-	/obj/item/organ/internal/lungs,
-	/obj/item/organ/internal/liver,
-	/obj/item/organ/internal/kidneys,
-	/obj/item/organ/internal/eyes,
-	/obj/item/organ/internal/ears
-))
-
-
 /obj/effect/proc_holder/spell/vampire/self/dissect/cast(list/targets, mob/user = usr)
 	var/obj/item/grab/grab = user.get_active_hand()
 	var/mob/living/carbon/human/target = grab.affecting
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
-	var/t_hearts = vampire.get_trophies("hearts")
-	var/t_lungs = vampire.get_trophies("lungs")
-	var/t_livers = vampire.get_trophies("livers")
-	var/t_kidneys = vampire.get_trophies("kidneys")
-	var/t_eyes = vampire.get_trophies("eyes")
-	var/t_ears = vampire.get_trophies("ears")
+	var/t_hearts = vampire.get_trophies(INTERNAL_ORGAN_HEART)
+	var/t_lungs = vampire.get_trophies(INTERNAL_ORGAN_LUNGS)
+	var/t_livers = vampire.get_trophies(INTERNAL_ORGAN_LIVER)
+	var/t_kidneys = vampire.get_trophies(INTERNAL_ORGAN_KIDNEYS)
+	var/t_eyes = vampire.get_trophies(INTERNAL_ORGAN_EYES)
+	var/t_ears = vampire.get_trophies(INTERNAL_ORGAN_EARS)
 	var/list/all_organs = list()
 
-	for(var/obj/item/organ/internal/organ in target.internal_organs)
-		if(!is_type_in_list(organ, GLOB.vampire_dissect_organs) || (organ.status & ORGAN_ROBOT))
+	for(var/obj/item/organ/internal/organ as anything in target.internal_organs)
+		if(!(organ.slot in vampire_dissect_organs) || organ.is_robotic())
 			continue
 		if(istype(organ, /obj/item/organ/internal/heart) && \
 			(t_hearts >= vampire.subclass.crit_organ_cap || t_hearts >= MAX_TROPHIES_PER_TYPE_CRITICAL))
@@ -349,15 +347,15 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 		if(istype(organ, /obj/item/organ/internal/ears) && t_ears >= MAX_TROPHIES_PER_TYPE_GENERAL)
 			continue
 
-		all_organs |= organ
+		all_organs += organ
 
 	if(!length(all_organs))
 		to_chat(user, span_warning("[target] has no compatible organs to dissect!"))
 		return
 
-	for(var/obj/item/organ/internal/organ in all_organs)
+	for(var/obj/item/organ/internal/organ as anything in all_organs)
 		all_organs -= organ
-		all_organs[organ.name] = organ
+		all_organs[organ.slot] = organ
 
 	var/obj/item/organ/internal/organ_to_dissect = input("Select organ to dissect:", "Organ dissection", null, null) as null|anything in all_organs
 	if(!organ_to_dissect || !special_check(user, TRUE))
@@ -405,7 +403,8 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 	var/obj/item/thing = organ_to_dissect.remove(target)
 	qdel(thing)
 	target.vomit(50, TRUE, FALSE)
-	target.emote("scream")
+	if(target.has_pain())
+		target.emote("scream")
 
 	var/unique_dissect_id = target.UID()
 	if(!(unique_dissect_id in vampire.dissected_humans))
@@ -414,33 +413,33 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 
 	var/msg
 	switch(organ_to_dissect.slot)
-		if("heart")
-			vampire.adjust_trophies("hearts", 1)
-			if(vampire.get_trophies("hearts") >= MAX_TROPHIES_PER_TYPE_CRITICAL)
+		if(INTERNAL_ORGAN_HEART)
+			vampire.adjust_trophies(INTERNAL_ORGAN_HEART, 1)
+			if(vampire.get_trophies(INTERNAL_ORGAN_HEART) >= MAX_TROPHIES_PER_TYPE_CRITICAL)
 				msg = "hearts"
-			else if(vampire.get_trophies("hearts") >= vampire.subclass.crit_organ_cap)
+			else if(vampire.get_trophies(INTERNAL_ORGAN_HEART) >= vampire.subclass.crit_organ_cap)
 				to_chat(user, span_warning("We reached our limit to dissect critical organs of type <b>hearts</b>!"))
-		if("lungs")
-			vampire.adjust_trophies("lungs", 1)
-			if(vampire.get_trophies("lungs") >= MAX_TROPHIES_PER_TYPE_CRITICAL)
+		if(INTERNAL_ORGAN_LUNGS)
+			vampire.adjust_trophies(INTERNAL_ORGAN_LUNGS, 1)
+			if(vampire.get_trophies(INTERNAL_ORGAN_LUNGS) >= MAX_TROPHIES_PER_TYPE_CRITICAL)
 				msg = "lungs"
-			else if(vampire.get_trophies("lungs") >= vampire.subclass.crit_organ_cap)
+			else if(vampire.get_trophies(INTERNAL_ORGAN_LUNGS) >= vampire.subclass.crit_organ_cap)
 				to_chat(user, span_warning("We reached our limit to dissect critical organs of type <b>lungs</b>!"))
-		if("liver")
-			vampire.adjust_trophies("livers", 1)
-			if(vampire.get_trophies("livers") >= MAX_TROPHIES_PER_TYPE_GENERAL)
+		if(INTERNAL_ORGAN_LIVER)
+			vampire.adjust_trophies(INTERNAL_ORGAN_LIVER, 1)
+			if(vampire.get_trophies(INTERNAL_ORGAN_LIVER) >= MAX_TROPHIES_PER_TYPE_GENERAL)
 				msg = "livers"
-		if("kidneys")
-			vampire.adjust_trophies("kidneys", 1)
-			if(vampire.get_trophies("kidneys") >= MAX_TROPHIES_PER_TYPE_GENERAL)
+		if(INTERNAL_ORGAN_KIDNEYS)
+			vampire.adjust_trophies(INTERNAL_ORGAN_KIDNEYS, 1)
+			if(vampire.get_trophies(INTERNAL_ORGAN_KIDNEYS) >= MAX_TROPHIES_PER_TYPE_GENERAL)
 				msg = "kidneys"
-		if("eyes")
-			vampire.adjust_trophies("eyes", 1)
-			if(vampire.get_trophies("eyes") >= MAX_TROPHIES_PER_TYPE_GENERAL)
+		if(INTERNAL_ORGAN_EYES)
+			vampire.adjust_trophies(INTERNAL_ORGAN_EYES, 1)
+			if(vampire.get_trophies(INTERNAL_ORGAN_EYES) >= MAX_TROPHIES_PER_TYPE_GENERAL)
 				msg = "eyes"
-		if("ears")
-			vampire.adjust_trophies("ears", 1)
-			if(vampire.get_trophies("ears") >= MAX_TROPHIES_PER_TYPE_GENERAL)
+		if(INTERNAL_ORGAN_EARS)
+			vampire.adjust_trophies(INTERNAL_ORGAN_EARS, 1)
+			if(vampire.get_trophies(INTERNAL_ORGAN_EARS) >= MAX_TROPHIES_PER_TYPE_GENERAL)
 				msg = "ears"
 
 	if(msg)
@@ -515,12 +514,12 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 	data["trophies_xray"] = TROPHIES_EYES_XRAY
 	data["trophies_bang"] = TROPHIES_EARS_BANG_PROT
 
-	data["hearts"] = vampire.get_trophies("hearts")
-	data["lungs"] = vampire.get_trophies("lungs")
-	data["livers"] = vampire.get_trophies("livers")
-	data["kidneys"] = vampire.get_trophies("kidneys")
-	data["eyes"] = vampire.get_trophies("eyes")
-	data["ears"] = vampire.get_trophies("ears")
+	data["hearts"] = vampire.get_trophies(INTERNAL_ORGAN_HEART)
+	data["lungs"] = vampire.get_trophies(INTERNAL_ORGAN_LUNGS)
+	data["livers"] = vampire.get_trophies(INTERNAL_ORGAN_LIVER)
+	data["kidneys"] = vampire.get_trophies(INTERNAL_ORGAN_KIDNEYS)
+	data["eyes"] = vampire.get_trophies(INTERNAL_ORGAN_EYES)
+	data["ears"] = vampire.get_trophies(INTERNAL_ORGAN_EARS)
 
 	data["suck_rate"] = vampire.suck_rate / 10
 	data["full_power"] = vampire.get_ability(/datum/vampire_passive/full)
@@ -562,7 +561,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 
 
 /obj/effect/proc_holder/spell/vampire/self/infected_trophy/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force = FALSE)
-	if(trophie_type == "livers" || force)
+	if(trophie_type == INTERNAL_ORGAN_LIVER || force)
 		do_blood_discount(vampire)
 
 
@@ -647,7 +646,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 		var/datum/antagonist/vampire/vampire = firer.mind?.has_antag_datum(/datum/antagonist/vampire)
 		var/obj/effect/proc_holder/spell/vampire/self/infected_trophy/infected_trophy = locate() in firer.mind?.spell_list
 		if(vampire && infected_trophy)
-			range += vampire.get_trophies("eyes") 	// 15 MAX
+			range += vampire.get_trophies(INTERNAL_ORGAN_EYES) 	// 15 MAX
 			var/datum/spell_handler/vampire/handler = infected_trophy.custom_handler
 			var/blood_cost = handler.calculate_blood_cost(vampire)
 			vampire.bloodusable -= blood_cost
@@ -661,10 +660,10 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 	if(!vampire || QDELETED(vampire.subclass))
 		return
 
-	var/t_hearts = vampire.get_trophies("hearts")
+	var/t_hearts = vampire.get_trophies(INTERNAL_ORGAN_HEART)
 	var/applied_damage = t_hearts * 5	// 30 MAX
 	var/stun_amt = (t_hearts / 2) SECONDS	// 3s. MAX
-	var/effect_aoe = round(vampire.get_trophies("ears") / 4)	// 2 MAX
+	var/effect_aoe = round(vampire.get_trophies(INTERNAL_ORGAN_EARS) / 4)	// 2 MAX
 
 	for(var/mob/living/victim in view(effect_aoe, get_turf(target)))
 		if(victim.loc == firer)	// yeah apparently mobs can see what is inside them
@@ -682,7 +681,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 			var/mob/living/carbon/c_victim = victim
 			c_victim.vomit(50, TRUE, FALSE)
 
-		if(prob(10 + vampire.get_trophies("livers") * 3))
+		if(prob(10 + vampire.get_trophies(INTERNAL_ORGAN_LIVER) * 3))
 			new /obj/effect/temp_visual/cult/sparks(get_turf(victim))
 			var/datum/disease/vampire/D = new
 			D.Contract(victim)	// grave fever
@@ -800,13 +799,13 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 		return
 
 	var/blood_gained = 0
-	var/t_hearts = vampire.get_trophies("hearts")
-	var/t_kidneys = vampire.get_trophies("kidneys")
+	var/t_hearts = vampire.get_trophies(INTERNAL_ORGAN_HEART)
+	var/t_kidneys = vampire.get_trophies(INTERNAL_ORGAN_KIDNEYS)
 	var/confusion_amt = (t_kidneys * 2) SECONDS		// 20s. MAX
 	var/weaken_amt = 1 + (t_hearts / 2) SECONDS		// 4s. MAX
 	var/blood_vamp_get = t_kidneys					// +10 vampire blood MAX
 	var/actual_blood_loss = blood_victim_lose ? blood_victim_lose : t_kidneys * 10	// 100 bloodlose MAX
-	var/actual_aoe = effect_aoe ? effect_aoe : 1 + round(vampire.get_trophies("ears") / 5)	// 3 MAX
+	var/actual_aoe = effect_aoe ? effect_aoe : 1 + round(vampire.get_trophies(INTERNAL_ORGAN_EARS) / 5)	// 3 MAX
 
 	for(var/mob/living/victim in view(actual_aoe, get_turf(user)))
 		if(victim.loc == user)	// yeah apparently mobs can see what is inside them
@@ -852,13 +851,13 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 
 
 /obj/effect/proc_holder/spell/vampire/lunge/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force = FALSE)
-	if(trophie_type == "lungs" || force)
-		var/lungs_amount = vampire.get_trophies("lungs")
+	if(trophie_type == INTERNAL_ORGAN_LUNGS || force)
+		var/lungs_amount = vampire.get_trophies(INTERNAL_ORGAN_LUNGS)
 		bonus_range = lungs_amount	// +6 MAX
 		QDEL_NULL(targeting)
 		targeting = create_new_targeting()
 
-	if(trophie_type == "livers" || force)
+	if(trophie_type == INTERNAL_ORGAN_LIVER || force)
 		do_blood_discount(vampire)
 
 
@@ -895,19 +894,19 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 /obj/effect/proc_holder/spell/vampire/mark/cast(list/targets, mob/living/user = usr)
 	var/mob/living/target = targets[1]
 	var/datum/antagonist/vampire/vampire = user.mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(!vampire?.subclass)
+	if(!vampire || !vampire.subclass)
 		return
 	target.apply_status_effect(STATUS_EFFECT_MARK_PREY, vampire)
 
 
 /obj/effect/proc_holder/spell/vampire/mark/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force = FALSE)
-	if(trophie_type == "eyes" || force)
-		var/eyes_amount = vampire.get_trophies("eyes")
+	if(trophie_type == INTERNAL_ORGAN_EYES || force)
+		var/eyes_amount = vampire.get_trophies(INTERNAL_ORGAN_EYES)
 		range = initial(range) + round(eyes_amount / 2)	// 8 MAX
 		QDEL_NULL(targeting)
 		targeting = create_new_targeting()
 
-	if(trophie_type == "livers" || force)
+	if(trophie_type == INTERNAL_ORGAN_LIVER || force)
 		do_blood_discount(vampire)
 
 
@@ -987,13 +986,13 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 /obj/effect/proc_holder/spell/vampire/metamorphosis/proc/meta_transform(mob/living/carbon/human/user)
 	var/list/restraints = list()
 	if(user.handcuffed)
-		restraints |= user.handcuffed
+		restraints += user.handcuffed
 	if(user.legcuffed)
-		restraints |= user.legcuffed
+		restraints += user.legcuffed
 	if(user.wear_suit?.breakouttime)
-		restraints |= user.wear_suit
+		restraints += user.wear_suit
 
-	for(var/obj/item/thing in restraints)
+	for(var/obj/item/thing as anything in restraints)
 		user.drop_item_ground(thing, force = TRUE)
 
 	if(free_transform_back)
@@ -1090,7 +1089,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 
 
 /obj/effect/proc_holder/spell/vampire/metamorphosis/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force = FALSE)
-	if(trophie_type == "livers" || force)
+	if(trophie_type == INTERNAL_ORGAN_LIVER || force)
 		do_blood_discount(vampire)
 
 
@@ -1152,9 +1151,9 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 						span_italics("You hear a painfully loud screech!"))
 
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
-	var/t_hearts = vampire.get_trophies("hearts")
-	var/t_ears = vampire.get_trophies("eyes")
-	var/t_kidneys = vampire.get_trophies("kidneys")
+	var/t_hearts = vampire.get_trophies(INTERNAL_ORGAN_HEART)
+	var/t_ears = vampire.get_trophies(INTERNAL_ORGAN_EYES)
+	var/t_kidneys = vampire.get_trophies(INTERNAL_ORGAN_KIDNEYS)
 	var/confusion_amt = (t_kidneys) SECONDS	// 10s. MAX
 	var/weaken_amt = (t_hearts / 3) SECONDS	// 2s. MAX
 	var/brain_dmg = t_ears * 3				// 30 MAX
@@ -1183,18 +1182,19 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 			victim.Deaf(40 SECONDS)
 			victim.Jitter(40 SECONDS)
 
-	for(var/obj/object in view(effect_aoe, user))
+	for(var/object in view(effect_aoe, user))
 		if(istype(object, /obj/machinery/light))
 			var/obj/machinery/light/lamp = object
 			lamp.on = TRUE
 			lamp.break_light_tube()
 
 		if(istype(object, /obj/structure/window))
-			object.take_damage(rand(80, 100))
+			var/obj/structure/window/window = object
+			window.take_damage(rand(80, 100))
 
 
 /obj/effect/proc_holder/spell/vampire/self/bat_screech/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force = FALSE)
-	if(trophie_type == "livers" || force)
+	if(trophie_type == INTERNAL_ORGAN_LIVER || force)
 		do_blood_discount(vampire)
 
 
@@ -1239,13 +1239,13 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 	lunge = new(null)
 	QDEL_NULL(lunge.custom_handler)
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
-	lunge.effect_aoe = round(vampire.get_trophies("ears") / 5)		// less AOE range
-	lunge.blood_victim_lose = vampire.get_trophies("kidneys") * 5	// 50 MAX half as bad as original
-	lunge.bonus_range = round(vampire.get_trophies("lungs") / 2)	// 8 MAX
+	lunge.effect_aoe = round(vampire.get_trophies(INTERNAL_ORGAN_EARS) / 5)		// less AOE range
+	lunge.blood_victim_lose = vampire.get_trophies(INTERNAL_ORGAN_KIDNEYS) * 5	// 50 MAX half as bad as original
+	lunge.bonus_range = round(vampire.get_trophies(INTERNAL_ORGAN_LUNGS) / 2)	// 8 MAX
 	lunge.create_new_targeting()
 
-	var/all_trophies = vampire.get_trophies("hearts") + vampire.get_trophies("lungs") + vampire.get_trophies("livers") + \
-						vampire.get_trophies("kidneys") + vampire.get_trophies("eyes") + vampire.get_trophies("ears")
+	var/all_trophies = vampire.get_trophies(INTERNAL_ORGAN_HEART) + vampire.get_trophies(INTERNAL_ORGAN_LUNGS) + vampire.get_trophies(INTERNAL_ORGAN_LIVER) + \
+						vampire.get_trophies(INTERNAL_ORGAN_KIDNEYS) + vampire.get_trophies(INTERNAL_ORGAN_EYES) + vampire.get_trophies(INTERNAL_ORGAN_EARS)
 
 	lunge_counter += round(all_trophies / 10)	// 6 lunges MAX
 
@@ -1277,11 +1277,11 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 			continue
 
 		if(is_path_exist(user, victim))
-			targets |= victim
+			targets += victim
 
 	if(length(targets))
 		targets = shuffle(targets)
-		for(var/mob/living/victim in targets)
+		for(var/mob/living/victim as anything in targets)
 			if((victim.UID() in same_targets) && length(targets) == 1)
 				INVOKE_ASYNC(lunge, PROC_REF(cast), list(victim), user)
 				break
@@ -1290,7 +1290,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 				targets -= victim
 				continue
 
-			same_targets |= victim.UID()
+			same_targets += victim.UID()
 			targets -= victim
 			INVOKE_ASYNC(lunge, PROC_REF(cast), list(victim), user)
 			break
@@ -1299,7 +1299,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 
 
 /obj/effect/proc_holder/spell/vampire/self/lunge_finale/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force = FALSE)
-	if(trophie_type == "livers" || force)
+	if(trophie_type == INTERNAL_ORGAN_LIVER || force)
 		do_blood_discount(vampire)
 
 
@@ -1422,7 +1422,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 
 
 /obj/effect/proc_holder/spell/vampire/self/anabiosis/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force = FALSE)
-	if(trophie_type == "livers" || force)
+	if(trophie_type == INTERNAL_ORGAN_LIVER || force)
 		do_blood_discount(vampire)
 
 
@@ -1507,18 +1507,18 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 
 
 /obj/structure/closet/coffin/vampire/proc/update_trophies(datum/antagonist/vampire/vampire)
-	heal_brute += vampire.get_trophies("hearts")						// 150 MAX
-	heal_burn += vampire.get_trophies("hearts")							// 150 MAX
-	heal_tox += vampire.get_trophies("livers")							// 210 MAX
-	heal_oxy += vampire.get_trophies("lungs") * 2						// 300 MAX
-	heal_clone += round(vampire.get_trophies("kidneys") / 2)			// 105 MAX
-	heal_blood += vampire.get_trophies("kidneys") * 2					// 480 MAX
-	heal_organs += round(vampire.get_trophies("kidneys") / 5)			// 45 MAX
+	heal_brute += vampire.get_trophies(INTERNAL_ORGAN_HEART)						// 150 MAX
+	heal_burn += vampire.get_trophies(INTERNAL_ORGAN_HEART)							// 150 MAX
+	heal_tox += vampire.get_trophies(INTERNAL_ORGAN_LIVER)							// 210 MAX
+	heal_oxy += vampire.get_trophies(INTERNAL_ORGAN_LUNGS) * 2						// 300 MAX
+	heal_clone += round(vampire.get_trophies(INTERNAL_ORGAN_KIDNEYS) / 2)			// 105 MAX
+	heal_blood += vampire.get_trophies(INTERNAL_ORGAN_KIDNEYS) * 2					// 480 MAX
+	heal_organs += round(vampire.get_trophies(INTERNAL_ORGAN_KIDNEYS) / 5)			// 45 MAX
 
-	amount_reagents_cleansed += vampire.get_trophies("livers")			// 15 MAX
-	chance_mend_fracture += vampire.get_trophies("hearts") * 4			// 24% MAX
-	chance_stop_internal_bleeding += vampire.get_trophies("hearts") * 4	// 24% MAX
-	chance_regrow_limb += vampire.get_trophies("lungs") * 2				// 12% MAX
+	amount_reagents_cleansed += vampire.get_trophies(INTERNAL_ORGAN_LIVER)			// 15 MAX
+	chance_mend_fracture += vampire.get_trophies(INTERNAL_ORGAN_HEART) * 4			// 24% MAX
+	chance_stop_internal_bleeding += vampire.get_trophies(INTERNAL_ORGAN_HEART) * 4	// 24% MAX
+	chance_regrow_limb += vampire.get_trophies(INTERNAL_ORGAN_LUNGS) * 2			// 12% MAX
 
 	if(vampire.get_ability(/datum/vampire_passive/full))
 		fullpower_unlocked = TRUE
@@ -1594,15 +1594,15 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 	human_vampire.blood_volume = clamp(human_vampire.blood_volume + heal_blood, 0, BLOOD_VOLUME_NORMAL)
 
 	// internal organs
-	for(var/obj/item/organ/internal/organ in human_vampire.internal_organs)
+	for(var/obj/item/organ/internal/organ as anything in human_vampire.internal_organs)
 		organ.heal_internal_damage(heal_organs, TRUE)
 
 	// fractures
 	if(chance_mend_fracture)
-		for(var/obj/item/organ/external/body_part in human_vampire.bodyparts)
+		for(var/obj/item/organ/external/body_part as anything in human_vampire.bodyparts)
 			if(QDELETED(body_part))
 				continue
-			if(!(body_part.status & ORGAN_BROKEN))
+			if(!body_part.has_fracture())
 				continue
 			if(body_part.is_robotic())
 				continue
@@ -1612,13 +1612,13 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 
 	// internal bleedings
 	if(chance_stop_internal_bleeding)
-		for(var/obj/item/organ/external/body_part in human_vampire.bodyparts)
+		for(var/obj/item/organ/external/body_part as anything in human_vampire.bodyparts)
 			if(QDELETED(body_part))
 				continue
-			if(!body_part.internal_bleeding)
+			if(!body_part.has_internal_bleeding())
 				continue
 			if(prob(chance_stop_internal_bleeding))
-				body_part.internal_bleeding = FALSE
+				body_part.stop_internal_bleeding()
 				break
 
 	// regrowing limbs
@@ -1630,7 +1630,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 
 			var/list/specie_limbs = human_vampire.dna.species.has_limbs[index]
 			var/obj/item/organ/external/limb_path = specie_limbs["path"]
-			var/obj/item/organ/external/potential_parent = human_vampire.bodyparts_by_name[initial(limb_path.parent_organ)]
+			var/obj/item/organ/external/potential_parent = human_vampire.bodyparts_by_name[initial(limb_path.parent_organ_zone)]
 			if(!istype(potential_parent))
 				continue
 
@@ -1662,24 +1662,29 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 		human_vampire.ExtinguishMob()
 		human_vampire.fire_stacks = 0
 		human_vampire.uncuff()
+		human_vampire.remove_all_embedded_objects()
 
-		for(var/obj/item/organ/external/body_part in human_vampire.bodyparts)
+		for(var/obj/item/organ/external/body_part as anything in human_vampire.bodyparts)
 			if(QDELETED(body_part))
 				continue
 
 			if(body_part.is_robotic())
 				body_part.status = ORGAN_ROBOT
 			else
-				if(body_part.status & ORGAN_BROKEN)	// we have separate method to mend fractures
-					body_part.status = ORGAN_BROKEN
-				else
-					body_part.status = NONE
+				var/fractured = body_part.has_fracture()
+				var/bleeding = body_part.has_internal_bleeding()
+				body_part.status = NONE
+				if(fractured)	// we have separate method to mend fractures
+					body_part.status |= ORGAN_BROKEN
+				if(bleeding)	// and stop internal bleedings too
+					body_part.status |= ORGAN_INT_BLEED
+
 
 			body_part.germ_level = 0
 			body_part.open = FALSE
-			body_part.disfigured = FALSE
+			body_part.undisfigure()
 
-			for(var/obj/item/organ/internal/organ in body_part.internal_organs)
+			for(var/obj/item/organ/internal/organ as anything in body_part.internal_organs)
 				if(QDELETED(organ))
 					continue
 
@@ -1689,7 +1694,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 				else
 					organ.status = NONE
 
-		for(var/datum/disease/virus in human_vampire.diseases)
+		for(var/datum/disease/virus as anything in human_vampire.diseases)
 			if(virus.severity == NONTHREAT)
 				continue
 			virus.cure(need_immunity = FALSE)
@@ -1783,7 +1788,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 
 	var/user_UID = user.UID()
 	if(!(user_UID in lightheaded))
-		lightheaded |= user_UID
+		lightheaded += user_UID
 		to_chat(user, span_warning("You feel like this is not a good idea..."))
 	else
 		lightheaded -= user_UID
@@ -1841,8 +1846,8 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 /obj/effect/proc_holder/spell/vampire/self/bats_spawn/cast(list/targets, mob/living/user = usr)
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 
-	var/all_trophies = vampire.get_trophies("hearts") + vampire.get_trophies("lungs") + vampire.get_trophies("livers") + \
-						vampire.get_trophies("kidneys") + vampire.get_trophies("eyes") + vampire.get_trophies("ears")
+	var/all_trophies = vampire.get_trophies(INTERNAL_ORGAN_HEART) + vampire.get_trophies(INTERNAL_ORGAN_LUNGS) + vampire.get_trophies(INTERNAL_ORGAN_LIVER) + \
+						vampire.get_trophies(INTERNAL_ORGAN_KIDNEYS) + vampire.get_trophies(INTERNAL_ORGAN_EYES) + vampire.get_trophies(INTERNAL_ORGAN_EARS)
 	// 4 bats MAX
 	if(all_trophies <= 40)
 		num_bats += round(all_trophies / 20)
@@ -1875,7 +1880,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 
 
 /obj/effect/proc_holder/spell/vampire/self/bats_spawn/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force = FALSE)
-	if(trophie_type == "livers" || force)
+	if(trophie_type == INTERNAL_ORGAN_LIVER || force)
 		do_blood_discount(vampire)
 
 
@@ -1888,7 +1893,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 	name = "vampire animal"
 	real_name = "vampire animal"
 	desc = "Report me!"
-	faction = list("vampire")
+	faction = list(ROLE_VAMPIRE)
 	response_help = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm = "hits the"
@@ -2047,13 +2052,13 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 	if(!vampire)
 		return
 
-	var/t_hearts = vampire.get_trophies("hearts")
-	health += t_hearts * 20 						// 250 MAX
+	var/t_hearts = vampire.get_trophies(INTERNAL_ORGAN_HEART)
+	health += t_hearts * 20 									// 250 MAX
 	maxHealth += t_hearts * 20
-	melee_damage_lower += round(t_hearts / 2) 		// 13 MAX
-	melee_damage_upper += t_hearts					// 21 MAX
-	force_threshold += t_hearts * 2 				// 15 MAX
-	speed -= vampire.get_trophies("lungs") * 0.05	// 30% MAX
+	melee_damage_lower += round(t_hearts / 2) 					// 13 MAX
+	melee_damage_upper += t_hearts								// 21 MAX
+	force_threshold += t_hearts * 2 							// 15 MAX
+	speed -= vampire.get_trophies(INTERNAL_ORGAN_LUNGS) * 0.05	// 30% MAX
 
 
 /mob/living/simple_animal/hostile/vampire/bats/add_spells()
@@ -2070,21 +2075,21 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 
 	var/mob/living/l_target = target
 
-	if(l_target.affects_vampire(src) && prob(vampire.get_trophies("eyes") * 3))	// 30% chance MAX
+	if(l_target.affects_vampire(src) && prob(vampire.get_trophies(INTERNAL_ORGAN_EYES) * 3))	// 30% chance MAX
 		l_target.Stun(1 SECONDS)
 		l_target.visible_message(span_danger("[src] scares [l_target]!"))
 
 	if(!is_vampire_compatible(l_target, only_human = TRUE, blood_required = TRUE) || isvampire(l_target) || isvampirethrall(l_target))
 		return
 
-	var/t_kidneys = vampire.get_trophies("kidneys")
+	var/t_kidneys = vampire.get_trophies(INTERNAL_ORGAN_KIDNEYS)
 	if(t_kidneys)
 		var/mob/living/who = src
 		if(health >= maxHealth && human_vampire)
 			who = human_vampire
 		who.heal_ordered_damage(t_kidneys, list(BRUTE, BURN, TOX, OXY, CLONE))	// 10 life-leech on MAX
 
-	var/t_livers = vampire.get_trophies("livers")
+	var/t_livers = vampire.get_trophies(INTERNAL_ORGAN_LIVER)
 	if(t_livers && human_vampire && l_target.mind && l_target.ckey)
 		var/blood_amt = round(t_livers / 2)
 		vampire.adjust_blood(l_target, blood_amt)	// +5 vampire blood max
@@ -2128,13 +2133,13 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 	if(!vampire)
 		return
 
-	var/t_hearts = vampire.get_trophies("hearts")
-	health += t_hearts * 30							// 380 MAX
+	var/t_hearts = vampire.get_trophies(INTERNAL_ORGAN_HEART)
+	health += t_hearts * 30										// 380 MAX
 	maxHealth += t_hearts * 30
-	melee_damage_lower += t_hearts					// 25 MAX
-	melee_damage_upper += t_hearts					// 30 MAX
-	force_threshold += t_hearts * 3					// 28 MAX
-	speed -= vampire.get_trophies("lungs") * 0.05	// 30% MAX
+	melee_damage_lower += t_hearts								// 25 MAX
+	melee_damage_upper += t_hearts								// 30 MAX
+	force_threshold += t_hearts * 3								// 28 MAX
+	speed -= vampire.get_trophies(INTERNAL_ORGAN_LUNGS) * 0.05	// 30% MAX
 
 
 /mob/living/simple_animal/hostile/vampire/hound/Life(seconds, times_fired)
@@ -2147,7 +2152,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 		return
 
 	life_cycles_current = 0
-	var/blood_drain = 15 - vampire.get_trophies("livers")	// from -5 to -15 blood every 6s.
+	var/blood_drain = 15 - vampire.get_trophies(INTERNAL_ORGAN_LIVER)	// from -5 to -15 blood every 6s.
 	vampire.bloodusable = clamp(vampire.bloodusable - blood_drain, 0, vampire.bloodusable)
 
 	if(vampire.bloodusable <= 100 && !warning_done)
@@ -2166,7 +2171,7 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 
 	var/mob/living/l_target = target
 
-	if(l_target.affects_vampire(src) && prob(vampire.get_trophies("eyes") * 3))	// 30% chance MAX
+	if(l_target.affects_vampire(src) && prob(vampire.get_trophies(INTERNAL_ORGAN_EYES) * 3))	// 30% chance MAX
 		l_target.Stun(1 SECONDS)
 		l_target.visible_message(span_danger("[src] scares [l_target]!"))
 
@@ -2216,18 +2221,18 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 /mob/living/simple_animal/hostile/vampire/bats_summoned/Initialize(mapload, datum/antagonist/vampire/vamp, mob/living/carbon/human/h_vampire, obj/effect/proc_holder/spell/vampire/metamorphosis/meta_spell)
 	. = ..()
 
-	faction = list("vampire")
+	faction = list(ROLE_VAMPIRE)
 
 	if(!vampire)
 		return
 
-	var/t_hearts = vampire.get_trophies("hearts")
-	health += t_hearts * 10 						// 140 MAX
+	var/t_hearts = vampire.get_trophies(INTERNAL_ORGAN_HEART)
+	health += t_hearts * 10 									// 140 MAX
 	maxHealth += t_hearts * 10
-	melee_damage_lower += round(t_hearts / 2)		// 11 MAX
-	melee_damage_upper += t_hearts					// 16 MAX
-	force_threshold += t_hearts						// 9 MAX
-	speed -= vampire.get_trophies("lungs") * 0.1	// 0.4 MAX
+	melee_damage_lower += round(t_hearts / 2)					// 11 MAX
+	melee_damage_upper += t_hearts								// 16 MAX
+	force_threshold += t_hearts									// 9 MAX
+	speed -= vampire.get_trophies(INTERNAL_ORGAN_LUNGS) * 0.1	// 0.4 MAX
 
 
 /mob/living/simple_animal/hostile/vampire/bats_summoned/AttackingTarget()
@@ -2238,18 +2243,18 @@ GLOBAL_LIST_INIT(vampire_dissect_organs, list(
 
 	var/mob/living/l_target = target
 
-	if(l_target.affects_vampire(src) && prob(round(vampire.get_trophies("eyes") * 1.5)))	// 15% chance MAX
+	if(l_target.affects_vampire(src) && prob(round(vampire.get_trophies(INTERNAL_ORGAN_EYES) * 1.5)))	// 15% chance MAX
 		l_target.Stun(1 SECONDS)
 		l_target.visible_message(span_danger("[src] scares [l_target]!"))
 
 	if(!is_vampire_compatible(l_target, only_human = TRUE, blood_required = TRUE) || isvampire(l_target) || isvampirethrall(l_target))
 		return
 
-	var/t_kidneys = vampire.get_trophies("kidneys")
+	var/t_kidneys = vampire.get_trophies(INTERNAL_ORGAN_KIDNEYS)
 	if(t_kidneys)
 		heal_ordered_damage(t_kidneys, list(BRUTE, BURN, TOX, OXY, CLONE))	// 10 life-leech on MAX
 
-	var/t_livers = vampire.get_trophies("livers")
+	var/t_livers = vampire.get_trophies(INTERNAL_ORGAN_LIVER)
 	if(t_livers && human_vampire && l_target.mind && l_target.ckey)
 		var/blood_amt = round(t_livers / 2)
 		vampire.adjust_blood(l_target, blood_amt)	// +5 vampire blood max

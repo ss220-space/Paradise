@@ -29,7 +29,7 @@
 		return
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/head/C = H.get_organ("head")
+		var/obj/item/organ/external/head/C = H.get_organ(BODY_ZONE_HEAD)
 		//facial hair
 		var/f_new_style = input(user, "Select a facial hair style", "Grooming")  as null|anything in H.generate_valid_facial_hairstyles()
 		//handle normal hair
@@ -72,7 +72,7 @@
 				playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
 				user.visible_message("<span class='danger'>[user] abruptly stops cutting [M]'s hair and slices [M.p_their()] throat!</span>", "<span class='danger'>You stop cutting [M]'s hair and slice [M.p_their()] throat!</span>") //Just a little off the top.
 				H.AdjustLoseBreath(20 SECONDS) //30 Oxy damage over time
-				H.apply_damage(18, BRUTE, "head", sharp =1, used_weapon = "scissors")
+				H.apply_damage(18, BRUTE, BODY_ZONE_HEAD, sharp =1, used_weapon = "scissors")
 				var/turf/location = get_turf(src)
 				H.add_splatter_floor(location)
 				H.bloody_hands(H)

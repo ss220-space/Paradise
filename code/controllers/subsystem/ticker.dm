@@ -7,6 +7,7 @@ SUBSYSTEM_DEF(ticker)
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME
 	offline_implications = "The game is no longer aware of when the round ends. Immediate server restart recommended."
 	cpu_display = SS_CPUDISPLAY_LOW
+	ss_id = "ticker"
 
 	/// Time the world started, relative to world.time
 	var/round_start_time = 0

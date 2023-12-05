@@ -392,10 +392,11 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 	can_collar = 0
 	holder_type = /obj/item/holder/hamster
 
-/mob/living/simple_animal/mouse/hamster/baby/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
+
+/mob/living/simple_animal/mouse/hamster/baby/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
 	if(show_message)
-		to_chat(src, "<span class='warning'>Вы слишком малы чтобы что-то тащить.</span>")
-	return
+		to_chat(src, span_warning("Вы слишком малы чтобы что-то тащить."))
+
 
 /mob/living/simple_animal/mouse/hamster/baby/Life(seconds, times_fired)
 	. =..()

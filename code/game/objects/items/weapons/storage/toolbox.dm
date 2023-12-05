@@ -25,7 +25,7 @@
 	if(!istype(H))
 		return
 
-	if(user.zone_selected != "eyes" && user.zone_selected != "head")
+	if(user.zone_selected != BODY_ZONE_PRECISE_EYES && user.zone_selected != BODY_ZONE_HEAD)
 		return
 
 	if(!prob(blurry_chance))

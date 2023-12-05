@@ -549,7 +549,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 				return 0
 		var/cable_used = 0
 		var/childlist
-		if(!isnull(S.children))
+		if(LAZYLEN(S.children))
 			childlist = S.children.Copy()
 		var/parenthealed = FALSE
 		while(cable_used <= MAXCABLEPERHEAL && amount >= 1)
@@ -570,7 +570,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 			while(cable_used <= MAXCABLEPERHEAL && E.burn_dam && amount >= 1)
 				use(1)
 				cable_used += 1
-				E.heal_damage(0, HEALPERCABLE, 0, 1)
+				E.heal_damage(0, HEALPERCABLE, FALSE, TRUE)
 				H.UpdateDamageIcon()
 			user.visible_message("<span class='alert'>\The [user] repairs some burn damage on \the [M]'s [E.name] with \the [src].</span>")
 		return 1

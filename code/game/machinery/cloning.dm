@@ -646,24 +646,25 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	H.setCloneLoss(CLONE_INITIAL_DAMAGE, FALSE)
 	H.setBrainLoss(BRAIN_INITIAL_DAMAGE)
 
-	for(var/o in H.internal_organs)
-		var/obj/item/organ/O = o
-		if(!istype(O) || O.vital)
+	for(var/obj/item/organ/internal/organ as anything in H.internal_organs)
+		if(organ.vital)
 			continue
 
 		// Let's non-specially remove all non-vital organs
 		// What could possibly go wrong
-		var/obj/item/I = O.remove(H, TRUE)
+		var/atom/movable/thing = organ.remove(H, ORGAN_MANIPULATION_NOEFFECT)
 		// Make this support stuff that turns into items when removed
-		I.forceMove(src)
-		missing_organs += I
+		if(!QDELETED(thing))
+			thing.forceMove(src)
+			missing_organs += thing
 
-	var/static/list/zones = list("r_arm", "l_arm", "r_leg", "l_leg")
+	var/static/list/zones = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 	for(var/zone in zones)
-		var/obj/item/organ/external/E = H.get_organ(zone)
-		var/obj/item/I = E.remove(H)
-		I.forceMove(src)
-		missing_organs += I
+		var/obj/item/organ/external/bodypart = H.get_organ(zone)
+		var/atom/movable/thing = bodypart.remove(H)
+		if(!QDELETED(thing))
+			thing.forceMove(src)
+			missing_organs += thing
 
 	organs_number = LAZYLEN(missing_organs)
 	H.updatehealth()

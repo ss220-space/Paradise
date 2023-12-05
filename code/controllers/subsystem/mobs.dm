@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(mobs)
 	init_order = INIT_ORDER_MOBS
 	offline_implications = "Mobs will no longer process. Immediate server restart recommended."
 	cpu_display = SS_CPUDISPLAY_HIGH
+	ss_id = "mobs"
 
 	var/list/currentrun = list()
 	var/static/list/clients_by_zlevel[][]
