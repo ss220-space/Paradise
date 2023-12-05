@@ -1752,7 +1752,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	for(var/obj/item/clothing/C in slots_to_see) //If they have some clothing equipped that lets them see reagents, they can see reagents
 		if(C.scan_reagents)
 			return TRUE
-	for(var/obj/item/organ/internal/cyberimp/eyes/science/F in internal_organs)
+	for(var/obj/item/organ/internal/cyberimp/eyes/F in internal_organs)
 		if(F.scan_items)
 			return TRUE
 
