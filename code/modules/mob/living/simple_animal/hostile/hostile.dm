@@ -56,7 +56,8 @@
 
 	var/mob_attack_logs = list() //for hostiles and megafauna
 
-	var/is_gliding = TRUE //Used to disable gliding if mob is too slow, like goliath
+	 /// Used to disable gliding if mob is too slow, like goliath
+	var/needs_gliding = TRUE
 
 	tts_seed = "Vort_e2"
 
@@ -351,7 +352,7 @@
 			return 1
 		if(retreat_distance != null) //If we have a retreat distance, check if we need to run from our target
 			if(target_distance <= retreat_distance) //If target's closer than our retreat distance, run
-				if(is_gliding)
+				if(needs_gliding)
 					glide_for(move_to_delay)
 				walk_away(src,target,retreat_distance,move_to_delay)
 			else
@@ -386,7 +387,7 @@
 		approaching_target = TRUE
 	else
 		approaching_target = FALSE
-	if(is_gliding)
+	if(needs_gliding)
 		glide_for(delay)
 	walk_to(src, target, minimum_distance, delay)
 

@@ -43,7 +43,7 @@
 	food_type = list(/obj/item/reagent_containers/food/snacks/meat, /obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit, /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf)
 	tame_chance = 0
 	bonus_tame_chance = 10
-	is_gliding = FALSE
+	needs_gliding= FALSE
 
 
 /mob/living/simple_animal/hostile/asteroid/goliath/bullet_act(var/obj/item/projectile/P)
