@@ -50,6 +50,18 @@
 	allowed_roles = list("Quartermaster", "Cargo Technician")
 	cost = 2
 
+/datum/gear/racial/taj/diag
+	display_name = "diagnostic veil"
+	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. This one has an in-built diagnostic HUD."
+	path = /obj/item/clothing/glasses/hud/diagnostic/tajblind
+	allowed_roles = list("Roboticist", "Research Director")
+	cost = 2
+/datum/gear/racial/taj/skills
+	display_name = "skills veil"
+	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. This one has an in-built skills HUD."
+	path = /obj/item/clothing/glasses/hud/skills/tajblind
+	allowed_roles = list("Head of Personnel", "Captain")
+	cost = 2
 /datum/gear/racial/footwraps
 	display_name = "cloth footwraps"
 	path = /obj/item/clothing/shoes/footwraps
