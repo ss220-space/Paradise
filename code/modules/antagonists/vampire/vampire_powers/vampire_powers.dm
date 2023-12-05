@@ -222,11 +222,15 @@
 	return T
 
 
+/obj/effect/proc_holder/spell/vampire/glare/valid_target(mob/living/target, mob/user)
+	return !isnull(target.mind) && target.stat != DEAD && target.affects_vampire(user)
+
+
 /obj/effect/proc_holder/spell/vampire/glare/create_new_cooldown()
 	var/datum/spell_cooldown/charges/C = new
 	C.max_charges = 2
 	C.recharge_duration = base_cooldown
-	C.charge_duration = 2 SECONDS
+	C.charge_duration = 3 SECONDS
 	return C
 
 
@@ -237,21 +241,17 @@
 /// Full deviation. Flashed from directly behind or behind-left/behind-rack. Not flashed at all.
 #define DEVIATION_FULL 1
 
-/obj/effect/proc_holder/spell/vampire/glare/cast(list/targets, mob/living/user = usr)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(istype(H.glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
-			var/obj/item/clothing/glasses/sunglasses/blindfold/B = H.glasses
-			if(B.tint)
-				to_chat(user, span_warning("You're blindfolded!"))
-				return
+/obj/effect/proc_holder/spell/vampire/glare/cast(list/targets, mob/living/carbon/human/user = usr)
+	if(ishuman(user) && istype(user.glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
+		var/obj/item/clothing/glasses/sunglasses/blindfold/blindfold = user.glasses
+		if(blindfold.tint)
+			to_chat(user, span_warning("You're blindfolded!"))
+			return
+
 	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, _range = 3, _duration = 0.2 SECONDS)
 	user.visible_message(span_warning("[user]'s eyes emit a blinding flash!"))
 
-	for(var/mob/living/target in targets)
-		if(!target.affects_vampire(user))
-			continue
-
+	for(var/mob/living/target as anything in targets)
 		var/deviation
 		if(user.lying || user.resting)
 			deviation = DEVIATION_PARTIAL
@@ -358,10 +358,10 @@
 		visible_message(span_notice("[H] looks refreshed!"))
 		H.adjustBruteLoss(-60)
 		H.adjustFireLoss(-60)
-		for(var/obj/item/organ/external/E in H.bodyparts)
+		for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
 			if(prob(25))
-				E.mend_fracture()
-				E.internal_bleeding = FALSE
+				bodypart.mend_fracture()
+				bodypart.stop_internal_bleeding()
 
 		return
 	if(H.stat != DEAD)

@@ -349,8 +349,8 @@
 /datum/language/grey/check_can_speak(mob/living/speaker)
 	if(ishuman(speaker))
 		var/mob/living/carbon/human/S = speaker
-		var/obj/item/organ/external/rhand = S.get_organ("r_hand")
-		var/obj/item/organ/external/lhand = S.get_organ("l_hand")
+		var/obj/item/organ/external/rhand = S.get_organ(BODY_ZONE_PRECISE_R_HAND)
+		var/obj/item/organ/external/lhand = S.get_organ(BODY_ZONE_PRECISE_L_HAND)
 		if((!rhand || !rhand.is_usable()) && (!lhand || !lhand.is_usable()))
 			to_chat(speaker,"<span class='warning'>You can't communicate without the ability to use your hands!</span>")
 			return FALSE

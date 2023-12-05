@@ -37,11 +37,11 @@
 		projone.starting = get_turf(my_atom)
 		projone.firer = usr
 		projone.firer_source_atom = src
-		projone.def_zone = "chest"
+		projone.def_zone = BODY_ZONE_CHEST
 		projtwo.starting = get_turf(my_atom)
 		projtwo.firer = usr
 		projtwo.firer_source_atom = src
-		projtwo.def_zone = "chest"
+		projtwo.def_zone = BODY_ZONE_CHEST
 		spawn()
 			playsound(src, fire_sound, 50, 1)
 			projone.dumbfire(my_atom.dir)

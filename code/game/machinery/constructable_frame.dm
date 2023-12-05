@@ -783,7 +783,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stack/sheet/glass = 1,
-							/obj/item/stack/telecrystal = 5)
+							/obj/item/stack/telecrystal = 25)
 
 /obj/item/circuitboard/podfab
 	board_name = "Spacepod Fabricator"
@@ -902,7 +902,7 @@ to destroy them and players will be able to make replacements.
 		build_path = /obj/machinery/syndiepad
 		board_type = "machine"
 		req_components = list(
-								/obj/item/stack/telecrystal = 1,
+								/obj/item/stack/telecrystal = 5,
 								/obj/item/stock_parts/capacitor = 1,
 								/obj/item/stock_parts/manipulator = 1,
 								/obj/item/stack/cable_coil = 1)
@@ -915,7 +915,7 @@ to destroy them and players will be able to make replacements.
 	board_type = "machine"
 	origin_tech = "programming=3;engineering=3;plasmatech=3;bluespace=4;syndicate=6" //Технология достойная подобного уровня нелегала как по мне
 	req_components = list(
-							/obj/item/stack/telecrystal = 1,
+							/obj/item/stack/telecrystal = 5,
 							/obj/item/stock_parts/capacitor = 1,
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stack/cable_coil = 1)

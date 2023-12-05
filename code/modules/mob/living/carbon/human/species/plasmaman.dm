@@ -34,13 +34,14 @@
 		"показывает свою истинную природу, которая оказывается плазмой!")
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/plasmaman,
-		"lungs" =    /obj/item/organ/internal/lungs/plasmaman,
-		"liver" =    /obj/item/organ/internal/liver/plasmaman,
-		"kidneys" =  /obj/item/organ/internal/kidneys/plasmaman,
-		"brain" =    /obj/item/organ/internal/brain/plasmaman,
-		"eyes" =     /obj/item/organ/internal/eyes/plasmaman
-		)
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/plasmaman,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/plasmaman,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/plasmaman,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/plasmaman,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/plasmaman,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/plasmaman,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+	)
 
 	speciesbox = /obj/item/storage/box/survival_plasmaman
 	flesh_color = "#8b3fba"

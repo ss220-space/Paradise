@@ -529,7 +529,7 @@
 /mob/living/silicon/pai/Bumped(atom/movable/moving_atom)
 	return ..()
 
-/mob/living/silicon/pai/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
+/mob/living/silicon/pai/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
 	return FALSE
 
 /mob/living/silicon/pai/update_canmove(delay_action_updates = 0)

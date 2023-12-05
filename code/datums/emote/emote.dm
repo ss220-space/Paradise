@@ -310,11 +310,12 @@
  * Arguments:
  * * user - Person that is trying to send the emote.
  * * intentional - Bool that says whether the emote was forced (FALSE) or not (TRUE).
+ * * ignore_cooldowns - If `TRUE` all cooldowns will be skipped.
  *
  * Returns FALSE if the cooldown is not over, TRUE if the cooldown is over.
  */
-/datum/emote/proc/check_cooldown(mob/user, intentional)
-	if(!intentional && bypass_unintentional_cooldown)
+/datum/emote/proc/check_cooldown(mob/user, intentional, ignore_cooldowns)
+	if((!intentional && bypass_unintentional_cooldown) || ignore_cooldowns)
 		return TRUE
 	// if our emote would play sound but another audio emote is on cooldown, prevent this emote from being used.
 	// Note that this only applies to intentional emotes

@@ -164,13 +164,13 @@
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		var/oof = FALSE
-		for(var/obj/item/organ/external/E in H.bodyparts)
+		for(var/obj/item/organ/external/E as anything in H.bodyparts)
 			if(E.is_robotic())
 				oof = TRUE
 				break
 		if(!oof)
-			for(var/obj/item/organ/internal/I in H.internal_organs)
-				if(I.is_robotic())
+			for(var/obj/item/organ/internal/organ as anything in H.internal_organs)
+				if(organ.is_robotic())
 					oof = TRUE
 					break
 		if(oof)
@@ -523,7 +523,7 @@
 /obj/item/melee/blood_magic/shackles/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(iscarbon(target) && proximity)
 		var/mob/living/carbon/C = target
-		if(C.canBeHandcuffed() || C.get_arm_ignore())
+		if(C.canBeHandcuffed())
 			if(C.getStaminaLoss() > 90 || C.health <= HEALTH_THRESHOLD_CRIT || C.IsSleeping())
 				CuffAttack(C, user)
 			else

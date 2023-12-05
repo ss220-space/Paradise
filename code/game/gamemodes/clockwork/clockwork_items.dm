@@ -411,7 +411,7 @@
 		var/wforce = rand(force_unwielded, force_wielded)
 		if(ishuman(user))
 			var/mob/living/carbon/human/human = user
-			human.apply_damage(wforce, BRUTE, "head")
+			human.apply_damage(wforce, BRUTE, BODY_ZONE_HEAD)
 		else
 			user.adjustBruteLoss(wforce)
 		return
@@ -546,14 +546,12 @@
 		return
 	if(isclocker(target))
 		return
-	if(ishuman(target))
+	if(ishuman(target) && enchant_type == BLOODSHED_SPELL)
 		var/mob/living/carbon/human/human = target
-		if(enchant_type == BLOODSHED_SPELL && human.dna && !(NO_BLOOD in human.dna.species.species_traits))
-			var/obj/item/organ/external/BP = pick(human.bodyparts)
-			to_chat(user, "<span class='warning'> You tear through [human]'s skin releasing the blood from [human.p_their()] [BP.name]!</span>")
-			human.custom_pain("Your skin tears in [BP.name] from [src]!")
+		var/obj/item/organ/external/bodypart = pick(human.bodyparts)
+		if(bodypart.internal_bleeding())
+			to_chat(user, span_warning("You tear through [human]'s skin releasing the blood from [human.p_their()] [bodypart.name]!"))
 			playsound(get_turf(human), 'sound/effects/pierce.ogg', 30, TRUE)
-			BP.internal_bleeding = TRUE
 			human.blood_volume = max(human.blood_volume - 100, 0)
 			var/splatter_dir = get_dir(user, human)
 			blood_color = human.dna.species.blood_color
@@ -631,7 +629,7 @@
 			to_chat(user, "<span class='clocklarge'>\"Did you like having head?\"</span>")
 			to_chat(user, "<span class='userdanger'>The buckler suddenly hits you in the head!</span>")
 			user.emote("scream")
-			user.apply_damage(10, BRUTE, "head")
+			user.apply_damage(10, BRUTE, BODY_ZONE_HEAD)
 		user.drop_item_ground(src)
 
 // Clockwork robe. Basic robe from clockwork slab.
@@ -764,7 +762,7 @@
 		else
 			to_chat(user, "<span class='clocklarge'>\"I think this armor is too hot for you to handle.\"</span>")
 			user.emote("scream")
-			user.apply_damage(7, BURN, "chest")
+			user.apply_damage(7, BURN, BODY_ZONE_CHEST)
 			user.IgniteMob()
 		user.drop_item_ground(src)
 
@@ -910,7 +908,7 @@
 		else
 			to_chat(user, "<span class='clocklarge'>\"I think this armor is too hot for you to handle.\"</span>")
 			user.emote("scream")
-			user.apply_damage(15, BURN, "chest")
+			user.apply_damage(15, BURN, BODY_ZONE_CHEST)
 			user.adjust_fire_stacks(2)
 			user.IgniteMob()
 		user.drop_item_ground(src)
@@ -1028,8 +1026,8 @@
 			to_chat(user, "<span class='clocklarge'>\"Did you like having arms?\"</span>")
 			to_chat(user, "<span class='userdanger'>The gauntlets suddenly squeeze tight, crushing your arms before you manage to get them off!</span>")
 			user.emote("scream")
-			user.apply_damage(7, BRUTE, "l_arm")
-			user.apply_damage(7, BRUTE, "r_arm")
+			user.apply_damage(7, BRUTE, BODY_ZONE_L_ARM)
+			user.apply_damage(7, BRUTE, BODY_ZONE_R_ARM)
 		user.drop_item_ground(src)
 
 // Shoes
@@ -1068,8 +1066,8 @@
 			to_chat(user, "<span class='clocklarge'>\"Let's see if you can dance with these.\"</span>")
 			to_chat(user, "<span class='userdanger'>The treads turn searing hot as you scramble to get them off!</span>")
 			user.emote("scream")
-			user.apply_damage(7, BURN, "l_leg")
-			user.apply_damage(7, BURN, "r_leg")
+			user.apply_damage(7, BURN, BODY_ZONE_L_LEG)
+			user.apply_damage(7, BURN, BODY_ZONE_R_LEG)
 		user.drop_item_ground(src)
 
 // Helmet
@@ -1115,7 +1113,7 @@
 			to_chat(user, "<span class='heavy_brass'>\"Do you have a hole in your head? You're about to.\"</span>")
 			to_chat(user, "<span class='userdanger'>The helmet tries to drive a spike through your head as you scramble to remove it!</span>")
 			user.emote("scream")
-			user.apply_damage(30, BRUTE, "head")
+			user.apply_damage(30, BRUTE, BODY_ZONE_HEAD)
 			user.adjustBrainLoss(30)
 		user.drop_item_ground(src)
 
@@ -1423,10 +1421,9 @@
 			living.heal_overall_damage(60, 60, TRUE, FALSE, TRUE)
 			living.reagents?.add_reagent("epinephrine", 5)
 			var/mob/living/carbon/human/H = living
-			for(var/thing in H.bodyparts)
-				var/obj/item/organ/external/E = thing
-				E.internal_bleeding = FALSE
-				E.mend_fracture()
+			for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+				bodypart.stop_internal_bleeding()
+				bodypart.mend_fracture()
 		else
 			affected.ratvar_act()
 	animate(src, transform = matrix() * 0.1, time = 2 SECONDS)

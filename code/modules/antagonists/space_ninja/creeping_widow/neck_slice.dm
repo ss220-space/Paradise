@@ -17,11 +17,8 @@
 					playsound(get_turf(target), 'sound/weapons/katana-slice-loud.ogg', 75, TRUE, -1)
 					target.visible_message("<span class='warning'>[user] cuts [target] throat with [creeping_widow.my_energy_katana]!</span>", \
 									"<span class='userdanger'>[user] cuts your throat with [creeping_widow.my_energy_katana]!</span>")
-					for(var/bodypart in target.bodyparts)
-						var/obj/item/organ/external/current_organ = bodypart
-						if(current_organ.limb_name == "head")
-							current_organ.droplimb()	// Просто отрезаем голову. Можешь жить без головы? Значит тебе повезло! Или тебя добьют руками...
-							break
+					var/obj/item/organ/external/head_organ = target.get_organ(BODY_ZONE_HEAD)
+					head_organ?.droplimb()
 				else
 					playsound(get_turf(target), 'sound/weapons/blade_unsheath.ogg', 75, TRUE, -1)
 					target.visible_message("<span class='warning'>[user] tries to cut [target] throat with [creeping_widow.my_energy_katana]! But fails!</span>", \
