@@ -164,7 +164,7 @@
 	)
 
 /obj/item/organ/internal/legion_tumour/insert(mob/living/carbon/egg_owner, special)
-	..()
+	. = ..()
 	ADD_TRAIT(egg_owner, TRAIT_XENO_HOST, GENERIC_TRAIT)
 	egg_owner.med_hud_set_status()
 
