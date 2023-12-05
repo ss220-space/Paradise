@@ -24,3 +24,30 @@
   Vladisvell:
   - bugfix: fixed drasks breaking grille runtime (#3974)
   - bugfix: Runtime fixes of bleeding, ears, external organs and accesses. (#3973)
+'2023-12-05':
+  Daeberdir:
+  - bugfix: correct loot dropping from "watchers" and fixed gems duping. (#3988)
+  - bugfix: mecha module cooldowns. (#3967)
+  LiquidPotroh:
+  - tweak: Reduced frequency of cold (#3983)
+  - tweak: gravgen has MALF_EFFECT resistance (#3975)
+  NightDawnFox:
+  - bugfix: first pack of lavaland minor fixes (#3979)
+  ROdenFL:
+  - tweak: north star dirslash (#3992)
+  - tweak: no falling while pulling someone walking (#3989)
+  - balance: Genetic Superiority (#3859)
+  ReloadKey:
+  - add: Diagnostic hud tajaran veil and SKills hud tajaran veil (#3923)
+  Vladisvell:
+  - qol: deal_overall_damage now can be configured to damage robotic limbs, Pentetic
+      Acid no longer damages robotic limbs (#3986)
+  - qol: pAI with empty name field no longer can be saved (#3985)
+  - add: Added ss_id for subsystems and Subsystem Breakdown (#3978)
+  WolfLox:
+  - tweak: rotation in ERT-vends, LWAP - normal, multi-immolator not usless  (#3970)
+  Zwei:
+  - bugfix: Wooden Sound For Few Closets (#3987)
+  - refactor: Body Zones And Internal Organs Refactor (#3960)
+  captainnelly:
+  - balance: TC inflation (#3984)
