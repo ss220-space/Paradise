@@ -8,7 +8,7 @@
 	name = "exosuit drill"
 	desc = "Equipment for engineering and combat exosuits. This is the drill that'll pierce the heavens!"
 	icon_state = "mecha_drill"
-	equip_cooldown = 15
+	equip_cooldown = 1.5 SECONDS
 	energy_drain = 10
 	force = 15
 	harmful = TRUE
@@ -18,28 +18,27 @@
 
 /obj/item/mecha_parts/mecha_equipment/drill/action(atom/target)
 	if(!action_checks(target))
-		return
+		return FALSE
 	if(isspaceturf(target))
-		return
+		return FALSE
 	if(isobj(target))
 		var/obj/target_obj = target
 		if(target_obj.resistance_flags & UNACIDABLE)
-			return
+			return FALSE
 	if(isancientturf(target))
-		visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
-		return
-	target.visible_message("<span class='warning'>[chassis] starts to drill [target].</span>",
-					"<span class='userdanger'>[chassis] starts to drill [target]...</span>",
-					 "<span class='italics'>You hear drilling.</span>")
-
+		visible_message(span_notice("This rock appears to be resistant to all mining tools except pickaxes!"))
+		return FALSE
+	target.visible_message(span_warning("[chassis] starts to drill [target]."),
+						span_userdanger("[chassis] starts to drill [target]..."),
+						span_italics("You hear drilling."))
 	if(do_after_cooldown(target))
-		set_ready_state(FALSE)
 		log_message("Started drilling [target]")
+		set_ready_state(FALSE)
 		if(isturf(target))
 			var/turf/T = target
 			T.drill_act(src)
 			set_ready_state(TRUE)
-			return
+			return TRUE
 		while(do_after_mecha(target, drill_delay))
 			if(isliving(target))
 				drill_mob(target, chassis.occupant)
@@ -50,7 +49,7 @@
 				playsound(src, 'sound/weapons/drill.ogg', 40, TRUE)
 			else
 				set_ready_state(TRUE)
-				return
+				return TRUE
 		set_ready_state(TRUE)
 
 /turf/proc/drill_act(obj/item/mecha_parts/mecha_equipment/drill/drill)
@@ -67,7 +66,7 @@
 			drill.log_message("Drilled through [src]")
 			dismantle_wall(TRUE, FALSE)
 	else
-		drill.occupant_message("<span class='danger'>[src] is too durable to drill through.</span>")
+		drill.occupant_message(span_danger("[src] is too durable to drill through."))
 
 /turf/simulated/mineral/drill_act(obj/item/mecha_parts/mecha_equipment/drill/drill)
 	for(var/turf/simulated/mineral/M in range(drill.chassis, 1))
@@ -91,12 +90,12 @@
 /obj/item/mecha_parts/mecha_equipment/drill/can_attach(obj/mecha/M)
 	if(..())
 		if(istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/drill/proc/drill_mob(mob/living/target, mob/user)
-	target.visible_message("<span class='danger'>[chassis] is drilling [target] with [src]!</span>",
-						"<span class='userdanger'>[chassis] is drilling you with [src]!</span>")
+	target.visible_message(span_danger("[chassis] is drilling [target] with [src]!"),
+						span_userdanger("[chassis] is drilling you with [src]!"))
 	add_attack_logs(user, target, "DRILLED with [src] ([uppertext(user.a_intent)]) ([uppertext(damtype)])")
 	if(target.stat == DEAD && target.getBruteLoss() >= 200)
 		add_attack_logs(user, target, "gibbed")
@@ -129,7 +128,7 @@
 	desc = "Equipment for engineering and combat exosuits. This is an upgraded version of the drill that'll pierce the heavens!"
 	icon_state = "mecha_diamond_drill"
 	origin_tech = "materials=4;engineering=4"
-	equip_cooldown = 10
+	equip_cooldown = 1 SECONDS
 	drill_delay = 4
 	drill_level = DRILL_HARDENED
 	force = 15
@@ -139,8 +138,7 @@
 	name = "exosuit mining scanner"
 	desc = "Equipment for engineering and combat exosuits. It will automatically check surrounding rock for useful minerals."
 	icon_state = "mecha_analyzer"
-	equip_cooldown = 15
-	var/scanning_time = 0
+	equip_cooldown = 1.5 SECONDS
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/Initialize(mapload)
 	. = ..()
@@ -150,16 +148,25 @@
 	STOP_PROCESSING(SSfastprocess, src)
 	return ..()
 
+/obj/item/mecha_parts/mecha_equipment/mining_scanner/attach_act(obj/mecha/M)
+	START_PROCESSING(SSfastprocess, src)
+
+/obj/item/mecha_parts/mecha_equipment/mining_scanner/detach_act()
+	STOP_PROCESSING(SSfastprocess, src)
+
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/process()
-	if(!loc)
+	if(!chassis)
 		STOP_PROCESSING(SSfastprocess, src)
-		qdel(src)
-	if(istype(loc, /obj/mecha/working) && scanning_time <= world.time)
+		return TRUE
+	if(!action_checks(src))
+		return FALSE
+	if(istype(loc, /obj/mecha/working))
 		var/obj/mecha/working/mecha = loc
 		if(!mecha.occupant)
-			return
-		scanning_time = world.time + equip_cooldown
+			return FALSE
 		mineral_scan_pulse(get_turf(src))
+		start_cooldown()
+		return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/action(atom/target)
 	melee_attack_chain(chassis.occupant, target)

@@ -8,13 +8,14 @@
 	force = 5
 	origin_tech = "materials=2;engineering=2"
 	max_integrity = 300
+	/// Only used in start_cooldown() and do_after_cooldown(), so be sure to add one of these procs to your successful action().
 	var/equip_cooldown = 0
-	var/equip_ready = 1
+	var/equip_ready = TRUE
 	var/energy_drain = 0
 	var/obj/mecha/chassis = null
 	var/range = MECHA_MELEE //bitflags
-	var/salvageable = 1
-	var/selectable = 1	// Set to 0 for passive equipment such as mining scanner or armor plates
+	var/salvageable = TRUE
+	var/selectable = TRUE	// Set to FALSE for passive equipment such as mining scanner or armor plates
 	var/harmful = FALSE //Controls if equipment can be used to attack by a pacifist.
 
 
@@ -22,18 +23,18 @@
 	if(chassis)
 		send_byjax(chassis.occupant,"exosuit.browser","eq_list",chassis.get_equipment_list())
 		send_byjax(chassis.occupant,"exosuit.browser","equipment_menu",chassis.get_equipment_menu(),"dropdowns")
-		return 1
+		return TRUE
 	return
 
 /obj/item/mecha_parts/mecha_equipment/proc/update_equip_info()
 	if(chassis)
 		send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
-		return 1
+		return TRUE
 	return
 
 /obj/item/mecha_parts/mecha_equipment/Destroy()//missiles detonating, teleporter creating singularity?
 	if(chassis)
-		chassis.occupant_message("<span class='danger'>The [src] is destroyed!</span>")
+		chassis.occupant_message(span_danger("The [src] is destroyed!"))
 		chassis.log_append_to_last("[src] is destroyed.",1)
 		if(istype(src, /obj/item/mecha_parts/mecha_equipment/weapon))
 			chassis.occupant << sound(chassis.weapdestrsound, volume = 50)
@@ -72,16 +73,16 @@
 
 /obj/item/mecha_parts/mecha_equipment/proc/action_checks(atom/target)
 	if(!target)
-		return 0
+		return FALSE
 	if(!chassis)
-		return 0
+		return FALSE
 	if(!equip_ready)
-		return 0
+		return FALSE
 	if(crit_fail)
-		return 0
+		return FALSE
 	if(energy_drain && !chassis.has_charge(energy_drain))
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /**
  * Proc that checks if the target of the mecha is in front of it
@@ -96,10 +97,10 @@
 	return dir_to_target == chassis.dir || dir_to_target == get_clockwise_dir(chassis.dir) || dir_to_target == get_anticlockwise_dir(chassis.dir)
 
 /obj/item/mecha_parts/mecha_equipment/proc/action(atom/target)
-	return 0
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/proc/start_cooldown()
-	set_ready_state(0)
+	set_ready_state(FALSE)
 	chassis.use_power(energy_drain)
 
 	var/cooldown = equip_cooldown
@@ -107,16 +108,16 @@
 	if(istype(W))
 		cooldown += (W.projectiles_per_shot - 1) * W.projectile_delay
 
-	addtimer(CALLBACK(src, PROC_REF(set_ready_state), 1), cooldown)
+	addtimer(CALLBACK(src, PROC_REF(set_ready_state), TRUE), cooldown)
 
 /obj/item/mecha_parts/mecha_equipment/proc/do_after_cooldown(atom/target)
 	if(!chassis)
 		return
 	var/C = chassis.loc
-	set_ready_state(0)
+	set_ready_state(FALSE)
 	chassis.use_power(energy_drain)
 	. = do_after(chassis.occupant, equip_cooldown * gettoolspeedmod(chassis.occupant), needhand = FALSE, target = target)
-	set_ready_state(1)
+	set_ready_state(TRUE)
 	if(!chassis || 	chassis.loc != C || src != chassis.selected || !(get_dir(chassis, target) & chassis.dir))
 		return FALSE
 
@@ -175,7 +176,7 @@
 		chassis.log_message("[src] removed from equipment.")
 		chassis = null
 		flags &= ~NODROP
-		set_ready_state(1)
+		set_ready_state(TRUE)
 
 /obj/item/mecha_parts/mecha_equipment/proc/detach_act()
 	return
