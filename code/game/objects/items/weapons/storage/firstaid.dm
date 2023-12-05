@@ -281,6 +281,20 @@
 	new /obj/item/stack/medical/bruise_pack(src)
 	new /obj/item/stack/medical/ointment(src)
 
+/obj/item/storage/firstaid/crew/combat
+	name = "combat first aid kit"
+	desc = "A standart issued first aid kit for combat situations."
+
+/obj/item/storage/firstaid/crew/combat/populate_contents()
+	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/salbutamol(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/charcoal(src)
+	new /obj/item/reagent_containers/food/pill/patch/styptic(src)
+	new	/obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
+	new /obj/item/stack/medical/bruise_pack(src)
+	new /obj/item/stack/medical/ointment(src)
+	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
+
 /*
  * Pill Bottles
  */

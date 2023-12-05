@@ -3,7 +3,7 @@
  *	Basically everything except the original is a kit (starts full).
  *
  *	Contains:
- *		Empty box, starter boxes (survival/engineer),
+ *		Empty box,
  *		Latex glove and sterile mask boxes,
  *		Syringe, beaker, dna injector boxes,
  *		Blanks, flashbangs, and EMP grenade boxes,
@@ -38,115 +38,6 @@
 	foldable_amt = 4
 	storage_slots = 21
 	max_combined_w_class = 42 // 21*2
-
-/obj/item/storage/box/survival
-	icon_state = "box_civ"
-
-/obj/item/storage/box/survival/populate_contents()
-	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/tank/internals/emergency_oxygen(src)
-	new /obj/item/storage/firstaid/crew(src)
-	new /obj/item/flashlight/flare/glowstick/blue(src)
-
-/obj/item/storage/box/survival/brigphys
-	icon_state = "box_brigphys"
-
-/obj/item/storage/box/survival_vox
-	icon_state = "box_vox"
-
-/obj/item/storage/box/survival_vox/populate_contents()
-	new /obj/item/clothing/mask/breath/vox(src)
-	new /obj/item/tank/internals/emergency_oxygen/nitrogen(src)
-	new /obj/item/storage/firstaid/crew(src)
-	new /obj/item/flashlight/flare/glowstick/blue(src)
-
-/obj/item/storage/box/survival_machine
-	icon_state = "box_machine"
-
-/obj/item/storage/box/survival_machine/populate_contents()
-	new /obj/item/weldingtool(src)
-	new /obj/item/stack/cable_coil/random(src)
-	new /obj/item/flashlight/flare/glowstick/blue(src)
-
-/obj/item/storage/box/survival_plasmaman
-	icon_state = "box_plasma"
-
-/obj/item/storage/box/survival_plasmaman/populate_contents()
-	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/tank/internals/emergency_oxygen/plasma(src)
-	new /obj/item/storage/firstaid/crew(src)
-	new /obj/item/flashlight/flare/glowstick/blue(src)
-
-/obj/item/storage/box/engineer
-	icon_state = "box_eng"
-
-/obj/item/storage/box/engineer/populate_contents()
-	new /obj/item/clothing/mask/breath( src )
-	new /obj/item/tank/internals/emergency_oxygen/engi( src )
-	new /obj/item/storage/firstaid/crew( src )
-	new /obj/item/flashlight/flare/glowstick/blue( src )
-	return
-
-/obj/item/storage/box/survival_mining
-	icon_state = "box_min"
-
-/obj/item/storage/box/survival_mining/populate_contents()
-	new /obj/item/clothing/mask/gas/explorer(src)
-	new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	new /obj/item/crowbar/red(src)
-	new /obj/item/storage/firstaid/crew(src)
-	new /obj/item/flashlight/flare/glowstick/blue(src)
-
-/obj/item/storage/box/survival_security
-	icon_state = "box_sec"
-
-/obj/item/storage/box/survival_security/populate_contents()
-	new /obj/item/tank/internals/emergency_oxygen/engi/sec(src)
-	new /obj/item/storage/firstaid/crew(src)
-	new /obj/item/flashlight/flare/glowstick/red(src)
-	new /obj/item/crowbar/red/sec(src)
-	new /obj/item/clothing/mask/gas/sechailer(src)
-	new /obj/item/radio/sec(src)
-
-/obj/item/storage/box/survival_security/hos
-	icon_state = "box_hos"
-
-/obj/item/storage/box/survival_security/cadet
-	icon_state = "box_cadet"
-
-/obj/item/storage/box/survival_security/warden
-	icon_state = "box_warden"
-
-/obj/item/storage/box/survival_security/pilot
-	icon_state = "box_pilot"
-
-/obj/item/storage/box/survival_security/detective
-	icon_state = "box_detective"
-
-/obj/item/storage/box/survival_laws
-	icon_state = "box_avd"
-
-/obj/item/storage/box/survival_laws/populate_contents()
-	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/tank/internals/emergency_oxygen(src)
-	new /obj/item/storage/firstaid/crew(src)
-	new /obj/item/flashlight/flare/glowstick/pink(src)
-	new /obj/item/book/manual/security_space_law(src)
-	new /obj/item/taperecorder(src)
-	new /obj/item/camera(src)
-
-/obj/item/storage/box/survival_laws/magisraka
-	icon_state = "box_magisraka"
-
-/obj/item/storage/box/survival_syndi
-	icon_state = "box_syndi"
-
-/obj/item/storage/box/survival_syndi/populate_contents()
-	new /obj/item/clothing/mask/gas/syndicate(src)
-	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
-	new /obj/item/reagent_containers/food/pill/initropidril(src)
-	new /obj/item/flashlight/flare/glowstick/red(src)
 
 /obj/item/storage/box/gloves
 	name = "box of latex gloves"
@@ -811,56 +702,6 @@
 				qdel(src)
 				return
 	return ..()
-
-
-/obj/item/storage/box/centcomofficer
-	name = "officer kit"
-	icon_state = "box_ert"
-	storage_slots = 14
-	max_combined_w_class = 20
-
-/obj/item/storage/box/centcomofficer/populate_contents()
-	new /obj/item/clothing/mask/gas/sechailer(src)
-	new /obj/item/tank/internals/emergency_oxygen/double(src)
-	new /obj/item/flashlight/seclite(src)
-	new /obj/item/kitchen/knife/combat(src)
-
-	new /obj/item/radio/centcom(src)
-	new /obj/item/door_remote/omni(src)
-	new /obj/item/implanter/death_alarm(src)
-
-	new /obj/item/reagent_containers/hypospray/combat/nanites(src)
-	new /obj/item/pinpointer(src)
-	new /obj/item/pinpointer/crew/centcom(src)
-
-/obj/item/storage/box/responseteam
-	name = "boxed survival kit"
-	icon_state = "box_ert"
-
-/obj/item/storage/box/responseteam/populate_contents()
-	new /obj/item/clothing/mask/gas/sechailer(src)
-	new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	new /obj/item/flashlight/flare(src)
-	new /obj/item/crowbar/red(src)
-	new /obj/item/kitchen/knife/combat(src)
-	new /obj/item/radio/centcom(src)
-	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
-
-/obj/item/storage/box/soviet
-	name = "boxed survival kit"
-	desc = "A standard issue Soviet military survival kit."
-	icon_state = "box_soviet"
-
-/obj/item/storage/box/soviet/populate_contents()
-	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector
-	new /obj/item/flashlight/flare(src)
-	new /obj/item/crowbar/red(src)
-	new /obj/item/kitchen/knife/combat(src)
-	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
-	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
 
 /obj/item/storage/box/clown
 	name = "clown box"
