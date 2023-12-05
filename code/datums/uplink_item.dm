@@ -365,11 +365,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 50
 	job = list("Chief Medical Officer", "Psychiatrist")
 
-/datum/uplink_item/jobspecific/genekit
-	name = "Genetic Superiority Bundle"
-	desc = "A set of injectors containing extremely powerful mutations brought to you by recently established Syndicate research station. This set is designed for teamwork"
+/datum/uplink_item/jobspecific/dna_upgrader
+	name = "Genetic Superiority Injector"
+	desc = "Experemental DNA injector whick will give you one advanced gene modification and increase your gene stability."
 	reference = "GS"
-	item = /obj/item/storage/box/syndie_kit/genes
+	item = /obj/item/dna_upgrader
 	cost = 75
 	job = list("Chief Medical Officer", "Geneticist")
 	surplus = 0
