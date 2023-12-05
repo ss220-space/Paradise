@@ -729,6 +729,11 @@
 	note_overlay_file = 'icons/obj/doors/airlocks/syndicate/overlays.dmi'
 	paintable = FALSE
 
+/obj/machinery/door/airlock/syndicate/build_access_electronics()
+	access_electronics = new /obj/item/access_control/syndicate(src)
+	access_electronics.selected_accesses = req_access
+	access_electronics.one_access = check_one_access
+
 /obj/machinery/door/airlock/syndicate/security
 	name = "evil looking security airlock"
 	icon = 'icons/obj/doors/airlocks/syndicate/security.dmi'
