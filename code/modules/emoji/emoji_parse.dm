@@ -1,8 +1,8 @@
 #define DISCORD_EMOJI_URL(id, size) "https://cdn.discordapp.com/emojis/[id]?size=[size]&quality=lossless"
 #define DISCORD_EMOJI_IMAGE(id, size, imgsize) "<img src=\"[DISCORD_EMOJI_URL(id, size)]\" style=\"height: [imgsize]px; width: [imgsize]px;\" />"
 
-var/global/list/discordEmojis = list()
-var/global/emojiTableShownToUsers = null
+var/list/discordEmojis = list()
+var/emojiTableShownToUsers = null
 
 /proc/loadDiscordEmojis()
 	discordEmojis.Cut()
