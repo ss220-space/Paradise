@@ -2316,15 +2316,13 @@
 		/obj/item/gun/projectile/automatic/lasercarbine = 3,
 		/obj/item/ammo_box/magazine/laser = 6,
 		/obj/item/suppressor = 4,
-		/obj/item/gun/projectile/automatic/wt550 = 3,
-		/obj/item/ammo_box/magazine/wt550m9 = 6,
-		/obj/item/gun/projectile/shotgun/riot = 6,
-		/obj/item/ammo_box/shotgun/rubbershot = 6,
-		/obj/item/ammo_box/shotgun/beanbag = 4,
-		/obj/item/ammo_box/shotgun/tranquilizer = 4,
 		/obj/item/ammo_box/speedloader/shotgun/universal = 4,
 		/obj/item/gun/projectile/automatic/sfg = 3,
-		/obj/item/ammo_box/magazine/sfg9mm = 6
+		/obj/item/ammo_box/magazine/sfg9mm = 6,
+		/obj/item/gun/projectile/shotgun/automatic/combat = 3,
+		/obj/item/ammo_box/shotgun = 4,
+		/obj/item/ammo_box/shotgun/buck = 4,
+		/obj/item/ammo_box/shotgun/dragonsbreath = 2
 	)
 	contraband = list(/obj/item/storage/fancy/donut_box = 2)
 	refill_canister = /obj/item/vending_refill/nta
@@ -2347,11 +2345,6 @@
 		/obj/item/gun/energy/xray = 2,
 		/obj/item/gun/energy/immolator/multi = 2,
 		/obj/item/gun/energy/gun/nuclear = 3,
-		/obj/item/gun/projectile/shotgun/automatic/combat = 3,
-		/obj/item/ammo_box/shotgun = 4,
-		/obj/item/ammo_box/shotgun/buck = 4,
-		/obj/item/ammo_box/shotgun/dragonsbreath = 2,
-		/obj/item/ammo_box/speedloader/shotgun/universal = 4,
 		/obj/item/storage/lockbox/t4 = 3,
 		/obj/item/grenade/smokebomb = 3,
 		/obj/item/grenade/frag = 4
@@ -2375,9 +2368,13 @@
 		/obj/item/gun/energy/gun/advtaser = 4,
 		/obj/item/gun/projectile/automatic/pistol/enforcer = 6,
 		/obj/item/storage/box/barrier = 2,
-		/obj/item/gun/projectile/shotgun/riot = 1,
-		/obj/item/ammo_box/shotgun/rubbershot = 3,
+		/obj/item/gun/projectile/shotgun/riot = 3,
+		/obj/item/ammo_box/shotgun/rubbershot = 6,
+		/obj/item/ammo_box/shotgun/beanbag = 4,
+		/obj/item/ammo_box/shotgun/tranquilizer = 4,
 		/obj/item/ammo_box/speedloader/shotgun/universal = 4,
+		/obj/item/gun/projectile/automatic/wt550 = 3,
+		/obj/item/ammo_box/magazine/wt550m9 = 6,
 		/obj/item/gun/energy/dominator/sibyl = 2
 	)
 	contraband = list(/obj/item/storage/fancy/donut_box = 2)
