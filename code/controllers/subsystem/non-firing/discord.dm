@@ -1,6 +1,7 @@
 SUBSYSTEM_DEF(discord)
 	name = "Discord"
 	flags = SS_NO_FIRE
+	ss_id = "discord"
 	/// Is the SS enabled
 	var/enabled = FALSE
 	/// Last time the administrator ping was dropped. This ensures administrators cannot be mass pinged if a large chunk of ahelps go off at once (IE: tesloose)

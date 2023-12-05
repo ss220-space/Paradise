@@ -2,6 +2,7 @@ SUBSYSTEM_DEF(title)
 	name = "Title Screen"
 	flags = SS_NO_FIRE
 	init_order = INIT_ORDER_TITLE
+	ss_id = "title_screen"
 
 
 /datum/controller/subsystem/title/Initialize()

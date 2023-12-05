@@ -8,6 +8,7 @@ SUBSYSTEM_DEF(shuttle)
 	runlevels = RUNLEVEL_SETUP | RUNLEVEL_GAME
 	offline_implications = "Shuttles will no longer function and cargo will not generate points. Immediate server restart recommended."
 	cpu_display = SS_CPUDISPLAY_LOW
+	ss_id = "shuttle"
 	var/list/mobile = list()
 	var/list/stationary = list()
 	var/list/transit = list()
