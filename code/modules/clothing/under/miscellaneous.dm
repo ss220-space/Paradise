@@ -462,7 +462,7 @@
 	desc = "A fancy orange gown for those who like to show leg."
 	icon_state = "dress_orange"
 	item_color = "dress_orange"
-	ovet_shoes = TRUE
+	over_shoes = TRUE
 
 /obj/item/clothing/under/dress/dress_pink
 	name = "pink dress"
@@ -537,35 +537,35 @@
 	desc = "A big and puffy orange dress."
 	icon_state = "bride_orange"
 	item_color = "bride_orange"
-	ovet_shoes = TRUE
+	over_shoes = TRUE
 
 /obj/item/clothing/under/wedding/bride_purple
 	name = "purple wedding dress"
 	desc = "A big and puffy purple dress."
 	icon_state = "bride_purple"
 	item_color = "bride_purple"
-	ovet_shoes = TRUE
+	over_shoes = TRUE
 
 /obj/item/clothing/under/wedding/bride_blue
 	name = "blue wedding dress"
 	desc = "A big and puffy blue dress."
 	icon_state = "bride_blue"
 	item_color = "bride_blue"
-	ovet_shoes = TRUE
+	over_shoes = TRUE
 
 /obj/item/clothing/under/wedding/bride_red
 	name = "red wedding dress"
 	desc = "A big and puffy red dress."
 	icon_state = "bride_red"
 	item_color = "bride_red"
-	ovet_shoes = TRUE
+	over_shoes = TRUE
 
 /obj/item/clothing/under/wedding/bride_white
 	name = "white wedding dress"
 	desc = "A white wedding gown made from the finest silk."
 	icon_state = "bride_white"
 	item_color = "bride_white"
-	ovet_shoes = TRUE
+	over_shoes = TRUE
 
 /obj/item/clothing/under/sundress
 	name = "sundress"
@@ -766,7 +766,7 @@
 	icon_state = "black_tango"
 	item_state = "wcoat"
 	item_color = "black_tango"
-	ovet_shoes = TRUE
+	over_shoes = TRUE
 
 /obj/item/clothing/under/stripeddress
 	name = "striped dress"
@@ -788,7 +788,7 @@
 	icon_state = "red_evening_gown"
 	item_state = "redeveninggown"
 	item_color = "red_evening_gown"
-	ovet_shoes = TRUE
+	over_shoes = TRUE
 
 /obj/item/clothing/under/suit_jacket/checkered
 	name = "checkered suit"
@@ -973,7 +973,7 @@
 	icon_state = "red_chaps"
 	icon_state = "red_chaps"
 	item_color = "red_chaps"
-	ovet_shoes = TRUE
+	over_shoes = TRUE
 
 /obj/item/clothing/under/white_chaps
 	name = "white chaps"
@@ -981,7 +981,7 @@
 	icon_state = "white_chaps"
 	icon_state = "white_chaps"
 	item_color = "white_chaps"
-	ovet_shoes = TRUE
+	over_shoes = TRUE
 
 /obj/item/clothing/under/tan_chaps
 	name = "tan chaps"
@@ -989,7 +989,7 @@
 	icon_state = "tan_chaps"
 	icon_state = "tan_chaps"
 	item_color = "tan_chaps"
-	ovet_shoes = TRUE
+	over_shoes = TRUE
 
 /obj/item/clothing/under/brown_chaps
 	name = "brown chaps"
@@ -997,4 +997,4 @@
 	icon_state = "brown_chaps"
 	icon_state = "brown_chaps"
 	item_color = "brown_chaps"
-	ovet_shoes = TRUE
+	over_shoes = TRUE
