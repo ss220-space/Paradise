@@ -276,7 +276,7 @@
 /mob/living/carbon/human/proc/get_damageable_organs(affect_robotic = TRUE)
 	var/list/obj/item/organ/external/parts = list()
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
-  	if(!affect_robotic && bodypart.is_robotic())
+		if(!affect_robotic && bodypart.is_robotic())
 			continue
 		if(bodypart.brute_dam + bodypart.burn_dam < bodypart.max_damage)
 			parts += bodypart
