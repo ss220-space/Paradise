@@ -42,7 +42,7 @@
 	var/ert_disabled = FALSE
 	var/newscaster_announcements = null
 	var/uplink_welcome = "Syndicate Uplink Console:"
-	var/uplink_uses = 20
+	var/uplink_uses = 100
 
 	/// Lower bound on time before intercept arrives.
 	var/const/waittime_l = 60 SECONDS

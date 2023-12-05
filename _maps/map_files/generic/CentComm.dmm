@@ -2436,11 +2436,11 @@
 	desc = "Баксоны максона. Возможно кто-то приобретет пропуск.";
 	name = "100.000 �������� �������"
 	},
-/obj/item/stack/telecrystal/fifty{
+/obj/item/stack/telecrystal/twohundread_fifty{
 	amount = 115;
 	desc = null
 	},
-/obj/item/stack/telecrystal/fifty{
+/obj/item/stack/telecrystal/twohundread_fifty{
 	amount = 115;
 	desc = null
 	},
@@ -11465,18 +11465,18 @@
 /area/centcom/zone1)
 "fQg" = (
 /obj/structure/table/wood,
-/obj/item/stack/telecrystal/fifty{
+/obj/item/stack/telecrystal/twohundread_fifty{
 	pixel_x = 3
 	},
-/obj/item/stack/telecrystal/fifty{
+/obj/item/stack/telecrystal/twohundread_fifty{
 	pixel_x = -3;
 	pixel_y = 4
 	},
-/obj/item/stack/telecrystal/fifty{
+/obj/item/stack/telecrystal/twohundread_fifty{
 	pixel_x = -4;
 	pixel_y = -2
 	},
-/obj/item/stack/telecrystal/fifty{
+/obj/item/stack/telecrystal/twohundread_fifty{
 	pixel_x = 3;
 	pixel_y = 9
 	},
