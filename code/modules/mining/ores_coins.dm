@@ -254,8 +254,9 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		QDEL_NULL(wires)
 	return ..()
 
-/obj/item/twohanded/required/gibtonite/can_be_pulled(user)
-	to_chat(user, "<span class='warning'>It's too heavy to be pulled!</span>")
+/obj/item/twohanded/required/gibtonite/can_be_pulled(atom/movable/user, force, show_message = FALSE)
+	if(show_message)
+		to_chat(user, span_warning("It's too heavy to be pulled!"))
 	return FALSE // must be carried in two hands or be picked up with ripley
 
 /obj/item/twohanded/required/gibtonite/attackby(obj/item/I, mob/user, params)

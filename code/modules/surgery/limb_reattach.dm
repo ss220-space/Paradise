@@ -6,7 +6,20 @@
 /datum/surgery/amputation
 	name = "Amputation"
 	steps = list(/datum/surgery_step/generic/amputate)
-	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin","tail", "wing")
+	possible_locs = list(
+		BODY_ZONE_HEAD,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_PRECISE_L_HAND,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_PRECISE_R_HAND,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_PRECISE_R_FOOT,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_PRECISE_L_FOOT,
+		BODY_ZONE_PRECISE_GROIN,
+		BODY_ZONE_TAIL,
+		BODY_ZONE_WING,
+	)
 
 
 /datum/surgery/amputation/can_start(mob/user, mob/living/carbon/target)
@@ -26,16 +39,29 @@
 /datum/surgery/reattach
 	name = "Limb Reattachment"
 	steps = list(/datum/surgery_step/limb/attach,/datum/surgery_step/limb/connect)
-	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin","tail", "wing")
+	possible_locs = list(
+		BODY_ZONE_HEAD,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_PRECISE_L_HAND,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_PRECISE_R_HAND,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_PRECISE_R_FOOT,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_PRECISE_L_FOOT,
+		BODY_ZONE_PRECISE_GROIN,
+		BODY_ZONE_TAIL,
+		BODY_ZONE_WING,
+	)
 
 /datum/surgery/reattach/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
-		if(ismachineperson(target) && user.zone_selected != "tail")
+		if(ismachineperson(target) && user.zone_selected != BODY_ZONE_TAIL)
 			// RIP bi-centennial man
 			return 0
-		if(ismachineperson(target) && user.zone_selected != "wing")
+		if(ismachineperson(target) && user.zone_selected != BODY_ZONE_WING)
 			// RIP bi-centennial man
 			return 0
 		if(!affected)
@@ -45,7 +71,20 @@
 /datum/surgery/reattach_synth
 	name = "Synthetic Limb Reattachment"
 	steps = list(/datum/surgery_step/limb/attach/robo)
-	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin","tail", "wing")
+	possible_locs = list(
+		BODY_ZONE_HEAD,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_PRECISE_L_HAND,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_PRECISE_R_HAND,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_PRECISE_R_FOOT,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_PRECISE_L_FOOT,
+		BODY_ZONE_PRECISE_GROIN,
+		BODY_ZONE_TAIL,
+		BODY_ZONE_WING,
+	)
 
 /datum/surgery/reattach_synth/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
@@ -60,7 +99,20 @@
 /datum/surgery/robo_attach
 	name = "Apply Robotic Prosthetic"
 	steps = list(/datum/surgery_step/limb/mechanize)
-	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin","tail", "wing")
+	possible_locs = list(
+		BODY_ZONE_HEAD,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_PRECISE_L_HAND,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_PRECISE_R_HAND,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_PRECISE_R_FOOT,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_PRECISE_L_FOOT,
+		BODY_ZONE_PRECISE_GROIN,
+		BODY_ZONE_TAIL,
+		BODY_ZONE_WING,
+	)
 
 /datum/surgery/robo_attach/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
@@ -80,9 +132,9 @@
 	if(affected)
 		return 0
 	var/list/organ_data = target.dna.species.has_limbs["[target_zone]"]
-	if(target_zone == "tail")
+	if(target_zone == BODY_ZONE_TAIL)
 		return TRUE
-	if(target_zone == "wing")
+	if(target_zone == BODY_ZONE_WING)
 		return TRUE
 	return !isnull(organ_data)
 
@@ -98,16 +150,16 @@
 	if(!istype(tool, /obj/item/organ/external))
 		return 0
 	var/obj/item/organ/external/E = tool
-	if(target.get_organ(E.limb_name))
+	if(target.get_organ(E.limb_zone))
 		// This catches attaching an arm to a missing hand while the arm is still there
 		to_chat(user, "<span class='warning'>[target] already has an [E.name]!</span>")
 		return 0
-	if(E.limb_name != target_zone)
+	if(E.limb_zone != target_zone)
 		// This ensures you must be aiming at the appropriate location to attach
 		// this limb. (Can't aim at a missing foot to re-attach a missing arm)
 		to_chat(user, "<span class='warning'>The [E.name] does not go there.</span>")
 		return 0
-	if(!target.get_organ(E.parent_organ))
+	if(!target.get_organ(E.parent_organ_zone))
 		to_chat(user, "<span class='warning'>cannot attach a [E.name] because there is no limb to attach to!</span>")
 		return 0
 	if(!is_correct_limb(E, target))
@@ -163,12 +215,9 @@
 	return 1
 
 /datum/surgery_step/limb/attach/robo/attach_limb(mob/living/user, mob/living/carbon/human/target, obj/item/organ/external/E)
-	// Fixes fabricator IPC heads
-	if(!(E.dna) && E.is_robotic() && target.dna)
-		E.set_dna(target.dna)
 	..()
-	if(E.limb_name == "head")
-		var/obj/item/organ/external/head/H = target.get_organ("head")
+	if(E.limb_zone == BODY_ZONE_HEAD)
+		var/obj/item/organ/external/head/H = target.get_organ(BODY_ZONE_HEAD)
 		var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]
 		if(robohead.is_monitor) //Ensures that if an IPC gets a head that's got a human hair wig attached to their body, the hair won't wipe.
 			H.h_style = "Bald"
@@ -243,16 +292,12 @@
 		for(var/part_name in L.part)
 			if(!isnull(target.get_organ(part_name)))
 				continue
-			var/list/organ_data = target.dna.species.has_limbs["[part_name]"]
+			var/list/organ_data = target.dna.species.has_limbs[part_name]
 			if(!organ_data)
 				continue
-			// This will break if there's more than one stump ever
-			var/obj/item/organ/external/stump = target.bodyparts_by_name["limb stump"]
-			if(stump)
-				stump.remove(target)
 			var/new_limb_type = organ_data["path"]
 			var/obj/item/organ/external/new_limb = new new_limb_type(target)
-			new_limb.robotize(L.model_info)
+			new_limb.robotize(company = L.model_info)
 			if(L.sabotaged)
 				new_limb.sabotaged = 1
 	target.update_body()

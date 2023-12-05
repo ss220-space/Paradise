@@ -6,9 +6,9 @@
 	var/total_burn  = 0
 	var/total_brute = 0
 
-	for(var/obj/item/organ/external/O in bodyparts)	//hardcoded to streamline things a bit
-		total_brute += O.brute_dam //calculates health based on organ brute and burn
-		total_burn += O.burn_dam
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)	//hardcoded to streamline things a bit
+		total_brute += bodypart.brute_dam //calculates health based on organ brute and burn
+		total_burn += bodypart.burn_dam
 
 	health = maxHealth - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute
 
@@ -21,7 +21,7 @@
 	if(status_flags & GODMODE)
 		return STATUS_UPDATE_NONE	//godmode
 
-	if(dna.species && dna.species.has_organ["brain"])
+	if(dna.species && dna.species.has_organ[INTERNAL_ORGAN_BRAIN])
 		var/obj/item/organ/internal/brain/sponge = get_int_organ(/obj/item/organ/internal/brain)
 		if(sponge)
 			if(dna.species && amount > 0)
@@ -39,7 +39,7 @@
 	if(status_flags & GODMODE)
 		return STATUS_UPDATE_NONE	//godmode
 
-	if(dna.species && dna.species.has_organ["brain"])
+	if(dna.species && dna.species.has_organ[INTERNAL_ORGAN_BRAIN])
 		var/obj/item/organ/internal/brain/sponge = get_int_organ(/obj/item/organ/internal/brain)
 		if(sponge)
 			if(dna.species && amount > 0)
@@ -57,7 +57,7 @@
 	if(status_flags & GODMODE)
 		return 0	//godmode
 
-	if(dna.species && dna.species.has_organ["brain"])
+	if(dna.species && dna.species.has_organ[INTERNAL_ORGAN_BRAIN])
 		var/obj/item/organ/internal/brain/sponge = get_int_organ(/obj/item/organ/internal/brain)
 		if(sponge)
 			return min(sponge.damage,maxHealth*2)
@@ -75,7 +75,7 @@
 	if(status_flags & GODMODE)
 		return STATUS_UPDATE_NONE	//godmode
 
-	if(dna.species && dna.species.has_organ["heart"])
+	if(dna.species && dna.species.has_organ[INTERNAL_ORGAN_HEART])
 		var/obj/item/organ/internal/heart/hearty = get_int_organ(/obj/item/organ/internal/heart)
 		if(hearty)
 			hearty.damage = clamp(hearty.damage + amount, 0, 60)
@@ -87,7 +87,7 @@
 	if(status_flags & GODMODE)
 		return STATUS_UPDATE_NONE	//godmode
 
-	if(dna.species && dna.species.has_organ["heart"])
+	if(dna.species && dna.species.has_organ[INTERNAL_ORGAN_HEART])
 		var/obj/item/organ/internal/heart/hearty = get_int_organ(/obj/item/organ/internal/heart)
 		if(hearty)
 			hearty.damage = clamp(amount, 0, 60)
@@ -99,7 +99,7 @@
 	if(status_flags & GODMODE)
 		return 0	//godmode
 
-	if(dna.species && dna.species.has_organ["heart"])
+	if(dna.species && dna.species.has_organ[INTERNAL_ORGAN_HEART])
 		var/obj/item/organ/internal/heart/hearty = get_int_organ(/obj/item/organ/internal/heart)
 		if(hearty)
 			return min(hearty.damage,maxHealth*2)
@@ -123,7 +123,7 @@
 	if(status_flags & GODMODE)
 		return 0
 	var/amount = 0
-	for(var/obj/item/organ/external/O in bodyparts)
+	for(var/obj/item/organ/external/O as anything in bodyparts)
 		amount += O.brute_dam
 	return amount
 
@@ -131,7 +131,7 @@
 	if(status_flags & GODMODE)
 		return 0
 	var/amount = 0
-	for(var/obj/item/organ/external/O in bodyparts)
+	for(var/obj/item/organ/external/O as anything in bodyparts)
 		amount += O.burn_dam
 	return amount
 
@@ -165,7 +165,7 @@
 			O.receive_damage(amount, 0, sharp=is_sharp(damage_source), used_weapon=damage_source, forbidden_limbs = list(), ignore_resists=FALSE, updating_health=updating_health)
 		else
 			//if you don't want to heal robot organs, they you will have to check that yourself before using this proc.
-			O.heal_damage(-amount, 0, internal = 0, robo_repair = O.is_robotic(), updating_health = updating_health)
+			O.heal_damage(-amount, 0, internal = FALSE, robo_repair = O.is_robotic(), updating_health = updating_health)
 	return STATUS_UPDATE_HEALTH
 
 /mob/living/carbon/human/proc/adjustFireLossByPart(amount, organ_name, obj/damage_source = null, updating_health = TRUE)
@@ -179,7 +179,7 @@
 			O.receive_damage(0, amount, sharp=is_sharp(damage_source), used_weapon=damage_source, forbidden_limbs = list(), ignore_resists = FALSE, updating_health = updating_health)
 		else
 			//if you don't want to heal robot organs, they you will have to check that yourself before using this proc.
-			O.heal_damage(0, -amount, internal = 0, robo_repair = O.is_robotic(), updating_health = updating_health)
+			O.heal_damage(0, -amount, internal = FALSE, robo_repair = O.is_robotic(), updating_health = updating_health)
 	return STATUS_UPDATE_HEALTH
 
 /mob/living/carbon/human/adjustCloneLoss(amount, updating_health)
@@ -192,33 +192,28 @@
 	if(amount > 0) //cloneloss is being added
 		if(prob(mut_prob))
 			var/list/obj/item/organ/external/candidates = list() //TYPECASTED LISTS ARE NOT A FUCKING THING WHAT THE FUCK
-			for(var/obj/item/organ/external/O in bodyparts)
-				if(O.is_robotic())
+			for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+				if(bodypart.is_robotic())
 					continue
-				if(!(O.status & ORGAN_MUTATED))
-					candidates |= O
+				if(!bodypart.is_mutated())
+					candidates += bodypart
 
-			if(candidates.len)
-				var/obj/item/organ/external/O = pick(candidates)
-				O.mutate()
-				to_chat(src, "<span class='notice'>Something is not right with your [O.name]...</span>")
-				O.add_autopsy_data("Mutation", amount)
+			var/obj/item/organ/external/chosen_bodypart = safepick(candidates)
+			if(chosen_bodypart)
+				chosen_bodypart.mutate()
+				chosen_bodypart.add_autopsy_data("Mutation", amount)
 				return
 
 	else //cloneloss is being subtracted
 		if(prob(heal_prob))
-			for(var/obj/item/organ/external/O in bodyparts)
-				if(O.status & ORGAN_MUTATED)
-					O.unmutate()
-					to_chat(src, "<span class='notice'>Your [O.name] is shaped normally again.</span>")
+			for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+				if(bodypart.unmutate())
 					return
 
 
 	if(getCloneLoss() < 1) //no cloneloss, fixes organs
-		for(var/obj/item/organ/external/O in bodyparts)
-			if(O.status & ORGAN_MUTATED)
-				O.unmutate()
-				to_chat(src, "<span class='notice'>Your [O.name] is shaped normally again.</span>")
+		for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+			bodypart.unmutate()
 
 
 // Defined here solely to take species flags into account without having to recast at mob/living level.
@@ -268,34 +263,31 @@
 //Returns a list of damaged organs
 /mob/living/carbon/human/proc/get_damaged_organs(brute, burn, flags = AFFECT_ALL_ORGANS)
 	var/list/obj/item/organ/external/parts = list()
-	for(var/obj/item/organ/external/O in bodyparts)
-		if((brute && O.brute_dam) || (burn && O.burn_dam))
-			if(!(flags & AFFECT_ROBOTIC_ORGAN) && O.is_robotic())
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		if((brute && bodypart.brute_dam) || (burn && bodypart.burn_dam))
+			if(!(flags & AFFECT_ROBOTIC_ORGAN) && bodypart.is_robotic())
 				continue
-			if(!(flags & AFFECT_ORGANIC_ORGAN) && !O.is_robotic())
+			if(!(flags & AFFECT_ORGANIC_ORGAN) && !bodypart.is_robotic())
 				continue
-			parts += O
+			parts += bodypart
 	return parts
 
 //Returns a list of damageable organs
 /mob/living/carbon/human/proc/get_damageable_organs(affect_robotic = TRUE)
 	var/list/obj/item/organ/external/parts = list()
-	for(var/obj/item/organ/external/O in bodyparts)
-		if(!affect_robotic && O.is_robotic())
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		if(!affect_robotic && bodypart.is_robotic())
 			continue
-		if(O.brute_dam + O.burn_dam < O.max_damage)
-			parts += O
+		if(bodypart.brute_dam + bodypart.burn_dam < bodypart.max_damage)
+			parts += bodypart
 	return parts
 
 //Heals ONE external organ, organ gets randomly selected from damaged ones.
 //It automatically updates damage overlays if necesary
 //It automatically updates health status
 /mob/living/carbon/human/heal_organ_damage(brute, burn, updating_health = TRUE)
-	var/list/obj/item/organ/external/parts = get_damaged_organs(brute,burn)
-	if(!parts.len)
-		return
-	var/obj/item/organ/external/picked = pick(parts)
-	if(picked.heal_damage(brute,burn, updating_health))
+	var/obj/item/organ/external/picked = safepick(get_damaged_organs(brute, burn))
+	if(picked?.heal_damage(brute, burn, updating_health = updating_health))
 		UpdateDamageIcon()
 
 //Damages ONE external organ, organ gets randomly selected from damagable ones.
@@ -313,11 +305,11 @@
 
 
 //Heal MANY external organs, in random order
-/mob/living/carbon/human/heal_overall_damage(brute, burn, updating_health = TRUE, internal=0, robotic=0)
+/mob/living/carbon/human/heal_overall_damage(brute, burn, updating_health = TRUE, internal = FALSE, robotic = FALSE)
 	var/list/obj/item/organ/external/parts = get_damaged_organs(brute,burn)
 
 	var/update = 0
-	while(parts.len && ( brute > 0 || burn > 0) )
+	while(length(parts) && (brute > 0 || burn > 0))
 		var/obj/item/organ/external/picked = pick(parts)
 
 		var/brute_was = picked.brute_dam
@@ -332,8 +324,10 @@
 
 	if(updating_health)
 		updatehealth("heal overall damage")
+
 	if(update)
 		UpdateDamageIcon()
+
 
 // damage MANY external organs, in random order
 /mob/living/carbon/human/take_overall_damage(brute, burn, updating_health = TRUE, used_weapon = null, sharp = 0, edge = 0, affect_robotic = 1)
@@ -371,7 +365,7 @@
 This function restores all organs.
 */
 /mob/living/carbon/human/restore_all_organs()
-	for(var/obj/item/organ/external/current_organ in bodyparts)
+	for(var/obj/item/organ/external/current_organ as anything in bodyparts)
 		current_organ.rejuvenate()
 
 /mob/living/carbon/human/proc/HealDamage(zone, brute, burn)
@@ -385,11 +379,11 @@ This function restores all organs.
 
 /mob/living/carbon/human/get_organ(zone)
 	if(!zone)
-		zone = "chest"
-	if(zone in list("eyes", "mouth"))
-		zone = "head"
-
+		zone = BODY_ZONE_CHEST
+	if(zone in list(BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH))
+		zone = BODY_ZONE_HEAD
 	return bodyparts_by_name[zone]
+
 
 /mob/living/carbon/human/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, sharp = 0, obj/used_weapon = null)
 	SEND_SIGNAL(src, COMSIG_MOB_APPLY_DAMAGE, damage, damagetype, def_zone)

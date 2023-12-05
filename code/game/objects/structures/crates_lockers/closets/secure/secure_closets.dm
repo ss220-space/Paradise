@@ -165,7 +165,7 @@
 				update_icon()
 			else // Bad day)
 				var/mob/living/carbon/human/H = user
-				var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? "l_hand" : "r_hand")
+				var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 				user.apply_damage(5, BRUTE , affecting)
 				user.emote("scream")
 				to_chat(user, "<span class='warning'>Проклятье! [I] сорвалась и повредила [affecting.name]!</span>")

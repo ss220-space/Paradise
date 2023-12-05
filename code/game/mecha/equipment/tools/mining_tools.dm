@@ -107,8 +107,8 @@
 		var/splatter_dir = get_dir(chassis, target)
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
-			var/obj/item/organ/external/target_part = H.get_organ(ran_zone("chest"))
-			H.apply_damage(10, BRUTE, "chest", H.run_armor_check(target_part, "melee"))
+			var/obj/item/organ/external/target_part = H.get_organ(ran_zone(BODY_ZONE_CHEST))
+			H.apply_damage(10, BRUTE, BODY_ZONE_CHEST, H.run_armor_check(target_part, MELEE))
 
 			//blood splatters
 			blood_color = H.dna.species.blood_color

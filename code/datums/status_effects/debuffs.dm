@@ -199,10 +199,10 @@
 /datum/status_effect/mark_prey/on_creation(mob/living/new_owner, datum/antagonist/vampire/antag_datum)
 	if(antag_datum)
 		vamp = antag_datum
-		var/t_kidneys = vamp.get_trophies("kidneys")
+		var/t_kidneys = vamp.get_trophies(INTERNAL_ORGAN_KIDNEYS)
 		duration += t_kidneys SECONDS	// 15s. MAX
-		t_eyes = vamp.get_trophies("eyes")
-		t_hearts = vamp.get_trophies("hearts")
+		t_eyes = vamp.get_trophies(INTERNAL_ORGAN_EYES)
+		t_hearts = vamp.get_trophies(INTERNAL_ORGAN_HEART)
 	return ..()
 
 
@@ -732,7 +732,7 @@
 
 		var/obj/item/organ/vision = H.get_int_organ(H.dna.species.vision_organ)
 
-		if(!vision || vision.is_bruised() || vision.is_broken()) // doesn't decay if you have damaged eyesight.
+		if(!vision || vision.is_bruised() || vision.is_traumatized()) // doesn't decay if you have damaged eyesight.
 			return 0
 
 		if(istype(H.glasses, /obj/item/clothing/glasses/sunglasses/blindfold)) // decays faster if you rest your eyes with a blindfold.
@@ -761,7 +761,7 @@
 
 		var/obj/item/organ/vision = H.get_int_organ(H.dna.species.vision_organ)
 
-		if(!vision || vision.is_broken() || vision.is_bruised()) //got no eyes or broken eyes
+		if(!vision || vision.is_traumatized() || vision.is_bruised()) //got no eyes or broken eyes
 			return 0
 
 	return ..() //default decay rate

@@ -43,7 +43,7 @@
 		else
 			adjustOxyLoss(max(dmgamt - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0), FALSE)
 
-	var/obj/item/organ/external/affected = get_organ("head")
+	var/obj/item/organ/external/affected = get_organ(BODY_ZONE_HEAD)
 	if(affected)
 		affected.add_autopsy_data(byitem ? "Suicide by [byitem]" : "Suicide", dmgamt)
 

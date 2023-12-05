@@ -75,6 +75,7 @@
 #include "code\__DEFINES\move_force.dm"
 #include "code\__DEFINES\muzzle_flash.dm"
 #include "code\__DEFINES\ninja.dm"
+#include "code\__DEFINES\organ_defines.dm"
 #include "code\__DEFINES\pda.dm"
 #include "code\__DEFINES\pipes.dm"
 #include "code\__DEFINES\preferences.dm"

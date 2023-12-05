@@ -105,10 +105,9 @@
 		var/mob/living/carbon/human/H = M
 
 		//Mitocholide is hard enough to get, it's probably fair to make this all internal organs
-		for(var/obj/item/organ/internal/I in H.internal_organs)
-			if(I.status & ORGAN_DEAD)
-				I.status &= ~ORGAN_DEAD
-			I.heal_internal_damage(0.4)
+		for(var/obj/item/organ/internal/organ as anything in H.internal_organs)
+			organ.unnecrotize()
+			organ.heal_internal_damage(0.4)
 	return ..()
 
 /datum/reagent/medicine/mitocholide/reaction_obj(obj/O, volume)
@@ -137,9 +136,8 @@
 		update_flags |= M.adjustFireLoss(-4, FALSE)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			var/obj/item/organ/external/head/head = H.get_organ("head")
-			if(head)
-				head.disfigured = FALSE
+			var/obj/item/organ/external/head/head = H.get_organ(BODY_ZONE_HEAD)
+			head?.undisfigure()
 	return ..() | update_flags
 
 /datum/reagent/medicine/cryoxadone/on_merge(list/mix_data)
@@ -162,9 +160,8 @@
 	update_flags |= M.adjustFireLoss(-1, FALSE)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/head/head = H.get_organ("head")
-		if(head)
-			head.disfigured = FALSE
+		var/obj/item/organ/external/head/head = H.get_organ(BODY_ZONE_HEAD)
+		head?.undisfigure()
 	return ..() | update_flags
 
 /datum/reagent/medicine/rezadone/overdose_process(mob/living/M, severity)
@@ -193,14 +190,13 @@
 		var/mob/living/carbon/human/H = M
 		organs_list += H.bodyparts
 
-	for(var/X in organs_list)
-		var/obj/item/organ/O = X
-		if(O.germ_level < INFECTION_LEVEL_ONE)
-			O.germ_level = 0	//cure instantly
-		else if(O.germ_level < INFECTION_LEVEL_TWO)
-			O.germ_level = max(M.germ_level - 25, 0)	//at germ_level == 500, this should cure the infection in 34 seconds
+	for(var/obj/item/organ/organ as anything in organs_list)
+		if(organ.germ_level < INFECTION_LEVEL_ONE)
+			organ.germ_level = 0	//cure instantly
+		else if(organ.germ_level < INFECTION_LEVEL_TWO)
+			organ.germ_level = max(M.germ_level - 25, 0)	//at germ_level == 500, this should cure the infection in 34 seconds
 		else
-			O.germ_level = max(M.germ_level - 10, 0)	// at germ_level == 1000, this will cure the infection in 1 minutes, 14 seconds
+			organ.germ_level = max(M.germ_level - 10, 0)	// at germ_level == 1000, this will cure the infection in 1 minutes, 14 seconds
 
 	organs_list.Cut()
 	M.germ_level = max(M.germ_level - 20, 0) // Reduces the mobs germ level, too
@@ -670,12 +666,12 @@
 	if(prob(80))
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M
-			var/obj/item/organ/internal/eyes/E = C.get_int_organ(/obj/item/organ/internal/eyes)
-			if(istype(E) && !(E.status & ORGAN_DEAD))
-				E.heal_internal_damage(1)
+			var/obj/item/organ/internal/eyes/eyes = C.get_int_organ(/obj/item/organ/internal/eyes)
+			if(eyes && !eyes.is_dead())
+				eyes.heal_internal_damage(1)
 				update_flags |= M.AdjustEyeBlurry(-2 SECONDS)
 			var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
-			if(istype(ears) && !(ears.status & ORGAN_DEAD))
+			if(ears && !ears.is_dead())
 				ears.heal_internal_damage(1)
 				if(ears.damage < 25 && prob(30))
 					C.SetDeaf(0)
@@ -822,15 +818,14 @@
 					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
 						var/necrosis_prob = 40 * min((20 MINUTES), max((time_dead - (1 MINUTES)), 0)) / ((20 MINUTES) - (1 MINUTES))
-						for(var/obj/item/organ/O in (H.bodyparts | H.internal_organs))
+						for(var/obj/item/organ/organ as anything in (H.bodyparts|H.internal_organs))
 							// Per non-vital body part:
 							// 0% chance of necrosis within 1 minute of death
 							// 40% chance of necrosis after 20 minutes of death
-							if(!O.vital && prob(necrosis_prob))
+							if(!organ.vital && prob(necrosis_prob))
 								// side effects may include: Organ failure
-								O.necrotize(FALSE)
-								if(O.status & ORGAN_DEAD)
-									O.germ_level = INFECTION_LEVEL_THREE
+								if(organ.necrotize())
+									organ.germ_level = INFECTION_LEVEL_THREE
 						H.update_body()
 
 					M.update_revive(TRUE, TRUE)
@@ -1342,19 +1337,18 @@
 			if(has_stimulant == TRUE)
 				return ..()
 			else
-				for(var/obj/item/organ/external/E in M.bodyparts)
+				for(var/obj/item/organ/external/bodypart as anything in M.bodyparts)
 					if(prob(25)) // Each tick has a 25% chance of repearing a bone.
-						if(E.status & (ORGAN_BROKEN | ORGAN_SPLINTED)) //I can't just check for !E.status
-							to_chat(M, "<span class='notice'>You feel a burning sensation in your [E.name] as it straightens involuntarily!</span>")
-							E.rejuvenate() //Repair it completely.
-						if(E.internal_bleeding)
-							to_chat(M, "<span class='notice'>You feel a burning sensation in your [E.name] as your veins begin to recover!</span>")
-							E.internal_bleeding = FALSE
-
+						if(bodypart.has_fracture()) //I can't just check for !E.status
+							to_chat(M, "<span class='notice'>You feel a burning sensation in your [bodypart.name] as it straightens involuntarily!</span>")
+							bodypart.rejuvenate() //Repair it completely.
+						if(bodypart.has_internal_bleeding())
+							to_chat(M, "<span class='notice'>You feel a burning sensation in your [bodypart.name] as your veins begin to recover!</span>")
+							bodypart.stop_internal_bleeding()
 
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
-					for(var/obj/item/organ/internal/I in M.internal_organs) // 60 healing to all internal organs.
+					for(var/obj/item/organ/internal/I as anything in M.internal_organs) // 60 healing to all internal organs.
 						I.heal_internal_damage(4)
 					if(H.blood_volume < BLOOD_VOLUME_NORMAL * 0.9)// If below 90% blood, regenerate 225 units total
 						H.blood_volume += 15

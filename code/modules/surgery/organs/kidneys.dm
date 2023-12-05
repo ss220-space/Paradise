@@ -2,9 +2,8 @@
 	name = "kidneys"
 	icon_state = "kidneys"
 	gender = PLURAL
-	organ_tag = "kidneys"
-	parent_organ = "groin"
-	slot = "kidneys"
+	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
+	slot = INTERNAL_ORGAN_KIDNEYS
 
 /obj/item/organ/internal/kidneys/on_life()
 	// Coffee is really bad for you with busted kidneys.
@@ -16,7 +15,7 @@
 	if(coffee)
 		if(is_bruised())
 			owner.adjustToxLoss(0.1 * PROCESS_ACCURACY)
-		else if(is_broken())
+		else if(is_traumatized())
 			owner.adjustToxLoss(0.3 * PROCESS_ACCURACY)
 
 /obj/item/organ/internal/kidneys/cybernetic

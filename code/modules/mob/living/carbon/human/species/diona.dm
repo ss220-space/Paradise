@@ -36,29 +36,29 @@
 	reagent_tag = PROCESS_ORG
 
 	has_organ = list(
-		"liver" =   /obj/item/organ/internal/liver/diona,
-		"kidneys" =   /obj/item/organ/internal/kidneys/diona,
-		"brain" =   /obj/item/organ/internal/brain/diona,
-		"eyes" =   /obj/item/organ/internal/eyes/diona, //Default darksight of 2.
-		"lungs" =   /obj/item/organ/internal/lungs/diona,
-		"appendix" =   /obj/item/organ/internal/appendix/diona,
-		"heart" = /obj/item/organ/internal/heart/diona
-		)
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/diona,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/diona,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/diona,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/diona, //Default darksight of 2.
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/diona,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/diona,
+		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix/diona,
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/diona,
+	)
 
-	mutantears = /obj/item/organ/internal/ears/diona
 	has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest/diona),
-		"groin" =  list("path" = /obj/item/organ/external/groin/diona),
-		"head" =   list("path" = /obj/item/organ/external/head/diona),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm/diona),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right/diona),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg/diona),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right/diona),
-		"l_hand" = list("path" = /obj/item/organ/external/hand/diona),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right/diona),
-		"l_foot" = list("path" = /obj/item/organ/external/foot/diona),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right/diona)
-		)
+		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest/diona),
+		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin/diona),
+		BODY_ZONE_HEAD = list("path" = /obj/item/organ/external/head/diona),
+		BODY_ZONE_L_ARM = list("path" = /obj/item/organ/external/arm/diona),
+		BODY_ZONE_R_ARM = list("path" = /obj/item/organ/external/arm/right/diona),
+		BODY_ZONE_L_LEG = list("path" = /obj/item/organ/external/leg/diona),
+		BODY_ZONE_R_LEG = list("path" = /obj/item/organ/external/leg/right/diona),
+		BODY_ZONE_PRECISE_L_HAND = list("path" = /obj/item/organ/external/hand/diona),
+		BODY_ZONE_PRECISE_R_HAND = list("path" = /obj/item/organ/external/hand/right/diona),
+		BODY_ZONE_PRECISE_L_FOOT = list("path" = /obj/item/organ/external/foot/diona),
+		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right/diona),
+	)
 
 	suicide_messages = list(
 		"теряет ветви!",

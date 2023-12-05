@@ -45,7 +45,7 @@
 
 /obj/item/airlock_painter/suicide_act(mob/user)
 
-	var/obj/item/organ/internal/lungs/L = user.get_organ_slot("lungs")
+	var/obj/item/organ/internal/lungs/L = user.get_organ_slot(INTERNAL_ORGAN_LUNGS)
 	var/lungs_name = "\improper[L.name]"
 
 	if(L)

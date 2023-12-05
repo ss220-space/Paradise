@@ -215,14 +215,14 @@
 	desc = "Anomaly core grow from thing which had to be slime heart"
 	icon_state = "anomaly_heart"
 
-/obj/item/organ/internal/heart/slime/anomaly/insert(var/mob/living/carbon/M, special = 0)
-	..()
+/obj/item/organ/internal/heart/slime/anomaly/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
 	var/obj/effect/proc_holder/spell/slime_degradation/degrad = new
 	var/obj/effect/proc_holder/spell/slime_selfheat/heat = new
 	M.mind.AddSpell(degrad)
 	M.mind.AddSpell(heat)
 
-/obj/item/organ/internal/heart/slime/anomaly/remove(var/mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/slime/anomaly/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	M.mind.RemoveSpell(/obj/effect/proc_holder/spell/slime_degradation)
 	M.mind.RemoveSpell(/obj/effect/proc_holder/spell/slime_selfheat)
 	. = ..()
