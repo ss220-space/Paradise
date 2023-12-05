@@ -10,6 +10,7 @@ SUBSYSTEM_DEF(tgui)
 	priority = FIRE_PRIORITY_TGUI
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 	offline_implications = "All TGUIs will no longer process. Shuttle call recommended."
+	ss_id = "tgui"
 
 	var/list/currentrun = list()
 	var/list/open_uis = list() // A list of open UIs, grouped by src_object and ui_key.
