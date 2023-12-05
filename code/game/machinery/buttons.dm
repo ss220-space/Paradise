@@ -22,9 +22,6 @@
 
 	multitool_menu_type = /datum/multitool_menu/idtag/driver_button
 
-/obj/machinery/button/indestructible
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-
 /obj/machinery/driver_button/New(turf/loc, var/w_dir=null)
 	..()
 	switch(w_dir)
