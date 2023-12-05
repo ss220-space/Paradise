@@ -56,7 +56,7 @@
 
 	var/mob_attack_logs = list() //for hostiles and megafauna
 
-	 /// Used to disable gliding if mob is too slow, like goliath
+	/// Used to disable gliding if mob is too slow, like goliath
 	var/needs_gliding = TRUE
 
 	tts_seed = "Vort_e2"
