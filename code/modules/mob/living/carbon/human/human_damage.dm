@@ -278,9 +278,11 @@
 	return parts
 
 //Returns a list of damageable organs
-/mob/living/carbon/human/proc/get_damageable_organs()
+/mob/living/carbon/human/proc/get_damageable_organs(affect_robotic = TRUE)
 	var/list/obj/item/organ/external/parts = list()
 	for(var/obj/item/organ/external/O in bodyparts)
+		if(!affect_robotic && O.is_robotic())
+			continue
 		if(O.brute_dam + O.burn_dam < O.max_damage)
 			parts += O
 	return parts
@@ -334,10 +336,10 @@
 		UpdateDamageIcon()
 
 // damage MANY external organs, in random order
-/mob/living/carbon/human/take_overall_damage(brute, burn, updating_health = TRUE, used_weapon = null, sharp = 0, edge = 0)
+/mob/living/carbon/human/take_overall_damage(brute, burn, updating_health = TRUE, used_weapon = null, sharp = 0, edge = 0, affect_robotic = 1)
 	if(status_flags & GODMODE)
 		return ..()	//godmode
-	var/list/obj/item/organ/external/parts = get_damageable_organs()
+	var/list/obj/item/organ/external/parts = get_damageable_organs(affect_robotic)
 
 	var/update = 0
 	while(parts.len && (brute>0 || burn>0) )

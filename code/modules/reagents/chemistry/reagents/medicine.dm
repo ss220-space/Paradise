@@ -466,8 +466,13 @@
 	if(prob(75))
 		update_flags |= M.adjustToxLoss(-2, FALSE)
 	if(prob(33))
-		update_flags |= M.adjustBruteLoss(0.5, FALSE)
-		update_flags |= M.adjustFireLoss(0.5, FALSE)
+		if(ishuman(M))
+			var/mob/living/carbon/human/human = M
+			human.take_overall_damage(0.5, 0.5, FALSE, affect_robotic = FALSE)
+		else
+			update_flags |= M.adjustBruteLoss(0.5, FALSE)
+			update_flags |= M.adjustFireLoss(0.5, FALSE)
+
 	return ..() | update_flags
 
 /datum/reagent/medicine/sal_acid
