@@ -47,6 +47,8 @@
 	if(!msg)
 		return
 
+	msg = handleDiscordEmojis(msg)
+
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, C.mob))
 			var/display_name = key

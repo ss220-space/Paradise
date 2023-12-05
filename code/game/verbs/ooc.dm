@@ -33,8 +33,11 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		msg = typing_input(src.mob, "", "ooc \"text\"")
 
 	msg = trim(sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN)))
+
 	if(!msg)
 		return
+
+	msg = handleDiscordEmojis(msg)
 
 	if(!(prefs.toggles & PREFTOGGLE_CHAT_OOC))
 		to_chat(src, "<span class='danger'>You have OOC muted.</span>")
@@ -200,6 +203,8 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	msg = trim(sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN)))
 	if(!msg)
 		return
+
+	msg = handleDiscordEmojis(msg)
 
 	if(!(prefs.toggles & PREFTOGGLE_CHAT_LOOC))
 		to_chat(src, "<span class='danger'>You have LOOC muted.</span>")

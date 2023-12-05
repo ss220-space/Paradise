@@ -672,6 +672,15 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 	return 0*/
 
+/datum/admins/proc/reload_emoji()
+	set category = "Server"
+	set desc="Reloads emoji from txt file"
+	set name="Reload emoji"
+
+	if(!check_rights(R_SERVER))
+		return
+
+	loadDiscordEmojis()
 
 /**
   * A proc that return whether the mob is a "Special Character" aka Antagonist
