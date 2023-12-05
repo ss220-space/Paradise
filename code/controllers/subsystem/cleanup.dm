@@ -19,6 +19,7 @@ SUBSYSTEM_DEF(cleanup)
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 	offline_implications = "Certain global lists will no longer be cleared of nulls, which may result in runtimes. No immediate action is needed."
 	cpu_display = SS_CPUDISPLAY_LOW
+	ss_id = "null_cleanup"
 	/// A list of global lists we want the subsystem to clean.
 	var/list/lists_to_clean
 

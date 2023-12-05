@@ -82,15 +82,16 @@
 	crusher_loot = /obj/item/crusher_trophy/watcher_wing
 	loot = list()
 	butcher_results = list(/obj/item/stack/ore/diamond = 2, /obj/item/stack/sheet/sinew = 2, /obj/item/stack/sheet/bone = 1)
+	var/jewelry_loot = null
 
-/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/random/Initialize(mapload)
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/death(gibbed)
+	if(!fromtendril && jewelry_loot)
+		if(prob(30))
+			var/obj/gem = new jewelry_loot(loc)
+			deathmessage = "spits out a [gem.name] as it dies!"
+		jewelry_loot = null
 	. = ..()
-	if(prob(40)) //60 for classic, 20/20 for magma and ice
-		if(prob(50))
-			new /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing(loc)
-		else
-			new /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing(loc)
-		return INITIALIZE_HINT_QDEL
+	deathmessage = initial(deathmessage)
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing
 	name = "magmawing watcher"
@@ -105,6 +106,7 @@
 	light_power = 2.5
 	light_color = LIGHT_COLOR_LAVA
 	projectiletype = /obj/item/projectile/temp/basilisk/magmawing
+	jewelry_loot = /obj/item/gem/magma
 	crusher_loot = /obj/item/crusher_trophy/blaster_tubes/magma_wing
 	crusher_drop_mod = 60
 
@@ -119,8 +121,27 @@
 	health = 170
 	projectiletype = /obj/item/projectile/temp/basilisk/icewing
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/bone = 1) //No sinew; the wings are too fragile to be usable
+	jewelry_loot = /obj/item/gem/fdiamond
 	crusher_loot = /obj/item/crusher_trophy/watcher_wing/ice_wing
 	crusher_drop_mod = 60
+
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/random/Initialize(mapload)
+	. = ..()
+	if(prob(40)) //60 for classic, 20/20 for magma and ice
+		if(prob(50))
+			new /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing(loc)
+		else
+			new /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing(loc)
+		return INITIALIZE_HINT_QDEL
+
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril
+	fromtendril = TRUE
+
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing/tendril
+	fromtendril = TRUE
+
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing/tendril
+	fromtendril = TRUE
 
 /obj/item/projectile/watcher
 	name = "stunning blast"
@@ -172,26 +193,3 @@
 		var/mob/living/L = target
 		if(istype(L))
 			L.apply_status_effect(/datum/status_effect/freon/watcher)
-
-/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril
-	fromtendril = TRUE
-
-/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing/tendril
-	fromtendril = TRUE
-
-/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing/tendril
-	fromtendril = TRUE
-
-/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing/death(gibbed)
-	if(prob(30) && !fromtendril)
-		new /obj/item/gem/fdiamond(loc)
-		deathmessage = "spits out a diamond as it dies!"
-	. = ..()
-	deathmessage = initial(deathmessage)
-
-/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing/death(gibbed)
-	if(prob(30) && !fromtendril)
-		new /obj/item/gem/magma(loc)
-		deathmessage = "spits out a golden gem as it dies!"
-	. = ..()
-	deathmessage = initial(deathmessage)

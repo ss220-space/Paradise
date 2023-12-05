@@ -287,6 +287,39 @@
 /obj/item/clothing/glasses/hud/health/tajblind/attack_self(mob/user = usr)
 	toggle_veil(user)
 
+/obj/item/clothing/glasses/hud/diagnostic/tajblind
+	name = "Diagnostic veil"
+	desc = "A tajaran veil capable of analyzing the integrity and status of robotics and exosuits."
+	icon_state = "tajblind_diagnostic"
+	item_state = "tajblind_diagnostic"
+	flags_cover = GLASSESCOVERSEYES
+	actions_types = list(/datum/action/item_action/toggle)
+	up = 0
+	tint = 0
+/obj/item/clothing/glasses/hud/diagnostic/tajblind/sunglasses
+	see_in_dark = 1
+	flash_protect = 1
+	tint = 1
+
+/obj/item/clothing/glasses/hud/diagnostic/tajblind/attack_self(mob/user = usr)
+	toggle_veil(user)
+/obj/item/clothing/glasses/hud/skills/tajblind
+	name = "Skills veil"
+	desc = "A tajaran veil capable of showing the employment history records of NT crew members."
+	icon_state = "tajblind_skill"
+	item_state = "tajblind_skill"
+	flags_cover = GLASSESCOVERSEYES
+	actions_types = list(/datum/action/item_action/toggle)
+	up = 0
+	tint = 0
+
+/obj/item/clothing/glasses/hud/skills/tajblind/sunglasses
+	see_in_dark = 1
+	flash_protect = 1
+	tint = 1
+
+/obj/item/clothing/glasses/hud/skills/tajblind/attack_self(mob/user = usr)
+	toggle_veil(user)
 /obj/item/clothing/glasses/hud/skills
 	name = "Skills HUD"
 	desc = "A heads-up display capable of showing the employment history records of NT crew members."

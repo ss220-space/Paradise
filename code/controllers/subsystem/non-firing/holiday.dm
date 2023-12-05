@@ -2,6 +2,7 @@ SUBSYSTEM_DEF(holiday)
 	name = "Holiday"
 	init_order = INIT_ORDER_HOLIDAY // 4
 	flags = SS_NO_FIRE
+	ss_id = "holiday"
 	var/list/holidays
 
 /datum/controller/subsystem/holiday/Initialize()

@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(parallax)
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 	offline_implications = "Space parallax will no longer move around. No immediate action is needed."
 	cpu_display = SS_CPUDISPLAY_HIGH
+	ss_id = "parallax"
 	var/list/currentrun
 	var/planet_x_offset = 128
 	var/planet_y_offset = 128
