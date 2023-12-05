@@ -232,13 +232,14 @@
 
 /obj/item/organ/external/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE, silent = FALSE)
 	if(owner?.status_flags & GODMODE)
-		return
+		return FALSE
+
 	if(tough && !ignore_resists)
 		brute = max(0, brute - 5)
 		burn = max(0, burn - 4)
 
-	if((brute <= 0) && (burn <= 0))
-		return 0
+	if(brute <= 0 && burn <= 0)
+		return FALSE
 
 	if(!ignore_resists)
 		brute *= brute_mod
@@ -246,19 +247,17 @@
 
 	// High brute damage or sharp objects may damage internal organs; distributed damage doesn't inflict it
 	if(!ignore_resists && LAZYLEN(internal_organs) && (brute_dam >= max_damage || (((sharp && brute >= LIMB_SHARP_THRESH_INT_DMG) || brute >= LIMB_THRESH_INT_DMG) && prob(LIMB_DMG_PROB))))
-		// Damage an internal organ
 		var/obj/item/organ/internal/internal_organ = pick(internal_organs)
-		//Pass full damage if an internal organ is dead
+		// Pass full damage if an internal organ is dead
 		var/internal_damage = min(internal_organ.max_damage - internal_organ.damage, brute * 0.5)
 		if(internal_damage)
 			internal_organ.receive_damage(internal_damage)
 			brute -= internal_damage
 
-	if(!silent && owner?.has_pain() && brute && has_fracture() && prob(40))
-		owner.emote("scream")	//getting hit on broken hand hurts
-
-	if(is_splinted() && prob((brute + burn) * 4)) //taking damage to splinted limbs removes the splints
-		remove_splint(splint_break = TRUE, silent = silent)
+	if(!silent && brute && has_fracture() && owner?.has_pain() && prob(40))
+		owner.emote("scream")	// Getting hit on broken hand hurts
+	else if(brute && prob((brute + burn) * 4))
+		remove_splint(splint_break = TRUE, silent = silent)	// Taking damage to splinted limbs removes the splints
 
 	if(used_weapon)
 		add_autopsy_data("[used_weapon]", brute + burn)
@@ -270,72 +269,82 @@
 		try_internal_bleeding(brute, silent)
 		try_fracture(brute, silent)
 
+	// Need to update health, but need a reference in case the below checks cuts off a limb.
+	var/mob/living/carbon/organ_owner = owner
+
 	// Make sure we don't exceed the maximum damage a limb can take before dismembering
 	if((brute_dam + burn_dam + brute + burn) < max_damage)
 		brute_dam += brute
 		burn_dam += burn
 	else
-		//If we can't inflict the full amount of damage, spread the damage in other ways
-		//How much damage can we actually cause?
-		var/can_inflict = max_damage - (brute_dam + burn_dam)
-		if(can_inflict)
+		// If we can't inflict the full amount of damage, spread the damage in other ways
+		// How much damage can we actually cause?
+		var/remaining_health = max_damage - (brute_dam + burn_dam)
+		if(remaining_health)
 			if(brute > 0)
-				//Inflict all burte damage we can
-				brute_dam = min(brute_dam + brute, brute_dam + can_inflict)
-				var/temp = can_inflict
-				//How much mroe damage can we inflict
-				can_inflict = max(0, can_inflict - brute)
-				//How much brute damage is left to inflict
+				// Inflict all brute damage we can
+				brute_dam = min(brute_dam + brute, brute_dam + remaining_health)
+				var/temp = remaining_health
+				// How much more damage can we inflict
+				remaining_health = max(0, remaining_health - brute)
+				// How much brute damage is left to inflict
 				brute = max(0, brute - temp)
 
-			if(burn > 0 && can_inflict)
-				//Inflict all burn damage we can
-				burn_dam = min(burn_dam + burn, burn_dam + can_inflict)
-				//How much burn damage is left to inflict
-				burn = max(0, burn - can_inflict)
+			if(burn > 0 && remaining_health)
+				// Inflict all burn damage we can
+				burn_dam = min(burn_dam + burn, burn_dam + remaining_health)
+				// How much burn damage is left to inflict
+				burn = max(0, burn - remaining_health)
 
-		//If there are still hurties to dispense
+		// If there are still hurties to dispense
 		if(burn || brute)
-			//List organs we can pass it to
+			// List organs we can pass it to
 			var/list/obj/item/organ/external/possible_points = list()
 			if(parent)
 				possible_points += parent
+
 			if(LAZYLEN(children))
-				var/all_child_forbidden = TRUE
-				for(var/obj/item/organ/external/child_bodypart as anything in children)
-					if(!(child_bodypart in forbidden_limbs))
-						all_child_forbidden = FALSE
-						possible_points += child_bodypart
-				if(all_child_forbidden)
-					forbidden_limbs += src
+				var/all_children_forbidden = TRUE
+				for(var/obj/item/organ/external/childpart as anything in children)
+					if(!(childpart in forbidden_limbs))
+						all_children_forbidden = FALSE
+						possible_points += childpart
+				if(all_children_forbidden)
+					forbidden_limbs |= src
 			else
-				forbidden_limbs += src
+				forbidden_limbs |= src
+
 			if(length(forbidden_limbs))
 				possible_points -= forbidden_limbs
 
-			//If everything is damaged, no damage
+			// If everything is damaged, no damage
 			var/can_distribute = TRUE
 			if(owner && length(forbidden_limbs) == length(owner.bodyparts_by_name))
 				can_distribute = FALSE
-			//Return damage to upper body if nothing is available
+
+			// Return damage to upper body if nothing is available
 			if(parent && !length(possible_points))
 				possible_points += parent
 
 			if(can_distribute && length(possible_points))
-				//And pass the pain around
-				var/obj/item/organ/external/target = pick(possible_points)
-				target.receive_damage(brute, burn, sharp, used_weapon, forbidden_limbs, ignore_resists = TRUE, silent = silent) //If the damage was reduced before, don't reduce it again
+				// And pass the pain around
+				var/obj/item/organ/external/picked_part = pick(possible_points)
+				// If the damage was reduced before, don't reduce it again
+				picked_part.receive_damage(brute, burn, sharp, used_weapon, forbidden_limbs, ignore_resists = TRUE, updating_health = FALSE, silent = silent)
 
-			if(dismember_at_max_damage && limb_zone != BODY_ZONE_CHEST && limb_zone != BODY_ZONE_PRECISE_GROIN) // We've ensured all damage to the mob is retained, now let's drop it, if necessary.
-				droplimb(clean = TRUE, silent = silent) //Clean loss, just drop the limb and be done
+			// We've ensured all damage to the mob is retained, now let's drop it, if necessary
+			var/limb_dropped = FALSE
+			if(dismember_at_max_damage && limb_zone != BODY_ZONE_CHEST && limb_zone != BODY_ZONE_PRECISE_GROIN)
+				// Clean loss, just drop the limb and be done
+				droplimb(clean = TRUE, silent = silent)
+				limb_dropped = TRUE
 
-	var/mob/living/carbon/owner_old = owner //Need to update health, but need a reference in case the below check cuts off a limb.
-	//If limb took enough damage, try to cut or tear it off
-	if(sharp && owner && loc == owner && !cannot_amputate && (brute_dam + burn_dam) >= max_damage && prob(brute / 2))
-		droplimb(silent = silent)
+			// If limb took enough damage, try to cut or tear it off.
+			if(!limb_dropped && sharp && owner && loc == owner && !cannot_amputate && prob(brute / 2))
+				droplimb(silent = silent)
 
-	if(owner_old)
-		owner_old.updatehealth("limb receive damage")
+	if(updating_health)
+		organ_owner?.updatehealth("limb receive damage")
 
 	return update_icon()
 
