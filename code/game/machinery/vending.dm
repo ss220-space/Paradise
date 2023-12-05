@@ -2278,7 +2278,7 @@
 		/obj/item/ammo_box/shotgun = 4,
 		/obj/item/ammo_box/shotgun/buck = 4,
 		/obj/item/ammo_box/shotgun/rubbershot = 4,
-		/obj/item/ammo_box/shotgun/stun = 5,
+		/obj/item/ammo_box/shotgun/stunslug = 5,
 		/obj/item/ammo_box/shotgun/ion = 2,
 		/obj/item/ammo_box/shotgun/laserslug = 5,
 		/obj/item/ammo_box/speedloader/shotgun = 8,

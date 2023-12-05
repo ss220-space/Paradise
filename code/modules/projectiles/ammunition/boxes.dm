@@ -58,18 +58,14 @@
 /obj/item/ammo_box/shotgun/beanbag/fake
 	ammo_type = /obj/item/ammo_casing/shotgun/beanbag/fake
 
-/obj/item/ammo_box/shotgun/stun
+/obj/item/ammo_box/shotgun/stunslug
 	name = "Ammunition Box (Stun shells)"
 	icon_state = "stunslugbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/stunslug
 
-/obj/item/ammo_box/shotgun/meteorshot
-	name = "Ammunition Box (Meteorshot)"
-	icon_state = "meteorshotbox"
-	ammo_type = /obj/item/ammo_casing/shotgun/meteorshot
-
-/obj/item/ammo_box/shotgun/meteorshot/breaching
+/obj/item/ammo_box/shotgun/breaching
 	name = "Ammunition Box (Breaching shells)"
+	icon_state = "meteorshotbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/breaching
 
 /obj/item/ammo_box/shotgun/pulseslug
@@ -120,6 +116,16 @@
 	name = "Ammunition Box (Flechette)"
 	icon_state = "flechettebox"
 	ammo_type = /obj/item/ammo_casing/shotgun/flechette
+
+/obj/item/ammo_box/shotgun/improvised
+	name = "Ammunition Box (Improvised shells)"
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "largebox"
+	ammo_type = /obj/item/ammo_casing/shotgun/improvised
+
+/obj/item/ammo_box/shotgun/improvised/overload
+	name = "Ammunition Box (Overload shells)"
+	ammo_type = /obj/item/ammo_casing/shotgun/improvised/overload
 
 // AUTOMATIC
 /obj/item/ammo_box/c9mm
@@ -287,7 +293,7 @@
 	for(var/i = 1 to length(stored_ammo))
 		var/obj/item/ammo_casing/shotgun/ammo = stored_ammo[i]
 		var/icon/new_ammo_icon = icon('icons/obj/weapons/ammo.dmi', "[initial(ammo.icon_state)]_loader")
-		if(i != 7)
+		if(i < 7)
 			new_ammo_icon.Shift((i % 2) == 0 ? WEST : EAST, 3)
 		new_ammo_icon.Turn(FLOOR((i - 1) * 45, 90))
 		overlays += new_ammo_icon
@@ -299,7 +305,7 @@
 
 /obj/item/ammo_box/speedloader/shotgun/buck
 	name = "Shotgun Speedloader (buckshot)"
-	icon_state = "buckloader"
+	icon_state = "buckshotloader"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
 
 /obj/item/ammo_box/speedloader/shotgun/rubbershot
@@ -307,21 +313,20 @@
 	icon_state = "rubbershotloader"
 	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
 
+/obj/item/ammo_box/speedloader/shotgun/dart
+	name = "Shotgun Speedloader (dart)"
+	icon_state = "rubbershotloader"
+	ammo_type = /obj/item/ammo_casing/shotgun/dart
+
 /obj/item/ammo_box/speedloader/shotgun/beanbag
 	name = "Shotgun Speedloader (beanbag)"
 	icon_state = "beanbagloader"
 	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
 
-/obj/item/ammo_box/speedloader/shotgun/stun
-	name = "Shotgun Speedloader (stun)"
+/obj/item/ammo_box/speedloader/shotgun/stunslug
+	name = "Shotgun Speedloader (stunslug)"
 	icon_state = "stunslugloader"
 	ammo_type = /obj/item/ammo_casing/shotgun/stunslug
-
-
-/obj/item/ammo_box/speedloader/shotgun/meteorshot
-	name = "Shotgun Speedloader (meteorshot)"
-	icon_state = "meteorshotloader"
-	ammo_type = /obj/item/ammo_casing/shotgun/meteorshot
 
 /obj/item/ammo_box/speedloader/shotgun/pulseslug
 	name = "Shotgun Speedloader (pulseslug)"
@@ -348,10 +353,25 @@
 	icon_state = "ionloader"
 	ammo_type = /obj/item/ammo_casing/shotgun/ion
 
+/obj/item/ammo_box/speedloader/shotgun/laserslug
+	name = "Shotgun Speedloader (laserslug)"
+	icon_state = "laserslugloader"
+	ammo_type = /obj/item/ammo_casing/shotgun/laserslug
+
 /obj/item/ammo_box/speedloader/shotgun/tranquilizer
 	name = "Shotgun Speedloader (tranquilizer)"
 	icon_state = "tranquilizerloader"
 	ammo_type = /obj/item/ammo_casing/shotgun/tranquilizer
+
+/obj/item/ammo_box/speedloader/shotgun/improvised
+	name = "Shotgun Speedloader (improvised)"
+	icon_state = "improvisedloader"
+	ammo_type = /obj/item/ammo_casing/shotgun/improvised
+
+/obj/item/ammo_box/speedloader/shotgun/overload
+	name = "Shotgun Speedloader (overload)"
+	icon_state = "improvisedloader"
+	ammo_type = /obj/item/ammo_casing/shotgun/improvised/overload
 
 // MISC
 /obj/item/ammo_box/speedloader/caps
@@ -365,7 +385,7 @@
  * STRIPPER CLIP
  */
 
-/obj/item/ammo_box/speedloader/shotgun/a762
+/obj/item/ammo_box/speedloader/a762
 	name = "stripper clip (7.62mm)"
 	desc = "A stripper clip."
 	icon_state = "762"

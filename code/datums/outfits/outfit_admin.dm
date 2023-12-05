@@ -738,7 +738,7 @@
 	belt = /obj/item/gun/projectile/revolver/nagant
 
 	backpack_contents = list(
-		/obj/item/ammo_box/speedloader/shotgun/a762 = 4
+		/obj/item/ammo_box/speedloader/a762 = 4
 	)
 
 /datum/outfit/admin/soviet/soldier
