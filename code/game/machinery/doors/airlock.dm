@@ -1539,20 +1539,18 @@ About the new airlock wires panel:
 
 		if(has_access_electronics)
 			if(!access_electronics)
-				if(istype(src, /obj/machinery/door/airlock/syndicate))
-					access_electronics = new /obj/item/access_control/syndicate(loc)
-				else
-					access_electronics = new /obj/item/access_control(loc)
-				check_access()
-				access_electronics.selected_accesses = length(req_access) ? req_access : list()
-				access_electronics.one_access = check_one_access
-			else
-				access_electronics.forceMove(loc)
+				build_access_electronics()
+			access_electronics.forceMove(loc)
 			if(emagged)
 				access_electronics.icon_state = "access-control-smoked"
 			access_electronics = null
 
 	qdel(src)
+
+/obj/machinery/door/airlock/proc/build_access_electronics()
+	access_electronics = new(src)
+	access_electronics.selected_accesses = length(req_access) ? req_access : list()
+	access_electronics.one_access = check_one_access
 
 /obj/machinery/door/airlock/proc/note_type() //Returns a string representing the type of note pinned to this airlock
 	if(!note)
