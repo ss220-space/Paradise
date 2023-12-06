@@ -133,7 +133,7 @@
 	var/armorval = 0
 
 	if(def_zone)
-		if(def_zone == "head")
+		if(def_zone == BODY_ZONE_HEAD)
 			if(inventory_head)
 				armorval = inventory_head.armor.getRating(type)
 		else

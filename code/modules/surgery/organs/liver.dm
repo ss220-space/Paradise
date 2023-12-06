@@ -1,9 +1,8 @@
 /obj/item/organ/internal/liver
 	name = "liver"
 	icon_state = "liver"
-	organ_tag = "liver"
-	parent_organ = "groin"
-	slot = "liver"
+	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
+	slot = INTERNAL_ORGAN_LIVER
 	var/alcohol_intensity = 1
 
 /obj/item/organ/internal/liver/on_life()
@@ -35,7 +34,7 @@
 		var/filter_effect = 3
 		if(is_bruised())
 			filter_effect -= 1
-		if(is_broken())
+		if(is_traumatized())
 			filter_effect -= 2
 
 		// Damaged liver means some chemicals are very dangerous

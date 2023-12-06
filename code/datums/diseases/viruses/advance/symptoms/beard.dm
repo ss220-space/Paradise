@@ -31,7 +31,7 @@ BONUS
 		var/mob/living/M = A.affected_mob
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M
-			var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+			var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 			switch(A.stage)
 				if(1, 2)
 					to_chat(H, span_warning("Your chin itches."))

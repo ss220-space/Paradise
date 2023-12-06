@@ -41,8 +41,8 @@
 			return
 		var/target_dna
 		var/target_gsr
-		if(user.zone_selected == "mouth")
-			if(!H.has_organ("head"))
+		if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+			if(!H.get_organ(BODY_ZONE_HEAD))
 				to_chat(user, "<span class='warning'>They don't have a head.</span>")
 				inuse = 0
 				return
@@ -54,13 +54,13 @@
 			target_dna = list(H.dna.unique_enzymes)
 			sample_type = "DNA"
 
-		else if(user.zone_selected == "r_hand" || user.zone_selected == "l_hand")
+		else if(user.zone_selected == BODY_ZONE_PRECISE_L_HAND || user.zone_selected == BODY_ZONE_PRECISE_R_HAND)
 			var/has_hand
-			var/obj/item/organ/external/O = H.has_organ("r_hand")
+			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_PRECISE_R_HAND)
 			if(istype(O))
 				has_hand = 1
 			else
-				O = H.has_organ("l_hand")
+				O = H.get_organ(BODY_ZONE_PRECISE_L_HAND)
 				if(istype(O))
 					has_hand = 1
 			if(!has_hand)

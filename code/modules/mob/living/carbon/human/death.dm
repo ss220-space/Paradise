@@ -16,24 +16,25 @@
 	else
 		playsound(src.loc, 'sound/goonstation/effects/robogib.ogg', 50, 1)
 
-	for(var/obj/item/organ/internal/I in internal_organs)
-		if(isturf(loc))
-			var/atom/movable/thing = I.remove(src)
-			if(thing)
-				thing.forceMove(get_turf(src))
+	var/drop_loc = drop_location()
+	for(var/obj/item/organ/internal/organ as anything in internal_organs)
+		var/atom/movable/thing = organ.remove(src)
+		if(!QDELETED(thing))
+			thing.forceMove(drop_loc)
+			if(isturf(thing.loc))
 				thing.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), rand(1,3), 5)
 
-	for(var/obj/item/organ/external/E in bodyparts)
-		if(istype(E, /obj/item/organ/external/chest))
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		if(istype(bodypart, /obj/item/organ/external/chest))
 			continue
 		// Only make the limb drop if it's not too damaged
-		if(prob(100 - E.get_damage()))
+		if(prob(100 - bodypart.get_damage()))
 			// Override the current limb status and don't cause an explosion
-			E.droplimb(DROPLIMB_SHARP)
+			bodypart.droplimb()
 
 	for(var/mob/M in src)
 		LAZYREMOVE(stomach_contents, M)
-		M.forceMove(drop_location())
+		M.forceMove(drop_loc)
 		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
 
 	if(!ismachineperson(src))
@@ -106,6 +107,7 @@
 	if(SSticker && SSticker.mode)
 		SSblackbox.ReportDeath(src)
 
+
 /mob/living/carbon/human/update_revive(updating, defib_revive)
 	. = ..()
 	if(. && healthdoll)
@@ -117,22 +119,23 @@
 	if(dna.species)
 		dna.species.update_sight(src)
 
+
 /mob/living/carbon/human/proc/makeSkeleton()
-	var/obj/item/organ/external/head/H = get_organ("head")
-	if(SKELETON in src.mutations)
+	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
+	if(SKELETON in mutations)
 		return
 
-	if(istype(H))
-		H.disfigured = TRUE
-		if(H.f_style)
-			H.f_style = initial(H.f_style)
-		if(H.h_style)
-			H.h_style = initial(H.h_style)
-		if(H.ha_style)
-			H.ha_style = initial(H.ha_style)
-		if(H.alt_head)
-			H.alt_head = initial(H.alt_head)
-			H.handle_alt_icon()
+	if(head_organ)
+		head_organ.disfigure()
+		if(head_organ.f_style)
+			head_organ.f_style = initial(head_organ.f_style)
+		if(head_organ.h_style)
+			head_organ.h_style = initial(head_organ.h_style)
+		if(head_organ.ha_style)
+			head_organ.ha_style = initial(head_organ.ha_style)
+		if(head_organ.alt_head)
+			head_organ.alt_head = initial(head_organ.alt_head)
+			head_organ.handle_alt_icon()
 	m_styles = DEFAULT_MARKING_STYLES
 	update_fhair()
 	update_hair()
@@ -143,7 +146,7 @@
 	mutations.Add(NOCLONE)
 	update_body()
 	update_mutantrace()
-	return
+
 
 /mob/living/carbon/human/proc/ChangeToHusk()
 
@@ -153,31 +156,31 @@
 	if(HUSK in mutations)
 		return
 
-	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
-	if(istype(H))
-		H.disfigured = TRUE //makes them unknown without fucking up other stuff like admintools
-		if(H.f_style)
-			H.f_style = "Shaved"		//we only change the icon_state of the hair datum, so it doesn't mess up their UI/UE
-		if(H.h_style)
-			H.h_style = "Bald"
+	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
+	if(head_organ)
+		head_organ.disfigure()	//makes them unknown without fucking up other stuff like admintools
+		if(head_organ.f_style)
+			head_organ.f_style = "Shaved"		//we only change the icon_state of the hair datum, so it doesn't mess up their UI/UE
+		if(head_organ.h_style)
+			head_organ.h_style = "Bald"
 	update_fhair()
 	update_hair()
 
 	mutations.Add(HUSK)
 	update_body()
 	update_mutantrace()
-	return
+
 
 /mob/living/carbon/human/proc/Drain()
 	ChangeToHusk()
 	mutations |= NOCLONE
-	return
+
 
 /mob/living/carbon/human/proc/cure_husk()
 	mutations.Remove(HUSK)
-	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
-	if(istype(H))
-		H.disfigured = FALSE
+	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
+	head_organ?.disfigure()
 	update_body()
 	update_mutantrace()
 	UpdateAppearance() // reset hair from DNA
+

@@ -640,7 +640,7 @@
 			if(user.a_intent == INTENT_DISARM || user.a_intent == INTENT_GRAB)
 				to_chat(user, "<span class='warning'>You try to remove the light [fitting], but you burn your hand on it!</span>")
 
-				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
+				var/obj/item/organ/external/affecting = H.get_organ(user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 				if(affecting.receive_damage(0, 5)) // 5 burn damage
 					H.UpdateDamageIcon()
 				H.updatehealth()
@@ -900,7 +900,7 @@
 /obj/item/light/suicide_act(mob/living/carbon/human/user)
 	user.visible_message("<span class=suicide>[user] touches [src], burning [user.p_their()] hands off!</span>", "<span class=suicide>You touch [src], burning your hands off!</span>")
 
-	for(var/oname in list("l_hand", "r_hand"))
+	for(var/oname in list(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND))
 		var/obj/item/organ/external/limb = user.get_organ(oname)
 		if(limb)
 			limb.droplimb(0, DROPLIMB_BURN)

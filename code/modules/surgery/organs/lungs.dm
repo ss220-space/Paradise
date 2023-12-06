@@ -1,9 +1,8 @@
 /obj/item/organ/internal/lungs
 	name = "lungs"
 	icon_state = "lungs"
-	parent_organ = "chest"
-	slot = "lungs"
-	organ_tag = "lungs"
+	parent_organ_zone = BODY_ZONE_CHEST
+	slot = INTERNAL_ORGAN_LUNGS
 	gender = PLURAL
 	w_class = WEIGHT_CLASS_NORMAL
 
@@ -58,13 +57,13 @@
 	if(owner)
 		owner.LoseBreath(40 SECONDS)
 
-/obj/item/organ/internal/lungs/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
+/obj/item/organ/internal/lungs/insert(mob/living/carbon/target, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
 	for(var/thing in list("oxy", "tox", "co2", "nitro"))
-		M.clear_alert("not_enough_[thing]")
-		M.clear_alert("too_much_[thing]")
+		target.clear_alert("not_enough_[thing]")
+		target.clear_alert("too_much_[thing]")
 
-/obj/item/organ/internal/lungs/remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/lungs/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	for(var/thing in list("oxy", "tox", "co2", "nitro"))
 		M.clear_alert("not_enough_[thing]")
 		M.clear_alert("too_much_[thing]")

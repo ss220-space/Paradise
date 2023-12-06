@@ -80,8 +80,8 @@
 		to_chat(user, span_warning("There's no defibrillator unit loaded!"))
 		return
 
-	var/obj/item/organ/external/temp2 = user.bodyparts_by_name["r_hand"]
-	var/obj/item/organ/external/temp = user.bodyparts_by_name["l_hand"]
+	var/obj/item/organ/external/temp2 = user.bodyparts_by_name[BODY_ZONE_PRECISE_R_HAND]
+	var/obj/item/organ/external/temp = user.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
 
 	if(!temp || !temp.is_usable() && !temp2 || !temp2.is_usable())
 		to_chat(user, span_warning("You can't use your hand to take out the paddles!"))
@@ -149,8 +149,8 @@
 	if(!istype(user) || user.incapacitated())
 		to_chat(user, span_warning("You can't do that right now!"))
 		return
-	var/obj/item/organ/external/temp2 = user.bodyparts_by_name["r_hand"]
-	var/obj/item/organ/external/temp = user.bodyparts_by_name["l_hand"]
+	var/obj/item/organ/external/temp2 = user.bodyparts_by_name[BODY_ZONE_PRECISE_R_HAND]
+	var/obj/item/organ/external/temp = user.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
 	if(!Adjacent(user))
 		return
 	if(!defib)

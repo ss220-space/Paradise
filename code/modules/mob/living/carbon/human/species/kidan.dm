@@ -23,29 +23,30 @@
 	butt_sprite = "kidan"
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/kidan,
-		"lungs" =    /obj/item/organ/internal/lungs/kidan,
-		"liver" =    /obj/item/organ/internal/liver/kidan,
-		"kidneys" =  /obj/item/organ/internal/kidneys/kidan,
-		"brain" =    /obj/item/organ/internal/brain/kidan,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/kidan, //Default darksight of 2.
-		"lantern" =  /obj/item/organ/internal/lantern
-		)
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/kidan,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/kidan,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/kidan,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/kidan,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/kidan,
+		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/kidan, //Default darksight of 2.
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_LANTERN = /obj/item/organ/internal/lantern,
+	)
 
 	has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest/kidan),
-		"groin" =  list("path" = /obj/item/organ/external/groin/kidan),
-		"head" =   list("path" = /obj/item/organ/external/head/kidan),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right),
-		"l_hand" = list("path" = /obj/item/organ/external/hand),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right),
-		"l_foot" = list("path" = /obj/item/organ/external/foot),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right)
-		)
+		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest/kidan),
+		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin/kidan),
+		BODY_ZONE_HEAD = list("path" = /obj/item/organ/external/head/kidan),
+		BODY_ZONE_L_ARM = list("path" = /obj/item/organ/external/arm),
+		BODY_ZONE_R_ARM = list("path" = /obj/item/organ/external/arm/right),
+		BODY_ZONE_L_LEG = list("path" = /obj/item/organ/external/leg),
+		BODY_ZONE_R_LEG = list("path" = /obj/item/organ/external/leg/right),
+		BODY_ZONE_PRECISE_L_HAND = list("path" = /obj/item/organ/external/hand),
+		BODY_ZONE_PRECISE_R_HAND = list("path" = /obj/item/organ/external/hand/right),
+		BODY_ZONE_PRECISE_L_FOOT = list("path" = /obj/item/organ/external/foot),
+		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right),
+	)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/diona)
 

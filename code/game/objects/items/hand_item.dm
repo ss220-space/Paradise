@@ -15,9 +15,11 @@
 /obj/item/slapper/attack(mob/living/carbon/target, mob/living/carbon/human/user)
 	user.do_attack_animation(target)
 	playsound(target, hitsound, 50, TRUE, -1)
-	user.visible_message(span_danger("[user] slaps [target]!"),
-						span_notice("You slap [target]!"),
-						span_hear("You hear a slap."))
+	user.visible_message(
+		span_danger("[user] slaps [target]!"),
+		span_notice("You slap [target]!"),
+		span_italics("You hear a slap."),
+	)
 	if(iscarbon(target) && target.IsSleeping())
 		target.AdjustSleeping(-15 SECONDS)
 	if(force)

@@ -1,7 +1,7 @@
 /obj/item/organ/internal/cyberimp/leg
 	name = "leg implant"
 	desc = "You shouldn't see this! Adminhelp and report this as an issue on github!"
-	parent_organ = BODY_ZONE_R_LEG
+	parent_organ_zone = BODY_ZONE_R_LEG
 	icon_state = "implant-leg"
 	w_class = WEIGHT_CLASS_NORMAL
 
@@ -12,14 +12,14 @@
 /obj/item/organ/internal/cyberimp/leg/Initialize(mapload)
 	. = ..()
 	update_icon()
-	slot = parent_organ + "_device"
+	slot = parent_organ_zone + "_device"
 
 /obj/item/organ/internal/cyberimp/leg/emp_act(severity)
 	. = ..()
 	if(emp_proof)
 		return
 
-	var/obj/item/organ/external/E = owner.get_organ(parent_organ)
+	var/obj/item/organ/external/E = owner.get_organ(parent_organ_zone)
 	if(!E)	//how did you get an implant in a limb you don't have?
 		return
 
@@ -39,42 +39,42 @@
 		COOLDOWN_START(src, emp_notice, 30 SECONDS)
 
 /obj/item/organ/internal/cyberimp/leg/update_icon()
-	if(parent_organ == BODY_ZONE_R_LEG)
+	if(parent_organ_zone == BODY_ZONE_R_LEG)
 		transform = null
 	else // Mirroring the icon
 		transform = matrix(-1, 0, 0, 0, 1, 0)
 
 /obj/item/organ/internal/cyberimp/leg/examine(mob/user)
 	. = ..()
-	. += span_notice("[src] is assembled in the [parent_organ == BODY_ZONE_R_LEG ? "right" : "left"] leg configuration. You can use a screwdriver to reassemble it.")
+	. += span_notice("[src] is assembled in the [parent_organ_zone == BODY_ZONE_R_LEG ? "right" : "left"] leg configuration. You can use a screwdriver to reassemble it.")
 	. += span_info("You will need two of the same type of implant for them to properly function.")
 
 /obj/item/organ/internal/cyberimp/leg/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(parent_organ == BODY_ZONE_R_LEG)
-		parent_organ = BODY_ZONE_L_LEG
+	if(parent_organ_zone == BODY_ZONE_R_LEG)
+		parent_organ_zone = BODY_ZONE_L_LEG
 	else
-		parent_organ = BODY_ZONE_R_LEG
+		parent_organ_zone = BODY_ZONE_R_LEG
 	SetSlot()
-	to_chat(user, "<span class='notice'>You modify [src] to be installed on the [parent_organ == BODY_ZONE_R_LEG ? "right" : "left"] leg.</span>")
+	to_chat(user, "<span class='notice'>You modify [src] to be installed on the [parent_organ_zone == BODY_ZONE_R_LEG ? "right" : "left"] leg.</span>")
 	update_icon()
 
 
-/obj/item/organ/internal/cyberimp/leg/insert(mob/living/carbon/M, special, dont_remove_slot)
+/obj/item/organ/internal/cyberimp/leg/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	if(HasBoth())
 		AddEffect()
 
-/obj/item/organ/internal/cyberimp/leg/remove(mob/living/carbon/M, special)
+/obj/item/organ/internal/cyberimp/leg/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	RemoveEffect()
 	. = ..()
 
 /obj/item/organ/internal/cyberimp/leg/proc/HasBoth()
-	if(owner.get_organ_slot("r_leg_device") && owner.get_organ_slot("l_leg_device"))
-		var/obj/item/organ/internal/cyberimp/leg/left = owner.get_organ_slot("r_leg_device")
-		var/obj/item/organ/internal/cyberimp/leg/right = owner.get_organ_slot("l_leg_device")
+	if(owner.get_organ_slot(INTERNAL_ORGAN_R_LEG_DEVICE) && owner.get_organ_slot(INTERNAL_ORGAN_L_LEG_DEVICE))
+		var/obj/item/organ/internal/cyberimp/leg/left = owner.get_organ_slot(INTERNAL_ORGAN_R_LEG_DEVICE)
+		var/obj/item/organ/internal/cyberimp/leg/right = owner.get_organ_slot(INTERNAL_ORGAN_L_LEG_DEVICE)
 		if(left.implant_type == right.implant_type)
 			return TRUE
 	return FALSE
@@ -86,11 +86,11 @@
 	return
 
 /obj/item/organ/internal/cyberimp/leg/proc/SetSlot()
-	switch(parent_organ)
+	switch(parent_organ_zone)
 		if(BODY_ZONE_L_LEG)
-			slot = "l_leg_device"
+			slot = INTERNAL_ORGAN_L_LEG_DEVICE
 		if(BODY_ZONE_R_LEG)
-			slot = "r_leg_device"
+			slot = INTERNAL_ORGAN_R_LEG_DEVICE
 		else
 			CRASH("Invalid zone for [type]")
 
@@ -104,16 +104,16 @@
 	var/datum/action/bhop/implant_ability
 
 /obj/item/organ/internal/cyberimp/leg/jumpboots/l
-	parent_organ = BODY_ZONE_L_LEG
+	parent_organ_zone = BODY_ZONE_L_LEG
 
 /obj/item/organ/internal/cyberimp/leg/jumpboots/AddEffect()
-	var/obj/item/organ/internal/cyberimp/leg/jumpboots/left = owner.get_organ_slot("r_leg_device") //leading leg or somethin
+	var/obj/item/organ/internal/cyberimp/leg/jumpboots/left = owner.get_organ_slot(INTERNAL_ORGAN_R_LEG_DEVICE) //leading leg or somethin
 	if(!left.implant_ability)
 		left.implant_ability = new(src)
 		left.implant_ability.Grant(owner)
 
 /obj/item/organ/internal/cyberimp/leg/jumpboots/RemoveEffect()
-	var/obj/item/organ/internal/cyberimp/leg/jumpboots/left = owner.get_organ_slot("r_leg_device")
+	var/obj/item/organ/internal/cyberimp/leg/jumpboots/left = owner.get_organ_slot(INTERNAL_ORGAN_R_LEG_DEVICE)
 	if(left.implant_ability)
 		left.implant_ability.Remove(owner)
 		left.implant_ability = null

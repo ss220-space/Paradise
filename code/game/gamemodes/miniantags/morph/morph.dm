@@ -240,7 +240,7 @@
 		return TRUE
 	else if (!morphed)
 		to_chat(attacker, "<span class='warning'>Touching [src] with your hands hurts you!</span>")
-		var/obj/item/organ/external/affecting = attacker.get_organ("[attacker.hand ? "l" : "r" ]_hand")
+		var/obj/item/organ/external/affecting = attacker.get_organ(attacker.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 		affecting.receive_damage(20)
 		add_food(5)
 

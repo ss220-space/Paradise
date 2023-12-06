@@ -1,11 +1,12 @@
 ///////////////////ORGAN DEFINES///////////////////
 
 // Organ defines.
-#define ORGAN_BROKEN     1
-#define ORGAN_ROBOT      2
-#define ORGAN_SPLINTED   4
-#define ORGAN_DEAD       8
-#define ORGAN_MUTATED    16
+#define ORGAN_BROKEN 1
+#define ORGAN_ROBOT 2
+#define ORGAN_SPLINTED 4
+#define ORGAN_DEAD 8
+#define ORGAN_MUTATED 16
+#define ORGAN_INT_BLEED 32
 
 #define PROCESS_ACCURACY 10
 
@@ -271,7 +272,8 @@
 
 #define isnewplayer(A)  (istype((A), /mob/new_player))
 
-#define isorgan(A)		(istype((A), /obj/item/organ/external))
+#define isexternalorgan(A)		(istype((A), /obj/item/organ/external))
+
 #define hasorgans(A)	(ishuman(A))
 
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)

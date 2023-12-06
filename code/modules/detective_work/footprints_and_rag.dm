@@ -25,7 +25,7 @@
 
 /obj/item/reagent_containers/glass/rag/attack(atom/target as obj|turf|area, mob/user as mob , flag)
 	if(ismob(target) && target.reagents && reagents.total_volume && user.zone_selected == "mouth")
-		if(!get_location_accessible(target, "mouth"))
+		if(!get_location_accessible(target, BODY_ZONE_PRECISE_MOUTH))
 			if(target == user)
 				to_chat(user, "<span class='warning'>Your face is obscured, so you can't do that.</span>")
 			else

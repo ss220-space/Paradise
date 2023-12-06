@@ -113,6 +113,25 @@
 				  /obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
 
+/datum/crafting_recipe/hudtajsundiag
+	name = "Diagnostic veil sunglasses"
+	result = /obj/item/clothing/glasses/hud/diagnostic/tajblind/sunglasses
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/diagnostic/tajblind = 1,
+				  /obj/item/clothing/glasses/sunglasses = 1,
+				  /obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/hudtajsunskills
+	name = "Skills veil sunglasses"
+	result = /obj/item/clothing/glasses/hud/skills/tajblind/sunglasses
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/skills/tajblind = 1,
+				  /obj/item/clothing/glasses/sunglasses = 1,
+				  /obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
 /datum/crafting_recipe/hudsundiag
 	name = "Diagnostic HUDsunglasses"
 	result = /obj/item/clothing/glasses/hud/diagnostic/sunglasses

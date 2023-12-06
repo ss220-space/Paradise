@@ -6,9 +6,9 @@
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "telecrystal"
 	w_class = WEIGHT_CLASS_TINY
-	max_amount = 50
+	max_amount = 250
 	flags = NOBLUDGEON
-	origin_tech = "materials=6;syndicate=1"
+	origin_tech = "materials=6"
 
 /obj/item/stack/telecrystal/attack(mob/target, mob/user)
 	if(target == user) //You can't go around smacking people with crystals to find out if they have an uplink or not.
@@ -37,8 +37,11 @@
 /obj/item/stack/telecrystal/five
 	amount = 5
 
-/obj/item/stack/telecrystal/twenty
-	amount = 20
+/obj/item/stack/telecrystal/twenty_five
+	amount = 25
 
-/obj/item/stack/telecrystal/fifty
-	amount = 50
+/obj/item/stack/telecrystal/hundread
+	amount = 100
+
+/obj/item/stack/telecrystal/twohundread_fifty
+	amount = 250

@@ -52,7 +52,7 @@
 		to_chat(C, "<span class='notice'>You close \the [src] valve.</span>")
 		C.internal = null
 	else
-		if(!C.get_organ_slot("breathing_tube")) // Breathing tubes can always use internals, if they have one, skip ahead and turn internals on/off
+		if(!C.get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE)) // Breathing tubes can always use internals, if they have one, skip ahead and turn internals on/off
 			if(!C.wear_mask) // Do we have a mask equipped?
 				return FALSE
 
