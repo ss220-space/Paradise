@@ -68,3 +68,6 @@ GLOBAL_LIST_INIT(all_taipan_jobs, list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTA
 
 /// List of ckeys that have seen a blurb of a given key.
 GLOBAL_LIST_EMPTY(blurb_witnesses)
+
+// List for emojis
+GLOBAL_LIST_EMPTY(discordEmojis)
