@@ -7,6 +7,8 @@
 	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
 	if(!msg)	return
 
+	msg = handleDiscordEmojis(msg)
+
 	var/datum/asays/asay = new(usr.ckey, usr.client.holder.rank, msg, world.timeofday)
 	GLOB.asays += asay
 	log_adminsay(msg, src)
