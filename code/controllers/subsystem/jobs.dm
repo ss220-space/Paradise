@@ -221,10 +221,9 @@ SUBSYSTEM_DEF(jobs)
 		if(player?.mind)
 			player.mind.assigned_role = null
 			player.mind.special_role = null
-	SetupOccupations()
+	for(var/datum/job/job in occupations)
+		job.current_positions = initial(job.current_positions)
 	unassigned = list()
-	return
-
 
 ///This proc is called before the level loop of DivideOccupations() and will try to select a head, ignoring ALL non-head preferences for every level until it locates a head or runs out of levels to check
 /datum/controller/subsystem/jobs/proc/FillHeadPosition()
