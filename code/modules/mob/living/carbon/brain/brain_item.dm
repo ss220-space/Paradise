@@ -10,9 +10,8 @@
 	origin_tech = "biotech=5"
 	attack_verb = list("attacked", "slapped", "whacked")
 	var/mob/living/carbon/brain/brainmob = null
-	organ_tag = "brain"
-	parent_organ = "head"
-	slot = "brain"
+	parent_organ_zone = BODY_ZONE_HEAD
+	slot = INTERNAL_ORGAN_BRAIN
 	vital = TRUE
 	hidden_pain = TRUE //the brain has no pain receptors, and brain damage is meant to be a stealthy damage type.
 	var/mmi_icon = 'icons/obj/assemblies.dmi'
@@ -65,29 +64,29 @@
 
 	. += "This one seems particularly lifeless. Perhaps it will regain some of its luster later.."
 
-/obj/item/organ/internal/brain/remove(var/mob/living/user,special = 0)
+/obj/item/organ/internal/brain/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT)
 	if(dna)
 		name = "[dna.real_name]'s [initial(name)]"
 
 	if(!owner)
 		return ..() // Probably a redundant removal; just bail
 
-	var/obj/item/organ/internal/brain/B = src
+	var/obj/item/organ/internal/brain/our_brain = src
 	if(!special)
 		var/mob/living/simple_animal/borer/borer = owner.has_brain_worms()
 		if(borer)
 			borer.leave_host() //Should remove borer if the brain is removed - RR
 
-		if(owner.mind && !non_primary && !decoy_brain)	//don't transfer if the owner does not have a mind.
-			B.transfer_identity(user)
+		if(owner.mind && !decoy_brain)	//don't transfer if the owner does not have a mind.
+			our_brain.transfer_identity(user)
 
-	if(istype(owner,/mob/living/carbon/human))
-		var/mob/living/carbon/human/H = owner
-		H.update_hair()
+	if(ishuman(owner))
+		owner.update_hair()
+
 	. = ..()
 
 
-/obj/item/organ/internal/brain/insert(mob/living/target, special = FALSE)
+/obj/item/organ/internal/brain/insert(mob/living/target, special = ORGAN_MANIPULATION_DEFAULT)
 
 	name = "[initial(name)]"
 	var/brain_already_exists = FALSE
@@ -120,32 +119,29 @@
 		var/mob/living/carbon/human/H = target
 		H.special_post_clone_handling()
 
-	..(target, special = special)
+	..(target, special)
 
 
-/obj/item/organ/internal/brain/receive_damage(amount, silent = 0) //brains are special; if they receive damage by other means, we really just want the damage to be passed ot the owner and back onto the brain.
+/obj/item/organ/internal/brain/receive_damage(amount, silent = FALSE) //brains are special; if they receive damage by other means, we really just want the damage to be passed ot the owner and back onto the brain.
 	if(owner)
 		owner.adjustBrainLoss(amount)
 
-/obj/item/organ/internal/brain/necrotize(update_sprite = TRUE) //Brain also has special handling for when it necrotizes
-	damage = max_damage
-	status |= ORGAN_DEAD
-	STOP_PROCESSING(SSobj, src)
-	if(dead_icon && !is_robotic())
-		icon_state = dead_icon
-	if(owner && vital)
+
+/obj/item/organ/internal/brain/necrotize(silent = FALSE) //Brain also has special handling for when it necrotizes
+	if(..() && owner && vital)
 		owner.setBrainLoss(120)
+
 
 /obj/item/organ/internal/brain/prepare_eat()
 	return // Too important to eat.
 
 /obj/item/organ/internal/brain/slime
+	species_type = /datum/species/slime
 	name = "slime core"
 	desc = "A complex, organic knot of jelly and crystalline particles."
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "green slime extract"
 	mmi_icon_state = "slime_mmi"
-//	parent_organ = "chest" Hello I am from the ministry of rubber forehead aliens how are you
 
 /obj/item/organ/internal/brain/golem
 	name = "Runic mind"
@@ -159,8 +155,8 @@
 
 /obj/item/organ/internal/brain/cluwne
 
-/obj/item/organ/internal/brain/cluwne/insert(mob/living/target, special = 0, make_cluwne = 1)
-	..(target, special = special)
+/obj/item/organ/internal/brain/cluwne/insert(mob/living/target, special = ORGAN_MANIPULATION_DEFAULT, make_cluwne = TRUE)
+	..(target, special)
 	if(ishuman(target) && make_cluwne)
 		var/mob/living/carbon/human/H = target
 		H.makeCluwne() //No matter where you go, no matter what you do, you cannot escape

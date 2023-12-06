@@ -148,7 +148,7 @@
 		if(ishuman(affecting))
 			switch(hit_zone)
 				//if("mouth") - the gag code in say.dm bellow is_muzzle
-				if("eyes")
+				if(BODY_ZONE_PRECISE_EYES)
 					if(!affecting.EyeBlind(2 SECONDS))
 						affecting.SetEyeBlind(2 SECONDS)
 
@@ -182,7 +182,7 @@
 
 */
 
-	var/breathing_tube = affecting.get_organ_slot("breathing_tube")
+	var/breathing_tube = affecting.get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE)
 
 	if(state >= GRAB_NECK)
 		if(isliving(affecting) && !breathing_tube)
@@ -273,12 +273,12 @@
 		last_hit_zone = hit_zone
 		if(ishuman(affecting))
 			switch(hit_zone)
-				if("mouth")
+				if(BODY_ZONE_PRECISE_MOUTH)
 					if(!affecting.wear_mask)
 						assailant.visible_message(span_warning("[assailant] закрыл[genderize_ru(assailant.gender,"","а","о","и")] рот [affecting]"))
 					else
 						assailant.visible_message(span_warning("[assailant] схватил[genderize_ru(assailant.gender,"","а","о","и")] рот [affecting], но на нем маска!"))
-				if("eyes")
+				if(BODY_ZONE_PRECISE_EYES)
 					assailant.visible_message(span_warning("[assailant] рукой закрыл[genderize_ru(assailant.gender,"","а","о","и")] глаза [affecting]"))
 				else
 					assailant.visible_message(span_warning("[assailant] агрессивно схватил[genderize_ru(assailant.gender,"","а","о","и")] [affecting] (за руки)!"))
@@ -321,7 +321,7 @@
 		add_attack_logs(assailant, affecting, "Strangled")
 
 		assailant.next_move = world.time + 10
-		if(!affecting.get_organ_slot("breathing_tube"))
+		if(!affecting.get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
 			affecting.AdjustLoseBreath(2 SECONDS)
 
 	adjust_position()
@@ -360,7 +360,7 @@
 					return
 
 				if(INTENT_HARM) //This checks that the user is on harm intent.
-					if(last_hit_zone == "head") //This checks the hitzone the user has selected. In this specific case, they have the head selected.
+					if(last_hit_zone == BODY_ZONE_HEAD) //This checks the hitzone the user has selected. In this specific case, they have the head selected.
 						if(affecting.lying)
 							return
 						assailant.visible_message("<span class='danger'>[assailant] с размаха бь[pluralize_ru(assailant.gender,"ёт","ют")] [genderize_ru(assailant.gender,"его","её","своей","их")]  головой о череп [affecting]!</span>") //A visible message for what is going on.
@@ -368,7 +368,7 @@
 						var/obj/item/clothing/hat = attacker.head
 						if(istype(hat))
 							damage += hat.force * 3
-						affecting.apply_damage(damage*rand(90, 110)/100, BRUTE, "head", affected.run_armor_check(affecting, "melee"))
+						affecting.apply_damage(damage*rand(90, 110)/100, BRUTE, BODY_ZONE_HEAD, affected.run_armor_check(affecting, MELEE))
 						playsound(assailant.loc, "swing_hit", 25, 1, -1)
 						add_attack_logs(assailant, affecting, "Headbutted")
 						return

@@ -223,6 +223,9 @@
 	if(!linkedcontroller)
 		return
 	if(ismob(AM))
+		if(isliving(AM))
+			var/mob/living/creature = AM
+			creature.ExtinguishMob()
 		linkedcontroller.mobinpool += AM
 
 /turf/simulated/floor/indestructible/beach/water/Exited(atom/movable/AM, atom/newloc)

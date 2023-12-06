@@ -9,6 +9,7 @@ SUBSYSTEM_DEF(throwing)
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	offline_implications = "Thrown objects may not react properly. Shuttle call recommended."
 	cpu_display = SS_CPUDISPLAY_LOW
+	ss_id = "throwing"
 
 	var/list/currentrun
 	var/list/processing = list()

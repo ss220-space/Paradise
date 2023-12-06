@@ -9,15 +9,15 @@
 		var/mob/living/carbon/human/P = H.partner
 		if (!(P in view(H.loc)))
 			return
-		var/obj/item/organ/external/temp = H.bodyparts_by_name["r_hand"]
+		var/obj/item/organ/external/temp = H.bodyparts_by_name[BODY_ZONE_PRECISE_R_HAND]
 		var/hashands = (temp?.is_usable())
 		if (!hashands)
-			temp = H.bodyparts_by_name["l_hand"]
+			temp = H.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
 			hashands = (temp?.is_usable())
-		temp = P.bodyparts_by_name["r_hand"]
+		temp = P.bodyparts_by_name[BODY_ZONE_PRECISE_R_HAND]
 		var/hashands_p = (temp?.is_usable())
 		if (!hashands_p)
-			temp = P.bodyparts_by_name["l_hand"]
+			temp = P.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
 			hashands = (temp?.is_usable())
 		var/mouthfree = !((H.head && (H.head.flags_cover & HEADCOVERSMOUTH)) || (H.wear_mask && (H.wear_mask.flags_cover & MASKCOVERSMOUTH)))
 		var/mouthfree_p = !((P.head && (P.head.flags_cover & HEADCOVERSMOUTH)) || (P.wear_mask && (P.wear_mask.flags_cover & MASKCOVERSMOUTH)))
@@ -40,7 +40,7 @@
 
 		else if (href_list["interaction"] == "scratch")
 			if(((!istype(P.loc, /obj/structure/closet)) || (H.loc == P.loc)) && hashands && H.Adjacent(P))
-				if(H.zone_selected == "head" && !((P.dna.species.name == "Machine") || (P.dna.species.name == "Grey") || (P.dna.species.name == "Unathi")))
+				if(H.zone_selected == BODY_ZONE_HEAD && !((P.dna.species.name == "Machine") || (P.dna.species.name == "Grey") || (P.dna.species.name == "Unathi")))
 					H.custom_emote(message = "[pick("чеш[pluralize_ru(H.gender,"ет","ут")] за ухом", "чеш[pluralize_ru(H.gender,"ет","ут")] голову")] [P].")
 					if (istype(P.loc, /obj/structure/closet))
 						P.custom_emote(message = "[pick("чеш[pluralize_ru(H.gender,"ет","ут")] за ухом", "чеш[pluralize_ru(H.gender,"ет","ут")] голову")] [P].")
@@ -114,27 +114,27 @@
 		else if (href_list["interaction"] == "slap")
 			if(((H.Adjacent(P) && !istype(P.loc, /obj/structure/closet)) || (H.loc == P.loc)) && hashands)
 				switch(H.zone_selected)
-					if("head")
+					if(BODY_ZONE_HEAD)
 						H.custom_emote(message = "<span class='danger'>да[pluralize_ru(H.gender,"ет","ют")] [P] пощечину!</span>")
 						if (istype(P.loc, /obj/structure/closet))
 							P.custom_emote(message = "<span class='danger'>да[pluralize_ru(H.gender,"ет","ют")] [P] пощечину!</span>")
 						playsound(loc, 'sound/effects/snap.ogg', 50, 1, -1)
-						var/obj/item/organ/external/head/O = P.get_organ("head")
+						var/obj/item/organ/external/head/O = P.get_organ(BODY_ZONE_HEAD)
 						if(O.brute_dam < 5)
 							O.receive_damage(1)
 						H.do_attack_animation(P)
 
-					if("groin")
+					if(BODY_ZONE_PRECISE_GROIN)
 						H.custom_emote(message = "<span class='danger'>шлёпа[pluralize_ru(H.gender,"ет","ют")] [P] по заднице!</span>")
 						if (istype(P.loc, /obj/structure/closet))
 							P.custom_emote(message = "<span class='danger'>шлёпа[pluralize_ru(H.gender,"ет","ют")] [P] по заднице!</span>")
 						playsound(loc, 'sound/effects/snap.ogg', 50, 1, -1)
-						var/obj/item/organ/external/groin/G = P.get_organ("groin")
+						var/obj/item/organ/external/groin/G = P.get_organ(BODY_ZONE_PRECISE_GROIN)
 						if(G.brute_dam < 5)
 							G.receive_damage(1)
 						H.do_attack_animation(P)
 
-					if("mouth")
+					if(BODY_ZONE_PRECISE_MOUTH)
 						H.custom_emote(message = "<span class='danger'>да[pluralize_ru(H.gender,"ет","ют")] [P] по губе!</span>")
 						if (istype(P.loc, /obj/structure/closet))
 							P.custom_emote(message = "<span class='danger'>да[pluralize_ru(H.gender,"ет","ют")] [P] по губе!</span>")
@@ -153,7 +153,7 @@
 				if (istype(P.loc, /obj/structure/closet))
 					P.custom_emote(message = "<span class='danger'>да[pluralize_ru(H.gender,"ет","ют")] [P] подзатыльник!</span>")
 				playsound(loc, 'sound/weapons/throwtap.ogg', 50, 1, -1)
-				var/obj/item/organ/external/head/O = P.get_organ("head")
+				var/obj/item/organ/external/head/O = P.get_organ(BODY_ZONE_HEAD)
 				if(O.brute_dam < 3)
 					O.receive_damage(1)
 				H.do_attack_animation(P)
@@ -180,24 +180,24 @@
 
 		else if (href_list["interaction"] == "pullwing")
 			if(((H.Adjacent(P) && !istype(P.loc, /obj/structure/closet)) || (H.loc == P.loc)) && hashands && !H.restrained())
-				if(!P.bodyparts_by_name["wing"])
+				if(!P.bodyparts_by_name[BODY_ZONE_WING])
 					H.custom_emote(message = "пыта[pluralize_ru(H.gender,"ет","ют")]ся поймать [P] за крылья  КОТОРЫХ НЕТ!!!")
 					if (istype(P.loc, /obj/structure/closet))
 						P.custom_emote(message = "пыта[pluralize_ru(H.gender,"ет","ют")]ся поймать [P] за крылья  КОТОРЫХ НЕТ!!!")
 					return
 				if (prob(30))
-					var/obj/item/organ/external/wing/O = P.get_organ("wing")
-					if (((O.brute_dam == O.max_damage)||(O.status & ORGAN_DEAD)||(O.status & ORGAN_BROKEN)) && prob(20))
+					var/obj/item/organ/external/wing/wing = P.get_organ(BODY_ZONE_WING)
+					if ((wing.brute_dam == wing.max_damage || wing.is_dead() || wing.has_fracture()) && prob(20))
 						H.custom_emote(message = "<span class='danger'>отрыва[pluralize_ru(H.gender,"ет","ют")] [P] крылья!</span>")
 						if (istype(P.loc, /obj/structure/closet))
 							P.custom_emote(message = "<span class='danger'>отрыва[pluralize_ru(H.gender,"ет","ют")] [P] крылья!</span>")
-						O.droplimb()
+						wing.droplimb()
 						return
 					H.custom_emote(message = "<span class='danger'>дёрга[pluralize_ru(H.gender,"ет","ют")] [P] за крылья!</span>")
 					if (istype(P.loc, /obj/structure/closet))
 						P.custom_emote(message = "<span class='danger'>дёрга[pluralize_ru(H.gender,"ет","ют")] [P] за крылья!</span>")
-					if(O.brute_dam < 10)
-						O.receive_damage(1)
+					if(wing.brute_dam < 10)
+						wing.receive_damage(1)
 				else
 					H.custom_emote(message = "пыта[pluralize_ru(H.gender,"ет","ют")]ся поймать [P] за крылья!")
 					if (istype(P.loc, /obj/structure/closet))
@@ -205,24 +205,24 @@
 
 		else if (href_list["interaction"] == "pull")
 			if(((H.Adjacent(P) && !istype(P.loc, /obj/structure/closet)) || (H.loc == P.loc)) && hashands && !H.restrained())
-				if(!P.bodyparts_by_name["tail"])
+				if(!P.bodyparts_by_name[BODY_ZONE_TAIL])
 					H.custom_emote(message = "пыта[pluralize_ru(H.gender,"ет","ют")]ся поймать [P] за хвост КОТОРОГО НЕТ!!!")
 					if (istype(P.loc, /obj/structure/closet))
 						P.custom_emote(message = "пыта[pluralize_ru(H.gender,"ет","ют")]ся поймать [P] за хвост КОТОРОГО НЕТ!!!")
 					return
 				if (prob(30))
-					var/obj/item/organ/external/tail/O = P.get_organ("tail")
-					if (((O.brute_dam == O.max_damage)||(O.status & ORGAN_DEAD)||(O.status & ORGAN_BROKEN)) && prob(20))
+					var/obj/item/organ/external/tail/tail = P.get_organ(BODY_ZONE_TAIL)
+					if ((tail.brute_dam == tail.max_damage || tail.is_dead() || tail.has_fracture()) && prob(20))
 						H.custom_emote(message = "<span class='danger'>отрыва[pluralize_ru(H.gender,"ет","ют")] [P] хвост!</span>")
 						if (istype(P.loc, /obj/structure/closet))
 							P.custom_emote(message = "<span class='danger'>отрыва[pluralize_ru(H.gender,"ет","ют")] [P] хвост!</span>")
-						O.droplimb()
+						tail.droplimb()
 						return
 					H.custom_emote(message = "<span class='danger'>дёрга[pluralize_ru(H.gender,"ет","ют")] [P] за хвост!</span>")
 					if (istype(P.loc, /obj/structure/closet))
 						P.custom_emote(message = "<span class='danger'>дёрга[pluralize_ru(H.gender,"ет","ют")] [P] за хвост!</span>")
-					if(O.brute_dam < 10)
-						O.receive_damage(1)
+					if(tail.brute_dam < 10)
+						tail.receive_damage(1)
 				else
 					H.custom_emote(message = "пыта[pluralize_ru(H.gender,"ет","ют")]ся поймать [P] за хвост!")
 					if (istype(P.loc, /obj/structure/closet))

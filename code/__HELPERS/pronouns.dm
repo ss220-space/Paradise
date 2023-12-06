@@ -19,7 +19,7 @@
 
 /**
  * Replaces the `%(SINGLE,PLURAL)%` or `%(MALE,FEMALE,NEUTER,PLURAL)%` message piece accordingly to user gender.
- * Use `*` to deliberatly skip one genderize word.
+ * Use `*` to deliberatly skip one genderize word: `%(*,FEMALE,*,PLURAL)%`.
  *
  * Arguments:
  * * user - Person which pronouns will be used.

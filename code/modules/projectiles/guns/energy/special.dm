@@ -337,7 +337,7 @@
 	item_state = null
 	weapon_weight = WEAPON_HEAVY
 	slot_flags = SLOT_BACK
-	w_class = WEIGHT_CLASS_BULKY
+	w_class = WEIGHT_CLASS_NORMAL
 	can_holster = FALSE
 	zoomable = TRUE
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.

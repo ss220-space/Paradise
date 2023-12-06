@@ -7,8 +7,8 @@
 	var/warned = 0
 	unremovable = TRUE
 
-/obj/item/organ/internal/high_rp_tumor/insert(mob/living/target, special = 0)
-	..(target, special = special)
+/obj/item/organ/internal/high_rp_tumor/insert(mob/living/target, special = ORGAN_MANIPULATION_DEFAULT)
+	..(target, special)
 	if(target)
 		to_chat(target, "<span class='userdanger'>Я должен дышать, иначе просто задохнусь!</span>")
 

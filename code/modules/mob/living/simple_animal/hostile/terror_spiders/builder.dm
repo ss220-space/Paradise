@@ -47,7 +47,7 @@
 		return TRUE
 	if(L.reagents.has_reagent("frostoil", 100))
 		return TRUE
-	var/inject_target = pick("chest", "head")
+	var/inject_target = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 	if(L.IsStunned() || L.can_inject(null, FALSE, inject_target, FALSE))
 		L.reagents.add_reagent("frostoil", 20)
 		visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [target]!</span>")
