@@ -1,9 +1,6 @@
 #define ALIEN_HIGHPOP_TRIGGER 80
 #define ALIEN_MIDPOP_TRIGGER 40
 
-GLOBAL_VAR_INIT(alien_queens_count, 0)
-GLOBAL_VAR_INIT(alien_queens_maximum, 0)
-
 /datum/event/alien_infestation
 	announceWhen	= 400
 	var/spawncount = 2
