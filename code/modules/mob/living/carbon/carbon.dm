@@ -72,7 +72,7 @@
 
 				if(istype(src, /mob/living/carbon/human))
 					var/mob/living/carbon/human/H = src
-					var/obj/item/organ/external/organ = H.get_organ("chest")
+					var/obj/item/organ/external/organ = H.get_organ(BODY_ZONE_CHEST)
 					if(istype(organ))
 						if(organ.receive_damage(d, 0))
 							H.UpdateDamageIcon()
@@ -136,18 +136,20 @@
 	return TRUE
 
 /mob/living/carbon/gib()
-	. = death(1)
+	. = death(TRUE)
 	if(!.)
 		return
-	for(var/obj/item/organ/internal/I in internal_organs)
-		if(isturf(loc))
-			I.remove(src)
-			I.forceMove(get_turf(src))
-			I.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1,3),5)
+	var/drop_loc = drop_location()
+	for(var/obj/item/organ/internal/organ as anything in internal_organs)
+		var/atom/movable/thing = organ.remove(src)
+		if(!QDELETED(thing))
+			thing.forceMove(drop_loc)
+			if(isturf(thing.loc))
+				thing.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), rand(1, 3), 5)
 
 	for(var/mob/M in src)
 		LAZYREMOVE(stomach_contents, M)
-		M.forceMove(drop_location())
+		M.forceMove(drop_loc)
 		visible_message("<span class='danger'>[M] вырыва[pluralize_ru(M.gender,"ет","ют")]ся из [src.name]!</span>")
 
 /mob/living/carbon/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
@@ -235,7 +237,7 @@
 					if((H.gloves?.max_heat_protection_temperature > 360) || (HEATRES in H.mutations))
 						protected = TRUE
 
-					var/obj/item/organ/external/active_hand = H.get_organ("[H.hand ? "l" : "r"]_hand")
+					var/obj/item/organ/external/active_hand = H.get_organ(H.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 					if(active_hand && !protected) // Wouldn't really work without a hand
 						active_hand.receive_damage(0, 5)
 						self_message = "<span class='danger'>Вы обжигаете ваши руки пытаясь потушить [src.name]!</span>"
@@ -248,7 +250,7 @@
 			// BEGIN HUGCODE - N3X
 			else
 				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-				if(M.zone_selected == "head")
+				if(M.zone_selected == BODY_ZONE_HEAD)
 					M.visible_message(\
 					"<span class='notice'>[M] глад[pluralize_ru(M.gender,"ит","ят")] [src.name] по голове.</span>",\
 					"<span class='notice'>Вы погладили [src.name] по голове.</span>",\
@@ -274,13 +276,23 @@
 		"<span class='notice'>Вы осмотрели себя на наличие травм.</span>", \
 		)
 
-	var/list/missing = list("head", "chest", "groin", "l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")
-	for(var/X in H.bodyparts)
-		var/obj/item/organ/external/LB = X
-		missing -= LB.limb_name
+	var/list/missing = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_HEAD,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_PRECISE_L_HAND,
+		BODY_ZONE_PRECISE_R_HAND,
+		BODY_ZONE_PRECISE_L_FOOT,
+		BODY_ZONE_PRECISE_R_FOOT,
+	)
+	for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+		missing -= bodypart.limb_zone
 		var/status = ""
-		var/brutedamage = LB.brute_dam
-		var/burndamage = LB.burn_dam
+		var/brutedamage = bodypart.brute_dam
+		var/burndamage = bodypart.burn_dam
 
 		if(brutedamage > 0)
 			status = "bruised"
@@ -297,14 +309,14 @@
 			status += "blistered"
 		else if(burndamage > 0)
 			status += "numb"
-		if(LB.status & ORGAN_MUTATED)
+		if(bodypart.is_mutated())
 			status = "weirdly shapen."
 		if(status == "")
 			status = "OK"
-		to_chat(src, "\t <span class='[status == "OK" ? "notice" : "warning"]'>Your [LB.name] is [status].</span>")
+		to_chat(src, "\t <span class='[status == "OK" ? "notice" : "warning"]'>Your [bodypart.name] is [status].</span>")
 
-		for(var/obj/item/I in LB.embedded_objects)
-			to_chat(src, "\t <a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>В твоем [LB.name] застрял [I]!</a>")
+		for(var/obj/item/embedded as anything in bodypart.embedded_objects)
+			to_chat(src, "\t <a href='byond://?src=[UID()];embedded_object=[embedded.UID()];embedded_limb=[bodypart.UID()]' class='warning'>В твоем [bodypart.name] застрял [embedded]!</a>")
 
 	for(var/t in missing)
 		to_chat(src, "<span class='boldannounce'>У вас отсутствует [parse_zone(t)]!</span>")
@@ -629,9 +641,8 @@
 
 /mob/living/carbon/emp_act(severity)
 	..()
-	for(var/X in internal_organs)
-		var/obj/item/organ/internal/O = X
-		O.emp_act(severity)
+	for(var/obj/item/organ/internal/organ as anything in internal_organs)
+		organ.emp_act(severity)
 
 /mob/living/carbon/Stat()
 	..()
@@ -813,8 +824,8 @@ so that different stomachs can handle things in different ways VB*/
 
 
 /mob/living/carbon/proc/shock_internal_organs(intensity)
-	for(var/obj/item/organ/O in internal_organs)
-		O.shock_organ(intensity)
+	for(var/obj/item/organ/internal/organ as anything in internal_organs)
+		organ.shock_organ(intensity)
 
 
 /mob/living/carbon/update_sight()
@@ -830,14 +841,14 @@ so that different stomachs can handle things in different ways VB*/
 	sight = initial(sight)
 	lighting_alpha = initial(lighting_alpha)
 
-	for(var/obj/item/organ/internal/cyberimp/eyes/E in internal_organs)
-		sight |= E.vision_flags
-		if(E.see_in_dark)
-			see_in_dark = max(see_in_dark, E.see_in_dark)
-		if(E.see_invisible)
-			see_invisible = min(see_invisible, E.see_invisible)
-		if(!isnull(E.lighting_alpha))
-			lighting_alpha = min(lighting_alpha, E.lighting_alpha)
+	for(var/obj/item/organ/internal/cyberimp/eyes/cyber_eyes in internal_organs)
+		sight |= cyber_eyes.vision_flags
+		if(cyber_eyes.see_in_dark)
+			see_in_dark = max(see_in_dark, cyber_eyes.see_in_dark)
+		if(cyber_eyes.see_invisible)
+			see_invisible = min(see_invisible, cyber_eyes.see_invisible)
+		if(!isnull(cyber_eyes.lighting_alpha))
+			lighting_alpha = min(lighting_alpha, cyber_eyes.lighting_alpha)
 
 	if(client.eye != src)
 		var/atom/A = client.eye

@@ -19,6 +19,10 @@
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	layer = MOB_LAYER
 	max_integrity = 100
+	mob_throw_hit_sound = 'sound/misc/moist_impact.ogg'
+	equip_sound = 'sound/items/handling/flesh_pickup.ogg'
+	drop_sound = 'sound/items/handling/flesh_drop.ogg'
+	pickup_sound = 'sound/misc/moist_impact.ogg'
 
 	var/stat = CONSCIOUS //UNCONSCIOUS is the idle state in this case
 

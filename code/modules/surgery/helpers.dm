@@ -154,6 +154,14 @@
 		return TRUE
 	return FALSE
 
-// Called when a limb containing this object is placed back on a body
-/atom/movable/proc/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)
-	return 0
+
+/**
+ * Called when a limb containing this object is placed back on a body.
+ *
+ * Arguments:
+ * * parent - bodypart in which our src object is placed.
+ * * target - future owner of the limb.
+ */
+/atom/movable/proc/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target)
+	return FALSE
+

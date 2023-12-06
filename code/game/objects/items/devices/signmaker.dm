@@ -93,7 +93,7 @@
 			energy -= 1
 			icon_flick()
 			var/mob/living/carbon/C = target
-			if(user.zone_selected == "eyes")
+			if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
 				add_attack_logs(user, C, "Shone a laser in the eyes with [src]")
 				//20% chance to actually hit the eyes
 				if(prob(20))
@@ -108,7 +108,7 @@
 			energy -= 1
 			icon_flick()
 			var/mob/living/silicon/S = target
-			if(user.zone_selected == "eyes")
+			if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
 				//20% chance to actually hit the sensors
 				if(prob(20))
 					S.flash_eyes(affect_silicon = 1)

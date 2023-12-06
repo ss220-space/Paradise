@@ -282,7 +282,7 @@
 			if(AC.fire(user, user, firer_source_atom = src))
 				playsound(user, fire_sound, 50, 1)
 				var/zone = check_zone(user.zone_selected)
-				if(zone == "head" || zone == "eyes" || zone == "mouth")
+				if(zone == BODY_ZONE_HEAD || zone == BODY_ZONE_PRECISE_EYES || zone == BODY_ZONE_PRECISE_MOUTH)
 					shoot_self(user, zone)
 				else
 					user.visible_message(span_danger("[user.name] cowardly fires [src] at [user.p_their()] [zone]!"), span_userdanger("You cowardly fire [src] at your [zone]!"), span_italics("You hear a gunshot!"))
@@ -291,7 +291,7 @@
 		user.visible_message(span_danger("*click*"))
 		playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 
-/obj/item/gun/projectile/revolver/russian/proc/shoot_self(mob/living/carbon/human/user, affecting = "head")
+/obj/item/gun/projectile/revolver/russian/proc/shoot_self(mob/living/carbon/human/user, affecting = BODY_ZONE_HEAD)
 	user.apply_damage(300, BRUTE, affecting)
 	user.visible_message(span_danger("[user.name] fires [src] at [user.p_their()] head!"), span_userdanger("You fire [src] at your head!"), span_italics("You hear a gunshot!"))
 

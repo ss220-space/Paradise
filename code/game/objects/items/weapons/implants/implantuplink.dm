@@ -7,7 +7,7 @@
 
 /obj/item/implant/uplink/New()
 	hidden_uplink = new(src)
-	hidden_uplink.uses = 10
+	hidden_uplink.uses = 50
 	..()
 
 /obj/item/implant/uplink/sit/New()

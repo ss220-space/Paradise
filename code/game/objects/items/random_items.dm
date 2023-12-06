@@ -240,6 +240,9 @@
 	overlay_locked = "c_locked"
 	overlay_locker = "c_locker"
 	overlay_unlocked = "c_unlocked"
+	open_sound = 'sound/machines/wooden_closet_open.ogg'
+	close_sound = 'sound/machines/wooden_closet_close.ogg'
+
 
 /obj/structure/closet/secure_closet/random_drinks/populate_contents()
 	for(var/i in 1 to 5)

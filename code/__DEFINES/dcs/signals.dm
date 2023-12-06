@@ -301,6 +301,7 @@
 
 ///from base of mob/key_down(): (_key, client/user)
 #define COMSIG_MOB_KEY_DROP_ITEM_DOWN "mob_key_drop_item_down"
+	#define COMPONENT_CANCEL_DROP (1<<0)
 
 ///from base of obj/allowed(mob/M): (/obj) returns bool, if TRUE the mob has id access to the obj
 #define COMSIG_MOB_ALLOWED "mob_allowed"

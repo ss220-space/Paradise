@@ -72,7 +72,7 @@ emp_act
 
 	var/obj/item/organ/external/organ = get_organ(check_zone(def_zone))
 	if(isnull(organ))
-		return bullet_act(P, "chest") //act on chest instead
+		return bullet_act(P, BODY_ZONE_CHEST) //act on chest instead
 
 	organ.add_autopsy_data(P.name, P.damage) // Add the bullet's name to the autopsy data
 	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
@@ -106,7 +106,7 @@ emp_act
 	var/rembrute = HEALPERWELD
 	var/nrembrute = 0
 	var/childlist
-	if(!isnull(S.children))
+	if(LAZYLEN(S.children))
 		childlist = S.children.Copy()
 	var/parenthealed = FALSE
 	while(rembrute > 0)
@@ -125,7 +125,7 @@ emp_act
 		else
 			break
 		nrembrute = max(rembrute - E.brute_dam, 0)
-		E.heal_damage(rembrute,0,0,1)
+		E.heal_damage(rembrute, 0, FALSE, TRUE)
 		rembrute = nrembrute
 		H.UpdateDamageIcon()
 		user.visible_message("<span class='alert'>[user] patches some dents on [src]'s [E.name] with [I].</span>")
@@ -150,12 +150,13 @@ emp_act
 			damtype = DROPLIMB_SHARP
 		affecting.droplimb(FALSE, damtype)
 
-/mob/living/carbon/human/getarmor(var/def_zone, var/type)
+
+/mob/living/carbon/human/getarmor(def_zone, type)
 	var/armorval = 0
 	var/organnum = 0
 
 	if(def_zone)
-		if(isorgan(def_zone))
+		if(isexternalorgan(def_zone))
 			return getarmor_organ(def_zone, type)
 		var/obj/item/organ/external/affecting = get_organ(def_zone)
 		if(affecting)
@@ -163,7 +164,7 @@ emp_act
 		//If a specific bodypart is targetted, check how that bodypart is protected and return the value.
 
 	//If you don't specify a bodypart, it checks ALL your bodyparts for protection, and averages out the values
-	for(var/obj/item/organ/external/organ in bodyparts)
+	for(var/obj/item/organ/external/organ as anything in bodyparts)
 		armorval += getarmor_organ(organ, type)
 		organnum++
 
@@ -171,61 +172,47 @@ emp_act
 
 
 //this proc returns the armour value for a particular external organ.
-/mob/living/carbon/human/proc/getarmor_organ(var/obj/item/organ/external/def_zone, var/type)
-	if(!type || !def_zone)	return 0
+/mob/living/carbon/human/proc/getarmor_organ(obj/item/organ/external/def_zone, type)
+	if(!type || !def_zone)
+		return 0
 	var/protection = 0
-	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, l_ear, r_ear, wear_id, neck) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
-	for(var/bp in body_parts)
-		if(!bp)	continue
-		if(bp && istype(bp ,/obj/item/clothing))
-			var/obj/item/clothing/C = bp
-			if(C.body_parts_covered & def_zone.body_part)
-				protection += C.armor.getRating(type)
+	var/list/clothing_items = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, l_ear, r_ear, wear_id, neck) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
+	for(var/obj/item/clothing/cloth in clothing_items)
+		if(cloth.body_parts_covered & def_zone.limb_body_flag)
+			protection += cloth.armor.getRating(type)
 
 	return protection
 
+
 //this proc returns the Siemens coefficient of electrical resistivity for a particular external organ.
-/mob/living/carbon/human/proc/get_siemens_coefficient_organ(var/obj/item/organ/external/def_zone)
+/mob/living/carbon/human/proc/get_siemens_coefficient_organ(obj/item/organ/external/def_zone)
 	if(!def_zone)
 		return 1.0
 
 	var/siemens_coefficient = 1.0
 
 	var/list/clothing_items = list(head, wear_mask, wear_suit, w_uniform, gloves, shoes) // What all are we checking?
-	for(var/obj/item/clothing/C in clothing_items)
-		if(istype(C) && (C.body_parts_covered & def_zone.body_part)) // Is that body part being targeted covered?
-			siemens_coefficient *= C.siemens_coefficient
+	for(var/obj/item/clothing/cloth in clothing_items)
+		if(cloth.body_parts_covered & def_zone.limb_body_flag) // Is that body part being targeted covered?
+			siemens_coefficient *= cloth.siemens_coefficient
 
 	return siemens_coefficient
 
-/mob/living/carbon/human/proc/check_head_coverage()
 
-	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform)
-	for(var/bp in body_parts)
-		if(!bp)  continue
-		if(bp && istype(bp ,/obj/item/clothing))
-			var/obj/item/clothing/C = bp
-			if(C.body_parts_covered & HEAD)
-				return 1
-	return 0
+/mob/living/carbon/human/proc/check_reflect(def_zone) //Reflection checks for anything in your l_hand, r_hand, or wear_suit based on the reflection chance var of the object
+	if(wear_suit?.IsReflect(def_zone) == 1)
+		return 1
 
-/mob/living/carbon/human/proc/check_reflect(var/def_zone) //Reflection checks for anything in your l_hand, r_hand, or wear_suit based on the reflection chance var of the object
-	if(wear_suit && istype(wear_suit, /obj/item/))
-		var/obj/item/I = wear_suit
-		if(I.IsReflect(def_zone) == 1)
-			return 1
-	if(l_hand && istype(l_hand, /obj/item/))
-		var/obj/item/I = l_hand
-		if(I.IsReflect(def_zone) == 1)
-			return 1
-		if(I.IsReflect(def_zone) == 2) //Toy swords
-			return 2
-	if(r_hand && istype(r_hand, /obj/item/))
-		var/obj/item/I = r_hand
-		if(I.IsReflect(def_zone) == 1)
-			return 1
-		if(I.IsReflect(def_zone) == 2) //Toy swords
-			return 2
+	if(l_hand)
+		var/result = l_hand.IsReflect(def_zone)
+		if(result)
+			return result
+
+	if(r_hand)
+		var/result = r_hand.IsReflect(def_zone)
+		if(result)
+			return result
+
 	return 0
 
 
@@ -265,7 +252,7 @@ emp_act
 	var/list/inventory_items_to_kill = list()
 	var/acidity = acidpwr * min(acid_volume * 0.005, 0.1)
 	//HEAD//
-	if(!bodyzone_hit || bodyzone_hit == "head") //only if we didn't specify a zone or if that zone is the head.
+	if(!bodyzone_hit || bodyzone_hit == BODY_ZONE_HEAD) //only if we didn't specify a zone or if that zone is the head.
 		var/obj/item/clothing/head_clothes = null
 		if(glasses)
 			head_clothes = glasses
@@ -282,7 +269,7 @@ emp_act
 			else
 				to_chat(src, "<span class='notice'>Your [head_clothes.name] protects your head and face from the acid!</span>")
 		else
-			. = get_organ("head")
+			. = get_organ(BODY_ZONE_HEAD)
 			if(.)
 				damaged += .
 			if(l_ear)
@@ -291,7 +278,7 @@ emp_act
 				inventory_items_to_kill += r_ear
 
 	//CHEST//
-	if(!bodyzone_hit || bodyzone_hit == "chest")
+	if(!bodyzone_hit || bodyzone_hit == BODY_ZONE_CHEST)
 		var/obj/item/clothing/chest_clothes = null
 		if(w_uniform)
 			chest_clothes = w_uniform
@@ -305,7 +292,7 @@ emp_act
 			else
 				to_chat(src, "<span class='notice'>Your [chest_clothes.name] protects your body from the acid!</span>")
 		else
-			. = get_organ("chest")
+			. = get_organ(BODY_ZONE_CHEST)
 			if(.)
 				damaged += .
 			if(wear_id)
@@ -321,7 +308,7 @@ emp_act
 
 
 	//ARMS & HANDS//
-	if(!bodyzone_hit || bodyzone_hit == "l_arm" || bodyzone_hit == "r_arm")
+	if(!bodyzone_hit || bodyzone_hit == BODY_ZONE_L_ARM || bodyzone_hit == BODY_ZONE_R_ARM)
 		var/obj/item/clothing/arm_clothes = null
 		if(gloves)
 			arm_clothes = gloves
@@ -339,16 +326,16 @@ emp_act
 			else
 				to_chat(src, "<span class='notice'>Your [arm_clothes.name] protects your arms and hands from the acid!</span>")
 		else
-			. = get_organ("r_arm")
+			. = get_organ(BODY_ZONE_R_ARM)
 			if(.)
 				damaged += .
-			. = get_organ("l_arm")
+			. = get_organ(BODY_ZONE_L_ARM)
 			if(.)
 				damaged += .
 
 
 	//LEGS & FEET//
-	if(!bodyzone_hit || bodyzone_hit == "l_leg" || bodyzone_hit =="r_leg" || bodyzone_hit == "feet")
+	if(!bodyzone_hit || bodyzone_hit == BODY_ZONE_L_LEG || bodyzone_hit == BODY_ZONE_R_LEG || bodyzone_hit == "feet")
 		var/obj/item/clothing/leg_clothes = null
 		if(shoes)
 			leg_clothes = shoes
@@ -365,16 +352,16 @@ emp_act
 			else
 				to_chat(src, "<span class='notice'>Your [leg_clothes.name] protects your legs and feet from the acid!</span>")
 		else
-			. = get_organ("r_leg")
+			. = get_organ(BODY_ZONE_R_LEG)
 			if(.)
 				damaged += .
-			. = get_organ("l_leg")
+			. = get_organ(BODY_ZONE_L_LEG)
 			if(.)
 				damaged += .
 
 
 	//DAMAGE//
-	for(var/obj/item/organ/external/affecting in damaged)
+	for(var/obj/item/organ/external/affecting as anything in damaged)
 		affecting.receive_damage(acidity, 2 * acidity)
 
 		if(istype(affecting, /obj/item/organ/external/head))
@@ -448,7 +435,7 @@ emp_act
 	if(!affecting)
 		to_chat(user, "<span class='danger'>They are missing that limb!</span>")
 		return 1
-	var/hit_area = parse_zone(affecting.limb_name)
+	var/hit_area = parse_zone(affecting.limb_zone)
 
 	if(user != src)
 		user.do_attack_animation(src)
@@ -499,7 +486,7 @@ emp_act
 
 		if(!stat)
 			switch(hit_area)
-				if("head")//Harder to score a stun but if you do it lasts a bit longer
+				if(BODY_ZONE_HEAD)//Harder to score a stun but if you do it lasts a bit longer
 					if(stat == CONSCIOUS && armor < 50)
 						if(prob(I.force))
 							visible_message("<span class='combat danger'>[src] has been knocked down!</span>", \
@@ -521,7 +508,7 @@ emp_act
 							update_inv_glasses()
 
 
-				if("chest")//Easier to score a stun but lasts less time
+				if(BODY_ZONE_CHEST)//Easier to score a stun but lasts less time
 					if(stat == CONSCIOUS && I.force && prob(I.force + 10))
 						visible_message("<span class='combat danger'>[src] has been knocked down!</span>", \
 										"<span class='combat userdanger'>[src] has been knocked down!</span>")
@@ -576,20 +563,6 @@ emp_act
 		skipcatch = TRUE //can't catch the now embedded item
 
 	return ..(AM, skipcatch, hitpush, blocked, throwingdatum)
-
-
-/mob/living/carbon/human/proc/embed_item_inside(obj/item/I)
-	if(ismob(I.loc))
-		var/mob/M = I.loc
-		M.drop_item_ground(I)
-	throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
-	var/obj/item/organ/external/L = pick(bodyparts)
-	L.embedded_objects |= I
-	I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
-	I.forceMove(src)
-	L.receive_damage(I.w_class*I.embedded_impact_pain_multiplier)
-	visible_message(span_danger("[I] embeds itself in [src]'s [L.name]!"),
-					span_userdanger("[I] embeds itself in your [L.name]!"))
 
 
 /mob/living/carbon/human/proc/bloody_hands(var/mob/living/source, var/amount = 2)
@@ -685,12 +658,24 @@ emp_act
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		if(check_shields(M, damage, "the [M.name]", MELEE_ATTACK, M.armour_penetration))
 			return FALSE
-		var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
+		var/dam_zone = pick(
+			BODY_ZONE_CHEST,
+			BODY_ZONE_PRECISE_GROIN,
+			BODY_ZONE_HEAD,
+			BODY_ZONE_L_ARM,
+			BODY_ZONE_R_ARM,
+			BODY_ZONE_L_LEG,
+			BODY_ZONE_R_LEG,
+			BODY_ZONE_PRECISE_L_HAND,
+			BODY_ZONE_PRECISE_R_HAND,
+			BODY_ZONE_PRECISE_L_FOOT,
+			BODY_ZONE_PRECISE_R_FOOT,
+		)
 		var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
 		if(!affecting)
-			affecting = get_organ("chest")
+			affecting = get_organ(BODY_ZONE_CHEST)
 		affecting.add_autopsy_data(M.name, damage) // Add the mob's name to the autopsy data
-		var/armor = run_armor_check(affecting, "melee", armour_penetration = M.armour_penetration)
+		var/armor = run_armor_check(affecting, MELEE, armour_penetration = M.armour_penetration)
 		apply_damage(damage, M.melee_damage_type, affecting, armor)
 		updatehealth("animal attack")
 		var/all_objectives = M?.mind?.get_all_objectives()
@@ -711,12 +696,24 @@ emp_act
 		if(check_shields(M, damage, "the [M.name]"))
 			return FALSE
 
-		var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
+		var/dam_zone = pick(
+			BODY_ZONE_CHEST,
+			BODY_ZONE_PRECISE_GROIN,
+			BODY_ZONE_HEAD,
+			BODY_ZONE_L_ARM,
+			BODY_ZONE_R_ARM,
+			BODY_ZONE_L_LEG,
+			BODY_ZONE_R_LEG,
+			BODY_ZONE_PRECISE_L_HAND,
+			BODY_ZONE_PRECISE_R_HAND,
+			BODY_ZONE_PRECISE_L_FOOT,
+			BODY_ZONE_PRECISE_R_FOOT,
+		)
 
 		var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
 		if(!affecting)
-			affecting = get_organ("chest")
-		var/armor_block = run_armor_check(affecting, "melee")
+			affecting = get_organ(BODY_ZONE_CHEST)
+		var/armor_block = run_armor_check(affecting, MELEE)
 		apply_damage(damage, BRUTE, affecting, armor_block)
 		var/all_objectives = M?.mind?.get_all_objectives()
 		if(mind && all_objectives)

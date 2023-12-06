@@ -37,7 +37,7 @@
 		to_chat(user, "<span class='warning'>You can't change your appearance right now!</span>")
 		return
 	var/mob/living/carbon/human/M = user
-	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
+	var/obj/item/organ/external/head/head_organ = M.get_organ(BODY_ZONE_HEAD)
 	var/obj/item/organ/internal/eyes/eyes_organ = M.get_int_organ(/obj/item/organ/internal/eyes)
 
 	var/new_gender = alert(user, "Please select gender.", "Character Generation", "Male", "Female")

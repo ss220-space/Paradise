@@ -16,7 +16,7 @@
 			playsound(get_turf(user), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			target.emote("scream")
 			target.drop_from_active_hand()
-			target.apply_damage(5, BRUTE, pick("l_arm", "r_arm"))
+			target.apply_damage(5, BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 			target.Stun(2 SECONDS)
 			add_attack_logs(user, target, "Melee attacked with martial-art [creeping_widow.name] : [name]")
 			addtimer(CALLBACK(creeping_widow, TYPE_PROC_REF(/datum/martial_art/ninja_martial_art, regain_focus), user), 50)

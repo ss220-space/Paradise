@@ -8,6 +8,7 @@ SUBSYSTEM_DEF(blackbox)
 	// The database SS has INIT_ORDER_DBCORE=16, and this SS has INIT_ORDER_BLACKBOX=15
 	// So putting this ensures it shuts down in the right order
 	init_order = INIT_ORDER_BLACKBOX
+	ss_id = "blackbox"
 
 	/// List of all recorded feedback
 	var/list/datum/feedback_variable/feedback = list()

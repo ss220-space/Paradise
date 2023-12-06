@@ -39,30 +39,29 @@
 	W.time_inflicted = time_inflicted
 	return W
 
-/obj/item/autopsy_scanner/proc/add_data(obj/item/organ/O)
-	if(O.autopsy_data.len)
-		for(var/V in O.autopsy_data)
-			var/datum/autopsy_data/W = O.autopsy_data[V]
+/obj/item/autopsy_scanner/proc/add_data(obj/item/organ/check_organ)
+	for(var/index in check_organ.autopsy_data)
+		var/datum/autopsy_data/weapon_data = check_organ.autopsy_data[index]
 
-			var/datum/autopsy_data_scanner/D = wdata[V]
-			if(!D)
-				D = new()
-				D.weapon = W.weapon
-				wdata[V] = D
+		var/datum/autopsy_data_scanner/scanner_data = wdata[index]
+		if(!scanner_data)
+			scanner_data = new
+			scanner_data.weapon = weapon_data.weapon
+			wdata[index] = scanner_data
 
-			if(!D.organs_scanned[O.name])
-				if(D.organ_names == "")
-					D.organ_names = O.name
-				else
-					D.organ_names += ", [O.name]"
+		if(!scanner_data.organs_scanned[check_organ.name])
+			if(scanner_data.organ_names == "")
+				scanner_data.organ_names = check_organ.name
+			else
+				scanner_data.organ_names += ", [check_organ.name]"
 
-			qdel(D.organs_scanned[O.name])
-			D.organs_scanned[O.name] = W.copy()
+		qdel(scanner_data.organs_scanned[check_organ.name])
+		scanner_data.organs_scanned[check_organ.name] = weapon_data.copy()
 
-	if(O.trace_chemicals.len)
-		for(var/V in O.trace_chemicals)
-			if(O.trace_chemicals[V] > 0 && !chemtraces.Find(V))
-				chemtraces += V
+	for(var/chemID in check_organ.trace_chemicals)
+		if(check_organ.trace_chemicals[chemID] > 0 && !chemtraces.Find(chemID))
+			chemtraces += chemID
+
 
 /obj/item/autopsy_scanner/attackby(obj/item/P, mob/user)
 	if(istype(P, /obj/item/pen))

@@ -67,9 +67,9 @@
 	var/obj/item/organ/external/right_arm = user.bodyparts_by_name[BODY_ZONE_R_ARM]
 	var/left_hand_good = FALSE
 	var/right_hand_good = FALSE
-	if(left_arm && !(left_arm.status & (ORGAN_SPLINTED|ORGAN_BROKEN)))
+	if(!left_arm?.has_fracture_or_splint())
 		left_hand_good = TRUE
-	if(right_arm && !(right_arm.status & (ORGAN_SPLINTED|ORGAN_BROKEN)))
+	if(!right_arm?.has_fracture_or_splint())
 		right_hand_good = TRUE
 
 	if(!left_hand_good || !right_hand_good)
@@ -360,7 +360,7 @@
 	key = "johnny"
 	message = "затягива%(ет,ют)%ся сигаретой и выдыха%(ет,ют)% дым в форме %(своего,их)% имени."
 	message_param = "dummy"  // Gets handled in select_param
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 	target_behavior = EMOTE_TARGET_BHVR_DEFAULT_TO_BASE
 	emote_target_type = EMOTE_TARGET_MOB
 	cooldown = 8 SECONDS
@@ -503,9 +503,9 @@
 	var/obj/item/organ/external/right_arm = user.bodyparts_by_name[BODY_ZONE_R_ARM]
 	var/left_hand_good = FALSE
 	var/right_hand_good = FALSE
-	if(left_arm && !(left_arm.status & (ORGAN_SPLINTED|ORGAN_BROKEN)))
+	if(!left_arm?.has_fracture_or_splint())
 		left_hand_good = TRUE
-	if(right_arm && !(right_arm.status & (ORGAN_SPLINTED|ORGAN_BROKEN)))
+	if(!right_arm?.has_fracture_or_splint())
 		right_hand_good = TRUE
 
 	if(!left_hand_good && !right_hand_good)
@@ -1152,8 +1152,8 @@
 		return FALSE
 	if(isslimeperson(user))
 		return TRUE
-	for(var/obj/item/organ/external/limb in user.bodyparts) // if your limbs are squishy you can squish too!
-		if(istype(limb.dna?.species, /datum/species/slime))
+	for(var/obj/item/organ/external/bodypart as anything in user.bodyparts) // if your limbs are squishy you can squish too!
+		if(bodypart.dna && istype(bodypart.dna.species, /datum/species/slime))
 			return TRUE
 	return FALSE
 
@@ -1208,6 +1208,7 @@
 	age_based = TRUE
 	volume = 100
 	cooldown = 10 SECONDS
+	unintentional_cooldown = 10 SECONDS
 	sound = 'sound/goonstation/voice/howl.ogg'
 
 /datum/emote/living/carbon/human/vulpkanin/howl/run_emote(mob/user, params, type_override, intentional)
@@ -1249,7 +1250,7 @@
 /**
  * Tajaran
  */
-/datum/emote/living/carbon/human/tajaran/hiss
+/datum/emote/living/carbon/human/tajaran
 	species_type_whitelist_typecache = list(/datum/species/tajaran)
 
 
@@ -1327,8 +1328,8 @@
 		message = initial(message)
 		return ..()
 
-	var/translated = bodypart.limb_name
-	switch(bodypart.limb_name)
+	var/translated = bodypart.limb_zone
+	switch(bodypart.limb_zone)
 		if(BODY_ZONE_HEAD)
 			translated = "костями черепа"
 		if(BODY_ZONE_CHEST)

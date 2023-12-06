@@ -11288,7 +11288,7 @@
 /obj/item/paper/terrorspiders3,
 /obj/item/pen/edagger,
 /obj/item/stack/telecrystal{
-	amount = 10
+	amount = 50
 	},
 /obj/item/chameleon,
 /obj/item/reagent_containers/glass/bottle/traitor,

@@ -40,27 +40,29 @@
 	siemens_coeff = 1.5
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/nian,
-		"lungs" =    /obj/item/organ/internal/lungs/nian,
-		"liver" =    /obj/item/organ/internal/liver/nian,
-		"kidneys" =  /obj/item/organ/internal/kidneys/nian,
-		"brain" =    /obj/item/organ/internal/brain/nian,
-		"eyes" =     /obj/item/organ/internal/eyes/nian
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/nian,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/nian,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/nian,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/nian,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/nian,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/nian,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	)
 
 	has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest),
-		"groin" =  list("path" = /obj/item/organ/external/groin),
-		"head" =   list("path" = /obj/item/organ/external/head),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right),
-		"l_hand" = list("path" = /obj/item/organ/external/hand),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right),
-		"l_foot" = list("path" = /obj/item/organ/external/foot),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right),
-		"wing" =   list("path" = /obj/item/organ/external/wing/nian))
+		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
+		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin),
+		BODY_ZONE_HEAD = list("path" = /obj/item/organ/external/head),
+		BODY_ZONE_L_ARM = list("path" = /obj/item/organ/external/arm),
+		BODY_ZONE_R_ARM = list("path" = /obj/item/organ/external/arm/right),
+		BODY_ZONE_L_LEG = list("path" = /obj/item/organ/external/leg),
+		BODY_ZONE_R_LEG = list("path" = /obj/item/organ/external/leg/right),
+		BODY_ZONE_PRECISE_L_HAND = list("path" = /obj/item/organ/external/hand),
+		BODY_ZONE_PRECISE_R_HAND = list("path" = /obj/item/organ/external/hand/right),
+		BODY_ZONE_PRECISE_L_FOOT = list("path" = /obj/item/organ/external/foot),
+		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right),
+		BODY_ZONE_WING = list("path" = /obj/item/organ/external/wing/nian),
+	)
 
 	optional_body_accessory = FALSE
 
@@ -123,7 +125,7 @@
 	var/turf/A = get_turf(H)
 	if(isspaceturf(A))
 		return FALSE
-	if(H.has_status_effect(STATUS_EFFECT_BURNT_WINGS) || !H.bodypart_wing)
+	if(H.has_status_effect(STATUS_EFFECT_BURNT_WINGS) || !H.get_organ(BODY_ZONE_WING))
 		return FALSE
 	var/datum/gas_mixture/current = A.return_air()
 	if(current && (current.return_pressure() >= ONE_ATMOSPHERE*0.85))//as long as there's reasonable pressure and no gravity, flight is possible

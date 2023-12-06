@@ -187,12 +187,9 @@
 
 	msg = genderize_decode(user, msg)
 
-	var/suppressed = FALSE
-
 	// Keep em quiet if they can't speak
-	if(!can_vocalize_emotes(user) && ((emote_type & (EMOTE_MOUTH|EMOTE_AUDIBLE)) || (emote_type & (EMOTE_MOUTH|EMOTE_SOUND))))
+	if(!can_vocalize_emotes(user) && ((emote_type & EMOTE_MOUTH) && (emote_type & (EMOTE_AUDIBLE|EMOTE_SOUND))))
 		var/noise_emitted = pick(muzzled_noises)
-		suppressed = TRUE
 		msg = "изда[pluralize_ru(user.gender, "ёт", "ют")] [noise_emitted] звуки."
 
 	var/tmp_sound = get_sound(user)
@@ -228,7 +225,7 @@
 		else
 			user.visible_message(displayed_msg, blind_message = span_italics("You hear how someone [msg]"))
 
-		if(!((emote_type & (EMOTE_FORCE_NO_RUNECHAT|EMOTE_SOUND)) || suppressed) && !isobserver(user))
+		if(!(emote_type & (EMOTE_FORCE_NO_RUNECHAT|EMOTE_SOUND)) && !isobserver(user))
 			runechat_emote(user, msg)
 
 	SEND_SIGNAL(user, COMSIG_MOB_EMOTED(key), src, key, emote_type, message, intentional)
@@ -313,11 +310,12 @@
  * Arguments:
  * * user - Person that is trying to send the emote.
  * * intentional - Bool that says whether the emote was forced (FALSE) or not (TRUE).
+ * * ignore_cooldowns - If `TRUE` all cooldowns will be skipped.
  *
  * Returns FALSE if the cooldown is not over, TRUE if the cooldown is over.
  */
-/datum/emote/proc/check_cooldown(mob/user, intentional)
-	if(!intentional && bypass_unintentional_cooldown)
+/datum/emote/proc/check_cooldown(mob/user, intentional, ignore_cooldowns)
+	if((!intentional && bypass_unintentional_cooldown) || ignore_cooldowns)
 		return TRUE
 	// if our emote would play sound but another audio emote is on cooldown, prevent this emote from being used.
 	// Note that this only applies to intentional emotes

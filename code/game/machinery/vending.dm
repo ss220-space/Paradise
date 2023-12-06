@@ -1779,7 +1779,7 @@
 	ads_list = list("Just like Kindergarten!","Now with 1000% more vibrant colors!","Screwing with the janitor was never so easy!","Creativity is at the heart of every spessman.")
 	vend_delay = 15
 	icon_state = "artvend"
-	products = list(/obj/item/stack/cable_coil/random = 10,/obj/item/camera = 4,/obj/item/camera_film = 6,
+	products = list(/obj/item/toy/crayon/spraycan = 2,/obj/item/stack/cable_coil/random = 10,/obj/item/camera = 4,/obj/item/camera_film = 6,
 	/obj/item/storage/photo_album = 2,/obj/item/stack/wrapping_paper = 4,/obj/item/stack/tape_roll = 5,/obj/item/stack/packageWrap = 4,
 	/obj/item/storage/fancy/crayons = 4,/obj/item/hand_labeler = 4,/obj/item/paper = 10,
 	/obj/item/c_tube = 10,/obj/item/pen = 5,/obj/item/pen/blue = 5,
@@ -2316,15 +2316,13 @@
 		/obj/item/gun/projectile/automatic/lasercarbine = 3,
 		/obj/item/ammo_box/magazine/laser = 6,
 		/obj/item/suppressor = 4,
-		/obj/item/gun/projectile/automatic/wt550 = 3,
-		/obj/item/ammo_box/magazine/wt550m9 = 6,
-		/obj/item/gun/projectile/shotgun/riot = 6,
-		/obj/item/ammo_box/shotgun/rubbershot = 6,
-		/obj/item/ammo_box/shotgun/beanbag = 4,
-		/obj/item/ammo_box/shotgun/tranquilizer = 4,
 		/obj/item/ammo_box/speedloader/shotgun/universal = 4,
 		/obj/item/gun/projectile/automatic/sfg = 3,
-		/obj/item/ammo_box/magazine/sfg9mm = 6
+		/obj/item/ammo_box/magazine/sfg9mm = 6,
+		/obj/item/gun/projectile/shotgun/automatic/combat = 3,
+		/obj/item/ammo_box/shotgun = 4,
+		/obj/item/ammo_box/shotgun/buck = 4,
+		/obj/item/ammo_box/shotgun/dragonsbreath = 2
 	)
 	contraband = list(/obj/item/storage/fancy/donut_box = 2)
 	refill_canister = /obj/item/vending_refill/nta
@@ -2347,11 +2345,6 @@
 		/obj/item/gun/energy/xray = 2,
 		/obj/item/gun/energy/immolator/multi = 2,
 		/obj/item/gun/energy/gun/nuclear = 3,
-		/obj/item/gun/projectile/shotgun/automatic/combat = 3,
-		/obj/item/ammo_box/shotgun = 4,
-		/obj/item/ammo_box/shotgun/buck = 4,
-		/obj/item/ammo_box/shotgun/dragonsbreath = 2,
-		/obj/item/ammo_box/speedloader/shotgun/universal = 4,
 		/obj/item/storage/lockbox/t4 = 3,
 		/obj/item/grenade/smokebomb = 3,
 		/obj/item/grenade/frag = 4
@@ -2375,9 +2368,13 @@
 		/obj/item/gun/energy/gun/advtaser = 4,
 		/obj/item/gun/projectile/automatic/pistol/enforcer = 6,
 		/obj/item/storage/box/barrier = 2,
-		/obj/item/gun/projectile/shotgun/riot = 1,
-		/obj/item/ammo_box/shotgun/rubbershot = 3,
+		/obj/item/gun/projectile/shotgun/riot = 3,
+		/obj/item/ammo_box/shotgun/rubbershot = 6,
+		/obj/item/ammo_box/shotgun/beanbag = 4,
+		/obj/item/ammo_box/shotgun/tranquilizer = 4,
 		/obj/item/ammo_box/speedloader/shotgun/universal = 4,
+		/obj/item/gun/projectile/automatic/wt550 = 3,
+		/obj/item/ammo_box/magazine/wt550m9 = 6,
 		/obj/item/gun/energy/dominator/sibyl = 2
 	)
 	contraband = list(/obj/item/storage/fancy/donut_box = 2)

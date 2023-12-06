@@ -38,7 +38,7 @@
 
 	if(istype(M, /mob/living/carbon))
 		var/mob/living/carbon/C = M
-		if(!get_location_accessible(C, "mouth"))
+		if(!get_location_accessible(C, BODY_ZONE_PRECISE_MOUTH))
 			if(C == user)
 				to_chat(user, "<span class='warning'>Your face is obscured, so you cant eat.</span>")
 			else
@@ -85,7 +85,7 @@
 	if(!(container_type & DRAINABLE))
 		to_chat(chugger, "<span class='notice'>You need to open [src] first!</span>")
 		return
-	if(!get_location_accessible(chugger, "mouth"))
+	if(!get_location_accessible(chugger, BODY_ZONE_PRECISE_MOUTH))
 		to_chat(chugger, "<span class='notice'>Your face is obscured, so you cant [pick("chugging","gulping")].</span>")
 		return
 	if(reagents.total_volume && loc == chugger && src == chugger.get_active_hand())

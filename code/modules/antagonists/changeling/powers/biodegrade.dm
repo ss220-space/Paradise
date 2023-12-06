@@ -76,7 +76,7 @@
 			var/mob/living/carbon/grab_owner = grab.assailant
 			user.visible_message(span_warning("[user] spits acid at [grab_owner]'s face and slips out of their grab!"))
 			grab_owner.Stun(2 SECONDS) //Drops the grab
-			grab_owner.apply_damage(5, BURN, "head", grab_owner.run_armor_check("head", "melee"))
+			grab_owner.apply_damage(5, BURN, BODY_ZONE_HEAD, grab_owner.run_armor_check(BODY_ZONE_HEAD, MELEE))
 			user.SetStunned(0) //This only triggers if they are grabbed, to have them break out of the grab, without the large stun time. If you use biodegrade as an antistun without being grabbed, it will not work
 			user.SetWeakened(0)
 			playsound(user.loc, 'sound/weapons/sear.ogg', 50, TRUE)

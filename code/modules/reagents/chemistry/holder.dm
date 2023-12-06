@@ -561,7 +561,7 @@
 	if(react_type == "LIVING" && ishuman(A))
 		var/mob/living/carbon/human/H = A
 		if(method == REAGENT_TOUCH)
-			var/obj/item/organ/external/head/affecting = H.get_organ("head")
+			var/obj/item/organ/external/head/affecting = H.get_organ(BODY_ZONE_HEAD)
 			if(affecting)
 				if(chem_temp > H.dna.species.heat_level_1)
 					var/mult = H.dna.species.heatmod

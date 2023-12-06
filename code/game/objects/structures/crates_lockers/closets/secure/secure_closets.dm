@@ -58,7 +58,7 @@
 		return
 	if(allowed(user))
 		locked = !locked
-		playsound(loc, 'sound/machines/click.ogg', 15, 1, -3)
+		playsound(loc, pick(togglelock_sound), 15, TRUE, -3)
 		visible_message("<span class='notice'>The locker has been [locked ? null : "un"]locked by [user].</span>")
 		update_icon()
 	else
@@ -165,7 +165,7 @@
 				update_icon()
 			else // Bad day)
 				var/mob/living/carbon/human/H = user
-				var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? "l_hand" : "r_hand")
+				var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 				user.apply_damage(5, BRUTE , affecting)
 				user.emote("scream")
 				to_chat(user, "<span class='warning'>Проклятье! [I] сорвалась и повредила [affecting.name]!</span>")
