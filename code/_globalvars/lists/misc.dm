@@ -72,6 +72,3 @@ GLOBAL_LIST_EMPTY(looping_sounds)
 
 /// List of ckeys that have seen a blurb of a given key.
 GLOBAL_LIST_EMPTY(blurb_witnesses)
-
-// List for emojis
-GLOBAL_LIST_EMPTY(discordEmojis)

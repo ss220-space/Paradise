@@ -208,7 +208,6 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 /world/proc/load_motd()
 	GLOB.join_motd = file2text("config/motd.txt")
 	GLOB.join_tos = file2text("config/tos.txt")
-	loadDiscordEmojis()
 
 /proc/load_configuration()
 	config = new /datum/controller/configuration()
