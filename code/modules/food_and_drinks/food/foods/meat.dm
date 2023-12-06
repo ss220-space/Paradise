@@ -397,11 +397,14 @@
 
 /obj/item/reagent_containers/food/snacks/monkeycube/proc/Expand()
 	if(LAZYLEN(SSmobs.cubemonkeys) >= CONFIG_GET(number/cubemonkey_cap))
-		if(fingerprintslast)
-			to_chat(get_mob_by_ckey(fingerprintslast), "<span class='warning'>Bluespace harmonics prevent the spawning of more than [CONFIG_GET(number/cubemonkey_cap)] monkeys on the station at one time!</span>")
-		else
-			visible_message("<span class='notice'>[src] fails to expand!</span>")
 		return
+		//Due to server crashing capabilities, chat feature is disabled.
+
+		//if(fingerprintslast)
+		//	to_chat(get_mob_by_ckey(fingerprintslast), "<span class='warning'>Bluespace harmonics prevent the spawning of more than [CONFIG_GET(number/cubemonkey_cap)] monkeys on the station at one time!</span>")
+		//else
+		//	visible_message("<span class='notice'>[src] fails to expand!</span>")
+
 	if(!QDELETED(src))
 		visible_message("<span class='notice'>[src] expands!</span>")
 		if(fingerprintslast)
