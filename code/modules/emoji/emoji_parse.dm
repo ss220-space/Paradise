@@ -2,21 +2,15 @@
 #define DISCORD_EMOJI_IMAGE(id, size, imgsize) "<img src=\"[DISCORD_EMOJI_URL(id, size)]\" style=\"height: [imgsize]px; width: [imgsize]px;\" />"
 
 /proc/handleDiscordEmojis(msg)
-	var/list/newMsg = list()
 	var/list/listmsg = splittext_char(msg, " ")
+	var/list/newMsg = new/list(listmsg.len)
 	var/list/discordEmojis = CONFIG_GET(keyed_list/emoji)
-	for (var/i = 1, i <= length(listmsg), i++)
-		var/word = listmsg[i]
-		// Весь этот костыль с length и copytext_char нужен только потому что
-		// lowertext(word) == lowertext(emojiName) не работает вообще по какой-то причине
-		for (var/emojiName in discordEmojis)
-			if (length(emojiName) != length(word))
-				continue
-			var/emojiId = discordEmojis[emojiName]
-			word = replacetext_char(word, emojiName, DISCORD_EMOJI_IMAGE(emojiId, 32, 32))
-			if (copytext_char(word, 1, 2) == "<")
-				word = lowertext(word)
-		newMsg += word
+	for (var/word in listmsg)
+		var/emoji = discordEmojis[lowertext(word)]
+		if(emoji)
+			newMsg += DISCORD_EMOJI_IMAGE(emoji, 32, 32)
+		else
+			newMsg += word
 	return jointext(newMsg, " ")
 
 /proc/generateDiscordEmojiTable()
@@ -44,11 +38,8 @@
 	set desc = "Shows all the emojis available in OOC/LOOC/DSAY"
 	set category = "OOC"
 
-	if (isnull(GLOB.emojiTableShownToUsers))
-		GLOB.emojiTableShownToUsers = generateDiscordEmojiTable()
-
 	var/datum/browser/popup = new(usr, "discord_emoji", "Discord emojis", 800, 460)
-	popup.set_content(GLOB.emojiTableShownToUsers)
+	popup.set_content(generateDiscordEmojiTable())
 	popup.open()
 
 #undef DISCORD_EMOJI_IMAGE

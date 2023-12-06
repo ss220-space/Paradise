@@ -37,8 +37,6 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	if(!msg)
 		return
 
-	msg = handleDiscordEmojis(msg)
-
 	if(!(prefs.toggles & PREFTOGGLE_CHAT_OOC))
 		to_chat(src, "<span class='danger'>You have OOC muted.</span>")
 		return
@@ -60,6 +58,8 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 				log_admin("[key_name_log(src)] has attempted to advertise in OOC: [msg]")
 				message_admins("[key_name_admin(src)] has attempted to advertise in OOC: [msg]")
 				return
+
+	msg = handleDiscordEmojis(msg)
 
 	add_ooc_logs(src, msg)
 
@@ -204,8 +204,6 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	if(!msg)
 		return
 
-	msg = handleDiscordEmojis(msg)
-
 	if(!(prefs.toggles & PREFTOGGLE_CHAT_LOOC))
 		to_chat(src, "<span class='danger'>You have LOOC muted.</span>")
 		return
@@ -224,6 +222,8 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 				log_admin("[key_name_log(src)] has attempted to advertise in OOC: [msg]")
 				message_admins("[key_name_admin(src)] has attempted to advertise in OOC: [msg]")
 				return
+
+	msg = handleDiscordEmojis(msg)
 
 	add_ooc_logs(src, msg, TRUE)
 

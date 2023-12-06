@@ -63,5 +63,3 @@ GLOBAL_VAR_INIT(pacifism_after_gt, FALSE)
 
 GLOBAL_VAR_INIT(communications_blackout, FALSE)
 
-// Emoji vars
-GLOBAL_VAR_INIT(emojiTableShownToUsers, null)
