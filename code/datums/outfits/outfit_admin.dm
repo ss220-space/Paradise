@@ -837,6 +837,7 @@
 		/obj/item/storage/box/responseteam = 1,
 		/obj/item/implanter/dust = 1,
 		/obj/item/implanter/death_alarm = 1,
+		/obj/item/stamp/solgov = 1,
 	)
 
 /datum/outfit/admin/solgov_rep/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
