@@ -78,7 +78,6 @@ GLOBAL_LIST_EMPTY(all_cults)
 	return (length(cult) > 0)
 
 /datum/game_mode/cult/post_setup()
-	modePlayer += cult
 	cult_objs.setup()
 
 	for(var/datum/mind/cult_mind in cult)

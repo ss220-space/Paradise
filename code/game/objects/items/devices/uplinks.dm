@@ -9,7 +9,8 @@ A list of items and costs is stored under the datum of every game mode, alongsid
 GLOBAL_LIST_EMPTY(world_uplinks)
 
 /obj/item/uplink
-	var/uses 				// Numbers of crystals
+	/// Uplink TC amount
+	var/uses = 100
 	var/hidden_crystals = 0
 	/// List of categories with items inside
 	var/list/uplink_cats
@@ -37,7 +38,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 /obj/item/uplink/New()
 	..()
-	uses = SSticker.mode.uplink_uses
 	uplink_items = get_uplink_items(src)
 
 	GLOB.world_uplinks += src
