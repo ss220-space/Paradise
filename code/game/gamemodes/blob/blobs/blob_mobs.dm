@@ -83,7 +83,7 @@
 /mob/living/simple_animal/hostile/blob/blobspore/proc/Zombify(mob/living/carbon/human/H)
 	if(!H.check_death_method())
 		H.death()
-	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+	var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 	is_zombie = TRUE
 	if(H.wear_suit)
 		var/obj/item/clothing/suit/armor/A = H.wear_suit

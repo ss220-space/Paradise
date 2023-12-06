@@ -7,6 +7,8 @@
 	item_color = "bluetie"
 	slot_flags = SLOT_TIE
 	w_class = WEIGHT_CLASS_SMALL
+	pickup_sound = 'sound/items/handling/accessory_pickup.ogg'
+	drop_sound = 'sound/items/handling/accessory_drop.ogg'
 	var/slot = ACCESSORY_SLOT_DECOR
 	var/obj/item/clothing/under/has_suit = null		//the suit the tie may be attached to
 	var/image/inv_overlay = null	//overlay used when attached to clothing.

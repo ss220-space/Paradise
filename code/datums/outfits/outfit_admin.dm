@@ -43,7 +43,7 @@
 	)
 
 	var/id_access = "Syndicate Operative"
-	var/uplink_uses = 20
+	var/uplink_uses = 100
 
 /datum/outfit/admin/syndicate/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -173,7 +173,7 @@
 	name = "Syndicate Spy"
 	uniform = /obj/item/clothing/under/suit_jacket/really_black
 	shoes = /obj/item/clothing/shoes/chameleon/noslip
-	uplink_uses = 40
+	uplink_uses = 200
 	id_access = "Syndicate Agent"
 
 	implants = list(

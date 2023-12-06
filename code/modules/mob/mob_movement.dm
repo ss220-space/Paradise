@@ -333,31 +333,24 @@
 /mob/proc/mob_negates_gravity()
 	return 0
 
-/mob/proc/Move_Pulled(atom/A)
+
+/mob/proc/Move_Pulled(atom/target)
 	if(!canmove || restrained() || !pulling)
 		return
 	if(pulling.anchored || pulling.move_resist > move_force || !pulling.Adjacent(src))
 		stop_pulling()
 		return
 	if(isliving(pulling))
-		var/mob/living/L = pulling
-		if(L.buckled && L.buckled.buckle_prevents_pull) //if they're buckled to something that disallows pulling, prevent it
+		var/mob/living/living_pulling = pulling
+		if(living_pulling.buckled?.buckle_prevents_pull) //if they're buckled to something that disallows pulling, prevent it
 			stop_pulling()
 			return
-	if(A == loc && pulling.density)
+	if(target == loc && pulling.density)
 		return
-	if(!Process_Spacemove(get_dir(pulling.loc, A)))
+	if(!Process_Spacemove(get_dir(pulling.loc, target)))
 		return
-	if(ismob(pulling))
-		var/mob/M = pulling
-		var/atom/movable/t = M.pulling
-		M.stop_pulling()
-		step(pulling, get_dir(pulling.loc, A))
-		if(M)
-			M.start_pulling(t)
-	else
-		step(pulling, get_dir(pulling.loc, A))
-	return
+	step(pulling, get_dir(pulling.loc, target))
+
 
 /mob/proc/update_gravity(has_gravity)
 	return

@@ -292,6 +292,7 @@ const Contracts = (properties, context) => {
               </Flex>
               {contract.difficulties?.map((difficulty, key) => (
                 <Button.Confirm
+                  key={key}
                   disabled={!!contract_active}
                   content={difficulty.name + " (" + difficulty.reward + " TC)"}
                   onClick={() => act("activate", {

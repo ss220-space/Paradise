@@ -18,12 +18,11 @@
 	M.setBrainLoss(0, FALSE)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		for(var/thing in H.internal_organs)
-			var/obj/item/organ/internal/I = thing
-			I.receive_damage(-5, FALSE)
-		for(var/obj/item/organ/external/E in H.bodyparts)
-			E.mend_fracture()
-			E.internal_bleeding = FALSE
+		for(var/obj/item/organ/internal/organ as anything in H.internal_organs)
+			organ.receive_damage(-5, FALSE)
+		for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+			bodypart.mend_fracture()
+			bodypart.stop_internal_bleeding()
 	M.SetEyeBlind(0)
 	M.CureNearsighted(FALSE)
 	M.CureBlind(FALSE)

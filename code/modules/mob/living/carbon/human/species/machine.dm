@@ -47,27 +47,28 @@
 	hunger_type = "machine"
 
 	has_organ = list(
-		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
-		"cell" = /obj/item/organ/internal/cell,
-		"optics" = /obj/item/organ/internal/eyes/optical_sensor, //Default darksight of 2.
-		"charger" = /obj/item/organ/internal/cyberimp/arm/power_cord
-		)
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/mmi_holder/posibrain,
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/cell,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/optical_sensor, //Default darksight of 2.
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/microphone, //Default darksight of 2.
+		INTERNAL_ORGAN_R_ARM_DEVICE = /obj/item/organ/internal/cyberimp/arm/power_cord,
+	)
 
 	vision_organ = /obj/item/organ/internal/eyes/optical_sensor
-	mutantears = /obj/item/organ/internal/ears/microphone
+
 	has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest/ipc),
-		"groin" =  list("path" = /obj/item/organ/external/groin/ipc),
-		"head" =   list("path" = /obj/item/organ/external/head/ipc),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm/ipc),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right/ipc),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg/ipc),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right/ipc),
-		"l_hand" = list("path" = /obj/item/organ/external/hand/ipc),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right/ipc),
-		"l_foot" = list("path" = /obj/item/organ/external/foot/ipc),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right/ipc)
-		)
+		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest/ipc),
+		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin/ipc),
+		BODY_ZONE_HEAD = list("path" = /obj/item/organ/external/head/ipc),
+		BODY_ZONE_L_ARM = list("path" = /obj/item/organ/external/arm/ipc),
+		BODY_ZONE_R_ARM = list("path" = /obj/item/organ/external/arm/right/ipc),
+		BODY_ZONE_L_LEG = list("path" = /obj/item/organ/external/leg/ipc),
+		BODY_ZONE_R_LEG = list("path" = /obj/item/organ/external/leg/right/ipc),
+		BODY_ZONE_PRECISE_L_HAND = list("path" = /obj/item/organ/external/hand/ipc),
+		BODY_ZONE_PRECISE_R_HAND = list("path" = /obj/item/organ/external/hand/right/ipc),
+		BODY_ZONE_PRECISE_L_FOOT = list("path" = /obj/item/organ/external/foot/ipc),
+		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right/ipc),
+	)
 
 	suicide_messages = list(
 		"is powering down!",
@@ -115,7 +116,7 @@
 
 /datum/action/innate/change_monitor/Activate()
 	var/mob/living/carbon/human/H = owner
-	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+	var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 
 	if(!head_organ) //If the rock'em-sock'em robot's head came off during a fight, they shouldn't be able to change their screen/optics.
 		to_chat(H, "<span class='warning'>Куда делась голова? Невозможно сменить дисплей без неё.</span>")

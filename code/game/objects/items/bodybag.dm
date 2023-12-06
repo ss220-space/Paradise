@@ -19,7 +19,10 @@
 	icon_state = "bodybag_closed"
 	icon_closed = "bodybag_closed"
 	icon_opened = "bodybag_open"
-	sound = 'sound/items/zip.ogg'
+	open_sound = 'sound/items/zip.ogg'
+	close_sound = 'sound/items/zip.ogg'
+	open_sound_volume = 15
+	close_sound_volume = 15
 	var/item_path = /obj/item/bodybag
 	density = 0
 	integrity_failure = 0

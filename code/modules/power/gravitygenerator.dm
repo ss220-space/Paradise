@@ -25,7 +25,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	anchored = 1
 	density = 1
 	use_power = NO_POWER_USE
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | NO_MALF_EFFECT
 	var/sprite_number = 0
 
 /obj/machinery/gravity_generator/ex_act(severity)

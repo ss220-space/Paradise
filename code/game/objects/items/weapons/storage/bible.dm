@@ -6,6 +6,8 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FIRE_PROOF
+	drop_sound = 'sound/items/handling/book_drop.ogg'
+	pickup_sound =  'sound/items/handling/book_pickup.ogg'
 	var/mob/affecting = null
 	var/deity_name = "Christ"
 	/// Is the sprite of this bible customisable
@@ -66,7 +68,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/heal_amt = 10
-		for(var/obj/item/organ/external/affecting in H.bodyparts)
+		for(var/obj/item/organ/external/affecting as anything in H.bodyparts)
 			if(affecting.heal_damage(heal_amt, heal_amt))
 				H.UpdateDamageIcon()
 	return

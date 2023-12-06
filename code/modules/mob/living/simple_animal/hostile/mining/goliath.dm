@@ -43,6 +43,7 @@
 	food_type = list(/obj/item/reagent_containers/food/snacks/meat, /obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit, /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf)
 	tame_chance = 0
 	bonus_tame_chance = 10
+	needs_gliding= FALSE
 
 
 /mob/living/simple_animal/hostile/asteroid/goliath/bullet_act(var/obj/item/projectile/P)
@@ -62,6 +63,8 @@
 	if(ranged_cooldown <= world.time + ranged_cooldown_time * 0.25 && !pre_attack)
 		pre_attack++
 	if(!pre_attack || stat || AIStatus == AI_IDLE)
+		return
+	if(stat == DEAD)
 		return
 	icon_state = pre_attack_icon
 
@@ -115,6 +118,8 @@
 	visible_message("<span class='warning'>[src] digs its tentacles under [target]!</span>")
 	new /obj/effect/temp_visual/goliath_tentacle/original(tturf, src)
 	ranged_cooldown = world.time + ranged_cooldown_time
+	if((stat == DEAD))
+		return
 	icon_state = icon_aggro
 	pre_attack = FALSE
 
@@ -141,7 +146,6 @@
 	SLEEP_CHECK_DEATH(get_dist(src, T) * movespeed)
 	walk(src, 0) // cancel the movement
 	charging = FALSE
-	pre_attack = FALSE
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/Bump(atom/A)
 	if(isturf(A) && charging)
@@ -167,7 +171,7 @@
 	if(target && prob(taunt_chance))
 		emote("me", 1, "[pick(emote_taunt)] at [target].")
 		taunt_chance = max(taunt_chance-7,2)
-	if(icon_state != icon_aggro)
+	if(icon_state != icon_aggro && stat != DEAD)
 		icon_state = icon_aggro
 
 //Lavaland Goliath

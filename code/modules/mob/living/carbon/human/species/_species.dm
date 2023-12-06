@@ -178,32 +178,34 @@
 	//Defining lists of icon skin tones for species that have them.
 	var/list/icon_skin_tones = list()
 
-                              // Determines the organs that the species spawns with and
-	var/list/has_organ = list(    // which required-organ checks are conducted.
-		"heart" =    /obj/item/organ/internal/heart,
-		"lungs" =    /obj/item/organ/internal/lungs,
-		"liver" =    /obj/item/organ/internal/liver,
-		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"brain" =    /obj/item/organ/internal/brain,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes
-		)
-	var/vision_organ              // If set, this organ is required for vision. Defaults to "eyes" if the species has them.
-	var/list/has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest),
-		"groin" =  list("path" = /obj/item/organ/external/groin),
-		"head" =   list("path" = /obj/item/organ/external/head),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right),
-		"l_hand" = list("path" = /obj/item/organ/external/hand),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right),
-		"l_foot" = list("path" = /obj/item/organ/external/foot),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right))
+	/// Determines internal organs that the species spawns with and which required-organ checks are conducted.
+	var/list/has_organ = list(
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain,
+		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+	)
 
-	// Mutant pieces
-	var/obj/item/organ/internal/ears/mutantears = /obj/item/organ/internal/ears
+	/// If set, this organ is required for vision. Defaults to "eyes" if the species has them.
+	var/vision_organ
+
+	var/list/has_limbs = list(
+		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
+		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin),
+		BODY_ZONE_HEAD = list("path" = /obj/item/organ/external/head),
+		BODY_ZONE_L_ARM = list("path" = /obj/item/organ/external/arm),
+		BODY_ZONE_R_ARM = list("path" = /obj/item/organ/external/arm/right),
+		BODY_ZONE_L_LEG = list("path" = /obj/item/organ/external/leg),
+		BODY_ZONE_R_LEG = list("path" = /obj/item/organ/external/leg/right),
+		BODY_ZONE_PRECISE_L_HAND = list("path" = /obj/item/organ/external/hand),
+		BODY_ZONE_PRECISE_R_HAND = list("path" = /obj/item/organ/external/hand/right),
+		BODY_ZONE_PRECISE_L_FOOT = list("path" = /obj/item/organ/external/foot),
+		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right),
+	)
 
 	// Species specific boxes
 	var/speciesbox
@@ -222,7 +224,7 @@
 
 /datum/species/New()
 	//If the species has eyes, they are the default vision organ
-	if(!vision_organ && has_organ["eyes"])
+	if(!vision_organ && has_organ[INTERNAL_ORGAN_EYES])
 		vision_organ = /obj/item/organ/internal/eyes
 
 	unarmed = new unarmed_type()
@@ -236,31 +238,33 @@
  * Handles creation of mob organs.
  *
  * Arguments:
- * * H - The human to create organs inside of
+ * * target - The human to create organs inside of
  * * bodyparts_to_omit - Any bodyparts in this list (and organs within them) should not be added.
- * * additional_organs - List of paths to generate additional internal organs.
+ * * additional_organs - List of organ paths, used to generate additional organs.
  */
-/datum/species/proc/create_organs(mob/living/carbon/human/H, list/bodyparts_to_omit, list/additional_organs)
-	QDEL_LIST(H.internal_organs)
-	QDEL_LIST(H.bodyparts)
+/datum/species/proc/create_organs(mob/living/carbon/human/target, list/bodyparts_to_omit, list/additional_organs)
+	QDEL_LIST(target.internal_organs)
+	QDEL_LIST(target.bodyparts)
 
-	LAZYREINITLIST(H.bodyparts)
-	LAZYREINITLIST(H.bodyparts_by_name)
-	LAZYREINITLIST(H.internal_organs)
+	LAZYREINITLIST(target.bodyparts)
+	LAZYREINITLIST(target.bodyparts_by_name)
+	LAZYREINITLIST(target.internal_organs)
+	LAZYREINITLIST(target.internal_organs_slot)
 
-	for(var/limb_name in has_limbs)
-		if(limb_name in bodyparts_to_omit)
-			H.bodyparts_by_name[limb_name] = null  // Null it out, but leave the name here so it's still "there"
+	for(var/limb_zone in has_limbs)
+		if(limb_zone in bodyparts_to_omit)
+			target.bodyparts_by_name[limb_zone] = null  // Null it out, but leave the name here so it's still "there"
 			continue
 
-		var/list/organ_data = has_limbs[limb_name]
+		var/list/organ_data = has_limbs[limb_zone]
 		var/limb_path = organ_data["path"]
-		var/obj/item/organ/O = new limb_path(H)
-		organ_data["descriptor"] = O.name
+		var/obj/item/organ/new_organ = new limb_path(target)
+		organ_data["descriptor"] = new_organ.name
 
-	for(var/index in has_organ)
-		var/obj/item/organ/internal/organ_path = has_organ[index]
-		if((initial(organ_path.parent_organ) in bodyparts_to_omit) || (index in bodyparts_to_omit))
+	for(var/organ_slot in has_organ)
+		var/obj/item/organ/internal/organ_path = has_organ[organ_slot]
+		if((initial(organ_path.parent_organ_zone) in bodyparts_to_omit) || (organ_slot in bodyparts_to_omit))
+			target.internal_organs_slot[organ_slot] = null
 			continue
 
 		// heads up for any brave future coders:
@@ -268,42 +272,16 @@
 		// not doing so (as of now) causes weird issues for some organs like posibrains, which need a mob on init or they'll qdel themselves.
 		// for the record: this caused every single IPC's brain to be deleted randomly throughout a round, killing them instantly.
 
-		new organ_path(H)
+		new organ_path(target)
 
-	for(var/organ_path in additional_organs)
-		var/obj/item/organ/internal/check_organ = organ_path
-		if((initial(check_organ.parent_organ) in bodyparts_to_omit))
+	for(var/obj/item/organ/internal/organ_path as anything in additional_organs)
+		var/organ_slot = initial(organ_path.slot)
+		if((initial(organ_path.parent_organ_zone) in bodyparts_to_omit) || (organ_slot in bodyparts_to_omit))
+			target.internal_organs_slot[organ_slot] = null
 			continue
-		var/organ_found
-		for(var/O in H.internal_organs)
-			var/obj/item/organ/internal/organ = O
-			organ_found = (initial(check_organ.slot) == organ.slot)
-			if(organ_found)
-				break
-		if(!organ_found)
-			new organ_path(H)
 
-	create_mutant_organs(H)
+		new organ_path(target)
 
-	for(var/name in H.bodyparts_by_name)
-		var/part_type = H.bodyparts_by_name[name]
-		if(!isnull(part_type))
-			H.bodyparts |= part_type  // we do not want nulls here, even though it's alright to have them in bodyparts_by_name
-
-	for(var/obj/item/organ/external/O in H.bodyparts)
-		O.owner = H
-
-	H.update_tail()
-	H.update_wing()
-
-
-/datum/species/proc/create_mutant_organs(mob/living/carbon/human/H)
-	var/obj/item/organ/internal/ears/ears = H.get_int_organ(/obj/item/organ/internal/ears)
-	if(ears)
-		qdel(ears)
-
-	if(mutantears)
-		ears = new mutantears(H)
 
 /datum/species/proc/breathe(mob/living/carbon/human/H)
 	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
@@ -432,7 +410,7 @@
 		return 0
 
 	var/obj/item/organ/external/organ = null
-	if(isorgan(def_zone))
+	if(isexternalorgan(def_zone))
 		organ = def_zone
 	else
 		if(!def_zone)
@@ -503,7 +481,7 @@
 
 	//Vampire code
 	var/datum/antagonist/vampire/vamp = user?.mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(vamp && !vamp.draining && user.zone_selected == "head" && target != user)
+	if(vamp && !vamp.draining && user.zone_selected == BODY_ZONE_HEAD && target != user)
 		if((NO_BLOOD in target.dna.species.species_traits) || target.dna.species.exotic_blood || !target.blood_volume)
 			to_chat(user, "<span class='warning'>They have no blood!</span>")
 			return
@@ -520,7 +498,7 @@
 
 	//Goon Vampire Dupe code
 	var/datum/antagonist/goon_vampire/g_vamp = user?.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-	if(g_vamp && !g_vamp.draining && user.zone_selected == "head" && target != user)
+	if(g_vamp && !g_vamp.draining && user.zone_selected == BODY_ZONE_HEAD && target != user)
 		if((NO_BLOOD in target.dna.species.species_traits) || target.dna.species.exotic_blood || !target.blood_volume)
 			to_chat(user, "<span class='warning'>Отсутствует кровь!</span>")
 			return
@@ -594,7 +572,7 @@
 				//infected blood contacts with mouth, ignore protection & spread_flags
 				is_infected = V.Contract(user, need_protection_check = FALSE)
 			if(!is_infected && (V.spread_flags & CONTACT))
-				V.Contract(user, act_type = CONTACT, need_protection_check = TRUE, zone = user.hand ? "l_hand" : "r_hand")
+				V.Contract(user, act_type = CONTACT, need_protection_check = TRUE, zone = user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 
 		playsound(target.loc, attack.attack_sound, 25, 1, -1)
 
@@ -686,9 +664,9 @@
 		return
 
 	if(istype(M))
-		var/obj/item/organ/external/temp = M.bodyparts_by_name["r_hand"]
+		var/obj/item/organ/external/temp = M.bodyparts_by_name[BODY_ZONE_PRECISE_R_HAND]
 		if(M.hand)
-			temp = M.bodyparts_by_name["l_hand"]
+			temp = M.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
 		if(!temp || !temp.is_usable())
 			to_chat(M, "<span class='warning'>[pluralize_ru(M.gender,"Ты не можешь","Вы не можете")] пользоваться своей рукой.</span>")
 			return
@@ -860,9 +838,9 @@
 				return FALSE
 
 			var/obj/item/organ/external/O = user.get_organ(BODY_ZONE_CHEST)
-			if(!user.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
+			if(!user.w_uniform && !nojumpsuit && (!O || !O.is_robotic()))
 				if(!disable_warning)
-					to_chat(user, SPAN_WARNING("Вам нужен комбинезон перед тем как вы сможете прикрепить [I]."))
+					to_chat(user, span_warning("Вам нужен комбинезон перед тем как вы сможете прикрепить [I]."))
 				return FALSE
 
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
@@ -918,9 +896,9 @@
 				return FALSE
 
 			var/obj/item/organ/external/O = user.get_organ(BODY_ZONE_CHEST)
-			if(!user.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
+			if(!user.w_uniform && !nojumpsuit && (!O || !O.is_robotic()))
 				if(!disable_warning)
-					to_chat(user, SPAN_WARNING("Вам нужен комбинезон перед тем как вы сможете прикрепить [I]."))
+					to_chat(user, span_warning("Вам нужен комбинезон перед тем как вы сможете прикрепить [I]."))
 				return FALSE
 
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
@@ -933,9 +911,9 @@
 				return FALSE
 
 			var/obj/item/organ/external/O = user.get_organ(BODY_ZONE_CHEST)
-			if(!user.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
+			if(!user.w_uniform && !nojumpsuit && (!O || !O.is_robotic()))
 				if(!disable_warning)
-					to_chat(user, SPAN_WARNING("Вам нужен комбинезон перед тем как вы сможете прикрепить [I]."))
+					to_chat(user, span_warning("Вам нужен комбинезон перед тем как вы сможете прикрепить [I]."))
 				return FALSE
 
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
@@ -950,9 +928,9 @@
 				return FALSE
 
 			var/obj/item/organ/external/O = user.get_organ(BODY_ZONE_L_LEG)
-			if(!user.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
+			if(!user.w_uniform && !nojumpsuit && (!O || !O.is_robotic()))
 				if(!disable_warning)
-					to_chat(user, SPAN_WARNING("Вам нужен комбинезон перед тем как вы сможете прикрепить [I]."))
+					to_chat(user, span_warning("Вам нужен комбинезон перед тем как вы сможете прикрепить [I]."))
 				return FALSE
 
 			return I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_POCKET)
@@ -966,9 +944,9 @@
 				return FALSE
 
 			var/obj/item/organ/external/O = user.get_organ(BODY_ZONE_R_LEG)
-			if(!user.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
+			if(!user.w_uniform && !nojumpsuit && (!O || !O.is_robotic()))
 				if(!disable_warning)
-					to_chat(user, SPAN_WARNING("Вам нужен комбинезон перед тем как вы сможете прикрепить [I]."))
+					to_chat(user, span_warning("Вам нужен комбинезон перед тем как вы сможете прикрепить [I]."))
 				return FALSE
 
 			return I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_POCKET)
@@ -979,11 +957,11 @@
 				return FALSE
 			if(!user.wear_suit)
 				if(!disable_warning)
-					to_chat(user, SPAN_WARNING("Вам нужен костюм перед тем как вы сможете прикрепить [I]."))
+					to_chat(user, span_warning("Вам нужен костюм перед тем как вы сможете прикрепить [I]."))
 				return FALSE
 			if(!user.wear_suit.can_store_weighted(I))
 				if(!disable_warning)
-					to_chat(user, SPAN_WARNING("Размер [I] слишком большой, чтобы прикрепить."))
+					to_chat(user, span_warning("Размер [I] слишком большой, чтобы прикрепить."))
 				return FALSE
 
 			if(istype(I, /obj/item/pda) || istype(I, /obj/item/pen) || is_type_in_list(I, user.wear_suit.allowed))
@@ -992,7 +970,7 @@
 			if(!user.wear_suit.allowed)
 				if(!disable_warning)
 					user << 'sound/machines/chime.ogg'
-					to_chat(user, SPAN_DANGER("Откуда у Вас этот костюм? Срочно сообщите о находке в высшие инстанции!"))
+					to_chat(user, span_danger("Откуда у Вас этот костюм? Срочно сообщите о находке в высшие инстанции!"))
 				return FALSE
 
 			return FALSE
@@ -1018,13 +996,13 @@
 				return FALSE
 			if(!user.w_uniform)
 				if(!disable_warning)
-					to_chat(user, SPAN_WARNING("Вам нужен комбинезон перед тем как вы сможете прикрепить [I]."))
+					to_chat(user, span_warning("Вам нужен комбинезон перед тем как вы сможете прикрепить [I]."))
 				return FALSE
 
 			var/obj/item/clothing/under/uniform = user.w_uniform
 			if(uniform.accessories.len && !uniform.can_attach_accessory(user))
 				if(!disable_warning)
-					to_chat(user, SPAN_WARNING("У вас уже есть аксессуар этого типа на [uniform]."))
+					to_chat(user, span_warning("У вас уже есть аксессуар этого типа на [uniform]."))
 				return FALSE
 
 			return TRUE
@@ -1105,14 +1083,14 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			H.sight |= SEE_MOBS
 			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
-	for(var/obj/item/organ/internal/cyberimp/eyes/E in H.internal_organs)
-		H.sight |= E.vision_flags
-		if(E.see_in_dark)
-			H.see_in_dark = max(H.see_in_dark, E.see_in_dark)
-		if(E.see_invisible)
-			H.see_invisible = min(H.see_invisible, E.see_invisible)
-		if(E.lighting_alpha)
-			H.lighting_alpha = min(H.lighting_alpha, E.lighting_alpha)
+	for(var/obj/item/organ/internal/cyberimp/eyes/cyber_eyes in H.internal_organs)
+		H.sight |= cyber_eyes.vision_flags
+		if(cyber_eyes.see_in_dark)
+			H.see_in_dark = max(H.see_in_dark, cyber_eyes.see_in_dark)
+		if(cyber_eyes.see_invisible)
+			H.see_invisible = min(H.see_invisible, cyber_eyes.see_invisible)
+		if(cyber_eyes.lighting_alpha)
+			H.lighting_alpha = min(H.lighting_alpha, cyber_eyes.lighting_alpha)
 
 	// my glasses, I can't see without my glasses
 	if(H.glasses)
@@ -1208,5 +1186,5 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	if(bodyflags & HAS_SKIN_COLOR)
 		return H.skin_colour
 	else
-		var/obj/item/organ/external/head/HD = H.get_organ("head")
+		var/obj/item/organ/external/head/HD = H.get_organ(BODY_ZONE_HEAD)
 		return HD.hair_colour

@@ -13,13 +13,13 @@
 	mmi_icon = 'icons/obj/species_organs/grey.dmi'
 	mmi_icon_state = "mmi_full"
 
-/obj/item/organ/internal/brain/grey/insert(var/mob/living/carbon/M, var/special = 0)
-	..()
+/obj/item/organ/internal/brain/grey/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
 	M.add_language("Psionic Communication")
 
-/obj/item/organ/internal/brain/grey/remove(var/mob/living/carbon/M, var/special = 0)
-	. = ..()
+/obj/item/organ/internal/brain/grey/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	M.remove_language("Psionic Communication")
+	. = ..()
 
 /obj/item/organ/internal/eyes/grey
 	species_type = /datum/species/grey

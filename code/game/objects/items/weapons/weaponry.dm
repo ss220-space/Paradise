@@ -54,6 +54,8 @@
 	throwforce = 10
 	sharp = 1
 	embed_chance = 20
+	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
+	drop_sound = 'sound/items/handling/knife_drop.ogg'
 	embedded_ignore_throwspeed_threshold = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
@@ -84,6 +86,8 @@
 	embed_chance = 20
 	embedded_ignore_throwspeed_threshold = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
+	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
+	drop_sound = 'sound/items/handling/knife_drop.ogg'
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 50
@@ -214,6 +218,8 @@
 	throwforce = 12
 	attack_verb = list("beat", "smacked")
 	w_class = WEIGHT_CLASS_HUGE
+	pickup_sound = 'sound/items/handling/wooden_pickup.ogg'
+	drop_sound = 'sound/items/handling/wooden_drop.ogg'
 	var/next_throw_time = 0
 	var/homerun_ready = 0
 	var/homerun_able = 0
@@ -392,7 +398,7 @@
 		to_chat(user, "<span class='cultlarge'>\"Это - оружие истинного правосудия. Тебе не дано обуздать его мощь.\"</span>")
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
-			H.apply_damage(rand(force/2, force), BRUTE, pick("l_arm", "r_arm"))
+			H.apply_damage(rand(force/2, force), BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 		else
 			user.adjustBruteLoss(rand(force/2, force))
 		return FALSE
