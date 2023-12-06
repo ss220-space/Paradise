@@ -221,8 +221,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		"1014" = 50, // CHANNEL_TTS_LOCAL
 		"1013" = 20, // CHANNEL_TTS_RADIO
 		"1012" = 50, // CHANNEL_RADIO_NOISE
-		"1010" = 100, // CHANNEL_BOSS_MUSIC
-		"1011" = 100, // CHANNEL_INTERACTION_SOUNDS
+		"1011" = 100, // CHANNEL_BOSS_MUSIC
+		"1010" = 100, // CHANNEL_INTERACTION_SOUNDS
 	)
 	/// The volume mixer save timer handle. Used to debounce the DB call to save, to avoid spamming.
 	var/volume_mixer_saving = null
@@ -437,39 +437,39 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				var/status = organ_data[name]
 				var/organ_name = null
 				switch(name)
-					if("chest")
+					if(BODY_ZONE_CHEST)
 						organ_name = "torso"
-					if("groin")
+					if(BODY_ZONE_PRECISE_GROIN)
 						organ_name = "lower body"
-					if("head")
+					if(BODY_ZONE_HEAD)
 						organ_name = "head"
-					if("l_arm")
+					if(BODY_ZONE_L_ARM)
 						organ_name = "left arm"
-					if("r_arm")
+					if(BODY_ZONE_R_ARM)
 						organ_name = "right arm"
-					if("l_leg")
+					if(BODY_ZONE_L_LEG)
 						organ_name = "left leg"
-					if("r_leg")
+					if(BODY_ZONE_R_LEG)
 						organ_name = "right leg"
-					if("l_foot")
+					if(BODY_ZONE_PRECISE_L_FOOT)
 						organ_name = "left foot"
-					if("r_foot")
+					if(BODY_ZONE_PRECISE_R_FOOT)
 						organ_name = "right foot"
-					if("l_hand")
+					if(BODY_ZONE_PRECISE_L_HAND)
 						organ_name = "left hand"
-					if("r_hand")
+					if(BODY_ZONE_PRECISE_R_HAND)
 						organ_name = "right hand"
-					if("eyes")
+					if(INTERNAL_ORGAN_EYES)
 						organ_name = "eyes"
-					if("ears")
+					if(INTERNAL_ORGAN_EARS)
 						organ_name = "ears"
-					if("heart")
+					if(INTERNAL_ORGAN_HEART)
 						organ_name = "heart"
-					if("lungs")
+					if(INTERNAL_ORGAN_LUNGS)
 						organ_name = "lungs"
-					if("liver")
+					if(INTERNAL_ORGAN_LIVER)
 						organ_name = "liver"
-					if("kidneys")
+					if(INTERNAL_ORGAN_KIDNEYS)
 						organ_name = "kidneys"
 
 				if(status in list("cyborg", "amputated", "cybernetic"))
@@ -2036,7 +2036,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(S.bodyflags & ALL_RPARTS)
 						valid_limbs = list("Torso", "Lower Body", "Head", "Left Leg", "Right Leg", "Left Arm", "Right Arm", "Left Foot", "Right Foot", "Left Hand", "Right Hand")
 					var/limb_name = input(user, "Which limb do you want to change?") as null|anything in valid_limbs
-					if(!limb_name) return
+					if(!limb_name)
+						return
 
 					var/limb = null
 					var/second_limb = null // if you try to change the arm, the hand should also change
@@ -2046,50 +2047,50 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 					switch(limb_name)
 						if("Torso")
-							limb = "chest"
-							second_limb = "groin"
+							limb = BODY_ZONE_CHEST
+							second_limb = BODY_ZONE_PRECISE_GROIN
 							no_amputate = 1
 						if("Lower Body")
-							limb = "groin"
+							limb = BODY_ZONE_PRECISE_GROIN
 							no_amputate = 1
 						if("Head")
-							limb = "head"
+							limb = BODY_ZONE_HEAD
 							no_amputate = 1
 						if("Left Leg")
-							limb = "l_leg"
-							second_limb = "l_foot"
+							limb = BODY_ZONE_L_LEG
+							second_limb = BODY_ZONE_PRECISE_L_FOOT
 						if("Right Leg")
-							limb = "r_leg"
-							second_limb = "r_foot"
+							limb = BODY_ZONE_R_LEG
+							second_limb = BODY_ZONE_PRECISE_R_FOOT
 						if("Left Arm")
-							limb = "l_arm"
-							second_limb = "l_hand"
+							limb = BODY_ZONE_L_ARM
+							second_limb = BODY_ZONE_PRECISE_L_HAND
 						if("Right Arm")
-							limb = "r_arm"
-							second_limb = "r_hand"
+							limb = BODY_ZONE_R_ARM
+							second_limb = BODY_ZONE_PRECISE_R_HAND
 						if("Left Foot")
-							limb = "l_foot"
+							limb = BODY_ZONE_PRECISE_L_FOOT
 							if(!(S.bodyflags & ALL_RPARTS))
-								third_limb = "l_leg"
+								third_limb = BODY_ZONE_L_LEG
 						if("Right Foot")
-							limb = "r_foot"
+							limb = BODY_ZONE_PRECISE_R_FOOT
 							if(!(S.bodyflags & ALL_RPARTS))
-								third_limb = "r_leg"
+								third_limb = BODY_ZONE_R_LEG
 						if("Left Hand")
-							limb = "l_hand"
+							limb = BODY_ZONE_PRECISE_L_HAND
 							if(!(S.bodyflags & ALL_RPARTS))
-								third_limb = "l_arm"
+								third_limb = BODY_ZONE_L_ARM
 						if("Right Hand")
-							limb = "r_hand"
+							limb = BODY_ZONE_PRECISE_R_HAND
 							if(!(S.bodyflags & ALL_RPARTS))
-								third_limb = "r_arm"
+								third_limb = BODY_ZONE_R_ARM
 
 					var/new_state = input(user, "What state do you wish the limb to be in?") as null|anything in valid_limb_states
 					if(!new_state) return
 
 					switch(new_state)
 						if("Normal")
-							if(limb == "head")
+							if(limb == BODY_ZONE_HEAD)
 								m_styles["head"] = "None"
 								h_style = GLOB.hair_styles_public_list["Bald"]
 								f_style = GLOB.facial_hair_styles_list["Shaved"]
@@ -2136,10 +2137,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 									subchoice = input(user, "Which model of [choice] [limb_name] do you wish to use?") as null|anything in robolimb_models
 								if(subchoice)
 									choice = subchoice
-							if(limb in list("head", "chest", "groin"))
+							if(limb in list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN))
 								if(!(S.bodyflags & ALL_RPARTS))
 									return
-								if(limb == "head")
+								if(limb == BODY_ZONE_HEAD)
 									ha_style = "None"
 									alt_head = null
 									h_style = GLOB.hair_styles_public_list["Bald"]
@@ -2163,17 +2164,17 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/organ = null
 					switch(organ_name)
 						if("Eyes")
-							organ = "eyes"
+							organ = INTERNAL_ORGAN_EYES
 						if("Ears")
-							organ = "ears"
+							organ = INTERNAL_ORGAN_EARS
 						if("Heart")
-							organ = "heart"
+							organ = INTERNAL_ORGAN_HEART
 						if("Lungs")
-							organ = "lungs"
+							organ = INTERNAL_ORGAN_LUNGS
 						if("Liver")
-							organ = "liver"
+							organ = INTERNAL_ORGAN_LIVER
 						if("Kidneys")
-							organ = "kidneys"
+							organ = INTERNAL_ORGAN_KIDNEYS
 
 					var/new_state = input(user, "What state do you wish the organ to be in?") as null|anything in list("Normal", "Cybernetic")
 					if(!new_state) return
@@ -2576,7 +2577,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	character.dna.tts_seed_dna = tts_seed
 
 	//Head-specific
-	var/obj/item/organ/external/head/H = character.get_organ("head")
+	var/obj/item/organ/external/head/H = character.get_organ(BODY_ZONE_HEAD)
 
 	H.hair_colour = h_colour
 
@@ -2613,20 +2614,19 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 			else if(status == "cyborg")
 				if(rlimb_data[name])
-					O.robotize(rlimb_data[name], convert_all = 0)
+					O.robotize(company = rlimb_data[name], convert_all = FALSE)
 				else
 					O.robotize()
 		else
-			var/obj/item/organ/internal/I = character.get_int_organ_tag(name)
-			if(I)
-				if(status == "cybernetic")
-					I.robotize()
+			var/obj/item/organ/internal/I = character.internal_organs_slot[name]
+			if(I && status == "cybernetic")
+				I.robotize()
 
 	character.dna.blood_type = b_type
 
 	// Wheelchair necessary?
-	var/obj/item/organ/external/l_foot = character.get_organ("l_foot")
-	var/obj/item/organ/external/r_foot = character.get_organ("r_foot")
+	var/obj/item/organ/external/l_foot = character.get_organ(BODY_ZONE_PRECISE_L_FOOT)
+	var/obj/item/organ/external/r_foot = character.get_organ(BODY_ZONE_PRECISE_R_FOOT)
 	if(!l_foot && !r_foot)
 		var/obj/structure/chair/wheelchair/W = new /obj/structure/chair/wheelchair(character.loc)
 		W.buckle_mob(character, TRUE)

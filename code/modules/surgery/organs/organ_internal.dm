@@ -3,89 +3,100 @@
 	force = 1
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 0
-	var/slot
-	// DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
-	var/non_primary = 0
+	/// Unique slot this organ occupies. See [combat.dm] for defines. DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
+	var/slot = NONE
+	/// Whether it shows up as an option to remove during surgery.
+	var/unremovable = FALSE
 	var/can_see_food = FALSE
-	var/unremovable = FALSE //Whether it shows up as an option to remove during surgery.
+
 
 /obj/item/organ/internal/New(mob/living/carbon/holder)
 	..()
 	if(istype(holder))
 		insert(holder)
 
-/obj/item/organ/internal/Initialize(mapload)
-	. = ..()
 	if(species_type == /datum/species/diona)
 		AddComponent(/datum/component/diona_internals)
 
 
-/obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, var/dont_remove_slot = 0)
-	if(!iscarbon(M) || owner == M)
+/obj/item/organ/internal/proc/insert(mob/living/carbon/target, special = ORGAN_MANIPULATION_DEFAULT)
+	if(!iscarbon(target) || owner == target)
 		return
 
-	do_pickup_animation(src, M)
+	do_pickup_animation(src, target)
 
-	var/obj/item/organ/internal/replaced = M.get_organ_slot(slot)
+	var/obj/item/organ/internal/replaced = target.get_organ_slot(slot)
 	if(replaced)
-		if(dont_remove_slot)
-			non_primary = 1
-		else
-			replaced.remove(M, special = 1)
+		replaced.remove(target, ORGAN_MANIPULATION_NOEFFECT)
 
-	owner = M
+	owner = target
+	target.internal_organs |= src
+	target.internal_organs_slot[slot] = src
 
-	M.internal_organs |= src
-	M.internal_organs_slot[slot] = src
-	var/obj/item/organ/external/parent
-	if(istype(M, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = M
-		parent = H.get_organ(check_zone(parent_organ))
+	if(ishuman(target))
+		var/mob/living/carbon/human/h_target = target
+		var/obj/item/organ/external/parent = h_target.get_organ(check_zone(parent_organ_zone))
 		if(!istype(parent))
-			log_runtime(EXCEPTION("[src] attempted to insert into a [parent_organ], but [parent_organ] wasn't an organ! [atom_loc_line(M)]"), src)
+			stack_trace("[src] attempted to insert into a [parent_organ_zone], but [parent_organ_zone] wasn't an organ! [atom_loc_line(h_target)]")
 		else
-			parent.internal_organs |= src
+			LAZYADDOR(parent.internal_organs, src)
+		h_target.update_int_organs()
+
 	loc = null
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.Grant(M)
+
+	for(var/datum/action/action as anything in actions)
+		action.Grant(target)
+
 	if(vital)
-		M.update_stat("Vital organ inserted")
+		target.update_stat("Vital organ inserted")
+
 	STOP_PROCESSING(SSobj, src)
 
-// Removes the given organ from its owner.
-// Returns the removed object, which is usually just itself
-// However, you MUST set the object's positiion yourself when you call this!
-/obj/item/organ/internal/remove(mob/living/carbon/M, special = 0)
+
+/**
+ * Removes the given organ from its owner.
+ * Returns the removed object, which is usually just itself.
+ * However, you MUST set the object's positiion yourself when you call this!
+ */
+/obj/item/organ/internal/remove(mob/living/carbon/target, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!owner)
-		log_runtime(EXCEPTION("\'remove\' called on [src] without an owner! Mob: [M], [atom_loc_line(M)]"), src)
+		stack_trace("\'remove\' called on [src] without an owner! Mob: [target], [atom_loc_line(target)]")
+		return
 
-	if(M)
-		M.internal_organs -= src
-		if(M.internal_organs_slot[slot] == src)
-			M.internal_organs_slot.Remove(slot)
+	if(target != owner)
+		return
+
+	var/mob/living/carbon/organ_owner = target || owner
+	var/send_signal = FALSE
+
+	if(iscarbon(organ_owner))
+		organ_owner.internal_organs -= src
+		if(organ_owner.internal_organs_slot[slot] == src)
+			organ_owner.internal_organs_slot[slot] = null
 			if(!special)
-				SEND_SIGNAL(src, COMSIG_CARBON_LOSE_ORGAN)
-		if(vital && !special)
-			if(M.stat != DEAD)//safety check!
-				M.death()
+				send_signal = TRUE
+		if(vital && !special && organ_owner.stat != DEAD)
+			organ_owner.death()
 
-	if(istype(M, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/parent = H.get_organ(check_zone(parent_organ))
-		if(!istype(parent))
-			log_runtime(EXCEPTION("[src] attempted to remove from a [parent_organ], but [parent_organ] didn't exist! [atom_loc_line(M)]"), src)
+	if(ishuman(organ_owner))
+		var/mob/living/carbon/human/h_owner = organ_owner
+		var/obj/item/organ/external/parent = h_owner.get_organ(check_zone(parent_organ_zone))
+		if(isexternalorgan(parent))
+			LAZYREMOVE(parent.internal_organs, src)
 		else
-			parent.internal_organs -= src
-		H.update_int_organs()
+			stack_trace("[src] attempted to remove from a [parent_organ_zone], but [parent_organ_zone] didn't exist! [atom_loc_line(target)]")
+		h_owner.update_int_organs()
 
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.Remove(M)
+	for(var/datum/action/action as anything in actions)
+		action.Remove(organ_owner)
+
+	if(send_signal)
+		SEND_SIGNAL(src, COMSIG_CARBON_LOSE_ORGAN)
 
 	owner = null
 	START_PROCESSING(SSobj, src)
 	return src
+
 
 /obj/item/organ/internal/emp_act(severity)
 	if(!is_robotic() || emp_proof)
@@ -96,21 +107,27 @@
 		if(2)
 			receive_damage(7, 1)
 
-/obj/item/organ/internal/replaced(var/mob/living/carbon/human/target)
+
+/obj/item/organ/internal/replaced(mob/living/carbon/human/target)
     insert(target)
+
 
 /obj/item/organ/internal/item_action_slot_check(slot, mob/user)
 	return
 
+
 /obj/item/organ/internal/proc/on_find(mob/living/finder)
 	return
+
 
 /obj/item/organ/internal/proc/on_life()
 	return
 
+
 //abstract proc called by carbon/death()
 /obj/item/organ/internal/proc/on_owner_death()
  	return
+
 
 /obj/item/organ/internal/proc/prepare_eat()
 	if(is_robotic())
@@ -122,24 +139,27 @@
 	S.icon_state = icon_state
 	S.origin_tech = origin_tech
 	S.w_class = w_class
-
 	return S
 
-/obj/item/organ/internal/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)
-	if(parent_organ != parent.limb_name)
-		return 0
-	insert(H)
-	return 1
+
+/obj/item/organ/internal/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target)
+	if(parent_organ_zone != parent.limb_zone)
+		return FALSE
+	insert(target)
+	return TRUE
+
 
 // Rendering!
 /obj/item/organ/internal/proc/render()
 	return
+
 
 /obj/item/reagent_containers/food/snacks/organ
 	name = "appendix"
 	icon_state = "appendix"
 	icon = 'icons/obj/surgery.dmi'
 	list_reagents = list("nutriment" = 5)
+
 
 /obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
 	if(M == user && ishuman(user))
@@ -153,6 +173,7 @@
 	else
 		..()
 
+
 /****************************************************
 				INTERNAL ORGANS DEFINES
 ****************************************************/
@@ -160,10 +181,10 @@
 
 // Brain is defined in brain_item.dm.
 
-/obj/item/organ/internal/robotize(make_tough)
+/obj/item/organ/internal/robotize(make_tough = FALSE)
 	if(!is_robotic())
 		var/list/states = icon_states('icons/obj/surgery.dmi') //Insensitive to specially-defined icon files for species like the Drask or whomever else. Everyone gets the same robotic heart.
-		if(slot == "heart" && ("[slot]-c-on" in states) && ("[slot]-c-off" in states)) //Give the robotic heart its robotic heart icons if they exist.
+		if(slot == INTERNAL_ORGAN_HEART && ("[slot]-c-on" in states) && ("[slot]-c-off" in states)) //Give the robotic heart its robotic heart icons if they exist.
 			var/obj/item/organ/internal/heart/H = src
 			H.icon = icon('icons/obj/surgery.dmi')
 			H.icon_base = "[slot]-c"
@@ -175,32 +196,36 @@
 		name = "cybernetic [slot]"
 	..() //Go apply all the organ flags/robotic statuses.
 
+
 /obj/item/organ/internal/appendix
 	name = "appendix"
 	icon_state = "appendix"
-	organ_tag = "appendix"
-	parent_organ = "groin"
-	slot = "appendix"
+	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
+	slot = INTERNAL_ORGAN_APPENDIX
 	var/inflamed = FALSE
 
-/obj/item/organ/internal/appendix/remove(mob/living/carbon/M, special = 0)
+
+/obj/item/organ/internal/appendix/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	for(var/datum/disease/appendicitis/A in M.diseases)
 		A.cure()
 		inflamed = TRUE
 	update_icon()
 	. = ..()
 
-/obj/item/organ/internal/appendix/insert(mob/living/carbon/M, special = 0)
+
+/obj/item/organ/internal/appendix/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
 	if(inflamed)
 		var/datum/disease/appendicitis/D = new
 		D.Contract(M)
+
 
 /obj/item/organ/internal/appendix/prepare_eat()
 	var/obj/S = ..()
 	if(inflamed)
 		S.reagents.add_reagent("????", 5)
 	return S
+
 
 //shadowling tumor
 /obj/item/organ/internal/shadowtumor
@@ -209,17 +234,20 @@
 	icon_state = "blacktumor"
 	origin_tech = "biotech=5"
 	w_class = WEIGHT_CLASS_TINY
-	parent_organ = "head"
-	slot = "brain_tumor"
+	parent_organ_zone = BODY_ZONE_HEAD
+	slot = INTERNAL_ORGAN_BRAIN_TUMOR
 	max_integrity = 3
+
 
 /obj/item/organ/internal/shadowtumor/New()
 	..()
 	START_PROCESSING(SSobj, src)
 
+
 /obj/item/organ/internal/shadowtumor/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
+
 
 /obj/item/organ/internal/shadowtumor/process()
 	if(isturf(loc))
@@ -233,6 +261,7 @@
 			visible_message("<span class='warning'>[src] collapses in on itself!</span>")
 			qdel(src)
 
+
 //debug and adminbus....
 
 /obj/item/organ/internal/honktumor
@@ -241,13 +270,14 @@
 	icon_state = "honktumor"
 	origin_tech = "biotech=1"
 	w_class = WEIGHT_CLASS_TINY
-	parent_organ = "head"
-	slot = "brain_tumor"
+	parent_organ_zone = BODY_ZONE_HEAD
+	slot = INTERNAL_ORGAN_BRAIN_TUMOR
 	var/organhonked = 0
 	var/suffering_delay = 900
 	var/datum/component/squeak
 
-/obj/item/organ/internal/honktumor/insert(mob/living/carbon/M, special = 0)
+
+/obj/item/organ/internal/honktumor/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
 	M.mutations.Add(CLUMSY)
 	M.mutations.Add(GLOB.comicblock)
@@ -259,7 +289,8 @@
 	M.AddElement(/datum/element/waddling)
 	squeak = M.AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg' = 1), 50, falloff_exponent = 20)
 
-/obj/item/organ/internal/honktumor/remove(mob/living/carbon/M, special = 0)
+
+/obj/item/organ/internal/honktumor/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	M.mutations.Remove(CLUMSY)
 	M.mutations.Remove(GLOB.comicblock)
 	M.dna.SetSEState(GLOB.clumsyblock,0)
@@ -269,6 +300,7 @@
 	M.RemoveElement(/datum/element/waddling)
 	QDEL_NULL(squeak)
 	. = ..()
+
 
 /obj/item/organ/internal/honktumor/on_life()
 	if(organhonked < world.time)
@@ -295,8 +327,10 @@
 						if(thingy)
 							walk(thingy,0)
 
+
 /obj/item/organ/internal/honktumor/cursed
 	unremovable = TRUE
+
 
 /obj/item/organ/internal/honktumor/cursed/on_life() //No matter what you do, no matter who you are, no matter where you go, you're always going to be a fat, stuttering dimwit.
 	..()
@@ -311,18 +345,21 @@
 	icon_state = "honktumor"//Not making a new icon
 	origin_tech = "biotech=1"
 	w_class = WEIGHT_CLASS_TINY
-	parent_organ = "groin"
-	slot = "honk_bladder"
+	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
+	slot = INTERNAL_ORGAN_HONK_BLADDER
 	var/datum/component/squeak
 
-/obj/item/organ/internal/honkbladder/insert(mob/living/carbon/M, special = 0)
+
+/obj/item/organ/internal/honkbladder/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	squeak = M.AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg'=1,'sound/effects/clownstep2.ogg'=1), 50, falloff_exponent = 20)
 
-/obj/item/organ/internal/honkbladder/remove(mob/living/carbon/M, special = 0)
+
+/obj/item/organ/internal/honkbladder/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 
 	QDEL_NULL(squeak)
 	qdel(src)
+
 
 /obj/item/organ/internal/beard
 	name = "beard organ"
@@ -330,8 +367,9 @@
 	icon_state = "liver"
 	origin_tech = "biotech=1"
 	w_class = WEIGHT_CLASS_TINY
-	parent_organ = "head"
-	slot = "hair_organ"
+	parent_organ_zone = BODY_ZONE_HEAD
+	slot = INTERNAL_ORGAN_HAIR
+
 
 /obj/item/organ/internal/beard/on_life()
 
@@ -340,7 +378,7 @@
 
 	if(istype(owner, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = owner
-		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 		if(!(head_organ.h_style == "Very Long Hair" || head_organ.h_style == "Mohawk"))
 			if(prob(10))
 				head_organ.h_style = "Mohawk"
@@ -353,6 +391,7 @@
 			head_organ.facial_colour = "#D8C078"
 			H.update_fhair()
 
+
 /obj/item/organ/internal/emp_act(severity)
 	if(!is_robotic() || emp_proof)
 		return
@@ -362,6 +401,7 @@
 		if(2)
 			receive_damage(7, 1)
 
+
 /obj/item/organ/internal/handle_germs()
 	..()
 	if(germ_level >= INFECTION_LEVEL_TWO)
@@ -369,16 +409,19 @@
 			// big message from every 1 damage is not good. If germs growth rate is big, it will spam the chat.
 			receive_damage(1, silent = prob(30*owner.dna.species.germs_growth_rate))
 
+
 /mob/living/carbon/human/proc/check_infections()
 	var/list/infections = list()
-	for(var/obj/item/organ/internal/organ in internal_organs)
+	for(var/obj/item/organ/internal/organ as anything in internal_organs)
 		if(organ.germ_level > 0)
 			infections.Add(organ)
 	return infections
 
+
 /mob/living/carbon/human/proc/check_damaged_organs()
 	var/list/damaged = list()
-	for(var/obj/item/organ/internal/organ in internal_organs)
+	for(var/obj/item/organ/internal/organ as anything in internal_organs)
 		if(organ.damage > 0)
 			damaged.Add(organ)
 	return damaged
+

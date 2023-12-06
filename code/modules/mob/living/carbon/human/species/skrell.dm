@@ -40,15 +40,16 @@
 	liked_food = VEGETABLES | FRUIT
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/skrell,
-		"lungs" =    /obj/item/organ/internal/lungs/skrell,
-		"liver" =    /obj/item/organ/internal/liver/skrell,
-		"kidneys" =  /obj/item/organ/internal/kidneys/skrell,
-		"brain" =    /obj/item/organ/internal/brain/skrell,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/skrell, //Default darksight of 5.
-		"headpocket" = /obj/item/organ/internal/headpocket
-		)
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/skrell,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/skrell,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/skrell,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/skrell,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/skrell,
+		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/skrell,	//Default darksight of 5.
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_HEADPOCKET = /obj/item/organ/internal/headpocket,
+	)
 
 	suicide_messages = list(
 		"пытается откусить себе язык!",

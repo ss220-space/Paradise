@@ -2,36 +2,50 @@
 	name = "Cavity Implant/Removal"
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,
 	/datum/surgery_step/open_encased/retract, /datum/surgery_step/cavity/make_space,/datum/surgery_step/cavity/place_item,/datum/surgery_step/cavity/close_space,/datum/surgery_step/open_encased/close,/datum/surgery_step/glue_bone, /datum/surgery_step/set_bone,/datum/surgery_step/finish_bone,/datum/surgery_step/generic/cauterize)
-	possible_locs = list("chest","head")
+	possible_locs = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_HEAD,
+	)
 
 
 /datum/surgery/cavity_implant/soft
 	name = "Cavity Implant/Removal"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/generic/cut_open, /datum/surgery_step/cavity/make_space,/datum/surgery_step/cavity/place_item,/datum/surgery_step/cavity/close_space,/datum/surgery_step/generic/cauterize)
 
-	possible_locs = list("groin")
+	possible_locs = list(BODY_ZONE_PRECISE_GROIN)
 
 /datum/surgery/cavity_implant/insect
 	name = "Insectoid Cavity Implant/Removal"
 	steps = list(/datum/surgery_step/open_encased/saw, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/retract_skin,
 	/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/cavity/make_space,/datum/surgery_step/cavity/place_item,/datum/surgery_step/cavity/close_space,/datum/surgery_step/open_encased/close,/datum/surgery_step/glue_bone, /datum/surgery_step/set_bone,/datum/surgery_step/finish_bone,/datum/surgery_step/generic/cauterize)
-	possible_locs = list("chest","head", "groin")
+	possible_locs = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_HEAD,
+		BODY_ZONE_PRECISE_GROIN,
+	)
 
 /datum/surgery/cavity_implant/plasmaman
 	name = "Plasmaman Cavity Implant/Removal"
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,
 	/datum/surgery_step/open_encased/retract, /datum/surgery_step/cavity/make_space,/datum/surgery_step/cavity/place_item,/datum/surgery_step/cavity/close_space,/datum/surgery_step/open_encased/close,/datum/surgery_step/glue_bone/plasma,/datum/surgery_step/generic/cauterize)
-	possible_locs = list("chest","head")
+	possible_locs = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_HEAD,
+	)
 
 /datum/surgery/cavity_implant/plasmaman/soft
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/generic/cut_open, /datum/surgery_step/cavity/make_space,/datum/surgery_step/cavity/place_item,/datum/surgery_step/cavity/close_space,/datum/surgery_step/generic/cauterize)
-	possible_locs = list("groin")
+	possible_locs = list(BODY_ZONE_PRECISE_GROIN)
 
 /datum/surgery/cavity_implant/synth
 	name = "Robotic Cavity Implant/Removal"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/cavity/place_item,/datum/surgery_step/robotics/external/close_hatch)
-	possible_locs = list("chest","head","groin")
 	requires_organic_bodypart = 0
+	possible_locs = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_HEAD,
+		BODY_ZONE_PRECISE_GROIN,
+	)
 
 /datum/surgery/cavity_implant/can_start(mob/user, mob/living/carbon/human/target)
 	var/mob/living/carbon/human/H = target
@@ -84,22 +98,22 @@
 	priority = 1
 
 /datum/surgery_step/cavity/proc/get_max_wclass(obj/item/organ/external/affected)
-	switch(affected.limb_name)
-		if("head")
+	switch(affected.limb_zone)
+		if(BODY_ZONE_HEAD)
 			return 1
-		if("chest")
+		if(BODY_ZONE_CHEST)
 			return 3
-		if("groin")
+		if(BODY_ZONE_PRECISE_GROIN)
 			return 2
 	return 0
 
 /datum/surgery_step/cavity/proc/get_cavity(obj/item/organ/external/affected)
-	switch(affected.limb_name)
-		if("head")
+	switch(affected.limb_zone)
+		if(BODY_ZONE_HEAD)
 			return "cranial"
-		if("chest")
+		if(BODY_ZONE_CHEST)
 			return "thoracic"
-		if("groin")
+		if(BODY_ZONE_PRECISE_GROIN)
 			return "abdominal"
 	return ""
 
@@ -232,10 +246,8 @@
 		else
 			user.visible_message("<span class='notice'> [user] puts \the [tool] inside [target]'s [get_cavity(affected)] cavity.</span>", \
 			"<span class='notice'> You put \the [tool] inside [target]'s [get_cavity(affected)] cavity.</span>" )
-			if((tool.w_class > get_max_wclass(affected) / 2 && prob(50) && !affected.is_robotic()))
+			if((tool.w_class > get_max_wclass(affected) / 2 && prob(50)) && affected.internal_bleeding())
 				to_chat(user, "<span class='warning'> You tear some vessels trying to fit the object in the cavity.</span>")
-				affected.internal_bleeding = TRUE
-				affected.owner.custom_pain("You feel something rip in your [affected.name]!")
 			user.drop_transfer_item_to_loc(tool, affected)
 			affected.hidden = tool
 			tool.forceMove(affected)

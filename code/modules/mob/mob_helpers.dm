@@ -133,12 +133,13 @@
 		message_admins("No ghosts were willing to take control of [key_name_admin(M)])")
 
 /proc/check_zone(zone)
-	if(!zone)	return "chest"
+	if(!zone)
+		return BODY_ZONE_CHEST
 	switch(zone)
-		if("eyes")
-			zone = "head"
-		if("mouth")
-			zone = "head"
+		if(BODY_ZONE_PRECISE_EYES)
+			zone = BODY_ZONE_HEAD
+		if(BODY_ZONE_PRECISE_MOUTH)
+			zone = BODY_ZONE_HEAD
 	return zone
 
 // Returns zone with a certain probability.
@@ -153,27 +154,36 @@
 	if(prob(probability))
 		return zone
 
-	var/t = rand(1, 18) // randomly pick a different zone, or maybe the same one
-	switch(t)
-		if(1)		 return "head"
-		if(2)		 return "chest"
-		if(3 to 4)	 return "l_arm"
-		if(5 to 6)   return "l_hand"
-		if(7 to 8)	 return "r_arm"
-		if(9 to 10)  return "r_hand"
-		if(11 to 12) return "l_leg"
-		if(13 to 14) return "l_foot"
-		if(15 to 16) return "r_leg"
-		if(17 to 18) return "r_foot"
-
+	switch(rand(1, 18))	// randomly pick a different zone, or maybe the same one
+		if(1)
+			return BODY_ZONE_HEAD
+		if(2)
+			return BODY_ZONE_CHEST
+		if(3 to 4)
+			return BODY_ZONE_L_ARM
+		if(5 to 6)
+			return BODY_ZONE_PRECISE_L_HAND
+		if(7 to 8)
+			return BODY_ZONE_R_ARM
+		if(9 to 10)
+			return BODY_ZONE_PRECISE_R_HAND
+		if(11 to 12)
+			return BODY_ZONE_L_LEG
+		if(13 to 14)
+			return BODY_ZONE_PRECISE_L_FOOT
+		if(15 to 16)
+			return BODY_ZONE_R_LEG
+		if(17 to 18)
+			return BODY_ZONE_PRECISE_R_FOOT
 	return zone
 
+
 /proc/above_neck(zone)
-	var/list/zones = list("head", "mouth", "eyes")
+	var/list/zones = list(BODY_ZONE_HEAD, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_PRECISE_EYES)
 	if(zones.Find(zone))
-		return 1
-	else
-		return 0
+		return TRUE
+	return FALSE
+
 
 /proc/stars(n, pr)
 	if(pr == null)

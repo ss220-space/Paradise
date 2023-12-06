@@ -181,7 +181,7 @@
 			to_chat(user, "<span class='warning'>[G.affecting] is dead!</span>")
 			return FALSE
 		var/mob/living/carbon/human/C = G.affecting
-		var/obj/item/organ/external/head/head = C.get_organ("head")
+		var/obj/item/organ/external/head/head = C.get_organ(BODY_ZONE_HEAD)
 		if(!head)
 			to_chat(user, "<span class='warning'>[C] has no head!</span>")
 			return FALSE
@@ -190,7 +190,7 @@
 		C.visible_message("<span class='danger'>[user] dunks [C]'s face into [src]'s lava!</span>",
 						"<span class='userdanger'>[user] dunks your face into [src]'s lava!</span>")
 		C.emote("scream")
-		C.apply_damage(30, BURN, "head") // 30 fire damage because it's FUCKING LAVA
+		C.apply_damage(30, BURN, BODY_ZONE_HEAD) // 30 fire damage because it's FUCKING LAVA
 		head.disfigure() // Your face is unrecognizable because it's FUCKING LAVA
 		C.UpdateDamageIcon()
 		add_attack_logs(user, C, "Lava-dunked into [src]")

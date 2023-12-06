@@ -61,40 +61,42 @@
 /atom/movable/proc/on_teleported()
 	return
 
-/atom/movable/proc/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
-	var/mob/M = AM
-	if(ismob(M) && M.buckled)
-		AM = M.buckled
 
-	if(QDELETED(AM))
+/atom/movable/proc/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
+	var/mob/mob_target = AM
+	if(ismob(mob_target) && mob_target.buckled)
+		AM = mob_target.buckled
+
+	if(QDELETED(AM) || QDELETED(src))
 		return FALSE
-	if(!(AM.can_be_pulled(src, state, force)))
+	if(!(AM.can_be_pulled(src, force, show_message)))
 		return FALSE
 
-	// if we're pulling something then drop what we're currently pulling and pull this instead.
-	if(pulling)
-		if(state == 0)
-			stop_pulling()
-			return FALSE
-		// Are we trying to pull something we are already pulling? Then enter grab cycle and end.
-		if(AM == pulling)
-			if(isliving(AM))
-				var/mob/living/AMob = AM
-				AMob.grabbedby(src)
-			return TRUE
-		stop_pulling()
+	if(pulling && AM == pulling && src == AM.pulledby)	// are we trying to pull something we are already pulling?
+		return FALSE
+
+	var/atom/movable/previous_puller = null
 	if(AM.pulledby)
-		add_attack_logs(AM, AM.pulledby, "pulled from", ATKLOG_ALMOSTALL)
-		AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
+		previous_puller = AM.pulledby
+		previous_puller.stop_pulling() // an object can't be pulled by two mobs at once.
+
 	pulling = AM
 	AM.pulledby = src
 
-	var/mob/pulled_mob = ismob(AM) ? AM : buckled_mobs[1]
-	if(ismob(pulled_mob))
-		add_attack_logs(src, pulled_mob, "passively grabbed", ATKLOG_ALMOSTALL)
-		if(show_message)
-			visible_message("<span class='warning'>[src] схватил[genderize_ru(src.gender,"","а","о","и")] [pulled_mob]!</span>")
+	mob_target = ismob(AM) ? AM : (AM.buckled_mobs && length(AM.buckled_mobs)) ? AM.buckled_mobs[1] : null
+	if(mob_target)
+		if(previous_puller)
+			add_attack_logs(AM, previous_puller, "pulled from", ATKLOG_ALMOSTALL)
+			if(show_message)
+				visible_message(span_danger("[src] перехватил[genderize_ru(gender,"","а","о","и")] [mob_target] у [previous_puller]."))
+		else
+			add_attack_logs(src, mob_target, "pulls", ATKLOG_ALMOSTALL)
+			if(show_message)
+				visible_message(span_warning("[src] схватил[genderize_ru(gender,"","а","о","и")] [mob_target]!"))
+		mob_target.LAssailant = iscarbon(src) ? src : null
+
 	return TRUE
+
 
 /atom/movable/proc/stop_pulling()
 	if(pulling)
@@ -125,18 +127,18 @@
 	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1)		//separated from our puller and not in the middle of a diagonal move.
 		pulledby.stop_pulling()
 
-/atom/movable/proc/can_be_pulled(user, grab_state, force, show_message = FALSE)
+/atom/movable/proc/can_be_pulled(atom/movable/user, force, show_message = FALSE)
 	if(src == user || !isturf(loc))
 		return FALSE
 	if(anchored || move_resist == INFINITY)
-		if(show_message)  //Это разве не проверка таскания прикрученных объектов? Оно точно может получить пол ящика?
-			to_chat(user, "<span class='warning'>Похоже, [src.name] прикрепл[genderize_ru(src.gender,"ён","ена","ено","ены")] к полу!</span>")
+		if(show_message)
+			to_chat(user, span_warning("Похоже, [src.name] прикрепл[genderize_ru(src.gender,"ён","ена","ено","ены")] к полу!"))
 		return FALSE
 	if(throwing)
 		return FALSE
 	if(force < (move_resist * MOVE_FORCE_PULL_RATIO))
 		if(show_message)
-			to_chat(user, "<span class='warning'>[src.name] слишком тяжелый!</span>")
+			to_chat(user, span_warning("[src.name] слишком тяжелый!"))
 		return FALSE
 	return TRUE
 

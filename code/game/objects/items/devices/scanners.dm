@@ -455,7 +455,7 @@ REAGENT SCANNER
 		var/list/damaged = H.get_damaged_organs(1,1)
 		. += "Локализация повреждений, <font color='#FF8000'>Ожоги</font>/<font color='red'>Физ.</font>:"
 		if(length(damaged) > 0)
-			for(var/obj/item/organ/external/org in damaged)
+			for(var/obj/item/organ/external/org as anything in damaged)
 				. += "&emsp;<span class='info'>[capitalize(org.name)]</span>: [(org.burn_dam > 0) ? "<font color='#FF8000'>[org.burn_dam]</font>" : "<font color='#FF8000'>0</font>"] - [(org.brute_dam > 0) ? "<font color='red'>[org.brute_dam]</font>" : "<font color='red'>0</font>"]"
 /*
 	if(H.status_flags & FAKEDEATH)
@@ -490,13 +490,13 @@ REAGENT SCANNER
 			. += "&emsp;Лечение: [D.cure_text]</span>"
 	if(H.undergoing_cardiac_arrest())
 		var/obj/item/organ/internal/heart/heart = H.get_int_organ(/obj/item/organ/internal/heart)
-		if(heart && !(heart.status & ORGAN_DEAD))
+		if(heart && !heart.is_dead())
 			. += "<span class='warning'><b>Внимание: Критическое состояние</b>"
 			. += "&emsp;Название: Остановка сердца"
 			. += "&emsp;Тип: Сердце пациента остановилось"
 			. += "&emsp;Стадия: 1/1"
 			. += "&emsp;Лечение: Электрический шок</span>"
-		else if(heart && (heart.status & ORGAN_DEAD))
+		else if(heart && heart.is_dead())
 			. += "<span class='alert'><b>Обнаружен некроз сердца!</b></span>"
 		else if(!heart)
 			. += "<span class='alert'><b>Сердце не обнаружено!</b></span>"
@@ -526,8 +526,9 @@ REAGENT SCANNER
 		if(!e)
 			continue
 		var/limb = e.name
-		if(e.status & ORGAN_BROKEN)
-			if((e.limb_name in list("l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")) && !(e.status & ORGAN_SPLINTED))
+		if(e.has_fracture())
+			var/list/check_list = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
+			if((e.limb_zone in check_list) && !e.is_splinted())
 				. += "<span class='warning'>Незакрепленные переломы в [limb]."
 				. += "&emsp;Рекомендуется применить шину.</span>"
 		if(e.has_infected_wound())
@@ -538,12 +539,12 @@ REAGENT SCANNER
 		var/obj/item/organ/external/e = H.bodyparts_by_name[name]
 		if(!e)
 			continue
-		if(e.status & ORGAN_BROKEN)
+		if(e.has_fracture())
 			. += "<span class='warning'>Обнаружены переломы."
 			. += "&emsp;Рекомендуется подробное сканирование.</span>"
 			break
-	for(var/obj/item/organ/external/e in H.bodyparts)
-		if(e.internal_bleeding)
+	for(var/obj/item/organ/external/e as anything in H.bodyparts)
+		if(e.has_internal_bleeding())
 			. += "<span class='warning'>Внутреннее кровотечение."
 			. += "&emsp;Рекомендуется подробное сканирование.</span>"
 			break
@@ -569,9 +570,9 @@ REAGENT SCANNER
 
 	. += "Пульс: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "#0080ff"]'>[H.get_pulse(GETPULSE_TOOL)] bpm.</font>"
 	var/list/implant_detect = list()
-	for(var/obj/item/organ/internal/cyberimp/CI in H.internal_organs)
-		if(CI.is_robotic())
-			implant_detect += "&emsp;[CI.name]"
+	for(var/obj/item/organ/internal/cyberimp/cybernetics in H.internal_organs)
+		if(cybernetics.is_robotic())
+			implant_detect += "&emsp;[cybernetics.name]"
 	if(length(implant_detect))
 		. += "Обнаружены кибернетические модификации:"
 		. += implant_detect
@@ -972,7 +973,7 @@ REAGENT SCANNER
 	dat += "<th>Other Wounds</th>"
 	dat += "</tr>"
 
-	for(var/obj/item/organ/external/e in target.bodyparts)
+	for(var/obj/item/organ/external/e as anything in target.bodyparts)
 		dat += "<tr>"
 		var/AN = ""
 		var/open = ""
@@ -983,13 +984,13 @@ REAGENT SCANNER
 		var/splint = ""
 		var/internal_bleeding = ""
 		var/lung_ruptured = ""
-		if(e.internal_bleeding)
+		if(e.has_internal_bleeding())
 			internal_bleeding = "<br>Internal bleeding"
 		if(istype(e, /obj/item/organ/external/chest) && target.is_lung_ruptured())
 			lung_ruptured = "Lung ruptured:"
-		if(e.status & ORGAN_SPLINTED)
+		if(e.is_splinted())
 			splint = "Splinted:"
-		if(e.status & ORGAN_BROKEN)
+		if(e.has_fracture())
 			AN = "[e.broken_description]:"
 		if(e.is_robotic())
 			robot = "Robotic:"
@@ -1011,20 +1012,16 @@ REAGENT SCANNER
 			if(INFECTION_LEVEL_THREE to INFINITY)
 				infected = "Septic:"
 
-		var/unknown_body = 0
-		for(var/I in e.embedded_objects)
-			unknown_body++
-
-		if(unknown_body || e.hidden)
+		if(LAZYLEN(e.embedded_objects) || e.hidden)
 			imp += "Unknown body present:"
 		if(!AN && !open && !infected && !imp)
 			AN = "None:"
 		dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured]</td>"
 		dat += "</tr>"
-	for(var/obj/item/organ/internal/i in target.internal_organs)
-		var/mech = i.desc
+	for(var/obj/item/organ/internal/organ as anything in target.internal_organs)
+		var/mech = organ.desc
 		var/infection = "None"
-		switch(i.germ_level)
+		switch(organ.germ_level)
 			if(1 to INFECTION_LEVEL_ONE + 200)
 				infection = "Mild Infection:"
 			if(INFECTION_LEVEL_ONE + 200 to INFECTION_LEVEL_ONE + 300)
@@ -1039,7 +1036,7 @@ REAGENT SCANNER
 				infection = "Acute Infection++:"
 
 		dat += "<tr>"
-		dat += "<td>[i.name]</td><td>N/A</td><td>[i.damage]</td><td>[infection]:[mech]</td><td></td>"
+		dat += "<td>[organ.name]</td><td>N/A</td><td>[organ.damage]</td><td>[infection]:[mech]</td><td></td>"
 		dat += "</tr>"
 	dat += "</table>"
 	if(BLINDNESS in target.mutations)

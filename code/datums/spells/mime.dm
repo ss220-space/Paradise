@@ -138,7 +138,7 @@
 /obj/effect/proc_holder/spell/mime/fingergun/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/human/target in targets)
 		if(!current_gun)
-			to_chat(user, "<span class='notice'>You draw your fingers!</span>")
+			to_chat(user, span_notice("You draw your fingers!"))
 			current_gun = new gun(get_turf(user), src)
 			target.drop_from_active_hand()
 			target.put_in_hands(current_gun)
@@ -152,8 +152,9 @@
 	SIGNAL_HANDLER
 	if(!current_gun || action.owner.get_active_hand() != current_gun)
 		return
-	to_chat(action.owner, "<span class='notice'>You holster your fingers. Another time perhaps...</span>")
+	to_chat(action.owner, span_notice("You holster your fingers. Another time perhaps..."))
 	QDEL_NULL(current_gun)
+	return COMPONENT_CANCEL_DROP
 
 
 // Mime Spellbooks

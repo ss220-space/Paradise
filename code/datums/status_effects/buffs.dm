@@ -57,10 +57,9 @@
 		if(ishuman(owner))
 			owner.status_flags |= IGNORESLOWDOWN
 			var/mob/living/carbon/human/H = owner
-			for(var/X in H.bodyparts)
-				var/obj/item/organ/external/BP = X
-				BP.brute_mod *= 0.1
-				BP.burn_mod *= 0.1
+			for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+				bodypart.brute_mod *= 0.1
+				bodypart.burn_mod *= 0.1
 			H.dna.species.tox_mod *= 0.1
 			H.dna.species.oxy_mod *= 0.1
 			H.dna.species.clone_mod *= 0.1
@@ -73,10 +72,9 @@
 /datum/status_effect/blooddrunk/on_remove()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		for(var/X in H.bodyparts)
-			var/obj/item/organ/external/BP = X
-			BP.brute_mod *= 10
-			BP.burn_mod *= 10
+		for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+			bodypart.brute_mod *= 10
+			bodypart.burn_mod *= 10
 		H.dna.species.tox_mod *= 10
 		H.dna.species.oxy_mod *= 10
 		H.dna.species.clone_mod *= 10
@@ -175,7 +173,7 @@
 					if(itemUser.put_in_l_hand(newRod, TRUE))
 						to_chat(itemUser, "<span class='notice'>The Rod of Asclepius suddenly grows back out of your arm!</span>")
 					else
-						if(!itemUser.has_organ("l_arm"))
+						if(!itemUser.get_organ(BODY_ZONE_L_ARM))
 							new /obj/item/organ/external/arm(itemUser)
 						new /obj/item/organ/external/hand(itemUser)
 						itemUser.update_body()
@@ -186,7 +184,7 @@
 					if(itemUser.put_in_r_hand(newRod, TRUE))
 						to_chat(itemUser, "<span class='notice'>The Rod of Asclepius suddenly grows back out of your arm!</span>")
 					else
-						if(!itemUser.has_organ("r_arm"))
+						if(!itemUser.get_organ(BODY_ZONE_R_ARM))
 							new /obj/item/organ/external/arm/right(itemUser)
 						new /obj/item/organ/external/hand/right(itemUser)
 						itemUser.update_body()
@@ -225,10 +223,9 @@
 		var/mob/living/carbon/human/H = owner
 		H.bodytemperature = H.dna.species.body_temperature
 		if(is_mining_level(H.z) || istype(get_area(H), /area/ruin/space/bubblegum_arena))
-			for(var/thing in H.bodyparts)
-				var/obj/item/organ/external/E = thing
-				E.internal_bleeding = FALSE
-				E.mend_fracture()
+			for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+				bodypart.stop_internal_bleeding()
+				bodypart.mend_fracture()
 		else
 			to_chat(owner, "<span class='warning'>...But the core was weakened, it is not close enough to the rest of the legions of the necropolis.</span>")
 	else

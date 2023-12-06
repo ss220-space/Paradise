@@ -49,7 +49,7 @@
 			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
 			return 0
 		var/mob/living/carbon/human/C = G.affecting
-		var/obj/item/organ/external/head/head = C.get_organ("head")
+		var/obj/item/organ/external/head/head = C.get_organ(BODY_ZONE_HEAD)
 		if(!head)
 			to_chat(user, "<span class='warning'>This person doesn't have a head!</span>")
 			return 0
@@ -58,7 +58,7 @@
 						"<span class='userdanger'>[user] dunks your face into [src]!</span>")
 		C.emote("scream")
 		user.changeNext_move(CLICK_CD_MELEE)
-		C.apply_damage(25, BURN, "head") //25 fire damage and disfigurement because your face was just deep fried!
+		C.apply_damage(25, BURN, BODY_ZONE_HEAD) //25 fire damage and disfigurement because your face was just deep fried!
 		head.disfigure()
 		add_attack_logs(user, G.affecting, "Deep-fried with [src]")
 		qdel(G) //Removes the grip so the person MIGHT have a small chance to run the fuck away and to prevent rapid dunks.

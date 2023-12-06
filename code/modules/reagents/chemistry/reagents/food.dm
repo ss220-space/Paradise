@@ -638,7 +638,7 @@
 /datum/reagent/consumable/onion/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
 		if(!M.is_mouth_covered() && !M.is_eyes_covered())
-			if(!M.get_organ_slot("eyes"))	//can't blind somebody with no eyes
+			if(!M.get_organ_slot(INTERNAL_ORGAN_EYES))	//can't blind somebody with no eyes
 				to_chat(M, "<span class = 'notice'>Your eye sockets feel wet.</span>")
 			else
 				if(!M.AmountEyeBlurry())

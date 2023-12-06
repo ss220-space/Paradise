@@ -51,6 +51,7 @@
 
 	attached_hand.is_withdraw = TRUE
 	QDEL_NULL(attached_hand)
+	return COMPONENT_CANCEL_DROP
 
 
 /obj/effect/proc_holder/spell/touch/disintegrate

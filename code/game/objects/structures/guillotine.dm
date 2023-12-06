@@ -105,7 +105,7 @@
 			icon_state = "guillotine"
 			return
 
-		var/obj/item/organ/external/head/head = H.get_organ("head")
+		var/obj/item/organ/external/head/head = H.get_organ(BODY_ZONE_HEAD)
 
 		if(QDELETED(head))
 			blade_status = GUILLOTINE_BLADE_DROPPED

@@ -385,34 +385,42 @@
 /**
  * Drops item in left hand.
  */
-/mob/proc/drop_l_hand(force = FALSE)
-	return drop_item_ground(l_hand, force)
+/mob/proc/drop_l_hand(force = FALSE, silent = FALSE)
+	return drop_item_ground(l_hand, force, silent = silent)
 
 
 /**
  * Drops item in right hand.
  */
-/mob/proc/drop_r_hand(force = FALSE)
-	return drop_item_ground(r_hand, force)
+/mob/proc/drop_r_hand(force = FALSE, silent = FALSE)
+	return drop_item_ground(r_hand, force, silent = silent)
 
 
 /**
  * Drops item in active hand.
  */
-/mob/proc/drop_from_active_hand(force = FALSE)
+/mob/proc/drop_from_active_hand(force = FALSE, silent = FALSE)
 	if(hand)
-		return drop_l_hand(force)
+		return drop_l_hand(force, silent)
 	else
-		return drop_r_hand(force)
+		return drop_r_hand(force, silent)
 
 /**
  * Drops item in inactive hand.
  */
-/mob/proc/drop_from_inactive_hand(force = FALSE)
+/mob/proc/drop_from_inactive_hand(force = FALSE, silent = FALSE)
 	if(hand)
-		return drop_r_hand(force)
+		return drop_r_hand(force, silent)
 	else
-		return drop_l_hand(force)
+		return drop_l_hand(force, silent)
+
+
+/**
+ * Drops items in both hands.
+ */
+/mob/proc/drop_from_hands(force = FALSE, silent = FALSE)
+	drop_l_hand(force, silent)
+	drop_r_hand(force, silent)
 
 
 /**
