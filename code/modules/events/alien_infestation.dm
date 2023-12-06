@@ -25,7 +25,6 @@ GLOBAL_VAR_INIT(alien_queens_maximum, 0)
 	// It is necessary to wrap this to avoid the event triggering repeatedly.
 
 /datum/event/alien_infestation/proc/wrappedstart()
-	GLOB.alien_queens_maximum++
 	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
 	playercount = length(GLOB.clients)//grab playercount when event starts not when game starts
 	if(playercount <= ALIEN_MIDPOP_TRIGGER)
@@ -34,6 +33,7 @@ GLOBAL_VAR_INIT(alien_queens_maximum, 0)
 	if(playercount >= ALIEN_HIGHPOP_TRIGGER) //spawn with 4 if highpop
 		spawncount = 4
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за Чужого?", ROLE_ALIEN, TRUE, source = /mob/living/carbon/alien/larva)
+	var/first_spawn = TRUE
 	while(spawncount && length(vents) && length(candidates))
 		var/obj/vent = pick_n_take(vents)
 		var/mob/C = pick_n_take(candidates)
@@ -42,6 +42,11 @@ GLOBAL_VAR_INIT(alien_queens_maximum, 0)
 			var/mob/living/carbon/alien/larva/new_xeno = new(vent.loc)
 			new_xeno.evolution_points += (0.75 * new_xeno.max_evolution_points)	//event spawned larva start off almost ready to evolve.
 			new_xeno.key = C.key
+
+			if(first_spawn)
+				new_xeno.queen_maximum++
+				first_spawn = FALSE
+
 			if(SSticker && SSticker.mode)
 				SSticker.mode.xenos += new_xeno.mind
 
@@ -53,6 +58,7 @@ GLOBAL_VAR_INIT(alien_queens_maximum, 0)
 /datum/event/alien_infestation/proc/spawn_vectors(list/vents, playercount)
 	spawncount = 1
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за Чужого Вектора?", ROLE_ALIEN, TRUE, source = /mob/living/carbon/alien/humanoid/hunter/vector)
+	var/first_spawn = TRUE
 	while(spawncount && length(vents) && length(candidates))
 		var/obj/vent = pick_n_take(vents)
 		var/mob/C = pick_n_take(candidates)
@@ -60,6 +66,11 @@ GLOBAL_VAR_INIT(alien_queens_maximum, 0)
 			GLOB.respawnable_list -= C.client
 			var/mob/living/carbon/alien/humanoid/hunter/vector/new_xeno = new(vent.loc)
 			new_xeno.key = C.key
+
+			if(first_spawn)
+				new_xeno.queen_maximum++
+				first_spawn = FALSE
+
 			if(SSticker && SSticker.mode)
 				SSticker.mode.xenos += new_xeno.mind
 

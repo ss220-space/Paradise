@@ -55,6 +55,7 @@
 	action_sprite.Grant(src)
 	..()
 	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/break_vents)
+	praetorian_count++
 
 
 /mob/living/carbon/alien/humanoid/praetorian/Destroy()
@@ -62,6 +63,12 @@
 		action_sprite.Remove(src)
 		action_sprite = null
 	return ..()
+
+/mob/living/carbon/alien/humanoid/praetorian/death(gibbed)
+	// Only execute the below if we successfully died
+	. = ..(gibbed)
+	if(.)
+		praetorian_count--
 
 /mob/living/carbon/alien/humanoid/praetorian/is_strong()
 	return TRUE

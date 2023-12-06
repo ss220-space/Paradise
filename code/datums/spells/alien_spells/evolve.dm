@@ -42,14 +42,14 @@
 		return
 
 	if(queen_check)
-		if(GLOB.alien_queens_count >= GLOB.alien_queens_maximum)
-			to_chat(user, "<span class='notice'>We already have a queen.</span>")
+		if(user.queen_count >= user.queen_maximum)
+			to_chat(user, span_warning("We already have a queen."))
 			return
 		else
-			GLOB.alien_queens_count++
+			user.queen_count++
 
-	to_chat(user, "<span class='noticealien'>You begin to evolve!</span>")
-	user.visible_message("<span class='alertalien'>[user] begins to twist and contort!</span>")
+	to_chat(user, span_noticealien("You begin to evolve!"))
+	user.visible_message(span_alertalien("[user] begins to twist and contort!"))
 	var/mob/living/carbon/alien/new_xeno = new evolution_path(user.loc)
 	user.mind.transfer_to(new_xeno)
 	new_xeno.mind.name = new_xeno.name
@@ -58,17 +58,16 @@
 	qdel(user)
 
 /obj/effect/proc_holder/spell/alien_spell/evolve/praetorian/cast(list/targets, mob/living/carbon/user)
-	var/living_praetorians_count = 0
-	var/living_players_count = 0
-	for(var/mob/living/carbon/alien/humanoid/praetorian/praetorian in GLOB.alive_mob_list)
-		if(praetorian.client && praetorian.stat != DEAD)
-			living_praetorians_count++
+	var/mob/living/carbon/alien/spell_owner = user
+	if(!istype(spell_owner))
+		return
 
+	var/living_players_count = 0
 	for(var/mob/living/player in GLOB.player_list)
 		if(player.client && player.stat != DEAD)
 			living_players_count++
 
-	if(living_praetorians_count < (1 + living_players_count/LIVING_PLAYERS_COUNT_FOR_1_PRAETORIAN))
+	if(spell_owner.praetorian_count < (living_players_count/LIVING_PLAYERS_COUNT_FOR_1_PRAETORIAN))
 		..()
 	else
 		to_chat(user, span_warning("We have too many praetorians."))

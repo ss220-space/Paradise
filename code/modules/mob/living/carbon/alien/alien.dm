@@ -45,6 +45,9 @@
 	var/death_sound = 'sound/voice/hiss6.ogg'
 
 	var/datum/action/innate/alien_nightvision_toggle/night_vision_action
+	var/static/praetorian_count = 0
+	var/static/queen_count = 0
+	var/static/queen_maximum = 0
 
 
 /mob/living/carbon/alien/New()
