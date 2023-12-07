@@ -150,6 +150,7 @@
 	layer = 2.9 // ensures the loot they drop always appears on top of them.
 	max_integrity = 300
 	icon_state = "syndicate_secure"
+	custom_open_overlay = "syndicate_secure"
 
 /obj/structure/closet/secure_closet/syndicate/comms_officer
 	req_access = list(ACCESS_SYNDICATE_COMMS_OFFICER)
