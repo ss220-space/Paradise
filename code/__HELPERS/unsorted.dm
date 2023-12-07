@@ -1494,7 +1494,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	shift.Translate(0,radius)
 	transform = shift
 
-	SpinAnimation(rotation_speed, -1, clockwise, rotation_segments)
+	SpinAnimation(rotation_speed, -1, clockwise, rotation_segments, parallel = FALSE)
 
 	while(orbiting && orbiting == A && A.loc)
 		var/targetloc = get_turf(A)
@@ -1512,14 +1512,15 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	if(orbiting == A) //make sure we haven't started orbiting something else.
 		orbiting = null
-		SpinAnimation(0, 0)
 		transform = cached_transform
-
+		SpinAnimation(0, 0, parallel = FALSE)
 
 
 /atom/movable/proc/stop_orbit()
 	orbiting = null
 	transform = cached_transform
+	SpinAnimation(0, 0, parallel = FALSE)
+
 
 //Centers an image.
 //Requires:
