@@ -1531,6 +1531,7 @@ About the new airlock wires panel:
 
 		if(!electronics)
 			electronics = new /obj/item/airlock_electronics(loc)
+			electronics.id = id_tag
 		else
 			electronics.forceMove(loc)
 		if(emagged)

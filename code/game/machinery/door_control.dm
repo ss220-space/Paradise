@@ -11,11 +11,16 @@
 	idle_power_usage = 2
 	active_power_usage = 4
 
-	var/exposedwires = FALSE
 	var/ai_control = TRUE
 	var/is_animating = FALSE
 
 	var/obj/item/assembly/device
+	var/obj/item/access_control/access_electronics
+
+	/// Was it constructed by players
+	var/constructed = FALSE
+	/// Is panel open
+	var/open = FALSE
 
 	/// The button controls things that have matching id tag. Can be a list to control multiple ids.
 	var/id = null
@@ -41,6 +46,8 @@
 
 
 /obj/machinery/door_control/attack_ai(mob/user)
+	if(open)
+		return
 	if(ai_control)
 		return attack_hand(user)
 	else
@@ -49,7 +56,91 @@
 /obj/machinery/door_control/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/detective_scanner))
 		return
+
+	if(!open)
+		return ..()
+
+	if(is_pen(W))
+		rename_interactive(user, W)
+		return
+
+	if(isassembly(W))
+		if(device)
+			return
+		if(!user.drop_transfer_item_to_loc(W, src))
+			return
+
+		playsound(loc, W.usesound, 100, 1)
+		user.visible_message("[user] installs [W] into the button frame.", "You install [W] into the button frame.")
+		device = W
+
+		// ignore "readiness" of the assembly to not confuse players with multiple assembly states
+		if(!device.secured)
+			device.toggle_secure()
+
+		add_fingerprint(user)
+		update_icon()
+		return
+
+	if(istype(W, /obj/item/access_control))
+		if(W.icon_state == "access-control-smoked")
+			return
+		if(access_electronics)
+			return
+		if(!user.drop_transfer_item_to_loc(W, src))
+			return
+		playsound(loc, W.usesound, 100, 1)
+		user.visible_message("[user] installs [W] into the button frame.", "You install [W] into the button frame.")
+		access_electronics = W
+		add_fingerprint(user)
+		if(emagged)
+			emagged = FALSE
+		update_icon()
+		return
+
 	return ..()
+
+/obj/machinery/door_control/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!(open || allowed(user)))
+		to_chat(user, span_warning("Access Denied. The cover plate will not open."))
+		return
+	if(!I.use_tool(src, user, delay = 30, volume = I.tool_volume))
+		return
+
+	// Close the panel
+	if(open)
+		SCREWDRIVER_CLOSE_PANEL_MESSAGE
+		open = FALSE
+		update_access()
+		update_icon()
+		return
+
+	// Open the panel
+	if(!constructed)
+		if(!device)
+			build_device()
+		if(!access_electronics)
+			build_access_electronics()
+	SCREWDRIVER_OPEN_PANEL_MESSAGE
+	open = TRUE
+	constructed = TRUE
+	update_icon()
+
+/obj/machinery/door_control/wrench_act(mob/living/user, obj/item/I)
+	if(!open)
+		return
+	. = TRUE
+
+	if(device || access_electronics)
+		to_chat(user, "You must take out the electronics first.")
+		return
+
+	if(!I.use_tool(src, user, delay = 30, volume = I.tool_volume))
+		return
+	WRENCH_UNANCHOR_WALL_MESSAGE
+	new /obj/item/mounted/frame/door_control(get_turf(user))
+	qdel(src)
 
 /obj/machinery/door_control/emag_act(mob/user)
 	if(!emagged)
@@ -58,15 +149,23 @@
 		playsound(src, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 /obj/machinery/door_control/attack_ghost(mob/user)
+	if(open)
+		return
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
 
-/obj/machinery/door_control/Initialize(mapload)
+/obj/machinery/door_control/Initialize(mapload, direction = null, building = FALSE)
 	. = ..()
-	build_device()
+	if(building)
+		open = TRUE
+		constructed = TRUE
+		setDir(direction)
+		set_pixel_offsets_from_dir(26, -26, 26, -26)
+		update_icon()
 
 /obj/machinery/door_control/Destroy()
 	QDEL_NULL(device)
+	QDEL_NULL(access_electronics)
 	return ..()
 
 /obj/machinery/door_control/proc/build_device()
@@ -83,6 +182,18 @@
 	my_device.ids = get_ids()
 	my_device.safety_z_check = safety_z_check
 
+/obj/machinery/door_control/proc/build_access_electronics()
+	access_electronics = new /obj/item/access_control(src)
+	access_electronics.selected_accesses = req_access
+	access_electronics.one_access = check_one_access
+
+/obj/machinery/door_control/proc/update_access()
+	if(access_electronics && !emagged)
+		req_access = access_electronics.selected_accesses
+		check_one_access = access_electronics.one_access
+	else
+		req_access = list()
+
 /obj/machinery/door_control/proc/get_ids()
 	if(isnull(id))
 		return list()
@@ -92,9 +203,38 @@
 		return id
 
 /obj/machinery/door_control/attack_hand(mob/user)
+
+	if(open)
+
+		if(!(device || access_electronics))
+			return
+
+		if(device)
+			device.forceMove_turf()
+			user.put_in_hands(device, ignore_anim = FALSE)
+			device.add_fingerprint(user)
+			device = null
+		if(access_electronics)
+			access_electronics.forceMove_turf()
+			user.put_in_hands(access_electronics, ignore_anim = FALSE)
+			access_electronics.add_fingerprint(user)
+			if(emagged)
+				access_electronics.icon_state = "access-control-smoked"
+			access_electronics = null
+
+		user.visible_message("[user] takes out the electronics from the button frame.", "You take out the electronics from the button frame.")
+
+		add_fingerprint(user)
+		update_icon()
+		return
+
 	add_fingerprint(user)
 	if(stat & (NOPOWER|BROKEN))
 		return
+
+	if(!(device || constructed))
+		build_device()
+
 	if(device?.cooldown > 0)
 		return
 
@@ -144,6 +284,15 @@
 /obj/machinery/door_control/update_overlays()
 	. = ..()
 	underlays.Cut()
+	// access_board overlay
+	if(access_electronics)
+		. += "doorctrl-overlay-board"
+
+	// device overlay
+	if(issignaler(device))
+		. += "doorctrl-overlay-signaler"
+	else if(device)
+		. += "doorctrl-overlay-device"
 
 	if(stat & NOPOWER)
 		return
@@ -160,6 +309,10 @@
 	if(user)
 		to_chat(user, span_notice("The electronic systems in this device are far too advanced for your primitive hacking peripherals."))
 
+/obj/machinery/door_control/secure/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	to_chat(user, span_notice("[src] is highly secured. You cannot open the cover plate."))
+
 
 // hidden mimic button
 /obj/machinery/door_control/mimic
@@ -174,10 +327,8 @@
 /obj/machinery/door_control/mimic/update_icon_state()
 	return
 
-
 /obj/machinery/door_control/mimic/update_overlays()
 	. = list()
-
 
 /obj/machinery/door_control/mimic/power_change(forced = FALSE)
 	if(powered(power_channel))
@@ -185,3 +336,5 @@
 	else
 		stat |= NOPOWER
 
+/obj/machinery/door_control/mimic/screwdriver_act(mob/living/user, obj/item/I)
+	return

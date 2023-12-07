@@ -239,6 +239,22 @@
 	my_holder.id_tag = new_tag
 
 ////////////////////////////////
+//	Airlock electronics
+////////////////////////////////
+/datum/multitool_menu/idtag/airlock_electronics
+	holder_type = /obj/item/airlock_electronics
+
+/datum/multitool_menu/idtag/airlock_electronics/get_tag()
+	var/obj/item/airlock_electronics/my_holder = holder
+	return my_holder.id
+
+/datum/multitool_menu/idtag/airlock_electronics/set_tag(new_tag)
+	var/obj/item/airlock_electronics/my_holder = holder
+	if(my_holder.id == new_tag)
+		return
+	my_holder.id = new_tag
+
+////////////////////////////////
 //	Multitool menu "multiple_tags"
 //  ABSTRACT
 ////////////////////////////////
