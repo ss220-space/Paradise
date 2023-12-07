@@ -8,5 +8,13 @@
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
+	multitool_menu_type = /datum/multitool_menu/idtag/airlock_electronics
+	
+	var/id
+
+/obj/item/airlock_electronics/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	multitool_menu_interact(user, I)
+
 /obj/item/airlock_electronics/syndicate
 	name = "suspicious airlock electronics"

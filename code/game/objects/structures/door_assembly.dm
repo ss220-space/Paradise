@@ -221,6 +221,7 @@
 	door.previous_airlock = previous_assembly
 
 	door.electronics = electronics
+	door.id_tag = electronics.id
 	electronics.forceMove(door)
 	electronics = null
 

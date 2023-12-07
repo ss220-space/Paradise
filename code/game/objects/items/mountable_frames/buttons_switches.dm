@@ -23,3 +23,15 @@
 	var/obj/machinery/light_switch/button = new(get_turf(user), get_dir(user, on_wall))
 	button.add_fingerprint(user)
 	qdel(src)
+
+/obj/item/mounted/frame/door_control
+	name = "button frame"
+	desc = "Used for repairing or building door control buttons"
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "doorctrl-panel"
+	sheets_refunded = 1
+
+/obj/item/mounted/frame/door_control/do_build(turf/on_wall, mob/user)
+	var/obj/machinery/door_control/button = new(get_turf(user), get_dir(user, on_wall), TRUE)
+	button.add_fingerprint(user)
+	qdel(src)
