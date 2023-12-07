@@ -28,6 +28,8 @@
   Daeberdir:
   - bugfix: correct loot dropping from "watchers" and fixed gems duping. (#3988)
   - bugfix: mecha module cooldowns. (#3967)
+  Dimach:
+  - bugfix: proper name for channel (#3997)
   LiquidPotroh:
   - tweak: Reduced frequency of cold (#3983)
   - tweak: gravgen has MALF_EFFECT resistance (#3975)
@@ -44,6 +46,7 @@
       Acid no longer damages robotic limbs (#3986)
   - qol: pAI with empty name field no longer can be saved (#3985)
   - add: Added ss_id for subsystems and Subsystem Breakdown (#3978)
+  - qol: Water tiles now extinguish burning mobs. (#3814)
   WolfLox:
   - tweak: rotation in ERT-vends, LWAP - normal, multi-immolator not usless  (#3970)
   Zwei:
@@ -51,3 +54,21 @@
   - refactor: Body Zones And Internal Organs Refactor (#3960)
   captainnelly:
   - balance: TC inflation (#3984)
+'2023-12-06':
+  Dimach:
+  - tweak: not reset jobs subsystem if not needed (#4001)
+  - bugfix: reset occupations after game mod probing (#4006)
+  Vladisvell:
+  - bugfix: fixed monkeycube exploit server crash (#4008)
+'2023-12-07':
+  Dimach:
+  - refactor: remove outdated procs (#4003)
+  Etrnlmelancholy:
+  - tweak: uplink price tweaks (#4009)
+  Vladisvell:
+  - bugfix: fixed Taipan lockers rendering (#4012)
+  - bugfix: fixed anomalies spawn on wrong spots, get_area_turfs fix (#4011)
+  Zwei:
+  - bugfix: No Comma In Cross Emote (#4015)
+  captainnelly:
+  - bugfix: TC inflation fixes (#4016)
