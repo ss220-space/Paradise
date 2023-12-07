@@ -640,7 +640,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	var/list/turfs = new/list()
 	for(var/area/N in world)
-		if(istype(N, areatype))
+		if(N.type == areatype)
 			for(var/turf/T in N) turfs += T
 	return turfs
 
