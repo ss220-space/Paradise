@@ -31,7 +31,7 @@
 	l_ear = /obj/item/radio/headset/syndicate/admin_officer
 	pda = /obj/item/pinpointer/advpinpointer
 	id = /obj/item/card/id/syndicate/command
-	box = /obj/item/storage/box/survival/syndicate
+	box = "syndicate"
 	backpack_contents = list(
 		/obj/item/flashlight = 1,
 		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1,

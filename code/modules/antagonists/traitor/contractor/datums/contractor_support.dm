@@ -32,7 +32,7 @@
 	l_ear = /obj/item/radio/headset/chameleon
 	id = /obj/item/card/id/syndicate
 	r_pocket = /obj/item/restraints/handcuffs/cable
-	box = /obj/item/storage/box/survival/syndicate
+	box = "syndicate"
 	backpack_contents = list(
 		/obj/item/clothing/mask/chameleon = 1,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,

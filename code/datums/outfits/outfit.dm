@@ -38,13 +38,15 @@
 	name = "Naked"
 
 /datum/outfit/proc/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	//to be overriden for customization depending on client prefs,species etc
-	var/obj/item/storage/box/survival/old_box = box
-	if(old_box?.design_type)
+	//to be overriden for customization depending on client prefs,species etc]
+	if(istext(box))
 		for(var/obj/item/storage/box/survival/new_box in subtypesof(/obj/item/storage/box/survival))
-			if((H.dna.species.name == new_box.target_species) && (old_box.design_type == new_box.design_type))
-				box = new_box
-				break
+			if(box == new_box.design_type)
+				if(new_box.target_species == "Universal")
+					box = new_box
+				if(H.dna.species.name == new_box.target_species)
+					box = new_box
+					break
 
 	return
 
