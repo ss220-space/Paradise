@@ -172,6 +172,8 @@
 //Presets for item actions
 /datum/action/item_action
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	/// Whether action trigger should call attack self proc.
+	var/attack_self = TRUE
 	var/use_itemicon = TRUE
 	var/action_initialisation_text = null	//Space ninja abilities only
 
@@ -189,7 +191,7 @@
 	I.actions -= src
 	return ..()
 
-/datum/action/item_action/Trigger(left_click = TRUE, attack_self = TRUE) //Maybe we don't want to click the thing itself
+/datum/action/item_action/Trigger(left_click = TRUE)
 	if(!..())
 		return FALSE
 	if(target && attack_self)
@@ -290,7 +292,7 @@
 /datum/action/item_action/toggle_welding_screen/plasmaman
 	name = "Toggle Welding Screen"
 
-/datum/action/item_action/toggle_welding_screen/plasmaman/Trigger(left_click = TRUE, attack_self = TRUE)
+/datum/action/item_action/toggle_welding_screen/plasmaman/Trigger(left_click = TRUE)
 	var/obj/item/clothing/head/helmet/space/plasmaman/H = target
 	if(istype(H))
 		H.toggle_welding_screen(owner)
@@ -306,7 +308,7 @@
 	desc = "Toggles if the club's blasts cause friendly fire."
 	button_icon_state = "vortex_ff_on"
 
-/datum/action/item_action/toggle_unfriendly_fire/Trigger(left_click = TRUE, attack_self = TRUE)
+/datum/action/item_action/toggle_unfriendly_fire/Trigger(left_click = TRUE)
 	if(..())
 		UpdateButtonIcon()
 
@@ -432,8 +434,9 @@
 
 /datum/action/item_action/remove_tape
 	name = "Remove Duct Tape"
+	attack_self = FALSE
 
-/datum/action/item_action/remove_tape/Trigger(left_click = TRUE, attack_self = FALSE)
+/datum/action/item_action/remove_tape/Trigger(left_click = TRUE)
 	if(..())
 		var/datum/component/ducttape/DT = target.GetComponent(/datum/component/ducttape)
 		DT.remove_tape(target, usr)
@@ -489,7 +492,7 @@
 	name = "Toggle Research Scanner"
 	button_icon_state = "scan_mode"
 
-/datum/action/item_action/toggle_research_scanner/Trigger(left_click = TRUE, attack_self = TRUE)
+/datum/action/item_action/toggle_research_scanner/Trigger(left_click = TRUE)
 	if(IsAvailable())
 		owner.research_scanner = !owner.research_scanner
 		to_chat(owner, "<span class='notice'>Research analyzer is now [owner.research_scanner ? "active" : "deactivated"].</span>")
@@ -511,7 +514,7 @@
 	name = "Use Instrument"
 	desc = "Use the instrument specified"
 
-/datum/action/item_action/instrument/Trigger(left_click = TRUE, attack_self = TRUE)
+/datum/action/item_action/instrument/Trigger(left_click = TRUE)
 	if(istype(target, /obj/item/instrument))
 		var/obj/item/instrument/I = target
 		I.interact(usr)
@@ -538,8 +541,9 @@
 /datum/action/item_action/gravity_jump
 	name = "Gravity jump"
 	desc = "Directs a pulse of gravity in front of the user, pulling them forward rapidly."
+	attack_self = FALSE
 
-/datum/action/item_action/gravity_jump/Trigger(left_click = TRUE, attack_self = FALSE)
+/datum/action/item_action/gravity_jump/Trigger(left_click = TRUE)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -575,7 +579,7 @@
 /datum/action/item_action/voice_changer/voice
 	name = "Set Voice"
 
-/datum/action/item_action/voice_changer/voice/Trigger(left_click = TRUE, attack_self = TRUE)
+/datum/action/item_action/voice_changer/voice/Trigger(left_click = TRUE)
 	if(!IsAvailable())
 		return FALSE
 

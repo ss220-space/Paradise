@@ -37,7 +37,7 @@
 	var/on_cooldown = FALSE
 
 
-/datum/action/item_action/agent_box/Trigger(left_click = TRUE, attack_self = TRUE)
+/datum/action/item_action/agent_box/Trigger(left_click = TRUE)
 	. = ..()
 	if(!.)
 		return FALSE
