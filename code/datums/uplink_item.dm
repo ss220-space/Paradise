@@ -1732,7 +1732,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "You will have your personal assistant. It comes with an increased amount of memory and special programs."
 	reference = "SPAI"
 	item = /obj/item/storage/box/syndie_kit/pai
-	cost = 20
+	cost = 35
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	refundable = TRUE
 	refund_path = /obj/item/paicard_upgrade/unused
@@ -1744,6 +1744,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "DDRL"
 	item = /obj/item/thermal_drill/diamond_drill
 	cost = 5
+
+/datum/uplink_item/device_tools/jackhammer
+	name = "Jackhammer"
+	desc = "A jackhammer for breaking stone. Or walls. Or skulls"
+	reference = "JCKH"
+	item = /obj/item/pickaxe/drill/jackhammer
+	cost = 15
 
 /datum/uplink_item/device_tools/medkit
 	name = "Syndicate Combat Medic Kit"
