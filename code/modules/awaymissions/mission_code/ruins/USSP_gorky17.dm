@@ -482,10 +482,7 @@
 	shoes = /obj/item/clothing/shoes/combat
 	l_ear = /obj/item/radio/headset/alt/soviet
 	r_pocket = /obj/item/flashlight/seclite
-
-	backpack_contents = list(
-		/obj/item/storage/box/soviet = 1
-	)
+	box = /obj/item/storage/box/survival/soviet
 
 /obj/effect/mob_spawn/human/corpse/usspconscript
 	mob_type = /mob/living/carbon/human

@@ -807,7 +807,7 @@
 /obj/structure/safe/floor{
 	known_by = list("captain")
 	},
-/obj/item/storage/box/survival_syndi,
+/obj/item/storage/box/survival/syndicate,
 /obj/item/storage/secure/briefcase/syndie,
 /obj/item/clothing/under/syndicate/tacticool,
 /obj/item/clothing/mask/balaclava,
@@ -6525,7 +6525,7 @@
 /obj/structure/table/reinforced{
 	color = "#444444"
 	},
-/obj/item/storage/box/survival_vox,
+/obj/item/storage/box/survival/vox/regular,
 /turf/simulated/floor/shuttle/objective_check/vox,
 /area/awaymission/spacebattle/syndicate2)
 "sI" = (
@@ -13181,9 +13181,9 @@
 /obj/item/storage/toolbox/emergency,
 /obj/item/storage/toolbox/emergency,
 /obj/item/storage/toolbox/emergency,
-/obj/item/storage/box/survival,
-/obj/item/storage/box/survival,
-/obj/item/storage/box/survival,
+/obj/item/storage/box/survival/regular,
+/obj/item/storage/box/survival/regular,
+/obj/item/storage/box/survival/regular,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
 "KF" = (

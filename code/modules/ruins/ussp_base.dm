@@ -34,13 +34,6 @@
 	rank = "Soviet General"
 	access = list(ACCESS_USSP_SECURITY, ACCESS_USSP_SCIENTIST, ACCESS_USSP_ENGINEERING, ACCESS_USSP_COMAND)
 
-/datum/outfit/ussp_general/pre_equip(mob/living/carbon/human/H)
-	if(H.dna.species)
-		var/race = H.dna.species.name
-		switch(race)
-			if("Human")
-				box = /obj/item/storage/box/soviet
-
 /datum/outfit/ussp_general
 	name = "Генерал СССП"
 	uniform = /obj/item/clothing/under/sovietofficer
@@ -54,6 +47,7 @@
 	r_pocket = /obj/item/ammo_box/magazine/pistolm9mm
 	id = /obj/item/card/id/ussp_general
 	implants = list(/obj/item/implant/weapons_auth)
+	box = /obj/item/storage/box/survival/soviet
 
 /datum/outfit/ussp_general/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -99,13 +93,6 @@
 	rank = "Soviet Engineer"
 	access = list(ACCESS_USSP_ENGINEERING)
 
-/datum/outfit/ussp_engineer/pre_equip(mob/living/carbon/human/H)
-	if(H.dna.species)
-		var/race = H.dna.species.name
-		switch(race)
-			if("Human")
-				box = /obj/item/storage/box/soviet
-
 /datum/outfit/ussp_engineer
 	name = "Инженер СССП"
 	uniform = /obj/item/clothing/under/soviet
@@ -117,6 +104,7 @@
 	id = /obj/item/card/id/ussp_engineer
 	belt = /obj/item/storage/belt/utility/full/multitool
 	glasses = /obj/item/clothing/glasses/welding
+	box = /obj/item/storage/box/survival/soviet
 
 /datum/outfit/ussp_engineer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -163,13 +151,6 @@
 	rank = "Soviet Soldier"
 	access = list(ACCESS_USSP_SECURITY)
 
-/datum/outfit/ussp_security/pre_equip(mob/living/carbon/human/H)
-	if(H.dna.species)
-		var/race = H.dna.species.name
-		switch(race)
-			if("Human")
-				box = /obj/item/storage/box/soviet
-
 /datum/outfit/ussp_security
 	name = "Сотрудник безопасности СССП"
 	uniform = /obj/item/clothing/under/soviet
@@ -182,6 +163,7 @@
 	r_pocket = /obj/item/gun/projectile/automatic/pistol
 	l_pocket = /obj/item/melee/classic_baton/telescopic
 	id = /obj/item/card/id/ussp_security
+	box = /obj/item/storage/box/survival/soviet
 
 /datum/outfit/ussp_security/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -218,13 +200,6 @@
 	min_hours = 10
 	exp_type = EXP_TYPE_LIVING
 
-/datum/outfit/ussp_scientist/pre_equip(mob/living/carbon/human/H)
-	if(H.dna.species)
-		var/race = H.dna.species.name
-		switch(race)
-			if("Human")
-				box = /obj/item/storage/box/soviet
-
 /datum/outfit/ussp_scientist
 	name = "Учёный СССП"
 	uniform = /obj/item/clothing/under/soviet
@@ -234,6 +209,7 @@
 	back = /obj/item/storage/backpack
 	r_pocket = /obj/item/stack/medical/bruise_pack
 	id = /obj/item/card/id/ussp_scientist
+	box = /obj/item/storage/box/survival/soviet
 
 /datum/outfit/ussp_scientist/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()

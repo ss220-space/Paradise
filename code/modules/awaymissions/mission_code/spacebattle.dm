@@ -577,19 +577,19 @@
 		if(1 to 7) //70%
 			suit_store = /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
 			backpack_contents = list(
-				/obj/item/storage/box/survival = 1,
+				/obj/item/storage/box/survival/regular = 1,
 				/obj/item/ammo_box/magazine/enforcer/lethal = 1
 				)
 		if(8 to 9) //20%
 			suit_store = /obj/item/gun/projectile/automatic/wt550
 			backpack_contents = list(
-				/obj/item/storage/box/survival = 1,
+				/obj/item/storage/box/survival/regular = 1,
 				/obj/item/ammo_box/magazine/wt550m9 = 1
 				)
 		if(10) //10%
 			suit_store = /obj/item/gun/projectile/shotgun/riot/buckshot
 			backpack_contents = list(
-				/obj/item/storage/box/survival = 1,
+				/obj/item/storage/box/survival/regular = 1,
 				/obj/item/ammo_box/shotgun/buck = 1
 				)
 	return ..()
@@ -608,7 +608,7 @@
 	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
 	gloves = /obj/item/clothing/gloves/color/fyellow/old
 	back = /obj/item/storage/backpack/duffel/engineering
-	backpack_contents = /obj/item/storage/box/engineer
+	backpack_contents = /obj/item/storage/box/survival/engineer
 
 /obj/effect/mob_spawn/human/corpse/spacebattle/engineer/Initialize()
 	var/engstaff = rand(1,3)

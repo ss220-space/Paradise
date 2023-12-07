@@ -168,6 +168,8 @@
 	var/tmp/list/gear_leftovers = list()
 
 /datum/outfit/job/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+
 	if(allow_backbag_choice)
 		switch(H.backbag)
 			if(GBACKPACK)
@@ -184,9 +186,6 @@
 				back = dufflebag //Department dufflebag
 			else
 				back = backpack //Department backpack
-
-	if(box && H.dna.species.speciesbox)
-		box = H.dna.species.speciesbox
 
 	if(allow_loadout && H.client && (H.client.prefs.loadout_gear && H.client.prefs.loadout_gear.len))
 		for(var/gear in H.client.prefs.loadout_gear)

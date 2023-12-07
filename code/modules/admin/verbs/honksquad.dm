@@ -101,14 +101,14 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 	SSticker.mode.traitors |= new_honksquad.mind//Adds them to current traitor list. Which is really the extra antagonist list.
 	new_honksquad.equip_honksquad(honk_leader_selected, rankName)
 	return new_honksquad
-
+//HEREHEREHERE
 /mob/living/carbon/human/proc/equip_honksquad(honk_leader_selected = 0, var/rankName)
 
 	var/obj/item/radio/R = new /obj/item/radio/headset(src)
 	R.set_frequency(1442)
 	equip_to_slot_or_del(R, slot_l_ear)
 	equip_to_slot_or_del(new /obj/item/storage/backpack/clown(src), slot_back)
-	equip_to_slot_or_del(new /obj/item/storage/box/survival(src), slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/storage/box/survival/regular(src), slot_in_backpack)
 	if(src.gender == FEMALE)
 		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat/sexy(src), slot_wear_mask)
 		equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown/sexy(src), slot_w_uniform)

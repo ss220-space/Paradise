@@ -25,7 +25,7 @@
 	var/pda = null
 	var/internals_slot = null //ID of slot containing a gas tank
 	var/list/backpack_contents = list() // In the list(path=count,otherpath=count) format
-	var/box // Internals box. Will be inserted at the start of backpack_contents
+	var/box = null	// Internals box. Will be inserted at the start of backpack_contents
 	var/list/implants = list()
 	var/list/cybernetic_implants = list()
 	var/list/accessories = list()
@@ -39,6 +39,13 @@
 
 /datum/outfit/proc/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	//to be overriden for customization depending on client prefs,species etc
+	var/obj/item/storage/box/survival/old_box = box
+	if(old_box?.design_type)
+		for(var/obj/item/storage/box/survival/new_box in subtypesof(/obj/item/storage/box/survival))
+			if((H.dna.species.name == new_box.target_species) && (old_box.design_type == new_box.design_type))
+				box = new_box
+				break
+
 	return
 
 // Used to equip an item to the mob. Mainly to prevent copypasta for collect_not_del.

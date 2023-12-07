@@ -17926,7 +17926,7 @@
 	pixel_x = 6;
 	pixel_y = -6
 	},
-/obj/item/storage/box/centcomofficer,
+/obj/item/storage/box/survival/centcomm,
 /obj/item/clothing/head/beret/centcom/officer,
 /turf/simulated/floor/indestructible{
 	icon_state = "woodalt"
@@ -23869,7 +23869,7 @@
 /obj/structure/closet/cabinet{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
-/obj/item/storage/box/centcomofficer,
+/obj/item/storage/box/survival/centcomm,
 /obj/item/radio/headset/centcom{
 	desc = null;
 	name = "Supreme commander bowman headset"
@@ -25548,7 +25548,7 @@
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	req_access = list(114)
 	},
-/obj/item/storage/box/centcomofficer,
+/obj/item/storage/box/survival/centcomm,
 /obj/item/radio/headset/centcom{
 	desc = null;
 	name = "Supreme commander bowman headset"
@@ -29627,7 +29627,7 @@
 	req_access = list(114)
 	},
 /obj/item/clothing/head/beret/centcom/officer,
-/obj/item/storage/box/centcomofficer,
+/obj/item/storage/box/survival/centcomm,
 /obj/item/radio/headset/centcom,
 /obj/item/clothing/under/suit_jacket/navy,
 /obj/item/clothing/suit/space/deathsquad/officer/field,

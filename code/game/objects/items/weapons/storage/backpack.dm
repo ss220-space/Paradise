@@ -142,7 +142,7 @@
 	new /obj/item/clothing/mask/chameleon(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/pda/clown(src)
-	new /obj/item/storage/box/survival(src)
+	new /obj/item/storage/box/survival/regular(src)
 	new /obj/item/reagent_containers/food/snacks/grown/banana(src)
 	new /obj/item/stamp/clown(src)
 	new /obj/item/toy/crayon/rainbow(src)

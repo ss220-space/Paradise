@@ -89,8 +89,6 @@
 		"задерживает дыхание!",
 		"глубоко вдыхает кислород!")
 
-	speciesbox = /obj/item/storage/box/survival_vox
-
 	toxic_food = NONE
 	disliked_food = NONE //According to lore voxes does not care about food. Food is food.
 	liked_food = NONE

@@ -80,8 +80,6 @@
 
 	var/datum/action/innate/change_monitor/monitor
 
-	speciesbox = /obj/item/storage/box/survival_machine
-
 	liked_food = NONE
 	disliked_food = NONE
 	toxic_food = NONE

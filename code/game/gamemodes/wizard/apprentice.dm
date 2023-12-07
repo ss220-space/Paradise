@@ -10,7 +10,7 @@
 	var/infinity_uses = 0
 
 /////////Apprentice Contract//////////
-
+///HEREHEREHERE
 /obj/item/contract/apprentice
 	name = "apprentice contract"
 	desc = "A magic contract previously signed by an apprentice. In exchange for instruction in the magical arts, they are bound to answer your call for aid."
@@ -52,7 +52,7 @@
 				apprentice.equip_or_collect(new /obj/item/clothing/suit/wizrobe(apprentice), slot_wear_suit)
 				apprentice.equip_or_collect(new /obj/item/clothing/head/wizard(apprentice), slot_head)
 				apprentice.equip_or_collect(new /obj/item/storage/backpack/satchel(apprentice), slot_back)
-				apprentice.equip_or_collect(new /obj/item/storage/box/survival(apprentice), slot_in_backpack)
+				apprentice.equip_or_collect(new /obj/item/storage/box/survival/regular(apprentice), slot_in_backpack)
 				apprentice.equip_or_collect(new /obj/item/teleportation_scroll/apprentice(apprentice), slot_r_store)
 				var/wizard_name_first = pick(GLOB.wizard_first)
 				var/wizard_name_second = pick(GLOB.wizard_second)

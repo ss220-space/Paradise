@@ -4,6 +4,19 @@
 	var/target_species = null
 	var/design_type = null
 
+/obj/item/storage/box/survival/machine
+	name = "IPC maintenance kit"
+	icon_state = "box_machine"
+	target_species = "machine"
+
+/obj/item/storage/box/survival/plasmaman
+	icon_state = "box_plasma"
+	target_species = "plasmaman"
+
+/obj/item/storage/box/survival/vox
+	icon_state = "box_vox"
+	target_species = "vox"
+
 // STANDART BOXES
 
 /obj/item/storage/box/survival/regular
@@ -16,18 +29,16 @@
 	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
-/obj/item/storage/box/survival/machine
-	icon_state = "box_machine"
-	target_species = "machine"
+/obj/item/storage/box/survival/machine/regular
+	design_type = "civillian"
 
 /obj/item/storage/box/survival/machine/populate_contents()
 	new /obj/item/weldingtool(src)
 	new /obj/item/stack/cable_coil/random(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
-/obj/item/storage/box/survival/plasmaman
-	icon_state = "box_plasma"
-	target_species = "plasmaman"
+/obj/item/storage/box/survival/plasmaman/regular
+	design_type = "civillian"
 
 /obj/item/storage/box/survival/plasmaman/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
@@ -35,9 +46,8 @@
 	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
-/obj/item/storage/box/survival/vox
-	icon_state = "box_vox"
-	target_species = "vox"
+/obj/item/storage/box/survival/vox/regular
+	design_type = "civillian"
 
 /obj/item/storage/box/survival/vox/populate_contents()
 	new /obj/item/clothing/mask/breath/vox(src)
@@ -188,15 +198,12 @@
 	design_type = "officer"
 
 /obj/item/storage/box/survival/machine/security/officer
-	icon_state = "box_machine"
 	design_type = "officer"
 
 /obj/item/storage/box/survival/plasmaman/security/officer
-	icon_state = "box_plasma"
 	design_type = "officer"
 
 /obj/item/storage/box/survival/vox/security/officer
-	icon_state = "box_vox"
 	design_type = "officer"
 
 /obj/item/storage/box/survival/security/hos
@@ -204,7 +211,6 @@
 	design_type = "hos"
 
 /obj/item/storage/box/survival/machine/security/hos
-	icon_state = "box_machine"
 	design_type = "hos"
 
 /obj/item/storage/box/survival/plasmaman/security/hos
@@ -369,7 +375,7 @@
 	design_type = "syndicate"
 	can_hold = list(/obj/item/clothing/mask/gas/syndicate)
 
-/obj/item/storage/box/survival/machine/security/populate_contents()
+/obj/item/storage/box/survival/machine/syndicate/populate_contents()
 	new /obj/item/crowbar/red/sec(src)
 	new /obj/item/weldingtool(src)
 	new /obj/item/stack/cable_coil/random(src)
@@ -379,7 +385,7 @@
 	design_type = "syndicate"
 	can_hold = list(/obj/item/clothing/mask/gas/syndicate)
 
-/obj/item/storage/box/survival/plasmaman/security/populate_contents()
+/obj/item/storage/box/survival/plasmaman/syndicate/populate_contents()
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/tank/internals/plasmaman/belt(src)
 	new /obj/item/crowbar/red/sec(src)
@@ -391,7 +397,7 @@
 	design_type = "syndicate"
 	can_hold = list(/obj/item/clothing/mask/gas/syndicate)
 
-/obj/item/storage/box/survival/vox/security/populate_contents()
+/obj/item/storage/box/survival/vox/syndicate/populate_contents()
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/tank/internals/emergency_oxygen/double/vox(src)
 	new /obj/item/crowbar/red/sec(src)
@@ -408,7 +414,7 @@
 	storage_slots = 14
 	max_combined_w_class = 20
 
-/obj/item/storage/box/centcomofficer/populate_contents()
+/obj/item/storage/box/survival/centcomm/populate_contents()
 	new /obj/item/clothing/mask/gas/sechailer(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
 	new /obj/item/flashlight/seclite(src)
@@ -486,7 +492,7 @@
 	new /obj/item/crowbar/red(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/radio/centcom(src)
-	new /obj/item/storage/firstaid/crew/ert(src)
+	new /obj/item/storage/firstaid/crew/combat(src)
 
 /obj/item/storage/box/survival/machine/ert
 	design_type = "ert"
@@ -510,7 +516,7 @@
 	new /obj/item/crowbar/red(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/radio/centcom(src)
-	new /obj/item/storage/firstaid/crew/ert(src)
+	new /obj/item/storage/firstaid/crew/combat(src)
 
 /obj/item/storage/box/survival/vox/ert
 	design_type = "ert"
@@ -522,7 +528,7 @@
 	new /obj/item/crowbar/red(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/radio/centcom(src)
-	new /obj/item/storage/firstaid/crew/ert(src)
+	new /obj/item/storage/firstaid/crew/combat(src)
 
 /obj/item/storage/box/survival/soviet
 	desc = "A standard issue Soviet military survival kit."

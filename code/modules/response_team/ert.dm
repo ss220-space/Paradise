@@ -322,7 +322,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	pda = /obj/item/pda/heads/ert
 	id = /obj/item/card/id/ert
 	l_ear = /obj/item/radio/headset/ert/alt
-	box = /obj/item/storage/box/responseteam
+	box = /obj/item/storage/box/survival/ert
 
 	implants = list(/obj/item/implant/mindshield/ert)
 
