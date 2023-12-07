@@ -358,7 +358,7 @@
 	var/list/obj/item/stuff_to_transfer = list()
 
 	// Cybernetic implants get removed first (to deal with NODROP stuff)
-	for(var/obj/item/organ/internal/cyberimp/I as anything in H.internal_organs)
+	for(var/obj/item/organ/internal/cyberimp/I in H.internal_organs)
 		// Greys get to keep their implant
 		if(isgrey(H) && istype(I, /obj/item/organ/internal/cyberimp/brain/speech_translator))
 			continue
