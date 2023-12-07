@@ -135,6 +135,8 @@
 /datum/emote/flip/run_emote(mob/living/carbon/human/user, params, type_override, intentional)
 
 	if(isobserver(user))
+		if(user.orbiting)
+			user.stop_orbit()
 		user.SpinAnimation(5, 1)
 		return TRUE
 
@@ -192,7 +194,13 @@
 	if(!.)
 		return FALSE
 
-	if(!ishuman(user) || isobserver(user) || prob(95))
+	if(isobserver(user))
+		if(user.orbiting)
+			user.stop_orbit()
+		user.spin(20, 1)
+		return TRUE
+
+	if(!ishuman(user) || prob(95))
 		user.spin(20, 1)
 		return TRUE
 
@@ -202,3 +210,4 @@
 	if(isliving(user))
 		user.Dizzy(24 SECONDS)
 		user.Confused(24 SECONDS)
+
