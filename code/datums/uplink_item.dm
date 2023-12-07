@@ -1748,7 +1748,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/device_tools/jackhammer
 	name = "Jackhammer"
 	desc = "A jackhammer for breaking stone. Or walls. Or skulls"
-	refernce = "JCKH"
+	reference = "JCKH"
 	item = /obj/item/pickaxe/drill/jackhammer
 	cost = 15
 
