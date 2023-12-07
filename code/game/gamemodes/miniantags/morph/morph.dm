@@ -113,8 +113,12 @@
 
 /mob/living/simple_animal/hostile/morph/wizard/New()
 	. = ..()
-	AddSpell(new /obj/effect/proc_holder/spell/smoke)
-	AddSpell(new /obj/effect/proc_holder/spell/forcewall)
+	var/obj/effect/proc_holder/spell/smoke/smoke = new
+	var/obj/effect/proc_holder/spell/forcewall/forcewall = new
+	smoke.human_req = FALSE
+	forcewall.human_req = FALSE
+	AddSpell(smoke)
+	AddSpell(forcewall)
 
 
 /mob/living/simple_animal/hostile/morph/proc/try_eat(atom/movable/item)
