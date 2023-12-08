@@ -197,6 +197,7 @@
 		icon_state = initial(icon_state)
 
 /obj/item/detonator/attack_self(mob/user)
+	playsound(src, 'sound/items/detonator.ogg', 40)
 	if(bombs.len)
 		to_chat(user, span_notice("Activating explosives..."))
 		for(var/obj/item/grenade/plastic/miningcharge/charge in bombs)
