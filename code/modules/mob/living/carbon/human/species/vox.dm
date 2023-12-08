@@ -19,6 +19,7 @@
 
 	bonefragility = 1.2 //20% more chance to break bones. Fragile bird bones.
 
+	speciesbox = TRUE
 	breathid = "n2"
 
 	eyes = "vox_eyes_s"

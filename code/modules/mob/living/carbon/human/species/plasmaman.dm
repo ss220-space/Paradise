@@ -19,6 +19,7 @@
 
 	butt_sprite = "plasma"
 
+	speciesbox = TRUE
 	breathid = "tox"
 
 	brute_mod = 0.9

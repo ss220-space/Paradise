@@ -92,6 +92,7 @@
 
 	var/list/species_traits = list()
 
+	var/speciesbox = FALSE	// Set to TRUE, if your species using exotic emergency boxes. More info: `code\game\objects\items\weapons\storage\emergency_boxes.dm`
 	var/breathid = "o2"
 
 	var/clothing_flags = 0 // Underwear and socks.

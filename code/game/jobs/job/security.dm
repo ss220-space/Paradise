@@ -51,7 +51,7 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
-	box = "security"
+	box = /obj/item/storage/box/survival/security
 
 
 
@@ -100,7 +100,7 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
-	box = "security"
+	box = /obj/item/storage/box/survival/security
 
 
 
@@ -144,7 +144,7 @@
 		/obj/item/melee/classic_baton/telescopic = 1
 	)
 	satchel = /obj/item/storage/backpack/satchel_detective
-	box = "security"
+	box = /obj/item/storage/box/survival/security
 
 	implants = list(/obj/item/implant/mindshield)
 
@@ -204,7 +204,7 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
-	box = "security"
+	box = /obj/item/storage/box/survival/security
 
 /datum/outfit/job/officer/cadet
 	name = "Security Cadet"
@@ -214,7 +214,7 @@
 	l_pocket = /obj/item/reagent_containers/spray/pepper
 	r_pocket = /obj/item/paper/deltainfo
 	suit_store = /obj/item/gun/energy/gun/advtaser
-	box = "security"
+	box = /obj/item/storage/box/survival/security
 
 /datum/outfit/job/officer/cadet/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -301,4 +301,4 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
-	box = "security"
+	box = /obj/item/storage/box/survival/security

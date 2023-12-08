@@ -163,7 +163,7 @@
 	var/backpack = /obj/item/storage/backpack
 	var/satchel = /obj/item/storage/backpack/satchel_norm
 	var/dufflebag = /obj/item/storage/backpack/duffel
-	box = "civillian"
+	box = /obj/item/storage/box/survival/regular
 
 	var/tmp/list/gear_leftovers = list()
 

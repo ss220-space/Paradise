@@ -1,15 +1,22 @@
+/*	If you want to ...
+1. ...	use different sprite for your box on specific role - just make it inside Initialize() of chosen box.
+2. ...	make a boxes for new species, then make new "species" sub-type for every "emergency box" sub-type.
+		Example: `/obj/item/storage/box/survival/regular/my_new_cool_species`
+3. ...	create new type of boxes, then make it directly from `/obj/item/storage/box/survival/...`and don't forget to make
+		"species" sub-types from every "exotic box user" species, if your new box will be able to be used by other species.
+		Example: `/obj/item/storage/box/survival/my_new_cool_box/plasmaman`
+
+	Exotic box users: Machine, Plasmaman, Vox.
+*/
 
 /obj/item/storage/box/survival
 	name = "boxed survival kit"
-	var/list/banned_species = list("Machine", "Plasmaman", "Vox")
-	var/target_species = null
-	var/design_type = null
-
+	var/target_species = null	// Put here the name of species, what uses exotic emergency boxes.
+								// Don't forget to set `speciesbox = FALSE` in species.
 // STANDART BOXES
 
 /obj/item/storage/box/survival/regular
 	icon_state = "box_civ"
-	design_type = "civillian"
 
 /obj/item/storage/box/survival/regular/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
@@ -22,11 +29,11 @@
 	if(istype(loc, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = loc
 		if(H.mind?.assigned_role == "Brig Physician")
-			icon_state = "[icon_state]_brigphys"
+			icon_state = "[icon_state]_bm"
 
 /obj/item/storage/box/survival/regular/machine
 	name = "IPC maintenance kit"
-	icon_state = "box_machine"
+	icon_state = "box_civ_machine"
 	target_species = "Machine"
 
 /obj/item/storage/box/survival/regular/machine/populate_contents()
@@ -35,7 +42,7 @@
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/survival/regular/plasmaman
-	icon_state = "box_plasma"
+	icon_state = "box_civ_plasma"
 	target_species = "Plasmaman"
 
 /obj/item/storage/box/survival/regular/plasmaman/populate_contents()
@@ -45,7 +52,7 @@
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/survival/regular/vox
-	icon_state = "box_vox"
+	icon_state = "box_civ_vox"
 	target_species = "Vox"
 
 /obj/item/storage/box/survival/regular/vox/populate_contents()
@@ -56,7 +63,6 @@
 
 /obj/item/storage/box/survival/engineer
 	icon_state = "box_eng"
-	design_type = "engineer"
 
 /obj/item/storage/box/survival/engineer/populate_contents()
 	new /obj/item/clothing/mask/breath( src )
@@ -66,7 +72,7 @@
 
 /obj/item/storage/box/survival/engineer/machine
 	name = "IPC maintenance kit"
-	icon_state = "box_machine"
+	icon_state = "box_eng_machine"
 	target_species = "Machine"
 
 /obj/item/storage/box/survival/engineer/machine/populate_contents()
@@ -75,7 +81,7 @@
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/survival/engineer/plasmaman
-	icon_state = "box_plasma"
+	icon_state = "box_eng_plasma"
 	target_species = "Plasmaman"
 
 /obj/item/storage/box/survival/engineer/plasmaman/populate_contents()
@@ -85,7 +91,7 @@
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/survival/engineer/vox
-	icon_state = "box_vox"
+	icon_state = "box_eng_vox"
 	target_species = "Vox"
 
 /obj/item/storage/box/survival/engineer/vox/populate_contents()
@@ -96,7 +102,6 @@
 
 /obj/item/storage/box/survival/miner
 	icon_state = "box_min"
-	design_type = "miner"
 
 /obj/item/storage/box/survival/miner/populate_contents()
 	new /obj/item/clothing/mask/gas/explorer(src)
@@ -106,7 +111,7 @@
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/survival/miner/machine
-	icon_state = "box_machine"
+	icon_state = "box_min_machine"
 	target_species = "Machine"
 
 /obj/item/storage/box/survival/miner/machine/populate_contents()
@@ -116,7 +121,7 @@
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/survival/miner/plasmaman
-	icon_state = "box_plasma"
+	icon_state = "box_min_plasma"
 	target_species = "Plasmaman"
 
 /obj/item/storage/box/survival/miner/plasmaman/populate_contents()
@@ -127,7 +132,7 @@
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/survival/miner/vox
-	icon_state = "box_vox"
+	icon_state = "box_min_vox"
 	target_species = "Vox"
 
 /obj/item/storage/box/survival/miner/vox/populate_contents()
@@ -141,7 +146,6 @@
 
 /obj/item/storage/box/survival/security
 	icon_state = "box_sec"
-	design_type = "security"
 	can_hold = list(/obj/item/clothing/mask/gas/sechailer)
 
 /obj/item/storage/box/survival/security/populate_contents()
@@ -160,16 +164,17 @@
 			if("Head of Security")
 				icon_state = "[icon_state]_hos"
 			if("Security Cadet")
-				icon_state = "[icon_state]_cadet"
+				icon_state = "[icon_state]_cad"
 			if("Warden")
-				icon_state = "[icon_state]_warden"
+				icon_state = "[icon_state]_war"
 			if("Pilot")
-				icon_state = "[icon_state]_pilot"
+				icon_state = "[icon_state]_pil"
 			if("Detective")
-				icon_state = "[icon_state]_detective"
+				icon_state = "[icon_state]_det"
 
 /obj/item/storage/box/survival/security/machine
 	name = "IPC maintenance kit"
+	icon_state = "box_sec_machine"
 	target_species = "Machine"
 
 /obj/item/storage/box/survival/security/machine/populate_contents()
@@ -180,6 +185,7 @@
 	new /obj/item/radio/sec(src)
 
 /obj/item/storage/box/survival/security/plasmaman
+	icon_state = "box_sec_plasma"
 	target_species = "Plasmaman"
 
 /obj/item/storage/box/survival/security/plasmaman/populate_contents()
@@ -191,6 +197,7 @@
 	new /obj/item/radio/sec(src)
 
 /obj/item/storage/box/survival/security/vox
+	icon_state = "box_sec_vox"
 	target_species = "Vox"
 
 /obj/item/storage/box/survival/security/vox/populate_contents()
@@ -204,8 +211,7 @@
 // PROCEDURE BOXES
 
 /obj/item/storage/box/survival/procedure
-	icon_state = "box_avd"
-	design_type = "procedure"
+	icon_state = "box_pro"
 
 /obj/item/storage/box/survival/procedure/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
@@ -221,9 +227,11 @@
 	if(istype(loc, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = loc
 		if(H.mind?.assigned_role == "Magistrate")
-			icon_state = "[icon_state]_magistrate"
+			icon_state = "[icon_state]_mag"
 
 /obj/item/storage/box/survival/procedure/machine
+	name = "IPC maintenance kit"
+	icon_state = "box_pro_machine"
 	target_species = "Machine"
 
 /obj/item/storage/box/survival/procedure/machine/populate_contents()
@@ -235,6 +243,7 @@
 	new /obj/item/camera(src)
 
 /obj/item/storage/box/survival/procedure/plasmaman
+	icon_state = "box_pro_plasma"
 	target_species = "Plasmaman"
 
 /obj/item/storage/box/survival/procedure/plasmaman/populate_contents()
@@ -247,6 +256,7 @@
 	new /obj/item/camera(src)
 
 /obj/item/storage/box/survival/procedure/vox
+	icon_state = "box_pro_vox"
 	target_species = "Vox"
 
 /obj/item/storage/box/survival/procedure/vox/populate_contents()
@@ -262,7 +272,6 @@
 
 /obj/item/storage/box/survival/syndicate
 	icon_state = "box_syndi"
-	design_type = "syndicate"
 	can_hold = list(/obj/item/clothing/mask/gas/syndicate)
 
 /obj/item/storage/box/survival/syndicate/populate_contents()
@@ -274,6 +283,8 @@
 	new /obj/item/flashlight/flare/glowstick/red(src)
 
 /obj/item/storage/box/survival/syndicate/machine
+	name = "IPC maintenance kit"
+	icon_state = "box_syndi_machine"
 	target_species = "Machine"
 
 /obj/item/storage/box/survival/syndicate/machine/populate_contents()
@@ -283,6 +294,7 @@
 	new /obj/item/flashlight/flare/glowstick/red(src)
 
 /obj/item/storage/box/survival/syndicate/plasmaman
+	icon_state = "box_syndi_plasma"
 	target_species = "Plasmaman"
 
 /obj/item/storage/box/survival/syndicate/plasmaman/populate_contents()
@@ -294,6 +306,7 @@
 	new /obj/item/flashlight/flare/glowstick/red(src)
 
 /obj/item/storage/box/survival/syndicate/vox
+	icon_state = "box_syndi_vox"
 	target_species = "Vox"
 
 /obj/item/storage/box/survival/syndicate/vox/populate_contents()
@@ -308,8 +321,7 @@
 
 /obj/item/storage/box/survival/centcomm
 	name = "officer kit"
-	icon_state = "box_ert"
-	design_type = "centcomm"
+	icon_state = "box_cc"
 	storage_slots = 14
 	max_combined_w_class = 20
 	can_hold = list(/obj/item/clothing/mask/gas/sechailer)
@@ -327,6 +339,7 @@
 	new /obj/item/pinpointer/crew/centcom(src)
 
 /obj/item/storage/box/survival/centcomm/machine
+	icon_state = "box_cc_machine"
 	target_species = "Machine"
 
 /obj/item/storage/box/survival/centcomm/machine/populate_contents()
@@ -340,6 +353,7 @@
 	new /obj/item/pinpointer/crew/centcom(src)
 
 /obj/item/storage/box/survival/centcomm/plasmaman
+	icon_state = "box_cc_plasma"
 	target_species = "Plasmaman"
 
 /obj/item/storage/box/survival/centcomm/plasmaman/populate_contents()
@@ -355,6 +369,7 @@
 	new /obj/item/pinpointer/crew/centcom(src)
 
 /obj/item/storage/box/survival/centcomm/vox
+	icon_state = "box_cc_vox"
 	target_species = "Vox"
 
 /obj/item/storage/box/survival/centcomm/vox/populate_contents()
@@ -371,7 +386,6 @@
 
 /obj/item/storage/box/survival/ert
 	icon_state = "box_ert"
-	design_type = "ert"
 	can_hold = list(/obj/item/clothing/mask/gas/sechailer)
 
 /obj/item/storage/box/survival/ert/populate_contents()
@@ -384,6 +398,8 @@
 	new /obj/item/storage/firstaid/crew/combat(src)
 
 /obj/item/storage/box/survival/ert/machine
+	name = "IPC maintenance kit"
+	icon_state = "box_ert_machine"
 	target_species = "Machine"
 
 /obj/item/storage/box/survival/ert/machine/populate_contents()
@@ -396,6 +412,7 @@
 	new /obj/item/stack/nanopaste(src)
 
 /obj/item/storage/box/survival/ert/plasmaman
+	icon_state = "box_ert_plasma"
 	target_species = "Plasmaman"
 
 /obj/item/storage/box/survival/ert/plasmaman/populate_contents()
@@ -408,6 +425,7 @@
 	new /obj/item/storage/firstaid/crew/combat(src)
 
 /obj/item/storage/box/survival/ert/vox
+	icon_state = "box_ert_vox"
 	target_species = "Vox"
 
 /obj/item/storage/box/survival/ert/vox/populate_contents()
@@ -422,7 +440,6 @@
 /obj/item/storage/box/survival/soviet
 	desc = "A standard issue Soviet military survival kit."
 	icon_state = "box_soviet"
-	banned_species = list()
 
 /obj/item/storage/box/survival/soviet/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
