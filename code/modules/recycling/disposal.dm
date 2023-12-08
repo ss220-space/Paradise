@@ -1461,7 +1461,7 @@
 		var/obj/structure/disposalconstruct/C = new (src.loc)
 		C.ptype = PIPE_DISPOSALS_OUTLET
 		C.update()
-		C.anchored = TRUE
+		C.anchored = FALSE
 		C.density = TRUE
 		transfer_fingerprints_to(C)
 		qdel(src)
@@ -1482,7 +1482,8 @@
 	C.update()
 	C.anchored = 0
 	C.density = 1
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)
 
 // called when movable is expelled from a disposal pipe or outlet
 // by default does nothing, override for special behaviour
