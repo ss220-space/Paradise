@@ -339,3 +339,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 	to_chat(world, endtext)
 	..()
+
+
+/proc/is_cultist(mob/living/user)
+	return istype(user) && user.mind && SSticker && SSticker.mode && (user.mind in SSticker.mode.cult)
+

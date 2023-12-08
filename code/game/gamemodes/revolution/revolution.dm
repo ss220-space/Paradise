@@ -400,3 +400,12 @@
 	dat += "<HR>"
 
 	return dat
+
+
+/proc/is_revolutionary(mob/living/user)
+	return istype(user) && user.mind && SSticker && SSticker.mode && (user.mind in SSticker.mode.revolutionaries)
+
+
+/proc/is_head_revolutionary(mob/living/user)
+	return istype(user) && user.mind && SSticker && SSticker.mode && (user.mind in SSticker.mode.head_revolutionaries)
+

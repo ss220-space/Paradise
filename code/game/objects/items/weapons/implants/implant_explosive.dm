@@ -1,179 +1,158 @@
 /obj/item/implant/explosive
-	name = "microbomb implant"
+	name = "microbomb bio-chip"
 	desc = "And boom goes the weasel."
 	icon_state = "explosive"
 	origin_tech = "materials=2;combat=3;biotech=4;syndicate=4"
-	actions_types = list(/datum/action/item_action/bomb_imp/activate)
+	implant_state = "implant-syndicate"
+	activated = BIOCHIP_ACTIVATED_ACTIVE
+	actions_types = list(/datum/action/item_action/hands_free/activate/always)
+	trigger_causes = BIOCHIP_TRIGGER_DEATH_ONCE // Not surviving that
+	implant_data = /datum/implant_fluff/explosive
+	var/detonating = FALSE
 	var/weak = 2
 	var/medium = 0.8
 	var/heavy = 0.4
-	var/delay = 7
+	var/delay = (0.7 SECONDS)
 
-/obj/item/implant/explosive/get_data()
-	var/dat = {"<b>Implant Specifications:</b><BR>
-				<b>Name:</b> Robust Corp RX-78 Employee Management Implant<BR>
-				<b>Life:</b> Activates upon death.<BR>
-				<b>Important Notes:</b> Explodes<BR>
-				<HR>
-				<b>Implant Details:</b><BR>
-				<b>Function:</b> Contains a compact, electrically detonated explosive that detonates upon receiving a specially encoded signal or upon host death.<BR>
-				<b>Special Features:</b> Explodes<BR>
-				"}
-	return dat
 
-/obj/item/implant/explosive/trigger(emote, mob/source, force)
-	if(force && emote == "deathgasp")
-		activate("death")
+/obj/item/implant/explosive/death_trigger(mob/source, gibbed)
+	activate("death")
+
 
 /obj/item/implant/explosive/activate(cause)
-	if(!cause || !imp_in)
+	if(!cause || QDELETED(imp_in))
 		return FALSE
-	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your microbomb implant? This will cause you to explode!", "Microbomb Implant Confirmation", "Yes", "No") != "Yes")
+	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your microbomb bio-chip? This will cause you to explode!", "Microbomb Bio-chip Confirmation", "Yes", "No") != "Yes")
 		return FALSE
+	if(detonating)
+		return FALSE
+
 	heavy = round(heavy)
 	medium = round(medium)
 	weak = round(weak)
-	to_chat(imp_in, "<span class='notice'>You activate your microbomb implant.</span>")
-//If the delay is short, just blow up already jeez
-	if(delay <= 7)
-		explosion(src,heavy,medium,weak,weak, flame_range = weak, cause = src)
-		if(imp_in)
-			imp_in.gib()
-		qdel(src)
+	detonating = TRUE
+	to_chat(imp_in, span_danger("You activate your microbomb bio-chip."))
+
+	if(delay <= 7)	//If the delay is short, just blow up already jeez
+		self_destruct()
 		return
+
 	timed_explosion()
 
-/obj/item/implant/explosive/implant(mob/source)
-	var/obj/item/implant/explosive/imp_e = locate(src.type) in source
-	if(imp_e && imp_e != src)
-		imp_e.heavy += heavy
-		imp_e.medium += medium
-		imp_e.weak += weak
-		imp_e.delay += delay
-		qdel(src)
-		return TRUE
 
-	return ..()
+/**
+ * Gib the implantee and delete their destructible contents.
+ */
+/obj/item/implant/explosive/proc/self_destruct()
+	if(QDELETED(imp_in))
+		return
 
-/obj/item/implant/explosive/proc/timed_explosion()
-	imp_in.visible_message("<span class = 'warning'>[imp_in] starts beeping ominously!</span>")
-	playsound(loc, 'sound/items/timer.ogg', 30, 0)
-	sleep(delay/4)
-	if(imp_in && imp_in.stat)
-		imp_in.visible_message("<span class = 'warning'>[imp_in] doubles over in pain!</span>")
-		imp_in.Weaken(14 SECONDS)
-	playsound(loc, 'sound/items/timer.ogg', 30, 0)
-	sleep(delay/4)
-	playsound(loc, 'sound/items/timer.ogg', 30, 0)
-	sleep(delay/4)
-	playsound(loc, 'sound/items/timer.ogg', 30, 0)
-	sleep(delay/4)
-	explosion(src,heavy,medium,weak,weak, flame_range = weak, cause = src)
-	if(imp_in)
-		imp_in.gib()
+	explosion(src, heavy, medium, weak, weak, flame_range = weak, cause = src)
+
+	// In case something happens to the implantee between now and the self-destruct
+	var/current_location = get_turf(imp_in)
+	var/list/destructed_items = list()
+
+	// Iterate over the implantee's contents and take out indestructible
+	// things to avoid having to worry about containers and recursion
+	for(var/obj/item/check in imp_in.get_contents())
+		if(check == src) // Don't delete ourselves prematurely
+			continue
+		// Drop indestructible items on the ground first, to avoid them
+		// getting deleted when destroying the rest of the items, which we
+		// track in a list to qdel afterwards
+		if(check.resistance_flags & INDESTRUCTIBLE)
+			check.forceMove(current_location)
+		else
+			destructed_items += check
+
+	QDEL_LIST(destructed_items)
+	imp_in.gib()
 	qdel(src)
 
+
+/obj/item/implant/explosive/proc/timed_explosion()
+	imp_in.visible_message(span_warning("[imp_in] starts beeping ominously!"))
+	playsound(loc, 'sound/items/timer.ogg', 30, FALSE)
+	var/wait_delay = delay / 4
+	sleep(wait_delay)
+	if(!QDELETED(imp_in) && imp_in.stat)
+		imp_in.visible_message(span_warning("[imp_in] doubles over in pain!"))
+		imp_in.Weaken(14 SECONDS)
+	playsound(loc, 'sound/items/timer.ogg', 30, FALSE)
+	sleep(wait_delay)
+	playsound(loc, 'sound/items/timer.ogg', 30, FALSE)
+	sleep(wait_delay)
+	playsound(loc, 'sound/items/timer.ogg', 30, FALSE)
+	sleep(wait_delay)
+	self_destruct()
+
+
+/obj/item/implant/explosive/implant(mob/living/carbon/human/source, mob/user, force = FALSE)
+	var/obj/item/implant/explosive/same_imp = locate(type) in source
+	if(same_imp && same_imp != src)
+		same_imp.heavy += heavy
+		same_imp.medium += medium
+		same_imp.weak += weak
+		same_imp.delay += delay
+		qdel(src)
+		return TRUE
+	return ..()
+
+
 /obj/item/implant/explosive/macro
-	name = "macrobomb implant"
+	name = "macrobomb bio-chip"
 	desc = "And boom goes the weasel. And everything else nearby."
 	icon_state = "explosive"
 	origin_tech = "materials=3;combat=5;biotech=4;syndicate=5"
 	weak = 16
 	medium = 8
 	heavy = 4
-	delay = 70
+	delay = (7 SECONDS)
+	implant_data = new /datum/implant_fluff/explosive_macro
+
 
 /obj/item/implant/explosive/macro/activate(cause)
-	if(!cause || !imp_in)	return 0
-	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your macrobomb implant? This will cause you to explode and gib!", "Macrobomb Implant Confirmation", "Yes", "No") != "Yes")
+	if(!cause || QDELETED(imp_in))
 		return FALSE
-	to_chat(imp_in, "<span class='notice'>You activate your macrobomb implant.</span>")
+	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your macrobomb bio-chip? This will cause you to explode and gib!", "Macrobomb Bio-chip Confirmation", "Yes", "No") != "Yes")
+		return FALSE
+	to_chat(imp_in, span_notice("You activate your macrobomb bio-chip."))
 	timed_explosion()
 
-/obj/item/implant/explosive/macro/implant(mob/source)
-	var/obj/item/implant/explosive/imp_e = locate(src.type) in source
-	if(imp_e && imp_e != src)
-		return FALSE
-	imp_e = locate(/obj/item/implant/explosive) in source
-	if(imp_e && imp_e != src)
-		heavy += imp_e.heavy
-		medium += imp_e.medium
-		weak += imp_e.weak
-		delay += imp_e.delay
-		qdel(imp_e)
 
+/obj/item/implant/explosive/macro/implant(mob/living/carbon/human/source, mob/user, force = FALSE)
+	var/obj/item/implant/explosive/same_imp = locate(type) in source
+	if(same_imp && same_imp != src)
+		return FALSE
+	same_imp = locate(/obj/item/implant/explosive) in source
+	if(same_imp && same_imp != src)
+		heavy += same_imp.heavy
+		medium += same_imp.medium
+		weak += same_imp.weak
+		delay += same_imp.delay
+		qdel(same_imp)
 	return ..()
 
 
 /obj/item/implanter/explosive
-	name = "implanter (explosive)"
-
-/obj/item/implanter/explosive/New()
-	imp = new /obj/item/implant/explosive(src)
-	..()
+	name = "bio-chip implanter (micro-explosive)"
+	imp = /obj/item/implant/explosive
 
 
 /obj/item/implantcase/explosive
-	name = "implant case - 'Explosive'"
-	desc = "A glass case containing an explosive implant."
-
-/obj/item/implantcase/explosive/New()
-	imp = new /obj/item/implant/explosive(src)
-	..()
+	name = "bio-chip case - 'Micro Explosive'"
+	desc = "A glass case containing a micro explosive bio-chip."
+	imp = /obj/item/implant/explosive
 
 
 /obj/item/implanter/explosive_macro
-	name = "implanter (macro-explosive)"
-
-/obj/item/implanter/explosive_macro/New()
-	imp = new /obj/item/implant/explosive/macro(src)
-	..()
+	name = "bio-chip implanter (macro-explosive)"
+	imp = /obj/item/implant/explosive/macro
 
 
-// Dust implant, for CC officers. Prevents gear theft if they die.
+/obj/item/implantcase/explosive_macro
+	name = "bio-chip case - 'Macro Explosive'"
+	desc = "A glass case containing a macro explosive bio-chip."
+	imp = /obj/item/implant/explosive/macro
 
-/obj/item/implant/dust
-	name = "duster implant"
-	desc = "An alarm which monitors host vital signs, transmitting a radio message and dusting the corpse on death."
-	icon = 'icons/effects/blood.dmi'
-	icon_state = "remains"
-
-/obj/item/implant/dust/get_data()
-	var/dat = {"<b>Implant Specifications:</b><BR>
-				<b>Name:</b> Ultraviolet Corp XX-13 Security Implant<BR>
-				<b>Life:</b> Activates upon death.<BR>
-				<b>Important Notes:</b> Vaporizes organic matter<BR>
-				<HR>
-				<b>Implant Details:</b><BR>
-				<b>Function:</b> Contains a compact, electrically activated heat source that turns its host to ash upon activation, or their death. <BR>
-				<b>Special Features:</b> Vaporizes<BR>
-				"}
-	return dat
-
-/obj/item/implant/dust/trigger(emote, mob/source, force)
-	if(force && emote == "deathgasp")
-		activate("death")
-
-/obj/item/implant/dust/activate(cause)
-	if(!cause || !imp_in || cause == "emp")
-		return FALSE
-	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your dusting implant? This will turn you to ash!", "Dusting Confirmation", "Yes", "No") != "Yes")
-		return FALSE
-	to_chat(imp_in, "<span class='notice'>Your dusting implant activates!</span>")
-	imp_in.visible_message("<span class = 'warning'>[imp_in] burns up in a flash!</span>")
-	for(var/obj/item/I in imp_in.contents)
-		if(I == src)
-			continue
-		if(I.flags & NODROP)
-			qdel(I)
-	imp_in.dust()
-
-/obj/item/implant/dust/emp_act(severity)
-	return
-
-/obj/item/implanter/dust
-	name = "implanter (Dust-on-death)"
-
-/obj/item/implanter/dust/New()
-	imp = new /obj/item/implant/dust(src)
-	..()
