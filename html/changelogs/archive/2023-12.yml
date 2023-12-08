@@ -83,6 +83,8 @@
   - add: ammo boxes and speedloaders for shotgun ammunition. (#3993)
   Dimach:
   - refactor: game_mode/can_start no longer modify global state (#4007)
+  Etrnlmelancholy:
+  - add: solgov stamps (#4010)
   NightDawnFox:
   - add: new dress and leather shoes in loadout (#3999)
   ROdenFL:
@@ -94,3 +96,5 @@
   - bugfix: fixed Irish EMP Bomb runtimes (#4018)
   Zwei:
   - bugfix: Skrell Headpocket Handling (#4022)
+  - refactor: Implants Rework (#3966)
+  - add: Point Rework (#3962)
