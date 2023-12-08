@@ -49,7 +49,7 @@
 		CLOCK_DESIGN("Judical Visors", /obj/item/clothing/glasses/clockwork, 400, 200, 5),
 	)
 	item_list["Consumables"] = list(
-		CLOCK_DESIGN("Brass sheet", /obj/item/stack/sheet/brass, 0, 100, 3),
+		CLOCK_DESIGN("Brass sheet", /obj/item/stack/sheet/brass, 0, 200, 3),
 		CLOCK_DESIGN("Integration Cog", /obj/item/clockwork/integration_cog, 100, 0, 3),
 		CLOCK_DESIGN("Soul Vessel", /obj/item/mmi/robotic_brain/clockwork, 500, 100, 5),
 		CLOCK_DESIGN("Clocked Upgrade", /obj/item/borg/upgrade/clockwork, 1000, 200, 5),
