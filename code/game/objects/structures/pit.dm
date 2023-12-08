@@ -6,7 +6,7 @@
 	blend_mode = BLEND_DEFAULT
 	density = FALSE
 	anchored = TRUE
-	armor = list(melee = 10, bullet = 100, laser = 100, energy = 50, bomb = 50, bio = 50, rad = 50, fire = 50, acid = 50)
+	armor = list(melee = 50, bullet = 100, laser = 100, energy = 50, bomb = 50, bio = 50, rad = 50, fire = 50, acid = 50)
 	layer = 2.9
 	var/storage_capacity = 30
 	var/open = 1
@@ -88,6 +88,9 @@
 		if(iscarbon(A))
 			var/mob/living/carbon/M = A
 			M.update_tint()
+		if(istype(A, /obj/structure/closet))
+			for(var/mob/living/carbon/M in A.contents)
+				M.update_tint()
 	update_icon()
 
 /obj/structure/pit/proc/close(var/user)
@@ -106,6 +109,9 @@
 			if(iscarbon(A))
 				var/mob/living/carbon/M = A
 				M.overlay_fullscreen("tint", /obj/screen/fullscreen/blind)
+			if(istype(A, /obj/structure/closet))
+				for(var/mob/living/carbon/M in A.contents)
+					M.overlay_fullscreen("tint", /obj/screen/fullscreen/blind)
 	update_icon()
 
 /obj/structure/pit/remove_air(amount)

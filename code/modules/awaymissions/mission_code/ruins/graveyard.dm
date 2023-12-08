@@ -237,22 +237,29 @@
 	new /obj/structure/closet/coffin/graveyard_loot(src)
 
 /obj/structure/closet/coffin/graveyard_loot
+	spawn_mob = null
+
+/obj/structure/closet/coffin/graveyard_loot/open()
+	..()
+	if(spawn_mob)
+		new spawn_mob(src.loc)
 
 /obj/structure/closet/coffin/graveyard_loot/populate_contents()
-	var/big_money = pick(/obj/item/stack/spacecash/c5000, /obj/item/stack/spacecash/c1000, /obj/item/stack/spacecash/c500)
-	var/little_money = pick(/obj/item/stack/spacecash/c50, /obj/item/stack/spacecash/c100, /obj/item/stack/spacecash/c200)
+	var/obj/item/stack/spacecash/big_money = new(src)
+	var/obj/item/stack/spacecash/little_money = new(src)
 	var/medal = pick(/obj/item/clothing/accessory/medal, /obj/item/clothing/accessory/medal/fluff/elo, /obj/item/clothing/accessory/medal/heart)
 	var/gun = pick(/obj/item/gun/projectile/shotgun/lethal/rusted, /obj/item/gun/projectile/revolver/nagant/rusted, /obj/item/gun/projectile/automatic/pistol)
 	if(prob(90))
 		if(prob(4))
-			new /mob/living/simple_animal/hostile/zombie/graveyard(src)
+			spawn_mob = /mob/living/simple_animal/hostile/zombie/graveyard
 			new gun(src)
 			new medal(src)
+			big_money.amount = rand(1000, 5000)
 			new big_money(src)
 		else if(prob(7))
-			new /mob/living/simple_animal/hostile/zombie/whiteship(src)
+			spawn_mob = /mob/living/simple_animal/hostile/zombie/whiteship/fast
 			new /obj/item/decorations/bouquets/random(src)
-			new little_money(src)
+			little_money.amount = rand(100, 400)
 		else if(prob(4))
 			new /obj/item/clothing/head/helmet/street_judge(src)
 			new /obj/item/clothing/suit/armor/vest/street_judge(src)
@@ -262,14 +269,15 @@
 			new /obj/item/clothing/under/rank/security(src)
 			new /obj/item/clothing/mask/gas/sechailer(src)
 			new /obj/item/clothing/accessory/lawyers_badge(src)
-		else if(prob(6))
+			new /obj/effect/mob_spawn/human/skeleton(src)
+		else if(prob(4))
+			spawn_mob = /mob/living/simple_animal/hostile/zombie/graveyard
 			new /obj/item/clothing/head/pirate(src)
 			new /obj/item/clothing/suit/pirate_brown(src)
 			new /obj/item/clothing/under/pirate(src)
 			new /obj/item/melee/energy/sword/pirate(src)
-			new /obj/item/decorations/skeleton(src)
-			new big_money(src)
+			big_money.amount = rand(1000, 5000)
 		else
-			new /obj/item/decorations/skeleton(src)
+			new /obj/effect/mob_spawn/human/skeleton(src)
 			new /obj/item/decorations/bouquets/random(src)
-			new little_money(src)
+			little_money.amount = rand(100, 400)

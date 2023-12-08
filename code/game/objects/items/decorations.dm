@@ -362,20 +362,6 @@
 /datum/effect_system/smoke_spread/vomiting
 	effect_type = /obj/effect/particle_effect/smoke/vomiting
 
-/////// Skeleton
-
-/obj/item/decorations/skeleton
-	name = "Skeleton"
-	desc = ("<span class='purple'> An old skeleton. It is limp and unresponsive; there are no signs of life and its soul has departed...</span>")
-	icon_state = "skeleton"
-	w_class = WEIGHT_CLASS_GIGANTIC
-	can_be_hit = TRUE
-	max_integrity = 20
-
-/obj/item/decorations/skeleton/Destroy()
-	new /obj/effect/decal/cleanable/ash(src)
-	..()
-
 ////// Bouquets
 
 /obj/item/decorations/bouquets
