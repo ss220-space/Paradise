@@ -1461,7 +1461,7 @@
 		var/obj/structure/disposalconstruct/C = new (src.loc)
 		C.ptype = PIPE_DISPOSALS_OUTLET
 		C.update()
-		C.anchored = FALSE
+		C.anchored = TRUE
 		C.density = TRUE
 		transfer_fingerprints_to(C)
 		qdel(src)
@@ -1469,6 +1469,8 @@
 //When the disposalsoutlet is forcefully moved. Due to meteorshot or the recall item spell for instance
 /obj/structure/disposaloutlet/Moved(atom/OldLoc, Dir)
 	. = ..()
+	if(!loc)
+		return
 	var/turf/T = OldLoc
 	if(T.intact)
 		var/turf/simulated/floor/F = T
@@ -1482,8 +1484,7 @@
 	C.update()
 	C.anchored = 0
 	C.density = 1
-	if(!QDELETED(src))
-		qdel(src)
+	qdel(src)
 
 // called when movable is expelled from a disposal pipe or outlet
 // by default does nothing, override for special behaviour
