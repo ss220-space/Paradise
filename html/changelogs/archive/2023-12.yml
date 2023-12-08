@@ -61,14 +61,27 @@
   Vladisvell:
   - bugfix: fixed monkeycube exploit server crash (#4008)
 '2023-12-07':
+  ArtemDerp:
+  - add: organ smartfridge can store IV bags (#4000)
   Dimach:
   - refactor: remove outdated procs (#4003)
   Etrnlmelancholy:
   - tweak: uplink price tweaks (#4009)
+  ROdenFL:
+  - bugfix: defib paddles logic fix (#4013)
   Vladisvell:
   - bugfix: fixed Taipan lockers rendering (#4012)
   - bugfix: fixed anomalies spawn on wrong spots, get_area_turfs fix (#4011)
   Zwei:
   - bugfix: No Comma In Cross Emote (#4015)
+  - bugfix: Contractor Teleport Fix (#4020)
+  - bugfix: Ghost Emotes Fix (#4017)
   captainnelly:
   - bugfix: TC inflation fixes (#4016)
+'2023-12-08':
+  Daeberdir:
+  - add: ammo boxes and speedloaders for shotgun ammunition. (#3993)
+  NightDawnFox:
+  - add: new dress and leather shoes in loadout (#3999)
+  ROdenFL:
+  - add: LOOC, OOC, dead chat emoji (#3998)
