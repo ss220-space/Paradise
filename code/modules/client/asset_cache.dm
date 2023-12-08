@@ -211,7 +211,9 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		"large_stamp-BIGdeny.png"	= 'icons/misc/paper_icons/large_stamp-BIGdeny.png',
 		"large_stamp-navcom.png"	= 'icons/misc/paper_icons/large_stamp-navcom.png',
 		"large_stamp-ussp.png"		= 'icons/misc/paper_icons/large_stamp-ussp.png',
-		"ussplogo.png"			= 'icons/misc/paper_icons/ussplogo.png'
+		"ussplogo.png"			= 'icons/misc/paper_icons/ussplogo.png',
+		"solgovlogo.png" = 'icons/misc/paper_icons/solgovlogo.png',
+		"large_stamp-solgov.png" = 'icons/misc/paper_icons/large_stamp-solgov.png'
 	)
 
 /datum/asset/simple/chess
