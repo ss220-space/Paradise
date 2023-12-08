@@ -314,40 +314,6 @@
 	var/list/result = A.examine(src)
 	to_chat(src, "<div class='examine'>[result.Join("\n")]</div>")
 
-//same as above
-//note: ghosts can point, this is intended
-//visible_message will handle invisibility properly
-//overriden here and in /mob/dead/observer for different point span classes and sanity checks
-/mob/verb/pointed(atom/A as mob|obj|turf in view(client.maxview()))
-	set name = "Point To"
-	set category = "Object"
-
-	if(next_move >= world.time)
-		return
-	if(!isturf(loc) || istype(A, /obj/effect/temp_visual/point))
-		return FALSE
-
-	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_pointed), A))
-
-/// possibly delayed verb that finishes the pointing process starting in [/mob/verb/pointed()].
-/// either called immediately or in the tick after pointed() was called, as per the [DEFAULT_QUEUE_OR_CALL_VERB()] macro
-/mob/proc/run_pointed(atom/A)
-	if(client && !(A in view(client.maxview())))
-		return FALSE
-
-	changeNext_move(CLICK_CD_POINT)
-
-	var/tile = get_turf(A)
-	if(!tile)
-		return FALSE
-	var/obj/P = new /obj/effect/temp_visual/point(tile)
-	P.invisibility = invisibility
-	if(get_turf(src) != tile)
-		// Start off from the pointer and make it slide to the pointee
-		P.pixel_x = (x - A.x) * 32
-		P.pixel_y = (y - A.y) * 32
-		animate(P, 0.5 SECONDS, pixel_x = A.pixel_x, pixel_y = A.pixel_y, easing = QUAD_EASING)
-	return TRUE
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
 	if((!( istype(l_hand, /obj/item/grab) ) && !( istype(r_hand, /obj/item/grab) )))

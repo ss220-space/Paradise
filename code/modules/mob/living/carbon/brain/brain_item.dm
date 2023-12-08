@@ -83,6 +83,7 @@
 	if(ishuman(owner))
 		owner.update_hair()
 
+	owner.thought_bubble_image = initial(owner.thought_bubble_image)
 	. = ..()
 
 

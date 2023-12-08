@@ -309,23 +309,42 @@
 		return FALSE
 	return ..()
 
-/mob/living/run_pointed(atom/A)
+
+/mob/living/run_pointed(atom/target)
 	if(!..())
 		return FALSE
+
 	var/obj/item/hand_item = get_active_hand()
-	if(istype(hand_item, /obj/item/gun) && A != hand_item)
-		if(a_intent == INTENT_HELP || !ismob(A))
-			visible_message("<b>[src.declent_ru(NOMINATIVE)]</b> указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [A.declent_ru(ACCUSATIVE)]")
-			add_emote_logs(src, "point [hand_item] to [key_name(A)] [COORD(A)]")
+	var/pointed_object = "[target.declent_ru(ACCUSATIVE)]"
+
+	if(target.loc in src)
+		var/atom/inside = target.loc
+		pointed_object += " внутри [inside.declent_ru(GENITIVE)]"
+
+	if(istype(hand_item, /obj/item/gun) && target != hand_item)
+		if(a_intent == INTENT_HELP || !ismob(target))
+			visible_message("<b>[declent_ru(NOMINATIVE)]</b> указыва[pluralize_ru(gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object].")
 			return TRUE
-		A.visible_message("<span class='danger'>[src.declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [A.declent_ru(ACCUSATIVE)]!</span>",
-											"<span class='userdanger'>[src.declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pluralize_ru(A.gender,"тебя","вас")]!</span>")
-		A << 'sound/weapons/targeton.ogg'
-		add_emote_logs(src, "point [hand_item] HARM to [key_name(A)] [COORD(A)]")
+
+		target.visible_message(
+			span_danger("[declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object]!"),
+			span_userdanger("[declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pluralize_ru(target.gender,"тебя","вас")]!"),
+		)
+		SEND_SOUND(target, sound('sound/weapons/targeton.ogg'))
+		add_emote_logs(src, "point [hand_item] HARM to [key_name(target)] [COORD(target)]")
 		return TRUE
-	visible_message("<b>[src.declent_ru(NOMINATIVE)]</b> указыва[pluralize_ru(src.gender,"ет","ют")] на [A.declent_ru(ACCUSATIVE)]")
-	add_emote_logs(src, "point to [key_name(A)] [COORD(A)]")
+
+	if(istype(hand_item, /obj/item/toy/russian_revolver/trick_revolver) && target != hand_item)
+		var/obj/item/toy/russian_revolver/trick_revolver/trick = hand_item
+		visible_message(span_danger("[declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [trick.declent_ru(INSTRUMENTAL)] на... и [trick.declent_ru(NOMINATIVE)] срабатывает у [genderize_ru(gender, "него","неё","него","них")] в руке!"))
+		trick.shoot_gun(src)
+		add_emote_logs(src, "point to [key_name(target)] [COORD(target)]")
+		return TRUE
+
+	visible_message("<b>[declent_ru(NOMINATIVE)]</b> указыва[pluralize_ru(gender,"ет","ют")] на [pointed_object].")
+	add_emote_logs(src, "point to [key_name(target)] [COORD(target)]")
 	return TRUE
+
 
 /mob/living/verb/succumb()
 	set hidden = 1
