@@ -40,14 +40,16 @@
 /datum/outfit/proc/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	//to be overriden for customization depending on client prefs,species etc]
 	if(istext(box))
-		for(var/obj/item/storage/box/survival/new_box in subtypesof(/obj/item/storage/box/survival))
+		var/list/banned_box = list()
+		for(var/path in subtypesof(/obj/item/storage/box/survival) - banned_box)
+			var/obj/item/storage/box/survival/new_box = new path
 			if(box == new_box.design_type)
-				if(new_box.target_species == "Universal")
-					box = new_box
-				if(H.dna.species.name == new_box.target_species)
-					box = new_box
+				if(H.dna.species.name == new_box.target_species || (!(H.dna.species.name in new_box.banned_species) && !new_box.target_species))
+					box = new_box.type
+					qdel(new_box)
 					break
-
+			else
+				banned_box += subtypesof(new_box.type)
 	return
 
 // Used to equip an item to the mob. Mainly to prevent copypasta for collect_not_del.
