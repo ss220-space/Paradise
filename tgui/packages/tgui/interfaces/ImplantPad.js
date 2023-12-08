@@ -11,7 +11,7 @@ export const ImplantPad = (props, context) => {
   return (
     <Window resizable>
       <Window.Content>
-        <Section title="Bio-chip Mini-Computer">
+        <Section title="Bio-chip Information">
           {implant && contains_case ? (
             <>
               <Box bold mb={2}>
@@ -37,26 +37,12 @@ export const ImplantPad = (props, context) => {
           ) : (
             <Box>Please insert a bio-chip casing!</Box>
           )}
-
-
+        </Section>
+        <Section title="Options">
           {tag && contains_case ? (
             <LabeledList>
-              <Button
-                mt={2}
-                ml={2}
-                content="Eject Case"
-                icon="eject"
-                disabled={!contains_case}
-                onClick={() => act('eject_case')}
-              />
-              <Button
-                ml={15}
-                tooltipPosition="top"
-                tooltip="Defined tag of the bio-chip, which will be visible on GPS."
-                content="GPS Tag:"
-                color="transparent"
-              />
               <Input
+                ml={1}
                 width="8rem"
                 value={tag}
                 onEnter={() => act('tag', { newtag: newTag })}
@@ -71,6 +57,15 @@ export const ImplantPad = (props, context) => {
                 <Icon name="pen" />
               </Button>
             </LabeledList>
+          ) : null}
+          {contains_case ? (
+            <Button
+              mt={1}
+              content="Eject Case"
+              icon="eject"
+              disabled={!contains_case}
+              onClick={() => act('eject_case')}
+            />
           ) : null}
         </Section>
       </Window.Content>
