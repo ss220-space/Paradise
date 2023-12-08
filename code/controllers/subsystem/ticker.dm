@@ -202,7 +202,6 @@ SUBSYSTEM_DEF(ticker)
 			var/datum/game_mode/M = config.pick_mode(GLOB.secret_force_mode)
 			if(M.can_start())
 				mode = config.pick_mode(GLOB.secret_force_mode)
-		SSjobs.ResetOccupations()
 		if(!mode)
 			mode = pickweight(runnable_modes)
 		if(mode)
@@ -216,7 +215,6 @@ SUBSYSTEM_DEF(ticker)
 		mode = null
 		current_state = GAME_STATE_PREGAME
 		force_start = FALSE
-		SSjobs.ResetOccupations()
 		Master.SetRunLevel(RUNLEVEL_LOBBY)
 
 		world.check_for_lowpop()
@@ -249,8 +247,6 @@ SUBSYSTEM_DEF(ticker)
 
 			P.ready = FALSE
 
-	//Configure mode and assign player to special mode stuff
-	mode.pre_pre_setup()
 	var/can_continue = FALSE
 	can_continue = mode.pre_setup() //Setup special modes
 	SSjobs.DivideOccupations() //Distribute jobs
