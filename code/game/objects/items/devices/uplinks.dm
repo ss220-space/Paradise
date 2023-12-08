@@ -33,8 +33,11 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/uplink/ui_host()
 	return loc
 
-/obj/item/uplink/proc/update_uplink_items()
+
+/obj/item/uplink/proc/update_uplink_type(new_uplink_type)
+	uplink_type = new_uplink_type
 	uplink_items = get_uplink_items(src)
+
 
 /obj/item/uplink/New()
 	..()
@@ -302,9 +305,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 /obj/item/radio/uplink/nuclear/New()
 	..()
-	if(hidden_uplink)
-		hidden_uplink.uplink_type = UPLINK_TYPE_NUCLEAR
-		hidden_uplink.update_uplink_items()
+	hidden_uplink?.update_uplink_type(UPLINK_TYPE_NUCLEAR)
 	GLOB.nuclear_uplink_list += src
 
 /obj/item/radio/uplink/nuclear/Destroy()
@@ -313,15 +314,12 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 /obj/item/radio/uplink/sst/New()
 	..()
-	if(hidden_uplink)
-		hidden_uplink.uplink_type = UPLINK_TYPE_SST
-		hidden_uplink.update_uplink_items()
+	hidden_uplink?.update_uplink_type(UPLINK_TYPE_SST)
 
 /obj/item/radio/uplink/admin/New()
 	..()
 	if(hidden_uplink)
-		hidden_uplink.uplink_type = UPLINK_TYPE_ADMIN
-		hidden_uplink.update_uplink_items()
+		hidden_uplink.update_uplink_type(UPLINK_TYPE_ADMIN)
 		hidden_uplink.uses = 2500
 
 /obj/item/multitool/uplink/New()
