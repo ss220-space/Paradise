@@ -1348,7 +1348,7 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/attack_alien(mob/living/carbon/alien/humanoid/user)
 	add_fingerprint(user)
 	if(isElectrified())
-		shock(user, 100)
+		shock(user, 100) //Mmm, fried xeno!
 		return
 
 	if(operating)
