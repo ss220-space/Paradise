@@ -21,7 +21,7 @@
 	if(!..())
 		return FALSE
 	if(!length(GLOB.ninjastart))
-		stack_trace(span_danger("A starting location for ninja could not be found, please report this bug!"))
+		stack_trace("A starting location for ninja could not be found, please report this bug!")
 		return FALSE
 	var/list/datum/mind/possible_ninjas = get_players_for_role(ROLE_NINJA)
 	if(!length(possible_ninjas))

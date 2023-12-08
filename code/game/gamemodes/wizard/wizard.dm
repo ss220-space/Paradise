@@ -23,7 +23,7 @@
 	if(!..())
 		return FALSE
 	if(!length(GLOB.wizardstart))
-		stack_trace(span_danger("A starting location for wizard could not be found, please report this bug!"))
+		stack_trace("A starting location for wizard could not be found, please report this bug!")
 		return FALSE
 	var/list/datum/mind/possible_wizards = get_players_for_role(ROLE_WIZARD)
 	if(!length(possible_wizards))
