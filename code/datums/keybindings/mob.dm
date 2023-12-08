@@ -37,7 +37,7 @@
 			return
 		I.run_drop_held_item(C.mob)
 	else
-		to_chat(C, span_warning("Вы ничего не держите в руке!</span>"))
+		to_chat(C, span_warning("Вы ничего не держите в руке!"))
 
 /datum/keybinding/mob/swap_hands
 	name = "Поменять руки"
