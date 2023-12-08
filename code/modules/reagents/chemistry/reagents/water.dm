@@ -61,11 +61,14 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "floor cleaner"
 
+
 /datum/reagent/space_cleaner/reaction_obj(obj/O, volume)
-	if(is_cleanable(O))
-		var/obj/effect/decal/cleanable/blood/B = O
-		if(!(istype(B) && B.off_floor))
-			qdel(O)
+	if(iseffect(O))
+		var/obj/effect/E = O
+		if(E.is_cleanable())
+			var/obj/effect/decal/cleanable/blood/B = E
+			if(!(istype(B) && B.off_floor))
+				qdel(E)
 	else
 		if(O.simulated)
 			O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
@@ -73,6 +76,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 			if(istype(H) && H.helmet)
 				H.helmet.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 		O.clean_blood()
+
 
 /datum/reagent/space_cleaner/reaction_turf(turf/T, volume)
 	if(volume >= 1)

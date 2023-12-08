@@ -3637,7 +3637,7 @@
 	N.mode = 3 //MODE_ADV, not defined here
 	N.setting = 2 //SETTING_OBJECT, not defined here
 	N.target = H
-	N.point_at(N.target)
+	N.pinpoint_at(N.target)
 	N.modelocked = TRUE
 	if(!locate(/obj/item/implant/dust, hunter_mob))
 		var/obj/item/implant/dust/D = new /obj/item/implant/dust(hunter_mob)
