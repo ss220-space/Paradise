@@ -505,7 +505,7 @@
 				cell.rigged = FALSE // don't blow the demon up
 
 			user.visible_message(\
-				"[user.name] has inserted the power f to [name]!",\
+				"[user.name] has inserted the power cell to [name]!",\
 				"<span class='notice'>You insert the power cell.</span>")
 			chargecount = 0
 			update_icon()
