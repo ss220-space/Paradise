@@ -34,6 +34,7 @@
 	pixel_x = -16
 	maxHealth = 420
 	health = 420
+	status_flags = CANPARALYSE
 	large = TRUE
 	move_resist = MOVE_FORCE_STRONG
 	caste_movement_delay = 1

@@ -40,6 +40,10 @@
 
 	return TRUE
 
+/obj/effect/proc_holder/spell/alien_spell/neurotoxin/after_cast(list/targets, mob/user)
+	. = ..()
+	if(should_remove_click_intercept(user))
+		remove_ranged_ability(user)
 
 /obj/effect/proc_holder/spell/alien_spell/neurotoxin/should_remove_click_intercept(mob/living/carbon/user)
 	if(user.get_plasma() < plasma_cost)

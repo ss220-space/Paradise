@@ -58,6 +58,6 @@
 			LAZYREMOVE(stomach_contents, M)
 			continue
 		if(stat != DEAD)
-			M.Weaken(3 SECONDS)
-			M.EyeBlind(3 SECONDS)
+			M.SetWeakened(4 SECONDS)
+			M.SetEyeBlind(4 SECONDS)
 			M.adjustBruteLoss(1.5)
