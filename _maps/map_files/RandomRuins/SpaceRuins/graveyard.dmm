@@ -227,8 +227,8 @@
 	},
 /area/ruin/space/graveyard/church)
 "eZ" = (
-/obj/structure/fluff/grave,
 /obj/structure/spacevine,
+/obj/structure/pit/closed/graveyard_loot,
 /turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
 "fm" = (
@@ -282,7 +282,10 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/graves)
 "hA" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-22";
+	tag = "icon-plant-22"
+	},
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/graves)
 "hB" = (
@@ -366,12 +369,12 @@
 	},
 /area/ruin/space/graveyard/church)
 "jr" = (
-/obj/structure/fluff/grave,
+/obj/structure/pit/closed/graveyard_loot,
 /turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
 "jS" = (
-/obj/structure/sacrificealtar,
 /obj/effect/clockwork/overlay/floor/bloodcult,
+/obj/structure/cult/altar,
 /turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "kb" = (
@@ -670,6 +673,7 @@
 	dir = 1
 	},
 /obj/effect/clockwork/overlay/floor/bloodcult,
+/obj/structure/cult/archives,
 /turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "qs" = (
@@ -762,7 +766,10 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "sR" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-30";
+	tag = "icon-plant-30"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
@@ -791,9 +798,12 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/item/twohanded/required/kirbyplants,
 /obj/structure/cable{
 	icon_state = "2-4"
+	},
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-22";
+	tag = "icon-plant-22"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
@@ -828,8 +838,8 @@
 	},
 /area/ruin/space/graveyard/church)
 "ua" = (
-/obj/structure/pit/closed/graveyard,
 /obj/structure/gravemarker/random,
+/obj/structure/pit/closed/graveyard_loot,
 /turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
 "uo" = (
@@ -1336,6 +1346,7 @@
 /obj/item/clothing/suit/hooded/nun,
 /obj/item/clothing/suit/hooded/nun,
 /obj/item/clothing/suit/hooded/chaplain_hoodie/no_name,
+/obj/item/book/philosophy_of_death,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "FK" = (
@@ -1438,7 +1449,10 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-22";
+	tag = "icon-plant-22"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
@@ -1689,7 +1703,10 @@
 /area/ruin/space/graveyard/church)
 "NR" = (
 /obj/effect/decal/cleanable/dust,
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-30";
+	tag = "icon-plant-30"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "chapel"
@@ -1744,7 +1761,10 @@
 /area/ruin/space/graveyard/church)
 "Py" = (
 /obj/effect/decal/cleanable/cobweb2,
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-17";
+	tag = "icon-plant-17"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
@@ -1828,6 +1848,15 @@
 /obj/item/clothing/suit/hooded/chaplain_hoodie/no_name,
 /obj/item/clothing/suit/hooded/nun,
 /turf/simulated/floor/carpet/black,
+/area/ruin/space/graveyard/church)
+"Rl" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-17";
+	tag = "icon-plant-17"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
 /area/ruin/space/graveyard/church)
 "RA" = (
 /obj/item/stack/sheet/wood{
@@ -2272,11 +2301,14 @@
 /turf/simulated/floor/carpet/red,
 /area/ruin/space/graveyard/church)
 "Ye" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/effect/turf_decal{
 	dir = 1;
 	icon_state = "grass_edge_medium";
 	name = "grass"
+	},
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "applebush";
+	tag = "icon-applebush"
 	},
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/graves)
@@ -2320,7 +2352,6 @@
 	icon_state = "grass_edge_big_full";
 	name = "grass"
 	},
-/obj/item/book/philosophy_of_death,
 /obj/item/decorations/bouquets/random,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/graves)
@@ -2329,7 +2360,10 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "Zi" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-30";
+	tag = "icon-plant-30"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "chapel"
@@ -3234,7 +3268,7 @@ Ap
 rb
 Py
 qA
-sR
+Rl
 rb
 Ap
 rb

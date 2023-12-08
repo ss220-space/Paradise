@@ -6,11 +6,26 @@
 	blend_mode = BLEND_DEFAULT
 	density = FALSE
 	anchored = TRUE
+	armor = list(melee = 10, bullet = 100, laser = 100, energy = 50, bomb = 50, bio = 50, rad = 50, fire = 50, acid = 50)
 	layer = 2.9
-	var/datum/gas_mixture/igm = new //inside gas mixture
+	var/storage_capacity = 30
 	var/open = 1
 	var/icon_floor_type = null
-	var/pit_processing = FALSE
+
+/obj/structure/pit/Initialize(mapload)
+	. = ..()
+	if(mapload && !open)
+		// Youre probably asking, why is this a 0 seconds timer AA?
+		// Well, I will tell you. One day, all /obj/effect/spawner will use Initialize
+		// This includes maint loot spawners. The problem with that is if a closet loads before a spawner,
+		// the loot will just be in a pile. Adding a timer with 0 delay will cause it to only take in contents once the MC has loaded,
+		// therefore solving the issue on mapload. During rounds, everything will happen as normal
+		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
+	update_icon() // Set it to the right icon if needed
+	populate_contents() // Spawn all its stuff
+
+/obj/structure/pit/proc/populate_contents()
+	return
 
 /obj/structure/pit/attackby(obj/item/W, mob/user)
 	if(istype(W,/obj/item/shovel))
@@ -56,49 +71,48 @@
 	update_icon()
 	..()
 
+/obj/structure/pit/proc/take_contents()
+	var/itemcount = 0
+	for(var/atom/movable/A  in loc)
+		if(A.density || A.anchored || A == src || open) continue
+		A.forceMove(src)
+		if(itemcount += 1 >= storage_capacity)
+			break
+
 /obj/structure/pit/proc/open()
 	name = "pit"
 	desc = "Watch your step, partner."
 	open = 1
 	for(var/atom/movable/A in src)
 		A.forceMove(src.loc)
-		if(ismob(A) && !(/mob in src))
-			pit_processing = FALSE
-			STOP_PROCESSING(SSobj, src)
-
+		if(iscarbon(A))
+			var/mob/living/carbon/M = A
+			M.update_tint()
 	update_icon()
-	igm = src.return_air()
 
 /obj/structure/pit/proc/close(var/user)
 	name = "mound"
 	desc = "Some things are better left buried."
 	open = 0
 	for(var/atom/movable/A in src.loc)
+		if(isliving(A))
+			var/mob/living/mob = A
+			if(mob.mob_size > MOB_SIZE_HUMAN)
+				continue
+		if(ismecha(A))
+			continue
 		if(!A.anchored && A != user)
 			A.forceMove(src)
-			if(ismob(A) && !pit_processing)
-				pit_processing = TRUE
-				START_PROCESSING(SSobj, src)
+			if(iscarbon(A))
+				var/mob/living/carbon/M = A
+				M.overlay_fullscreen("tint", /obj/screen/fullscreen/blind)
 	update_icon()
-	var/turf/simulated/turf = get_turf(src)
-	var/datum/gas_mixture/gm = turf.return_air()
-	igm = gm
 
-/obj/structure/pit/process()
-	for(var/mob/living/M in src)
-		M.SetEyeBlind(4 SECONDS)
-		M.adjustOxyLoss(rand(4,8))
-
-/obj/structure/pit/return_air()
-	if(open && loc)	//opened
-		return loc.return_air()
-	if(loc)  //closed
-		return igm
-	else
-		return null
+/obj/structure/pit/remove_air(amount)
+	return 0
 
 /obj/structure/pit/container_resist(mob/escapee)
-	var/breakout_time = 1 //2 minutes by default
+	var/breakout_time = 1.5 //2 minutes by default
 
 	if(open)
 		return
@@ -126,6 +140,12 @@
 	visible_message("<span class='danger'>\the [escapee] emerges from \the [src]!</span>")
 	playsound(src.loc, 'sound/effects/squelch1.ogg', 100, 1)
 	open()
+
+/obj/structure/pit/Destroy()
+	if(!open)
+		open()
+	qdel(src)
+	..()
 
 /obj/structure/pit/closed
 	name = "mound"

@@ -196,74 +196,6 @@
 	qdel(src)
 	..()
 
-/////Заготовка лута для могил
-/*
-mogila/populate_contents()
-	new /obj/structure/closet/coffin/graveyard_loot(src)
-*/
-
-/obj/structure/pit/closed/graveyard
-	icon_state = "pit0"
-
-/obj/structure/pit/closed/graveyard/Initialize()
-	new /obj/structure/closet/coffin/graveyard_loot(src.loc)
-	..()
-
-////// когда роллится гроб с зомби - зомби и лут оказываются над могилой; как вариант спавнить зомби при открытии могилы
-/obj/structure/closet/coffin/graveyard_loot
-
-/obj/structure/closet/coffin/graveyard_loot/Initialize()
-	var/money = pick(/obj/item/stack/spacecash/c5000, /obj/item/stack/spacecash/c1000, /obj/item/stack/spacecash/c500)
-	var/little_money = pick(/obj/item/stack/spacecash/c50, /obj/item/stack/spacecash/c100, /obj/item/stack/spacecash/c200)
-	var/medal = pick(/obj/item/clothing/accessory/medal, /obj/item/clothing/accessory/medal/fluff/elo, /obj/item/clothing/accessory/medal/heart)
-	var/gun = pick(/obj/item/gun/projectile/shotgun/lethal/rusted, /obj/item/gun/projectile/revolver/nagant/rusted, /obj/item/gun/projectile/automatic/pistol)
-	if(prob(90))
-		if(prob(10))
-			new /mob/living/simple_animal/hostile/zombie/graveyard(src)
-			new gun(src)
-			new medal(src)
-			new money(src)
-		else if(prob(10))
-			new /mob/living/simple_animal/hostile/zombie/whiteship(src)
-			new /obj/item/decorations/bouquets/random(src)
-			new little_money(src)
-		else if(prob(5))
-			new /obj/item/clothing/head/helmet/street_judge(src)
-			new /obj/item/clothing/suit/armor/vest/street_judge(src)
-			new /obj/item/gun/projectile/automatic/pistol/enforcer/lethal(src)
-			new /obj/item/clothing/shoes/jackboots(src)
-			new /obj/item/clothing/gloves/combat(src)
-			new /obj/item/clothing/under/rank/security(src)
-			new /obj/item/clothing/mask/gas/sechailer(src)
-			new /obj/item/clothing/accessory/lawyers_badge(src)
-		else
-			new /obj/item/decorations/skeleton(src)
-			new /obj/item/decorations/bouquets/random(src)
-			new little_money(src)
-	..()
-/*
-
-/obj/item/clothing/accessory/medal
-/obj/item/clothing/accessory/medal/fluff/elo
-/obj/item/clothing/accessory/medal/heart
-
-/obj/item/stack/spacecash/c1000
-
-/obj/item/melee/energy/sword/pirate
-
-/obj/item/clothing/gloves/ring/gold/blessed
-/obj/item/clothing/gloves/ring/fluff/benjaminfallout
-
-/obj/item/clothing/head/helmet/street_judge
-/obj/item/clothing/suit/armor/vest/street_judge
-/obj/item/gun/projectile/automatic/pistol/enforcer/lethal
-/obj/item/clothing/shoes/jackboots
-/obj/item/clothing/gloves/combat
-/obj/item/clothing/under/rank/security
-/obj/item/clothing/mask/gas/sechailer
-/obj/item/clothing/accessory/lawyers_badge
-*/
-
 
 /obj/item/book/philosophy_of_death
 	name = "Философия смерти"
@@ -285,3 +217,59 @@ mogila/populate_contents()
 
 		<br><br>Так сказал Немрис.
 		"}
+
+
+////// Grave with loot spawner and evil soul
+/obj/structure/pit/closed/graveyard_loot
+	icon_state = "pit0"
+	var/ever_opened = FALSE
+
+/obj/structure/pit/closed/graveyard_loot/open()
+	..()
+	if(!ever_opened)
+		ever_opened = TRUE
+		if(istype(get_area(src), /area/ruin/space/graveyard/graves))
+			if(prob(5))
+				new /obj/effect/particle_effect/smoke(src)
+				new /mob/living/simple_animal/hostile/carp/lostsoul(src)
+
+/obj/structure/pit/closed/graveyard_loot/populate_contents()
+	new /obj/structure/closet/coffin/graveyard_loot(src)
+
+/obj/structure/closet/coffin/graveyard_loot
+
+/obj/structure/closet/coffin/graveyard_loot/populate_contents()
+	var/big_money = pick(/obj/item/stack/spacecash/c5000, /obj/item/stack/spacecash/c1000, /obj/item/stack/spacecash/c500)
+	var/little_money = pick(/obj/item/stack/spacecash/c50, /obj/item/stack/spacecash/c100, /obj/item/stack/spacecash/c200)
+	var/medal = pick(/obj/item/clothing/accessory/medal, /obj/item/clothing/accessory/medal/fluff/elo, /obj/item/clothing/accessory/medal/heart)
+	var/gun = pick(/obj/item/gun/projectile/shotgun/lethal/rusted, /obj/item/gun/projectile/revolver/nagant/rusted, /obj/item/gun/projectile/automatic/pistol)
+	if(prob(90))
+		if(prob(4))
+			new /mob/living/simple_animal/hostile/zombie/graveyard(src)
+			new gun(src)
+			new medal(src)
+			new big_money(src)
+		else if(prob(7))
+			new /mob/living/simple_animal/hostile/zombie/whiteship(src)
+			new /obj/item/decorations/bouquets/random(src)
+			new little_money(src)
+		else if(prob(4))
+			new /obj/item/clothing/head/helmet/street_judge(src)
+			new /obj/item/clothing/suit/armor/vest/street_judge(src)
+			new /obj/item/gun/projectile/automatic/pistol/enforcer/lethal(src)
+			new /obj/item/clothing/shoes/jackboots(src)
+			new /obj/item/clothing/gloves/combat(src)
+			new /obj/item/clothing/under/rank/security(src)
+			new /obj/item/clothing/mask/gas/sechailer(src)
+			new /obj/item/clothing/accessory/lawyers_badge(src)
+		else if(prob(6))
+			new /obj/item/clothing/head/pirate(src)
+			new /obj/item/clothing/suit/pirate_brown(src)
+			new /obj/item/clothing/under/pirate(src)
+			new /obj/item/melee/energy/sword/pirate(src)
+			new /obj/item/decorations/skeleton(src)
+			new big_money(src)
+		else
+			new /obj/item/decorations/skeleton(src)
+			new /obj/item/decorations/bouquets/random(src)
+			new little_money(src)

@@ -152,6 +152,9 @@
 			if(istype(loc, /obj/structure/bigDelivery)) //Do this to prevent contents from being opened into nullspace (read: bluespace)
 				var/obj/structure/bigDelivery/BD = loc
 				BD.attack_hand(usr)
+			if(isobj(loc))
+				var/obj/loc_as_obj = loc
+				loc_as_obj.container_resist(L)
 			open()
 
 /obj/structure/closet/secure_closet/screwdriver_act(mob/living/user, obj/item/I)

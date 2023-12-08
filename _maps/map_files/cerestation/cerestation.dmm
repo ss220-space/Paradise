@@ -11117,7 +11117,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/obj/machinery/meter,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -12090,7 +12089,6 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8
 	},
-/obj/machinery/meter,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "bwu" = (
@@ -12508,14 +12506,12 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
-/obj/machinery/meter,
 /turf/simulated/wall/r_wall/coated,
 /area/engine/supermatter)
 "byD" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
 	},
-/obj/machinery/meter,
 /turf/simulated/wall/r_wall/coated,
 /area/engine/supermatter)
 "byE" = (
@@ -35306,7 +35302,6 @@
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
-/obj/machinery/meter,
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing)
 "eUu" = (
@@ -44093,7 +44088,6 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/visible/cyan,
-/obj/machinery/meter,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "hAl" = (
@@ -57899,9 +57893,6 @@
 	dir = 8;
 	on = 1
 	},
-/obj/machinery/meter{
-	pixel_x = 26
-	},
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
 "lwu" = (
@@ -67424,13 +67415,6 @@
 	icon_state = "darkblue"
 	},
 /area/medical/cmo)
-"ori" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 4
-	},
-/obj/machinery/meter,
-/turf/simulated/floor/engine,
-/area/engine/engineering)
 "orl" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -70869,19 +70853,6 @@
 	},
 /turf/simulated/wall,
 /area/maintenance/fsmaint3)
-"prq" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/green{
-	dir = 4
-	},
-/obj/machinery/meter,
-/turf/simulated/floor/engine,
-/area/engine/engineering)
 "pry" = (
 /obj/structure/sign/directions/security{
 	dir = 1;
@@ -87639,9 +87610,6 @@
 	dir = 4;
 	on = 1
 	},
-/obj/machinery/meter{
-	pixel_x = 26
-	},
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
 "utS" = (
@@ -94574,7 +94542,6 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
 	},
-/obj/machinery/meter,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -133613,7 +133580,7 @@ bxB
 uYj
 fLq
 cKr
-prq
+bBO
 wfp
 bhd
 bFr
@@ -135660,7 +135627,7 @@ eVf
 biI
 eVf
 bhd
-ori
+hVj
 bsd
 qir
 eTM

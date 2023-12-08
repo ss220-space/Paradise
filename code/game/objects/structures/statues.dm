@@ -376,7 +376,7 @@
 
 /obj/structure/statue/dude
 	name = "Unknown monk"
-	desc = "Seems to be one of thinkers of ancient times."
+	desc = "Seems to be one of thinkers from ancient times."
 	icon = 'icons/obj/statuelarge.dmi'
 	icon_state = "dude"
 	max_integrity = 2000

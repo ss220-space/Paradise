@@ -420,3 +420,4 @@
 	icon_state = "streetjudge_helmet"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	species_restricted = list("Human", "Slime People", "Skeleton", "Nucleation", "Machine")
