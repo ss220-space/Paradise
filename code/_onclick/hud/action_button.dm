@@ -44,8 +44,13 @@
 	if(modifiers["alt"])
 		AltClick(usr)
 		return TRUE
-	linked_action.Trigger()
-	linked_action.UpdateButtonIcon() //redraw button
+	if(modifiers["middle"])
+		linked_action.Trigger(left_click = FALSE)
+		return TRUE
+	linked_action.Trigger(left_click = TRUE)
+	transform = transform.Scale(0.8, 0.8)
+	alpha = 200
+	animate(src, transform = matrix(), time = 0.3 SECONDS, alpha = 255)
 	return TRUE
 
 /obj/screen/movable/action_button/AltClick(mob/user)

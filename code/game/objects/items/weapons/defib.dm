@@ -86,15 +86,15 @@
 	update_icon()
 
 
-/obj/item/defibrillator/ui_action_click()
-	if(!ishuman(usr) && !Adjacent(usr))
+/obj/item/defibrillator/ui_action_click(mob/user)
+	if(!ishuman(user) || !Adjacent(user))
 		return
 
 	toggle_paddles()
 
 
-/obj/item/defibrillator/CtrlClick()
-	if(!ishuman(usr) && !Adjacent(usr))
+/obj/item/defibrillator/CtrlClick(mob/user)
+	if(!ishuman(user) || !Adjacent(user))
 		return
 
 	toggle_paddles()

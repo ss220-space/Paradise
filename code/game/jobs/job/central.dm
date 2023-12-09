@@ -154,6 +154,10 @@
 		/obj/item/implant/dust
 	)
 
+	backpack_contents = list(
+		/obj/item/stamp/solgov = 1,
+	)
+
 /datum/outfit/job/ntspecops/solgovspecops/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)

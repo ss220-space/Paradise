@@ -19,49 +19,43 @@
 	to_chat(world, "<B>The current game mode is - Wizard!</B>")
 	to_chat(world, "<B>There is a <font color='red'>SPACE WIZARD</font> on the station. You can't let him achieve his objective!</B>")
 
-/datum/game_mode/wizard/can_start()//This could be better, will likely have to recode it later
+/datum/game_mode/wizard/can_start()
 	if(!..())
-		return 0
+		return FALSE
+	if(!length(GLOB.wizardstart))
+		stack_trace("A starting location for wizard could not be found, please report this bug!")
+		return FALSE
 	var/list/datum/mind/possible_wizards = get_players_for_role(ROLE_WIZARD)
 	if(!length(possible_wizards))
-		return 0
-	var/datum/mind/wizard = pick(possible_wizards)
+		return FALSE
+	var/datum/mind/wizard = pick_n_take(possible_wizards)
 
 	wizards += wizard
-	modePlayer += wizard
-	wizard.assigned_role = SPECIAL_ROLE_WIZARD //So they aren't chosen for other jobs.
-	wizard.special_role = SPECIAL_ROLE_WIZARD
-	wizard.set_original_mob(wizard.current)
-	if(GLOB.wizardstart.len == 0)
-		to_chat(wizard.current, "<span class='danger'>A starting location for you could not be found, please report this bug!</span>")
-		return 0
-
-
 	var/playerC = num_players()
-	possible_wizards.Remove(wizard)
 	if(playerC >= required_players)
 		for(var/i in 1 to round((playerC - required_players) / required_num_players_for_apprentice))
 			if(!length(possible_wizards))
-				return 1
-			var/datum/mind/apprentice = pick(possible_wizards)
-
+				break
+			var/datum/mind/apprentice = pick_n_take(possible_wizards)
 			apprentices += apprentice
-			modePlayer += apprentice
 
-			apprentice.assigned_role = SPECIAL_ROLE_WIZARD_APPRENTICE //So they aren't chosen for other jobs.
-			apprentice.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
-			possible_wizards.Remove(apprentice)
-			apprentice.set_original_mob(apprentice.current)
-
-	return 1
+	return TRUE
 
 /datum/game_mode/wizard/pre_setup()
-	for(var/datum/mind/wiz in wizards)
-		wiz.current.loc = pick(GLOB.wizardstart)
-	for(var/datum/mind/app in apprentices)
-		app.current.loc = pick(GLOB.wizardstart)
+	for(var/datum/mind/wizard in wizards)
+		wizard.assigned_role = SPECIAL_ROLE_WIZARD //So they aren't chosen for other jobs.
+		wizard.special_role = SPECIAL_ROLE_WIZARD
+		wizard.offstation_role = TRUE
+		wizard.set_original_mob(wizard.current)
+		wizard.current.loc = pick(GLOB.wizardstart)
+	for(var/datum/mind/apprentice in apprentices)
+		apprentice.assigned_role = SPECIAL_ROLE_WIZARD_APPRENTICE //So they aren't chosen for other jobs.
+		apprentice.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
+		apprentice.offstation_role = TRUE
+		apprentice.set_original_mob(apprentice.current)
+		apprentice.current.loc = pick(GLOB.wizardstart)
 	..()
-	return 1
+	return TRUE
 
 /datum/game_mode/wizard/post_setup()
 	var/datum/mind/wizard_teacher

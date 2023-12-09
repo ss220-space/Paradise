@@ -732,7 +732,7 @@
 	belt = /obj/item/gun/projectile/revolver/nagant
 
 	backpack_contents = list(
-		/obj/item/ammo_box/speedloader/shotgun/a762 = 4
+		/obj/item/ammo_box/speedloader/a762 = 4
 	)
 
 /datum/outfit/admin/soviet/soldier
@@ -831,6 +831,7 @@
 	backpack_contents = list(
 		/obj/item/implanter/dust = 1,
 		/obj/item/implanter/death_alarm = 1,
+		/obj/item/stamp/solgov = 1,
 	)
 
 /datum/outfit/admin/solgov_rep/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

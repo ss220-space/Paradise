@@ -15,8 +15,11 @@
 	material_drop = /obj/item/stack/sheet/cardboard
 	var/decal = ""
 	var/amt = 4
-	var/move_delay = 0
+	var/move_delay = FALSE
 	var/egged = 0
+	/// How fast a mob can move inside this box.
+	var/move_speed_multiplier = 1
+
 
 /obj/structure/closet/cardboard/relaymove(mob/living/user, direction)
 	if(!istype(user) || opened || move_delay || user.incapacitated() || !isturf(loc) || !has_gravity(loc))
@@ -24,17 +27,19 @@
 	move_delay = TRUE
 	var/oldloc = loc
 	step(src, direction)
+	// By default, while inside a box, we move at walk speed times the speed multipler of the box.
+	var/delay = CONFIG_GET(number/walk_speed) * move_speed_multiplier
+	if(direction & (direction - 1))
+		delay *= SQRT_2 // Moving diagonal counts as moving 2 tiles, we need to slow them down accordingly.
 	if(oldloc != loc)
-		addtimer(CALLBACK(src, PROC_REF(ResetMoveDelay)), CONFIG_GET(number/walk_speed))
+		addtimer(VARSET_CALLBACK(src, move_delay, FALSE), delay)
 	else
 		move_delay = FALSE
 
-/obj/structure/closet/cardboard/proc/ResetMoveDelay()
-	move_delay = FALSE
 
 /obj/structure/closet/cardboard/open()
 	if(opened || !can_open())
-		return 0
+		return FALSE
 	if(!egged)
 		var/mob/living/Snake = null
 		for(var/mob/living/L in src.contents)
@@ -47,8 +52,8 @@
 					if(!L.stat)
 						L.do_alert_animation(L)
 						egged = 1
-				alerted << sound('sound/machines/chime.ogg')
-	..()
+				SEND_SOUND(alerted, sound('sound/machines/chime.ogg'))
+	return ..()
 
 /mob/living/proc/do_alert_animation(atom/A)
 	var/image/I

@@ -31,6 +31,10 @@
 	var/moving_diagonally = 0 //0: not doing a diagonal move. 1 and 2: doing the first/second step of the diagonal move
 	var/list/client_mobs_in_contents
 
+	/// Icon state for thought bubbles. Normally set by mobs.
+	var/thought_bubble_image = "thought_bubble"
+
+
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
 	if(T && SSatoms.initialized != INITIALIZATION_INSSATOMS && GLOB.space_manager.is_zlevel_dirty(T.z))
