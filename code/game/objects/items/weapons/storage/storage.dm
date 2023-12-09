@@ -158,6 +158,8 @@
 /obj/item/storage/proc/show_to(mob/user)
 	if(!user.client)
 		return
+	if(!loc) //If for some reason storage was deleted
+		return
 	if(user.s_active != src && !isobserver(user))
 		for(var/obj/item/I in src) // For bombs with mousetraps, facehuggers etc
 			if(I.on_found(user))
