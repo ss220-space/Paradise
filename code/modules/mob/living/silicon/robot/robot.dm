@@ -1341,13 +1341,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			if(stat != DEAD && isturf(tile))
 				var/floor_only = TRUE
 				for(var/A in tile)
-					if(istype(A, /obj/effect))
-						if(is_cleanable(A))
-							var/obj/effect/decal/cleanable/blood/B = A
+					if(iseffect(A))
+						var/obj/effect/check = A
+						if(check.is_cleanable())
+							var/obj/effect/decal/cleanable/blood/B = check
 							if(istype(B) && B.off_floor)
 								floor_only = FALSE
 							else
-								qdel(A)
+								qdel(B)
 					else if(istype(A, /obj/item))
 						var/obj/item/cleaned_item = A
 						cleaned_item.clean_blood()

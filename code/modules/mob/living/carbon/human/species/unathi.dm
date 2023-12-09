@@ -94,7 +94,7 @@
 	button_icon_state = "tail"
 	check_flags = AB_CHECK_LYING | AB_CHECK_CONSCIOUS | AB_CHECK_STUNNED
 
-/datum/action/innate/tail_lash/Trigger()
+/datum/action/innate/tail_lash/Trigger(left_click = TRUE)
 	if(IsAvailable(show_message = TRUE))
 		..()
 

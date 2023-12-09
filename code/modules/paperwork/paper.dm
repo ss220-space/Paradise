@@ -679,6 +679,11 @@
 	info =  ""
 	language = "Neo-Russkiya"
 
+/obj/item/paper/solgov
+	name = "paper"
+	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='solgovlogo.png' width='220' height='135' /></p><hr />"
+	info = ""
+
 /obj/item/paper/central_command
 	name = "Директива Центрального Командования"
 	info = ""

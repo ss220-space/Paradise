@@ -22,7 +22,7 @@
 	var/cooldown = 0
 
 
-/datum/action/ambulance_alarm/Trigger()
+/datum/action/ambulance_alarm/Trigger(left_click = TRUE)
 	if(!..())
 		return FALSE
 

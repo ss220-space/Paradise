@@ -130,6 +130,8 @@ To draw a rune, use a ritual dagger.
 	visible_message("<span class='danger'>[src] suddenly appears!</span>")
 	alpha = initial(alpha)
 
+/obj/effect/rune/is_cleanable()
+	return TRUE
 
 /*
 There are a few different procs each rune runs through when a cultist activates it.

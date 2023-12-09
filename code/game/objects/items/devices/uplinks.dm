@@ -9,7 +9,8 @@ A list of items and costs is stored under the datum of every game mode, alongsid
 GLOBAL_LIST_EMPTY(world_uplinks)
 
 /obj/item/uplink
-	var/uses 				// Numbers of crystals
+	/// Uplink TC amount
+	var/uses = 100
 	var/hidden_crystals = 0
 	/// List of categories with items inside
 	var/list/uplink_cats
@@ -32,12 +33,14 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/uplink/ui_host()
 	return loc
 
-/obj/item/uplink/proc/update_uplink_items()
+
+/obj/item/uplink/proc/update_uplink_type(new_uplink_type)
+	uplink_type = new_uplink_type
 	uplink_items = get_uplink_items(src)
+
 
 /obj/item/uplink/New()
 	..()
-	uses = SSticker.mode.uplink_uses
 	uplink_items = get_uplink_items(src)
 
 	GLOB.world_uplinks += src
@@ -302,9 +305,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 /obj/item/radio/uplink/nuclear/New()
 	..()
-	if(hidden_uplink)
-		hidden_uplink.uplink_type = UPLINK_TYPE_NUCLEAR
-		hidden_uplink.update_uplink_items()
+	hidden_uplink?.update_uplink_type(UPLINK_TYPE_NUCLEAR)
 	GLOB.nuclear_uplink_list += src
 
 /obj/item/radio/uplink/nuclear/Destroy()
@@ -313,15 +314,12 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 /obj/item/radio/uplink/sst/New()
 	..()
-	if(hidden_uplink)
-		hidden_uplink.uplink_type = UPLINK_TYPE_SST
-		hidden_uplink.update_uplink_items()
+	hidden_uplink?.update_uplink_type(UPLINK_TYPE_SST)
 
 /obj/item/radio/uplink/admin/New()
 	..()
 	if(hidden_uplink)
-		hidden_uplink.uplink_type = UPLINK_TYPE_ADMIN
-		hidden_uplink.update_uplink_items()
+		hidden_uplink.update_uplink_type(UPLINK_TYPE_ADMIN)
 		hidden_uplink.uses = 2500
 
 /obj/item/multitool/uplink/New()

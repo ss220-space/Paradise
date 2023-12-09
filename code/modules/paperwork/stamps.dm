@@ -131,3 +131,8 @@
 	name = "Old USSP rubber stamp"
 	icon_state = "stamp-ussp"
 	item_color = "redcoat"
+
+/obj/item/stamp/solgov
+	name = "Solar Federation rubber stamp"
+	icon_state = "stamp-solgov"
+	item_color = "solgov"

@@ -278,6 +278,13 @@
 
 
 /**
+ * Specal proc for special mobs that use "hands" in weird ways.
+ */
+/mob/proc/special_hands_drop_action()
+	return
+
+
+/**
  * DO NO USE THIS PROC, there are plenty of helpers below: put_in_l_hand, put_in_active_hand, put_in_hands etc.
  * Puts an item into hand by `hand_id` ("HAND_LEFT" / "HAND_RIGHT") and calls all necessary triggers/updates. Returns `TRUE` on success.
  */

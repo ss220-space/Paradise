@@ -24,8 +24,6 @@
 	/// See nuclearbomb.dm and malfunction.dm
 	var/explosion_in_progress = FALSE //sit back and relax
 	var/false_report_weight = 0 //How often will this show up incorrectly in a centcom report? --Not used--
-	var/maximum_players = 0 // --Not used--
-	var/list/datum/mind/modePlayer = new
 	// Jobs it doesn't make sense to be antags. I.E chaplain or AI cultist
 	var/list/restricted_jobs = list()
 	/// Jobs that can't be antags.
@@ -41,8 +39,6 @@
 	/// Whether ERT call is even allowed in this mode.
 	var/ert_disabled = FALSE
 	var/newscaster_announcements = null
-	var/uplink_welcome = "Syndicate Uplink Console:"
-	var/uplink_uses = 100
 
 	/// Lower bound on time before intercept arrives.
 	var/const/waittime_l = 60 SECONDS
@@ -76,13 +72,6 @@
 		return TRUE
 
 	return FALSE
-
-
-/**
- * For when you really don't want certain jobs ingame.
- */
-/datum/game_mode/proc/pre_pre_setup()
-	return TRUE
 
 
 /**
