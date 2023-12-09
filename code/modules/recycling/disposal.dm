@@ -581,7 +581,7 @@
 /obj/machinery/disposal/deliveryChute/Bumped(atom/movable/moving_atom) //Go straight into the chute
 	..()
 
-	if(istype(moving_atom, /obj/item/projectile))  return
+	if(istype(moving_atom, /obj/item/projectile) || istype(moving_atom, /obj/effect))  return
 	switch(dir)
 		if(NORTH)
 			if(moving_atom.loc.y != src.loc.y+1) return
@@ -1469,6 +1469,8 @@
 //When the disposalsoutlet is forcefully moved. Due to meteorshot or the recall item spell for instance
 /obj/structure/disposaloutlet/Moved(atom/OldLoc, Dir)
 	. = ..()
+	if(!loc)
+		return
 	var/turf/T = OldLoc
 	if(T.intact)
 		var/turf/simulated/floor/F = T
