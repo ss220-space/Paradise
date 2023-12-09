@@ -83,10 +83,10 @@
 	for(var/obj/O in contents)
 		O.mouse_opacity = initial(O.mouse_opacity)
 
+	. = ..()
 	QDEL_NULL(boxes)
 	QDEL_NULL(closer)
 	LAZYCLEARLIST(mobs_viewing)
-	return ..()
 
 /obj/item/storage/forceMove(atom/destination)
 	. = ..()
