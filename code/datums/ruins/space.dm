@@ -376,3 +376,10 @@
 	Well, apparently, something went wrong, since the tavern was closed forever. What will you learn by getting into it?"
 	cost = 3
 	allow_duplicates = FALSE
+		/datum/map_template/ruin/space/Space_abandoned_banya
+	id = "Space_abandoned_banya"
+	suffix = "Space_abandoned_banya.dmm"
+	name = "USSP Space Banya"
+	description = "Its Old Space USSP Banya.... She looks very crashed.."
+	cost = 2
+	allow_duplicates = FALSE

@@ -2963,3 +2963,8 @@ GLOBAL_LIST_INIT(the_station_areas, list(
 /area/ruin/space/bubblegum_arena
 	name = "Bubblegum Arena"
 
+//USSP banya area
+/area/ruin/USSP_SpaceBanya
+	name = "Space_abandoned_banya"
+	icon_state = "barstation"
+
