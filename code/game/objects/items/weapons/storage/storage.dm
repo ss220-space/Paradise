@@ -158,7 +158,7 @@
 /obj/item/storage/proc/show_to(mob/user)
 	if(!user.client)
 		return
-	if(!loc) //If for some reason storage was deleted
+	if(QDELETED(src))
 		return
 	if(user.s_active != src && !isobserver(user))
 		for(var/obj/item/I in src) // For bombs with mousetraps, facehuggers etc
@@ -468,7 +468,7 @@
 
 	if(usr)
 		orient2hud(usr)
-		if(usr.s_active)
+		if(usr.s_active && !QDELETED(src))
 			usr.s_active.show_to(usr)
 	if(W.maptext)
 		W.maptext = ""
