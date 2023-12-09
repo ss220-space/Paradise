@@ -402,13 +402,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	hijack_only = TRUE
 
 //Assistant
-/datum/uplink_item/jobspecific/pickpocketgloves
-	name = "Pickpocket's Gloves"
-	desc = "A pair of sleek gloves to aid in pickpocketing. While wearing these, you can loot your target without them knowing. Pickpocketing puts the item directly into your hand."
-	reference = "PG"
-	item = /obj/item/clothing/gloves/color/black/thief
-	cost = 30
-	job = list("Civilian")
 
 /datum/uplink_item/jobspecific/lockermech
 	name = "Syndie Locker Mech"
@@ -1744,6 +1737,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "DDRL"
 	item = /obj/item/thermal_drill/diamond_drill
 	cost = 5
+
+/datum/uplink_item/device_tools/pickpocketgloves
+	name = "Pickpocket's Gloves"
+	desc = "A pair of sleek gloves to aid in pickpocketing. While wearing these, you can loot your target without them knowing. Pickpocketing puts the item directly into your hand."
+	reference = "PG"
+	item = /obj/item/clothing/gloves/color/black/thief
+	cost = 30
 
 /datum/uplink_item/device_tools/medkit
 	name = "Syndicate Combat Medic Kit"
