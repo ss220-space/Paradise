@@ -101,7 +101,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 		/obj/item/gun/projectile/shotgun/boltaction = 1,
 		/obj/item/gun/projectile/shotgun/automatic/combat = 2,
 		/obj/item/gun/projectile/automatic/pistol/APS = 1,
-		/obj/item/gun/projectile/automatic/pistol/sp8ar = 1,
+		/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar = 1,
 		/obj/item/gun/projectile/automatic/pistol/m1911 = 1,
 		/obj/item/gun/projectile/revolver/golden = 1,
 		/obj/item/gun/projectile/revolver/nagant = 1,

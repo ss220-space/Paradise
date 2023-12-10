@@ -109,19 +109,18 @@
 		chaser_speed = max(chaser_speed + health_percent, 0.5) //one tenth of a second faster for each missing 10% of health
 		blast_range -= round(health_percent * 10) //one additional range for each missing 10% of health
 
-/obj/item/hierophant_club/update_icon()
+
+/obj/item/hierophant_club/update_icon_state()
 	icon_state = "hierophant_club[timer <= world.time ? "_ready":""][(beacon && !QDELETED(beacon)) ? "":"_beacon"]"
 	item_state = icon_state
-	if(ismob(loc))
-		var/mob/M = loc
-		M.update_inv_l_hand()
-		M.update_inv_r_hand()
-		M.update_inv_back()
+	update_equipped_item()
+
 
 /obj/item/hierophant_club/proc/prepare_icon_update()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	sleep(timer - world.time)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
+
 
 /obj/item/hierophant_club/ui_action_click(mob/user, actiontype)
 	if(actiontype == /datum/action/item_action/toggle_unfriendly_fire) //toggle friendly fire...
@@ -174,7 +173,8 @@
 	user.visible_message("<span class='hierophant_warning'>[user] starts to glow faintly...</span>")
 	timer = world.time + 50
 	INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
-	beacon.icon_state = "hierophant_tele_on"
+	beacon.teleporting = TRUE
+	beacon.update_icon(UPDATE_ICON_STATE)
 	var/obj/effect/temp_visual/hierophant/telegraph/edge/TE1 = new /obj/effect/temp_visual/hierophant/telegraph/edge(user.loc)
 	var/obj/effect/temp_visual/hierophant/telegraph/edge/TE2 = new /obj/effect/temp_visual/hierophant/telegraph/edge(beacon.loc)
 	if(do_after(user, 40, target = user) && user && beacon)
@@ -186,7 +186,8 @@
 			user.update_action_buttons_icon()
 			timer = world.time
 			INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
-			beacon.icon_state = "hierophant_tele_off"
+			beacon.teleporting = FALSE
+			beacon.update_icon(UPDATE_ICON_STATE)
 			return
 		new /obj/effect/temp_visual/hierophant/telegraph(T, user)
 		new /obj/effect/temp_visual/hierophant/telegraph(source, user)
@@ -199,7 +200,8 @@
 			timer = world.time
 			INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
 			if(beacon)
-				beacon.icon_state = "hierophant_tele_off"
+				beacon.teleporting = FALSE
+				beacon.update_icon(UPDATE_ICON_STATE)
 			return
 		if(is_blocked_turf(T, TRUE))
 			teleporting = FALSE
@@ -207,7 +209,8 @@
 			user.update_action_buttons_icon()
 			timer = world.time
 			INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
-			beacon.icon_state = "hierophant_tele_off"
+			beacon.teleporting = FALSE
+			beacon.update_icon(UPDATE_ICON_STATE)
 			return
 		add_attack_logs(user, beacon, "Teleported self from ([AREACOORD(source)]) to ([AREACOORD(beacon)])")
 		new /obj/effect/temp_visual/hierophant/telegraph/teleport(T, user)
@@ -222,14 +225,16 @@
 			INVOKE_ASYNC(src, PROC_REF(teleport_mob), source, L, T, user) //regardless, take all mobs near us along
 		sleep(6) //at this point the blasts detonate
 		if(beacon)
-			beacon.icon_state = "hierophant_tele_off"
+			beacon.teleporting = FALSE
+			beacon.update_icon(UPDATE_ICON_STATE)
 	else
 		qdel(TE1)
 		qdel(TE2)
 		timer = world.time
 		INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
 	if(beacon)
-		beacon.icon_state = "hierophant_tele_off"
+		beacon.teleporting = FALSE
+		beacon.update_icon(UPDATE_ICON_STATE)
 	teleporting = FALSE
 	if(user)
 		user.update_action_buttons_icon()

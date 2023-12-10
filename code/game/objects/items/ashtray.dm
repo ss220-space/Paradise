@@ -49,47 +49,73 @@
 	pixel_y = rand(-5, 5)
 	pixel_x = rand(-6, 6)
 
+
 /obj/item/storage/ashtray/attackby(obj/item/I, mob/user, params)
 	if(!can_be_inserted(I))
 		return
-	handle_item_insertion(I)
-	if(istype(I, /obj/item/clothing/mask/cigarette))
-		var/obj/item/clothing/mask/cigarette/cig = I
-		if(cig.lit == TRUE)
-			visible_message("[user] crushes [cig] in [src], putting it out.")
-			var/obj/item/butt = new cig.type_butt(src)
-			cig.transfer_fingerprints_to(butt)
-			qdel(cig)
-		if(cig.lit == FALSE)
-			visible_message("[user] places [cig] in [src] without even smoking it. Why did [user.p_they()] do that?")
-		return
-	visible_message("[user] places [I] in [src].")
 
-/obj/item/storage/ashtray/update_icon()
-	if(contents.len == storage_slots)
+	var/is_cig = istype(I, /obj/item/clothing/mask/cigarette)
+	if(is_cig || istype(I, /obj/item/cigbutt) || istype(I, /obj/item/match))
+		if(!user.drop_item_ground(I))
+			return
+
+		handle_item_insertion(I)
+
+		var/message_done = FALSE
+		if(is_cig)
+			var/obj/item/clothing/mask/cigarette/cig = I
+			if(cig.lit)
+				message_done = TRUE
+				visible_message("[user] crushes [cig] in [src], putting it out.")
+				var/obj/item/butt = new cig.type_butt(src)
+				cig.transfer_fingerprints_to(butt)
+				qdel(cig)
+			else
+				to_chat(user, "You place [cig] in [src] without even smoking it. Why would you do that?")
+
+		if(!message_done)
+			visible_message("[user] places [I] in [src].")
+		add_fingerprint(user)
+		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+
+
+/obj/item/storage/ashtray/update_icon_state()
+	if(length(contents) == storage_slots)
 		icon_state = icon_full
-		desc = initial(desc) + " It's stuffed full."
-		return
-	if(contents.len >= storage_slots * 0.5)
+	else if(length(contents) > storage_slots * 0.5)
 		icon_state = icon_half
-		desc = initial(desc) + " It's half-filled."
-		return
-	if(contents.len < storage_slots * 0.5)
+	else
 		icon_state = initial(icon_state)
+
+
+/obj/item/storage/ashtray/update_desc(updates = ALL)
+	. = ..()
+	if(length(contents) == storage_slots)
+		desc = initial(desc) + " It's stuffed full."
+	else if(length(contents) > storage_slots * 0.5)
+		desc = initial(desc) + " It's half-filled."
+	else
 		desc = initial(desc)
+
+
+/obj/item/storage/ashtray/proc/empty_tray()
+	for(var/obj/item/I in contents)
+		I.forceMove(loc)
+	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+
 
 /obj/item/storage/ashtray/deconstruct()
 	var/obj/item/trash/broken_ashtray/shards = new(get_turf(src))
-	shards.icon_state = src.icon_broken
+	shards.icon_state = icon_broken
 	visible_message("<span class='warning'>Oops, [src] broke into a lot of pieces!</span>")
 	return ..()
 
+
 /obj/item/storage/ashtray/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	if(contents.len)
-		for(var/obj/item/I in contents)
-			I.forceMove(loc)
-		update_icon()
+	if(length(contents))
 		visible_message("<span class='warning'>[src] slams into [hit_atom] spilling its contents!</span>")
+	empty_tray()
 	if(rand(1,20) > max_integrity)
 		deconstruct()
 	return ..()
+

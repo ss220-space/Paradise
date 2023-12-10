@@ -109,7 +109,7 @@
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(on_attack_self))
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(on_attack))
-	RegisterSignal(parent, COMSIG_OBJ_UPDATE_ICON, PROC_REF(on_update_icon))
+	RegisterSignal(parent, COMSIG_ATOM_UPDATE_ICON, PROC_REF(on_update_icon))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
 	RegisterSignal(parent, COMSIG_ITEM_SHARPEN_ACT, PROC_REF(on_sharpen))
 
@@ -120,7 +120,7 @@
 								COMSIG_ITEM_DROPPED,
 								COMSIG_ITEM_ATTACK_SELF,
 								COMSIG_ITEM_ATTACK,
-								COMSIG_OBJ_UPDATE_ICON,
+								COMSIG_ATOM_UPDATE_ICON,
 								COMSIG_MOVABLE_MOVED,
 								COMSIG_ITEM_SHARPEN_ACT))
 
@@ -184,24 +184,24 @@
 		if(require_twohands)
 			if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 				antispam_timer = world.time
-				to_chat(user, SPAN_WARNING("[parent] слишком тяжел и громоздок для Вас!"))
+				to_chat(user, span_warning("[parent] слишком тяжел и громоздок для Вас!"))
 			user.drop_item_ground(parent, force = TRUE)
 		else
 			if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 				antispam_timer = world.time
-				to_chat(user, SPAN_WARNING("Ваши руки для этого не приспособлены."))
+				to_chat(user, span_warning("Ваши руки для этого не приспособлены."))
 		return
 
 	if(user.get_inactive_hand())
 		if(require_twohands)
 			if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 				antispam_timer = world.time
-				to_chat(user, SPAN_WARNING("[parent] слишком громоздок, чтобы носить в одной руке!"))
+				to_chat(user, span_warning("[parent] слишком громоздок, чтобы носить в одной руке!"))
 			user.drop_item_ground(parent, force = TRUE)
 		else
 			if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 				antispam_timer = world.time
-				to_chat(user, SPAN_WARNING("Вторая рука должна быть свободна!"))
+				to_chat(user, span_warning("Вторая рука должна быть свободна!"))
 		return
 
 	if(user.l_arm_broken() || user.r_arm_broken())
@@ -209,7 +209,7 @@
 			user.drop_item_ground(parent, force = TRUE)
 		if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 			antispam_timer = world.time
-			to_chat(user, SPAN_WARNING("Вы чувствуете как двигаются кости, когда пытаетесь взять [parent] в обе руки."))
+			to_chat(user, span_warning("Вы чувствуете как двигаются кости, когда пытаетесь взять [parent] в обе руки."))
 		return
 
 	if(!user.has_left_hand() || !user.has_right_hand())
@@ -217,7 +217,7 @@
 			user.drop_item_ground(parent, force = TRUE)
 		if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 			antispam_timer = world.time
-			to_chat(user, SPAN_WARNING("У Вас отсутствует вторая рука!"))
+			to_chat(user, span_warning("У Вас отсутствует вторая рука!"))
 		return
 
 	// wield update status
@@ -248,18 +248,18 @@
 
 	var/original_name = parent_item.name
 	parent_item.name = "[original_name] (Wielded)"
-	parent_item.update_icon()
+	parent_item.update_appearance()
 	if(user)
 		user.update_inv_hands()
 
 	if(isrobot(user))
 		if(world.time > antispam_timer + 0.1 SECONDS)
 			antispam_timer = world.time
-			to_chat(user, SPAN_NOTICE("Вы сконцентировались на поддержании [original_name]."))
+			to_chat(user, span_notice("Вы сконцентировались на поддержании [original_name]."))
 	else
 		if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 			antispam_timer = world.time
-			to_chat(user, SPAN_NOTICE("Вы взяли [original_name] в обе руки."))
+			to_chat(user, span_notice("Вы взяли [original_name] в обе руки."))
 
 	// Play sound if one is set
 	if(wieldsound)
@@ -320,7 +320,7 @@
 		parent_item.name = "[initial(parent_item.name)]"
 
 	// Update icons
-	parent_item.update_icon()
+	parent_item.update_appearance()
 
 	if(istype(user)) // tk showed that we might not have a mob here
 		user.update_inv_hands()
@@ -333,20 +333,20 @@
 		if(show_message)
 			var/abstract_check = !(item.flags & ABSTRACT)
 			if(isrobot(parent))
-				to_chat(user, SPAN_NOTICE("Вы снизили нагрузку на [parent_item]."))
+				to_chat(user, span_notice("Вы снизили нагрузку на [parent_item]."))
 			else
 				if(require_twohands || parent_item.loc != user)
 					if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 						antispam_timer = world.time
-						to_chat(user, SPAN_NOTICE("Вы уронили [parent_item]."))
+						to_chat(user, span_notice("Вы уронили [parent_item]."))
 				if(parent_item.loc == user && user.is_in_hands(parent_item))
 					if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 						antispam_timer = world.time
-						to_chat(user, SPAN_NOTICE("Теперь вы держите [parent_item] одной рукой."))
+						to_chat(user, span_notice("Теперь вы держите [parent_item] одной рукой."))
 				if(parent_item.loc == user && !user.is_in_hands(parent_item))
 					if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 						antispam_timer = world.time
-						to_chat(user, SPAN_NOTICE("Вы экипировали [parent_item]."))
+						to_chat(user, span_notice("Вы экипировали [parent_item]."))
 
 	// Play sound if set
 	if(unwieldsound)
@@ -379,10 +379,12 @@
 /datum/component/two_handed/proc/on_update_icon(obj/item/source)
 	SIGNAL_HANDLER
 
+	if(!wielded)
+		return NONE
 	if(!icon_wielded)
-		return
-
-	source.icon_state = wielded ? icon_wielded : initial(source.icon_state)
+		return NONE
+	source.icon_state = icon_wielded
+	return COMSIG_ATOM_NO_UPDATE_ICON_STATE
 
 
 /**

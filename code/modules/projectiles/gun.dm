@@ -51,6 +51,7 @@
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 
 	var/obj/item/flashlight/gun_light = null
+	var/gun_light_overlay
 	var/can_flashlight = 0
 
 	var/can_bayonet = FALSE //if a bayonet can be added or removed if it already has one.
@@ -341,7 +342,7 @@
 				if(S.on)
 					set_light(0)
 				gun_light = S
-				update_icon()
+				update_icon(UPDATE_OVERLAYS)
 				update_gun_light(user)
 				var/datum/action/A = new /datum/action/item_action/toggle_gunlight(src)
 				if(loc == user)
@@ -360,6 +361,7 @@
 			return
 		to_chat(user, "<span class='notice'>You attach [K] to [src]'s bayonet lug.</span>")
 		bayonet = K
+		update_icon()
 		var/state = "bayonet"							//Generic state.
 		if(bayonet.icon_state in icon_states('icons/obj/weapons/bayonets.dmi'))		//Snowflake state?
 			state = bayonet.icon_state
@@ -367,7 +369,7 @@
 		knife_overlay = mutable_appearance(bayonet_icons, state)
 		knife_overlay.pixel_x = knife_x_offset
 		knife_overlay.pixel_y = knife_y_offset
-		overlays += knife_overlay
+		update_icon(UPDATE_OVERLAYS)
 	else
 		return ..()
 

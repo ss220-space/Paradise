@@ -20,11 +20,20 @@
 	force = 16
 	scribe_multiplier = 0.1
 
-/obj/item/melee/cultblade/dagger/New()
-	..()
-	if(SSticker.mode)
+
+/obj/item/melee/cultblade/dagger/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_ICON_STATE)
+
+
+/obj/item/melee/cultblade/dagger/update_icon_state()
+	if(SSticker?.cultdat)
 		icon_state = SSticker.cultdat.dagger_icon
 		item_state = SSticker.cultdat.dagger_icon
+	else
+		icon_state = initial(icon_state)
+		item_state = initial(item_state)
+
 
 /obj/item/melee/cultblade/dagger/examine(mob/user)
 	. = ..()

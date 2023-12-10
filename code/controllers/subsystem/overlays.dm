@@ -109,6 +109,7 @@ SUBSYSTEM_DEF(overlays)
 
 #define NOT_QUEUED_ALREADY (!(flags_2 & OVERLAY_QUEUED_2))
 #define QUEUE_FOR_COMPILE flags_2 |= OVERLAY_QUEUED_2; SSoverlays.queue += src;
+
 /atom/proc/cut_overlays(priority = FALSE)
 	LAZYINITLIST(priority_overlays)
 	LAZYINITLIST(remove_overlays)

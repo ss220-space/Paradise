@@ -59,10 +59,6 @@
 	set_max()
 	return ..()
 
-/obj/machinery/atmospherics/trinary/filter/proc/toggle()
-	if(powered())
-		on = !on
-		update_icon()
 
 /obj/machinery/atmospherics/trinary/filter/proc/set_max()
 	if(powered())
@@ -79,7 +75,7 @@
 	icon_state = "mmap"
 	flipped = 1
 
-/obj/machinery/atmospherics/trinary/filter/update_icon()
+/obj/machinery/atmospherics/trinary/filter/update_icon_state()
 	..()
 
 	if(flipped)
@@ -93,7 +89,7 @@
 		icon_state += on ? "on" : "off"
 	else
 		icon_state += "off"
-		on = 0
+		on = FALSE
 
 /obj/machinery/atmospherics/trinary/filter/update_underlays()
 	if(..())
@@ -111,11 +107,10 @@
 
 		add_underlay(T, node3, dir)
 
-/obj/machinery/atmospherics/trinary/filter/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon()
+/obj/machinery/atmospherics/trinary/filter/power_change(forced = FALSE)
+	if(!..())
+		return
+	update_icon()
 
 /obj/machinery/atmospherics/trinary/filter/process_atmos()
 	..()

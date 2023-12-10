@@ -6,8 +6,8 @@
 	origin_tech = "combat=3;materials=2"
 	fire_sound = 'sound/weapons/gunshots/1rev.ogg'
 
-/obj/item/gun/projectile/revolver/New()
-	..()
+/obj/item/gun/projectile/revolver/Initialize(mapload)
+	. = ..()
 	if(!istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
 		verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
@@ -97,8 +97,8 @@
 	unique_rename = TRUE
 	unique_reskin = TRUE
 
-/obj/item/gun/projectile/revolver/detective/New()
-	..()
+/obj/item/gun/projectile/revolver/detective/Initialize(mapload)
+	. = ..()
 	options["The Original"] = "detective"
 	options["Leopard Spots"] = "detective_leopard"
 	options["Black Panther"] = "detective_panther"
@@ -132,8 +132,8 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible/fake
 
 
-/obj/item/gun/projectile/revolver/fingergun/New(loc, new_parent_spell)
-	..()
+/obj/item/gun/projectile/revolver/fingergun/Initialize(loc, new_parent_spell)
+	. = ..()
 	parent_spell = new_parent_spell
 	verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
@@ -213,8 +213,8 @@
 	var/spun = FALSE
 
 
-/obj/item/gun/projectile/revolver/russian/New()
-	..()
+/obj/item/gun/projectile/revolver/russian/Initialize(mapload)
+	. = ..()
 	Spin()
 	update_icon()
 
@@ -348,8 +348,8 @@
 	unique_rename = TRUE
 	unique_reskin = TRUE
 
-/obj/item/gun/projectile/revolver/doublebarrel/New()
-	..()
+/obj/item/gun/projectile/revolver/doublebarrel/Initialize(mapload)
+	. = ..()
 	options["Default"] = "dshotgun"
 	options["Dark Red Finish"] = "dshotgun-d"
 	options["Ash"] = "dshotgun-f"
@@ -421,10 +421,10 @@
 	else
 		return ..()
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/update_icon()
-	..()
-	if(slung && (sawn_state == SAWN_INTACT))
-		icon_state = "ishotgunsling"
+
+/obj/item/gun/projectile/revolver/doublebarrel/improvised/update_icon_state()
+	icon_state = "ishotgun[slung ? "sling" : sawn_state == SAWN_OFF ? "-sawn" : ""]"
+
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/sawoff(mob/user)
 	. = ..()
@@ -459,8 +459,11 @@
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/is_crutch()
 	return TRUE
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/update_icon()
+/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/update_icon_state()
 	return
+
+/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/update_overlays()
+	return list()
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/stack/cable_coil))

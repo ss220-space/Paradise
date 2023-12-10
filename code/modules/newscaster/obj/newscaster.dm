@@ -18,7 +18,7 @@
 	name = "newscaster"
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. All the news you absolutely have no use for, in one place!"
 	icon = 'icons/obj/machines/terminals.dmi'
-	icon_state = "newscaster_normal"
+	icon_state = "newscaster"
 	max_integrity = 200
 	integrity_failure = 50
 	light_range = 0
@@ -57,7 +57,7 @@
 /obj/machinery/newscaster/New()
 	GLOB.allNewscasters += src
 	unit_number = length(GLOB.allNewscasters)
-	update_icon() //for any custom ones on the map...
+	update_icon(UPDATE_OVERLAYS) //for any custom ones on the map...
 	if(!last_views)
 		last_views = list()
 	armor = list(melee = 50, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 30)
@@ -93,33 +93,49 @@
 	QDEL_NULL(photo)
 	return ..()
 
-/obj/machinery/newscaster/update_icon()
-	cut_overlays()
-	if(inoperable())
-		icon_state = "newscaster_off"
-	else
-		if(!GLOB.news_network.wanted_issue) //wanted icon state, there can be no overlays on it as it's a priority message
-			icon_state = "newscaster_normal"
-			if(alert) //new message alert overlay
-				add_overlay("newscaster_alert")
-	var/hp_percent = obj_integrity * 100 / max_integrity
-	switch(hp_percent)
-		if(75 to INFINITY)
-			return
-		if(50 to 75)
-			add_overlay("crack1")
-		if(25 to 50)
-			add_overlay("crack2")
-		else
-			add_overlay("crack3")
 
-/obj/machinery/newscaster/power_change()
-	..()
-	update_icon()
+/obj/machinery/newscaster/update_overlays()
+	. = ..()
+	underlays.Cut()
+	if(inoperable())
+		return
+
+	if(!(stat & NOPOWER))
+		underlays += emissive_appearance(icon, "newscaster_lightmask")
+
+	if(GLOB.news_network.wanted_issue)
+		. += "newscaster_wanted"
+	else
+		. += "newscaster_normal"
+
+	if(!GLOB.news_network.wanted_issue && alert) //wanted icon state, there can be no overlays on it as it's a priority message
+		. += "newscaster_alert"
+
+	var/hp_percent = round(obj_integrity * 100 / max_integrity)
+	switch(hp_percent)
+		if(76 to INFINITY)
+			return
+		if(51 to 75)
+			. += "crack1"
+		if(26 to 50)
+			. += "crack2"
+		if(1 to 25)
+			. += "crack3"
+
+
+/obj/machinery/newscaster/power_change(forced = FALSE)
+	if(!..())
+		return
+	if(stat & NOPOWER)
+		set_light(0)
+	else
+		set_light(1, LIGHTING_MINIMUM_POWER)
+	update_icon(UPDATE_OVERLAYS)
+
 
 /obj/machinery/newscaster/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = TRUE, attack_dir)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/newscaster/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -167,7 +183,7 @@
 	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
 		stat |= BROKEN
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/newscaster/attack_ghost(mob/user)
 	ui_interact(user)
@@ -419,6 +435,8 @@
 				return
 			GLOB.news_network.wanted_issue = null
 			set_temp("Wanted notice cleared.", update_now = TRUE)
+			for(var/obj/machinery/newscaster/NC as anything in GLOB.allNewscasters)
+				NC.update_icon(UPDATE_OVERLAYS)
 			return FALSE
 		if("toggle_mute")
 			is_silent = !is_silent
@@ -687,14 +705,14 @@
 		return
 	alert = TRUE
 	addtimer(CALLBACK(src, PROC_REF(alert_timer_finish)), 30 SECONDS)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /**
   * Called when the timer following a call to [/obj/machinery/newscaster/proc/alert_news] finishes.
   */
 /obj/machinery/newscaster/proc/alert_timer_finish()
 	alert = FALSE
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /**
   * Ejects the currently loaded photo if there is one.

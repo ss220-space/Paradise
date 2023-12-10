@@ -11,16 +11,16 @@
 
 	var/obj/machinery/portable_atmospherics/connected_device
 
-	var/on = 0
+	on = FALSE
 
 /obj/machinery/atmospherics/unary/portables_connector/Destroy()
 	if(connected_device)
 		connected_device.disconnect()
 	return ..()
 
-/obj/machinery/atmospherics/unary/portables_connector/update_icon()
-	..()
+/obj/machinery/atmospherics/unary/portables_connector/update_icon_state()
 	icon_state = "connector"
+
 
 /obj/machinery/atmospherics/unary/portables_connector/update_underlays()
 	if(..())

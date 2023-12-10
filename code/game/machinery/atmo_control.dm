@@ -1,19 +1,29 @@
+GLOBAL_LIST_EMPTY(gas_sensors)
+
+#define SENSOR_PRESSURE 1
+#define SENSOR_TEMPERATURE 2
+#define SENSOR_O2 4
+#define SENSOR_PLASMA 8
+#define SENSOR_N2 16
+#define SENSOR_CO2 32
+
+
 /obj/machinery/atmospherics/air_sensor
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gsensor1"
 	resistance_flags = FIRE_PROOF
 	name = "gas sensor"
 
-	anchored = 1
-	var/state = 0
-	var/bolts = 1
+	anchored = TRUE
+	var/state = NONE
+	var/bolts = TRUE
 
 	var/id_tag
 	frequency = ATMOS_TANKS_FREQ
 
-	var/on = 1
-	var/output = 3
-	//Flags:
+	on = TRUE
+	var/output = SENSOR_PRESSURE|SENSOR_TEMPERATURE
+	//Flags: (see lines 3-9)
 	// 1 for pressure
 	// 2 for temperature
 	// Output >= 4 includes gas composition
@@ -22,16 +32,19 @@
 	// 16 for nitrogen concentration
 	// 32 for carbon dioxide concentration
 
-/obj/machinery/atmospherics/air_sensor/update_icon()
+
+/obj/machinery/atmospherics/air_sensor/update_icon_state()
 	icon_state = "gsensor[on]"
 
+
 /obj/machinery/atmospherics/air_sensor/proc/toggle_out_flag(bitflag_value)
-	if(!(bitflag_value in list(1, 2, 4, 8, 16, 32)))
-		return 0
+	if(!(bitflag_value in list(SENSOR_PRESSURE, SENSOR_TEMPERATURE, SENSOR_O2, SENSOR_PLASMA, SENSOR_N2, SENSOR_CO2)))
+		return
 	if(output & bitflag_value)
 		output &= ~bitflag_value
 	else
 		output |= bitflag_value
+
 
 /obj/machinery/atmospherics/air_sensor/proc/toggle_bolts()
 	bolts = !bolts
@@ -99,10 +112,12 @@
 
 /obj/machinery/atmospherics/air_sensor/Initialize()
 	. = ..()
+	GLOB.gas_sensors += src
 	SSair.atmos_machinery += src
 	set_frequency(frequency)
 
 /obj/machinery/atmospherics/air_sensor/Destroy()
+	GLOB.gas_sensors -= src
 	SSair.atmos_machinery -= src
 	if(SSradio)
 		SSradio.remove_object(src, frequency)

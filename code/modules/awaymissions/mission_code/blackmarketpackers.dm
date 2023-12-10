@@ -206,8 +206,7 @@
 /obj/machinery/firealarm/triggered_nosignals
 	report_fire_alarms = FALSE
 	show_alert_level = FALSE
-	triggered = TRUE
-	icon_state = "fire1"
+
 
 //Spieder spawner
 

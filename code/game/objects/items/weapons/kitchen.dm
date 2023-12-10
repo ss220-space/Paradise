@@ -279,6 +279,7 @@
 	drop_sound = 'sound/items/handling/bone_drop.ogg'
 	var/size
 
+
 /obj/item/kitchen/knife/glassshiv/Initialize(mapload, obj/item/shard/sh)
 	. = ..()
 	if(sh)
@@ -289,11 +290,12 @@
 		force = 9
 		throwforce = 11
 		materials = list(MAT_PLASMA = MINERAL_MATERIAL_AMOUNT * 0.5, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
-	update_icon()
-
-/obj/item/kitchen/knife/glassshiv/update_icon()
 	if(!size)
 		size = pick("large", "medium", "small")
+	update_icon(UPDATE_ICON_STATE)
+
+
+/obj/item/kitchen/knife/glassshiv/update_icon_state()
 	icon_state = "[size]_[initial(icon_state)]"
 
 

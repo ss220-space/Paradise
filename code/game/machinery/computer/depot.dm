@@ -378,8 +378,9 @@
 		Enjoy your stay.</span>
 	"})
 
-/obj/machinery/computer/syndicate_depot/syndiecomms/power_change()
-	. = ..()
+/obj/machinery/computer/syndicate_depot/syndiecomms/power_change(forced = FALSE)
+	if(!..())
+		return
 	if(!security_lockout && (stat & NOPOWER))
 		security_lockout = TRUE
 		raise_alert("[src] lost power.")

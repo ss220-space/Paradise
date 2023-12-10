@@ -81,7 +81,8 @@
 	QDEL_NULL(sparks)
 	return ..()
 
-/obj/machinery/power/emitter/update_icon()
+
+/obj/machinery/power/emitter/update_icon_state()
 	if(active && powernet && avail(active_power_usage))
 		icon_state = "emitter_+a"
 	else
@@ -110,7 +111,7 @@
 				message_admins("Emitter turned on by [key_name_admin(user)] in [ADMIN_COORDJMP(src)]")
 				add_game_logs("turned on emitter in [COORD(src)]", user)
 				investigate_log("turned <font color='green'>on</font> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 		else
 			to_chat(user, "<span class='warning'>The controls are locked!</span>")
 	else
@@ -141,19 +142,19 @@
 		return
 	if(src.state != 2 || (!powernet && active_power_usage))
 		src.active = 0
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		return
 	if(active == TRUE)
 		if(!active_power_usage || surplus() >= active_power_usage)
 			add_load(active_power_usage)
 			if(!powered)
 				powered = 1
-				update_icon()
+				update_icon(UPDATE_ICON_STATE)
 				investigate_log("regained power and turned <font color='green'>on</font>", INVESTIGATE_ENGINE)
 		else
 			if(powered)
 				powered = 0
-				update_icon()
+				update_icon(UPDATE_ICON_STATE)
 				investigate_log("lost power and turned <font color='red'>off</font>", INVESTIGATE_ENGINE)
 			return
 

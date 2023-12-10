@@ -22,8 +22,7 @@
 
 /obj/structure/door_assembly/Initialize(mapload)
 	. = ..()
-	update_icon()
-	update_name()
+	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
 /obj/structure/door_assembly/Destroy()
 	QDEL_NULL(electronics)
@@ -142,8 +141,7 @@
 					to_chat(user, "<span class='warning'>You cannot add [S] to [src]!</span>")
 	else
 		return ..()
-	update_name()
-	update_icon()
+	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
 /obj/structure/door_assembly/crowbar_act(mob/user, obj/item/I)
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER )
@@ -164,8 +162,7 @@
 		ae = electronics
 		electronics = null
 		ae.forceMove(loc)
-	update_icon()
-	update_name()
+	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
 /obj/structure/door_assembly/screwdriver_act(mob/user, obj/item/I)
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER )
@@ -199,7 +196,7 @@
 	electronics.forceMove(door)
 	electronics = null
 	qdel(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/door_assembly/wirecutter_act(mob/user, obj/item/I)
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
@@ -213,7 +210,7 @@
 	to_chat(user, "<span class='notice'>You cut the wires from the airlock assembly.</span>")
 	new/obj/item/stack/cable_coil(get_turf(user), 1)
 	state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/door_assembly/wrench_act(mob/user, obj/item/I)
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_WIRES)
@@ -266,17 +263,20 @@
 			return
 		to_chat(user, "<span class='notice'>You disassemble the airlock assembly.</span>")
 		deconstruct(TRUE)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/door_assembly/update_icon()
-	overlays.Cut()
+
+/obj/structure/door_assembly/update_overlays()
+	. = ..()
 	if(!glass)
-		overlays += get_airlock_overlay("fill_construction", icon)
+		. += get_airlock_overlay("fill_construction", icon)
 	else if(glass)
-		overlays += get_airlock_overlay("glass_construction", overlays_file)
-	overlays += get_airlock_overlay("panel_c[state+1]", overlays_file)
+		. += get_airlock_overlay("glass_construction", overlays_file)
+	. += get_airlock_overlay("panel_c[state+1]", overlays_file)
 
-/obj/structure/door_assembly/proc/update_name()
+
+/obj/structure/door_assembly/update_name(updates = ALL)
+	. = ..()
 	name = ""
 	switch(state)
 		if(AIRLOCK_ASSEMBLY_NEEDS_WIRES)
@@ -287,6 +287,7 @@
 		if(AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 			name = "near finished "
 	name += "[heat_proof_finished ? "heat-proofed " : ""][glass ? "window " : ""][base_name] assembly"
+
 
 /obj/structure/door_assembly/proc/transfer_assembly_vars(obj/structure/door_assembly/source, obj/structure/door_assembly/target, previous = FALSE)
 	target.glass = source.glass
@@ -299,8 +300,7 @@
 	if(electronics)
 		target.electronics = source.electronics
 		source.electronics.forceMove(target)
-	target.update_icon()
-	target.update_name()
+	target.update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 	qdel(source)
 
 /obj/structure/door_assembly/deconstruct(disassembled = TRUE)

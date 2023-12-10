@@ -41,7 +41,7 @@
 
 	var/gasefficency = 0.125
 
-	var/base_icon_state = "darkmatter_shard"
+	base_icon_state = "darkmatter_shard"
 
 	var/damage = 0
 	var/damage_archived = 0
@@ -512,9 +512,9 @@
 
 /obj/machinery/power/supermatter_shard/proc/emergency_lighting(active)
     if(active)
-        post_status("alert", "radiation")
+        post_status(STATUS_DISPLAY_ALERT, "radiation")
     else
-        post_status("shuttle")
+        post_status(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)
 
 /obj/machinery/power/supermatter_shard/proc/supermatter_zap()
 	playsound(src.loc, 'sound/magic/lightningshock.ogg', 100, 1, extrarange = 5)

@@ -3,8 +3,6 @@
 	desc = "Just a box..."
 	icon = 'icons/obj/cardboard_boxes.dmi'
 	icon_state = "cardboard"
-	icon_opened = "cardboard_open"
-	icon_closed = "cardboard"
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	integrity_failure = 0
@@ -13,6 +11,7 @@
 	open_sound_volume = 35
 	close_sound_volume = 35
 	material_drop = /obj/item/stack/sheet/cardboard
+	no_overlays = TRUE
 	var/decal = ""
 	var/amt = 4
 	var/move_delay = FALSE
@@ -105,7 +104,7 @@
 
 			update_icon()
 
-/obj/structure/closet/cardboard/update_icon() //Not deriving, because of different logic.
+/obj/structure/closet/cardboard/update_icon_state() //Not deriving, because of different logic.
 	if(!opened)
 		if(decal)
 			icon_state = "cardboard_" + decal
@@ -116,3 +115,8 @@
 			icon_state = "cardboard_open_" + decal
 		else
 			icon_state = "cardboard_open"
+
+
+/obj/structure/closet/cardboard/update_overlays()
+	. = list()
+

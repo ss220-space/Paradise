@@ -10,22 +10,48 @@
 	var/obj/item/ammo_box/magazine/magazine
 	var/can_tactical = FALSE //check to see if the gun can tactically reload
 
-/obj/item/gun/projectile/New()
-	..()
+
+/obj/item/gun/projectile/Initialize(mapload)
+	. = ..()
 	if(!magazine)
 		magazine = new mag_type(src)
 	chamber_round()
+	update_weight()
 	update_icon()
-	return
 
-/obj/item/gun/projectile/update_icon()
-	..()
+
+/obj/item/gun/projectile/update_name(updates = ALL)
+	. = ..()
+	if(sawn_state)
+		name = "sawn-off [name]"
+	else
+		name = initial(name)
+
+
+/obj/item/gun/projectile/update_desc(updates = ALL)
+	. = ..()
+	if(sawn_state)
+		desc = sawn_desc
+	else
+		desc = initial(desc)
+
+
+/obj/item/gun/projectile/update_icon_state()
 	if(current_skin)
-		icon_state = "[current_skin][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""]"
+		icon_state = "[current_skin][suppressed ? "-suppressed" : ""][sawn_state ? "_sawn" : ""]"
 	else
 		icon_state = "[initial(icon_state)][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""][bolt_open ? "-open" : ""]"
+
+
+/obj/item/gun/projectile/update_overlays()
+	. = ..()
 	if(bayonet && can_bayonet)
-		overlays += knife_overlay
+		. += knife_overlay
+
+
+/obj/item/gun/proc/update_weight()
+	return
+
 
 /obj/item/gun/projectile/process_chamber(eject_casing = 1, empty_chamber = 1)
 	var/obj/item/ammo_casing/AC = chambered //Find chambered round
@@ -57,15 +83,17 @@
 /obj/item/gun/projectile/proc/can_reload()
 	return !magazine
 
+
 /obj/item/gun/projectile/proc/reload(obj/item/ammo_box/magazine/AM, mob/user as mob)
-		user.drop_item_ground(AM)
-		magazine = AM
-		magazine.loc = src
-		playsound(src, magin_sound, 50, 1)
-		chamber_round()
-		AM.update_icon()
-		update_icon()
-		return
+	user.drop_item_ground(AM)
+	magazine = AM
+	magazine.loc = src
+	playsound(src, magin_sound, 50, 1)
+	chamber_round()
+	update_weight()
+	AM.update_icon()
+	update_icon()
+
 
 /obj/item/gun/projectile/attackby(var/obj/item/A as obj, mob/user as mob, params)
 	if(istype(A, /obj/item/ammo_box/magazine))
@@ -136,6 +164,7 @@
 		user.put_in_hands(magazine)
 		magazine.update_icon()
 		magazine = null
+		update_weight()
 		to_chat(user, "<span class='notice'>You pull the magazine out of \the [src]!</span>")
 		playsound(src, magout_sound, 50, 1)
 	else if(chambered)
@@ -196,14 +225,12 @@
 		if(sawn_state == SAWN_OFF)
 			return
 		user.visible_message("[user] shortens \the [src]!", "<span class='notice'>You shorten \the [src].</span>")
-		name = "sawn-off [name]"
-		desc = sawn_desc
 		w_class = WEIGHT_CLASS_NORMAL
 		item_state = "gun"//phil235 is it different with different skin?
 		slot_flags &= ~SLOT_BACK	//you can't sling it on your back
 		slot_flags |= SLOT_BELT		//but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 		sawn_state = SAWN_OFF
-		update_icon()
+		update_appearance()
 		return 1
 
 // Sawing guns related proc

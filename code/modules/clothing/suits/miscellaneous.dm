@@ -225,8 +225,8 @@
 	name = "\improper super-hero E-N suit"
 	icon_state = "ensuit"
 
-/obj/item/clothing/suit/corgisuit/super_hero/en/New()
-	..()
+/obj/item/clothing/suit/corgisuit/super_hero/en/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/suit/corgisuit/super_hero/en/Destroy()
@@ -235,14 +235,15 @@
 
 /obj/item/clothing/suit/corgisuit/super_hero/en/process()
 	if(prob(2))
-		for(var/obj/M in orange(2,src))
-			if(!M.anchored && (M.flags & CONDUCT))
-				step_towards(M,src)
-		for(var/mob/living/silicon/S in orange(2,src))
-			if(istype(S, /mob/living/silicon/ai)) continue
-			step_towards(S,src)
-		for(var/mob/living/carbon/human/machine/M in orange(2,src))
-			step_towards(M,src)
+		for(var/obj/object in orange(2, src))
+			if(!object.anchored && (object.flags & CONDUCT))
+				step_towards(object, src)
+		for(var/mob/living/silicon/robot in orange(2,src))
+			if(isAI(robot))
+				continue
+			step_towards(robot, src)
+		for(var/mob/living/carbon/human/machine/IPC in orange(2,src))
+			step_towards(IPC, src)
 
 /obj/item/clothing/suit/monkeysuit
 	name = "monkey suit"
@@ -1148,7 +1149,6 @@
 
 	if(!istype(H) || slot != slot_wear_suit)
 		STOP_PROCESSING(SSobj, src)
-		return
 	else
 		START_PROCESSING(SSobj, src)
 

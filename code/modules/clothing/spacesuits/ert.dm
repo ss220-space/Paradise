@@ -241,8 +241,8 @@
 	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore)
 	hide_tail_by_species = list("Unathi, Ash Walker, Ash Walker Shaman, Draconid, Tajaran, Vox, Vulpkanin")
 
-/obj/item/clothing/suit/space/hardsuit/ert/paranormal/New()
-	..()
+/obj/item/clothing/suit/space/hardsuit/ert/paranormal/Initialize(mapload)
+	. = ..()
 	new /obj/item/nullrod(src)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/inquisitor

@@ -15,7 +15,12 @@
 		if(istype(I, /obj/item/paper))
 			I.loc = src
 			notices++
+	update_icon(UPDATE_ICON_STATE)
+
+
+/obj/structure/noticeboard/update_icon_state()
 	icon_state = "nboard0[notices]"
+
 
 //attaching papers!!
 /obj/structure/noticeboard/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
@@ -25,7 +30,7 @@
 			add_fingerprint(user)
 			user.drop_transfer_item_to_loc(O, src)
 			notices++
-			icon_state = "nboard0[notices]"	//update sprite
+			update_icon(UPDATE_ICON_STATE)
 			to_chat(user, "<span class='notice'>You pin the paper to the noticeboard.</span>")
 		else
 			to_chat(user, "<span class='notice'>You reach to pin your paper to the board but hesitate. You are certain your paper will not be seen among the many others already attached.</span>")
@@ -57,7 +62,7 @@
 			P.add_fingerprint(usr)
 			add_fingerprint(usr)
 			notices--
-			icon_state = "nboard0[notices]"
+			update_icon(UPDATE_ICON_STATE)
 
 	if(href_list["write"])
 		if((usr.stat || usr.restrained())) //For when a player is handcuffed while they have the notice window open

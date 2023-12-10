@@ -84,18 +84,21 @@
 			continue
 		make_snowcloud(TF)
 
-/obj/machinery/snow_machine/power_change()
-	..()
+
+/obj/machinery/snow_machine/power_change(forced = FALSE)
+	if(!..())
+		return
 	if(!powered())
 		turn_on_or_off(FALSE, TRUE)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/snow_machine/update_icon()
-	..()
+
+/obj/machinery/snow_machine/update_icon_state()
 	if(panel_open)
 		icon_state = "snow_machine_openpanel"
 	else
 		icon_state = "snow_machine_[active ? "on" : "off"]"
+
 
 /obj/machinery/snow_machine/proc/affect_turf_temperature(turf/T, modifier)
 	if(!issimulatedturf(T) || T.density)
@@ -132,5 +135,5 @@
 	if(!active && give_message)
 		visible_message(span_warning("[src] switches off!"))
 		playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	return TRUE

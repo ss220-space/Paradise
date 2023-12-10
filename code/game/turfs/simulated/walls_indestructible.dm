@@ -59,7 +59,7 @@
 /turf/simulated/wall/indestructible/rcd_deconstruct_act()
 	return RCD_NO_ACT
 
-/turf/simulated/wall/indestructible/thermitemelt(mob/user as mob, speed)
+/turf/simulated/wall/indestructible/thermitemelt(mob/user, speed)
 	return
 
 /turf/simulated/wall/indestructible/fakeglass

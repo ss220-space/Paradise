@@ -144,8 +144,7 @@
 			return 1
 	return 0
 
-/obj/machinery/door/unpowered/hotel_door/update_icon()
-	overlays.Cut()
+/obj/machinery/door/unpowered/hotel_door/update_icon_state()
 	if(density)
 		icon_state = "door_closed"
 	else

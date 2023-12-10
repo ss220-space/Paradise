@@ -15,7 +15,7 @@
 	var/closingLayer = CLOSED_DOOR_LAYER
 	var/visible = 1
 	/// Is it currently in the process of opening or closing.
-	var/operating = FALSE
+	var/operating = NONE
 	var/autoclose = 0
 	/// Whether the door detects things and mobs in its way and reopen or crushes them.
 	var/safe = TRUE
@@ -65,9 +65,12 @@
 	..()
 	update_dir()
 
-/obj/machinery/door/power_change()
-	..()
-	update_icon()
+
+/obj/machinery/door/power_change(forced = FALSE)
+	. = ..()
+	if(.)
+		update_icon()
+
 
 /obj/machinery/door/proc/update_dir()
 	if(width > 1)
@@ -228,7 +231,7 @@
 		return
 	if(requiresID() && (allowed(user) || user.can_advanced_admin_interact()))
 		if(density)
-			if(HAS_TRAIT(src, TRAIT_CMAGGED) && !user.can_advanced_admin_interact())
+			if(HAS_TRAIT(src, TRAIT_CMAGGED) && !user.can_advanced_admin_interact()) //cmag should not prevent admin intervention
 				cmag_switch(FALSE, user)
 				return
 			open()
@@ -236,7 +239,7 @@
 			if(HAS_TRAIT(src, TRAIT_CMAGGED) && !user.can_advanced_admin_interact())
 				return
 			close()
-		return
+		return TRUE
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		cmag_switch(TRUE, user)
 		return
@@ -369,11 +372,10 @@
 	sound_ready = FALSE
 	addtimer(VARSET_CALLBACK(src, sound_ready, TRUE), sound_cooldown)
 
-/obj/machinery/door/update_icon()
-	if(density)
-		icon_state = "door1"
-	else
-		icon_state = "door0"
+
+/obj/machinery/door/update_icon_state()
+	icon_state = "door[density]"
+
 
 /obj/machinery/door/proc/do_animate(animation)
 	switch(animation)
@@ -395,22 +397,22 @@
 	if(!density)
 		return TRUE
 	if(operating)
-		return
-	operating = TRUE
+		return FALSE
+	operating = DOOR_OPENING
 	do_animate("opening")
-	set_opacity(0)
-	sleep(5)
+	set_opacity(FALSE)
+	sleep(0.5 SECONDS)
 	density = FALSE
-	sleep(5)
+	sleep(0.5 SECONDS)
 	layer = initial(layer)
 	update_icon()
-	set_opacity(0)
-	operating = FALSE
-	air_update_turf(1)
+	operating = NONE
+	air_update_turf(TRUE)
 	update_freelook_sight()
 	if(autoclose)
 		autoclose_in(normalspeed ? auto_close_time : auto_close_time_dangerous)
 	return TRUE
+
 
 /obj/machinery/door/proc/close()
 	if(density)
@@ -422,27 +424,28 @@
 			for(var/atom/movable/M in turf)
 				if(M.density && M != src) //something is blocking the door
 					if(autoclose)
-						autoclose_in(60)
+						autoclose_in(6 SECONDS)
 					return
 
-	operating = TRUE
+	operating = DOOR_CLOSING
 
 	do_animate("closing")
 	layer = closingLayer
-	sleep(5)
+	sleep(0.5 SECONDS)
 	density = TRUE
-	sleep(5)
+	sleep(0.5 SECONDS)
 	update_icon()
 	if(visible && !glass)
-		set_opacity(1)
-	operating = FALSE
-	air_update_turf(1)
+		set_opacity(TRUE)
+	operating = NONE
+	air_update_turf(TRUE)
 	update_freelook_sight()
 	if(safe)
 		CheckForMobs()
 	else
 		crush()
 	return TRUE
+
 
 /obj/machinery/door/proc/CheckForMobs()
 	if(locate(/mob/living) in get_turf(src))

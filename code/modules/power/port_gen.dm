@@ -32,7 +32,7 @@
 /obj/machinery/power/port_gen/proc/handleInactive()
 	return
 
-/obj/machinery/power/port_gen/update_icon()
+/obj/machinery/power/port_gen/update_icon_state()
 	icon_state = "[base_icon]_[active]"
 
 /obj/machinery/power/port_gen/process()
@@ -42,10 +42,10 @@
 	else
 		active = 0
 		handleInactive()
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/power/powered()
-	return 1 //doesn't require an external power source
+	return TRUE //doesn't require an external power source
 
 /obj/machinery/power/port_gen/attack_hand(mob/user as mob)
 	if(..())
@@ -373,7 +373,7 @@
 			if(!powernet) //only a warning, process will disable
 				atom_say("Не подключен к электросет+и.")
 			active = !active
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 		if("eject_fuel")
 			DropFuel()
 		if("change_power")

@@ -26,64 +26,6 @@
 	QDEL_NULL(cell)
 	return ..()
 
-/obj/machinery/floodlight/proc/updateicon()
-	icon_state = "flood[open ? "o" : ""][open && cell ? "b" : ""]0[on]"
-
-/obj/machinery/floodlight/process()
-	if(!cell && on)
-		on = FALSE
-		visible_message(span_warning("[src] shuts down due to lack of power!"))
-		update_icon()
-		set_light(0)
-	if(on)
-		cell.charge -= use
-		if(cell.charge <= 0)
-			on = FALSE
-			updateicon()
-			set_light(0)
-			visible_message(span_warning("[src] shuts down due to lack of power!"))
-
-/obj/machinery/floodlight/attack_ai()
-	return
-
-/obj/machinery/floodlight/attack_hand(mob/user as mob)
-	if(open && cell)
-		if(ishuman(user))
-			if(!user.get_active_hand())
-				cell.forceMove_turf()
-				user.put_in_hands(cell, ignore_anim = FALSE)
-		else
-			cell.loc = loc
-
-		add_fingerprint(user)
-		cell.add_fingerprint(user)
-		cell.update_icon()
-
-		cell = null
-		to_chat(user, "You remove the power cell.")
-		if(on)
-			on = FALSE
-			visible_message(span_warning("[src] shuts down due to lack of power!"))
-			set_light(0)
-		updateicon()
-		return
-
-	if(on)
-		add_fingerprint(user)
-		on = FALSE
-		to_chat(user, span_notice("You turn off the light."))
-		set_light(0)
-	else
-		if(!cell)
-			return
-		if(cell.charge <= 0)
-			return
-		add_fingerprint(user)
-		on = TRUE
-		to_chat(user, span_notice("You turn on the light."))
-		set_light(brightness_on)
-
-	updateicon()
 
 /obj/machinery/floodlight/proc/mapVarInit()
 	if(on)
@@ -92,66 +34,143 @@
 		if(cell.charge <= 0)
 			return
 		set_light(brightness_on)
-		updateicon()
+		update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/floodlight/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/wrench))
-		add_fingerprint(user)
-		if(!anchored && !isinspace())
-			playsound(loc, W.usesound, 50, 1)
-			user.visible_message( \
-				"[user] tightens \the [src]'s casters.", \
-				span_notice(" You have tightened \the [src]'s casters."), \
-				"You hear ratchet.")
-			anchored = TRUE
-		else if(anchored)
-			playsound(loc, W.usesound, 50, 1)
-			user.visible_message( \
-				"[user] loosens \the [src]'s casters.", \
-				span_notice(" You have loosened \the [src]'s casters."), \
-				"You hear ratchet.")
-			anchored = FALSE
-		updateicon()
+
+/obj/machinery/floodlight/examine(mob/user)
+	. = ..()
+	if(!unlocked)
+		. += span_notice("The panel is <b>screwed</b> shut.")
+	else
+		if(open)
+			. += span_notice("The panel is <b>pried</b> open, looks like you could fit a cell in there.")
+		else
+			. += span_notice("The panel looks like it could be <b>pried</b> open, or <b>screwed</b> shut.")
+
+
+/obj/machinery/floodlight/update_icon_state()
+	icon_state = "flood[open ? "o" : ""][open && cell ? "b" : ""]0[on]"
+
+
+/obj/machinery/floodlight/process()
+	if(!on)
 		return
-	if(istype(W, /obj/item/screwdriver))
-		add_fingerprint(user)
-		if(!open)
-			if(unlocked)
-				unlocked = FALSE
-				to_chat(user, "You screw the battery panel in place.")
-			else
-				unlocked = TRUE
-				to_chat(user, "You unscrew the battery panel.")
-		updateicon()
+
+	if(cell && !cell.use(use))
+		on = FALSE
+		update_icon(UPDATE_ICON_STATE)
+		set_light(0)
+		visible_message(span_warning("[src] shuts down due to lack of power!"))
+
+
+/obj/machinery/floodlight/attack_ai()
+	return
+
+/obj/machinery/floodlight/attack_hand(mob/user)
+	add_fingerprint(user)
+	if(open && cell)
+		if(user.get_active_hand())
+			to_chat(user, span_warning("Your hand is occupied!"))
+			return
+		cell.forceMove_turf()
+		cell.add_fingerprint(user)
+		cell.update_icon(UPDATE_OVERLAYS)
+		user.put_in_hands(cell, ignore_anim = FALSE)
+		cell = null
+		to_chat(user, span_notice("You remove the power cell."))
+		if(on)
+			on = FALSE
+			visible_message(span_warning("[src] shuts down due to lack of power!"))
+			set_light(0)
+		update_icon(UPDATE_ICON_STATE)
 		return
-	if(istype(W, /obj/item/crowbar))
-		add_fingerprint(user)
-		if(unlocked)
-			if(open)
-				open = FALSE
-				overlays = null
-				to_chat(user, "You crowbar the battery panel in place.")
-			else
-				if(unlocked)
-					open = TRUE
-					to_chat(user, "You remove the battery panel.")
-		updateicon()
-		return
-	if(istype(W, /obj/item/stock_parts/cell))
+
+	if(on)
+		on = FALSE
+		to_chat(user, span_notice("You turn off the light."))
+		set_light(0)
+	else
+		if(!cell)
+			to_chat(user, span_warning("You try to turn on [src] but nothing happens! Seems like it <b>lacks a power cell</b>."))
+			return
+		if(cell.charge <= 0)
+			to_chat(user, span_warning("[src] hardly glows at all! Seems like the <b>power cell is empty</b>."))
+			return
+		if(!anchored)
+			to_chat(user, span_warning("[src] must be anchored first!"))
+			return
+		on = TRUE
+		to_chat(user, span_notice("You turn on the light."))
+		set_light(brightness_on)
+	update_icon(UPDATE_ICON_STATE)
+
+
+/obj/machinery/floodlight/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stock_parts/cell))
 		if(open)
 			if(cell)
-				to_chat(user, "There is a power cell already installed.")
+				to_chat(user, span_warning("There is a power cell already installed."))
 			else
 				add_fingerprint(user)
-				user.drop_transfer_item_to_loc(W, src)
-				cell = W
-				to_chat(user, "You insert the power cell.")
-		updateicon()
+				user.drop_transfer_item_to_loc(I, src)
+				cell = I
+				to_chat(user, span_notice("You insert the power cell."))
+		update_icon(UPDATE_ICON_STATE)
 		return
 	return ..()
+
+
+/obj/machinery/floodlight/crowbar_act(mob/living/user, obj/item/I)
+	add_fingerprint(user)
+	if(!unlocked)
+		to_chat(user, span_warning("The cover is screwed tightly down."))
+		return TRUE
+
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return
+
+	if(open)
+		to_chat(user, span_notice("You pry the panel closed."))
+	else
+		to_chat(user, span_notice("You pry the panel open."))
+	open = !open
+	update_icon(UPDATE_ICON_STATE)
+	return TRUE
+
+
+/obj/machinery/floodlight/screwdriver_act(mob/living/user, obj/item/I)
+	add_fingerprint(user)
+	if(open)
+		to_chat(user, span_warning("The screws can't reach while its open."))
+		return TRUE
+
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return
+
+	if(open)
+		return
+
+	if(unlocked)
+		to_chat(user, span_notice("You screw the battery panel in place."))
+	else
+		to_chat(user, span_notice("You unscrew the battery panel."))
+	unlocked = !unlocked
+	update_icon(UPDATE_ICON_STATE)
+	return TRUE
+
+
+/obj/machinery/floodlight/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(anchored)
+		extinguish_light()
+	default_unfasten_wrench(user, I)
+
 
 /obj/machinery/floodlight/extinguish_light(force = FALSE)
 	if(on)
 		on = FALSE
 		set_light(0)
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
+

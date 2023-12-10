@@ -16,7 +16,7 @@
 	return new /datum/spell_targeting/clicked_atom
 
 
-/obj/effect/proc_holder/spell/alien_spell/neurotoxin/update_icon()
+/obj/effect/proc_holder/spell/alien_spell/neurotoxin/update_icon_state()
 	if(!action)
 		return
 	action.button_icon_state = "alien_neurotoxin_[active]"

@@ -375,12 +375,12 @@
 	if(istype(Crate, /obj/structure/closet/crate))
 		var/obj/structure/closet/crate/CR = Crate
 		CR.manifest = slip
-		CR.update_icon()
+		CR.update_icon(UPDATE_OVERLAYS)
 		CR.announce_beacons = object.announce_beacons.Copy()
 	if(istype(Crate, /obj/structure/largecrate))
 		var/obj/structure/largecrate/LC = Crate
 		LC.manifest = slip
-		LC.update_icon()
+		LC.update_icon(UPDATE_OVERLAYS)
 
 	return Crate
 
@@ -424,7 +424,6 @@
 		return TRUE
 
 	add_fingerprint(user)
-	post_signal("supply")
 	ui_interact(user)
 	return
 
@@ -526,7 +525,6 @@
 				SSshuttle.toggleShuttle("supply", "supply_home", "supply_away", 1)
 				investigate_log("[key_name_log(usr)] has sent the supply shuttle away. Remaining points: [SSshuttle.points]. Shuttle contents: [SSshuttle.sold_atoms]", INVESTIGATE_CARGO)
 			else if(!SSshuttle.supply.request(SSshuttle.getDock("supply_home")))
-				post_signal("supply")
 				if(LAZYLEN(SSshuttle.shoppinglist) && prob(10))
 					var/datum/supply_order/O = new /datum/supply_order()
 					O.ordernum = SSshuttle.ordernum
@@ -634,14 +632,3 @@
 			ccmsg_browser.set_content(SSshuttle.centcom_message)
 			ccmsg_browser.open()
 
-/obj/machinery/computer/supplycomp/proc/post_signal(var/command)
-	var/datum/radio_frequency/frequency = SSradio.return_frequency(DISPLAY_FREQ)
-
-	if(!frequency) return
-
-	var/datum/signal/status_signal = new
-	status_signal.source = src
-	status_signal.transmission_method = 1
-	status_signal.data["command"] = command
-
-	frequency.post_signal(src, status_signal)

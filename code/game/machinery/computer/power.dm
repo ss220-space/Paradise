@@ -47,8 +47,8 @@
 	QDEL_NULL(power_monitor)
 	return ..()
 
-/obj/machinery/computer/monitor/power_change()
-	..()
+/obj/machinery/computer/monitor/power_change(forced = FALSE)
+	. = ..()
 	if(is_secret_monitor)
 		return
 	if(!(stat & (NOPOWER|BROKEN)))

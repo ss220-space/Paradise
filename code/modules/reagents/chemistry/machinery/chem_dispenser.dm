@@ -138,12 +138,6 @@
 		return
 	recharge_counter++
 
-/obj/machinery/chem_dispenser/power_change()
-	if(powered())
-		stat &= ~NOPOWER
-	else
-		spawn(rand(0, 15))
-			stat |= NOPOWER
 
 /obj/machinery/chem_dispenser/ex_act(severity)
 	if(severity < 3)
@@ -155,7 +149,7 @@
 	..()
 	if(A == beaker)
 		beaker = null
-		overlays.Cut()
+
 
 /obj/machinery/chem_dispenser/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	// update the ui if it exists, returns null if no ui is passed/found
@@ -220,11 +214,6 @@
 				atom_say("Недостаточно энергии для завершения операции!")
 				return
 			R.add_reagent(params["reagent"], actual)
-			overlays.Cut()
-			if(!icon_beaker)
-				icon_beaker = mutable_appearance('icons/obj/chemical.dmi', "disp_beaker") //randomize beaker overlay position.
-			icon_beaker.pixel_x = rand(-10, 5)
-			overlays += icon_beaker
 		if("remove")
 			var/amount = text2num(params["amount"])
 			if(!beaker || !amount)
@@ -244,7 +233,7 @@
 			if(Adjacent(usr) && !issilicon(usr))
 				usr.put_in_hands(beaker, ignore_anim = FALSE)
 			beaker = null
-			overlays.Cut()
+			update_icon(UPDATE_OVERLAYS)
 		else
 			return FALSE
 
@@ -472,7 +461,7 @@
 	cell = new(src)
 	dispensable_reagents = sortList(dispensable_reagents)
 	current_reagent = pick(dispensable_reagents)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	START_PROCESSING(SSobj, src)
 
 /obj/item/handheld_chem_dispenser/Destroy()
@@ -496,7 +485,7 @@
 			cell.charge -= actual / efficiency
 			if(actual)
 				to_chat(user, "<span class='notice'>You dispense [amount] units of [current_reagent] into the [target].</span>")
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 		if("remove")
 			if(!target.reagents.remove_reagent(current_reagent, amount))
 				to_chat(user, "<span class='notice'>You remove [amount] units of [current_reagent] from the [target].</span>")
@@ -552,7 +541,7 @@
 		if("dispense")
 			if(params["reagent"] in dispensable_reagents)
 				current_reagent = params["reagent"]
-				update_icon()
+				update_icon(UPDATE_OVERLAYS)
 		if("mode")
 			switch(params["mode"])
 				if("remove")
@@ -561,15 +550,15 @@
 					mode = "dispense"
 				if("isolate")
 					mode = "isolate"
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 		else
 			return FALSE
 
 	add_fingerprint(usr)
 
-/obj/item/handheld_chem_dispenser/update_icon()
-	cut_overlays()
 
+/obj/item/handheld_chem_dispenser/update_overlays()
+	. = ..()
 	if(cell && cell.charge)
 		var/image/power_light = image('icons/obj/chemical.dmi', src, "light_low")
 		var/percent = round((cell.charge / cell.maxcharge) * 100)
@@ -580,17 +569,17 @@
 				power_light.icon_state = "light_mid"
 			if(67 to INFINITY)
 				power_light.icon_state = "light_full"
-		add_overlay(power_light)
+		. += power_light
 
 		var/image/mode_light = image('icons/obj/chemical.dmi', src, "light_remove")
 		mode_light.icon_state = "light_[mode]"
-		add_overlay(mode_light)
+		. += mode_light
 
 		var/image/chamber_contents = image('icons/obj/chemical.dmi', src, "reagent_filling")
 		var/datum/reagent/R = GLOB.chemical_reagents_list[current_reagent]
 		chamber_contents.icon += R.color
-		add_overlay(chamber_contents)
-	..()
+		. += chamber_contents
+
 
 /obj/item/handheld_chem_dispenser/process() //Every [recharge_time] seconds, recharge some reagents for the cyborg
 	if(isrobot(loc) && cell.charge < cell.maxcharge)
@@ -600,7 +589,7 @@
 			R.cell.charge -= actual
 			cell.charge += actual
 
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	return TRUE
 
 /obj/item/handheld_chem_dispenser/attackby(obj/item/W, mob/user, params)
@@ -616,7 +605,7 @@
 				return
 			cell = W
 			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 
 /obj/item/handheld_chem_dispenser/screwdriver_act(mob/user, obj/item/I)
 	if(!isrobot(loc) && cell)
@@ -624,7 +613,7 @@
 		cell.loc = get_turf(src)
 		cell = null
 		to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		return
 	..()
 

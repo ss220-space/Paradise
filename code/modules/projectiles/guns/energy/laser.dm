@@ -36,19 +36,14 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	unique_reskin = TRUE
 
-/obj/item/gun/energy/laser/captain/New()
-	..()
+
+/obj/item/gun/energy/laser/captain/Initialize(mapload)
+	. = ..()
 	options["The Original"] = "caplaser"
 	options["Restored"] = "caplaser_new"
 	options["Alternative"] = "caplaser_newer"
 	options["Cancel"] = null
 
-/obj/item/gun/energy/laser/captain/update_icon()
-	..()
-	if(current_skin)
-		icon_state = "[current_skin]"
-	else
-		icon_state = "[initial(icon_state)]"
 
 /obj/item/gun/energy/laser/captain/scattershot
 	name = "scatter shot laser rifle"
@@ -141,11 +136,13 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator/strong, /obj/item/ammo_casing/energy/immolator/scatter)
 	origin_tech = "combat=5;magnets=5;powerstorage=4"
 
-/obj/item/gun/energy/immolator/multi/update_icon()
-	..()
+
+/obj/item/gun/energy/immolator/multi/update_overlays()
+	. = ..()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	var/append = shot.select_name
-	overlays += image(icon = icon, icon_state = "multilensimmolator-[append]")
+	. += image(icon, icon_state = "multilensimmolator-[append]")
+
 
 /obj/item/gun/energy/immolator/multi/cyborg
 	name = "cyborg immolator cannon"

@@ -37,8 +37,8 @@
 		spawn(10)
 			explosion(src.loc, 3, 6, 12, 15, cause = "AI exploded")
 
-	for(var/obj/machinery/ai_status_display/O in GLOB.machines) //change status
-		O.mode = 2
+	for(var/obj/machinery/ai_status_display/display as anything in GLOB.ai_displays) //change status
+		display.mode = AI_DISPLAY_MODE_BSOD
 
 	if(istype(loc, /obj/item/aicard))
 		loc.icon_state = "aicard-404"

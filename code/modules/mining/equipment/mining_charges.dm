@@ -189,12 +189,12 @@
 			. += "<span class='notice'>[bicon(charge)] [charge]. Current status: [charge.installed ? "ready to detonate" : "ready to deploy"]."
 
 
-/obj/item/detonator/update_icon()
-	. = ..()
-	if(bombs.len)
+/obj/item/detonator/update_icon_state()
+	if(length(bombs))
 		icon_state = "Detonator-1"
 	else
 		icon_state = initial(icon_state)
+
 
 /obj/item/detonator/attack_self(mob/user)
 	playsound(src, 'sound/items/detonator.ogg', 40)
@@ -210,5 +210,5 @@
 				charge.detonate()
 	else
 		to_chat(user, span_warning("There is no charges linked to a detonator!"))
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	. = ..()

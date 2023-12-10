@@ -138,17 +138,18 @@
 	icon_state = "pipe_d"
 
 //Allow you to drag-drop disposal pipes into it
-/obj/machinery/pipedispenser/disposal/MouseDrop_T(var/obj/structure/disposalconstruct/pipe, mob/usr)
-	if(usr.incapacitated())
+/obj/machinery/pipedispenser/disposal/MouseDrop_T(obj/structure/disposalconstruct/pipe, mob/user, params)
+	if(user.incapacitated())
 		return
 
-	if(!istype(pipe) || get_dist(usr, src) > 1 || get_dist(src, pipe) > 1 )
+	if(!istype(pipe) || get_dist(user, src) > 1 || get_dist(src, pipe) > 1 )
 		return
 
 	if(pipe.anchored)
 		return
 
 	qdel(pipe)
+	return TRUE
 
 /obj/machinery/pipedispenser/disposal/attack_hand(mob/user)
 	if(..())

@@ -203,15 +203,13 @@
 	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. There is botanical hud in it."
 	icon_state = "tajblind_bot"
 	item_state = "tajblind_bot"
-	up = 0
-	tint = 0
+	tint = 3
 	actions_types = list(/datum/action/item_action/toggle)
-
 
 /obj/item/clothing/glasses/hud/hydroponic/tajblind/sunglasses
 	see_in_dark = 1
 	flash_protect = 1
-	tint = 1
+	tint_up = 1
 
 /obj/item/clothing/glasses/hud/hydroponic/tajblind/attack_self(mob/user = usr)
 	toggle_veil(user)
@@ -241,10 +239,10 @@
 	item_state = "tajblind_sec"
 	flags_cover = GLASSESCOVERSEYES
 	actions_types = list(/datum/action/item_action/toggle)
-	up = 0
 	see_in_dark = 1
 	flash_protect = 1
-	tint = 1
+	tint_up = 1
+	tint = 3
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -265,8 +263,7 @@
 	item_state = "tajblind_med"
 	flags_cover = GLASSESCOVERSEYES
 	actions_types = list(/datum/action/item_action/toggle)
-	up = 0
-	tint = 0
+	tint = 3
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -282,7 +279,7 @@
 /obj/item/clothing/glasses/hud/health/tajblind/sunglasses
 	see_in_dark = 1
 	flash_protect = 1
-	tint = 1
+	tint_up = 1
 
 /obj/item/clothing/glasses/hud/health/tajblind/attack_self(mob/user = usr)
 	toggle_veil(user)
@@ -294,15 +291,16 @@
 	item_state = "tajblind_diagnostic"
 	flags_cover = GLASSESCOVERSEYES
 	actions_types = list(/datum/action/item_action/toggle)
-	up = 0
-	tint = 0
+	tint = 3
+
 /obj/item/clothing/glasses/hud/diagnostic/tajblind/sunglasses
 	see_in_dark = 1
 	flash_protect = 1
-	tint = 1
+	tint_up = 1
 
 /obj/item/clothing/glasses/hud/diagnostic/tajblind/attack_self(mob/user = usr)
 	toggle_veil(user)
+
 /obj/item/clothing/glasses/hud/skills/tajblind
 	name = "Skills veil"
 	desc = "A tajaran veil capable of showing the employment history records of NT crew members."
@@ -310,16 +308,16 @@
 	item_state = "tajblind_skill"
 	flags_cover = GLASSESCOVERSEYES
 	actions_types = list(/datum/action/item_action/toggle)
-	up = 0
-	tint = 0
+	tint = 3
 
 /obj/item/clothing/glasses/hud/skills/tajblind/sunglasses
 	see_in_dark = 1
 	flash_protect = 1
-	tint = 1
+	tint_up = 1
 
 /obj/item/clothing/glasses/hud/skills/tajblind/attack_self(mob/user = usr)
 	toggle_veil(user)
+
 /obj/item/clothing/glasses/hud/skills
 	name = "Skills HUD"
 	desc = "A heads-up display capable of showing the employment history records of NT crew members."

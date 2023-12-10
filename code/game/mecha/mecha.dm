@@ -738,7 +738,7 @@
 /obj/mecha/handle_atom_del(atom/A)
 	if(A == occupant)
 		occupant = null
-		icon_state = initial(icon_state)+"-open"
+		update_icon(UPDATE_ICON_STATE)
 		setDir(dir_in)
 	if(A in trackers)
 		trackers -= A
@@ -878,7 +878,7 @@
 		name = P.new_name
 		desc = P.new_desc
 		initial_icon = P.new_icon
-		reset_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 		user.temporarily_remove_item_from_inventory(P)
 		qdel(P)
@@ -1056,7 +1056,7 @@
 			occupant = null
 			AI.controlled_mech = null
 			AI.remote_control = null
-			icon_state = reset_icon(icon_state)+"-open"
+			update_icon(UPDATE_ICON_STATE)
 			to_chat(AI, "You have been downloaded to a mobile storage device. Wireless connection offline.")
 			to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) removed from [name] and stored within local memory.")
 
@@ -1090,7 +1090,7 @@
 	AI.aiRestorePowerRoutine = 0
 	AI.forceMove(src)
 	occupant = AI
-	icon_state = reset_icon(icon_state)
+	update_icon(UPDATE_ICON_STATE)
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 	if(!hasInternalDamage())
 		occupant << sound(nominalsound, volume = 50)
@@ -1191,10 +1191,10 @@
 /obj/mecha/proc/toggle_internal_tank()
 	internals_action.Trigger()
 
-/obj/mecha/MouseDrop_T(mob/M, mob/user)
+/obj/mecha/MouseDrop_T(mob/M, mob/user, params)
 	if(frozen)
 		to_chat(user, "<span class='warning'>Do not enter Admin-Frozen mechs.</span>")
-		return
+		return TRUE
 	if(user.incapacitated())
 		return
 	if(user != M)
@@ -1203,7 +1203,7 @@
 	if(occupant)
 		to_chat(user, "<span class='warning'>The [src] is already occupied!</span>")
 		log_append_to_last("Permission denied.")
-		return
+		return TRUE
 	var/passed
 	if(dna)
 		if(ishuman(user))
@@ -1214,18 +1214,22 @@
 	if(!passed)
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		log_append_to_last("Permission denied.")
-		return
+		return TRUE
 	if(user.buckled)
 		to_chat(user, "<span class='warning'>You are currently buckled and cannot move.</span>")
 		log_append_to_last("Permission denied.")
-		return
+		return TRUE
 	if(user.has_buckled_mobs()) //mob attached to us
 		to_chat(user, "<span class='warning'>You can't enter the exosuit with other creatures attached to you!</span>")
-		return
+		return TRUE
 
 	visible_message("<span class='notice'>[user] starts to climb into [src]")
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/mecha, put_in), user)
+	return TRUE
 
-	if(do_after(user, src.mech_enter_time * gettoolspeedmod(user), target = src))
+
+/obj/mecha/proc/put_in(mob/user)
+	if(do_after(user, mech_enter_time * gettoolspeedmod(user), target = src))
 		if(obj_integrity <= 0)
 			to_chat(user, "<span class='warning'>You cannot get in the [name], it has been destroyed!</span>")
 		else if(occupant)
@@ -1239,6 +1243,7 @@
 	else
 		to_chat(user, "<span class='warning'>You stop entering the exosuit!</span>")
 
+
 /obj/mecha/proc/moved_inside(var/mob/living/carbon/human/H as mob)
 	if(H && H.client && (H in range(1)))
 		occupant = H
@@ -1248,7 +1253,7 @@
 		GrantActions(H, human_occupant = 1)
 		forceMove(loc)
 		log_append_to_last("[H] moved in as pilot.")
-		icon_state = reset_icon()
+		update_icon(UPDATE_ICON_STATE)
 		dir = dir_in
 		playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 		if(!activated)
@@ -1312,7 +1317,7 @@
 		mmi_as_oc.mecha = src
 		Entered(mmi_as_oc)
 		Move(loc)
-		icon_state = reset_icon()
+		update_icon(UPDATE_ICON_STATE)
 		dir = dir_in
 		log_message("[mmi_as_oc] moved in as pilot.")
 		if(!hasInternalDamage())
@@ -1397,7 +1402,7 @@
 				var/obj/item/mmi/robotic_brain/R = mmi
 				if(R.imprinted_master)
 					to_chat(L, "<span class='notice'>Imprint re-enabled, you are once again bound to [R.imprinted_master]'s commands.</span>")
-		icon_state = reset_icon(icon_state)+"-open"
+		update_icon(UPDATE_ICON_STATE)
 		dir = dir_in
 
 	if(L && L.client)
@@ -1501,12 +1506,6 @@
 	else
 		occupant.throw_alert("charge", /obj/screen/alert/mech_nocell)
 
-/obj/mecha/proc/reset_icon()
-	if(initial_icon)
-		icon_state = initial_icon
-	else
-		icon_state = initial(icon_state)
-	return icon_state
 
 //////////////////////////////////////////
 ////////  Mecha global iterators  ////////
@@ -1628,7 +1627,6 @@
 			AI = occupant
 			occupant = null
 		var/obj/structure/mecha_wreckage/WR = new wreckage(loc, AI)
-		WR.icon_state = "[src.reset_icon(loc, AI)]-broken"
 		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
 			if(E.salvageable && prob(30))
 				WR.crowbar_salvage += E
@@ -1679,5 +1677,11 @@
 	if(L.incapacitated())
 		return FALSE
 	return TRUE
+
+
+/obj/mecha/update_icon_state()
+	var/init_icon_state = initial_icon ? initial_icon : initial(icon_state)
+	icon_state = occupant ? init_icon_state : "[init_icon_state]-open"
+
 
 #undef OCCUPANT_LOGGING

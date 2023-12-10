@@ -41,7 +41,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	desc = "A console intended to send requests to different departments on the station."
 	anchored = TRUE
 	icon = 'icons/obj/machines/terminals.dmi'
-	icon_state = "req_comp0"
+	icon_state = "req_comp_off"
 	max_integrity = 300
 	armor = list("melee" = 70, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
 	var/department = "Unknown" //The list of all departments on the station (Determined from this variable on each unit) Set this to the same thing if you want several consoles in one department
@@ -62,7 +62,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/message = ""
 	var/recipient = ""; //the department which will be receiving the message
 	var/priority = -1 ; //Priority of the message being sent
-	light_range = 0
 	var/datum/announcement/announcement = new
 	var/list/shipping_log = list()
 	var/ship_tag_name = ""
@@ -71,16 +70,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/obj/item/radio/Radio
 	var/radiochannel = ""
 
-/obj/machinery/requests_console/power_change()
-	..()
-	update_icon()
-
-/obj/machinery/requests_console/update_icon()
-	if(stat & NOPOWER)
-		if(icon_state != "req_comp_off")
-			icon_state = "req_comp_off"
-	else
-		icon_state = "req_comp[newmessagepriority]"
 
 /obj/machinery/requests_console/Initialize(mapload)
 	Radio = new /obj/item/radio(src)
@@ -102,8 +91,8 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	if(departmentType & RC_INFO)
 		GLOB.req_console_information |= department
 
-	// NOT BOOLEAN. DO NOT CONVERT.
-	set_light(1)
+	update_icon(UPDATE_OVERLAYS)
+
 
 /obj/machinery/requests_console/Destroy()
 	GLOB.allRequestConsoles -= src
@@ -133,6 +122,28 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		return
 
 	ui_interact(user)
+
+
+/obj/machinery/requests_console/power_change(forced = FALSE)
+	if(!..())
+		return
+	if(stat & NOPOWER)
+		set_light(0)
+	else
+		set_light(1, LIGHTING_MINIMUM_POWER)
+	update_icon(UPDATE_OVERLAYS)
+
+
+/obj/machinery/requests_console/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(stat & NOPOWER)
+		return
+
+	. += "req_comp[newmessagepriority]"
+	underlays += emissive_appearance(icon, "req_comp_lightmask")
+
 
 /obj/machinery/requests_console/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -251,8 +262,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 				for(var/obj/machinery/requests_console/Console in GLOB.allRequestConsoles)
 					if(Console.department == department)
 						Console.newmessagepriority = RQ_NONEW_MESSAGES
-						Console.icon_state = "req_comp0"
-						Console.set_light(1)
+						Console.update_icon(UPDATE_OVERLAYS)
 			if(tempScreen == RCS_MAINMENU)
 				reset_message()
 			screen = tempScreen
@@ -340,7 +350,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	capitalize(title)
 	if(newmessagepriority < priority)
 		newmessagepriority = priority
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 	if(!silent)
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, TRUE)
 		atom_say(title)
@@ -350,7 +360,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			write_to_message_log("Высокий приоритет - От: [linkedSender] - [message]")
 		else // Normal
 			write_to_message_log("От: [linkedSender] - [message]")
-	set_light(2)
+
 
 /obj/machinery/requests_console/proc/write_to_message_log(message)
 	message_log = list(message) + message_log

@@ -14,7 +14,7 @@
 
 	frequency = ATMOS_TANKS_FREQ
 
-	var/on = 0
+	on = FALSE
 	var/injecting = 0
 
 	var/volume_rate = 50
@@ -38,9 +38,7 @@
 /obj/machinery/atmospherics/unary/outlet_injector/init_multitool_menu()
 	multitool_menu = new /datum/multitool_menu/idtag/freq/outlet_injector(src)
 
-/obj/machinery/atmospherics/unary/outlet_injector/update_icon()
-	..()
-
+/obj/machinery/atmospherics/unary/outlet_injector/update_icon_state()
 	if(!powered())
 		icon_state = "off"
 	else
@@ -54,11 +52,10 @@
 			return
 		add_underlay(T, node, dir)
 
-/obj/machinery/atmospherics/unary/outlet_injector/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon()
+/obj/machinery/atmospherics/unary/outlet_injector/power_change(forced = FALSE)
+	if(!..())
+		return
+	update_icon()
 
 /obj/machinery/atmospherics/unary/outlet_injector/process_atmos()
 	..()

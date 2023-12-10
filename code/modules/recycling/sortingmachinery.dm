@@ -381,7 +381,7 @@
 				to_chat(user, "<span class='notice'>You seal [src], preparing it for delivery.</span>")
 				icon_state = "shippack_sealed"
 				sealed = 1
-				update_desc()
+				update_appearance(UPDATE_DESC)
 	else
 		if(alert("Do you want to tear up the package?",, "Yes", "No") == "Yes")
 			to_chat(user, "<span class='notice'>You shred [src].</span>")
@@ -389,7 +389,8 @@
 			user.temporarily_remove_item_from_inventory(src)
 			qdel(src)
 
-/obj/item/shippingPackage/proc/update_desc()
+/obj/item/shippingPackage/update_desc(updates = ALL)
+	. = ..()
 	desc = "A pre-labeled package for shipping an item to coworkers."
 	if(sortTag)
 		desc += " The label says \"Deliver to [GLOB.TAGGERLOCATIONS[sortTag]]\"."

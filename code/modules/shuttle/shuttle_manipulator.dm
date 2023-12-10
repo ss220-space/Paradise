@@ -25,18 +25,14 @@
 	var/list/templates = list()
 	var/list/shuttle_data = list()
 
-/obj/machinery/shuttle_manipulator/New()
+/obj/machinery/shuttle_manipulator/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/shuttle_manipulator/update_icon()
-	overlays.Cut()
-	var/image/hologram_projection = image(icon, "hologram_on")
-	hologram_projection.pixel_y = 22
-	var/image/hologram_ship = image(icon, "hologram_whiteship")
-	hologram_ship.pixel_y = 27
-	overlays += hologram_projection
-	overlays += hologram_ship
+/obj/machinery/shuttle_manipulator/update_overlays()
+	. = ..()
+	. += image(icon, icon_state = "hologram_on", pixel_y = 22)
+	. += image(icon, icon_state = "hologram_whiteship", pixel_y = 27)
 
 /obj/machinery/shuttle_manipulator/attack_ghost(user as mob)
 	attack_hand(user)

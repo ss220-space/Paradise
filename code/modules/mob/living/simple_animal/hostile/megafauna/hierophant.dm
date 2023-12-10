@@ -446,7 +446,7 @@ Difficulty: Hard
 			else
 				visible_message("<span class='hierophant'>\"Vitemvw gsqtpixi. Stivexmsrep ijjmgmirgc gsqtvsqmwih.\"</span>")
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/death()
+/mob/living/simple_animal/hostile/megafauna/hierophant/death(gibbed)
 	if(health > 0 || stat == DEAD)
 		return
 	else
@@ -765,6 +765,12 @@ Difficulty: Hard
 	light_range = 2
 	layer = LOW_OBJ_LAYER
 	anchored = TRUE
+	var/teleporting = FALSE
+
+
+/obj/effect/hierophant/update_icon_state()
+	icon_state = "hierophant_tele_[teleporting ? "on" : "off"]"
+
 
 /obj/effect/hierophant/ex_act()
 	return

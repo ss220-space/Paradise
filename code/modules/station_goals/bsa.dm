@@ -295,9 +295,9 @@
 
 /obj/machinery/computer/bsa_control/process()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/computer/bsa_control/update_icon()
+/obj/machinery/computer/bsa_control/update_icon_state()
 	if(stat & BROKEN)
 		icon_state = icon_state_broken
 	else if(stat & NOPOWER)

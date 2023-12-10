@@ -1660,10 +1660,10 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(!H.check_has_mouth())
 		to_chat(src, "<span class='danger'>They don't have a mouth, you cannot perform CPR!</span>")
 		return
-	if((head && (head.flags_cover & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted))
+	if((head && (head.flags_cover & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH) && !wear_mask.up))
 		to_chat(src, "<span class='warning'>Remove your mask first!</span>")
 		return
-	if((H.head && (H.head.flags_cover & HEADCOVERSMOUTH)) || (H.wear_mask && (H.wear_mask.flags_cover & MASKCOVERSMOUTH) && !H.wear_mask.mask_adjusted))
+	if((H.head && (H.head.flags_cover & HEADCOVERSMOUTH)) || (H.wear_mask && (H.wear_mask.flags_cover & MASKCOVERSMOUTH) && !H.wear_mask.up))
 		to_chat(src, "<span class='warning'>Remove [H.p_their()] mask first!</span>")
 		return
 	if(H.receiving_cpr) // To prevent spam stacking

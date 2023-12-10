@@ -23,11 +23,11 @@
 				return TRUE
 
 
-/atom/movable/MouseDrop_T(mob/living/M, mob/living/user)
+/atom/movable/MouseDrop_T(mob/living/dropping, mob/living/user, params)
 	. = ..()
-	if(can_buckle && istype(M) && istype(user))
-		if(user_buckle_mob(M, user))
-			return TRUE
+	if(can_buckle && istype(dropping) && istype(user) && user_buckle_mob(dropping, user))
+		return TRUE
+
 
 /atom/movable/proc/has_buckled_mobs()
 	return length(buckled_mobs)

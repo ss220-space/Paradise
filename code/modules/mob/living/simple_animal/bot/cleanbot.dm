@@ -43,8 +43,10 @@
 	prev_access = access_card.access
 	update_icon()
 
-/mob/living/simple_animal/bot/cleanbot/update_icon()
-	overlays.Cut()
+
+/mob/living/simple_animal/bot/cleanbot/update_overlays()
+	. = ..()
+
 	var/overlay_state
 	switch(mode)
 		if(BOT_CLEANING)
@@ -54,13 +56,13 @@
 
 	var/mutable_appearance/state_appearance = mutable_appearance(icon, "[icon_state][overlay_state]")
 	state_appearance.appearance_flags |= RESET_COLOR
-	overlays += state_appearance
+	. += state_appearance
 
 	if(mask_color)
 		var/mutable_appearance/casing_mask = mutable_appearance(icon, "cleanbot_mask")
 		casing_mask.appearance_flags |= RESET_COLOR
 		casing_mask.color = mask_color
-		overlays += casing_mask
+		. += casing_mask
 
 
 /mob/living/simple_animal/bot/cleanbot/bot_reset()

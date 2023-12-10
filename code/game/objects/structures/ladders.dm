@@ -14,11 +14,11 @@
 	if (up)
 		src.up = up
 		up.down = src
-		up.update_icon()
+		up.update_icon(UPDATE_ICON_STATE)
 	if (down)
 		src.down = down
 		down.up = src
-		down.update_icon()
+		down.update_icon(UPDATE_ICON_STATE)
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/structure/ladder/Destroy(force)
@@ -35,7 +35,7 @@
 		for(var/obj/structure/ladder/L in locate(T.x, T.y, T.z - 1))
 			down = L
 			L.up = src  // Don't waste effort looping the other way
-			L.update_icon()
+			L.update_icon(UPDATE_ICON_STATE)
 			break
 	if(!up)
 		for (var/obj/structure/ladder/L in locate(T.x, T.y, T.z + 1))
@@ -44,7 +44,7 @@
 			L.update_icon()
 			break
 
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/ladder/proc/disconnect()
 	if(up && up.down == src)
@@ -55,7 +55,7 @@
 		down.update_icon()
 	up = down = null
 
-/obj/structure/ladder/update_icon()
+/obj/structure/ladder/update_icon_state()
 	if(up && down)
 		icon_state = "ladder11"
 
@@ -153,7 +153,7 @@
 /obj/structure/ladder/unbreakable/LateInitialize()
 	// Override the parent to find ladders based on being height-linked
 	if(!id || (up && down))
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		return
 
 	for(var/O in GLOB.ladders)
@@ -163,17 +163,17 @@
 		if(!down && L.height == height - 1)
 			down = L
 			L.up = src
-			L.update_icon()
+			L.update_icon(UPDATE_ICON_STATE)
 			if (up)
 				break  // break if both our connections are filled
 		else if(!up && L.height == height + 1)
 			up = L
 			L.down = src
-			L.update_icon()
+			L.update_icon(UPDATE_ICON_STATE)
 			if (down)
 				break  // break if both our connections are filled
 
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/ladder/unbreakable/dive_point/buoy
 	name = "diving point buoy"
@@ -198,5 +198,5 @@
 	. = ..()
 	set_light(light_range, light_power)		//magical glowing anchor
 
-/obj/structure/ladder/unbreakable/dive_point/update_icon()
+/obj/structure/ladder/unbreakable/dive_point/update_icon_state()
 	return

@@ -32,7 +32,7 @@
 
 	if(ratingdesc)
 		desc += " This one has a power rating of [DisplayPower(maxcharge)], and you should not swallow it."
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -53,16 +53,18 @@
 	else
 		return PROCESS_KILL
 
-/obj/item/stock_parts/cell/update_icon()
-	overlays.Cut()
+
+/obj/item/stock_parts/cell/update_overlays()
+	. = ..()
 	if(grown_battery)
-		overlays += image('icons/obj/engines_and_power/power.dmi', "grown_wires")
+		. += image('icons/obj/engines_and_power/power.dmi', "grown_wires")
 	if(charge < 0.01)
 		return
 	else if(charge/maxcharge >=0.995)
-		overlays += "cell-o2"
+		. += "cell-o2"
 	else
-		overlays += "cell-o1"
+		. += "cell-o1"
+
 
 /obj/item/stock_parts/cell/proc/percent()		// return % charge of cell
 	return 100 * charge / maxcharge
@@ -183,7 +185,7 @@
 /obj/item/stock_parts/cell/crap/empty/New()
 	..()
 	charge = 0
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/upgraded
 	name = "upgraded power cell"
@@ -208,7 +210,7 @@
 /obj/item/stock_parts/cell/secborg/empty/New()
 	..()
 	charge = 0
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/pulse //265 pulse shots
 	name = "pulse rifle power cell"
@@ -249,7 +251,7 @@
 /obj/item/stock_parts/cell/high/empty/New()
 	..()
 	charge = 0
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/super
 	name = "super-capacity power cell"
@@ -263,7 +265,7 @@
 /obj/item/stock_parts/cell/super/empty/New()
 	..()
 	charge = 0
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/hyper
 	name = "hyper-capacity power cell"
@@ -277,7 +279,7 @@
 /obj/item/stock_parts/cell/hyper/empty/New()
 	..()
 	charge = 0
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/bluespace
 	name = "bluespace power cell"
@@ -292,7 +294,7 @@
 /obj/item/stock_parts/cell/bluespace/empty/New()
 	..()
 	charge = 0
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/infinite
 	name = "infinite-capacity power cell!"
@@ -304,7 +306,7 @@
 	chargerate = 30000
 
 /obj/item/stock_parts/cell/infinite/use()
-	return 1
+	return TRUE
 
 /obj/item/stock_parts/cell/infinite/abductor
 	name = "void core"
@@ -315,9 +317,9 @@
 	rating = 12
 	ratingdesc = FALSE
 
-/obj/item/stock_parts/cell/infinite/abductor/update_icon()
-	return
 
+/obj/item/stock_parts/cell/infinite/abductor/update_overlays()
+	return list()
 
 /obj/item/stock_parts/cell/potato
 	name = "potato battery"
@@ -351,7 +353,7 @@
 /obj/item/stock_parts/cell/emproof/empty/New()
 	..()
 	charge = 0
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/emproof/emp_act(severity)
 	return

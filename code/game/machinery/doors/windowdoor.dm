@@ -46,11 +46,6 @@
 	QDEL_NULL(electronics)
 	return ..()
 
-/obj/machinery/door/window/update_icon()
-	if(density)
-		icon_state = base_state
-	else
-		icon_state = "[base_state]open"
 
 /obj/machinery/door/window/examine(mob/user)
 	. = ..()
@@ -148,54 +143,62 @@
 	else
 		return 1
 
+
+/obj/machinery/door/window/update_icon_state()
+	switch(operating)
+		if(DOOR_OPENING)
+			icon_state = "[base_state]open"
+		if(DOOR_CLOSING)
+			icon_state = base_state
+		else
+			icon_state = base_state
+
+
 /obj/machinery/door/window/open(forced=0)
 	if(operating) //doors can still open when emag-disabled
-		return 0
-	if(!forced)
-		if(!hasPower())
-			return 0
-	if(forced < 2)
-		if(emagged)
-			return 0
+		return FALSE
+	if(!forced && !hasPower())
+		return FALSE
+	if(forced < 2 && emagged)
+		return FALSE
 	if(!operating) //in case of emag
-		operating = TRUE
+		operating = DOOR_OPENING
 	do_animate("opening")
+	set_opacity(FALSE)
 	playsound(loc, 'sound/machines/windowdoor.ogg', 100, 1)
-	icon_state ="[base_state]open"
-	sleep(10)
+	update_icon()
+	sleep(1 SECONDS)
 
 	density = FALSE
-//	sd_set_opacity(0)	//TODO: why is this here? Opaque windoors? ~Carn
-	air_update_turf(1)
+
+	air_update_turf(TRUE)
 	update_freelook_sight()
 
 	if(operating) //emag again
-		operating = FALSE
-	return 1
+		operating = NONE
+	return TRUE
 
-/obj/machinery/door/window/close(forced=0)
+
+/obj/machinery/door/window/close(forced = 0)
 	if(operating)
-		return 0
-	if(!forced)
-		if(!hasPower())
-			return 0
-	if(forced < 2)
-		if(emagged)
-			return 0
-	operating = TRUE
+		return FALSE
+	if(!forced && !hasPower())
+		return FALSE
+	if(forced < 2 && emagged)
+		return FALSE
+	operating = DOOR_CLOSING
 	do_animate("closing")
-	playsound(loc, 'sound/machines/windowdoor.ogg', 100, 1)
-	icon_state = base_state
+	playsound(loc, 'sound/machines/windowdoor.ogg', 100, TRUE)
 
-	density = 1
-//	if(visible)
-//		set_opacity(1)	//TODO: why is this here? Opaque windoors? ~Carn
-	air_update_turf(1)
+	density = TRUE
+	update_icon()
+	air_update_turf(TRUE)
 	update_freelook_sight()
-	sleep(10)
+	sleep(1 SECONDS)
 
-	operating = 0
-	return 1
+	operating = NONE
+	return TRUE
+
 
 /obj/machinery/door/window/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

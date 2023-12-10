@@ -25,6 +25,8 @@
 	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = 312500 //a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall
 
+	var/melting = FALSE //TRUE if wall is currently being melted with thermite
+
 	var/can_dismantle_with_welder = TRUE
 	var/hardness = 40 //lower numbers are harder. Used to determine the probability of a hulk smashing through.
 	var/slicing_duration = 100
@@ -71,15 +73,14 @@
 	if(rotting)
 		. += span_warning("There is fungus growing on [src].")
 
-/turf/simulated/wall/proc/update_icon()
+
+/turf/simulated/wall/update_overlays()
+	. = ..()
 	if(!damage_overlays[1]) //list hasn't been populated
 		generate_overlays()
 
 	queue_smooth(src)
 	if(!damage)
-		if(damage_overlay)
-			overlays -= damage_overlays[damage_overlay]
-			damage_overlay = 0
 		return
 
 	var/overlay = round(damage / damage_cap * damage_overlays.len) + 1
@@ -88,10 +89,9 @@
 
 	if(damage_overlay && overlay == damage_overlay) //No need to update.
 		return
-	if(damage_overlay)
-		overlays -= damage_overlays[damage_overlay]
-	overlays += damage_overlays[overlay]
-	damage_overlay = overlay
+
+	. += damage_overlays[overlay]
+
 
 /turf/simulated/wall/proc/generate_overlays()
 	var/alpha_inc = 256 / damage_overlays.len
@@ -247,33 +247,62 @@
 		return
 	ChangeTurf(/turf/simulated/floor)
 
-/turf/simulated/wall/proc/thermitemelt(mob/user as mob, speed)
-	var/wait = 100
-	if(speed)
-		wait = speed
+/// TODO: discord poll for this new behavior
+/turf/simulated/wall/proc/thermitemelt(mob/user, speed)
+	set waitfor = FALSE
+
+	if(melting)
+		return
 	if(istype(sheet_type, /obj/item/stack/sheet/mineral/diamond))
 		return
 
-	var/obj/effect/overlay/O = new/obj/effect/overlay( src )
-	O.name = "Thermite"
-	O.desc = "Looks hot."
-	O.icon = 'icons/effects/fire.dmi'
-	O.icon_state = "2"
-	O.anchored = 1
-	O.density = 1
-	O.layer = 5
+	var/obj/effect/overlay/visuals = new(src)
+	visuals.name = "Thermite"
+	visuals.desc = "Looks hot."
+	visuals.icon = 'icons/effects/fire.dmi'
+	visuals.icon_state = "2"
+	visuals.anchored = TRUE
+	visuals.density = TRUE
+	visuals.layer = FLY_LAYER
 
-	src.ChangeTurf(/turf/simulated/floor/plating)
-
-	var/turf/simulated/floor/F = src
-	F.burn_tile()
-	F.icon_state = "plating"
 	if(user)
 		to_chat(user, span_warning("The thermite starts melting through the wall."))
 
-	spawn(wait)
-		if(O)	qdel(O)
-	return
+	if(speed)
+		melting = TRUE
+		while(speed > 0)
+			playsound(src, 'sound/items/welder.ogg', 100, TRUE)
+			speed = max(0, speed - 1 SECONDS)
+			sleep(1)
+		burn_down()
+		var/turf/simulated/floor/our_floor = src
+		our_floor.burn_tile()
+		our_floor.icon_state = "plating"
+		cut_overlay(melting_olay)
+		if(visuals)
+			qdel(visuals)
+		return
+
+	while(reagents.get_reagent_amount("thermite") > 0)
+		reagents.remove_reagent("thermite", 2.5)
+		if(damage_cap - damage <= 30)
+			burn_down()
+
+			var/turf/simulated/floor/our_floor = src
+			our_floor.burn_tile()
+			our_floor.icon_state = "plating"
+			break
+		take_damage(60)
+		playsound(src, 'sound/items/welder.ogg', 100, TRUE)
+		sleep(1 SECONDS)
+
+	if(iswallturf(src))
+		melting = FALSE
+
+	cut_overlay(melting_olay)
+	if(visuals)
+		qdel(visuals)
+
 
 //Interactions
 
@@ -353,8 +382,8 @@
 
 /turf/simulated/wall/welder_act(mob/user, obj/item/I)
 	. = TRUE
-	if(thermite && I.use_tool(src, user, volume = I.tool_volume))
-		thermitemelt(user)
+	if(reagents?.get_reagent_amount("thermite") && I.use_tool(src, user, volume = I.tool_volume))
+		thermitemelt(user, 5 SECONDS)
 		return
 	if(rotting)
 		if(I.use_tool(src, user, volume = I.tool_volume))

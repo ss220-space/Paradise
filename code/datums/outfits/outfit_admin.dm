@@ -223,7 +223,7 @@
 	id = /obj/item/card/id/centcom
 
 	backpack_contents = list(
-		/obj/item/gun/projectile/automatic/pistol/sp8ar = 1,
+		/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar = 1,
 		/obj/item/ammo_box/magazine/sp8 = 2,
 		/obj/item/storage/box/responseteam = 1,
 		/obj/item/gun/energy/gun/blueshield = 1,

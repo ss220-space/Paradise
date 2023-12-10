@@ -44,17 +44,13 @@
 	icon_state = "mmap"
 	flipped = 1
 
-/obj/machinery/atmospherics/trinary/mixer/proc/toggle()
-	if(powered())
-		on = !on
-		update_icon()
 
 /obj/machinery/atmospherics/trinary/mixer/proc/set_max()
 	if(powered())
 		target_pressure = MAX_OUTPUT_PRESSURE
 		update_icon()
 
-/obj/machinery/atmospherics/trinary/mixer/update_icon(safety = 0)
+/obj/machinery/atmospherics/trinary/mixer/update_icon_state()
 	..()
 
 	if(flipped)
@@ -68,7 +64,7 @@
 		icon_state += on ? "on" : "off"
 	else
 		icon_state += "off"
-		on = 0
+		on = FALSE
 
 /obj/machinery/atmospherics/trinary/mixer/update_underlays()
 	if(..())
@@ -87,10 +83,9 @@
 		add_underlay(T, node3, dir)
 
 /obj/machinery/atmospherics/trinary/mixer/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon()
+	if(!..())
+		return
+	update_icon()
 
 /obj/machinery/atmospherics/trinary/mixer/New()
 	..()

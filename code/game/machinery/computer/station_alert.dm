@@ -76,7 +76,7 @@
 		return
 	update_icon()
 
-/obj/machinery/computer/station_alert/update_icon()
+/obj/machinery/computer/station_alert/update_icon_state()
 	var/active_alarms = FALSE
 	var/list/list/temp_alarm_list = SSalarm.alarms.Copy()
 	for(var/cat in temp_alarm_list)

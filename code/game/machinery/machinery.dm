@@ -272,7 +272,7 @@ Class Procs:
 	else
 		return attack_hand(user)
 
-/obj/machinery/attack_hand(mob/user as mob)
+/obj/machinery/attack_hand(mob/user)
 	if(istype(user, /mob/dead/observer))
 		return FALSE
 
@@ -334,8 +334,8 @@ Class Procs:
 	if(!disassembled)
 		M.obj_integrity = M.max_integrity * 0.5 //the frame is already half broken
 	transfer_fingerprints_to(M)
-	M.state = 2
-	M.icon_state = "box_1"
+	M.state = 2	// STATE_WIRED
+	M.update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/obj_break(damage_flag)
 	if(!(flags & NODECONSTRUCT))
@@ -359,14 +359,18 @@ Class Procs:
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return FALSE
 	if(!(flags & NODECONSTRUCT))
+		var/prev_icon_state = icon_state
 		if(!panel_open)
-			panel_open = 1
+			panel_open = TRUE
 			icon_state = icon_state_open
 			to_chat(user, span_notice("You open the maintenance hatch of [src]."))
 		else
-			panel_open = 0
+			panel_open = FALSE
 			icon_state = icon_state_closed
 			to_chat(user, span_notice("You close the maintenance hatch of [src]."))
+		if(prev_icon_state != icon_state)
+			SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON_STATE)
+			SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, UPDATE_ICON_STATE)
 		I.play_tool_sound(user, I.tool_volume)
 		return 1
 	return 0
