@@ -40,3 +40,6 @@ GLOBAL_LIST_EMPTY(human_names_list)			//List of names for all humans that have e
 GLOBAL_LIST_EMPTY(taipan_players_active)	//List of all Taipan operatives active
 
 GLOBAL_LIST_EMPTY(emote_list)
+
+GLOBAL_LIST_EMPTY(uplink_items)
+
