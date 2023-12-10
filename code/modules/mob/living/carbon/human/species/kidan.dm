@@ -1,4 +1,5 @@
 #define PHEROMONES_LIFESPAN 15 MINUTES
+#define PHEROMONES_MAX 3
 
 /datum/species/kidan
 	name = "Kidan"
@@ -204,7 +205,7 @@
 	var/maximum_message_length = 30
 
 	/// How many active pheromones we can have
-	var/active_pheromones_maximum = 3
+	var/active_pheromones_maximum = PHEROMONES_MAX
 
 	/// Which currently existing pheromones belong to us
 	var/list/active_pheromones_current
@@ -283,3 +284,6 @@
 /datum/action/innate/produce_pheromones/Destroy()
 	active_pheromones_current = null
 	..()
+
+#undef PHEROMONES_LIFESPAN
+#undef PHEROMONES_MAX
