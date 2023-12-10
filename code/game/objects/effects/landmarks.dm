@@ -363,7 +363,7 @@
 	icon_state = "Sci"
 
 /obj/effect/landmark/start/student_sientist
-	name = "Student Sientist"
+	name = "Student Scientist"
 	icon_state = "Student_Sci"
 
 /obj/effect/landmark/start/roboticist
