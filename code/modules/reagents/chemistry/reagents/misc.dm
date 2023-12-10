@@ -220,8 +220,8 @@
 			holder.del_reagent(id) // Remove first. Else fireflash triggers a reaction again
 
 		fireflash(T, min(max(0, volume / 40), 8))
-		var/datum/effect_system/smoke_spread/bad/BS = new
-		BS.set_up(1, 0, T)
+		var/datum/effect_system/fluid_spread/smoke/bad/BS = new
+		BS.set_up(1, location = T)
 		BS.start()
 		if(!QDELETED(old_holder))
 			old_holder.add_reagent("ash", round(volume * 0.5))

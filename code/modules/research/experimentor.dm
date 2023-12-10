@@ -230,8 +230,8 @@
 		loaded_item = null
 
 /obj/machinery/r_n_d/experimentor/proc/throwSmoke(turf/where)
-	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(1,0, where, 0)
+	var/datum/effect_system/fluid_spread/smoke/smoke = new
+	smoke.set_up(1, location = where)
 	smoke.start()
 
 /obj/machinery/r_n_d/experimentor/proc/pickWeighted(list/from)
@@ -319,10 +319,10 @@
 			chosenchem = pick("carbon","radium","toxin","condensedcapsaicin","psilocybin","space_drugs","ethanol","beepskysmash")
 			var/datum/reagents/R = new/datum/reagents(400)
 			R.my_atom = src
-			R.add_reagent(chosenchem , 375)
+			R.add_reagent(chosenchem, 375)
 			investigate_log("Experimentor has released [chosenchem] smoke.", INVESTIGATE_EXPERIMENTOR)
-			var/datum/effect_system/smoke_spread/chem/smoke = new
-			smoke.set_up(R, src, TRUE)
+			var/datum/effect_system/fluid_spread/smoke/chem/transparent/smoke = new
+			smoke.set_up(holder = src, carry = R)
 			playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
 			smoke.start()
 			qdel(R)
@@ -333,8 +333,8 @@
 			var/datum/reagents/R = new/datum/reagents(400)
 			R.my_atom = src
 			R.add_reagent(chosenchem , 375)
-			var/datum/effect_system/smoke_spread/chem/smoke = new
-			smoke.set_up(R, src, TRUE)
+			var/datum/effect_system/fluid_spread/smoke/chem/transparent/smoke = new
+			smoke.set_up(holder = src, carry = R)
 			playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
 			smoke.start()
 			qdel(R)
@@ -420,8 +420,8 @@
 			R.my_atom = src
 			R.add_reagent("frostoil" , 375)
 			investigate_log("Experimentor has released frostoil gas.", INVESTIGATE_EXPERIMENTOR)
-			var/datum/effect_system/smoke_spread/chem/smoke = new
-			smoke.set_up(R, src, TRUE)
+			var/datum/effect_system/fluid_spread/smoke/chem/transparent/smoke = new
+			smoke.set_up(holder = src, carry = R)
 			playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
 			smoke.start()
 			qdel(R)
@@ -442,8 +442,8 @@
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
 			visible_message("<span class='warning'>[src] malfunctions, releasing a flurry of chilly air as [exp_on] pops out!</span>")
-			var/datum/effect_system/smoke_spread/smoke = new
-			smoke.set_up(1,0, src.loc, 0)
+			var/datum/effect_system/fluid_spread/smoke/smoke = new
+			smoke.set_up(1, holder = src)
 			smoke.start()
 			ejectItem()
 	////////////////////////////////////////////////////////////////////////////////////////////////
@@ -657,8 +657,8 @@
 //////////////// RELIC PROCS /////////////////////////////
 
 /obj/item/relic/proc/throwSmoke(turf/where)
-	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(1,0, where, 0)
+	var/datum/effect_system/fluid_spread/smoke/smoke = new
+	smoke.set_up(1, location = where)
 	smoke.start()
 
 /obj/item/relic/proc/floofcannon(mob/user)

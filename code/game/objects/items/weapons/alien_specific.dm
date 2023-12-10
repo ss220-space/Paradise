@@ -40,8 +40,8 @@
 			to_chat(user, "<span class='notice'>\The [src] is full.</span>")
 			return
 	reagents.remove_reagent(reagents.get_master_reagent_id(),25)
-	var/datum/effect_system/smoke_spread/bad/smoke = new
-	smoke.set_up(5, 0, user.loc)
+	var/datum/effect_system/fluid_spread/smoke/bad/smoke = new
+	smoke.set_up(5, location = user.loc)
 	smoke.start()
 	playsound(user.loc, 'sound/effects/bamf.ogg', 50, 2)
 
@@ -63,9 +63,9 @@
 	var/location = get_turf(user)
 	var/datum/reagents/reagents_list = new (250)
 	reagents_list.add_reagent("cryogenic_liquid", 245)
-	var/datum/effect_system/smoke_spread/chem/smoke = new
-	smoke.set_up(reagents_list, location)
-	smoke.start(3)
+	var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
+	smoke.set_up(3, location = location, carry = reagents)
+	smoke.start()
 	playsound(location, 'sound/effects/smoke.ogg', 50, 1, -3)
 
 //SKREEEEEEEEEEEE tool

@@ -128,8 +128,8 @@
 	else
 		visible_message("<span class='boldwarning'>[src] erupts into foam!</span>")
 		if(reagents.total_volume)
-			var/datum/effect_system/foam_spread/sodafizz = new
-			sodafizz.set_up(1, get_turf(src), reagents)
+			var/datum/effect_system/fluid_spread/foam/sodafizz = new
+			sodafizz.set_up(1, location = get_turf(src), carry = reagents)
 			sodafizz.start()
 
 	for(var/mob/living/carbon/C in range(1, get_turf(src)))

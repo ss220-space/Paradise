@@ -113,7 +113,7 @@
 	if(!.)
 		return FALSE
 	// On death, create a small smoke of harmful gas (s-Acid)
-	var/datum/effect_system/smoke_spread/chem/S = new
+	var/datum/effect_system/fluid_spread/smoke/chem/transparent/S = new
 	var/turf/location = get_turf(src)
 
 	// Create the reagents to put into the air
@@ -125,7 +125,7 @@
 		reagents.add_reagent("spore", 350)
 
 	// Setup up the smoke spreader and start it.
-	S.set_up(reagents, location, TRUE)
+	S.set_up(3, location = location, carry = reagents)
 	S.start()
 	qdel(src)
 

@@ -262,22 +262,15 @@
 	mix_message = "The mixture quickly turns into a pall of smoke!"
 	var/forbidden_reagents = list("sugar", "phosphorus", "potassium", "stimulants") //Do not transfer this stuff through smoke.
 
-/datum/chemical_reaction/smoke/on_reaction(datum/reagents/holder, created_volume)
+/datum/chemical_reaction/smoke/on_reaction(datum/reagents/holder)
 	for(var/f_reagent in forbidden_reagents)
 		holder.del_reagent(f_reagent)
 	var/location = get_turf(holder.my_atom)
-	var/datum/effect_system/smoke_spread/chem/S = new
+	var/datum/effect_system/fluid_spread/smoke/chem/transparent/S = new
 	playsound(location, 'sound/effects/smoke.ogg', 50, 1, -3)
 	if(S)
-		S.set_up(holder, location)
-		if(created_volume < 5)
-			S.start(1)
-		if(created_volume >=5 && created_volume < 10)
-			S.start(2)
-		if(created_volume >= 10 && created_volume < 15)
-			S.start(3)
-		if(created_volume >=15)
-			S.start(4)
+		S.set_up(5, location = location, carry = holder)
+		S.start()
 
 /datum/chemical_reaction/smoke/smoke_powder
 	name = "smoke_powder_smoke"

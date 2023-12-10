@@ -7,7 +7,7 @@
 	var/datum/action/innate/mecha/mech_defence_mode/defense_action = new
 	var/datum/action/innate/mecha/mech_overload_mode/overload_action = new
 	var/datum/action/innate/mecha/mech_toggle_thrusters/thrusters_action = new
-	var/datum/effect_system/smoke_spread/smoke_system = new //not an action, but trigged by one
+	var/datum/effect_system/fluid_spread/smoke/smoke_system = new //not an action, but trigged by one
 	var/datum/action/innate/mecha/mech_smoke/smoke_action = new
 	var/datum/action/innate/mecha/mech_zoom/zoom_action = new
 	var/datum/action/innate/mecha/mech_toggle_phasing/phasing_action = new
@@ -179,6 +179,7 @@
 	if(!owner || !chassis || chassis.occupant != owner)
 		return
 	if(chassis.smoke_ready && chassis.smoke > 0)
+		chassis.smoke_system.set_up(5, holder = chassis)
 		chassis.smoke_system.start()
 		chassis.smoke--
 		chassis.smoke_ready = 0

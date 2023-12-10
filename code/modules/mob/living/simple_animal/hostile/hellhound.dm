@@ -149,6 +149,6 @@
 	if(world.time < (smoke_lastuse + smoke_freq))
 		return
 	smoke_lastuse = world.time
-	var/datum/effect_system/smoke_spread/sleeping/smoke = new
-	smoke.set_up(10, 0, loc)
+	var/datum/effect_system/fluid_spread/smoke/sleeping/smoke = new
+	smoke.set_up(4, location = loc)
 	smoke.start()

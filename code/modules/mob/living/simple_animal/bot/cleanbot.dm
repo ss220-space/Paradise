@@ -115,7 +115,9 @@
 
 			if(prob(5)) //Spawns foam!
 				visible_message(span_danger("[src] whirs and bubbles violently, before releasing a plume of froth!"))
-				new /obj/effect/particle_effect/foam(loc)
+				var/datum/effect_system/fluid_spread/foam/foam = new
+				foam.set_up(1, holder = src, location = loc)
+				foam.start()
 
 	else if(prob(5))
 		audible_message("[src] makes an excited beeping booping sound!")

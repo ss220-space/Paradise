@@ -131,7 +131,7 @@
 	clothes_req = FALSE
 
 	smoke_type = SMOKE_COUGHING
-	smoke_amt = 10
+	smoke_amt = 5
 
 	action_icon_state = "smoke"
 
