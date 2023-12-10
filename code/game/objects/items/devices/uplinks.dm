@@ -59,40 +59,23 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	if(!race)
 		race = user.dna?.species.name
 
+	var/list/uplink_items_by_category = list()
+	for(var/datum/uplink_item/uplink_item as anything in uplink_items)
+		if(!uplink_items_by_category[uplink_item.category])
+			uplink_items_by_category[uplink_item.category] = list()
+		uplink_items_by_category[uplink_item.category] += uplink_item
 	var/list/cats = list()
 
-	for(var/category in uplink_items)
+	for(var/category in uplink_items_by_category)
 		cats[++cats.len] = list("cat" = category, "items" = list())
-		for(var/datum/uplink_item/uplink_item as anything in uplink_items[category])
+		for(var/datum/uplink_item/uplink_item as anything in uplink_items_by_category[category])
 			if(length(uplink_item.job) && !uplink_item.job.Find(job) && uplink_type != UPLINK_TYPE_ADMIN)
 				continue
 			if(length(uplink_item.race) && !uplink_item.race.Find(race) && uplink_type != UPLINK_TYPE_ADMIN)
 				continue
-			var/item_reference = form_type_reference(uplink_item)
-			cats[cats.len]["items"] += list(list("name" = sanitize(uplink_item.name), "desc" = sanitize(uplink_item.description()), "cost" = uplink_item.cost, "hijack_only" = uplink_item.hijack_only, "obj_path" = item_reference, "refundable" = uplink_item.refundable))
-			uplink_items[item_reference] = uplink_item
+			cats[cats.len]["items"] += list(list("name" = sanitize(uplink_item.name), "desc" = sanitize(uplink_item.description()), "cost" = uplink_item.cost, "hijack_only" = uplink_item.hijack_only, "obj_path" = ref(uplink_item), "refundable" = uplink_item.refundable))
 
 	uplink_cats = cats
-
-
-/**
- * Takes an item datum entry, check it with global list and returns reference for TGUI.
- *
- * Arguments:
- * * check_item - datum entry we need to form a reference for.
- */
-/obj/item/uplink/proc/form_type_reference(datum/uplink_item/check_item)
-	var/check_path = "[check_item.type]"
-	if(GLOB.uplink_items[check_item] == check_path)
-		return check_path
-
-	for(var/index in 1 to check_item.discount_counter)
-		var/discount_path = "[check_path]([index]"
-		if(GLOB.uplink_items[check_item] == discount_path)
-			return discount_path
-
-	stack_trace("Cannot find specified datum/uplink_item in GLOB.uplink_items. Probably force deleted, needs investigation.")
-
 
 /**
  * Return random item from uplink_item list.
@@ -103,10 +86,9 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 	var/list/random_items = list()
 
-	for(var/category in uplink_items)
-		for(var/datum/uplink_item/uplink_item as anything in uplink_items[category])
-			if(uplink_item.cost <= uses && uplink_item.limited_stock != 0)
-				random_items += uplink_item
+	for(var/datum/uplink_item/uplink_item as anything in uplink_items)
+		if(uplink_item.cost <= uses && uplink_item.limited_stock != 0)
+			random_items += uplink_item
 
 	return safepick(random_items)
 
@@ -145,16 +127,15 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	if(!hold_item) // Make sure there's actually something in the hand before even bothering to check
 		return FALSE
 
-	for(var/category in uplink_items)
-		for(var/datum/uplink_item/uplink_item as anything in uplink_items[category])
-			var/path = uplink_item.refund_path || uplink_item.item
-			var/cost = uplink_item.refund_amount || uplink_item.cost
-			if(hold_item.type == path && uplink_item.refundable && hold_item.check_uplink_validity())
-				uses += cost
-				used_TC -= cost
-				to_chat(user, span_notice("[hold_item] refunded."))
-				qdel(hold_item)
-				return
+	for(var/datum/uplink_item/uplink_item as anything in uplink_items)
+		var/path = uplink_item.refund_path || uplink_item.item
+		var/cost = uplink_item.refund_amount || uplink_item.cost
+		if(hold_item.type == path && uplink_item.refundable && hold_item.check_uplink_validity())
+			uses += cost
+			used_TC -= cost
+			to_chat(user, span_notice("[hold_item] refunded."))
+			qdel(hold_item)
+			return
 
 	// If we are here, we didnt refund
 	to_chat(user, span_warning("[hold_item] is not refundable."))
@@ -252,7 +233,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/list/data = list()
 
 	// Actual items
-	if(!uplink_cats || !uplink_items)
+	if(!uplink_cats)
 		generate_item_lists(user)
 	data["cats"] = uplink_cats
 
@@ -301,7 +282,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			return buy(uplink_item, usr)
 
 		if("buyItem")
-			var/datum/uplink_item/uplink_item = uplink_items[params["item"]]
+			var/datum/uplink_item/uplink_item = locate(params["item"]) in uplink_items
 			return buy(uplink_item, usr)
 
 

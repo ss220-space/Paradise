@@ -6,24 +6,21 @@
  * * only_main_operations - skips sales and discounts, used for surplus crates generation.
  */
 /proc/get_uplink_items(obj/item/uplink/target_uplink, generate_discounts = FALSE)
-	var/list/uplink_items = list()
+	. = list()
 	var/list/sales_items = generate_discounts ? list() : null
 
 	for(var/datum/uplink_item/uplink_item as anything in GLOB.uplink_items)
-		if(findtext(GLOB.uplink_items[uplink_item], "("))	// we are checking for discounted items
-			continue
-
 		if(length(uplink_item.uplinktypes) && !(target_uplink.uplink_type in uplink_item.uplinktypes) && target_uplink.uplink_type != UPLINK_TYPE_ADMIN)
 			continue
 
 		if(length(uplink_item.excludefrom) && (target_uplink.uplink_type in uplink_item.excludefrom) && target_uplink.uplink_type != UPLINK_TYPE_ADMIN)
 			continue
 
-		if(!uplink_items[uplink_item.category])
-			uplink_items[uplink_item.category] = list()
-		uplink_items[uplink_item.category] += uplink_item
+		if(uplink_item.limited_stock != -1 || (uplink_item.can_discount && uplink_item.refundable))
+			uplink_item = new uplink_item.type //If item has limited stock or can be discounted and refundable at same time make a copy
+		. += uplink_item
 
-		if(generate_discounts && uplink_item.limited_stock < 0 && !uplink_item.cant_discount && uplink_item.cost > 5)
+		if(generate_discounts && uplink_item.limited_stock < 0 && uplink_item.can_discount && uplink_item.cost > 5)
 			sales_items += uplink_item
 
 	if(generate_discounts)
@@ -45,14 +42,9 @@
 			discount_item.desc += " Limit of [discount_item.limited_stock] per uplink. Normally costs [init_cost] TC."
 			discount_item.surplus = 0 // stops the surplus crate potentially giving out a bit too much
 
-			discount_item.discount_counter++
-			GLOB.uplink_items[discount_item] = "[discount_item.type]([discount_item.discount_counter]"
+			. += discount_item
 
-			if(!uplink_items[discount_item.category])
-				uplink_items[discount_item.category] = list()
-			uplink_items[discount_item.category] += discount_item
-
-	return uplink_items
+	return .
 
 
 /datum/uplink_item
@@ -77,7 +69,7 @@
 	/// Chance of being included in the surplus crate (when pick() selects it).
 	var/surplus = 100
 	/// Whether item can be on sales category.
-	var/cant_discount = FALSE
+	var/can_discount = TRUE
 	/// Can you only buy so many? -1 allows for infinite purchases.
 	var/limited_stock = -1
 	/// Can this item be purchased only with hijack objective?
@@ -88,8 +80,6 @@
 	var/refund_path
 	/// Specified refund amount in case there needs to be a TC penalty for refunds.
 	var/refund_amount
-	/// Used to properly register discounted items in global list.
-	var/static/discount_counter = 0
 
 
 /datum/uplink_item/Destroy(force, ...)
@@ -201,7 +191,7 @@
 
 /datum/uplink_item/jobspecific
 	category = "Job Specific Tools"
-	cant_discount = TRUE
+	can_discount = FALSE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
 
 //Clown
@@ -347,7 +337,7 @@
 	cost = 5
 	job = list("Chaplain", "Librarian")
 	surplus = 0
-	cant_discount = TRUE
+	can_discount = FALSE
 
 //Janitor
 /datum/uplink_item/jobspecific/cautionsign
@@ -510,7 +500,7 @@
 	cost = 100
 	job = list("Librarian")
 	surplus = 0
-	cant_discount = TRUE
+	can_discount = FALSE
 
 //Botanist
 /datum/uplink_item/jobspecific/ambrosiacruciatus
@@ -568,7 +558,7 @@
 
 /datum/uplink_item/racial
 	category = "Racial Specific Tools"
-	cant_discount = TRUE
+	can_discount = FALSE
 	surplus = 0
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -693,7 +683,7 @@
 	item = /obj/item/gun/projectile/automatic/sniper_rifle/compact
 	cost = 40
 	surplus = 0
-	cant_discount = TRUE
+	can_discount = FALSE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/dangerous/crossbow
@@ -774,7 +764,7 @@
 	refund_path = /obj/item/antag_spawner/nuke_ops
 	cost = 100
 	refundable = TRUE
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/support/reinforcement/assault_borg
 	name = "Syndicate Assault Cyborg"
@@ -825,7 +815,7 @@
 	cost = 70
 	refund_path = /obj/item/guardiancreator/tech/choose
 	refundable = TRUE
-	cant_discount = TRUE
+	can_discount = FALSE
 
 // Ammunition
 
@@ -1099,21 +1089,20 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 	refundable = TRUE
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/stealthy_weapons/cqc
 	name = "CQC Manual"
 	desc = "A manual that teaches a single user tactical Close-Quarters Combat before self-destructing. Does not restrict weapon usage, but cannot be used alongside Gloves of the North Star."
 	item = /obj/item/CQC_manual
 	cost = 50
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/stealthy_weapons/mr_chang
 	name = "Mr. Chang's Aggressive Marketing Technique"
 	desc = "This package was kindly provided to us by Mr. Cheng's corporation. It contains a wide range of implements for the most effective promotion of products in a free market environment."
 	item = /obj/item/storage/box/syndie_kit/mr_chang_technique
 	cost = 15
-	cant_discount = FALSE
 
 /datum/uplink_item/stealthy_weapons/cameraflash
 	name = "Camera Flash"
@@ -1213,7 +1202,7 @@
 	desc = "Because sometimes quantity is quality. Contains 10 C-4 plastic explosives."
 	item = /obj/item/storage/backpack/duffel/syndie/c4
 	cost = 40 //20% discount!
-	cant_discount = TRUE
+	can_discount = FALSE
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/explosives/breaching_charge
@@ -1230,7 +1219,7 @@
 			For when you want a controlled explosion that leaves a wider, deeper, hole."
 	item = /obj/item/storage/backpack/duffel/syndie/x4
 	cost = 20
-	cant_discount = TRUE
+	can_discount = FALSE
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/explosives/t4
@@ -1254,7 +1243,7 @@
 	item = /obj/item/radio/beacon/syndicate/bomb
 	cost = 40
 	surplus = 0
-	cant_discount = TRUE
+	can_discount = FALSE
 	hijack_only = TRUE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -1272,7 +1261,7 @@
 	item = /obj/item/radio/beacon/syndicate/bomb/emp
 	cost = 40
 	surplus = 0
-	cant_discount = TRUE
+	can_discount = FALSE
 	hijack_only = TRUE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -1354,7 +1343,7 @@
 	hijack_only = TRUE
 	cost = 50
 	surplus = 0
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/explosives/emp
 	name = "EMP Grenades and Implanter Kit"
@@ -1594,7 +1583,7 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	refundable = TRUE
 	refund_path = /obj/item/paicard_upgrade/unused
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/device_tools/diamond_drill
 	name = "Diamond Tipped Thermal Safe Drill"
@@ -1738,7 +1727,7 @@
 	cost = 30
 	surplus = 0
 	hijack_only = TRUE //This is an item only useful for a hijack traitor, as such, it should only be available in those scenarios.
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/device_tools/syndicate_detonator
 	name = "Syndicate Detonator"
@@ -1823,7 +1812,7 @@
 	cost = 60
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/implants/storage
 	name = "Storage Implant"
@@ -1842,7 +1831,7 @@
 	desc = "An implant injected into the body, and later activated manually to inject a chemical cocktail, which has a mild healing effect along with removing and reducing the time of all stuns and increasing movement speed. Can be activated up to 3 times."
 	item = /obj/item/implanter/adrenalin
 	cost = 40
-	cant_discount = TRUE
+	can_discount = FALSE
 	surplus = 0
 
 /datum/uplink_item/implants/microbomb
@@ -1944,7 +1933,7 @@
 	desc = "A useless red balloon with the syndicate logo on it, which can blow the deepest of covers."
 	item = /obj/item/toy/syndicateballoon
 	cost = 100
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/implants/macrobomb
 	name = "Macrobomb Implant"
@@ -1956,7 +1945,7 @@
 /datum/uplink_item/bundles_TC
 	category = "Bundles and Telecrystals"
 	surplus = 0
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/bundles_TC/bulldog
 	name = "Bulldog Bundle"
@@ -2029,10 +2018,7 @@
 
 /datum/uplink_item/bundles_TC/surplus_crate/spawn_item(mob/buyer, obj/item/uplink/target_uplink)
 	var/obj/structure/closet/crate/crate = new(get_turf(buyer))
-	var/list/temp_uplink_list = get_uplink_items(target_uplink, generate_discounts = FALSE)
-	var/list/buyable_items = list()
-	for(var/category in temp_uplink_list)
-		buyable_items += temp_uplink_list[category]
+	var/list/buyable_items = get_uplink_items(target_uplink, generate_discounts = FALSE)
 	var/remaining_TC = crate_value
 	var/list/bought_items = list()
 	var/list/itemlog = list()
@@ -2040,7 +2026,7 @@
 	target_uplink.used_TC = cost
 
 
-	while(remaining_TC)
+	while(remaining_TC && buyable_items.len)
 		var/datum/uplink_item/chosen_item = pick(buyable_items)
 		if(!chosen_item.surplus || prob(100 - chosen_item.surplus))
 			continue
