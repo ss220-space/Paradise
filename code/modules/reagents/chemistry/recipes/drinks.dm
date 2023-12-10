@@ -1475,3 +1475,11 @@
 	required_reagents = list("trinary" = 1, "codelibre" = 1, "rewriter" = 1, "irishempbomb" = 1, "synthanol" = 1  )
 	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/cocacola
+	name = "Original cola"
+	id = "cocacola"
+	result = "cocacola"
+	required_reagents = list("cocaine" = 2, "cola" = 1)
+	result_amount = 3
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
