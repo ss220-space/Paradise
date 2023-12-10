@@ -177,3 +177,27 @@
 /datum/reagent/consumable/drink/cold/rewriter/on_mob_life(mob/living/M)
 	M.Jitter(5)
 	return ..()
+
+/datum/reagent/consumable/drink/cold/cocacola
+	name = "Original Cola"
+	id = "cocacola"
+	description = "Cola, original cola never changes."
+	color = "#100800" // rgb: 16, 8, 0
+	adj_sleepy = -4 SECONDS
+	drink_icon = "cocacola_bottle"
+	drink_name = "Coca Cola"
+	drink_desc = "Original Cola drink"
+	harmless = FALSE
+	taste_description = "Coca Cola"
+
+/datum/reagent/consumable/drink/cold/cocacola/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	M.Druggy(10 SECONDS)
+	M.AdjustStunned(-1 SECONDS)
+	M.AdjustWeakened(-1 SECONDS)
+	if(isturf(M.loc) && !istype(M.loc,/turf/space))
+		if(M.canmove && !M.restrained())
+			step(M, pick(GLOB.cardinal))
+	if(prob(7))
+		M.emote(pick("laugh","giggle"))
+	return ..() | update_flags
