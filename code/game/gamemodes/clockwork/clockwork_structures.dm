@@ -451,32 +451,32 @@
 	death_message = "<span class='danger'>Fabricator crumbles and dusts, leaving nothing behind!</span>"
 	var/list/cogscarab_list = list()
 	canbehidden = TRUE
-	var/opened_slots = 0
-	var/timer = null
+	var/cog_slots = 0
+	var/timer_fabrictor = null
 
 /obj/structure/clockwork/functional/cogscarab_fabricator/examine(mob/user)
 	. = ..()
 	if(!hidden && (isclocker(user) || isobserver(user)))
-		. += "<span class='notice'>There's [opened_slots - cogscarab_list.len] cogscarab ready. [timer ? "And it's creating another one now" : "It stopped creating."]."
+		. += "<span class='notice'>There's [cog_slots - cogscarab_list.len] cogscarab ready. [timer_fabrictor ? "And it's creating another one now" : "It stopped creating."]."
 
 /obj/structure/clockwork/functional/cogscarab_fabricator/Initialize(mapload)
 	. = ..()
-	timer = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
+	timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
 	notify_ghosts("[src] is created at [get_area(src)].", title = "New cogscarab fabricator!", source = src, flashwindow = FALSE, action = NOTIFY_JUMP)
 
 /obj/structure/clockwork/functional/cogscarab_fabricator/proc/open_slot()
-	opened_slots += 1
+	cog_slots += 1
 	notify_ghosts("[src] made a new shell at [get_area(src)]!", title = "Cogscarab ready!", source = src, action = NOTIFY_ATTACK)
-	if(opened_slots < MAX_COGSCRAB_PER_FABRICATOR)
-		timer = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
+	if(cog_slots < MAX_COGSCRAB_PER_FABRICATOR)
+		timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
 	else
-		timer = null
+		timer_fabrictor = null
 
 /obj/structure/clockwork/functional/cogscarab_fabricator/proc/close_slot(cogscarab)
 	cogscarab_list -= cogscarab
-	opened_slots -= 1
-	if(!timer)
-		timer = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
+	cog_slots -= 1
+	if(!timer_fabrictor)
+		timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
 
 /obj/structure/clockwork/functional/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user) && I.enchant_type != HIDE_SPELL && !hidden)
@@ -494,24 +494,24 @@
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
 		if(!anchored)
 			icon_state = "[initial(icon_state)]-off"
-			if(timer)
-				deltimer(timer)
-				timer = null
+			if(timer_fabrictor)
+				deltimer(timer_fabrictor)
+				timer_fabrictor = null
 		else
 			icon_state = "[initial(icon_state)]"
-			if(opened_slots < MAX_COGSCRAB_PER_FABRICATOR)
-				timer = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
+			if(cog_slots < MAX_COGSCRAB_PER_FABRICATOR)
+				timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
 		update_icon()
 		return TRUE
 
 /obj/structure/clockwork/functional/cogscarab_fabricator/toggle_hide(chosen_type)
 	. = ..()
-	if(. && timer) // hidden
-		deltimer(timer)
-		timer = null
+	if(. && timer_fabrictor) // hidden
+		deltimer(timer_fabrictor)
+		timer_fabrictor = null
 	else
-		if(opened_slots < MAX_COGSCRAB_PER_FABRICATOR)
-			timer = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
+		if(cog_slots < MAX_COGSCRAB_PER_FABRICATOR)
+			timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
 
 /obj/structure/clockwork/functional/cogscarab_fabricator/attack_ghost(mob/dead/observer/user)
 	if(hidden)
@@ -520,11 +520,11 @@
 	if(!anchored)
 		to_chat(user, "<span class='warning'>It seems to be non-functional to produce a new shell!</span>")
 		return FALSE
-	if(cogscarab_list.len >= opened_slots)
+	if(cogscarab_list.len >= cog_slots)
 		to_chat(user, "<span class='notice'>There's no empty shells to take!</span>")
 		return FALSE
 	if(alert(user, "Do you wish to become cogscarab?",,"Yes","No") == "Yes")
-		if(cogscarab_list.len >= opened_slots) //Double check. No duplications
+		if(cogscarab_list.len >= cog_slots) //Double check. No duplications
 			to_chat(user, "<span class='notice'>There's no empty shells to take!</span>")
 			return FALSE
 		var/mob/living/silicon/robot/cogscarab/cog = new(loc, src)
