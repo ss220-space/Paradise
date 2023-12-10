@@ -446,6 +446,12 @@
 	item_path = /obj/item/twohanded/singularityhammer
 	category = "Weapons and Armors"
 
+/datum/spellbook_entry/item/spellblade
+	name = "Spellblade"
+	desc = "A deadly combination of laziness and bloodlust, this blade allows the user to dismember their enemies without all the hard work of actually swinging the sword."
+	item_path = /obj/item/gun/magic/staff/spellblade
+	category = "Weapons and Armors"
+
 //Staves
 /datum/spellbook_entry/item/staffdoor
 	name = "Staff of Door Creation"
