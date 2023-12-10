@@ -12,8 +12,7 @@
 /obj/item/storage/box/contractor/hardsuit
 	name = "Boxed Contractor Hardsuit"
 	icon_state = "box_of_doom"
-	can_hold = list(/obj/item/clothing/suit/space/hardsuit/contractor, /obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate)
-	max_w_class = WEIGHT_CLASS_NORMAL
+	w_class_override = list(/obj/item/clothing/suit/space/hardsuit/contractor, /obj/item/clothing/mask/gas/syndicate)
 
 /obj/item/storage/box/contractor/hardsuit/populate_contents()
 	new /obj/item/clothing/suit/space/hardsuit/contractor(src)

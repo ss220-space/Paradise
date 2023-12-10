@@ -146,7 +146,7 @@
 
 /obj/item/storage/box/survival/security
 	icon_state = "box_sec"
-	can_hold = list(/obj/item/clothing/mask/gas/sechailer)
+	w_class_override = list(/obj/item/clothing/mask/gas/sechailer)
 
 /obj/item/storage/box/survival/security/populate_contents()
 	new /obj/item/tank/internals/emergency_oxygen/engi/sec(src)
@@ -272,7 +272,7 @@
 
 /obj/item/storage/box/survival/syndicate
 	icon_state = "box_syndi"
-	can_hold = list(/obj/item/clothing/mask/gas/syndicate)
+	w_class_override = list(/obj/item/clothing/mask/gas/syndicate)
 
 /obj/item/storage/box/survival/syndicate/populate_contents()
 	new /obj/item/clothing/mask/gas/syndicate(src)
@@ -324,7 +324,7 @@
 	icon_state = "box_cc"
 	storage_slots = 14
 	max_combined_w_class = 20
-	can_hold = list(/obj/item/clothing/mask/gas/sechailer)
+	w_class_override = list(/obj/item/clothing/mask/gas/sechailer)
 
 /obj/item/storage/box/survival/centcomm/populate_contents()
 	new /obj/item/clothing/mask/gas/sechailer(src)
@@ -386,7 +386,7 @@
 
 /obj/item/storage/box/survival/ert
 	icon_state = "box_ert"
-	can_hold = list(/obj/item/clothing/mask/gas/sechailer)
+	w_class_override = list(/obj/item/clothing/mask/gas/sechailer)
 
 /obj/item/storage/box/survival/ert/populate_contents()
 	new /obj/item/clothing/mask/gas/sechailer(src)

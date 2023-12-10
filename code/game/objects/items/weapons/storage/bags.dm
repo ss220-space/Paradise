@@ -41,7 +41,6 @@
 	slot_flags = null
 	storage_slots = 30
 	max_combined_w_class = 30
-	can_hold = list() // any
 	cant_hold = list(/obj/item/disk/nuclear)
 
 /obj/item/storage/bag/trash/suicide_act(mob/user)
@@ -100,7 +99,6 @@
 	max_w_class = WEIGHT_CLASS_SMALL
 	storage_slots = 7
 	display_contents_with_number = 0 //or else this will lead to stupid behavior.
-	can_hold = list() // any
 	cant_hold = list(/obj/item/disk/nuclear)
 
 
