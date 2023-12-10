@@ -2286,7 +2286,6 @@
 	icon_deny = "nta_deny"
 	icon_vend = "nta_vend"
 	req_access = list(ACCESS_SECURITY)
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	products = list(
 		/obj/item/grenade/flashbang = 4,
 		/obj/item/flash = 5,
@@ -2320,6 +2319,9 @@
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/grenade/clusterbuster/apocalypsefake = 1)
 	refill_canister = /obj/item/vending_refill/nta
 
+/obj/machinery/vending/nta/ertarmory
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+
 /obj/machinery/vending/nta/ertarmory/blue
 	name = "NT ERT Medium Gear & Ammunition"
 	desc = "A ERT Medium equipment vendor."
@@ -2327,7 +2329,6 @@
 	icon_state = "nta_blue"
 	icon_deny = "nta_blue_deny"
 	req_access = list(ACCESS_CENT_SECURITY)
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	products = list(
 		/obj/item/gun/energy/gun = 3,
 		/obj/item/gun/energy/ionrifle/carbine = 1,
@@ -2352,7 +2353,6 @@
 	icon_state = "nta_red"
 	icon_deny = "nta_red_deny"
 	req_access = list(ACCESS_CENT_SECURITY)
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	products = list(
 		/obj/item/gun/projectile/automatic/ar = 3,
 		/obj/item/ammo_box/magazine/m556 = 6,
@@ -2377,7 +2377,6 @@
 	icon_state = "nta_green"
 	icon_deny = "nta_green_deny"
 	req_access = list(ACCESS_CENT_SECURITY)
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	products = list(
 		/obj/item/restraints/handcuffs = 5,
 		/obj/item/restraints/handcuffs/cable/zipties = 5,
@@ -2405,7 +2404,6 @@
 	icon_state = "nta_yellow"
 	icon_deny = "nta_yellow_deny"
 	req_access = list(ACCESS_CENT_SECURITY)
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	products = list(
 		/obj/item/gun/projectile/automatic/gyropistol = 8,
 		/obj/item/ammo_box/magazine/m75 = 12,
@@ -2429,7 +2427,6 @@
 	icon_state = "nta_medical"
 	icon_deny = "nta_medical_deny"
 	req_access = list(ACCESS_CENT_MEDICAL)
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	products = list(
 		/obj/item/storage/firstaid/tactical = 2,
 		/obj/item/reagent_containers/applicator/dual = 2,
@@ -2463,7 +2460,6 @@
 	icon_state = "nta_engi"
 	icon_deny = "nta_engi_deny"
 	req_access = list(ACCESS_CENT_GENERAL)
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	products = list(
 		/obj/item/storage/belt/utility/chief/full = 2,
 		/obj/item/clothing/mask/gas/welding = 4,
@@ -2490,7 +2486,6 @@
 	icon_state = "nta_janitor"
 	icon_deny = "nta_janitor_deny"
 	req_access = list(ACCESS_CENT_GENERAL)
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	products = list(
 		/obj/item/storage/belt/janitor/ert = 2,
 		/obj/item/clothing/shoes/galoshes = 2,
