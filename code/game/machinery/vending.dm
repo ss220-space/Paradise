@@ -2296,10 +2296,10 @@
 		/obj/item/ammo_box/shotgun = 4,
 		/obj/item/ammo_box/shotgun/buck = 4,
 		/obj/item/ammo_box/shotgun/rubbershot = 4,
-		/obj/item/ammo_casing/shotgun/stunslug = 35,
-		/obj/item/ammo_casing/shotgun/ion = 14,
-		/obj/item/ammo_casing/shotgun/laserslug = 35,
-		/obj/item/ammo_box/speedloader/shotgun/universal = 8,
+		/obj/item/ammo_box/shotgun/stunslug = 35,
+		/obj/item/ammo_box/shotgun/ion = 14,
+		/obj/item/ammo_box/shotgun/laserslug = 35,
+		/obj/item/ammo_box/speedloader/shotgun = 8,
 
 		/obj/item/ammo_box/magazine/lr30mag = 12,
 		/obj/item/ammo_box/magazine/enforcer = 8,
@@ -2340,7 +2340,7 @@
 		/obj/item/ammo_box/shotgun/rubbershot = 6,
 		/obj/item/ammo_box/shotgun/beanbag = 4,
 		/obj/item/ammo_box/shotgun/tranquilizer = 4,
-		/obj/item/ammo_box/speedloader/shotgun/universal = 4,
+		/obj/item/ammo_box/speedloader/shotgun = 4,
 		/obj/item/gun/projectile/automatic/sfg = 3,
 		/obj/item/ammo_box/magazine/sfg9mm = 6
 	)
@@ -2369,7 +2369,7 @@
 		/obj/item/ammo_box/shotgun = 4,
 		/obj/item/ammo_box/shotgun/buck = 4,
 		/obj/item/ammo_box/shotgun/dragonsbreath = 2,
-		/obj/item/ammo_box/speedloader/shotgun/universal = 4,
+		/obj/item/ammo_box/speedloader/shotgun = 4,
 		/obj/item/storage/lockbox/t4 = 3,
 		/obj/item/grenade/smokebomb = 3,
 		/obj/item/grenade/frag = 4
@@ -2395,7 +2395,7 @@
 		/obj/item/storage/box/barrier = 2,
 		/obj/item/gun/projectile/shotgun/riot = 1,
 		/obj/item/ammo_box/shotgun/rubbershot = 3,
-		/obj/item/ammo_box/speedloader/shotgun/universal = 4,
+		/obj/item/ammo_box/speedloader/shotgun = 4,
 		/obj/item/gun/energy/dominator/sibyl = 2
 	)
 	contraband = list(/obj/item/storage/fancy/donut_box = 2)
