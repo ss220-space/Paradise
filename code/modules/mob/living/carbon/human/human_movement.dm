@@ -39,20 +39,19 @@
 	. = ..()
 	if(.) // did we actually move?
 		if(!lying && !buckled && !throwing)
-			for(var/obj/item/organ/external/splinted in splinted_limbs)
-				splinted.update_splints()
+			update_splints()
 		if(dna.species.fragile_bones_chance > 0 && (m_intent != MOVE_INTENT_WALK || pulling))
 			if(prob(dna.species.fragile_bones_chance))
-				for(var/zone in list("l_leg", "l_foot", "r_leg", "r_foot"))
+				for(var/zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
 					var/obj/item/organ/external/leg = get_organ(zone)
-					if(leg.status & ORGAN_BROKEN)
+					if(leg.has_fracture())
 						continue
 					else
 						leg.fracture()
 						break
 			else
 				if(dna.species.fragile_bones_chance && prob(30))
-					playsound(src, "bonebreak", 10, 1)
+					playsound(src, "bonebreak", 10, TRUE)
 
 	if(!has_gravity(loc))
 		return
@@ -64,8 +63,8 @@
 
 	//Bloody footprints
 	var/turf/T = get_turf(src)
-	var/obj/item/organ/external/l_foot = get_organ("l_foot")
-	var/obj/item/organ/external/r_foot = get_organ("r_foot")
+	var/obj/item/organ/external/l_foot = get_organ(BODY_ZONE_PRECISE_L_FOOT)
+	var/obj/item/organ/external/r_foot = get_organ(BODY_ZONE_PRECISE_R_FOOT)
 	var/hasfeet = TRUE
 	if(!l_foot && !r_foot)
 		hasfeet = FALSE

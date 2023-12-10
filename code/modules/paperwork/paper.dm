@@ -149,7 +149,7 @@
 	return
 
 /obj/item/paper/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	if(user.zone_selected == "eyes")
+	if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
 		user.visible_message("<span class='warning'>[user] is trying to show the paper to you. </span>", \
 			"<span class='notice'>You hold up a paper and try to show it to [M]. </span>")
 
@@ -160,7 +160,7 @@
 		else
 			to_chat(user, span_warning("You fail to show the paper to [M]."))
 
-	else if(user.zone_selected == "mouth")
+	else if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 		if(!istype(M, /mob))	return
 
 		if(ishuman(M))
@@ -678,6 +678,11 @@
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ussplogo.png' width='220' height='135' /></p><hr />"
 	info =  ""
 	language = "Neo-Russkiya"
+
+/obj/item/paper/solgov
+	name = "paper"
+	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='solgovlogo.png' width='220' height='135' /></p><hr />"
+	info = ""
 
 /obj/item/paper/central_command
 	name = "Директива Центрального Командования"

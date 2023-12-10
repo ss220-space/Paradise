@@ -139,6 +139,10 @@
 	display_name = "plaid skirt, red"
 	path = /obj/item/clothing/under/dress/plaid_red
 
+/datum/gear/uniform/skirt/redeveninggown
+	display_name = "red evening gown"
+	path = /obj/item/clothing/under/redeveninggown
+
 /datum/gear/uniform/skirt/black
 	display_name = "skirt, black"
 	path = /obj/item/clothing/under/blackskirt

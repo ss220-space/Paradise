@@ -8,13 +8,13 @@
 	default_language = "Abductor Mindlink"
 	eyes = "blank_eyes"
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
-		"liver" =    /obj/item/organ/internal/liver,
-		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"brain" =    /obj/item/organ/internal/brain/abductor,
-		"eyes" =     /obj/item/organ/internal/eyes/abductor //3 darksight.
-		)
-
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/abductor,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/abductor, //3 darksight.
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+	)
 
 	species_traits = list(NO_BLOOD, NO_BREATHE, VIRUSIMMUNE, NOGUNS, NO_HUNGER, NO_EXAMINE)
 	dies_at_threshold = TRUE

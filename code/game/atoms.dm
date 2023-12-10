@@ -709,12 +709,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 //to add blood dna info to the object's blood_DNA list
 /atom/proc/transfer_blood_dna(list/blood_dna)
-	if(!blood_DNA)
-		blood_DNA = list()
-	var/old_length = blood_DNA.len
+	if(!blood_dna || !length(blood_dna))
+		return FALSE
+	LAZYINITLIST(blood_DNA)
+	var/old_length = length(blood_DNA)
 	blood_DNA |= blood_dna
-	if(blood_DNA.len > old_length)
-		return TRUE//some new blood DNA was added
+	return length(blood_DNA) > old_length	//some new blood DNA was added
+
 
 //to add blood from a mob onto something, and transfer their dna info
 /atom/proc/add_mob_blood(mob/living/M)

@@ -94,9 +94,9 @@
 					if(M.slip("the icy floor", 4 SECONDS, tilesSlipped = 0, walkSafely = 0))
 						M.inertia_dir = 0
 						if(prob(5))
-							var/obj/item/organ/external/affected = M.get_organ("head")
+							var/obj/item/organ/external/affected = M.get_organ(BODY_ZONE_HEAD)
 							if(affected)
-								M.apply_damage(5, BRUTE, "head")
+								M.apply_damage(5, BRUTE, BODY_ZONE_HEAD)
 								M.visible_message(span_warning("<b>[M]</b> hits their head on the ice!"))
 								playsound(src, 'sound/weapons/genhit1.ogg', 50, 1)
 

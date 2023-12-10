@@ -2104,10 +2104,9 @@
 	taste_description = "electromagnetic impulse"
 
 /datum/reagent/consumable/ethanol/irishempbomb/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.Stun(1, FALSE)
+	M.Stun(1, FALSE)
 	do_sparks(5, FALSE, M.loc)
-	return ..() | update_flags
+	return ..()
 
 /datum/reagent/consumable/ethanol/codelibre
 	name = "Code Libre"

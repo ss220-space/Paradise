@@ -2,9 +2,8 @@
 	name = "ears"
 	icon_state = "ears"
 	gender = PLURAL
-	organ_tag = "ears"
-	parent_organ = "head"
-	slot = "ears"
+	parent_organ_zone = BODY_ZONE_HEAD
+	slot = INTERNAL_ORGAN_EARS
 
 /obj/item/organ/internal/ears/on_life()
 	if(!iscarbon(owner))
@@ -18,7 +17,7 @@
 	if(HAS_TRAIT_NOT_FROM(C, TRAIT_DEAF, EAR_DAMAGE))
 		return
 
-	if(status & ORGAN_DEAD)
+	if(is_dead())
 		C.Deaf(2 SECONDS)
 	else
 		if((damage > 10) && prob(damage / 30))
@@ -33,7 +32,7 @@
 
 
 /obj/item/organ/internal/ears/surgeryize()
-	owner.SetDeaf(0)
+	owner?.SetDeaf(0)
 	heal_internal_damage(100)
 
 /obj/item/organ/internal/ears/cybernetic

@@ -24,7 +24,7 @@
 		sortTim(standard_outfit_options, cmp = /proc/cmp_text_asc)
 	outfit_options = standard_outfit_options
 
-/datum/action/chameleon_outfit/Trigger()
+/datum/action/chameleon_outfit/Trigger(left_click = TRUE)
 	return select_outfit(owner)
 
 /datum/action/chameleon_outfit/proc/select_outfit(mob/user)
@@ -174,7 +174,7 @@
 
 	target.icon = initial(picked_item.icon)
 
-/datum/action/item_action/chameleon/change/Trigger()
+/datum/action/item_action/chameleon/change/Trigger(left_click = TRUE)
 	if(!IsAvailable())
 		return
 

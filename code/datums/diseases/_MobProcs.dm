@@ -78,27 +78,27 @@
 
 	var/zone_text
 	if(!zone)
-		zone_text = pick(40; "head", 40; "chest", 10; "l_arm", 10; "l_leg")
+		zone_text = pick(40; BODY_ZONE_HEAD, 40; BODY_ZONE_CHEST, 10; BODY_ZONE_L_ARM, 10; BODY_ZONE_L_LEG)
 	else
 		if(istype(zone, /obj/item/organ/external))
 			var/obj/item/organ/external/E = zone
-			zone_text = E.limb_name
+			zone_text = E.limb_zone
 		else
 			zone_text = zone
 
 	switch(zone_text)
-		if("head", "eyes", "mouth")
+		if(BODY_ZONE_HEAD, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH)
 			if(ClothingVirusProtection(head) || ClothingVirusProtection(wear_mask))
 				return TRUE
-		if("chest", "groin", "tail", "wing")
+		if(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_TAIL, BODY_ZONE_WING)
 			if(ClothingVirusProtection(wear_suit) || ClothingVirusProtection(w_uniform))
 				return TRUE
-		if("l_arm", "r_arm", "l_hand", "r_hand")
+		if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)
 			if(istype(wear_suit) && (wear_suit.body_parts_covered & HANDS) && ClothingVirusProtection(wear_suit))
 				return TRUE
 			if(ClothingVirusProtection(gloves))
 				return TRUE
-		if("l_leg", "r_leg", "l_foot", "r_foot")
+		if(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
 			if(istype(wear_suit) && (wear_suit.body_parts_covered & FEET) && ClothingVirusProtection(wear_suit))
 				return TRUE
 			if(ClothingVirusProtection(shoes))

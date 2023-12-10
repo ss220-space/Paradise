@@ -130,6 +130,8 @@ To draw a rune, use a ritual dagger.
 	visible_message("<span class='danger'>[src] suddenly appears!</span>")
 	alpha = initial(alpha)
 
+/obj/effect/rune/is_cleanable()
+	return TRUE
 
 /*
 There are a few different procs each rune runs through when a cultist activates it.
@@ -343,9 +345,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 				else
 					H.visible_message("<span class='warning'>[convertee]'s wounds heal and close!</span>",
 					"<span class='cultitalic'>Your wounds have been healed. Now spread the blood to others.</span>")
-					for(var/obj/item/organ/external/E in H.bodyparts)
-						E.mend_fracture()
-						E.internal_bleeding = FALSE
+					for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+						bodypart.mend_fracture()
+						bodypart.stop_internal_bleeding()
 					for(var/datum/disease/critical/crit in H.diseases) // cure all crit conditions
 						crit.cure()
 

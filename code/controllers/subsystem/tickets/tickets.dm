@@ -20,7 +20,7 @@ SUBSYSTEM_DEF(tickets)
 	priority = FIRE_PRIORITY_TICKETS
 	offline_implications = "Admin tickets will no longer be marked as stale. No immediate action is needed."
 	flags = SS_BACKGROUND
-
+	ss_id = "admin_tickets"
 	var/span_class = "adminticket"
 	var/ticket_system_name = "Admin Tickets"
 	var/ticket_name = "Admin Ticket"

@@ -39,7 +39,7 @@
 							 "<span class='cultlarge'>\"You shouldn't play with sharp things. You'll poke someone's eye out.\"</span>")
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
-			H.apply_damage(rand(force/2, force), BRUTE, pick("l_arm", "r_arm"))
+			H.apply_damage(rand(force/2, force), BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 		else
 			user.adjustBruteLoss(rand(force/2, force))
 		return

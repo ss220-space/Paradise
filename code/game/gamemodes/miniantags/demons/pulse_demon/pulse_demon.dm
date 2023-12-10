@@ -815,16 +815,16 @@
 	user.drop_from_active_hand()
 	insert(user)
 
-/obj/item/organ/internal/heart/demon/pulse/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/demon/pulse/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	M.AddComponent(/datum/component/cross_shock, 30, 500, 2 SECONDS)
 	ADD_TRAIT(M, TRAIT_SHOCKIMMUNE, UNIQUE_TRAIT_SOURCE(src))
 	M.set_light(3, 2, "#bbbb00")
 
-/obj/item/organ/internal/heart/demon/pulse/remove(mob/living/carbon/M, special = 0)
-	. = ..()
+/obj/item/organ/internal/heart/demon/pulse/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	REMOVE_TRAIT(M, TRAIT_SHOCKIMMUNE, UNIQUE_TRAIT_SOURCE(src))
 	M.remove_light()
+	. = ..()
 
 /obj/item/organ/internal/heart/demon/pulse/on_life()
 	if(!owner)

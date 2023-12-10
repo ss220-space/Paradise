@@ -17,7 +17,7 @@
 /datum/emote/living/carbon/cross
 	key = "cross"
 	key_third_person = "crosses"
-	message = "скрещива%(ет,,ют)% руки."
+	message = "скрещива%(ет,ют)% руки."
 	hands_use_check = TRUE
 
 

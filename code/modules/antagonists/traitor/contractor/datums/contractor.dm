@@ -15,7 +15,7 @@
 	special_role = SPECIAL_ROLE_TRAITOR
 	antag_hud_type = ANTAG_HUD_TRAITOR
 	/// How many telecrystals a traitor must forfeit to become a contractor.
-	var/tc_cost = 20
+	var/tc_cost = 100
 	/// How long a traitor's chance to become a contractor lasts before going away. In deciseconds.
 	var/offer_duration = 10 MINUTES
 	/// world.time at which the offer will expire.

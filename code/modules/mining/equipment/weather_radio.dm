@@ -71,7 +71,7 @@
 		if(WEATHER_ALERT_CLEAR)
 			return "Буря закончилась. Текущая погода не представляет угрозы."
 		if(WEATHER_ALERT_INCOMING)
-			return "Приближающается буря. Преступите к поиску убежища."
+			return "Приближается буря. Приступите к поиску убежища."
 		if(WEATHER_ALERT_IMMINENT_OR_ACTIVE)
 			return "Буря неизбежна. Немедленно найдите убежище."
 	return "Ошибка в просчёте погоды. Пожалуйста сообщите об ошибке в службу поддержки НТ."
@@ -101,10 +101,10 @@
 	var/time_until_next = time_till_storm()
 	if(isnull(time_until_next))
 		return // No problems if there are no mining z levels
-	if(time_until_next >= 2 MINUTES)
+	if(time_until_next >= 1 MINUTES)
 		warning_level = WEATHER_ALERT_CLEAR
 		return
-	if(time_until_next >= 30 SECONDS)
+	if(time_until_next >= 10 SECONDS)
 		warning_level = WEATHER_ALERT_INCOMING
 		return
 	// Weather is here, now we need to figure out if it is dangerous

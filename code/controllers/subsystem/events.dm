@@ -5,6 +5,7 @@ SUBSYSTEM_DEF(events)
 	flags = SS_KEEP_TIMING
 	offline_implications = "Random events will no longer happen. No immediate action is needed."
 	cpu_display = SS_CPUDISPLAY_LOW
+	ss_id = "events"
 	// Report events at the end of the rouund
 	var/report_at_round_end = 0
 
