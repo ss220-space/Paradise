@@ -478,7 +478,7 @@
 	if(!timer_fabrictor)
 		timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
 
-/obj/structure/clockwork/functional/attackby(obj/item/I, mob/user, params)
+/obj/structure/clockwork/functional/cogscarab_fabricator/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user) && I.enchant_type != HIDE_SPELL && !hidden)
 		if(!anchored && !isfloorturf(loc))
 			to_chat(usr, "<span class='warning'>A floor must be present to secure [src]!</span>")
