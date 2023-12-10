@@ -403,14 +403,6 @@
 	surplus = 0
 	hijack_only = TRUE
 
-//Assistant
-/datum/uplink_item/jobspecific/pickpocketgloves
-	name = "Pickpocket's Gloves"
-	desc = "A pair of sleek gloves to aid in pickpocketing. While wearing these, you can loot your target without them knowing. Pickpocketing puts the item directly into your hand."
-	item = /obj/item/clothing/gloves/color/black/thief
-	cost = 30
-	job = list("Civilian")
-
 /datum/uplink_item/jobspecific/lockermech
 	name = "Syndie Locker Mech"
 	desc = "A massive and incredibly deadly Syndicate exosuit(Not realy)."
@@ -1591,11 +1583,18 @@
 	item = /obj/item/thermal_drill/diamond_drill
 	cost = 5
 
+
 /datum/uplink_item/device_tools/jackhammer
 	name = "Jackhammer"
 	desc = "A jackhammer for breaking stone. Or walls. Or skulls"
 	item = /obj/item/pickaxe/drill/jackhammer
 	cost = 15
+
+/datum/uplink_item/device_tools/pickpocketgloves
+	name = "Pickpocket's Gloves"
+	desc = "A pair of sleek gloves to aid in pickpocketing. While wearing these, you can loot your target without them knowing. Pickpocketing puts the item directly into your hand."
+	item = /obj/item/clothing/gloves/color/black/thief
+	cost = 30
 
 /datum/uplink_item/device_tools/medkit
 	name = "Syndicate Combat Medic Kit"
