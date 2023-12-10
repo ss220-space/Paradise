@@ -33,7 +33,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	. = ..()
 	src.uses = uses ? uses : src.uses
 	src.uplink_type = uplink_type ? uplink_type : src.uplink_type
-	uplink_items = get_uplink_items(src)
+	uplink_items = get_uplink_items(src, generate_discounts = TRUE)
 	GLOB.world_uplinks += src
 
 

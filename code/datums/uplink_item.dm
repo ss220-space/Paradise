@@ -5,10 +5,9 @@
  * * target_uplink - uplink we are checking.
  * * only_main_operations - skips sales and discounts, used for surplus crates generation.
  */
-/proc/get_uplink_items(obj/item/uplink/target_uplink, only_main_operations = FALSE)
+/proc/get_uplink_items(obj/item/uplink/target_uplink, generate_discounts = FALSE)
 	var/list/uplink_items = list()
-	var/list/sales_items = only_main_operations ? null : list()
-	var/list/last = only_main_operations ? null : list()
+	var/list/sales_items = generate_discounts ? list() : null
 
 	for(var/datum/uplink_item/uplink_item as anything in GLOB.uplink_items)
 		if(findtext(GLOB.uplink_items[uplink_item], "("))	// we are checking for discounted items
@@ -20,23 +19,14 @@
 		if(length(uplink_item.excludefrom) && (target_uplink.uplink_type in uplink_item.excludefrom) && target_uplink.uplink_type != UPLINK_TYPE_ADMIN)
 			continue
 
-		if(!only_main_operations && uplink_item.last)
-			last += uplink_item
-			continue
-
 		if(!uplink_items[uplink_item.category])
 			uplink_items[uplink_item.category] = list()
 		uplink_items[uplink_item.category] += uplink_item
 
-		if(!only_main_operations && uplink_item.limited_stock < 0 && !uplink_item.cant_discount && uplink_item.cost > 5)
+		if(generate_discounts && uplink_item.limited_stock < 0 && !uplink_item.cant_discount && uplink_item.cost > 5)
 			sales_items += uplink_item
 
-	if(!only_main_operations)
-		for(var/datum/uplink_item/uplink_item as anything in last)
-			if(!uplink_items[uplink_item.category])
-				uplink_items[uplink_item.category] = list()
-			uplink_items[uplink_item.category] += uplink_item
-
+	if(generate_discounts)
 		for(var/i in 1 to 3)
 			var/datum/uplink_item/discount_origin = pick_n_take(sales_items)
 			discount_origin.refundable = FALSE
@@ -76,8 +66,6 @@
 	var/item
 	/// Item cost in TC.
 	var/cost = 0
-	/// Used to make sure item appears last, well have the category appears last.
-	var/last = FALSE
 	/// Empty list means it is in all the uplink types. Otherwise place the uplink type here.
 	var/list/uplinktypes
 	/// Empty list does nothing. Place the name of uplink type you don't want this item to be available in here.
@@ -2041,7 +2029,7 @@
 
 /datum/uplink_item/bundles_TC/surplus_crate/spawn_item(mob/buyer, obj/item/uplink/target_uplink)
 	var/obj/structure/closet/crate/crate = new(get_turf(buyer))
-	var/list/temp_uplink_list = get_uplink_items(target_uplink, only_main_operations = TRUE)
+	var/list/temp_uplink_list = get_uplink_items(target_uplink, generate_discounts = FALSE)
 	var/list/buyable_items = list()
 	for(var/category in temp_uplink_list)
 		buyable_items += temp_uplink_list[category]
