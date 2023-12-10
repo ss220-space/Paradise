@@ -43,8 +43,8 @@
 		if(box && H.dna.species.speciesbox)
 /*			if(ispath(H.dna.species.speciesbox))	// May be useful for creating new species.
 				box = H.dna.species.speciesbox
-				return
-*/			for(var/path in subtypesof(box))
+				return	*/
+			for(var/path in subtypesof(box))
 				var/obj/item/storage/box/survival/new_box = new path
 				if(H.dna.species.name == new_box.target_species)
 					box = new_box.type
