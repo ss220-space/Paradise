@@ -27,8 +27,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/datum/antagonist/contractor/contractor
 	/// Whether the uplink is jammed and cannot be used to order items.
 	var/is_jammed = FALSE
-	/// Used to properly register discounted items in global list.
-	var/static/discount_counter = 0
 
 
 /obj/item/uplink/Initialize(mapload, uplink_type, uses)
@@ -84,12 +82,14 @@ GLOBAL_LIST_EMPTY(world_uplinks)
  * * check_item - datum entry we need to form a reference for.
  */
 /obj/item/uplink/proc/form_type_reference(datum/uplink_item/check_item)
-	if(GLOB.uplink_items["[check_item.type]"] == check_item)
-		return "[check_item.type]"
+	var/check_path = "[check_item.type]"
+	if(GLOB.uplink_items[check_item] == check_path)
+		return check_path
 
-	for(var/text_path in GLOB.uplink_items)
-		if(GLOB.uplink_items[text_path] == check_item)
-			return text_path
+	for(var/index in 1 to check_item.discount_counter)
+		var/discount_path = "[check_path]([index]"
+		if(GLOB.uplink_items[check_item] == discount_path)
+			return discount_path
 
 	stack_trace("Cannot find specified datum/uplink_item in GLOB.uplink_items. Probably force deleted, needs investigation.")
 

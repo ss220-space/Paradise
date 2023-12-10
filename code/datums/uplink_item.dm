@@ -10,34 +10,32 @@
 	var/list/sales_items = only_main_operations ? null : list()
 	var/list/last = only_main_operations ? null : list()
 
-	for(var/text_path in GLOB.uplink_items)
-		if(findtext(text_path, "("))
+	for(var/datum/uplink_item/uplink_item as anything in GLOB.uplink_items)
+		if(findtext(GLOB.uplink_items[uplink_item], "("))	// we are checking for discounted items
 			continue
 
-		var/datum/uplink_item/item = GLOB.uplink_items[text_path]
-
-		if(length(item.uplinktypes) && !(target_uplink.uplink_type in item.uplinktypes) && target_uplink.uplink_type != UPLINK_TYPE_ADMIN)
+		if(length(uplink_item.uplinktypes) && !(target_uplink.uplink_type in uplink_item.uplinktypes) && target_uplink.uplink_type != UPLINK_TYPE_ADMIN)
 			continue
 
-		if(length(item.excludefrom) && (target_uplink.uplink_type in item.excludefrom) && target_uplink.uplink_type != UPLINK_TYPE_ADMIN)
+		if(length(uplink_item.excludefrom) && (target_uplink.uplink_type in uplink_item.excludefrom) && target_uplink.uplink_type != UPLINK_TYPE_ADMIN)
 			continue
 
-		if(!only_main_operations && item.last)
-			last += item
+		if(!only_main_operations && uplink_item.last)
+			last += uplink_item
 			continue
 
-		if(!uplink_items[item.category])
-			uplink_items[item.category] = list()
-		uplink_items[item.category] += item
+		if(!uplink_items[uplink_item.category])
+			uplink_items[uplink_item.category] = list()
+		uplink_items[uplink_item.category] += uplink_item
 
-		if(!only_main_operations && item.limited_stock < 0 && !item.cant_discount && item.cost > 5)
-			sales_items += item
+		if(!only_main_operations && uplink_item.limited_stock < 0 && !uplink_item.cant_discount && uplink_item.cost > 5)
+			sales_items += uplink_item
 
 	if(!only_main_operations)
-		for(var/datum/uplink_item/item as anything in last)
-			if(!uplink_items[item.category])
-				uplink_items[item.category] = list()
-			uplink_items[item.category] += item
+		for(var/datum/uplink_item/uplink_item as anything in last)
+			if(!uplink_items[uplink_item.category])
+				uplink_items[uplink_item.category] = list()
+			uplink_items[uplink_item.category] += uplink_item
 
 		for(var/i in 1 to 3)
 			var/datum/uplink_item/discount_origin = pick_n_take(sales_items)
@@ -57,8 +55,8 @@
 			discount_item.desc += " Limit of [discount_item.limited_stock] per uplink. Normally costs [init_cost] TC."
 			discount_item.surplus = 0 // stops the surplus crate potentially giving out a bit too much
 
-			target_uplink.discount_counter++
-			GLOB.uplink_items["([target_uplink.discount_counter])[discount_item.type]"] = discount_item
+			discount_item.discount_counter++
+			GLOB.uplink_items[discount_item] = "[discount_item.type]([discount_item.discount_counter]"
 
 			if(!uplink_items[discount_item.category])
 				uplink_items[discount_item.category] = list()
@@ -102,6 +100,8 @@
 	var/refund_path
 	/// Specified refund amount in case there needs to be a TC penalty for refunds.
 	var/refund_amount
+	/// Used to properly register discounted items in global list.
+	var/static/discount_counter = 0
 
 
 /datum/uplink_item/Destroy(force, ...)

@@ -229,5 +229,5 @@
 		if(!initial(item_path.item))
 			continue
 		var/datum/uplink_item/item = new item_path
-		.["[item_path]"] = item
+		.[item] = "[item_path]"
 
