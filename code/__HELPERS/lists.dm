@@ -136,6 +136,15 @@
 			return 1
 	return 0
 
+//Checks for specific types in a list without childs
+/proc/locate_type_in_list(atom/A, list/L)
+	if(!L || !L.len || !A)
+		return 0
+	for(var/type in L)
+		if(A.type == type)
+			return 1
+	return 0
+
 //Checks for specific types in specifically structured (Assoc "type" = TRUE) lists ('typecaches')
 /proc/is_type_in_typecache(atom/A, list/L)
 	if(!L || !L.len || !A)

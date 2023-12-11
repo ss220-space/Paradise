@@ -86,6 +86,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/is_speedslimepotioned = FALSE
 	var/cant_be_faster = FALSE
 	var/armour_penetration = 0 //percentage of armour effectiveness to remove
+	var/shields_penetration = 0 //amount by which block_chance decreases
 	/// Allows you to override the attack animation with an attack effect
 	var/attack_effect_override
 	var/list/allowed = null //suit storage stuff.
@@ -166,6 +167,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	///Datum used in item pixel shift TGUI
 	var/datum/ui_module/item_pixel_shift/item_pixel_shift
+
+	/// The amount of increase recived from sharpening the item
+	var/sharpened_increase = 0
 
 
 /obj/item/New()
@@ -1284,3 +1288,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	// This is instant on byond's end, but to our clients this looks like a quick drop
 	animate(src, alpha = old_alpha, pixel_x = old_x, pixel_y = old_y, transform = old_transform, time = 3, easing = CUBIC_EASING)
+
+/obj/item/proc/get_force()
+	return initial(force) + sharpened_increase
+
+/obj/item/proc/get_throwforce()
+	return initial(throwforce) + sharpened_increase

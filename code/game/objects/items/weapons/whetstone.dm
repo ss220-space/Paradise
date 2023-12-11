@@ -26,12 +26,16 @@
 		to_chat(user, SPAN_WARNING("You can only sharpen items that are already sharp, such as knives!"))
 		return
 
+	if(I.sharpened_increase)
+		to_chat(user, SPAN_WARNING("[I] has already been refined before. It cannot be sharpened further!"))
+		return
+
 	var/signal_out = SEND_SIGNAL(I, COMSIG_ITEM_SHARPEN_ACT, increment, max) //Stores the bitflags returned by SEND_SIGNAL
 	if((signal_out & COMPONENT_BLOCK_SHARPEN_MAXED) || istype(I, /obj/item/melee/energy)) //If the item's components enforce more limits on maximum power from sharpening,  we fail
 		to_chat(user, SPAN_WARNING("[I] is much too powerful to sharpen further!"))
 		return
 
-	if((signal_out & COMPONENT_BLOCK_SHARPEN_ALREADY) || I.force > initial(I.force)) //No sharpening stuff twice
+	if((signal_out & COMPONENT_BLOCK_SHARPEN_ALREADY)) //No sharpening stuff twice
 		to_chat(user, SPAN_WARNING("[I] has already been refined before. It cannot be sharpened further!"))
 		return
 
@@ -40,7 +44,7 @@
 		return
 
 	if(istype(I, /obj/item/melee/mantisblade))
-		to_chat(user, "<span class = 'warning'>[I] уже остр, и не может быть заточен ещё сильнее!</span>")
+		to_chat(user, SPAN_WARNING("[I] уже остр, и не может быть заточен ещё сильнее!"))
 		return
 
 	if(istype(I, /obj/item/clothing/gloves/color/black/razorgloves))
@@ -55,6 +59,7 @@
 			I.sharp = TRUE
 		I.force = clamp(I.force + increment, 0, max)
 		I.throwforce = clamp(I.throwforce + increment, 0, max)
+		I.sharpened_increase = increment
 
 	user.visible_message(SPAN_WARNING("[user] sharpens [I] with [src]!"), \
 		SPAN_WARNING("You sharpen [I], making it much more deadly than before."))
