@@ -4,6 +4,8 @@
 	special_role = SPECIAL_ROLE_THIEF
 	antag_hud_type = ANTAG_HUD_THIEF
 	antag_hud_name = "hudthief"
+	wiki_page_name = "Thief"
+	russian_wiki_name = "Вор"
 	clown_gain_text = "Вы превзошли свою клоунскую натуру, ваши ловкие пальцы нивелировали былую неуклюжесть!"
 	clown_removal_text = "Ваша клоунская натура возвращается..."
 	/// Whether our thief should get a special equipment box

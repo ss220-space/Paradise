@@ -8,6 +8,8 @@
 	special_role = SPECIAL_ROLE_TRAITOR
 	antag_hud_name = "hudsyndicate"
 	antag_hud_type = ANTAG_HUD_TRAITOR
+	wiki_page_name = "Traitor"
+	russian_wiki_name = "Предатель"
 	clown_gain_text = "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
 	clown_removal_text = "You lose your syndicate training and return to your own clumsy, clownish self."
 	/// Should the traitor get codewords?

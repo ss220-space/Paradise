@@ -4,6 +4,8 @@
 	antag_hud_name = "hudvampire"
 	job_rank = ROLE_VAMPIRE
 	special_role = SPECIAL_ROLE_VAMPIRE
+	wiki_page_name = "Vampire"
+	russian_wiki_name = "Вампир"
 	var/bloodtotal = 0
 	var/bloodusable = 0
 	/// What vampire subclass the vampire is.
