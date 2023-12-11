@@ -144,3 +144,7 @@
 /obj/item/paper_bin/ussp
 	name = "ussp paper bin"
 	letterhead_type = /obj/item/paper/ussp
+
+/obj/item/paper_bin/solgov
+	name = "solgov paper bin"
+	letterhead_type = /obj/item/paper/solgov

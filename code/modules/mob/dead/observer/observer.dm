@@ -675,18 +675,22 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE)
 	return TRUE
 
-//this is a mob verb instead of atom for performance reasons
-//see /mob/verb/examinate() in mob.dm for more info
-//overriden here and in /mob/living for different point span classes and sanity checks
-/mob/dead/observer/run_pointed(atom/A as mob|obj|turf)
+
+/**
+ * This is a mob verb instead of atom for performance reasons.
+ * See /mob/verb/examinate() in mob.dm for more info.
+ * Overriden here and in /mob/living for different point span classes and sanity checks.
+ */
+/mob/dead/observer/run_pointed(atom/target)
 	if(!..())
 		return FALSE
 	var/follow_link
 	if(invisibility) // Only show the button if the ghost is not visible to the living
-		follow_link = " ([ghost_follow_link(A, src)])"
-	usr.visible_message("<span class='deadsay'><b>[src]</b> points to [A][follow_link].</span>")
-	add_deadchat_logs(src, "point to [key_name(A)] [COORD(A)]")
+		follow_link = " ([ghost_follow_link(target, src)])"
+	usr.visible_message(span_deadsay("<b>[src]</b> points to [target][follow_link]."))
+	add_deadchat_logs(src, "point to [key_name(target)] [COORD(target)]")
 	return TRUE
+
 
 /mob/dead/observer/proc/incarnate_ghost()
 	if(!client)
@@ -731,3 +735,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/datum/spawners_menu/menu = new /datum/spawners_menu(src)
 	menu.ui_interact(src)
+
+/**
+ * Placeholder for ghosts in object category. If it does not exist, flying nearby windows\objects will
+ * cause constant interface lags and annoying updates with appearing/disappearing "Object" tab.
+ */
+/mob/dead/observer/verb/object_placeholder()
+	set name = " "
+	set category = "Object"

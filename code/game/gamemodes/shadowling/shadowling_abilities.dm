@@ -521,13 +521,13 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(!is_shadow_or_thrall(M))
 		to_chat(M, "<span class='warning'><b>You breathe in the black smoke, and your eyes burn horribly!</b></span>")
-		update_flags |= M.EyeBlind(5, FALSE)
+		M.EyeBlind(10 SECONDS)
 		if(prob(25))
 			M.visible_message("<b>[M]</b> claws at [M.p_their()] eyes!")
 			M.Stun(4 SECONDS)
 	else
 		to_chat(M, "<span class='notice'><b>You breathe in the black smoke, and you feel revitalized!</b></span>")
-		update_flags |= M.heal_organ_damage(10, 10, updating_health = FALSE)
+		M.heal_organ_damage(10, 10, updating_health = FALSE)
 		update_flags |= M.adjustOxyLoss(-10, FALSE)
 		update_flags |= M.adjustToxLoss(-10, FALSE)
 	return ..() | update_flags

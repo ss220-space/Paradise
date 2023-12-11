@@ -144,13 +144,15 @@
 	projectile_delay = 1
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/immolator
-	equip_cooldown = 0.8 SECONDS
+	equip_cooldown = 1.2 SECONDS
 	name = "ZFI Immolation Beam Gun"
 	desc = "A weapon for combat exosuits. Fires beams of extreme heat that set targets on fire."
 	icon_state = "mecha_immolator"
 	origin_tech = "materials=4;engineering=4;combat=6;magnets=6"
 	energy_drain = 80
-	projectile = /obj/item/projectile/beam/immolator
+	variance = 25
+	projectiles_per_shot = 4
+	projectile = /obj/item/projectile/beam/immolator/mech
 	fire_sound = 'sound/weapons/gunshots/1xray.ogg'
 	harmful = TRUE
 

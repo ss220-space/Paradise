@@ -80,7 +80,6 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	return (length(clockwork_cult) > 0)
 
 /datum/game_mode/clockwork/post_setup()
-	modePlayer += clockwork_cult
 	clocker_objs.setup()
 
 	for(var/datum/mind/clockwork_mind in clockwork_cult)

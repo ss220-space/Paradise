@@ -95,7 +95,6 @@ Made by Xhuis
 		var/datum/mind/shadow = pick(possible_shadowlings)
 		shadows += shadow
 		possible_shadowlings -= shadow
-		modePlayer += shadow
 		shadow.special_role = SPECIAL_ROLE_SHADOWLING
 		shadow.restricted_roles = restricted_jobs
 		shadowlings--

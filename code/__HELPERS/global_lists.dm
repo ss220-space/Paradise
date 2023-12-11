@@ -136,6 +136,7 @@
 		GLOB.world_topic_handlers[wth.topic_key] = topic_handler_type
 
 	GLOB.emote_list = init_emote_list()
+	GLOB.uplink_items = init_uplink_items_list()
 
 	// Keybindings
 	for(var/path in subtypesof(/datum/keybinding))
@@ -220,4 +221,13 @@
 				.[E.key_third_person] = list(E)
 			else
 				.[E.key_third_person] |= E
+
+
+/proc/init_uplink_items_list()
+	. = list()
+	for(var/datum/uplink_item/item_path as anything in subtypesof(/datum/uplink_item))
+		if(!initial(item_path.item))
+			continue
+		var/datum/uplink_item/item = new item_path
+		. += item
 

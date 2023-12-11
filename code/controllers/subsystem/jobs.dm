@@ -221,9 +221,9 @@ SUBSYSTEM_DEF(jobs)
 		if(player?.mind)
 			player.mind.assigned_role = null
 			player.mind.special_role = null
+			player.mind.offstation_role = FALSE
 	for(var/datum/job/job in occupations)
 		job.current_positions = initial(job.current_positions)
-	unassigned = list()
 
 ///This proc is called before the level loop of DivideOccupations() and will try to select a head, ignoring ALL non-head preferences for every level until it locates a head or runs out of levels to check
 /datum/controller/subsystem/jobs/proc/FillHeadPosition()
@@ -295,6 +295,7 @@ SUBSYSTEM_DEF(jobs)
 		for(var/datum/job/ai/A in occupations)
 			A.spawn_positions = 3
 
+	unassigned = list()
 	//Get the players who are ready
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(player.ready && player.mind && !player.mind.assigned_role)
@@ -493,7 +494,7 @@ SUBSYSTEM_DEF(jobs)
 		if(!S)
 			S = locate("start*[rank]") // use old stype
 		if(!S) // still no spawn, fall back to the arrivals shuttle
-			for(var/turf/TS in get_area_turfs(/area/shuttle/arrival))
+			for(var/turf/TS in get_area_turfs(/area/shuttle/arrival/station))
 				if(!TS.density)
 					var/clear = 1
 					for(var/obj/O in TS)
