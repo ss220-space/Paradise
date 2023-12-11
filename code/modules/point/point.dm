@@ -140,6 +140,11 @@
  * note: ghosts can point, this is intended
  *
  * visible_message will handle invisibility properly
+ *
+ * Be noted, that this verb also serves as placeholder for "Object" tab.
+ *
+ * Removing it causes interface update lags with appearing/disappearing "Object"
+ * tab when walking nearby "Object"-verbed things
  */
 /mob/verb/pointed(atom/target as mob|obj|turf in view(client.view, src))
 	set name = "Point To"
