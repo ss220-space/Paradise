@@ -104,6 +104,12 @@
 			O.forceMove(get_turf(src))
 	..()
 
+/obj/item/storage/funeral_urn/with_ash
+
+/obj/item/storage/funeral_urn/with_ash/Initialize()
+	new /obj/item/ash_holder(src)
+	..()
+
 /obj/item/storage/funeral_urn/random
 
 /obj/item/storage/funeral_urn/random/Initialize()
@@ -228,56 +234,78 @@
 	..()
 	if(!ever_opened)
 		ever_opened = TRUE
-		if(istype(get_area(src), /area/ruin/space/graveyard/graves))
-			if(prob(5))
-				new /obj/effect/particle_effect/smoke(src)
-				new /mob/living/simple_animal/hostile/carp/lostsoul(src)
+		if(prob(10))
+			to_chat(usr, "<span class='danger'> HOW DARE YOU DISTURB THE DEAD?! </span>")
+			new /obj/effect/particle_effect/smoke(get_turf(src))
+			new /mob/living/simple_animal/hostile/carp/lostsoul(get_turf(src))
 
 /obj/structure/pit/closed/graveyard_loot/populate_contents()
 	new /obj/structure/closet/coffin/graveyard_loot(src)
 
 /obj/structure/closet/coffin/graveyard_loot
-	spawn_mob = null
+	var/spawn_mob = null
 
 /obj/structure/closet/coffin/graveyard_loot/open()
 	..()
 	if(spawn_mob)
 		new spawn_mob(src.loc)
+		spawn_mob = null
+		new /obj/effect/particle_effect/smoke(get_turf(src))
 
 /obj/structure/closet/coffin/graveyard_loot/populate_contents()
-	var/obj/item/stack/spacecash/big_money = new(src)
-	var/obj/item/stack/spacecash/little_money = new(src)
 	var/medal = pick(/obj/item/clothing/accessory/medal, /obj/item/clothing/accessory/medal/fluff/elo, /obj/item/clothing/accessory/medal/heart)
 	var/gun = pick(/obj/item/gun/projectile/shotgun/lethal/rusted, /obj/item/gun/projectile/revolver/nagant/rusted, /obj/item/gun/projectile/automatic/pistol)
-	if(prob(90))
-		if(prob(4))
-			spawn_mob = /mob/living/simple_animal/hostile/zombie/graveyard
-			new gun(src)
+	switch(rand(1,55))
+		if(1 to 2)
+			spawn_mob = /mob/living/simple_animal/hostile/zombie/space_graveyard/noble
+			var/obj/item/stack/spacecash/big_money = new
+			big_money.name = "Fat bundle of money"
+			big_money.icon_state = "cashblue"
+			big_money.amount = rand(1000, 5000)
+			big_money.forceMove(src)
 			new medal(src)
-			big_money.amount = rand(1000, 5000)
-			new big_money(src)
-		else if(prob(7))
-			spawn_mob = /mob/living/simple_animal/hostile/zombie/whiteship/fast
-			new /obj/item/decorations/bouquets/random(src)
+			new gun(src)
+		if(3 to 6)
+			spawn_mob = /mob/living/simple_animal/hostile/zombie/space_graveyard/noble/fast
+			var/obj/item/stack/spacecash/little_money = new
+			little_money.name = "Small bundle of money"
 			little_money.amount = rand(100, 400)
-		else if(prob(4))
-			new /obj/item/clothing/head/helmet/street_judge(src)
-			new /obj/item/clothing/suit/armor/vest/street_judge(src)
-			new /obj/item/gun/projectile/automatic/pistol/enforcer/lethal(src)
-			new /obj/item/clothing/shoes/jackboots(src)
-			new /obj/item/clothing/gloves/combat(src)
-			new /obj/item/clothing/under/rank/security(src)
-			new /obj/item/clothing/mask/gas/sechailer(src)
-			new /obj/item/clothing/accessory/lawyers_badge(src)
-			new /obj/effect/mob_spawn/human/skeleton(src)
-		else if(prob(4))
-			spawn_mob = /mob/living/simple_animal/hostile/zombie/graveyard
-			new /obj/item/clothing/head/pirate(src)
-			new /obj/item/clothing/suit/pirate_brown(src)
-			new /obj/item/clothing/under/pirate(src)
-			new /obj/item/melee/energy/sword/pirate(src)
+			little_money.forceMove(src)
+		if(7 to 8)
+			spawn_mob = /mob/living/simple_animal/hostile/zombie/space_graveyard/dredd
+			new /obj/item/decorations/bouquets/random(src)
+		if(8 to 9)
+			spawn_mob = /mob/living/simple_animal/hostile/zombie/space_graveyard/pirate
+			var/obj/item/stack/spacecash/big_money = new
+			big_money.name = "Fat bundle of money"
+			big_money.icon_state = "cashblue"
 			big_money.amount = rand(1000, 5000)
+			big_money.forceMove(src)
+			new /obj/item/reagent_containers/food/drinks/bottle/rum(src)
+			new /obj/item/decorations/bouquets/random(src)
+		if(10 to 50)
+			var/mob/living/carbon/human/skeleton/dead/suit_and_shoes = new(src)
+			suit_and_shoes.equipOutfit(/datum/outfit/space_graveyard/suit_and_shoes)
+			new /obj/item/decorations/bouquets/random(src)
+			if(prob(30))
+				var/obj/item/stack/spacecash/little_money = new
+				little_money.name = "Small bundle of money"
+				little_money.amount = rand(100, 400)
+				little_money.forceMove(src)
 		else
-			new /obj/effect/mob_spawn/human/skeleton(src)
-			new /obj/item/decorations/bouquets/random(src)
-			little_money.amount = rand(100, 400)
+			return
+
+/mob/living/carbon/human/skeleton/dead
+	name = "A skeleton"
+	real_name = "A skeleton"
+	health = -500
+	deathgasp_on_death = FALSE
+
+/mob/living/carbon/human/skeleton/dead/Initialize(mapload)
+    . = ..()
+    rename_character(src.name, "A skeleton")
+
+/datum/outfit/space_graveyard/suit_and_shoes
+	name = "Jacket and shoes"
+	uniform = /obj/item/clothing/under/suit_jacket/charcoal
+	shoes = /obj/item/clothing/shoes/centcom

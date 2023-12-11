@@ -335,6 +335,17 @@
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/ruin/space/graveyard/graves)
+"iy" = (
+/obj/structure/table/socle,
+/obj/item/storage/funeral_urn/with_ash{
+	pixel_x = 1;
+	pixel_y = 9;
+	desc = "An Urn of unknown Venturer. ";
+	description_info = "It says: \"It's tempting to linger in this moment, while every possibility still exists. But unless they are collapsed by an observer, they will never be more than possibilities.\" - S.";
+	name = "An Explorer's Urn"
+	},
+/turf/simulated/floor/grass,
+/area/ruin/space/graveyard/graves)
 "iC" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/sign/vacuum{
@@ -410,7 +421,7 @@
 "kj" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "kk" = (
 /obj/structure/closet,
 /obj/item/hatchet/wooden,
@@ -442,7 +453,7 @@
 /obj/structure/lattice,
 /obj/structure/grille,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "kG" = (
 /turf/simulated/floor/plating/burnt,
 /area/ruin/space/graveyard/church)
@@ -747,6 +758,15 @@
 	},
 /turf/simulated/floor/carpet,
 /area/ruin/space/graveyard/church)
+"sg" = (
+/obj/structure/pit/closed/graveyard_loot,
+/obj/structure/gravemarker/cross{
+	icon_state = "stone";
+	name = "Slightly Turned Marker";
+	desc = "Stone that got dusty under time's pressure. There's description on the mark at top of it: <span class='rose'>Here rest's one, who was equal and not to himself at same time.</span>"
+	},
+/turf/simulated/floor/grass,
+/area/ruin/space/graveyard/graves)
 "sk" = (
 /obj/effect/turf_decal{
 	dir = 6;
@@ -1034,6 +1054,15 @@
 /obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/graveyard/church)
+"ye" = (
+/obj/structure/pit/closed/graveyard_loot,
+/obj/structure/gravemarker/cross{
+	name = "The rightous's grave";
+	desc = "It says on the grave \"A foolish one, who thought he was the creator of god's itself.\" ";
+	icon_state = "stone"
+	},
+/turf/simulated/floor/grass,
+/area/ruin/space/graveyard/graves)
 "yn" = (
 /turf/simulated/wall/shuttle/nodiagonal{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
@@ -1081,6 +1110,16 @@
 	icon_state = "lightdark"
 	},
 /area/ruin/space/graveyard/church)
+"Ak" = (
+/obj/structure/pit/closed/graveyard_loot,
+/obj/structure/gravemarker/cross{
+	name = "Janitor's grave";
+	desc = "The dirt has outline of the... mop?";
+	message = "He was the best at what he did.";
+	icon_state = "stone"
+	},
+/turf/simulated/floor/grass,
+/area/ruin/space/graveyard/graves)
 "Ao" = (
 /obj/structure/spacevine,
 /obj/structure/spacevine,
@@ -1301,9 +1340,6 @@
 /area/ruin/space/graveyard/church)
 "Eo" = (
 /obj/structure/table/tray,
-/obj/item/storage/funeral_urn{
-	pixel_y = 9
-	},
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "Eq" = (
@@ -1687,6 +1723,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
+"My" = (
+/obj/structure/pit/closed/graveyard_loot,
+/obj/structure/gravemarker/cross,
+/turf/simulated/floor/grass,
+/area/ruin/space/graveyard/graves)
 "Nr" = (
 /obj/machinery/door/airlock/public,
 /turf/simulated/floor/wood/oak,
@@ -1946,6 +1987,15 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
+"Sy" = (
+/obj/structure/pit/closed/graveyard_loot,
+/obj/structure/gravemarker/cross{
+	desc = "Here lies Rerik...  <i>rest of the text is unreadalbe</i>.";
+	name = "Well preserved grave";
+	icon_state = "stone"
+	},
+/turf/simulated/floor/grass,
+/area/ruin/space/graveyard/graves)
 "SY" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/trophy/bronze_cup{
@@ -3049,7 +3099,7 @@ nc
 YZ
 Ij
 YU
-ua
+sg
 Gh
 aj
 NB
@@ -3145,13 +3195,13 @@ kj
 kA
 it
 Jt
-XI
+iy
 mj
 ew
 Kk
 Vk
 YU
-ua
+My
 Kk
 aj
 Fd
@@ -3253,7 +3303,7 @@ Kk
 Kk
 Kk
 YU
-ua
+ye
 Gh
 aj
 Fd
@@ -3712,7 +3762,7 @@ Kk
 RX
 Kk
 YU
-ua
+Ak
 Kk
 KY
 Kk
@@ -4018,7 +4068,7 @@ Ij
 mj
 ew
 YU
-ua
+Sy
 Gh
 KY
 NB
