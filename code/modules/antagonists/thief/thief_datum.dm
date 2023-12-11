@@ -47,10 +47,11 @@
 
 
 /datum/antagonist/thief/greet()
+	var/list/messages = list()
 	SEND_SOUND(owner.current, 'sound/ambience/antag/thiefalert.ogg')
-	to_chat(owner.current, span_userdanger("Вы член гильдии воров!"))
-	to_chat(owner.current, span_danger("Гильдия воров прислала новые заказы для кражи. Пора заняться старым добрым ремеслом, пока цели не украли конкуренты!"))
-
+	messages.Add(span_userdanger("Вы член гильдии воров!"))
+	messages.Add(span_danger("Гильдия воров прислала новые заказы для кражи. Пора заняться старым добрым ремеслом, пока цели не украли конкуренты!"))
+	return messages
 
 /datum/antagonist/thief/farewell()
 	if(issilicon(owner.current))

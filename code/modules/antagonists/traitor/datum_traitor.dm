@@ -201,8 +201,9 @@
  * Give traitors their uplink. Play the traitor an alert sound.
  */
 /datum/antagonist/traitor/finalize_antag()
+	var/list/messages = list()
 	if(give_codewords)
-		give_codewords()
+		messages.Add(give_codewords())
 
 	if(give_uplink)
 		give_uplink()
@@ -214,6 +215,7 @@
 	if(is_contractor)
 		owner.add_antag_datum(/datum/antagonist/contractor)
 
+	return messages
 
 /**
  * Notify the traitor of their codewords and write them to `antag_memory` (notes).
@@ -231,13 +233,15 @@
 	antag_memory += "<b>Code Response</b>: <span class='red'>[responses]</span><br>"
 	traitor_mob.client.chatOutput?.notify_syndicate_codes()
 
+	var/list/messages = list()
 	if(!silent)
-		to_chat(traitor_mob, "<U><B>The Syndicate have provided you with the following codewords to identify fellow agents:</B></U>")
-		to_chat(traitor_mob, "<span class='bold body'>Code Phrase: <span class='codephrases'>[phrases]</span></span>")
-		to_chat(traitor_mob, "<span class='bold body'>Code Response: <span class='coderesponses'>[responses]</span></span>")
-		to_chat(traitor_mob, "Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
-		to_chat(traitor_mob, "<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
+		messages.Add("<U><B>The Syndicate have provided you with the following codewords to identify fellow agents:</B></U>")
+		messages.Add("<span class='bold body'>Code Phrase: <span class='codephrases'>[phrases]</span></span>")
+		messages.Add("<span class='bold body'>Code Response: <span class='coderesponses'>[responses]</span></span>")
+		messages.Add("Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
+		messages.Add("<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
 
+	return messages
 
 /**
  * Gives a traitor their uplink, and uplink code.

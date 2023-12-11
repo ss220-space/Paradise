@@ -68,7 +68,7 @@
 	if(!devil_mind.devilinfo)
 		return
 	devil_mind.devilinfo.announce_laws(devil_mind.current)
-	devil_mind.announce_objectives()
+	devil_mind.prepare_announce_objectives()
 
 
 /datum/game_mode/proc/printdevilinfo(datum/mind/ply)

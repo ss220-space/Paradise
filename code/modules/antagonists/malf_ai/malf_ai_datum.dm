@@ -104,8 +104,10 @@
 
 
 /datum/antagonist/malf_ai/greet()
+	var/list/messages = list()
 	if(owner?.current && !silent)
-		to_chat(owner.current, span_userdanger("You are a [job_rank]!"))
+		messages.Add(span_userdanger("You are a [job_rank]!"))
+	return messages
 
 
 /datum/antagonist/malf_ai/farewell()
