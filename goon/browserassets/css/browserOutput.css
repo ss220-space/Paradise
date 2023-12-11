@@ -200,7 +200,6 @@ a.popt {text-decoration: none;}
 /* ADMIN FILTER MESSAGES MENU */
 .filterMessages {padding: 5px;}
 .filterMessages div {padding: 2px 0;}
-.filterMessages input {}
 .filterMessages label {color: #000;}
 
 .icon-stack {height: 1em; line-height: 1em; width: 1em; vertical-align: middle; margin-top: -2px;}
@@ -269,7 +268,6 @@ em						{font-style: normal;	font-weight: bold;}
 .playerreply			{color: #8800bb;	font-weight: bold;}
 .pmsend					{color: #0000ff;}
 .name					{					font-weight: bold;}
-.say					{}
 .yell					{					font-weight: bold;}
 .siliconsay				{font-family: 'Courier New', Courier, monospace;}
 .deadsay				{color: #5c00e6;}
@@ -469,6 +467,14 @@ span.body .coderesponses {color: #FF0000;}
 
 .boxed_message.red_border {
 	border-color: #aa0000;
+}
+
+.boxed_message.puple_border {
+	border-color: #5e00aa;
+}
+
+.boxed_message.yellow_border {
+	border-color: #e0991e;
 }
 
 .boxed_message.green_border {

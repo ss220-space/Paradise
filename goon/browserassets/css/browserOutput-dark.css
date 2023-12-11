@@ -152,6 +152,14 @@ span.body .coderesponses {color: #FF3333;}
 	border-color: #aa0000;
 }
 
+.boxed_message.purple_border {
+	border-color: #5e00aa;
+}
+
+.boxed_message.yellow_border {
+	border-color: #e0991e;
+}
+
 .boxed_message.green_border {
 	border-color: #00FF00;
 }
