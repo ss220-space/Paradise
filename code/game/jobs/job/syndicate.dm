@@ -96,22 +96,18 @@
 	allow_loadout = FALSE
 	uniform = /obj/item/clothing/under/chameleon
 	gloves = /obj/item/clothing/gloves/combat
-			equip_to_slot_or_del(new /obj/item/flashlight(src), slot_in_backpack)
 	belt = /obj/item/storage/belt/utility/full/multitool
-	implants = list(/obj/item/implant/dust, /obj/item/implant/uplink/sit)
 	l_ear = /obj/item/radio/headset/syndicate/syndteam
 	shoes = /obj/item/clothing/shoes/chameleon/noslip
 	id = /obj/item/card/id/syndicate
+	backpack_contents = list(/obj/item/flashlight)
+	implants = list(/obj/item/implant/dust, /obj/item/implant/uplink/sit)
 
 /datum/outfit/job/infiltrator/post_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()
 
 	if(visualsOnly)
 		return
-	if(flag_mgmt)
-		U.hidden_uplink.uses = 2500
-	else
-		U.hidden_uplink.uses = num_tc
 
 	var/obj/item/clothing/gloves/G = H.gloves
 	if(istype(G))

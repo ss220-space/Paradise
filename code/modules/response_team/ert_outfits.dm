@@ -707,7 +707,7 @@
 	if(prob(50))
 		backpack_contents += /obj/item/gun/energy/clown
 	else
-		backpack_contents += /obj/item/gun/throw/piecannon(src)
+		backpack_contents += /obj/item/gun/throw/piecannon
 
 /datum/outfit/job/honksquad/post_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()
