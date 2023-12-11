@@ -342,6 +342,11 @@
 				to_chat(usr, "<span class='notice'>[W] is too small for [src].</span>")
 			return FALSE
 
+		if(W.w_class >= w_class && (istype(W, /obj/item/storage)))
+			if(!stop_messages)
+				to_chat(usr, "<span class='notice'>[src] cannot hold [W] as it's a storage item of the same size.</span>")
+			return FALSE //To prevent the stacking of same sized storage items.
+
 	var/sum_w_class = W.w_class
 	for(var/obj/item/I in contents)
 		sum_w_class += I.w_class //Adds up the combined w_classes which will be in the storage item if the item is added to it.
@@ -350,12 +355,6 @@
 		if(!stop_messages)
 			to_chat(usr, "<span class='notice'>[src] is full, make some space.</span>")
 		return FALSE
-
-	if(W.w_class >= w_class && (istype(W, /obj/item/storage)))
-		if(!istype(src, /obj/item/storage/backpack/holding))	//bohs should be able to hold backpacks again. The override for putting a boh in a boh is in backpack.dm.
-			if(!stop_messages)
-				to_chat(usr, "<span class='notice'>[src] cannot hold [W] as it's a storage item of the same size.</span>")
-			return FALSE //To prevent the stacking of same sized storage items.
 
 	if(W.flags & NODROP) //SHOULD be handled in unEquip, but better safe than sorry.
 		to_chat(usr, "<span class='notice'>\the [W] is stuck to your hand, you can't put it in \the [src]</span>")

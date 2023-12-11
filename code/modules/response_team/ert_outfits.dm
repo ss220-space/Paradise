@@ -674,3 +674,48 @@
 		/obj/item/implant/mindshield/ert,
 		/obj/item/implant/death_alarm
 	)
+
+//////////////////// HONK MOTHERFUKA ///////////////////
+
+/datum/outfit/job/honksquad
+	name = "HONKsquad Commando"
+	allow_backbag_choice = FALSE
+	allow_loadout = FALSE
+	back = /obj/item/storage/backpack/clown
+	uniform = /obj/item/clothing/under/rank/clown
+	mask = /obj/item/clothing/mask/gas/clown_hat
+	shoes = /obj/item/clothing/shoes/clown_shoes
+	pda = /obj/item/pda/clown
+	r_pocket = /obj/item/reagent_containers/food/pill/patch/jestosterone
+	backpack_contents = list(
+		/obj/item/storage/box/survival/regular,
+		/obj/item/reagent_containers/food/snacks/grown/banana,
+		/obj/item/bikehorn,
+		/obj/item/clown_recorder,
+		/obj/item/stamp/clown,
+		/obj/item/toy/crayon/rainbow,
+		/obj/item/reagent_containers/spray/waterflower
+	)
+	implants = list(/obj/item/implant/sad_trombone)
+
+/datum/outfit/job/honksquad/pre_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	if(H.gender == FEMALE)
+		mask = /obj/item/clothing/mask/gas/clown_hat/sexy
+		uniform = /obj/item/clothing/under/rank/clown/sexy
+
+	if(prob(50))
+		backpack_contents += /obj/item/gun/energy/clown
+	else
+		backpack_contents += /obj/item/gun/throw/piecannon(src)
+
+/datum/outfit/job/honksquad/post_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+
+	if(visualsOnly)
+		return
+
+	var/obj/item/radio/R = H.l_ear
+	if(istype(R))
+		R.set_frequency(1442)
+	H.mutations.Add(CLUMSY)

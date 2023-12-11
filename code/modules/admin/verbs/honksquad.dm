@@ -99,46 +99,12 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 	new_honksquad.mind.offstation_role = TRUE
 	new_honksquad.add_language("Clownish")
 	SSticker.mode.traitors |= new_honksquad.mind//Adds them to current traitor list. Which is really the extra antagonist list.
-	new_honksquad.equip_honksquad(honk_leader_selected, rankName)
+	new_honksquad.equipOutfit(/datum/outfit/job/honksquad)
+	var/obj/item/card/id/I = new_honksquad.wear_id
+	if(istype(I))
+		apply_to_card(I, new_honksquad, list(ACCESS_CLOWN), "HONKsquad", "clownsquad")
+		I.assignment = "[rankName] ХОНК-отряда"
 	return new_honksquad
-//HEREHEREHERE
-/mob/living/carbon/human/proc/equip_honksquad(honk_leader_selected = 0, var/rankName)
-
-	var/obj/item/radio/R = new /obj/item/radio/headset(src)
-	R.set_frequency(1442)
-	equip_to_slot_or_del(R, slot_l_ear)
-	equip_to_slot_or_del(new /obj/item/storage/backpack/clown(src), slot_back)
-	equip_to_slot_or_del(new /obj/item/storage/box/survival/regular(src), slot_in_backpack)
-	if(src.gender == FEMALE)
-		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat/sexy(src), slot_wear_mask)
-		equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown/sexy(src), slot_w_uniform)
-	else
-		equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown(src), slot_w_uniform)
-		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(src), slot_wear_mask)
-	equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(src), slot_shoes)
-	equip_to_slot_or_del(new /obj/item/pda/clown(src), slot_wear_pda)
-	equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(src), slot_wear_mask)
-	equip_to_slot_or_del(new /obj/item/reagent_containers/food/snacks/grown/banana(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/bikehorn(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/clown_recorder(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/stamp/clown(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/toy/crayon/rainbow(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/reagent_containers/spray/waterflower(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/reagent_containers/food/pill/patch/jestosterone(src), slot_r_store)
-	if(prob(50))
-		equip_to_slot_or_del(new /obj/item/gun/energy/clown(src), slot_in_backpack)
-	else
-		equip_to_slot_or_del(new /obj/item/gun/throw/piecannon(src), slot_in_backpack)
-	src.mutations.Add(CLUMSY)
-	var/obj/item/implant/sad_trombone/S = new/obj/item/implant/sad_trombone(src)
-	S.implant(src)
-
-	var/obj/item/card/id/I = new(src)
-	apply_to_card(I, src, list(ACCESS_CLOWN), "HONKsquad", "clownsquad")
-	I.assignment = "[rankName] ХОНК-отряда"
-	equip_to_slot_or_del(I, slot_wear_id)
-
-	return TRUE
 
 /client/proc/create_honksquad_security(obj/spawn_location, honk_leader_selected = 0)
 	var/mob/living/carbon/human/new_honksquad = new(spawn_location.loc)

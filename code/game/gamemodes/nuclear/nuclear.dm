@@ -241,59 +241,11 @@
 /datum/game_mode/proc/random_radio_frequency()
 	return 1337 // WHY??? -- Doohl
 
-///HEREHEREHERE
 /datum/game_mode/proc/equip_syndicate(mob/living/carbon/human/synd_mob, uplink_uses = 100)
-	var/radio_freq = SYND_FREQ
-
-	var/obj/item/radio/R = new /obj/item/radio/headset/syndicate/alt(synd_mob)
-	R.set_frequency(radio_freq)
-	synd_mob.equip_to_slot_or_del(R, slot_l_ear)
-
-	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(synd_mob), slot_w_uniform)
-	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(synd_mob), slot_shoes)
-	synd_mob.equip_or_collect(new /obj/item/clothing/gloves/combat(synd_mob), slot_gloves)
-	synd_mob.equip_to_slot_or_del(new /obj/item/card/id/syndicate(synd_mob), slot_wear_id)
-	synd_mob.equip_to_slot_or_del(new /obj/item/storage/backpack(synd_mob), slot_back)
-	synd_mob.equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/pistol(synd_mob), slot_belt)
-	synd_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival/syndicate(synd_mob.back), slot_in_backpack)
-	synd_mob.equip_to_slot_or_del(new /obj/item/pinpointer/nukeop(synd_mob), slot_wear_pda)
-	var/obj/item/radio/uplink/nuclear/U = new /obj/item/radio/uplink/nuclear(synd_mob)
-	U.hidden_uplink.uplink_owner="[synd_mob.key]"
-	U.hidden_uplink.uses = uplink_uses
-	synd_mob.equip_to_slot_or_del(U, slot_in_backpack)
-
-	if(synd_mob.dna.species)
-
-		/*
-		Incase anyone ever gets the burning desire to have nukeops with randomized apperances. -- Dave
-		synd_mob.gender = pick(MALE, FEMALE) // Randomized appearances for the nukeops.
-		var/datum/preferences/pref = new()
-		A.randomize_appearance_for(synd_mob)
-		*/
-
-		var/race = synd_mob.dna.species.name
-
-		switch(race)
-			if("Vox", "Vox Armalis")
-				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), slot_wear_mask)
-				synd_mob.equip_to_slot_or_del(new /obj/item/tank/internals/emergency_oxygen/double/vox(synd_mob), slot_l_hand)
-				synd_mob.internal = synd_mob.l_hand
-				synd_mob.update_action_buttons_icon()
-
-			if("Plasmaman")
-				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), slot_wear_mask)
-				synd_mob.equip_or_collect(new /obj/item/tank/internals/plasmaman(synd_mob), slot_s_store)
-				synd_mob.equip_or_collect(new /obj/item/extinguisher_refill(synd_mob), slot_in_backpack)
-				synd_mob.equip_or_collect(new /obj/item/extinguisher_refill(synd_mob), slot_in_backpack)
-				synd_mob.internal = synd_mob.get_item_by_slot(slot_s_store)
-				synd_mob.update_action_buttons_icon()
-
-	synd_mob.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc while round setups
-	var/obj/item/implant/explosive/E = new/obj/item/implant/explosive(synd_mob)
-	E.implant(synd_mob)
-	synd_mob.faction |= "syndicate"
-	synd_mob.update_icons()
-	return 1
+	synd_mob.equipOutfit(/datum/outfit/job/nuclear)
+	for(var/obj/item/radio/uplink/nuclear/U in synd_mob.back)
+		U.hidden_uplink.uses = uplink_uses
+	return TRUE
 
 /datum/game_mode/nuclear/check_win()
 	if(nukes_left == 0)
