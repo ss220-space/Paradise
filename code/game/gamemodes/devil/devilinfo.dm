@@ -506,7 +506,7 @@ GLOBAL_LIST_INIT(lawlorify, list (
 
 // SECTION: Messages and explanations
 
-/datum/devilinfo/proc/announce_laws(mob/living/owner)
+/datum/devilinfo/proc/announce_laws()
 	var/list/messages = list()
 	messages.Add("<span class='boldwarning'>You remember your link to the infernal.  You are [truename], an agent of hell, a devil.  And you were sent to the plane of creation for a reason.  A greater purpose.  Convince the crew to sin, and embroiden Hell's grasp.</span>")
 	messages.Add("<span class='boldwarning'>However, your infernal form is not without weaknesses.</span>")
