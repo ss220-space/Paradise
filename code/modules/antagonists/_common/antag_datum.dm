@@ -129,7 +129,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	apply_innate_effects()
 	messages.Add(finalize_antag())
 	if(wiki_page_name)
-		messages.Add("<span class='motd'>For more information, check the wiki page: <a href=\"https://wiki.ss220.space/index.php/[wiki_page_name]\">[russian_wiki_name]</span>")
+		messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"https://wiki.ss220.space/index.php/[wiki_page_name]\">[russian_wiki_name]</span>")
 	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
 
 	if(is_banned(owner.current) && replace_banned)
