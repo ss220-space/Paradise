@@ -145,9 +145,9 @@
  */
 /mob/verb/pointed(atom/target as mob|obj|turf in view(client.view, src))
 	set name = "Point To"
-	set category = null
+	set category = "Object"
 
-	if(next_move >= world.time)
+	if(next_move >= world.time || !Master.current_runlevel) //No usage until subsystems initialized properly.
 		return
 
 	if(istype(target, /obj/effect/temp_visual/point))
