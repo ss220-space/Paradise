@@ -225,7 +225,7 @@
 	throwforce = 15
 
 /obj/item/kitchen/knife/combat/throwing
-	name = "Throwing knife"
+	name = "throwing knife"
 	desc = "A well-sharpened black knife. Designed to be thrown. It is made from a single piece of metal. The markings are scratched.\nAn excellent solution for live problems and cake cutting."
 	icon_state = "throwingknife"
 	item_state = "throwingknife"
