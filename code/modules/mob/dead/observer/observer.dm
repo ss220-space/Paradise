@@ -735,11 +735,3 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/datum/spawners_menu/menu = new /datum/spawners_menu(src)
 	menu.ui_interact(src)
-
-/**
- * Placeholder for ghosts in object category. If it does not exist, flying nearby windows\objects will
- * cause constant interface lags and annoying updates with appearing/disappearing "Object" tab.
- */
-/mob/dead/observer/verb/object_placeholder()
-	set name = " "
-	set category = "Object"
