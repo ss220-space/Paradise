@@ -2158,7 +2158,6 @@
 		/obj/item/clothing/shoes/jackboots/jacksandals 	= 10,
 
 		/obj/item/radio/headset/headset_cargo = 10,
-		/obj/item/radio/headset/headset_cargo/alt = 10,
 
 		/obj/item/clothing/accessory/armband/cargo = 10,
 

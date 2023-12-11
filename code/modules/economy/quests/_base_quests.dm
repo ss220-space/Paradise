@@ -99,8 +99,18 @@
 		if(cargo_quest)
 			current_quests += cargo_quest
 
+	if(GLOB.security_level > SEC_LEVEL_RED)
+		reward *= 2
+
 /datum/cargo_quests_storage/proc/generate_difficulty()
 	var/difficulty = rand(1, 100)
+
+	if(GLOB.security_level > SEC_LEVEL_RED)
+		if(difficulty < 65)
+			quest_difficulty = QUEST_DIFFICULTY_EASY
+		else
+			quest_difficulty = QUEST_DIFFICULTY_NORMAL
+		return
 
 	switch(difficulty)
 		if(1 to 45)
@@ -120,9 +130,6 @@
 			target_departament = pick(GLOB.corporations)
 		if("plasma")
 			target_departament = pick(GLOB.plasma_departaments)
-		else
-			customer = "private person"
-			target_departament = null
 
 /datum/cargo_quests_storage/proc/generate_timer()
 	switch(quest_difficulty)
@@ -139,11 +146,21 @@
 	fast_check_timer = addtimer(VARSET_CALLBACK(src, fast_failed, TRUE), 0.4 * quest_time, TIMER_STOPPABLE)
 
 /datum/cargo_quests_storage/proc/quest_expired(reroll, complete, list/modificators, old_reward = reward)
+	if(quest_check_timer)
+		deltimer(quest_check_timer)
+		quest_check_timer = null
 	GLOB.quest_storages.Remove(src)
-	if(active && !reroll)
+	if(!reroll && active)
 		for(var/obj/machinery/computer/supplyquest/workers/cargo_announcer in GLOB.cargo_announcers)
 			cargo_announcer.print_report(src, complete, modificators, old_reward)
-	var/datum/cargo_quests_storage/quest = new /datum/cargo_quests_storage(customer = src.customer)
+
+	if(!reroll && customer == "plasma")
+		addtimer(CALLBACK(src, PROC_REF(create_new_quest)), 25 MINUTES)
+	else
+		create_new_quest(reroll = reroll)
+
+/datum/cargo_quests_storage/proc/create_new_quest(reroll)
+	var/datum/cargo_quests_storage/quest = new(customer = src.customer, difficulty = reroll ? src.quest_difficulty : null)
 	if(reroll)
 		quest.can_reroll = FALSE
 	if(src in GLOB.plasma_quest_storages)
@@ -193,6 +210,7 @@
 		req_quantity += quest.length_quest()
 
 	var/extra_items = 0
+	var/contents_length = length(closet.wrapped.contents)
 	for(var/atom/movable/item in closet.wrapped.contents)
 		var/has_extra_item = TRUE
 		for(var/datum/cargo_quest/quest in current_quests)
@@ -208,7 +226,7 @@
 
 		req_quantity--
 
-	if(extra_items == length(closet.wrapped.contents))
+	if(extra_items == contents_length)
 		return FALSE
 
 	var/failed_quest_length

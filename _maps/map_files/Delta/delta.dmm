@@ -14525,7 +14525,6 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/item/qm_quest_tablet,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -15224,10 +15223,12 @@
 /turf/space,
 /area/space)
 "bMz" = (
+/obj/machinery/computer/security/mining{
+	dir = 8
+	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 25
 	},
-/obj/machinery/computer/supplyquest,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -33464,10 +33465,6 @@
 /obj/item/flashlight/lamp,
 /obj/structure/cable{
 	icon_state = "1-2"
-	},
-/obj/item/lighter/zippo/qm{
-	pixel_x = 10;
-	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -60137,7 +60134,6 @@
 /area/engine/engineering)
 "hSN" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/computer/supplyquest/workers,
 /turf/simulated/wall,
 /area/quartermaster/storage)
 "hSO" = (
@@ -63166,12 +63162,6 @@
 	icon_state = "tranquillite"
 	},
 /area/crew_quarters/theatre)
-"iFt" = (
-/obj/machinery/computer/supplyquest/workers,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/quartermaster/storage)
 "iFu" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -101028,7 +101018,7 @@
 	},
 /area/security/range)
 "roH" = (
-/obj/machinery/computer/supplyquest,
+/obj/machinery/computer/security/mining,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkpurple"
@@ -172893,7 +172883,7 @@ eZs
 eZs
 eZs
 eZs
-iFt
+eZs
 djV
 djV
 cSh

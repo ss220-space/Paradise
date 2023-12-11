@@ -20,7 +20,7 @@
 			var/datum/supply_packs/pack = SSshuttle.supply_packs[set_name]
 			if(get_supply_group_name(pack.group) != category)
 				continue
-			pack.cost *= cargo_sale[category]
+			pack.cost = round(pack.cost * cargo_sale[category])
 
 	if(!cargo_sale[GROUP_SCIENCE])
 		return

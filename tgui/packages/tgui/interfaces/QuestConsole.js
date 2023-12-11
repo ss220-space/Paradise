@@ -71,13 +71,15 @@ export const QuestConsole = (properties, context) => {
 
 
 const StatusPane = (properties, context) => {
-  const { data } = useBackend(context);
+  const { act, data } = useBackend(context);
   const {
     points,
     timeleft,
     moving,
     at_station,
     techs,
+    cargo_money,
+    purchased_techs,
   } = data;
 
   // Shuttle status text
@@ -98,6 +100,9 @@ const StatusPane = (properties, context) => {
           <LabeledList.Item label="Shuttle Status">
             {statusText}
           </LabeledList.Item>
+          <LabeledList.Item label="Current Cargo Budget">
+            {cargo_money} credits
+          </LabeledList.Item>
         </LabeledList>
       </Section>
       <Section title="Sent Technologies">
@@ -105,6 +110,26 @@ const StatusPane = (properties, context) => {
           <Box key={index}> {tech.tech_name}: {tech.tech_level || "0"}</Box>
         ))}
         {!techs.length ? (<Box>No tecnologies sent yet</Box>) : (<Box />)}
+      </Section>
+      <Section title="Buy High-Tech Technologies">
+        {(purchased_techs)
+          ? (
+            <LabeledList>
+              {purchased_techs.map((tech, index) => (
+                <Flex mb={0.5}
+                  key={tech.tech_id}>
+                  <Flex.Item width={'25%'}>{tech.tech_name}:</Flex.Item>
+                  <Flex.Item width={'10%'} ml={3}>{tech.cost}</Flex.Item>
+                  <Flex.Item ml={3}>
+                    <Button
+                      content="Buy"
+                      onClick={() => act('buy_tech', { cost: tech.cost, tech_name: tech.tech_name })}
+                    />
+                  </Flex.Item>
+                </Flex>
+              ))}
+            </LabeledList>
+          ) : (<Box>Nine seventh-level technologies have not been sent yet</Box>)}
       </Section>
     </Box>
   );
@@ -220,7 +245,7 @@ const QuestItem = (properties, context) => {
                     fontSize={1.2} py={1} px={2}
                     onClick={() => act('print_order', { uid: quest.ref })}>
                     Print
-                </Button>
+                  </Button>
                 </Box>
               )
           }

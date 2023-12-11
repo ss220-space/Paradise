@@ -31,4 +31,3 @@
 	new /obj/item/stamp/granted(src)	//added here deleted on maps
 	new /obj/item/stamp/denied(src)
 	new /obj/item/storage/garmentbag/quartermaster(src)
-	new /obj/item/clothing/under/rank/cargo/alt(src)

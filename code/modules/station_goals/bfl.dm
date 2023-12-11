@@ -29,6 +29,9 @@
 	if(length(GLOB.plasma_quest_storages))
 		return
 
+	if(!length(GLOB.plasma_departaments))
+		return
+
 	for(var/I = 1 to 3)
 		var/datum/cargo_quests_storage/plasma_quest = new ("plasma")
 		GLOB.quest_storages += plasma_quest

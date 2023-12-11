@@ -11,7 +11,7 @@ export const DestinationTagger = (_props, context) => {
       case 1:
         return <DestinationTaggerCC />;
       case 2:
-        return <DestinationTaggerCC iscorp={true}/>;
+        return <DestinationTaggerCC iscorp={1} />;
     }
   };
   return (
@@ -84,10 +84,12 @@ export const DestinationTaggerStation = (_props, context) => {
   );
 };
 
-export const DestinationTaggerCC = (_props, context) => {
+export const DestinationTaggerCC = (props, context) => {
   const { act, data } = useBackend(context);
 
-  const { centcom_destinations, selected_centcom_id } = data;
+  const { selected_centcom_id } = data;
+
+  let far_destinations = props.iscorp ? data.corporation_destinations : data.centcom_destinations;
 
   return (
     <Section
@@ -101,7 +103,7 @@ export const DestinationTaggerCC = (_props, context) => {
       <Box>
         <Flex
           style={{ "display": "flex", "flex-wrap": "wrap", "align-content": "flex-start", "justify-content": "center" }}>
-          {centcom_destinations.map((destination, index) => (
+          {far_destinations.map((destination, index) => (
             <Flex.Item key={index} m="2px">
               <Button
                 width="220px"

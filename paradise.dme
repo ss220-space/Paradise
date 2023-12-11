@@ -1800,6 +1800,7 @@
 #include "code\modules\economy\utils.dm"
 #include "code\modules\economy\quests\_base_quests.dm"
 #include "code\modules\economy\quests\centcomm_departaments.dm"
+#include "code\modules\economy\quests\quest_console.dm"
 #include "code\modules\economy\quests\reagents_quests.dm"
 #include "code\modules\economy\quests\thing_quests.dm"
 #include "code\modules\emoji\emoji_parse.dm"

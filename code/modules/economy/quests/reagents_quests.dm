@@ -1,5 +1,3 @@
-
-
 /datum/cargo_quest/reagents
 	quest_type_name = "Chemical"
 	req_items = list(/obj/item/reagent_containers)

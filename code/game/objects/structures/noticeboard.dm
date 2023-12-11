@@ -51,7 +51,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "You unfasten [src.name] with [I].")
+	to_chat(user, span_notice("You unfasten [src.name] with [I]."))
 	new /obj/item/noticeboard(src.loc)
 	for(var/obj/item/paper/paper in src)
 		paper.loc = get_turf(src)
@@ -113,7 +113,7 @@
 		return
 	if(QDELETED(src))
 		return
-	if(!isturf(user.loc))
+	if(!isturf(user.loc) || !Adjacent(user))
 		return
 	var/obj/structure/noticeboard/noticeboard = new(user.loc)
 	switch(direction)
@@ -126,5 +126,5 @@
 		if("West")
 			noticeboard.pixel_x = -32
 	src.transfer_fingerprints_to(noticeboard)
-	to_chat(user, span_notice("You fasten \the [noticeboard] with your [I]."))
+	to_chat(user, span_notice("You fasten [noticeboard.name] with your [I]."))
 	qdel(src)

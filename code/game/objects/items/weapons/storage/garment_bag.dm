@@ -235,3 +235,4 @@
 	new /obj/item/clothing/gloves/fingerless(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/suit/hooded/wintercoat/cargo/qm(src)
+	new /obj/item/clothing/under/rank/cargo/alt(src)

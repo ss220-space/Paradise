@@ -24,6 +24,13 @@
 		CHECK_TICK
 	..()
 
+/obj/structure/bigDelivery/examine(mob/user)
+	. = ..()
+	if(sortTag)
+		. += span_notice("The package will be addressed to the [GLOB.TAGGERLOCATIONS[sortTag]] on [station_name()].")
+	if(cc_tag)
+		. += span_notice("The package will be addressed to the [cc_tag] on Centomm.")
+
 /obj/structure/bigDelivery/attack_hand(mob/user as mob)
 	playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 	if(wrapped)
@@ -327,7 +334,7 @@
 			"name" = departament_name,
 		))
 	for(var/departament_name in GLOB.corporations)
-		static_data["corporations"] += list(list(
+		static_data["corporation_destinations"] += list(list(
 			"name" = departament_name,
 		))
 	return static_data

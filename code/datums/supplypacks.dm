@@ -1014,6 +1014,59 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/sci
 	required_tech = list("engineering" = 3, "programming" = 6, "bluespace" = 7)
 
+
+
+///////////// High-Tech Disks
+
+/datum/supply_packs/misc/htdisk
+	name = "Empty High-Tech Disk Crate"
+	cost = 1
+	special = TRUE
+	containername = "htdisk crate"
+	containertype = /obj/structure/closet/crate/secure/scisec
+	access = ACCESS_RESEARCH
+
+/datum/supply_packs/misc/htdisk/materials
+	name = "Materials Research Disk Crate"
+	contains = list(/obj/item/disk/tech_disk/loaded/materials)
+
+/datum/supply_packs/misc/htdisk/engineering
+	contains = list(/obj/item/disk/tech_disk/loaded/engineering)
+	name = "Engineering Research Disk Crate"
+
+
+/datum/supply_packs/misc/htdisk/plasmatech
+	contains = list(/obj/item/disk/tech_disk/loaded/plasmatech)
+	name = "Plasma Research Disk Crate"
+
+/datum/supply_packs/misc/htdisk/powerstorage
+	contains = list(/obj/item/disk/tech_disk/loaded/powerstorage)
+	name = "Power Manipulation Technology Disk Crate"
+
+/datum/supply_packs/misc/htdisk/bluespace
+	contains = list(/obj/item/disk/tech_disk/loaded/bluespace)
+	name = "'Blue-space' Research Disk Crate"
+
+/datum/supply_packs/misc/htdisk/biotech
+	contains = list(/obj/item/disk/tech_disk/loaded/biotech)
+	name = "Biological Technology Disk Crate"
+
+/datum/supply_packs/misc/htdisk/combat
+	contains = list(/obj/item/disk/tech_disk/loaded/combat)
+	name = "Combat Systems Research Disk Crate"
+
+/datum/supply_packs/misc/htdisk/magnets
+	contains = list(/obj/item/disk/tech_disk/loaded/magnets)
+	name = "Electromagnetic Spectrum Research Disk Crate"
+
+/datum/supply_packs/misc/htdisk/programming
+	contains = list(/obj/item/disk/tech_disk/loaded/programming)
+	name = "Data Theory Research Disk Crate"
+
+/datum/supply_packs/misc/htdisk/toxins
+	contains = list(/obj/item/disk/tech_disk/loaded/toxins)
+	name = "Toxins Research Disk Crate"
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Medical /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

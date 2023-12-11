@@ -1,11 +1,10 @@
-
-
 /datum/cargo_quest/thing
 	quest_type_name = "generic thing"
 	var/list/easy_items
 	var/list/normal_items
 	var/list/hard_items
 	var/list/very_hard_items
+	/// If TRUE, the same items from this category will not be found in the same order
 	var/unique_things = FALSE
 
 /datum/cargo_quest/thing/generate_goal(difficultly, request_obj, target_reward)
@@ -76,40 +75,40 @@
 		/obj/item/slime_extract/silver = 85,
 	)
 	normal_items = list(
-		/obj/item/slime_extract/bluespace = 135,
-		/obj/item/slime_extract/sepia = 135,
-		/obj/item/slime_extract/cerulean = 135,
-		/obj/item/slime_extract/pyrite = 135,
-		/obj/item/slime_extract/green = 175,
-		/obj/item/slime_extract/red = 175,
-		/obj/item/slime_extract/pink = 175,
-		/obj/item/slime_extract/gold = 175
+		/obj/item/slime_extract/bluespace = 115,
+		/obj/item/slime_extract/sepia = 115,
+		/obj/item/slime_extract/cerulean = 115,
+		/obj/item/slime_extract/pyrite = 115,
+		/obj/item/slime_extract/green = 145,
+		/obj/item/slime_extract/red = 145,
+		/obj/item/slime_extract/pink = 145,
+		/obj/item/slime_extract/gold = 145
 	)
 	hard_items = list(
-		/obj/item/slime_extract/adamantine = 220,
-		/obj/item/slime_extract/oil = 220,
-		/obj/item/slime_extract/black = 220,
-		/obj/item/slime_extract/lightpink = 220,
-		/obj/item/slime_extract/rainbow = 300
+		/obj/item/slime_extract/adamantine = 200,
+		/obj/item/slime_extract/oil = 200,
+		/obj/item/slime_extract/black = 200,
+		/obj/item/slime_extract/lightpink = 200,
+		/obj/item/slime_extract/rainbow = 270
 	)
 
 /datum/cargo_quest/thing/organs
 	quest_type_name = "Organ"
 	normal_items = list(
-		/obj/item/organ/internal/eyes/tajaran = 115,
-		/obj/item/organ/internal/eyes/vulpkanin = 115,
-		/obj/item/organ/internal/headpocket = 175,
-		/obj/item/organ/internal/eyes/unathi = 200,
-		/obj/item/organ/internal/eyes/nian = 200,
-		/obj/item/organ/internal/liver/skrell = 200,
-		/obj/item/organ/internal/lungs/slime = 215,
-		/obj/item/organ/internal/heart/slime = 250,
-		/obj/item/organ/external/wing/nian = 250
+		/obj/item/organ/internal/eyes/tajaran = 105,
+		/obj/item/organ/internal/eyes/vulpkanin = 105,
+		/obj/item/organ/internal/headpocket = 155,
+		/obj/item/organ/internal/eyes/unathi = 170,
+		/obj/item/organ/internal/eyes/nian = 170,
+		/obj/item/organ/internal/liver/skrell = 170,
+		/obj/item/organ/internal/lungs/slime = 185,
+		/obj/item/organ/internal/heart/slime = 210,
+		/obj/item/organ/external/wing/nian = 210
 	)
 	hard_items = list(
-		/obj/item/organ/internal/liver/diona = 350,
-		/obj/item/organ/internal/lungs/unathi/ash_walker = 375,
-		/obj/item/organ/internal/lantern = 450
+		/obj/item/organ/internal/liver/diona = 300,
+		/obj/item/organ/internal/lungs/unathi/ash_walker = 325,
+		/obj/item/organ/internal/lantern = 400
 	)
 	very_hard_items = list(
 		/obj/item/organ/internal/heart/cursed = 550,
@@ -175,27 +174,26 @@
 		/obj/item/crusher_trophy/watcher_wing/ice_wing = 100,
 	)
 	normal_items = list(
-		/obj/item/gem/rupee = 160,
-		/obj/item/crusher_trophy/vortex_talisman = 175,
-		/obj/item/borg/upgrade/modkit/lifesteal = 175,
-		/obj/item/crusher_trophy/tail_spike = 225,
-		/obj/item/grenade/clusterbuster/inferno = 225,
-		/obj/item/gem/magma = 250
+		/obj/item/gem/rupee = 130,
+		/obj/item/crusher_trophy/vortex_talisman = 145,
+		/obj/item/borg/upgrade/modkit/lifesteal = 145,
+		/obj/item/crusher_trophy/tail_spike = 200,
+		/obj/item/gem/magma = 220
 	)
 	hard_items = list(
-		/obj/item/crusher_trophy/blaster_tubes = 300,
-		/obj/item/crusher_trophy/adaptive_intelligence_core = 400,
-		/obj/item/gem/phoron = 400,
-		/obj/item/gem/purple = 450,
-		/obj/item/gem/amber = 450,
-		/obj/item/crusher_trophy/demon_claws = 450,
+		/obj/item/crusher_trophy/blaster_tubes = 260,
+		/obj/item/crusher_trophy/adaptive_intelligence_core = 350,
+		/obj/item/gem/phoron = 350,
+		/obj/item/gem/purple = 400,
+		/obj/item/gem/amber = 400,
+		/obj/item/crusher_trophy/demon_claws = 400,
 	)
 
 	very_hard_items = list(
-		/obj/item/gem/data = 500,
-		/obj/item/gem/void = 550,
-		/obj/effect/mob_spawn/human/ash_walker = 600,
-		/obj/item/gem/bloodstone = 750
+		/obj/item/gem/data = 450,
+		/obj/item/gem/void = 500,
+		/obj/effect/mob_spawn/human/ash_walker = 550,
+		/obj/item/gem/bloodstone = 650
 	)
 
 /datum/cargo_quest/thing/minerals
@@ -205,22 +203,22 @@
 	req_items = list(/obj/item/stack/sheet)
 	easy_items = list(
 		/obj/item/stack/sheet/metal = list("reward" = 40, "amount" = 50),
-		/obj/item/stack/sheet/mineral/gold = list("reward" = 105, "amount" = 20),
-		/obj/item/stack/sheet/mineral/titanium = list("reward" = 80, "amount" = 30),
-		/obj/item/stack/sheet/mineral/uranium = list("reward" = 90, "amount" = 15),
+		/obj/item/stack/sheet/mineral/gold = list("reward" = 90, "amount" = 20),
+		/obj/item/stack/sheet/mineral/titanium = list("reward" = 70, "amount" = 30),
+		/obj/item/stack/sheet/mineral/uranium = list("reward" = 80, "amount" = 15),
 		/obj/item/stack/sheet/glass = list("reward" = 25, "amount" = 50),
 	)
 	normal_items = list(
-		/obj/item/stack/sheet/mineral/diamond = list("reward" = 160, "amount" = 10),
-		/obj/item/stack/sheet/plasteel/lowplasma = list("reward" = 130, "amount" = 30),
-		/obj/item/stack/sheet/mineral/plasma = list("reward" = 180, "amount" = 40),
+		/obj/item/stack/sheet/mineral/diamond = list("reward" = 130, "amount" = 10),
+		/obj/item/stack/sheet/plasteel/lowplasma = list("reward" = 120, "amount" = 30),
+		/obj/item/stack/sheet/mineral/plasma = list("reward" = 150, "amount" = 40),
 		/obj/item/stack/sheet/mineral/silver = list("reward" = 100, "amount" = 25)
 	)
 	hard_items = list(
-		/obj/item/stack/sheet/bluespace_crystal = list("reward" = 300, "amount" = 7),
-		/obj/item/stack/sheet/mineral/bananium = list("reward" = 420, "amount" = 4),
-		/obj/item/stack/sheet/mineral/tranquillite = list("reward" = 550, "amount" = 4),
-		/obj/item/stack/sheet/mineral/adamantine = list("reward" = 350, "amount" = 20)
+		/obj/item/stack/sheet/bluespace_crystal = list("reward" = 250, "amount" = 7),
+		/obj/item/stack/sheet/mineral/bananium = list("reward" = 370, "amount" = 4),
+		/obj/item/stack/sheet/mineral/tranquillite = list("reward" = 480, "amount" = 4),
+		/obj/item/stack/sheet/mineral/adamantine = list("reward" = 310, "amount" = 20)
 	)
 
 
@@ -241,7 +239,10 @@
 	if(!required_minerals[generated_mineral])
 		required_minerals += generated_mineral
 	required_minerals[generated_mineral] += difficult_list[generated_mineral]["amount"]
-	desc += "[capitalize(format_text(initial(generated_mineral.name)))],<br>  amount: [difficult_list[generated_mineral]["amount"]]<br>"
+	desc = ""
+	for(var/mineral in required_minerals)
+		var/obj/desc_mineral = mineral
+		desc += "[capitalize(format_text(initial(desc_mineral.name)))],<br>  amount: [required_minerals[mineral]]<br>"
 	if(generated_mineral in unique_minerals)
 		difficult_list.Remove(generated_mineral)
 
@@ -278,9 +279,10 @@
 	interface_icon_states = new_interface_icon_states
 
 /datum/cargo_quest/thing/minerals/length_quest()
+	var/stack_length
 	for(var/mineral in required_minerals)
-
-	return length(required_minerals)
+		stack_length += CEILING(required_minerals[mineral]/50, 1)
+	return stack_length
 
 /datum/cargo_quest/thing/minerals/plasma
 	req_items = list(/obj/item/stack/sheet/mineral/plasma)
@@ -353,10 +355,10 @@
 	)
 
 	hard_items = list(
-		/obj/item/seeds/kudzu = 250,
-		/obj/item/seeds/cherry/bomb = 400,
-		/obj/item/seeds/apple/poisoned = 400,
-		/obj/item/seeds/gatfruit = 450
+		/obj/item/seeds/kudzu = 230,
+		/obj/item/seeds/cherry/bomb = 370,
+		/obj/item/seeds/apple/poisoned = 370,
+		/obj/item/seeds/gatfruit = 430
 	)
 
 /datum/cargo_quest/thing/botanygenes
@@ -379,15 +381,15 @@
 		/datum/plant_gene/trait/cell_charge = 125,
 		/datum/plant_gene/trait/teleport = 150,
 		/datum/plant_gene/trait/plant_type/weed_hardy = 160,
-		/datum/plant_gene/trait/noreact = 200,
-		/datum/plant_gene/trait/glow/shadow = 200
+		/datum/plant_gene/trait/noreact = 180,
+		/datum/plant_gene/trait/glow/shadow = 180,
 	)
 	hard_items = list(
-		/datum/plant_gene/trait/plant_laughter = 250,
-		/datum/plant_gene/trait/fire_resistance = 250,
-		/datum/plant_gene/trait/glow/berry = 275,
-		/datum/plant_gene/trait/smoke = 375,
-		/datum/plant_gene/trait/glow/red = 420
+		/datum/plant_gene/trait/plant_laughter = 220,
+		/datum/plant_gene/trait/fire_resistance = 220,
+		/datum/plant_gene/trait/glow/berry = 240,
+		/datum/plant_gene/trait/smoke = 330,
+		/datum/plant_gene/trait/glow/red = 370,
 	)
 
 /datum/cargo_quest/thing/botanygenes/generate_goal(difficultly, request_obj, target_reward)
@@ -421,7 +423,7 @@
 	var/obj/item/disk/plantgene/genedisk = check_item
 
 	for(var/gene in required_genes)
-		if(istype(genedisk.gene, gene))
+		if(genedisk.gene?.type == gene)
 			required_genes.Remove(gene)
 			return TRUE
 
@@ -472,7 +474,7 @@
 	q_storage.reward += hard_items[generated_gene]
 
 	for(var/block in GLOB.assigned_blocks)
-		if(GLOB.assigned_blocks[block] == generated_gene)
+		if(block == generated_gene)
 			required_blocks += block
 			break
 
@@ -488,10 +490,10 @@
 		return FALSE
 
 	for(var/block in required_blocks)
-		if(block != dnainjector.block)
+		if(block != GLOB.assigned_blocks[dnainjector.block])
 			continue
-		var/list/BOUNDS = GetDNABounds(block)
-		if(dnainjector.buf.dna.SE[block] >= BOUNDS[DNA_ON_LOWERBOUND])
+		var/list/BOUNDS = GetDNABounds(dnainjector.block)
+		if(dnainjector.buf.dna.SE[dnainjector.block] >= BOUNDS[DNA_ON_LOWERBOUND])
 			required_blocks.Remove(block)
 			return TRUE
 
@@ -500,7 +502,7 @@
 
 #define REQUIRED_BLOOD_AMOUNT 10
 /datum/cargo_quest/thing/virus
-	quest_type_name = "Viruses symptoms in vials"
+	quest_type_name = "Viruses symptoms in vials (10u minimum)"
 	interface_icons = list('icons/obj/chemical.dmi')
 	interface_icon_states = list("vial")
 	req_items = list(/obj/item/reagent_containers/glass/beaker/vial)
@@ -591,9 +593,9 @@
 
 	var/has_symptom
 	for(var/datum/reagent/blood/blood in vial.reagents.reagent_list)
-		if(length(blood.data["viruses"] != 1)) // Only 1 virus
+		if(length(blood.data["diseases"] != 1)) // Only 1 virus
 			continue
-		var/datum/disease/virus/advance/virus = locate() in blood.data["viruses"]
+		var/datum/disease/virus/advance/virus = locate() in blood.data["diseases"]
 		if(!virus || length(virus.symptoms) != 1) // And only 1 symptom
 			continue
 		var/datum/symptom/symptom = locate() in virus.symptoms
