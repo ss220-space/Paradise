@@ -133,6 +133,43 @@
 						"<span class='suicide'>[user] is slitting [user.p_their()] stomach open with the [name]! It looks like [user.p_theyre()] trying to commit seppuku.</span>"))
 	return BRUTELOSS
 
+/obj/item/kitchen/knife/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE)
+	. = ..()
+	playsound(src, 'sound/weapons/knife_holster/knife_throw.ogg', 30, 1)
+
+/obj/item/kitchen/knife/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	var/datum/martial_art/throwing/MA = throwingdatum?.thrower?.mind?.martial_art
+	if(istype(MA) && locate_type_in_list(src, MA.knife_types))
+		embed_chance = MA.knife_embed_chance
+		throwforce = get_throwforce() + MA.knife_bonus_damage
+		shields_penetration = initial(shields_penetration) + MA.shields_penetration_bonus
+	. = ..()
+
+/obj/item/kitchen/knife/after_throw(datum/callback/callback)
+	embed_chance = initial(embed_chance)
+	throwforce = get_throwforce()
+	shields_penetration = initial(shields_penetration)
+	. = ..()
+
+/obj/item/kitchen/knife/attack(mob/living/target, mob/living/user, def_zone)
+	var/datum/martial_art/throwing/MA = user?.mind?.martial_art
+	if(istype(MA) && locate_type_in_list(src, MA.knife_types))
+		force = get_force() + MA.knife_bonus_damage
+		if(user.zone_selected == BODY_ZONE_HEAD && user.a_intent == INTENT_HARM)
+			if(MA.neck_cut(target, user))
+				return TRUE
+	. = ..()
+
+/obj/item/kitchen/knife/attack_obj(obj/O, mob/living/user, params)
+	var/datum/martial_art/throwing/MA = user?.mind?.martial_art
+	if(istype(MA) && locate_type_in_list(src, MA.knife_types))
+		force = get_force() + MA.knife_bonus_damage
+	. = ..()
+
+/obj/item/kitchen/knife/afterattack(atom/target, mob/user, proximity, params)
+	force = get_force()
+	. = ..()
+
 /obj/item/kitchen/knife/plastic
 	name = "plastic knife"
 	desc = "The bluntest of blades."
@@ -178,35 +215,6 @@
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "cut")
 	bayonet = TRUE
 	embed_chance = 90
-
-/obj/item/kitchen/knife/combat/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE)
-	. = ..()
-	playsound(src, 'sound/weapons/knife_holster/knife_throw.ogg', 30, 1)
-
-/obj/item/kitchen/knife/combat/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	var/datum/martial_art/throwing/MA = throwingdatum?.thrower?.mind?.martial_art
-	if(istype(MA))
-		embed_chance = MA.knife_embed_chance
-		throwforce = initial(throwforce) + MA.knife_bonus_damage
-	. = ..()
-
-/obj/item/kitchen/knife/combat/after_throw(datum/callback/callback)
-	embed_chance = initial(embed_chance)
-	throwforce = initial(throwforce)
-	. = ..()
-
-/obj/item/kitchen/knife/combat/attack(mob/living/target, mob/living/user, def_zone)
-	var/datum/martial_art/throwing/MA = user?.mind?.martial_art
-	if(istype(MA))
-		force = initial(force) + MA.knife_bonus_damage
-		if(user.zone_selected == BODY_ZONE_HEAD && user.a_intent == INTENT_HARM)
-			MA.neck_cut(target, user)
-			return
-	. = ..()
-
-/obj/item/kitchen/knife/combat/afterattack(atom/target, mob/user, proximity, params)
-	force = initial(force)
-	. = ..()
 
 /obj/item/kitchen/knife/combat/survival
 	name = "survival knife"
@@ -283,12 +291,6 @@
 	. = ..()
 	if(sh)
 		size = sh.icon_state
-	if(istype(sh, /obj/item/shard/plasma))
-		name = "plasma glass shiv"
-		desc = "A plasma glass shard with some cloth wrapped around it"
-		force = 9
-		throwforce = 11
-		materials = list(MAT_PLASMA = MINERAL_MATERIAL_AMOUNT * 0.5, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	update_icon()
 
 /obj/item/kitchen/knife/glassshiv/update_icon()
@@ -296,6 +298,12 @@
 		size = pick("large", "medium", "small")
 	icon_state = "[size]_[initial(icon_state)]"
 
+/obj/item/kitchen/knife/glassshiv/plasma
+	name = "plasma glass shiv"
+	desc = "A plasma glass shard with some cloth wrapped around it"
+	force = 9
+	throwforce = 11
+	materials = list(MAT_PLASMA = MINERAL_MATERIAL_AMOUNT * 0.5, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 
 /*
  * Rolling Pins

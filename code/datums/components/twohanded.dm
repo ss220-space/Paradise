@@ -28,8 +28,6 @@
 	var/icon_wielded = FALSE
 	/// Reference to the offhand created for the item
 	var/obj/item/twohanded/offhand/offhand_item = null
-	/// The amount of increase recived from sharpening the item
-	var/sharpened_increase = 0
 	/// A callback on the parent to be called when the item is wielded
 	var/datum/callback/wield_callback
 	/// A callback on the parent to be called when the item is unwielded
@@ -241,8 +239,8 @@
 		parent_item.force *= force_multiplier
 	else if(force_wielded)
 		parent_item.force = force_wielded
-	if(sharpened_increase)
-		parent_item.force += sharpened_increase
+	if(parent_item.sharpened_increase)
+		parent_item.force += parent_item.sharpened_increase
 	if(sharp_when_wielded)
 		parent_item.sharp = TRUE
 
@@ -303,8 +301,8 @@
 
 	// update item stats
 	var/obj/item/parent_item = parent
-	if(sharpened_increase)
-		parent_item.force -= sharpened_increase
+	if(parent_item.sharpened_increase)
+		parent_item.force -= parent_item.sharpened_increase
 	if(force_multiplier)
 		parent_item.force /= force_multiplier
 	else
@@ -420,7 +418,7 @@
 		return COMPONENT_BLOCK_SHARPEN_BLOCKED
 	if(wielded)
 		return COMPONENT_BLOCK_SHARPEN_BLOCKED
-	if(sharpened_increase)
+	if(item.sharpened_increase)
 		return COMPONENT_BLOCK_SHARPEN_ALREADY
 
 	var/wielded_val = 0
@@ -436,7 +434,7 @@
 	if(wielded_val > max_amount)
 		return COMPONENT_BLOCK_SHARPEN_MAXED
 
-	sharpened_increase = min(amount, (max_amount - wielded_val))
+	item.sharpened_increase = min(amount, (max_amount - wielded_val))
 
 	return COMPONENT_BLOCK_SHARPEN_APPLIED
 
