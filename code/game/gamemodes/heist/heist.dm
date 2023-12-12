@@ -4,7 +4,7 @@ VOX HEIST ROUNDTYPE
 GLOBAL_LIST_EMPTY(raider_spawn)
 GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective. Clumsy, rewrite sometime.
 
-/datum/game_mode/
+/datum/game_mode
 	var/list/datum/mind/raiders = list()  //Antags.
 	var/list/raid_objectives = list()     //Raid objectives
 
@@ -27,16 +27,14 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	to_chat(world, "<B>Personnel:</B> Trade with the raiders, or repel them and their low, low prices and/or crossbows.")
 
 /datum/game_mode/heist/can_start()
-
 	if(!..())
-		return 0
-
+		return FALSE
 	var/list/candidates = get_players_for_role(ROLE_RAIDER)
 	var/raider_num = 0
 
 	//Check that we have enough vox.
 	if(candidates.len < required_enemies)
-		return 0
+		return FALSE
 	else if(candidates.len < recommended_enemies)
 		raider_num = candidates.len
 	else
@@ -44,20 +42,18 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 
 	//Grab candidates randomly until we have enough.
 	while(raider_num > 0)
-		var/datum/mind/new_raider = pick(candidates)
+		var/datum/mind/new_raider = pick_n_take(candidates)
 		raiders += new_raider
-		candidates -= new_raider
 		raider_num--
 
+	return TRUE
+
+/datum/game_mode/heist/pre_setup()
 	for(var/datum/mind/raider in raiders)
 		raider.assigned_role = SPECIAL_ROLE_RAIDER
 		raider.special_role = SPECIAL_ROLE_RAIDER
 		raider.offstation_role = TRUE
-	..()
-	return 1
-
-/datum/game_mode/heist/pre_setup()
-	return 1
+	return TRUE
 
 /datum/game_mode/heist/post_setup()
 

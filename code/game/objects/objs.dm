@@ -159,8 +159,16 @@
 		if(!ai_in_use && !is_in_use)
 			in_use = FALSE
 
+
+/**
+ * Hidden uplink interaction proc. Gathers a list of items purchasable from the paren't uplink and displays it. It also adds a lock button.
+ *
+ * Arguments:
+ * * user - who interacts with uplink.
+ */
 /obj/proc/interact(mob/user)
 	return
+
 
 /obj/proc/update_icon()
 	SEND_SIGNAL(src, COMSIG_OBJ_UPDATE_ICON)

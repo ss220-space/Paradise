@@ -541,7 +541,7 @@
 
 /obj/item/storage/belt/bandolier/booze/populate_contents()
 	for(var/I in 1 to 16)
-		new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
+		new /obj/item/ammo_casing/shotgun/beanbag/fake(src)
 	update_icon()
 
 /obj/item/storage/belt/bandolier/update_icon()

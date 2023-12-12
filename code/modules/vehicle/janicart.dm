@@ -36,9 +36,9 @@
 		var/turf/tile = loc
 		if(isturf(tile))
 			tile.clean_blood()
-			for(var/A in tile)
-				if(is_cleanable(A))
-					qdel(A)
+			for(var/obj/effect/check in tile)
+				if(check.is_cleanable())
+					qdel(check)
 
 /obj/vehicle/janicart/examine(mob/user)
 	. = ..()

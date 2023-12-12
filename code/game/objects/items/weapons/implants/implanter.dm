@@ -1,16 +1,29 @@
 /obj/item/implanter
-	name = "implanter"
-	desc = "A sterile automatic implant injector."
-	icon = 'icons/obj/items.dmi'
+	name = "bio-chip implanter"
+	desc = "A sterile automatic bio-chip injector."
+	icon = 'icons/obj/implants.dmi'
 	icon_state = "implanter0"
 	item_state = "syringe_0"
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "materials=2;biotech=3"
-	materials = list(MAT_METAL=600, MAT_GLASS=200)
+	materials = list(MAT_METAL = 600, MAT_GLASS = 200)
 	toolspeed = 1
-	var/obj/item/implant/imp = null
+	/// Path thats will be transformed into object on Initialize()
+	var/obj/item/implant/imp
+
+
+/obj/item/implanter/Initialize(mapload)
+	. = ..()
+	if(ispath(imp, /obj/item/implant))
+		imp = new imp(src)
+	update_icon()
+
+
+/obj/item/implanter/Destroy()
+	QDEL_NULL(imp)
+	return ..()
 
 
 /obj/item/implanter/update_icon()
@@ -22,68 +35,27 @@
 		origin_tech = initial(origin_tech)
 
 
-/obj/item/implanter/attack(mob/living/carbon/M, mob/user)
-	if(!iscarbon(M))
+/obj/item/implanter/attack(mob/living/carbon/target, mob/user)
+	if(!iscarbon(target))
 		return
 	if(user && imp)
-		if(M != user)
-			M.visible_message("<span class='warning'>[user] is attemping to implant [M].</span>")
+		if(target != user)
+			target.visible_message(span_warning("[user] is attempting to bio-chip [target]."))
 
-		var/turf/T = get_turf(M)
-		if(T && (M == user || do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = M)))
-			if(user && M && (get_turf(M) == T) && src && imp)
-				if(imp.implant(M, user))
-					if(M == user)
-						to_chat(user, "<span class='notice'>You implant yourself.</span>")
-					else
-						M.visible_message("[user] has implanted [M].", "<span class='notice'>[user] implants you.</span>")
-					imp = null
-					update_icon()
-
-/obj/item/implanter/attackby(obj/item/W, mob/user, params)
-	..()
-	if(istype(W, /obj/item/pen))
-		rename_interactive(user, W)
-
-/obj/item/implanter/New()
-	..()
-	spawn(1)
-		update_icon()
+		var/turf/target_turf = get_turf(target)
+		if(target_turf && (target == user || do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), target = target)))
+			if(!QDELETED(user) && !QDELETED(target) && !QDELETED(src) && !QDELETED(imp) && get_turf(target) == target_turf && imp.implant(target, user))
+				if(user == target)
+					to_chat(user, span_notice("You bio-chip yourself."))
+				else
+					target.visible_message("[user] has implanted [target].", span_notice("[user] bio-chips you."))
+				imp = null
+				update_icon()
 
 
-/obj/item/implanter/adrenalin
-	name = "implanter (adrenalin)"
+/obj/item/implanter/attackby(obj/item/I, mob/user, params)
+	if(is_pen(I))
+		rename_interactive(user, I)
+	else
+		return ..()
 
-/obj/item/implanter/adrenalin/New()
-	imp = new /obj/item/implant/adrenalin(src)
-	..()
-
-
-/obj/item/implanter/supercharge
-	name = "implanter (supercharge)"
-
-/obj/item/implanter/supercharge/New()
-	imp = new /obj/item/implant/supercharge(src)
-	..()
-
-	
-/obj/item/implanter/emp
-	name = "implanter (EMP)"
-
-/obj/item/implanter/emp/New()
-	imp = new /obj/item/implant/emp(src)
-	..()
-
-/obj/item/implanter/traitor
-	name = "implanter (Mindslave)"
-
-/obj/item/implanter/traitor/New()
-	imp = new /obj/item/implant/traitor(src)
-	..()
-
-/obj/item/implanter/death_alarm
-	name = "implanter (Death Alarm)"
-
-/obj/item/implanter/death_alarm/New()
-	imp = new /obj/item/implant/death_alarm(src)
-	..()

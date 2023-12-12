@@ -458,50 +458,7 @@
 /proc/get_all_special_jobs()
 	return list("Special Reaction Team Member", "HONKsquad", "Clown Security")
 
-//gets the actual job rank (ignoring alt titles)
-//this is used solely for sechuds
-/obj/proc/GetJobRealName()
-	if(!istype(src, /obj/item/pda) && !istype(src,/obj/item/card/id))
-		return
-
-	var/rank
-	var/assignment
-	if(istype(src, /obj/item/pda))
-		if(src:id)
-			rank = src:id:rank
-			assignment = src:id:assignment
-	else if(istype(src, /obj/item/card/id))
-		rank = src:rank
-		assignment = src:assignment
-
-	if( rank in GLOB.joblist )
-		return rank
-
-	if( assignment in GLOB.joblist )
-		return assignment
-
-	return "Unknown"
-
-//gets the alt title, failing that the actual job rank
-//this is unused
-// THEN WHY IS IT STILL HERE?? -AA07, 2020-07-31
-/obj/proc/sdsdsd()	//GetJobDisplayName
-	if(!istype(src, /obj/item/pda) && !istype(src,/obj/item/card/id))
-		return
-
-	var/assignment
-	if(istype(src, /obj/item/pda))
-		if(src:id)
-			assignment = src:id:assignment
-	else if(istype(src, /obj/item/card/id))
-		assignment = src:assignment
-
-	if(assignment)
-		return assignment
-
-	return "Unknown"
-
-/proc/GetIdCard(var/mob/living/carbon/human/H)
+/proc/GetIdCard(mob/living/carbon/human/H)
 	if(H.wear_id)
 		var/id = H.wear_id.GetID()
 		if(id)
@@ -509,35 +466,6 @@
 	if(H.get_active_hand())
 		var/obj/item/I = H.get_active_hand()
 		return I.GetID()
-
-/proc/FindNameFromID(var/mob/living/carbon/human/H)
-	ASSERT(istype(H))
-	var/obj/item/card/id/C = H.get_active_hand()
-	if( istype(C) || istype(C, /obj/item/pda) )
-		var/obj/item/card/id/ID = C
-
-		if( istype(C, /obj/item/pda) )
-			var/obj/item/pda/pda = C
-			ID = pda.id
-		if(!istype(ID))
-			ID = null
-
-		if(ID)
-			return ID.registered_name
-
-	C = H.wear_id
-
-	if( istype(C) || istype(C, /obj/item/pda) )
-		var/obj/item/card/id/ID = C
-
-		if( istype(C, /obj/item/pda) )
-			var/obj/item/pda/pda = C
-			ID = pda.id
-		if(!istype(ID))
-			ID = null
-
-		if(ID)
-			return ID.registered_name
 
 /proc/get_all_job_icons() //For all existing HUD icons
 	return GLOB.joblist + list("Prisoner")

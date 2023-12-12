@@ -62,3 +62,4 @@ GLOBAL_VAR(genname) //Nanotrasen officer name for fax send via fax panel, random
 GLOBAL_VAR_INIT(pacifism_after_gt, FALSE)
 
 GLOBAL_VAR_INIT(communications_blackout, FALSE)
+

@@ -355,7 +355,7 @@
 	if(isalien(target))
 		weaken = 0
 		nodamage = 1
-	if(ismecha(target) || issilicon(target))
+	if(isobj(target) || issilicon(target) || ismachineperson(target))
 		damage_type = BURN
 	. = ..() // Execute the rest of the code.
 

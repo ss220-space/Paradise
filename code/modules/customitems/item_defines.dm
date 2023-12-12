@@ -1092,6 +1092,7 @@
 	icon_state = "fallout_dress"
 	item_state = "fallout_dress"
 	item_color = "fallout_dress"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/fluff/soviet_casual_uniform // Norstead : Natalya Sokolova
     icon = 'icons/obj/custom_items.dmi'

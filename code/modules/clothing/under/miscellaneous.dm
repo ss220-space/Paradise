@@ -462,6 +462,7 @@
 	desc = "A fancy orange gown for those who like to show leg."
 	icon_state = "dress_orange"
 	item_color = "dress_orange"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/dress/dress_pink
 	name = "pink dress"
@@ -536,30 +537,35 @@
 	desc = "A big and puffy orange dress."
 	icon_state = "bride_orange"
 	item_color = "bride_orange"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/wedding/bride_purple
 	name = "purple wedding dress"
 	desc = "A big and puffy purple dress."
 	icon_state = "bride_purple"
 	item_color = "bride_purple"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/wedding/bride_blue
 	name = "blue wedding dress"
 	desc = "A big and puffy blue dress."
 	icon_state = "bride_blue"
 	item_color = "bride_blue"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/wedding/bride_red
 	name = "red wedding dress"
 	desc = "A big and puffy red dress."
 	icon_state = "bride_red"
 	item_color = "bride_red"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/wedding/bride_white
 	name = "white wedding dress"
 	desc = "A white wedding gown made from the finest silk."
 	icon_state = "bride_white"
 	item_color = "bride_white"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/sundress
 	name = "sundress"
@@ -624,6 +630,7 @@
 	icon_state = "ysing"
 	item_state = "ysing"
 	item_color = "ysing"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/singerb
 	name = "blue performer's outfit"
@@ -759,6 +766,7 @@
 	icon_state = "black_tango"
 	item_state = "wcoat"
 	item_color = "black_tango"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/stripeddress
 	name = "striped dress"
@@ -780,6 +788,7 @@
 	icon_state = "red_evening_gown"
 	item_state = "redeveninggown"
 	item_color = "red_evening_gown"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/suit_jacket/checkered
 	name = "checkered suit"
@@ -864,12 +873,14 @@
 	item_state = "victorianblackdress"
 	item_color = "victorianblackdress"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	over_shoes = TRUE
 
 /obj/item/clothing/under/victdress/red
 	name = "red victorian dress"
 	icon_state = "victorianreddress"
 	item_state = "victorianreddress"
 	item_color = "victorianreddress"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/victsuit
 	name = "victorian suit"
@@ -962,6 +973,7 @@
 	icon_state = "red_chaps"
 	icon_state = "red_chaps"
 	item_color = "red_chaps"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/white_chaps
 	name = "white chaps"
@@ -969,6 +981,7 @@
 	icon_state = "white_chaps"
 	icon_state = "white_chaps"
 	item_color = "white_chaps"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/tan_chaps
 	name = "tan chaps"
@@ -976,6 +989,7 @@
 	icon_state = "tan_chaps"
 	icon_state = "tan_chaps"
 	item_color = "tan_chaps"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/brown_chaps
 	name = "brown chaps"
@@ -983,3 +997,4 @@
 	icon_state = "brown_chaps"
 	icon_state = "brown_chaps"
 	item_color = "brown_chaps"
+	over_shoes = TRUE

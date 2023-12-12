@@ -10,7 +10,7 @@
 	check_flags = AB_CHECK_CONSCIOUS
 
 
-/datum/action/innate/small_sprite_dragon/Trigger()
+/datum/action/innate/small_sprite_dragon/Trigger(left_click = TRUE)
 	..()
 	if(owner.stat == DEAD)
 		return
@@ -50,7 +50,7 @@
 	space_dragon = null
 
 
-/datum/action/innate/space_dragon_gust/Trigger()
+/datum/action/innate/space_dragon_gust/Trigger(left_click = TRUE)
 	. = ..()
 	if(space_dragon?.stat == DEAD)
 		return
