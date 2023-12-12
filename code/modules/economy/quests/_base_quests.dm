@@ -183,11 +183,13 @@
 				quest_type = pick(very_hard_quest_types)
 
 	for(var/datum/cargo_quest/quest in current_quests)
-		if(quest.type == quest_type)
-			quest.generate_goal(difficultly = quest_difficulty)
-			quest.update_interface_icon()
-			quest.desc = replacetext(quest.desc, "\improper", "")
-			return
+		if(quest.type != quest_type)
+			continue
+		quest.generate_goal(difficultly = quest_difficulty)
+		quest.update_interface_icon()
+		for(var/description in quest.desc)
+			description = replacetext(description, "\improper", "")
+		return
 
 	return new quest_type(src)
 
@@ -275,7 +277,7 @@
 	/// Link to the storage.
 	var/datum/cargo_quests_storage/q_storage
 	/// Quest desc, using in interface.
-	var/desc
+	var/list/desc = list()
 	/// Quest interface icons, using in interface.
 	var/list/interface_icons = list()
 	/// Quest interface icon states, using in interface.

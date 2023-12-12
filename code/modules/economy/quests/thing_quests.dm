@@ -239,7 +239,7 @@
 	if(!required_minerals[generated_mineral])
 		required_minerals += generated_mineral
 	required_minerals[generated_mineral] += difficult_list[generated_mineral]["amount"]
-	desc = ""
+	desc = list()
 	for(var/mineral in required_minerals)
 		var/obj/desc_mineral = mineral
 		desc += "[capitalize(format_text(initial(desc_mineral.name)))],<br>  amount: [required_minerals[mineral]]<br>"

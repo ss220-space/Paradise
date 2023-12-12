@@ -117,7 +117,7 @@
 			var/image_index = rand(1, length(cargo_quest.interface_icons))
 			quests_items.Add(list(list(
 				"quest_type_name" = cargo_quest.quest_type_name,
-				"desc" = cargo_quest.desc,
+				"desc" = cargo_quest.desc.Join(""),
 				"image" = "[icon2base64(icon(cargo_quest.interface_icons[image_index], cargo_quest.interface_icon_states[image_index], SOUTH, 1))]",
 				)))
 
