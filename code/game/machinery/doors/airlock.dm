@@ -1350,24 +1350,36 @@ About the new airlock wires panel:
 	if(isElectrified())
 		shock(user, 100) //Mmm, fried xeno!
 		return
-	if(!density) //Already open
+
+	if(operating)
 		return
-	if(locked || welded) //Extremely generic, as aliens only understand the basics of how airlocks work.
-		to_chat(user, span_warning("[src] refuses to budge!"))
+
+	if(locked || welded)
+		return ..()
+
+	var/is_opening = density
+	if(allowed(user))
+		if(is_opening)
+			open(TRUE)
+		else
+			close(TRUE)
 		return
-	user.visible_message(span_warning("[user] begins prying open [src]."),\
-						span_noticealien("You begin digging your claws into [src] with all your might!"),\
-						span_warning("You hear groaning metal..."))
-	var/time_to_open = 0.2 SECONDS
+
+	var/time_to_action = 0.2 SECONDS
 	if(arePowerSystemsOn())
-		time_to_open = user.time_to_open_doors
-		if(time_to_open > 3 SECONDS)
+		time_to_action = user.time_to_open_doors
+		if(time_to_action > 3 SECONDS)
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
 
+	user.visible_message(span_warning("[user] begins prying [is_opening ? "open":"close"] [src]."),\
+						span_noticealien("You begin digging your claws into [src] with all your might!"),\
+						span_warning("You hear groaning metal..."))
 
-	if(do_after(user, time_to_open, TRUE, src))
-		if(density && !open(2)) //The airlock is still closed, but something prevented it opening. (Another player noticed and bolted/welded the airlock in time!)
-			to_chat(user, span_warning("Despite your efforts, [src] managed to resist your attempts to open it!"))
+	if(do_after(user, time_to_action, TRUE, src))
+		var/returns = is_opening ? open(TRUE) : close(TRUE)
+		if(!returns) //The airlock is still closed, but something prevented it opening. (Another player noticed and bolted/welded the airlock in time!)
+			to_chat(user, span_warning("Despite your efforts, [src] managed to resist your attempts!"))
+
 
 /obj/machinery/door/airlock/power_change() //putting this is obj/machinery/door itself makes non-airlock doors turn invisible for some reason
 	..()
