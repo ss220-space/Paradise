@@ -179,19 +179,20 @@
 #define MFOAM_IRON 		2
 
 //Human Overlays Indexes/////////
-#define BODY_LAYER				42
-#define MUTANTRACE_LAYER		41
-#define WING_UNDERLIMBS_LAYER	40
-#define TAIL_UNDERLIMBS_LAYER	39	//Tail split-rendering.
-#define LIMBS_LAYER				38
-#define INTORGAN_LAYER			37
-#define MARKINGS_LAYER			36
-#define UNDERWEAR_LAYER			35
-#define MUTATIONS_LAYER			34
-#define H_DAMAGE_LAYER			33
-#define UNIFORM_LAYER			32
-#define ID_LAYER				31
-#define SHOES_LAYER				30
+#define BODY_LAYER				43
+#define MUTANTRACE_LAYER		42
+#define WING_UNDERLIMBS_LAYER	41
+#define TAIL_UNDERLIMBS_LAYER	40	//Tail split-rendering.
+#define LIMBS_LAYER				39
+#define INTORGAN_LAYER			38
+#define MARKINGS_LAYER			37
+#define UNDERWEAR_LAYER			36
+#define MUTATIONS_LAYER			35
+#define H_DAMAGE_LAYER			34
+#define UNIFORM_LAYER			33
+#define SHOES_LAYER				32
+#define OVER_SHOES_LAYER		31
+#define ID_LAYER				30
 #define GLOVES_LAYER			29
 #define EARS_LAYER				28
 #define SUIT_LAYER				27
@@ -221,7 +222,7 @@
 #define FIRE_LAYER				3	//If you're on fire
 #define MISC_LAYER				2
 #define FROZEN_LAYER			1
-#define TOTAL_LAYERS 			42
+#define TOTAL_LAYERS 			43
 
 ///Access Region Codes///
 #define REGION_ALL			0

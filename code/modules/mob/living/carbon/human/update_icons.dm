@@ -558,6 +558,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/update_inv_w_uniform()
 	remove_overlay(UNIFORM_LAYER)
+	remove_overlay(OVER_SHOES_LAYER)
 	if(client && hud_used)
 		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_w_uniform]
 		if(inv)
@@ -598,7 +599,14 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 					standing.overlays += image("icon" = 'icons/mob/clothing/ties.dmi', "icon_state" = "[tie_color]")
 		standing.alpha = w_uniform.alpha
 		standing.color = w_uniform.color
-		overlays_standing[UNIFORM_LAYER] = standing
+		if(w_uniform.over_shoes) //Select which layer to use based on the properties of the hair style. Hair styles with hair that don't overhang the arms of the glasses should have glasses_over set to a positive value.
+			standing.layer = -OVER_SHOES_LAYER
+			overlays_standing[OVER_SHOES_LAYER] = standing
+			apply_overlay(OVER_SHOES_LAYER)
+		else
+			overlays_standing[UNIFORM_LAYER] = standing
+			apply_overlay(UNIFORM_LAYER)
+
 
 	// Saved for history .\_/.
 
@@ -628,7 +636,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 					thing.dropped(src)															//
 					thing.layer = initial(thing.layer)
 					thing.plane = initial(thing.plane)*/
-	apply_overlay(UNIFORM_LAYER)
 
 /mob/living/carbon/human/update_inv_wear_id()
 	remove_overlay(ID_LAYER)
@@ -642,7 +649,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			wear_id.screen_loc = ui_id
 			client.screen += wear_id
 
-		if(w_uniform && w_uniform:displays_id)
+		if(w_uniform?.displays_id)
 			overlays_standing[ID_LAYER]	= mutable_appearance('icons/mob/mob.dmi', "id", layer = -ID_LAYER)
 	apply_overlay(ID_LAYER)
 
