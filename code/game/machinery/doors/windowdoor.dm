@@ -206,10 +206,22 @@
 
 /obj/machinery/door/window/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT) && !disassembled)
+		var/obj/item/airlock_electronics/ae
 		for(var/obj/fragment in debris)
 			fragment.forceMove(get_turf(src))
 			transfer_fingerprints_to(fragment)
 			debris -= fragment
+		if(!electronics)
+			ae = new/obj/item/airlock_electronics(loc)
+			if(!req_access)
+				check_access()
+			ae.selected_accesses = req_access
+			ae.one_access = check_one_access
+		else
+			ae = electronics
+			electronics = null
+			ae.forceMove(loc)
+
 	qdel(src)
 
 /obj/machinery/door/window/narsie_act()
