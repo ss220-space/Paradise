@@ -587,9 +587,11 @@ BLIND     // can't see anything
 		if(user.dna.species.name in hide_tail_by_species)
 			if(!(flags_inv & HIDETAIL)) //Hide the tail if the user's species is in the hide_tail_by_species list and the tail isn't already hidden.
 				flags_inv |= HIDETAIL
+				user.update_tail_layer()
 		else
 			if(!(initial(flags_inv) & HIDETAIL) && (flags_inv & HIDETAIL)) //Otherwise, remove the HIDETAIL flag if it wasn't already in the flags_inv to start with.
 				flags_inv &= ~HIDETAIL
+				user.update_tail_layer()
 
 /obj/item/clothing/suit/ui_action_click(mob/user) //This is what happens when you click the HUD action button to adjust your suit.
 	if(!ignore_suitadjust)
