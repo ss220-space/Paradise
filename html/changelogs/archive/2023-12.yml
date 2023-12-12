@@ -124,3 +124,19 @@
   - refactor: Uplink Entries Refactor (#4027)
   captainnelly:
   - bugfix: flesh maul sound (#4032)
+'2023-12-11':
+  Rerik007:
+  - bugfix: null mutatelist runtime (#4050)
+  Vladisvell:
+  - refactor: Returned "Point to" verb instead of dummy "Object" verb (#4045)
+  - balance: Demons now do not spawn on lowpop (#4049)
+'2023-12-12':
+  Daeberdir:
+  - bugfix: gem drop for other fauna and second tail on explorer suit. (#4002)
+  - bugfix: new clothing sprite layer "above boots" for dresses. (#3994)
+  Dimach:
+  - bugfix: few runtime fixes (#4052)
+  LiquidPotroh:
+  - balance: Xenomorphs up (#3963)
+  Vladisvell:
+  - qol: Breaking windoors now gives airlock electronics (#3995)
