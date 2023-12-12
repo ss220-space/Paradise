@@ -107,16 +107,17 @@
 	return !density
 
 /obj/structure/alien/resin/attack_alien(mob/living/carbon/alien/humanoid/A)
-	var/damage = 0
-	switch(A.caste)
-		if("d") //drone breaks wall in 2 hits
-			damage = max_integrity/2/ALIEN_RESIN_BRUTE_MOD
-		if("q") //queen breaks wall in 1 hit
-			damage = max_integrity/ALIEN_RESIN_BRUTE_MOD
-		else
-			return ..()
-	if(attack_generic(A, damage, BRUTE, "melee", 0, 100))
-		playsound(loc, 'sound/effects/attackblob.ogg', 50, TRUE)
+	if(A.a_intent == INTENT_HARM)
+		var/damage = 0
+		switch(A.caste)
+			if("d") //drone breaks wall in 2 hits
+				damage = max_integrity/2/ALIEN_RESIN_BRUTE_MOD
+			if("q") //queen breaks wall in 1 hit
+				damage = max_integrity/ALIEN_RESIN_BRUTE_MOD
+			else
+				return ..()
+		if(attack_generic(A, damage, BRUTE, "melee", 0, 100))
+			playsound(loc, 'sound/effects/attackblob.ogg', 50, TRUE)
 
 
 #define RESIN_DOOR_CLOSED 0
@@ -421,6 +422,10 @@
 /obj/structure/alien/weeds/node/New()
 	..(loc, src)
 
+/obj/structure/alien/weeds/attack_alien(mob/living/carbon/alien/humanoid/A)
+	if(A.a_intent == INTENT_HARM)
+		return ..()
+
 #undef NODERANGE
 
 
@@ -433,8 +438,8 @@
 #define BURSTING 1
 #define GROWING 2
 #define GROWN 3
-#define MIN_GROWTH_TIME 1800	//time it takes to grow a hugger
-#define MAX_GROWTH_TIME 3000
+#define MIN_GROWTH_TIME 1200	//time it takes to grow a hugger
+#define MAX_GROWTH_TIME 1800
 
 /obj/structure/alien/egg
 	name = "egg"
