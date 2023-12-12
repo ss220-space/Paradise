@@ -1,7 +1,7 @@
 /obj/item/implant/chem
 	name = "chem bio-chip"
 	desc = "Injects things."
-	icon_state = "reagents"
+	icon_state = "reagents_old"
 	implant_state = "implant-nanotrasen"
 	origin_tech = "materials=3;biotech=4"
 	activated = BIOCHIP_ACTIVATED_ACTIVE
