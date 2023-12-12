@@ -740,15 +740,17 @@ BLIND     // can't see anything
 
 	var/has_sensor = TRUE//For the crew computer 2 = unable to change mode
 	var/sensor_mode = SENSOR_OFF
-	var/random_sensor = TRUE
 		/*
-		1 = Report living/dead
-		2 = Report detailed damages
-		3 = Report location
+		SENSOR_OFF		= Report nothing
+		SENSOR_LIVING	= Report living/dead
+		SENSOR_VITALS	= Report detailed damages
+		SENSOR_COORDS	= Report location
 		*/
+	var/random_sensor = TRUE
+	var/displays_id = TRUE
+	var/over_shoes = FALSE
+	var/rolled_down = FALSE
 	var/list/accessories = list()
-	var/displays_id = 1
-	var/rolled_down = 0
 	var/basecolor
 
 /obj/item/clothing/under/rank/New()
