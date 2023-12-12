@@ -427,10 +427,11 @@
 	ui_interact(user)
 	return
 
-/obj/machinery/computer/supplycomp/emag_act(user as mob)
+/obj/machinery/computer/supplycomp/emag_act(mob/user)
 	if(!hacked)
 		add_attack_logs(user, src, "emagged")
-		to_chat(user, "<span class='notice'>Special supplies unlocked.</span>")
+		if(user)
+			to_chat(user, "<span class='notice'>Special supplies unlocked.</span>")
 		hacked = TRUE
 		return
 

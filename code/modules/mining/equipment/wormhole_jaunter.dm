@@ -63,7 +63,8 @@
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
-		to_chat(user, "<span class='notice'>You emag [src].</span>")
+		if(user)
+			to_chat(user, "<span class='notice'>You emag [src].</span>")
 		var/turf/T = get_turf(src)
 		do_sparks(5, 0, T)
 		playsound(T, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)

@@ -77,11 +77,12 @@
 	else
 		return ..()
 
-/obj/machinery/computer/telescience/emag_act(user as mob)
+/obj/machinery/computer/telescience/emag_act(mob/user)
 	if(!emagged)
-		to_chat(user, "<span class='notice'>You scramble the Telescience authentication key to an unknown signal. You should be able to teleport to more places now!</span>")
+		if(user)
+			to_chat(user, "<span class='notice'>You scramble the Telescience authentication key to an unknown signal. You should be able to teleport to more places now!</span>")
 		emagged = 1
-	else
+	else if(user)
 		to_chat(user, "<span class='warning'>The machine seems unaffected by the card swipe...</span>")
 
 /obj/machinery/computer/telescience/attack_ai(mob/user)

@@ -440,9 +440,10 @@
 	inserted_item = null
 	SStgui.update_uis(src)
 
-/obj/machinery/vending/emag_act(user as mob)
+/obj/machinery/vending/emag_act(mob/user)
 	emagged = TRUE
-	to_chat(user, "You short out the product lock on [src]")
+	if(user)
+		to_chat(user, "You short out the product lock on [src]")
 
 /obj/machinery/vending/attack_ai(mob/user)
 	return attack_hand(user)

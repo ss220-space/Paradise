@@ -51,16 +51,17 @@
 		..()
 	return
 
-/obj/item/storage/lockbox/can_be_inserted(obj/item/W as obj, stop_messages = 0)
+/obj/item/storage/lockbox/can_be_inserted(obj/item/W, stop_messages = 0)
 	if(!locked)
 		return ..()
 	if(!stop_messages)
 		to_chat(usr, "<span class='notice'>[src] is locked!</span>")
 	return 0
 
-/obj/item/storage/lockbox/emag_act(user as mob)
+/obj/item/storage/lockbox/emag_act(mob/user)
 	if(!broken)
-		add_attack_logs(user, src, "emagged")
+		if(user)
+			add_attack_logs(user, src, "emagged")
 		broken = 1
 		locked = 0
 		desc = "It appears to be broken."
