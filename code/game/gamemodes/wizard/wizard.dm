@@ -180,7 +180,7 @@
 		wizard_mob.equipOutfit(new /datum/outfit/plasmaman/wizard)
 		wizard_mob.internal = wizard_mob.r_hand
 		wizard_mob.update_action_buttons_icon()
-	wizard_mob.equipOutfit(datum/outfit/admin/wizard)
+	wizard_mob.equipOutfit(/datum/outfit/admin/wizard)
 	if(isvox(wizard_mob))
 		wizard_mob.dna.species.after_equip_job(null, wizard_mob)
 	wizard_mob.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc while round setups
@@ -212,7 +212,7 @@
 		wizard_mob.equipOutfit(new /datum/outfit/plasmaman/wizard)
 		wizard_mob.internal = wizard_mob.r_hand
 		wizard_mob.update_action_buttons_icon()
-	wizard_mob.equipOutfit(datum/outfit/admin/wizard/apprentice)
+	wizard_mob.equipOutfit(/datum/outfit/admin/wizard/apprentice)
 	if(isvox(wizard_mob))
 		wizard_mob.dna.species.after_equip_job(null, wizard_mob)
 	wizard_mob.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc while round setups

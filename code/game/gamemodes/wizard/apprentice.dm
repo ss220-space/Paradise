@@ -46,7 +46,7 @@
 
 				school_href_choose(href_list, teacher, apprentice)
 
-				wizard_mob.equipOutfit(/datum/outfit/admin/wizard/apprentice)
+				apprentice.equipOutfit(/datum/outfit/admin/wizard/apprentice)
 				var/wizard_name_first = pick(GLOB.wizard_first)
 				var/wizard_name_second = pick(GLOB.wizard_second)
 				var/randomname = "[wizard_name_first] [wizard_name_second]"

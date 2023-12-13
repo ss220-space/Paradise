@@ -368,6 +368,7 @@ effective or pretty fucking useless.
 	new /obj/item/teleporter(src)
 	new /obj/item/paper/teleporter(src)
 	new /obj/item/clothing/glasses/chameleon/meson(src)
+
 /obj/effect/temp_visual/teleport_abductor/syndi_teleporter
 	duration = 5
 
@@ -376,3 +377,51 @@ effective or pretty fucking useless.
 	charges = 8
 	max_charges = 8
 	flawless = TRUE
+
+/obj/item/circuit_fryer
+	name = "circuit fryer"
+	desc = "Privacy disclosure protection device."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "IPCkiller"
+	w_class = WEIGHT_CLASS_TINY
+	resistance_flags = FLAMMABLE
+
+/obj/item/circuit_fryer/attack(mob/living/carbon/human/target, mob/living/user, def_zone)
+	if(!istype(target))
+		return FALSE
+	if(!ismachineperson(target))
+		return FALSE
+	if(target != user)
+		target.visible_message(	span_danger("[user] attempts to connect something to [target]'s port."),	\
+								span_userdanger("[user] attempts to connet something to your port."))
+		if(!do_mob(user, target, 8 SECONDS))
+			return FALSE
+		else
+			add_game_logs("Used [src.name] for suicide.", target)
+	else
+		add_attack_logs(user, target, "Force used [src.name].")
+	return fry(target, user)
+
+/obj/item/circuit_fryer/proc/fry(mob/living/carbon/human/target, mob/living/user)
+	to_chat(target, span_danger("NEW PROTOCOL DETECTED. SYSTEM GET OVERRIDED BY AN EXTERNAL DEVICE. RUNNING PROTOCOL \"ERR#UNKWN\"..."))
+	to_chat(src, span_danger(" \
+\n⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\
+\n⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠉⠉⠁⠄⠄⠄⠄⠈⠉⠉⠛⠿⣿⣿⣿⣿⣿⣿⣿\
+\n⣿⣿⣿⣿⣿⣿⠟⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠻⣿⣿⣿⣿⣿\
+\n⣿⣿⣿⣿⣿⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⢸⣿⣿⣿⣿\
+\n⣿⣿⣿⣿⡇⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣿⣿⣿⣿\
+\n⣿⣿⣿⣿⡇⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣿⣿⣿⣿\
+\n⣿⣿⣿⣿⣇⠄⠄⠄⢀⣀⣀⣀⠄⠄⠄⠄⠄⢀⣀⣀⣀⡀⠄⠄⢠⣿⣿⣿⣿\
+\n⣿⣿⣿⣿⣿⡄⠄⣼⣿⣿⣿⣿⣷⠄⠄⠄⢀⣿⣿⣿⣿⣿⠄⠄⣼⣿⣿⣿⣿\
+\n⣿⣿⣿⣿⣿⣿⠄⠹⣿⣿⣿⣿⠏⣰⣿⣷⡀⢿⣿⣿⣿⡿⠄⢸⣿⣿⣿⣿⣿\
+\n⣿⣿⣿⣿⣿⣿⠄⠄⠉⠛⠛⠁⢠⣿⣿⣿⣷⠄⠙⠛⠋⠄⠄⢸⣿⣿⣿⣿⣿\
+\n⣿⣿⣿⣿⣿⣿⣄⣀⡀⠄⠄⠄⠈⠛⠋⠙⠋⠄⠄⠄⠄⣀⣀⣸⣿⣿⣿⣿⣿\
+\n⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣀⡄⠄⢀⡀⣀⠄⠄⣤⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿\
+\n⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣿⣧⣿⣿⣟⣿⢸⣧⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\
+\n⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠸⡏⠿⢿⡿⣿⠛⠏⢿⠁⣿⣿⣿⣿⣿⣿⣿⣿⣿\
+\n⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡀⠄⠈⠁⠄⠄⠄⣠⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿\
+\n⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣤⣤⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿"))
+	addtimer(CALLBACK(target, TYPE_PROC_REF(/atom, emp_act), 2), 15 SECONDS)
+	for(var/i, i <= 3, i++)
+		addtimer(CALLBACK(target, TYPE_PROC_REF(/atom, emp_act), 1), rand(45,80) SECONDS)
+	qdel(src)
