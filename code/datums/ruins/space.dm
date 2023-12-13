@@ -385,4 +385,3 @@
 	What secrets does the “Church of Salvation” keep and who is buried in its graveyard?"
 	cost = 4
 	allow_duplicates = FALSE
-	always_place = TRUE
