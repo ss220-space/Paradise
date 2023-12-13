@@ -457,10 +457,10 @@
 /atom/proc/welder_act(mob/living/user, obj/item/I)
 	return
 
-/atom/proc/emag_act()
+/atom/proc/emag_act(mob/user)
 	return
 
-/atom/proc/cmag_act()
+/atom/proc/cmag_act(mob/user)
 	return
 
 

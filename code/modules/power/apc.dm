@@ -808,20 +808,24 @@
 				"<span class='notice'>You cut the APC frame from the wall.</span>")
 		qdel(src)
 
-/obj/machinery/power/apc/emag_act(user as mob)
+/obj/machinery/power/apc/emag_act(mob/user)
 	if(!(emagged || malfhack))		// trying to unlock with an emag card
 		if(opened)
-			to_chat(user, "You must close the cover to swipe an ID card.")
+			if(user)
+				to_chat(user, "You must close the cover to swipe an ID card.")
 		else if(panel_open)
-			to_chat(user, "You must close the panel first.")
+			if(user)
+				to_chat(user, "You must close the panel first.")
 		else if(stat & (BROKEN|MAINT))
-			to_chat(user, "Nothing happens.")
+			if(user)
+				to_chat(user, "Nothing happens.")
 		else
 			add_attack_logs(user, src, "emagged")
 			flick("apc-spark", src)
 			emagged = 1
 			locked = 0
-			to_chat(user, "You emag the APC interface.")
+			if(user)
+				to_chat(user, "You emag the APC interface.")
 			update_icon()
 
 // attack with hand - remove cell (if cover open) or interact with the APC

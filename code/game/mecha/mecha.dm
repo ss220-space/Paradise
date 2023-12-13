@@ -996,8 +996,8 @@
 		. = ..()
 
 /obj/mecha/emag_act(mob/user)
-	to_chat(user, "<span class='warning'>[src]'s ID slot rejects the card.</span>")
-	return
+	if(user)
+		to_chat(user, "<span class='warning'>[src]'s ID slot rejects the card.</span>")
 
 
 /////////////////////////////////////

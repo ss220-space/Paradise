@@ -979,7 +979,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		spark_system.start()
 	..()
 
-/mob/living/silicon/robot/emag_act(user as mob)
+/mob/living/silicon/robot/emag_act(mob/user)
 	if(!ishuman(user) && !issilicon(user))
 		return
 	if(isclocker(src))
