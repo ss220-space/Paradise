@@ -400,9 +400,9 @@ effective or pretty fucking useless.
 			add_game_logs("Used [src.name] for suicide.", target)
 	else
 		add_attack_logs(user, target, "Force used [src.name].")
-	return fry(target, user)
+	return fry(target)
 
-/obj/item/circuit_fryer/proc/fry(mob/living/carbon/human/target, mob/living/user)
+/obj/item/circuit_fryer/proc/fry(mob/living/carbon/human/target)
 	to_chat(target, span_danger("NEW PROTOCOL DETECTED. SYSTEM GET OVERRIDED BY AN EXTERNAL DEVICE. RUNNING PROTOCOL \"ERR#UNKWN\"..."))
 	to_chat(target, span_danger(" \
 \n⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\
