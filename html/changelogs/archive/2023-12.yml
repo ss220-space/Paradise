@@ -136,7 +136,13 @@
   - bugfix: new clothing sprite layer "above boots" for dresses. (#3994)
   Dimach:
   - bugfix: few runtime fixes (#4052)
+  - tweak: implant icons (#4054)
   LiquidPotroh:
   - balance: Xenomorphs up (#3963)
   Vladisvell:
   - qol: Breaking windoors now gives airlock electronics (#3995)
+'2023-12-13':
+  BeebBeebBoob:
+  - balance: Clockwork Cult Balance Update (#4024)
+  Dimach:
+  - refactor: user check in emag_act to prevent runtimes (#4055)
