@@ -291,6 +291,7 @@
 	new /obj/item/crowbar/red/sec(src)
 	new /obj/item/weldingtool(src)
 	new /obj/item/stack/cable_coil/random(src)
+	new /obj/item/circuit_fryer(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
 
 /obj/item/storage/box/survival/syndicate/plasmaman

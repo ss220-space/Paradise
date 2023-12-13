@@ -397,9 +397,9 @@ effective or pretty fucking useless.
 		if(!do_mob(user, target, 8 SECONDS))
 			return FALSE
 		else
-			add_game_logs("Used [src.name] for suicide.", target)
+			add_attack_logs(user, target, "Force used [src.name].")
 	else
-		add_attack_logs(user, target, "Force used [src.name].")
+		add_game_logs("Used [src.name] for suicide.", target)
 	return fry(target)
 
 /obj/item/circuit_fryer/proc/fry(mob/living/carbon/human/target)
