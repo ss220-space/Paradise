@@ -81,8 +81,7 @@ FIRE ALARM
 	if(!emagged)
 		emagged = TRUE
 		if(user)
-			user.visible_message(span_warning("Sparks fly out of the [src]!"),
-								span_notice("You emag [src], disabling its thermal sensors."))
+			user.visible_message(span_warning("Sparks fly out of the [src]!"), span_notice("You emag [src], disabling its thermal sensors."))
 		playsound(loc, 'sound/effects/sparks4.ogg', 50, 1)
 
 /obj/machinery/firealarm/temperature_expose(datum/gas_mixture/air, temperature, volume)

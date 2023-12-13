@@ -89,7 +89,7 @@
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
 	del_on_death = 1
-	needs_gliding= FALSE
+	needs_gliding = FALSE
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/Initialize(mapload)
 	. = ..()

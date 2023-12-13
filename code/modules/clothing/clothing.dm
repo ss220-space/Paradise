@@ -587,9 +587,11 @@ BLIND     // can't see anything
 		if(user.dna.species.name in hide_tail_by_species)
 			if(!(flags_inv & HIDETAIL)) //Hide the tail if the user's species is in the hide_tail_by_species list and the tail isn't already hidden.
 				flags_inv |= HIDETAIL
+				user.update_tail_layer()
 		else
 			if(!(initial(flags_inv) & HIDETAIL) && (flags_inv & HIDETAIL)) //Otherwise, remove the HIDETAIL flag if it wasn't already in the flags_inv to start with.
 				flags_inv &= ~HIDETAIL
+				user.update_tail_layer()
 
 /obj/item/clothing/suit/ui_action_click(mob/user) //This is what happens when you click the HUD action button to adjust your suit.
 	if(!ignore_suitadjust)
@@ -738,15 +740,17 @@ BLIND     // can't see anything
 
 	var/has_sensor = TRUE//For the crew computer 2 = unable to change mode
 	var/sensor_mode = SENSOR_OFF
-	var/random_sensor = TRUE
 		/*
-		1 = Report living/dead
-		2 = Report detailed damages
-		3 = Report location
+		SENSOR_OFF		= Report nothing
+		SENSOR_LIVING	= Report living/dead
+		SENSOR_VITALS	= Report detailed damages
+		SENSOR_COORDS	= Report location
 		*/
+	var/random_sensor = TRUE
+	var/displays_id = TRUE
+	var/over_shoes = FALSE
+	var/rolled_down = FALSE
 	var/list/accessories = list()
-	var/displays_id = 1
-	var/rolled_down = 0
 	var/basecolor
 
 /obj/item/clothing/under/rank/New()

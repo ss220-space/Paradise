@@ -243,21 +243,20 @@
 				user.visible_message("[user] notices that no dead organs in [target]'s [affected.name].", \
 					"You notice that no dead organs in [target]'s [affected.name].")
 			return FALSE
-		else if(C.reagents.has_reagent("mitocholide"))
+		if(C.reagents.has_reagent("mitocholide"))
 			user.visible_message("[user] notices there is not enough mitocholide in [tool].", \
 				"You notice there is not enough mitocholide in [tool].")
 			return FALSE
+		if(C.reagents.total_volume <= 0) //end_step handles if there is not enough reagent
+			user.visible_message("[user] notices [tool] is empty.", "You notice [tool] is empty.")
+			return FALSE
 
 		for(var/obj/item/organ/internal/organ as anything in affected.internal_organs)
-			if(C.reagents.total_volume <= 0) //end_step handles if there is not enough reagent
-				user.visible_message("[user] notices [tool] is empty.", "You notice [tool] is empty.")
-				return FALSE
-
-			var/msg = "[user] starts pouring some of [tool] over [target]'s [I.name]."
-			var/self_msg = "You start pouring some of [tool] over [target]'s [I.name]."
+			var/msg = "[user] starts pouring some of [tool] over [target]'s [organ.name]."
+			var/self_msg = "You start pouring some of [tool] over [target]'s [organ.name]."
 			if(istype(C,/obj/item/reagent_containers/syringe))
-				msg = "[user] begins injecting [tool] into [target]'s [I.name]."
-				self_msg = "You begin injecting [tool] into [target]'s [I.name]."
+				msg = "[user] begins injecting [tool] into [target]'s [organ.name]."
+				self_msg = "You begin injecting [tool] into [target]'s [organ.name]."
 			user.visible_message(msg, self_msg)
 			if(H && affected)
 				H.custom_pain("Something burns horribly in your [affected.name]!")

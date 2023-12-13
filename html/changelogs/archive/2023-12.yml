@@ -98,3 +98,51 @@
   - bugfix: Skrell Headpocket Handling (#4022)
   - refactor: Implants Rework (#3966)
   - add: Point Rework (#3962)
+'2023-12-09':
+  Vladisvell:
+  - bugfix: fixed disposal qdel loop (#4025)
+  - bugfix: fixed storage Destroy() method throwing runtime (#4026)
+'2023-12-10':
+  Etrnlmelancholy:
+  - tweak: spellblade for wizards (#4034)
+  - tweak: pickpocket gloves for every traitor (#4033)
+  LiquidPotroh:
+  - bugfix: return ghost interactions with machinery (#4021)
+  NightDawnFox:
+  - bugfix: fixing runtime after killing megafauna (Gain Patience) (#4039)
+  - add: detonator for mining charges + some fixes (#4030)
+  Rerik007:
+  - bugfix: remove update_flags where it is not needed (#4041)
+  Vladisvell:
+  - bugfix: Fixed roundstart student scientist loss in lobby menu (#4036)
+  - qol: Object tab for ghosts now always exist, annoying interface update fix (#4040)
+  - bugfix: storage-in-storage runtime fix (#4031)
+  - bugfix: fixed reset software pai runtime (#4035)
+  - bugfix: fixed mime baguette and griefsky runtimes (#4029)
+  - bugfix: gps now use qdel instead of del (#4042)
+  Zwei:
+  - refactor: Uplink Entries Refactor (#4027)
+  captainnelly:
+  - bugfix: flesh maul sound (#4032)
+'2023-12-11':
+  Rerik007:
+  - bugfix: null mutatelist runtime (#4050)
+  Vladisvell:
+  - refactor: Returned "Point to" verb instead of dummy "Object" verb (#4045)
+  - balance: Demons now do not spawn on lowpop (#4049)
+'2023-12-12':
+  Daeberdir:
+  - bugfix: gem drop for other fauna and second tail on explorer suit. (#4002)
+  - bugfix: new clothing sprite layer "above boots" for dresses. (#3994)
+  Dimach:
+  - bugfix: few runtime fixes (#4052)
+  - tweak: implant icons (#4054)
+  LiquidPotroh:
+  - balance: Xenomorphs up (#3963)
+  Vladisvell:
+  - qol: Breaking windoors now gives airlock electronics (#3995)
+'2023-12-13':
+  BeebBeebBoob:
+  - balance: Clockwork Cult Balance Update (#4024)
+  Dimach:
+  - refactor: user check in emag_act to prevent runtimes (#4055)

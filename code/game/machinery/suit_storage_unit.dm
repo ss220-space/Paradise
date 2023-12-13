@@ -744,7 +744,8 @@
 	emagged = TRUE
 	update_icon()
 	SStgui.update_uis(src)
-	to_chat(user, span_warning("You burn the locking mechanism, unlocking it forever."))
+	if(user)
+		to_chat(user, span_warning("You burn the locking mechanism, unlocking it forever."))
 	do_sparks(5, 0, loc)
 	playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 

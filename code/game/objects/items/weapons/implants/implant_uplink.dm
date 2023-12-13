@@ -11,23 +11,41 @@
 
 /obj/item/implant/uplink/Initialize(mapload)
 	. = ..()
-	hidden_uplink = new(src)
-	hidden_uplink.uses = 50
+	hidden_uplink = new(src, choose_uplink(), get_uses_amount())
 
 
-/obj/item/implant/uplink/sit/Initialize(mapload)
-	. = ..()
-	hidden_uplink?.update_uplink_type(UPLINK_TYPE_SIT)
+/obj/item/implant/uplink/proc/choose_uplink()
+	return UPLINK_TYPE_TRAITOR
+
+
+/obj/item/implant/uplink/proc/get_uses_amount()
+	return 50
+
+
+/obj/item/implant/uplink/sit/choose_uplink()
+	return UPLINK_TYPE_SIT
 
 
 /obj/item/implant/uplink/nuclear/Initialize(mapload)
 	. = ..()
-	hidden_uplink?.update_uplink_type(UPLINK_TYPE_NUCLEAR)
+	GLOB.nuclear_uplink_list += src
 
 
-/obj/item/implant/uplink/admin/Initialize(mapload)
-	. = ..()
-	hidden_uplink?.update_uplink_type(UPLINK_TYPE_ADMIN)
+/obj/item/implant/uplink/nuclear/Destroy()
+	GLOB.nuclear_uplink_list -= src
+	return ..()
+
+
+/obj/item/implant/uplink/nuclear/choose_uplink()
+	return UPLINK_TYPE_NUCLEAR
+
+
+/obj/item/implant/uplink/admin/choose_uplink()
+	return UPLINK_TYPE_ADMIN
+
+
+/obj/item/implant/uplink/admin/get_uses_amount()
+	return 2500
 
 
 /obj/item/implant/uplink/implant(mob/living/carbon/human/source, mob/user, force = FALSE)

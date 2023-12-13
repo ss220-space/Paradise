@@ -501,7 +501,8 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	is_public = TRUE
 
 /obj/machinery/computer/syndie_supplycomp/emag_act(mob/user)
-	to_chat(user, span_notice("The electronic systems in this console are far too advanced for your primitive hacking peripherals."))
+	if(user)
+		to_chat(user, span_notice("The electronic systems in this console are far too advanced for your primitive hacking peripherals."))
 	return
 
 

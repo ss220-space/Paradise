@@ -28,7 +28,7 @@
 	search_objects = 1
 	wanted_objects = list(/obj/item/stack/ore/diamond, /obj/item/stack/ore/gold, /obj/item/stack/ore/silver,
 						  /obj/item/stack/ore/uranium, /obj/item/stack/ore/titanium)
-
+	jewelry_loot = /obj/item/gem/rupee
 	var/chase_time = 100
 	var/will_burrow = TRUE
 	var/max_loot = 15 // The maximum amount of ore that can be stored in this thing's gut
@@ -81,9 +81,4 @@
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/adjustHealth(amount, updating_health = TRUE)
 	vision_range = 9
-	. = ..()
-
-/mob/living/simple_animal/hostile/asteroid/goldgrub/death(gibbed)
-	if(prob(40))
-		new /obj/item/gem/rupee(loc)
 	. = ..()

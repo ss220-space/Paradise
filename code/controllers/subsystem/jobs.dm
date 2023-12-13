@@ -492,7 +492,7 @@ SUBSYSTEM_DEF(jobs)
 		if(!S)
 			S = locate("start*[rank]") // use old stype
 		if(!S) // still no spawn, fall back to the arrivals shuttle
-			for(var/turf/TS in get_area_turfs(/area/shuttle/arrival))
+			for(var/turf/TS in get_area_turfs(/area/shuttle/arrival/station))
 				if(!TS.density)
 					var/clear = 1
 					for(var/obj/O in TS)

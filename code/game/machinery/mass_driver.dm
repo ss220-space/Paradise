@@ -61,7 +61,8 @@
 /obj/machinery/mass_driver/emag_act(mob/user)
 	if(!emagged)
 		emagged = 1
-		to_chat(user, "You hack the Mass Driver, radically increasing the force at which it'll throw things. Better not stand in its way.")
+		if(user)
+			to_chat(user, "You hack the Mass Driver, radically increasing the force at which it'll throw things. Better not stand in its way.")
 		return 1
 	return -1
 
