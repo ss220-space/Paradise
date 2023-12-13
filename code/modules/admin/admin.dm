@@ -445,6 +445,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 
 	var/message = input("Global message to send:", "Admin Announce", null, null) as message|null
+	message = handleDiscordEmojis(message)
 	if(message)
 		if(!check_rights(R_SERVER,0))
 			message = adminscrub(message,500)
