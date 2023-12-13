@@ -527,7 +527,7 @@
 		if(cogscarab_list.len >= cog_slots) //Double check. No duplications
 			to_chat(user, "<span class='notice'>There's no empty shells to take!</span>")
 			return FALSE
-		var/mob/living/silicon/robot/cogscarab/cog = new(loc, src)
+		var/mob/living/silicon/robot/cogscarab/cog = new(loc)
 		cog.key = user.key
 		if(SSticker.mode.add_clocker(cog.mind))
 			cog.create_log(CONVERSION_LOG, "[cog.mind] became clock drone")
