@@ -53,7 +53,7 @@
 	var/warn_wind_up = WINDUP_STATE_NONE
 	var/obj/structure/clockwork/functional/cogscarab_fabricator/fabr
 
-/mob/living/silicon/robot/cogscarab/Initialize(cog_fabricator)
+/mob/living/silicon/robot/cogscarab/Initialize(mapload, cog_fabricator)
 	. = ..()
 	remove_language("Robot Talk")
 	add_language("Drone Talk", 1)
