@@ -40,9 +40,8 @@
 		/obj/item/lighter/zippo/gonzofist = 1,
 		/obj/item/storage/box/matches = 1
 	)
-	implants = list(
-		/obj/item/implant/dust
-	)
+	implants = list(/obj/item/implant/dust)
+	cybernetic_implants = list(/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus)
 
 /datum/outfit/job/syndicateofficer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -58,66 +57,3 @@
 	H.mind?.offstation_role = TRUE
 	set_antag_hud(H.mind.current, "hudoperative")
 	H.regenerate_icons()
-
-/datum/outfit/job/nuclear
-	name = "Nuclear Operative"
-	allow_backbag_choice = FALSE
-	allow_loadout = FALSE
-	uniform = /obj/item/clothing/under/syndicate
-	shoes = /obj/item/clothing/shoes/combat
-	gloves = /obj/item/clothing/gloves/combat
-	id = /obj/item/card/id/syndicate
-	belt = /obj/item/gun/projectile/automatic/pistol
-	box = /obj/item/storage/box/survival/syndicate
-	pda = /obj/item/pinpointer/nukeop
-	l_ear = /obj/item/radio/headset/syndicate/alt
-	implants = list(/obj/item/implant/explosive)
-	backpack_contents = list(/obj/item/radio/uplink/nuclear)
-
-/datum/outfit/job/nuclear/post_equip(mob/living/carbon/human/H, visualsOnly)
-	. = ..()
-	if(visualsOnly)
-		return
-
-//	U.hidden_uplink.uplink_owner="[H.key]"
-
-	if(H.dna.species.name == "Plasmaman")
-		H.equip_or_collect(new /obj/item/extinguisher_refill(H), slot_in_backpack)
-		H.equip_or_collect(new /obj/item/extinguisher_refill(H), slot_in_backpack)
-
-	var/obj/item/radio/R = H.l_ear
-	if(istype(R))
-		R.set_frequency(SYND_FREQ)
-	H.faction |= "syndicate"
-
-/datum/outfit/job/infiltrator
-	name = "Syndicate Infiltrator"
-	allow_backbag_choice = FALSE
-	allow_loadout = FALSE
-	uniform = /obj/item/clothing/under/chameleon
-	gloves = /obj/item/clothing/gloves/combat
-	belt = /obj/item/storage/belt/utility/full/multitool
-	l_ear = /obj/item/radio/headset/syndicate/syndteam
-	shoes = /obj/item/clothing/shoes/chameleon/noslip
-	id = /obj/item/card/id/syndicate
-	backpack_contents = list(/obj/item/flashlight)
-	implants = list(/obj/item/implant/dust, /obj/item/implant/uplink/sit)
-
-/datum/outfit/job/infiltrator/post_equip(mob/living/carbon/human/H, visualsOnly)
-	. = ..()
-
-	if(visualsOnly)
-		return
-
-	var/obj/item/clothing/gloves/G = H.gloves
-	if(istype(G))
-		G.name = "black gloves"
-		G.icon_state = "black"
-
-	var/obj/item/radio/R = H.l_ear
-	if(istype(R))
-		R.set_frequency(SYNDTEAM_FREQ)
-
-	var/obj/item/card/id/I = H.wear_id
-	if(istype(I))
-		apply_to_card(I, H, list(ACCESS_SYNDICATE,ACCESS_MAINT_TUNNELS,ACCESS_EXTERNAL_AIRLOCKS,ACCESS_MEDICAL,ACCESS_ENGINE,ACCESS_CARGO,ACCESS_RESEARCH), "Civilian", "id")

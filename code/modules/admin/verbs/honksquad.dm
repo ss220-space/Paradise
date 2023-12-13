@@ -99,7 +99,7 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 	new_honksquad.mind.offstation_role = TRUE
 	new_honksquad.add_language("Clownish")
 	SSticker.mode.traitors |= new_honksquad.mind//Adds them to current traitor list. Which is really the extra antagonist list.
-	new_honksquad.equipOutfit(/datum/outfit/job/honksquad)
+	new_honksquad.equipOutfit(/datum/outfit/admin/honksquad)
 	var/obj/item/card/id/I = new_honksquad.wear_id
 	if(istype(I))
 		apply_to_card(I, new_honksquad, list(ACCESS_CLOWN), "HONKsquad", "clownsquad")

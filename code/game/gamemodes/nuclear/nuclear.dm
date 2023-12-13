@@ -242,8 +242,8 @@
 	return 1337 // WHY??? -- Doohl
 
 /datum/game_mode/proc/equip_syndicate(mob/living/carbon/human/synd_mob, uplink_uses = 100)
-	synd_mob.equipOutfit(/datum/outfit/job/nuclear)
-	for(var/obj/item/radio/uplink/nuclear/U in synd_mob.back)
+	synd_mob.equipOutfit(/datum/outfit/admin/syndicate/operative)
+	for(var/obj/item/radio/uplink/nuclear/U in synd_mob.r_store)
 		U.hidden_uplink.uses = uplink_uses
 	return TRUE
 

@@ -6525,7 +6525,7 @@
 /obj/structure/table/reinforced{
 	color = "#444444"
 	},
-/obj/item/storage/box/survival/vox/regular,
+/obj/item/storage/box/survival/regular/vox,
 /turf/simulated/floor/shuttle/objective_check/vox,
 /area/awaymission/spacebattle/syndicate2)
 "sI" = (

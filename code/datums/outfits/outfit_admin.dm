@@ -62,18 +62,66 @@
 	var/obj/item/radio/R = H.l_ear
 	if(istype(R))
 		R.set_frequency(SYND_FREQ)
-	H.faction += "syndicate"
+	H.faction |= "syndicate"
 
 /datum/outfit/admin/syndicate_infiltrator
 	name = "Syndicate Infiltrator"
+	back = /obj/item/storage/backpack
+	uniform = /obj/item/clothing/under/chameleon
+	gloves = /obj/item/clothing/gloves/combat
+	belt = /obj/item/storage/belt/utility/full/multitool
+	l_ear = /obj/item/radio/headset/syndicate/syndteam
+	shoes = /obj/item/clothing/shoes/chameleon/noslip
+	id = /obj/item/card/id/syndicate
+	backpack_contents = list(/obj/item/flashlight)
+	implants = list(/obj/item/implant/dust, /obj/item/implant/uplink/sit)
 
-/datum/outfit/admin/syndicate_infiltrator/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = H.equip_syndicate_infiltrator(0, 20, FALSE)
+/datum/outfit/admin/syndicate_infiltrator/post_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+
+	var/obj/item/clothing/gloves/G = H.gloves
+	if(istype(G))
+		G.name = "black gloves"
+		G.icon_state = "black"
+
+	if(visualsOnly)
+		return
+
+	var/obj/item/radio/R = H.l_ear
+	if(istype(R))
+		R.set_frequency(SYNDTEAM_FREQ)
+
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, get_syndicate_access("Syndicate Infiltrator"), "Civilian", "id")
 	H.sec_hud_set_ID()
-	if(!visualsOnly)
-		H.faction += "syndicate"
+	H.faction |= "syndicate"
 
 /datum/outfit/admin/syndicate/operative
+	name = "Syndicate Nuclear Operative"
+	back = /obj/item/storage/backpack
+	uniform = /obj/item/clothing/under/syndicate
+	shoes = /obj/item/clothing/shoes/combat
+	gloves = /obj/item/clothing/gloves/combat
+	id = /obj/item/card/id/syndicate
+	belt = /obj/item/gun/projectile/automatic/pistol
+	box = /obj/item/storage/box/survival/syndicate
+	pda = /obj/item/pinpointer/nukeop
+	l_ear = /obj/item/radio/headset/syndicate/alt
+	r_pocket = /obj/item/radio/uplink/nuclear
+	implants = list(/obj/item/implant/explosive)
+
+	id_access = "Syndicate Nuclear Operative"
+
+/datum/outfit/admin/syndicate/operative/pre_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	if(visualsOnly)
+		return
+	if(H.dna.species.name == "Plasmaman")
+		backpack_contents += /obj/item/extinguisher_refill
+		backpack_contents += /obj/item/extinguisher_refill
+
+/datum/outfit/admin/syndicate/operative/full_gear
 	name = "Syndicate Nuclear Operative"
 	toggle_helmet = TRUE
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi
@@ -96,16 +144,7 @@
 		/obj/item/clothing/shoes/combat = 1
 	)
 
-/datum/outfit/admin/syndicate/operative/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(visualsOnly)
-		return
-
-	var/obj/item/implant/explosive/E = new(H)
-	E.implant(H)
-
-
-/datum/outfit/admin/syndicate/operative/freedom
+/datum/outfit/admin/syndicate/operative/full_gear/freedom
 	name = "Syndicate Freedom Operative"
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi/freedom
 
@@ -677,6 +716,12 @@
 		/obj/item/instrument/trombone = 1,
 		/obj/item/instrument/harmonica = 1
 	)
+
+/datum/outfit/admin/musician/pre_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	if(H.gender == MALE)
+		uniform = /obj/item/clothing/under/singery
+		shoes = /obj/item/clothing/shoes/singery
 
 /datum/outfit/admin/musician/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()

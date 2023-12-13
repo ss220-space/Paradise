@@ -131,6 +131,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 // ---------------------------------------------------------------------------------------------------------
 
 /mob/living/carbon/human/proc/equip_syndicate_infiltrator(syndicate_leader_selected = 0, num_tc, flag_mgmt)
+	equipOutfit(/datum/outfit/admin/syndicate_infiltrator)
 	for(var/obj/item/implant/uplink/sit/U in src)
 		if(num_tc)
 			U.hidden_uplink.uses = num_tc
@@ -140,7 +141,5 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	if(flag_mgmt || syndicate_leader_selected)
 		var/obj/item/card/id/I = wear_id
 		if(istype(I))
-			apply_to_card(I, src, list(ACCESS_SYNDICATE_LEADER,ACCESS_SYNDICATE_COMMS_OFFICER,ACCESS_SYNDICATE_RESEARCH_DIRECTOR,ACCESS_SYNDICATE_SCIENTIST,	\
-									ACCESS_SYNDICATE_CARGO,ACCESS_SYNDICATE_KITCHEN,ACCESS_SYNDICATE_MEDICAL,ACCESS_SYNDICATE_BOTANY,ACCESS_SYNDICATE_ENGINE,	\
-									ACCESS_MAINT_TUNNELS,ACCESS_EXTERNAL_AIRLOCKS,ACCESS_MEDICAL,ACCESS_ENGINE,ACCESS_CARGO,ACCESS_RESEARCH),  flag_mgmt ? "Syndicate Management Consultant" : "Civilian", flag_mgmt ? "commander" : "id")
+			apply_to_card(I, src, get_syndicate_access("Syndicate Management Consultant"), flag_mgmt ? "Syndicate Management Consultant" : "Civilian", flag_mgmt ? "commander" : "id")
 	return TRUE
