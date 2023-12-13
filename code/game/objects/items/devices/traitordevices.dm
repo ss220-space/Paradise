@@ -404,7 +404,7 @@ effective or pretty fucking useless.
 
 /obj/item/circuit_fryer/proc/fry(mob/living/carbon/human/target, mob/living/user)
 	to_chat(target, span_danger("NEW PROTOCOL DETECTED. SYSTEM GET OVERRIDED BY AN EXTERNAL DEVICE. RUNNING PROTOCOL \"ERR#UNKWN\"..."))
-	to_chat(src, span_danger(" \
+	to_chat(target, span_danger(" \
 \n⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\
 \n⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠉⠉⠁⠄⠄⠄⠄⠈⠉⠉⠛⠿⣿⣿⣿⣿⣿⣿⣿\
 \n⣿⣿⣿⣿⣿⣿⠟⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠻⣿⣿⣿⣿⣿\
