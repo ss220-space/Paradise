@@ -210,7 +210,7 @@
 
 /mob/living/silicon/robot/cogscarab/death(gibbed)
 	. = ..(gibbed)
-	fabr.close_slot(src)
+	fabr?.close_slot(src)
 	SSticker.mode.remove_clocker(mind, FALSE)
 	adjustBruteLoss(health)
 
