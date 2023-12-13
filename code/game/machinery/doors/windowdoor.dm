@@ -252,7 +252,7 @@
 		return
 	return try_to_activate_door(user)
 
-/obj/machinery/door/window/emag_act(mob/user, obj/weapon)
+/obj/machinery/door/window/emag_act(mob/user)
 	if(!operating && density && !emagged)
 		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
@@ -264,7 +264,7 @@
 		open(2)
 		return 1
 
-/obj/machinery/door/window/cmag_act(mob/user, obj/weapon)
+/obj/machinery/door/window/cmag_act(mob/user)
 	if(operating || !density || HAS_TRAIT(src, TRAIT_CMAGGED) || emagged)
 		return
 	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)

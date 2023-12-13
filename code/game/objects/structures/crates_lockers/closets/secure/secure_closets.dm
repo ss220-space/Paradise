@@ -78,7 +78,8 @@
 		locked = FALSE
 		overlays += overlay_sparking
 		addtimer(CALLBACK(src, PROC_REF(update_icon)), 1 SECONDS)
-		to_chat(user, "<span class='notice'>You break the lock on \the [src].</span>")
+		if(user)
+			to_chat(user, "<span class='notice'>You break the lock on \the [src].</span>")
 
 /obj/structure/closet/secure_closet/attack_hand(mob/user)
 	add_fingerprint(user)

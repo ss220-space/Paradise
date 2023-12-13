@@ -393,7 +393,7 @@ emp_act
 		I.acid_act(acidpwr, acid_volume)
 	return 1
 
-/mob/living/carbon/human/emag_act(user as mob, var/obj/item/organ/external/affecting)
+/mob/living/carbon/human/emag_act(mob/user, obj/item/organ/external/affecting)
 	if(!istype(affecting))
 		return
 	if(!affecting.is_robotic())

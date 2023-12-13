@@ -52,7 +52,8 @@
 
 /obj/machinery/poolcontroller/emag_act(user as mob) //Emag_act, this is called when it is hit with a cryptographic sequencer.
 	if(!emagged) //If it is not already emagged, emag it.
-		to_chat(user, span_warning("You disable \the [src]'s temperature safeguards."))//Inform the mob of what emagging does.
+		if(user)
+			to_chat(user, span_warning("You disable \the [src]'s temperature safeguards."))//Inform the mob of what emagging does.
 
 		emagged = 1 //Set the emag var to true.
 

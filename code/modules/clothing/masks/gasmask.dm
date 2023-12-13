@@ -435,9 +435,8 @@
 /obj/item/clothing/mask/gas/sechailer/emag_act(mob/user as mob)
 	if(safety)
 		safety = 0
-		to_chat(user, "<span class='warning'>You silently fry [src]'s vocal circuit with the cryptographic sequencer.")
-	else
-		return
+		if(user)
+			to_chat(user, "<span class='warning'>You silently fry [src]'s vocal circuit with the cryptographic sequencer.")
 
 /obj/item/clothing/mask/gas/sechailer/proc/halt()
 	var/key = phrase_list[phrase]

@@ -239,7 +239,8 @@
 
 /obj/item/organ/internal/cyberimp/arm/toolset/emag_act(mob/user)
 	if(!(locate(/obj/item/kitchen/knife/combat/cyborg) in items_list))
-		to_chat(user, "<span class='notice'>You unlock [src]'s integrated knife!</span>")
+		if(user)
+			to_chat(user, "<span class='notice'>You unlock [src]'s integrated knife!</span>")
 		items_list += new /obj/item/kitchen/knife/combat/cyborg(src)
 		return TRUE
 	return FALSE
