@@ -219,6 +219,14 @@
 	icon_state = "lightdark"
 	},
 /area/ruin/space/graveyard/church)
+"eO" = (
+/obj/structure/gravemarker/random{
+	dir = 1;
+	pixel_x = -5
+	},
+/obj/structure/pit/closed/graveyard_loot,
+/turf/simulated/floor/grass,
+/area/ruin/space/graveyard/graves)
 "eU" = (
 /obj/structure/table/wood,
 /obj/item/trash/plate,
@@ -229,6 +237,7 @@
 "eZ" = (
 /obj/structure/spacevine,
 /obj/structure/pit/closed/graveyard_loot,
+/obj/structure/gravemarker/random,
 /turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
 "fm" = (
@@ -381,6 +390,7 @@
 /area/ruin/space/graveyard/church)
 "jr" = (
 /obj/structure/pit/closed/graveyard_loot,
+/obj/structure/gravemarker/random,
 /turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
 "jS" = (
@@ -763,7 +773,9 @@
 /obj/structure/gravemarker/cross{
 	icon_state = "stone";
 	name = "Slightly Turned Marker";
-	desc = "Stone that got dusty under time's pressure. There's description on the mark at top of it: <span class='rose'>Here rest's one, who was equal and not to himself at same time.</span>"
+	desc = "Stone that got dusty under time's pressure. There's description on the mark at top of it: <span class='rose'>Here rest's one, who was equal and not to himself at same time.</span>";
+	dir = 1;
+	pixel_x = -3
 	},
 /turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
@@ -1057,9 +1069,11 @@
 "ye" = (
 /obj/structure/pit/closed/graveyard_loot,
 /obj/structure/gravemarker/cross{
-	name = "The rightous's grave";
+	name = "The rightous's grave stone";
 	desc = "It says on the grave \"A foolish one, who thought he was the creator of god's itself.\" ";
-	icon_state = "stone"
+	icon_state = "stone";
+	dir = 1;
+	pixel_x = -3
 	},
 /turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
@@ -1725,7 +1739,13 @@
 /area/ruin/space/graveyard/church)
 "My" = (
 /obj/structure/pit/closed/graveyard_loot,
-/obj/structure/gravemarker/cross,
+/obj/structure/gravemarker/cross{
+	dir = 1;
+	icon_state = "stone";
+	name = "Battered grave marker";
+	desc = "The letters are broken, you can barely read a few: \" r \" , \" l \" , \" o \" and \" f \".";
+	pixel_x = -3
+	},
 /turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
 "Nr" = (
@@ -1991,7 +2011,7 @@
 /obj/structure/pit/closed/graveyard_loot,
 /obj/structure/gravemarker/cross{
 	desc = "Here lies Rerik...  <i>rest of the text is unreadalbe</i>.";
-	name = "Well preserved grave";
+	name = "Well preserved grave stone";
 	icon_state = "stone"
 	},
 /turf/simulated/floor/grass,
@@ -2397,13 +2417,15 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "YZ" = (
-/obj/effect/turf_decal{
-	dir = 8;
-	icon_state = "grass_edge_big_full";
-	name = "grass"
+/obj/structure/table/socle,
+/obj/item/storage/funeral_urn/with_ash{
+	name = "A little cracked urn";
+	pixel_x = 1;
+	pixel_y = 9;
+	desc = "Dark ceramic urn filled with someone's ashes. You better don't look inside. It can bite back.";
+	description_info = "In memory of our friend Dae. His favorite phrase was: \" I will eat you!\" "
 	},
-/obj/item/decorations/bouquets/random,
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
 "Zb" = (
 /obj/effect/spawner/window/reinforced,
@@ -3096,7 +3118,7 @@ it
 it
 Lw
 nc
-YZ
+mj
 Ij
 YU
 sg
@@ -3405,7 +3427,7 @@ Kk
 om
 Kk
 YU
-ua
+eO
 Gh
 aj
 Kk
@@ -3960,7 +3982,7 @@ Ap
 kA
 it
 Jt
-XI
+YZ
 Gh
 DB
 CL

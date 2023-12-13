@@ -393,16 +393,6 @@
 	bound_width = 64
 	layer = EDGED_TURF_LAYER
 
-/obj/structure/statue/fry
-	name = "The Original Martianin"
-	desc = "At the bottom of the pedestal there is an inscription engraved: \"Here lies Dhilip J Dry, named for his uncle, to carry his spirit.\""
-	icon = 'icons/obj/statuebig.dmi'
-	icon_state = "original_martianin"
-	max_integrity = 2000
-	anchored = 1
-	bound_width = 64
-	layer = EDGED_TURF_LAYER
-
 /obj/structure/statue/unknown
 	name = "Unknown hero"
 	desc = "A pedestal for an unknown soldier, perhaps he was somehow connected with the solar system."
