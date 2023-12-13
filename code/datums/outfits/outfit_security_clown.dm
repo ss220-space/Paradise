@@ -1,8 +1,6 @@
 //=========== Regular HONKsquad outfits ===========
 /datum/outfit/admin/honksquad
 	name = "HONKsquad Commando"
-	allow_backbag_choice = FALSE
-	allow_loadout = FALSE
 	back = /obj/item/storage/backpack/clown
 	uniform = /obj/item/clothing/under/rank/clown
 	mask = /obj/item/clothing/mask/gas/clown_hat

@@ -1352,6 +1352,32 @@
 	H.gene_stability = 100
 
 /datum/outfit/admin/wizard
+	name = "Wizard"
+	l_ear = /obj/item/radio/headset
+	uniform = /obj/item/clothing/under/color/lightpurple
+	shoes = /obj/item/clothing/shoes/sandal
+	suit = /obj/item/clothing/suit/wizrobe
+	head = /obj/item/clothing/head/wizard
+	back = /obj/item/storage/backpack/satchel
+	box = /obj/item/storage/box/survival/regular
+	r_pocket = /obj/item/teleportation_scroll
+
+/datum/outfit/admin/wizard/post_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+
+	if(visualsOnly)
+		return
+
+	H.faction = list("wizard")
+
+/datum/outfit/admin/wizard/apprentice
+	name = "Wizard Appretince"
+	head = /obj/item/clothing/head/wizard/red
+	suit = /obj/item/clothing/suit/wizrobe/red
+	r_pocket = /obj/item/teleportation_scroll/apprentice
+	backpack_contents = list(/obj/item/reagent_containers/food/drinks/mugwort)
+
+/datum/outfit/admin/wizard/full_gear
 	name = "Blue Wizard"
 	uniform = /obj/item/clothing/under/color/lightpurple
 	suit = /obj/item/clothing/suit/wizrobe
@@ -1365,7 +1391,7 @@
 	r_hand = /obj/item/spellbook
 	box = /obj/item/storage/box/survival/engineer
 
-/datum/outfit/admin/wizard/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/admin/wizard/full_gear/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
 		return
@@ -1374,13 +1400,13 @@
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Wizard")
 
-/datum/outfit/admin/wizard/red
+/datum/outfit/admin/wizard/full_gear/red
 	name = "Red Wizard"
 
 	suit = /obj/item/clothing/suit/wizrobe/red
 	head = /obj/item/clothing/head/wizard/red
 
-/datum/outfit/admin/wizard/marisa
+/datum/outfit/admin/wizard/full_gear/marisa
 	name = "Marisa Wizard"
 
 	suit = /obj/item/clothing/suit/wizrobe/marisa

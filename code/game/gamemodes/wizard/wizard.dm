@@ -163,7 +163,7 @@
 		to_chat(wizard.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
 	return
-///HEREHEREHERE
+
 /datum/game_mode/proc/equip_wizard(mob/living/carbon/human/wizard_mob)
 	if(!istype(wizard_mob))
 		return
@@ -180,30 +180,13 @@
 		wizard_mob.equipOutfit(new /datum/outfit/plasmaman/wizard)
 		wizard_mob.internal = wizard_mob.r_hand
 		wizard_mob.update_action_buttons_icon()
-	else
-		if(isvox(wizard_mob))
-			wizard_mob.internal = wizard_mob.r_hand
-			wizard_mob.update_action_buttons_icon()
-		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(wizard_mob), slot_w_uniform)
-		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(wizard_mob), slot_head)
+	wizard_mob.equipOutfit(datum/outfit/admin/wizard)
+	if(isvox(wizard_mob))
 		wizard_mob.dna.species.after_equip_job(null, wizard_mob)
 	wizard_mob.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc while round setups
-	wizard_mob.equip_to_slot_or_del(new /obj/item/radio/headset(wizard_mob), slot_l_ear)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(wizard_mob), slot_shoes)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(wizard_mob), slot_wear_suit)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/storage/backpack/satchel(wizard_mob), slot_back)
-/*	if(wizard_mob.dna.species.speciesbox)
-		wizard_mob.equip_to_slot_or_del(new wizard_mob.dna.species.speciesbox(wizard_mob), slot_in_backpack)
-	else	*/
-	wizard_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival/regular(wizard_mob), slot_in_backpack)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/teleportation_scroll(wizard_mob), slot_r_store)
 	var/obj/item/spellbook/spellbook = new /obj/item/spellbook(wizard_mob)
 	spellbook.owner = wizard_mob
 	wizard_mob.equip_to_slot_or_del(spellbook, slot_l_hand)
-
-	wizard_mob.faction = list("wizard")
-
-
 
 	to_chat(wizard_mob, "You will find a list of available spells in your spell book. Choose your magic arsenal carefully.")
 	to_chat(wizard_mob, "The spellbook is bound to you, and others cannot use it.")
@@ -212,7 +195,7 @@
 	wizard_mob.update_icons()
 	wizard_mob.gene_stability += DEFAULT_GENE_STABILITY //magic
 	return TRUE
-///HEREHEREHERE
+
 /datum/game_mode/proc/equip_wizard_apprentice(mob/living/carbon/human/wizard_mob)
 	if(!istype(wizard_mob))
 		return
@@ -229,31 +212,13 @@
 		wizard_mob.equipOutfit(new /datum/outfit/plasmaman/wizard)
 		wizard_mob.internal = wizard_mob.r_hand
 		wizard_mob.update_action_buttons_icon()
-	else
-		if(isvox(wizard_mob))
-			wizard_mob.internal = wizard_mob.r_hand
-			wizard_mob.update_action_buttons_icon()
-		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(wizard_mob), slot_w_uniform)
-		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/red(wizard_mob), slot_head)
+	wizard_mob.equipOutfit(datum/outfit/admin/wizard/apprentice)
+	if(isvox(wizard_mob))
 		wizard_mob.dna.species.after_equip_job(null, wizard_mob)
 	wizard_mob.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc while round setups
-	wizard_mob.equip_to_slot_or_del(new /obj/item/radio/headset(wizard_mob), slot_l_ear)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(wizard_mob), slot_shoes)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/red(wizard_mob), slot_wear_suit)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/storage/backpack/satchel(wizard_mob), slot_back)
-/*	if(wizard_mob.dna.species.speciesbox)
-		wizard_mob.equip_to_slot_or_del(new wizard_mob.dna.species.speciesbox(wizard_mob), slot_in_backpack)
-	else	*/
-	wizard_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival/regular(wizard_mob), slot_in_backpack)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/mugwort, slot_in_backpack)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/teleportation_scroll(wizard_mob), slot_r_store)
 	var/obj/item/contract/apprentice_choose_book/apprentice_book = new /obj/item/contract/apprentice_choose_book(wizard_mob)
 	apprentice_book.owner = wizard_mob
 	wizard_mob.equip_to_slot_or_del(apprentice_book, slot_l_hand)
-
-	wizard_mob.faction = list("wizard")
-
-
 
 	to_chat(wizard_mob, "<span class='notice'>Вы найдёте набор из доступных закинаний в вашем магическом учебнике.</span>")
 	to_chat(wizard_mob, "<span class='notice'>Магический учебник привязан к вам, другие не могут ей воспользоваться.</span>")

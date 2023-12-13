@@ -10,7 +10,7 @@
 	var/infinity_uses = 0
 
 /////////Apprentice Contract//////////
-///HEREHEREHERE
+
 /obj/item/contract/apprentice
 	name = "apprentice contract"
 	desc = "A magic contract previously signed by an apprentice. In exchange for instruction in the magical arts, they are bound to answer your call for aid."
@@ -46,14 +46,7 @@
 
 				school_href_choose(href_list, teacher, apprentice)
 
-				apprentice.equip_or_collect(new /obj/item/radio/headset(apprentice), slot_l_ear)
-				apprentice.equip_or_collect(new /obj/item/clothing/under/color/lightpurple(apprentice), slot_w_uniform)
-				apprentice.equip_or_collect(new /obj/item/clothing/shoes/sandal(apprentice), slot_shoes)
-				apprentice.equip_or_collect(new /obj/item/clothing/suit/wizrobe(apprentice), slot_wear_suit)
-				apprentice.equip_or_collect(new /obj/item/clothing/head/wizard(apprentice), slot_head)
-				apprentice.equip_or_collect(new /obj/item/storage/backpack/satchel(apprentice), slot_back)
-				apprentice.equip_or_collect(new /obj/item/storage/box/survival/regular(apprentice), slot_in_backpack)
-				apprentice.equip_or_collect(new /obj/item/teleportation_scroll/apprentice(apprentice), slot_r_store)
+				wizard_mob.equipOutfit(/datum/outfit/admin/wizard/apprentice)
 				var/wizard_name_first = pick(GLOB.wizard_first)
 				var/wizard_name_second = pick(GLOB.wizard_second)
 				var/randomname = "[wizard_name_first] [wizard_name_second]"
@@ -72,7 +65,6 @@
 				SSticker.mode.apprentices += apprentice.mind
 				apprentice.mind.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
 				SSticker.mode.update_wiz_icons_added(apprentice.mind)
-				apprentice.faction = list("wizard")
 				log_game("[apprentice.key] has become [teacher]'s (ckey: [teacher.key]) apprentice.")
 			else
 				used = 0
