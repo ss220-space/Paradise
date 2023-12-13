@@ -185,7 +185,7 @@
 	desc = "You're not the first."
 	icon = 'icons/obj/pit.dmi'
 	icon_state = "wood"
-	layer = 2.91
+	layer = BELOW_OBJ_LAYER + 0.01
 	pixel_x = 5
 	pixel_y = 8
 	anchored = TRUE
