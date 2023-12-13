@@ -474,7 +474,6 @@
 	loot = list(/mob/living/simple_animal/hostile/asteroid/marrowweaver = 40,
 	/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost = 20,
 	"" = 40)
-			"" = 60)
 
 /obj/effect/spawner/lootdrop/bouquet_spawner
 	name = "50% bouquet spawner"
