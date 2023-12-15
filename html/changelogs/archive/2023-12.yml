@@ -161,6 +161,8 @@
   - bugfix: completed `can_hold` for construction bag. (#4062)
   NightDawnFox:
   - bugfix: Legion-boss doors now opens when it dies (#4058)
+  ROdenFL:
+  - tweak: emoji update (#4051)
   ReloadKey:
   - bugfix: Tajaran random name generator  broke after 20 gen. attempts (#4063)
   aeternaclose:
