@@ -10,6 +10,8 @@
 	var/drone_call_area = "Engineering"
 	//Used to enable or disable drone fabrication.
 	var/obj/machinery/drone_fabricator/dronefab
+	var/request_cooldown = 30 SECONDS
+	var/last_drone_request_time = 0
 
 /obj/machinery/computer/drone_control/attack_ai(var/mob/user as mob)
 	return src.attack_hand(user)
@@ -52,8 +54,11 @@
 	return
 
 /obj/machinery/computer/drone_control/proc/request_help()
+	if((last_drone_request_time + request_cooldown) > world.time)
+		return
 	notify_ghosts(message = "A Maintenance Drone is requested to repair and serve.", ghost_sound = null,
 		title="Drone Fabricator", source = dronefab, action = NOTIFY_ATTACK)
+	last_drone_request_time = world.time
 
 /obj/machinery/computer/drone_control/Topic(href, href_list)
 	if(..())
@@ -82,6 +87,9 @@
 		if(!dronefab || !dronefab.produce_drones)
 			to_chat(usr, span_warning("You can't request a drone if there is no functional fabricator"))
 		else
+			if((last_drone_request_time + request_cooldown) > world.time)
+				to_chat(usr, span_notice("You can't send a producing request too often."))
+				return
 			to_chat(usr, span_notice("You have sent a producing request to fabricator."))
 			request_help()
 
