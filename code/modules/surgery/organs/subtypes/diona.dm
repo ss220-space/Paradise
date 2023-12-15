@@ -101,7 +101,7 @@
 		return FALSE
 
 
-/datum/action/item_action/organ_action/diona_brain_evacuation/Trigger()
+/datum/action/item_action/organ_action/diona_brain_evacuation/Trigger(left_click = TRUE)
 	. = ..()
 	var/confirm = alert("Вы уверены, что хотите покинуть свое тело как нимфа? (!Если использовать, пока живы, то лишитесь роли антагониста!)","Confirm evacuation","Yes","No")
 	if(confirm == "No")

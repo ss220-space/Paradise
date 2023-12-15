@@ -12,6 +12,7 @@
 	var/image_overlay = null
 	var/obj/item/assembly_holder/nadeassembly = null
 	var/assemblyattacher
+	var/notify_admins = TRUE
 
 /obj/item/grenade/plastic/New()
 	image_overlay = image('icons/obj/weapons/grenade.dmi', "[item_state]2")
@@ -78,9 +79,9 @@
 			return
 		src.target = AM
 		loc = null
-
-		message_admins("[ADMIN_LOOKUPFLW(user)] planted [src.name] on [target.name] at [ADMIN_COORDJMP(target)] with [det_time] second fuse")
-		add_game_logs("planted [name] on [target.name] at [COORD(target)] with [det_time] second fuse", user)
+		if(notify_admins)
+			message_admins("[ADMIN_LOOKUPFLW(user)] planted [src.name] on [target.name] at [ADMIN_COORDJMP(target)] with [det_time] second fuse")
+			add_game_logs("planted [name] on [target.name] at [COORD(target)] with [det_time] second fuse", user)
 
 		target.overlays += image_overlay
 		if(!nadeassembly)

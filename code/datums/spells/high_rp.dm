@@ -41,7 +41,7 @@
 	button_icon_state = "lungs"
 	check_flags = null
 
-/datum/action/item_action/organ_action/manual_breath/Trigger()
+/datum/action/item_action/organ_action/manual_breath/Trigger(left_click = TRUE)
 	. = ..()
 	if(. && istype(target, /obj/item/organ/internal/high_rp_tumor))
 		var/obj/item/organ/internal/high_rp_tumor/hrp_tumor = target

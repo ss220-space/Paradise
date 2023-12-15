@@ -24,7 +24,8 @@
 		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
 		ignore_flags = TRUE
-		to_chat(user, "<span class='warning'>You short out the safeties on [src].</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>You short out the safeties on [src].</span>")
 
 /obj/item/reagent_containers/applicator/set_APTFT()
 	set hidden = TRUE

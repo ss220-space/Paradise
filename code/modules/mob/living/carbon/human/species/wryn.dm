@@ -90,7 +90,7 @@
 	var/button_on = FALSE
 
 //What happens when you click the Button?
-/datum/action/innate/wryn_sting/Trigger()
+/datum/action/innate/wryn_sting/Trigger(left_click = TRUE)
 	if(!..())
 		return
 	var/mob/living/carbon/user = owner

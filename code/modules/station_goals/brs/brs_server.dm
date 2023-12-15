@@ -220,7 +220,8 @@
 	probe_success_chance = probe_success_chance_emagged
 	playsound(loc, 'sound/effects/sparks4.ogg', 60, TRUE)
 	update_icon()
-	to_chat(user, span_warning("@?%!№@Протоколы безопасности сканнера перезаписаны@?%!№@"))
+	if(user)
+		to_chat(user, span_warning("@?%!№@Протоколы безопасности сканнера перезаписаны@?%!№@"))
 
 /obj/machinery/brs_server/emp_act(severity)
 	if(!(stat & (BROKEN|NOPOWER)))

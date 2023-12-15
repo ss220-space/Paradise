@@ -108,7 +108,7 @@
 	name = "pump your blood"
 
 //You are now brea- pumping blood manually
-/datum/action/item_action/organ_action/cursed_heart/Trigger()
+/datum/action/item_action/organ_action/cursed_heart/Trigger(left_click = TRUE)
 	. = ..()
 	if(. && istype(target, /obj/item/organ/internal/heart/cursed))
 		var/obj/item/organ/internal/heart/cursed/cursed_heart = target
@@ -218,11 +218,13 @@
 /obj/item/organ/internal/heart/cybernetic/upgraded/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
-		to_chat(user, "<span class='warning'>You disable the safeties on [src]</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>You disable the safeties on [src]</span>")
 		emagged = TRUE
 	else
 		add_attack_logs(user, src, "un-emagged")
-		to_chat(user, "<span class='warning'>You re-enable the safeties on [src]</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>You re-enable the safeties on [src]</span>")
 		emagged = FALSE
 
 

@@ -65,7 +65,7 @@
 		spawn(20)
 			spamcheck = 0
 
-/obj/item/megaphone/proc/saymsg(mob/living/user as mob, message)
+/obj/item/megaphone/proc/saymsg(mob/living/user, message)
 	add_say_logs(user, message, language = "Megaphone")
 	var/message_tts = message
 	message = replace_characters(message, list("+"))
@@ -82,8 +82,9 @@
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, user, M, message_tts, user.tts_seed, FALSE, effect)
 		log_debug("megaphone.saymsg(): [message]")
 
-/obj/item/megaphone/emag_act(user as mob)
+/obj/item/megaphone/emag_act(mob/user)
 	if(!emagged)
-		to_chat(user, "<span class='warning'>You overload \the [src]'s voice synthesizer.</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>You overload \the [src]'s voice synthesizer.</span>")
 		emagged = 1
 		insults = rand(1, 3)//to prevent dickflooding

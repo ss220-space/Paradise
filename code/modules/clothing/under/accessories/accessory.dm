@@ -388,10 +388,12 @@
 
 /obj/item/clothing/accessory/holobadge/emag_act(mob/user)
 	if(emagged)
-		to_chat(user, "<span class='warning'>[src] is already cracked.</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>[src] is already cracked.</span>")
 	else
 		emagged = TRUE
-		to_chat(user, "<span class='warning'>You swipe the card and crack the holobadge security checks.</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>You swipe the card and crack the holobadge security checks.</span>")
 
 /obj/item/clothing/accessory/holobadge/attack(mob/living/carbon/human/H, mob/living/user)
 	if(isliving(user))

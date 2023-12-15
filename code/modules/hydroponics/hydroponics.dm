@@ -434,12 +434,13 @@
 		return
 
 	var/oldPlantName = myseed.plantname
-	if(myseed.mutatelist.len > 0)
-		var/mutantseed = pick(myseed.mutatelist)
-		QDEL_NULL(myseed)
-		myseed = new mutantseed
-	else
+	if(!length(myseed.mutatelist))
 		return
+
+	var/mutantseed = pick(myseed.mutatelist)
+	QDEL_NULL(myseed)
+	myseed = new mutantseed
+
 
 	hardmutate()
 	age = 0

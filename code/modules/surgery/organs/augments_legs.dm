@@ -130,7 +130,7 @@
 	var/datum/callback/last_jump = null
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_RESTRAINED|AB_CHECK_STUNNED //lying jumps is real
 
-/datum/action/bhop/Trigger()
+/datum/action/bhop/Trigger(left_click = TRUE)
 	if(!IsAvailable())
 		return
 	if(recharging_time > world.time)

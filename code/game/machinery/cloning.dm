@@ -478,7 +478,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		WRENCH_ANCHOR_MESSAGE
 		anchored = TRUE
 
-/obj/machinery/clonepod/emag_act(user)
+/obj/machinery/clonepod/emag_act(mob/user)
 	if(isnull(occupant))
 		return
 	go_out()

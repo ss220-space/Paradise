@@ -28,6 +28,8 @@
   Daeberdir:
   - bugfix: correct loot dropping from "watchers" and fixed gems duping. (#3988)
   - bugfix: mecha module cooldowns. (#3967)
+  Dimach:
+  - bugfix: proper name for channel (#3997)
   LiquidPotroh:
   - tweak: Reduced frequency of cold (#3983)
   - tweak: gravgen has MALF_EFFECT resistance (#3975)
@@ -44,6 +46,7 @@
       Acid no longer damages robotic limbs (#3986)
   - qol: pAI with empty name field no longer can be saved (#3985)
   - add: Added ss_id for subsystems and Subsystem Breakdown (#3978)
+  - qol: Water tiles now extinguish burning mobs. (#3814)
   WolfLox:
   - tweak: rotation in ERT-vends, LWAP - normal, multi-immolator not usless  (#3970)
   Zwei:
@@ -51,3 +54,118 @@
   - refactor: Body Zones And Internal Organs Refactor (#3960)
   captainnelly:
   - balance: TC inflation (#3984)
+'2023-12-06':
+  Dimach:
+  - tweak: not reset jobs subsystem if not needed (#4001)
+  - bugfix: reset occupations after game mod probing (#4006)
+  Vladisvell:
+  - bugfix: fixed monkeycube exploit server crash (#4008)
+'2023-12-07':
+  ArtemDerp:
+  - add: organ smartfridge can store IV bags (#4000)
+  Dimach:
+  - refactor: remove outdated procs (#4003)
+  Etrnlmelancholy:
+  - tweak: uplink price tweaks (#4009)
+  ROdenFL:
+  - bugfix: defib paddles logic fix (#4013)
+  Vladisvell:
+  - bugfix: fixed Taipan lockers rendering (#4012)
+  - bugfix: fixed anomalies spawn on wrong spots, get_area_turfs fix (#4011)
+  Zwei:
+  - bugfix: No Comma In Cross Emote (#4015)
+  - bugfix: Contractor Teleport Fix (#4020)
+  - bugfix: Ghost Emotes Fix (#4017)
+  captainnelly:
+  - bugfix: TC inflation fixes (#4016)
+'2023-12-08':
+  Daeberdir:
+  - add: ammo boxes and speedloaders for shotgun ammunition. (#3993)
+  Dimach:
+  - refactor: game_mode/can_start no longer modify global state (#4007)
+  Etrnlmelancholy:
+  - add: solgov stamps (#4010)
+  NightDawnFox:
+  - add: new dress and leather shoes in loadout (#3999)
+  ROdenFL:
+  - add: LOOC, OOC, dead chat emoji (#3998)
+  - bugfix: magic morph cant in magic (#4019)
+  Rinar21:
+  - tweak: mecha immolator update (#4005)
+  Vladisvell:
+  - bugfix: fixed Irish EMP Bomb runtimes (#4018)
+  Zwei:
+  - bugfix: Skrell Headpocket Handling (#4022)
+  - refactor: Implants Rework (#3966)
+  - add: Point Rework (#3962)
+'2023-12-09':
+  Vladisvell:
+  - bugfix: fixed disposal qdel loop (#4025)
+  - bugfix: fixed storage Destroy() method throwing runtime (#4026)
+'2023-12-10':
+  Etrnlmelancholy:
+  - tweak: spellblade for wizards (#4034)
+  - tweak: pickpocket gloves for every traitor (#4033)
+  LiquidPotroh:
+  - bugfix: return ghost interactions with machinery (#4021)
+  NightDawnFox:
+  - bugfix: fixing runtime after killing megafauna (Gain Patience) (#4039)
+  - add: detonator for mining charges + some fixes (#4030)
+  Rerik007:
+  - bugfix: remove update_flags where it is not needed (#4041)
+  Vladisvell:
+  - bugfix: Fixed roundstart student scientist loss in lobby menu (#4036)
+  - qol: Object tab for ghosts now always exist, annoying interface update fix (#4040)
+  - bugfix: storage-in-storage runtime fix (#4031)
+  - bugfix: fixed reset software pai runtime (#4035)
+  - bugfix: fixed mime baguette and griefsky runtimes (#4029)
+  - bugfix: gps now use qdel instead of del (#4042)
+  Zwei:
+  - refactor: Uplink Entries Refactor (#4027)
+  captainnelly:
+  - bugfix: flesh maul sound (#4032)
+'2023-12-11':
+  Rerik007:
+  - bugfix: null mutatelist runtime (#4050)
+  Vladisvell:
+  - refactor: Returned "Point to" verb instead of dummy "Object" verb (#4045)
+  - balance: Demons now do not spawn on lowpop (#4049)
+'2023-12-12':
+  Daeberdir:
+  - bugfix: gem drop for other fauna and second tail on explorer suit. (#4002)
+  - bugfix: new clothing sprite layer "above boots" for dresses. (#3994)
+  Dimach:
+  - bugfix: few runtime fixes (#4052)
+  - tweak: implant icons (#4054)
+  LiquidPotroh:
+  - balance: Xenomorphs up (#3963)
+  Vladisvell:
+  - qol: Breaking windoors now gives airlock electronics (#3995)
+'2023-12-13':
+  BeebBeebBoob:
+  - balance: Clockwork Cult Balance Update (#4024)
+  Dimach:
+  - refactor: user check in emag_act to prevent runtimes (#4055)
+'2023-12-14':
+  Aziz Chynaliev:
+  - add: add new 69 TTS voices from Portal (1), TMNT (1), Star Wars (7), Transformers
+      (3), LOTR (6), Shrek (8), POTC (4), Harry Potter (12), WoW (24), Treasure Island
+      (1), etc (2) (#4064)
+  Dimach:
+  - bugfix: nuke mode cannot start (#4061)
+'2023-12-15':
+  ArtemDerp:
+  - bugfix: turfs under ND walls were removed on USSP stattion  (#4057)
+  - add: organ smartfridge can store robot arms and legs (#4056)
+  Daeberdir:
+  - bugfix: completed `can_hold` for construction bag. (#4062)
+  NightDawnFox:
+  - bugfix: Legion-boss doors now opens when it dies (#4058)
+  ROdenFL:
+  - tweak: emoji update (#4051)
+  ReloadKey:
+  - bugfix: Tajaran random name generator  broke after 20 gen. attempts (#4063)
+  aeternaclose:
+  - unknown: AcademyGateRemap (#3678)
+  p4el007:
+  - add: skalka craft (#4059)

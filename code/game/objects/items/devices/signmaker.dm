@@ -49,7 +49,8 @@
 /obj/item/signmaker/emag_act(mob/user)
 	add_attack_logs(user, src, "emagged")
 	clear_holosign()
-	to_chat(user, "You broke the pointer, oh no")
+	if(user)
+		to_chat(user, "You broke the pointer, oh no")
 	holosign_type = /obj/structure/holosoap/holosoap_emagged
 
 /obj/item/signmaker/attack_self(mob/user)

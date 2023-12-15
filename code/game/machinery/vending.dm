@@ -440,9 +440,10 @@
 	inserted_item = null
 	SStgui.update_uis(src)
 
-/obj/machinery/vending/emag_act(user as mob)
+/obj/machinery/vending/emag_act(mob/user)
 	emagged = TRUE
-	to_chat(user, "You short out the product lock on [src]")
+	if(user)
+		to_chat(user, "You short out the product lock on [src]")
 
 /obj/machinery/vending/attack_ai(mob/user)
 	return attack_hand(user)
@@ -2278,10 +2279,10 @@
 		/obj/item/ammo_box/shotgun = 4,
 		/obj/item/ammo_box/shotgun/buck = 4,
 		/obj/item/ammo_box/shotgun/rubbershot = 4,
-		/obj/item/ammo_casing/shotgun/stunslug = 35,
-		/obj/item/ammo_casing/shotgun/ion = 14,
-		/obj/item/ammo_casing/shotgun/laserslug = 35,
-		/obj/item/ammo_box/speedloader/shotgun/universal = 8,
+		/obj/item/ammo_box/shotgun/stunslug = 5,
+		/obj/item/ammo_box/shotgun/ion = 2,
+		/obj/item/ammo_box/shotgun/laserslug = 5,
+		/obj/item/ammo_box/speedloader/shotgun = 8,
 
 		/obj/item/ammo_box/magazine/lr30mag = 12,
 		/obj/item/ammo_box/magazine/enforcer = 8,
@@ -2316,7 +2317,7 @@
 		/obj/item/gun/projectile/automatic/lasercarbine = 3,
 		/obj/item/ammo_box/magazine/laser = 6,
 		/obj/item/suppressor = 4,
-		/obj/item/ammo_box/speedloader/shotgun/universal = 4,
+		/obj/item/ammo_box/speedloader/shotgun = 4,
 		/obj/item/gun/projectile/automatic/sfg = 3,
 		/obj/item/ammo_box/magazine/sfg9mm = 6,
 		/obj/item/gun/projectile/shotgun/automatic/combat = 3,
@@ -2372,7 +2373,7 @@
 		/obj/item/ammo_box/shotgun/rubbershot = 6,
 		/obj/item/ammo_box/shotgun/beanbag = 4,
 		/obj/item/ammo_box/shotgun/tranquilizer = 4,
-		/obj/item/ammo_box/speedloader/shotgun/universal = 4,
+		/obj/item/ammo_box/speedloader/shotgun = 4,
 		/obj/item/gun/projectile/automatic/wt550 = 3,
 		/obj/item/ammo_box/magazine/wt550m9 = 6,
 		/obj/item/gun/energy/dominator/sibyl = 2

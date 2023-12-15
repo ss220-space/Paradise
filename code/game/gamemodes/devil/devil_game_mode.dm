@@ -62,6 +62,5 @@
 				for(var/datum/objective/objective in devil.objectives)
 					to_chat(devil.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 					obj_count++
-	modePlayer += devils
 	..()
 	return 1

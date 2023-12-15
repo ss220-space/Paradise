@@ -105,8 +105,9 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		add_attack_logs(user, src, "emagged")
 		emagged = 1
 		req_access = list()
-		to_chat(user, "<span class='notice'>The transmitters realign to an unknown source!</span>")
-	else
+		if(user)
+			to_chat(user, "<span class='notice'>The transmitters realign to an unknown source!</span>")
+	else if(user)
 		to_chat(user, "<span class='warning'>You swipe the card through [src], but nothing happens.</span>")
 
 /obj/machinery/photocopier/faxmachine/proc/is_authenticated(mob/user)
