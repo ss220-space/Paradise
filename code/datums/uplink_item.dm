@@ -1147,7 +1147,6 @@
 /datum/uplink_item/stealthy_weapons/soap
 	name = "Thick tape roll"
 	desc = "Incredibly thick duct tape, suspiciously black in appearance. It is quite uncomfortable to hold it as it sticks to your hands."
-	reference = "TAPE"
 	item = /obj/item/stack/tape_roll/thick
 	cost = 5
 	surplus = 50
