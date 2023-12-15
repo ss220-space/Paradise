@@ -546,6 +546,10 @@
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/organ,
 		/obj/item/reagent_containers/iv_bag,
+		/obj/item/robot_parts/l_arm,
+		/obj/item/robot_parts/r_arm,
+		/obj/item/robot_parts/l_leg,
+		/obj/item/robot_parts/r_leg,
 	))
 
 /// Copy pasting to reuse existing sprites
