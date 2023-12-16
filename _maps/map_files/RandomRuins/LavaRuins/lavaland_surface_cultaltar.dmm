@@ -10,7 +10,7 @@
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "c" = (
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/ruin/unpowered/misc_lavaruin)
 "d" = (
 /turf/simulated/wall/cult,
