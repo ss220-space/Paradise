@@ -421,8 +421,20 @@
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\n[p_they(TRUE)] [p_are()] [pose]"
 
+	if(ishuman(user))
+		var/mob/living/carbon/human/user_human = user
+		var/datum/status_effect/staring/staring_effect = user_human.has_status_effect(STATUS_EFFECT_STARING)
+		if(staring_effect)
+			staring_effect.target = src
+			staring_effect.target_gender = get_visible_gender()
+			staring_effect.target_species = displayed_species
 	. = list(msg)
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
+
+
+/mob/living/carbon/human/get_examine_time()
+	return 1 SECOND
+
 
 //Helper procedure. Called by /mob/living/carbon/human/examine() and /mob/living/carbon/human/Topic() to determine HUD access to security and medical records.
 /proc/hasHUD(mob/M, hudtype)

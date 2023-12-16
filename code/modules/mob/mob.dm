@@ -311,8 +311,17 @@
 		return TRUE
 
 	face_atom(A)
-	var/list/result = A.examine(src)
-	to_chat(src, "<div class='examine'>[result.Join("\n")]</div>")
+	if(ishuman(A))
+		if(ishuman(src))
+			var/mob/living/carbon/human/A_human = A
+			var/datum/status_effect/staring/staring_effect = A_human.has_status_effect(STATUS_EFFECT_STARING)
+			if(staring_effect)
+				staring_effect.catch_look(src)
+			var/mob/living/carbon/human/user_human = src
+			user_human.apply_status_effect(STATUS_EFFECT_STARING)
+		var/list/result = A.examine(src)
+		if(do_mob(src, A, isobserver(src) ? 0 : A.get_examine_time(), FALSE))
+			to_chat(src, "<div class='examine'>[result.Join("\n")]</div>")
 
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
@@ -1313,4 +1322,8 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	invisibility = INVISIBILITY_LEVEL_TWO
 	alpha = 128
 	remove_from_all_data_huds()
+
+
+/mob/proc/get_examine_time()
+	return 0
 

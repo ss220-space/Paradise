@@ -200,6 +200,8 @@
 	var/appearance
 	/// What is the examine text paired with this form
 	var/examine_text
+	/// What us the examine time paired with this form
+	var/examine_time
 	/// What the name of the form is
 	var/name
 
@@ -207,6 +209,7 @@
 /datum/mimic_form/New(atom/movable/form, mob/user)
 	appearance = form.appearance
 	examine_text = form.examine(user)
+	examine_time = form.get_examine_time()
 	name = form.name
 
 

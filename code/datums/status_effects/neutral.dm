@@ -43,6 +43,25 @@
 	get_kill()
 	. = ..()
 
+/datum/status_effect/staring
+	id = "staring"
+	duration = 1 SECONDS
+	alert_type = null
+	status_type = STATUS_EFFECT_UNIQUE
+	var/mob/living/carbon/human/target
+	var/target_gender
+	var/target_species
+
+/datum/status_effect/staring/proc/catch_look(/mob/living/carbon/human/opponent)
+	if(target == opponent)
+		to_chat(owner, span_notice("You catch [opponent.name] look by yours!"))
+		to_chat(opponent, span_notice("You catch [owner.name] look by yours!"))
+		if(target_gender == NEUTER || owner.gender == NEUTER)
+			return
+		if(target_gender != owner.gender && target_species == owner.species)
+			owner.emote("blush")
+			to_chat(owner, span_danger("You feel something burns in your chest..."))
+
 
 /datum/status_effect/high_five
 	id = "high_five"
