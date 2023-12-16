@@ -361,7 +361,7 @@
 /area/ruin/unpowered)
 "jQ" = (
 /obj/structure/lattice/catwalk/fireproof,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "kf" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -475,7 +475,7 @@
 	},
 /area/ruin/unpowered)
 "nW" = (
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "oq" = (
 /obj/effect/decal/cleanable/dirt,
@@ -756,7 +756,7 @@
 /area/lavaland/surface/outdoors)
 "uM" = (
 /obj/structure/lattice/fireproof,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "vs" = (
 /obj/effect/decal/cleanable/glass,
