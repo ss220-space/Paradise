@@ -87,6 +87,7 @@
 	if(!msg)
 		set_typing(C, TRUE)
 		msg = clean_input("Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]", , src)
+		msg = handleDiscordEmojis(msg)
 		set_typing(C, FALSE)
 
 		if(!msg)
@@ -131,7 +132,6 @@
 		return
 
 	var/recieve_message = ""
-
 	pm_tracker.add_message(C, src, msg, mob)
 	C.pm_tracker.add_message(src, src, msg, C.mob)
 
@@ -154,7 +154,6 @@
 					else
 						adminhelp(reply)													//sender has left, adminhelp instead
 				return
-
 
 	var/emoji_msg = "<span class='emoji_enabled'>[msg]</span>"
 	recieve_message = chat_box_red("<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type] [C.holder ? key_name(src, TRUE, type) : key_name_hidden(src, TRUE, type)]</b>:<br><br>[emoji_msg]</span>")

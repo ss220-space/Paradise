@@ -448,6 +448,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(message)
 		if(!check_rights(R_SERVER,0))
 			message = adminscrub(message,500)
+		message = handleDiscordEmojis(message)
 		message = replacetext(message, "\n", "<br>") // required since we're putting it in a <p> tag
 		to_chat(world, chat_box_notice("<span class='notice'><b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b><br><br><p>[message]</p></span>"))
 		log_admin("Announce: [key_name(usr)] : [message]")

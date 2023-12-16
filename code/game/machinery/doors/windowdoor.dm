@@ -206,10 +206,22 @@
 
 /obj/machinery/door/window/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT) && !disassembled)
+		var/obj/item/airlock_electronics/ae
 		for(var/obj/fragment in debris)
 			fragment.forceMove(get_turf(src))
 			transfer_fingerprints_to(fragment)
 			debris -= fragment
+		if(!electronics)
+			ae = new/obj/item/airlock_electronics(loc)
+			if(!req_access)
+				check_access()
+			ae.selected_accesses = req_access
+			ae.one_access = check_one_access
+		else
+			ae = electronics
+			electronics = null
+			ae.forceMove(loc)
+
 	qdel(src)
 
 /obj/machinery/door/window/narsie_act()
@@ -240,7 +252,7 @@
 		return
 	return try_to_activate_door(user)
 
-/obj/machinery/door/window/emag_act(mob/user, obj/weapon)
+/obj/machinery/door/window/emag_act(mob/user)
 	if(!operating && density && !emagged)
 		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
@@ -252,7 +264,7 @@
 		open(2)
 		return 1
 
-/obj/machinery/door/window/cmag_act(mob/user, obj/weapon)
+/obj/machinery/door/window/cmag_act(mob/user)
 	if(operating || !density || HAS_TRAIT(src, TRAIT_CMAGGED) || emagged)
 		return
 	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)

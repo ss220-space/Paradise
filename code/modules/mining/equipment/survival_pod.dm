@@ -17,13 +17,14 @@
 	var/used = FALSE
 	var/emagged = FALSE
 
-/obj/item/survivalcapsule/emag_act()
+/obj/item/survivalcapsule/emag_act(mob/user)
 	if(!emagged)
-		to_chat(usr, "<span class='warning'>You short out the safeties, allowing it to be placed in the station sector.</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>You short out the safeties, allowing it to be placed in the station sector.</span>")
 		emagged = TRUE
 		return
-
-	to_chat(usr, "<span class='warning'>The safeties are already shorted out!</span>")
+	if(user)
+		to_chat(user, "<span class='warning'>The safeties are already shorted out!</span>")
 
 /obj/item/survivalcapsule/proc/get_template()
 	if(template)

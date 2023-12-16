@@ -208,9 +208,9 @@
 	light_color = icon_light_color[src.icon_state]
 
 /obj/spacepod/bullet_act(var/obj/item/projectile/P)
+	. = P.on_hit(src)
 	if(P.damage_type == BRUTE || P.damage_type == BURN)
 		deal_damage(P.damage)
-	P.on_hit(src)
 
 /obj/spacepod/AllowDrop()
 	return TRUE
@@ -245,13 +245,15 @@
 		return TRUE
 
 /obj/spacepod/attack_alien(mob/living/carbon/alien/user)
-	user.changeNext_move(CLICK_CD_MELEE)
-	deal_damage(user.attack_damage)
-	playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1, -1)
-	to_chat(user, "<span class='warning'>You slash at [src]!</span>")
-	visible_message("<span class='warning'>The [user] slashes at [src.name]'s armor!</span>")
+	if(user.a_intent == INTENT_HARM)
+		user.do_attack_animation(src)
+		user.changeNext_move(CLICK_CD_MELEE)
+		deal_damage(user.obj_damage)
+		playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1, -1)
+		to_chat(user, "<span class='warning'>You slash at [src]!</span>")
+		visible_message("<span class='warning'>The [user] slashes at [src.name]'s armor!</span>")
 
-/obj/spacepod/proc/deal_damage(var/damage)
+/obj/spacepod/proc/deal_damage(damage)
 	var/oldhealth = health
 	health = max(0, health - damage)
 	var/percentage = (health / initial(health)) * 100

@@ -45,6 +45,8 @@
 		syndicates += new_syndicate
 		agent_number--
 
+	return TRUE
+
 /datum/game_mode/nuclear/pre_setup()
 	for(var/datum/mind/synd_mind in syndicates)
 		synd_mind.assigned_role = SPECIAL_ROLE_NUKEOPS //So they aren't chosen for other jobs.
